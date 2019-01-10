@@ -75,6 +75,13 @@
 			remoteGlobalIDString = 0E25A7192117479A006B88E1;
 			remoteInfo = "libxgame iOS";
 		};
+		0ECC4BE121E79E5D00E3BBF9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0ECC4B5921E796C400E3BBF9 /* libxgame.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 0E25A2D321172BC2006B88E1;
+			remoteInfo = "libxgame Mac";
+		};
 		15A8A4161834BDA200142BE0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 15A8A4031834BDA200142BE0 /* cocos2d_libs.xcodeproj */;
@@ -389,6 +396,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				0ECC4BE221E79E5D00E3BBF9 /* PBXTargetDependency */,
 				9FEE0E441A5FC95000FEA1B0 /* PBXTargetDependency */,
 				9FF505C11A5F0F0900AFDA55 /* PBXTargetDependency */,
 				C0A2F04118975FF80072A7AB /* PBXTargetDependency */,
@@ -564,6 +572,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		0ECC4BE221E79E5D00E3BBF9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "libxgame Mac";
+			targetProxy = 0ECC4BE121E79E5D00E3BBF9 /* PBXContainerItemProxy */;
+		};
 		15D1F3091994BBCA00302043 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "libcocos2d iOS";

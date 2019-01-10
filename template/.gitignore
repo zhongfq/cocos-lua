@@ -1,0 +1,13 @@
+# Ignore files build by xcode
+*.mode*v*
+*.pbxuser
+*.xcbkptlist
+*.xcworkspacedata
+*.xcuserstate
+*.xccheckout
+xcschememanagement.plist
+IDEWorkspaceChecks.plist
+.DS_Store
+._.*
+xcuserdata/
+DerivedData/

@@ -58,6 +58,7 @@ void AppDelegate::initGLContextAttrs()
 bool AppDelegate::applicationDidFinishLaunching()
 {
     Director::getInstance()->setAnimationInterval(1.0 / 60.0f);
+    Director::getInstance()->setDisplayStats(true);
     
     return true;
 }

@@ -524,27 +524,27 @@ static void glfwDropFunc(GLFWwindow *window, int count, const char **files)
 
 - (void) openConsoleWindow
 {
-    if (!_consoleController)
-    {
-        _consoleController = [[ConsoleWindowController alloc] initWithWindowNibName:@"ConsoleWindow"];
-    }
-    [_consoleController.window orderFrontRegardless];
+//    if (!_consoleController)
+//    {
+//        _consoleController = [[ConsoleWindowController alloc] initWithWindowNibName:@"ConsoleWindow"];
+//    }
+//    [_consoleController.window orderFrontRegardless];
 
     //set console pipe
     _pipe = [NSPipe pipe] ;
     _pipeReadHandle = [_pipe fileHandleForReading] ;
 
-    int outfd = [[_pipe fileHandleForWriting] fileDescriptor];
-    if (dup2(outfd, fileno(stderr)) != fileno(stderr) || dup2(outfd, fileno(stdout)) != fileno(stdout))
-    {
-        perror("Unable to redirect output");
-        //        [self showAlert:@"Unable to redirect output to console!" withTitle:@"player error"];
-    }
-    else
-    {
-        [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(handleNotification:) name: NSFileHandleReadCompletionNotification object: _pipeReadHandle] ;
-        [_pipeReadHandle readInBackgroundAndNotify] ;
-    }
+//    int outfd = [[_pipe fileHandleForWriting] fileDescriptor];
+//    if (dup2(outfd, fileno(stderr)) != fileno(stderr) || dup2(outfd, fileno(stdout)) != fileno(stdout))
+//    {
+//        perror("Unable to redirect output");
+//        //        [self showAlert:@"Unable to redirect output to console!" withTitle:@"player error"];
+//    }
+//    else
+//    {
+//        [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(handleNotification:) name: NSFileHandleReadCompletionNotification object: _pipeReadHandle] ;
+//        [_pipeReadHandle readInBackgroundAndNotify] ;
+//    }
 }
 
 - (bool) writeDebugLogToFile:(const string)path
@@ -569,7 +569,7 @@ static void glfwDropFunc(GLFWwindow *window, int count, const char **files)
     if (str)
     {
         //show log to console
-        [_consoleController trace:str];
+        // [_consoleController trace:str];
         if(_fileHandle!=nil)
         {
             [_fileHandle writeData:[str dataUsingEncoding:NSUTF8StringEncoding]];

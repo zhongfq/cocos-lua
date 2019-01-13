@@ -67,7 +67,7 @@ std::string getCurAppPath(void)
 std::string getCurAppName(void)
 {
     string appName = [[[NSProcessInfo processInfo] processName] UTF8String];
-    int found = appName.find(" ");
+    int found = (int)appName.find(" ");
     if (found!=std::string::npos)
         appName = appName.substr(0,found);
 

@@ -7,8 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E0C702621F9600D00049240 /* xlauncher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C702521F9600D00049240 /* xlauncher.cpp */; };
+		0E0C702721F9600D00049240 /* xlauncher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C702521F9600D00049240 /* xlauncher.cpp */; };
+		0E0C704B21F9EEBD00049240 /* xdownloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C704921F9EEBD00049240 /* xdownloader.cpp */; };
+		0E0C704C21F9EEBD00049240 /* xdownloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C704921F9EEBD00049240 /* xdownloader.cpp */; };
+		0E0C704D21F9EEBD00049240 /* lua_javabridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C704A21F9EEBD00049240 /* lua_javabridge.cpp */; };
+		0E0C704E21F9EEBD00049240 /* lua_javabridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C704A21F9EEBD00049240 /* lua_javabridge.cpp */; };
+		0E0C705A21F9EFC700049240 /* xruntime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C705121F9EFC600049240 /* xruntime.cpp */; };
+		0E0C705B21F9EFC700049240 /* xruntime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C705121F9EFC600049240 /* xruntime.cpp */; };
+		0E0C705C21F9EFC700049240 /* xsocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C705321F9EFC700049240 /* xsocket.cpp */; };
+		0E0C705D21F9EFC700049240 /* xsocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C705321F9EFC700049240 /* xsocket.cpp */; };
+		0E0C705E21F9EFC700049240 /* xlua.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C705521F9EFC700049240 /* xlua.cpp */; };
+		0E0C705F21F9EFC700049240 /* xlua.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C705521F9EFC700049240 /* xlua.cpp */; };
+		0E0C706021F9EFC700049240 /* xruntime-ios-mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C705721F9EFC700049240 /* xruntime-ios-mac.mm */; };
+		0E0C706121F9EFC700049240 /* xruntime-ios-mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C705721F9EFC700049240 /* xruntime-ios-mac.mm */; };
+		0E0C706421F9F38200049240 /* xfile_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C706221F9F38200049240 /* xfile_utils.cpp */; };
+		0E0C706521F9F38200049240 /* xfile_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C706221F9F38200049240 /* xfile_utils.cpp */; };
+		0E0C706821F9F5FE00049240 /* xfilesystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C706621F9F5FE00049240 /* xfilesystem.cpp */; };
+		0E0C706921F9F5FE00049240 /* xfilesystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C706621F9F5FE00049240 /* xfilesystem.cpp */; };
+		0E0C706C21F9F60B00049240 /* xtimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C706A21F9F60B00049240 /* xtimer.cpp */; };
+		0E0C706D21F9F60B00049240 /* xtimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C706A21F9F60B00049240 /* xtimer.cpp */; };
 		0E25A89E211D410E006B88E1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E25A89D211D410E006B88E1 /* SystemConfiguration.framework */; };
 		0E25A8A2211D4123006B88E1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E25A8A1211D4123006B88E1 /* Security.framework */; };
+		0E9D2A6B221A9C76003C2121 /* xfilesystem-ios-mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E9D2A6A221A9C76003C2121 /* xfilesystem-ios-mac.mm */; };
+		0E9D2A6C221A9C76003C2121 /* xfilesystem-ios-mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E9D2A6A221A9C76003C2121 /* xfilesystem-ios-mac.mm */; };
 		0ECC4B9F21E79E3E00E3BBF9 /* linit.c in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC4B6521E79E3900E3BBF9 /* linit.c */; };
 		0ECC4BA021E79E3E00E3BBF9 /* linit.c in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC4B6521E79E3900E3BBF9 /* linit.c */; };
 		0ECC4BA121E79E3E00E3BBF9 /* ldebug.c in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC4B6621E79E3900E3BBF9 /* ldebug.c */; };
@@ -117,14 +139,39 @@
 		0ECC4C8421EB8D4600E3BBF9 /* cJSON.c in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC4C5B21EB8D4600E3BBF9 /* cJSON.c */; settings = {COMPILER_FLAGS = "-Wno-comma"; }; };
 		0ECC4C8521EB8D4600E3BBF9 /* lua_cjson.c in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC4C5C21EB8D4600E3BBF9 /* lua_cjson.c */; };
 		0ECC4C8621EB8D4600E3BBF9 /* lua_cjson.c in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC4C5C21EB8D4600E3BBF9 /* lua_cjson.c */; };
+		0EE4B2BE21FC9FE60043AC9D /* xpreferences.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EE4B2BC21FC9FE60043AC9D /* xpreferences.cpp */; };
+		0EE4B2BF21FC9FE60043AC9D /* xpreferences.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EE4B2BC21FC9FE60043AC9D /* xpreferences.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E0C702321F9600D00049240 /* xlauncher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xlauncher.h; sourceTree = "<group>"; };
+		0E0C702421F9600D00049240 /* xdef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xdef.h; sourceTree = "<group>"; };
+		0E0C702521F9600D00049240 /* xlauncher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xlauncher.cpp; sourceTree = "<group>"; };
+		0E0C704721F9EEBD00049240 /* xdownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xdownloader.h; sourceTree = "<group>"; };
+		0E0C704821F9EEBD00049240 /* lua_javabridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_javabridge.h; sourceTree = "<group>"; };
+		0E0C704921F9EEBD00049240 /* xdownloader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xdownloader.cpp; sourceTree = "<group>"; };
+		0E0C704A21F9EEBD00049240 /* lua_javabridge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_javabridge.cpp; sourceTree = "<group>"; };
+		0E0C705121F9EFC600049240 /* xruntime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xruntime.cpp; sourceTree = "<group>"; };
+		0E0C705221F9EFC600049240 /* xlua.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xlua.h; sourceTree = "<group>"; };
+		0E0C705321F9EFC700049240 /* xsocket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xsocket.cpp; sourceTree = "<group>"; };
+		0E0C705421F9EFC700049240 /* xsocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xsocket.h; sourceTree = "<group>"; };
+		0E0C705521F9EFC700049240 /* xlua.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xlua.cpp; sourceTree = "<group>"; };
+		0E0C705621F9EFC700049240 /* xruntime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xruntime.h; sourceTree = "<group>"; };
+		0E0C705721F9EFC700049240 /* xruntime-ios-mac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "xruntime-ios-mac.mm"; sourceTree = "<group>"; };
+		0E0C706221F9F38200049240 /* xfile_utils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xfile_utils.cpp; sourceTree = "<group>"; };
+		0E0C706321F9F38200049240 /* xfile_utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xfile_utils.h; sourceTree = "<group>"; };
+		0E0C706621F9F5FE00049240 /* xfilesystem.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xfilesystem.cpp; sourceTree = "<group>"; };
+		0E0C706721F9F5FE00049240 /* xfilesystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xfilesystem.h; sourceTree = "<group>"; };
+		0E0C706A21F9F60B00049240 /* xtimer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xtimer.cpp; sourceTree = "<group>"; };
+		0E0C706B21F9F60B00049240 /* xtimer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xtimer.h; sourceTree = "<group>"; };
 		0E25A2D421172BC2006B88E1 /* libxgame Mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libxgame Mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E25A7192117479A006B88E1 /* libxgame iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libxgame iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E25A89D211D410E006B88E1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.4.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		0E25A89F211D411A006B88E1 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.4.sdk/usr/lib/libz.tbd; sourceTree = DEVELOPER_DIR; };
 		0E25A8A1211D4123006B88E1 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.4.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		0E98BC36221C043F00F1AEEA /* libcocos2d Mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libcocos2d Mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E98BC38221C044A00F1AEEA /* libcocos2d iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libcocos2d iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E9D2A6A221A9C76003C2121 /* xfilesystem-ios-mac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "xfilesystem-ios-mac.mm"; sourceTree = "<group>"; };
 		0EC904E7213175B300F8A09E /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.4.sdk/System/Library/Frameworks/PhotosUI.framework; sourceTree = DEVELOPER_DIR; };
 		0EC904E9213175C100F8A09E /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.4.sdk/System/Library/Frameworks/Photos.framework; sourceTree = DEVELOPER_DIR; };
 		0ECC4B6421E79E3900E3BBF9 /* lparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lparser.h; path = ../src/lua/src/lparser.h; sourceTree = "<group>"; };
@@ -225,6 +272,8 @@
 		0ECC4C5A21EB8D4600E3BBF9 /* strbuf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = strbuf.c; sourceTree = "<group>"; };
 		0ECC4C5B21EB8D4600E3BBF9 /* cJSON.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cJSON.c; sourceTree = "<group>"; };
 		0ECC4C5C21EB8D4600E3BBF9 /* lua_cjson.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lua_cjson.c; sourceTree = "<group>"; };
+		0EE4B2BC21FC9FE60043AC9D /* xpreferences.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xpreferences.cpp; sourceTree = "<group>"; };
+		0EE4B2BD21FC9FE60043AC9D /* xpreferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xpreferences.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -247,6 +296,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E0C702221F9600D00049240 /* xgame */ = {
+			isa = PBXGroup;
+			children = (
+				0E0C704A21F9EEBD00049240 /* lua_javabridge.cpp */,
+				0E0C704821F9EEBD00049240 /* lua_javabridge.h */,
+				0E0C702421F9600D00049240 /* xdef.h */,
+				0E0C704921F9EEBD00049240 /* xdownloader.cpp */,
+				0E0C704721F9EEBD00049240 /* xdownloader.h */,
+				0E0C706221F9F38200049240 /* xfile_utils.cpp */,
+				0E0C706321F9F38200049240 /* xfile_utils.h */,
+				0E9D2A6A221A9C76003C2121 /* xfilesystem-ios-mac.mm */,
+				0E0C706621F9F5FE00049240 /* xfilesystem.cpp */,
+				0E0C706721F9F5FE00049240 /* xfilesystem.h */,
+				0E0C702521F9600D00049240 /* xlauncher.cpp */,
+				0E0C702321F9600D00049240 /* xlauncher.h */,
+				0E0C705521F9EFC700049240 /* xlua.cpp */,
+				0E0C705221F9EFC600049240 /* xlua.h */,
+				0EE4B2BC21FC9FE60043AC9D /* xpreferences.cpp */,
+				0EE4B2BD21FC9FE60043AC9D /* xpreferences.h */,
+				0E0C705721F9EFC700049240 /* xruntime-ios-mac.mm */,
+				0E0C705121F9EFC600049240 /* xruntime.cpp */,
+				0E0C705621F9EFC700049240 /* xruntime.h */,
+				0E0C705321F9EFC700049240 /* xsocket.cpp */,
+				0E0C705421F9EFC700049240 /* xsocket.h */,
+				0E0C706A21F9F60B00049240 /* xtimer.cpp */,
+				0E0C706B21F9F60B00049240 /* xtimer.h */,
+			);
+			name = xgame;
+			path = ../src/xgame;
+			sourceTree = "<group>";
+		};
 		0E25A2CB21172BC2006B88E1 = {
 			isa = PBXGroup;
 			children = (
@@ -268,6 +348,8 @@
 		0E25A871211839D4006B88E1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0E98BC38221C044A00F1AEEA /* libcocos2d iOS.a */,
+				0E98BC36221C043F00F1AEEA /* libcocos2d Mac.a */,
 				0EC904E9213175C100F8A09E /* Photos.framework */,
 				0EC904E7213175B300F8A09E /* PhotosUI.framework */,
 				0E25A8A1211D4123006B88E1 /* Security.framework */,
@@ -281,9 +363,10 @@
 			isa = PBXGroup;
 			children = (
 				0ECC4C5421EB8D4600E3BBF9 /* cjson */,
+				0ECC4B6321E79E2400E3BBF9 /* lua */,
 				0ECC4C3321EB8D4500E3BBF9 /* md5 */,
 				0ECC4C3821EB8D4500E3BBF9 /* pbc */,
-				0ECC4B6321E79E2400E3BBF9 /* lua */,
+				0E0C702221F9600D00049240 /* xgame */,
 			);
 			name = src;
 			sourceTree = "<group>";
@@ -494,6 +577,7 @@
 				0ECC4BC121E79E3E00E3BBF9 /* ldblib.c in Sources */,
 				0ECC4C6721EB8D4600E3BBF9 /* register.c in Sources */,
 				0ECC4BCD21E79E3E00E3BBF9 /* loadlib.c in Sources */,
+				0E0C704D21F9EEBD00049240 /* lua_javabridge.cpp in Sources */,
 				0ECC4BB721E79E3E00E3BBF9 /* lmem.c in Sources */,
 				0ECC4C6321EB8D4600E3BBF9 /* rmessage.c in Sources */,
 				0ECC4C5D21EB8D4600E3BBF9 /* md5util.c in Sources */,
@@ -503,7 +587,10 @@
 				0ECC4BA321E79E3E00E3BBF9 /* ltm.c in Sources */,
 				0ECC4BA521E79E3E00E3BBF9 /* ldo.c in Sources */,
 				0ECC4C6521EB8D4600E3BBF9 /* packet.c in Sources */,
+				0E0C706021F9EFC700049240 /* xruntime-ios-mac.mm in Sources */,
 				0ECC4C6921EB8D4600E3BBF9 /* decode.c in Sources */,
+				0E0C704B21F9EEBD00049240 /* xdownloader.cpp in Sources */,
+				0E0C705C21F9EFC700049240 /* xsocket.cpp in Sources */,
 				0ECC4BBF21E79E3E00E3BBF9 /* liolib.c in Sources */,
 				0ECC4C7D21EB8D4600E3BBF9 /* bootstrap.c in Sources */,
 				0ECC4C6D21EB8D4600E3BBF9 /* alloc.c in Sources */,
@@ -516,18 +603,24 @@
 				0ECC4BA121E79E3E00E3BBF9 /* ldebug.c in Sources */,
 				0ECC4BD921E79E3E00E3BBF9 /* lstate.c in Sources */,
 				0ECC4C7921EB8D4600E3BBF9 /* wmessage.c in Sources */,
+				0E0C706421F9F38200049240 /* xfile_utils.cpp in Sources */,
 				0ECC4BD721E79E3E00E3BBF9 /* lparser.c in Sources */,
 				0ECC4C7B21EB8D4600E3BBF9 /* pattern.c in Sources */,
 				0ECC4BAF21E79E3E00E3BBF9 /* lundump.c in Sources */,
+				0E0C702621F9600D00049240 /* xlauncher.cpp in Sources */,
 				0ECC4BBB21E79E3E00E3BBF9 /* lbitlib.c in Sources */,
+				0E0C705E21F9EFC700049240 /* xlua.cpp in Sources */,
 				0ECC4B9F21E79E3E00E3BBF9 /* linit.c in Sources */,
 				0ECC4C7521EB8D4600E3BBF9 /* context.c in Sources */,
 				0ECC4C6B21EB8D4600E3BBF9 /* stringpool.c in Sources */,
 				0ECC4BCF21E79E3E00E3BBF9 /* ldump.c in Sources */,
+				0E9D2A6B221A9C76003C2121 /* xfilesystem-ios-mac.mm in Sources */,
+				0E0C706C21F9F60B00049240 /* xtimer.cpp in Sources */,
 				0ECC4C5F21EB8D4600E3BBF9 /* md5.c in Sources */,
 				0ECC4C8121EB8D4600E3BBF9 /* strbuf.c in Sources */,
 				0ECC4C7321EB8D4600E3BBF9 /* proto.c in Sources */,
 				0ECC4C7721EB8D4600E3BBF9 /* pbc-lua53.c in Sources */,
+				0E0C705A21F9EFC700049240 /* xruntime.cpp in Sources */,
 				0ECC4BC521E79E3E00E3BBF9 /* lgc.c in Sources */,
 				0ECC4BDF21E79E3E00E3BBF9 /* ltable.c in Sources */,
 				0ECC4BAD21E79E3E00E3BBF9 /* lstring.c in Sources */,
@@ -535,12 +628,14 @@
 				0ECC4BBD21E79E3E00E3BBF9 /* llex.c in Sources */,
 				0ECC4C6121EB8D4600E3BBF9 /* array.c in Sources */,
 				0ECC4C8321EB8D4600E3BBF9 /* cJSON.c in Sources */,
+				0EE4B2BE21FC9FE60043AC9D /* xpreferences.cpp in Sources */,
 				0ECC4BD521E79E3E00E3BBF9 /* lstrlib.c in Sources */,
 				0ECC4BC921E79E3E00E3BBF9 /* lzio.c in Sources */,
 				0ECC4BA921E79E3E00E3BBF9 /* lctype.c in Sources */,
 				0ECC4BDB21E79E3E00E3BBF9 /* ltablib.c in Sources */,
 				0ECC4BC321E79E3E00E3BBF9 /* lopcodes.c in Sources */,
 				0ECC4BB921E79E3E00E3BBF9 /* lmathlib.c in Sources */,
+				0E0C706821F9F5FE00049240 /* xfilesystem.cpp in Sources */,
 				0ECC4BA721E79E3E00E3BBF9 /* loslib.c in Sources */,
 				0ECC4BDD21E79E3E00E3BBF9 /* lcode.c in Sources */,
 			);
@@ -555,6 +650,7 @@
 				0ECC4BC221E79E3E00E3BBF9 /* ldblib.c in Sources */,
 				0ECC4C6821EB8D4600E3BBF9 /* register.c in Sources */,
 				0ECC4BCE21E79E3E00E3BBF9 /* loadlib.c in Sources */,
+				0E0C704E21F9EEBD00049240 /* lua_javabridge.cpp in Sources */,
 				0ECC4BB821E79E3E00E3BBF9 /* lmem.c in Sources */,
 				0ECC4C6421EB8D4600E3BBF9 /* rmessage.c in Sources */,
 				0ECC4C5E21EB8D4600E3BBF9 /* md5util.c in Sources */,
@@ -564,7 +660,10 @@
 				0ECC4BA421E79E3E00E3BBF9 /* ltm.c in Sources */,
 				0ECC4BA621E79E3E00E3BBF9 /* ldo.c in Sources */,
 				0ECC4C6621EB8D4600E3BBF9 /* packet.c in Sources */,
+				0E0C706121F9EFC700049240 /* xruntime-ios-mac.mm in Sources */,
 				0ECC4C6A21EB8D4600E3BBF9 /* decode.c in Sources */,
+				0E0C704C21F9EEBD00049240 /* xdownloader.cpp in Sources */,
+				0E0C705D21F9EFC700049240 /* xsocket.cpp in Sources */,
 				0ECC4BC021E79E3E00E3BBF9 /* liolib.c in Sources */,
 				0ECC4C7E21EB8D4600E3BBF9 /* bootstrap.c in Sources */,
 				0ECC4C6E21EB8D4600E3BBF9 /* alloc.c in Sources */,
@@ -577,18 +676,24 @@
 				0ECC4BA221E79E3E00E3BBF9 /* ldebug.c in Sources */,
 				0ECC4BDA21E79E3E00E3BBF9 /* lstate.c in Sources */,
 				0ECC4C7A21EB8D4600E3BBF9 /* wmessage.c in Sources */,
+				0E0C706521F9F38200049240 /* xfile_utils.cpp in Sources */,
 				0ECC4BD821E79E3E00E3BBF9 /* lparser.c in Sources */,
 				0ECC4C7C21EB8D4600E3BBF9 /* pattern.c in Sources */,
 				0ECC4BB021E79E3E00E3BBF9 /* lundump.c in Sources */,
+				0E0C702721F9600D00049240 /* xlauncher.cpp in Sources */,
 				0ECC4BBC21E79E3E00E3BBF9 /* lbitlib.c in Sources */,
+				0E0C705F21F9EFC700049240 /* xlua.cpp in Sources */,
 				0ECC4BA021E79E3E00E3BBF9 /* linit.c in Sources */,
 				0ECC4C7621EB8D4600E3BBF9 /* context.c in Sources */,
 				0ECC4C6C21EB8D4600E3BBF9 /* stringpool.c in Sources */,
 				0ECC4BD021E79E3E00E3BBF9 /* ldump.c in Sources */,
+				0E9D2A6C221A9C76003C2121 /* xfilesystem-ios-mac.mm in Sources */,
+				0E0C706D21F9F60B00049240 /* xtimer.cpp in Sources */,
 				0ECC4C6021EB8D4600E3BBF9 /* md5.c in Sources */,
 				0ECC4C8221EB8D4600E3BBF9 /* strbuf.c in Sources */,
 				0ECC4C7421EB8D4600E3BBF9 /* proto.c in Sources */,
 				0ECC4C7821EB8D4600E3BBF9 /* pbc-lua53.c in Sources */,
+				0E0C705B21F9EFC700049240 /* xruntime.cpp in Sources */,
 				0ECC4BC621E79E3E00E3BBF9 /* lgc.c in Sources */,
 				0ECC4BE021E79E3E00E3BBF9 /* ltable.c in Sources */,
 				0ECC4BAE21E79E3E00E3BBF9 /* lstring.c in Sources */,
@@ -596,12 +701,14 @@
 				0ECC4BBE21E79E3E00E3BBF9 /* llex.c in Sources */,
 				0ECC4C6221EB8D4600E3BBF9 /* array.c in Sources */,
 				0ECC4C8421EB8D4600E3BBF9 /* cJSON.c in Sources */,
+				0EE4B2BF21FC9FE60043AC9D /* xpreferences.cpp in Sources */,
 				0ECC4BD621E79E3E00E3BBF9 /* lstrlib.c in Sources */,
 				0ECC4BCA21E79E3E00E3BBF9 /* lzio.c in Sources */,
 				0ECC4BAA21E79E3E00E3BBF9 /* lctype.c in Sources */,
 				0ECC4BDC21E79E3E00E3BBF9 /* ltablib.c in Sources */,
 				0ECC4BC421E79E3E00E3BBF9 /* lopcodes.c in Sources */,
 				0ECC4BBA21E79E3E00E3BBF9 /* lmathlib.c in Sources */,
+				0E0C706921F9F5FE00049240 /* xfilesystem.cpp in Sources */,
 				0ECC4BA821E79E3E00E3BBF9 /* loslib.c in Sources */,
 				0ECC4BDE21E79E3E00E3BBF9 /* lcode.c in Sources */,
 			);
@@ -655,6 +762,7 @@
 					USE_FILE32API,
 					"CC_ENABLE_CHIPMUNK_INTEGRATION=1",
 				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -662,7 +770,10 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/../../cocos2d-x/external/lua/cjson",
+					"$(SRCROOT)/../../cocos2d-x",
+					"$(SRCROOT)/../../cocos2d-x/cocos/audio/include",
+					"$(SRCROOT)/../../cocos2d-x/cocos",
+					"$(SRCROOT)/../../cocos2d-x/extensions",
 					"$(SRCROOT)/../src",
 					"$(SRCROOT)/../src/lua/src",
 				);
@@ -718,6 +829,7 @@
 					NDEBUG,
 					USE_FILE32API,
 				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -725,7 +837,10 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/../../cocos2d-x/external/lua/cjson",
+					"$(SRCROOT)/../../cocos2d-x",
+					"$(SRCROOT)/../../cocos2d-x/cocos/audio/include",
+					"$(SRCROOT)/../../cocos2d-x/cocos",
+					"$(SRCROOT)/../../cocos2d-x/extensions",
 					"$(SRCROOT)/../src",
 					"$(SRCROOT)/../src/lua/src",
 				);
@@ -743,6 +858,14 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				EXECUTABLE_PREFIX = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					CC_TARGET_OS_MAC,
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../cocos2d-x/external/glfw3/include/mac",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -755,6 +878,14 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				EXECUTABLE_PREFIX = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					CC_TARGET_OS_MAC,
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../cocos2d-x/external/glfw3/include/mac",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -767,7 +898,12 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_STYLE = Automatic;
+				ENABLE_BITCODE = NO;
 				EXECUTABLE_PREFIX = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					CC_TARGET_OS_IPHONE,
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -781,7 +917,13 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_BITCODE = NO;
 				EXECUTABLE_PREFIX = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					CC_TARGET_OS_IPHONE,
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;

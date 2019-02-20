@@ -91,12 +91,6 @@ void runtime::init()
     Director::getInstance()->setDisplayStats(false);
 #endif
     
-    filesystem::createDirectory(filesystem::getCacheDirectory());
-    filesystem::createDirectory(filesystem::getTmpDirectory());
-    filesystem::createDirectory(filesystem::getDocumentDirectory() + "/assets");
-    
-    runtime::setLogPath(filesystem::getCacheDirectory() + "/console.log");
-    
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
     runtime::getPackageName();
     runtime::getDeviceInfo();
@@ -106,7 +100,41 @@ void runtime::init()
     filesystem::getSDCardDirectory();
 #endif
     
+    // 创建所需路径
+    filesystem::createDirectory(filesystem::getCacheDirectory());
+    filesystem::createDirectory(filesystem::getTmpDirectory());
+    filesystem::createDirectory(filesystem::getDocumentDirectory() + "/assets");
+    
+    runtime::setLogPath(filesystem::getCacheDirectory() + "/console.log");
+    
+    // 版本清理
+    std::string versionRuntime = preferences::getString(CONF_VERSION_RUNTIME);
+    std::string versionBuild = preferences::getString(CONF_VERSION_BUILD);
+    if (versionBuild != runtime::getVersionCode() ||
+        versionRuntime != runtime::getVersion())
+    {
+        runtime::clearStorage();
+        runtime::log("app update to version: %s(%s)", runtime::getVersion().c_str(), runtime::getVersionCode().c_str());
+    }
+    preferences::setString(CONF_VERSION_RUNTIME, runtime::getVersion().c_str());
+    preferences::setString(CONF_VERSION_BUILD, runtime::getVersionCode().c_str());
+    preferences::flush();
+    
     timer::schedule(0, [](float dt){ updateLogTimestamp(); });
+    
+    Texture2D::setDefaultAlphaPixelFormat(Texture2D::PixelFormat::AUTO);
+    AudioEngine::lazyInit();
+}
+
+void runtime::clearStorage()
+{
+    filesystem::remove(filesystem::getDocumentDirectory() + "/assets");
+    filesystem::createDirectory(filesystem::getDocumentDirectory() + "/assets");
+    runtime::log("app clean version: %s(%s)", runtime::getVersion().c_str(), runtime::getVersionCode().c_str());
+    
+    preferences::deleteKey(CONF_VERSION_RUNTIME);
+    preferences::deleteKey(CONF_VERSION_BUILD);
+    preferences::flush();
 }
 
 bool runtime::launch(const std::string &scriptPath)

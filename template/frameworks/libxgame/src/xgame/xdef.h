@@ -24,8 +24,10 @@
 
 #define BOOL_STR(b) ((b) ? "OK" : "NO")
 
-#define CONF_ANTIALIAS_ENABLED "conf.antialias.enabled"
-#define CONF_ANTIALIAS_SAMPLES "conf.antialias.samples"
+#define CONF_ANTIALIAS_ENABLED  "conf.antialias.enabled"
+#define CONF_ANTIALIAS_SAMPLES  "conf.antialias.samples"
+#define CONF_VERSION_RUNTIME    "conf.version.runtime"
+#define CONF_VERSION_BUILD      "conf.version.build"
 
 inline uint64_t strtov(const char *version)
 {

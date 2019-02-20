@@ -11,6 +11,7 @@ class runtime
 {
 public:
     static void init();
+    static void clearStorage();
     static bool launch(const std::string &scriptPath);
     
     // app info

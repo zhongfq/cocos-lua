@@ -26,7 +26,6 @@ static std::string _logCache;
 
 void runtime::init()
 {
-    auto dd = new Scheduler();
     timer::schedule(0, [](float dt){ updateLogTimestamp(); });
 }
 

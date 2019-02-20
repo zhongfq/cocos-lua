@@ -24,55 +24,28 @@
 
 #include "AppDelegate.h"
 #include "cocos2d.h"
-#include "audio/include/AudioEngine.h"
-
-using namespace cocos2d::experimental;
 
 USING_NS_CC;
-using namespace std;
 
-AppDelegate::AppDelegate()
-{
-}
-
-AppDelegate::~AppDelegate()
-{
-    AudioEngine::end();
-
-#if (COCOS2D_DEBUG > 0) && (CC_CODE_IDE_DEBUG_SUPPORT > 0)
-    // NOTE:Please don't remove this call if you want to debug with Cocos Code IDE
-    RuntimeEngine::getInstance()->end();
-#endif
-
-}
-
-// if you want a different context, modify the value of glContextAttrs
-// it will affect all platforms
-void AppDelegate::initGLContextAttrs()
-{
-    // set OpenGL context attributes: red,green,blue,alpha,depth,stencil,multisamplesCount
-    GLContextAttrs glContextAttrs = {8, 8, 8, 8, 24, 8, 0 };
-    GLView::setGLContextAttrs(glContextAttrs);
-}
+#define BUGLY_APPID_IOS     "xxxxxxxxxx"
+#define BUGLY_APPID_ANDROID "xxxxxxxxxx"
 
 bool AppDelegate::applicationDidFinishLaunching()
 {
-    Director::getInstance()->setAnimationInterval(1.0 / 60.0f);
-    Director::getInstance()->setDisplayStats(true);
-    
-    return true;
-}
-
-// This function will be called when the app is inactive. Note, when receiving a phone call it is invoked.
-void AppDelegate::applicationDidEnterBackground()
-{
-    Director::getInstance()->stopAnimation();
-    AudioEngine::pauseAll();
-}
-
-// this function will be called when the app is active again
-void AppDelegate::applicationWillEnterForeground()
-{
-    Director::getInstance()->startAnimation();
-    AudioEngine::resumeAll();
+#ifndef COCOS2D_DEBUG
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    CrashReport::initCrashReport(BUGLY_APPID_IOS, false, CrashReport::CRLogLevel::Verbose);
+    xgame::runtime::log("init bugly for ios");
+    xgame::runtime::set_log_reporter([](const char *msg) {
+        CrashReport::log(CrashReport::Verbose, "bugly", msg);
+    });
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    CrashReport::initCrashReport(BUGLY_APPID_ANDROID, false, CrashReport::CRLogLevel::Verbose);
+    xgame::runtime::log("init bugly for android");
+#endif
+    xgame::runtime::set_error_reporter([](const char *err_msg, const char *traceback) {
+        CrashReport::reportException(CATEGORY_LUA_EXCEPTION, "", err_msg, traceback);
+    });
+#endif
+    return RuntimeContext::applicationDidFinishLaunching();
 }

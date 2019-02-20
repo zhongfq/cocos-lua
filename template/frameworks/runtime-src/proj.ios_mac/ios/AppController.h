@@ -24,15 +24,13 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#import <UIKit/UIKit.h>
+#import "xgame/AppContext-ios.h"
 
-@class RootViewController;
-
-@interface AppController : NSObject <UIApplicationDelegate> {
+@interface AppController : AppContext {
 
 }
 
-@property(nonatomic, readonly) RootViewController* viewController;
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions;
 
 @end
 

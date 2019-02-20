@@ -1,4 +1,4 @@
-#import "AppRootViewController-ios.h"
+#import "xgame/AppRootViewController-ios.h"
 #import "cocos2d.h"
 #import "platform/ios/CCEAGLView-ios.h"
 

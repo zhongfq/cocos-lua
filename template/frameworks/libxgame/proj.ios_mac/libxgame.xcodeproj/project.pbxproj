@@ -781,7 +781,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/../../cocos2d-x",
 					"$(SRCROOT)/../../cocos2d-x/cocos/audio/include",
 					"$(SRCROOT)/../../cocos2d-x/cocos",
@@ -789,11 +794,6 @@
 					"$(SRCROOT)/../src",
 					"$(SRCROOT)/../src/lua/src",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
 				WARNING_CFLAGS = "-Wno-documentation";
 			};
 			name = Debug;
@@ -848,7 +848,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/../../cocos2d-x",
 					"$(SRCROOT)/../../cocos2d-x/cocos/audio/include",
 					"$(SRCROOT)/../../cocos2d-x/cocos",
@@ -856,10 +860,6 @@
 					"$(SRCROOT)/../src",
 					"$(SRCROOT)/../src/lua/src",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = macosx;
 				VALIDATE_PRODUCT = YES;
 				WARNING_CFLAGS = "-Wno-documentation";
 			};
@@ -874,14 +874,14 @@
 					"$(inherited)",
 					CC_TARGET_OS_MAC,
 				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../../cocos2d-x/external/glfw3/include/mac",
-				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../cocos2d-x/external/glfw3/include/mac",
+				);
 			};
 			name = Debug;
 		};
@@ -894,14 +894,14 @@
 					"$(inherited)",
 					CC_TARGET_OS_MAC,
 				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../../cocos2d-x/external/glfw3/include/mac",
-				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../cocos2d-x/external/glfw3/include/mac",
+				);
 			};
 			name = Release;
 		};
@@ -921,6 +921,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "$(inherited)";
 			};
 			name = Debug;
 		};
@@ -941,6 +942,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "$(inherited)";
 			};
 			name = Release;
 		};

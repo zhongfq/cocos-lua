@@ -27,6 +27,7 @@ static std::string _logCache;
 void runtime::init()
 {
     timer::schedule(0, [](float dt){ updateLogTimestamp(); });
+    Director::getInstance()->setDisplayStats(true);
 }
 
 bool runtime::launch(const std::string &scriptPath)
@@ -202,14 +203,12 @@ bool RuntimeContext::applicationDidFinishLaunching()
 
 void RuntimeContext::applicationDidEnterBackground()
 {
-    runtime::log("application did enter background");
     Director::getInstance()->stopAnimation();
     runtime::dispatchEvent("runtimePause", "");
 }
 
 void RuntimeContext::applicationWillEnterForeground()
 {
-    runtime::log("application will enter foreground");
     Director::getInstance()->startAnimation();
     runtime::dispatchEvent("runtimeResume", "");
 }

@@ -14,7 +14,7 @@ public:
     static const std::string getDocumentDirectory();
     static const std::string getTmpDirectory();
     static const std::string getSDCardDirectory();  // android only
-    static const std::string shortPath(const std::string &path, size_t limit = 60); // for log
+    static const char *shortPath(const std::string &path, size_t limit = 60); // for log
     static bool createDirectory(const std::string &path);
     static bool remove(const std::string &path);
     static bool exist(const std::string &path);

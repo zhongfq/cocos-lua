@@ -1,4 +1,5 @@
 #include "xgame/xruntime.h"
+#include "xgame/xruntime-private.h"
 #include "xgame/xfilesystem.h"
 #include "xgame/xpreferences.h"
 #include "xgame/xtimer.h"
@@ -24,15 +25,129 @@ static std::mutex _logMutex;
 static std::string _logPath;
 static std::string _logCache;
 
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+static std::string StringWideCharToUtf8(const std::wstring &strWideChar)
+{
+    std::string ret;
+    if (!strWideChar.empty())
+    {
+        int nNum = WideCharToMultiByte(CP_UTF8, 0, strWideChar.c_str(), -1, nullptr, 0, nullptr, FALSE);
+        if (nNum)
+        {
+            char* utf8String = new char[nNum + 1];
+            utf8String[0] = 0;
+            
+            nNum = WideCharToMultiByte(CP_UTF8, 0, strWideChar.c_str(), -1, utf8String, nNum + 1, nullptr, FALSE);
+            
+            ret = utf8String;
+            delete[] utf8String;
+        }
+        else
+        {
+            CCLOG("Wrong convert to Utf8 code:0x%x", GetLastError());
+        }
+    }
+    
+    return ret;
+}
+
+static inline std::string convertPathFormatToUnixStyle(const std::string &path)
+{
+    std::string ret = path;
+    int len = ret.length();
+    for (int i = 0; i < len; ++i)
+    {
+        if (ret[i] == '\\')
+        {
+            ret[i] = '/';
+        }
+    }
+    return ret;
+}
+#endif // CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+
 void runtime::init()
 {
-    timer::schedule(0, [](float dt){ updateLogTimestamp(); });
+#if CC_TARGET_PLATFORM == CC_PLATFORM_MAC
+    std::string path = FileUtils::getInstance()->getWritablePath();
+    path = path.substr(0, path.size() - 1);
+    path = path.substr(0, path.find_last_of('/'));
+    FileUtils::getInstance()->setWritablePath(path + "/Library/Containers/" + runtime::getPackageName() + "/");
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+#define CC_MAX_PATH  512
+    WCHAR app_path[CC_MAX_PATH + 1] = { 0 };
+    ::GetModuleFileName(nullptr, app_path, CC_MAX_PATH + 1);
+    std::string path = convertPathFormatToUnixStyle(StringWideCharToUtf8(app_path));
+    path = path.substr(0, path.find_last_of('/') + 1);
+    FileUtils::getInstance()->setWritablePath(path);
+    FileUtils::getInstance()->addSearchPath(path + "../../assets");
+#endif
+    
+    FileUtils::getInstance()->addSearchPath(filesystem::getDocumentDirectory() + "/assets", true);
+    Director::getInstance()->setAnimationInterval(1.0f / 60);
+#ifdef COCOS2D_DEBUG
     Director::getInstance()->setDisplayStats(true);
+#else
+    Director::getInstance()->setDisplayStats(false);
+#endif
+    
+    filesystem::createDirectory(filesystem::getCacheDirectory());
+    filesystem::createDirectory(filesystem::getTmpDirectory());
+    filesystem::createDirectory(filesystem::getDocumentDirectory() + "/assets");
+    
+    runtime::setLogPath(filesystem::getCacheDirectory() + "/console.log");
+    
+#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+    runtime::getPackageName();
+    runtime::getDeviceInfo();
+    filesystem::getDocumentDirectory();
+    filesystem::getCacheDirectory();
+    filesystem::getTmpDirectory();
+    filesystem::getSDCardDirectory();
+#endif
+    
+    timer::schedule(0, [](float dt){ updateLogTimestamp(); });
 }
 
 bool runtime::launch(const std::string &scriptPath)
 {
     return true;
+}
+
+//
+// app info
+//
+const std::string runtime::getPackageName()
+{
+    return __runtime_getPackageName();
+}
+
+const std::string runtime::getVersion()
+{
+    return __runtime_getVersion();
+}
+
+const std::string runtime::getVersionCode()
+{
+    return __runtime_getVersionCode();
+}
+
+const std::string runtime::getChannel()
+{
+    return __runtime_getChannel();
+}
+
+const std::string runtime::getOS()
+{
+    static const char *const os[] = {"unknown", "ios", "android", "win32",
+        "marmalade", "linux", "bada", "blackberry", "mac", "nacl",
+        "emscripten", "tizen", "qt5", "winrt"};
+    return os[CC_TARGET_PLATFORM];
+}
+
+const std::string runtime::getDeviceInfo()
+{
+    return __runtime_getDeviceInfo();
 }
 
 //
@@ -97,7 +212,7 @@ void runtime::setLogPath(const std::string &path)
     _logPath = path;
     _logFile = fopen(path.c_str(), "w");
     
-    runtime::log("[%s] set logger path: %s", _logFile ? "OK" : "NO", filesystem::shortPath(path).c_str());
+    runtime::log("[%s] set log path: %s", BOOL_STR(_logFile), filesystem::shortPath(path));
 }
 
 const std::string runtime::getLogPath()

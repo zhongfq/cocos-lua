@@ -1,27 +1,28 @@
 #import "xgame/xfilesystem.h"
+#import "xgame/xfilesystem-private.h"
 #import "xgame/xruntime.h"
 #import "cocos2d.h"
 
 #import <AVFoundation/AVFoundation.h>
 
-NS_XGAME_BEGIN
+USING_NS_XGAME;
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
-const std::string filesystem::getDocumentDirectory()
+const std::string __filesystem_getDocumentDirectory()
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     std::string str = [[paths objectAtIndex:0] UTF8String];
     return str;
 }
 
-const std::string filesystem::getCacheDirectory()
+const std::string __filesystem_getCacheDirectory()
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     std::string str = [[paths objectAtIndex:0] UTF8String];
     return str;
 }
 
-const std::string filesystem::getTmpDirectory()
+const std::string __filesystem_getTmpDirectory()
 {
     std::string str = [NSTemporaryDirectory() UTF8String];
     if (str[str.size() - 1] == '/')
@@ -30,22 +31,25 @@ const std::string filesystem::getTmpDirectory()
     }
     return str;
 }
-
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_MAC
-const std::string filesystem::getDocumentDirectory()
+const std::string __filesystem_getDocumentDirectory()
 {
     return filesystem::getWritablePath() + "/Documents";
 }
 
-const std::string filesystem::getCacheDirectory()
+const std::string __filesystem_getCacheDirectory()
 {
     return filesystem::getWritablePath() + "/Cache";
 }
 
-const std::string filesystem::getTmpDirectory()
+const std::string __filesystem_getTmpDirectory()
 {
     return filesystem::getWritablePath() + "/Tmp";
 }
 #endif
 
-NS_XGAME_END
+const std::string __filesystem_getSDCardDirectory()
+{
+    runtime::log("filesystem::getSDCardDirectory only support android");
+    return "/";
+}

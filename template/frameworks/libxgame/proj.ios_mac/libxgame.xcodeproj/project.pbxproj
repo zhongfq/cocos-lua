@@ -19,8 +19,8 @@
 		0E0C705D21F9EFC700049240 /* xsocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C705321F9EFC700049240 /* xsocket.cpp */; };
 		0E0C705E21F9EFC700049240 /* xlua.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C705521F9EFC700049240 /* xlua.cpp */; };
 		0E0C705F21F9EFC700049240 /* xlua.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C705521F9EFC700049240 /* xlua.cpp */; };
-		0E0C706021F9EFC700049240 /* xruntime-ios-mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C705721F9EFC700049240 /* xruntime-ios-mac.mm */; };
-		0E0C706121F9EFC700049240 /* xruntime-ios-mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C705721F9EFC700049240 /* xruntime-ios-mac.mm */; };
+		0E0C706021F9EFC700049240 /* xruntime-private-ios-mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C705721F9EFC700049240 /* xruntime-private-ios-mac.mm */; };
+		0E0C706121F9EFC700049240 /* xruntime-private-ios-mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C705721F9EFC700049240 /* xruntime-private-ios-mac.mm */; };
 		0E0C706421F9F38200049240 /* xfile_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C706221F9F38200049240 /* xfile_utils.cpp */; };
 		0E0C706521F9F38200049240 /* xfile_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C706221F9F38200049240 /* xfile_utils.cpp */; };
 		0E0C706821F9F5FE00049240 /* xfilesystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C706621F9F5FE00049240 /* xfilesystem.cpp */; };
@@ -31,8 +31,8 @@
 		0E25A8A2211D4123006B88E1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E25A8A1211D4123006B88E1 /* Security.framework */; };
 		0E2E9A3A221C37070085145E /* AppRootViewController-ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E9A37221C37070085145E /* AppRootViewController-ios.mm */; };
 		0E2E9A3B221C37070085145E /* AppContext-ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E9A39221C37070085145E /* AppContext-ios.mm */; };
-		0E9D2A6B221A9C76003C2121 /* xfilesystem-ios-mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E9D2A6A221A9C76003C2121 /* xfilesystem-ios-mac.mm */; };
-		0E9D2A6C221A9C76003C2121 /* xfilesystem-ios-mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E9D2A6A221A9C76003C2121 /* xfilesystem-ios-mac.mm */; };
+		0E9D2A6B221A9C76003C2121 /* xfilesystem-private-ios-mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E9D2A6A221A9C76003C2121 /* xfilesystem-private-ios-mac.mm */; };
+		0E9D2A6C221A9C76003C2121 /* xfilesystem-private-ios-mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E9D2A6A221A9C76003C2121 /* xfilesystem-private-ios-mac.mm */; };
 		0ECC4B9F21E79E3E00E3BBF9 /* linit.c in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC4B6521E79E3900E3BBF9 /* linit.c */; };
 		0ECC4BA021E79E3E00E3BBF9 /* linit.c in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC4B6521E79E3900E3BBF9 /* linit.c */; };
 		0ECC4BA121E79E3E00E3BBF9 /* ldebug.c in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC4B6621E79E3900E3BBF9 /* ldebug.c */; };
@@ -159,7 +159,7 @@
 		0E0C705421F9EFC700049240 /* xsocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xsocket.h; sourceTree = "<group>"; };
 		0E0C705521F9EFC700049240 /* xlua.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xlua.cpp; sourceTree = "<group>"; };
 		0E0C705621F9EFC700049240 /* xruntime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xruntime.h; sourceTree = "<group>"; };
-		0E0C705721F9EFC700049240 /* xruntime-ios-mac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "xruntime-ios-mac.mm"; sourceTree = "<group>"; };
+		0E0C705721F9EFC700049240 /* xruntime-private-ios-mac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "xruntime-private-ios-mac.mm"; sourceTree = "<group>"; };
 		0E0C706221F9F38200049240 /* xfile_utils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xfile_utils.cpp; sourceTree = "<group>"; };
 		0E0C706321F9F38200049240 /* xfile_utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xfile_utils.h; sourceTree = "<group>"; };
 		0E0C706621F9F5FE00049240 /* xfilesystem.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xfilesystem.cpp; sourceTree = "<group>"; };
@@ -175,9 +175,11 @@
 		0E2E9A38221C37070085145E /* AppContext-ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppContext-ios.h"; sourceTree = "<group>"; };
 		0E2E9A39221C37070085145E /* AppContext-ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "AppContext-ios.mm"; sourceTree = "<group>"; };
 		0E2E9A3D221D17260085145E /* AppRootViewController-ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppRootViewController-ios.h"; sourceTree = "<group>"; };
+		0E2E9A59221D4A950085145E /* xfilesystem-private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "xfilesystem-private.h"; sourceTree = "<group>"; };
+		0E2E9A60221D50430085145E /* xruntime-private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "xruntime-private.h"; sourceTree = "<group>"; };
 		0E98BC36221C043F00F1AEEA /* libcocos2d Mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libcocos2d Mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E98BC38221C044A00F1AEEA /* libcocos2d iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libcocos2d iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		0E9D2A6A221A9C76003C2121 /* xfilesystem-ios-mac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "xfilesystem-ios-mac.mm"; sourceTree = "<group>"; };
+		0E9D2A6A221A9C76003C2121 /* xfilesystem-private-ios-mac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "xfilesystem-private-ios-mac.mm"; sourceTree = "<group>"; };
 		0EC904E7213175B300F8A09E /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.4.sdk/System/Library/Frameworks/PhotosUI.framework; sourceTree = DEVELOPER_DIR; };
 		0EC904E9213175C100F8A09E /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.4.sdk/System/Library/Frameworks/Photos.framework; sourceTree = DEVELOPER_DIR; };
 		0ECC4B6421E79E3900E3BBF9 /* lparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lparser.h; path = ../src/lua/src/lparser.h; sourceTree = "<group>"; };
@@ -307,8 +309,8 @@
 			children = (
 				0E2E9A38221C37070085145E /* AppContext-ios.h */,
 				0E2E9A39221C37070085145E /* AppContext-ios.mm */,
-				0E2E9A37221C37070085145E /* AppRootViewController-ios.mm */,
 				0E2E9A3D221D17260085145E /* AppRootViewController-ios.h */,
+				0E2E9A37221C37070085145E /* AppRootViewController-ios.mm */,
 				0E0C704A21F9EEBD00049240 /* lua_javabridge.cpp */,
 				0E0C704821F9EEBD00049240 /* lua_javabridge.h */,
 				0E0C702421F9600D00049240 /* xdef.h */,
@@ -316,7 +318,8 @@
 				0E0C704721F9EEBD00049240 /* xdownloader.h */,
 				0E0C706221F9F38200049240 /* xfile_utils.cpp */,
 				0E0C706321F9F38200049240 /* xfile_utils.h */,
-				0E9D2A6A221A9C76003C2121 /* xfilesystem-ios-mac.mm */,
+				0E9D2A6A221A9C76003C2121 /* xfilesystem-private-ios-mac.mm */,
+				0E2E9A59221D4A950085145E /* xfilesystem-private.h */,
 				0E0C706621F9F5FE00049240 /* xfilesystem.cpp */,
 				0E0C706721F9F5FE00049240 /* xfilesystem.h */,
 				0E0C702521F9600D00049240 /* xlauncher.cpp */,
@@ -325,7 +328,8 @@
 				0E0C705221F9EFC600049240 /* xlua.h */,
 				0EE4B2BC21FC9FE60043AC9D /* xpreferences.cpp */,
 				0EE4B2BD21FC9FE60043AC9D /* xpreferences.h */,
-				0E0C705721F9EFC700049240 /* xruntime-ios-mac.mm */,
+				0E0C705721F9EFC700049240 /* xruntime-private-ios-mac.mm */,
+				0E2E9A60221D50430085145E /* xruntime-private.h */,
 				0E0C705121F9EFC600049240 /* xruntime.cpp */,
 				0E0C705621F9EFC700049240 /* xruntime.h */,
 				0E0C705321F9EFC700049240 /* xsocket.cpp */,
@@ -597,7 +601,7 @@
 				0ECC4BA321E79E3E00E3BBF9 /* ltm.c in Sources */,
 				0ECC4BA521E79E3E00E3BBF9 /* ldo.c in Sources */,
 				0ECC4C6521EB8D4600E3BBF9 /* packet.c in Sources */,
-				0E0C706021F9EFC700049240 /* xruntime-ios-mac.mm in Sources */,
+				0E0C706021F9EFC700049240 /* xruntime-private-ios-mac.mm in Sources */,
 				0ECC4C6921EB8D4600E3BBF9 /* decode.c in Sources */,
 				0E0C704B21F9EEBD00049240 /* xdownloader.cpp in Sources */,
 				0E0C705C21F9EFC700049240 /* xsocket.cpp in Sources */,
@@ -624,7 +628,7 @@
 				0ECC4C7521EB8D4600E3BBF9 /* context.c in Sources */,
 				0ECC4C6B21EB8D4600E3BBF9 /* stringpool.c in Sources */,
 				0ECC4BCF21E79E3E00E3BBF9 /* ldump.c in Sources */,
-				0E9D2A6B221A9C76003C2121 /* xfilesystem-ios-mac.mm in Sources */,
+				0E9D2A6B221A9C76003C2121 /* xfilesystem-private-ios-mac.mm in Sources */,
 				0E0C706C21F9F60B00049240 /* xtimer.cpp in Sources */,
 				0ECC4C5F21EB8D4600E3BBF9 /* md5.c in Sources */,
 				0ECC4C8121EB8D4600E3BBF9 /* strbuf.c in Sources */,
@@ -670,7 +674,7 @@
 				0ECC4BA421E79E3E00E3BBF9 /* ltm.c in Sources */,
 				0ECC4BA621E79E3E00E3BBF9 /* ldo.c in Sources */,
 				0ECC4C6621EB8D4600E3BBF9 /* packet.c in Sources */,
-				0E0C706121F9EFC700049240 /* xruntime-ios-mac.mm in Sources */,
+				0E0C706121F9EFC700049240 /* xruntime-private-ios-mac.mm in Sources */,
 				0ECC4C6A21EB8D4600E3BBF9 /* decode.c in Sources */,
 				0E0C704C21F9EEBD00049240 /* xdownloader.cpp in Sources */,
 				0E0C705D21F9EFC700049240 /* xsocket.cpp in Sources */,
@@ -699,7 +703,7 @@
 				0ECC4C7621EB8D4600E3BBF9 /* context.c in Sources */,
 				0ECC4C6C21EB8D4600E3BBF9 /* stringpool.c in Sources */,
 				0ECC4BD021E79E3E00E3BBF9 /* ldump.c in Sources */,
-				0E9D2A6C221A9C76003C2121 /* xfilesystem-ios-mac.mm in Sources */,
+				0E9D2A6C221A9C76003C2121 /* xfilesystem-private-ios-mac.mm in Sources */,
 				0E0C706D21F9F60B00049240 /* xtimer.cpp in Sources */,
 				0ECC4C6021EB8D4600E3BBF9 /* md5.c in Sources */,
 				0ECC4C8221EB8D4600E3BBF9 /* strbuf.c in Sources */,

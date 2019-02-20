@@ -22,6 +22,8 @@
 #define strncaseequal(str1, str2, len) (strncasecmp(str1, str2) == 0)
 #endif
 
+#define BOOL_STR(b) ((b) ? "OK" : "NO")
+
 #define CONF_ANTIALIAS_ENABLED "conf.antialias.enabled"
 #define CONF_ANTIALIAS_SAMPLES "conf.antialias.samples"
 

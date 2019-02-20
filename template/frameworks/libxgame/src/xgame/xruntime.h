@@ -13,6 +13,15 @@ public:
     static void init();
     static bool launch(const std::string &scriptPath);
     
+    // app info
+    static const std::string getPackageName();
+    static const std::string getVersion();
+    static const std::string getVersionCode();
+    static const std::string getChannel();
+    static const std::string getOS();
+    static const std::string getDeviceInfo();
+    
+    // event dispatch
     typedef std::function<void (const std::string &event, const std::string &args)> EventDispatcher;
     static void setDispatcher(const EventDispatcher &dispatcher);
     static void dispatchEvent(const std::string &event, const std::string &args);

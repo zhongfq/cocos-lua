@@ -32,6 +32,11 @@
     return YES;
 }
 
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
+{
+    xgame::runtime::handleOpenURL([[url absoluteString] UTF8String]);
+    return YES;
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {

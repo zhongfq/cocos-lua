@@ -50,7 +50,7 @@ const char *filesystem::shortPath(const std::string &path, size_t limit)
     
     size_t len = path.size();
     if (len > limit) {
-        snprintf(buf, limit, "...%s", path.c_str() + (len - limit + 4));
+        snprintf(buf, limit, "...%s", path.c_str() + (len - limit + 3));
     } else {
         strcpy(buf, path.c_str());
     }

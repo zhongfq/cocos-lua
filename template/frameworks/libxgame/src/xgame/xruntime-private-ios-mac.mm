@@ -26,7 +26,7 @@ const std::string __runtime_getVersion()
     return [[infoDictionary objectForKey:@"CFBundleShortVersionString"] UTF8String];
 }
 
-const std::string __runtime_getVersionCode()
+const std::string __runtime_getVersionBuild()
 {
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     return [[infoDictionary objectForKey:@"CFBundleVersion"] UTF8String];
@@ -61,4 +61,31 @@ const std::string __runtime_getDeviceInfo()
 #endif
     }
     return _deviceInfo;
+}
+
+void __runtime_openURL(const std::string &uri, const std::function<void (bool)> callback)
+{
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+    if (@available(iOS 10_0, *)) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithUTF8String:uri.c_str()]] options:@{} completionHandler: ^(BOOL success){
+            runtime::runOnCocosThread([callback, success](){
+                callback(success);
+            });
+        }];
+    } else {
+        bool success = [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithUTF8String:uri.c_str()]]];
+        callback(success);
+    }
+#else
+    callback(Application::getInstance()->openURL(uri));
+#endif
+}
+
+bool __runtime_canOpenURL(const std::string &uri)
+{
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+    return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:[NSString stringWithUTF8String:uri.c_str()]]];
+#else
+    return true;
+#endif
 }

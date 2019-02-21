@@ -5,8 +5,10 @@
 
 const std::string __runtime_getPackageName();
 const std::string __runtime_getVersion();
-const std::string __runtime_getVersionCode();
+const std::string __runtime_getVersionBuild();
 const std::string __runtime_getChannel();
 const std::string __runtime_getDeviceInfo();
+void __runtime_openURL(const std::string &uri, const std::function<void (bool)> callback);
+bool __runtime_canOpenURL(const std::string &uri);
 
 #endif

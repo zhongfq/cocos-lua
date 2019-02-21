@@ -6,16 +6,17 @@
 
 - (void)loadView
 {
+    GLContextAttrs attrs = cocos2d::GLView::getGLContextAttrs();
     CCEAGLView *eaglView = [CCEAGLView viewWithFrame: [UIScreen mainScreen].bounds
                                          pixelFormat: (__bridge NSString *)cocos2d::GLViewImpl::_pixelFormat
                                          depthFormat: cocos2d::GLViewImpl::_depthFormat
                                   preserveBackbuffer: NO
                                           sharegroup: nil
-                                       multiSampling: NO
-                                     numberOfSamples: 0 ];
+                                       multiSampling: attrs.multisamplingCount > 0 ? YES : NO
+                                     numberOfSamples: attrs.multisamplingCount ];
     
     // Enable or disable multiple touches
-    [eaglView setMultipleTouchEnabled:NO];
+    [eaglView setMultipleTouchEnabled:YES];
     
     // Set EAGLView as view of RootViewController
     self.view = eaglView;

@@ -16,7 +16,8 @@ NS_XGAME_BEGIN
 
 static runtime::EventDispatcher _dispatcher = nullptr;
 static std::vector<std::pair<std::string, std::string>> _suspendedEvents;
-static std::string _openURL;
+static std::string _openURI;
+static std::map<std::string, bool> _supportedFeatures;
 
 static char _logBuf[MAX_LOG_LENGTH];
 static char _logTimestamp[64];
@@ -24,6 +25,9 @@ static FILE *_logFile = NULL;
 static std::mutex _logMutex;
 static std::string _logPath;
 static std::string _logCache;
+
+static runtime::ErrorReporter _errorReporter = nullptr;
+static runtime::LogReporter _logReporter = nullptr;
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 static std::string StringWideCharToUtf8(const std::wstring &strWideChar)
@@ -110,17 +114,17 @@ void runtime::init()
     // 版本清理
     std::string versionRuntime = preferences::getString(CONF_VERSION_RUNTIME);
     std::string versionBuild = preferences::getString(CONF_VERSION_BUILD);
-    if (versionBuild != runtime::getVersionCode() ||
+    if (versionBuild != runtime::getVersionBuild() ||
         versionRuntime != runtime::getVersion())
     {
         runtime::clearStorage();
-        runtime::log("app update to version: %s(%s)", runtime::getVersion().c_str(), runtime::getVersionCode().c_str());
+        runtime::log("app update to version: %s(%s)", runtime::getVersion().c_str(), runtime::getVersionBuild().c_str());
     }
     preferences::setString(CONF_VERSION_RUNTIME, runtime::getVersion().c_str());
-    preferences::setString(CONF_VERSION_BUILD, runtime::getVersionCode().c_str());
+    preferences::setString(CONF_VERSION_BUILD, runtime::getVersionBuild().c_str());
     preferences::flush();
     
-    timer::schedule(0, [](float dt){ updateLogTimestamp(); });
+    timer::schedule(1, [](float dt){ updateLogTimestamp(); });
     
     Texture2D::setDefaultAlphaPixelFormat(Texture2D::PixelFormat::AUTO);
     AudioEngine::lazyInit();
@@ -130,7 +134,7 @@ void runtime::clearStorage()
 {
     filesystem::remove(filesystem::getDocumentDirectory() + "/assets");
     filesystem::createDirectory(filesystem::getDocumentDirectory() + "/assets");
-    runtime::log("app clean version: %s(%s)", runtime::getVersion().c_str(), runtime::getVersionCode().c_str());
+    runtime::log("app clean version: %s(%s)", runtime::getVersion().c_str(), runtime::getVersionBuild().c_str());
     
     preferences::deleteKey(CONF_VERSION_RUNTIME);
     preferences::deleteKey(CONF_VERSION_BUILD);
@@ -155,9 +159,9 @@ const std::string runtime::getVersion()
     return __runtime_getVersion();
 }
 
-const std::string runtime::getVersionCode()
+const std::string runtime::getVersionBuild()
 {
-    return __runtime_getVersionCode();
+    return __runtime_getVersionBuild();
 }
 
 const std::string runtime::getChannel()
@@ -195,10 +199,6 @@ void runtime::setDispatcher(const EventDispatcher &dispatcher)
 
 void runtime::dispatchEvent(const std::string &event, const std::string &args)
 {
-    if (event == "openURL") {
-        _openURL = args;
-    }
-    
     runtime::runOnCocosThread([event, args]() {
         if (_dispatcher) {
             _dispatcher(event, args);
@@ -211,6 +211,22 @@ void runtime::dispatchEvent(const std::string &event, const std::string &args)
 void runtime::runOnCocosThread(const std::function<void ()> &callback)
 {
     Director::getInstance()->getScheduler()->performFunctionInCocosThread(callback);
+}
+
+void runtime::openURL(const std::string &uri, const std::function<void (bool)> callback)
+{
+    __runtime_openURL(uri, callback);
+}
+
+void runtime::handleOpenURL(const std::string &uri)
+{
+    _openURI = uri;
+    runtime::dispatchEvent("openURL", uri);
+}
+
+bool runtime::canOpenURL(const std::string &uri)
+{
+    return __runtime_canOpenURL(uri);
 }
 
 //
@@ -309,6 +325,65 @@ bool runtime::isAntialias()
 unsigned int runtime::getNumSamples()
 {
     return (unsigned int)preferences::getInteger(CONF_ANTIALIAS_SAMPLES, 4);
+}
+
+//
+// feature
+//
+bool runtime::support(const std::string &api)
+{
+    auto itor = _supportedFeatures.find(api);
+    
+    if (itor == _supportedFeatures.end())
+        itor = _supportedFeatures.find(api + "." + runtime::getOS());
+    
+    return itor != _supportedFeatures.end() && itor->second;
+}
+
+void runtime::printSupport()
+{
+    for (auto itor = _supportedFeatures.begin(); itor != _supportedFeatures.end(); ++itor)
+    {
+        runtime::log("api support: %s = %s", itor->first.c_str(), itor->second ? "true" : "false");
+    }
+}
+
+void runtime::registerFeature(const std::string &api, bool enabled)
+{
+    _supportedFeatures[api] = enabled;
+}
+
+//
+// error
+//
+void runtime::disableReport()
+{
+    _errorReporter = nullptr;
+    _logReporter = nullptr;
+}
+
+void runtime::setErrorReporter(const ErrorReporter &callback)
+{
+    _errorReporter = callback;
+}
+
+void runtime::reportError(const char *err, const char *traceback)
+{
+    if (_errorReporter) {
+        _errorReporter(err, traceback);
+    }
+}
+
+void runtime::setLogReporter(const LogReporter &callback)
+{
+    _logReporter = callback;
+}
+
+void runtime::reportLog(const char *msg)
+{
+    if (_logReporter) {
+        _logReporter(msg);
+    }
 }
 
 //

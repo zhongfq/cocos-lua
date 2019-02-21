@@ -415,3 +415,78 @@ void xlua_getref(lua_State *L, int ref)
     lua_insert(L, -2);
     lua_pop(L, 1); // pop mapping table
 }
+
+bool xlua_optboolean(lua_State *L, int idx, bool default_value)
+{
+    return lua_type(L, idx) <= LUA_TNIL ? default_value : lua_toboolean(L, idx) != 0;
+}
+
+void xlua_setnilfield(lua_State *L, const char *field)
+{
+    lua_pushstring(L, field);
+    lua_pushnil(L);
+    lua_rawset(L, -3);
+}
+
+void xlua_setfunc(lua_State *L, const char *field, lua_CFunction func)
+{
+    lua_pushstring(L, field);
+    lua_pushcfunction(L, func);
+    lua_rawset(L, -3);
+}
+
+const char *xluaf_getstring(lua_State *L, int idx, const char *field, const char *default_value)
+{
+    lua_getfield(L, idx, field);
+    const char *value = luaL_optstring(L, -1, default_value);
+    lua_pop(L, 1);
+    return value;
+}
+
+bool xluaf_getboolean(lua_State *L, int idx, const char *field, bool default_value)
+{
+    lua_getfield(L, idx, field);
+    bool value = xlua_optboolean(L, -1, default_value);
+    lua_pop(L, 1);
+    return value;
+}
+
+lua_Number xluaf_getnumber(lua_State *L, int idx, const char *field, lua_Number default_value)
+{
+    lua_getfield(L, idx, field);
+    float value = luaL_optnumber(L, -1, default_value);
+    lua_pop(L, 1);
+    return value;
+}
+
+lua_Integer xluaf_getinteger(lua_State *L, int idx, const char *field, lua_Integer default_value)
+{
+    lua_getfield(L, idx, field);
+    lua_Integer value = luaL_optinteger(L, -1, default_value);
+    lua_pop(L, 1);
+    return value;
+}
+
+const char *xluaf_checkstring(lua_State *L, int idx, const char *field)
+{
+    lua_getfield(L, idx, field);
+    const char *value = luaL_checkstring(L, -1);
+    lua_pop(L, 1);
+    return value;
+}
+
+lua_Number xluaf_checknumber(lua_State *L, int idx, const char *field)
+{
+    lua_getfield(L, idx, field);
+    float value = (float) luaL_checknumber(L, -1);
+    lua_pop(L, 1);
+    return value;
+}
+
+lua_Integer xluaf_checkinteger(lua_State *L, int idx, const char *field)
+{
+    lua_getfield(L, idx, field);
+    lua_Integer value = luaL_checkinteger(L, -1);
+    lua_pop(L, 1);
+    return value;
+}

@@ -4,6 +4,7 @@
 #include "xgame/lua_javabridge.h"
 
 #include "cocos2d.h"
+#include "unzip/unzip.h"
 
 #include <stdio.h>
 
@@ -138,6 +139,93 @@ Data filesystem::read(const std::string &path)
     Data data = FileUtils::getInstance()->getDataFromFile(path);
     runtime::log("[%s] read file: %s", BOOL_STR(!data.isNull()), filesystem::shortPath(path).c_str());
     return data;
+}
+
+static bool _doUnzip(const std::string &zipPath, const std::string &dest)
+{
+    unzFile zip = unzOpen(zipPath.c_str());
+    
+    if (!filesystem::createDirectory(dest)) {
+        return false;
+    }
+    
+    if (zip == nullptr) {
+        return false;
+    }
+    
+    unz_global_info global_info;
+    if (unzGetGlobalInfo(zip, &global_info) != UNZ_OK) {
+        unzClose(zip);
+        return false;
+    }
+    
+    for (uLong i = 0; i < global_info.number_entry; i++) {
+        char namebuff[FILENAME_MAX];
+        unz_file_info file;
+        if (unzGetCurrentFileInfo(zip, &file, namebuff, FILENAME_MAX, nullptr, 0, nullptr, 0) != UNZ_OK) {
+            unzClose(zip);
+            return false;
+        }
+        
+        char fullPath[FILENAME_MAX];
+        snprintf(fullPath, FILENAME_MAX, "%s/%s", dest.c_str(), namebuff);
+        
+        if (!filesystem::createDirectory(fullPath, true)) {
+            unzClose(zip);
+            return false;
+        }
+        
+        if (namebuff[file.size_filename - 1] != '/')
+        {
+            if (unzOpenCurrentFile(zip) != UNZ_OK) {
+                unzClose(zip);
+                return false;
+            }
+            
+            FILE *localFile = fopen(fullPath, "wb");
+            if (localFile == nullptr) {
+                unzClose(zip);
+                return false;
+            }
+            
+            int len = 0;
+            char contentbuff[BUFSIZ];
+            while ((len = unzReadCurrentFile(zip, contentbuff, BUFSIZ)) > 0) {
+                fwrite(contentbuff, sizeof(char), len, localFile);
+            }
+            
+            fclose(localFile);
+            
+            if (len < 0) {
+                unzClose(zip);
+                return false;
+            }
+            
+            runtime::log("[OK] unzip file: %s", fullPath);
+            
+            unzCloseCurrentFile(zip);
+        }
+        
+        if (i < global_info.number_entry - 1) {
+            if (unzGoToNextFile(zip) != UNZ_OK) {
+                unzClose(zip);
+                return false;
+            }
+        }
+    }
+    
+    unzClose(zip);
+    
+    return true;
+}
+
+bool filesystem::unzip(const std::string &path, const std::string &dest)
+{
+    bool status = _doUnzip(path, dest);
+    runtime::log("[%s] unzip: %s => %s",
+        filesystem::shortPath(path).c_str(),
+        filesystem::shortPath(dest).c_str());
+    return status;
 }
 
 NS_XGAME_END

@@ -795,6 +795,7 @@
 					"$(SRCROOT)/../../cocos2d-x/cocos/audio/include",
 					"$(SRCROOT)/../../cocos2d-x/cocos",
 					"$(SRCROOT)/../../cocos2d-x/extensions",
+					"$(SRCROOT)/../../cocos2d-x/external",
 					"$(SRCROOT)/../src",
 					"$(SRCROOT)/../src/lua/src",
 				);
@@ -861,6 +862,7 @@
 					"$(SRCROOT)/../../cocos2d-x/cocos/audio/include",
 					"$(SRCROOT)/../../cocos2d-x/cocos",
 					"$(SRCROOT)/../../cocos2d-x/extensions",
+					"$(SRCROOT)/../../cocos2d-x/external",
 					"$(SRCROOT)/../src",
 					"$(SRCROOT)/../src/lua/src",
 				);

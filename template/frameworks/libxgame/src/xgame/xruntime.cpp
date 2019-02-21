@@ -256,7 +256,7 @@ void runtime::setLogPath(const std::string &path)
     _logPath = path;
     _logFile = fopen(path.c_str(), "w");
     
-    runtime::log("[%s] set log path: %s", BOOL_STR(_logFile), filesystem::shortPath(path));
+    runtime::log("[%s] set log path: %s", BOOL_STR(_logFile), filesystem::shortPath(path).c_str());
 }
 
 const std::string runtime::getLogPath()

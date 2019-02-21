@@ -2,6 +2,7 @@
 #include "xgame/xruntime-private.h"
 #include "xgame/xfilesystem.h"
 #include "xgame/xpreferences.h"
+#include "xgame/xrootscene.h"
 #include "xgame/xtimer.h"
 
 #include "audio/include/AudioEngine.h"
@@ -13,7 +14,8 @@ USING_NS_CC;
 USING_NS_CC_EXP;
 
 NS_XGAME_BEGIN
-
+static bool _restarting = false;
+static lua_State *_luaVM = nullptr;
 static runtime::EventDispatcher _dispatcher = nullptr;
 static std::vector<std::pair<std::string, std::string>> _suspendedEvents;
 static std::string _openURI;
@@ -141,9 +143,72 @@ void runtime::clearStorage()
     preferences::flush();
 }
 
+class RestartImpl : public Node {
+public:
+    RestartImpl(const std::string &scriptPath):_scriptPath(scriptPath) {};
+    virtual ~RestartImpl() {
+        std::string scriptPath = _scriptPath;
+        runtime::runOnCocosThread([scriptPath]() {
+            lua_close(_luaVM);
+            _luaVM = nullptr;
+            _restarting = false;
+            AudioEngine::end();
+            runtime::init();
+            runtime::launch(scriptPath);
+        });
+    };
+private:
+    std::string _scriptPath;
+};
+
 bool runtime::launch(const std::string &scriptPath)
 {
-    return true;
+    auto director = Director::getInstance();
+    
+    if (director->getRunningScene() == nullptr) {
+        runtime::log("launch '%s'", scriptPath.c_str());
+        auto scene = RootScene::create(scriptPath);
+        director->replaceScene(scene);
+        return true;
+    } else if (!_restarting) {
+        _restarting = true;
+        _dispatcher = nullptr;
+        _openURI = "";
+        
+        AudioEngine::stopAll();
+        director->restart();
+        
+        auto imp = new RestartImpl(scriptPath);
+        director->setNotificationNode(imp);
+        imp->release();
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool runtime::isRestarting()
+{
+    return _restarting;
+}
+
+bool runtime::restart()
+{
+    if (runtime::launch("bootstrap.lua")) {
+        runtime::log("runtime restart!!!");
+        return true;
+    } else {
+        runtime::log("runtime already in restarting!!!");
+        return false;
+    }
+}
+
+lua_State *runtime::luaVM()
+{
+    if (_luaVM == nullptr) {
+        _luaVM = xlua_new();
+    }
+    return _luaVM;
 }
 
 //
@@ -180,6 +245,11 @@ const std::string runtime::getOS()
 const std::string runtime::getDeviceInfo()
 {
     return __runtime_getDeviceInfo();
+}
+
+const std::string runtime::getNativeStackTrace()
+{
+    return __runtime_getNativeStackTrace();
 }
 
 //
@@ -306,6 +376,8 @@ void runtime::log(const char *fmt, ...)
 #ifdef COCOS2D_DEBUG
     cocos2d::log("%s", _logBuf);
 #endif
+    
+    runtime::reportLog(_logBuf);
 }
 
 //

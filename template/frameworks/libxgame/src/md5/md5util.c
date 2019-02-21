@@ -1,7 +1,3 @@
-//
-//  $id: md5util.c O $
-///
-
 #include "md5util.h"
 
 #include <stdio.h>

@@ -1,7 +1,3 @@
-//
-// $id: packet.c zhongfq $
-//
-
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>

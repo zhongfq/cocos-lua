@@ -63,6 +63,11 @@ const std::string __runtime_getDeviceInfo()
     return _deviceInfo;
 }
 
+const std::string __runtime_getNativeStackTrace()
+{
+    return "<TODO>";
+}
+
 void __runtime_openURL(const std::string &uri, const std::function<void (bool)> callback)
 {
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS

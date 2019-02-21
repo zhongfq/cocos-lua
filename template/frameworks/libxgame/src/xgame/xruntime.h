@@ -2,6 +2,7 @@
 #define __XRUNTIME_H__
 
 #include "xgame/xdef.h"
+#include "xgame/xlua.h"
 
 #include "cocos2d.h"
 
@@ -10,9 +11,13 @@ NS_XGAME_BEGIN
 class runtime
 {
 public:
+    // lua vm & init
     static void init();
     static void clearStorage();
     static bool launch(const std::string &scriptPath);
+    static bool restart();
+    static bool isRestarting();
+    static lua_State *luaVM();
     
     // app info
     static const std::string getPackageName();
@@ -21,6 +26,7 @@ public:
     static const std::string getChannel();
     static const std::string getOS();
     static const std::string getDeviceInfo();
+    static const std::string getNativeStackTrace();
     
     // event dispatch
     typedef std::function<void (const std::string &event, const std::string &args)> EventDispatcher;

@@ -1,7 +1,3 @@
-//
-//  $id: md5util.h O $
-//
-
 #ifndef __MD5UTIL_H__
 #define __MD5UTIL_H__
 

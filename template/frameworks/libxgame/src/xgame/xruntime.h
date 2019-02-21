@@ -18,6 +18,7 @@ public:
     static bool restart();
     static bool isRestarting();
     static lua_State *luaVM();
+    static void luaOpen(lua_CFunction libfunc);
     
     // app info
     static const std::string getPackageName();

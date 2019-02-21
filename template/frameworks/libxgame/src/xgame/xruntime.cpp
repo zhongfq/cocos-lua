@@ -16,6 +16,7 @@ USING_NS_CC_EXP;
 NS_XGAME_BEGIN
 static bool _restarting = false;
 static lua_State *_luaVM = nullptr;
+static std::vector<lua_CFunction> _luaLibs;
 static runtime::EventDispatcher _dispatcher = nullptr;
 static std::vector<std::pair<std::string, std::string>> _suspendedEvents;
 static std::string _openURI;
@@ -35,11 +36,9 @@ static runtime::LogReporter _logReporter = nullptr;
 static std::string StringWideCharToUtf8(const std::wstring &strWideChar)
 {
     std::string ret;
-    if (!strWideChar.empty())
-    {
+    if (!strWideChar.empty()) {
         int nNum = WideCharToMultiByte(CP_UTF8, 0, strWideChar.c_str(), -1, nullptr, 0, nullptr, FALSE);
-        if (nNum)
-        {
+        if (nNum) {
             char* utf8String = new char[nNum + 1];
             utf8String[0] = 0;
             
@@ -47,9 +46,7 @@ static std::string StringWideCharToUtf8(const std::wstring &strWideChar)
             
             ret = utf8String;
             delete[] utf8String;
-        }
-        else
-        {
+        } else {
             CCLOG("Wrong convert to Utf8 code:0x%x", GetLastError());
         }
     }
@@ -61,10 +58,8 @@ static inline std::string convertPathFormatToUnixStyle(const std::string &path)
 {
     std::string ret = path;
     int len = ret.length();
-    for (int i = 0; i < len; ++i)
-    {
-        if (ret[i] == '\\')
-        {
+    for (int i = 0; i < len; ++i) {
+        if (ret[i] == '\\') {
             ret[i] = '/';
         }
     }
@@ -117,8 +112,7 @@ void runtime::init()
     std::string versionRuntime = preferences::getString(CONF_VERSION_RUNTIME);
     std::string versionBuild = preferences::getString(CONF_VERSION_BUILD);
     if (versionBuild != runtime::getVersionBuild() ||
-        versionRuntime != runtime::getVersion())
-    {
+        versionRuntime != runtime::getVersion()) {
         runtime::clearStorage();
         runtime::log("app update to version: %s(%s)", runtime::getVersion().c_str(), runtime::getVersionBuild().c_str());
     }
@@ -207,8 +201,25 @@ lua_State *runtime::luaVM()
 {
     if (_luaVM == nullptr) {
         _luaVM = xlua_new();
+        for (auto func : _luaLibs) {
+            xlua_call(_luaVM, func);
+        }
     }
     return _luaVM;
+}
+
+void runtime::luaOpen(lua_CFunction libfunc)
+{
+    bool exist = false;
+    for (auto func : _luaLibs) {
+        if (func == libfunc) {
+            exist = true;
+            break;
+        }
+    }
+    if (!exist) {
+        _luaLibs.push_back(libfunc);
+    }
 }
 
 //
@@ -261,8 +272,8 @@ void runtime::setDispatcher(const EventDispatcher &dispatcher)
     if (_dispatcher) {
         auto events = _suspendedEvents;
         _suspendedEvents.clear();
-        for (auto itor = events.begin(); itor != events.end(); ++itor) {
-            runtime::dispatchEvent(itor->first, itor->second);
+        for (auto &it : events) {
+            runtime::dispatchEvent(it.first, it.second);
         }
     }
 }
@@ -406,17 +417,17 @@ bool runtime::support(const std::string &api)
 {
     auto itor = _supportedFeatures.find(api);
     
-    if (itor == _supportedFeatures.end())
+    if (itor == _supportedFeatures.end()) {
         itor = _supportedFeatures.find(api + "." + runtime::getOS());
+    }
     
     return itor != _supportedFeatures.end() && itor->second;
 }
 
 void runtime::printSupport()
 {
-    for (auto itor = _supportedFeatures.begin(); itor != _supportedFeatures.end(); ++itor)
-    {
-        runtime::log("api support: %s = %s", itor->first.c_str(), itor->second ? "true" : "false");
+    for (auto &it : _supportedFeatures) {
+        runtime::log("api support: %s = %s", it.first.c_str(), it.second ? "true" : "false");
     }
 }
 

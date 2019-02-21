@@ -26,26 +26,35 @@
 #include "cocos2d.h"
 
 USING_NS_CC;
+USING_NS_XGAME;
 
 #define BUGLY_APPID_IOS     "xxxxxxxxxx"
 #define BUGLY_APPID_ANDROID "xxxxxxxxxx"
+
+static int _open_sdk(lua_State *)
+{
+    return 0;
+}
 
 bool AppDelegate::applicationDidFinishLaunching()
 {
 #ifndef COCOS2D_DEBUG
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     CrashReport::initCrashReport(BUGLY_APPID_IOS, false, CrashReport::CRLogLevel::Verbose);
-    xgame::runtime::log("init bugly for ios");
-    xgame::runtime::set_log_reporter([](const char *msg) {
+    runtime::log("init bugly for ios");
+    runtime::set_log_reporter([](const char *msg) {
         CrashReport::log(CrashReport::Verbose, "bugly", msg);
     });
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     CrashReport::initCrashReport(BUGLY_APPID_ANDROID, false, CrashReport::CRLogLevel::Verbose);
-    xgame::runtime::log("init bugly for android");
+    runtime::log("init bugly for android");
 #endif
-    xgame::runtime::set_error_reporter([](const char *err_msg, const char *traceback) {
+    runtime::set_error_reporter([](const char *err_msg, const char *traceback) {
         CrashReport::reportException(CATEGORY_LUA_EXCEPTION, "", err_msg, traceback);
     });
 #endif
+    
+    runtime::luaOpen(_open_sdk);
+    
     return RuntimeContext::applicationDidFinishLaunching();
 }

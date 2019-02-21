@@ -197,6 +197,33 @@ lua_State *xlua_cocosthread()
     return runtime::luaVM();
 }
 
+bool xlua_optboolean(lua_State *L, int idx, bool default_value)
+{
+    return lua_type(L, idx) <= LUA_TNIL ? default_value : lua_toboolean(L, idx) != 0;
+}
+
+void xlua_setnilfield(lua_State *L, const char *field)
+{
+    lua_pushstring(L, field);
+    lua_pushnil(L);
+    lua_rawset(L, -3);
+}
+
+void xlua_setfunc(lua_State *L, const char *field, lua_CFunction func)
+{
+    lua_pushstring(L, field);
+    lua_pushcfunction(L, func);
+    lua_rawset(L, -3);
+}
+
+void xlua_preload(lua_State *L, const char *name, lua_CFunction func)
+{
+    luaL_getsubtable(L, LUA_REGISTRYINDEX, LUA_PRELOAD_TABLE);  // L: preload
+    lua_pushcfunction(L, func);                                 // L: preload func
+    lua_setfield(L, -2, name);                                  // L: preload
+    lua_pop(L, 1);                                              // L:
+}
+
 static char *simplify_traceback(const char *msg)
 {
     const char *FUNCSTR = ": in function '";
@@ -414,25 +441,6 @@ void xlua_getref(lua_State *L, int ref)
     lua_rawgeti(L, -1, ref);
     lua_insert(L, -2);
     lua_pop(L, 1); // pop mapping table
-}
-
-bool xlua_optboolean(lua_State *L, int idx, bool default_value)
-{
-    return lua_type(L, idx) <= LUA_TNIL ? default_value : lua_toboolean(L, idx) != 0;
-}
-
-void xlua_setnilfield(lua_State *L, const char *field)
-{
-    lua_pushstring(L, field);
-    lua_pushnil(L);
-    lua_rawset(L, -3);
-}
-
-void xlua_setfunc(lua_State *L, const char *field, lua_CFunction func)
-{
-    lua_pushstring(L, field);
-    lua_pushcfunction(L, func);
-    lua_rawset(L, -3);
 }
 
 const char *xluaf_getstring(lua_State *L, int idx, const char *field, const char *default_value)

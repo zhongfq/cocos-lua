@@ -11,7 +11,7 @@ LUALIB_API lua_State *xlua_cocosthread();
 LUALIB_API bool xlua_optboolean(lua_State *L, int idx, bool default_value);
 LUALIB_API void xlua_setnilfield(lua_State *L, const char *field);
 LUALIB_API void xlua_setfunc(lua_State *L, const char *field, lua_CFunction func);
-
+LUALIB_API void xlua_preload(lua_State *L, const char *name, lua_CFunction func);
 LUALIB_API int xlua_errorfunc(lua_State *L);
 LUALIB_API int xlua_pcall(lua_State *L, int n, int r);
 LUALIB_API void xlua_call(lua_State *L, lua_CFunction func);

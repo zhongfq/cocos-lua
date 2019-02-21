@@ -1,12 +1,8 @@
-//
-// $id: lua_crypto.cpp O $
-//
-
 #include "xgame/lua_crypto.h"
-#include "md5/md5util.h"
 #include "platform/CCFileUtils.h"
 #include "base/base64.h"
-#include "xxtea/xxtea.h"
+#include "crypto/md5util.h"
+#include "crypto/xxtea.h"
 
 using namespace cocos2d;
 

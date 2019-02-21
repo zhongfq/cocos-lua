@@ -1,7 +1,7 @@
 #include "xgame/xdownloader.h"
 #include "xgame/xruntime.h"
 #include "xgame/xfilesystem.h"
-#include "md5/md5util.h"
+#include "crypto/md5util.h"
 
 #include "platform/CCFileUtils.h"
 

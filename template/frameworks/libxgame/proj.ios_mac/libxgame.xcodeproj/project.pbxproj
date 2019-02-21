@@ -31,6 +31,18 @@
 		0E25A8A2211D4123006B88E1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E25A8A1211D4123006B88E1 /* Security.framework */; };
 		0E2E9A3A221C37070085145E /* AppRootViewController-ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E9A37221C37070085145E /* AppRootViewController-ios.mm */; };
 		0E2E9A3B221C37070085145E /* AppContext-ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E9A39221C37070085145E /* AppContext-ios.mm */; };
+		0E2E9A75221EB7B00085145E /* lua_socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E9A71221EB7B00085145E /* lua_socket.cpp */; };
+		0E2E9A76221EB7B00085145E /* lua_socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E9A71221EB7B00085145E /* lua_socket.cpp */; };
+		0E2E9A77221EB7B00085145E /* lua_module.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E9A72221EB7B00085145E /* lua_module.cpp */; };
+		0E2E9A78221EB7B00085145E /* lua_module.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E9A72221EB7B00085145E /* lua_module.cpp */; };
+		0E2E9A79221EB7B00085145E /* lua_crypto.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E9A74221EB7B00085145E /* lua_crypto.cpp */; };
+		0E2E9A7A221EB7B00085145E /* lua_crypto.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E9A74221EB7B00085145E /* lua_crypto.cpp */; };
+		0E2E9A82221EBB570085145E /* md5util.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E9A7C221EBB570085145E /* md5util.c */; };
+		0E2E9A83221EBB570085145E /* md5util.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E9A7C221EBB570085145E /* md5util.c */; };
+		0E2E9A84221EBB570085145E /* xxtea.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E9A7E221EBB570085145E /* xxtea.cpp */; };
+		0E2E9A85221EBB570085145E /* xxtea.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E9A7E221EBB570085145E /* xxtea.cpp */; };
+		0E2E9A86221EBB570085145E /* md5.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E9A80221EBB570085145E /* md5.c */; };
+		0E2E9A87221EBB570085145E /* md5.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E9A80221EBB570085145E /* md5.c */; };
 		0E9D2A6B221A9C76003C2121 /* xfilesystem-private-ios-mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E9D2A6A221A9C76003C2121 /* xfilesystem-private-ios-mac.mm */; };
 		0E9D2A6C221A9C76003C2121 /* xfilesystem-private-ios-mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E9D2A6A221A9C76003C2121 /* xfilesystem-private-ios-mac.mm */; };
 		0ECC4B9F21E79E3E00E3BBF9 /* linit.c in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC4B6521E79E3900E3BBF9 /* linit.c */; };
@@ -99,10 +111,6 @@
 		0ECC4BDE21E79E3E00E3BBF9 /* lcode.c in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC4B9B21E79E3D00E3BBF9 /* lcode.c */; };
 		0ECC4BDF21E79E3E00E3BBF9 /* ltable.c in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC4B9D21E79E3E00E3BBF9 /* ltable.c */; settings = {COMPILER_FLAGS = "-Wno-conditional-uninitialized"; }; };
 		0ECC4BE021E79E3E00E3BBF9 /* ltable.c in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC4B9D21E79E3E00E3BBF9 /* ltable.c */; settings = {COMPILER_FLAGS = "-Wno-conditional-uninitialized"; }; };
-		0ECC4C5D21EB8D4600E3BBF9 /* md5util.c in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC4C3421EB8D4500E3BBF9 /* md5util.c */; };
-		0ECC4C5E21EB8D4600E3BBF9 /* md5util.c in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC4C3421EB8D4500E3BBF9 /* md5util.c */; };
-		0ECC4C5F21EB8D4600E3BBF9 /* md5.c in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC4C3721EB8D4500E3BBF9 /* md5.c */; };
-		0ECC4C6021EB8D4600E3BBF9 /* md5.c in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC4C3721EB8D4500E3BBF9 /* md5.c */; };
 		0ECC4C6121EB8D4600E3BBF9 /* array.c in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC4C3C21EB8D4500E3BBF9 /* array.c */; };
 		0ECC4C6221EB8D4600E3BBF9 /* array.c in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC4C3C21EB8D4500E3BBF9 /* array.c */; };
 		0ECC4C6321EB8D4600E3BBF9 /* rmessage.c in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC4C3E21EB8D4500E3BBF9 /* rmessage.c */; };
@@ -177,6 +185,18 @@
 		0E2E9A3D221D17260085145E /* AppRootViewController-ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppRootViewController-ios.h"; sourceTree = "<group>"; };
 		0E2E9A59221D4A950085145E /* xfilesystem-private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "xfilesystem-private.h"; sourceTree = "<group>"; };
 		0E2E9A60221D50430085145E /* xruntime-private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "xruntime-private.h"; sourceTree = "<group>"; };
+		0E2E9A6F221EB7AF0085145E /* lua_crypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_crypto.h; sourceTree = "<group>"; };
+		0E2E9A70221EB7AF0085145E /* lua_module.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_module.h; sourceTree = "<group>"; };
+		0E2E9A71221EB7B00085145E /* lua_socket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_socket.cpp; sourceTree = "<group>"; };
+		0E2E9A72221EB7B00085145E /* lua_module.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_module.cpp; sourceTree = "<group>"; };
+		0E2E9A73221EB7B00085145E /* lua_socket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_socket.h; sourceTree = "<group>"; };
+		0E2E9A74221EB7B00085145E /* lua_crypto.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_crypto.cpp; sourceTree = "<group>"; };
+		0E2E9A7C221EBB570085145E /* md5util.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = md5util.c; sourceTree = "<group>"; };
+		0E2E9A7D221EBB570085145E /* md5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = md5.h; sourceTree = "<group>"; };
+		0E2E9A7E221EBB570085145E /* xxtea.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xxtea.cpp; sourceTree = "<group>"; };
+		0E2E9A7F221EBB570085145E /* md5util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = md5util.h; sourceTree = "<group>"; };
+		0E2E9A80221EBB570085145E /* md5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = md5.c; sourceTree = "<group>"; };
+		0E2E9A81221EBB570085145E /* xxtea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xxtea.h; sourceTree = "<group>"; };
 		0E98BC36221C043F00F1AEEA /* libcocos2d Mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libcocos2d Mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E98BC38221C044A00F1AEEA /* libcocos2d iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libcocos2d iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E9D2A6A221A9C76003C2121 /* xfilesystem-private-ios-mac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "xfilesystem-private-ios-mac.mm"; sourceTree = "<group>"; };
@@ -241,10 +261,6 @@
 		0ECC4B9C21E79E3D00E3BBF9 /* lvm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lvm.h; path = ../src/lua/src/lvm.h; sourceTree = "<group>"; };
 		0ECC4B9D21E79E3E00E3BBF9 /* ltable.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ltable.c; path = ../src/lua/src/ltable.c; sourceTree = "<group>"; };
 		0ECC4B9E21E79E3E00E3BBF9 /* llimits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = llimits.h; path = ../src/lua/src/llimits.h; sourceTree = "<group>"; };
-		0ECC4C3421EB8D4500E3BBF9 /* md5util.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = md5util.c; sourceTree = "<group>"; };
-		0ECC4C3521EB8D4500E3BBF9 /* md5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = md5.h; sourceTree = "<group>"; };
-		0ECC4C3621EB8D4500E3BBF9 /* md5util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = md5util.h; sourceTree = "<group>"; };
-		0ECC4C3721EB8D4500E3BBF9 /* md5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = md5.c; sourceTree = "<group>"; };
 		0ECC4C3921EB8D4500E3BBF9 /* varint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = varint.h; sourceTree = "<group>"; };
 		0ECC4C3A21EB8D4500E3BBF9 /* proto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = proto.h; sourceTree = "<group>"; };
 		0ECC4C3B21EB8D4500E3BBF9 /* descriptor.pbc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = descriptor.pbc.h; sourceTree = "<group>"; };
@@ -311,8 +327,14 @@
 				0E2E9A39221C37070085145E /* AppContext-ios.mm */,
 				0E2E9A3D221D17260085145E /* AppRootViewController-ios.h */,
 				0E2E9A37221C37070085145E /* AppRootViewController-ios.mm */,
+				0E2E9A74221EB7B00085145E /* lua_crypto.cpp */,
+				0E2E9A6F221EB7AF0085145E /* lua_crypto.h */,
 				0E0C704A21F9EEBD00049240 /* lua_javabridge.cpp */,
 				0E0C704821F9EEBD00049240 /* lua_javabridge.h */,
+				0E2E9A72221EB7B00085145E /* lua_module.cpp */,
+				0E2E9A70221EB7AF0085145E /* lua_module.h */,
+				0E2E9A71221EB7B00085145E /* lua_socket.cpp */,
+				0E2E9A73221EB7B00085145E /* lua_socket.h */,
 				0E0C702421F9600D00049240 /* xdef.h */,
 				0E0C704921F9EEBD00049240 /* xdownloader.cpp */,
 				0E0C704721F9EEBD00049240 /* xdownloader.h */,
@@ -373,12 +395,26 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		0E2E9A7B221EBB570085145E /* crypto */ = {
+			isa = PBXGroup;
+			children = (
+				0E2E9A7C221EBB570085145E /* md5util.c */,
+				0E2E9A7D221EBB570085145E /* md5.h */,
+				0E2E9A7E221EBB570085145E /* xxtea.cpp */,
+				0E2E9A7F221EBB570085145E /* md5util.h */,
+				0E2E9A80221EBB570085145E /* md5.c */,
+				0E2E9A81221EBB570085145E /* xxtea.h */,
+			);
+			name = crypto;
+			path = ../src/crypto;
+			sourceTree = "<group>";
+		};
 		0ECC4B6221E79E0E00E3BBF9 /* src */ = {
 			isa = PBXGroup;
 			children = (
 				0ECC4C5421EB8D4600E3BBF9 /* cjson */,
+				0E2E9A7B221EBB570085145E /* crypto */,
 				0ECC4B6321E79E2400E3BBF9 /* lua */,
-				0ECC4C3321EB8D4500E3BBF9 /* md5 */,
 				0ECC4C3821EB8D4500E3BBF9 /* pbc */,
 				0E0C702221F9600D00049240 /* xgame */,
 			);
@@ -449,18 +485,6 @@
 				0ECC4B7521E79E3A00E3BBF9 /* lzio.h */,
 			);
 			name = lua;
-			sourceTree = "<group>";
-		};
-		0ECC4C3321EB8D4500E3BBF9 /* md5 */ = {
-			isa = PBXGroup;
-			children = (
-				0ECC4C3421EB8D4500E3BBF9 /* md5util.c */,
-				0ECC4C3521EB8D4500E3BBF9 /* md5.h */,
-				0ECC4C3621EB8D4500E3BBF9 /* md5util.h */,
-				0ECC4C3721EB8D4500E3BBF9 /* md5.c */,
-			);
-			name = md5;
-			path = ../src/md5;
 			sourceTree = "<group>";
 		};
 		0ECC4C3821EB8D4500E3BBF9 /* pbc */ = {
@@ -593,8 +617,8 @@
 				0ECC4BCD21E79E3E00E3BBF9 /* loadlib.c in Sources */,
 				0E0C704D21F9EEBD00049240 /* lua_javabridge.cpp in Sources */,
 				0ECC4BB721E79E3E00E3BBF9 /* lmem.c in Sources */,
+				0E2E9A79221EB7B00085145E /* lua_crypto.cpp in Sources */,
 				0ECC4C6321EB8D4600E3BBF9 /* rmessage.c in Sources */,
-				0ECC4C5D21EB8D4600E3BBF9 /* md5util.c in Sources */,
 				0ECC4BAB21E79E3E00E3BBF9 /* lcorolib.c in Sources */,
 				0ECC4BB121E79E3E00E3BBF9 /* lbaselib.c in Sources */,
 				0ECC4BC721E79E3E00E3BBF9 /* lutf8lib.c in Sources */,
@@ -606,8 +630,10 @@
 				0E0C704B21F9EEBD00049240 /* xdownloader.cpp in Sources */,
 				0E0C705C21F9EFC700049240 /* xsocket.cpp in Sources */,
 				0ECC4BBF21E79E3E00E3BBF9 /* liolib.c in Sources */,
+				0E2E9A84221EBB570085145E /* xxtea.cpp in Sources */,
 				0ECC4C7D21EB8D4600E3BBF9 /* bootstrap.c in Sources */,
 				0ECC4C6D21EB8D4600E3BBF9 /* alloc.c in Sources */,
+				0E2E9A77221EB7B00085145E /* lua_module.cpp in Sources */,
 				0ECC4C7F21EB8D4600E3BBF9 /* fpconv.c in Sources */,
 				0ECC4BCB21E79E3E00E3BBF9 /* lobject.c in Sources */,
 				0ECC4C6F21EB8D4600E3BBF9 /* varint.c in Sources */,
@@ -623,6 +649,7 @@
 				0ECC4BAF21E79E3E00E3BBF9 /* lundump.c in Sources */,
 				0E0C702621F9600D00049240 /* xrootscene.cpp in Sources */,
 				0ECC4BBB21E79E3E00E3BBF9 /* lbitlib.c in Sources */,
+				0E2E9A82221EBB570085145E /* md5util.c in Sources */,
 				0E0C705E21F9EFC700049240 /* xlua.cpp in Sources */,
 				0ECC4B9F21E79E3E00E3BBF9 /* linit.c in Sources */,
 				0ECC4C7521EB8D4600E3BBF9 /* context.c in Sources */,
@@ -630,15 +657,16 @@
 				0ECC4BCF21E79E3E00E3BBF9 /* ldump.c in Sources */,
 				0E9D2A6B221A9C76003C2121 /* xfilesystem-private-ios-mac.mm in Sources */,
 				0E0C706C21F9F60B00049240 /* xtimer.cpp in Sources */,
-				0ECC4C5F21EB8D4600E3BBF9 /* md5.c in Sources */,
 				0ECC4C8121EB8D4600E3BBF9 /* strbuf.c in Sources */,
 				0ECC4C7321EB8D4600E3BBF9 /* proto.c in Sources */,
 				0ECC4C7721EB8D4600E3BBF9 /* pbc-lua53.c in Sources */,
 				0E0C705A21F9EFC700049240 /* xruntime.cpp in Sources */,
 				0ECC4BC521E79E3E00E3BBF9 /* lgc.c in Sources */,
 				0ECC4BDF21E79E3E00E3BBF9 /* ltable.c in Sources */,
+				0E2E9A75221EB7B00085145E /* lua_socket.cpp in Sources */,
 				0ECC4BAD21E79E3E00E3BBF9 /* lstring.c in Sources */,
 				0ECC4BB521E79E3E00E3BBF9 /* lvm.c in Sources */,
+				0E2E9A86221EBB570085145E /* md5.c in Sources */,
 				0ECC4BBD21E79E3E00E3BBF9 /* llex.c in Sources */,
 				0ECC4C6121EB8D4600E3BBF9 /* array.c in Sources */,
 				0ECC4C8321EB8D4600E3BBF9 /* cJSON.c in Sources */,
@@ -667,9 +695,10 @@
 				0E0C704E21F9EEBD00049240 /* lua_javabridge.cpp in Sources */,
 				0ECC4BB821E79E3E00E3BBF9 /* lmem.c in Sources */,
 				0ECC4C6421EB8D4600E3BBF9 /* rmessage.c in Sources */,
-				0ECC4C5E21EB8D4600E3BBF9 /* md5util.c in Sources */,
+				0E2E9A7A221EB7B00085145E /* lua_crypto.cpp in Sources */,
 				0ECC4BAC21E79E3E00E3BBF9 /* lcorolib.c in Sources */,
 				0ECC4BB221E79E3E00E3BBF9 /* lbaselib.c in Sources */,
+				0E2E9A76221EB7B00085145E /* lua_socket.cpp in Sources */,
 				0ECC4BC821E79E3E00E3BBF9 /* lutf8lib.c in Sources */,
 				0ECC4BA421E79E3E00E3BBF9 /* ltm.c in Sources */,
 				0ECC4BA621E79E3E00E3BBF9 /* ldo.c in Sources */,
@@ -692,6 +721,8 @@
 				0ECC4C7A21EB8D4600E3BBF9 /* wmessage.c in Sources */,
 				0E2E9A3B221C37070085145E /* AppContext-ios.mm in Sources */,
 				0E0C706521F9F38200049240 /* xfile_utils.cpp in Sources */,
+				0E2E9A83221EBB570085145E /* md5util.c in Sources */,
+				0E2E9A78221EB7B00085145E /* lua_module.cpp in Sources */,
 				0ECC4BD821E79E3E00E3BBF9 /* lparser.c in Sources */,
 				0ECC4C7C21EB8D4600E3BBF9 /* pattern.c in Sources */,
 				0E2E9A3A221C37070085145E /* AppRootViewController-ios.mm in Sources */,
@@ -705,7 +736,6 @@
 				0ECC4BD021E79E3E00E3BBF9 /* ldump.c in Sources */,
 				0E9D2A6C221A9C76003C2121 /* xfilesystem-private-ios-mac.mm in Sources */,
 				0E0C706D21F9F60B00049240 /* xtimer.cpp in Sources */,
-				0ECC4C6021EB8D4600E3BBF9 /* md5.c in Sources */,
 				0ECC4C8221EB8D4600E3BBF9 /* strbuf.c in Sources */,
 				0ECC4C7421EB8D4600E3BBF9 /* proto.c in Sources */,
 				0ECC4C7821EB8D4600E3BBF9 /* pbc-lua53.c in Sources */,
@@ -715,7 +745,9 @@
 				0ECC4BAE21E79E3E00E3BBF9 /* lstring.c in Sources */,
 				0ECC4BB621E79E3E00E3BBF9 /* lvm.c in Sources */,
 				0ECC4BBE21E79E3E00E3BBF9 /* llex.c in Sources */,
+				0E2E9A85221EBB570085145E /* xxtea.cpp in Sources */,
 				0ECC4C6221EB8D4600E3BBF9 /* array.c in Sources */,
+				0E2E9A87221EBB570085145E /* md5.c in Sources */,
 				0ECC4C8421EB8D4600E3BBF9 /* cJSON.c in Sources */,
 				0EE4B2BF21FC9FE60043AC9D /* xpreferences.cpp in Sources */,
 				0ECC4BD621E79E3E00E3BBF9 /* lstrlib.c in Sources */,

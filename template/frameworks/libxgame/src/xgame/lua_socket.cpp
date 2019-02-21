@@ -1,9 +1,5 @@
-//
-// $id: lua_socket.cpp O $
-//
-
-#include "lua_socket.h"
-#include "socket.h"
+#include "xgame/lua_socket.h"
+#include "xgame/xsocket.h"
 
 #include <string.h>
 #include <stdlib.h>
@@ -78,13 +74,6 @@ static int _socket_flush(lua_State *L)
     Socket *self = luaext_touserdata(L, 1, Socket *);
     self->flush();
     return 0;
-}
-
-static int _socket_ipaddr(lua_State *L)
-{
-    Socket *self = luaext_touserdata(L, 1, Socket *);
-    lua_pushstring(L, self->ipaddr());
-    return 1;
 }
 
 static int _socket_read_ubyte(lua_State *L)
@@ -340,7 +329,6 @@ static const luaL_Reg lib[] = {
     {"bytes_available", _socket_bytes_available},
     {"status", _socket_get_status},
     {"flush", _socket_flush},
-    {"ipaddr", _socket_ipaddr},
     {"read_ubyte", _socket_read_ubyte},
     {"write_ubyte", _socket_write_ubyte},
     {"read_ushort", _socket_read_ushort},

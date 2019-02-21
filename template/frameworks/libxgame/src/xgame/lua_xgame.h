@@ -1,7 +1,3 @@
-//
-// $id: lua_xgame.h O $
-//
-
 #ifndef __LUA_XGAME_H__
 #define __LUA_XGAME_H__
 

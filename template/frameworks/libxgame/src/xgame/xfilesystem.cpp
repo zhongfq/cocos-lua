@@ -63,9 +63,13 @@ bool filesystem::createDirectory(const std::string &path, bool isFilePath)
             dir = path.substr(0, idx);
         }
     }
-    bool status = FileUtils::getInstance()->createDirectory(path);
-    runtime::log("[%s] create dir: %s", BOOL_STR(status), filesystem::shortPath(path).c_str());
-    return status;
+    if (filesystem::isDirectory(dir)) {
+        return true;
+    } else {
+        bool status = FileUtils::getInstance()->createDirectory(dir);
+        runtime::log("[%s] create dir: %s", BOOL_STR(status), filesystem::shortPath(dir).c_str());
+        return status;
+    }
 }
 
 bool filesystem::remove(const std::string &path)
@@ -223,6 +227,7 @@ bool filesystem::unzip(const std::string &path, const std::string &dest)
 {
     bool status = _doUnzip(path, dest);
     runtime::log("[%s] unzip: %s => %s",
+        BOOL_STR(status),
         filesystem::shortPath(path).c_str(),
         filesystem::shortPath(dest).c_str());
     return status;

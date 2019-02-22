@@ -1,6 +1,7 @@
 #include "xgame/xruntime.h"
 #include "xgame/xruntime-private.h"
 #include "xgame/xfilesystem.h"
+#include "xgame/xfilefinder.h"
 #include "xgame/xpreferences.h"
 #include "xgame/xrootscene.h"
 #include "xgame/xtimer.h"
@@ -70,6 +71,8 @@ static inline std::string convertPathFormatToUnixStyle(const std::string &path)
 
 void runtime::init()
 {
+    FileFinder::setDelegate(new FileFinder());
+    
 #if CC_TARGET_PLATFORM == CC_PLATFORM_MAC
     std::string path = FileUtils::getInstance()->getWritablePath();
     path = path.substr(0, path.size() - 1);
@@ -328,12 +331,9 @@ void runtime::updateLogTimestamp()
 
 void runtime::setLogPath(const std::string &path)
 {
-    if (_logPath == path && _logFile) {
-        return;
-    }
-    
     if (_logFile) {
         fclose(_logFile);
+        _logFile = nullptr;
     }
     
     _logPath = path;

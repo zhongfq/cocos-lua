@@ -108,8 +108,7 @@ bool filesystem::rename(const std::string &oldPath, const std::string &newPath)
 bool filesystem::copy(const std::string &srcPath, const std::string &destPath)
 {
     bool status = false;
-    if (!strcaseequal(srcPath.c_str(), destPath.c_str()))
-    {
+    if (!strcaseequal(srcPath.c_str(), destPath.c_str())) {
         Data data = FileUtils::getInstance()->getDataFromFile(srcPath);
         if (!data.isNull()) {
             status = FileUtils::getInstance()->writeDataToFile(data, destPath);
@@ -179,8 +178,7 @@ static bool _doUnzip(const std::string &zipPath, const std::string &dest)
             return false;
         }
         
-        if (namebuff[file.size_filename - 1] != '/')
-        {
+        if (namebuff[file.size_filename - 1] != '/') {
             if (unzOpenCurrentFile(zip) != UNZ_OK) {
                 unzClose(zip);
                 return false;

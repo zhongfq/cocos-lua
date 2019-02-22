@@ -21,8 +21,8 @@
 		0E0C705F21F9EFC700049240 /* xlua.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C705521F9EFC700049240 /* xlua.cpp */; };
 		0E0C706021F9EFC700049240 /* xruntime-private-ios-mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C705721F9EFC700049240 /* xruntime-private-ios-mac.mm */; };
 		0E0C706121F9EFC700049240 /* xruntime-private-ios-mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C705721F9EFC700049240 /* xruntime-private-ios-mac.mm */; };
-		0E0C706421F9F38200049240 /* xfile_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C706221F9F38200049240 /* xfile_utils.cpp */; };
-		0E0C706521F9F38200049240 /* xfile_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C706221F9F38200049240 /* xfile_utils.cpp */; };
+		0E0C706421F9F38200049240 /* xfilefinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C706221F9F38200049240 /* xfilefinder.cpp */; };
+		0E0C706521F9F38200049240 /* xfilefinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C706221F9F38200049240 /* xfilefinder.cpp */; };
 		0E0C706821F9F5FE00049240 /* xfilesystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C706621F9F5FE00049240 /* xfilesystem.cpp */; };
 		0E0C706921F9F5FE00049240 /* xfilesystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C706621F9F5FE00049240 /* xfilesystem.cpp */; };
 		0E0C706C21F9F60B00049240 /* xtimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C706A21F9F60B00049240 /* xtimer.cpp */; };
@@ -168,8 +168,8 @@
 		0E0C705521F9EFC700049240 /* xlua.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xlua.cpp; sourceTree = "<group>"; };
 		0E0C705621F9EFC700049240 /* xruntime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xruntime.h; sourceTree = "<group>"; };
 		0E0C705721F9EFC700049240 /* xruntime-private-ios-mac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "xruntime-private-ios-mac.mm"; sourceTree = "<group>"; };
-		0E0C706221F9F38200049240 /* xfile_utils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xfile_utils.cpp; sourceTree = "<group>"; };
-		0E0C706321F9F38200049240 /* xfile_utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xfile_utils.h; sourceTree = "<group>"; };
+		0E0C706221F9F38200049240 /* xfilefinder.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xfilefinder.cpp; sourceTree = "<group>"; };
+		0E0C706321F9F38200049240 /* xfilefinder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xfilefinder.h; sourceTree = "<group>"; };
 		0E0C706621F9F5FE00049240 /* xfilesystem.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xfilesystem.cpp; sourceTree = "<group>"; };
 		0E0C706721F9F5FE00049240 /* xfilesystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xfilesystem.h; sourceTree = "<group>"; };
 		0E0C706A21F9F60B00049240 /* xtimer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xtimer.cpp; sourceTree = "<group>"; };
@@ -338,8 +338,8 @@
 				0E0C702421F9600D00049240 /* xdef.h */,
 				0E0C704921F9EEBD00049240 /* xdownloader.cpp */,
 				0E0C704721F9EEBD00049240 /* xdownloader.h */,
-				0E0C706221F9F38200049240 /* xfile_utils.cpp */,
-				0E0C706321F9F38200049240 /* xfile_utils.h */,
+				0E0C706221F9F38200049240 /* xfilefinder.cpp */,
+				0E0C706321F9F38200049240 /* xfilefinder.h */,
 				0E9D2A6A221A9C76003C2121 /* xfilesystem-private-ios-mac.mm */,
 				0E2E9A59221D4A950085145E /* xfilesystem-private.h */,
 				0E0C706621F9F5FE00049240 /* xfilesystem.cpp */,
@@ -398,11 +398,11 @@
 		0E2E9A7B221EBB570085145E /* crypto */ = {
 			isa = PBXGroup;
 			children = (
-				0E2E9A7C221EBB570085145E /* md5util.c */,
-				0E2E9A7D221EBB570085145E /* md5.h */,
-				0E2E9A7E221EBB570085145E /* xxtea.cpp */,
-				0E2E9A7F221EBB570085145E /* md5util.h */,
 				0E2E9A80221EBB570085145E /* md5.c */,
+				0E2E9A7D221EBB570085145E /* md5.h */,
+				0E2E9A7C221EBB570085145E /* md5util.c */,
+				0E2E9A7F221EBB570085145E /* md5util.h */,
+				0E2E9A7E221EBB570085145E /* xxtea.cpp */,
 				0E2E9A81221EBB570085145E /* xxtea.h */,
 			);
 			name = crypto;
@@ -643,7 +643,7 @@
 				0ECC4BA121E79E3E00E3BBF9 /* ldebug.c in Sources */,
 				0ECC4BD921E79E3E00E3BBF9 /* lstate.c in Sources */,
 				0ECC4C7921EB8D4600E3BBF9 /* wmessage.c in Sources */,
-				0E0C706421F9F38200049240 /* xfile_utils.cpp in Sources */,
+				0E0C706421F9F38200049240 /* xfilefinder.cpp in Sources */,
 				0ECC4BD721E79E3E00E3BBF9 /* lparser.c in Sources */,
 				0ECC4C7B21EB8D4600E3BBF9 /* pattern.c in Sources */,
 				0ECC4BAF21E79E3E00E3BBF9 /* lundump.c in Sources */,
@@ -720,7 +720,7 @@
 				0ECC4BDA21E79E3E00E3BBF9 /* lstate.c in Sources */,
 				0ECC4C7A21EB8D4600E3BBF9 /* wmessage.c in Sources */,
 				0E2E9A3B221C37070085145E /* AppContext-ios.mm in Sources */,
-				0E0C706521F9F38200049240 /* xfile_utils.cpp in Sources */,
+				0E0C706521F9F38200049240 /* xfilefinder.cpp in Sources */,
 				0E2E9A83221EBB570085145E /* md5util.c in Sources */,
 				0E2E9A78221EB7B00085145E /* lua_module.cpp in Sources */,
 				0ECC4BD821E79E3E00E3BBF9 /* lparser.c in Sources */,
@@ -810,6 +810,7 @@
 					USE_FILE32API,
 					"CC_ENABLE_CHIPMUNK_INTEGRATION=1",
 					"CC_ENABLE_SCRIPT_BINDING=0",
+					"CC_FILEUTILS_APPLE_ENABLE_OBJC=0",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -879,6 +880,7 @@
 					NDEBUG,
 					USE_FILE32API,
 					"CC_ENABLE_SCRIPT_BINDING=0",
+					"CC_FILEUTILS_APPLE_ENABLE_OBJC=0",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

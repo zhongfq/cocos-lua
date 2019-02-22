@@ -17,8 +17,7 @@ RootScene* RootScene::create(const std::string &scriptPath)
 void RootScene::onEnter()
 {
     Scene::onEnter();
-    if (_executed == false)
-    {
+    if (_executed == false) {
         _executed = true;
         execute();
     }

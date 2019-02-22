@@ -32,12 +32,9 @@
 inline uint64_t strtov(const char *version)
 {
     uint64_t v1, v2, v3;
-    if (sscanf(version, "%lld.%lld.%lld", &v1, &v2, &v3) == 3)
-    {
+    if (sscanf(version, "%lld.%lld.%lld", &v1, &v2, &v3) == 3) {
         return v1 * 1000000 + v2 * 1000 + v3;
-    }
-    else
-    {
+    } else {
         return 0;
     }
 }

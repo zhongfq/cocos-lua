@@ -8,8 +8,11 @@ function main()
     print("classname", runtime.classname)
     print("super", runtime.super.classname)
 
-    for k,v in pairs(runtime[".super"]) do
-        print(".super", k,v)
+    for k,v in pairs(runtime.class) do
+        print("class table:", k,v)
+    end
+    for k,v in pairs(runtime['.get']) do
+        print("class get:", k,v, v())
     end
 end
 

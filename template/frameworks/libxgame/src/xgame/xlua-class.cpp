@@ -83,8 +83,15 @@ static int xluacls_mt_newindex(lua_State *L)
 
 static int xluacls_mt_tostring(lua_State *L)
 {
-    void *obj = *(void **)lua_touserdata(L, 1);
-    lua_pushfstring(L, "%s: %p", xlua_typename(L, 1), (intptr_t)obj);
+    intptr_t p = 0;
+    if (lua_isuserdata(L, 1)) {
+        p = (intptr_t)(*(void **)lua_touserdata(L, 1));
+    } else {
+        p = (intptr_t)lua_topointer(L, 1);
+    }
+    
+    lua_pushfstring(L, "%s: %p", xlua_typename(L, 1), p);
+
     return 1;
 }
 
@@ -136,11 +143,11 @@ void xluacls_class(lua_State *L, const char *classname, const char *super)
         };
         luaL_setfuncs(L, lib,  4);                          // L: mt
         
-        lua_pushstring(L, classname);
-        xluacls_const(L, "classname");
+        lua_pushvalue(L, -1);
+        xluacls_const(L, "class");
         
         lua_pushstring(L, classname);
-        xlua_rawsetfield(L, cls, "classname");
+        xluacls_const(L, "classname");
         
         if (super) {
             luaL_getmetatable(L, super);
@@ -184,6 +191,9 @@ static int xluacls_constindex(lua_State *L)
 
 void xluacls_const(lua_State *L, const char *field)
 {
+    lua_pushvalue(L, -1);                       // L: mt v v
+    xlua_rawsetfield(L, -3, field);             // L: mt v
+    
     lua_pushcclosure(L, xluacls_constindex, 1); // L: mt getter
     xlua_rawgetfield(L, -2, ".get");            // L: mt getter .get
     lua_insert(L, -2);                          // L: mt .get getter

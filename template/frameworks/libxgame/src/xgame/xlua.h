@@ -36,7 +36,31 @@ LUALIB_API const char *xluaf_checkstring(lua_State *L, int idx, const char *fiel
 LUALIB_API lua_Number xluaf_checknumber(lua_State *L, int idx, const char *field);
 LUALIB_API lua_Integer xluaf_checkinteger(lua_State *L, int idx, const char *field);
 
-// lua class
+//
+// lua class model
+//  class A = {
+//      classname = 'A'
+//      super = B
+//      .super = {
+//          copy(B['.super'])
+//          A.classname = true
+//      }
+//      .func = {
+//          copy(B['.func'])
+//          dosomething = func,
+//      }
+//      .get = {
+//          copy(B['.get'])
+//          classname = const_get(obj, "classname")
+//          super = const_get(obj, "super")
+//          name = get_name(obj, name)
+//      }
+//      .set = {
+//          copy(['B.set'])
+//          name = set_name(obj, name, value)
+//      }
+//  }
+//
 LUALIB_API void xluacls_class(lua_State *L, const char *classname, const char *super_class);
 LUALIB_API void xluacls_property(lua_State *L, const char *field, lua_CFunction getter, lua_CFunction setter);
 LUALIB_API void xluacls_setfunc(lua_State *L, const char *funcname, lua_CFunction func);

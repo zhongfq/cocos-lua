@@ -121,12 +121,12 @@ void xluacls_class(lua_State *L, const char *classname, const char *super)
     if (luaL_getmetatable(L, classname) == LUA_TNIL) {
         lua_pop(L, 1);
         luaL_newmetatable(L, classname);                    // L: mt
-        int mt = lua_gettop(L);
+        int cls = lua_gettop(L);
         
-        xluacls_clonesupertable(L, mt, ".super", super);    // L: mt .super
-        xluacls_clonesupertable(L, mt, ".func", super);     // L: mt .super .func
-        xluacls_clonesupertable(L, mt, ".get", super);      // L: mt .super .func .get
-        xluacls_clonesupertable(L, mt, ".set", super);      // L: mt .super .func .get .set
+        xluacls_clonesupertable(L, cls, ".super", super);    // L: mt .super
+        xluacls_clonesupertable(L, cls, ".func", super);     // L: mt .super .func
+        xluacls_clonesupertable(L, cls, ".get", super);      // L: mt .super .func .get
+        xluacls_clonesupertable(L, cls, ".set", super);      // L: mt .super .func .get .set
 
         static const luaL_Reg lib[] = {
             {"__index", xluacls_mt_index},
@@ -137,7 +137,21 @@ void xluacls_class(lua_State *L, const char *classname, const char *super)
         luaL_setfuncs(L, lib,  4);                          // L: mt
         
         lua_pushstring(L, classname);
-        xlua_rawsetfield(L, -2, "classname");
+        xluacls_const(L, "classname");
+        
+        lua_pushstring(L, classname);
+        xlua_rawsetfield(L, cls, "classname");
+        
+        if (super) {
+            luaL_getmetatable(L, super);
+            xluacls_const(L, "super");
+        }
+        
+        xlua_rawgetfield(L, cls, ".super");
+        lua_pushstring(L, classname);
+        lua_pushboolean(L, true);
+        lua_rawset(L, -3);
+        lua_pop(L, 1);
     }
 }
 
@@ -179,7 +193,16 @@ void xluacls_const(lua_State *L, const char *field)
 
 bool xluacls_is(lua_State *L, int idx, const char *classname)
 {
-    return false;
+    int top = lua_gettop(L);
+    bool is_a = false;
+    if (lua_getmetatable(L, idx)) {
+        if (xlua_rawgetfield(L, -1, ".super") == LUA_TTABLE) {
+            xlua_rawgetfield(L, -1, classname);
+            is_a = lua_toboolean(L, -1);
+        }
+    }
+    lua_settop(L, top);
+    return is_a;
 }
 
 static bool xluacls_internalpush(lua_State *L, void *obj, const char *classname)

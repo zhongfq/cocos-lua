@@ -243,6 +243,23 @@ void xlua_preload(lua_State *L, const char *name, lua_CFunction func)
     lua_pop(L, 1);                                              // L:
 }
 
+void xlua_require(lua_State *L, const char *name, lua_CFunction func)
+{
+    int top = lua_gettop(L);
+    lua_getfield(L, LUA_REGISTRYINDEX, LUA_LOADED_TABLE);
+    if (xlua_rawgetfield(L, -1, name) == LUA_TNIL) {
+        lua_pushcfunction(L, func);
+        lua_pushstring(L, name);
+        if (xlua_pcall(L, 1, LUA_MULTRET) == LUA_OK) {
+            if (lua_isnil(L, -1)) {
+                lua_pushboolean(L, true);
+            }
+            lua_setfield(L, top + 1, name);
+        }
+    }
+    lua_settop(L, top);
+}
+
 static char *simplify_traceback(const char *msg)
 {
     const char *FUNCSTR = ": in function '";

@@ -16,6 +16,7 @@ LUALIB_API int xlua_rawgetfield(lua_State *L, int idx, const char *field);
 LUALIB_API void xlua_rawsetfield(lua_State *L, int idx, const char *field);
 LUALIB_API void xlua_setfunc(lua_State *L, const char *field, lua_CFunction func);
 LUALIB_API void xlua_preload(lua_State *L, const char *name, lua_CFunction func);
+LUALIB_API void xlua_require(lua_State *L, const char *name, lua_CFunction func);
 LUALIB_API int xlua_errorfunc(lua_State *L);
 LUALIB_API int xlua_pcall(lua_State *L, int n, int r);
 LUALIB_API void xlua_call(lua_State *L, lua_CFunction func);

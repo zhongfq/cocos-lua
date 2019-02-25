@@ -22,7 +22,7 @@ static int _coroutine_resume(lua_State *L)
         lua_pushcfunction(L, xlua_errorfunc);
         lua_pushvalue(L, 1);
         lua_pushvalue(L, 3);
-        lua_call(L, 2, 0);
+        lua_pcall(L, 2, 0, 0);
     }
     
     return lua_gettop(L) - 1;
@@ -57,7 +57,7 @@ static int _print(lua_State *L)
         size_t l;
         lua_pushvalue(L, n + 1);
         lua_pushvalue(L, i);
-        lua_call(L, 1, 1);
+        lua_pcall(L, 1, 1, 0);
         s = lua_tolstring(L, -1, &l);
         
         if (luaL_testudata(L, -2, "LUABOX")) {
@@ -316,7 +316,7 @@ int xlua_errorfunc(lua_State *L)
         lua_getglobal(L, "debug");
         lua_getfield(L, -1, "traceback");
         lua_pushvalue(L, 1);
-        lua_call(L, 1, 1);
+        lua_pcall(L, 1, 1, 0);
         errstack1 = simplify_traceback(luaL_gsub(L, luaL_optstring(L, -1, ""), LUA_DIRSEP, "/"));
     } else {
         errmsg = lua_tostring(L, 1);
@@ -326,7 +326,7 @@ int xlua_errorfunc(lua_State *L)
     lua_getfield(L, -1, "traceback");
     lua_pushnil(L);
     lua_pushinteger(L, 2);
-    lua_call(L, 2, 1);
+    lua_pcall(L, 2, 1, 0);
     errstack2 = simplify_traceback(luaL_gsub(L, luaL_optstring(L, -1, ""), LUA_DIRSEP, "/"));
     
     if (errmsg == NULL) {

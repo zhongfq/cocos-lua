@@ -65,7 +65,7 @@ LUALIB_API void xluacls_class(lua_State *L, const char *classname, const char *s
 LUALIB_API void xluacls_property(lua_State *L, const char *field, lua_CFunction getter, lua_CFunction setter);
 LUALIB_API void xluacls_setfunc(lua_State *L, const char *funcname, lua_CFunction func);
 LUALIB_API void xluacls_const(lua_State *L, const char *field);
-LUALIB_API bool xluacls_is(lua_State *L, int idx, const char *classname);
+LUALIB_API bool xluacls_isa(lua_State *L, int idx, const char *classname);
 LUALIB_API void xluacls_pushobj(lua_State *L, void *obj, const char *classname);
 LUALIB_API void xluacls_pushccobj(lua_State *L, cocos2d::Ref *obj, const char *classname);
 LUALIB_API int xluacls_ccobjgc(lua_State *L);

@@ -4,10 +4,14 @@
 
 #define OBJ_REF_TABLE ((void *)xluacls_internalpush)
 
-#define XLUACLS_SUPER   1
-#define XLUACLS_FUNC    2
-#define XLUACLS_GET     3
-#define XLUACLS_SET     4
+#define XLUACLS_ISAIDX  1
+#define XLUACLS_FUNCIDX 2
+#define XLUACLS_GETIDX  3
+#define XLUACLS_SETIDX  4
+#define XLUACLS_ISA     ".isa"
+#define XLUACLS_FUNC    ".func"
+#define XLUACLS_GET     ".get"
+#define XLUACLS_SET     ".set"
 
 const char *xlua_typename(lua_State *L, int idx)
 {
@@ -39,7 +43,7 @@ static int xluacls_mt_index(lua_State *L)
 {
     // try func
     lua_settop(L, 2);                                   // L: t k
-    lua_pushvalue(L, lua_upvalueindex(XLUACLS_FUNC));   // L: t k .func
+    lua_pushvalue(L, lua_upvalueindex(XLUACLS_FUNCIDX));// L: t k .func
     lua_pushvalue(L, 2);                                // L: t k .func k
     if (lua_rawget(L, -2) != LUA_TNIL) {                // L: t k .func v
         return 1;
@@ -47,7 +51,7 @@ static int xluacls_mt_index(lua_State *L)
     
     // try getter
     lua_settop(L, 2);                                   // L: t k
-    lua_pushvalue(L, lua_upvalueindex(XLUACLS_GET));    // L: t k .get
+    lua_pushvalue(L, lua_upvalueindex(XLUACLS_GETIDX)); // L: t k .get
     lua_pushvalue(L, 2);                                // L: t k .get k
     if (lua_rawget(L, -2) != LUA_TNIL) {                // L: t k .get getter
         lua_pushvalue(L, 1);                            // L: t k .get getter t
@@ -67,7 +71,7 @@ static int xluacls_mt_newindex(lua_State *L)
 {
     // try setter
     lua_settop(L, 3);                                   // L: t k v
-    lua_pushvalue(L, lua_upvalueindex(XLUACLS_SET));    // L: t k v .set
+    lua_pushvalue(L, lua_upvalueindex(XLUACLS_SETIDX)); // L: t k v .set
     lua_pushvalue(L, -2);                               // L: t k v .set k
     if (lua_rawget(L, -2) != LUA_TNIL) {                // L: t k v .set setter
         lua_pushvalue(L, 1);                            // L: t k v .set setter t
@@ -130,10 +134,10 @@ void xluacls_class(lua_State *L, const char *classname, const char *super)
         luaL_newmetatable(L, classname);                    // L: mt
         int cls = lua_gettop(L);
         
-        xluacls_clonesupertable(L, cls, ".super", super);    // L: mt .super
-        xluacls_clonesupertable(L, cls, ".func", super);     // L: mt .super .func
-        xluacls_clonesupertable(L, cls, ".get", super);      // L: mt .super .func .get
-        xluacls_clonesupertable(L, cls, ".set", super);      // L: mt .super .func .get .set
+        xluacls_clonesupertable(L, cls, XLUACLS_ISA, super); // L: mt .isa
+        xluacls_clonesupertable(L, cls, XLUACLS_FUNC, super);// L: mt .isa .func
+        xluacls_clonesupertable(L, cls, XLUACLS_GET, super); // L: mt .isa .func .get
+        xluacls_clonesupertable(L, cls, XLUACLS_SET, super); // L: mt .isa .func .get .set
 
         static const luaL_Reg lib[] = {
             {"__index", xluacls_mt_index},
@@ -154,7 +158,7 @@ void xluacls_class(lua_State *L, const char *classname, const char *super)
             xluacls_const(L, "super");
         }
         
-        xlua_rawgetfield(L, cls, ".super");
+        xlua_rawgetfield(L, cls, XLUACLS_ISA);
         lua_pushstring(L, classname);
         lua_pushboolean(L, true);
         lua_rawset(L, -3);
@@ -164,12 +168,12 @@ void xluacls_class(lua_State *L, const char *classname, const char *super)
 
 void xluacls_property(lua_State *L, const char *field, lua_CFunction getter, lua_CFunction setter)
 {
-    xlua_rawgetfield(L, -1, ".get");        // L: mt .get
+    xlua_rawgetfield(L, -1, XLUACLS_GET);   // L: mt .get
     xluacls_pushfunc(L, getter);            // L: mt .get getter
     xlua_rawsetfield(L, -2, field);         // L: mt .get            .get[field] = getter
     lua_pop(L, 1);                          // L: mt
     
-    xlua_rawgetfield(L, -1, ".set");        // L: mt .set
+    xlua_rawgetfield(L, -1, XLUACLS_SET);   // L: mt .set
     xluacls_pushfunc(L, setter);            // L: mt .set setter
     xlua_rawsetfield(L, -2, field);         // L: mt .set            .set[field] = setter
     lua_pop(L, 1);                          // L: mt
@@ -177,7 +181,7 @@ void xluacls_property(lua_State *L, const char *field, lua_CFunction getter, lua
 
 void xluacls_setfunc(lua_State *L, const char *funcname, lua_CFunction func)
 {
-    xlua_rawgetfield(L, -1, ".func");       // L: mt .func
+    xlua_rawgetfield(L, -1, XLUACLS_FUNC);  // L: mt .func
     xluacls_pushfunc(L, func);              // L: mt .func func
     xlua_rawsetfield(L, -2, funcname);      // L: mt .func            .func[funcname] = func
     lua_pop(L, 1);                          // L: mt
@@ -195,18 +199,18 @@ void xluacls_const(lua_State *L, const char *field)
     xlua_rawsetfield(L, -3, field);             // L: mt v
     
     lua_pushcclosure(L, xluacls_constindex, 1); // L: mt getter
-    xlua_rawgetfield(L, -2, ".get");            // L: mt getter .get
+    xlua_rawgetfield(L, -2, XLUACLS_GET);       // L: mt getter .get
     lua_insert(L, -2);                          // L: mt .get getter
     xlua_rawsetfield(L, -2, field);             // L: mt .get
     lua_pop(L, 1);                              // L: mt
 }
 
-bool xluacls_is(lua_State *L, int idx, const char *classname)
+bool xluacls_isa(lua_State *L, int idx, const char *classname)
 {
     int top = lua_gettop(L);
     bool is_a = false;
     if (lua_getmetatable(L, idx)) {
-        if (xlua_rawgetfield(L, -1, ".super") == LUA_TTABLE) {
+        if (xlua_rawgetfield(L, -1, XLUACLS_ISA) == LUA_TTABLE) {
             xlua_rawgetfield(L, -1, classname);
             is_a = lua_toboolean(L, -1);
         }
@@ -274,7 +278,7 @@ int xluacls_ccobjgc(lua_State *L)
 
 void *xluacls_checkobj(lua_State *L, int idx, const char *classname)
 {
-    if (xluacls_is(L, idx, classname)) {
+    if (xluacls_isa(L, idx, classname)) {
         return *(void **)lua_touserdata(L, idx);
     } else {
         luaL_error(L, "#%d argument error, expect: '%s', got '%s'", idx,

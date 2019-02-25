@@ -4,10 +4,10 @@
 
 #include "cocos2d.h"
 
-#define XLUA_MAPPING_TABLE "xlua_mapping_table"
-
 USING_NS_CC;
 USING_NS_XGAME;
+
+#define XLUA_REF_TABLE ((void *)xlua_getmappingtable)
 
 static int _coroutine_resume(lua_State *L)
 {
@@ -108,9 +108,13 @@ static int xlua_addsearchpath(lua_State *L)
 static const char *_pushnexttemplate (lua_State *L, const char *path) {
     const char *l;
     while (*path == ';') path++;
-    if (*path == '\0') return NULL;
+    if (*path == '\0') {
+        return NULL;
+    }
     l = strchr(path, ';');
-    if (l == NULL) l = path + strlen(path);
+    if (l == NULL) {
+        l = path + strlen(path);
+    }
     lua_pushlstring(L, path, l - path);
     return l;
 }
@@ -133,10 +137,10 @@ static int _loader (lua_State *L)
             
             lua_pushfstring(L, "%s%s", "@", filename);
             int status = luaL_loadbuffer(L, (const char *)buffer.getBytes(),
-                                         (size_t)buffer.getSize(), lua_tostring(L, -1));
+                (size_t)buffer.getSize(), lua_tostring(L, -1));
             if (status != LUA_OK) {
                 return luaL_error(L, "error loading module '%s' from file '%s':\n\t%s",
-                                  lua_tostring(L, 1), filename, lua_tostring(L, -1));
+                    lua_tostring(L, 1), filename, lua_tostring(L, -1));
             }
             
             lua_pushstring(L, filename);
@@ -209,6 +213,21 @@ void xlua_setnilfield(lua_State *L, const char *field)
     lua_rawset(L, -3);
 }
 
+int xlua_rawgetfield(lua_State *L, int idx, const char *field)
+{
+    idx = lua_absindex(L, idx);
+    lua_pushstring(L, field);
+    return lua_rawget(L, idx);
+}
+
+void xlua_rawsetfield(lua_State *L, int idx, const char *field)
+{
+    idx = lua_absindex(L, idx);
+    lua_pushstring(L, field);
+    lua_insert(L, -2);
+    lua_rawset(L, idx);
+}
+
 void xlua_setfunc(lua_State *L, const char *field, lua_CFunction func)
 {
     lua_pushstring(L, field);
@@ -232,43 +251,34 @@ static char *simplify_traceback(const char *msg)
     int count = 0;
     char *buffer = (char *)malloc(len + 1);
     const char *end = msg + len;
-    while (msg < end)
-    {
+    while (msg < end) {
         const char *funcstart = strstr(msg, FUNCSTR);
-        if (funcstart)
-        {
+        if (funcstart) {
             funcstart += funclen;
             memcpy(buffer + count, msg, funcstart - msg);
             count += funcstart - msg;
             msg = funcstart;
             
             const char *funcend = strchr(msg, '\'');
-            if (funcend)
-            {
+            if (funcend) {
                 funcend++;
                 const char *dotstart = msg;
-                while (dotstart < funcend)
-                {
+                while (dotstart < funcend) {
                     if (*dotstart++ == '.')
                         msg = dotstart;
                 }
                 memcpy(buffer + count, msg, funcend - msg);
                 count += funcend - msg;
                 msg = funcend;
-            }
-            else
-            {
+            } else {
                 break;
             }
-        }
-        else
-        {
+        } else {
             break;
         }
     }
     
-    if (msg < end)
-    {
+    if (msg < end) {
         memcpy(buffer + count, msg, end - msg);
         count += end - msg;
     }
@@ -338,7 +348,7 @@ int xlua_errorfunc(lua_State *L)
 int xlua_pcall(lua_State *L, int n, int r)
 {
     int errfunc, status;
-    lua_pushcfunction(L, xlua_trackback);       // L: func arg1 ... argN errfunc
+    lua_pushcfunction(L, xlua_errorfunc);       // L: func arg1 ... argN errfunc
     errfunc = lua_absindex(L, -(n + 1 + 1));    // n(args) + 1(func) + 1(errfunc)
     lua_insert(L, errfunc);                     // L: errfunc func arg1 ... argN
     status = lua_pcall(L, n, r, errfunc);       // L: errfunc ret1 ... retN
@@ -390,13 +400,11 @@ int xlua_dofile(lua_State *L, const char *filename)
 
 static void xlua_getmappingtable(lua_State *L)
 {
-    lua_pushstring(L, XLUA_MAPPING_TABLE);
-    if (lua_rawget(L, LUA_REGISTRYINDEX) == LUA_TNIL) {
+    if (lua_rawgetp(L, LUA_REGISTRYINDEX, XLUA_REF_TABLE) == LUA_TNIL) {
         lua_pop(L, 1); // pop nil
         lua_newtable(L);
-        lua_pushstring(L, XLUA_MAPPING_TABLE);
-        lua_pushvalue(L, -2);
-        lua_rawset(L, LUA_REGISTRYINDEX);
+        lua_pushvalue(L, -1);
+        lua_rawsetp(L, LUA_REGISTRYINDEX, XLUA_REF_TABLE);
     }
     luaL_checktype(L, -1, LUA_TTABLE);
 }
@@ -420,6 +428,7 @@ int xlua_ref(lua_State *L, int idx)
 
 int xlua_reffunc(lua_State *L, int idx)
 {
+    idx = lua_absindex(L, idx);
     luaL_checktype(L, idx, LUA_TFUNCTION);
     return xlua_ref(L, idx);
 }
@@ -439,12 +448,12 @@ void xlua_getref(lua_State *L, int ref)
 {
     xlua_getmappingtable(L);
     lua_rawgeti(L, -1, ref);
-    lua_insert(L, -2);
-    lua_pop(L, 1); // pop mapping table
+    lua_remove(L, -2); // pop mapping table
 }
 
 const char *xluaf_getstring(lua_State *L, int idx, const char *field, const char *default_value)
 {
+    idx = lua_absindex(L, idx);
     lua_getfield(L, idx, field);
     const char *value = luaL_optstring(L, -1, default_value);
     lua_pop(L, 1);
@@ -453,6 +462,7 @@ const char *xluaf_getstring(lua_State *L, int idx, const char *field, const char
 
 bool xluaf_getboolean(lua_State *L, int idx, const char *field, bool default_value)
 {
+    idx = lua_absindex(L, idx);
     lua_getfield(L, idx, field);
     bool value = xlua_optboolean(L, -1, default_value);
     lua_pop(L, 1);
@@ -461,6 +471,7 @@ bool xluaf_getboolean(lua_State *L, int idx, const char *field, bool default_val
 
 lua_Number xluaf_getnumber(lua_State *L, int idx, const char *field, lua_Number default_value)
 {
+    idx = lua_absindex(L, idx);
     lua_getfield(L, idx, field);
     float value = luaL_optnumber(L, -1, default_value);
     lua_pop(L, 1);
@@ -469,6 +480,7 @@ lua_Number xluaf_getnumber(lua_State *L, int idx, const char *field, lua_Number 
 
 lua_Integer xluaf_getinteger(lua_State *L, int idx, const char *field, lua_Integer default_value)
 {
+    idx = lua_absindex(L, idx);
     lua_getfield(L, idx, field);
     lua_Integer value = luaL_optinteger(L, -1, default_value);
     lua_pop(L, 1);
@@ -477,6 +489,7 @@ lua_Integer xluaf_getinteger(lua_State *L, int idx, const char *field, lua_Integ
 
 const char *xluaf_checkstring(lua_State *L, int idx, const char *field)
 {
+    idx = lua_absindex(L, idx);
     lua_getfield(L, idx, field);
     const char *value = luaL_checkstring(L, -1);
     lua_pop(L, 1);
@@ -485,6 +498,7 @@ const char *xluaf_checkstring(lua_State *L, int idx, const char *field)
 
 lua_Number xluaf_checknumber(lua_State *L, int idx, const char *field)
 {
+    idx = lua_absindex(L, idx);
     lua_getfield(L, idx, field);
     float value = (float) luaL_checknumber(L, -1);
     lua_pop(L, 1);
@@ -493,6 +507,7 @@ lua_Number xluaf_checknumber(lua_State *L, int idx, const char *field)
 
 lua_Integer xluaf_checkinteger(lua_State *L, int idx, const char *field)
 {
+    idx = lua_absindex(L, idx);
     lua_getfield(L, idx, field);
     lua_Integer value = luaL_checkinteger(L, -1);
     lua_pop(L, 1);

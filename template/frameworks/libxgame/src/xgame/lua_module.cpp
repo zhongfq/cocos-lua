@@ -1,5 +1,6 @@
 #include "xgame/lua_module.h"
 #include "xgame/lua_crypto.h"
+#include "xgame/lua_xgame.h"
 #include "xgame/xruntime.h"
 #include "xgame/xlua.h"
 #include "cjson/lua_cjson.h"
@@ -15,6 +16,8 @@ int luaopen_module(lua_State *L)
     xlua_preload(L, "crypto.xxtea", luaopen_xxtea);
     xlua_preload(L, "cjson", luaopen_cjson);
     xlua_preload(L, "cjson.safe", luaopen_cjson_safe);
+    
+    xlua_call(L, luaopen_xgame);
     
     return 0;
 }

@@ -11,7 +11,7 @@ function main()
     for k,v in pairs(runtime.class) do
         print("class table:", k,v)
     end
-    for k,v in pairs(runtime['.get']) do
+    for k,v in pairs(runtime.class['.get']) do
         print("class get:", k,v, v())
     end
 end

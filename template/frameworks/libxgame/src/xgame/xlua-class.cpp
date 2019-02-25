@@ -208,15 +208,15 @@ void xluacls_const(lua_State *L, const char *field)
 bool xluacls_isa(lua_State *L, int idx, const char *classname)
 {
     int top = lua_gettop(L);
-    bool is_a = false;
+    bool isa = false;
     if (lua_getmetatable(L, idx)) {
         if (xlua_rawgetfield(L, -1, XLUACLS_ISA) == LUA_TTABLE) {
             xlua_rawgetfield(L, -1, classname);
-            is_a = lua_toboolean(L, -1);
+            isa = lua_toboolean(L, -1);
         }
     }
     lua_settop(L, top);
-    return is_a;
+    return isa;
 }
 
 static bool xluacls_internalpush(lua_State *L, void *obj, const char *classname)

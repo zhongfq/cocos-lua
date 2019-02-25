@@ -27,6 +27,7 @@ static int luaopen_runtime(lua_State *L)
     xluacls_class(L, "kernel.runtime", "kernel.object");
     xluacls_property(L, "version", _runtime_get_version, nullptr);
     
+    lua_newtable(L);
     luaL_setmetatable(L, "kernel.runtime");
     
     return 1;

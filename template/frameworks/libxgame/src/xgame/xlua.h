@@ -41,8 +41,8 @@ LUALIB_API lua_Integer xluaf_checkinteger(lua_State *L, int idx, const char *fie
 //  class A = {
 //      classname = 'A'
 //      super = B
-//      .super = {
-//          copy(B['.super'])
+//      .isa = {
+//          copy(B['.isa'])
 //          A.classname = true
 //      }
 //      .func = {

@@ -1,5 +1,6 @@
 local cjson = require "cjson"
 local runtime = require "kernel.runtime"
+local preferences = require "kernel.preferences"
 
 function main()
     print("hello bootstrap!")
@@ -15,6 +16,8 @@ function main()
     end
 
     print("###", runtime.isRestarting())
+
+    print("preferences", preferences.getString("conf.version.runtime"))
 end
 
 local r = setmetatable({}, {__gc = function ()

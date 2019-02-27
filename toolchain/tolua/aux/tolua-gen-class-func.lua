@@ -56,9 +56,18 @@ function gen_class_func(cls, fi, write)
         local ARG_N = i
         local TO_ARG = ai.TYPE.TO
         local IDX = idx
-        ARGS_STATEMENT[#ARGS_STATEMENT + 1] = format_snippet([[
-            ${DECL_TYPE} arg${ARG_N} = (${TYPE})${TO_ARG}(L, ${IDX});
-        ]])
+
+        if ai.VALUE then
+            TO_ARG = ai.TYPE.OPT
+            local VALUE = ai.VALUE
+            ARGS_STATEMENT[#ARGS_STATEMENT + 1] = format_snippet([[
+                ${DECL_TYPE} arg${ARG_N} = (${TYPE})${TO_ARG}(L, ${IDX}, ${VALUE});
+            ]])
+        else
+            ARGS_STATEMENT[#ARGS_STATEMENT + 1] = format_snippet([[
+                ${DECL_TYPE} arg${ARG_N} = (${TYPE})${TO_ARG}(L, ${IDX});
+            ]])
+        end
     end
 
     LUA_SETTOP = string.format(LUA_SETTOP, TOTAL_ARGS)

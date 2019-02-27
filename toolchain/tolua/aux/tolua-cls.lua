@@ -52,6 +52,7 @@ local function parse_args(func_decl)
             args[#args + 1] = {
                 TYPE = assert(get_type_info(t), t),
                 DECL_TYPE = t,
+                VALUE = d,
             }
         end
     end

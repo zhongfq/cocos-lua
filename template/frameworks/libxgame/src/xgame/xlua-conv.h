@@ -6,55 +6,30 @@
 
 #include "base/CCRef.h"
 
-static void xluacv_push_bool(lua_State *L, bool value)
-{
-    lua_pushboolean(L, value);
-}
+#include <string>
 
-static bool xluacv_to_bool(lua_State *L, int idx)
-{
-    return lua_toboolean(L, idx);
-}
+LUALIB_API void xluacv_push_bool(lua_State *L, bool value);
+LUALIB_API bool xluacv_to_bool(lua_State *L, int idx);
+LUALIB_API bool xluacv_option_bool(lua_State *L, int idx, bool default_value);
 
-static void xluacv_push_std_string(lua_State *L, const std::string &value)
-{
-    lua_pushstring(L, value.c_str());
-}
+LUALIB_API void xluacv_push_std_string(lua_State *L, const std::string &value);
+LUALIB_API const std::string xluacv_to_std_string(lua_State *L, int idx);
+LUALIB_API const std::string xluacv_option_std_string(lua_State *L, int idx, const std::string &default_value);
 
-static const std::string xluacv_to_std_string(lua_State *L, int idx)
-{
-    return luaL_checkstring(L, idx);
-}
+LUALIB_API void xluacv_push_string(lua_State *L, const char *value);
+LUALIB_API const char *xluacv_to_string(lua_State *L, int idx);
+LUALIB_API const char *xluacv_option_string(lua_State *L, int idx, const char *default_value);
 
-static void xluacv_push_string(lua_State *L, const char *value)
-{
-    lua_pushstring(L, value);
-}
+LUALIB_API void xluacv_push_number(lua_State *L, lua_Number value);
+LUALIB_API lua_Number xluacv_to_number(lua_State *L, int idx);
+LUALIB_API lua_Number xluacv_option_number(lua_State *L, int idx, lua_Number default_value);
 
-static const char *xluacv_to_string(lua_State *L, int idx)
-{
-    return luaL_checkstring(L, idx);
-}
+LUALIB_API void xluacv_push_int(lua_State *L, lua_Integer value);
+LUALIB_API lua_Integer xluacv_to_int(lua_State *L, int idx);
+LUALIB_API lua_Integer xluacv_option_int(lua_State *L, int idx, lua_Integer default_value);
 
-static void xluacv_push_number(lua_State *L, lua_Number value)
-{
-    lua_pushnumber(L, value);
-}
-
-static void xluacv_push_int(lua_State *L, lua_Integer value)
-{
-    lua_pushinteger(L, value);
-}
-
-static void xluacv_push_uint(lua_State *L, lua_Unsigned value)
-{
-    xluacv_push_int(L, (lua_Integer)value);
-}
-
-static lua_Unsigned xluacv_to_uint(lua_State *L, int idx)
-{
-    return (lua_Unsigned)luaL_checkinteger(L, idx);
-}
-
+LUALIB_API void xluacv_push_uint(lua_State *L, lua_Unsigned value);
+LUALIB_API lua_Unsigned xluacv_to_uint(lua_State *L, int idx);
+LUALIB_API lua_Unsigned xluacv_option_uint(lua_State *L, int idx, lua_Unsigned default_value);
 
 #endif

@@ -3,6 +3,17 @@ local function gen_class_funcs(cls, write)
         gen_class_func(cls, fi, write)
         write('')
     end
+
+    for i, pi in ipairs(cls.PROPS) do
+        if pi.GET then
+            gen_class_func(cls, pi.GET, write)
+            write('')
+        end
+        if pi.SET then
+            gen_class_func(cls, pi.SET, write)
+            write('')
+        end
+    end
 end
 
 local function gen_class_open(cls, write)
@@ -26,8 +37,24 @@ local function gen_class_open(cls, write)
     for i, fi in ipairs(cls.FUNCS) do
         local FUNC = fi.FUNC
         local FUNC_NAME = fi.NAME
-        FUNCS[i] = format_snippet([[
+        FUNCS[#FUNCS + 1] = format_snippet([[
             xluacls_setfunc(L, "${FUNC_NAME}", _${CLASS_PATH}_${FUNC});
+        ]])
+    end
+
+    for i, pi in ipairs(cls.PROPS) do
+        -- LUALIB_API void xluacls_property(lua_State *L, const char *field, lua_CFunction getter, lua_CFunction setter);
+        local FUNC_NAME = pi.NAME
+        local FUNC_GET = "nullptr"
+        local FUNC_SET = "nullptr"
+        if pi.GET then
+            FUNC_GET = string.format("_%s_%s", CLASS_PATH, pi.GET.FUNC)
+        end
+        if pi.SET then
+            FUNC_SET = string.format("_%s_%s", CLASS_PATH, pi.SET.FUNC)
+        end
+        FUNCS[#FUNCS + 1] = format_snippet([[
+            xluacls_property(L, "${FUNC_NAME}", ${FUNC_GET}, ${FUNC_SET});
         ]])
     end
 

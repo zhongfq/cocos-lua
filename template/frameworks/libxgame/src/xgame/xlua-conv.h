@@ -51,4 +51,10 @@ static void xluacv_push_uint(lua_State *L, lua_Unsigned value)
     lua_pushinteger(L, (lua_Integer)value);
 }
 
+static lua_Unsigned xluacv_to_uint(lua_State *L, int idx)
+{
+    return (lua_Unsigned)luaL_checkinteger(L, idx);
+}
+
+
 #endif

@@ -110,6 +110,16 @@ function class(module)
         cls.PROPS[#cls.PROPS + 1] = parse_prop(name, func_get, func_set)
     end
 
+    function cls.const(name, value)
+        local tv = type(value)
+        assert(tv == "boolean" or tv == "number" or tv == "string", tv)
+        cls.CONSTS[#cls.CONSTS + 1] = {
+            NAME = assert(name),
+            VALUE = value,
+            TYPE = tv == "number" and (math.type(value)) or tv,
+        }
+    end
+
     module.CLASSES[#module.CLASSES + 1] = cls
 
     return cls

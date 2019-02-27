@@ -43,7 +43,6 @@ local function gen_class_open(cls, write)
     end
 
     for i, pi in ipairs(cls.PROPS) do
-        -- LUALIB_API void xluacls_property(lua_State *L, const char *field, lua_CFunction getter, lua_CFunction setter);
         local FUNC_NAME = pi.NAME
         local FUNC_GET = "nullptr"
         local FUNC_SET = "nullptr"
@@ -55,6 +54,25 @@ local function gen_class_open(cls, write)
         end
         FUNCS[#FUNCS + 1] = format_snippet([[
             xluacls_property(L, "${FUNC_NAME}", ${FUNC_GET}, ${FUNC_SET});
+        ]])
+    end
+
+    for i, ci in ipairs(cls.CONSTS) do
+        local CONST_FUNC
+        local CONST_VALUE = ci.VALUE
+        local CONST_NAME = ci.NAME
+        if ci.TYPE == "boolean" then
+            CONST_FUNC = "xluacls_const_bool"
+        elseif ci.TYPE == "integer" then
+            CONST_FUNC = "xluacls_const_integer"
+        elseif ci.TYPE == "float" then
+            CONST_FUNC = "xluacls_const_number"
+        elseif ci.TYPE == "string" then
+            CONST_FUNC = "xluacls_const_string"
+            CONST_VALUE = '"' .. CONST_VALUE .. '"'
+        end
+        FUNCS[#FUNCS + 1] = format_snippet([[
+            ${CONST_FUNC}(L, "${CONST_NAME}", ${CONST_VALUE});
         ]])
     end
 

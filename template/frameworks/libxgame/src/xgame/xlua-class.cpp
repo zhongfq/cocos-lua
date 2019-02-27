@@ -205,6 +205,30 @@ void xluacls_const(lua_State *L, const char *field)
     lua_pop(L, 1);                              // L: mt
 }
 
+void xluacls_const_bool(lua_State *L, const char *field, bool value)
+{
+    lua_pushboolean(L, value);
+    xluacls_const(L, field);
+}
+
+void xluacls_const_number(lua_State *L, const char *field, lua_Number value)
+{
+    lua_pushnumber(L, value);
+    xluacls_const(L, field);
+}
+
+void xluacls_const_integer(lua_State *L, const char *field, lua_Integer value)
+{
+    lua_pushinteger(L, value);
+    xluacls_const(L, field);
+}
+
+void xluacls_const_string(lua_State *L, const char *field, const char *value)
+{
+    lua_pushstring(L, value);
+    xluacls_const(L, field);
+}
+
 bool xluacls_isa(lua_State *L, int idx, const char *classname)
 {
     int top = lua_gettop(L);

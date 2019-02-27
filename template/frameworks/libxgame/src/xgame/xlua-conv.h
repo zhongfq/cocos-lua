@@ -48,7 +48,7 @@ static void xluacv_push_int(lua_State *L, lua_Integer value)
 
 static void xluacv_push_uint(lua_State *L, lua_Unsigned value)
 {
-    lua_pushinteger(L, (lua_Integer)value);
+    xluacv_push_int(L, (lua_Integer)value);
 }
 
 static lua_Unsigned xluacv_to_uint(lua_State *L, int idx)

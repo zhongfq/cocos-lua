@@ -15,7 +15,6 @@ function main()
     end
 
     print("###", runtime.isRestarting())
-    print("###", runtime.getPackageName())
 end
 
 local r = setmetatable({}, {__gc = function ()

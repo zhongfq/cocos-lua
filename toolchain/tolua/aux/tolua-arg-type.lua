@@ -26,13 +26,8 @@ register_type {
 }
 
 register_type {
-    NAME = 'float', 
+    NAME = 'float|double', 
     CONV = "xluacv_$ACTION_number",
-}
-
-register_type {
-    NAME = 'double',
-    CONV = "xluacv_$ACTION_number"
 }
 
 register_type {
@@ -41,6 +36,11 @@ register_type {
 }
 
 register_type {
-    NAME = 'unsigned int', 
+    NAME = 'unsigned int|size_t', 
     CONV = "xluacv_$ACTION_uint",
+}
+
+register_type {
+    NAME = 'cocos2d::Data', 
+    CONV = "xluacv_$ACTION_ccdata",
 }

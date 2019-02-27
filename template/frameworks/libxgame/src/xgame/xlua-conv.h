@@ -4,7 +4,7 @@
 #include "xgame/xdef.h"
 #include "lua.hpp"
 
-#include "base/CCRef.h"
+#include "cocos2d.h"
 
 #include <string>
 
@@ -31,5 +31,7 @@ LUALIB_API lua_Integer xluacv_opt_int(lua_State *L, int idx, lua_Integer default
 LUALIB_API void xluacv_push_uint(lua_State *L, lua_Unsigned value);
 LUALIB_API lua_Unsigned xluacv_to_uint(lua_State *L, int idx);
 LUALIB_API lua_Unsigned xluacv_opt_uint(lua_State *L, int idx, lua_Unsigned default_value);
+
+LUALIB_API void xluacv_push_ccdata(lua_State *L, const cocos2d::Data &value);
 
 #endif

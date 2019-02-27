@@ -127,13 +127,15 @@ function stringfy(value)
 end
 
 function register_type(option)
-    local type_name = string.gsub(option.NAME, '[ ]*%*', '*')
-    option.NAME = type_name
+    for n in string.gmatch(option.NAME, '[^|]+') do
+        local type_name = string.gsub(n, '[ ]*%*', '*')
+        local info = setmetatable({}, {__index = option})
+        info.NAME = type_name
+        type_info[type_name] = info
+        type_info['const ' .. type_name] = info
 
-    type_info[type_name] = option
-    type_info['const ' .. type_name] = option
-
-    option.PUSH = string.gsub(option.CONV, '$ACTION', "push")
-    option.TO = string.gsub(option.CONV, '$ACTION', "to")
-    option.OPT = string.gsub(option.CONV, '$ACTION', "opt")
+        info.PUSH = string.gsub(info.CONV, '$ACTION', "push")
+        info.TO = string.gsub(info.CONV, '$ACTION', "to")
+        info.OPT = string.gsub(info.CONV, '$ACTION', "opt")
+    end
 end

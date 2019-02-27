@@ -149,13 +149,179 @@ static int luaopen_kernel_runtime(lua_State *L)
     
     return 1;
 }
-static int luaopen_kernel_filesytem(lua_State *L)
+static int _kernel_filesystem_shortPath(lua_State *L)
 {
-    xluacls_class(L, "kernel.filesytem", nullptr);
+    lua_settop(L, 2);
+    const std::string & arg1 = (std::string)xluacv_to_std_string(L, 1);
+    size_t arg2 = (size_t)xluacv_opt_uint(L, 2, 60);
+    const std::string ret = (std::string)xgame::filesystem::shortPath(arg1, arg2);
+    xluacv_push_std_string(L, ret);
+    return 1;
+}
+
+static int _kernel_filesystem_createDirectory(lua_State *L)
+{
+    lua_settop(L, 2);
+    const std::string & arg1 = (std::string)xluacv_to_std_string(L, 1);
+    bool arg2 = (bool)xluacv_opt_bool(L, 2, false);
+    bool ret = (bool)xgame::filesystem::createDirectory(arg1, arg2);
+    xluacv_push_bool(L, ret);
+    return 1;
+}
+
+static int _kernel_filesystem_remove(lua_State *L)
+{
+    lua_settop(L, 1);
+    const std::string & arg1 = (std::string)xluacv_to_std_string(L, 1);
+    bool ret = (bool)xgame::filesystem::remove(arg1);
+    xluacv_push_bool(L, ret);
+    return 1;
+}
+
+static int _kernel_filesystem_exist(lua_State *L)
+{
+    lua_settop(L, 1);
+    const std::string & arg1 = (std::string)xluacv_to_std_string(L, 1);
+    bool ret = (bool)xgame::filesystem::exist(arg1);
+    xluacv_push_bool(L, ret);
+    return 1;
+}
+
+static int _kernel_filesystem_isFile(lua_State *L)
+{
+    lua_settop(L, 1);
+    const std::string & arg1 = (std::string)xluacv_to_std_string(L, 1);
+    bool ret = (bool)xgame::filesystem::isFile(arg1);
+    xluacv_push_bool(L, ret);
+    return 1;
+}
+
+static int _kernel_filesystem_isDirectory(lua_State *L)
+{
+    lua_settop(L, 1);
+    const std::string & arg1 = (std::string)xluacv_to_std_string(L, 1);
+    bool ret = (bool)xgame::filesystem::isDirectory(arg1);
+    xluacv_push_bool(L, ret);
+    return 1;
+}
+
+static int _kernel_filesystem_rename(lua_State *L)
+{
+    lua_settop(L, 2);
+    const std::string & arg1 = (std::string)xluacv_to_std_string(L, 1);
+    const std::string & arg2 = (std::string)xluacv_to_std_string(L, 2);
+    bool ret = (bool)xgame::filesystem::rename(arg1, arg2);
+    xluacv_push_bool(L, ret);
+    return 1;
+}
+
+static int _kernel_filesystem_copy(lua_State *L)
+{
+    lua_settop(L, 2);
+    const std::string & arg1 = (std::string)xluacv_to_std_string(L, 1);
+    const std::string & arg2 = (std::string)xluacv_to_std_string(L, 2);
+    bool ret = (bool)xgame::filesystem::copy(arg1, arg2);
+    xluacv_push_bool(L, ret);
+    return 1;
+}
+
+static int _kernel_filesystem_write(lua_State *L)
+{
+    lua_settop(L, 3);
+    const std::string & arg1 = (std::string)xluacv_to_std_string(L, 1);
+    const char * arg2 = (char*)xluacv_to_string(L, 2);
+    size_t arg3 = (size_t)xluacv_to_uint(L, 3);
+    bool ret = (bool)xgame::filesystem::write(arg1, arg2, arg3);
+    xluacv_push_bool(L, ret);
+    return 1;
+}
+
+static int _kernel_filesystem_read(lua_State *L)
+{
+    lua_settop(L, 1);
+    const std::string & arg1 = (std::string)xluacv_to_std_string(L, 1);
+    cocos2d::Data ret = (cocos2d::Data)xgame::filesystem::read(arg1);
+    xluacv_push_ccdata(L, ret);
+    return 1;
+}
+
+static int _kernel_filesystem_unzip(lua_State *L)
+{
+    lua_settop(L, 2);
+    const std::string & arg1 = (std::string)xluacv_to_std_string(L, 1);
+    const std::string & arg2 = (std::string)xluacv_to_std_string(L, 2);
+    bool ret = (bool)xgame::filesystem::unzip(arg1, arg2);
+    xluacv_push_bool(L, ret);
+    return 1;
+}
+
+static int _kernel_filesystem_getWritablePath(lua_State *L)
+{
+    lua_settop(L, 0);
     
+    const std::string ret = (std::string)xgame::filesystem::getWritablePath();
+    xluacv_push_std_string(L, ret);
+    return 1;
+}
+
+static int _kernel_filesystem_getCacheDirectory(lua_State *L)
+{
+    lua_settop(L, 0);
+    
+    const std::string ret = (std::string)xgame::filesystem::getCacheDirectory();
+    xluacv_push_std_string(L, ret);
+    return 1;
+}
+
+static int _kernel_filesystem_getDocumentDirectory(lua_State *L)
+{
+    lua_settop(L, 0);
+    
+    const std::string ret = (std::string)xgame::filesystem::getDocumentDirectory();
+    xluacv_push_std_string(L, ret);
+    return 1;
+}
+
+static int _kernel_filesystem_getTmpDirectory(lua_State *L)
+{
+    lua_settop(L, 0);
+    
+    const std::string ret = (std::string)xgame::filesystem::getTmpDirectory();
+    xluacv_push_std_string(L, ret);
+    return 1;
+}
+
+static int _kernel_filesystem_getSDCardDirectory(lua_State *L)
+{
+    lua_settop(L, 0);
+    
+    const std::string ret = (std::string)xgame::filesystem::getSDCardDirectory();
+    xluacv_push_std_string(L, ret);
+    return 1;
+}
+
+static int luaopen_kernel_filesystem(lua_State *L)
+{
+    xluacls_class(L, "kernel.filesystem", nullptr);
+    xluacls_setfunc(L, "shortPath", _kernel_filesystem_shortPath);
+    xluacls_setfunc(L, "createDirectory", _kernel_filesystem_createDirectory);
+    xluacls_setfunc(L, "remove", _kernel_filesystem_remove);
+    xluacls_setfunc(L, "exist", _kernel_filesystem_exist);
+    xluacls_setfunc(L, "isFile", _kernel_filesystem_isFile);
+    xluacls_setfunc(L, "isDirectory", _kernel_filesystem_isDirectory);
+    xluacls_setfunc(L, "rename", _kernel_filesystem_rename);
+    xluacls_setfunc(L, "copy", _kernel_filesystem_copy);
+    xluacls_setfunc(L, "write", _kernel_filesystem_write);
+    xluacls_setfunc(L, "read", _kernel_filesystem_read);
+    xluacls_setfunc(L, "unzip", _kernel_filesystem_unzip);
+    xluacls_property(L, "writablePath", _kernel_filesystem_getWritablePath, nullptr);
+    xluacls_property(L, "cacheDirectory", _kernel_filesystem_getCacheDirectory, nullptr);
+    xluacls_property(L, "documentDirectory", _kernel_filesystem_getDocumentDirectory, nullptr);
+    xluacls_property(L, "tmpDirectory", _kernel_filesystem_getTmpDirectory, nullptr);
+    xluacls_property(L, "sdCardDirectory", _kernel_filesystem_getSDCardDirectory, nullptr);
     
     lua_newtable(L);
-    luaL_setmetatable(L, "kernel.filesytem");
+    luaL_setmetatable(L, "kernel.filesystem");
     
     return 1;
 }
@@ -301,7 +467,7 @@ static int luaopen_kernel_preferences(lua_State *L)
 int luaopen_xgame(lua_State *L)
 {
     xlua_require(L, "kernel.runtime", luaopen_kernel_runtime);
-    xlua_require(L, "kernel.filesytem", luaopen_kernel_filesytem);
+    xlua_require(L, "kernel.filesystem", luaopen_kernel_filesystem);
     xlua_require(L, "kernel.preferences", luaopen_kernel_preferences);
     return 0;
 }

@@ -90,3 +90,12 @@ lua_Unsigned xluacv_opt_uint(lua_State *L, int idx, lua_Unsigned default_value)
 {
     return (lua_Unsigned)xluacv_opt_int(L, idx, (lua_Integer)default_value);
 }
+
+void xluacv_push_ccdata(lua_State *L, const cocos2d::Data &value)
+{
+    if (value.isNull()) {
+        lua_pushnil(L);
+    } else {
+        lua_pushlstring(L, (const char *)value.getBytes(), (size_t)value.getSize());
+    }
+}

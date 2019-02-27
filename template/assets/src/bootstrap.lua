@@ -6,7 +6,6 @@ function main()
     print(cjson.encode({name="zhong"}))
     print("version", runtime.version)
     print("classname", runtime.classname)
-    print("super", runtime.super.classname)
 
     for k,v in pairs(runtime.class) do
         print("class table:", k,v)
@@ -14,6 +13,9 @@ function main()
     for k,v in pairs(runtime.class['.get']) do
         print("class get:", k,v, v())
     end
+
+    print("###", runtime.isRestarting())
+    print("###", runtime.getPackageName())
 end
 
 local r = setmetatable({}, {__gc = function ()

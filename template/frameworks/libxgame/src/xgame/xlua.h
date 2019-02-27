@@ -69,6 +69,7 @@ LUALIB_API bool xluacls_isa(lua_State *L, int idx, const char *classname);
 LUALIB_API void xluacls_pushobj(lua_State *L, void *obj, const char *classname);
 LUALIB_API void xluacls_pushccobj(lua_State *L, cocos2d::Ref *obj, const char *classname);
 LUALIB_API int xluacls_ccobjgc(lua_State *L);
+LUALIB_API int xluacls_ccobjcount(lua_State *L);
 LUALIB_API void *xluacls_checkobj(lua_State *L, int idx, const char *classname);
 
 #endif

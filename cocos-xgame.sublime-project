@@ -1,0 +1,11 @@
+{
+	"folders":
+	[
+		{
+			"path": "template/assets/src"
+		},
+		{
+			"path": "toolchain"
+		}
+	]
+}

@@ -13,6 +13,8 @@
 #define CLS_GET     ".get"
 #define CLS_SET     ".set"
 
+static int s_obj_count = 0;
+
 const char *xlua_typename(lua_State *L, int idx)
 {
     const char *tn = nullptr;
@@ -261,6 +263,7 @@ void xluacls_pushccobj(lua_State *L, cocos2d::Ref *obj, const char *classname)
 {
     if (xluacls_internalpush(L, obj, classname)) {
         obj->retain();
+        s_obj_count++;
     }
 }
 
@@ -270,8 +273,15 @@ int xluacls_ccobjgc(lua_State *L)
     if (obj) {
         obj->release();
         *(void **)lua_touserdata(L, 1) = nullptr;
+        s_obj_count--;
     }
     return 0;
+}
+
+
+int xluacls_ccobjcount(lua_State *L)
+{
+    return s_obj_count;
 }
 
 void *xluacls_checkobj(lua_State *L, int idx, const char *classname)

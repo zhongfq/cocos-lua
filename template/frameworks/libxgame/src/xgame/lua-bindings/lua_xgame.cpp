@@ -159,9 +159,149 @@ static int luaopen_kernel_filesytem(lua_State *L)
     
     return 1;
 }
+static int _kernel_preferences_getBoolean(lua_State *L)
+{
+    lua_settop(L, 2);
+    const char * arg1 = (char*)xluacv_to_string(L, 1);
+    bool arg2 = (bool)xluacv_to_bool(L, 2);
+    bool ret = (bool)xgame::preferences::getBoolean(arg1, arg2);
+    xluacv_push_bool(L, ret);
+    return 1;
+}
+
+static int _kernel_preferences_setBoolean(lua_State *L)
+{
+    lua_settop(L, 2);
+    const char * arg1 = (char*)xluacv_to_string(L, 1);
+    bool arg2 = (bool)xluacv_to_bool(L, 2);
+    xgame::preferences::setBoolean(arg1, arg2);
+    
+    return 0;
+}
+
+static int _kernel_preferences_getFloat(lua_State *L)
+{
+    lua_settop(L, 2);
+    const char * arg1 = (char*)xluacv_to_string(L, 1);
+    float arg2 = (float)xluacv_to_number(L, 2);
+    float ret = (float)xgame::preferences::getFloat(arg1, arg2);
+    xluacv_push_number(L, ret);
+    return 1;
+}
+
+static int _kernel_preferences_setFloat(lua_State *L)
+{
+    lua_settop(L, 2);
+    const char * arg1 = (char*)xluacv_to_string(L, 1);
+    float arg2 = (float)xluacv_to_number(L, 2);
+    xgame::preferences::setFloat(arg1, arg2);
+    
+    return 0;
+}
+
+static int _kernel_preferences_getDouble(lua_State *L)
+{
+    lua_settop(L, 2);
+    const char * arg1 = (char*)xluacv_to_string(L, 1);
+    double arg2 = (double)xluacv_to_number(L, 2);
+    double ret = (double)xgame::preferences::getDouble(arg1, arg2);
+    xluacv_push_number(L, ret);
+    return 1;
+}
+
+static int _kernel_preferences_setDouble(lua_State *L)
+{
+    lua_settop(L, 2);
+    const char * arg1 = (char*)xluacv_to_string(L, 1);
+    double arg2 = (double)xluacv_to_number(L, 2);
+    xgame::preferences::setDouble(arg1, arg2);
+    
+    return 0;
+}
+
+static int _kernel_preferences_getInteger(lua_State *L)
+{
+    lua_settop(L, 2);
+    const char * arg1 = (char*)xluacv_to_string(L, 1);
+    int arg2 = (int)xluacv_to_int(L, 2);
+    int ret = (int)xgame::preferences::getInteger(arg1, arg2);
+    xluacv_push_int(L, ret);
+    return 1;
+}
+
+static int _kernel_preferences_setInteger(lua_State *L)
+{
+    lua_settop(L, 2);
+    const char * arg1 = (char*)xluacv_to_string(L, 1);
+    int arg2 = (int)xluacv_to_int(L, 2);
+    xgame::preferences::setInteger(arg1, arg2);
+    
+    return 0;
+}
+
+static int _kernel_preferences_getString(lua_State *L)
+{
+    lua_settop(L, 2);
+    const char * arg1 = (char*)xluacv_to_string(L, 1);
+    const char * arg2 = (char*)xluacv_to_string(L, 2);
+    std::string ret = (std::string)xgame::preferences::getString(arg1, arg2);
+    xluacv_push_std_string(L, ret);
+    return 1;
+}
+
+static int _kernel_preferences_setString(lua_State *L)
+{
+    lua_settop(L, 2);
+    const char * arg1 = (char*)xluacv_to_string(L, 1);
+    const char * arg2 = (char*)xluacv_to_string(L, 2);
+    xgame::preferences::setString(arg1, arg2);
+    
+    return 0;
+}
+
+static int _kernel_preferences_deleteKey(lua_State *L)
+{
+    lua_settop(L, 1);
+    const char * arg1 = (char*)xluacv_to_string(L, 1);
+    xgame::preferences::deleteKey(arg1);
+    
+    return 0;
+}
+
+static int _kernel_preferences_flush(lua_State *L)
+{
+    lua_settop(L, 0);
+    
+    xgame::preferences::flush();
+    
+    return 0;
+}
+
+static int luaopen_kernel_preferences(lua_State *L)
+{
+    xluacls_class(L, "kernel.preferences", nullptr);
+    xluacls_setfunc(L, "getBoolean", _kernel_preferences_getBoolean);
+    xluacls_setfunc(L, "setBoolean", _kernel_preferences_setBoolean);
+    xluacls_setfunc(L, "getFloat", _kernel_preferences_getFloat);
+    xluacls_setfunc(L, "setFloat", _kernel_preferences_setFloat);
+    xluacls_setfunc(L, "getDouble", _kernel_preferences_getDouble);
+    xluacls_setfunc(L, "setDouble", _kernel_preferences_setDouble);
+    xluacls_setfunc(L, "getInteger", _kernel_preferences_getInteger);
+    xluacls_setfunc(L, "setInteger", _kernel_preferences_setInteger);
+    xluacls_setfunc(L, "getString", _kernel_preferences_getString);
+    xluacls_setfunc(L, "setString", _kernel_preferences_setString);
+    xluacls_setfunc(L, "deleteKey", _kernel_preferences_deleteKey);
+    xluacls_setfunc(L, "flush", _kernel_preferences_flush);
+    
+    lua_newtable(L);
+    luaL_setmetatable(L, "kernel.preferences");
+    
+    return 1;
+}
 int luaopen_xgame(lua_State *L)
 {
     xlua_require(L, "kernel.runtime", luaopen_kernel_runtime);
     xlua_require(L, "kernel.filesytem", luaopen_kernel_filesytem);
+    xlua_require(L, "kernel.preferences", luaopen_kernel_preferences);
     return 0;
 }

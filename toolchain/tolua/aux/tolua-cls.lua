@@ -39,8 +39,16 @@ local function parse_args(func_decl)
         arg = to_type(arg)
         if arg ~= 'void' then
             local t = string.match(arg, '(.+[ *&])')
-            t = string.gsub(t, '[ ]*$', '')
+            local t, n, d = string.match(arg, '(.+[ *&])([^ *&]+) *= *([^ ]*)')
+            if not t then
+                if string.find(arg, '[&*]$') then
+                    t = arg
+                else
+                    t, n = string.match(arg, '(.+[ *&])([^ *&]+)')
+                end
+            end
             assert(t, arg)
+            t = string.gsub(t, '[ ]*$', '')
             args[#args + 1] = {
                 TYPE = assert(get_type_info(t), t),
                 DECL_TYPE = t,
@@ -74,26 +82,6 @@ local function parse_prop(name, func_get, func_set)
     pi.GET = func_get and parse_func(name, func_get) or nil
     pi.SET = func_set and parse_func(name, func_set) or nil
     return pi
-end
-
-function register_type(type_name, option)
-    type_name = string.gsub(type_name, '[ ]*%*', '*')
-    option = option or {}
-    assert(not option.TYPE_NAME)
-    option.NAME = type_name
-    type_info[type_name] = option
-    type_info['const ' .. type_name] = option
-
-    if not option.PUSH then
-        if type_name == "bool" then
-            option.PUSH = 'xluacv_push_bool'
-            option.TO = 'xluacv_to_bool'
-        end
-        if type_name == "std::string" then
-            option.PUSH = 'xluacv_push_std_string'
-            option.TO = 'xluacv_to_std_string'
-        end
-    end
 end
 
 function class(module)
@@ -135,4 +123,16 @@ function stringfy(value)
     else
         return nil
     end
+end
+
+function register_type(option)
+    local type_name = string.gsub(option.NAME, '[ ]*%*', '*')
+    option.NAME = type_name
+
+    type_info[type_name] = option
+    type_info['const ' .. type_name] = option
+
+    option.PUSH = string.gsub(option.CONV, '$ACTION', "push")
+    option.TO = string.gsub(option.CONV, '$ACTION', "to")
+    option.OPT = string.gsub(option.CONV, '$ACTION', "opt")
 end

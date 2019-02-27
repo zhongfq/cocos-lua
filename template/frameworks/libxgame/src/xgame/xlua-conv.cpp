@@ -11,7 +11,7 @@ bool xluacv_to_bool(lua_State *L, int idx)
     return lua_toboolean(L, idx);
 }
 
-bool xluacv_option_bool(lua_State *L, int idx, bool default_value)
+bool xluacv_opt_bool(lua_State *L, int idx, bool default_value)
 {
     return xlua_optboolean(L, idx, default_value);
 }
@@ -26,7 +26,7 @@ const std::string xluacv_to_std_string(lua_State *L, int idx)
     return luaL_checkstring(L, idx);
 }
 
-const std::string xluacv_option_std_string(lua_State *L, int idx, const std::string &default_value)
+const std::string xluacv_opt_std_string(lua_State *L, int idx, const std::string &default_value)
 {
     return luaL_optstring(L, idx, default_value.c_str());
 }
@@ -41,7 +41,7 @@ const char *xluacv_to_string(lua_State *L, int idx)
     return luaL_checkstring(L, idx);
 }
 
-const char *xluacv_option_string(lua_State *L, int idx, const char *default_value)
+const char *xluacv_opt_string(lua_State *L, int idx, const char *default_value)
 {
     return luaL_optstring(L, idx, default_value);
 }
@@ -56,7 +56,7 @@ lua_Number xluacv_to_number(lua_State *L, int idx)
     return luaL_checknumber(L, idx);
 }
 
-lua_Number xluacv_option_number(lua_State *L, int idx, lua_Number default_value)
+lua_Number xluacv_opt_number(lua_State *L, int idx, lua_Number default_value)
 {
     return luaL_optnumber(L, idx, default_value);
 }
@@ -71,7 +71,7 @@ lua_Integer xluacv_to_int(lua_State *L, int idx)
     return luaL_checkinteger(L, idx);
 }
 
-lua_Integer xluacv_option_int(lua_State *L, int idx, lua_Integer default_value)
+lua_Integer xluacv_opt_int(lua_State *L, int idx, lua_Integer default_value)
 {
     return luaL_optinteger(L, idx, default_value);
 }
@@ -86,7 +86,7 @@ lua_Unsigned xluacv_to_uint(lua_State *L, int idx)
     return (lua_Unsigned)xluacv_to_int(L, idx);
 }
 
-lua_Unsigned xluacv_option_uint(lua_State *L, int idx, lua_Unsigned default_value)
+lua_Unsigned xluacv_opt_uint(lua_State *L, int idx, lua_Unsigned default_value)
 {
-    return (lua_Unsigned)xluacv_option_int(L, idx, (lua_Integer)default_value);
+    return (lua_Unsigned)xluacv_opt_int(L, idx, (lua_Integer)default_value);
 }

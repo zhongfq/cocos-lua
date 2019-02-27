@@ -10,7 +10,7 @@ NS_XGAME_BEGIN
 
 class preferences {
 public:
-    static bool getBoolean(const char *key, float defaultValue);
+    static bool getBoolean(const char *key, bool defaultValue = false);
     static void setBoolean(const char *key, bool value);
     static float getFloat(const char *key, float defaultValue = 0);
     static void setFloat(const char *key, float value);

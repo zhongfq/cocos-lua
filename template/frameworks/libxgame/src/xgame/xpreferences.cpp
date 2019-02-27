@@ -7,7 +7,7 @@ USING_NS_CC;
 
 NS_XGAME_BEGIN
 
-bool preferences::getBoolean(const char *key, float defaultValue)
+bool preferences::getBoolean(const char *key, bool defaultValue)
 {
     return UserDefault::getInstance()->getBoolForKey(key, defaultValue);
 }

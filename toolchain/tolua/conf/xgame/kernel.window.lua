@@ -1,7 +1,6 @@
 local cls = class()
-cls.NATIVE = "xgame::window"
-cls.CLASS = "kernel.window"
-cls.STATIC = true
+cls.CPPCLS = "xgame::window"
+cls.LUACLS = "kernel.window"
 cls.func("visibleBounds", [[
 {
     auto rect = cocos2d::Director::getInstance()->getOpenGLView()->getVisibleRect();

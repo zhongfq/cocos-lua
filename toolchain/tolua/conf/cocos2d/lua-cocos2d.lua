@@ -1,4 +1,5 @@
 require "aux.tolua-cls"
+require "conf.cocos2d.import-cocos2d-type"
 
 local M = {}
 

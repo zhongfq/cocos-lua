@@ -1,10 +1,7 @@
 local cls = class()
-cls.NATIVE = "xgame::timer"
-cls.CLASS = "kernel.timer"
-cls.STATIC = true
-cls.DECL_VAR = [[
-static std::unordered_map<std::string, int> s_timer_tag;
-]]
+cls.CPPCLS = "xgame::timer"
+cls.LUACLS = "kernel.timer"
+cls.DECVAR = [[static std::unordered_map<std::string, int> s_timer_tag;]]
 cls.func('killDelay', [[
 {
     lua_settop(L, 1);

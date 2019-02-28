@@ -18,27 +18,27 @@ end
 
 local function gen_class_open(cls, write)
     local template = [[
-        static int luaopen_${CLASS_PATH}(lua_State *L)
+        static int luaopen_${LUACLS_PATH}(lua_State *L)
         {
-            xluacls_class(L, "${CLASSNAME", ${SUPRE_CLASSNAME});
+            xluacls_class(L, "${LUACLS", ${SUPRECLS});
             ${FUNCS}
             
             lua_newtable(L);
-            luaL_setmetatable(L, "${CLASSNAME}");
+            luaL_setmetatable(L, "${LUACLS}");
             
             return 1;
         }
     ]]
-    local CLASSNAME = cls.CLASS
-    local CLASS_PATH = class_path(CLASSNAME)
-    local SUPRE_CLASSNAME = stringfy(cls.SUPER) or "nullptr"
+    local LUACLS = cls.LUACLS
+    local LUACLS_PATH = class_path(cls.LUACLS)
+    local SUPRECLS = stringfy(cls.SUPERCLS) or "nullptr"
     local FUNCS = {}
 
     for i, fis in ipairs(cls.FUNCS) do
         local FUNC = fis[1].FUNC
         local FUNC_NAME = fis[1].NAME
         FUNCS[#FUNCS + 1] = format_snippet([[
-            xluacls_setfunc(L, "${FUNC_NAME}", _${CLASS_PATH}_${FUNC});
+            xluacls_setfunc(L, "${FUNC_NAME}", _${LUACLS_PATH}_${FUNC});
         ]])
     end
 
@@ -47,10 +47,10 @@ local function gen_class_open(cls, write)
         local FUNC_GET = "nullptr"
         local FUNC_SET = "nullptr"
         if pi.GET then
-            FUNC_GET = string.format("_%s_%s", CLASS_PATH, pi.GET.FUNC)
+            FUNC_GET = string.format("_%s_%s", LUACLS_PATH, pi.GET.FUNC)
         end
         if pi.SET then
-            FUNC_SET = string.format("_%s_%s", CLASS_PATH, pi.SET.FUNC)
+            FUNC_SET = string.format("_%s_%s", LUACLS_PATH, pi.SET.FUNC)
         end
         FUNCS[#FUNCS + 1] = format_snippet([[
             xluacls_property(L, "${FUNC_NAME}", ${FUNC_GET}, ${FUNC_SET});
@@ -82,8 +82,8 @@ local function gen_class_open(cls, write)
 end
 
 local function gen_class_decl_val(cls, write)
-    if cls.DECL_VAR then
-        write(format_snippet(cls.DECL_VAR))
+    if cls.DECVAR then
+        write(format_snippet(cls.DECVAR))
         write('')
     end
 end

@@ -1,7 +1,6 @@
 local cls = class()
-cls.NATIVE = "xgame::preferences"
-cls.CLASS = "kernel.preferences"
-cls.STATIC = true
+cls.CPPCLS = "xgame::preferences"
+cls.LUACLS = "kernel.preferences"
 cls.func(nil, 'static bool getBoolean(const char *key, bool defaultValue = false)')
 cls.func(nil, 'static void setBoolean(const char *key, bool value)')
 cls.func(nil, 'static float getFloat(const char *key, float defaultValue = 0)')

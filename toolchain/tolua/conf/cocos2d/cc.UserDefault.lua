@@ -1,6 +1,6 @@
 local cls = class()
-cls.NATIVE = "cocos2d::UserDefault"
-cls.CLASS = "cc.UserDefault"
+cls.CPPCLS = "cocos2d::UserDefault"
+cls.LUACLS = "cc.UserDefault"
 cls.func(nil, 'bool getBoolForKey(const char *key);', 'bool getBoolForKey(const char *key, bool defaultValue);')
 cls.func(nil, 'int getIntegerForKey(const char *key);', 'int getIntegerForKey(const char *key, int defaultValue);')
 cls.func(nil, 'float getFloatForKey(const char *key);', 'float getFloatForKey(const char *key, float defaultValue);')

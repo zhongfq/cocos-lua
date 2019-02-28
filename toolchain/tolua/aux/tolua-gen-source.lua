@@ -30,10 +30,10 @@ local function gen_luaopen(module, write)
     local REQUIRES = {}
 
     for i, cls in ipairs(module.CLASSES) do
-        local CLASSNAME = cls.CLASS
-        local CLASS_PATH = class_path(CLASSNAME)
+        local LUACLS = cls.LUACLS
+        local LUACLS_PATH = class_path(cls.LUACLS)
         REQUIRES[i] = format_snippet([[
-            xlua_require(L, "${CLASSNAME}", luaopen_${CLASS_PATH});
+            xlua_require(L, "${LUACLS}", luaopen_${LUACLS_PATH});
         ]])
     end
 

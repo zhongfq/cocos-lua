@@ -1,7 +1,6 @@
 local cls = class()
-cls.NATIVE = "xgame::runtime"
-cls.CLASS = "kernel.runtime"
-cls.STATIC = true
+cls.CPPCLS = "xgame::runtime"
+cls.LUACLS = "kernel.runtime"
 cls.func(nil, 'static void clearStorage()')
 cls.func(nil, 'static bool launch(const std::string &scriptPath)')
 cls.func(nil, 'static bool restart()')

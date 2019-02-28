@@ -155,7 +155,7 @@ function stringfy(value)
     end
 end
 
-function register_type(option)
+function REG_TYPE(option)
     for n in string.gmatch(option.NAME, '[^|]+') do
         local type_name = string.gsub(n, '[ ]*%*', '*')
         local info = setmetatable({}, {__index = option})
@@ -168,11 +168,11 @@ function register_type(option)
         info.FUNC_OPT_VALUE = string.gsub(info.CONV, '$ACTION', "opt")
         info.FUNC_IS_VALUE = string.gsub(info.CONV, '$ACTION', "is")
 
-        if info.CLASS then
-            if type(info.CLASS) == "function" then
-                info.CLASS = info.CLASS(type_name)
-            elseif type(info.CLASS) ~= "string" then
-                error("not support: " .. type(info.CLASS))
+        if info.LUACLS then
+            if type(info.LUACLS) == "function" then
+                info.LUACLS = info.LUACLS(type_name)
+            elseif type(info.LUACLS) ~= "string" then
+                error("not support: " .. type(info.LUACLS))
             end
         end
     end

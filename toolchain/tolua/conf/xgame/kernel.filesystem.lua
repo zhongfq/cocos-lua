@@ -1,7 +1,6 @@
 local cls = class()
-cls.NATIVE = "xgame::filesystem"
-cls.CLASS = "kernel.filesystem"
-cls.STATIC = true
+cls.CPPCLS = "xgame::filesystem"
+cls.LUACLS = "kernel.filesystem"
 cls.prop("writablePath", 'static const std::string getWritablePath()')
 cls.prop("cacheDirectory", 'static const std::string getCacheDirectory()')
 cls.prop("documentDirectory", 'static const std::string getDocumentDirectory()')

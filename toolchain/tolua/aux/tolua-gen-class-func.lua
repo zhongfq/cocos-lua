@@ -61,11 +61,11 @@ function gen_class_func(cls, fi, write)
             TO_ARG = ai.TYPE.OPT
             local VALUE = ai.VALUE
             ARGS_STATEMENT[#ARGS_STATEMENT + 1] = format_snippet([[
-                ${DECL_TYPE} arg${ARG_N} = (${TYPE})${TO_ARG}(L, ${IDX}, ${VALUE});
+                ${DECL_TYPE} arg${ARG_N} = (${DECL_TYPE})${TO_ARG}(L, ${IDX}, ${VALUE});
             ]])
         else
             ARGS_STATEMENT[#ARGS_STATEMENT + 1] = format_snippet([[
-                ${DECL_TYPE} arg${ARG_N} = (${TYPE})${TO_ARG}(L, ${IDX});
+                ${DECL_TYPE} arg${ARG_N} = (${DECL_TYPE})${TO_ARG}(L, ${IDX});
             ]])
         end
     end
@@ -73,9 +73,10 @@ function gen_class_func(cls, fi, write)
     LUA_SETTOP = string.format(LUA_SETTOP, TOTAL_ARGS)
 
     if fi.RETURN.NUM > 0 then
-        RET_STATEMENT = string.format("%s ret = (%s)",
-            fi.RETURN.DECL_TYPE, fi.RETURN.TYPE.NAME)
-        PUSH_RET = string.format("%s(L, ret);", assert(fi.RETURN.TYPE.PUSH))
+        local DECL_TYPE = fi.RETURN.DECL_TYPE
+        local PUSH = assert(fi.RETURN.TYPE.PUSH, fi.NAME)
+        RET_STATEMENT = format_snippet('${DECL_TYPE} ret = (${DECL_TYPE})')
+        PUSH_RET = format_snippet("${PUSH}(L, ret);")
     end
 
     ARGS_STATEMENT = table.concat(ARGS_STATEMENT, "\n")

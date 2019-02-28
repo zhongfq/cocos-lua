@@ -51,7 +51,7 @@ local function parse_args(func_decl)
             t = string.gsub(t, '[ ]*$', '')
             args[#args + 1] = {
                 TYPE = assert(get_type_info(t), t),
-                DECL_TYPE = t,
+                DECL_TYPE = string.gsub(t, '[ &]*$', ''),
                 VALUE = d,
             }
         end
@@ -71,7 +71,7 @@ local function parse_func(name, func_decl)
     fi.STATIC = static
     fi.RETURN.NUM = rt == "void" and 0 or 1
     fi.RETURN.TYPE = get_type_info(rt)
-    fi.RETURN.DECL_TYPE = string.gsub(rt, '[ ]*$', '')
+    fi.RETURN.DECL_TYPE = string.gsub(rt, '[ &]*$', '')
     fi.ARGS = parse_args(func_decl)
 
     return fi

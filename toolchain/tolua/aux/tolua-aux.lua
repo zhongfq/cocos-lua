@@ -19,13 +19,20 @@ end
 
 local function lookup(level, key)
     assert(key and #key > 0, key)
+
+    local value
+
     for i = 1, 256 do
         local k, v = debug.getlocal(level, i)
         if k == key then
-            return v
+            value = v
         elseif not k then
             break
         end
+    end
+
+    if value then
+        return value
     end
 
     local info1 = debug.getinfo(level, 'Sn')

@@ -335,7 +335,7 @@ static int _kernel_filesystem_write(lua_State *L)
 {
     lua_settop(L, 3);
     const std::string arg1 = (const std::string)xluacv_to_std_string(L, 1);
-    const char * arg2 = (const char *)xluacv_to_string(L, 2);
+    const char *arg2 = (const char *)xluacv_to_string(L, 2);
     size_t arg3 = (size_t)xluacv_to_uint(L, 3);
     bool ret = (bool)xgame::filesystem::write(arg1, arg2, arg3);
     xluacv_push_bool(L, ret);
@@ -435,7 +435,7 @@ static int luaopen_kernel_filesystem(lua_State *L)
 static int _kernel_preferences_getBoolean(lua_State *L)
 {
     lua_settop(L, 2);
-    const char * arg1 = (const char *)xluacv_to_string(L, 1);
+    const char *arg1 = (const char *)xluacv_to_string(L, 1);
     bool arg2 = (bool)xluacv_opt_bool(L, 2, false);
     bool ret = (bool)xgame::preferences::getBoolean(arg1, arg2);
     xluacv_push_bool(L, ret);
@@ -445,7 +445,7 @@ static int _kernel_preferences_getBoolean(lua_State *L)
 static int _kernel_preferences_setBoolean(lua_State *L)
 {
     lua_settop(L, 2);
-    const char * arg1 = (const char *)xluacv_to_string(L, 1);
+    const char *arg1 = (const char *)xluacv_to_string(L, 1);
     bool arg2 = (bool)xluacv_to_bool(L, 2);
     xgame::preferences::setBoolean(arg1, arg2);
     
@@ -455,7 +455,7 @@ static int _kernel_preferences_setBoolean(lua_State *L)
 static int _kernel_preferences_getFloat(lua_State *L)
 {
     lua_settop(L, 2);
-    const char * arg1 = (const char *)xluacv_to_string(L, 1);
+    const char *arg1 = (const char *)xluacv_to_string(L, 1);
     float arg2 = (float)xluacv_opt_number(L, 2, 0);
     float ret = (float)xgame::preferences::getFloat(arg1, arg2);
     xluacv_push_number(L, ret);
@@ -465,7 +465,7 @@ static int _kernel_preferences_getFloat(lua_State *L)
 static int _kernel_preferences_setFloat(lua_State *L)
 {
     lua_settop(L, 2);
-    const char * arg1 = (const char *)xluacv_to_string(L, 1);
+    const char *arg1 = (const char *)xluacv_to_string(L, 1);
     float arg2 = (float)xluacv_to_number(L, 2);
     xgame::preferences::setFloat(arg1, arg2);
     
@@ -475,7 +475,7 @@ static int _kernel_preferences_setFloat(lua_State *L)
 static int _kernel_preferences_getDouble(lua_State *L)
 {
     lua_settop(L, 2);
-    const char * arg1 = (const char *)xluacv_to_string(L, 1);
+    const char *arg1 = (const char *)xluacv_to_string(L, 1);
     double arg2 = (double)xluacv_opt_number(L, 2, 0);
     double ret = (double)xgame::preferences::getDouble(arg1, arg2);
     xluacv_push_number(L, ret);
@@ -485,7 +485,7 @@ static int _kernel_preferences_getDouble(lua_State *L)
 static int _kernel_preferences_setDouble(lua_State *L)
 {
     lua_settop(L, 2);
-    const char * arg1 = (const char *)xluacv_to_string(L, 1);
+    const char *arg1 = (const char *)xluacv_to_string(L, 1);
     double arg2 = (double)xluacv_to_number(L, 2);
     xgame::preferences::setDouble(arg1, arg2);
     
@@ -495,7 +495,7 @@ static int _kernel_preferences_setDouble(lua_State *L)
 static int _kernel_preferences_getInteger(lua_State *L)
 {
     lua_settop(L, 2);
-    const char * arg1 = (const char *)xluacv_to_string(L, 1);
+    const char *arg1 = (const char *)xluacv_to_string(L, 1);
     int arg2 = (int)xluacv_opt_int(L, 2, 0);
     int ret = (int)xgame::preferences::getInteger(arg1, arg2);
     xluacv_push_int(L, ret);
@@ -505,7 +505,7 @@ static int _kernel_preferences_getInteger(lua_State *L)
 static int _kernel_preferences_setInteger(lua_State *L)
 {
     lua_settop(L, 2);
-    const char * arg1 = (const char *)xluacv_to_string(L, 1);
+    const char *arg1 = (const char *)xluacv_to_string(L, 1);
     int arg2 = (int)xluacv_to_int(L, 2);
     xgame::preferences::setInteger(arg1, arg2);
     
@@ -515,8 +515,8 @@ static int _kernel_preferences_setInteger(lua_State *L)
 static int _kernel_preferences_getString(lua_State *L)
 {
     lua_settop(L, 2);
-    const char * arg1 = (const char *)xluacv_to_string(L, 1);
-    const char * arg2 = (const char *)xluacv_opt_string(L, 2, "");
+    const char *arg1 = (const char *)xluacv_to_string(L, 1);
+    const char *arg2 = (const char *)xluacv_opt_string(L, 2, "");
     std::string ret = (std::string)xgame::preferences::getString(arg1, arg2);
     xluacv_push_std_string(L, ret);
     return 1;
@@ -525,8 +525,8 @@ static int _kernel_preferences_getString(lua_State *L)
 static int _kernel_preferences_setString(lua_State *L)
 {
     lua_settop(L, 2);
-    const char * arg1 = (const char *)xluacv_to_string(L, 1);
-    const char * arg2 = (const char *)xluacv_to_string(L, 2);
+    const char *arg1 = (const char *)xluacv_to_string(L, 1);
+    const char *arg2 = (const char *)xluacv_to_string(L, 2);
     xgame::preferences::setString(arg1, arg2);
     
     return 0;
@@ -535,7 +535,7 @@ static int _kernel_preferences_setString(lua_State *L)
 static int _kernel_preferences_deleteKey(lua_State *L)
 {
     lua_settop(L, 1);
-    const char * arg1 = (const char *)xluacv_to_string(L, 1);
+    const char *arg1 = (const char *)xluacv_to_string(L, 1);
     xgame::preferences::deleteKey(arg1);
     
     return 0;

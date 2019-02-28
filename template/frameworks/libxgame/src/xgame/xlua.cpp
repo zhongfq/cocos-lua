@@ -206,6 +206,12 @@ bool xlua_optboolean(lua_State *L, int idx, bool default_value)
     return lua_type(L, idx) <= LUA_TNIL ? default_value : lua_toboolean(L, idx) != 0;
 }
 
+bool xlua_checkboolean(lua_State *L, int idx)
+{
+    luaL_checktype(L, idx, LUA_TBOOLEAN);
+    return lua_toboolean(L, idx);
+}
+
 void xlua_setnilfield(lua_State *L, const char *field)
 {
     lua_pushstring(L, field);

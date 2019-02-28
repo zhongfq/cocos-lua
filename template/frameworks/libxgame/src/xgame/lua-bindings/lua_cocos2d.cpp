@@ -15,21 +15,53 @@ static int _cc_UserDefault_getInstance(lua_State *L)
     return 1;
 }
 
-static int _cc_UserDefault_getBoolForKey(lua_State *L)
+static int _cc_UserDefault_getBoolForKey1(lua_State *L)
 {
     lua_settop(L, 2);
     cocos2d::UserDefault *self = (cocos2d::UserDefault *)xluacv_to_obj(L, 1, "cc.UserDefault");
-    const char * arg1 = (const char *)xluacv_to_string(L, 2);
+    const char *arg1 = (const char *)xluacv_to_string(L, 2);
     bool ret = (bool)self->getBoolForKey(arg1);
     xluacv_push_bool(L, ret);
     return 1;
+}
+
+static int _cc_UserDefault_getBoolForKey2(lua_State *L)
+{
+    lua_settop(L, 3);
+    cocos2d::UserDefault *self = (cocos2d::UserDefault *)xluacv_to_obj(L, 1, "cc.UserDefault");
+    const char *arg1 = (const char *)xluacv_to_string(L, 2);
+    bool arg2 = (bool)xluacv_to_bool(L, 3);
+    bool ret = (bool)self->getBoolForKey(arg1, arg2);
+    xluacv_push_bool(L, ret);
+    return 1;
+}
+
+static int _cc_UserDefault_getBoolForKey(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if (xluacv_is_string(L, 2)) {
+            return _cc_UserDefault_getBoolForKey1(L);
+        // }
+    }
+    
+    if (num_args == 2) {
+        // if (xluacv_is_string(L, 2) && xluacv_is_bool(L, 3)) {
+            return _cc_UserDefault_getBoolForKey2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::UserDefault::getBoolForKey' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _cc_UserDefault_getStringForKey(lua_State *L)
 {
     lua_settop(L, 2);
     cocos2d::UserDefault *self = (cocos2d::UserDefault *)xluacv_to_obj(L, 1, "cc.UserDefault");
-    const char* arg1 = (const char*)xluacv_to_string(L, 2);
+    const char *arg1 = (const char *)xluacv_to_string(L, 2);
     std::string ret = (std::string)self->getStringForKey(arg1);
     xluacv_push_std_string(L, ret);
     return 1;

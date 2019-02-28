@@ -20,8 +20,13 @@ function main()
 
     print("preferences", preferences.getString("conf.version.runtime"))
 
-    print("UserDefault", UserDefault.getInstance())
-    print("UserDefault", UserDefault.getInstance():getStringForKey("conf.version.runtime"))
+    local obj = UserDefault.getInstance()
+    print("UserDefault", obj)
+    print("UserDefault", obj:getStringForKey("conf.version.runtime"))
+    print("UserDefault", obj:getBoolForKey("conf.version"))
+    print("UserDefault", obj:getBoolForKey("conf.version", true))
+    print("UserDefault", obj:getBoolForKey("conf.version", false))
+    print("UserDefault", obj:getBoolForKey())
 
     runtime.setDispatcher(function (...)
         print("dispatch", ...)

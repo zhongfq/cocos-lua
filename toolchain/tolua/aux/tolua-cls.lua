@@ -60,37 +60,51 @@ local function parse_args(func_decl)
     return args
 end
 
-local function parse_func(name, func_decl)
-    local fi = {RETURN = {}}
+local function parse_func(name, ...)
+    local arr = {MAX_ARGS = 0}
 
-    if string.find(func_decl, '{') then
-        fi.NAME = assert(name)
-        fi.FUNC = name
-        fi.FUNC_SNIPPET = func_decl
-        fi.RETURN.NUM = 0
-        fi.RETURN.TYPE = get_type_info('void')
-        fi.ARGS = {}
-    else
-        local rt, func = string.match(func_decl, "([^()]+[ *&])([^ ]+)[ ]*%(")
-        local static, rt = parse_ret(rt)
+    local is_static_func
 
-        fi.NAME = name or func
-        fi.FUNC = func
-        fi.STATIC = static
-        fi.RETURN.NUM = rt == "void" and 0 or 1
-        fi.RETURN.TYPE = get_type_info(rt)
-        fi.RETURN.DECL_TYPE = string.gsub(rt, '[ &]*$', '')
-        fi.ARGS = parse_args(func_decl)
+    for i, func_decl in ipairs({...}) do
+        local fi = {RETURN = {}}
+        if string.find(func_decl, '{') then
+            fi.NAME = assert(name)
+            fi.FUNC = name
+            fi.FUNC_SNIPPET = func_decl
+            fi.RETURN.NUM = 0
+            fi.RETURN.TYPE = get_type_info('void')
+            fi.ARGS = {}
+        else
+            local rt, func = string.match(func_decl, "([^()]+[ *&])([^ ]+)[ ]*%(")
+            local static, rt = parse_ret(rt)
+
+            fi.NAME = name or func
+            fi.FUNC = func
+            fi.STATIC = static
+            fi.RETURN.NUM = rt == "void" and 0 or 1
+            fi.RETURN.TYPE = get_type_info(rt)
+            fi.RETURN.DECL_TYPE = string.gsub(rt, '[ &]*$', '')
+            fi.ARGS = parse_args(func_decl)
+
+            if is_static_func == nil then
+                is_static_func = static
+            else
+                assert(is_static_func == static, func_decl)
+            end
+        end
+        fi.INDEX = i
+        arr[#arr + 1] = fi
+        arr.MAX_ARGS = math.max(arr.MAX_ARGS, #fi.ARGS)
     end
 
-    return fi
+    return arr
 end
 
 local function parse_prop(name, func_get, func_set)
     local pi = {}
     pi.NAME = assert(name)
-    pi.GET = func_get and parse_func(name, func_get) or nil
-    pi.SET = func_set and parse_func(name, func_set) or nil
+    pi.GET = func_get and parse_func(name, func_get)[1] or nil
+    pi.SET = func_set and parse_func(name, func_set)[1] or nil
     assert(pi.GET.RETURN.NUM > 0, func_get)
     return pi
 end
@@ -101,8 +115,8 @@ function class(module)
     cls.CONSTS = {}
     cls.PROPS = {}
 
-    function cls.func(name, func_decl)
-        cls.FUNCS[#cls.FUNCS + 1] = parse_func(name, func_decl)
+    function cls.func(name, ...)
+        cls.FUNCS[#cls.FUNCS + 1] = parse_func(name, ...)
     end
 
     function cls.prop(name, func_get, func_set)
@@ -147,6 +161,7 @@ function register_type(option)
         info.PUSH = string.gsub(info.CONV, '$ACTION', "push")
         info.TO = string.gsub(info.CONV, '$ACTION', "to")
         info.OPT = string.gsub(info.CONV, '$ACTION', "opt")
+        info.IS = string.gsub(info.CONV, '$ACTION', "is")
 
         if info.CLASS then
             if type(info.CLASS) == "function" then

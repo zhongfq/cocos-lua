@@ -8,7 +8,7 @@ void xluacv_push_bool(lua_State *L, bool value)
 
 bool xluacv_to_bool(lua_State *L, int idx)
 {
-    return lua_toboolean(L, idx);
+    return xlua_checkboolean(L, idx);
 }
 
 bool xluacv_opt_bool(lua_State *L, int idx, bool default_value)

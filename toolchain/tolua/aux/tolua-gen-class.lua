@@ -6,11 +6,11 @@ local function gen_class_funcs(cls, write)
 
     for i, pi in ipairs(cls.PROPS) do
         if pi.GET then
-            gen_class_func(cls, pi.GET, write)
+            gen_class_func(cls, {pi.GET}, write)
             write('')
         end
         if pi.SET then
-            gen_class_func(cls, pi.SET, write)
+            gen_class_func(cls, {pi.SET}, write)
             write('')
         end
     end
@@ -34,9 +34,9 @@ local function gen_class_open(cls, write)
     local SUPRE_CLASSNAME = stringfy(cls.SUPER) or "nullptr"
     local FUNCS = {}
 
-    for i, fi in ipairs(cls.FUNCS) do
-        local FUNC = fi.FUNC
-        local FUNC_NAME = fi.NAME
+    for i, fis in ipairs(cls.FUNCS) do
+        local FUNC = fis[1].FUNC
+        local FUNC_NAME = fis[1].NAME
         FUNCS[#FUNCS + 1] = format_snippet([[
             xluacls_setfunc(L, "${FUNC_NAME}", _${CLASS_PATH}_${FUNC});
         ]])

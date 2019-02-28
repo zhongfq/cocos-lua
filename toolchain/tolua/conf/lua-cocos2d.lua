@@ -19,7 +19,7 @@ local cls = class(M)
 cls.NATIVE = "cocos2d::UserDefault"
 cls.CLASS = "cc.UserDefault"
 cls.func(nil, "static cocos2d::UserDefault *getInstance()")
-cls.func(nil, "bool getBoolForKey(const char *key)")
-cls.func(nil, "std::string getStringForKey(const char* key)")
+cls.func(nil, "bool getBoolForKey(const char *key)", "bool getBoolForKey(const char *key, bool defaultValue)")
+cls.func(nil, "std::string getStringForKey(const char *key)")
 
 return M

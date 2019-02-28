@@ -6,15 +6,6 @@
 #include "xgame/xlua-conv.h"
 #include "cocos2d.h"
 
-static int _cc_UserDefault_getInstance(lua_State *L)
-{
-    lua_settop(L, 0);
-    
-    cocos2d::UserDefault * ret = (cocos2d::UserDefault *)cocos2d::UserDefault::getInstance();
-    xluacv_push_obj(L, ret, "cc.UserDefault");
-    return 1;
-}
-
 static int _cc_UserDefault_getBoolForKey1(lua_State *L)
 {
     lua_settop(L, 2);
@@ -57,7 +48,133 @@ static int _cc_UserDefault_getBoolForKey(lua_State *L)
     return 0;
 }
 
-static int _cc_UserDefault_getStringForKey(lua_State *L)
+static int _cc_UserDefault_getIntegerForKey1(lua_State *L)
+{
+    lua_settop(L, 2);
+    cocos2d::UserDefault *self = (cocos2d::UserDefault *)xluacv_to_obj(L, 1, "cc.UserDefault");
+    const char *arg1 = (const char *)xluacv_to_string(L, 2);
+    int ret = (int)self->getIntegerForKey(arg1);
+    xluacv_push_int(L, ret);
+    return 1;
+}
+
+static int _cc_UserDefault_getIntegerForKey2(lua_State *L)
+{
+    lua_settop(L, 3);
+    cocos2d::UserDefault *self = (cocos2d::UserDefault *)xluacv_to_obj(L, 1, "cc.UserDefault");
+    const char *arg1 = (const char *)xluacv_to_string(L, 2);
+    int arg2 = (int)xluacv_to_int(L, 3);
+    int ret = (int)self->getIntegerForKey(arg1, arg2);
+    xluacv_push_int(L, ret);
+    return 1;
+}
+
+static int _cc_UserDefault_getIntegerForKey(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if (xluacv_is_string(L, 2)) {
+            return _cc_UserDefault_getIntegerForKey1(L);
+        // }
+    }
+    
+    if (num_args == 2) {
+        // if (xluacv_is_string(L, 2) && xluacv_is_int(L, 3)) {
+            return _cc_UserDefault_getIntegerForKey2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::UserDefault::getIntegerForKey' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cc_UserDefault_getFloatForKey1(lua_State *L)
+{
+    lua_settop(L, 2);
+    cocos2d::UserDefault *self = (cocos2d::UserDefault *)xluacv_to_obj(L, 1, "cc.UserDefault");
+    const char *arg1 = (const char *)xluacv_to_string(L, 2);
+    float ret = (float)self->getFloatForKey(arg1);
+    xluacv_push_number(L, ret);
+    return 1;
+}
+
+static int _cc_UserDefault_getFloatForKey2(lua_State *L)
+{
+    lua_settop(L, 3);
+    cocos2d::UserDefault *self = (cocos2d::UserDefault *)xluacv_to_obj(L, 1, "cc.UserDefault");
+    const char *arg1 = (const char *)xluacv_to_string(L, 2);
+    float arg2 = (float)xluacv_to_number(L, 3);
+    float ret = (float)self->getFloatForKey(arg1, arg2);
+    xluacv_push_number(L, ret);
+    return 1;
+}
+
+static int _cc_UserDefault_getFloatForKey(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if (xluacv_is_string(L, 2)) {
+            return _cc_UserDefault_getFloatForKey1(L);
+        // }
+    }
+    
+    if (num_args == 2) {
+        // if (xluacv_is_string(L, 2) && xluacv_is_number(L, 3)) {
+            return _cc_UserDefault_getFloatForKey2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::UserDefault::getFloatForKey' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cc_UserDefault_getDoubleForKey1(lua_State *L)
+{
+    lua_settop(L, 2);
+    cocos2d::UserDefault *self = (cocos2d::UserDefault *)xluacv_to_obj(L, 1, "cc.UserDefault");
+    const char *arg1 = (const char *)xluacv_to_string(L, 2);
+    double ret = (double)self->getDoubleForKey(arg1);
+    xluacv_push_number(L, ret);
+    return 1;
+}
+
+static int _cc_UserDefault_getDoubleForKey2(lua_State *L)
+{
+    lua_settop(L, 3);
+    cocos2d::UserDefault *self = (cocos2d::UserDefault *)xluacv_to_obj(L, 1, "cc.UserDefault");
+    const char *arg1 = (const char *)xluacv_to_string(L, 2);
+    double arg2 = (double)xluacv_to_number(L, 3);
+    double ret = (double)self->getDoubleForKey(arg1, arg2);
+    xluacv_push_number(L, ret);
+    return 1;
+}
+
+static int _cc_UserDefault_getDoubleForKey(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if (xluacv_is_string(L, 2)) {
+            return _cc_UserDefault_getDoubleForKey1(L);
+        // }
+    }
+    
+    if (num_args == 2) {
+        // if (xluacv_is_string(L, 2) && xluacv_is_number(L, 3)) {
+            return _cc_UserDefault_getDoubleForKey2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::UserDefault::getDoubleForKey' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cc_UserDefault_getStringForKey1(lua_State *L)
 {
     lua_settop(L, 2);
     cocos2d::UserDefault *self = (cocos2d::UserDefault *)xluacv_to_obj(L, 1, "cc.UserDefault");
@@ -67,12 +184,157 @@ static int _cc_UserDefault_getStringForKey(lua_State *L)
     return 1;
 }
 
+static int _cc_UserDefault_getStringForKey2(lua_State *L)
+{
+    lua_settop(L, 3);
+    cocos2d::UserDefault *self = (cocos2d::UserDefault *)xluacv_to_obj(L, 1, "cc.UserDefault");
+    const char *arg1 = (const char *)xluacv_to_string(L, 2);
+    const std::string arg2 = (const std::string)xluacv_to_std_string(L, 3);
+    std::string ret = (std::string)self->getStringForKey(arg1, arg2);
+    xluacv_push_std_string(L, ret);
+    return 1;
+}
+
+static int _cc_UserDefault_getStringForKey(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if (xluacv_is_string(L, 2)) {
+            return _cc_UserDefault_getStringForKey1(L);
+        // }
+    }
+    
+    if (num_args == 2) {
+        // if (xluacv_is_string(L, 2) && xluacv_is_std_string(L, 3)) {
+            return _cc_UserDefault_getStringForKey2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::UserDefault::getStringForKey' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cc_UserDefault_setBoolForKey(lua_State *L)
+{
+    lua_settop(L, 3);
+    cocos2d::UserDefault *self = (cocos2d::UserDefault *)xluacv_to_obj(L, 1, "cc.UserDefault");
+    const char *arg1 = (const char *)xluacv_to_string(L, 2);
+    bool arg2 = (bool)xluacv_to_bool(L, 3);
+    self->setBoolForKey(arg1, arg2);
+    
+    return 0;
+}
+
+static int _cc_UserDefault_setIntegerForKey(lua_State *L)
+{
+    lua_settop(L, 3);
+    cocos2d::UserDefault *self = (cocos2d::UserDefault *)xluacv_to_obj(L, 1, "cc.UserDefault");
+    const char *arg1 = (const char *)xluacv_to_string(L, 2);
+    int arg2 = (int)xluacv_to_int(L, 3);
+    self->setIntegerForKey(arg1, arg2);
+    
+    return 0;
+}
+
+static int _cc_UserDefault_setFloatForKey(lua_State *L)
+{
+    lua_settop(L, 3);
+    cocos2d::UserDefault *self = (cocos2d::UserDefault *)xluacv_to_obj(L, 1, "cc.UserDefault");
+    const char *arg1 = (const char *)xluacv_to_string(L, 2);
+    float arg2 = (float)xluacv_to_number(L, 3);
+    self->setFloatForKey(arg1, arg2);
+    
+    return 0;
+}
+
+static int _cc_UserDefault_setDoubleForKey(lua_State *L)
+{
+    lua_settop(L, 3);
+    cocos2d::UserDefault *self = (cocos2d::UserDefault *)xluacv_to_obj(L, 1, "cc.UserDefault");
+    const char *arg1 = (const char *)xluacv_to_string(L, 2);
+    double arg2 = (double)xluacv_to_number(L, 3);
+    self->setDoubleForKey(arg1, arg2);
+    
+    return 0;
+}
+
+static int _cc_UserDefault_setStringForKey(lua_State *L)
+{
+    lua_settop(L, 3);
+    cocos2d::UserDefault *self = (cocos2d::UserDefault *)xluacv_to_obj(L, 1, "cc.UserDefault");
+    const char *arg1 = (const char *)xluacv_to_string(L, 2);
+    const std::string arg2 = (const std::string)xluacv_to_std_string(L, 3);
+    self->setStringForKey(arg1, arg2);
+    
+    return 0;
+}
+
+static int _cc_UserDefault_flush(lua_State *L)
+{
+    lua_settop(L, 1);
+    cocos2d::UserDefault *self = (cocos2d::UserDefault *)xluacv_to_obj(L, 1, "cc.UserDefault");
+    self->flush();
+    
+    return 0;
+}
+
+static int _cc_UserDefault_deleteValueForKey(lua_State *L)
+{
+    lua_settop(L, 2);
+    cocos2d::UserDefault *self = (cocos2d::UserDefault *)xluacv_to_obj(L, 1, "cc.UserDefault");
+    const char *arg1 = (const char *)xluacv_to_string(L, 2);
+    self->deleteValueForKey(arg1);
+    
+    return 0;
+}
+
+static int _cc_UserDefault_getInstance(lua_State *L)
+{
+    lua_settop(L, 0);
+    
+    cocos2d::UserDefault * ret = (cocos2d::UserDefault *)cocos2d::UserDefault::getInstance();
+    xluacv_push_obj(L, ret, "cc.UserDefault");
+    return 1;
+}
+
+static int _cc_UserDefault_getXMLFilePath(lua_State *L)
+{
+    lua_settop(L, 0);
+    
+    const std::string ret = (const std::string)cocos2d::UserDefault::getXMLFilePath();
+    xluacv_push_std_string(L, ret);
+    return 1;
+}
+
+static int _cc_UserDefault_isXMLFileExist(lua_State *L)
+{
+    lua_settop(L, 0);
+    
+    bool ret = (bool)cocos2d::UserDefault::isXMLFileExist();
+    xluacv_push_bool(L, ret);
+    return 1;
+}
+
 static int luaopen_cc_UserDefault(lua_State *L)
 {
     xluacls_class(L, "cc.UserDefault", nullptr);
-    xluacls_setfunc(L, "getInstance", _cc_UserDefault_getInstance);
     xluacls_setfunc(L, "getBoolForKey", _cc_UserDefault_getBoolForKey);
+    xluacls_setfunc(L, "getIntegerForKey", _cc_UserDefault_getIntegerForKey);
+    xluacls_setfunc(L, "getFloatForKey", _cc_UserDefault_getFloatForKey);
+    xluacls_setfunc(L, "getDoubleForKey", _cc_UserDefault_getDoubleForKey);
     xluacls_setfunc(L, "getStringForKey", _cc_UserDefault_getStringForKey);
+    xluacls_setfunc(L, "setBoolForKey", _cc_UserDefault_setBoolForKey);
+    xluacls_setfunc(L, "setIntegerForKey", _cc_UserDefault_setIntegerForKey);
+    xluacls_setfunc(L, "setFloatForKey", _cc_UserDefault_setFloatForKey);
+    xluacls_setfunc(L, "setDoubleForKey", _cc_UserDefault_setDoubleForKey);
+    xluacls_setfunc(L, "setStringForKey", _cc_UserDefault_setStringForKey);
+    xluacls_setfunc(L, "flush", _cc_UserDefault_flush);
+    xluacls_setfunc(L, "deleteValueForKey", _cc_UserDefault_deleteValueForKey);
+    xluacls_setfunc(L, "getInstance", _cc_UserDefault_getInstance);
+    xluacls_setfunc(L, "getXMLFilePath", _cc_UserDefault_getXMLFilePath);
+    xluacls_setfunc(L, "isXMLFileExist", _cc_UserDefault_isXMLFileExist);
     
     lua_newtable(L);
     luaL_setmetatable(L, "cc.UserDefault");

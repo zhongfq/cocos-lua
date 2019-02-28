@@ -28,7 +28,8 @@ void xluacv_push_std_string(lua_State *L, const std::string &value)
 
 const std::string xluacv_to_std_string(lua_State *L, int idx)
 {
-    return luaL_checkstring(L, idx);
+    luaL_checktype(L, idx, LUA_TSTRING);
+    return lua_tostring(L, idx);
 }
 
 const std::string xluacv_opt_std_string(lua_State *L, int idx, const std::string &default_value)
@@ -48,7 +49,8 @@ void xluacv_push_string(lua_State *L, const char *value)
 
 const char *xluacv_to_string(lua_State *L, int idx)
 {
-    return luaL_checkstring(L, idx);
+    luaL_checktype(L, idx, LUA_TSTRING);
+    return lua_tostring(L, idx);
 }
 
 const char *xluacv_opt_string(lua_State *L, int idx, const char *default_value)

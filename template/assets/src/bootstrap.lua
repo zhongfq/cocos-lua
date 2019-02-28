@@ -22,11 +22,7 @@ function main()
 
     local obj = UserDefault.getInstance()
     print("UserDefault", obj)
-    print("UserDefault", obj:getStringForKey("conf.version.runtime"))
-    print("UserDefault", obj:getBoolForKey("conf.version"))
-    print("UserDefault", obj:getBoolForKey("conf.version", true))
-    print("UserDefault", obj:getBoolForKey("conf.version", false))
-    print("UserDefault", obj:getBoolForKey())
+    print("UserDefault", obj:setIntegerForKey("conf.version", 1))
 
     runtime.setDispatcher(function (...)
         print("dispatch", ...)

@@ -61,18 +61,23 @@ local function gen_one_func(cls, fi, write, funcidx)
         local DECL_TYPE = ai.DECL_TYPE
         local TYPE = ai.TYPE.NAME
         local ARG_N = i
+        local SPACE = " "
         local TO_ARG = ai.TYPE.TO
         local IDX = idx
+
+        if string.find(DECL_TYPE, '[ *&]$') then
+            SPACE = ""
+        end
 
         if ai.VALUE then
             TO_ARG = ai.TYPE.OPT
             local VALUE = ai.VALUE
             ARGS_STATEMENT[#ARGS_STATEMENT + 1] = format_snippet([[
-                ${DECL_TYPE} arg${ARG_N} = (${DECL_TYPE})${TO_ARG}(L, ${IDX}, ${VALUE});
+                ${DECL_TYPE}${SPACE}arg${ARG_N} = (${DECL_TYPE})${TO_ARG}(L, ${IDX}, ${VALUE});
             ]])
         else
             ARGS_STATEMENT[#ARGS_STATEMENT + 1] = format_snippet([[
-                ${DECL_TYPE} arg${ARG_N} = (${DECL_TYPE})${TO_ARG}(L, ${IDX});
+                ${DECL_TYPE}${SPACE}arg${ARG_N} = (${DECL_TYPE})${TO_ARG}(L, ${IDX});
             ]])
         end
     end

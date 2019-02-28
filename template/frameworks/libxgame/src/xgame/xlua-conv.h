@@ -44,4 +44,8 @@ LUALIB_API void xluacv_push_obj(lua_State *L, void *obj, const char *classname);
 LUALIB_API void *xluacv_to_obj(lua_State *L, int idx, const char *classname);
 LUALIB_API bool xluacv_is_obj(lua_State *L, int idx, const char *classname);
 
+LUALIB_API void xluacv_push_ccobj(lua_State *L, cocos2d::Ref *obj, const char *classname);
+LUALIB_API cocos2d::Ref *xluacv_to_ccobj(lua_State *L, int idx, const char *classname);
+LUALIB_API bool xluacv_is_ccobj(lua_State *L, int idx, const char *classname);
+
 #endif

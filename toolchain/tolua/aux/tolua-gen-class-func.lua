@@ -75,6 +75,12 @@ local function gen_one_func(cls, fi, write, funcidx)
             ARGS_STATEMENT[#ARGS_STATEMENT + 1] = format_snippet([[
                 ${DECL_TYPE}${SPACE}arg${ARG_N} = (${DECL_TYPE})${FUNC_TO_VALUE}(L, ${IDX}, ${VALUE});
             ]])
+        elseif ai.TYPE.LUACLS then
+            FUNC_TO_VALUE = ai.TYPE.FUNC_TO_VALUE
+            local LUACLS = ai.TYPE.LUACLS
+            ARGS_STATEMENT[#ARGS_STATEMENT + 1] = format_snippet([[
+                ${DECL_TYPE}${SPACE}arg${ARG_N} = (${DECL_TYPE})${FUNC_TO_VALUE}(L, ${IDX}, "${LUACLS}");
+            ]])
         else
             ARGS_STATEMENT[#ARGS_STATEMENT + 1] = format_snippet([[
                 ${DECL_TYPE}${SPACE}arg${ARG_N} = (${DECL_TYPE})${FUNC_TO_VALUE}(L, ${IDX});
@@ -125,8 +131,8 @@ local function gen_test_and_call(cls, fns)
             for i, ai in ipairs(fi.ARGS) do
                 local IDX = (fi.STATIC and 0 or 1) + i
                 local FUNC_IS_VALUE = ai.TYPE.FUNC_IS_VALUE
-                if ai.LUACLS then
-                    local LUACLS = ai.LUACLS
+                if ai.TYPE.LUACLS then
+                    local LUACLS = ai.TYPE.LUACLS
                     TEST_ARGS[#TEST_ARGS + 1] = format_snippet([[
                         ${FUNC_IS_VALUE}(L, ${IDX}, "${LUACLS}")
                     ]])

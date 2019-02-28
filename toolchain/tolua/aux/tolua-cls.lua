@@ -13,7 +13,7 @@ function get_type_info(t)
     t = string.gsub(t, '[ ]*[&]+', '')
     t = string.gsub(t, '[ ]*$', '')
 
-    return type_info_map[t]
+    return assert(type_info_map[t], t)
 end
 
 local function parse_ret(rt)
@@ -25,9 +25,7 @@ local function parse_ret(rt)
 
     rt = trim_redundance_space(rt)
 
-    if not get_type_info(rt) then
-        error(string.format("not support type: %s", rt))
-    end
+    get_type_info(rt)
 
     return static, rt
 end
@@ -51,7 +49,7 @@ local function parse_args(func_decl)
             assert(t, arg)
             t = string.gsub(t, '[ ]*$', '')
             args[#args + 1] = {
-                TYPE = assert(get_type_info(t), t),
+                TYPE = get_type_info(t),
                 DECL_TYPE = string.gsub(t, '[ &]*$', ''),
                 VALUE = d,
             }

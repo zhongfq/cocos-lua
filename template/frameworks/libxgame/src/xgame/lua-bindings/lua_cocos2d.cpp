@@ -342,8 +342,238 @@ static int luaopen_cc_UserDefault(lua_State *L)
     return 1;
 }
 
+static int _cc_Ref_getReferenceCount(lua_State *L)
+{
+    lua_settop(L, 1);
+    cocos2d::Ref *self = (cocos2d::Ref *)xluacv_to_ccobj(L, 1, "cc.Ref");
+    unsigned int ret = (unsigned int)self->getReferenceCount();
+    xluacv_push_uint(L, ret);
+    return 1;
+}
+
+static int luaopen_cc_Ref(lua_State *L)
+{
+    xluacls_class(L, "cc.Ref", nullptr);
+    xluacls_property(L, "referenceCount", _cc_Ref_getReferenceCount, nullptr);
+    
+    lua_newtable(L);
+    luaL_setmetatable(L, "cc.Ref");
+    
+    return 1;
+}
+
+static int _cc_Node_create(lua_State *L)
+{
+    lua_settop(L, 0);
+    
+    cocos2d::Node * ret = (cocos2d::Node *)cocos2d::Node::create();
+    xluacv_push_ccobj(L, ret, "cc.Node");
+    return 1;
+}
+
+static int _cc_Node_addChild1(lua_State *L)
+{
+    lua_settop(L, 2);
+    cocos2d::Node *self = (cocos2d::Node *)xluacv_to_ccobj(L, 1, "cc.Node");
+    cocos2d::Node *arg1 = (cocos2d::Node *)xluacv_to_ccobj(L, 2, "cc.Node");
+    self->addChild(arg1);
+    
+    return 0;
+}
+
+static int _cc_Node_addChild2(lua_State *L)
+{
+    lua_settop(L, 3);
+    cocos2d::Node *self = (cocos2d::Node *)xluacv_to_ccobj(L, 1, "cc.Node");
+    cocos2d::Node *arg1 = (cocos2d::Node *)xluacv_to_ccobj(L, 2, "cc.Node");
+    int arg2 = (int)xluacv_to_int(L, 3);
+    self->addChild(arg1, arg2);
+    
+    return 0;
+}
+
+static int _cc_Node_addChild3(lua_State *L)
+{
+    lua_settop(L, 4);
+    cocos2d::Node *self = (cocos2d::Node *)xluacv_to_ccobj(L, 1, "cc.Node");
+    cocos2d::Node*arg1 = (cocos2d::Node*)xluacv_to_ccobj(L, 2, "cc.Node");
+    int arg2 = (int)xluacv_to_int(L, 3);
+    int arg3 = (int)xluacv_to_int(L, 4);
+    self->addChild(arg1, arg2, arg3);
+    
+    return 0;
+}
+
+static int _cc_Node_addChild4(lua_State *L)
+{
+    lua_settop(L, 4);
+    cocos2d::Node *self = (cocos2d::Node *)xluacv_to_ccobj(L, 1, "cc.Node");
+    cocos2d::Node*arg1 = (cocos2d::Node*)xluacv_to_ccobj(L, 2, "cc.Node");
+    int arg2 = (int)xluacv_to_int(L, 3);
+    const std::string arg3 = (const std::string)xluacv_to_std_string(L, 4);
+    self->addChild(arg1, arg2, arg3);
+    
+    return 0;
+}
+
+static int _cc_Node_addChild(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if (xluacv_is_ccobj(L, 2, "cc.Node")) {
+            return _cc_Node_addChild1(L);
+        // }
+    }
+    
+    if (num_args == 2) {
+        // if (xluacv_is_ccobj(L, 2, "cc.Node") && xluacv_is_int(L, 3)) {
+            return _cc_Node_addChild2(L);
+        // }
+    }
+    
+    if (num_args == 3) {
+        if (xluacv_is_ccobj(L, 2, "cc.Node") && xluacv_is_int(L, 3) && xluacv_is_int(L, 4)) {
+            return _cc_Node_addChild3(L);
+        }
+        
+        // if (xluacv_is_ccobj(L, 2, "cc.Node") && xluacv_is_int(L, 3) && xluacv_is_std_string(L, 4)) {
+            return _cc_Node_addChild4(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Node::addChild' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cc_Node_getChildByTag(lua_State *L)
+{
+    lua_settop(L, 2);
+    cocos2d::Node *self = (cocos2d::Node *)xluacv_to_ccobj(L, 1, "cc.Node");
+    int arg1 = (int)xluacv_to_int(L, 2);
+    cocos2d::Node * ret = (cocos2d::Node *)self->getChildByTag(arg1);
+    xluacv_push_ccobj(L, ret, "cc.Node");
+    return 1;
+}
+
+static int _cc_Node_removeFromParent(lua_State *L)
+{
+    lua_settop(L, 1);
+    cocos2d::Node *self = (cocos2d::Node *)xluacv_to_ccobj(L, 1, "cc.Node");
+    self->removeFromParent();
+    
+    return 0;
+}
+
+static int _cc_Node_removeFromParentAndCleanup(lua_State *L)
+{
+    lua_settop(L, 2);
+    cocos2d::Node *self = (cocos2d::Node *)xluacv_to_ccobj(L, 1, "cc.Node");
+    bool arg1 = (bool)xluacv_to_bool(L, 2);
+    self->removeFromParentAndCleanup(arg1);
+    
+    return 0;
+}
+
+static int _cc_Node_removeChild(lua_State *L)
+{
+    lua_settop(L, 3);
+    cocos2d::Node *self = (cocos2d::Node *)xluacv_to_ccobj(L, 1, "cc.Node");
+    cocos2d::Node*arg1 = (cocos2d::Node*)xluacv_to_ccobj(L, 2, "cc.Node");
+    bool arg2 = (bool)xluacv_opt_bool(L, 3, true);
+    self->removeChild(arg1, arg2);
+    
+    return 0;
+}
+
+static int _cc_Node_removeChildByTag(lua_State *L)
+{
+    lua_settop(L, 3);
+    cocos2d::Node *self = (cocos2d::Node *)xluacv_to_ccobj(L, 1, "cc.Node");
+    int arg1 = (int)xluacv_to_int(L, 2);
+    bool arg2 = (bool)xluacv_opt_bool(L, 3, true);
+    self->removeChildByTag(arg1, arg2);
+    
+    return 0;
+}
+
+static int _cc_Node_removeChildByName(lua_State *L)
+{
+    lua_settop(L, 3);
+    cocos2d::Node *self = (cocos2d::Node *)xluacv_to_ccobj(L, 1, "cc.Node");
+    const std::string arg1 = (const std::string)xluacv_to_std_string(L, 2);
+    bool arg2 = (bool)xluacv_opt_bool(L, 3, true);
+    self->removeChildByName(arg1, arg2);
+    
+    return 0;
+}
+
+static int _cc_Node_removeAllChildren(lua_State *L)
+{
+    lua_settop(L, 1);
+    cocos2d::Node *self = (cocos2d::Node *)xluacv_to_ccobj(L, 1, "cc.Node");
+    self->removeAllChildren();
+    
+    return 0;
+}
+
+static int _cc_Node_removeAllChildrenWithCleanup(lua_State *L)
+{
+    lua_settop(L, 2);
+    cocos2d::Node *self = (cocos2d::Node *)xluacv_to_ccobj(L, 1, "cc.Node");
+    bool arg1 = (bool)xluacv_to_bool(L, 2);
+    self->removeAllChildrenWithCleanup(arg1);
+    
+    return 0;
+}
+
+static int _cc_Node_reorderChild(lua_State *L)
+{
+    lua_settop(L, 3);
+    cocos2d::Node *self = (cocos2d::Node *)xluacv_to_ccobj(L, 1, "cc.Node");
+    cocos2d::Node *arg1 = (cocos2d::Node *)xluacv_to_ccobj(L, 2, "cc.Node");
+    int arg2 = (int)xluacv_to_int(L, 3);
+    self->reorderChild(arg1, arg2);
+    
+    return 0;
+}
+
+static int _cc_Node_sortAllChildren(lua_State *L)
+{
+    lua_settop(L, 1);
+    cocos2d::Node *self = (cocos2d::Node *)xluacv_to_ccobj(L, 1, "cc.Node");
+    self->sortAllChildren();
+    
+    return 0;
+}
+
+static int luaopen_cc_Node(lua_State *L)
+{
+    xluacls_class(L, "cc.Node", "cc.Ref");
+    xluacls_setfunc(L, "create", _cc_Node_create);
+    xluacls_setfunc(L, "addChild", _cc_Node_addChild);
+    xluacls_setfunc(L, "getChildByTag", _cc_Node_getChildByTag);
+    xluacls_setfunc(L, "removeFromParent", _cc_Node_removeFromParent);
+    xluacls_setfunc(L, "removeFromParentAndCleanup", _cc_Node_removeFromParentAndCleanup);
+    xluacls_setfunc(L, "removeChild", _cc_Node_removeChild);
+    xluacls_setfunc(L, "removeChildByTag", _cc_Node_removeChildByTag);
+    xluacls_setfunc(L, "removeChildByName", _cc_Node_removeChildByName);
+    xluacls_setfunc(L, "removeAllChildren", _cc_Node_removeAllChildren);
+    xluacls_setfunc(L, "removeAllChildrenWithCleanup", _cc_Node_removeAllChildrenWithCleanup);
+    xluacls_setfunc(L, "reorderChild", _cc_Node_reorderChild);
+    xluacls_setfunc(L, "sortAllChildren", _cc_Node_sortAllChildren);
+    
+    lua_newtable(L);
+    luaL_setmetatable(L, "cc.Node");
+    
+    return 1;
+}
+
 int luaopen_cocos2d(lua_State *L)
 {
     xlua_require(L, "cc.UserDefault", luaopen_cc_UserDefault);
+    xlua_require(L, "cc.Ref", luaopen_cc_Ref);
+    xlua_require(L, "cc.Node", luaopen_cc_Node);
     return 0;
 }

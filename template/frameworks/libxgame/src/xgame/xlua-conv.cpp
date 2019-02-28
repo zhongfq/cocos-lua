@@ -146,3 +146,18 @@ bool xluacv_is_obj(lua_State *L, int idx, const char *classname)
 {
     return xluacls_isa(L, idx, classname);
 }
+
+void xluacv_push_ccobj(lua_State *L, cocos2d::Ref *obj, const char *classname)
+{
+    xluacls_pushccobj(L, obj, classname);
+}
+
+cocos2d::Ref *xluacv_to_ccobj(lua_State *L, int idx, const char *classname)
+{
+    return (cocos2d::Ref *)xluacls_checkobj(L, idx, classname);
+}
+
+bool xluacv_is_ccobj(lua_State *L, int idx, const char *classname)
+{
+    return xluacls_isa(L, idx, classname);
+}

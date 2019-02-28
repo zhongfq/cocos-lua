@@ -82,6 +82,7 @@ local function parse_prop(name, func_get, func_set)
     pi.NAME = assert(name)
     pi.GET = func_get and parse_func(name, func_get) or nil
     pi.SET = func_set and parse_func(name, func_set) or nil
+    assert(pi.GET.RETURN.NUM > 0, func_get)
     return pi
 end
 

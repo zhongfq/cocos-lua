@@ -1,5 +1,16 @@
 function write(path, content)
+    local file = io.open(path, 'r')
+    if file then
+        local flag = file:read("*a") == content
+        file:close()
+        if flag then
+            print("up-to-date:", path)
+            return
+        end
+    end
+
     print("write:", path)
+
     local file = io.open(path, "w")
     file:write(content)
     file:flush()

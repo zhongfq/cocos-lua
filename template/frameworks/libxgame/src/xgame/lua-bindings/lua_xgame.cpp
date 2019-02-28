@@ -73,6 +73,42 @@ static int _kernel_runtime_getNumSamples(lua_State *L)
     return 1;
 }
 
+static int _kernel_runtime_canOpenURL(lua_State *L)
+{
+    lua_settop(L, 1);
+    const std::string arg1 = (const std::string)xluacv_to_std_string(L, 1);
+    bool ret = (bool)xgame::runtime::canOpenURL(arg1);
+    xluacv_push_bool(L, ret);
+    return 1;
+}
+
+static int _kernel_runtime_support(lua_State *L)
+{
+    lua_settop(L, 1);
+    const std::string arg1 = (const std::string)xluacv_to_std_string(L, 1);
+    bool ret = (bool)xgame::runtime::support(arg1);
+    xluacv_push_bool(L, ret);
+    return 1;
+}
+
+static int _kernel_runtime_printSupport(lua_State *L)
+{
+    lua_settop(L, 0);
+    
+    xgame::runtime::printSupport();
+    
+    return 0;
+}
+
+static int _kernel_runtime_disableReport(lua_State *L)
+{
+    lua_settop(L, 0);
+    
+    xgame::runtime::disableReport();
+    
+    return 0;
+}
+
 static int _kernel_runtime_getPackageName(lua_State *L)
 {
     lua_settop(L, 0);
@@ -127,6 +163,24 @@ static int _kernel_runtime_getDeviceInfo(lua_State *L)
     return 1;
 }
 
+static int _kernel_runtime_getLogPath(lua_State *L)
+{
+    lua_settop(L, 0);
+    
+    const std::string ret = (const std::string)xgame::runtime::getLogPath();
+    xluacv_push_std_string(L, ret);
+    return 1;
+}
+
+static int _kernel_runtime_setLogPath(lua_State *L)
+{
+    lua_settop(L, 1);
+    const std::string arg1 = (const std::string)xluacv_to_std_string(L, 1);
+    xgame::runtime::setLogPath(arg1);
+    
+    return 0;
+}
+
 static int luaopen_kernel_runtime(lua_State *L)
 {
     xluacls_class(L, "kernel.runtime", nullptr);
@@ -137,12 +191,17 @@ static int luaopen_kernel_runtime(lua_State *L)
     xluacls_setfunc(L, "setAntialias", _kernel_runtime_setAntialias);
     xluacls_setfunc(L, "isAntialias", _kernel_runtime_isAntialias);
     xluacls_setfunc(L, "getNumSamples", _kernel_runtime_getNumSamples);
+    xluacls_setfunc(L, "canOpenURL", _kernel_runtime_canOpenURL);
+    xluacls_setfunc(L, "support", _kernel_runtime_support);
+    xluacls_setfunc(L, "printSupport", _kernel_runtime_printSupport);
+    xluacls_setfunc(L, "disableReport", _kernel_runtime_disableReport);
     xluacls_property(L, "packageName", _kernel_runtime_getPackageName, nullptr);
     xluacls_property(L, "version", _kernel_runtime_getVersion, nullptr);
     xluacls_property(L, "versionBuild", _kernel_runtime_getVersionBuild, nullptr);
     xluacls_property(L, "channel", _kernel_runtime_getChannel, nullptr);
     xluacls_property(L, "os", _kernel_runtime_getOS, nullptr);
     xluacls_property(L, "deviceInfo", _kernel_runtime_getDeviceInfo, nullptr);
+    xluacls_property(L, "logPath", _kernel_runtime_getLogPath, _kernel_runtime_setLogPath);
     
     lua_newtable(L);
     luaL_setmetatable(L, "kernel.runtime");

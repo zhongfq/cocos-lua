@@ -1,4 +1,4 @@
-local cjson = require "cjson"
+local cjson = require "kernel.crypto.cjson"
 local runtime = require "kernel.runtime"
 local preferences = require "kernel.preferences"
 

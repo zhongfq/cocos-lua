@@ -14,3 +14,4 @@ function gen_module(module)
 end
 
 gen_module(require("conf.lua-xgame"))
+gen_module(require("conf.lua-cocos2d"))

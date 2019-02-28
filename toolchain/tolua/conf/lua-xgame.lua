@@ -57,6 +57,29 @@ cls.func("setDispatcher", [[
     });
     return 0;
 }]])
+cls.func("openURL", [[
+{
+    lua_settop(L, 2);
+    int callback = LUA_REFNIL;
+    if (lua_isfunction(L, 2)) {
+        callback = xlua_reffunc(L, 2);
+    }
+    xgame::runtime::openURL(luaL_checkstring(L, 1), [callback](bool success) {
+        if (callback != LUA_REFNIL) {
+            lua_State *L = xlua_cocosthread();
+            int top = lua_gettop(L);
+            lua_pushcfunction(L, xlua_errorfunc);
+            xlua_getref(L, callback);
+            if (lua_isfunction(L, -1)) {
+                lua_pushboolean(L, success);
+                lua_pcall(L, 1, 0, top + 1);
+                xlua_unref(L, callback);
+            }
+            lua_settop(L, top);
+        }
+    });
+    return 0;
+}]])
 
 local cls = class(M)
 cls.NATIVE = "xgame::filesystem"

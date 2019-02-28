@@ -71,7 +71,7 @@ local function parse_func(name, func_decl)
         fi.RETURN.TYPE = get_type_info('void')
         fi.ARGS = {}
     else
-        local rt, func = string.match(func_decl, "(.+[ *&])([^ ]+)[ ]*%(")
+        local rt, func = string.match(func_decl, "([^()]+[ *&])([^ ]+)[ ]*%(")
         local static, rt = parse_ret(rt)
 
         fi.NAME = name or func

@@ -9,6 +9,8 @@
 #include "xgame/xruntime.h"
 #include "xgame/xtimer.h"
 
+static std::unordered_map<std::string, int> s_timer_tag;
+
 static int _kernel_runtime_clearStorage(lua_State *L)
 {
     lua_settop(L, 0);
@@ -252,6 +254,7 @@ static int luaopen_kernel_runtime(lua_State *L)
     
     return 1;
 }
+
 static int _kernel_filesystem_shortPath(lua_State *L)
 {
     lua_settop(L, 2);
@@ -428,6 +431,7 @@ static int luaopen_kernel_filesystem(lua_State *L)
     
     return 1;
 }
+
 static int _kernel_preferences_getBoolean(lua_State *L)
 {
     lua_settop(L, 2);
@@ -567,10 +571,208 @@ static int luaopen_kernel_preferences(lua_State *L)
     
     return 1;
 }
+
+static int _kernel_timer_killDelay(lua_State *L)
+{
+    lua_settop(L, 1);
+    const char *tagstr = luaL_checkstring(L, 1);
+    const std::string tag = std::string(tagstr);
+    auto it = s_timer_tag.find(tag);
+    if (it != s_timer_tag.end()) {
+        xlua_unref(L, it->second);
+        s_timer_tag.erase(it);
+        xgame::timer::killDelay(tag);
+    }
+    return 0;
+}
+
+static int _kernel_timer_delay(lua_State *L)
+{
+    lua_settop(L, 2);
+    float time = (float)luaL_checknumber(L, 1);
+    unsigned int callback = xlua_reffunc(L, 2);
+    xgame::timer::delay(time, [callback]() {
+        lua_State *L = xlua_cocosthread();
+        int top = lua_gettop(L);
+        lua_pushcfunction(L, xlua_errorfunc);
+        xlua_getref(L, callback);
+        if (lua_isfunction(L, -1)) {
+            lua_pcall(L, 0, 0, top + 1);
+            xlua_unref(L, callback);
+        }
+        lua_settop(L, top);
+    });
+    return 0;
+}
+
+static int _kernel_timer_delayWithTag(lua_State *L)
+{
+    lua_settop(L, 3);
+    size_t len;
+    float time = (float)luaL_checknumber(L, 1);
+    const char *tagstr = luaL_checklstring(L, 2, &len);
+    if (len <= 0) {
+        luaL_error(L, "key should not be empty!");
+    }
+    const std::string tag = std::string(tagstr);
+    if (s_timer_tag.find(tag) != s_timer_tag.end()) {
+        xlua_unref(L, s_timer_tag[tag]);
+    }
+    unsigned int callback = xlua_reffunc(L, 3);
+    s_timer_tag[tag] = callback;
+    xgame::timer::delayWithTag(time, tag, [callback]() {
+        lua_State *L = xlua_cocosthread();
+        int top = lua_gettop(L);
+        lua_pushcfunction(L, xlua_errorfunc);
+        xlua_getref(L, callback);
+        if (lua_isfunction(L, -1)) {
+            lua_pcall(L, 0, 0, top + 1);
+            xlua_unref(L, callback);
+        }
+        lua_settop(L, top);
+    });
+    return 0;
+}
+
+static int _kernel_timer_schedule(lua_State *L)
+{
+    lua_settop(L, 2);
+    float interval = (float)luaL_checknumber(L, 1);
+    unsigned int callback = xlua_reffunc(L, 2);
+    unsigned int id = xgame::timer::schedule(interval, [callback](float dt) {
+        lua_State *L = xlua_cocosthread();
+        int top = lua_gettop(L);
+        lua_pushcfunction(L, xlua_errorfunc);
+        xlua_getref(L, callback);
+        if (lua_isfunction(L, -1)) {
+            lua_pushnumber(L, dt);
+            lua_pcall(L, 1, 0, top + 1);
+        }
+        lua_settop(L, top);
+    });
+    lua_pushinteger(L, ((uint64_t)callback << 32) | (uint64_t)id);
+    return 1;
+}
+
+static int _kernel_timer_unschedule(lua_State *L)
+{
+    lua_settop(L, 1);
+    uint64_t value = luaL_checkinteger(L, 1);
+    unsigned int callback = value >> 32;
+    unsigned int id = value & 0xFFFFFFFF;
+    xlua_unref(L, callback);
+    xgame::timer::unschedule(id);
+    return 0;
+}
+
+static int luaopen_kernel_timer(lua_State *L)
+{
+    xluacls_class(L, "kernel.timer", nullptr);
+    xluacls_setfunc(L, "killDelay", _kernel_timer_killDelay);
+    xluacls_setfunc(L, "delay", _kernel_timer_delay);
+    xluacls_setfunc(L, "delayWithTag", _kernel_timer_delayWithTag);
+    xluacls_setfunc(L, "schedule", _kernel_timer_schedule);
+    xluacls_setfunc(L, "unschedule", _kernel_timer_unschedule);
+    
+    lua_newtable(L);
+    luaL_setmetatable(L, "kernel.timer");
+    
+    return 1;
+}
+
+static int _kernel_window_visibleBounds(lua_State *L)
+{
+    auto rect = cocos2d::Director::getInstance()->getOpenGLView()->getVisibleRect();
+    lua_pushinteger(L, rect.getMinX());
+    lua_pushinteger(L, rect.getMaxX());
+    lua_pushinteger(L, rect.getMaxY());
+    lua_pushinteger(L, rect.getMinY());
+    return 4;
+}
+
+
+static int _kernel_window_getDesignSize(lua_State *L)
+{
+    auto size = cocos2d::Director::getInstance()->getOpenGLView()->getDesignResolutionSize();
+    lua_pushnumber(L, size.width);
+    lua_pushnumber(L, size.height);
+    return 2;
+}
+
+static int _kernel_window_setDesignSize(lua_State *L)
+{
+    lua_settop(L, 3);
+    cocos2d::Director::getInstance()->getOpenGLView()->setDesignResolutionSize(
+        (float)luaL_checknumber(L, 1), (float)luaL_checknumber(L, 2),
+        (ResolutionPolicy)luaL_checkinteger(L, 3));
+    return 0;
+}
+
+static int _kernel_window_convertToCameraSpace(lua_State *L)
+{
+    cocos2d::Vec2 pt = cocos2d::Vec2(luaL_checknumber(L, 1), luaL_checknumber(L, 2));
+    
+    auto director = cocos2d::Director::getInstance();
+    cocos2d::Mat4 w2l = director->getRunningScene()->getWorldToNodeTransform();
+    cocos2d::Rect rect;
+    rect.size = director->getOpenGLView()->getDesignResolutionSize();
+    auto camera = director->getRunningScene()->getDefaultCamera();
+    cocos2d::Vec3 Pn(pt.x, pt.y, -1), Pf(pt.x, pt.y, 1);
+    Pn = camera->unprojectGL(Pn);
+    Pf = camera->unprojectGL(Pf);
+    
+    //  then convert Pn and Pf to node space
+    w2l.transformPoint(&Pn);
+    w2l.transformPoint(&Pf);
+    
+    // Pn and Pf define a line Q(t) = D + t * E which D = Pn
+    auto E = Pf - Pn;
+    
+    // second, get three points which define content plane
+    //  these points define a plane P(u, w) = A + uB + wC
+    cocos2d::Vec3 A = cocos2d::Vec3(rect.origin.x, rect.origin.y, 0);
+    cocos2d::Vec3 B(rect.origin.x + rect.size.width, rect.origin.y, 0);
+    cocos2d::Vec3 C(rect.origin.x, rect.origin.y + rect.size.height, 0);
+    B = B - A;
+    C = C - A;
+    
+    //  the line Q(t) intercept with plane P(u, w)
+    //  calculate the intercept point P = Q(t)
+    //      (BxC).A - (BxC).D
+    //  t = -----------------
+    //          (BxC).E
+    cocos2d::Vec3 BxC;
+    cocos2d::Vec3::cross(B, C, &BxC);
+    auto BxCdotE = BxC.dot(E);
+    auto t = (BxC.dot(A) - BxC.dot(Pn)) / BxCdotE;
+    cocos2d::Vec3 P = Pn + t * E;
+    
+    lua_pushnumber(L, P.x);
+    lua_pushnumber(L, P.y);
+    
+    return 2;
+}
+
+static int luaopen_kernel_window(lua_State *L)
+{
+    xluacls_class(L, "kernel.window", nullptr);
+    xluacls_setfunc(L, "visibleBounds", _kernel_window_visibleBounds);
+    xluacls_setfunc(L, "getDesignSize", _kernel_window_getDesignSize);
+    xluacls_setfunc(L, "setDesignSize", _kernel_window_setDesignSize);
+    xluacls_setfunc(L, "convertToCameraSpace", _kernel_window_convertToCameraSpace);
+    
+    lua_newtable(L);
+    luaL_setmetatable(L, "kernel.window");
+    
+    return 1;
+}
+
 int luaopen_xgame(lua_State *L)
 {
     xlua_require(L, "kernel.runtime", luaopen_kernel_runtime);
     xlua_require(L, "kernel.filesystem", luaopen_kernel_filesystem);
     xlua_require(L, "kernel.preferences", luaopen_kernel_preferences);
+    xlua_require(L, "kernel.timer", luaopen_kernel_timer);
+    xlua_require(L, "kernel.window", luaopen_kernel_window);
     return 0;
 }

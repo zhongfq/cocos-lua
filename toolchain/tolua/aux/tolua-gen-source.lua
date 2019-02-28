@@ -13,6 +13,7 @@ end
 local function gen_classes(module, write)
     for i, cls in ipairs(module.CLASSES) do
         gen_class(module, cls, write)
+        write('')
     end
 end
 

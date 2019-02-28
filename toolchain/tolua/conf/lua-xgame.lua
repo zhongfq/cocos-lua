@@ -40,6 +40,23 @@ cls.prop('channel', 'static const std::string getChannel();')
 cls.prop('os', 'static const std::string getOS();')
 cls.prop('deviceInfo', 'static const std::string getDeviceInfo();')
 cls.prop('logPath', 'static const std::string getLogPath();', 'static void setLogPath(const std::string &path);')
+cls.func("setDispatcher", [[
+{
+    int handler = xlua_reffunc(L, 1);
+    xgame::runtime::setDispatcher([handler](const std::string &event, const std::string &args) {
+        lua_State *L = xlua_cocosthread();
+        int top = lua_gettop(L);
+        lua_pushcfunction(L, xlua_errorfunc);
+        xlua_getref(L, handler);
+        if (lua_isfunction(L, -1)) {
+            lua_pushstring(L, event.c_str());
+            lua_pushstring(L, args.c_str());
+            lua_pcall(L, 2, 0, top + 1);
+        }
+        lua_settop(L, top);
+    });
+    return 0;
+}]])
 
 local cls = class(M)
 cls.NATIVE = "xgame::filesystem"

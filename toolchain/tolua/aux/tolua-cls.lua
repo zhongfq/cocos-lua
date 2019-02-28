@@ -63,16 +63,25 @@ end
 local function parse_func(name, func_decl)
     local fi = {RETURN = {}}
 
-    local rt, func = string.match(func_decl, "(.+[ *&])([^ ]+)[ ]*%(")
-    local static, rt = parse_ret(rt)
+    if string.find(func_decl, '{') then
+        fi.NAME = assert(name)
+        fi.FUNC = name
+        fi.FUNC_SNIPPET = func_decl
+        fi.RETURN.NUM = 0
+        fi.RETURN.TYPE = get_type_info('void')
+        fi.ARGS = {}
+    else
+        local rt, func = string.match(func_decl, "(.+[ *&])([^ ]+)[ ]*%(")
+        local static, rt = parse_ret(rt)
 
-    fi.NAME = name or func
-    fi.FUNC = func
-    fi.STATIC = static
-    fi.RETURN.NUM = rt == "void" and 0 or 1
-    fi.RETURN.TYPE = get_type_info(rt)
-    fi.RETURN.DECL_TYPE = string.gsub(rt, '[ &]*$', '')
-    fi.ARGS = parse_args(func_decl)
+        fi.NAME = name or func
+        fi.FUNC = func
+        fi.STATIC = static
+        fi.RETURN.NUM = rt == "void" and 0 or 1
+        fi.RETURN.TYPE = get_type_info(rt)
+        fi.RETURN.DECL_TYPE = string.gsub(rt, '[ &]*$', '')
+        fi.ARGS = parse_args(func_decl)
+    end
 
     return fi
 end

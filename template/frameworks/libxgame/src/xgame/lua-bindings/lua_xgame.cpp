@@ -109,6 +109,24 @@ static int _kernel_runtime_disableReport(lua_State *L)
     return 0;
 }
 
+static int _kernel_runtime_setDispatcher(lua_State *L)
+{
+    int handler = xlua_reffunc(L, 1);
+    xgame::runtime::setDispatcher([handler](const std::string &event, const std::string &args) {
+        lua_State *L = xlua_cocosthread();
+        int top = lua_gettop(L);
+        lua_pushcfunction(L, xlua_errorfunc);
+        xlua_getref(L, handler);
+        if (lua_isfunction(L, -1)) {
+            lua_pushstring(L, event.c_str());
+            lua_pushstring(L, args.c_str());
+            lua_pcall(L, 2, 0, top + 1);
+        }
+        lua_settop(L, top);
+    });
+    return 0;
+}
+
 static int _kernel_runtime_getPackageName(lua_State *L)
 {
     lua_settop(L, 0);
@@ -195,6 +213,7 @@ static int luaopen_kernel_runtime(lua_State *L)
     xluacls_setfunc(L, "support", _kernel_runtime_support);
     xluacls_setfunc(L, "printSupport", _kernel_runtime_printSupport);
     xluacls_setfunc(L, "disableReport", _kernel_runtime_disableReport);
+    xluacls_setfunc(L, "setDispatcher", _kernel_runtime_setDispatcher);
     xluacls_property(L, "packageName", _kernel_runtime_getPackageName, nullptr);
     xluacls_property(L, "version", _kernel_runtime_getVersion, nullptr);
     xluacls_property(L, "versionBuild", _kernel_runtime_getVersionBuild, nullptr);

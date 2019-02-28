@@ -12,6 +12,17 @@ static int _runtime_doSomething(lua_State *L)
 }
 ]]
 
+local function gen_class_func_with_snippet(cls, fi, write)
+    local template = [[
+        static int _${CLASS_PATH}_${FUNC}(lua_State *L)
+        ${FUNC_SNIPPET}
+    ]]
+    local CLASS_PATH = class_path(cls.CLASS)
+    local FUNC = fi.FUNC
+    local FUNC_SNIPPET = fi.FUNC_SNIPPET
+    write(format_snippet(template))
+end
+
 function gen_class_func(cls, fi, write)
     local template = [[
         static int _${CLASS_PATH}_${FUNC}(lua_State *L)
@@ -23,6 +34,11 @@ function gen_class_func(cls, fi, write)
             return ${NUM_RET};
         }
     ]]
+
+    if fi.FUNC_SNIPPET then
+        gen_class_func_with_snippet(cls, fi, write)
+        return
+    end
 
     -- TODO: lua_settop(L, arg + 1)
 

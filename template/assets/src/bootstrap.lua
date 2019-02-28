@@ -18,6 +18,10 @@ function main()
     print("###", runtime.isRestarting())
 
     print("preferences", preferences.getString("conf.version.runtime"))
+
+    runtime.setDispatcher(function (...)
+        print("dispatch", ...)
+    end)
 end
 
 local r = setmetatable({}, {__gc = function ()

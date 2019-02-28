@@ -311,7 +311,12 @@ int xluacls_ccobjcount(lua_State *L)
 void *xluacls_checkobj(lua_State *L, int idx, const char *classname)
 {
     if (xluacls_isa(L, idx, classname)) {
-        return *(void **)lua_touserdata(L, idx);
+        void *obj = *(void **)lua_touserdata(L, idx);
+        if (obj) {
+            return obj;
+        } else {
+            luaL_error(L, "object live from gc");
+        }
     } else {
         luaL_error(L, "#%d argument error, expect: '%s', got '%s'", idx,
             classname, xlua_typename(L, idx));

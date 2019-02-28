@@ -1,6 +1,7 @@
 local cjson = require "kernel.crypto.cjson"
 local runtime = require "kernel.runtime"
 local preferences = require "kernel.preferences"
+local UserDefault = require "cc.UserDefault"
 
 function main()
     print("hello bootstrap!")
@@ -18,6 +19,9 @@ function main()
     print("###", runtime.isRestarting())
 
     print("preferences", preferences.getString("conf.version.runtime"))
+
+    print("UserDefault", UserDefault.getInstance())
+    print("UserDefault", UserDefault.getInstance():getStringForKey("conf.version.runtime"))
 
     runtime.setDispatcher(function (...)
         print("dispatch", ...)

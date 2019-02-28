@@ -7,7 +7,7 @@ local function to_type(t)
     return t
 end
 
-local function get_type_info(t)
+function get_type_info(t)
     t = string.gsub(t, '[ ]*%*', '*')
     t = string.gsub(t, '[ ]*[&]+', '')
     t = string.gsub(t, '[ ]*$', '')
@@ -147,5 +147,13 @@ function register_type(option)
         info.PUSH = string.gsub(info.CONV, '$ACTION', "push")
         info.TO = string.gsub(info.CONV, '$ACTION', "to")
         info.OPT = string.gsub(info.CONV, '$ACTION', "opt")
+
+        if info.CLASS then
+            if type(info.CLASS) == "function" then
+                info.CLASS = info.CLASS(type_name)
+            elseif type(info.CLASS) ~= "string" then
+                error("not support: " .. type(info.CLASS))
+            end
+        end
     end
 end

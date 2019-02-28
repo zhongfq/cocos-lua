@@ -44,3 +44,13 @@ register_type {
     NAME = 'cocos2d::Data', 
     CONV = "xluacv_$ACTION_ccdata",
 }
+
+register_type {
+    NAME = 'cocos2d::UserDefault *',
+    CONV = "xluacv_$ACTION_obj",
+    CLASS = function (name)
+        name = string.gsub(name, "cocos2d::", "cc.")
+        name = string.gsub(name, "[ *]*$", '')
+        return name
+    end
+}

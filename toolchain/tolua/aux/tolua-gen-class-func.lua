@@ -40,8 +40,6 @@ function gen_class_func(cls, fi, write)
         return
     end
 
-    -- TODO: lua_settop(L, arg + 1)
-
     local CLASS_PATH = class_path(cls.CLASS)
     local FUNC = fi.FUNC
     local NUM_RET = fi.RETURN.NUM
@@ -60,7 +58,13 @@ function gen_class_func(cls, fi, write)
     else
         TOTAL_ARGS = TOTAL_ARGS + 1
         idx = idx + 1
-        ARGS_STATEMENT[#ARGS_STATEMENT + 1] = "//TODO: arg1"
+        local ti = get_type_info(cls.NATIVE .. "*")
+        local DECL_TYPE = cls.NATIVE
+        local ARGS_CLASS = ti.CLASS
+        local TO_ARG = ti.TO
+        ARGS_STATEMENT[#ARGS_STATEMENT + 1] = format_snippet([[
+            ${DECL_TYPE} *self = (${DECL_TYPE} *)${TO_ARG}(L, 1, "${ARGS_CLASS}");
+        ]])
     end
 
     for i, ai in ipairs(fi.ARGS) do
@@ -92,7 +96,12 @@ function gen_class_func(cls, fi, write)
         local DECL_TYPE = fi.RETURN.DECL_TYPE
         local PUSH = assert(fi.RETURN.TYPE.PUSH, fi.NAME)
         RET_STATEMENT = format_snippet('${DECL_TYPE} ret = (${DECL_TYPE})')
-        PUSH_RET = format_snippet("${PUSH}(L, ret);")
+        if fi.RETURN.TYPE.CLASS then
+            local ARGS_CLASS = fi.RETURN.TYPE.CLASS
+            PUSH_RET = format_snippet('${PUSH}(L, ret, "${ARGS_CLASS}");')
+        else
+            PUSH_RET = format_snippet('${PUSH}(L, ret);')
+        end
     end
 
     ARGS_STATEMENT = table.concat(ARGS_STATEMENT, "\n")

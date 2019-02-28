@@ -20,7 +20,7 @@ const char *xlua_typename(lua_State *L, int idx)
     const char *tn = nullptr;
     if (lua_getmetatable(L, idx)) {
         if (xlua_rawgetfield(L, -1, "classname") == LUA_TSTRING) {
-            tn = lua_tostring(L, 1);
+            tn = lua_tostring(L, -1);
         }
         lua_pop(L, 2); // pop mt and value
     }

@@ -23,7 +23,8 @@ local function gen_class_open(cls, write)
             xluacls_class(L, "${CLASSNAME", ${SUPRE_CLASSNAME});
             ${FUNCS}
             
-            ${STATIC_CLASS}
+            lua_newtable(L);
+            luaL_setmetatable(L, "${CLASSNAME}");
             
             return 1;
         }
@@ -32,7 +33,6 @@ local function gen_class_open(cls, write)
     local CLASS_PATH = class_path(CLASSNAME)
     local SUPRE_CLASSNAME = stringfy(cls.SUPER) or "nullptr"
     local FUNCS = {}
-    local STATIC_CLASS = ""
 
     for i, fi in ipairs(cls.FUNCS) do
         local FUNC = fi.FUNC
@@ -73,13 +73,6 @@ local function gen_class_open(cls, write)
         end
         FUNCS[#FUNCS + 1] = format_snippet([[
             ${CONST_FUNC}(L, "${CONST_NAME}", ${CONST_VALUE});
-        ]])
-    end
-
-    if cls.STATIC then
-        STATIC_CLASS = format_snippet([[
-            lua_newtable(L);
-            luaL_setmetatable(L, "${CLASSNAME}");
         ]])
     end
 

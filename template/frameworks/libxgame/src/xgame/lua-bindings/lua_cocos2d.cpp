@@ -6,8 +6,50 @@
 #include "xgame/xlua-conv.h"
 #include "cocos2d.h"
 
+static int _cc_UserDefault_getInstance(lua_State *L)
+{
+    lua_settop(L, 0);
+    
+    cocos2d::UserDefault * ret = (cocos2d::UserDefault *)cocos2d::UserDefault::getInstance();
+    xluacv_push_obj(L, ret, "cc.UserDefault");
+    return 1;
+}
+
+static int _cc_UserDefault_getBoolForKey(lua_State *L)
+{
+    lua_settop(L, 2);
+    cocos2d::UserDefault *self = (cocos2d::UserDefault *)xluacv_to_obj(L, 1, "cc.UserDefault");
+    const char * arg1 = (const char *)xluacv_to_string(L, 2);
+    bool ret = (bool)self->getBoolForKey(arg1);
+    xluacv_push_bool(L, ret);
+    return 1;
+}
+
+static int _cc_UserDefault_getStringForKey(lua_State *L)
+{
+    lua_settop(L, 2);
+    cocos2d::UserDefault *self = (cocos2d::UserDefault *)xluacv_to_obj(L, 1, "cc.UserDefault");
+    const char* arg1 = (const char*)xluacv_to_string(L, 2);
+    std::string ret = (std::string)self->getStringForKey(arg1);
+    xluacv_push_std_string(L, ret);
+    return 1;
+}
+
+static int luaopen_cc_UserDefault(lua_State *L)
+{
+    xluacls_class(L, "cc.UserDefault", nullptr);
+    xluacls_setfunc(L, "getInstance", _cc_UserDefault_getInstance);
+    xluacls_setfunc(L, "getBoolForKey", _cc_UserDefault_getBoolForKey);
+    xluacls_setfunc(L, "getStringForKey", _cc_UserDefault_getStringForKey);
+    
+    lua_newtable(L);
+    luaL_setmetatable(L, "cc.UserDefault");
+    
+    return 1;
+}
+
 int luaopen_cocos2d(lua_State *L)
 {
-    
+    xlua_require(L, "cc.UserDefault", luaopen_cc_UserDefault);
     return 0;
 }

@@ -1,21 +1,4 @@
-require "aux.tolua-cls"
-
-local M = {}
-
-M.NAME = "cocos2d"
-M.HEADER_PATH = "template/frameworks/libxgame/src/xgame/lua-bindings/lua_cocos2d.h"
-M.SOURCE_PATH = "template/frameworks/libxgame/src/xgame/lua-bindings/lua_cocos2d.cpp"
-
-M.INCLUDES = [[
-#include "xgame/lua-bindings/lua_cocos2d.h"
-#include "xgame/xlua.h"
-#include "xgame/xlua-conv.h"
-#include "cocos2d.h"
-]]
-
-M.CLASSES = {}
-
-local cls = class(M)
+local cls = class()
 cls.NATIVE = "cocos2d::UserDefault"
 cls.CLASS = "cc.UserDefault"
 cls.func(nil, 'bool getBoolForKey(const char *key);', 'bool getBoolForKey(const char *key, bool defaultValue);')
@@ -33,5 +16,4 @@ cls.func(nil, 'void deleteValueForKey(const char *key);')
 cls.func(nil, 'static cocos2d::UserDefault *getInstance();')
 cls.func(nil, 'static const std::string& getXMLFilePath();')
 cls.func(nil, 'static bool isXMLFileExist();')
-
-return M
+return cls

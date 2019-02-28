@@ -48,9 +48,9 @@ local function gen_one_func(cls, fi, write, funcidx)
         local ti = get_type_info(cls.NATIVE .. "*")
         local DECL_TYPE = cls.NATIVE
         local ARGS_CLASS = ti.CLASS
-        local TO_ARG = ti.TO
+        local FUNC_TO_VALUE = ti.FUNC_TO_VALUE
         ARGS_STATEMENT[#ARGS_STATEMENT + 1] = format_snippet([[
-            ${DECL_TYPE} *self = (${DECL_TYPE} *)${TO_ARG}(L, 1, "${ARGS_CLASS}");
+            ${DECL_TYPE} *self = (${DECL_TYPE} *)${FUNC_TO_VALUE}(L, 1, "${ARGS_CLASS}");
         ]])
     end
 
@@ -62,7 +62,7 @@ local function gen_one_func(cls, fi, write, funcidx)
         local TYPE = ai.TYPE.NAME
         local ARG_N = i
         local SPACE = " "
-        local TO_ARG = ai.TYPE.TO
+        local FUNC_TO_VALUE = ai.TYPE.FUNC_TO_VALUE
         local IDX = idx
 
         if string.find(DECL_TYPE, '[ *&]$') then
@@ -70,14 +70,14 @@ local function gen_one_func(cls, fi, write, funcidx)
         end
 
         if ai.VALUE then
-            TO_ARG = ai.TYPE.OPT
+            FUNC_TO_VALUE = ai.TYPE.FUNC_OPT_VALUE
             local VALUE = ai.VALUE
             ARGS_STATEMENT[#ARGS_STATEMENT + 1] = format_snippet([[
-                ${DECL_TYPE}${SPACE}arg${ARG_N} = (${DECL_TYPE})${TO_ARG}(L, ${IDX}, ${VALUE});
+                ${DECL_TYPE}${SPACE}arg${ARG_N} = (${DECL_TYPE})${FUNC_TO_VALUE}(L, ${IDX}, ${VALUE});
             ]])
         else
             ARGS_STATEMENT[#ARGS_STATEMENT + 1] = format_snippet([[
-                ${DECL_TYPE}${SPACE}arg${ARG_N} = (${DECL_TYPE})${TO_ARG}(L, ${IDX});
+                ${DECL_TYPE}${SPACE}arg${ARG_N} = (${DECL_TYPE})${FUNC_TO_VALUE}(L, ${IDX});
             ]])
         end
     end
@@ -86,13 +86,13 @@ local function gen_one_func(cls, fi, write, funcidx)
 
     if fi.RETURN.NUM > 0 then
         local DECL_TYPE = fi.RETURN.DECL_TYPE
-        local PUSH = assert(fi.RETURN.TYPE.PUSH, fi.NAME)
+        local FUNC_PUSH_VALUE = fi.RETURN.TYPE.FUNC_PUSH_VALUE
         RET_STATEMENT = format_snippet('${DECL_TYPE} ret = (${DECL_TYPE})')
         if fi.RETURN.TYPE.CLASS then
             local ARGS_CLASS = fi.RETURN.TYPE.CLASS
-            PUSH_RET = format_snippet('${PUSH}(L, ret, "${ARGS_CLASS}");')
+            PUSH_RET = format_snippet('${FUNC_PUSH_VALUE}(L, ret, "${ARGS_CLASS}");')
         else
-            PUSH_RET = format_snippet('${PUSH}(L, ret);')
+            PUSH_RET = format_snippet('${FUNC_PUSH_VALUE}(L, ret);')
         end
     end
 
@@ -124,15 +124,15 @@ local function gen_test_and_call(cls, fns)
             local TEST_ARGS = {}
             for i, ai in ipairs(fi.ARGS) do
                 local IDX = (fi.STATIC and 0 or 1) + i
-                local ISA = ai.TYPE.IS
+                local FUNC_IS_VALUE = ai.TYPE.FUNC_IS_VALUE
                 if ai.CLASS then
                     local ARGS_CLASS = ai.CLASS
                     TEST_ARGS[#TEST_ARGS + 1] = format_snippet([[
-                        ${ISA}(L, ${IDX}, "${ARGS_CLASS}")
+                        ${FUNC_IS_VALUE}(L, ${IDX}, "${ARGS_CLASS}")
                     ]])
                 else
                     TEST_ARGS[#TEST_ARGS + 1] = format_snippet([[
-                        ${ISA}(L, ${IDX})
+                        ${FUNC_IS_VALUE}(L, ${IDX})
                     ]])
                 end
             end

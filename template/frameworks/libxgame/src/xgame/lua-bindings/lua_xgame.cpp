@@ -9,8 +9,6 @@
 #include "xgame/xruntime.h"
 #include "xgame/xtimer.h"
 
-static std::unordered_map<std::string, int> s_timer_tag;
-
 static int _kernel_runtime_clearStorage(lua_State *L)
 {
     lua_settop(L, 0);
@@ -571,6 +569,8 @@ static int luaopen_kernel_preferences(lua_State *L)
     
     return 1;
 }
+
+static std::unordered_map<std::string, int> s_timer_tag;
 
 static int _kernel_timer_killDelay(lua_State *L)
 {

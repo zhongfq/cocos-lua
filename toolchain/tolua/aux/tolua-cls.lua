@@ -1,9 +1,10 @@
-local type_info = {}
+local type_info_map = {}
 
-local function to_type(t)
-    t = string.gsub(t, '^[ ]*', '')
-    t = string.gsub(t, '[ ]*$', '')
-    t = string.gsub(t, '[ ]+', ' ')
+local function trim_redundance_space(t)
+    -- t = '   const    type   *   '
+    t = string.gsub(t, '^[ ]*', '') -- t = 'const    type   *   '
+    t = string.gsub(t, '[ ]*$', '') -- t = 'const    type   *'
+    t = string.gsub(t, '[ ]+', ' ') -- t = 'const type *'
     return t
 end
 
@@ -12,7 +13,7 @@ function get_type_info(t)
     t = string.gsub(t, '[ ]*[&]+', '')
     t = string.gsub(t, '[ ]*$', '')
 
-    return type_info[t]
+    return type_info_map[t]
 end
 
 local function parse_ret(rt)
@@ -22,7 +23,7 @@ local function parse_ret(rt)
         rt = string.gsub(rt, 'static', '')
     end
 
-    rt = to_type(rt)
+    rt = trim_redundance_space(rt)
 
     if not get_type_info(rt) then
         error(string.format("not support type: %s", rt))
@@ -36,7 +37,7 @@ local function parse_args(func_decl)
     local args_str = string.match(func_decl, '%(([^()]*)%)')
 
     for arg in string.gmatch(args_str, '[^,]+') do
-        arg = to_type(arg)
+        arg = trim_redundance_space(arg)
         if arg ~= 'void' then
             local t = string.match(arg, '(.+[ *&])')
             local t, n, d = string.match(arg, '(.+[ *&])([^ *&]+) *= *([^ ]*)')
@@ -109,7 +110,7 @@ local function parse_prop(name, func_get, func_set)
     return pi
 end
 
-function class(module)
+function class()
     local cls = {}
     cls.FUNCS = {}
     cls.CONSTS = {}
@@ -133,9 +134,13 @@ function class(module)
         }
     end
 
-    module.CLASSES[#module.CLASSES + 1] = cls
-
     return cls
+end
+
+function include(file)
+    local value = dofile(file)
+    assert(type(value) == "table", file)
+    return value
 end
 
 function class_path(classname)
@@ -155,13 +160,13 @@ function register_type(option)
         local type_name = string.gsub(n, '[ ]*%*', '*')
         local info = setmetatable({}, {__index = option})
         info.NAME = type_name
-        type_info[type_name] = info
-        type_info['const ' .. type_name] = info
+        type_info_map[type_name] = info
+        type_info_map['const ' .. type_name] = info
 
-        info.PUSH = string.gsub(info.CONV, '$ACTION', "push")
-        info.TO = string.gsub(info.CONV, '$ACTION', "to")
-        info.OPT = string.gsub(info.CONV, '$ACTION', "opt")
-        info.IS = string.gsub(info.CONV, '$ACTION', "is")
+        info.FUNC_PUSH_VALUE = string.gsub(info.CONV, '$ACTION', "push")
+        info.FUNC_TO_VALUE = string.gsub(info.CONV, '$ACTION', "to")
+        info.FUNC_OPT_VALUE = string.gsub(info.CONV, '$ACTION', "opt")
+        info.FUNC_IS_VALUE = string.gsub(info.CONV, '$ACTION', "is")
 
         if info.CLASS then
             if type(info.CLASS) == "function" then

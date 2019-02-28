@@ -1,0 +1,27 @@
+require "aux.tolua-cls"
+
+local M = {}
+
+M.NAME = "xgame"
+M.HEADER_PATH = "template/frameworks/libxgame/src/xgame/lua-bindings/lua_xgame.h"
+M.SOURCE_PATH = "template/frameworks/libxgame/src/xgame/lua-bindings/lua_xgame.cpp"
+
+M.INCLUDES = [[
+#include "xgame/lua-bindings/lua_xgame.h"
+#include "xgame/xfilesystem.h"
+#include "xgame/xlua.h"
+#include "xgame/xlua-conv.h"
+#include "xgame/xpreferences.h"
+#include "xgame/xruntime.h"
+#include "xgame/xtimer.h"
+]]
+
+M.CLASSES = {
+    include("conf/xgame/kernel.runtime.lua"),
+    include("conf/xgame/kernel.filesystem.lua"),
+    include("conf/xgame/kernel.preferences.lua"),
+    include("conf/xgame/kernel.timer.lua"),
+    include("conf/xgame/kernel.window.lua"),
+}
+
+return M

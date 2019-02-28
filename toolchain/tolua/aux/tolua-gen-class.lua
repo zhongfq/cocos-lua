@@ -81,7 +81,15 @@ local function gen_class_open(cls, write)
     write(format_snippet(template))
 end
 
+local function gen_class_decl_val(cls, write)
+    if cls.DECL_VAR then
+        write(format_snippet(cls.DECL_VAR))
+        write('')
+    end
+end
+
 function gen_class(module, cls, write)
+    gen_class_decl_val(cls, write)
     gen_class_funcs(cls, write)
     gen_class_open(cls, write)
 end

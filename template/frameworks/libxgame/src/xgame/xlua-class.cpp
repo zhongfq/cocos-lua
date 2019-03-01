@@ -116,14 +116,14 @@ static int xluacls_mt_newindex(lua_State *L)
         lua_pushvalue(L, CLS_FUNCIDX);      // L: t k v .func
         lua_pushvalue(L, 2);                // L: t k v .func k
         lua_pushvalue(L, 3);                // L: t k v .func k v
-        lua_rawset(L, -3);                  // L: t k v .func
+        lua_settable(L, -3);                // L: t k v .func
         lua_pop(L, 1);                      // L: t k v
         
         if (xluacls_ismetafunc(L, 2)) {
             lua_getfield(L, 1, "class");    // L: t k v class
             lua_pushvalue(L, 2);            // L: t k v class k
             lua_pushvalue(L, 3);            // L: t k v class k v
-            lua_rawset(L, -3);              // L: t k v class
+            lua_settable(L, -3);            // L: t k v class
             lua_pop(L, 1);
         }
         

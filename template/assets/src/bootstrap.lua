@@ -13,6 +13,9 @@ function main()
     print("hello bootstrap!")
 
     local node = Node.create()
+    print("# preferences 'build'", preferences.getString("build"))
+    print("# preferences 'build'", preferences.getString("build", "defalut build"))
+    print("# preferences 'version'", preferences.getString("conf.version.runtime", "defalut build"))
     print("#", node, node.referenceCount)
 
     local sprite = Sprite.create("res/HelloWorld.png")

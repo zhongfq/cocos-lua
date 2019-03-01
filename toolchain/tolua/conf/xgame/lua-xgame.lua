@@ -17,11 +17,11 @@ M.INCLUDES = [[
 ]]
 
 M.CLASSES = {
-    include("conf/xgame/kernel.runtime.lua"),
-    include("conf/xgame/kernel.filesystem.lua"),
-    include("conf/xgame/kernel.preferences.lua"),
-    include("conf/xgame/kernel.timer.lua"),
-    include("conf/xgame/kernel.window.lua"),
+    include("conf/xgame/kernel/kernel.runtime.lua"),
+    include("conf/xgame/kernel/kernel.filesystem.lua"),
+    include("conf/xgame/kernel/kernel.preferences.lua"),
+    include("conf/xgame/kernel/kernel.timer.lua"),
+    include("conf/xgame/kernel/kernel.window.lua"),
 }
 
 return M

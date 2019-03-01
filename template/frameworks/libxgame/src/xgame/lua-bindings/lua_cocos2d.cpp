@@ -315,11 +315,17 @@ static int luaopen_cocos2d_UserDefault(lua_State *L)
     xluacls_setfunc(L, "getInstance", _cocos2d_UserDefault_getInstance);
     xluacls_setfunc(L, "getXMLFilePath", _cocos2d_UserDefault_getXMLFilePath);
     xluacls_setfunc(L, "isXMLFileExist", _cocos2d_UserDefault_isXMLFileExist);
+    xluacls_initmetafunc(L);
     
     lua_newtable(L);
     luaL_setmetatable(L, "cc.UserDefault");
     
     return 1;
+}
+
+static int _cocos2d_Ref___gc(lua_State *L)
+{
+    return xluacls_ccobjgc(L);
 }
 
 static int _cocos2d_Ref_getReferenceCount(lua_State *L)
@@ -333,7 +339,9 @@ static int _cocos2d_Ref_getReferenceCount(lua_State *L)
 static int luaopen_cocos2d_Ref(lua_State *L)
 {
     xluacls_class(L, "cc.Ref", nullptr);
+    xluacls_setfunc(L, "__gc", _cocos2d_Ref___gc);
     xluacls_property(L, "referenceCount", _cocos2d_Ref_getReferenceCount, nullptr);
+    xluacls_initmetafunc(L);
     
     lua_newtable(L);
     luaL_setmetatable(L, "cc.Ref");
@@ -527,6 +535,7 @@ static int luaopen_cocos2d_Node(lua_State *L)
     xluacls_setfunc(L, "removeAllChildrenWithCleanup", _cocos2d_Node_removeAllChildrenWithCleanup);
     xluacls_setfunc(L, "reorderChild", _cocos2d_Node_reorderChild);
     xluacls_setfunc(L, "sortAllChildren", _cocos2d_Node_sortAllChildren);
+    xluacls_initmetafunc(L);
     
     lua_newtable(L);
     luaL_setmetatable(L, "cc.Node");

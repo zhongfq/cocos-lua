@@ -63,6 +63,7 @@ LUALIB_API lua_Integer xluaf_checkinteger(lua_State *L, int idx, const char *fie
 //  }
 //
 LUALIB_API void xluacls_class(lua_State *L, const char *classname, const char *super_class);
+LUALIB_API void xluacls_initmetafunc(lua_State *L);
 LUALIB_API void xluacls_property(lua_State *L, const char *field, lua_CFunction getter, lua_CFunction setter);
 LUALIB_API void xluacls_setfunc(lua_State *L, const char *funcname, lua_CFunction func);
 LUALIB_API void xluacls_const(lua_State *L, const char *field);

@@ -71,6 +71,7 @@ local function gen_class_open(cls, write)
         {
             xluacls_class(L, "${LUACLS", ${SUPRECLS});
             ${FUNCS}
+            xluacls_initmetafunc(L);
             
             lua_newtable(L);
             luaL_setmetatable(L, "${LUACLS}");

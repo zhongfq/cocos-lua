@@ -32,7 +32,7 @@
 
 Private inheritance here hides part of interface from Director.
 */
-class  AppDelegate : private xgame::RuntimeContext
+class  AppDelegate : public xgame::RuntimeContext
 {
 public:
     virtual bool applicationDidFinishLaunching();

@@ -166,6 +166,50 @@ void xluacls_class(lua_State *L, const char *classname, const char *super)
     }
 }
 
+static bool is_meta_func(const char *func)
+{
+    static const char *const tm[] = {
+        "__index", "__newindex",
+        "__gc", "__mode", "__len", "__eq",
+        "__add", "__sub", "__mul", "__mod", "__pow",
+        "__div", "__idiv",
+        "__band", "__bor", "__bxor", "__shl", "__shr",
+        "__unm", "__bnot", "__lt", "__le",
+        "__concat", "__call",
+        nullptr
+    };
+    for (int i = 0;; ++i) {
+        const char *t = tm[i];
+        if (t) {
+            if (strequal(t, func)) {
+                return true;
+            }
+        } else {
+            break;
+        }
+    }
+    
+    return false;
+}
+
+void xluacls_initmetafunc(lua_State *L)
+{
+    xlua_rawgetfield(L, -1, CLS_FUNC);          // L: mt .func
+    lua_pushnil(L);                             // L: mt .func k
+    while (lua_next(L, -2)) {                   // L: mt .func k v
+        if (lua_type(L, -2) == LUA_TSTRING) {
+            const char *func = lua_tostring(L, -2);
+            if (is_meta_func(func)) {
+                lua_pushvalue(L, -2);           // L: mt .func k v k
+                lua_pushvalue(L, -2);           // L: mt .func k v k v
+                lua_rawset(L, -6);              // L: mt .func k v
+            }
+        }
+        lua_pop(L, 1);                          // L: mt .func k
+    }                                           // L: mt .func
+    lua_pop(L, 1);                              // L: mt
+}
+
 void xluacls_property(lua_State *L, const char *field, lua_CFunction getter, lua_CFunction setter)
 {
     xlua_rawgetfield(L, -1, CLS_GET);   // L: mt .get
@@ -293,8 +337,15 @@ void xluacls_pushccobj(lua_State *L, cocos2d::Ref *obj, const char *classname)
 
 int xluacls_ccobjgc(lua_State *L)
 {
-    cocos2d::Ref *obj = *(cocos2d::Ref **)lua_touserdata(L, 1);
+    cocos2d::Ref *obj = (cocos2d::Ref *)xluacls_checkobj(L, 1, "cc.Ref");
     if (obj) {
+#ifdef COCOS2D_DEBUG
+        int top = lua_gettop(L);
+        xluacls_mt_tostring(L);
+        const char *str = lua_tostring(L, -1);
+        xgame::runtime::log("gc obj: %s, total obj count: %d", str, s_obj_count - 1);
+        lua_settop(L, top);
+#endif
         obj->release();
         *(void **)lua_touserdata(L, 1) = nullptr;
         s_obj_count--;
@@ -311,11 +362,16 @@ int xluacls_ccobjcount(lua_State *L)
 void *xluacls_checkobj(lua_State *L, int idx, const char *classname)
 {
     if (xluacls_isa(L, idx, classname)) {
-        void *obj = *(void **)lua_touserdata(L, idx);
-        if (obj) {
-            return obj;
+        if (lua_isuserdata(L, idx)) {
+            void *obj = *(void **)lua_touserdata(L, idx);
+            if (obj) {
+                return obj;
+            } else {
+                luaL_error(L, "object live from gc");
+            }
         } else {
-            luaL_error(L, "object live from gc");
+            luaL_error(L, "#%d argument error, expect: '%s', got '%s'", idx,
+                classname, lua_typename(L, lua_type(L, idx)));
         }
     } else {
         luaL_error(L, "#%d argument error, expect: '%s', got '%s'", idx,

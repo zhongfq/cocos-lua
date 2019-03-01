@@ -518,6 +518,9 @@ void RuntimeContext::applicationWillEnterForeground()
 
 void RuntimeContext::applicationWillTerminate()
 {
+    lua_close(_luaVM);
+    _luaVM = nullptr;
+    
     AudioEngine::uncacheAll();
     AudioEngine::end();
     Director::getInstance()->end();

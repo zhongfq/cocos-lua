@@ -227,6 +227,7 @@ static int luaopen_xgame_runtime(lua_State *L)
     xluacls_property(L, "os", _xgame_runtime_getOS, nullptr);
     xluacls_property(L, "deviceInfo", _xgame_runtime_getDeviceInfo, nullptr);
     xluacls_property(L, "logPath", _xgame_runtime_getLogPath, _xgame_runtime_setLogPath);
+    xluacls_initmetafunc(L);
     
     lua_newtable(L);
     luaL_setmetatable(L, "kernel.runtime");
@@ -388,6 +389,7 @@ static int luaopen_xgame_filesystem(lua_State *L)
     xluacls_property(L, "documentDirectory", _xgame_filesystem_getDocumentDirectory, nullptr);
     xluacls_property(L, "tmpDirectory", _xgame_filesystem_getTmpDirectory, nullptr);
     xluacls_property(L, "sdCardDirectory", _xgame_filesystem_getSDCardDirectory, nullptr);
+    xluacls_initmetafunc(L);
     
     lua_newtable(L);
     luaL_setmetatable(L, "kernel.filesystem");
@@ -516,6 +518,7 @@ static int luaopen_xgame_preferences(lua_State *L)
     xluacls_setfunc(L, "setString", _xgame_preferences_setString);
     xluacls_setfunc(L, "deleteKey", _xgame_preferences_deleteKey);
     xluacls_setfunc(L, "flush", _xgame_preferences_flush);
+    xluacls_initmetafunc(L);
     
     lua_newtable(L);
     luaL_setmetatable(L, "kernel.preferences");
@@ -626,6 +629,7 @@ static int luaopen_xgame_timer(lua_State *L)
     xluacls_setfunc(L, "delayWithTag", _xgame_timer_delayWithTag);
     xluacls_setfunc(L, "schedule", _xgame_timer_schedule);
     xluacls_setfunc(L, "unschedule", _xgame_timer_unschedule);
+    xluacls_initmetafunc(L);
     
     lua_newtable(L);
     luaL_setmetatable(L, "kernel.timer");
@@ -713,6 +717,7 @@ static int luaopen_xgame_window(lua_State *L)
     xluacls_setfunc(L, "getDesignSize", _xgame_window_getDesignSize);
     xluacls_setfunc(L, "setDesignSize", _xgame_window_setDesignSize);
     xluacls_setfunc(L, "convertToCameraSpace", _xgame_window_convertToCameraSpace);
+    xluacls_initmetafunc(L);
     
     lua_newtable(L);
     luaL_setmetatable(L, "kernel.window");

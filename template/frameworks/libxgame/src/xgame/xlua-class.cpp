@@ -349,7 +349,8 @@ int xluacls_ccobjgc(lua_State *L)
         int top = lua_gettop(L);
         xluacls_mt_tostring(L);
         const char *str = lua_tostring(L, -1);
-        xgame::runtime::log("gc obj: %s, total obj count: %d", str, s_obj_count - 1);
+        xgame::runtime::log("lua gc: obj=%s obj_ref_count=%d total_obj_count=%d",
+            str, obj->getReferenceCount() - 1, s_obj_count - 1);
         lua_settop(L, top);
 #endif
         obj->release();

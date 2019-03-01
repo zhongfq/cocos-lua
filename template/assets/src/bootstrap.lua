@@ -25,7 +25,7 @@ function main()
         print("###", ...)
     end
 
-    node:print("hello world")
+    node:print("hello world", Node)
 
     function Node:__call( ... )
         print("lua node call: __call")

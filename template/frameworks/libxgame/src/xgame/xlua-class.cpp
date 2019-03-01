@@ -224,8 +224,6 @@ void xluacls_newclassproxy(lua_State *L)
     xlua_rawsetfield(L, -2, "__index");     // L: mt p mtp
     lua_getfield(L, -3, "__newindex");      // L: mt p mtp __newindex
     xlua_rawsetfield(L, -2, "__newindex");  // L: mt p mtp
-    lua_getfield(L, -3, "__tostring");      // L: mt p mtp __tostring
-    xlua_rawsetfield(L, -2, "__tostring");  // L: mt p mtp
     lua_setmetatable(L, -2);                // L: mt p
 }
 

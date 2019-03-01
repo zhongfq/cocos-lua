@@ -7,14 +7,14 @@ int xluacv_push_bool(lua_State *L, bool value)
     return 1;
 }
 
-bool xluacv_to_bool(lua_State *L, int idx)
+void xluacv_to_bool(lua_State *L, int idx, bool *value)
 {
-    return xlua_checkboolean(L, idx);
+    *value = xlua_checkboolean(L, idx);
 }
 
-bool xluacv_opt_bool(lua_State *L, int idx, bool default_value)
+void xluacv_opt_bool(lua_State *L, int idx, bool *value, bool default_value)
 {
-    return xlua_optboolean(L, idx, default_value);
+    *value = xlua_optboolean(L, idx, default_value);
 }
 
 bool xluacv_is_bool(lua_State *L, int idx)
@@ -28,15 +28,15 @@ int xluacv_push_std_string(lua_State *L, const std::string &value)
     return 1;
 }
 
-const std::string xluacv_to_std_string(lua_State *L, int idx)
+void xluacv_to_std_string(lua_State *L, int idx, std::string *value)
 {
     luaL_checktype(L, idx, LUA_TSTRING);
-    return lua_tostring(L, idx);
+    *value = lua_tostring(L, idx);
 }
 
-const std::string xluacv_opt_std_string(lua_State *L, int idx, const std::string &default_value)
+void xluacv_opt_std_string(lua_State *L, int idx, std::string *value, const std::string &default_value)
 {
-    return luaL_optstring(L, idx, default_value.c_str());
+    *value = luaL_optstring(L, idx, default_value.c_str());
 }
 
 bool xluacv_is_std_string(lua_State *L, int idx)
@@ -50,15 +50,15 @@ int xluacv_push_string(lua_State *L, const char *value)
     return 1;
 }
 
-const char *xluacv_to_string(lua_State *L, int idx)
+void xluacv_to_string(lua_State *L, int idx, const char **value)
 {
     luaL_checktype(L, idx, LUA_TSTRING);
-    return lua_tostring(L, idx);
+    *value = lua_tostring(L, idx);
 }
 
-const char *xluacv_opt_string(lua_State *L, int idx, const char *default_value)
+void xluacv_opt_string(lua_State *L, int idx, const char **value, const char *default_value)
 {
-    return luaL_optstring(L, idx, default_value);
+    *value = luaL_optstring(L, idx, default_value);
 }
 
 bool xluacv_is_string(lua_State *L, int idx)
@@ -72,14 +72,14 @@ int xluacv_push_number(lua_State *L, lua_Number value)
     return 1;
 }
 
-lua_Number xluacv_to_number(lua_State *L, int idx)
+void xluacv_to_number(lua_State *L, int idx, lua_Number *value)
 {
-    return luaL_checknumber(L, idx);
+    *value = luaL_checknumber(L, idx);
 }
 
-lua_Number xluacv_opt_number(lua_State *L, int idx, lua_Number default_value)
+void xluacv_opt_number(lua_State *L, int idx, lua_Number *value, lua_Number default_value)
 {
-    return luaL_optnumber(L, idx, default_value);
+    *value = luaL_optnumber(L, idx, default_value);
 }
 
 bool xluacv_is_number(lua_State *L, int idx)
@@ -93,9 +93,9 @@ int xluacv_push_int(lua_State *L, lua_Integer value)
     return 1;
 }
 
-lua_Integer xluacv_to_int(lua_State *L, int idx)
+void xluacv_to_int(lua_State *L, int idx, lua_Integer *value)
 {
-    return luaL_checkinteger(L, idx);
+    *value = luaL_checkinteger(L, idx);
 }
 
 bool xluacv_is_int(lua_State *L, int idx)
@@ -103,25 +103,24 @@ bool xluacv_is_int(lua_State *L, int idx)
     return lua_isinteger(L, idx);
 }
 
-lua_Integer xluacv_opt_int(lua_State *L, int idx, lua_Integer default_value)
+void xluacv_opt_int(lua_State *L, int idx, lua_Integer *value, lua_Integer default_value)
 {
-    return luaL_optinteger(L, idx, default_value);
+    *value = luaL_optinteger(L, idx, default_value);
 }
 
 int xluacv_push_uint(lua_State *L, lua_Unsigned value)
 {
-    xluacv_push_int(L, (lua_Integer)value);
-    return 1;
+    return xluacv_push_int(L, (lua_Integer)value);
 }
 
-lua_Unsigned xluacv_to_uint(lua_State *L, int idx)
+void xluacv_to_uint(lua_State *L, int idx, lua_Unsigned *value)
 {
-    return (lua_Unsigned)xluacv_to_int(L, idx);
+    *value = (lua_Unsigned)luaL_checkinteger(L, idx);
 }
 
-lua_Unsigned xluacv_opt_uint(lua_State *L, int idx, lua_Unsigned default_value)
+void xluacv_opt_uint(lua_State *L, int idx, lua_Unsigned *value, lua_Unsigned default_value)
 {
-    return (lua_Unsigned)xluacv_opt_int(L, idx, (lua_Integer)default_value);
+    *value = (lua_Unsigned)luaL_optinteger(L, idx, (lua_Integer)default_value);
 }
 
 bool xluacv_is_uint(lua_State *L, int idx)
@@ -145,9 +144,9 @@ int xluacv_push_obj(lua_State *L, void *obj, const char *classname)
     return 1;
 }
 
-void *xluacv_to_obj(lua_State *L, int idx, const char *classname)
+void xluacv_to_obj(lua_State *L, int idx, void **value, const char *classname)
 {
-    return xluacls_checkobj(L, idx, classname);
+    *value = xluacls_checkobj(L, idx, classname);
 }
 
 bool xluacv_is_obj(lua_State *L, int idx, const char *classname)
@@ -161,9 +160,9 @@ int xluacv_push_ccobj(lua_State *L, cocos2d::Ref *obj, const char *classname)
     return 1;
 }
 
-cocos2d::Ref *xluacv_to_ccobj(lua_State *L, int idx, const char *classname)
+void xluacv_to_ccobj(lua_State *L, int idx, void **value, const char *classname)
 {
-    return (cocos2d::Ref *)xluacls_checkobj(L, idx, classname);
+    *value = xluacls_checkobj(L, idx, classname);
 }
 
 bool xluacv_is_ccobj(lua_State *L, int idx, const char *classname)

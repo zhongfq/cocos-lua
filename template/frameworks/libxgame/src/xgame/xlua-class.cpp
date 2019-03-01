@@ -221,7 +221,7 @@ void xluacls_class(lua_State *L, const char *classname, const char *super)
 void xluacls_newclassproxy(lua_State *L)
 {
     lua_newtable(L);                        // L: mt p
-    lua_createtable(L, 0, 8);               // L: mt p mtp
+    lua_createtable(L, 0, 2);               // L: mt p mtp
     lua_getfield(L, -3, "__index");         // L: mt p mtp __index
     xlua_rawsetfield(L, -2, "__index");     // L: mt p mtp
     lua_getfield(L, -3, "__newindex");      // L: mt p mtp __newindex

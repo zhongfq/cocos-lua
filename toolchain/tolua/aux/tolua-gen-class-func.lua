@@ -18,6 +18,7 @@ local function gen_one_func(cls, fi, write, funcidx)
     local CPPFUNC = fi.CPPFUNC
     local FUNC_INDEX = funcidx or ""
     local ARGS_CHUNK = {}
+    local DECL_CHUNK = {}
     local LUA_SETTOP = "lua_settop(L, %d);"
     local RET_VALUE = ""
     local PUSH_RET = "";
@@ -35,18 +36,25 @@ local function gen_one_func(cls, fi, write, funcidx)
         local DECL_TYPE = cls.CPPCLS
         local LUACLS = ti.LUACLS
         local FUNC_TO_VALUE = ti.FUNC_TO_VALUE
+        DECL_CHUNK[#DECL_CHUNK + 1] = format_snippet([[
+            ${DECL_TYPE} *self = nullptr;
+        ]])
         ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
-            ${DECL_TYPE} *self = (${DECL_TYPE} *)${FUNC_TO_VALUE}(L, 1, "${LUACLS}");
+            ${FUNC_TO_VALUE}(L, 1, (void **)&self, "${LUACLS}");
         ]])
     end
 
     for i, ai in ipairs(fi.ARGS) do
         idx = idx + 1
-        CALLER_ARGS[#CALLER_ARGS + 1] = "arg" .. i
+        if ai.TYPE.DECL ~= ai.TYPE.NAME then
+            CALLER_ARGS[#CALLER_ARGS + 1] = '(' .. ai.TYPE.NAME .. ')arg' .. i
+        else
+            CALLER_ARGS[#CALLER_ARGS + 1] = 'arg' .. i
+        end
 
-        local DECL_TYPE = ai.DECL_TYPE
-        local TYPE = ai.TYPE.NAME
-        local ARG_N = i
+        local DECL_TYPE = ai.TYPE.DECL
+        local INIT_VALUE = ai.TYPE.INIT_VALUE
+        local ARG_N = "arg" .. i
         local SPACE = " "
         local FUNC_TO_VALUE = ai.TYPE.FUNC_TO_VALUE
         local IDX = idx
@@ -55,21 +63,31 @@ local function gen_one_func(cls, fi, write, funcidx)
             SPACE = ""
         end
 
+        if ai.TYPE.INIT then
+            DECL_CHUNK[#DECL_CHUNK + 1] = format_snippet([[
+                ${DECL_TYPE}${SPACE}${ARG_N} = ${INIT_VALUE};
+            ]])
+        else
+            DECL_CHUNK[#DECL_CHUNK + 1] = format_snippet([[
+                ${DECL_TYPE}${SPACE}${ARG_N};
+            ]])
+        end
+
         if ai.VALUE then
-            FUNC_TO_VALUE = ai.TYPE.FUNC_OPT_VALUE
+            local FUNC_OPT_VALUE = ai.TYPE.FUNC_OPT_VALUE
             local VALUE = ai.VALUE
             ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
-                ${DECL_TYPE}${SPACE}arg${ARG_N} = (${DECL_TYPE})${FUNC_TO_VALUE}(L, ${IDX}, ${VALUE});
+                ${FUNC_OPT_VALUE}(L, ${IDX}, &${ARG_N}, ${VALUE});
             ]])
         elseif ai.TYPE.LUACLS then
             FUNC_TO_VALUE = ai.TYPE.FUNC_TO_VALUE
             local LUACLS = ai.TYPE.LUACLS
             ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
-                ${DECL_TYPE}${SPACE}arg${ARG_N} = (${DECL_TYPE})${FUNC_TO_VALUE}(L, ${IDX}, "${LUACLS}");
+                ${FUNC_TO_VALUE}(L, ${IDX}, (void **)&${ARG_N}, "${LUACLS}");
             ]])
         else
             ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
-                ${DECL_TYPE}${SPACE}arg${ARG_N} = (${DECL_TYPE})${FUNC_TO_VALUE}(L, ${IDX});
+                ${FUNC_TO_VALUE}(L, ${IDX}, &${ARG_N});
             ]])
         end
     end
@@ -95,13 +113,25 @@ local function gen_one_func(cls, fi, write, funcidx)
     end
 
     ARGS_CHUNK = table.concat(ARGS_CHUNK, "\n")
+    DECL_CHUNK = table.concat(DECL_CHUNK, "\n")
     CALLER_ARGS = table.concat(CALLER_ARGS, ", ")
+
+    local DECL_AND_ARGS_CHUNK = ""
+    if #ARGS_CHUNK > 0 then
+        local LF = ''
+        DECL_AND_ARGS_CHUNK = format_snippet([[
+            ${LF}
+            ${DECL_CHUNK}
+            ${ARGS_CHUNK}
+            ${LF}
+        ]])
+    end
 
     write(format_snippet([[
         static int _${CPPCLS_PATH}_${CPPFUNC}${FUNC_INDEX}(lua_State *L)
         {
             ${LUA_SETTOP}
-            ${ARGS_CHUNK}
+            ${DECL_AND_ARGS_CHUNK}
             ${RET_VALUE}${CALLER}${CPPFUNC}(${CALLER_ARGS});
             return ${PUSH_RET};
         }

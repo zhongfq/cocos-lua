@@ -5,6 +5,8 @@ local function trim_redundance_space(t)
     t = string.gsub(t, '^[ ]*', '') -- t = 'const    type   *   '
     t = string.gsub(t, '[ ]*$', '') -- t = 'const    type   *'
     t = string.gsub(t, '[ ]+', ' ') -- t = 'const type *'
+    t = string.gsub(t, ' %*', '*')
+    t = string.gsub(t, '%*+', function (str) return " " .. str end)
     return t
 end
 
@@ -13,10 +15,8 @@ function get_type_info(t, cls)
     -- ' type    *  ' => 'type *'
 
     local function trim(t)
-        t = string.gsub(t, '^[ ]*', '')
-        t = string.gsub(t, '[ ]*%*', '*')
         t = string.gsub(t, '[ ]*[&]+', '')
-        t = string.gsub(t, '[ ]*$', '')
+        t = trim_redundance_space(t)
         return t
     end
 
@@ -184,11 +184,18 @@ end
 
 function REG_TYPE(option)
     for n in string.gmatch(option.NAME, '[^|]+') do
-        local type_name = string.gsub(n, '[ ]*%*', '*')
+        local type_name = trim_redundance_space(n)
         local info = setmetatable({}, {__index = option})
         info.NAME = type_name
+        info.DECL = info.DECL or type_name
         type_info_map[type_name] = info
         type_info_map['const ' .. type_name] = info
+
+        if info.INIT ~= false then
+            info.INIT = true
+            info.INIT_VALUE = info.INIT_VALUE or (type_name == "bool" and "false" or
+                (string.find(type_name, "%*") and "nullptr" or "0"))
+        end
 
         info.FUNC_PUSH_VALUE = string.gsub(info.CONV, '$ACTION', "push")
         info.FUNC_TO_VALUE = string.gsub(info.CONV, '$ACTION', "to")

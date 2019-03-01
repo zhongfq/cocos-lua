@@ -79,4 +79,7 @@ LUALIB_API int xluacls_ccobjgc(lua_State *L);
 LUALIB_API int xluacls_ccobjcount(lua_State *L);
 LUALIB_API void *xluacls_checkobj(lua_State *L, int idx, const char *classname);
 
+// store in uservalue
+LUALIB_API void xluacls_setvalue(lua_State *L, int idx, const char *field, int vidx);
+
 #endif

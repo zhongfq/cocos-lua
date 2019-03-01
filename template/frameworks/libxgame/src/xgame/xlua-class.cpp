@@ -4,10 +4,11 @@
 
 #define OBJ_REF_TABLE ((void *)xluacls_internalpush)
 
-#define CLS_ISAIDX  (lua_upvalueindex(1))
-#define CLS_FUNCIDX (lua_upvalueindex(2))
-#define CLS_GETIDX  (lua_upvalueindex(3))
-#define CLS_SETIDX  (lua_upvalueindex(4))
+#define CLS_CLSIDX  (lua_upvalueindex(1))
+#define CLS_ISAIDX  (lua_upvalueindex(2))
+#define CLS_FUNCIDX (lua_upvalueindex(3))
+#define CLS_GETIDX  (lua_upvalueindex(4))
+#define CLS_SETIDX  (lua_upvalueindex(5))
 #define CLS_ISA     ".isa"
 #define CLS_FUNC    ".func"
 #define CLS_GET     ".get"
@@ -116,14 +117,14 @@ static int xluacls_mt_newindex(lua_State *L)
         lua_pushvalue(L, CLS_FUNCIDX);      // L: t k v .func
         lua_pushvalue(L, 2);                // L: t k v .func k
         lua_pushvalue(L, 3);                // L: t k v .func k v
-        lua_settable(L, -3);                // L: t k v .func
+        lua_rawset(L, -3);                  // L: t k v .func
         lua_pop(L, 1);                      // L: t k v
         
         if (xluacls_ismetafunc(L, 2)) {
-            lua_getfield(L, 1, "class");    // L: t k v class
+            lua_pushvalue(L, CLS_CLSIDX);   // L: t k v class
             lua_pushvalue(L, 2);            // L: t k v class k
             lua_pushvalue(L, 3);            // L: t k v class k v
-            lua_settable(L, -3);            // L: t k v class
+            lua_rawset(L, -3);              // L: t k v class
             lua_pop(L, 1);
         }
         
@@ -183,11 +184,12 @@ void xluacls_class(lua_State *L, const char *classname, const char *super)
         lua_pop(L, 1);
         luaL_newmetatable(L, classname);                    // L: mt
         int cls = lua_gettop(L);
+        lua_pushvalue(L, -1);                               // L: mt mt
         
-        xluacls_copysuperfield(L, cls, CLS_ISA, super);     // L: mt .isa
-        xluacls_copysuperfield(L, cls, CLS_FUNC, super);    // L: mt .isa .func
-        xluacls_copysuperfield(L, cls, CLS_GET, super);     // L: mt .isa .func .get
-        xluacls_copysuperfield(L, cls, CLS_SET, super);     // L: mt .isa .func .get .set
+        xluacls_copysuperfield(L, cls, CLS_ISA, super);     // L: mt mt .isa
+        xluacls_copysuperfield(L, cls, CLS_FUNC, super);    // L: mt mt .isa .func
+        xluacls_copysuperfield(L, cls, CLS_GET, super);     // L: mt mt .isa .func .get
+        xluacls_copysuperfield(L, cls, CLS_SET, super);     // L: mt mt .isa .func .get .set
 
         static const luaL_Reg lib[] = {
             {"__index", xluacls_mt_index},
@@ -195,7 +197,7 @@ void xluacls_class(lua_State *L, const char *classname, const char *super)
             {"__tostring", xluacls_mt_tostring},
             {NULL, NULL}
         };
-        luaL_setfuncs(L, lib,  4);                          // L: mt
+        luaL_setfuncs(L, lib,  5);                          // L: mt
         
         lua_pushvalue(L, -1);
         xluacls_const(L, "class");

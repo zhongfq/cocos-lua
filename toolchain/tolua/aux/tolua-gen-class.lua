@@ -17,20 +17,8 @@ local function gen_class_funcs(cls, write)
 end
 
 local function gen_class_open(cls, write)
-    local template = [[
-        static int luaopen_${LUACLS_PATH}(lua_State *L)
-        {
-            xluacls_class(L, "${LUACLS", ${SUPRECLS});
-            ${FUNCS}
-            
-            lua_newtable(L);
-            luaL_setmetatable(L, "${LUACLS}");
-            
-            return 1;
-        }
-    ]]
     local LUACLS = cls.LUACLS
-    local LUACLS_PATH = class_path(cls.LUACLS)
+    local CPPCLS_PATH = class_path(cls.CPPCLS)
     local SUPRECLS = stringfy(cls.SUPERCLS) or "nullptr"
     local FUNCS = {}
 
@@ -38,7 +26,7 @@ local function gen_class_open(cls, write)
         local FUNC = fis[1].FUNC
         local FUNC_NAME = fis[1].NAME
         FUNCS[#FUNCS + 1] = format_snippet([[
-            xluacls_setfunc(L, "${FUNC_NAME}", _${LUACLS_PATH}_${FUNC});
+            xluacls_setfunc(L, "${FUNC_NAME}", _${CPPCLS_PATH}_${FUNC});
         ]])
     end
 
@@ -47,10 +35,10 @@ local function gen_class_open(cls, write)
         local FUNC_GET = "nullptr"
         local FUNC_SET = "nullptr"
         if pi.GET then
-            FUNC_GET = string.format("_%s_%s", LUACLS_PATH, pi.GET.FUNC)
+            FUNC_GET = string.format("_%s_%s", CPPCLS_PATH, pi.GET.FUNC)
         end
         if pi.SET then
-            FUNC_SET = string.format("_%s_%s", LUACLS_PATH, pi.SET.FUNC)
+            FUNC_SET = string.format("_%s_%s", CPPCLS_PATH, pi.SET.FUNC)
         end
         FUNCS[#FUNCS + 1] = format_snippet([[
             xluacls_property(L, "${FUNC_NAME}", ${FUNC_GET}, ${FUNC_SET});
@@ -78,7 +66,18 @@ local function gen_class_open(cls, write)
 
     FUNCS = table.concat(FUNCS, "\n")
 
-    write(format_snippet(template))
+    write(format_snippet([[
+        static int luaopen_${CPPCLS_PATH}(lua_State *L)
+        {
+            xluacls_class(L, "${LUACLS", ${SUPRECLS});
+            ${FUNCS}
+            
+            lua_newtable(L);
+            luaL_setmetatable(L, "${LUACLS}");
+            
+            return 1;
+        }
+    ]]))
 end
 
 local function gen_class_decl_val(cls, write)

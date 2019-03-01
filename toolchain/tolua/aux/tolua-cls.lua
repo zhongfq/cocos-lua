@@ -142,7 +142,7 @@ function include(file)
 end
 
 function class_path(classname)
-    return string.gsub(classname, '%.', '_')
+    return string.gsub(classname, '[.:]+', '_')
 end
 
 function stringfy(value)

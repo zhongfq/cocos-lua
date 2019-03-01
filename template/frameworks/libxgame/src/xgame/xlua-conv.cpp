@@ -1,9 +1,10 @@
 #include "xgame/xlua-conv.h"
 #include "xgame/xlua.h"
 
-void xluacv_push_bool(lua_State *L, bool value)
+int xluacv_push_bool(lua_State *L, bool value)
 {
     lua_pushboolean(L, value);
+    return 1;
 }
 
 bool xluacv_to_bool(lua_State *L, int idx)
@@ -21,9 +22,10 @@ bool xluacv_is_bool(lua_State *L, int idx)
     return lua_isboolean(L, idx);
 }
 
-void xluacv_push_std_string(lua_State *L, const std::string &value)
+int xluacv_push_std_string(lua_State *L, const std::string &value)
 {
     lua_pushstring(L, value.c_str());
+    return 1;
 }
 
 const std::string xluacv_to_std_string(lua_State *L, int idx)
@@ -42,9 +44,10 @@ bool xluacv_is_std_string(lua_State *L, int idx)
     return lua_isstring(L, idx);
 }
 
-void xluacv_push_string(lua_State *L, const char *value)
+int xluacv_push_string(lua_State *L, const char *value)
 {
     lua_pushstring(L, value);
+    return 1;
 }
 
 const char *xluacv_to_string(lua_State *L, int idx)
@@ -63,9 +66,10 @@ bool xluacv_is_string(lua_State *L, int idx)
     return lua_isstring(L, idx);
 }
 
-void xluacv_push_number(lua_State *L, lua_Number value)
+int xluacv_push_number(lua_State *L, lua_Number value)
 {
     lua_pushnumber(L, value);
+    return 1;
 }
 
 lua_Number xluacv_to_number(lua_State *L, int idx)
@@ -83,9 +87,10 @@ bool xluacv_is_number(lua_State *L, int idx)
     return lua_isnumber(L, idx);
 }
 
-void xluacv_push_int(lua_State *L, lua_Integer value)
+int xluacv_push_int(lua_State *L, lua_Integer value)
 {
     lua_pushinteger(L, value);
+    return 1;
 }
 
 lua_Integer xluacv_to_int(lua_State *L, int idx)
@@ -103,9 +108,10 @@ lua_Integer xluacv_opt_int(lua_State *L, int idx, lua_Integer default_value)
     return luaL_optinteger(L, idx, default_value);
 }
 
-void xluacv_push_uint(lua_State *L, lua_Unsigned value)
+int xluacv_push_uint(lua_State *L, lua_Unsigned value)
 {
     xluacv_push_int(L, (lua_Integer)value);
+    return 1;
 }
 
 lua_Unsigned xluacv_to_uint(lua_State *L, int idx)
@@ -123,18 +129,20 @@ bool xluacv_is_uint(lua_State *L, int idx)
     return lua_isinteger(L, idx);
 }
 
-void xluacv_push_ccdata(lua_State *L, const cocos2d::Data &value)
+int xluacv_push_ccdata(lua_State *L, const cocos2d::Data &value)
 {
     if (value.isNull()) {
         lua_pushnil(L);
     } else {
         lua_pushlstring(L, (const char *)value.getBytes(), (size_t)value.getSize());
     }
+    return 1;
 }
 
-void xluacv_push_obj(lua_State *L, void *obj, const char *classname)
+int xluacv_push_obj(lua_State *L, void *obj, const char *classname)
 {
     xluacls_pushobj(L, obj, classname);
+    return 1;
 }
 
 void *xluacv_to_obj(lua_State *L, int idx, const char *classname)
@@ -147,9 +155,10 @@ bool xluacv_is_obj(lua_State *L, int idx, const char *classname)
     return xluacls_isa(L, idx, classname);
 }
 
-void xluacv_push_ccobj(lua_State *L, cocos2d::Ref *obj, const char *classname)
+int xluacv_push_ccobj(lua_State *L, cocos2d::Ref *obj, const char *classname)
 {
     xluacls_pushccobj(L, obj, classname);
+    return 1;
 }
 
 cocos2d::Ref *xluacv_to_ccobj(lua_State *L, int idx, const char *classname)

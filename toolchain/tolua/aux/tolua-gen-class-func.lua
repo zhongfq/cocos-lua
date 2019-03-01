@@ -1,35 +1,22 @@
 local function gen_snippet_func(cls, fi, write)
-    local template = [[
-        static int _${LUACLS_PATH}_${FUNC}(lua_State *L)
-        ${FUNC_SNIPPET}
-    ]]
-    local LUACLS_PATH = class_path(cls.LUACLS)
+    local CPPCLS_PATH = class_path(cls.CPPCLS)
     local FUNC = fi.FUNC
     local FUNC_SNIPPET = fi.FUNC_SNIPPET
-    write(format_snippet(template))
+    write(format_snippet([[
+        static int _${CPPCLS_PATH}_${FUNC}(lua_State *L)
+        ${FUNC_SNIPPET}
+    ]]))
 end
 
 local function gen_one_func(cls, fi, write, funcidx)
-    local template = [[
-        static int _${LUACLS_PATH}_${FUNC}${FUNC_INDEX}(lua_State *L)
-        {
-            ${LUA_SETTOP}
-            ${ARGS_STATEMENT}
-            ${RET_STATEMENT}${CALLER}${FUNC}(${ARGS});
-            ${PUSH_RET}
-            return ${NUM_RET};
-        }
-    ]]
-
     if fi.FUNC_SNIPPET then
         gen_snippet_func(cls, fi, write)
         return
     end
 
-    local LUACLS_PATH = class_path(cls.LUACLS)
+    local CPPCLS_PATH = class_path(cls.CPPCLS)
     local FUNC = fi.FUNC
     local FUNC_INDEX = funcidx or ""
-    local NUM_RET = fi.RETURN.NUM
     local ARGS_STATEMENT = {}
     local LUA_SETTOP = "lua_settop(L, %d);"
     local RET_STATEMENT = ""
@@ -96,16 +83,26 @@ local function gen_one_func(cls, fi, write, funcidx)
         RET_STATEMENT = format_snippet('${DECL_TYPE} ret = (${DECL_TYPE})')
         if fi.RETURN.TYPE.LUACLS then
             local LUACLS = fi.RETURN.TYPE.LUACLS
-            PUSH_RET = format_snippet('${FUNC_PUSH_VALUE}(L, ret, "${LUACLS}");')
+            PUSH_RET = format_snippet('${FUNC_PUSH_VALUE}(L, ret, "${LUACLS}")')
         else
-            PUSH_RET = format_snippet('${FUNC_PUSH_VALUE}(L, ret);')
+            PUSH_RET = format_snippet('${FUNC_PUSH_VALUE}(L, ret)')
         end
+    else
+        PUSH_RET = "0"
     end
 
     ARGS_STATEMENT = table.concat(ARGS_STATEMENT, "\n")
     ARGS = table.concat(ARGS, ", ")
 
-    write(format_snippet(template))
+    write(format_snippet([[
+        static int _${CPPCLS_PATH}_${FUNC}${FUNC_INDEX}(lua_State *L)
+        {
+            ${LUA_SETTOP}
+            ${ARGS_STATEMENT}
+            ${RET_STATEMENT}${CALLER}${FUNC}(${ARGS});
+            return ${PUSH_RET};
+        }
+    ]]))
 end
 
 local function get_func_n(fis, n)
@@ -124,7 +121,7 @@ local function gen_test_and_call(cls, fns)
     for fn, fi in ipairs(fns) do
         local FUNC_INDEX = fi.INDEX
         local FUNC = fi.FUNC
-        local LUACLS_PATH = class_path(cls.LUACLS)
+        local CPPCLS_PATH = class_path(cls.CPPCLS)
 
         if #fi.ARGS > 0 then
             local TEST_ARGS = {}
@@ -148,20 +145,20 @@ local function gen_test_and_call(cls, fns)
             if fn == #fns then
                 CALL_BLOCK[#CALL_BLOCK + 1] = format_snippet([[
                     // if (${TEST_ARGS}) {
-                        return _${LUACLS_PATH}_${FUNC}${FUNC_INDEX}(L);
+                        return _${CPPCLS_PATH}_${FUNC}${FUNC_INDEX}(L);
                     // }
                 ]])
             else
                 CALL_BLOCK[#CALL_BLOCK + 1] = format_snippet([[
                     if (${TEST_ARGS}) {
-                        return _${LUACLS_PATH}_${FUNC}${FUNC_INDEX}(L);
+                        return _${CPPCLS_PATH}_${FUNC}${FUNC_INDEX}(L);
                     }
                 ]])
             end
         else
             assert(#fns == 1)
             CALL_BLOCK[#CALL_BLOCK + 1] = format_snippet([[
-                return _${LUACLS_PATH}_${FUNC}${FUNC_INDEX}(L);
+                return _${CPPCLS_PATH}_${FUNC}${FUNC_INDEX}(L);
             ]])
         end
     end
@@ -170,22 +167,9 @@ local function gen_test_and_call(cls, fns)
 end
 
 function gen_multi_func(cls, fis, write)
-    local template = [[
-        static int _${LUACLS_PATH}_${FUNC}(lua_State *L)
-        {
-            int num_args = lua_gettop(L)${HAS_OBJ};
-
-            ${IF_BLOCK}
-
-            luaL_error(L, "method '${CPPCLS}::${FUNC}' not support '%d' arguments", num_args);
-
-            return 0;
-        }
-    ]]
-
     local NUM_ARGS = fis.MAX_ARGS
     local CPPCLS = cls.CPPCLS
-    local LUACLS_PATH = class_path(cls.LUACLS)
+    local CPPCLS_PATH = class_path(cls.CPPCLS)
     local FUNC = fis[1].FUNC
     local HAS_OBJ = fis[1].STATIC and "" or " - 1"
     local IF_BLOCK = {}
@@ -209,7 +193,18 @@ function gen_multi_func(cls, fis, write)
     end
 
     IF_BLOCK = table.concat(IF_BLOCK, "\n\n")
-    write(format_snippet(template))
+    write(format_snippet([[
+        static int _${CPPCLS_PATH}_${FUNC}(lua_State *L)
+        {
+            int num_args = lua_gettop(L)${HAS_OBJ};
+
+            ${IF_BLOCK}
+
+            luaL_error(L, "method '${CPPCLS}::${FUNC}' not support '%d' arguments", num_args);
+
+            return 0;
+        }
+    ]]))
 end
 
 function gen_class_func(cls, fis, write)

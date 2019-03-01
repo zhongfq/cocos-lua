@@ -26,6 +26,11 @@ function main()
     end
 
     node:print("hello world")
+
+    function Node:__call( ... )
+        print("lua node call: __call")
+    end
+    node()
 end
 
 local r = setmetatable({}, {__gc = function ()

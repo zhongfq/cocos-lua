@@ -41,6 +41,36 @@ static void xluacls_pushfunc(lua_State *L, lua_CFunction func)
     }
 }
 
+static bool xluacls_ismetafunc(lua_State *L, int idx)
+{
+    static const char *const tm[] = {
+        "__index", "__newindex",
+        "__gc", "__mode", "__len", "__eq",
+        "__add", "__sub", "__mul", "__mod", "__pow",
+        "__div", "__idiv",
+        "__band", "__bor", "__bxor", "__shl", "__shr",
+        "__unm", "__bnot", "__lt", "__le",
+        "__concat", "__call",
+        nullptr
+    };
+    
+    if (lua_type(L, idx) == LUA_TSTRING) {
+        const char *func = lua_tostring(L, -2);
+        for (int i = 0;; ++i) {
+            const char *t = tm[i];
+            if (t) {
+                if (strequal(t, func)) {
+                    return true;
+                }
+            } else {
+                break;
+            }
+        }
+    }
+    
+    return false;
+}
+
 static int xluacls_mt_index(lua_State *L)
 {
     // try func
@@ -87,6 +117,16 @@ static int xluacls_mt_newindex(lua_State *L)
         lua_pushvalue(L, 2);                // L: t k v .func k
         lua_pushvalue(L, 3);                // L: t k v .func k v
         lua_rawset(L, -3);                  // L: t k v .func
+        lua_pop(L, 1);                      // L: t k v
+        
+        if (xluacls_ismetafunc(L, 2)) {
+            lua_getfield(L, 1, "class");    // L: t k v class
+            lua_pushvalue(L, 2);            // L: t k v class k
+            lua_pushvalue(L, 3);            // L: t k v class k v
+            lua_rawset(L, -3);              // L: t k v class
+            lua_pop(L, 1);
+        }
+        
         return 0;
     }
     
@@ -178,42 +218,15 @@ void xluacls_class(lua_State *L, const char *classname, const char *super)
 
 void xluacls_newclassproxy(lua_State *L)
 {
-    lua_newtable(L);                // L: mt p
-    lua_createtable(L, 0, 8);       // L: mt p mtp
-    lua_pushnil(L);                 // L: mt p mtp k
-    while (lua_next(L, -4)) {       // L: mt p mtp k v
-        lua_pushvalue(L, -2);       // L: mt p mtp k v k
-        lua_insert(L, -2);          // L: mt p mtp k k v
-        lua_rawset(L,  -4);         // L: mt p mtp k
-    }                               // L: mt p mtp
-    xlua_setnilfield(L, "__gc");    // L: mt p mtp       mtp.__gc = nil // proxy not need gc
-    lua_setmetatable(L, -2);        // L: mt p
-}
-
-static bool is_meta_func(const char *func)
-{
-    static const char *const tm[] = {
-        "__index", "__newindex",
-        "__gc", "__mode", "__len", "__eq",
-        "__add", "__sub", "__mul", "__mod", "__pow",
-        "__div", "__idiv",
-        "__band", "__bor", "__bxor", "__shl", "__shr",
-        "__unm", "__bnot", "__lt", "__le",
-        "__concat", "__call",
-        nullptr
-    };
-    for (int i = 0;; ++i) {
-        const char *t = tm[i];
-        if (t) {
-            if (strequal(t, func)) {
-                return true;
-            }
-        } else {
-            break;
-        }
-    }
-    
-    return false;
+    lua_newtable(L);                        // L: mt p
+    lua_createtable(L, 0, 8);               // L: mt p mtp
+    lua_getfield(L, -3, "__index");         // L: mt p mtp __index
+    xlua_rawsetfield(L, -2, "__index");     // L: mt p mtp
+    lua_getfield(L, -3, "__newindex");      // L: mt p mtp __newindex
+    xlua_rawsetfield(L, -2, "__newindex");  // L: mt p mtp
+    lua_getfield(L, -3, "__tostring");      // L: mt p mtp __tostring
+    xlua_rawsetfield(L, -2, "__tostring");  // L: mt p mtp
+    lua_setmetatable(L, -2);                // L: mt p
 }
 
 void xluacls_initmetafunc(lua_State *L)
@@ -221,13 +234,10 @@ void xluacls_initmetafunc(lua_State *L)
     xlua_rawgetfield(L, -1, CLS_FUNC);          // L: mt .func
     lua_pushnil(L);                             // L: mt .func k
     while (lua_next(L, -2)) {                   // L: mt .func k v
-        if (lua_type(L, -2) == LUA_TSTRING) {
-            const char *func = lua_tostring(L, -2);
-            if (is_meta_func(func)) {
-                lua_pushvalue(L, -2);           // L: mt .func k v k
-                lua_pushvalue(L, -2);           // L: mt .func k v k v
-                lua_rawset(L, -6);              // L: mt .func k v
-            }
+        if (xluacls_ismetafunc(L, -2)) {
+            lua_pushvalue(L, -2);               // L: mt .func k v k
+            lua_pushvalue(L, -2);               // L: mt .func k v k v
+            lua_rawset(L, -6);                  // L: mt .func k v
         }
         lua_pop(L, 1);                          // L: mt .func k
     }                                           // L: mt .func

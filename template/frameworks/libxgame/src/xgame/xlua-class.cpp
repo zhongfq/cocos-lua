@@ -78,11 +78,21 @@ static int xluacls_mt_newindex(lua_State *L)
         lua_pushvalue(L, 1);                // L: t k v .set setter t
         lua_pushvalue(L, 3);                // L: t k v .set setter t v
         lua_call(L, 2, 0);                  // L: t k v .set
+        return 0;
+    }
+    
+    if (lua_istable(L, 1)) {
+        lua_settop(L, 3);                   // L: t k v
+        lua_pushvalue(L, CLS_FUNCIDX);      // L: t k v .func
+        lua_pushvalue(L, 2);                // L: t k v .func k
+        lua_pushvalue(L, 3);                // L: t k v .func k v
+        lua_rawset(L, -3);                  // L: t k v .func
+        return 0;
     }
     
     luaL_error(L, "readonly property: %s", lua_tostring(L, 2));
     
-    return 1;
+    return 0;
 }
 
 static int xluacls_mt_tostring(lua_State *L)

@@ -20,6 +20,12 @@ function main()
 
     sprite:setPosition(500, 400)
     Director.getInstance().runningScene:addChild(sprite)
+
+    function Node:print(...)
+        print("###", ...)
+    end
+
+    node:print("hello world")
 end
 
 local r = setmetatable({}, {__gc = function ()

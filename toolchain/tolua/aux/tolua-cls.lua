@@ -9,6 +9,9 @@ local function trim_redundance_space(t)
 end
 
 function get_type_info(t)
+    -- ' type   &   ' => 'type'
+    -- ' type    *  ' => 'type *'
+    t = string.gsub(t, '^[ ]*', '')
     t = string.gsub(t, '[ ]*%*', '*')
     t = string.gsub(t, '[ ]*[&]+', '')
     t = string.gsub(t, '[ ]*$', '')
@@ -65,24 +68,24 @@ local function parse_func(name, ...)
     local is_static_func
 
     for i, func_decl in ipairs({...}) do
-        local fi = {RETURN = {}}
+        local fi = {RET = {}}
         if string.find(func_decl, '{') then
-            fi.NAME = assert(name)
-            fi.FUNC = name
-            fi.FUNC_SNIPPET = func_decl
-            fi.RETURN.NUM = 0
-            fi.RETURN.TYPE = get_type_info('void')
+            fi.LUAFUNC = assert(name)
+            fi.CPPFUNC = name
+            fi.CPPFUNC_SNIPPET = func_decl
+            fi.RET.NUM = 0
+            fi.RET.TYPE = get_type_info('void')
             fi.ARGS = {}
         else
             local rt, func = string.match(func_decl, "([^()]+[ *&])([^ ]+)[ ]*%(")
             local static, rt = parse_ret(rt)
 
-            fi.NAME = name or func
-            fi.FUNC = func
+            fi.LUAFUNC = name or func
+            fi.CPPFUNC = func
             fi.STATIC = static
-            fi.RETURN.NUM = rt == "void" and 0 or 1
-            fi.RETURN.TYPE = get_type_info(rt)
-            fi.RETURN.DECL_TYPE = string.gsub(rt, '[ &]*$', '')
+            fi.RET.NUM = rt == "void" and 0 or 1
+            fi.RET.TYPE = get_type_info(rt)
+            fi.RET.DECL_TYPE = string.gsub(rt, '[ &]*$', '')
             fi.ARGS = parse_args(func_decl)
 
             if is_static_func == nil then
@@ -104,7 +107,7 @@ local function parse_prop(name, func_get, func_set)
     pi.NAME = assert(name)
     pi.GET = func_get and parse_func(name, func_get)[1] or nil
     pi.SET = func_set and parse_func(name, func_set)[1] or nil
-    assert(pi.GET.RETURN.NUM > 0, func_get)
+    assert(pi.GET.RET.NUM > 0, func_get)
     return pi
 end
 
@@ -165,6 +168,9 @@ function REG_TYPE(option)
         info.FUNC_TO_VALUE = string.gsub(info.CONV, '$ACTION', "to")
         info.FUNC_OPT_VALUE = string.gsub(info.CONV, '$ACTION', "opt")
         info.FUNC_IS_VALUE = string.gsub(info.CONV, '$ACTION', "is")
+        -- multi ret
+        info.FUNC_PACK_VALUE = string.gsub(info.CONV, '$ACTION', "pack")
+        info.FUNC_UNPACK_VALUE = string.gsub(info.CONV, '$ACTION', "unpack")
 
         if info.LUACLS then
             if type(info.LUACLS) == "function" then

@@ -23,25 +23,25 @@ local function gen_class_open(cls, write)
     local FUNCS = {}
 
     for i, fis in ipairs(cls.FUNCS) do
-        local FUNC = fis[1].FUNC
-        local FUNC_NAME = fis[1].NAME
+        local CPPFUNC = fis[1].CPPFUNC
+        local LUAFUNC = fis[1].LUAFUNC
         FUNCS[#FUNCS + 1] = format_snippet([[
-            xluacls_setfunc(L, "${FUNC_NAME}", _${CPPCLS_PATH}_${FUNC});
+            xluacls_setfunc(L, "${LUAFUNC}", _${CPPCLS_PATH}_${CPPFUNC});
         ]])
     end
 
     for i, pi in ipairs(cls.PROPS) do
-        local FUNC_NAME = pi.NAME
+        local PROP_NAME = pi.NAME
         local FUNC_GET = "nullptr"
         local FUNC_SET = "nullptr"
         if pi.GET then
-            FUNC_GET = string.format("_%s_%s", CPPCLS_PATH, pi.GET.FUNC)
+            FUNC_GET = string.format("_%s_%s", CPPCLS_PATH, pi.GET.CPPFUNC)
         end
         if pi.SET then
-            FUNC_SET = string.format("_%s_%s", CPPCLS_PATH, pi.SET.FUNC)
+            FUNC_SET = string.format("_%s_%s", CPPCLS_PATH, pi.SET.CPPFUNC)
         end
         FUNCS[#FUNCS + 1] = format_snippet([[
-            xluacls_property(L, "${FUNC_NAME}", ${FUNC_GET}, ${FUNC_SET});
+            xluacls_property(L, "${PROP_NAME}", ${FUNC_GET}, ${FUNC_SET});
         ]])
     end
 

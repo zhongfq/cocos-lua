@@ -79,7 +79,11 @@ local function gen_one_func(cls, fi, write, funcidx)
     if fi.RET.NUM > 0 then
         local DECL_TYPE = fi.RET.DECL_TYPE
         local FUNC_PUSH_VALUE = fi.RET.TYPE.FUNC_PUSH_VALUE
-        RET_VALUE = format_snippet('${DECL_TYPE} ret = (${DECL_TYPE})')
+        local SPACE = " "
+        if string.find(DECL_TYPE, '[ *&]$') then
+            SPACE = ""
+        end
+        RET_VALUE = format_snippet('${DECL_TYPE}${SPACE}ret = (${DECL_TYPE})')
         if fi.RET.TYPE.LUACLS then
             local LUACLS = fi.RET.TYPE.LUACLS
             PUSH_RET = format_snippet('${FUNC_PUSH_VALUE}(L, ret, "${LUACLS}")')

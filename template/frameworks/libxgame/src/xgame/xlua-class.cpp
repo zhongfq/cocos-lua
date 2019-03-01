@@ -311,6 +311,12 @@ static bool xluacls_internalpush(lua_State *L, void *obj, const char *classname)
         lua_pushvalue(L, -1);                               // L: mapping obj obj
         lua_rawsetp(L, -3, obj);                            // L: mapping obj
         is_new = true;
+        
+        if (!lua_getmetatable(L, -1)) {
+            luaL_error(L, "metatable not found: %s", classname);
+        } else {
+            lua_pop(L, 1);
+        }
     }
     
 #ifdef COCOS2D_DEBUG

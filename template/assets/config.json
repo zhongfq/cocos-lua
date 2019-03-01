@@ -3,8 +3,8 @@
        "isLandscape": true,
        "isWindowTop": false,
        "name": "cocos-xgame",
-       "width": 960,
-       "height": 640,
+       "width": 910,
+       "height": 512,
        "entry": "src/main.lua",
        "consolePort": 6050,
        "uploadPort": 6060

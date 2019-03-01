@@ -277,7 +277,7 @@ static int _cocos2d_UserDefault_getInstance(lua_State *L)
 {
     lua_settop(L, 0);
     
-    cocos2d::UserDefault * ret = (cocos2d::UserDefault *)cocos2d::UserDefault::getInstance();
+    cocos2d::UserDefault *ret = (cocos2d::UserDefault *)cocos2d::UserDefault::getInstance();
     return xluacv_push_obj(L, ret, "cc.UserDefault");
 }
 
@@ -349,11 +349,40 @@ static int luaopen_cocos2d_Ref(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_Director_getInstance(lua_State *L)
+{
+    lua_settop(L, 0);
+    
+    cocos2d::Director *ret = (cocos2d::Director *)cocos2d::Director::getInstance();
+    return xluacv_push_ccobj(L, ret, "cc.Director");
+}
+
+static int _cocos2d_Director_getRunningScene(lua_State *L)
+{
+    lua_settop(L, 1);
+    cocos2d::Director *self = (cocos2d::Director *)xluacv_to_ccobj(L, 1, "cc.Director");
+    cocos2d::Scene *ret = (cocos2d::Scene *)self->getRunningScene();
+    return xluacv_push_ccobj(L, ret, "cc.Scene");
+}
+
+static int luaopen_cocos2d_Director(lua_State *L)
+{
+    xluacls_class(L, "cc.Director", "cc.Ref");
+    xluacls_setfunc(L, "getInstance", _cocos2d_Director_getInstance);
+    xluacls_property(L, "runningScene", _cocos2d_Director_getRunningScene, nullptr);
+    xluacls_initmetafunc(L);
+    
+    lua_newtable(L);
+    luaL_setmetatable(L, "cc.Director");
+    
+    return 1;
+}
+
 static int _cocos2d_Node_create(lua_State *L)
 {
     lua_settop(L, 0);
     
-    cocos2d::Node * ret = (cocos2d::Node *)cocos2d::Node::create();
+    cocos2d::Node *ret = (cocos2d::Node *)cocos2d::Node::create();
     return xluacv_push_ccobj(L, ret, "cc.Node");
 }
 
@@ -434,7 +463,7 @@ static int _cocos2d_Node_getChildByTag(lua_State *L)
     lua_settop(L, 2);
     cocos2d::Node *self = (cocos2d::Node *)xluacv_to_ccobj(L, 1, "cc.Node");
     int arg1 = (int)xluacv_to_int(L, 2);
-    cocos2d::Node * ret = (cocos2d::Node *)self->getChildByTag(arg1);
+    cocos2d::Node *ret = (cocos2d::Node *)self->getChildByTag(arg1);
     return xluacv_push_ccobj(L, ret, "cc.Node");
 }
 
@@ -520,6 +549,16 @@ static int _cocos2d_Node_sortAllChildren(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_Node_setPosition(lua_State *L)
+{
+    lua_settop(L, 3);
+    cocos2d::Node *self = (cocos2d::Node *)xluacv_to_ccobj(L, 1, "cc.Node");
+    float arg1 = (float)xluacv_to_number(L, 2);
+    float arg2 = (float)xluacv_to_number(L, 3);
+    self->setPosition(arg1, arg2);
+    return 0;
+}
+
 static int luaopen_cocos2d_Node(lua_State *L)
 {
     xluacls_class(L, "cc.Node", "cc.Ref");
@@ -535,6 +574,7 @@ static int luaopen_cocos2d_Node(lua_State *L)
     xluacls_setfunc(L, "removeAllChildrenWithCleanup", _cocos2d_Node_removeAllChildrenWithCleanup);
     xluacls_setfunc(L, "reorderChild", _cocos2d_Node_reorderChild);
     xluacls_setfunc(L, "sortAllChildren", _cocos2d_Node_sortAllChildren);
+    xluacls_setfunc(L, "setPosition", _cocos2d_Node_setPosition);
     xluacls_initmetafunc(L);
     
     lua_newtable(L);
@@ -543,10 +583,45 @@ static int luaopen_cocos2d_Node(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_Sprite_create(lua_State *L)
+{
+    lua_settop(L, 1);
+    const std::string arg1 = (const std::string)xluacv_to_std_string(L, 1);
+    cocos2d::Sprite *ret = (cocos2d::Sprite *)cocos2d::Sprite::create(arg1);
+    return xluacv_push_ccobj(L, ret, "cc.Sprite");
+}
+
+static int luaopen_cocos2d_Sprite(lua_State *L)
+{
+    xluacls_class(L, "cc.Sprite", "cc.Node");
+    xluacls_setfunc(L, "create", _cocos2d_Sprite_create);
+    xluacls_initmetafunc(L);
+    
+    lua_newtable(L);
+    luaL_setmetatable(L, "cc.Sprite");
+    
+    return 1;
+}
+
+static int luaopen_cocos2d_Scene(lua_State *L)
+{
+    xluacls_class(L, "cc.Scene", "cc.Node");
+    
+    xluacls_initmetafunc(L);
+    
+    lua_newtable(L);
+    luaL_setmetatable(L, "cc.Scene");
+    
+    return 1;
+}
+
 int luaopen_cocos2d(lua_State *L)
 {
     xlua_require(L, "cc.UserDefault", luaopen_cocos2d_UserDefault);
     xlua_require(L, "cc.Ref", luaopen_cocos2d_Ref);
+    xlua_require(L, "cc.Director", luaopen_cocos2d_Director);
     xlua_require(L, "cc.Node", luaopen_cocos2d_Node);
+    xlua_require(L, "cc.Sprite", luaopen_cocos2d_Sprite);
+    xlua_require(L, "cc.Scene", luaopen_cocos2d_Scene);
     return 0;
 }

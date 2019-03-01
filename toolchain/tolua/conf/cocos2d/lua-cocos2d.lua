@@ -17,7 +17,10 @@ M.INCLUDES = [[
 M.CLASSES = {
     include("conf/cocos2d/cc.UserDefault.lua"),
     include("conf/cocos2d/cc.Ref.lua"),
+    include("conf/cocos2d/cc.Director.lua"),
     include("conf/cocos2d/cc.Node.lua"),
+    include("conf/cocos2d/cc.Sprite.lua"),
+    include("conf/cocos2d/cc.Scene.lua"),
 }
 
 return M

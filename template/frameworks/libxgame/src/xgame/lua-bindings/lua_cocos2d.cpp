@@ -317,8 +317,7 @@ static int luaopen_cocos2d_UserDefault(lua_State *L)
     xluacls_setfunc(L, "isXMLFileExist", _cocos2d_UserDefault_isXMLFileExist);
     xluacls_initmetafunc(L);
     
-    lua_newtable(L);
-    luaL_setmetatable(L, "cc.UserDefault");
+    xluacls_newclassproxy(L);
     
     return 1;
 }
@@ -343,8 +342,7 @@ static int luaopen_cocos2d_Ref(lua_State *L)
     xluacls_property(L, "referenceCount", _cocos2d_Ref_getReferenceCount, nullptr);
     xluacls_initmetafunc(L);
     
-    lua_newtable(L);
-    luaL_setmetatable(L, "cc.Ref");
+    xluacls_newclassproxy(L);
     
     return 1;
 }
@@ -372,8 +370,7 @@ static int luaopen_cocos2d_Director(lua_State *L)
     xluacls_property(L, "runningScene", _cocos2d_Director_getRunningScene, nullptr);
     xluacls_initmetafunc(L);
     
-    lua_newtable(L);
-    luaL_setmetatable(L, "cc.Director");
+    xluacls_newclassproxy(L);
     
     return 1;
 }
@@ -409,7 +406,7 @@ static int _cocos2d_Node_addChild3(lua_State *L)
 {
     lua_settop(L, 4);
     cocos2d::Node *self = (cocos2d::Node *)xluacv_to_ccobj(L, 1, "cc.Node");
-    cocos2d::Node*arg1 = (cocos2d::Node*)xluacv_to_ccobj(L, 2, "cc.Node");
+    cocos2d::Node *arg1 = (cocos2d::Node *)xluacv_to_ccobj(L, 2, "cc.Node");
     int arg2 = (int)xluacv_to_int(L, 3);
     int arg3 = (int)xluacv_to_int(L, 4);
     self->addChild(arg1, arg2, arg3);
@@ -420,7 +417,7 @@ static int _cocos2d_Node_addChild4(lua_State *L)
 {
     lua_settop(L, 4);
     cocos2d::Node *self = (cocos2d::Node *)xluacv_to_ccobj(L, 1, "cc.Node");
-    cocos2d::Node*arg1 = (cocos2d::Node*)xluacv_to_ccobj(L, 2, "cc.Node");
+    cocos2d::Node *arg1 = (cocos2d::Node *)xluacv_to_ccobj(L, 2, "cc.Node");
     int arg2 = (int)xluacv_to_int(L, 3);
     const std::string arg3 = (const std::string)xluacv_to_std_string(L, 4);
     self->addChild(arg1, arg2, arg3);
@@ -488,7 +485,7 @@ static int _cocos2d_Node_removeChild(lua_State *L)
 {
     lua_settop(L, 3);
     cocos2d::Node *self = (cocos2d::Node *)xluacv_to_ccobj(L, 1, "cc.Node");
-    cocos2d::Node*arg1 = (cocos2d::Node*)xluacv_to_ccobj(L, 2, "cc.Node");
+    cocos2d::Node *arg1 = (cocos2d::Node *)xluacv_to_ccobj(L, 2, "cc.Node");
     bool arg2 = (bool)xluacv_opt_bool(L, 3, true);
     self->removeChild(arg1, arg2);
     return 0;
@@ -577,8 +574,7 @@ static int luaopen_cocos2d_Node(lua_State *L)
     xluacls_setfunc(L, "setPosition", _cocos2d_Node_setPosition);
     xluacls_initmetafunc(L);
     
-    lua_newtable(L);
-    luaL_setmetatable(L, "cc.Node");
+    xluacls_newclassproxy(L);
     
     return 1;
 }
@@ -597,8 +593,7 @@ static int luaopen_cocos2d_Sprite(lua_State *L)
     xluacls_setfunc(L, "create", _cocos2d_Sprite_create);
     xluacls_initmetafunc(L);
     
-    lua_newtable(L);
-    luaL_setmetatable(L, "cc.Sprite");
+    xluacls_newclassproxy(L);
     
     return 1;
 }
@@ -609,8 +604,7 @@ static int luaopen_cocos2d_Scene(lua_State *L)
     
     xluacls_initmetafunc(L);
     
-    lua_newtable(L);
-    luaL_setmetatable(L, "cc.Scene");
+    xluacls_newclassproxy(L);
     
     return 1;
 }

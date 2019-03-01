@@ -166,6 +166,20 @@ void xluacls_class(lua_State *L, const char *classname, const char *super)
     }
 }
 
+void xluacls_newclassproxy(lua_State *L)
+{
+    lua_newtable(L);                // L: mt p
+    lua_createtable(L, 0, 8);       // L: mt p mtp
+    lua_pushnil(L);                 // L: mt p mtp k
+    while (lua_next(L, -4)) {       // L: mt p mtp k v
+        lua_pushvalue(L, -2);       // L: mt p mtp k v k
+        lua_insert(L, -2);          // L: mt p mtp k k v
+        lua_rawset(L,  -4);         // L: mt p mtp k
+    }                               // L: mt p mtp
+    xlua_setnilfield(L, "__gc");    // L: mt p mtp       mtp.__gc = nil // proxy not need gc
+    lua_setmetatable(L, -2);        // L: mt p
+}
+
 static bool is_meta_func(const char *func)
 {
     static const char *const tm[] = {

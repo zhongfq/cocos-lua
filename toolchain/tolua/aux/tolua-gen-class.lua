@@ -73,8 +73,7 @@ local function gen_class_open(cls, write)
             ${FUNCS}
             xluacls_initmetafunc(L);
             
-            lua_newtable(L);
-            luaL_setmetatable(L, "${LUACLS}");
+            xluacls_newclassproxy(L);
             
             return 1;
         }

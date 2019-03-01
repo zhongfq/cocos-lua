@@ -8,18 +8,44 @@ local function trim_redundance_space(t)
     return t
 end
 
-function get_type_info(t)
+function get_type_info(t, cls)
     -- ' type   &   ' => 'type'
     -- ' type    *  ' => 'type *'
-    t = string.gsub(t, '^[ ]*', '')
-    t = string.gsub(t, '[ ]*%*', '*')
-    t = string.gsub(t, '[ ]*[&]+', '')
-    t = string.gsub(t, '[ ]*$', '')
 
-    return assert(type_info_map[t], t)
+    local function trim(t)
+        t = string.gsub(t, '^[ ]*', '')
+        t = string.gsub(t, '[ ]*%*', '*')
+        t = string.gsub(t, '[ ]*[&]+', '')
+        t = string.gsub(t, '[ ]*$', '')
+        return t
+    end
+
+    if cls and cls.CPPCLS then
+        local cppt = string.gsub(cls.CPPCLS, "::[^:]+$", "::" .. t)
+        local ti = type_info_map[trim(cppt)]
+        if ti then
+            return ti, cppt
+        end
+    end
+
+    t = trim(t)
+
+    return assert(type_info_map[t], t), t
 end
 
-local function parse_ret(rt)
+local function to_decl_type(cls, t)
+    t = trim_redundance_space(string.gsub(t, '[ &]*$', ''))
+    local _, tn = get_type_info(t, cls)
+    if not string.find(tn ,' %*') then
+        -- 'type*' => 'type *'
+        tn = string.gsub(tn, "[*]+", function (str)
+            return " " .. str
+        end)
+    end
+    return tn
+end
+
+local function parse_ret(cls, rt)
     local static = false
     if string.find(rt, 'static') then
         static = true
@@ -28,12 +54,12 @@ local function parse_ret(rt)
 
     rt = trim_redundance_space(rt)
 
-    get_type_info(rt)
+    get_type_info(rt, cls)
 
     return static, rt
 end
 
-local function parse_args(func_decl)
+local function parse_args(cls, func_decl)
     local args = {}
     local args_str = string.match(func_decl, '%(([^()]*)%)')
 
@@ -52,8 +78,8 @@ local function parse_args(func_decl)
             assert(t, arg)
             t = string.gsub(t, '[ ]*$', '')
             args[#args + 1] = {
-                TYPE = get_type_info(t),
-                DECL_TYPE = string.gsub(t, '[ &]*$', ''),
+                TYPE = get_type_info(t, cls),
+                DECL_TYPE = to_decl_type(cls, t),
                 VALUE = d,
             }
         end
@@ -62,7 +88,7 @@ local function parse_args(func_decl)
     return args
 end
 
-local function parse_func(name, ...)
+local function parse_func(cls, name, ...)
     local arr = {MAX_ARGS = 0}
 
     local is_static_func
@@ -74,19 +100,19 @@ local function parse_func(name, ...)
             fi.CPPFUNC = name
             fi.CPPFUNC_SNIPPET = func_decl
             fi.RET.NUM = 0
-            fi.RET.TYPE = get_type_info('void')
+            fi.RET.TYPE = get_type_info('void', cls)
             fi.ARGS = {}
         else
             local rt, func = string.match(func_decl, "([^()]+[ *&])([^ ]+)[ ]*%(")
-            local static, rt = parse_ret(rt)
+            local static, rt = parse_ret(cls, rt)
 
             fi.LUAFUNC = name or func
             fi.CPPFUNC = func
             fi.STATIC = static
             fi.RET.NUM = rt == "void" and 0 or 1
-            fi.RET.TYPE = get_type_info(rt)
-            fi.RET.DECL_TYPE = string.gsub(rt, '[ &]*$', '')
-            fi.ARGS = parse_args(func_decl)
+            fi.RET.TYPE = get_type_info(rt, cls)
+            fi.RET.DECL_TYPE = to_decl_type(cls, rt)
+            fi.ARGS = parse_args(cls, func_decl)
 
             if is_static_func == nil then
                 is_static_func = static
@@ -102,11 +128,11 @@ local function parse_func(name, ...)
     return arr
 end
 
-local function parse_prop(name, func_get, func_set)
+local function parse_prop(cls, name, func_get, func_set)
     local pi = {}
     pi.NAME = assert(name)
-    pi.GET = func_get and parse_func(name, func_get)[1] or nil
-    pi.SET = func_set and parse_func(name, func_set)[1] or nil
+    pi.GET = func_get and parse_func(cls, name, func_get)[1] or nil
+    pi.SET = func_set and parse_func(cls, name, func_set)[1] or nil
     assert(pi.GET.RET.NUM > 0, func_get)
     return pi
 end
@@ -118,11 +144,11 @@ function class()
     cls.PROPS = {}
 
     function cls.func(name, ...)
-        cls.FUNCS[#cls.FUNCS + 1] = parse_func(name, ...)
+        cls.FUNCS[#cls.FUNCS + 1] = parse_func(cls, name, ...)
     end
 
     function cls.prop(name, func_get, func_set)
-        cls.PROPS[#cls.PROPS + 1] = parse_prop(name, func_get, func_set)
+        cls.PROPS[#cls.PROPS + 1] = parse_prop(cls, name, func_get, func_set)
     end
 
     function cls.const(name, value)

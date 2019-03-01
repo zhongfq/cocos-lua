@@ -229,8 +229,7 @@ static int luaopen_xgame_runtime(lua_State *L)
     xluacls_property(L, "logPath", _xgame_runtime_getLogPath, _xgame_runtime_setLogPath);
     xluacls_initmetafunc(L);
     
-    lua_newtable(L);
-    luaL_setmetatable(L, "kernel.runtime");
+    xluacls_newclassproxy(L);
     
     return 1;
 }
@@ -391,8 +390,7 @@ static int luaopen_xgame_filesystem(lua_State *L)
     xluacls_property(L, "sdCardDirectory", _xgame_filesystem_getSDCardDirectory, nullptr);
     xluacls_initmetafunc(L);
     
-    lua_newtable(L);
-    luaL_setmetatable(L, "kernel.filesystem");
+    xluacls_newclassproxy(L);
     
     return 1;
 }
@@ -520,8 +518,7 @@ static int luaopen_xgame_preferences(lua_State *L)
     xluacls_setfunc(L, "flush", _xgame_preferences_flush);
     xluacls_initmetafunc(L);
     
-    lua_newtable(L);
-    luaL_setmetatable(L, "kernel.preferences");
+    xluacls_newclassproxy(L);
     
     return 1;
 }
@@ -631,8 +628,7 @@ static int luaopen_xgame_timer(lua_State *L)
     xluacls_setfunc(L, "unschedule", _xgame_timer_unschedule);
     xluacls_initmetafunc(L);
     
-    lua_newtable(L);
-    luaL_setmetatable(L, "kernel.timer");
+    xluacls_newclassproxy(L);
     
     return 1;
 }
@@ -719,8 +715,7 @@ static int luaopen_xgame_window(lua_State *L)
     xluacls_setfunc(L, "convertToCameraSpace", _xgame_window_convertToCameraSpace);
     xluacls_initmetafunc(L);
     
-    lua_newtable(L);
-    luaL_setmetatable(L, "kernel.window");
+    xluacls_newclassproxy(L);
     
     return 1;
 }

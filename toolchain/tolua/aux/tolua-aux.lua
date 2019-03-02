@@ -48,10 +48,11 @@ function trimlastlf(expr)
 end
 
 function format(expr, trim, drop_last_lf)
+    expr = string.gsub(expr, '[\n\r]', '\n')
     if trim then
         local indent = string.match(expr, '^[ ]*')
         expr = string.gsub(expr, '^[ ]*', '')
-        expr = string.gsub(expr, '[\n\r]' .. indent, '\n')
+        expr = string.gsub(expr, '\n' .. indent, '\n')
     end
     if drop_last_lf then
         expr = trimlastlf(expr)
@@ -82,14 +83,32 @@ function format(expr, trim, drop_last_lf)
             if value == nil then
                 error("value not found for " .. key)
             else
-                return indent .. string.gsub(tostring(value), '[\n\r]', '\n' .. indent)
+                return indent .. string.gsub(tostring(value), '\n', '\n' .. indent)
             end
         end)
     end
-    local s = eval(expr)
-    s = string.gsub(s, '[\n\r][ ]+[\n\r]', '\n\n')
-    s = string.gsub(s, '[\n\r][\n\r][\n\r]', '\n')
-    return s
+
+    local expr = eval(expr)
+    while true do
+        local s, n = string.gsub(expr, '\n[ ]+\n', '\n\n')
+        expr = s
+        if n == 0 then
+            break
+        end
+    end
+
+    while true do
+        local s, n = string.gsub(expr, '\n\n\n', '\n')
+        expr = s
+        if n == 0 then
+            break
+        end
+    end
+
+    expr = string.gsub(expr, '{\n\n', '{\n')
+    expr = string.gsub(expr, '\n\n}', '\n}')
+    
+    return expr
 end
 
 function format_snippet(expr)

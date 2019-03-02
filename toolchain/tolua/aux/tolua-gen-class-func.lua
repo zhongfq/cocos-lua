@@ -116,23 +116,17 @@ local function gen_one_func(cls, fi, write, funcidx)
     DECL_CHUNK = table.concat(DECL_CHUNK, "\n")
     CALLER_ARGS = table.concat(CALLER_ARGS, ", ")
 
-    local DECL_AND_ARGS_CHUNK = ""
-    if #ARGS_CHUNK > 0 then
-        local LF = ''
-        DECL_AND_ARGS_CHUNK = format_snippet([[
-            ${LF}
-            ${DECL_CHUNK}
-            ${ARGS_CHUNK}
-            ${LF}
-        ]])
-    end
-
     write(format_snippet([[
         static int _${CPPCLS_PATH}_${CPPFUNC}${FUNC_INDEX}(lua_State *L)
         {
             ${LUA_SETTOP}
-            ${DECL_AND_ARGS_CHUNK}
+
+            ${DECL_CHUNK}
+
+            ${ARGS_CHUNK}
+
             ${RET_VALUE}${CALLER}${CPPFUNC}(${CALLER_ARGS});
+            
             return ${PUSH_RET};
         }
     ]]))

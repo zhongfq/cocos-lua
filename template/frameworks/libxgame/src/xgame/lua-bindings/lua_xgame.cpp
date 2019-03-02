@@ -12,102 +12,117 @@
 static int _xgame_runtime_clearStorage(lua_State *L)
 {
     lua_settop(L, 0);
-    
+
     xgame::runtime::clearStorage();
+
     return 0;
 }
 
 static int _xgame_runtime_launch(lua_State *L)
 {
     lua_settop(L, 1);
-    
+
     std::string arg1;
+
     xluacv_to_std_string(L, 1, &arg1);
-    
+
     bool ret = (bool)xgame::runtime::launch(arg1);
+
     return xluacv_push_bool(L, ret);
 }
 
 static int _xgame_runtime_restart(lua_State *L)
 {
     lua_settop(L, 0);
-    
+
     bool ret = (bool)xgame::runtime::restart();
+
     return xluacv_push_bool(L, ret);
 }
 
 static int _xgame_runtime_isRestarting(lua_State *L)
 {
     lua_settop(L, 0);
-    
+
     bool ret = (bool)xgame::runtime::isRestarting();
+
     return xluacv_push_bool(L, ret);
 }
 
 static int _xgame_runtime_setAntialias(lua_State *L)
 {
     lua_settop(L, 2);
-    
+
     bool arg1 = false;
     lua_Unsigned arg2 = 0;
+
     xluacv_to_bool(L, 1, &arg1);
     xluacv_to_uint(L, 2, &arg2);
-    
+
     xgame::runtime::setAntialias(arg1, (unsigned int)arg2);
+
     return 0;
 }
 
 static int _xgame_runtime_isAntialias(lua_State *L)
 {
     lua_settop(L, 0);
-    
+
     bool ret = (bool)xgame::runtime::isAntialias();
+
     return xluacv_push_bool(L, ret);
 }
 
 static int _xgame_runtime_getNumSamples(lua_State *L)
 {
     lua_settop(L, 0);
-    
+
     unsigned int ret = (unsigned int)xgame::runtime::getNumSamples();
+
     return xluacv_push_uint(L, ret);
 }
 
 static int _xgame_runtime_canOpenURL(lua_State *L)
 {
     lua_settop(L, 1);
-    
+
     std::string arg1;
+
     xluacv_to_std_string(L, 1, &arg1);
-    
+
     bool ret = (bool)xgame::runtime::canOpenURL(arg1);
+
     return xluacv_push_bool(L, ret);
 }
 
 static int _xgame_runtime_support(lua_State *L)
 {
     lua_settop(L, 1);
-    
+
     std::string arg1;
+
     xluacv_to_std_string(L, 1, &arg1);
-    
+
     bool ret = (bool)xgame::runtime::support(arg1);
+
     return xluacv_push_bool(L, ret);
 }
 
 static int _xgame_runtime_printSupport(lua_State *L)
 {
     lua_settop(L, 0);
-    
+
     xgame::runtime::printSupport();
+
     return 0;
 }
 
 static int _xgame_runtime_disableReport(lua_State *L)
 {
     lua_settop(L, 0);
-    
+
     xgame::runtime::disableReport();
+
     return 0;
 }
 
@@ -156,67 +171,76 @@ static int _xgame_runtime_openURL(lua_State *L)
 static int _xgame_runtime_getPackageName(lua_State *L)
 {
     lua_settop(L, 0);
-    
+
     const std::string ret = (const std::string)xgame::runtime::getPackageName();
+
     return xluacv_push_std_string(L, ret);
 }
 
 static int _xgame_runtime_getVersion(lua_State *L)
 {
     lua_settop(L, 0);
-    
+
     const std::string ret = (const std::string)xgame::runtime::getVersion();
+
     return xluacv_push_std_string(L, ret);
 }
 
 static int _xgame_runtime_getVersionBuild(lua_State *L)
 {
     lua_settop(L, 0);
-    
+
     const std::string ret = (const std::string)xgame::runtime::getVersionBuild();
+
     return xluacv_push_std_string(L, ret);
 }
 
 static int _xgame_runtime_getChannel(lua_State *L)
 {
     lua_settop(L, 0);
-    
+
     const std::string ret = (const std::string)xgame::runtime::getChannel();
+
     return xluacv_push_std_string(L, ret);
 }
 
 static int _xgame_runtime_getOS(lua_State *L)
 {
     lua_settop(L, 0);
-    
+
     const std::string ret = (const std::string)xgame::runtime::getOS();
+
     return xluacv_push_std_string(L, ret);
 }
 
 static int _xgame_runtime_getDeviceInfo(lua_State *L)
 {
     lua_settop(L, 0);
-    
+
     const std::string ret = (const std::string)xgame::runtime::getDeviceInfo();
+
     return xluacv_push_std_string(L, ret);
 }
 
 static int _xgame_runtime_getLogPath(lua_State *L)
 {
     lua_settop(L, 0);
-    
+
     const std::string ret = (const std::string)xgame::runtime::getLogPath();
+
     return xluacv_push_std_string(L, ret);
 }
 
 static int _xgame_runtime_setLogPath(lua_State *L)
 {
     lua_settop(L, 1);
-    
+
     std::string arg1;
+
     xluacv_to_std_string(L, 1, &arg1);
-    
+
     xgame::runtime::setLogPath(arg1);
+
     return 0;
 }
 
@@ -244,184 +268,211 @@ static int luaopen_xgame_runtime(lua_State *L)
     xluacls_property(L, "deviceInfo", _xgame_runtime_getDeviceInfo, nullptr);
     xluacls_property(L, "logPath", _xgame_runtime_getLogPath, _xgame_runtime_setLogPath);
     xluacls_initmetafunc(L);
-    
+
     xluacls_newclassproxy(L);
-    
+
     return 1;
 }
 
 static int _xgame_filesystem_shortPath(lua_State *L)
 {
     lua_settop(L, 2);
-    
+
     std::string arg1;
     lua_Unsigned arg2 = 0;
+
     xluacv_to_std_string(L, 1, &arg1);
     xluacv_opt_uint(L, 2, &arg2, 60);
-    
+
     const std::string ret = (const std::string)xgame::filesystem::shortPath(arg1, (size_t)arg2);
+
     return xluacv_push_std_string(L, ret);
 }
 
 static int _xgame_filesystem_createDirectory(lua_State *L)
 {
     lua_settop(L, 2);
-    
+
     std::string arg1;
     bool arg2 = false;
+
     xluacv_to_std_string(L, 1, &arg1);
     xluacv_opt_bool(L, 2, &arg2, false);
-    
+
     bool ret = (bool)xgame::filesystem::createDirectory(arg1, arg2);
+
     return xluacv_push_bool(L, ret);
 }
 
 static int _xgame_filesystem_remove(lua_State *L)
 {
     lua_settop(L, 1);
-    
+
     std::string arg1;
+
     xluacv_to_std_string(L, 1, &arg1);
-    
+
     bool ret = (bool)xgame::filesystem::remove(arg1);
+
     return xluacv_push_bool(L, ret);
 }
 
 static int _xgame_filesystem_exist(lua_State *L)
 {
     lua_settop(L, 1);
-    
+
     std::string arg1;
+
     xluacv_to_std_string(L, 1, &arg1);
-    
+
     bool ret = (bool)xgame::filesystem::exist(arg1);
+
     return xluacv_push_bool(L, ret);
 }
 
 static int _xgame_filesystem_isFile(lua_State *L)
 {
     lua_settop(L, 1);
-    
+
     std::string arg1;
+
     xluacv_to_std_string(L, 1, &arg1);
-    
+
     bool ret = (bool)xgame::filesystem::isFile(arg1);
+
     return xluacv_push_bool(L, ret);
 }
 
 static int _xgame_filesystem_isDirectory(lua_State *L)
 {
     lua_settop(L, 1);
-    
+
     std::string arg1;
+
     xluacv_to_std_string(L, 1, &arg1);
-    
+
     bool ret = (bool)xgame::filesystem::isDirectory(arg1);
+
     return xluacv_push_bool(L, ret);
 }
 
 static int _xgame_filesystem_rename(lua_State *L)
 {
     lua_settop(L, 2);
-    
+
     std::string arg1;
     std::string arg2;
+
     xluacv_to_std_string(L, 1, &arg1);
     xluacv_to_std_string(L, 2, &arg2);
-    
+
     bool ret = (bool)xgame::filesystem::rename(arg1, arg2);
+
     return xluacv_push_bool(L, ret);
 }
 
 static int _xgame_filesystem_copy(lua_State *L)
 {
     lua_settop(L, 2);
-    
+
     std::string arg1;
     std::string arg2;
+
     xluacv_to_std_string(L, 1, &arg1);
     xluacv_to_std_string(L, 2, &arg2);
-    
+
     bool ret = (bool)xgame::filesystem::copy(arg1, arg2);
+
     return xluacv_push_bool(L, ret);
 }
 
 static int _xgame_filesystem_write(lua_State *L)
 {
     lua_settop(L, 3);
-    
+
     std::string arg1;
     const char *arg2 = nullptr;
     lua_Unsigned arg3 = 0;
+
     xluacv_to_std_string(L, 1, &arg1);
     xluacv_to_string(L, 2, &arg2);
     xluacv_to_uint(L, 3, &arg3);
-    
+
     bool ret = (bool)xgame::filesystem::write(arg1, arg2, (size_t)arg3);
+
     return xluacv_push_bool(L, ret);
 }
 
 static int _xgame_filesystem_read(lua_State *L)
 {
     lua_settop(L, 1);
-    
+
     std::string arg1;
+
     xluacv_to_std_string(L, 1, &arg1);
-    
+
     cocos2d::Data ret = (cocos2d::Data)xgame::filesystem::read(arg1);
+
     return xluacv_push_ccdata(L, ret);
 }
 
 static int _xgame_filesystem_unzip(lua_State *L)
 {
     lua_settop(L, 2);
-    
+
     std::string arg1;
     std::string arg2;
+
     xluacv_to_std_string(L, 1, &arg1);
     xluacv_to_std_string(L, 2, &arg2);
-    
+
     bool ret = (bool)xgame::filesystem::unzip(arg1, arg2);
+
     return xluacv_push_bool(L, ret);
 }
 
 static int _xgame_filesystem_getWritablePath(lua_State *L)
 {
     lua_settop(L, 0);
-    
+
     const std::string ret = (const std::string)xgame::filesystem::getWritablePath();
+
     return xluacv_push_std_string(L, ret);
 }
 
 static int _xgame_filesystem_getCacheDirectory(lua_State *L)
 {
     lua_settop(L, 0);
-    
+
     const std::string ret = (const std::string)xgame::filesystem::getCacheDirectory();
+
     return xluacv_push_std_string(L, ret);
 }
 
 static int _xgame_filesystem_getDocumentDirectory(lua_State *L)
 {
     lua_settop(L, 0);
-    
+
     const std::string ret = (const std::string)xgame::filesystem::getDocumentDirectory();
+
     return xluacv_push_std_string(L, ret);
 }
 
 static int _xgame_filesystem_getTmpDirectory(lua_State *L)
 {
     lua_settop(L, 0);
-    
+
     const std::string ret = (const std::string)xgame::filesystem::getTmpDirectory();
+
     return xluacv_push_std_string(L, ret);
 }
 
 static int _xgame_filesystem_getSDCardDirectory(lua_State *L)
 {
     lua_settop(L, 0);
-    
+
     const std::string ret = (const std::string)xgame::filesystem::getSDCardDirectory();
+
     return xluacv_push_std_string(L, ret);
 }
 
@@ -445,158 +496,181 @@ static int luaopen_xgame_filesystem(lua_State *L)
     xluacls_property(L, "tmpDirectory", _xgame_filesystem_getTmpDirectory, nullptr);
     xluacls_property(L, "sdCardDirectory", _xgame_filesystem_getSDCardDirectory, nullptr);
     xluacls_initmetafunc(L);
-    
+
     xluacls_newclassproxy(L);
-    
+
     return 1;
 }
 
 static int _xgame_preferences_getBoolean(lua_State *L)
 {
     lua_settop(L, 2);
-    
+
     const char *arg1 = nullptr;
     bool arg2 = false;
+
     xluacv_to_string(L, 1, &arg1);
     xluacv_opt_bool(L, 2, &arg2, false);
-    
+
     bool ret = (bool)xgame::preferences::getBoolean(arg1, arg2);
+
     return xluacv_push_bool(L, ret);
 }
 
 static int _xgame_preferences_setBoolean(lua_State *L)
 {
     lua_settop(L, 2);
-    
+
     const char *arg1 = nullptr;
     bool arg2 = false;
+
     xluacv_to_string(L, 1, &arg1);
     xluacv_to_bool(L, 2, &arg2);
-    
+
     xgame::preferences::setBoolean(arg1, arg2);
+
     return 0;
 }
 
 static int _xgame_preferences_getFloat(lua_State *L)
 {
     lua_settop(L, 2);
-    
+
     const char *arg1 = nullptr;
     lua_Number arg2 = 0;
+
     xluacv_to_string(L, 1, &arg1);
     xluacv_opt_number(L, 2, &arg2, 0);
-    
+
     float ret = (float)xgame::preferences::getFloat(arg1, (float)arg2);
+
     return xluacv_push_number(L, ret);
 }
 
 static int _xgame_preferences_setFloat(lua_State *L)
 {
     lua_settop(L, 2);
-    
+
     const char *arg1 = nullptr;
     lua_Number arg2 = 0;
+
     xluacv_to_string(L, 1, &arg1);
     xluacv_to_number(L, 2, &arg2);
-    
+
     xgame::preferences::setFloat(arg1, (float)arg2);
+
     return 0;
 }
 
 static int _xgame_preferences_getDouble(lua_State *L)
 {
     lua_settop(L, 2);
-    
+
     const char *arg1 = nullptr;
     lua_Number arg2 = 0;
+
     xluacv_to_string(L, 1, &arg1);
     xluacv_opt_number(L, 2, &arg2, 0);
-    
+
     double ret = (double)xgame::preferences::getDouble(arg1, (double)arg2);
+
     return xluacv_push_number(L, ret);
 }
 
 static int _xgame_preferences_setDouble(lua_State *L)
 {
     lua_settop(L, 2);
-    
+
     const char *arg1 = nullptr;
     lua_Number arg2 = 0;
+
     xluacv_to_string(L, 1, &arg1);
     xluacv_to_number(L, 2, &arg2);
-    
+
     xgame::preferences::setDouble(arg1, (double)arg2);
+
     return 0;
 }
 
 static int _xgame_preferences_getInteger(lua_State *L)
 {
     lua_settop(L, 2);
-    
+
     const char *arg1 = nullptr;
     lua_Integer arg2 = 0;
+
     xluacv_to_string(L, 1, &arg1);
     xluacv_opt_int(L, 2, &arg2, 0);
-    
+
     int ret = (int)xgame::preferences::getInteger(arg1, (int)arg2);
+
     return xluacv_push_int(L, ret);
 }
 
 static int _xgame_preferences_setInteger(lua_State *L)
 {
     lua_settop(L, 2);
-    
+
     const char *arg1 = nullptr;
     lua_Integer arg2 = 0;
+
     xluacv_to_string(L, 1, &arg1);
     xluacv_to_int(L, 2, &arg2);
-    
+
     xgame::preferences::setInteger(arg1, (int)arg2);
+
     return 0;
 }
 
 static int _xgame_preferences_getString(lua_State *L)
 {
     lua_settop(L, 2);
-    
+
     const char *arg1 = nullptr;
     const char *arg2 = nullptr;
+
     xluacv_to_string(L, 1, &arg1);
     xluacv_opt_string(L, 2, &arg2, "");
-    
+
     std::string ret = (std::string)xgame::preferences::getString(arg1, arg2);
+
     return xluacv_push_std_string(L, ret);
 }
 
 static int _xgame_preferences_setString(lua_State *L)
 {
     lua_settop(L, 2);
-    
+
     const char *arg1 = nullptr;
     const char *arg2 = nullptr;
+
     xluacv_to_string(L, 1, &arg1);
     xluacv_to_string(L, 2, &arg2);
-    
+
     xgame::preferences::setString(arg1, arg2);
+
     return 0;
 }
 
 static int _xgame_preferences_deleteKey(lua_State *L)
 {
     lua_settop(L, 1);
-    
+
     const char *arg1 = nullptr;
+
     xluacv_to_string(L, 1, &arg1);
-    
+
     xgame::preferences::deleteKey(arg1);
+
     return 0;
 }
 
 static int _xgame_preferences_flush(lua_State *L)
 {
     lua_settop(L, 0);
-    
+
     xgame::preferences::flush();
+
     return 0;
 }
 
@@ -616,9 +690,9 @@ static int luaopen_xgame_preferences(lua_State *L)
     xluacls_setfunc(L, "deleteKey", _xgame_preferences_deleteKey);
     xluacls_setfunc(L, "flush", _xgame_preferences_flush);
     xluacls_initmetafunc(L);
-    
+
     xluacls_newclassproxy(L);
-    
+
     return 1;
 }
 
@@ -726,9 +800,9 @@ static int luaopen_xgame_timer(lua_State *L)
     xluacls_setfunc(L, "schedule", _xgame_timer_schedule);
     xluacls_setfunc(L, "unschedule", _xgame_timer_unschedule);
     xluacls_initmetafunc(L);
-    
+
     xluacls_newclassproxy(L);
-    
+
     return 1;
 }
 
@@ -763,7 +837,7 @@ static int _xgame_window_setDesignSize(lua_State *L)
 static int _xgame_window_convertToCameraSpace(lua_State *L)
 {
     cocos2d::Vec2 pt = cocos2d::Vec2(luaL_checknumber(L, 1), luaL_checknumber(L, 2));
-    
+
     auto director = cocos2d::Director::getInstance();
     cocos2d::Mat4 w2l = director->getRunningScene()->getWorldToNodeTransform();
     cocos2d::Rect rect;
@@ -772,14 +846,14 @@ static int _xgame_window_convertToCameraSpace(lua_State *L)
     cocos2d::Vec3 Pn(pt.x, pt.y, -1), Pf(pt.x, pt.y, 1);
     Pn = camera->unprojectGL(Pn);
     Pf = camera->unprojectGL(Pf);
-    
+
     //  then convert Pn and Pf to node space
     w2l.transformPoint(&Pn);
     w2l.transformPoint(&Pf);
-    
+
     // Pn and Pf define a line Q(t) = D + t * E which D = Pn
     auto E = Pf - Pn;
-    
+
     // second, get three points which define content plane
     //  these points define a plane P(u, w) = A + uB + wC
     cocos2d::Vec3 A = cocos2d::Vec3(rect.origin.x, rect.origin.y, 0);
@@ -787,7 +861,7 @@ static int _xgame_window_convertToCameraSpace(lua_State *L)
     cocos2d::Vec3 C(rect.origin.x, rect.origin.y + rect.size.height, 0);
     B = B - A;
     C = C - A;
-    
+
     //  the line Q(t) intercept with plane P(u, w)
     //  calculate the intercept point P = Q(t)
     //      (BxC).A - (BxC).D
@@ -798,10 +872,10 @@ static int _xgame_window_convertToCameraSpace(lua_State *L)
     auto BxCdotE = BxC.dot(E);
     auto t = (BxC.dot(A) - BxC.dot(Pn)) / BxCdotE;
     cocos2d::Vec3 P = Pn + t * E;
-    
+
     lua_pushnumber(L, P.x);
     lua_pushnumber(L, P.y);
-    
+
     return 2;
 }
 
@@ -813,9 +887,9 @@ static int luaopen_xgame_window(lua_State *L)
     xluacls_setfunc(L, "setDesignSize", _xgame_window_setDesignSize);
     xluacls_setfunc(L, "convertToCameraSpace", _xgame_window_convertToCameraSpace);
     xluacls_initmetafunc(L);
-    
+
     xluacls_newclassproxy(L);
-    
+
     return 1;
 }
 

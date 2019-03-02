@@ -86,7 +86,10 @@ function format(expr, trim, drop_last_lf)
             end
         end)
     end
-    return eval(expr)
+    local s = eval(expr)
+    s = string.gsub(s, '[\n\r][ ]+[\n\r]', '\n\n')
+    s = string.gsub(s, '[\n\r][\n\r][\n\r]', '\n')
+    return s
 end
 
 function format_snippet(expr)

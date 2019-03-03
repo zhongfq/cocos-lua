@@ -1,6 +1,7 @@
 #include "xgame/xlua.h"
 #include "xgame/xruntime.h"
 #include "xgame/xfilesystem.h"
+#include "tolua/tolua.hpp"
 
 #include "cocos2d.h"
 
@@ -199,46 +200,6 @@ lua_State *xlua_mainthread(lua_State *L)
 lua_State *xlua_cocosthread()
 {
     return runtime::luaVM();
-}
-
-bool xlua_optboolean(lua_State *L, int idx, bool default_value)
-{
-    return lua_type(L, idx) <= LUA_TNIL ? default_value : lua_toboolean(L, idx) != 0;
-}
-
-bool xlua_checkboolean(lua_State *L, int idx)
-{
-    luaL_checktype(L, idx, LUA_TBOOLEAN);
-    return lua_toboolean(L, idx);
-}
-
-void xlua_setnilfield(lua_State *L, const char *field)
-{
-    lua_pushstring(L, field);
-    lua_pushnil(L);
-    lua_rawset(L, -3);
-}
-
-int xlua_rawgetfield(lua_State *L, int idx, const char *field)
-{
-    idx = lua_absindex(L, idx);
-    lua_pushstring(L, field);
-    return lua_rawget(L, idx);
-}
-
-void xlua_rawsetfield(lua_State *L, int idx, const char *field)
-{
-    idx = lua_absindex(L, idx);
-    lua_pushstring(L, field);
-    lua_insert(L, -2);
-    lua_rawset(L, idx);
-}
-
-void xlua_setfunc(lua_State *L, const char *field, lua_CFunction func)
-{
-    lua_pushstring(L, field);
-    lua_pushcfunction(L, func);
-    lua_rawset(L, -3);
 }
 
 void xlua_preload(lua_State *L, const char *name, lua_CFunction func)
@@ -474,65 +435,180 @@ void xlua_getref(lua_State *L, int ref)
     lua_remove(L, -2); // pop mapping table
 }
 
-const char *xluaf_getstring(lua_State *L, int idx, const char *field, const char *default_value)
+bool xlua_optboolean(lua_State *L, int idx, bool def)
+{
+    return lua_type(L, idx) <= LUA_TNIL ? def : lua_toboolean(L, idx) != 0;
+}
+
+bool xlua_checkboolean(lua_State *L, int idx)
+{
+    luaL_checktype(L, idx, LUA_TBOOLEAN);
+    return lua_toboolean(L, idx);
+}
+
+void xlua_setnilfield(lua_State *L, const char *field)
+{
+    lua_pushstring(L, field);
+    lua_pushnil(L);
+    lua_rawset(L, -3);
+}
+
+int xlua_rawgetfield(lua_State *L, int idx, const char *field)
 {
     idx = lua_absindex(L, idx);
+    lua_pushstring(L, field);
+    return lua_rawget(L, idx);
+}
+
+void xlua_rawsetfield(lua_State *L, int idx, const char *field)
+{
+    idx = lua_absindex(L, idx);
+    lua_pushstring(L, field);
+    lua_insert(L, -2);
+    lua_rawset(L, idx);
+}
+
+void xlua_setfunc(lua_State *L, const char *field, lua_CFunction func)
+{
+    lua_pushstring(L, field);
+    lua_pushcfunction(L, func);
+    lua_rawset(L, -3);
+}
+
+const char *xlua_optfieldstring(lua_State *L, int idx, const char *field, const char *def)
+{
+    const char *value;
+    idx = lua_absindex(L, idx);
     lua_getfield(L, idx, field);
-    const char *value = luaL_optstring(L, -1, default_value);
+    value = luaL_optstring(L, -1, def);
     lua_pop(L, 1);
     return value;
 }
 
-bool xluaf_getboolean(lua_State *L, int idx, const char *field, bool default_value)
+bool xlua_optfieldboolean(lua_State *L, int idx, const char *field, bool def)
 {
+    bool value;
     idx = lua_absindex(L, idx);
     lua_getfield(L, idx, field);
-    bool value = xlua_optboolean(L, -1, default_value);
+    value = xlua_optboolean(L, -1, def);
     lua_pop(L, 1);
     return value;
 }
 
-lua_Number xluaf_getnumber(lua_State *L, int idx, const char *field, lua_Number default_value)
+lua_Number xlua_optfieldnumber(lua_State *L, int idx, const char *field, lua_Number def)
 {
+    lua_Number value;
     idx = lua_absindex(L, idx);
     lua_getfield(L, idx, field);
-    float value = luaL_optnumber(L, -1, default_value);
+    value = luaL_optnumber(L, -1, def);
     lua_pop(L, 1);
     return value;
 }
 
-lua_Integer xluaf_getinteger(lua_State *L, int idx, const char *field, lua_Integer default_value)
+lua_Integer xlua_optfieldinteger(lua_State *L, int idx, const char *field, lua_Integer def)
 {
+    lua_Integer value;
     idx = lua_absindex(L, idx);
     lua_getfield(L, idx, field);
-    lua_Integer value = luaL_optinteger(L, -1, default_value);
+    value = luaL_optinteger(L, -1, def);
     lua_pop(L, 1);
     return value;
 }
 
-const char *xluaf_checkstring(lua_State *L, int idx, const char *field)
+const char *xlua_checkfieldstring(lua_State *L, int idx, const char *field)
 {
+    const char *value;
     idx = lua_absindex(L, idx);
     lua_getfield(L, idx, field);
-    const char *value = luaL_checkstring(L, -1);
+    value = luaL_checkstring(L, -1);
     lua_pop(L, 1);
     return value;
 }
 
-lua_Number xluaf_checknumber(lua_State *L, int idx, const char *field)
+lua_Number xlua_checkfieldnumber(lua_State *L, int idx, const char *field)
 {
+    lua_Number value;
     idx = lua_absindex(L, idx);
     lua_getfield(L, idx, field);
-    float value = (float) luaL_checknumber(L, -1);
+    value = luaL_checknumber(L, -1);
     lua_pop(L, 1);
     return value;
 }
 
-lua_Integer xluaf_checkinteger(lua_State *L, int idx, const char *field)
+lua_Integer xlua_checkfieldinteger(lua_State *L, int idx, const char *field)
 {
     idx = lua_absindex(L, idx);
     lua_getfield(L, idx, field);
     lua_Integer value = luaL_checkinteger(L, -1);
     lua_pop(L, 1);
     return value;
+}
+
+static int s_obj_count = 0;
+
+static int xluacls_tostring(lua_State *L)
+{
+    intptr_t p = 0;
+    if (lua_isuserdata(L, 1)) {
+        p = (intptr_t)(*(void **)lua_touserdata(L, 1));
+    } else {
+        p = (intptr_t)lua_topointer(L, 1);
+    }
+    
+    lua_pushfstring(L, "%s: %p", toluacls_typename(L, 1), p);
+    
+    return 1;
+}
+
+int xlua_ccobjgc(lua_State *L)
+{
+    cocos2d::Ref *obj = (cocos2d::Ref *)toluacls_checkobj(L, 1, "cc.Ref");
+    if (obj) {
+#ifdef COCOS2D_DEBUG
+        int top = lua_gettop(L);
+        xluacls_tostring(L);
+        const char *str = lua_tostring(L, -1);
+        xgame::runtime::log("lua gc: obj=%s obj_ref_count=%d total_obj_count=%d",
+                            str, obj->getReferenceCount() - 1, s_obj_count - 1);
+        lua_settop(L, top);
+#endif
+        obj->release();
+        *(void **)lua_touserdata(L, 1) = nullptr;
+        s_obj_count--;
+    }
+    return 0;
+}
+
+int xlua_ccobjcount(lua_State *L)
+{
+    return s_obj_count;
+}
+
+int xlua_push_ccdata(lua_State *L, const cocos2d::Data &value)
+{
+    if (value.isNull()) {
+        lua_pushnil(L);
+    } else {
+        lua_pushlstring(L, (const char *)value.getBytes(), (size_t)value.getSize());
+    }
+    return 1;
+}
+
+int xlua_push_ccobj(lua_State *L, cocos2d::Ref *obj, const char *cls)
+{
+    if (toluacls_pushobj(L, obj, cls)) {
+        obj->retain();
+        s_obj_count++;
+    }
+    return 1;
+}
+
+void xlua_to_ccobj(lua_State *L, int idx, void **value, const char *cls)
+{
+    *value = toluacls_checkobj(L, idx, cls);
+}
+
+bool xlua_is_ccobj(lua_State *L, int idx, const char *cls)
+{
+    return toluacls_isa(L, idx, cls);
 }

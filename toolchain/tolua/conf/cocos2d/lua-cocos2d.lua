@@ -10,9 +10,9 @@ M.SOURCE_PATH = "template/frameworks/libxgame/src/xgame/lua-bindings/lua_cocos2d
 M.INCLUDES = [[
 #include "xgame/lua-bindings/lua_cocos2d.h"
 #include "xgame/xlua.h"
-#include "xgame/xlua-conv.h"
 #include "xgame/xruntime.h"
 #include "cocos2d.h"
+#include "tolua/tolua.hpp"
 ]]
 
 M.CLASSES = {

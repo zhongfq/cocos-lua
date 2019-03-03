@@ -27,16 +27,7 @@ LUALIB_API void tolua_rawsetfield(lua_State *L, int idx, const char *field)
     lua_rawset(L, idx);
 }
 
-static void toluacls_pushfunc(lua_State *L, lua_CFunction func)
-{
-    if (func) {
-        lua_pushcfunction(L, func);
-    } else {
-        lua_pushnil(L);
-    }
-}
-
-static bool toluacls_ismetafunc(lua_State *L, int idx)
+static bool ismetafunc(lua_State *L, int idx, const char *func)
 {
     static const char *const tm[] = {
         "__index", "__newindex",
@@ -49,16 +40,17 @@ static bool toluacls_ismetafunc(lua_State *L, int idx)
         NULL
     };
     
-    if (lua_type(L, idx) == LUA_TSTRING) {
-        const char *func = lua_tostring(L, -2);
+    if (!func && lua_type(L, idx) == LUA_TSTRING) {
+        func = lua_tostring(L, idx);
+    }
+    
+    if (func) {
         for (int i = 0;; ++i) {
-            const char *t = tm[i];
-            if (t) {
-                if (strcmp(t, func) == 0) {
-                    return true;
-                }
-            } else {
+            const char *name = tm[i];
+            if (!name) {
                 break;
+            } else if (strcmp(name, func) == 0) {
+                return true;
             }
         }
     }
@@ -66,59 +58,90 @@ static bool toluacls_ismetafunc(lua_State *L, int idx)
     return false;
 }
 
-static int toluacls_mt_index(lua_State *L)
+
+static int trycacheget(lua_State *L, int idx, int kidx)
+{
+#define NILVALUE ((void *)trycacheget)
+    int type;
+    idx = lua_absindex(L, idx);                 // L: t k
+    type =lua_rawget(L, idx);                   // L: t v
+    if (type != LUA_TNIL) {
+        if (type == LUA_TLIGHTUSERDATA
+            && lua_touserdata(L, -1) == NILVALUE) {
+            lua_pop(L, 1);
+            lua_pushnil(L);
+            return LUA_TNIL;
+        }
+        return type;
+    }
+    
+    lua_pop(L, 1);                              // L: t
+    lua_pushvalue(L, kidx);                     // L: t k
+    type = lua_gettable(L, idx);                // L: t v
+    lua_pushvalue(L, kidx);                     // L: t v k
+    if (type != LUA_TNIL) {
+        lua_pushvalue(L, -2);                   // L: t v k v
+    } else {
+        lua_pushlightuserdata(L, NILVALUE);     // L: t v k v
+    }
+    lua_rawset(L, idx);                         // L: t v
+    
+    return type;
+}
+
+static int cls_index(lua_State *L)
 {
     // try func
-    lua_settop(L, 2);                       // L: t k
-    lua_pushvalue(L, CLS_FUNCIDX);          // L: t k .func
-    lua_pushvalue(L, 2);                    // L: t k .func k
-    if (lua_rawget(L, -2) != LUA_TNIL) {    // L: t k .func v
+    lua_settop(L, 2);                           // L: t k
+    lua_pushvalue(L, CLS_FUNCIDX);              // L: t k .func
+    lua_pushvalue(L, 2);                        // L: t k .func k
+    if (trycacheget(L, -2, 2) != LUA_TNIL) {    // L: t k .func v
         return 1;
     }
     
     // try getter
-    lua_settop(L, 2);                       // L: t k
-    lua_pushvalue(L, CLS_GETIDX);           // L: t k .get
-    lua_pushvalue(L, 2);                    // L: t k .get k
-    if (lua_rawget(L, -2) != LUA_TNIL) {    // L: t k .get getter
-        lua_pushvalue(L, 1);                // L: t k .get getter t
-        lua_call(L, 1, 1);                  // L: t k .get ret
+    lua_settop(L, 2);                           // L: t k
+    lua_pushvalue(L, CLS_GETIDX);               // L: t k .get
+    lua_pushvalue(L, 2);                        // L: t k .get k
+    if (trycacheget(L, -2, 2) != LUA_TNIL) {    // L: t k .get getter
+        lua_pushvalue(L, 1);                    // L: t k .get getter t
+        lua_call(L, 1, 1);                      // L: t k .get ret
         return 1;
     }
     
     // not found
-    lua_settop(L, 2);                       // L: t k
-    lua_pushnil(L);                         // L: t k nil
+    lua_settop(L, 2);                           // L: t k
+    lua_pushnil(L);                             // L: t k nil
     
     return 1;
 }
 
-static int toluacls_mt_newindex(lua_State *L)
+static int cls_newindex(lua_State *L)
 {
     // try setter
-    lua_settop(L, 3);                       // L: t k v
-    lua_pushvalue(L, CLS_SETIDX);           // L: t k v .set
-    lua_pushvalue(L, -2);                   // L: t k v .set k
-    if (lua_rawget(L, -2) != LUA_TNIL) {    // L: t k v .set setter
-        lua_pushvalue(L, 1);                // L: t k v .set setter t
-        lua_pushvalue(L, 3);                // L: t k v .set setter t v
-        lua_call(L, 2, 0);                  // L: t k v .set
+    lua_settop(L, 3);                           // L: t k v
+    lua_pushvalue(L, CLS_SETIDX);               // L: t k v .set
+    lua_pushvalue(L, -2);                       // L: t k v .set k
+    if (trycacheget(L, -2, 2) != LUA_TNIL) {    // L: t k v .set setter
+        lua_pushvalue(L, 1);                    // L: t k v .set setter t
+        lua_pushvalue(L, 3);                    // L: t k v .set setter t v
+        lua_call(L, 2, 0);                      // L: t k v .set
         return 0;
     }
     
     if (lua_istable(L, 1)) {
-        lua_settop(L, 3);                   // L: t k v
-        lua_pushvalue(L, CLS_FUNCIDX);      // L: t k v .func
-        lua_pushvalue(L, 2);                // L: t k v .func k
-        lua_pushvalue(L, 3);                // L: t k v .func k v
-        lua_rawset(L, -3);                  // L: t k v .func
-        lua_pop(L, 1);                      // L: t k v
+        lua_settop(L, 3);                       // L: t k v
+        lua_pushvalue(L, CLS_FUNCIDX);          // L: t k v .func
+        lua_pushvalue(L, 2);                    // L: t k v .func k
+        lua_pushvalue(L, 3);                    // L: t k v .func k v
+        lua_rawset(L, -3);                      // L: t k v .func
+        lua_pop(L, 1);                          // L: t k v
         
-        if (toluacls_ismetafunc(L, 2)) {
-            lua_pushvalue(L, CLS_CLSIDX);   // L: t k v class
-            lua_pushvalue(L, 2);            // L: t k v class k
-            lua_pushvalue(L, 3);            // L: t k v class k v
-            lua_rawset(L, -3);              // L: t k v class
+        if (ismetafunc(L, 2, NULL)) {
+            lua_pushvalue(L, CLS_CLSIDX);       // L: t k v class
+            lua_pushvalue(L, 2);                // L: t k v class k
+            lua_pushvalue(L, 3);                // L: t k v class k v
+            lua_rawset(L, -3);                  // L: t k v class
             lua_pop(L, 1);
         }
         
@@ -130,7 +153,7 @@ static int toluacls_mt_newindex(lua_State *L)
     return 0;
 }
 
-static int toluacls_mt_tostring(lua_State *L)
+static int cls_tostring(lua_State *L)
 {
     intptr_t p = 0;
     if (lua_isuserdata(L, 1)) {
@@ -144,7 +167,7 @@ static int toluacls_mt_tostring(lua_State *L)
     return 1;
 }
 
-static void toluacls_copysuperfield(lua_State *L, int idx, const char *field, const char *supercls)
+static void create_table(lua_State *L, int idx, const char *field, const char *supercls, bool copy)
 {
     idx = lua_absindex(L, idx);
     
@@ -152,17 +175,43 @@ static void toluacls_copysuperfield(lua_State *L, int idx, const char *field, co
     if (supercls) {
         luaL_getmetatable(L, supercls);     // L: t super
         tolua_rawgetfield(L, -1, field);    // L: t super fv
-        lua_pushnil(L);                     // L: t super fv k
-        while (lua_next(L, -2)) {           // L: t super fv k v
-            lua_pushvalue(L, -2);           // L: t super fv k v k
-            lua_insert(L, -2);              // L: t super fv k k v
-            lua_rawset(L, -6);              // L: t super fv k
-        }                                   // L: t super fv
+        lua_createtable(L, 0, 1);           // L: t super fv mt
+        lua_pushvalue(L, -2);               // L: t super fv mt fv
+        tolua_rawsetfield(L, -2, "__index");// L: t super fv mt
+        lua_setmetatable(L, -4);            // L: t super fv
+        
+        if (copy) {
+            lua_pushnil(L);                 // L: t super fv k
+            while (lua_next(L, -2)) {       // L: t super fv k v
+                lua_pushvalue(L, -2);       // L: t super fv k v k
+                lua_insert(L, -2);          // L: t super fv k k v
+                lua_rawset(L, -6);          // L: t super fv k
+            }                               // L: t super fv
+        }
+        
         lua_pop(L, 2);                      // L: t
     }
     
     lua_pushvalue(L, -1);                   // L: t t
     tolua_rawsetfield(L, idx, field);       // L: t     idx[field] = t
+}
+
+static void copysupermetafunc(lua_State *L, int idx, const char *supercls)
+{
+    idx = lua_absindex(L, idx);
+    if (supercls) {
+        luaL_getmetatable(L, supercls);     // L: mt super
+        lua_pushnil(L);                     // L: mt super k
+        while (lua_next(L, -2)) {           // L: mt super k v
+            if (ismetafunc(L, -2, NULL)) {
+                lua_pushvalue(L, -2);       // L: mt super k v k
+                lua_pushvalue(L, -2);       // L: mt super k v k v
+                lua_rawset(L, idx);         // L: mt super k v
+            }
+            lua_pop(L, 1);
+        }
+        lua_pop(L, 1);
+    }
 }
 
 LUALIB_API const char *toluacls_typename(lua_State *L, int idx)
@@ -182,33 +231,34 @@ LUALIB_API const char *toluacls_typename(lua_State *L, int idx)
     return tn;
 }
 
-LUALIB_API void toluacls_class(lua_State *L, const char *cls, const char *supercls)
+LUALIB_API void toluacls_class(lua_State *L, const char *cls, const char *super)
 {
-    if (supercls != NULL) {
-        if (luaL_getmetatable(L, supercls) == LUA_TNIL) {
-            luaL_error(L, "super class not found: %s", supercls);
+    if (super != NULL) {
+        if (luaL_getmetatable(L, super) == LUA_TNIL) {
+            luaL_error(L, "super class not found: %s", super);
         }
         lua_pop(L, 1);
     }
     
     if (luaL_getmetatable(L, cls) == LUA_TNIL) {
-        lua_pop(L, 1);
-        luaL_newmetatable(L, cls);                          // L: mt
         int idx = lua_gettop(L);
-        lua_pushvalue(L, -1);                               // L: mt mt
+        lua_pop(L, 1);
+        luaL_newmetatable(L, cls);                      // L: mt
+        lua_pushvalue(L, -1);                           // L: mt mt
+        copysupermetafunc(L, -1, super);
         
-        toluacls_copysuperfield(L, idx, CLS_ISA, supercls); // L: mt mt .isa
-        toluacls_copysuperfield(L, idx, CLS_FUNC, supercls);// L: mt mt .isa .func
-        toluacls_copysuperfield(L, idx, CLS_GET, supercls); // L: mt mt .isa .func .get
-        toluacls_copysuperfield(L, idx, CLS_SET, supercls); // L: mt mt .isa .func .get .set
+        create_table(L, idx, CLS_ISA, super, true);     // L: mt mt .isa
+        create_table(L, idx, CLS_FUNC, super, false);   // L: mt mt .isa .func
+        create_table(L, idx, CLS_GET, super, false);    // L: mt mt .isa .func .get
+        create_table(L, idx, CLS_SET, super, false);    // L: mt mt .isa .func .get .set
         
         static const luaL_Reg lib[] = {
-            {"__index", toluacls_mt_index},
-            {"__newindex", toluacls_mt_newindex},
-            {"__tostring", toluacls_mt_tostring},
+            {"__index", cls_index},
+            {"__newindex", cls_newindex},
+            {"__tostring", cls_tostring},
             {NULL, NULL}
         };
-        luaL_setfuncs(L, lib,  5);                          // L: mt
+        luaL_setfuncs(L, lib,  5);                      // L: mt
         
         lua_pushvalue(L, -1);
         toluacls_const(L, "class");
@@ -216,8 +266,8 @@ LUALIB_API void toluacls_class(lua_State *L, const char *cls, const char *superc
         lua_pushstring(L, cls);
         toluacls_const(L, "classname");
         
-        if (supercls) {
-            luaL_getmetatable(L, supercls);
+        if (super) {
+            luaL_getmetatable(L, super);
             toluacls_const(L, "super");
         }
         
@@ -232,51 +282,49 @@ LUALIB_API void toluacls_class(lua_State *L, const char *cls, const char *superc
 LUALIB_API void toluacls_createclassproxy(lua_State *L)
 {
     lua_newtable(L);                        // L: mt p
-    lua_createtable(L, 0, 2);               // L: mt p mtp
-    lua_getfield(L, -3, "__index");         // L: mt p mtp __index
-    tolua_rawsetfield(L, -2, "__index");    // L: mt p mtp
-    lua_getfield(L, -3, "__newindex");      // L: mt p mtp __newindex
-    tolua_rawsetfield(L, -2, "__newindex"); // L: mt p mtp
+    lua_createtable(L, 0, 2);               // L: mt p pmt
+    lua_getfield(L, -3, "__index");         // L: mt p pmt __index
+    tolua_rawsetfield(L, -2, "__index");    // L: mt p pmt
+    lua_getfield(L, -3, "__newindex");      // L: mt p pmt __newindex
+    tolua_rawsetfield(L, -2, "__newindex"); // L: mt p pmt
     lua_setmetatable(L, -2);                // L: mt p
-}
-
-LUALIB_API void toluacls_initmetafunc(lua_State *L)
-{
-    tolua_rawgetfield(L, -1, CLS_FUNC);         // L: mt .func
-    lua_pushnil(L);                             // L: mt .func k
-    while (lua_next(L, -2)) {                   // L: mt .func k v
-        if (toluacls_ismetafunc(L, -2)) {
-            lua_pushvalue(L, -2);               // L: mt .func k v k
-            lua_pushvalue(L, -2);               // L: mt .func k v k v
-            lua_rawset(L, -6);                  // L: mt .func k v
-        }
-        lua_pop(L, 1);                          // L: mt .func k
-    }                                           // L: mt .func
-    lua_pop(L, 1);                              // L: mt
 }
 
 LUALIB_API void toluacls_property(lua_State *L, const char *field, lua_CFunction getter, lua_CFunction setter)
 {
-    tolua_rawgetfield(L, -1, CLS_GET);   // L: mt .get
-    toluacls_pushfunc(L, getter);        // L: mt .get getter
-    tolua_rawsetfield(L, -2, field);     // L: mt .get            .get[field] = getter
-    lua_pop(L, 1);                       // L: mt
+    if (getter) {
+        tolua_rawgetfield(L, -1, CLS_GET);  // L: mt .get
+        lua_pushcfunction(L, getter);       // L: mt .get getter
+        tolua_rawsetfield(L, -2, field);    // L: mt .get            .get[field] = getter
+        lua_pop(L, 1);                      // L: mt
+    }
     
-    tolua_rawgetfield(L, -1, CLS_SET);   // L: mt .set
-    toluacls_pushfunc(L, setter);        // L: mt .set setter
-    tolua_rawsetfield(L, -2, field);     // L: mt .set            .set[field] = setter
-    lua_pop(L, 1);                       // L: mt
+    if (setter) {
+        tolua_rawgetfield(L, -1, CLS_SET);  // L: mt .set
+        lua_pushcfunction(L, setter);       // L: mt .set setter
+        tolua_rawsetfield(L, -2, field);    // L: mt .set            .set[field] = setter
+        lua_pop(L, 1);                      // L: mt
+    }
 }
 
-LUALIB_API void toluacls_setfunc(lua_State *L, const char *funcname, lua_CFunction func)
+LUALIB_API void toluacls_setfunc(lua_State *L, const char *name, lua_CFunction func)
 {
-    tolua_rawgetfield(L, -1, CLS_FUNC);  // L: mt .func
-    toluacls_pushfunc(L, func);          // L: mt .func func
-    tolua_rawsetfield(L, -2, funcname);  // L: mt .func            .func[funcname] = func
-    lua_pop(L, 1);                       // L: mt
+    if (func) {
+        lua_pushcfunction(L, func);         // L: mt func
+        tolua_rawgetfield(L, -2, CLS_FUNC); // L: mt func .func
+        lua_pushvalue(L, -2);               // L: mt func .func func
+        tolua_rawsetfield(L, -2, name);     // L: mt func .func            .func[name] = func
+        lua_pop(L, 1);                      // L: mt func
+        
+        if (ismetafunc(L, 0, name)) {
+            tolua_rawsetfield(L, -2, name);
+        } else {
+            lua_pop(L, 1);                  // L: mt
+        }
+    }
 }
 
-static int toluacls_constindex(lua_State *L)
+static int cls_index_const(lua_State *L)
 {
     lua_pushvalue(L, lua_upvalueindex(1));
     return 1;
@@ -287,7 +335,7 @@ LUALIB_API void toluacls_const(lua_State *L, const char *field)
     lua_pushvalue(L, -1);                        // L: mt v v
     tolua_rawsetfield(L, -3, field);             // L: mt v
     
-    lua_pushcclosure(L, toluacls_constindex, 1); // L: mt getter
+    lua_pushcclosure(L, cls_index_const, 1);     // L: mt getter
     tolua_rawgetfield(L, -2, CLS_GET);           // L: mt getter .get
     lua_insert(L, -2);                           // L: mt .get getter
     tolua_rawsetfield(L, -2, field);             // L: mt .get

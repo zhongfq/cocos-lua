@@ -430,7 +430,6 @@ static int luaopen_cocos2d_UserDefault(lua_State *L)
     toluacls_setfunc(L, "getInstance", _cocos2d_UserDefault_getInstance);
     toluacls_setfunc(L, "getXMLFilePath", _cocos2d_UserDefault_getXMLFilePath);
     toluacls_setfunc(L, "isXMLFileExist", _cocos2d_UserDefault_isXMLFileExist);
-    toluacls_initmetafunc(L);
 
     toluacls_createclassproxy(L);
 
@@ -460,7 +459,6 @@ static int luaopen_cocos2d_Ref(lua_State *L)
     toluacls_class(L, "cc.Ref", nullptr);
     toluacls_setfunc(L, "__gc", _cocos2d_Ref___gc);
     toluacls_property(L, "referenceCount", _cocos2d_Ref_getReferenceCount, nullptr);
-    toluacls_initmetafunc(L);
 
     toluacls_createclassproxy(L);
 
@@ -494,7 +492,6 @@ static int luaopen_cocos2d_Director(lua_State *L)
     toluacls_class(L, "cc.Director", "cc.Ref");
     toluacls_setfunc(L, "getInstance", _cocos2d_Director_getInstance);
     toluacls_property(L, "runningScene", _cocos2d_Director_getRunningScene, nullptr);
-    toluacls_initmetafunc(L);
 
     toluacls_createclassproxy(L);
 
@@ -796,7 +793,6 @@ static int luaopen_cocos2d_Node(lua_State *L)
     toluacls_setfunc(L, "reorderChild", _cocos2d_Node_reorderChild);
     toluacls_setfunc(L, "sortAllChildren", _cocos2d_Node_sortAllChildren);
     toluacls_setfunc(L, "setPosition", _cocos2d_Node_setPosition);
-    toluacls_initmetafunc(L);
 
     toluacls_createclassproxy(L);
 
@@ -820,7 +816,6 @@ static int luaopen_cocos2d_Sprite(lua_State *L)
 {
     toluacls_class(L, "cc.Sprite", "cc.Node");
     toluacls_setfunc(L, "create", _cocos2d_Sprite_create);
-    toluacls_initmetafunc(L);
 
     toluacls_createclassproxy(L);
 
@@ -830,9 +825,6 @@ static int luaopen_cocos2d_Sprite(lua_State *L)
 static int luaopen_cocos2d_Scene(lua_State *L)
 {
     toluacls_class(L, "cc.Scene", "cc.Node");
-
-    toluacls_initmetafunc(L);
-
     toluacls_createclassproxy(L);
 
     return 1;

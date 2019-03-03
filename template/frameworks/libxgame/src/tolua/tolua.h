@@ -39,12 +39,12 @@ LUALIB_API void tolua_rawsetfield(lua_State *L, int idx, const char *field);
 //          copy(['B.set'])
 //          name = set_name(obj, name, value)
 //      }
+//      __metafunc
 //  }
 //
 LUALIB_API const char *toluacls_typename(lua_State *L, int idx);
 LUALIB_API void toluacls_class(lua_State *L, const char *cls, const char *supercls);
 LUALIB_API void toluacls_createclassproxy(lua_State *L);
-LUALIB_API void toluacls_initmetafunc(lua_State *L);
 LUALIB_API void toluacls_property(lua_State *L, const char *field, lua_CFunction getter, lua_CFunction setter);
 LUALIB_API void toluacls_setfunc(lua_State *L, const char *funcname, lua_CFunction func);
 LUALIB_API void toluacls_const(lua_State *L, const char *field);

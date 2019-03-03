@@ -1,5 +1,6 @@
 local cjson         = require "kernel.crypto.cjson"
 local runtime       = require "kernel.runtime"
+local timer         = require "kernel.timer"
 local preferences   = require "kernel.preferences"
 local window        = require "kernel.window"
 local UserDefault   = require "cc.UserDefault"
@@ -25,15 +26,25 @@ function main()
     Director.getInstance().runningScene:addChild(sprite)
 
     function Node:print(...)
-        print("###", ...)
+        print("###", self, ...)
     end
 
     node:print("hello world", Node)
+
+    print("cache node", node.xxxx)
 
     function Node:__call( ... )
         print("lua node call: __call")
     end
     node()
+
+    sprite:print("xxx hello sprite")
+    timer.delay(4, function ( ... )
+        sprite:print("xxx hello sprite again")
+        sprite:setPosition(600, 400)
+        print("cache node", node.xxxx)
+    end)
+
 end
 
 local r = setmetatable({}, {__gc = function ()

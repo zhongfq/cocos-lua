@@ -71,7 +71,6 @@ local function gen_class_open(cls, write)
         {
             toluacls_class(L, "${LUACLS", ${SUPRECLS});
             ${FUNCS}
-            toluacls_initmetafunc(L);
             
             toluacls_createclassproxy(L);
             

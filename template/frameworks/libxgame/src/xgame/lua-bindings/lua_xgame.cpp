@@ -267,7 +267,6 @@ static int luaopen_xgame_runtime(lua_State *L)
     toluacls_property(L, "os", _xgame_runtime_getOS, nullptr);
     toluacls_property(L, "deviceInfo", _xgame_runtime_getDeviceInfo, nullptr);
     toluacls_property(L, "logPath", _xgame_runtime_getLogPath, _xgame_runtime_setLogPath);
-    toluacls_initmetafunc(L);
 
     toluacls_createclassproxy(L);
 
@@ -495,7 +494,6 @@ static int luaopen_xgame_filesystem(lua_State *L)
     toluacls_property(L, "documentDirectory", _xgame_filesystem_getDocumentDirectory, nullptr);
     toluacls_property(L, "tmpDirectory", _xgame_filesystem_getTmpDirectory, nullptr);
     toluacls_property(L, "sdCardDirectory", _xgame_filesystem_getSDCardDirectory, nullptr);
-    toluacls_initmetafunc(L);
 
     toluacls_createclassproxy(L);
 
@@ -689,7 +687,6 @@ static int luaopen_xgame_preferences(lua_State *L)
     toluacls_setfunc(L, "setString", _xgame_preferences_setString);
     toluacls_setfunc(L, "deleteKey", _xgame_preferences_deleteKey);
     toluacls_setfunc(L, "flush", _xgame_preferences_flush);
-    toluacls_initmetafunc(L);
 
     toluacls_createclassproxy(L);
 
@@ -799,7 +796,6 @@ static int luaopen_xgame_timer(lua_State *L)
     toluacls_setfunc(L, "delayWithTag", _xgame_timer_delayWithTag);
     toluacls_setfunc(L, "schedule", _xgame_timer_schedule);
     toluacls_setfunc(L, "unschedule", _xgame_timer_unschedule);
-    toluacls_initmetafunc(L);
 
     toluacls_createclassproxy(L);
 
@@ -886,7 +882,6 @@ static int luaopen_xgame_window(lua_State *L)
     toluacls_setfunc(L, "getDesignSize", _xgame_window_getDesignSize);
     toluacls_setfunc(L, "setDesignSize", _xgame_window_setDesignSize);
     toluacls_setfunc(L, "convertToCameraSpace", _xgame_window_convertToCameraSpace);
-    toluacls_initmetafunc(L);
 
     toluacls_createclassproxy(L);
 

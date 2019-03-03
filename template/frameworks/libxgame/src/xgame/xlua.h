@@ -43,6 +43,7 @@ int xlua_push_ccdata(lua_State *L, const cocos2d::Data &value);
 
 int xlua_push_ccobj(lua_State *L, cocos2d::Ref *obj, const char *cls);
 void xlua_to_ccobj(lua_State *L, int idx, void **value, const char *cls);
+void xlua_check_ccobj(lua_State *L, int idx, void **value, const char *cls);
 bool xlua_is_ccobj(lua_State *L, int idx, const char *cls);
 
 #endif

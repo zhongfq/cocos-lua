@@ -199,6 +199,7 @@ function REG_TYPE(option)
 
         info.FUNC_PUSH_VALUE = string.gsub(info.CONV, '$ACTION', "push")
         info.FUNC_TO_VALUE = string.gsub(info.CONV, '$ACTION', "to")
+        info.FUNC_CHECK_VALUE = string.gsub(info.CONV, '$ACTION', "check")
         info.FUNC_OPT_VALUE = string.gsub(info.CONV, '$ACTION', "opt")
         info.FUNC_IS_VALUE = string.gsub(info.CONV, '$ACTION', "is")
         -- multi ret

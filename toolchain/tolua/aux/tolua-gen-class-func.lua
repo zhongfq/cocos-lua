@@ -35,6 +35,7 @@ local function gen_one_func(cls, fi, write, funcidx)
         local ti = get_type_info(cls.CPPCLS .. "*")
         local DECL_TYPE = cls.CPPCLS
         local LUACLS = ti.LUACLS
+        local FUNC_CHECK_VALUE = ti.FUNC_CHECK_VALUE
         local FUNC_TO_VALUE = ti.FUNC_TO_VALUE
         DECL_CHUNK[#DECL_CHUNK + 1] = format_snippet([[
             ${DECL_TYPE} *self = nullptr;
@@ -56,7 +57,7 @@ local function gen_one_func(cls, fi, write, funcidx)
         local INIT_VALUE = ai.TYPE.INIT_VALUE
         local ARG_N = "arg" .. i
         local SPACE = " "
-        local FUNC_TO_VALUE = ai.TYPE.FUNC_TO_VALUE
+        local FUNC_CHECK_VALUE = ai.TYPE.FUNC_CHECK_VALUE
         local IDX = idx
 
         if string.find(DECL_TYPE, '[ *&]$') then
@@ -80,14 +81,14 @@ local function gen_one_func(cls, fi, write, funcidx)
                 ${FUNC_OPT_VALUE}(L, ${IDX}, &${ARG_N}, ${VALUE});
             ]])
         elseif ai.TYPE.LUACLS then
-            FUNC_TO_VALUE = ai.TYPE.FUNC_TO_VALUE
+            FUNC_CHECK_VALUE = ai.TYPE.FUNC_CHECK_VALUE
             local LUACLS = ai.TYPE.LUACLS
             ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
-                ${FUNC_TO_VALUE}(L, ${IDX}, (void **)&${ARG_N}, "${LUACLS}");
+                ${FUNC_CHECK_VALUE}(L, ${IDX}, (void **)&${ARG_N}, "${LUACLS}");
             ]])
         else
             ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
-                ${FUNC_TO_VALUE}(L, ${IDX}, &${ARG_N});
+                ${FUNC_CHECK_VALUE}(L, ${IDX}, &${ARG_N});
             ]])
         end
     end

@@ -24,7 +24,7 @@ static int _xgame_runtime_launch(lua_State *L)
 
     std::string arg1;
 
-    tolua_to_std_string(L, 1, &arg1);
+    tolua_check_std_string(L, 1, &arg1);
 
     bool ret = (bool)xgame::runtime::launch(arg1);
 
@@ -56,8 +56,8 @@ static int _xgame_runtime_setAntialias(lua_State *L)
     bool arg1 = false;
     lua_Unsigned arg2 = 0;
 
-    tolua_to_bool(L, 1, &arg1);
-    tolua_to_uint(L, 2, &arg2);
+    tolua_check_bool(L, 1, &arg1);
+    tolua_check_uint(L, 2, &arg2);
 
     xgame::runtime::setAntialias(arg1, (unsigned int)arg2);
 
@@ -88,7 +88,7 @@ static int _xgame_runtime_canOpenURL(lua_State *L)
 
     std::string arg1;
 
-    tolua_to_std_string(L, 1, &arg1);
+    tolua_check_std_string(L, 1, &arg1);
 
     bool ret = (bool)xgame::runtime::canOpenURL(arg1);
 
@@ -101,7 +101,7 @@ static int _xgame_runtime_support(lua_State *L)
 
     std::string arg1;
 
-    tolua_to_std_string(L, 1, &arg1);
+    tolua_check_std_string(L, 1, &arg1);
 
     bool ret = (bool)xgame::runtime::support(arg1);
 
@@ -237,7 +237,7 @@ static int _xgame_runtime_setLogPath(lua_State *L)
 
     std::string arg1;
 
-    tolua_to_std_string(L, 1, &arg1);
+    tolua_check_std_string(L, 1, &arg1);
 
     xgame::runtime::setLogPath(arg1);
 
@@ -280,7 +280,7 @@ static int _xgame_filesystem_shortPath(lua_State *L)
     std::string arg1;
     lua_Unsigned arg2 = 0;
 
-    tolua_to_std_string(L, 1, &arg1);
+    tolua_check_std_string(L, 1, &arg1);
     tolua_opt_uint(L, 2, &arg2, 60);
 
     const std::string ret = (const std::string)xgame::filesystem::shortPath(arg1, (size_t)arg2);
@@ -295,7 +295,7 @@ static int _xgame_filesystem_createDirectory(lua_State *L)
     std::string arg1;
     bool arg2 = false;
 
-    tolua_to_std_string(L, 1, &arg1);
+    tolua_check_std_string(L, 1, &arg1);
     tolua_opt_bool(L, 2, &arg2, false);
 
     bool ret = (bool)xgame::filesystem::createDirectory(arg1, arg2);
@@ -309,7 +309,7 @@ static int _xgame_filesystem_remove(lua_State *L)
 
     std::string arg1;
 
-    tolua_to_std_string(L, 1, &arg1);
+    tolua_check_std_string(L, 1, &arg1);
 
     bool ret = (bool)xgame::filesystem::remove(arg1);
 
@@ -322,7 +322,7 @@ static int _xgame_filesystem_exist(lua_State *L)
 
     std::string arg1;
 
-    tolua_to_std_string(L, 1, &arg1);
+    tolua_check_std_string(L, 1, &arg1);
 
     bool ret = (bool)xgame::filesystem::exist(arg1);
 
@@ -335,7 +335,7 @@ static int _xgame_filesystem_isFile(lua_State *L)
 
     std::string arg1;
 
-    tolua_to_std_string(L, 1, &arg1);
+    tolua_check_std_string(L, 1, &arg1);
 
     bool ret = (bool)xgame::filesystem::isFile(arg1);
 
@@ -348,7 +348,7 @@ static int _xgame_filesystem_isDirectory(lua_State *L)
 
     std::string arg1;
 
-    tolua_to_std_string(L, 1, &arg1);
+    tolua_check_std_string(L, 1, &arg1);
 
     bool ret = (bool)xgame::filesystem::isDirectory(arg1);
 
@@ -362,8 +362,8 @@ static int _xgame_filesystem_rename(lua_State *L)
     std::string arg1;
     std::string arg2;
 
-    tolua_to_std_string(L, 1, &arg1);
-    tolua_to_std_string(L, 2, &arg2);
+    tolua_check_std_string(L, 1, &arg1);
+    tolua_check_std_string(L, 2, &arg2);
 
     bool ret = (bool)xgame::filesystem::rename(arg1, arg2);
 
@@ -377,8 +377,8 @@ static int _xgame_filesystem_copy(lua_State *L)
     std::string arg1;
     std::string arg2;
 
-    tolua_to_std_string(L, 1, &arg1);
-    tolua_to_std_string(L, 2, &arg2);
+    tolua_check_std_string(L, 1, &arg1);
+    tolua_check_std_string(L, 2, &arg2);
 
     bool ret = (bool)xgame::filesystem::copy(arg1, arg2);
 
@@ -393,9 +393,9 @@ static int _xgame_filesystem_write(lua_State *L)
     const char *arg2 = nullptr;
     lua_Unsigned arg3 = 0;
 
-    tolua_to_std_string(L, 1, &arg1);
-    tolua_to_string(L, 2, &arg2);
-    tolua_to_uint(L, 3, &arg3);
+    tolua_check_std_string(L, 1, &arg1);
+    tolua_check_string(L, 2, &arg2);
+    tolua_check_uint(L, 3, &arg3);
 
     bool ret = (bool)xgame::filesystem::write(arg1, arg2, (size_t)arg3);
 
@@ -408,7 +408,7 @@ static int _xgame_filesystem_read(lua_State *L)
 
     std::string arg1;
 
-    tolua_to_std_string(L, 1, &arg1);
+    tolua_check_std_string(L, 1, &arg1);
 
     cocos2d::Data ret = (cocos2d::Data)xgame::filesystem::read(arg1);
 
@@ -422,8 +422,8 @@ static int _xgame_filesystem_unzip(lua_State *L)
     std::string arg1;
     std::string arg2;
 
-    tolua_to_std_string(L, 1, &arg1);
-    tolua_to_std_string(L, 2, &arg2);
+    tolua_check_std_string(L, 1, &arg1);
+    tolua_check_std_string(L, 2, &arg2);
 
     bool ret = (bool)xgame::filesystem::unzip(arg1, arg2);
 
@@ -507,7 +507,7 @@ static int _xgame_preferences_getBoolean(lua_State *L)
     const char *arg1 = nullptr;
     bool arg2 = false;
 
-    tolua_to_string(L, 1, &arg1);
+    tolua_check_string(L, 1, &arg1);
     tolua_opt_bool(L, 2, &arg2, false);
 
     bool ret = (bool)xgame::preferences::getBoolean(arg1, arg2);
@@ -522,8 +522,8 @@ static int _xgame_preferences_setBoolean(lua_State *L)
     const char *arg1 = nullptr;
     bool arg2 = false;
 
-    tolua_to_string(L, 1, &arg1);
-    tolua_to_bool(L, 2, &arg2);
+    tolua_check_string(L, 1, &arg1);
+    tolua_check_bool(L, 2, &arg2);
 
     xgame::preferences::setBoolean(arg1, arg2);
 
@@ -537,7 +537,7 @@ static int _xgame_preferences_getFloat(lua_State *L)
     const char *arg1 = nullptr;
     lua_Number arg2 = 0;
 
-    tolua_to_string(L, 1, &arg1);
+    tolua_check_string(L, 1, &arg1);
     tolua_opt_number(L, 2, &arg2, 0);
 
     float ret = (float)xgame::preferences::getFloat(arg1, (float)arg2);
@@ -552,8 +552,8 @@ static int _xgame_preferences_setFloat(lua_State *L)
     const char *arg1 = nullptr;
     lua_Number arg2 = 0;
 
-    tolua_to_string(L, 1, &arg1);
-    tolua_to_number(L, 2, &arg2);
+    tolua_check_string(L, 1, &arg1);
+    tolua_check_number(L, 2, &arg2);
 
     xgame::preferences::setFloat(arg1, (float)arg2);
 
@@ -567,7 +567,7 @@ static int _xgame_preferences_getDouble(lua_State *L)
     const char *arg1 = nullptr;
     lua_Number arg2 = 0;
 
-    tolua_to_string(L, 1, &arg1);
+    tolua_check_string(L, 1, &arg1);
     tolua_opt_number(L, 2, &arg2, 0);
 
     double ret = (double)xgame::preferences::getDouble(arg1, (double)arg2);
@@ -582,8 +582,8 @@ static int _xgame_preferences_setDouble(lua_State *L)
     const char *arg1 = nullptr;
     lua_Number arg2 = 0;
 
-    tolua_to_string(L, 1, &arg1);
-    tolua_to_number(L, 2, &arg2);
+    tolua_check_string(L, 1, &arg1);
+    tolua_check_number(L, 2, &arg2);
 
     xgame::preferences::setDouble(arg1, (double)arg2);
 
@@ -597,7 +597,7 @@ static int _xgame_preferences_getInteger(lua_State *L)
     const char *arg1 = nullptr;
     lua_Integer arg2 = 0;
 
-    tolua_to_string(L, 1, &arg1);
+    tolua_check_string(L, 1, &arg1);
     tolua_opt_int(L, 2, &arg2, 0);
 
     int ret = (int)xgame::preferences::getInteger(arg1, (int)arg2);
@@ -612,8 +612,8 @@ static int _xgame_preferences_setInteger(lua_State *L)
     const char *arg1 = nullptr;
     lua_Integer arg2 = 0;
 
-    tolua_to_string(L, 1, &arg1);
-    tolua_to_int(L, 2, &arg2);
+    tolua_check_string(L, 1, &arg1);
+    tolua_check_int(L, 2, &arg2);
 
     xgame::preferences::setInteger(arg1, (int)arg2);
 
@@ -627,7 +627,7 @@ static int _xgame_preferences_getString(lua_State *L)
     const char *arg1 = nullptr;
     const char *arg2 = nullptr;
 
-    tolua_to_string(L, 1, &arg1);
+    tolua_check_string(L, 1, &arg1);
     tolua_opt_string(L, 2, &arg2, "");
 
     std::string ret = (std::string)xgame::preferences::getString(arg1, arg2);
@@ -642,8 +642,8 @@ static int _xgame_preferences_setString(lua_State *L)
     const char *arg1 = nullptr;
     const char *arg2 = nullptr;
 
-    tolua_to_string(L, 1, &arg1);
-    tolua_to_string(L, 2, &arg2);
+    tolua_check_string(L, 1, &arg1);
+    tolua_check_string(L, 2, &arg2);
 
     xgame::preferences::setString(arg1, arg2);
 
@@ -656,7 +656,7 @@ static int _xgame_preferences_deleteKey(lua_State *L)
 
     const char *arg1 = nullptr;
 
-    tolua_to_string(L, 1, &arg1);
+    tolua_check_string(L, 1, &arg1);
 
     xgame::preferences::deleteKey(arg1);
 

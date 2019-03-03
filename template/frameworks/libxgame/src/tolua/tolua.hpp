@@ -11,7 +11,7 @@ static inline int tolua_push_std_string(lua_State *L, const std::string &value)
     return 1;
 }
 
-static inline void tolua_to_std_string(lua_State *L, int idx, std::string *value)
+static inline void tolua_check_std_string(lua_State *L, int idx, std::string *value)
 {
     luaL_checktype(L, idx, LUA_TSTRING);
     *value = lua_tostring(L, idx);

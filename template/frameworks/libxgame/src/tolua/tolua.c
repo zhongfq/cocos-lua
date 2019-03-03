@@ -198,7 +198,7 @@ static void create_table(lua_State *L, int idx, const char *field, const char *s
 
 static void copysupermetafunc(lua_State *L, int idx, const char *supercls)
 {
-    idx = lua_absindex(L, idx);
+    idx = lua_absindex(L, idx);             // L: mt
     if (supercls) {
         luaL_getmetatable(L, supercls);     // L: mt super
         lua_pushnil(L);                     // L: mt super k
@@ -208,9 +208,9 @@ static void copysupermetafunc(lua_State *L, int idx, const char *supercls)
                 lua_pushvalue(L, -2);       // L: mt super k v k v
                 lua_rawset(L, idx);         // L: mt super k v
             }
-            lua_pop(L, 1);
-        }
-        lua_pop(L, 1);
+            lua_pop(L, 1);                  // L: mt super k
+        }                                   // L: mt super
+        lua_pop(L, 1);                      // L: mt
     }
 }
 
@@ -412,7 +412,7 @@ LUALIB_API bool toluacls_pushobj(lua_State *L, void *obj, const char *cls)
         }
     }
     
-#ifdef COCOS2D_DEBUG
+#ifdef TOLUA_DEBUG
     luaL_checkudata(L, -1, cls);
 #endif
     
@@ -442,13 +442,29 @@ LUALIB_API void *toluacls_checkobj(lua_State *L, int idx, const char *cls)
     return NULL;
 }
 
+LUALIB_API void *toluacls_toobj(lua_State *L, int idx, const char *cls)
+{
+    if (lua_isuserdata(L, idx)) {
+        void *obj = *(void **)lua_touserdata(L, idx);
+        if (obj) {
+            return obj;
+        } else {
+            luaL_error(L, "object live from gc");
+        }
+    } else {
+        luaL_error(L, "#%d argument error, expect: '%s', got '%s'", idx,
+            cls, lua_typename(L, lua_type(L, idx)));
+    }
+    return NULL;
+}
+
 LUALIB_API int tolua_push_bool(lua_State *L, bool value)
 {
     lua_pushboolean(L, value);
     return 1;
 }
 
-LUALIB_API void tolua_to_bool(lua_State *L, int idx, bool *value)
+LUALIB_API void tolua_check_bool(lua_State *L, int idx, bool *value)
 {
     luaL_checktype(L, idx, LUA_TBOOLEAN);
     *value = lua_toboolean(L, idx);
@@ -470,7 +486,7 @@ LUALIB_API int tolua_push_string(lua_State *L, const char *value)
     return 1;
 }
 
-LUALIB_API void tolua_to_string(lua_State *L, int idx, const char **value)
+LUALIB_API void tolua_check_string(lua_State *L, int idx, const char **value)
 {
     luaL_checktype(L, idx, LUA_TSTRING);
     *value = lua_tostring(L, idx);
@@ -492,7 +508,7 @@ LUALIB_API int tolua_push_number(lua_State *L, lua_Number value)
     return 1;
 }
 
-LUALIB_API void tolua_to_number(lua_State *L, int idx, lua_Number *value)
+LUALIB_API void tolua_check_number(lua_State *L, int idx, lua_Number *value)
 {
     *value = luaL_checknumber(L, idx);
 }
@@ -513,7 +529,7 @@ LUALIB_API int tolua_push_int(lua_State *L, lua_Integer value)
     return 1;
 }
 
-LUALIB_API void tolua_to_int(lua_State *L, int idx, lua_Integer *value)
+LUALIB_API void tolua_check_int(lua_State *L, int idx, lua_Integer *value)
 {
     *value = luaL_checkinteger(L, idx);
 }
@@ -533,7 +549,7 @@ LUALIB_API int tolua_push_uint(lua_State *L, lua_Unsigned value)
     return tolua_push_int(L, (lua_Integer)value);
 }
 
-LUALIB_API void tolua_to_uint(lua_State *L, int idx, lua_Unsigned *value)
+LUALIB_API void tolua_check_uint(lua_State *L, int idx, lua_Unsigned *value)
 {
     *value = (lua_Unsigned)luaL_checkinteger(L, idx);
 }
@@ -554,9 +570,14 @@ LUALIB_API int tolua_push_obj(lua_State *L, void *obj, const char *cls)
     return 1;
 }
 
-LUALIB_API void tolua_to_obj(lua_State *L, int idx, void **value, const char *cls)
+LUALIB_API void tolua_check_obj(lua_State *L, int idx, void **value, const char *cls)
 {
     *value = toluacls_checkobj(L, idx, cls);
+}
+
+LUALIB_API void tolua_to_obj(lua_State *L, int idx, void **value, const char *cls)
+{
+    *value = toluacls_toobj(L, idx, cls);
 }
 
 LUALIB_API bool tolua_is_obj(lua_State *L, int idx, const char *cls)

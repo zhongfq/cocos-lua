@@ -15,7 +15,7 @@ static int _cocos2d_UserDefault_getBoolForKey1(lua_State *L)
     const char *arg1 = nullptr;
 
     tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
-    tolua_to_string(L, 2, &arg1);
+    tolua_check_string(L, 2, &arg1);
 
     bool ret = (bool)self->getBoolForKey(arg1);
 
@@ -31,8 +31,8 @@ static int _cocos2d_UserDefault_getBoolForKey2(lua_State *L)
     bool arg2 = false;
 
     tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
-    tolua_to_string(L, 2, &arg1);
-    tolua_to_bool(L, 3, &arg2);
+    tolua_check_string(L, 2, &arg1);
+    tolua_check_bool(L, 3, &arg2);
 
     bool ret = (bool)self->getBoolForKey(arg1, arg2);
 
@@ -68,7 +68,7 @@ static int _cocos2d_UserDefault_getIntegerForKey1(lua_State *L)
     const char *arg1 = nullptr;
 
     tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
-    tolua_to_string(L, 2, &arg1);
+    tolua_check_string(L, 2, &arg1);
 
     int ret = (int)self->getIntegerForKey(arg1);
 
@@ -84,8 +84,8 @@ static int _cocos2d_UserDefault_getIntegerForKey2(lua_State *L)
     lua_Integer arg2 = 0;
 
     tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
-    tolua_to_string(L, 2, &arg1);
-    tolua_to_int(L, 3, &arg2);
+    tolua_check_string(L, 2, &arg1);
+    tolua_check_int(L, 3, &arg2);
 
     int ret = (int)self->getIntegerForKey(arg1, (int)arg2);
 
@@ -121,7 +121,7 @@ static int _cocos2d_UserDefault_getFloatForKey1(lua_State *L)
     const char *arg1 = nullptr;
 
     tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
-    tolua_to_string(L, 2, &arg1);
+    tolua_check_string(L, 2, &arg1);
 
     float ret = (float)self->getFloatForKey(arg1);
 
@@ -137,8 +137,8 @@ static int _cocos2d_UserDefault_getFloatForKey2(lua_State *L)
     lua_Number arg2 = 0;
 
     tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
-    tolua_to_string(L, 2, &arg1);
-    tolua_to_number(L, 3, &arg2);
+    tolua_check_string(L, 2, &arg1);
+    tolua_check_number(L, 3, &arg2);
 
     float ret = (float)self->getFloatForKey(arg1, (float)arg2);
 
@@ -174,7 +174,7 @@ static int _cocos2d_UserDefault_getDoubleForKey1(lua_State *L)
     const char *arg1 = nullptr;
 
     tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
-    tolua_to_string(L, 2, &arg1);
+    tolua_check_string(L, 2, &arg1);
 
     double ret = (double)self->getDoubleForKey(arg1);
 
@@ -190,8 +190,8 @@ static int _cocos2d_UserDefault_getDoubleForKey2(lua_State *L)
     lua_Number arg2 = 0;
 
     tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
-    tolua_to_string(L, 2, &arg1);
-    tolua_to_number(L, 3, &arg2);
+    tolua_check_string(L, 2, &arg1);
+    tolua_check_number(L, 3, &arg2);
 
     double ret = (double)self->getDoubleForKey(arg1, (double)arg2);
 
@@ -227,7 +227,7 @@ static int _cocos2d_UserDefault_getStringForKey1(lua_State *L)
     const char *arg1 = nullptr;
 
     tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
-    tolua_to_string(L, 2, &arg1);
+    tolua_check_string(L, 2, &arg1);
 
     std::string ret = (std::string)self->getStringForKey(arg1);
 
@@ -243,8 +243,8 @@ static int _cocos2d_UserDefault_getStringForKey2(lua_State *L)
     std::string arg2;
 
     tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
-    tolua_to_string(L, 2, &arg1);
-    tolua_to_std_string(L, 3, &arg2);
+    tolua_check_string(L, 2, &arg1);
+    tolua_check_std_string(L, 3, &arg2);
 
     std::string ret = (std::string)self->getStringForKey(arg1, arg2);
 
@@ -281,8 +281,8 @@ static int _cocos2d_UserDefault_setBoolForKey(lua_State *L)
     bool arg2 = false;
 
     tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
-    tolua_to_string(L, 2, &arg1);
-    tolua_to_bool(L, 3, &arg2);
+    tolua_check_string(L, 2, &arg1);
+    tolua_check_bool(L, 3, &arg2);
 
     self->setBoolForKey(arg1, arg2);
 
@@ -298,8 +298,8 @@ static int _cocos2d_UserDefault_setIntegerForKey(lua_State *L)
     lua_Integer arg2 = 0;
 
     tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
-    tolua_to_string(L, 2, &arg1);
-    tolua_to_int(L, 3, &arg2);
+    tolua_check_string(L, 2, &arg1);
+    tolua_check_int(L, 3, &arg2);
 
     self->setIntegerForKey(arg1, (int)arg2);
 
@@ -315,8 +315,8 @@ static int _cocos2d_UserDefault_setFloatForKey(lua_State *L)
     lua_Number arg2 = 0;
 
     tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
-    tolua_to_string(L, 2, &arg1);
-    tolua_to_number(L, 3, &arg2);
+    tolua_check_string(L, 2, &arg1);
+    tolua_check_number(L, 3, &arg2);
 
     self->setFloatForKey(arg1, (float)arg2);
 
@@ -332,8 +332,8 @@ static int _cocos2d_UserDefault_setDoubleForKey(lua_State *L)
     lua_Number arg2 = 0;
 
     tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
-    tolua_to_string(L, 2, &arg1);
-    tolua_to_number(L, 3, &arg2);
+    tolua_check_string(L, 2, &arg1);
+    tolua_check_number(L, 3, &arg2);
 
     self->setDoubleForKey(arg1, (double)arg2);
 
@@ -349,8 +349,8 @@ static int _cocos2d_UserDefault_setStringForKey(lua_State *L)
     std::string arg2;
 
     tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
-    tolua_to_string(L, 2, &arg1);
-    tolua_to_std_string(L, 3, &arg2);
+    tolua_check_string(L, 2, &arg1);
+    tolua_check_std_string(L, 3, &arg2);
 
     self->setStringForKey(arg1, arg2);
 
@@ -378,7 +378,7 @@ static int _cocos2d_UserDefault_deleteValueForKey(lua_State *L)
     const char *arg1 = nullptr;
 
     tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
-    tolua_to_string(L, 2, &arg1);
+    tolua_check_string(L, 2, &arg1);
 
     self->deleteValueForKey(arg1);
 
@@ -515,7 +515,7 @@ static int _cocos2d_Node_addChild1(lua_State *L)
     cocos2d::Node *arg1 = nullptr;
 
     xlua_to_ccobj(L, 1, (void **)&self, "cc.Node");
-    xlua_to_ccobj(L, 2, (void **)&arg1, "cc.Node");
+    xlua_check_ccobj(L, 2, (void **)&arg1, "cc.Node");
 
     self->addChild(arg1);
 
@@ -531,8 +531,8 @@ static int _cocos2d_Node_addChild2(lua_State *L)
     lua_Integer arg2 = 0;
 
     xlua_to_ccobj(L, 1, (void **)&self, "cc.Node");
-    xlua_to_ccobj(L, 2, (void **)&arg1, "cc.Node");
-    tolua_to_int(L, 3, &arg2);
+    xlua_check_ccobj(L, 2, (void **)&arg1, "cc.Node");
+    tolua_check_int(L, 3, &arg2);
 
     self->addChild(arg1, (int)arg2);
 
@@ -549,9 +549,9 @@ static int _cocos2d_Node_addChild3(lua_State *L)
     lua_Integer arg3 = 0;
 
     xlua_to_ccobj(L, 1, (void **)&self, "cc.Node");
-    xlua_to_ccobj(L, 2, (void **)&arg1, "cc.Node");
-    tolua_to_int(L, 3, &arg2);
-    tolua_to_int(L, 4, &arg3);
+    xlua_check_ccobj(L, 2, (void **)&arg1, "cc.Node");
+    tolua_check_int(L, 3, &arg2);
+    tolua_check_int(L, 4, &arg3);
 
     self->addChild(arg1, (int)arg2, (int)arg3);
 
@@ -568,9 +568,9 @@ static int _cocos2d_Node_addChild4(lua_State *L)
     std::string arg3;
 
     xlua_to_ccobj(L, 1, (void **)&self, "cc.Node");
-    xlua_to_ccobj(L, 2, (void **)&arg1, "cc.Node");
-    tolua_to_int(L, 3, &arg2);
-    tolua_to_std_string(L, 4, &arg3);
+    xlua_check_ccobj(L, 2, (void **)&arg1, "cc.Node");
+    tolua_check_int(L, 3, &arg2);
+    tolua_check_std_string(L, 4, &arg3);
 
     self->addChild(arg1, (int)arg2, arg3);
 
@@ -616,7 +616,7 @@ static int _cocos2d_Node_getChildByTag(lua_State *L)
     lua_Integer arg1 = 0;
 
     xlua_to_ccobj(L, 1, (void **)&self, "cc.Node");
-    tolua_to_int(L, 2, &arg1);
+    tolua_check_int(L, 2, &arg1);
 
     cocos2d::Node *ret = (cocos2d::Node *)self->getChildByTag((int)arg1);
 
@@ -644,7 +644,7 @@ static int _cocos2d_Node_removeFromParentAndCleanup(lua_State *L)
     bool arg1 = false;
 
     xlua_to_ccobj(L, 1, (void **)&self, "cc.Node");
-    tolua_to_bool(L, 2, &arg1);
+    tolua_check_bool(L, 2, &arg1);
 
     self->removeFromParentAndCleanup(arg1);
 
@@ -660,7 +660,7 @@ static int _cocos2d_Node_removeChild(lua_State *L)
     bool arg2 = false;
 
     xlua_to_ccobj(L, 1, (void **)&self, "cc.Node");
-    xlua_to_ccobj(L, 2, (void **)&arg1, "cc.Node");
+    xlua_check_ccobj(L, 2, (void **)&arg1, "cc.Node");
     tolua_opt_bool(L, 3, &arg2, true);
 
     self->removeChild(arg1, arg2);
@@ -677,7 +677,7 @@ static int _cocos2d_Node_removeChildByTag(lua_State *L)
     bool arg2 = false;
 
     xlua_to_ccobj(L, 1, (void **)&self, "cc.Node");
-    tolua_to_int(L, 2, &arg1);
+    tolua_check_int(L, 2, &arg1);
     tolua_opt_bool(L, 3, &arg2, true);
 
     self->removeChildByTag((int)arg1, arg2);
@@ -694,7 +694,7 @@ static int _cocos2d_Node_removeChildByName(lua_State *L)
     bool arg2 = false;
 
     xlua_to_ccobj(L, 1, (void **)&self, "cc.Node");
-    tolua_to_std_string(L, 2, &arg1);
+    tolua_check_std_string(L, 2, &arg1);
     tolua_opt_bool(L, 3, &arg2, true);
 
     self->removeChildByName(arg1, arg2);
@@ -723,7 +723,7 @@ static int _cocos2d_Node_removeAllChildrenWithCleanup(lua_State *L)
     bool arg1 = false;
 
     xlua_to_ccobj(L, 1, (void **)&self, "cc.Node");
-    tolua_to_bool(L, 2, &arg1);
+    tolua_check_bool(L, 2, &arg1);
 
     self->removeAllChildrenWithCleanup(arg1);
 
@@ -739,8 +739,8 @@ static int _cocos2d_Node_reorderChild(lua_State *L)
     lua_Integer arg2 = 0;
 
     xlua_to_ccobj(L, 1, (void **)&self, "cc.Node");
-    xlua_to_ccobj(L, 2, (void **)&arg1, "cc.Node");
-    tolua_to_int(L, 3, &arg2);
+    xlua_check_ccobj(L, 2, (void **)&arg1, "cc.Node");
+    tolua_check_int(L, 3, &arg2);
 
     self->reorderChild(arg1, (int)arg2);
 
@@ -769,8 +769,8 @@ static int _cocos2d_Node_setPosition(lua_State *L)
     lua_Number arg2 = 0;
 
     xlua_to_ccobj(L, 1, (void **)&self, "cc.Node");
-    tolua_to_number(L, 2, &arg1);
-    tolua_to_number(L, 3, &arg2);
+    tolua_check_number(L, 2, &arg1);
+    tolua_check_number(L, 3, &arg2);
 
     self->setPosition((float)arg1, (float)arg2);
 
@@ -805,7 +805,7 @@ static int _cocos2d_Sprite_create(lua_State *L)
 
     std::string arg1;
 
-    tolua_to_std_string(L, 1, &arg1);
+    tolua_check_std_string(L, 1, &arg1);
 
     cocos2d::Sprite *ret = (cocos2d::Sprite *)cocos2d::Sprite::create(arg1);
 

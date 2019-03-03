@@ -605,6 +605,11 @@ int xlua_push_ccobj(lua_State *L, cocos2d::Ref *obj, const char *cls)
 
 void xlua_to_ccobj(lua_State *L, int idx, void **value, const char *cls)
 {
+    *value = toluacls_toobj(L, idx, cls);
+}
+
+void xlua_check_ccobj(lua_State *L, int idx, void **value, const char *cls)
+{
     *value = toluacls_checkobj(L, idx, cls);
 }
 

@@ -529,6 +529,7 @@ LUALIB_API bool tolua_callback(lua_State *L, void *obj, const char *field, int n
             lua_insert(L, top + 1);                             // L: callback argn obj ct
             lua_pop(L, 2);                                      // L: callback argn
             lua_pcall(L, n, 0, 0);
+            ret = true;
         }
     }
     

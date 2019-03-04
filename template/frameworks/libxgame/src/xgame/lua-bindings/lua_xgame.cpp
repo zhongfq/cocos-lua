@@ -3,6 +3,7 @@
 //
 #include "xgame/lua-bindings/lua_xgame.h"
 #include "xgame/xfilesystem.h"
+#include "xgame/xlua-conv.h"
 #include "xgame/xlua.h"
 #include "xgame/xpreferences.h"
 #include "xgame/xruntime.h"
@@ -412,7 +413,7 @@ static int _xgame_filesystem_read(lua_State *L)
 
     cocos2d::Data ret = (cocos2d::Data)xgame::filesystem::read(arg1);
 
-    return xlua_push_ccdata(L, ret);
+    return xluacv_push_ccdata(L, ret);
 }
 
 static int _xgame_filesystem_unzip(lua_State *L)

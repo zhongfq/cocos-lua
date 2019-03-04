@@ -1,6 +1,6 @@
 REG_TYPE {
     NAME = 'cocos2d::Data', 
-    CONV = "xlua_$ACTION_ccdata",
+    CONV = "xluacv_$ACTION_ccdata",
 }
 
 local function make_luacls(cppname)
@@ -17,7 +17,7 @@ REG_TYPE {
 
 REG_TYPE {
     NAME = 'cocos2d::Vec2',
-    CONV = "xlua_$ACTION_ccvec2",
+    CONV = "xluacv_$ACTION_ccvec2",
     INIT = false,
     VARS = 2,
 }
@@ -30,6 +30,6 @@ REG_TYPE {
         'cocos2d::Sprite *',
         'cocos2d::Scene *',
     }, '|'),
-    CONV = "xlua_$ACTION_ccobj",
+    CONV = "xluacv_$ACTION_ccobj",
     LUACLS = make_luacls,
 }

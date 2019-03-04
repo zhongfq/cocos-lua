@@ -49,6 +49,8 @@
 		0E2E9ABC222771D00085145E /* lua_cocos2d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E9AB9222771D00085145E /* lua_cocos2d.cpp */; };
 		0E6C9796222ADD1300B2C17F /* tolua.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E6C9795222ADD1300B2C17F /* tolua.c */; };
 		0E6C9797222ADD1300B2C17F /* tolua.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E6C9795222ADD1300B2C17F /* tolua.c */; };
+		0E6C97AA222CFA6400B2C17F /* xlua-conv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E6C97A9222CFA6400B2C17F /* xlua-conv.cpp */; };
+		0E6C97AB222CFA6400B2C17F /* xlua-conv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E6C97A9222CFA6400B2C17F /* xlua-conv.cpp */; };
 		0E9D2A6B221A9C76003C2121 /* xfilesystem-private-ios-mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E9D2A6A221A9C76003C2121 /* xfilesystem-private-ios-mac.mm */; };
 		0E9D2A6C221A9C76003C2121 /* xfilesystem-private-ios-mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E9D2A6A221A9C76003C2121 /* xfilesystem-private-ios-mac.mm */; };
 		0ECC4B9F21E79E3E00E3BBF9 /* linit.c in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC4B6521E79E3900E3BBF9 /* linit.c */; };
@@ -210,6 +212,8 @@
 		0E6C9794222ADD1300B2C17F /* tolua.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tolua.h; sourceTree = "<group>"; };
 		0E6C9795222ADD1300B2C17F /* tolua.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = tolua.c; sourceTree = "<group>"; };
 		0E6C979B222AF37300B2C17F /* tolua.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = tolua.hpp; sourceTree = "<group>"; };
+		0E6C97A8222CFA6400B2C17F /* xlua-conv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "xlua-conv.h"; sourceTree = "<group>"; };
+		0E6C97A9222CFA6400B2C17F /* xlua-conv.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "xlua-conv.cpp"; sourceTree = "<group>"; };
 		0E98BC36221C043F00F1AEEA /* libcocos2d Mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libcocos2d Mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E98BC38221C044A00F1AEEA /* libcocos2d iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libcocos2d iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E9D2A6A221A9C76003C2121 /* xfilesystem-private-ios-mac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "xfilesystem-private-ios-mac.mm"; sourceTree = "<group>"; };
@@ -358,6 +362,8 @@
 				0E2E9A59221D4A950085145E /* xfilesystem-private.h */,
 				0E0C706621F9F5FE00049240 /* xfilesystem.cpp */,
 				0E0C706721F9F5FE00049240 /* xfilesystem.h */,
+				0E6C97A9222CFA6400B2C17F /* xlua-conv.cpp */,
+				0E6C97A8222CFA6400B2C17F /* xlua-conv.h */,
 				0E0C705521F9EFC700049240 /* xlua.cpp */,
 				0E0C705221F9EFC600049240 /* xlua.h */,
 				0EE4B2BC21FC9FE60043AC9D /* xpreferences.cpp */,
@@ -654,6 +660,7 @@
 				0ECC4BCD21E79E3E00E3BBF9 /* loadlib.c in Sources */,
 				0E0C704D21F9EEBD00049240 /* lua_javabridge.cpp in Sources */,
 				0ECC4BB721E79E3E00E3BBF9 /* lmem.c in Sources */,
+				0E6C97AA222CFA6400B2C17F /* xlua-conv.cpp in Sources */,
 				0E2E9A79221EB7B00085145E /* lua_crypto.cpp in Sources */,
 				0ECC4C6321EB8D4600E3BBF9 /* rmessage.c in Sources */,
 				0ECC4BAB21E79E3E00E3BBF9 /* lcorolib.c in Sources */,
@@ -770,6 +777,7 @@
 				0E2E9A3A221C37070085145E /* AppRootViewController-ios.mm in Sources */,
 				0ECC4BB021E79E3E00E3BBF9 /* lundump.c in Sources */,
 				0E2E9ABC222771D00085145E /* lua_cocos2d.cpp in Sources */,
+				0E6C97AB222CFA6400B2C17F /* xlua-conv.cpp in Sources */,
 				0E0C702721F9600D00049240 /* xrootscene.cpp in Sources */,
 				0ECC4BBC21E79E3E00E3BBF9 /* lbitlib.c in Sources */,
 				0E0C705F21F9EFC700049240 /* xlua.cpp in Sources */,

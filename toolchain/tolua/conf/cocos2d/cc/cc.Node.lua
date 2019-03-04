@@ -2,6 +2,8 @@ local cls = class()
 cls.CPPCLS = "cocos2d::Node"
 cls.LUACLS = "cc.Node"
 cls.SUPERCLS = "cc.Ref"
+cls.prop('attachedNodeCount', 'static int getAttachedNodeCount()')
+cls.prop('description', 'std::string getDescription()')
 cls.func(nil, 'static cocos2d::Node *create()')
 cls.func(nil, 'void addChild(cocos2d::Node * child)', 'void addChild(cocos2d::Node * child, int localZOrder)', 'void addChild(cocos2d::Node* child, int localZOrder, int tag)', 'void addChild(cocos2d::Node* child, int localZOrder, const std::string &name)')
 cls.func(nil, 'cocos2d::Node *getChildByTag(int tag) const')

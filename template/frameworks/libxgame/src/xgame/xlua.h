@@ -36,20 +36,4 @@ const char *xlua_checkfieldstring(lua_State *L, int idx, const char *field);
 lua_Number xlua_checkfieldnumber(lua_State *L, int idx, const char *field);
 lua_Integer xlua_checkfieldinteger(lua_State *L, int idx, const char *field);
 
-int xlua_ccobjgc(lua_State *L);
-int xlua_ccobjcount(lua_State *L);
-
-int xlua_push_ccdata(lua_State *L, const cocos2d::Data &value);
-
-int xlua_push_ccobj(lua_State *L, cocos2d::Ref *obj, const char *cls);
-void xlua_to_ccobj(lua_State *L, int idx, void **value, const char *cls);
-void xlua_check_ccobj(lua_State *L, int idx, void **value, const char *cls);
-bool xlua_is_ccobj(lua_State *L, int idx, const char *cls);
-
-// vec2
-int xlua_push_ccvec2(lua_State *L, const cocos2d::Vec2 &value);
-void xlua_check_ccvec2(lua_State *L, int idx, cocos2d::Vec2 *value);
-void xlua_pack_ccvec2(lua_State *L, int idx, cocos2d::Vec2 *value);
-int xlua_unpack_ccvec2(lua_State *L, const cocos2d::Vec2 &value);
-
 #endif

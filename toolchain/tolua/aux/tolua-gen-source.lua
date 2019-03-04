@@ -36,6 +36,7 @@ local function gen_luaopen(module, write)
             return 0;
         }
     ]]))
+    write('')
 end
 
 function gen_source(module)

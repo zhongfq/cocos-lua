@@ -2,6 +2,11 @@ local cls = class()
 cls.CPPCLS = "cocos2d::Node"
 cls.LUACLS = "cc.Node"
 cls.SUPERCLS = "cc.Ref"
+cls.DEFCHUNK = [[
+static const std::string makeScheduleCallbackTag(const std::string &key)
+{
+    return "node.schedule." + key;
+}]]
 cls.prop('attachedNodeCount', 'static int getAttachedNodeCount()')
 cls.prop('description', 'std::string getDescription()')
 cls.prop('scheduler', 'Scheduler* getScheduler()', 'void setScheduler(Scheduler* scheduler)')
@@ -31,7 +36,7 @@ cls.func('scheduleOnce', [[
     lua_Number delay = luaL_checknumber(L, 3);
     std::string key = luaL_checkstring(L, 4);
 
-    std::string field = "node.schedule." + key;
+    std::string field = makeScheduleCallbackTag(key);
     field = tolua_setcallback(L, 1, field.c_str(), 2);
     self->scheduleOnce([field, self](float delta) {
         lua_State *L = xlua_cocosthread();
@@ -73,7 +78,7 @@ cls.func('schedule', [[
          luaL_error(L, "method 'cocos2d::Node::schedule' not support '%d' arguments", num_args);
     }
     
-    std::string field = "node.schedule." + key;
+    std::string field = makeScheduleCallbackTag(key);
     field = tolua_setcallback(L, 1, field.c_str(), 2);
     self->schedule([field, self](float delta) {
         lua_State *L = xlua_cocosthread();
@@ -91,9 +96,10 @@ cls.func('unschedule', [[
     
     cocos2d::Node *self = (cocos2d::Node *)tolua_toobj(L, 1, "cc.Node");
     std::string key = luaL_checkstring(L, 2);
+    std::string field = makeScheduleCallbackTag(key);
     
     self->unschedule(key);
-    tolua_removecallback(L, 1, key.c_str(), TOLUA_REMOVE_CALLBACK_ENDWITH);
+    tolua_removecallback(L, 1, field.c_str(), TOLUA_REMOVE_CALLBACK_ENDWITH);
     
     return 0;
 }]])
@@ -104,8 +110,8 @@ cls.func('unscheduleAllCallbacks', [[
     cocos2d::Node *self = (cocos2d::Node *)tolua_toobj(L, 1, "cc.Node");
     self->unscheduleAllCallbacks();
     
-    std::string key = "node.schedule.";
-    tolua_removecallback(L, 1, key.c_str(), TOLUA_REMOVE_CALLBACK_WILDCARD);
+    std::string field = makeScheduleCallbackTag("");
+    tolua_removecallback(L, 1, field.c_str(), TOLUA_REMOVE_CALLBACK_WILDCARD);
     
     return 0;
 }]])

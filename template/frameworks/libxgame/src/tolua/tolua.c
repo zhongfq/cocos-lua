@@ -38,6 +38,221 @@ LUALIB_API void tolua_rawsetfield(lua_State *L, int idx, const char *field)
     lua_rawset(L, idx);
 }
 
+LUALIB_API const char *tolua_typename(lua_State *L, int idx)
+{
+    const char *tn = NULL;
+    if (lua_getmetatable(L, idx)) {
+        if (tolua_rawgetfield(L, -1, "classname") == LUA_TSTRING) {
+            tn = lua_tostring(L, -1);
+        }
+        lua_pop(L, 2); // pop mt and value
+    }
+    
+    if (tn == NULL) {
+        tn = lua_typename(L, lua_type(L, idx));
+    }
+    
+    return tn;
+}
+
+LUALIB_API bool tolua_isa(lua_State *L, int idx, const char *cls)
+{
+    bool isa = false;
+    int top = lua_gettop(L);
+    if (lua_getmetatable(L, idx)) {
+        if (tolua_rawgetfield(L, -1, CLS_ISA) == LUA_TTABLE) {
+            tolua_rawgetfield(L, -1, cls);
+            isa = lua_toboolean(L, -1);
+        }
+    }
+    lua_settop(L, top);
+    return isa;
+}
+
+LUALIB_API bool tolua_pushobj(lua_State *L, void *obj, const char *cls)
+{
+    bool is_new = false;
+    
+    if (lua_rawgetp(L, LUA_REGISTRYINDEX, OBJ_REF_TABLE) == LUA_TNIL) {
+        lua_pop(L, 1); // pop nil
+        lua_newtable(L);
+        
+        lua_pushvalue(L, -1);
+        lua_pushstring(L, "kv");
+        lua_setfield(L, -2, "__mode");  // mt.__mode = 'kv'
+        lua_setmetatable(L, -2);        // mt.metatable = mt
+        
+        lua_pushvalue(L, -1);
+        lua_rawsetp(L, LUA_REGISTRYINDEX, OBJ_REF_TABLE);
+    }
+    
+    if (lua_rawgetp(L, -1, obj) == LUA_TNIL) {              // L: mapping obj?
+        lua_pop(L, 1);                                      // L: mapping
+        *(void **)lua_newuserdata(L, sizeof(void *)) = obj; // L: mapping obj
+        luaL_setmetatable(L, cls);                          // L: mapping obj
+        lua_pushvalue(L, -1);                               // L: mapping obj obj
+        lua_rawsetp(L, -3, obj);                            // L: mapping obj
+        is_new = true;
+        
+        if (!lua_getmetatable(L, -1)) {
+            luaL_error(L, "metatable not found: %s", cls);
+        } else {
+            lua_pop(L, 1);
+        }
+    }
+    
+#ifdef TOLUA_DEBUG
+    luaL_checkudata(L, -1, cls);
+#endif
+    
+    lua_remove(L, -2);                                      // L: obj
+    
+    return is_new;
+}
+
+LUALIB_API bool tolua_getobj(lua_State *L, void *obj)
+{
+    int top = lua_gettop(L);
+    
+    if (lua_rawgetp(L, LUA_REGISTRYINDEX, OBJ_REF_TABLE) == LUA_TTABLE) {
+        if (lua_rawgetp(L, -1, obj) == LUA_TUSERDATA) {
+            lua_insert(L, top + 1);
+            lua_settop(L, top + 1);
+            return true;
+        }
+    }
+    
+    lua_settop(L, top);
+    
+    return false;
+}
+
+static void auxgetcallbacktable(lua_State *L, int idx)
+{
+    if (lua_getuservalue(L, idx) == LUA_TNIL) {
+        lua_pop(L, 1);
+        lua_createtable(L, 0, 4);
+        lua_pushvalue(L, -1);
+        lua_setuservalue(L, idx);
+    }
+#ifdef TOLUA_DEBUG
+    luaL_checktype(L, -1, LUA_TTABLE);
+#endif
+}
+
+LUALIB_API const char *tolua_setcallback(lua_State *L, int idx, const char *tag, int vidx)
+{
+    static int ref = 0;
+    
+    idx = lua_absindex(L, idx);
+    vidx = lua_absindex(L, vidx);
+    
+    const char *field = lua_pushfstring(L, "toluacallback#%d|%s", ++ref, tag);
+    
+    luaL_checktype(L, vidx, LUA_TFUNCTION);
+    auxgetcallbacktable(L, idx);                    // L: ct
+    lua_pushvalue(L, vidx);                         // L: ct v
+    tolua_rawsetfield(L, -2, field);                // L: ct
+    lua_pop(L, 1);                                  // L:
+    
+    return lua_tostring(L, -1);
+}
+
+static bool shouldremovecallback(const char *field, const char *tag, tolua_remove_callback_t mode)
+{
+    if (mode == TOLUA_REMOVE_CALLBACK_WILDCARD) {
+        return strstr(field, tag) != NULL;
+    }
+    
+    if (mode == TOLUA_REMOVE_CALLBACK_ENDWITH) {
+        return strendwith(field, tag);
+    }
+    
+    return false;
+}
+
+LUALIB_API void tolua_removecallback(lua_State *L, int idx, const char *tag, tolua_remove_callback_t mode)
+{
+    int top = lua_gettop(L);
+    idx = lua_absindex(L, idx);
+    auxgetcallbacktable(L, idx);                        // L: ct
+    if (mode == TOLUA_REMOVE_CALLBACK_EQUAL) {
+        lua_pushnil(L);                                 // L: ct nil
+        tolua_rawsetfield(L, -2, tag);                  // L: ct
+    } else {
+        lua_pushnil(L);                                 // L: ct k
+        while (lua_next(L, -2)) {                       // L: ct k v
+            if (lua_isstring(L, -2)) {
+                const char *field = lua_tostring(L, -2);
+                if (shouldremovecallback(field, tag, mode)) {
+                    lua_pushvalue(L, -2);               // L: ct k v k
+                    lua_pushnil(L);                     // L: ct k v k nil
+                    lua_rawset(L, -5);                  // L: ct k v
+                }
+            }
+            lua_pop(L, 1);                              // L: ct k
+        }
+    }
+    lua_settop(L, top);
+}
+
+LUALIB_API bool tolua_callback(lua_State *L, void *obj, const char *field, int n)
+{
+    int top = lua_gettop(L) - n;
+    bool ret = false;
+    
+    if (tolua_getobj(L, obj)) {                                 // L: argn obj
+        auxgetcallbacktable(L, -1);                             // L: argn obj ct
+        if (tolua_rawgetfield(L, -1, field) == LUA_TFUNCTION) { // L: argn obj ct callback
+            lua_insert(L, top + 1);                             // L: callback argn obj ct
+            lua_pop(L, 2);                                      // L: callback argn
+            lua_pcall(L, n, 0, 0);
+            ret = true;
+        }
+    }
+    
+    lua_settop(L, top);
+    
+    return ret;
+}
+
+LUALIB_API void *tolua_checkobj(lua_State *L, int idx, const char *cls)
+{
+    if (tolua_isa(L, idx, cls)) {
+        if (lua_isuserdata(L, idx)) {
+            void *obj = *(void **)lua_touserdata(L, idx);
+            if (obj) {
+                return obj;
+            } else {
+                luaL_error(L, "object live from gc");
+            }
+        } else {
+            luaL_error(L, "#%d argument error, expect: '%s', got '%s'", idx,
+                cls, lua_typename(L, lua_type(L, idx)));
+        }
+    } else {
+        luaL_error(L, "#%d argument error, expect: '%s', got '%s'", idx,
+            cls, tolua_typename(L, idx));
+    }
+    return NULL;
+}
+
+LUALIB_API void *tolua_toobj(lua_State *L, int idx, const char *cls)
+{
+    if (lua_isuserdata(L, idx)) {
+        void *obj = *(void **)lua_touserdata(L, idx);
+        if (obj) {
+            return obj;
+        } else {
+            luaL_error(L, "object live from gc");
+        }
+    } else {
+        luaL_error(L, "#%d argument error, expect: '%s', got '%s'", idx,
+            cls, lua_typename(L, lua_type(L, idx)));
+    }
+    return NULL;
+}
+
 static bool ismetafunc(lua_State *L, int idx, const char *func)
 {
     static const char *const tm[] = {
@@ -358,221 +573,6 @@ LUALIB_API void toluacls_const_string(lua_State *L, const char *field, const cha
 {
     lua_pushstring(L, value);
     toluacls_const(L, field);
-}
-
-LUALIB_API const char *tolua_typename(lua_State *L, int idx)
-{
-    const char *tn = NULL;
-    if (lua_getmetatable(L, idx)) {
-        if (tolua_rawgetfield(L, -1, "classname") == LUA_TSTRING) {
-            tn = lua_tostring(L, -1);
-        }
-        lua_pop(L, 2); // pop mt and value
-    }
-    
-    if (tn == NULL) {
-        tn = lua_typename(L, lua_type(L, idx));
-    }
-    
-    return tn;
-}
-
-LUALIB_API bool tolua_isa(lua_State *L, int idx, const char *cls)
-{
-    bool isa = false;
-    int top = lua_gettop(L);
-    if (lua_getmetatable(L, idx)) {
-        if (tolua_rawgetfield(L, -1, CLS_ISA) == LUA_TTABLE) {
-            tolua_rawgetfield(L, -1, cls);
-            isa = lua_toboolean(L, -1);
-        }
-    }
-    lua_settop(L, top);
-    return isa;
-}
-
-LUALIB_API bool tolua_pushobj(lua_State *L, void *obj, const char *cls)
-{
-    bool is_new = false;
-    
-    if (lua_rawgetp(L, LUA_REGISTRYINDEX, OBJ_REF_TABLE) == LUA_TNIL) {
-        lua_pop(L, 1); // pop nil
-        lua_newtable(L);
-        
-        lua_pushvalue(L, -1);
-        lua_pushstring(L, "kv");
-        lua_setfield(L, -2, "__mode");  // mt.__mode = 'kv'
-        lua_setmetatable(L, -2);        // mt.metatable = mt
-        
-        lua_pushvalue(L, -1);
-        lua_rawsetp(L, LUA_REGISTRYINDEX, OBJ_REF_TABLE);
-    }
-    
-    if (lua_rawgetp(L, -1, obj) == LUA_TNIL) {              // L: mapping obj?
-        lua_pop(L, 1);                                      // L: mapping
-        *(void **)lua_newuserdata(L, sizeof(void *)) = obj; // L: mapping obj
-        luaL_setmetatable(L, cls);                          // L: mapping obj
-        lua_pushvalue(L, -1);                               // L: mapping obj obj
-        lua_rawsetp(L, -3, obj);                            // L: mapping obj
-        is_new = true;
-        
-        if (!lua_getmetatable(L, -1)) {
-            luaL_error(L, "metatable not found: %s", cls);
-        } else {
-            lua_pop(L, 1);
-        }
-    }
-    
-#ifdef TOLUA_DEBUG
-    luaL_checkudata(L, -1, cls);
-#endif
-    
-    lua_remove(L, -2);                                      // L: obj
-    
-    return is_new;
-}
-
-LUALIB_API bool tolua_getobj(lua_State *L, void *obj)
-{
-    int top = lua_gettop(L);
-    
-    if (lua_rawgetp(L, LUA_REGISTRYINDEX, OBJ_REF_TABLE) == LUA_TTABLE) {
-        if (lua_rawgetp(L, -1, obj) == LUA_TUSERDATA) {
-            lua_insert(L, top + 1);
-            lua_settop(L, top + 1);
-            return true;
-        }
-    }
-    
-    lua_settop(L, top);
-    
-    return false;
-}
-
-static void auxgetcallbacktable(lua_State *L, int idx)
-{
-    if (lua_getuservalue(L, idx) == LUA_TNIL) {
-        lua_pop(L, 1);
-        lua_createtable(L, 0, 4);
-        lua_pushvalue(L, -1);
-        lua_setuservalue(L, idx);
-    }
-#ifdef TOLUA_DEBUG
-    luaL_checktype(L, -1, LUA_TTABLE);
-#endif
-}
-
-LUALIB_API const char *tolua_setcallback(lua_State *L, int idx, const char *tag, int vidx)
-{
-    static int ref = 0;
-    
-    idx = lua_absindex(L, idx);
-    vidx = lua_absindex(L, vidx);
-    
-    const char *field = lua_pushfstring(L, "toluacallback#%d|%s", ++ref, tag);
-    
-    luaL_checktype(L, vidx, LUA_TFUNCTION);
-    auxgetcallbacktable(L, idx);                    // L: ct
-    lua_pushvalue(L, vidx);                         // L: ct v
-    tolua_rawsetfield(L, -2, field);                // L: ct
-    lua_pop(L, 1);                                  // L:
-    
-    return lua_tostring(L, -1);
-}
-
-static bool shouldremovecallback(const char *field, const char *tag, tolua_remove_callback_t mode)
-{
-    if (mode == TOLUA_REMOVE_CALLBACK_WILDCARD) {
-        return strstr(field, tag) != NULL;
-    }
-    
-    if (mode == TOLUA_REMOVE_CALLBACK_ENDWITH) {
-        return strendwith(field, tag);
-    }
-    
-    return false;
-}
-
-LUALIB_API void tolua_removecallback(lua_State *L, int idx, const char *tag, tolua_remove_callback_t mode)
-{
-    int top = lua_gettop(L);
-    idx = lua_absindex(L, idx);
-    auxgetcallbacktable(L, idx);                        // L: ct
-    if (mode == TOLUA_REMOVE_CALLBACK_EQUAL) {
-        lua_pushnil(L);                                 // L: ct nil
-        tolua_rawsetfield(L, -2, tag);                  // L: ct
-    } else {
-        lua_pushnil(L);                                 // L: ct k
-        while (lua_next(L, -2)) {                       // L: ct k v
-            if (lua_isstring(L, -2)) {
-                const char *field = lua_tostring(L, -2);
-                if (shouldremovecallback(field, tag, mode)) {
-                    lua_pushvalue(L, -2);               // L: ct k v k
-                    lua_pushnil(L);                     // L: ct k v k nil
-                    lua_rawset(L, -5);                  // L: ct k v
-                }
-            }
-            lua_pop(L, 1);                              // L: ct k
-        }
-    }
-    lua_settop(L, top);
-}
-
-LUALIB_API bool tolua_callback(lua_State *L, void *obj, const char *field, int n)
-{
-    int top = lua_gettop(L) - n;
-    bool ret = false;
-    
-    if (tolua_getobj(L, obj)) {                                 // L: argn obj
-        auxgetcallbacktable(L, -1);                             // L: argn obj ct
-        if (tolua_rawgetfield(L, -1, field) == LUA_TFUNCTION) { // L: argn obj ct callback
-            lua_insert(L, top + 1);                             // L: callback argn obj ct
-            lua_pop(L, 2);                                      // L: callback argn
-            lua_pcall(L, n, 0, 0);
-            ret = true;
-        }
-    }
-    
-    lua_settop(L, top);
-    
-    return ret;
-}
-
-LUALIB_API void *tolua_checkobj(lua_State *L, int idx, const char *cls)
-{
-    if (tolua_isa(L, idx, cls)) {
-        if (lua_isuserdata(L, idx)) {
-            void *obj = *(void **)lua_touserdata(L, idx);
-            if (obj) {
-                return obj;
-            } else {
-                luaL_error(L, "object live from gc");
-            }
-        } else {
-            luaL_error(L, "#%d argument error, expect: '%s', got '%s'", idx,
-                cls, lua_typename(L, lua_type(L, idx)));
-        }
-    } else {
-        luaL_error(L, "#%d argument error, expect: '%s', got '%s'", idx,
-            cls, tolua_typename(L, idx));
-    }
-    return NULL;
-}
-
-LUALIB_API void *tolua_toobj(lua_State *L, int idx, const char *cls)
-{
-    if (lua_isuserdata(L, idx)) {
-        void *obj = *(void **)lua_touserdata(L, idx);
-        if (obj) {
-            return obj;
-        } else {
-            luaL_error(L, "object live from gc");
-        }
-    } else {
-        luaL_error(L, "#%d argument error, expect: '%s', got '%s'", idx,
-            cls, lua_typename(L, lua_type(L, idx)));
-    }
-    return NULL;
 }
 
 LUALIB_API int tolua_push_bool(lua_State *L, bool value)

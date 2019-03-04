@@ -16,6 +16,13 @@ extern "C" {
 LUALIB_API int tolua_rawgetfield(lua_State *L, int idx, const char *field);
 LUALIB_API void tolua_rawsetfield(lua_State *L, int idx, const char *field);
     
+LUALIB_API const char *tolua_typename(lua_State *L, int idx);
+LUALIB_API bool tolua_isa(lua_State *L, int idx, const char *cls);
+LUALIB_API bool tolua_pushobj(lua_State *L, void *obj, const char *cls);
+LUALIB_API bool tolua_getobj(lua_State *L, void *obj);
+LUALIB_API void *tolua_checkobj(lua_State *L, int idx, const char *cls);
+LUALIB_API void *tolua_toobj(lua_State *L, int idx, const char *cls);
+
 //
 // lua class model
 //  class A = {
@@ -51,13 +58,6 @@ LUALIB_API void toluacls_const_bool(lua_State *L, const char *field, bool value)
 LUALIB_API void toluacls_const_number(lua_State *L, const char *field, lua_Number value);
 LUALIB_API void toluacls_const_integer(lua_State *L, const char *field, lua_Integer value);
 LUALIB_API void toluacls_const_string(lua_State *L, const char *field, const char *value);
-
-LUALIB_API const char *tolua_typename(lua_State *L, int idx);
-LUALIB_API bool tolua_isa(lua_State *L, int idx, const char *cls);
-LUALIB_API bool tolua_pushobj(lua_State *L, void *obj, const char *cls);
-LUALIB_API bool tolua_getobj(lua_State *L, void *obj);
-LUALIB_API void *tolua_checkobj(lua_State *L, int idx, const char *cls);
-LUALIB_API void *tolua_toobj(lua_State *L, int idx, const char *cls);
     
 typedef enum {
     TOLUA_REMOVE_CALLBACK_EQUAL,

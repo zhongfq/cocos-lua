@@ -507,6 +507,11 @@ static int luaopen_cocos2d_Scheduler(lua_State *L)
     return 1;
 }
 
+static const std::string makeScheduleCallbackTag(const std::string &key)
+{
+    return "node.schedule." + key;
+}
+
 static int _cocos2d_Node_create(lua_State *L)
 {
     lua_settop(L, 0);
@@ -861,7 +866,7 @@ static int _cocos2d_Node_scheduleOnce(lua_State *L)
     lua_Number delay = luaL_checknumber(L, 3);
     std::string key = luaL_checkstring(L, 4);
 
-    std::string field = "node.schedule." + key;
+    std::string field = makeScheduleCallbackTag(key);
     field = tolua_setcallback(L, 1, field.c_str(), 2);
     self->scheduleOnce([field, self](float delta) {
         lua_State *L = xlua_cocosthread();
@@ -904,7 +909,7 @@ static int _cocos2d_Node_schedule(lua_State *L)
          luaL_error(L, "method 'cocos2d::Node::schedule' not support '%d' arguments", num_args);
     }
 
-    std::string field = "node.schedule." + key;
+    std::string field = makeScheduleCallbackTag(key);
     field = tolua_setcallback(L, 1, field.c_str(), 2);
     self->schedule([field, self](float delta) {
         lua_State *L = xlua_cocosthread();
@@ -923,9 +928,10 @@ static int _cocos2d_Node_unschedule(lua_State *L)
 
     cocos2d::Node *self = (cocos2d::Node *)tolua_toobj(L, 1, "cc.Node");
     std::string key = luaL_checkstring(L, 2);
+    std::string field = makeScheduleCallbackTag(key);
 
     self->unschedule(key);
-    tolua_removecallback(L, 1, key.c_str(), TOLUA_REMOVE_CALLBACK_ENDWITH);
+    tolua_removecallback(L, 1, field.c_str(), TOLUA_REMOVE_CALLBACK_ENDWITH);
 
     return 0;
 }
@@ -937,8 +943,8 @@ static int _cocos2d_Node_unscheduleAllCallbacks(lua_State *L)
     cocos2d::Node *self = (cocos2d::Node *)tolua_toobj(L, 1, "cc.Node");
     self->unscheduleAllCallbacks();
 
-    std::string key = "node.schedule.";
-    tolua_removecallback(L, 1, key.c_str(), TOLUA_REMOVE_CALLBACK_WILDCARD);
+    std::string field = makeScheduleCallbackTag("");
+    tolua_removecallback(L, 1, field.c_str(), TOLUA_REMOVE_CALLBACK_WILDCARD);
 
     return 0;
 }

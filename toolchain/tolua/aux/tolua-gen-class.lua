@@ -80,8 +80,8 @@ local function gen_class_open(cls, write)
 end
 
 local function gen_class_decl_val(cls, write)
-    if cls.DECVAR then
-        write(format_snippet(cls.DECVAR))
+    if cls.DEFCHUNK then
+        write(format_snippet(cls.DEFCHUNK))
         write('')
     end
 end

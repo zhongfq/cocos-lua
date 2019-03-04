@@ -21,7 +21,10 @@ function get_type_info(t, cls)
     end
 
     if cls and cls.CPPCLS then
-        local cppt = string.gsub(cls.CPPCLS, "::[^:]+$", "::" .. t)
+        local ns = string.gsub(cls.CPPCLS, '[^:]+$', '')
+        local cppt = string.gsub(t, '%w+[ ]*[&*]*$', function (str)
+            return ns .. str
+        end)
         local ti = type_info_map[trim(cppt)]
         if ti then
             return ti, cppt
@@ -47,16 +50,22 @@ end
 
 local function parse_ret(cls, rt)
     local static = false
+    local unpack = false
     if string.find(rt, 'static') then
         static = true
         rt = string.gsub(rt, 'static', '')
+    end
+
+    if string.find(rt, 'unpack') then
+        unpack = true
+        rt = string.gsub(rt, 'unpack', '')
     end
 
     rt = trim_redundance_space(rt)
 
     get_type_info(rt, cls)
 
-    return static, rt
+    return unpack, static, rt
 end
 
 local function parse_args(cls, func_decl)
@@ -66,6 +75,7 @@ local function parse_args(cls, func_decl)
     for arg in string.gmatch(args_str, '[^,]+') do
         arg = trim_redundance_space(arg)
         if arg ~= 'void' then
+            local arg, pack = string.gsub(arg, 'pack', '')
             local t = string.match(arg, '(.+[ *&])')
             local t, n, d = string.match(arg, '(.+[ *&])([^ *&]+) *= *([^ ]*)')
             if not t then
@@ -81,6 +91,7 @@ local function parse_args(cls, func_decl)
                 TYPE = get_type_info(t, cls),
                 DECL_TYPE = to_decl_type(cls, t),
                 VALUE = d,
+                PACK = pack > 0,
             }
         end
     end
@@ -104,7 +115,7 @@ local function parse_func(cls, name, ...)
             fi.ARGS = {}
         else
             local rt, func = string.match(func_decl, "([^()]+[ *&])([^ ]+)[ ]*%(")
-            local static, rt = parse_ret(cls, rt)
+            local unpack, static, rt = parse_ret(cls, rt)
 
             fi.LUAFUNC = name or func
             fi.CPPFUNC = func
@@ -112,6 +123,7 @@ local function parse_func(cls, name, ...)
             fi.RET.NUM = rt == "void" and 0 or 1
             fi.RET.TYPE = get_type_info(rt, cls)
             fi.RET.DECL_TYPE = to_decl_type(cls, rt)
+            fi.RET.UNPACK = unpack
             fi.ARGS = parse_args(cls, func_decl)
 
             if is_static_func == nil then

@@ -14,5 +14,6 @@ cls.func(nil, 'void removeAllChildren()')
 cls.func(nil, 'void removeAllChildrenWithCleanup(bool cleanup)')
 cls.func(nil, 'void reorderChild(cocos2d::Node * child, int localZOrder)')
 cls.func(nil, 'void sortAllChildren()')
-cls.func(nil, 'void setPosition(float x, float y)')
+cls.func(nil, 'void setPosition(pack const Vec2 &position)')
+cls.func(nil, 'unpack const Vec2& getPosition()')
 return cls

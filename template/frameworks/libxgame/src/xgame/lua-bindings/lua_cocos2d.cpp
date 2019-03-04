@@ -765,16 +765,27 @@ static int _cocos2d_Node_setPosition(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::Node *self = nullptr;
-    lua_Number arg1 = 0;
-    lua_Number arg2 = 0;
+    cocos2d::Vec2 arg1;
 
     xlua_to_ccobj(L, 1, (void **)&self, "cc.Node");
-    tolua_check_number(L, 2, &arg1);
-    tolua_check_number(L, 3, &arg2);
+    xlua_pack_ccvec2(L, 2, &arg1);
 
-    self->setPosition((float)arg1, (float)arg2);
+    self->setPosition(arg1);
 
     return 0;
+}
+
+static int _cocos2d_Node_getPosition(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Node *self = nullptr;
+
+    xlua_to_ccobj(L, 1, (void **)&self, "cc.Node");
+
+    const cocos2d::Vec2 ret = (const cocos2d::Vec2)self->getPosition();
+
+    return xlua_unpack_ccvec2(L, ret);
 }
 
 static int luaopen_cocos2d_Node(lua_State *L)
@@ -793,6 +804,7 @@ static int luaopen_cocos2d_Node(lua_State *L)
     toluacls_setfunc(L, "reorderChild", _cocos2d_Node_reorderChild);
     toluacls_setfunc(L, "sortAllChildren", _cocos2d_Node_sortAllChildren);
     toluacls_setfunc(L, "setPosition", _cocos2d_Node_setPosition);
+    toluacls_setfunc(L, "getPosition", _cocos2d_Node_getPosition);
 
     toluacls_createclassproxy(L);
 

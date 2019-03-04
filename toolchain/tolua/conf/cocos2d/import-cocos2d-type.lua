@@ -16,6 +16,13 @@ REG_TYPE {
 }
 
 REG_TYPE {
+    NAME = 'cocos2d::Vec2',
+    CONV = "xlua_$ACTION_ccvec2",
+    INIT = false,
+    VARS = 2,
+}
+
+REG_TYPE {
     NAME = table.concat({
         'cocos2d::Ref *',
         'cocos2d::Director *',

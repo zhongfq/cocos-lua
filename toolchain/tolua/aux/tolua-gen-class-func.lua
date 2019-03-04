@@ -87,6 +87,11 @@ local function gen_one_func(cls, fi, write, funcidx)
                 ${FUNC_CHECK_VALUE}(L, ${IDX}, (void **)&${ARG_N}, "${LUACLS}");
             ]])
         else
+            if ai.PACK then
+                FUNC_CHECK_VALUE = ai.TYPE.FUNC_PACK_VALUE
+                TOTAL_ARGS = ai.TYPE.VARS + TOTAL_ARGS - 1
+                idx = idx + ai.TYPE.VARS - 1
+            end
             ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
                 ${FUNC_CHECK_VALUE}(L, ${IDX}, &${ARG_N});
             ]])
@@ -107,6 +112,9 @@ local function gen_one_func(cls, fi, write, funcidx)
             local LUACLS = fi.RET.TYPE.LUACLS
             PUSH_RET = format_snippet('${FUNC_PUSH_VALUE}(L, ret, "${LUACLS}")')
         else
+            if fi.RET.UNPACK then
+                FUNC_PUSH_VALUE = fi.RET.TYPE.FUNC_UNPACK_VALUE
+            end
             PUSH_RET = format_snippet('${FUNC_PUSH_VALUE}(L, ret)')
         end
     else

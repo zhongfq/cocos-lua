@@ -43,6 +43,7 @@ function main()
         sprite:print("xxx hello sprite again")
         sprite:setPosition(600, 400)
         print("cache node", node.xxxx)
+        print("sprite get pos", sprite:getPosition())
     end)
 
 end

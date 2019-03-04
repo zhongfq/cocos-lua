@@ -499,6 +499,14 @@ static int luaopen_cocos2d_Director(lua_State *L)
     return 1;
 }
 
+static int luaopen_cocos2d_Scheduler(lua_State *L)
+{
+    toluacls_class(L, "cc.Scheduler", "cc.Ref");
+    toluacls_createclassproxy(L);
+
+    return 1;
+}
+
 static int _cocos2d_Node_create(lua_State *L)
 {
     lua_settop(L, 0);
@@ -789,6 +797,178 @@ static int _cocos2d_Node_getPosition(lua_State *L)
     return xluacv_unpack_ccvec2(L, ret);
 }
 
+static int _cocos2d_Node_scheduleUpdate(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Node *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
+
+    self->scheduleUpdate();
+
+    return 0;
+}
+
+static int _cocos2d_Node_unscheduleUpdate(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Node *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
+
+    self->unscheduleUpdate();
+
+    return 0;
+}
+
+static int _cocos2d_Node_scheduleUpdateWithPriority(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Node *self = nullptr;
+    lua_Integer arg1 = 0;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
+    tolua_check_int(L, 2, &arg1);
+
+    self->scheduleUpdateWithPriority((int)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Node_isScheduled(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Node *self = nullptr;
+    std::string arg1;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
+    tolua_check_std_string(L, 2, &arg1);
+
+    bool ret = (bool)self->isScheduled(arg1);
+
+    return tolua_push_bool(L, ret);
+}
+
+static int _cocos2d_Node_scheduleOnce(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    cocos2d::Node *self = (cocos2d::Node *)tolua_toobj(L, 1, "cc.Node");
+    lua_Number delay = luaL_checknumber(L, 3);
+    std::string key = luaL_checkstring(L, 4);
+
+    std::string field = "node.schedule." + key;
+    field = tolua_setcallback(L, 1, field.c_str(), 2);
+    self->scheduleOnce([field, self](float delta) {
+        lua_State *L = xlua_cocosthread();
+        int top = lua_gettop(L);
+        lua_pushnumber(L, delta);
+        tolua_callback(L, self, field.c_str(), 1);
+        if (tolua_getobj(L, self)) {
+            tolua_removecallback(L, -1, field.c_str(), TOLUA_REMOVE_CALLBACK_EQUAL);
+        }
+        lua_settop(L, top);
+    }, delay, key);
+
+    return 0;
+}
+
+static int _cocos2d_Node_schedule(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    lua_settop(L, 6);
+
+    float interval = 0;
+    unsigned int repeat = CC_REPEAT_FOREVER;
+    float delay = 0;
+    std::string key;
+
+    cocos2d::Node *self = (cocos2d::Node *)tolua_toobj(L, 1, "cc.Node");
+
+    if (num_args == 2) {
+        key = luaL_checkstring(L, 3);
+    } else if (num_args == 3) {
+        interval = (float)luaL_checknumber(L, 3);
+        key = luaL_checkstring(L, 4);
+    } else if (num_args == 5) {
+        interval = (float)luaL_checknumber(L, 3);
+        repeat = (unsigned int)luaL_checkinteger(L, 4);
+        delay = (float)luaL_checknumber(L, 5);
+        key = luaL_checkstring(L, 6);
+    } else {
+         luaL_error(L, "method 'cocos2d::Node::schedule' not support '%d' arguments", num_args);
+    }
+
+    std::string field = "node.schedule." + key;
+    field = tolua_setcallback(L, 1, field.c_str(), 2);
+    self->schedule([field, self](float delta) {
+        lua_State *L = xlua_cocosthread();
+        int top = lua_gettop(L);
+        lua_pushnumber(L, delta);
+        tolua_callback(L, self, field.c_str(), 1);
+        lua_settop(L, top);
+    }, interval, repeat, delay, key);
+
+    return 0;
+}
+
+static int _cocos2d_Node_unschedule(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Node *self = (cocos2d::Node *)tolua_toobj(L, 1, "cc.Node");
+    std::string key = luaL_checkstring(L, 2);
+
+    self->unschedule(key);
+    tolua_removecallback(L, 1, key.c_str(), TOLUA_REMOVE_CALLBACK_ENDWITH);
+
+    return 0;
+}
+
+static int _cocos2d_Node_unscheduleAllCallbacks(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Node *self = (cocos2d::Node *)tolua_toobj(L, 1, "cc.Node");
+    self->unscheduleAllCallbacks();
+
+    std::string key = "node.schedule.";
+    tolua_removecallback(L, 1, key.c_str(), TOLUA_REMOVE_CALLBACK_WILDCARD);
+
+    return 0;
+}
+
+static int _cocos2d_Node_resume(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Node *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
+
+    self->resume();
+
+    return 0;
+}
+
+static int _cocos2d_Node_pause(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Node *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
+
+    self->pause();
+
+    return 0;
+}
+
 static int _cocos2d_Node_getAttachedNodeCount(lua_State *L)
 {
     lua_settop(L, 0);
@@ -811,6 +991,34 @@ static int _cocos2d_Node_getDescription(lua_State *L)
     return tolua_push_std_string(L, ret);
 }
 
+static int _cocos2d_Node_getScheduler(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Node *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
+
+    cocos2d::Scheduler *ret = (cocos2d::Scheduler *)self->getScheduler();
+
+    return xluacv_push_ccobj(L, ret, "cc.Scheduler");
+}
+
+static int _cocos2d_Node_setScheduler(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Node *self = nullptr;
+    cocos2d::Scheduler *arg1 = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
+    xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.Scheduler");
+
+    self->setScheduler(arg1);
+
+    return 0;
+}
+
 static int luaopen_cocos2d_Node(lua_State *L)
 {
     toluacls_class(L, "cc.Node", "cc.Ref");
@@ -828,8 +1036,19 @@ static int luaopen_cocos2d_Node(lua_State *L)
     toluacls_setfunc(L, "sortAllChildren", _cocos2d_Node_sortAllChildren);
     toluacls_setfunc(L, "setPosition", _cocos2d_Node_setPosition);
     toluacls_setfunc(L, "getPosition", _cocos2d_Node_getPosition);
+    toluacls_setfunc(L, "scheduleUpdate", _cocos2d_Node_scheduleUpdate);
+    toluacls_setfunc(L, "unscheduleUpdate", _cocos2d_Node_unscheduleUpdate);
+    toluacls_setfunc(L, "scheduleUpdateWithPriority", _cocos2d_Node_scheduleUpdateWithPriority);
+    toluacls_setfunc(L, "isScheduled", _cocos2d_Node_isScheduled);
+    toluacls_setfunc(L, "scheduleOnce", _cocos2d_Node_scheduleOnce);
+    toluacls_setfunc(L, "schedule", _cocos2d_Node_schedule);
+    toluacls_setfunc(L, "unschedule", _cocos2d_Node_unschedule);
+    toluacls_setfunc(L, "unscheduleAllCallbacks", _cocos2d_Node_unscheduleAllCallbacks);
+    toluacls_setfunc(L, "resume", _cocos2d_Node_resume);
+    toluacls_setfunc(L, "pause", _cocos2d_Node_pause);
     toluacls_property(L, "attachedNodeCount", _cocos2d_Node_getAttachedNodeCount, nullptr);
     toluacls_property(L, "description", _cocos2d_Node_getDescription, nullptr);
+    toluacls_property(L, "scheduler", _cocos2d_Node_getScheduler, _cocos2d_Node_setScheduler);
 
     toluacls_createclassproxy(L);
 
@@ -872,6 +1091,7 @@ int luaopen_cocos2d(lua_State *L)
     xlua_require(L, "cc.UserDefault", luaopen_cocos2d_UserDefault);
     xlua_require(L, "cc.Ref", luaopen_cocos2d_Ref);
     xlua_require(L, "cc.Director", luaopen_cocos2d_Director);
+    xlua_require(L, "cc.Scheduler", luaopen_cocos2d_Scheduler);
     xlua_require(L, "cc.Node", luaopen_cocos2d_Node);
     xlua_require(L, "cc.Sprite", luaopen_cocos2d_Sprite);
     xlua_require(L, "cc.Scene", luaopen_cocos2d_Scene);

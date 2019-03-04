@@ -26,6 +26,7 @@ REG_TYPE {
     NAME = table.concat({
         'cocos2d::Ref *',
         'cocos2d::Director *',
+        'cocos2d::Scheduler *',
         'cocos2d::Node *',
         'cocos2d::Sprite *',
         'cocos2d::Scene *',

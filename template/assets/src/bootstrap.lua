@@ -24,6 +24,7 @@ function main()
 
     sprite:setPosition(500, 400)
     Director.getInstance().runningScene:addChild(sprite)
+    Director.getInstance().runningScene:addChild(node)
 
     function Node:print(...)
         print("###", self, ...)
@@ -31,7 +32,22 @@ function main()
 
     node:print("hello world", Node)
 
-    print("cache node", node.xxxx)
+    local t = 0
+
+    node:scheduleOnce(function (delta)
+        print("node scheduleOnce", delta)
+    end, 1, "dofunc")
+    node:schedule(function (delta)
+        print("node schedule", delta)
+    end, 1.5, "schedule func")
+    node:schedule(function (delta)
+        print("node schedule", delta)
+    end, 2.5, "schedule func")
+    node:schedule(function (delta)
+        print("node schedule", delta)
+    end, 3.5, "schedule")
+
+    print(node.scheduler)
 
     function Node:__call( ... )
         print("lua node call: __call")
@@ -44,6 +60,10 @@ function main()
         sprite:setPosition(600, 400)
         print("cache node", node.xxxx)
         print("sprite get pos", sprite:getPosition())
+        node:unscheduleAllCallbacks()
+        for k,v in pairs(debug.getuservalue(node)) do
+            print("node user value", k,v)
+        end
     end)
 
 end

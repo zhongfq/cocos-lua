@@ -42,7 +42,6 @@ LUALIB_API void tolua_rawsetfield(lua_State *L, int idx, const char *field);
 //      __metafunc
 //  }
 //
-LUALIB_API const char *toluacls_typename(lua_State *L, int idx);
 LUALIB_API void toluacls_class(lua_State *L, const char *cls, const char *supercls);
 LUALIB_API void toluacls_createclassproxy(lua_State *L);
 LUALIB_API void toluacls_property(lua_State *L, const char *field, lua_CFunction getter, lua_CFunction setter);
@@ -52,10 +51,23 @@ LUALIB_API void toluacls_const_bool(lua_State *L, const char *field, bool value)
 LUALIB_API void toluacls_const_number(lua_State *L, const char *field, lua_Number value);
 LUALIB_API void toluacls_const_integer(lua_State *L, const char *field, lua_Integer value);
 LUALIB_API void toluacls_const_string(lua_State *L, const char *field, const char *value);
-LUALIB_API bool toluacls_isa(lua_State *L, int idx, const char *cls);
-LUALIB_API bool toluacls_pushobj(lua_State *L, void *obj, const char *cls);
-LUALIB_API void *toluacls_checkobj(lua_State *L, int idx, const char *cls);
-LUALIB_API void *toluacls_toobj(lua_State *L, int idx, const char *cls);
+
+LUALIB_API const char *tolua_typename(lua_State *L, int idx);
+LUALIB_API bool tolua_isa(lua_State *L, int idx, const char *cls);
+LUALIB_API bool tolua_pushobj(lua_State *L, void *obj, const char *cls);
+LUALIB_API bool tolua_getobj(lua_State *L, void *obj);
+LUALIB_API void *tolua_checkobj(lua_State *L, int idx, const char *cls);
+LUALIB_API void *tolua_toobj(lua_State *L, int idx, const char *cls);
+    
+typedef enum {
+    TOLUA_REMOVE_CALLBACK_EQUAL,
+    TOLUA_REMOVE_CALLBACK_ENDWITH,
+    TOLUA_REMOVE_CALLBACK_WILDCARD
+} tolua_remove_callback_t;
+    
+LUALIB_API const char *tolua_setcallback(lua_State *L, int idx, const char *tag, int vidx);
+LUALIB_API void tolua_removecallback(lua_State *L, int idx, const char *tag, tolua_remove_callback_t mode);
+LUALIB_API bool tolua_callback(lua_State *L, void *obj, const char *field, int n);
     
 LUALIB_API int tolua_push_bool(lua_State *L, bool value);
 LUALIB_API void tolua_check_bool(lua_State *L, int idx, bool *value);

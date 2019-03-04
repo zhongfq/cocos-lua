@@ -20,14 +20,14 @@ static int xluacls_tostring(lua_State *L)
         p = (intptr_t)lua_topointer(L, 1);
     }
     
-    lua_pushfstring(L, "%s: %p", toluacls_typename(L, 1), p);
+    lua_pushfstring(L, "%s: %p", tolua_typename(L, 1), p);
     
     return 1;
 }
 
 int xlua_ccobjgc(lua_State *L)
 {
-    cocos2d::Ref *obj = (cocos2d::Ref *)toluacls_checkobj(L, 1, "cc.Ref");
+    cocos2d::Ref *obj = (cocos2d::Ref *)tolua_checkobj(L, 1, "cc.Ref");
     if (obj) {
 #ifdef COCOS2D_DEBUG
         int top = lua_gettop(L);
@@ -61,7 +61,7 @@ int xluacv_push_ccdata(lua_State *L, const cocos2d::Data &value)
 
 int xluacv_push_ccobj(lua_State *L, cocos2d::Ref *obj, const char *cls)
 {
-    if (toluacls_pushobj(L, obj, cls)) {
+    if (tolua_pushobj(L, obj, cls)) {
         obj->retain();
         s_obj_count++;
     }
@@ -70,17 +70,17 @@ int xluacv_push_ccobj(lua_State *L, cocos2d::Ref *obj, const char *cls)
 
 void xluacv_to_ccobj(lua_State *L, int idx, void **value, const char *cls)
 {
-    *value = toluacls_toobj(L, idx, cls);
+    *value = tolua_toobj(L, idx, cls);
 }
 
 void xluacv_check_ccobj(lua_State *L, int idx, void **value, const char *cls)
 {
-    *value = toluacls_checkobj(L, idx, cls);
+    *value = tolua_checkobj(L, idx, cls);
 }
 
 bool xluacv_is_ccobj(lua_State *L, int idx, const char *cls)
 {
-    return toluacls_isa(L, idx, cls);
+    return tolua_isa(L, idx, cls);
 }
 
 int xluacv_push_ccvec2(lua_State *L, const cocos2d::Vec2 &value)

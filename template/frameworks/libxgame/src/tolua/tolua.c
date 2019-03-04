@@ -1,6 +1,6 @@
 #include "tolua/tolua.h"
 
-#define OBJ_REF_TABLE ((void *)toluacls_pushobj)
+#define OBJ_REF_TABLE ((void *)tolua_pushobj)
 
 #define CLS_CLSIDX  (lua_upvalueindex(1))
 #define CLS_ISAIDX  (lua_upvalueindex(2))
@@ -11,6 +11,17 @@
 #define CLS_FUNC    ".func"
 #define CLS_GET     ".get"
 #define CLS_SET     ".set"
+
+static bool strequal(const char *str1, const char *str2)
+{
+    return strcmp(str1, str2) == 0;
+}
+
+static bool strendwith(const char *src, const char *suffix)
+{
+    const char *pos = strstr(src, suffix);
+    return !pos ? false : (src + strlen(src) == pos + strlen(suffix));
+}
 
 LUALIB_API int tolua_rawgetfield(lua_State *L, int idx, const char *field)
 {
@@ -49,7 +60,7 @@ static bool ismetafunc(lua_State *L, int idx, const char *func)
             const char *name = tm[i];
             if (!name) {
                 break;
-            } else if (strcmp(name, func) == 0) {
+            } else if (strequal(name, func)) {
                 return true;
             }
         }
@@ -162,7 +173,7 @@ static int cls_tostring(lua_State *L)
         p = (intptr_t)lua_topointer(L, 1);
     }
     
-    lua_pushfstring(L, "%s: %p", toluacls_typename(L, 1), p);
+    lua_pushfstring(L, "%s: %p", tolua_typename(L, 1), p);
     
     return 1;
 }
@@ -212,23 +223,6 @@ static void copysupermetafunc(lua_State *L, int idx, const char *supercls)
         }                                   // L: mt super
         lua_pop(L, 1);                      // L: mt
     }
-}
-
-LUALIB_API const char *toluacls_typename(lua_State *L, int idx)
-{
-    const char *tn = NULL;
-    if (lua_getmetatable(L, idx)) {
-        if (tolua_rawgetfield(L, -1, "classname") == LUA_TSTRING) {
-            tn = lua_tostring(L, -1);
-        }
-        lua_pop(L, 2); // pop mt and value
-    }
-    
-    if (tn == NULL) {
-        tn = lua_typename(L, lua_type(L, idx));
-    }
-    
-    return tn;
 }
 
 LUALIB_API void toluacls_class(lua_State *L, const char *cls, const char *super)
@@ -366,7 +360,24 @@ LUALIB_API void toluacls_const_string(lua_State *L, const char *field, const cha
     toluacls_const(L, field);
 }
 
-LUALIB_API bool toluacls_isa(lua_State *L, int idx, const char *cls)
+LUALIB_API const char *tolua_typename(lua_State *L, int idx)
+{
+    const char *tn = NULL;
+    if (lua_getmetatable(L, idx)) {
+        if (tolua_rawgetfield(L, -1, "classname") == LUA_TSTRING) {
+            tn = lua_tostring(L, -1);
+        }
+        lua_pop(L, 2); // pop mt and value
+    }
+    
+    if (tn == NULL) {
+        tn = lua_typename(L, lua_type(L, idx));
+    }
+    
+    return tn;
+}
+
+LUALIB_API bool tolua_isa(lua_State *L, int idx, const char *cls)
 {
     bool isa = false;
     int top = lua_gettop(L);
@@ -380,7 +391,7 @@ LUALIB_API bool toluacls_isa(lua_State *L, int idx, const char *cls)
     return isa;
 }
 
-LUALIB_API bool toluacls_pushobj(lua_State *L, void *obj, const char *cls)
+LUALIB_API bool tolua_pushobj(lua_State *L, void *obj, const char *cls)
 {
     bool is_new = false;
     
@@ -421,9 +432,114 @@ LUALIB_API bool toluacls_pushobj(lua_State *L, void *obj, const char *cls)
     return is_new;
 }
 
-LUALIB_API void *toluacls_checkobj(lua_State *L, int idx, const char *cls)
+LUALIB_API bool tolua_getobj(lua_State *L, void *obj)
 {
-    if (toluacls_isa(L, idx, cls)) {
+    int top = lua_gettop(L);
+    
+    if (lua_rawgetp(L, LUA_REGISTRYINDEX, OBJ_REF_TABLE) == LUA_TTABLE) {
+        if (lua_rawgetp(L, -1, obj) == LUA_TUSERDATA) {
+            lua_insert(L, top + 1);
+            lua_settop(L, top + 1);
+            return true;
+        }
+    }
+    
+    lua_settop(L, top);
+    
+    return false;
+}
+
+static void auxgetcallbacktable(lua_State *L, int idx)
+{
+    if (lua_getuservalue(L, idx) == LUA_TNIL) {
+        lua_pop(L, 1);
+        lua_createtable(L, 0, 4);
+        lua_pushvalue(L, -1);
+        lua_setuservalue(L, idx);
+    }
+#ifdef TOLUA_DEBUG
+    luaL_checktype(L, -1, LUA_TTABLE);
+#endif
+}
+
+LUALIB_API const char *tolua_setcallback(lua_State *L, int idx, const char *tag, int vidx)
+{
+    static int ref = 0;
+    
+    idx = lua_absindex(L, idx);
+    vidx = lua_absindex(L, vidx);
+    
+    const char *field = lua_pushfstring(L, "toluacallback#%d|%s", ++ref, tag);
+    
+    luaL_checktype(L, vidx, LUA_TFUNCTION);
+    auxgetcallbacktable(L, idx);                    // L: ct
+    lua_pushvalue(L, vidx);                         // L: ct v
+    tolua_rawsetfield(L, -2, field);                // L: ct
+    lua_pop(L, 1);                                  // L:
+    
+    return lua_tostring(L, -1);
+}
+
+static bool shouldremovecallback(const char *field, const char *tag, tolua_remove_callback_t mode)
+{
+    if (mode == TOLUA_REMOVE_CALLBACK_WILDCARD) {
+        return strstr(field, tag) != NULL;
+    }
+    
+    if (mode == TOLUA_REMOVE_CALLBACK_ENDWITH) {
+        return strendwith(field, tag);
+    }
+    
+    return false;
+}
+
+LUALIB_API void tolua_removecallback(lua_State *L, int idx, const char *tag, tolua_remove_callback_t mode)
+{
+    int top = lua_gettop(L);
+    idx = lua_absindex(L, idx);
+    auxgetcallbacktable(L, idx);                        // L: ct
+    if (mode == TOLUA_REMOVE_CALLBACK_EQUAL) {
+        lua_pushnil(L);                                 // L: ct nil
+        tolua_rawsetfield(L, -2, tag);                  // L: ct
+    } else {
+        lua_pushnil(L);                                 // L: ct k
+        while (lua_next(L, -2)) {                       // L: ct k v
+            if (lua_isstring(L, -2)) {
+                const char *field = lua_tostring(L, -2);
+                if (shouldremovecallback(field, tag, mode)) {
+                    lua_pushvalue(L, -2);               // L: ct k v k
+                    lua_pushnil(L);                     // L: ct k v k nil
+                    lua_rawset(L, -5);                  // L: ct k v
+                }
+            }
+            lua_pop(L, 1);                              // L: ct k
+        }
+    }
+    lua_settop(L, top);
+}
+
+LUALIB_API bool tolua_callback(lua_State *L, void *obj, const char *field, int n)
+{
+    int top = lua_gettop(L) - n;
+    bool ret = false;
+    
+    if (tolua_getobj(L, obj)) {                                 // L: argn obj
+        auxgetcallbacktable(L, -1);                             // L: argn obj ct
+        if (tolua_rawgetfield(L, -1, field) == LUA_TFUNCTION) { // L: argn obj ct callback
+            lua_insert(L, top + 1);                             // L: callback argn obj ct
+            lua_pop(L, 2);                                      // L: callback argn
+            lua_pcall(L, n, 0, 0);
+        }
+    }
+    
+    lua_settop(L, top);
+    
+    return ret;
+}
+
+LUALIB_API void *tolua_checkobj(lua_State *L, int idx, const char *cls)
+{
+    if (tolua_isa(L, idx, cls)) {
         if (lua_isuserdata(L, idx)) {
             void *obj = *(void **)lua_touserdata(L, idx);
             if (obj) {
@@ -437,12 +553,12 @@ LUALIB_API void *toluacls_checkobj(lua_State *L, int idx, const char *cls)
         }
     } else {
         luaL_error(L, "#%d argument error, expect: '%s', got '%s'", idx,
-            cls, toluacls_typename(L, idx));
+            cls, tolua_typename(L, idx));
     }
     return NULL;
 }
 
-LUALIB_API void *toluacls_toobj(lua_State *L, int idx, const char *cls)
+LUALIB_API void *tolua_toobj(lua_State *L, int idx, const char *cls)
 {
     if (lua_isuserdata(L, idx)) {
         void *obj = *(void **)lua_touserdata(L, idx);
@@ -566,21 +682,21 @@ LUALIB_API bool tolua_is_uint(lua_State *L, int idx)
 
 LUALIB_API int tolua_push_obj(lua_State *L, void *obj, const char *cls)
 {
-    toluacls_pushobj(L, obj, cls);
+    tolua_pushobj(L, obj, cls);
     return 1;
 }
 
 LUALIB_API void tolua_check_obj(lua_State *L, int idx, void **value, const char *cls)
 {
-    *value = toluacls_checkobj(L, idx, cls);
+    *value = tolua_checkobj(L, idx, cls);
 }
 
 LUALIB_API void tolua_to_obj(lua_State *L, int idx, void **value, const char *cls)
 {
-    *value = toluacls_toobj(L, idx, cls);
+    *value = tolua_toobj(L, idx, cls);
 }
 
 LUALIB_API bool tolua_is_obj(lua_State *L, int idx, const char *cls)
 {
-    return toluacls_isa(L, idx, cls);
+    return tolua_isa(L, idx, cls);
 }

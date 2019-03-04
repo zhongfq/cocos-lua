@@ -14,14 +14,14 @@ static int _socket_new(lua_State *L)
 {
     Socket *socket = new Socket();
     socket->init();
-    toluacls_pushobj(L, socket, SOCKET_CLS);
+    tolua_pushobj(L, socket, SOCKET_CLS);
     
     return 1;
 }
 
 static int _socket_gc(lua_State *L)
 {
-    Socket *self = (Socket *)toluacls_checkobj(L, 1, SOCKET_CLS);
+    Socket *self = (Socket *)tolua_checkobj(L, 1, SOCKET_CLS);
     if (self) {
         delete self;
         *(Socket **)lua_newuserdata(L, sizeof(Socket *)) = NULL;
@@ -31,7 +31,7 @@ static int _socket_gc(lua_State *L)
 
 static int _socket_connect(lua_State *L)
 {
-    Socket *self = (Socket *)toluacls_checkobj(L, 1, SOCKET_CLS);
+    Socket *self = (Socket *)tolua_checkobj(L, 1, SOCKET_CLS);
     const char* host = luaL_checkstring(L, 2);
     uint16_t port = (uint16_t)luaL_checkinteger(L, 3);
     self->connect(host, port);
@@ -40,21 +40,21 @@ static int _socket_connect(lua_State *L)
 
 static int _scoket_clear(lua_State *L)
 {
-    Socket *self = (Socket *)toluacls_checkobj(L, 1, SOCKET_CLS);
+    Socket *self = (Socket *)tolua_checkobj(L, 1, SOCKET_CLS);
     self->clear();
     return 0;
 }
 
 static int _socket_close(lua_State *L)
 {
-    Socket *self = (Socket *)toluacls_checkobj(L, 1, SOCKET_CLS);
+    Socket *self = (Socket *)tolua_checkobj(L, 1, SOCKET_CLS);
     self->close();
     return 0;
 }
 
 static int _socket_bytes_available(lua_State *L)
 {
-    Socket *self = (Socket *)toluacls_checkobj(L, 1, SOCKET_CLS);
+    Socket *self = (Socket *)tolua_checkobj(L, 1, SOCKET_CLS);
     lua_pushinteger(L, self->bytes_available());
     return 1;
 }
@@ -63,21 +63,21 @@ static int _socket_get_status(lua_State *L)
 {
     static const char *const status[] = {"invalid", "ioerror", "connecting",
         "connected", "disconnected"};
-    Socket *self = (Socket *)toluacls_checkobj(L, 1, SOCKET_CLS);
+    Socket *self = (Socket *)tolua_checkobj(L, 1, SOCKET_CLS);
     lua_pushstring(L, status[self->get_status()]);
     return 1;
 }
 
 static int _socket_flush(lua_State *L)
 {
-    Socket *self = (Socket *)toluacls_checkobj(L, 1, SOCKET_CLS);
+    Socket *self = (Socket *)tolua_checkobj(L, 1, SOCKET_CLS);
     self->flush();
     return 0;
 }
 
 static int _socket_read_ubyte(lua_State *L)
 {
-    Socket *self = (Socket *)toluacls_checkobj(L, 1, SOCKET_CLS);
+    Socket *self = (Socket *)tolua_checkobj(L, 1, SOCKET_CLS);
     uint8_t value;
     if (self->read_ubyte(&value)) {
         lua_pushinteger(L, value);
@@ -90,7 +90,7 @@ static int _socket_read_ubyte(lua_State *L)
 
 static int _socket_write_ubyte(lua_State *L)
 {
-    Socket *self = (Socket *)toluacls_checkobj(L, 1, SOCKET_CLS);
+    Socket *self = (Socket *)tolua_checkobj(L, 1, SOCKET_CLS);
     uint8_t value = (uint8_t)luaL_checkinteger(L, 2);
     self->write_ubyte(value);
     
@@ -99,7 +99,7 @@ static int _socket_write_ubyte(lua_State *L)
 
 static int _socket_read_byte(lua_State *L)
 {
-    Socket *self = (Socket *)toluacls_checkobj(L, 1, SOCKET_CLS);
+    Socket *self = (Socket *)tolua_checkobj(L, 1, SOCKET_CLS);
     uint8_t value;
     if (self->read_ubyte(&value)) {
         lua_pushinteger(L, (int8_t)value);
@@ -112,7 +112,7 @@ static int _socket_read_byte(lua_State *L)
 
 static int _socket_write_byte(lua_State *L)
 {
-    Socket *self = (Socket *)toluacls_checkobj(L, 1, SOCKET_CLS);
+    Socket *self = (Socket *)tolua_checkobj(L, 1, SOCKET_CLS);
     int8_t value = (int8_t)luaL_checkinteger(L, 2);
     self->write_ubyte((uint8_t)value);
     
@@ -122,7 +122,7 @@ static int _socket_write_byte(lua_State *L)
 
 static int _socket_read_ushort(lua_State *L)
 {
-    Socket *self = (Socket *)toluacls_checkobj(L, 1, SOCKET_CLS);
+    Socket *self = (Socket *)tolua_checkobj(L, 1, SOCKET_CLS);
     uint16_t value;
     if (self->read_ushort(&value)) {
         lua_pushinteger(L, value);
@@ -135,7 +135,7 @@ static int _socket_read_ushort(lua_State *L)
 
 static int _socket_write_ushort(lua_State *L)
 {
-    Socket *self = (Socket *)toluacls_checkobj(L, 1, SOCKET_CLS);
+    Socket *self = (Socket *)tolua_checkobj(L, 1, SOCKET_CLS);
     uint16_t value = (uint16_t)luaL_checkinteger(L, 2);
     self->write_ushort(value);
     
@@ -144,7 +144,7 @@ static int _socket_write_ushort(lua_State *L)
 
 static int _socket_read_short(lua_State *L)
 {
-    Socket *self = (Socket *)toluacls_checkobj(L, 1, SOCKET_CLS);
+    Socket *self = (Socket *)tolua_checkobj(L, 1, SOCKET_CLS);
     uint16_t value;
     if (self->read_ushort(&value)) {
         lua_pushinteger(L, (int16_t)value);
@@ -157,7 +157,7 @@ static int _socket_read_short(lua_State *L)
 
 static int _socket_write_short(lua_State *L)
 {
-    Socket *self = (Socket *)toluacls_checkobj(L, 1, SOCKET_CLS);
+    Socket *self = (Socket *)tolua_checkobj(L, 1, SOCKET_CLS);
     int16_t value = (int16_t)luaL_checkinteger(L, 2);
     self->write_ushort((uint16_t)value);
     
@@ -167,7 +167,7 @@ static int _socket_write_short(lua_State *L)
 
 static int _socket_read_uint(lua_State *L)
 {
-    Socket *self = (Socket *)toluacls_checkobj(L, 1, SOCKET_CLS);
+    Socket *self = (Socket *)tolua_checkobj(L, 1, SOCKET_CLS);
     uint32_t value;
     if (self->read_uint(&value)) {
         lua_pushinteger(L, value);
@@ -180,7 +180,7 @@ static int _socket_read_uint(lua_State *L)
 
 static int _socket_write_uint(lua_State *L)
 {
-    Socket *self = (Socket *)toluacls_checkobj(L, 1, SOCKET_CLS);
+    Socket *self = (Socket *)tolua_checkobj(L, 1, SOCKET_CLS);
     uint32_t value = (uint32_t)luaL_checkinteger(L, 2);
     self->write_uint(value);
     
@@ -189,7 +189,7 @@ static int _socket_write_uint(lua_State *L)
 
 static int _socket_read_int(lua_State *L)
 {
-    Socket *self = (Socket *)toluacls_checkobj(L, 1, SOCKET_CLS);
+    Socket *self = (Socket *)tolua_checkobj(L, 1, SOCKET_CLS);
     uint32_t value;
     if (self->read_uint(&value)) {
         lua_pushinteger(L, (int32_t)value);
@@ -202,7 +202,7 @@ static int _socket_read_int(lua_State *L)
 
 static int _socket_write_int(lua_State *L)
 {
-    Socket *self = (Socket *)toluacls_checkobj(L, 1, SOCKET_CLS);
+    Socket *self = (Socket *)tolua_checkobj(L, 1, SOCKET_CLS);
     int32_t value = (int32_t)luaL_checkinteger(L, 2);
     self->write_uint((uint32_t)value);
     
@@ -211,7 +211,7 @@ static int _socket_write_int(lua_State *L)
 
 static int _socket_read_uint64(lua_State *L)
 {
-    Socket *self = (Socket *)toluacls_checkobj(L, 1, SOCKET_CLS);
+    Socket *self = (Socket *)tolua_checkobj(L, 1, SOCKET_CLS);
     uint64_t value;
     if (self->read_uint64(&value)) {
         lua_pushinteger(L, value);
@@ -224,7 +224,7 @@ static int _socket_read_uint64(lua_State *L)
 
 static int _socket_write_uint64(lua_State *L)
 {
-    Socket *self = (Socket *)toluacls_checkobj(L, 1, SOCKET_CLS);
+    Socket *self = (Socket *)tolua_checkobj(L, 1, SOCKET_CLS);
     uint64_t value = (uint64_t)luaL_checkinteger(L, 2);
     self->write_uint64(value);
     
@@ -233,7 +233,7 @@ static int _socket_write_uint64(lua_State *L)
 
 static int _socket_read_int64(lua_State *L)
 {
-    Socket *self = (Socket *)toluacls_checkobj(L, 1, SOCKET_CLS);
+    Socket *self = (Socket *)tolua_checkobj(L, 1, SOCKET_CLS);
     uint64_t value;
     if (self->read_uint64(&value)) {
         lua_pushinteger(L, (int64_t)value);
@@ -246,7 +246,7 @@ static int _socket_read_int64(lua_State *L)
 
 static int _socket_write_int64(lua_State *L)
 {
-    Socket *self = (Socket *)toluacls_checkobj(L, 1, SOCKET_CLS);
+    Socket *self = (Socket *)tolua_checkobj(L, 1, SOCKET_CLS);
     int64_t value = (int64_t)luaL_checkinteger(L, 2);
     self->write_uint64((uint64_t)value);
     
@@ -255,7 +255,7 @@ static int _socket_write_int64(lua_State *L)
 
 static int _socket_read_float(lua_State *L)
 {
-    Socket *self = (Socket *)toluacls_checkobj(L, 1, SOCKET_CLS);
+    Socket *self = (Socket *)tolua_checkobj(L, 1, SOCKET_CLS);
     float value;
     if (self->read_float(&value)) {
         lua_pushnumber(L, value);
@@ -268,7 +268,7 @@ static int _socket_read_float(lua_State *L)
 
 static int _socket_write_float(lua_State *L)
 {
-    Socket *self = (Socket *)toluacls_checkobj(L, 1, SOCKET_CLS);
+    Socket *self = (Socket *)tolua_checkobj(L, 1, SOCKET_CLS);
     float value = (float)luaL_checkinteger(L, 2);
     self->write_float(value);
     
@@ -277,7 +277,7 @@ static int _socket_write_float(lua_State *L)
 
 static int _socket_read_double(lua_State *L)
 {
-    Socket *self = (Socket *)toluacls_checkobj(L, 1, SOCKET_CLS);
+    Socket *self = (Socket *)tolua_checkobj(L, 1, SOCKET_CLS);
     double value;
     if (self->read_double(&value)) {
         lua_pushnumber(L, value);
@@ -290,7 +290,7 @@ static int _socket_read_double(lua_State *L)
 
 static int _socket_write_double(lua_State *L)
 {
-    Socket *self = (Socket *)toluacls_checkobj(L, 1, SOCKET_CLS);
+    Socket *self = (Socket *)tolua_checkobj(L, 1, SOCKET_CLS);
     double value = (double)luaL_checkinteger(L, 2);
     self->write_double(value);
     
@@ -299,7 +299,7 @@ static int _socket_write_double(lua_State *L)
 
 static int _socket_read_bytes(lua_State *L)
 {
-    Socket *self = (Socket *)toluacls_checkobj(L, 1, SOCKET_CLS);
+    Socket *self = (Socket *)tolua_checkobj(L, 1, SOCKET_CLS);
     int len = (int)luaL_checkinteger(L, 2);
     if (len <= 0) {
         luaL_error(L, "len = %d", len);
@@ -319,7 +319,7 @@ static int _socket_read_bytes(lua_State *L)
 
 static int _socket_write_bytes(lua_State *L)
 {
-    Socket *self = (Socket *)toluacls_checkobj(L, 1, SOCKET_CLS);
+    Socket *self = (Socket *)tolua_checkobj(L, 1, SOCKET_CLS);
     size_t len;
     uint8_t *buf = (uint8_t *)luaL_checklstring(L, 2, &len);
     self->write_bytes(buf, (int)len);

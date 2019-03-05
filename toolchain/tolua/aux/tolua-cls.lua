@@ -113,7 +113,7 @@ local function parse_args(cls, func_decl)
             args[#args + 1] = {
                 TYPE = get_typeinfo(typename, cls),
                 DECL_TYPE = to_decl_type(cls, typename, true),
-                VALUE = default,
+                OPT_VALUE = default,
                 PACK = pack > 0,
             }
         end

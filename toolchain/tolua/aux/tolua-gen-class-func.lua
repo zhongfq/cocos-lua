@@ -8,28 +8,14 @@ local function gen_snippet_func(cls, fi, write)
     ]]))
 end
 
-local function gen_one_func(cls, fi, write, funcidx)
-    if fi.CPPFUNC_SNIPPET then
-        gen_snippet_func(cls, fi, write)
-        return
-    end
-
-    local CPPCLS_PATH = class_path(cls.CPPCLS)
-    local CPPFUNC = fi.CPPFUNC
-    local FUNC_INDEX = funcidx or ""
-    local ARGS_CHUNK = {}
-    local DECL_CHUNK = {}
-    local LUA_SETTOP = "lua_settop(L, %d);"
-    local RET_VALUE = ""
-    local PUSH_RET = "";
-    local CALLER = "self->"
-    local CALLER_ARGS = {}
+local function gen_func_args(cls, fi)
     local idx = 0
+    local DECL_CHUNK = {}
+    local CALLER_ARGS = {}
+    local ARGS_CHUNK = {}
     local TOTAL_ARGS = #fi.ARGS
 
-    if fi.STATIC then
-        CALLER = cls.CPPCLS .. '::'
-    else
+    if not fi.STATIC then
         TOTAL_ARGS = TOTAL_ARGS + 1
         idx = idx + 1
         local ti = get_typeinfo(cls.CPPCLS .. "*")
@@ -46,19 +32,20 @@ local function gen_one_func(cls, fi, write, funcidx)
     end
 
     for i, ai in ipairs(fi.ARGS) do
-        idx = idx + 1
+        local DECL_TYPE = ai.TYPE.DECL_TYPE
+        local INIT_VALUE = ai.TYPE.INIT_VALUE
+        local ARG_N = "arg" .. i
+        local SPACE = " "
+        local FUNC_CHECK_VALUE = ai.TYPE.FUNC_CHECK_VALUE
+        local IDX = idx + 1
+        idx = IDX
+
         if ai.TYPE.DECL_TYPE ~= ai.TYPE.TYPENAME then
             CALLER_ARGS[#CALLER_ARGS + 1] = '(' .. ai.TYPE.TYPENAME .. ')arg' .. i
         else
             CALLER_ARGS[#CALLER_ARGS + 1] = 'arg' .. i
         end
 
-        local DECL_TYPE = ai.TYPE.DECL_TYPE
-        local INIT_VALUE = ai.TYPE.INIT_VALUE
-        local ARG_N = "arg" .. i
-        local SPACE = " "
-        local FUNC_CHECK_VALUE = ai.TYPE.FUNC_CHECK_VALUE
-        local IDX = idx
 
         if string.find(DECL_TYPE, '[ *&]$') then
             SPACE = ""
@@ -79,11 +66,11 @@ local function gen_one_func(cls, fi, write, funcidx)
             ]])
         end
 
-        if ai.VALUE then
+        if ai.OPT_VALUE then
             local FUNC_OPT_VALUE = ai.TYPE.FUNC_OPT_VALUE
-            local VALUE = ai.VALUE
+            local OPT_VALUE = ai.OPT_VALUE
             ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
-                ${FUNC_OPT_VALUE}(L, ${IDX}, &${ARG_N}, ${VALUE});
+                ${FUNC_OPT_VALUE}(L, ${IDX}, &${ARG_N}, ${OPT_VALUE});
             ]])
         elseif ai.TYPE.LUACLS then
             local LUACLS = ai.TYPE.LUACLS
@@ -107,7 +94,16 @@ local function gen_one_func(cls, fi, write, funcidx)
         end
     end
 
-    LUA_SETTOP = string.format(LUA_SETTOP, TOTAL_ARGS)
+    ARGS_CHUNK = table.concat(ARGS_CHUNK, "\n")
+    DECL_CHUNK = table.concat(DECL_CHUNK, "\n")
+    CALLER_ARGS = table.concat(CALLER_ARGS, ", ")
+
+    return DECL_CHUNK, ARGS_CHUNK, CALLER_ARGS, TOTAL_ARGS
+end
+
+local function gen_func_ret(cls, fi)
+    local RET_VALUE = ""
+    local PUSH_RET = "0";
 
     if fi.RET.NUM > 0 then
         local DECL_TYPE = fi.RET.DECL_TYPE
@@ -133,18 +129,33 @@ local function gen_one_func(cls, fi, write, funcidx)
             end
             PUSH_RET = format_snippet('${FUNC_PUSH_VALUE}(L, ${CAST}ret)')
         end
-    else
-        PUSH_RET = "0"
     end
 
-    ARGS_CHUNK = table.concat(ARGS_CHUNK, "\n")
-    DECL_CHUNK = table.concat(DECL_CHUNK, "\n")
-    CALLER_ARGS = table.concat(CALLER_ARGS, ", ")
+    return RET_VALUE, PUSH_RET
+end
+
+local function gen_one_func(cls, fi, write, funcidx)
+    if fi.CPPFUNC_SNIPPET then
+        gen_snippet_func(cls, fi, write)
+        return
+    end
+
+    local CPPCLS_PATH = class_path(cls.CPPCLS)
+    local CPPFUNC = fi.CPPFUNC
+    local FUNC_INDEX = funcidx or ""
+    local CALLER = "self->"
+
+    if fi.STATIC then
+        CALLER = cls.CPPCLS .. '::'
+    end
+
+    local DECL_CHUNK, ARGS_CHUNK, CALLER_ARGS, TOTAL_ARGS = gen_func_args(cls, fi)
+    local RET_VALUE, PUSH_RET = gen_func_ret(cls, fi)
 
     write(format_snippet([[
         static int _${CPPCLS_PATH}_${CPPFUNC}${FUNC_INDEX}(lua_State *L)
         {
-            ${LUA_SETTOP}
+            lua_settop(L, ${TOTAL_ARGS});
 
             ${DECL_CHUNK}
 

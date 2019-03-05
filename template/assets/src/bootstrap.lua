@@ -32,7 +32,10 @@ function main()
     print("##", manager)
 
     local scheduler = Scheduler.new()
-    print("##", scheduler)
+    node.scheduler:scheduleUpdate(scheduler, 0, false)
+    scheduler:schedule(function ( ... )
+        print("####", scheduler, ...)
+    end, scheduler, 1, false, "x")
 end
 
 local r = setmetatable({}, {__gc = function ()

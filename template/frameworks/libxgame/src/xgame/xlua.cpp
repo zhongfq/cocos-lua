@@ -436,6 +436,12 @@ bool xlua_checkboolean(lua_State *L, int idx)
     return lua_toboolean(L, idx);
 }
 
+void *xlua_checkobj(lua_State *L, int idx)
+{
+     luaL_checktype(L, idx, LUA_TUSERDATA);
+    return *(void **)lua_touserdata(L, idx);
+}
+
 void xlua_setnilfield(lua_State *L, const char *field)
 {
     lua_pushstring(L, field);

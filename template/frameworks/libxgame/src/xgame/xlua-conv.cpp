@@ -11,28 +11,13 @@ USING_NS_XGAME;
 
 static int s_obj_count = 0;
 
-static int xluacls_tostring(lua_State *L)
-{
-    intptr_t p = 0;
-    if (lua_isuserdata(L, 1)) {
-        p = (intptr_t)(*(void **)lua_touserdata(L, 1));
-    } else {
-        p = (intptr_t)lua_topointer(L, 1);
-    }
-    
-    lua_pushfstring(L, "%s: %p", tolua_typename(L, 1), p);
-    
-    return 1;
-}
-
 int xlua_ccobjgc(lua_State *L)
 {
     cocos2d::Ref *obj = (cocos2d::Ref *)tolua_checkobj(L, 1, "cc.Ref");
     if (obj) {
 #ifdef COCOS2D_DEBUG
         int top = lua_gettop(L);
-        xluacls_tostring(L);
-        const char *str = lua_tostring(L, -1);
+        const char *str = tolua_tostring(L, 1);
         xgame::runtime::log("lua gc: obj=%s obj_ref_count=%d total_obj_count=%d",
                             str, obj->getReferenceCount() - 1, s_obj_count - 1);
         lua_settop(L, top);
@@ -57,6 +42,16 @@ int xluacv_push_ccdata(lua_State *L, const cocos2d::Data &value)
         lua_pushlstring(L, (const char *)value.getBytes(), (size_t)value.getSize());
     }
     return 1;
+}
+
+void xluacv_check_obj(lua_State *L, int idx, void **value)
+{
+    *value = xlua_checkobj(L, idx);
+}
+
+bool xluacv_is_obj(lua_State *L, int idx)
+{
+    return lua_type(L, idx) == LUA_TUSERDATA;
 }
 
 int xluacv_push_ccobj(lua_State *L, cocos2d::Ref *obj, const char *cls)

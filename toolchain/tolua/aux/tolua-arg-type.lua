@@ -7,7 +7,7 @@ REG_TYPE {
 
 REG_TYPE {
     TYPENAME = 'void *',
-    CONV_FUNC = '<TODO>',
+    CONV_FUNC = 'xluacv_$ACTION_obj',
 }
 
 REG_TYPE {

@@ -24,6 +24,7 @@ void xlua_getref(lua_State *L, int ref);
 
 bool xlua_optboolean(lua_State *L, int idx, bool def);
 bool xlua_checkboolean(lua_State *L, int idx);
+void *xlua_checkobj(lua_State *L, int idx);
 void xlua_setnilfield(lua_State *L, const char *field);
 int xlua_rawgetfield(lua_State *L, int idx, const char *field);
 void xlua_rawsetfield(lua_State *L, int idx, const char *field);

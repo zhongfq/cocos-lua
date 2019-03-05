@@ -11,6 +11,9 @@ int xlua_ccobjcount(lua_State *L);
 
 int xluacv_push_ccdata(lua_State *L, const cocos2d::Data &value);
 
+void xluacv_check_obj(lua_State *L, int idx, void **value);
+bool xluacv_is_obj(lua_State *L, int idx);
+
 int xluacv_push_ccobj(lua_State *L, cocos2d::Ref *obj, const char *cls);
 void xluacv_to_ccobj(lua_State *L, int idx, void **value, const char *cls);
 void xluacv_check_ccobj(lua_State *L, int idx, void **value, const char *cls);

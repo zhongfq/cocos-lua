@@ -55,6 +55,20 @@ LUALIB_API const char *tolua_typename(lua_State *L, int idx)
     return tn;
 }
 
+LUALIB_API const char *tolua_tostring(lua_State *L, int idx)
+{
+    intptr_t p = 0;
+    if (lua_type(L, idx) == LUA_TUSERDATA) {
+        p = (intptr_t)(*(void **)lua_touserdata(L, idx));
+    } else {
+        p = (intptr_t)lua_topointer(L, idx);
+    }
+    
+    lua_pushfstring(L, "%s: %p", tolua_typename(L, idx), p);
+    
+    return lua_tostring(L, -1);
+}
+
 LUALIB_API bool tolua_isa(lua_State *L, int idx, const char *cls)
 {
     bool isa = false;
@@ -219,7 +233,7 @@ LUALIB_API bool tolua_callback(lua_State *L, void *obj, const char *field, int n
 LUALIB_API void *tolua_checkobj(lua_State *L, int idx, const char *cls)
 {
     if (tolua_isa(L, idx, cls)) {
-        if (lua_isuserdata(L, idx)) {
+        if (lua_type(L, idx) == LUA_TUSERDATA) {
             void *obj = *(void **)lua_touserdata(L, idx);
             if (obj) {
                 return obj;
@@ -239,7 +253,7 @@ LUALIB_API void *tolua_checkobj(lua_State *L, int idx, const char *cls)
 
 LUALIB_API void *tolua_toobj(lua_State *L, int idx, const char *cls)
 {
-    if (lua_isuserdata(L, idx)) {
+    if (lua_type(L, idx) == LUA_TUSERDATA) {
         void *obj = *(void **)lua_touserdata(L, idx);
         if (obj) {
             return obj;
@@ -381,14 +395,7 @@ static int cls_newindex(lua_State *L)
 
 static int cls_tostring(lua_State *L)
 {
-    intptr_t p = 0;
-    if (lua_isuserdata(L, 1)) {
-        p = (intptr_t)(*(void **)lua_touserdata(L, 1));
-    } else {
-        p = (intptr_t)lua_topointer(L, 1);
-    }
-    
-    lua_pushfstring(L, "%s: %p", tolua_typename(L, 1), p);
+    tolua_tostring(L, 1);
     
     return 1;
 }

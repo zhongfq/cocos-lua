@@ -25,6 +25,12 @@ void xluacv_check_ccvec2(lua_State *L, int idx, cocos2d::Vec2 *value);
 void xluacv_pack_ccvec2(lua_State *L, int idx, cocos2d::Vec2 *value);
 int xluacv_unpack_ccvec2(lua_State *L, const cocos2d::Vec2 &value);
 
+// Size
+int xluacv_push_ccsize(lua_State *L, const cocos2d::Size &value);
+void xluacv_check_ccsize(lua_State *L, int idx, cocos2d::Size *value);
+void xluacv_pack_ccsize(lua_State *L, int idx, cocos2d::Size *value);
+int xluacv_unpack_ccsize(lua_State *L, const cocos2d::Size &value);
+
 // Vector
 template <typename T> int xluacv_push_ccvector(lua_State *L, const cocos2d::Vector<T*> &v, const char *cls)
 {

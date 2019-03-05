@@ -107,3 +107,33 @@ int xluacv_unpack_ccvec2(lua_State *L, const cocos2d::Vec2 &value)
     lua_pushnumber(L, value.y);
     return 2;
 }
+
+int xluacv_push_ccsize(lua_State *L, const cocos2d::Size &value)
+{
+    lua_createtable(L, 0, 2);
+    lua_pushnumber(L, value.width);
+    xlua_rawsetfield(L, -2, "width");
+    lua_pushnumber(L, value.height);
+    xlua_rawsetfield(L, -2, "height");
+    return 1;
+}
+
+void xluacv_check_ccsize(lua_State *L, int idx, cocos2d::Size *value)
+{
+    luaL_checktype(L, idx, LUA_TTABLE);
+    value->width = (float)xlua_checkfieldnumber(L, idx, "width");
+    value->height = (float)xlua_checkfieldnumber(L, idx, "height");
+}
+
+void xluacv_pack_ccsize(lua_State *L, int idx, cocos2d::Size *value)
+{
+    value->width = (float)luaL_checknumber(L, idx);
+    value->height = (float)luaL_checknumber(L, idx + 1);
+}
+
+int xluacv_unpack_ccsize(lua_State *L, const cocos2d::Size &value)
+{
+    lua_pushnumber(L, value.width);
+    lua_pushnumber(L, value.height);
+    return 2;
+}

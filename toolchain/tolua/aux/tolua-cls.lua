@@ -40,7 +40,7 @@ function get_typeinfo(typename, cls)
 
     if cls and cls.CPPCLS then
         local ns = string.gsub(cls.CPPCLS, '[^:]+$', '')
-        local typename = string.gsub(typename, '%w+ *%**$', function (s)
+        local typename = string.gsub(typename, '[%w:]+ *%**$', function (s)
             return ns .. s
         end)
         typename = to_real_typename(typename)

@@ -23,9 +23,22 @@ REG_TYPE {
 }
 
 REG_TYPE {
+    TYPENAME = 'cocos2d::Size',
+    CONV_FUNC = "xluacv_$ACTION_ccsize",
+    INIT_VALUE = false,
+    VARS = 2,
+}
+
+REG_TYPE {
     TYPENAME = 'cocos2d::Vector',
     CONV_FUNC = "xluacv_$ACTION_ccvector",
     INIT_VALUE = false,
+}
+
+REG_TYPE {
+    TYPENAME = 'cocos2d::Director::Projection',
+    DECL_TYPE = 'lua_Unsigned',
+    CONV_FUNC = "tolua_$ACTION_uint",
 }
 
 REG_TYPE {
@@ -34,6 +47,8 @@ REG_TYPE {
         'cocos2d::Director *',
         'cocos2d::Scheduler *',
         'cocos2d::ActionManager *',
+        'cocos2d::GLView *',
+        'cocos2d::TextureCache *',
         'cocos2d::Node *',
         'cocos2d::Sprite *',
         'cocos2d::Scene *',

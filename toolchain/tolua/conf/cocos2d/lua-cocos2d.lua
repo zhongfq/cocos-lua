@@ -36,6 +36,8 @@ M.CLASSES = {
     include("conf/cocos2d/cc/cc.Director.lua"),
     include("conf/cocos2d/cc/cc.Scheduler.lua"),
     include("conf/cocos2d/cc/cc.ActionManager.lua"),
+    include("conf/cocos2d/cc/cc.GLView.lua"),
+    include("conf/cocos2d/cc/cc.TextureCache.lua"),
     include("conf/cocos2d/cc/cc.Node.lua"),
     include("conf/cocos2d/cc/cc.Sprite.lua"),
     include("conf/cocos2d/cc/cc.Scene.lua"),

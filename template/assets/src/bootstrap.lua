@@ -29,13 +29,18 @@ function main()
     Director.getInstance().runningScene:addChild(node)
 
     local manager = ActionManager.new()
-    print("##", manager)
+    print("##", manager, node)
 
     local scheduler = Scheduler.new()
     node.scheduler:scheduleUpdate(scheduler, 0, false)
     scheduler:schedule(function ( ... )
-        print("####", scheduler, ...)
+        print("####", scheduler, node, ...)
     end, scheduler, 1, false, "x")
+
+    timer.delay(3, function ( ... )
+        node.scheduler:unscheduleAll()
+        collectgarbage('collect')
+    end)
 end
 
 local r = setmetatable({}, {__gc = function ()

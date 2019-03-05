@@ -32,7 +32,7 @@ local function gen_one_func(cls, fi, write, funcidx)
     else
         TOTAL_ARGS = TOTAL_ARGS + 1
         idx = idx + 1
-        local ti = get_type_info(cls.CPPCLS .. "*")
+        local ti = get_typeinfo(cls.CPPCLS .. "*")
         local DECL_TYPE = cls.CPPCLS
         local LUACLS = ti.LUACLS
         local FUNC_CHECK_VALUE = ti.FUNC_CHECK_VALUE
@@ -47,13 +47,13 @@ local function gen_one_func(cls, fi, write, funcidx)
 
     for i, ai in ipairs(fi.ARGS) do
         idx = idx + 1
-        if ai.TYPE.DECL ~= ai.TYPE.NAME then
-            CALLER_ARGS[#CALLER_ARGS + 1] = '(' .. ai.TYPE.NAME .. ')arg' .. i
+        if ai.TYPE.DECL_TYPE ~= ai.TYPE.TYPENAME then
+            CALLER_ARGS[#CALLER_ARGS + 1] = '(' .. ai.TYPE.TYPENAME .. ')arg' .. i
         else
             CALLER_ARGS[#CALLER_ARGS + 1] = 'arg' .. i
         end
 
-        local DECL_TYPE = ai.TYPE.DECL
+        local DECL_TYPE = ai.TYPE.DECL_TYPE
         local INIT_VALUE = ai.TYPE.INIT_VALUE
         local ARG_N = "arg" .. i
         local SPACE = " "
@@ -64,7 +64,7 @@ local function gen_one_func(cls, fi, write, funcidx)
             SPACE = ""
         end
 
-        if ai.TYPE.INIT then
+        if INIT_VALUE then
             DECL_CHUNK[#DECL_CHUNK + 1] = format_snippet([[
                 ${DECL_TYPE}${SPACE}${ARG_N} = ${INIT_VALUE};
             ]])
@@ -128,8 +128,8 @@ local function gen_one_func(cls, fi, write, funcidx)
                 FUNC_PUSH_VALUE = fi.RET.TYPE.FUNC_UNPACK_VALUE
             end
             local CAST = ""
-            if fi.RET.TYPE.DECL ~= fi.RET.TYPE.NAME then
-                CAST = string.format("(%s)", fi.RET.TYPE.DECL)
+            if fi.RET.TYPE.DECL_TYPE ~= fi.RET.TYPE.TYPENAME then
+                CAST = string.format("(%s)", fi.RET.TYPE.DECL_TYPE)
             end
             PUSH_RET = format_snippet('${FUNC_PUSH_VALUE}(L, ${CAST}ret)')
         end

@@ -1,96 +1,97 @@
-local type_info_map = {}
+local typeinfo_map = {}
 
-local function trim_redundance_space(t)
-    -- t = '   const    type   *   '
-    t = string.gsub(t, '^[ ]*', '') -- t = 'const    type   *   '
-    t = string.gsub(t, '[ ]*$', '') -- t = 'const    type   *'
-    t = string.gsub(t, '[ ]+', ' ') -- t = 'const type *'
-    t = string.gsub(t, ' %*', '*')
-    t = string.gsub(t, '%*+', function (str) return " " .. str end)
-    return t
+local function to_pretty_typename(typename)
+    -- t = '   const   type   *   &  '
+    typename = string.gsub(typename, '&', '')   -- t = '   const  type   *    '
+    typename = string.gsub(typename, '^ *', '') -- t = 'const  type   *    '
+    typename = string.gsub(typename, ' *$', '') -- t = 'const  type   *'
+    typename = string.gsub(typename, ' +', ' ') -- t = 'const type *'
+
+    -- const type * * => const type **
+    typename = string.gsub(typename, ' %*', '*')
+    typename = string.gsub(typename, '%*+', function (str) return " " .. str end)
+
+    return typename
 end
 
-function get_type_info(t, cls)
-    -- ' type   &   ' => 'type'
-    -- ' type    *  ' => 'type *'
-
-    local function trim(t)
-        t = string.gsub(t, '[ ]*[&]+', '')
-        t = trim_redundance_space(t)
-        return t
+local function to_real_typename(typename)
+    if typeinfo_map[typename] then
+        return typename
     end
 
-    local subt, subtn
+    local noconst = string.gsub(typename, 'const *', '')
+    if typeinfo_map[noconst] then
+        return noconst
+    end
+    
+    return typename
+end
 
-    if string.find(t, '<') then
-        subt = string.match(t, '<([^>]+)>')
-        subt, subtn = get_type_info(subt, cls)
-        t = string.gsub(t, '<[^>]*>', '')
+function get_typeinfo(typename, cls)
+    local typename = to_pretty_typename(typename)
+    local typeinfo
+    local subtypeinfo, subtypename -- for typename<T>
+
+    if string.find(typename, '<') then
+        subtypename = string.match(typename, '<(.*)>')
+        subtypeinfo, subtypename = get_typeinfo(subtypename, cls)
+        typename = string.gsub(typename, '<.*>', '')
     end
 
     if cls and cls.CPPCLS then
         local ns = string.gsub(cls.CPPCLS, '[^:]+$', '')
-        local cppt = string.gsub(t, '%w+[ ]*[&*]*$', function (str)
-            return ns .. str
+        local typename = string.gsub(typename, '%w+ *%**$', function (s)
+            return ns .. s
         end)
-        local ti = type_info_map[trim(cppt)]
-        if ti then
-            return setmetatable({SUBTYPE = subt}, {__index = ti}), cppt, subtn
+        typename = to_real_typename(typename)
+        local typeinfo = typeinfo_map[typename]
+        if typeinfo then
+            typeinfo = setmetatable({SUBTYPE = subtypeinfo}, {__index = typeinfo})
+            return typeinfo, typename, subtypename
         end
     end
 
-    t = trim(t)
+    typename = to_real_typename(typename)
+    typeinfo = typeinfo_map[typename]
 
-    local ti = type_info_map[t]
+    if not typeinfo then
+        error(string.format("type info not found: %s", typename))
+    end
 
-    assert(ti, t)
-
-    return setmetatable({SUBTYPE = subt}, {__index = ti}), t, subtn
+    typeinfo = setmetatable({SUBTYPE = subtypeinfo}, {__index = typeinfo})
+    return typeinfo, typename, subtypename
 end
 
-local function to_decl_type(cls, t)
-    local function topoint(tn)
-        if not string.find(tn ,' %*') then
-            -- 'type*' => 'type *'
-            tn = string.gsub(tn, "[*]+", function (str)
-                return " " .. str
-            end)
+local function to_decl_type(cls, typename, remove_const)
+    local typeinfo, typename, subtypename = get_typeinfo(typename, cls)
+
+    if subtypename then
+        typename = string.format('%s<%s>', typename, subtypename)
+        if remove_const then
+            typename = string.gsub(typename, 'const *', '')
         end
-        return tn
     end
 
-    t = trim_redundance_space(string.gsub(t, '[ &]*$', ''))
-
-    local _, tn, subtn = get_type_info(t, cls)
-    tn = topoint(tn)
-
-    if subtn then
-        subtn = topoint(subtn)
-        tn = string.format("%s<%s>", tn, subtn)
-        tn = string.gsub(tn, 'const ', '')
-    end
-
-    return tn
+    return typename
 end
 
-local function parse_ret(cls, rt)
+local function parse_ret(cls, typename)
     local static = false
     local unpack = false
-    if string.find(rt, 'static') then
-        static = true
-        rt = string.gsub(rt, 'static', '')
-    end
 
-    if string.find(rt, 'unpack') then
+    if string.find(typename, 'unpack') then
         unpack = true
-        rt = string.gsub(rt, 'unpack', '')
+        typename = string.gsub(typename, 'unpack *', '')
     end
 
-    rt = trim_redundance_space(rt)
+    if string.find(typename, 'static') then
+        static = true
+        typename = string.gsub(typename, 'static *', '')
+    end
 
-    get_type_info(rt, cls)
+    typename = to_decl_type(cls, typename)
 
-    return unpack, static, rt
+    return unpack, static, typename
 end
 
 local function parse_args(cls, func_decl)
@@ -98,24 +99,21 @@ local function parse_args(cls, func_decl)
     local args_str = string.match(func_decl, '%(([^()]*)%)')
 
     for arg in string.gmatch(args_str, '[^,]+') do
-        arg = trim_redundance_space(arg)
+        arg = to_pretty_typename(arg)
         if arg ~= 'void' then
             local arg, pack = string.gsub(arg, 'pack', '')
-            local t = string.match(arg, '(.+[ *&])')
-            local t, n, d = string.match(arg, '(.+[ *&])([^ *&]+) *= *([^ ]*)')
-            if not t then
-                if string.find(arg, '[&*]$') then
-                    t = arg
-                else
-                    t, n = string.match(arg, '(.+[ *&])([^ *&]+)')
-                end
+            local typename, varname, default = string.match(arg, '(.+[ *&])([^ *&]+) *= *([^ ]*)')
+            if not typename then
+                typename, varname = string.match(arg, '(.+[ *&])([^ *&]+)')
             end
-            assert(t, arg)
-            t = string.gsub(t, '[ ]*$', '')
+            if not typename then
+                typename = to_pretty_typename(typename)
+            end
+            assert(typename, arg)
             args[#args + 1] = {
-                TYPE = get_type_info(t, cls),
-                DECL_TYPE = to_decl_type(cls, t),
-                VALUE = d,
+                TYPE = get_typeinfo(typename, cls),
+                DECL_TYPE = to_decl_type(cls, typename, true),
+                VALUE = default,
                 PACK = pack > 0,
             }
         end
@@ -136,18 +134,18 @@ local function parse_func(cls, name, ...)
             fi.CPPFUNC = name
             fi.CPPFUNC_SNIPPET = func_decl
             fi.RET.NUM = 0
-            fi.RET.TYPE = get_type_info('void', cls)
+            fi.RET.TYPE = get_typeinfo('void', cls)
             fi.ARGS = {}
         else
-            local rt, func = string.match(func_decl, "([^()]+[ *&])([^ ]+)[ ]*%(")
-            local unpack, static, rt = parse_ret(cls, rt)
+            local typename, funcname = string.match(func_decl, "([^()]+[ *&])([^ ]+)[ ]*%(")
+            local unpack, static, typename = parse_ret(cls, typename)
 
-            fi.LUAFUNC = name or func
-            fi.CPPFUNC = func
+            fi.LUAFUNC = name or funcname
+            fi.CPPFUNC = funcname
             fi.STATIC = static
-            fi.RET.NUM = rt == "void" and 0 or 1
-            fi.RET.TYPE = get_type_info(rt, cls)
-            fi.RET.DECL_TYPE = to_decl_type(cls, rt)
+            fi.RET.NUM = typename == "void" and 0 or 1
+            fi.RET.TYPE = get_typeinfo(typename, cls)
+            fi.RET.DECL_TYPE = to_decl_type(cls, typename)
             fi.RET.UNPACK = unpack
             fi.ARGS = parse_args(cls, func_decl)
 
@@ -167,7 +165,7 @@ end
 
 local function parse_prop(cls, name, func_get, func_set)
     local pi = {}
-    pi.NAME = assert(name)
+    pi.PROP_NAME = assert(name)
     pi.GET = func_get and parse_func(cls, name, func_get)[1] or nil
     pi.SET = func_set and parse_func(cls, name, func_set)[1] or nil
     assert(pi.GET.RET.NUM > 0, func_get)
@@ -192,9 +190,9 @@ function class()
         local tv = type(value)
         assert(tv == "boolean" or tv == "number" or tv == "string", tv)
         cls.CONSTS[#cls.CONSTS + 1] = {
-            NAME = assert(name),
-            VALUE = value,
-            TYPE = tv == "number" and (math.type(value)) or tv,
+            CONST_NAME = assert(name),
+            CONST_VALUE = value,
+            CONST_TYPE = tv == "number" and (math.type(value)) or tv,
         }
     end
 
@@ -219,33 +217,39 @@ function stringfy(value)
     end
 end
 
-function REG_TYPE(option)
-    for n in string.gmatch(option.NAME, '[^|]+') do
-        local type_name = trim_redundance_space(n)
-        local info = setmetatable({}, {__index = option})
-        info.NAME = type_name
-        info.DECL = info.DECL or type_name
-        type_info_map[type_name] = info
-        type_info_map['const ' .. type_name] = info
+function REG_TYPE(typeinfo)
+    for n in string.gmatch(typeinfo.TYPENAME, '[^|]+') do
+        local typename = to_pretty_typename(n)
+        local info = setmetatable({}, {__index = typeinfo})
+        info.TYPENAME = typename
+        info.DECL_TYPE = info.DECL_TYPE or typename
+        typeinfo_map[typename] = info
+        typeinfo_map['const ' .. typename] = info
 
-        if info.INIT ~= false then
-            info.INIT = true
-            info.INIT_VALUE = info.INIT_VALUE or (type_name == "bool" and "false" or
-                (string.find(type_name, "%*") and "nullptr" or "0"))
+        if info.INIT_VALUE ~= false then
+            if not info.INIT_VALUE then
+                if typename == 'bool' then
+                    info.INIT_VALUE = 'false'
+                elseif string.find(typename, '%*$') then
+                    info.INIT_VALUE = 'nullptr'
+                else
+                    info.INIT_VALUE = '0'
+                end
+            end
         end
 
-        info.FUNC_PUSH_VALUE = string.gsub(info.CONV, '$ACTION', "push")
-        info.FUNC_TO_VALUE = string.gsub(info.CONV, '$ACTION', "to")
-        info.FUNC_CHECK_VALUE = string.gsub(info.CONV, '$ACTION', "check")
-        info.FUNC_OPT_VALUE = string.gsub(info.CONV, '$ACTION', "opt")
-        info.FUNC_IS_VALUE = string.gsub(info.CONV, '$ACTION', "is")
+        info.FUNC_PUSH_VALUE = string.gsub(info.CONV_FUNC, '$ACTION', "push")
+        info.FUNC_TO_VALUE = string.gsub(info.CONV_FUNC, '$ACTION', "to")
+        info.FUNC_CHECK_VALUE = string.gsub(info.CONV_FUNC, '$ACTION', "check")
+        info.FUNC_OPT_VALUE = string.gsub(info.CONV_FUNC, '$ACTION', "opt")
+        info.FUNC_IS_VALUE = string.gsub(info.CONV_FUNC, '$ACTION', "is")
         -- multi ret
-        info.FUNC_PACK_VALUE = string.gsub(info.CONV, '$ACTION', "pack")
-        info.FUNC_UNPACK_VALUE = string.gsub(info.CONV, '$ACTION', "unpack")
+        info.FUNC_PACK_VALUE = string.gsub(info.CONV_FUNC, '$ACTION', "pack")
+        info.FUNC_UNPACK_VALUE = string.gsub(info.CONV_FUNC, '$ACTION', "unpack")
 
         if info.LUACLS then
             if type(info.LUACLS) == "function" then
-                info.LUACLS = info.LUACLS(type_name)
+                info.LUACLS = info.LUACLS(typename)
             elseif type(info.LUACLS) ~= "string" then
                 error("not support: " .. type(info.LUACLS))
             end

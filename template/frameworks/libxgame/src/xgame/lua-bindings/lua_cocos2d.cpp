@@ -502,6 +502,7 @@ static int luaopen_cocos2d_Director(lua_State *L)
 static int luaopen_cocos2d_Scheduler(lua_State *L)
 {
     toluacls_class(L, "cc.Scheduler", "cc.Ref");
+
     toluacls_createclassproxy(L);
 
     return 1;
@@ -1389,6 +1390,7 @@ static int luaopen_cocos2d_Sprite(lua_State *L)
 static int luaopen_cocos2d_Scene(lua_State *L)
 {
     toluacls_class(L, "cc.Scene", "cc.Node");
+
     toluacls_createclassproxy(L);
 
     return 1;

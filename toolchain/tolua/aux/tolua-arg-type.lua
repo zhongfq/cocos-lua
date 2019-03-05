@@ -1,45 +1,45 @@
 require "aux.tolua-cls"
 
 REG_TYPE {
-    NAME = 'void',
-    CONV = "<NONE>",
+    TYPENAME = 'void',
+    CONV_FUNC = "<NONE>",
 }
 
 REG_TYPE {
-    NAME = 'void *',
-    CONV = '<TODO>',
+    TYPENAME = 'void *',
+    CONV_FUNC = '<TODO>',
 }
 
 REG_TYPE {
-    NAME = 'bool',
-    CONV = 'tolua_$ACTION_bool',
+    TYPENAME = 'bool',
+    CONV_FUNC = 'tolua_$ACTION_bool',
 }
 
 REG_TYPE {
-    NAME = 'const char *',
-    CONV = 'tolua_$ACTION_string',
+    TYPENAME = 'const char *',
+    CONV_FUNC = 'tolua_$ACTION_string',
 }
 
 REG_TYPE {
-    NAME = 'std::string',
-    INIT = false,
-    CONV = "tolua_$ACTION_std_string",
+    TYPENAME = 'std::string',
+    INIT_VALUE = false,
+    CONV_FUNC = "tolua_$ACTION_std_string",
 }
 
 REG_TYPE {
-    NAME = 'float|double',
-    DECL = 'lua_Number',
-    CONV = "tolua_$ACTION_number",
+    TYPENAME = 'float|double',
+    DECL_TYPE = 'lua_Number',
+    CONV_FUNC = "tolua_$ACTION_number",
 }
 
 REG_TYPE {
-    NAME = 'int|ssize_t',
-    DECL = 'lua_Integer',
-    CONV = "tolua_$ACTION_int"
+    TYPENAME = 'int|ssize_t',
+    DECL_TYPE = 'lua_Integer',
+    CONV_FUNC = "tolua_$ACTION_int"
 }
 
 REG_TYPE {
-    NAME = 'unsigned int|size_t',
-    DECL = 'lua_Unsigned',
-    CONV = "tolua_$ACTION_uint",
+    TYPENAME = 'unsigned int|size_t',
+    DECL_TYPE = 'lua_Unsigned',
+    CONV_FUNC = "tolua_$ACTION_uint",
 }

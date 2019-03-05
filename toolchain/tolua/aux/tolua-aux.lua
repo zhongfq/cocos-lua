@@ -98,7 +98,7 @@ function format(expr, trim, drop_last_lf)
     end
 
     while true do
-        local s, n = string.gsub(expr, '\n\n\n', '\n')
+        local s, n = string.gsub(expr, '\n\n\n', '\n\n')
         expr = s
         if n == 0 then
             break

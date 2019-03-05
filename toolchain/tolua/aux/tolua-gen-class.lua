@@ -31,7 +31,7 @@ local function gen_class_open(cls, write)
     end
 
     for i, pi in ipairs(cls.PROPS) do
-        local PROP_NAME = pi.NAME
+        local PROP_NAME = pi.PROP_NAME
         local FUNC_GET = "nullptr"
         local FUNC_SET = "nullptr"
         if pi.GET then
@@ -47,8 +47,8 @@ local function gen_class_open(cls, write)
 
     for i, ci in ipairs(cls.CONSTS) do
         local CONST_FUNC
-        local CONST_VALUE = ci.VALUE
-        local CONST_NAME = ci.NAME
+        local CONST_VALUE = ci.CONST_VALUE
+        local CONST_NAME = ci.CONST_NAME
         if ci.TYPE == "boolean" then
             CONST_FUNC = "toluacls_const_bool"
         elseif ci.TYPE == "integer" then
@@ -57,7 +57,7 @@ local function gen_class_open(cls, write)
             CONST_FUNC = "toluacls_const_number"
         elseif ci.TYPE == "string" then
             CONST_FUNC = "toluacls_const_string"
-            CONST_VALUE = '"' .. CONST_VALUE .. '"'
+            CONST_VALUE = stringfy(CONST_VALUE)
         end
         FUNCS[#FUNCS + 1] = format_snippet([[
             ${CONST_FUNC}(L, "${CONST_NAME}", ${CONST_VALUE});

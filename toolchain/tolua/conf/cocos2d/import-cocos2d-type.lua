@@ -23,10 +23,17 @@ REG_TYPE {
 }
 
 REG_TYPE {
+    NAME = 'cocos2d::Vector',
+    CONV = "xluacv_$ACTION_ccvector",
+    INIT = false,
+}
+
+REG_TYPE {
     NAME = table.concat({
         'cocos2d::Ref *',
         'cocos2d::Director *',
         'cocos2d::Scheduler *',
+        'cocos2d::ActionManager *',
         'cocos2d::Node *',
         'cocos2d::Sprite *',
         'cocos2d::Scene *',

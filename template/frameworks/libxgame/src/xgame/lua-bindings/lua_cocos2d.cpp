@@ -507,6 +507,45 @@ static int luaopen_cocos2d_Scheduler(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_ActionManager_pauseAllRunningActions(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ActionManager *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.ActionManager");
+
+    cocos2d::Vector<cocos2d::Node *> ret = (cocos2d::Vector<cocos2d::Node *>)self->pauseAllRunningActions();
+
+    return xluacv_push_ccvector(L, ret, "cc.Node");
+}
+
+static int _cocos2d_ActionManager_resumeTargets(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ActionManager *self = nullptr;
+    cocos2d::Vector<cocos2d::Node *> arg1;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.ActionManager");
+    xluacv_check_ccvector(L, 2, arg1, "cc.Node");
+
+    self->resumeTargets(arg1);
+
+    return 0;
+}
+
+static int luaopen_cocos2d_ActionManager(lua_State *L)
+{
+    toluacls_class(L, "cc.ActionManager", "cc.Ref");
+    toluacls_setfunc(L, "pauseAllRunningActions", _cocos2d_ActionManager_pauseAllRunningActions);
+    toluacls_setfunc(L, "resumeTargets", _cocos2d_ActionManager_resumeTargets);
+
+    toluacls_createclassproxy(L);
+
+    return 1;
+}
+
 static const std::string makeScheduleCallbackTag(const std::string &key)
 {
     return "node.schedule." + key;
@@ -1025,6 +1064,34 @@ static int _cocos2d_Node_setScheduler(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_Node_getActionManager(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Node *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
+
+    cocos2d::ActionManager *ret = (cocos2d::ActionManager *)self->getActionManager();
+
+    return xluacv_push_ccobj(L, ret, "cc.ActionManager");
+}
+
+static int _cocos2d_Node_setActionManager(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Node *self = nullptr;
+    cocos2d::ActionManager *arg1 = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
+    xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.ActionManager");
+
+    self->setActionManager(arg1);
+
+    return 0;
+}
+
 static int luaopen_cocos2d_Node(lua_State *L)
 {
     toluacls_class(L, "cc.Node", "cc.Ref");
@@ -1055,6 +1122,7 @@ static int luaopen_cocos2d_Node(lua_State *L)
     toluacls_property(L, "attachedNodeCount", _cocos2d_Node_getAttachedNodeCount, nullptr);
     toluacls_property(L, "description", _cocos2d_Node_getDescription, nullptr);
     toluacls_property(L, "scheduler", _cocos2d_Node_getScheduler, _cocos2d_Node_setScheduler);
+    toluacls_property(L, "actionManager", _cocos2d_Node_getActionManager, _cocos2d_Node_setActionManager);
 
     toluacls_createclassproxy(L);
 
@@ -1098,6 +1166,7 @@ int luaopen_cocos2d(lua_State *L)
     xlua_require(L, "cc.Ref", luaopen_cocos2d_Ref);
     xlua_require(L, "cc.Director", luaopen_cocos2d_Director);
     xlua_require(L, "cc.Scheduler", luaopen_cocos2d_Scheduler);
+    xlua_require(L, "cc.ActionManager", luaopen_cocos2d_ActionManager);
     xlua_require(L, "cc.Node", luaopen_cocos2d_Node);
     xlua_require(L, "cc.Sprite", luaopen_cocos2d_Sprite);
     xlua_require(L, "cc.Scene", luaopen_cocos2d_Scene);

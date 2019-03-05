@@ -26,46 +26,9 @@ function main()
     Director.getInstance().runningScene:addChild(sprite)
     Director.getInstance().runningScene:addChild(node)
 
-    function Node:print(...)
-        print("###", self, ...)
-    end
-
-    node:print("hello world", Node)
-
-    local t = 0
-
-    node:scheduleOnce(function (delta)
-        print("node scheduleOnce", delta)
-    end, 1, "dofunc")
-    node:schedule(function (delta)
-        print("node schedule", delta)
-    end, 1.5, "schedule func")
-    node:schedule(function (delta)
-        print("node schedule", delta)
-    end, 2.5, "schedule func")
-    node:schedule(function (delta)
-        print("node schedule", delta)
-    end, 3.5, "schedule")
-
-    print(node.scheduler)
-
-    function Node:__call( ... )
-        print("lua node call: __call")
-    end
-    node()
-
-    sprite:print("xxx hello sprite")
-    timer.delay(4, function ( ... )
-        sprite:print("xxx hello sprite again")
-        sprite:setPosition(600, 400)
-        print("cache node", node.xxxx)
-        print("sprite get pos", sprite:getPosition())
-        node:unscheduleAllCallbacks()
-        for k,v in pairs(debug.getuservalue(node)) do
-            print("node user value", k,v)
-        end
-    end)
-
+    print(sprite.actionManager:pauseAllRunningActions())
+    print("##", sprite, node)
+    sprite.actionManager:resumeTargets({sprite, node})
 end
 
 local r = setmetatable({}, {__gc = function ()

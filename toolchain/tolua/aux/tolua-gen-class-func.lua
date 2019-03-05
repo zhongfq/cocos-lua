@@ -68,6 +68,11 @@ local function gen_one_func(cls, fi, write, funcidx)
             DECL_CHUNK[#DECL_CHUNK + 1] = format_snippet([[
                 ${DECL_TYPE}${SPACE}${ARG_N} = ${INIT_VALUE};
             ]])
+        elseif ai.TYPE.SUBTYPE then
+            DECL_TYPE = ai.DECL_TYPE
+            DECL_CHUNK[#DECL_CHUNK + 1] = format_snippet([[
+                ${DECL_TYPE}${SPACE}${ARG_N};
+            ]])
         else
             DECL_CHUNK[#DECL_CHUNK + 1] = format_snippet([[
                 ${DECL_TYPE}${SPACE}${ARG_N};
@@ -85,6 +90,11 @@ local function gen_one_func(cls, fi, write, funcidx)
             local LUACLS = ai.TYPE.LUACLS
             ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
                 ${FUNC_CHECK_VALUE}(L, ${IDX}, (void **)&${ARG_N}, "${LUACLS}");
+            ]])
+        elseif ai.TYPE.SUBTYPE then
+            local SUBTYPE = assert(ai.TYPE.SUBTYPE.LUACLS, ai.TYPE.DECL_TYPE)
+            ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
+                ${FUNC_CHECK_VALUE}(L, ${IDX}, ${ARG_N}, "${SUBTYPE}");
             ]])
         else
             if ai.PACK then
@@ -111,6 +121,9 @@ local function gen_one_func(cls, fi, write, funcidx)
         if fi.RET.TYPE.LUACLS then
             local LUACLS = fi.RET.TYPE.LUACLS
             PUSH_RET = format_snippet('${FUNC_PUSH_VALUE}(L, ret, "${LUACLS}")')
+        elseif fi.RET.TYPE.SUBTYPE then
+            local SUBTYPE = assert(fi.RET.TYPE.SUBTYPE.LUACLS, fi.RET.DECL_TYPE)
+            PUSH_RET = format_snippet('${FUNC_PUSH_VALUE}(L, ret, "${SUBTYPE}")')
         else
             if fi.RET.UNPACK then
                 FUNC_PUSH_VALUE = fi.RET.TYPE.FUNC_UNPACK_VALUE

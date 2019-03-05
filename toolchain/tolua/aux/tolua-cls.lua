@@ -20,6 +20,14 @@ function get_type_info(t, cls)
         return t
     end
 
+    local subt, subtn
+
+    if string.find(t, '<') then
+        subt = string.match(t, '<([^>]+)>')
+        subt, subtn = get_type_info(subt, cls)
+        t = string.gsub(t, '<[^>]*>', '')
+    end
+
     if cls and cls.CPPCLS then
         local ns = string.gsub(cls.CPPCLS, '[^:]+$', '')
         local cppt = string.gsub(t, '%w+[ ]*[&*]*$', function (str)
@@ -27,24 +35,41 @@ function get_type_info(t, cls)
         end)
         local ti = type_info_map[trim(cppt)]
         if ti then
-            return ti, cppt
+            return setmetatable({SUBTYPE = subt}, {__index = ti}), cppt, subtn
         end
     end
 
     t = trim(t)
 
-    return assert(type_info_map[t], t), t
+    local ti = type_info_map[t]
+
+    assert(ti, t)
+
+    return setmetatable({SUBTYPE = subt}, {__index = ti}), t, subtn
 end
 
 local function to_decl_type(cls, t)
-    t = trim_redundance_space(string.gsub(t, '[ &]*$', ''))
-    local _, tn = get_type_info(t, cls)
-    if not string.find(tn ,' %*') then
-        -- 'type*' => 'type *'
-        tn = string.gsub(tn, "[*]+", function (str)
-            return " " .. str
-        end)
+    local function topoint(tn)
+        if not string.find(tn ,' %*') then
+            -- 'type*' => 'type *'
+            tn = string.gsub(tn, "[*]+", function (str)
+                return " " .. str
+            end)
+        end
+        return tn
     end
+
+    t = trim_redundance_space(string.gsub(t, '[ &]*$', ''))
+
+    local _, tn, subtn = get_type_info(t, cls)
+    tn = topoint(tn)
+
+    if subtn then
+        subtn = topoint(subtn)
+        tn = string.format("%s<%s>", tn, subtn)
+        tn = string.gsub(tn, 'const ', '')
+    end
+
     return tn
 end
 

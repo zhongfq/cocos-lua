@@ -213,17 +213,7 @@ void xlua_preload(lua_State *L, const char *name, lua_CFunction func)
 void xlua_require(lua_State *L, const char *name, lua_CFunction func)
 {
     int top = lua_gettop(L);
-    lua_getfield(L, LUA_REGISTRYINDEX, LUA_LOADED_TABLE);
-    if (xlua_rawgetfield(L, -1, name) == LUA_TNIL) {
-        lua_pushcfunction(L, func);
-        lua_pushstring(L, name);
-        if (xlua_pcall(L, 1, LUA_MULTRET) == LUA_OK) {
-            if (lua_isnil(L, -1)) {
-                lua_pushboolean(L, true);
-            }
-            lua_setfield(L, top + 1, name);
-        }
-    }
+    luaL_requiref(L, name, func, false);
     lua_settop(L, top);
 }
 

@@ -7,6 +7,8 @@ local UserDefault   = require "cc.UserDefault"
 local Node          = require "cc.Node"
 local Sprite        = require "cc.Sprite"
 local Director      = require "cc.Director"
+local ActionManager = require "cc.ActionManager"
+local Scheduler     = require "cc.Scheduler"
 
 window.setDesignSize(1334, 750, 1)
 
@@ -26,10 +28,11 @@ function main()
     Director.getInstance().runningScene:addChild(sprite)
     Director.getInstance().runningScene:addChild(node)
 
-    print(sprite.actionManager:pauseAllRunningActions())
-    print("##", sprite, node)
-    sprite.actionManager:resumeTargets({sprite, node})
-    sprite.actionManager:addAction(node, sprite, false)
+    local manager = ActionManager.new()
+    print("##", manager)
+
+    local scheduler = Scheduler.new()
+    print("##", scheduler)
 end
 
 local r = setmetatable({}, {__gc = function ()

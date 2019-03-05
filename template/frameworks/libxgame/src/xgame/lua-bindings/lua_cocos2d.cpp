@@ -8,6 +8,11 @@
 #include "tolua/tolua.hpp"
 #include "cocos2d.h"
 
+static const std::string makeScheduleCallbackTag(const std::string &key)
+{
+    return "schedule." + key;
+}
+
 static int _cocos2d_UserDefault_getBoolForKey1(lua_State *L)
 {
     lua_settop(L, 2);
@@ -499,12 +504,140 @@ static int luaopen_cocos2d_Director(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_Scheduler_new(lua_State *L)
+{
+    cocos2d::Scheduler *obj = new cocos2d::Scheduler();
+    obj->autorelease();
+    xluacv_push_ccobj(L, obj, "cc.Scheduler");
+    return 1;
+}
+
+static int _cocos2d_Scheduler_update(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Scheduler *self = nullptr;
+    lua_Number arg1 = 0;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Scheduler");
+    tolua_check_number(L, 2, &arg1);
+
+    self->update((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Scheduler_schedule(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    lua_settop(L, 8);
+
+    cocos2d::Ref *target = nullptr;
+    float interval = 0;
+    unsigned int repeat = CC_REPEAT_FOREVER;
+    float delay = 0;
+    bool paused = false;
+    std::string key;
+
+    cocos2d::Scheduler *self = (cocos2d::Scheduler *)tolua_toobj(L, 1, "cc.Scheduler");
+
+    if (num_args == 5) {
+        xluacv_check_ccobj(L, 3, (void **)&target, "cc.Ref");
+        interval = (float)luaL_checknumber(L, 4);
+        paused = xlua_checkboolean(L, 5);
+        key = lua_tostring(L, 6);
+    } else if (num_args == 8) {
+        xluacv_check_ccobj(L, 3, (void **)&target, "cc.Ref");
+        interval = (float)luaL_checknumber(L, 4);
+        repeat = (unsigned int)luaL_checkinteger(L, 5);
+        delay = (float)luaL_checknumber(L, 6);
+        paused = xlua_checkboolean(L, 7);
+        key = lua_tostring(L, 8);
+    } else {
+        luaL_error(L, "method 'cocos2d::Node::schedule' not support '%d' arguments", num_args);
+    }
+
+    std::string field = makeScheduleCallbackTag(key);
+    field = tolua_setcallback(L, 1, field.c_str(), 2);
+    self->schedule([field, self](float delta) {
+        lua_State *L = xlua_cocosthread();
+        int top = lua_gettop(L);
+        lua_pushnumber(L, delta);
+        tolua_callback(L, self, field.c_str(), 1);
+        lua_settop(L, top);
+    }, target, interval, repeat, delay, paused, key);
+
+    return 0;
+}
+
+static int _cocos2d_Scheduler_unschedule(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::Scheduler *self = nullptr;
+    cocos2d::Ref *target = nullptr;
+    std::string key;
+
+    self = (cocos2d::Scheduler *)tolua_toobj(L, 1, "cc.Scheduler");
+    tolua_check_std_string(L, 2, &key);
+    xluacv_check_ccobj(L, 3, (void **)&target, "cc.Ref");
+
+    std::string field = makeScheduleCallbackTag(key);
+
+    self->unschedule(key, target);
+    tolua_removecallback(L, 1, field.c_str(), TOLUA_REMOVE_CALLBACK_EQUAL);
+
+    return 0;
+}
+
+static int _cocos2d_Scheduler_getTimeScale(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Scheduler *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Scheduler");
+
+    float ret = (float)self->getTimeScale();
+
+    return tolua_push_number(L, (lua_Number)ret);
+}
+
+static int _cocos2d_Scheduler_setTimeScale(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Scheduler *self = nullptr;
+    lua_Number arg1 = 0;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Scheduler");
+    tolua_check_number(L, 2, &arg1);
+
+    self->setTimeScale((float)arg1);
+
+    return 0;
+}
+
 static int luaopen_cocos2d_Scheduler(lua_State *L)
 {
     toluacls_class(L, "cc.Scheduler", "cc.Ref");
+    toluacls_setfunc(L, "new", _cocos2d_Scheduler_new);
+    toluacls_setfunc(L, "update", _cocos2d_Scheduler_update);
+    toluacls_setfunc(L, "schedule", _cocos2d_Scheduler_schedule);
+    toluacls_setfunc(L, "unschedule", _cocos2d_Scheduler_unschedule);
+    toluacls_property(L, "timeScale", _cocos2d_Scheduler_getTimeScale, _cocos2d_Scheduler_setTimeScale);
 
     toluacls_createclassproxy(L);
 
+    return 1;
+}
+
+static int _cocos2d_ActionManager_new(lua_State *L)
+{
+    cocos2d::ActionManager *obj = new cocos2d::ActionManager();
+    obj->autorelease();
+    xluacv_push_ccobj(L, obj, "cc.ActionManager");
     return 1;
 }
 
@@ -759,6 +892,7 @@ static int _cocos2d_ActionManager_update(lua_State *L)
 static int luaopen_cocos2d_ActionManager(lua_State *L)
 {
     toluacls_class(L, "cc.ActionManager", "cc.Ref");
+    toluacls_setfunc(L, "new", _cocos2d_ActionManager_new);
     toluacls_setfunc(L, "addAction", _cocos2d_ActionManager_addAction);
     toluacls_setfunc(L, "removeAllActions", _cocos2d_ActionManager_removeAllActions);
     toluacls_setfunc(L, "removeAllActionsFromTarget", _cocos2d_ActionManager_removeAllActionsFromTarget);
@@ -779,11 +913,6 @@ static int luaopen_cocos2d_ActionManager(lua_State *L)
     toluacls_createclassproxy(L);
 
     return 1;
-}
-
-static const std::string makeScheduleCallbackTag(const std::string &key)
-{
-    return "node.schedule." + key;
 }
 
 static int _cocos2d_Node_create(lua_State *L)

@@ -14,7 +14,26 @@ M.INCLUDES = [[
 #include "xgame/xruntime.h"
 #include "tolua/tolua.hpp"
 #include "cocos2d.h"
+
+static const std::string makeScheduleCallbackTag(const std::string &key)
+{
+    return "schedule." + key;
+}
 ]]
+
+function new_ccobj(cls)
+    local CPPCLS = cls.CPPCLS
+    local LUACLS = cls.LUACLS
+    local new = format_snippet(([[
+        {
+            ${CPPCLS} *obj = new ${CPPCLS}();
+            obj->autorelease();
+            xluacv_push_ccobj(L, obj, "${LUACLS}");
+            return 1;
+        }
+    ]]))
+    return new
+end
 
 M.CLASSES = {
     include("conf/cocos2d/cc/cc.UserDefault.lua"),

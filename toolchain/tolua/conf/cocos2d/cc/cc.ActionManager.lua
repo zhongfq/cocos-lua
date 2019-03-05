@@ -2,6 +2,7 @@ local cls = class()
 cls.CPPCLS = "cocos2d::ActionManager"
 cls.LUACLS = "cc.ActionManager"
 cls.SUPERCLS = "cc.Ref"
+cls.func('new', new_ccobj(cls))
 cls.func(nil, 'void addAction(Action *action, Node *target, bool paused)')
 cls.func(nil, 'void removeAllActions()')
 cls.func(nil, 'void removeAllActionsFromTarget(Node *target)')

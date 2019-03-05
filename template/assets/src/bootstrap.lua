@@ -29,6 +29,7 @@ function main()
     print(sprite.actionManager:pauseAllRunningActions())
     print("##", sprite, node)
     sprite.actionManager:resumeTargets({sprite, node})
+    sprite.actionManager:addAction(node, sprite, false)
 end
 
 local r = setmetatable({}, {__gc = function ()

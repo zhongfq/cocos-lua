@@ -33,7 +33,7 @@ REG_TYPE {
 }
 
 REG_TYPE {
-    NAME = 'int',
+    NAME = 'int|ssize_t',
     DECL = 'lua_Integer',
     CONV = "tolua_$ACTION_int"
 }

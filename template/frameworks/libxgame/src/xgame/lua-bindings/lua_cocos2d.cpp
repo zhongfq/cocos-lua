@@ -73,7 +73,7 @@ static int _cocos2d_UserDefault_getIntegerForKey1(lua_State *L)
 
     int ret = (int)self->getIntegerForKey(arg1);
 
-    return tolua_push_int(L, ret);
+    return tolua_push_int(L, (lua_Integer)ret);
 }
 
 static int _cocos2d_UserDefault_getIntegerForKey2(lua_State *L)
@@ -90,7 +90,7 @@ static int _cocos2d_UserDefault_getIntegerForKey2(lua_State *L)
 
     int ret = (int)self->getIntegerForKey(arg1, (int)arg2);
 
-    return tolua_push_int(L, ret);
+    return tolua_push_int(L, (lua_Integer)ret);
 }
 
 static int _cocos2d_UserDefault_getIntegerForKey(lua_State *L)
@@ -126,7 +126,7 @@ static int _cocos2d_UserDefault_getFloatForKey1(lua_State *L)
 
     float ret = (float)self->getFloatForKey(arg1);
 
-    return tolua_push_number(L, ret);
+    return tolua_push_number(L, (lua_Number)ret);
 }
 
 static int _cocos2d_UserDefault_getFloatForKey2(lua_State *L)
@@ -143,7 +143,7 @@ static int _cocos2d_UserDefault_getFloatForKey2(lua_State *L)
 
     float ret = (float)self->getFloatForKey(arg1, (float)arg2);
 
-    return tolua_push_number(L, ret);
+    return tolua_push_number(L, (lua_Number)ret);
 }
 
 static int _cocos2d_UserDefault_getFloatForKey(lua_State *L)
@@ -179,7 +179,7 @@ static int _cocos2d_UserDefault_getDoubleForKey1(lua_State *L)
 
     double ret = (double)self->getDoubleForKey(arg1);
 
-    return tolua_push_number(L, ret);
+    return tolua_push_number(L, (lua_Number)ret);
 }
 
 static int _cocos2d_UserDefault_getDoubleForKey2(lua_State *L)
@@ -196,7 +196,7 @@ static int _cocos2d_UserDefault_getDoubleForKey2(lua_State *L)
 
     double ret = (double)self->getDoubleForKey(arg1, (double)arg2);
 
-    return tolua_push_number(L, ret);
+    return tolua_push_number(L, (lua_Number)ret);
 }
 
 static int _cocos2d_UserDefault_getDoubleForKey(lua_State *L)
@@ -452,7 +452,7 @@ static int _cocos2d_Ref_getReferenceCount(lua_State *L)
 
     unsigned int ret = (unsigned int)self->getReferenceCount();
 
-    return tolua_push_uint(L, ret);
+    return tolua_push_uint(L, (lua_Unsigned)ret);
 }
 
 static int luaopen_cocos2d_Ref(lua_State *L)
@@ -507,6 +507,211 @@ static int luaopen_cocos2d_Scheduler(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_ActionManager_addAction(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    cocos2d::ActionManager *self = nullptr;
+    cocos2d::Action *arg1 = nullptr;
+    cocos2d::Node *arg2 = nullptr;
+    bool arg3 = false;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.ActionManager");
+    xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.Action");
+    xluacv_check_ccobj(L, 3, (void **)&arg2, "cc.Node");
+    tolua_check_bool(L, 4, &arg3);
+
+    self->addAction(arg1, arg2, arg3);
+
+    return 0;
+}
+
+static int _cocos2d_ActionManager_removeAllActions(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ActionManager *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.ActionManager");
+
+    self->removeAllActions();
+
+    return 0;
+}
+
+static int _cocos2d_ActionManager_removeAllActionsFromTarget(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ActionManager *self = nullptr;
+    cocos2d::Node *arg1 = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.ActionManager");
+    xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.Node");
+
+    self->removeAllActionsFromTarget(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ActionManager_removeAction(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ActionManager *self = nullptr;
+    cocos2d::Action *arg1 = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.ActionManager");
+    xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.Action");
+
+    self->removeAction(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ActionManager_removeActionByTag(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ActionManager *self = nullptr;
+    lua_Integer arg1 = 0;
+    cocos2d::Node *arg2 = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.ActionManager");
+    tolua_check_int(L, 2, &arg1);
+    xluacv_check_ccobj(L, 3, (void **)&arg2, "cc.Node");
+
+    self->removeActionByTag((int)arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_ActionManager_removeAllActionsByTag(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ActionManager *self = nullptr;
+    lua_Integer arg1 = 0;
+    cocos2d::Node *arg2 = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.ActionManager");
+    tolua_check_int(L, 2, &arg1);
+    xluacv_check_ccobj(L, 3, (void **)&arg2, "cc.Node");
+
+    self->removeAllActionsByTag((int)arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_ActionManager_removeActionsByFlags(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ActionManager *self = nullptr;
+    lua_Unsigned arg1 = 0;
+    cocos2d::Node *arg2 = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.ActionManager");
+    tolua_check_uint(L, 2, &arg1);
+    xluacv_check_ccobj(L, 3, (void **)&arg2, "cc.Node");
+
+    self->removeActionsByFlags((unsigned int)arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_ActionManager_getActionByTag(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ActionManager *self = nullptr;
+    lua_Integer arg1 = 0;
+    cocos2d::Node *arg2 = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.ActionManager");
+    tolua_check_int(L, 2, &arg1);
+    xluacv_check_ccobj(L, 3, (void **)&arg2, "cc.Node");
+
+    cocos2d::Action *ret = (cocos2d::Action *)self->getActionByTag((int)arg1, arg2);
+
+    return xluacv_push_ccobj(L, ret, "cc.Action");
+}
+
+static int _cocos2d_ActionManager_getNumberOfRunningActionsInTarget(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ActionManager *self = nullptr;
+    cocos2d::Node *arg1 = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.ActionManager");
+    xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.Node");
+
+    ssize_t ret = (ssize_t)self->getNumberOfRunningActionsInTarget(arg1);
+
+    return tolua_push_int(L, (lua_Integer)ret);
+}
+
+static int _cocos2d_ActionManager_getNumberOfRunningActions(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ActionManager *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.ActionManager");
+
+    ssize_t ret = (ssize_t)self->getNumberOfRunningActions();
+
+    return tolua_push_int(L, (lua_Integer)ret);
+}
+
+static int _cocos2d_ActionManager_getNumberOfRunningActionsInTargetByTag(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ActionManager *self = nullptr;
+    cocos2d::Node *arg1 = nullptr;
+    lua_Integer arg2 = 0;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.ActionManager");
+    xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.Node");
+    tolua_check_int(L, 3, &arg2);
+
+    size_t ret = (size_t)self->getNumberOfRunningActionsInTargetByTag(arg1, (int)arg2);
+
+    return tolua_push_uint(L, (lua_Unsigned)ret);
+}
+
+static int _cocos2d_ActionManager_pauseTarget(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ActionManager *self = nullptr;
+    cocos2d::Node *arg1 = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.ActionManager");
+    xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.Node");
+
+    self->pauseTarget(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ActionManager_resumeTarget(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ActionManager *self = nullptr;
+    cocos2d::Node *arg1 = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.ActionManager");
+    xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.Node");
+
+    self->resumeTarget(arg1);
+
+    return 0;
+}
+
 static int _cocos2d_ActionManager_pauseAllRunningActions(lua_State *L)
 {
     lua_settop(L, 1);
@@ -535,11 +740,40 @@ static int _cocos2d_ActionManager_resumeTargets(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_ActionManager_update(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ActionManager *self = nullptr;
+    lua_Number arg1 = 0;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.ActionManager");
+    tolua_check_number(L, 2, &arg1);
+
+    self->update((float)arg1);
+
+    return 0;
+}
+
 static int luaopen_cocos2d_ActionManager(lua_State *L)
 {
     toluacls_class(L, "cc.ActionManager", "cc.Ref");
+    toluacls_setfunc(L, "addAction", _cocos2d_ActionManager_addAction);
+    toluacls_setfunc(L, "removeAllActions", _cocos2d_ActionManager_removeAllActions);
+    toluacls_setfunc(L, "removeAllActionsFromTarget", _cocos2d_ActionManager_removeAllActionsFromTarget);
+    toluacls_setfunc(L, "removeAction", _cocos2d_ActionManager_removeAction);
+    toluacls_setfunc(L, "removeActionByTag", _cocos2d_ActionManager_removeActionByTag);
+    toluacls_setfunc(L, "removeAllActionsByTag", _cocos2d_ActionManager_removeAllActionsByTag);
+    toluacls_setfunc(L, "removeActionsByFlags", _cocos2d_ActionManager_removeActionsByFlags);
+    toluacls_setfunc(L, "getActionByTag", _cocos2d_ActionManager_getActionByTag);
+    toluacls_setfunc(L, "getNumberOfRunningActionsInTarget", _cocos2d_ActionManager_getNumberOfRunningActionsInTarget);
+    toluacls_setfunc(L, "getNumberOfRunningActions", _cocos2d_ActionManager_getNumberOfRunningActions);
+    toluacls_setfunc(L, "getNumberOfRunningActionsInTargetByTag", _cocos2d_ActionManager_getNumberOfRunningActionsInTargetByTag);
+    toluacls_setfunc(L, "pauseTarget", _cocos2d_ActionManager_pauseTarget);
+    toluacls_setfunc(L, "resumeTarget", _cocos2d_ActionManager_resumeTarget);
     toluacls_setfunc(L, "pauseAllRunningActions", _cocos2d_ActionManager_pauseAllRunningActions);
     toluacls_setfunc(L, "resumeTargets", _cocos2d_ActionManager_resumeTargets);
+    toluacls_setfunc(L, "update", _cocos2d_ActionManager_update);
 
     toluacls_createclassproxy(L);
 
@@ -1020,7 +1254,7 @@ static int _cocos2d_Node_getAttachedNodeCount(lua_State *L)
 
     int ret = (int)cocos2d::Node::getAttachedNodeCount();
 
-    return tolua_push_int(L, ret);
+    return tolua_push_int(L, (lua_Integer)ret);
 }
 
 static int _cocos2d_Node_getDescription(lua_State *L)

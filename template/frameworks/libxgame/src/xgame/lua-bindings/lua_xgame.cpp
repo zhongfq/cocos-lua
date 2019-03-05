@@ -80,7 +80,7 @@ static int _xgame_runtime_getNumSamples(lua_State *L)
 
     unsigned int ret = (unsigned int)xgame::runtime::getNumSamples();
 
-    return tolua_push_uint(L, ret);
+    return tolua_push_uint(L, (lua_Unsigned)ret);
 }
 
 static int _xgame_runtime_canOpenURL(lua_State *L)
@@ -543,7 +543,7 @@ static int _xgame_preferences_getFloat(lua_State *L)
 
     float ret = (float)xgame::preferences::getFloat(arg1, (float)arg2);
 
-    return tolua_push_number(L, ret);
+    return tolua_push_number(L, (lua_Number)ret);
 }
 
 static int _xgame_preferences_setFloat(lua_State *L)
@@ -573,7 +573,7 @@ static int _xgame_preferences_getDouble(lua_State *L)
 
     double ret = (double)xgame::preferences::getDouble(arg1, (double)arg2);
 
-    return tolua_push_number(L, ret);
+    return tolua_push_number(L, (lua_Number)ret);
 }
 
 static int _xgame_preferences_setDouble(lua_State *L)
@@ -603,7 +603,7 @@ static int _xgame_preferences_getInteger(lua_State *L)
 
     int ret = (int)xgame::preferences::getInteger(arg1, (int)arg2);
 
-    return tolua_push_int(L, ret);
+    return tolua_push_int(L, (lua_Integer)ret);
 }
 
 static int _xgame_preferences_setInteger(lua_State *L)

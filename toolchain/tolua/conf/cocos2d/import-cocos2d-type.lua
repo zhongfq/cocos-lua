@@ -37,6 +37,7 @@ REG_TYPE {
         'cocos2d::Node *',
         'cocos2d::Sprite *',
         'cocos2d::Scene *',
+        'cocos2d::Action *',
     }, '|'),
     CONV = "xluacv_$ACTION_ccobj",
     LUACLS = make_luacls,

@@ -86,7 +86,6 @@ local function gen_one_func(cls, fi, write, funcidx)
                 ${FUNC_OPT_VALUE}(L, ${IDX}, &${ARG_N}, ${VALUE});
             ]])
         elseif ai.TYPE.LUACLS then
-            FUNC_CHECK_VALUE = ai.TYPE.FUNC_CHECK_VALUE
             local LUACLS = ai.TYPE.LUACLS
             ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
                 ${FUNC_CHECK_VALUE}(L, ${IDX}, (void **)&${ARG_N}, "${LUACLS}");
@@ -128,7 +127,11 @@ local function gen_one_func(cls, fi, write, funcidx)
             if fi.RET.UNPACK then
                 FUNC_PUSH_VALUE = fi.RET.TYPE.FUNC_UNPACK_VALUE
             end
-            PUSH_RET = format_snippet('${FUNC_PUSH_VALUE}(L, ret)')
+            local CAST = ""
+            if fi.RET.TYPE.DECL ~= fi.RET.TYPE.NAME then
+                CAST = string.format("(%s)", fi.RET.TYPE.DECL)
+            end
+            PUSH_RET = format_snippet('${FUNC_PUSH_VALUE}(L, ${CAST}ret)')
         end
     else
         PUSH_RET = "0"

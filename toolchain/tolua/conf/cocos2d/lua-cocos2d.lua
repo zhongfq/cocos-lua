@@ -42,6 +42,7 @@ M.CLASSES = {
     include("conf/cocos2d/cc/cc.Texture2D.lua"),
     include("conf/cocos2d/cc/cc.Image.lua"),
     include("conf/cocos2d/cc/cc.Node.lua"),
+    include("conf/cocos2d/cc/cc.Camera.lua"),
     include("conf/cocos2d/cc/cc.Sprite.lua"),
     include("conf/cocos2d/cc/cc.Scene.lua"),
 }

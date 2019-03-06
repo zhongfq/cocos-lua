@@ -38,15 +38,15 @@ cls.func('scheduleOnce', [[
     lua_Number delay = luaL_checknumber(L, 3);
     std::string key = luaL_checkstring(L, 4);
 
-    std::string field = makeNodeScheduleCallbackTag(key);
-    field = tolua_setcallback(L, 1, field.c_str(), 2);
-    self->scheduleOnce([field, self](float delta) {
+    std::string tag = makeNodeScheduleCallbackTag(key);
+    std::string func = tolua_setcallback(L, 1, tag.c_str(), 2);
+    self->scheduleOnce([self, func](float delta) {
         lua_State *L = xlua_cocosthread();
         int top = lua_gettop(L);
         lua_pushnumber(L, delta);
-        tolua_callback(L, self, field.c_str(), 1);
+        tolua_callback(L, self, func.c_str(), 1);
         if (tolua_getobj(L, self)) {
-            tolua_removecallback(L, -1, field.c_str(), TOLUA_REMOVE_CALLBACK_EQUAL);
+            tolua_removecallback(L, -1, func.c_str(), TOLUA_REMOVE_CALLBACK_EQUAL);
         }
         lua_settop(L, top);
     }, delay, key);
@@ -80,13 +80,13 @@ cls.func('schedule', [[
          luaL_error(L, "method 'cocos2d::Node::schedule' not support '%d' arguments", num_args);
     }
     
-    std::string field = makeNodeScheduleCallbackTag(key);
-    field = tolua_setcallback(L, 1, field.c_str(), 2);
-    self->schedule([field, self](float delta) {
+    std::string tag = makeNodeScheduleCallbackTag(key);
+    std::string func = tolua_setcallback(L, 1, tag.c_str(), 2);
+    self->schedule([self, func](float delta) {
         lua_State *L = xlua_cocosthread();
         int top = lua_gettop(L);
         lua_pushnumber(L, delta);
-        tolua_callback(L, self, field.c_str(), 1);
+        tolua_callback(L, self, func.c_str(), 1);
         lua_settop(L, top);
     }, interval, repeat, delay, key);
     
@@ -98,10 +98,10 @@ cls.func('unschedule', [[
     
     cocos2d::Node *self = (cocos2d::Node *)tolua_toobj(L, 1, "cc.Node");
     std::string key = luaL_checkstring(L, 2);
-    std::string field = makeNodeScheduleCallbackTag(key);
+    std::string tag = makeNodeScheduleCallbackTag(key);
     
     self->unschedule(key);
-    tolua_removecallback(L, 1, field.c_str(), TOLUA_REMOVE_CALLBACK_ENDWITH);
+    tolua_removecallback(L, 1, tag.c_str(), TOLUA_REMOVE_CALLBACK_ENDWITH);
     
     return 0;
 }]])
@@ -112,8 +112,8 @@ cls.func('unscheduleAllCallbacks', [[
     cocos2d::Node *self = (cocos2d::Node *)tolua_toobj(L, 1, "cc.Node");
     self->unscheduleAllCallbacks();
     
-    std::string field = makeNodeScheduleCallbackTag("");
-    tolua_removecallback(L, 1, field.c_str(), TOLUA_REMOVE_CALLBACK_WILDCARD);
+    std::string tag = makeNodeScheduleCallbackTag("");
+    tolua_removecallback(L, 1, tag.c_str(), TOLUA_REMOVE_CALLBACK_WILDCARD);
     
     return 0;
 }]])

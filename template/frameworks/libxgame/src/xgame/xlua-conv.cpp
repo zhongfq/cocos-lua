@@ -196,6 +196,26 @@ void xluacv_check_cctexparams(lua_State *L, int idx, cocos2d::Texture2D::TexPara
     value->wrapS = (GLuint)xlua_checkfieldinteger(L, idx, "wrapS");
 }
 
+int xluacv_push_ccviewport(lua_State *L, const cocos2d::experimental::Viewport &value)
+{
+    lua_createtable(L, 0, 4);
+    rawsetfieldnumber(L, "left", value._left);
+    rawsetfieldnumber(L, "bottom", value._bottom);
+    rawsetfieldnumber(L, "width", value._width);
+    rawsetfieldnumber(L, "height", value._height);
+
+    return 1;
+}
+
+void xluacv_check_ccviewport(lua_State *L, int idx, cocos2d::experimental::Viewport *value)
+{
+    luaL_checktype(L, idx, LUA_TTABLE);
+    value->_width = (float)xlua_checkfieldnumber(L, idx, "width");
+    value->_height = (float)xlua_checkfieldnumber(L, idx, "height");
+    value->_bottom = (float)xlua_checkfieldnumber(L, idx, "bottom");
+    value->_left = (float)xlua_checkfieldnumber(L, idx, "left");
+}
+
 int xluacv_push_uniform(lua_State *L, const cocos2d::Uniform *value)
 {
     if (value) {

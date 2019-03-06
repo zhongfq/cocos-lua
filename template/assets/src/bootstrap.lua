@@ -21,26 +21,41 @@ function main()
     print("# preferences 'version'", preferences.getString("conf.version.runtime", "defalut build"))
     print("#", node, node.referenceCount)
 
-    local sprite = Sprite.create("res/HelloWorld.png")
-    print(sprite)
-
-    sprite:setPosition(500, 400)
-    Director.getInstance().runningScene:addChild(sprite)
     Director.getInstance().runningScene:addChild(node)
 
-    local manager = ActionManager.new()
-    print("##", manager, node, node:getChildByName('cc'))
-
-    local scheduler = Scheduler.new()
-    node.scheduler:scheduleUpdate(scheduler, 0, false)
-    scheduler:schedule(function ( ... )
-        print("####", scheduler, node, ...)
-    end, scheduler, 1, false, "x")
-
-    timer.delay(3, function ( ... )
-        node.scheduler:unscheduleAll()
-        collectgarbage('collect')
+    local textureCache = Director.getInstance().textureCache
+    textureCache:addImageAsync('res/HelloWorld.png', function (...)
+        print("### textureCache addImageAsync 1", ...)
     end)
+    textureCache:addImageAsync('res/HelloWorld.png', function (...)
+        print("### textureCache addImageAsync 2", ...)
+    end)
+    textureCache:addImageAsync('res/HelloWorld1.png', function (...)
+        print("### textureCache addImageAsync 3", ...)
+    end)
+
+    printUserValue(textureCache)
+    textureCache:unbindImageAsync('res/HelloWorld.png')
+    printUserValue(textureCache)
+    textureCache:unbindAllImageAsync()
+    printUserValue(textureCache)
+
+    timer.delay(2, function ()
+        printUserValue(textureCache)
+    end)
+
+    -- local sprite = Sprite.create("res/HelloWorld.png")
+    -- print(sprite)
+
+    -- sprite:setPosition(500, 400)
+    -- Director.getInstance().runningScene:addChild(sprite)
+end
+
+function printUserValue(obj)
+    print("print obj user value:", obj)
+    for k, v in pairs(debug.getuservalue(obj)) do
+        print("", k, v)
+    end
 end
 
 local r = setmetatable({}, {__gc = function ()

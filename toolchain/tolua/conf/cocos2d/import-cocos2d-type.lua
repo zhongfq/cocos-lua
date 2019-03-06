@@ -48,6 +48,12 @@ REG_TYPE {
 }
 
 REG_TYPE {
+    TYPENAME = 'cocos2d::experimental::Viewport',
+    CONV_FUNC = "xluacv_$ACTION_ccviewport",
+    INIT_VALUE = false,
+}
+
+REG_TYPE {
     TYPENAME = 'cocos2d::Uniform *',
     CONV_FUNC = "xluacv_$ACTION_uniform"
 }
@@ -62,6 +68,7 @@ REG_TYPE {
         'cocos2d::Director::Projection',
         'cocos2d::Texture2D::PixelFormat',
         'cocos2d::Image::Format',
+        'cocos2d::Camera::Type',
     }, '|'),
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = "tolua_$ACTION_uint",
@@ -79,6 +86,7 @@ REG_TYPE {
         'cocos2d::Texture2D *',
         'cocos2d::Image *',
         'cocos2d::Node *',
+        'cocos2d::Camera *',
         'cocos2d::Sprite *',
         'cocos2d::Scene *',
         'cocos2d::Action *',

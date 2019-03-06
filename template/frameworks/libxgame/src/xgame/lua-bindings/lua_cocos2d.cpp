@@ -842,15 +842,15 @@ static int _cocos2d_Scheduler_schedule(lua_State *L)
         luaL_error(L, "method 'cocos2d::Node::schedule' not support '%d' arguments", num_args);
     }
 
-    std::string field = makeScheduleCallbackTag(target, key);
-    tolua_removecallback(L, 1, field.c_str(), TOLUA_REMOVE_CALLBACK_ENDWITH);
-    field = tolua_setcallback(L, 1, field.c_str(), 2);
+    std::string tag = makeScheduleCallbackTag(target, key);
+    tolua_removecallback(L, 1, tag.c_str(), TOLUA_REMOVE_CALLBACK_ENDWITH);
+    std::string func = tolua_setcallback(L, 1, tag.c_str(), 2);
     self->unschedule(key, target);
-    self->schedule([field, self](float delta) {
+    self->schedule([self, func](float delta) {
         lua_State *L = xlua_cocosthread();
         int top = lua_gettop(L);
         lua_pushnumber(L, delta);
-        tolua_callback(L, self, field.c_str(), 1);
+        tolua_callback(L, self, func.c_str(), 1);
         lua_settop(L, top);
     }, target, interval, repeat, delay, paused, key);
 
@@ -869,10 +869,10 @@ static int _cocos2d_Scheduler_unschedule(lua_State *L)
     tolua_check_std_string(L, 2, &key);
     target = xlua_checkobj(L, 3);
 
-    std::string field = makeScheduleCallbackTag(target, key);
+    std::string tag = makeScheduleCallbackTag(target, key);
 
     self->unschedule(key, target);
-    tolua_removecallback(L, 1, field.c_str(), TOLUA_REMOVE_CALLBACK_ENDWITH);
+    tolua_removecallback(L, 1, tag.c_str(), TOLUA_REMOVE_CALLBACK_ENDWITH);
 
     return 0;
 }
@@ -887,10 +887,10 @@ static int _cocos2d_Scheduler_unscheduleAllForTarget(lua_State *L)
     self = (cocos2d::Scheduler *)tolua_toobj(L, 1, "cc.Scheduler");
     target = xlua_checkobj(L, 2);
 
-    std::string field = makeScheduleCallbackTag(target, "");
+    std::string tag = makeScheduleCallbackTag(target, "");
 
     self->unscheduleAllForTarget(target);
-    tolua_removecallback(L, 1, field.c_str(), TOLUA_REMOVE_CALLBACK_WILDCARD);
+    tolua_removecallback(L, 1, tag.c_str(), TOLUA_REMOVE_CALLBACK_WILDCARD);
 
     return 0;
 }
@@ -900,9 +900,9 @@ static int _cocos2d_Scheduler_unscheduleAll(lua_State *L)
     lua_settop(L, 1);
 
     cocos2d::Scheduler *self = (cocos2d::Scheduler *)tolua_toobj(L, 1, "cc.Scheduler");
-    std::string field = makeScheduleCallbackTag(nullptr, "");
+    std::string tag = makeScheduleCallbackTag(nullptr, "");
     self->unscheduleAll();
-    tolua_removecallback(L, 1, field.c_str(), TOLUA_REMOVE_CALLBACK_WILDCARD);
+    tolua_removecallback(L, 1, tag.c_str(), TOLUA_REMOVE_CALLBACK_WILDCARD);
 
     return 0;
 }
@@ -1952,9 +1952,283 @@ static int luaopen_cocos2d_GLProgram(lua_State *L)
     return 1;
 }
 
+static const std::string makeTextureCacheCallbackTag(const std::string &key)
+{
+    return "addImageAsync." + key;
+}
+
+static int _cocos2d_TextureCache_addImage1(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::TextureCache *self = nullptr;
+    std::string arg1;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.TextureCache");
+    tolua_check_std_string(L, 2, &arg1);
+
+    cocos2d::Texture2D *ret = (cocos2d::Texture2D *)self->addImage(arg1);
+
+    return xluacv_push_ccobj(L, ret, "cc.Texture2D");
+}
+
+static int _cocos2d_TextureCache_addImage2(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::TextureCache *self = nullptr;
+    cocos2d::Image *arg1 = nullptr;
+    std::string arg2;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.TextureCache");
+    xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.Image");
+    tolua_check_std_string(L, 3, &arg2);
+
+    cocos2d::Texture2D *ret = (cocos2d::Texture2D *)self->addImage(arg1, arg2);
+
+    return xluacv_push_ccobj(L, ret, "cc.Texture2D");
+}
+
+static int _cocos2d_TextureCache_addImage(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if (tolua_is_std_string(L, 2)) {
+            return _cocos2d_TextureCache_addImage1(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if (xluacv_is_ccobj(L, 2, "cc.Image") && tolua_is_std_string(L, 3)) {
+            return _cocos2d_TextureCache_addImage2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::TextureCache::addImage' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_TextureCache_addImageAsync(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::TextureCache *self = nullptr;
+    std::string filePath;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.TextureCache");
+    tolua_check_std_string(L, 2, &filePath);
+
+    std::string tag = makeTextureCacheCallbackTag(filePath);
+    std::string func = tolua_setcallback(L, 1, tag.c_str(), 3);
+    self->addImageAsync(filePath, [self, func] (cocos2d::Texture2D *texture) {
+        lua_State *L = xlua_cocosthread();
+        int top = lua_gettop(L);
+        xluacv_push_ccobj(L, texture, "cc.Texture2D");
+        tolua_callback(L, self, func.c_str(), 1);
+        if (tolua_getobj(L, self)) {
+            tolua_removecallback(L, -1, func.c_str(), TOLUA_REMOVE_CALLBACK_EQUAL);
+        }
+        lua_settop(L, top);
+    });
+
+    return 0;
+}
+
+static int _cocos2d_TextureCache_unbindImageAsync(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::TextureCache *self = nullptr;
+    std::string filePath;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.TextureCache");
+    tolua_check_std_string(L, 2, &filePath);
+
+    std::string tag = makeTextureCacheCallbackTag(filePath);
+    self->unbindImageAsync(filePath);
+    tolua_removecallback(L, 1, tag.c_str(), TOLUA_REMOVE_CALLBACK_ENDWITH);
+
+    return 0;
+}
+
+static int _cocos2d_TextureCache_unbindAllImageAsync(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::TextureCache *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.TextureCache");
+    std::string tag = makeTextureCacheCallbackTag("");
+
+    self->unbindAllImageAsync();
+    tolua_removecallback(L, 1, tag.c_str(), TOLUA_REMOVE_CALLBACK_WILDCARD);
+
+    return 0;
+}
+
+static int _cocos2d_TextureCache_getTextureForKey(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::TextureCache *self = nullptr;
+    std::string arg1;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.TextureCache");
+    tolua_check_std_string(L, 2, &arg1);
+
+    cocos2d::Texture2D *ret = (cocos2d::Texture2D *)self->getTextureForKey(arg1);
+
+    return xluacv_push_ccobj(L, ret, "cc.Texture2D");
+}
+
+static int _cocos2d_TextureCache_reloadTexture(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::TextureCache *self = nullptr;
+    std::string arg1;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.TextureCache");
+    tolua_check_std_string(L, 2, &arg1);
+
+    bool ret = (bool)self->reloadTexture(arg1);
+
+    return tolua_push_bool(L, ret);
+}
+
+static int _cocos2d_TextureCache_removeAllTextures(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::TextureCache *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.TextureCache");
+
+    self->removeAllTextures();
+
+    return 0;
+}
+
+static int _cocos2d_TextureCache_removeUnusedTextures(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::TextureCache *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.TextureCache");
+
+    self->removeUnusedTextures();
+
+    return 0;
+}
+
+static int _cocos2d_TextureCache_removeTexture(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::TextureCache *self = nullptr;
+    cocos2d::Texture2D *arg1 = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.TextureCache");
+    xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.Texture2D");
+
+    self->removeTexture(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_TextureCache_removeTextureForKey(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::TextureCache *self = nullptr;
+    std::string arg1;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.TextureCache");
+    tolua_check_std_string(L, 2, &arg1);
+
+    self->removeTextureForKey(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_TextureCache_getTextureFilePath(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::TextureCache *self = nullptr;
+    cocos2d::Texture2D *arg1 = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.TextureCache");
+    xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.Texture2D");
+
+    std::string ret = (std::string)self->getTextureFilePath(arg1);
+
+    return tolua_push_std_string(L, ret);
+}
+
+static int _cocos2d_TextureCache_renameTextureWithKey(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::TextureCache *self = nullptr;
+    std::string arg1;
+    std::string arg2;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.TextureCache");
+    tolua_check_std_string(L, 2, &arg1);
+    tolua_check_std_string(L, 3, &arg2);
+
+    self->renameTextureWithKey(arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_TextureCache_getDescription(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::TextureCache *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.TextureCache");
+
+    std::string ret = (std::string)self->getDescription();
+
+    return tolua_push_std_string(L, ret);
+}
+
+static int _cocos2d_TextureCache_getCachedTextureInfo(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::TextureCache *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.TextureCache");
+
+    std::string ret = (std::string)self->getCachedTextureInfo();
+
+    return tolua_push_std_string(L, ret);
+}
+
 static int luaopen_cocos2d_TextureCache(lua_State *L)
 {
     toluacls_class(L, "cc.TextureCache", "cc.Ref");
+    toluacls_setfunc(L, "addImage", _cocos2d_TextureCache_addImage);
+    toluacls_setfunc(L, "addImageAsync", _cocos2d_TextureCache_addImageAsync);
+    toluacls_setfunc(L, "unbindImageAsync", _cocos2d_TextureCache_unbindImageAsync);
+    toluacls_setfunc(L, "unbindAllImageAsync", _cocos2d_TextureCache_unbindAllImageAsync);
+    toluacls_setfunc(L, "getTextureForKey", _cocos2d_TextureCache_getTextureForKey);
+    toluacls_setfunc(L, "reloadTexture", _cocos2d_TextureCache_reloadTexture);
+    toluacls_setfunc(L, "removeAllTextures", _cocos2d_TextureCache_removeAllTextures);
+    toluacls_setfunc(L, "removeUnusedTextures", _cocos2d_TextureCache_removeUnusedTextures);
+    toluacls_setfunc(L, "removeTexture", _cocos2d_TextureCache_removeTexture);
+    toluacls_setfunc(L, "removeTextureForKey", _cocos2d_TextureCache_removeTextureForKey);
+    toluacls_setfunc(L, "getTextureFilePath", _cocos2d_TextureCache_getTextureFilePath);
+    toluacls_setfunc(L, "renameTextureWithKey", _cocos2d_TextureCache_renameTextureWithKey);
+    toluacls_property(L, "description", _cocos2d_TextureCache_getDescription, nullptr);
+    toluacls_property(L, "cachedTextureInfo", _cocos2d_TextureCache_getCachedTextureInfo, nullptr);
 
     toluacls_createclassproxy(L);
 
@@ -3145,15 +3419,15 @@ static int _cocos2d_Node_scheduleOnce(lua_State *L)
     lua_Number delay = luaL_checknumber(L, 3);
     std::string key = luaL_checkstring(L, 4);
 
-    std::string field = makeNodeScheduleCallbackTag(key);
-    field = tolua_setcallback(L, 1, field.c_str(), 2);
-    self->scheduleOnce([field, self](float delta) {
+    std::string tag = makeNodeScheduleCallbackTag(key);
+    std::string func = tolua_setcallback(L, 1, tag.c_str(), 2);
+    self->scheduleOnce([self, func](float delta) {
         lua_State *L = xlua_cocosthread();
         int top = lua_gettop(L);
         lua_pushnumber(L, delta);
-        tolua_callback(L, self, field.c_str(), 1);
+        tolua_callback(L, self, func.c_str(), 1);
         if (tolua_getobj(L, self)) {
-            tolua_removecallback(L, -1, field.c_str(), TOLUA_REMOVE_CALLBACK_EQUAL);
+            tolua_removecallback(L, -1, func.c_str(), TOLUA_REMOVE_CALLBACK_EQUAL);
         }
         lua_settop(L, top);
     }, delay, key);
@@ -3188,13 +3462,13 @@ static int _cocos2d_Node_schedule(lua_State *L)
          luaL_error(L, "method 'cocos2d::Node::schedule' not support '%d' arguments", num_args);
     }
 
-    std::string field = makeNodeScheduleCallbackTag(key);
-    field = tolua_setcallback(L, 1, field.c_str(), 2);
-    self->schedule([field, self](float delta) {
+    std::string tag = makeNodeScheduleCallbackTag(key);
+    std::string func = tolua_setcallback(L, 1, tag.c_str(), 2);
+    self->schedule([self, func](float delta) {
         lua_State *L = xlua_cocosthread();
         int top = lua_gettop(L);
         lua_pushnumber(L, delta);
-        tolua_callback(L, self, field.c_str(), 1);
+        tolua_callback(L, self, func.c_str(), 1);
         lua_settop(L, top);
     }, interval, repeat, delay, key);
 
@@ -3207,10 +3481,10 @@ static int _cocos2d_Node_unschedule(lua_State *L)
 
     cocos2d::Node *self = (cocos2d::Node *)tolua_toobj(L, 1, "cc.Node");
     std::string key = luaL_checkstring(L, 2);
-    std::string field = makeNodeScheduleCallbackTag(key);
+    std::string tag = makeNodeScheduleCallbackTag(key);
 
     self->unschedule(key);
-    tolua_removecallback(L, 1, field.c_str(), TOLUA_REMOVE_CALLBACK_ENDWITH);
+    tolua_removecallback(L, 1, tag.c_str(), TOLUA_REMOVE_CALLBACK_ENDWITH);
 
     return 0;
 }
@@ -3222,8 +3496,8 @@ static int _cocos2d_Node_unscheduleAllCallbacks(lua_State *L)
     cocos2d::Node *self = (cocos2d::Node *)tolua_toobj(L, 1, "cc.Node");
     self->unscheduleAllCallbacks();
 
-    std::string field = makeNodeScheduleCallbackTag("");
-    tolua_removecallback(L, 1, field.c_str(), TOLUA_REMOVE_CALLBACK_WILDCARD);
+    std::string tag = makeNodeScheduleCallbackTag("");
+    tolua_removecallback(L, 1, tag.c_str(), TOLUA_REMOVE_CALLBACK_WILDCARD);
 
     return 0;
 }
@@ -3370,6 +3644,98 @@ static int luaopen_cocos2d_Node(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_Camera_createPerspective(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    lua_Number arg1 = 0;
+    lua_Number arg2 = 0;
+    lua_Number arg3 = 0;
+    lua_Number arg4 = 0;
+
+    tolua_check_number(L, 1, &arg1);
+    tolua_check_number(L, 2, &arg2);
+    tolua_check_number(L, 3, &arg3);
+    tolua_check_number(L, 4, &arg4);
+
+    cocos2d::Camera *ret = (cocos2d::Camera *)cocos2d::Camera::createPerspective((float)arg1, (float)arg2, (float)arg3, (float)arg4);
+
+    return xluacv_push_ccobj(L, ret, "cc.Camera");
+}
+
+static int _cocos2d_Camera_createOrthographic(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    lua_Number arg1 = 0;
+    lua_Number arg2 = 0;
+    lua_Number arg3 = 0;
+    lua_Number arg4 = 0;
+
+    tolua_check_number(L, 1, &arg1);
+    tolua_check_number(L, 2, &arg2);
+    tolua_check_number(L, 3, &arg3);
+    tolua_check_number(L, 4, &arg4);
+
+    cocos2d::Camera *ret = (cocos2d::Camera *)cocos2d::Camera::createOrthographic((float)arg1, (float)arg2, (float)arg3, (float)arg4);
+
+    return xluacv_push_ccobj(L, ret, "cc.Camera");
+}
+
+static int _cocos2d_Camera_create(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    cocos2d::Camera *ret = (cocos2d::Camera *)cocos2d::Camera::create();
+
+    return xluacv_push_ccobj(L, ret, "cc.Camera");
+}
+
+static int _cocos2d_Camera_getVisitingCamera(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    cocos2d::Camera *ret = (cocos2d::Camera *)cocos2d::Camera::getVisitingCamera();
+
+    return xluacv_push_ccobj(L, ret, "cc.Camera");
+}
+
+static int _cocos2d_Camera_getDefaultViewport(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    const cocos2d::experimental::Viewport ret = (const cocos2d::experimental::Viewport)cocos2d::Camera::getDefaultViewport();
+
+    return xluacv_push_ccviewport(L, ret);
+}
+
+static int _cocos2d_Camera_setDefaultViewport(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::experimental::Viewport arg1;
+
+    xluacv_check_ccviewport(L, 1, &arg1);
+
+    cocos2d::Camera::setDefaultViewport(arg1);
+
+    return 0;
+}
+
+static int luaopen_cocos2d_Camera(lua_State *L)
+{
+    toluacls_class(L, "cc.Camera", "cc.Node");
+    toluacls_setfunc(L, "createPerspective", _cocos2d_Camera_createPerspective);
+    toluacls_setfunc(L, "createOrthographic", _cocos2d_Camera_createOrthographic);
+    toluacls_setfunc(L, "create", _cocos2d_Camera_create);
+    toluacls_setfunc(L, "getVisitingCamera", _cocos2d_Camera_getVisitingCamera);
+    toluacls_property(L, "defaultViewport", _cocos2d_Camera_getDefaultViewport, _cocos2d_Camera_setDefaultViewport);
+
+    toluacls_createclassproxy(L);
+
+    return 1;
+}
+
 static int _cocos2d_Sprite_create(lua_State *L)
 {
     lua_settop(L, 1);
@@ -3393,9 +3759,33 @@ static int luaopen_cocos2d_Sprite(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_Scene_create(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    cocos2d::Scene *ret = (cocos2d::Scene *)cocos2d::Scene::create();
+
+    return xluacv_push_ccobj(L, ret, "cc.Scene");
+}
+
+static int _cocos2d_Scene_createWithSize(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Size arg1;
+
+    xluacv_pack_ccsize(L, 1, &arg1);
+
+    cocos2d::Scene *ret = (cocos2d::Scene *)cocos2d::Scene::createWithSize(arg1);
+
+    return xluacv_push_ccobj(L, ret, "cc.Scene");
+}
+
 static int luaopen_cocos2d_Scene(lua_State *L)
 {
     toluacls_class(L, "cc.Scene", "cc.Node");
+    toluacls_setfunc(L, "create", _cocos2d_Scene_create);
+    toluacls_setfunc(L, "createWithSize", _cocos2d_Scene_createWithSize);
 
     toluacls_createclassproxy(L);
 
@@ -3417,6 +3807,7 @@ int luaopen_cocos2d(lua_State *L)
     xlua_require(L, "cc.Image.Format", luaopen_cocos2d_Image_Format);
     xlua_require(L, "cc.Image", luaopen_cocos2d_Image);
     xlua_require(L, "cc.Node", luaopen_cocos2d_Node);
+    xlua_require(L, "cc.Camera", luaopen_cocos2d_Camera);
     xlua_require(L, "cc.Sprite", luaopen_cocos2d_Sprite);
     xlua_require(L, "cc.Scene", luaopen_cocos2d_Scene);
     return 0;

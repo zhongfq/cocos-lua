@@ -19,24 +19,24 @@ void xluacv_to_ccobj(lua_State *L, int idx, void **value, const char *cls);
 void xluacv_check_ccobj(lua_State *L, int idx, void **value, const char *cls);
 bool xluacv_is_ccobj(lua_State *L, int idx, const char *cls);
 
-// Vec2
 int xluacv_push_ccvec2(lua_State *L, const cocos2d::Vec2 &value);
 void xluacv_check_ccvec2(lua_State *L, int idx, cocos2d::Vec2 *value);
 void xluacv_pack_ccvec2(lua_State *L, int idx, cocos2d::Vec2 *value);
 int xluacv_unpack_ccvec2(lua_State *L, const cocos2d::Vec2 &value);
 
-// Size
 int xluacv_push_ccsize(lua_State *L, const cocos2d::Size &value);
 void xluacv_check_ccsize(lua_State *L, int idx, cocos2d::Size *value);
 void xluacv_pack_ccsize(lua_State *L, int idx, cocos2d::Size *value);
 int xluacv_unpack_ccsize(lua_State *L, const cocos2d::Size &value);
 
-// Mat4
 int xluacv_push_ccmat4(lua_State *L, const cocos2d::Mat4 &value);
 void xluacv_check_ccmat4(lua_State *L, int idx, cocos2d::Mat4 *value);
 
 int xluacv_push_cctexparams(lua_State *L, const cocos2d::Texture2D::TexParams &value);
 void xluacv_check_cctexparams(lua_State *L, int idx, cocos2d::Texture2D::TexParams *value);
+
+int xluacv_push_ccviewport(lua_State *L, const cocos2d::experimental::Viewport &value);
+void xluacv_check_ccviewport(lua_State *L, int idx, cocos2d::experimental::Viewport *value);
 
 int xluacv_push_uniform(lua_State *L, const cocos2d::Uniform *value);
 int xluacv_push_vertexattrib(lua_State *L, const cocos2d::VertexAttrib *value);

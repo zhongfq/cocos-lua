@@ -16,15 +16,15 @@ end
 
 local function to_real_typename(typename)
     if typeinfo_map[typename] then
-        return typename
+        return typename, true
     end
 
     local noconst = string.gsub(typename, 'const *', '')
     if typeinfo_map[noconst] then
-        return noconst
+        return noconst, true
     end
     
-    return typename
+    return typename, false
 end
 
 function get_typeinfo(typename, cls)
@@ -38,28 +38,42 @@ function get_typeinfo(typename, cls)
         typename = string.gsub(typename, '<.*>', '')
     end
 
+    typename = to_real_typename(typename)
+    typeinfo = typeinfo_map[typename]
+
+    if typeinfo then
+        typeinfo = setmetatable({SUBTYPE = subtypeinfo}, {__index = typeinfo})
+        return typeinfo, typename, subtypename
+    end
+
     if cls and cls.CPPCLS then
-        local ns = string.gsub(cls.CPPCLS, '[^:]+$', '')
-        local typename = string.gsub(typename, '[%w:]+ *%**$', function (s)
-            return ns .. s
-        end)
-        typename = to_real_typename(typename)
-        local typeinfo = typeinfo_map[typename]
+        local function try_namespace(ns, typename)
+            local tn = string.gsub(typename, '[%w:]+ *%**$', function (s)
+                return ns .. s
+            end)
+            tn = to_real_typename(tn)
+            return typeinfo_map[tn], tn
+        end
+
+        local ti, tn = try_namespace(string.gsub(cls.CPPCLS, '[^:]+$', ''), typename)
+        if not ti then
+            ti, tn = try_namespace(cls.CPPCLS .. '::', typename)
+        end
+
+        if ti then
+            typeinfo = ti
+            typename = tn
+        end
+
         if typeinfo then
             typeinfo = setmetatable({SUBTYPE = subtypeinfo}, {__index = typeinfo})
             return typeinfo, typename, subtypename
         end
     end
 
-    typename = to_real_typename(typename)
-    typeinfo = typeinfo_map[typename]
-
     if not typeinfo then
         error(string.format("type info not found: %s", typename))
     end
-
-    typeinfo = setmetatable({SUBTYPE = subtypeinfo}, {__index = typeinfo})
-    return typeinfo, typename, subtypename
 end
 
 local function to_decl_type(cls, typename, remove_const)

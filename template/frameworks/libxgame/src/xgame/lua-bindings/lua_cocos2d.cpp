@@ -742,8 +742,8 @@ static int luaopen_cocos2d_Director(lua_State *L)
     toluacls_property(L, "runningScene", _cocos2d_Director_getRunningScene, nullptr);
     toluacls_property(L, "animationInterval", _cocos2d_Director_getAnimationInterval, _cocos2d_Director_setAnimationInterval);
     toluacls_property(L, "displayStats", _cocos2d_Director_isDisplayStats, _cocos2d_Director_setDisplayStats);
-    toluacls_property(L, "secondsPerFrame ", _cocos2d_Director_getSecondsPerFrame, nullptr);
-    toluacls_property(L, "openGLView ", _cocos2d_Director_getOpenGLView, _cocos2d_Director_setOpenGLView);
+    toluacls_property(L, "secondsPerFrame", _cocos2d_Director_getSecondsPerFrame, nullptr);
+    toluacls_property(L, "openGLView", _cocos2d_Director_getOpenGLView, _cocos2d_Director_setOpenGLView);
     toluacls_property(L, "textureCache", _cocos2d_Director_getTextureCache, nullptr);
     toluacls_property(L, "nextDeltaTimeZero", _cocos2d_Director_isNextDeltaTimeZero, _cocos2d_Director_setNextDeltaTimeZero);
     toluacls_property(L, "paused", _cocos2d_Director_isPaused, nullptr);
@@ -1359,9 +1359,1412 @@ static int luaopen_cocos2d_GLView(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_GLProgram_createWithByteArrays1(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    const char *arg1 = nullptr;
+    const char *arg2 = nullptr;
+
+    tolua_check_string(L, 1, &arg1);
+    tolua_check_string(L, 2, &arg2);
+
+    cocos2d::GLProgram *ret = (cocos2d::GLProgram *)cocos2d::GLProgram::createWithByteArrays((const GLchar *)arg1, (const GLchar *)arg2);
+
+    return xluacv_push_ccobj(L, ret, "cc.GLProgram");
+}
+
+static int _cocos2d_GLProgram_createWithByteArrays2(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    const char *arg1 = nullptr;
+    const char *arg2 = nullptr;
+    std::string arg3;
+
+    tolua_check_string(L, 1, &arg1);
+    tolua_check_string(L, 2, &arg2);
+    tolua_check_std_string(L, 3, &arg3);
+
+    cocos2d::GLProgram *ret = (cocos2d::GLProgram *)cocos2d::GLProgram::createWithByteArrays((const GLchar *)arg1, (const GLchar *)arg2, arg3);
+
+    return xluacv_push_ccobj(L, ret, "cc.GLProgram");
+}
+
+static int _cocos2d_GLProgram_createWithByteArrays3(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    const char *arg1 = nullptr;
+    const char *arg2 = nullptr;
+    std::string arg3;
+    std::string arg4;
+
+    tolua_check_string(L, 1, &arg1);
+    tolua_check_string(L, 2, &arg2);
+    tolua_check_std_string(L, 3, &arg3);
+    tolua_check_std_string(L, 4, &arg4);
+
+    cocos2d::GLProgram *ret = (cocos2d::GLProgram *)cocos2d::GLProgram::createWithByteArrays((const GLchar *)arg1, (const GLchar *)arg2, arg3, arg4);
+
+    return xluacv_push_ccobj(L, ret, "cc.GLProgram");
+}
+
+static int _cocos2d_GLProgram_createWithByteArrays(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 2) {
+        // if (tolua_is_string(L, 1) && tolua_is_string(L, 2)) {
+            return _cocos2d_GLProgram_createWithByteArrays1(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if (tolua_is_string(L, 1) && tolua_is_string(L, 2) && tolua_is_std_string(L, 3)) {
+            return _cocos2d_GLProgram_createWithByteArrays2(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if (tolua_is_string(L, 1) && tolua_is_string(L, 2) && tolua_is_std_string(L, 3) && tolua_is_std_string(L, 4)) {
+            return _cocos2d_GLProgram_createWithByteArrays3(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::GLProgram::createWithByteArrays' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_GLProgram_createWithFilenames1(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    std::string arg1;
+    std::string arg2;
+
+    tolua_check_std_string(L, 1, &arg1);
+    tolua_check_std_string(L, 2, &arg2);
+
+    cocos2d::GLProgram *ret = (cocos2d::GLProgram *)cocos2d::GLProgram::createWithFilenames(arg1, arg2);
+
+    return xluacv_push_ccobj(L, ret, "cc.GLProgram");
+}
+
+static int _cocos2d_GLProgram_createWithFilenames2(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    std::string arg1;
+    std::string arg2;
+    std::string arg3;
+
+    tolua_check_std_string(L, 1, &arg1);
+    tolua_check_std_string(L, 2, &arg2);
+    tolua_check_std_string(L, 3, &arg3);
+
+    cocos2d::GLProgram *ret = (cocos2d::GLProgram *)cocos2d::GLProgram::createWithFilenames(arg1, arg2, arg3);
+
+    return xluacv_push_ccobj(L, ret, "cc.GLProgram");
+}
+
+static int _cocos2d_GLProgram_createWithFilenames3(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    std::string arg1;
+    std::string arg2;
+    std::string arg3;
+    std::string arg4;
+
+    tolua_check_std_string(L, 1, &arg1);
+    tolua_check_std_string(L, 2, &arg2);
+    tolua_check_std_string(L, 3, &arg3);
+    tolua_check_std_string(L, 4, &arg4);
+
+    cocos2d::GLProgram *ret = (cocos2d::GLProgram *)cocos2d::GLProgram::createWithFilenames(arg1, arg2, arg3, arg4);
+
+    return xluacv_push_ccobj(L, ret, "cc.GLProgram");
+}
+
+static int _cocos2d_GLProgram_createWithFilenames(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 2) {
+        // if (tolua_is_std_string(L, 1) && tolua_is_std_string(L, 2)) {
+            return _cocos2d_GLProgram_createWithFilenames1(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if (tolua_is_std_string(L, 1) && tolua_is_std_string(L, 2) && tolua_is_std_string(L, 3)) {
+            return _cocos2d_GLProgram_createWithFilenames2(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if (tolua_is_std_string(L, 1) && tolua_is_std_string(L, 2) && tolua_is_std_string(L, 3) && tolua_is_std_string(L, 4)) {
+            return _cocos2d_GLProgram_createWithFilenames3(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::GLProgram::createWithFilenames' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_GLProgram_getUniform(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::GLProgram *self = nullptr;
+    std::string arg1;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
+    tolua_check_std_string(L, 2, &arg1);
+
+    cocos2d::Uniform *ret = (cocos2d::Uniform *)self->getUniform(arg1);
+
+    return xluacv_push_uniform(L, ret);
+}
+
+static int _cocos2d_GLProgram_getVertexAttrib(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::GLProgram *self = nullptr;
+    std::string arg1;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
+    tolua_check_std_string(L, 2, &arg1);
+
+    cocos2d::VertexAttrib *ret = (cocos2d::VertexAttrib *)self->getVertexAttrib(arg1);
+
+    return xluacv_push_vertexattrib(L, ret);
+}
+
+static int _cocos2d_GLProgram_bindAttribLocation(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::GLProgram *self = nullptr;
+    std::string arg1;
+    lua_Unsigned arg2 = 0;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
+    tolua_check_std_string(L, 2, &arg1);
+    tolua_check_uint(L, 3, &arg2);
+
+    self->bindAttribLocation(arg1, (GLuint)arg2);
+
+    return 0;
+}
+
+static int _cocos2d_GLProgram_getAttribLocation(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::GLProgram *self = nullptr;
+    std::string arg1;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
+    tolua_check_std_string(L, 2, &arg1);
+
+    GLint ret = (GLint)self->getAttribLocation(arg1);
+
+    return tolua_push_int(L, (lua_Integer)ret);
+}
+
+static int _cocos2d_GLProgram_getUniformLocation(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::GLProgram *self = nullptr;
+    std::string arg1;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
+    tolua_check_std_string(L, 2, &arg1);
+
+    GLint ret = (GLint)self->getUniformLocation(arg1);
+
+    return tolua_push_int(L, (lua_Integer)ret);
+}
+
+static int _cocos2d_GLProgram_link(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::GLProgram *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
+
+    bool ret = (bool)self->link();
+
+    return tolua_push_bool(L, ret);
+}
+
+static int _cocos2d_GLProgram_use(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::GLProgram *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
+
+    self->use();
+
+    return 0;
+}
+
+static int _cocos2d_GLProgram_updateUniforms(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::GLProgram *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
+
+    self->updateUniforms();
+
+    return 0;
+}
+
+static int _cocos2d_GLProgram_getUniformLocationForName(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::GLProgram *self = nullptr;
+    const char *arg1 = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
+    tolua_check_string(L, 2, &arg1);
+
+    GLint ret = (GLint)self->getUniformLocationForName(arg1);
+
+    return tolua_push_int(L, (lua_Integer)ret);
+}
+
+static int _cocos2d_GLProgram_setUniformLocationWith1i(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::GLProgram *self = nullptr;
+    lua_Integer arg1 = 0;
+    lua_Integer arg2 = 0;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
+    tolua_check_int(L, 2, &arg1);
+    tolua_check_int(L, 3, &arg2);
+
+    self->setUniformLocationWith1i((GLint)arg1, (GLint)arg2);
+
+    return 0;
+}
+
+static int _cocos2d_GLProgram_setUniformLocationWith2i(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    cocos2d::GLProgram *self = nullptr;
+    lua_Integer arg1 = 0;
+    lua_Integer arg2 = 0;
+    lua_Integer arg3 = 0;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
+    tolua_check_int(L, 2, &arg1);
+    tolua_check_int(L, 3, &arg2);
+    tolua_check_int(L, 4, &arg3);
+
+    self->setUniformLocationWith2i((GLint)arg1, (GLint)arg2, (GLint)arg3);
+
+    return 0;
+}
+
+static int _cocos2d_GLProgram_setUniformLocationWith3i(lua_State *L)
+{
+    lua_settop(L, 5);
+
+    cocos2d::GLProgram *self = nullptr;
+    lua_Integer arg1 = 0;
+    lua_Integer arg2 = 0;
+    lua_Integer arg3 = 0;
+    lua_Integer arg4 = 0;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
+    tolua_check_int(L, 2, &arg1);
+    tolua_check_int(L, 3, &arg2);
+    tolua_check_int(L, 4, &arg3);
+    tolua_check_int(L, 5, &arg4);
+
+    self->setUniformLocationWith3i((GLint)arg1, (GLint)arg2, (GLint)arg3, (GLint)arg4);
+
+    return 0;
+}
+
+static int _cocos2d_GLProgram_setUniformLocationWith4i(lua_State *L)
+{
+    lua_settop(L, 6);
+
+    cocos2d::GLProgram *self = nullptr;
+    lua_Integer arg1 = 0;
+    lua_Integer arg2 = 0;
+    lua_Integer arg3 = 0;
+    lua_Integer arg4 = 0;
+    lua_Integer arg5 = 0;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
+    tolua_check_int(L, 2, &arg1);
+    tolua_check_int(L, 3, &arg2);
+    tolua_check_int(L, 4, &arg3);
+    tolua_check_int(L, 5, &arg4);
+    tolua_check_int(L, 6, &arg5);
+
+    self->setUniformLocationWith4i((GLint)arg1, (GLint)arg2, (GLint)arg3, (GLint)arg4, (GLint)arg5);
+
+    return 0;
+}
+
+static int _cocos2d_GLProgram_setUniformLocationWith1f(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::GLProgram *self = nullptr;
+    lua_Integer arg1 = 0;
+    lua_Number arg2 = 0;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
+    tolua_check_int(L, 2, &arg1);
+    tolua_check_number(L, 3, &arg2);
+
+    self->setUniformLocationWith1f((GLint)arg1, (GLfloat)arg2);
+
+    return 0;
+}
+
+static int _cocos2d_GLProgram_setUniformLocationWith2f(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    cocos2d::GLProgram *self = nullptr;
+    lua_Integer arg1 = 0;
+    lua_Number arg2 = 0;
+    lua_Number arg3 = 0;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
+    tolua_check_int(L, 2, &arg1);
+    tolua_check_number(L, 3, &arg2);
+    tolua_check_number(L, 4, &arg3);
+
+    self->setUniformLocationWith2f((GLint)arg1, (GLfloat)arg2, (GLfloat)arg3);
+
+    return 0;
+}
+
+static int _cocos2d_GLProgram_setUniformLocationWith3f(lua_State *L)
+{
+    lua_settop(L, 5);
+
+    cocos2d::GLProgram *self = nullptr;
+    lua_Integer arg1 = 0;
+    lua_Number arg2 = 0;
+    lua_Number arg3 = 0;
+    lua_Number arg4 = 0;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
+    tolua_check_int(L, 2, &arg1);
+    tolua_check_number(L, 3, &arg2);
+    tolua_check_number(L, 4, &arg3);
+    tolua_check_number(L, 5, &arg4);
+
+    self->setUniformLocationWith3f((GLint)arg1, (GLfloat)arg2, (GLfloat)arg3, (GLfloat)arg4);
+
+    return 0;
+}
+
+static int _cocos2d_GLProgram_setUniformLocationWith4f(lua_State *L)
+{
+    lua_settop(L, 6);
+
+    cocos2d::GLProgram *self = nullptr;
+    lua_Integer arg1 = 0;
+    lua_Number arg2 = 0;
+    lua_Number arg3 = 0;
+    lua_Number arg4 = 0;
+    lua_Number arg5 = 0;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
+    tolua_check_int(L, 2, &arg1);
+    tolua_check_number(L, 3, &arg2);
+    tolua_check_number(L, 4, &arg3);
+    tolua_check_number(L, 5, &arg4);
+    tolua_check_number(L, 6, &arg5);
+
+    self->setUniformLocationWith4f((GLint)arg1, (GLfloat)arg2, (GLfloat)arg3, (GLfloat)arg4, (GLfloat)arg5);
+
+    return 0;
+}
+
+static int _cocos2d_GLProgram_setUniformsForBuiltins1(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::GLProgram *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
+
+    self->setUniformsForBuiltins();
+
+    return 0;
+}
+
+static int _cocos2d_GLProgram_setUniformsForBuiltins2(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::GLProgram *self = nullptr;
+    cocos2d::Mat4 arg1;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
+    xluacv_check_ccmat4(L, 2, &arg1);
+
+    self->setUniformsForBuiltins(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_GLProgram_setUniformsForBuiltins(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 0) {
+        return _cocos2d_GLProgram_setUniformsForBuiltins1(L);
+    }
+
+    if (num_args == 1) {
+        // if (xluacv_is_ccmat4(L, 2)) {
+            return _cocos2d_GLProgram_setUniformsForBuiltins2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::GLProgram::setUniformsForBuiltins' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_GLProgram_reset(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::GLProgram *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
+
+    self->reset();
+
+    return 0;
+}
+
+static int _cocos2d_GLProgram_getVertexShaderLog(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::GLProgram *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
+
+    std::string ret = (std::string)self->getVertexShaderLog();
+
+    return tolua_push_std_string(L, ret);
+}
+
+static int _cocos2d_GLProgram_getFragmentShaderLog(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::GLProgram *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
+
+    std::string ret = (std::string)self->getFragmentShaderLog();
+
+    return tolua_push_std_string(L, ret);
+}
+
+static int _cocos2d_GLProgram_getProgramLog(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::GLProgram *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
+
+    std::string ret = (std::string)self->getProgramLog();
+
+    return tolua_push_std_string(L, ret);
+}
+
+static int _cocos2d_GLProgram_getProgram(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::GLProgram *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
+
+    GLuint ret = (GLuint)self->getProgram();
+
+    return tolua_push_uint(L, (lua_Unsigned)ret);
+}
+
+static int luaopen_cocos2d_GLProgram(lua_State *L)
+{
+    toluacls_class(L, "cc.GLProgram", "cc.Ref");
+    toluacls_setfunc(L, "createWithByteArrays", _cocos2d_GLProgram_createWithByteArrays);
+    toluacls_setfunc(L, "createWithFilenames", _cocos2d_GLProgram_createWithFilenames);
+    toluacls_setfunc(L, "getUniform", _cocos2d_GLProgram_getUniform);
+    toluacls_setfunc(L, "getVertexAttrib", _cocos2d_GLProgram_getVertexAttrib);
+    toluacls_setfunc(L, "bindAttribLocation", _cocos2d_GLProgram_bindAttribLocation);
+    toluacls_setfunc(L, "getAttribLocation", _cocos2d_GLProgram_getAttribLocation);
+    toluacls_setfunc(L, "getUniformLocation", _cocos2d_GLProgram_getUniformLocation);
+    toluacls_setfunc(L, "link", _cocos2d_GLProgram_link);
+    toluacls_setfunc(L, "use", _cocos2d_GLProgram_use);
+    toluacls_setfunc(L, "updateUniforms", _cocos2d_GLProgram_updateUniforms);
+    toluacls_setfunc(L, "getUniformLocationForName", _cocos2d_GLProgram_getUniformLocationForName);
+    toluacls_setfunc(L, "setUniformLocationWith1i", _cocos2d_GLProgram_setUniformLocationWith1i);
+    toluacls_setfunc(L, "setUniformLocationWith2i", _cocos2d_GLProgram_setUniformLocationWith2i);
+    toluacls_setfunc(L, "setUniformLocationWith3i", _cocos2d_GLProgram_setUniformLocationWith3i);
+    toluacls_setfunc(L, "setUniformLocationWith4i", _cocos2d_GLProgram_setUniformLocationWith4i);
+    toluacls_setfunc(L, "setUniformLocationWith1f", _cocos2d_GLProgram_setUniformLocationWith1f);
+    toluacls_setfunc(L, "setUniformLocationWith2f", _cocos2d_GLProgram_setUniformLocationWith2f);
+    toluacls_setfunc(L, "setUniformLocationWith3f", _cocos2d_GLProgram_setUniformLocationWith3f);
+    toluacls_setfunc(L, "setUniformLocationWith4f", _cocos2d_GLProgram_setUniformLocationWith4f);
+    toluacls_setfunc(L, "setUniformsForBuiltins", _cocos2d_GLProgram_setUniformsForBuiltins);
+    toluacls_setfunc(L, "reset", _cocos2d_GLProgram_reset);
+    toluacls_property(L, "vertexShaderLog", _cocos2d_GLProgram_getVertexShaderLog, nullptr);
+    toluacls_property(L, "fragmentShaderLog", _cocos2d_GLProgram_getFragmentShaderLog, nullptr);
+    toluacls_property(L, "programLog", _cocos2d_GLProgram_getProgramLog, nullptr);
+    toluacls_property(L, "program", _cocos2d_GLProgram_getProgram, nullptr);
+
+    toluacls_createclassproxy(L);
+
+    return 1;
+}
+
 static int luaopen_cocos2d_TextureCache(lua_State *L)
 {
     toluacls_class(L, "cc.TextureCache", "cc.Ref");
+
+    toluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_Texture2D_PixelFormat(lua_State *L)
+{
+    toluacls_class(L, "cc.Texture2D.PixelFormat", nullptr);
+    toluacls_const_integer(L, "AUTO", (lua_Integer)cocos2d::Texture2D::PixelFormat::AUTO);
+    toluacls_const_integer(L, "BGRA8888", (lua_Integer)cocos2d::Texture2D::PixelFormat::BGRA8888);
+    toluacls_const_integer(L, "RGBA8888", (lua_Integer)cocos2d::Texture2D::PixelFormat::RGBA8888);
+    toluacls_const_integer(L, "RGB888", (lua_Integer)cocos2d::Texture2D::PixelFormat::RGB888);
+    toluacls_const_integer(L, "RGB565", (lua_Integer)cocos2d::Texture2D::PixelFormat::RGB565);
+    toluacls_const_integer(L, "A8", (lua_Integer)cocos2d::Texture2D::PixelFormat::A8);
+    toluacls_const_integer(L, "I8", (lua_Integer)cocos2d::Texture2D::PixelFormat::I8);
+    toluacls_const_integer(L, "AI88", (lua_Integer)cocos2d::Texture2D::PixelFormat::AI88);
+    toluacls_const_integer(L, "RGBA4444", (lua_Integer)cocos2d::Texture2D::PixelFormat::RGBA4444);
+    toluacls_const_integer(L, "RGB5A1", (lua_Integer)cocos2d::Texture2D::PixelFormat::RGB5A1);
+    toluacls_const_integer(L, "PVRTC4", (lua_Integer)cocos2d::Texture2D::PixelFormat::PVRTC4);
+    toluacls_const_integer(L, "PVRTC4A", (lua_Integer)cocos2d::Texture2D::PixelFormat::PVRTC4A);
+    toluacls_const_integer(L, "PVRTC2", (lua_Integer)cocos2d::Texture2D::PixelFormat::PVRTC2);
+    toluacls_const_integer(L, "PVRTC2A", (lua_Integer)cocos2d::Texture2D::PixelFormat::PVRTC2A);
+    toluacls_const_integer(L, "ETC", (lua_Integer)cocos2d::Texture2D::PixelFormat::ETC);
+    toluacls_const_integer(L, "S3TC_DXT1", (lua_Integer)cocos2d::Texture2D::PixelFormat::S3TC_DXT1);
+    toluacls_const_integer(L, "S3TC_DXT3", (lua_Integer)cocos2d::Texture2D::PixelFormat::S3TC_DXT3);
+    toluacls_const_integer(L, "S3TC_DXT5", (lua_Integer)cocos2d::Texture2D::PixelFormat::S3TC_DXT5);
+    toluacls_const_integer(L, "ATC_RGB", (lua_Integer)cocos2d::Texture2D::PixelFormat::ATC_RGB);
+    toluacls_const_integer(L, "ATC_EXPLICIT_ALPHA", (lua_Integer)cocos2d::Texture2D::PixelFormat::ATC_EXPLICIT_ALPHA);
+    toluacls_const_integer(L, "ATC_INTERPOLATED_ALPHA", (lua_Integer)cocos2d::Texture2D::PixelFormat::ATC_INTERPOLATED_ALPHA);
+    toluacls_const_integer(L, "DEFAULT", (lua_Integer)cocos2d::Texture2D::PixelFormat::AUTO);
+
+    toluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_Texture2D_releaseGLTexture(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Texture2D *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
+
+    self->releaseGLTexture();
+
+    return 0;
+}
+
+static int _cocos2d_Texture2D_initWithImage1(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Texture2D *self = nullptr;
+    cocos2d::Image *arg1 = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
+    xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.Image");
+
+    bool ret = (bool)self->initWithImage(arg1);
+
+    return tolua_push_bool(L, ret);
+}
+
+static int _cocos2d_Texture2D_initWithImage2(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::Texture2D *self = nullptr;
+    cocos2d::Image *arg1 = nullptr;
+    lua_Unsigned arg2 = 0;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
+    xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.Image");
+    tolua_check_uint(L, 3, &arg2);
+
+    bool ret = (bool)self->initWithImage(arg1, (cocos2d::Texture2D::PixelFormat)arg2);
+
+    return tolua_push_bool(L, ret);
+}
+
+static int _cocos2d_Texture2D_initWithImage(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if (xluacv_is_ccobj(L, 2, "cc.Image")) {
+            return _cocos2d_Texture2D_initWithImage1(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if (xluacv_is_ccobj(L, 2, "cc.Image") && tolua_is_uint(L, 3)) {
+            return _cocos2d_Texture2D_initWithImage2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Texture2D::initWithImage' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_Texture2D_setTexParameters(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Texture2D *self = nullptr;
+    cocos2d::Texture2D::TexParams arg1;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
+    xluacv_check_cctexparams(L, 2, &arg1);
+
+    self->setTexParameters(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Texture2D_setAntiAliasTexParameters(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Texture2D *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
+
+    self->setAntiAliasTexParameters();
+
+    return 0;
+}
+
+static int _cocos2d_Texture2D_setAliasTexParameters(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Texture2D *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
+
+    self->setAliasTexParameters();
+
+    return 0;
+}
+
+static int _cocos2d_Texture2D_generateMipmap(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Texture2D *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
+
+    self->generateMipmap();
+
+    return 0;
+}
+
+static int _cocos2d_Texture2D_getBitsPerPixelForFormat1(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Texture2D *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
+
+    unsigned int ret = (unsigned int)self->getBitsPerPixelForFormat();
+
+    return tolua_push_uint(L, (lua_Unsigned)ret);
+}
+
+static int _cocos2d_Texture2D_getBitsPerPixelForFormat2(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Texture2D *self = nullptr;
+    lua_Unsigned arg1 = 0;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
+    tolua_check_uint(L, 2, &arg1);
+
+    unsigned int ret = (unsigned int)self->getBitsPerPixelForFormat((cocos2d::Texture2D::PixelFormat)arg1);
+
+    return tolua_push_uint(L, (lua_Unsigned)ret);
+}
+
+static int _cocos2d_Texture2D_getBitsPerPixelForFormat(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 0) {
+        return _cocos2d_Texture2D_getBitsPerPixelForFormat1(L);
+    }
+
+    if (num_args == 1) {
+        // if (tolua_is_uint(L, 2)) {
+            return _cocos2d_Texture2D_getBitsPerPixelForFormat2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Texture2D::getBitsPerPixelForFormat' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_Texture2D_getStringForFormat(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Texture2D *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
+
+    const char *ret = (const char *)self->getStringForFormat();
+
+    return tolua_push_string(L, ret);
+}
+
+static int _cocos2d_Texture2D_getContentSizeInPixels(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Texture2D *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
+
+    const cocos2d::Size ret = (const cocos2d::Size)self->getContentSizeInPixels();
+
+    return xluacv_unpack_ccsize(L, ret);
+}
+
+static int _cocos2d_Texture2D_hasPremultipliedAlpha(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Texture2D *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
+
+    bool ret = (bool)self->hasPremultipliedAlpha();
+
+    return tolua_push_bool(L, ret);
+}
+
+static int _cocos2d_Texture2D_hasMipmaps(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Texture2D *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
+
+    bool ret = (bool)self->hasMipmaps();
+
+    return tolua_push_bool(L, ret);
+}
+
+static int _cocos2d_Texture2D_getContentSize(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Texture2D *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
+
+    cocos2d::Size ret = (cocos2d::Size)self->getContentSize();
+
+    return xluacv_unpack_ccsize(L, ret);
+}
+
+static int _cocos2d_Texture2D_getDefaultAlphaPixelFormat(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    cocos2d::Texture2D::PixelFormat ret = (cocos2d::Texture2D::PixelFormat)cocos2d::Texture2D::getDefaultAlphaPixelFormat();
+
+    return tolua_push_uint(L, (lua_Unsigned)ret);
+}
+
+static int _cocos2d_Texture2D_setDefaultAlphaPixelFormat(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    lua_Unsigned arg1 = 0;
+
+    tolua_check_uint(L, 1, &arg1);
+
+    cocos2d::Texture2D::setDefaultAlphaPixelFormat((cocos2d::Texture2D::PixelFormat)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Texture2D_getDescription(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Texture2D *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
+
+    std::string ret = (std::string)self->getDescription();
+
+    return tolua_push_std_string(L, ret);
+}
+
+static int _cocos2d_Texture2D_getPixelFormat(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Texture2D *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
+
+    cocos2d::Texture2D::PixelFormat ret = (cocos2d::Texture2D::PixelFormat)self->getPixelFormat();
+
+    return tolua_push_uint(L, (lua_Unsigned)ret);
+}
+
+static int _cocos2d_Texture2D_getPixelsWide(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Texture2D *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
+
+    int ret = (int)self->getPixelsWide();
+
+    return tolua_push_int(L, (lua_Integer)ret);
+}
+
+static int _cocos2d_Texture2D_getPixelsHigh(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Texture2D *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
+
+    int ret = (int)self->getPixelsHigh();
+
+    return tolua_push_int(L, (lua_Integer)ret);
+}
+
+static int _cocos2d_Texture2D_getName(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Texture2D *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
+
+    GLuint ret = (GLuint)self->getName();
+
+    return tolua_push_uint(L, (lua_Unsigned)ret);
+}
+
+static int _cocos2d_Texture2D_getMaxS(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Texture2D *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
+
+    GLfloat ret = (GLfloat)self->getMaxS();
+
+    return tolua_push_number(L, (lua_Number)ret);
+}
+
+static int _cocos2d_Texture2D_setMaxS(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Texture2D *self = nullptr;
+    lua_Number arg1 = 0;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
+    tolua_check_number(L, 2, &arg1);
+
+    self->setMaxS((GLfloat)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Texture2D_getMaxT(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Texture2D *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
+
+    GLfloat ret = (GLfloat)self->getMaxT();
+
+    return tolua_push_number(L, (lua_Number)ret);
+}
+
+static int _cocos2d_Texture2D_setMaxT(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Texture2D *self = nullptr;
+    lua_Number arg1 = 0;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
+    tolua_check_number(L, 2, &arg1);
+
+    self->setMaxT((GLfloat)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Texture2D_getGLProgram(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Texture2D *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
+
+    cocos2d::GLProgram *ret = (cocos2d::GLProgram *)self->getGLProgram();
+
+    return xluacv_push_ccobj(L, ret, "cc.GLProgram");
+}
+
+static int _cocos2d_Texture2D_setGLProgram(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Texture2D *self = nullptr;
+    cocos2d::GLProgram *arg1 = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
+    xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.GLProgram");
+
+    self->setGLProgram(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Texture2D_getPath(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Texture2D *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
+
+    std::string ret = (std::string)self->getPath();
+
+    return tolua_push_std_string(L, ret);
+}
+
+static int _cocos2d_Texture2D_getAlphaTexture(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Texture2D *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
+
+    cocos2d::Texture2D *ret = (cocos2d::Texture2D *)self->getAlphaTexture();
+
+    return xluacv_push_ccobj(L, ret, "cc.Texture2D");
+}
+
+static int _cocos2d_Texture2D_setAlphaTexture(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Texture2D *self = nullptr;
+    cocos2d::Texture2D *arg1 = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
+    xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.Texture2D");
+
+    self->setAlphaTexture(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Texture2D_getAlphaTextureName(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Texture2D *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
+
+    GLuint ret = (GLuint)self->getAlphaTextureName();
+
+    return tolua_push_uint(L, (lua_Unsigned)ret);
+}
+
+static int luaopen_cocos2d_Texture2D(lua_State *L)
+{
+    toluacls_class(L, "cc.Texture2D", "cc.Ref");
+    toluacls_setfunc(L, "releaseGLTexture", _cocos2d_Texture2D_releaseGLTexture);
+    toluacls_setfunc(L, "initWithImage", _cocos2d_Texture2D_initWithImage);
+    toluacls_setfunc(L, "setTexParameters", _cocos2d_Texture2D_setTexParameters);
+    toluacls_setfunc(L, "setAntiAliasTexParameters", _cocos2d_Texture2D_setAntiAliasTexParameters);
+    toluacls_setfunc(L, "setAliasTexParameters", _cocos2d_Texture2D_setAliasTexParameters);
+    toluacls_setfunc(L, "generateMipmap", _cocos2d_Texture2D_generateMipmap);
+    toluacls_setfunc(L, "getBitsPerPixelForFormat", _cocos2d_Texture2D_getBitsPerPixelForFormat);
+    toluacls_setfunc(L, "getStringForFormat", _cocos2d_Texture2D_getStringForFormat);
+    toluacls_setfunc(L, "getContentSizeInPixels", _cocos2d_Texture2D_getContentSizeInPixels);
+    toluacls_setfunc(L, "hasPremultipliedAlpha", _cocos2d_Texture2D_hasPremultipliedAlpha);
+    toluacls_setfunc(L, "hasMipmaps", _cocos2d_Texture2D_hasMipmaps);
+    toluacls_setfunc(L, "getContentSize", _cocos2d_Texture2D_getContentSize);
+    toluacls_property(L, "defaultAlphaPixelFormat", _cocos2d_Texture2D_getDefaultAlphaPixelFormat, _cocos2d_Texture2D_setDefaultAlphaPixelFormat);
+    toluacls_property(L, "description", _cocos2d_Texture2D_getDescription, nullptr);
+    toluacls_property(L, "pixelFormat", _cocos2d_Texture2D_getPixelFormat, nullptr);
+    toluacls_property(L, "pixelsWide", _cocos2d_Texture2D_getPixelsWide, nullptr);
+    toluacls_property(L, "pixelsHigh", _cocos2d_Texture2D_getPixelsHigh, nullptr);
+    toluacls_property(L, "name", _cocos2d_Texture2D_getName, nullptr);
+    toluacls_property(L, "maxS", _cocos2d_Texture2D_getMaxS, _cocos2d_Texture2D_setMaxS);
+    toluacls_property(L, "maxT", _cocos2d_Texture2D_getMaxT, _cocos2d_Texture2D_setMaxT);
+    toluacls_property(L, "glProgram", _cocos2d_Texture2D_getGLProgram, _cocos2d_Texture2D_setGLProgram);
+    toluacls_property(L, "path", _cocos2d_Texture2D_getPath, nullptr);
+    toluacls_property(L, "alphaTexture", _cocos2d_Texture2D_getAlphaTexture, _cocos2d_Texture2D_setAlphaTexture);
+    toluacls_property(L, "alphaTextureName", _cocos2d_Texture2D_getAlphaTextureName, nullptr);
+
+    toluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_Image_Format(lua_State *L)
+{
+    toluacls_class(L, "cc.Image.Format", nullptr);
+    toluacls_const_integer(L, "JPG", (lua_Integer)cocos2d::Image::Format::JPG);
+    toluacls_const_integer(L, "PNG", (lua_Integer)cocos2d::Image::Format::PNG);
+    toluacls_const_integer(L, "TIFF", (lua_Integer)cocos2d::Image::Format::TIFF);
+    toluacls_const_integer(L, "WEBP", (lua_Integer)cocos2d::Image::Format::WEBP);
+    toluacls_const_integer(L, "PVR", (lua_Integer)cocos2d::Image::Format::PVR);
+    toluacls_const_integer(L, "ETC", (lua_Integer)cocos2d::Image::Format::ETC);
+    toluacls_const_integer(L, "S3TC", (lua_Integer)cocos2d::Image::Format::S3TC);
+    toluacls_const_integer(L, "ATITC", (lua_Integer)cocos2d::Image::Format::ATITC);
+    toluacls_const_integer(L, "TGA", (lua_Integer)cocos2d::Image::Format::TGA);
+    toluacls_const_integer(L, "RAW_DATA", (lua_Integer)cocos2d::Image::Format::RAW_DATA);
+    toluacls_const_integer(L, "UNKNOWN", (lua_Integer)cocos2d::Image::Format::UNKNOWN);
+
+    toluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_Image_setPNGPremultipliedAlphaEnabled(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    bool arg1 = false;
+
+    tolua_check_bool(L, 1, &arg1);
+
+    cocos2d::Image::setPNGPremultipliedAlphaEnabled(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Image_setPVRImagesHavePremultipliedAlpha(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    bool arg1 = false;
+
+    tolua_check_bool(L, 1, &arg1);
+
+    cocos2d::Image::setPVRImagesHavePremultipliedAlpha(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Image_initWithImageFile(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Image *self = nullptr;
+    std::string arg1;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Image");
+    tolua_check_std_string(L, 2, &arg1);
+
+    bool ret = (bool)self->initWithImageFile(arg1);
+
+    return tolua_push_bool(L, ret);
+}
+
+static int _cocos2d_Image_initWithImageData(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::Image *self = nullptr;
+    const char *arg1 = nullptr;
+    lua_Integer arg2 = 0;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Image");
+    tolua_check_string(L, 2, &arg1);
+    tolua_check_int(L, 3, &arg2);
+
+    bool ret = (bool)self->initWithImageData((const unsigned char *)arg1, (ssize_t)arg2);
+
+    return tolua_push_bool(L, ret);
+}
+
+static int _cocos2d_Image_initWithRawData(lua_State *L)
+{
+    lua_settop(L, 7);
+
+    cocos2d::Image *self = nullptr;
+    const char *arg1 = nullptr;
+    lua_Integer arg2 = 0;
+    lua_Integer arg3 = 0;
+    lua_Integer arg4 = 0;
+    lua_Integer arg5 = 0;
+    bool arg6 = false;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Image");
+    tolua_check_string(L, 2, &arg1);
+    tolua_check_int(L, 3, &arg2);
+    tolua_check_int(L, 4, &arg3);
+    tolua_check_int(L, 5, &arg4);
+    tolua_check_int(L, 6, &arg5);
+    tolua_opt_bool(L, 7, &arg6, false);
+
+    bool ret = (bool)self->initWithRawData((const unsigned char *)arg1, (ssize_t)arg2, (int)arg3, (int)arg4, (int)arg5, arg6);
+
+    return tolua_push_bool(L, ret);
+}
+
+static int _cocos2d_Image_saveToFile(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::Image *self = nullptr;
+    std::string arg1;
+    bool arg2 = false;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Image");
+    tolua_check_std_string(L, 2, &arg1);
+    tolua_opt_bool(L, 3, &arg2, true);
+
+    bool ret = (bool)self->saveToFile(arg1, arg2);
+
+    return tolua_push_bool(L, ret);
+}
+
+static int _cocos2d_Image_hasPremultipliedAlpha(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Image *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Image");
+
+    bool ret = (bool)self->hasPremultipliedAlpha();
+
+    return tolua_push_bool(L, ret);
+}
+
+static int _cocos2d_Image_hasAlpha(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Image *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Image");
+
+    bool ret = (bool)self->hasAlpha();
+
+    return tolua_push_bool(L, ret);
+}
+
+static int _cocos2d_Image_getData(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Image *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Image");
+
+    const unsigned char *ret = (const unsigned char *)self->getData();
+
+    return tolua_push_string(L, (const char *)ret);
+}
+
+static int _cocos2d_Image_getDataLen(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Image *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Image");
+
+    ssize_t ret = (ssize_t)self->getDataLen();
+
+    return tolua_push_int(L, (lua_Integer)ret);
+}
+
+static int _cocos2d_Image_getFileType(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Image *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Image");
+
+    cocos2d::Image::Format ret = (cocos2d::Image::Format)self->getFileType();
+
+    return tolua_push_uint(L, (lua_Unsigned)ret);
+}
+
+static int _cocos2d_Image_getRenderFormat(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Image *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Image");
+
+    cocos2d::Texture2D::PixelFormat ret = (cocos2d::Texture2D::PixelFormat)self->getRenderFormat();
+
+    return tolua_push_uint(L, (lua_Unsigned)ret);
+}
+
+static int _cocos2d_Image_getWidth(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Image *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Image");
+
+    int ret = (int)self->getWidth();
+
+    return tolua_push_int(L, (lua_Integer)ret);
+}
+
+static int _cocos2d_Image_getHeight(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Image *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Image");
+
+    int ret = (int)self->getHeight();
+
+    return tolua_push_int(L, (lua_Integer)ret);
+}
+
+static int _cocos2d_Image_getFilePath(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Image *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Image");
+
+    std::string ret = (std::string)self->getFilePath();
+
+    return tolua_push_std_string(L, ret);
+}
+
+static int _cocos2d_Image_getBitPerPixel(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Image *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Image");
+
+    int ret = (int)self->getBitPerPixel();
+
+    return tolua_push_int(L, (lua_Integer)ret);
+}
+
+static int _cocos2d_Image_isCompressed(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Image *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Image");
+
+    bool ret = (bool)self->isCompressed();
+
+    return tolua_push_bool(L, ret);
+}
+
+static int luaopen_cocos2d_Image(lua_State *L)
+{
+    toluacls_class(L, "cc.Image", "cc.Ref");
+    toluacls_setfunc(L, "setPNGPremultipliedAlphaEnabled", _cocos2d_Image_setPNGPremultipliedAlphaEnabled);
+    toluacls_setfunc(L, "setPVRImagesHavePremultipliedAlpha", _cocos2d_Image_setPVRImagesHavePremultipliedAlpha);
+    toluacls_setfunc(L, "initWithImageFile", _cocos2d_Image_initWithImageFile);
+    toluacls_setfunc(L, "initWithImageData", _cocos2d_Image_initWithImageData);
+    toluacls_setfunc(L, "initWithRawData", _cocos2d_Image_initWithRawData);
+    toluacls_setfunc(L, "saveToFile", _cocos2d_Image_saveToFile);
+    toluacls_setfunc(L, "hasPremultipliedAlpha", _cocos2d_Image_hasPremultipliedAlpha);
+    toluacls_setfunc(L, "hasAlpha", _cocos2d_Image_hasAlpha);
+    toluacls_property(L, "data", _cocos2d_Image_getData, nullptr);
+    toluacls_property(L, "dataLen", _cocos2d_Image_getDataLen, nullptr);
+    toluacls_property(L, "fileType", _cocos2d_Image_getFileType, nullptr);
+    toluacls_property(L, "renderFormat", _cocos2d_Image_getRenderFormat, nullptr);
+    toluacls_property(L, "width", _cocos2d_Image_getWidth, nullptr);
+    toluacls_property(L, "height", _cocos2d_Image_getHeight, nullptr);
+    toluacls_property(L, "filePath", _cocos2d_Image_getFilePath, nullptr);
+    toluacls_property(L, "bitPerPixel", _cocos2d_Image_getBitPerPixel, nullptr);
+    toluacls_property(L, "compressed", _cocos2d_Image_isCompressed, nullptr);
 
     toluacls_createclassproxy(L);
 
@@ -1494,6 +2897,21 @@ static int _cocos2d_Node_getChildByTag(lua_State *L)
     tolua_check_int(L, 2, &arg1);
 
     cocos2d::Node *ret = (cocos2d::Node *)self->getChildByTag((int)arg1);
+
+    return xluacv_push_ccobj(L, ret, "cc.Node");
+}
+
+static int _cocos2d_Node_getChildByName(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Node *self = nullptr;
+    std::string arg1;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
+    tolua_check_std_string(L, 2, &arg1);
+
+    cocos2d::Node *ret = (cocos2d::Node *)self->getChildByName(arg1);
 
     return xluacv_push_ccobj(L, ret, "cc.Node");
 }
@@ -1920,6 +3338,7 @@ static int luaopen_cocos2d_Node(lua_State *L)
     toluacls_setfunc(L, "create", _cocos2d_Node_create);
     toluacls_setfunc(L, "addChild", _cocos2d_Node_addChild);
     toluacls_setfunc(L, "getChildByTag", _cocos2d_Node_getChildByTag);
+    toluacls_setfunc(L, "getChildByName", _cocos2d_Node_getChildByName);
     toluacls_setfunc(L, "removeFromParent", _cocos2d_Node_removeFromParent);
     toluacls_setfunc(L, "removeFromParentAndCleanup", _cocos2d_Node_removeFromParentAndCleanup);
     toluacls_setfunc(L, "removeChild", _cocos2d_Node_removeChild);
@@ -1991,7 +3410,12 @@ int luaopen_cocos2d(lua_State *L)
     xlua_require(L, "cc.Scheduler", luaopen_cocos2d_Scheduler);
     xlua_require(L, "cc.ActionManager", luaopen_cocos2d_ActionManager);
     xlua_require(L, "cc.GLView", luaopen_cocos2d_GLView);
+    xlua_require(L, "cc.GLProgram", luaopen_cocos2d_GLProgram);
     xlua_require(L, "cc.TextureCache", luaopen_cocos2d_TextureCache);
+    xlua_require(L, "cc.Texture2D.PixelFormat", luaopen_cocos2d_Texture2D_PixelFormat);
+    xlua_require(L, "cc.Texture2D", luaopen_cocos2d_Texture2D);
+    xlua_require(L, "cc.Image.Format", luaopen_cocos2d_Image_Format);
+    xlua_require(L, "cc.Image", luaopen_cocos2d_Image);
     xlua_require(L, "cc.Node", luaopen_cocos2d_Node);
     xlua_require(L, "cc.Sprite", luaopen_cocos2d_Sprite);
     xlua_require(L, "cc.Scene", luaopen_cocos2d_Scene);

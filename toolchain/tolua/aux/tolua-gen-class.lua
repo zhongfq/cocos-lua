@@ -64,6 +64,14 @@ local function gen_class_open(cls, write)
         ]])
     end
 
+    for i, ei in ipairs(cls.ENUMS) do
+        local ENUM_NAME = ei.ENUM_NAME
+        local ENUM_VALUE = ei.ENUM_VALUE
+        FUNCS[#FUNCS + 1] = format_snippet([[
+            toluacls_const_integer(L, "${ENUM_NAME}", (lua_Integer)${ENUM_VALUE});
+        ]])
+    end
+
     FUNCS = table.concat(FUNCS, "\n")
 
     write(format_snippet([[

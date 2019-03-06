@@ -87,6 +87,11 @@ LUALIB_API bool tolua_pushobj(lua_State *L, void *obj, const char *cls)
 {
     bool is_new = false;
     
+    if (!obj) {
+        lua_pushnil(L);
+        return false;
+    }
+    
     if (lua_rawgetp(L, LUA_REGISTRYINDEX, OBJ_REF_TABLE) == LUA_TNIL) {
         lua_pop(L, 1); // pop nil
         lua_newtable(L);

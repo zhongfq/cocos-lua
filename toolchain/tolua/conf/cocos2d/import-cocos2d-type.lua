@@ -30,13 +30,39 @@ REG_TYPE {
 }
 
 REG_TYPE {
+    TYPENAME = 'cocos2d::Mat4',
+    CONV_FUNC = "xluacv_$ACTION_ccmat4",
+    INIT_VALUE = false,
+}
+
+REG_TYPE {
     TYPENAME = 'cocos2d::Vector',
     CONV_FUNC = "xluacv_$ACTION_ccvector",
     INIT_VALUE = false,
 }
 
 REG_TYPE {
-    TYPENAME = 'cocos2d::Director::Projection',
+    TYPENAME = 'cocos2d::Texture2D::TexParams',
+    CONV_FUNC = "xluacv_$ACTION_cctexparams",
+    INIT_VALUE = false,
+}
+
+REG_TYPE {
+    TYPENAME = 'cocos2d::Uniform *',
+    CONV_FUNC = "xluacv_$ACTION_uniform"
+}
+
+REG_TYPE {
+    TYPENAME = 'cocos2d::VertexAttrib *',
+    CONV_FUNC = "xluacv_$ACTION_vertexattrib"
+}
+
+REG_TYPE {
+    TYPENAME = table.concat({
+        'cocos2d::Director::Projection',
+        'cocos2d::Texture2D::PixelFormat',
+        'cocos2d::Image::Format',
+    }, '|'),
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = "tolua_$ACTION_uint",
 }
@@ -48,7 +74,10 @@ REG_TYPE {
         'cocos2d::Scheduler *',
         'cocos2d::ActionManager *',
         'cocos2d::GLView *',
+        'cocos2d::GLProgram *',
         'cocos2d::TextureCache *',
+        'cocos2d::Texture2D *',
+        'cocos2d::Image *',
         'cocos2d::Node *',
         'cocos2d::Sprite *',
         'cocos2d::Scene *',

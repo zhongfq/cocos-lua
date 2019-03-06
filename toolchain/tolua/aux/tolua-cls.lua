@@ -169,6 +169,7 @@ local function parse_func(cls, name, ...)
                 assert(is_static_func == static, func_decl)
             end
         end
+        assert(not string.find(fi.LUAFUNC, '[^_%w]+'), '"' .. fi.LUAFUNC .. '"')
         fi.INDEX = i
         arr[#arr + 1] = fi
         arr.MAX_ARGS = math.max(arr.MAX_ARGS, #fi.ARGS)
@@ -190,6 +191,7 @@ function class()
     local cls = {}
     cls.FUNCS = {}
     cls.CONSTS = {}
+    cls.ENUMS = {}
     cls.PROPS = {}
 
     function cls.func(name, ...)
@@ -197,16 +199,25 @@ function class()
     end
 
     function cls.prop(name, func_get, func_set)
+        assert(not string.find(name, '[^_%w]+'), '"' .. name .. '"')
         cls.PROPS[#cls.PROPS + 1] = parse_prop(cls, name, func_get, func_set)
     end
 
     function cls.const(name, value)
         local tv = type(value)
+        assert(not string.find(name, '[^_%w]+'), '"' .. name .. '"')
         assert(tv == "boolean" or tv == "number" or tv == "string", tv)
         cls.CONSTS[#cls.CONSTS + 1] = {
             CONST_NAME = assert(name),
             CONST_VALUE = value,
             CONST_TYPE = tv == "number" and (math.type(value)) or tv,
+        }
+    end
+
+    function cls.enum(name, value)
+        cls.ENUMS[#cls.ENUMS + 1] = {
+            ENUM_NAME = name,
+            ENUM_VALUE = assert(value),
         }
     end
 

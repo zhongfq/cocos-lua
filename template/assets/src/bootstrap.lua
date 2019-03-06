@@ -29,7 +29,7 @@ function main()
     Director.getInstance().runningScene:addChild(node)
 
     local manager = ActionManager.new()
-    print("##", manager, node)
+    print("##", manager, node, node:getChildByName('cc'))
 
     local scheduler = Scheduler.new()
     node.scheduler:scheduleUpdate(scheduler, 0, false)

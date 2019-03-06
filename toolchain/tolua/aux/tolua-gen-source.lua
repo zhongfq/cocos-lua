@@ -10,9 +10,19 @@ local function gen_include(module, write)
 end
 
 local function gen_classes(module, write)
-    for i, cls in ipairs(module.CLASSES) do
+    local function do_gen_class(cls)
         gen_class(module, cls, write)
         write('')
+    end
+
+    for i, cls in ipairs(module.CLASSES) do
+        if #cls > 0 then
+            for _, v in ipairs(cls) do
+                do_gen_class(v)
+            end
+        else
+            do_gen_class(cls)
+        end
     end
 end
 
@@ -20,12 +30,22 @@ local function gen_luaopen(module, write)
     local MODULE_NAME = module.NAME
     local REQUIRES = {}
 
-    for i, cls in ipairs(module.CLASSES) do
+    local function do_gen_open(cls)
         local LUACLS = cls.LUACLS
         local CPPCLS_PATH = class_path(cls.CPPCLS)
-        REQUIRES[i] = format_snippet([[
+        REQUIRES[#REQUIRES + 1] = format_snippet([[
             xlua_require(L, "${LUACLS}", luaopen_${CPPCLS_PATH});
         ]])
+    end
+
+    for i, cls in ipairs(module.CLASSES) do
+        if #cls > 0 then
+            for _, v in ipairs(cls) do
+                do_gen_open(v)
+            end
+        else
+            do_gen_open(cls)
+        end
     end
 
     REQUIRES = table.concat(REQUIRES, "\n")

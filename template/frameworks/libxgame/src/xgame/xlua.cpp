@@ -539,3 +539,44 @@ lua_Integer xlua_checkfieldinteger(lua_State *L, int idx, const char *field)
     lua_pop(L, 1);
     return value;
 }
+
+bool xlua_checkfieldboolean(lua_State *L, int idx, const char *field)
+{
+    idx = lua_absindex(L, idx);
+    lua_getfield(L, idx, field);
+    bool value = xlua_checkboolean(L, -1);
+    lua_pop(L, 1);
+    return value;
+}
+
+void xlua_rawsetfieldnumber(lua_State *L, int idx, const char *field, lua_Number value)
+{
+    idx = lua_absindex(L, idx);
+    lua_pushstring(L, field);
+    lua_pushnumber(L, value);
+    lua_rawset(L, idx);
+}
+
+void xlua_rawsetfieldinteger(lua_State *L, int idx, const char *field, lua_Integer value)
+{
+    idx = lua_absindex(L, idx);
+    lua_pushstring(L, field);
+    lua_pushinteger(L, value);
+    lua_rawset(L, idx);
+}
+
+void xlua_rawsetfieldstring(lua_State *L, int idx, const char *field, const char *value)
+{
+    idx = lua_absindex(L, idx);
+    lua_pushstring(L, field);
+    lua_pushstring(L, value);
+    lua_rawset(L, idx);
+}
+
+void xlua_rawsetfieldboolean(lua_State *L, int idx, const char *field, bool value)
+{
+    idx = lua_absindex(L, idx);
+    lua_pushstring(L, field);
+    lua_pushboolean(L, value);
+    lua_rawset(L, idx);
+}

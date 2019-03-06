@@ -36,5 +36,10 @@ lua_Integer xlua_optfieldinteger(lua_State *L, int idx, const char *field, lua_I
 const char *xlua_checkfieldstring(lua_State *L, int idx, const char *field);
 lua_Number xlua_checkfieldnumber(lua_State *L, int idx, const char *field);
 lua_Integer xlua_checkfieldinteger(lua_State *L, int idx, const char *field);
+bool xlua_checkfieldboolean(lua_State *L, int idx, const char *field);
+void xlua_rawsetfieldnumber(lua_State *L, int idx, const char *field, lua_Number value);
+void xlua_rawsetfieldinteger(lua_State *L, int idx, const char *field, lua_Integer value);
+void xlua_rawsetfieldstring(lua_State *L, int idx, const char *field, const char *value);
+void xlua_rawsetfieldboolean(lua_State *L, int idx, const char *field, bool value);
 
 #endif

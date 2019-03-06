@@ -17,7 +17,7 @@ REG_TYPE {
 
 REG_TYPE {
     TYPENAME = 'cocos2d::Vec2',
-    CONV_FUNC = "xluacv_$ACTION_ccvec2",
+    CONV_FUNC = "luacv_$ACTION_cocos2d_Vec2",
     INIT_VALUE = false,
     VARS = 2,
 }
@@ -49,7 +49,7 @@ REG_TYPE {
 
 REG_TYPE {
     TYPENAME = 'cocos2d::experimental::Viewport',
-    CONV_FUNC = "xluacv_$ACTION_ccviewport",
+    CONV_FUNC = "luacv_$ACTION_cocos2d_experimental_Viewport",
     INIT_VALUE = false,
 }
 

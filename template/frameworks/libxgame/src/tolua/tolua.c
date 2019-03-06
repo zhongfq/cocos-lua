@@ -713,3 +713,74 @@ LUALIB_API bool tolua_is_obj(lua_State *L, int idx, const char *cls)
 {
     return tolua_isa(L, idx, cls);
 }
+
+LUALIB_API const char *tolua_checkfieldstring(lua_State *L, int idx, const char *field)
+{
+    const char *value;
+    idx = lua_absindex(L, idx);
+    lua_getfield(L, idx, field);
+    value = luaL_checkstring(L, -1);
+    lua_pop(L, 1);
+    return value;
+}
+
+LUALIB_API lua_Number tolua_checkfieldnumber(lua_State *L, int idx, const char *field)
+{
+    lua_Number value;
+    idx = lua_absindex(L, idx);
+    lua_getfield(L, idx, field);
+    value = luaL_checknumber(L, -1);
+    lua_pop(L, 1);
+    return value;
+}
+
+LUALIB_API lua_Integer tolua_checkfieldinteger(lua_State *L, int idx, const char *field)
+{
+    idx = lua_absindex(L, idx);
+    lua_getfield(L, idx, field);
+    lua_Integer value = luaL_checkinteger(L, -1);
+    lua_pop(L, 1);
+    return value;
+}
+
+LUALIB_API bool tolua_checkfieldboolean(lua_State *L, int idx, const char *field)
+{
+    idx = lua_absindex(L, idx);
+    lua_getfield(L, idx, field);
+    luaL_checktype(L, -1, LUA_TBOOLEAN);
+    bool value = lua_toboolean(L, -1);
+    lua_pop(L, 1);
+    return value;
+}
+
+LUALIB_API void tolua_rawsetfieldnumber(lua_State *L, int idx, const char *field, lua_Number value)
+{
+    idx = lua_absindex(L, idx);
+    lua_pushstring(L, field);
+    lua_pushnumber(L, value);
+    lua_rawset(L, idx);
+}
+
+LUALIB_API void tolua_rawsetfieldinteger(lua_State *L, int idx, const char *field, lua_Integer value)
+{
+    idx = lua_absindex(L, idx);
+    lua_pushstring(L, field);
+    lua_pushinteger(L, value);
+    lua_rawset(L, idx);
+}
+
+LUALIB_API void tolua_rawsetfieldstring(lua_State *L, int idx, const char *field, const char *value)
+{
+    idx = lua_absindex(L, idx);
+    lua_pushstring(L, field);
+    lua_pushstring(L, value);
+    lua_rawset(L, idx);
+}
+
+LUALIB_API void tolua_rawsetfieldboolean(lua_State *L, int idx, const char *field, bool value)
+{
+    idx = lua_absindex(L, idx);
+    lua_pushstring(L, field);
+    lua_pushboolean(L, value);
+    lua_rawset(L, idx);
+}

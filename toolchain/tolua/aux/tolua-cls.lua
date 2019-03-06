@@ -281,3 +281,25 @@ function REG_TYPE(typeinfo)
         end
     end
 end
+
+function REG_CONV(ci)
+    ci.PROPS = {}
+    for line in string.gmatch(ci.DEF, '[^\n\r]+') do
+        local typename, varname, luaname = string.match(line, '([^{} ]+[ *&])([^ *&]+) *= *([^ ;]*)')
+        if not typename then
+            typename, varname = string.match(line, '([^{} ]+[ *&])([^ *&;]+)')
+        end
+        if typename then
+            typename = to_pretty_typename(typename)
+            varname = to_pretty_typename(varname)
+            luaname = to_pretty_typename(luaname or varname)
+            local typeinfo, typename = get_typeinfo(typename)
+            ci.PROPS[#ci.PROPS + 1] = {
+                TYPE = typeinfo,
+                VARNAME = varname,
+                LUANAME = luaname,
+            }
+        end
+    end
+    return ci
+end

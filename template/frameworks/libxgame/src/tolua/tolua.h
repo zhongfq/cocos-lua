@@ -100,6 +100,15 @@ LUALIB_API void tolua_check_obj(lua_State *L, int idx, void **value, const char 
 LUALIB_API void tolua_to_obj(lua_State *L, int idx, void **value, const char *cls);
 LUALIB_API bool tolua_is_obj(lua_State *L, int idx, const char *cls);
     
+LUALIB_API const char *tolua_checkfieldstring(lua_State *L, int idx, const char *field);
+LUALIB_API lua_Number tolua_checkfieldnumber(lua_State *L, int idx, const char *field);
+LUALIB_API lua_Integer tolua_checkfieldinteger(lua_State *L, int idx, const char *field);
+LUALIB_API bool tolua_checkfieldboolean(lua_State *L, int idx, const char *field);
+LUALIB_API void tolua_rawsetfieldnumber(lua_State *L, int idx, const char *field, lua_Number value);
+LUALIB_API void tolua_rawsetfieldinteger(lua_State *L, int idx, const char *field, lua_Integer value);
+LUALIB_API void tolua_rawsetfieldstring(lua_State *L, int idx, const char *field, const char *value);
+LUALIB_API void tolua_rawsetfieldboolean(lua_State *L, int idx, const char *field, bool value);
+
 #ifdef __cplusplus
 }
 #endif

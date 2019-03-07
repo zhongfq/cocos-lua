@@ -49,9 +49,9 @@ function main()
     end, node, 2, false, "update")
 
     timer.delay(4, function ( ... )
-        printUserValue(scheduler)
+        printUserValue(node)
         node:unscheduleAllCallbacks('update')
-        printUserValue(scheduler)
+        printUserValue(node)
     end)
 end
 

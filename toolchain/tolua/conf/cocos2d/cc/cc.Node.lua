@@ -2,11 +2,6 @@ local cls = class()
 cls.CPPCLS = "cocos2d::Node"
 cls.LUACLS = "cc.Node"
 cls.SUPERCLS = "cc.Ref"
-cls.DEFCHUNK = [[
-static const std::string makeNodeScheduleCallbackTag(const std::string &key)
-{
-    return "schedule." + key;
-}]]
 cls.prop('attachedNodeCount', 'static int getAttachedNodeCount()')
 cls.prop('description', 'std::string getDescription()')
 cls.prop('scheduler', 'Scheduler* getScheduler()', 'void setScheduler(Scheduler* scheduler)')
@@ -37,7 +32,7 @@ cls.func(nil, 'void unscheduleUpdate(void)')
 cls.func(nil, 'void scheduleUpdateWithPriority(int priority)')
 cls.func(nil, 'bool isScheduled(const std::string &key)')
 cls.callback(nil, {
-        TAG_MAKER = "makeNodeScheduleCallbackTag(#-1)",
+        TAG_MAKER = "makeScheduleCallbackTag(#-1)",
         ONLYONE = true,
         REMOVED = true,
         TAG_MODE = "TOLUA_CALLBACK_TAG_EQUAL",
@@ -45,7 +40,7 @@ cls.callback(nil, {
     'void scheduleOnce(const std::function<void(float)>& callback, float delay, const std::string &key)'
 )
 cls.callback(nil, {
-        TAG_MAKER = "makeNodeScheduleCallbackTag(#-1)",
+        TAG_MAKER = "makeScheduleCallbackTag(#-1)",
         ONLYONE = true,
     },
     'void schedule(const std::function<void(float)>& callback, const std::string &key)',
@@ -53,13 +48,13 @@ cls.callback(nil, {
     'void schedule(const std::function<void(float)>& callback, float interval, unsigned int repeat, float delay, const std::string &key)'
 )
 cls.callback(nil, {
-        TAG_MAKER = "makeNodeScheduleCallbackTag(#1)",
+        TAG_MAKER = "makeScheduleCallbackTag(#1)",
         TAG_MODE = "TOLUA_CALLBACK_TAG_ENDWITH",
     },
     'void unschedule(const std::string &key)'
 )
 cls.callback(nil, {
-        TAG_MAKER = "makeNodeScheduleCallbackTag()",
+        TAG_MAKER = "makeScheduleCallbackTag()",
         TAG_MODE = "TOLUA_CALLBACK_TAG_WILDCARD",
     },
     'void unscheduleAllCallbacks()'

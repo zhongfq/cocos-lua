@@ -438,7 +438,7 @@ bool xlua_checkboolean(lua_State *L, int idx)
 
 void *xlua_checkobj(lua_State *L, int idx)
 {
-     luaL_checktype(L, idx, LUA_TUSERDATA);
+    luaL_checktype(L, idx, LUA_TUSERDATA);
     return *(void **)lua_touserdata(L, idx);
 }
 

@@ -16,6 +16,13 @@ M.INCLUDES = [[
 #include "cocos2d.h"
 ]]
 
+M.STATIC_CHUNK = [[
+static const std::string makeScheduleCallbackTag(const std::string &key)
+{
+    return "schedule." + key;
+}]]
+
+
 function new_ccobj(cls)
     local CPPCLS = cls.CPPCLS
     local LUACLS = cls.LUACLS

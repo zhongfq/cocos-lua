@@ -3,17 +3,6 @@ cls.CPPCLS = "cocos2d::Scheduler"
 cls.LUACLS = "cc.Scheduler"
 cls.SUPERCLS = "cc.Ref"
 cls.DEFCHUNK = [[
-static const std::string makeScheduleCallbackTag(void *obj, const std::string &key)
-{
-    if (obj == nullptr) {
-        return "schedule.";
-    }
-    
-    char name[64];
-    sprintf(name, "schedule.%p.", obj);
-    return name + key;
-}
-
 template <typename T> bool doScheduleUpdate(lua_State *L, const char *cls)
 {
     if (xluacv_is_ccobj(L, 2, cls)) {
@@ -38,26 +27,29 @@ cls.prop('timeScale', 'float getTimeScale()', 'void setTimeScale(float timeScale
 cls.func('new', new_ccobj(cls))
 cls.func(nil, 'void update(float dt)')
 cls.callback(nil, {
-        TAG_MAKER = 'makeScheduleCallbackTag(#2, #-1)',
+        TAG_MAKER = 'makeScheduleCallbackTag(#-1)',
+        TAG_STORE = 2, -- 2th void *target
         ONLYONE = true,
     },
     'void schedule(const std::function<void(float)>& callback, void *target, float interval, bool paused, const std::string& key)',
     'void schedule(const std::function<void(float)>& callback, void *target, float interval, unsigned int repeat, float delay, bool paused, const std::string& key)'
 )
 cls.callback(nil, {
-        TAG_MAKER = 'makeScheduleCallbackTag(#2, #1)',
+        TAG_MAKER = 'makeScheduleCallbackTag(#1)',
+        TAG_STORE = 2, -- 2th void *target
         TAG_MODE = 'TOLUA_CALLBACK_TAG_ENDWITH',
     },
     'void unschedule(const std::string& key, void *target)'
 )
 cls.callback(nil, {
-        TAG_MAKER = 'makeScheduleCallbackTag(#1, "")',
+        TAG_MAKER = 'makeScheduleCallbackTag("")',
         TAG_MODE = 'TOLUA_CALLBACK_TAG_WILDCARD',
+        TAG_STORE = 1, -- 1th void *target
     },
     'void unscheduleAllForTarget(void *target)'
 )
 cls.callback(nil, {
-        TAG_MAKER = 'makeScheduleCallbackTag(nullptr, "")',
+        TAG_MAKER = 'makeScheduleCallbackTag("")',
         TAG_MODE = 'TOLUA_CALLBACK_TAG_WILDCARD',
     },
     'void unscheduleAll()'

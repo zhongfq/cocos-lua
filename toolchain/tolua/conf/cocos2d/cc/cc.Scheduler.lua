@@ -38,27 +38,27 @@ cls.prop('timeScale', 'float getTimeScale()', 'void setTimeScale(float timeScale
 cls.func('new', new_ccobj(cls))
 cls.func(nil, 'void update(float dt)')
 cls.callback(nil, {
-        MAKER = 'makeScheduleCallbackTag(#2, #-1)',
-        STANDALONE = true,
+        TAG_MAKER = 'makeScheduleCallbackTag(#2, #-1)',
+        ONLYONE = true,
     },
     'void schedule(const std::function<void(float)>& callback, void *target, float interval, bool paused, const std::string& key)',
     'void schedule(const std::function<void(float)>& callback, void *target, float interval, unsigned int repeat, float delay, bool paused, const std::string& key)'
 )
 cls.callback(nil, {
-        MAKER = 'makeScheduleCallbackTag(#2, #1)',
-        REMOVED_MODE = 'TOLUA_CALLBACK_TAG_ENDWITH',
+        TAG_MAKER = 'makeScheduleCallbackTag(#2, #1)',
+        TAG_MODE = 'TOLUA_CALLBACK_TAG_ENDWITH',
     },
     'void unschedule(const std::string& key, void *target)'
 )
 cls.callback(nil, {
-        MAKER = 'makeScheduleCallbackTag(#1, "")',
-        REMOVED_MODE = 'TOLUA_CALLBACK_TAG_WILDCARD',
+        TAG_MAKER = 'makeScheduleCallbackTag(#1, "")',
+        TAG_MODE = 'TOLUA_CALLBACK_TAG_WILDCARD',
     },
     'void unscheduleAllForTarget(void *target)'
 )
 cls.callback(nil, {
-        MAKER = 'makeScheduleCallbackTag(nullptr, "")',
-        REMOVED_MODE = 'TOLUA_CALLBACK_TAG_WILDCARD',
+        TAG_MAKER = 'makeScheduleCallbackTag(nullptr, "")',
+        TAG_MODE = 'TOLUA_CALLBACK_TAG_WILDCARD',
     },
     'void unscheduleAll()'
 )

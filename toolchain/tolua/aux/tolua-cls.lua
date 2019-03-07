@@ -166,6 +166,7 @@ local function parse_args(cls, func_decl)
                     }, {__index = get_typeinfo('std::function', cls)}),
                     DECL_TYPE = callback_decl,
                     CALLBACK_ARGS = callback_ars,
+                    VARNAME = varname,
                 }
             else
                 args[#args + 1] = {
@@ -173,6 +174,7 @@ local function parse_args(cls, func_decl)
                     DECL_TYPE = to_decl_type(cls, typename, true),
                     OPT_VALUE = default,
                     PACK = pack > 0,
+                    VARNAME = varname,
                 }
             end
         end
@@ -192,6 +194,7 @@ local function parse_func(cls, name, ...)
             fi.LUAFUNC = assert(name)
             fi.CPPFUNC = name
             fi.CPPFUNC_SNIPPET = func_decl
+            fi.FUNC_DECL = '<function snippet>'
             fi.RET.NUM = 0
             fi.RET.TYPE = get_typeinfo('void', cls)
             fi.ARGS = {}
@@ -202,6 +205,7 @@ local function parse_func(cls, name, ...)
             fi.LUAFUNC = name or funcname
             fi.CPPFUNC = funcname
             fi.STATIC = static
+            fi.FUNC_DECL = func_decl
             fi.RET.NUM = typename == "void" and 0 or 1
             fi.RET.TYPE = get_typeinfo(typename, cls)
             fi.RET.DECL_TYPE = to_decl_type(cls, typename)
@@ -247,9 +251,9 @@ function class()
         cls.FUNCS[#cls.FUNCS + 1] = parse_func(cls, name, ...)
         for i, v in ipairs(cls.FUNCS[#cls.FUNCS]) do
             v.CALLBACK_OPT = assert(opt)
-            if type(v.CALLBACK_OPT.MAKER) == 'table' then
+            if type(v.CALLBACK_OPT.TAG_MAKER) == 'table' then
                 v.CALLBACK_OPT = setmetatable({
-                    MAKER = assert(v.CALLBACK_OPT.MAKER[i])
+                    TAG_MAKER = assert(v.CALLBACK_OPT.TAG_MAKER[i])
                 }, {__index = v.CALLBACK_OPT})
             end
         end

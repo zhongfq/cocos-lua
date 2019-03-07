@@ -38,22 +38,26 @@ function main()
     --     print("sprite:schedule", ...)
     -- end, 1.2, 'update')
 
-    node:scheduleOnce(function ( ... )
-        print("scheduleOnce", ...)
-    end, 1.3, "update")
+    local scheduler = node.scheduler
 
-    node:scheduleOnce(function ( ... )
-        print("scheduleOnce", ...)
-    end, 2, "update")
+    scheduler:schedule(function ( ... )
+        print("schedule", ...)
+    end, node, 1, false, "update")
+
+    scheduler:schedule(function ( ... )
+        print("schedule", ...)
+    end, node, 2, false, "update")
 
     timer.delay(4, function ( ... )
-        printUserValue(node)
+        printUserValue(scheduler)
+        node:unscheduleAllCallbacks('update')
+        printUserValue(scheduler)
     end)
 end
 
 function printUserValue(obj)
     print("print obj user value:", obj)
-    for k, v in pairs(debug.getuservalue(obj)) do
+    for k, v in pairs(debug.getuservalue(obj) or {}) do
         print("", k, v)
     end
 end

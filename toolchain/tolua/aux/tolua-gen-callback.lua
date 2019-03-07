@@ -1,14 +1,14 @@
 local function gen_maker(cls, fi, write)
-    if not fi.CALLBACK_OPT.MAKER then
+    if not fi.CALLBACK_OPT.TAG_MAKER then
         error(string.format("no tag maker: %s.%s", cls.CPPCLS, fi.LUAFUNC))
     end
 
-    local maker = string.gsub(fi.CALLBACK_OPT.MAKER, '#(%-?%d+)', function (n)
+    local maker = string.gsub(fi.CALLBACK_OPT.TAG_MAKER, '#(%-?%d+)', function (n)
         n = tonumber(n)
-        assert(n, fi.CALLBACK_OPT.MAKER)
+        assert(n, fi.CALLBACK_OPT.TAG_MAKER)
         if n < 0 then
             n = n + #fi.ARGS + 1
-            assert(n > 0, fi.CALLBACK_OPT.MAKER)
+            assert(n > 0, fi.CALLBACK_OPT.TAG_MAKER)
         end
         return "arg" .. n
     end)
@@ -16,11 +16,11 @@ local function gen_maker(cls, fi, write)
 end
 
 local function gen_remove_callback(cls, fi, write)
-    local REMOVED_MODE = fi.CALLBACK_OPT.REMOVED_MODE
-    local MAKER = gen_maker(cls, fi, write)
+    local TAG_MODE = fi.CALLBACK_OPT.TAG_MODE
+    local TAG_MAKER = gen_maker(cls, fi, write)
     local block = format_snippet([[
-        std::string tag = ${MAKER};
-        tolua_removecallback(L, 1, tag.c_str(), ${REMOVED_MODE});
+        std::string tag = ${TAG_MAKER};
+        tolua_removecallback(L, 1, tag.c_str(), ${TAG_MODE});
     ]])
     return block
 end
@@ -47,7 +47,7 @@ function gen_callback(cls, fi, write)
         return gen_remove_callback(cls, fi, write)
     end
 
-    local MAKER = gen_maker(cls, fi, write)
+    local TAG_MAKER = gen_maker(cls, fi, write)
     local REMOVE_CALLBACK = ""
     local TOLUA_CALLBACK_TAG = "TOLUA_CALLBACK_TAG_NEW"
     local NUM_ARGS = #ai.CALLBACK_ARGS
@@ -85,20 +85,20 @@ function gen_callback(cls, fi, write)
     PUSH_ARGS = table.concat(PUSH_ARGS, "\n")
 
     if fi.CALLBACK_OPT.REMOVED then
-        local REMOVED_MODE = fi.CALLBACK_OPT.REMOVED_MODE
+        local TAG_MODE = fi.CALLBACK_OPT.TAG_MODE
         REMOVE_CALLBACK = format_snippet([[
             if (tolua_getobj(L, self)) {
-                tolua_removecallback(L, -1, func.c_str(), ${REMOVED_MODE});
+                tolua_removecallback(L, -1, func.c_str(), ${TAG_MODE});
             }
         ]])
     end
 
-    if fi.CALLBACK_OPT.STANDALONE then
+    if fi.CALLBACK_OPT.ONLYONE then
         TOLUA_CALLBACK_TAG = "TOLUA_CALLBACK_TAG_REPLACE"
     end
 
     local block = format_snippet([[
-        std::string tag = ${MAKER};
+        std::string tag = ${TAG_MAKER};
         std::string func = tolua_setcallback(L, 1, tag.c_str(), ${IDX}, ${TOLUA_CALLBACK_TAG});
         ${ARG_N} = [self, func, tag](${ARGS}) {
             lua_State *L = xlua_cocosthread();

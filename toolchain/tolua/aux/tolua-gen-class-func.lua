@@ -34,6 +34,7 @@ local function gen_func_args(cls, fi)
     for i, ai in ipairs(fi.ARGS) do
         local DECL_TYPE = ai.TYPE.DECL_TYPE
         local INIT_VALUE = ai.TYPE.INIT_VALUE
+        local VARNAME = ai.VARNAME or ""
         local ARG_N = "arg" .. i
         local SPACE = " "
         local FUNC_CHECK_VALUE = ai.TYPE.FUNC_CHECK_VALUE
@@ -41,9 +42,14 @@ local function gen_func_args(cls, fi)
         idx = IDX
 
         if ai.TYPE.DECL_TYPE ~= ai.TYPE.TYPENAME and not ai.CALLBACK_ARGS then
-            CALLER_ARGS[#CALLER_ARGS + 1] = '(' .. ai.TYPE.TYPENAME .. ')arg' .. i
+            local TYPENAME = ai.TYPE.TYPENAME
+            CALLER_ARGS[#CALLER_ARGS + 1] = format_snippet([[
+                (${TYPENAME})${ARG_N}
+            ]])
         else
-            CALLER_ARGS[#CALLER_ARGS + 1] = 'arg' .. i
+            CALLER_ARGS[#CALLER_ARGS + 1] = format_snippet([[
+                ${ARG_N}
+            ]])
         end
 
         if string.find(DECL_TYPE, '[ *&]$') then
@@ -52,16 +58,16 @@ local function gen_func_args(cls, fi)
 
         if INIT_VALUE then
             DECL_CHUNK[#DECL_CHUNK + 1] = format_snippet([[
-                ${DECL_TYPE}${SPACE}${ARG_N} = ${INIT_VALUE};
+                ${DECL_TYPE}${SPACE}${ARG_N} = ${INIT_VALUE};   /** ${VARNAME} */
             ]])
         elseif ai.TYPE.SUBTYPE then
             DECL_TYPE = ai.DECL_TYPE
             DECL_CHUNK[#DECL_CHUNK + 1] = format_snippet([[
-                ${DECL_TYPE}${SPACE}${ARG_N};
+                ${DECL_TYPE}${SPACE}${ARG_N};       /** ${VARNAME} */
             ]])
         else
             DECL_CHUNK[#DECL_CHUNK + 1] = format_snippet([[
-                ${DECL_TYPE}${SPACE}${ARG_N};
+                ${DECL_TYPE}${SPACE}${ARG_N};       /** $VARNAME */
             ]])
         end
 
@@ -146,6 +152,7 @@ local function gen_one_func(cls, fi, write, funcidx)
 
     local CPPCLS_PATH = class_path(cls.CPPCLS)
     local CPPFUNC = fi.CPPFUNC
+    local FUNC_DECL = fi.FUNC_DECL
     local FUNC_INDEX = funcidx or ""
     local CALLER = "self->"
 
@@ -172,6 +179,7 @@ local function gen_one_func(cls, fi, write, funcidx)
 
             ${CALLBACK}
 
+            // ${FUNC_DECL}
             ${RET_VALUE}${CALLER}${CPPFUNC}(${CALLER_ARGS});
             
             return ${PUSH_RET};

@@ -13,11 +13,12 @@ static int _cocos2d_UserDefault_getBoolForKey1(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::UserDefault *self = nullptr;
-    const char *arg1 = nullptr;
+    const char *arg1 = nullptr;   /** key */
 
     tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
     tolua_check_string(L, 2, &arg1);
 
+    // bool getBoolForKey(const char *key);
     bool ret = (bool)self->getBoolForKey(arg1);
 
     return tolua_push_bool(L, ret);
@@ -28,13 +29,14 @@ static int _cocos2d_UserDefault_getBoolForKey2(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::UserDefault *self = nullptr;
-    const char *arg1 = nullptr;
-    bool arg2 = false;
+    const char *arg1 = nullptr;   /** key */
+    bool arg2 = false;   /** defaultValue */
 
     tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
     tolua_check_string(L, 2, &arg1);
     tolua_check_bool(L, 3, &arg2);
 
+    // bool getBoolForKey(const char *key, bool defaultValue);
     bool ret = (bool)self->getBoolForKey(arg1, arg2);
 
     return tolua_push_bool(L, ret);
@@ -66,11 +68,12 @@ static int _cocos2d_UserDefault_getIntegerForKey1(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::UserDefault *self = nullptr;
-    const char *arg1 = nullptr;
+    const char *arg1 = nullptr;   /** key */
 
     tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
     tolua_check_string(L, 2, &arg1);
 
+    // int getIntegerForKey(const char *key);
     int ret = (int)self->getIntegerForKey(arg1);
 
     return tolua_push_int(L, (lua_Integer)ret);
@@ -81,13 +84,14 @@ static int _cocos2d_UserDefault_getIntegerForKey2(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::UserDefault *self = nullptr;
-    const char *arg1 = nullptr;
-    lua_Integer arg2 = 0;
+    const char *arg1 = nullptr;   /** key */
+    lua_Integer arg2 = 0;   /** defaultValue */
 
     tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
     tolua_check_string(L, 2, &arg1);
     tolua_check_int(L, 3, &arg2);
 
+    // int getIntegerForKey(const char *key, int defaultValue);
     int ret = (int)self->getIntegerForKey(arg1, (int)arg2);
 
     return tolua_push_int(L, (lua_Integer)ret);
@@ -119,11 +123,12 @@ static int _cocos2d_UserDefault_getFloatForKey1(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::UserDefault *self = nullptr;
-    const char *arg1 = nullptr;
+    const char *arg1 = nullptr;   /** key */
 
     tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
     tolua_check_string(L, 2, &arg1);
 
+    // float getFloatForKey(const char *key);
     float ret = (float)self->getFloatForKey(arg1);
 
     return tolua_push_number(L, (lua_Number)ret);
@@ -134,13 +139,14 @@ static int _cocos2d_UserDefault_getFloatForKey2(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::UserDefault *self = nullptr;
-    const char *arg1 = nullptr;
-    lua_Number arg2 = 0;
+    const char *arg1 = nullptr;   /** key */
+    lua_Number arg2 = 0;   /** defaultValue */
 
     tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
     tolua_check_string(L, 2, &arg1);
     tolua_check_number(L, 3, &arg2);
 
+    // float getFloatForKey(const char *key, float defaultValue);
     float ret = (float)self->getFloatForKey(arg1, (float)arg2);
 
     return tolua_push_number(L, (lua_Number)ret);
@@ -172,11 +178,12 @@ static int _cocos2d_UserDefault_getDoubleForKey1(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::UserDefault *self = nullptr;
-    const char *arg1 = nullptr;
+    const char *arg1 = nullptr;   /** key */
 
     tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
     tolua_check_string(L, 2, &arg1);
 
+    // double getDoubleForKey(const char *key);
     double ret = (double)self->getDoubleForKey(arg1);
 
     return tolua_push_number(L, (lua_Number)ret);
@@ -187,13 +194,14 @@ static int _cocos2d_UserDefault_getDoubleForKey2(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::UserDefault *self = nullptr;
-    const char *arg1 = nullptr;
-    lua_Number arg2 = 0;
+    const char *arg1 = nullptr;   /** key */
+    lua_Number arg2 = 0;   /** defaultValue */
 
     tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
     tolua_check_string(L, 2, &arg1);
     tolua_check_number(L, 3, &arg2);
 
+    // double getDoubleForKey(const char *key, double defaultValue);
     double ret = (double)self->getDoubleForKey(arg1, (double)arg2);
 
     return tolua_push_number(L, (lua_Number)ret);
@@ -225,11 +233,12 @@ static int _cocos2d_UserDefault_getStringForKey1(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::UserDefault *self = nullptr;
-    const char *arg1 = nullptr;
+    const char *arg1 = nullptr;   /** key */
 
     tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
     tolua_check_string(L, 2, &arg1);
 
+    // std::string getStringForKey(const char *key);
     std::string ret = (std::string)self->getStringForKey(arg1);
 
     return tolua_push_std_string(L, ret);
@@ -240,13 +249,14 @@ static int _cocos2d_UserDefault_getStringForKey2(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::UserDefault *self = nullptr;
-    const char *arg1 = nullptr;
-    std::string arg2;
+    const char *arg1 = nullptr;   /** key */
+    std::string arg2;       /** defaultValue */
 
     tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
     tolua_check_string(L, 2, &arg1);
     tolua_check_std_string(L, 3, &arg2);
 
+    // std::string getStringForKey(const char *key, const std::string & defaultValue);
     std::string ret = (std::string)self->getStringForKey(arg1, arg2);
 
     return tolua_push_std_string(L, ret);
@@ -278,13 +288,14 @@ static int _cocos2d_UserDefault_setBoolForKey(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::UserDefault *self = nullptr;
-    const char *arg1 = nullptr;
-    bool arg2 = false;
+    const char *arg1 = nullptr;   /** key */
+    bool arg2 = false;   /** value */
 
     tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
     tolua_check_string(L, 2, &arg1);
     tolua_check_bool(L, 3, &arg2);
 
+    // void setBoolForKey(const char *key, bool value);
     self->setBoolForKey(arg1, arg2);
 
     return 0;
@@ -295,13 +306,14 @@ static int _cocos2d_UserDefault_setIntegerForKey(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::UserDefault *self = nullptr;
-    const char *arg1 = nullptr;
-    lua_Integer arg2 = 0;
+    const char *arg1 = nullptr;   /** key */
+    lua_Integer arg2 = 0;   /** value */
 
     tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
     tolua_check_string(L, 2, &arg1);
     tolua_check_int(L, 3, &arg2);
 
+    // void setIntegerForKey(const char *key, int value);
     self->setIntegerForKey(arg1, (int)arg2);
 
     return 0;
@@ -312,13 +324,14 @@ static int _cocos2d_UserDefault_setFloatForKey(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::UserDefault *self = nullptr;
-    const char *arg1 = nullptr;
-    lua_Number arg2 = 0;
+    const char *arg1 = nullptr;   /** key */
+    lua_Number arg2 = 0;   /** value */
 
     tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
     tolua_check_string(L, 2, &arg1);
     tolua_check_number(L, 3, &arg2);
 
+    // void setFloatForKey(const char *key, float value);
     self->setFloatForKey(arg1, (float)arg2);
 
     return 0;
@@ -329,13 +342,14 @@ static int _cocos2d_UserDefault_setDoubleForKey(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::UserDefault *self = nullptr;
-    const char *arg1 = nullptr;
-    lua_Number arg2 = 0;
+    const char *arg1 = nullptr;   /** key */
+    lua_Number arg2 = 0;   /** value */
 
     tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
     tolua_check_string(L, 2, &arg1);
     tolua_check_number(L, 3, &arg2);
 
+    // void setDoubleForKey(const char *key, double value);
     self->setDoubleForKey(arg1, (double)arg2);
 
     return 0;
@@ -346,13 +360,14 @@ static int _cocos2d_UserDefault_setStringForKey(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::UserDefault *self = nullptr;
-    const char *arg1 = nullptr;
-    std::string arg2;
+    const char *arg1 = nullptr;   /** key */
+    std::string arg2;       /** value */
 
     tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
     tolua_check_string(L, 2, &arg1);
     tolua_check_std_string(L, 3, &arg2);
 
+    // void setStringForKey(const char *key, const std::string & value);
     self->setStringForKey(arg1, arg2);
 
     return 0;
@@ -366,6 +381,7 @@ static int _cocos2d_UserDefault_flush(lua_State *L)
 
     tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
 
+    // void flush();
     self->flush();
 
     return 0;
@@ -376,11 +392,12 @@ static int _cocos2d_UserDefault_deleteValueForKey(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::UserDefault *self = nullptr;
-    const char *arg1 = nullptr;
+    const char *arg1 = nullptr;   /** key */
 
     tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
     tolua_check_string(L, 2, &arg1);
 
+    // void deleteValueForKey(const char *key);
     self->deleteValueForKey(arg1);
 
     return 0;
@@ -390,6 +407,7 @@ static int _cocos2d_UserDefault_getInstance(lua_State *L)
 {
     lua_settop(L, 0);
 
+    // static cocos2d::UserDefault *getInstance();
     cocos2d::UserDefault *ret = (cocos2d::UserDefault *)cocos2d::UserDefault::getInstance();
 
     return tolua_push_obj(L, ret, "cc.UserDefault");
@@ -399,6 +417,7 @@ static int _cocos2d_UserDefault_getXMLFilePath(lua_State *L)
 {
     lua_settop(L, 0);
 
+    // static const std::string& getXMLFilePath();
     const std::string ret = (const std::string)cocos2d::UserDefault::getXMLFilePath();
 
     return tolua_push_std_string(L, ret);
@@ -408,6 +427,7 @@ static int _cocos2d_UserDefault_isXMLFileExist(lua_State *L)
 {
     lua_settop(L, 0);
 
+    // static bool isXMLFileExist();
     bool ret = (bool)cocos2d::UserDefault::isXMLFileExist();
 
     return tolua_push_bool(L, ret);
@@ -450,6 +470,7 @@ static int _cocos2d_Ref_getReferenceCount(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Ref");
 
+    // unsigned int getReferenceCount()
     unsigned int ret = (unsigned int)self->getReferenceCount();
 
     return tolua_push_uint(L, (lua_Unsigned)ret);
@@ -470,6 +491,7 @@ static int _cocos2d_Director_getInstance(lua_State *L)
 {
     lua_settop(L, 0);
 
+    // static Director *getInstance()
     cocos2d::Director *ret = (cocos2d::Director *)cocos2d::Director::getInstance();
 
     return xluacv_push_ccobj(L, ret, "cc.Director");
@@ -483,6 +505,7 @@ static int _cocos2d_Director_setViewport(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Director");
 
+    // void setViewport()
     self->setViewport();
 
     return 0;
@@ -496,6 +519,7 @@ static int _cocos2d_Director_getRunningScene(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Director");
 
+    // Scene *getRunningScene()
     cocos2d::Scene *ret = (cocos2d::Scene *)self->getRunningScene();
 
     return xluacv_push_ccobj(L, ret, "cc.Scene");
@@ -509,6 +533,7 @@ static int _cocos2d_Director_getAnimationInterval(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Director");
 
+    // float getAnimationInterval()
     float ret = (float)self->getAnimationInterval();
 
     return tolua_push_number(L, (lua_Number)ret);
@@ -519,11 +544,12 @@ static int _cocos2d_Director_setAnimationInterval(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::Director *self = nullptr;
-    lua_Number arg1 = 0;
+    lua_Number arg1 = 0;   /** interval */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Director");
     tolua_check_number(L, 2, &arg1);
 
+    // void setAnimationInterval(float interval)
     self->setAnimationInterval((float)arg1);
 
     return 0;
@@ -537,6 +563,7 @@ static int _cocos2d_Director_isDisplayStats(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Director");
 
+    // bool isDisplayStats()
     bool ret = (bool)self->isDisplayStats();
 
     return tolua_push_bool(L, ret);
@@ -547,11 +574,12 @@ static int _cocos2d_Director_setDisplayStats(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::Director *self = nullptr;
-    bool arg1 = false;
+    bool arg1 = false;   /** displayStats */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Director");
     tolua_check_bool(L, 2, &arg1);
 
+    // void setDisplayStats(bool displayStats)
     self->setDisplayStats(arg1);
 
     return 0;
@@ -565,6 +593,7 @@ static int _cocos2d_Director_getSecondsPerFrame(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Director");
 
+    // float getSecondsPerFrame()
     float ret = (float)self->getSecondsPerFrame();
 
     return tolua_push_number(L, (lua_Number)ret);
@@ -578,6 +607,7 @@ static int _cocos2d_Director_getOpenGLView(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Director");
 
+    // GLView* getOpenGLView()
     cocos2d::GLView *ret = (cocos2d::GLView *)self->getOpenGLView();
 
     return xluacv_push_ccobj(L, ret, "cc.GLView");
@@ -588,11 +618,12 @@ static int _cocos2d_Director_setOpenGLView(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::Director *self = nullptr;
-    cocos2d::GLView *arg1 = nullptr;
+    cocos2d::GLView *arg1 = nullptr;   /** openGLView */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Director");
     xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.GLView");
 
+    // void setOpenGLView(GLView *openGLView)
     self->setOpenGLView(arg1);
 
     return 0;
@@ -606,6 +637,7 @@ static int _cocos2d_Director_getTextureCache(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Director");
 
+    // TextureCache* getTextureCache()
     cocos2d::TextureCache *ret = (cocos2d::TextureCache *)self->getTextureCache();
 
     return xluacv_push_ccobj(L, ret, "cc.TextureCache");
@@ -619,6 +651,7 @@ static int _cocos2d_Director_isNextDeltaTimeZero(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Director");
 
+    // bool isNextDeltaTimeZero()
     bool ret = (bool)self->isNextDeltaTimeZero();
 
     return tolua_push_bool(L, ret);
@@ -629,11 +662,12 @@ static int _cocos2d_Director_setNextDeltaTimeZero(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::Director *self = nullptr;
-    bool arg1 = false;
+    bool arg1 = false;   /** nextDeltaTimeZero */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Director");
     tolua_check_bool(L, 2, &arg1);
 
+    // void setNextDeltaTimeZero(bool nextDeltaTimeZero)
     self->setNextDeltaTimeZero(arg1);
 
     return 0;
@@ -647,6 +681,7 @@ static int _cocos2d_Director_isPaused(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Director");
 
+    // bool isPaused()
     bool ret = (bool)self->isPaused();
 
     return tolua_push_bool(L, ret);
@@ -660,6 +695,7 @@ static int _cocos2d_Director_getTotalFrames(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Director");
 
+    // unsigned int getTotalFrames()
     unsigned int ret = (unsigned int)self->getTotalFrames();
 
     return tolua_push_uint(L, (lua_Unsigned)ret);
@@ -673,6 +709,7 @@ static int _cocos2d_Director_getProjection(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Director");
 
+    // Projection getProjection()
     cocos2d::Director::Projection ret = (cocos2d::Director::Projection)self->getProjection();
 
     return tolua_push_uint(L, (lua_Unsigned)ret);
@@ -683,11 +720,12 @@ static int _cocos2d_Director_setProjection(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::Director *self = nullptr;
-    lua_Unsigned arg1 = 0;
+    lua_Unsigned arg1 = 0;   /** projection */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Director");
     tolua_check_uint(L, 2, &arg1);
 
+    // void setProjection(Projection projection)
     self->setProjection((cocos2d::Director::Projection)arg1);
 
     return 0;
@@ -701,6 +739,7 @@ static int _cocos2d_Director_isSendCleanupToScene(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Director");
 
+    // bool isSendCleanupToScene()
     bool ret = (bool)self->isSendCleanupToScene();
 
     return tolua_push_bool(L, ret);
@@ -714,6 +753,7 @@ static int _cocos2d_Director_getNotificationNode(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Director");
 
+    // Node* getNotificationNode()
     cocos2d::Node *ret = (cocos2d::Node *)self->getNotificationNode();
 
     return xluacv_push_ccobj(L, ret, "cc.Node");
@@ -724,11 +764,12 @@ static int _cocos2d_Director_setNotificationNode(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::Director *self = nullptr;
-    cocos2d::Node *arg1 = nullptr;
+    cocos2d::Node *arg1 = nullptr;   /** node */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Director");
     xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.Node");
 
+    // void setNotificationNode(Node *node)
     self->setNotificationNode(arg1);
 
     return 0;
@@ -802,11 +843,12 @@ static int _cocos2d_Scheduler_update(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::Scheduler *self = nullptr;
-    lua_Number arg1 = 0;
+    lua_Number arg1 = 0;   /** dt */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Scheduler");
     tolua_check_number(L, 2, &arg1);
 
+    // void update(float dt)
     self->update((float)arg1);
 
     return 0;
@@ -817,11 +859,11 @@ static int _cocos2d_Scheduler_schedule1(lua_State *L)
     lua_settop(L, 6);
 
     cocos2d::Scheduler *self = nullptr;
-    std::function<void(float)> arg1;
-    void *arg2 = nullptr;
-    lua_Number arg3 = 0;
-    bool arg4 = false;
-    std::string arg5;
+    std::function<void(float)> arg1;       /** callback */
+    void *arg2 = nullptr;   /** target */
+    lua_Number arg3 = 0;   /** interval */
+    bool arg4 = false;   /** paused */
+    std::string arg5;       /** key */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Scheduler");
     xluacv_check_obj(L, 3, &arg2);
@@ -840,6 +882,7 @@ static int _cocos2d_Scheduler_schedule1(lua_State *L)
         lua_settop(L, top);
     };
 
+    // void schedule(const std::function<void(float)>& callback, void *target, float interval, bool paused, const std::string& key)
     self->schedule(arg1, arg2, (float)arg3, arg4, arg5);
 
     return 0;
@@ -850,13 +893,13 @@ static int _cocos2d_Scheduler_schedule2(lua_State *L)
     lua_settop(L, 8);
 
     cocos2d::Scheduler *self = nullptr;
-    std::function<void(float)> arg1;
-    void *arg2 = nullptr;
-    lua_Number arg3 = 0;
-    lua_Unsigned arg4 = 0;
-    lua_Number arg5 = 0;
-    bool arg6 = false;
-    std::string arg7;
+    std::function<void(float)> arg1;       /** callback */
+    void *arg2 = nullptr;   /** target */
+    lua_Number arg3 = 0;   /** interval */
+    lua_Unsigned arg4 = 0;   /** repeat */
+    lua_Number arg5 = 0;   /** delay */
+    bool arg6 = false;   /** paused */
+    std::string arg7;       /** key */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Scheduler");
     xluacv_check_obj(L, 3, &arg2);
@@ -877,6 +920,7 @@ static int _cocos2d_Scheduler_schedule2(lua_State *L)
         lua_settop(L, top);
     };
 
+    // void schedule(const std::function<void(float)>& callback, void *target, float interval, unsigned int repeat, float delay, bool paused, const std::string& key)
     self->schedule(arg1, arg2, (float)arg3, (unsigned int)arg4, (float)arg5, arg6, arg7);
 
     return 0;
@@ -908,8 +952,8 @@ static int _cocos2d_Scheduler_unschedule(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::Scheduler *self = nullptr;
-    std::string arg1;
-    void *arg2 = nullptr;
+    std::string arg1;       /** key */
+    void *arg2 = nullptr;   /** target */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Scheduler");
     tolua_check_std_string(L, 2, &arg1);
@@ -918,6 +962,7 @@ static int _cocos2d_Scheduler_unschedule(lua_State *L)
     std::string tag = makeScheduleCallbackTag(arg2, arg1);
     tolua_removecallback(L, 1, tag.c_str(), TOLUA_CALLBACK_TAG_ENDWITH);
 
+    // void unschedule(const std::string& key, void *target)
     self->unschedule(arg1, arg2);
 
     return 0;
@@ -928,7 +973,7 @@ static int _cocos2d_Scheduler_unscheduleAllForTarget(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::Scheduler *self = nullptr;
-    void *arg1 = nullptr;
+    void *arg1 = nullptr;   /** target */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Scheduler");
     xluacv_check_obj(L, 2, &arg1);
@@ -936,6 +981,7 @@ static int _cocos2d_Scheduler_unscheduleAllForTarget(lua_State *L)
     std::string tag = makeScheduleCallbackTag(arg1, "");
     tolua_removecallback(L, 1, tag.c_str(), TOLUA_CALLBACK_TAG_WILDCARD);
 
+    // void unscheduleAllForTarget(void *target)
     self->unscheduleAllForTarget(arg1);
 
     return 0;
@@ -952,6 +998,7 @@ static int _cocos2d_Scheduler_unscheduleAll(lua_State *L)
     std::string tag = makeScheduleCallbackTag(nullptr, "");
     tolua_removecallback(L, 1, tag.c_str(), TOLUA_CALLBACK_TAG_WILDCARD);
 
+    // void unscheduleAll()
     self->unscheduleAll();
 
     return 0;
@@ -980,11 +1027,12 @@ static int _cocos2d_Scheduler_unscheduleUpdate(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::Scheduler *self = nullptr;
-    void *arg1 = nullptr;
+    void *arg1 = nullptr;   /** target */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Scheduler");
     xluacv_check_obj(L, 2, &arg1);
 
+    // void unscheduleUpdate(void *target)
     self->unscheduleUpdate(arg1);
 
     return 0;
@@ -995,11 +1043,12 @@ static int _cocos2d_Scheduler_unscheduleAllWithMinPriority(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::Scheduler *self = nullptr;
-    lua_Integer arg1 = 0;
+    lua_Integer arg1 = 0;   /** minPriority */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Scheduler");
     tolua_check_int(L, 2, &arg1);
 
+    // void unscheduleAllWithMinPriority(int minPriority)
     self->unscheduleAllWithMinPriority((int)arg1);
 
     return 0;
@@ -1010,13 +1059,14 @@ static int _cocos2d_Scheduler_isScheduled(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::Scheduler *self = nullptr;
-    std::string arg1;
-    void *arg2 = nullptr;
+    std::string arg1;       /** key */
+    void *arg2 = nullptr;   /** target */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Scheduler");
     tolua_check_std_string(L, 2, &arg1);
     xluacv_check_obj(L, 3, &arg2);
 
+    // bool isScheduled(const std::string& key, const void *target)
     bool ret = (bool)self->isScheduled(arg1, arg2);
 
     return tolua_push_bool(L, ret);
@@ -1027,11 +1077,12 @@ static int _cocos2d_Scheduler_pauseTarget(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::Scheduler *self = nullptr;
-    void *arg1 = nullptr;
+    void *arg1 = nullptr;   /** target */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Scheduler");
     xluacv_check_obj(L, 2, &arg1);
 
+    // void pauseTarget(void *target)
     self->pauseTarget(arg1);
 
     return 0;
@@ -1042,11 +1093,12 @@ static int _cocos2d_Scheduler_resumeTarget(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::Scheduler *self = nullptr;
-    void *arg1 = nullptr;
+    void *arg1 = nullptr;   /** target */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Scheduler");
     xluacv_check_obj(L, 2, &arg1);
 
+    // void resumeTarget(void *target)
     self->resumeTarget(arg1);
 
     return 0;
@@ -1057,11 +1109,12 @@ static int _cocos2d_Scheduler_isTargetPaused(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::Scheduler *self = nullptr;
-    void *arg1 = nullptr;
+    void *arg1 = nullptr;   /** target */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Scheduler");
     xluacv_check_obj(L, 2, &arg1);
 
+    // bool isTargetPaused(void *target)
     bool ret = (bool)self->isTargetPaused(arg1);
 
     return tolua_push_bool(L, ret);
@@ -1075,6 +1128,7 @@ static int _cocos2d_Scheduler_getTimeScale(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Scheduler");
 
+    // float getTimeScale()
     float ret = (float)self->getTimeScale();
 
     return tolua_push_number(L, (lua_Number)ret);
@@ -1085,11 +1139,12 @@ static int _cocos2d_Scheduler_setTimeScale(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::Scheduler *self = nullptr;
-    lua_Number arg1 = 0;
+    lua_Number arg1 = 0;   /** timeScale */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Scheduler");
     tolua_check_number(L, 2, &arg1);
 
+    // void setTimeScale(float timeScale)
     self->setTimeScale((float)arg1);
 
     return 0;
@@ -1131,15 +1186,16 @@ static int _cocos2d_ActionManager_addAction(lua_State *L)
     lua_settop(L, 4);
 
     cocos2d::ActionManager *self = nullptr;
-    cocos2d::Action *arg1 = nullptr;
-    cocos2d::Node *arg2 = nullptr;
-    bool arg3 = false;
+    cocos2d::Action *arg1 = nullptr;   /** action */
+    cocos2d::Node *arg2 = nullptr;   /** target */
+    bool arg3 = false;   /** paused */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.ActionManager");
     xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.Action");
     xluacv_check_ccobj(L, 3, (void **)&arg2, "cc.Node");
     tolua_check_bool(L, 4, &arg3);
 
+    // void addAction(Action *action, Node *target, bool paused)
     self->addAction(arg1, arg2, arg3);
 
     return 0;
@@ -1153,6 +1209,7 @@ static int _cocos2d_ActionManager_removeAllActions(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.ActionManager");
 
+    // void removeAllActions()
     self->removeAllActions();
 
     return 0;
@@ -1163,11 +1220,12 @@ static int _cocos2d_ActionManager_removeAllActionsFromTarget(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ActionManager *self = nullptr;
-    cocos2d::Node *arg1 = nullptr;
+    cocos2d::Node *arg1 = nullptr;   /** target */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.ActionManager");
     xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.Node");
 
+    // void removeAllActionsFromTarget(Node *target)
     self->removeAllActionsFromTarget(arg1);
 
     return 0;
@@ -1178,11 +1236,12 @@ static int _cocos2d_ActionManager_removeAction(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ActionManager *self = nullptr;
-    cocos2d::Action *arg1 = nullptr;
+    cocos2d::Action *arg1 = nullptr;   /** action */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.ActionManager");
     xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.Action");
 
+    // void removeAction(Action *action)
     self->removeAction(arg1);
 
     return 0;
@@ -1193,13 +1252,14 @@ static int _cocos2d_ActionManager_removeActionByTag(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::ActionManager *self = nullptr;
-    lua_Integer arg1 = 0;
-    cocos2d::Node *arg2 = nullptr;
+    lua_Integer arg1 = 0;   /** tag */
+    cocos2d::Node *arg2 = nullptr;   /** target */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.ActionManager");
     tolua_check_int(L, 2, &arg1);
     xluacv_check_ccobj(L, 3, (void **)&arg2, "cc.Node");
 
+    // void removeActionByTag(int tag, Node *target)
     self->removeActionByTag((int)arg1, arg2);
 
     return 0;
@@ -1210,13 +1270,14 @@ static int _cocos2d_ActionManager_removeAllActionsByTag(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::ActionManager *self = nullptr;
-    lua_Integer arg1 = 0;
-    cocos2d::Node *arg2 = nullptr;
+    lua_Integer arg1 = 0;   /** tag */
+    cocos2d::Node *arg2 = nullptr;   /** target */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.ActionManager");
     tolua_check_int(L, 2, &arg1);
     xluacv_check_ccobj(L, 3, (void **)&arg2, "cc.Node");
 
+    // void removeAllActionsByTag(int tag, Node *target)
     self->removeAllActionsByTag((int)arg1, arg2);
 
     return 0;
@@ -1227,13 +1288,14 @@ static int _cocos2d_ActionManager_removeActionsByFlags(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::ActionManager *self = nullptr;
-    lua_Unsigned arg1 = 0;
-    cocos2d::Node *arg2 = nullptr;
+    lua_Unsigned arg1 = 0;   /** flags */
+    cocos2d::Node *arg2 = nullptr;   /** target */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.ActionManager");
     tolua_check_uint(L, 2, &arg1);
     xluacv_check_ccobj(L, 3, (void **)&arg2, "cc.Node");
 
+    // void removeActionsByFlags(unsigned int flags, Node *target)
     self->removeActionsByFlags((unsigned int)arg1, arg2);
 
     return 0;
@@ -1244,13 +1306,14 @@ static int _cocos2d_ActionManager_getActionByTag(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::ActionManager *self = nullptr;
-    lua_Integer arg1 = 0;
-    cocos2d::Node *arg2 = nullptr;
+    lua_Integer arg1 = 0;   /** tag */
+    cocos2d::Node *arg2 = nullptr;   /** target */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.ActionManager");
     tolua_check_int(L, 2, &arg1);
     xluacv_check_ccobj(L, 3, (void **)&arg2, "cc.Node");
 
+    // Action* getActionByTag(int tag, const Node *target)
     cocos2d::Action *ret = (cocos2d::Action *)self->getActionByTag((int)arg1, arg2);
 
     return xluacv_push_ccobj(L, ret, "cc.Action");
@@ -1261,11 +1324,12 @@ static int _cocos2d_ActionManager_getNumberOfRunningActionsInTarget(lua_State *L
     lua_settop(L, 2);
 
     cocos2d::ActionManager *self = nullptr;
-    cocos2d::Node *arg1 = nullptr;
+    cocos2d::Node *arg1 = nullptr;   /** target */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.ActionManager");
     xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.Node");
 
+    // ssize_t getNumberOfRunningActionsInTarget(const Node *target)
     ssize_t ret = (ssize_t)self->getNumberOfRunningActionsInTarget(arg1);
 
     return tolua_push_int(L, (lua_Integer)ret);
@@ -1279,6 +1343,7 @@ static int _cocos2d_ActionManager_getNumberOfRunningActions(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.ActionManager");
 
+    // ssize_t getNumberOfRunningActions()
     ssize_t ret = (ssize_t)self->getNumberOfRunningActions();
 
     return tolua_push_int(L, (lua_Integer)ret);
@@ -1289,13 +1354,14 @@ static int _cocos2d_ActionManager_getNumberOfRunningActionsInTargetByTag(lua_Sta
     lua_settop(L, 3);
 
     cocos2d::ActionManager *self = nullptr;
-    cocos2d::Node *arg1 = nullptr;
-    lua_Integer arg2 = 0;
+    cocos2d::Node *arg1 = nullptr;   /** target */
+    lua_Integer arg2 = 0;   /** tag */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.ActionManager");
     xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.Node");
     tolua_check_int(L, 3, &arg2);
 
+    // size_t getNumberOfRunningActionsInTargetByTag(const Node *target, int tag)
     size_t ret = (size_t)self->getNumberOfRunningActionsInTargetByTag(arg1, (int)arg2);
 
     return tolua_push_uint(L, (lua_Unsigned)ret);
@@ -1306,11 +1372,12 @@ static int _cocos2d_ActionManager_pauseTarget(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ActionManager *self = nullptr;
-    cocos2d::Node *arg1 = nullptr;
+    cocos2d::Node *arg1 = nullptr;   /** target */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.ActionManager");
     xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.Node");
 
+    // void pauseTarget(Node *target)
     self->pauseTarget(arg1);
 
     return 0;
@@ -1321,11 +1388,12 @@ static int _cocos2d_ActionManager_resumeTarget(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ActionManager *self = nullptr;
-    cocos2d::Node *arg1 = nullptr;
+    cocos2d::Node *arg1 = nullptr;   /** target */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.ActionManager");
     xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.Node");
 
+    // void resumeTarget(Node *target)
     self->resumeTarget(arg1);
 
     return 0;
@@ -1339,6 +1407,7 @@ static int _cocos2d_ActionManager_pauseAllRunningActions(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.ActionManager");
 
+    // Vector<Node*> pauseAllRunningActions()
     cocos2d::Vector<cocos2d::Node *> ret = (cocos2d::Vector<cocos2d::Node *>)self->pauseAllRunningActions();
 
     return xluacv_push_ccvector(L, ret, "cc.Node");
@@ -1349,11 +1418,12 @@ static int _cocos2d_ActionManager_resumeTargets(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ActionManager *self = nullptr;
-    cocos2d::Vector<cocos2d::Node *> arg1;
+    cocos2d::Vector<cocos2d::Node *> arg1;       /** targetsToResume */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.ActionManager");
     xluacv_check_ccvector(L, 2, arg1, "cc.Node");
 
+    // void resumeTargets(const Vector<Node*>& targetsToResume)
     self->resumeTargets(arg1);
 
     return 0;
@@ -1364,11 +1434,12 @@ static int _cocos2d_ActionManager_update(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ActionManager *self = nullptr;
-    lua_Number arg1 = 0;
+    lua_Number arg1 = 0;   /** dt */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.ActionManager");
     tolua_check_number(L, 2, &arg1);
 
+    // void update(float dt)
     self->update((float)arg1);
 
     return 0;
@@ -1413,12 +1484,13 @@ static int _cocos2d_GLProgram_createWithByteArrays1(lua_State *L)
 {
     lua_settop(L, 2);
 
-    const char *arg1 = nullptr;
-    const char *arg2 = nullptr;
+    const char *arg1 = nullptr;   /** vShaderByteArray */
+    const char *arg2 = nullptr;   /** fShaderByteArray */
 
     tolua_check_string(L, 1, &arg1);
     tolua_check_string(L, 2, &arg2);
 
+    // static GLProgram* createWithByteArrays(const GLchar* vShaderByteArray, const GLchar* fShaderByteArray)
     cocos2d::GLProgram *ret = (cocos2d::GLProgram *)cocos2d::GLProgram::createWithByteArrays((const GLchar *)arg1, (const GLchar *)arg2);
 
     return xluacv_push_ccobj(L, ret, "cc.GLProgram");
@@ -1428,14 +1500,15 @@ static int _cocos2d_GLProgram_createWithByteArrays2(lua_State *L)
 {
     lua_settop(L, 3);
 
-    const char *arg1 = nullptr;
-    const char *arg2 = nullptr;
-    std::string arg3;
+    const char *arg1 = nullptr;   /** vShaderByteArray */
+    const char *arg2 = nullptr;   /** fShaderByteArray */
+    std::string arg3;       /** compileTimeDefines */
 
     tolua_check_string(L, 1, &arg1);
     tolua_check_string(L, 2, &arg2);
     tolua_check_std_string(L, 3, &arg3);
 
+    // static GLProgram* createWithByteArrays(const GLchar* vShaderByteArray, const GLchar* fShaderByteArray, const std::string& compileTimeDefines)
     cocos2d::GLProgram *ret = (cocos2d::GLProgram *)cocos2d::GLProgram::createWithByteArrays((const GLchar *)arg1, (const GLchar *)arg2, arg3);
 
     return xluacv_push_ccobj(L, ret, "cc.GLProgram");
@@ -1445,16 +1518,17 @@ static int _cocos2d_GLProgram_createWithByteArrays3(lua_State *L)
 {
     lua_settop(L, 4);
 
-    const char *arg1 = nullptr;
-    const char *arg2 = nullptr;
-    std::string arg3;
-    std::string arg4;
+    const char *arg1 = nullptr;   /** vShaderByteArray */
+    const char *arg2 = nullptr;   /** fShaderByteArray */
+    std::string arg3;       /** compileTimeHeaders */
+    std::string arg4;       /** compileTimeDefines */
 
     tolua_check_string(L, 1, &arg1);
     tolua_check_string(L, 2, &arg2);
     tolua_check_std_string(L, 3, &arg3);
     tolua_check_std_string(L, 4, &arg4);
 
+    // static GLProgram* createWithByteArrays(const GLchar* vShaderByteArray, const GLchar* fShaderByteArray, const std::string& compileTimeHeaders, const std::string& compileTimeDefines)
     cocos2d::GLProgram *ret = (cocos2d::GLProgram *)cocos2d::GLProgram::createWithByteArrays((const GLchar *)arg1, (const GLchar *)arg2, arg3, arg4);
 
     return xluacv_push_ccobj(L, ret, "cc.GLProgram");
@@ -1491,12 +1565,13 @@ static int _cocos2d_GLProgram_createWithFilenames1(lua_State *L)
 {
     lua_settop(L, 2);
 
-    std::string arg1;
-    std::string arg2;
+    std::string arg1;       /** vShaderFilename */
+    std::string arg2;       /** fShaderFilename */
 
     tolua_check_std_string(L, 1, &arg1);
     tolua_check_std_string(L, 2, &arg2);
 
+    // static GLProgram* createWithFilenames(const std::string& vShaderFilename, const std::string& fShaderFilename)
     cocos2d::GLProgram *ret = (cocos2d::GLProgram *)cocos2d::GLProgram::createWithFilenames(arg1, arg2);
 
     return xluacv_push_ccobj(L, ret, "cc.GLProgram");
@@ -1506,14 +1581,15 @@ static int _cocos2d_GLProgram_createWithFilenames2(lua_State *L)
 {
     lua_settop(L, 3);
 
-    std::string arg1;
-    std::string arg2;
-    std::string arg3;
+    std::string arg1;       /** vShaderFilename */
+    std::string arg2;       /** fShaderFilename */
+    std::string arg3;       /** compileTimeDefines */
 
     tolua_check_std_string(L, 1, &arg1);
     tolua_check_std_string(L, 2, &arg2);
     tolua_check_std_string(L, 3, &arg3);
 
+    // static GLProgram* createWithFilenames(const std::string& vShaderFilename, const std::string& fShaderFilename, const std::string& compileTimeDefines)
     cocos2d::GLProgram *ret = (cocos2d::GLProgram *)cocos2d::GLProgram::createWithFilenames(arg1, arg2, arg3);
 
     return xluacv_push_ccobj(L, ret, "cc.GLProgram");
@@ -1523,16 +1599,17 @@ static int _cocos2d_GLProgram_createWithFilenames3(lua_State *L)
 {
     lua_settop(L, 4);
 
-    std::string arg1;
-    std::string arg2;
-    std::string arg3;
-    std::string arg4;
+    std::string arg1;       /** vShaderFilename */
+    std::string arg2;       /** fShaderFilename */
+    std::string arg3;       /** compileTimeHeaders */
+    std::string arg4;       /** compileTimeDefines */
 
     tolua_check_std_string(L, 1, &arg1);
     tolua_check_std_string(L, 2, &arg2);
     tolua_check_std_string(L, 3, &arg3);
     tolua_check_std_string(L, 4, &arg4);
 
+    // static GLProgram* createWithFilenames(const std::string& vShaderFilename, const std::string& fShaderFilename, const std::string& compileTimeHeaders, const std::string& compileTimeDefines)
     cocos2d::GLProgram *ret = (cocos2d::GLProgram *)cocos2d::GLProgram::createWithFilenames(arg1, arg2, arg3, arg4);
 
     return xluacv_push_ccobj(L, ret, "cc.GLProgram");
@@ -1570,11 +1647,12 @@ static int _cocos2d_GLProgram_getUniform(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::GLProgram *self = nullptr;
-    std::string arg1;
+    std::string arg1;       /** name */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
     tolua_check_std_string(L, 2, &arg1);
 
+    // Uniform* getUniform(const std::string& name)
     cocos2d::Uniform *ret = (cocos2d::Uniform *)self->getUniform(arg1);
 
     return auto_luacv_push_cocos2d_Uniform(L, ret);
@@ -1585,11 +1663,12 @@ static int _cocos2d_GLProgram_getVertexAttrib(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::GLProgram *self = nullptr;
-    std::string arg1;
+    std::string arg1;       /** name */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
     tolua_check_std_string(L, 2, &arg1);
 
+    // VertexAttrib* getVertexAttrib(const std::string& name)
     cocos2d::VertexAttrib *ret = (cocos2d::VertexAttrib *)self->getVertexAttrib(arg1);
 
     return auto_luacv_push_cocos2d_VertexAttrib(L, ret);
@@ -1600,13 +1679,14 @@ static int _cocos2d_GLProgram_bindAttribLocation(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::GLProgram *self = nullptr;
-    std::string arg1;
-    lua_Unsigned arg2 = 0;
+    std::string arg1;       /** attributeName */
+    lua_Unsigned arg2 = 0;   /** index */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
     tolua_check_std_string(L, 2, &arg1);
     tolua_check_uint(L, 3, &arg2);
 
+    // void bindAttribLocation(const std::string& attributeName, GLuint index)
     self->bindAttribLocation(arg1, (GLuint)arg2);
 
     return 0;
@@ -1617,11 +1697,12 @@ static int _cocos2d_GLProgram_getAttribLocation(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::GLProgram *self = nullptr;
-    std::string arg1;
+    std::string arg1;       /** attributeName */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
     tolua_check_std_string(L, 2, &arg1);
 
+    // GLint getAttribLocation(const std::string& attributeName)
     GLint ret = (GLint)self->getAttribLocation(arg1);
 
     return tolua_push_int(L, (lua_Integer)ret);
@@ -1632,11 +1713,12 @@ static int _cocos2d_GLProgram_getUniformLocation(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::GLProgram *self = nullptr;
-    std::string arg1;
+    std::string arg1;       /** attributeName */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
     tolua_check_std_string(L, 2, &arg1);
 
+    // GLint getUniformLocation(const std::string& attributeName)
     GLint ret = (GLint)self->getUniformLocation(arg1);
 
     return tolua_push_int(L, (lua_Integer)ret);
@@ -1650,6 +1732,7 @@ static int _cocos2d_GLProgram_link(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
 
+    // bool link()
     bool ret = (bool)self->link();
 
     return tolua_push_bool(L, ret);
@@ -1663,6 +1746,7 @@ static int _cocos2d_GLProgram_use(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
 
+    // void use()
     self->use();
 
     return 0;
@@ -1676,6 +1760,7 @@ static int _cocos2d_GLProgram_updateUniforms(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
 
+    // void updateUniforms()
     self->updateUniforms();
 
     return 0;
@@ -1686,11 +1771,12 @@ static int _cocos2d_GLProgram_getUniformLocationForName(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::GLProgram *self = nullptr;
-    const char *arg1 = nullptr;
+    const char *arg1 = nullptr;   /** name */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
     tolua_check_string(L, 2, &arg1);
 
+    // GLint getUniformLocationForName(const char* name)
     GLint ret = (GLint)self->getUniformLocationForName(arg1);
 
     return tolua_push_int(L, (lua_Integer)ret);
@@ -1701,13 +1787,14 @@ static int _cocos2d_GLProgram_setUniformLocationWith1i(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::GLProgram *self = nullptr;
-    lua_Integer arg1 = 0;
-    lua_Integer arg2 = 0;
+    lua_Integer arg1 = 0;   /** location */
+    lua_Integer arg2 = 0;   /** i1 */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
     tolua_check_int(L, 2, &arg1);
     tolua_check_int(L, 3, &arg2);
 
+    // void setUniformLocationWith1i(GLint location, GLint i1)
     self->setUniformLocationWith1i((GLint)arg1, (GLint)arg2);
 
     return 0;
@@ -1718,15 +1805,16 @@ static int _cocos2d_GLProgram_setUniformLocationWith2i(lua_State *L)
     lua_settop(L, 4);
 
     cocos2d::GLProgram *self = nullptr;
-    lua_Integer arg1 = 0;
-    lua_Integer arg2 = 0;
-    lua_Integer arg3 = 0;
+    lua_Integer arg1 = 0;   /** location */
+    lua_Integer arg2 = 0;   /** i1 */
+    lua_Integer arg3 = 0;   /** i2 */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
     tolua_check_int(L, 2, &arg1);
     tolua_check_int(L, 3, &arg2);
     tolua_check_int(L, 4, &arg3);
 
+    // void setUniformLocationWith2i(GLint location, GLint i1, GLint i2)
     self->setUniformLocationWith2i((GLint)arg1, (GLint)arg2, (GLint)arg3);
 
     return 0;
@@ -1737,10 +1825,10 @@ static int _cocos2d_GLProgram_setUniformLocationWith3i(lua_State *L)
     lua_settop(L, 5);
 
     cocos2d::GLProgram *self = nullptr;
-    lua_Integer arg1 = 0;
-    lua_Integer arg2 = 0;
-    lua_Integer arg3 = 0;
-    lua_Integer arg4 = 0;
+    lua_Integer arg1 = 0;   /** location */
+    lua_Integer arg2 = 0;   /** i1 */
+    lua_Integer arg3 = 0;   /** i2 */
+    lua_Integer arg4 = 0;   /** i3 */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
     tolua_check_int(L, 2, &arg1);
@@ -1748,6 +1836,7 @@ static int _cocos2d_GLProgram_setUniformLocationWith3i(lua_State *L)
     tolua_check_int(L, 4, &arg3);
     tolua_check_int(L, 5, &arg4);
 
+    // void setUniformLocationWith3i(GLint location, GLint i1, GLint i2, GLint i3)
     self->setUniformLocationWith3i((GLint)arg1, (GLint)arg2, (GLint)arg3, (GLint)arg4);
 
     return 0;
@@ -1758,11 +1847,11 @@ static int _cocos2d_GLProgram_setUniformLocationWith4i(lua_State *L)
     lua_settop(L, 6);
 
     cocos2d::GLProgram *self = nullptr;
-    lua_Integer arg1 = 0;
-    lua_Integer arg2 = 0;
-    lua_Integer arg3 = 0;
-    lua_Integer arg4 = 0;
-    lua_Integer arg5 = 0;
+    lua_Integer arg1 = 0;   /** location */
+    lua_Integer arg2 = 0;   /** i1 */
+    lua_Integer arg3 = 0;   /** i2 */
+    lua_Integer arg4 = 0;   /** i3 */
+    lua_Integer arg5 = 0;   /** i4 */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
     tolua_check_int(L, 2, &arg1);
@@ -1771,6 +1860,7 @@ static int _cocos2d_GLProgram_setUniformLocationWith4i(lua_State *L)
     tolua_check_int(L, 5, &arg4);
     tolua_check_int(L, 6, &arg5);
 
+    // void setUniformLocationWith4i(GLint location, GLint i1, GLint i2, GLint i3, GLint i4)
     self->setUniformLocationWith4i((GLint)arg1, (GLint)arg2, (GLint)arg3, (GLint)arg4, (GLint)arg5);
 
     return 0;
@@ -1781,13 +1871,14 @@ static int _cocos2d_GLProgram_setUniformLocationWith1f(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::GLProgram *self = nullptr;
-    lua_Integer arg1 = 0;
-    lua_Number arg2 = 0;
+    lua_Integer arg1 = 0;   /** location */
+    lua_Number arg2 = 0;   /** f1 */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
     tolua_check_int(L, 2, &arg1);
     tolua_check_number(L, 3, &arg2);
 
+    // void setUniformLocationWith1f(GLint location, GLfloat f1)
     self->setUniformLocationWith1f((GLint)arg1, (GLfloat)arg2);
 
     return 0;
@@ -1798,15 +1889,16 @@ static int _cocos2d_GLProgram_setUniformLocationWith2f(lua_State *L)
     lua_settop(L, 4);
 
     cocos2d::GLProgram *self = nullptr;
-    lua_Integer arg1 = 0;
-    lua_Number arg2 = 0;
-    lua_Number arg3 = 0;
+    lua_Integer arg1 = 0;   /** location */
+    lua_Number arg2 = 0;   /** f1 */
+    lua_Number arg3 = 0;   /** f2 */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
     tolua_check_int(L, 2, &arg1);
     tolua_check_number(L, 3, &arg2);
     tolua_check_number(L, 4, &arg3);
 
+    // void setUniformLocationWith2f(GLint location, GLfloat f1, GLfloat f2)
     self->setUniformLocationWith2f((GLint)arg1, (GLfloat)arg2, (GLfloat)arg3);
 
     return 0;
@@ -1817,10 +1909,10 @@ static int _cocos2d_GLProgram_setUniformLocationWith3f(lua_State *L)
     lua_settop(L, 5);
 
     cocos2d::GLProgram *self = nullptr;
-    lua_Integer arg1 = 0;
-    lua_Number arg2 = 0;
-    lua_Number arg3 = 0;
-    lua_Number arg4 = 0;
+    lua_Integer arg1 = 0;   /** location */
+    lua_Number arg2 = 0;   /** f1 */
+    lua_Number arg3 = 0;   /** f2 */
+    lua_Number arg4 = 0;   /** f3 */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
     tolua_check_int(L, 2, &arg1);
@@ -1828,6 +1920,7 @@ static int _cocos2d_GLProgram_setUniformLocationWith3f(lua_State *L)
     tolua_check_number(L, 4, &arg3);
     tolua_check_number(L, 5, &arg4);
 
+    // void setUniformLocationWith3f(GLint location, GLfloat f1, GLfloat f2, GLfloat f3)
     self->setUniformLocationWith3f((GLint)arg1, (GLfloat)arg2, (GLfloat)arg3, (GLfloat)arg4);
 
     return 0;
@@ -1838,11 +1931,11 @@ static int _cocos2d_GLProgram_setUniformLocationWith4f(lua_State *L)
     lua_settop(L, 6);
 
     cocos2d::GLProgram *self = nullptr;
-    lua_Integer arg1 = 0;
-    lua_Number arg2 = 0;
-    lua_Number arg3 = 0;
-    lua_Number arg4 = 0;
-    lua_Number arg5 = 0;
+    lua_Integer arg1 = 0;   /** location */
+    lua_Number arg2 = 0;   /** f1 */
+    lua_Number arg3 = 0;   /** f2 */
+    lua_Number arg4 = 0;   /** f3 */
+    lua_Number arg5 = 0;   /** f4 */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
     tolua_check_int(L, 2, &arg1);
@@ -1851,6 +1944,7 @@ static int _cocos2d_GLProgram_setUniformLocationWith4f(lua_State *L)
     tolua_check_number(L, 5, &arg4);
     tolua_check_number(L, 6, &arg5);
 
+    // void setUniformLocationWith4f(GLint location, GLfloat f1, GLfloat f2, GLfloat f3, GLfloat f4)
     self->setUniformLocationWith4f((GLint)arg1, (GLfloat)arg2, (GLfloat)arg3, (GLfloat)arg4, (GLfloat)arg5);
 
     return 0;
@@ -1864,6 +1958,7 @@ static int _cocos2d_GLProgram_setUniformsForBuiltins1(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
 
+    // void setUniformsForBuiltins()
     self->setUniformsForBuiltins();
 
     return 0;
@@ -1874,11 +1969,12 @@ static int _cocos2d_GLProgram_setUniformsForBuiltins2(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::GLProgram *self = nullptr;
-    cocos2d::Mat4 arg1;
+    cocos2d::Mat4 arg1;       /** modelView */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
     xluacv_check_ccmat4(L, 2, &arg1);
 
+    // void setUniformsForBuiltins(const Mat4 &modelView)
     self->setUniformsForBuiltins(arg1);
 
     return 0;
@@ -1911,6 +2007,7 @@ static int _cocos2d_GLProgram_reset(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
 
+    // void reset()
     self->reset();
 
     return 0;
@@ -1924,6 +2021,7 @@ static int _cocos2d_GLProgram_getVertexShaderLog(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
 
+    // std::string getVertexShaderLog()
     std::string ret = (std::string)self->getVertexShaderLog();
 
     return tolua_push_std_string(L, ret);
@@ -1937,6 +2035,7 @@ static int _cocos2d_GLProgram_getFragmentShaderLog(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
 
+    // std::string getFragmentShaderLog()
     std::string ret = (std::string)self->getFragmentShaderLog();
 
     return tolua_push_std_string(L, ret);
@@ -1950,6 +2049,7 @@ static int _cocos2d_GLProgram_getProgramLog(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
 
+    // std::string getProgramLog()
     std::string ret = (std::string)self->getProgramLog();
 
     return tolua_push_std_string(L, ret);
@@ -1963,6 +2063,7 @@ static int _cocos2d_GLProgram_getProgram(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.GLProgram");
 
+    // GLuint getProgram()
     GLuint ret = (GLuint)self->getProgram();
 
     return tolua_push_uint(L, (lua_Unsigned)ret);
@@ -2012,11 +2113,12 @@ static int _cocos2d_TextureCache_addImage1(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::TextureCache *self = nullptr;
-    std::string arg1;
+    std::string arg1;       /** filepath */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.TextureCache");
     tolua_check_std_string(L, 2, &arg1);
 
+    // Texture2D* addImage(const std::string &filepath)
     cocos2d::Texture2D *ret = (cocos2d::Texture2D *)self->addImage(arg1);
 
     return xluacv_push_ccobj(L, ret, "cc.Texture2D");
@@ -2027,13 +2129,14 @@ static int _cocos2d_TextureCache_addImage2(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::TextureCache *self = nullptr;
-    cocos2d::Image *arg1 = nullptr;
-    std::string arg2;
+    cocos2d::Image *arg1 = nullptr;   /** image */
+    std::string arg2;       /** key */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.TextureCache");
     xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.Image");
     tolua_check_std_string(L, 3, &arg2);
 
+    // Texture2D* addImage(Image *image, const std::string &key)
     cocos2d::Texture2D *ret = (cocos2d::Texture2D *)self->addImage(arg1, arg2);
 
     return xluacv_push_ccobj(L, ret, "cc.Texture2D");
@@ -2065,8 +2168,8 @@ static int _cocos2d_TextureCache_addImageAsync1(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::TextureCache *self = nullptr;
-    std::string arg1;
-    std::function<void(cocos2d::Texture2D *)> arg2;
+    std::string arg1;       /** filepath */
+    std::function<void(cocos2d::Texture2D *)> arg2;       /** callback */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.TextureCache");
     tolua_check_std_string(L, 2, &arg1);
@@ -2084,6 +2187,7 @@ static int _cocos2d_TextureCache_addImageAsync1(lua_State *L)
         lua_settop(L, top);
     };
 
+    // void addImageAsync(const std::string &filepath, const std::function<void(Texture2D*)>& callback)
     self->addImageAsync(arg1, arg2);
 
     return 0;
@@ -2094,9 +2198,9 @@ static int _cocos2d_TextureCache_addImageAsync2(lua_State *L)
     lua_settop(L, 4);
 
     cocos2d::TextureCache *self = nullptr;
-    std::string arg1;
-    std::function<void(cocos2d::Texture2D *)> arg2;
-    std::string arg3;
+    std::string arg1;       /** path */
+    std::function<void(cocos2d::Texture2D *)> arg2;       /** callback */
+    std::string arg3;       /** callbackKey */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.TextureCache");
     tolua_check_std_string(L, 2, &arg1);
@@ -2115,6 +2219,7 @@ static int _cocos2d_TextureCache_addImageAsync2(lua_State *L)
         lua_settop(L, top);
     };
 
+    // void addImageAsync(const std::string &path, const std::function<void(Texture2D*)>& callback, const std::string& callbackKey)
     self->addImageAsync(arg1, arg2, arg3);
 
     return 0;
@@ -2146,7 +2251,7 @@ static int _cocos2d_TextureCache_unbindImageAsync(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::TextureCache *self = nullptr;
-    std::string arg1;
+    std::string arg1;       /** filename */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.TextureCache");
     tolua_check_std_string(L, 2, &arg1);
@@ -2154,6 +2259,7 @@ static int _cocos2d_TextureCache_unbindImageAsync(lua_State *L)
     std::string tag = makeTextureCacheCallbackTag(arg1);
     tolua_removecallback(L, 1, tag.c_str(), TOLUA_CALLBACK_TAG_ENDWITH);
 
+    // void unbindImageAsync(const std::string &filename)
     self->unbindImageAsync(arg1);
 
     return 0;
@@ -2170,6 +2276,7 @@ static int _cocos2d_TextureCache_unbindAllImageAsync(lua_State *L)
     std::string tag = makeTextureCacheCallbackTag("");
     tolua_removecallback(L, 1, tag.c_str(), TOLUA_CALLBACK_TAG_WILDCARD);
 
+    // void unbindAllImageAsync()
     self->unbindAllImageAsync();
 
     return 0;
@@ -2180,11 +2287,12 @@ static int _cocos2d_TextureCache_getTextureForKey(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::TextureCache *self = nullptr;
-    std::string arg1;
+    std::string arg1;       /** key */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.TextureCache");
     tolua_check_std_string(L, 2, &arg1);
 
+    // Texture2D* getTextureForKey(const std::string& key)
     cocos2d::Texture2D *ret = (cocos2d::Texture2D *)self->getTextureForKey(arg1);
 
     return xluacv_push_ccobj(L, ret, "cc.Texture2D");
@@ -2195,11 +2303,12 @@ static int _cocos2d_TextureCache_reloadTexture(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::TextureCache *self = nullptr;
-    std::string arg1;
+    std::string arg1;       /** fileName */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.TextureCache");
     tolua_check_std_string(L, 2, &arg1);
 
+    // bool reloadTexture(const std::string& fileName)
     bool ret = (bool)self->reloadTexture(arg1);
 
     return tolua_push_bool(L, ret);
@@ -2213,6 +2322,7 @@ static int _cocos2d_TextureCache_removeAllTextures(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.TextureCache");
 
+    // void removeAllTextures()
     self->removeAllTextures();
 
     return 0;
@@ -2226,6 +2336,7 @@ static int _cocos2d_TextureCache_removeUnusedTextures(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.TextureCache");
 
+    // void removeUnusedTextures()
     self->removeUnusedTextures();
 
     return 0;
@@ -2236,11 +2347,12 @@ static int _cocos2d_TextureCache_removeTexture(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::TextureCache *self = nullptr;
-    cocos2d::Texture2D *arg1 = nullptr;
+    cocos2d::Texture2D *arg1 = nullptr;   /** texture */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.TextureCache");
     xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.Texture2D");
 
+    // void removeTexture(Texture2D* texture)
     self->removeTexture(arg1);
 
     return 0;
@@ -2251,11 +2363,12 @@ static int _cocos2d_TextureCache_removeTextureForKey(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::TextureCache *self = nullptr;
-    std::string arg1;
+    std::string arg1;       /** key */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.TextureCache");
     tolua_check_std_string(L, 2, &arg1);
 
+    // void removeTextureForKey(const std::string &key)
     self->removeTextureForKey(arg1);
 
     return 0;
@@ -2266,11 +2379,12 @@ static int _cocos2d_TextureCache_getTextureFilePath(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::TextureCache *self = nullptr;
-    cocos2d::Texture2D *arg1 = nullptr;
+    cocos2d::Texture2D *arg1 = nullptr;   /** texture */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.TextureCache");
     xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.Texture2D");
 
+    // std::string getTextureFilePath(Texture2D* texture)
     std::string ret = (std::string)self->getTextureFilePath(arg1);
 
     return tolua_push_std_string(L, ret);
@@ -2281,13 +2395,14 @@ static int _cocos2d_TextureCache_renameTextureWithKey(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::TextureCache *self = nullptr;
-    std::string arg1;
-    std::string arg2;
+    std::string arg1;       /** srcName */
+    std::string arg2;       /** dstName */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.TextureCache");
     tolua_check_std_string(L, 2, &arg1);
     tolua_check_std_string(L, 3, &arg2);
 
+    // void renameTextureWithKey(const std::string& srcName, const std::string& dstName)
     self->renameTextureWithKey(arg1, arg2);
 
     return 0;
@@ -2301,6 +2416,7 @@ static int _cocos2d_TextureCache_getDescription(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.TextureCache");
 
+    // std::string getDescription()
     std::string ret = (std::string)self->getDescription();
 
     return tolua_push_std_string(L, ret);
@@ -2314,6 +2430,7 @@ static int _cocos2d_TextureCache_getCachedTextureInfo(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.TextureCache");
 
+    // std::string getCachedTextureInfo()
     std::string ret = (std::string)self->getCachedTextureInfo();
 
     return tolua_push_std_string(L, ret);
@@ -2381,6 +2498,7 @@ static int _cocos2d_Texture2D_releaseGLTexture(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
 
+    // void releaseGLTexture()
     self->releaseGLTexture();
 
     return 0;
@@ -2391,11 +2509,12 @@ static int _cocos2d_Texture2D_initWithImage1(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::Texture2D *self = nullptr;
-    cocos2d::Image *arg1 = nullptr;
+    cocos2d::Image *arg1 = nullptr;   /** image */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
     xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.Image");
 
+    // bool initWithImage(Image * image)
     bool ret = (bool)self->initWithImage(arg1);
 
     return tolua_push_bool(L, ret);
@@ -2406,13 +2525,14 @@ static int _cocos2d_Texture2D_initWithImage2(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::Texture2D *self = nullptr;
-    cocos2d::Image *arg1 = nullptr;
-    lua_Unsigned arg2 = 0;
+    cocos2d::Image *arg1 = nullptr;   /** image */
+    lua_Unsigned arg2 = 0;   /** format */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
     xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.Image");
     tolua_check_uint(L, 3, &arg2);
 
+    // bool initWithImage(Image * image, PixelFormat format)
     bool ret = (bool)self->initWithImage(arg1, (cocos2d::Texture2D::PixelFormat)arg2);
 
     return tolua_push_bool(L, ret);
@@ -2444,11 +2564,12 @@ static int _cocos2d_Texture2D_setTexParameters(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::Texture2D *self = nullptr;
-    cocos2d::Texture2D::TexParams arg1;
+    cocos2d::Texture2D::TexParams arg1;       /** texParams */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
     auto_luacv_check_cocos2d_Texture2D_TexParams(L, 2, &arg1);
 
+    // void setTexParameters(const TexParams& texParams)
     self->setTexParameters(arg1);
 
     return 0;
@@ -2462,6 +2583,7 @@ static int _cocos2d_Texture2D_setAntiAliasTexParameters(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
 
+    // void setAntiAliasTexParameters()
     self->setAntiAliasTexParameters();
 
     return 0;
@@ -2475,6 +2597,7 @@ static int _cocos2d_Texture2D_setAliasTexParameters(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
 
+    // void setAliasTexParameters()
     self->setAliasTexParameters();
 
     return 0;
@@ -2488,6 +2611,7 @@ static int _cocos2d_Texture2D_generateMipmap(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
 
+    // void generateMipmap()
     self->generateMipmap();
 
     return 0;
@@ -2501,6 +2625,7 @@ static int _cocos2d_Texture2D_getBitsPerPixelForFormat1(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
 
+    // unsigned int getBitsPerPixelForFormat()
     unsigned int ret = (unsigned int)self->getBitsPerPixelForFormat();
 
     return tolua_push_uint(L, (lua_Unsigned)ret);
@@ -2511,11 +2636,12 @@ static int _cocos2d_Texture2D_getBitsPerPixelForFormat2(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::Texture2D *self = nullptr;
-    lua_Unsigned arg1 = 0;
+    lua_Unsigned arg1 = 0;   /** format */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
     tolua_check_uint(L, 2, &arg1);
 
+    // unsigned int getBitsPerPixelForFormat(Texture2D::PixelFormat format)
     unsigned int ret = (unsigned int)self->getBitsPerPixelForFormat((cocos2d::Texture2D::PixelFormat)arg1);
 
     return tolua_push_uint(L, (lua_Unsigned)ret);
@@ -2548,6 +2674,7 @@ static int _cocos2d_Texture2D_getStringForFormat(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
 
+    // const char* getStringForFormat()
     const char *ret = (const char *)self->getStringForFormat();
 
     return tolua_push_string(L, ret);
@@ -2561,6 +2688,7 @@ static int _cocos2d_Texture2D_getContentSizeInPixels(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
 
+    // unpack const Size& getContentSizeInPixels()
     const cocos2d::Size ret = (const cocos2d::Size)self->getContentSizeInPixels();
 
     return auto_luacv_unpack_cocos2d_Size(L, &ret);
@@ -2574,6 +2702,7 @@ static int _cocos2d_Texture2D_hasPremultipliedAlpha(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
 
+    // bool hasPremultipliedAlpha()
     bool ret = (bool)self->hasPremultipliedAlpha();
 
     return tolua_push_bool(L, ret);
@@ -2587,6 +2716,7 @@ static int _cocos2d_Texture2D_hasMipmaps(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
 
+    // bool hasMipmaps()
     bool ret = (bool)self->hasMipmaps();
 
     return tolua_push_bool(L, ret);
@@ -2600,6 +2730,7 @@ static int _cocos2d_Texture2D_getContentSize(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
 
+    // unpack Size getContentSize()
     cocos2d::Size ret = (cocos2d::Size)self->getContentSize();
 
     return auto_luacv_unpack_cocos2d_Size(L, &ret);
@@ -2609,6 +2740,7 @@ static int _cocos2d_Texture2D_getDefaultAlphaPixelFormat(lua_State *L)
 {
     lua_settop(L, 0);
 
+    // static Texture2D::PixelFormat getDefaultAlphaPixelFormat()
     cocos2d::Texture2D::PixelFormat ret = (cocos2d::Texture2D::PixelFormat)cocos2d::Texture2D::getDefaultAlphaPixelFormat();
 
     return tolua_push_uint(L, (lua_Unsigned)ret);
@@ -2618,10 +2750,11 @@ static int _cocos2d_Texture2D_setDefaultAlphaPixelFormat(lua_State *L)
 {
     lua_settop(L, 1);
 
-    lua_Unsigned arg1 = 0;
+    lua_Unsigned arg1 = 0;   /** format */
 
     tolua_check_uint(L, 1, &arg1);
 
+    // static void setDefaultAlphaPixelFormat(Texture2D::PixelFormat format)
     cocos2d::Texture2D::setDefaultAlphaPixelFormat((cocos2d::Texture2D::PixelFormat)arg1);
 
     return 0;
@@ -2635,6 +2768,7 @@ static int _cocos2d_Texture2D_getDescription(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
 
+    // std::string getDescription()
     std::string ret = (std::string)self->getDescription();
 
     return tolua_push_std_string(L, ret);
@@ -2648,6 +2782,7 @@ static int _cocos2d_Texture2D_getPixelFormat(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
 
+    // Texture2D::PixelFormat getPixelFormat()
     cocos2d::Texture2D::PixelFormat ret = (cocos2d::Texture2D::PixelFormat)self->getPixelFormat();
 
     return tolua_push_uint(L, (lua_Unsigned)ret);
@@ -2661,6 +2796,7 @@ static int _cocos2d_Texture2D_getPixelsWide(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
 
+    // int getPixelsWide()
     int ret = (int)self->getPixelsWide();
 
     return tolua_push_int(L, (lua_Integer)ret);
@@ -2674,6 +2810,7 @@ static int _cocos2d_Texture2D_getPixelsHigh(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
 
+    // int getPixelsHigh()
     int ret = (int)self->getPixelsHigh();
 
     return tolua_push_int(L, (lua_Integer)ret);
@@ -2687,6 +2824,7 @@ static int _cocos2d_Texture2D_getName(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
 
+    // GLuint getName()
     GLuint ret = (GLuint)self->getName();
 
     return tolua_push_uint(L, (lua_Unsigned)ret);
@@ -2700,6 +2838,7 @@ static int _cocos2d_Texture2D_getMaxS(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
 
+    // GLfloat getMaxS()
     GLfloat ret = (GLfloat)self->getMaxS();
 
     return tolua_push_number(L, (lua_Number)ret);
@@ -2710,11 +2849,12 @@ static int _cocos2d_Texture2D_setMaxS(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::Texture2D *self = nullptr;
-    lua_Number arg1 = 0;
+    lua_Number arg1 = 0;   /** maxS */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
     tolua_check_number(L, 2, &arg1);
 
+    // void setMaxS(GLfloat maxS)
     self->setMaxS((GLfloat)arg1);
 
     return 0;
@@ -2728,6 +2868,7 @@ static int _cocos2d_Texture2D_getMaxT(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
 
+    // GLfloat getMaxT()
     GLfloat ret = (GLfloat)self->getMaxT();
 
     return tolua_push_number(L, (lua_Number)ret);
@@ -2738,11 +2879,12 @@ static int _cocos2d_Texture2D_setMaxT(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::Texture2D *self = nullptr;
-    lua_Number arg1 = 0;
+    lua_Number arg1 = 0;   /** maxT */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
     tolua_check_number(L, 2, &arg1);
 
+    // void setMaxT(GLfloat maxT)
     self->setMaxT((GLfloat)arg1);
 
     return 0;
@@ -2756,6 +2898,7 @@ static int _cocos2d_Texture2D_getGLProgram(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
 
+    // GLProgram* getGLProgram()
     cocos2d::GLProgram *ret = (cocos2d::GLProgram *)self->getGLProgram();
 
     return xluacv_push_ccobj(L, ret, "cc.GLProgram");
@@ -2766,11 +2909,12 @@ static int _cocos2d_Texture2D_setGLProgram(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::Texture2D *self = nullptr;
-    cocos2d::GLProgram *arg1 = nullptr;
+    cocos2d::GLProgram *arg1 = nullptr;   /** program */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
     xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.GLProgram");
 
+    // void setGLProgram(GLProgram* program)
     self->setGLProgram(arg1);
 
     return 0;
@@ -2784,6 +2928,7 @@ static int _cocos2d_Texture2D_getPath(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
 
+    // std::string getPath()
     std::string ret = (std::string)self->getPath();
 
     return tolua_push_std_string(L, ret);
@@ -2797,6 +2942,7 @@ static int _cocos2d_Texture2D_getAlphaTexture(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
 
+    // Texture2D* getAlphaTexture()
     cocos2d::Texture2D *ret = (cocos2d::Texture2D *)self->getAlphaTexture();
 
     return xluacv_push_ccobj(L, ret, "cc.Texture2D");
@@ -2807,11 +2953,12 @@ static int _cocos2d_Texture2D_setAlphaTexture(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::Texture2D *self = nullptr;
-    cocos2d::Texture2D *arg1 = nullptr;
+    cocos2d::Texture2D *arg1 = nullptr;   /** alphaTexture */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
     xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.Texture2D");
 
+    // void setAlphaTexture(Texture2D* alphaTexture)
     self->setAlphaTexture(arg1);
 
     return 0;
@@ -2825,6 +2972,7 @@ static int _cocos2d_Texture2D_getAlphaTextureName(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
 
+    // GLuint getAlphaTextureName()
     GLuint ret = (GLuint)self->getAlphaTextureName();
 
     return tolua_push_uint(L, (lua_Unsigned)ret);
@@ -2887,10 +3035,11 @@ static int _cocos2d_Image_setPNGPremultipliedAlphaEnabled(lua_State *L)
 {
     lua_settop(L, 1);
 
-    bool arg1 = false;
+    bool arg1 = false;   /** enabled */
 
     tolua_check_bool(L, 1, &arg1);
 
+    // static void setPNGPremultipliedAlphaEnabled(bool enabled)
     cocos2d::Image::setPNGPremultipliedAlphaEnabled(arg1);
 
     return 0;
@@ -2900,10 +3049,11 @@ static int _cocos2d_Image_setPVRImagesHavePremultipliedAlpha(lua_State *L)
 {
     lua_settop(L, 1);
 
-    bool arg1 = false;
+    bool arg1 = false;   /** haveAlphaPremultiplied */
 
     tolua_check_bool(L, 1, &arg1);
 
+    // static void setPVRImagesHavePremultipliedAlpha(bool haveAlphaPremultiplied)
     cocos2d::Image::setPVRImagesHavePremultipliedAlpha(arg1);
 
     return 0;
@@ -2914,11 +3064,12 @@ static int _cocos2d_Image_initWithImageFile(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::Image *self = nullptr;
-    std::string arg1;
+    std::string arg1;       /** path */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Image");
     tolua_check_std_string(L, 2, &arg1);
 
+    // bool initWithImageFile(const std::string& path)
     bool ret = (bool)self->initWithImageFile(arg1);
 
     return tolua_push_bool(L, ret);
@@ -2929,13 +3080,14 @@ static int _cocos2d_Image_initWithImageData(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::Image *self = nullptr;
-    const char *arg1 = nullptr;
-    lua_Integer arg2 = 0;
+    const char *arg1 = nullptr;   /** data */
+    lua_Integer arg2 = 0;   /** dataLen */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Image");
     tolua_check_string(L, 2, &arg1);
     tolua_check_int(L, 3, &arg2);
 
+    // bool initWithImageData(const unsigned char * data, ssize_t dataLen)
     bool ret = (bool)self->initWithImageData((const unsigned char *)arg1, (ssize_t)arg2);
 
     return tolua_push_bool(L, ret);
@@ -2946,12 +3098,12 @@ static int _cocos2d_Image_initWithRawData(lua_State *L)
     lua_settop(L, 7);
 
     cocos2d::Image *self = nullptr;
-    const char *arg1 = nullptr;
-    lua_Integer arg2 = 0;
-    lua_Integer arg3 = 0;
-    lua_Integer arg4 = 0;
-    lua_Integer arg5 = 0;
-    bool arg6 = false;
+    const char *arg1 = nullptr;   /** data */
+    lua_Integer arg2 = 0;   /** dataLen */
+    lua_Integer arg3 = 0;   /** width */
+    lua_Integer arg4 = 0;   /** height */
+    lua_Integer arg5 = 0;   /** bitsPerComponent */
+    bool arg6 = false;   /** preMulti */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Image");
     tolua_check_string(L, 2, &arg1);
@@ -2961,6 +3113,7 @@ static int _cocos2d_Image_initWithRawData(lua_State *L)
     tolua_check_int(L, 6, &arg5);
     tolua_opt_bool(L, 7, &arg6, false);
 
+    // bool initWithRawData(const unsigned char * data, ssize_t dataLen, int width, int height, int bitsPerComponent, bool preMulti = false)
     bool ret = (bool)self->initWithRawData((const unsigned char *)arg1, (ssize_t)arg2, (int)arg3, (int)arg4, (int)arg5, arg6);
 
     return tolua_push_bool(L, ret);
@@ -2971,13 +3124,14 @@ static int _cocos2d_Image_saveToFile(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::Image *self = nullptr;
-    std::string arg1;
-    bool arg2 = false;
+    std::string arg1;       /** filename */
+    bool arg2 = false;   /** isToRGB */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Image");
     tolua_check_std_string(L, 2, &arg1);
     tolua_opt_bool(L, 3, &arg2, true);
 
+    // bool saveToFile(const std::string &filename, bool isToRGB = true)
     bool ret = (bool)self->saveToFile(arg1, arg2);
 
     return tolua_push_bool(L, ret);
@@ -2991,6 +3145,7 @@ static int _cocos2d_Image_hasPremultipliedAlpha(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Image");
 
+    // bool hasPremultipliedAlpha()
     bool ret = (bool)self->hasPremultipliedAlpha();
 
     return tolua_push_bool(L, ret);
@@ -3004,6 +3159,7 @@ static int _cocos2d_Image_hasAlpha(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Image");
 
+    // bool hasAlpha()
     bool ret = (bool)self->hasAlpha();
 
     return tolua_push_bool(L, ret);
@@ -3017,6 +3173,7 @@ static int _cocos2d_Image_getData(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Image");
 
+    // const unsigned char *getData()
     const unsigned char *ret = (const unsigned char *)self->getData();
 
     return tolua_push_string(L, (const char *)ret);
@@ -3030,6 +3187,7 @@ static int _cocos2d_Image_getDataLen(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Image");
 
+    // ssize_t getDataLen()
     ssize_t ret = (ssize_t)self->getDataLen();
 
     return tolua_push_int(L, (lua_Integer)ret);
@@ -3043,6 +3201,7 @@ static int _cocos2d_Image_getFileType(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Image");
 
+    // Format getFileType()
     cocos2d::Image::Format ret = (cocos2d::Image::Format)self->getFileType();
 
     return tolua_push_uint(L, (lua_Unsigned)ret);
@@ -3056,6 +3215,7 @@ static int _cocos2d_Image_getRenderFormat(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Image");
 
+    // Texture2D::PixelFormat getRenderFormat()
     cocos2d::Texture2D::PixelFormat ret = (cocos2d::Texture2D::PixelFormat)self->getRenderFormat();
 
     return tolua_push_uint(L, (lua_Unsigned)ret);
@@ -3069,6 +3229,7 @@ static int _cocos2d_Image_getWidth(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Image");
 
+    // int getWidth()
     int ret = (int)self->getWidth();
 
     return tolua_push_int(L, (lua_Integer)ret);
@@ -3082,6 +3243,7 @@ static int _cocos2d_Image_getHeight(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Image");
 
+    // int getHeight()
     int ret = (int)self->getHeight();
 
     return tolua_push_int(L, (lua_Integer)ret);
@@ -3095,6 +3257,7 @@ static int _cocos2d_Image_getFilePath(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Image");
 
+    // std::string getFilePath()
     std::string ret = (std::string)self->getFilePath();
 
     return tolua_push_std_string(L, ret);
@@ -3108,6 +3271,7 @@ static int _cocos2d_Image_getBitPerPixel(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Image");
 
+    // int getBitPerPixel()
     int ret = (int)self->getBitPerPixel();
 
     return tolua_push_int(L, (lua_Integer)ret);
@@ -3121,6 +3285,7 @@ static int _cocos2d_Image_isCompressed(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Image");
 
+    // bool isCompressed()
     bool ret = (bool)self->isCompressed();
 
     return tolua_push_bool(L, ret);
@@ -3161,6 +3326,7 @@ static int _cocos2d_Node_create(lua_State *L)
 {
     lua_settop(L, 0);
 
+    // static Node *create()
     cocos2d::Node *ret = (cocos2d::Node *)cocos2d::Node::create();
 
     return xluacv_push_ccobj(L, ret, "cc.Node");
@@ -3171,11 +3337,12 @@ static int _cocos2d_Node_addChild1(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::Node *self = nullptr;
-    cocos2d::Node *arg1 = nullptr;
+    cocos2d::Node *arg1 = nullptr;   /** child */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
     xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.Node");
 
+    // void addChild(Node * child)
     self->addChild(arg1);
 
     return 0;
@@ -3186,13 +3353,14 @@ static int _cocos2d_Node_addChild2(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::Node *self = nullptr;
-    cocos2d::Node *arg1 = nullptr;
-    lua_Integer arg2 = 0;
+    cocos2d::Node *arg1 = nullptr;   /** child */
+    lua_Integer arg2 = 0;   /** localZOrder */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
     xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.Node");
     tolua_check_int(L, 3, &arg2);
 
+    // void addChild(Node * child, int localZOrder)
     self->addChild(arg1, (int)arg2);
 
     return 0;
@@ -3203,15 +3371,16 @@ static int _cocos2d_Node_addChild3(lua_State *L)
     lua_settop(L, 4);
 
     cocos2d::Node *self = nullptr;
-    cocos2d::Node *arg1 = nullptr;
-    lua_Integer arg2 = 0;
-    lua_Integer arg3 = 0;
+    cocos2d::Node *arg1 = nullptr;   /** child */
+    lua_Integer arg2 = 0;   /** localZOrder */
+    lua_Integer arg3 = 0;   /** tag */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
     xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.Node");
     tolua_check_int(L, 3, &arg2);
     tolua_check_int(L, 4, &arg3);
 
+    // void addChild(Node* child, int localZOrder, int tag)
     self->addChild(arg1, (int)arg2, (int)arg3);
 
     return 0;
@@ -3222,15 +3391,16 @@ static int _cocos2d_Node_addChild4(lua_State *L)
     lua_settop(L, 4);
 
     cocos2d::Node *self = nullptr;
-    cocos2d::Node *arg1 = nullptr;
-    lua_Integer arg2 = 0;
-    std::string arg3;
+    cocos2d::Node *arg1 = nullptr;   /** child */
+    lua_Integer arg2 = 0;   /** localZOrder */
+    std::string arg3;       /** name */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
     xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.Node");
     tolua_check_int(L, 3, &arg2);
     tolua_check_std_string(L, 4, &arg3);
 
+    // void addChild(Node* child, int localZOrder, const std::string &name)
     self->addChild(arg1, (int)arg2, arg3);
 
     return 0;
@@ -3272,11 +3442,12 @@ static int _cocos2d_Node_getChildByTag(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::Node *self = nullptr;
-    lua_Integer arg1 = 0;
+    lua_Integer arg1 = 0;   /** tag */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
     tolua_check_int(L, 2, &arg1);
 
+    // Node *getChildByTag(int tag) const
     cocos2d::Node *ret = (cocos2d::Node *)self->getChildByTag((int)arg1);
 
     return xluacv_push_ccobj(L, ret, "cc.Node");
@@ -3287,11 +3458,12 @@ static int _cocos2d_Node_getChildByName(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::Node *self = nullptr;
-    std::string arg1;
+    std::string arg1;       /** name */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
     tolua_check_std_string(L, 2, &arg1);
 
+    // Node* getChildByName(const std::string& name)
     cocos2d::Node *ret = (cocos2d::Node *)self->getChildByName(arg1);
 
     return xluacv_push_ccobj(L, ret, "cc.Node");
@@ -3305,6 +3477,7 @@ static int _cocos2d_Node_removeFromParent(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
 
+    // void removeFromParent()
     self->removeFromParent();
 
     return 0;
@@ -3315,11 +3488,12 @@ static int _cocos2d_Node_removeFromParentAndCleanup(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::Node *self = nullptr;
-    bool arg1 = false;
+    bool arg1 = false;   /** cleanup */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
     tolua_check_bool(L, 2, &arg1);
 
+    // void removeFromParentAndCleanup(bool cleanup)
     self->removeFromParentAndCleanup(arg1);
 
     return 0;
@@ -3330,13 +3504,14 @@ static int _cocos2d_Node_removeChild(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::Node *self = nullptr;
-    cocos2d::Node *arg1 = nullptr;
-    bool arg2 = false;
+    cocos2d::Node *arg1 = nullptr;   /** child */
+    bool arg2 = false;   /** cleanup */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
     xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.Node");
     tolua_opt_bool(L, 3, &arg2, true);
 
+    // void removeChild(Node* child, bool cleanup = true)
     self->removeChild(arg1, arg2);
 
     return 0;
@@ -3347,13 +3522,14 @@ static int _cocos2d_Node_removeChildByTag(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::Node *self = nullptr;
-    lua_Integer arg1 = 0;
-    bool arg2 = false;
+    lua_Integer arg1 = 0;   /** tag */
+    bool arg2 = false;   /** cleanup */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
     tolua_check_int(L, 2, &arg1);
     tolua_opt_bool(L, 3, &arg2, true);
 
+    // void removeChildByTag(int tag, bool cleanup = true)
     self->removeChildByTag((int)arg1, arg2);
 
     return 0;
@@ -3364,13 +3540,14 @@ static int _cocos2d_Node_removeChildByName(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::Node *self = nullptr;
-    std::string arg1;
-    bool arg2 = false;
+    std::string arg1;       /** name */
+    bool arg2 = false;   /** cleanup */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
     tolua_check_std_string(L, 2, &arg1);
     tolua_opt_bool(L, 3, &arg2, true);
 
+    // void removeChildByName(const std::string &name, bool cleanup = true)
     self->removeChildByName(arg1, arg2);
 
     return 0;
@@ -3384,6 +3561,7 @@ static int _cocos2d_Node_removeAllChildren(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
 
+    // void removeAllChildren()
     self->removeAllChildren();
 
     return 0;
@@ -3394,11 +3572,12 @@ static int _cocos2d_Node_removeAllChildrenWithCleanup(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::Node *self = nullptr;
-    bool arg1 = false;
+    bool arg1 = false;   /** cleanup */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
     tolua_check_bool(L, 2, &arg1);
 
+    // void removeAllChildrenWithCleanup(bool cleanup)
     self->removeAllChildrenWithCleanup(arg1);
 
     return 0;
@@ -3409,13 +3588,14 @@ static int _cocos2d_Node_reorderChild(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::Node *self = nullptr;
-    cocos2d::Node *arg1 = nullptr;
-    lua_Integer arg2 = 0;
+    cocos2d::Node *arg1 = nullptr;   /** child */
+    lua_Integer arg2 = 0;   /** localZOrder */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
     xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.Node");
     tolua_check_int(L, 3, &arg2);
 
+    // void reorderChild(Node * child, int localZOrder)
     self->reorderChild(arg1, (int)arg2);
 
     return 0;
@@ -3429,6 +3609,7 @@ static int _cocos2d_Node_sortAllChildren(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
 
+    // void sortAllChildren()
     self->sortAllChildren();
 
     return 0;
@@ -3439,13 +3620,14 @@ static int _cocos2d_Node_setPosition1(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::Node *self = nullptr;
-    lua_Number arg1 = 0;
-    lua_Number arg2 = 0;
+    lua_Number arg1 = 0;   /** x */
+    lua_Number arg2 = 0;   /** y */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
     tolua_check_number(L, 2, &arg1);
     tolua_check_number(L, 3, &arg2);
 
+    // void setPosition(float x, float y)
     self->setPosition((float)arg1, (float)arg2);
 
     return 0;
@@ -3456,11 +3638,12 @@ static int _cocos2d_Node_setPosition2(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::Node *self = nullptr;
-    cocos2d::Vec2 arg1;
+    cocos2d::Vec2 arg1;       /** position */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
     auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
 
+    // void setPosition(const Vec2 &position)
     self->setPosition(arg1);
 
     return 0;
@@ -3495,6 +3678,7 @@ static int _cocos2d_Node_getPosition(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
 
+    // unpack const Vec2& getPosition()
     const cocos2d::Vec2 ret = (const cocos2d::Vec2)self->getPosition();
 
     return auto_luacv_unpack_cocos2d_Vec2(L, &ret);
@@ -3508,6 +3692,7 @@ static int _cocos2d_Node_scheduleUpdate(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
 
+    // void scheduleUpdate(void)
     self->scheduleUpdate();
 
     return 0;
@@ -3521,6 +3706,7 @@ static int _cocos2d_Node_unscheduleUpdate(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
 
+    // void unscheduleUpdate(void)
     self->unscheduleUpdate();
 
     return 0;
@@ -3531,11 +3717,12 @@ static int _cocos2d_Node_scheduleUpdateWithPriority(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::Node *self = nullptr;
-    lua_Integer arg1 = 0;
+    lua_Integer arg1 = 0;   /** priority */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
     tolua_check_int(L, 2, &arg1);
 
+    // void scheduleUpdateWithPriority(int priority)
     self->scheduleUpdateWithPriority((int)arg1);
 
     return 0;
@@ -3546,11 +3733,12 @@ static int _cocos2d_Node_isScheduled(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::Node *self = nullptr;
-    std::string arg1;
+    std::string arg1;       /** key */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
     tolua_check_std_string(L, 2, &arg1);
 
+    // bool isScheduled(const std::string &key)
     bool ret = (bool)self->isScheduled(arg1);
 
     return tolua_push_bool(L, ret);
@@ -3561,9 +3749,9 @@ static int _cocos2d_Node_scheduleOnce(lua_State *L)
     lua_settop(L, 4);
 
     cocos2d::Node *self = nullptr;
-    std::function<void(float)> arg1;
-    lua_Number arg2 = 0;
-    std::string arg3;
+    std::function<void(float)> arg1;       /** callback */
+    lua_Number arg2 = 0;   /** delay */
+    std::string arg3;       /** key */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
     tolua_check_number(L, 3, &arg2);
@@ -3582,6 +3770,7 @@ static int _cocos2d_Node_scheduleOnce(lua_State *L)
         lua_settop(L, top);
     };
 
+    // void scheduleOnce(const std::function<void(float)>& callback, float delay, const std::string &key)
     self->scheduleOnce(arg1, (float)arg2, arg3);
 
     return 0;
@@ -3592,8 +3781,8 @@ static int _cocos2d_Node_schedule1(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::Node *self = nullptr;
-    std::function<void(float)> arg1;
-    std::string arg2;
+    std::function<void(float)> arg1;       /** callback */
+    std::string arg2;       /** key */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
     tolua_check_std_string(L, 3, &arg2);
@@ -3609,6 +3798,7 @@ static int _cocos2d_Node_schedule1(lua_State *L)
         lua_settop(L, top);
     };
 
+    // void schedule(const std::function<void(float)>& callback, const std::string &key)
     self->schedule(arg1, arg2);
 
     return 0;
@@ -3619,9 +3809,9 @@ static int _cocos2d_Node_schedule2(lua_State *L)
     lua_settop(L, 4);
 
     cocos2d::Node *self = nullptr;
-    std::function<void(float)> arg1;
-    lua_Number arg2 = 0;
-    std::string arg3;
+    std::function<void(float)> arg1;       /** callback */
+    lua_Number arg2 = 0;   /** interval */
+    std::string arg3;       /** key */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
     tolua_check_number(L, 3, &arg2);
@@ -3638,6 +3828,7 @@ static int _cocos2d_Node_schedule2(lua_State *L)
         lua_settop(L, top);
     };
 
+    // void schedule(const std::function<void(float)>& callback, float interval, const std::string &key)
     self->schedule(arg1, (float)arg2, arg3);
 
     return 0;
@@ -3648,11 +3839,11 @@ static int _cocos2d_Node_schedule3(lua_State *L)
     lua_settop(L, 6);
 
     cocos2d::Node *self = nullptr;
-    std::function<void(float)> arg1;
-    lua_Number arg2 = 0;
-    lua_Unsigned arg3 = 0;
-    lua_Number arg4 = 0;
-    std::string arg5;
+    std::function<void(float)> arg1;       /** callback */
+    lua_Number arg2 = 0;   /** interval */
+    lua_Unsigned arg3 = 0;   /** repeat */
+    lua_Number arg4 = 0;   /** delay */
+    std::string arg5;       /** key */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
     tolua_check_number(L, 3, &arg2);
@@ -3671,6 +3862,7 @@ static int _cocos2d_Node_schedule3(lua_State *L)
         lua_settop(L, top);
     };
 
+    // void schedule(const std::function<void(float)>& callback, float interval, unsigned int repeat, float delay, const std::string &key)
     self->schedule(arg1, (float)arg2, (unsigned int)arg3, (float)arg4, arg5);
 
     return 0;
@@ -3708,7 +3900,7 @@ static int _cocos2d_Node_unschedule(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::Node *self = nullptr;
-    std::string arg1;
+    std::string arg1;       /** key */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
     tolua_check_std_string(L, 2, &arg1);
@@ -3716,6 +3908,7 @@ static int _cocos2d_Node_unschedule(lua_State *L)
     std::string tag = makeNodeScheduleCallbackTag(arg1);
     tolua_removecallback(L, 1, tag.c_str(), TOLUA_CALLBACK_TAG_ENDWITH);
 
+    // void unschedule(const std::string &key)
     self->unschedule(arg1);
 
     return 0;
@@ -3732,6 +3925,7 @@ static int _cocos2d_Node_unscheduleAllCallbacks(lua_State *L)
     std::string tag = makeNodeScheduleCallbackTag("");
     tolua_removecallback(L, 1, tag.c_str(), TOLUA_CALLBACK_TAG_WILDCARD);
 
+    // void unscheduleAllCallbacks()
     self->unscheduleAllCallbacks();
 
     return 0;
@@ -3745,6 +3939,7 @@ static int _cocos2d_Node_resume(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
 
+    // void resume(void)
     self->resume();
 
     return 0;
@@ -3758,6 +3953,7 @@ static int _cocos2d_Node_pause(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
 
+    // void pause(void)
     self->pause();
 
     return 0;
@@ -3767,6 +3963,7 @@ static int _cocos2d_Node_getAttachedNodeCount(lua_State *L)
 {
     lua_settop(L, 0);
 
+    // static int getAttachedNodeCount()
     int ret = (int)cocos2d::Node::getAttachedNodeCount();
 
     return tolua_push_int(L, (lua_Integer)ret);
@@ -3780,6 +3977,7 @@ static int _cocos2d_Node_getDescription(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
 
+    // std::string getDescription()
     std::string ret = (std::string)self->getDescription();
 
     return tolua_push_std_string(L, ret);
@@ -3793,6 +3991,7 @@ static int _cocos2d_Node_getScheduler(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
 
+    // Scheduler* getScheduler()
     cocos2d::Scheduler *ret = (cocos2d::Scheduler *)self->getScheduler();
 
     return xluacv_push_ccobj(L, ret, "cc.Scheduler");
@@ -3803,11 +4002,12 @@ static int _cocos2d_Node_setScheduler(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::Node *self = nullptr;
-    cocos2d::Scheduler *arg1 = nullptr;
+    cocos2d::Scheduler *arg1 = nullptr;   /** scheduler */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
     xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.Scheduler");
 
+    // void setScheduler(Scheduler* scheduler)
     self->setScheduler(arg1);
 
     return 0;
@@ -3821,6 +4021,7 @@ static int _cocos2d_Node_getActionManager(lua_State *L)
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
 
+    // ActionManager* getActionManager()
     cocos2d::ActionManager *ret = (cocos2d::ActionManager *)self->getActionManager();
 
     return xluacv_push_ccobj(L, ret, "cc.ActionManager");
@@ -3831,11 +4032,12 @@ static int _cocos2d_Node_setActionManager(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::Node *self = nullptr;
-    cocos2d::ActionManager *arg1 = nullptr;
+    cocos2d::ActionManager *arg1 = nullptr;   /** actionManager */
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
     xluacv_check_ccobj(L, 2, (void **)&arg1, "cc.ActionManager");
 
+    // void setActionManager(ActionManager* actionManager)
     self->setActionManager(arg1);
 
     return 0;
@@ -3883,16 +4085,17 @@ static int _cocos2d_Camera_createPerspective(lua_State *L)
 {
     lua_settop(L, 4);
 
-    lua_Number arg1 = 0;
-    lua_Number arg2 = 0;
-    lua_Number arg3 = 0;
-    lua_Number arg4 = 0;
+    lua_Number arg1 = 0;   /** fieldOfView */
+    lua_Number arg2 = 0;   /** aspectRatio */
+    lua_Number arg3 = 0;   /** nearPlane */
+    lua_Number arg4 = 0;   /** farPlane */
 
     tolua_check_number(L, 1, &arg1);
     tolua_check_number(L, 2, &arg2);
     tolua_check_number(L, 3, &arg3);
     tolua_check_number(L, 4, &arg4);
 
+    // static Camera* createPerspective(float fieldOfView, float aspectRatio, float nearPlane, float farPlane)
     cocos2d::Camera *ret = (cocos2d::Camera *)cocos2d::Camera::createPerspective((float)arg1, (float)arg2, (float)arg3, (float)arg4);
 
     return xluacv_push_ccobj(L, ret, "cc.Camera");
@@ -3902,16 +4105,17 @@ static int _cocos2d_Camera_createOrthographic(lua_State *L)
 {
     lua_settop(L, 4);
 
-    lua_Number arg1 = 0;
-    lua_Number arg2 = 0;
-    lua_Number arg3 = 0;
-    lua_Number arg4 = 0;
+    lua_Number arg1 = 0;   /** zoomX */
+    lua_Number arg2 = 0;   /** zoomY */
+    lua_Number arg3 = 0;   /** nearPlane */
+    lua_Number arg4 = 0;   /** farPlane */
 
     tolua_check_number(L, 1, &arg1);
     tolua_check_number(L, 2, &arg2);
     tolua_check_number(L, 3, &arg3);
     tolua_check_number(L, 4, &arg4);
 
+    // static Camera* createOrthographic(float zoomX, float zoomY, float nearPlane, float farPlane)
     cocos2d::Camera *ret = (cocos2d::Camera *)cocos2d::Camera::createOrthographic((float)arg1, (float)arg2, (float)arg3, (float)arg4);
 
     return xluacv_push_ccobj(L, ret, "cc.Camera");
@@ -3921,6 +4125,7 @@ static int _cocos2d_Camera_create(lua_State *L)
 {
     lua_settop(L, 0);
 
+    // static Camera* create()
     cocos2d::Camera *ret = (cocos2d::Camera *)cocos2d::Camera::create();
 
     return xluacv_push_ccobj(L, ret, "cc.Camera");
@@ -3930,6 +4135,7 @@ static int _cocos2d_Camera_getVisitingCamera(lua_State *L)
 {
     lua_settop(L, 0);
 
+    // static Camera* getVisitingCamera()
     cocos2d::Camera *ret = (cocos2d::Camera *)cocos2d::Camera::getVisitingCamera();
 
     return xluacv_push_ccobj(L, ret, "cc.Camera");
@@ -3939,6 +4145,7 @@ static int _cocos2d_Camera_getDefaultViewport(lua_State *L)
 {
     lua_settop(L, 0);
 
+    // static const experimental::Viewport& getDefaultViewport()
     const cocos2d::experimental::Viewport ret = (const cocos2d::experimental::Viewport)cocos2d::Camera::getDefaultViewport();
 
     return auto_luacv_push_cocos2d_experimental_Viewport(L, &ret);
@@ -3948,10 +4155,11 @@ static int _cocos2d_Camera_setDefaultViewport(lua_State *L)
 {
     lua_settop(L, 1);
 
-    cocos2d::experimental::Viewport arg1;
+    cocos2d::experimental::Viewport arg1;       /** vp */
 
     auto_luacv_check_cocos2d_experimental_Viewport(L, 1, &arg1);
 
+    // static void setDefaultViewport(const experimental::Viewport& vp)
     cocos2d::Camera::setDefaultViewport(arg1);
 
     return 0;
@@ -3975,10 +4183,11 @@ static int _cocos2d_Sprite_create(lua_State *L)
 {
     lua_settop(L, 1);
 
-    std::string arg1;
+    std::string arg1;       /** filename */
 
     tolua_check_std_string(L, 1, &arg1);
 
+    // static cocos2d::Sprite *create(const std::string &filename)
     cocos2d::Sprite *ret = (cocos2d::Sprite *)cocos2d::Sprite::create(arg1);
 
     return xluacv_push_ccobj(L, ret, "cc.Sprite");
@@ -3998,6 +4207,7 @@ static int _cocos2d_Scene_create(lua_State *L)
 {
     lua_settop(L, 0);
 
+    // static Scene *create()
     cocos2d::Scene *ret = (cocos2d::Scene *)cocos2d::Scene::create();
 
     return xluacv_push_ccobj(L, ret, "cc.Scene");
@@ -4007,10 +4217,11 @@ static int _cocos2d_Scene_createWithSize(lua_State *L)
 {
     lua_settop(L, 2);
 
-    cocos2d::Size arg1;
+    cocos2d::Size arg1;       /** size */
 
     auto_luacv_pack_cocos2d_Size(L, 1, &arg1);
 
+    // static Scene *createWithSize(pack const Size& size)
     cocos2d::Scene *ret = (cocos2d::Scene *)cocos2d::Scene::createWithSize(arg1);
 
     return xluacv_push_ccobj(L, ret, "cc.Scene");

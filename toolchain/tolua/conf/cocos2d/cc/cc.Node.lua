@@ -37,30 +37,30 @@ cls.func(nil, 'void unscheduleUpdate(void)')
 cls.func(nil, 'void scheduleUpdateWithPriority(int priority)')
 cls.func(nil, 'bool isScheduled(const std::string &key)')
 cls.callback(nil, {
-        MAKER = "makeNodeScheduleCallbackTag(#-1)",
-        STANDALONE = true,
+        TAG_MAKER = "makeNodeScheduleCallbackTag(#-1)",
+        ONLYONE = true,
         REMOVED = true,
-        REMOVED_MODE = "TOLUA_CALLBACK_TAG_EQUAL",
+        TAG_MODE = "TOLUA_CALLBACK_TAG_EQUAL",
     },
     'void scheduleOnce(const std::function<void(float)>& callback, float delay, const std::string &key)'
 )
 cls.callback(nil, {
-        MAKER = "makeNodeScheduleCallbackTag(#-1)",
-        STANDALONE = true,
+        TAG_MAKER = "makeNodeScheduleCallbackTag(#-1)",
+        ONLYONE = true,
     },
     'void schedule(const std::function<void(float)>& callback, const std::string &key)',
     'void schedule(const std::function<void(float)>& callback, float interval, const std::string &key)',
     'void schedule(const std::function<void(float)>& callback, float interval, unsigned int repeat, float delay, const std::string &key)'
 )
 cls.callback(nil, {
-        MAKER = "makeNodeScheduleCallbackTag(#1)",
-        REMOVED_MODE = "TOLUA_CALLBACK_TAG_ENDWITH",
+        TAG_MAKER = "makeNodeScheduleCallbackTag(#1)",
+        TAG_MODE = "TOLUA_CALLBACK_TAG_ENDWITH",
     },
     'void unschedule(const std::string &key)'
 )
 cls.callback(nil, {
-        MAKER = "makeNodeScheduleCallbackTag()",
-        REMOVED_MODE = "TOLUA_CALLBACK_TAG_WILDCARD",
+        TAG_MAKER = "makeNodeScheduleCallbackTag()",
+        TAG_MODE = "TOLUA_CALLBACK_TAG_WILDCARD",
     },
     'void unscheduleAllCallbacks()'
 )

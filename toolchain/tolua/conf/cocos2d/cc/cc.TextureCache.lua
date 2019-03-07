@@ -11,24 +11,24 @@ cls.prop('description', 'std::string getDescription()')
 cls.prop('cachedTextureInfo', 'std::string getCachedTextureInfo()')
 cls.func(nil, 'Texture2D* addImage(const std::string &filepath)', 'Texture2D* addImage(Image *image, const std::string &key)')
 cls.callback(nil, {
-        MAKER = {'makeTextureCacheCallbackTag(#1)', 'makeTextureCacheCallbackTag(#-1)'},
+        TAG_MAKER = {'makeTextureCacheCallbackTag(#1)', 'makeTextureCacheCallbackTag(#-1)'},
         REMOVED = true,
-        REMOVED_MODE = 'TOLUA_CALLBACK_TAG_EQUAL',
+        TAG_MODE = 'TOLUA_CALLBACK_TAG_EQUAL',
     }, 
     'void addImageAsync(const std::string &filepath, const std::function<void(Texture2D*)>& callback)',
     'void addImageAsync(const std::string &path, const std::function<void(Texture2D*)>& callback, const std::string& callbackKey)'
 )
 cls.callback(nil, {
-        MAKER = 'makeTextureCacheCallbackTag(#1)',
+        TAG_MAKER = 'makeTextureCacheCallbackTag(#1)',
         REMOVED = true,
-        REMOVED_MODE = 'TOLUA_CALLBACK_TAG_ENDWITH',
+        TAG_MODE = 'TOLUA_CALLBACK_TAG_ENDWITH',
     },
     'void unbindImageAsync(const std::string &filename)'
 )
 cls.callback(nil, {
-        MAKER = 'makeTextureCacheCallbackTag()',
+        TAG_MAKER = 'makeTextureCacheCallbackTag()',
         REMOVED = true,
-        REMOVED_MODE = 'TOLUA_CALLBACK_TAG_WILDCARD',
+        TAG_MODE = 'TOLUA_CALLBACK_TAG_WILDCARD',
     },
     'void unbindAllImageAsync()'
 )

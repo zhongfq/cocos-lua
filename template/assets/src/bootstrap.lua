@@ -48,10 +48,20 @@ function main()
         print("schedule", ...)
     end, node, 2, false, "update")
 
+    scheduler:schedule(function ( ... )
+        print("schedule", ...)
+    end, node, 2.3, false, "updatex")
+
+    scheduler:schedule(function ( ... )
+        print("schedule", ...)
+    end, node, 3, false, "xx")
+
     timer.delay(4, function ( ... )
         printUserValue(node)
-        node:unscheduleAllCallbacks('update')
-        printUserValue(node)
+        node:removeFromParent()
+    end)
+    timer.delay(4.1, function ( ... )
+        collectgarbage('collect')
     end)
 end
 

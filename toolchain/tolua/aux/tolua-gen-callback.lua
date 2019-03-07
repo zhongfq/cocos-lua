@@ -27,10 +27,19 @@ end
 local function gen_remove_callback(cls, fi, write)
     local TAG_MODE = fi.CALLBACK_OPT.TAG_MODE
     local TAG_MAKER = gen_maker(cls, fi, write)
-    local TAG_STORE = get_tag_store(fi) + 1
+    local TAG_STORE_OBJ
+    local TAG_STORE = get_tag_store(fi)
+
+    if TAG_STORE == 0 then
+        TAG_STORE_OBJ = 'self'
+    else
+        TAG_STORE_OBJ = 'arg' .. TAG_STORE
+    end
+
     local block = format_snippet([[
         std::string tag = ${TAG_MAKER};
-        tolua_removecallback(L, ${TAG_STORE}, tag.c_str(), ${TAG_MODE});
+        void *tag_store_obj = (void *)${TAG_STORE_OBJ};
+        tolua_removecallback(L, tag_store_obj, tag.c_str(), ${TAG_MODE});
     ]])
     return block
 end
@@ -99,9 +108,7 @@ function gen_callback(cls, fi, write)
     if fi.CALLBACK_OPT.REMOVED then
         local TAG_MODE = fi.CALLBACK_OPT.TAG_MODE
         REMOVE_CALLBACK = format_snippet([[
-            if (tolua_getobj(L, tag_store_obj)) {
-                tolua_removecallback(L, -1, func.c_str(), ${TAG_MODE});
-            }
+            tolua_removecallback(L, tag_store_obj, func.c_str(), ${TAG_MODE});
         ]])
     end
 
@@ -119,7 +126,7 @@ function gen_callback(cls, fi, write)
     local block = format_snippet([[
         void *tag_store_obj = (void *)${TAG_STORE_OBJ};
         std::string tag = ${TAG_MAKER};
-        std::string func = tolua_setcallback(L, ${TAG_STORE}, tag.c_str(), ${IDX}, ${TOLUA_CALLBACK_TAG});
+        std::string func = tolua_setcallback(L, tag_store_obj, tag.c_str(), ${IDX}, ${TOLUA_CALLBACK_TAG});
         ${ARG_N} = [tag_store_obj, func, tag](${ARGS}) {
             lua_State *L = xlua_cocosthread();
             int top = lua_gettop(L);

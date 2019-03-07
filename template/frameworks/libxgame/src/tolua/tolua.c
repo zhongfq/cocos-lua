@@ -148,6 +148,7 @@ LUALIB_API bool tolua_getobj(lua_State *L, void *obj)
 
 static void auxgetcallbacktable(lua_State *L, int idx)
 {
+    idx = lua_absindex(L, idx);
     if (lua_getuservalue(L, idx) == LUA_TNIL) {
         lua_pop(L, 1);
         lua_createtable(L, 0, 4);
@@ -159,17 +160,21 @@ static void auxgetcallbacktable(lua_State *L, int idx)
 #endif
 }
 
-LUALIB_API const char *tolua_setcallback(lua_State *L, int idx, const char *tag, int func, tolua_callback_tag_t mode)
+LUALIB_API const char *tolua_setcallback(lua_State *L, void *obj, const char *tag, int func, tolua_callback_tag_t mode)
 {
     static int ref = 0;
     const char *field = NULL;
     
-    idx = lua_absindex(L, idx);
     func = lua_absindex(L, func);
 
     luaL_checktype(L, func, LUA_TFUNCTION);
     
-    auxgetcallbacktable(L, idx);                    // L: ct
+    if (!tolua_getobj(L, obj)) {                    // L: obj
+        luaL_error(L, "obj userdata not found");
+    }
+
+    auxgetcallbacktable(L, -1);                     // L: obj ct
+    lua_remove(L, -2);                              // L: ct
     
     if (mode == TOLUA_CALLBACK_TAG_REPLACE) {
         lua_pushnil(L);                             // L: ct k
@@ -216,26 +221,27 @@ static bool shouldremovecallback(const char *field, const char *tag, tolua_callb
     return false;
 }
 
-LUALIB_API void tolua_removecallback(lua_State *L, int idx, const char *tag, tolua_callback_tag_t mode)
+LUALIB_API void tolua_removecallback(lua_State *L, void *obj, const char *tag, tolua_callback_tag_t mode)
 {
     int top = lua_gettop(L);
-    idx = lua_absindex(L, idx);
-    auxgetcallbacktable(L, idx);                        // L: ct
-    if (mode == TOLUA_CALLBACK_TAG_EQUAL) {
-        lua_pushnil(L);                                 // L: ct nil
-        tolua_rawsetfield(L, -2, tag);                  // L: ct
-    } else {
-        lua_pushnil(L);                                 // L: ct k
-        while (lua_next(L, -2)) {                       // L: ct k v
-            if (lua_isstring(L, -2)) {
-                const char *field = lua_tostring(L, -2);
-                if (shouldremovecallback(field, tag, mode)) {
-                    lua_pushvalue(L, -2);               // L: ct k v k
-                    lua_pushnil(L);                     // L: ct k v k nil
-                    lua_rawset(L, -5);                  // L: ct k v
+    if (tolua_getobj(L, obj)) {
+        auxgetcallbacktable(L, -1);                         // L: ct
+        if (mode == TOLUA_CALLBACK_TAG_EQUAL) {
+            lua_pushnil(L);                                 // L: ct nil
+            tolua_rawsetfield(L, -2, tag);                  // L: ct
+        } else {
+            lua_pushnil(L);                                 // L: ct k
+            while (lua_next(L, -2)) {                       // L: ct k v
+                if (lua_isstring(L, -2)) {
+                    const char *field = lua_tostring(L, -2);
+                    if (shouldremovecallback(field, tag, mode)) {
+                        lua_pushvalue(L, -2);               // L: ct k v k
+                        lua_pushnil(L);                     // L: ct k v k nil
+                        lua_rawset(L, -5);                  // L: ct k v
+                    }
                 }
+                lua_pop(L, 1);                              // L: ct k
             }
-            lua_pop(L, 1);                              // L: ct k
         }
     }
     lua_settop(L, top);

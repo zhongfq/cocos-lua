@@ -70,9 +70,9 @@ typedef enum {
     TOLUA_CALLBACK_TAG_WILDCARD
 } tolua_callback_tag_t;
     
-LUALIB_API const char *tolua_setcallback(lua_State *L, int idx, const char *tag, int vidx, tolua_callback_tag_t mode);
-LUALIB_API void tolua_removecallback(lua_State *L, int idx, const char *tag, tolua_callback_tag_t mode);
-LUALIB_API bool tolua_callback(lua_State *L, void *obj, const char *field, int n);
+LUALIB_API const char *tolua_setcallback(lua_State *L, void *obj, const char *tag, int func, tolua_callback_tag_t mode);
+LUALIB_API void tolua_removecallback(lua_State *L, void *obj, const char *tag, tolua_callback_tag_t mode);
+LUALIB_API bool tolua_callback(lua_State *L, void *obj, const char *field, int num_args);
     
 LUALIB_API int tolua_push_bool(lua_State *L, bool value);
 LUALIB_API void tolua_check_bool(lua_State *L, int idx, bool *value);

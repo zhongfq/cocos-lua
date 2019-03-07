@@ -867,7 +867,7 @@ static int _cocos2d_Scheduler_schedule1(lua_State *L)
 
     void *tag_store_obj = (void *)arg2;
     std::string tag = makeScheduleCallbackTag(arg5);
-    std::string func = tolua_setcallback(L, 3, tag.c_str(), 2, TOLUA_CALLBACK_TAG_REPLACE);
+    std::string func = tolua_setcallback(L, tag_store_obj, tag.c_str(), 2, TOLUA_CALLBACK_TAG_REPLACE);
     arg1 = [tag_store_obj, func, tag](float arg1) {
         lua_State *L = xlua_cocosthread();
         int top = lua_gettop(L);
@@ -906,7 +906,7 @@ static int _cocos2d_Scheduler_schedule2(lua_State *L)
 
     void *tag_store_obj = (void *)arg2;
     std::string tag = makeScheduleCallbackTag(arg7);
-    std::string func = tolua_setcallback(L, 3, tag.c_str(), 2, TOLUA_CALLBACK_TAG_REPLACE);
+    std::string func = tolua_setcallback(L, tag_store_obj, tag.c_str(), 2, TOLUA_CALLBACK_TAG_REPLACE);
     arg1 = [tag_store_obj, func, tag](float arg1) {
         lua_State *L = xlua_cocosthread();
         int top = lua_gettop(L);
@@ -956,7 +956,8 @@ static int _cocos2d_Scheduler_unschedule(lua_State *L)
     xluacv_check_obj(L, 3, &arg2);
 
     std::string tag = makeScheduleCallbackTag(arg1);
-    tolua_removecallback(L, 3, tag.c_str(), TOLUA_CALLBACK_TAG_ENDWITH);
+    void *tag_store_obj = (void *)arg2;
+    tolua_removecallback(L, tag_store_obj, tag.c_str(), TOLUA_CALLBACK_TAG_ENDWITH);
 
     // void unschedule(const std::string& key, void *target)
     self->unschedule(arg1, arg2);
@@ -975,7 +976,8 @@ static int _cocos2d_Scheduler_unscheduleAllForTarget(lua_State *L)
     xluacv_check_obj(L, 2, &arg1);
 
     std::string tag = makeScheduleCallbackTag("");
-    tolua_removecallback(L, 2, tag.c_str(), TOLUA_CALLBACK_TAG_WILDCARD);
+    void *tag_store_obj = (void *)arg1;
+    tolua_removecallback(L, tag_store_obj, tag.c_str(), TOLUA_CALLBACK_TAG_WILDCARD);
 
     // void unscheduleAllForTarget(void *target)
     self->unscheduleAllForTarget(arg1);
@@ -992,7 +994,8 @@ static int _cocos2d_Scheduler_unscheduleAll(lua_State *L)
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Scheduler");
 
     std::string tag = makeScheduleCallbackTag("");
-    tolua_removecallback(L, 1, tag.c_str(), TOLUA_CALLBACK_TAG_WILDCARD);
+    void *tag_store_obj = (void *)self;
+    tolua_removecallback(L, tag_store_obj, tag.c_str(), TOLUA_CALLBACK_TAG_WILDCARD);
 
     // void unscheduleAll()
     self->unscheduleAll();
@@ -2172,15 +2175,13 @@ static int _cocos2d_TextureCache_addImageAsync1(lua_State *L)
 
     void *tag_store_obj = (void *)self;
     std::string tag = makeTextureCacheCallbackTag(arg1);
-    std::string func = tolua_setcallback(L, 1, tag.c_str(), 3, TOLUA_CALLBACK_TAG_NEW);
+    std::string func = tolua_setcallback(L, tag_store_obj, tag.c_str(), 3, TOLUA_CALLBACK_TAG_NEW);
     arg2 = [tag_store_obj, func, tag](cocos2d::Texture2D *arg1) {
         lua_State *L = xlua_cocosthread();
         int top = lua_gettop(L);
         xluacv_push_ccobj(L, arg1, "cc.Texture2D");
         tolua_callback(L, tag_store_obj, func.c_str(), 1);
-        if (tolua_getobj(L, tag_store_obj)) {
-            tolua_removecallback(L, -1, func.c_str(), TOLUA_CALLBACK_TAG_EQUAL);
-        }
+        tolua_removecallback(L, tag_store_obj, func.c_str(), TOLUA_CALLBACK_TAG_EQUAL);
         lua_settop(L, top);
     };
 
@@ -2205,15 +2206,13 @@ static int _cocos2d_TextureCache_addImageAsync2(lua_State *L)
 
     void *tag_store_obj = (void *)self;
     std::string tag = makeTextureCacheCallbackTag(arg3);
-    std::string func = tolua_setcallback(L, 1, tag.c_str(), 3, TOLUA_CALLBACK_TAG_NEW);
+    std::string func = tolua_setcallback(L, tag_store_obj, tag.c_str(), 3, TOLUA_CALLBACK_TAG_NEW);
     arg2 = [tag_store_obj, func, tag](cocos2d::Texture2D *arg1) {
         lua_State *L = xlua_cocosthread();
         int top = lua_gettop(L);
         xluacv_push_ccobj(L, arg1, "cc.Texture2D");
         tolua_callback(L, tag_store_obj, func.c_str(), 1);
-        if (tolua_getobj(L, tag_store_obj)) {
-            tolua_removecallback(L, -1, func.c_str(), TOLUA_CALLBACK_TAG_EQUAL);
-        }
+        tolua_removecallback(L, tag_store_obj, func.c_str(), TOLUA_CALLBACK_TAG_EQUAL);
         lua_settop(L, top);
     };
 
@@ -2255,7 +2254,8 @@ static int _cocos2d_TextureCache_unbindImageAsync(lua_State *L)
     tolua_check_std_string(L, 2, &arg1);
 
     std::string tag = makeTextureCacheCallbackTag(arg1);
-    tolua_removecallback(L, 1, tag.c_str(), TOLUA_CALLBACK_TAG_ENDWITH);
+    void *tag_store_obj = (void *)self;
+    tolua_removecallback(L, tag_store_obj, tag.c_str(), TOLUA_CALLBACK_TAG_ENDWITH);
 
     // void unbindImageAsync(const std::string &filename)
     self->unbindImageAsync(arg1);
@@ -2272,7 +2272,8 @@ static int _cocos2d_TextureCache_unbindAllImageAsync(lua_State *L)
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.TextureCache");
 
     std::string tag = makeTextureCacheCallbackTag("");
-    tolua_removecallback(L, 1, tag.c_str(), TOLUA_CALLBACK_TAG_WILDCARD);
+    void *tag_store_obj = (void *)self;
+    tolua_removecallback(L, tag_store_obj, tag.c_str(), TOLUA_CALLBACK_TAG_WILDCARD);
 
     // void unbindAllImageAsync()
     self->unbindAllImageAsync();
@@ -3752,15 +3753,13 @@ static int _cocos2d_Node_scheduleOnce(lua_State *L)
 
     void *tag_store_obj = (void *)self;
     std::string tag = makeScheduleCallbackTag(arg3);
-    std::string func = tolua_setcallback(L, 1, tag.c_str(), 2, TOLUA_CALLBACK_TAG_REPLACE);
+    std::string func = tolua_setcallback(L, tag_store_obj, tag.c_str(), 2, TOLUA_CALLBACK_TAG_REPLACE);
     arg1 = [tag_store_obj, func, tag](float arg1) {
         lua_State *L = xlua_cocosthread();
         int top = lua_gettop(L);
         tolua_push_number(L, (lua_Number)arg1);
         tolua_callback(L, tag_store_obj, func.c_str(), 1);
-        if (tolua_getobj(L, tag_store_obj)) {
-            tolua_removecallback(L, -1, func.c_str(), TOLUA_CALLBACK_TAG_EQUAL);
-        }
+        tolua_removecallback(L, tag_store_obj, func.c_str(), TOLUA_CALLBACK_TAG_EQUAL);
         lua_settop(L, top);
     };
 
@@ -3783,7 +3782,7 @@ static int _cocos2d_Node_schedule1(lua_State *L)
 
     void *tag_store_obj = (void *)self;
     std::string tag = makeScheduleCallbackTag(arg2);
-    std::string func = tolua_setcallback(L, 1, tag.c_str(), 2, TOLUA_CALLBACK_TAG_REPLACE);
+    std::string func = tolua_setcallback(L, tag_store_obj, tag.c_str(), 2, TOLUA_CALLBACK_TAG_REPLACE);
     arg1 = [tag_store_obj, func, tag](float arg1) {
         lua_State *L = xlua_cocosthread();
         int top = lua_gettop(L);
@@ -3814,7 +3813,7 @@ static int _cocos2d_Node_schedule2(lua_State *L)
 
     void *tag_store_obj = (void *)self;
     std::string tag = makeScheduleCallbackTag(arg3);
-    std::string func = tolua_setcallback(L, 1, tag.c_str(), 2, TOLUA_CALLBACK_TAG_REPLACE);
+    std::string func = tolua_setcallback(L, tag_store_obj, tag.c_str(), 2, TOLUA_CALLBACK_TAG_REPLACE);
     arg1 = [tag_store_obj, func, tag](float arg1) {
         lua_State *L = xlua_cocosthread();
         int top = lua_gettop(L);
@@ -3849,7 +3848,7 @@ static int _cocos2d_Node_schedule3(lua_State *L)
 
     void *tag_store_obj = (void *)self;
     std::string tag = makeScheduleCallbackTag(arg5);
-    std::string func = tolua_setcallback(L, 1, tag.c_str(), 2, TOLUA_CALLBACK_TAG_REPLACE);
+    std::string func = tolua_setcallback(L, tag_store_obj, tag.c_str(), 2, TOLUA_CALLBACK_TAG_REPLACE);
     arg1 = [tag_store_obj, func, tag](float arg1) {
         lua_State *L = xlua_cocosthread();
         int top = lua_gettop(L);
@@ -3903,7 +3902,8 @@ static int _cocos2d_Node_unschedule(lua_State *L)
     tolua_check_std_string(L, 2, &arg1);
 
     std::string tag = makeScheduleCallbackTag(arg1);
-    tolua_removecallback(L, 1, tag.c_str(), TOLUA_CALLBACK_TAG_ENDWITH);
+    void *tag_store_obj = (void *)self;
+    tolua_removecallback(L, tag_store_obj, tag.c_str(), TOLUA_CALLBACK_TAG_ENDWITH);
 
     // void unschedule(const std::string &key)
     self->unschedule(arg1);
@@ -3920,7 +3920,8 @@ static int _cocos2d_Node_unscheduleAllCallbacks(lua_State *L)
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
 
     std::string tag = makeScheduleCallbackTag("");
-    tolua_removecallback(L, 1, tag.c_str(), TOLUA_CALLBACK_TAG_WILDCARD);
+    void *tag_store_obj = (void *)self;
+    tolua_removecallback(L, tag_store_obj, tag.c_str(), TOLUA_CALLBACK_TAG_WILDCARD);
 
     // void unscheduleAllCallbacks()
     self->unscheduleAllCallbacks();

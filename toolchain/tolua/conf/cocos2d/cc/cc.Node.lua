@@ -42,71 +42,28 @@ cls.callback(nil, {
         REMOVED = true,
         REMOVED_MODE = "TOLUA_CALLBACK_TAG_EQUAL",
     },
-    'void scheduleOnce(const std::function<void(float)>& callback, float delay, const std::string &key)')
-cls.func('schedule', [[
-{
-    int num_args = lua_gettop(L) - 1;
-    
-    lua_settop(L, 6);
-    
-    float interval = 0;
-    unsigned int repeat = CC_REPEAT_FOREVER;
-    float delay = 0;
-    std::string key;
-    
-    cocos2d::Node *self = (cocos2d::Node *)tolua_toobj(L, 1, "cc.Node");
-    
-    if (num_args == 2) {
-        key = luaL_checkstring(L, 3);
-    } else if (num_args == 3) {
-        interval = (float)luaL_checknumber(L, 3);
-        key = luaL_checkstring(L, 4);
-    } else if (num_args == 5) {
-        interval = (float)luaL_checknumber(L, 3);
-        repeat = (unsigned int)luaL_checkinteger(L, 4);
-        delay = (float)luaL_checknumber(L, 5);
-        key = luaL_checkstring(L, 6);
-    } else {
-         luaL_error(L, "method 'cocos2d::Node::schedule' not support '%d' arguments", num_args);
-    }
-    
-    std::string tag = makeNodeScheduleCallbackTag(key);
-    std::string func = tolua_setcallback(L, 1, tag.c_str(), 2, TOLUA_CALLBACK_TAG_NEW);
-    self->schedule([self, func](float delta) {
-        lua_State *L = xlua_cocosthread();
-        int top = lua_gettop(L);
-        lua_pushnumber(L, delta);
-        tolua_callback(L, self, func.c_str(), 1);
-        lua_settop(L, top);
-    }, interval, repeat, delay, key);
-    
-    return 0;
-}]])
-cls.func('unschedule', [[
-{
-    lua_settop(L, 2);
-    
-    cocos2d::Node *self = (cocos2d::Node *)tolua_toobj(L, 1, "cc.Node");
-    std::string key = luaL_checkstring(L, 2);
-    std::string tag = makeNodeScheduleCallbackTag(key);
-    
-    self->unschedule(key);
-    tolua_removecallback(L, 1, tag.c_str(), TOLUA_CALLBACK_TAG_ENDWITH);
-    
-    return 0;
-}]])
-cls.func('unscheduleAllCallbacks', [[
-{
-    lua_settop(L, 1);
-    
-    cocos2d::Node *self = (cocos2d::Node *)tolua_toobj(L, 1, "cc.Node");
-    self->unscheduleAllCallbacks();
-    
-    std::string tag = makeNodeScheduleCallbackTag("");
-    tolua_removecallback(L, 1, tag.c_str(), TOLUA_CALLBACK_TAG_WILDCARD);
-    
-    return 0;
-}]])
+    'void scheduleOnce(const std::function<void(float)>& callback, float delay, const std::string &key)'
+)
+cls.callback(nil, {
+        MAKER = "makeNodeScheduleCallbackTag(#-1)",
+        STANDALONE = true,
+    },
+    'void schedule(const std::function<void(float)>& callback, const std::string &key)',
+    'void schedule(const std::function<void(float)>& callback, float interval, const std::string &key)',
+    'void schedule(const std::function<void(float)>& callback, float interval, unsigned int repeat, float delay, const std::string &key)'
+)
+cls.callback(nil, {
+        MAKER = "makeNodeScheduleCallbackTag(#1)",
+        REMOVED_MODE = "TOLUA_CALLBACK_TAG_ENDWITH",
+    },
+    'void unschedule(const std::string &key)'
+)
+cls.callback(nil, {
+        MAKER = "makeNodeScheduleCallbackTag()",
+        REMOVED_MODE = "TOLUA_CALLBACK_TAG_WILDCARD",
+    },
+    'void unscheduleAllCallbacks()'
+)
 
 cls.func(nil, 'void resume(void)')
 cls.func(nil, 'void pause(void)')

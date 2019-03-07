@@ -3537,42 +3537,118 @@ static int _cocos2d_Node_scheduleOnce(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_Node_schedule1(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::Node *self = nullptr;
+    std::function<void(float)> arg1;
+    std::string arg2;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
+    tolua_check_std_string(L, 3, &arg2);
+
+    std::string tag = makeNodeScheduleCallbackTag(arg2);
+    std::string func = tolua_setcallback(L, 1, tag.c_str(), 2, TOLUA_CALLBACK_TAG_REPLACE);
+    arg1 = [self, func, tag](float arg1) {
+        lua_State *L = xlua_cocosthread();
+        int top = lua_gettop(L);
+        tolua_push_number(L, (lua_Number)arg1);
+        tolua_callback(L, self, func.c_str(), 1);
+
+        lua_settop(L, top);
+    };
+
+    self->schedule(arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_Node_schedule2(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    cocos2d::Node *self = nullptr;
+    std::function<void(float)> arg1;
+    lua_Number arg2 = 0;
+    std::string arg3;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
+    tolua_check_number(L, 3, &arg2);
+    tolua_check_std_string(L, 4, &arg3);
+
+    std::string tag = makeNodeScheduleCallbackTag(arg3);
+    std::string func = tolua_setcallback(L, 1, tag.c_str(), 2, TOLUA_CALLBACK_TAG_REPLACE);
+    arg1 = [self, func, tag](float arg1) {
+        lua_State *L = xlua_cocosthread();
+        int top = lua_gettop(L);
+        tolua_push_number(L, (lua_Number)arg1);
+        tolua_callback(L, self, func.c_str(), 1);
+
+        lua_settop(L, top);
+    };
+
+    self->schedule(arg1, (float)arg2, arg3);
+
+    return 0;
+}
+
+static int _cocos2d_Node_schedule3(lua_State *L)
+{
+    lua_settop(L, 6);
+
+    cocos2d::Node *self = nullptr;
+    std::function<void(float)> arg1;
+    lua_Number arg2 = 0;
+    lua_Unsigned arg3 = 0;
+    lua_Number arg4 = 0;
+    std::string arg5;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
+    tolua_check_number(L, 3, &arg2);
+    tolua_check_uint(L, 4, &arg3);
+    tolua_check_number(L, 5, &arg4);
+    tolua_check_std_string(L, 6, &arg5);
+
+    std::string tag = makeNodeScheduleCallbackTag(arg5);
+    std::string func = tolua_setcallback(L, 1, tag.c_str(), 2, TOLUA_CALLBACK_TAG_REPLACE);
+    arg1 = [self, func, tag](float arg1) {
+        lua_State *L = xlua_cocosthread();
+        int top = lua_gettop(L);
+        tolua_push_number(L, (lua_Number)arg1);
+        tolua_callback(L, self, func.c_str(), 1);
+
+        lua_settop(L, top);
+    };
+
+    self->schedule(arg1, (float)arg2, (unsigned int)arg3, (float)arg4, arg5);
+
+    return 0;
+}
+
 static int _cocos2d_Node_schedule(lua_State *L)
 {
     int num_args = lua_gettop(L) - 1;
 
-    lua_settop(L, 6);
-
-    float interval = 0;
-    unsigned int repeat = CC_REPEAT_FOREVER;
-    float delay = 0;
-    std::string key;
-
-    cocos2d::Node *self = (cocos2d::Node *)tolua_toobj(L, 1, "cc.Node");
-
     if (num_args == 2) {
-        key = luaL_checkstring(L, 3);
-    } else if (num_args == 3) {
-        interval = (float)luaL_checknumber(L, 3);
-        key = luaL_checkstring(L, 4);
-    } else if (num_args == 5) {
-        interval = (float)luaL_checknumber(L, 3);
-        repeat = (unsigned int)luaL_checkinteger(L, 4);
-        delay = (float)luaL_checknumber(L, 5);
-        key = luaL_checkstring(L, 6);
-    } else {
-         luaL_error(L, "method 'cocos2d::Node::schedule' not support '%d' arguments", num_args);
+        // if (tolua_is_std_function(L, 2) && tolua_is_std_string(L, 3)) {
+            return _cocos2d_Node_schedule1(L);
+        // }
     }
 
-    std::string tag = makeNodeScheduleCallbackTag(key);
-    std::string func = tolua_setcallback(L, 1, tag.c_str(), 2, TOLUA_CALLBACK_TAG_NEW);
-    self->schedule([self, func](float delta) {
-        lua_State *L = xlua_cocosthread();
-        int top = lua_gettop(L);
-        lua_pushnumber(L, delta);
-        tolua_callback(L, self, func.c_str(), 1);
-        lua_settop(L, top);
-    }, interval, repeat, delay, key);
+    if (num_args == 3) {
+        // if (tolua_is_std_function(L, 2) && tolua_is_number(L, 3) && tolua_is_std_string(L, 4)) {
+            return _cocos2d_Node_schedule2(L);
+        // }
+    }
+
+    if (num_args == 5) {
+        // if (tolua_is_std_function(L, 2) && tolua_is_number(L, 3) && tolua_is_uint(L, 4) && tolua_is_number(L, 5) && tolua_is_std_string(L, 6)) {
+            return _cocos2d_Node_schedule3(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Node::schedule' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -3581,12 +3657,16 @@ static int _cocos2d_Node_unschedule(lua_State *L)
 {
     lua_settop(L, 2);
 
-    cocos2d::Node *self = (cocos2d::Node *)tolua_toobj(L, 1, "cc.Node");
-    std::string key = luaL_checkstring(L, 2);
-    std::string tag = makeNodeScheduleCallbackTag(key);
+    cocos2d::Node *self = nullptr;
+    std::string arg1;
 
-    self->unschedule(key);
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
+    tolua_check_std_string(L, 2, &arg1);
+
+    std::string tag = makeNodeScheduleCallbackTag(arg1);
     tolua_removecallback(L, 1, tag.c_str(), TOLUA_CALLBACK_TAG_ENDWITH);
+
+    self->unschedule(arg1);
 
     return 0;
 }
@@ -3595,11 +3675,14 @@ static int _cocos2d_Node_unscheduleAllCallbacks(lua_State *L)
 {
     lua_settop(L, 1);
 
-    cocos2d::Node *self = (cocos2d::Node *)tolua_toobj(L, 1, "cc.Node");
-    self->unscheduleAllCallbacks();
+    cocos2d::Node *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
 
     std::string tag = makeNodeScheduleCallbackTag("");
     tolua_removecallback(L, 1, tag.c_str(), TOLUA_CALLBACK_TAG_WILDCARD);
+
+    self->unscheduleAllCallbacks();
 
     return 0;
 }

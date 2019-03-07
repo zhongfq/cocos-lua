@@ -12,7 +12,11 @@ cls.prop('description', 'std::string getDescription()')
 cls.prop('scheduler', 'Scheduler* getScheduler()', 'void setScheduler(Scheduler* scheduler)')
 cls.prop('actionManager', 'ActionManager* getActionManager()', 'void setActionManager(ActionManager* actionManager)')
 cls.func(nil, 'static Node *create()')
-cls.func(nil, 'void addChild(Node * child)', 'void addChild(Node * child, int localZOrder)', 'void addChild(Node* child, int localZOrder, int tag)', 'void addChild(Node* child, int localZOrder, const std::string &name)')
+cls.func(nil, 
+    'void addChild(Node * child)', 
+    'void addChild(Node * child, int localZOrder)', 
+    'void addChild(Node* child, int localZOrder, int tag)', 
+    'void addChild(Node* child, int localZOrder, const std::string &name)')
 cls.func(nil, 'Node *getChildByTag(int tag) const')
 cls.func(nil, 'Node* getChildByName(const std::string& name)')
 cls.func(nil, 'void removeFromParent()')
@@ -24,7 +28,9 @@ cls.func(nil, 'void removeAllChildren()')
 cls.func(nil, 'void removeAllChildrenWithCleanup(bool cleanup)')
 cls.func(nil, 'void reorderChild(Node * child, int localZOrder)')
 cls.func(nil, 'void sortAllChildren()')
-cls.func(nil, 'void setPosition(pack const Vec2 &position)')
+cls.func(nil, 
+    'void setPosition(float x, float y)',
+    'void setPosition(const Vec2 &position)')
 cls.func(nil, 'unpack const Vec2& getPosition()')
 cls.func(nil, 'void scheduleUpdate(void)')
 cls.func(nil, 'void unscheduleUpdate(void)')

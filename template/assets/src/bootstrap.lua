@@ -21,6 +21,8 @@ function main()
     print("# preferences 'version'", preferences.getString("conf.version.runtime", "defalut build"))
     print("#", node, node.referenceCount, node:getPosition())
 
+    node:setPosition({x = 1.2, y = 0})
+
     Director.getInstance().runningScene:addChild(node)
 
     local textureCache = Director.getInstance().textureCache

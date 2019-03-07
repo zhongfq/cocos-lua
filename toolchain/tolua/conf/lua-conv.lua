@@ -31,6 +31,17 @@ M.CONVS = {
         ]],
     },
     REG_CONV {
+        CPPCLS = 'cocos2d::Vec4',
+        DEF = [[
+            {
+                float x;
+                float y;
+                float z;
+                float w;
+            }
+        ]],
+    },
+    REG_CONV {
         CPPCLS = 'cocos2d::Size',
         DEF = [[
             {

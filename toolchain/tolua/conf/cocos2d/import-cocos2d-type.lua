@@ -23,6 +23,20 @@ REG_TYPE {
 }
 
 REG_TYPE {
+    TYPENAME = 'cocos2d::Vec3',
+    CONV_FUNC = "auto_luacv_$$_cocos2d_Vec3",
+    INIT_VALUE = false,
+    VARS = 3,
+}
+
+REG_TYPE {
+    TYPENAME = 'cocos2d::Vec4',
+    CONV_FUNC = "auto_luacv_$$_cocos2d_Vec4",
+    INIT_VALUE = false,
+    VARS = 4,
+}
+
+REG_TYPE {
     TYPENAME = 'cocos2d::Size',
     CONV_FUNC = "auto_luacv_$$_cocos2d_Size",
     INIT_VALUE = false,

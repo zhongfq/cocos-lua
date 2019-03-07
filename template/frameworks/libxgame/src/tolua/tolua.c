@@ -714,12 +714,35 @@ LUALIB_API bool tolua_is_obj(lua_State *L, int idx, const char *cls)
     return tolua_isa(L, idx, cls);
 }
 
+static void auxchecktype(lua_State *L, int idx, const char *field, int type, bool isinteger)
+{
+    if ((isinteger && !lua_isinteger(L, idx)) ||
+        (!isinteger && lua_type(L, idx) != type)) {
+        const char *msg;
+        const char *typearg;
+        const char *tname = lua_typename(L, type);
+        if (isinteger) {
+            tname = "integer";
+        }
+        if (luaL_getmetafield(L, idx, "__name") == LUA_TSTRING) {
+            typearg = lua_tostring(L, -1);
+        } else if (lua_type(L, idx) == LUA_TLIGHTUSERDATA) {
+            typearg = "light userdata";
+        } else {
+            typearg = luaL_typename(L, idx);
+        }
+        msg = lua_pushfstring(L, "tolua check '%s': %s expected, got %s", field, tname, typearg);
+        luaL_argerror(L, idx, msg);
+    }
+}
+
 LUALIB_API const char *tolua_checkfieldstring(lua_State *L, int idx, const char *field)
 {
     const char *value;
     idx = lua_absindex(L, idx);
     lua_getfield(L, idx, field);
-    value = luaL_checkstring(L, -1);
+    auxchecktype(L, -1, field, LUA_TSTRING, false);
+    value = lua_tostring(L, -1);
     lua_pop(L, 1);
     return value;
 }
@@ -729,7 +752,8 @@ LUALIB_API lua_Number tolua_checkfieldnumber(lua_State *L, int idx, const char *
     lua_Number value;
     idx = lua_absindex(L, idx);
     lua_getfield(L, idx, field);
-    value = luaL_checknumber(L, -1);
+    auxchecktype(L, -1, field, LUA_TNUMBER, false);
+    value = lua_tonumber(L, -1);
     lua_pop(L, 1);
     return value;
 }
@@ -738,7 +762,8 @@ LUALIB_API lua_Integer tolua_checkfieldinteger(lua_State *L, int idx, const char
 {
     idx = lua_absindex(L, idx);
     lua_getfield(L, idx, field);
-    lua_Integer value = luaL_checkinteger(L, -1);
+    auxchecktype(L, -1, field, LUA_TNUMBER, true);
+    lua_Integer value = lua_tointeger(L, -1);
     lua_pop(L, 1);
     return value;
 }
@@ -747,7 +772,7 @@ LUALIB_API bool tolua_checkfieldboolean(lua_State *L, int idx, const char *field
 {
     idx = lua_absindex(L, idx);
     lua_getfield(L, idx, field);
-    luaL_checktype(L, -1, LUA_TBOOLEAN);
+    auxchecktype(L, -1, field, LUA_TBOOLEAN, false);
     bool value = lua_toboolean(L, -1);
     lua_pop(L, 1);
     return value;

@@ -23,6 +23,13 @@ void auto_luacv_pack_cocos2d_Vec3(lua_State *L, int idx, cocos2d::Vec3 *value);
 int auto_luacv_unpack_cocos2d_Vec3(lua_State *L, const cocos2d::Vec3 *value);
 bool auto_luacv_is_cocos2d_Vec3(lua_State *L, int idx);
 
+// cocos2d::Vec4
+int auto_luacv_push_cocos2d_Vec4(lua_State *L, const cocos2d::Vec4 *value);
+void auto_luacv_check_cocos2d_Vec4(lua_State *L, int idx, cocos2d::Vec4 *value);
+void auto_luacv_pack_cocos2d_Vec4(lua_State *L, int idx, cocos2d::Vec4 *value);
+int auto_luacv_unpack_cocos2d_Vec4(lua_State *L, const cocos2d::Vec4 *value);
+bool auto_luacv_is_cocos2d_Vec4(lua_State *L, int idx);
+
 // cocos2d::Size
 int auto_luacv_push_cocos2d_Size(lua_State *L, const cocos2d::Size *value);
 void auto_luacv_check_cocos2d_Size(lua_State *L, int idx, cocos2d::Size *value);

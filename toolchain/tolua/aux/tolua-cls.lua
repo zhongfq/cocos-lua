@@ -284,7 +284,7 @@ end
 
 function REG_CONV(ci)
     ci.PROPS = {}
-    for line in string.gmatch(ci.DEF, '[^\n\r]+') do
+    for line in string.gmatch(assert(ci.DEF, 'no DEF'), '[^\n\r]+') do
         local typename, varname, luaname = string.match(line, '([^{} ]+[ *&])([^ *&]+) *= *([^ ;]*)')
         if not typename then
             typename, varname = string.match(line, '([^{} ]+[ *&])([^ *&;]+)')

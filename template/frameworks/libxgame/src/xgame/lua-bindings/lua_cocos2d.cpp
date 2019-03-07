@@ -3327,17 +3327,55 @@ static int _cocos2d_Node_sortAllChildren(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_Node_setPosition(lua_State *L)
+static int _cocos2d_Node_setPosition1(lua_State *L)
 {
     lua_settop(L, 3);
+
+    cocos2d::Node *self = nullptr;
+    lua_Number arg1 = 0;
+    lua_Number arg2 = 0;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
+    tolua_check_number(L, 2, &arg1);
+    tolua_check_number(L, 3, &arg2);
+
+    self->setPosition((float)arg1, (float)arg2);
+
+    return 0;
+}
+
+static int _cocos2d_Node_setPosition2(lua_State *L)
+{
+    lua_settop(L, 2);
 
     cocos2d::Node *self = nullptr;
     cocos2d::Vec2 arg1;
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
-    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
 
     self->setPosition(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Node_setPosition(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if (auto_luacv_is_cocos2d_Vec2(L, 2)) {
+            return _cocos2d_Node_setPosition2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if (tolua_is_number(L, 2) && tolua_is_number(L, 3)) {
+            return _cocos2d_Node_setPosition1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Node::setPosition' not support '%d' arguments", num_args);
 
     return 0;
 }

@@ -68,7 +68,7 @@ cls.func('schedule', [[
     }
 
     std::string tag = makeScheduleCallbackTag(target, key);
-    tolua_removecallback(L, 1, tag.c_str(), TOLUA_REMOVE_CALLBACK_ENDWITH);
+    tolua_removecallback(L, 1, tag.c_str(), TOLUA_CALLBACK_TAG_ENDWITH);
     std::string func = tolua_setcallback(L, 1, tag.c_str(), 2);
     self->unschedule(key, target);
     self->schedule([self, func](float delta) {
@@ -96,7 +96,7 @@ cls.func('unschedule', [[
     std::string tag = makeScheduleCallbackTag(target, key);
 
     self->unschedule(key, target);
-    tolua_removecallback(L, 1, tag.c_str(), TOLUA_REMOVE_CALLBACK_ENDWITH);
+    tolua_removecallback(L, 1, tag.c_str(), TOLUA_CALLBACK_TAG_ENDWITH);
 
     return 0;
 }]])
@@ -113,7 +113,7 @@ cls.func('unscheduleAllForTarget', [[
     std::string tag = makeScheduleCallbackTag(target, "");
     
     self->unscheduleAllForTarget(target);
-    tolua_removecallback(L, 1, tag.c_str(), TOLUA_REMOVE_CALLBACK_WILDCARD);
+    tolua_removecallback(L, 1, tag.c_str(), TOLUA_CALLBACK_TAG_WILDCARD);
     
     return 0;
 }]])
@@ -124,7 +124,7 @@ cls.func('unscheduleAll', [[
     cocos2d::Scheduler *self = (cocos2d::Scheduler *)tolua_toobj(L, 1, "cc.Scheduler");
     std::string tag = makeScheduleCallbackTag(nullptr, "");
     self->unscheduleAll();
-    tolua_removecallback(L, 1, tag.c_str(), TOLUA_REMOVE_CALLBACK_WILDCARD);
+    tolua_removecallback(L, 1, tag.c_str(), TOLUA_CALLBACK_TAG_WILDCARD);
     
     return 0;
 }]])

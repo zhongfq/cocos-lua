@@ -36,29 +36,13 @@ cls.func(nil, 'void scheduleUpdate(void)')
 cls.func(nil, 'void unscheduleUpdate(void)')
 cls.func(nil, 'void scheduleUpdateWithPriority(int priority)')
 cls.func(nil, 'bool isScheduled(const std::string &key)')
-cls.func('scheduleOnce', [[
-{
-    lua_settop(L, 4);
-
-    cocos2d::Node *self = (cocos2d::Node *)tolua_toobj(L, 1, "cc.Node");
-    lua_Number delay = luaL_checknumber(L, 3);
-    std::string key = luaL_checkstring(L, 4);
-
-    std::string tag = makeNodeScheduleCallbackTag(key);
-    std::string func = tolua_setcallback(L, 1, tag.c_str(), 2);
-    self->scheduleOnce([self, func](float delta) {
-        lua_State *L = xlua_cocosthread();
-        int top = lua_gettop(L);
-        lua_pushnumber(L, delta);
-        tolua_callback(L, self, func.c_str(), 1);
-        if (tolua_getobj(L, self)) {
-            tolua_removecallback(L, -1, func.c_str(), TOLUA_REMOVE_CALLBACK_EQUAL);
-        }
-        lua_settop(L, top);
-    }, delay, key);
-
-    return 0;
-}]])
+cls.callback(nil, {
+        MAKER = "makeNodeScheduleCallbackTag(#-1)",
+        STANDALONE = true,
+        REMOVED = true,
+        REMOVED_MODE = "TOLUA_CALLBACK_TAG_EQUAL",
+    },
+    'void scheduleOnce(const std::function<void(float)>& callback, float delay, const std::string &key)')
 cls.func('schedule', [[
 {
     int num_args = lua_gettop(L) - 1;
@@ -107,7 +91,7 @@ cls.func('unschedule', [[
     std::string tag = makeNodeScheduleCallbackTag(key);
     
     self->unschedule(key);
-    tolua_removecallback(L, 1, tag.c_str(), TOLUA_REMOVE_CALLBACK_ENDWITH);
+    tolua_removecallback(L, 1, tag.c_str(), TOLUA_CALLBACK_TAG_ENDWITH);
     
     return 0;
 }]])
@@ -119,7 +103,7 @@ cls.func('unscheduleAllCallbacks', [[
     self->unscheduleAllCallbacks();
     
     std::string tag = makeNodeScheduleCallbackTag("");
-    tolua_removecallback(L, 1, tag.c_str(), TOLUA_REMOVE_CALLBACK_WILDCARD);
+    tolua_removecallback(L, 1, tag.c_str(), TOLUA_CALLBACK_TAG_WILDCARD);
     
     return 0;
 }]])

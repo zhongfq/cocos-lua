@@ -145,9 +145,11 @@ local function parse_args(cls, func_decl)
             local arg, pack = string.gsub(arg, 'pack', '')
             local typename, varname, default = string.match(arg, '(.+[ *&])([^ *&]+) *= *([^ ]*)')
             if not typename then
-                typename, varname = string.match(arg, '(.+[ *&])([^ *&]*)')
+                typename, varname = string.match(arg, '(.+[ *&])([^ *&]+)')
             end
-            assert(typename, arg)
+            if not typename then
+                typename = arg
+            end
             typename = to_pretty_typename(typename)
             if string.find(typename, 'std::function<') then
                 -- const std::function<void(Texture2D*, float delta)>

@@ -25,32 +25,18 @@ function main()
 
     Director.getInstance().runningScene:addChild(node)
 
-    local textureCache = Director.getInstance().textureCache
-    textureCache:addImageAsync('res/HelloWorld.png', function (...)
-        print("### textureCache addImageAsync 1", ...)
-    end)
-    textureCache:addImageAsync('res/HelloWorld.png', function (...)
-        print("### textureCache addImageAsync 2", ...)
-    end)
-    textureCache:addImageAsync('res/HelloWorld1.png', function (...)
-        print("### textureCache addImageAsync 3", ...)
-    end)
+    local sprite = Sprite.create("res/HelloWorld.png")
+    print(sprite)
 
-    printUserValue(textureCache)
-    -- textureCache:unbindImageAsync('res/HelloWorld.png')
-    -- printUserValue(textureCache)
-    -- textureCache:unbindAllImageAsync()
-    -- printUserValue(textureCache)
+    sprite:setPosition(500, 400)
+    Director.getInstance().runningScene:addChild(sprite)
 
-    timer.delay(2, function ()
-        printUserValue(textureCache)
-    end)
-
-    -- local sprite = Sprite.create("res/HelloWorld.png")
-    -- print(sprite)
-
-    -- sprite:setPosition(500, 400)
-    -- Director.getInstance().runningScene:addChild(sprite)
+    node:schedule(function (...)
+        print("sprite:schedule", ...)
+    end, 1, '')
+    node:schedule(function (...)
+        print("sprite:schedule", ...)
+    end, 1.2, 'update')
 end
 
 function printUserValue(obj)

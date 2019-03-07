@@ -843,7 +843,7 @@ static int _cocos2d_Scheduler_schedule(lua_State *L)
     }
 
     std::string tag = makeScheduleCallbackTag(target, key);
-    tolua_removecallback(L, 1, tag.c_str(), TOLUA_REMOVE_CALLBACK_ENDWITH);
+    tolua_removecallback(L, 1, tag.c_str(), TOLUA_CALLBACK_TAG_ENDWITH);
     std::string func = tolua_setcallback(L, 1, tag.c_str(), 2);
     self->unschedule(key, target);
     self->schedule([self, func](float delta) {
@@ -872,7 +872,7 @@ static int _cocos2d_Scheduler_unschedule(lua_State *L)
     std::string tag = makeScheduleCallbackTag(target, key);
 
     self->unschedule(key, target);
-    tolua_removecallback(L, 1, tag.c_str(), TOLUA_REMOVE_CALLBACK_ENDWITH);
+    tolua_removecallback(L, 1, tag.c_str(), TOLUA_CALLBACK_TAG_ENDWITH);
 
     return 0;
 }
@@ -890,7 +890,7 @@ static int _cocos2d_Scheduler_unscheduleAllForTarget(lua_State *L)
     std::string tag = makeScheduleCallbackTag(target, "");
 
     self->unscheduleAllForTarget(target);
-    tolua_removecallback(L, 1, tag.c_str(), TOLUA_REMOVE_CALLBACK_WILDCARD);
+    tolua_removecallback(L, 1, tag.c_str(), TOLUA_CALLBACK_TAG_WILDCARD);
 
     return 0;
 }
@@ -902,7 +902,7 @@ static int _cocos2d_Scheduler_unscheduleAll(lua_State *L)
     cocos2d::Scheduler *self = (cocos2d::Scheduler *)tolua_toobj(L, 1, "cc.Scheduler");
     std::string tag = makeScheduleCallbackTag(nullptr, "");
     self->unscheduleAll();
-    tolua_removecallback(L, 1, tag.c_str(), TOLUA_REMOVE_CALLBACK_WILDCARD);
+    tolua_removecallback(L, 1, tag.c_str(), TOLUA_CALLBACK_TAG_WILDCARD);
 
     return 0;
 }
@@ -2022,6 +2022,7 @@ static int _cocos2d_TextureCache_addImageAsync1(lua_State *L)
     tolua_check_std_string(L, 2, &arg1);
 
     std::string tag = makeTextureCacheCallbackTag(arg1);
+
     std::string func = tolua_setcallback(L, 1, tag.c_str(), 3);
     arg2 = [self, func, tag](cocos2d::Texture2D *arg1) {
         lua_State *L = xlua_cocosthread();
@@ -2029,7 +2030,7 @@ static int _cocos2d_TextureCache_addImageAsync1(lua_State *L)
         xluacv_push_ccobj(L, arg1, "cc.Texture2D");
         tolua_callback(L, self, func.c_str(), 1);
         if (tolua_getobj(L, self)) {
-            tolua_removecallback(L, -1, func.c_str(), TOLUA_REMOVE_CALLBACK_EQUAL);
+            tolua_removecallback(L, -1, func.c_str(), TOLUA_CALLBACK_TAG_EQUAL);
         }
         lua_settop(L, top);
     };
@@ -2053,14 +2054,15 @@ static int _cocos2d_TextureCache_addImageAsync2(lua_State *L)
     tolua_check_std_string(L, 4, &arg3);
 
     std::string tag = makeTextureCacheCallbackTag(arg3);
-    std::string func = tolua_setcallback(L, 1, tag.c_str(), 4);
+
+    std::string func = tolua_setcallback(L, 1, tag.c_str(), 3);
     arg2 = [self, func, tag](cocos2d::Texture2D *arg1) {
         lua_State *L = xlua_cocosthread();
         int top = lua_gettop(L);
         xluacv_push_ccobj(L, arg1, "cc.Texture2D");
         tolua_callback(L, self, func.c_str(), 1);
         if (tolua_getobj(L, self)) {
-            tolua_removecallback(L, -1, func.c_str(), TOLUA_REMOVE_CALLBACK_EQUAL);
+            tolua_removecallback(L, -1, func.c_str(), TOLUA_CALLBACK_TAG_EQUAL);
         }
         lua_settop(L, top);
     };
@@ -2102,7 +2104,7 @@ static int _cocos2d_TextureCache_unbindImageAsync(lua_State *L)
     tolua_check_std_string(L, 2, &arg1);
 
     std::string tag = makeTextureCacheCallbackTag(arg1);
-    tolua_removecallback(L, 1, tag.c_str(), TOLUA_REMOVE_CALLBACK_ENDWITH);
+    tolua_removecallback(L, 1, tag.c_str(), TOLUA_CALLBACK_TAG_ENDWITH);
 
     self->unbindImageAsync(arg1);
 
@@ -2118,7 +2120,7 @@ static int _cocos2d_TextureCache_unbindAllImageAsync(lua_State *L)
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.TextureCache");
 
     std::string tag = makeTextureCacheCallbackTag("");
-    tolua_removecallback(L, 1, tag.c_str(), TOLUA_REMOVE_CALLBACK_WILDCARD);
+    tolua_removecallback(L, 1, tag.c_str(), TOLUA_CALLBACK_TAG_WILDCARD);
 
     self->unbindAllImageAsync();
 
@@ -3510,22 +3512,30 @@ static int _cocos2d_Node_scheduleOnce(lua_State *L)
 {
     lua_settop(L, 4);
 
-    cocos2d::Node *self = (cocos2d::Node *)tolua_toobj(L, 1, "cc.Node");
-    lua_Number delay = luaL_checknumber(L, 3);
-    std::string key = luaL_checkstring(L, 4);
+    cocos2d::Node *self = nullptr;
+    std::function<void(float)> arg1;
+    lua_Number arg2 = 0;
+    std::string arg3;
 
-    std::string tag = makeNodeScheduleCallbackTag(key);
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
+    tolua_check_number(L, 3, &arg2);
+    tolua_check_std_string(L, 4, &arg3);
+
+    std::string tag = makeNodeScheduleCallbackTag(arg3);
+    tolua_removecallback(L, 1, tag.c_str(), TOLUA_CALLBACK_TAG_ENDWITH);
     std::string func = tolua_setcallback(L, 1, tag.c_str(), 2);
-    self->scheduleOnce([self, func](float delta) {
+    arg1 = [self, func, tag](float arg1) {
         lua_State *L = xlua_cocosthread();
         int top = lua_gettop(L);
-        lua_pushnumber(L, delta);
+        tolua_push_number(L, (lua_Number)arg1);
         tolua_callback(L, self, func.c_str(), 1);
         if (tolua_getobj(L, self)) {
-            tolua_removecallback(L, -1, func.c_str(), TOLUA_REMOVE_CALLBACK_EQUAL);
+            tolua_removecallback(L, -1, func.c_str(), TOLUA_CALLBACK_TAG_EQUAL);
         }
         lua_settop(L, top);
-    }, delay, key);
+    };
+
+    self->scheduleOnce(arg1, (float)arg2, arg3);
 
     return 0;
 }
@@ -3579,7 +3589,7 @@ static int _cocos2d_Node_unschedule(lua_State *L)
     std::string tag = makeNodeScheduleCallbackTag(key);
 
     self->unschedule(key);
-    tolua_removecallback(L, 1, tag.c_str(), TOLUA_REMOVE_CALLBACK_ENDWITH);
+    tolua_removecallback(L, 1, tag.c_str(), TOLUA_CALLBACK_TAG_ENDWITH);
 
     return 0;
 }
@@ -3592,7 +3602,7 @@ static int _cocos2d_Node_unscheduleAllCallbacks(lua_State *L)
     self->unscheduleAllCallbacks();
 
     std::string tag = makeNodeScheduleCallbackTag("");
-    tolua_removecallback(L, 1, tag.c_str(), TOLUA_REMOVE_CALLBACK_WILDCARD);
+    tolua_removecallback(L, 1, tag.c_str(), TOLUA_CALLBACK_TAG_WILDCARD);
 
     return 0;
 }

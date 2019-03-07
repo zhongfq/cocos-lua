@@ -39,6 +39,7 @@ function gen_callback(cls, fi, write)
         if v.CALLBACK_ARGS then
             ARG_N = 'arg' .. i
             ai = v
+            break
         end
     end
 
@@ -48,6 +49,7 @@ function gen_callback(cls, fi, write)
 
     local MAKER = gen_maker(cls, fi, write)
     local REMOVE_CALLBACK = ""
+    local STANDALONE = ""
     local NUM_ARGS = #ai.CALLBACK_ARGS
     local ARGS = {}
     local PUSH_ARGS = {}
@@ -64,7 +66,7 @@ function gen_callback(cls, fi, write)
         else
             local CAST = ""
             if v.TYPE.DECL_TYPE ~= v.TYPE.TYPENAME then
-                assert(not string.find(FUNC_PUSH_VALUE, '^auto_luacv'))
+                assert(not string.find(PUSH_FUNC, '^auto_luacv'))
                 CAST = string.format("(%s)", v.TYPE.DECL_TYPE)
             end
             PUSH_ARGS[#PUSH_ARGS + 1] = format_snippet([[
@@ -72,7 +74,11 @@ function gen_callback(cls, fi, write)
             ]])
         end
 
-        ARGS[#ARGS + 1] = v.DECL_TYPE .. ARG_N
+        local DECL_TYPE = v.DECL_TYPE
+        local SPACE = string.find(DECL_TYPE, '[*&]$') and '' or ' '
+        ARGS[#ARGS + 1] = format_snippet([[
+            ${DECL_TYPE}${SPACE}${ARG_N}
+        ]])
     end
 
     ARGS = table.concat(ARGS, ", ")
@@ -87,8 +93,13 @@ function gen_callback(cls, fi, write)
         ]])
     end
 
+    if fi.CALLBACK_OPT.STANDALONE then
+        STANDALONE = 'tolua_removecallback(L, 1, tag.c_str(), TOLUA_CALLBACK_TAG_ENDWITH);'
+    end
+
     local block = format_snippet([[
         std::string tag = ${MAKER};
+        ${STANDALONE}
         std::string func = tolua_setcallback(L, 1, tag.c_str(), ${IDX});
         ${ARG_N} = [self, func, tag](${ARGS}) {
             lua_State *L = xlua_cocosthread();

@@ -177,25 +177,25 @@ LUALIB_API const char *tolua_setcallback(lua_State *L, int idx, const char *tag,
     return lua_tostring(L, -1);
 }
 
-static bool shouldremovecallback(const char *field, const char *tag, tolua_remove_callback_t mode)
+static bool shouldremovecallback(const char *field, const char *tag, tolua_callback_tag_t mode)
 {
-    if (mode == TOLUA_REMOVE_CALLBACK_WILDCARD) {
+    if (mode == TOLUA_CALLBACK_TAG_WILDCARD) {
         return strstr(field, tag) != NULL;
     }
     
-    if (mode == TOLUA_REMOVE_CALLBACK_ENDWITH) {
+    if (mode == TOLUA_CALLBACK_TAG_ENDWITH) {
         return strendwith(field, tag);
     }
     
     return false;
 }
 
-LUALIB_API void tolua_removecallback(lua_State *L, int idx, const char *tag, tolua_remove_callback_t mode)
+LUALIB_API void tolua_removecallback(lua_State *L, int idx, const char *tag, tolua_callback_tag_t mode)
 {
     int top = lua_gettop(L);
     idx = lua_absindex(L, idx);
     auxgetcallbacktable(L, idx);                        // L: ct
-    if (mode == TOLUA_REMOVE_CALLBACK_EQUAL) {
+    if (mode == TOLUA_CALLBACK_TAG_EQUAL) {
         lua_pushnil(L);                                 // L: ct nil
         tolua_rawsetfield(L, -2, tag);                  // L: ct
     } else {

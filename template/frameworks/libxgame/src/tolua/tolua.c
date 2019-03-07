@@ -159,20 +159,45 @@ static void auxgetcallbacktable(lua_State *L, int idx)
 #endif
 }
 
-LUALIB_API const char *tolua_setcallback(lua_State *L, int idx, const char *tag, int vidx)
+LUALIB_API const char *tolua_setcallback(lua_State *L, int idx, const char *tag, int func, tolua_callback_tag_t mode)
 {
     static int ref = 0;
+    const char *field = NULL;
     
     idx = lua_absindex(L, idx);
-    vidx = lua_absindex(L, vidx);
+    func = lua_absindex(L, func);
+
+    luaL_checktype(L, func, LUA_TFUNCTION);
     
-    const char *field = lua_pushfstring(L, "toluacallback#%d|%s", ++ref, tag);
-    
-    luaL_checktype(L, vidx, LUA_TFUNCTION);
     auxgetcallbacktable(L, idx);                    // L: ct
-    lua_pushvalue(L, vidx);                         // L: ct v
-    tolua_rawsetfield(L, -2, field);                // L: ct
-    lua_pop(L, 1);                                  // L:
+    
+    if (mode == TOLUA_CALLBACK_TAG_REPLACE) {
+        lua_pushnil(L);                             // L: ct k
+        while (lua_next(L, -2)) {                   // L: ct k v
+            if (lua_isstring(L, -2)) {
+                const char *s = lua_tostring(L, -2);
+                if (strendwith(s, tag)) {
+                    field = s;
+                    lua_pop(L, 1);                 // L: ct k
+                    break;
+                }
+            }
+        }
+    } else {
+#ifdef TOLUA_DEBUG
+        if (mode != TOLUA_CALLBACK_TAG_NEW) {
+            luaL_error(L, "unsupport callback tag: %d", (int)mode);
+        }
+#endif
+    }
+    
+    if (!field) {
+        field = lua_pushfstring(L, "toluacallback#%d|%s", ++ref, tag);
+    }
+    
+    lua_pushvalue(L, func);                         // L: ct k  v
+    tolua_rawsetfield(L, -3, field);                // L: ct k
+    lua_remove(L, -2);                              // L: k
     
     return lua_tostring(L, -1);
 }

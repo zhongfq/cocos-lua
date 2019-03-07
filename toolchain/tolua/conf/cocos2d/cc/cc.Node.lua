@@ -71,7 +71,7 @@ cls.func('schedule', [[
     }
     
     std::string tag = makeNodeScheduleCallbackTag(key);
-    std::string func = tolua_setcallback(L, 1, tag.c_str(), 2);
+    std::string func = tolua_setcallback(L, 1, tag.c_str(), 2, TOLUA_CALLBACK_TAG_NEW);
     self->schedule([self, func](float delta) {
         lua_State *L = xlua_cocosthread();
         int top = lua_gettop(L);

@@ -61,12 +61,16 @@ LUALIB_API void toluacls_const_integer(lua_State *L, const char *field, lua_Inte
 LUALIB_API void toluacls_const_string(lua_State *L, const char *field, const char *value);
     
 typedef enum {
+    // for tolua_setcallback
+    TOLUA_CALLBACK_TAG_NEW,
+    TOLUA_CALLBACK_TAG_REPLACE,
+    // for tolua_removecallback
     TOLUA_CALLBACK_TAG_EQUAL,
     TOLUA_CALLBACK_TAG_ENDWITH,
     TOLUA_CALLBACK_TAG_WILDCARD
 } tolua_callback_tag_t;
     
-LUALIB_API const char *tolua_setcallback(lua_State *L, int idx, const char *tag, int vidx);
+LUALIB_API const char *tolua_setcallback(lua_State *L, int idx, const char *tag, int vidx, tolua_callback_tag_t mode);
 LUALIB_API void tolua_removecallback(lua_State *L, int idx, const char *tag, tolua_callback_tag_t mode);
 LUALIB_API bool tolua_callback(lua_State *L, void *obj, const char *field, int n);
     

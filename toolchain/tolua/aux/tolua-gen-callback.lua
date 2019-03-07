@@ -49,7 +49,7 @@ function gen_callback(cls, fi, write)
 
     local MAKER = gen_maker(cls, fi, write)
     local REMOVE_CALLBACK = ""
-    local STANDALONE = ""
+    local TOLUA_CALLBACK_TAG = "TOLUA_CALLBACK_TAG_NEW"
     local NUM_ARGS = #ai.CALLBACK_ARGS
     local ARGS = {}
     local PUSH_ARGS = {}
@@ -94,13 +94,12 @@ function gen_callback(cls, fi, write)
     end
 
     if fi.CALLBACK_OPT.STANDALONE then
-        STANDALONE = 'tolua_removecallback(L, 1, tag.c_str(), TOLUA_CALLBACK_TAG_ENDWITH);'
+        TOLUA_CALLBACK_TAG = "TOLUA_CALLBACK_TAG_REPLACE"
     end
 
     local block = format_snippet([[
         std::string tag = ${MAKER};
-        ${STANDALONE}
-        std::string func = tolua_setcallback(L, 1, tag.c_str(), ${IDX});
+        std::string func = tolua_setcallback(L, 1, tag.c_str(), ${IDX}, ${TOLUA_CALLBACK_TAG});
         ${ARG_N} = [self, func, tag](${ARGS}) {
             lua_State *L = xlua_cocosthread();
             int top = lua_gettop(L);

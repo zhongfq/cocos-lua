@@ -31,12 +31,24 @@ function main()
     sprite:setPosition(500, 400)
     Director.getInstance().runningScene:addChild(sprite)
 
-    node:schedule(function (...)
-        print("sprite:schedule", ...)
-    end, 1, '')
-    node:schedule(function (...)
-        print("sprite:schedule", ...)
-    end, 1.2, 'update')
+    -- node:schedule(function (...)
+    --     print("sprite:schedule", ...)
+    -- end, 1, 'update')
+    -- node:schedule(function (...)
+    --     print("sprite:schedule", ...)
+    -- end, 1.2, 'update')
+
+    node:scheduleOnce(function ( ... )
+        print("scheduleOnce", ...)
+    end, 1.3, "update")
+
+    node:scheduleOnce(function ( ... )
+        print("scheduleOnce", ...)
+    end, 2, "update")
+
+    timer.delay(4, function ( ... )
+        printUserValue(node)
+    end)
 end
 
 function printUserValue(obj)

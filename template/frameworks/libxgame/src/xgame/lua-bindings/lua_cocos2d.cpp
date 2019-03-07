@@ -844,7 +844,7 @@ static int _cocos2d_Scheduler_schedule(lua_State *L)
 
     std::string tag = makeScheduleCallbackTag(target, key);
     tolua_removecallback(L, 1, tag.c_str(), TOLUA_CALLBACK_TAG_ENDWITH);
-    std::string func = tolua_setcallback(L, 1, tag.c_str(), 2);
+    std::string func = tolua_setcallback(L, 1, tag.c_str(), 2, TOLUA_CALLBACK_TAG_NEW);
     self->unschedule(key, target);
     self->schedule([self, func](float delta) {
         lua_State *L = xlua_cocosthread();
@@ -2022,8 +2022,7 @@ static int _cocos2d_TextureCache_addImageAsync1(lua_State *L)
     tolua_check_std_string(L, 2, &arg1);
 
     std::string tag = makeTextureCacheCallbackTag(arg1);
-
-    std::string func = tolua_setcallback(L, 1, tag.c_str(), 3);
+    std::string func = tolua_setcallback(L, 1, tag.c_str(), 3, TOLUA_CALLBACK_TAG_NEW);
     arg2 = [self, func, tag](cocos2d::Texture2D *arg1) {
         lua_State *L = xlua_cocosthread();
         int top = lua_gettop(L);
@@ -2054,8 +2053,7 @@ static int _cocos2d_TextureCache_addImageAsync2(lua_State *L)
     tolua_check_std_string(L, 4, &arg3);
 
     std::string tag = makeTextureCacheCallbackTag(arg3);
-
-    std::string func = tolua_setcallback(L, 1, tag.c_str(), 3);
+    std::string func = tolua_setcallback(L, 1, tag.c_str(), 3, TOLUA_CALLBACK_TAG_NEW);
     arg2 = [self, func, tag](cocos2d::Texture2D *arg1) {
         lua_State *L = xlua_cocosthread();
         int top = lua_gettop(L);
@@ -3522,8 +3520,7 @@ static int _cocos2d_Node_scheduleOnce(lua_State *L)
     tolua_check_std_string(L, 4, &arg3);
 
     std::string tag = makeNodeScheduleCallbackTag(arg3);
-    tolua_removecallback(L, 1, tag.c_str(), TOLUA_CALLBACK_TAG_ENDWITH);
-    std::string func = tolua_setcallback(L, 1, tag.c_str(), 2);
+    std::string func = tolua_setcallback(L, 1, tag.c_str(), 2, TOLUA_CALLBACK_TAG_REPLACE);
     arg1 = [self, func, tag](float arg1) {
         lua_State *L = xlua_cocosthread();
         int top = lua_gettop(L);
@@ -3568,7 +3565,7 @@ static int _cocos2d_Node_schedule(lua_State *L)
     }
 
     std::string tag = makeNodeScheduleCallbackTag(key);
-    std::string func = tolua_setcallback(L, 1, tag.c_str(), 2);
+    std::string func = tolua_setcallback(L, 1, tag.c_str(), 2, TOLUA_CALLBACK_TAG_NEW);
     self->schedule([self, func](float delta) {
         lua_State *L = xlua_cocosthread();
         int top = lua_gettop(L);

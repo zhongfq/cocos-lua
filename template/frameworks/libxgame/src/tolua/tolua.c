@@ -178,10 +178,11 @@ LUALIB_API const char *tolua_setcallback(lua_State *L, int idx, const char *tag,
                 const char *s = lua_tostring(L, -2);
                 if (strendwith(s, tag)) {
                     field = s;
-                    lua_pop(L, 1);                 // L: ct k
+                    lua_pop(L, 1);                  // L: ct k
                     break;
                 }
             }
+            lua_pop(L, 1);                          // L: ck k
         }
     } else {
 #ifdef TOLUA_DEBUG

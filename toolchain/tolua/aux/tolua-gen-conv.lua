@@ -2,21 +2,16 @@ local function gen_conv_header(module)
     local HEADER = string.upper(module.NAME)
     local DECL_FUNCS = {}
 
-    -- int xluacv_push_ccvec2(lua_State *L, const cocos2d::Vec2 &value);
-    -- void xluacv_check_ccvec2(lua_State *L, int idx, cocos2d::Vec2 *value);
-    -- void xluacv_pack_ccvec2(lua_State *L, int idx, cocos2d::Vec2 *value);
-    -- int xluacv_unpack_ccvec2(lua_State *L, const cocos2d::Vec2 &value);
-
     for _, cv in ipairs(module.CONVS) do
         DECL_FUNCS[#DECL_FUNCS + 1] = "// " .. cv.CPPCLS
         local CPPCLS = cv.CPPCLS
         local CPPCLS_PATH = class_path(CPPCLS)
         DECL_FUNCS[#DECL_FUNCS + 1] = format_snippet([[
-            int luacv_push_${CPPCLS_PATH}(lua_State *L, const ${CPPCLS} &value);
-            void luacv_check_${CPPCLS_PATH}(lua_State *L, int idx, ${CPPCLS} *value);
-            void luacv_pack_${CPPCLS_PATH}(lua_State *L, int idx, ${CPPCLS} *value);
-            int luacv_unpack_${CPPCLS_PATH}(lua_State *L, const ${CPPCLS} &value);
-            bool luacv_is_${CPPCLS_PATH}(lua_State *L, int idx);
+            int auto_luacv_push_${CPPCLS_PATH}(lua_State *L, const ${CPPCLS} *value);
+            void auto_luacv_check_${CPPCLS_PATH}(lua_State *L, int idx, ${CPPCLS} *value);
+            void auto_luacv_pack_${CPPCLS_PATH}(lua_State *L, int idx, ${CPPCLS} *value);
+            int auto_luacv_unpack_${CPPCLS_PATH}(lua_State *L, const ${CPPCLS} *value);
+            bool auto_luacv_is_${CPPCLS_PATH}(lua_State *L, int idx);
         ]])
         DECL_FUNCS[#DECL_FUNCS + 1] = ""
     end
@@ -66,16 +61,21 @@ local function gen_push_func(cv, write)
             error(string.format("%s %s %s", cv.VARNAME, cv.LUANAME, cv.TYPE.TYPENAME))
         end
         ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
-            ${PUSH_FUNC}(L, -1, "${LUANAME}", value.${VARNAME});
+            ${PUSH_FUNC}(L, -1, "${LUANAME}", value->${VARNAME});
         ]])
     end
 
     ARGS_CHUNK = table.concat(ARGS_CHUNK, "\n")
     write(format_snippet([[
-        int luacv_push_${CPPCLS_PATH}(lua_State *L, const ${CPPCLS} &value)
+        int auto_luacv_push_${CPPCLS_PATH}(lua_State *L, const ${CPPCLS} *value)
         {
-            lua_createtable(L, 0, ${NUM_ARGS});
-            ${ARGS_CHUNK}
+            if (value) {
+                lua_createtable(L, 0, ${NUM_ARGS});
+                ${ARGS_CHUNK}
+            } else {
+                lua_pushnil(L);
+            }
+            
             return 1;
         }
     ]]))
@@ -114,7 +114,7 @@ local function gen_check_func(cv, write)
 
     ARGS_CHUNK = table.concat(ARGS_CHUNK, "\n")
     write(format_snippet([[
-        void luacv_check_${CPPCLS_PATH}(lua_State *L, int idx, ${CPPCLS} *value)
+        void auto_luacv_check_${CPPCLS_PATH}(lua_State *L, int idx, ${CPPCLS} *value)
         {
             if (!value) {
                 luaL_error(L, "value is NULL");
@@ -159,7 +159,7 @@ local function gen_pack_func(cv, write)
 
     ARGS_CHUNK = table.concat(ARGS_CHUNK, "\n")
     write(format_snippet([[
-        void luacv_pack_${CPPCLS_PATH}(lua_State *L, int idx, ${CPPCLS} *value)
+        void auto_luacv_pack_${CPPCLS_PATH}(lua_State *L, int idx, ${CPPCLS} *value)
         {
             if (!value) {
                 luaL_error(L, "value is NULL");
@@ -181,32 +181,39 @@ local function gen_unpack_func(cv, write)
         local VARNAME = pi.VARNAME
         local TYPENAME = pi.TYPE.TYPENAME
         local ARG_N = i - 1
-        local CHECK_FUNC
+        local PUSH_FUNC
         if pi.TYPE.DECL_TYPE == 'lua_Number' then
-            CHECK_FUNC = 'lua_pushnumber'
+            PUSH_FUNC = 'lua_pushnumber'
         elseif pi.TYPE.DECL_TYPE == 'lua_Integer'
             or pi.TYPE.DECL_TYPE == 'lua_Unsigned' then
-            CHECK_FUNC = 'lua_pushinteger'
+            PUSH_FUNC = 'lua_pushinteger'
         elseif pi.TYPE.TYPENAME == 'std::string' then
-            CHECK_FUNC = 'lua_pushstring'
+            PUSH_FUNC = 'lua_pushstring'
             VARNAME = VARNAME .. '.c_str()'
         elseif pi.TYPE.TYPENAME == 'bool' then
-            CHECK_FUNC = 'lua_pushboolean'
+            PUSH_FUNC = 'lua_pushboolean'
         elseif pi.TYPE.TYPENAME == 'const char *' then
-            CHECK_FUNC = 'lua_pushstring'
+            PUSH_FUNC = 'lua_pushstring'
         else
             error(string.format("%s %s %s", cv.VARNAME, cv.LUANAME, cv.TYPE.TYPENAME))
         end
         ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
-            ${CHECK_FUNC}(L, value.${VARNAME});
+            ${PUSH_FUNC}(L, value->${VARNAME});
         ]])
     end
 
     ARGS_CHUNK = table.concat(ARGS_CHUNK, "\n")
     write(format_snippet([[
-        int luacv_unpack_${CPPCLS_PATH}(lua_State *L, const ${CPPCLS} &value)
+        int auto_luacv_unpack_${CPPCLS_PATH}(lua_State *L, const ${CPPCLS} *value)
         {
-            ${ARGS_CHUNK}
+            if (value) {
+                ${ARGS_CHUNK}
+            } else {
+                for (int i = 0; i < ${NUM_ARGS}; i++) {
+                    lua_pushnil(L);
+                }
+            }
+            
             return ${NUM_ARGS};
         }
     ]]))
@@ -217,7 +224,7 @@ local function gen_is_func(cv, write)
     local CPPCLS = cv.CPPCLS
     local CPPCLS_PATH = class_path(CPPCLS)
     write(format_snippet([[
-        bool luacv_is_${CPPCLS_PATH}(lua_State *L, int idx)
+        bool auto_luacv_is_${CPPCLS_PATH}(lua_State *L, int idx)
         {
             return lua_istable(L, idx);
         }

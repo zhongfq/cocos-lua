@@ -263,14 +263,14 @@ function REG_TYPE(typeinfo)
             end
         end
 
-        info.FUNC_PUSH_VALUE = string.gsub(info.CONV_FUNC, '$ACTION', "push")
-        info.FUNC_TO_VALUE = string.gsub(info.CONV_FUNC, '$ACTION', "to")
-        info.FUNC_CHECK_VALUE = string.gsub(info.CONV_FUNC, '$ACTION', "check")
-        info.FUNC_OPT_VALUE = string.gsub(info.CONV_FUNC, '$ACTION', "opt")
-        info.FUNC_IS_VALUE = string.gsub(info.CONV_FUNC, '$ACTION', "is")
+        info.FUNC_PUSH_VALUE = string.gsub(info.CONV_FUNC, '[$]+', "push")
+        info.FUNC_TO_VALUE = string.gsub(info.CONV_FUNC, '[$]+', "to")
+        info.FUNC_CHECK_VALUE = string.gsub(info.CONV_FUNC, '[$]+', "check")
+        info.FUNC_OPT_VALUE = string.gsub(info.CONV_FUNC, '[$]+', "opt")
+        info.FUNC_IS_VALUE = string.gsub(info.CONV_FUNC, '[$]+', "is")
         -- multi ret
-        info.FUNC_PACK_VALUE = string.gsub(info.CONV_FUNC, '$ACTION', "pack")
-        info.FUNC_UNPACK_VALUE = string.gsub(info.CONV_FUNC, '$ACTION', "unpack")
+        info.FUNC_PACK_VALUE = string.gsub(info.CONV_FUNC, '[$]+', "pack")
+        info.FUNC_UNPACK_VALUE = string.gsub(info.CONV_FUNC, '[$]+', "unpack")
 
         if info.LUACLS then
             if type(info.LUACLS) == "function" then

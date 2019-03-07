@@ -19,7 +19,7 @@ function main()
     print("# preferences 'build'", preferences.getString("build"))
     print("# preferences 'build'", preferences.getString("build", "defalut build"))
     print("# preferences 'version'", preferences.getString("conf.version.runtime", "defalut build"))
-    print("#", node, node.referenceCount)
+    print("#", node, node.referenceCount, node:getPosition())
 
     Director.getInstance().runningScene:addChild(node)
 

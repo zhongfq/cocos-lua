@@ -6,61 +6,61 @@ end
 
 REG_TYPE {
     TYPENAME = 'cocos2d::Data', 
-    CONV_FUNC = "xluacv_$ACTION_ccdata",
+    CONV_FUNC = "xluacv_$$_ccdata",
 }
 
 REG_TYPE {
     TYPENAME = 'cocos2d::UserDefault *',
-    CONV_FUNC = "tolua_$ACTION_obj",
+    CONV_FUNC = "tolua_$$_obj",
     LUACLS = make_luacls,
 }
 
 REG_TYPE {
     TYPENAME = 'cocos2d::Vec2',
-    CONV_FUNC = "luacv_$ACTION_cocos2d_Vec2",
+    CONV_FUNC = "auto_luacv_$$_cocos2d_Vec2",
     INIT_VALUE = false,
     VARS = 2,
 }
 
 REG_TYPE {
     TYPENAME = 'cocos2d::Size',
-    CONV_FUNC = "xluacv_$ACTION_ccsize",
+    CONV_FUNC = "auto_luacv_$$_cocos2d_Size",
     INIT_VALUE = false,
     VARS = 2,
 }
 
 REG_TYPE {
     TYPENAME = 'cocos2d::Mat4',
-    CONV_FUNC = "xluacv_$ACTION_ccmat4",
+    CONV_FUNC = "xluacv_$$_ccmat4",
     INIT_VALUE = false,
 }
 
 REG_TYPE {
     TYPENAME = 'cocos2d::Vector',
-    CONV_FUNC = "xluacv_$ACTION_ccvector",
+    CONV_FUNC = "xluacv_$$_ccvector",
     INIT_VALUE = false,
 }
 
 REG_TYPE {
     TYPENAME = 'cocos2d::Texture2D::TexParams',
-    CONV_FUNC = "xluacv_$ACTION_cctexparams",
+    CONV_FUNC = "auto_luacv_$$_cocos2d_Texture2D_TexParams",
     INIT_VALUE = false,
 }
 
 REG_TYPE {
     TYPENAME = 'cocos2d::experimental::Viewport',
-    CONV_FUNC = "luacv_$ACTION_cocos2d_experimental_Viewport",
+    CONV_FUNC = "auto_luacv_$$_cocos2d_experimental_Viewport",
     INIT_VALUE = false,
 }
 
 REG_TYPE {
     TYPENAME = 'cocos2d::Uniform *',
-    CONV_FUNC = "xluacv_$ACTION_uniform"
+    CONV_FUNC = "auto_luacv_$$_cocos2d_Uniform",
 }
 
 REG_TYPE {
     TYPENAME = 'cocos2d::VertexAttrib *',
-    CONV_FUNC = "xluacv_$ACTION_vertexattrib"
+    CONV_FUNC = "auto_luacv_$$_cocos2d_VertexAttrib",
 }
 
 REG_TYPE {
@@ -71,7 +71,7 @@ REG_TYPE {
         'cocos2d::Camera::Type',
     }, '|'),
     DECL_TYPE = 'lua_Unsigned',
-    CONV_FUNC = "tolua_$ACTION_uint",
+    CONV_FUNC = "tolua_$$_uint",
 }
 
 REG_TYPE {
@@ -91,6 +91,6 @@ REG_TYPE {
         'cocos2d::Scene *',
         'cocos2d::Action *',
     }, '|'),
-    CONV_FUNC = "xluacv_$ACTION_ccobj",
+    CONV_FUNC = "xluacv_$$_ccobj",
     LUACLS = make_luacls,
 }

@@ -3,7 +3,6 @@
 //
 #include "xgame/lua-bindings/lua_cocos2d.h"
 #include "xgame/lua-bindings/lua_conv.h"
-#include "xgame/xlua-conv.h"
 #include "xgame/xlua.h"
 #include "xgame/xruntime.h"
 #include "tolua/tolua.hpp"
@@ -1528,7 +1527,7 @@ static int _cocos2d_GLProgram_getUniform(lua_State *L)
 
     cocos2d::Uniform *ret = (cocos2d::Uniform *)self->getUniform(arg1);
 
-    return xluacv_push_uniform(L, ret);
+    return auto_luacv_push_cocos2d_Uniform(L, ret);
 }
 
 static int _cocos2d_GLProgram_getVertexAttrib(lua_State *L)
@@ -1543,7 +1542,7 @@ static int _cocos2d_GLProgram_getVertexAttrib(lua_State *L)
 
     cocos2d::VertexAttrib *ret = (cocos2d::VertexAttrib *)self->getVertexAttrib(arg1);
 
-    return xluacv_push_vertexattrib(L, ret);
+    return auto_luacv_push_cocos2d_VertexAttrib(L, ret);
 }
 
 static int _cocos2d_GLProgram_bindAttribLocation(lua_State *L)
@@ -2341,7 +2340,7 @@ static int _cocos2d_Texture2D_setTexParameters(lua_State *L)
     cocos2d::Texture2D::TexParams arg1;
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
-    xluacv_check_cctexparams(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Texture2D_TexParams(L, 2, &arg1);
 
     self->setTexParameters(arg1);
 
@@ -2457,7 +2456,7 @@ static int _cocos2d_Texture2D_getContentSizeInPixels(lua_State *L)
 
     const cocos2d::Size ret = (const cocos2d::Size)self->getContentSizeInPixels();
 
-    return xluacv_unpack_ccsize(L, ret);
+    return auto_luacv_unpack_cocos2d_Size(L, &ret);
 }
 
 static int _cocos2d_Texture2D_hasPremultipliedAlpha(lua_State *L)
@@ -2496,7 +2495,7 @@ static int _cocos2d_Texture2D_getContentSize(lua_State *L)
 
     cocos2d::Size ret = (cocos2d::Size)self->getContentSize();
 
-    return xluacv_unpack_ccsize(L, ret);
+    return auto_luacv_unpack_cocos2d_Size(L, &ret);
 }
 
 static int _cocos2d_Texture2D_getDefaultAlphaPixelFormat(lua_State *L)
@@ -3336,7 +3335,7 @@ static int _cocos2d_Node_setPosition(lua_State *L)
     cocos2d::Vec2 arg1;
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
-    luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
 
     self->setPosition(arg1);
 
@@ -3353,7 +3352,7 @@ static int _cocos2d_Node_getPosition(lua_State *L)
 
     const cocos2d::Vec2 ret = (const cocos2d::Vec2)self->getPosition();
 
-    return luacv_unpack_cocos2d_Vec2(L, ret);
+    return auto_luacv_unpack_cocos2d_Vec2(L, &ret);
 }
 
 static int _cocos2d_Node_scheduleUpdate(lua_State *L)
@@ -3707,7 +3706,7 @@ static int _cocos2d_Camera_getDefaultViewport(lua_State *L)
 
     const cocos2d::experimental::Viewport ret = (const cocos2d::experimental::Viewport)cocos2d::Camera::getDefaultViewport();
 
-    return luacv_push_cocos2d_experimental_Viewport(L, ret);
+    return auto_luacv_push_cocos2d_experimental_Viewport(L, &ret);
 }
 
 static int _cocos2d_Camera_setDefaultViewport(lua_State *L)
@@ -3716,7 +3715,7 @@ static int _cocos2d_Camera_setDefaultViewport(lua_State *L)
 
     cocos2d::experimental::Viewport arg1;
 
-    luacv_check_cocos2d_experimental_Viewport(L, 1, &arg1);
+    auto_luacv_check_cocos2d_experimental_Viewport(L, 1, &arg1);
 
     cocos2d::Camera::setDefaultViewport(arg1);
 
@@ -3775,7 +3774,7 @@ static int _cocos2d_Scene_createWithSize(lua_State *L)
 
     cocos2d::Size arg1;
 
-    xluacv_pack_ccsize(L, 1, &arg1);
+    auto_luacv_pack_cocos2d_Size(L, 1, &arg1);
 
     cocos2d::Scene *ret = (cocos2d::Scene *)cocos2d::Scene::createWithSize(arg1);
 

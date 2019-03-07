@@ -125,7 +125,12 @@ local function gen_func_ret(cls, fi)
             end
             local CAST = ""
             if fi.RET.TYPE.DECL_TYPE ~= fi.RET.TYPE.TYPENAME then
+                assert(not string.find(FUNC_PUSH_VALUE, '^auto_luacv'))
                 CAST = string.format("(%s)", fi.RET.TYPE.DECL_TYPE)
+            elseif string.find(FUNC_PUSH_VALUE, '^auto_luacv') then
+                if not string.find(DECL_TYPE, '*$') then
+                    CAST = '&'
+                end
             end
             PUSH_RET = format_snippet('${FUNC_PUSH_VALUE}(L, ${CAST}ret)')
         end

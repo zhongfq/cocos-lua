@@ -5,17 +5,356 @@
 #include "xgame/xlua.h"
 #include "tolua/tolua.hpp"
 
-int luacv_push_cocos2d_experimental_Viewport(lua_State *L, const cocos2d::experimental::Viewport &value)
+int auto_luacv_push_cocos2d_Vec2(lua_State *L, const cocos2d::Vec2 *value)
 {
-    lua_createtable(L, 0, 4);
-    tolua_rawsetfieldnumber(L, -1, "left", value._left);
-    tolua_rawsetfieldnumber(L, -1, "bottom", value._bottom);
-    tolua_rawsetfieldnumber(L, -1, "width", value._width);
-    tolua_rawsetfieldnumber(L, -1, "height", value._height);
+    if (value) {
+        lua_createtable(L, 0, 2);
+        tolua_rawsetfieldnumber(L, -1, "x", value->x);
+        tolua_rawsetfieldnumber(L, -1, "y", value->y);
+    } else {
+        lua_pushnil(L);
+    }
+
     return 1;
 }
 
-void luacv_check_cocos2d_experimental_Viewport(lua_State *L, int idx, cocos2d::experimental::Viewport *value)
+void auto_luacv_check_cocos2d_Vec2(lua_State *L, int idx, cocos2d::Vec2 *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    luaL_checktype(L, idx, LUA_TTABLE);
+    value->x = (float)tolua_checkfieldnumber(L, idx, "x");
+    value->y = (float)tolua_checkfieldnumber(L, idx, "y");
+}
+
+void auto_luacv_pack_cocos2d_Vec2(lua_State *L, int idx, cocos2d::Vec2 *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    value->x = (float)luaL_checknumber(L, idx + 0);
+    value->y = (float)luaL_checknumber(L, idx + 1);
+}
+
+int auto_luacv_unpack_cocos2d_Vec2(lua_State *L, const cocos2d::Vec2 *value)
+{
+    if (value) {
+        lua_pushnumber(L, value->x);
+        lua_pushnumber(L, value->y);
+    } else {
+        for (int i = 0; i < 2; i++) {
+            lua_pushnil(L);
+        }
+    }
+
+    return 2;
+}
+
+bool auto_luacv_is_cocos2d_Vec2(lua_State *L, int idx)
+{
+    return lua_istable(L, idx);
+}
+
+int auto_luacv_push_cocos2d_Vec3(lua_State *L, const cocos2d::Vec3 *value)
+{
+    if (value) {
+        lua_createtable(L, 0, 3);
+        tolua_rawsetfieldnumber(L, -1, "x", value->x);
+        tolua_rawsetfieldnumber(L, -1, "y", value->y);
+        tolua_rawsetfieldnumber(L, -1, "z", value->z);
+    } else {
+        lua_pushnil(L);
+    }
+
+    return 1;
+}
+
+void auto_luacv_check_cocos2d_Vec3(lua_State *L, int idx, cocos2d::Vec3 *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    luaL_checktype(L, idx, LUA_TTABLE);
+    value->x = (float)tolua_checkfieldnumber(L, idx, "x");
+    value->y = (float)tolua_checkfieldnumber(L, idx, "y");
+    value->z = (float)tolua_checkfieldnumber(L, idx, "z");
+}
+
+void auto_luacv_pack_cocos2d_Vec3(lua_State *L, int idx, cocos2d::Vec3 *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    value->x = (float)luaL_checknumber(L, idx + 0);
+    value->y = (float)luaL_checknumber(L, idx + 1);
+    value->z = (float)luaL_checknumber(L, idx + 2);
+}
+
+int auto_luacv_unpack_cocos2d_Vec3(lua_State *L, const cocos2d::Vec3 *value)
+{
+    if (value) {
+        lua_pushnumber(L, value->x);
+        lua_pushnumber(L, value->y);
+        lua_pushnumber(L, value->z);
+    } else {
+        for (int i = 0; i < 3; i++) {
+            lua_pushnil(L);
+        }
+    }
+
+    return 3;
+}
+
+bool auto_luacv_is_cocos2d_Vec3(lua_State *L, int idx)
+{
+    return lua_istable(L, idx);
+}
+
+int auto_luacv_push_cocos2d_Size(lua_State *L, const cocos2d::Size *value)
+{
+    if (value) {
+        lua_createtable(L, 0, 2);
+        tolua_rawsetfieldnumber(L, -1, "width", value->width);
+        tolua_rawsetfieldnumber(L, -1, "height", value->height);
+    } else {
+        lua_pushnil(L);
+    }
+
+    return 1;
+}
+
+void auto_luacv_check_cocos2d_Size(lua_State *L, int idx, cocos2d::Size *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    luaL_checktype(L, idx, LUA_TTABLE);
+    value->width = (float)tolua_checkfieldnumber(L, idx, "width");
+    value->height = (float)tolua_checkfieldnumber(L, idx, "height");
+}
+
+void auto_luacv_pack_cocos2d_Size(lua_State *L, int idx, cocos2d::Size *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    value->width = (float)luaL_checknumber(L, idx + 0);
+    value->height = (float)luaL_checknumber(L, idx + 1);
+}
+
+int auto_luacv_unpack_cocos2d_Size(lua_State *L, const cocos2d::Size *value)
+{
+    if (value) {
+        lua_pushnumber(L, value->width);
+        lua_pushnumber(L, value->height);
+    } else {
+        for (int i = 0; i < 2; i++) {
+            lua_pushnil(L);
+        }
+    }
+
+    return 2;
+}
+
+bool auto_luacv_is_cocos2d_Size(lua_State *L, int idx)
+{
+    return lua_istable(L, idx);
+}
+
+int auto_luacv_push_cocos2d_Texture2D_TexParams(lua_State *L, const cocos2d::Texture2D::TexParams *value)
+{
+    if (value) {
+        lua_createtable(L, 0, 4);
+        tolua_rawsetfieldinteger(L, -1, "minFilter", value->minFilter);
+        tolua_rawsetfieldinteger(L, -1, "magFilter", value->magFilter);
+        tolua_rawsetfieldinteger(L, -1, "wrapS", value->wrapS);
+        tolua_rawsetfieldinteger(L, -1, "wrapT", value->wrapT);
+    } else {
+        lua_pushnil(L);
+    }
+
+    return 1;
+}
+
+void auto_luacv_check_cocos2d_Texture2D_TexParams(lua_State *L, int idx, cocos2d::Texture2D::TexParams *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    luaL_checktype(L, idx, LUA_TTABLE);
+    value->minFilter = (GLuint)tolua_checkfieldinteger(L, idx, "minFilter");
+    value->magFilter = (GLuint)tolua_checkfieldinteger(L, idx, "magFilter");
+    value->wrapS = (GLuint)tolua_checkfieldinteger(L, idx, "wrapS");
+    value->wrapT = (GLuint)tolua_checkfieldinteger(L, idx, "wrapT");
+}
+
+void auto_luacv_pack_cocos2d_Texture2D_TexParams(lua_State *L, int idx, cocos2d::Texture2D::TexParams *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    value->minFilter = (GLuint)luaL_checkinteger(L, idx + 0);
+    value->magFilter = (GLuint)luaL_checkinteger(L, idx + 1);
+    value->wrapS = (GLuint)luaL_checkinteger(L, idx + 2);
+    value->wrapT = (GLuint)luaL_checkinteger(L, idx + 3);
+}
+
+int auto_luacv_unpack_cocos2d_Texture2D_TexParams(lua_State *L, const cocos2d::Texture2D::TexParams *value)
+{
+    if (value) {
+        lua_pushinteger(L, value->minFilter);
+        lua_pushinteger(L, value->magFilter);
+        lua_pushinteger(L, value->wrapS);
+        lua_pushinteger(L, value->wrapT);
+    } else {
+        for (int i = 0; i < 4; i++) {
+            lua_pushnil(L);
+        }
+    }
+
+    return 4;
+}
+
+bool auto_luacv_is_cocos2d_Texture2D_TexParams(lua_State *L, int idx)
+{
+    return lua_istable(L, idx);
+}
+
+int auto_luacv_push_cocos2d_Uniform(lua_State *L, const cocos2d::Uniform *value)
+{
+    if (value) {
+        lua_createtable(L, 0, 4);
+        tolua_rawsetfieldinteger(L, -1, "location", value->location);
+        tolua_rawsetfieldinteger(L, -1, "size", value->size);
+        tolua_rawsetfieldinteger(L, -1, "type", value->type);
+        tolua_rawsetfieldstring(L, -1, "name", value->name.c_str());
+    } else {
+        lua_pushnil(L);
+    }
+
+    return 1;
+}
+
+void auto_luacv_check_cocos2d_Uniform(lua_State *L, int idx, cocos2d::Uniform *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    luaL_checktype(L, idx, LUA_TTABLE);
+    value->location = (GLint)tolua_checkfieldinteger(L, idx, "location");
+    value->size = (GLint)tolua_checkfieldinteger(L, idx, "size");
+    value->type = (GLenum)tolua_checkfieldinteger(L, idx, "type");
+    value->name = (std::string)tolua_checkfieldstring(L, idx, "name");
+}
+
+void auto_luacv_pack_cocos2d_Uniform(lua_State *L, int idx, cocos2d::Uniform *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    value->location = (GLint)luaL_checkinteger(L, idx + 0);
+    value->size = (GLint)luaL_checkinteger(L, idx + 1);
+    value->type = (GLenum)luaL_checkinteger(L, idx + 2);
+    value->name = (std::string)luaL_checkstring(L, idx + 3);
+}
+
+int auto_luacv_unpack_cocos2d_Uniform(lua_State *L, const cocos2d::Uniform *value)
+{
+    if (value) {
+        lua_pushinteger(L, value->location);
+        lua_pushinteger(L, value->size);
+        lua_pushinteger(L, value->type);
+        lua_pushstring(L, value->name.c_str());
+    } else {
+        for (int i = 0; i < 4; i++) {
+            lua_pushnil(L);
+        }
+    }
+
+    return 4;
+}
+
+bool auto_luacv_is_cocos2d_Uniform(lua_State *L, int idx)
+{
+    return lua_istable(L, idx);
+}
+
+int auto_luacv_push_cocos2d_VertexAttrib(lua_State *L, const cocos2d::VertexAttrib *value)
+{
+    if (value) {
+        lua_createtable(L, 0, 4);
+        tolua_rawsetfieldinteger(L, -1, "index", value->index);
+        tolua_rawsetfieldinteger(L, -1, "size", value->size);
+        tolua_rawsetfieldinteger(L, -1, "type", value->type);
+        tolua_rawsetfieldstring(L, -1, "name", value->name.c_str());
+    } else {
+        lua_pushnil(L);
+    }
+
+    return 1;
+}
+
+void auto_luacv_check_cocos2d_VertexAttrib(lua_State *L, int idx, cocos2d::VertexAttrib *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    luaL_checktype(L, idx, LUA_TTABLE);
+    value->index = (GLuint)tolua_checkfieldinteger(L, idx, "index");
+    value->size = (GLint)tolua_checkfieldinteger(L, idx, "size");
+    value->type = (GLenum)tolua_checkfieldinteger(L, idx, "type");
+    value->name = (std::string)tolua_checkfieldstring(L, idx, "name");
+}
+
+void auto_luacv_pack_cocos2d_VertexAttrib(lua_State *L, int idx, cocos2d::VertexAttrib *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    value->index = (GLuint)luaL_checkinteger(L, idx + 0);
+    value->size = (GLint)luaL_checkinteger(L, idx + 1);
+    value->type = (GLenum)luaL_checkinteger(L, idx + 2);
+    value->name = (std::string)luaL_checkstring(L, idx + 3);
+}
+
+int auto_luacv_unpack_cocos2d_VertexAttrib(lua_State *L, const cocos2d::VertexAttrib *value)
+{
+    if (value) {
+        lua_pushinteger(L, value->index);
+        lua_pushinteger(L, value->size);
+        lua_pushinteger(L, value->type);
+        lua_pushstring(L, value->name.c_str());
+    } else {
+        for (int i = 0; i < 4; i++) {
+            lua_pushnil(L);
+        }
+    }
+
+    return 4;
+}
+
+bool auto_luacv_is_cocos2d_VertexAttrib(lua_State *L, int idx)
+{
+    return lua_istable(L, idx);
+}
+
+int auto_luacv_push_cocos2d_experimental_Viewport(lua_State *L, const cocos2d::experimental::Viewport *value)
+{
+    if (value) {
+        lua_createtable(L, 0, 4);
+        tolua_rawsetfieldnumber(L, -1, "left", value->_left);
+        tolua_rawsetfieldnumber(L, -1, "bottom", value->_bottom);
+        tolua_rawsetfieldnumber(L, -1, "width", value->_width);
+        tolua_rawsetfieldnumber(L, -1, "height", value->_height);
+    } else {
+        lua_pushnil(L);
+    }
+
+    return 1;
+}
+
+void auto_luacv_check_cocos2d_experimental_Viewport(lua_State *L, int idx, cocos2d::experimental::Viewport *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -27,7 +366,7 @@ void luacv_check_cocos2d_experimental_Viewport(lua_State *L, int idx, cocos2d::e
     value->_height = (float)tolua_checkfieldnumber(L, idx, "height");
 }
 
-void luacv_pack_cocos2d_experimental_Viewport(lua_State *L, int idx, cocos2d::experimental::Viewport *value)
+void auto_luacv_pack_cocos2d_experimental_Viewport(lua_State *L, int idx, cocos2d::experimental::Viewport *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -38,98 +377,23 @@ void luacv_pack_cocos2d_experimental_Viewport(lua_State *L, int idx, cocos2d::ex
     value->_height = (float)luaL_checknumber(L, idx + 3);
 }
 
-int luacv_unpack_cocos2d_experimental_Viewport(lua_State *L, const cocos2d::experimental::Viewport &value)
+int auto_luacv_unpack_cocos2d_experimental_Viewport(lua_State *L, const cocos2d::experimental::Viewport *value)
 {
-    lua_pushnumber(L, value._left);
-    lua_pushnumber(L, value._bottom);
-    lua_pushnumber(L, value._width);
-    lua_pushnumber(L, value._height);
+    if (value) {
+        lua_pushnumber(L, value->_left);
+        lua_pushnumber(L, value->_bottom);
+        lua_pushnumber(L, value->_width);
+        lua_pushnumber(L, value->_height);
+    } else {
+        for (int i = 0; i < 4; i++) {
+            lua_pushnil(L);
+        }
+    }
+
     return 4;
 }
 
-bool luacv_is_cocos2d_experimental_Viewport(lua_State *L, int idx)
-{
-    return lua_istable(L, idx);
-}
-
-int luacv_push_cocos2d_Vec2(lua_State *L, const cocos2d::Vec2 &value)
-{
-    lua_createtable(L, 0, 2);
-    tolua_rawsetfieldnumber(L, -1, "x", value.x);
-    tolua_rawsetfieldnumber(L, -1, "y", value.y);
-    return 1;
-}
-
-void luacv_check_cocos2d_Vec2(lua_State *L, int idx, cocos2d::Vec2 *value)
-{
-    if (!value) {
-        luaL_error(L, "value is NULL");
-    }
-    luaL_checktype(L, idx, LUA_TTABLE);
-    value->x = (float)tolua_checkfieldnumber(L, idx, "x");
-    value->y = (float)tolua_checkfieldnumber(L, idx, "y");
-}
-
-void luacv_pack_cocos2d_Vec2(lua_State *L, int idx, cocos2d::Vec2 *value)
-{
-    if (!value) {
-        luaL_error(L, "value is NULL");
-    }
-    value->x = (float)luaL_checknumber(L, idx + 0);
-    value->y = (float)luaL_checknumber(L, idx + 1);
-}
-
-int luacv_unpack_cocos2d_Vec2(lua_State *L, const cocos2d::Vec2 &value)
-{
-    lua_pushnumber(L, value.x);
-    lua_pushnumber(L, value.y);
-    return 2;
-}
-
-bool luacv_is_cocos2d_Vec2(lua_State *L, int idx)
-{
-    return lua_istable(L, idx);
-}
-
-int luacv_push_cocos2d_Vec3(lua_State *L, const cocos2d::Vec3 &value)
-{
-    lua_createtable(L, 0, 3);
-    tolua_rawsetfieldnumber(L, -1, "x", value.x);
-    tolua_rawsetfieldnumber(L, -1, "y", value.y);
-    tolua_rawsetfieldnumber(L, -1, "z", value.z);
-    return 1;
-}
-
-void luacv_check_cocos2d_Vec3(lua_State *L, int idx, cocos2d::Vec3 *value)
-{
-    if (!value) {
-        luaL_error(L, "value is NULL");
-    }
-    luaL_checktype(L, idx, LUA_TTABLE);
-    value->x = (float)tolua_checkfieldnumber(L, idx, "x");
-    value->y = (float)tolua_checkfieldnumber(L, idx, "y");
-    value->z = (float)tolua_checkfieldnumber(L, idx, "z");
-}
-
-void luacv_pack_cocos2d_Vec3(lua_State *L, int idx, cocos2d::Vec3 *value)
-{
-    if (!value) {
-        luaL_error(L, "value is NULL");
-    }
-    value->x = (float)luaL_checknumber(L, idx + 0);
-    value->y = (float)luaL_checknumber(L, idx + 1);
-    value->z = (float)luaL_checknumber(L, idx + 2);
-}
-
-int luacv_unpack_cocos2d_Vec3(lua_State *L, const cocos2d::Vec3 &value)
-{
-    lua_pushnumber(L, value.x);
-    lua_pushnumber(L, value.y);
-    lua_pushnumber(L, value.z);
-    return 3;
-}
-
-bool luacv_is_cocos2d_Vec3(lua_State *L, int idx)
+bool auto_luacv_is_cocos2d_experimental_Viewport(lua_State *L, int idx)
 {
     return lua_istable(L, idx);
 }

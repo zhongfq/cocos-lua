@@ -39,7 +39,7 @@ function main()
     -- end, 1.2, 'update')
 
     local scheduler = node.scheduler
-
+    print(node, debug.getuservalue(obj))
     scheduler:schedule(function ( ... )
         print("schedule", ...)
     end, node, 1, false, "update")
@@ -56,17 +56,27 @@ function main()
         print("schedule", ...)
     end, node, 3, false, "xx")
 
+    node:schedule(function ( ... )
+        print("node", ...)
+    end, 2.5, "updatexx")
+
+    printUserValue(node)
+    print('--------------')
+    node:unschedule("update")
+    printUserValue(node)
+    -- debug.setuservalue(node, scheduler)
+
     timer.delay(4, function ( ... )
         printUserValue(node)
         node:removeFromParent()
     end)
     timer.delay(4.1, function ( ... )
-        collectgarbage('collect')
+        -- collectgarbage('collect')
     end)
 end
 
 function printUserValue(obj)
-    print("print obj user value:", obj)
+    print("print obj user value:", obj, debug.getuservalue(obj))
     for k, v in pairs(debug.getuservalue(obj) or {}) do
         print("", k, v)
     end

@@ -146,7 +146,7 @@ LUALIB_API bool tolua_getobj(lua_State *L, void *obj)
     return false;
 }
 
-static void auxgetcallbacktable(lua_State *L, int idx)
+static bool getcallbacktable(lua_State *L, int idx)
 {
     idx = lua_absindex(L, idx);
     if (lua_getuservalue(L, idx) == LUA_TNIL) {
@@ -158,6 +158,8 @@ static void auxgetcallbacktable(lua_State *L, int idx)
 #ifdef TOLUA_DEBUG
     luaL_checktype(L, -1, LUA_TTABLE);
 #endif
+    
+    return lua_istable(L, -1);
 }
 
 LUALIB_API const char *tolua_setcallback(lua_State *L, void *obj, const char *tag, int func, tolua_callback_tag_t mode)
@@ -169,11 +171,11 @@ LUALIB_API const char *tolua_setcallback(lua_State *L, void *obj, const char *ta
 
     luaL_checktype(L, func, LUA_TFUNCTION);
     
-    if (!tolua_getobj(L, obj)) {                    // L: obj
+    if (!tolua_getobj(L, obj) ||
+        !getcallbacktable(L, -1)) {              // L: obj ct
         luaL_error(L, "obj userdata not found");
     }
 
-    auxgetcallbacktable(L, -1);                     // L: obj ct
     lua_remove(L, -2);                              // L: ct
     
     if (mode == TOLUA_CALLBACK_TAG_REPLACE) {
@@ -224,8 +226,7 @@ static bool shouldremovecallback(const char *field, const char *tag, tolua_callb
 LUALIB_API void tolua_removecallback(lua_State *L, void *obj, const char *tag, tolua_callback_tag_t mode)
 {
     int top = lua_gettop(L);
-    if (tolua_getobj(L, obj)) {
-        auxgetcallbacktable(L, -1);                         // L: ct
+    if (tolua_getobj(L, obj) && getcallbacktable(L, -1)) {
         if (mode == TOLUA_CALLBACK_TAG_EQUAL) {
             lua_pushnil(L);                                 // L: ct nil
             tolua_rawsetfield(L, -2, tag);                  // L: ct
@@ -252,8 +253,7 @@ LUALIB_API bool tolua_callback(lua_State *L, void *obj, const char *field, int n
     int top = lua_gettop(L) - n;
     bool ret = false;
     
-    if (tolua_getobj(L, obj)) {                                 // L: argn obj
-        auxgetcallbacktable(L, -1);                             // L: argn obj ct
+    if (tolua_getobj(L, obj) && getcallbacktable(L, -1)) {      // L: argn obj ct
         if (tolua_rawgetfield(L, -1, field) == LUA_TFUNCTION) { // L: argn obj ct callback
             lua_insert(L, top + 1);                             // L: callback argn obj ct
             lua_pop(L, 2);                                      // L: callback argn

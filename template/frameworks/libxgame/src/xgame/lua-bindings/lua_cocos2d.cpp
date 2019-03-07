@@ -2010,28 +2010,83 @@ static int _cocos2d_TextureCache_addImage(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_TextureCache_addImageAsync(lua_State *L)
+static int _cocos2d_TextureCache_addImageAsync1(lua_State *L)
 {
     lua_settop(L, 3);
 
     cocos2d::TextureCache *self = nullptr;
-    std::string filePath;
+    std::string arg1;
+    std::function<void(cocos2d::Texture2D *)> arg2;
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.TextureCache");
-    tolua_check_std_string(L, 2, &filePath);
+    tolua_check_std_string(L, 2, &arg1);
 
-    std::string tag = makeTextureCacheCallbackTag(filePath);
+    std::string tag = makeTextureCacheCallbackTag(arg1);
     std::string func = tolua_setcallback(L, 1, tag.c_str(), 3);
-    self->addImageAsync(filePath, [self, func] (cocos2d::Texture2D *texture) {
+    arg2 = [self, func, tag](cocos2d::Texture2D *arg1) {
         lua_State *L = xlua_cocosthread();
         int top = lua_gettop(L);
-        xluacv_push_ccobj(L, texture, "cc.Texture2D");
+        xluacv_push_ccobj(L, arg1, "cc.Texture2D");
         tolua_callback(L, self, func.c_str(), 1);
         if (tolua_getobj(L, self)) {
             tolua_removecallback(L, -1, func.c_str(), TOLUA_REMOVE_CALLBACK_EQUAL);
         }
         lua_settop(L, top);
-    });
+    };
+
+    self->addImageAsync(arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_TextureCache_addImageAsync2(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    cocos2d::TextureCache *self = nullptr;
+    std::string arg1;
+    std::function<void(cocos2d::Texture2D *)> arg2;
+    std::string arg3;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.TextureCache");
+    tolua_check_std_string(L, 2, &arg1);
+    tolua_check_std_string(L, 4, &arg3);
+
+    std::string tag = makeTextureCacheCallbackTag(arg3);
+    std::string func = tolua_setcallback(L, 1, tag.c_str(), 4);
+    arg2 = [self, func, tag](cocos2d::Texture2D *arg1) {
+        lua_State *L = xlua_cocosthread();
+        int top = lua_gettop(L);
+        xluacv_push_ccobj(L, arg1, "cc.Texture2D");
+        tolua_callback(L, self, func.c_str(), 1);
+        if (tolua_getobj(L, self)) {
+            tolua_removecallback(L, -1, func.c_str(), TOLUA_REMOVE_CALLBACK_EQUAL);
+        }
+        lua_settop(L, top);
+    };
+
+    self->addImageAsync(arg1, arg2, arg3);
+
+    return 0;
+}
+
+static int _cocos2d_TextureCache_addImageAsync(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 2) {
+        // if (tolua_is_std_string(L, 2) && tolua_is_std_function(L, 3)) {
+            return _cocos2d_TextureCache_addImageAsync1(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if (tolua_is_std_string(L, 2) && tolua_is_std_function(L, 3) && tolua_is_std_string(L, 4)) {
+            return _cocos2d_TextureCache_addImageAsync2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::TextureCache::addImageAsync' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -2041,14 +2096,15 @@ static int _cocos2d_TextureCache_unbindImageAsync(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::TextureCache *self = nullptr;
-    std::string filePath;
+    std::string arg1;
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.TextureCache");
-    tolua_check_std_string(L, 2, &filePath);
+    tolua_check_std_string(L, 2, &arg1);
 
-    std::string tag = makeTextureCacheCallbackTag(filePath);
-    self->unbindImageAsync(filePath);
+    std::string tag = makeTextureCacheCallbackTag(arg1);
     tolua_removecallback(L, 1, tag.c_str(), TOLUA_REMOVE_CALLBACK_ENDWITH);
+
+    self->unbindImageAsync(arg1);
 
     return 0;
 }
@@ -2060,10 +2116,11 @@ static int _cocos2d_TextureCache_unbindAllImageAsync(lua_State *L)
     cocos2d::TextureCache *self = nullptr;
 
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.TextureCache");
+
     std::string tag = makeTextureCacheCallbackTag("");
+    tolua_removecallback(L, 1, tag.c_str(), TOLUA_REMOVE_CALLBACK_WILDCARD);
 
     self->unbindAllImageAsync();
-    tolua_removecallback(L, 1, tag.c_str(), TOLUA_REMOVE_CALLBACK_WILDCARD);
 
     return 0;
 }

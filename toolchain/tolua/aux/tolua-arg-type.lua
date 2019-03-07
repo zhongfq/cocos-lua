@@ -33,6 +33,12 @@ REG_TYPE {
 }
 
 REG_TYPE {
+    TYPENAME = 'std::function',
+    INIT_VALUE = false,
+    CONV_FUNC = "tolua_$$_std_function"
+}
+
+REG_TYPE {
     TYPENAME = 'float|double|GLfloat',
     DECL_TYPE = 'lua_Number',
     CONV_FUNC = "tolua_$$_number",

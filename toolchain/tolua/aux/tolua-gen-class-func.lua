@@ -40,12 +40,11 @@ local function gen_func_args(cls, fi)
         local IDX = idx + 1
         idx = IDX
 
-        if ai.TYPE.DECL_TYPE ~= ai.TYPE.TYPENAME then
+        if ai.TYPE.DECL_TYPE ~= ai.TYPE.TYPENAME and not ai.CALLBACK_ARGS then
             CALLER_ARGS[#CALLER_ARGS + 1] = '(' .. ai.TYPE.TYPENAME .. ')arg' .. i
         else
             CALLER_ARGS[#CALLER_ARGS + 1] = 'arg' .. i
         end
-
 
         if string.find(DECL_TYPE, '[ *&]$') then
             SPACE = ""
@@ -82,7 +81,7 @@ local function gen_func_args(cls, fi)
             ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
                 ${FUNC_CHECK_VALUE}(L, ${IDX}, ${ARG_N}, "${SUBTYPE}");
             ]])
-        else
+        elseif not ai.CALLBACK_ARGS then
             if ai.PACK then
                 FUNC_CHECK_VALUE = ai.TYPE.FUNC_PACK_VALUE
                 TOTAL_ARGS = ai.TYPE.VARS + TOTAL_ARGS - 1
@@ -156,6 +155,11 @@ local function gen_one_func(cls, fi, write, funcidx)
 
     local DECL_CHUNK, ARGS_CHUNK, CALLER_ARGS, TOTAL_ARGS = gen_func_args(cls, fi)
     local RET_VALUE, PUSH_RET = gen_func_ret(cls, fi)
+    local CALLBACK = ""
+
+    if fi.CALLBACK_OPT then
+        CALLBACK = gen_callback(cls, fi, write)
+    end
 
     write(format_snippet([[
         static int _${CPPCLS_PATH}_${CPPFUNC}${FUNC_INDEX}(lua_State *L)
@@ -165,6 +169,8 @@ local function gen_one_func(cls, fi, write, funcidx)
             ${DECL_CHUNK}
 
             ${ARGS_CHUNK}
+
+            ${CALLBACK}
 
             ${RET_VALUE}${CALLER}${CPPFUNC}(${CALLER_ARGS});
             

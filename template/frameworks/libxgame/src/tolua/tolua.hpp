@@ -4,6 +4,7 @@
 #include "tolua/tolua.h"
 
 #include <string>
+#include <functional>
 
 static inline int tolua_push_std_string(lua_State *L, const std::string &value)
 {
@@ -25,6 +26,11 @@ static inline void tolua_opt_std_string(lua_State *L, int idx, std::string *valu
 static inline bool tolua_is_std_string(lua_State *L, int idx)
 {
     return lua_isstring(L, idx);
+}
+
+static inline bool tolua_is_std_function(lua_State *L, int idx)
+{
+    return lua_isfunction(L, idx);
 }
 
 #endif

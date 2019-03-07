@@ -108,28 +108,71 @@ local function parse_ret(cls, typename)
     return unpack, static, typename
 end
 
+local function to_arg_strs(str)
+    local bak = str
+    local arr = {}
+    local count = 0
+    while #str > 0 do
+        local arg = string.match(str, '[^,]+')
+        if string.find(arg, 'std::function<') then
+            arg = string.sub(str, 1, string.find(str, '>'))
+            str = string.sub(str, #arg + 1)
+            arg = arg .. string.match(str, '[^,]*')
+            str = string.gsub(str, '^[^,]*,? *', '')
+        else
+            str = string.sub(str, #arg + 1)
+            str = string.gsub(str, '^, *', '')
+        end
+        arr[#arr + 1] = arg
+
+        count = count + 1
+        if count > 0xFF then
+            error(bak)
+            break
+        end
+    end
+
+    return arr
+end
+
 local function parse_args(cls, func_decl)
     local args = {}
-    local args_str = string.match(func_decl, '%(([^()]*)%)')
+    local args_str = string.match(func_decl, '%((.*)%)')
 
-    for arg in string.gmatch(args_str, '[^,]+') do
+    for _, arg in ipairs(to_arg_strs(args_str)) do
         arg = to_pretty_typename(arg)
         if arg ~= 'void' then
             local arg, pack = string.gsub(arg, 'pack', '')
             local typename, varname, default = string.match(arg, '(.+[ *&])([^ *&]+) *= *([^ ]*)')
             if not typename then
-                typename, varname = string.match(arg, '(.+[ *&])([^ *&]+)')
-            end
-            if not typename then
-                typename = to_pretty_typename(typename)
+                typename, varname = string.match(arg, '(.+[ *&])([^ *&]*)')
             end
             assert(typename, arg)
-            args[#args + 1] = {
-                TYPE = get_typeinfo(typename, cls),
-                DECL_TYPE = to_decl_type(cls, typename, true),
-                OPT_VALUE = default,
-                PACK = pack > 0,
-            }
+            typename = to_pretty_typename(typename)
+            if string.find(typename, 'std::function<') then
+                -- const std::function<void(Texture2D*, float delta)>
+                local callback_ars = parse_args(cls, string.match(typename, '<([^<>]*)>'))
+                local callback_decl = {}
+                for _, ai in ipairs(callback_ars) do
+                    callback_decl[#callback_decl + 1] = ai.DECL_TYPE
+                end
+                callback_decl = table.concat(callback_decl, ", ")
+                callback_decl = 'std::function<void(' .. callback_decl .. ')>'
+                args[#args + 1] = {
+                    TYPE = setmetatable({
+                        DECL_TYPE = callback_decl,
+                    }, {__index = get_typeinfo('std::function', cls)}),
+                    DECL_TYPE = callback_decl,
+                    CALLBACK_ARGS = callback_ars,
+                }
+            else
+                args[#args + 1] = {
+                    TYPE = get_typeinfo(typename, cls),
+                    DECL_TYPE = to_decl_type(cls, typename, true),
+                    OPT_VALUE = default,
+                    PACK = pack > 0,
+                }
+            end
         end
     end
 
@@ -196,6 +239,18 @@ function class()
 
     function cls.func(name, ...)
         cls.FUNCS[#cls.FUNCS + 1] = parse_func(cls, name, ...)
+    end
+
+    function cls.callback(name, opt, ...)
+        cls.FUNCS[#cls.FUNCS + 1] = parse_func(cls, name, ...)
+        for i, v in ipairs(cls.FUNCS[#cls.FUNCS]) do
+            v.CALLBACK_OPT = assert(opt)
+            if type(v.CALLBACK_OPT.MAKER) == 'table' then
+                v.CALLBACK_OPT = setmetatable({
+                    MAKER = assert(v.CALLBACK_OPT.MAKER[i])
+                }, {__index = v.CALLBACK_OPT})
+            end
+        end
     end
 
     function cls.prop(name, func_get, func_set)

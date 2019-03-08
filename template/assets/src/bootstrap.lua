@@ -30,6 +30,7 @@ function main()
 
     sprite:setPosition(500, 400)
     Director.getInstance().runningScene:addChild(sprite)
+    print(Director.getInstance():getWinSize())
 
     -- node:schedule(function (...)
     --     print("sprite:schedule", ...)

@@ -92,6 +92,7 @@ end
 local function parse_ret(cls, typename)
     local static = false
     local unpack = false
+    local ref = ''
 
     if string.find(typename, 'unpack') then
         unpack = true
@@ -103,9 +104,13 @@ local function parse_ret(cls, typename)
         typename = string.gsub(typename, 'static *', '')
     end
 
+    if string.find(typename, '&') then
+        ref = ' ' .. string.gsub(typename, '[^&]*', '')
+    end
+
     typename = to_decl_type(cls, typename)
 
-    return unpack, static, typename
+    return unpack, static, typename, ref
 end
 
 local function to_arg_strs(str)
@@ -200,7 +205,7 @@ local function parse_func(cls, name, ...)
             fi.ARGS = {}
         else
             local typename, funcname = string.match(func_decl, "([^()]+[ *&])([^ ]+)[ ]*%(")
-            local unpack, static, typename = parse_ret(cls, typename)
+            local unpack, static, typename, ref = parse_ret(cls, typename)
 
             fi.LUAFUNC = name or funcname
             fi.CPPFUNC = funcname
@@ -208,7 +213,7 @@ local function parse_func(cls, name, ...)
             fi.FUNC_DECL = func_decl
             fi.RET.NUM = typename == "void" and 0 or 1
             fi.RET.TYPE = get_typeinfo(typename, cls)
-            fi.RET.DECL_TYPE = to_decl_type(cls, typename)
+            fi.RET.DECL_TYPE = to_decl_type(cls, typename) .. ref
             fi.RET.UNPACK = unpack
             fi.ARGS = parse_args(cls, func_decl)
 

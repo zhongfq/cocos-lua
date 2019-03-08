@@ -423,7 +423,7 @@ static int _cocos2d_UserDefault_getXMLFilePath(lua_State *L)
     lua_settop(L, 0);
 
     // static const std::string& getXMLFilePath();
-    const std::string ret = (const std::string)cocos2d::UserDefault::getXMLFilePath();
+    const std::string &ret = (const std::string &)cocos2d::UserDefault::getXMLFilePath();
 
     return tolua_push_std_string(L, ret);
 }
@@ -514,6 +514,66 @@ static int _cocos2d_Director_setViewport(lua_State *L)
     self->setViewport();
 
     return 0;
+}
+
+static int _cocos2d_Director_convertToGL(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::Director *self = nullptr;
+    cocos2d::Vec2 arg1;       /** point */
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Director");
+    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+
+    // unpack Vec2 convertToGL(pack const Vec2& point)
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->convertToGL(arg1);
+
+    return auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+}
+
+static int _cocos2d_Director_convertToUI(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::Director *self = nullptr;
+    cocos2d::Vec2 arg1;       /** point */
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Director");
+    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+
+    // unpack Vec2 convertToUI(pack const Vec2& point)
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->convertToUI(arg1);
+
+    return auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+}
+
+static int _cocos2d_Director_getWinSize(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Director *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Director");
+
+    // unpack const Size& getWinSize()
+    const cocos2d::Size &ret = (const cocos2d::Size &)self->getWinSize();
+
+    return auto_luacv_unpack_cocos2d_Size(L, &ret);
+}
+
+static int _cocos2d_Director_getWinSizeInPixels(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Director *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Director");
+
+    // unpack Size getWinSizeInPixels()
+    cocos2d::Size ret = (cocos2d::Size)self->getWinSizeInPixels();
+
+    return auto_luacv_unpack_cocos2d_Size(L, &ret);
 }
 
 static int _cocos2d_Director_getRunningScene(lua_State *L)
@@ -785,6 +845,10 @@ static int luaopen_cocos2d_Director(lua_State *L)
     toluacls_class(L, "cc.Director", "cc.Ref");
     toluacls_setfunc(L, "getInstance", _cocos2d_Director_getInstance);
     toluacls_setfunc(L, "setViewport", _cocos2d_Director_setViewport);
+    toluacls_setfunc(L, "convertToGL", _cocos2d_Director_convertToGL);
+    toluacls_setfunc(L, "convertToUI", _cocos2d_Director_convertToUI);
+    toluacls_setfunc(L, "getWinSize", _cocos2d_Director_getWinSize);
+    toluacls_setfunc(L, "getWinSizeInPixels", _cocos2d_Director_getWinSizeInPixels);
     toluacls_property(L, "runningScene", _cocos2d_Director_getRunningScene, nullptr);
     toluacls_property(L, "animationInterval", _cocos2d_Director_getAnimationInterval, _cocos2d_Director_setAnimationInterval);
     toluacls_property(L, "displayStats", _cocos2d_Director_isDisplayStats, _cocos2d_Director_setDisplayStats);
@@ -2688,7 +2752,7 @@ static int _cocos2d_Texture2D_getContentSizeInPixels(lua_State *L)
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Texture2D");
 
     // unpack const Size& getContentSizeInPixels()
-    const cocos2d::Size ret = (const cocos2d::Size)self->getContentSizeInPixels();
+    const cocos2d::Size &ret = (const cocos2d::Size &)self->getContentSizeInPixels();
 
     return auto_luacv_unpack_cocos2d_Size(L, &ret);
 }
@@ -3673,7 +3737,7 @@ static int _cocos2d_Node_getPosition(lua_State *L)
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
 
     // unpack const Vec2& getPosition()
-    const cocos2d::Vec2 ret = (const cocos2d::Vec2)self->getPosition();
+    const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getPosition();
 
     return auto_luacv_unpack_cocos2d_Vec2(L, &ret);
 }
@@ -4144,7 +4208,7 @@ static int _cocos2d_Camera_getDefaultViewport(lua_State *L)
     lua_settop(L, 0);
 
     // static const experimental::Viewport& getDefaultViewport()
-    const cocos2d::experimental::Viewport ret = (const cocos2d::experimental::Viewport)cocos2d::Camera::getDefaultViewport();
+    const cocos2d::experimental::Viewport &ret = (const cocos2d::experimental::Viewport &)cocos2d::Camera::getDefaultViewport();
 
     return auto_luacv_push_cocos2d_experimental_Viewport(L, &ret);
 }

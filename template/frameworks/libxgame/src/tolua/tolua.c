@@ -12,6 +12,8 @@
 #define CLS_GET     ".get"
 #define CLS_SET     ".set"
 
+static lua_CFunction _traceback = NULL;
+
 static bool strequal(const char *str1, const char *str2)
 {
     return strcmp(str1, str2) == 0;
@@ -36,6 +38,11 @@ LUALIB_API void tolua_rawsetfield(lua_State *L, int idx, const char *field)
     lua_pushstring(L, field);
     lua_insert(L, -2);
     lua_rawset(L, idx);
+}
+
+LUALIB_API void tolua_seterrfunc(lua_CFunction errfunc)
+{
+    _traceback = errfunc;
 }
 
 LUALIB_API const char *tolua_typename(lua_State *L, int idx)
@@ -252,13 +259,20 @@ LUALIB_API bool tolua_callback(lua_State *L, void *obj, const char *field, int n
 {
     int top = lua_gettop(L) - n;
     bool ret = false;
+    int errfunc = 0;
     
-    if (tolua_getobj(L, obj) && getcallbacktable(L, -1)) {      // L: argn obj ct
-        if (tolua_rawgetfield(L, -1, field) == LUA_TFUNCTION) { // L: argn obj ct callback
-            lua_insert(L, top + 1);                             // L: callback argn obj ct
-            lua_pop(L, 2);                                      // L: callback argn
-            lua_pcall(L, n, 0, 0);
-            ret = true;
+    if (tolua_getobj(L, obj) && getcallbacktable(L, -1)) {      // L: arg...n obj ct
+        if (tolua_rawgetfield(L, -1, field) == LUA_TFUNCTION) { // L: arg...n obj ct callback
+            lua_insert(L, top + 1);                             // L: callback arg...n obj ct
+            lua_pop(L, 2);                                      // L: callback arg...n
+            
+            if (_traceback) {
+                lua_pushcfunction(L, _traceback);               // L: callback arg...n errfunc
+                lua_insert(L, top + 1);                         // L: errfunc callback arg...n
+                errfunc = top + 1;
+            }
+            
+            ret = lua_pcall(L, n, 0, errfunc) == LUA_OK;
         }
     }
     

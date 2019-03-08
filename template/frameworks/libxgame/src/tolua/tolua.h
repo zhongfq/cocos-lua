@@ -15,7 +15,7 @@ extern "C" {
 
 LUALIB_API int tolua_rawgetfield(lua_State *L, int idx, const char *field);
 LUALIB_API void tolua_rawsetfield(lua_State *L, int idx, const char *field);
-    
+LUALIB_API void tolua_seterrfunc(lua_CFunction errfunc);
 LUALIB_API const char *tolua_typename(lua_State *L, int idx);
 LUALIB_API const char *tolua_tostring(lua_State *L, int idx);
 LUALIB_API bool tolua_isa(lua_State *L, int idx, const char *cls);

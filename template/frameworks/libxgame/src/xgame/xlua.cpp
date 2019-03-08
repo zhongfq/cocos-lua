@@ -179,6 +179,8 @@ lua_State *xlua_new()
     xlua_call(L, xlua_addsearchpath);
     xlua_call(L, xlua_addlualoader);
     
+    tolua_seterrfunc(xlua_errorfunc);
+    
 #ifdef COCOS2D_DEBUG
     lua_pushboolean(L, true);
 #else

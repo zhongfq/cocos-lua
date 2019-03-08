@@ -335,8 +335,9 @@ int xlua_pcall(lua_State *L, int n, int r)
 void xlua_call(lua_State *L, lua_CFunction func)
 {
     int top = lua_gettop(L);
+    lua_pushcfunction(L, xlua_errorfunc);
     lua_pushcfunction(L, func);
-    lua_call(L, 0, 0);
+    lua_pcall(L, 0, 0, top + 1);
     lua_settop(L, top);
 }
 

@@ -43,14 +43,34 @@ void xlua_rawsetfieldstring(lua_State *L, int idx, const char *field, const char
 void xlua_rawsetfieldboolean(lua_State *L, int idx, const char *field, bool value);
 
 int xlua_ccobjgc(lua_State *L);
-int xlua_ccobjcount(lua_State *L);
+
+int xlua_refcount();
+void xlua_addref();
+void xlua_subref();
 
 int xluacv_push_ccdata(lua_State *L, const cocos2d::Data &value);
 
 void xluacv_check_obj(lua_State *L, int idx, void **value);
 bool xluacv_is_obj(lua_State *L, int idx);
 
-int xluacv_push_ccobj(lua_State *L, cocos2d::Ref *obj, const char *cls);
+template <typename T> int xluacv_push_ccobj(lua_State *L, T* value, const char *cls)
+{
+    bool is_new = false;
+    
+    if (!value) {
+        lua_pushnil(L);
+    } else {
+        is_new = tolua_pushobj(L, value, cls);
+    }
+    
+    if (is_new && std::is_base_of<cocos2d::Ref, T>::value) {
+        ((cocos2d::Ref *)value)->retain();
+        xlua_addref();
+    }
+    
+    return 1;
+}
+
 void xluacv_to_ccobj(lua_State *L, int idx, void **value, const char *cls);
 void xluacv_check_ccobj(lua_State *L, int idx, void **value, const char *cls);
 bool xluacv_is_ccobj(lua_State *L, int idx, const char *cls);
@@ -67,11 +87,7 @@ template <typename T> int xluacv_push_ccvector(lua_State *L, const cocos2d::Vect
         if (obj == nullptr) {
             continue;
         }
-        if (std::is_base_of<cocos2d::Ref, T>::value) {
-            xluacv_push_ccobj(L, (cocos2d::Ref *)obj, cls);
-        } else {
-            tolua_pushobj(L, obj, cls);
-        }
+        xluacv_push_ccobj(L, obj, cls);
         lua_rawseti(L, -2, i);
         i++;
     }

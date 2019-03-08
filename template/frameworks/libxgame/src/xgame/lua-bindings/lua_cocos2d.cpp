@@ -20,7 +20,7 @@ static int _cocos2d_UserDefault_getBoolForKey1(lua_State *L)
     cocos2d::UserDefault *self = nullptr;
     const char *arg1 = nullptr;   /** key */
 
-    tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.UserDefault");
     tolua_check_string(L, 2, &arg1);
 
     // bool getBoolForKey(const char *key);
@@ -37,7 +37,7 @@ static int _cocos2d_UserDefault_getBoolForKey2(lua_State *L)
     const char *arg1 = nullptr;   /** key */
     bool arg2 = false;   /** defaultValue */
 
-    tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.UserDefault");
     tolua_check_string(L, 2, &arg1);
     tolua_check_bool(L, 3, &arg2);
 
@@ -75,7 +75,7 @@ static int _cocos2d_UserDefault_getIntegerForKey1(lua_State *L)
     cocos2d::UserDefault *self = nullptr;
     const char *arg1 = nullptr;   /** key */
 
-    tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.UserDefault");
     tolua_check_string(L, 2, &arg1);
 
     // int getIntegerForKey(const char *key);
@@ -92,7 +92,7 @@ static int _cocos2d_UserDefault_getIntegerForKey2(lua_State *L)
     const char *arg1 = nullptr;   /** key */
     lua_Integer arg2 = 0;   /** defaultValue */
 
-    tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.UserDefault");
     tolua_check_string(L, 2, &arg1);
     tolua_check_int(L, 3, &arg2);
 
@@ -130,7 +130,7 @@ static int _cocos2d_UserDefault_getFloatForKey1(lua_State *L)
     cocos2d::UserDefault *self = nullptr;
     const char *arg1 = nullptr;   /** key */
 
-    tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.UserDefault");
     tolua_check_string(L, 2, &arg1);
 
     // float getFloatForKey(const char *key);
@@ -147,7 +147,7 @@ static int _cocos2d_UserDefault_getFloatForKey2(lua_State *L)
     const char *arg1 = nullptr;   /** key */
     lua_Number arg2 = 0;   /** defaultValue */
 
-    tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.UserDefault");
     tolua_check_string(L, 2, &arg1);
     tolua_check_number(L, 3, &arg2);
 
@@ -185,7 +185,7 @@ static int _cocos2d_UserDefault_getDoubleForKey1(lua_State *L)
     cocos2d::UserDefault *self = nullptr;
     const char *arg1 = nullptr;   /** key */
 
-    tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.UserDefault");
     tolua_check_string(L, 2, &arg1);
 
     // double getDoubleForKey(const char *key);
@@ -202,7 +202,7 @@ static int _cocos2d_UserDefault_getDoubleForKey2(lua_State *L)
     const char *arg1 = nullptr;   /** key */
     lua_Number arg2 = 0;   /** defaultValue */
 
-    tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.UserDefault");
     tolua_check_string(L, 2, &arg1);
     tolua_check_number(L, 3, &arg2);
 
@@ -240,7 +240,7 @@ static int _cocos2d_UserDefault_getStringForKey1(lua_State *L)
     cocos2d::UserDefault *self = nullptr;
     const char *arg1 = nullptr;   /** key */
 
-    tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.UserDefault");
     tolua_check_string(L, 2, &arg1);
 
     // std::string getStringForKey(const char *key);
@@ -257,7 +257,7 @@ static int _cocos2d_UserDefault_getStringForKey2(lua_State *L)
     const char *arg1 = nullptr;   /** key */
     std::string arg2;       /** defaultValue */
 
-    tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.UserDefault");
     tolua_check_string(L, 2, &arg1);
     tolua_check_std_string(L, 3, &arg2);
 
@@ -296,7 +296,7 @@ static int _cocos2d_UserDefault_setBoolForKey(lua_State *L)
     const char *arg1 = nullptr;   /** key */
     bool arg2 = false;   /** value */
 
-    tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.UserDefault");
     tolua_check_string(L, 2, &arg1);
     tolua_check_bool(L, 3, &arg2);
 
@@ -314,7 +314,7 @@ static int _cocos2d_UserDefault_setIntegerForKey(lua_State *L)
     const char *arg1 = nullptr;   /** key */
     lua_Integer arg2 = 0;   /** value */
 
-    tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.UserDefault");
     tolua_check_string(L, 2, &arg1);
     tolua_check_int(L, 3, &arg2);
 
@@ -332,7 +332,7 @@ static int _cocos2d_UserDefault_setFloatForKey(lua_State *L)
     const char *arg1 = nullptr;   /** key */
     lua_Number arg2 = 0;   /** value */
 
-    tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.UserDefault");
     tolua_check_string(L, 2, &arg1);
     tolua_check_number(L, 3, &arg2);
 
@@ -350,7 +350,7 @@ static int _cocos2d_UserDefault_setDoubleForKey(lua_State *L)
     const char *arg1 = nullptr;   /** key */
     lua_Number arg2 = 0;   /** value */
 
-    tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.UserDefault");
     tolua_check_string(L, 2, &arg1);
     tolua_check_number(L, 3, &arg2);
 
@@ -368,7 +368,7 @@ static int _cocos2d_UserDefault_setStringForKey(lua_State *L)
     const char *arg1 = nullptr;   /** key */
     std::string arg2;       /** value */
 
-    tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.UserDefault");
     tolua_check_string(L, 2, &arg1);
     tolua_check_std_string(L, 3, &arg2);
 
@@ -384,7 +384,7 @@ static int _cocos2d_UserDefault_flush(lua_State *L)
 
     cocos2d::UserDefault *self = nullptr;
 
-    tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.UserDefault");
 
     // void flush();
     self->flush();
@@ -399,7 +399,7 @@ static int _cocos2d_UserDefault_deleteValueForKey(lua_State *L)
     cocos2d::UserDefault *self = nullptr;
     const char *arg1 = nullptr;   /** key */
 
-    tolua_to_obj(L, 1, (void **)&self, "cc.UserDefault");
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.UserDefault");
     tolua_check_string(L, 2, &arg1);
 
     // void deleteValueForKey(const char *key);
@@ -415,7 +415,7 @@ static int _cocos2d_UserDefault_getInstance(lua_State *L)
     // static cocos2d::UserDefault *getInstance();
     cocos2d::UserDefault *ret = (cocos2d::UserDefault *)cocos2d::UserDefault::getInstance();
 
-    return tolua_push_obj(L, ret, "cc.UserDefault");
+    return xluacv_push_ccobj(L, ret, "cc.UserDefault");
 }
 
 static int _cocos2d_UserDefault_getXMLFilePath(lua_State *L)

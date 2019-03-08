@@ -11,7 +11,7 @@ REG_TYPE {
 
 REG_TYPE {
     TYPENAME = 'cocos2d::UserDefault *',
-    CONV_FUNC = "tolua_$$_obj",
+    CONV_FUNC = "xluacv_$$_ccobj",
     LUACLS = make_luacls,
 }
 

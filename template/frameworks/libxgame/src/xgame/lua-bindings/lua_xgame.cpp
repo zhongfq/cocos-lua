@@ -288,6 +288,7 @@ static int luaopen_xgame_runtime(lua_State *L)
     toluacls_property(L, "deviceInfo", _xgame_runtime_getDeviceInfo, nullptr);
     toluacls_property(L, "logPath", _xgame_runtime_getLogPath, _xgame_runtime_setLogPath);
 
+    tolua_registerluatype<xgame::runtime>(L, "kernel.runtime");
     toluacls_createclassproxy(L);
 
     return 1;
@@ -531,6 +532,7 @@ static int luaopen_xgame_filesystem(lua_State *L)
     toluacls_property(L, "tmpDirectory", _xgame_filesystem_getTmpDirectory, nullptr);
     toluacls_property(L, "sdCardDirectory", _xgame_filesystem_getSDCardDirectory, nullptr);
 
+    tolua_registerluatype<xgame::filesystem>(L, "kernel.filesystem");
     toluacls_createclassproxy(L);
 
     return 1;
@@ -736,6 +738,7 @@ static int luaopen_xgame_preferences(lua_State *L)
     toluacls_setfunc(L, "deleteKey", _xgame_preferences_deleteKey);
     toluacls_setfunc(L, "flush", _xgame_preferences_flush);
 
+    tolua_registerluatype<xgame::preferences>(L, "kernel.preferences");
     toluacls_createclassproxy(L);
 
     return 1;
@@ -845,6 +848,7 @@ static int luaopen_xgame_timer(lua_State *L)
     toluacls_setfunc(L, "schedule", _xgame_timer_schedule);
     toluacls_setfunc(L, "unschedule", _xgame_timer_unschedule);
 
+    tolua_registerluatype<xgame::timer>(L, "kernel.timer");
     toluacls_createclassproxy(L);
 
     return 1;

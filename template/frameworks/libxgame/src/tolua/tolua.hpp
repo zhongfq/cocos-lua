@@ -33,4 +33,26 @@ static inline bool tolua_is_std_function(lua_State *L, int idx)
     return lua_isfunction(L, idx);
 }
 
+template <typename T> void tolua_registerluatype(lua_State *L, const char *cls)
+{
+    const char *type = typeid(T).name();
+    lua_pushstring(L, type);
+    lua_pushstring(L, cls);
+    lua_rawset(L, LUA_REGISTRYINDEX);
+}
+
+template <typename T> const char *tolua_getluatype(lua_State *L, T *obj, const char *cls)
+{
+    if (obj) {
+        const char *type = typeid(*obj).name();
+        lua_pushstring(L, type);
+        if (lua_rawget(L, LUA_REGISTRYINDEX) == LUA_TSTRING) {
+            cls = lua_tostring(L, -1);
+        }
+        lua_pop(L, 1);
+    }
+    
+    return cls;
+}
+
 #endif

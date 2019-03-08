@@ -247,6 +247,7 @@ function class()
     cls.CONSTS = {}
     cls.ENUMS = {}
     cls.PROPS = {}
+    cls.REG_LUATYPE = true
 
     function cls.func(name, ...)
         cls.FUNCS[#cls.FUNCS + 1] = parse_func(cls, name, ...)

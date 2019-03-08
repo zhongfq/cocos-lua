@@ -18,9 +18,11 @@ end
 
 local function gen_class_open(cls, write)
     local LUACLS = cls.LUACLS
-    local CPPCLS_PATH = class_path(cls.CPPCLS)
+    local CPPCLS = cls.CPPCLS
+    local CPPCLS_PATH = class_path(CPPCLS)
     local SUPRECLS = stringfy(cls.SUPERCLS) or "nullptr"
     local FUNCS = {}
+    local REG_LUATYPE = ''
 
     for i, fis in ipairs(cls.FUNCS) do
         local CPPFUNC = fis[1].CPPFUNC
@@ -74,12 +76,19 @@ local function gen_class_open(cls, write)
 
     FUNCS = table.concat(FUNCS, "\n")
 
+    if cls.REG_LUATYPE then
+        REG_LUATYPE = format_snippet([[
+            tolua_registerluatype<${CPPCLS}>(L, "${LUACLS}");
+        ]])
+    end
+
     write(format_snippet([[
         static int luaopen_${CPPCLS_PATH}(lua_State *L)
         {
-            toluacls_class(L, "${LUACLS", ${SUPRECLS});
+            toluacls_class(L, "${LUACLS}", ${SUPRECLS});
             ${FUNCS}
-            
+
+            ${REG_LUATYPE}
             toluacls_createclassproxy(L);
             
             return 1;

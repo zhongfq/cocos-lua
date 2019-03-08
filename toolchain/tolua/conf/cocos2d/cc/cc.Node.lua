@@ -2,6 +2,7 @@ local cls = class()
 cls.CPPCLS = "cocos2d::Node"
 cls.LUACLS = "cc.Node"
 cls.SUPERCLS = "cc.Ref"
+cls.prop('name', 'const std::string& getName()', 'void setName(const std::string& name)')
 cls.prop('attachedNodeCount', 'static int getAttachedNodeCount()')
 cls.prop('description', 'std::string getDescription()')
 cls.prop('scheduler', 'Scheduler* getScheduler()', 'void setScheduler(Scheduler* scheduler)')

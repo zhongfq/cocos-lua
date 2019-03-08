@@ -457,6 +457,7 @@ static int luaopen_cocos2d_UserDefault(lua_State *L)
     toluacls_setfunc(L, "getXMLFilePath", _cocos2d_UserDefault_getXMLFilePath);
     toluacls_setfunc(L, "isXMLFileExist", _cocos2d_UserDefault_isXMLFileExist);
 
+    tolua_registerluatype<cocos2d::UserDefault>(L, "cc.UserDefault");
     toluacls_createclassproxy(L);
 
     return 1;
@@ -487,6 +488,7 @@ static int luaopen_cocos2d_Ref(lua_State *L)
     toluacls_setfunc(L, "__gc", _cocos2d_Ref___gc);
     toluacls_property(L, "referenceCount", _cocos2d_Ref_getReferenceCount, nullptr);
 
+    tolua_registerluatype<cocos2d::Ref>(L, "cc.Ref");
     toluacls_createclassproxy(L);
 
     return 1;
@@ -862,6 +864,7 @@ static int luaopen_cocos2d_Director(lua_State *L)
     toluacls_property(L, "sendCleanupToScene", _cocos2d_Director_isSendCleanupToScene, nullptr);
     toluacls_property(L, "notificationNode", _cocos2d_Director_getNotificationNode, _cocos2d_Director_setNotificationNode);
 
+    tolua_registerluatype<cocos2d::Director>(L, "cc.Director");
     toluacls_createclassproxy(L);
 
     return 1;
@@ -1231,6 +1234,7 @@ static int luaopen_cocos2d_Scheduler(lua_State *L)
     toluacls_setfunc(L, "isTargetPaused", _cocos2d_Scheduler_isTargetPaused);
     toluacls_property(L, "timeScale", _cocos2d_Scheduler_getTimeScale, _cocos2d_Scheduler_setTimeScale);
 
+    tolua_registerluatype<cocos2d::Scheduler>(L, "cc.Scheduler");
     toluacls_createclassproxy(L);
 
     return 1;
@@ -1529,6 +1533,7 @@ static int luaopen_cocos2d_ActionManager(lua_State *L)
     toluacls_setfunc(L, "resumeTargets", _cocos2d_ActionManager_resumeTargets);
     toluacls_setfunc(L, "update", _cocos2d_ActionManager_update);
 
+    tolua_registerluatype<cocos2d::ActionManager>(L, "cc.ActionManager");
     toluacls_createclassproxy(L);
 
     return 1;
@@ -1538,6 +1543,7 @@ static int luaopen_cocos2d_GLView(lua_State *L)
 {
     toluacls_class(L, "cc.GLView", "cc.Ref");
 
+    tolua_registerluatype<cocos2d::GLView>(L, "cc.GLView");
     toluacls_createclassproxy(L);
 
     return 1;
@@ -2161,6 +2167,7 @@ static int luaopen_cocos2d_GLProgram(lua_State *L)
     toluacls_property(L, "programLog", _cocos2d_GLProgram_getProgramLog, nullptr);
     toluacls_property(L, "program", _cocos2d_GLProgram_getProgram, nullptr);
 
+    tolua_registerluatype<cocos2d::GLProgram>(L, "cc.GLProgram");
     toluacls_createclassproxy(L);
 
     return 1;
@@ -2517,6 +2524,7 @@ static int luaopen_cocos2d_TextureCache(lua_State *L)
     toluacls_property(L, "description", _cocos2d_TextureCache_getDescription, nullptr);
     toluacls_property(L, "cachedTextureInfo", _cocos2d_TextureCache_getCachedTextureInfo, nullptr);
 
+    tolua_registerluatype<cocos2d::TextureCache>(L, "cc.TextureCache");
     toluacls_createclassproxy(L);
 
     return 1;
@@ -2548,6 +2556,7 @@ static int luaopen_cocos2d_Texture2D_PixelFormat(lua_State *L)
     toluacls_const_integer(L, "ATC_INTERPOLATED_ALPHA", (lua_Integer)cocos2d::Texture2D::PixelFormat::ATC_INTERPOLATED_ALPHA);
     toluacls_const_integer(L, "DEFAULT", (lua_Integer)cocos2d::Texture2D::PixelFormat::AUTO);
 
+    tolua_registerluatype<cocos2d::Texture2D::PixelFormat>(L, "cc.Texture2D.PixelFormat");
     toluacls_createclassproxy(L);
 
     return 1;
@@ -3069,6 +3078,7 @@ static int luaopen_cocos2d_Texture2D(lua_State *L)
     toluacls_property(L, "alphaTexture", _cocos2d_Texture2D_getAlphaTexture, _cocos2d_Texture2D_setAlphaTexture);
     toluacls_property(L, "alphaTextureName", _cocos2d_Texture2D_getAlphaTextureName, nullptr);
 
+    tolua_registerluatype<cocos2d::Texture2D>(L, "cc.Texture2D");
     toluacls_createclassproxy(L);
 
     return 1;
@@ -3089,6 +3099,7 @@ static int luaopen_cocos2d_Image_Format(lua_State *L)
     toluacls_const_integer(L, "RAW_DATA", (lua_Integer)cocos2d::Image::Format::RAW_DATA);
     toluacls_const_integer(L, "UNKNOWN", (lua_Integer)cocos2d::Image::Format::UNKNOWN);
 
+    tolua_registerluatype<cocos2d::Image::Format>(L, "cc.Image.Format");
     toluacls_createclassproxy(L);
 
     return 1;
@@ -3375,6 +3386,7 @@ static int luaopen_cocos2d_Image(lua_State *L)
     toluacls_property(L, "bitPerPixel", _cocos2d_Image_getBitPerPixel, nullptr);
     toluacls_property(L, "compressed", _cocos2d_Image_isCompressed, nullptr);
 
+    tolua_registerluatype<cocos2d::Image>(L, "cc.Image");
     toluacls_createclassproxy(L);
 
     return 1;
@@ -4021,6 +4033,36 @@ static int _cocos2d_Node_pause(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_Node_getName(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Node *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
+
+    // const std::string& getName()
+    const std::string &ret = (const std::string &)self->getName();
+
+    return tolua_push_std_string(L, ret);
+}
+
+static int _cocos2d_Node_setName(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Node *self = nullptr;
+    std::string arg1;       /** name */
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
+    tolua_check_std_string(L, 2, &arg1);
+
+    // void setName(const std::string& name)
+    self->setName(arg1);
+
+    return 0;
+}
+
 static int _cocos2d_Node_getAttachedNodeCount(lua_State *L)
 {
     lua_settop(L, 0);
@@ -4133,11 +4175,13 @@ static int luaopen_cocos2d_Node(lua_State *L)
     toluacls_setfunc(L, "unscheduleAllCallbacks", _cocos2d_Node_unscheduleAllCallbacks);
     toluacls_setfunc(L, "resume", _cocos2d_Node_resume);
     toluacls_setfunc(L, "pause", _cocos2d_Node_pause);
+    toluacls_property(L, "name", _cocos2d_Node_getName, _cocos2d_Node_setName);
     toluacls_property(L, "attachedNodeCount", _cocos2d_Node_getAttachedNodeCount, nullptr);
     toluacls_property(L, "description", _cocos2d_Node_getDescription, nullptr);
     toluacls_property(L, "scheduler", _cocos2d_Node_getScheduler, _cocos2d_Node_setScheduler);
     toluacls_property(L, "actionManager", _cocos2d_Node_getActionManager, _cocos2d_Node_setActionManager);
 
+    tolua_registerluatype<cocos2d::Node>(L, "cc.Node");
     toluacls_createclassproxy(L);
 
     return 1;
@@ -4236,6 +4280,7 @@ static int luaopen_cocos2d_Camera(lua_State *L)
     toluacls_setfunc(L, "getVisitingCamera", _cocos2d_Camera_getVisitingCamera);
     toluacls_property(L, "defaultViewport", _cocos2d_Camera_getDefaultViewport, _cocos2d_Camera_setDefaultViewport);
 
+    tolua_registerluatype<cocos2d::Camera>(L, "cc.Camera");
     toluacls_createclassproxy(L);
 
     return 1;
@@ -4260,6 +4305,7 @@ static int luaopen_cocos2d_Sprite(lua_State *L)
     toluacls_class(L, "cc.Sprite", "cc.Node");
     toluacls_setfunc(L, "create", _cocos2d_Sprite_create);
 
+    tolua_registerluatype<cocos2d::Sprite>(L, "cc.Sprite");
     toluacls_createclassproxy(L);
 
     return 1;
@@ -4295,6 +4341,7 @@ static int luaopen_cocos2d_Scene(lua_State *L)
     toluacls_setfunc(L, "create", _cocos2d_Scene_create);
     toluacls_setfunc(L, "createWithSize", _cocos2d_Scene_createWithSize);
 
+    tolua_registerluatype<cocos2d::Scene>(L, "cc.Scene");
     toluacls_createclassproxy(L);
 
     return 1;

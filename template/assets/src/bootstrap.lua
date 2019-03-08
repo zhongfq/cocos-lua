@@ -19,18 +19,14 @@ function main()
     print("# preferences 'build'", preferences.getString("build"))
     print("# preferences 'build'", preferences.getString("build", "defalut build"))
     print("# preferences 'version'", preferences.getString("conf.version.runtime", "defalut build"))
-    print("#", node, node.referenceCount, node:getPosition())
-
-    node:setPosition({x = 1.2, y = 0})
-
-    Director.getInstance().runningScene:addChild(node)
 
     local sprite = Sprite.create("res/HelloWorld.png")
+    sprite.name = "xxxx"
     print(sprite)
 
     sprite:setPosition(500, 400)
     Director.getInstance().runningScene:addChild(sprite)
-    print(Director.getInstance():getWinSize())
+    print(Director.getInstance().runningScene:getChildByName("xxxx"))
 
     -- node:schedule(function (...)
     --     print("sprite:schedule", ...)
@@ -39,41 +35,22 @@ function main()
     --     print("sprite:schedule", ...)
     -- end, 1.2, 'update')
 
-    local scheduler = node.scheduler
-    print(node, debug.getuservalue(obj))
-    scheduler:schedule(function ( ... )
-        print("schedule", ...)
-    end, node, 1, false, "update")
+    -- local scheduler = node.scheduler
+    -- scheduler:schedule(function ( ... )
+    --     print("schedule", ...)
+    -- end, node, 1, false, "update")
 
-    scheduler:schedule(function ( ... )
-        print("schedule", ...)
-    end, node, 2, false, "update")
+    -- timer.delay(3, function ( ... )
+    --     print(node.referenceCount)
+    --     printUserValue(node)
+    -- end)
+    -- timer.delay(4, function ( ... )
+    --     collectgarbage('collect')
+    -- end)
 
-    scheduler:schedule(function ( ... )
-        print("schedule", ...)
-    end, node, 2.3, false, "updatex")
-
-    scheduler:schedule(function ( ... )
-        print("schedule", ...)
-    end, node, 3, false, "xx")
-
-    node:schedule(function ( ... )
-        print("node", ...)
-    end, 2.5, "updatexx")
-
-    printUserValue(node)
-    print('--------------')
-    node:unschedule("update")
-    printUserValue(node)
-    -- debug.setuservalue(node, scheduler)
-
-    timer.delay(4, function ( ... )
-        printUserValue(node)
-        node:removeFromParent()
-    end)
-    timer.delay(4.1, function ( ... )
-        -- collectgarbage('collect')
-    end)
+    for k, v in pairs(debug.getregistry()) do
+        print("###", k, v)
+    end
 end
 
 function printUserValue(obj)

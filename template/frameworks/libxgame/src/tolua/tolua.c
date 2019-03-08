@@ -505,6 +505,12 @@ LUALIB_API void toluacls_class(lua_State *L, const char *cls, const char *super)
             luaL_error(L, "super class not found: %s", super);
         }
         lua_pop(L, 1);
+    } else {
+        if (!strequal(cls, "void *")) {
+            toluacls_class(L, "void *", NULL);
+            lua_pop(L, 1);
+            super = "void *";
+        }
     }
     
     if (luaL_getmetatable(L, cls) == LUA_TNIL) {

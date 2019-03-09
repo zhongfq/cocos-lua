@@ -355,27 +355,26 @@ static int trycacheget(lua_State *L, int idx, int kidx)
 #define NILVALUE ((void *)trycacheget)
     int type;
     idx = lua_absindex(L, idx);                 // L: t k
-    type =lua_rawget(L, idx);                   // L: t v
-    if (type != LUA_TNIL) {
-        if (type == LUA_TLIGHTUSERDATA
-            && lua_touserdata(L, -1) == NILVALUE) {
-            lua_pop(L, 1);
-            lua_pushnil(L);
-            return LUA_TNIL;
+    type = lua_rawget(L, idx);                  // L: t v
+    
+    if (type == LUA_TNIL) {
+        lua_pop(L, 1);                          // L: t
+        lua_pushvalue(L, kidx);                 // L: t k
+        type = lua_gettable(L, idx);            // L: t v
+        lua_pushvalue(L, kidx);                 // L: t v k
+        if (type == LUA_TNIL) {
+            lua_pushlightuserdata(L, NILVALUE); // L: t v k v
+        } else {
+            lua_pushvalue(L, -2);               // L: t v k v
         }
-        return type;
+        lua_rawset(L, idx);                     // L: t v
     }
     
-    lua_pop(L, 1);                              // L: t
-    lua_pushvalue(L, kidx);                     // L: t k
-    type = lua_gettable(L, idx);                // L: t v
-    lua_pushvalue(L, kidx);                     // L: t v k
-    if (type != LUA_TNIL) {
-        lua_pushvalue(L, -2);                   // L: t v k v
-    } else {
-        lua_pushlightuserdata(L, NILVALUE);     // L: t v k v
+    if (type == LUA_TLIGHTUSERDATA && lua_touserdata(L, -1) == NILVALUE) {
+        lua_pop(L, 1);
+        lua_pushnil(L);
+        type = LUA_TNIL;
     }
-    lua_rawset(L, idx);                         // L: t v
     
     return type;
 }

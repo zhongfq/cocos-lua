@@ -1,4 +1,4 @@
-require "aux.tolua-cls"
+require "aux.olua-cls"
 
 local M = {}
 
@@ -14,7 +14,7 @@ M.INCLUDES = [[
 #include "xgame/xpreferences.h"
 #include "xgame/xruntime.h"
 #include "xgame/xtimer.h"
-#include "tolua/tolua.hpp"
+#include "olua/olua.hpp"
 ]]
 
 M.CLASSES = {

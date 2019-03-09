@@ -21,12 +21,11 @@ function main()
     print("# preferences 'version'", preferences.getString("conf.version.runtime", "defalut build"))
 
     local sprite = Sprite.create("res/HelloWorld.png")
-    sprite.name = "xxxx"
-    print(sprite)
+    -- sprite.name = "xxxx"
 
-    sprite:setPosition(500, 400)
-    Director.getInstance().runningScene:addChild(sprite)
-    print(Director.getInstance().runningScene:getChildByName("xxxx"))
+    -- sprite:setPosition(500, 400)
+    -- Director.getInstance().runningScene:addChild(sprite)
+    -- print(Director.getInstance().runningScene:getChildByName("xxxx"))
 
     -- node:schedule(function (...)
     --     print("sprite:schedule", ...)
@@ -38,19 +37,23 @@ function main()
     -- local scheduler = node.scheduler
     -- scheduler:schedule(function ( ... )
     --     print("schedule", ...)
-    -- end, node, 1, false, "update")
+    -- end, node, 3, false, "update")
 
-    -- timer.delay(3, function ( ... )
-    --     print(node.referenceCount)
-    --     printUserValue(node)
-    -- end)
+    -- -- timer.delay(3, function ( ... )
+    -- --     print(node.referenceCount)
+    -- --     printUserValue(node)
+    -- -- end)
     -- timer.delay(4, function ( ... )
     --     collectgarbage('collect')
     -- end)
 
-    for k, v in pairs(debug.getregistry()) do
-        print("###", k, v)
-    end
+    -- for k, v in pairs(debug.getregistry()) do
+    --     print("###", k, v)
+    -- end
+
+    -- for k, v in pairs(Sprite.class['.isa']) do
+    --     print("sprite isa", k, v)
+    -- end
 end
 
 function printUserValue(obj)

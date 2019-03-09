@@ -11,8 +11,8 @@ template <typename T> bool doScheduleUpdate(lua_State *L, const char *cls)
         bool arg3 = false;
         
         xluacv_to_ccobj(L, 1, (void **)&self, "cc.Scheduler");
-        tolua_check_int(L, 3, &arg2);
-        tolua_check_bool(L, 4, &arg3);
+        olua_check_int(L, 3, &arg2);
+        olua_check_bool(L, 4, &arg3);
         
         T* arg1 = nullptr;
         xluacv_to_ccobj(L, 2, (void **)&arg1, cls);
@@ -37,20 +37,20 @@ cls.callback(nil, {
 cls.callback(nil, {
         TAG_MAKER = 'makeScheduleCallbackTag(#1)',
         TAG_STORE = 2, -- 2th void *target
-        TAG_MODE = 'TOLUA_CALLBACK_TAG_ENDWITH',
+        TAG_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
     },
     'void unschedule(const std::string& key, void *target)'
 )
 cls.callback(nil, {
         TAG_MAKER = 'makeScheduleCallbackTag("")',
-        TAG_MODE = 'TOLUA_CALLBACK_TAG_WILDCARD',
+        TAG_MODE = 'OLUA_CALLBACK_TAG_WILDCARD',
         TAG_STORE = 1, -- 1th void *target
     },
     'void unscheduleAllForTarget(void *target)'
 )
 cls.callback(nil, {
         TAG_MAKER = 'makeScheduleCallbackTag("")',
-        TAG_MODE = 'TOLUA_CALLBACK_TAG_WILDCARD',
+        TAG_MODE = 'OLUA_CALLBACK_TAG_WILDCARD',
     },
     'void unscheduleAll()'
 )
@@ -67,7 +67,7 @@ cls.func('scheduleUpdate', [[
         return 0;
     }
     
-    luaL_error(L, "unsupport type: %s", tolua_tostring(L, 2));
+    luaL_error(L, "unsupport type: %s", olua_tostring(L, 2));
 
     return 0;
 }]])

@@ -1,7 +1,7 @@
 #include "xgame/xlua.h"
 #include "xgame/xruntime.h"
 #include "xgame/xfilesystem.h"
-#include "tolua/tolua.hpp"
+#include "olua/olua.hpp"
 
 #include "cocos2d.h"
 
@@ -179,7 +179,7 @@ lua_State *xlua_new()
     xlua_call(L, xlua_addsearchpath);
     xlua_call(L, xlua_addlualoader);
     
-    tolua_seterrfunc(xlua_errorfunc);
+    olua_seterrfunc(xlua_errorfunc);
     
 #ifdef COCOS2D_DEBUG
     lua_pushboolean(L, true);
@@ -588,11 +588,11 @@ static int s_obj_count = 0;
 
 int xlua_ccobjgc(lua_State *L)
 {
-    cocos2d::Ref *obj = (cocos2d::Ref *)tolua_checkobj(L, 1, "cc.Ref");
+    cocos2d::Ref *obj = (cocos2d::Ref *)olua_checkobj(L, 1, "cc.Ref");
     if (obj) {
 #ifdef COCOS2D_DEBUG
         int top = lua_gettop(L);
-        const char *str = tolua_tostring(L, 1);
+        const char *str = olua_tostring(L, 1);
         xgame::runtime::log("lua gc: obj=%s obj_ref_count=%d total_obj_count=%d",
             str, obj->getReferenceCount() - 1, s_obj_count - 1);
         lua_settop(L, top);
@@ -641,17 +641,17 @@ bool xluacv_is_obj(lua_State *L, int idx)
 
 void xluacv_to_ccobj(lua_State *L, int idx, void **value, const char *cls)
 {
-    *value = tolua_toobj(L, idx, cls);
+    *value = olua_toobj(L, idx, cls);
 }
 
 void xluacv_check_ccobj(lua_State *L, int idx, void **value, const char *cls)
 {
-    *value = tolua_checkobj(L, idx, cls);
+    *value = olua_checkobj(L, idx, cls);
 }
 
 bool xluacv_is_ccobj(lua_State *L, int idx, const char *cls)
 {
-    return tolua_isa(L, idx, cls);
+    return olua_isa(L, idx, cls);
 }
 
 int xluacv_push_ccmat4(lua_State *L, const cocos2d::Mat4 &value)

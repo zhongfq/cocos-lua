@@ -36,7 +36,7 @@ cls.callback(nil, {
         TAG_MAKER = "makeScheduleCallbackTag(#-1)",
         ONLYONE = true,
         REMOVED = true,
-        TAG_MODE = "TOLUA_CALLBACK_TAG_EQUAL",
+        TAG_MODE = "OLUA_CALLBACK_TAG_EQUAL",
     },
     'void scheduleOnce(const std::function<void(float)>& callback, float delay, const std::string &key)'
 )
@@ -50,13 +50,13 @@ cls.callback(nil, {
 )
 cls.callback(nil, {
         TAG_MAKER = "makeScheduleCallbackTag(#1)",
-        TAG_MODE = "TOLUA_CALLBACK_TAG_ENDWITH",
+        TAG_MODE = "OLUA_CALLBACK_TAG_ENDWITH",
     },
     'void unschedule(const std::string &key)'
 )
 cls.callback(nil, {
         TAG_MAKER = "makeScheduleCallbackTag()",
-        TAG_MODE = "TOLUA_CALLBACK_TAG_WILDCARD",
+        TAG_MODE = "OLUA_CALLBACK_TAG_WILDCARD",
     },
     'void unscheduleAllCallbacks()'
 )

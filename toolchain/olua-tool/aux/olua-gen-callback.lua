@@ -39,7 +39,7 @@ local function gen_remove_callback(cls, fi, write)
     local block = format_snippet([[
         std::string tag = ${TAG_MAKER};
         void *tag_store_obj = (void *)${TAG_STORE_OBJ};
-        tolua_removecallback(L, tag_store_obj, tag.c_str(), ${TAG_MODE});
+        olua_removecallback(L, tag_store_obj, tag.c_str(), ${TAG_MODE});
     ]])
     return block
 end
@@ -68,7 +68,7 @@ function gen_callback(cls, fi, write)
 
     local TAG_MAKER = gen_maker(cls, fi, write)
     local REMOVE_CALLBACK = ""
-    local TOLUA_CALLBACK_TAG = "TOLUA_CALLBACK_TAG_NEW"
+    local OLUA_CALLBACK_TAG = "OLUA_CALLBACK_TAG_NEW"
     local NUM_ARGS = #ai.CALLBACK_ARGS
     local ARGS = {}
     local PUSH_ARGS = {}
@@ -108,12 +108,12 @@ function gen_callback(cls, fi, write)
     if fi.CALLBACK_OPT.REMOVED then
         local TAG_MODE = fi.CALLBACK_OPT.TAG_MODE
         REMOVE_CALLBACK = format_snippet([[
-            tolua_removecallback(L, tag_store_obj, func.c_str(), ${TAG_MODE});
+            olua_removecallback(L, tag_store_obj, func.c_str(), ${TAG_MODE});
         ]])
     end
 
     if fi.CALLBACK_OPT.ONLYONE then
-        TOLUA_CALLBACK_TAG = "TOLUA_CALLBACK_TAG_REPLACE"
+        OLUA_CALLBACK_TAG = "OLUA_CALLBACK_TAG_REPLACE"
     end
 
     TAG_STORE = get_tag_store(fi) + 1
@@ -126,12 +126,12 @@ function gen_callback(cls, fi, write)
     local block = format_snippet([[
         void *tag_store_obj = (void *)${TAG_STORE_OBJ};
         std::string tag = ${TAG_MAKER};
-        std::string func = tolua_setcallback(L, tag_store_obj, tag.c_str(), ${IDX}, ${TOLUA_CALLBACK_TAG});
+        std::string func = olua_setcallback(L, tag_store_obj, tag.c_str(), ${IDX}, ${OLUA_CALLBACK_TAG});
         ${ARG_N} = [tag_store_obj, func, tag](${ARGS}) {
             lua_State *L = xlua_cocosthread();
             int top = lua_gettop(L);
             ${PUSH_ARGS}
-            tolua_callback(L, tag_store_obj, func.c_str(), ${NUM_ARGS});
+            olua_callback(L, tag_store_obj, func.c_str(), ${NUM_ARGS});
             ${REMOVE_CALLBACK}
             lua_settop(L, top);
         };

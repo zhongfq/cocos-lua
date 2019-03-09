@@ -28,7 +28,7 @@ local function gen_class_open(cls, write)
         local CPPFUNC = fis[1].CPPFUNC
         local LUAFUNC = fis[1].LUAFUNC
         FUNCS[#FUNCS + 1] = format_snippet([[
-            toluacls_setfunc(L, "${LUAFUNC}", _${CPPCLS_PATH}_${CPPFUNC});
+            oluacls_setfunc(L, "${LUAFUNC}", _${CPPCLS_PATH}_${CPPFUNC});
         ]])
     end
 
@@ -43,7 +43,7 @@ local function gen_class_open(cls, write)
             FUNC_SET = string.format("_%s_%s", CPPCLS_PATH, pi.SET.CPPFUNC)
         end
         FUNCS[#FUNCS + 1] = format_snippet([[
-            toluacls_property(L, "${PROP_NAME}", ${FUNC_GET}, ${FUNC_SET});
+            oluacls_property(L, "${PROP_NAME}", ${FUNC_GET}, ${FUNC_SET});
         ]])
     end
 
@@ -52,13 +52,13 @@ local function gen_class_open(cls, write)
         local CONST_VALUE = ci.CONST_VALUE
         local CONST_NAME = ci.CONST_NAME
         if ci.TYPE == "boolean" then
-            CONST_FUNC = "toluacls_const_bool"
+            CONST_FUNC = "oluacls_const_bool"
         elseif ci.TYPE == "integer" then
-            CONST_FUNC = "toluacls_const_integer"
+            CONST_FUNC = "oluacls_const_integer"
         elseif ci.TYPE == "float" then
-            CONST_FUNC = "toluacls_const_number"
+            CONST_FUNC = "oluacls_const_number"
         elseif ci.TYPE == "string" then
-            CONST_FUNC = "toluacls_const_string"
+            CONST_FUNC = "oluacls_const_string"
             CONST_VALUE = stringfy(CONST_VALUE)
         end
         FUNCS[#FUNCS + 1] = format_snippet([[
@@ -70,7 +70,7 @@ local function gen_class_open(cls, write)
         local ENUM_NAME = ei.ENUM_NAME
         local ENUM_VALUE = ei.ENUM_VALUE
         FUNCS[#FUNCS + 1] = format_snippet([[
-            toluacls_const_integer(L, "${ENUM_NAME}", (lua_Integer)${ENUM_VALUE});
+            oluacls_const_integer(L, "${ENUM_NAME}", (lua_Integer)${ENUM_VALUE});
         ]])
     end
 
@@ -78,18 +78,18 @@ local function gen_class_open(cls, write)
 
     if cls.REG_LUATYPE then
         REG_LUATYPE = format_snippet([[
-            tolua_registerluatype<${CPPCLS}>(L, "${LUACLS}");
+            olua_registerluatype<${CPPCLS}>(L, "${LUACLS}");
         ]])
     end
 
     write(format_snippet([[
         static int luaopen_${CPPCLS_PATH}(lua_State *L)
         {
-            toluacls_class(L, "${LUACLS}", ${SUPRECLS});
+            oluacls_class(L, "${LUACLS}", ${SUPRECLS});
             ${FUNCS}
 
             ${REG_LUATYPE}
-            toluacls_createclassproxy(L);
+            oluacls_createclassproxy(L);
             
             return 1;
         }

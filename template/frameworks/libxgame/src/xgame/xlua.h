@@ -60,8 +60,8 @@ template <typename T> int xluacv_push_ccobj(lua_State *L, T* value, const char *
     if (!value) {
         lua_pushnil(L);
     } else {
-        cls = tolua_getluatype(L, value, cls);
-        is_new = tolua_pushobj(L, value, cls);
+        cls = olua_getluatype(L, value, cls);
+        is_new = olua_pushobj(L, value, cls);
     }
     
     if (is_new && std::is_base_of<cocos2d::Ref, T>::value) {

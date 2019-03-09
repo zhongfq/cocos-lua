@@ -1,4 +1,4 @@
-require "aux.tolua-cls"
+require "aux.olua-cls"
 require "conf.cocos2d.import-cocos2d-type"
 
 local M = {}
@@ -12,7 +12,7 @@ M.INCLUDES = [[
 #include "xgame/lua-bindings/lua_conv.h"
 #include "xgame/xlua.h"
 #include "xgame/xruntime.h"
-#include "tolua/tolua.hpp"
+#include "olua/olua.hpp"
 #include "cocos2d.h"
 ]]
 

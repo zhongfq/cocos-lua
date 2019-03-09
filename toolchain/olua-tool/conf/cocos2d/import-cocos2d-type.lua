@@ -85,7 +85,7 @@ REG_TYPE {
         'cocos2d::Camera::Type',
     }, '|'),
     DECL_TYPE = 'lua_Unsigned',
-    CONV_FUNC = "tolua_$$_uint",
+    CONV_FUNC = "olua_$$_uint",
 }
 
 REG_TYPE {

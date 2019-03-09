@@ -7,7 +7,7 @@ M.SOURCE_PATH = "template/frameworks/libxgame/src/xgame/lua-bindings/lua_conv.cp
 M.INCLUDES = [[
 #include "xgame/lua-bindings/lua_conv.h"
 #include "xgame/xlua.h"
-#include "tolua/tolua.hpp"
+#include "olua/olua.hpp"
 ]]
 
 M.CONVS = {

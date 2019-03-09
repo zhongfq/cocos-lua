@@ -1,39 +1,39 @@
-#ifndef __TOLUA_HPP__
-#define __TOLUA_HPP__
+#ifndef __OLUA_HPP__
+#define __OLUA_HPP__
 
-#include "tolua/tolua.h"
+#include "olua/olua.h"
 
 #include <string>
 #include <functional>
 
-static inline int tolua_push_std_string(lua_State *L, const std::string &value)
+static inline int olua_push_std_string(lua_State *L, const std::string &value)
 {
     lua_pushstring(L, value.c_str());
     return 1;
 }
 
-static inline void tolua_check_std_string(lua_State *L, int idx, std::string *value)
+static inline void olua_check_std_string(lua_State *L, int idx, std::string *value)
 {
     luaL_checktype(L, idx, LUA_TSTRING);
     *value = lua_tostring(L, idx);
 }
 
-static inline void tolua_opt_std_string(lua_State *L, int idx, std::string *value, const std::string &def)
+static inline void olua_opt_std_string(lua_State *L, int idx, std::string *value, const std::string &def)
 {
     *value = luaL_optstring(L, idx, def.c_str());
 }
 
-static inline bool tolua_is_std_string(lua_State *L, int idx)
+static inline bool olua_is_std_string(lua_State *L, int idx)
 {
     return lua_isstring(L, idx);
 }
 
-static inline bool tolua_is_std_function(lua_State *L, int idx)
+static inline bool olua_is_std_function(lua_State *L, int idx)
 {
     return lua_isfunction(L, idx);
 }
 
-template <typename T> void tolua_registerluatype(lua_State *L, const char *cls)
+template <typename T> void olua_registerluatype(lua_State *L, const char *cls)
 {
     const char *type = typeid(T).name();
     lua_pushstring(L, type);                            // L: type
@@ -50,7 +50,7 @@ template <typename T> void tolua_registerluatype(lua_State *L, const char *cls)
     }
 }
 
-template <typename T> const char *tolua_getluatype(lua_State *L, T *obj, const char *cls)
+template <typename T> const char *olua_getluatype(lua_State *L, T *obj, const char *cls)
 {
     if (obj) {
         const char *type = typeid(*obj).name();

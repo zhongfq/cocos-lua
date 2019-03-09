@@ -1,16 +1,17 @@
 local function gen_class_funcs(cls, write)
+    local func_filter = {}
     for i, fi in ipairs(cls.FUNCS) do
-        gen_class_func(cls, fi, write)
+        gen_class_func(cls, fi, write, func_filter)
         write('')
     end
 
     for i, pi in ipairs(cls.PROPS) do
         if pi.GET then
-            gen_class_func(cls, {pi.GET}, write)
+            gen_class_func(cls, {pi.GET}, write, func_filter)
             write('')
         end
         if pi.SET then
-            gen_class_func(cls, {pi.SET}, write)
+            gen_class_func(cls, {pi.SET}, write, func_filter)
             write('')
         end
     end

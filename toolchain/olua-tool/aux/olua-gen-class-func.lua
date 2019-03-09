@@ -144,7 +144,7 @@ local function gen_func_ret(cls, fi)
     return RET_VALUE, PUSH_RET
 end
 
-local function gen_one_func(cls, fi, write, funcidx)
+local function gen_one_func(cls, fi, write, funcidx, func_filter)
     if fi.CPPFUNC_SNIPPET then
         gen_snippet_func(cls, fi, write)
         return
@@ -155,6 +155,14 @@ local function gen_one_func(cls, fi, write, funcidx)
     local FUNC_DECL = fi.FUNC_DECL
     local FUNC_INDEX = funcidx or ""
     local CALLER = "self->"
+
+    local funcname = format_snippet([[
+        _${CPPCLS_PATH}_${CPPFUNC}${FUNC_INDEX}
+    ]])
+    if func_filter[funcname] then
+        return
+    end
+    func_filter[funcname] = true
 
     if fi.STATIC then
         CALLER = cls.CPPCLS .. '::'
@@ -248,7 +256,7 @@ local function gen_test_and_call(cls, fns)
     return table.concat(CALL_CHUNK, "\n\n")
 end
 
-function gen_multi_func(cls, fis, write)
+function gen_multi_func(cls, fis, write, func_filter)
     local NUM_ARGS = fis.MAX_ARGS
     local CPPCLS = cls.CPPCLS
     local CPPCLS_PATH = class_path(cls.CPPCLS)
@@ -257,7 +265,7 @@ function gen_multi_func(cls, fis, write)
     local IF_CHUNK = {}
 
     for _, fi in ipairs(fis) do
-        gen_one_func(cls, fi, write, fi.INDEX)
+        gen_one_func(cls, fi, write, fi.INDEX, func_filter)
         write('')
     end
 
@@ -289,10 +297,10 @@ function gen_multi_func(cls, fis, write)
     ]]))
 end
 
-function gen_class_func(cls, fis, write)
+function gen_class_func(cls, fis, write, func_filter)
     if #fis == 1 then
-        gen_one_func(cls, fis[1], write)
+        gen_one_func(cls, fis[1], write, nil, func_filter)
     else
-        gen_multi_func(cls, fis, write)
+        gen_multi_func(cls, fis, write, func_filter)
     end
 end

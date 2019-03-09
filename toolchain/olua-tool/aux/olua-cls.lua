@@ -253,6 +253,24 @@ function class()
         cls.FUNCS[#cls.FUNCS + 1] = parse_func(cls, name, ...)
     end
 
+    function cls.funcs(funcs_str)
+        local arr = {}
+        local dict = {}
+        for func_decl in string.gmatch(funcs_str, '[^\n\r]+') do
+            local fn = string.match(func_decl, '([^ ]+)%(')
+            local t = dict[fn]
+            if not t then
+                t = {}
+                arr[#arr + 1] = t
+                dict[fn] = t
+            end
+            t[#t + 1] = string.gsub(func_decl, '^ *', '')
+        end
+        for _, v in ipairs(arr) do
+            cls.func(nil, table.unpack(v))
+        end
+    end
+
     function cls.callback(name, opt, ...)
         cls.FUNCS[#cls.FUNCS + 1] = parse_func(cls, name, ...)
         for i, v in ipairs(cls.FUNCS[#cls.FUNCS]) do

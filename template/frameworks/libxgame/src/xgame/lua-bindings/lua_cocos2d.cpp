@@ -3402,6 +3402,36 @@ static int _cocos2d_Node_create(lua_State *L)
     return xluacv_push_ccobj(L, ret, "cc.Node");
 }
 
+static int _cocos2d_Node_getName(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Node *self = nullptr;
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
+
+    // const std::string& getName()
+    const std::string &ret = (const std::string &)self->getName();
+
+    return olua_push_std_string(L, ret);
+}
+
+static int _cocos2d_Node_setName(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Node *self = nullptr;
+    std::string arg1;       /** name */
+
+    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void setName(const std::string& name)
+    self->setName(arg1);
+
+    return 0;
+}
+
 static int _cocos2d_Node_addChild1(lua_State *L)
 {
     lua_settop(L, 2);
@@ -3533,7 +3563,7 @@ static int _cocos2d_Node_getChildByName(lua_State *L)
     xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
     olua_check_std_string(L, 2, &arg1);
 
-    // Node* getChildByName(const std::string& name)
+    // Node *getChildByName(const std::string& name)
     cocos2d::Node *ret = (cocos2d::Node *)self->getChildByName(arg1);
 
     return xluacv_push_ccobj(L, ret, "cc.Node");
@@ -4033,35 +4063,7 @@ static int _cocos2d_Node_pause(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_Node_getName(lua_State *L)
-{
-    lua_settop(L, 1);
 
-    cocos2d::Node *self = nullptr;
-
-    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
-
-    // const std::string& getName()
-    const std::string &ret = (const std::string &)self->getName();
-
-    return olua_push_std_string(L, ret);
-}
-
-static int _cocos2d_Node_setName(lua_State *L)
-{
-    lua_settop(L, 2);
-
-    cocos2d::Node *self = nullptr;
-    std::string arg1;       /** name */
-
-    xluacv_to_ccobj(L, 1, (void **)&self, "cc.Node");
-    olua_check_std_string(L, 2, &arg1);
-
-    // void setName(const std::string& name)
-    self->setName(arg1);
-
-    return 0;
-}
 
 static int _cocos2d_Node_getAttachedNodeCount(lua_State *L)
 {
@@ -4151,6 +4153,8 @@ static int luaopen_cocos2d_Node(lua_State *L)
 {
     oluacls_class(L, "cc.Node", "cc.Ref");
     oluacls_setfunc(L, "create", _cocos2d_Node_create);
+    oluacls_setfunc(L, "getName", _cocos2d_Node_getName);
+    oluacls_setfunc(L, "setName", _cocos2d_Node_setName);
     oluacls_setfunc(L, "addChild", _cocos2d_Node_addChild);
     oluacls_setfunc(L, "getChildByTag", _cocos2d_Node_getChildByTag);
     oluacls_setfunc(L, "getChildByName", _cocos2d_Node_getChildByName);

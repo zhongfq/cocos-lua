@@ -41,7 +41,7 @@ template <typename T> void tolua_registerluatype(lua_State *L, const char *cls)
     lua_pushvalue(L, -2);                               // L: type cls type
     if (lua_rawget(L, LUA_REGISTRYINDEX) == LUA_TNIL) { // L: type cls value
         lua_pop(L, 1);                                  // L: type cls
-        lua_rawset(L, LUA_REGISTRYINDEX);               // L:
+        lua_rawset(L, LUA_REGISTRYINDEX);               // L:                 REGISTRY[type] = cls
     } else {                                            // L: type cls value
         if (!lua_rawequal(L, -1, -2)) {
             luaL_error(L, "lua type conflict: %s=%s", type, cls);

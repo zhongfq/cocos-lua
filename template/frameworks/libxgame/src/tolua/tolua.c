@@ -14,12 +14,12 @@
 
 static lua_CFunction _traceback = NULL;
 
-static bool strequal(const char *str1, const char *str2)
+static inline bool strequal(const char *str1, const char *str2)
 {
     return strcmp(str1, str2) == 0;
 }
 
-static bool strendwith(const char *src, const char *suffix)
+static inline bool strendwith(const char *src, const char *suffix)
 {
     const char *pos = strstr(src, suffix);
     return !pos ? false : (src + strlen(src) == pos + strlen(suffix));
@@ -382,14 +382,6 @@ static int trycacheget(lua_State *L, int idx, int kidx)
 
 static int cls_index(lua_State *L)
 {
-    // try func
-    lua_settop(L, 2);                           // L: t k
-    lua_pushvalue(L, CLS_FUNCIDX);              // L: t k .func
-    lua_pushvalue(L, 2);                        // L: t k .func k
-    if (trycacheget(L, -2, 2) != LUA_TNIL) {    // L: t k .func v
-        return 1;
-    }
-    
     // try getter
     lua_settop(L, 2);                           // L: t k
     lua_pushvalue(L, CLS_GETIDX);               // L: t k .get
@@ -397,6 +389,14 @@ static int cls_index(lua_State *L)
     if (trycacheget(L, -2, 2) != LUA_TNIL) {    // L: t k .get getter
         lua_pushvalue(L, 1);                    // L: t k .get getter t
         lua_call(L, 1, 1);                      // L: t k .get ret
+        return 1;
+    }
+    
+    // try func
+    lua_settop(L, 2);                           // L: t k
+    lua_pushvalue(L, CLS_FUNCIDX);              // L: t k .func
+    lua_pushvalue(L, 2);                        // L: t k .func k
+    if (trycacheget(L, -2, 2) != LUA_TNIL) {    // L: t k .func v
         return 1;
     }
     
@@ -615,30 +615,6 @@ LUALIB_API void toluacls_const(lua_State *L, const char *field)
     lua_pop(L, 1);                               // L: mt
 }
 
-LUALIB_API void toluacls_const_bool(lua_State *L, const char *field, bool value)
-{
-    lua_pushboolean(L, value);
-    toluacls_const(L, field);
-}
-
-LUALIB_API void toluacls_const_number(lua_State *L, const char *field, lua_Number value)
-{
-    lua_pushnumber(L, value);
-    toluacls_const(L, field);
-}
-
-LUALIB_API void toluacls_const_integer(lua_State *L, const char *field, lua_Integer value)
-{
-    lua_pushinteger(L, value);
-    toluacls_const(L, field);
-}
-
-LUALIB_API void toluacls_const_string(lua_State *L, const char *field, const char *value)
-{
-    lua_pushstring(L, value);
-    toluacls_const(L, field);
-}
-
 LUALIB_API int tolua_push_bool(lua_State *L, bool value)
 {
     lua_pushboolean(L, value);
@@ -669,8 +645,7 @@ LUALIB_API int tolua_push_string(lua_State *L, const char *value)
 
 LUALIB_API void tolua_check_string(lua_State *L, int idx, const char **value)
 {
-    luaL_checktype(L, idx, LUA_TSTRING);
-    *value = lua_tostring(L, idx);
+    *value = luaL_checkstring(L, idx);
 }
 
 LUALIB_API void tolua_opt_string(lua_State *L, int idx, const char **value, const char *def)

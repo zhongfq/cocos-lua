@@ -55,10 +55,10 @@ LUALIB_API void toluacls_createclassproxy(lua_State *L);
 LUALIB_API void toluacls_property(lua_State *L, const char *field, lua_CFunction getter, lua_CFunction setter);
 LUALIB_API void toluacls_setfunc(lua_State *L, const char *funcname, lua_CFunction func);
 LUALIB_API void toluacls_const(lua_State *L, const char *field);
-LUALIB_API void toluacls_const_bool(lua_State *L, const char *field, bool value);
-LUALIB_API void toluacls_const_number(lua_State *L, const char *field, lua_Number value);
-LUALIB_API void toluacls_const_integer(lua_State *L, const char *field, lua_Integer value);
-LUALIB_API void toluacls_const_string(lua_State *L, const char *field, const char *value);
+#define toluacls_const_bool(L, field, value) {lua_pushboolean(L, value); toluacls_const(L, field);}
+#define toluacls_const_number(L, field, value) {lua_pushnumber(L, value); toluacls_const(L, field);}
+#define toluacls_const_integer(L, field, value) {lua_pushinteger(L, value); toluacls_const(L, field);}
+#define toluacls_const_string(L, field, value) {lua_pushstring(L, value); toluacls_const(L, field);}
     
 typedef enum {
     // for tolua_setcallback

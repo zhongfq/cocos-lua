@@ -55,11 +55,7 @@ LUALIB_API const char *olua_typename(lua_State *L, int idx)
         lua_pop(L, 2); // pop mt and value
     }
     
-    if (tn == NULL) {
-        tn = lua_typename(L, lua_type(L, idx));
-    }
-    
-    return tn;
+    return tn ? tn : lua_typename(L, lua_type(L, idx));
 }
 
 LUALIB_API const char *olua_tostring(lua_State *L, int idx)
@@ -71,9 +67,7 @@ LUALIB_API const char *olua_tostring(lua_State *L, int idx)
         p = (intptr_t)lua_topointer(L, idx);
     }
     
-    lua_pushfstring(L, "%s: %p", olua_typename(L, idx), p);
-    
-    return lua_tostring(L, -1);
+    return lua_pushfstring(L, "%s: %p", olua_typename(L, idx), p);
 }
 
 LUALIB_API bool olua_isa(lua_State *L, int idx, const char *cls)
@@ -102,12 +96,10 @@ LUALIB_API bool olua_pushobj(lua_State *L, void *obj, const char *cls)
     if (lua_rawgetp(L, LUA_REGISTRYINDEX, OBJ_REF_TABLE) == LUA_TNIL) {
         lua_pop(L, 1); // pop nil
         lua_newtable(L);
-        
         lua_pushvalue(L, -1);
         lua_pushstring(L, "kv");
         lua_setfield(L, -2, "__mode");  // mt.__mode = 'kv'
         lua_setmetatable(L, -2);        // mt.metatable = mt
-        
         lua_pushvalue(L, -1);
         lua_rawsetp(L, LUA_REGISTRYINDEX, OBJ_REF_TABLE);
     }
@@ -117,7 +109,7 @@ LUALIB_API bool olua_pushobj(lua_State *L, void *obj, const char *cls)
         *(void **)lua_newuserdata(L, sizeof(void *)) = obj; // L: mapping obj
         luaL_setmetatable(L, cls);                          // L: mapping obj
         lua_pushvalue(L, -1);                               // L: mapping obj obj
-        lua_rawsetp(L, -3, obj);                            // L: mapping obj
+        lua_rawsetp(L, -3, obj); // mapping[obj] = uobj     // L: mapping obj
         is_new = true;
         
         if (!lua_getmetatable(L, -1)) {
@@ -175,11 +167,10 @@ LUALIB_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag
     const char *field = NULL;
     
     func = lua_absindex(L, func);
-
     luaL_checktype(L, func, LUA_TFUNCTION);
     
     if (!olua_getobj(L, obj) ||
-        !getcallbacktable(L, -1)) {              // L: obj ct
+        !getcallbacktable(L, -1)) {                 // L: obj ct
         luaL_error(L, "obj userdata not found");
     }
 
@@ -211,7 +202,7 @@ LUALIB_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag
     }
     
     lua_pushvalue(L, func);                         // L: ct k  v
-    olua_rawsetfield(L, -3, field);                // L: ct k
+    olua_rawsetfield(L, -3, field);                 // L: ct k
     lua_remove(L, -2);                              // L: k
     
     return lua_tostring(L, -1);
@@ -221,13 +212,11 @@ static bool shouldremovecallback(const char *field, const char *tag, olua_callba
 {
     if (mode == OLUA_CALLBACK_TAG_WILDCARD) {
         return strstr(field, tag) != NULL;
-    }
-    
-    if (mode == OLUA_CALLBACK_TAG_ENDWITH) {
+    } else if (mode == OLUA_CALLBACK_TAG_ENDWITH) {
         return strendwith(field, tag);
+    } else {
+        return false;
     }
-    
-    return false;
 }
 
 LUALIB_API void olua_removecallback(lua_State *L, void *obj, const char *tag, olua_callback_tag_t mode)
@@ -236,7 +225,7 @@ LUALIB_API void olua_removecallback(lua_State *L, void *obj, const char *tag, ol
     if (olua_getobj(L, obj) && getcallbacktable(L, -1)) {
         if (mode == OLUA_CALLBACK_TAG_EQUAL) {
             lua_pushnil(L);                                 // L: ct nil
-            olua_rawsetfield(L, -2, tag);                  // L: ct
+            olua_rawsetfield(L, -2, tag);                   // L: ct
         } else {
             lua_pushnil(L);                                 // L: ct k
             while (lua_next(L, -2)) {                       // L: ct k v
@@ -261,8 +250,8 @@ LUALIB_API bool olua_callback(lua_State *L, void *obj, const char *field, int n)
     bool ret = false;
     int errfunc = 0;
     
-    if (olua_getobj(L, obj) && getcallbacktable(L, -1)) {      // L: arg...n obj ct
-        if (olua_rawgetfield(L, -1, field) == LUA_TFUNCTION) { // L: arg...n obj ct callback
+    if (olua_getobj(L, obj) && getcallbacktable(L, -1)) {       // L: arg...n obj ct
+        if (olua_rawgetfield(L, -1, field) == LUA_TFUNCTION) {  // L: arg...n obj ct callback
             lua_insert(L, top + 1);                             // L: callback arg...n obj ct
             lua_pop(L, 2);                                      // L: callback arg...n
             
@@ -457,10 +446,10 @@ static void create_table(lua_State *L, int idx, const char *field, const char *s
     lua_newtable(L);                        // L: t
     if (supercls) {
         luaL_getmetatable(L, supercls);     // L: t super
-        olua_rawgetfield(L, -1, field);    // L: t super fv
+        olua_rawgetfield(L, -1, field);     // L: t super fv
         lua_createtable(L, 0, 1);           // L: t super fv mt
         lua_pushvalue(L, -2);               // L: t super fv mt fv
-        olua_rawsetfield(L, -2, "__index");// L: t super fv mt
+        olua_rawsetfield(L, -2, "__index"); // L: t super fv mt
         lua_setmetatable(L, -4);            // L: t super fv
         
         if (copy) {
@@ -476,7 +465,7 @@ static void create_table(lua_State *L, int idx, const char *field, const char *s
     }
     
     lua_pushvalue(L, -1);                   // L: t t
-    olua_rawsetfield(L, idx, field);       // L: t     idx[field] = t
+    olua_rawsetfield(L, idx, field);        // L: t     idx[field] = t
 }
 
 static void copysupermetafunc(lua_State *L, int idx, const char *supercls)
@@ -556,25 +545,25 @@ LUALIB_API void oluacls_createclassproxy(lua_State *L)
     lua_newtable(L);                        // L: mt p
     lua_createtable(L, 0, 2);               // L: mt p pmt
     lua_getfield(L, -3, "__index");         // L: mt p pmt __index
-    olua_rawsetfield(L, -2, "__index");    // L: mt p pmt
+    olua_rawsetfield(L, -2, "__index");     // L: mt p pmt
     lua_getfield(L, -3, "__newindex");      // L: mt p pmt __newindex
-    olua_rawsetfield(L, -2, "__newindex"); // L: mt p pmt
+    olua_rawsetfield(L, -2, "__newindex");  // L: mt p pmt
     lua_setmetatable(L, -2);                // L: mt p
 }
 
 LUALIB_API void oluacls_property(lua_State *L, const char *field, lua_CFunction getter, lua_CFunction setter)
 {
     if (getter) {
-        olua_rawgetfield(L, -1, CLS_GET);  // L: mt .get
+        olua_rawgetfield(L, -1, CLS_GET);   // L: mt .get
         lua_pushcfunction(L, getter);       // L: mt .get getter
-        olua_rawsetfield(L, -2, field);    // L: mt .get            .get[field] = getter
+        olua_rawsetfield(L, -2, field);     // L: mt .get            .get[field] = getter
         lua_pop(L, 1);                      // L: mt
     }
     
     if (setter) {
-        olua_rawgetfield(L, -1, CLS_SET);  // L: mt .set
+        olua_rawgetfield(L, -1, CLS_SET);   // L: mt .set
         lua_pushcfunction(L, setter);       // L: mt .set setter
-        olua_rawsetfield(L, -2, field);    // L: mt .set            .set[field] = setter
+        olua_rawsetfield(L, -2, field);     // L: mt .set            .set[field] = setter
         lua_pop(L, 1);                      // L: mt
     }
 }
@@ -583,9 +572,9 @@ LUALIB_API void oluacls_setfunc(lua_State *L, const char *name, lua_CFunction fu
 {
     if (func) {
         lua_pushcfunction(L, func);         // L: mt func
-        olua_rawgetfield(L, -2, CLS_FUNC); // L: mt func .func
+        olua_rawgetfield(L, -2, CLS_FUNC);  // L: mt func .func
         lua_pushvalue(L, -2);               // L: mt func .func func
-        olua_rawsetfield(L, -2, name);     // L: mt func .func            .func[name] = func
+        olua_rawsetfield(L, -2, name);      // L: mt func .func            .func[name] = func
         lua_pop(L, 1);                      // L: mt func
         
         if (ismetafunc(L, 0, name)) {
@@ -604,14 +593,14 @@ static int cls_index_const(lua_State *L)
 
 LUALIB_API void oluacls_const(lua_State *L, const char *field)
 {
-    lua_pushvalue(L, -1);                        // L: mt v v
+    lua_pushvalue(L, -1);                       // L: mt v v
     olua_rawsetfield(L, -3, field);             // L: mt v
     
-    lua_pushcclosure(L, cls_index_const, 1);     // L: mt getter
+    lua_pushcclosure(L, cls_index_const, 1);    // L: mt getter
     olua_rawgetfield(L, -2, CLS_GET);           // L: mt getter .get
-    lua_insert(L, -2);                           // L: mt .get getter
+    lua_insert(L, -2);                          // L: mt .get getter
     olua_rawsetfield(L, -2, field);             // L: mt .get
-    lua_pop(L, 1);                               // L: mt
+    lua_pop(L, 1);                              // L: mt
 }
 
 LUALIB_API int olua_push_bool(lua_State *L, bool value)

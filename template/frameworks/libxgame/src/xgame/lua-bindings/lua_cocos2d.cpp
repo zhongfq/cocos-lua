@@ -4415,6 +4415,123 @@ static int luaopen_cocos2d_Scene(lua_State *L)
     return 1;
 }
 
+static int luaopen_cocos2d_EventListener_Type(lua_State *L)
+{
+    oluacls_class(L, "cc.EventListener.Type", nullptr);
+    oluacls_const_integer(L, "UNKNOWN", (lua_Integer)cocos2d::EventListener::Type::UNKNOWN);
+    oluacls_const_integer(L, "TOUCH_ONE_BY_ONE", (lua_Integer)cocos2d::EventListener::Type::TOUCH_ONE_BY_ONE);
+    oluacls_const_integer(L, "TOUCH_ALL_AT_ONCE", (lua_Integer)cocos2d::EventListener::Type::TOUCH_ALL_AT_ONCE);
+    oluacls_const_integer(L, "KEYBOARD", (lua_Integer)cocos2d::EventListener::Type::KEYBOARD);
+    oluacls_const_integer(L, "MOUSE", (lua_Integer)cocos2d::EventListener::Type::MOUSE);
+    oluacls_const_integer(L, "ACCELERATION", (lua_Integer)cocos2d::EventListener::Type::ACCELERATION);
+    oluacls_const_integer(L, "FOCUS", (lua_Integer)cocos2d::EventListener::Type::FOCUS);
+    oluacls_const_integer(L, "GAME_CONTROLLER", (lua_Integer)cocos2d::EventListener::Type::GAME_CONTROLLER);
+    oluacls_const_integer(L, "CUSTOM", (lua_Integer)cocos2d::EventListener::Type::CUSTOM);
+
+    olua_registerluatype<cocos2d::EventListener::Type>(L, "cc.EventListener.Type");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_EventListener_checkAvailable(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::EventListener *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListener");
+
+    // bool checkAvailable()
+    bool ret = (bool)self->checkAvailable();
+
+    return olua_push_bool(L, ret);
+}
+
+static int _cocos2d_EventListener_clone(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::EventListener *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListener");
+
+    // EventListener* clone()
+    cocos2d::EventListener *ret = (cocos2d::EventListener *)self->clone();
+
+    return olua_push_cppobj(L, ret, "cc.EventListener");
+}
+
+static int _cocos2d_EventListener_setEnabled(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::EventListener *self = nullptr;
+    bool arg1 = false;   /** enabled */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListener");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setEnabled(bool enabled)
+    self->setEnabled(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_EventListener_isEnabled(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::EventListener *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListener");
+
+    // bool isEnabled()
+    bool ret = (bool)self->isEnabled();
+
+    return olua_push_bool(L, ret);
+}
+
+
+
+
+static int luaopen_cocos2d_EventListener(lua_State *L)
+{
+    oluacls_class(L, "cc.EventListener", "cc.Ref");
+    oluacls_setfunc(L, "checkAvailable", _cocos2d_EventListener_checkAvailable);
+    oluacls_setfunc(L, "clone", _cocos2d_EventListener_clone);
+    oluacls_setfunc(L, "setEnabled", _cocos2d_EventListener_setEnabled);
+    oluacls_setfunc(L, "isEnabled", _cocos2d_EventListener_isEnabled);
+    oluacls_property(L, "enabled", _cocos2d_EventListener_isEnabled, _cocos2d_EventListener_setEnabled);
+    oluacls_property(L, "available", _cocos2d_EventListener_checkAvailable, nullptr);
+
+    olua_registerluatype<cocos2d::EventListener>(L, "cc.EventListener");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_EventListenerTouchAllAtOnce_create(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static EventListenerTouchAllAtOnce* create()
+    cocos2d::EventListenerTouchAllAtOnce *ret = (cocos2d::EventListenerTouchAllAtOnce *)cocos2d::EventListenerTouchAllAtOnce::create();
+
+    return olua_push_cppobj(L, ret, "cc.EventListenerTouchAllAtOnce");
+}
+
+static int luaopen_cocos2d_EventListenerTouchAllAtOnce(lua_State *L)
+{
+    oluacls_class(L, "cc.EventListenerTouchAllAtOnce", "cc.EventListener");
+    oluacls_setfunc(L, "create", _cocos2d_EventListenerTouchAllAtOnce_create);
+
+    olua_registerluatype<cocos2d::EventListenerTouchAllAtOnce>(L, "cc.EventListenerTouchAllAtOnce");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
 int luaopen_cocos2d(lua_State *L)
 {
     xlua_require(L, "cc.UserDefault", luaopen_cocos2d_UserDefault);
@@ -4433,5 +4550,8 @@ int luaopen_cocos2d(lua_State *L)
     xlua_require(L, "cc.Camera", luaopen_cocos2d_Camera);
     xlua_require(L, "cc.Sprite", luaopen_cocos2d_Sprite);
     xlua_require(L, "cc.Scene", luaopen_cocos2d_Scene);
+    xlua_require(L, "cc.EventListener.Type", luaopen_cocos2d_EventListener_Type);
+    xlua_require(L, "cc.EventListener", luaopen_cocos2d_EventListener);
+    xlua_require(L, "cc.EventListenerTouchAllAtOnce", luaopen_cocos2d_EventListenerTouchAllAtOnce);
     return 0;
 }

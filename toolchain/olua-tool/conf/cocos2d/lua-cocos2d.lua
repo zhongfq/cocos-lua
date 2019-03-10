@@ -52,6 +52,7 @@ M.CLASSES = {
     include("conf/cocos2d/cc/cc.Camera.lua"),
     include("conf/cocos2d/cc/cc.Sprite.lua"),
     include("conf/cocos2d/cc/cc.Scene.lua"),
+    include("conf/cocos2d/cc/cc.EventListener.lua"),
 }
 
 return M

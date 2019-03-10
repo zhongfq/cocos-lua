@@ -1,6 +1,6 @@
-local arr = {}
+local M = {}
 
-local cls = class()
+local cls = class(M)
 cls.CPPCLS = "cocos2d::Texture2D::PixelFormat"
 cls.LUACLS = "cc.Texture2D.PixelFormat"
 cls.enum('AUTO', 'cocos2d::Texture2D::PixelFormat::AUTO')
@@ -25,9 +25,8 @@ cls.enum('ATC_RGB', 'cocos2d::Texture2D::PixelFormat::ATC_RGB')
 cls.enum('ATC_EXPLICIT_ALPHA', 'cocos2d::Texture2D::PixelFormat::ATC_EXPLICIT_ALPHA')
 cls.enum('ATC_INTERPOLATED_ALPHA', 'cocos2d::Texture2D::PixelFormat::ATC_INTERPOLATED_ALPHA')
 cls.enum('DEFAULT', 'cocos2d::Texture2D::PixelFormat::AUTO')
-arr[#arr + 1] = cls
 
-local cls = class()
+local cls = class(M)
 cls.CPPCLS = "cocos2d::Texture2D"
 cls.LUACLS = "cc.Texture2D"
 cls.SUPERCLS = "cc.Ref"
@@ -55,6 +54,5 @@ cls.func(nil, 'unpack const Size& getContentSizeInPixels()')
 cls.func(nil, 'bool hasPremultipliedAlpha()')
 cls.func(nil, 'bool hasMipmaps()')
 cls.func(nil, 'unpack Size getContentSize()')
-arr[#arr + 1] = cls
 
-return arr
+return M

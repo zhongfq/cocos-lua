@@ -17,28 +17,28 @@ REG_TYPE {
 
 REG_TYPE {
     TYPENAME = 'cocos2d::Vec2',
-    CONV_FUNC = "auto_luacv_$$_cocos2d_Vec2",
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_Vec2',
     INIT_VALUE = false,
     VARS = 2,
 }
 
 REG_TYPE {
     TYPENAME = 'cocos2d::Vec3',
-    CONV_FUNC = "auto_luacv_$$_cocos2d_Vec3",
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_Vec3',
     INIT_VALUE = false,
     VARS = 3,
 }
 
 REG_TYPE {
     TYPENAME = 'cocos2d::Vec4',
-    CONV_FUNC = "auto_luacv_$$_cocos2d_Vec4",
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_Vec4',
     INIT_VALUE = false,
     VARS = 4,
 }
 
 REG_TYPE {
     TYPENAME = 'cocos2d::Size',
-    CONV_FUNC = "auto_luacv_$$_cocos2d_Size",
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_Size',
     INIT_VALUE = false,
     VARS = 2,
 }
@@ -57,24 +57,31 @@ REG_TYPE {
 
 REG_TYPE {
     TYPENAME = 'cocos2d::Texture2D::TexParams',
-    CONV_FUNC = "auto_luacv_$$_cocos2d_Texture2D_TexParams",
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_Texture2D_TexParams',
     INIT_VALUE = false,
 }
 
 REG_TYPE {
     TYPENAME = 'cocos2d::experimental::Viewport',
-    CONV_FUNC = "auto_luacv_$$_cocos2d_experimental_Viewport",
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_experimental_Viewport',
     INIT_VALUE = false,
 }
 
 REG_TYPE {
     TYPENAME = 'cocos2d::Uniform *',
-    CONV_FUNC = "auto_luacv_$$_cocos2d_Uniform",
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_Uniform',
 }
 
 REG_TYPE {
     TYPENAME = 'cocos2d::VertexAttrib *',
-    CONV_FUNC = "auto_luacv_$$_cocos2d_VertexAttrib",
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_VertexAttrib',
+}
+
+REG_TYPE {
+    TYPENAME = 'cocos2d::EventListener::ListenerID',
+    INIT_VALUE = false,
+    DECL_TYPE = 'std::string',
+    CONV_FUNC = 'olua_$$_std_string',
 }
 
 REG_TYPE {
@@ -83,6 +90,7 @@ REG_TYPE {
         'cocos2d::Texture2D::PixelFormat',
         'cocos2d::Image::Format',
         'cocos2d::Camera::Type',
+        'cc.EventListener.Type',
     }, '|'),
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = "olua_$$_uint",
@@ -104,6 +112,8 @@ REG_TYPE {
         'cocos2d::Sprite *',
         'cocos2d::Scene *',
         'cocos2d::Action *',
+        'cocos2d::EventListener *',
+        'cocos2d::EventListenerTouchAllAtOnce *',
     }, '|'),
     CONV_FUNC = "olua_$$_cppobj",
     LUACLS = make_luacls,

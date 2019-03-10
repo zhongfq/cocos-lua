@@ -21,11 +21,15 @@ function main()
     print("# preferences 'version'", preferences.getString("conf.version.runtime", "defalut build"))
 
     local sprite = Sprite.create("res/HelloWorld.png")
-    -- sprite.name = "xxxx"
+    sprite.name = "xxxx"
+    printarr(sprite.scheduler:pauseAllTargets())
+    print("######", Director.getInstance())
+    printarr(sprite.scheduler:pauseAllTargets())
+    sprite.scheduler:resumeTargets(sprite.scheduler:pauseAllTargets())
 
-    -- sprite:setPosition(500, 400)
-    -- Director.getInstance().runningScene:addChild(sprite)
-    -- print(Director.getInstance().runningScene:getChildByName("xxxx"))
+    sprite:setPosition(500, 400)
+    Director.getInstance().runningScene:addChild(sprite)
+    print(Director.getInstance().runningScene:getChildByName("xxxx"))
 
     -- node:schedule(function (...)
     --     print("sprite:schedule", ...)
@@ -54,6 +58,13 @@ function main()
     -- for k, v in pairs(Sprite.class['.isa']) do
     --     print("sprite isa", k, v)
     -- end
+end
+
+function printarr(arr)
+    print("arr -------------")
+    for i,v in ipairs(arr) do
+        print("###", i, v)
+    end
 end
 
 function printUserValue(obj)

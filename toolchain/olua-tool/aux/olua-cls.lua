@@ -241,13 +241,17 @@ local function parse_prop(cls, name, func_get, func_set)
     return pi
 end
 
-function class()
+function class(collection)
     local cls = {}
     cls.FUNCS = {}
     cls.CONSTS = {}
     cls.ENUMS = {}
     cls.PROPS = {}
     cls.REG_LUATYPE = true
+
+    if collection then
+        collection[#collection + 1] = cls
+    end
 
     function cls.func(name, ...)
         cls.FUNCS[#cls.FUNCS + 1] = parse_func(cls, name, ...)

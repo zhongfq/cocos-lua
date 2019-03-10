@@ -10,6 +10,7 @@ local Director      = require "cc.Director"
 local ActionManager = require "cc.ActionManager"
 local Scheduler     = require "cc.Scheduler"
 local EventListenerTouchAllAtOnce = require "cc.EventListenerTouchAllAtOnce"
+local EventListenerTouchOneByOne = require "cc.EventListenerTouchOneByOne"
 
 window.setDesignSize(1334, 750, 1)
 
@@ -30,21 +31,16 @@ function main()
         -- print("xxxx", ...)
     -- end, sprite, 2, false, "unpack")
 
-    local listener = EventListenerTouchAllAtOnce.create()
-    listener.onTouchesBegan = function (arr, event)
-        for i,v in ipairs(arr) do
-            print("onTouchesBegan", v, v.id, v:getLocation())
-        end
+    local listener = EventListenerTouchOneByOne.create()
+    listener.onTouchBegan = function (v, event)
+        print("onTouchBegan", v, v.id, v:getLocation())
+        return true
     end
-    listener.onTouchesMoved = function (arr, event)
-        for i,v in ipairs(arr) do
-            print("onTouchesMoved", v, v.id, v:getLocation())
-        end
+    listener.onTouchMoved = function (v, event)
+        print("onTouchMoved", v, v.id, v:getLocation())
     end
-    listener.onTouchesEnded = function (arr, event)
-        for i,v in ipairs(arr) do
-            print("onTouchesEnded", v, v.id, v:getLocation())
-        end
+    listener.onTouchEnded = function (v, event)
+        print("onTouchEnded", v, v.id, v:getLocation())
     end
 
     local eventDispatcher = Director.getInstance().eventDispatcher

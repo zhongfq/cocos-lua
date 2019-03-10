@@ -36,6 +36,10 @@ cls.funcs([[
     void setSwallowTouches(bool needSwallow)
     bool isSwallowTouches()
 ]])
+cls.var('onTouchBegan', 'std::function<bool(Touch*, @ignore Event*)> onTouchBegan = nullptr')
+cls.var('onTouchMoved', 'std::function<void(Touch*, @ignore Event*)> onTouchMoved = nullptr')
+cls.var('onTouchEnded', 'std::function<void(Touch*, @ignore Event*)> onTouchEnded = nullptr')
+cls.var('onTouchCancelled', 'std::function<void(Touch*, @ignore Event*)> onTouchCancelled = nullptr')
 
 local cls = class(M)
 cls.CPPCLS = "cocos2d::EventListenerTouchAllAtOnce"

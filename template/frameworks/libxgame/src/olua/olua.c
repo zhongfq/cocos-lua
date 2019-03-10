@@ -268,11 +268,15 @@ LUALIB_API bool olua_callback(lua_State *L, void *obj, const char *field, int n)
                 errfunc = top + 1;
             }
             
-            ret = lua_pcall(L, n, 0, errfunc) == LUA_OK;
+            ret = lua_pcall(L, n, 1, errfunc) == LUA_OK;        // L: errfunc result
+            lua_remove(L, -2);                                  // L: result
         }
     }
     
-    lua_settop(L, top);
+    if (!ret) {
+        lua_settop(L, top);
+        lua_pushnil(L);
+    }
     
     return ret;
 }

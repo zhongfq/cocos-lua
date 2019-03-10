@@ -74,6 +74,9 @@ function gen_callback(cls, fi, write)
     local PUSH_ARGS = {}
     local TAG_STORE_OBJ
     local TAG_STORE
+    local RESULT_DECL = ""
+    local RESULT_RET = ""
+    local RESULT_GET = ""
 
     for i, v in ipairs(ai.CALLBACK_ARGS) do
         local ARG_N = 'arg' .. i
@@ -125,6 +128,19 @@ function gen_callback(cls, fi, write)
         OLUA_CALLBACK_TAG = "OLUA_CALLBACK_TAG_REPLACE"
     end
 
+    if ai.CALLBACK_RET.TYPENAME ~= "void" then
+        local DECL_TYPE = ai.CALLBACK_RET.DECL_TYPE
+        local INIT_VALUE = ai.CALLBACK_RET.INIT_VALUE
+        local FUNC_OPT_VALUE = ai.CALLBACK_RET.FUNC_OPT_VALUE
+        RESULT_DECL = format_snippet([[
+            ${DECL_TYPE} ret = ${INIT_VALUE};
+        ]])
+        RESULT_GET = format_snippet([[
+            ${FUNC_OPT_VALUE}(L, -1, &ret, ${INIT_VALUE});
+        ]])
+        RESULT_RET = "return ret;"
+    end
+
     TAG_STORE = get_tag_store(fi) + 1
     if TAG_STORE == 1 then
         TAG_STORE_OBJ = 'self'
@@ -132,19 +148,34 @@ function gen_callback(cls, fi, write)
         TAG_STORE_OBJ = 'arg' .. (TAG_STORE - 1)
     end
 
-    local block = format_snippet([[
+    local CALLBACK_CHUNK = format_snippet([[
         void *tag_store_obj = (void *)${TAG_STORE_OBJ};
         std::string tag = ${TAG_MAKER};
         std::string func = olua_setcallback(L, tag_store_obj, tag.c_str(), ${IDX}, ${OLUA_CALLBACK_TAG});
         ${ARG_N} = [tag_store_obj, func, tag](${ARGS}) {
             lua_State *L = xlua_cocosthread();
             int top = lua_gettop(L);
+            ${RESULT_DECL}
             ${PUSH_ARGS}
             olua_callback(L, tag_store_obj, func.c_str(), ${NUM_ARGS});
+            ${RESULT_GET}
             ${REMOVE_CALLBACK}
             lua_settop(L, top);
+            ${RESULT_RET}
         };
     ]])
+    if ai.CALLBACK_DEFAULT then
+        local CALLBACK_DEFAULT = ai.CALLBACK_DEFAULT
+        local FUNC_IS_VALUE = ai.TYPE.FUNC_IS_VALUE
+        CALLBACK_CHUNK = format_snippet([[
+            if (${FUNC_IS_VALUE}(L, ${IDX})) {
+                ${CALLBACK_CHUNK}
+            } else {
+                ${ARG_N} = ${CALLBACK_DEFAULT};
+            }
+        ]])
+    else
+    end
 
-    return block
+    return CALLBACK_CHUNK
 end

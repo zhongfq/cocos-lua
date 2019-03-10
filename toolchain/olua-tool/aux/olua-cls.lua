@@ -210,7 +210,9 @@ local function parse_args(cls, func_decl)
                         DECL_TYPE = callback_decl,
                     }, {__index = get_typeinfo('std::function', cls)}),
                     DECL_TYPE = callback_decl,
+                    CALLBACK_DEFAULT = default,
                     CALLBACK_ARGS = callback_ars,
+                    CALLBACK_RET = get_typeinfo(rt),
                     VARNAME = varname,
                     IGNORE = ignore > 0,
                 }

@@ -27,9 +27,24 @@ cls.funcs([[
 ]])
 
 local cls = class(M)
+cls.CPPCLS = "cocos2d::EventListenerTouchOneByOne"
+cls.LUACLS = "cc.EventListenerTouchOneByOne"
+cls.SUPERCLS = "cc.EventListener"
+cls.prop('swallowTouches', 'bool isSwallowTouches()', 'void setSwallowTouches(bool needSwallow)')
+cls.funcs([[
+    static EventListenerTouchOneByOne* create()
+    void setSwallowTouches(bool needSwallow)
+    bool isSwallowTouches()
+]])
+
+local cls = class(M)
 cls.CPPCLS = "cocos2d::EventListenerTouchAllAtOnce"
 cls.LUACLS = "cc.EventListenerTouchAllAtOnce"
 cls.SUPERCLS = "cc.EventListener"
+cls.var('onTouchesBegan', 'std::function<void(const std::vector<Touch*>&, Event*)> onTouchesBegan = nullptr')
+cls.var('onTouchesMoved', 'std::function<void(const std::vector<Touch*>&, Event*)> onTouchesMoved = nullptr')
+cls.var('onTouchesEnded', 'std::function<void(const std::vector<Touch*>&, Event*)> onTouchesEnded = nullptr')
+cls.var('onTouchesCancelled', 'std::function<void(const std::vector<Touch*>&, Event*)> onTouchesCancelled = nullptr')
 cls.funcs([[
     static EventListenerTouchAllAtOnce* create()
 ]])

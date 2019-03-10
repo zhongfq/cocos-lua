@@ -9,6 +9,7 @@ local Sprite        = require "cc.Sprite"
 local Director      = require "cc.Director"
 local ActionManager = require "cc.ActionManager"
 local Scheduler     = require "cc.Scheduler"
+local EventListenerTouchAllAtOnce = require "cc.EventListenerTouchAllAtOnce"
 
 window.setDesignSize(1334, 750, 1)
 
@@ -22,42 +23,12 @@ function main()
 
     local sprite = Sprite.create("res/HelloWorld.png")
     sprite.name = "xxxx"
-    printarr(sprite.scheduler:pauseAllTargets())
-    print("######", Director.getInstance())
-    printarr(sprite.scheduler:pauseAllTargets())
-    sprite.scheduler:resumeTargets(sprite.scheduler:pauseAllTargets())
-
     sprite:setPosition(500, 400)
     Director.getInstance().runningScene:addChild(sprite)
     print(Director.getInstance().runningScene:getChildByName("xxxx"))
 
-    -- node:schedule(function (...)
-    --     print("sprite:schedule", ...)
-    -- end, 1, 'update')
-    -- node:schedule(function (...)
-    --     print("sprite:schedule", ...)
-    -- end, 1.2, 'update')
-
-    -- local scheduler = node.scheduler
-    -- scheduler:schedule(function ( ... )
-    --     print("schedule", ...)
-    -- end, node, 3, false, "update")
-
-    -- -- timer.delay(3, function ( ... )
-    -- --     print(node.referenceCount)
-    -- --     printUserValue(node)
-    -- -- end)
-    -- timer.delay(4, function ( ... )
-    --     collectgarbage('collect')
-    -- end)
-
-    -- for k, v in pairs(debug.getregistry()) do
-    --     print("###", k, v)
-    -- end
-
-    -- for k, v in pairs(Sprite.class['.isa']) do
-    --     print("sprite isa", k, v)
-    -- end
+    local listener = EventListenerTouchAllAtOnce.create()
+    print(listener)
 end
 
 function printarr(arr)

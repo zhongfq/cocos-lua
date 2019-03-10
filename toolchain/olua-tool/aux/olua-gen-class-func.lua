@@ -153,9 +153,12 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
 
     local CPPCLS_PATH = class_path(cls.CPPCLS)
     local CPPFUNC = fi.CPPFUNC
+    local CALLFUNC = CPPFUNC
     local FUNC_DECL = fi.FUNC_DECL
     local FUNC_INDEX = funcidx or ""
     local CALLER = "self->"
+    local ARGS_BEGIN = "("
+    local ARGS_END = ")"
 
     local funcname = format_snippet([[
         _${CPPCLS_PATH}_${CPPFUNC}${FUNC_INDEX}
@@ -177,6 +180,16 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
         CALLBACK = gen_callback(cls, fi, write)
     end
 
+    if fi.ISVAR then
+        ARGS_END = ""
+        CALLFUNC = fi.VARNAME
+        if fi.RET.NUM > 0 then
+            ARGS_BEGIN = ""
+        else
+            ARGS_BEGIN = " = "
+        end
+    end
+
     write(format_snippet([[
         static int _${CPPCLS_PATH}_${CPPFUNC}${FUNC_INDEX}(lua_State *L)
         {
@@ -189,7 +202,7 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
             ${CALLBACK}
 
             // ${FUNC_DECL}
-            ${RET_VALUE}${CALLER}${CPPFUNC}(${CALLER_ARGS});
+            ${RET_VALUE}${CALLER}${CALLFUNC}${ARGS_BEGIN}${CALLER_ARGS}${ARGS_END};
             
             return ${PUSH_RET};
         }

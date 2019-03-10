@@ -114,6 +114,7 @@ REG_TYPE {
         'cocos2d::Scene *',
         'cocos2d::Action *',
         'cocos2d::EventListener *',
+        'cocos2d::EventListenerTouchOneByOne *',
         'cocos2d::EventListenerTouchAllAtOnce *',
         'cocos2d::Event *',
         'cocos2d::Touch *',

@@ -2,7 +2,7 @@ local typeinfo_map = {}
 
 local function to_pretty_typename(typename)
     -- t = '   const   type   *   &  '
-    typename = string.gsub(typename, '&', '')   -- t = '   const  type   *    '
+    -- typename = string.gsub(typename, '&', '')   -- t = '   const  type   *    '
     typename = string.gsub(typename, '^ *', '') -- t = 'const  type   *    '
     typename = string.gsub(typename, ' *$', '') -- t = 'const  type   *'
     typename = string.gsub(typename, ' +', ' ') -- t = 'const type *'
@@ -11,10 +11,16 @@ local function to_pretty_typename(typename)
     typename = string.gsub(typename, ' %*', '*')
     typename = string.gsub(typename, '%*+', function (str) return " " .. str end)
 
+    typename = string.gsub(typename, ' %&', '&')
+    typename = string.gsub(typename, '%&+', function (str) return " " .. str end)
+
     return typename
 end
 
 local function to_real_typename(typename)
+    typename = string.gsub(typename, '&', '')
+    typename = string.gsub(typename, ' *$', '')
+
     if typeinfo_map[typename] then
         return typename, true
     end
@@ -76,7 +82,8 @@ function get_typeinfo(typename, cls)
     end
 end
 
-local function to_decl_type(cls, typename, remove_const)
+local function to_decl_type(cls, typename, remove_const, keep_ref)
+    local ref = string.match(typename, ' &+')
     local typeinfo, typename, subtypename = get_typeinfo(typename, cls)
 
     if subtypename then
@@ -84,6 +91,10 @@ local function to_decl_type(cls, typename, remove_const)
         if remove_const then
             typename = string.gsub(typename, 'const *', '')
         end
+    end
+
+    if keep_ref then
+        typename = typename .. (ref or '')
     end
 
     return typename
@@ -114,13 +125,38 @@ local function parse_ret(cls, typename)
 end
 
 local function to_arg_strs(str)
+    local function find_end(str)
+        local e = string.find(str, '>')
+        local count = 0
+        local idx
+        while true do
+            idx = string.find(str, '<', (idx or 0) + 1)
+            if idx and idx < e then
+                count = count + 1
+            else
+                break
+            end
+        end
+        while count > 0 do
+            local i = string.find(str, '>', (idx or 0) + 1)
+            if i then
+                idx = i
+                count = count - 1
+            else
+                break
+            end
+        end
+
+        return idx
+    end
+
     local bak = str
     local arr = {}
     local count = 0
     while #str > 0 do
         local arg = string.match(str, '[^,]+')
         if string.find(arg, 'std::function<') then
-            arg = string.sub(str, 1, string.find(str, '>'))
+            arg = string.sub(str, 1, find_end(str))
             str = string.sub(str, #arg + 1)
             arg = arg .. string.match(str, '[^,]*')
             str = string.gsub(str, '^[^,]*,? *', '')
@@ -128,6 +164,7 @@ local function to_arg_strs(str)
             str = string.sub(str, #arg + 1)
             str = string.gsub(str, '^, *', '')
         end
+
         arr[#arr + 1] = arg
 
         count = count + 1
@@ -148,9 +185,9 @@ local function parse_args(cls, func_decl)
         arg = to_pretty_typename(arg)
         if arg ~= 'void' then
             local arg, pack = string.gsub(arg, 'pack', '')
-            local typename, varname, default = string.match(arg, '(.+[ *&])([^ *&]+) *= *([^ ]*)')
+            local typename, varname, default = string.match(arg, '(.+[ *&])([^ *&<>]+) *= *([^ ]*)')
             if not typename then
-                typename, varname = string.match(arg, '(.+[ *&])([^ *&]+)')
+                typename, varname = string.match(arg, '(.+[ *&])([^ *&<>]+)$')
             end
             if not typename then
                 typename = arg
@@ -158,13 +195,15 @@ local function parse_args(cls, func_decl)
             typename = to_pretty_typename(typename)
             if string.find(typename, 'std::function<') then
                 -- const std::function<void(Texture2D*, float delta)>
-                local callback_ars = parse_args(cls, string.match(typename, '<([^<>]*)>'))
+                local callback_ars = parse_args(cls, string.match(typename, '<(.*)>'))
+                local _, _, rt, rtref = parse_ret(cls, string.match(typename, '<([^()]+)'))
                 local callback_decl = {}
                 for _, ai in ipairs(callback_ars) do
-                    callback_decl[#callback_decl + 1] = ai.DECL_TYPE
+                    callback_decl[#callback_decl + 1] = ai.FUNC_ARG_DECL_TYPE
                 end
                 callback_decl = table.concat(callback_decl, ", ")
-                callback_decl = 'std::function<void(' .. callback_decl .. ')>'
+                callback_decl = string.format('std::function<%s(%s)>',
+                    to_decl_type(cls, rt) .. rtref, callback_decl)
                 args[#args + 1] = {
                     TYPE = setmetatable({
                         DECL_TYPE = callback_decl,
@@ -177,6 +216,7 @@ local function parse_args(cls, func_decl)
                 args[#args + 1] = {
                     TYPE = get_typeinfo(typename, cls),
                     DECL_TYPE = to_decl_type(cls, typename, true),
+                    FUNC_ARG_DECL_TYPE = to_decl_type(cls, typename, false, true),
                     OPT_VALUE = default,
                     PACK = pack > 0,
                     VARNAME = varname,
@@ -247,6 +287,7 @@ function class(collection)
     cls.CONSTS = {}
     cls.ENUMS = {}
     cls.PROPS = {}
+    cls.VARS = {}
     cls.REG_LUATYPE = true
 
     if collection then
@@ -288,6 +329,45 @@ function class(collection)
     end
 
     function cls.var(name, var_decl)
+        local ARGS = parse_args(cls, '(' .. var_decl .. ')')
+        local CALLBACK_OPT
+        if ARGS[1].CALLBACK_ARGS then
+            CALLBACK_OPT = {
+                TAG_MAKER = 'olua_makecallbacktag("' .. name .. '")',
+                TAG_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
+            }
+        end
+        cls.VARS[#cls.VARS + 1] = {
+            VARNAME = assert(name),
+            GET = {
+                LUAFUNC = name,
+                CPPFUNC = 'get_' .. ARGS[1].VARNAME,
+                VARNAME = ARGS[1].VARNAME,
+                FUNC_DECL = '<function var>',
+                RET = {
+                    NUM = 1,
+                    TYPE = ARGS[1].TYPE,
+                    DECL_TYPE = ARGS[1].DECL_TYPE,
+                },
+                ISVAR = true,
+                ARGS = {},
+                INDEX = 0,
+            },
+            SET = {
+                LUAFUNC = name,
+                CPPFUNC = 'set_' .. ARGS[1].VARNAME,
+                VARNAME = ARGS[1].VARNAME,
+                FUNC_DECL = '<function var>',
+                RET = {
+                    NUM = 0,
+                    TYPE = get_typeinfo('void', cls),
+                },
+                ISVAR = true,
+                ARGS = ARGS,
+                INDEX = 0,
+                CALLBACK_OPT = CALLBACK_OPT,
+            },
+        }
     end
 
     function cls.prop(name, func_get, func_set)

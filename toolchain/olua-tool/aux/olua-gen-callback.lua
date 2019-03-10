@@ -84,6 +84,11 @@ function gen_callback(cls, fi, write)
             PUSH_ARGS[#PUSH_ARGS + 1] = format_snippet([[
                 ${PUSH_FUNC}(L, ${ARG_N}, "${LUACLS}");
             ]])
+        elseif v.TYPE.SUBTYPE then
+            local SUBTYPE = assert(v.TYPE.SUBTYPE.LUACLS, v.TYPE.DECL_TYPE)
+            PUSH_ARGS[#PUSH_ARGS + 1] = format_snippet([[
+                ${PUSH_FUNC}(L, ${ARG_N}, "${SUBTYPE}");
+            ]])
         else
             local CAST = ""
             if v.TYPE.DECL_TYPE ~= v.TYPE.TYPENAME then
@@ -95,7 +100,7 @@ function gen_callback(cls, fi, write)
             ]])
         end
 
-        local DECL_TYPE = v.DECL_TYPE
+        local DECL_TYPE = v.FUNC_ARG_DECL_TYPE
         local SPACE = string.find(DECL_TYPE, '[*&]$') and '' or ' '
         ARGS[#ARGS + 1] = format_snippet([[
             ${DECL_TYPE}${SPACE}${ARG_N}

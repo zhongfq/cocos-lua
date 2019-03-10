@@ -4506,6 +4506,60 @@ static int luaopen_cocos2d_EventListener(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_EventListenerTouchOneByOne_create(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static EventListenerTouchOneByOne* create()
+    cocos2d::EventListenerTouchOneByOne *ret = (cocos2d::EventListenerTouchOneByOne *)cocos2d::EventListenerTouchOneByOne::create();
+
+    return olua_push_cppobj(L, ret, "cc.EventListenerTouchOneByOne");
+}
+
+static int _cocos2d_EventListenerTouchOneByOne_setSwallowTouches(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::EventListenerTouchOneByOne *self = nullptr;
+    bool arg1 = false;   /** needSwallow */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerTouchOneByOne");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setSwallowTouches(bool needSwallow)
+    self->setSwallowTouches(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_EventListenerTouchOneByOne_isSwallowTouches(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::EventListenerTouchOneByOne *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerTouchOneByOne");
+
+    // bool isSwallowTouches()
+    bool ret = (bool)self->isSwallowTouches();
+
+    return olua_push_bool(L, ret);
+}
+
+static int luaopen_cocos2d_EventListenerTouchOneByOne(lua_State *L)
+{
+    oluacls_class(L, "cc.EventListenerTouchOneByOne", "cc.EventListener");
+    oluacls_setfunc(L, "create", _cocos2d_EventListenerTouchOneByOne_create);
+    oluacls_setfunc(L, "setSwallowTouches", _cocos2d_EventListenerTouchOneByOne_setSwallowTouches);
+    oluacls_setfunc(L, "isSwallowTouches", _cocos2d_EventListenerTouchOneByOne_isSwallowTouches);
+    oluacls_property(L, "swallowTouches", _cocos2d_EventListenerTouchOneByOne_isSwallowTouches, _cocos2d_EventListenerTouchOneByOne_setSwallowTouches);
+
+    olua_registerluatype<cocos2d::EventListenerTouchOneByOne>(L, "cc.EventListenerTouchOneByOne");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
 static int _cocos2d_EventListenerTouchAllAtOnce_create(lua_State *L)
 {
     lua_settop(L, 0);
@@ -4516,10 +4570,182 @@ static int _cocos2d_EventListenerTouchAllAtOnce_create(lua_State *L)
     return olua_push_cppobj(L, ret, "cc.EventListenerTouchAllAtOnce");
 }
 
+static int _cocos2d_EventListenerTouchAllAtOnce_get_onTouchesBegan(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::EventListenerTouchAllAtOnce *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerTouchAllAtOnce");
+
+    // <function var>
+    std::function<void(const std::vector<cocos2d::Touch *> &, cocos2d::Event *)> ret = (std::function<void(const std::vector<cocos2d::Touch *> &, cocos2d::Event *)>)self->onTouchesBegan;
+
+    return olua_push_std_function(L, (std::function<void(const std::vector<cocos2d::Touch *> &, cocos2d::Event *)>)ret);
+}
+
+static int _cocos2d_EventListenerTouchAllAtOnce_set_onTouchesBegan(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::EventListenerTouchAllAtOnce *self = nullptr;
+    std::function<void(const std::vector<cocos2d::Touch *> &, cocos2d::Event *)> arg1;       /** onTouchesBegan */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerTouchAllAtOnce");
+
+    void *tag_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onTouchesBegan");
+    std::string func = olua_setcallback(L, tag_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_NEW);
+    arg1 = [tag_store_obj, func, tag](const std::vector<cocos2d::Touch *> &arg1, cocos2d::Event *arg2) {
+        lua_State *L = xlua_cocosthread();
+        int top = lua_gettop(L);
+        olua_push_std_vector(L, arg1, "cc.Touch");
+        olua_push_cppobj(L, arg2, "cc.Event");
+        olua_callback(L, tag_store_obj, func.c_str(), 2);
+
+        lua_settop(L, top);
+    };
+
+    // <function var>
+    self->onTouchesBegan = arg1;
+
+    return 0;
+}
+
+static int _cocos2d_EventListenerTouchAllAtOnce_get_onTouchesMoved(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::EventListenerTouchAllAtOnce *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerTouchAllAtOnce");
+
+    // <function var>
+    std::function<void(const std::vector<cocos2d::Touch *> &, cocos2d::Event *)> ret = (std::function<void(const std::vector<cocos2d::Touch *> &, cocos2d::Event *)>)self->onTouchesMoved;
+
+    return olua_push_std_function(L, (std::function<void(const std::vector<cocos2d::Touch *> &, cocos2d::Event *)>)ret);
+}
+
+static int _cocos2d_EventListenerTouchAllAtOnce_set_onTouchesMoved(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::EventListenerTouchAllAtOnce *self = nullptr;
+    std::function<void(const std::vector<cocos2d::Touch *> &, cocos2d::Event *)> arg1;       /** onTouchesMoved */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerTouchAllAtOnce");
+
+    void *tag_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onTouchesMoved");
+    std::string func = olua_setcallback(L, tag_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_NEW);
+    arg1 = [tag_store_obj, func, tag](const std::vector<cocos2d::Touch *> &arg1, cocos2d::Event *arg2) {
+        lua_State *L = xlua_cocosthread();
+        int top = lua_gettop(L);
+        olua_push_std_vector(L, arg1, "cc.Touch");
+        olua_push_cppobj(L, arg2, "cc.Event");
+        olua_callback(L, tag_store_obj, func.c_str(), 2);
+
+        lua_settop(L, top);
+    };
+
+    // <function var>
+    self->onTouchesMoved = arg1;
+
+    return 0;
+}
+
+static int _cocos2d_EventListenerTouchAllAtOnce_get_onTouchesEnded(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::EventListenerTouchAllAtOnce *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerTouchAllAtOnce");
+
+    // <function var>
+    std::function<void(const std::vector<cocos2d::Touch *> &, cocos2d::Event *)> ret = (std::function<void(const std::vector<cocos2d::Touch *> &, cocos2d::Event *)>)self->onTouchesEnded;
+
+    return olua_push_std_function(L, (std::function<void(const std::vector<cocos2d::Touch *> &, cocos2d::Event *)>)ret);
+}
+
+static int _cocos2d_EventListenerTouchAllAtOnce_set_onTouchesEnded(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::EventListenerTouchAllAtOnce *self = nullptr;
+    std::function<void(const std::vector<cocos2d::Touch *> &, cocos2d::Event *)> arg1;       /** onTouchesEnded */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerTouchAllAtOnce");
+
+    void *tag_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onTouchesEnded");
+    std::string func = olua_setcallback(L, tag_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_NEW);
+    arg1 = [tag_store_obj, func, tag](const std::vector<cocos2d::Touch *> &arg1, cocos2d::Event *arg2) {
+        lua_State *L = xlua_cocosthread();
+        int top = lua_gettop(L);
+        olua_push_std_vector(L, arg1, "cc.Touch");
+        olua_push_cppobj(L, arg2, "cc.Event");
+        olua_callback(L, tag_store_obj, func.c_str(), 2);
+
+        lua_settop(L, top);
+    };
+
+    // <function var>
+    self->onTouchesEnded = arg1;
+
+    return 0;
+}
+
+static int _cocos2d_EventListenerTouchAllAtOnce_get_onTouchesCancelled(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::EventListenerTouchAllAtOnce *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerTouchAllAtOnce");
+
+    // <function var>
+    std::function<void(const std::vector<cocos2d::Touch *> &, cocos2d::Event *)> ret = (std::function<void(const std::vector<cocos2d::Touch *> &, cocos2d::Event *)>)self->onTouchesCancelled;
+
+    return olua_push_std_function(L, (std::function<void(const std::vector<cocos2d::Touch *> &, cocos2d::Event *)>)ret);
+}
+
+static int _cocos2d_EventListenerTouchAllAtOnce_set_onTouchesCancelled(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::EventListenerTouchAllAtOnce *self = nullptr;
+    std::function<void(const std::vector<cocos2d::Touch *> &, cocos2d::Event *)> arg1;       /** onTouchesCancelled */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerTouchAllAtOnce");
+
+    void *tag_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onTouchesCancelled");
+    std::string func = olua_setcallback(L, tag_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_NEW);
+    arg1 = [tag_store_obj, func, tag](const std::vector<cocos2d::Touch *> &arg1, cocos2d::Event *arg2) {
+        lua_State *L = xlua_cocosthread();
+        int top = lua_gettop(L);
+        olua_push_std_vector(L, arg1, "cc.Touch");
+        olua_push_cppobj(L, arg2, "cc.Event");
+        olua_callback(L, tag_store_obj, func.c_str(), 2);
+
+        lua_settop(L, top);
+    };
+
+    // <function var>
+    self->onTouchesCancelled = arg1;
+
+    return 0;
+}
+
 static int luaopen_cocos2d_EventListenerTouchAllAtOnce(lua_State *L)
 {
     oluacls_class(L, "cc.EventListenerTouchAllAtOnce", "cc.EventListener");
     oluacls_setfunc(L, "create", _cocos2d_EventListenerTouchAllAtOnce_create);
+    oluacls_property(L, "onTouchesBegan", _cocos2d_EventListenerTouchAllAtOnce_get_onTouchesBegan, _cocos2d_EventListenerTouchAllAtOnce_set_onTouchesBegan);
+    oluacls_property(L, "onTouchesMoved", _cocos2d_EventListenerTouchAllAtOnce_get_onTouchesMoved, _cocos2d_EventListenerTouchAllAtOnce_set_onTouchesMoved);
+    oluacls_property(L, "onTouchesEnded", _cocos2d_EventListenerTouchAllAtOnce_get_onTouchesEnded, _cocos2d_EventListenerTouchAllAtOnce_set_onTouchesEnded);
+    oluacls_property(L, "onTouchesCancelled", _cocos2d_EventListenerTouchAllAtOnce_get_onTouchesCancelled, _cocos2d_EventListenerTouchAllAtOnce_set_onTouchesCancelled);
 
     olua_registerluatype<cocos2d::EventListenerTouchAllAtOnce>(L, "cc.EventListenerTouchAllAtOnce");
     oluacls_createclassproxy(L);
@@ -4887,6 +5113,7 @@ int luaopen_cocos2d(lua_State *L)
     xlua_require(L, "cc.Scene", luaopen_cocos2d_Scene);
     xlua_require(L, "cc.EventListener.Type", luaopen_cocos2d_EventListener_Type);
     xlua_require(L, "cc.EventListener", luaopen_cocos2d_EventListener);
+    xlua_require(L, "cc.EventListenerTouchOneByOne", luaopen_cocos2d_EventListenerTouchOneByOne);
     xlua_require(L, "cc.EventListenerTouchAllAtOnce", luaopen_cocos2d_EventListenerTouchAllAtOnce);
     xlua_require(L, "cc.Event.Type", luaopen_cocos2d_Event_Type);
     xlua_require(L, "cc.Event", luaopen_cocos2d_Event);

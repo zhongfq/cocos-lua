@@ -36,13 +36,19 @@ REG_TYPE {
 REG_TYPE {
     TYPENAME = 'std::function',
     INIT_VALUE = false,
-    CONV_FUNC = "olua_$$_std_function"
+    CONV_FUNC = "olua_$$_std_function",
 }
 
 REG_TYPE {
     TYPENAME = 'std::set',
     INIT_VALUE = false,
-    CONV_FUNC = "olua_$$_std_set"
+    CONV_FUNC = "olua_$$_std_set",
+}
+
+REG_TYPE {
+    TYPENAME = 'std::vector',
+    INIT_VALUE = false,
+    CONV_FUNC = "olua_$$_std_vector",
 }
 
 REG_TYPE {

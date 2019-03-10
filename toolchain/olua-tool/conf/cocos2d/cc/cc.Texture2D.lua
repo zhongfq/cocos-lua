@@ -50,9 +50,9 @@ cls.func(nil, 'void setAliasTexParameters()')
 cls.func(nil, 'void generateMipmap()')
 cls.func(nil, 'unsigned int getBitsPerPixelForFormat()', 'unsigned int getBitsPerPixelForFormat(Texture2D::PixelFormat format)')
 cls.func(nil, 'const char* getStringForFormat()')
-cls.func(nil, 'unpack const Size& getContentSizeInPixels()')
+cls.func(nil, '@unpack const Size& getContentSizeInPixels()')
 cls.func(nil, 'bool hasPremultipliedAlpha()')
 cls.func(nil, 'bool hasMipmaps()')
-cls.func(nil, 'unpack Size getContentSize()')
+cls.func(nil, '@unpack Size getContentSize()')
 
 return M

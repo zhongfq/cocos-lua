@@ -79,25 +79,29 @@ function gen_callback(cls, fi, write)
         local ARG_N = 'arg' .. i
         local PUSH_FUNC = v.TYPE.FUNC_PUSH_VALUE
     
-        if v.TYPE.LUACLS then
-            local LUACLS = v.TYPE.LUACLS
-            PUSH_ARGS[#PUSH_ARGS + 1] = format_snippet([[
-                ${PUSH_FUNC}(L, ${ARG_N}, "${LUACLS}");
-            ]])
-        elseif v.TYPE.SUBTYPE then
-            local SUBTYPE = assert(v.TYPE.SUBTYPE.LUACLS, v.TYPE.DECL_TYPE)
-            PUSH_ARGS[#PUSH_ARGS + 1] = format_snippet([[
-                ${PUSH_FUNC}(L, ${ARG_N}, "${SUBTYPE}");
-            ]])
+        if v.IGNORE then
+            NUM_ARGS = NUM_ARGS - 1
         else
-            local CAST = ""
-            if v.TYPE.DECL_TYPE ~= v.TYPE.TYPENAME then
-                assert(not string.find(PUSH_FUNC, '^auto_luacv'))
-                CAST = string.format("(%s)", v.TYPE.DECL_TYPE)
+            if v.TYPE.LUACLS then
+                local LUACLS = v.TYPE.LUACLS
+                PUSH_ARGS[#PUSH_ARGS + 1] = format_snippet([[
+                    ${PUSH_FUNC}(L, ${ARG_N}, "${LUACLS}");
+                ]])
+            elseif v.TYPE.SUBTYPE then
+                local SUBTYPE = assert(v.TYPE.SUBTYPE.LUACLS, v.TYPE.DECL_TYPE)
+                PUSH_ARGS[#PUSH_ARGS + 1] = format_snippet([[
+                    ${PUSH_FUNC}(L, ${ARG_N}, "${SUBTYPE}");
+                ]])
+            else
+                local CAST = ""
+                if v.TYPE.DECL_TYPE ~= v.TYPE.TYPENAME then
+                    assert(not string.find(PUSH_FUNC, '^auto_luacv'))
+                    CAST = string.format("(%s)", v.TYPE.DECL_TYPE)
+                end
+                PUSH_ARGS[#PUSH_ARGS + 1] = format_snippet([[
+                    ${PUSH_FUNC}(L, ${CAST}${ARG_N});
+                ]])
             end
-            PUSH_ARGS[#PUSH_ARGS + 1] = format_snippet([[
-                ${PUSH_FUNC}(L, ${CAST}${ARG_N});
-            ]])
         end
 
         local DECL_TYPE = v.FUNC_ARG_DECL_TYPE

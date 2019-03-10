@@ -35,7 +35,7 @@ REG_TYPE {
 
 REG_TYPE {
     TYPENAME = 'std::function',
-    INIT_VALUE = false,
+    INIT_VALUE = "nullptr",
     CONV_FUNC = "olua_$$_std_function",
 }
 

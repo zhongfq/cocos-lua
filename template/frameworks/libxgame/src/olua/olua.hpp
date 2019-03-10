@@ -158,7 +158,6 @@ static inline bool olua_is_std_string(lua_State *L, int idx)
 
 template <typename T> int olua_push_std_function(lua_State *L, const std::function<T> value)
 {
-    // TODO: return lua func
     lua_pushnil(L);
     return 1;
 }

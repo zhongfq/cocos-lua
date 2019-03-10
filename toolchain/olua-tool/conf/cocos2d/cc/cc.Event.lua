@@ -25,4 +25,43 @@ cls.funcs([[
     Node* getCurrentTarget()
 ]])
 
+local cls = class(M)
+cls.CPPCLS = "cocos2d::EventCustom"
+cls.LUACLS = "cc.EventCustom"
+cls.SUPERCLS = "cc.Event"
+cls.prop('eventName', 'const std::string& getEventName()')
+cls.prop('userData', 'void* getUserData()', 'void setUserData(void* data)')
+cls.func('new', [[
+{
+    lua_settop(L, 1);
+    const char *event = luaL_checkstring(L, 1);
+    cocos2d::EventCustom *obj = new cocos2d::EventCustom(event);
+    obj->autorelease();
+    return olua_push_cppobj(L, obj, "cc.EventCustom");
+}]])
+cls.funcs([[
+    void setUserData(void* data)
+    void* getUserData()
+    const std::string& getEventName()
+]])
+
+local cls = class(M)
+cls.CPPCLS = "cocos2d::EventTouch::EventCode"
+cls.LUACLS = "cc.EventTouch.EventCode"
+cls.enum('BEGAN', 'cocos2d::EventTouch::EventCode::BEGAN')
+cls.enum('MOVED', 'cocos2d::EventTouch::EventCode::MOVED')
+cls.enum('ENDED', 'cocos2d::EventTouch::EventCode::ENDED')
+cls.enum('CANCELLED', 'cocos2d::EventTouch::EventCode::CANCELLED')
+
+local cls = class(M)
+cls.CPPCLS = "cocos2d::EventTouch"
+cls.LUACLS = "cc.EventTouch"
+cls.SUPERCLS = "cc.Event"
+cls.prop('eventCode', 'EventCode getEventCode()')
+cls.prop('touches', 'const std::vector<Touch*>& getTouches()')
+cls.funcs([[
+    EventCode getEventCode()
+    const std::vector<Touch*>& getTouches()
+]])
+
 return M

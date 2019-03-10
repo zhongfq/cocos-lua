@@ -75,9 +75,19 @@ local function gen_func_args(cls, fi)
         if ai.OPT_VALUE then
             local FUNC_OPT_VALUE = ai.TYPE.FUNC_OPT_VALUE
             local OPT_VALUE = ai.OPT_VALUE
-            ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
-                ${FUNC_OPT_VALUE}(L, ${IDX}, &${ARG_N}, ${OPT_VALUE});
-            ]])
+            if ai.TYPE.LUACLS then
+                local LUACLS = ai.TYPE.LUACLS
+                local FUNC_IS_VALUE = ai.TYPE.FUNC_IS_VALUE
+                ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
+                    if (${FUNC_IS_VALUE}(L, ${IDX}, "${LUACLS}")) {
+                        ${FUNC_CHECK_VALUE}(L, ${IDX}, (void **)&${ARG_N}, "${LUACLS}");
+                    }
+                ]])
+            else
+                ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
+                    ${FUNC_OPT_VALUE}(L, ${IDX}, &${ARG_N}, ${OPT_VALUE});
+                ]])
+            end
         elseif ai.TYPE.LUACLS then
             local LUACLS = ai.TYPE.LUACLS
             ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[

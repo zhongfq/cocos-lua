@@ -30,8 +30,7 @@ function new_ccobj(cls)
         {
             ${CPPCLS} *obj = new ${CPPCLS}();
             obj->autorelease();
-            olua_push_cppobj(L, obj, "${LUACLS}");
-            return 1;
+            return olua_push_cppobj(L, obj, "${LUACLS}");
         }
     ]]))
     return new
@@ -52,6 +51,7 @@ M.CLASSES = {
     include("conf/cocos2d/cc/cc.Camera.lua"),
     include("conf/cocos2d/cc/cc.Sprite.lua"),
     include("conf/cocos2d/cc/cc.Scene.lua"),
+    include("conf/cocos2d/cc/cc.EventDispatcher.lua"),
     include("conf/cocos2d/cc/cc.EventListener.lua"),
     include("conf/cocos2d/cc/cc.Event.lua"),
     include("conf/cocos2d/cc/cc.Touch.lua"),

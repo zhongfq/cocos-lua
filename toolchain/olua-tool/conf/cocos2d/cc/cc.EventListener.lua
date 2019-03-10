@@ -41,12 +41,17 @@ local cls = class(M)
 cls.CPPCLS = "cocos2d::EventListenerTouchAllAtOnce"
 cls.LUACLS = "cc.EventListenerTouchAllAtOnce"
 cls.SUPERCLS = "cc.EventListener"
-cls.var('onTouchesBegan', 'std::function<void(const std::vector<Touch*>&, Event*)> onTouchesBegan = nullptr')
-cls.var('onTouchesMoved', 'std::function<void(const std::vector<Touch*>&, Event*)> onTouchesMoved = nullptr')
-cls.var('onTouchesEnded', 'std::function<void(const std::vector<Touch*>&, Event*)> onTouchesEnded = nullptr')
-cls.var('onTouchesCancelled', 'std::function<void(const std::vector<Touch*>&, Event*)> onTouchesCancelled = nullptr')
+cls.var('onTouchesBegan', 'std::function<void(const std::vector<Touch*>&, @ignore Event*)> onTouchesBegan = nullptr')
+cls.var('onTouchesMoved', 'std::function<void(const std::vector<Touch*>&, @ignore Event*)> onTouchesMoved = nullptr')
+cls.var('onTouchesEnded', 'std::function<void(const std::vector<Touch*>&, @ignore Event*)> onTouchesEnded = nullptr')
+cls.var('onTouchesCancelled', 'std::function<void(const std::vector<Touch*>&, @ignore Event*)> onTouchesCancelled = nullptr')
 cls.funcs([[
     static EventListenerTouchAllAtOnce* create()
 ]])
+
+local cls = class(M)
+cls.CPPCLS = "cocos2d::EventListenerCustom"
+cls.LUACLS = "cc.EventListenerCustom"
+cls.SUPERCLS = "cc.EventListener"
 
 return M

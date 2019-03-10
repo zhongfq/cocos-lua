@@ -105,9 +105,9 @@ local function parse_ret(cls, typename)
     local unpack = false
     local ref = ''
 
-    if string.find(typename, 'unpack') then
+    if string.find(typename, '@unpack') then
         unpack = true
-        typename = string.gsub(typename, 'unpack *', '')
+        typename = string.gsub(typename, '@unpack *', '')
     end
 
     if string.find(typename, 'static') then
@@ -184,7 +184,8 @@ local function parse_args(cls, func_decl)
     for _, arg in ipairs(to_arg_strs(args_str)) do
         arg = to_pretty_typename(arg)
         if arg ~= 'void' then
-            local arg, pack = string.gsub(arg, 'pack', '')
+            local arg, ignore = string.gsub(arg, '^@ignore', '')
+            local arg, pack = string.gsub(arg, '@pack', '')
             local typename, varname, default = string.match(arg, '(.+[ *&])([^ *&<>]+) *= *([^ ]*)')
             if not typename then
                 typename, varname = string.match(arg, '(.+[ *&])([^ *&<>]+)$')
@@ -211,6 +212,7 @@ local function parse_args(cls, func_decl)
                     DECL_TYPE = callback_decl,
                     CALLBACK_ARGS = callback_ars,
                     VARNAME = varname,
+                    IGNORE = ignore > 0,
                 }
             else
                 args[#args + 1] = {
@@ -220,6 +222,7 @@ local function parse_args(cls, func_decl)
                     OPT_VALUE = default,
                     PACK = pack > 0,
                     VARNAME = varname,
+                    IGNORE = ignore > 0,
                 }
             end
         end
@@ -335,6 +338,7 @@ function class(collection)
             CALLBACK_OPT = {
                 TAG_MAKER = 'olua_makecallbacktag("' .. name .. '")',
                 TAG_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
+                ONLYONE = true,
             }
         end
         cls.VARS[#cls.VARS + 1] = {

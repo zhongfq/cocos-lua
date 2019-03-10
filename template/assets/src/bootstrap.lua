@@ -26,9 +26,37 @@ function main()
     sprite:setPosition(500, 400)
     Director.getInstance().runningScene:addChild(sprite)
     print(Director.getInstance().runningScene:getChildByName("xxxx"))
+    -- sprite.scheduler:schedule(function ( ... )
+        -- print("xxxx", ...)
+    -- end, sprite, 2, false, "unpack")
 
     local listener = EventListenerTouchAllAtOnce.create()
-    print(listener)
+    listener.onTouchesBegan = function (arr, event)
+        for i,v in ipairs(arr) do
+            print("onTouchesBegan", v, v.id, v:getLocation())
+        end
+    end
+    listener.onTouchesMoved = function (arr, event)
+        for i,v in ipairs(arr) do
+            print("onTouchesMoved", v, v.id, v:getLocation())
+        end
+    end
+    listener.onTouchesEnded = function (arr, event)
+        for i,v in ipairs(arr) do
+            print("onTouchesEnded", v, v.id, v:getLocation())
+        end
+    end
+
+    local eventDispatcher = Director.getInstance().eventDispatcher
+    eventDispatcher:addEventListenerWithSceneGraphPriority(listener, sprite)
+    print(eventDispatcher)
+
+    timer.delay(3, function ( ... )
+        eventDispatcher:removeEventListener(listener)
+    end)
+    timer.delay(4, function ( ... )
+        collectgarbage('collect')
+    end)
 end
 
 function printarr(arr)

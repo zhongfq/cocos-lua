@@ -28,7 +28,7 @@ cls.funcs([[
     void sortAllChildren()
     void setPosition(float x, float y)
     void setPosition(const Vec2 &position)
-    unpack const Vec2& getPosition()
+    @unpack const Vec2& getPosition()
     void scheduleUpdate(void)
     void unscheduleUpdate(void)
     void scheduleUpdateWithPriority(int priority)

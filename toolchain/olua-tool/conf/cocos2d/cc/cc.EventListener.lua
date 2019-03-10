@@ -57,5 +57,18 @@ local cls = class(M)
 cls.CPPCLS = "cocos2d::EventListenerCustom"
 cls.LUACLS = "cc.EventListenerCustom"
 cls.SUPERCLS = "cc.EventListener"
+cls.funcs([[
+    static EventListenerCustom* create(const std::string& eventName, const std::function<void(EventCustom*)>& callback)
+]])
+
+local cls = class(M)
+cls.CPPCLS = "cocos2d::EventListenerKeyboard"
+cls.LUACLS = "cc.EventListenerKeyboard"
+cls.SUPERCLS = "cc.EventListener"
+cls.funcs([[
+    static EventListenerKeyboard* create()
+]])
+cls.var('onKeyPressed', 'std::function<void(EventKeyboard::KeyCode, @ignore Event*)> onKeyPressed = nullptr')
+cls.var('onKeyReleased', 'std::function<void(EventKeyboard::KeyCode, @ignore Event*)> onKeyReleased = nullptr')
 
 return M

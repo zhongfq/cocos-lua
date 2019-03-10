@@ -5314,11 +5314,142 @@ static int luaopen_cocos2d_EventListenerTouchAllAtOnce(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_EventListenerCustom_create(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    std::string arg1;       /** eventName */
+    std::function<void(cocos2d::EventCustom *)> arg2 = nullptr;   /** callback */
+
+    olua_check_std_string(L, 1, &arg1);
+
+    // static EventListenerCustom* create(const std::string& eventName, const std::function<void(EventCustom*)>& callback)
+    cocos2d::EventListenerCustom *ret = (cocos2d::EventListenerCustom *)cocos2d::EventListenerCustom::create(arg1, arg2);
+
+    return olua_push_cppobj(L, ret, "cc.EventListenerCustom");
+}
+
 static int luaopen_cocos2d_EventListenerCustom(lua_State *L)
 {
     oluacls_class(L, "cc.EventListenerCustom", "cc.EventListener");
+    oluacls_setfunc(L, "create", _cocos2d_EventListenerCustom_create);
 
     olua_registerluatype<cocos2d::EventListenerCustom>(L, "cc.EventListenerCustom");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_EventListenerKeyboard_create(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static EventListenerKeyboard* create()
+    cocos2d::EventListenerKeyboard *ret = (cocos2d::EventListenerKeyboard *)cocos2d::EventListenerKeyboard::create();
+
+    return olua_push_cppobj(L, ret, "cc.EventListenerKeyboard");
+}
+
+static int _cocos2d_EventListenerKeyboard_get_onKeyPressed(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::EventListenerKeyboard *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerKeyboard");
+
+    // <function var>
+    std::function<void(cocos2d::EventKeyboard::KeyCode, cocos2d::Event *)> ret = (std::function<void(cocos2d::EventKeyboard::KeyCode, cocos2d::Event *)>)self->onKeyPressed;
+
+    return olua_push_std_function(L, (std::function<void(cocos2d::EventKeyboard::KeyCode, cocos2d::Event *)>)ret);
+}
+
+static int _cocos2d_EventListenerKeyboard_set_onKeyPressed(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::EventListenerKeyboard *self = nullptr;
+    std::function<void(cocos2d::EventKeyboard::KeyCode, cocos2d::Event *)> arg1 = nullptr;   /** onKeyPressed */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerKeyboard");
+
+    if (olua_is_std_function(L, 2)) {
+        void *tag_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onKeyPressed");
+        std::string func = olua_setcallback(L, tag_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+        arg1 = [tag_store_obj, func, tag](cocos2d::EventKeyboard::KeyCode arg1, cocos2d::Event *arg2) {
+            lua_State *L = xlua_cocosthread();
+            int top = lua_gettop(L);
+
+            olua_push_uint(L, (lua_Unsigned)arg1);
+            olua_callback(L, tag_store_obj, func.c_str(), 1);
+
+            lua_settop(L, top);
+        };
+    } else {
+        arg1 = nullptr;
+    }
+
+    // <function var>
+    self->onKeyPressed = arg1;
+
+    return 0;
+}
+
+static int _cocos2d_EventListenerKeyboard_get_onKeyReleased(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::EventListenerKeyboard *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerKeyboard");
+
+    // <function var>
+    std::function<void(cocos2d::EventKeyboard::KeyCode, cocos2d::Event *)> ret = (std::function<void(cocos2d::EventKeyboard::KeyCode, cocos2d::Event *)>)self->onKeyReleased;
+
+    return olua_push_std_function(L, (std::function<void(cocos2d::EventKeyboard::KeyCode, cocos2d::Event *)>)ret);
+}
+
+static int _cocos2d_EventListenerKeyboard_set_onKeyReleased(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::EventListenerKeyboard *self = nullptr;
+    std::function<void(cocos2d::EventKeyboard::KeyCode, cocos2d::Event *)> arg1 = nullptr;   /** onKeyReleased */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerKeyboard");
+
+    if (olua_is_std_function(L, 2)) {
+        void *tag_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onKeyReleased");
+        std::string func = olua_setcallback(L, tag_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+        arg1 = [tag_store_obj, func, tag](cocos2d::EventKeyboard::KeyCode arg1, cocos2d::Event *arg2) {
+            lua_State *L = xlua_cocosthread();
+            int top = lua_gettop(L);
+
+            olua_push_uint(L, (lua_Unsigned)arg1);
+            olua_callback(L, tag_store_obj, func.c_str(), 1);
+
+            lua_settop(L, top);
+        };
+    } else {
+        arg1 = nullptr;
+    }
+
+    // <function var>
+    self->onKeyReleased = arg1;
+
+    return 0;
+}
+
+static int luaopen_cocos2d_EventListenerKeyboard(lua_State *L)
+{
+    oluacls_class(L, "cc.EventListenerKeyboard", "cc.EventListener");
+    oluacls_setfunc(L, "create", _cocos2d_EventListenerKeyboard_create);
+    oluacls_property(L, "onKeyPressed", _cocos2d_EventListenerKeyboard_get_onKeyPressed, _cocos2d_EventListenerKeyboard_set_onKeyPressed);
+    oluacls_property(L, "onKeyReleased", _cocos2d_EventListenerKeyboard_get_onKeyReleased, _cocos2d_EventListenerKeyboard_set_onKeyReleased);
+
+    olua_registerluatype<cocos2d::EventListenerKeyboard>(L, "cc.EventListenerKeyboard");
     oluacls_createclassproxy(L);
 
     return 1;
@@ -5534,6 +5665,16 @@ static int luaopen_cocos2d_EventTouch(lua_State *L)
     oluacls_property(L, "touches", _cocos2d_EventTouch_getTouches, nullptr);
 
     olua_registerluatype<cocos2d::EventTouch>(L, "cc.EventTouch");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_EventKeyboard(lua_State *L)
+{
+    oluacls_class(L, "cc.EventKeyboard", "cc.Event");
+
+    olua_registerluatype<cocos2d::EventKeyboard>(L, "cc.EventKeyboard");
     oluacls_createclassproxy(L);
 
     return 1;
@@ -5812,11 +5953,13 @@ int luaopen_cocos2d(lua_State *L)
     xlua_require(L, "cc.EventListenerTouchOneByOne", luaopen_cocos2d_EventListenerTouchOneByOne);
     xlua_require(L, "cc.EventListenerTouchAllAtOnce", luaopen_cocos2d_EventListenerTouchAllAtOnce);
     xlua_require(L, "cc.EventListenerCustom", luaopen_cocos2d_EventListenerCustom);
+    xlua_require(L, "cc.EventListenerKeyboard", luaopen_cocos2d_EventListenerKeyboard);
     xlua_require(L, "cc.Event.Type", luaopen_cocos2d_Event_Type);
     xlua_require(L, "cc.Event", luaopen_cocos2d_Event);
     xlua_require(L, "cc.EventCustom", luaopen_cocos2d_EventCustom);
     xlua_require(L, "cc.EventTouch.EventCode", luaopen_cocos2d_EventTouch_EventCode);
     xlua_require(L, "cc.EventTouch", luaopen_cocos2d_EventTouch);
+    xlua_require(L, "cc.EventKeyboard", luaopen_cocos2d_EventKeyboard);
     xlua_require(L, "cc.Touch.DispatchMode", luaopen_cocos2d_Touch_DispatchMode);
     xlua_require(L, "cc.Touch", luaopen_cocos2d_Touch);
     return 0;

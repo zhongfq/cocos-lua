@@ -64,4 +64,9 @@ cls.funcs([[
     const std::vector<Touch*>& getTouches()
 ]])
 
+local cls = class(M)
+cls.CPPCLS = "cocos2d::EventKeyboard"
+cls.LUACLS = "cc.EventKeyboard"
+cls.SUPERCLS = "cc.Event"
+
 return M

@@ -12,6 +12,8 @@
 #define CLS_GET     ".get"
 #define CLS_SET     ".set"
 
+#define VOIDCLS     "void *"
+
 static lua_CFunction _traceback = NULL;
 
 static inline bool strequal(const char *str1, const char *str2)
@@ -84,13 +86,13 @@ LUALIB_API bool olua_isa(lua_State *L, int idx, const char *cls)
     return isa;
 }
 
-LUALIB_API bool olua_pushobj(lua_State *L, void *obj, const char *cls)
+LUALIB_API int olua_pushobj(lua_State *L, void *obj, const char *cls)
 {
-    bool is_new = false;
+    int status = OLUA_OBJ_EXIST;
     
     if (!obj) {
         lua_pushnil(L);
-        return false;
+        return status;
     }
     
     if (lua_rawgetp(L, LUA_REGISTRYINDEX, OBJ_REF_TABLE) == LUA_TNIL) {
@@ -110,7 +112,7 @@ LUALIB_API bool olua_pushobj(lua_State *L, void *obj, const char *cls)
         luaL_setmetatable(L, cls);                          // L: mapping obj
         lua_pushvalue(L, -1);                               // L: mapping obj obj
         lua_rawsetp(L, -3, obj); // mapping[obj] = uobj     // L: mapping obj
-        is_new = true;
+        status = OLUA_OBJ_NEW;
         
         if (!lua_getmetatable(L, -1)) {
             luaL_error(L, "metatable not found: %s", cls);
@@ -119,13 +121,18 @@ LUALIB_API bool olua_pushobj(lua_State *L, void *obj, const char *cls)
         }
     }
     
+    if (!strequal(cls, VOIDCLS) && luaL_testudata(L, -1, VOIDCLS)) {
+        luaL_setmetatable(L, cls);
+        status = OLUA_OBJ_UPDATE;
+    }
+    
 #ifdef OLUA_DEBUG
-    luaL_checkudata(L, -1, cls);
+    olua_checkobj(L, -1, cls);
 #endif
     
     lua_remove(L, -2);                                      // L: obj
     
-    return is_new;
+    return status;
 }
 
 LUALIB_API bool olua_getobj(lua_State *L, void *obj)
@@ -494,10 +501,10 @@ LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *super)
         }
         lua_pop(L, 1);
     } else {
-        if (!strequal(cls, "void *")) {
-            oluacls_class(L, "void *", NULL);
+        if (!strequal(cls, VOIDCLS)) {
+            oluacls_class(L, VOIDCLS, NULL);
             lua_pop(L, 1);
-            super = "void *";
+            super = VOIDCLS;
         }
     }
     
@@ -620,11 +627,6 @@ LUALIB_API void olua_opt_bool(lua_State *L, int idx, bool *value, bool def)
     *value = lua_type(L, idx) <= LUA_TNIL ? def : lua_toboolean(L, idx) != 0;
 }
 
-LUALIB_API bool olua_is_bool(lua_State *L, int idx)
-{
-    return lua_isboolean(L, idx);
-}
-
 LUALIB_API int olua_push_string(lua_State *L, const char *value)
 {
     lua_pushstring(L, value);
@@ -639,11 +641,6 @@ LUALIB_API void olua_check_string(lua_State *L, int idx, const char **value)
 LUALIB_API void olua_opt_string(lua_State *L, int idx, const char **value, const char *def)
 {
     *value = luaL_optstring(L, idx, def);
-}
-
-LUALIB_API bool olua_is_string(lua_State *L, int idx)
-{
-    return lua_isstring(L, idx);
 }
 
 LUALIB_API int olua_push_number(lua_State *L, lua_Number value)
@@ -662,11 +659,6 @@ LUALIB_API void olua_opt_number(lua_State *L, int idx, lua_Number *value, lua_Nu
     *value = luaL_optnumber(L, idx, def);
 }
 
-LUALIB_API bool olua_is_number(lua_State *L, int idx)
-{
-    return lua_isnumber(L, idx);
-}
-
 LUALIB_API int olua_push_int(lua_State *L, lua_Integer value)
 {
     lua_pushinteger(L, value);
@@ -676,11 +668,6 @@ LUALIB_API int olua_push_int(lua_State *L, lua_Integer value)
 LUALIB_API void olua_check_int(lua_State *L, int idx, lua_Integer *value)
 {
     *value = luaL_checkinteger(L, idx);
-}
-
-LUALIB_API bool olua_is_int(lua_State *L, int idx)
-{
-    return lua_isinteger(L, idx);
 }
 
 LUALIB_API void olua_opt_int(lua_State *L, int idx, lua_Integer *value, lua_Integer def)
@@ -703,11 +690,6 @@ LUALIB_API void olua_opt_uint(lua_State *L, int idx, lua_Unsigned *value, lua_Un
     *value = (lua_Unsigned)luaL_optinteger(L, idx, (lua_Integer)def);
 }
 
-LUALIB_API bool olua_is_uint(lua_State *L, int idx)
-{
-    return lua_isinteger(L, idx);
-}
-
 LUALIB_API int olua_push_obj(lua_State *L, void *obj, const char *cls)
 {
     olua_pushobj(L, obj, cls);
@@ -722,11 +704,6 @@ LUALIB_API void olua_check_obj(lua_State *L, int idx, void **value, const char *
 LUALIB_API void olua_to_obj(lua_State *L, int idx, void **value, const char *cls)
 {
     *value = olua_toobj(L, idx, cls);
-}
-
-LUALIB_API bool olua_is_obj(lua_State *L, int idx, const char *cls)
-{
-    return olua_isa(L, idx, cls);
 }
 
 static void auxchecktype(lua_State *L, int idx, const char *field, int type, bool isinteger)

@@ -629,31 +629,6 @@ int xluacv_push_ccdata(lua_State *L, const cocos2d::Data &value)
     return 1;
 }
 
-void xluacv_check_obj(lua_State *L, int idx, void **value)
-{
-    *value = xlua_checkobj(L, idx);
-}
-
-bool xluacv_is_obj(lua_State *L, int idx)
-{
-    return lua_type(L, idx) == LUA_TUSERDATA;
-}
-
-void xluacv_to_ccobj(lua_State *L, int idx, void **value, const char *cls)
-{
-    *value = olua_toobj(L, idx, cls);
-}
-
-void xluacv_check_ccobj(lua_State *L, int idx, void **value, const char *cls)
-{
-    *value = olua_checkobj(L, idx, cls);
-}
-
-bool xluacv_is_ccobj(lua_State *L, int idx, const char *cls)
-{
-    return olua_isa(L, idx, cls);
-}
-
 int xluacv_push_ccmat4(lua_State *L, const cocos2d::Mat4 &value)
 {
     lua_createtable(L, 16, 0);

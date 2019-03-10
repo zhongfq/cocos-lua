@@ -5,17 +5,17 @@ cls.SUPERCLS = "cc.Ref"
 cls.DEFCHUNK = [[
 template <typename T> bool doScheduleUpdate(lua_State *L, const char *cls)
 {
-    if (xluacv_is_ccobj(L, 2, cls)) {
+    if (olua_is_cppobj(L, 2, cls)) {
         cocos2d::Scheduler *self = nullptr;
         lua_Integer arg2 = 0;
         bool arg3 = false;
         
-        xluacv_to_ccobj(L, 1, (void **)&self, "cc.Scheduler");
+        olua_to_cppobj(L, 1, (void **)&self, "cc.Scheduler");
         olua_check_int(L, 3, &arg2);
         olua_check_bool(L, 4, &arg3);
         
         T* arg1 = nullptr;
-        xluacv_to_ccobj(L, 2, (void **)&arg1, cls);
+        olua_to_cppobj(L, 2, (void **)&arg1, cls);
         self->scheduleUpdate(arg1, (int)arg2, arg3);
         
         return true;
@@ -71,10 +71,17 @@ cls.func('scheduleUpdate', [[
 
     return 0;
 }]])
-cls.func(nil, 'void unscheduleUpdate(void *target)')
-cls.func(nil, 'void unscheduleAllWithMinPriority(int minPriority)')
-cls.func(nil, 'bool isScheduled(const std::string& key, const void *target)')
-cls.func(nil, 'void pauseTarget(void *target)')
-cls.func(nil, 'void resumeTarget(void *target)')
-cls.func(nil, 'bool isTargetPaused(void *target)')
+cls.funcs([[
+    void unscheduleUpdate(void *target)
+    void unscheduleAllWithMinPriority(int minPriority)
+    bool isScheduled(const std::string& key, const void *target)
+    void pauseTarget(void *target)
+    void resumeTarget(void *target)
+    bool isTargetPaused(void *target)
+    std::set<void*> pauseAllTargets()
+    std::set<void*> pauseAllTargetsWithMinPriority(int minPriority)
+    void resumeTargets(const std::set<void*>& targetsToResume)
+    void removeAllFunctionsToBePerformedInCocosThread()
+]])
+
 return cls

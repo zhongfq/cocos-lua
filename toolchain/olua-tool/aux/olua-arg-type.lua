@@ -7,7 +7,8 @@ REG_TYPE {
 
 REG_TYPE {
     TYPENAME = 'void *',
-    CONV_FUNC = 'xluacv_$$_obj',
+    LUACLS = 'void *',
+    CONV_FUNC = 'olua_$$_obj',
 }
 
 REG_TYPE {
@@ -36,6 +37,12 @@ REG_TYPE {
     TYPENAME = 'std::function',
     INIT_VALUE = false,
     CONV_FUNC = "olua_$$_std_function"
+}
+
+REG_TYPE {
+    TYPENAME = 'std::set',
+    INIT_VALUE = false,
+    CONV_FUNC = "olua_$$_std_set"
 }
 
 REG_TYPE {

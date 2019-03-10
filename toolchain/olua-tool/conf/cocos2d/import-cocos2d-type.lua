@@ -11,7 +11,7 @@ REG_TYPE {
 
 REG_TYPE {
     TYPENAME = 'cocos2d::UserDefault *',
-    CONV_FUNC = "xluacv_$$_ccobj",
+    CONV_FUNC = "olua_$$_cppobj",
     LUACLS = make_luacls,
 }
 
@@ -105,6 +105,6 @@ REG_TYPE {
         'cocos2d::Scene *',
         'cocos2d::Action *',
     }, '|'),
-    CONV_FUNC = "xluacv_$$_ccobj",
+    CONV_FUNC = "olua_$$_cppobj",
     LUACLS = make_luacls,
 }

@@ -30,7 +30,7 @@ function new_ccobj(cls)
         {
             ${CPPCLS} *obj = new ${CPPCLS}();
             obj->autorelease();
-            xluacv_push_ccobj(L, obj, "${LUACLS}");
+            olua_push_cppobj(L, obj, "${LUACLS}");
             return 1;
         }
     ]]))

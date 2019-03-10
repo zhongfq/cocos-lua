@@ -287,6 +287,9 @@ function class(collection)
         end
     end
 
+    function cls.var(name, var_decl)
+    end
+
     function cls.prop(name, func_get, func_set)
         assert(not string.find(name, '[^_%w]+'), '"' .. name .. '"')
         cls.PROPS[#cls.PROPS + 1] = parse_prop(cls, name, func_get, func_set)

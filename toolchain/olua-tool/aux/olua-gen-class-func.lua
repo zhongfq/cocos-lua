@@ -6,6 +6,7 @@ local function gen_snippet_func(cls, fi, write)
         static int _${CPPCLS_PATH}_${CPPFUNC}(lua_State *L)
         ${CPPFUNC_SNIPPET}
     ]]))
+    write('')
 end
 
 local function gen_func_args(cls, fi)
@@ -193,6 +194,7 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
             return ${PUSH_RET};
         }
     ]]))
+    write('')
 end
 
 local function get_func_n(fis, n)
@@ -266,7 +268,6 @@ function gen_multi_func(cls, fis, write, func_filter)
 
     for _, fi in ipairs(fis) do
         gen_one_func(cls, fi, write, fi.INDEX, func_filter)
-        write('')
     end
 
     for i = 0, NUM_ARGS do
@@ -295,6 +296,7 @@ function gen_multi_func(cls, fis, write, func_filter)
             return 0;
         }
     ]]))
+    write('')
 end
 
 function gen_class_func(cls, fis, write, func_filter)

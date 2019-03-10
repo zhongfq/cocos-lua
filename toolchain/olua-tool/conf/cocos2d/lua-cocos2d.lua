@@ -53,6 +53,8 @@ M.CLASSES = {
     include("conf/cocos2d/cc/cc.Sprite.lua"),
     include("conf/cocos2d/cc/cc.Scene.lua"),
     include("conf/cocos2d/cc/cc.EventListener.lua"),
+    include("conf/cocos2d/cc/cc.Event.lua"),
+    include("conf/cocos2d/cc/cc.Touch.lua"),
 }
 
 return M

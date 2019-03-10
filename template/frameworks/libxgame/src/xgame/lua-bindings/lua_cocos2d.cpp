@@ -4127,8 +4127,6 @@ static int _cocos2d_Node_pause(lua_State *L)
     return 0;
 }
 
-
-
 static int _cocos2d_Node_getAttachedNodeCount(lua_State *L)
 {
     lua_settop(L, 0);
@@ -4492,9 +4490,6 @@ static int _cocos2d_EventListener_isEnabled(lua_State *L)
     return olua_push_bool(L, ret);
 }
 
-
-
-
 static int luaopen_cocos2d_EventListener(lua_State *L)
 {
     oluacls_class(L, "cc.EventListener", "cc.Ref");
@@ -4532,6 +4527,346 @@ static int luaopen_cocos2d_EventListenerTouchAllAtOnce(lua_State *L)
     return 1;
 }
 
+static int luaopen_cocos2d_Event_Type(lua_State *L)
+{
+    oluacls_class(L, "cc.Event.Type", nullptr);
+    oluacls_const_integer(L, "TOUCH", (lua_Integer)cocos2d::Event::Type::TOUCH);
+    oluacls_const_integer(L, "KEYBOARD", (lua_Integer)cocos2d::Event::Type::KEYBOARD);
+    oluacls_const_integer(L, "ACCELERATION", (lua_Integer)cocos2d::Event::Type::ACCELERATION);
+    oluacls_const_integer(L, "MOUSE", (lua_Integer)cocos2d::Event::Type::MOUSE);
+    oluacls_const_integer(L, "FOCUS", (lua_Integer)cocos2d::Event::Type::FOCUS);
+    oluacls_const_integer(L, "GAME_CONTROLLER", (lua_Integer)cocos2d::Event::Type::GAME_CONTROLLER);
+    oluacls_const_integer(L, "CUSTOM", (lua_Integer)cocos2d::Event::Type::CUSTOM);
+
+    olua_registerluatype<cocos2d::Event::Type>(L, "cc.Event.Type");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_Event_getType(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Event *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Event");
+
+    // Type getType();
+    cocos2d::Event::Type ret = (cocos2d::Event::Type)self->getType();
+
+    return olua_push_uint(L, (lua_Unsigned)ret);
+}
+
+static int _cocos2d_Event_stopPropagation(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Event *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Event");
+
+    // void stopPropagation()
+    self->stopPropagation();
+
+    return 0;
+}
+
+static int _cocos2d_Event_isStopped(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Event *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Event");
+
+    // bool isStopped()
+    bool ret = (bool)self->isStopped();
+
+    return olua_push_bool(L, ret);
+}
+
+static int _cocos2d_Event_getCurrentTarget(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Event *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Event");
+
+    // Node* getCurrentTarget()
+    cocos2d::Node *ret = (cocos2d::Node *)self->getCurrentTarget();
+
+    return olua_push_cppobj(L, ret, "cc.Node");
+}
+
+static int luaopen_cocos2d_Event(lua_State *L)
+{
+    oluacls_class(L, "cc.Event", "cc.Ref");
+    oluacls_setfunc(L, "getType", _cocos2d_Event_getType);
+    oluacls_setfunc(L, "stopPropagation", _cocos2d_Event_stopPropagation);
+    oluacls_setfunc(L, "isStopped", _cocos2d_Event_isStopped);
+    oluacls_setfunc(L, "getCurrentTarget", _cocos2d_Event_getCurrentTarget);
+    oluacls_property(L, "type", _cocos2d_Event_getType, nullptr);
+    oluacls_property(L, "currentTarget", _cocos2d_Event_getCurrentTarget, nullptr);
+    oluacls_property(L, "stopped", _cocos2d_Event_isStopped, nullptr);
+
+    olua_registerluatype<cocos2d::Event>(L, "cc.Event");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_Touch_DispatchMode(lua_State *L)
+{
+    oluacls_class(L, "cc.Touch.DispatchMode", nullptr);
+    oluacls_const_integer(L, "ALL_AT_ONCE", (lua_Integer)cocos2d::Touch::DispatchMode::ALL_AT_ONCE);
+    oluacls_const_integer(L, "ONE_BY_ONE", (lua_Integer)cocos2d::Touch::DispatchMode::ONE_BY_ONE);
+
+    olua_registerluatype<cocos2d::Touch::DispatchMode>(L, "cc.Touch.DispatchMode");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_Touch_new(lua_State *L)
+{
+    cocos2d::Touch *obj = new cocos2d::Touch();
+    obj->autorelease();
+    olua_push_cppobj(L, obj, "cc.Touch");
+    return 1;
+}
+
+static int _cocos2d_Touch_getLocation(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Touch *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Touch");
+
+    // unpack Vec2 getLocation()
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->getLocation();
+
+    return auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+}
+
+static int _cocos2d_Touch_getPreviousLocation(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Touch *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Touch");
+
+    // unpack Vec2 getPreviousLocation()
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->getPreviousLocation();
+
+    return auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+}
+
+static int _cocos2d_Touch_getStartLocation(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Touch *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Touch");
+
+    // unpack Vec2 getStartLocation()
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->getStartLocation();
+
+    return auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+}
+
+static int _cocos2d_Touch_getDelta(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Touch *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Touch");
+
+    // unpack Vec2 getDelta()
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->getDelta();
+
+    return auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+}
+
+static int _cocos2d_Touch_getLocationInView(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Touch *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Touch");
+
+    // unpack Vec2 getLocationInView()
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->getLocationInView();
+
+    return auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+}
+
+static int _cocos2d_Touch_getPreviousLocationInView(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Touch *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Touch");
+
+    // unpack Vec2 getPreviousLocationInView()
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->getPreviousLocationInView();
+
+    return auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+}
+
+static int _cocos2d_Touch_getStartLocationInView(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Touch *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Touch");
+
+    // unpack Vec2 getStartLocationInView()
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->getStartLocationInView();
+
+    return auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+}
+
+static int _cocos2d_Touch_setTouchInfo1(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    cocos2d::Touch *self = nullptr;
+    lua_Integer arg1 = 0;   /** id */
+    lua_Number arg2 = 0;   /** x */
+    lua_Number arg3 = 0;   /** y */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Touch");
+    olua_check_int(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+
+    // void setTouchInfo(int id, float x, float y)
+    self->setTouchInfo((int)arg1, (float)arg2, (float)arg3);
+
+    return 0;
+}
+
+static int _cocos2d_Touch_setTouchInfo2(lua_State *L)
+{
+    lua_settop(L, 6);
+
+    cocos2d::Touch *self = nullptr;
+    lua_Integer arg1 = 0;   /** id */
+    lua_Number arg2 = 0;   /** x */
+    lua_Number arg3 = 0;   /** y */
+    lua_Number arg4 = 0;   /** force */
+    lua_Number arg5 = 0;   /** maxForce */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Touch");
+    olua_check_int(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+    olua_check_number(L, 5, &arg4);
+    olua_check_number(L, 6, &arg5);
+
+    // void setTouchInfo(int id, float x, float y, float force, float maxForce)
+    self->setTouchInfo((int)arg1, (float)arg2, (float)arg3, (float)arg4, (float)arg5);
+
+    return 0;
+}
+
+static int _cocos2d_Touch_setTouchInfo(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 3) {
+        // if (olua_is_int(L, 2) && olua_is_number(L, 3) && olua_is_number(L, 4)) {
+            return _cocos2d_Touch_setTouchInfo1(L);
+        // }
+    }
+
+    if (num_args == 5) {
+        // if (olua_is_int(L, 2) && olua_is_number(L, 3) && olua_is_number(L, 4) && olua_is_number(L, 5) && olua_is_number(L, 6)) {
+            return _cocos2d_Touch_setTouchInfo2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Touch::setTouchInfo' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_Touch_getID(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Touch *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Touch");
+
+    // int getID()
+    int ret = (int)self->getID();
+
+    return olua_push_int(L, (lua_Integer)ret);
+}
+
+static int _cocos2d_Touch_getCurrentForce(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Touch *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Touch");
+
+    // float getCurrentForce()
+    float ret = (float)self->getCurrentForce();
+
+    return olua_push_number(L, (lua_Number)ret);
+}
+
+static int _cocos2d_Touch_getMaxForce(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Touch *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Touch");
+
+    // float getMaxForce()
+    float ret = (float)self->getMaxForce();
+
+    return olua_push_number(L, (lua_Number)ret);
+}
+
+static int luaopen_cocos2d_Touch(lua_State *L)
+{
+    oluacls_class(L, "cc.Touch", "cc.Ref");
+    oluacls_setfunc(L, "new", _cocos2d_Touch_new);
+    oluacls_setfunc(L, "getLocation", _cocos2d_Touch_getLocation);
+    oluacls_setfunc(L, "getPreviousLocation", _cocos2d_Touch_getPreviousLocation);
+    oluacls_setfunc(L, "getStartLocation", _cocos2d_Touch_getStartLocation);
+    oluacls_setfunc(L, "getDelta", _cocos2d_Touch_getDelta);
+    oluacls_setfunc(L, "getLocationInView", _cocos2d_Touch_getLocationInView);
+    oluacls_setfunc(L, "getPreviousLocationInView", _cocos2d_Touch_getPreviousLocationInView);
+    oluacls_setfunc(L, "getStartLocationInView", _cocos2d_Touch_getStartLocationInView);
+    oluacls_setfunc(L, "setTouchInfo", _cocos2d_Touch_setTouchInfo);
+    oluacls_setfunc(L, "getID", _cocos2d_Touch_getID);
+    oluacls_setfunc(L, "getCurrentForce", _cocos2d_Touch_getCurrentForce);
+    oluacls_setfunc(L, "getMaxForce", _cocos2d_Touch_getMaxForce);
+    oluacls_property(L, "id", _cocos2d_Touch_getID, nullptr);
+    oluacls_property(L, "currentForce", _cocos2d_Touch_getCurrentForce, nullptr);
+    oluacls_property(L, "maxForce", _cocos2d_Touch_getMaxForce, nullptr);
+
+    olua_registerluatype<cocos2d::Touch>(L, "cc.Touch");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
 int luaopen_cocos2d(lua_State *L)
 {
     xlua_require(L, "cc.UserDefault", luaopen_cocos2d_UserDefault);
@@ -4553,5 +4888,9 @@ int luaopen_cocos2d(lua_State *L)
     xlua_require(L, "cc.EventListener.Type", luaopen_cocos2d_EventListener_Type);
     xlua_require(L, "cc.EventListener", luaopen_cocos2d_EventListener);
     xlua_require(L, "cc.EventListenerTouchAllAtOnce", luaopen_cocos2d_EventListenerTouchAllAtOnce);
+    xlua_require(L, "cc.Event.Type", luaopen_cocos2d_Event_Type);
+    xlua_require(L, "cc.Event", luaopen_cocos2d_Event);
+    xlua_require(L, "cc.Touch.DispatchMode", luaopen_cocos2d_Touch_DispatchMode);
+    xlua_require(L, "cc.Touch", luaopen_cocos2d_Touch);
     return 0;
 }

@@ -72,6 +72,7 @@ function gen_callback(cls, fi, write)
     local NUM_ARGS = #ai.CALLBACK_ARGS
     local ARGS = {}
     local PUSH_ARGS = {}
+    local INSTACKS = {}
     local TAG_STORE_OBJ
     local TAG_STORE
     local RESULT_DECL = ""
@@ -82,36 +83,41 @@ function gen_callback(cls, fi, write)
         local ARG_N = 'arg' .. i
         local PUSH_FUNC = v.TYPE.FUNC_PUSH_VALUE
     
-        if v.IGNORE then
-            NUM_ARGS = NUM_ARGS - 1
-        else
-            if v.TYPE.LUACLS then
-                local LUACLS = v.TYPE.LUACLS
-                if PUSH_FUNC == "olua_push_cppobj" then
-                    local TYPENAME = string.gsub(v.TYPE.TYPENAME, '[ *]*$', '')
-                    PUSH_ARGS[#PUSH_ARGS + 1] = format_snippet([[
-                        ${PUSH_FUNC}<${TYPENAME}>(L, ${ARG_N}, "${LUACLS}");
-                    ]])
-                else
-                    PUSH_ARGS[#PUSH_ARGS + 1] = format_snippet([[
-                        ${PUSH_FUNC}(L, ${ARG_N}, "${LUACLS}");
-                    ]])
-                end
-            elseif v.TYPE.SUBTYPE then
-                local SUBTYPE = assert(v.TYPE.SUBTYPE.LUACLS, v.TYPE.DECL_TYPE)
+        if v.TYPE.LUACLS then
+            local LUACLS = v.TYPE.LUACLS
+            if PUSH_FUNC == "olua_push_cppobj" then
+                local TYPENAME = string.gsub(v.TYPE.TYPENAME, '[ *]*$', '')
                 PUSH_ARGS[#PUSH_ARGS + 1] = format_snippet([[
-                    ${PUSH_FUNC}(L, ${ARG_N}, "${SUBTYPE}");
+                    ${PUSH_FUNC}<${TYPENAME}>(L, ${ARG_N}, "${LUACLS}");
                 ]])
             else
-                local CAST = ""
-                if v.TYPE.DECL_TYPE ~= v.TYPE.TYPENAME then
-                    assert(not string.find(PUSH_FUNC, '^auto_luacv'))
-                    CAST = string.format("(%s)", v.TYPE.DECL_TYPE)
-                end
                 PUSH_ARGS[#PUSH_ARGS + 1] = format_snippet([[
-                    ${PUSH_FUNC}(L, ${CAST}${ARG_N});
+                    ${PUSH_FUNC}(L, ${ARG_N}, "${LUACLS}");
                 ]])
             end
+        elseif v.TYPE.SUBTYPE then
+            local SUBTYPE = assert(v.TYPE.SUBTYPE.LUACLS, v.TYPE.DECL_TYPE)
+            PUSH_ARGS[#PUSH_ARGS + 1] = format_snippet([[
+                ${PUSH_FUNC}(L, ${ARG_N}, "${SUBTYPE}");
+            ]])
+        else
+            local CAST = ""
+            if v.TYPE.DECL_TYPE ~= v.TYPE.TYPENAME then
+                assert(not string.find(PUSH_FUNC, '^auto_luacv'))
+                CAST = string.format("(%s)", v.TYPE.DECL_TYPE)
+            end
+            PUSH_ARGS[#PUSH_ARGS + 1] = format_snippet([[
+                ${PUSH_FUNC}(L, ${CAST}${ARG_N});
+            ]])
+        end
+
+        if v.INSTACK then
+            local PUSH_VALUE = PUSH_ARGS[#PUSH_ARGS]
+            INSTACKS[#INSTACKS + 1] = format_snippet([[
+                // evet is stack value
+                ${PUSH_VALUE}
+                olua_callgc(L, -1);
+            ]])
         end
 
         local DECL_TYPE = v.FUNC_ARG_DECL_TYPE
@@ -123,6 +129,7 @@ function gen_callback(cls, fi, write)
 
     ARGS = table.concat(ARGS, ", ")
     PUSH_ARGS = table.concat(PUSH_ARGS, "\n")
+    INSTACKS = table.concat(INSTACKS, "\n")
 
     if fi.CALLBACK_OPT.REMOVED then
         local TAG_MODE = fi.CALLBACK_OPT.TAG_MODE
@@ -167,6 +174,9 @@ function gen_callback(cls, fi, write)
             olua_callback(L, tag_store_obj, func.c_str(), ${NUM_ARGS});
             ${RESULT_GET}
             ${REMOVE_CALLBACK}
+            
+            ${INSTACKS}
+
             lua_settop(L, top);
             ${RESULT_RET}
         };

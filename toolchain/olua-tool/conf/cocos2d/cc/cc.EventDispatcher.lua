@@ -41,6 +41,11 @@ cls.func('addCustomEventListener', [[
         int top = lua_gettop(L);
         olua_push_cppobj<cocos2d::EventCustom>(L, event, "cc.EventCustom");
         olua_callback(L, tag_store_obj, func.c_str(), 1);
+
+        // evet is stack value
+        olua_push_cppobj<cocos2d::EventCustom>(L, event, "cc.EventCustom");
+        olua_callgc(L, -1);
+        
         lua_settop(L, top);
     });
     

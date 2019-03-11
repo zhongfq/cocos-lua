@@ -36,19 +36,19 @@ cls.funcs([[
     void setSwallowTouches(bool needSwallow)
     bool isSwallowTouches()
 ]])
-cls.var('onTouchBegan', 'std::function<bool(Touch*, @ignore Event*)> onTouchBegan = nullptr')
-cls.var('onTouchMoved', 'std::function<void(Touch*, @ignore Event*)> onTouchMoved = nullptr')
-cls.var('onTouchEnded', 'std::function<void(Touch*, @ignore Event*)> onTouchEnded = nullptr')
-cls.var('onTouchCancelled', 'std::function<void(Touch*, @ignore Event*)> onTouchCancelled = nullptr')
+cls.var('onTouchBegan', 'std::function<bool(Touch*, @stack Event*)> onTouchBegan = nullptr')
+cls.var('onTouchMoved', 'std::function<void(Touch*, @stack Event*)> onTouchMoved = nullptr')
+cls.var('onTouchEnded', 'std::function<void(Touch*, @stack Event*)> onTouchEnded = nullptr')
+cls.var('onTouchCancelled', 'std::function<void(Touch*, @stack Event*)> onTouchCancelled = nullptr')
 
 local cls = class(M)
 cls.CPPCLS = "cocos2d::EventListenerTouchAllAtOnce"
 cls.LUACLS = "cc.EventListenerTouchAllAtOnce"
 cls.SUPERCLS = "cc.EventListener"
-cls.var('onTouchesBegan', 'std::function<void(const std::vector<Touch*>&, @ignore Event*)> onTouchesBegan = nullptr')
-cls.var('onTouchesMoved', 'std::function<void(const std::vector<Touch*>&, @ignore Event*)> onTouchesMoved = nullptr')
-cls.var('onTouchesEnded', 'std::function<void(const std::vector<Touch*>&, @ignore Event*)> onTouchesEnded = nullptr')
-cls.var('onTouchesCancelled', 'std::function<void(const std::vector<Touch*>&, @ignore Event*)> onTouchesCancelled = nullptr')
+cls.var('onTouchesBegan', 'std::function<void(const std::vector<Touch*>&, @stack Event*)> onTouchesBegan = nullptr')
+cls.var('onTouchesMoved', 'std::function<void(const std::vector<Touch*>&, @stack Event*)> onTouchesMoved = nullptr')
+cls.var('onTouchesEnded', 'std::function<void(const std::vector<Touch*>&, @stack Event*)> onTouchesEnded = nullptr')
+cls.var('onTouchesCancelled', 'std::function<void(const std::vector<Touch*>&, @stack Event*)> onTouchesCancelled = nullptr')
 cls.funcs([[
     static EventListenerTouchAllAtOnce* create()
 ]])
@@ -73,6 +73,11 @@ cls.func("create", [[
         int top = lua_gettop(L);
         olua_push_cppobj<cocos2d::EventCustom>(L, event, "cc.EventCustom");
         olua_callback(L, tag_store_obj, func.c_str(), 1);
+
+        // evet is stack value
+        olua_push_cppobj<cocos2d::EventCustom>(L, event, "cc.EventCustom");
+        olua_callgc(L, -1);
+
         lua_settop(L, top);
     });
     
@@ -88,7 +93,7 @@ cls.SUPERCLS = "cc.EventListener"
 cls.funcs([[
     static EventListenerKeyboard* create()
 ]])
-cls.var('onKeyPressed', 'std::function<void(EventKeyboard::KeyCode, @ignore Event*)> onKeyPressed = nullptr')
-cls.var('onKeyReleased', 'std::function<void(EventKeyboard::KeyCode, @ignore Event*)> onKeyReleased = nullptr')
+cls.var('onKeyPressed', 'std::function<void(EventKeyboard::KeyCode, @stack Event*)> onKeyPressed = nullptr')
+cls.var('onKeyReleased', 'std::function<void(EventKeyboard::KeyCode, @stack Event*)> onKeyReleased = nullptr')
 
 return M

@@ -27,6 +27,25 @@ LUALIB_API int olua_pushobj(lua_State *L, void *obj, const char *cls);
 LUALIB_API bool olua_getobj(lua_State *L, void *obj);
 LUALIB_API void *olua_checkobj(lua_State *L, int idx, const char *cls);
 LUALIB_API void *olua_toobj(lua_State *L, int idx, const char *cls);
+LUALIB_API void olua_callgc(lua_State *L, int idx);
+    
+typedef enum {
+    // for olua_setcallback
+    OLUA_CALLBACK_TAG_NEW,
+    OLUA_CALLBACK_TAG_REPLACE,
+    // for olua_removecallback
+    OLUA_CALLBACK_TAG_EQUAL,
+    OLUA_CALLBACK_TAG_ENDWITH,
+    OLUA_CALLBACK_TAG_WILDCARD
+} olua_callback_tag_t;
+
+LUALIB_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag, int func, olua_callback_tag_t mode);
+LUALIB_API void olua_removecallback(lua_State *L, void *obj, const char *tag, olua_callback_tag_t mode);
+LUALIB_API bool olua_callback(lua_State *L, void *obj, const char *field, int num_args);
+#define olua_makecallbacktag(tag) (tag)
+
+LUALIB_API int olua_getvariable(lua_State *L, int idx);
+LUALIB_API void olua_setvariable(lua_State *L, int idx);
 
 //
 // lua class model
@@ -63,21 +82,6 @@ LUALIB_API void oluacls_const(lua_State *L, const char *field);
 #define oluacls_const_number(L, field, value) {lua_pushnumber(L, value); oluacls_const(L, field);}
 #define oluacls_const_integer(L, field, value) {lua_pushinteger(L, value); oluacls_const(L, field);}
 #define oluacls_const_string(L, field, value) {lua_pushstring(L, value); oluacls_const(L, field);}
-    
-typedef enum {
-    // for olua_setcallback
-    OLUA_CALLBACK_TAG_NEW,
-    OLUA_CALLBACK_TAG_REPLACE,
-    // for olua_removecallback
-    OLUA_CALLBACK_TAG_EQUAL,
-    OLUA_CALLBACK_TAG_ENDWITH,
-    OLUA_CALLBACK_TAG_WILDCARD
-} olua_callback_tag_t;
-    
-LUALIB_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag, int func, olua_callback_tag_t mode);
-LUALIB_API void olua_removecallback(lua_State *L, void *obj, const char *tag, olua_callback_tag_t mode);
-LUALIB_API bool olua_callback(lua_State *L, void *obj, const char *field, int num_args);
-#define olua_makecallbacktag(tag) (tag)
     
 LUALIB_API int olua_push_bool(lua_State *L, bool value);
 LUALIB_API void olua_check_bool(lua_State *L, int idx, bool *value);

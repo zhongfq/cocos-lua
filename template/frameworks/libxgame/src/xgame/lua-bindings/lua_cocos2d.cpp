@@ -2352,6 +2352,7 @@ static int _cocos2d_TextureCache_addImageAsync1(lua_State *L)
         olua_callback(L, tag_store_obj, func.c_str(), 1);
 
         olua_removecallback(L, tag_store_obj, func.c_str(), OLUA_CALLBACK_TAG_EQUAL);
+
         lua_settop(L, top);
     };
 
@@ -2385,6 +2386,7 @@ static int _cocos2d_TextureCache_addImageAsync2(lua_State *L)
         olua_callback(L, tag_store_obj, func.c_str(), 1);
 
         olua_removecallback(L, tag_store_obj, func.c_str(), OLUA_CALLBACK_TAG_EQUAL);
+
         lua_settop(L, top);
     };
 
@@ -3969,6 +3971,7 @@ static int _cocos2d_Node_scheduleOnce(lua_State *L)
         olua_callback(L, tag_store_obj, func.c_str(), 1);
 
         olua_removecallback(L, tag_store_obj, func.c_str(), OLUA_CALLBACK_TAG_EQUAL);
+
         lua_settop(L, top);
     };
 
@@ -4728,6 +4731,11 @@ static int _cocos2d_EventDispatcher_addCustomEventListener(lua_State *L)
         int top = lua_gettop(L);
         olua_push_cppobj<cocos2d::EventCustom>(L, event, "cc.EventCustom");
         olua_callback(L, tag_store_obj, func.c_str(), 1);
+
+        // evet is stack value
+        olua_push_cppobj<cocos2d::EventCustom>(L, event, "cc.EventCustom");
+        olua_callgc(L, -1);
+
         lua_settop(L, top);
     });
 
@@ -4936,8 +4944,13 @@ static int _cocos2d_EventListenerTouchOneByOne_set_onTouchBegan(lua_State *L)
             int top = lua_gettop(L);
             bool ret = false;
             olua_push_cppobj<cocos2d::Touch>(L, arg1, "cc.Touch");
-            olua_callback(L, tag_store_obj, func.c_str(), 1);
+            olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
+            olua_callback(L, tag_store_obj, func.c_str(), 2);
             olua_opt_bool(L, -1, &ret, false);
+
+            // evet is stack value
+            olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
+            olua_callgc(L, -1);
 
             lua_settop(L, top);
             return ret;
@@ -4984,7 +4997,12 @@ static int _cocos2d_EventListenerTouchOneByOne_set_onTouchMoved(lua_State *L)
             int top = lua_gettop(L);
 
             olua_push_cppobj<cocos2d::Touch>(L, arg1, "cc.Touch");
-            olua_callback(L, tag_store_obj, func.c_str(), 1);
+            olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
+            olua_callback(L, tag_store_obj, func.c_str(), 2);
+
+            // evet is stack value
+            olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
+            olua_callgc(L, -1);
 
             lua_settop(L, top);
         };
@@ -5030,7 +5048,12 @@ static int _cocos2d_EventListenerTouchOneByOne_set_onTouchEnded(lua_State *L)
             int top = lua_gettop(L);
 
             olua_push_cppobj<cocos2d::Touch>(L, arg1, "cc.Touch");
-            olua_callback(L, tag_store_obj, func.c_str(), 1);
+            olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
+            olua_callback(L, tag_store_obj, func.c_str(), 2);
+
+            // evet is stack value
+            olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
+            olua_callgc(L, -1);
 
             lua_settop(L, top);
         };
@@ -5076,7 +5099,12 @@ static int _cocos2d_EventListenerTouchOneByOne_set_onTouchCancelled(lua_State *L
             int top = lua_gettop(L);
 
             olua_push_cppobj<cocos2d::Touch>(L, arg1, "cc.Touch");
-            olua_callback(L, tag_store_obj, func.c_str(), 1);
+            olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
+            olua_callback(L, tag_store_obj, func.c_str(), 2);
+
+            // evet is stack value
+            olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
+            olua_callgc(L, -1);
 
             lua_settop(L, top);
         };
@@ -5150,7 +5178,12 @@ static int _cocos2d_EventListenerTouchAllAtOnce_set_onTouchesBegan(lua_State *L)
             int top = lua_gettop(L);
 
             olua_push_std_vector(L, arg1, "cc.Touch");
-            olua_callback(L, tag_store_obj, func.c_str(), 1);
+            olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
+            olua_callback(L, tag_store_obj, func.c_str(), 2);
+
+            // evet is stack value
+            olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
+            olua_callgc(L, -1);
 
             lua_settop(L, top);
         };
@@ -5196,7 +5229,12 @@ static int _cocos2d_EventListenerTouchAllAtOnce_set_onTouchesMoved(lua_State *L)
             int top = lua_gettop(L);
 
             olua_push_std_vector(L, arg1, "cc.Touch");
-            olua_callback(L, tag_store_obj, func.c_str(), 1);
+            olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
+            olua_callback(L, tag_store_obj, func.c_str(), 2);
+
+            // evet is stack value
+            olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
+            olua_callgc(L, -1);
 
             lua_settop(L, top);
         };
@@ -5242,7 +5280,12 @@ static int _cocos2d_EventListenerTouchAllAtOnce_set_onTouchesEnded(lua_State *L)
             int top = lua_gettop(L);
 
             olua_push_std_vector(L, arg1, "cc.Touch");
-            olua_callback(L, tag_store_obj, func.c_str(), 1);
+            olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
+            olua_callback(L, tag_store_obj, func.c_str(), 2);
+
+            // evet is stack value
+            olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
+            olua_callgc(L, -1);
 
             lua_settop(L, top);
         };
@@ -5288,7 +5331,12 @@ static int _cocos2d_EventListenerTouchAllAtOnce_set_onTouchesCancelled(lua_State
             int top = lua_gettop(L);
 
             olua_push_std_vector(L, arg1, "cc.Touch");
-            olua_callback(L, tag_store_obj, func.c_str(), 1);
+            olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
+            olua_callback(L, tag_store_obj, func.c_str(), 2);
+
+            // evet is stack value
+            olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
+            olua_callgc(L, -1);
 
             lua_settop(L, top);
         };
@@ -5333,6 +5381,11 @@ static int _cocos2d_EventListenerCustom_create(lua_State *L)
         int top = lua_gettop(L);
         olua_push_cppobj<cocos2d::EventCustom>(L, event, "cc.EventCustom");
         olua_callback(L, tag_store_obj, func.c_str(), 1);
+
+        // evet is stack value
+        olua_push_cppobj<cocos2d::EventCustom>(L, event, "cc.EventCustom");
+        olua_callgc(L, -1);
+
         lua_settop(L, top);
     });
 
@@ -5394,7 +5447,12 @@ static int _cocos2d_EventListenerKeyboard_set_onKeyPressed(lua_State *L)
             int top = lua_gettop(L);
 
             olua_push_uint(L, (lua_Unsigned)arg1);
-            olua_callback(L, tag_store_obj, func.c_str(), 1);
+            olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
+            olua_callback(L, tag_store_obj, func.c_str(), 2);
+
+            // evet is stack value
+            olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
+            olua_callgc(L, -1);
 
             lua_settop(L, top);
         };
@@ -5440,7 +5498,12 @@ static int _cocos2d_EventListenerKeyboard_set_onKeyReleased(lua_State *L)
             int top = lua_gettop(L);
 
             olua_push_uint(L, (lua_Unsigned)arg1);
-            olua_callback(L, tag_store_obj, func.c_str(), 1);
+            olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
+            olua_callback(L, tag_store_obj, func.c_str(), 2);
+
+            // evet is stack value
+            olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
+            olua_callgc(L, -1);
 
             lua_settop(L, top);
         };

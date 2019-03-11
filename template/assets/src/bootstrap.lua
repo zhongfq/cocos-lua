@@ -15,6 +15,9 @@ local EventListenerCustom = require "cc.EventListenerCustom"
 
 window.setDesignSize(1334, 750, 1)
 
+local director = Director.getInstance()
+local eventDispatcher = Director.getInstance().eventDispatcher
+
 function main()
     print("hello bootstrap!")
 
@@ -25,6 +28,13 @@ function main()
 
     local sprite = Sprite.create("res/HelloWorld.png")
     sprite.name = "xxxx"
+    sprite.hello = function ( ... )
+        print("### hello", ...)
+    end
+    sprite.setPosition = sprite.hello
+    sprite:setPosition(500, 400)
+    sprite:hello()
+    sprite.setPosition = nil
     sprite:setPosition(500, 400)
     Director.getInstance().runningScene:addChild(sprite)
     print(Director.getInstance().runningScene:getChildByName("xxxx"))
@@ -44,7 +54,9 @@ function main()
         print("onTouchEnded", v, v.id, v:getLocation())
     end
 
-    local eventDispatcher = Director.getInstance().eventDispatcher
+    eventDispatcher.listener = listener
+    printUserValue(eventDispatcher)
+    print(eventDispatcher.listener)
     eventDispatcher:addEventListenerWithSceneGraphPriority(listener, sprite)
     print(eventDispatcher)
 
@@ -59,11 +71,11 @@ function main()
     end)
 
     timer.delay(3, function ( ... )
-        eventDispatcher:removeEventListener(listener)
         eventDispatcher:dispatchCustomEvent("hello", sprite)
         eventDispatcher:removeEventListener(cs)
     end)
     timer.delay(4, function ( ... )
+        print("collect")
         collectgarbage('collect')
     end)
 end

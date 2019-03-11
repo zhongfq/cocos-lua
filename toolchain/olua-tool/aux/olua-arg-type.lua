@@ -58,13 +58,23 @@ REG_TYPE {
 }
 
 REG_TYPE {
-    TYPENAME = 'int|ssize_t|GLint',
+    TYPENAME = table.concat({
+        'int',
+        'ssize_t',
+        'GLint',
+    }, '|'),
     DECL_TYPE = 'lua_Integer',
     CONV_FUNC = "olua_$$_int"
 }
 
 REG_TYPE {
-    TYPENAME = 'unsigned int|size_t|GLuint|GLenum',
+    TYPENAME = table.concat({
+        'unsigned int',
+        'size_t',
+        'GLuint',
+        'GLenum',
+        'GLubyte',
+    }, '|'),
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = "olua_$$_uint",
 }

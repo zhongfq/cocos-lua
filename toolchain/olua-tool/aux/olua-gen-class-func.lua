@@ -280,7 +280,7 @@ local function gen_test_and_call(cls, fns)
                 ]])
             end
         else
-            assert(#fns == 1)
+            assert(#fns == 1, fi.CPPFUNC)
             CALL_CHUNK[#CALL_CHUNK + 1] = format_snippet([[
                 return _${CPPCLS_PATH}_${CPPFUNC}${FUNC_INDEX}(L);
             ]])

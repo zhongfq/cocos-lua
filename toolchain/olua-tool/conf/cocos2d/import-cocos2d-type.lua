@@ -51,6 +51,24 @@ REG_TYPE {
 }
 
 REG_TYPE {
+    TYPENAME = 'cocos2d::Color3B',
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_Color3B',
+    INIT_VALUE = false,
+}
+
+REG_TYPE {
+    TYPENAME = 'cocos2d::Color4B',
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_Color4B',
+    INIT_VALUE = false,
+}
+
+REG_TYPE {
+    TYPENAME = 'cocos2d::Color4F',
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_Color4F',
+    INIT_VALUE = false,
+}
+
+REG_TYPE {
     TYPENAME = 'cocos2d::Vector',
     CONV_FUNC = "xluacv_$$_ccvector",
     INIT_VALUE = false,
@@ -93,6 +111,7 @@ REG_TYPE {
 
 REG_TYPE {
     TYPENAME = table.concat({
+        'cocos2d::MATRIX_STACK_TYPE',
         'cocos2d::Director::Projection',
         'cocos2d::Texture2D::PixelFormat',
         'cocos2d::Image::Format',

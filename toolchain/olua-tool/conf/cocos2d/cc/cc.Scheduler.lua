@@ -23,6 +23,8 @@ template <typename T> bool doScheduleUpdate(lua_State *L, const char *cls)
     
     return false;
 }]]
+cls.enum('PRIORITY_SYSTEM', 'cocos2d::Scheduler::PRIORITY_SYSTEM')
+cls.enum('PRIORITY_NON_SYSTEM_MIN', 'cocos2d::Scheduler::PRIORITY_NON_SYSTEM_MIN')
 cls.prop('timeScale', 'float getTimeScale()', 'void setTimeScale(float timeScale)')
 cls.func('new', new_ccobj(cls))
 cls.func(nil, 'void update(float dt)')

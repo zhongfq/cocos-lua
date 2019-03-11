@@ -54,7 +54,7 @@ function get_typeinfo(typename, cls)
 
     if cls and cls.CPPCLS then
         local function try_namespace(ns, typename)
-            local tn = string.gsub(typename, '[%w:]+ *%**$', function (s)
+            local tn = string.gsub(typename, '[%w:_]+ *%**$', function (s)
                 return ns .. s
             end)
             tn = to_real_typename(tn)
@@ -394,10 +394,11 @@ function class(collection)
         }
     end
 
-    function cls.enum(name, value)
+    function cls.enum(name, value, type)
         cls.ENUMS[#cls.ENUMS + 1] = {
             ENUM_NAME = name,
             ENUM_VALUE = assert(value),
+            ENUM_VALUE = type,
         }
     end
 

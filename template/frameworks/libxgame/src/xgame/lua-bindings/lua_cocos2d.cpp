@@ -496,6 +496,19 @@ static int luaopen_cocos2d_Ref(lua_State *L)
     return 1;
 }
 
+static int luaopen_cocos2d_MATRIX_STACK_TYPE(lua_State *L)
+{
+    oluacls_class(L, "cc.MATRIX_STACK_TYPE", nullptr);
+    oluacls_const_integer(L, "MATRIX_STACK_MODELVIEW", (lua_Integer)cocos2d::MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW);
+    oluacls_const_integer(L, "MATRIX_STACK_PROJECTION", (lua_Integer)cocos2d::MATRIX_STACK_TYPE::MATRIX_STACK_PROJECTION);
+    oluacls_const_integer(L, "MATRIX_STACK_TEXTURE", (lua_Integer)cocos2d::MATRIX_STACK_TYPE::MATRIX_STACK_TEXTURE);
+
+    olua_registerluatype<cocos2d::MATRIX_STACK_TYPE>(L, "cc.MATRIX_STACK_TYPE");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
 static int _cocos2d_Director_getInstance(lua_State *L)
 {
     lua_settop(L, 0);
@@ -506,110 +519,6 @@ static int _cocos2d_Director_getInstance(lua_State *L)
     return olua_push_cppobj<cocos2d::Director>(L, ret, "cc.Director");
 }
 
-static int _cocos2d_Director_setViewport(lua_State *L)
-{
-    lua_settop(L, 1);
-
-    cocos2d::Director *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
-
-    // void setViewport()
-    self->setViewport();
-
-    return 0;
-}
-
-static int _cocos2d_Director_convertToGL(lua_State *L)
-{
-    lua_settop(L, 3);
-
-    cocos2d::Director *self = nullptr;
-    cocos2d::Vec2 arg1;       /** point */
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
-    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
-
-    // @unpack Vec2 convertToGL(@pack const Vec2& point)
-    cocos2d::Vec2 ret = (cocos2d::Vec2)self->convertToGL(arg1);
-
-    return auto_luacv_unpack_cocos2d_Vec2(L, &ret);
-}
-
-static int _cocos2d_Director_convertToUI(lua_State *L)
-{
-    lua_settop(L, 3);
-
-    cocos2d::Director *self = nullptr;
-    cocos2d::Vec2 arg1;       /** point */
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
-    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
-
-    // @unpack Vec2 convertToUI(@pack const Vec2& point)
-    cocos2d::Vec2 ret = (cocos2d::Vec2)self->convertToUI(arg1);
-
-    return auto_luacv_unpack_cocos2d_Vec2(L, &ret);
-}
-
-static int _cocos2d_Director_getWinSize(lua_State *L)
-{
-    lua_settop(L, 1);
-
-    cocos2d::Director *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
-
-    // @unpack const Size& getWinSize()
-    const cocos2d::Size &ret = (const cocos2d::Size &)self->getWinSize();
-
-    return auto_luacv_unpack_cocos2d_Size(L, &ret);
-}
-
-static int _cocos2d_Director_getWinSizeInPixels(lua_State *L)
-{
-    lua_settop(L, 1);
-
-    cocos2d::Director *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
-
-    // @unpack Size getWinSizeInPixels()
-    cocos2d::Size ret = (cocos2d::Size)self->getWinSizeInPixels();
-
-    return auto_luacv_unpack_cocos2d_Size(L, &ret);
-}
-
-static int _cocos2d_Director_getEventDispatcher(lua_State *L)
-{
-    lua_settop(L, 1);
-
-    cocos2d::Director *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
-
-    // EventDispatcher* getEventDispatcher()
-    cocos2d::EventDispatcher *ret = (cocos2d::EventDispatcher *)self->getEventDispatcher();
-
-    return olua_push_cppobj<cocos2d::EventDispatcher>(L, ret, "cc.EventDispatcher");
-}
-
-static int _cocos2d_Director_setEventDispatcher(lua_State *L)
-{
-    lua_settop(L, 2);
-
-    cocos2d::Director *self = nullptr;
-    cocos2d::EventDispatcher *arg1 = nullptr;   /** dispatcher */
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
-    olua_check_cppobj(L, 2, (void **)&arg1, "cc.EventDispatcher");
-
-    // void setEventDispatcher(EventDispatcher* dispatcher)
-    self->setEventDispatcher(arg1);
-
-    return 0;
-}
-
 static int _cocos2d_Director_getRunningScene(lua_State *L)
 {
     lua_settop(L, 1);
@@ -618,24 +527,10 @@ static int _cocos2d_Director_getRunningScene(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
 
-    // Scene *getRunningScene()
+    // Scene* getRunningScene()
     cocos2d::Scene *ret = (cocos2d::Scene *)self->getRunningScene();
 
     return olua_push_cppobj<cocos2d::Scene>(L, ret, "cc.Scene");
-}
-
-static int _cocos2d_Director_getAnimationInterval(lua_State *L)
-{
-    lua_settop(L, 1);
-
-    cocos2d::Director *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
-
-    // float getAnimationInterval()
-    float ret = (float)self->getAnimationInterval();
-
-    return olua_push_number(L, (lua_Number)ret);
 }
 
 static int _cocos2d_Director_setAnimationInterval(lua_State *L)
@@ -830,6 +725,20 @@ static int _cocos2d_Director_setProjection(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_Director_setViewport(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Director *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+
+    // void setViewport()
+    self->setViewport();
+
+    return 0;
+}
+
 static int _cocos2d_Director_isSendCleanupToScene(lua_State *L)
 {
     lua_settop(L, 1);
@@ -874,17 +783,962 @@ static int _cocos2d_Director_setNotificationNode(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_Director_getWinSize(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Director *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+
+    // @unpack const Size& getWinSize()
+    const cocos2d::Size &ret = (const cocos2d::Size &)self->getWinSize();
+
+    return auto_luacv_unpack_cocos2d_Size(L, &ret);
+}
+
+static int _cocos2d_Director_getWinSizeInPixels(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Director *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+
+    // @unpack Size getWinSizeInPixels()
+    cocos2d::Size ret = (cocos2d::Size)self->getWinSizeInPixels();
+
+    return auto_luacv_unpack_cocos2d_Size(L, &ret);
+}
+
+static int _cocos2d_Director_getVisibleSize(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Director *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+
+    // @unpack Size getVisibleSize()
+    cocos2d::Size ret = (cocos2d::Size)self->getVisibleSize();
+
+    return auto_luacv_unpack_cocos2d_Size(L, &ret);
+}
+
+static int _cocos2d_Director_getVisibleOrigin(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Director *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+
+    // @unpack Vec2 getVisibleOrigin()
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->getVisibleOrigin();
+
+    return auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+}
+
+static int _cocos2d_Director_getSafeAreaRect(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Director *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+
+    // @unpack Rect getSafeAreaRect()
+    cocos2d::Rect ret = (cocos2d::Rect)self->getSafeAreaRect();
+
+    return auto_luacv_unpack_cocos2d_Rect(L, &ret);
+}
+
+static int _cocos2d_Director_convertToGL(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::Director *self = nullptr;
+    cocos2d::Vec2 arg1;       /** point */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+
+    // @unpack Vec2 convertToGL(@pack const Vec2& point)
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->convertToGL(arg1);
+
+    return auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+}
+
+static int _cocos2d_Director_convertToUI(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::Director *self = nullptr;
+    cocos2d::Vec2 arg1;       /** point */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+
+    // @unpack Vec2 convertToUI(@pack const Vec2& point)
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->convertToUI(arg1);
+
+    return auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+}
+
+static int _cocos2d_Director_getZEye(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Director *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+
+    // float getZEye()
+    float ret = (float)self->getZEye();
+
+    return olua_push_number(L, (lua_Number)ret);
+}
+
+static int _cocos2d_Director_runWithScene(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Director *self = nullptr;
+    cocos2d::Scene *arg1 = nullptr;   /** scene */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Scene");
+
+    // void runWithScene(Scene *scene)
+    self->runWithScene(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Director_pushScene(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Director *self = nullptr;
+    cocos2d::Scene *arg1 = nullptr;   /** scene */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Scene");
+
+    // void pushScene(Scene *scene)
+    self->pushScene(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Director_popScene(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Director *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+
+    // void popScene()
+    self->popScene();
+
+    return 0;
+}
+
+static int _cocos2d_Director_popToRootScene(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Director *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+
+    // void popToRootScene()
+    self->popToRootScene();
+
+    return 0;
+}
+
+static int _cocos2d_Director_popToSceneStackLevel(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Director *self = nullptr;
+    lua_Integer arg1 = 0;   /** level */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+    olua_check_int(L, 2, &arg1);
+
+    // void popToSceneStackLevel(int level)
+    self->popToSceneStackLevel((int)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Director_replaceScene(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Director *self = nullptr;
+    cocos2d::Scene *arg1 = nullptr;   /** scene */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Scene");
+
+    // void replaceScene(Scene *scene)
+    self->replaceScene(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Director_end(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Director *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+
+    // void end()
+    self->end();
+
+    return 0;
+}
+
+static int _cocos2d_Director_pause(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Director *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+
+    // void pause()
+    self->pause();
+
+    return 0;
+}
+
+static int _cocos2d_Director_resume(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Director *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+
+    // void resume()
+    self->resume();
+
+    return 0;
+}
+
+static int _cocos2d_Director_restart(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Director *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+
+    // void restart()
+    self->restart();
+
+    return 0;
+}
+
+static int _cocos2d_Director_stopAnimation(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Director *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+
+    // void stopAnimation()
+    self->stopAnimation();
+
+    return 0;
+}
+
+static int _cocos2d_Director_startAnimation(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Director *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+
+    // void startAnimation()
+    self->startAnimation();
+
+    return 0;
+}
+
+static int _cocos2d_Director_drawScene(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Director *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+
+    // void drawScene()
+    self->drawScene();
+
+    return 0;
+}
+
+static int _cocos2d_Director_purgeCachedData(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Director *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+
+    // void purgeCachedData()
+    self->purgeCachedData();
+
+    return 0;
+}
+
+static int _cocos2d_Director_setDefaultValues(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Director *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+
+    // void setDefaultValues()
+    self->setDefaultValues();
+
+    return 0;
+}
+
+static int _cocos2d_Director_setGLDefaultValues(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Director *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+
+    // void setGLDefaultValues()
+    self->setGLDefaultValues();
+
+    return 0;
+}
+
+static int _cocos2d_Director_setAlphaBlending(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Director *self = nullptr;
+    bool arg1 = false;   /** on */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setAlphaBlending(bool on)
+    self->setAlphaBlending(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Director_setClearColor(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Director *self = nullptr;
+    cocos2d::Color4F arg1;       /** clearColor */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+    auto_luacv_check_cocos2d_Color4F(L, 2, &arg1);
+
+    // void setClearColor(const Color4F& clearColor)
+    self->setClearColor(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Director_setDepthTest(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Director *self = nullptr;
+    bool arg1 = false;   /** on */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setDepthTest(bool on);
+    self->setDepthTest(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Director_mainLoop1(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Director *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+
+    // void mainLoop()
+    self->mainLoop();
+
+    return 0;
+}
+
+static int _cocos2d_Director_mainLoop2(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Director *self = nullptr;
+    lua_Number arg1 = 0;   /** dt */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+    olua_check_number(L, 2, &arg1);
+
+    // void mainLoop(float dt)
+    self->mainLoop((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Director_mainLoop(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 0) {
+        return _cocos2d_Director_mainLoop1(L);
+    }
+
+    if (num_args == 1) {
+        // if (olua_is_number(L, 2)) {
+            return _cocos2d_Director_mainLoop2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Director::mainLoop' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_Director_setContentScaleFactor(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Director *self = nullptr;
+    lua_Number arg1 = 0;   /** scaleFactor */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+    olua_check_number(L, 2, &arg1);
+
+    // void setContentScaleFactor(float scaleFactor)
+    self->setContentScaleFactor((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Director_getContentScaleFactor(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Director *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+
+    // float getContentScaleFactor()
+    float ret = (float)self->getContentScaleFactor();
+
+    return olua_push_number(L, (lua_Number)ret);
+}
+
+static int _cocos2d_Director_getScheduler(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Director *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+
+    // Scheduler* getScheduler()
+    cocos2d::Scheduler *ret = (cocos2d::Scheduler *)self->getScheduler();
+
+    return olua_push_cppobj<cocos2d::Scheduler>(L, ret, "cc.Scheduler");
+}
+
+static int _cocos2d_Director_setScheduler(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Director *self = nullptr;
+    cocos2d::Scheduler *arg1 = nullptr;   /** scheduler */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Scheduler");
+
+    // void setScheduler(Scheduler* scheduler)
+    self->setScheduler(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Director_getActionManager(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Director *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+
+    // ActionManager* getActionManager()
+    cocos2d::ActionManager *ret = (cocos2d::ActionManager *)self->getActionManager();
+
+    return olua_push_cppobj<cocos2d::ActionManager>(L, ret, "cc.ActionManager");
+}
+
+static int _cocos2d_Director_setActionManager(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Director *self = nullptr;
+    cocos2d::ActionManager *arg1 = nullptr;   /** actionManager */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.ActionManager");
+
+    // void setActionManager(ActionManager* actionManager)
+    self->setActionManager(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Director_getEventDispatcher(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Director *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+
+    // EventDispatcher* getEventDispatcher()
+    cocos2d::EventDispatcher *ret = (cocos2d::EventDispatcher *)self->getEventDispatcher();
+
+    return olua_push_cppobj<cocos2d::EventDispatcher>(L, ret, "cc.EventDispatcher");
+}
+
+static int _cocos2d_Director_setEventDispatcher(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Director *self = nullptr;
+    cocos2d::EventDispatcher *arg1 = nullptr;   /** dispatcher */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.EventDispatcher");
+
+    // void setEventDispatcher(EventDispatcher* dispatcher)
+    self->setEventDispatcher(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Director_getRenderer(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Director *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+
+    // Renderer* getRenderer()
+    cocos2d::Renderer *ret = (cocos2d::Renderer *)self->getRenderer();
+
+    return olua_push_cppobj<cocos2d::Renderer>(L, ret, "cc.Renderer");
+}
+
+static int _cocos2d_Director_getDeltaTime(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Director *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+
+    // float getDeltaTime()
+    float ret = (float)self->getDeltaTime();
+
+    return olua_push_number(L, (lua_Number)ret);
+}
+
+static int _cocos2d_Director_getFrameRate(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Director *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+
+    // float getFrameRate()
+    float ret = (float)self->getFrameRate();
+
+    return olua_push_number(L, (lua_Number)ret);
+}
+
+static int _cocos2d_Director_pushMatrix(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Director *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** type */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+    olua_check_uint(L, 2, &arg1);
+
+    // void pushMatrix(MATRIX_STACK_TYPE type)
+    self->pushMatrix((cocos2d::MATRIX_STACK_TYPE)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Director_pushProjectionMatrix(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Director *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** index */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+    olua_check_uint(L, 2, &arg1);
+
+    // void pushProjectionMatrix(size_t index)
+    self->pushProjectionMatrix((size_t)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Director_popMatrix(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Director *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** type */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+    olua_check_uint(L, 2, &arg1);
+
+    // void popMatrix(MATRIX_STACK_TYPE type)
+    self->popMatrix((cocos2d::MATRIX_STACK_TYPE)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Director_popProjectionMatrix(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Director *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** index */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+    olua_check_uint(L, 2, &arg1);
+
+    // void popProjectionMatrix(size_t index)
+    self->popProjectionMatrix((size_t)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Director_loadIdentityMatrix(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Director *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** type */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+    olua_check_uint(L, 2, &arg1);
+
+    // void loadIdentityMatrix(MATRIX_STACK_TYPE type)
+    self->loadIdentityMatrix((cocos2d::MATRIX_STACK_TYPE)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Director_loadProjectionIdentityMatrix(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Director *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** index */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+    olua_check_uint(L, 2, &arg1);
+
+    // void loadProjectionIdentityMatrix(size_t index)
+    self->loadProjectionIdentityMatrix((size_t)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Director_loadMatrix(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::Director *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** type */
+    cocos2d::Mat4 arg2;       /** mat */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+    olua_check_uint(L, 2, &arg1);
+    xluacv_check_ccmat4(L, 3, &arg2);
+
+    // void loadMatrix(MATRIX_STACK_TYPE type, const Mat4& mat)
+    self->loadMatrix((cocos2d::MATRIX_STACK_TYPE)arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_Director_loadProjectionMatrix(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::Director *self = nullptr;
+    cocos2d::Mat4 arg1;       /** mat */
+    lua_Unsigned arg2 = 0;   /** index */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+    xluacv_check_ccmat4(L, 2, &arg1);
+    olua_check_uint(L, 3, &arg2);
+
+    // void loadProjectionMatrix(const Mat4& mat, size_t index)
+    self->loadProjectionMatrix(arg1, (size_t)arg2);
+
+    return 0;
+}
+
+static int _cocos2d_Director_multiplyMatrix(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::Director *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** type */
+    cocos2d::Mat4 arg2;       /** mat */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+    olua_check_uint(L, 2, &arg1);
+    xluacv_check_ccmat4(L, 3, &arg2);
+
+    // void multiplyMatrix(MATRIX_STACK_TYPE type, const Mat4& mat)
+    self->multiplyMatrix((cocos2d::MATRIX_STACK_TYPE)arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_Director_multiplyProjectionMatrix(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::Director *self = nullptr;
+    cocos2d::Mat4 arg1;       /** mat */
+    lua_Unsigned arg2 = 0;   /** index */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+    xluacv_check_ccmat4(L, 2, &arg1);
+    olua_check_uint(L, 3, &arg2);
+
+    // void multiplyProjectionMatrix(const Mat4& mat, size_t index)
+    self->multiplyProjectionMatrix(arg1, (size_t)arg2);
+
+    return 0;
+}
+
+static int _cocos2d_Director_getMatrix(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Director *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** type */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+    olua_check_uint(L, 2, &arg1);
+
+    // const Mat4& getMatrix(MATRIX_STACK_TYPE type)
+    const cocos2d::Mat4 &ret = (const cocos2d::Mat4 &)self->getMatrix((cocos2d::MATRIX_STACK_TYPE)arg1);
+
+    return xluacv_push_ccmat4(L, ret);
+}
+
+static int _cocos2d_Director_getProjectionMatrix(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Director *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** index */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+    olua_check_uint(L, 2, &arg1);
+
+    // const Mat4& getProjectionMatrix(size_t index)
+    const cocos2d::Mat4 &ret = (const cocos2d::Mat4 &)self->getProjectionMatrix((size_t)arg1);
+
+    return xluacv_push_ccmat4(L, ret);
+}
+
+static int _cocos2d_Director_resetMatrixStack(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Director *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+
+    // void resetMatrixStack()
+    self->resetMatrixStack();
+
+    return 0;
+}
+
+static int _cocos2d_Director_initProjectionMatrixStack(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Director *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** stackCount */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+    olua_check_uint(L, 2, &arg1);
+
+    // void initProjectionMatrixStack(size_t stackCount)
+    self->initProjectionMatrixStack((size_t)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Director_getProjectionMatrixStackSize(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Director *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+
+    // size_t getProjectionMatrixStackSize()
+    size_t ret = (size_t)self->getProjectionMatrixStackSize();
+
+    return olua_push_uint(L, (lua_Unsigned)ret);
+}
+
+static int _cocos2d_Director_isValid(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Director *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+
+    // bool isValid()
+    bool ret = (bool)self->isValid();
+
+    return olua_push_bool(L, ret);
+}
+
+static int _cocos2d_Director_getAnimationInterval(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Director *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+
+    // float getAnimationInterval()
+    float ret = (float)self->getAnimationInterval();
+
+    return olua_push_number(L, (lua_Number)ret);
+}
+
 static int luaopen_cocos2d_Director(lua_State *L)
 {
     oluacls_class(L, "cc.Director", "cc.Ref");
     oluacls_setfunc(L, "getInstance", _cocos2d_Director_getInstance);
+    oluacls_setfunc(L, "getRunningScene", _cocos2d_Director_getRunningScene);
+    oluacls_setfunc(L, "setAnimationInterval", _cocos2d_Director_setAnimationInterval);
+    oluacls_setfunc(L, "isDisplayStats", _cocos2d_Director_isDisplayStats);
+    oluacls_setfunc(L, "setDisplayStats", _cocos2d_Director_setDisplayStats);
+    oluacls_setfunc(L, "getSecondsPerFrame", _cocos2d_Director_getSecondsPerFrame);
+    oluacls_setfunc(L, "getOpenGLView", _cocos2d_Director_getOpenGLView);
+    oluacls_setfunc(L, "setOpenGLView", _cocos2d_Director_setOpenGLView);
+    oluacls_setfunc(L, "getTextureCache", _cocos2d_Director_getTextureCache);
+    oluacls_setfunc(L, "isNextDeltaTimeZero", _cocos2d_Director_isNextDeltaTimeZero);
+    oluacls_setfunc(L, "setNextDeltaTimeZero", _cocos2d_Director_setNextDeltaTimeZero);
+    oluacls_setfunc(L, "isPaused", _cocos2d_Director_isPaused);
+    oluacls_setfunc(L, "getTotalFrames", _cocos2d_Director_getTotalFrames);
+    oluacls_setfunc(L, "getProjection", _cocos2d_Director_getProjection);
+    oluacls_setfunc(L, "setProjection", _cocos2d_Director_setProjection);
     oluacls_setfunc(L, "setViewport", _cocos2d_Director_setViewport);
-    oluacls_setfunc(L, "convertToGL", _cocos2d_Director_convertToGL);
-    oluacls_setfunc(L, "convertToUI", _cocos2d_Director_convertToUI);
+    oluacls_setfunc(L, "isSendCleanupToScene", _cocos2d_Director_isSendCleanupToScene);
+    oluacls_setfunc(L, "getNotificationNode", _cocos2d_Director_getNotificationNode);
+    oluacls_setfunc(L, "setNotificationNode", _cocos2d_Director_setNotificationNode);
     oluacls_setfunc(L, "getWinSize", _cocos2d_Director_getWinSize);
     oluacls_setfunc(L, "getWinSizeInPixels", _cocos2d_Director_getWinSizeInPixels);
+    oluacls_setfunc(L, "getVisibleSize", _cocos2d_Director_getVisibleSize);
+    oluacls_setfunc(L, "getVisibleOrigin", _cocos2d_Director_getVisibleOrigin);
+    oluacls_setfunc(L, "getSafeAreaRect", _cocos2d_Director_getSafeAreaRect);
+    oluacls_setfunc(L, "convertToGL", _cocos2d_Director_convertToGL);
+    oluacls_setfunc(L, "convertToUI", _cocos2d_Director_convertToUI);
+    oluacls_setfunc(L, "getZEye", _cocos2d_Director_getZEye);
+    oluacls_setfunc(L, "runWithScene", _cocos2d_Director_runWithScene);
+    oluacls_setfunc(L, "pushScene", _cocos2d_Director_pushScene);
+    oluacls_setfunc(L, "popScene", _cocos2d_Director_popScene);
+    oluacls_setfunc(L, "popToRootScene", _cocos2d_Director_popToRootScene);
+    oluacls_setfunc(L, "popToSceneStackLevel", _cocos2d_Director_popToSceneStackLevel);
+    oluacls_setfunc(L, "replaceScene", _cocos2d_Director_replaceScene);
+    oluacls_setfunc(L, "end", _cocos2d_Director_end);
+    oluacls_setfunc(L, "pause", _cocos2d_Director_pause);
+    oluacls_setfunc(L, "resume", _cocos2d_Director_resume);
+    oluacls_setfunc(L, "restart", _cocos2d_Director_restart);
+    oluacls_setfunc(L, "stopAnimation", _cocos2d_Director_stopAnimation);
+    oluacls_setfunc(L, "startAnimation", _cocos2d_Director_startAnimation);
+    oluacls_setfunc(L, "drawScene", _cocos2d_Director_drawScene);
+    oluacls_setfunc(L, "purgeCachedData", _cocos2d_Director_purgeCachedData);
+    oluacls_setfunc(L, "setDefaultValues", _cocos2d_Director_setDefaultValues);
+    oluacls_setfunc(L, "setGLDefaultValues", _cocos2d_Director_setGLDefaultValues);
+    oluacls_setfunc(L, "setAlphaBlending", _cocos2d_Director_setAlphaBlending);
+    oluacls_setfunc(L, "setClearColor", _cocos2d_Director_setClearColor);
+    oluacls_setfunc(L, "setDepthTest", _cocos2d_Director_setDepthTest);
+    oluacls_setfunc(L, "mainLoop", _cocos2d_Director_mainLoop);
+    oluacls_setfunc(L, "setContentScaleFactor", _cocos2d_Director_setContentScaleFactor);
+    oluacls_setfunc(L, "getContentScaleFactor", _cocos2d_Director_getContentScaleFactor);
+    oluacls_setfunc(L, "getScheduler", _cocos2d_Director_getScheduler);
+    oluacls_setfunc(L, "setScheduler", _cocos2d_Director_setScheduler);
+    oluacls_setfunc(L, "getActionManager", _cocos2d_Director_getActionManager);
+    oluacls_setfunc(L, "setActionManager", _cocos2d_Director_setActionManager);
     oluacls_setfunc(L, "getEventDispatcher", _cocos2d_Director_getEventDispatcher);
     oluacls_setfunc(L, "setEventDispatcher", _cocos2d_Director_setEventDispatcher);
+    oluacls_setfunc(L, "getRenderer", _cocos2d_Director_getRenderer);
+    oluacls_setfunc(L, "getDeltaTime", _cocos2d_Director_getDeltaTime);
+    oluacls_setfunc(L, "getFrameRate", _cocos2d_Director_getFrameRate);
+    oluacls_setfunc(L, "pushMatrix", _cocos2d_Director_pushMatrix);
+    oluacls_setfunc(L, "pushProjectionMatrix", _cocos2d_Director_pushProjectionMatrix);
+    oluacls_setfunc(L, "popMatrix", _cocos2d_Director_popMatrix);
+    oluacls_setfunc(L, "popProjectionMatrix", _cocos2d_Director_popProjectionMatrix);
+    oluacls_setfunc(L, "loadIdentityMatrix", _cocos2d_Director_loadIdentityMatrix);
+    oluacls_setfunc(L, "loadProjectionIdentityMatrix", _cocos2d_Director_loadProjectionIdentityMatrix);
+    oluacls_setfunc(L, "loadMatrix", _cocos2d_Director_loadMatrix);
+    oluacls_setfunc(L, "loadProjectionMatrix", _cocos2d_Director_loadProjectionMatrix);
+    oluacls_setfunc(L, "multiplyMatrix", _cocos2d_Director_multiplyMatrix);
+    oluacls_setfunc(L, "multiplyProjectionMatrix", _cocos2d_Director_multiplyProjectionMatrix);
+    oluacls_setfunc(L, "getMatrix", _cocos2d_Director_getMatrix);
+    oluacls_setfunc(L, "getProjectionMatrix", _cocos2d_Director_getProjectionMatrix);
+    oluacls_setfunc(L, "resetMatrixStack", _cocos2d_Director_resetMatrixStack);
+    oluacls_setfunc(L, "initProjectionMatrixStack", _cocos2d_Director_initProjectionMatrixStack);
+    oluacls_setfunc(L, "getProjectionMatrixStackSize", _cocos2d_Director_getProjectionMatrixStackSize);
+    oluacls_setfunc(L, "isValid", _cocos2d_Director_isValid);
     oluacls_property(L, "runningScene", _cocos2d_Director_getRunningScene, nullptr);
     oluacls_property(L, "animationInterval", _cocos2d_Director_getAnimationInterval, _cocos2d_Director_setAnimationInterval);
     oluacls_property(L, "displayStats", _cocos2d_Director_isDisplayStats, _cocos2d_Director_setDisplayStats);
@@ -897,7 +1751,15 @@ static int luaopen_cocos2d_Director(lua_State *L)
     oluacls_property(L, "projection", _cocos2d_Director_getProjection, _cocos2d_Director_setProjection);
     oluacls_property(L, "sendCleanupToScene", _cocos2d_Director_isSendCleanupToScene, nullptr);
     oluacls_property(L, "notificationNode", _cocos2d_Director_getNotificationNode, _cocos2d_Director_setNotificationNode);
+    oluacls_property(L, "zEye", _cocos2d_Director_getZEye, nullptr);
+    oluacls_property(L, "contentScaleFactor", _cocos2d_Director_getContentScaleFactor, _cocos2d_Director_setContentScaleFactor);
+    oluacls_property(L, "scheduler", _cocos2d_Director_getScheduler, _cocos2d_Director_setScheduler);
+    oluacls_property(L, "actionManager", _cocos2d_Director_getActionManager, _cocos2d_Director_setActionManager);
+    oluacls_property(L, "renderer", _cocos2d_Director_getRenderer, nullptr);
     oluacls_property(L, "eventDispatcher", _cocos2d_Director_getEventDispatcher, _cocos2d_Director_setEventDispatcher);
+    oluacls_property(L, "deltaTime", _cocos2d_Director_getDeltaTime, nullptr);
+    oluacls_property(L, "frameRate", _cocos2d_Director_getFrameRate, nullptr);
+    oluacls_property(L, "valid", _cocos2d_Director_isValid, nullptr);
 
     olua_registerluatype<cocos2d::Director>(L, "cc.Director");
     oluacls_createclassproxy(L);
@@ -1333,6 +2195,8 @@ static int luaopen_cocos2d_Scheduler(lua_State *L)
     oluacls_setfunc(L, "resumeTargets", _cocos2d_Scheduler_resumeTargets);
     oluacls_setfunc(L, "removeAllFunctionsToBePerformedInCocosThread", _cocos2d_Scheduler_removeAllFunctionsToBePerformedInCocosThread);
     oluacls_property(L, "timeScale", _cocos2d_Scheduler_getTimeScale, _cocos2d_Scheduler_setTimeScale);
+    oluacls_const_integer(L, "PRIORITY_SYSTEM", (lua_Integer)cocos2d::Scheduler::PRIORITY_SYSTEM);
+    oluacls_const_integer(L, "PRIORITY_NON_SYSTEM_MIN", (lua_Integer)cocos2d::Scheduler::PRIORITY_NON_SYSTEM_MIN);
 
     olua_registerluatype<cocos2d::Scheduler>(L, "cc.Scheduler");
     oluacls_createclassproxy(L);
@@ -6886,6 +7750,7 @@ int luaopen_cocos2d(lua_State *L)
 {
     xlua_require(L, "cc.UserDefault", luaopen_cocos2d_UserDefault);
     xlua_require(L, "cc.Ref", luaopen_cocos2d_Ref);
+    xlua_require(L, "cc.MATRIX_STACK_TYPE", luaopen_cocos2d_MATRIX_STACK_TYPE);
     xlua_require(L, "cc.Director", luaopen_cocos2d_Director);
     xlua_require(L, "cc.Scheduler", luaopen_cocos2d_Scheduler);
     xlua_require(L, "cc.ActionManager", luaopen_cocos2d_ActionManager);

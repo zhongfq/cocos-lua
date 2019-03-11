@@ -51,6 +51,32 @@ M.CONVS = {
         ]],
     },
     REG_CONV {
+        CPPCLS = 'cocos2d::Color3B',
+        DEF = [[
+            GLubyte r;
+            GLubyte g;
+            GLubyte b;
+        ]],
+    },
+    REG_CONV {
+        CPPCLS = 'cocos2d::Color4B',
+        DEF = [[
+            GLubyte r;
+            GLubyte g;
+            GLubyte b;
+            GLubyte a;
+        ]],
+    },
+    REG_CONV {
+        CPPCLS = 'cocos2d::Color4F',
+        DEF = [[
+            GLfloat r;
+            GLfloat g;
+            GLfloat b;
+            GLfloat a;
+        ]],
+    },
+    REG_CONV {
         CPPCLS = 'cocos2d::Texture2D::TexParams',
         DEF = [[
             {

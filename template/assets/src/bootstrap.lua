@@ -11,6 +11,7 @@ local ActionManager = require "cc.ActionManager"
 local Scheduler     = require "cc.Scheduler"
 local EventListenerTouchAllAtOnce = require "cc.EventListenerTouchAllAtOnce"
 local EventListenerTouchOneByOne = require "cc.EventListenerTouchOneByOne"
+local EventListenerCustom = require "cc.EventListenerCustom"
 
 window.setDesignSize(1334, 750, 1)
 
@@ -47,8 +48,20 @@ function main()
     eventDispatcher:addEventListenerWithSceneGraphPriority(listener, sprite)
     print(eventDispatcher)
 
+    local custom = EventListenerCustom.create("hello", function (e)
+        print("###", e, e.userData)
+    end)
+
+    eventDispatcher:addEventListenerWithFixedPriority(custom, 1)
+
+    local cs = eventDispatcher:addCustomEventListener('hello', function (e)
+        print("addCustomEventListener", e, e.userData)
+    end)
+
     timer.delay(3, function ( ... )
         eventDispatcher:removeEventListener(listener)
+        eventDispatcher:dispatchCustomEvent("hello", sprite)
+        eventDispatcher:removeEventListener(cs)
     end)
     timer.delay(4, function ( ... )
         collectgarbage('collect')

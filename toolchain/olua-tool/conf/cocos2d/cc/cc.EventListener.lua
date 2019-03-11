@@ -57,9 +57,29 @@ local cls = class(M)
 cls.CPPCLS = "cocos2d::EventListenerCustom"
 cls.LUACLS = "cc.EventListenerCustom"
 cls.SUPERCLS = "cc.EventListener"
-cls.funcs([[
-    static EventListenerCustom* create(const std::string& eventName, const std::function<void(EventCustom*)>& callback)
-]])
+cls.func("create", [[
+{
+    lua_settop(L, 2);
+
+    void *tag_store_obj = nullptr;
+    std::string event = luaL_checkstring(L, 1);
+    cocos2d::EventListenerCustom *self = new cocos2d::EventListenerCustom();
+    self->autorelease();
+    tag_store_obj = self;
+    olua_push_cppobj(L, self, "cc.EventListenerCustom");
+    std::string func = olua_setcallback(L, tag_store_obj, event.c_str(), 2, OLUA_CALLBACK_TAG_NEW);
+    self->init(event, [tag_store_obj, func](cocos2d::EventCustom *event) {
+        lua_State *L = xlua_cocosthread();
+        int top = lua_gettop(L);
+        olua_push_cppobj(L, event, "cc.EventCustom");
+        olua_callback(L, tag_store_obj, func.c_str(), 1);
+        lua_settop(L, top);
+    });
+    
+    lua_pushvalue(L, 3);
+
+    return 1;
+}]])
 
 local cls = class(M)
 cls.CPPCLS = "cocos2d::EventListenerKeyboard"

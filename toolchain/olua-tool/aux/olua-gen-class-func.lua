@@ -42,6 +42,10 @@ local function gen_func_args(cls, fi)
         local IDX = idx + 1
         idx = IDX
 
+        if ai.TYPE.TYPENAME == 'std::function' then
+            assert(fi.CALLBACK_OPT, fi.FUNC_DECL)
+        end
+
         if ai.TYPE.DECL_TYPE ~= ai.TYPE.TYPENAME and not ai.CALLBACK_ARGS then
             local TYPENAME = ai.TYPE.TYPENAME
             CALLER_ARGS[#CALLER_ARGS + 1] = format_snippet([[

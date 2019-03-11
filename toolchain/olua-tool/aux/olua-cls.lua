@@ -307,14 +307,16 @@ function class(collection)
         local arr = {}
         local dict = {}
         for func_decl in string.gmatch(funcs_str, '[^\n\r]+') do
-            local fn = string.match(func_decl, '([^ ]+)%(')
-            local t = dict[fn]
-            if not t then
-                t = {}
-                arr[#arr + 1] = t
-                dict[fn] = t
+            if not string.find(func_decl, '^ *//') then
+                local fn = string.match(func_decl, '([^ ]+)%(')
+                local t = dict[fn]
+                if not t then
+                    t = {}
+                    arr[#arr + 1] = t
+                    dict[fn] = t
+                end
+                t[#t + 1] = string.gsub(func_decl, '^ *', '')
             end
-            t[#t + 1] = string.gsub(func_decl, '^ *', '')
         end
         for _, v in ipairs(arr) do
             cls.func(nil, table.unpack(v))

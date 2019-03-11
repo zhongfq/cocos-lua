@@ -7,6 +7,8 @@
 #include "xgame/xruntime.h"
 #include "olua/olua.hpp"
 #include "cocos2d.h"
+#include "vr/CCVRGenericRenderer.h"
+#include "vr/CCVRGenericHeadTracker.h"
 
 static const std::string makeScheduleCallbackTag(const std::string &key)
 {
@@ -1636,11 +1638,887 @@ static int luaopen_cocos2d_ActionManager(lua_State *L)
     return 1;
 }
 
+static int luaopen_ResolutionPolicy(lua_State *L)
+{
+    oluacls_class(L, "cc.ResolutionPolicy", nullptr);
+    oluacls_const_integer(L, "EXACT_FIT", (lua_Integer)ResolutionPolicy::EXACT_FIT);
+    oluacls_const_integer(L, "NO_BORDER", (lua_Integer)ResolutionPolicy::NO_BORDER);
+    oluacls_const_integer(L, "SHOW_ALL", (lua_Integer)ResolutionPolicy::SHOW_ALL);
+    oluacls_const_integer(L, "FIXED_HEIGHT", (lua_Integer)ResolutionPolicy::FIXED_HEIGHT);
+    oluacls_const_integer(L, "FIXED_WIDTH", (lua_Integer)ResolutionPolicy::FIXED_WIDTH);
+    oluacls_const_integer(L, "UNKNOWN", (lua_Integer)ResolutionPolicy::UNKNOWN);
+
+    olua_registerluatype<ResolutionPolicy>(L, "cc.ResolutionPolicy");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_GLView_setGLContextAttrs(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    GLContextAttrs arg1;       /** glContextAttrs */
+
+    auto_luacv_check_GLContextAttrs(L, 1, &arg1);
+
+    // static void setGLContextAttrs(GLContextAttrs& glContextAttrs)
+    cocos2d::GLView::setGLContextAttrs(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_GLView_getGLContextAttrs(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static GLContextAttrs getGLContextAttrs()
+    GLContextAttrs ret = (GLContextAttrs)cocos2d::GLView::getGLContextAttrs();
+
+    return auto_luacv_push_GLContextAttrs(L, &ret);
+}
+
+static int _cocos2d_GLView_end(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::GLView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
+
+    // void end();
+    self->end();
+
+    return 0;
+}
+
+static int _cocos2d_GLView_isOpenGLReady(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::GLView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
+
+    // bool isOpenGLReady()
+    bool ret = (bool)self->isOpenGLReady();
+
+    return olua_push_bool(L, ret);
+}
+
+static int _cocos2d_GLView_swapBuffers(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::GLView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
+
+    // void swapBuffers()
+    self->swapBuffers();
+
+    return 0;
+}
+
+static int _cocos2d_GLView_setIMEKeyboardState(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::GLView *self = nullptr;
+    bool arg1 = false;   /** open */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setIMEKeyboardState(bool open)
+    self->setIMEKeyboardState(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_GLView_windowShouldClose(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::GLView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
+
+    // bool windowShouldClose()
+    bool ret = (bool)self->windowShouldClose();
+
+    return olua_push_bool(L, ret);
+}
+
+static int _cocos2d_GLView_pollEvents(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::GLView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
+
+    // void pollEvents()
+    self->pollEvents();
+
+    return 0;
+}
+
+static int _cocos2d_GLView_getFrameSize(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::GLView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
+
+    // @unpack Size getFrameSize()
+    cocos2d::Size ret = (cocos2d::Size)self->getFrameSize();
+
+    return auto_luacv_unpack_cocos2d_Size(L, &ret);
+}
+
+static int _cocos2d_GLView_setFrameSize(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::GLView *self = nullptr;
+    lua_Number arg1 = 0;   /** width */
+    lua_Number arg2 = 0;   /** height */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
+    olua_check_number(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+
+    // void setFrameSize(float width, float height)
+    self->setFrameSize((float)arg1, (float)arg2);
+
+    return 0;
+}
+
+static int _cocos2d_GLView_setFrameZoomFactor(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::GLView *self = nullptr;
+    lua_Number arg1 = 0;   /** zoomFactor */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
+    olua_check_number(L, 2, &arg1);
+
+    // void setFrameZoomFactor(float zoomFactor) 
+    self->setFrameZoomFactor((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_GLView_getFrameZoomFactor(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::GLView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
+
+    // float getFrameZoomFactor()
+    float ret = (float)self->getFrameZoomFactor();
+
+    return olua_push_number(L, (lua_Number)ret);
+}
+
+static int _cocos2d_GLView_setCursorVisible(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::GLView *self = nullptr;
+    bool arg1 = false;   /** isVisible */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setCursorVisible(bool isVisible)
+    self->setCursorVisible(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_GLView_getRetinaFactor(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::GLView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
+
+    // int getRetinaFactor()
+    int ret = (int)self->getRetinaFactor();
+
+    return olua_push_int(L, (lua_Integer)ret);
+}
+
+static int _cocos2d_GLView_setContentScaleFactor(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::GLView *self = nullptr;
+    lua_Number arg1 = 0;   /** scaleFactor */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
+    olua_check_number(L, 2, &arg1);
+
+    // bool setContentScaleFactor(float scaleFactor)
+    bool ret = (bool)self->setContentScaleFactor((float)arg1);
+
+    return olua_push_bool(L, ret);
+}
+
+static int _cocos2d_GLView_getContentScaleFactor(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::GLView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
+
+    // float getContentScaleFactor()
+    float ret = (float)self->getContentScaleFactor();
+
+    return olua_push_number(L, (lua_Number)ret);
+}
+
+static int _cocos2d_GLView_isRetinaDisplay(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::GLView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
+
+    // bool isRetinaDisplay()
+    bool ret = (bool)self->isRetinaDisplay();
+
+    return olua_push_bool(L, ret);
+}
+
+static int _cocos2d_GLView_getVisibleSize(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::GLView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
+
+    // @unpack Size getVisibleSize()
+    cocos2d::Size ret = (cocos2d::Size)self->getVisibleSize();
+
+    return auto_luacv_unpack_cocos2d_Size(L, &ret);
+}
+
+static int _cocos2d_GLView_getVisibleOrigin(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::GLView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
+
+    // @unpack Vec2 getVisibleOrigin()
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->getVisibleOrigin();
+
+    return auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+}
+
+static int _cocos2d_GLView_getVisibleRect(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::GLView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
+
+    // @unpack Rect getVisibleRect()
+    cocos2d::Rect ret = (cocos2d::Rect)self->getVisibleRect();
+
+    return auto_luacv_unpack_cocos2d_Rect(L, &ret);
+}
+
+static int _cocos2d_GLView_getSafeAreaRect(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::GLView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
+
+    // @unpack Rect getSafeAreaRect()
+    cocos2d::Rect ret = (cocos2d::Rect)self->getSafeAreaRect();
+
+    return auto_luacv_unpack_cocos2d_Rect(L, &ret);
+}
+
+static int _cocos2d_GLView_setDesignResolutionSize(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    cocos2d::GLView *self = nullptr;
+    lua_Number arg1 = 0;   /** width */
+    lua_Number arg2 = 0;   /** height */
+    lua_Unsigned arg3 = 0;   /** resolutionPolicy */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
+    olua_check_number(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+    olua_check_uint(L, 4, &arg3);
+
+    // void setDesignResolutionSize(float width, float height, ResolutionPolicy resolutionPolicy)
+    self->setDesignResolutionSize((float)arg1, (float)arg2, (ResolutionPolicy)arg3);
+
+    return 0;
+}
+
+static int _cocos2d_GLView_getDesignResolutionSize(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::GLView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
+
+    // @unpack const Size&  getDesignResolutionSize() const;
+    const cocos2d::Size &ret = (const cocos2d::Size &)self->getDesignResolutionSize();
+
+    return auto_luacv_unpack_cocos2d_Size(L, &ret);
+}
+
+static int _cocos2d_GLView_setViewPortInPoints(lua_State *L)
+{
+    lua_settop(L, 5);
+
+    cocos2d::GLView *self = nullptr;
+    lua_Number arg1 = 0;   /** x */
+    lua_Number arg2 = 0;   /** y */
+    lua_Number arg3 = 0;   /** w */
+    lua_Number arg4 = 0;   /** h */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
+    olua_check_number(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+    olua_check_number(L, 5, &arg4);
+
+    // void setViewPortInPoints(float x , float y , float w , float h)
+    self->setViewPortInPoints((float)arg1, (float)arg2, (float)arg3, (float)arg4);
+
+    return 0;
+}
+
+static int _cocos2d_GLView_setScissorInPoints(lua_State *L)
+{
+    lua_settop(L, 5);
+
+    cocos2d::GLView *self = nullptr;
+    lua_Number arg1 = 0;   /** x */
+    lua_Number arg2 = 0;   /** y */
+    lua_Number arg3 = 0;   /** w */
+    lua_Number arg4 = 0;   /** h */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
+    olua_check_number(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+    olua_check_number(L, 5, &arg4);
+
+    // void setScissorInPoints(float x , float y , float w , float h)
+    self->setScissorInPoints((float)arg1, (float)arg2, (float)arg3, (float)arg4);
+
+    return 0;
+}
+
+static int _cocos2d_GLView_isScissorEnabled(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::GLView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
+
+    // bool isScissorEnabled()
+    bool ret = (bool)self->isScissorEnabled();
+
+    return olua_push_bool(L, ret);
+}
+
+static int _cocos2d_GLView_getScissorRect(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::GLView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
+
+    // @unpack Rect getScissorRect()
+    cocos2d::Rect ret = (cocos2d::Rect)self->getScissorRect();
+
+    return auto_luacv_unpack_cocos2d_Rect(L, &ret);
+}
+
+static int _cocos2d_GLView_setViewName(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::GLView *self = nullptr;
+    std::string arg1;       /** viewname */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void setViewName(const std::string& viewname)
+    self->setViewName(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_GLView_getViewName(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::GLView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
+
+    // const std::string& getViewName()
+    const std::string &ret = (const std::string &)self->getViewName();
+
+    return olua_push_std_string(L, ret);
+}
+
+static int _cocos2d_GLView_getViewPortRect(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::GLView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
+
+    // @unpack const Rect& getViewPortRect()
+    const cocos2d::Rect &ret = (const cocos2d::Rect &)self->getViewPortRect();
+
+    return auto_luacv_unpack_cocos2d_Rect(L, &ret);
+}
+
+static int _cocos2d_GLView_getAllTouches(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::GLView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
+
+    // std::vector<Touch*> getAllTouches()
+    std::vector<cocos2d::Touch *> ret = (std::vector<cocos2d::Touch *>)self->getAllTouches();
+
+    return olua_push_std_vector(L, ret, "cc.Touch");
+}
+
+static int _cocos2d_GLView_getScaleX(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::GLView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
+
+    // float getScaleX()
+    float ret = (float)self->getScaleX();
+
+    return olua_push_number(L, (lua_Number)ret);
+}
+
+static int _cocos2d_GLView_getScaleY(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::GLView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
+
+    // float getScaleY()
+    float ret = (float)self->getScaleY();
+
+    return olua_push_number(L, (lua_Number)ret);
+}
+
+static int _cocos2d_GLView_getResolutionPolicy(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::GLView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
+
+    // ResolutionPolicy getResolutionPolicy()
+    ResolutionPolicy ret = (ResolutionPolicy)self->getResolutionPolicy();
+
+    return olua_push_uint(L, (lua_Unsigned)ret);
+}
+
+static int _cocos2d_GLView_renderScene(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::GLView *self = nullptr;
+    cocos2d::Scene *arg1 = nullptr;   /** scene */
+    cocos2d::Renderer *arg2 = nullptr;   /** renderer */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Scene");
+    olua_check_cppobj(L, 3, (void **)&arg2, "cc.Renderer");
+
+    // void renderScene(Scene* scene, Renderer* renderer)
+    self->renderScene(arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_GLView_setVR(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::GLView *self = nullptr;
+    cocos2d::VRIRenderer *arg1 = nullptr;   /** vrrenderer */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.VRIRenderer");
+
+    // void setVR(VRIRenderer* vrrenderer)
+    self->setVR(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_GLView_getVR(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::GLView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
+
+    // VRIRenderer* getVR()
+    cocos2d::VRIRenderer *ret = (cocos2d::VRIRenderer *)self->getVR();
+
+    return olua_push_cppobj<cocos2d::VRIRenderer>(L, ret, "cc.VRIRenderer");
+}
+
 static int luaopen_cocos2d_GLView(lua_State *L)
 {
     oluacls_class(L, "cc.GLView", "cc.Ref");
+    oluacls_setfunc(L, "setGLContextAttrs", _cocos2d_GLView_setGLContextAttrs);
+    oluacls_setfunc(L, "getGLContextAttrs", _cocos2d_GLView_getGLContextAttrs);
+    oluacls_setfunc(L, "end", _cocos2d_GLView_end);
+    oluacls_setfunc(L, "isOpenGLReady", _cocos2d_GLView_isOpenGLReady);
+    oluacls_setfunc(L, "swapBuffers", _cocos2d_GLView_swapBuffers);
+    oluacls_setfunc(L, "setIMEKeyboardState", _cocos2d_GLView_setIMEKeyboardState);
+    oluacls_setfunc(L, "windowShouldClose", _cocos2d_GLView_windowShouldClose);
+    oluacls_setfunc(L, "pollEvents", _cocos2d_GLView_pollEvents);
+    oluacls_setfunc(L, "getFrameSize", _cocos2d_GLView_getFrameSize);
+    oluacls_setfunc(L, "setFrameSize", _cocos2d_GLView_setFrameSize);
+    oluacls_setfunc(L, "setFrameZoomFactor", _cocos2d_GLView_setFrameZoomFactor);
+    oluacls_setfunc(L, "getFrameZoomFactor", _cocos2d_GLView_getFrameZoomFactor);
+    oluacls_setfunc(L, "setCursorVisible", _cocos2d_GLView_setCursorVisible);
+    oluacls_setfunc(L, "getRetinaFactor", _cocos2d_GLView_getRetinaFactor);
+    oluacls_setfunc(L, "setContentScaleFactor", _cocos2d_GLView_setContentScaleFactor);
+    oluacls_setfunc(L, "getContentScaleFactor", _cocos2d_GLView_getContentScaleFactor);
+    oluacls_setfunc(L, "isRetinaDisplay", _cocos2d_GLView_isRetinaDisplay);
+    oluacls_setfunc(L, "getVisibleSize", _cocos2d_GLView_getVisibleSize);
+    oluacls_setfunc(L, "getVisibleOrigin", _cocos2d_GLView_getVisibleOrigin);
+    oluacls_setfunc(L, "getVisibleRect", _cocos2d_GLView_getVisibleRect);
+    oluacls_setfunc(L, "getSafeAreaRect", _cocos2d_GLView_getSafeAreaRect);
+    oluacls_setfunc(L, "setDesignResolutionSize", _cocos2d_GLView_setDesignResolutionSize);
+    oluacls_setfunc(L, "getDesignResolutionSize", _cocos2d_GLView_getDesignResolutionSize);
+    oluacls_setfunc(L, "setViewPortInPoints", _cocos2d_GLView_setViewPortInPoints);
+    oluacls_setfunc(L, "setScissorInPoints", _cocos2d_GLView_setScissorInPoints);
+    oluacls_setfunc(L, "isScissorEnabled", _cocos2d_GLView_isScissorEnabled);
+    oluacls_setfunc(L, "getScissorRect", _cocos2d_GLView_getScissorRect);
+    oluacls_setfunc(L, "setViewName", _cocos2d_GLView_setViewName);
+    oluacls_setfunc(L, "getViewName", _cocos2d_GLView_getViewName);
+    oluacls_setfunc(L, "getViewPortRect", _cocos2d_GLView_getViewPortRect);
+    oluacls_setfunc(L, "getAllTouches", _cocos2d_GLView_getAllTouches);
+    oluacls_setfunc(L, "getScaleX", _cocos2d_GLView_getScaleX);
+    oluacls_setfunc(L, "getScaleY", _cocos2d_GLView_getScaleY);
+    oluacls_setfunc(L, "getResolutionPolicy", _cocos2d_GLView_getResolutionPolicy);
+    oluacls_setfunc(L, "renderScene", _cocos2d_GLView_renderScene);
+    oluacls_setfunc(L, "setVR", _cocos2d_GLView_setVR);
+    oluacls_setfunc(L, "getVR", _cocos2d_GLView_getVR);
+    oluacls_property(L, "glContextAttrs", _cocos2d_GLView_getGLContextAttrs, _cocos2d_GLView_setGLContextAttrs);
+    oluacls_property(L, "openGLReady", _cocos2d_GLView_isOpenGLReady, nullptr);
+    oluacls_property(L, "frameZoomFactor", _cocos2d_GLView_getFrameZoomFactor, _cocos2d_GLView_setFrameZoomFactor);
+    oluacls_property(L, "retinaFactor", _cocos2d_GLView_getRetinaFactor, nullptr);
+    oluacls_property(L, "contentScaleFactor", _cocos2d_GLView_setContentScaleFactor, _cocos2d_GLView_setContentScaleFactor);
+    oluacls_property(L, "retinaDisplay", _cocos2d_GLView_isRetinaDisplay, nullptr);
+    oluacls_property(L, "scissorEnabled", _cocos2d_GLView_isScissorEnabled, nullptr);
+    oluacls_property(L, "viewName", _cocos2d_GLView_getViewName, _cocos2d_GLView_setViewName);
+    oluacls_property(L, "scaleX", _cocos2d_GLView_getScaleX, nullptr);
+    oluacls_property(L, "scaleY", _cocos2d_GLView_getScaleY, nullptr);
+    oluacls_property(L, "resolutionPolicy", _cocos2d_GLView_getResolutionPolicy, nullptr);
+    oluacls_property(L, "vr", _cocos2d_GLView_getVR, _cocos2d_GLView_setVR);
 
     olua_registerluatype<cocos2d::GLView>(L, "cc.GLView");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_GLViewImpl_create(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    std::string arg1;       /** viewName */
+
+    olua_check_std_string(L, 1, &arg1);
+
+    // static GLViewImpl* create(const std::string& viewName);
+    cocos2d::GLViewImpl *ret = (cocos2d::GLViewImpl *)cocos2d::GLViewImpl::create(arg1);
+
+    return olua_push_cppobj<cocos2d::GLViewImpl>(L, ret, "cc.GLViewImpl");
+}
+
+static int _cocos2d_GLViewImpl_createWithRect(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    std::string arg1;       /** viewName */
+    cocos2d::Rect arg2;       /** size */
+    lua_Number arg3 = 0;   /** frameZoomFactor */
+    bool arg4 = false;   /** resizable */
+
+    olua_check_std_string(L, 1, &arg1);
+    auto_luacv_check_cocos2d_Rect(L, 2, &arg2);
+    olua_opt_number(L, 3, &arg3, 1.0f);
+    olua_opt_bool(L, 4, &arg4, false);
+
+    // static GLViewImpl* createWithRect(const std::string& viewName, Rect size, float frameZoomFactor = 1.0f, bool resizable = false);
+    cocos2d::GLViewImpl *ret = (cocos2d::GLViewImpl *)cocos2d::GLViewImpl::createWithRect(arg1, arg2, (float)arg3, arg4);
+
+    return olua_push_cppobj<cocos2d::GLViewImpl>(L, ret, "cc.GLViewImpl");
+}
+
+static int _cocos2d_GLViewImpl_createWithFullScreen(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    std::string arg1;       /** viewName */
+
+    olua_check_std_string(L, 1, &arg1);
+
+    // static GLViewImpl* createWithFullScreen(const std::string& viewName);
+    cocos2d::GLViewImpl *ret = (cocos2d::GLViewImpl *)cocos2d::GLViewImpl::createWithFullScreen(arg1);
+
+    return olua_push_cppobj<cocos2d::GLViewImpl>(L, ret, "cc.GLViewImpl");
+}
+
+static int luaopen_cocos2d_GLViewImpl(lua_State *L)
+{
+    oluacls_class(L, "cc.GLViewImpl", "cc.GLView");
+    oluacls_setfunc(L, "create", _cocos2d_GLViewImpl_create);
+    oluacls_setfunc(L, "createWithRect", _cocos2d_GLViewImpl_createWithRect);
+    oluacls_setfunc(L, "createWithFullScreen", _cocos2d_GLViewImpl_createWithFullScreen);
+
+    olua_registerluatype<cocos2d::GLViewImpl>(L, "cc.GLViewImpl");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_Renderer_render(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Renderer *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Renderer");
+
+    // void render()
+    self->render();
+
+    return 0;
+}
+
+static int _cocos2d_Renderer_clean(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Renderer *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Renderer");
+
+    // void clean()
+    self->clean();
+
+    return 0;
+}
+
+static int _cocos2d_Renderer_clear(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Renderer *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Renderer");
+
+    // void clear()
+    self->clear();
+
+    return 0;
+}
+
+static int luaopen_cocos2d_Renderer(lua_State *L)
+{
+    oluacls_class(L, "cc.Renderer", nullptr);
+    oluacls_setfunc(L, "render", _cocos2d_Renderer_render);
+    oluacls_setfunc(L, "clean", _cocos2d_Renderer_clean);
+    oluacls_setfunc(L, "clear", _cocos2d_Renderer_clear);
+
+    olua_registerluatype<cocos2d::Renderer>(L, "cc.Renderer");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_VRIHeadTracker_getLocalPosition(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::VRIHeadTracker *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.VRIHeadTracker");
+
+    // Vec3 getLocalPosition()
+    cocos2d::Vec3 ret = (cocos2d::Vec3)self->getLocalPosition();
+
+    return auto_luacv_push_cocos2d_Vec3(L, &ret);
+}
+
+static int _cocos2d_VRIHeadTracker_getLocalRotation(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::VRIHeadTracker *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.VRIHeadTracker");
+
+    // Mat4 getLocalRotation()
+    cocos2d::Mat4 ret = (cocos2d::Mat4)self->getLocalRotation();
+
+    return xluacv_push_ccmat4(L, ret);
+}
+
+static int luaopen_cocos2d_VRIHeadTracker(lua_State *L)
+{
+    oluacls_class(L, "cc.VRIHeadTracker", nullptr);
+    oluacls_setfunc(L, "getLocalPosition", _cocos2d_VRIHeadTracker_getLocalPosition);
+    oluacls_setfunc(L, "getLocalRotation", _cocos2d_VRIHeadTracker_getLocalRotation);
+    oluacls_property(L, "localPosition", _cocos2d_VRIHeadTracker_getLocalPosition, nullptr);
+    oluacls_property(L, "localRotation", _cocos2d_VRIHeadTracker_getLocalRotation, nullptr);
+
+    olua_registerluatype<cocos2d::VRIHeadTracker>(L, "cc.VRIHeadTracker");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_VRIRenderer_setup(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::VRIRenderer *self = nullptr;
+    cocos2d::GLView *arg1 = nullptr;   /** glview */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.VRIRenderer");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.GLView");
+
+    // void setup(GLView* glview)
+    self->setup(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_VRIRenderer_cleanup(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::VRIRenderer *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.VRIRenderer");
+
+    // void cleanup()
+    self->cleanup();
+
+    return 0;
+}
+
+static int _cocos2d_VRIRenderer_render(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::VRIRenderer *self = nullptr;
+    cocos2d::Scene *arg1 = nullptr;   /** scene */
+    cocos2d::Renderer *arg2 = nullptr;   /** renderer */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.VRIRenderer");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Scene");
+    olua_check_cppobj(L, 3, (void **)&arg2, "cc.Renderer");
+
+    // void render(Scene* scene, Renderer* renderer)
+    self->render(arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_VRIRenderer_getHeadTracker(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::VRIRenderer *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.VRIRenderer");
+
+    // VRIHeadTracker* getHeadTracker()
+    cocos2d::VRIHeadTracker *ret = (cocos2d::VRIHeadTracker *)self->getHeadTracker();
+
+    return olua_push_cppobj<cocos2d::VRIHeadTracker>(L, ret, "cc.VRIHeadTracker");
+}
+
+static int luaopen_cocos2d_VRIRenderer(lua_State *L)
+{
+    oluacls_class(L, "cc.VRIRenderer", nullptr);
+    oluacls_setfunc(L, "setup", _cocos2d_VRIRenderer_setup);
+    oluacls_setfunc(L, "cleanup", _cocos2d_VRIRenderer_cleanup);
+    oluacls_setfunc(L, "render", _cocos2d_VRIRenderer_render);
+    oluacls_setfunc(L, "getHeadTracker", _cocos2d_VRIRenderer_getHeadTracker);
+    oluacls_property(L, "headTracker", _cocos2d_VRIRenderer_getHeadTracker, nullptr);
+
+    olua_registerluatype<cocos2d::VRIRenderer>(L, "cc.VRIRenderer");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_VRGenericRenderer(lua_State *L)
+{
+    oluacls_class(L, "cc.VRGenericRenderer", "cc.VRIRenderer");
+
+    olua_registerluatype<cocos2d::VRGenericRenderer>(L, "cc.VRGenericRenderer");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_VRGenericHeadTracker(lua_State *L)
+{
+    oluacls_class(L, "cc.VRGenericHeadTracker", "cc.VRIHeadTracker");
+
+    olua_registerluatype<cocos2d::VRGenericHeadTracker>(L, "cc.VRGenericHeadTracker");
     oluacls_createclassproxy(L);
 
     return 1;
@@ -6011,7 +6889,14 @@ int luaopen_cocos2d(lua_State *L)
     xlua_require(L, "cc.Director", luaopen_cocos2d_Director);
     xlua_require(L, "cc.Scheduler", luaopen_cocos2d_Scheduler);
     xlua_require(L, "cc.ActionManager", luaopen_cocos2d_ActionManager);
+    xlua_require(L, "cc.ResolutionPolicy", luaopen_ResolutionPolicy);
     xlua_require(L, "cc.GLView", luaopen_cocos2d_GLView);
+    xlua_require(L, "cc.GLViewImpl", luaopen_cocos2d_GLViewImpl);
+    xlua_require(L, "cc.Renderer", luaopen_cocos2d_Renderer);
+    xlua_require(L, "cc.VRIHeadTracker", luaopen_cocos2d_VRIHeadTracker);
+    xlua_require(L, "cc.VRIRenderer", luaopen_cocos2d_VRIRenderer);
+    xlua_require(L, "cc.VRGenericRenderer", luaopen_cocos2d_VRGenericRenderer);
+    xlua_require(L, "cc.VRGenericHeadTracker", luaopen_cocos2d_VRGenericHeadTracker);
     xlua_require(L, "cc.GLProgram", luaopen_cocos2d_GLProgram);
     xlua_require(L, "cc.TextureCache", luaopen_cocos2d_TextureCache);
     xlua_require(L, "cc.Texture2D.PixelFormat", luaopen_cocos2d_Texture2D_PixelFormat);

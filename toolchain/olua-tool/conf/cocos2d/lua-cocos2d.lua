@@ -14,6 +14,8 @@ M.INCLUDES = [[
 #include "xgame/xruntime.h"
 #include "olua/olua.hpp"
 #include "cocos2d.h"
+#include "vr/CCVRGenericRenderer.h"
+#include "vr/CCVRGenericHeadTracker.h"
 ]]
 
 M.STATIC_CHUNK = [[
@@ -43,6 +45,8 @@ M.CLASSES = {
     include("conf/cocos2d/cc/cc.Scheduler.lua"),
     include("conf/cocos2d/cc/cc.ActionManager.lua"),
     include("conf/cocos2d/cc/cc.GLView.lua"),
+    include("conf/cocos2d/cc/cc.Renderer.lua"),
+    include("conf/cocos2d/cc/cc.vr.lua"),
     include("conf/cocos2d/cc/cc.GLProgram.lua"),
     include("conf/cocos2d/cc/cc.TextureCache.lua"),
     include("conf/cocos2d/cc/cc.Texture2D.lua"),

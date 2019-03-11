@@ -10,12 +10,6 @@ REG_TYPE {
 }
 
 REG_TYPE {
-    TYPENAME = 'cocos2d::UserDefault *',
-    CONV_FUNC = "olua_$$_cppobj",
-    LUACLS = make_luacls,
-}
-
-REG_TYPE {
     TYPENAME = 'cocos2d::Vec2',
     CONV_FUNC = 'auto_luacv_$$_cocos2d_Vec2',
     INIT_VALUE = false,
@@ -41,6 +35,13 @@ REG_TYPE {
     CONV_FUNC = 'auto_luacv_$$_cocos2d_Size',
     INIT_VALUE = false,
     VARS = 2,
+}
+
+REG_TYPE {
+    TYPENAME = 'cocos2d::Rect',
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_Rect',
+    INIT_VALUE = false,
+    VARS = 4,
 }
 
 REG_TYPE {
@@ -85,6 +86,12 @@ REG_TYPE {
 }
 
 REG_TYPE {
+    TYPENAME = 'GLContextAttrs',
+    CONV_FUNC = 'auto_luacv_$$_GLContextAttrs',
+    INIT_VALUE = false,
+}
+
+REG_TYPE {
     TYPENAME = table.concat({
         'cocos2d::Director::Projection',
         'cocos2d::Texture2D::PixelFormat',
@@ -94,9 +101,21 @@ REG_TYPE {
         'cocos2d::Event::Type',
         'cocos2d::EventTouch::EventCode',
         'cocos2d::EventKeyboard::KeyCode',
+        'ResolutionPolicy',
     }, '|'),
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = "olua_$$_uint",
+}
+
+REG_TYPE {
+    TYPENAME = table.concat({
+        'cocos2d::UserDefault *',
+        'cocos2d::Renderer *',
+        'cocos2d::VRIRenderer *',
+        'cocos2d::VRIHeadTracker *',
+    }, '|'),
+    CONV_FUNC = "olua_$$_cppobj",
+    LUACLS = make_luacls,
 }
 
 REG_TYPE {
@@ -106,6 +125,7 @@ REG_TYPE {
         'cocos2d::Scheduler *',
         'cocos2d::ActionManager *',
         'cocos2d::GLView *',
+        'cocos2d::GLViewImpl *',
         'cocos2d::GLProgram *',
         'cocos2d::TextureCache *',
         'cocos2d::Texture2D *',

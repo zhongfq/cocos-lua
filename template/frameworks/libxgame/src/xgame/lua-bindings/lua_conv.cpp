@@ -456,3 +456,132 @@ bool auto_luacv_is_cocos2d_experimental_Viewport(lua_State *L, int idx)
 {
     return lua_istable(L, idx);
 }
+
+int auto_luacv_push_GLContextAttrs(lua_State *L, const GLContextAttrs *value)
+{
+    if (value) {
+        lua_createtable(L, 0, 7);
+        olua_rawsetfieldinteger(L, -1, "redBits", value->redBits);
+        olua_rawsetfieldinteger(L, -1, "greenBits", value->greenBits);
+        olua_rawsetfieldinteger(L, -1, "blueBits", value->blueBits);
+        olua_rawsetfieldinteger(L, -1, "alphaBits", value->alphaBits);
+        olua_rawsetfieldinteger(L, -1, "depthBits", value->depthBits);
+        olua_rawsetfieldinteger(L, -1, "stencilBits", value->stencilBits);
+        olua_rawsetfieldinteger(L, -1, "multisamplingCount", value->multisamplingCount);
+    } else {
+        lua_pushnil(L);
+    }
+
+    return 1;
+}
+
+void auto_luacv_check_GLContextAttrs(lua_State *L, int idx, GLContextAttrs *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    luaL_checktype(L, idx, LUA_TTABLE);
+    value->redBits = (int)olua_checkfieldinteger(L, idx, "redBits");
+    value->greenBits = (int)olua_checkfieldinteger(L, idx, "greenBits");
+    value->blueBits = (int)olua_checkfieldinteger(L, idx, "blueBits");
+    value->alphaBits = (int)olua_checkfieldinteger(L, idx, "alphaBits");
+    value->depthBits = (int)olua_checkfieldinteger(L, idx, "depthBits");
+    value->stencilBits = (int)olua_checkfieldinteger(L, idx, "stencilBits");
+    value->multisamplingCount = (int)olua_checkfieldinteger(L, idx, "multisamplingCount");
+}
+
+void auto_luacv_pack_GLContextAttrs(lua_State *L, int idx, GLContextAttrs *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    value->redBits = (int)luaL_checkinteger(L, idx + 0);
+    value->greenBits = (int)luaL_checkinteger(L, idx + 1);
+    value->blueBits = (int)luaL_checkinteger(L, idx + 2);
+    value->alphaBits = (int)luaL_checkinteger(L, idx + 3);
+    value->depthBits = (int)luaL_checkinteger(L, idx + 4);
+    value->stencilBits = (int)luaL_checkinteger(L, idx + 5);
+    value->multisamplingCount = (int)luaL_checkinteger(L, idx + 6);
+}
+
+int auto_luacv_unpack_GLContextAttrs(lua_State *L, const GLContextAttrs *value)
+{
+    if (value) {
+        lua_pushinteger(L, value->redBits);
+        lua_pushinteger(L, value->greenBits);
+        lua_pushinteger(L, value->blueBits);
+        lua_pushinteger(L, value->alphaBits);
+        lua_pushinteger(L, value->depthBits);
+        lua_pushinteger(L, value->stencilBits);
+        lua_pushinteger(L, value->multisamplingCount);
+    } else {
+        for (int i = 0; i < 7; i++) {
+            lua_pushnil(L);
+        }
+    }
+
+    return 7;
+}
+
+bool auto_luacv_is_GLContextAttrs(lua_State *L, int idx)
+{
+    return lua_istable(L, idx);
+}
+
+int auto_luacv_push_cocos2d_Rect(lua_State *L, const cocos2d::Rect *value)
+{
+    if (value) {
+        lua_createtable(L, 0, 4);
+        olua_rawsetfieldnumber(L, -1, "x", value->origin.x);
+        olua_rawsetfieldnumber(L, -1, "y", value->origin.y);
+        olua_rawsetfieldnumber(L, -1, "width", value->size.width);
+        olua_rawsetfieldnumber(L, -1, "height", value->size.height);
+    } else {
+        lua_pushnil(L);
+    }
+    
+    return 1;
+}
+
+void auto_luacv_check_cocos2d_Rect(lua_State *L, int idx, cocos2d::Rect *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    luaL_checktype(L, idx, LUA_TTABLE);
+    value->origin.x = (float)olua_checkfieldnumber(L, idx, "x");
+    value->origin.y = (float)olua_checkfieldnumber(L, idx, "y");
+    value->size.width = (float)olua_checkfieldnumber(L, idx, "width");
+    value->size.height = (float)olua_checkfieldnumber(L, idx, "height");
+}
+
+void auto_luacv_pack_cocos2d_Rect(lua_State *L, int idx, cocos2d::Rect *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    value->origin.x = (int)luaL_checkinteger(L, idx + 0);
+    value->origin.y = (int)luaL_checkinteger(L, idx + 1);
+    value->size.width = (int)luaL_checkinteger(L, idx + 2);
+    value->size.height = (int)luaL_checkinteger(L, idx + 3);
+}
+
+int auto_luacv_unpack_cocos2d_Rect(lua_State *L, const cocos2d::Rect *value)
+{
+    if (value) {
+        lua_pushnumber(L, value->origin.x);
+        lua_pushnumber(L, value->origin.y);
+        lua_pushnumber(L, value->size.width);
+        lua_pushnumber(L, value->size.height);
+    } else {
+        for (int i = 0; i < 4; i++) {
+            lua_pushnil(L);
+        }
+    }
+    return 4;
+}
+
+bool auto_luacv_is_cocos2d_Rect(lua_State *L, int idx)
+{
+    return lua_istable(L, idx);
+}

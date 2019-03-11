@@ -16,6 +16,12 @@ local function gen_conv_header(module)
         DECL_FUNCS[#DECL_FUNCS + 1] = ""
     end
 
+    for line in string.gmatch(module.DECLCHUNK, '[^\n\r]+') do
+        if string.find(line, '%)$') then
+            DECL_FUNCS[#DECL_FUNCS + 1] = line .. ';'
+        end
+    end
+
     DECL_FUNCS = table.concat(DECL_FUNCS, "\n")
     write(PROJECT_ROOT .. module.HEADER_PATH, format_snippet([[
         //
@@ -258,6 +264,8 @@ local function gen_conv_source(module)
     for _, cv in ipairs(module.CONVS) do
         gen_funcs(cv, append)
     end
+
+    append(module.DECLCHUNK)
 
     write(PROJECT_ROOT .. module.SOURCE_PATH, table.concat(arr, "\n"))
 end

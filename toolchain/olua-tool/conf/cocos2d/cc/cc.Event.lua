@@ -37,7 +37,7 @@ cls.func('new', [[
     const char *event = luaL_checkstring(L, 1);
     cocos2d::EventCustom *obj = new cocos2d::EventCustom(event);
     obj->autorelease();
-    return olua_push_cppobj(L, obj, "cc.EventCustom");
+    return olua_push_cppobj<cocos2d::EventCustom>(L, obj, "cc.EventCustom");
 }]])
 cls.funcs([[
     void setUserData(void* data)

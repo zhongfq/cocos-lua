@@ -66,12 +66,12 @@ cls.func("create", [[
     cocos2d::EventListenerCustom *self = new cocos2d::EventListenerCustom();
     self->autorelease();
     tag_store_obj = self;
-    olua_push_cppobj(L, self, "cc.EventListenerCustom");
+    olua_push_cppobj<cocos2d::EventListenerCustom>(L, self, "cc.EventListenerCustom");
     std::string func = olua_setcallback(L, tag_store_obj, event.c_str(), 2, OLUA_CALLBACK_TAG_NEW);
     self->init(event, [tag_store_obj, func](cocos2d::EventCustom *event) {
         lua_State *L = xlua_cocosthread();
         int top = lua_gettop(L);
-        olua_push_cppobj(L, event, "cc.EventCustom");
+        olua_push_cppobj<cocos2d::EventCustom>(L, event, "cc.EventCustom");
         olua_callback(L, tag_store_obj, func.c_str(), 1);
         lua_settop(L, top);
     });

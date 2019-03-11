@@ -87,9 +87,16 @@ function gen_callback(cls, fi, write)
         else
             if v.TYPE.LUACLS then
                 local LUACLS = v.TYPE.LUACLS
-                PUSH_ARGS[#PUSH_ARGS + 1] = format_snippet([[
-                    ${PUSH_FUNC}(L, ${ARG_N}, "${LUACLS}");
-                ]])
+                if PUSH_FUNC == "olua_push_cppobj" then
+                    local TYPENAME = string.gsub(v.TYPE.TYPENAME, '[ *]*$', '')
+                    PUSH_ARGS[#PUSH_ARGS + 1] = format_snippet([[
+                        ${PUSH_FUNC}<${TYPENAME}>(L, ${ARG_N}, "${LUACLS}");
+                    ]])
+                else
+                    PUSH_ARGS[#PUSH_ARGS + 1] = format_snippet([[
+                        ${PUSH_FUNC}(L, ${ARG_N}, "${LUACLS}");
+                    ]])
+                end
             elseif v.TYPE.SUBTYPE then
                 local SUBTYPE = assert(v.TYPE.SUBTYPE.LUACLS, v.TYPE.DECL_TYPE)
                 PUSH_ARGS[#PUSH_ARGS + 1] = format_snippet([[

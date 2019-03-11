@@ -415,7 +415,7 @@ static int _cocos2d_UserDefault_getInstance(lua_State *L)
     // static cocos2d::UserDefault *getInstance();
     cocos2d::UserDefault *ret = (cocos2d::UserDefault *)cocos2d::UserDefault::getInstance();
 
-    return olua_push_cppobj(L, ret, "cc.UserDefault");
+    return olua_push_cppobj<cocos2d::UserDefault>(L, ret, "cc.UserDefault");
 }
 
 static int _cocos2d_UserDefault_getXMLFilePath(lua_State *L)
@@ -501,7 +501,7 @@ static int _cocos2d_Director_getInstance(lua_State *L)
     // static Director *getInstance()
     cocos2d::Director *ret = (cocos2d::Director *)cocos2d::Director::getInstance();
 
-    return olua_push_cppobj(L, ret, "cc.Director");
+    return olua_push_cppobj<cocos2d::Director>(L, ret, "cc.Director");
 }
 
 static int _cocos2d_Director_setViewport(lua_State *L)
@@ -589,7 +589,7 @@ static int _cocos2d_Director_getEventDispatcher(lua_State *L)
     // EventDispatcher* getEventDispatcher()
     cocos2d::EventDispatcher *ret = (cocos2d::EventDispatcher *)self->getEventDispatcher();
 
-    return olua_push_cppobj(L, ret, "cc.EventDispatcher");
+    return olua_push_cppobj<cocos2d::EventDispatcher>(L, ret, "cc.EventDispatcher");
 }
 
 static int _cocos2d_Director_setEventDispatcher(lua_State *L)
@@ -619,7 +619,7 @@ static int _cocos2d_Director_getRunningScene(lua_State *L)
     // Scene *getRunningScene()
     cocos2d::Scene *ret = (cocos2d::Scene *)self->getRunningScene();
 
-    return olua_push_cppobj(L, ret, "cc.Scene");
+    return olua_push_cppobj<cocos2d::Scene>(L, ret, "cc.Scene");
 }
 
 static int _cocos2d_Director_getAnimationInterval(lua_State *L)
@@ -707,7 +707,7 @@ static int _cocos2d_Director_getOpenGLView(lua_State *L)
     // GLView* getOpenGLView()
     cocos2d::GLView *ret = (cocos2d::GLView *)self->getOpenGLView();
 
-    return olua_push_cppobj(L, ret, "cc.GLView");
+    return olua_push_cppobj<cocos2d::GLView>(L, ret, "cc.GLView");
 }
 
 static int _cocos2d_Director_setOpenGLView(lua_State *L)
@@ -737,7 +737,7 @@ static int _cocos2d_Director_getTextureCache(lua_State *L)
     // TextureCache* getTextureCache()
     cocos2d::TextureCache *ret = (cocos2d::TextureCache *)self->getTextureCache();
 
-    return olua_push_cppobj(L, ret, "cc.TextureCache");
+    return olua_push_cppobj<cocos2d::TextureCache>(L, ret, "cc.TextureCache");
 }
 
 static int _cocos2d_Director_isNextDeltaTimeZero(lua_State *L)
@@ -853,7 +853,7 @@ static int _cocos2d_Director_getNotificationNode(lua_State *L)
     // Node* getNotificationNode()
     cocos2d::Node *ret = (cocos2d::Node *)self->getNotificationNode();
 
-    return olua_push_cppobj(L, ret, "cc.Node");
+    return olua_push_cppobj<cocos2d::Node>(L, ret, "cc.Node");
 }
 
 static int _cocos2d_Director_setNotificationNode(lua_State *L)
@@ -928,7 +928,7 @@ static int _cocos2d_Scheduler_new(lua_State *L)
 {
     cocos2d::Scheduler *obj = new cocos2d::Scheduler();
     obj->autorelease();
-    return olua_push_cppobj(L, obj, "cc.Scheduler");
+    return olua_push_cppobj<cocos2d::Scheduler>(L, obj, "cc.Scheduler");
 }
 
 static int _cocos2d_Scheduler_update(lua_State *L)
@@ -1342,7 +1342,7 @@ static int _cocos2d_ActionManager_new(lua_State *L)
 {
     cocos2d::ActionManager *obj = new cocos2d::ActionManager();
     obj->autorelease();
-    return olua_push_cppobj(L, obj, "cc.ActionManager");
+    return olua_push_cppobj<cocos2d::ActionManager>(L, obj, "cc.ActionManager");
 }
 
 static int _cocos2d_ActionManager_addAction(lua_State *L)
@@ -1480,7 +1480,7 @@ static int _cocos2d_ActionManager_getActionByTag(lua_State *L)
     // Action* getActionByTag(int tag, const Node *target)
     cocos2d::Action *ret = (cocos2d::Action *)self->getActionByTag((int)arg1, arg2);
 
-    return olua_push_cppobj(L, ret, "cc.Action");
+    return olua_push_cppobj<cocos2d::Action>(L, ret, "cc.Action");
 }
 
 static int _cocos2d_ActionManager_getNumberOfRunningActionsInTarget(lua_State *L)
@@ -1659,7 +1659,7 @@ static int _cocos2d_GLProgram_createWithByteArrays1(lua_State *L)
     // static GLProgram* createWithByteArrays(const GLchar* vShaderByteArray, const GLchar* fShaderByteArray)
     cocos2d::GLProgram *ret = (cocos2d::GLProgram *)cocos2d::GLProgram::createWithByteArrays((const GLchar *)arg1, (const GLchar *)arg2);
 
-    return olua_push_cppobj(L, ret, "cc.GLProgram");
+    return olua_push_cppobj<cocos2d::GLProgram>(L, ret, "cc.GLProgram");
 }
 
 static int _cocos2d_GLProgram_createWithByteArrays2(lua_State *L)
@@ -1677,7 +1677,7 @@ static int _cocos2d_GLProgram_createWithByteArrays2(lua_State *L)
     // static GLProgram* createWithByteArrays(const GLchar* vShaderByteArray, const GLchar* fShaderByteArray, const std::string& compileTimeDefines)
     cocos2d::GLProgram *ret = (cocos2d::GLProgram *)cocos2d::GLProgram::createWithByteArrays((const GLchar *)arg1, (const GLchar *)arg2, arg3);
 
-    return olua_push_cppobj(L, ret, "cc.GLProgram");
+    return olua_push_cppobj<cocos2d::GLProgram>(L, ret, "cc.GLProgram");
 }
 
 static int _cocos2d_GLProgram_createWithByteArrays3(lua_State *L)
@@ -1697,7 +1697,7 @@ static int _cocos2d_GLProgram_createWithByteArrays3(lua_State *L)
     // static GLProgram* createWithByteArrays(const GLchar* vShaderByteArray, const GLchar* fShaderByteArray, const std::string& compileTimeHeaders, const std::string& compileTimeDefines)
     cocos2d::GLProgram *ret = (cocos2d::GLProgram *)cocos2d::GLProgram::createWithByteArrays((const GLchar *)arg1, (const GLchar *)arg2, arg3, arg4);
 
-    return olua_push_cppobj(L, ret, "cc.GLProgram");
+    return olua_push_cppobj<cocos2d::GLProgram>(L, ret, "cc.GLProgram");
 }
 
 static int _cocos2d_GLProgram_createWithByteArrays(lua_State *L)
@@ -1740,7 +1740,7 @@ static int _cocos2d_GLProgram_createWithFilenames1(lua_State *L)
     // static GLProgram* createWithFilenames(const std::string& vShaderFilename, const std::string& fShaderFilename)
     cocos2d::GLProgram *ret = (cocos2d::GLProgram *)cocos2d::GLProgram::createWithFilenames(arg1, arg2);
 
-    return olua_push_cppobj(L, ret, "cc.GLProgram");
+    return olua_push_cppobj<cocos2d::GLProgram>(L, ret, "cc.GLProgram");
 }
 
 static int _cocos2d_GLProgram_createWithFilenames2(lua_State *L)
@@ -1758,7 +1758,7 @@ static int _cocos2d_GLProgram_createWithFilenames2(lua_State *L)
     // static GLProgram* createWithFilenames(const std::string& vShaderFilename, const std::string& fShaderFilename, const std::string& compileTimeDefines)
     cocos2d::GLProgram *ret = (cocos2d::GLProgram *)cocos2d::GLProgram::createWithFilenames(arg1, arg2, arg3);
 
-    return olua_push_cppobj(L, ret, "cc.GLProgram");
+    return olua_push_cppobj<cocos2d::GLProgram>(L, ret, "cc.GLProgram");
 }
 
 static int _cocos2d_GLProgram_createWithFilenames3(lua_State *L)
@@ -1778,7 +1778,7 @@ static int _cocos2d_GLProgram_createWithFilenames3(lua_State *L)
     // static GLProgram* createWithFilenames(const std::string& vShaderFilename, const std::string& fShaderFilename, const std::string& compileTimeHeaders, const std::string& compileTimeDefines)
     cocos2d::GLProgram *ret = (cocos2d::GLProgram *)cocos2d::GLProgram::createWithFilenames(arg1, arg2, arg3, arg4);
 
-    return olua_push_cppobj(L, ret, "cc.GLProgram");
+    return olua_push_cppobj<cocos2d::GLProgram>(L, ret, "cc.GLProgram");
 }
 
 static int _cocos2d_GLProgram_createWithFilenames(lua_State *L)
@@ -2288,7 +2288,7 @@ static int _cocos2d_TextureCache_addImage1(lua_State *L)
     // Texture2D* addImage(const std::string &filepath)
     cocos2d::Texture2D *ret = (cocos2d::Texture2D *)self->addImage(arg1);
 
-    return olua_push_cppobj(L, ret, "cc.Texture2D");
+    return olua_push_cppobj<cocos2d::Texture2D>(L, ret, "cc.Texture2D");
 }
 
 static int _cocos2d_TextureCache_addImage2(lua_State *L)
@@ -2306,7 +2306,7 @@ static int _cocos2d_TextureCache_addImage2(lua_State *L)
     // Texture2D* addImage(Image *image, const std::string &key)
     cocos2d::Texture2D *ret = (cocos2d::Texture2D *)self->addImage(arg1, arg2);
 
-    return olua_push_cppobj(L, ret, "cc.Texture2D");
+    return olua_push_cppobj<cocos2d::Texture2D>(L, ret, "cc.Texture2D");
 }
 
 static int _cocos2d_TextureCache_addImage(lua_State *L)
@@ -2348,7 +2348,7 @@ static int _cocos2d_TextureCache_addImageAsync1(lua_State *L)
         lua_State *L = xlua_cocosthread();
         int top = lua_gettop(L);
 
-        olua_push_cppobj(L, arg1, "cc.Texture2D");
+        olua_push_cppobj<cocos2d::Texture2D>(L, arg1, "cc.Texture2D");
         olua_callback(L, tag_store_obj, func.c_str(), 1);
 
         olua_removecallback(L, tag_store_obj, func.c_str(), OLUA_CALLBACK_TAG_EQUAL);
@@ -2381,7 +2381,7 @@ static int _cocos2d_TextureCache_addImageAsync2(lua_State *L)
         lua_State *L = xlua_cocosthread();
         int top = lua_gettop(L);
 
-        olua_push_cppobj(L, arg1, "cc.Texture2D");
+        olua_push_cppobj<cocos2d::Texture2D>(L, arg1, "cc.Texture2D");
         olua_callback(L, tag_store_obj, func.c_str(), 1);
 
         olua_removecallback(L, tag_store_obj, func.c_str(), OLUA_CALLBACK_TAG_EQUAL);
@@ -2466,7 +2466,7 @@ static int _cocos2d_TextureCache_getTextureForKey(lua_State *L)
     // Texture2D* getTextureForKey(const std::string& key)
     cocos2d::Texture2D *ret = (cocos2d::Texture2D *)self->getTextureForKey(arg1);
 
-    return olua_push_cppobj(L, ret, "cc.Texture2D");
+    return olua_push_cppobj<cocos2d::Texture2D>(L, ret, "cc.Texture2D");
 }
 
 static int _cocos2d_TextureCache_reloadTexture(lua_State *L)
@@ -3074,7 +3074,7 @@ static int _cocos2d_Texture2D_getGLProgram(lua_State *L)
     // GLProgram* getGLProgram()
     cocos2d::GLProgram *ret = (cocos2d::GLProgram *)self->getGLProgram();
 
-    return olua_push_cppobj(L, ret, "cc.GLProgram");
+    return olua_push_cppobj<cocos2d::GLProgram>(L, ret, "cc.GLProgram");
 }
 
 static int _cocos2d_Texture2D_setGLProgram(lua_State *L)
@@ -3118,7 +3118,7 @@ static int _cocos2d_Texture2D_getAlphaTexture(lua_State *L)
     // Texture2D* getAlphaTexture()
     cocos2d::Texture2D *ret = (cocos2d::Texture2D *)self->getAlphaTexture();
 
-    return olua_push_cppobj(L, ret, "cc.Texture2D");
+    return olua_push_cppobj<cocos2d::Texture2D>(L, ret, "cc.Texture2D");
 }
 
 static int _cocos2d_Texture2D_setAlphaTexture(lua_State *L)
@@ -3500,7 +3500,7 @@ static int _cocos2d_Node_create(lua_State *L)
     // static Node *create()
     cocos2d::Node *ret = (cocos2d::Node *)cocos2d::Node::create();
 
-    return olua_push_cppobj(L, ret, "cc.Node");
+    return olua_push_cppobj<cocos2d::Node>(L, ret, "cc.Node");
 }
 
 static int _cocos2d_Node_getName(lua_State *L)
@@ -3651,7 +3651,7 @@ static int _cocos2d_Node_getChildByTag(lua_State *L)
     // Node *getChildByTag(int tag) const
     cocos2d::Node *ret = (cocos2d::Node *)self->getChildByTag((int)arg1);
 
-    return olua_push_cppobj(L, ret, "cc.Node");
+    return olua_push_cppobj<cocos2d::Node>(L, ret, "cc.Node");
 }
 
 static int _cocos2d_Node_getChildByName(lua_State *L)
@@ -3667,7 +3667,7 @@ static int _cocos2d_Node_getChildByName(lua_State *L)
     // Node *getChildByName(const std::string& name)
     cocos2d::Node *ret = (cocos2d::Node *)self->getChildByName(arg1);
 
-    return olua_push_cppobj(L, ret, "cc.Node");
+    return olua_push_cppobj<cocos2d::Node>(L, ret, "cc.Node");
 }
 
 static int _cocos2d_Node_removeFromParent(lua_State *L)
@@ -4204,7 +4204,7 @@ static int _cocos2d_Node_getScheduler(lua_State *L)
     // Scheduler* getScheduler()
     cocos2d::Scheduler *ret = (cocos2d::Scheduler *)self->getScheduler();
 
-    return olua_push_cppobj(L, ret, "cc.Scheduler");
+    return olua_push_cppobj<cocos2d::Scheduler>(L, ret, "cc.Scheduler");
 }
 
 static int _cocos2d_Node_setScheduler(lua_State *L)
@@ -4234,7 +4234,7 @@ static int _cocos2d_Node_getActionManager(lua_State *L)
     // ActionManager* getActionManager()
     cocos2d::ActionManager *ret = (cocos2d::ActionManager *)self->getActionManager();
 
-    return olua_push_cppobj(L, ret, "cc.ActionManager");
+    return olua_push_cppobj<cocos2d::ActionManager>(L, ret, "cc.ActionManager");
 }
 
 static int _cocos2d_Node_setActionManager(lua_State *L)
@@ -4312,7 +4312,7 @@ static int _cocos2d_Camera_createPerspective(lua_State *L)
     // static Camera* createPerspective(float fieldOfView, float aspectRatio, float nearPlane, float farPlane)
     cocos2d::Camera *ret = (cocos2d::Camera *)cocos2d::Camera::createPerspective((float)arg1, (float)arg2, (float)arg3, (float)arg4);
 
-    return olua_push_cppobj(L, ret, "cc.Camera");
+    return olua_push_cppobj<cocos2d::Camera>(L, ret, "cc.Camera");
 }
 
 static int _cocos2d_Camera_createOrthographic(lua_State *L)
@@ -4332,7 +4332,7 @@ static int _cocos2d_Camera_createOrthographic(lua_State *L)
     // static Camera* createOrthographic(float zoomX, float zoomY, float nearPlane, float farPlane)
     cocos2d::Camera *ret = (cocos2d::Camera *)cocos2d::Camera::createOrthographic((float)arg1, (float)arg2, (float)arg3, (float)arg4);
 
-    return olua_push_cppobj(L, ret, "cc.Camera");
+    return olua_push_cppobj<cocos2d::Camera>(L, ret, "cc.Camera");
 }
 
 static int _cocos2d_Camera_create(lua_State *L)
@@ -4342,7 +4342,7 @@ static int _cocos2d_Camera_create(lua_State *L)
     // static Camera* create()
     cocos2d::Camera *ret = (cocos2d::Camera *)cocos2d::Camera::create();
 
-    return olua_push_cppobj(L, ret, "cc.Camera");
+    return olua_push_cppobj<cocos2d::Camera>(L, ret, "cc.Camera");
 }
 
 static int _cocos2d_Camera_getVisitingCamera(lua_State *L)
@@ -4352,7 +4352,7 @@ static int _cocos2d_Camera_getVisitingCamera(lua_State *L)
     // static Camera* getVisitingCamera()
     cocos2d::Camera *ret = (cocos2d::Camera *)cocos2d::Camera::getVisitingCamera();
 
-    return olua_push_cppobj(L, ret, "cc.Camera");
+    return olua_push_cppobj<cocos2d::Camera>(L, ret, "cc.Camera");
 }
 
 static int _cocos2d_Camera_getDefaultViewport(lua_State *L)
@@ -4405,7 +4405,7 @@ static int _cocos2d_Sprite_create(lua_State *L)
     // static cocos2d::Sprite *create(const std::string &filename)
     cocos2d::Sprite *ret = (cocos2d::Sprite *)cocos2d::Sprite::create(arg1);
 
-    return olua_push_cppobj(L, ret, "cc.Sprite");
+    return olua_push_cppobj<cocos2d::Sprite>(L, ret, "cc.Sprite");
 }
 
 static int luaopen_cocos2d_Sprite(lua_State *L)
@@ -4426,7 +4426,7 @@ static int _cocos2d_Scene_create(lua_State *L)
     // static Scene *create()
     cocos2d::Scene *ret = (cocos2d::Scene *)cocos2d::Scene::create();
 
-    return olua_push_cppobj(L, ret, "cc.Scene");
+    return olua_push_cppobj<cocos2d::Scene>(L, ret, "cc.Scene");
 }
 
 static int _cocos2d_Scene_createWithSize(lua_State *L)
@@ -4440,7 +4440,7 @@ static int _cocos2d_Scene_createWithSize(lua_State *L)
     // static Scene *createWithSize(@pack const Size& size)
     cocos2d::Scene *ret = (cocos2d::Scene *)cocos2d::Scene::createWithSize(arg1);
 
-    return olua_push_cppobj(L, ret, "cc.Scene");
+    return olua_push_cppobj<cocos2d::Scene>(L, ret, "cc.Scene");
 }
 
 static int luaopen_cocos2d_Scene(lua_State *L)
@@ -4720,13 +4720,13 @@ static int _cocos2d_EventDispatcher_addCustomEventListener(lua_State *L)
 
     cocos2d::EventListenerCustom *listener = new cocos2d::EventListenerCustom();
     listener->autorelease();
-    olua_push_cppobj(L, listener, "cc.EventListenerCustom");
+    olua_push_cppobj<cocos2d::EventListenerCustom>(L, listener, "cc.EventListenerCustom");
     tag_store_obj = listener;
     std::string func = olua_setcallback(L, tag_store_obj, eventName.c_str(), 3, OLUA_CALLBACK_TAG_NEW);
     listener->init(eventName, [tag_store_obj, func](cocos2d::EventCustom *event) {
         lua_State *L = xlua_cocosthread();
         int top = lua_gettop(L);
-        olua_push_cppobj(L, event, "cc.EventCustom");
+        olua_push_cppobj<cocos2d::EventCustom>(L, event, "cc.EventCustom");
         olua_callback(L, tag_store_obj, func.c_str(), 1);
         lua_settop(L, top);
     });
@@ -4815,7 +4815,7 @@ static int _cocos2d_EventListener_clone(lua_State *L)
     // EventListener* clone()
     cocos2d::EventListener *ret = (cocos2d::EventListener *)self->clone();
 
-    return olua_push_cppobj(L, ret, "cc.EventListener");
+    return olua_push_cppobj<cocos2d::EventListener>(L, ret, "cc.EventListener");
 }
 
 static int _cocos2d_EventListener_setEnabled(lua_State *L)
@@ -4871,7 +4871,7 @@ static int _cocos2d_EventListenerTouchOneByOne_create(lua_State *L)
     // static EventListenerTouchOneByOne* create()
     cocos2d::EventListenerTouchOneByOne *ret = (cocos2d::EventListenerTouchOneByOne *)cocos2d::EventListenerTouchOneByOne::create();
 
-    return olua_push_cppobj(L, ret, "cc.EventListenerTouchOneByOne");
+    return olua_push_cppobj<cocos2d::EventListenerTouchOneByOne>(L, ret, "cc.EventListenerTouchOneByOne");
 }
 
 static int _cocos2d_EventListenerTouchOneByOne_setSwallowTouches(lua_State *L)
@@ -4935,7 +4935,7 @@ static int _cocos2d_EventListenerTouchOneByOne_set_onTouchBegan(lua_State *L)
             lua_State *L = xlua_cocosthread();
             int top = lua_gettop(L);
             bool ret = false;
-            olua_push_cppobj(L, arg1, "cc.Touch");
+            olua_push_cppobj<cocos2d::Touch>(L, arg1, "cc.Touch");
             olua_callback(L, tag_store_obj, func.c_str(), 1);
             olua_opt_bool(L, -1, &ret, false);
 
@@ -4983,7 +4983,7 @@ static int _cocos2d_EventListenerTouchOneByOne_set_onTouchMoved(lua_State *L)
             lua_State *L = xlua_cocosthread();
             int top = lua_gettop(L);
 
-            olua_push_cppobj(L, arg1, "cc.Touch");
+            olua_push_cppobj<cocos2d::Touch>(L, arg1, "cc.Touch");
             olua_callback(L, tag_store_obj, func.c_str(), 1);
 
             lua_settop(L, top);
@@ -5029,7 +5029,7 @@ static int _cocos2d_EventListenerTouchOneByOne_set_onTouchEnded(lua_State *L)
             lua_State *L = xlua_cocosthread();
             int top = lua_gettop(L);
 
-            olua_push_cppobj(L, arg1, "cc.Touch");
+            olua_push_cppobj<cocos2d::Touch>(L, arg1, "cc.Touch");
             olua_callback(L, tag_store_obj, func.c_str(), 1);
 
             lua_settop(L, top);
@@ -5075,7 +5075,7 @@ static int _cocos2d_EventListenerTouchOneByOne_set_onTouchCancelled(lua_State *L
             lua_State *L = xlua_cocosthread();
             int top = lua_gettop(L);
 
-            olua_push_cppobj(L, arg1, "cc.Touch");
+            olua_push_cppobj<cocos2d::Touch>(L, arg1, "cc.Touch");
             olua_callback(L, tag_store_obj, func.c_str(), 1);
 
             lua_settop(L, top);
@@ -5115,7 +5115,7 @@ static int _cocos2d_EventListenerTouchAllAtOnce_create(lua_State *L)
     // static EventListenerTouchAllAtOnce* create()
     cocos2d::EventListenerTouchAllAtOnce *ret = (cocos2d::EventListenerTouchAllAtOnce *)cocos2d::EventListenerTouchAllAtOnce::create();
 
-    return olua_push_cppobj(L, ret, "cc.EventListenerTouchAllAtOnce");
+    return olua_push_cppobj<cocos2d::EventListenerTouchAllAtOnce>(L, ret, "cc.EventListenerTouchAllAtOnce");
 }
 
 static int _cocos2d_EventListenerTouchAllAtOnce_get_onTouchesBegan(lua_State *L)
@@ -5326,12 +5326,12 @@ static int _cocos2d_EventListenerCustom_create(lua_State *L)
     cocos2d::EventListenerCustom *self = new cocos2d::EventListenerCustom();
     self->autorelease();
     tag_store_obj = self;
-    olua_push_cppobj(L, self, "cc.EventListenerCustom");
+    olua_push_cppobj<cocos2d::EventListenerCustom>(L, self, "cc.EventListenerCustom");
     std::string func = olua_setcallback(L, tag_store_obj, event.c_str(), 2, OLUA_CALLBACK_TAG_NEW);
     self->init(event, [tag_store_obj, func](cocos2d::EventCustom *event) {
         lua_State *L = xlua_cocosthread();
         int top = lua_gettop(L);
-        olua_push_cppobj(L, event, "cc.EventCustom");
+        olua_push_cppobj<cocos2d::EventCustom>(L, event, "cc.EventCustom");
         olua_callback(L, tag_store_obj, func.c_str(), 1);
         lua_settop(L, top);
     });
@@ -5359,7 +5359,7 @@ static int _cocos2d_EventListenerKeyboard_create(lua_State *L)
     // static EventListenerKeyboard* create()
     cocos2d::EventListenerKeyboard *ret = (cocos2d::EventListenerKeyboard *)cocos2d::EventListenerKeyboard::create();
 
-    return olua_push_cppobj(L, ret, "cc.EventListenerKeyboard");
+    return olua_push_cppobj<cocos2d::EventListenerKeyboard>(L, ret, "cc.EventListenerKeyboard");
 }
 
 static int _cocos2d_EventListenerKeyboard_get_onKeyPressed(lua_State *L)
@@ -5537,7 +5537,7 @@ static int _cocos2d_Event_getCurrentTarget(lua_State *L)
     // Node* getCurrentTarget()
     cocos2d::Node *ret = (cocos2d::Node *)self->getCurrentTarget();
 
-    return olua_push_cppobj(L, ret, "cc.Node");
+    return olua_push_cppobj<cocos2d::Node>(L, ret, "cc.Node");
 }
 
 static int luaopen_cocos2d_Event(lua_State *L)
@@ -5563,7 +5563,7 @@ static int _cocos2d_EventCustom_new(lua_State *L)
     const char *event = luaL_checkstring(L, 1);
     cocos2d::EventCustom *obj = new cocos2d::EventCustom(event);
     obj->autorelease();
-    return olua_push_cppobj(L, obj, "cc.EventCustom");
+    return olua_push_cppobj<cocos2d::EventCustom>(L, obj, "cc.EventCustom");
 }
 
 static int _cocos2d_EventCustom_setUserData(lua_State *L)
@@ -5708,7 +5708,7 @@ static int _cocos2d_Touch_new(lua_State *L)
 {
     cocos2d::Touch *obj = new cocos2d::Touch();
     obj->autorelease();
-    return olua_push_cppobj(L, obj, "cc.Touch");
+    return olua_push_cppobj<cocos2d::Touch>(L, obj, "cc.Touch");
 }
 
 static int _cocos2d_Touch_getLocation(lua_State *L)

@@ -135,7 +135,12 @@ local function gen_func_ret(cls, fi)
         RET_VALUE = format_snippet('${DECL_TYPE}${SPACE}ret = (${DECL_TYPE})')
         if fi.RET.TYPE.LUACLS then
             local LUACLS = fi.RET.TYPE.LUACLS
-            PUSH_RET = format_snippet('${FUNC_PUSH_VALUE}(L, ret, "${LUACLS}")')
+            if FUNC_PUSH_VALUE == "olua_push_cppobj" then
+                local TYPENAME = string.gsub(fi.RET.TYPE.TYPENAME, '[ *]*$', '')
+                PUSH_RET = format_snippet('${FUNC_PUSH_VALUE}<${TYPENAME}>(L, ret, "${LUACLS}")')
+            else
+                PUSH_RET = format_snippet('${FUNC_PUSH_VALUE}(L, ret, "${LUACLS}")')
+            end
         elseif fi.RET.TYPE.SUBTYPE then
             local SUBTYPE = assert(fi.RET.TYPE.SUBTYPE.LUACLS, fi.RET.DECL_TYPE)
             PUSH_RET = format_snippet('${FUNC_PUSH_VALUE}(L, ret, "${SUBTYPE}")')

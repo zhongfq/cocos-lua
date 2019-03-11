@@ -3,17 +3,17 @@ local arr = {}
 local cls = class()
 cls.CPPCLS = "cocos2d::Image::Format"
 cls.LUACLS = "cc.Image.Format"
-cls.enum('JPG', 'cocos2d::Image::Format::JPG')
-cls.enum('PNG', 'cocos2d::Image::Format::PNG')
-cls.enum('TIFF', 'cocos2d::Image::Format::TIFF')
-cls.enum('WEBP', 'cocos2d::Image::Format::WEBP')
-cls.enum('PVR', 'cocos2d::Image::Format::PVR')
-cls.enum('ETC', 'cocos2d::Image::Format::ETC')
-cls.enum('S3TC', 'cocos2d::Image::Format::S3TC')
-cls.enum('ATITC', 'cocos2d::Image::Format::ATITC')
-cls.enum('TGA', 'cocos2d::Image::Format::TGA')
-cls.enum('RAW_DATA', 'cocos2d::Image::Format::RAW_DATA')
-cls.enum('UNKNOWN', 'cocos2d::Image::Format::UNKNOWN')
+cls.enum('JPG')
+cls.enum('PNG')
+cls.enum('TIFF')
+cls.enum('WEBP')
+cls.enum('PVR')
+cls.enum('ETC')
+cls.enum('S3TC')
+cls.enum('ATITC')
+cls.enum('TGA')
+cls.enum('RAW_DATA')
+cls.enum('UNKNOWN')
 arr[#arr + 1] = cls
 
 local cls = class()

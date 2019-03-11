@@ -113,16 +113,17 @@ function gen_callback(cls, fi, write)
 
         if v.INSTACK then
             local PUSH_VALUE = PUSH_ARGS[#PUSH_ARGS]
+            if #INSTACKS == 0 then
+                INSTACKS[#INSTACKS + 1] = "//may be stack value"
+            end
             if v.TYPE.SUBTYPE then
                 assert(v.TYPE.TYPENAME == 'std::vector')
                 INSTACKS[#INSTACKS + 1] = format_snippet([[
-                    // evet is stack value
                     ${PUSH_VALUE}
                     olua_callgc(L, -1, true);
                 ]])
             else
                 INSTACKS[#INSTACKS + 1] = format_snippet([[
-                    // evet is stack value
                     ${PUSH_VALUE}
                     olua_callgc(L, -1, false);
                 ]])

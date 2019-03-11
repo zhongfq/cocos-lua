@@ -3,12 +3,12 @@ local M = {}
 local cls = class(M)
 cls.CPPCLS = "ResolutionPolicy"
 cls.LUACLS = "cc.ResolutionPolicy"
-cls.enum('EXACT_FIT', 'ResolutionPolicy::EXACT_FIT')
-cls.enum('NO_BORDER', 'ResolutionPolicy::NO_BORDER')
-cls.enum('SHOW_ALL', 'ResolutionPolicy::SHOW_ALL')
-cls.enum('FIXED_HEIGHT', 'ResolutionPolicy::FIXED_HEIGHT')
-cls.enum('FIXED_WIDTH', 'ResolutionPolicy::FIXED_WIDTH')
-cls.enum('UNKNOWN', 'ResolutionPolicy::UNKNOWN')
+cls.enum('EXACT_FIT')
+cls.enum('NO_BORDER')
+cls.enum('SHOW_ALL')
+cls.enum('FIXED_HEIGHT')
+cls.enum('FIXED_WIDTH')
+cls.enum('UNKNOWN')
 
 local cls = class(M)
 cls.CPPCLS = "cocos2d::GLView"

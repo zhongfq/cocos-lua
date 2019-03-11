@@ -33,6 +33,14 @@ cls.funcs([[
     void unscheduleUpdate(void)
     void scheduleUpdateWithPriority(int priority)
     bool isScheduled(const std::string &key)
+
+    Action* runAction(Action* action)
+    void stopAllActions()
+    void stopAction(Action* action)
+    void stopActionByTag(int tag)
+    void stopAllActionsByTag(int tag)
+    void stopActionsByFlags(unsigned int flags)
+    Action* getActionByTag(int tag)
 ]])
 cls.callback(nil, {
         TAG_MAKER = "makeScheduleCallbackTag(#-1)",

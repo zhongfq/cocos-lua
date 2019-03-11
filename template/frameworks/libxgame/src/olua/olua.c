@@ -564,7 +564,7 @@ LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *super)
 {
     if (super != NULL) {
         if (luaL_getmetatable(L, super) == LUA_TNIL) {
-            luaL_error(L, "super class not found: %s", super);
+            luaL_error(L, "'%s' super class not found: %s", cls, super);
         }
         lua_pop(L, 1);
     } else {

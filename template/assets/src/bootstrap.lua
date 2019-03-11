@@ -12,6 +12,8 @@ local Scheduler     = require "cc.Scheduler"
 local EventListenerTouchAllAtOnce = require "cc.EventListenerTouchAllAtOnce"
 local EventListenerTouchOneByOne = require "cc.EventListenerTouchOneByOne"
 local EventListenerCustom = require "cc.EventListenerCustom"
+local RotateTo      = require "cc.RotateTo"
+local Sequence      = require "cc.Sequence"
 
 window.setDesignSize(1334, 750, 1)
 
@@ -31,12 +33,10 @@ function main()
     sprite.hello = function ( ... )
         print("### hello", ...)
     end
-    sprite.setPosition = sprite.hello
     sprite:setPosition(500, 400)
-    sprite:hello()
-    sprite.setPosition = nil
-    sprite:setPosition(500, 400)
+    sprite:runAction(Sequence.create(RotateTo.create(2, 40), RotateTo.create(3, -120)))
     Director.getInstance().runningScene:addChild(sprite)
+    Director.getInstance():convertToUI(0, 1)
     print(Director.getInstance().runningScene:getChildByName("xxxx"))
     -- sprite.scheduler:schedule(function ( ... )
         -- print("xxxx", ...)

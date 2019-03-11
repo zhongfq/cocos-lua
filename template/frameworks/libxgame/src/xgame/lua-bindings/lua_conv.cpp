@@ -728,6 +728,18 @@ void auto_luacv_check_cocos2d_Rect(lua_State *L, int idx, cocos2d::Rect *value)
     value->size.height = (float)olua_checkfieldnumber(L, idx, "height");
 }
 
+void auto_luacv_opt_cocos2d_Rect(lua_State *L, int idx, cocos2d::Rect *value, const cocos2d::Rect &def)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    if (auto_luacv_is_cocos2d_Rect(L, idx)) {
+        auto_luacv_check_cocos2d_Rect(L, idx, value);
+    } else {
+        *value = def;
+    }
+}
+
 void auto_luacv_pack_cocos2d_Rect(lua_State *L, int idx, cocos2d::Rect *value)
 {
     if (!value) {

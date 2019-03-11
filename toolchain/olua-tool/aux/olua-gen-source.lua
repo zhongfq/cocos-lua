@@ -16,6 +16,10 @@ end
 
 local function gen_classes(module, write)
     local function do_gen_class(cls)
+        local ti = test_typename(cls.CPPCLS) or test_typename(cls.CPPCLS .. ' *')
+        if ti and ti.LUACLS then
+            assert(ti.LUACLS == cls.LUACLS, cls.LUACLS)
+        end
         gen_class(module, cls, write)
         write('')
     end

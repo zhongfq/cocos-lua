@@ -17,4 +17,5 @@ end
 
 gen_conv(require("conf.lua-conv"))
 gen_module(require("conf.cocos2d.lua-cocos2d"))
+gen_module(require("conf.cocos2d.lua-cocos2d-ui"))
 gen_module(require("conf.xgame.lua-xgame"))

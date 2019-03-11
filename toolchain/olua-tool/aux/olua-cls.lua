@@ -33,6 +33,10 @@ local function to_real_typename(typename)
     return typename, false
 end
 
+function test_typename(typename)
+    return typeinfo_map[typename]
+end
+
 function get_typeinfo(typename, cls)
     local typename = to_pretty_typename(typename)
     local typeinfo
@@ -397,8 +401,8 @@ function class(collection)
     function cls.enum(name, value, type)
         cls.ENUMS[#cls.ENUMS + 1] = {
             ENUM_NAME = name,
-            ENUM_VALUE = assert(value),
-            ENUM_VALUE = type,
+            ENUM_VALUE = value or (cls.CPPCLS .. '::' .. name),
+            ENUM_TYPE = type,
         }
     end
 

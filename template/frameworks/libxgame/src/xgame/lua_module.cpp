@@ -5,6 +5,7 @@
 #include "xgame/xlua.h"
 #include "xgame/lua-bindings/lua_xgame.h"
 #include "xgame/lua-bindings/lua_cocos2d.h"
+#include "xgame/lua-bindings/lua_cocos2d_ui.h"
 #include "cjson/lua_cjson.h"
 #include "md5/md5.h"
 #include "pbc/pbc.h"
@@ -24,6 +25,7 @@ int luaopen_module(lua_State *L)
 #endif
     
     xlua_call(L, luaopen_cocos2d);
+    xlua_call(L, luaopen_cocos2d_ui);
     xlua_call(L, luaopen_xgame);
     
     return 0;

@@ -13,5 +13,5 @@ function gen_header(module)
         LUALIB_API int luaopen_${MODULE_NAME}(lua_State *L);
 
         #endif
-    ]]))
+    ]]) .. '\n')
 end

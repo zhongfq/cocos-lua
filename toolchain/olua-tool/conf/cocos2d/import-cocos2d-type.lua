@@ -120,6 +120,8 @@ REG_TYPE {
         'cocos2d::Event::Type',
         'cocos2d::EventTouch::EventCode',
         'cocos2d::EventKeyboard::KeyCode',
+        'cocos2d::EventMouse::MouseEventType',
+        'cocos2d::EventMouse::MouseButton',
         'ResolutionPolicy',
     }, '|'),
     DECL_TYPE = 'lua_Unsigned',
@@ -150,6 +152,7 @@ REG_TYPE {
         'cocos2d::Texture2D *',
         'cocos2d::Image *',
         'cocos2d::Node *',
+        'cocos2d::ProtectedNode *',
         'cocos2d::Camera *',
         'cocos2d::Sprite *',
         'cocos2d::Scene *',
@@ -160,12 +163,31 @@ REG_TYPE {
         'cocos2d::EventListenerTouchOneByOne *',
         'cocos2d::EventListenerTouchAllAtOnce *',
         'cocos2d::EventListenerKeyboard *',
+        'cocos2d::EventListenerFocus *',
+        'cocos2d::EventListenerMouse *',
         'cocos2d::Event *',
         'cocos2d::EventCustom *',
         'cocos2d::EventTouch *',
         'cocos2d::EventKeyboard *',
+        'cocos2d::EventAcceleration *',
+        'cocos2d::EventFocus *',
+        'cocos2d::EventMouse *',
         'cocos2d::Touch *',
+        'cocos2d::Acceleration *',
     }, '|'),
     CONV_FUNC = "olua_$$_cppobj",
     LUACLS = make_luacls,
 }
+
+REG_TYPE {
+    TYPENAME = table.concat({
+        'cocos2d::ui::Widget *'
+    }, '|'),
+    CONV_FUNC = "olua_$$_cppobj",
+    LUACLS = function (cppname)
+        cppname = string.gsub(cppname, "cocos2d::ui::", "ccui.")
+        cppname = string.gsub(cppname, "[ *]*$", '')
+        return cppname
+    end
+}
+

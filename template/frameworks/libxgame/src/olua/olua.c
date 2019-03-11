@@ -339,19 +339,29 @@ LUALIB_API void *olua_toobj(lua_State *L, int idx, const char *cls)
     return NULL;
 }
 
-LUALIB_API void olua_callgc(lua_State *L, int idx)
+LUALIB_API void olua_callgc(lua_State *L, int idx, bool isarrary)
 {
     int top = lua_gettop(L);
-    void *p = lua_type(L, idx) == LUA_TUSERDATA ? (*(void **)lua_touserdata(L, idx)) : NULL;
     idx = lua_absindex(L, idx);
-    lua_pushcfunction(L, TRACEBACK);
-    if (lua_getfield(L, idx, "__gc") == LUA_TFUNCTION) {
-        lua_pushvalue(L, idx);
-        lua_pcall(L, 1, 0, top + 1);
-    }
-    if (p && lua_rawgetp(L, LUA_REGISTRYINDEX, OBJ_REF_TABLE) == LUA_TTABLE) {
-        lua_pushnil(L);
-        lua_rawsetp(L, -2, p);
+    if (isarrary) {
+        if (lua_istable(L, idx)) {
+            lua_pushnil(L);                     // L: k
+            while (lua_next(L, idx)) {          // L: k v
+                olua_callgc(L, -1, false);
+                lua_pop(L, 1);
+            }
+        }
+    } else {
+        void *p = lua_type(L, idx) == LUA_TUSERDATA ? (*(void **)lua_touserdata(L, idx)) : NULL;
+        lua_pushcfunction(L, TRACEBACK);
+        if (lua_getfield(L, idx, "__gc") == LUA_TFUNCTION) {
+            lua_pushvalue(L, idx);
+            lua_pcall(L, 1, 0, top + 1);
+        }
+        if (p && lua_rawgetp(L, LUA_REGISTRYINDEX, OBJ_REF_TABLE) == LUA_TTABLE) {
+            lua_pushnil(L);
+            lua_rawsetp(L, -2, p);
+        }
     }
     lua_settop(L, top);
 }

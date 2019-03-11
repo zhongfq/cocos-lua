@@ -80,7 +80,7 @@ local function gen_class_open(cls, write)
 
     for i, ei in ipairs(cls.ENUMS) do
         local ENUM_NAME = ei.ENUM_NAME
-        local ENUM_VALUE = ei.ENUM_VALUE
+        local ENUM_VALUE = assert(ei.ENUM_VALUE, cls.CPPCLS)
         FUNCS[#FUNCS + 1] = format_snippet([[
             oluacls_const_integer(L, "${ENUM_NAME}", (lua_Integer)${ENUM_VALUE});
         ]])

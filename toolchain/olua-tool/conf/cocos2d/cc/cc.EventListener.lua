@@ -36,18 +36,18 @@ cls.funcs([[
     void setSwallowTouches(bool needSwallow)
     bool isSwallowTouches()
 ]])
-cls.var('onTouchBegan', 'std::function<bool(Touch*, @stack Event*)> onTouchBegan = nullptr')
-cls.var('onTouchMoved', 'std::function<void(Touch*, @stack Event*)> onTouchMoved = nullptr')
-cls.var('onTouchEnded', 'std::function<void(Touch*, @stack Event*)> onTouchEnded = nullptr')
+cls.var('onTouchBegan', 'std::function<bool(@stack Touch*, @stack Event*)> onTouchBegan = nullptr')
+cls.var('onTouchMoved', 'std::function<void(@stack Touch*, @stack Event*)> onTouchMoved = nullptr')
+cls.var('onTouchEnded', 'std::function<void(@stack Touch*, @stack Event*)> onTouchEnded = nullptr')
 cls.var('onTouchCancelled', 'std::function<void(Touch*, @stack Event*)> onTouchCancelled = nullptr')
 
 local cls = class(M)
 cls.CPPCLS = "cocos2d::EventListenerTouchAllAtOnce"
 cls.LUACLS = "cc.EventListenerTouchAllAtOnce"
 cls.SUPERCLS = "cc.EventListener"
-cls.var('onTouchesBegan', 'std::function<void(const std::vector<Touch*>&, @stack Event*)> onTouchesBegan = nullptr')
-cls.var('onTouchesMoved', 'std::function<void(const std::vector<Touch*>&, @stack Event*)> onTouchesMoved = nullptr')
-cls.var('onTouchesEnded', 'std::function<void(const std::vector<Touch*>&, @stack Event*)> onTouchesEnded = nullptr')
+cls.var('onTouchesBegan', 'std::function<void(@stack const std::vector<Touch*>&, @stack Event*)> onTouchesBegan = nullptr')
+cls.var('onTouchesMoved', 'std::function<void(@stack const std::vector<Touch*>&, @stack Event*)> onTouchesMoved = nullptr')
+cls.var('onTouchesEnded', 'std::function<void(@stack const std::vector<Touch*>&, @stack Event*)> onTouchesEnded = nullptr')
 cls.var('onTouchesCancelled', 'std::function<void(const std::vector<Touch*>&, @stack Event*)> onTouchesCancelled = nullptr')
 cls.funcs([[
     static EventListenerTouchAllAtOnce* create()
@@ -76,7 +76,7 @@ cls.func("create", [[
 
         // evet is stack value
         olua_push_cppobj<cocos2d::EventCustom>(L, event, "cc.EventCustom");
-        olua_callgc(L, -1);
+        olua_callgc(L, -1, false);
 
         lua_settop(L, top);
     });
@@ -95,5 +95,61 @@ cls.funcs([[
 ]])
 cls.var('onKeyPressed', 'std::function<void(EventKeyboard::KeyCode, @stack Event*)> onKeyPressed = nullptr')
 cls.var('onKeyReleased', 'std::function<void(EventKeyboard::KeyCode, @stack Event*)> onKeyReleased = nullptr')
+
+local cls = class(M)
+cls.CPPCLS = "cocos2d::EventListenerAcceleration"
+cls.LUACLS = "cc.EventListenerAcceleration"
+cls.SUPERCLS = "cc.EventListener"
+cls.func("create", [[
+{
+    lua_settop(L, 1);
+
+    void *tag_store_obj = nullptr;
+    cocos2d::EventListenerAcceleration *self = new cocos2d::EventListenerAcceleration();
+    self->autorelease();
+    tag_store_obj = self;
+    olua_push_cppobj<cocos2d::EventListenerAcceleration>(L, self, "cc.EventListenerAcceleration");
+    std::string func = olua_setcallback(L, tag_store_obj, "acceleration", 1, OLUA_CALLBACK_TAG_NEW);
+    self->init([tag_store_obj, func](cocos2d::Acceleration *acce, cocos2d::Event *event) {
+        lua_State *L = xlua_cocosthread();
+        int top = lua_gettop(L);
+        olua_push_cppobj<cocos2d::Acceleration>(L, acce, "cc.Acceleration");
+        olua_push_cppobj<cocos2d::Event>(L, event, "cc.Event");
+        olua_callback(L, tag_store_obj, func.c_str(), 2);
+
+        // evet is stack value
+        olua_push_cppobj<cocos2d::Acceleration>(L, acce, "cc.Acceleration");
+        olua_callgc(L, -1, false);
+        olua_push_cppobj<cocos2d::Event>(L, event, "cc.Event");
+        olua_callgc(L, -1, false);
+
+        lua_settop(L, top);
+    });
+
+    lua_pushvalue(L, 3);
+
+    return 1;
+}]])
+
+local cls = class(M)
+cls.CPPCLS = "cocos2d::EventListenerFocus"
+cls.LUACLS = "cc.EventListenerFocus"
+cls.SUPERCLS = "cc.EventListener"
+cls.funcs([[
+    static EventListenerFocus* create()
+]])
+cls.var('onFocusChanged', 'std::function<void(ui::Widget*, ui::Widget*)> onFocusChanged = nullptr')
+
+local cls = class(M)
+cls.CPPCLS = "cocos2d::EventListenerMouse"
+cls.LUACLS = "cc.EventListenerMouse"
+cls.SUPERCLS = "cc.EventListener"
+cls.funcs([[
+    static EventListenerMouse* create()
+]])
+cls.var('onMouseDown', 'std::function<void(@stack EventMouse* event)> onMouseDown = nullptr')
+cls.var('onMouseUp', 'std::function<void(@stack EventMouse* event)> onMouseUp = nullptr')
+cls.var('onMouseMove', 'std::function<void(@stack EventMouse* event)> onMouseMove = nullptr')
+cls.var('onMouseScroll', 'std::function<void(@stack EventMouse* event)> onMouseScroll = nullptr')
 
 return M

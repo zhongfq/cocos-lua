@@ -47,6 +47,8 @@
 		0E2E9AB42226550E0085145E /* lua_xgame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E9AB12226550D0085145E /* lua_xgame.cpp */; };
 		0E2E9ABB222771D00085145E /* lua_cocos2d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E9AB9222771D00085145E /* lua_cocos2d.cpp */; };
 		0E2E9ABC222771D00085145E /* lua_cocos2d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E9AB9222771D00085145E /* lua_cocos2d.cpp */; };
+		0E669F6D22367D1F00BD58EB /* lua_cocos2d_ui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E669F6C22367D1F00BD58EB /* lua_cocos2d_ui.cpp */; };
+		0E669F6E22367D1F00BD58EB /* lua_cocos2d_ui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E669F6C22367D1F00BD58EB /* lua_cocos2d_ui.cpp */; };
 		0E6C9796222ADD1300B2C17F /* olua.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E6C9795222ADD1300B2C17F /* olua.c */; };
 		0E6C9797222ADD1300B2C17F /* olua.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E6C9795222ADD1300B2C17F /* olua.c */; };
 		0E6C97C9222FD37E00B2C17F /* lua_conv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E6C97C7222FD37E00B2C17F /* lua_conv.cpp */; };
@@ -209,6 +211,8 @@
 		0E2E9AB22226550D0085145E /* lua_xgame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_xgame.h; sourceTree = "<group>"; };
 		0E2E9AB9222771D00085145E /* lua_cocos2d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_cocos2d.cpp; sourceTree = "<group>"; };
 		0E2E9ABA222771D00085145E /* lua_cocos2d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_cocos2d.h; sourceTree = "<group>"; };
+		0E669F6B22367D1E00BD58EB /* lua_cocos2d_ui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_cocos2d_ui.h; sourceTree = "<group>"; };
+		0E669F6C22367D1F00BD58EB /* lua_cocos2d_ui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_cocos2d_ui.cpp; sourceTree = "<group>"; };
 		0E6C9794222ADD1300B2C17F /* olua.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = olua.h; sourceTree = "<group>"; };
 		0E6C9795222ADD1300B2C17F /* olua.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = olua.c; sourceTree = "<group>"; };
 		0E6C979B222AF37300B2C17F /* olua.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = olua.hpp; sourceTree = "<group>"; };
@@ -430,6 +434,8 @@
 		0E2E9AB02226550D0085145E /* lua-bindings */ = {
 			isa = PBXGroup;
 			children = (
+				0E669F6C22367D1F00BD58EB /* lua_cocos2d_ui.cpp */,
+				0E669F6B22367D1E00BD58EB /* lua_cocos2d_ui.h */,
 				0E2E9AB9222771D00085145E /* lua_cocos2d.cpp */,
 				0E2E9ABA222771D00085145E /* lua_cocos2d.h */,
 				0E6C97C7222FD37E00B2C17F /* lua_conv.cpp */,
@@ -674,6 +680,7 @@
 				0E0C704B21F9EEBD00049240 /* xdownloader.cpp in Sources */,
 				0E0C705C21F9EFC700049240 /* xsocket.cpp in Sources */,
 				0ECC4BBF21E79E3E00E3BBF9 /* liolib.c in Sources */,
+				0E669F6D22367D1F00BD58EB /* lua_cocos2d_ui.cpp in Sources */,
 				0E2E9A84221EBB570085145E /* xxtea.cpp in Sources */,
 				0ECC4C7D21EB8D4600E3BBF9 /* bootstrap.c in Sources */,
 				0ECC4C6D21EB8D4600E3BBF9 /* alloc.c in Sources */,
@@ -745,6 +752,7 @@
 				0E6C97CA222FD37E00B2C17F /* lua_conv.cpp in Sources */,
 				0E2E9A7A221EB7B00085145E /* lua_crypto.cpp in Sources */,
 				0ECC4BAC21E79E3E00E3BBF9 /* lcorolib.c in Sources */,
+				0E669F6E22367D1F00BD58EB /* lua_cocos2d_ui.cpp in Sources */,
 				0ECC4BB221E79E3E00E3BBF9 /* lbaselib.c in Sources */,
 				0E2E9A76221EB7B00085145E /* lua_socket.cpp in Sources */,
 				0ECC4BC821E79E3E00E3BBF9 /* lutf8lib.c in Sources */,

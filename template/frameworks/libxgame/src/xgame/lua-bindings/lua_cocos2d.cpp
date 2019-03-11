@@ -7,6 +7,7 @@
 #include "xgame/xruntime.h"
 #include "olua/olua.hpp"
 #include "cocos2d.h"
+#include "ui/CocosGUI.h"
 #include "vr/CCVRGenericRenderer.h"
 #include "vr/CCVRGenericHeadTracker.h"
 
@@ -491,6 +492,16 @@ static int luaopen_cocos2d_Ref(lua_State *L)
     oluacls_property(L, "referenceCount", _cocos2d_Ref_getReferenceCount, nullptr);
 
     olua_registerluatype<cocos2d::Ref>(L, "cc.Ref");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_Acceleration(lua_State *L)
+{
+    oluacls_class(L, "cc.Acceleration", "cc.Ref");
+
+    olua_registerluatype<cocos2d::Acceleration>(L, "cc.Acceleration");
     oluacls_createclassproxy(L);
 
     return 1;
@@ -6040,6 +6051,230 @@ static int luaopen_cocos2d_Node(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_ProtectedNode_create(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static ProtectedNode * create(void)
+    cocos2d::ProtectedNode *ret = (cocos2d::ProtectedNode *)cocos2d::ProtectedNode::create();
+
+    return olua_push_cppobj<cocos2d::ProtectedNode>(L, ret, "cc.ProtectedNode");
+}
+
+static int _cocos2d_ProtectedNode_addProtectedChild1(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ProtectedNode *self = nullptr;
+    cocos2d::Node *arg1 = nullptr;   /** child */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ProtectedNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
+
+    // void addProtectedChild(Node * child)
+    self->addProtectedChild(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ProtectedNode_addProtectedChild2(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ProtectedNode *self = nullptr;
+    cocos2d::Node *arg1 = nullptr;   /** child */
+    lua_Integer arg2 = 0;   /** localZOrder */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ProtectedNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
+    olua_check_int(L, 3, &arg2);
+
+    // void addProtectedChild(Node * child, int localZOrder)
+    self->addProtectedChild(arg1, (int)arg2);
+
+    return 0;
+}
+
+static int _cocos2d_ProtectedNode_addProtectedChild3(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    cocos2d::ProtectedNode *self = nullptr;
+    cocos2d::Node *arg1 = nullptr;   /** child */
+    lua_Integer arg2 = 0;   /** localZOrder */
+    lua_Integer arg3 = 0;   /** tag */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ProtectedNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
+    olua_check_int(L, 3, &arg2);
+    olua_check_int(L, 4, &arg3);
+
+    // void addProtectedChild(Node* child, int localZOrder, int tag)
+    self->addProtectedChild(arg1, (int)arg2, (int)arg3);
+
+    return 0;
+}
+
+static int _cocos2d_ProtectedNode_addProtectedChild(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if (olua_is_cppobj(L, 2, "cc.Node")) {
+            return _cocos2d_ProtectedNode_addProtectedChild1(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if (olua_is_cppobj(L, 2, "cc.Node") && olua_is_int(L, 3)) {
+            return _cocos2d_ProtectedNode_addProtectedChild2(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if (olua_is_cppobj(L, 2, "cc.Node") && olua_is_int(L, 3) && olua_is_int(L, 4)) {
+            return _cocos2d_ProtectedNode_addProtectedChild3(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ProtectedNode::addProtectedChild' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_ProtectedNode_getProtectedChildByTag(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ProtectedNode *self = nullptr;
+    lua_Integer arg1 = 0;   /** tag */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ProtectedNode");
+    olua_check_int(L, 2, &arg1);
+
+    // Node * getProtectedChildByTag(int tag)
+    cocos2d::Node *ret = (cocos2d::Node *)self->getProtectedChildByTag((int)arg1);
+
+    return olua_push_cppobj<cocos2d::Node>(L, ret, "cc.Node");
+}
+
+static int _cocos2d_ProtectedNode_removeProtectedChild(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ProtectedNode *self = nullptr;
+    cocos2d::Node *arg1 = nullptr;   /** child */
+    bool arg2 = false;   /** cleanup */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ProtectedNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
+    olua_opt_bool(L, 3, &arg2, true);
+
+    // void removeProtectedChild(Node* child, bool cleanup = true)
+    self->removeProtectedChild(arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_ProtectedNode_removeProtectedChildByTag(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ProtectedNode *self = nullptr;
+    lua_Integer arg1 = 0;   /** tag */
+    bool arg2 = false;   /** cleanup */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ProtectedNode");
+    olua_check_int(L, 2, &arg1);
+    olua_opt_bool(L, 3, &arg2, true);
+
+    // void removeProtectedChildByTag(int tag, bool cleanup = true)
+    self->removeProtectedChildByTag((int)arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_ProtectedNode_removeAllProtectedChildren(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ProtectedNode *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ProtectedNode");
+
+    // void removeAllProtectedChildren()
+    self->removeAllProtectedChildren();
+
+    return 0;
+}
+
+static int _cocos2d_ProtectedNode_removeAllProtectedChildrenWithCleanup(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ProtectedNode *self = nullptr;
+    bool arg1 = false;   /** cleanup */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ProtectedNode");
+    olua_check_bool(L, 2, &arg1);
+
+    // void removeAllProtectedChildrenWithCleanup(bool cleanup)
+    self->removeAllProtectedChildrenWithCleanup(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ProtectedNode_reorderProtectedChild(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ProtectedNode *self = nullptr;
+    cocos2d::Node *arg1 = nullptr;   /** child */
+    lua_Integer arg2 = 0;   /** localZOrder */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ProtectedNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
+    olua_check_int(L, 3, &arg2);
+
+    // void reorderProtectedChild(Node * child, int localZOrder)
+    self->reorderProtectedChild(arg1, (int)arg2);
+
+    return 0;
+}
+
+static int _cocos2d_ProtectedNode_sortAllProtectedChildren(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ProtectedNode *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ProtectedNode");
+
+    // void sortAllProtectedChildren()
+    self->sortAllProtectedChildren();
+
+    return 0;
+}
+
+static int luaopen_cocos2d_ProtectedNode(lua_State *L)
+{
+    oluacls_class(L, "cc.ProtectedNode", "cc.Node");
+    oluacls_setfunc(L, "create", _cocos2d_ProtectedNode_create);
+    oluacls_setfunc(L, "addProtectedChild", _cocos2d_ProtectedNode_addProtectedChild);
+    oluacls_setfunc(L, "getProtectedChildByTag", _cocos2d_ProtectedNode_getProtectedChildByTag);
+    oluacls_setfunc(L, "removeProtectedChild", _cocos2d_ProtectedNode_removeProtectedChild);
+    oluacls_setfunc(L, "removeProtectedChildByTag", _cocos2d_ProtectedNode_removeProtectedChildByTag);
+    oluacls_setfunc(L, "removeAllProtectedChildren", _cocos2d_ProtectedNode_removeAllProtectedChildren);
+    oluacls_setfunc(L, "removeAllProtectedChildrenWithCleanup", _cocos2d_ProtectedNode_removeAllProtectedChildrenWithCleanup);
+    oluacls_setfunc(L, "reorderProtectedChild", _cocos2d_ProtectedNode_reorderProtectedChild);
+    oluacls_setfunc(L, "sortAllProtectedChildren", _cocos2d_ProtectedNode_sortAllProtectedChildren);
+
+    olua_registerluatype<cocos2d::ProtectedNode>(L, "cc.ProtectedNode");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
 static int _cocos2d_Camera_createPerspective(lua_State *L)
 {
     lua_settop(L, 4);
@@ -6476,7 +6711,7 @@ static int _cocos2d_EventDispatcher_addCustomEventListener(lua_State *L)
 
         // evet is stack value
         olua_push_cppobj<cocos2d::EventCustom>(L, event, "cc.EventCustom");
-        olua_callgc(L, -1);
+        olua_callgc(L, -1, false);
 
         lua_settop(L, top);
     });
@@ -6691,8 +6926,11 @@ static int _cocos2d_EventListenerTouchOneByOne_set_onTouchBegan(lua_State *L)
             olua_opt_bool(L, -1, &ret, false);
 
             // evet is stack value
+            olua_push_cppobj<cocos2d::Touch>(L, arg1, "cc.Touch");
+            olua_callgc(L, -1, false);
+            // evet is stack value
             olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
-            olua_callgc(L, -1);
+            olua_callgc(L, -1, false);
 
             lua_settop(L, top);
             return ret;
@@ -6743,8 +6981,11 @@ static int _cocos2d_EventListenerTouchOneByOne_set_onTouchMoved(lua_State *L)
             olua_callback(L, tag_store_obj, func.c_str(), 2);
 
             // evet is stack value
+            olua_push_cppobj<cocos2d::Touch>(L, arg1, "cc.Touch");
+            olua_callgc(L, -1, false);
+            // evet is stack value
             olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
-            olua_callgc(L, -1);
+            olua_callgc(L, -1, false);
 
             lua_settop(L, top);
         };
@@ -6794,8 +7035,11 @@ static int _cocos2d_EventListenerTouchOneByOne_set_onTouchEnded(lua_State *L)
             olua_callback(L, tag_store_obj, func.c_str(), 2);
 
             // evet is stack value
+            olua_push_cppobj<cocos2d::Touch>(L, arg1, "cc.Touch");
+            olua_callgc(L, -1, false);
+            // evet is stack value
             olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
-            olua_callgc(L, -1);
+            olua_callgc(L, -1, false);
 
             lua_settop(L, top);
         };
@@ -6846,7 +7090,7 @@ static int _cocos2d_EventListenerTouchOneByOne_set_onTouchCancelled(lua_State *L
 
             // evet is stack value
             olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
-            olua_callgc(L, -1);
+            olua_callgc(L, -1, false);
 
             lua_settop(L, top);
         };
@@ -6924,8 +7168,11 @@ static int _cocos2d_EventListenerTouchAllAtOnce_set_onTouchesBegan(lua_State *L)
             olua_callback(L, tag_store_obj, func.c_str(), 2);
 
             // evet is stack value
+            olua_push_std_vector(L, arg1, "cc.Touch");
+            olua_callgc(L, -1, true);
+            // evet is stack value
             olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
-            olua_callgc(L, -1);
+            olua_callgc(L, -1, false);
 
             lua_settop(L, top);
         };
@@ -6975,8 +7222,11 @@ static int _cocos2d_EventListenerTouchAllAtOnce_set_onTouchesMoved(lua_State *L)
             olua_callback(L, tag_store_obj, func.c_str(), 2);
 
             // evet is stack value
+            olua_push_std_vector(L, arg1, "cc.Touch");
+            olua_callgc(L, -1, true);
+            // evet is stack value
             olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
-            olua_callgc(L, -1);
+            olua_callgc(L, -1, false);
 
             lua_settop(L, top);
         };
@@ -7026,8 +7276,11 @@ static int _cocos2d_EventListenerTouchAllAtOnce_set_onTouchesEnded(lua_State *L)
             olua_callback(L, tag_store_obj, func.c_str(), 2);
 
             // evet is stack value
+            olua_push_std_vector(L, arg1, "cc.Touch");
+            olua_callgc(L, -1, true);
+            // evet is stack value
             olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
-            olua_callgc(L, -1);
+            olua_callgc(L, -1, false);
 
             lua_settop(L, top);
         };
@@ -7078,7 +7331,7 @@ static int _cocos2d_EventListenerTouchAllAtOnce_set_onTouchesCancelled(lua_State
 
             // evet is stack value
             olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
-            olua_callgc(L, -1);
+            olua_callgc(L, -1, false);
 
             lua_settop(L, top);
         };
@@ -7126,7 +7379,7 @@ static int _cocos2d_EventListenerCustom_create(lua_State *L)
 
         // evet is stack value
         olua_push_cppobj<cocos2d::EventCustom>(L, event, "cc.EventCustom");
-        olua_callgc(L, -1);
+        olua_callgc(L, -1, false);
 
         lua_settop(L, top);
     });
@@ -7194,7 +7447,7 @@ static int _cocos2d_EventListenerKeyboard_set_onKeyPressed(lua_State *L)
 
             // evet is stack value
             olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
-            olua_callgc(L, -1);
+            olua_callgc(L, -1, false);
 
             lua_settop(L, top);
         };
@@ -7245,7 +7498,7 @@ static int _cocos2d_EventListenerKeyboard_set_onKeyReleased(lua_State *L)
 
             // evet is stack value
             olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
-            olua_callgc(L, -1);
+            olua_callgc(L, -1, false);
 
             lua_settop(L, top);
         };
@@ -7267,6 +7520,342 @@ static int luaopen_cocos2d_EventListenerKeyboard(lua_State *L)
     oluacls_property(L, "onKeyReleased", _cocos2d_EventListenerKeyboard_get_onKeyReleased, _cocos2d_EventListenerKeyboard_set_onKeyReleased);
 
     olua_registerluatype<cocos2d::EventListenerKeyboard>(L, "cc.EventListenerKeyboard");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_EventListenerAcceleration_create(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    void *tag_store_obj = nullptr;
+    cocos2d::EventListenerAcceleration *self = new cocos2d::EventListenerAcceleration();
+    self->autorelease();
+    tag_store_obj = self;
+    olua_push_cppobj<cocos2d::EventListenerAcceleration>(L, self, "cc.EventListenerAcceleration");
+    std::string func = olua_setcallback(L, tag_store_obj, "acceleration", 1, OLUA_CALLBACK_TAG_NEW);
+    self->init([tag_store_obj, func](cocos2d::Acceleration *acce, cocos2d::Event *event) {
+        lua_State *L = xlua_cocosthread();
+        int top = lua_gettop(L);
+        olua_push_cppobj<cocos2d::Acceleration>(L, acce, "cc.Acceleration");
+        olua_push_cppobj<cocos2d::Event>(L, event, "cc.Event");
+        olua_callback(L, tag_store_obj, func.c_str(), 2);
+
+        // evet is stack value
+        olua_push_cppobj<cocos2d::Acceleration>(L, acce, "cc.Acceleration");
+        olua_callgc(L, -1, false);
+        olua_push_cppobj<cocos2d::Event>(L, event, "cc.Event");
+        olua_callgc(L, -1, false);
+
+        lua_settop(L, top);
+    });
+
+    lua_pushvalue(L, 3);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_EventListenerAcceleration(lua_State *L)
+{
+    oluacls_class(L, "cc.EventListenerAcceleration", "cc.EventListener");
+    oluacls_setfunc(L, "create", _cocos2d_EventListenerAcceleration_create);
+
+    olua_registerluatype<cocos2d::EventListenerAcceleration>(L, "cc.EventListenerAcceleration");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_EventListenerFocus_create(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static EventListenerFocus* create()
+    cocos2d::EventListenerFocus *ret = (cocos2d::EventListenerFocus *)cocos2d::EventListenerFocus::create();
+
+    return olua_push_cppobj<cocos2d::EventListenerFocus>(L, ret, "cc.EventListenerFocus");
+}
+
+static int _cocos2d_EventListenerFocus_get_onFocusChanged(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::EventListenerFocus *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerFocus");
+
+    // <function var>
+    std::function<void(cocos2d::ui::Widget *, cocos2d::ui::Widget *)> ret = (std::function<void(cocos2d::ui::Widget *, cocos2d::ui::Widget *)>)self->onFocusChanged;
+
+    return olua_push_std_function(L, (std::function<void(cocos2d::ui::Widget *, cocos2d::ui::Widget *)>)ret);
+}
+
+static int _cocos2d_EventListenerFocus_set_onFocusChanged(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::EventListenerFocus *self = nullptr;
+    std::function<void(cocos2d::ui::Widget *, cocos2d::ui::Widget *)> arg1 = nullptr;   /** onFocusChanged */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerFocus");
+
+    if (olua_is_std_function(L, 2)) {
+        void *tag_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onFocusChanged");
+        std::string func = olua_setcallback(L, tag_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+        arg1 = [tag_store_obj, func, tag](cocos2d::ui::Widget *arg1, cocos2d::ui::Widget *arg2) {
+            lua_State *L = xlua_cocosthread();
+            int top = lua_gettop(L);
+
+            olua_push_cppobj<cocos2d::ui::Widget>(L, arg1, "ccui.Widget");
+            olua_push_cppobj<cocos2d::ui::Widget>(L, arg2, "ccui.Widget");
+            olua_callback(L, tag_store_obj, func.c_str(), 2);
+
+            lua_settop(L, top);
+        };
+    } else {
+        arg1 = nullptr;
+    }
+
+    // <function var>
+    self->onFocusChanged = arg1;
+
+    return 0;
+}
+
+static int luaopen_cocos2d_EventListenerFocus(lua_State *L)
+{
+    oluacls_class(L, "cc.EventListenerFocus", "cc.EventListener");
+    oluacls_setfunc(L, "create", _cocos2d_EventListenerFocus_create);
+    oluacls_property(L, "onFocusChanged", _cocos2d_EventListenerFocus_get_onFocusChanged, _cocos2d_EventListenerFocus_set_onFocusChanged);
+
+    olua_registerluatype<cocos2d::EventListenerFocus>(L, "cc.EventListenerFocus");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_EventListenerMouse_create(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static EventListenerMouse* create()
+    cocos2d::EventListenerMouse *ret = (cocos2d::EventListenerMouse *)cocos2d::EventListenerMouse::create();
+
+    return olua_push_cppobj<cocos2d::EventListenerMouse>(L, ret, "cc.EventListenerMouse");
+}
+
+static int _cocos2d_EventListenerMouse_get_onMouseDown(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::EventListenerMouse *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerMouse");
+
+    // <function var>
+    std::function<void(cocos2d::EventMouse *)> ret = (std::function<void(cocos2d::EventMouse *)>)self->onMouseDown;
+
+    return olua_push_std_function(L, (std::function<void(cocos2d::EventMouse *)>)ret);
+}
+
+static int _cocos2d_EventListenerMouse_set_onMouseDown(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::EventListenerMouse *self = nullptr;
+    std::function<void(cocos2d::EventMouse *)> arg1 = nullptr;   /** onMouseDown */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerMouse");
+
+    if (olua_is_std_function(L, 2)) {
+        void *tag_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onMouseDown");
+        std::string func = olua_setcallback(L, tag_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+        arg1 = [tag_store_obj, func, tag](cocos2d::EventMouse *arg1) {
+            lua_State *L = xlua_cocosthread();
+            int top = lua_gettop(L);
+
+            olua_push_cppobj<cocos2d::EventMouse>(L, arg1, "cc.EventMouse");
+            olua_callback(L, tag_store_obj, func.c_str(), 1);
+
+            // evet is stack value
+            olua_push_cppobj<cocos2d::EventMouse>(L, arg1, "cc.EventMouse");
+            olua_callgc(L, -1, false);
+
+            lua_settop(L, top);
+        };
+    } else {
+        arg1 = nullptr;
+    }
+
+    // <function var>
+    self->onMouseDown = arg1;
+
+    return 0;
+}
+
+static int _cocos2d_EventListenerMouse_get_onMouseUp(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::EventListenerMouse *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerMouse");
+
+    // <function var>
+    std::function<void(cocos2d::EventMouse *)> ret = (std::function<void(cocos2d::EventMouse *)>)self->onMouseUp;
+
+    return olua_push_std_function(L, (std::function<void(cocos2d::EventMouse *)>)ret);
+}
+
+static int _cocos2d_EventListenerMouse_set_onMouseUp(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::EventListenerMouse *self = nullptr;
+    std::function<void(cocos2d::EventMouse *)> arg1 = nullptr;   /** onMouseUp */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerMouse");
+
+    if (olua_is_std_function(L, 2)) {
+        void *tag_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onMouseUp");
+        std::string func = olua_setcallback(L, tag_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+        arg1 = [tag_store_obj, func, tag](cocos2d::EventMouse *arg1) {
+            lua_State *L = xlua_cocosthread();
+            int top = lua_gettop(L);
+
+            olua_push_cppobj<cocos2d::EventMouse>(L, arg1, "cc.EventMouse");
+            olua_callback(L, tag_store_obj, func.c_str(), 1);
+
+            // evet is stack value
+            olua_push_cppobj<cocos2d::EventMouse>(L, arg1, "cc.EventMouse");
+            olua_callgc(L, -1, false);
+
+            lua_settop(L, top);
+        };
+    } else {
+        arg1 = nullptr;
+    }
+
+    // <function var>
+    self->onMouseUp = arg1;
+
+    return 0;
+}
+
+static int _cocos2d_EventListenerMouse_get_onMouseMove(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::EventListenerMouse *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerMouse");
+
+    // <function var>
+    std::function<void(cocos2d::EventMouse *)> ret = (std::function<void(cocos2d::EventMouse *)>)self->onMouseMove;
+
+    return olua_push_std_function(L, (std::function<void(cocos2d::EventMouse *)>)ret);
+}
+
+static int _cocos2d_EventListenerMouse_set_onMouseMove(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::EventListenerMouse *self = nullptr;
+    std::function<void(cocos2d::EventMouse *)> arg1 = nullptr;   /** onMouseMove */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerMouse");
+
+    if (olua_is_std_function(L, 2)) {
+        void *tag_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onMouseMove");
+        std::string func = olua_setcallback(L, tag_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+        arg1 = [tag_store_obj, func, tag](cocos2d::EventMouse *arg1) {
+            lua_State *L = xlua_cocosthread();
+            int top = lua_gettop(L);
+
+            olua_push_cppobj<cocos2d::EventMouse>(L, arg1, "cc.EventMouse");
+            olua_callback(L, tag_store_obj, func.c_str(), 1);
+
+            // evet is stack value
+            olua_push_cppobj<cocos2d::EventMouse>(L, arg1, "cc.EventMouse");
+            olua_callgc(L, -1, false);
+
+            lua_settop(L, top);
+        };
+    } else {
+        arg1 = nullptr;
+    }
+
+    // <function var>
+    self->onMouseMove = arg1;
+
+    return 0;
+}
+
+static int _cocos2d_EventListenerMouse_get_onMouseScroll(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::EventListenerMouse *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerMouse");
+
+    // <function var>
+    std::function<void(cocos2d::EventMouse *)> ret = (std::function<void(cocos2d::EventMouse *)>)self->onMouseScroll;
+
+    return olua_push_std_function(L, (std::function<void(cocos2d::EventMouse *)>)ret);
+}
+
+static int _cocos2d_EventListenerMouse_set_onMouseScroll(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::EventListenerMouse *self = nullptr;
+    std::function<void(cocos2d::EventMouse *)> arg1 = nullptr;   /** onMouseScroll */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerMouse");
+
+    if (olua_is_std_function(L, 2)) {
+        void *tag_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onMouseScroll");
+        std::string func = olua_setcallback(L, tag_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+        arg1 = [tag_store_obj, func, tag](cocos2d::EventMouse *arg1) {
+            lua_State *L = xlua_cocosthread();
+            int top = lua_gettop(L);
+
+            olua_push_cppobj<cocos2d::EventMouse>(L, arg1, "cc.EventMouse");
+            olua_callback(L, tag_store_obj, func.c_str(), 1);
+
+            // evet is stack value
+            olua_push_cppobj<cocos2d::EventMouse>(L, arg1, "cc.EventMouse");
+            olua_callgc(L, -1, false);
+
+            lua_settop(L, top);
+        };
+    } else {
+        arg1 = nullptr;
+    }
+
+    // <function var>
+    self->onMouseScroll = arg1;
+
+    return 0;
+}
+
+static int luaopen_cocos2d_EventListenerMouse(lua_State *L)
+{
+    oluacls_class(L, "cc.EventListenerMouse", "cc.EventListener");
+    oluacls_setfunc(L, "create", _cocos2d_EventListenerMouse_create);
+    oluacls_property(L, "onMouseDown", _cocos2d_EventListenerMouse_get_onMouseDown, _cocos2d_EventListenerMouse_set_onMouseDown);
+    oluacls_property(L, "onMouseUp", _cocos2d_EventListenerMouse_get_onMouseUp, _cocos2d_EventListenerMouse_set_onMouseUp);
+    oluacls_property(L, "onMouseMove", _cocos2d_EventListenerMouse_get_onMouseMove, _cocos2d_EventListenerMouse_set_onMouseMove);
+    oluacls_property(L, "onMouseScroll", _cocos2d_EventListenerMouse_get_onMouseScroll, _cocos2d_EventListenerMouse_set_onMouseScroll);
+
+    olua_registerluatype<cocos2d::EventListenerMouse>(L, "cc.EventListenerMouse");
     oluacls_createclassproxy(L);
 
     return 1;
@@ -7492,6 +8081,490 @@ static int luaopen_cocos2d_EventKeyboard(lua_State *L)
     oluacls_class(L, "cc.EventKeyboard", "cc.Event");
 
     olua_registerluatype<cocos2d::EventKeyboard>(L, "cc.EventKeyboard");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_EventAcceleration(lua_State *L)
+{
+    oluacls_class(L, "cc.EventAcceleration", "cc.Event");
+
+    olua_registerluatype<cocos2d::EventAcceleration>(L, "cc.EventAcceleration");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_EventFocus(lua_State *L)
+{
+    oluacls_class(L, "cc.EventFocus", "cc.Event");
+
+    olua_registerluatype<cocos2d::EventFocus>(L, "cc.EventFocus");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_EventMouse_MouseEventType(lua_State *L)
+{
+    oluacls_class(L, "cc.EventMouse.MouseEventType", nullptr);
+    oluacls_const_integer(L, "MOUSE_NONE", (lua_Integer)cocos2d::EventMouse::MouseEventType::MOUSE_NONE);
+    oluacls_const_integer(L, "MOUSE_DOWN", (lua_Integer)cocos2d::EventMouse::MouseEventType::MOUSE_DOWN);
+    oluacls_const_integer(L, "MOUSE_UP", (lua_Integer)cocos2d::EventMouse::MouseEventType::MOUSE_UP);
+    oluacls_const_integer(L, "MOUSE_MOVE", (lua_Integer)cocos2d::EventMouse::MouseEventType::MOUSE_MOVE);
+    oluacls_const_integer(L, "MOUSE_SCROLL", (lua_Integer)cocos2d::EventMouse::MouseEventType::MOUSE_SCROLL);
+
+    olua_registerluatype<cocos2d::EventMouse::MouseEventType>(L, "cc.EventMouse.MouseEventType");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_EventMouse_MouseButton(lua_State *L)
+{
+    oluacls_class(L, "cc.EventMouse.MouseButton", nullptr);
+    oluacls_const_integer(L, "BUTTON_UNSET", (lua_Integer)cocos2d::EventMouse::MouseButton::BUTTON_UNSET);
+    oluacls_const_integer(L, "BUTTON_LEFT", (lua_Integer)cocos2d::EventMouse::MouseButton::BUTTON_LEFT);
+    oluacls_const_integer(L, "BUTTON_RIGHT", (lua_Integer)cocos2d::EventMouse::MouseButton::BUTTON_RIGHT);
+    oluacls_const_integer(L, "BUTTON_MIDDLE", (lua_Integer)cocos2d::EventMouse::MouseButton::BUTTON_MIDDLE);
+    oluacls_const_integer(L, "BUTTON_4", (lua_Integer)cocos2d::EventMouse::MouseButton::BUTTON_4);
+    oluacls_const_integer(L, "BUTTON_5", (lua_Integer)cocos2d::EventMouse::MouseButton::BUTTON_5);
+    oluacls_const_integer(L, "BUTTON_6", (lua_Integer)cocos2d::EventMouse::MouseButton::BUTTON_6);
+    oluacls_const_integer(L, "BUTTON_7", (lua_Integer)cocos2d::EventMouse::MouseButton::BUTTON_7);
+    oluacls_const_integer(L, "BUTTON_8", (lua_Integer)cocos2d::EventMouse::MouseButton::BUTTON_8);
+
+    olua_registerluatype<cocos2d::EventMouse::MouseButton>(L, "cc.EventMouse.MouseButton");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_EventMouse_setScrollData(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::EventMouse *self = nullptr;
+    lua_Number arg1 = 0;   /** scrollX */
+    lua_Number arg2 = 0;   /** scrollY */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventMouse");
+    olua_check_number(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+
+    // void setScrollData(float scrollX, float scrollY)
+    self->setScrollData((float)arg1, (float)arg2);
+
+    return 0;
+}
+
+static int _cocos2d_EventMouse_getScrollX(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::EventMouse *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventMouse");
+
+    // float getScrollX()
+    float ret = (float)self->getScrollX();
+
+    return olua_push_number(L, (lua_Number)ret);
+}
+
+static int _cocos2d_EventMouse_getScrollY(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::EventMouse *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventMouse");
+
+    // float getScrollY()
+    float ret = (float)self->getScrollY();
+
+    return olua_push_number(L, (lua_Number)ret);
+}
+
+static int _cocos2d_EventMouse_setCursorPosition(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::EventMouse *self = nullptr;
+    lua_Number arg1 = 0;   /** x */
+    lua_Number arg2 = 0;   /** y */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventMouse");
+    olua_check_number(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+
+    // void setCursorPosition(float x, float y)
+    self->setCursorPosition((float)arg1, (float)arg2);
+
+    return 0;
+}
+
+static int _cocos2d_EventMouse_setMouseButton(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::EventMouse *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** button */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventMouse");
+    olua_check_uint(L, 2, &arg1);
+
+    // void setMouseButton(MouseButton button)
+    self->setMouseButton((cocos2d::EventMouse::MouseButton)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_EventMouse_getMouseButton(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::EventMouse *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventMouse");
+
+    // MouseButton getMouseButton()
+    cocos2d::EventMouse::MouseButton ret = (cocos2d::EventMouse::MouseButton)self->getMouseButton();
+
+    return olua_push_uint(L, (lua_Unsigned)ret);
+}
+
+static int _cocos2d_EventMouse_getCursorX(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::EventMouse *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventMouse");
+
+    // float getCursorX()
+    float ret = (float)self->getCursorX();
+
+    return olua_push_number(L, (lua_Number)ret);
+}
+
+static int _cocos2d_EventMouse_getCursorY(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::EventMouse *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventMouse");
+
+    // float getCursorY()
+    float ret = (float)self->getCursorY();
+
+    return olua_push_number(L, (lua_Number)ret);
+}
+
+static int _cocos2d_EventMouse_getLocation(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::EventMouse *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventMouse");
+
+    // @unpack Vec2 getLocation()
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->getLocation();
+
+    return auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+}
+
+static int _cocos2d_EventMouse_getPreviousLocation(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::EventMouse *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventMouse");
+
+    // @unpack Vec2 getPreviousLocation()
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->getPreviousLocation();
+
+    return auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+}
+
+static int _cocos2d_EventMouse_getStartLocation(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::EventMouse *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventMouse");
+
+    // @unpack Vec2 getStartLocation()
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->getStartLocation();
+
+    return auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+}
+
+static int _cocos2d_EventMouse_getDelta(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::EventMouse *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventMouse");
+
+    // @unpack Vec2 getDelta()
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->getDelta();
+
+    return auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+}
+
+static int _cocos2d_EventMouse_getLocationInView(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::EventMouse *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventMouse");
+
+    // @unpack Vec2 getLocationInView()
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->getLocationInView();
+
+    return auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+}
+
+static int _cocos2d_EventMouse_getPreviousLocationInView(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::EventMouse *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventMouse");
+
+    // @unpack Vec2 getPreviousLocationInView()
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->getPreviousLocationInView();
+
+    return auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+}
+
+static int _cocos2d_EventMouse_getStartLocationInView(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::EventMouse *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventMouse");
+
+    // @unpack Vec2 getStartLocationInView()
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->getStartLocationInView();
+
+    return auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+}
+
+static int luaopen_cocos2d_EventMouse(lua_State *L)
+{
+    oluacls_class(L, "cc.EventMouse", "cc.Event");
+    oluacls_setfunc(L, "setScrollData", _cocos2d_EventMouse_setScrollData);
+    oluacls_setfunc(L, "getScrollX", _cocos2d_EventMouse_getScrollX);
+    oluacls_setfunc(L, "getScrollY", _cocos2d_EventMouse_getScrollY);
+    oluacls_setfunc(L, "setCursorPosition", _cocos2d_EventMouse_setCursorPosition);
+    oluacls_setfunc(L, "setMouseButton", _cocos2d_EventMouse_setMouseButton);
+    oluacls_setfunc(L, "getMouseButton", _cocos2d_EventMouse_getMouseButton);
+    oluacls_setfunc(L, "getCursorX", _cocos2d_EventMouse_getCursorX);
+    oluacls_setfunc(L, "getCursorY", _cocos2d_EventMouse_getCursorY);
+    oluacls_setfunc(L, "getLocation", _cocos2d_EventMouse_getLocation);
+    oluacls_setfunc(L, "getPreviousLocation", _cocos2d_EventMouse_getPreviousLocation);
+    oluacls_setfunc(L, "getStartLocation", _cocos2d_EventMouse_getStartLocation);
+    oluacls_setfunc(L, "getDelta", _cocos2d_EventMouse_getDelta);
+    oluacls_setfunc(L, "getLocationInView", _cocos2d_EventMouse_getLocationInView);
+    oluacls_setfunc(L, "getPreviousLocationInView", _cocos2d_EventMouse_getPreviousLocationInView);
+    oluacls_setfunc(L, "getStartLocationInView", _cocos2d_EventMouse_getStartLocationInView);
+    oluacls_property(L, "scrollX", _cocos2d_EventMouse_getScrollX, nullptr);
+    oluacls_property(L, "scrollY", _cocos2d_EventMouse_getScrollY, nullptr);
+    oluacls_property(L, "mouseButton", _cocos2d_EventMouse_getMouseButton, _cocos2d_EventMouse_setMouseButton);
+    oluacls_property(L, "cursorX", _cocos2d_EventMouse_getCursorX, nullptr);
+    oluacls_property(L, "cursorY", _cocos2d_EventMouse_getCursorY, nullptr);
+
+    olua_registerluatype<cocos2d::EventMouse>(L, "cc.EventMouse");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_EventKeyboard_KeyCode(lua_State *L)
+{
+    oluacls_class(L, "cc.EventKeyboard.KeyCode", nullptr);
+    oluacls_const_integer(L, "KEY_NONE", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_NONE);
+    oluacls_const_integer(L, "KEY_PAUSE", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_PAUSE);
+    oluacls_const_integer(L, "KEY_SCROLL_LOCK", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_SCROLL_LOCK);
+    oluacls_const_integer(L, "KEY_PRINT", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_PRINT);
+    oluacls_const_integer(L, "KEY_SYSREQ", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_SYSREQ);
+    oluacls_const_integer(L, "KEY_BREAK", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_BREAK);
+    oluacls_const_integer(L, "KEY_ESCAPE", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_ESCAPE);
+    oluacls_const_integer(L, "KEY_BACK", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_BACK);
+    oluacls_const_integer(L, "KEY_BACKSPACE", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_BACKSPACE);
+    oluacls_const_integer(L, "KEY_TAB", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_TAB);
+    oluacls_const_integer(L, "KEY_BACK_TAB", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_BACK_TAB);
+    oluacls_const_integer(L, "KEY_RETURN", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_RETURN);
+    oluacls_const_integer(L, "KEY_CAPS_LOCK", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_CAPS_LOCK);
+    oluacls_const_integer(L, "KEY_SHIFT", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_SHIFT);
+    oluacls_const_integer(L, "KEY_LEFT_SHIFT", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_LEFT_SHIFT);
+    oluacls_const_integer(L, "KEY_RIGHT_SHIFT", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_RIGHT_SHIFT);
+    oluacls_const_integer(L, "KEY_CTRL", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_CTRL);
+    oluacls_const_integer(L, "KEY_LEFT_CTRL", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_LEFT_CTRL);
+    oluacls_const_integer(L, "KEY_RIGHT_CTRL", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_RIGHT_CTRL);
+    oluacls_const_integer(L, "KEY_ALT", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_ALT);
+    oluacls_const_integer(L, "KEY_LEFT_ALT", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_LEFT_ALT);
+    oluacls_const_integer(L, "KEY_RIGHT_ALT", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_RIGHT_ALT);
+    oluacls_const_integer(L, "KEY_MENU", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_MENU);
+    oluacls_const_integer(L, "KEY_HYPER", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_HYPER);
+    oluacls_const_integer(L, "KEY_INSERT", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_INSERT);
+    oluacls_const_integer(L, "KEY_HOME", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_HOME);
+    oluacls_const_integer(L, "KEY_PG_UP", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_PG_UP);
+    oluacls_const_integer(L, "KEY_DELETE", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_DELETE);
+    oluacls_const_integer(L, "KEY_END", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_END);
+    oluacls_const_integer(L, "KEY_PG_DOWN", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_PG_DOWN);
+    oluacls_const_integer(L, "KEY_LEFT_ARROW", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_LEFT_ARROW);
+    oluacls_const_integer(L, "KEY_RIGHT_ARROW", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_RIGHT_ARROW);
+    oluacls_const_integer(L, "KEY_UP_ARROW", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_UP_ARROW);
+    oluacls_const_integer(L, "KEY_DOWN_ARROW", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_DOWN_ARROW);
+    oluacls_const_integer(L, "KEY_NUM_LOCK", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_NUM_LOCK);
+    oluacls_const_integer(L, "KEY_KP_PLUS", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_KP_PLUS);
+    oluacls_const_integer(L, "KEY_KP_MINUS", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_KP_MINUS);
+    oluacls_const_integer(L, "KEY_KP_MULTIPLY", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_KP_MULTIPLY);
+    oluacls_const_integer(L, "KEY_KP_DIVIDE", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_KP_DIVIDE);
+    oluacls_const_integer(L, "KEY_KP_ENTER", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_KP_ENTER);
+    oluacls_const_integer(L, "KEY_KP_HOME", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_KP_HOME);
+    oluacls_const_integer(L, "KEY_KP_UP", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_KP_UP);
+    oluacls_const_integer(L, "KEY_KP_PG_UP", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_KP_PG_UP);
+    oluacls_const_integer(L, "KEY_KP_LEFT", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_KP_LEFT);
+    oluacls_const_integer(L, "KEY_KP_FIVE", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_KP_FIVE);
+    oluacls_const_integer(L, "KEY_KP_RIGHT", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_KP_RIGHT);
+    oluacls_const_integer(L, "KEY_KP_END", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_KP_END);
+    oluacls_const_integer(L, "KEY_KP_DOWN", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_KP_DOWN);
+    oluacls_const_integer(L, "KEY_KP_PG_DOWN", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_KP_PG_DOWN);
+    oluacls_const_integer(L, "KEY_KP_INSERT", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_KP_INSERT);
+    oluacls_const_integer(L, "KEY_KP_DELETE", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_KP_DELETE);
+    oluacls_const_integer(L, "KEY_F1", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_F1);
+    oluacls_const_integer(L, "KEY_F2", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_F2);
+    oluacls_const_integer(L, "KEY_F3", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_F3);
+    oluacls_const_integer(L, "KEY_F4", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_F4);
+    oluacls_const_integer(L, "KEY_F5", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_F5);
+    oluacls_const_integer(L, "KEY_F6", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_F6);
+    oluacls_const_integer(L, "KEY_F7", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_F7);
+    oluacls_const_integer(L, "KEY_F8", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_F8);
+    oluacls_const_integer(L, "KEY_F9", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_F9);
+    oluacls_const_integer(L, "KEY_F10", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_F10);
+    oluacls_const_integer(L, "KEY_F11", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_F11);
+    oluacls_const_integer(L, "KEY_F12", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_F12);
+    oluacls_const_integer(L, "KEY_SPACE", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_SPACE);
+    oluacls_const_integer(L, "KEY_EXCLAM", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_EXCLAM);
+    oluacls_const_integer(L, "KEY_QUOTE", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_QUOTE);
+    oluacls_const_integer(L, "KEY_NUMBER", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_NUMBER);
+    oluacls_const_integer(L, "KEY_DOLLAR", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_DOLLAR);
+    oluacls_const_integer(L, "KEY_PERCENT", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_PERCENT);
+    oluacls_const_integer(L, "KEY_CIRCUMFLEX", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_CIRCUMFLEX);
+    oluacls_const_integer(L, "KEY_AMPERSAND", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_AMPERSAND);
+    oluacls_const_integer(L, "KEY_APOSTROPHE", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_APOSTROPHE);
+    oluacls_const_integer(L, "KEY_LEFT_PARENTHESIS", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_LEFT_PARENTHESIS);
+    oluacls_const_integer(L, "KEY_RIGHT_PARENTHESIS", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_RIGHT_PARENTHESIS);
+    oluacls_const_integer(L, "KEY_ASTERISK", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_ASTERISK);
+    oluacls_const_integer(L, "KEY_PLUS", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_PLUS);
+    oluacls_const_integer(L, "KEY_COMMA", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_COMMA);
+    oluacls_const_integer(L, "KEY_MINUS", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_MINUS);
+    oluacls_const_integer(L, "KEY_PERIOD", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_PERIOD);
+    oluacls_const_integer(L, "KEY_SLASH", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_SLASH);
+    oluacls_const_integer(L, "KEY_0", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_0);
+    oluacls_const_integer(L, "KEY_1", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_1);
+    oluacls_const_integer(L, "KEY_2", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_2);
+    oluacls_const_integer(L, "KEY_3", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_3);
+    oluacls_const_integer(L, "KEY_4", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_4);
+    oluacls_const_integer(L, "KEY_5", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_5);
+    oluacls_const_integer(L, "KEY_6", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_6);
+    oluacls_const_integer(L, "KEY_7", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_7);
+    oluacls_const_integer(L, "KEY_8", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_8);
+    oluacls_const_integer(L, "KEY_9", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_9);
+    oluacls_const_integer(L, "KEY_COLON", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_COLON);
+    oluacls_const_integer(L, "KEY_SEMICOLON", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_SEMICOLON);
+    oluacls_const_integer(L, "KEY_LESS_THAN", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_LESS_THAN);
+    oluacls_const_integer(L, "KEY_EQUAL", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_EQUAL);
+    oluacls_const_integer(L, "KEY_GREATER_THAN", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_GREATER_THAN);
+    oluacls_const_integer(L, "KEY_QUESTION", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_QUESTION);
+    oluacls_const_integer(L, "KEY_AT", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_AT);
+    oluacls_const_integer(L, "KEY_CAPITAL_A", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_A);
+    oluacls_const_integer(L, "KEY_CAPITAL_B", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_B);
+    oluacls_const_integer(L, "KEY_CAPITAL_C", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_C);
+    oluacls_const_integer(L, "KEY_CAPITAL_D", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_D);
+    oluacls_const_integer(L, "KEY_CAPITAL_E", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_E);
+    oluacls_const_integer(L, "KEY_CAPITAL_F", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_F);
+    oluacls_const_integer(L, "KEY_CAPITAL_G", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_G);
+    oluacls_const_integer(L, "KEY_CAPITAL_H", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_H);
+    oluacls_const_integer(L, "KEY_CAPITAL_I", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_I);
+    oluacls_const_integer(L, "KEY_CAPITAL_J", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_J);
+    oluacls_const_integer(L, "KEY_CAPITAL_K", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_K);
+    oluacls_const_integer(L, "KEY_CAPITAL_L", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_L);
+    oluacls_const_integer(L, "KEY_CAPITAL_M", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_M);
+    oluacls_const_integer(L, "KEY_CAPITAL_N", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_N);
+    oluacls_const_integer(L, "KEY_CAPITAL_O", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_O);
+    oluacls_const_integer(L, "KEY_CAPITAL_P", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_P);
+    oluacls_const_integer(L, "KEY_CAPITAL_Q", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_Q);
+    oluacls_const_integer(L, "KEY_CAPITAL_R", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_R);
+    oluacls_const_integer(L, "KEY_CAPITAL_S", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_S);
+    oluacls_const_integer(L, "KEY_CAPITAL_T", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_T);
+    oluacls_const_integer(L, "KEY_CAPITAL_U", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_U);
+    oluacls_const_integer(L, "KEY_CAPITAL_V", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_V);
+    oluacls_const_integer(L, "KEY_CAPITAL_W", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_W);
+    oluacls_const_integer(L, "KEY_CAPITAL_X", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_X);
+    oluacls_const_integer(L, "KEY_CAPITAL_Y", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_Y);
+    oluacls_const_integer(L, "KEY_CAPITAL_Z", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_Z);
+    oluacls_const_integer(L, "KEY_LEFT_BRACKET", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_LEFT_BRACKET);
+    oluacls_const_integer(L, "KEY_BACK_SLASH", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_BACK_SLASH);
+    oluacls_const_integer(L, "KEY_RIGHT_BRACKET", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_RIGHT_BRACKET);
+    oluacls_const_integer(L, "KEY_UNDERSCORE", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_UNDERSCORE);
+    oluacls_const_integer(L, "KEY_GRAVE", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_GRAVE);
+    oluacls_const_integer(L, "KEY_A", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_A);
+    oluacls_const_integer(L, "KEY_B", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_B);
+    oluacls_const_integer(L, "KEY_C", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_C);
+    oluacls_const_integer(L, "KEY_D", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_D);
+    oluacls_const_integer(L, "KEY_E", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_E);
+    oluacls_const_integer(L, "KEY_F", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_F);
+    oluacls_const_integer(L, "KEY_G", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_G);
+    oluacls_const_integer(L, "KEY_H", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_H);
+    oluacls_const_integer(L, "KEY_I", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_I);
+    oluacls_const_integer(L, "KEY_J", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_J);
+    oluacls_const_integer(L, "KEY_K", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_K);
+    oluacls_const_integer(L, "KEY_L", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_L);
+    oluacls_const_integer(L, "KEY_M", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_M);
+    oluacls_const_integer(L, "KEY_N", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_N);
+    oluacls_const_integer(L, "KEY_O", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_O);
+    oluacls_const_integer(L, "KEY_P", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_P);
+    oluacls_const_integer(L, "KEY_Q", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_Q);
+    oluacls_const_integer(L, "KEY_R", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_R);
+    oluacls_const_integer(L, "KEY_S", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_S);
+    oluacls_const_integer(L, "KEY_T", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_T);
+    oluacls_const_integer(L, "KEY_U", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_U);
+    oluacls_const_integer(L, "KEY_V", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_V);
+    oluacls_const_integer(L, "KEY_W", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_W);
+    oluacls_const_integer(L, "KEY_X", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_X);
+    oluacls_const_integer(L, "KEY_Y", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_Y);
+    oluacls_const_integer(L, "KEY_Z", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_Z);
+    oluacls_const_integer(L, "KEY_LEFT_BRACE", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_LEFT_BRACE);
+    oluacls_const_integer(L, "KEY_BAR", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_BAR);
+    oluacls_const_integer(L, "KEY_RIGHT_BRACE", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_RIGHT_BRACE);
+    oluacls_const_integer(L, "KEY_TILDE", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_TILDE);
+    oluacls_const_integer(L, "KEY_EURO", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_EURO);
+    oluacls_const_integer(L, "KEY_POUND", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_POUND);
+    oluacls_const_integer(L, "KEY_YEN", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_YEN);
+    oluacls_const_integer(L, "KEY_MIDDLE_DOT", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_MIDDLE_DOT);
+    oluacls_const_integer(L, "KEY_SEARCH", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_SEARCH);
+    oluacls_const_integer(L, "KEY_DPAD_LEFT", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_DPAD_LEFT);
+    oluacls_const_integer(L, "KEY_DPAD_RIGHT", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_DPAD_RIGHT);
+    oluacls_const_integer(L, "KEY_DPAD_UP", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_DPAD_UP);
+    oluacls_const_integer(L, "KEY_DPAD_DOWN", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_DPAD_DOWN);
+    oluacls_const_integer(L, "KEY_DPAD_CENTER", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_DPAD_CENTER);
+    oluacls_const_integer(L, "KEY_ENTER", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_ENTER);
+    oluacls_const_integer(L, "KEY_PLAY", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_PLAY);
+
+    olua_registerluatype<cocos2d::EventKeyboard::KeyCode>(L, "cc.EventKeyboard.KeyCode");
     oluacls_createclassproxy(L);
 
     return 1;
@@ -7750,6 +8823,7 @@ int luaopen_cocos2d(lua_State *L)
 {
     xlua_require(L, "cc.UserDefault", luaopen_cocos2d_UserDefault);
     xlua_require(L, "cc.Ref", luaopen_cocos2d_Ref);
+    xlua_require(L, "cc.Acceleration", luaopen_cocos2d_Acceleration);
     xlua_require(L, "cc.MATRIX_STACK_TYPE", luaopen_cocos2d_MATRIX_STACK_TYPE);
     xlua_require(L, "cc.Director", luaopen_cocos2d_Director);
     xlua_require(L, "cc.Scheduler", luaopen_cocos2d_Scheduler);
@@ -7769,6 +8843,7 @@ int luaopen_cocos2d(lua_State *L)
     xlua_require(L, "cc.Image.Format", luaopen_cocos2d_Image_Format);
     xlua_require(L, "cc.Image", luaopen_cocos2d_Image);
     xlua_require(L, "cc.Node", luaopen_cocos2d_Node);
+    xlua_require(L, "cc.ProtectedNode", luaopen_cocos2d_ProtectedNode);
     xlua_require(L, "cc.Camera", luaopen_cocos2d_Camera);
     xlua_require(L, "cc.Sprite", luaopen_cocos2d_Sprite);
     xlua_require(L, "cc.Scene", luaopen_cocos2d_Scene);
@@ -7779,12 +8854,21 @@ int luaopen_cocos2d(lua_State *L)
     xlua_require(L, "cc.EventListenerTouchAllAtOnce", luaopen_cocos2d_EventListenerTouchAllAtOnce);
     xlua_require(L, "cc.EventListenerCustom", luaopen_cocos2d_EventListenerCustom);
     xlua_require(L, "cc.EventListenerKeyboard", luaopen_cocos2d_EventListenerKeyboard);
+    xlua_require(L, "cc.EventListenerAcceleration", luaopen_cocos2d_EventListenerAcceleration);
+    xlua_require(L, "cc.EventListenerFocus", luaopen_cocos2d_EventListenerFocus);
+    xlua_require(L, "cc.EventListenerMouse", luaopen_cocos2d_EventListenerMouse);
     xlua_require(L, "cc.Event.Type", luaopen_cocos2d_Event_Type);
     xlua_require(L, "cc.Event", luaopen_cocos2d_Event);
     xlua_require(L, "cc.EventCustom", luaopen_cocos2d_EventCustom);
     xlua_require(L, "cc.EventTouch.EventCode", luaopen_cocos2d_EventTouch_EventCode);
     xlua_require(L, "cc.EventTouch", luaopen_cocos2d_EventTouch);
     xlua_require(L, "cc.EventKeyboard", luaopen_cocos2d_EventKeyboard);
+    xlua_require(L, "cc.EventAcceleration", luaopen_cocos2d_EventAcceleration);
+    xlua_require(L, "cc.EventFocus", luaopen_cocos2d_EventFocus);
+    xlua_require(L, "cc.EventMouse.MouseEventType", luaopen_cocos2d_EventMouse_MouseEventType);
+    xlua_require(L, "cc.EventMouse.MouseButton", luaopen_cocos2d_EventMouse_MouseButton);
+    xlua_require(L, "cc.EventMouse", luaopen_cocos2d_EventMouse);
+    xlua_require(L, "cc.EventKeyboard.KeyCode", luaopen_cocos2d_EventKeyboard_KeyCode);
     xlua_require(L, "cc.Touch.DispatchMode", luaopen_cocos2d_Touch_DispatchMode);
     xlua_require(L, "cc.Touch", luaopen_cocos2d_Touch);
     return 0;

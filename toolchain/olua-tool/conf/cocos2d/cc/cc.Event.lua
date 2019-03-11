@@ -3,13 +3,13 @@ local M = {}
 local cls = class(M)
 cls.CPPCLS = "cocos2d::Event::Type"
 cls.LUACLS = "cc.Event.Type"
-cls.enum('TOUCH', 'cocos2d::Event::Type::TOUCH')
-cls.enum('KEYBOARD', 'cocos2d::Event::Type::KEYBOARD')
-cls.enum('ACCELERATION', 'cocos2d::Event::Type::ACCELERATION')
-cls.enum('MOUSE', 'cocos2d::Event::Type::MOUSE')
-cls.enum('FOCUS', 'cocos2d::Event::Type::FOCUS')
-cls.enum('GAME_CONTROLLER', 'cocos2d::Event::Type::GAME_CONTROLLER')
-cls.enum('CUSTOM', 'cocos2d::Event::Type::CUSTOM')
+cls.enum('TOUCH')
+cls.enum('KEYBOARD')
+cls.enum('ACCELERATION')
+cls.enum('MOUSE')
+cls.enum('FOCUS')
+cls.enum('GAME_CONTROLLER')
+cls.enum('CUSTOM')
 
 local cls = class(M)
 cls.CPPCLS = "cocos2d::Event"
@@ -68,5 +68,65 @@ local cls = class(M)
 cls.CPPCLS = "cocos2d::EventKeyboard"
 cls.LUACLS = "cc.EventKeyboard"
 cls.SUPERCLS = "cc.Event"
+
+
+local cls = class(M)
+cls.CPPCLS = "cocos2d::EventAcceleration"
+cls.LUACLS = "cc.EventAcceleration"
+cls.SUPERCLS = "cc.Event"
+
+local cls = class(M)
+cls.CPPCLS = "cocos2d::EventFocus"
+cls.LUACLS = "cc.EventFocus"
+cls.SUPERCLS = "cc.Event"
+
+local cls = class(M)
+cls.CPPCLS = "cocos2d::EventMouse::MouseEventType"
+cls.LUACLS = "cc.EventMouse.MouseEventType"
+cls.enum('MOUSE_NONE')
+cls.enum('MOUSE_DOWN')
+cls.enum('MOUSE_UP')
+cls.enum('MOUSE_MOVE')
+cls.enum('MOUSE_SCROLL')
+
+local cls = class(M)
+cls.CPPCLS = "cocos2d::EventMouse::MouseButton"
+cls.LUACLS = "cc.EventMouse.MouseButton"
+cls.enum('BUTTON_UNSET')
+cls.enum('BUTTON_LEFT')
+cls.enum('BUTTON_RIGHT')
+cls.enum('BUTTON_MIDDLE')
+cls.enum('BUTTON_4')
+cls.enum('BUTTON_5')
+cls.enum('BUTTON_6')
+cls.enum('BUTTON_7')
+cls.enum('BUTTON_8')
+
+local cls = class(M)
+cls.CPPCLS = "cocos2d::EventMouse"
+cls.LUACLS = "cc.EventMouse"
+cls.SUPERCLS = "cc.Event"
+cls.prop('scrollX', 'float getScrollX()')
+cls.prop('scrollY', 'float getScrollY()')
+cls.prop('mouseButton', 'MouseButton getMouseButton()', 'void setMouseButton(MouseButton button)')
+cls.prop('cursorX', 'float getCursorX()')
+cls.prop('cursorY', 'float getCursorY()')
+cls.funcs([[
+    void setScrollData(float scrollX, float scrollY)
+    float getScrollX()
+    float getScrollY()
+    void setCursorPosition(float x, float y)
+    void setMouseButton(MouseButton button)
+    MouseButton getMouseButton()
+    float getCursorX()
+    float getCursorY()
+    @unpack Vec2 getLocation()
+    @unpack Vec2 getPreviousLocation()
+    @unpack Vec2 getStartLocation()
+    @unpack Vec2 getDelta()
+    @unpack Vec2 getLocationInView()
+    @unpack Vec2 getPreviousLocationInView()
+    @unpack Vec2 getStartLocationInView()
+]])
 
 return M

@@ -14,6 +14,7 @@ M.INCLUDES = [[
 #include "xgame/xruntime.h"
 #include "olua/olua.hpp"
 #include "cocos2d.h"
+#include "ui/CocosGUI.h"
 #include "vr/CCVRGenericRenderer.h"
 #include "vr/CCVRGenericHeadTracker.h"
 ]]
@@ -41,6 +42,7 @@ end
 M.CLASSES = {
     include("conf/cocos2d/cc/cc.UserDefault.lua"),
     include("conf/cocos2d/cc/cc.Ref.lua"),
+    include("conf/cocos2d/cc/cc.Type.lua"),
     include("conf/cocos2d/cc/cc.Director.lua"),
     include("conf/cocos2d/cc/cc.Scheduler.lua"),
     include("conf/cocos2d/cc/cc.ActionManager.lua"),
@@ -52,12 +54,14 @@ M.CLASSES = {
     include("conf/cocos2d/cc/cc.Texture2D.lua"),
     include("conf/cocos2d/cc/cc.Image.lua"),
     include("conf/cocos2d/cc/cc.Node.lua"),
+    include("conf/cocos2d/cc/cc.ProtectedNode.lua"),
     include("conf/cocos2d/cc/cc.Camera.lua"),
     include("conf/cocos2d/cc/cc.Sprite.lua"),
     include("conf/cocos2d/cc/cc.Scene.lua"),
     include("conf/cocos2d/cc/cc.EventDispatcher.lua"),
     include("conf/cocos2d/cc/cc.EventListener.lua"),
     include("conf/cocos2d/cc/cc.Event.lua"),
+    include("conf/cocos2d/cc/cc.EventKeyboard.KeyCode.lua"),
     include("conf/cocos2d/cc/cc.Touch.lua"),
 }
 

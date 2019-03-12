@@ -189,7 +189,8 @@ local function parse_args(cls, func_decl)
         arg = to_pretty_typename(arg)
         if arg ~= 'void' then
             local arg, stack = string.gsub(arg, '^@stack', '')
-            local arg, pack = string.gsub(arg, '@pack', '')
+            local arg, pack = string.gsub(arg, '^@pack', '')
+            local arg, ref = string.gsub(arg, '^@ref', '')
             local typename, varname, default = string.match(arg, '(.+[ *&])([^ *&<>]+) *= *([^ ]*)')
             if not typename then
                 typename, varname = string.match(arg, '(.+[ *&])([^ *&<>]+)$')
@@ -219,6 +220,7 @@ local function parse_args(cls, func_decl)
                     CALLBACK_RET = get_typeinfo(rt),
                     VARNAME = varname,
                     INSTACK = stack > 0,
+                    REF = ref > 0,
                 }
             else
                 args[#args + 1] = {
@@ -229,6 +231,7 @@ local function parse_args(cls, func_decl)
                     PACK = pack > 0,
                     VARNAME = varname,
                     INSTACK = stack > 0,
+                    REF = ref > 0,
                 }
             end
         end

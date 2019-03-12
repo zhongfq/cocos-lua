@@ -305,17 +305,7 @@ LUALIB_API void olua_setvariable(lua_State *L, int idx)
 LUALIB_API void *olua_checkobj(lua_State *L, int idx, const char *cls)
 {
     if (olua_isa(L, idx, cls)) {
-        if (lua_type(L, idx) == LUA_TUSERDATA) {
-            void *obj = *(void **)lua_touserdata(L, idx);
-            if (obj) {
-                return obj;
-            } else {
-                luaL_error(L, "object live from gc");
-            }
-        } else {
-            luaL_error(L, "#%d argument error, expect: '%s', got '%s'", idx,
-                cls, lua_typename(L, lua_type(L, idx)));
-        }
+        return olua_toobj(L, idx, cls);
     } else {
         luaL_error(L, "#%d argument error, expect: '%s', got '%s'", idx,
             cls, olua_typename(L, idx));

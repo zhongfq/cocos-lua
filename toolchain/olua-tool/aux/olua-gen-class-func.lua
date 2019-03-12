@@ -14,6 +14,7 @@ local function gen_func_args(cls, fi)
     local DECL_CHUNK = {}
     local CALLER_ARGS = {}
     local ARGS_CHUNK = {}
+    local REF_CHUNK = {}
     local TOTAL_ARGS = #fi.ARGS
 
     if not fi.STATIC then
@@ -112,18 +113,37 @@ local function gen_func_args(cls, fi)
                 ${FUNC_CHECK_VALUE}(L, ${IDX}, &${ARG_N});
             ]])
         end
+
+        if ai.REF then
+            REF_CHUNK[#REF_CHUNK + 1] = format_snippet([[
+                lua_pushvalue(L, ${IDX});
+                lua_pushboolean(L, true);
+                olua_setvariable(L, -3);
+            ]])
+        end
+    end
+
+    if #REF_CHUNK > 0 then
+        if not fi.STATIC then
+            table.insert(REF_CHUNK, 1, "lua_pushvalue(L, 1); // self")
+        else
+            table.insert(REF_CHUNK, 1, "lua_pushvalue(L, -1); // ret")
+        end
+        table.insert(REF_CHUNK, 1, "// ref value")
     end
 
     ARGS_CHUNK = table.concat(ARGS_CHUNK, "\n")
     DECL_CHUNK = table.concat(DECL_CHUNK, "\n")
+    REF_CHUNK = table.concat(REF_CHUNK, "\n")
     CALLER_ARGS = table.concat(CALLER_ARGS, ", ")
 
-    return DECL_CHUNK, ARGS_CHUNK, CALLER_ARGS, TOTAL_ARGS
+    return DECL_CHUNK, ARGS_CHUNK, CALLER_ARGS, TOTAL_ARGS, REF_CHUNK
 end
 
 local function gen_func_ret(cls, fi)
-    local RET_VALUE = ""
-    local PUSH_RET = "0";
+    local RET_EXP = ""
+    local RET_NUM = "0"
+    local RET_PUSH = ""
 
     if fi.RET.NUM > 0 then
         local DECL_TYPE = fi.RET.DECL_TYPE
@@ -132,18 +152,18 @@ local function gen_func_ret(cls, fi)
         if string.find(DECL_TYPE, '[ *&]$') then
             SPACE = ""
         end
-        RET_VALUE = format_snippet('${DECL_TYPE}${SPACE}ret = (${DECL_TYPE})')
+        RET_EXP = format_snippet('${DECL_TYPE}${SPACE}ret = (${DECL_TYPE})')
         if fi.RET.TYPE.LUACLS then
             local LUACLS = fi.RET.TYPE.LUACLS
             if FUNC_PUSH_VALUE == "olua_push_cppobj" then
                 local TYPENAME = string.gsub(fi.RET.TYPE.TYPENAME, '[ *]*$', '')
-                PUSH_RET = format_snippet('${FUNC_PUSH_VALUE}<${TYPENAME}>(L, ret, "${LUACLS}")')
+                RET_PUSH = format_snippet('int num_ret = ${FUNC_PUSH_VALUE}<${TYPENAME}>(L, ret, "${LUACLS}");')
             else
-                PUSH_RET = format_snippet('${FUNC_PUSH_VALUE}(L, ret, "${LUACLS}")')
+                RET_PUSH = format_snippet('int num_ret = ${FUNC_PUSH_VALUE}(L, ret, "${LUACLS}");')
             end
         elseif fi.RET.TYPE.SUBTYPE then
             local SUBTYPE = assert(fi.RET.TYPE.SUBTYPE.LUACLS, fi.RET.DECL_TYPE)
-            PUSH_RET = format_snippet('${FUNC_PUSH_VALUE}(L, ret, "${SUBTYPE}")')
+            RET_PUSH = format_snippet('int num_ret = ${FUNC_PUSH_VALUE}(L, ret, "${SUBTYPE}");')
         else
             if fi.RET.UNPACK then
                 FUNC_PUSH_VALUE = fi.RET.TYPE.FUNC_UNPACK_VALUE
@@ -157,11 +177,15 @@ local function gen_func_ret(cls, fi)
                     CAST = '&'
                 end
             end
-            PUSH_RET = format_snippet('${FUNC_PUSH_VALUE}(L, ${CAST}ret)')
+            RET_PUSH = format_snippet('int num_ret = ${FUNC_PUSH_VALUE}(L, ${CAST}ret)')
+        end
+
+        if #RET_PUSH > 0 then
+            RET_NUM = "num_ret"
         end
     end
 
-    return RET_VALUE, PUSH_RET
+    return RET_EXP, RET_PUSH, RET_NUM
 end
 
 local function gen_one_func(cls, fi, write, funcidx, func_filter)
@@ -191,8 +215,8 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
         CALLER = cls.CPPCLS .. '::'
     end
 
-    local DECL_CHUNK, ARGS_CHUNK, CALLER_ARGS, TOTAL_ARGS = gen_func_args(cls, fi)
-    local RET_VALUE, PUSH_RET = gen_func_ret(cls, fi)
+    local DECL_CHUNK, ARGS_CHUNK, CALLER_ARGS, TOTAL_ARGS, REF_CHUNK = gen_func_args(cls, fi)
+    local RET_EXP, RET_PUSH, RET_NUM = gen_func_ret(cls, fi)
     local CALLBACK = ""
 
     if fi.CALLBACK_OPT then
@@ -209,6 +233,14 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
         end
     end
 
+    if #REF_CHUNK > 0 then
+        REF_CHUNK = '\n' .. REF_CHUNK .. '\n'
+    elseif #RET_PUSH > 0 then
+        RET_NUM = string.gsub(RET_PUSH, 'int num_ret = ', '')
+        RET_NUM = string.gsub(RET_NUM, ';$', '')
+        RET_PUSH = ""
+    end
+
     write(format_snippet([[
         static int _${CPPCLS_PATH}_${CPPFUNC}${FUNC_INDEX}(lua_State *L)
         {
@@ -221,9 +253,10 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
             ${CALLBACK}
 
             // ${FUNC_DECL}
-            ${RET_VALUE}${CALLER}${CALLFUNC}${ARGS_BEGIN}${CALLER_ARGS}${ARGS_END};
-            
-            return ${PUSH_RET};
+            ${RET_EXP}${CALLER}${CALLFUNC}${ARGS_BEGIN}${CALLER_ARGS}${ARGS_END};
+            ${RET_PUSH}
+            ${REF_CHUNK}
+            return ${RET_NUM};
         }
     ]]))
     write('')

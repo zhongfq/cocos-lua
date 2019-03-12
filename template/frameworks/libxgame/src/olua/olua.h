@@ -23,10 +23,12 @@ LUALIB_API void olua_seterrfunc(lua_CFunction errfunc);
 LUALIB_API const char *olua_typename(lua_State *L, int idx);
 LUALIB_API const char *olua_tostring(lua_State *L, int idx);
 LUALIB_API bool olua_isa(lua_State *L, int idx, const char *cls);
+LUALIB_API void olua_getobjtable(lua_State *L);
 LUALIB_API int olua_pushobj(lua_State *L, void *obj, const char *cls);
 LUALIB_API bool olua_getobj(lua_State *L, void *obj);
 LUALIB_API void *olua_checkobj(lua_State *L, int idx, const char *cls);
 LUALIB_API void *olua_toobj(lua_State *L, int idx, const char *cls);
+LUALIB_API void olua_getusertable(lua_State *L, int idx);
 LUALIB_API void olua_callgc(lua_State *L, int idx, bool isarrary);
     
 typedef enum {

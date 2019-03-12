@@ -63,7 +63,6 @@ LUALIB_API const char *olua_typename(lua_State *L, int idx)
         }
         lua_pop(L, 2); // pop mt and value
     }
-    
     return tn ? tn : lua_typename(L, lua_type(L, idx));
 }
 
@@ -138,14 +137,12 @@ LUALIB_API int olua_pushobj(lua_State *L, void *obj, const char *cls)
 #endif
     
     lua_remove(L, -2);                                      // L: obj
-    
     return status;
 }
 
 LUALIB_API bool olua_getobj(lua_State *L, void *obj)
 {
     int top = lua_gettop(L);
-    
     if (lua_rawgetp(L, LUA_REGISTRYINDEX, OBJ_REF_TABLE) == LUA_TTABLE) {
         if (lua_rawgetp(L, -1, obj) == LUA_TUSERDATA) {
             lua_insert(L, top + 1);
@@ -153,9 +150,7 @@ LUALIB_API bool olua_getobj(lua_State *L, void *obj)
             return true;
         }
     }
-    
     lua_settop(L, top);
-    
     return false;
 }
 
@@ -171,7 +166,6 @@ static bool getuservalue(lua_State *L, int idx)
 #ifdef OLUA_DEBUG
     luaL_checktype(L, -1, LUA_TTABLE);
 #endif
-    
     return lua_istable(L, -1);
 }
 
@@ -183,25 +177,24 @@ LUALIB_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag
     func = lua_absindex(L, func);
     luaL_checktype(L, func, LUA_TFUNCTION);
     
-    if (!olua_getobj(L, obj) ||
-        !getuservalue(L, -1)) {                     // L: obj ct
+    if (!olua_getobj(L, obj) || !getuservalue(L, -1)) { // L: obj ct
         luaL_error(L, "obj userdata not found");
     }
 
-    lua_remove(L, -2);                              // L: ct
+    lua_remove(L, -2);                                  // L: ct
     
     if (mode == OLUA_CALLBACK_TAG_REPLACE) {
-        lua_pushnil(L);                             // L: ct k
-        while (lua_next(L, -2)) {                   // L: ct k v
+        lua_pushnil(L);                                 // L: ct k
+        while (lua_next(L, -2)) {                       // L: ct k v
             if (lua_isstring(L, -2)) {
                 const char *s = lua_tostring(L, -2);
                 if (strendwith(s, tag)) {
                     field = s;
-                    lua_pop(L, 1);                  // L: ct k
+                    lua_pop(L, 1);                      // L: ct k
                     break;
                 }
             }
-            lua_pop(L, 1);                          // L: ck k
+            lua_pop(L, 1);                              // L: ck k
         }
     } else {
 #ifdef OLUA_DEBUG
@@ -215,10 +208,9 @@ LUALIB_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag
         field = lua_pushfstring(L, "oluacallback#%d|%s", ++ref, tag);
     }
     
-    lua_pushvalue(L, func);                         // L: ct k  v
-    olua_rawsetfield(L, -3, field);                 // L: ct k
-    lua_remove(L, -2);                              // L: k
-    
+    lua_pushvalue(L, func);                             // L: ct k  v
+    olua_rawsetfield(L, -3, field);                     // L: ct k
+    lua_remove(L, -2);                                  // L: k
     return lua_tostring(L, -1);
 }
 
@@ -763,12 +755,14 @@ LUALIB_API void olua_to_obj(lua_State *L, int idx, void **value, const char *cls
     *value = olua_toobj(L, idx, cls);
 }
 
-static void auxchecktype(lua_State *L, int idx, const char *field, int type, bool isinteger)
+static void auxchecktype(lua_State *L, int t, const char *field, int type, bool isinteger)
 {
+    int idx = lua_gettop(L) + 1;
+    lua_getfield(L, t, field);
+    
     if ((isinteger && !lua_isinteger(L, idx)) ||
         (!isinteger && lua_type(L, idx) != type)) {
-        const char *msg;
-        const char *typearg;
+        const char *msg, *typearg;
         const char *tname = lua_typename(L, type);
         if (isinteger) {
             tname = "integer";
@@ -788,9 +782,7 @@ static void auxchecktype(lua_State *L, int idx, const char *field, int type, boo
 LUALIB_API const char *olua_checkfieldstring(lua_State *L, int idx, const char *field)
 {
     const char *value;
-    idx = lua_absindex(L, idx);
-    lua_getfield(L, idx, field);
-    auxchecktype(L, -1, field, LUA_TSTRING, false);
+    auxchecktype(L, idx, field, LUA_TSTRING, false);
     value = lua_tostring(L, -1);
     lua_pop(L, 1);
     return value;
@@ -799,9 +791,7 @@ LUALIB_API const char *olua_checkfieldstring(lua_State *L, int idx, const char *
 LUALIB_API lua_Number olua_checkfieldnumber(lua_State *L, int idx, const char *field)
 {
     lua_Number value;
-    idx = lua_absindex(L, idx);
-    lua_getfield(L, idx, field);
-    auxchecktype(L, -1, field, LUA_TNUMBER, false);
+    auxchecktype(L, idx, field, LUA_TNUMBER, false);
     value = lua_tonumber(L, -1);
     lua_pop(L, 1);
     return value;
@@ -809,20 +799,18 @@ LUALIB_API lua_Number olua_checkfieldnumber(lua_State *L, int idx, const char *f
 
 LUALIB_API lua_Integer olua_checkfieldinteger(lua_State *L, int idx, const char *field)
 {
-    idx = lua_absindex(L, idx);
-    lua_getfield(L, idx, field);
-    auxchecktype(L, -1, field, LUA_TNUMBER, true);
-    lua_Integer value = lua_tointeger(L, -1);
+    lua_Integer value;
+    auxchecktype(L, idx, field, LUA_TNUMBER, true);
+    value = lua_tointeger(L, -1);
     lua_pop(L, 1);
     return value;
 }
 
 LUALIB_API bool olua_checkfieldboolean(lua_State *L, int idx, const char *field)
 {
-    idx = lua_absindex(L, idx);
-    lua_getfield(L, idx, field);
-    auxchecktype(L, -1, field, LUA_TBOOLEAN, false);
-    bool value = lua_toboolean(L, -1);
+    bool value;
+    auxchecktype(L, idx, field, LUA_TBOOLEAN, false);
+    value = lua_toboolean(L, -1);
     lua_pop(L, 1);
     return value;
 }
@@ -830,31 +818,27 @@ LUALIB_API bool olua_checkfieldboolean(lua_State *L, int idx, const char *field)
 LUALIB_API void olua_rawsetfieldnumber(lua_State *L, int idx, const char *field, lua_Number value)
 {
     idx = lua_absindex(L, idx);
-    lua_pushstring(L, field);
     lua_pushnumber(L, value);
-    lua_rawset(L, idx);
+    olua_rawsetfield(L, idx, field);
 }
 
 LUALIB_API void olua_rawsetfieldinteger(lua_State *L, int idx, const char *field, lua_Integer value)
 {
     idx = lua_absindex(L, idx);
-    lua_pushstring(L, field);
     lua_pushinteger(L, value);
-    lua_rawset(L, idx);
+    olua_rawsetfield(L, idx, field);
 }
 
 LUALIB_API void olua_rawsetfieldstring(lua_State *L, int idx, const char *field, const char *value)
 {
     idx = lua_absindex(L, idx);
-    lua_pushstring(L, field);
     lua_pushstring(L, value);
-    lua_rawset(L, idx);
+    olua_rawsetfield(L, idx, field);
 }
 
 LUALIB_API void olua_rawsetfieldboolean(lua_State *L, int idx, const char *field, bool value)
 {
     idx = lua_absindex(L, idx);
-    lua_pushstring(L, field);
     lua_pushboolean(L, value);
-    lua_rawset(L, idx);
+    olua_rawsetfield(L, idx, field);
 }

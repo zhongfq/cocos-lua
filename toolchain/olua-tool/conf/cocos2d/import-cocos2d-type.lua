@@ -7,6 +7,7 @@ end
 REG_TYPE {
     TYPENAME = 'cocos2d::Data', 
     CONV_FUNC = "xluacv_$$_ccdata",
+    VALUE_TYPE = true
 }
 
 REG_TYPE {
@@ -39,15 +40,29 @@ REG_TYPE {
 
 REG_TYPE {
     TYPENAME = 'cocos2d::Rect',
-    CONV_FUNC = 'auto_luacv_$$_cocos2d_Rect',
+    CONV_FUNC = 'manual_luacv_$$_cocos2d_Rect',
     INIT_VALUE = false,
     VARS = 4,
+}
+
+REG_TYPE {
+    TYPENAME = 'cocos2d::ccBezierConfig',
+    CONV_FUNC = 'manual_luacv_$$_cocos2d_ccBezierConfig',
+    INIT_VALUE = false,
+    VARS = 3,
+}
+
+REG_TYPE {
+    TYPENAME = 'cocos2d::ValueMap',
+    CONV_FUNC = 'manual_luacv_$$_cocos2d_ValueMap',
+    INIT_VALUE = false,
 }
 
 REG_TYPE {
     TYPENAME = 'cocos2d::Mat4',
     CONV_FUNC = "xluacv_$$_ccmat4",
     INIT_VALUE = false,
+    VALUE_TYPE = true,
 }
 
 REG_TYPE {
@@ -150,6 +165,9 @@ REG_TYPE {
         'cocos2d::GLProgram *',
         'cocos2d::TextureCache *',
         'cocos2d::Texture2D *',
+        'cocos2d::SpriteFrame *',
+        'cocos2d::Animation *',
+        'cocos2d::AnimationFrame *',
         'cocos2d::Image *',
         'cocos2d::Node *',
         'cocos2d::ProtectedNode *',
@@ -177,6 +195,21 @@ REG_TYPE {
         'cocos2d::ResizeBy *',
         'cocos2d::JumpBy *',
         'cocos2d::JumpTo *',
+        'cocos2d::BezierBy *',
+        'cocos2d::BezierTo *',
+        'cocos2d::ScaleTo *',
+        'cocos2d::ScaleBy *',
+        'cocos2d::Blink *',
+        'cocos2d::FadeTo *',
+        'cocos2d::FadeIn *',
+        'cocos2d::FadeOut *',
+        'cocos2d::TintTo *',
+        'cocos2d::TintBy *',
+        'cocos2d::DelayTime *',
+        'cocos2d::ReverseTime *',
+        'cocos2d::Animate *',
+        'cocos2d::TargetedAction *',
+        'cocos2d::ActionFloat *',
         'cocos2d::EventDispatcher *',
         'cocos2d::EventListener *',
         'cocos2d::EventListenerCustom *',

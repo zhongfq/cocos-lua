@@ -9,6 +9,7 @@ M.SOURCE_PATH = "template/frameworks/libxgame/src/xgame/lua-bindings/lua_xgame.c
 M.INCLUDES = [[
 #include "xgame/lua-bindings/lua_xgame.h"
 #include "xgame/lua-bindings/lua_conv.h"
+#include "xgame/lua-bindings/lua_conv_manual.h"
 #include "xgame/xfilesystem.h"
 #include "xgame/xlua.h"
 #include "xgame/xpreferences.h"

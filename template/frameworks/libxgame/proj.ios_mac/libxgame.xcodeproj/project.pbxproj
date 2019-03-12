@@ -49,6 +49,8 @@
 		0E2E9ABC222771D00085145E /* lua_cocos2d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E9AB9222771D00085145E /* lua_cocos2d.cpp */; };
 		0E669F6D22367D1F00BD58EB /* lua_cocos2d_ui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E669F6C22367D1F00BD58EB /* lua_cocos2d_ui.cpp */; };
 		0E669F6E22367D1F00BD58EB /* lua_cocos2d_ui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E669F6C22367D1F00BD58EB /* lua_cocos2d_ui.cpp */; };
+		0E669F7C2237960000BD58EB /* lua_conv_manual.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E669F7A223795FF00BD58EB /* lua_conv_manual.cpp */; };
+		0E669F7D2237960000BD58EB /* lua_conv_manual.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E669F7A223795FF00BD58EB /* lua_conv_manual.cpp */; };
 		0E6C9796222ADD1300B2C17F /* olua.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E6C9795222ADD1300B2C17F /* olua.c */; };
 		0E6C9797222ADD1300B2C17F /* olua.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E6C9795222ADD1300B2C17F /* olua.c */; };
 		0E6C97C9222FD37E00B2C17F /* lua_conv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E6C97C7222FD37E00B2C17F /* lua_conv.cpp */; };
@@ -213,6 +215,8 @@
 		0E2E9ABA222771D00085145E /* lua_cocos2d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_cocos2d.h; sourceTree = "<group>"; };
 		0E669F6B22367D1E00BD58EB /* lua_cocos2d_ui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_cocos2d_ui.h; sourceTree = "<group>"; };
 		0E669F6C22367D1F00BD58EB /* lua_cocos2d_ui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_cocos2d_ui.cpp; sourceTree = "<group>"; };
+		0E669F7A223795FF00BD58EB /* lua_conv_manual.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_conv_manual.cpp; sourceTree = "<group>"; };
+		0E669F7B2237960000BD58EB /* lua_conv_manual.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_conv_manual.h; sourceTree = "<group>"; };
 		0E6C9794222ADD1300B2C17F /* olua.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = olua.h; sourceTree = "<group>"; };
 		0E6C9795222ADD1300B2C17F /* olua.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = olua.c; sourceTree = "<group>"; };
 		0E6C979B222AF37300B2C17F /* olua.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = olua.hpp; sourceTree = "<group>"; };
@@ -438,6 +442,8 @@
 				0E669F6B22367D1E00BD58EB /* lua_cocos2d_ui.h */,
 				0E2E9AB9222771D00085145E /* lua_cocos2d.cpp */,
 				0E2E9ABA222771D00085145E /* lua_cocos2d.h */,
+				0E669F7A223795FF00BD58EB /* lua_conv_manual.cpp */,
+				0E669F7B2237960000BD58EB /* lua_conv_manual.h */,
 				0E6C97C7222FD37E00B2C17F /* lua_conv.cpp */,
 				0E6C97C8222FD37E00B2C17F /* lua_conv.h */,
 				0E2E9AB12226550D0085145E /* lua_xgame.cpp */,
@@ -711,6 +717,7 @@
 				0E9D2A6B221A9C76003C2121 /* xfilesystem-private-ios-mac.mm in Sources */,
 				0E0C706C21F9F60B00049240 /* xtimer.cpp in Sources */,
 				0ECC4C8121EB8D4600E3BBF9 /* strbuf.c in Sources */,
+				0E669F7C2237960000BD58EB /* lua_conv_manual.cpp in Sources */,
 				0ECC4C7321EB8D4600E3BBF9 /* proto.c in Sources */,
 				0ECC4C7721EB8D4600E3BBF9 /* pbc-lua53.c in Sources */,
 				0E0C705A21F9EFC700049240 /* xruntime.cpp in Sources */,
@@ -761,6 +768,7 @@
 				0E6C9797222ADD1300B2C17F /* olua.c in Sources */,
 				0ECC4C6621EB8D4600E3BBF9 /* packet.c in Sources */,
 				0E0C706121F9EFC700049240 /* xruntime-private-ios-mac.mm in Sources */,
+				0E669F7D2237960000BD58EB /* lua_conv_manual.cpp in Sources */,
 				0ECC4C6A21EB8D4600E3BBF9 /* decode.c in Sources */,
 				0E0C704C21F9EEBD00049240 /* xdownloader.cpp in Sources */,
 				0E0C705D21F9EFC700049240 /* xsocket.cpp in Sources */,

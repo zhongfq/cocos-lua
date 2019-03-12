@@ -93,11 +93,4 @@ void auto_luacv_pack_GLContextAttrs(lua_State *L, int idx, GLContextAttrs *value
 int auto_luacv_unpack_GLContextAttrs(lua_State *L, const GLContextAttrs *value);
 bool auto_luacv_is_GLContextAttrs(lua_State *L, int idx);
 
-int auto_luacv_push_cocos2d_Rect(lua_State *L, const cocos2d::Rect *value);
-void auto_luacv_check_cocos2d_Rect(lua_State *L, int idx, cocos2d::Rect *value);
-void auto_luacv_opt_cocos2d_Rect(lua_State *L, int idx, cocos2d::Rect *value, const cocos2d::Rect &def);
-void auto_luacv_pack_cocos2d_Rect(lua_State *L, int idx, cocos2d::Rect *value);
-int auto_luacv_unpack_cocos2d_Rect(lua_State *L, const cocos2d::Rect *value);
-bool auto_luacv_is_cocos2d_Rect(lua_State *L, int idx);
-
 #endif

@@ -3,6 +3,7 @@
 //
 #include "xgame/lua-bindings/lua_cocos2d_ui.h"
 #include "xgame/lua-bindings/lua_conv.h"
+#include "xgame/lua-bindings/lua_conv_manual.h"
 #include "xgame/xlua.h"
 #include "xgame/xruntime.h"
 #include "olua/olua.hpp"

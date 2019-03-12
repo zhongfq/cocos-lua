@@ -3,6 +3,7 @@ local runtime       = require "kernel.runtime"
 local timer         = require "kernel.timer"
 local preferences   = require "kernel.preferences"
 local window        = require "kernel.window"
+local util          = require "util"
 local UserDefault   = require "cc.UserDefault"
 local Node          = require "cc.Node"
 local Sprite        = require "cc.Sprite"
@@ -14,6 +15,10 @@ local EventListenerTouchOneByOne = require "cc.EventListenerTouchOneByOne"
 local EventListenerCustom = require "cc.EventListenerCustom"
 local RotateTo      = require "cc.RotateTo"
 local Sequence      = require "cc.Sequence"
+local BezierBy      = require "cc.BezierBy"
+local ActionFloat   = require "cc.ActionFloat"
+local AnimationFrame = require "cc.AnimationFrame"
+local SpriteFrame = require "cc.SpriteFrame"
 
 window.setDesignSize(1334, 750, 1)
 
@@ -24,58 +29,18 @@ function main()
     print("hello bootstrap!")
 
     local node = Node.create()
-    print("# preferences 'build'", preferences.getString("build"))
-    print("# preferences 'build'", preferences.getString("build", "defalut build"))
-    print("# preferences 'version'", preferences.getString("conf.version.runtime", "defalut build"))
 
     local sprite = Sprite.create("res/HelloWorld.png")
     sprite.name = "xxxx"
-    sprite.hello = function ( ... )
-        print("### hello", ...)
-    end
     sprite:setPosition(500, 400)
-    sprite:runAction(Sequence.create(RotateTo.create(2, 40), RotateTo.create(3, -120)))
+    -- sprite:runAction(Sequence.create(RotateTo.create(2, 40), RotateTo.create(3, -120)))
+    sprite:runAction(BezierBy.create(4, {x = 100, y = 100}, {x = 200, y = 400}, {x = 400, y = 0}))
+    sprite:runAction(ActionFloat.create(2, 3.5, 8, function ( ... )
+        print("##action float", ...)
+    end))
     Director.getInstance().runningScene:addChild(sprite)
-    Director.getInstance():convertToUI(0, 1)
-    print(Director.getInstance().runningScene:getChildByName("xxxx"))
-    -- sprite.scheduler:schedule(function ( ... )
-        -- print("xxxx", ...)
-    -- end, sprite, 2, false, "unpack")
 
-    local listener = EventListenerTouchOneByOne.create()
-    listener.onTouchBegan = function (v, event)
-        print("onTouchBegan", v, v.id, v:getLocation())
-        return true
-    end
-    listener.onTouchMoved = function (v, event)
-        print("onTouchMoved", v, v.id, v:getLocation())
-    end
-    listener.onTouchEnded = function (v, event)
-        print("onTouchEnded", v, v.id, v:getLocation())
-    end
-
-    eventDispatcher.listener = listener
-    printUserValue(eventDispatcher)
-    print(eventDispatcher.listener)
-    eventDispatcher:addEventListenerWithSceneGraphPriority(listener, sprite)
-    print(eventDispatcher)
-
-    local custom = EventListenerCustom.create("hello", function (e)
-        print("###", e, e.userData)
-    end)
-
-    eventDispatcher:addEventListenerWithFixedPriority(custom, 1)
-
-    local cs = eventDispatcher:addCustomEventListener('hello', function (e)
-        print("addCustomEventListener", e, e.userData)
-    end)
-
-    timer.delay(3, function ( ... )
-        eventDispatcher:dispatchCustomEvent("hello", sprite)
-        eventDispatcher:removeEventListener(cs)
-    end)
-    timer.delay(4, function ( ... )
-        print("collect")
+    timer.delay(2, function ()
         collectgarbage('collect')
     end)
 end

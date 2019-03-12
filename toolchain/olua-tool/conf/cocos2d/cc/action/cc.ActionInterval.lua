@@ -166,4 +166,159 @@ cls.funcs([[
     static JumpTo* create(float duration, @pack const Vec2& position, float height, int jumps);
 ]])
 
+local cls = class(M)
+cls.CPPCLS = "cocos2d::BezierBy"
+cls.LUACLS = "cc.BezierBy"
+cls.SUPERCLS = "cc.ActionInterval"
+cls.funcs([[
+    static BezierBy* create(float t, @pack const ccBezierConfig& c);
+]])
+
+local cls = class(M)
+cls.CPPCLS = "cocos2d::BezierTo"
+cls.LUACLS = "cc.BezierTo"
+cls.SUPERCLS = "cc.BezierBy"
+cls.funcs([[
+    static BezierTo* create(float t, @pack const ccBezierConfig& c);
+]])
+
+local cls = class(M)
+cls.CPPCLS = "cocos2d::ScaleTo"
+cls.LUACLS = "cc.ScaleTo"
+cls.SUPERCLS = "cc.ActionInterval"
+cls.funcs([[
+    static ScaleTo* create(float duration, float s)
+    static ScaleTo* create(float duration, float sx, float sy)
+    static ScaleTo* create(float duration, float sx, float sy, float sz)
+]])
+
+local cls = class(M)
+cls.CPPCLS = "cocos2d::ScaleBy"
+cls.LUACLS = "cc.ScaleBy"
+cls.SUPERCLS = "cc.ScaleTo"
+cls.funcs([[
+    static ScaleBy* create(float duration, float s)
+    static ScaleBy* create(float duration, float sx, float sy)
+    static ScaleBy* create(float duration, float sx, float sy, float sz)
+]])
+
+local cls = class(M)
+cls.CPPCLS = "cocos2d::Blink"
+cls.LUACLS = "cc.Blink"
+cls.SUPERCLS = "cc.ActionInterval"
+cls.funcs([[
+    static Blink* create(float duration, int blinks)
+]])
+
+local cls = class(M)
+cls.CPPCLS = "cocos2d::FadeTo"
+cls.LUACLS = "cc.FadeTo"
+cls.SUPERCLS = "cc.ActionInterval"
+cls.funcs([[
+    static FadeTo* create(float duration, GLubyte opacity)
+]])
+
+local cls = class(M)
+cls.CPPCLS = "cocos2d::FadeIn"
+cls.LUACLS = "cc.FadeIn"
+cls.SUPERCLS = "cc.FadeTo"
+cls.funcs([[
+    static FadeIn* create(float d)
+]])
+
+local cls = class(M)
+cls.CPPCLS = "cocos2d::FadeOut"
+cls.LUACLS = "cc.FadeOut"
+cls.SUPERCLS = "cc.FadeTo"
+cls.funcs([[
+    static FadeOut* create(float d)
+]])
+
+local cls = class(M)
+cls.CPPCLS = "cocos2d::TintTo"
+cls.LUACLS = "cc.TintTo"
+cls.SUPERCLS = "cc.ActionInterval"
+cls.funcs([[
+    static TintTo* create(float duration, GLubyte red, GLubyte green, GLubyte blue)
+    static TintTo* create(float duration, const Color3B& color)
+]])
+
+local cls = class(M)
+cls.CPPCLS = "cocos2d::TintBy"
+cls.LUACLS = "cc.TintBy"
+cls.SUPERCLS = "cc.ActionInterval"
+cls.funcs([[
+    static TintBy* create(float duration, GLshort deltaRed, GLshort deltaGreen, GLshort deltaBlue)
+]])
+
+local cls = class(M)
+cls.CPPCLS = "cocos2d::DelayTime"
+cls.LUACLS = "cc.DelayTime"
+cls.SUPERCLS = "cc.ActionInterval"
+cls.funcs([[
+    static DelayTime* create(float d)
+]])
+
+local cls = class(M)
+cls.CPPCLS = "cocos2d::ReverseTime"
+cls.LUACLS = "cc.ReverseTime"
+cls.SUPERCLS = "cc.ActionInterval"
+cls.funcs([[
+    static ReverseTime* create(FiniteTimeAction *action)
+]])
+
+local cls = class(M)
+cls.CPPCLS = "cocos2d::Animate"
+cls.LUACLS = "cc.Animate"
+cls.SUPERCLS = "cc.ActionInterval"
+cls.prop('animation', 'Animation* getAnimation()', 'void setAnimation(Animation* animation)')
+cls.prop('currentFrameIndex', 'int getCurrentFrameIndex()')
+cls.funcs([[
+    static Animate* create(Animation *animation)
+    void setAnimation(Animation* animation)
+    Animation* getAnimation()
+    int getCurrentFrameIndex()
+]])
+
+local cls = class(M)
+cls.CPPCLS = "cocos2d::TargetedAction"
+cls.LUACLS = "cc.TargetedAction"
+cls.SUPERCLS = "cc.ActionInterval"
+cls.prop('forcedTarget', 'Node* getForcedTarget()', 'void setForcedTarget(Node* forcedTarget)')
+cls.funcs([[
+    static TargetedAction* create(Node* target, FiniteTimeAction* action)
+    void setForcedTarget(Node* forcedTarget)
+    Node* getForcedTarget()
+]])
+
+local cls = class(M)
+cls.CPPCLS = "cocos2d::ActionFloat"
+cls.LUACLS = "cc.ActionFloat"
+cls.SUPERCLS = "cc.ActionInterval"
+cls.func('create', [[
+{
+    lua_settop(L, 4);
+
+    float duration = (float)luaL_checknumber(L, 1);
+    float from = (float)luaL_checknumber(L, 2);
+    float to = (float)luaL_checknumber(L, 3);
+
+    cocos2d::ActionFloat *ret = new cocos2d::ActionFloat();
+    ret->autorelease();
+    olua_push_cppobj<cocos2d::ActionFloat>(L, ret, "cc.ActionFloat");
+
+    void *tag_store_obj = (void *)ret;
+    std::string func = olua_setcallback(L, tag_store_obj, "actionFloat", 4, OLUA_CALLBACK_TAG_NEW);
+    auto callback = [tag_store_obj, func](float delta) {
+        lua_State *L = xlua_cocosthread();
+        int top = lua_gettop(L);
+        olua_push_number(L, (lua_Number)delta);
+        olua_callback(L, tag_store_obj, func.c_str(), 1);
+        lua_settop(L, top);
+    };
+    ret->initWithDuration(duration, from, to, callback);
+
+    return olua_push_cppobj<cocos2d::ActionFloat>(L, ret, "cc.ActionFloat");
+}]])
+
 return M

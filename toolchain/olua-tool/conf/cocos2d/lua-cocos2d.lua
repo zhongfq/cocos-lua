@@ -10,6 +10,7 @@ M.SOURCE_PATH = "template/frameworks/libxgame/src/xgame/lua-bindings/lua_cocos2d
 M.INCLUDES = [[
 #include "xgame/lua-bindings/lua_cocos2d.h"
 #include "xgame/lua-bindings/lua_conv.h"
+#include "xgame/lua-bindings/lua_conv_manual.h"
 #include "xgame/xlua.h"
 #include "xgame/xruntime.h"
 #include "olua/olua.hpp"
@@ -53,6 +54,8 @@ M.CLASSES = {
     include("conf/cocos2d/cc/cc.GLProgram.lua"),
     include("conf/cocos2d/cc/cc.TextureCache.lua"),
     include("conf/cocos2d/cc/cc.Texture2D.lua"),
+    include("conf/cocos2d/cc/cc.SpriteFrame.lua"),
+    include("conf/cocos2d/cc/cc.Animation.lua"),
     include("conf/cocos2d/cc/cc.Image.lua"),
     include("conf/cocos2d/cc/cc.Node.lua"),
     include("conf/cocos2d/cc/cc.ProtectedNode.lua"),

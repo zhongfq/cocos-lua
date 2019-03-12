@@ -152,7 +152,7 @@ local function gen_func_ret(cls, fi)
             if fi.RET.TYPE.DECL_TYPE ~= fi.RET.TYPE.TYPENAME then
                 assert(not string.find(FUNC_PUSH_VALUE, '^auto_luacv'))
                 CAST = string.format("(%s)", fi.RET.TYPE.DECL_TYPE)
-            elseif string.find(FUNC_PUSH_VALUE, '^auto_luacv') then
+            elseif not fi.RET.TYPE.VALUE_TYPE then
                 if not string.find(DECL_TYPE, '*$') then
                     CAST = '&'
                 end

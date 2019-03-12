@@ -16,7 +16,7 @@ local function gen_conv_header(module)
         DECL_FUNCS[#DECL_FUNCS + 1] = ""
     end
 
-    for line in string.gmatch(module.DECLCHUNK, '[^\n\r]+') do
+    for line in string.gmatch(module.DECLCHUNK or "", '[^\n\r]+') do
         if string.find(line, '%)$') then
             DECL_FUNCS[#DECL_FUNCS + 1] = line .. ';'
         end
@@ -125,6 +125,7 @@ local function gen_check_func(cv, write)
             if (!value) {
                 luaL_error(L, "value is NULL");
             }
+            idx = lua_absindex(L, idx);
             luaL_checktype(L, idx, LUA_TTABLE);
             ${ARGS_CHUNK}
         }
@@ -170,6 +171,7 @@ local function gen_pack_func(cv, write)
             if (!value) {
                 luaL_error(L, "value is NULL");
             }
+            idx = lua_absindex(L, idx);
             ${ARGS_CHUNK}
         }
     ]]))

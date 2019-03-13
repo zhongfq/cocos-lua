@@ -160,7 +160,7 @@ void olua_getusertable(lua_State *L, int idx)
     idx = lua_absindex(L, idx);
     if (lua_getuservalue(L, idx) != LUA_TTABLE) {
 #ifdef OLUA_DEBUG
-        if (olua_isnil(L, -1)) {
+        if (!olua_isnil(L, -1)) {
             luaL_error(L, "user value must be a table!");
         }
 #endif

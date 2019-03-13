@@ -115,20 +115,15 @@ local function gen_func_args(cls, fi)
         end
 
         if ai.REF then
+            assert(not fi.STATIC or (fi.RET.NUM > 0 and fi.RET.TYPE.LUACLS), fi.CPPFUNC)
+            local WHICH_OBJ = fi.STATIC and -1 or 1
             REF_CHUNK[#REF_CHUNK + 1] = format_snippet([[
-                lua_pushvalue(L, ${IDX});
-                lua_pushboolean(L, true);
-                olua_setvariable(L, -3);
+                olua_mapref(L, ${WHICH_OBJ}, ".autoref", ${IDX});
             ]])
         end
     end
 
     if #REF_CHUNK > 0 then
-        if not fi.STATIC then
-            table.insert(REF_CHUNK, 1, "lua_pushvalue(L, 1); // self")
-        else
-            table.insert(REF_CHUNK, 1, "lua_pushvalue(L, -1); // ret")
-        end
         table.insert(REF_CHUNK, 1, "// ref value")
     end
 

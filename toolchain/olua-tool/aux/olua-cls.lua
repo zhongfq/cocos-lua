@@ -300,7 +300,7 @@ local function parse_prop(cls, name, func_get, func_set)
         for _, v in ipairs(cls.FUNCS) do
             for _, f in ipairs(v) do
                 if to_prop_func_name(name, 'get') == f.CPPFUNC or
-                    to_pretty_typename(name, 'is') == f.CPPFUNC then
+                    to_prop_func_name(name, 'is') == f.CPPFUNC then
                     assert(#f.ARGS == 0, f.CPPFUNC)
                     pi.GET = f
                 end

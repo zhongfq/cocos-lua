@@ -2837,10 +2837,14 @@ static int _cocos2d_Speed_create(lua_State *L)
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
     olua_check_number(L, 2, &arg2);
 
-    // static Speed* create(ActionInterval* action, float speed)
+    // static Speed* create(@ref ActionInterval* action, float speed)
     cocos2d::Speed *ret = (cocos2d::Speed *)cocos2d::Speed::create(arg1, (float)arg2);
+    int num_ret = olua_push_cppobj<cocos2d::Speed>(L, ret, "cc.Speed");
 
-    return olua_push_cppobj<cocos2d::Speed>(L, ret, "cc.Speed");
+    // ref value
+    olua_mapref(L, -1, ".autoref", 1);
+
+    return num_ret;
 }
 
 static int _cocos2d_Speed_getSpeed(lua_State *L)
@@ -2883,8 +2887,11 @@ static int _cocos2d_Speed_setInnerAction(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Speed");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.ActionInterval");
 
-    // void setInnerAction(ActionInterval *action)
+    // void setInnerAction(@ref ActionInterval *action)
     self->setInnerAction(arg1);
+
+    // ref value
+    olua_mapref(L, 1, ".autoref", 2);
 
     return 0;
 }
@@ -2993,6 +3000,7 @@ static int luaopen_cocos2d_Follow(lua_State *L)
     oluacls_setfunc(L, "createWithOffset", _cocos2d_Follow_createWithOffset);
     oluacls_setfunc(L, "isBoundarySet", _cocos2d_Follow_isBoundarySet);
     oluacls_setfunc(L, "setBoundarySet", _cocos2d_Follow_setBoundarySet);
+    oluacls_property(L, "boundarySet", _cocos2d_Follow_isBoundarySet, _cocos2d_Follow_setBoundarySet);
 
     olua_registerluatype<cocos2d::Follow>(L, "cc.Follow");
     oluacls_createclassproxy(L);
@@ -3697,14 +3705,20 @@ static int _cocos2d_Sequence_create(lua_State *L)
     int n = lua_gettop(L);
     actions.reserve(n);
 
+    cocos2d::Sequence *ret = new cocos2d::Sequence();
+    ret->autorelease();
+    olua_push_cppobj<cocos2d::Sequence>(L, ret, "cc.Sequence");
+
     for (int i = 1; i <= n; i++) {
         cocos2d::FiniteTimeAction *obj;
         olua_check_cppobj(L, i, (void **)&obj, "cc.FiniteTimeAction");
         actions.pushBack(obj);
+        olua_mapref(L, -1, ".autoref", i);
     }
 
-    cocos2d::Sequence *ret = (cocos2d::Sequence *)cocos2d::Sequence::create(actions);
-    return olua_push_cppobj<cocos2d::Sequence>(L, ret, "cc.Sequence");
+    ret->init(actions);
+
+    return 1;
 }
 
 
@@ -3718,10 +3732,15 @@ static int _cocos2d_Sequence_createWithTwoActions(lua_State *L)
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.FiniteTimeAction");
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.FiniteTimeAction");
 
-    // static Sequence* createWithTwoActions(FiniteTimeAction *actionOne, FiniteTimeAction *actionTwo);
+    // static Sequence* createWithTwoActions(@ref FiniteTimeAction *actionOne, @ref FiniteTimeAction *actionTwo);
     cocos2d::Sequence *ret = (cocos2d::Sequence *)cocos2d::Sequence::createWithTwoActions(arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::Sequence>(L, ret, "cc.Sequence");
 
-    return olua_push_cppobj<cocos2d::Sequence>(L, ret, "cc.Sequence");
+    // ref value
+    olua_mapref(L, -1, ".autoref", 1);
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
 }
 
 static int luaopen_cocos2d_Sequence(lua_State *L)
@@ -3746,10 +3765,14 @@ static int _cocos2d_Repeat_create(lua_State *L)
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.FiniteTimeAction");
     olua_check_uint(L, 2, &arg2);
 
-    // static Repeat* create(FiniteTimeAction *action, unsigned int times)
+    // static Repeat* create(@ref FiniteTimeAction *action, unsigned int times)
     cocos2d::Repeat *ret = (cocos2d::Repeat *)cocos2d::Repeat::create(arg1, (unsigned int)arg2);
+    int num_ret = olua_push_cppobj<cocos2d::Repeat>(L, ret, "cc.Repeat");
 
-    return olua_push_cppobj<cocos2d::Repeat>(L, ret, "cc.Repeat");
+    // ref value
+    olua_mapref(L, -1, ".autoref", 1);
+
+    return num_ret;
 }
 
 static int _cocos2d_Repeat_setInnerAction(lua_State *L)
@@ -3762,8 +3785,11 @@ static int _cocos2d_Repeat_setInnerAction(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Repeat");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.FiniteTimeAction");
 
-    // void setInnerAction(FiniteTimeAction *action)
+    // void setInnerAction(@ref FiniteTimeAction *action)
     self->setInnerAction(arg1);
+
+    // ref value
+    olua_mapref(L, 1, ".autoref", 2);
 
     return 0;
 }
@@ -3788,6 +3814,7 @@ static int luaopen_cocos2d_Repeat(lua_State *L)
     oluacls_setfunc(L, "create", _cocos2d_Repeat_create);
     oluacls_setfunc(L, "setInnerAction", _cocos2d_Repeat_setInnerAction);
     oluacls_setfunc(L, "getInnerAction", _cocos2d_Repeat_getInnerAction);
+    oluacls_property(L, "innerAction", _cocos2d_Repeat_getInnerAction, _cocos2d_Repeat_setInnerAction);
 
     olua_registerluatype<cocos2d::Repeat>(L, "cc.Repeat");
     oluacls_createclassproxy(L);
@@ -3803,10 +3830,14 @@ static int _cocos2d_RepeatForever_create(lua_State *L)
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
 
-    // static RepeatForever* create(ActionInterval *action)
+    // static RepeatForever* create(@ref ActionInterval *action)
     cocos2d::RepeatForever *ret = (cocos2d::RepeatForever *)cocos2d::RepeatForever::create(arg1);
+    int num_ret = olua_push_cppobj<cocos2d::RepeatForever>(L, ret, "cc.RepeatForever");
 
-    return olua_push_cppobj<cocos2d::RepeatForever>(L, ret, "cc.RepeatForever");
+    // ref value
+    olua_mapref(L, -1, ".autoref", 1);
+
+    return num_ret;
 }
 
 static int _cocos2d_RepeatForever_setInnerAction(lua_State *L)
@@ -3819,8 +3850,11 @@ static int _cocos2d_RepeatForever_setInnerAction(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.RepeatForever");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.ActionInterval");
 
-    // void setInnerAction(ActionInterval *action)
+    // void setInnerAction(@ref ActionInterval *action)
     self->setInnerAction(arg1);
+
+    // ref value
+    olua_mapref(L, 1, ".autoref", 2);
 
     return 0;
 }
@@ -3845,6 +3879,7 @@ static int luaopen_cocos2d_RepeatForever(lua_State *L)
     oluacls_setfunc(L, "create", _cocos2d_RepeatForever_create);
     oluacls_setfunc(L, "setInnerAction", _cocos2d_RepeatForever_setInnerAction);
     oluacls_setfunc(L, "getInnerAction", _cocos2d_RepeatForever_getInnerAction);
+    oluacls_property(L, "innerAction", _cocos2d_RepeatForever_getInnerAction, _cocos2d_RepeatForever_setInnerAction);
 
     olua_registerluatype<cocos2d::RepeatForever>(L, "cc.RepeatForever");
     oluacls_createclassproxy(L);
@@ -3858,14 +3893,20 @@ static int _cocos2d_Spawn_create(lua_State *L)
     int n = lua_gettop(L);
     actions.reserve(n);
 
+    cocos2d::Spawn *ret = new cocos2d::Spawn();
+    ret->autorelease();
+    olua_push_cppobj<cocos2d::Spawn>(L, ret, "cc.Spawn");
+
     for (int i = 1; i <= n; i++) {
         cocos2d::FiniteTimeAction *obj;
         olua_check_cppobj(L, i, (void **)&obj, "cc.FiniteTimeAction");
         actions.pushBack(obj);
+        olua_mapref(L, -1, ".autoref", i);
     }
 
-    cocos2d::Spawn *ret = (cocos2d::Spawn *)cocos2d::Spawn::create(actions);
-    return olua_push_cppobj<cocos2d::Spawn>(L, ret, "cc.Spawn");
+    ret->init(actions);
+
+    return 1;
 }
 
 
@@ -3879,10 +3920,15 @@ static int _cocos2d_Spawn_createWithTwoActions(lua_State *L)
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.FiniteTimeAction");
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.FiniteTimeAction");
 
-    // static Spawn* createWithTwoActions(FiniteTimeAction *action1, FiniteTimeAction *action2);
+    // static Spawn* createWithTwoActions(@ref FiniteTimeAction *action1, @ref FiniteTimeAction *action2);
     cocos2d::Spawn *ret = (cocos2d::Spawn *)cocos2d::Spawn::createWithTwoActions(arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::Spawn>(L, ret, "cc.Spawn");
 
-    return olua_push_cppobj<cocos2d::Spawn>(L, ret, "cc.Spawn");
+    // ref value
+    olua_mapref(L, -1, ".autoref", 1);
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
 }
 
 static int luaopen_cocos2d_Spawn(lua_State *L)
@@ -4841,10 +4887,14 @@ static int _cocos2d_ReverseTime_create(lua_State *L)
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.FiniteTimeAction");
 
-    // static ReverseTime* create(FiniteTimeAction *action)
+    // static ReverseTime* create(@ref FiniteTimeAction *action)
     cocos2d::ReverseTime *ret = (cocos2d::ReverseTime *)cocos2d::ReverseTime::create(arg1);
+    int num_ret = olua_push_cppobj<cocos2d::ReverseTime>(L, ret, "cc.ReverseTime");
 
-    return olua_push_cppobj<cocos2d::ReverseTime>(L, ret, "cc.ReverseTime");
+    // ref value
+    olua_mapref(L, -1, ".autoref", 1);
+
+    return num_ret;
 }
 
 static int luaopen_cocos2d_ReverseTime(lua_State *L)
@@ -4942,10 +4992,14 @@ static int _cocos2d_TargetedAction_create(lua_State *L)
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.Node");
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.FiniteTimeAction");
 
-    // static TargetedAction* create(Node* target, FiniteTimeAction* action)
+    // static TargetedAction* create(Node* target, @ref FiniteTimeAction* action)
     cocos2d::TargetedAction *ret = (cocos2d::TargetedAction *)cocos2d::TargetedAction::create(arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::TargetedAction>(L, ret, "cc.TargetedAction");
 
-    return olua_push_cppobj<cocos2d::TargetedAction>(L, ret, "cc.TargetedAction");
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
 }
 
 static int _cocos2d_TargetedAction_setForcedTarget(lua_State *L)

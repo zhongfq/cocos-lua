@@ -104,7 +104,7 @@ static int wrap_cocos2d_Node_removeFromParent(lua_State *L)
     return lua_gettop(L);
 }
 
-//void removeChild(Node* child, bool cleanup = true)
+// void removeChild(Node* child, bool cleanup = true)
 static int wrap_cocos2d_Node_removeChild(lua_State *L)
 {
     olua_mapunref(L, 1, NODE_CHILDREN, 2);
@@ -112,7 +112,7 @@ static int wrap_cocos2d_Node_removeChild(lua_State *L)
     return lua_gettop(L);
 }
 
-//void removeChildByTag(int tag, bool cleanup = true)
+// void removeChildByTag(int tag, bool cleanup = true)
 static int wrap_cocos2d_Node_removeChildByTag(lua_State *L)
 {
     cocos2d::Node *self = (cocos2d::Node *)olua_toobj(L, 1, "cc.Node");
@@ -125,7 +125,7 @@ static int wrap_cocos2d_Node_removeChildByTag(lua_State *L)
     return lua_gettop(L);
 }
 
-//void removeChildByName(const std::string &name, bool cleanup = true)
+// void removeChildByName(const std::string &name, bool cleanup = true)
 static int wrap_cocos2d_Node_removeChildByName(lua_State *L)
 {
     cocos2d::Node *self = (cocos2d::Node *)olua_toobj(L, 1, "cc.Node");
@@ -137,8 +137,8 @@ static int wrap_cocos2d_Node_removeChildByName(lua_State *L)
     return lua_gettop(L);
 }
 
-//void removeAllChildren()
-//void removeAllChildrenWithCleanup(bool cleanup)
+// void removeAllChildren()
+// void removeAllChildrenWithCleanup(bool cleanup)
 static int wrap_cocos2d_Node_removeAllChildren(lua_State *L)
 {
     olua_mapunrefall(L, 1, NODE_CHILDREN);

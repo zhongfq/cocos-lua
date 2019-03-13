@@ -4,13 +4,13 @@ local cls = class(M)
 cls.CPPCLS = "cocos2d::ActionInterval"
 cls.LUACLS = "cc.ActionInterval"
 cls.SUPERCLS = "cc.FiniteTimeAction"
-cls.prop('amplitudeRate', 'float getAmplitudeRate()', 'void setAmplitudeRate(float amp)')
-cls.prop('elapsed', 'float getElapsed()')
 cls.funcs([[
     float getElapsed()
     void setAmplitudeRate(float amp)
     float getAmplitudeRate()
 ]])
+cls.prop("amplitudeRate")
+cls.prop("elapsed")
 
 local cls = class(M)
 cls.CPPCLS = "cocos2d::Sequence"
@@ -22,18 +22,24 @@ cls.func('create', [[
     int n = lua_gettop(L);
     actions.reserve(n);
 
+    cocos2d::Sequence *ret = new cocos2d::Sequence();
+    ret->autorelease();
+    olua_push_cppobj<cocos2d::Sequence>(L, ret, "cc.Sequence");
+
     for (int i = 1; i <= n; i++) {
         cocos2d::FiniteTimeAction *obj;
         olua_check_cppobj(L, i, (void **)&obj, "cc.FiniteTimeAction");
         actions.pushBack(obj);
+        olua_mapref(L, -1, ".autoref", i);
     }
+
+    ret->init(actions);
     
-    cocos2d::Sequence *ret = (cocos2d::Sequence *)cocos2d::Sequence::create(actions);
-    return olua_push_cppobj<cocos2d::Sequence>(L, ret, "cc.Sequence");
+    return 1;
 }
 ]])
 cls.funcs([[
-    static Sequence* createWithTwoActions(FiniteTimeAction *actionOne, FiniteTimeAction *actionTwo);
+    static Sequence* createWithTwoActions(@ref FiniteTimeAction *actionOne, @ref FiniteTimeAction *actionTwo);
 ]])
 
 local cls = class(M)
@@ -41,20 +47,22 @@ cls.CPPCLS = "cocos2d::Repeat"
 cls.LUACLS = "cc.Repeat"
 cls.SUPERCLS = "cc.ActionInterval"
 cls.funcs([[
-    static Repeat* create(FiniteTimeAction *action, unsigned int times)
-    void setInnerAction(FiniteTimeAction *action)
+    static Repeat* create(@ref FiniteTimeAction *action, unsigned int times)
+    void setInnerAction(@ref FiniteTimeAction *action)
     FiniteTimeAction* getInnerAction()
 ]])
+cls.prop('innerAction')
 
 local cls = class(M)
 cls.CPPCLS = "cocos2d::RepeatForever"
 cls.LUACLS = "cc.RepeatForever"
 cls.SUPERCLS = "cc.ActionInterval"
 cls.funcs([[
-    static RepeatForever* create(ActionInterval *action)
-    void setInnerAction(ActionInterval *action)
+    static RepeatForever* create(@ref ActionInterval *action)
+    void setInnerAction(@ref ActionInterval *action)
     ActionInterval* getInnerAction()
 ]])
+cls.prop("innerAction")
 
 local cls = class(M)
 cls.CPPCLS = "cocos2d::Spawn"
@@ -66,18 +74,24 @@ cls.func('create', [[
     int n = lua_gettop(L);
     actions.reserve(n);
 
+    cocos2d::Spawn *ret = new cocos2d::Spawn();
+    ret->autorelease();
+    olua_push_cppobj<cocos2d::Spawn>(L, ret, "cc.Spawn");
+
     for (int i = 1; i <= n; i++) {
         cocos2d::FiniteTimeAction *obj;
         olua_check_cppobj(L, i, (void **)&obj, "cc.FiniteTimeAction");
         actions.pushBack(obj);
+        olua_mapref(L, -1, ".autoref", i);
     }
     
-    cocos2d::Spawn *ret = (cocos2d::Spawn *)cocos2d::Spawn::create(actions);
-    return olua_push_cppobj<cocos2d::Spawn>(L, ret, "cc.Spawn");
+    ret->init(actions);
+
+    return 1;
 }
 ]])
 cls.funcs([[
-    static Spawn* createWithTwoActions(FiniteTimeAction *action1, FiniteTimeAction *action2);
+    static Spawn* createWithTwoActions(@ref FiniteTimeAction *action1, @ref FiniteTimeAction *action2);
 ]])
 
 local cls = class(M)
@@ -264,32 +278,32 @@ cls.CPPCLS = "cocos2d::ReverseTime"
 cls.LUACLS = "cc.ReverseTime"
 cls.SUPERCLS = "cc.ActionInterval"
 cls.funcs([[
-    static ReverseTime* create(FiniteTimeAction *action)
+    static ReverseTime* create(@ref FiniteTimeAction *action)
 ]])
 
 local cls = class(M)
 cls.CPPCLS = "cocos2d::Animate"
 cls.LUACLS = "cc.Animate"
 cls.SUPERCLS = "cc.ActionInterval"
-cls.prop('animation', 'Animation* getAnimation()', 'void setAnimation(Animation* animation)')
-cls.prop('currentFrameIndex', 'int getCurrentFrameIndex()')
 cls.funcs([[
     static Animate* create(Animation *animation)
     void setAnimation(Animation* animation)
     Animation* getAnimation()
     int getCurrentFrameIndex()
 ]])
+cls.prop('animation')
+cls.prop('currentFrameIndex')
 
 local cls = class(M)
 cls.CPPCLS = "cocos2d::TargetedAction"
 cls.LUACLS = "cc.TargetedAction"
 cls.SUPERCLS = "cc.ActionInterval"
-cls.prop('forcedTarget', 'Node* getForcedTarget()', 'void setForcedTarget(Node* forcedTarget)')
 cls.funcs([[
-    static TargetedAction* create(Node* target, FiniteTimeAction* action)
+    static TargetedAction* create(Node* target, @ref FiniteTimeAction* action)
     void setForcedTarget(Node* forcedTarget)
     Node* getForcedTarget()
 ]])
+cls.prop("forcedTarget")
 
 local cls = class(M)
 cls.CPPCLS = "cocos2d::ActionFloat"

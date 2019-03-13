@@ -51,6 +51,8 @@
 		0E669F6E22367D1F00BD58EB /* lua_cocos2d_ui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E669F6C22367D1F00BD58EB /* lua_cocos2d_ui.cpp */; };
 		0E669F7C2237960000BD58EB /* lua_conv_manual.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E669F7A223795FF00BD58EB /* lua_conv_manual.cpp */; };
 		0E669F7D2237960000BD58EB /* lua_conv_manual.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E669F7A223795FF00BD58EB /* lua_conv_manual.cpp */; };
+		0E669F8D2238C59900BD58EB /* lua_cocos2d_ref_chain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E669F8C2238C59900BD58EB /* lua_cocos2d_ref_chain.cpp */; };
+		0E669F8E2238C59900BD58EB /* lua_cocos2d_ref_chain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E669F8C2238C59900BD58EB /* lua_cocos2d_ref_chain.cpp */; };
 		0E6C9796222ADD1300B2C17F /* olua.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E6C9795222ADD1300B2C17F /* olua.c */; };
 		0E6C9797222ADD1300B2C17F /* olua.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E6C9795222ADD1300B2C17F /* olua.c */; };
 		0E6C97C9222FD37E00B2C17F /* lua_conv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E6C97C7222FD37E00B2C17F /* lua_conv.cpp */; };
@@ -217,6 +219,8 @@
 		0E669F6C22367D1F00BD58EB /* lua_cocos2d_ui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_cocos2d_ui.cpp; sourceTree = "<group>"; };
 		0E669F7A223795FF00BD58EB /* lua_conv_manual.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_conv_manual.cpp; sourceTree = "<group>"; };
 		0E669F7B2237960000BD58EB /* lua_conv_manual.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_conv_manual.h; sourceTree = "<group>"; };
+		0E669F8B2238C59900BD58EB /* lua_cocos2d_ref_chain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_cocos2d_ref_chain.h; sourceTree = "<group>"; };
+		0E669F8C2238C59900BD58EB /* lua_cocos2d_ref_chain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_cocos2d_ref_chain.cpp; sourceTree = "<group>"; };
 		0E6C9794222ADD1300B2C17F /* olua.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = olua.h; sourceTree = "<group>"; };
 		0E6C9795222ADD1300B2C17F /* olua.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = olua.c; sourceTree = "<group>"; };
 		0E6C979B222AF37300B2C17F /* olua.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = olua.hpp; sourceTree = "<group>"; };
@@ -438,6 +442,8 @@
 		0E2E9AB02226550D0085145E /* lua-bindings */ = {
 			isa = PBXGroup;
 			children = (
+				0E669F8C2238C59900BD58EB /* lua_cocos2d_ref_chain.cpp */,
+				0E669F8B2238C59900BD58EB /* lua_cocos2d_ref_chain.h */,
 				0E669F6C22367D1F00BD58EB /* lua_cocos2d_ui.cpp */,
 				0E669F6B22367D1E00BD58EB /* lua_cocos2d_ui.h */,
 				0E2E9AB9222771D00085145E /* lua_cocos2d.cpp */,
@@ -701,6 +707,7 @@
 				0ECC4BA121E79E3E00E3BBF9 /* ldebug.c in Sources */,
 				0ECC4BD921E79E3E00E3BBF9 /* lstate.c in Sources */,
 				0ECC4C7921EB8D4600E3BBF9 /* wmessage.c in Sources */,
+				0E669F8D2238C59900BD58EB /* lua_cocos2d_ref_chain.cpp in Sources */,
 				0E2E9ABB222771D00085145E /* lua_cocos2d.cpp in Sources */,
 				0E0C706421F9F38200049240 /* xfilefinder.cpp in Sources */,
 				0ECC4BD721E79E3E00E3BBF9 /* lparser.c in Sources */,
@@ -749,6 +756,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0ECC4C7221EB8D4600E3BBF9 /* map.c in Sources */,
+				0E669F8E2238C59900BD58EB /* lua_cocos2d_ref_chain.cpp in Sources */,
 				0ECC4BD221E79E3E00E3BBF9 /* lfunc.c in Sources */,
 				0ECC4BC221E79E3E00E3BBF9 /* ldblib.c in Sources */,
 				0ECC4C6821EB8D4600E3BBF9 /* register.c in Sources */,

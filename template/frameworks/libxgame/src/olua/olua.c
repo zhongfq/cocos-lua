@@ -13,6 +13,8 @@
 #define VOIDCLS     "void *"
 #define OBJ_REF_TABLE ((void *)olua_pushobj)
 #define TRACEBACK (_traceback ? _traceback : dummy_traceback)
+#define MAX(a, b)   ((a) > (b) ? (a) : (b))
+#define MIN(a, b)   ((a) < (b) ? (a) : (b))
 
 static lua_CFunction _traceback = NULL;
 
@@ -171,6 +173,9 @@ LUALIB_API int olua_pushobj(lua_State *L, void *obj, const char *cls)
 
 LUALIB_API bool olua_getobj(lua_State *L, void *obj)
 {
+    if (!obj) {
+        return false;
+    }
     olua_getobjtable(L);                            // L: uv
     if (lua_rawgetp(L, -1, obj) == LUA_TUSERDATA) { // L: uv obj
         lua_remove(L, -2);                          // L: obj
@@ -321,6 +326,104 @@ LUALIB_API void olua_setvariable(lua_State *L, int idx)
     lua_insert(L, -3);              // L: uv k v
     lua_rawset(L, -3);              // L: uv          idx.uservalue[k] = v
     lua_pop(L, 1);                  // L:
+}
+
+LUALIB_API void olua_mapref(lua_State *L, int obj, const char *t, int vidx)
+{
+    obj = lua_absindex(L, obj);
+    vidx = lua_absindex(L, vidx);
+    olua_getusertable(L, obj);              // L: uv
+    luaL_getsubtable(L, -1, t);             // L: uv t
+    lua_pushvalue(L, vidx);                 // L: uv t v
+    lua_pushboolean(L, true);               // L: uv t v true
+    lua_rawset(L, -3);                      // L: uv t        t[v] = true
+    lua_pop(L, 2);
+}
+
+LUALIB_API void olua_mapunref(lua_State *L, int obj, const char *t, int vidx)
+{
+    obj = lua_absindex(L, obj);
+    vidx = lua_absindex(L, vidx);
+    olua_getusertable(L, obj);              // L: uv
+    luaL_getsubtable(L, -1, t);             // L: uv t
+    lua_pushvalue(L, vidx);                 // L: uv t v
+    lua_pushnil(L);                         // L: uv t v nil
+    lua_rawset(L, -3);                      // L: uv t        t[v] = nil
+    lua_pop(L, 2);
+}
+
+LUALIB_API void olua_mapunrefall(lua_State *L, int obj, const char *t)
+{
+    olua_getusertable(L, obj);              // L: uv
+    lua_pushnil(L);                         // L: uv nil
+    lua_setfield(L, -2, t);                 // L: uv     uv[t] = nil
+}
+
+LUALIB_API void olua_mapwalkunref(lua_State *L, int obj, const char *t, lua_CFunction walk)
+{
+    obj = lua_absindex(L, obj);
+    olua_getusertable(L, obj);              // L: uv
+    luaL_getsubtable(L, -1, t);             // L: uv t
+    lua_pushnil(L);                         // L: uv t k
+    while (lua_next(L, -2)) {               // L: uv t k v
+        if (walk(L)) { // remove?
+            lua_pushvalue(L, -2);           // L: uv t k v k
+            lua_pushnil(L);                 // L: uv t k v k nil
+            lua_rawset(L, -5);              // L: uv t k v
+        }
+        lua_pop(L, 1);                      // L: uv t k
+    }
+    lua_pop(L, 2);
+}
+
+LUALIB_API void olua_arrayref(lua_State *L, int obj, const char *t, int vidx)
+{
+    int len;
+    obj = lua_absindex(L, obj);
+    vidx = lua_absindex(L, vidx);
+    olua_getusertable(L, obj);              // L: uv
+    luaL_getsubtable(L, -1, t);             // L: uv t
+    lua_pushnil(L);                         // L: uv t k
+    while (lua_next(L, -2)) {               // L: uv t k v
+        if (lua_rawequal(L, vidx, -1)) {
+            lua_pop(L, 4);                  // L:
+            return;
+        }
+        lua_pop(L, 1);                      // L: uv t k
+    }
+    len = (int)lua_rawlen(L, -1);
+    lua_pushvalue(L, vidx);                 // L: uv t v
+    lua_rawseti(L, -2, len + 1);            // L: uv t
+    lua_pop(L, 2);                          // L:
+}
+
+LUALIB_API void olua_arrayunref(lua_State *L, int obj, const char *t, int idx)
+{
+    size_t len;
+    obj = lua_absindex(L, obj);
+    olua_getusertable(L, obj);              // L: uv
+    luaL_getsubtable(L, -1, t);             // L: uv t
+    len = (size_t)lua_rawlen(L, -1);
+    idx += idx < 0 ? (len + 1) : 0;
+    if (idx >= 1 && idx <= len) {
+        for ( ; idx < len; idx++) {
+            lua_rawgeti(L, -1, idx + 1);    // L: uv t (idx+1)
+            lua_rawseti(L, -2, idx);        // L: uv t      t[idx] = t[idx + 1]
+        }
+        lua_pushnil(L);
+        lua_rawseti(L, -2, idx);
+    }
+    lua_pop(L, 2);
+}
+
+LUALIB_API size_t olua_arraylen(lua_State *L, int obj, const char *t)
+{
+    size_t len;
+    olua_getusertable(L, obj);              // L: uv
+    luaL_getsubtable(L, -1, t);             // L: uv t
+    len = lua_rawlen(L, -1);
+    lua_pop(L, 2);
+    return len;
 }
 
 LUALIB_API void *olua_checkobj(lua_State *L, int idx, const char *cls)

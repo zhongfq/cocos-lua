@@ -67,6 +67,15 @@ LUALIB_API bool olua_callback(lua_State *L, void *obj, const char *field, int nu
 
 LUALIB_API int olua_getvariable(lua_State *L, int idx);
 LUALIB_API void olua_setvariable(lua_State *L, int idx);
+    
+// for ref chain
+LUALIB_API void olua_mapref(lua_State *L, int obj, const char *t, int vidx);
+LUALIB_API void olua_mapunref(lua_State *L, int obj, const char *t, int vidx);
+LUALIB_API void olua_mapunrefall(lua_State *L, int obj, const char *t);
+LUALIB_API void olua_mapwalkunref(lua_State *L, int obj, const char *t, lua_CFunction walk);
+LUALIB_API void olua_arrayref(lua_State *L, int obj, const char *t, int vidx);
+LUALIB_API void olua_arrayunref(lua_State *L, int obj, const char *t, int idx);
+LUALIB_API size_t olua_arraylen(lua_State *L, int obj, const char *t);
 
 //
 // lua class model
@@ -107,27 +116,27 @@ LUALIB_API void oluacls_const(lua_State *L, const char *field);
 LUALIB_API int olua_push_bool(lua_State *L, bool value);
 LUALIB_API void olua_check_bool(lua_State *L, int idx, bool *value);
 LUALIB_API void olua_opt_bool(lua_State *L, int idx, bool *value, bool def);
-#define olua_is_bool lua_isboolean
+#define olua_is_bool olua_isboolean
 
 LUALIB_API int olua_push_string(lua_State *L, const char *value);
 LUALIB_API void olua_check_string(lua_State *L, int idx, const char **value);
 LUALIB_API void olua_opt_string(lua_State *L, int idx, const char **value, const char *def);
-#define olua_is_string lua_isstring
+#define olua_is_string olua_isstring
 
 LUALIB_API int olua_push_number(lua_State *L, lua_Number value);
 LUALIB_API void olua_check_number(lua_State *L, int idx, lua_Number *value);
 LUALIB_API void olua_opt_number(lua_State *L, int idx, lua_Number *value, lua_Number def);
-#define olua_is_number lua_isnumber
+#define olua_is_number olua_isnumber
 
 LUALIB_API int olua_push_int(lua_State *L, lua_Integer value);
 LUALIB_API void olua_check_int(lua_State *L, int idx, lua_Integer *value);
 LUALIB_API void olua_opt_int(lua_State *L, int idx, lua_Integer *value, lua_Integer def);
-#define olua_is_int lua_isinteger
+#define olua_is_int olua_isinteger
 
 LUALIB_API int olua_push_uint(lua_State *L, lua_Unsigned value);
 LUALIB_API void olua_check_uint(lua_State *L, int idx, lua_Unsigned *value);
 LUALIB_API void olua_opt_uint(lua_State *L, int idx, lua_Unsigned *value, lua_Unsigned def);
-#define olua_is_uint lua_isinteger
+#define olua_is_uint olua_isinteger
 
 LUALIB_API int olua_push_obj(lua_State *L, void *obj, const char *cls);
 LUALIB_API void olua_check_obj(lua_State *L, int idx, void **value, const char *cls);

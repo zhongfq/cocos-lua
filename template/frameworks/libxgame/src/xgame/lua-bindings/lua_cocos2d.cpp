@@ -9052,6 +9052,36 @@ static int _cocos2d_Node_getDescription(lua_State *L)
     return olua_push_std_string(L, ret);
 }
 
+static int _cocos2d_Node_getTag(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Node *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
+
+    // int getTag()
+    int ret = (int)self->getTag();
+
+    return olua_push_int(L, (lua_Integer)ret);
+}
+
+static int _cocos2d_Node_setTag(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Node *self = nullptr;
+    lua_Integer arg1 = 0;   /** tag */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
+    olua_check_int(L, 2, &arg1);
+
+    // void setTag(int tag)
+    self->setTag((int)arg1);
+
+    return 0;
+}
+
 static int _cocos2d_Node_getName(lua_State *L)
 {
     lua_settop(L, 1);
@@ -9895,6 +9925,8 @@ static int luaopen_cocos2d_Node(lua_State *L)
     oluacls_setfunc(L, "create", _cocos2d_Node_create);
     oluacls_setfunc(L, "getAttachedNodeCount", _cocos2d_Node_getAttachedNodeCount);
     oluacls_setfunc(L, "getDescription", _cocos2d_Node_getDescription);
+    oluacls_setfunc(L, "getTag", _cocos2d_Node_getTag);
+    oluacls_setfunc(L, "setTag", _cocos2d_Node_setTag);
     oluacls_setfunc(L, "getName", _cocos2d_Node_getName);
     oluacls_setfunc(L, "setName", _cocos2d_Node_setName);
     oluacls_setfunc(L, "addChild", _cocos2d_Node_addChild);
@@ -9933,6 +9965,7 @@ static int luaopen_cocos2d_Node(lua_State *L)
     oluacls_setfunc(L, "resume", _cocos2d_Node_resume);
     oluacls_setfunc(L, "pause", _cocos2d_Node_pause);
     oluacls_property(L, "name", _cocos2d_Node_getName, _cocos2d_Node_setName);
+    oluacls_property(L, "tag", _cocos2d_Node_getTag, _cocos2d_Node_setTag);
     oluacls_property(L, "attachedNodeCount", _cocos2d_Node_getAttachedNodeCount, nullptr);
     oluacls_property(L, "description", _cocos2d_Node_getDescription, nullptr);
     oluacls_property(L, "scheduler", _cocos2d_Node_getScheduler, _cocos2d_Node_setScheduler);

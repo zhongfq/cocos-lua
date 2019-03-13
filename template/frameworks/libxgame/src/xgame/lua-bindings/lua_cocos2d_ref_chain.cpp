@@ -4,36 +4,43 @@
 #define CLS_GET     ".get"
 #define CLS_SET     ".set"
 
-#define NODE_CHILDREN       ".children"
-#define NODE_ACTIONS        ".actions"
-#define DIRECTOR_SCENES     ".scene"
+#define NODE_CHILDREN   ".children"
+#define NODE_ACTIONS    ".actions"
+#define DIRECTOR_SCENES ".scenes"
 
-static void set_func(lua_State *L, const char *name, lua_CFunction func, bool check)
+#define KEEP_SELF   true
+
+static void set_func(lua_State *L, const char *t, const char *fn, lua_CFunction func, const char *refname)
 {
-    if (olua_rawgetfield(L, -1, name) == LUA_TFUNCTION) {   // L: t old_func
-        lua_pushcclosure(L, func, 1);                       // L: t new_func
-        olua_rawsetfield(L, -2, name);                      // L: t
+    CCASSERT(fn, "");
+    CCASSERT(refname, "");
+    olua_rawgetfield(L, -1, t);                         // L: t
+    if (olua_rawgetfield(L, -1, fn) == LUA_TFUNCTION) { // L: t old_func
+        lua_pushfstring(L, ".%s", refname);             // L: t old_func name
+        lua_pushcclosure(L, func, 2);                   // L: t new_func
+        olua_rawsetfield(L, -2, fn);                    // L: t
+        lua_pop(L, 1);                                  // L:
     } else {
-        CCASSERT(!check, "function not found'");
-        lua_pop(L, 1);
+        CCASSERT(false, "function not found'");
+        lua_pop(L, 2);
     }
 }
 
-static void wrap_function(lua_State *L, const char *name, const char *prop, lua_CFunction func)
+static void wrap_func(lua_State *L, const char *name, lua_CFunction func)
 {
-    olua_rawgetfield(L, -1, CLS_FUNC);
-    set_func(L, name, func, true);
-    lua_pop(L, 1);
-    
-    if (prop) {
-        olua_rawgetfield(L, -1, CLS_GET);
-        set_func(L, prop, func, false);
-        lua_pop(L, 1);
-        
-        olua_rawgetfield(L, -1, CLS_SET);
-        set_func(L, prop, func, false);
-        lua_pop(L, 1);
-    }
+    set_func(L, CLS_FUNC, name, func, name);
+}
+
+static void wrap_get(lua_State *L, const char *fn, const char *prop, lua_CFunction func)
+{
+    set_func(L, CLS_FUNC, fn, func, prop);
+    set_func(L, CLS_GET, prop, func, prop);
+}
+
+static void wrap_set(lua_State *L, const char *fn, const char *prop, lua_CFunction func)
+{
+    set_func(L, CLS_FUNC, fn, func, prop);
+    set_func(L, CLS_SET, prop, func, prop);
 }
 
 static void call_real_function(lua_State *L, bool keepself)
@@ -48,14 +55,81 @@ static void call_real_function(lua_State *L, bool keepself)
     lua_call(L, args, LUA_MULTRET);
 }
 
+static int wrap_ref_after_get(lua_State *L)
+{
+    const char *name = olua_checkstring(L, lua_upvalueindex(2));
+    call_real_function(L, KEEP_SELF);
+    olua_arrayref(L, 1, name, 2);
+    lua_remove(L, 1);
+    return lua_gettop(L);
+}
+
+static int wrap_ref_before_set(lua_State *L)
+{
+    const char *name = olua_checkstring(L, lua_upvalueindex(2));
+    olua_arrayunref(L, 1, name, -1);
+    olua_arrayref(L, 1, name, 2);
+    call_real_function(L, false);
+    return lua_gettop(L);
+}
+
 //
 // Director
 //
 static int wrap_cocos2d_Director_getRunningScene(lua_State *L)
 {
-    call_real_function(L, true);
+    call_real_function(L, KEEP_SELF);
     olua_arrayref(L, 1, DIRECTOR_SCENES, 2);
     lua_remove(L, 1);
+    return lua_gettop(L);
+}
+
+// void runWithScene(Scene *scene)
+// void pushScene(Scene *scene)
+static int wrap_cocos2d_Director_pushScene(lua_State *L)
+{
+    olua_arrayref(L, 1, DIRECTOR_SCENES, 2);
+    call_real_function(L, false);
+    return lua_gettop(L);
+}
+
+// void popScene()
+static int wrap_cocos2d_Director_popScene(lua_State *L)
+{
+    olua_arrayunref(L, 1, DIRECTOR_SCENES, -1);
+    call_real_function(L, false);
+    return lua_gettop(L);
+}
+
+// void popToRootScene()
+static int wrap_cocos2d_Director_popToRootScene(lua_State *L)
+{
+    int len = (int)olua_arraylen(L, 1, DIRECTOR_SCENES);
+    while (len > 1) {
+        olua_arrayunref(L, 1, DIRECTOR_SCENES, len--);
+    }
+    call_real_function(L, false);
+    return lua_gettop(L);
+}
+
+// void popToSceneStackLevel(int level)
+static int wrap_cocos2d_Director_popToSceneStackLevel(lua_State *L)
+{
+    int level = (int)olua_checkinteger(L, 2);
+    int len = (int)olua_arraylen(L, 1, DIRECTOR_SCENES);
+    while (len > level) {
+        olua_arrayunref(L, 1, DIRECTOR_SCENES, len--);
+    }
+    call_real_function(L, false);
+    return lua_gettop(L);
+}
+
+// void replaceScene(Scene *scene)
+static int wrap_cocos2d_Director_replaceScene(lua_State *L)
+{
+    olua_arrayunref(L, 1, DIRECTOR_SCENES, -1);
+    olua_arrayref(L, 1, DIRECTOR_SCENES, 2);
+    call_real_function(L, false);
     return lua_gettop(L);
 }
 
@@ -63,7 +137,24 @@ static int wrap_cocos2d_Director(lua_State *L)
 {
     luaL_getmetatable(L, "cc.Director");
     CCASSERT(olua_istable(L, -1), "not found 'cc.Director'");
-    wrap_function(L, "getRunningScene", "runningScene", wrap_cocos2d_Director_getRunningScene);
+    wrap_get(L, "getRunningScene", "runningScene", wrap_cocos2d_Director_getRunningScene);
+    wrap_func(L, "runWithScene", wrap_cocos2d_Director_pushScene);
+    wrap_func(L, "pushScene", wrap_cocos2d_Director_pushScene);
+    wrap_func(L, "popScene", wrap_cocos2d_Director_popScene);
+    wrap_func(L, "popToRootScene", wrap_cocos2d_Director_popToRootScene);
+    wrap_func(L, "popToSceneStackLevel", wrap_cocos2d_Director_popToSceneStackLevel);
+    wrap_func(L, "replaceScene", wrap_cocos2d_Director_replaceScene);
+    
+    wrap_get(L, "getTextureCache", "textureCache", wrap_ref_after_get);
+    wrap_get(L, "getScheduler", "scheduler", wrap_ref_after_get);
+    wrap_set(L, "setScheduler", "scheduler", wrap_ref_before_set);
+    wrap_get(L, "getActionManager", "actionManager", wrap_ref_after_get);
+    wrap_set(L, "setActionManager", "actionManager", wrap_ref_before_set);
+    wrap_get(L, "getEventDispatcher", "eventDispatcher", wrap_ref_after_get);
+    wrap_set(L, "setEventDispatcher", "eventDispatcher", wrap_ref_before_set);
+    wrap_get(L, "getNotificationNode", "notificationNode", wrap_ref_after_get);
+    wrap_set(L, "setNotificationNode", "notificationNode", wrap_ref_before_set);
+    wrap_get(L, "getRenderer", "renderer", wrap_ref_after_get);
     return 0;
 }
 
@@ -85,7 +176,7 @@ static int wrap_cocos2d_Node_addChild(lua_State *L)
 // Node *getChildByName(const std::string& name)
 static int wrap_cocos2d_Node_getChild(lua_State *L)
 {
-    call_real_function(L, true);
+    call_real_function(L, KEEP_SELF);
     olua_mapref(L, 1, NODE_CHILDREN, 2);
     lua_remove(L, 1);
     return lua_gettop(L);
@@ -152,8 +243,8 @@ static int should_unref_action(lua_State *L)
 {
     if (olua_isa(L, -2, "cc.Action")) {
         cocos2d::Action *act = olua_touserdata(L, -2, cocos2d::Action *);
-        if (act && (act->isDone() || act->getReferenceCount() == 1)) {
-            return true;
+        if (act && (!act->getTarget() || act->isDone() || act->getReferenceCount() == 1)) {
+            return 1;
         }
     }
     return 0;
@@ -182,38 +273,23 @@ static int wrap_cocos2d_Node_stopAllActions(lua_State *L)
 }
 
 // void stopAction(Action* action)
+// void stopActionByTag(int tag)
+// void stopAllActionsByTag(int tag)
+// void stopActionsByFlags(unsigned int flags)
 static int wrap_cocos2d_Node_stopAction(lua_State *L)
 {
-    olua_mapunref(L, 1, NODE_ACTIONS, 2);
-    call_real_function(L, false);
-    return lua_gettop(L);
-}
-
-// void stopActionByTag(int tag)
-static int wrap_cocos2d_Node_stopActionByTag(lua_State *L)
-{
-    call_real_function(L, false);
-    return lua_gettop(L);
-}
-
-// void stopAllActionsByTag(int tag)
-static int wrap_cocos2d_Node_stopAllActionsByTag(lua_State *L)
-{
-    call_real_function(L, false);
-    return lua_gettop(L);
-}
-
-// void stopActionsByFlags(unsigned int flags)
-static int wrap_cocos2d_Node_stopActionsByFlags(lua_State *L)
-{
-    call_real_function(L, false);
+    call_real_function(L, KEEP_SELF);
+    check_node_actions(L);
+    lua_remove(L, 1);
     return lua_gettop(L);
 }
 
 // Action* getActionByTag(int tag)
 static int wrap_cocos2d_Node_getActionByTag(lua_State *L)
 {
-    call_real_function(L, false);
+    call_real_function(L, KEEP_SELF);
+    olua_mapref(L, 1, NODE_ACTIONS, 2);
+    lua_remove(L, 1);
     return lua_gettop(L);
 }
 
@@ -221,23 +297,23 @@ static int wrap_cocos2d_Node(lua_State *L)
 {
     luaL_getmetatable(L, "cc.Node");
     CCASSERT(olua_istable(L, -1), "not found 'cc.Node'");
-    wrap_function(L, "addChild", nullptr, wrap_cocos2d_Node_addChild);
-    wrap_function(L, "getChildByName", nullptr, wrap_cocos2d_Node_getChild);
-    wrap_function(L, "getChildByTag", nullptr, wrap_cocos2d_Node_getChild);
-    wrap_function(L, "removeFromParent", nullptr, wrap_cocos2d_Node_removeFromParent);
-    wrap_function(L, "removeFromParentAndCleanup", nullptr, wrap_cocos2d_Node_removeFromParent);
-    wrap_function(L, "removeChild", nullptr, wrap_cocos2d_Node_removeChild);
-    wrap_function(L, "removeChildByTag", nullptr, wrap_cocos2d_Node_removeChildByTag);
-    wrap_function(L, "removeChildByName", nullptr, wrap_cocos2d_Node_removeChildByName);
-    wrap_function(L, "removeAllChildren", nullptr, wrap_cocos2d_Node_removeAllChildren);
-    wrap_function(L, "removeAllChildrenWithCleanup", nullptr, wrap_cocos2d_Node_removeAllChildren);
-    wrap_function(L, "runAction", nullptr, wrap_cocos2d_Node_runAction);
-    wrap_function(L, "stopAllActions", nullptr, wrap_cocos2d_Node_stopAllActions);
-    wrap_function(L, "stopAction", nullptr, wrap_cocos2d_Node_stopAction);
-    wrap_function(L, "stopActionByTag", nullptr, wrap_cocos2d_Node_stopActionByTag);
-    wrap_function(L, "stopAllActionsByTag", nullptr, wrap_cocos2d_Node_stopAllActionsByTag);
-    wrap_function(L, "stopActionsByFlags", nullptr, wrap_cocos2d_Node_stopActionsByFlags);
-    wrap_function(L, "getActionByTag", nullptr, wrap_cocos2d_Node_getActionByTag);
+    wrap_func(L, "addChild", wrap_cocos2d_Node_addChild);
+    wrap_func(L, "getChildByName", wrap_cocos2d_Node_getChild);
+    wrap_func(L, "getChildByTag", wrap_cocos2d_Node_getChild);
+    wrap_func(L, "removeFromParent", wrap_cocos2d_Node_removeFromParent);
+    wrap_func(L, "removeFromParentAndCleanup", wrap_cocos2d_Node_removeFromParent);
+    wrap_func(L, "removeChild", wrap_cocos2d_Node_removeChild);
+    wrap_func(L, "removeChildByTag", wrap_cocos2d_Node_removeChildByTag);
+    wrap_func(L, "removeChildByName", wrap_cocos2d_Node_removeChildByName);
+    wrap_func(L, "removeAllChildren", wrap_cocos2d_Node_removeAllChildren);
+    wrap_func(L, "removeAllChildrenWithCleanup", wrap_cocos2d_Node_removeAllChildren);
+    wrap_func(L, "runAction", wrap_cocos2d_Node_runAction);
+    wrap_func(L, "stopAllActions", wrap_cocos2d_Node_stopAllActions);
+    wrap_func(L, "stopAction", wrap_cocos2d_Node_stopAction);
+    wrap_func(L, "stopActionByTag", wrap_cocos2d_Node_stopAction);
+    wrap_func(L, "stopAllActionsByTag", wrap_cocos2d_Node_stopAction);
+    wrap_func(L, "stopActionsByFlags", wrap_cocos2d_Node_stopAction);
+    wrap_func(L, "getActionByTag", wrap_cocos2d_Node_getActionByTag);
 
     return 0;
 }

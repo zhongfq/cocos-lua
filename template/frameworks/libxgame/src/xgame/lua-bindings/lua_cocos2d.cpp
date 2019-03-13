@@ -545,6 +545,20 @@ static int _cocos2d_Director_getRunningScene(lua_State *L)
     return olua_push_cppobj<cocos2d::Scene>(L, ret, "cc.Scene");
 }
 
+static int _cocos2d_Director_getAnimationInterval(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Director *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+
+    // float getAnimationInterval()
+    float ret = (float)self->getAnimationInterval();
+
+    return olua_push_number(L, (lua_Number)ret);
+}
+
 static int _cocos2d_Director_setAnimationInterval(lua_State *L)
 {
     lua_settop(L, 2);
@@ -1660,25 +1674,12 @@ static int _cocos2d_Director_isValid(lua_State *L)
     return olua_push_bool(L, ret);
 }
 
-static int _cocos2d_Director_getAnimationInterval(lua_State *L)
-{
-    lua_settop(L, 1);
-
-    cocos2d::Director *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
-
-    // float getAnimationInterval()
-    float ret = (float)self->getAnimationInterval();
-
-    return olua_push_number(L, (lua_Number)ret);
-}
-
 static int luaopen_cocos2d_Director(lua_State *L)
 {
     oluacls_class(L, "cc.Director", "cc.Ref");
     oluacls_setfunc(L, "getInstance", _cocos2d_Director_getInstance);
     oluacls_setfunc(L, "getRunningScene", _cocos2d_Director_getRunningScene);
+    oluacls_setfunc(L, "getAnimationInterval", _cocos2d_Director_getAnimationInterval);
     oluacls_setfunc(L, "setAnimationInterval", _cocos2d_Director_setAnimationInterval);
     oluacls_setfunc(L, "isDisplayStats", _cocos2d_Director_isDisplayStats);
     oluacls_setfunc(L, "setDisplayStats", _cocos2d_Director_setDisplayStats);

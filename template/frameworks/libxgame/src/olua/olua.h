@@ -30,7 +30,7 @@ extern "C" {
 #define olua_isthread(L,n)          (lua_type(L, (n)) == LUA_TTHREAD)
     
 #define olua_newuserdata(L, obj, t) (*(t*)lua_newuserdata(L, sizeof(t)) = (obj))
-#define olua_touserdata(L, n, t)    (*(t*)lua_touserdata(L, idx))
+#define olua_touserdata(L, n, t)    (*(t*)lua_touserdata(L, (n)))
 
 LUALIB_API lua_Integer olua_checkinteger(lua_State *L, int idx);
 LUALIB_API lua_Number olua_checknumber(lua_State *L, int idx);

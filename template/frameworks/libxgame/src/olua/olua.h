@@ -16,6 +16,20 @@ extern "C" {
 #define OLUA_OBJ_EXIST  0
 #define OLUA_OBJ_NEW    1
 #define OLUA_OBJ_UPDATE 2
+    
+#define olua_isfunction(L,n)        (lua_type(L, (n)) == LUA_TFUNCTION)
+#define olua_istable(L,n)           (lua_type(L, (n)) == LUA_TTABLE)
+#define olua_islightuserdata(L,n)   (lua_type(L, (n)) == LUA_TLIGHTUSERDATA)
+#define olua_isuserdata(L,n)        (lua_type(L, (n)) == LUA_TUSERDATA)
+#define olua_isnil(L,n)             (lua_type(L, (n)) == LUA_TNIL)
+#define olua_isnoneornil(L, n)      (lua_type(L, (n)) <= 0)
+#define olua_isboolean(L,n)         (lua_type(L, (n)) == LUA_TBOOLEAN)
+#define olua_isstring(L,n)          (lua_type(L, (n)) == LUA_TSTRING)
+#define olua_isnumber(L,n)          (lua_type(L, (n)) == LUA_TNUMBER)
+#define olua_isinteger(L,n)         (lua_isinteger(L, n))
+#define olua_isthread(L,n)          (lua_type(L, (n)) == LUA_TTHREAD)
+    
+#define olua_newuserdata(L, OBJ, T) (*(T*)lua_newuserdata(L, sizeof(T)) = (OBJ))
 
 LUALIB_API int olua_rawgetfield(lua_State *L, int idx, const char *field);
 LUALIB_API void olua_rawsetfield(lua_State *L, int idx, const char *field);

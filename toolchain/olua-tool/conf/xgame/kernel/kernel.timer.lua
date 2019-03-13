@@ -1,11 +1,11 @@
-local cls = class()
+slocal cls = class()
 cls.CPPCLS = "xgame::timer"
 cls.LUACLS = "kernel.timer"
 cls.DEFCHUNK = [[static std::unordered_map<std::string, int> s_timer_tag;]]
 cls.func('killDelay', [[
 {
     lua_settop(L, 1);
-    const char *tagstr = luaL_checkstring(L, 1);
+    const char *tagstr = olua_checkstring(L, 1);
     const std::string tag = std::string(tagstr);
     auto it = s_timer_tag.find(tag);
     if (it != s_timer_tag.end()) {
@@ -18,7 +18,7 @@ cls.func('killDelay', [[
 cls.func("delay", [[
 {
     lua_settop(L, 2);
-    float time = (float)luaL_checknumber(L, 1);
+    float time = (float)olua_checknumber(L, 1);
     unsigned int callback = xlua_reffunc(L, 2);
     xgame::timer::delay(time, [callback]() {
         lua_State *L = xlua_cocosthread();
@@ -37,7 +37,7 @@ cls.func('delayWithTag', [[
 {
     lua_settop(L, 3);
     size_t len;
-    float time = (float)luaL_checknumber(L, 1);
+    float time = (float)olua_checknumber(L, 1);
     const char *tagstr = luaL_checklstring(L, 2, &len);
     if (len <= 0) {
         luaL_error(L, "key should not be empty!");
@@ -64,7 +64,7 @@ cls.func('delayWithTag', [[
 cls.func('schedule', [[
 {
     lua_settop(L, 2);
-    float interval = (float)luaL_checknumber(L, 1);
+    float interval = (float)olua_checknumber(L, 1);
     unsigned int callback = xlua_reffunc(L, 2);
     unsigned int id = xgame::timer::schedule(interval, [callback](float dt) {
         lua_State *L = xlua_cocosthread();
@@ -83,7 +83,7 @@ cls.func('schedule', [[
 cls.func('unschedule', [[
 {
     lua_settop(L, 1);
-    uint64_t value = luaL_checkinteger(L, 1);
+    uint64_t value = olua_checkinteger(L, 1);
     unsigned int callback = value >> 32;
     unsigned int id = value & 0xFFFFFFFF;
     xlua_unref(L, callback);

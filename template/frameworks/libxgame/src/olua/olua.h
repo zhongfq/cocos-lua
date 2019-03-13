@@ -32,6 +32,10 @@ extern "C" {
 #define olua_newuserdata(L, obj, t) (*(t*)lua_newuserdata(L, sizeof(t)) = (obj))
 #define olua_touserdata(L, n, t)    (*(t*)lua_touserdata(L, idx))
 
+LUALIB_API lua_Integer olua_checkinteger(lua_State *L, int idx);
+LUALIB_API lua_Number olua_checknumber(lua_State *L, int idx);
+LUALIB_API const char *olua_checkstring(lua_State *L, int idx);
+LUALIB_API bool olua_checkboolean(lua_State *L, int idx);
 LUALIB_API int olua_rawgetfield(lua_State *L, int idx, const char *field);
 LUALIB_API void olua_rawsetfield(lua_State *L, int idx, const char *field);
 LUALIB_API void olua_seterrfunc(lua_CFunction errfunc);

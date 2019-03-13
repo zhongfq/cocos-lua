@@ -142,8 +142,7 @@ static inline int olua_push_std_string(lua_State *L, const std::string &value)
 
 static inline void olua_check_std_string(lua_State *L, int idx, std::string *value)
 {
-    luaL_checktype(L, idx, LUA_TSTRING);
-    *value = lua_tostring(L, idx);
+    *value = olua_checkstring(L, idx);
 }
 
 static inline void olua_opt_std_string(lua_State *L, int idx, std::string *value, const std::string &def)

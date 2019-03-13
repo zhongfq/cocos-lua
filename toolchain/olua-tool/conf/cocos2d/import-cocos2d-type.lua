@@ -6,7 +6,7 @@ end
 
 REG_TYPE {
     TYPENAME = 'cocos2d::Data', 
-    CONV_FUNC = "xluacv_$$_ccdata",
+    CONV_FUNC = "manual_luacv_$$_cocos2d_Data",
     VALUE_TYPE = true
 }
 
@@ -60,7 +60,7 @@ REG_TYPE {
 
 REG_TYPE {
     TYPENAME = 'cocos2d::Mat4',
-    CONV_FUNC = "xluacv_$$_ccmat4",
+    CONV_FUNC = "manual_luacv_$$_cocos2d_Mat4",
     INIT_VALUE = false,
     VALUE_TYPE = true,
 }
@@ -85,7 +85,7 @@ REG_TYPE {
 
 REG_TYPE {
     TYPENAME = 'cocos2d::Vector',
-    CONV_FUNC = "xluacv_$$_ccvector",
+    CONV_FUNC = "manual_luacv_$$_cocos2d_Vector",
     INIT_VALUE = false,
 }
 

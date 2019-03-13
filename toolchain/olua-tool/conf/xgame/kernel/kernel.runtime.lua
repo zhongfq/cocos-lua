@@ -43,7 +43,7 @@ cls.func("openURL", [[
     if (lua_isfunction(L, 2)) {
         callback = xlua_reffunc(L, 2);
     }
-    xgame::runtime::openURL(luaL_checkstring(L, 1), [callback](bool success) {
+    xgame::runtime::openURL(olua_checkstring(L, 1), [callback](bool success) {
         if (callback != LUA_REFNIL) {
             lua_State *L = xlua_cocosthread();
             int top = lua_gettop(L);

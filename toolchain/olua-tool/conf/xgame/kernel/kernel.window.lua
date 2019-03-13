@@ -23,13 +23,13 @@ cls.func('setDesignSize', [[
 {
     lua_settop(L, 3);
     cocos2d::Director::getInstance()->getOpenGLView()->setDesignResolutionSize(
-        (float)luaL_checknumber(L, 1), (float)luaL_checknumber(L, 2),
-        (ResolutionPolicy)luaL_checkinteger(L, 3));
+        (float)olua_checknumber(L, 1), (float)olua_checknumber(L, 2),
+        (ResolutionPolicy)olua_checkinteger(L, 3));
     return 0;
 }]])
 cls.func('convertToCameraSpace', [[
 {
-    cocos2d::Vec2 pt = cocos2d::Vec2(luaL_checknumber(L, 1), luaL_checknumber(L, 2));
+    cocos2d::Vec2 pt = cocos2d::Vec2(olua_checknumber(L, 1), olua_checknumber(L, 2));
     
     auto director = cocos2d::Director::getInstance();
     cocos2d::Mat4 w2l = director->getRunningScene()->getWorldToNodeTransform();

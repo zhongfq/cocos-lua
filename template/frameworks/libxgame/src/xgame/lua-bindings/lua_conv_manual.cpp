@@ -3,6 +3,41 @@
 #include "xgame/xlua.h"
 #include "olua/olua.hpp"
 
+int manual_luacv_push_cocos2d_Data(lua_State *L, const cocos2d::Data &value)
+{
+    if (value.isNull()) {
+        lua_pushnil(L);
+    } else {
+        lua_pushlstring(L, (const char *)value.getBytes(), (size_t)value.getSize());
+    }
+    return 1;
+}
+
+int manual_luacv_push_cocos2d_Mat4(lua_State *L, const cocos2d::Mat4 &value)
+{
+    lua_createtable(L, 16, 0);
+    for (int i = 0; i < 16; i++) {
+        lua_pushnumber(L, value.m[i]);
+        lua_rawseti(L, -2, i + 1);
+    }
+    return 1;
+}
+
+void manual_luacv_check_cocos2d_Mat4(lua_State *L, int idx, cocos2d::Mat4 *value)
+{
+    luaL_checktype(L, idx, LUA_TTABLE);
+    int len = (int)lua_rawlen(L, idx);
+    if (len != 16) {
+        luaL_error(L, "expect value count: '16', got '%d'", len);
+    }
+    
+    for (int i = 0; i < len; i++) {
+        lua_rawgeti(L, idx, i + 1);
+        value->m[i] = (float)luaL_checknumber(L, -1);
+        lua_pop(L, 1);
+    }
+}
+
 int manual_luacv_push_cocos2d_Rect(lua_State *L, const cocos2d::Rect *value)
 {
     if (value) {
@@ -50,10 +85,10 @@ void manual_luacv_pack_cocos2d_Rect(lua_State *L, int idx, cocos2d::Rect *value)
         luaL_error(L, "value is NULL");
     }
     idx = lua_absindex(L, idx);
-    value->origin.x = (int)luaL_checkinteger(L, idx + 0);
-    value->origin.y = (int)luaL_checkinteger(L, idx + 1);
-    value->size.width = (int)luaL_checkinteger(L, idx + 2);
-    value->size.height = (int)luaL_checkinteger(L, idx + 3);
+    value->origin.x = (int)olua_checkinteger(L, idx + 0);
+    value->origin.y = (int)olua_checkinteger(L, idx + 1);
+    value->size.width = (int)olua_checkinteger(L, idx + 2);
+    value->size.height = (int)olua_checkinteger(L, idx + 3);
 }
 
 int manual_luacv_unpack_cocos2d_Rect(lua_State *L, const cocos2d::Rect *value)
@@ -110,7 +145,7 @@ void manual_luacv_check_cocos2d_Value(lua_State *L, int idx, cocos2d::Value *val
         *value = cocos2d::Value(lua_tostring(L, idx));
     } else if (type == LUA_TBOOLEAN) {
         *value = cocos2d::Value((bool)lua_toboolean(L, idx));
-    } else if (lua_isinteger(L, -1)) {
+    } else if (olua_isinteger(L, -1)) {
         *value = cocos2d::Value((int)lua_tointeger(L, idx));
     } else if (type == LUA_TNUMBER) {
         *value = cocos2d::Value(lua_tonumber(L,idx));
@@ -242,7 +277,7 @@ void manual_luacv_check_cocos2d_ValueMapIntKey(lua_State *L, int idx, cocos2d::V
     while (lua_next(L, idx)) {
         cocos2d::Value v;
         int subtop = lua_gettop(L);
-        int key = (int)luaL_checkinteger(L, -2);
+        int key = (int)olua_checkinteger(L, -2);
         manual_luacv_check_cocos2d_Value(L, -1, &v);
         (*value)[key] = v;
         lua_settop(L, subtop);
@@ -258,7 +293,7 @@ int manual_luacv_is_cocos2d_ValueMapIntKey(lua_State *L, int idx)
     luaL_checktype(L, idx, LUA_TTABLE);
     lua_pushnil(L);
     while (lua_next(L, idx)) {
-        if (!(lua_type(L, -2) == LUA_TNUMBER && lua_isinteger(L, -2))) {
+        if (!olua_isinteger(L, -2)) {
             lua_settop(L, top);
             return false;
         }
@@ -297,7 +332,7 @@ void manual_luacv_check_cocos2d_ValueMap(lua_State *L, int idx, cocos2d::ValueMa
     while (lua_next(L, idx)) {
         if (lua_type(L, -2) == LUA_TSTRING) {
             cocos2d::Value v;
-            std::string key = luaL_checkstring(L, -2);
+            std::string key = olua_checkstring(L, -2);
             manual_luacv_check_cocos2d_Value(L, -1, &v);
             (*value)[key] = v;
         } else {

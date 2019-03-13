@@ -299,9 +299,9 @@ cls.func('create', [[
 {
     lua_settop(L, 4);
 
-    float duration = (float)luaL_checknumber(L, 1);
-    float from = (float)luaL_checknumber(L, 2);
-    float to = (float)luaL_checknumber(L, 3);
+    float duration = (float)olua_checknumber(L, 1);
+    float from = (float)olua_checknumber(L, 2);
+    float to = (float)olua_checknumber(L, 3);
 
     cocos2d::ActionFloat *ret = new cocos2d::ActionFloat();
     ret->autorelease();

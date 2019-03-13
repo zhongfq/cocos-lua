@@ -6,6 +6,41 @@
 
 #include "cocos2d.h"
 
+int manual_luacv_push_cocos2d_Data(lua_State *L, const cocos2d::Data &value);
+
+int manual_luacv_push_cocos2d_Mat4(lua_State *L, const cocos2d::Mat4 &value);
+void manual_luacv_check_cocos2d_Mat4(lua_State *L, int idx, cocos2d::Mat4 *value);
+
+// Vector
+template <typename T> int manual_luacv_push_cocos2d_Vector(lua_State *L, const cocos2d::Vector<T*> &v, const char *cls)
+{
+    lua_newtable(L);
+    int i = 1;
+    for (const auto obj : v) {
+        if (obj == nullptr) {
+            continue;
+        }
+        olua_push_cppobj(L, obj, cls);
+        lua_rawseti(L, -2, i);
+        i++;
+    }
+    return 1;
+}
+
+template <typename T> void manual_luacv_check_cocos2d_Vector(lua_State *L, int idx, cocos2d::Vector<T*> &v, const char *cls)
+{
+    luaL_checktype(L, idx, LUA_TTABLE);
+    size_t total = lua_rawlen(L, idx);
+    v.reserve(total);
+    for (int i = 1; i <= total; i++) {
+        lua_rawgeti(L, idx, i);
+        T* obj;
+        olua_check_cppobj(L, -1, (void **)&obj, cls);
+        v.pushBack(obj);
+        lua_pop(L, 1);
+    }
+}
+
 int manual_luacv_push_cocos2d_Rect(lua_State *L, const cocos2d::Rect *value);
 void manual_luacv_check_cocos2d_Rect(lua_State *L, int idx, cocos2d::Rect *value);
 void manual_luacv_opt_cocos2d_Rect(lua_State *L, int idx, cocos2d::Rect *value, const cocos2d::Rect &def);

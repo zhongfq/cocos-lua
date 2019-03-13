@@ -35,8 +35,8 @@ void auto_luacv_pack_cocos2d_Vec2(lua_State *L, int idx, cocos2d::Vec2 *value)
         luaL_error(L, "value is NULL");
     }
     idx = lua_absindex(L, idx);
-    value->x = (float)luaL_checknumber(L, idx + 0);
-    value->y = (float)luaL_checknumber(L, idx + 1);
+    value->x = (float)olua_checknumber(L, idx + 0);
+    value->y = (float)olua_checknumber(L, idx + 1);
 }
 
 int auto_luacv_unpack_cocos2d_Vec2(lua_State *L, const cocos2d::Vec2 *value)
@@ -90,9 +90,9 @@ void auto_luacv_pack_cocos2d_Vec3(lua_State *L, int idx, cocos2d::Vec3 *value)
         luaL_error(L, "value is NULL");
     }
     idx = lua_absindex(L, idx);
-    value->x = (float)luaL_checknumber(L, idx + 0);
-    value->y = (float)luaL_checknumber(L, idx + 1);
-    value->z = (float)luaL_checknumber(L, idx + 2);
+    value->x = (float)olua_checknumber(L, idx + 0);
+    value->y = (float)olua_checknumber(L, idx + 1);
+    value->z = (float)olua_checknumber(L, idx + 2);
 }
 
 int auto_luacv_unpack_cocos2d_Vec3(lua_State *L, const cocos2d::Vec3 *value)
@@ -149,10 +149,10 @@ void auto_luacv_pack_cocos2d_Vec4(lua_State *L, int idx, cocos2d::Vec4 *value)
         luaL_error(L, "value is NULL");
     }
     idx = lua_absindex(L, idx);
-    value->x = (float)luaL_checknumber(L, idx + 0);
-    value->y = (float)luaL_checknumber(L, idx + 1);
-    value->z = (float)luaL_checknumber(L, idx + 2);
-    value->w = (float)luaL_checknumber(L, idx + 3);
+    value->x = (float)olua_checknumber(L, idx + 0);
+    value->y = (float)olua_checknumber(L, idx + 1);
+    value->z = (float)olua_checknumber(L, idx + 2);
+    value->w = (float)olua_checknumber(L, idx + 3);
 }
 
 int auto_luacv_unpack_cocos2d_Vec4(lua_State *L, const cocos2d::Vec4 *value)
@@ -206,8 +206,8 @@ void auto_luacv_pack_cocos2d_Size(lua_State *L, int idx, cocos2d::Size *value)
         luaL_error(L, "value is NULL");
     }
     idx = lua_absindex(L, idx);
-    value->width = (float)luaL_checknumber(L, idx + 0);
-    value->height = (float)luaL_checknumber(L, idx + 1);
+    value->width = (float)olua_checknumber(L, idx + 0);
+    value->height = (float)olua_checknumber(L, idx + 1);
 }
 
 int auto_luacv_unpack_cocos2d_Size(lua_State *L, const cocos2d::Size *value)
@@ -261,9 +261,9 @@ void auto_luacv_pack_cocos2d_Color3B(lua_State *L, int idx, cocos2d::Color3B *va
         luaL_error(L, "value is NULL");
     }
     idx = lua_absindex(L, idx);
-    value->r = (GLubyte)luaL_checkinteger(L, idx + 0);
-    value->g = (GLubyte)luaL_checkinteger(L, idx + 1);
-    value->b = (GLubyte)luaL_checkinteger(L, idx + 2);
+    value->r = (GLubyte)olua_checkinteger(L, idx + 0);
+    value->g = (GLubyte)olua_checkinteger(L, idx + 1);
+    value->b = (GLubyte)olua_checkinteger(L, idx + 2);
 }
 
 int auto_luacv_unpack_cocos2d_Color3B(lua_State *L, const cocos2d::Color3B *value)
@@ -320,10 +320,10 @@ void auto_luacv_pack_cocos2d_Color4B(lua_State *L, int idx, cocos2d::Color4B *va
         luaL_error(L, "value is NULL");
     }
     idx = lua_absindex(L, idx);
-    value->r = (GLubyte)luaL_checkinteger(L, idx + 0);
-    value->g = (GLubyte)luaL_checkinteger(L, idx + 1);
-    value->b = (GLubyte)luaL_checkinteger(L, idx + 2);
-    value->a = (GLubyte)luaL_checkinteger(L, idx + 3);
+    value->r = (GLubyte)olua_checkinteger(L, idx + 0);
+    value->g = (GLubyte)olua_checkinteger(L, idx + 1);
+    value->b = (GLubyte)olua_checkinteger(L, idx + 2);
+    value->a = (GLubyte)olua_checkinteger(L, idx + 3);
 }
 
 int auto_luacv_unpack_cocos2d_Color4B(lua_State *L, const cocos2d::Color4B *value)
@@ -381,10 +381,10 @@ void auto_luacv_pack_cocos2d_Color4F(lua_State *L, int idx, cocos2d::Color4F *va
         luaL_error(L, "value is NULL");
     }
     idx = lua_absindex(L, idx);
-    value->r = (GLfloat)luaL_checknumber(L, idx + 0);
-    value->g = (GLfloat)luaL_checknumber(L, idx + 1);
-    value->b = (GLfloat)luaL_checknumber(L, idx + 2);
-    value->a = (GLfloat)luaL_checknumber(L, idx + 3);
+    value->r = (GLfloat)olua_checknumber(L, idx + 0);
+    value->g = (GLfloat)olua_checknumber(L, idx + 1);
+    value->b = (GLfloat)olua_checknumber(L, idx + 2);
+    value->a = (GLfloat)olua_checknumber(L, idx + 3);
 }
 
 int auto_luacv_unpack_cocos2d_Color4F(lua_State *L, const cocos2d::Color4F *value)
@@ -442,10 +442,10 @@ void auto_luacv_pack_cocos2d_Texture2D_TexParams(lua_State *L, int idx, cocos2d:
         luaL_error(L, "value is NULL");
     }
     idx = lua_absindex(L, idx);
-    value->minFilter = (GLuint)luaL_checkinteger(L, idx + 0);
-    value->magFilter = (GLuint)luaL_checkinteger(L, idx + 1);
-    value->wrapS = (GLuint)luaL_checkinteger(L, idx + 2);
-    value->wrapT = (GLuint)luaL_checkinteger(L, idx + 3);
+    value->minFilter = (GLuint)olua_checkinteger(L, idx + 0);
+    value->magFilter = (GLuint)olua_checkinteger(L, idx + 1);
+    value->wrapS = (GLuint)olua_checkinteger(L, idx + 2);
+    value->wrapT = (GLuint)olua_checkinteger(L, idx + 3);
 }
 
 int auto_luacv_unpack_cocos2d_Texture2D_TexParams(lua_State *L, const cocos2d::Texture2D::TexParams *value)
@@ -503,10 +503,10 @@ void auto_luacv_pack_cocos2d_Uniform(lua_State *L, int idx, cocos2d::Uniform *va
         luaL_error(L, "value is NULL");
     }
     idx = lua_absindex(L, idx);
-    value->location = (GLint)luaL_checkinteger(L, idx + 0);
-    value->size = (GLint)luaL_checkinteger(L, idx + 1);
-    value->type = (GLenum)luaL_checkinteger(L, idx + 2);
-    value->name = (std::string)luaL_checkstring(L, idx + 3);
+    value->location = (GLint)olua_checkinteger(L, idx + 0);
+    value->size = (GLint)olua_checkinteger(L, idx + 1);
+    value->type = (GLenum)olua_checkinteger(L, idx + 2);
+    value->name = (std::string)olua_checkstring(L, idx + 3);
 }
 
 int auto_luacv_unpack_cocos2d_Uniform(lua_State *L, const cocos2d::Uniform *value)
@@ -564,10 +564,10 @@ void auto_luacv_pack_cocos2d_VertexAttrib(lua_State *L, int idx, cocos2d::Vertex
         luaL_error(L, "value is NULL");
     }
     idx = lua_absindex(L, idx);
-    value->index = (GLuint)luaL_checkinteger(L, idx + 0);
-    value->size = (GLint)luaL_checkinteger(L, idx + 1);
-    value->type = (GLenum)luaL_checkinteger(L, idx + 2);
-    value->name = (std::string)luaL_checkstring(L, idx + 3);
+    value->index = (GLuint)olua_checkinteger(L, idx + 0);
+    value->size = (GLint)olua_checkinteger(L, idx + 1);
+    value->type = (GLenum)olua_checkinteger(L, idx + 2);
+    value->name = (std::string)olua_checkstring(L, idx + 3);
 }
 
 int auto_luacv_unpack_cocos2d_VertexAttrib(lua_State *L, const cocos2d::VertexAttrib *value)
@@ -625,10 +625,10 @@ void auto_luacv_pack_cocos2d_experimental_Viewport(lua_State *L, int idx, cocos2
         luaL_error(L, "value is NULL");
     }
     idx = lua_absindex(L, idx);
-    value->_left = (float)luaL_checknumber(L, idx + 0);
-    value->_bottom = (float)luaL_checknumber(L, idx + 1);
-    value->_width = (float)luaL_checknumber(L, idx + 2);
-    value->_height = (float)luaL_checknumber(L, idx + 3);
+    value->_left = (float)olua_checknumber(L, idx + 0);
+    value->_bottom = (float)olua_checknumber(L, idx + 1);
+    value->_width = (float)olua_checknumber(L, idx + 2);
+    value->_height = (float)olua_checknumber(L, idx + 3);
 }
 
 int auto_luacv_unpack_cocos2d_experimental_Viewport(lua_State *L, const cocos2d::experimental::Viewport *value)
@@ -692,13 +692,13 @@ void auto_luacv_pack_GLContextAttrs(lua_State *L, int idx, GLContextAttrs *value
         luaL_error(L, "value is NULL");
     }
     idx = lua_absindex(L, idx);
-    value->redBits = (int)luaL_checkinteger(L, idx + 0);
-    value->greenBits = (int)luaL_checkinteger(L, idx + 1);
-    value->blueBits = (int)luaL_checkinteger(L, idx + 2);
-    value->alphaBits = (int)luaL_checkinteger(L, idx + 3);
-    value->depthBits = (int)luaL_checkinteger(L, idx + 4);
-    value->stencilBits = (int)luaL_checkinteger(L, idx + 5);
-    value->multisamplingCount = (int)luaL_checkinteger(L, idx + 6);
+    value->redBits = (int)olua_checkinteger(L, idx + 0);
+    value->greenBits = (int)olua_checkinteger(L, idx + 1);
+    value->blueBits = (int)olua_checkinteger(L, idx + 2);
+    value->alphaBits = (int)olua_checkinteger(L, idx + 3);
+    value->depthBits = (int)olua_checkinteger(L, idx + 4);
+    value->stencilBits = (int)olua_checkinteger(L, idx + 5);
+    value->multisamplingCount = (int)olua_checkinteger(L, idx + 6);
 }
 
 int auto_luacv_unpack_GLContextAttrs(lua_State *L, const GLContextAttrs *value)

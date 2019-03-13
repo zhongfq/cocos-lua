@@ -444,7 +444,7 @@ static int _xgame_filesystem_read(lua_State *L)
     // static cocos2d::Data read(const std::string &path)
     cocos2d::Data ret = (cocos2d::Data)xgame::filesystem::read(arg1);
 
-    return xluacv_push_ccdata(L, ret);
+    return manual_luacv_push_cocos2d_Data(L, ret);
 }
 
 static int _xgame_filesystem_unzip(lua_State *L)

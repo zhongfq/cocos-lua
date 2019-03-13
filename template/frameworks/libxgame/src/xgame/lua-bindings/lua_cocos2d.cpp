@@ -1508,7 +1508,7 @@ static int _cocos2d_Director_loadMatrix(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
     olua_check_uint(L, 2, &arg1);
-    xluacv_check_ccmat4(L, 3, &arg2);
+    manual_luacv_check_cocos2d_Mat4(L, 3, &arg2);
 
     // void loadMatrix(MATRIX_STACK_TYPE type, const Mat4& mat)
     self->loadMatrix((cocos2d::MATRIX_STACK_TYPE)arg1, arg2);
@@ -1525,7 +1525,7 @@ static int _cocos2d_Director_loadProjectionMatrix(lua_State *L)
     lua_Unsigned arg2 = 0;   /** index */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
-    xluacv_check_ccmat4(L, 2, &arg1);
+    manual_luacv_check_cocos2d_Mat4(L, 2, &arg1);
     olua_check_uint(L, 3, &arg2);
 
     // void loadProjectionMatrix(const Mat4& mat, size_t index)
@@ -1544,7 +1544,7 @@ static int _cocos2d_Director_multiplyMatrix(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
     olua_check_uint(L, 2, &arg1);
-    xluacv_check_ccmat4(L, 3, &arg2);
+    manual_luacv_check_cocos2d_Mat4(L, 3, &arg2);
 
     // void multiplyMatrix(MATRIX_STACK_TYPE type, const Mat4& mat)
     self->multiplyMatrix((cocos2d::MATRIX_STACK_TYPE)arg1, arg2);
@@ -1561,7 +1561,7 @@ static int _cocos2d_Director_multiplyProjectionMatrix(lua_State *L)
     lua_Unsigned arg2 = 0;   /** index */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
-    xluacv_check_ccmat4(L, 2, &arg1);
+    manual_luacv_check_cocos2d_Mat4(L, 2, &arg1);
     olua_check_uint(L, 3, &arg2);
 
     // void multiplyProjectionMatrix(const Mat4& mat, size_t index)
@@ -1583,7 +1583,7 @@ static int _cocos2d_Director_getMatrix(lua_State *L)
     // const Mat4& getMatrix(MATRIX_STACK_TYPE type)
     const cocos2d::Mat4 &ret = (const cocos2d::Mat4 &)self->getMatrix((cocos2d::MATRIX_STACK_TYPE)arg1);
 
-    return xluacv_push_ccmat4(L, ret);
+    return manual_luacv_push_cocos2d_Mat4(L, ret);
 }
 
 static int _cocos2d_Director_getProjectionMatrix(lua_State *L)
@@ -1599,7 +1599,7 @@ static int _cocos2d_Director_getProjectionMatrix(lua_State *L)
     // const Mat4& getProjectionMatrix(size_t index)
     const cocos2d::Mat4 &ret = (const cocos2d::Mat4 &)self->getProjectionMatrix((size_t)arg1);
 
-    return xluacv_push_ccmat4(L, ret);
+    return manual_luacv_push_cocos2d_Mat4(L, ret);
 }
 
 static int _cocos2d_Director_resetMatrixStack(lua_State *L)
@@ -2452,7 +2452,7 @@ static int _cocos2d_ActionManager_pauseAllRunningActions(lua_State *L)
     // Vector<Node*> pauseAllRunningActions()
     cocos2d::Vector<cocos2d::Node *> ret = (cocos2d::Vector<cocos2d::Node *>)self->pauseAllRunningActions();
 
-    return xluacv_push_ccvector(L, ret, "cc.Node");
+    return manual_luacv_push_cocos2d_Vector(L, ret, "cc.Node");
 }
 
 static int _cocos2d_ActionManager_resumeTargets(lua_State *L)
@@ -2463,7 +2463,7 @@ static int _cocos2d_ActionManager_resumeTargets(lua_State *L)
     cocos2d::Vector<cocos2d::Node *> arg1;       /** targetsToResume */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.ActionManager");
-    xluacv_check_ccvector(L, 2, arg1, "cc.Node");
+    manual_luacv_check_cocos2d_Vector(L, 2, arg1, "cc.Node");
 
     // void resumeTargets(const Vector<Node*>& targetsToResume)
     self->resumeTargets(arg1);
@@ -5985,7 +5985,7 @@ static int _cocos2d_VRIHeadTracker_getLocalRotation(lua_State *L)
     // Mat4 getLocalRotation()
     cocos2d::Mat4 ret = (cocos2d::Mat4)self->getLocalRotation();
 
-    return xluacv_push_ccmat4(L, ret);
+    return manual_luacv_push_cocos2d_Mat4(L, ret);
 }
 
 static int luaopen_cocos2d_VRIHeadTracker(lua_State *L)
@@ -6591,7 +6591,7 @@ static int _cocos2d_GLProgram_setUniformsForBuiltins2(lua_State *L)
     cocos2d::Mat4 arg1;       /** modelView */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.GLProgram");
-    xluacv_check_ccmat4(L, 2, &arg1);
+    manual_luacv_check_cocos2d_Mat4(L, 2, &arg1);
 
     // void setUniformsForBuiltins(const Mat4 &modelView)
     self->setUniformsForBuiltins(arg1);
@@ -6608,7 +6608,7 @@ static int _cocos2d_GLProgram_setUniformsForBuiltins(lua_State *L)
     }
 
     if (num_args == 1) {
-        // if (xluacv_is_ccmat4(L, 2)) {
+        // if (manual_luacv_is_cocos2d_Mat4(L, 2)) {
             return _cocos2d_GLProgram_setUniformsForBuiltins2(L);
         // }
     }
@@ -8434,7 +8434,7 @@ static int _cocos2d_Animation_create2(lua_State *L)
     lua_Number arg2 = 0;   /** delayPerUnit */
     lua_Unsigned arg3 = 0;   /** loops */
 
-    xluacv_check_ccvector(L, 1, arg1, "cc.AnimationFrame");
+    manual_luacv_check_cocos2d_Vector(L, 1, arg1, "cc.AnimationFrame");
     olua_check_number(L, 2, &arg2);
     olua_opt_uint(L, 3, &arg3, 1);
 
@@ -8453,7 +8453,7 @@ static int _cocos2d_Animation_create(lua_State *L)
     }
 
     if (num_args == 3) {
-        // if (xluacv_is_ccvector(L, 1) && olua_is_number(L, 2) && olua_is_uint(L, 3)) {
+        // if (manual_luacv_is_cocos2d_Vector(L, 1) && olua_is_number(L, 2) && olua_is_uint(L, 3)) {
             return _cocos2d_Animation_create2(L);
         // }
     }
@@ -8471,7 +8471,7 @@ static int _cocos2d_Animation_createWithSpriteFrames(lua_State *L)
     lua_Number arg2 = 0;   /** delay */
     lua_Unsigned arg3 = 0;   /** loops */
 
-    xluacv_check_ccvector(L, 1, arg1, "cc.SpriteFrame");
+    manual_luacv_check_cocos2d_Vector(L, 1, arg1, "cc.SpriteFrame");
     olua_opt_number(L, 2, &arg2, 0.0f);
     olua_opt_uint(L, 3, &arg3, 1);
 
@@ -8600,7 +8600,7 @@ static int _cocos2d_Animation_getFrames(lua_State *L)
     // const Vector<AnimationFrame*>& getFrames()
     const cocos2d::Vector<cocos2d::AnimationFrame *> &ret = (const cocos2d::Vector<cocos2d::AnimationFrame *> &)self->getFrames();
 
-    return xluacv_push_ccvector(L, ret, "cc.AnimationFrame");
+    return manual_luacv_push_cocos2d_Vector(L, ret, "cc.AnimationFrame");
 }
 
 static int _cocos2d_Animation_setFrames(lua_State *L)
@@ -8611,7 +8611,7 @@ static int _cocos2d_Animation_setFrames(lua_State *L)
     cocos2d::Vector<cocos2d::AnimationFrame *> arg1;       /** frames */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Animation");
-    xluacv_check_ccvector(L, 2, arg1, "cc.AnimationFrame");
+    manual_luacv_check_cocos2d_Vector(L, 2, arg1, "cc.AnimationFrame");
 
     // void setFrames(const Vector<AnimationFrame*>& frames)
     self->setFrames(arg1);

@@ -62,7 +62,7 @@ cls.func("create", [[
     lua_settop(L, 2);
 
     void *tag_store_obj = nullptr;
-    std::string event = luaL_checkstring(L, 1);
+    std::string event = olua_checkstring(L, 1);
     cocos2d::EventListenerCustom *self = new cocos2d::EventListenerCustom();
     self->autorelease();
     tag_store_obj = self;

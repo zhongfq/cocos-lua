@@ -23,33 +23,11 @@ int xlua_reffunc(lua_State *L, int idx);
 void xlua_unref(lua_State *L, int ref);
 void xlua_getref(lua_State *L, int ref);
 
-bool xlua_optboolean(lua_State *L, int idx, bool def);
-bool xlua_checkboolean(lua_State *L, int idx);
-void *xlua_checkobj(lua_State *L, int idx);
-void xlua_setnilfield(lua_State *L, const char *field);
-int xlua_rawgetfield(lua_State *L, int idx, const char *field);
-void xlua_rawsetfield(lua_State *L, int idx, const char *field);
-void xlua_setfunc(lua_State *L, const char *field, lua_CFunction func);
-const char *xlua_optfieldstring(lua_State *L, int idx, const char *field, const char *def);
-bool xlua_optfieldboolean(lua_State *L, int idx, const char *field, bool def);
-lua_Number xlua_optfieldnumber(lua_State *L, int idx, const char *field, lua_Number def);
-lua_Integer xlua_optfieldinteger(lua_State *L, int idx, const char *field, lua_Integer def);
-const char *xlua_checkfieldstring(lua_State *L, int idx, const char *field);
-lua_Number xlua_checkfieldnumber(lua_State *L, int idx, const char *field);
-lua_Integer xlua_checkfieldinteger(lua_State *L, int idx, const char *field);
-bool xlua_checkfieldboolean(lua_State *L, int idx, const char *field);
-void xlua_rawsetfieldnumber(lua_State *L, int idx, const char *field, lua_Number value);
-void xlua_rawsetfieldinteger(lua_State *L, int idx, const char *field, lua_Integer value);
-void xlua_rawsetfieldstring(lua_State *L, int idx, const char *field, const char *value);
-void xlua_rawsetfieldboolean(lua_State *L, int idx, const char *field, bool value);
-
 int xlua_ccobjgc(lua_State *L);
 
 int xlua_refcount();
 void xlua_addref();
 void xlua_subref();
-
-int xluacv_push_ccdata(lua_State *L, const cocos2d::Data &value);
 
 template <typename T> void xlua_report_push_status(lua_State *L, T* value, int status)
 {
@@ -60,37 +38,5 @@ template <typename T> void xlua_report_push_status(lua_State *L, T* value, int s
     }
 }
 
-int xluacv_push_ccmat4(lua_State *L, const cocos2d::Mat4 &value);
-void xluacv_check_ccmat4(lua_State *L, int idx, cocos2d::Mat4 *value);
-
-// Vector
-template <typename T> int xluacv_push_ccvector(lua_State *L, const cocos2d::Vector<T*> &v, const char *cls)
-{
-    lua_newtable(L);
-    int i = 1;
-    for (const auto obj : v) {
-        if (obj == nullptr) {
-            continue;
-        }
-        olua_push_cppobj(L, obj, cls);
-        lua_rawseti(L, -2, i);
-        i++;
-    }
-    return 1;
-}
-
-template <typename T> void xluacv_check_ccvector(lua_State *L, int idx, cocos2d::Vector<T*> &v, const char *cls)
-{
-    luaL_checktype(L, idx, LUA_TTABLE);
-    size_t total = lua_rawlen(L, idx);
-    v.reserve(total);
-    for (int i = 1; i <= total; i++) {
-        lua_rawgeti(L, idx, i);
-        T* obj;
-        olua_check_cppobj(L, -1, (void **)&obj, cls);
-        v.pushBack(obj);
-        lua_pop(L, 1);
-    }
-}
 
 #endif

@@ -146,16 +146,16 @@ local function gen_pack_func(cv, write)
         local ARG_N = i - 1
         local CHECK_FUNC
         if pi.TYPE.DECL_TYPE == 'lua_Number' then
-            CHECK_FUNC = 'luaL_checknumber'
+            CHECK_FUNC = 'olua_checknumber'
         elseif pi.TYPE.DECL_TYPE == 'lua_Integer'
             or pi.TYPE.DECL_TYPE == 'lua_Unsigned' then
-            CHECK_FUNC = 'luaL_checkinteger'
+            CHECK_FUNC = 'olua_checkinteger'
         elseif pi.TYPE.TYPENAME == 'std::string' then
-            CHECK_FUNC = 'luaL_checkstring'
+            CHECK_FUNC = 'olua_checkstring'
         elseif pi.TYPE.TYPENAME == 'bool' then
-            CHECK_FUNC = 'lua_toboolean'
+            CHECK_FUNC = 'olua_checktoboolean'
         elseif pi.TYPE.TYPENAME == 'const char *' then
-            CHECK_FUNC = 'luaL_checkstring'
+            CHECK_FUNC = 'olua_checkstring'
         else
             error(string.format("%s %s %s", cv.VARNAME, cv.LUANAME, cv.TYPE.TYPENAME))
         end

@@ -270,7 +270,7 @@ int xlua_errorfunc(lua_State *L)
     const char *errstack1 = NULL;
     const char *errstack2 = NULL;
     
-    if (lua_isthread(L, 1)) {
+    if (olua_isthread(L, 1)) {
         errmsg = luaL_optstring(L, 2, "");
         lua_getglobal(L, "debug");
         lua_getfield(L, -1, "traceback");
@@ -359,7 +359,7 @@ int xlua_dofile(lua_State *L, const char *filename)
     lua_remove(L, errfunc + 1);                         // L: errfunc func filename
     
     if (status == LUA_OK) {
-        if (lua_isfunction(L, errfunc + 1)) {
+        if (olua_isfunction(L, errfunc + 1)) {
             status = lua_pcall(L, 1, LUA_MULTRET, errfunc);
             lua_remove(L, errfunc);
         } else {
@@ -392,7 +392,7 @@ int xlua_ref(lua_State *L, int idx)
     
     int ref = LUA_REFNIL;
     idx = lua_absindex(L, idx);
-    if (!lua_isnil(L, idx)) {
+    if (!olua_isnil(L, idx)) {
         ref = ++ref_count;
         xlua_getmappingtable(L);
         lua_pushvalue(L, idx);
@@ -426,162 +426,6 @@ void xlua_getref(lua_State *L, int ref)
     xlua_getmappingtable(L);
     lua_rawgeti(L, -1, ref);
     lua_remove(L, -2); // pop mapping table
-}
-
-bool xlua_optboolean(lua_State *L, int idx, bool def)
-{
-    return lua_type(L, idx) <= LUA_TNIL ? def : lua_toboolean(L, idx) != 0;
-}
-
-bool xlua_checkboolean(lua_State *L, int idx)
-{
-    luaL_checktype(L, idx, LUA_TBOOLEAN);
-    return lua_toboolean(L, idx);
-}
-
-void *xlua_checkobj(lua_State *L, int idx)
-{
-    luaL_checktype(L, idx, LUA_TUSERDATA);
-    return *(void **)lua_touserdata(L, idx);
-}
-
-void xlua_setnilfield(lua_State *L, const char *field)
-{
-    lua_pushstring(L, field);
-    lua_pushnil(L);
-    lua_rawset(L, -3);
-}
-
-int xlua_rawgetfield(lua_State *L, int idx, const char *field)
-{
-    idx = lua_absindex(L, idx);
-    lua_pushstring(L, field);
-    return lua_rawget(L, idx);
-}
-
-void xlua_rawsetfield(lua_State *L, int idx, const char *field)
-{
-    idx = lua_absindex(L, idx);
-    lua_pushstring(L, field);
-    lua_insert(L, -2);
-    lua_rawset(L, idx);
-}
-
-void xlua_setfunc(lua_State *L, const char *field, lua_CFunction func)
-{
-    lua_pushstring(L, field);
-    lua_pushcfunction(L, func);
-    lua_rawset(L, -3);
-}
-
-const char *xlua_optfieldstring(lua_State *L, int idx, const char *field, const char *def)
-{
-    const char *value;
-    idx = lua_absindex(L, idx);
-    lua_getfield(L, idx, field);
-    value = luaL_optstring(L, -1, def);
-    lua_pop(L, 1);
-    return value;
-}
-
-bool xlua_optfieldboolean(lua_State *L, int idx, const char *field, bool def)
-{
-    bool value;
-    idx = lua_absindex(L, idx);
-    lua_getfield(L, idx, field);
-    value = xlua_optboolean(L, -1, def);
-    lua_pop(L, 1);
-    return value;
-}
-
-lua_Number xlua_optfieldnumber(lua_State *L, int idx, const char *field, lua_Number def)
-{
-    lua_Number value;
-    idx = lua_absindex(L, idx);
-    lua_getfield(L, idx, field);
-    value = luaL_optnumber(L, -1, def);
-    lua_pop(L, 1);
-    return value;
-}
-
-lua_Integer xlua_optfieldinteger(lua_State *L, int idx, const char *field, lua_Integer def)
-{
-    lua_Integer value;
-    idx = lua_absindex(L, idx);
-    lua_getfield(L, idx, field);
-    value = luaL_optinteger(L, -1, def);
-    lua_pop(L, 1);
-    return value;
-}
-
-const char *xlua_checkfieldstring(lua_State *L, int idx, const char *field)
-{
-    const char *value;
-    idx = lua_absindex(L, idx);
-    lua_getfield(L, idx, field);
-    value = luaL_checkstring(L, -1);
-    lua_pop(L, 1);
-    return value;
-}
-
-lua_Number xlua_checkfieldnumber(lua_State *L, int idx, const char *field)
-{
-    lua_Number value;
-    idx = lua_absindex(L, idx);
-    lua_getfield(L, idx, field);
-    value = luaL_checknumber(L, -1);
-    lua_pop(L, 1);
-    return value;
-}
-
-lua_Integer xlua_checkfieldinteger(lua_State *L, int idx, const char *field)
-{
-    idx = lua_absindex(L, idx);
-    lua_getfield(L, idx, field);
-    lua_Integer value = luaL_checkinteger(L, -1);
-    lua_pop(L, 1);
-    return value;
-}
-
-bool xlua_checkfieldboolean(lua_State *L, int idx, const char *field)
-{
-    idx = lua_absindex(L, idx);
-    lua_getfield(L, idx, field);
-    bool value = xlua_checkboolean(L, -1);
-    lua_pop(L, 1);
-    return value;
-}
-
-void xlua_rawsetfieldnumber(lua_State *L, int idx, const char *field, lua_Number value)
-{
-    idx = lua_absindex(L, idx);
-    lua_pushstring(L, field);
-    lua_pushnumber(L, value);
-    lua_rawset(L, idx);
-}
-
-void xlua_rawsetfieldinteger(lua_State *L, int idx, const char *field, lua_Integer value)
-{
-    idx = lua_absindex(L, idx);
-    lua_pushstring(L, field);
-    lua_pushinteger(L, value);
-    lua_rawset(L, idx);
-}
-
-void xlua_rawsetfieldstring(lua_State *L, int idx, const char *field, const char *value)
-{
-    idx = lua_absindex(L, idx);
-    lua_pushstring(L, field);
-    lua_pushstring(L, value);
-    lua_rawset(L, idx);
-}
-
-void xlua_rawsetfieldboolean(lua_State *L, int idx, const char *field, bool value)
-{
-    idx = lua_absindex(L, idx);
-    lua_pushstring(L, field);
-    lua_pushboolean(L, value);
-    lua_rawset(L, idx);
 }
 
 static int s_obj_count = 0;
@@ -639,39 +483,4 @@ void xlua_addref()
 void xlua_subref()
 {
     s_obj_count--;
-}
-
-int xluacv_push_ccdata(lua_State *L, const cocos2d::Data &value)
-{
-    if (value.isNull()) {
-        lua_pushnil(L);
-    } else {
-        lua_pushlstring(L, (const char *)value.getBytes(), (size_t)value.getSize());
-    }
-    return 1;
-}
-
-int xluacv_push_ccmat4(lua_State *L, const cocos2d::Mat4 &value)
-{
-    lua_createtable(L, 16, 0);
-    for (int i = 0; i < 16; i++) {
-        lua_pushnumber(L, value.m[i]);
-        lua_rawseti(L, -2, i + 1);
-    }
-    return 1;
-}
-
-void xluacv_check_ccmat4(lua_State *L, int idx, cocos2d::Mat4 *value)
-{
-    luaL_checktype(L, idx, LUA_TTABLE);
-    int len = (int)lua_rawlen(L, idx);
-    if (len != 16) {
-        luaL_error(L, "expect value count: '16', got '%d'", len);
-    }
-    
-    for (int i = 0; i < len; i++) {
-        lua_rawgeti(L, idx, i + 1);
-        value->m[i] = (float)luaL_checknumber(L, -1);
-        lua_pop(L, 1);
-    }
 }

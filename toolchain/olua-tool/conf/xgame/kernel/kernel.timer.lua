@@ -1,4 +1,4 @@
-slocal cls = class()
+local cls = class()
 cls.CPPCLS = "xgame::timer"
 cls.LUACLS = "kernel.timer"
 cls.DEFCHUNK = [[static std::unordered_map<std::string, int> s_timer_tag;]]

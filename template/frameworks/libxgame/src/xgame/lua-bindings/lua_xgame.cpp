@@ -164,7 +164,7 @@ static int _xgame_runtime_openURL(lua_State *L)
     if (lua_isfunction(L, 2)) {
         callback = xlua_reffunc(L, 2);
     }
-    xgame::runtime::openURL(luaL_checkstring(L, 1), [callback](bool success) {
+    xgame::runtime::openURL(olua_checkstring(L, 1), [callback](bool success) {
         if (callback != LUA_REFNIL) {
             lua_State *L = xlua_cocosthread();
             int top = lua_gettop(L);
@@ -750,7 +750,7 @@ static std::unordered_map<std::string, int> s_timer_tag;
 static int _xgame_timer_killDelay(lua_State *L)
 {
     lua_settop(L, 1);
-    const char *tagstr = luaL_checkstring(L, 1);
+    const char *tagstr = olua_checkstring(L, 1);
     const std::string tag = std::string(tagstr);
     auto it = s_timer_tag.find(tag);
     if (it != s_timer_tag.end()) {
@@ -764,7 +764,7 @@ static int _xgame_timer_killDelay(lua_State *L)
 static int _xgame_timer_delay(lua_State *L)
 {
     lua_settop(L, 2);
-    float time = (float)luaL_checknumber(L, 1);
+    float time = (float)olua_checknumber(L, 1);
     unsigned int callback = xlua_reffunc(L, 2);
     xgame::timer::delay(time, [callback]() {
         lua_State *L = xlua_cocosthread();
@@ -784,7 +784,7 @@ static int _xgame_timer_delayWithTag(lua_State *L)
 {
     lua_settop(L, 3);
     size_t len;
-    float time = (float)luaL_checknumber(L, 1);
+    float time = (float)olua_checknumber(L, 1);
     const char *tagstr = luaL_checklstring(L, 2, &len);
     if (len <= 0) {
         luaL_error(L, "key should not be empty!");
@@ -812,7 +812,7 @@ static int _xgame_timer_delayWithTag(lua_State *L)
 static int _xgame_timer_schedule(lua_State *L)
 {
     lua_settop(L, 2);
-    float interval = (float)luaL_checknumber(L, 1);
+    float interval = (float)olua_checknumber(L, 1);
     unsigned int callback = xlua_reffunc(L, 2);
     unsigned int id = xgame::timer::schedule(interval, [callback](float dt) {
         lua_State *L = xlua_cocosthread();
@@ -832,7 +832,7 @@ static int _xgame_timer_schedule(lua_State *L)
 static int _xgame_timer_unschedule(lua_State *L)
 {
     lua_settop(L, 1);
-    uint64_t value = luaL_checkinteger(L, 1);
+    uint64_t value = olua_checkinteger(L, 1);
     unsigned int callback = value >> 32;
     unsigned int id = value & 0xFFFFFFFF;
     xlua_unref(L, callback);
@@ -878,14 +878,14 @@ static int _xgame_window_setDesignSize(lua_State *L)
 {
     lua_settop(L, 3);
     cocos2d::Director::getInstance()->getOpenGLView()->setDesignResolutionSize(
-        (float)luaL_checknumber(L, 1), (float)luaL_checknumber(L, 2),
-        (ResolutionPolicy)luaL_checkinteger(L, 3));
+        (float)olua_checknumber(L, 1), (float)olua_checknumber(L, 2),
+        (ResolutionPolicy)olua_checkinteger(L, 3));
     return 0;
 }
 
 static int _xgame_window_convertToCameraSpace(lua_State *L)
 {
-    cocos2d::Vec2 pt = cocos2d::Vec2(luaL_checknumber(L, 1), luaL_checknumber(L, 2));
+    cocos2d::Vec2 pt = cocos2d::Vec2(olua_checknumber(L, 1), olua_checknumber(L, 2));
 
     auto director = cocos2d::Director::getInstance();
     cocos2d::Mat4 w2l = director->getRunningScene()->getWorldToNodeTransform();

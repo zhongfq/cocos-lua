@@ -284,11 +284,44 @@ local function parse_func(cls, name, ...)
     return arr
 end
 
+local function to_prop_func_name(cppfunc, prefix)
+    return prefix .. string.gsub(cppfunc, '^%w', function (s)
+        return string.upper(s)
+    end)
+end
+
 local function parse_prop(cls, name, func_get, func_set)
     local pi = {}
     pi.PROP_NAME = assert(name)
-    pi.GET = func_get and parse_func(cls, name, func_get)[1] or nil
-    pi.SET = func_set and parse_func(cls, name, func_set)[1] or nil
+
+    if func_get then
+        pi.GET = func_get and parse_func(cls, name, func_get)[1] or nil
+    else
+        for _, v in ipairs(cls.FUNCS) do
+            for _, f in ipairs(v) do
+                if to_prop_func_name(name, 'get') == f.CPPFUNC or
+                    to_pretty_typename(name, 'is') == f.CPPFUNC then
+                    assert(#f.ARGS == 0, f.CPPFUNC)
+                    pi.GET = f
+                end
+            end
+        end
+        assert(pi.GET, name)
+    end
+
+    if func_set then
+        pi.SET = func_set and parse_func(cls, name, func_set)[1] or nil
+    else
+        for _, v in ipairs(cls.FUNCS) do
+            for _, f in ipairs(v) do
+                if to_prop_func_name(name, 'set') == f.CPPFUNC then
+                    assert(#f.ARGS == 1, f.CPPFUNC)
+                    pi.SET = f
+                end
+            end
+        end
+    end
+    
     assert(pi.GET.RET.NUM > 0, func_get)
     return pi
 end

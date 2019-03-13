@@ -4996,9 +4996,9 @@ static int _cocos2d_ActionFloat_create(lua_State *L)
 {
     lua_settop(L, 4);
 
-    float duration = (float)luaL_checknumber(L, 1);
-    float from = (float)luaL_checknumber(L, 2);
-    float to = (float)luaL_checknumber(L, 3);
+    float duration = (float)olua_checknumber(L, 1);
+    float from = (float)olua_checknumber(L, 2);
+    float to = (float)olua_checknumber(L, 3);
 
     cocos2d::ActionFloat *ret = new cocos2d::ActionFloat();
     ret->autorelease();
@@ -9028,6 +9028,30 @@ static int _cocos2d_Node_create(lua_State *L)
     return olua_push_cppobj<cocos2d::Node>(L, ret, "cc.Node");
 }
 
+static int _cocos2d_Node_getAttachedNodeCount(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static int getAttachedNodeCount()
+    int ret = (int)cocos2d::Node::getAttachedNodeCount();
+
+    return olua_push_int(L, (lua_Integer)ret);
+}
+
+static int _cocos2d_Node_getDescription(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Node *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
+
+    // std::string getDescription()
+    std::string ret = (std::string)self->getDescription();
+
+    return olua_push_std_string(L, ret);
+}
+
 static int _cocos2d_Node_getName(lua_State *L)
 {
     lua_settop(L, 1);
@@ -9410,6 +9434,36 @@ static int _cocos2d_Node_getPosition(lua_State *L)
     return auto_luacv_unpack_cocos2d_Vec2(L, &ret);
 }
 
+static int _cocos2d_Node_setScheduler(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Node *self = nullptr;
+    cocos2d::Scheduler *arg1 = nullptr;   /** scheduler */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Scheduler");
+
+    // void setScheduler(Scheduler* scheduler)
+    self->setScheduler(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Node_getScheduler(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Node *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
+
+    // Scheduler* getScheduler()
+    cocos2d::Scheduler *ret = (cocos2d::Scheduler *)self->getScheduler();
+
+    return olua_push_cppobj<cocos2d::Scheduler>(L, ret, "cc.Scheduler");
+}
+
 static int _cocos2d_Node_scheduleUpdate(lua_State *L)
 {
     lua_settop(L, 1);
@@ -9468,6 +9522,36 @@ static int _cocos2d_Node_isScheduled(lua_State *L)
     bool ret = (bool)self->isScheduled(arg1);
 
     return olua_push_bool(L, ret);
+}
+
+static int _cocos2d_Node_setActionManager(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Node *self = nullptr;
+    cocos2d::ActionManager *arg1 = nullptr;   /** actionManager */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.ActionManager");
+
+    // void setActionManager(ActionManager* actionManager)
+    self->setActionManager(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Node_getActionManager(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Node *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
+
+    // ActionManager* getActionManager()
+    cocos2d::ActionManager *ret = (cocos2d::ActionManager *)self->getActionManager();
+
+    return olua_push_cppobj<cocos2d::ActionManager>(L, ret, "cc.ActionManager");
 }
 
 static int _cocos2d_Node_runAction(lua_State *L)
@@ -9805,94 +9889,12 @@ static int _cocos2d_Node_pause(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_Node_getAttachedNodeCount(lua_State *L)
-{
-    lua_settop(L, 0);
-
-    // static int getAttachedNodeCount()
-    int ret = (int)cocos2d::Node::getAttachedNodeCount();
-
-    return olua_push_int(L, (lua_Integer)ret);
-}
-
-static int _cocos2d_Node_getDescription(lua_State *L)
-{
-    lua_settop(L, 1);
-
-    cocos2d::Node *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
-
-    // std::string getDescription()
-    std::string ret = (std::string)self->getDescription();
-
-    return olua_push_std_string(L, ret);
-}
-
-static int _cocos2d_Node_getScheduler(lua_State *L)
-{
-    lua_settop(L, 1);
-
-    cocos2d::Node *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
-
-    // Scheduler* getScheduler()
-    cocos2d::Scheduler *ret = (cocos2d::Scheduler *)self->getScheduler();
-
-    return olua_push_cppobj<cocos2d::Scheduler>(L, ret, "cc.Scheduler");
-}
-
-static int _cocos2d_Node_setScheduler(lua_State *L)
-{
-    lua_settop(L, 2);
-
-    cocos2d::Node *self = nullptr;
-    cocos2d::Scheduler *arg1 = nullptr;   /** scheduler */
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
-    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Scheduler");
-
-    // void setScheduler(Scheduler* scheduler)
-    self->setScheduler(arg1);
-
-    return 0;
-}
-
-static int _cocos2d_Node_getActionManager(lua_State *L)
-{
-    lua_settop(L, 1);
-
-    cocos2d::Node *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
-
-    // ActionManager* getActionManager()
-    cocos2d::ActionManager *ret = (cocos2d::ActionManager *)self->getActionManager();
-
-    return olua_push_cppobj<cocos2d::ActionManager>(L, ret, "cc.ActionManager");
-}
-
-static int _cocos2d_Node_setActionManager(lua_State *L)
-{
-    lua_settop(L, 2);
-
-    cocos2d::Node *self = nullptr;
-    cocos2d::ActionManager *arg1 = nullptr;   /** actionManager */
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
-    olua_check_cppobj(L, 2, (void **)&arg1, "cc.ActionManager");
-
-    // void setActionManager(ActionManager* actionManager)
-    self->setActionManager(arg1);
-
-    return 0;
-}
-
 static int luaopen_cocos2d_Node(lua_State *L)
 {
     oluacls_class(L, "cc.Node", "cc.Ref");
     oluacls_setfunc(L, "create", _cocos2d_Node_create);
+    oluacls_setfunc(L, "getAttachedNodeCount", _cocos2d_Node_getAttachedNodeCount);
+    oluacls_setfunc(L, "getDescription", _cocos2d_Node_getDescription);
     oluacls_setfunc(L, "getName", _cocos2d_Node_getName);
     oluacls_setfunc(L, "setName", _cocos2d_Node_setName);
     oluacls_setfunc(L, "addChild", _cocos2d_Node_addChild);
@@ -9909,10 +9911,14 @@ static int luaopen_cocos2d_Node(lua_State *L)
     oluacls_setfunc(L, "sortAllChildren", _cocos2d_Node_sortAllChildren);
     oluacls_setfunc(L, "setPosition", _cocos2d_Node_setPosition);
     oluacls_setfunc(L, "getPosition", _cocos2d_Node_getPosition);
+    oluacls_setfunc(L, "setScheduler", _cocos2d_Node_setScheduler);
+    oluacls_setfunc(L, "getScheduler", _cocos2d_Node_getScheduler);
     oluacls_setfunc(L, "scheduleUpdate", _cocos2d_Node_scheduleUpdate);
     oluacls_setfunc(L, "unscheduleUpdate", _cocos2d_Node_unscheduleUpdate);
     oluacls_setfunc(L, "scheduleUpdateWithPriority", _cocos2d_Node_scheduleUpdateWithPriority);
     oluacls_setfunc(L, "isScheduled", _cocos2d_Node_isScheduled);
+    oluacls_setfunc(L, "setActionManager", _cocos2d_Node_setActionManager);
+    oluacls_setfunc(L, "getActionManager", _cocos2d_Node_getActionManager);
     oluacls_setfunc(L, "runAction", _cocos2d_Node_runAction);
     oluacls_setfunc(L, "stopAllActions", _cocos2d_Node_stopAllActions);
     oluacls_setfunc(L, "stopAction", _cocos2d_Node_stopAction);
@@ -11246,7 +11252,7 @@ static int _cocos2d_EventListenerCustom_create(lua_State *L)
     lua_settop(L, 2);
 
     void *tag_store_obj = nullptr;
-    std::string event = luaL_checkstring(L, 1);
+    std::string event = olua_checkstring(L, 1);
     cocos2d::EventListenerCustom *self = new cocos2d::EventListenerCustom();
     self->autorelease();
     tag_store_obj = self;
@@ -11835,7 +11841,7 @@ static int luaopen_cocos2d_Event(lua_State *L)
 static int _cocos2d_EventCustom_new(lua_State *L)
 {
     lua_settop(L, 1);
-    const char *event = luaL_checkstring(L, 1);
+    const char *event = olua_checkstring(L, 1);
     cocos2d::EventCustom *obj = new cocos2d::EventCustom(event);
     obj->autorelease();
     return olua_push_cppobj<cocos2d::EventCustom>(L, obj, "cc.EventCustom");

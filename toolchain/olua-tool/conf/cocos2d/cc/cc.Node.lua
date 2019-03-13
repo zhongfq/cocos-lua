@@ -2,13 +2,10 @@ local cls = class()
 cls.CPPCLS = "cocos2d::Node"
 cls.LUACLS = "cc.Node"
 cls.SUPERCLS = "cc.Ref"
-cls.prop('name', 'const std::string& getName()', 'void setName(const std::string& name)')
-cls.prop('attachedNodeCount', 'static int getAttachedNodeCount()')
-cls.prop('description', 'std::string getDescription()')
-cls.prop('scheduler', 'Scheduler* getScheduler()', 'void setScheduler(Scheduler* scheduler)')
-cls.prop('actionManager', 'ActionManager* getActionManager()', 'void setActionManager(ActionManager* actionManager)')
 cls.funcs([[
     static Node *create()
+    static int getAttachedNodeCount()
+    std::string getDescription()
     const std::string& getName()
     void setName(const std::string& name)
     void addChild(Node * child)
@@ -29,11 +26,14 @@ cls.funcs([[
     void setPosition(float x, float y)
     void setPosition(const Vec2 &position)
     @unpack const Vec2& getPosition()
+    void setScheduler(Scheduler* scheduler)
+    Scheduler* getScheduler()
     void scheduleUpdate(void)
     void unscheduleUpdate(void)
     void scheduleUpdateWithPriority(int priority)
     bool isScheduled(const std::string &key)
-
+    void setActionManager(ActionManager* actionManager)
+    ActionManager* getActionManager()
     Action* runAction(Action* action)
     void stopAllActions()
     void stopAction(Action* action)
@@ -73,4 +73,9 @@ cls.callback(nil, {
 
 cls.func(nil, 'void resume(void)')
 cls.func(nil, 'void pause(void)')
+cls.prop('name')
+cls.prop('attachedNodeCount')
+cls.prop('description')
+cls.prop('scheduler')
+cls.prop('actionManager')
 return cls

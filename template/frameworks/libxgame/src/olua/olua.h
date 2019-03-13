@@ -29,7 +29,8 @@ extern "C" {
 #define olua_isinteger(L,n)         (lua_isinteger(L, n))
 #define olua_isthread(L,n)          (lua_type(L, (n)) == LUA_TTHREAD)
     
-#define olua_newuserdata(L, OBJ, T) (*(T*)lua_newuserdata(L, sizeof(T)) = (OBJ))
+#define olua_newuserdata(L, obj, t) (*(t*)lua_newuserdata(L, sizeof(t)) = (obj))
+#define olua_touserdata(L, n, t)    (*(t*)lua_touserdata(L, idx))
 
 LUALIB_API int olua_rawgetfield(lua_State *L, int idx, const char *field);
 LUALIB_API void olua_rawsetfield(lua_State *L, int idx, const char *field);

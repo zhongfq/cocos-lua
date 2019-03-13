@@ -66,8 +66,8 @@ LUALIB_API const char *olua_typename(lua_State *L, int idx)
 
 LUALIB_API const char *olua_tostring(lua_State *L, int idx)
 {
-    if (lua_type(L, idx) == LUA_TUSERDATA) {
-        intptr_t p = (intptr_t)(*(void **)lua_touserdata(L, idx));
+    if (olua_isuserdata(L, idx)) {
+        intptr_t p = (intptr_t)olua_touserdata(L, idx, void *);
         intptr_t p2 = (intptr_t)lua_topointer(L, idx);
         return lua_pushfstring(L, "%s: %p|%p", olua_typename(L, idx), p, p2);
     } else {
@@ -310,8 +310,8 @@ LUALIB_API void *olua_checkobj(lua_State *L, int idx, const char *cls)
 
 LUALIB_API void *olua_toobj(lua_State *L, int idx, const char *cls)
 {
-    if (lua_type(L, idx) == LUA_TUSERDATA) {
-        void *obj = *(void **)lua_touserdata(L, idx);
+    if (olua_isuserdata(L, idx)) {
+        void *obj = olua_touserdata(L, idx, void *);
         if (obj) {
             return obj;
         } else {
@@ -336,17 +336,17 @@ LUALIB_API void olua_callgc(lua_State *L, int idx, bool isarrary)
                 lua_pop(L, 1);
             }
         }
-    } else {
-        void *p = lua_type(L, idx) == LUA_TUSERDATA ? (*(void **)lua_touserdata(L, idx)) : NULL;
+    } else if (olua_isuserdata(L, idx)) {
+        void *obj = olua_touserdata(L, idx, void *);
         lua_pushcfunction(L, TRACEBACK);
         if (lua_getfield(L, idx, "__gc") == LUA_TFUNCTION) {
             lua_pushvalue(L, idx);
             lua_pcall(L, 1, 0, top + 1);
         }
-        if (p) {
+        if (obj) {
             olua_getobjtable(L);
             lua_pushnil(L);
-            lua_rawsetp(L, -2, p);
+            lua_rawsetp(L, -2, obj);
         }
     }
     lua_settop(L, top);

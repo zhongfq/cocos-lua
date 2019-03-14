@@ -47,7 +47,7 @@ local function gen_func_args(cls, fi)
             assert(fi.CALLBACK_OPT, fi.FUNC_DECL)
         end
 
-        if ai.TYPE.DECL_TYPE ~= ai.TYPE.TYPENAME and not ai.CALLBACK_ARGS then
+        if ai.TYPE.DECL_TYPE ~= ai.TYPE.TYPENAME and not ai.CALLBACK.ARGS then
             local TYPENAME = ai.TYPE.TYPENAME
             CALLER_ARGS[#CALLER_ARGS + 1] = format_snippet([[
                 (${TYPENAME})${ARG_N}
@@ -77,9 +77,9 @@ local function gen_func_args(cls, fi)
             ]])
         end
 
-        if ai.OPT_VALUE then
+        if ai.DEFAULT then
             local FUNC_OPT_VALUE = ai.TYPE.FUNC_OPT_VALUE
-            local OPT_VALUE = ai.OPT_VALUE
+            local DEFAULT = ai.DEFAULT
             if ai.TYPE.LUACLS then
                 local LUACLS = ai.TYPE.LUACLS
                 local FUNC_IS_VALUE = ai.TYPE.FUNC_IS_VALUE
@@ -90,7 +90,7 @@ local function gen_func_args(cls, fi)
                 ]])
             else
                 ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
-                    ${FUNC_OPT_VALUE}(L, ${IDX}, &${ARG_N}, ${OPT_VALUE});
+                    ${FUNC_OPT_VALUE}(L, ${IDX}, &${ARG_N}, ${DEFAULT});
                 ]])
             end
         elseif ai.TYPE.LUACLS then
@@ -103,8 +103,8 @@ local function gen_func_args(cls, fi)
             ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
                 ${FUNC_CHECK_VALUE}(L, ${IDX}, ${ARG_N}, "${SUBTYPE}");
             ]])
-        elseif not ai.CALLBACK_ARGS then
-            if ai.PACK then
+        elseif not ai.CALLBACK.ARGS then
+            if ai.ATTR.PACK then
                 FUNC_CHECK_VALUE = ai.TYPE.FUNC_PACK_VALUE
                 TOTAL_ARGS = ai.TYPE.VARS + TOTAL_ARGS - 1
                 idx = idx + ai.TYPE.VARS - 1
@@ -114,12 +114,21 @@ local function gen_func_args(cls, fi)
             ]])
         end
 
-        if ai.REF then
+        if ai.ATTR.REF then
             assert(not fi.STATIC or (fi.RET.NUM > 0 and fi.RET.TYPE.LUACLS), fi.CPPFUNC)
             local WHICH_OBJ = fi.STATIC and -1 or 1
-            REF_CHUNK[#REF_CHUNK + 1] = format_snippet([[
-                olua_mapref(L, ${WHICH_OBJ}, ".autoref", ${IDX});
-            ]])
+            if ai.ATTR.REF == true then
+                REF_CHUNK[#REF_CHUNK + 1] = format_snippet([[
+                    olua_mapref(L, ${WHICH_OBJ}, ".autoref", ${IDX});
+                ]])
+            elseif ai.ATTR.REF[1] == "single" then
+                local REF_NAME = assert(ai.ATTR.REF[2], 'no ref name')
+                REF_CHUNK[#REF_CHUNK + 1] = format_snippet([[
+                    olua_singleref(L, ${WHICH_OBJ}, "${REF_NAME", ${IDX});
+                ]])
+            else
+                error(ai.ATTR.REF[1])
+            end
         end
     end
 
@@ -129,7 +138,6 @@ local function gen_func_args(cls, fi)
 
     ARGS_CHUNK = table.concat(ARGS_CHUNK, "\n")
     DECL_CHUNK = table.concat(DECL_CHUNK, "\n")
-    REF_CHUNK = table.concat(REF_CHUNK, "\n")
     CALLER_ARGS = table.concat(CALLER_ARGS, ", ")
 
     return DECL_CHUNK, ARGS_CHUNK, CALLER_ARGS, TOTAL_ARGS, REF_CHUNK
@@ -160,7 +168,7 @@ local function gen_func_ret(cls, fi)
             local SUBTYPE = assert(fi.RET.TYPE.SUBTYPE.LUACLS, fi.RET.DECL_TYPE)
             RET_PUSH = format_snippet('int num_ret = ${FUNC_PUSH_VALUE}(L, ret, "${SUBTYPE}");')
         else
-            if fi.RET.UNPACK then
+            if fi.RET.ATTR.UNPACK then
                 FUNC_PUSH_VALUE = fi.RET.TYPE.FUNC_UNPACK_VALUE
             end
             local CAST = ""
@@ -227,6 +235,24 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
             ARGS_BEGIN = " = "
         end
     end
+
+    if fi.RET.ATTR.REF then
+        assert(not fi.STATIC or (fi.RET.NUM > 0 and fi.RET.TYPE.LUACLS), fi.CPPFUNC)
+        if fi.RET.ATTR.REF == true then
+            REF_CHUNK[#REF_CHUNK + 1] = format_snippet([[
+                olua_mapref(L, 1, ".autoref", -1);
+            ]])
+        elseif fi.RET.ATTR.REF[1] == "single" then
+            local REF_NAME = assert(fi.RET.ATTR.REF[2], 'no ref name')
+            REF_CHUNK[#REF_CHUNK + 1] = format_snippet([[
+                olua_singleref(L, 1, "${REF_NAME", -1);
+            ]])
+        else
+            error(fi.RET.ATTR.REF[1])
+        end
+    end
+
+    REF_CHUNK = table.concat(REF_CHUNK, "\n")
 
     if #REF_CHUNK > 0 then
         REF_CHUNK = '\n' .. REF_CHUNK .. '\n'
@@ -308,6 +334,11 @@ local function gen_test_and_call(cls, fns)
                 ]])
             end
         else
+            if #fns > 1 then
+                for fn, fi in ipairs(fns) do
+                    print("fn", fi, fi.CPPFUNC)
+                end
+            end
             assert(#fns == 1, fi.CPPFUNC)
             CALL_CHUNK[#CALL_CHUNK + 1] = format_snippet([[
                 return _${CPPCLS_PATH}_${CPPFUNC}${FUNC_INDEX}(L);

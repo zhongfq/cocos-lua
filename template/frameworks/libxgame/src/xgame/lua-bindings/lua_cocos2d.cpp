@@ -657,10 +657,13 @@ static int _cocos2d_Director_getTextureCache(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
 
-    // TextureCache* getTextureCache()
+    // @ref(single textureCache) TextureCache* getTextureCache()
     cocos2d::TextureCache *ret = (cocos2d::TextureCache *)self->getTextureCache();
+    int num_ret = olua_push_cppobj<cocos2d::TextureCache>(L, ret, "cc.TextureCache");
 
-    return olua_push_cppobj<cocos2d::TextureCache>(L, ret, "cc.TextureCache");
+    olua_singleref(L, 1, "textureCache", -1);
+
+    return num_ret;
 }
 
 static int _cocos2d_Director_isNextDeltaTimeZero(lua_State *L)
@@ -787,10 +790,13 @@ static int _cocos2d_Director_getNotificationNode(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
 
-    // Node* getNotificationNode()
+    // @ref(single notificationNode) Node* getNotificationNode()
     cocos2d::Node *ret = (cocos2d::Node *)self->getNotificationNode();
+    int num_ret = olua_push_cppobj<cocos2d::Node>(L, ret, "cc.Node");
 
-    return olua_push_cppobj<cocos2d::Node>(L, ret, "cc.Node");
+    olua_singleref(L, 1, "notificationNode", -1);
+
+    return num_ret;
 }
 
 static int _cocos2d_Director_setNotificationNode(lua_State *L)
@@ -803,8 +809,11 @@ static int _cocos2d_Director_setNotificationNode(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
 
-    // void setNotificationNode(Node *node)
+    // void setNotificationNode(@ref(single notificationNode) Node *node)
     self->setNotificationNode(arg1);
+
+    // ref value
+    olua_singleref(L, 1, "notificationNode", 2);
 
     return 0;
 }
@@ -1292,10 +1301,13 @@ static int _cocos2d_Director_getScheduler(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
 
-    // Scheduler* getScheduler()
+    // @ref(single scheduler) Scheduler* getScheduler()
     cocos2d::Scheduler *ret = (cocos2d::Scheduler *)self->getScheduler();
+    int num_ret = olua_push_cppobj<cocos2d::Scheduler>(L, ret, "cc.Scheduler");
 
-    return olua_push_cppobj<cocos2d::Scheduler>(L, ret, "cc.Scheduler");
+    olua_singleref(L, 1, "scheduler", -1);
+
+    return num_ret;
 }
 
 static int _cocos2d_Director_setScheduler(lua_State *L)
@@ -1308,8 +1320,11 @@ static int _cocos2d_Director_setScheduler(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Scheduler");
 
-    // void setScheduler(Scheduler* scheduler)
+    // void setScheduler(@ref(single scheduler) Scheduler* scheduler)
     self->setScheduler(arg1);
+
+    // ref value
+    olua_singleref(L, 1, "scheduler", 2);
 
     return 0;
 }
@@ -1322,10 +1337,13 @@ static int _cocos2d_Director_getActionManager(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
 
-    // ActionManager* getActionManager()
+    // @ref(single actionManager) ActionManager* getActionManager()
     cocos2d::ActionManager *ret = (cocos2d::ActionManager *)self->getActionManager();
+    int num_ret = olua_push_cppobj<cocos2d::ActionManager>(L, ret, "cc.ActionManager");
 
-    return olua_push_cppobj<cocos2d::ActionManager>(L, ret, "cc.ActionManager");
+    olua_singleref(L, 1, "actionManager", -1);
+
+    return num_ret;
 }
 
 static int _cocos2d_Director_setActionManager(lua_State *L)
@@ -1338,8 +1356,11 @@ static int _cocos2d_Director_setActionManager(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.ActionManager");
 
-    // void setActionManager(ActionManager* actionManager)
+    // void setActionManager(@ref(single actionManager) ActionManager* actionManager)
     self->setActionManager(arg1);
+
+    // ref value
+    olua_singleref(L, 1, "actionManager", 2);
 
     return 0;
 }
@@ -1352,10 +1373,13 @@ static int _cocos2d_Director_getEventDispatcher(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
 
-    // EventDispatcher* getEventDispatcher()
+    // @ref(single eventDispatcher) EventDispatcher* getEventDispatcher()
     cocos2d::EventDispatcher *ret = (cocos2d::EventDispatcher *)self->getEventDispatcher();
+    int num_ret = olua_push_cppobj<cocos2d::EventDispatcher>(L, ret, "cc.EventDispatcher");
 
-    return olua_push_cppobj<cocos2d::EventDispatcher>(L, ret, "cc.EventDispatcher");
+    olua_singleref(L, 1, "eventDispatcher", -1);
+
+    return num_ret;
 }
 
 static int _cocos2d_Director_setEventDispatcher(lua_State *L)
@@ -1368,8 +1392,11 @@ static int _cocos2d_Director_setEventDispatcher(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.EventDispatcher");
 
-    // void setEventDispatcher(EventDispatcher* dispatcher)
+    // void setEventDispatcher(@ref(single eventDispatcher) EventDispatcher* dispatcher)
     self->setEventDispatcher(arg1);
+
+    // ref value
+    olua_singleref(L, 1, "eventDispatcher", 2);
 
     return 0;
 }
@@ -1382,10 +1409,13 @@ static int _cocos2d_Director_getRenderer(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
 
-    // Renderer* getRenderer()
+    // @ref(single renderer) Renderer* getRenderer()
     cocos2d::Renderer *ret = (cocos2d::Renderer *)self->getRenderer();
+    int num_ret = olua_push_cppobj<cocos2d::Renderer>(L, ret, "cc.Renderer");
 
-    return olua_push_cppobj<cocos2d::Renderer>(L, ret, "cc.Renderer");
+    olua_singleref(L, 1, "renderer", -1);
+
+    return num_ret;
 }
 
 static int _cocos2d_Director_getDeltaTime(lua_State *L)
@@ -2838,12 +2868,12 @@ static int _cocos2d_Speed_create(lua_State *L)
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
     olua_check_number(L, 2, &arg2);
 
-    // static Speed* create(@ref ActionInterval* action, float speed)
+    // static Speed* create(@ref(single innerAction) ActionInterval* action, float speed)
     cocos2d::Speed *ret = (cocos2d::Speed *)cocos2d::Speed::create(arg1, (float)arg2);
     int num_ret = olua_push_cppobj<cocos2d::Speed>(L, ret, "cc.Speed");
 
     // ref value
-    olua_mapref(L, -1, ".autoref", 1);
+    olua_singleref(L, -1, "innerAction", 1);
 
     return num_ret;
 }
@@ -2888,11 +2918,11 @@ static int _cocos2d_Speed_setInnerAction(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Speed");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.ActionInterval");
 
-    // void setInnerAction(@ref ActionInterval *action)
+    // void setInnerAction(@ref(single innerAction) ActionInterval *action)
     self->setInnerAction(arg1);
 
     // ref value
-    olua_mapref(L, 1, ".autoref", 2);
+    olua_singleref(L, 1, "innerAction", 2);
 
     return 0;
 }
@@ -2905,10 +2935,13 @@ static int _cocos2d_Speed_getInnerAction(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Speed");
 
-    // ActionInterval* getInnerAction()
+    // @ref(single innerAction) ActionInterval* getInnerAction()
     cocos2d::ActionInterval *ret = (cocos2d::ActionInterval *)self->getInnerAction();
+    int num_ret = olua_push_cppobj<cocos2d::ActionInterval>(L, ret, "cc.ActionInterval");
 
-    return olua_push_cppobj<cocos2d::ActionInterval>(L, ret, "cc.ActionInterval");
+    olua_singleref(L, 1, "innerAction", -1);
+
+    return num_ret;
 }
 
 static int luaopen_cocos2d_Speed(lua_State *L)
@@ -3766,12 +3799,12 @@ static int _cocos2d_Repeat_create(lua_State *L)
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.FiniteTimeAction");
     olua_check_uint(L, 2, &arg2);
 
-    // static Repeat* create(@ref FiniteTimeAction *action, unsigned int times)
+    // static Repeat* create(@ref(single innerAction) FiniteTimeAction *action, unsigned int times)
     cocos2d::Repeat *ret = (cocos2d::Repeat *)cocos2d::Repeat::create(arg1, (unsigned int)arg2);
     int num_ret = olua_push_cppobj<cocos2d::Repeat>(L, ret, "cc.Repeat");
 
     // ref value
-    olua_mapref(L, -1, ".autoref", 1);
+    olua_singleref(L, -1, "innerAction", 1);
 
     return num_ret;
 }
@@ -3786,11 +3819,11 @@ static int _cocos2d_Repeat_setInnerAction(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Repeat");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.FiniteTimeAction");
 
-    // void setInnerAction(@ref FiniteTimeAction *action)
+    // void setInnerAction(@ref(single innerAction) FiniteTimeAction *action)
     self->setInnerAction(arg1);
 
     // ref value
-    olua_mapref(L, 1, ".autoref", 2);
+    olua_singleref(L, 1, "innerAction", 2);
 
     return 0;
 }
@@ -3803,10 +3836,13 @@ static int _cocos2d_Repeat_getInnerAction(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Repeat");
 
-    // FiniteTimeAction* getInnerAction()
+    // @ref(single innerAction) FiniteTimeAction* getInnerAction()
     cocos2d::FiniteTimeAction *ret = (cocos2d::FiniteTimeAction *)self->getInnerAction();
+    int num_ret = olua_push_cppobj<cocos2d::FiniteTimeAction>(L, ret, "cc.FiniteTimeAction");
 
-    return olua_push_cppobj<cocos2d::FiniteTimeAction>(L, ret, "cc.FiniteTimeAction");
+    olua_singleref(L, 1, "innerAction", -1);
+
+    return num_ret;
 }
 
 static int luaopen_cocos2d_Repeat(lua_State *L)
@@ -3831,12 +3867,12 @@ static int _cocos2d_RepeatForever_create(lua_State *L)
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
 
-    // static RepeatForever* create(@ref ActionInterval *action)
+    // static RepeatForever* create(@ref(single innerAction) ActionInterval *action)
     cocos2d::RepeatForever *ret = (cocos2d::RepeatForever *)cocos2d::RepeatForever::create(arg1);
     int num_ret = olua_push_cppobj<cocos2d::RepeatForever>(L, ret, "cc.RepeatForever");
 
     // ref value
-    olua_mapref(L, -1, ".autoref", 1);
+    olua_singleref(L, -1, "innerAction", 1);
 
     return num_ret;
 }
@@ -3851,11 +3887,11 @@ static int _cocos2d_RepeatForever_setInnerAction(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.RepeatForever");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.ActionInterval");
 
-    // void setInnerAction(@ref ActionInterval *action)
+    // void setInnerAction(@ref(single innerAction) ActionInterval *action)
     self->setInnerAction(arg1);
 
     // ref value
-    olua_mapref(L, 1, ".autoref", 2);
+    olua_singleref(L, 1, "innerAction", 2);
 
     return 0;
 }
@@ -3868,10 +3904,13 @@ static int _cocos2d_RepeatForever_getInnerAction(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.RepeatForever");
 
-    // ActionInterval* getInnerAction()
+    // @ref(single innerAction) ActionInterval* getInnerAction()
     cocos2d::ActionInterval *ret = (cocos2d::ActionInterval *)self->getInnerAction();
+    int num_ret = olua_push_cppobj<cocos2d::ActionInterval>(L, ret, "cc.ActionInterval");
 
-    return olua_push_cppobj<cocos2d::ActionInterval>(L, ret, "cc.ActionInterval");
+    olua_singleref(L, 1, "innerAction", -1);
+
+    return num_ret;
 }
 
 static int luaopen_cocos2d_RepeatForever(lua_State *L)

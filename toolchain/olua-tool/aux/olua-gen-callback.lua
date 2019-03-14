@@ -55,7 +55,7 @@ function gen_callback(cls, fi, write)
 
     for i, v in ipairs(fi.ARGS) do
         IDX = IDX + 1
-        if v.CALLBACK_ARGS then
+        if v.CALLBACK.ARGS then
             ARG_N = 'arg' .. i
             ai = v
             break
@@ -69,7 +69,7 @@ function gen_callback(cls, fi, write)
     local TAG_MAKER = gen_maker(cls, fi, write)
     local REMOVE_CALLBACK = ""
     local OLUA_CALLBACK_TAG = "OLUA_CALLBACK_TAG_NEW"
-    local NUM_ARGS = #ai.CALLBACK_ARGS
+    local NUM_ARGS = #ai.CALLBACK.ARGS
     local ARGS = {}
     local PUSH_ARGS = {}
     local INSTACKS = {}
@@ -79,7 +79,7 @@ function gen_callback(cls, fi, write)
     local RESULT_RET = ""
     local RESULT_GET = ""
 
-    for i, v in ipairs(ai.CALLBACK_ARGS) do
+    for i, v in ipairs(ai.CALLBACK.ARGS) do
         local ARG_N = 'arg' .. i
         local PUSH_FUNC = v.TYPE.FUNC_PUSH_VALUE
     
@@ -111,7 +111,7 @@ function gen_callback(cls, fi, write)
             ]])
         end
 
-        if v.INSTACK then
+        if v.ATTR.STACK then
             local PUSH_VALUE = PUSH_ARGS[#PUSH_ARGS]
             if #INSTACKS == 0 then
                 INSTACKS[#INSTACKS + 1] = "//may be stack value"
@@ -152,10 +152,10 @@ function gen_callback(cls, fi, write)
         OLUA_CALLBACK_TAG = "OLUA_CALLBACK_TAG_REPLACE"
     end
 
-    if ai.CALLBACK_RET.TYPENAME ~= "void" then
-        local DECL_TYPE = ai.CALLBACK_RET.DECL_TYPE
-        local INIT_VALUE = ai.CALLBACK_RET.INIT_VALUE
-        local FUNC_OPT_VALUE = ai.CALLBACK_RET.FUNC_OPT_VALUE
+    if ai.CALLBACK.RET.TYPENAME ~= "void" then
+        local DECL_TYPE = ai.CALLBACK.RET.DECL_TYPE
+        local INIT_VALUE = ai.CALLBACK.RET.INIT_VALUE
+        local FUNC_OPT_VALUE = ai.CALLBACK.RET.FUNC_OPT_VALUE
         RESULT_DECL = format_snippet([[
             ${DECL_TYPE} ret = ${INIT_VALUE};
         ]])
@@ -191,14 +191,14 @@ function gen_callback(cls, fi, write)
             ${RESULT_RET}
         };
     ]])
-    if ai.CALLBACK_DEFAULT then
-        local CALLBACK_DEFAULT = ai.CALLBACK_DEFAULT
+    if ai.CALLBACK.DEFAULT then
+        local DEFAULT = ai.CALLBACK.DEFAULT
         local FUNC_IS_VALUE = ai.TYPE.FUNC_IS_VALUE
         CALLBACK_CHUNK = format_snippet([[
             if (${FUNC_IS_VALUE}(L, ${IDX})) {
                 ${CALLBACK_CHUNK}
             } else {
-                ${ARG_N} = ${CALLBACK_DEFAULT};
+                ${ARG_N} = ${DEFAULT};
             }
         ]])
     else

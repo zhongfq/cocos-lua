@@ -37,11 +37,11 @@ static void wrap_get(lua_State *L, const char *fn, const char *prop, lua_CFuncti
     set_func(L, CLS_GET, prop, func, prop);
 }
 
-static void wrap_set(lua_State *L, const char *fn, const char *prop, lua_CFunction func)
-{
-    set_func(L, CLS_FUNC, fn, func, prop);
-    set_func(L, CLS_SET, prop, func, prop);
-}
+//static void wrap_set(lua_State *L, const char *fn, const char *prop, lua_CFunction func)
+//{
+//    set_func(L, CLS_FUNC, fn, func, prop);
+//    set_func(L, CLS_SET, prop, func, prop);
+//}
 
 static void call_real_function(lua_State *L, bool keepself)
 {
@@ -55,22 +55,22 @@ static void call_real_function(lua_State *L, bool keepself)
     lua_call(L, args, LUA_MULTRET);
 }
 
-static int ref_return_value(lua_State *L)
-{
-    const char *name = olua_checkstring(L, lua_upvalueindex(2));
-    call_real_function(L, KEEP_SELF);
-    olua_singleref(L, 1, name, 2);
-    lua_remove(L, 1);
-    return lua_gettop(L);
-}
-
-static int ref_argument_value(lua_State *L)
-{
-    const char *name = olua_checkstring(L, lua_upvalueindex(2));
-    olua_singleref(L, 1, name, 2);
-    call_real_function(L, false);
-    return lua_gettop(L);
-}
+//static int ref_return_value(lua_State *L)
+//{
+//    const char *name = olua_checkstring(L, lua_upvalueindex(2));
+//    call_real_function(L, KEEP_SELF);
+//    olua_singleref(L, 1, name, 2);
+//    lua_remove(L, 1);
+//    return lua_gettop(L);
+//}
+//
+//static int ref_argument_value(lua_State *L)
+//{
+//    const char *name = olua_checkstring(L, lua_upvalueindex(2));
+//    olua_singleref(L, 1, name, 2);
+//    call_real_function(L, false);
+//    return lua_gettop(L);
+//}
 
 //
 // Director
@@ -143,17 +143,6 @@ static int wrap_cocos2d_Director(lua_State *L)
     wrap_func(L, "popToRootScene", wrap_cocos2d_Director_popToRootScene);
     wrap_func(L, "popToSceneStackLevel", wrap_cocos2d_Director_popToSceneStackLevel);
     wrap_func(L, "replaceScene", wrap_cocos2d_Director_replaceScene);
-    
-    wrap_get(L, "getTextureCache", "textureCache", ref_return_value);
-    wrap_get(L, "getScheduler", "scheduler", ref_return_value);
-    wrap_set(L, "setScheduler", "scheduler", ref_argument_value);
-    wrap_get(L, "getActionManager", "actionManager", ref_return_value);
-    wrap_set(L, "setActionManager", "actionManager", ref_argument_value);
-    wrap_get(L, "getEventDispatcher", "eventDispatcher", ref_return_value);
-    wrap_set(L, "setEventDispatcher", "eventDispatcher", ref_argument_value);
-    wrap_get(L, "getNotificationNode", "notificationNode", ref_return_value);
-    wrap_set(L, "setNotificationNode", "notificationNode", ref_argument_value);
-    wrap_get(L, "getRenderer", "renderer", ref_return_value);
     return 0;
 }
 

@@ -47,9 +47,9 @@ cls.CPPCLS = "cocos2d::Repeat"
 cls.LUACLS = "cc.Repeat"
 cls.SUPERCLS = "cc.ActionInterval"
 cls.funcs([[
-    static Repeat* create(@ref FiniteTimeAction *action, unsigned int times)
-    void setInnerAction(@ref FiniteTimeAction *action)
-    FiniteTimeAction* getInnerAction()
+    static Repeat* create(@ref(single innerAction) FiniteTimeAction *action, unsigned int times)
+    void setInnerAction(@ref(single innerAction) FiniteTimeAction *action)
+    @ref(single innerAction) FiniteTimeAction* getInnerAction()
 ]])
 cls.prop('innerAction')
 
@@ -58,9 +58,9 @@ cls.CPPCLS = "cocos2d::RepeatForever"
 cls.LUACLS = "cc.RepeatForever"
 cls.SUPERCLS = "cc.ActionInterval"
 cls.funcs([[
-    static RepeatForever* create(@ref ActionInterval *action)
-    void setInnerAction(@ref ActionInterval *action)
-    ActionInterval* getInnerAction()
+    static RepeatForever* create(@ref(single innerAction) ActionInterval *action)
+    void setInnerAction(@ref(single innerAction) ActionInterval *action)
+    @ref(single innerAction) ActionInterval* getInnerAction()
 ]])
 cls.prop("innerAction")
 

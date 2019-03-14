@@ -4,9 +4,9 @@
 #define CLS_GET     ".get"
 #define CLS_SET     ".set"
 
-#define NODE_CHILDREN   ".children"
-#define NODE_ACTIONS    ".actions"
-#define DIRECTOR_SCENES ".scenes"
+#define NODE_CHILDREN   "children"
+#define NODE_ACTIONS    "actions"
+#define DIRECTOR_SCENES "scenes"
 
 #define KEEP_SELF   true
 
@@ -16,7 +16,7 @@ static void set_func(lua_State *L, const char *t, const char *fn, lua_CFunction 
     CCASSERT(refname, "");
     olua_rawgetfield(L, -1, t);                         // L: t
     if (olua_rawgetfield(L, -1, fn) == LUA_TFUNCTION) { // L: t old_func
-        lua_pushfstring(L, ".%s", refname);             // L: t old_func name
+        lua_pushstring(L, refname);                     // L: t old_func name
         lua_pushcclosure(L, func, 2);                   // L: t new_func
         olua_rawsetfield(L, -2, fn);                    // L: t
         lua_pop(L, 1);                                  // L:
@@ -55,7 +55,7 @@ static void call_real_function(lua_State *L, bool keepself)
     lua_call(L, args, LUA_MULTRET);
 }
 
-static int wrap_ref_after_get(lua_State *L)
+static int ref_return_value(lua_State *L)
 {
     const char *name = olua_checkstring(L, lua_upvalueindex(2));
     call_real_function(L, KEEP_SELF);
@@ -64,7 +64,7 @@ static int wrap_ref_after_get(lua_State *L)
     return lua_gettop(L);
 }
 
-static int wrap_ref_before_set(lua_State *L)
+static int ref_argument_value(lua_State *L)
 {
     const char *name = olua_checkstring(L, lua_upvalueindex(2));
     olua_arrayunref(L, 1, name, -1);
@@ -145,16 +145,16 @@ static int wrap_cocos2d_Director(lua_State *L)
     wrap_func(L, "popToSceneStackLevel", wrap_cocos2d_Director_popToSceneStackLevel);
     wrap_func(L, "replaceScene", wrap_cocos2d_Director_replaceScene);
     
-    wrap_get(L, "getTextureCache", "textureCache", wrap_ref_after_get);
-    wrap_get(L, "getScheduler", "scheduler", wrap_ref_after_get);
-    wrap_set(L, "setScheduler", "scheduler", wrap_ref_before_set);
-    wrap_get(L, "getActionManager", "actionManager", wrap_ref_after_get);
-    wrap_set(L, "setActionManager", "actionManager", wrap_ref_before_set);
-    wrap_get(L, "getEventDispatcher", "eventDispatcher", wrap_ref_after_get);
-    wrap_set(L, "setEventDispatcher", "eventDispatcher", wrap_ref_before_set);
-    wrap_get(L, "getNotificationNode", "notificationNode", wrap_ref_after_get);
-    wrap_set(L, "setNotificationNode", "notificationNode", wrap_ref_before_set);
-    wrap_get(L, "getRenderer", "renderer", wrap_ref_after_get);
+    wrap_get(L, "getTextureCache", "textureCache", ref_return_value);
+    wrap_get(L, "getScheduler", "scheduler", ref_return_value);
+    wrap_set(L, "setScheduler", "scheduler", ref_argument_value);
+    wrap_get(L, "getActionManager", "actionManager", ref_return_value);
+    wrap_set(L, "setActionManager", "actionManager", ref_argument_value);
+    wrap_get(L, "getEventDispatcher", "eventDispatcher", ref_return_value);
+    wrap_set(L, "setEventDispatcher", "eventDispatcher", ref_argument_value);
+    wrap_get(L, "getNotificationNode", "notificationNode", ref_return_value);
+    wrap_set(L, "setNotificationNode", "notificationNode", ref_argument_value);
+    wrap_get(L, "getRenderer", "renderer", ref_return_value);
     return 0;
 }
 
@@ -234,7 +234,7 @@ static int wrap_cocos2d_Node_removeChildByName(lua_State *L)
 // void removeAllChildrenWithCleanup(bool cleanup)
 static int wrap_cocos2d_Node_removeAllChildren(lua_State *L)
 {
-    olua_mapunrefall(L, 1, NODE_CHILDREN);
+    olua_unrefall(L, 1, NODE_CHILDREN);
     call_real_function(L, false);
     return lua_gettop(L);
 }
@@ -267,7 +267,7 @@ static int wrap_cocos2d_Node_runAction(lua_State *L)
 // void stopAllActions()
 static int wrap_cocos2d_Node_stopAllActions(lua_State *L)
 {
-    olua_mapunrefall(L, 1, NODE_ACTIONS);
+    olua_unrefall(L, 1, NODE_ACTIONS);
     call_real_function(L, false);
     return lua_gettop(L);
 }

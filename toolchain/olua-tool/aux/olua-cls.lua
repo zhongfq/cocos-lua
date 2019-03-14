@@ -181,6 +181,20 @@ local function to_arg_strs(str)
     return arr
 end
 
+local function paser_attr(arg)
+    local attr = {}
+    while true do
+        local opt = string.match(arg, '^@(%w+)')
+        if opt then
+            attr[opt] = true
+            arg = string.gsub(arg, '^@%w+', '')
+        else
+            break
+        end
+    end
+    return arg, attr
+end
+
 local function parse_args(cls, func_decl)
     local args = {}
     local args_str = string.match(func_decl, '%((.*)%)')
@@ -188,9 +202,7 @@ local function parse_args(cls, func_decl)
     for _, arg in ipairs(to_arg_strs(args_str)) do
         arg = to_pretty_typename(arg)
         if arg ~= 'void' then
-            local arg, stack = string.gsub(arg, '^@stack', '')
-            local arg, pack = string.gsub(arg, '^@pack', '')
-            local arg, ref = string.gsub(arg, '^@ref', '')
+            local arg, attr = paser_attr(arg)
             local typename, varname, default = string.match(arg, '(.+[ *&])([^ *&<>]+) *= *([^ ]*)')
             if not typename then
                 typename, varname = string.match(arg, '(.+[ *&])([^ *&<>]+)$')
@@ -219,8 +231,8 @@ local function parse_args(cls, func_decl)
                     CALLBACK_ARGS = callback_ars,
                     CALLBACK_RET = get_typeinfo(rt),
                     VARNAME = varname,
-                    INSTACK = stack > 0,
-                    REF = ref > 0,
+                    INSTACK = attr.stack,
+                    REF = attr.ref,
                 }
             else
                 args[#args + 1] = {
@@ -228,10 +240,10 @@ local function parse_args(cls, func_decl)
                     DECL_TYPE = to_decl_type(cls, typename, true),
                     FUNC_ARG_DECL_TYPE = to_decl_type(cls, typename, false, true),
                     OPT_VALUE = default,
-                    PACK = pack > 0,
+                    PACK = attr.pack,
                     VARNAME = varname,
-                    INSTACK = stack > 0,
-                    REF = ref > 0,
+                    INSTACK = attr.stack,
+                    REF = attr.ref,
                 }
             end
         end

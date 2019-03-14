@@ -69,10 +69,12 @@ LUALIB_API int olua_getvariable(lua_State *L, int idx);
 LUALIB_API void olua_setvariable(lua_State *L, int idx);
     
 // for ref chain
+LUALIB_API void olua_singleref(lua_State *L, int obj, const char *field, int vidx);
+LUALIB_API void olua_singleunref(lua_State *L, int obj, const char *field);
 LUALIB_API void olua_mapref(lua_State *L, int obj, const char *t, int vidx);
 LUALIB_API void olua_mapunref(lua_State *L, int obj, const char *t, int vidx);
-LUALIB_API void olua_mapunrefall(lua_State *L, int obj, const char *t);
 LUALIB_API void olua_mapwalkunref(lua_State *L, int obj, const char *t, lua_CFunction walk);
+LUALIB_API void olua_unrefall(lua_State *L, int obj, const char *t);
 LUALIB_API void olua_arrayref(lua_State *L, int obj, const char *t, int vidx);
 LUALIB_API void olua_arrayunref(lua_State *L, int obj, const char *t, int idx);
 LUALIB_API size_t olua_arraylen(lua_State *L, int obj, const char *t);

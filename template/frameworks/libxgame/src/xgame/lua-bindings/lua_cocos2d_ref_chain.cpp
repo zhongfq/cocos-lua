@@ -59,7 +59,7 @@ static int ref_return_value(lua_State *L)
 {
     const char *name = olua_checkstring(L, lua_upvalueindex(2));
     call_real_function(L, KEEP_SELF);
-    olua_arrayref(L, 1, name, 2);
+    olua_singleref(L, 1, name, 2);
     lua_remove(L, 1);
     return lua_gettop(L);
 }
@@ -67,8 +67,7 @@ static int ref_return_value(lua_State *L)
 static int ref_argument_value(lua_State *L)
 {
     const char *name = olua_checkstring(L, lua_upvalueindex(2));
-    olua_arrayunref(L, 1, name, -1);
-    olua_arrayref(L, 1, name, 2);
+    olua_singleref(L, 1, name, 2);
     call_real_function(L, false);
     return lua_gettop(L);
 }
@@ -323,11 +322,8 @@ LUALIB_API int luaopen_cocos2d_ref_chain(lua_State *L)
     xlua_call(L, wrap_cocos2d_Director);
     xlua_call(L, wrap_cocos2d_Node);
     
-    luaL_getsubtable(L, LUA_REGISTRYINDEX, "__cocos2d_ref_chain__");
     olua_push_cppobj<cocos2d::Director>(L, cocos2d::Director::getInstance(), "cc.Director");
-    lua_pushboolean(L, true);
-    lua_rawset(L, -3);
-    lua_pop(L, 1);
+    lua_setfield(L, LUA_REGISTRYINDEX, "__cocos2d_ref_chain__");
     
     return 0;
 }

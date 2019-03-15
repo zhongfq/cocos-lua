@@ -20,6 +20,7 @@ local BezierBy      = require "cc.BezierBy"
 local ActionFloat   = require "cc.ActionFloat"
 local AnimationFrame = require "cc.AnimationFrame"
 local SpriteFrame = require "cc.SpriteFrame"
+local Component = require "cc.Component"
 
 window.setDesignSize(1334, 750, 1)
 
@@ -37,31 +38,46 @@ function main()
     local sprite1 = Sprite.create("res/HelloWorld.png")
     sprite1.tag = 10
     sprite1:setPosition(500, 200)
-    sprite:runAction(Sequence.create(RotateTo.create(1, 40)))
-    -- sprite:runAction(BezierBy.create(4, {x = 100, y = 100}, {x = 200, y = 400}, {x = 400, y = 0}))
-    -- sprite:runAction(ActionFloat.create(5, 3.5, 8, function ( ... )
-    --     print("##action float", ...)
-    -- end))
+    node:addChild(sprite1)
+    node:addChild(sprite)
+    print(Director.getInstance():getScheduler())
     print(Director.getInstance():getScheduler())
     print(Director.getInstance().textureCache)
-    Director.getInstance().runningScene:addChild(sprite)
-    Director.getInstance().runningScene:addChild(sprite1)
-    printUserValue(Director.getInstance())
-    print("test scene")
-    director:pushScene(Scene.create())
-    director:pushScene(Scene.create())
-    director:pushScene(Scene.create())
-    director:pushScene(Scene.create())
-    director:pushScene(Scene.create())
-    printUserValue(director, "push")
-    director:replaceScene(Scene.create())
-    printUserValue(director, "replaceScene")
-    director:popToSceneStackLevel(8)
-    printUserValue(director, "popToSceneStackLevel 8")
-    director:popToSceneStackLevel(3)
-    printUserValue(director, "popToSceneStackLevel 3")
-    director:popToRootScene()
-    printUserValue(director, "popToRootScene")
+    print(Director.getInstance().actionManager)
+    print(Director.getInstance().textureCache)
+    print(Director.getInstance().notificationNode)
+    print(Director.getInstance().eventDispatcher)
+    print(Director.getInstance().renderer)
+    Director.getInstance().runningScene:addChild(node)
+    printUserValue(director)
+
+    sprite:runAction(BezierBy.create(4, {x = 100, y = 100}, {x = 200, y = 400}, {x = 400, y = 0}))
+    sprite:runAction(ActionFloat.create(5, 3.5, 8, function ( ... )
+        -- print("##action float", ...)
+    end))
+
+    print("test compoent")
+    local c1 = Component.create()
+    c1.name = "C1"
+    local c2 = Component.create()
+    c2.name = "C2"
+    c2.onRemoveCallback = function ( ... )
+        print("compoent remoe", c2)
+    end
+    node:addComponent(c1)
+    node:addComponent(c2)
+    print("Component", c1, c2, c2.owner)
+    printUserValue(node)
+    printUserValue(c2)
+    node:removeAllChildren()
+    printUserValue(node)
+
+    timer.delay(1, function ( ... )
+        node:removeComponent('C2')
+    end)
+    timer.delay(2, function ( ... )
+        collectgarbage('collect')
+    end)
 end
 
 function printarr(arr)

@@ -6,7 +6,7 @@
 
 #define NODE_CHILDREN   "children"
 #define NODE_ACTIONS    "actions"
-#define NODE_COMPONENT  "component"
+#define NODE_COMPONENTS "components"
 #define DIRECTOR_SCENES "scenes"
 
 #define KEEP_SELF   true
@@ -286,7 +286,7 @@ static int wrap_cocos2d_Node_getActionByTag(lua_State *L)
 static int wrap_cocos2d_Node_getComponent(lua_State *L)
 {
     call_real_function(L, KEEP_SELF);
-    olua_mapref(L, 1, NODE_COMPONENT, 2);
+    olua_mapref(L, 1, NODE_COMPONENTS, 2);
     lua_remove(L, 1);
     return lua_gettop(L);
 }
@@ -294,7 +294,7 @@ static int wrap_cocos2d_Node_getComponent(lua_State *L)
 // bool addComponent(Component *component)
 static int wrap_cocos2d_Node_addComponent(lua_State *L)
 {
-    olua_mapref(L, 1, NODE_COMPONENT, 2);
+    olua_mapref(L, 1, NODE_COMPONENTS, 2);
     call_real_function(L, false);
     return lua_gettop(L);
 }
@@ -304,12 +304,15 @@ static int wrap_cocos2d_Node_addComponent(lua_State *L)
 static int wrap_cocos2d_Node_removeComponent(lua_State *L)
 {
     if (olua_isstring(L, 2)) {
-        cocos2d::Component *component = (cocos2d::Component *)olua_checkobj(L, 2, "cc.Component");
-        olua_push_cppobj<cocos2d::Component>(L, component, "cc.Component");
-        olua_mapunref(L, 1, NODE_COMPONENT, -1);
-        lua_pop(L, 1);
+        std::string name = lua_tostring(L, 2);
+        cocos2d::Node *self = (cocos2d::Node *)olua_checkobj(L, 1, "cc.Node");
+        cocos2d::Component *obj = self->getComponent(name);
+        if (olua_getobj(L, obj)) {
+            olua_mapunref(L, 1, NODE_COMPONENTS, -1);
+            lua_pop(L, 1);
+        }
     } else {
-         olua_mapunref(L, 1, NODE_COMPONENT, 2);
+         olua_mapunref(L, 1, NODE_COMPONENTS, 2);
     }
     call_real_function(L, false);
     return lua_gettop(L);
@@ -318,7 +321,7 @@ static int wrap_cocos2d_Node_removeComponent(lua_State *L)
 // void removeAllComponents()
 static int wrap_cocos2d_Node_removeAllComponents(lua_State *L)
 {
-    olua_unrefall(L, 1, NODE_COMPONENT);
+    olua_unrefall(L, 1, NODE_COMPONENTS);
     call_real_function(L, false);
     return lua_gettop(L);
 }

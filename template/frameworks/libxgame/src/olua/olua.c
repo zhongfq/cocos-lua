@@ -92,7 +92,7 @@ LUALIB_API const char *olua_typename(lua_State *L, int idx)
     return tn ? tn : lua_typename(L, lua_type(L, idx));
 }
 
-LUALIB_API const char *olua_tostring(lua_State *L, int idx)
+LUALIB_API const char *olua_objtostring(lua_State *L, int idx)
 {
     if (olua_isuserdata(L, idx)) {
         intptr_t p = (intptr_t)olua_touserdata(L, idx, void *);
@@ -691,7 +691,7 @@ static int cls_newindex(lua_State *L)
 
 static int cls_tostring(lua_State *L)
 {
-    olua_tostring(L, 1);
+    olua_objtostring(L, 1);
     
     return 1;
 }

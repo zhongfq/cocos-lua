@@ -40,7 +40,7 @@ LUALIB_API int olua_rawgetfield(lua_State *L, int idx, const char *field);
 LUALIB_API void olua_rawsetfield(lua_State *L, int idx, const char *field);
 LUALIB_API void olua_seterrfunc(lua_CFunction errfunc);
 LUALIB_API const char *olua_typename(lua_State *L, int idx);
-LUALIB_API const char *olua_tostring(lua_State *L, int idx);
+LUALIB_API const char *olua_objtostring(lua_State *L, int idx);
 LUALIB_API bool olua_isa(lua_State *L, int idx, const char *cls);
 LUALIB_API void olua_getobjtable(lua_State *L);
 LUALIB_API int olua_pushobj(lua_State *L, void *obj, const char *cls);

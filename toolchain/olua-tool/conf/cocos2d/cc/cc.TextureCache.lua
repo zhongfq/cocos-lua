@@ -13,21 +13,21 @@ cls.func(nil, 'Texture2D* addImage(const std::string &filepath)', 'Texture2D* ad
 cls.callback(nil, {
         CALLBACK_MAKER = {'makeTextureCacheCallbackTag(#1)', 'makeTextureCacheCallbackTag(#-1)'},
         CALLBACK_CALLONCE = true,
-        CALLBACK_REMOVE_MODE = 'OLUA_CALLBACK_TAG_EQUAL',
+        CALLBACK_MODE = 'OLUA_CALLBACK_TAG_EQUAL',
     }, 
     'void addImageAsync(const std::string &filepath, const std::function<void(Texture2D*)>& callback)',
     'void addImageAsync(const std::string &path, const std::function<void(Texture2D*)>& callback, const std::string& callbackKey)'
 )
 cls.callback(nil, {
         CALLBACK_MAKER = 'makeTextureCacheCallbackTag(#1)',
-        CALLBACK_REMOVE_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
+        CALLBACK_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
         CALLBACK_REMOVE = true,
     },
     'void unbindImageAsync(const std::string &filename)'
 )
 cls.callback(nil, {
         CALLBACK_MAKER = 'makeTextureCacheCallbackTag()',
-        CALLBACK_REMOVE_MODE = 'OLUA_CALLBACK_TAG_WILDCARD',
+        CALLBACK_MODE = 'OLUA_CALLBACK_TAG_WILDCARD',
         CALLBACK_REMOVE = true,
     },
     'void unbindAllImageAsync()'

@@ -39,14 +39,14 @@ cls.callback(nil, {
 cls.callback(nil, {
         CALLBACK_MAKER = 'makeScheduleCallbackTag(#1)',
         CALLBACK_STORE = 2, -- 2th void *target
-        CALLBACK_REMOVE_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
+        CALLBACK_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
         CALLBACK_REMOVE = true,
     },
     'void unschedule(const std::string& key, void *target)'
 )
 cls.callback(nil, {
         CALLBACK_MAKER = 'makeScheduleCallbackTag("")',
-        CALLBACK_REMOVE_MODE = 'OLUA_CALLBACK_TAG_WILDCARD',
+        CALLBACK_MODE = 'OLUA_CALLBACK_TAG_WILDCARD',
         CALLBACK_STORE = 1, -- 1th void *target
         CALLBACK_REMOVE = true,
     },
@@ -54,7 +54,7 @@ cls.callback(nil, {
 )
 cls.callback(nil, {
         CALLBACK_MAKER = 'makeScheduleCallbackTag("")',
-        CALLBACK_REMOVE_MODE = 'OLUA_CALLBACK_TAG_WILDCARD',
+        CALLBACK_MODE = 'OLUA_CALLBACK_TAG_WILDCARD',
         CALLBACK_REMOVE = true,
     },
     'void unscheduleAll()'

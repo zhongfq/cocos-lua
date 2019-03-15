@@ -375,7 +375,7 @@ function class(collection)
         if ARGS[1].CALLBACK.ARGS then
             CALLBACK_OPT = {
                 CALLBACK_MAKER = 'olua_makecallbacktag("' .. name .. '")',
-                CALLBACK_REMOVE_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
+                CALLBACK_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
                 CALLBACK_REPLACE = true,
             }
         end

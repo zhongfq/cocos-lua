@@ -44,23 +44,24 @@ cls.funcs([[
     void stopActionsByFlags(unsigned int flags)
     Action* getActionByTag(int tag)
 ]])
--- cls.callback(nil, {
---         CALLBACK_MAKER = 'olua_makecallbacktag("onEnter")',
---         CALLBACK_REMOVE_MODE = "OLUA_CALLBACK_TAG_ENDWITH",
---         CALLBACK_REPLACE = true,
---     },
---     'void setOnEnterCallback(const std::function<void()>& callback = nullptr)'
--- )
--- cls.callback(nil, {
---         CALLBACK_MAKER = 'olua_makecallbacktag("onEnter")',
---         CALLBACK_REMOVE_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
---     },
---     'const std::function<void()>& getOnExitCallback()')
+cls.callback(nil, {
+        CALLBACK_MAKER = 'olua_makecallbacktag("onEnter")',
+        CALLBACK_MODE = "OLUA_CALLBACK_TAG_ENDWITH",
+        CALLBACK_REPLACE = true,
+    },
+    'void setOnEnterCallback(const std::function<void()>& callback = nullptr)'
+)
+cls.callback(nil, {
+        CALLBACK_MAKER = 'olua_makecallbacktag("onEnter")',
+        CALLBACK_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
+    },
+    'const std::function<void()>& getOnExitCallback()'
+)
 cls.callback(nil, {
         CALLBACK_MAKER = "makeScheduleCallbackTag(#-1)",
         CALLBACK_REPLACE = true,
         CALLBACK_CALLONCE = true,
-        CALLBACK_REMOVE_MODE = "OLUA_CALLBACK_TAG_EQUAL",
+        CALLBACK_MODE = "OLUA_CALLBACK_TAG_EQUAL",
     },
     'void scheduleOnce(const std::function<void(float)>& callback, float delay, const std::string &key)'
 )
@@ -74,14 +75,14 @@ cls.callback(nil, {
 )
 cls.callback(nil, {
         CALLBACK_MAKER = "makeScheduleCallbackTag(#1)",
-        CALLBACK_REMOVE_MODE = "OLUA_CALLBACK_TAG_ENDWITH",
+        CALLBACK_MODE = "OLUA_CALLBACK_TAG_ENDWITH",
         CALLBACK_REMOVE = true,
     },
     'void unschedule(const std::string &key)'
 )
 cls.callback(nil, {
         CALLBACK_MAKER = "makeScheduleCallbackTag()",
-        CALLBACK_REMOVE_MODE = "OLUA_CALLBACK_TAG_WILDCARD",
+        CALLBACK_MODE = "OLUA_CALLBACK_TAG_WILDCARD",
         CALLBACK_REMOVE = true,
     },
     'void unscheduleAllCallbacks()'

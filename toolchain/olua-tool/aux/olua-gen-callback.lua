@@ -25,7 +25,7 @@ local function gen_maker(cls, fi, write)
 end
 
 local function gen_remove_callback(cls, fi, write)
-    local CALLBACK_REMOVE_MODE = fi.CALLBACK_OPT.CALLBACK_REMOVE_MODE
+    local CALLBACK_MODE = fi.CALLBACK_OPT.CALLBACK_MODE
     local CALLBACK_MAKER = gen_maker(cls, fi, write)
     local CALLBACK_STORE_OBJ
     local CALLBACK_STORE = get_CALLBACK_STORE(fi)
@@ -39,7 +39,7 @@ local function gen_remove_callback(cls, fi, write)
     local block = format_snippet([[
         std::string tag = ${CALLBACK_MAKER};
         void *callback_store_obj = (void *)${CALLBACK_STORE_OBJ};
-        olua_removecallback(L, callback_store_obj, tag.c_str(), ${CALLBACK_REMOVE_MODE});
+        olua_removecallback(L, callback_store_obj, tag.c_str(), ${CALLBACK_MODE});
     ]])
     return block
 end
@@ -144,9 +144,9 @@ function gen_callback(cls, fi, write)
     INSTACKS = table.concat(INSTACKS, "\n")
 
     if fi.CALLBACK_OPT.CALLBACK_CALLONCE then
-        local CALLBACK_REMOVE_MODE = fi.CALLBACK_OPT.CALLBACK_REMOVE_MODE
+        local CALLBACK_MODE = fi.CALLBACK_OPT.CALLBACK_MODE
         REMOVE_CALLBACK = format_snippet([[
-            olua_removecallback(L, callback_store_obj, func.c_str(), ${CALLBACK_REMOVE_MODE});
+            olua_removecallback(L, callback_store_obj, func.c_str(), ${CALLBACK_MODE});
         ]])
     end
 
@@ -196,7 +196,7 @@ function gen_callback(cls, fi, write)
     if ai.CALLBACK.DEFAULT then
         local DEFAULT = ai.CALLBACK.DEFAULT
         local FUNC_IS_VALUE = ai.TYPE.FUNC_IS_VALUE
-        local CALLBACK_REMOVE_MODE = fi.CALLBACK_OPT.CALLBACK_REMOVE_MODE
+        local CALLBACK_MODE = fi.CALLBACK_OPT.CALLBACK_MODE
         CALLBACK_CHUNK = format_snippet([[
             if (${FUNC_IS_VALUE}(L, ${IDX})) {
                 ${CALLBACK_CHUNK}

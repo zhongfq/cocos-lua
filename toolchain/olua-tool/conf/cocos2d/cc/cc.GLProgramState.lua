@@ -49,7 +49,7 @@ cls.funcs([[
     void applyAutoBinding(const std::string& uniformName, const std::string& autoBinding)
     void setParameterAutoBinding(const std::string& uniformName, const std::string& autoBinding)
 ]])
-cls.prop('glProgram', 'GLProgram* getGLProgram()', 'void setGLProgram(GLProgram* glprogram)')
+cls.prop('glProgram')
 cls.prop('nodeBinding')
 cls.prop('vertexAttribsFlags')
 cls.prop('vertexAttribCount')

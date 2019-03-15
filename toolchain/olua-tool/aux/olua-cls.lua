@@ -286,13 +286,19 @@ local function parse_prop(cls, name, func_get, func_set)
     local pi = {}
     pi.PROP_NAME = assert(name)
 
+    local name2 = string.gsub(name, '^%l+', function (s)
+        return string.upper(s)
+    end)
+
     if func_get then
         pi.GET = func_get and parse_func(cls, name, func_get)[1] or nil
     else
         for _, v in ipairs(cls.FUNCS) do
             for _, f in ipairs(v) do
                 if to_prop_func_name(name, 'get') == f.CPPFUNC or
-                    to_prop_func_name(name, 'is') == f.CPPFUNC then
+                    to_prop_func_name(name, 'is') == f.CPPFUNC or
+                    to_prop_func_name(name2, 'get') == f.CPPFUNC or
+                    to_prop_func_name(name2, 'is') == f.CPPFUNC then
                     assert(#f.ARGS == 0, f.CPPFUNC)
                     pi.GET = f
                 end
@@ -306,7 +312,8 @@ local function parse_prop(cls, name, func_get, func_set)
     else
         for _, v in ipairs(cls.FUNCS) do
             for _, f in ipairs(v) do
-                if to_prop_func_name(name, 'set') == f.CPPFUNC then
+                if to_prop_func_name(name, 'set') == f.CPPFUNC or
+                    to_prop_func_name(name2, 'set') == f.CPPFUNC then
                     assert(#f.ARGS == 1, f.CPPFUNC)
                     pi.SET = f
                 end

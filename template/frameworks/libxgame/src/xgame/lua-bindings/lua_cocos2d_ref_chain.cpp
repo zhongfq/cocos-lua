@@ -6,6 +6,7 @@
 
 #define NODE_CHILDREN   "children"
 #define NODE_ACTIONS    "actions"
+#define NODE_COMPONENT  "component"
 #define DIRECTOR_SCENES "scenes"
 
 #define KEEP_SELF   true
@@ -281,6 +282,48 @@ static int wrap_cocos2d_Node_getActionByTag(lua_State *L)
     return lua_gettop(L);
 }
 
+// Component* getComponent(const std::string& name)
+static int wrap_cocos2d_Node_getComponent(lua_State *L)
+{
+    call_real_function(L, KEEP_SELF);
+    olua_mapref(L, 1, NODE_COMPONENT, 2);
+    lua_remove(L, 1);
+    return lua_gettop(L);
+}
+
+// bool addComponent(Component *component)
+static int wrap_cocos2d_Node_addComponent(lua_State *L)
+{
+    olua_mapref(L, 1, NODE_COMPONENT, 2);
+    call_real_function(L, false);
+    return lua_gettop(L);
+}
+
+// bool removeComponent(const std::string& name)
+// bool removeComponent(Component *component)
+static int wrap_cocos2d_Node_removeComponent(lua_State *L)
+{
+    if (olua_isstring(L, 2)) {
+        cocos2d::Component *component = (cocos2d::Component *)olua_checkobj(L, 2, "cc.Component");
+        olua_push_cppobj<cocos2d::Component>(L, component, "cc.Component");
+        olua_mapunref(L, 1, NODE_COMPONENT, -1);
+        lua_pop(L, 1);
+    } else {
+         olua_mapunref(L, 1, NODE_COMPONENT, 2);
+    }
+    call_real_function(L, false);
+    return lua_gettop(L);
+}
+
+// void removeAllComponents()
+static int wrap_cocos2d_Node_removeAllComponents(lua_State *L)
+{
+    olua_unrefall(L, 1, NODE_COMPONENT);
+    call_real_function(L, false);
+    return lua_gettop(L);
+}
+
+
 static int wrap_cocos2d_Node(lua_State *L)
 {
     luaL_getmetatable(L, "cc.Node");
@@ -302,7 +345,10 @@ static int wrap_cocos2d_Node(lua_State *L)
     wrap_func(L, "stopAllActionsByTag", wrap_cocos2d_Node_stopAction);
     wrap_func(L, "stopActionsByFlags", wrap_cocos2d_Node_stopAction);
     wrap_func(L, "getActionByTag", wrap_cocos2d_Node_getActionByTag);
-
+    wrap_func(L, "getComponent", wrap_cocos2d_Node_getComponent);
+    wrap_func(L, "addComponent", wrap_cocos2d_Node_addComponent);
+    wrap_func(L, "removeComponent", wrap_cocos2d_Node_removeComponent);
+    wrap_func(L, "removeAllComponents", wrap_cocos2d_Node_removeAllComponents);
     return 0;
 }
 

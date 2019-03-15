@@ -6,7 +6,7 @@ REG_TYPE {
 }
 
 REG_TYPE {
-    TYPENAME = 'void *',
+    TYPENAME = 'void *|GLvoid *',
     LUACLS = 'void *',
     CONV_FUNC = 'olua_$$_obj',
 }
@@ -66,8 +66,11 @@ REG_TYPE {
     TYPENAME = table.concat({
         'int',
         'ssize_t',
+        'std::int32_t',
+        'unsigned short',
         'GLint',
         'GLshort',
+        'GLsizei',
     }, '|'),
     DECL_TYPE = 'lua_Integer',
     CONV_FUNC = 'olua_$$_int',
@@ -77,10 +80,12 @@ REG_TYPE {
 REG_TYPE {
     TYPENAME = table.concat({
         'unsigned int',
+        'uint32_t',
         'size_t',
         'GLuint',
         'GLenum',
         'GLubyte',
+        'GLboolean',
     }, '|'),
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',

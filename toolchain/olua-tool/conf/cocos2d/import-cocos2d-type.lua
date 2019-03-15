@@ -102,6 +102,18 @@ REG_TYPE {
 }
 
 REG_TYPE {
+    TYPENAME = 'cocos2d::Quaternion',
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_Quaternion',
+    INIT_VALUE = false,
+}
+
+REG_TYPE {
+    TYPENAME = 'cocos2d::AffineTransform',
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_AffineTransform',
+    INIT_VALUE = false,
+}
+
+REG_TYPE {
     TYPENAME = 'cocos2d::Uniform *',
     CONV_FUNC = 'auto_luacv_$$_cocos2d_Uniform',
 }
@@ -163,8 +175,10 @@ REG_TYPE {
         'cocos2d::GLView *',
         'cocos2d::GLViewImpl *',
         'cocos2d::GLProgram *',
+        'cocos2d::GLProgramState *',
         'cocos2d::TextureCache *',
         'cocos2d::Texture2D *',
+        'cocos2d::Component *',
         'cocos2d::SpriteFrame *',
         'cocos2d::Animation *',
         'cocos2d::AnimationFrame *',

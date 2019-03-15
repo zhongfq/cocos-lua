@@ -157,7 +157,9 @@ static inline bool olua_is_std_string(lua_State *L, int idx)
 
 template <typename T> int olua_push_std_function(lua_State *L, const std::function<T> value)
 {
-    lua_pushnil(L);
+    if (!(olua_isfunction(L, -1) || olua_isnil(L, -1))) {
+        luaL_error(L, "execpt 'function' or 'nil'");
+    }
     return 1;
 }
 

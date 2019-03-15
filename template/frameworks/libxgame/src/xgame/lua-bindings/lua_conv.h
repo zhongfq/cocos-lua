@@ -86,6 +86,20 @@ void auto_luacv_pack_cocos2d_experimental_Viewport(lua_State *L, int idx, cocos2
 int auto_luacv_unpack_cocos2d_experimental_Viewport(lua_State *L, const cocos2d::experimental::Viewport *value);
 bool auto_luacv_is_cocos2d_experimental_Viewport(lua_State *L, int idx);
 
+// cocos2d::Quaternion
+int auto_luacv_push_cocos2d_Quaternion(lua_State *L, const cocos2d::Quaternion *value);
+void auto_luacv_check_cocos2d_Quaternion(lua_State *L, int idx, cocos2d::Quaternion *value);
+void auto_luacv_pack_cocos2d_Quaternion(lua_State *L, int idx, cocos2d::Quaternion *value);
+int auto_luacv_unpack_cocos2d_Quaternion(lua_State *L, const cocos2d::Quaternion *value);
+bool auto_luacv_is_cocos2d_Quaternion(lua_State *L, int idx);
+
+// cocos2d::AffineTransform
+int auto_luacv_push_cocos2d_AffineTransform(lua_State *L, const cocos2d::AffineTransform *value);
+void auto_luacv_check_cocos2d_AffineTransform(lua_State *L, int idx, cocos2d::AffineTransform *value);
+void auto_luacv_pack_cocos2d_AffineTransform(lua_State *L, int idx, cocos2d::AffineTransform *value);
+int auto_luacv_unpack_cocos2d_AffineTransform(lua_State *L, const cocos2d::AffineTransform *value);
+bool auto_luacv_is_cocos2d_AffineTransform(lua_State *L, int idx);
+
 // GLContextAttrs
 int auto_luacv_push_GLContextAttrs(lua_State *L, const GLContextAttrs *value);
 void auto_luacv_check_GLContextAttrs(lua_State *L, int idx, GLContextAttrs *value);

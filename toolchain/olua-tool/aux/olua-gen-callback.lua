@@ -1,4 +1,4 @@
-local function get_CALLBACK_STORE(fi, idx)
+local function get_callback_store(fi, idx)
     local idx = idx or fi.CALLBACK_OPT.CALLBACK_STORE or 0
     if idx < 0 then
         idx = idx + #fi.ARGS + 1
@@ -14,7 +14,7 @@ local function gen_maker(cls, fi, write)
     end
 
     local maker = string.gsub(fi.CALLBACK_OPT.CALLBACK_MAKER, '#(%-?%d+)', function (n)
-        local idx = get_CALLBACK_STORE(fi, tonumber(n))
+        local idx = get_callback_store(fi, tonumber(n))
         if idx == 0 then
             return "self"
         else
@@ -28,7 +28,7 @@ local function gen_remove_callback(cls, fi, write)
     local CALLBACK_MODE = fi.CALLBACK_OPT.CALLBACK_MODE
     local CALLBACK_MAKER = gen_maker(cls, fi, write)
     local CALLBACK_STORE_OBJ
-    local CALLBACK_STORE = get_CALLBACK_STORE(fi)
+    local CALLBACK_STORE = get_callback_store(fi)
 
     if CALLBACK_STORE == 0 then
         CALLBACK_STORE_OBJ = 'self'
@@ -40,6 +40,26 @@ local function gen_remove_callback(cls, fi, write)
         std::string tag = ${CALLBACK_MAKER};
         void *callback_store_obj = (void *)${CALLBACK_STORE_OBJ};
         olua_removecallback(L, callback_store_obj, tag.c_str(), ${CALLBACK_MODE});
+    ]])
+    return block
+end
+
+function gen_ret_callback(cls, fi, write)
+    local CALLBACK_MODE = fi.CALLBACK_OPT.CALLBACK_MODE
+    local CALLBACK_MAKER = gen_maker(cls, fi, write)
+    local CALLBACK_STORE_OBJ
+    local CALLBACK_STORE = get_callback_store(fi)
+
+    if CALLBACK_STORE == 0 then
+        CALLBACK_STORE_OBJ = 'self'
+    else
+        CALLBACK_STORE_OBJ = 'arg' .. CALLBACK_STORE
+    end
+
+    local block = format_snippet([[
+        void *callback_store_obj = (void *)${CALLBACK_STORE_OBJ};
+        std::string tag = ${CALLBACK_MAKER};
+        olua_getcallback(L, callback_store_obj, tag.c_str(), ${CALLBACK_MODE});
     ]])
     return block
 end
@@ -66,7 +86,11 @@ function gen_callback(cls, fi, write)
         return gen_remove_callback(cls, fi, write)
     end
 
-    assert(ai, fi.FUNC_DECL)
+    if fi.RET.TYPE.TYPENAME == "std::function" then
+        return gen_ret_callback(cls, fi, write)
+    end
+
+    assert(ai, cls.CPPCLS .. '::' .. fi.FUNC_DECL)
 
     local CALLBACK_MAKER = gen_maker(cls, fi, write)
     local REMOVE_CALLBACK = ""
@@ -167,7 +191,7 @@ function gen_callback(cls, fi, write)
         RESULT_RET = "return ret;"
     end
 
-    CALLBACK_STORE = get_CALLBACK_STORE(fi) + 1
+    CALLBACK_STORE = get_callback_store(fi) + 1
     if CALLBACK_STORE == 1 then
         CALLBACK_STORE_OBJ = 'self'
     else
@@ -201,6 +225,9 @@ function gen_callback(cls, fi, write)
             if (${FUNC_IS_VALUE}(L, ${IDX})) {
                 ${CALLBACK_CHUNK}
             } else {
+                void *callback_store_obj = (void *)${CALLBACK_STORE_OBJ};
+                std::string tag = ${CALLBACK_MAKER};
+                olua_removecallback(L, callback_store_obj, tag.c_str(), ${CALLBACK_MODE});
                 ${ARG_N} = ${DEFAULT};
             }
         ]])

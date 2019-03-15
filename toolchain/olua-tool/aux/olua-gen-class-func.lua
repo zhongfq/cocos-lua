@@ -336,7 +336,7 @@ local function gen_test_and_call(cls, fns)
         else
             if #fns > 1 then
                 for fn, fi in ipairs(fns) do
-                    print("fn", fi, fi.CPPFUNC)
+                    print("same func", fi, fi.CPPFUNC)
                 end
             end
             assert(#fns == 1, fi.CPPFUNC)

@@ -121,6 +121,26 @@ M.CONVS = {
         ]],
     },
     REG_CONV {
+        CPPCLS = 'cocos2d::Quaternion',
+        DEF = [[
+            float x;
+            float y;
+            float z;
+            float w;
+        ]],
+    },
+    REG_CONV {
+        CPPCLS = 'cocos2d::AffineTransform',
+        DEF = [[
+            float a;
+            float b;
+            float c;
+            float d;
+            float tx;
+            float ty;
+        ]],
+    },
+    REG_CONV {
         CPPCLS = 'GLContextAttrs',
         DEF = [[
             {

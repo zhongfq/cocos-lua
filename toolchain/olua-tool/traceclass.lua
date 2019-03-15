@@ -3,6 +3,12 @@ local function trace(str)
     str = string.gsub(str, 'CC_DLL ', '')
     print("local cls = class(M)")
     for line in string.gmatch(str, '[^\n\r]+') do
+        if string.find(line, '^ *[/**]') or
+            string.find(line, '^ *CC_DEPRECATED_ATTRIBUTE') or
+            string.find(line, '^ */') or
+            string.find(line, '^ *%*') then
+            goto CONTINUE
+        end
         local cls, super = string.match(line, 'class *([^: ]+) *: * public *([^ ,]+)')
         if cls then
             if init then
@@ -28,5 +34,4 @@ local function trace(str)
 end
 
 trace [[
-
 ]]

@@ -652,6 +652,136 @@ bool auto_luacv_is_cocos2d_experimental_Viewport(lua_State *L, int idx)
     return lua_istable(L, idx);
 }
 
+int auto_luacv_push_cocos2d_Quaternion(lua_State *L, const cocos2d::Quaternion *value)
+{
+    if (value) {
+        lua_createtable(L, 0, 4);
+        olua_rawsetfieldnumber(L, -1, "x", value->x);
+        olua_rawsetfieldnumber(L, -1, "y", value->y);
+        olua_rawsetfieldnumber(L, -1, "z", value->z);
+        olua_rawsetfieldnumber(L, -1, "w", value->w);
+    } else {
+        lua_pushnil(L);
+    }
+
+    return 1;
+}
+
+void auto_luacv_check_cocos2d_Quaternion(lua_State *L, int idx, cocos2d::Quaternion *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    idx = lua_absindex(L, idx);
+    luaL_checktype(L, idx, LUA_TTABLE);
+    value->x = (float)olua_checkfieldnumber(L, idx, "x");
+    value->y = (float)olua_checkfieldnumber(L, idx, "y");
+    value->z = (float)olua_checkfieldnumber(L, idx, "z");
+    value->w = (float)olua_checkfieldnumber(L, idx, "w");
+}
+
+void auto_luacv_pack_cocos2d_Quaternion(lua_State *L, int idx, cocos2d::Quaternion *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    idx = lua_absindex(L, idx);
+    value->x = (float)olua_checknumber(L, idx + 0);
+    value->y = (float)olua_checknumber(L, idx + 1);
+    value->z = (float)olua_checknumber(L, idx + 2);
+    value->w = (float)olua_checknumber(L, idx + 3);
+}
+
+int auto_luacv_unpack_cocos2d_Quaternion(lua_State *L, const cocos2d::Quaternion *value)
+{
+    if (value) {
+        lua_pushnumber(L, value->x);
+        lua_pushnumber(L, value->y);
+        lua_pushnumber(L, value->z);
+        lua_pushnumber(L, value->w);
+    } else {
+        for (int i = 0; i < 4; i++) {
+            lua_pushnil(L);
+        }
+    }
+
+    return 4;
+}
+
+bool auto_luacv_is_cocos2d_Quaternion(lua_State *L, int idx)
+{
+    return lua_istable(L, idx);
+}
+
+int auto_luacv_push_cocos2d_AffineTransform(lua_State *L, const cocos2d::AffineTransform *value)
+{
+    if (value) {
+        lua_createtable(L, 0, 6);
+        olua_rawsetfieldnumber(L, -1, "a", value->a);
+        olua_rawsetfieldnumber(L, -1, "b", value->b);
+        olua_rawsetfieldnumber(L, -1, "c", value->c);
+        olua_rawsetfieldnumber(L, -1, "d", value->d);
+        olua_rawsetfieldnumber(L, -1, "tx", value->tx);
+        olua_rawsetfieldnumber(L, -1, "ty", value->ty);
+    } else {
+        lua_pushnil(L);
+    }
+
+    return 1;
+}
+
+void auto_luacv_check_cocos2d_AffineTransform(lua_State *L, int idx, cocos2d::AffineTransform *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    idx = lua_absindex(L, idx);
+    luaL_checktype(L, idx, LUA_TTABLE);
+    value->a = (float)olua_checkfieldnumber(L, idx, "a");
+    value->b = (float)olua_checkfieldnumber(L, idx, "b");
+    value->c = (float)olua_checkfieldnumber(L, idx, "c");
+    value->d = (float)olua_checkfieldnumber(L, idx, "d");
+    value->tx = (float)olua_checkfieldnumber(L, idx, "tx");
+    value->ty = (float)olua_checkfieldnumber(L, idx, "ty");
+}
+
+void auto_luacv_pack_cocos2d_AffineTransform(lua_State *L, int idx, cocos2d::AffineTransform *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    idx = lua_absindex(L, idx);
+    value->a = (float)olua_checknumber(L, idx + 0);
+    value->b = (float)olua_checknumber(L, idx + 1);
+    value->c = (float)olua_checknumber(L, idx + 2);
+    value->d = (float)olua_checknumber(L, idx + 3);
+    value->tx = (float)olua_checknumber(L, idx + 4);
+    value->ty = (float)olua_checknumber(L, idx + 5);
+}
+
+int auto_luacv_unpack_cocos2d_AffineTransform(lua_State *L, const cocos2d::AffineTransform *value)
+{
+    if (value) {
+        lua_pushnumber(L, value->a);
+        lua_pushnumber(L, value->b);
+        lua_pushnumber(L, value->c);
+        lua_pushnumber(L, value->d);
+        lua_pushnumber(L, value->tx);
+        lua_pushnumber(L, value->ty);
+    } else {
+        for (int i = 0; i < 6; i++) {
+            lua_pushnil(L);
+        }
+    }
+
+    return 6;
+}
+
+bool auto_luacv_is_cocos2d_AffineTransform(lua_State *L, int idx)
+{
+    return lua_istable(L, idx);
+}
+
 int auto_luacv_push_GLContextAttrs(lua_State *L, const GLContextAttrs *value)
 {
     if (value) {

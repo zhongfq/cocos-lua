@@ -10,6 +10,7 @@ int manual_luacv_push_cocos2d_Data(lua_State *L, const cocos2d::Data &value);
 
 int manual_luacv_push_cocos2d_Mat4(lua_State *L, const cocos2d::Mat4 &value);
 void manual_luacv_check_cocos2d_Mat4(lua_State *L, int idx, cocos2d::Mat4 *value);
+bool manual_luacv_is_cocos2d_Mat4(lua_State *L, int idx);
 
 // Vector
 template <typename T> int manual_luacv_push_cocos2d_Vector(lua_State *L, const cocos2d::Vector<T*> &v, const char *cls)

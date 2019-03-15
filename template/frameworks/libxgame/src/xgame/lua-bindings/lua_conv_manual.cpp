@@ -23,6 +23,14 @@ int manual_luacv_push_cocos2d_Mat4(lua_State *L, const cocos2d::Mat4 &value)
     return 1;
 }
 
+bool manual_luacv_is_cocos2d_Mat4(lua_State *L, int idx)
+{
+    if (lua_istable(L, idx) && lua_rawlen(L, idx) == 16) {
+        return true;
+    }
+    return false;
+}
+
 void manual_luacv_check_cocos2d_Mat4(lua_State *L, int idx, cocos2d::Mat4 *value)
 {
     luaL_checktype(L, idx, LUA_TTABLE);

@@ -72,7 +72,7 @@ cls.func('scheduleUpdate', [[
         return 0;
     }
     
-    luaL_error(L, "unsupport type: %s", olua_tostring(L, 2));
+    luaL_error(L, "unsupport type: %s", olua_objtostring(L, 2));
 
     return 0;
 }]])

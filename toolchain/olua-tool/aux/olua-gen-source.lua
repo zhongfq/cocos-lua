@@ -41,7 +41,7 @@ local function gen_luaopen(module, write)
 
     local function do_gen_open(cls)
         local LUACLS = cls.LUACLS
-        local CPPCLS_PATH = class_path(cls.CPPCLS)
+        local CPPCLS_PATH = class_path(cls.RAWCPPCLS or cls.CPPCLS)
         REQUIRES[#REQUIRES + 1] = format_snippet([[
             xlua_require(L, "${LUACLS}", luaopen_${CPPCLS_PATH});
         ]])

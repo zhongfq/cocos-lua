@@ -4,6 +4,7 @@
 #include "xgame/lua-bindings/lua_cocos2d.h"
 #include "xgame/lua-bindings/lua_conv.h"
 #include "xgame/lua-bindings/lua_conv_manual.h"
+#include "xgame/lua-bindings/LuaComponent.h"
 #include "xgame/xlua.h"
 #include "xgame/xruntime.h"
 #include "olua/olua.hpp"
@@ -8513,17 +8514,17 @@ static int _cocos2d_Component_create(lua_State *L)
 {
     lua_settop(L, 0);
 
-    // static Component* create()
-    cocos2d::Component *ret = (cocos2d::Component *)cocos2d::Component::create();
+    // static LuaComponent* create()
+    cocos2d::LuaComponent *ret = (cocos2d::LuaComponent *)cocos2d::LuaComponent::create();
 
-    return olua_push_cppobj<cocos2d::Component>(L, ret, "cc.Component");
+    return olua_push_cppobj<cocos2d::LuaComponent>(L, ret, "cc.Component");
 }
 
 static int _cocos2d_Component_isEnabled(lua_State *L)
 {
     lua_settop(L, 1);
 
-    cocos2d::Component *self = nullptr;
+    cocos2d::LuaComponent *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Component");
 
@@ -8537,7 +8538,7 @@ static int _cocos2d_Component_setEnabled(lua_State *L)
 {
     lua_settop(L, 2);
 
-    cocos2d::Component *self = nullptr;
+    cocos2d::LuaComponent *self = nullptr;
     bool arg1 = false;   /** enabled */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Component");
@@ -8553,7 +8554,7 @@ static int _cocos2d_Component_getName(lua_State *L)
 {
     lua_settop(L, 1);
 
-    cocos2d::Component *self = nullptr;
+    cocos2d::LuaComponent *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Component");
 
@@ -8567,7 +8568,7 @@ static int _cocos2d_Component_setName(lua_State *L)
 {
     lua_settop(L, 2);
 
-    cocos2d::Component *self = nullptr;
+    cocos2d::LuaComponent *self = nullptr;
     std::string arg1;       /** name */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Component");
@@ -8583,7 +8584,7 @@ static int _cocos2d_Component_getOwner(lua_State *L)
 {
     lua_settop(L, 1);
 
-    cocos2d::Component *self = nullptr;
+    cocos2d::LuaComponent *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Component");
 
@@ -8600,7 +8601,7 @@ static int _cocos2d_Component_setOwner(lua_State *L)
 {
     lua_settop(L, 2);
 
-    cocos2d::Component *self = nullptr;
+    cocos2d::LuaComponent *self = nullptr;
     cocos2d::Node *arg1 = nullptr;   /** owner */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Component");
@@ -8619,7 +8620,7 @@ static int _cocos2d_Component_update(lua_State *L)
 {
     lua_settop(L, 2);
 
-    cocos2d::Component *self = nullptr;
+    cocos2d::LuaComponent *self = nullptr;
     lua_Number arg1 = 0;   /** delta */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Component");
@@ -8635,7 +8636,7 @@ static int _cocos2d_Component_serialize(lua_State *L)
 {
     lua_settop(L, 2);
 
-    cocos2d::Component *self = nullptr;
+    cocos2d::LuaComponent *self = nullptr;
     void *arg1 = nullptr;   /** r */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Component");
@@ -8651,7 +8652,7 @@ static int _cocos2d_Component_onEnter(lua_State *L)
 {
     lua_settop(L, 1);
 
-    cocos2d::Component *self = nullptr;
+    cocos2d::LuaComponent *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Component");
 
@@ -8665,7 +8666,7 @@ static int _cocos2d_Component_onExit(lua_State *L)
 {
     lua_settop(L, 1);
 
-    cocos2d::Component *self = nullptr;
+    cocos2d::LuaComponent *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Component");
 
@@ -8679,7 +8680,7 @@ static int _cocos2d_Component_onAdd(lua_State *L)
 {
     lua_settop(L, 1);
 
-    cocos2d::Component *self = nullptr;
+    cocos2d::LuaComponent *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Component");
 
@@ -8693,12 +8694,253 @@ static int _cocos2d_Component_onRemove(lua_State *L)
 {
     lua_settop(L, 1);
 
-    cocos2d::Component *self = nullptr;
+    cocos2d::LuaComponent *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Component");
 
     // void onRemove()
     self->onRemove();
+
+    return 0;
+}
+
+static int _cocos2d_Component_get_onUpdateCallback(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::LuaComponent *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Component");
+
+    // <function var>
+    std::function<void(float)> ret = (std::function<void(float)>)self->onUpdateCallback;
+
+    return olua_push_std_function(L, (std::function<void(float)>)ret);
+}
+
+static int _cocos2d_Component_set_onUpdateCallback(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::LuaComponent *self = nullptr;
+    std::function<void(float)> arg1 = nullptr;   /** onUpdateCallback */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Component");
+
+    if (olua_is_std_function(L, 2)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onUpdateCallback");
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+        arg1 = [callback_store_obj, func, tag](float arg1) {
+            lua_State *L = xlua_cocosthread();
+            int top = lua_gettop(L);
+
+            olua_push_number(L, (lua_Number)arg1);
+            olua_callback(L, callback_store_obj, func.c_str(), 1);
+
+            lua_settop(L, top);
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onUpdateCallback");
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+        arg1 = nullptr;
+    }
+
+    // <function var>
+    self->onUpdateCallback = arg1;
+
+    return 0;
+}
+
+static int _cocos2d_Component_get_onEnterCallback(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::LuaComponent *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Component");
+
+    // <function var>
+    std::function<void()> ret = (std::function<void()>)self->onEnterCallback;
+
+    return olua_push_std_function(L, (std::function<void()>)ret);
+}
+
+static int _cocos2d_Component_set_onEnterCallback(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::LuaComponent *self = nullptr;
+    std::function<void()> arg1 = nullptr;   /** onEnterCallback */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Component");
+
+    if (olua_is_std_function(L, 2)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onEnterCallback");
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+        arg1 = [callback_store_obj, func, tag]() {
+            lua_State *L = xlua_cocosthread();
+            int top = lua_gettop(L);
+
+            olua_callback(L, callback_store_obj, func.c_str(), 0);
+
+            lua_settop(L, top);
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onEnterCallback");
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+        arg1 = nullptr;
+    }
+
+    // <function var>
+    self->onEnterCallback = arg1;
+
+    return 0;
+}
+
+static int _cocos2d_Component_get_onExitCallback(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::LuaComponent *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Component");
+
+    // <function var>
+    std::function<void()> ret = (std::function<void()>)self->onExitCallback;
+
+    return olua_push_std_function(L, (std::function<void()>)ret);
+}
+
+static int _cocos2d_Component_set_onExitCallback(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::LuaComponent *self = nullptr;
+    std::function<void()> arg1 = nullptr;   /** onExitCallback */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Component");
+
+    if (olua_is_std_function(L, 2)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onExitCallback");
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+        arg1 = [callback_store_obj, func, tag]() {
+            lua_State *L = xlua_cocosthread();
+            int top = lua_gettop(L);
+
+            olua_callback(L, callback_store_obj, func.c_str(), 0);
+
+            lua_settop(L, top);
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onExitCallback");
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+        arg1 = nullptr;
+    }
+
+    // <function var>
+    self->onExitCallback = arg1;
+
+    return 0;
+}
+
+static int _cocos2d_Component_get_onAddCallback(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::LuaComponent *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Component");
+
+    // <function var>
+    std::function<void()> ret = (std::function<void()>)self->onAddCallback;
+
+    return olua_push_std_function(L, (std::function<void()>)ret);
+}
+
+static int _cocos2d_Component_set_onAddCallback(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::LuaComponent *self = nullptr;
+    std::function<void()> arg1 = nullptr;   /** onAddCallback */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Component");
+
+    if (olua_is_std_function(L, 2)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onAddCallback");
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+        arg1 = [callback_store_obj, func, tag]() {
+            lua_State *L = xlua_cocosthread();
+            int top = lua_gettop(L);
+
+            olua_callback(L, callback_store_obj, func.c_str(), 0);
+
+            lua_settop(L, top);
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onAddCallback");
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+        arg1 = nullptr;
+    }
+
+    // <function var>
+    self->onAddCallback = arg1;
+
+    return 0;
+}
+
+static int _cocos2d_Component_get_onRemoveCallback(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::LuaComponent *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Component");
+
+    // <function var>
+    std::function<void()> ret = (std::function<void()>)self->onRemoveCallback;
+
+    return olua_push_std_function(L, (std::function<void()>)ret);
+}
+
+static int _cocos2d_Component_set_onRemoveCallback(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::LuaComponent *self = nullptr;
+    std::function<void()> arg1 = nullptr;   /** onRemoveCallback */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Component");
+
+    if (olua_is_std_function(L, 2)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onRemoveCallback");
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+        arg1 = [callback_store_obj, func, tag]() {
+            lua_State *L = xlua_cocosthread();
+            int top = lua_gettop(L);
+
+            olua_callback(L, callback_store_obj, func.c_str(), 0);
+
+            lua_settop(L, top);
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onRemoveCallback");
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+        arg1 = nullptr;
+    }
+
+    // <function var>
+    self->onRemoveCallback = arg1;
 
     return 0;
 }
@@ -8722,7 +8964,13 @@ static int luaopen_cocos2d_Component(lua_State *L)
     oluacls_property(L, "enabled", _cocos2d_Component_isEnabled, _cocos2d_Component_setEnabled);
     oluacls_property(L, "name", _cocos2d_Component_getName, _cocos2d_Component_setName);
     oluacls_property(L, "owner", _cocos2d_Component_getOwner, _cocos2d_Component_setOwner);
+    oluacls_property(L, "onUpdateCallback", _cocos2d_Component_get_onUpdateCallback, _cocos2d_Component_set_onUpdateCallback);
+    oluacls_property(L, "onEnterCallback", _cocos2d_Component_get_onEnterCallback, _cocos2d_Component_set_onEnterCallback);
+    oluacls_property(L, "onExitCallback", _cocos2d_Component_get_onExitCallback, _cocos2d_Component_set_onExitCallback);
+    oluacls_property(L, "onAddCallback", _cocos2d_Component_get_onAddCallback, _cocos2d_Component_set_onAddCallback);
+    oluacls_property(L, "onRemoveCallback", _cocos2d_Component_get_onRemoveCallback, _cocos2d_Component_set_onRemoveCallback);
 
+    olua_registerluatype<cocos2d::LuaComponent>(L, "cc.Component");
     olua_registerluatype<cocos2d::Component>(L, "cc.Component");
     oluacls_createclassproxy(L);
 

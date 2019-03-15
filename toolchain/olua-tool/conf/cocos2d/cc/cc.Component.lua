@@ -1,9 +1,10 @@
 local cls = class()
-cls.CPPCLS = "cocos2d::Component"
+cls.CPPCLS = "cocos2d::LuaComponent"
+cls.RAWCPPCLS = "cocos2d::Component"
 cls.LUACLS = "cc.Component"
 cls.SUPERCLS = "cc.Ref"
 cls.funcs([[
-    static Component* create()
+    static LuaComponent* create()
     bool isEnabled()
     void setEnabled(bool enabled)
     const std::string& getName()
@@ -20,4 +21,9 @@ cls.funcs([[
 cls.prop('enabled')
 cls.prop('name')
 cls.prop('owner')
+cls.var(nil, 'std::function<void(float)> onUpdateCallback = nullptr')
+cls.var(nil, 'std::function<void()> onEnterCallback = nullptr')
+cls.var(nil, 'std::function<void()> onExitCallback = nullptr')
+cls.var(nil, 'std::function<void()> onAddCallback = nullptr')
+cls.var(nil, 'std::function<void()> onRemoveCallback = nullptr')
 return cls

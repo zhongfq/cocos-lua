@@ -22,7 +22,7 @@ end
 local function gen_class_open(cls, write)
     local LUACLS = cls.LUACLS
     local CPPCLS = cls.CPPCLS
-    local CPPCLS_PATH = class_path(CPPCLS)
+    local CPPCLS_PATH = class_path(cls.RAWCPPCLS or CPPCLS)
     local SUPRECLS = stringfy(cls.SUPERCLS) or "nullptr"
     local FUNCS = {}
     local REG_LUATYPE = ''
@@ -89,9 +89,17 @@ local function gen_class_open(cls, write)
     FUNCS = table.concat(FUNCS, "\n")
 
     if cls.REG_LUATYPE then
-        REG_LUATYPE = format_snippet([[
-            olua_registerluatype<${CPPCLS}>(L, "${LUACLS}");
-        ]])
+        if cls.RAWCPPCLS then
+            local RAWCPPCLS = cls.RAWCPPCLS
+             REG_LUATYPE = format_snippet([[
+                olua_registerluatype<${CPPCLS}>(L, "${LUACLS}");
+                olua_registerluatype<${RAWCPPCLS}>(L, "${LUACLS}");
+            ]])
+        else
+            REG_LUATYPE = format_snippet([[
+                olua_registerluatype<${CPPCLS}>(L, "${LUACLS}");
+            ]])
+        end
     end
 
     write(format_snippet([[

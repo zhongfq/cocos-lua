@@ -444,8 +444,10 @@ LUALIB_API void olua_mapwalkunref(lua_State *L, int obj, const char *t, lua_CFun
 LUALIB_API void olua_unrefall(lua_State *L, int obj, const char *t)
 {
     olua_getusertable(L, obj);              // L: uv
-    lua_pushnil(L);                         // L: uv nil
-    lua_setfield(L, -2, t);                 // L: uv     uv[t] = nil
+    olua_pushrefkey(L, t);                  // L: uv k
+    lua_pushnil(L);                         // L: uv k nil
+    lua_rawset(L, -3);                      // L: uv
+    lua_pop(L, 1);                          // L:
 }
 
 LUALIB_API void olua_arrayref(lua_State *L, int obj, const char *t, int vidx)

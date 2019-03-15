@@ -247,6 +247,12 @@ REG_TYPE {
 }
 
 REG_TYPE {
+    TYPENAME = 'cocos2d::LuaComponent *',
+    CONV_FUNC = "olua_$$_cppobj",
+    LUACLS = "cc.Component",
+}
+
+REG_TYPE {
     TYPENAME = table.concat({
         'cocos2d::ui::Widget *'
     }, '|'),

@@ -12,6 +12,7 @@ extern "C" {
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <assert.h>
     
 #define OLUA_OBJ_EXIST  0
 #define OLUA_OBJ_NEW    1
@@ -154,6 +155,12 @@ LUALIB_API void olua_rawsetfieldnumber(lua_State *L, int idx, const char *field,
 LUALIB_API void olua_rawsetfieldinteger(lua_State *L, int idx, const char *field, lua_Integer value);
 LUALIB_API void olua_rawsetfieldstring(lua_State *L, int idx, const char *field, const char *value);
 LUALIB_API void olua_rawsetfieldboolean(lua_State *L, int idx, const char *field, bool value);
+    
+// for debug
+#ifdef OLUA_DEBUG
+#define OLUA_ASSERT assert
+#else
+#endif
 
 #ifdef __cplusplus
 }

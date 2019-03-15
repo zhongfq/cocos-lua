@@ -27,9 +27,9 @@ static void set_func(lua_State *L, const char *t, const char *fn, lua_CFunction 
     }
 }
 
-static void wrap_func(lua_State *L, const char *name, lua_CFunction func)
+static void wrap_func(lua_State *L, const char *name, const char *refname, lua_CFunction func)
 {
-    set_func(L, CLS_FUNC, name, func, name);
+    set_func(L, CLS_FUNC, name, func, refname);
 }
 
 static void wrap_get(lua_State *L, const char *fn, const char *prop, lua_CFunction func)
@@ -56,22 +56,38 @@ static void call_real_function(lua_State *L, bool keepself)
     lua_call(L, args, LUA_MULTRET);
 }
 
-//static int ref_return_value(lua_State *L)
-//{
-//    const char *name = olua_checkstring(L, lua_upvalueindex(2));
-//    call_real_function(L, KEEP_SELF);
-//    olua_singleref(L, 1, name, 2);
-//    lua_remove(L, 1);
-//    return lua_gettop(L);
-//}
-//
-//static int ref_argument_value(lua_State *L)
-//{
-//    const char *name = olua_checkstring(L, lua_upvalueindex(2));
-//    olua_singleref(L, 1, name, 2);
-//    call_real_function(L, false);
-//    return lua_gettop(L);
-//}
+static int mapref_return_value(lua_State *L)
+{
+    const char *name = olua_checkstring(L, lua_upvalueindex(2));
+    call_real_function(L, KEEP_SELF);
+    olua_mapref(L, 1, name, 2);
+    lua_remove(L, 1);
+    return lua_gettop(L);
+}
+
+static int mapref_argument_value(lua_State *L)
+{
+    const char *name = olua_checkstring(L, lua_upvalueindex(2));
+    olua_mapref(L, 1, name, 2);
+    call_real_function(L, false);
+    return lua_gettop(L);
+}
+
+static int mapunref_argument_value(lua_State *L)
+{
+    const char *name = olua_checkstring(L, lua_upvalueindex(2));
+    olua_mapunref(L, 1, name, 2);
+    call_real_function(L, false);
+    return lua_gettop(L);
+}
+
+static int mapunrefall(lua_State *L)
+{
+    const char *name = olua_checkstring(L, lua_upvalueindex(2));
+    olua_unrefall(L, 1, name);
+    call_real_function(L, false);
+    return lua_gettop(L);
+}
 
 //
 // Director
@@ -138,39 +154,18 @@ static int wrap_cocos2d_Director(lua_State *L)
     luaL_getmetatable(L, "cc.Director");
     CCASSERT(olua_istable(L, -1), "not found 'cc.Director'");
     wrap_get(L, "getRunningScene", "runningScene", wrap_cocos2d_Director_getRunningScene);
-    wrap_func(L, "runWithScene", wrap_cocos2d_Director_pushScene);
-    wrap_func(L, "pushScene", wrap_cocos2d_Director_pushScene);
-    wrap_func(L, "popScene", wrap_cocos2d_Director_popScene);
-    wrap_func(L, "popToRootScene", wrap_cocos2d_Director_popToRootScene);
-    wrap_func(L, "popToSceneStackLevel", wrap_cocos2d_Director_popToSceneStackLevel);
-    wrap_func(L, "replaceScene", wrap_cocos2d_Director_replaceScene);
+    wrap_func(L, "runWithScene", DIRECTOR_SCENES, wrap_cocos2d_Director_pushScene);
+    wrap_func(L, "pushScene", DIRECTOR_SCENES, wrap_cocos2d_Director_pushScene);
+    wrap_func(L, "popScene", DIRECTOR_SCENES, wrap_cocos2d_Director_popScene);
+    wrap_func(L, "popToRootScene", DIRECTOR_SCENES, wrap_cocos2d_Director_popToRootScene);
+    wrap_func(L, "popToSceneStackLevel", DIRECTOR_SCENES, wrap_cocos2d_Director_popToSceneStackLevel);
+    wrap_func(L, "replaceScene", DIRECTOR_SCENES, wrap_cocos2d_Director_replaceScene);
     return 0;
 }
 
 //
 // Node
 //
-// void addChild(Node * child)
-// void addChild(Node * child, int localZOrder)
-// void addChild(Node* child, int localZOrder, int tag)
-// void addChild(Node* child, int localZOrder, const std::string &name)
-static int wrap_cocos2d_Node_addChild(lua_State *L)
-{
-    olua_mapref(L, 1, NODE_CHILDREN, 2);
-    call_real_function(L, false);
-    return lua_gettop(L);
-}
-
-// Node *getChildByTag(int tag) const
-// Node *getChildByName(const std::string& name)
-static int wrap_cocos2d_Node_getChild(lua_State *L)
-{
-    call_real_function(L, KEEP_SELF);
-    olua_mapref(L, 1, NODE_CHILDREN, 2);
-    lua_remove(L, 1);
-    return lua_gettop(L);
-}
-
 // void removeFromParent()
 // void removeFromParentAndCleanup(bool cleanup)
 static int wrap_cocos2d_Node_removeFromParent(lua_State *L)
@@ -181,14 +176,6 @@ static int wrap_cocos2d_Node_removeFromParent(lua_State *L)
         olua_mapunref(L, -1, NODE_CHILDREN, 1);
         lua_pop(L, 1);
     }
-    call_real_function(L, false);
-    return lua_gettop(L);
-}
-
-// void removeChild(Node* child, bool cleanup = true)
-static int wrap_cocos2d_Node_removeChild(lua_State *L)
-{
-    olua_mapunref(L, 1, NODE_CHILDREN, 2);
     call_real_function(L, false);
     return lua_gettop(L);
 }
@@ -215,15 +202,6 @@ static int wrap_cocos2d_Node_removeChildByName(lua_State *L)
         olua_mapunref(L, 1, NODE_CHILDREN, -1);
         lua_pop(L, 1);
     }
-    call_real_function(L, false);
-    return lua_gettop(L);
-}
-
-// void removeAllChildren()
-// void removeAllChildrenWithCleanup(bool cleanup)
-static int wrap_cocos2d_Node_removeAllChildren(lua_State *L)
-{
-    olua_unrefall(L, 1, NODE_CHILDREN);
     call_real_function(L, false);
     return lua_gettop(L);
 }
@@ -282,23 +260,6 @@ static int wrap_cocos2d_Node_getActionByTag(lua_State *L)
     return lua_gettop(L);
 }
 
-// Component* getComponent(const std::string& name)
-static int wrap_cocos2d_Node_getComponent(lua_State *L)
-{
-    call_real_function(L, KEEP_SELF);
-    olua_mapref(L, 1, NODE_COMPONENTS, 2);
-    lua_remove(L, 1);
-    return lua_gettop(L);
-}
-
-// bool addComponent(Component *component)
-static int wrap_cocos2d_Node_addComponent(lua_State *L)
-{
-    olua_mapref(L, 1, NODE_COMPONENTS, 2);
-    call_real_function(L, false);
-    return lua_gettop(L);
-}
-
 // bool removeComponent(const std::string& name)
 // bool removeComponent(Component *component)
 static int wrap_cocos2d_Node_removeComponent(lua_State *L)
@@ -318,40 +279,43 @@ static int wrap_cocos2d_Node_removeComponent(lua_State *L)
     return lua_gettop(L);
 }
 
-// void removeAllComponents()
-static int wrap_cocos2d_Node_removeAllComponents(lua_State *L)
-{
-    olua_unrefall(L, 1, NODE_COMPONENTS);
-    call_real_function(L, false);
-    return lua_gettop(L);
-}
-
-
 static int wrap_cocos2d_Node(lua_State *L)
 {
     luaL_getmetatable(L, "cc.Node");
     CCASSERT(olua_istable(L, -1), "not found 'cc.Node'");
-    wrap_func(L, "addChild", wrap_cocos2d_Node_addChild);
-    wrap_func(L, "getChildByName", wrap_cocos2d_Node_getChild);
-    wrap_func(L, "getChildByTag", wrap_cocos2d_Node_getChild);
-    wrap_func(L, "removeFromParent", wrap_cocos2d_Node_removeFromParent);
-    wrap_func(L, "removeFromParentAndCleanup", wrap_cocos2d_Node_removeFromParent);
-    wrap_func(L, "removeChild", wrap_cocos2d_Node_removeChild);
-    wrap_func(L, "removeChildByTag", wrap_cocos2d_Node_removeChildByTag);
-    wrap_func(L, "removeChildByName", wrap_cocos2d_Node_removeChildByName);
-    wrap_func(L, "removeAllChildren", wrap_cocos2d_Node_removeAllChildren);
-    wrap_func(L, "removeAllChildrenWithCleanup", wrap_cocos2d_Node_removeAllChildren);
-    wrap_func(L, "runAction", wrap_cocos2d_Node_runAction);
-    wrap_func(L, "stopAllActions", wrap_cocos2d_Node_stopAllActions);
-    wrap_func(L, "stopAction", wrap_cocos2d_Node_stopAction);
-    wrap_func(L, "stopActionByTag", wrap_cocos2d_Node_stopAction);
-    wrap_func(L, "stopAllActionsByTag", wrap_cocos2d_Node_stopAction);
-    wrap_func(L, "stopActionsByFlags", wrap_cocos2d_Node_stopAction);
-    wrap_func(L, "getActionByTag", wrap_cocos2d_Node_getActionByTag);
-    wrap_func(L, "getComponent", wrap_cocos2d_Node_getComponent);
-    wrap_func(L, "addComponent", wrap_cocos2d_Node_addComponent);
-    wrap_func(L, "removeComponent", wrap_cocos2d_Node_removeComponent);
-    wrap_func(L, "removeAllComponents", wrap_cocos2d_Node_removeAllComponents);
+    // void addChild(Node * child)
+    // void addChild(Node * child, int localZOrder)
+    // void addChild(Node* child, int localZOrder, int tag)
+    // void addChild(Node* child, int localZOrder, const std::string &name)
+    wrap_func(L, "addChild", NODE_CHILDREN, mapref_argument_value);
+    // Node *getChildByTag(int tag) const
+    // Node *getChildByName(const std::string& name)
+    wrap_func(L, "getChildByName", NODE_CHILDREN, mapref_return_value);
+    wrap_func(L, "getChildByTag", NODE_CHILDREN, mapref_return_value);
+    wrap_func(L, "removeFromParent", NODE_CHILDREN, wrap_cocos2d_Node_removeFromParent);
+    wrap_func(L, "removeFromParentAndCleanup", NODE_CHILDREN, wrap_cocos2d_Node_removeFromParent);
+    // void removeChild(Node* child, bool cleanup = true)
+    wrap_func(L, "removeChild", NODE_CHILDREN, mapunref_argument_value);
+    wrap_func(L, "removeChildByTag", NODE_CHILDREN, wrap_cocos2d_Node_removeChildByTag);
+    wrap_func(L, "removeChildByName", NODE_CHILDREN, wrap_cocos2d_Node_removeChildByName);
+    // void removeAllChildren()
+    // void removeAllChildrenWithCleanup(bool cleanup)
+    wrap_func(L, "removeAllChildren", NODE_CHILDREN, mapunrefall);
+    wrap_func(L, "removeAllChildrenWithCleanup", NODE_CHILDREN, mapunrefall);
+    wrap_func(L, "runAction", NODE_ACTIONS, wrap_cocos2d_Node_runAction);
+    wrap_func(L, "stopAllActions", NODE_ACTIONS, wrap_cocos2d_Node_stopAllActions);
+    wrap_func(L, "stopAction", NODE_ACTIONS, wrap_cocos2d_Node_stopAction);
+    wrap_func(L, "stopActionByTag", NODE_ACTIONS, wrap_cocos2d_Node_stopAction);
+    wrap_func(L, "stopAllActionsByTag", NODE_ACTIONS, wrap_cocos2d_Node_stopAction);
+    wrap_func(L, "stopActionsByFlags", NODE_ACTIONS, wrap_cocos2d_Node_stopAction);
+    wrap_func(L, "getActionByTag", NODE_ACTIONS, wrap_cocos2d_Node_getActionByTag);
+    // Component* getComponent(const std::string& name)
+    wrap_func(L, "getComponent", NODE_COMPONENTS, mapref_return_value);
+    // bool addComponent(Component *component)
+    wrap_func(L, "addComponent", NODE_COMPONENTS, mapref_argument_value);
+    wrap_func(L, "removeComponent", NODE_COMPONENTS, wrap_cocos2d_Node_removeComponent);
+    // void removeAllComponents()
+    wrap_func(L, "removeAllComponents", NODE_COMPONENTS, mapunrefall);
     return 0;
 }
 

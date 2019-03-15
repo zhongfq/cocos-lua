@@ -153,8 +153,31 @@ local function parse_def(str)
     return to_pretty_typename(typename), attr, str
 end
 
+local parse_args
 
-local function parse_args(cls, args_str)
+local function parse_callback(cls, typename, default)
+    local rt, rt_attr, cb_args_str
+    local cb_args_str = string.match(typename, '<(.*)>')
+    rt, rt_attr, cb_args_str = parse_def(cb_args_str)
+    cb_args_str = string.gsub(cb_args_str, '^[^(]+', '')
+    local cb_args = parse_args(cls, cb_args_str)
+    local cb_args_decl = {}
+    for _, ai in ipairs(cb_args) do
+        cb_args_decl[#cb_args_decl + 1] = ai.FUNC_ARG_DECL_TYPE
+    end
+    cb_args_decl = table.concat(cb_args_decl, ", ")
+    cb_args_decl = string.format('std::function<%s(%s)>',
+        to_decl_type(cls, rt, false, true), cb_args_decl)
+    return {
+        DEFAULT = default,
+        ARGS = cb_args,
+        RET = get_typeinfo(rt),
+        RET_ATTR = rt_attr,
+        ARGS_DECL = cb_args_decl,
+    }
+end
+
+function parse_args(cls, args_str)
     local args = {}
     args_str = string.match(args_str, '%((.*)%)')
 
@@ -173,31 +196,15 @@ local function parse_args(cls, args_str)
         args_str = string.gsub(args_str, '^[^,]*,? *', '')
 
         if string.find(typename, 'std::function<') then
-            local rt, rt_attr, cb_args_str
-            local cb_args_str = string.match(typename, '<(.*)>')
-            rt, rt_attr, cb_args_str = parse_def(cb_args_str)
-            cb_args_str = string.gsub(cb_args_str, '^[^(]+', '')
-            local cb_args = parse_args(cls, cb_args_str)
-            local cb_args_decl = {}
-            for _, ai in ipairs(cb_args) do
-                cb_args_decl[#cb_args_decl + 1] = ai.FUNC_ARG_DECL_TYPE
-            end
-            cb_args_decl = table.concat(cb_args_decl, ", ")
-            cb_args_decl = string.format('std::function<%s(%s)>',
-                to_decl_type(cls, rt, false, true), cb_args_decl)
+            local callback = parse_callback(cls, typename, default)
             args[#args + 1] = {
                 TYPE = setmetatable({
-                    DECL_TYPE = cb_args_decl,
+                    DECL_TYPE = callback.ARGS_DECL,
                 }, {__index = get_typeinfo('std::function', cls)}),
-                DECL_TYPE = cb_args_decl,
+                DECL_TYPE = callback.ARGS_DECL,
                 VARNAME = varname,
                 ATTR = attr,
-                CALLBACK = {
-                    DEFAULT = default,
-                    ARGS = cb_args,
-                    RET = get_typeinfo(rt),
-                    RET_ATTR = rt_attr,
-                },
+                CALLBACK = callback,
             }
         else
             args[#args + 1] = {
@@ -235,10 +242,23 @@ local function parse_func(cls, name, ...)
             fi.LUAFUNC = name or fi.CPPFUNC
             fi.STATIC = attr.STATIC
             fi.FUNC_DECL = func_decl
-            fi.RET.TYPE = get_typeinfo(typename, cls)
-            fi.RET.NUM = fi.RET.TYPE.TYPENAME == "void" and 0 or 1
-            fi.RET.DECL_TYPE = to_decl_type(cls, typename, false, true)
-            fi.RET.ATTR = attr
+            if string.find(typename, 'std::function<') then
+                local callback = parse_callback(cls, typename, default)
+                fi.RET = {
+                    TYPE = setmetatable({
+                        DECL_TYPE = callback.ARGS_DECL,
+                    }, {__index = get_typeinfo('std::function', cls)}),
+                    DECL_TYPE = callback.ARGS_DECL,
+                    ATTR = attr,
+                    NUM = 1,
+                    CALLBACK = callback,
+                }
+            else
+                fi.RET.TYPE = get_typeinfo(typename, cls)
+                fi.RET.NUM = fi.RET.TYPE.TYPENAME == "void" and 0 or 1
+                fi.RET.DECL_TYPE = to_decl_type(cls, typename, false, true)
+                fi.RET.ATTR = attr
+            end
             fi.ARGS = parse_args(cls, string.sub(str, #fi.CPPFUNC + 1))
 
             if is_static_func == nil then
@@ -340,9 +360,9 @@ function class(collection)
         cls.FUNCS[#cls.FUNCS + 1] = parse_func(cls, name, ...)
         for i, v in ipairs(cls.FUNCS[#cls.FUNCS]) do
             v.CALLBACK_OPT = assert(opt)
-            if type(v.CALLBACK_OPT.TAG_MAKER) == 'table' then
+            if type(v.CALLBACK_OPT.CALLBACK_MAKER) == 'table' then
                 v.CALLBACK_OPT = setmetatable({
-                    TAG_MAKER = assert(v.CALLBACK_OPT.TAG_MAKER[i])
+                    CALLBACK_MAKER = assert(v.CALLBACK_OPT.CALLBACK_MAKER[i])
                 }, {__index = v.CALLBACK_OPT})
             end
         end
@@ -354,9 +374,9 @@ function class(collection)
         name = name or ARGS[1].VARNAME
         if ARGS[1].CALLBACK.ARGS then
             CALLBACK_OPT = {
-                TAG_MAKER = 'olua_makecallbacktag("' .. name .. '")',
-                TAG_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
-                ONLYONE = true,
+                CALLBACK_MAKER = 'olua_makecallbacktag("' .. name .. '")',
+                CALLBACK_REMOVE_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
+                CALLBACK_REPLACE = true,
             }
         end
         cls.VARS[#cls.VARS + 1] = {

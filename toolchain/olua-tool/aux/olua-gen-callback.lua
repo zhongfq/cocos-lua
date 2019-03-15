@@ -1,20 +1,20 @@
-local function get_tag_store(fi, idx)
-    local idx = idx or fi.CALLBACK_OPT.TAG_STORE or 0
+local function get_CALLBACK_STORE(fi, idx)
+    local idx = idx or fi.CALLBACK_OPT.CALLBACK_STORE or 0
     if idx < 0 then
         idx = idx + #fi.ARGS + 1
-        assert(idx >= 0, fi.CALLBACK_OPT.TAG_MAKER)
+        assert(idx >= 0, fi.CALLBACK_OPT.CALLBACK_MAKER)
     end
     assert(idx <= #fi.ARGS)
     return idx
 end
 
 local function gen_maker(cls, fi, write)
-    if not fi.CALLBACK_OPT.TAG_MAKER then
+    if not fi.CALLBACK_OPT.CALLBACK_MAKER then
         error(string.format("no tag maker: %s.%s", cls.CPPCLS, fi.LUAFUNC))
     end
 
-    local maker = string.gsub(fi.CALLBACK_OPT.TAG_MAKER, '#(%-?%d+)', function (n)
-        local idx = get_tag_store(fi, tonumber(n))
+    local maker = string.gsub(fi.CALLBACK_OPT.CALLBACK_MAKER, '#(%-?%d+)', function (n)
+        local idx = get_CALLBACK_STORE(fi, tonumber(n))
         if idx == 0 then
             return "self"
         else
@@ -25,21 +25,21 @@ local function gen_maker(cls, fi, write)
 end
 
 local function gen_remove_callback(cls, fi, write)
-    local TAG_MODE = fi.CALLBACK_OPT.TAG_MODE
-    local TAG_MAKER = gen_maker(cls, fi, write)
-    local TAG_STORE_OBJ
-    local TAG_STORE = get_tag_store(fi)
+    local CALLBACK_REMOVE_MODE = fi.CALLBACK_OPT.CALLBACK_REMOVE_MODE
+    local CALLBACK_MAKER = gen_maker(cls, fi, write)
+    local CALLBACK_STORE_OBJ
+    local CALLBACK_STORE = get_CALLBACK_STORE(fi)
 
-    if TAG_STORE == 0 then
-        TAG_STORE_OBJ = 'self'
+    if CALLBACK_STORE == 0 then
+        CALLBACK_STORE_OBJ = 'self'
     else
-        TAG_STORE_OBJ = 'arg' .. TAG_STORE
+        CALLBACK_STORE_OBJ = 'arg' .. CALLBACK_STORE
     end
 
     local block = format_snippet([[
-        std::string tag = ${TAG_MAKER};
-        void *tag_store_obj = (void *)${TAG_STORE_OBJ};
-        olua_removecallback(L, tag_store_obj, tag.c_str(), ${TAG_MODE});
+        std::string tag = ${CALLBACK_MAKER};
+        void *callback_store_obj = (void *)${CALLBACK_STORE_OBJ};
+        olua_removecallback(L, callback_store_obj, tag.c_str(), ${CALLBACK_REMOVE_MODE});
     ]])
     return block
 end
@@ -62,19 +62,21 @@ function gen_callback(cls, fi, write)
         end
     end
 
-    if not ai then
+    if fi.CALLBACK_OPT.CALLBACK_REMOVE then
         return gen_remove_callback(cls, fi, write)
     end
 
-    local TAG_MAKER = gen_maker(cls, fi, write)
+    assert(ai, fi.FUNC_DECL)
+
+    local CALLBACK_MAKER = gen_maker(cls, fi, write)
     local REMOVE_CALLBACK = ""
     local OLUA_CALLBACK_TAG = "OLUA_CALLBACK_TAG_NEW"
     local NUM_ARGS = #ai.CALLBACK.ARGS
     local ARGS = {}
     local PUSH_ARGS = {}
     local INSTACKS = {}
-    local TAG_STORE_OBJ
-    local TAG_STORE
+    local CALLBACK_STORE_OBJ
+    local CALLBACK_STORE
     local RESULT_DECL = ""
     local RESULT_RET = ""
     local RESULT_GET = ""
@@ -141,14 +143,14 @@ function gen_callback(cls, fi, write)
     PUSH_ARGS = table.concat(PUSH_ARGS, "\n")
     INSTACKS = table.concat(INSTACKS, "\n")
 
-    if fi.CALLBACK_OPT.REMOVED then
-        local TAG_MODE = fi.CALLBACK_OPT.TAG_MODE
+    if fi.CALLBACK_OPT.CALLBACK_CALLONCE then
+        local CALLBACK_REMOVE_MODE = fi.CALLBACK_OPT.CALLBACK_REMOVE_MODE
         REMOVE_CALLBACK = format_snippet([[
-            olua_removecallback(L, tag_store_obj, func.c_str(), ${TAG_MODE});
+            olua_removecallback(L, callback_store_obj, func.c_str(), ${CALLBACK_REMOVE_MODE});
         ]])
     end
 
-    if fi.CALLBACK_OPT.ONLYONE then
+    if fi.CALLBACK_OPT.CALLBACK_REPLACE then
         OLUA_CALLBACK_TAG = "OLUA_CALLBACK_TAG_REPLACE"
     end
 
@@ -165,23 +167,23 @@ function gen_callback(cls, fi, write)
         RESULT_RET = "return ret;"
     end
 
-    TAG_STORE = get_tag_store(fi) + 1
-    if TAG_STORE == 1 then
-        TAG_STORE_OBJ = 'self'
+    CALLBACK_STORE = get_CALLBACK_STORE(fi) + 1
+    if CALLBACK_STORE == 1 then
+        CALLBACK_STORE_OBJ = 'self'
     else
-        TAG_STORE_OBJ = 'arg' .. (TAG_STORE - 1)
+        CALLBACK_STORE_OBJ = 'arg' .. (CALLBACK_STORE - 1)
     end
 
     local CALLBACK_CHUNK = format_snippet([[
-        void *tag_store_obj = (void *)${TAG_STORE_OBJ};
-        std::string tag = ${TAG_MAKER};
-        std::string func = olua_setcallback(L, tag_store_obj, tag.c_str(), ${IDX}, ${OLUA_CALLBACK_TAG});
-        ${ARG_N} = [tag_store_obj, func, tag](${ARGS}) {
+        void *callback_store_obj = (void *)${CALLBACK_STORE_OBJ};
+        std::string tag = ${CALLBACK_MAKER};
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), ${IDX}, ${OLUA_CALLBACK_TAG});
+        ${ARG_N} = [callback_store_obj, func, tag](${ARGS}) {
             lua_State *L = xlua_cocosthread();
             int top = lua_gettop(L);
             ${RESULT_DECL}
             ${PUSH_ARGS}
-            olua_callback(L, tag_store_obj, func.c_str(), ${NUM_ARGS});
+            olua_callback(L, callback_store_obj, func.c_str(), ${NUM_ARGS});
             ${RESULT_GET}
             ${REMOVE_CALLBACK}
             
@@ -194,6 +196,7 @@ function gen_callback(cls, fi, write)
     if ai.CALLBACK.DEFAULT then
         local DEFAULT = ai.CALLBACK.DEFAULT
         local FUNC_IS_VALUE = ai.TYPE.FUNC_IS_VALUE
+        local CALLBACK_REMOVE_MODE = fi.CALLBACK_OPT.CALLBACK_REMOVE_MODE
         CALLBACK_CHUNK = format_snippet([[
             if (${FUNC_IS_VALUE}(L, ${IDX})) {
                 ${CALLBACK_CHUNK}
@@ -201,7 +204,6 @@ function gen_callback(cls, fi, write)
                 ${ARG_N} = ${DEFAULT};
             }
         ]])
-    else
     end
 
     return CALLBACK_CHUNK

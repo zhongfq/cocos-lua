@@ -26,7 +26,7 @@ cls.func('addCustomEventListener', [[
 
     cocos2d::EventDispatcher *self = nullptr;
     std::string eventName;
-    void *tag_store_obj = nullptr;
+    void *callback_store_obj = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventDispatcher");
     olua_check_std_string(L, 2, &eventName);
@@ -34,13 +34,13 @@ cls.func('addCustomEventListener', [[
     cocos2d::EventListenerCustom *listener = new cocos2d::EventListenerCustom();
     listener->autorelease();
     olua_push_cppobj<cocos2d::EventListenerCustom>(L, listener, "cc.EventListenerCustom");
-    tag_store_obj = listener;
-    std::string func = olua_setcallback(L, tag_store_obj, eventName.c_str(), 3, OLUA_CALLBACK_TAG_NEW);
-    listener->init(eventName, [tag_store_obj, func](cocos2d::EventCustom *event) {
+    callback_store_obj = listener;
+    std::string func = olua_setcallback(L, callback_store_obj, eventName.c_str(), 3, OLUA_CALLBACK_TAG_NEW);
+    listener->init(eventName, [callback_store_obj, func](cocos2d::EventCustom *event) {
         lua_State *L = xlua_cocosthread();
         int top = lua_gettop(L);
         olua_push_cppobj<cocos2d::EventCustom>(L, event, "cc.EventCustom");
-        olua_callback(L, tag_store_obj, func.c_str(), 1);
+        olua_callback(L, callback_store_obj, func.c_str(), 1);
 
         // stack value
         olua_push_cppobj<cocos2d::EventCustom>(L, event, "cc.EventCustom");

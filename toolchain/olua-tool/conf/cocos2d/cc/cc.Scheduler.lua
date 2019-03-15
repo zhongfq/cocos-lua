@@ -29,30 +29,33 @@ cls.prop('timeScale', 'float getTimeScale()', 'void setTimeScale(float timeScale
 cls.func('new', new_ccobj(cls))
 cls.func(nil, 'void update(float dt)')
 cls.callback(nil, {
-        TAG_MAKER = 'makeScheduleCallbackTag(#-1)',
-        TAG_STORE = 2, -- 2th void *target
-        ONLYONE = true,
+        CALLBACK_MAKER = 'makeScheduleCallbackTag(#-1)',
+        CALLBACK_STORE = 2, -- 2th void *target
+        CALLBACK_REPLACE = true,
     },
     'void schedule(const std::function<void(float)>& callback, void *target, float interval, bool paused, const std::string& key)',
     'void schedule(const std::function<void(float)>& callback, void *target, float interval, unsigned int repeat, float delay, bool paused, const std::string& key)'
 )
 cls.callback(nil, {
-        TAG_MAKER = 'makeScheduleCallbackTag(#1)',
-        TAG_STORE = 2, -- 2th void *target
-        TAG_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
+        CALLBACK_MAKER = 'makeScheduleCallbackTag(#1)',
+        CALLBACK_STORE = 2, -- 2th void *target
+        CALLBACK_REMOVE_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
+        CALLBACK_REMOVE = true,
     },
     'void unschedule(const std::string& key, void *target)'
 )
 cls.callback(nil, {
-        TAG_MAKER = 'makeScheduleCallbackTag("")',
-        TAG_MODE = 'OLUA_CALLBACK_TAG_WILDCARD',
-        TAG_STORE = 1, -- 1th void *target
+        CALLBACK_MAKER = 'makeScheduleCallbackTag("")',
+        CALLBACK_REMOVE_MODE = 'OLUA_CALLBACK_TAG_WILDCARD',
+        CALLBACK_STORE = 1, -- 1th void *target
+        CALLBACK_REMOVE = true,
     },
     'void unscheduleAllForTarget(void *target)'
 )
 cls.callback(nil, {
-        TAG_MAKER = 'makeScheduleCallbackTag("")',
-        TAG_MODE = 'OLUA_CALLBACK_TAG_WILDCARD',
+        CALLBACK_MAKER = 'makeScheduleCallbackTag("")',
+        CALLBACK_REMOVE_MODE = 'OLUA_CALLBACK_TAG_WILDCARD',
+        CALLBACK_REMOVE = true,
     },
     'void unscheduleAll()'
 )

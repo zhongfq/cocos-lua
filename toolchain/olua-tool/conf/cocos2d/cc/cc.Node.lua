@@ -44,31 +44,45 @@ cls.funcs([[
     void stopActionsByFlags(unsigned int flags)
     Action* getActionByTag(int tag)
 ]])
+-- cls.callback(nil, {
+--         CALLBACK_MAKER = 'olua_makecallbacktag("onEnter")',
+--         CALLBACK_REMOVE_MODE = "OLUA_CALLBACK_TAG_ENDWITH",
+--         CALLBACK_REPLACE = true,
+--     },
+--     'void setOnEnterCallback(const std::function<void()>& callback = nullptr)'
+-- )
+-- cls.callback(nil, {
+--         CALLBACK_MAKER = 'olua_makecallbacktag("onEnter")',
+--         CALLBACK_REMOVE_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
+--     },
+--     'const std::function<void()>& getOnExitCallback()')
 cls.callback(nil, {
-        TAG_MAKER = "makeScheduleCallbackTag(#-1)",
-        ONLYONE = true,
-        REMOVED = true,
-        TAG_MODE = "OLUA_CALLBACK_TAG_EQUAL",
+        CALLBACK_MAKER = "makeScheduleCallbackTag(#-1)",
+        CALLBACK_REPLACE = true,
+        CALLBACK_CALLONCE = true,
+        CALLBACK_REMOVE_MODE = "OLUA_CALLBACK_TAG_EQUAL",
     },
     'void scheduleOnce(const std::function<void(float)>& callback, float delay, const std::string &key)'
 )
 cls.callback(nil, {
-        TAG_MAKER = "makeScheduleCallbackTag(#-1)",
-        ONLYONE = true,
+        CALLBACK_MAKER = "makeScheduleCallbackTag(#-1)",
+        CALLBACK_REPLACE = true,
     },
     'void schedule(const std::function<void(float)>& callback, const std::string &key)',
     'void schedule(const std::function<void(float)>& callback, float interval, const std::string &key)',
     'void schedule(const std::function<void(float)>& callback, float interval, unsigned int repeat, float delay, const std::string &key)'
 )
 cls.callback(nil, {
-        TAG_MAKER = "makeScheduleCallbackTag(#1)",
-        TAG_MODE = "OLUA_CALLBACK_TAG_ENDWITH",
+        CALLBACK_MAKER = "makeScheduleCallbackTag(#1)",
+        CALLBACK_REMOVE_MODE = "OLUA_CALLBACK_TAG_ENDWITH",
+        CALLBACK_REMOVE = true,
     },
     'void unschedule(const std::string &key)'
 )
 cls.callback(nil, {
-        TAG_MAKER = "makeScheduleCallbackTag()",
-        TAG_MODE = "OLUA_CALLBACK_TAG_WILDCARD",
+        CALLBACK_MAKER = "makeScheduleCallbackTag()",
+        CALLBACK_REMOVE_MODE = "OLUA_CALLBACK_TAG_WILDCARD",
+        CALLBACK_REMOVE = true,
     },
     'void unscheduleAllCallbacks()'
 )

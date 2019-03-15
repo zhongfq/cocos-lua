@@ -321,13 +321,13 @@ cls.func('create', [[
     ret->autorelease();
     olua_push_cppobj<cocos2d::ActionFloat>(L, ret, "cc.ActionFloat");
 
-    void *tag_store_obj = (void *)ret;
-    std::string func = olua_setcallback(L, tag_store_obj, "actionFloat", 4, OLUA_CALLBACK_TAG_NEW);
-    auto callback = [tag_store_obj, func](float delta) {
+    void *callback_store_obj = (void *)ret;
+    std::string func = olua_setcallback(L, callback_store_obj, "actionFloat", 4, OLUA_CALLBACK_TAG_NEW);
+    auto callback = [callback_store_obj, func](float delta) {
         lua_State *L = xlua_cocosthread();
         int top = lua_gettop(L);
         olua_push_number(L, (lua_Number)delta);
-        olua_callback(L, tag_store_obj, func.c_str(), 1);
+        olua_callback(L, callback_store_obj, func.c_str(), 1);
         lua_settop(L, top);
     };
     ret->initWithDuration(duration, from, to, callback);

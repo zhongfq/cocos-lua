@@ -61,6 +61,7 @@ typedef enum {
 } olua_callback_tag_t;
 
 LUALIB_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag, int func, olua_callback_tag_t mode);
+LUALIB_API void olua_getcallback(lua_State *L, void *obj, const char *tag, olua_callback_tag_t mode);
 LUALIB_API void olua_removecallback(lua_State *L, void *obj, const char *tag, olua_callback_tag_t mode);
 LUALIB_API bool olua_callback(lua_State *L, void *obj, const char *field, int num_args);
 #define olua_makecallbacktag(tag) (tag)

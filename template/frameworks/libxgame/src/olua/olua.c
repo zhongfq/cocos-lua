@@ -248,7 +248,7 @@ LUALIB_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag
     return lua_tostring(L, -1);
 }
 
-static bool shouldremovecallback(const char *field, const char *tag, olua_callback_tag_t mode)
+static bool test_tag_mode(const char *field, const char *tag, olua_callback_tag_t mode)
 {
     if (mode == OLUA_CALLBACK_TAG_WILDCARD) {
         return strstr(field, tag) != NULL;
@@ -256,6 +256,38 @@ static bool shouldremovecallback(const char *field, const char *tag, olua_callba
         return strendwith(field, tag);
     } else {
         return false;
+    }
+}
+
+LUALIB_API void olua_getcallback(lua_State *L, void *obj, const char *tag, olua_callback_tag_t mode)
+{
+    if (!olua_getobj(L, obj)) {
+        lua_pushnil(L);
+        return;
+    }
+    
+    olua_getusertable(L, -1);
+    lua_remove(L, -2);
+    
+    if (mode == OLUA_CALLBACK_TAG_EQUAL) {
+        olua_rawgetfield(L, -1, tag);                   // L: ct v
+        lua_insert(L, -2);                              // L: v ct
+        lua_pop(L, 1);                                  // L: v
+    } else {
+        lua_pushnil(L);                                 // L: ct k
+        while (lua_next(L, -2)) {                       // L: ct k v
+            if (olua_isstring(L, -2)) {
+                const char *field = lua_tostring(L, -2);
+                if (test_tag_mode(field, tag, mode)) {
+                    lua_insert(L, -3);                  // L: v ct k
+                    lua_pop(L, 2);                      // L: v
+                    return;
+                }
+            }
+            lua_pop(L, 1);
+        }
+        lua_pop(L, 1);                                  // L:
+        lua_pushnil(L);                                 // L: nil
     }
 }
 
@@ -272,7 +304,7 @@ LUALIB_API void olua_removecallback(lua_State *L, void *obj, const char *tag, ol
             while (lua_next(L, -2)) {                       // L: ct k v
                 if (olua_isstring(L, -2)) {
                     const char *field = lua_tostring(L, -2);
-                    if (shouldremovecallback(field, tag, mode)) {
+                    if (test_tag_mode(field, tag, mode)) {
                         lua_pushvalue(L, -2);               // L: ct k v k
                         lua_pushnil(L);                     // L: ct k v k nil
                         lua_rawset(L, -5);                  // L: ct k v

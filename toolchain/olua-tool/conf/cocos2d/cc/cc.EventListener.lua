@@ -61,18 +61,18 @@ cls.func("create", [[
 {
     lua_settop(L, 2);
 
-    void *tag_store_obj = nullptr;
+    void *callback_store_obj = nullptr;
     std::string event = olua_checkstring(L, 1);
     cocos2d::EventListenerCustom *self = new cocos2d::EventListenerCustom();
     self->autorelease();
-    tag_store_obj = self;
+    callback_store_obj = self;
     olua_push_cppobj<cocos2d::EventListenerCustom>(L, self, "cc.EventListenerCustom");
-    std::string func = olua_setcallback(L, tag_store_obj, event.c_str(), 2, OLUA_CALLBACK_TAG_NEW);
-    self->init(event, [tag_store_obj, func](cocos2d::EventCustom *event) {
+    std::string func = olua_setcallback(L, callback_store_obj, event.c_str(), 2, OLUA_CALLBACK_TAG_NEW);
+    self->init(event, [callback_store_obj, func](cocos2d::EventCustom *event) {
         lua_State *L = xlua_cocosthread();
         int top = lua_gettop(L);
         olua_push_cppobj<cocos2d::EventCustom>(L, event, "cc.EventCustom");
-        olua_callback(L, tag_store_obj, func.c_str(), 1);
+        olua_callback(L, callback_store_obj, func.c_str(), 1);
 
         // stack value
         olua_push_cppobj<cocos2d::EventCustom>(L, event, "cc.EventCustom");
@@ -104,18 +104,18 @@ cls.func("create", [[
 {
     lua_settop(L, 1);
 
-    void *tag_store_obj = nullptr;
+    void *callback_store_obj = nullptr;
     cocos2d::EventListenerAcceleration *self = new cocos2d::EventListenerAcceleration();
     self->autorelease();
-    tag_store_obj = self;
+    callback_store_obj = self;
     olua_push_cppobj<cocos2d::EventListenerAcceleration>(L, self, "cc.EventListenerAcceleration");
-    std::string func = olua_setcallback(L, tag_store_obj, "acceleration", 1, OLUA_CALLBACK_TAG_NEW);
-    self->init([tag_store_obj, func](cocos2d::Acceleration *acce, cocos2d::Event *event) {
+    std::string func = olua_setcallback(L, callback_store_obj, "acceleration", 1, OLUA_CALLBACK_TAG_NEW);
+    self->init([callback_store_obj, func](cocos2d::Acceleration *acce, cocos2d::Event *event) {
         lua_State *L = xlua_cocosthread();
         int top = lua_gettop(L);
         olua_push_cppobj<cocos2d::Acceleration>(L, acce, "cc.Acceleration");
         olua_push_cppobj<cocos2d::Event>(L, event, "cc.Event");
-        olua_callback(L, tag_store_obj, func.c_str(), 2);
+        olua_callback(L, callback_store_obj, func.c_str(), 2);
 
         // stack value
         olua_push_cppobj<cocos2d::Acceleration>(L, acce, "cc.Acceleration");

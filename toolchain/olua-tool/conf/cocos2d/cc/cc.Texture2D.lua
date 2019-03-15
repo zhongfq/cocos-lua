@@ -3,28 +3,30 @@ local M = {}
 local cls = class(M)
 cls.CPPCLS = "cocos2d::Texture2D::PixelFormat"
 cls.LUACLS = "cc.Texture2D.PixelFormat"
-cls.enum('AUTO')
-cls.enum('BGRA8888')
-cls.enum('RGBA8888')
-cls.enum('RGB888')
-cls.enum('RGB565')
-cls.enum('A8')
-cls.enum('I8')
-cls.enum('AI88')
-cls.enum('RGBA4444')
-cls.enum('RGB5A1')
-cls.enum('PVRTC4')
-cls.enum('PVRTC4A')
-cls.enum('PVRTC2')
-cls.enum('PVRTC2A')
-cls.enum('ETC')
-cls.enum('S3TC_DXT1')
-cls.enum('S3TC_DXT3')
-cls.enum('S3TC_DXT5')
-cls.enum('ATC_RGB')
-cls.enum('ATC_EXPLICIT_ALPHA')
-cls.enum('ATC_INTERPOLATED_ALPHA')
-cls.enum('DEFAULT')
+cls.enums [[
+    AUTO
+    BGRA8888
+    RGBA8888
+    RGB888
+    RGB565
+    A8
+    I8
+    AI88
+    RGBA4444
+    RGB5A1
+    PVRTC4
+    PVRTC4A
+    PVRTC2
+    PVRTC2A
+    ETC
+    S3TC_DXT1
+    S3TC_DXT3
+    S3TC_DXT5
+    ATC_RGB
+    ATC_EXPLICIT_ALPHA
+    ATC_INTERPOLATED_ALPHA
+    DEFAULT
+]]
 
 local cls = class(M)
 cls.CPPCLS = "cocos2d::Texture2D"

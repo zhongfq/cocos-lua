@@ -18,12 +18,16 @@ cls.funcs([[
     void onAdd()
     void onRemove()
 ]])
-cls.prop('enabled')
-cls.prop('name')
-cls.prop('owner')
-cls.var(nil, 'std::function<void(float)> onUpdateCallback = nullptr')
-cls.var(nil, 'std::function<void()> onEnterCallback = nullptr')
-cls.var(nil, 'std::function<void()> onExitCallback = nullptr')
-cls.var(nil, 'std::function<void()> onAddCallback = nullptr')
-cls.var(nil, 'std::function<void()> onRemoveCallback = nullptr')
+cls.props [[
+    enabled
+    name
+    owner
+]]
+cls.vars [[
+    std::function<void(float)> onUpdateCallback = nullptr
+    std::function<void()> onEnterCallback = nullptr
+    std::function<void()> onExitCallback = nullptr
+    std::function<void()> onAddCallback = nullptr
+    std::function<void()> onRemoveCallback = nullptr
+]]
 return cls

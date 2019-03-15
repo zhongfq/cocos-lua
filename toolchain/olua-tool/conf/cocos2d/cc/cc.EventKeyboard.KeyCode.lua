@@ -1,174 +1,176 @@
 local cls = class(M)
 cls.CPPCLS = "cocos2d::EventKeyboard::KeyCode"
 cls.LUACLS = "cc.EventKeyboard.KeyCode"
-cls.enum('KEY_NONE')
-cls.enum('KEY_PAUSE')
-cls.enum('KEY_SCROLL_LOCK')
-cls.enum('KEY_PRINT')
-cls.enum('KEY_SYSREQ')
-cls.enum('KEY_BREAK')
-cls.enum('KEY_ESCAPE')
-cls.enum('KEY_BACK')
-cls.enum('KEY_BACKSPACE')
-cls.enum('KEY_TAB')
-cls.enum('KEY_BACK_TAB')
-cls.enum('KEY_RETURN')
-cls.enum('KEY_CAPS_LOCK')
-cls.enum('KEY_SHIFT')
-cls.enum('KEY_LEFT_SHIFT')
-cls.enum('KEY_RIGHT_SHIFT')
-cls.enum('KEY_CTRL')
-cls.enum('KEY_LEFT_CTRL')
-cls.enum('KEY_RIGHT_CTRL')
-cls.enum('KEY_ALT')
-cls.enum('KEY_LEFT_ALT')
-cls.enum('KEY_RIGHT_ALT')
-cls.enum('KEY_MENU')
-cls.enum('KEY_HYPER')
-cls.enum('KEY_INSERT')
-cls.enum('KEY_HOME')
-cls.enum('KEY_PG_UP')
-cls.enum('KEY_DELETE')
-cls.enum('KEY_END')
-cls.enum('KEY_PG_DOWN')
-cls.enum('KEY_LEFT_ARROW')
-cls.enum('KEY_RIGHT_ARROW')
-cls.enum('KEY_UP_ARROW')
-cls.enum('KEY_DOWN_ARROW')
-cls.enum('KEY_NUM_LOCK')
-cls.enum('KEY_KP_PLUS')
-cls.enum('KEY_KP_MINUS')
-cls.enum('KEY_KP_MULTIPLY')
-cls.enum('KEY_KP_DIVIDE')
-cls.enum('KEY_KP_ENTER')
-cls.enum('KEY_KP_HOME')
-cls.enum('KEY_KP_UP')
-cls.enum('KEY_KP_PG_UP')
-cls.enum('KEY_KP_LEFT')
-cls.enum('KEY_KP_FIVE')
-cls.enum('KEY_KP_RIGHT')
-cls.enum('KEY_KP_END')
-cls.enum('KEY_KP_DOWN')
-cls.enum('KEY_KP_PG_DOWN')
-cls.enum('KEY_KP_INSERT')
-cls.enum('KEY_KP_DELETE')
-cls.enum('KEY_F1')
-cls.enum('KEY_F2')
-cls.enum('KEY_F3')
-cls.enum('KEY_F4')
-cls.enum('KEY_F5')
-cls.enum('KEY_F6')
-cls.enum('KEY_F7')
-cls.enum('KEY_F8')
-cls.enum('KEY_F9')
-cls.enum('KEY_F10')
-cls.enum('KEY_F11')
-cls.enum('KEY_F12')
-cls.enum('KEY_SPACE')
-cls.enum('KEY_EXCLAM')
-cls.enum('KEY_QUOTE')
-cls.enum('KEY_NUMBER')
-cls.enum('KEY_DOLLAR')
-cls.enum('KEY_PERCENT')
-cls.enum('KEY_CIRCUMFLEX')
-cls.enum('KEY_AMPERSAND')
-cls.enum('KEY_APOSTROPHE')
-cls.enum('KEY_LEFT_PARENTHESIS')
-cls.enum('KEY_RIGHT_PARENTHESIS')
-cls.enum('KEY_ASTERISK')
-cls.enum('KEY_PLUS')
-cls.enum('KEY_COMMA')
-cls.enum('KEY_MINUS')
-cls.enum('KEY_PERIOD')
-cls.enum('KEY_SLASH')
-cls.enum('KEY_0')
-cls.enum('KEY_1')
-cls.enum('KEY_2')
-cls.enum('KEY_3')
-cls.enum('KEY_4')
-cls.enum('KEY_5')
-cls.enum('KEY_6')
-cls.enum('KEY_7')
-cls.enum('KEY_8')
-cls.enum('KEY_9')
-cls.enum('KEY_COLON')
-cls.enum('KEY_SEMICOLON')
-cls.enum('KEY_LESS_THAN')
-cls.enum('KEY_EQUAL')
-cls.enum('KEY_GREATER_THAN')
-cls.enum('KEY_QUESTION')
-cls.enum('KEY_AT')
-cls.enum('KEY_CAPITAL_A')
-cls.enum('KEY_CAPITAL_B')
-cls.enum('KEY_CAPITAL_C')
-cls.enum('KEY_CAPITAL_D')
-cls.enum('KEY_CAPITAL_E')
-cls.enum('KEY_CAPITAL_F')
-cls.enum('KEY_CAPITAL_G')
-cls.enum('KEY_CAPITAL_H')
-cls.enum('KEY_CAPITAL_I')
-cls.enum('KEY_CAPITAL_J')
-cls.enum('KEY_CAPITAL_K')
-cls.enum('KEY_CAPITAL_L')
-cls.enum('KEY_CAPITAL_M')
-cls.enum('KEY_CAPITAL_N')
-cls.enum('KEY_CAPITAL_O')
-cls.enum('KEY_CAPITAL_P')
-cls.enum('KEY_CAPITAL_Q')
-cls.enum('KEY_CAPITAL_R')
-cls.enum('KEY_CAPITAL_S')
-cls.enum('KEY_CAPITAL_T')
-cls.enum('KEY_CAPITAL_U')
-cls.enum('KEY_CAPITAL_V')
-cls.enum('KEY_CAPITAL_W')
-cls.enum('KEY_CAPITAL_X')
-cls.enum('KEY_CAPITAL_Y')
-cls.enum('KEY_CAPITAL_Z')
-cls.enum('KEY_LEFT_BRACKET')
-cls.enum('KEY_BACK_SLASH')
-cls.enum('KEY_RIGHT_BRACKET')
-cls.enum('KEY_UNDERSCORE')
-cls.enum('KEY_GRAVE')
-cls.enum('KEY_A')
-cls.enum('KEY_B')
-cls.enum('KEY_C')
-cls.enum('KEY_D')
-cls.enum('KEY_E')
-cls.enum('KEY_F')
-cls.enum('KEY_G')
-cls.enum('KEY_H')
-cls.enum('KEY_I')
-cls.enum('KEY_J')
-cls.enum('KEY_K')
-cls.enum('KEY_L')
-cls.enum('KEY_M')
-cls.enum('KEY_N')
-cls.enum('KEY_O')
-cls.enum('KEY_P')
-cls.enum('KEY_Q')
-cls.enum('KEY_R')
-cls.enum('KEY_S')
-cls.enum('KEY_T')
-cls.enum('KEY_U')
-cls.enum('KEY_V')
-cls.enum('KEY_W')
-cls.enum('KEY_X')
-cls.enum('KEY_Y')
-cls.enum('KEY_Z')
-cls.enum('KEY_LEFT_BRACE')
-cls.enum('KEY_BAR')
-cls.enum('KEY_RIGHT_BRACE')
-cls.enum('KEY_TILDE')
-cls.enum('KEY_EURO')
-cls.enum('KEY_POUND')
-cls.enum('KEY_YEN')
-cls.enum('KEY_MIDDLE_DOT')
-cls.enum('KEY_SEARCH')
-cls.enum('KEY_DPAD_LEFT')
-cls.enum('KEY_DPAD_RIGHT')
-cls.enum('KEY_DPAD_UP')
-cls.enum('KEY_DPAD_DOWN')
-cls.enum('KEY_DPAD_CENTER')
-cls.enum('KEY_ENTER')
-cls.enum('KEY_PLAY')
+cls.enums [[
+    KEY_NONE
+    KEY_PAUSE
+    KEY_SCROLL_LOCK
+    KEY_PRINT
+    KEY_SYSREQ
+    KEY_BREAK
+    KEY_ESCAPE
+    KEY_BACK
+    KEY_BACKSPACE
+    KEY_TAB
+    KEY_BACK_TAB
+    KEY_RETURN
+    KEY_CAPS_LOCK
+    KEY_SHIFT
+    KEY_LEFT_SHIFT
+    KEY_RIGHT_SHIFT
+    KEY_CTRL
+    KEY_LEFT_CTRL
+    KEY_RIGHT_CTRL
+    KEY_ALT
+    KEY_LEFT_ALT
+    KEY_RIGHT_ALT
+    KEY_MENU
+    KEY_HYPER
+    KEY_INSERT
+    KEY_HOME
+    KEY_PG_UP
+    KEY_DELETE
+    KEY_END
+    KEY_PG_DOWN
+    KEY_LEFT_ARROW
+    KEY_RIGHT_ARROW
+    KEY_UP_ARROW
+    KEY_DOWN_ARROW
+    KEY_NUM_LOCK
+    KEY_KP_PLUS
+    KEY_KP_MINUS
+    KEY_KP_MULTIPLY
+    KEY_KP_DIVIDE
+    KEY_KP_ENTER
+    KEY_KP_HOME
+    KEY_KP_UP
+    KEY_KP_PG_UP
+    KEY_KP_LEFT
+    KEY_KP_FIVE
+    KEY_KP_RIGHT
+    KEY_KP_END
+    KEY_KP_DOWN
+    KEY_KP_PG_DOWN
+    KEY_KP_INSERT
+    KEY_KP_DELETE
+    KEY_F1
+    KEY_F2
+    KEY_F3
+    KEY_F4
+    KEY_F5
+    KEY_F6
+    KEY_F7
+    KEY_F8
+    KEY_F9
+    KEY_F10
+    KEY_F11
+    KEY_F12
+    KEY_SPACE
+    KEY_EXCLAM
+    KEY_QUOTE
+    KEY_NUMBER
+    KEY_DOLLAR
+    KEY_PERCENT
+    KEY_CIRCUMFLEX
+    KEY_AMPERSAND
+    KEY_APOSTROPHE
+    KEY_LEFT_PARENTHESIS
+    KEY_RIGHT_PARENTHESIS
+    KEY_ASTERISK
+    KEY_PLUS
+    KEY_COMMA
+    KEY_MINUS
+    KEY_PERIOD
+    KEY_SLASH
+    KEY_0
+    KEY_1
+    KEY_2
+    KEY_3
+    KEY_4
+    KEY_5
+    KEY_6
+    KEY_7
+    KEY_8
+    KEY_9
+    KEY_COLON
+    KEY_SEMICOLON
+    KEY_LESS_THAN
+    KEY_EQUAL
+    KEY_GREATER_THAN
+    KEY_QUESTION
+    KEY_AT
+    KEY_CAPITAL_A
+    KEY_CAPITAL_B
+    KEY_CAPITAL_C
+    KEY_CAPITAL_D
+    KEY_CAPITAL_E
+    KEY_CAPITAL_F
+    KEY_CAPITAL_G
+    KEY_CAPITAL_H
+    KEY_CAPITAL_I
+    KEY_CAPITAL_J
+    KEY_CAPITAL_K
+    KEY_CAPITAL_L
+    KEY_CAPITAL_M
+    KEY_CAPITAL_N
+    KEY_CAPITAL_O
+    KEY_CAPITAL_P
+    KEY_CAPITAL_Q
+    KEY_CAPITAL_R
+    KEY_CAPITAL_S
+    KEY_CAPITAL_T
+    KEY_CAPITAL_U
+    KEY_CAPITAL_V
+    KEY_CAPITAL_W
+    KEY_CAPITAL_X
+    KEY_CAPITAL_Y
+    KEY_CAPITAL_Z
+    KEY_LEFT_BRACKET
+    KEY_BACK_SLASH
+    KEY_RIGHT_BRACKET
+    KEY_UNDERSCORE
+    KEY_GRAVE
+    KEY_A
+    KEY_B
+    KEY_C
+    KEY_D
+    KEY_E
+    KEY_F
+    KEY_G
+    KEY_H
+    KEY_I
+    KEY_J
+    KEY_K
+    KEY_L
+    KEY_M
+    KEY_N
+    KEY_O
+    KEY_P
+    KEY_Q
+    KEY_R
+    KEY_S
+    KEY_T
+    KEY_U
+    KEY_V
+    KEY_W
+    KEY_X
+    KEY_Y
+    KEY_Z
+    KEY_LEFT_BRACE
+    KEY_BAR
+    KEY_RIGHT_BRACE
+    KEY_TILDE
+    KEY_EURO
+    KEY_POUND
+    KEY_YEN
+    KEY_MIDDLE_DOT
+    KEY_SEARCH
+    KEY_DPAD_LEFT
+    KEY_DPAD_RIGHT
+    KEY_DPAD_UP
+    KEY_DPAD_DOWN
+    KEY_DPAD_CENTER
+    KEY_ENTER
+    KEY_PLAY
+]]
 return cls

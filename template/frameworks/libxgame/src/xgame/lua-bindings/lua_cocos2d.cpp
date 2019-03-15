@@ -13789,6 +13789,30 @@ static int luaopen_cocos2d_ProtectedNode(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_Camera_getDefaultViewport(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static const experimental::Viewport& getDefaultViewport()
+    const cocos2d::experimental::Viewport &ret = (const cocos2d::experimental::Viewport &)cocos2d::Camera::getDefaultViewport();
+
+    return auto_luacv_push_cocos2d_experimental_Viewport(L, &ret);
+}
+
+static int _cocos2d_Camera_setDefaultViewport(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::experimental::Viewport arg1;       /** vp */
+
+    auto_luacv_check_cocos2d_experimental_Viewport(L, 1, &arg1);
+
+    // static void setDefaultViewport(const experimental::Viewport& vp)
+    cocos2d::Camera::setDefaultViewport(arg1);
+
+    return 0;
+}
+
 static int _cocos2d_Camera_createPerspective(lua_State *L)
 {
     lua_settop(L, 4);
@@ -13849,33 +13873,11 @@ static int _cocos2d_Camera_getVisitingCamera(lua_State *L)
     return olua_push_cppobj<cocos2d::Camera>(L, ret, "cc.Camera");
 }
 
-static int _cocos2d_Camera_getDefaultViewport(lua_State *L)
-{
-    lua_settop(L, 0);
-
-    // static const experimental::Viewport& getDefaultViewport()
-    const cocos2d::experimental::Viewport &ret = (const cocos2d::experimental::Viewport &)cocos2d::Camera::getDefaultViewport();
-
-    return auto_luacv_push_cocos2d_experimental_Viewport(L, &ret);
-}
-
-static int _cocos2d_Camera_setDefaultViewport(lua_State *L)
-{
-    lua_settop(L, 1);
-
-    cocos2d::experimental::Viewport arg1;       /** vp */
-
-    auto_luacv_check_cocos2d_experimental_Viewport(L, 1, &arg1);
-
-    // static void setDefaultViewport(const experimental::Viewport& vp)
-    cocos2d::Camera::setDefaultViewport(arg1);
-
-    return 0;
-}
-
 static int luaopen_cocos2d_Camera(lua_State *L)
 {
     oluacls_class(L, "cc.Camera", "cc.Node");
+    oluacls_setfunc(L, "getDefaultViewport", _cocos2d_Camera_getDefaultViewport);
+    oluacls_setfunc(L, "setDefaultViewport", _cocos2d_Camera_setDefaultViewport);
     oluacls_setfunc(L, "createPerspective", _cocos2d_Camera_createPerspective);
     oluacls_setfunc(L, "createOrthographic", _cocos2d_Camera_createOrthographic);
     oluacls_setfunc(L, "create", _cocos2d_Camera_create);

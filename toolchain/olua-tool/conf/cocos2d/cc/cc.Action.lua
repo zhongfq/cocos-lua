@@ -23,11 +23,13 @@ cls.funcs([[
     void setFlags(unsigned int flags)
 ]])
 cls.prop('description', 'std::string description()')
-cls.prop('done')
-cls.prop('target')
-cls.prop('originalTarget')
-cls.prop('tag')
-cls.prop('flags')
+cls.props([[
+    done
+    target
+    originalTarget
+    tag
+    flags
+]])
 
 local cls = class(M)
 cls.CPPCLS = "cocos2d::FiniteTimeAction"

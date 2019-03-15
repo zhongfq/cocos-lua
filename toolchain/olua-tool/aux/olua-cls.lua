@@ -415,9 +415,27 @@ function class(collection)
         }
     end
 
+    function cls.vars(vars_str)
+        for line in string.gmatch(vars_str, '[^\n\r]+') do
+            line = string.gsub(line, '^ *', '')
+            if #line > 0 then
+                cls.var(nil, line)
+            end
+        end
+    end
+
     function cls.prop(name, func_get, func_set)
         assert(not string.find(name, '[^_%w]+'), '"' .. name .. '"')
         cls.PROPS[#cls.PROPS + 1] = parse_prop(cls, name, func_get, func_set)
+    end
+
+    function cls.props(props_str)
+        for line in string.gmatch(props_str, '[^\n\r]+') do
+            local name = string.match(line, '%w+')
+            if name then
+                cls.prop(name)
+            end
+        end
     end
 
     function cls.const(name, value)
@@ -437,6 +455,15 @@ function class(collection)
             ENUM_VALUE = value or (cls.CPPCLS .. '::' .. name),
             ENUM_TYPE = type,
         }
+    end
+
+    function cls.enums(enums_str)
+        for line in string.gmatch(enums_str, '[^\n\r]+') do
+            local name = string.match(line, '[%w:_]+')
+            if name then
+                cls.enum(name)
+            end
+        end
     end
 
     return cls

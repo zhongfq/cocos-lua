@@ -88,25 +88,27 @@ cls.funcs([[
     size_t getProjectionMatrixStackSize()
     bool isValid()
 ]])
-cls.prop("runningScene")
-cls.prop('animationInterval')
-cls.prop('displayStats')
-cls.prop('secondsPerFrame')
-cls.prop('openGLView')
-cls.prop('textureCache')
-cls.prop('nextDeltaTimeZero')
-cls.prop('paused')
-cls.prop('totalFrames')
-cls.prop('projection')
-cls.prop('sendCleanupToScene')
-cls.prop('notificationNode')
-cls.prop('zEye')
-cls.prop('contentScaleFactor')
-cls.prop('scheduler')
-cls.prop('actionManager')
-cls.prop('renderer')
-cls.prop('eventDispatcher')
-cls.prop('deltaTime')
-cls.prop('frameRate')
-cls.prop('valid')
+cls.props [[
+    runningScene
+    animationInterval
+    displayStats
+    secondsPerFrame
+    openGLView
+    textureCache
+    nextDeltaTimeZero
+    paused
+    totalFrames
+    projection
+    sendCleanupToScene
+    notificationNode
+    zEye
+    contentScaleFactor
+    scheduler
+    actionManager
+    renderer
+    eventDispatcher
+    deltaTime
+    frameRate
+    valid
+]]
 return M

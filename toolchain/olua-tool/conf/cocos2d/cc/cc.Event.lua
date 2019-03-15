@@ -3,13 +3,15 @@ local M = {}
 local cls = class(M)
 cls.CPPCLS = "cocos2d::Event::Type"
 cls.LUACLS = "cc.Event.Type"
-cls.enum('TOUCH')
-cls.enum('KEYBOARD')
-cls.enum('ACCELERATION')
-cls.enum('MOUSE')
-cls.enum('FOCUS')
-cls.enum('GAME_CONTROLLER')
-cls.enum('CUSTOM')
+cls.enums [[
+    TOUCH
+    KEYBOARD
+    ACCELERATION
+    MOUSE
+    FOCUS
+    GAME_CONTROLLER
+    CUSTOM
+]]
 
 local cls = class(M)
 cls.CPPCLS = "cocos2d::Event"
@@ -48,10 +50,12 @@ cls.funcs([[
 local cls = class(M)
 cls.CPPCLS = "cocos2d::EventTouch::EventCode"
 cls.LUACLS = "cc.EventTouch.EventCode"
-cls.enum('BEGAN', 'cocos2d::EventTouch::EventCode::BEGAN')
-cls.enum('MOVED', 'cocos2d::EventTouch::EventCode::MOVED')
-cls.enum('ENDED', 'cocos2d::EventTouch::EventCode::ENDED')
-cls.enum('CANCELLED', 'cocos2d::EventTouch::EventCode::CANCELLED')
+cls.enums [[
+    BEGAN
+    MOVED
+    ENDED
+    CANCELLED
+]]
 
 local cls = class(M)
 cls.CPPCLS = "cocos2d::EventTouch"

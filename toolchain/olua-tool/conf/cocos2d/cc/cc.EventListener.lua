@@ -3,15 +3,17 @@ local M = {}
 local cls = class(M)
 cls.CPPCLS = "cocos2d::EventListener::Type"
 cls.LUACLS = "cc.EventListener.Type"
-cls.enum('UNKNOWN', 'cocos2d::EventListener::Type::UNKNOWN')
-cls.enum('TOUCH_ONE_BY_ONE', 'cocos2d::EventListener::Type::TOUCH_ONE_BY_ONE')
-cls.enum('TOUCH_ALL_AT_ONCE', 'cocos2d::EventListener::Type::TOUCH_ALL_AT_ONCE')
-cls.enum('KEYBOARD', 'cocos2d::EventListener::Type::KEYBOARD')
-cls.enum('MOUSE', 'cocos2d::EventListener::Type::MOUSE')
-cls.enum('ACCELERATION', 'cocos2d::EventListener::Type::ACCELERATION')
-cls.enum('FOCUS', 'cocos2d::EventListener::Type::FOCUS')
-cls.enum('GAME_CONTROLLER', 'cocos2d::EventListener::Type::GAME_CONTROLLER')
-cls.enum('CUSTOM', 'cocos2d::EventListener::Type::CUSTOM')
+cls.enums [[
+    UNKNOWN
+    TOUCH_ONE_BY_ONE
+    TOUCH_ALL_AT_ONCE
+    KEYBOARD
+    MOUSE
+    ACCELERATION
+    FOCUS
+    GAME_CONTROLLER
+    CUSTOM
+]]
 
 local cls = class(M)
 cls.CPPCLS = "cocos2d::EventListener"
@@ -36,19 +38,23 @@ cls.funcs([[
     void setSwallowTouches(bool needSwallow)
     bool isSwallowTouches()
 ]])
-cls.var(nil, 'std::function<bool(@stack Touch*, @stack Event*)> onTouchBegan = nullptr')
-cls.var(nil, 'std::function<void(@stack Touch*, @stack Event*)> onTouchMoved = nullptr')
-cls.var(nil, 'std::function<void(@stack Touch*, @stack Event*)> onTouchEnded = nullptr')
-cls.var(nil, 'std::function<void(Touch*, @stack Event*)> onTouchCancelled = nullptr')
+cls.vars [[
+    std::function<bool(@stack Touch*, @stack Event*)> onTouchBegan = nullptr
+    std::function<void(@stack Touch*, @stack Event*)> onTouchMoved = nullptr
+    std::function<void(@stack Touch*, @stack Event*)> onTouchEnded = nullptr
+    std::function<void(Touch*, @stack Event*)> onTouchCancelled = nullptr
+]]
 
 local cls = class(M)
 cls.CPPCLS = "cocos2d::EventListenerTouchAllAtOnce"
 cls.LUACLS = "cc.EventListenerTouchAllAtOnce"
 cls.SUPERCLS = "cc.EventListener"
-cls.var(nil, 'std::function<void(@stack const std::vector<Touch*>&, @stack Event*)> onTouchesBegan = nullptr')
-cls.var(nil, 'std::function<void(@stack const std::vector<Touch*>&, @stack Event*)> onTouchesMoved = nullptr')
-cls.var(nil, 'std::function<void(@stack const std::vector<Touch*>&, @stack Event*)> onTouchesEnded = nullptr')
-cls.var(nil, 'std::function<void(const std::vector<Touch*>&, @stack Event*)> onTouchesCancelled = nullptr')
+cls.vars [[
+    std::function<void(@stack const std::vector<Touch*>&, @stack Event*)> onTouchesBegan = nullptr
+    std::function<void(@stack const std::vector<Touch*>&, @stack Event*)> onTouchesMoved = nullptr
+    std::function<void(@stack const std::vector<Touch*>&, @stack Event*)> onTouchesEnded = nullptr
+    std::function<void(const std::vector<Touch*>&, @stack Event*)> onTouchesCancelled = nullptr
+]]
 cls.funcs([[
     static EventListenerTouchAllAtOnce* create()
 ]])
@@ -93,8 +99,10 @@ cls.SUPERCLS = "cc.EventListener"
 cls.funcs([[
     static EventListenerKeyboard* create()
 ]])
-cls.var(nil, 'std::function<void(EventKeyboard::KeyCode, @stack Event*)> onKeyPressed = nullptr')
-cls.var(nil, 'std::function<void(EventKeyboard::KeyCode, @stack Event*)> onKeyReleased = nullptr')
+cls.vars [[
+    std::function<void(EventKeyboard::KeyCode, @stack Event*)> onKeyPressed = nullptr
+    std::function<void(EventKeyboard::KeyCode, @stack Event*)> onKeyReleased = nullptr
+]]
 
 local cls = class(M)
 cls.CPPCLS = "cocos2d::EventListenerAcceleration"
@@ -138,7 +146,9 @@ cls.SUPERCLS = "cc.EventListener"
 cls.funcs([[
     static EventListenerFocus* create()
 ]])
-cls.var(nil, 'std::function<void(ui::Widget*, ui::Widget*)> onFocusChanged = nullptr')
+cls.vars [[
+    std::function<void(ui::Widget*, ui::Widget*)> onFocusChanged = nullptr
+]]
 
 local cls = class(M)
 cls.CPPCLS = "cocos2d::EventListenerMouse"
@@ -147,9 +157,11 @@ cls.SUPERCLS = "cc.EventListener"
 cls.funcs([[
     static EventListenerMouse* create()
 ]])
-cls.var(nil, 'std::function<void(@stack EventMouse* event)> onMouseDown = nullptr')
-cls.var(nil, 'std::function<void(@stack EventMouse* event)> onMouseUp = nullptr')
-cls.var(nil, 'std::function<void(@stack EventMouse* event)> onMouseMove = nullptr')
-cls.var(nil, 'std::function<void(@stack EventMouse* event)> onMouseScroll = nullptr')
+cls.vars [[
+    std::function<void(@stack EventMouse* event)> onMouseDown = nullptr
+    std::function<void(@stack EventMouse* event)> onMouseUp = nullptr
+    std::function<void(@stack EventMouse* event)> onMouseMove = nullptr
+    std::function<void(@stack EventMouse* event)> onMouseScroll = nullptr
+]]
 
 return M

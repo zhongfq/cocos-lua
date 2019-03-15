@@ -395,6 +395,7 @@ function class(collection)
                 ISVAR = true,
                 ARGS = {},
                 INDEX = 0,
+                CALLBACK_OPT = CALLBACK_OPT,
             },
             SET = {
                 LUAFUNC = name,

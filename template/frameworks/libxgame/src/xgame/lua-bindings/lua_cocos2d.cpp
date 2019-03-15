@@ -8712,6 +8712,10 @@ static int _cocos2d_Component_get_onUpdateCallback(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Component");
 
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onUpdateCallback");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+
     // <function var>
     std::function<void(float)> ret = (std::function<void(float)>)self->onUpdateCallback;
 
@@ -8761,6 +8765,10 @@ static int _cocos2d_Component_get_onEnterCallback(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Component");
 
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onEnterCallback");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+
     // <function var>
     std::function<void()> ret = (std::function<void()>)self->onEnterCallback;
 
@@ -8808,6 +8816,10 @@ static int _cocos2d_Component_get_onExitCallback(lua_State *L)
     cocos2d::LuaComponent *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Component");
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onExitCallback");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
 
     // <function var>
     std::function<void()> ret = (std::function<void()>)self->onExitCallback;
@@ -8857,6 +8869,10 @@ static int _cocos2d_Component_get_onAddCallback(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Component");
 
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onAddCallback");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+
     // <function var>
     std::function<void()> ret = (std::function<void()>)self->onAddCallback;
 
@@ -8904,6 +8920,10 @@ static int _cocos2d_Component_get_onRemoveCallback(lua_State *L)
     cocos2d::LuaComponent *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Component");
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onRemoveCallback");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
 
     // <function var>
     std::function<void()> ret = (std::function<void()>)self->onRemoveCallback;
@@ -14391,6 +14411,10 @@ static int _cocos2d_EventListenerTouchOneByOne_get_onTouchBegan(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerTouchOneByOne");
 
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onTouchBegan");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+
     // <function var>
     std::function<bool(cocos2d::Touch *, cocos2d::Event *)> ret = (std::function<bool(cocos2d::Touch *, cocos2d::Event *)>)self->onTouchBegan;
 
@@ -14449,6 +14473,10 @@ static int _cocos2d_EventListenerTouchOneByOne_get_onTouchMoved(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerTouchOneByOne");
 
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onTouchMoved");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+
     // <function var>
     std::function<void(cocos2d::Touch *, cocos2d::Event *)> ret = (std::function<void(cocos2d::Touch *, cocos2d::Event *)>)self->onTouchMoved;
 
@@ -14505,6 +14533,10 @@ static int _cocos2d_EventListenerTouchOneByOne_get_onTouchEnded(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerTouchOneByOne");
 
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onTouchEnded");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+
     // <function var>
     std::function<void(cocos2d::Touch *, cocos2d::Event *)> ret = (std::function<void(cocos2d::Touch *, cocos2d::Event *)>)self->onTouchEnded;
 
@@ -14560,6 +14592,10 @@ static int _cocos2d_EventListenerTouchOneByOne_get_onTouchCancelled(lua_State *L
     cocos2d::EventListenerTouchOneByOne *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerTouchOneByOne");
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onTouchCancelled");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
 
     // <function var>
     std::function<void(cocos2d::Touch *, cocos2d::Event *)> ret = (std::function<void(cocos2d::Touch *, cocos2d::Event *)>)self->onTouchCancelled;
@@ -14643,6 +14679,10 @@ static int _cocos2d_EventListenerTouchAllAtOnce_get_onTouchesBegan(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerTouchAllAtOnce");
 
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onTouchesBegan");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+
     // <function var>
     std::function<void(const std::vector<cocos2d::Touch *> &, cocos2d::Event *)> ret = (std::function<void(const std::vector<cocos2d::Touch *> &, cocos2d::Event *)>)self->onTouchesBegan;
 
@@ -14698,6 +14738,10 @@ static int _cocos2d_EventListenerTouchAllAtOnce_get_onTouchesMoved(lua_State *L)
     cocos2d::EventListenerTouchAllAtOnce *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerTouchAllAtOnce");
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onTouchesMoved");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
 
     // <function var>
     std::function<void(const std::vector<cocos2d::Touch *> &, cocos2d::Event *)> ret = (std::function<void(const std::vector<cocos2d::Touch *> &, cocos2d::Event *)>)self->onTouchesMoved;
@@ -14755,6 +14799,10 @@ static int _cocos2d_EventListenerTouchAllAtOnce_get_onTouchesEnded(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerTouchAllAtOnce");
 
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onTouchesEnded");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+
     // <function var>
     std::function<void(const std::vector<cocos2d::Touch *> &, cocos2d::Event *)> ret = (std::function<void(const std::vector<cocos2d::Touch *> &, cocos2d::Event *)>)self->onTouchesEnded;
 
@@ -14810,6 +14858,10 @@ static int _cocos2d_EventListenerTouchAllAtOnce_get_onTouchesCancelled(lua_State
     cocos2d::EventListenerTouchAllAtOnce *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerTouchAllAtOnce");
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onTouchesCancelled");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
 
     // <function var>
     std::function<void(const std::vector<cocos2d::Touch *> &, cocos2d::Event *)> ret = (std::function<void(const std::vector<cocos2d::Touch *> &, cocos2d::Event *)>)self->onTouchesCancelled;
@@ -14930,6 +14982,10 @@ static int _cocos2d_EventListenerKeyboard_get_onKeyPressed(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerKeyboard");
 
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onKeyPressed");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+
     // <function var>
     std::function<void(cocos2d::EventKeyboard::KeyCode, cocos2d::Event *)> ret = (std::function<void(cocos2d::EventKeyboard::KeyCode, cocos2d::Event *)>)self->onKeyPressed;
 
@@ -14983,6 +15039,10 @@ static int _cocos2d_EventListenerKeyboard_get_onKeyReleased(lua_State *L)
     cocos2d::EventListenerKeyboard *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerKeyboard");
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onKeyReleased");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
 
     // <function var>
     std::function<void(cocos2d::EventKeyboard::KeyCode, cocos2d::Event *)> ret = (std::function<void(cocos2d::EventKeyboard::KeyCode, cocos2d::Event *)>)self->onKeyReleased;
@@ -15103,6 +15163,10 @@ static int _cocos2d_EventListenerFocus_get_onFocusChanged(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerFocus");
 
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onFocusChanged");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+
     // <function var>
     std::function<void(cocos2d::ui::Widget *, cocos2d::ui::Widget *)> ret = (std::function<void(cocos2d::ui::Widget *, cocos2d::ui::Widget *)>)self->onFocusChanged;
 
@@ -15175,6 +15239,10 @@ static int _cocos2d_EventListenerMouse_get_onMouseDown(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerMouse");
 
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onMouseDown");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+
     // <function var>
     std::function<void(cocos2d::EventMouse *)> ret = (std::function<void(cocos2d::EventMouse *)>)self->onMouseDown;
 
@@ -15227,6 +15295,10 @@ static int _cocos2d_EventListenerMouse_get_onMouseUp(lua_State *L)
     cocos2d::EventListenerMouse *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerMouse");
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onMouseUp");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
 
     // <function var>
     std::function<void(cocos2d::EventMouse *)> ret = (std::function<void(cocos2d::EventMouse *)>)self->onMouseUp;
@@ -15281,6 +15353,10 @@ static int _cocos2d_EventListenerMouse_get_onMouseMove(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerMouse");
 
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onMouseMove");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+
     // <function var>
     std::function<void(cocos2d::EventMouse *)> ret = (std::function<void(cocos2d::EventMouse *)>)self->onMouseMove;
 
@@ -15333,6 +15409,10 @@ static int _cocos2d_EventListenerMouse_get_onMouseScroll(lua_State *L)
     cocos2d::EventListenerMouse *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerMouse");
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onMouseScroll");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
 
     // <function var>
     std::function<void(cocos2d::EventMouse *)> ret = (std::function<void(cocos2d::EventMouse *)>)self->onMouseScroll;

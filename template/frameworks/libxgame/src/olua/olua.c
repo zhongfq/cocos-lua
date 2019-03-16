@@ -17,6 +17,7 @@
 #define MIN(a, b)   ((a) < (b) ? (a) : (b))
 
 static lua_CFunction _traceback = NULL;
+static int _count = 0;
 
 static inline bool strequal(const char *str1, const char *str2)
 {
@@ -102,6 +103,12 @@ LUALIB_API const char *olua_objtostring(lua_State *L, int idx)
         intptr_t p = (intptr_t)lua_topointer(L, idx);
         return lua_pushfstring(L, "%s: %p", olua_typename(L, idx), p);
     }
+}
+
+LUALIB_API int olua_changeobjcount(int add)
+{
+    _count += add;
+    return _count;
 }
 
 LUALIB_API bool olua_isa(lua_State *L, int idx, const char *cls)
@@ -938,6 +945,15 @@ LUALIB_API int olua_push_obj(lua_State *L, void *obj, const char *cls)
 LUALIB_API void olua_check_obj(lua_State *L, int idx, void **value, const char *cls)
 {
     *value = olua_checkobj(L, idx, cls);
+}
+
+LUALIB_API void olua_opt_obj(lua_State *L, int idx, void **value, const char *cls, void *def)
+{
+    if (olua_isnil(L, idx)) {
+        *value = def;
+    } else {
+        olua_check_obj(L, idx, value, cls);
+    }
 }
 
 LUALIB_API void olua_to_obj(lua_State *L, int idx, void **value, const char *cls)

@@ -12,9 +12,30 @@
 
 
 
+static int _cocos2d_ui_Widget_hitTest(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    cocos2d::ui::Widget *self = nullptr;
+    cocos2d::Vec2 arg1;       /** pt */
+    cocos2d::Camera *arg2 = nullptr;   /** camera */
+    cocos2d::Vec3 *arg3 = nullptr;   /** p */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    olua_check_cppobj(L, 3, (void **)&arg2, "cc.Camera");
+    olua_opt_cppobj(L, 4, (void **)&arg3, "cc.Vec3", nullptr);
+
+    // bool hitTest(const Vec2 &pt, const Camera* camera, Vec3 *p = nullptr)
+    bool ret = (bool)self->hitTest(arg1, arg2, arg3);
+
+    return olua_push_bool(L, ret);
+}
+
 static int luaopen_cocos2d_ui_Widget(lua_State *L)
 {
     oluacls_class(L, "ccui.Widget", "cc.ProtectedNode");
+    oluacls_setfunc(L, "hitTest", _cocos2d_ui_Widget_hitTest);
 
     olua_registerluatype<cocos2d::ui::Widget>(L, "ccui.Widget");
     oluacls_createclassproxy(L);

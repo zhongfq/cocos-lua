@@ -428,8 +428,6 @@ void xlua_getref(lua_State *L, int ref)
     lua_remove(L, -2); // pop mapping table
 }
 
-static int s_obj_count = 0;
-
 static int report_gc_error(lua_State *L)
 {
     luaL_error(L, "'referenceCount > 0xFFFF' maybe a error, check this obj: %s", lua_tostring(L, 1));
@@ -445,7 +443,7 @@ int xlua_ccobjgc(lua_State *L)
             int top = lua_gettop(L);
             const char *str = olua_objtostring(L, 1);
             xgame::runtime::log("lua gc: obj=%s obj_ref_count=%d total_obj_count=%d",
-                str, obj->getReferenceCount() - 1, s_obj_count - 1);
+                str, obj->getReferenceCount() - 1, olua_objcount() - 1);
             
             if (obj->getReferenceCount() > 0xFFFF) {
                 int errfuc = lua_gettop(L) + 1;
@@ -459,7 +457,7 @@ int xlua_ccobjgc(lua_State *L)
 #endif
             obj->release();
             *(void **)lua_touserdata(L, 1) = nullptr;
-            xlua_subref();
+            olua_subobjcount();
         } else {
 #ifdef COCOS2D_DEBUG
             const char *str = olua_objtostring(L, 1);
@@ -468,19 +466,4 @@ int xlua_ccobjgc(lua_State *L)
         }
     }
     return 0;
-}
-
-int xlua_refcount()
-{
-    return s_obj_count;
-}
-
-void xlua_addref()
-{
-    s_obj_count++;
-}
-
-void xlua_subref()
-{
-    s_obj_count--;
 }

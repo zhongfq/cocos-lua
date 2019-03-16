@@ -25,16 +25,12 @@ void xlua_getref(lua_State *L, int ref);
 
 int xlua_ccobjgc(lua_State *L);
 
-int xlua_refcount();
-void xlua_addref();
-void xlua_subref();
-
 template <typename T> void xlua_report_push_status(lua_State *L, T* value, int status)
 {
     if ((status == OLUA_OBJ_NEW || status == OLUA_OBJ_UPDATE) &&
         std::is_base_of<cocos2d::Ref, T>::value) {
         ((cocos2d::Ref *)value)->retain();
-        xlua_addref();
+        olua_addobjcount();
     }
 }
 

@@ -42,6 +42,10 @@ LUALIB_API void olua_rawsetfield(lua_State *L, int idx, const char *field);
 LUALIB_API void olua_seterrfunc(lua_CFunction errfunc);
 LUALIB_API const char *olua_typename(lua_State *L, int idx);
 LUALIB_API const char *olua_objtostring(lua_State *L, int idx);
+LUALIB_API int olua_changeobjcount(int add);
+#define olua_addobjcount() (olua_changeobjcount(1))
+#define olua_subobjcount() (olua_changeobjcount(-1))
+#define olua_objcount() (olua_changeobjcount(0))
 LUALIB_API bool olua_isa(lua_State *L, int idx, const char *cls);
 LUALIB_API void olua_getobjtable(lua_State *L);
 LUALIB_API int olua_pushobj(lua_State *L, void *obj, const char *cls);
@@ -144,6 +148,7 @@ LUALIB_API void olua_opt_uint(lua_State *L, int idx, lua_Unsigned *value, lua_Un
 
 LUALIB_API int olua_push_obj(lua_State *L, void *obj, const char *cls);
 LUALIB_API void olua_check_obj(lua_State *L, int idx, void **value, const char *cls);
+LUALIB_API void olua_opt_obj(lua_State *L, int idx, void **value, const char *cls, void *def);
 LUALIB_API void olua_to_obj(lua_State *L, int idx, void **value, const char *cls);
 #define olua_is_obj olua_isa
     

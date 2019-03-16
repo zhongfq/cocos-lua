@@ -173,6 +173,7 @@ REG_TYPE {
         'cocos2d::Renderer *',
         'cocos2d::VRIRenderer *',
         'cocos2d::VRIHeadTracker *',
+        'cocos2d::Vec3 *',
     }, '|'),
     CONV_FUNC = "olua_$$_cppobj",
     LUACLS = make_luacls,

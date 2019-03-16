@@ -509,6 +509,129 @@ static int luaopen_cocos2d_Acceleration(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_Vec3_new(lua_State *L)
+{
+    cocos2d::Vec3 *obj = new cocos2d::Vec3();
+    return olua_push_cppobj<cocos2d::Vec3>(L, obj, "cc.Vec3");
+}
+
+static int _cocos2d_Vec3___gc(lua_State *L)
+{
+    if (olua_isa(L, 1, "cc.Vec3")) {
+        cocos2d::Vec3 *obj = olua_touserdata(L, 1, cocos2d::Vec3 *);
+        if (obj) {
+            delete obj;
+            *(void **)lua_touserdata(L, 1) = nullptr;
+        }
+    }
+    return 0;
+}
+
+static int _cocos2d_Vec3_get_x(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Vec3 *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Vec3");
+
+    // <function var>
+    float ret = (float)self->x;
+
+    return olua_push_number(L, (lua_Number)ret);
+}
+
+static int _cocos2d_Vec3_set_x(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Vec3 *self = nullptr;
+    lua_Number arg1 = 0;   /** x */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Vec3");
+    olua_check_number(L, 2, &arg1);
+
+    // <function var>
+    self->x = (float)arg1;
+
+    return 0;
+}
+
+static int _cocos2d_Vec3_get_y(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Vec3 *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Vec3");
+
+    // <function var>
+    float ret = (float)self->y;
+
+    return olua_push_number(L, (lua_Number)ret);
+}
+
+static int _cocos2d_Vec3_set_y(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Vec3 *self = nullptr;
+    lua_Number arg1 = 0;   /** y */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Vec3");
+    olua_check_number(L, 2, &arg1);
+
+    // <function var>
+    self->y = (float)arg1;
+
+    return 0;
+}
+
+static int _cocos2d_Vec3_get_z(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Vec3 *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Vec3");
+
+    // <function var>
+    float ret = (float)self->z;
+
+    return olua_push_number(L, (lua_Number)ret);
+}
+
+static int _cocos2d_Vec3_set_z(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Vec3 *self = nullptr;
+    lua_Number arg1 = 0;   /** z */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Vec3");
+    olua_check_number(L, 2, &arg1);
+
+    // <function var>
+    self->z = (float)arg1;
+
+    return 0;
+}
+
+static int luaopen_cocos2d_Vec3(lua_State *L)
+{
+    oluacls_class(L, "cc.Vec3", nullptr);
+    oluacls_setfunc(L, "new", _cocos2d_Vec3_new);
+    oluacls_setfunc(L, "__gc", _cocos2d_Vec3___gc);
+    oluacls_property(L, "x", _cocos2d_Vec3_get_x, _cocos2d_Vec3_set_x);
+    oluacls_property(L, "y", _cocos2d_Vec3_get_y, _cocos2d_Vec3_set_y);
+    oluacls_property(L, "z", _cocos2d_Vec3_get_z, _cocos2d_Vec3_set_z);
+
+    olua_registerluatype<cocos2d::Vec3>(L, "cc.Vec3");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
 static int luaopen_cocos2d_MATRIX_STACK_TYPE(lua_State *L)
 {
     oluacls_class(L, "cc.MATRIX_STACK_TYPE", nullptr);
@@ -14177,9 +14300,7 @@ static int _cocos2d_EventDispatcher_dispatchCustomEvent(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventDispatcher");
     olua_check_std_string(L, 2, &arg1);
-    if (olua_is_obj(L, 3, "void *")) {
-        olua_check_obj(L, 3, (void **)&arg2, "void *");
-    }
+    olua_opt_obj(L, 3, (void **)&arg2, "void *", nullptr);
 
     // void dispatchCustomEvent(const std::string &eventName, void *optionalUserData = nullptr)
     self->dispatchCustomEvent(arg1, arg2);
@@ -16439,6 +16560,7 @@ int luaopen_cocos2d(lua_State *L)
     xlua_require(L, "cc.UserDefault", luaopen_cocos2d_UserDefault);
     xlua_require(L, "cc.Ref", luaopen_cocos2d_Ref);
     xlua_require(L, "cc.Acceleration", luaopen_cocos2d_Acceleration);
+    xlua_require(L, "cc.Vec3", luaopen_cocos2d_Vec3);
     xlua_require(L, "cc.MATRIX_STACK_TYPE", luaopen_cocos2d_MATRIX_STACK_TYPE);
     xlua_require(L, "cc.Director", luaopen_cocos2d_Director);
     xlua_require(L, "cc.Scheduler", luaopen_cocos2d_Scheduler);

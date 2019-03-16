@@ -59,15 +59,26 @@ function get_typeinfo(typename, cls)
     if cls and cls.CPPCLS then
         local function try_namespace(ns, typename)
             local tn = string.gsub(typename, '[%w:_]+ *%**$', function (s)
-                return ns .. s
+                return ns .. '::' .. s
             end)
             tn = to_real_typename(tn)
             return typeinfo_map[tn], tn
         end
 
-        local ti, tn = try_namespace(string.gsub(cls.CPPCLS, '[^:]+$', ''), typename)
-        if not ti then
-            ti, tn = try_namespace(cls.CPPCLS .. '::', typename)
+        local ti, tn
+        local nsarr = {}
+        for n in string.gmatch(cls.CPPCLS, '[^:]+') do
+            nsarr[#nsarr + 1] = n
+        end
+
+        while #nsarr > 0 do
+            local ns = table.concat(nsarr, "::")
+            ti, tn = try_namespace(ns, typename)
+            if not ti then
+                nsarr[#nsarr] = nil
+            else
+                break
+            end
         end
 
         if ti then
@@ -376,6 +387,7 @@ function class(collection)
     end
 
     function cls.var(name, var_decl)
+        var_decl = string.gsub(var_decl, ';*$', '')
         local ARGS = parse_args(cls, '(' .. var_decl .. ')')
         local CALLBACK_OPT
         name = name or ARGS[1].VARNAME
@@ -571,4 +583,34 @@ function REG_CONV(ci)
     end
     ci.FUNC.IS = true
     return ci
+end
+
+function newcppobj(cls)
+    local CPPCLS = cls.CPPCLS
+    local LUACLS = cls.LUACLS
+    local new = format_snippet([[
+        {
+            ${CPPCLS} *obj = new ${CPPCLS}();
+            return olua_push_cppobj<${CPPCLS}>(L, obj, "${LUACLS}");
+        }
+    ]])
+    return new
+end
+
+function gccppobj(cls)
+    local CPPCLS = cls.CPPCLS
+    local LUACLS = cls.LUACLS
+    local gc = format_snippet([[
+        {
+            if (olua_isa(L, 1, "${LUACLS}")) {
+                ${CPPCLS} *obj = olua_touserdata(L, 1, ${CPPCLS} *);
+                if (obj) {
+                    delete obj;
+                    *(void **)lua_touserdata(L, 1) = nullptr;
+                }
+            }
+            return 0;
+        }
+    ]])
+    return gc
 end

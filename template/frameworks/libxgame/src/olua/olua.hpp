@@ -66,6 +66,11 @@ static inline void olua_check_cppobj(lua_State *L, int idx, void **value, const 
     olua_check_obj(L, idx, value, cls);
 }
 
+static inline void olua_opt_cppobj(lua_State *L, int idx, void **value, const char *cls, void *def)
+{
+    olua_opt_obj(L, idx, value, cls, def);
+}
+
 static inline bool olua_is_cppobj(lua_State *L, int idx, const char *cls)
 {
     return olua_is_obj(L, idx, cls);

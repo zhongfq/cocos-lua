@@ -217,8 +217,8 @@ function gen_callback(cls, fi, write)
             ${RESULT_RET}
         };
     ]])
-    if ai.CALLBACK.DEFAULT then
-        local DEFAULT = ai.CALLBACK.DEFAULT
+    if ai.CALLBACK.DEFAULT or ai.ATTR.NULLABLE then
+        local DEFAULT = ai.CALLBACK.DEFAULT or "nullptr"
         local FUNC_IS_VALUE = ai.TYPE.FUNC_IS_VALUE
         local CALLBACK_MODE = fi.CALLBACK_OPT.CALLBACK_MODE
         CALLBACK_CHUNK = format_snippet([[

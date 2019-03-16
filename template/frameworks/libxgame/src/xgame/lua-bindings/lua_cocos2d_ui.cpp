@@ -26,7 +26,7 @@ static int _cocos2d_ui_Widget_hitTest(lua_State *L)
     olua_check_cppobj(L, 3, (void **)&arg2, "cc.Camera");
     olua_opt_cppobj(L, 4, (void **)&arg3, "cc.Vec3", nullptr);
 
-    // bool hitTest(const Vec2 &pt, const Camera* camera, Vec3 *p = nullptr)
+    // bool hitTest(const Vec2 &pt, const Camera* camera, @nullable Vec3 *p)
     bool ret = (bool)self->hitTest(arg1, arg2, arg3);
 
     return olua_push_bool(L, ret);

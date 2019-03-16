@@ -77,9 +77,9 @@ local function gen_func_args(cls, fi)
             ]])
         end
 
-        if ai.DEFAULT then
+        if (ai.DEFAULT or ai.ATTR.NULLABLE) and not fi.CALLBACK_OPT then
             local FUNC_OPT_VALUE = ai.TYPE.FUNC_OPT_VALUE
-            local DEFAULT = ai.DEFAULT
+            local DEFAULT = ai.DEFAULT or "nullptr"
             if ai.TYPE.LUACLS then
                 local LUACLS = ai.TYPE.LUACLS
                 local FUNC_OPT_VALUE = ai.TYPE.FUNC_OPT_VALUE

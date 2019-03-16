@@ -24,10 +24,10 @@ cls.props [[
     owner
 ]]
 cls.vars [[
-    std::function<void(float)> onUpdateCallback = nullptr
-    std::function<void()> onEnterCallback = nullptr
-    std::function<void()> onExitCallback = nullptr
-    std::function<void()> onAddCallback = nullptr
-    std::function<void()> onRemoveCallback = nullptr
+    @nullable std::function<void(float)> onUpdateCallback;
+    @nullable std::function<void()> onEnterCallback;
+    @nullable std::function<void()> onExitCallback;
+    @nullable std::function<void()> onAddCallback;
+    @nullable std::function<void()> onRemoveCallback;
 ]]
 return cls

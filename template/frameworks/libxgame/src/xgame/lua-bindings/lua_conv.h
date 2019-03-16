@@ -107,4 +107,16 @@ void auto_luacv_pack_GLContextAttrs(lua_State *L, int idx, GLContextAttrs *value
 int auto_luacv_unpack_GLContextAttrs(lua_State *L, const GLContextAttrs *value);
 bool auto_luacv_is_GLContextAttrs(lua_State *L, int idx);
 
+// cocos2d::Tex2F
+int auto_luacv_push_cocos2d_Tex2F(lua_State *L, const cocos2d::Tex2F *value);
+void auto_luacv_check_cocos2d_Tex2F(lua_State *L, int idx, cocos2d::Tex2F *value);
+void auto_luacv_pack_cocos2d_Tex2F(lua_State *L, int idx, cocos2d::Tex2F *value);
+int auto_luacv_unpack_cocos2d_Tex2F(lua_State *L, const cocos2d::Tex2F *value);
+bool auto_luacv_is_cocos2d_Tex2F(lua_State *L, int idx);
+
+// cocos2d::T2F_Quad
+int auto_luacv_push_cocos2d_T2F_Quad(lua_State *L, const cocos2d::T2F_Quad *value);
+void auto_luacv_check_cocos2d_T2F_Quad(lua_State *L, int idx, cocos2d::T2F_Quad *value);
+bool auto_luacv_is_cocos2d_T2F_Quad(lua_State *L, int idx);
+
 #endif

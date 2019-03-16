@@ -1,3 +1,5 @@
+require 'conf.cocos2d.import-cocos2d-type'
+
 local M = {}
 
 M.NAME = "CONV"
@@ -14,40 +16,32 @@ M.CONVS = {
     REG_CONV {
         CPPCLS = 'cocos2d::Vec2',
         DEF = [[
-            {
-                float x;
-                float y;
-            }
+            float x;
+            float y;
         ]],
     },
     REG_CONV {
         CPPCLS = 'cocos2d::Vec3',
         DEF = [[
-            {
-                float x;
-                float y;
-                float z;
-            }
+            float x;
+            float y;
+            float z;
         ]],
     },
     REG_CONV {
         CPPCLS = 'cocos2d::Vec4',
         DEF = [[
-            {
-                float x;
-                float y;
-                float z;
-                float w;
-            }
+            float x;
+            float y;
+            float z;
+            float w;
         ]],
     },
     REG_CONV {
         CPPCLS = 'cocos2d::Size',
         DEF = [[
-            {
-                float width;
-                float height;
-            }
+            float width;
+            float height;
         ]],
     },
     REG_CONV {
@@ -79,45 +73,37 @@ M.CONVS = {
     REG_CONV {
         CPPCLS = 'cocos2d::Texture2D::TexParams',
         DEF = [[
-            {
-                GLuint minFilter;
-                GLuint magFilter;
-                GLuint wrapS;
-                GLuint wrapT;
-            }
+            GLuint minFilter;
+            GLuint magFilter;
+            GLuint wrapS;
+            GLuint wrapT;
         ]],
     },
     REG_CONV {
         CPPCLS = 'cocos2d::Uniform',
         DEF = [[
-            {
-                GLint location;
-                GLint size;
-                GLenum type;
-                std::string name;
-            }
+            GLint location;
+            GLint size;
+            GLenum type;
+            std::string name;
         ]],
     },
     REG_CONV {
         CPPCLS = 'cocos2d::VertexAttrib',
         DEF = [[
-            {
-                GLuint index;
-                GLint size;
-                GLenum type;
-                std::string name;
-            }
+            GLuint index;
+            GLint size;
+            GLenum type;
+            std::string name;
         ]]
     },
     REG_CONV {
         CPPCLS = 'cocos2d::experimental::Viewport',
         DEF = [[
-            {
-                float _left = left;
-                float _bottom = bottom;
-                float _width = width;
-                float _height = height;
-            }
+            float _left = left;
+            float _bottom = bottom;
+            float _width = width;
+            float _height = height;
         ]],
     },
     REG_CONV {
@@ -143,16 +129,31 @@ M.CONVS = {
     REG_CONV {
         CPPCLS = 'GLContextAttrs',
         DEF = [[
-            {
-                int redBits;
-                int greenBits;
-                int blueBits;
-                int alphaBits;
-                int depthBits;
-                int stencilBits;
-                int multisamplingCount;
-            }
+            int redBits;
+            int greenBits;
+            int blueBits;
+            int alphaBits;
+            int depthBits;
+            int stencilBits;
+            int multisamplingCount;
         ]],
+    },
+    REG_CONV {
+        CPPCLS = 'cocos2d::Tex2F',
+        DEF = [[
+            GLfloat u;
+            GLfloat v;
+        ]],
+    },
+    REG_CONV {
+        CPPCLS = 'cocos2d::T2F_Quad',
+        DEF = [[
+            cocos2d::Tex2F bl;
+            cocos2d::Tex2F br;
+            cocos2d::Tex2F tl;
+            cocos2d::Tex2F tr;
+        ]],
+        FUNC = 'push|check|is',
     },
 }
 

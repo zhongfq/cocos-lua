@@ -854,3 +854,101 @@ bool auto_luacv_is_GLContextAttrs(lua_State *L, int idx)
 {
     return lua_istable(L, idx);
 }
+
+int auto_luacv_push_cocos2d_Tex2F(lua_State *L, const cocos2d::Tex2F *value)
+{
+    if (value) {
+        lua_createtable(L, 0, 2);
+        olua_rawsetfieldnumber(L, -1, "u", value->u);
+        olua_rawsetfieldnumber(L, -1, "v", value->v);
+    } else {
+        lua_pushnil(L);
+    }
+
+    return 1;
+}
+
+void auto_luacv_check_cocos2d_Tex2F(lua_State *L, int idx, cocos2d::Tex2F *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    idx = lua_absindex(L, idx);
+    luaL_checktype(L, idx, LUA_TTABLE);
+    value->u = (GLfloat)olua_checkfieldnumber(L, idx, "u");
+    value->v = (GLfloat)olua_checkfieldnumber(L, idx, "v");
+}
+
+void auto_luacv_pack_cocos2d_Tex2F(lua_State *L, int idx, cocos2d::Tex2F *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    idx = lua_absindex(L, idx);
+    value->u = (GLfloat)olua_checknumber(L, idx + 0);
+    value->v = (GLfloat)olua_checknumber(L, idx + 1);
+}
+
+int auto_luacv_unpack_cocos2d_Tex2F(lua_State *L, const cocos2d::Tex2F *value)
+{
+    if (value) {
+        lua_pushnumber(L, value->u);
+        lua_pushnumber(L, value->v);
+    } else {
+        for (int i = 0; i < 2; i++) {
+            lua_pushnil(L);
+        }
+    }
+
+    return 2;
+}
+
+bool auto_luacv_is_cocos2d_Tex2F(lua_State *L, int idx)
+{
+    return lua_istable(L, idx);
+}
+
+int auto_luacv_push_cocos2d_T2F_Quad(lua_State *L, const cocos2d::T2F_Quad *value)
+{
+    if (value) {
+        lua_createtable(L, 0, 4);
+        auto_luacv_push_cocos2d_Tex2F(L, &value->bl);
+        olua_rawgetfield(L, -2, "bl");
+        auto_luacv_push_cocos2d_Tex2F(L, &value->br);
+        olua_rawgetfield(L, -2, "br");
+        auto_luacv_push_cocos2d_Tex2F(L, &value->tl);
+        olua_rawgetfield(L, -2, "tl");
+        auto_luacv_push_cocos2d_Tex2F(L, &value->tr);
+        olua_rawgetfield(L, -2, "tr");
+    } else {
+        lua_pushnil(L);
+    }
+
+    return 1;
+}
+
+void auto_luacv_check_cocos2d_T2F_Quad(lua_State *L, int idx, cocos2d::T2F_Quad *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    idx = lua_absindex(L, idx);
+    luaL_checktype(L, idx, LUA_TTABLE);
+    olua_rawgetfield(L, -1, "bl");
+    auto_luacv_check_cocos2d_Tex2F(L, idx, &value->bl);
+    lua_pop(L, 1);
+    olua_rawgetfield(L, -1, "br");
+    auto_luacv_check_cocos2d_Tex2F(L, idx, &value->br);
+    lua_pop(L, 1);
+    olua_rawgetfield(L, -1, "tl");
+    auto_luacv_check_cocos2d_Tex2F(L, idx, &value->tl);
+    lua_pop(L, 1);
+    olua_rawgetfield(L, -1, "tr");
+    auto_luacv_check_cocos2d_Tex2F(L, idx, &value->tr);
+    lua_pop(L, 1);
+}
+
+bool auto_luacv_is_cocos2d_T2F_Quad(lua_State *L, int idx)
+{
+    return lua_istable(L, idx);
+}

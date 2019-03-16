@@ -6,13 +6,31 @@ local function gen_conv_header(module)
         DECL_FUNCS[#DECL_FUNCS + 1] = "// " .. cv.CPPCLS
         local CPPCLS = cv.CPPCLS
         local CPPCLS_PATH = class_path(CPPCLS)
-        DECL_FUNCS[#DECL_FUNCS + 1] = format_snippet([[
-            int auto_luacv_push_${CPPCLS_PATH}(lua_State *L, const ${CPPCLS} *value);
-            void auto_luacv_check_${CPPCLS_PATH}(lua_State *L, int idx, ${CPPCLS} *value);
-            void auto_luacv_pack_${CPPCLS_PATH}(lua_State *L, int idx, ${CPPCLS} *value);
-            int auto_luacv_unpack_${CPPCLS_PATH}(lua_State *L, const ${CPPCLS} *value);
-            bool auto_luacv_is_${CPPCLS_PATH}(lua_State *L, int idx);
-        ]])
+        if cv.FUNC.PUSH then
+            DECL_FUNCS[#DECL_FUNCS + 1] = format_snippet([[
+                int auto_luacv_push_${CPPCLS_PATH}(lua_State *L, const ${CPPCLS} *value);
+            ]])
+        end
+        if cv.FUNC.CHECK then
+            DECL_FUNCS[#DECL_FUNCS + 1] = format_snippet([[
+                void auto_luacv_check_${CPPCLS_PATH}(lua_State *L, int idx, ${CPPCLS} *value);
+            ]])
+        end
+        if cv.FUNC.PACK then
+            DECL_FUNCS[#DECL_FUNCS + 1] = format_snippet([[
+                void auto_luacv_pack_${CPPCLS_PATH}(lua_State *L, int idx, ${CPPCLS} *value);
+            ]])
+        end
+        if cv.FUNC.UNPACK then
+            DECL_FUNCS[#DECL_FUNCS + 1] = format_snippet([[
+                int auto_luacv_unpack_${CPPCLS_PATH}(lua_State *L, const ${CPPCLS} *value);
+            ]])
+        end
+        if cv.FUNC.IS then
+            DECL_FUNCS[#DECL_FUNCS + 1] = format_snippet([[
+                bool auto_luacv_is_${CPPCLS_PATH}(lua_State *L, int idx);
+            ]])
+        end
         DECL_FUNCS[#DECL_FUNCS + 1] = ""
     end
 
@@ -51,6 +69,7 @@ local function gen_push_func(cv, write)
         local LUANAME = pi.LUANAME
         local VARNAME = pi.VARNAME
         local PUSH_FUNC
+        local isbase = true
         if pi.TYPE.DECL_TYPE == 'lua_Number' then
             PUSH_FUNC = 'olua_rawsetfieldnumber'
         elseif pi.TYPE.DECL_TYPE == 'lua_Integer'
@@ -64,11 +83,20 @@ local function gen_push_func(cv, write)
         elseif pi.TYPE.TYPENAME == 'const char *' then
             PUSH_FUNC = 'olua_rawsetfieldstring'
         else
-            error(string.format("%s %s %s", cv.VARNAME, cv.LUANAME, cv.TYPE.TYPENAME))
+            isbase = false
+            PUSH_FUNC = pi.TYPE.FUNC_PUSH_VALUE
+            -- error(string.format("%s %s %s", cv.VARNAME, cv.LUANAME, cv.TYPE.TYPENAME))
         end
-        ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
-            ${PUSH_FUNC}(L, -1, "${LUANAME}", value->${VARNAME});
-        ]])
+        if isbase then
+            ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
+                ${PUSH_FUNC}(L, -1, "${LUANAME}", value->${VARNAME});
+            ]])
+        else
+            ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
+                ${PUSH_FUNC}(L, &value->${VARNAME});
+                olua_rawgetfield(L, -2, "${LUANAME}");
+            ]])
+        end
     end
 
     ARGS_CHUNK = table.concat(ARGS_CHUNK, "\n")
@@ -99,6 +127,7 @@ local function gen_check_func(cv, write)
         local VARNAME = pi.VARNAME
         local TYPENAME = pi.TYPE.TYPENAME
         local CHECK_FUNC
+        local isbase = true
         if pi.TYPE.DECL_TYPE == 'lua_Number' then
             CHECK_FUNC = 'olua_checkfieldnumber'
         elseif pi.TYPE.DECL_TYPE == 'lua_Integer'
@@ -111,11 +140,21 @@ local function gen_check_func(cv, write)
         elseif pi.TYPE.TYPENAME == 'const char *' then
             CHECK_FUNC = 'olua_checkfieldstring'
         else
-            error(string.format("%s %s %s", cv.VARNAME, cv.LUANAME, cv.TYPE.TYPENAME))
+            CHECK_FUNC = pi.TYPE.FUNC_CHECK_VALUE
+            isbase = false
+            -- error(string.format("%s %s %s", cv.VARNAME, cv.LUANAME, cv.TYPE.TYPENAME))
         end
-        ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
-            value->${VARNAME} = (${TYPENAME})${CHECK_FUNC}(L, idx, "${LUANAME}");
-        ]])
+        if isbase then
+            ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
+                value->${VARNAME} = (${TYPENAME})${CHECK_FUNC}(L, idx, "${LUANAME}");
+            ]])
+        else
+            ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
+                olua_rawgetfield(L, -1, "${LUANAME}");
+                ${CHECK_FUNC}(L, idx, &value->${VARNAME});
+                lua_pop(L, 1);
+            ]])
+        end
     end
 
     ARGS_CHUNK = table.concat(ARGS_CHUNK, "\n")
@@ -241,11 +280,21 @@ local function gen_is_func(cv, write)
 end
 
 local function gen_funcs(cv, write)
-    gen_push_func(cv, write)
-    gen_check_func(cv, write)
-    gen_pack_func(cv, write)
-    gen_unpack_func(cv, write)
-    gen_is_func(cv, write)
+    if cv.FUNC.PUSH then
+        gen_push_func(cv, write)
+    end
+    if cv.FUNC.CHECK then
+        gen_check_func(cv, write)
+    end
+    if cv.FUNC.PACK then
+        gen_pack_func(cv, write)
+    end
+    if cv.FUNC.UNPACK then
+        gen_unpack_func(cv, write)
+    end
+    if cv.FUNC.IS then
+        gen_is_func(cv, write)
+    end
 end
 
 local function gen_conv_source(module)

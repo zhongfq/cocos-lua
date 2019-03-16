@@ -114,6 +114,18 @@ REG_TYPE {
 }
 
 REG_TYPE {
+    TYPENAME = 'cocos2d::Tex2F',
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_Tex2F',
+    INIT_VALUE = false,
+}
+
+REG_TYPE {
+    TYPENAME = 'cocos2d::T2F_Quad',
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_T2F_Quad',
+    INIT_VALUE = false,
+}
+
+REG_TYPE {
     TYPENAME = 'cocos2d::Uniform *',
     CONV_FUNC = 'auto_luacv_$$_cocos2d_Uniform',
 }

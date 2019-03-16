@@ -546,6 +546,7 @@ function REG_TYPE(typeinfo)
 end
 
 function REG_CONV(ci)
+    local func = ci.FUNC or "push|check|pack|unpack|is"
     ci.PROPS = {}
     for line in string.gmatch(assert(ci.DEF, 'no DEF'), '[^\n\r]+') do
         local typename, varname, luaname = string.match(line, '([^{} ]+[ *&])([^ *&]+) *= *([^ ;]*)')
@@ -564,5 +565,10 @@ function REG_CONV(ci)
             }
         end
     end
+    ci.FUNC = {}
+    for f in string.gmatch(func, '[^|]+') do
+        ci.FUNC[string.upper(f)] = true
+    end
+    ci.FUNC.IS = true
     return ci
 end

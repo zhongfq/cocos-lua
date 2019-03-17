@@ -297,6 +297,7 @@ REG_TYPE {
         'cocos2d::EventListenerKeyboard *',
         'cocos2d::EventListenerFocus *',
         'cocos2d::EventListenerMouse *',
+        'cocos2d::EventListenerAcceleration *',
         'cocos2d::Event *',
         'cocos2d::EventCustom *',
         'cocos2d::EventTouch *',

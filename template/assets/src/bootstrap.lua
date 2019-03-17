@@ -18,9 +18,11 @@ local RotateTo      = require "cc.RotateTo"
 local Sequence      = require "cc.Sequence"
 local BezierBy      = require "cc.BezierBy"
 local ActionFloat   = require "cc.ActionFloat"
+local CallFunc   = require "cc.CallFunc"
 local AnimationFrame = require "cc.AnimationFrame"
 local SpriteFrame = require "cc.SpriteFrame"
 local Component = require "cc.Component"
+local Vec3 = require "cc.Vec3"
 
 window.setDesignSize(1334, 750, 1)
 
@@ -34,10 +36,11 @@ function main()
 
     local sprite = Sprite.create("res/HelloWorld.png")
     sprite.name = "xxxx"
-    sprite:setPosition(500, 400)
+    sprite.x = 500
+    sprite.y = 400
     local sprite1 = Sprite.create("res/HelloWorld.png")
     sprite1.tag = 10
-    sprite1:setPosition(500, 200)
+    sprite1:setPosition(500, 400)
     node:addChild(sprite1)
     node:addChild(sprite)
     print(Director.getInstance():getScheduler())
@@ -51,7 +54,12 @@ function main()
     Director.getInstance().runningScene:addChild(node)
     printUserValue(director)
 
-    sprite:runAction(BezierBy.create(4, {x = 100, y = 100}, {x = 200, y = 400}, {x = 400, y = 0}))
+    sprite:runAction(Sequence.create(
+        BezierBy.create(4, {x = 100, y = 100}, {x = 200, y = 400}, {x = 400, y = 0}),
+        CallFunc.create(function ()
+            print("CallFunc xxxxx")
+        end)
+    ))
     sprite:runAction(ActionFloat.create(5, 3.5, 8, function ( ... )
         -- print("##action float", ...)
     end))
@@ -69,15 +77,30 @@ function main()
     print("Component", c1, c2, c2.owner)
     printUserValue(node)
     printUserValue(c2)
-    node:removeAllChildren()
+    -- node:removeAllChildren()
     printUserValue(node)
+
+    node:scheduleOnce(function ( ... )
+        print("scheduleOnce")
+    end, 1, 'xxxxx')
+
+    local p = Vec3.new()
+    p.x = 3
+    print("#", c2.onRemoveCallback)
 
     timer.delay(1, function ( ... )
         node:removeComponent('C2')
     end)
     timer.delay(2, function ( ... )
         collectgarbage('collect')
+        director.eventDispatcher:dispatchCustomEvent('hello')
     end)
+
+    local customListener = EventListenerCustom.create('hello', function ( ... )
+        print("customListener", ...)
+    end)
+    director.listener = customListener
+    director.eventDispatcher:addEventListenerWithFixedPriority(customListener, 1)
 end
 
 function printarr(arr)

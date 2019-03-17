@@ -7047,48 +7047,21 @@ static int luaopen_cocos2d_Place(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_CallFunc_getTargetCallback(lua_State *L)
-{
-    lua_settop(L, 1);
-
-    cocos2d::CallFunc *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.CallFunc");
-
-    // Ref* getTargetCallback()
-    cocos2d::Ref *ret = (cocos2d::Ref *)self->getTargetCallback();
-
-    return olua_push_cppobj<cocos2d::Ref>(L, ret, "cc.Ref");
-}
-
-static int _cocos2d_CallFunc_setTargetCallback(lua_State *L)
-{
-    lua_settop(L, 2);
-
-    cocos2d::CallFunc *self = nullptr;
-    cocos2d::Ref *arg1 = nullptr;   /** sel */
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.CallFunc");
-    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Ref");
-
-    // void setTargetCallback(Ref* sel)
-    self->setTargetCallback(arg1);
-
-    return 0;
-}
-
 static int _cocos2d_CallFunc_create(lua_State *L)
 {
     lua_settop(L, 1);
 
+    std::function<void()> arg1 = nullptr;   /** func */
+
     cocos2d::CallFunc *self = new cocos2d::CallFunc();
+    cocos2d::CallFunc *ret = self;
     self->autorelease();
     olua_push_cppobj<cocos2d::CallFunc>(L, self, "cc.CallFunc");
 
     void *callback_store_obj = (void *)self;
     std::string tag = olua_makecallbacktag("callFunc");
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 1, OLUA_CALLBACK_TAG_NEW);
-    std::function<void()> callback = [callback_store_obj, func, tag]() {
+    arg1 = [callback_store_obj, func, tag]() {
         lua_State *L = xlua_cocosthread();
         int top = lua_gettop(L);
 
@@ -7097,16 +7070,15 @@ static int _cocos2d_CallFunc_create(lua_State *L)
         lua_settop(L, top);
     };
 
-    self->initWithFunction(callback);
+    // static CallFunc * create(const std::function<void()>& func)
+    self->initWithFunction(arg1);
 
-    return olua_push_cppobj<cocos2d::CallFunc>(L, self, "cc.CallFunc");
+    return olua_push_cppobj<cocos2d::CallFunc>(L, ret, "cc.CallFunc");
 }
 
 static int luaopen_cocos2d_CallFunc(lua_State *L)
 {
     oluacls_class(L, "cc.CallFunc", "cc.ActionInstant");
-    oluacls_setfunc(L, "getTargetCallback", _cocos2d_CallFunc_getTargetCallback);
-    oluacls_setfunc(L, "setTargetCallback", _cocos2d_CallFunc_setTargetCallback);
     oluacls_setfunc(L, "create", _cocos2d_CallFunc_create);
 
     olua_registerluatype<cocos2d::CallFunc>(L, "cc.CallFunc");
@@ -16766,29 +16738,37 @@ static int _cocos2d_EventListenerCustom_create(lua_State *L)
 {
     lua_settop(L, 2);
 
-    void *callback_store_obj = nullptr;
-    std::string event = olua_checkstring(L, 1);
+    std::string arg1;       /** eventName */
+    std::function<void(cocos2d::EventCustom *)> arg2 = nullptr;   /** callback */
+
+    olua_check_std_string(L, 1, &arg1);
+
     cocos2d::EventListenerCustom *self = new cocos2d::EventListenerCustom();
+    cocos2d::EventListenerCustom *ret = self;
     self->autorelease();
-    callback_store_obj = self;
     olua_push_cppobj<cocos2d::EventListenerCustom>(L, self, "cc.EventListenerCustom");
-    std::string func = olua_setcallback(L, callback_store_obj, event.c_str(), 2, OLUA_CALLBACK_TAG_NEW);
-    self->init(event, [callback_store_obj, func](cocos2d::EventCustom *event) {
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("event");
+    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_NEW);
+    arg2 = [callback_store_obj, func, tag](cocos2d::EventCustom *arg1) {
         lua_State *L = xlua_cocosthread();
         int top = lua_gettop(L);
-        olua_push_cppobj<cocos2d::EventCustom>(L, event, "cc.EventCustom");
+
+        olua_push_cppobj<cocos2d::EventCustom>(L, arg1, "cc.EventCustom");
         olua_callback(L, callback_store_obj, func.c_str(), 1);
 
-        // stack value
-        olua_push_cppobj<cocos2d::EventCustom>(L, event, "cc.EventCustom");
+        //may be stack value
+        olua_push_cppobj<cocos2d::EventCustom>(L, arg1, "cc.EventCustom");
         olua_callgc(L, -1, false);
 
         lua_settop(L, top);
-    });
+    };
 
-    lua_pushvalue(L, 3);
+    // static EventListenerCustom* create(const std::string& eventName, const std::function<void(@stack EventCustom*)>& callback)
+    self->init(arg1, arg2);
 
-    return 1;
+    return olua_push_cppobj<cocos2d::EventListenerCustom>(L, ret, "cc.EventListenerCustom");
 }
 
 static int luaopen_cocos2d_EventListenerCustom(lua_State *L)
@@ -16945,31 +16925,37 @@ static int _cocos2d_EventListenerAcceleration_create(lua_State *L)
 {
     lua_settop(L, 1);
 
-    void *callback_store_obj = nullptr;
+    std::function<void(cocos2d::Acceleration *, cocos2d::Event *)> arg1 = nullptr;   /** callback */
+
     cocos2d::EventListenerAcceleration *self = new cocos2d::EventListenerAcceleration();
+    cocos2d::EventListenerAcceleration *ret = self;
     self->autorelease();
-    callback_store_obj = self;
     olua_push_cppobj<cocos2d::EventListenerAcceleration>(L, self, "cc.EventListenerAcceleration");
-    std::string func = olua_setcallback(L, callback_store_obj, "acceleration", 1, OLUA_CALLBACK_TAG_NEW);
-    self->init([callback_store_obj, func](cocos2d::Acceleration *acce, cocos2d::Event *event) {
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("event");
+    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 1, OLUA_CALLBACK_TAG_NEW);
+    arg1 = [callback_store_obj, func, tag](cocos2d::Acceleration *arg1, cocos2d::Event *arg2) {
         lua_State *L = xlua_cocosthread();
         int top = lua_gettop(L);
-        olua_push_cppobj<cocos2d::Acceleration>(L, acce, "cc.Acceleration");
-        olua_push_cppobj<cocos2d::Event>(L, event, "cc.Event");
+
+        olua_push_cppobj<cocos2d::Acceleration>(L, arg1, "cc.Acceleration");
+        olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
         olua_callback(L, callback_store_obj, func.c_str(), 2);
 
-        // stack value
-        olua_push_cppobj<cocos2d::Acceleration>(L, acce, "cc.Acceleration");
+        //may be stack value
+        olua_push_cppobj<cocos2d::Acceleration>(L, arg1, "cc.Acceleration");
         olua_callgc(L, -1, false);
-        olua_push_cppobj<cocos2d::Event>(L, event, "cc.Event");
+        olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
         olua_callgc(L, -1, false);
 
         lua_settop(L, top);
-    });
+    };
 
-    lua_pushvalue(L, 3);
+    // static EventListenerAcceleration* create(const std::function<void(@stack Acceleration*, @stack Event*)>& callback)
+    self->init(arg1);
 
-    return 1;
+    return olua_push_cppobj<cocos2d::EventListenerAcceleration>(L, ret, "cc.EventListenerAcceleration");
 }
 
 static int luaopen_cocos2d_EventListenerAcceleration(lua_State *L)

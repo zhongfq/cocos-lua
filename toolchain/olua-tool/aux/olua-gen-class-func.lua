@@ -222,6 +222,20 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
 
     if fi.CALLBACK_OPT then
         CALLBACK = gen_callback(cls, fi, write)
+        if fi.STATIC and not fi.CALLBACK_OPT.CALLBACK_STORE and fi.RET.TYPE.LUACLS then
+            local DECL_TYPE = string.gsub(fi.RET.DECL_TYPE, ' *%*$', '')
+            local LUACLS = fi.RET.TYPE.LUACLS
+            local snippet = format_snippet([[
+                ${DECL_TYPE} *self = new ${DECL_TYPE}();
+                ${DECL_TYPE} *ret = self;
+                self->autorelease();
+                olua_push_cppobj<${DECL_TYPE}>(L, self, "${LUACLS}");
+            ]])
+            CALLBACK = snippet .. '\n\n' .. CALLBACK
+            RET_EXP = ''
+            CALLER = 'self->'
+            CALLFUNC = assert(fi.CALLBACK_OPT.CALLBACK_INITFUNC, 'no init func')
+        end
     end
 
     if fi.ISVAR then

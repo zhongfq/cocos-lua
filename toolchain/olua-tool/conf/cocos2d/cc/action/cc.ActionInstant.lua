@@ -65,33 +65,12 @@ local cls = class(M)
 cls.CPPCLS = "cocos2d::CallFunc"
 cls.LUACLS = "cc.CallFunc"
 cls.SUPERCLS = "cc.ActionInstant"
-cls.funcs([[
-    Ref* getTargetCallback()
-    void setTargetCallback(Ref* sel)
-]])
-cls.func('create', [[
-{
-    lua_settop(L, 1);
-    
-    cocos2d::CallFunc *self = new cocos2d::CallFunc();
-    self->autorelease();
-    olua_push_cppobj<cocos2d::CallFunc>(L, self, "cc.CallFunc");
-
-    void *callback_store_obj = (void *)self;
-    std::string tag = olua_makecallbacktag("callFunc");
-    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 1, OLUA_CALLBACK_TAG_NEW);
-    std::function<void()> callback = [callback_store_obj, func, tag]() {
-        lua_State *L = xlua_cocosthread();
-        int top = lua_gettop(L);
-
-        olua_callback(L, callback_store_obj, func.c_str(), 0);
-
-        lua_settop(L, top);
-    };
-    
-    self->initWithFunction(callback);
-
-    return olua_push_cppobj<cocos2d::CallFunc>(L, self, "cc.CallFunc");
-}]])
+cls.callback(nil, 
+    {
+        CALLBACK_MAKER = 'olua_makecallbacktag("callFunc")',
+        CALLBACK_INITFUNC = 'initWithFunction',
+    },
+    'static CallFunc * create(const std::function<void()>& func)'
+)
 
 return M

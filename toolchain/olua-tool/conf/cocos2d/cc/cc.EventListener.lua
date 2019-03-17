@@ -63,34 +63,12 @@ local cls = class(M)
 cls.CPPCLS = "cocos2d::EventListenerCustom"
 cls.LUACLS = "cc.EventListenerCustom"
 cls.SUPERCLS = "cc.EventListener"
-cls.func("create", [[
-{
-    lua_settop(L, 2);
-
-    void *callback_store_obj = nullptr;
-    std::string event = olua_checkstring(L, 1);
-    cocos2d::EventListenerCustom *self = new cocos2d::EventListenerCustom();
-    self->autorelease();
-    callback_store_obj = self;
-    olua_push_cppobj<cocos2d::EventListenerCustom>(L, self, "cc.EventListenerCustom");
-    std::string func = olua_setcallback(L, callback_store_obj, event.c_str(), 2, OLUA_CALLBACK_TAG_NEW);
-    self->init(event, [callback_store_obj, func](cocos2d::EventCustom *event) {
-        lua_State *L = xlua_cocosthread();
-        int top = lua_gettop(L);
-        olua_push_cppobj<cocos2d::EventCustom>(L, event, "cc.EventCustom");
-        olua_callback(L, callback_store_obj, func.c_str(), 1);
-
-        // stack value
-        olua_push_cppobj<cocos2d::EventCustom>(L, event, "cc.EventCustom");
-        olua_callgc(L, -1, false);
-
-        lua_settop(L, top);
-    });
-    
-    lua_pushvalue(L, 3);
-
-    return 1;
-}]])
+cls.callback("create", {
+        CALLBACK_MAKER = 'olua_makecallbacktag("event")',
+        CALLBACK_INITFUNC = 'init',
+    },
+    'static EventListenerCustom* create(const std::string& eventName, const std::function<void(@stack EventCustom*)>& callback)'
+)
 
 local cls = class(M)
 cls.CPPCLS = "cocos2d::EventListenerKeyboard"
@@ -108,36 +86,12 @@ local cls = class(M)
 cls.CPPCLS = "cocos2d::EventListenerAcceleration"
 cls.LUACLS = "cc.EventListenerAcceleration"
 cls.SUPERCLS = "cc.EventListener"
-cls.func("create", [[
-{
-    lua_settop(L, 1);
-
-    void *callback_store_obj = nullptr;
-    cocos2d::EventListenerAcceleration *self = new cocos2d::EventListenerAcceleration();
-    self->autorelease();
-    callback_store_obj = self;
-    olua_push_cppobj<cocos2d::EventListenerAcceleration>(L, self, "cc.EventListenerAcceleration");
-    std::string func = olua_setcallback(L, callback_store_obj, "acceleration", 1, OLUA_CALLBACK_TAG_NEW);
-    self->init([callback_store_obj, func](cocos2d::Acceleration *acce, cocos2d::Event *event) {
-        lua_State *L = xlua_cocosthread();
-        int top = lua_gettop(L);
-        olua_push_cppobj<cocos2d::Acceleration>(L, acce, "cc.Acceleration");
-        olua_push_cppobj<cocos2d::Event>(L, event, "cc.Event");
-        olua_callback(L, callback_store_obj, func.c_str(), 2);
-
-        // stack value
-        olua_push_cppobj<cocos2d::Acceleration>(L, acce, "cc.Acceleration");
-        olua_callgc(L, -1, false);
-        olua_push_cppobj<cocos2d::Event>(L, event, "cc.Event");
-        olua_callgc(L, -1, false);
-
-        lua_settop(L, top);
-    });
-
-    lua_pushvalue(L, 3);
-
-    return 1;
-}]])
+cls.callback("create", {
+        CALLBACK_MAKER = 'olua_makecallbacktag("event")',
+        CALLBACK_INITFUNC = 'init',
+    },
+    'static EventListenerAcceleration* create(const std::function<void(@stack Acceleration*, @stack Event*)>& callback)'
+)
 
 local cls = class(M)
 cls.CPPCLS = "cocos2d::EventListenerFocus"

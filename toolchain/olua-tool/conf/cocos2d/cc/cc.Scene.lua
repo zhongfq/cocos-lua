@@ -4,7 +4,10 @@ cls.LUACLS = "cc.Scene"
 cls.SUPERCLS = "cc.Node"
 cls.func(nil, 'static Scene *create()')
 cls.func(nil, 'static Scene *createWithSize(@pack const Size& size)')
-
--- const std::vector<BaseLight*>& getLights() const { return _lights; }
+cls.funcs [[
+    const std::vector<Camera*>& getCameras()
+    Camera* getDefaultCamera()
+    const std::vector<BaseLight*>& getLights()
+]]
 
 return cls

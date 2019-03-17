@@ -15599,6 +15599,545 @@ static int luaopen_cocos2d_ProtectedNode(lua_State *L)
     return 1;
 }
 
+static int luaopen_cocos2d_LightType(lua_State *L)
+{
+    oluacls_class(L, "cc.LightType", nullptr);
+    oluacls_const_integer(L, "DIRECTIONAL", (lua_Integer)cocos2d::LightType::DIRECTIONAL);
+    oluacls_const_integer(L, "POINT", (lua_Integer)cocos2d::LightType::POINT);
+    oluacls_const_integer(L, "SPOT", (lua_Integer)cocos2d::LightType::SPOT);
+    oluacls_const_integer(L, "AMBIENT", (lua_Integer)cocos2d::LightType::AMBIENT);
+
+    olua_registerluatype<cocos2d::LightType>(L, "cc.LightType");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_LightFlag(lua_State *L)
+{
+    oluacls_class(L, "cc.LightFlag", nullptr);
+    oluacls_const_integer(L, "LIGHT0", (lua_Integer)cocos2d::LightFlag::LIGHT0);
+    oluacls_const_integer(L, "LIGHT1", (lua_Integer)cocos2d::LightFlag::LIGHT1);
+    oluacls_const_integer(L, "LIGHT2", (lua_Integer)cocos2d::LightFlag::LIGHT2);
+    oluacls_const_integer(L, "LIGHT3", (lua_Integer)cocos2d::LightFlag::LIGHT3);
+    oluacls_const_integer(L, "LIGHT4", (lua_Integer)cocos2d::LightFlag::LIGHT4);
+    oluacls_const_integer(L, "LIGHT5", (lua_Integer)cocos2d::LightFlag::LIGHT5);
+    oluacls_const_integer(L, "LIGHT6", (lua_Integer)cocos2d::LightFlag::LIGHT6);
+    oluacls_const_integer(L, "LIGHT7", (lua_Integer)cocos2d::LightFlag::LIGHT7);
+    oluacls_const_integer(L, "LIGHT8", (lua_Integer)cocos2d::LightFlag::LIGHT8);
+    oluacls_const_integer(L, "LIGHT9", (lua_Integer)cocos2d::LightFlag::LIGHT9);
+    oluacls_const_integer(L, "LIGHT10", (lua_Integer)cocos2d::LightFlag::LIGHT10);
+    oluacls_const_integer(L, "LIGHT11", (lua_Integer)cocos2d::LightFlag::LIGHT11);
+    oluacls_const_integer(L, "LIGHT12", (lua_Integer)cocos2d::LightFlag::LIGHT12);
+    oluacls_const_integer(L, "LIGHT13", (lua_Integer)cocos2d::LightFlag::LIGHT13);
+    oluacls_const_integer(L, "LIGHT14", (lua_Integer)cocos2d::LightFlag::LIGHT14);
+    oluacls_const_integer(L, "LIGHT15", (lua_Integer)cocos2d::LightFlag::LIGHT15);
+
+    olua_registerluatype<cocos2d::LightFlag>(L, "cc.LightFlag");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_BaseLight_getLightType(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::BaseLight *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.BaseLight");
+
+    // LightType getLightType()
+    cocos2d::LightType ret = (cocos2d::LightType)self->getLightType();
+
+    return olua_push_uint(L, (lua_Unsigned)ret);
+}
+
+static int _cocos2d_BaseLight_getIntensity(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::BaseLight *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.BaseLight");
+
+    // float getIntensity()
+    float ret = (float)self->getIntensity();
+
+    return olua_push_number(L, (lua_Number)ret);
+}
+
+static int _cocos2d_BaseLight_setIntensity(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::BaseLight *self = nullptr;
+    lua_Number arg1 = 0;   /** intensity */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.BaseLight");
+    olua_check_number(L, 2, &arg1);
+
+    // void setIntensity(float intensity)
+    self->setIntensity((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_BaseLight_getLightFlag(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::BaseLight *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.BaseLight");
+
+    // LightFlag getLightFlag()
+    cocos2d::LightFlag ret = (cocos2d::LightFlag)self->getLightFlag();
+
+    return olua_push_uint(L, (lua_Unsigned)ret);
+}
+
+static int _cocos2d_BaseLight_setLightFlag(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::BaseLight *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** flag */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.BaseLight");
+    olua_check_uint(L, 2, &arg1);
+
+    // void setLightFlag(LightFlag flag)
+    self->setLightFlag((cocos2d::LightFlag)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_BaseLight_setEnabled(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::BaseLight *self = nullptr;
+    bool arg1 = false;   /** enabled */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.BaseLight");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setEnabled(bool enabled)
+    self->setEnabled(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_BaseLight_isEnabled(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::BaseLight *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.BaseLight");
+
+    // bool isEnabled()
+    bool ret = (bool)self->isEnabled();
+
+    return olua_push_bool(L, ret);
+}
+
+static int luaopen_cocos2d_BaseLight(lua_State *L)
+{
+    oluacls_class(L, "cc.BaseLight", "cc.Node");
+    oluacls_setfunc(L, "getLightType", _cocos2d_BaseLight_getLightType);
+    oluacls_setfunc(L, "getIntensity", _cocos2d_BaseLight_getIntensity);
+    oluacls_setfunc(L, "setIntensity", _cocos2d_BaseLight_setIntensity);
+    oluacls_setfunc(L, "getLightFlag", _cocos2d_BaseLight_getLightFlag);
+    oluacls_setfunc(L, "setLightFlag", _cocos2d_BaseLight_setLightFlag);
+    oluacls_setfunc(L, "setEnabled", _cocos2d_BaseLight_setEnabled);
+    oluacls_setfunc(L, "isEnabled", _cocos2d_BaseLight_isEnabled);
+    oluacls_property(L, "lightType", _cocos2d_BaseLight_getLightType, nullptr);
+    oluacls_property(L, "intensity", _cocos2d_BaseLight_getIntensity, _cocos2d_BaseLight_setIntensity);
+    oluacls_property(L, "lightFlag", _cocos2d_BaseLight_getLightFlag, _cocos2d_BaseLight_setLightFlag);
+    oluacls_property(L, "enabled", _cocos2d_BaseLight_isEnabled, _cocos2d_BaseLight_setEnabled);
+
+    olua_registerluatype<cocos2d::BaseLight>(L, "cc.BaseLight");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_DirectionLight_create(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Vec3 arg1;       /** direction */
+    cocos2d::Color3B arg2;       /** color */
+
+    auto_luacv_check_cocos2d_Vec3(L, 1, &arg1);
+    auto_luacv_check_cocos2d_Color3B(L, 2, &arg2);
+
+    // static DirectionLight* create(const Vec3 &direction, const Color3B &color)
+    cocos2d::DirectionLight *ret = (cocos2d::DirectionLight *)cocos2d::DirectionLight::create(arg1, arg2);
+
+    return olua_push_cppobj<cocos2d::DirectionLight>(L, ret, "cc.DirectionLight");
+}
+
+static int _cocos2d_DirectionLight_setDirection(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    cocos2d::DirectionLight *self = nullptr;
+    cocos2d::Vec3 arg1;       /** dir */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.DirectionLight");
+    auto_luacv_pack_cocos2d_Vec3(L, 2, &arg1);
+
+    // void setDirection(@pack const Vec3 &dir)
+    self->setDirection(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_DirectionLight_getDirection(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::DirectionLight *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.DirectionLight");
+
+    // @unpack Vec3 getDirection()
+    cocos2d::Vec3 ret = (cocos2d::Vec3)self->getDirection();
+
+    return auto_luacv_unpack_cocos2d_Vec3(L, &ret);
+}
+
+static int _cocos2d_DirectionLight_getDirectionInWorld(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::DirectionLight *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.DirectionLight");
+
+    // @unpack Vec3 getDirectionInWorld()
+    cocos2d::Vec3 ret = (cocos2d::Vec3)self->getDirectionInWorld();
+
+    return auto_luacv_unpack_cocos2d_Vec3(L, &ret);
+}
+
+static int luaopen_cocos2d_DirectionLight(lua_State *L)
+{
+    oluacls_class(L, "cc.DirectionLight", "cc.BaseLight");
+    oluacls_setfunc(L, "create", _cocos2d_DirectionLight_create);
+    oluacls_setfunc(L, "setDirection", _cocos2d_DirectionLight_setDirection);
+    oluacls_setfunc(L, "getDirection", _cocos2d_DirectionLight_getDirection);
+    oluacls_setfunc(L, "getDirectionInWorld", _cocos2d_DirectionLight_getDirectionInWorld);
+
+    olua_registerluatype<cocos2d::DirectionLight>(L, "cc.DirectionLight");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_PointLight_create(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::Vec3 arg1;       /** position */
+    cocos2d::Color3B arg2;       /** color */
+    lua_Number arg3 = 0;   /** range */
+
+    auto_luacv_check_cocos2d_Vec3(L, 1, &arg1);
+    auto_luacv_check_cocos2d_Color3B(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+
+    // static PointLight* create(const Vec3 &position, const Color3B &color, float range)
+    cocos2d::PointLight *ret = (cocos2d::PointLight *)cocos2d::PointLight::create(arg1, arg2, (float)arg3);
+
+    return olua_push_cppobj<cocos2d::PointLight>(L, ret, "cc.PointLight");
+}
+
+static int _cocos2d_PointLight_getRange(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::PointLight *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.PointLight");
+
+    // float getRange()
+    float ret = (float)self->getRange();
+
+    return olua_push_number(L, (lua_Number)ret);
+}
+
+static int _cocos2d_PointLight_setRange(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::PointLight *self = nullptr;
+    lua_Number arg1 = 0;   /** range */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.PointLight");
+    olua_check_number(L, 2, &arg1);
+
+    // void setRange(float range)
+    self->setRange((float)arg1);
+
+    return 0;
+}
+
+static int luaopen_cocos2d_PointLight(lua_State *L)
+{
+    oluacls_class(L, "cc.PointLight", "cc.BaseLight");
+    oluacls_setfunc(L, "create", _cocos2d_PointLight_create);
+    oluacls_setfunc(L, "getRange", _cocos2d_PointLight_getRange);
+    oluacls_setfunc(L, "setRange", _cocos2d_PointLight_setRange);
+    oluacls_property(L, "range", _cocos2d_PointLight_getRange, _cocos2d_PointLight_setRange);
+
+    olua_registerluatype<cocos2d::PointLight>(L, "cc.PointLight");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_SpotLight_create(lua_State *L)
+{
+    lua_settop(L, 6);
+
+    cocos2d::Vec3 arg1;       /** direction */
+    cocos2d::Vec3 arg2;       /** position */
+    cocos2d::Color3B arg3;       /** color */
+    lua_Number arg4 = 0;   /** innerAngle */
+    lua_Number arg5 = 0;   /** outerAngle */
+    lua_Number arg6 = 0;   /** range */
+
+    auto_luacv_check_cocos2d_Vec3(L, 1, &arg1);
+    auto_luacv_check_cocos2d_Vec3(L, 2, &arg2);
+    auto_luacv_check_cocos2d_Color3B(L, 3, &arg3);
+    olua_check_number(L, 4, &arg4);
+    olua_check_number(L, 5, &arg5);
+    olua_check_number(L, 6, &arg6);
+
+    // static SpotLight* create(const Vec3 &direction, const Vec3 &position, const Color3B &color, float innerAngle, float outerAngle, float range)
+    cocos2d::SpotLight *ret = (cocos2d::SpotLight *)cocos2d::SpotLight::create(arg1, arg2, arg3, (float)arg4, (float)arg5, (float)arg6);
+
+    return olua_push_cppobj<cocos2d::SpotLight>(L, ret, "cc.SpotLight");
+}
+
+static int _cocos2d_SpotLight_setDirection(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    cocos2d::SpotLight *self = nullptr;
+    cocos2d::Vec3 arg1;       /** dir */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpotLight");
+    auto_luacv_pack_cocos2d_Vec3(L, 2, &arg1);
+
+    // void setDirection(@pack const Vec3 &dir)
+    self->setDirection(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_SpotLight_getDirection(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::SpotLight *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpotLight");
+
+    // @unpack Vec3 getDirection()
+    cocos2d::Vec3 ret = (cocos2d::Vec3)self->getDirection();
+
+    return auto_luacv_unpack_cocos2d_Vec3(L, &ret);
+}
+
+static int _cocos2d_SpotLight_getDirectionInWorld(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::SpotLight *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpotLight");
+
+    // @unpack Vec3 getDirectionInWorld()
+    cocos2d::Vec3 ret = (cocos2d::Vec3)self->getDirectionInWorld();
+
+    return auto_luacv_unpack_cocos2d_Vec3(L, &ret);
+}
+
+static int _cocos2d_SpotLight_setRange(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::SpotLight *self = nullptr;
+    lua_Number arg1 = 0;   /** range */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpotLight");
+    olua_check_number(L, 2, &arg1);
+
+    // void setRange(float range)
+    self->setRange((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_SpotLight_getRange(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::SpotLight *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpotLight");
+
+    // float getRange()
+    float ret = (float)self->getRange();
+
+    return olua_push_number(L, (lua_Number)ret);
+}
+
+static int _cocos2d_SpotLight_setInnerAngle(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::SpotLight *self = nullptr;
+    lua_Number arg1 = 0;   /** angle */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpotLight");
+    olua_check_number(L, 2, &arg1);
+
+    // void setInnerAngle(float angle)
+    self->setInnerAngle((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_SpotLight_getInnerAngle(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::SpotLight *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpotLight");
+
+    // float getInnerAngle()
+    float ret = (float)self->getInnerAngle();
+
+    return olua_push_number(L, (lua_Number)ret);
+}
+
+static int _cocos2d_SpotLight_getCosInnerAngle(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::SpotLight *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpotLight");
+
+    // float getCosInnerAngle()
+    float ret = (float)self->getCosInnerAngle();
+
+    return olua_push_number(L, (lua_Number)ret);
+}
+
+static int _cocos2d_SpotLight_setOuterAngle(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::SpotLight *self = nullptr;
+    lua_Number arg1 = 0;   /** outerAngle */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpotLight");
+    olua_check_number(L, 2, &arg1);
+
+    // void setOuterAngle(float outerAngle)
+    self->setOuterAngle((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_SpotLight_getOuterAngle(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::SpotLight *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpotLight");
+
+    // float getOuterAngle()
+    float ret = (float)self->getOuterAngle();
+
+    return olua_push_number(L, (lua_Number)ret);
+}
+
+static int _cocos2d_SpotLight_getCosOuterAngle(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::SpotLight *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpotLight");
+
+    // float getCosOuterAngle()
+    float ret = (float)self->getCosOuterAngle();
+
+    return olua_push_number(L, (lua_Number)ret);
+}
+
+static int luaopen_cocos2d_SpotLight(lua_State *L)
+{
+    oluacls_class(L, "cc.SpotLight", "cc.BaseLight");
+    oluacls_setfunc(L, "create", _cocos2d_SpotLight_create);
+    oluacls_setfunc(L, "setDirection", _cocos2d_SpotLight_setDirection);
+    oluacls_setfunc(L, "getDirection", _cocos2d_SpotLight_getDirection);
+    oluacls_setfunc(L, "getDirectionInWorld", _cocos2d_SpotLight_getDirectionInWorld);
+    oluacls_setfunc(L, "setRange", _cocos2d_SpotLight_setRange);
+    oluacls_setfunc(L, "getRange", _cocos2d_SpotLight_getRange);
+    oluacls_setfunc(L, "setInnerAngle", _cocos2d_SpotLight_setInnerAngle);
+    oluacls_setfunc(L, "getInnerAngle", _cocos2d_SpotLight_getInnerAngle);
+    oluacls_setfunc(L, "getCosInnerAngle", _cocos2d_SpotLight_getCosInnerAngle);
+    oluacls_setfunc(L, "setOuterAngle", _cocos2d_SpotLight_setOuterAngle);
+    oluacls_setfunc(L, "getOuterAngle", _cocos2d_SpotLight_getOuterAngle);
+    oluacls_setfunc(L, "getCosOuterAngle", _cocos2d_SpotLight_getCosOuterAngle);
+    oluacls_property(L, "range", _cocos2d_SpotLight_getRange, _cocos2d_SpotLight_setRange);
+    oluacls_property(L, "innerAngle", _cocos2d_SpotLight_getInnerAngle, _cocos2d_SpotLight_setInnerAngle);
+    oluacls_property(L, "cosInnerAngle", _cocos2d_SpotLight_getCosInnerAngle, nullptr);
+    oluacls_property(L, "outerAngle", _cocos2d_SpotLight_getOuterAngle, _cocos2d_SpotLight_setOuterAngle);
+    oluacls_property(L, "cosOuterAngle", _cocos2d_SpotLight_getCosOuterAngle, nullptr);
+
+    olua_registerluatype<cocos2d::SpotLight>(L, "cc.SpotLight");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_AmbientLight_create(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Color3B arg1;       /** color */
+
+    auto_luacv_check_cocos2d_Color3B(L, 1, &arg1);
+
+    // static AmbientLight* create(const Color3B &color)
+    cocos2d::AmbientLight *ret = (cocos2d::AmbientLight *)cocos2d::AmbientLight::create(arg1);
+
+    return olua_push_cppobj<cocos2d::AmbientLight>(L, ret, "cc.AmbientLight");
+}
+
+static int luaopen_cocos2d_AmbientLight(lua_State *L)
+{
+    oluacls_class(L, "cc.AmbientLight", "cc.BaseLight");
+    oluacls_setfunc(L, "create", _cocos2d_AmbientLight_create);
+
+    olua_registerluatype<cocos2d::AmbientLight>(L, "cc.AmbientLight");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
 static int _cocos2d_Camera_getDefaultViewport(lua_State *L)
 {
     lua_settop(L, 0);
@@ -15749,11 +16288,56 @@ static int _cocos2d_Scene_createWithSize(lua_State *L)
     return olua_push_cppobj<cocos2d::Scene>(L, ret, "cc.Scene");
 }
 
+static int _cocos2d_Scene_getCameras(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Scene *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Scene");
+
+    // const std::vector<Camera*>& getCameras()
+    const std::vector<cocos2d::Camera *> &ret = (const std::vector<cocos2d::Camera *> &)self->getCameras();
+
+    return olua_push_std_vector(L, ret, "cc.Camera");
+}
+
+static int _cocos2d_Scene_getDefaultCamera(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Scene *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Scene");
+
+    // Camera* getDefaultCamera()
+    cocos2d::Camera *ret = (cocos2d::Camera *)self->getDefaultCamera();
+
+    return olua_push_cppobj<cocos2d::Camera>(L, ret, "cc.Camera");
+}
+
+static int _cocos2d_Scene_getLights(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Scene *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Scene");
+
+    // const std::vector<BaseLight*>& getLights()
+    const std::vector<cocos2d::BaseLight *> &ret = (const std::vector<cocos2d::BaseLight *> &)self->getLights();
+
+    return olua_push_std_vector(L, ret, "cc.BaseLight");
+}
+
 static int luaopen_cocos2d_Scene(lua_State *L)
 {
     oluacls_class(L, "cc.Scene", "cc.Node");
     oluacls_setfunc(L, "create", _cocos2d_Scene_create);
     oluacls_setfunc(L, "createWithSize", _cocos2d_Scene_createWithSize);
+    oluacls_setfunc(L, "getCameras", _cocos2d_Scene_getCameras);
+    oluacls_setfunc(L, "getDefaultCamera", _cocos2d_Scene_getDefaultCamera);
+    oluacls_setfunc(L, "getLights", _cocos2d_Scene_getLights);
 
     olua_registerluatype<cocos2d::Scene>(L, "cc.Scene");
     oluacls_createclassproxy(L);
@@ -18376,6 +18960,13 @@ int luaopen_cocos2d(lua_State *L)
     xlua_require(L, "cc.Node", luaopen_cocos2d_Node);
     xlua_require(L, "cc.Label", luaopen_cocos2d_Label);
     xlua_require(L, "cc.ProtectedNode", luaopen_cocos2d_ProtectedNode);
+    xlua_require(L, "cc.LightType", luaopen_cocos2d_LightType);
+    xlua_require(L, "cc.LightFlag", luaopen_cocos2d_LightFlag);
+    xlua_require(L, "cc.BaseLight", luaopen_cocos2d_BaseLight);
+    xlua_require(L, "cc.DirectionLight", luaopen_cocos2d_DirectionLight);
+    xlua_require(L, "cc.PointLight", luaopen_cocos2d_PointLight);
+    xlua_require(L, "cc.SpotLight", luaopen_cocos2d_SpotLight);
+    xlua_require(L, "cc.AmbientLight", luaopen_cocos2d_AmbientLight);
     xlua_require(L, "cc.Camera", luaopen_cocos2d_Camera);
     xlua_require(L, "cc.Sprite", luaopen_cocos2d_Sprite);
     xlua_require(L, "cc.Scene", luaopen_cocos2d_Scene);

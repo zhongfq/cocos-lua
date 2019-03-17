@@ -12,6 +12,18 @@ int manual_luacv_push_cocos2d_Mat4(lua_State *L, const cocos2d::Mat4 &value);
 void manual_luacv_check_cocos2d_Mat4(lua_State *L, int idx, cocos2d::Mat4 *value);
 bool manual_luacv_is_cocos2d_Mat4(lua_State *L, int idx);
 
+// cocos2d::Color3B
+int manual_luacv_push_cocos2d_Color3B(lua_State *L, const cocos2d::Color3B *value);
+void manual_luacv_check_cocos2d_Color3B(lua_State *L, int idx, cocos2d::Color3B *value);
+void manual_luacv_opt_cocos2d_Color3B(lua_State *L, int idx, cocos2d::Color3B *value, const cocos2d::Color3B &def);
+bool manual_luacv_is_cocos2d_Color3B(lua_State *L, int idx);
+
+// cocos2d::Color4B
+int manual_luacv_push_cocos2d_Color4B(lua_State *L, const cocos2d::Color4B *value);
+void manual_luacv_check_cocos2d_Color4B(lua_State *L, int idx, cocos2d::Color4B *value);
+void manual_luacv_opt_cocos2d_Color4B(lua_State *L, int idx, cocos2d::Color4B *value, const cocos2d::Color4B &def);
+bool manual_luacv_is_cocos2d_Color4B(lua_State *L, int idx);
+
 // Vector
 template <typename T> int manual_luacv_push_cocos2d_Vector(lua_State *L, const cocos2d::Vector<T*> &v, const char *cls)
 {

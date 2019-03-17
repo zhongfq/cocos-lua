@@ -4947,7 +4947,7 @@ static int _cocos2d_TintTo_create2(lua_State *L)
     cocos2d::Color3B arg2;       /** color */
 
     olua_check_number(L, 1, &arg1);
-    auto_luacv_check_cocos2d_Color3B(L, 2, &arg2);
+    manual_luacv_check_cocos2d_Color3B(L, 2, &arg2);
 
     // static TintTo* create(float duration, const Color3B& color)
     cocos2d::TintTo *ret = (cocos2d::TintTo *)cocos2d::TintTo::create((float)arg1, arg2);
@@ -4960,7 +4960,7 @@ static int _cocos2d_TintTo_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
-        // if (olua_is_number(L, 1) && auto_luacv_is_cocos2d_Color3B(L, 2)) {
+        // if (olua_is_number(L, 1) && manual_luacv_is_cocos2d_Color3B(L, 2)) {
             return _cocos2d_TintTo_create2(L);
         // }
     }
@@ -14587,7 +14587,7 @@ static int _cocos2d_Node_getColor(lua_State *L)
     // const Color3B& getColor()
     const cocos2d::Color3B &ret = (const cocos2d::Color3B &)self->getColor();
 
-    return auto_luacv_push_cocos2d_Color3B(L, &ret);
+    return manual_luacv_push_cocos2d_Color3B(L, &ret);
 }
 
 static int _cocos2d_Node_getDisplayedColor(lua_State *L)
@@ -14601,7 +14601,7 @@ static int _cocos2d_Node_getDisplayedColor(lua_State *L)
     // const Color3B& getDisplayedColor()
     const cocos2d::Color3B &ret = (const cocos2d::Color3B &)self->getDisplayedColor();
 
-    return auto_luacv_push_cocos2d_Color3B(L, &ret);
+    return manual_luacv_push_cocos2d_Color3B(L, &ret);
 }
 
 static int _cocos2d_Node_setColor(lua_State *L)
@@ -14612,7 +14612,7 @@ static int _cocos2d_Node_setColor(lua_State *L)
     cocos2d::Color3B arg1;       /** color */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
-    auto_luacv_check_cocos2d_Color3B(L, 2, &arg1);
+    manual_luacv_check_cocos2d_Color3B(L, 2, &arg1);
 
     // void setColor(const Color3B& color)
     self->setColor(arg1);
@@ -14628,7 +14628,7 @@ static int _cocos2d_Node_updateDisplayedColor(lua_State *L)
     cocos2d::Color3B arg1;       /** parentColor */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
-    auto_luacv_check_cocos2d_Color3B(L, 2, &arg1);
+    manual_luacv_check_cocos2d_Color3B(L, 2, &arg1);
 
     // void updateDisplayedColor(const Color3B& parentColor)
     self->updateDisplayedColor(arg1);
@@ -15133,6 +15133,99 @@ static int _cocos2d_Node_unscheduleAllCallbacks(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_Node_get_anchorX(lua_State *L)
+{
+    lua_settop(L, 1);
+    cocos2d::Node *self = (cocos2d::Node *)olua_toobj(L, 1, "cc.Node");
+    lua_pushnumber(L, self->getAnchorPoint().x);
+    return 1;
+}
+
+
+static int _cocos2d_Node_set_anchorX(lua_State *L)
+{
+    lua_settop(L, 2);
+    cocos2d::Node *self = (cocos2d::Node *)olua_toobj(L, 1, "cc.Node");
+    cocos2d::Vec2 anchor = self->getAnchorPoint();
+    anchor.x = olua_checknumber(L, 2);
+    self->setAnchorPoint(anchor);
+    return 0;   
+}
+
+static int _cocos2d_Node_get_anchorY(lua_State *L)
+{
+    lua_settop(L, 1);
+    cocos2d::Node *self = (cocos2d::Node *)olua_toobj(L, 1, "cc.Node");
+    lua_pushnumber(L, self->getAnchorPoint().y);
+    return 1;
+}
+
+
+static int _cocos2d_Node_set_anchorY(lua_State *L)
+{
+    lua_settop(L, 2);
+    cocos2d::Node *self = (cocos2d::Node *)olua_toobj(L, 1, "cc.Node");
+    cocos2d::Vec2 anchor = self->getAnchorPoint();
+    anchor.y = olua_checknumber(L, 2);
+    self->setAnchorPoint(anchor);
+    return 0;   
+}
+
+static int _cocos2d_Node_get_width(lua_State *L)
+{
+    lua_settop(L, 1);
+    cocos2d::Node *self = (cocos2d::Node *)olua_toobj(L, 1, "cc.Node");
+    lua_pushnumber(L, self->getContentSize().width);
+    return 1;
+}
+
+
+static int _cocos2d_Node_set_width(lua_State *L)
+{
+    lua_settop(L, 2);
+    cocos2d::Node *self = (cocos2d::Node *)olua_toobj(L, 1, "cc.Node");
+    cocos2d::Size size = self->getContentSize();
+    size.width = olua_checknumber(L, 2);
+    self->setContentSize(size);
+    return 0;   
+}
+
+static int _cocos2d_Node_get_heigh(lua_State *L)
+{
+    lua_settop(L, 1);
+    cocos2d::Node *self = (cocos2d::Node *)olua_toobj(L, 1, "cc.Node");
+    lua_pushnumber(L, self->getContentSize().height);
+    return 1;
+}
+
+
+static int _cocos2d_Node_set_heigh(lua_State *L)
+{
+    lua_settop(L, 2);
+    cocos2d::Node *self = (cocos2d::Node *)olua_toobj(L, 1, "cc.Node");
+    cocos2d::Size size = self->getContentSize();
+    size.height = olua_checknumber(L, 2);
+    self->setContentSize(size);
+    return 0;   
+}
+
+static int _cocos2d_Node_get_alpha(lua_State *L)
+{
+    lua_settop(L, 1);
+    cocos2d::Node *self = (cocos2d::Node *)olua_toobj(L, 1, "cc.Node");
+    lua_pushnumber(L, self->getOpacity() / 255.0f);
+    return 1;
+}
+
+
+static int _cocos2d_Node_set_alpha(lua_State *L)
+{
+    lua_settop(L, 2);
+    cocos2d::Node *self = (cocos2d::Node *)olua_toobj(L, 1, "cc.Node");
+    self->setOpacity(olua_checknumber(L, 2) * 255.0f);
+    return 0;   
+}
+
 static int luaopen_cocos2d_Node(lua_State *L)
 {
     oluacls_class(L, "cc.Node", "cc.Ref");
@@ -15336,7 +15429,11 @@ static int luaopen_cocos2d_Node(lua_State *L)
     oluacls_property(L, "displayedColor", _cocos2d_Node_getDisplayedColor, nullptr);
     oluacls_property(L, "cascadeColorEnabled", _cocos2d_Node_isCascadeColorEnabled, _cocos2d_Node_setCascadeColorEnabled);
     oluacls_property(L, "opacityModifyRGB", _cocos2d_Node_isOpacityModifyRGB, _cocos2d_Node_setOpacityModifyRGB);
-    oluacls_property(L, "cameraMask", _cocos2d_Node_getCameraMask, _cocos2d_Node_setCameraMask);
+    oluacls_property(L, "anchorX", _cocos2d_Node_get_anchorX, _cocos2d_Node_set_anchorX);
+    oluacls_property(L, "anchorY", _cocos2d_Node_get_anchorY, _cocos2d_Node_set_anchorY);
+    oluacls_property(L, "width", _cocos2d_Node_get_width, _cocos2d_Node_set_width);
+    oluacls_property(L, "heigh", _cocos2d_Node_get_heigh, _cocos2d_Node_set_heigh);
+    oluacls_property(L, "alpha", _cocos2d_Node_get_alpha, _cocos2d_Node_set_alpha);
 
     olua_registerluatype<cocos2d::Node>(L, "cc.Node");
     oluacls_createclassproxy(L);
@@ -15354,7 +15451,7 @@ static int _cocos2d_Label_enableShadow(lua_State *L)
     lua_Integer arg3 = 0;   /** blurRadius */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Label");
-    auto_luacv_opt_cocos2d_Color4B(L, 2, &arg1, cocos2d::Color4B::BLACK);
+    manual_luacv_opt_cocos2d_Color4B(L, 2, &arg1, cocos2d::Color4B::BLACK);
     auto_luacv_opt_cocos2d_Size(L, 3, &arg2, cocos2d::Size(2, -2));
     olua_opt_int(L, 4, &arg3, 0);
 
@@ -15772,7 +15869,7 @@ static int _cocos2d_DirectionLight_create(lua_State *L)
     cocos2d::Color3B arg2;       /** color */
 
     auto_luacv_check_cocos2d_Vec3(L, 1, &arg1);
-    auto_luacv_check_cocos2d_Color3B(L, 2, &arg2);
+    manual_luacv_check_cocos2d_Color3B(L, 2, &arg2);
 
     // static DirectionLight* create(const Vec3 &direction, const Color3B &color)
     cocos2d::DirectionLight *ret = (cocos2d::DirectionLight *)cocos2d::DirectionLight::create(arg1, arg2);
@@ -15847,7 +15944,7 @@ static int _cocos2d_PointLight_create(lua_State *L)
     lua_Number arg3 = 0;   /** range */
 
     auto_luacv_check_cocos2d_Vec3(L, 1, &arg1);
-    auto_luacv_check_cocos2d_Color3B(L, 2, &arg2);
+    manual_luacv_check_cocos2d_Color3B(L, 2, &arg2);
     olua_check_number(L, 3, &arg3);
 
     // static PointLight* create(const Vec3 &position, const Color3B &color, float range)
@@ -15913,7 +16010,7 @@ static int _cocos2d_SpotLight_create(lua_State *L)
 
     auto_luacv_check_cocos2d_Vec3(L, 1, &arg1);
     auto_luacv_check_cocos2d_Vec3(L, 2, &arg2);
-    auto_luacv_check_cocos2d_Color3B(L, 3, &arg3);
+    manual_luacv_check_cocos2d_Color3B(L, 3, &arg3);
     olua_check_number(L, 4, &arg4);
     olua_check_number(L, 5, &arg5);
     olua_check_number(L, 6, &arg6);
@@ -16119,7 +16216,7 @@ static int _cocos2d_AmbientLight_create(lua_State *L)
 
     cocos2d::Color3B arg1;       /** color */
 
-    auto_luacv_check_cocos2d_Color3B(L, 1, &arg1);
+    manual_luacv_check_cocos2d_Color3B(L, 1, &arg1);
 
     // static AmbientLight* create(const Color3B &color)
     cocos2d::AmbientLight *ret = (cocos2d::AmbientLight *)cocos2d::AmbientLight::create(arg1);

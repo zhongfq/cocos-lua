@@ -23,6 +23,89 @@ int manual_luacv_push_cocos2d_Mat4(lua_State *L, const cocos2d::Mat4 &value)
     return 1;
 }
 
+int manual_luacv_push_cocos2d_Color3B(lua_State *L, const cocos2d::Color3B *value)
+{
+    uint32_t color = 0;
+    if (value) {
+        color |= value->r << 16;
+        color |= value->g << 8;
+        color |= value->b;
+    }
+    
+    lua_pushinteger(L, color);
+    return 1;
+}
+
+void manual_luacv_check_cocos2d_Color3B(lua_State *L, int idx, cocos2d::Color3B *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    uint32_t color = (uint32_t)olua_checkinteger(L, idx);
+    value->r = (GLubyte)(color >> 16 & 0xFF);
+    value->g = (GLubyte)(color >> 8 & 0xFF);
+    value->b = (GLubyte)(color & 0xFF);
+}
+
+void manual_luacv_opt_cocos2d_Color3B(lua_State *L, int idx, cocos2d::Color3B *value, const cocos2d::Color3B &def)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    if (olua_isnil(L, idx)) {
+        *value = def;
+    } else {
+        manual_luacv_check_cocos2d_Color3B(L, idx, value);
+    }
+}
+
+bool manual_luacv_is_cocos2d_Color3B(lua_State *L, int idx)
+{
+    return olua_isinteger(L, idx);
+}
+
+int manual_luacv_push_cocos2d_Color4B(lua_State *L, const cocos2d::Color4B *value)
+{
+    uint32_t color = 0;
+    if (value) {
+        color |= value->r << 24;
+        color |= value->g << 16;
+        color |= value->b << 8;
+        color |= value->a;
+    }
+    lua_pushinteger(L, color);
+    return 1;
+}
+
+void manual_luacv_check_cocos2d_Color4B(lua_State *L, int idx, cocos2d::Color4B *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    uint32_t color = (uint32_t)olua_checkinteger(L, idx);
+    value->r = (GLubyte)(color >> 24 & 0xFF);
+    value->g = (GLubyte)(color >> 16 & 0xFF);
+    value->b = (GLubyte)(color >> 8 & 0xFF);
+    value->a = (GLubyte)(color & 0xFF);
+}
+
+void manual_luacv_opt_cocos2d_Color4B(lua_State *L, int idx, cocos2d::Color4B *value, const cocos2d::Color4B &def)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    if (olua_isnil(L, idx)) {
+        *value = def;
+    } else {
+        manual_luacv_check_cocos2d_Color4B(L, idx, value);
+    }
+}
+
+bool manual_luacv_is_cocos2d_Color4B(lua_State *L, int idx)
+{
+    return olua_isinteger(L, idx);
+}
+
 bool manual_luacv_is_cocos2d_Mat4(lua_State *L, int idx)
 {
     if (lua_istable(L, idx) && lua_rawlen(L, idx) == 16) {

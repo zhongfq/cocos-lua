@@ -297,10 +297,82 @@ cls.prop('color')
 cls.prop('displayedColor')
 cls.prop('cascadeColorEnabled')
 cls.prop('opacityModifyRGB')
-cls.prop('cameraMask', 'unsigned short getCameraMask()', 'void setCameraMask(unsigned short mask, bool applyChildren = true)')
---cls.prop('anchorX')
---cls.prop('anchorY')
---cls.prop('width')
---cls.prop('heigh')
---cls.prop('alpha')
+cls.prop('anchorX', [[
+{
+    lua_settop(L, 1);
+    cocos2d::Node *self = (cocos2d::Node *)olua_toobj(L, 1, "cc.Node");
+    lua_pushnumber(L, self->getAnchorPoint().x);
+    return 1;
+}
+]], [[
+{
+    lua_settop(L, 2);
+    cocos2d::Node *self = (cocos2d::Node *)olua_toobj(L, 1, "cc.Node");
+    cocos2d::Vec2 anchor = self->getAnchorPoint();
+    anchor.x = olua_checknumber(L, 2);
+    self->setAnchorPoint(anchor);
+    return 0;   
+}]])
+cls.prop('anchorY', [[
+{
+    lua_settop(L, 1);
+    cocos2d::Node *self = (cocos2d::Node *)olua_toobj(L, 1, "cc.Node");
+    lua_pushnumber(L, self->getAnchorPoint().y);
+    return 1;
+}
+]], [[
+{
+    lua_settop(L, 2);
+    cocos2d::Node *self = (cocos2d::Node *)olua_toobj(L, 1, "cc.Node");
+    cocos2d::Vec2 anchor = self->getAnchorPoint();
+    anchor.y = olua_checknumber(L, 2);
+    self->setAnchorPoint(anchor);
+    return 0;   
+}]])
+cls.prop('width', [[
+{
+    lua_settop(L, 1);
+    cocos2d::Node *self = (cocos2d::Node *)olua_toobj(L, 1, "cc.Node");
+    lua_pushnumber(L, self->getContentSize().width);
+    return 1;
+}
+]], [[
+{
+    lua_settop(L, 2);
+    cocos2d::Node *self = (cocos2d::Node *)olua_toobj(L, 1, "cc.Node");
+    cocos2d::Size size = self->getContentSize();
+    size.width = olua_checknumber(L, 2);
+    self->setContentSize(size);
+    return 0;   
+}]])
+cls.prop('heigh', [[
+{
+    lua_settop(L, 1);
+    cocos2d::Node *self = (cocos2d::Node *)olua_toobj(L, 1, "cc.Node");
+    lua_pushnumber(L, self->getContentSize().height);
+    return 1;
+}
+]], [[
+{
+    lua_settop(L, 2);
+    cocos2d::Node *self = (cocos2d::Node *)olua_toobj(L, 1, "cc.Node");
+    cocos2d::Size size = self->getContentSize();
+    size.height = olua_checknumber(L, 2);
+    self->setContentSize(size);
+    return 0;   
+}]])
+cls.prop('alpha', [[
+{
+    lua_settop(L, 1);
+    cocos2d::Node *self = (cocos2d::Node *)olua_toobj(L, 1, "cc.Node");
+    lua_pushnumber(L, self->getOpacity() / 255.0f);
+    return 1;
+}
+]], [[
+{
+    lua_settop(L, 2);
+    cocos2d::Node *self = (cocos2d::Node *)olua_toobj(L, 1, "cc.Node");
+    self->setOpacity(olua_checknumber(L, 2) * 255.0f);
+    return 0;   
+}]])
 return cls

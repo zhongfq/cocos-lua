@@ -67,13 +67,13 @@ REG_TYPE {
 
 REG_TYPE {
     TYPENAME = 'cocos2d::Color3B',
-    CONV_FUNC = 'auto_luacv_$$_cocos2d_Color3B',
+    CONV_FUNC = 'manual_luacv_$$_cocos2d_Color3B',
     INIT_VALUE = false,
 }
 
 REG_TYPE {
     TYPENAME = 'cocos2d::Color4B',
-    CONV_FUNC = 'auto_luacv_$$_cocos2d_Color4B',
+    CONV_FUNC = 'manual_luacv_$$_cocos2d_Color4B',
     INIT_VALUE = false,
 }
 

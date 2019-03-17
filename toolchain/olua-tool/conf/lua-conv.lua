@@ -44,23 +44,23 @@ M.CONVS = {
             float height;
         ]],
     },
-    REG_CONV {
-        CPPCLS = 'cocos2d::Color3B',
-        DEF = [[
-            GLubyte r;
-            GLubyte g;
-            GLubyte b;
-        ]],
-    },
-    REG_CONV {
-        CPPCLS = 'cocos2d::Color4B',
-        DEF = [[
-            GLubyte r;
-            GLubyte g;
-            GLubyte b;
-            GLubyte a;
-        ]],
-    },
+    -- REG_CONV {
+    --     CPPCLS = 'cocos2d::Color3B',
+    --     DEF = [[
+    --         GLubyte r;
+    --         GLubyte g;
+    --         GLubyte b;
+    --     ]],
+    -- },
+    -- REG_CONV {
+    --     CPPCLS = 'cocos2d::Color4B',
+    --     DEF = [[
+    --         GLubyte r;
+    --         GLubyte g;
+    --         GLubyte b;
+    --         GLubyte a;
+    --     ]],
+    -- },
     REG_CONV {
         CPPCLS = 'cocos2d::Color4F',
         DEF = [[

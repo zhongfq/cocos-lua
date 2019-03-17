@@ -346,8 +346,17 @@ local function parse_prop(cls, name, func_get, func_set)
             end
         end
     end
-    
-    assert(pi.GET.RET.NUM > 0, func_get)
+
+    if not pi.GET.CPPFUNC_SNIPPET then
+        assert(pi.GET.RET.NUM > 0, func_get)
+    else
+        pi.GET.CPPFUNC = 'get_' .. pi.GET.CPPFUNC
+    end
+
+    if pi.SET and pi.SET.CPPFUNC_SNIPPET then
+        pi.SET.CPPFUNC = 'set_' .. pi.SET.CPPFUNC
+    end
+
     return pi
 end
 

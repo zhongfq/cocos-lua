@@ -41,22 +41,6 @@ void auto_luacv_pack_cocos2d_Size(lua_State *L, int idx, cocos2d::Size *value);
 int auto_luacv_unpack_cocos2d_Size(lua_State *L, const cocos2d::Size *value);
 bool auto_luacv_is_cocos2d_Size(lua_State *L, int idx);
 
-// cocos2d::Color3B
-int auto_luacv_push_cocos2d_Color3B(lua_State *L, const cocos2d::Color3B *value);
-void auto_luacv_check_cocos2d_Color3B(lua_State *L, int idx, cocos2d::Color3B *value);
-void auto_luacv_opt_cocos2d_Color3B(lua_State *L, int idx, cocos2d::Color3B *value, const cocos2d::Color3B &def);
-void auto_luacv_pack_cocos2d_Color3B(lua_State *L, int idx, cocos2d::Color3B *value);
-int auto_luacv_unpack_cocos2d_Color3B(lua_State *L, const cocos2d::Color3B *value);
-bool auto_luacv_is_cocos2d_Color3B(lua_State *L, int idx);
-
-// cocos2d::Color4B
-int auto_luacv_push_cocos2d_Color4B(lua_State *L, const cocos2d::Color4B *value);
-void auto_luacv_check_cocos2d_Color4B(lua_State *L, int idx, cocos2d::Color4B *value);
-void auto_luacv_opt_cocos2d_Color4B(lua_State *L, int idx, cocos2d::Color4B *value, const cocos2d::Color4B &def);
-void auto_luacv_pack_cocos2d_Color4B(lua_State *L, int idx, cocos2d::Color4B *value);
-int auto_luacv_unpack_cocos2d_Color4B(lua_State *L, const cocos2d::Color4B *value);
-bool auto_luacv_is_cocos2d_Color4B(lua_State *L, int idx);
-
 // cocos2d::Color4F
 int auto_luacv_push_cocos2d_Color4F(lua_State *L, const cocos2d::Color4F *value);
 void auto_luacv_check_cocos2d_Color4F(lua_State *L, int idx, cocos2d::Color4F *value);

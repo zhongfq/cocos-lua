@@ -52,6 +52,7 @@ REG_TYPE {
 REG_TYPE {
     TYPENAME = 'std::vector',
     INIT_VALUE = false,
+    IS_ARRAY = true,
     CONV_FUNC = 'olua_$$_std_vector',
 }
 

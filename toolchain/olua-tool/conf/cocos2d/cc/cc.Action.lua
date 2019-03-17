@@ -71,5 +71,7 @@ merge(M, 'conf/cocos2d/cc/action/cc.TweenFunction.lua')
 merge(M, 'conf/cocos2d/cc/action/cc.ActionInterval.lua')
 merge(M, 'conf/cocos2d/cc/action/cc.ActionCamera.lua')
 merge(M, 'conf/cocos2d/cc/action/cc.ActionEase.lua')
+merge(M, 'conf/cocos2d/cc/action/cc.ActionCatmullRom.lua')
+merge(M, 'conf/cocos2d/cc/action/cc.ActionInstant.lua')
 
 return M

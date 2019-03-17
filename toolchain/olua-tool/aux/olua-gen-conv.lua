@@ -16,6 +16,11 @@ local function gen_conv_header(module)
                 void auto_luacv_check_${CPPCLS_PATH}(lua_State *L, int idx, ${CPPCLS} *value);
             ]])
         end
+        if cv.FUNC.OPT then
+            DECL_FUNCS[#DECL_FUNCS + 1] = format_snippet([[
+                void auto_luacv_opt_${CPPCLS_PATH}(lua_State *L, int idx, ${CPPCLS} *value, const ${CPPCLS} &def);
+            ]])
+        end
         if cv.FUNC.PACK then
             DECL_FUNCS[#DECL_FUNCS + 1] = format_snippet([[
                 void auto_luacv_pack_${CPPCLS_PATH}(lua_State *L, int idx, ${CPPCLS} *value);
@@ -172,6 +177,66 @@ local function gen_check_func(cv, write)
     write('')
 end
 
+local function gen_opt_func(cv, write)
+    local CPPCLS = cv.CPPCLS
+    local CPPCLS_PATH = class_path(CPPCLS)
+    local NUM_ARGS = #cv.PROPS
+    local ARGS_CHUNK = {}
+
+    for _, pi in ipairs(cv.PROPS) do
+        local LUANAME = pi.LUANAME
+        local VARNAME = pi.VARNAME
+        local TYPENAME = pi.TYPE.TYPENAME
+        local CHECK_FUNC
+        local isbase = true
+        if pi.TYPE.DECL_TYPE == 'lua_Number' then
+            CHECK_FUNC = 'olua_checkfieldnumber'
+        elseif pi.TYPE.DECL_TYPE == 'lua_Integer'
+            or pi.TYPE.DECL_TYPE == 'lua_Unsigned' then
+            CHECK_FUNC = 'olua_checkfieldinteger'
+        elseif pi.TYPE.TYPENAME == 'std::string' then
+            CHECK_FUNC = 'olua_checkfieldstring'
+        elseif pi.TYPE.TYPENAME == 'bool' then
+            CHECK_FUNC = 'olua_checkfieldboolean'
+        elseif pi.TYPE.TYPENAME == 'const char *' then
+            CHECK_FUNC = 'olua_checkfieldstring'
+        else
+            CHECK_FUNC = pi.TYPE.FUNC_CHECK_VALUE
+            isbase = false
+            -- error(string.format("%s %s %s", cv.VARNAME, cv.LUANAME, cv.TYPE.TYPENAME))
+        end
+        if isbase then
+            ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
+                value->${VARNAME} = (${TYPENAME})${CHECK_FUNC}(L, idx, "${LUANAME}");
+            ]])
+        else
+            ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
+                olua_rawgetfield(L, -1, "${LUANAME}");
+                ${CHECK_FUNC}(L, idx, &value->${VARNAME});
+                lua_pop(L, 1);
+            ]])
+        end
+    end
+
+    ARGS_CHUNK = table.concat(ARGS_CHUNK, "\n")
+    write(format_snippet([[
+        void auto_luacv_opt_${CPPCLS_PATH}(lua_State *L, int idx, ${CPPCLS} *value, const ${CPPCLS} &def)
+        {
+            if (!value) {
+                luaL_error(L, "value is NULL");
+            }
+            if (olua_isnil(L, idx)) {
+                *value = def;
+            } else {
+                idx = lua_absindex(L, idx);
+                luaL_checktype(L, idx, LUA_TTABLE);
+                ${ARGS_CHUNK}
+            }
+        }
+    ]]))
+    write('')
+end
+
 local function gen_pack_func(cv, write)
     local CPPCLS = cv.CPPCLS
     local CPPCLS_PATH = class_path(CPPCLS)
@@ -285,6 +350,9 @@ local function gen_funcs(cv, write)
     end
     if cv.FUNC.CHECK then
         gen_check_func(cv, write)
+    end
+    if cv.FUNC.OPT then
+        gen_opt_func(cv, write)
     end
     if cv.FUNC.PACK then
         gen_pack_func(cv, write)

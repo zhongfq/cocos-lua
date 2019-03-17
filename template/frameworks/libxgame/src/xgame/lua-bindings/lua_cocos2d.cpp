@@ -13688,6 +13688,37 @@ static int luaopen_cocos2d_Node(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_Label_enableShadow(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    cocos2d::Label *self = nullptr;
+    cocos2d::Color4B arg1;       /** shadowColor */
+    cocos2d::Size arg2;       /** offset */
+    lua_Integer arg3 = 0;   /** blurRadius */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Label");
+    auto_luacv_opt_cocos2d_Color4B(L, 2, &arg1, cocos2d::Color4B::BLACK);
+    auto_luacv_opt_cocos2d_Size(L, 3, &arg2, cocos2d::Size(2, -2));
+    olua_opt_int(L, 4, &arg3, 0);
+
+    // void enableShadow(const Color4B& shadowColor = Color4B::BLACK,const Size &offset = Size(2,-2), int blurRadius = 0)
+    self->enableShadow(arg1, arg2, (int)arg3);
+
+    return 0;
+}
+
+static int luaopen_cocos2d_Label(lua_State *L)
+{
+    oluacls_class(L, "cc.Label", "cc.Node");
+    oluacls_setfunc(L, "enableShadow", _cocos2d_Label_enableShadow);
+
+    olua_registerluatype<cocos2d::Label>(L, "cc.Label");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
 static int _cocos2d_ProtectedNode_create(lua_State *L)
 {
     lua_settop(L, 0);
@@ -16622,6 +16653,7 @@ int luaopen_cocos2d(lua_State *L)
     xlua_require(L, "cc.Image.Format", luaopen_cocos2d_Image_Format);
     xlua_require(L, "cc.Image", luaopen_cocos2d_Image);
     xlua_require(L, "cc.Node", luaopen_cocos2d_Node);
+    xlua_require(L, "cc.Label", luaopen_cocos2d_Label);
     xlua_require(L, "cc.ProtectedNode", luaopen_cocos2d_ProtectedNode);
     xlua_require(L, "cc.Camera", luaopen_cocos2d_Camera);
     xlua_require(L, "cc.Sprite", luaopen_cocos2d_Sprite);

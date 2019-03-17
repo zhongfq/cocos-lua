@@ -197,6 +197,7 @@ REG_TYPE {
         'cocos2d::AnimationFrame *',
         'cocos2d::Image *',
         'cocos2d::Node *',
+        'cocos2d::Label *',
         'cocos2d::ProtectedNode *',
         'cocos2d::Camera *',
         'cocos2d::Sprite *',

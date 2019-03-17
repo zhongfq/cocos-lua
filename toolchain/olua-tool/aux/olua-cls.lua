@@ -206,6 +206,21 @@ function parse_args(cls, args_str)
 
         args_str = string.gsub(args_str, '^[^,]*,? *', '')
 
+        if default then
+            if string.find(default, '%(') then
+                local other = string.match(args_str, '[^)]+%)')
+                default = default .. ', ' .. other
+                args_str = string.gsub(args_str, '^[^)]*%),? *', '')
+                local deft = string.match(default, '[^(]+')
+                local defti = get_typeinfo(deft, cls)
+                default = defti.TYPENAME .. string.match(default, '(%([^()]*%))')
+            elseif string.find(default, '::') then
+                local deft, def = string.match(default, '(.*)::([^:]+)$')
+                local defti = get_typeinfo(deft, cls)
+                default = defti.TYPENAME .. '::' .. def
+            end
+        end
+
         if string.find(typename, 'std::function<') then
             local callback = parse_callback(cls, typename, default)
             args[#args + 1] = {
@@ -558,7 +573,7 @@ function REG_TYPE(typeinfo)
 end
 
 function REG_CONV(ci)
-    local func = ci.FUNC or "push|check|pack|unpack|is"
+    local func = ci.FUNC or "push|check|pack|unpack|opt|is"
     ci.PROPS = {}
     for line in string.gmatch(assert(ci.DEF, 'no DEF'), '[^\n\r]+') do
         local typename, varname, luaname = string.match(line, '([^{} ]+[ *&])([^ *&]+) *= *([^ ;]*)')

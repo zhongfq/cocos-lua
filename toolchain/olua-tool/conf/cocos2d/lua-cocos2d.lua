@@ -61,6 +61,7 @@ M.CLASSES = {
     include("conf/cocos2d/cc/cc.Animation.lua"),
     include("conf/cocos2d/cc/cc.Image.lua"),
     include("conf/cocos2d/cc/cc.Node.lua"),
+    include("conf/cocos2d/cc/cc.Label.lua"),
     include("conf/cocos2d/cc/cc.ProtectedNode.lua"),
     include("conf/cocos2d/cc/cc.Camera.lua"),
     include("conf/cocos2d/cc/cc.Sprite.lua"),

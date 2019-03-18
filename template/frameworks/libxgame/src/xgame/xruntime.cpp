@@ -2,6 +2,7 @@
 #include "xgame/xruntime-private.h"
 #include "xgame/xfilesystem.h"
 #include "xgame/xfilefinder.h"
+#include "xgame/xdownloader.h"
 #include "xgame/xpreferences.h"
 #include "xgame/xrootscene.h"
 #include "xgame/xtimer.h"
@@ -499,6 +500,7 @@ bool RuntimeContext::applicationDidFinishLaunching()
 {
     _scheduler = Director::getInstance()->getScheduler();
     CC_SAFE_RETAIN(_scheduler);
+    downloader::init();
     runtime::init();
     runtime::launch("bootstrap.lua");
     return true;
@@ -521,6 +523,7 @@ void RuntimeContext::applicationWillTerminate()
     lua_close(_luaVM);
     _luaVM = nullptr;
     
+    downloader::end();
     AudioEngine::uncacheAll();
     AudioEngine::end();
     Director::getInstance()->end();

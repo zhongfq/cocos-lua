@@ -6,6 +6,9 @@
 		},
 		{
 			"path": "toolchain"
+		},
+		{
+			"path": "/Users/O/Library/Containers/org.cocos2dx.helloxgame"
 		}
 	]
 }

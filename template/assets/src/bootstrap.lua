@@ -3,6 +3,8 @@ local runtime       = require "kernel.runtime"
 local timer         = require "kernel.timer"
 local preferences   = require "kernel.preferences"
 local window        = require "kernel.window"
+local downloader    = require "kernel.downloader"
+local filesystem    = require "kernel.filesystem"
 local util          = require "util"
 local UserDefault   = require "cc.UserDefault"
 local Node          = require "cc.Node"
@@ -22,7 +24,6 @@ local CallFunc   = require "cc.CallFunc"
 local AnimationFrame = require "cc.AnimationFrame"
 local SpriteFrame = require "cc.SpriteFrame"
 local Component = require "cc.Component"
-local Vec3 = require "cc.Vec3"
 
 window.setDesignSize(1334, 750, 1)
 
@@ -84,8 +85,6 @@ function main()
         print("scheduleOnce")
     end, 1, 'xxxxx')
 
-    local p = Vec3.new()
-    p.x = 3
     print("#", c2.onRemoveCallback)
 
     timer.delay(1, function ( ... )
@@ -101,6 +100,13 @@ function main()
     end)
     director.listener = customListener
     director.eventDispatcher:addEventListenerWithFixedPriority(customListener, 1)
+
+    downloader.setDispatcher(function ( ... )
+        print("#####downloader", ...)
+    end)
+    local url = 'http://cdn.xqw369.com/ttsz/v4/assets/4.0.32/manifest'
+    downloader.load(url, filesystem.cacheDirectory .. '/manifest.json')
+    downloader.load(url .. 'xxx', filesystem.cacheDirectory .. '/manifest.json.x')
 end
 
 function printarr(arr)

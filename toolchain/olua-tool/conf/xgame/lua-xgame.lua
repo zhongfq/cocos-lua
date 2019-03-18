@@ -13,6 +13,7 @@ M.INCLUDES = [[
 #include "xgame/xfilesystem.h"
 #include "xgame/xlua.h"
 #include "xgame/xpreferences.h"
+#include "xgame/xdownloader.h"
 #include "xgame/xruntime.h"
 #include "xgame/xtimer.h"
 #include "olua/olua.hpp"
@@ -24,6 +25,7 @@ M.CLASSES = {
     include("conf/xgame/kernel/kernel.preferences.lua"),
     include("conf/xgame/kernel/kernel.timer.lua"),
     include("conf/xgame/kernel/kernel.window.lua"),
+    include("conf/xgame/kernel/kernel.downloader.lua"),
 }
 
 return M

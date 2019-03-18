@@ -897,7 +897,7 @@ LUALIB_API void olua_check_string(lua_State *L, int idx, const char **value)
 
 LUALIB_API void olua_opt_string(lua_State *L, int idx, const char **value, const char *def)
 {
-    *value = luaL_optstring(L, idx, def);
+    *value = olua_optstring(L, idx, def);
 }
 
 LUALIB_API int olua_push_number(lua_State *L, lua_Number value)
@@ -913,7 +913,7 @@ LUALIB_API void olua_check_number(lua_State *L, int idx, lua_Number *value)
 
 LUALIB_API void olua_opt_number(lua_State *L, int idx, lua_Number *value, lua_Number def)
 {
-    *value = luaL_optnumber(L, idx, def);
+    *value = olua_optnumber(L, idx, def);
 }
 
 LUALIB_API int olua_push_int(lua_State *L, lua_Integer value)
@@ -929,7 +929,7 @@ LUALIB_API void olua_check_int(lua_State *L, int idx, lua_Integer *value)
 
 LUALIB_API void olua_opt_int(lua_State *L, int idx, lua_Integer *value, lua_Integer def)
 {
-    *value = luaL_optinteger(L, idx, def);
+    *value = olua_optinteger(L, idx, def);
 }
 
 LUALIB_API int olua_push_uint(lua_State *L, lua_Unsigned value)
@@ -944,7 +944,7 @@ LUALIB_API void olua_check_uint(lua_State *L, int idx, lua_Unsigned *value)
 
 LUALIB_API void olua_opt_uint(lua_State *L, int idx, lua_Unsigned *value, lua_Unsigned def)
 {
-    *value = (lua_Unsigned)luaL_optinteger(L, idx, (lua_Integer)def);
+    *value = (lua_Unsigned)olua_optinteger(L, idx, (lua_Integer)def);
 }
 
 LUALIB_API int olua_push_obj(lua_State *L, void *obj, const char *cls)

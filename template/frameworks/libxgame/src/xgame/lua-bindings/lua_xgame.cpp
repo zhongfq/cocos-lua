@@ -7,6 +7,7 @@
 #include "xgame/xfilesystem.h"
 #include "xgame/xlua.h"
 #include "xgame/xpreferences.h"
+#include "xgame/xdownloader.h"
 #include "xgame/xruntime.h"
 #include "xgame/xtimer.h"
 #include "olua/olua.hpp"
@@ -941,6 +942,50 @@ static int luaopen_xgame_window(lua_State *L)
     return 1;
 }
 
+static int _xgame_downloader_load(lua_State *L)
+{
+    lua_settop(L, 3);
+    xgame::downloader::FileTask task;
+    task.url = olua_checkstring(L, 1);
+    task.storagePath = olua_checkstring(L, 2);
+    task.md5 = olua_optstring(L, 3, "");
+    xgame::downloader::load(task);
+    return 0;
+}
+
+static int _xgame_downloader_setDispatcher(lua_State *L)
+{
+#define CALLBACK ((void *)_xgame_downloader_setDispatcher)
+    static const char *STATES[] = {"ioerror", "loaded", "valid", "invalid"};
+    lua_settop(L, 1);
+    luaL_checktype(L, 1, LUA_TFUNCTION);
+    lua_rawsetp(L, LUA_REGISTRYINDEX, CALLBACK);
+    xgame::downloader::setDispatcher([](const xgame::downloader::FileTask &task) {
+        lua_State *L = olua_mainthread();
+        int top = lua_gettop(L);
+        lua_pushcfunction(L, xlua_errorfunc);
+        lua_rawgetp(L, LUA_REGISTRYINDEX, CALLBACK);
+        lua_pushstring(L, task.url.c_str());
+        lua_pushstring(L, task.storagePath.c_str());
+        lua_pushstring(L, STATES[task.state]);
+        lua_pcall(L, 3, 0, top + 1);
+        lua_settop(L, top);
+    });
+    return 0;
+}
+
+static int luaopen_xgame_downloader(lua_State *L)
+{
+    oluacls_class(L, "kernel.downloader", nullptr);
+    oluacls_setfunc(L, "load", _xgame_downloader_load);
+    oluacls_setfunc(L, "setDispatcher", _xgame_downloader_setDispatcher);
+
+    olua_registerluatype<xgame::downloader>(L, "kernel.downloader");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
 int luaopen_xgame(lua_State *L)
 {
     olua_require(L, "kernel.runtime", luaopen_xgame_runtime);
@@ -948,5 +993,6 @@ int luaopen_xgame(lua_State *L)
     olua_require(L, "kernel.preferences", luaopen_xgame_preferences);
     olua_require(L, "kernel.timer", luaopen_xgame_timer);
     olua_require(L, "kernel.window", luaopen_xgame_window);
+    olua_require(L, "kernel.downloader", luaopen_xgame_downloader);
     return 0;
 }

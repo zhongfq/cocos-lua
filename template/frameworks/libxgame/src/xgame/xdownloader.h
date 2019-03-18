@@ -3,51 +3,35 @@
 
 #include "xgame/xdef.h"
 
-#include "network/CCDownloader.h"
-
-#include <vector>
 #include <string>
-#include <thread>
-#include <mutex>
-#include <condition_variable>
+#include <functional>
 
 NS_XGAME_BEGIN
-
-enum file_state {
-    IOERROR = 0,
-    LOADED,
-    VALID,
-    INVALID,
-};
-
-class file_task {
-public:
-    std::string url;
-    std::string storage_path;
-    std::string md5;
-    file_state state;
-};
 
 class downloader
 {
 public:
-    downloader();
-    ~downloader();
+    enum FileState {
+        IOERROR = 0,
+        LOADED,
+        VALID,
+        INVALID,
+    };
     
-    void load(file_task task);
-    std::vector<file_task> receive();
+    struct FileTask {
+        std::string url;
+        std::string storagePath;
+        std::string md5;
+        FileState state;
+    };
+    
+    static void load(const FileTask &task);
+    static void setDispatcher(const std::function<void(const FileTask &)> callback);
+    static void init();
+    static void end();
 private:
-    void init();
-    void start();
-private:
-    cocos2d::network::Downloader *_loader;
-    std::vector<file_task> _tasks;
-    std::mutex _mutex;
-    std::vector<file_task> _done_tasks;
-    std::mutex _done_mutex;
-    std::thread *_verify_thread;
-    std::condition_variable _cond;
-    bool _quit;
+    static void start();
+public:
 };
     
 NS_XGAME_END

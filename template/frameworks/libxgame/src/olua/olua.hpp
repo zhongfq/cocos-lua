@@ -104,7 +104,7 @@ template <typename T> void olua_check_std_set(lua_State *L, int idx, std::set<T*
 
 static inline bool olua_is_std_set(lua_State *L, int idx)
 {
-    return lua_istable(L, idx);
+    return olua_istable(L, idx);
 }
 
 template <typename T> int olua_push_std_vector(lua_State *L, const std::vector<T*> &v, const char *cls)
@@ -136,7 +136,7 @@ template <typename T> void olua_check_std_vector(lua_State *L, int idx, std::vec
 
 static inline bool olua_is_std_vector(lua_State *L, int idx)
 {
-    return lua_istable(L, idx);
+    return olua_istable(L, idx);
 }
 
 static inline int olua_push_std_string(lua_State *L, const std::string &value)
@@ -152,12 +152,12 @@ static inline void olua_check_std_string(lua_State *L, int idx, std::string *val
 
 static inline void olua_opt_std_string(lua_State *L, int idx, std::string *value, const std::string &def)
 {
-    *value = luaL_optstring(L, idx, def.c_str());
+    *value = olua_optstring(L, idx, def.c_str());
 }
 
 static inline bool olua_is_std_string(lua_State *L, int idx)
 {
-    return lua_isstring(L, idx);
+    return olua_isstring(L, idx);
 }
 
 template <typename T> int olua_push_std_function(lua_State *L, const std::function<T> value)
@@ -170,7 +170,7 @@ template <typename T> int olua_push_std_function(lua_State *L, const std::functi
 
 static inline bool olua_is_std_function(lua_State *L, int idx)
 {
-    return lua_isfunction(L, idx);
+    return olua_isfunction(L, idx);
 }
 
 #endif

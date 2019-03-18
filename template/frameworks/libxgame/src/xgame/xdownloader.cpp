@@ -4,120 +4,130 @@
 #include "crypto/md5util.h"
 
 #include "platform/CCFileUtils.h"
+#include "network/CCDownloader.h"
+
+#include <vector>
+#include <string>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 using namespace cocos2d;
 using namespace cocos2d::network;
 
 NS_XGAME_BEGIN
 
-downloader::downloader()
-:_quit(false)
-{
-    init();
-}
+static cocos2d::network::Downloader *_loader = nullptr;
+static std::function<void(const downloader::FileTask &)> _callback = nullptr;
+static std::vector<downloader::FileTask> _tasks;
+static std::mutex _mutex;
+static std::thread *_verifyThread = nullptr;
+static std::condition_variable _cond;
+static bool _quit = false;
 
-downloader::~downloader()
+void downloader::end()
 {
-    _quit = true;
-    _cond.notify_one();
-    _verify_thread->join();
-    delete _verify_thread;
-    delete _loader;
+    if (_loader) {
+        _quit = true;
+        _cond.notify_one();
+        _verifyThread->join();
+        delete _verifyThread;
+        delete _loader;
+        _verifyThread = nullptr;
+        _loader = nullptr;
+        _quit = false;
+    }
 }
 
 void downloader::init()
 {
-    _verify_thread = new std::thread(&downloader::start, this);
+    if (_loader) {
+        return;
+    }
+    
+    _verifyThread = new std::thread(&downloader::start);
     
     DownloaderHints hints = {6, 10, ".tmp"};
     _loader = new Downloader(hints);
-    _loader->onTaskError = [this](const DownloadTask &task,
-        int errorCode,
-        int errorCodeInternal,
-        const std::string &errorStr) {
-        file_task file;
+    _loader->onTaskError = [](const DownloadTask &task, int errorCode, int errorCodeInternal, const std::string &errorStr) {
+        FileTask file;
         file.md5 = task.identifier;
         file.url = task.requestURL;
-        file.storage_path = task.storagePath;
-        file.state = file_state::IOERROR;
+        file.storagePath = task.storagePath;
+        file.state = FileState::IOERROR;
         
         std::lock_guard<std::mutex> lck(_mutex);
         _tasks.push_back(file);
         _cond.notify_one();
     };
-    _loader->onFileTaskSuccess = [this](const DownloadTask &task) {
-        file_task file;
+    _loader->onFileTaskSuccess = [](const DownloadTask &task) {
+        FileTask file;
         file.md5 = task.identifier;
         file.url = task.requestURL;
-        file.storage_path = task.storagePath;
-        file.state = file_state::LOADED;
+        file.storagePath = task.storagePath;
+        file.state = FileState::LOADED;
         
         std::lock_guard<std::mutex> lck(_mutex);
         _tasks.push_back(file);
         _cond.notify_one();
     };
 }
+
+void downloader::setDispatcher(const std::function<void(const FileTask &)> callback)
+{
+    _callback = callback;
+}
     
-static bool verify_file(const file_task &task)
+static bool verifyFile(const downloader::FileTask &task)
 {
     unsigned char result[MD5_STR_LEN];
-    return md5f(result, task.storage_path.c_str()) &&
+    return md5f(result, task.storagePath.c_str()) &&
         strcaseequal((const char *)result, task.md5.c_str());
 }
 
-void downloader::load(file_task task)
+void downloader::load(const FileTask &task)
 {
-    auto path = task.storage_path;
+    auto path = task.storagePath;
     auto pos = path.find_last_of("/");
     
-    if (pos != std::string::npos)
+    if (pos != std::string::npos) {
         path = path.substr(0, pos);
+    }
     
     filesystem::createDirectory(path);
-    filesystem::remove(task.storage_path + ".tmp");
-    _loader->createDownloadFileTask(task.url, task.storage_path, task.md5);
-}
-
-std::vector<file_task> downloader::receive()
-{
-    std::lock_guard<std::mutex> lck(_done_mutex);
-    std::vector<file_task> ret(_done_tasks);
-    _done_tasks.clear();
-    return ret;
+    filesystem::remove(task.storagePath + ".tmp");
+    _loader->createDownloadFileTask(task.url, task.storagePath, task.md5);
 }
 
 void downloader::start()
 {
-    while (!_quit)
-    {
+    while (!_quit) {
         _mutex.lock();
-        if (_tasks.size() > 0)
-        {
-            file_task task = _tasks.back();
+        if (_tasks.size() > 0) {
+            FileTask task = _tasks.back();
             _tasks.pop_back();
             _mutex.unlock();
             
-            if (task.state == file_state::LOADED)
-            {
-                if (task.md5.size() > 0)
-                    task.state = verify_file(task) ? file_state::VALID : file_state::INVALID;
-                else
-                    task.state = file_state::VALID;
+            if (task.state == FileState::LOADED) {
+                if (task.md5.size() > 0) {
+                    task.state = verifyFile(task) ? FileState::VALID : FileState::INVALID;
+                } else {
+                    task.state = FileState::VALID;
+                }
             }
             
-            if (task.state != file_state::VALID)
-            {
-                filesystem::remove(task.storage_path);
+            if (task.state != FileState::VALID) {
+                filesystem::remove(task.storagePath);
             }
             
-            _done_mutex.lock();
-            _done_tasks.push_back(task);
-            _done_mutex.unlock();
+            cocos2d::Director::getInstance()->getScheduler()->performFunctionInCocosThread([task]() {
+                if (_callback) {
+                    _callback(task);
+                }
+            });
             
             continue;
-        }
-        else
-        {
+        } else {
             _mutex.unlock();
         }
         

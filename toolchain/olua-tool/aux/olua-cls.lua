@@ -615,7 +615,11 @@ function newcppobj(cls)
     local new = format_snippet([[
         {
             ${CPPCLS} *obj = new ${CPPCLS}();
-            return olua_push_cppobj<${CPPCLS}>(L, obj, "${LUACLS}");
+            olua_push_cppobj<${CPPCLS}>(L, obj, "${LUACLS}");
+            lua_pushstring(L, ".ownership");
+            lua_pushboolean(L, true);
+            olua_setvariable(L, -3);
+            return 1;
         }
     ]])
     return new
@@ -627,10 +631,14 @@ function gccppobj(cls)
     local gc = format_snippet([[
         {
             if (olua_isa(L, 1, "${LUACLS}")) {
-                ${CPPCLS} *obj = olua_touserdata(L, 1, ${CPPCLS} *);
-                if (obj) {
-                    delete obj;
-                    *(void **)lua_touserdata(L, 1) = nullptr;
+                lua_pushstring(L, ".ownership");
+                olua_getvariable(L, -2);
+                if (lua_toboolean(L, -1)) {
+                    ${CPPCLS} *obj = olua_touserdata(L, 1, ${CPPCLS} *);
+                    if (obj) {
+                        delete obj;
+                        *(void **)lua_touserdata(L, 1) = nullptr;
+                    }
                 }
             }
             return 0;

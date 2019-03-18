@@ -512,16 +512,24 @@ static int luaopen_cocos2d_Acceleration(lua_State *L)
 static int _cocos2d_Vec3_new(lua_State *L)
 {
     cocos2d::Vec3 *obj = new cocos2d::Vec3();
-    return olua_push_cppobj<cocos2d::Vec3>(L, obj, "cc.Vec3");
+    olua_push_cppobj<cocos2d::Vec3>(L, obj, "cc.Vec3");
+    lua_pushstring(L, ".ownership");
+    lua_pushboolean(L, true);
+    olua_setvariable(L, -3);
+    return 1;
 }
 
 static int _cocos2d_Vec3___gc(lua_State *L)
 {
     if (olua_isa(L, 1, "cc.Vec3")) {
-        cocos2d::Vec3 *obj = olua_touserdata(L, 1, cocos2d::Vec3 *);
-        if (obj) {
-            delete obj;
-            *(void **)lua_touserdata(L, 1) = nullptr;
+        lua_pushstring(L, ".ownership");
+        olua_getvariable(L, -2);
+        if (lua_toboolean(L, -1)) {
+            cocos2d::Vec3 *obj = olua_touserdata(L, 1, cocos2d::Vec3 *);
+            if (obj) {
+                delete obj;
+                *(void **)lua_touserdata(L, 1) = nullptr;
+            }
         }
     }
     return 0;

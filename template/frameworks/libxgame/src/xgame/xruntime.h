@@ -28,6 +28,7 @@ public:
     static const std::string getOS();
     static const std::string getDeviceInfo();
     static const std::string getNativeStackTrace();
+    static const std::string getLanguage();
     
     // event dispatch
     typedef std::function<void (const std::string &event, const std::string &args)> EventDispatcher;

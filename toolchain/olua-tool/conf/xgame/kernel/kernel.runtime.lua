@@ -18,6 +18,7 @@ cls.prop('versionBuild', 'static const std::string getVersionBuild()')
 cls.prop('channel', 'static const std::string getChannel()')
 cls.prop('os', 'static const std::string getOS()')
 cls.prop('deviceInfo', 'static const std::string getDeviceInfo()')
+cls.prop('language', 'static const std::string getLanguage()')
 cls.prop('logPath', 'static const std::string getLogPath()', 'static void setLogPath(const std::string &path)')
 cls.func("setDispatcher", [[
 {

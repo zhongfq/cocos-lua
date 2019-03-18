@@ -94,3 +94,11 @@ bool __runtime_canOpenURL(const std::string &uri)
     return true;
 #endif
 }
+
+const std::string __runtime_getLanguage()
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSArray *languages = [defaults objectForKey:@"AppleLanguages"];
+    NSString *currentLanguage = [languages objectAtIndex:0];
+    return [currentLanguage UTF8String];
+}

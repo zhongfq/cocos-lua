@@ -269,6 +269,11 @@ const std::string runtime::getNativeStackTrace()
     return __runtime_getNativeStackTrace();
 }
 
+const std::string runtime::getLanguage()
+{
+    return __runtime_getLanguage();
+}
+
 //
 // event dispatch
 //

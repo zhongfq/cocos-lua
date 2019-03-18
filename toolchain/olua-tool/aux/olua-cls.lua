@@ -563,6 +563,10 @@ function REG_TYPE(typeinfo)
             end
         end
 
+        if type(info.CONV_FUNC) == "function" then
+            info.CONV_FUNC = info.CONV_FUNC(typename)
+        end
+
         info.FUNC_PUSH_VALUE = string.gsub(info.CONV_FUNC, '[$]+', "push")
         info.FUNC_TO_VALUE = string.gsub(info.CONV_FUNC, '[$]+', "to")
         info.FUNC_CHECK_VALUE = string.gsub(info.CONV_FUNC, '[$]+', "check")

@@ -640,6 +640,21 @@ static int luaopen_cocos2d_Vec3(lua_State *L)
     return 1;
 }
 
+static int luaopen_cocos2d_SetIntervalReason(lua_State *L)
+{
+    oluacls_class(L, "cc.SetIntervalReason", nullptr);
+    oluacls_const_integer(L, "BY_GAME", (lua_Integer)cocos2d::SetIntervalReason::BY_GAME);
+    oluacls_const_integer(L, "BY_ENGINE", (lua_Integer)cocos2d::SetIntervalReason::BY_ENGINE);
+    oluacls_const_integer(L, "BY_SYSTEM", (lua_Integer)cocos2d::SetIntervalReason::BY_SYSTEM);
+    oluacls_const_integer(L, "BY_SCENE_CHANGE", (lua_Integer)cocos2d::SetIntervalReason::BY_SCENE_CHANGE);
+    oluacls_const_integer(L, "BY_DIRECTOR_PAUSE", (lua_Integer)cocos2d::SetIntervalReason::BY_DIRECTOR_PAUSE);
+
+    olua_registerluatype<cocos2d::SetIntervalReason>(L, "cc.SetIntervalReason");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
 static int luaopen_cocos2d_MATRIX_STACK_TYPE(lua_State *L)
 {
     oluacls_class(L, "cc.MATRIX_STACK_TYPE", nullptr);
@@ -4879,6 +4894,212 @@ static int luaopen_cocos2d_Touch(lua_State *L)
     oluacls_property(L, "maxForce", _cocos2d_Touch_getMaxForce, nullptr);
 
     olua_registerluatype<cocos2d::Touch>(L, "cc.Touch");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_Application_Platform(lua_State *L)
+{
+    oluacls_class(L, "cc.Application.Platform", nullptr);
+    oluacls_const_integer(L, "OS_WINDOWS", (lua_Integer)cocos2d::Application::Platform::OS_WINDOWS);
+    oluacls_const_integer(L, "OS_LINUX", (lua_Integer)cocos2d::Application::Platform::OS_LINUX);
+    oluacls_const_integer(L, "OS_MAC", (lua_Integer)cocos2d::Application::Platform::OS_MAC);
+    oluacls_const_integer(L, "OS_ANDROID", (lua_Integer)cocos2d::Application::Platform::OS_ANDROID);
+    oluacls_const_integer(L, "OS_IPHONE", (lua_Integer)cocos2d::Application::Platform::OS_IPHONE);
+    oluacls_const_integer(L, "OS_IPAD", (lua_Integer)cocos2d::Application::Platform::OS_IPAD);
+    oluacls_const_integer(L, "OS_BLACKBERRY", (lua_Integer)cocos2d::Application::Platform::OS_BLACKBERRY);
+    oluacls_const_integer(L, "OS_NACL", (lua_Integer)cocos2d::Application::Platform::OS_NACL);
+    oluacls_const_integer(L, "OS_EMSCRIPTEN", (lua_Integer)cocos2d::Application::Platform::OS_EMSCRIPTEN);
+    oluacls_const_integer(L, "OS_TIZEN", (lua_Integer)cocos2d::Application::Platform::OS_TIZEN);
+    oluacls_const_integer(L, "OS_WINRT", (lua_Integer)cocos2d::Application::Platform::OS_WINRT);
+    oluacls_const_integer(L, "OS_WP8", (lua_Integer)cocos2d::Application::Platform::OS_WP8);
+
+    olua_registerluatype<cocos2d::Application::Platform>(L, "cc.Application.Platform");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_LanguageType(lua_State *L)
+{
+    oluacls_class(L, "cc.LanguageType", nullptr);
+    oluacls_const_integer(L, "ENGLISH", (lua_Integer)cocos2d::LanguageType::ENGLISH);
+    oluacls_const_integer(L, "CHINESE", (lua_Integer)cocos2d::LanguageType::CHINESE);
+    oluacls_const_integer(L, "FRENCH", (lua_Integer)cocos2d::LanguageType::FRENCH);
+    oluacls_const_integer(L, "ITALIAN", (lua_Integer)cocos2d::LanguageType::ITALIAN);
+    oluacls_const_integer(L, "GERMAN", (lua_Integer)cocos2d::LanguageType::GERMAN);
+    oluacls_const_integer(L, "SPANISH", (lua_Integer)cocos2d::LanguageType::SPANISH);
+    oluacls_const_integer(L, "DUTCH", (lua_Integer)cocos2d::LanguageType::DUTCH);
+    oluacls_const_integer(L, "RUSSIAN", (lua_Integer)cocos2d::LanguageType::RUSSIAN);
+    oluacls_const_integer(L, "KOREAN", (lua_Integer)cocos2d::LanguageType::KOREAN);
+    oluacls_const_integer(L, "JAPANESE", (lua_Integer)cocos2d::LanguageType::JAPANESE);
+    oluacls_const_integer(L, "HUNGARIAN", (lua_Integer)cocos2d::LanguageType::HUNGARIAN);
+    oluacls_const_integer(L, "PORTUGUESE", (lua_Integer)cocos2d::LanguageType::PORTUGUESE);
+    oluacls_const_integer(L, "ARABIC", (lua_Integer)cocos2d::LanguageType::ARABIC);
+    oluacls_const_integer(L, "NORWEGIAN", (lua_Integer)cocos2d::LanguageType::NORWEGIAN);
+    oluacls_const_integer(L, "POLISH", (lua_Integer)cocos2d::LanguageType::POLISH);
+    oluacls_const_integer(L, "TURKISH", (lua_Integer)cocos2d::LanguageType::TURKISH);
+    oluacls_const_integer(L, "UKRAINIAN", (lua_Integer)cocos2d::LanguageType::UKRAINIAN);
+    oluacls_const_integer(L, "ROMANIAN", (lua_Integer)cocos2d::LanguageType::ROMANIAN);
+    oluacls_const_integer(L, "BULGARIAN", (lua_Integer)cocos2d::LanguageType::BULGARIAN);
+    oluacls_const_integer(L, "BELARUSIAN", (lua_Integer)cocos2d::LanguageType::BELARUSIAN);
+
+    olua_registerluatype<cocos2d::LanguageType>(L, "cc.LanguageType");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_Application_setAnimationInterval1(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Application *self = nullptr;
+    lua_Number arg1 = 0;   /** interval */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Application");
+    olua_check_number(L, 2, &arg1);
+
+    // void setAnimationInterval(float interval)
+    self->setAnimationInterval((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Application_setAnimationInterval2(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::Application *self = nullptr;
+    lua_Number arg1 = 0;   /** interval */
+    lua_Unsigned arg2 = 0;   /** reason */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Application");
+    olua_check_number(L, 2, &arg1);
+    olua_check_uint(L, 3, &arg2);
+
+    // void setAnimationInterval(float interval, SetIntervalReason reason)
+    self->setAnimationInterval((float)arg1, (cocos2d::SetIntervalReason)arg2);
+
+    return 0;
+}
+
+static int _cocos2d_Application_setAnimationInterval(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if (olua_is_number(L, 2)) {
+            return _cocos2d_Application_setAnimationInterval1(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if (olua_is_number(L, 2) && olua_is_uint(L, 3)) {
+            return _cocos2d_Application_setAnimationInterval2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Application::setAnimationInterval' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_Application_getInstance(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static Application* getInstance()
+    cocos2d::Application *ret = (cocos2d::Application *)cocos2d::Application::getInstance();
+
+    return olua_push_cppobj<cocos2d::Application>(L, ret, "cc.Application");
+}
+
+static int _cocos2d_Application_getCurrentLanguage(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Application *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Application");
+
+    // LanguageType getCurrentLanguage()
+    cocos2d::LanguageType ret = (cocos2d::LanguageType)self->getCurrentLanguage();
+
+    return olua_push_uint(L, (lua_Unsigned)ret);
+}
+
+static int _cocos2d_Application_getCurrentLanguageCode(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Application *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Application");
+
+    // const char * getCurrentLanguageCode()
+    const char *ret = (const char *)self->getCurrentLanguageCode();
+
+    return olua_push_string(L, ret);
+}
+
+static int _cocos2d_Application_getTargetPlatform(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Application *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Application");
+
+    // Platform getTargetPlatform()
+    cocos2d::Application::Platform ret = (cocos2d::Application::Platform)self->getTargetPlatform();
+
+    return olua_push_uint(L, (lua_Unsigned)ret);
+}
+
+static int _cocos2d_Application_getVersion(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Application *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Application");
+
+    // std::string getVersion()
+    std::string ret = (std::string)self->getVersion();
+
+    return olua_push_std_string(L, ret);
+}
+
+static int _cocos2d_Application_openURL(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Application *self = nullptr;
+    std::string arg1;       /** url */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Application");
+    olua_check_std_string(L, 2, &arg1);
+
+    // bool openURL(const std::string &url)
+    bool ret = (bool)self->openURL(arg1);
+
+    return olua_push_bool(L, ret);
+}
+
+static int luaopen_cocos2d_Application(lua_State *L)
+{
+    oluacls_class(L, "cc.Application", nullptr);
+    oluacls_setfunc(L, "setAnimationInterval", _cocos2d_Application_setAnimationInterval);
+    oluacls_setfunc(L, "getInstance", _cocos2d_Application_getInstance);
+    oluacls_setfunc(L, "getCurrentLanguage", _cocos2d_Application_getCurrentLanguage);
+    oluacls_setfunc(L, "getCurrentLanguageCode", _cocos2d_Application_getCurrentLanguageCode);
+    oluacls_setfunc(L, "getTargetPlatform", _cocos2d_Application_getTargetPlatform);
+    oluacls_setfunc(L, "getVersion", _cocos2d_Application_getVersion);
+    oluacls_setfunc(L, "openURL", _cocos2d_Application_openURL);
+
+    olua_registerluatype<cocos2d::Application>(L, "cc.Application");
     oluacls_createclassproxy(L);
 
     return 1;
@@ -21457,6 +21678,7 @@ int luaopen_cocos2d(lua_State *L)
     olua_require(L, "cc.Ref", luaopen_cocos2d_Ref);
     olua_require(L, "cc.Acceleration", luaopen_cocos2d_Acceleration);
     olua_require(L, "cc.Vec3", luaopen_cocos2d_Vec3);
+    olua_require(L, "cc.SetIntervalReason", luaopen_cocos2d_SetIntervalReason);
     olua_require(L, "cc.MATRIX_STACK_TYPE", luaopen_cocos2d_MATRIX_STACK_TYPE);
     olua_require(L, "cc.Director", luaopen_cocos2d_Director);
     olua_require(L, "cc.Scheduler", luaopen_cocos2d_Scheduler);
@@ -21484,6 +21706,9 @@ int luaopen_cocos2d(lua_State *L)
     olua_require(L, "cc.EventKeyboard.KeyCode", luaopen_cocos2d_EventKeyboard_KeyCode);
     olua_require(L, "cc.Touch.DispatchMode", luaopen_cocos2d_Touch_DispatchMode);
     olua_require(L, "cc.Touch", luaopen_cocos2d_Touch);
+    olua_require(L, "cc.Application.Platform", luaopen_cocos2d_Application_Platform);
+    olua_require(L, "cc.LanguageType", luaopen_cocos2d_LanguageType);
+    olua_require(L, "cc.Application", luaopen_cocos2d_Application);
     olua_require(L, "cc.ResolutionPolicy", luaopen_ResolutionPolicy);
     olua_require(L, "cc.GLView", luaopen_cocos2d_GLView);
     olua_require(L, "cc.GLViewImpl", luaopen_cocos2d_GLViewImpl);

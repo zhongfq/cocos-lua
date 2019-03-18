@@ -242,6 +242,16 @@ static int _xgame_runtime_getDeviceInfo(lua_State *L)
     return olua_push_std_string(L, ret);
 }
 
+static int _xgame_runtime_getLanguage(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static const std::string getLanguage()
+    const std::string ret = (const std::string)xgame::runtime::getLanguage();
+
+    return olua_push_std_string(L, ret);
+}
+
 static int _xgame_runtime_getLogPath(lua_State *L)
 {
     lua_settop(L, 0);
@@ -288,6 +298,7 @@ static int luaopen_xgame_runtime(lua_State *L)
     oluacls_property(L, "channel", _xgame_runtime_getChannel, nullptr);
     oluacls_property(L, "os", _xgame_runtime_getOS, nullptr);
     oluacls_property(L, "deviceInfo", _xgame_runtime_getDeviceInfo, nullptr);
+    oluacls_property(L, "language", _xgame_runtime_getLanguage, nullptr);
     oluacls_property(L, "logPath", _xgame_runtime_getLogPath, _xgame_runtime_setLogPath);
 
     olua_registerluatype<xgame::runtime>(L, "kernel.runtime");

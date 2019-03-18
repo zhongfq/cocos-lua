@@ -10,6 +10,9 @@ local function trace(str)
             goto CONTINUE
         end
         local cls, super = string.match(line, 'class *([^: ]+) *: * public *([^ ,]+)')
+        if not cls then
+            cls = string.match(line, 'class *([^: ]+)')
+        end
         if cls then
             if init then
                 print("]])")

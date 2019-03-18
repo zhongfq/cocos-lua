@@ -155,6 +155,12 @@ REG_TYPE {
 }
 
 REG_TYPE {
+    TYPENAME = 'cocos2d::BlendFunc',
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_BlendFunc',
+    INIT_VALUE = false,
+}
+
+REG_TYPE {
     TYPENAME = table.concat({
         'cocos2d::MATRIX_STACK_TYPE',
         'cocos2d::Director::Projection',
@@ -221,6 +227,10 @@ REG_TYPE {
         'cocos2d::Camera *',
         'cocos2d::Sprite *',
         'cocos2d::Scene *',
+        'cocos2d::Layer *',
+        'cocos2d::LayerColor *',
+        'cocos2d::LayerGradient *',
+        'cocos2d::LayerRadialGradient *',
         'cocos2d::Action *',
         'cocos2d::FiniteTimeAction *',
         'cocos2d::Speed *',

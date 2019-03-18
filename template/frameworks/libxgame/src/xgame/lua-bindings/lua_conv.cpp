@@ -1098,3 +1098,71 @@ bool auto_luacv_is_cocos2d_TTFConfig(lua_State *L, int idx)
 {
     return lua_istable(L, idx);
 }
+
+int auto_luacv_push_cocos2d_BlendFunc(lua_State *L, const cocos2d::BlendFunc *value)
+{
+    if (value) {
+        lua_createtable(L, 0, 2);
+        olua_rawsetfieldinteger(L, -1, "src", (lua_Unsigned)value->src);
+        olua_rawsetfieldinteger(L, -1, "dst", (lua_Unsigned)value->dst);
+    } else {
+        lua_pushnil(L);
+    }
+
+    return 1;
+}
+
+void auto_luacv_check_cocos2d_BlendFunc(lua_State *L, int idx, cocos2d::BlendFunc *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    idx = lua_absindex(L, idx);
+    luaL_checktype(L, idx, LUA_TTABLE);
+    value->src = (GLenum)olua_checkfieldinteger(L, idx, "src");
+    value->dst = (GLenum)olua_checkfieldinteger(L, idx, "dst");
+}
+
+void auto_luacv_opt_cocos2d_BlendFunc(lua_State *L, int idx, cocos2d::BlendFunc *value, const cocos2d::BlendFunc &def)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    if (olua_isnil(L, idx)) {
+        *value = def;
+    } else {
+        idx = lua_absindex(L, idx);
+        luaL_checktype(L, idx, LUA_TTABLE);
+        value->src = (GLenum)olua_checkfieldinteger(L, idx, "src");
+        value->dst = (GLenum)olua_checkfieldinteger(L, idx, "dst");
+    }
+}
+
+void auto_luacv_pack_cocos2d_BlendFunc(lua_State *L, int idx, cocos2d::BlendFunc *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    idx = lua_absindex(L, idx);
+    value->src = (GLenum)olua_checkinteger(L, idx + 0);
+    value->dst = (GLenum)olua_checkinteger(L, idx + 1);
+}
+
+int auto_luacv_unpack_cocos2d_BlendFunc(lua_State *L, const cocos2d::BlendFunc *value)
+{
+    if (value) {
+        lua_pushinteger(L, value->src);
+        lua_pushinteger(L, value->dst);
+    } else {
+        for (int i = 0; i < 2; i++) {
+            lua_pushnil(L);
+        }
+    }
+
+    return 2;
+}
+
+bool auto_luacv_is_cocos2d_BlendFunc(lua_State *L, int idx)
+{
+    return lua_istable(L, idx);
+}

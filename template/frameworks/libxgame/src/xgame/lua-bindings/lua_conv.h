@@ -123,4 +123,12 @@ int auto_luacv_push_cocos2d_TTFConfig(lua_State *L, const cocos2d::TTFConfig *va
 void auto_luacv_check_cocos2d_TTFConfig(lua_State *L, int idx, cocos2d::TTFConfig *value);
 bool auto_luacv_is_cocos2d_TTFConfig(lua_State *L, int idx);
 
+// cocos2d::BlendFunc
+int auto_luacv_push_cocos2d_BlendFunc(lua_State *L, const cocos2d::BlendFunc *value);
+void auto_luacv_check_cocos2d_BlendFunc(lua_State *L, int idx, cocos2d::BlendFunc *value);
+void auto_luacv_opt_cocos2d_BlendFunc(lua_State *L, int idx, cocos2d::BlendFunc *value, const cocos2d::BlendFunc &def);
+void auto_luacv_pack_cocos2d_BlendFunc(lua_State *L, int idx, cocos2d::BlendFunc *value);
+int auto_luacv_unpack_cocos2d_BlendFunc(lua_State *L, const cocos2d::BlendFunc *value);
+bool auto_luacv_is_cocos2d_BlendFunc(lua_State *L, int idx);
+
 #endif

@@ -74,6 +74,7 @@ M.CLASSES = {
     include("conf/cocos2d/cc/2d/sprite-nodes/cc.SpriteFrame.lua"),
     include("conf/cocos2d/cc/2d/sprite-nodes/cc.Sprite.lua"),
     include("conf/cocos2d/cc/2d/layers-scenes-transitions-nodes/cc.Scene.lua"),
+    include("conf/cocos2d/cc/2d/layers-scenes-transitions-nodes/cc.Layer.lua"),
     include("conf/cocos2d/cc/2d/cc.Light.lua"),
     include("conf/cocos2d/cc/2d/cc.Camera.lua"),
 }

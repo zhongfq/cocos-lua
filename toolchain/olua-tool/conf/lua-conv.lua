@@ -170,6 +170,13 @@ M.CONVS = {
             bool strikethrough;
         ]],
         FUNC = 'push|check|is'
+    },
+    REG_CONV {
+        CPPCLS = 'cocos2d::BlendFunc',
+        DEF = [[
+            GLenum src;
+            GLenum dst;
+        ]]
     }
 }
 

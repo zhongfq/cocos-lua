@@ -20024,6 +20024,793 @@ static int luaopen_cocos2d_Scene(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_Layer_create(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static Layer *create()
+    cocos2d::Layer *ret = (cocos2d::Layer *)cocos2d::Layer::create();
+
+    return olua_push_cppobj<cocos2d::Layer>(L, ret, "cc.Layer");
+}
+
+static int luaopen_cocos2d_Layer(lua_State *L)
+{
+    oluacls_class(L, "cc.Layer", "cc.Node");
+    oluacls_setfunc(L, "create", _cocos2d_Layer_create);
+
+    olua_registerluatype<cocos2d::Layer>(L, "cc.Layer");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_LayerColor_create1(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static LayerColor* create()
+    cocos2d::LayerColor *ret = (cocos2d::LayerColor *)cocos2d::LayerColor::create();
+
+    return olua_push_cppobj<cocos2d::LayerColor>(L, ret, "cc.LayerColor");
+}
+
+static int _cocos2d_LayerColor_create2(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::Color4B arg1;       /** color */
+    lua_Number arg2 = 0;   /** width */
+    lua_Number arg3 = 0;   /** height */
+
+    manual_luacv_check_cocos2d_Color4B(L, 1, &arg1);
+    olua_check_number(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+
+    // static LayerColor * create(const Color4B& color, GLfloat width, GLfloat height)
+    cocos2d::LayerColor *ret = (cocos2d::LayerColor *)cocos2d::LayerColor::create(arg1, (GLfloat)arg2, (GLfloat)arg3);
+
+    return olua_push_cppobj<cocos2d::LayerColor>(L, ret, "cc.LayerColor");
+}
+
+static int _cocos2d_LayerColor_create3(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Color4B arg1;       /** color */
+
+    manual_luacv_check_cocos2d_Color4B(L, 1, &arg1);
+
+    // static LayerColor * create(const Color4B& color)
+    cocos2d::LayerColor *ret = (cocos2d::LayerColor *)cocos2d::LayerColor::create(arg1);
+
+    return olua_push_cppobj<cocos2d::LayerColor>(L, ret, "cc.LayerColor");
+}
+
+static int _cocos2d_LayerColor_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        return _cocos2d_LayerColor_create1(L);
+    }
+
+    if (num_args == 1) {
+        // if (manual_luacv_is_cocos2d_Color4B(L, 1)) {
+            return _cocos2d_LayerColor_create3(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if (manual_luacv_is_cocos2d_Color4B(L, 1) && olua_is_number(L, 2) && olua_is_number(L, 3)) {
+            return _cocos2d_LayerColor_create2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::LayerColor::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_LayerColor_changeWidth(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::LayerColor *self = nullptr;
+    lua_Number arg1 = 0;   /** w */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LayerColor");
+    olua_check_number(L, 2, &arg1);
+
+    // void changeWidth(GLfloat w)
+    self->changeWidth((GLfloat)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_LayerColor_changeHeight(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::LayerColor *self = nullptr;
+    lua_Number arg1 = 0;   /** h */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LayerColor");
+    olua_check_number(L, 2, &arg1);
+
+    // void changeHeight(GLfloat h)
+    self->changeHeight((GLfloat)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_LayerColor_changeWidthAndHeight(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::LayerColor *self = nullptr;
+    lua_Number arg1 = 0;   /** w */
+    lua_Number arg2 = 0;   /** h */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LayerColor");
+    olua_check_number(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+
+    // void changeWidthAndHeight(GLfloat w ,GLfloat h)
+    self->changeWidthAndHeight((GLfloat)arg1, (GLfloat)arg2);
+
+    return 0;
+}
+
+static int _cocos2d_LayerColor_getBlendFunc(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::LayerColor *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LayerColor");
+
+    // const BlendFunc& getBlendFunc()
+    const cocos2d::BlendFunc &ret = (const cocos2d::BlendFunc &)self->getBlendFunc();
+
+    return auto_luacv_push_cocos2d_BlendFunc(L, &ret);
+}
+
+static int _cocos2d_LayerColor_setBlendFunc(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::LayerColor *self = nullptr;
+    cocos2d::BlendFunc arg1;       /** blendFunc */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LayerColor");
+    auto_luacv_check_cocos2d_BlendFunc(L, 2, &arg1);
+
+    // void setBlendFunc(const BlendFunc& blendFunc)
+    self->setBlendFunc(arg1);
+
+    return 0;
+}
+
+static int luaopen_cocos2d_LayerColor(lua_State *L)
+{
+    oluacls_class(L, "cc.LayerColor", "cc.Layer");
+    oluacls_setfunc(L, "create", _cocos2d_LayerColor_create);
+    oluacls_setfunc(L, "changeWidth", _cocos2d_LayerColor_changeWidth);
+    oluacls_setfunc(L, "changeHeight", _cocos2d_LayerColor_changeHeight);
+    oluacls_setfunc(L, "changeWidthAndHeight", _cocos2d_LayerColor_changeWidthAndHeight);
+    oluacls_setfunc(L, "getBlendFunc", _cocos2d_LayerColor_getBlendFunc);
+    oluacls_setfunc(L, "setBlendFunc", _cocos2d_LayerColor_setBlendFunc);
+    oluacls_property(L, "blendFunc", _cocos2d_LayerColor_getBlendFunc, _cocos2d_LayerColor_setBlendFunc);
+
+    olua_registerluatype<cocos2d::LayerColor>(L, "cc.LayerColor");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_LayerGradient_create1(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static LayerGradient* create()
+    cocos2d::LayerGradient *ret = (cocos2d::LayerGradient *)cocos2d::LayerGradient::create();
+
+    return olua_push_cppobj<cocos2d::LayerGradient>(L, ret, "cc.LayerGradient");
+}
+
+static int _cocos2d_LayerGradient_create2(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Color4B arg1;       /** start */
+    cocos2d::Color4B arg2;       /** end */
+
+    manual_luacv_check_cocos2d_Color4B(L, 1, &arg1);
+    manual_luacv_check_cocos2d_Color4B(L, 2, &arg2);
+
+    // static LayerGradient* create(const Color4B& start, const Color4B& end)
+    cocos2d::LayerGradient *ret = (cocos2d::LayerGradient *)cocos2d::LayerGradient::create(arg1, arg2);
+
+    return olua_push_cppobj<cocos2d::LayerGradient>(L, ret, "cc.LayerGradient");
+}
+
+static int _cocos2d_LayerGradient_create3(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::Color4B arg1;       /** start */
+    cocos2d::Color4B arg2;       /** end */
+    cocos2d::Vec2 arg3;       /** v */
+
+    manual_luacv_check_cocos2d_Color4B(L, 1, &arg1);
+    manual_luacv_check_cocos2d_Color4B(L, 2, &arg2);
+    auto_luacv_check_cocos2d_Vec2(L, 3, &arg3);
+
+    // static LayerGradient* create(const Color4B& start, const Color4B& end, const Vec2& v)
+    cocos2d::LayerGradient *ret = (cocos2d::LayerGradient *)cocos2d::LayerGradient::create(arg1, arg2, arg3);
+
+    return olua_push_cppobj<cocos2d::LayerGradient>(L, ret, "cc.LayerGradient");
+}
+
+static int _cocos2d_LayerGradient_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        return _cocos2d_LayerGradient_create1(L);
+    }
+
+    if (num_args == 2) {
+        // if (manual_luacv_is_cocos2d_Color4B(L, 1) && manual_luacv_is_cocos2d_Color4B(L, 2)) {
+            return _cocos2d_LayerGradient_create2(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if (manual_luacv_is_cocos2d_Color4B(L, 1) && manual_luacv_is_cocos2d_Color4B(L, 2) && auto_luacv_is_cocos2d_Vec2(L, 3)) {
+            return _cocos2d_LayerGradient_create3(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::LayerGradient::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_LayerGradient_setCompressedInterpolation(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::LayerGradient *self = nullptr;
+    bool arg1 = false;   /** compressedInterpolation */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LayerGradient");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setCompressedInterpolation(bool compressedInterpolation)
+    self->setCompressedInterpolation(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_LayerGradient_isCompressedInterpolation(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::LayerGradient *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LayerGradient");
+
+    // bool isCompressedInterpolation()
+    bool ret = (bool)self->isCompressedInterpolation();
+
+    return olua_push_bool(L, ret);
+}
+
+static int _cocos2d_LayerGradient_setStartColor(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::LayerGradient *self = nullptr;
+    cocos2d::Color3B arg1;       /** startColor */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LayerGradient");
+    manual_luacv_check_cocos2d_Color3B(L, 2, &arg1);
+
+    // void setStartColor( const Color3B& startColor )
+    self->setStartColor(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_LayerGradient_getStartColor(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::LayerGradient *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LayerGradient");
+
+    // const Color3B& getStartColor()
+    const cocos2d::Color3B &ret = (const cocos2d::Color3B &)self->getStartColor();
+
+    return manual_luacv_push_cocos2d_Color3B(L, &ret);
+}
+
+static int _cocos2d_LayerGradient_setEndColor(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::LayerGradient *self = nullptr;
+    cocos2d::Color3B arg1;       /** endColor */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LayerGradient");
+    manual_luacv_check_cocos2d_Color3B(L, 2, &arg1);
+
+    // void setEndColor( const Color3B& endColor )
+    self->setEndColor(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_LayerGradient_getEndColor(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::LayerGradient *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LayerGradient");
+
+    // const Color3B& getEndColor()
+    const cocos2d::Color3B &ret = (const cocos2d::Color3B &)self->getEndColor();
+
+    return manual_luacv_push_cocos2d_Color3B(L, &ret);
+}
+
+static int _cocos2d_LayerGradient_setStartOpacity(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::LayerGradient *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** startOpacity */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LayerGradient");
+    olua_check_uint(L, 2, &arg1);
+
+    // void setStartOpacity( GLubyte startOpacity )
+    self->setStartOpacity((GLubyte)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_LayerGradient_getStartOpacity(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::LayerGradient *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LayerGradient");
+
+    // GLubyte getStartOpacity()
+    GLubyte ret = (GLubyte)self->getStartOpacity();
+
+    return olua_push_uint(L, (lua_Unsigned)ret);
+}
+
+static int _cocos2d_LayerGradient_setEndOpacity(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::LayerGradient *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** endOpacity */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LayerGradient");
+    olua_check_uint(L, 2, &arg1);
+
+    // void setEndOpacity( GLubyte endOpacity )
+    self->setEndOpacity((GLubyte)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_LayerGradient_getEndOpacity(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::LayerGradient *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LayerGradient");
+
+    // GLubyte getEndOpacity()
+    GLubyte ret = (GLubyte)self->getEndOpacity();
+
+    return olua_push_uint(L, (lua_Unsigned)ret);
+}
+
+static int _cocos2d_LayerGradient_setVector(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::LayerGradient *self = nullptr;
+    cocos2d::Vec2 arg1;       /** alongVector */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LayerGradient");
+    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+
+    // void setVector(@pack const Vec2& alongVector)
+    self->setVector(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_LayerGradient_getVector(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::LayerGradient *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LayerGradient");
+
+    // @unapck const Vec2& getVector()
+    const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getVector();
+
+    return auto_luacv_push_cocos2d_Vec2(L, &ret);
+}
+
+static int luaopen_cocos2d_LayerGradient(lua_State *L)
+{
+    oluacls_class(L, "cc.LayerGradient", "cc.LayerColor");
+    oluacls_setfunc(L, "create", _cocos2d_LayerGradient_create);
+    oluacls_setfunc(L, "setCompressedInterpolation", _cocos2d_LayerGradient_setCompressedInterpolation);
+    oluacls_setfunc(L, "isCompressedInterpolation", _cocos2d_LayerGradient_isCompressedInterpolation);
+    oluacls_setfunc(L, "setStartColor", _cocos2d_LayerGradient_setStartColor);
+    oluacls_setfunc(L, "getStartColor", _cocos2d_LayerGradient_getStartColor);
+    oluacls_setfunc(L, "setEndColor", _cocos2d_LayerGradient_setEndColor);
+    oluacls_setfunc(L, "getEndColor", _cocos2d_LayerGradient_getEndColor);
+    oluacls_setfunc(L, "setStartOpacity", _cocos2d_LayerGradient_setStartOpacity);
+    oluacls_setfunc(L, "getStartOpacity", _cocos2d_LayerGradient_getStartOpacity);
+    oluacls_setfunc(L, "setEndOpacity", _cocos2d_LayerGradient_setEndOpacity);
+    oluacls_setfunc(L, "getEndOpacity", _cocos2d_LayerGradient_getEndOpacity);
+    oluacls_setfunc(L, "setVector", _cocos2d_LayerGradient_setVector);
+    oluacls_setfunc(L, "getVector", _cocos2d_LayerGradient_getVector);
+    oluacls_property(L, "compressedInterpolation", _cocos2d_LayerGradient_isCompressedInterpolation, _cocos2d_LayerGradient_setCompressedInterpolation);
+    oluacls_property(L, "startColor", _cocos2d_LayerGradient_getStartColor, _cocos2d_LayerGradient_setStartColor);
+    oluacls_property(L, "endColor", _cocos2d_LayerGradient_getEndColor, _cocos2d_LayerGradient_setEndColor);
+    oluacls_property(L, "startOpacity", _cocos2d_LayerGradient_getStartOpacity, _cocos2d_LayerGradient_setStartOpacity);
+    oluacls_property(L, "endOpacity", _cocos2d_LayerGradient_getEndOpacity, _cocos2d_LayerGradient_setEndOpacity);
+
+    olua_registerluatype<cocos2d::LayerGradient>(L, "cc.LayerGradient");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_LayerRadialGradient_create1(lua_State *L)
+{
+    lua_settop(L, 5);
+
+    cocos2d::Color4B arg1;       /** startColor */
+    cocos2d::Color4B arg2;       /** endColor */
+    lua_Number arg3 = 0;   /** radius */
+    cocos2d::Vec2 arg4;       /** center */
+    lua_Number arg5 = 0;   /** expand */
+
+    manual_luacv_check_cocos2d_Color4B(L, 1, &arg1);
+    manual_luacv_check_cocos2d_Color4B(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+    auto_luacv_check_cocos2d_Vec2(L, 4, &arg4);
+    olua_check_number(L, 5, &arg5);
+
+    // static LayerRadialGradient* create(const Color4B& startColor, const Color4B& endColor, float radius, const Vec2& center, float expand)
+    cocos2d::LayerRadialGradient *ret = (cocos2d::LayerRadialGradient *)cocos2d::LayerRadialGradient::create(arg1, arg2, (float)arg3, arg4, (float)arg5);
+
+    return olua_push_cppobj<cocos2d::LayerRadialGradient>(L, ret, "cc.LayerRadialGradient");
+}
+
+static int _cocos2d_LayerRadialGradient_create2(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static LayerRadialGradient* create()
+    cocos2d::LayerRadialGradient *ret = (cocos2d::LayerRadialGradient *)cocos2d::LayerRadialGradient::create();
+
+    return olua_push_cppobj<cocos2d::LayerRadialGradient>(L, ret, "cc.LayerRadialGradient");
+}
+
+static int _cocos2d_LayerRadialGradient_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        return _cocos2d_LayerRadialGradient_create2(L);
+    }
+
+    if (num_args == 5) {
+        // if (manual_luacv_is_cocos2d_Color4B(L, 1) && manual_luacv_is_cocos2d_Color4B(L, 2) && olua_is_number(L, 3) && auto_luacv_is_cocos2d_Vec2(L, 4) && olua_is_number(L, 5)) {
+            return _cocos2d_LayerRadialGradient_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::LayerRadialGradient::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_LayerRadialGradient_setStartOpacity(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::LayerRadialGradient *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** opacity */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LayerRadialGradient");
+    olua_check_uint(L, 2, &arg1);
+
+    // void setStartOpacity(GLubyte opacity)
+    self->setStartOpacity((GLubyte)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_LayerRadialGradient_getStartOpacity(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::LayerRadialGradient *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LayerRadialGradient");
+
+    // GLubyte getStartOpacity()
+    GLubyte ret = (GLubyte)self->getStartOpacity();
+
+    return olua_push_uint(L, (lua_Unsigned)ret);
+}
+
+static int _cocos2d_LayerRadialGradient_setEndOpacity(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::LayerRadialGradient *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** opacity */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LayerRadialGradient");
+    olua_check_uint(L, 2, &arg1);
+
+    // void setEndOpacity(GLubyte opacity)
+    self->setEndOpacity((GLubyte)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_LayerRadialGradient_getEndOpacity(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::LayerRadialGradient *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LayerRadialGradient");
+
+    // GLubyte getEndOpacity()
+    GLubyte ret = (GLubyte)self->getEndOpacity();
+
+    return olua_push_uint(L, (lua_Unsigned)ret);
+}
+
+static int _cocos2d_LayerRadialGradient_setRadius(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::LayerRadialGradient *self = nullptr;
+    lua_Number arg1 = 0;   /** radius */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LayerRadialGradient");
+    olua_check_number(L, 2, &arg1);
+
+    // void setRadius(float radius)
+    self->setRadius((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_LayerRadialGradient_getRadius(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::LayerRadialGradient *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LayerRadialGradient");
+
+    // float getRadius()
+    float ret = (float)self->getRadius();
+
+    return olua_push_number(L, (lua_Number)ret);
+}
+
+static int _cocos2d_LayerRadialGradient_setCenter(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::LayerRadialGradient *self = nullptr;
+    cocos2d::Vec2 arg1;       /** center */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LayerRadialGradient");
+    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+
+    // void setCenter(@pack const Vec2& center)
+    self->setCenter(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_LayerRadialGradient_getCenter(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::LayerRadialGradient *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LayerRadialGradient");
+
+    // @unpack Vec2 getCenter()
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->getCenter();
+
+    return auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+}
+
+static int _cocos2d_LayerRadialGradient_setExpand(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::LayerRadialGradient *self = nullptr;
+    lua_Number arg1 = 0;   /** expand */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LayerRadialGradient");
+    olua_check_number(L, 2, &arg1);
+
+    // void setExpand(float expand)
+    self->setExpand((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_LayerRadialGradient_getExpand(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::LayerRadialGradient *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LayerRadialGradient");
+
+    // float getExpand()
+    float ret = (float)self->getExpand();
+
+    return olua_push_number(L, (lua_Number)ret);
+}
+
+static int _cocos2d_LayerRadialGradient_setStartColor(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::LayerRadialGradient *self = nullptr;
+    cocos2d::Color4B arg1;       /** color */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LayerRadialGradient");
+    manual_luacv_check_cocos2d_Color4B(L, 2, &arg1);
+
+    // void setStartColor(const Color4B& color)
+    self->setStartColor(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_LayerRadialGradient_getStartColor(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::LayerRadialGradient *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LayerRadialGradient");
+
+    // Color4B getStartColor()
+    cocos2d::Color4B ret = (cocos2d::Color4B)self->getStartColor();
+
+    return manual_luacv_push_cocos2d_Color4B(L, &ret);
+}
+
+static int _cocos2d_LayerRadialGradient_setEndColor(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::LayerRadialGradient *self = nullptr;
+    cocos2d::Color4B arg1;       /** color */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LayerRadialGradient");
+    manual_luacv_check_cocos2d_Color4B(L, 2, &arg1);
+
+    // void setEndColor(const Color4B& color)
+    self->setEndColor(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_LayerRadialGradient_getEndColor(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::LayerRadialGradient *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LayerRadialGradient");
+
+    // Color4B getEndColor()
+    cocos2d::Color4B ret = (cocos2d::Color4B)self->getEndColor();
+
+    return manual_luacv_push_cocos2d_Color4B(L, &ret);
+}
+
+static int _cocos2d_LayerRadialGradient_setBlendFunc(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::LayerRadialGradient *self = nullptr;
+    cocos2d::BlendFunc arg1;       /** blendFunc */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LayerRadialGradient");
+    auto_luacv_check_cocos2d_BlendFunc(L, 2, &arg1);
+
+    // void setBlendFunc(const BlendFunc& blendFunc)
+    self->setBlendFunc(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_LayerRadialGradient_getBlendFunc(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::LayerRadialGradient *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LayerRadialGradient");
+
+    // BlendFunc getBlendFunc()
+    cocos2d::BlendFunc ret = (cocos2d::BlendFunc)self->getBlendFunc();
+
+    return auto_luacv_push_cocos2d_BlendFunc(L, &ret);
+}
+
+static int luaopen_cocos2d_LayerRadialGradient(lua_State *L)
+{
+    oluacls_class(L, "cc.LayerRadialGradient", "cc.Layer");
+    oluacls_setfunc(L, "create", _cocos2d_LayerRadialGradient_create);
+    oluacls_setfunc(L, "setStartOpacity", _cocos2d_LayerRadialGradient_setStartOpacity);
+    oluacls_setfunc(L, "getStartOpacity", _cocos2d_LayerRadialGradient_getStartOpacity);
+    oluacls_setfunc(L, "setEndOpacity", _cocos2d_LayerRadialGradient_setEndOpacity);
+    oluacls_setfunc(L, "getEndOpacity", _cocos2d_LayerRadialGradient_getEndOpacity);
+    oluacls_setfunc(L, "setRadius", _cocos2d_LayerRadialGradient_setRadius);
+    oluacls_setfunc(L, "getRadius", _cocos2d_LayerRadialGradient_getRadius);
+    oluacls_setfunc(L, "setCenter", _cocos2d_LayerRadialGradient_setCenter);
+    oluacls_setfunc(L, "getCenter", _cocos2d_LayerRadialGradient_getCenter);
+    oluacls_setfunc(L, "setExpand", _cocos2d_LayerRadialGradient_setExpand);
+    oluacls_setfunc(L, "getExpand", _cocos2d_LayerRadialGradient_getExpand);
+    oluacls_setfunc(L, "setStartColor", _cocos2d_LayerRadialGradient_setStartColor);
+    oluacls_setfunc(L, "getStartColor", _cocos2d_LayerRadialGradient_getStartColor);
+    oluacls_setfunc(L, "setEndColor", _cocos2d_LayerRadialGradient_setEndColor);
+    oluacls_setfunc(L, "getEndColor", _cocos2d_LayerRadialGradient_getEndColor);
+    oluacls_setfunc(L, "setBlendFunc", _cocos2d_LayerRadialGradient_setBlendFunc);
+    oluacls_setfunc(L, "getBlendFunc", _cocos2d_LayerRadialGradient_getBlendFunc);
+    oluacls_property(L, "startOpacity", _cocos2d_LayerRadialGradient_getStartOpacity, _cocos2d_LayerRadialGradient_setStartOpacity);
+    oluacls_property(L, "endOpacity", _cocos2d_LayerRadialGradient_getEndOpacity, _cocos2d_LayerRadialGradient_setEndOpacity);
+    oluacls_property(L, "radius", _cocos2d_LayerRadialGradient_getRadius, _cocos2d_LayerRadialGradient_setRadius);
+    oluacls_property(L, "expand", _cocos2d_LayerRadialGradient_getExpand, _cocos2d_LayerRadialGradient_setExpand);
+    oluacls_property(L, "startColor", _cocos2d_LayerRadialGradient_getStartColor, _cocos2d_LayerRadialGradient_setStartColor);
+    oluacls_property(L, "endColor", _cocos2d_LayerRadialGradient_getEndColor, _cocos2d_LayerRadialGradient_setEndColor);
+    oluacls_property(L, "blendFunc", _cocos2d_LayerRadialGradient_getBlendFunc, _cocos2d_LayerRadialGradient_setBlendFunc);
+
+    olua_registerluatype<cocos2d::LayerRadialGradient>(L, "cc.LayerRadialGradient");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
 static int luaopen_cocos2d_LightType(lua_State *L)
 {
     oluacls_class(L, "cc.LightType", nullptr);
@@ -20820,6 +21607,10 @@ int luaopen_cocos2d(lua_State *L)
     olua_require(L, "cc.SpriteFrame", luaopen_cocos2d_SpriteFrame);
     olua_require(L, "cc.Sprite", luaopen_cocos2d_Sprite);
     olua_require(L, "cc.Scene", luaopen_cocos2d_Scene);
+    olua_require(L, "cc.Layer", luaopen_cocos2d_Layer);
+    olua_require(L, "cc.LayerColor", luaopen_cocos2d_LayerColor);
+    olua_require(L, "cc.LayerGradient", luaopen_cocos2d_LayerGradient);
+    olua_require(L, "cc.LayerRadialGradient", luaopen_cocos2d_LayerRadialGradient);
     olua_require(L, "cc.LightType", luaopen_cocos2d_LightType);
     olua_require(L, "cc.LightFlag", luaopen_cocos2d_LightFlag);
     olua_require(L, "cc.BaseLight", luaopen_cocos2d_BaseLight);

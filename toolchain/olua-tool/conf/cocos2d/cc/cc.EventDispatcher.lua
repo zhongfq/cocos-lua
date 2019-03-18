@@ -61,4 +61,12 @@ cls.func('addCustomEventListener', [[
 
     return 1;
 }]])
+cls.func('addEventListener', [[
+{
+    lua_settop(L, 2);
+    cocos2d::EventDispatcher *self = (cocos2d::EventDispatcher *)olua_toobj(L, 1, "cc.EventDispatcher");
+    cocos2d::EventListener *listener = (cocos2d::EventListener *)olua_checkobj(L, 2, "cc.EventListener");
+    self->addEventListenerWithFixedPriority(listener, 1);
+    return 0;
+}]])
 return cls

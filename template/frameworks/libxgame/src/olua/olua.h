@@ -33,10 +33,10 @@ extern "C" {
 #define olua_newuserdata(L, obj, t) (*(t*)lua_newuserdata(L, sizeof(t)) = (obj))
 #define olua_touserdata(L, n, t)    (*(t*)lua_touserdata(L, (n)))
     
-#ifndef OLUA_MAINTHREAD
-#error "'OLUA_MAINTHREAD' not defined"
-#else
+#ifdef OLUA_MAINTHREAD
 #define olua_mainthread OLUA_MAINTHREAD
+#else
+#define olua_mainthread (static_assert(false), NULL)
 #endif
 
 LUALIB_API lua_Integer olua_checkinteger(lua_State *L, int idx);

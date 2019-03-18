@@ -67,7 +67,7 @@ cls.LUACLS = "cc.CallFunc"
 cls.SUPERCLS = "cc.ActionInstant"
 cls.callback(nil, 
     {
-        CALLBACK_MAKER = 'olua_makecallbacktag("callFunc")',
+        CALLBACK_MAKER = 'olua_makecallbacktag("CallFunc")',
         CALLBACK_INITFUNC = 'initWithFunction',
     },
     'static CallFunc * create(const std::function<void()>& func)'

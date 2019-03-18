@@ -309,30 +309,11 @@ local cls = class(M)
 cls.CPPCLS = "cocos2d::ActionFloat"
 cls.LUACLS = "cc.ActionFloat"
 cls.SUPERCLS = "cc.ActionInterval"
-cls.func('create', [[
-{
-    lua_settop(L, 4);
-
-    float duration = (float)olua_checknumber(L, 1);
-    float from = (float)olua_checknumber(L, 2);
-    float to = (float)olua_checknumber(L, 3);
-
-    cocos2d::ActionFloat *ret = new cocos2d::ActionFloat();
-    ret->autorelease();
-    olua_push_cppobj<cocos2d::ActionFloat>(L, ret, "cc.ActionFloat");
-
-    void *callback_store_obj = (void *)ret;
-    std::string func = olua_setcallback(L, callback_store_obj, "actionFloat", 4, OLUA_CALLBACK_TAG_NEW);
-    auto callback = [callback_store_obj, func](float delta) {
-        lua_State *L = olua_mainthread();
-        int top = lua_gettop(L);
-        olua_push_number(L, (lua_Number)delta);
-        olua_callback(L, callback_store_obj, func.c_str(), 1);
-        lua_settop(L, top);
-    };
-    ret->initWithDuration(duration, from, to, callback);
-
-    return olua_push_cppobj<cocos2d::ActionFloat>(L, ret, "cc.ActionFloat");
-}]])
+cls.callback(nil, {
+        CALLBACK_MAKER = 'olua_makecallbacktag("ActionFloat")',
+        CALLBACK_INITFUNC = 'initWithDuration',
+    },
+    'static ActionFloat* create(float duration, float from, float to, std::function<void(float value)> callback)'
+)
 
 return M

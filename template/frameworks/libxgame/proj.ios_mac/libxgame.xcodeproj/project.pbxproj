@@ -896,7 +896,8 @@
 					"CC_CONSTRUCTOR_ACCESS=public",
 					"CC_FILEUTILS_APPLE_ENABLE_OBJC=0",
 					OLUA_DEBUG,
-					"TOLUA_REPORT_PUSH_STATUS=xlua_report_push_status",
+					"OLUA_REPORT_PUSH_STATUS=xlua_report_push_status",
+					"OLUA_MAINTHREAD=xlua_cocosthread",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -968,7 +969,8 @@
 					"CC_ENABLE_SCRIPT_BINDING=0",
 					"CC_CONSTRUCTOR_ACCESS=public",
 					"CC_FILEUTILS_APPLE_ENABLE_OBJC=0",
-					"TOLUA_REPORT_PUSH_STATUS=xlua_report_push_status",
+					"OLUA_REPORT_PUSH_STATUS=xlua_report_push_status",
+					"OLUA_MAINTHREAD=xlua_cocosthread",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

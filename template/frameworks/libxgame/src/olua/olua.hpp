@@ -47,9 +47,9 @@ static inline const char *olua_getluatype(lua_State *L, void *obj, const char *c
 template <typename T> int olua_push_cppobj(lua_State *L, T* value, const char *cls)
 {
     cls = olua_getluatype(L, value, cls);
-#ifdef TOLUA_REPORT_PUSH_STATUS
+#ifdef OLUA_REPORT_PUSH_STATUS
     int status = olua_pushobj(L, value, cls);
-    TOLUA_REPORT_PUSH_STATUS(L, value, status);
+    OLUA_REPORT_PUSH_STATUS(L, value, status);
 #else
     olua_pushobj(L, value, cls);
 #endif

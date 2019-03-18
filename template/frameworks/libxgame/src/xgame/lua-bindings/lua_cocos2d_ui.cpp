@@ -45,6 +45,6 @@ static int luaopen_cocos2d_ui_Widget(lua_State *L)
 
 int luaopen_cocos2d_ui(lua_State *L)
 {
-    xlua_require(L, "ccui.Widget", luaopen_cocos2d_ui_Widget);
+    olua_require(L, "ccui.Widget", luaopen_cocos2d_ui_Widget);
     return 0;
 }

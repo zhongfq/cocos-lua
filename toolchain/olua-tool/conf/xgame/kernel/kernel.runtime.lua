@@ -23,7 +23,7 @@ cls.func("setDispatcher", [[
 {
     int handler = xlua_reffunc(L, 1);
     xgame::runtime::setDispatcher([handler](const std::string &event, const std::string &args) {
-        lua_State *L = xlua_cocosthread();
+        lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
         lua_pushcfunction(L, xlua_errorfunc);
         xlua_getref(L, handler);
@@ -45,7 +45,7 @@ cls.func("openURL", [[
     }
     xgame::runtime::openURL(olua_checkstring(L, 1), [callback](bool success) {
         if (callback != LUA_REFNIL) {
-            lua_State *L = xlua_cocosthread();
+            lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
             lua_pushcfunction(L, xlua_errorfunc);
             xlua_getref(L, callback);

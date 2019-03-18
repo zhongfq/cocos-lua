@@ -191,32 +191,9 @@ lua_State *xlua_new()
     return L;
 }
 
-lua_State *xlua_mainthread(lua_State *L)
-{
-    lua_rawgeti(L, LUA_REGISTRYINDEX, LUA_RIDX_MAINTHREAD);
-    lua_State *GL = lua_tothread(L, -1);
-    lua_pop(L, 1);
-    return GL;
-}
-
 lua_State *xlua_cocosthread()
 {
     return runtime::luaVM();
-}
-
-void xlua_preload(lua_State *L, const char *name, lua_CFunction func)
-{
-    luaL_getsubtable(L, LUA_REGISTRYINDEX, LUA_PRELOAD_TABLE);  // L: preload
-    lua_pushcfunction(L, func);                                 // L: preload func
-    lua_setfield(L, -2, name);                                  // L: preload
-    lua_pop(L, 1);                                              // L:
-}
-
-void xlua_require(lua_State *L, const char *name, lua_CFunction func)
-{
-    int top = lua_gettop(L);
-    luaL_requiref(L, name, func, false);
-    lua_settop(L, top);
 }
 
 static char *simplify_traceback(const char *msg)

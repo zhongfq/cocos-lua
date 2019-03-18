@@ -1999,7 +1999,7 @@ static int _cocos2d_Scheduler_schedule1(lua_State *L)
     std::string tag = makeScheduleCallbackTag(arg5);
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
     arg1 = [callback_store_obj, func, tag](float arg1) {
-        lua_State *L = xlua_cocosthread();
+        lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
 
         olua_push_number(L, (lua_Number)arg1);
@@ -2039,7 +2039,7 @@ static int _cocos2d_Scheduler_schedule2(lua_State *L)
     std::string tag = makeScheduleCallbackTag(arg7);
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
     arg1 = [callback_store_obj, func, tag](float arg1) {
-        lua_State *L = xlua_cocosthread();
+        lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
 
         olua_push_number(L, (lua_Number)arg1);
@@ -5225,7 +5225,7 @@ static int _cocos2d_ActionFloat_create(lua_State *L)
     void *callback_store_obj = (void *)ret;
     std::string func = olua_setcallback(L, callback_store_obj, "actionFloat", 4, OLUA_CALLBACK_TAG_NEW);
     auto callback = [callback_store_obj, func](float delta) {
-        lua_State *L = xlua_cocosthread();
+        lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
         olua_push_number(L, (lua_Number)delta);
         olua_callback(L, callback_store_obj, func.c_str(), 1);
@@ -7062,7 +7062,7 @@ static int _cocos2d_CallFunc_create(lua_State *L)
     std::string tag = olua_makecallbacktag("callFunc");
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 1, OLUA_CALLBACK_TAG_NEW);
     arg1 = [callback_store_obj, func, tag]() {
-        lua_State *L = xlua_cocosthread();
+        lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
 
         olua_callback(L, callback_store_obj, func.c_str(), 0);
@@ -9447,7 +9447,7 @@ static int _cocos2d_TextureCache_addImageAsync1(lua_State *L)
     std::string tag = makeTextureCacheCallbackTag(arg1);
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_CALLBACK_TAG_NEW);
     arg2 = [callback_store_obj, func, tag](cocos2d::Texture2D *arg1) {
-        lua_State *L = xlua_cocosthread();
+        lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
 
         olua_push_cppobj<cocos2d::Texture2D>(L, arg1, "cc.Texture2D");
@@ -9481,7 +9481,7 @@ static int _cocos2d_TextureCache_addImageAsync2(lua_State *L)
     std::string tag = makeTextureCacheCallbackTag(arg3);
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_CALLBACK_TAG_NEW);
     arg2 = [callback_store_obj, func, tag](cocos2d::Texture2D *arg1) {
-        lua_State *L = xlua_cocosthread();
+        lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
 
         olua_push_cppobj<cocos2d::Texture2D>(L, arg1, "cc.Texture2D");
@@ -10515,7 +10515,7 @@ static int _cocos2d_Component_set_onUpdateCallback(lua_State *L)
         std::string tag = olua_makecallbacktag("onUpdateCallback");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
         arg1 = [callback_store_obj, func, tag](float arg1) {
-            lua_State *L = xlua_cocosthread();
+            lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
             olua_push_number(L, (lua_Number)arg1);
@@ -10568,7 +10568,7 @@ static int _cocos2d_Component_set_onEnterCallback(lua_State *L)
         std::string tag = olua_makecallbacktag("onEnterCallback");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
         arg1 = [callback_store_obj, func, tag]() {
-            lua_State *L = xlua_cocosthread();
+            lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 0);
@@ -10620,7 +10620,7 @@ static int _cocos2d_Component_set_onExitCallback(lua_State *L)
         std::string tag = olua_makecallbacktag("onExitCallback");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
         arg1 = [callback_store_obj, func, tag]() {
-            lua_State *L = xlua_cocosthread();
+            lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 0);
@@ -10672,7 +10672,7 @@ static int _cocos2d_Component_set_onAddCallback(lua_State *L)
         std::string tag = olua_makecallbacktag("onAddCallback");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
         arg1 = [callback_store_obj, func, tag]() {
-            lua_State *L = xlua_cocosthread();
+            lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 0);
@@ -10724,7 +10724,7 @@ static int _cocos2d_Component_set_onRemoveCallback(lua_State *L)
         std::string tag = olua_makecallbacktag("onRemoveCallback");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
         arg1 = [callback_store_obj, func, tag]() {
-            lua_State *L = xlua_cocosthread();
+            lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 0);
@@ -14742,7 +14742,7 @@ static int _cocos2d_Node_setOnEnterCallback(lua_State *L)
         std::string tag = olua_makecallbacktag("onEnterCallback");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
         arg1 = [callback_store_obj, func, tag]() {
-            lua_State *L = xlua_cocosthread();
+            lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 0);
@@ -14794,7 +14794,7 @@ static int _cocos2d_Node_setOnExitCallback(lua_State *L)
         std::string tag = olua_makecallbacktag("onExitCallback");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
         arg1 = [callback_store_obj, func, tag]() {
-            lua_State *L = xlua_cocosthread();
+            lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 0);
@@ -14846,7 +14846,7 @@ static int _cocos2d_Node_setonEnterTransitionDidFinishCallback(lua_State *L)
         std::string tag = olua_makecallbacktag("onEnterTransitionDidFinishCallback");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
         arg1 = [callback_store_obj, func, tag]() {
-            lua_State *L = xlua_cocosthread();
+            lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 0);
@@ -14898,7 +14898,7 @@ static int _cocos2d_Node_setonExitTransitionDidStartCallback(lua_State *L)
         std::string tag = olua_makecallbacktag("onExitTransitionDidStartCallback");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
         arg1 = [callback_store_obj, func, tag]() {
-            lua_State *L = xlua_cocosthread();
+            lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 0);
@@ -14953,7 +14953,7 @@ static int _cocos2d_Node_scheduleOnce(lua_State *L)
     std::string tag = makeScheduleCallbackTag(arg3);
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
     arg1 = [callback_store_obj, func, tag](float arg1) {
-        lua_State *L = xlua_cocosthread();
+        lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
 
         olua_push_number(L, (lua_Number)arg1);
@@ -14985,7 +14985,7 @@ static int _cocos2d_Node_schedule1(lua_State *L)
     std::string tag = makeScheduleCallbackTag(arg2);
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
     arg1 = [callback_store_obj, func, tag](float arg1) {
-        lua_State *L = xlua_cocosthread();
+        lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
 
         olua_push_number(L, (lua_Number)arg1);
@@ -15017,7 +15017,7 @@ static int _cocos2d_Node_schedule2(lua_State *L)
     std::string tag = makeScheduleCallbackTag(arg3);
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
     arg1 = [callback_store_obj, func, tag](float arg1) {
-        lua_State *L = xlua_cocosthread();
+        lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
 
         olua_push_number(L, (lua_Number)arg1);
@@ -15053,7 +15053,7 @@ static int _cocos2d_Node_schedule3(lua_State *L)
     std::string tag = makeScheduleCallbackTag(arg5);
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
     arg1 = [callback_store_obj, func, tag](float arg1) {
-        lua_State *L = xlua_cocosthread();
+        lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
 
         olua_push_number(L, (lua_Number)arg1);
@@ -16709,7 +16709,7 @@ static int _cocos2d_EventDispatcher_addCustomEventListener(lua_State *L)
     callback_store_obj = listener;
     std::string func = olua_setcallback(L, callback_store_obj, eventName.c_str(), 3, OLUA_CALLBACK_TAG_NEW);
     listener->init(eventName, [callback_store_obj, func](cocos2d::EventCustom *event) {
-        lua_State *L = xlua_cocosthread();
+        lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
         olua_push_cppobj<cocos2d::EventCustom>(L, event, "cc.EventCustom");
         olua_callback(L, callback_store_obj, func.c_str(), 1);
@@ -16926,7 +16926,7 @@ static int _cocos2d_EventListenerTouchOneByOne_set_onTouchBegan(lua_State *L)
         std::string tag = olua_makecallbacktag("onTouchBegan");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
         arg1 = [callback_store_obj, func, tag](cocos2d::Touch *arg1, cocos2d::Event *arg2) {
-            lua_State *L = xlua_cocosthread();
+            lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
             bool ret = false;
             olua_push_cppobj<cocos2d::Touch>(L, arg1, "cc.Touch");
@@ -16988,7 +16988,7 @@ static int _cocos2d_EventListenerTouchOneByOne_set_onTouchMoved(lua_State *L)
         std::string tag = olua_makecallbacktag("onTouchMoved");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
         arg1 = [callback_store_obj, func, tag](cocos2d::Touch *arg1, cocos2d::Event *arg2) {
-            lua_State *L = xlua_cocosthread();
+            lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
             olua_push_cppobj<cocos2d::Touch>(L, arg1, "cc.Touch");
@@ -17048,7 +17048,7 @@ static int _cocos2d_EventListenerTouchOneByOne_set_onTouchEnded(lua_State *L)
         std::string tag = olua_makecallbacktag("onTouchEnded");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
         arg1 = [callback_store_obj, func, tag](cocos2d::Touch *arg1, cocos2d::Event *arg2) {
-            lua_State *L = xlua_cocosthread();
+            lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
             olua_push_cppobj<cocos2d::Touch>(L, arg1, "cc.Touch");
@@ -17108,7 +17108,7 @@ static int _cocos2d_EventListenerTouchOneByOne_set_onTouchCancelled(lua_State *L
         std::string tag = olua_makecallbacktag("onTouchCancelled");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
         arg1 = [callback_store_obj, func, tag](cocos2d::Touch *arg1, cocos2d::Event *arg2) {
-            lua_State *L = xlua_cocosthread();
+            lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
             olua_push_cppobj<cocos2d::Touch>(L, arg1, "cc.Touch");
@@ -17194,7 +17194,7 @@ static int _cocos2d_EventListenerTouchAllAtOnce_set_onTouchesBegan(lua_State *L)
         std::string tag = olua_makecallbacktag("onTouchesBegan");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
         arg1 = [callback_store_obj, func, tag](const std::vector<cocos2d::Touch *> &arg1, cocos2d::Event *arg2) {
-            lua_State *L = xlua_cocosthread();
+            lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
             olua_push_std_vector(L, arg1, "cc.Touch");
@@ -17254,7 +17254,7 @@ static int _cocos2d_EventListenerTouchAllAtOnce_set_onTouchesMoved(lua_State *L)
         std::string tag = olua_makecallbacktag("onTouchesMoved");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
         arg1 = [callback_store_obj, func, tag](const std::vector<cocos2d::Touch *> &arg1, cocos2d::Event *arg2) {
-            lua_State *L = xlua_cocosthread();
+            lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
             olua_push_std_vector(L, arg1, "cc.Touch");
@@ -17314,7 +17314,7 @@ static int _cocos2d_EventListenerTouchAllAtOnce_set_onTouchesEnded(lua_State *L)
         std::string tag = olua_makecallbacktag("onTouchesEnded");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
         arg1 = [callback_store_obj, func, tag](const std::vector<cocos2d::Touch *> &arg1, cocos2d::Event *arg2) {
-            lua_State *L = xlua_cocosthread();
+            lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
             olua_push_std_vector(L, arg1, "cc.Touch");
@@ -17374,7 +17374,7 @@ static int _cocos2d_EventListenerTouchAllAtOnce_set_onTouchesCancelled(lua_State
         std::string tag = olua_makecallbacktag("onTouchesCancelled");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
         arg1 = [callback_store_obj, func, tag](const std::vector<cocos2d::Touch *> &arg1, cocos2d::Event *arg2) {
-            lua_State *L = xlua_cocosthread();
+            lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
             olua_push_std_vector(L, arg1, "cc.Touch");
@@ -17433,7 +17433,7 @@ static int _cocos2d_EventListenerCustom_create(lua_State *L)
     std::string tag = olua_makecallbacktag("event");
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_NEW);
     arg2 = [callback_store_obj, func, tag](cocos2d::EventCustom *arg1) {
-        lua_State *L = xlua_cocosthread();
+        lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
 
         olua_push_cppobj<cocos2d::EventCustom>(L, arg1, "cc.EventCustom");
@@ -17505,7 +17505,7 @@ static int _cocos2d_EventListenerKeyboard_set_onKeyPressed(lua_State *L)
         std::string tag = olua_makecallbacktag("onKeyPressed");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
         arg1 = [callback_store_obj, func, tag](cocos2d::EventKeyboard::KeyCode arg1, cocos2d::Event *arg2) {
-            lua_State *L = xlua_cocosthread();
+            lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
             olua_push_uint(L, (lua_Unsigned)arg1);
@@ -17563,7 +17563,7 @@ static int _cocos2d_EventListenerKeyboard_set_onKeyReleased(lua_State *L)
         std::string tag = olua_makecallbacktag("onKeyReleased");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
         arg1 = [callback_store_obj, func, tag](cocos2d::EventKeyboard::KeyCode arg1, cocos2d::Event *arg2) {
-            lua_State *L = xlua_cocosthread();
+            lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
             olua_push_uint(L, (lua_Unsigned)arg1);
@@ -17617,7 +17617,7 @@ static int _cocos2d_EventListenerAcceleration_create(lua_State *L)
     std::string tag = olua_makecallbacktag("event");
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 1, OLUA_CALLBACK_TAG_NEW);
     arg1 = [callback_store_obj, func, tag](cocos2d::Acceleration *arg1, cocos2d::Event *arg2) {
-        lua_State *L = xlua_cocosthread();
+        lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
 
         olua_push_cppobj<cocos2d::Acceleration>(L, arg1, "cc.Acceleration");
@@ -17692,7 +17692,7 @@ static int _cocos2d_EventListenerFocus_set_onFocusChanged(lua_State *L)
         std::string tag = olua_makecallbacktag("onFocusChanged");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
         arg1 = [callback_store_obj, func, tag](cocos2d::ui::Widget *arg1, cocos2d::ui::Widget *arg2) {
-            lua_State *L = xlua_cocosthread();
+            lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
             olua_push_cppobj<cocos2d::ui::Widget>(L, arg1, "ccui.Widget");
@@ -17768,7 +17768,7 @@ static int _cocos2d_EventListenerMouse_set_onMouseDown(lua_State *L)
         std::string tag = olua_makecallbacktag("onMouseDown");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
         arg1 = [callback_store_obj, func, tag](cocos2d::EventMouse *arg1) {
-            lua_State *L = xlua_cocosthread();
+            lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
             olua_push_cppobj<cocos2d::EventMouse>(L, arg1, "cc.EventMouse");
@@ -17825,7 +17825,7 @@ static int _cocos2d_EventListenerMouse_set_onMouseUp(lua_State *L)
         std::string tag = olua_makecallbacktag("onMouseUp");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
         arg1 = [callback_store_obj, func, tag](cocos2d::EventMouse *arg1) {
-            lua_State *L = xlua_cocosthread();
+            lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
             olua_push_cppobj<cocos2d::EventMouse>(L, arg1, "cc.EventMouse");
@@ -17882,7 +17882,7 @@ static int _cocos2d_EventListenerMouse_set_onMouseMove(lua_State *L)
         std::string tag = olua_makecallbacktag("onMouseMove");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
         arg1 = [callback_store_obj, func, tag](cocos2d::EventMouse *arg1) {
-            lua_State *L = xlua_cocosthread();
+            lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
             olua_push_cppobj<cocos2d::EventMouse>(L, arg1, "cc.EventMouse");
@@ -17939,7 +17939,7 @@ static int _cocos2d_EventListenerMouse_set_onMouseScroll(lua_State *L)
         std::string tag = olua_makecallbacktag("onMouseScroll");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
         arg1 = [callback_store_obj, func, tag](cocos2d::EventMouse *arg1) {
-            lua_State *L = xlua_cocosthread();
+            lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
             olua_push_cppobj<cocos2d::EventMouse>(L, arg1, "cc.EventMouse");
@@ -18939,157 +18939,157 @@ static int luaopen_cocos2d_Touch(lua_State *L)
 
 int luaopen_cocos2d(lua_State *L)
 {
-    xlua_require(L, "cc.UserDefault", luaopen_cocos2d_UserDefault);
-    xlua_require(L, "cc.Ref", luaopen_cocos2d_Ref);
-    xlua_require(L, "cc.Acceleration", luaopen_cocos2d_Acceleration);
-    xlua_require(L, "cc.Vec3", luaopen_cocos2d_Vec3);
-    xlua_require(L, "cc.MATRIX_STACK_TYPE", luaopen_cocos2d_MATRIX_STACK_TYPE);
-    xlua_require(L, "cc.Director", luaopen_cocos2d_Director);
-    xlua_require(L, "cc.Scheduler", luaopen_cocos2d_Scheduler);
-    xlua_require(L, "cc.ActionManager", luaopen_cocos2d_ActionManager);
-    xlua_require(L, "cc.Action", luaopen_cocos2d_Action);
-    xlua_require(L, "cc.FiniteTimeAction", luaopen_cocos2d_FiniteTimeAction);
-    xlua_require(L, "cc.Speed", luaopen_cocos2d_Speed);
-    xlua_require(L, "cc.Follow", luaopen_cocos2d_Follow);
-    xlua_require(L, "cc.tweenfunc", luaopen_cocos2d_tweenfunc);
-    xlua_require(L, "cc.ActionInterval", luaopen_cocos2d_ActionInterval);
-    xlua_require(L, "cc.Sequence", luaopen_cocos2d_Sequence);
-    xlua_require(L, "cc.Repeat", luaopen_cocos2d_Repeat);
-    xlua_require(L, "cc.RepeatForever", luaopen_cocos2d_RepeatForever);
-    xlua_require(L, "cc.Spawn", luaopen_cocos2d_Spawn);
-    xlua_require(L, "cc.RotateTo", luaopen_cocos2d_RotateTo);
-    xlua_require(L, "cc.RotateBy", luaopen_cocos2d_RotateBy);
-    xlua_require(L, "cc.MoveBy", luaopen_cocos2d_MoveBy);
-    xlua_require(L, "cc.MoveTo", luaopen_cocos2d_MoveTo);
-    xlua_require(L, "cc.SkewTo", luaopen_cocos2d_SkewTo);
-    xlua_require(L, "cc.SkewBy", luaopen_cocos2d_SkewBy);
-    xlua_require(L, "cc.ResizeTo", luaopen_cocos2d_ResizeTo);
-    xlua_require(L, "cc.ResizeBy", luaopen_cocos2d_ResizeBy);
-    xlua_require(L, "cc.JumpBy", luaopen_cocos2d_JumpBy);
-    xlua_require(L, "cc.JumpTo", luaopen_cocos2d_JumpTo);
-    xlua_require(L, "cc.BezierBy", luaopen_cocos2d_BezierBy);
-    xlua_require(L, "cc.BezierTo", luaopen_cocos2d_BezierTo);
-    xlua_require(L, "cc.ScaleTo", luaopen_cocos2d_ScaleTo);
-    xlua_require(L, "cc.ScaleBy", luaopen_cocos2d_ScaleBy);
-    xlua_require(L, "cc.Blink", luaopen_cocos2d_Blink);
-    xlua_require(L, "cc.FadeTo", luaopen_cocos2d_FadeTo);
-    xlua_require(L, "cc.FadeIn", luaopen_cocos2d_FadeIn);
-    xlua_require(L, "cc.FadeOut", luaopen_cocos2d_FadeOut);
-    xlua_require(L, "cc.TintTo", luaopen_cocos2d_TintTo);
-    xlua_require(L, "cc.TintBy", luaopen_cocos2d_TintBy);
-    xlua_require(L, "cc.DelayTime", luaopen_cocos2d_DelayTime);
-    xlua_require(L, "cc.ReverseTime", luaopen_cocos2d_ReverseTime);
-    xlua_require(L, "cc.Animate", luaopen_cocos2d_Animate);
-    xlua_require(L, "cc.TargetedAction", luaopen_cocos2d_TargetedAction);
-    xlua_require(L, "cc.ActionFloat", luaopen_cocos2d_ActionFloat);
-    xlua_require(L, "cc.ActionCamera", luaopen_cocos2d_ActionCamera);
-    xlua_require(L, "cc.OrbitCamera", luaopen_cocos2d_OrbitCamera);
-    xlua_require(L, "cc.ActionEase", luaopen_cocos2d_ActionEase);
-    xlua_require(L, "cc.EaseRateAction", luaopen_cocos2d_EaseRateAction);
-    xlua_require(L, "cc.EaseExponentialIn", luaopen_cocos2d_EaseExponentialIn);
-    xlua_require(L, "cc.EaseExponentialOut", luaopen_cocos2d_EaseExponentialOut);
-    xlua_require(L, "cc.EaseExponentialInOut", luaopen_cocos2d_EaseExponentialInOut);
-    xlua_require(L, "cc.EaseSineIn", luaopen_cocos2d_EaseSineIn);
-    xlua_require(L, "cc.EaseSineOut", luaopen_cocos2d_EaseSineOut);
-    xlua_require(L, "cc.EaseSineInOut", luaopen_cocos2d_EaseSineInOut);
-    xlua_require(L, "cc.EaseBounceIn", luaopen_cocos2d_EaseBounceIn);
-    xlua_require(L, "cc.EaseBounceOut", luaopen_cocos2d_EaseBounceOut);
-    xlua_require(L, "cc.EaseBounceInOut", luaopen_cocos2d_EaseBounceInOut);
-    xlua_require(L, "cc.EaseBackIn", luaopen_cocos2d_EaseBackIn);
-    xlua_require(L, "cc.EaseBackOut", luaopen_cocos2d_EaseBackOut);
-    xlua_require(L, "cc.EaseBackInOut", luaopen_cocos2d_EaseBackInOut);
-    xlua_require(L, "cc.EaseQuadraticActionIn", luaopen_cocos2d_EaseQuadraticActionIn);
-    xlua_require(L, "cc.EaseQuadraticActionOut", luaopen_cocos2d_EaseQuadraticActionOut);
-    xlua_require(L, "cc.EaseQuadraticActionInOut", luaopen_cocos2d_EaseQuadraticActionInOut);
-    xlua_require(L, "cc.EaseQuarticActionIn", luaopen_cocos2d_EaseQuarticActionIn);
-    xlua_require(L, "cc.EaseQuarticActionOut", luaopen_cocos2d_EaseQuarticActionOut);
-    xlua_require(L, "cc.EaseQuarticActionInOut", luaopen_cocos2d_EaseQuarticActionInOut);
-    xlua_require(L, "cc.EaseQuinticActionIn", luaopen_cocos2d_EaseQuinticActionIn);
-    xlua_require(L, "cc.EaseQuinticActionOut", luaopen_cocos2d_EaseQuinticActionOut);
-    xlua_require(L, "cc.EaseQuinticActionInOut", luaopen_cocos2d_EaseQuinticActionInOut);
-    xlua_require(L, "cc.EaseCircleActionIn", luaopen_cocos2d_EaseCircleActionIn);
-    xlua_require(L, "cc.EaseCircleActionOut", luaopen_cocos2d_EaseCircleActionOut);
-    xlua_require(L, "cc.EaseCircleActionInOut", luaopen_cocos2d_EaseCircleActionInOut);
-    xlua_require(L, "cc.EaseCubicActionIn", luaopen_cocos2d_EaseCubicActionIn);
-    xlua_require(L, "cc.EaseCubicActionOut", luaopen_cocos2d_EaseCubicActionOut);
-    xlua_require(L, "cc.EaseCubicActionInOut", luaopen_cocos2d_EaseCubicActionInOut);
-    xlua_require(L, "cc.EaseIn", luaopen_cocos2d_EaseIn);
-    xlua_require(L, "cc.EaseOut", luaopen_cocos2d_EaseOut);
-    xlua_require(L, "cc.EaseInOut", luaopen_cocos2d_EaseInOut);
-    xlua_require(L, "cc.EaseElastic", luaopen_cocos2d_EaseElastic);
-    xlua_require(L, "cc.EaseElasticIn", luaopen_cocos2d_EaseElasticIn);
-    xlua_require(L, "cc.EaseElasticOut", luaopen_cocos2d_EaseElasticOut);
-    xlua_require(L, "cc.EaseElasticInOut", luaopen_cocos2d_EaseElasticInOut);
-    xlua_require(L, "cc.EaseBezierAction", luaopen_cocos2d_EaseBezierAction);
-    xlua_require(L, "cc.PointArray", luaopen_cocos2d_PointArray);
-    xlua_require(L, "cc.CardinalSplineTo", luaopen_cocos2d_CardinalSplineTo);
-    xlua_require(L, "cc.CardinalSplineBy", luaopen_cocos2d_CardinalSplineBy);
-    xlua_require(L, "cc.CatmullRomTo", luaopen_cocos2d_CatmullRomTo);
-    xlua_require(L, "cc.CatmullRomBy", luaopen_cocos2d_CatmullRomBy);
-    xlua_require(L, "cc.ActionInstant", luaopen_cocos2d_ActionInstant);
-    xlua_require(L, "cc.Show", luaopen_cocos2d_Show);
-    xlua_require(L, "cc.Hide", luaopen_cocos2d_Hide);
-    xlua_require(L, "cc.ToggleVisibility", luaopen_cocos2d_ToggleVisibility);
-    xlua_require(L, "cc.RemoveSelf", luaopen_cocos2d_RemoveSelf);
-    xlua_require(L, "cc.FlipX", luaopen_cocos2d_FlipX);
-    xlua_require(L, "cc.FlipY", luaopen_cocos2d_FlipY);
-    xlua_require(L, "cc.Place", luaopen_cocos2d_Place);
-    xlua_require(L, "cc.CallFunc", luaopen_cocos2d_CallFunc);
-    xlua_require(L, "cc.ResolutionPolicy", luaopen_ResolutionPolicy);
-    xlua_require(L, "cc.GLView", luaopen_cocos2d_GLView);
-    xlua_require(L, "cc.GLViewImpl", luaopen_cocos2d_GLViewImpl);
-    xlua_require(L, "cc.Renderer", luaopen_cocos2d_Renderer);
-    xlua_require(L, "cc.VRIHeadTracker", luaopen_cocos2d_VRIHeadTracker);
-    xlua_require(L, "cc.VRIRenderer", luaopen_cocos2d_VRIRenderer);
-    xlua_require(L, "cc.VRGenericRenderer", luaopen_cocos2d_VRGenericRenderer);
-    xlua_require(L, "cc.VRGenericHeadTracker", luaopen_cocos2d_VRGenericHeadTracker);
-    xlua_require(L, "cc.GLProgram", luaopen_cocos2d_GLProgram);
-    xlua_require(L, "cc.GLProgramState", luaopen_cocos2d_GLProgramState);
-    xlua_require(L, "cc.TextureCache", luaopen_cocos2d_TextureCache);
-    xlua_require(L, "cc.Texture2D.PixelFormat", luaopen_cocos2d_Texture2D_PixelFormat);
-    xlua_require(L, "cc.Texture2D", luaopen_cocos2d_Texture2D);
-    xlua_require(L, "cc.Component", luaopen_cocos2d_Component);
-    xlua_require(L, "cc.SpriteFrame", luaopen_cocos2d_SpriteFrame);
-    xlua_require(L, "cc.AnimationFrame", luaopen_cocos2d_AnimationFrame);
-    xlua_require(L, "cc.Animation", luaopen_cocos2d_Animation);
-    xlua_require(L, "cc.Image.Format", luaopen_cocos2d_Image_Format);
-    xlua_require(L, "cc.Image", luaopen_cocos2d_Image);
-    xlua_require(L, "cc.Node", luaopen_cocos2d_Node);
-    xlua_require(L, "cc.Label", luaopen_cocos2d_Label);
-    xlua_require(L, "cc.ProtectedNode", luaopen_cocos2d_ProtectedNode);
-    xlua_require(L, "cc.LightType", luaopen_cocos2d_LightType);
-    xlua_require(L, "cc.LightFlag", luaopen_cocos2d_LightFlag);
-    xlua_require(L, "cc.BaseLight", luaopen_cocos2d_BaseLight);
-    xlua_require(L, "cc.DirectionLight", luaopen_cocos2d_DirectionLight);
-    xlua_require(L, "cc.PointLight", luaopen_cocos2d_PointLight);
-    xlua_require(L, "cc.SpotLight", luaopen_cocos2d_SpotLight);
-    xlua_require(L, "cc.AmbientLight", luaopen_cocos2d_AmbientLight);
-    xlua_require(L, "cc.Camera", luaopen_cocos2d_Camera);
-    xlua_require(L, "cc.Sprite", luaopen_cocos2d_Sprite);
-    xlua_require(L, "cc.Scene", luaopen_cocos2d_Scene);
-    xlua_require(L, "cc.EventDispatcher", luaopen_cocos2d_EventDispatcher);
-    xlua_require(L, "cc.EventListener.Type", luaopen_cocos2d_EventListener_Type);
-    xlua_require(L, "cc.EventListener", luaopen_cocos2d_EventListener);
-    xlua_require(L, "cc.EventListenerTouchOneByOne", luaopen_cocos2d_EventListenerTouchOneByOne);
-    xlua_require(L, "cc.EventListenerTouchAllAtOnce", luaopen_cocos2d_EventListenerTouchAllAtOnce);
-    xlua_require(L, "cc.EventListenerCustom", luaopen_cocos2d_EventListenerCustom);
-    xlua_require(L, "cc.EventListenerKeyboard", luaopen_cocos2d_EventListenerKeyboard);
-    xlua_require(L, "cc.EventListenerAcceleration", luaopen_cocos2d_EventListenerAcceleration);
-    xlua_require(L, "cc.EventListenerFocus", luaopen_cocos2d_EventListenerFocus);
-    xlua_require(L, "cc.EventListenerMouse", luaopen_cocos2d_EventListenerMouse);
-    xlua_require(L, "cc.Event.Type", luaopen_cocos2d_Event_Type);
-    xlua_require(L, "cc.Event", luaopen_cocos2d_Event);
-    xlua_require(L, "cc.EventCustom", luaopen_cocos2d_EventCustom);
-    xlua_require(L, "cc.EventTouch.EventCode", luaopen_cocos2d_EventTouch_EventCode);
-    xlua_require(L, "cc.EventTouch", luaopen_cocos2d_EventTouch);
-    xlua_require(L, "cc.EventKeyboard", luaopen_cocos2d_EventKeyboard);
-    xlua_require(L, "cc.EventAcceleration", luaopen_cocos2d_EventAcceleration);
-    xlua_require(L, "cc.EventFocus", luaopen_cocos2d_EventFocus);
-    xlua_require(L, "cc.EventMouse.MouseEventType", luaopen_cocos2d_EventMouse_MouseEventType);
-    xlua_require(L, "cc.EventMouse.MouseButton", luaopen_cocos2d_EventMouse_MouseButton);
-    xlua_require(L, "cc.EventMouse", luaopen_cocos2d_EventMouse);
-    xlua_require(L, "cc.EventKeyboard.KeyCode", luaopen_cocos2d_EventKeyboard_KeyCode);
-    xlua_require(L, "cc.Touch.DispatchMode", luaopen_cocos2d_Touch_DispatchMode);
-    xlua_require(L, "cc.Touch", luaopen_cocos2d_Touch);
+    olua_require(L, "cc.UserDefault", luaopen_cocos2d_UserDefault);
+    olua_require(L, "cc.Ref", luaopen_cocos2d_Ref);
+    olua_require(L, "cc.Acceleration", luaopen_cocos2d_Acceleration);
+    olua_require(L, "cc.Vec3", luaopen_cocos2d_Vec3);
+    olua_require(L, "cc.MATRIX_STACK_TYPE", luaopen_cocos2d_MATRIX_STACK_TYPE);
+    olua_require(L, "cc.Director", luaopen_cocos2d_Director);
+    olua_require(L, "cc.Scheduler", luaopen_cocos2d_Scheduler);
+    olua_require(L, "cc.ActionManager", luaopen_cocos2d_ActionManager);
+    olua_require(L, "cc.Action", luaopen_cocos2d_Action);
+    olua_require(L, "cc.FiniteTimeAction", luaopen_cocos2d_FiniteTimeAction);
+    olua_require(L, "cc.Speed", luaopen_cocos2d_Speed);
+    olua_require(L, "cc.Follow", luaopen_cocos2d_Follow);
+    olua_require(L, "cc.tweenfunc", luaopen_cocos2d_tweenfunc);
+    olua_require(L, "cc.ActionInterval", luaopen_cocos2d_ActionInterval);
+    olua_require(L, "cc.Sequence", luaopen_cocos2d_Sequence);
+    olua_require(L, "cc.Repeat", luaopen_cocos2d_Repeat);
+    olua_require(L, "cc.RepeatForever", luaopen_cocos2d_RepeatForever);
+    olua_require(L, "cc.Spawn", luaopen_cocos2d_Spawn);
+    olua_require(L, "cc.RotateTo", luaopen_cocos2d_RotateTo);
+    olua_require(L, "cc.RotateBy", luaopen_cocos2d_RotateBy);
+    olua_require(L, "cc.MoveBy", luaopen_cocos2d_MoveBy);
+    olua_require(L, "cc.MoveTo", luaopen_cocos2d_MoveTo);
+    olua_require(L, "cc.SkewTo", luaopen_cocos2d_SkewTo);
+    olua_require(L, "cc.SkewBy", luaopen_cocos2d_SkewBy);
+    olua_require(L, "cc.ResizeTo", luaopen_cocos2d_ResizeTo);
+    olua_require(L, "cc.ResizeBy", luaopen_cocos2d_ResizeBy);
+    olua_require(L, "cc.JumpBy", luaopen_cocos2d_JumpBy);
+    olua_require(L, "cc.JumpTo", luaopen_cocos2d_JumpTo);
+    olua_require(L, "cc.BezierBy", luaopen_cocos2d_BezierBy);
+    olua_require(L, "cc.BezierTo", luaopen_cocos2d_BezierTo);
+    olua_require(L, "cc.ScaleTo", luaopen_cocos2d_ScaleTo);
+    olua_require(L, "cc.ScaleBy", luaopen_cocos2d_ScaleBy);
+    olua_require(L, "cc.Blink", luaopen_cocos2d_Blink);
+    olua_require(L, "cc.FadeTo", luaopen_cocos2d_FadeTo);
+    olua_require(L, "cc.FadeIn", luaopen_cocos2d_FadeIn);
+    olua_require(L, "cc.FadeOut", luaopen_cocos2d_FadeOut);
+    olua_require(L, "cc.TintTo", luaopen_cocos2d_TintTo);
+    olua_require(L, "cc.TintBy", luaopen_cocos2d_TintBy);
+    olua_require(L, "cc.DelayTime", luaopen_cocos2d_DelayTime);
+    olua_require(L, "cc.ReverseTime", luaopen_cocos2d_ReverseTime);
+    olua_require(L, "cc.Animate", luaopen_cocos2d_Animate);
+    olua_require(L, "cc.TargetedAction", luaopen_cocos2d_TargetedAction);
+    olua_require(L, "cc.ActionFloat", luaopen_cocos2d_ActionFloat);
+    olua_require(L, "cc.ActionCamera", luaopen_cocos2d_ActionCamera);
+    olua_require(L, "cc.OrbitCamera", luaopen_cocos2d_OrbitCamera);
+    olua_require(L, "cc.ActionEase", luaopen_cocos2d_ActionEase);
+    olua_require(L, "cc.EaseRateAction", luaopen_cocos2d_EaseRateAction);
+    olua_require(L, "cc.EaseExponentialIn", luaopen_cocos2d_EaseExponentialIn);
+    olua_require(L, "cc.EaseExponentialOut", luaopen_cocos2d_EaseExponentialOut);
+    olua_require(L, "cc.EaseExponentialInOut", luaopen_cocos2d_EaseExponentialInOut);
+    olua_require(L, "cc.EaseSineIn", luaopen_cocos2d_EaseSineIn);
+    olua_require(L, "cc.EaseSineOut", luaopen_cocos2d_EaseSineOut);
+    olua_require(L, "cc.EaseSineInOut", luaopen_cocos2d_EaseSineInOut);
+    olua_require(L, "cc.EaseBounceIn", luaopen_cocos2d_EaseBounceIn);
+    olua_require(L, "cc.EaseBounceOut", luaopen_cocos2d_EaseBounceOut);
+    olua_require(L, "cc.EaseBounceInOut", luaopen_cocos2d_EaseBounceInOut);
+    olua_require(L, "cc.EaseBackIn", luaopen_cocos2d_EaseBackIn);
+    olua_require(L, "cc.EaseBackOut", luaopen_cocos2d_EaseBackOut);
+    olua_require(L, "cc.EaseBackInOut", luaopen_cocos2d_EaseBackInOut);
+    olua_require(L, "cc.EaseQuadraticActionIn", luaopen_cocos2d_EaseQuadraticActionIn);
+    olua_require(L, "cc.EaseQuadraticActionOut", luaopen_cocos2d_EaseQuadraticActionOut);
+    olua_require(L, "cc.EaseQuadraticActionInOut", luaopen_cocos2d_EaseQuadraticActionInOut);
+    olua_require(L, "cc.EaseQuarticActionIn", luaopen_cocos2d_EaseQuarticActionIn);
+    olua_require(L, "cc.EaseQuarticActionOut", luaopen_cocos2d_EaseQuarticActionOut);
+    olua_require(L, "cc.EaseQuarticActionInOut", luaopen_cocos2d_EaseQuarticActionInOut);
+    olua_require(L, "cc.EaseQuinticActionIn", luaopen_cocos2d_EaseQuinticActionIn);
+    olua_require(L, "cc.EaseQuinticActionOut", luaopen_cocos2d_EaseQuinticActionOut);
+    olua_require(L, "cc.EaseQuinticActionInOut", luaopen_cocos2d_EaseQuinticActionInOut);
+    olua_require(L, "cc.EaseCircleActionIn", luaopen_cocos2d_EaseCircleActionIn);
+    olua_require(L, "cc.EaseCircleActionOut", luaopen_cocos2d_EaseCircleActionOut);
+    olua_require(L, "cc.EaseCircleActionInOut", luaopen_cocos2d_EaseCircleActionInOut);
+    olua_require(L, "cc.EaseCubicActionIn", luaopen_cocos2d_EaseCubicActionIn);
+    olua_require(L, "cc.EaseCubicActionOut", luaopen_cocos2d_EaseCubicActionOut);
+    olua_require(L, "cc.EaseCubicActionInOut", luaopen_cocos2d_EaseCubicActionInOut);
+    olua_require(L, "cc.EaseIn", luaopen_cocos2d_EaseIn);
+    olua_require(L, "cc.EaseOut", luaopen_cocos2d_EaseOut);
+    olua_require(L, "cc.EaseInOut", luaopen_cocos2d_EaseInOut);
+    olua_require(L, "cc.EaseElastic", luaopen_cocos2d_EaseElastic);
+    olua_require(L, "cc.EaseElasticIn", luaopen_cocos2d_EaseElasticIn);
+    olua_require(L, "cc.EaseElasticOut", luaopen_cocos2d_EaseElasticOut);
+    olua_require(L, "cc.EaseElasticInOut", luaopen_cocos2d_EaseElasticInOut);
+    olua_require(L, "cc.EaseBezierAction", luaopen_cocos2d_EaseBezierAction);
+    olua_require(L, "cc.PointArray", luaopen_cocos2d_PointArray);
+    olua_require(L, "cc.CardinalSplineTo", luaopen_cocos2d_CardinalSplineTo);
+    olua_require(L, "cc.CardinalSplineBy", luaopen_cocos2d_CardinalSplineBy);
+    olua_require(L, "cc.CatmullRomTo", luaopen_cocos2d_CatmullRomTo);
+    olua_require(L, "cc.CatmullRomBy", luaopen_cocos2d_CatmullRomBy);
+    olua_require(L, "cc.ActionInstant", luaopen_cocos2d_ActionInstant);
+    olua_require(L, "cc.Show", luaopen_cocos2d_Show);
+    olua_require(L, "cc.Hide", luaopen_cocos2d_Hide);
+    olua_require(L, "cc.ToggleVisibility", luaopen_cocos2d_ToggleVisibility);
+    olua_require(L, "cc.RemoveSelf", luaopen_cocos2d_RemoveSelf);
+    olua_require(L, "cc.FlipX", luaopen_cocos2d_FlipX);
+    olua_require(L, "cc.FlipY", luaopen_cocos2d_FlipY);
+    olua_require(L, "cc.Place", luaopen_cocos2d_Place);
+    olua_require(L, "cc.CallFunc", luaopen_cocos2d_CallFunc);
+    olua_require(L, "cc.ResolutionPolicy", luaopen_ResolutionPolicy);
+    olua_require(L, "cc.GLView", luaopen_cocos2d_GLView);
+    olua_require(L, "cc.GLViewImpl", luaopen_cocos2d_GLViewImpl);
+    olua_require(L, "cc.Renderer", luaopen_cocos2d_Renderer);
+    olua_require(L, "cc.VRIHeadTracker", luaopen_cocos2d_VRIHeadTracker);
+    olua_require(L, "cc.VRIRenderer", luaopen_cocos2d_VRIRenderer);
+    olua_require(L, "cc.VRGenericRenderer", luaopen_cocos2d_VRGenericRenderer);
+    olua_require(L, "cc.VRGenericHeadTracker", luaopen_cocos2d_VRGenericHeadTracker);
+    olua_require(L, "cc.GLProgram", luaopen_cocos2d_GLProgram);
+    olua_require(L, "cc.GLProgramState", luaopen_cocos2d_GLProgramState);
+    olua_require(L, "cc.TextureCache", luaopen_cocos2d_TextureCache);
+    olua_require(L, "cc.Texture2D.PixelFormat", luaopen_cocos2d_Texture2D_PixelFormat);
+    olua_require(L, "cc.Texture2D", luaopen_cocos2d_Texture2D);
+    olua_require(L, "cc.Component", luaopen_cocos2d_Component);
+    olua_require(L, "cc.SpriteFrame", luaopen_cocos2d_SpriteFrame);
+    olua_require(L, "cc.AnimationFrame", luaopen_cocos2d_AnimationFrame);
+    olua_require(L, "cc.Animation", luaopen_cocos2d_Animation);
+    olua_require(L, "cc.Image.Format", luaopen_cocos2d_Image_Format);
+    olua_require(L, "cc.Image", luaopen_cocos2d_Image);
+    olua_require(L, "cc.Node", luaopen_cocos2d_Node);
+    olua_require(L, "cc.Label", luaopen_cocos2d_Label);
+    olua_require(L, "cc.ProtectedNode", luaopen_cocos2d_ProtectedNode);
+    olua_require(L, "cc.LightType", luaopen_cocos2d_LightType);
+    olua_require(L, "cc.LightFlag", luaopen_cocos2d_LightFlag);
+    olua_require(L, "cc.BaseLight", luaopen_cocos2d_BaseLight);
+    olua_require(L, "cc.DirectionLight", luaopen_cocos2d_DirectionLight);
+    olua_require(L, "cc.PointLight", luaopen_cocos2d_PointLight);
+    olua_require(L, "cc.SpotLight", luaopen_cocos2d_SpotLight);
+    olua_require(L, "cc.AmbientLight", luaopen_cocos2d_AmbientLight);
+    olua_require(L, "cc.Camera", luaopen_cocos2d_Camera);
+    olua_require(L, "cc.Sprite", luaopen_cocos2d_Sprite);
+    olua_require(L, "cc.Scene", luaopen_cocos2d_Scene);
+    olua_require(L, "cc.EventDispatcher", luaopen_cocos2d_EventDispatcher);
+    olua_require(L, "cc.EventListener.Type", luaopen_cocos2d_EventListener_Type);
+    olua_require(L, "cc.EventListener", luaopen_cocos2d_EventListener);
+    olua_require(L, "cc.EventListenerTouchOneByOne", luaopen_cocos2d_EventListenerTouchOneByOne);
+    olua_require(L, "cc.EventListenerTouchAllAtOnce", luaopen_cocos2d_EventListenerTouchAllAtOnce);
+    olua_require(L, "cc.EventListenerCustom", luaopen_cocos2d_EventListenerCustom);
+    olua_require(L, "cc.EventListenerKeyboard", luaopen_cocos2d_EventListenerKeyboard);
+    olua_require(L, "cc.EventListenerAcceleration", luaopen_cocos2d_EventListenerAcceleration);
+    olua_require(L, "cc.EventListenerFocus", luaopen_cocos2d_EventListenerFocus);
+    olua_require(L, "cc.EventListenerMouse", luaopen_cocos2d_EventListenerMouse);
+    olua_require(L, "cc.Event.Type", luaopen_cocos2d_Event_Type);
+    olua_require(L, "cc.Event", luaopen_cocos2d_Event);
+    olua_require(L, "cc.EventCustom", luaopen_cocos2d_EventCustom);
+    olua_require(L, "cc.EventTouch.EventCode", luaopen_cocos2d_EventTouch_EventCode);
+    olua_require(L, "cc.EventTouch", luaopen_cocos2d_EventTouch);
+    olua_require(L, "cc.EventKeyboard", luaopen_cocos2d_EventKeyboard);
+    olua_require(L, "cc.EventAcceleration", luaopen_cocos2d_EventAcceleration);
+    olua_require(L, "cc.EventFocus", luaopen_cocos2d_EventFocus);
+    olua_require(L, "cc.EventMouse.MouseEventType", luaopen_cocos2d_EventMouse_MouseEventType);
+    olua_require(L, "cc.EventMouse.MouseButton", luaopen_cocos2d_EventMouse_MouseButton);
+    olua_require(L, "cc.EventMouse", luaopen_cocos2d_EventMouse);
+    olua_require(L, "cc.EventKeyboard.KeyCode", luaopen_cocos2d_EventKeyboard_KeyCode);
+    olua_require(L, "cc.Touch.DispatchMode", luaopen_cocos2d_Touch_DispatchMode);
+    olua_require(L, "cc.Touch", luaopen_cocos2d_Touch);
     return 0;
 }

@@ -8,11 +8,8 @@
 #include "cocos2d.h"
 
 lua_State *xlua_new();
-lua_State *xlua_mainthread(lua_State *L);
 lua_State *xlua_cocosthread();
 
-void xlua_preload(lua_State *L, const char *name, lua_CFunction func);
-void xlua_require(lua_State *L, const char *name, lua_CFunction func);
 int xlua_errorfunc(lua_State *L);
 int xlua_pcall(lua_State *L, int n, int r);
 void xlua_call(lua_State *L, lua_CFunction func);

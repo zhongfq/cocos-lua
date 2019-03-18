@@ -143,7 +143,7 @@ static int _xgame_runtime_setDispatcher(lua_State *L)
 {
     int handler = xlua_reffunc(L, 1);
     xgame::runtime::setDispatcher([handler](const std::string &event, const std::string &args) {
-        lua_State *L = xlua_cocosthread();
+        lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
         lua_pushcfunction(L, xlua_errorfunc);
         xlua_getref(L, handler);
@@ -166,7 +166,7 @@ static int _xgame_runtime_openURL(lua_State *L)
     }
     xgame::runtime::openURL(olua_checkstring(L, 1), [callback](bool success) {
         if (callback != LUA_REFNIL) {
-            lua_State *L = xlua_cocosthread();
+            lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
             lua_pushcfunction(L, xlua_errorfunc);
             xlua_getref(L, callback);
@@ -767,7 +767,7 @@ static int _xgame_timer_delay(lua_State *L)
     float time = (float)olua_checknumber(L, 1);
     unsigned int callback = xlua_reffunc(L, 2);
     xgame::timer::delay(time, [callback]() {
-        lua_State *L = xlua_cocosthread();
+        lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
         lua_pushcfunction(L, xlua_errorfunc);
         xlua_getref(L, callback);
@@ -796,7 +796,7 @@ static int _xgame_timer_delayWithTag(lua_State *L)
     unsigned int callback = xlua_reffunc(L, 3);
     s_timer_tag[tag] = callback;
     xgame::timer::delayWithTag(time, tag, [callback]() {
-        lua_State *L = xlua_cocosthread();
+        lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
         lua_pushcfunction(L, xlua_errorfunc);
         xlua_getref(L, callback);
@@ -815,7 +815,7 @@ static int _xgame_timer_schedule(lua_State *L)
     float interval = (float)olua_checknumber(L, 1);
     unsigned int callback = xlua_reffunc(L, 2);
     unsigned int id = xgame::timer::schedule(interval, [callback](float dt) {
-        lua_State *L = xlua_cocosthread();
+        lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
         lua_pushcfunction(L, xlua_errorfunc);
         xlua_getref(L, callback);
@@ -943,10 +943,10 @@ static int luaopen_xgame_window(lua_State *L)
 
 int luaopen_xgame(lua_State *L)
 {
-    xlua_require(L, "kernel.runtime", luaopen_xgame_runtime);
-    xlua_require(L, "kernel.filesystem", luaopen_xgame_filesystem);
-    xlua_require(L, "kernel.preferences", luaopen_xgame_preferences);
-    xlua_require(L, "kernel.timer", luaopen_xgame_timer);
-    xlua_require(L, "kernel.window", luaopen_xgame_window);
+    olua_require(L, "kernel.runtime", luaopen_xgame_runtime);
+    olua_require(L, "kernel.filesystem", luaopen_xgame_filesystem);
+    olua_require(L, "kernel.preferences", luaopen_xgame_preferences);
+    olua_require(L, "kernel.timer", luaopen_xgame_timer);
+    olua_require(L, "kernel.window", luaopen_xgame_window);
     return 0;
 }

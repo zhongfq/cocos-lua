@@ -21,7 +21,7 @@ cls.func("delay", [[
     float time = (float)olua_checknumber(L, 1);
     unsigned int callback = xlua_reffunc(L, 2);
     xgame::timer::delay(time, [callback]() {
-        lua_State *L = xlua_cocosthread();
+        lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
         lua_pushcfunction(L, xlua_errorfunc);
         xlua_getref(L, callback);
@@ -49,7 +49,7 @@ cls.func('delayWithTag', [[
     unsigned int callback = xlua_reffunc(L, 3);
     s_timer_tag[tag] = callback;
     xgame::timer::delayWithTag(time, tag, [callback]() {
-        lua_State *L = xlua_cocosthread();
+        lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
         lua_pushcfunction(L, xlua_errorfunc);
         xlua_getref(L, callback);
@@ -67,7 +67,7 @@ cls.func('schedule', [[
     float interval = (float)olua_checknumber(L, 1);
     unsigned int callback = xlua_reffunc(L, 2);
     unsigned int id = xgame::timer::schedule(interval, [callback](float dt) {
-        lua_State *L = xlua_cocosthread();
+        lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
         lua_pushcfunction(L, xlua_errorfunc);
         xlua_getref(L, callback);

@@ -203,7 +203,7 @@ function gen_callback(cls, fi, write)
         std::string tag = ${CALLBACK_MAKER};
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), ${IDX}, ${OLUA_CALLBACK_TAG});
         ${ARG_N} = [callback_store_obj, func, tag](${ARGS}) {
-            lua_State *L = xlua_cocosthread();
+            lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
             ${RESULT_DECL}
             ${PUSH_ARGS}

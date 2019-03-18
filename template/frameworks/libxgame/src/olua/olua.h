@@ -32,6 +32,12 @@ extern "C" {
     
 #define olua_newuserdata(L, obj, t) (*(t*)lua_newuserdata(L, sizeof(t)) = (obj))
 #define olua_touserdata(L, n, t)    (*(t*)lua_touserdata(L, (n)))
+    
+#ifndef OLUA_MAINTHREAD
+#define olua_mainthread (static_assert(false), NULL)
+#else
+#define olua_mainthread OLUA_MAINTHREAD
+#endif
 
 LUALIB_API lua_Integer olua_checkinteger(lua_State *L, int idx);
 LUALIB_API lua_Number olua_checknumber(lua_State *L, int idx);
@@ -46,6 +52,8 @@ LUALIB_API int olua_changeobjcount(int add);
 #define olua_addobjcount() (olua_changeobjcount(1))
 #define olua_subobjcount() (olua_changeobjcount(-1))
 #define olua_objcount() (olua_changeobjcount(0))
+LUALIB_API void olua_require(lua_State *L, const char *name, lua_CFunction func);
+LUALIB_API void olua_preload(lua_State *L, const char *name, lua_CFunction func);
 LUALIB_API bool olua_isa(lua_State *L, int idx, const char *cls);
 LUALIB_API void olua_getobjtable(lua_State *L);
 LUALIB_API int olua_pushobj(lua_State *L, void *obj, const char *cls);

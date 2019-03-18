@@ -111,6 +111,21 @@ LUALIB_API int olua_changeobjcount(int add)
     return _count;
 }
 
+LUALIB_API void olua_preload(lua_State *L, const char *name, lua_CFunction func)
+{
+    luaL_getsubtable(L, LUA_REGISTRYINDEX, LUA_PRELOAD_TABLE);  // L: preload
+    lua_pushcfunction(L, func);                                 // L: preload func
+    lua_setfield(L, -2, name);                                  // L: preload
+    lua_pop(L, 1);                                              // L:
+}
+
+LUALIB_API void olua_require(lua_State *L, const char *name, lua_CFunction func)
+{
+    int top = lua_gettop(L);
+    luaL_requiref(L, name, func, false);
+    lua_settop(L, top);
+}
+
 LUALIB_API bool olua_isa(lua_State *L, int idx, const char *cls)
 {
     bool isa = false;

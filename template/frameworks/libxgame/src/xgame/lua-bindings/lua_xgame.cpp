@@ -304,7 +304,7 @@ static int _xgame_filesystem_shortPath(lua_State *L)
     lua_Unsigned arg2 = 0;   /** limit */
 
     olua_check_std_string(L, 1, &arg1);
-    olua_opt_uint(L, 2, &arg2, 60);
+    olua_opt_uint(L, 2, &arg2, (lua_Unsigned)60);
 
     // static const std::string shortPath(const std::string &path, size_t limit = 60)
     const std::string ret = (const std::string)xgame::filesystem::shortPath(arg1, (size_t)arg2);
@@ -320,7 +320,7 @@ static int _xgame_filesystem_createDirectory(lua_State *L)
     bool arg2 = false;   /** isFilePath */
 
     olua_check_std_string(L, 1, &arg1);
-    olua_opt_bool(L, 2, &arg2, false);
+    olua_opt_bool(L, 2, &arg2, (bool)false);
 
     // static bool createDirectory(const std::string &path, bool isFilePath = false)
     bool ret = (bool)xgame::filesystem::createDirectory(arg1, arg2);
@@ -548,7 +548,7 @@ static int _xgame_preferences_getBoolean(lua_State *L)
     bool arg2 = false;   /** defaultValue */
 
     olua_check_string(L, 1, &arg1);
-    olua_opt_bool(L, 2, &arg2, false);
+    olua_opt_bool(L, 2, &arg2, (bool)false);
 
     // static bool getBoolean(const char *key, bool defaultValue = false)
     bool ret = (bool)xgame::preferences::getBoolean(arg1, arg2);
@@ -580,7 +580,7 @@ static int _xgame_preferences_getFloat(lua_State *L)
     lua_Number arg2 = 0;   /** defaultValue */
 
     olua_check_string(L, 1, &arg1);
-    olua_opt_number(L, 2, &arg2, 0);
+    olua_opt_number(L, 2, &arg2, (lua_Number)0);
 
     // static float getFloat(const char *key, float defaultValue = 0)
     float ret = (float)xgame::preferences::getFloat(arg1, (float)arg2);
@@ -612,7 +612,7 @@ static int _xgame_preferences_getDouble(lua_State *L)
     lua_Number arg2 = 0;   /** defaultValue */
 
     olua_check_string(L, 1, &arg1);
-    olua_opt_number(L, 2, &arg2, 0);
+    olua_opt_number(L, 2, &arg2, (lua_Number)0);
 
     // static double getDouble(const char *key, double defaultValue = 0)
     double ret = (double)xgame::preferences::getDouble(arg1, (double)arg2);
@@ -644,7 +644,7 @@ static int _xgame_preferences_getInteger(lua_State *L)
     lua_Integer arg2 = 0;   /** defaultValue */
 
     olua_check_string(L, 1, &arg1);
-    olua_opt_int(L, 2, &arg2, 0);
+    olua_opt_int(L, 2, &arg2, (lua_Integer)0);
 
     // static int getInteger(const char *key, int defaultValue = 0)
     int ret = (int)xgame::preferences::getInteger(arg1, (int)arg2);
@@ -676,7 +676,7 @@ static int _xgame_preferences_getString(lua_State *L)
     const char *arg2 = nullptr;   /** defaultValue */
 
     olua_check_string(L, 1, &arg1);
-    olua_opt_string(L, 2, &arg2, "");
+    olua_opt_string(L, 2, &arg2, (const char *)"");
 
     // static std::string getString(const char *key, const char *defaultValue = "")
     std::string ret = (std::string)xgame::preferences::getString(arg1, arg2);

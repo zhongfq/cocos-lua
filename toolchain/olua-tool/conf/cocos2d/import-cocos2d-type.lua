@@ -149,6 +149,12 @@ REG_TYPE {
 }
 
 REG_TYPE {
+    TYPENAME = 'cocos2d::TTFConfig',
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_TTFConfig',
+    INIT_VALUE = false,
+}
+
+REG_TYPE {
     TYPENAME = table.concat({
         'cocos2d::MATRIX_STACK_TYPE',
         'cocos2d::Director::Projection',
@@ -164,6 +170,12 @@ REG_TYPE {
         'cocos2d::LightType',
         'cocos2d::LightFlag',
         'ResolutionPolicy',
+        'cocos2d::TextVAlignment',
+        'cocos2d::TextHAlignment',
+        'cocos2d::GlyphCollection',
+        'cocos2d::Label::LabelType',
+        'cocos2d::Label::Overflow',
+        'cocos2d::LabelEffect',
     }, '|'),
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = "olua_$$_uint",
@@ -314,6 +326,14 @@ REG_TYPE {
         'cocos2d::EventMouse *',
         'cocos2d::Touch *',
         'cocos2d::Acceleration *',
+        'cocos2d::Font *',
+        'cocos2d::FontAtlas *',
+        'cocos2d::FontCharMap *',
+        'cocos2d::FontFNT *',
+        'cocos2d::FontFreeType *',
+        'cocos2d::TextureAtlas *',
+        'cocos2d::AtlasNode *',
+        'cocos2d::LabelAtlas *',
     }, '|'),
     CONV_FUNC = "olua_$$_cppobj",
     LUACLS = make_luacls,

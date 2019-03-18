@@ -374,10 +374,10 @@ int auto_luacv_push_cocos2d_Texture2D_TexParams(lua_State *L, const cocos2d::Tex
 {
     if (value) {
         lua_createtable(L, 0, 4);
-        olua_rawsetfieldinteger(L, -1, "minFilter", value->minFilter);
-        olua_rawsetfieldinteger(L, -1, "magFilter", value->magFilter);
-        olua_rawsetfieldinteger(L, -1, "wrapS", value->wrapS);
-        olua_rawsetfieldinteger(L, -1, "wrapT", value->wrapT);
+        olua_rawsetfieldinteger(L, -1, "minFilter", (lua_Unsigned)value->minFilter);
+        olua_rawsetfieldinteger(L, -1, "magFilter", (lua_Unsigned)value->magFilter);
+        olua_rawsetfieldinteger(L, -1, "wrapS", (lua_Unsigned)value->wrapS);
+        olua_rawsetfieldinteger(L, -1, "wrapT", (lua_Unsigned)value->wrapT);
     } else {
         lua_pushnil(L);
     }
@@ -452,9 +452,9 @@ int auto_luacv_push_cocos2d_Uniform(lua_State *L, const cocos2d::Uniform *value)
 {
     if (value) {
         lua_createtable(L, 0, 4);
-        olua_rawsetfieldinteger(L, -1, "location", value->location);
-        olua_rawsetfieldinteger(L, -1, "size", value->size);
-        olua_rawsetfieldinteger(L, -1, "type", value->type);
+        olua_rawsetfieldinteger(L, -1, "location", (lua_Integer)value->location);
+        olua_rawsetfieldinteger(L, -1, "size", (lua_Integer)value->size);
+        olua_rawsetfieldinteger(L, -1, "type", (lua_Unsigned)value->type);
         olua_rawsetfieldstring(L, -1, "name", value->name.c_str());
     } else {
         lua_pushnil(L);
@@ -530,9 +530,9 @@ int auto_luacv_push_cocos2d_VertexAttrib(lua_State *L, const cocos2d::VertexAttr
 {
     if (value) {
         lua_createtable(L, 0, 4);
-        olua_rawsetfieldinteger(L, -1, "index", value->index);
-        olua_rawsetfieldinteger(L, -1, "size", value->size);
-        olua_rawsetfieldinteger(L, -1, "type", value->type);
+        olua_rawsetfieldinteger(L, -1, "index", (lua_Unsigned)value->index);
+        olua_rawsetfieldinteger(L, -1, "size", (lua_Integer)value->size);
+        olua_rawsetfieldinteger(L, -1, "type", (lua_Unsigned)value->type);
         olua_rawsetfieldstring(L, -1, "name", value->name.c_str());
     } else {
         lua_pushnil(L);
@@ -852,13 +852,13 @@ int auto_luacv_push_GLContextAttrs(lua_State *L, const GLContextAttrs *value)
 {
     if (value) {
         lua_createtable(L, 0, 7);
-        olua_rawsetfieldinteger(L, -1, "redBits", value->redBits);
-        olua_rawsetfieldinteger(L, -1, "greenBits", value->greenBits);
-        olua_rawsetfieldinteger(L, -1, "blueBits", value->blueBits);
-        olua_rawsetfieldinteger(L, -1, "alphaBits", value->alphaBits);
-        olua_rawsetfieldinteger(L, -1, "depthBits", value->depthBits);
-        olua_rawsetfieldinteger(L, -1, "stencilBits", value->stencilBits);
-        olua_rawsetfieldinteger(L, -1, "multisamplingCount", value->multisamplingCount);
+        olua_rawsetfieldinteger(L, -1, "redBits", (lua_Integer)value->redBits);
+        olua_rawsetfieldinteger(L, -1, "greenBits", (lua_Integer)value->greenBits);
+        olua_rawsetfieldinteger(L, -1, "blueBits", (lua_Integer)value->blueBits);
+        olua_rawsetfieldinteger(L, -1, "alphaBits", (lua_Integer)value->alphaBits);
+        olua_rawsetfieldinteger(L, -1, "depthBits", (lua_Integer)value->depthBits);
+        olua_rawsetfieldinteger(L, -1, "stencilBits", (lua_Integer)value->stencilBits);
+        olua_rawsetfieldinteger(L, -1, "multisamplingCount", (lua_Integer)value->multisamplingCount);
     } else {
         lua_pushnil(L);
     }
@@ -1050,6 +1050,51 @@ void auto_luacv_check_cocos2d_T2F_Quad(lua_State *L, int idx, cocos2d::T2F_Quad 
 }
 
 bool auto_luacv_is_cocos2d_T2F_Quad(lua_State *L, int idx)
+{
+    return lua_istable(L, idx);
+}
+
+int auto_luacv_push_cocos2d_TTFConfig(lua_State *L, const cocos2d::TTFConfig *value)
+{
+    if (value) {
+        lua_createtable(L, 0, 10);
+        olua_rawsetfieldstring(L, -1, "fontFilePath", value->fontFilePath.c_str());
+        olua_rawsetfieldnumber(L, -1, "fontSize", value->fontSize);
+        olua_rawsetfieldinteger(L, -1, "glyphs", (lua_Unsigned)value->glyphs);
+        olua_rawsetfieldstring(L, -1, "customGlyphs", value->customGlyphs);
+        olua_rawsetfieldboolean(L, -1, "distanceFieldEnabled", value->distanceFieldEnabled);
+        olua_rawsetfieldinteger(L, -1, "outlineSize", (lua_Integer)value->outlineSize);
+        olua_rawsetfieldboolean(L, -1, "italics", value->italics);
+        olua_rawsetfieldboolean(L, -1, "bold", value->bold);
+        olua_rawsetfieldboolean(L, -1, "underline", value->underline);
+        olua_rawsetfieldboolean(L, -1, "strikethrough", value->strikethrough);
+    } else {
+        lua_pushnil(L);
+    }
+
+    return 1;
+}
+
+void auto_luacv_check_cocos2d_TTFConfig(lua_State *L, int idx, cocos2d::TTFConfig *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    idx = lua_absindex(L, idx);
+    luaL_checktype(L, idx, LUA_TTABLE);
+    value->fontFilePath = (std::string)olua_checkfieldstring(L, idx, "fontFilePath");
+    value->fontSize = (float)olua_checkfieldnumber(L, idx, "fontSize");
+    value->glyphs = (cocos2d::GlyphCollection)olua_checkfieldinteger(L, idx, "glyphs");
+    value->customGlyphs = (const char *)olua_checkfieldstring(L, idx, "customGlyphs");
+    value->distanceFieldEnabled = (bool)olua_checkfieldboolean(L, idx, "distanceFieldEnabled");
+    value->outlineSize = (int)olua_checkfieldinteger(L, idx, "outlineSize");
+    value->italics = (bool)olua_checkfieldboolean(L, idx, "italics");
+    value->bold = (bool)olua_checkfieldboolean(L, idx, "bold");
+    value->underline = (bool)olua_checkfieldboolean(L, idx, "underline");
+    value->strikethrough = (bool)olua_checkfieldboolean(L, idx, "strikethrough");
+}
+
+bool auto_luacv_is_cocos2d_TTFConfig(lua_State *L, int idx)
 {
     return lua_istable(L, idx);
 }

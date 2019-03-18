@@ -155,6 +155,22 @@ M.CONVS = {
         ]],
         FUNC = 'push|check|is',
     },
+    REG_CONV {
+        CPPCLS = 'cocos2d::TTFConfig',
+        DEF = [[
+            std::string fontFilePath;
+            float fontSize;
+            cocos2d::GlyphCollection glyphs;
+            const char *customGlyphs;
+            bool distanceFieldEnabled;
+            int outlineSize;
+            bool italics;
+            bool bold;
+            bool underline;
+            bool strikethrough;
+        ]],
+        FUNC = 'push|check|is'
+    }
 }
 
 return M

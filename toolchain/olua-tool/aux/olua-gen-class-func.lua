@@ -88,7 +88,7 @@ local function gen_func_args(cls, fi)
                 ]])
             else
                 ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
-                    ${FUNC_OPT_VALUE}(L, ${IDX}, &${ARG_N}, ${DEFAULT});
+                    ${FUNC_OPT_VALUE}(L, ${IDX}, &${ARG_N}, (${DECL_TYPE})${DEFAULT});
                 ]])
             end
         elseif ai.TYPE.LUACLS then
@@ -318,15 +318,28 @@ local function gen_test_and_call(cls, fns)
             for i, ai in ipairs(fi.ARGS) do
                 local IDX = (fi.STATIC and 0 or 1) + i
                 local FUNC_IS_VALUE = ai.TYPE.FUNC_IS_VALUE
-                if ai.TYPE.LUACLS then
-                    local LUACLS = ai.TYPE.LUACLS
-                    TEST_ARGS[#TEST_ARGS + 1] = format_snippet([[
-                        ${FUNC_IS_VALUE}(L, ${IDX}, "${LUACLS}")
-                    ]])
+                if ai.DEFAULT or ai.ATTR.NULLABLE then
+                    if ai.TYPE.LUACLS then
+                        local LUACLS = ai.TYPE.LUACLS
+                        TEST_ARGS[#TEST_ARGS + 1] = format_snippet([[
+                            (${FUNC_IS_VALUE}(L, ${IDX}, "${LUACLS}") || olua_isnil(L, ${IDX}))
+                        ]])
+                    else
+                        TEST_ARGS[#TEST_ARGS + 1] = format_snippet([[
+                            (${FUNC_IS_VALUE}(L, ${IDX}) || olua_isnil(L, ${IDX})
+                        ]])
+                    end
                 else
-                    TEST_ARGS[#TEST_ARGS + 1] = format_snippet([[
-                        ${FUNC_IS_VALUE}(L, ${IDX})
-                    ]])
+                    if ai.TYPE.LUACLS then
+                        local LUACLS = ai.TYPE.LUACLS
+                        TEST_ARGS[#TEST_ARGS + 1] = format_snippet([[
+                            ${FUNC_IS_VALUE}(L, ${IDX}, "${LUACLS}")
+                        ]])
+                    else
+                        TEST_ARGS[#TEST_ARGS + 1] = format_snippet([[
+                            ${FUNC_IS_VALUE}(L, ${IDX})
+                        ]])
+                    end
                 end
             end
 

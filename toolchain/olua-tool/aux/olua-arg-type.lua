@@ -66,6 +66,7 @@ REG_TYPE {
 REG_TYPE {
     TYPENAME = table.concat({
         'int',
+        'long',
         'ssize_t',
         'std::int32_t',
         'unsigned short',
@@ -82,6 +83,7 @@ REG_TYPE {
     TYPENAME = table.concat({
         'unsigned int',
         'uint32_t',
+        'uint64_t',
         'size_t',
         'GLuint',
         'GLenum',

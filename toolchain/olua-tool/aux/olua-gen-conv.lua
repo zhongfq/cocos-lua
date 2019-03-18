@@ -75,11 +75,13 @@ local function gen_push_func(cv, write)
         local VARNAME = pi.VARNAME
         local PUSH_FUNC
         local isbase = true
+        local DECL_TYPE = ""
         if pi.TYPE.DECL_TYPE == 'lua_Number' then
             PUSH_FUNC = 'olua_rawsetfieldnumber'
         elseif pi.TYPE.DECL_TYPE == 'lua_Integer'
             or pi.TYPE.DECL_TYPE == 'lua_Unsigned' then
             PUSH_FUNC = 'olua_rawsetfieldinteger'
+            DECL_TYPE = '(' .. pi.TYPE.DECL_TYPE .. ')'
         elseif pi.TYPE.TYPENAME == 'std::string' then
             PUSH_FUNC = 'olua_rawsetfieldstring'
             VARNAME = VARNAME .. '.c_str()'
@@ -94,7 +96,7 @@ local function gen_push_func(cv, write)
         end
         if isbase then
             ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
-                ${PUSH_FUNC}(L, -1, "${LUANAME}", value->${VARNAME});
+                ${PUSH_FUNC}(L, -1, "${LUANAME}", ${DECL_TYPE}value->${VARNAME});
             ]])
         else
             ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[

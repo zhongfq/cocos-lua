@@ -118,4 +118,9 @@ int auto_luacv_push_cocos2d_T2F_Quad(lua_State *L, const cocos2d::T2F_Quad *valu
 void auto_luacv_check_cocos2d_T2F_Quad(lua_State *L, int idx, cocos2d::T2F_Quad *value);
 bool auto_luacv_is_cocos2d_T2F_Quad(lua_State *L, int idx);
 
+// cocos2d::TTFConfig
+int auto_luacv_push_cocos2d_TTFConfig(lua_State *L, const cocos2d::TTFConfig *value);
+void auto_luacv_check_cocos2d_TTFConfig(lua_State *L, int idx, cocos2d::TTFConfig *value);
+bool auto_luacv_is_cocos2d_TTFConfig(lua_State *L, int idx);
+
 #endif

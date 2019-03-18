@@ -190,7 +190,8 @@ end
 
 function parse_args(cls, args_str)
     local args = {}
-    args_str = string.match(args_str, '%((.*)%)')
+    local bk = args_str
+    args_str = assert(string.match(args_str, '%((.*)%)'), args_str)
 
     while #args_str > 0 do
         local typename, attr, varname, default
@@ -587,7 +588,7 @@ function REG_CONV(ci)
     for line in string.gmatch(assert(ci.DEF, 'no DEF'), '[^\n\r]+') do
         local typename, varname, luaname = string.match(line, '([^{} ]+[ *&])([^ *&]+) *= *([^ ;]*)')
         if not typename then
-            typename, varname = string.match(line, '([^{} ]+[ *&])([^ *&;]+)')
+            typename, varname = string.match(line, '([^{}]+[ *&])([^ *&;]+)')
         end
         if typename then
             typename = to_pretty_typename(typename)

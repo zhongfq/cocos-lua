@@ -56,6 +56,7 @@ M.CLASSES = {
     include("conf/cocos2d/cc/cc.GLProgramState.lua"),
     include("conf/cocos2d/cc/cc.TextureCache.lua"),
     include("conf/cocos2d/cc/cc.Texture2D.lua"),
+    include("conf/cocos2d/cc/cc.TextureAtlas.lua"),
     include("conf/cocos2d/cc/cc.Component.lua"),
     include("conf/cocos2d/cc/cc.SpriteFrame.lua"),
     include("conf/cocos2d/cc/cc.Animation.lua"),
@@ -72,6 +73,7 @@ M.CLASSES = {
     include("conf/cocos2d/cc/cc.Event.lua"),
     include("conf/cocos2d/cc/cc.EventKeyboard.KeyCode.lua"),
     include("conf/cocos2d/cc/cc.Touch.lua"),
+    include("conf/cocos2d/cc/cc.Font.lua"),
 }
 
 return M

@@ -34,7 +34,7 @@ extern "C" {
 #define olua_touserdata(L, n, t)    (*(t*)lua_touserdata(L, (n)))
     
 #ifndef OLUA_MAINTHREAD
-#define olua_mainthread (static_assert(false), NULL)
+#error "'OLUA_MAINTHREAD' not defined"
 #else
 #define olua_mainthread OLUA_MAINTHREAD
 #endif

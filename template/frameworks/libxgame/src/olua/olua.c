@@ -693,6 +693,13 @@ static int cls_newindex(lua_State *L)
     }
     
     if (lua_type(L, 1) == LUA_TUSERDATA) {
+        if (olua_isstring(L, 2)) {
+            size_t len;
+            const char *key = lua_tolstring(L, 2, &len);
+            if (len > 0 && key[0] == '.') {
+                luaL_error(L, "variable name can't start with '.' char.");
+            }
+        }
         lua_settop(L, 3);
         olua_setvariable(L, 1);
     } else {

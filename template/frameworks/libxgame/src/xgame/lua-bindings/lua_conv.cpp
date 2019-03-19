@@ -234,11 +234,6 @@ bool auto_luacv_is_cocos2d_Vec4(lua_State *L, int idx)
     return lua_istable(L, idx);
 }
 
-bool auto_luacv_ispack_cocos2d_Vec4(lua_State *L, int idx)
-{
-    return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1) && olua_is_number(L, idx + 2) && olua_is_number(L, idx + 3);
-}
-
 int auto_luacv_push_cocos2d_Size(lua_State *L, const cocos2d::Size *value)
 {
     if (value) {
@@ -1183,6 +1178,84 @@ int auto_luacv_unpack_cocos2d_BlendFunc(lua_State *L, const cocos2d::BlendFunc *
 }
 
 bool auto_luacv_is_cocos2d_BlendFunc(lua_State *L, int idx)
+{
+    return lua_istable(L, idx);
+}
+
+int auto_luacv_push_cocos2d_ui_Margin(lua_State *L, const cocos2d::ui::Margin *value)
+{
+    if (value) {
+        lua_createtable(L, 0, 4);
+        olua_rawsetfieldnumber(L, -1, "left", value->left);
+        olua_rawsetfieldnumber(L, -1, "top", value->top);
+        olua_rawsetfieldnumber(L, -1, "right", value->right);
+        olua_rawsetfieldnumber(L, -1, "bottom", value->bottom);
+    } else {
+        lua_pushnil(L);
+    }
+
+    return 1;
+}
+
+void auto_luacv_check_cocos2d_ui_Margin(lua_State *L, int idx, cocos2d::ui::Margin *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    idx = lua_absindex(L, idx);
+    luaL_checktype(L, idx, LUA_TTABLE);
+    value->left = (float)olua_checkfieldnumber(L, idx, "left");
+    value->top = (float)olua_checkfieldnumber(L, idx, "top");
+    value->right = (float)olua_checkfieldnumber(L, idx, "right");
+    value->bottom = (float)olua_checkfieldnumber(L, idx, "bottom");
+}
+
+void auto_luacv_opt_cocos2d_ui_Margin(lua_State *L, int idx, cocos2d::ui::Margin *value, const cocos2d::ui::Margin &def)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    if (olua_isnil(L, idx)) {
+        *value = def;
+    } else {
+        idx = lua_absindex(L, idx);
+        luaL_checktype(L, idx, LUA_TTABLE);
+        value->left = (float)olua_checkfieldnumber(L, idx, "left");
+        value->top = (float)olua_checkfieldnumber(L, idx, "top");
+        value->right = (float)olua_checkfieldnumber(L, idx, "right");
+        value->bottom = (float)olua_checkfieldnumber(L, idx, "bottom");
+    }
+}
+
+void auto_luacv_pack_cocos2d_ui_Margin(lua_State *L, int idx, cocos2d::ui::Margin *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    idx = lua_absindex(L, idx);
+    value->left = (float)olua_checknumber(L, idx + 0);
+    value->top = (float)olua_checknumber(L, idx + 1);
+    value->right = (float)olua_checknumber(L, idx + 2);
+    value->bottom = (float)olua_checknumber(L, idx + 3);
+}
+
+int auto_luacv_unpack_cocos2d_ui_Margin(lua_State *L, const cocos2d::ui::Margin *value)
+{
+    if (value) {
+        lua_pushnumber(L, value->left);
+        lua_pushnumber(L, value->top);
+        lua_pushnumber(L, value->right);
+        lua_pushnumber(L, value->bottom);
+    } else {
+        for (int i = 0; i < 4; i++) {
+            lua_pushnil(L);
+        }
+    }
+
+    return 4;
+}
+
+bool auto_luacv_is_cocos2d_ui_Margin(lua_State *L, int idx)
 {
     return lua_istable(L, idx);
 }

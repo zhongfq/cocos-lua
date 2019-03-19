@@ -345,7 +345,7 @@ cls.prop('width', [[
     self->setContentSize(size);
     return 0;   
 }]])
-cls.prop('heigh', [[
+cls.prop('height', [[
 {
     lua_settop(L, 1);
     cocos2d::Node *self = (cocos2d::Node *)olua_toobj(L, 1, "cc.Node");

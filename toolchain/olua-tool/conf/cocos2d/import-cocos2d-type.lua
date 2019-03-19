@@ -41,7 +41,6 @@ REG_TYPE {
     TYPENAME = 'cocos2d::Vec4',
     CONV_FUNC = make_auto_conv_func,
     INIT_VALUE = false,
-    VARS = 4,
 }
 
 REG_TYPE {
@@ -55,7 +54,6 @@ REG_TYPE {
     TYPENAME = 'cocos2d::Rect',
     CONV_FUNC = make_manual_conv_func,
     INIT_VALUE = false,
-    VARS = 4,
 }
 
 REG_TYPE {
@@ -102,6 +100,7 @@ REG_TYPE {
         'cocos2d::Tex2F',
         'cocos2d::Texture2D::TexParams',
         'cocos2d::TTFConfig',
+        'cocos2d::ui::Margin',
         'cocos2d::Uniform *',
         'cocos2d::VertexAttrib *',
         'GLContextAttrs',
@@ -135,6 +134,9 @@ REG_TYPE {
         'cocos2d::Texture2D::PixelFormat',
         'cocos2d::TextVAlignment',
         'cocos2d::TransitionScene::Orientation',
+        'cocos2d::ui::LayoutParameter::Type',
+        'cocos2d::ui::LinearLayoutParameter::LinearGravity',
+        'cocos2d::ui::RelativeLayoutParameter::RelativeAlign',
         'cocos2d::ui::Widget::BrightStyle',
         'cocos2d::ui::Widget::FocusDirection',
         'cocos2d::ui::Widget::PositionType',
@@ -328,6 +330,9 @@ REG_TYPE {
         'cocos2d::TransitionZoomFlipAngular *',
         'cocos2d::TransitionZoomFlipX *',
         'cocos2d::TransitionZoomFlipY *',
+        'cocos2d::ui::LayoutParameter *',
+        'cocos2d::ui::LinearLayoutParameter *',
+        'cocos2d::ui::RelativeLayoutParameter *',
         'cocos2d::ui::Widget *',
         'cocos2d::UserDefault *',
         'cocos2d::Vec3 *',

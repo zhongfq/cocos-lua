@@ -185,9 +185,16 @@ function gen_callback(cls, fi, write)
         RESULT_DECL = format_snippet([[
             ${DECL_TYPE} ret = ${INIT_VALUE};
         ]])
-        RESULT_GET = format_snippet([[
-            ${FUNC_OPT_VALUE}(L, -1, &ret, ${INIT_VALUE});
-        ]])
+        if ai.CALLBACK.RET.LUACLS then
+            local LUACLS = ai.CALLBACK.RET.LUACLS
+            RESULT_GET = format_snippet([[
+                ${FUNC_OPT_VALUE}(L, -1, (void **)&ret, "${LUACLS}", ${INIT_VALUE});
+            ]])
+        else
+            RESULT_GET = format_snippet([[
+                ${FUNC_OPT_VALUE}(L, -1, &ret, ${INIT_VALUE});
+            ]])
+        end
         RESULT_RET = "return ret;"
     end
 

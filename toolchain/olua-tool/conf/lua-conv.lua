@@ -6,6 +6,14 @@ M.NAME = "CONV"
 M.HEADER_PATH = "template/frameworks/libxgame/src/xgame/lua-bindings/lua_conv.h"
 M.SOURCE_PATH = "template/frameworks/libxgame/src/xgame/lua-bindings/lua_conv.cpp"
 
+M.HEADER_INCLUDES = [[
+#include "xgame/xlua.h"
+#include "lua.hpp"
+
+#include "cocos2d.h"
+#include "ui/UILayoutParameter.h"
+]]
+
 M.INCLUDES = [[
 #include "xgame/lua-bindings/lua_conv.h"
 #include "xgame/xlua.h"
@@ -176,6 +184,15 @@ M.CONVS = {
         DEF = [[
             GLenum src;
             GLenum dst;
+        ]]
+    },
+    REG_CONV {
+        CPPCLS = 'cocos2d::ui::Margin',
+        DEF = [[
+            float left;
+            float top;
+            float right;
+            float bottom;
         ]]
     }
 }

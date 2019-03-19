@@ -18283,7 +18283,7 @@ static int _cocos2d_Node_set_width(lua_State *L)
     return 0;   
 }
 
-static int _cocos2d_Node_get_heigh(lua_State *L)
+static int _cocos2d_Node_get_height(lua_State *L)
 {
     lua_settop(L, 1);
     cocos2d::Node *self = (cocos2d::Node *)olua_toobj(L, 1, "cc.Node");
@@ -18292,7 +18292,7 @@ static int _cocos2d_Node_get_heigh(lua_State *L)
 }
 
 
-static int _cocos2d_Node_set_heigh(lua_State *L)
+static int _cocos2d_Node_set_height(lua_State *L)
 {
     lua_settop(L, 2);
     cocos2d::Node *self = (cocos2d::Node *)olua_toobj(L, 1, "cc.Node");
@@ -18525,7 +18525,7 @@ static int luaopen_cocos2d_Node(lua_State *L)
     oluacls_property(L, "anchorX", _cocos2d_Node_get_anchorX, _cocos2d_Node_set_anchorX);
     oluacls_property(L, "anchorY", _cocos2d_Node_get_anchorY, _cocos2d_Node_set_anchorY);
     oluacls_property(L, "width", _cocos2d_Node_get_width, _cocos2d_Node_set_width);
-    oluacls_property(L, "heigh", _cocos2d_Node_get_heigh, _cocos2d_Node_set_heigh);
+    oluacls_property(L, "height", _cocos2d_Node_get_height, _cocos2d_Node_set_height);
     oluacls_property(L, "alpha", _cocos2d_Node_get_alpha, _cocos2d_Node_set_alpha);
 
     olua_registerluatype<cocos2d::Node>(L, "cc.Node");
@@ -21172,24 +21172,24 @@ static int _cocos2d_SpriteFrame_getRectInPixels(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteFrame");
 
-    // @unpack const Rect& getRectInPixels()
+    // const Rect& getRectInPixels()
     const cocos2d::Rect &ret = (const cocos2d::Rect &)self->getRectInPixels();
-    int num_ret = manual_luacv_unpack_cocos2d_Rect(L, &ret);
+    int num_ret = manual_luacv_push_cocos2d_Rect(L, &ret);
 
     return num_ret;
 }
 
 static int _cocos2d_SpriteFrame_setRectInPixels(lua_State *L)
 {
-    lua_settop(L, 5);
+    lua_settop(L, 2);
 
     cocos2d::SpriteFrame *self = nullptr;
     cocos2d::Rect arg1;       /** rectInPixels */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteFrame");
-    manual_luacv_pack_cocos2d_Rect(L, 2, &arg1);
+    manual_luacv_check_cocos2d_Rect(L, 2, &arg1);
 
-    // void setRectInPixels(@pack const Rect& rectInPixels)
+    // void setRectInPixels(const Rect& rectInPixels)
     self->setRectInPixels(arg1);
 
     return 0;
@@ -21234,24 +21234,24 @@ static int _cocos2d_SpriteFrame_getRect(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteFrame");
 
-    // @unpack const Rect& getRect()
+    // const Rect& getRect()
     const cocos2d::Rect &ret = (const cocos2d::Rect &)self->getRect();
-    int num_ret = manual_luacv_unpack_cocos2d_Rect(L, &ret);
+    int num_ret = manual_luacv_push_cocos2d_Rect(L, &ret);
 
     return num_ret;
 }
 
 static int _cocos2d_SpriteFrame_setRect(lua_State *L)
 {
-    lua_settop(L, 5);
+    lua_settop(L, 2);
 
     cocos2d::SpriteFrame *self = nullptr;
     cocos2d::Rect arg1;       /** rect */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteFrame");
-    manual_luacv_pack_cocos2d_Rect(L, 2, &arg1);
+    manual_luacv_check_cocos2d_Rect(L, 2, &arg1);
 
-    // void setRect(@pack const Rect& rect)
+    // void setRect(const Rect& rect)
     self->setRect(arg1);
 
     return 0;
@@ -21265,24 +21265,24 @@ static int _cocos2d_SpriteFrame_getCenterRect(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteFrame");
 
-    // @unpack const Rect& getCenterRect()
+    // const Rect& getCenterRect()
     const cocos2d::Rect &ret = (const cocos2d::Rect &)self->getCenterRect();
-    int num_ret = manual_luacv_unpack_cocos2d_Rect(L, &ret);
+    int num_ret = manual_luacv_push_cocos2d_Rect(L, &ret);
 
     return num_ret;
 }
 
 static int _cocos2d_SpriteFrame_setCenterRectInPixels(lua_State *L)
 {
-    lua_settop(L, 5);
+    lua_settop(L, 2);
 
     cocos2d::SpriteFrame *self = nullptr;
     cocos2d::Rect arg1;       /** centerRect */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteFrame");
-    manual_luacv_pack_cocos2d_Rect(L, 2, &arg1);
+    manual_luacv_check_cocos2d_Rect(L, 2, &arg1);
 
-    // void setCenterRectInPixels(@pack const Rect& centerRect)
+    // void setCenterRectInPixels(const Rect& centerRect)
     self->setCenterRectInPixels(arg1);
 
     return 0;

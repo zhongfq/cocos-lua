@@ -182,7 +182,7 @@ local function parse_callback(cls, typename, default)
     return {
         DEFAULT = default,
         ARGS = cb_args,
-        RET = get_typeinfo(rt),
+        RET = get_typeinfo(rt, cls),
         RET_ATTR = rt_attr,
         ARGS_DECL = cb_args_decl,
     }

@@ -72,9 +72,6 @@ cls.funcs [[
     float getBottomBoundary()
     float getRightBoundary()
     float getTopBoundary()
-    // void addTouchEventListener(const ccWidgetTouchCallback& callback)
-    // void addClickEventListener(const ccWidgetClickCallback& callback)
-    // void addCCSEventListener(const ccWidgetEventCallback& callback)
     void setPositionPercent(@pack const Vec2 &percent)
     @unpack const Vec2& getPositionPercent()
     void setPositionType(PositionType type)
@@ -98,8 +95,8 @@ cls.funcs [[
     void onTouchMoved(Touch *touch, Event *unusedEvent)
     void onTouchEnded(Touch *touch, Event *unusedEvent)
     void onTouchCancelled(Touch *touch, Event *unusedEvent)
-    // void setLayoutParameter(LayoutParameter* parameter)
-    // LayoutParameter* getLayoutParameter()
+    void setLayoutParameter(LayoutParameter* parameter)
+    LayoutParameter* getLayoutParameter()
     void ignoreContentAdaptWithSize(bool ignore)
     bool isIgnoreContentAdaptWithSize()
     @unpack Vec2 getWorldPosition()
@@ -131,9 +128,60 @@ cls.funcs [[
     void setLayoutComponentEnabled(bool enable)
     bool isLayoutComponentEnabled()
 ]]
--- cls.vars [[
---     @nullable std::function<void(Widget*,Widget*)> onFocusChanged
---     @nullable std::function<Widget*(FocusDirection)> onNextFocusedWidget
--- ]]
+
+cls.props [[
+    enabled
+    bright
+    touchEnabled
+    highlighted
+    leftBoundary
+    bottomBoundary
+    rightBoundary
+    topBoundary
+    positionType
+    flippedX
+    flippedY
+    sizeType
+    layoutParameter
+    ignoreContentAdaptWithSize
+    virtualRenderer
+    actionTag
+    propagateTouchEvents
+    swallowTouches
+    focused
+    focusEnabled
+    currentFocusedWidget
+    unifySizeEnabled
+    callbackName
+    callbackType
+    layoutComponentEnabled
+]]
+
+cls.vars [[
+    @nullable std::function<void(Widget*,Widget*)> onFocusChanged
+    @nullable std::function<Widget*(FocusDirection)> onNextFocusedWidget
+]]
+
+cls.callback(nil, {
+        CALLBACK_MAKER = 'olua_makecallbacktag("touchEventListener")',
+        CALLBACK_REPLACE = true,
+        CALLBACK_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
+    }, 
+    'void addTouchEventListener(@nullable const std::function<void(Ref*,Widget::TouchEventType)>& callback)'
+)
+cls.callback(nil, {
+        CALLBACK_MAKER = 'olua_makecallbacktag("clickEventListener")',
+        CALLBACK_REPLACE = true,
+        CALLBACK_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
+    }, 
+    'void addClickEventListener(@nullable std::function<void(Ref*)>& callback)'
+)
+cls.callback(nil, {
+        CALLBACK_MAKER = 'olua_makecallbacktag("ccsEventListener")',
+        CALLBACK_REPLACE = true,
+        CALLBACK_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
+    }, 
+    'void addCCSEventListener(@nullable const std::function<void(Ref*, int)>& callback)'
+)
 
 return M

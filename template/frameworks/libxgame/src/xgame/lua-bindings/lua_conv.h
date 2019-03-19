@@ -8,6 +8,7 @@
 #include "lua.hpp"
 
 #include "cocos2d.h"
+#include "ui/UILayoutParameter.h"
 
 // cocos2d::Vec2
 int auto_luacv_push_cocos2d_Vec2(lua_State *L, const cocos2d::Vec2 *value);
@@ -34,7 +35,6 @@ void auto_luacv_opt_cocos2d_Vec4(lua_State *L, int idx, cocos2d::Vec4 *value, co
 void auto_luacv_pack_cocos2d_Vec4(lua_State *L, int idx, cocos2d::Vec4 *value);
 int auto_luacv_unpack_cocos2d_Vec4(lua_State *L, const cocos2d::Vec4 *value);
 bool auto_luacv_is_cocos2d_Vec4(lua_State *L, int idx);
-bool auto_luacv_ispack_cocos2d_Vec4(lua_State *L, int idx);
 
 // cocos2d::Size
 int auto_luacv_push_cocos2d_Size(lua_State *L, const cocos2d::Size *value);
@@ -134,5 +134,13 @@ void auto_luacv_opt_cocos2d_BlendFunc(lua_State *L, int idx, cocos2d::BlendFunc 
 void auto_luacv_pack_cocos2d_BlendFunc(lua_State *L, int idx, cocos2d::BlendFunc *value);
 int auto_luacv_unpack_cocos2d_BlendFunc(lua_State *L, const cocos2d::BlendFunc *value);
 bool auto_luacv_is_cocos2d_BlendFunc(lua_State *L, int idx);
+
+// cocos2d::ui::Margin
+int auto_luacv_push_cocos2d_ui_Margin(lua_State *L, const cocos2d::ui::Margin *value);
+void auto_luacv_check_cocos2d_ui_Margin(lua_State *L, int idx, cocos2d::ui::Margin *value);
+void auto_luacv_opt_cocos2d_ui_Margin(lua_State *L, int idx, cocos2d::ui::Margin *value, const cocos2d::ui::Margin &def);
+void auto_luacv_pack_cocos2d_ui_Margin(lua_State *L, int idx, cocos2d::ui::Margin *value);
+int auto_luacv_unpack_cocos2d_ui_Margin(lua_State *L, const cocos2d::ui::Margin *value);
+bool auto_luacv_is_cocos2d_ui_Margin(lua_State *L, int idx);
 
 #endif

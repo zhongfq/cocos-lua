@@ -190,14 +190,14 @@ end
 
 function parse_args(cls, args_str)
     local args = {}
-    local bk = args_str
+    local max_args = 0
     args_str = assert(string.match(args_str, '%((.*)%)'), args_str)
 
     while #args_str > 0 do
         local typename, attr, varname, default
         typename, attr, args_str = parse_def(args_str)
         if typename == 'void' then
-            return args
+            return args, max_args
         end
 
         varname, default = string.match(args_str, '^([^ ]+) *= *([^ ,]*)')
@@ -244,9 +244,15 @@ function parse_args(cls, args_str)
                 CALLBACK = {},
             }
         end
+
+        if attr.PACK then
+            max_args = max_args + assert(args[#args].TYPE.VARS, args[#args].TYPE.TYPENAME)
+        else
+            max_args = max_args + 1
+        end
     end
 
-    return args
+    return args, max_args
 end
 
 local function parse_func(cls, name, ...)
@@ -264,6 +270,7 @@ local function parse_func(cls, name, ...)
             fi.RET.ATTR = {}
             fi.ARGS = {}
             fi.PROTOTYPE = false
+            fi.MAX_ARGS = #fi.ARGS
         else
             local typename, attr, str = parse_def(func_decl)
             fi.CPPFUNC = string.match(str, '[^ ()]+')
@@ -287,7 +294,7 @@ local function parse_func(cls, name, ...)
                 fi.RET.DECL_TYPE = to_decl_type(cls, typename, false, true)
                 fi.RET.ATTR = attr
             end
-            fi.ARGS = parse_args(cls, string.sub(str, #fi.CPPFUNC + 1))
+            fi.ARGS, fi.MAX_ARGS = parse_args(cls, string.sub(str, #fi.CPPFUNC + 1))
 
             do
                 local ARGS_DECL = {}
@@ -314,7 +321,7 @@ local function parse_func(cls, name, ...)
         assert(not string.find(fi.LUAFUNC, '[^_%w]+'), '"' .. fi.LUAFUNC .. '"')
         fi.INDEX = i
         arr[#arr + 1] = fi
-        arr.MAX_ARGS = math.max(arr.MAX_ARGS, #fi.ARGS)
+        arr.MAX_ARGS = math.max(arr.MAX_ARGS, fi.MAX_ARGS)
     end
 
     return arr
@@ -595,6 +602,10 @@ function REG_TYPE(typeinfo)
         info.FUNC_PACK_VALUE = string.gsub(info.CONV_FUNC, '[$]+', "pack")
         info.FUNC_UNPACK_VALUE = string.gsub(info.CONV_FUNC, '[$]+', "unpack")
 
+        if info.VARS and info.VARS > 1 then
+            info.FUNC_ISPACK_VALUE = string.gsub(info.CONV_FUNC, '[$]+', "ispack")
+        end
+
         if info.LUACLS then
             if type(info.LUACLS) == "function" then
                 info.LUACLS = info.LUACLS(typename)
@@ -625,10 +636,18 @@ function REG_CONV(ci)
             }
         end
     end
+
     ci.FUNC = {}
     for f in string.gmatch(func, '[^|]+') do
         ci.FUNC[string.upper(f)] = true
     end
+
+    local ti = typeinfo_map[ci.CPPCLS] or typeinfo_map[ci.CPPCLS .. ' *']
+    assert(ti, ci.CPPCLS)
+    if ti.VARS and ti.VARS > 1 then
+        ci.FUNC['ISPACK'] = true
+    end
+
     ci.FUNC.IS = true
     return ci
 end

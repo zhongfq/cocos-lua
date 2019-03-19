@@ -8,22 +8,18 @@ local filesystem    = require "kernel.filesystem"
 local util          = require "util"
 local UserDefault   = require "cc.UserDefault"
 local Node          = require "cc.Node"
-local Scene          = require "cc.Scene"
+local Scene         = require "cc.Scene"
 local Sprite        = require "cc.Sprite"
 local Director      = require "cc.Director"
 local ActionManager = require "cc.ActionManager"
 local Scheduler     = require "cc.Scheduler"
-local EventListenerTouchAllAtOnce = require "cc.EventListenerTouchAllAtOnce"
-local EventListenerTouchOneByOne = require "cc.EventListenerTouchOneByOne"
-local EventListenerCustom = require "cc.EventListenerCustom"
+local FileUtils     = require "cc.FileUtils"
 local RotateTo      = require "cc.RotateTo"
 local Sequence      = require "cc.Sequence"
 local BezierBy      = require "cc.BezierBy"
 local ActionFloat   = require "cc.ActionFloat"
-local CallFunc   = require "cc.CallFunc"
-local AnimationFrame = require "cc.AnimationFrame"
-local SpriteFrame = require "cc.SpriteFrame"
-local Component = require "cc.Component"
+local CallFunc      = require "cc.CallFunc"
+local Widget        = require "ccui.Widget"
 
 window.setDesignSize(1334, 750, 1)
 
@@ -65,48 +61,8 @@ function main()
         -- print("##action float", ...)
     end))
 
-    print("test compoent")
-    local c1 = Component.create()
-    c1.name = "C1"
-    local c2 = Component.create()
-    c2.name = "C2"
-    c2.onRemoveCallback = function ( ... )
-        print("compoent remoe", c2)
-    end
-    node:addComponent(c1)
-    node:addComponent(c2)
-    print("Component", c1, c2, c2.owner)
-    printUserValue(node)
-    printUserValue(c2)
-    -- node:removeAllChildren()
-    printUserValue(node)
-
-    node:scheduleOnce(function ( ... )
-        print("scheduleOnce")
-    end, 1, 'xxxxx')
-
-    print("#", c2.onRemoveCallback)
-
-    timer.delay(1, function ( ... )
-        node:removeComponent('C2')
-    end)
-    timer.delay(2, function ( ... )
-        collectgarbage('collect')
-        director.eventDispatcher:dispatchCustomEvent('hello')
-    end)
-
-    local customListener = EventListenerCustom.create('hello', function ( ... )
-        print("customListener", ...)
-    end)
-    director.listener = customListener
-    director.eventDispatcher:addEventListenerWithFixedPriority(customListener, 1)
-
-    downloader.setDispatcher(function ( ... )
-        print("#####downloader", ...)
-    end)
-    local url = 'http://cdn.xqw369.com/ttsz/v4/assets/4.0.32/manifest'
-    downloader.load(url, filesystem.cacheDirectory .. '/manifest.json')
-    downloader.load(url .. 'xxx', filesystem.cacheDirectory .. '/manifest.json.x')
+    util.printdump(FileUtils.instance:listFiles(filesystem.cacheDirectory))
+    util.printdump(FileUtils.instance:listFilesRecursively(filesystem.cacheDirectory .. '/..'))
 end
 
 function printarr(arr)

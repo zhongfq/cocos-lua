@@ -36,6 +36,11 @@ local function gen_conv_header(module)
                 bool auto_luacv_is_${CPPCLS_PATH}(lua_State *L, int idx);
             ]])
         end
+        if cv.FUNC.ISPACK then
+            DECL_FUNCS[#DECL_FUNCS + 1] = format_snippet([[
+                bool auto_luacv_ispack_${CPPCLS_PATH}(lua_State *L, int idx);
+            ]])
+        end
         DECL_FUNCS[#DECL_FUNCS + 1] = ""
     end
 
@@ -346,6 +351,27 @@ local function gen_is_func(cv, write)
     write('')
 end
 
+local function gen_ispack_func(cv, write)
+    local CPPCLS = cv.CPPCLS
+    local CPPCLS_PATH = class_path(cv)
+    local TEST_TYPE = {}
+    for i, pi in ipairs(cv.PROPS) do
+        local FUNC_IS_VALUE = pi.TYPE.FUNC_IS_VALUE
+        local VIDX = i - 1
+        TEST_TYPE[#TEST_TYPE + 1] = format_snippet([[
+            ${FUNC_IS_VALUE}(L, idx + ${VIDX})
+        ]])
+    end
+    TEST_TYPE = table.concat(TEST_TYPE, " && ")
+    write(format_snippet([[
+        bool auto_luacv_ispack_${CPPCLS_PATH}(lua_State *L, int idx)
+        {
+            return ${TEST_TYPE};
+        }
+    ]]))
+    write('')
+end
+
 local function gen_funcs(cv, write)
     if cv.FUNC.PUSH then
         gen_push_func(cv, write)
@@ -364,6 +390,9 @@ local function gen_funcs(cv, write)
     end
     if cv.FUNC.IS then
         gen_is_func(cv, write)
+    end
+    if cv.FUNC.ISPACK then
+        gen_ispack_func(cv, write)
     end
 end
 

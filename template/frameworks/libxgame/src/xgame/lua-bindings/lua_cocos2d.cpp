@@ -11833,12 +11833,14 @@ static int _cocos2d_MoveBy_create(lua_State *L)
 {
     int num_args = lua_gettop(L);
 
-    if (num_args == 2) {
-        if (olua_is_number(L, 1) && auto_luacv_is_cocos2d_Vec2(L, 2)) {
+    if (num_args == 3) {
+        // if (olua_is_number(L, 1) && auto_luacv_ispack_cocos2d_Vec2(L, 2)) {
             return _cocos2d_MoveBy_create1(L);
-        }
+        // }
+    }
 
-        // if (olua_is_number(L, 1) && auto_luacv_is_cocos2d_Vec3(L, 2)) {
+    if (num_args == 4) {
+        // if (olua_is_number(L, 1) && auto_luacv_ispack_cocos2d_Vec3(L, 2)) {
             return _cocos2d_MoveBy_create2(L);
         // }
     }
@@ -11897,12 +11899,14 @@ static int _cocos2d_MoveTo_create(lua_State *L)
 {
     int num_args = lua_gettop(L);
 
-    if (num_args == 2) {
-        if (olua_is_number(L, 1) && auto_luacv_is_cocos2d_Vec2(L, 2)) {
+    if (num_args == 3) {
+        // if (olua_is_number(L, 1) && auto_luacv_ispack_cocos2d_Vec2(L, 2)) {
             return _cocos2d_MoveTo_create1(L);
-        }
+        // }
+    }
 
-        // if (olua_is_number(L, 1) && auto_luacv_is_cocos2d_Vec3(L, 2)) {
+    if (num_args == 4) {
+        // if (olua_is_number(L, 1) && auto_luacv_ispack_cocos2d_Vec3(L, 2)) {
             return _cocos2d_MoveTo_create2(L);
         // }
     }

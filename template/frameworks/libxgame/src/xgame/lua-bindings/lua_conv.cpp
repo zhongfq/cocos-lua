@@ -73,6 +73,11 @@ bool auto_luacv_is_cocos2d_Vec2(lua_State *L, int idx)
     return lua_istable(L, idx);
 }
 
+bool auto_luacv_ispack_cocos2d_Vec2(lua_State *L, int idx)
+{
+    return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1);
+}
+
 int auto_luacv_push_cocos2d_Vec3(lua_State *L, const cocos2d::Vec3 *value)
 {
     if (value) {
@@ -144,6 +149,11 @@ int auto_luacv_unpack_cocos2d_Vec3(lua_State *L, const cocos2d::Vec3 *value)
 bool auto_luacv_is_cocos2d_Vec3(lua_State *L, int idx)
 {
     return lua_istable(L, idx);
+}
+
+bool auto_luacv_ispack_cocos2d_Vec3(lua_State *L, int idx)
+{
+    return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1) && olua_is_number(L, idx + 2);
 }
 
 int auto_luacv_push_cocos2d_Vec4(lua_State *L, const cocos2d::Vec4 *value)
@@ -224,6 +234,11 @@ bool auto_luacv_is_cocos2d_Vec4(lua_State *L, int idx)
     return lua_istable(L, idx);
 }
 
+bool auto_luacv_ispack_cocos2d_Vec4(lua_State *L, int idx)
+{
+    return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1) && olua_is_number(L, idx + 2) && olua_is_number(L, idx + 3);
+}
+
 int auto_luacv_push_cocos2d_Size(lua_State *L, const cocos2d::Size *value)
 {
     if (value) {
@@ -290,6 +305,11 @@ int auto_luacv_unpack_cocos2d_Size(lua_State *L, const cocos2d::Size *value)
 bool auto_luacv_is_cocos2d_Size(lua_State *L, int idx)
 {
     return lua_istable(L, idx);
+}
+
+bool auto_luacv_ispack_cocos2d_Size(lua_State *L, int idx)
+{
+    return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1);
 }
 
 int auto_luacv_push_cocos2d_Color4F(lua_State *L, const cocos2d::Color4F *value)

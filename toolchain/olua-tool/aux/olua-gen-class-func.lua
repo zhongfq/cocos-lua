@@ -367,7 +367,7 @@ end
 local function get_func_n(fis, n)
     local arr = {}
     for _, v in ipairs(fis) do
-        if #v.ARGS == n then
+        if v.MAX_ARGS == n then
             arr[#arr + 1] = v
         end
     end
@@ -389,6 +389,10 @@ local function gen_test_and_call(cls, fns)
                 local FUNC_IS_VALUE = ai.TYPE.FUNC_IS_VALUE
                 local NULLABLE_BEGIN = ""
                 local NULLABLE_END = ""
+
+                if ai.ATTR.PACK then
+                    FUNC_IS_VALUE = assert(ai.TYPE.FUNC_ISPACK_VALUE, ai.TYPE.TYPENAME)
+                end
 
                 if ai.DEFAULT or ai.ATTR.NULLABLE then
                     NULLABLE_BEGIN = '('

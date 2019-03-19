@@ -3,12 +3,12 @@
 #include "xgame/xlua.h"
 #include "olua/olua.hpp"
 
-int manual_luacv_push_cocos2d_Data(lua_State *L, const cocos2d::Data &value)
+int manual_luacv_push_cocos2d_Data(lua_State *L, const cocos2d::Data *value)
 {
-    if (value.isNull()) {
+    if (!value || value->isNull()) {
         lua_pushnil(L);
     } else {
-        lua_pushlstring(L, (const char *)value.getBytes(), (size_t)value.getSize());
+        lua_pushlstring(L, (const char *)value->getBytes(), (size_t)value->getSize());
     }
     return 1;
 }

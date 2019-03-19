@@ -57,4 +57,11 @@ cls.funcs([[
     std::string getVersion()
     bool openURL(const std::string &url)
 ]])
+cls.props [[
+    instance
+    currentLanguage
+    currentLanguageCode
+    targetPlatform
+    version
+]]
 return M

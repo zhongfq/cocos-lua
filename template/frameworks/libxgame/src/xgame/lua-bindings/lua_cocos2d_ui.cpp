@@ -28,8 +28,9 @@ static int _cocos2d_ui_Widget_hitTest(lua_State *L)
 
     // bool hitTest(const Vec2 &pt, const Camera* camera, @nullable Vec3 *p)
     bool ret = (bool)self->hitTest(arg1, arg2, arg3);
+    int num_ret = olua_push_bool(L, ret);
 
-    return olua_push_bool(L, ret);
+    return num_ret;
 }
 
 static int luaopen_cocos2d_ui_Widget(lua_State *L)

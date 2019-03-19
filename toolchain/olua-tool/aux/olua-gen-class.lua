@@ -22,7 +22,7 @@ end
 local function gen_class_open(cls, write)
     local LUACLS = cls.LUACLS
     local CPPCLS = cls.CPPCLS
-    local CPPCLS_PATH = class_path(cls.RAWCPPCLS or CPPCLS)
+    local CPPCLS_PATH = class_path(cls)
     local SUPRECLS = stringfy(cls.SUPERCLS) or "nullptr"
     local FUNCS = {}
     local REG_LUATYPE = ''

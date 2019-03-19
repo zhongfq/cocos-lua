@@ -47,10 +47,10 @@ LUALIB_API lua_Number olua_checknumber(lua_State *L, int idx)
     return luaL_checknumber(L, idx);
 }
 
-LUALIB_API const char *olua_checkstring(lua_State *L, int idx)
+LUALIB_API const char *olua_checklstring(lua_State *L, int idx, size_t *len)
 {
     luaL_checktype(L, idx, LUA_TSTRING);
-    return luaL_checkstring(L, idx);
+    return lua_tolstring(L, idx, len);
 }
 
 LUALIB_API bool olua_checkboolean(lua_State *L, int idx)
@@ -206,6 +206,61 @@ LUALIB_API bool olua_getobj(lua_State *L, void *obj)
         lua_pop(L, 2);
         return false;
     }
+}
+
+LUALIB_API void *olua_checkobj(lua_State *L, int idx, const char *cls)
+{
+    if (olua_isa(L, idx, cls)) {
+        return olua_toobj(L, idx, cls);
+    } else {
+        luaL_error(L, "#%d argument error, expect: '%s', got '%s'", idx,
+            cls, olua_typename(L, idx));
+    }
+    return NULL;
+}
+
+LUALIB_API void *olua_toobj(lua_State *L, int idx, const char *cls)
+{
+    if (olua_isuserdata(L, idx)) {
+        void *obj = olua_touserdata(L, idx, void *);
+        if (obj) {
+            return obj;
+        } else {
+            luaL_error(L, "object live from gc");
+        }
+    } else {
+        luaL_error(L, "#%d argument error, expect: '%s', got '%s'", idx,
+            cls, lua_typename(L, lua_type(L, idx)));
+    }
+    return NULL;
+}
+
+LUALIB_API void olua_callgc(lua_State *L, int idx, bool isarrary)
+{
+    int top = lua_gettop(L);
+    idx = lua_absindex(L, idx);
+    if (isarrary) {
+        if (olua_istable(L, idx)) {
+            lua_pushnil(L);                     // L: k
+            while (lua_next(L, idx)) {          // L: k v
+                olua_callgc(L, -1, false);
+                lua_pop(L, 1);
+            }
+        }
+    } else if (olua_isuserdata(L, idx)) {
+        void *obj = olua_touserdata(L, idx, void *);
+        lua_pushcfunction(L, TRACEBACK);
+        if (lua_getfield(L, idx, "__gc") == LUA_TFUNCTION) {
+            lua_pushvalue(L, idx);
+            lua_pcall(L, 1, 0, top + 1);
+        }
+        if (obj) {
+            auxgetobjtable(L);
+            lua_pushnil(L);
+            lua_rawsetp(L, -2, obj);
+        }
+    }
+    lua_settop(L, top);
 }
 
 static void auxgetusertable(lua_State *L, int idx)
@@ -511,61 +566,6 @@ LUALIB_API size_t olua_arraylen(lua_State *L, int obj, const char *t)
     len = lua_rawlen(L, -1);
     lua_pop(L, 2);
     return len;
-}
-
-LUALIB_API void *olua_checkobj(lua_State *L, int idx, const char *cls)
-{
-    if (olua_isa(L, idx, cls)) {
-        return olua_toobj(L, idx, cls);
-    } else {
-        luaL_error(L, "#%d argument error, expect: '%s', got '%s'", idx,
-            cls, olua_typename(L, idx));
-    }
-    return NULL;
-}
-
-LUALIB_API void *olua_toobj(lua_State *L, int idx, const char *cls)
-{
-    if (olua_isuserdata(L, idx)) {
-        void *obj = olua_touserdata(L, idx, void *);
-        if (obj) {
-            return obj;
-        } else {
-            luaL_error(L, "object live from gc");
-        }
-    } else {
-        luaL_error(L, "#%d argument error, expect: '%s', got '%s'", idx,
-            cls, lua_typename(L, lua_type(L, idx)));
-    }
-    return NULL;
-}
-
-LUALIB_API void olua_callgc(lua_State *L, int idx, bool isarrary)
-{
-    int top = lua_gettop(L);
-    idx = lua_absindex(L, idx);
-    if (isarrary) {
-        if (olua_istable(L, idx)) {
-            lua_pushnil(L);                     // L: k
-            while (lua_next(L, idx)) {          // L: k v
-                olua_callgc(L, -1, false);
-                lua_pop(L, 1);
-            }
-        }
-    } else if (olua_isuserdata(L, idx)) {
-        void *obj = olua_touserdata(L, idx, void *);
-        lua_pushcfunction(L, TRACEBACK);
-        if (lua_getfield(L, idx, "__gc") == LUA_TFUNCTION) {
-            lua_pushvalue(L, idx);
-            lua_pcall(L, 1, 0, top + 1);
-        }
-        if (obj) {
-            auxgetobjtable(L);
-            lua_pushnil(L);
-            lua_rawsetp(L, -2, obj);
-        }
-    }
-    lua_settop(L, top);
 }
 
 static bool ismetafunc(lua_State *L, int idx, const char *func)

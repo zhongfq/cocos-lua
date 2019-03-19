@@ -40,12 +40,13 @@ extern "C" {
 #endif
 
 LUALIB_API lua_Integer olua_checkinteger(lua_State *L, int idx);
-#define olua_optinteger(L, arg, def) luaL_optinteger(L, arg, def)
+#define olua_optinteger(L, idx, def) luaL_opt(L, olua_checkinteger, idx, def)
 LUALIB_API lua_Number olua_checknumber(lua_State *L, int idx);
-#define olua_optnumber(L, arg, def) luaL_optnumber(L, arg, def)
-LUALIB_API const char *olua_checkstring(lua_State *L, int idx);
-#define olua_optstring(L, arg, def) luaL_optstring(L, arg, def)
-#define olua_optlstring(L, arg, def, len) luaL_optlstring(L, arg, def, len)
+#define olua_optnumber(L, idx, def) luaL_opt(L, olua_checknumber, idx, def)
+LUALIB_API const char *olua_checklstring (lua_State *L, int arg, size_t *len);
+#define olua_checkstring(L, idx) olua_checklstring(L, idx, NULL)
+#define olua_optstring(L, idx, def) luaL_opt(L, olua_checkstring, idx, def)
+#define olua_optlstring(L, idx, def, len) luaL_opt(L, olua_checklstring, idx, def, len)
 LUALIB_API bool olua_checkboolean(lua_State *L, int idx);
 LUALIB_API int olua_rawgetfield(lua_State *L, int idx, const char *field);
 LUALIB_API void olua_rawsetfield(lua_State *L, int idx, const char *field);

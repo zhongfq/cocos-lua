@@ -5,7 +5,7 @@ local function gen_conv_header(module)
     for _, cv in ipairs(module.CONVS) do
         DECL_FUNCS[#DECL_FUNCS + 1] = "// " .. cv.CPPCLS
         local CPPCLS = cv.CPPCLS
-        local CPPCLS_PATH = class_path(CPPCLS)
+        local CPPCLS_PATH = class_path(cv)
         if cv.FUNC.PUSH then
             DECL_FUNCS[#DECL_FUNCS + 1] = format_snippet([[
                 int auto_luacv_push_${CPPCLS_PATH}(lua_State *L, const ${CPPCLS} *value);
@@ -66,7 +66,7 @@ end
 
 local function gen_push_func(cv, write)
     local CPPCLS = cv.CPPCLS
-    local CPPCLS_PATH = class_path(CPPCLS)
+    local CPPCLS_PATH = class_path(cv)
     local NUM_ARGS = #cv.PROPS
     local ARGS_CHUNK = {}
 
@@ -125,7 +125,7 @@ end
 
 local function gen_check_func(cv, write)
     local CPPCLS = cv.CPPCLS
-    local CPPCLS_PATH = class_path(CPPCLS)
+    local CPPCLS_PATH = class_path(cv)
     local NUM_ARGS = #cv.PROPS
     local ARGS_CHUNK = {}
 
@@ -181,7 +181,7 @@ end
 
 local function gen_opt_func(cv, write)
     local CPPCLS = cv.CPPCLS
-    local CPPCLS_PATH = class_path(CPPCLS)
+    local CPPCLS_PATH = class_path(cv)
     local NUM_ARGS = #cv.PROPS
     local ARGS_CHUNK = {}
 
@@ -241,7 +241,7 @@ end
 
 local function gen_pack_func(cv, write)
     local CPPCLS = cv.CPPCLS
-    local CPPCLS_PATH = class_path(CPPCLS)
+    local CPPCLS_PATH = class_path(cv)
     local NUM_ARGS = #cv.PROPS
     local ARGS_CHUNK = {}
 
@@ -286,7 +286,7 @@ end
 
 local function gen_unpack_func(cv, write)
     local CPPCLS = cv.CPPCLS
-    local CPPCLS_PATH = class_path(CPPCLS)
+    local CPPCLS_PATH = class_path(cv)
     local NUM_ARGS = #cv.PROPS
     local ARGS_CHUNK = {}
 
@@ -336,7 +336,7 @@ end
 
 local function gen_is_func(cv, write)
     local CPPCLS = cv.CPPCLS
-    local CPPCLS_PATH = class_path(CPPCLS)
+    local CPPCLS_PATH = class_path(cv)
     write(format_snippet([[
         bool auto_luacv_is_${CPPCLS_PATH}(lua_State *L, int idx)
         {

@@ -41,6 +41,7 @@ REG_TYPE {
     TYPENAME = 'std::function',
     INIT_VALUE = 'nullptr',
     CONV_FUNC = 'olua_$$_std_function',
+    VALUE_TYPE = true,
 }
 
 REG_TYPE {
@@ -92,4 +93,5 @@ REG_TYPE {
     }, '|'),
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
+    VALUE_TYPE = true,
 }

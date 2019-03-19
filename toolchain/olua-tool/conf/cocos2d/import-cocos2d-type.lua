@@ -20,7 +20,7 @@ end
 REG_TYPE {
     TYPENAME = 'cocos2d::Data', 
     CONV_FUNC = make_manual_conv_func,
-    VALUE_TYPE = true
+    INIT_VALUE = false,
 }
 
 REG_TYPE {
@@ -137,6 +137,7 @@ REG_TYPE {
     }, '|'),
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = "olua_$$_uint",
+    VALUE_TYPE = true,
 }
 
 REG_TYPE {
@@ -166,6 +167,7 @@ REG_TYPE {
         'cocos2d::CatmullRomBy *',
         'cocos2d::CatmullRomTo *',
         'cocos2d::Component *',
+        'cocos2d::FileUtils *',
         'cocos2d::DelayTime *',
         'cocos2d::DirectionLight *',
         'cocos2d::Director *',

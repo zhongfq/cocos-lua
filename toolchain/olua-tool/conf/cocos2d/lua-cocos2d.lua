@@ -53,6 +53,8 @@ M.CLASSES = {
     include("conf/cocos2d/cc/base/cc.EventKeyboard.KeyCode.lua"),
     include("conf/cocos2d/cc/base/cc.Touch.lua"),
     include("conf/cocos2d/cc/platform/cc.Application.lua"),
+    include("conf/cocos2d/cc/platform/cc.Device.lua"),
+    include("conf/cocos2d/cc/platform/cc.FileUtils.lua"),
     include("conf/cocos2d/cc/platform/cc.GLView.lua"),
     include("conf/cocos2d/cc/platform/cc.Image.lua"),
     include("conf/cocos2d/cc/renderer/cc.Renderer.lua"),

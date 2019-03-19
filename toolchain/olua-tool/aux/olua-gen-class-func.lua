@@ -1,5 +1,5 @@
 local function gen_snippet_func(cls, fi, write)
-    local CPPCLS_PATH = class_path(cls.RAWCPPCLS or cls.CPPCLS)
+    local CPPCLS_PATH = class_path(cls)
     local CPPFUNC = fi.CPPFUNC
     local CPPFUNC_SNIPPET = fi.CPPFUNC_SNIPPET
     write(format_snippet([[
@@ -171,14 +171,17 @@ local function gen_func_ret(cls, fi)
             end
             local CAST = ""
             if fi.RET.TYPE.DECL_TYPE ~= fi.RET.TYPE.TYPENAME then
-                assert(not string.find(FUNC_PUSH_VALUE, '^auto_luacv'))
+                if not fi.RET.TYPE.VALUE_TYPE then
+                    print(fi.RET.TYPE.DECL_TYPE, fi.RET.TYPE.TYPENAME)
+                    error(fi.RET.TYPE.TYPENAME)
+                end
                 CAST = string.format("(%s)", fi.RET.TYPE.DECL_TYPE)
             elseif not fi.RET.TYPE.VALUE_TYPE then
                 if not string.find(DECL_TYPE, '*$') then
                     CAST = '&'
                 end
             end
-            RET_PUSH = format_snippet('int num_ret = ${FUNC_PUSH_VALUE}(L, ${CAST}ret)')
+            RET_PUSH = format_snippet('int num_ret = ${FUNC_PUSH_VALUE}(L, ${CAST}ret);')
         end
 
         if #RET_PUSH > 0 then
@@ -195,7 +198,7 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
         return
     end
 
-    local CPPCLS_PATH = class_path(cls.RAWCPPCLS or cls.CPPCLS)
+    local CPPCLS_PATH = class_path(cls)
     local CPPFUNC = fi.CPPFUNC
     local CALLFUNC = CPPFUNC
     local FUNC_DECL = fi.FUNC_DECL
@@ -266,14 +269,6 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
 
     REF_CHUNK = table.concat(REF_CHUNK, "\n")
 
-    if #REF_CHUNK > 0 then
-        REF_CHUNK = '\n' .. REF_CHUNK .. '\n'
-    elseif #RET_PUSH > 0 then
-        RET_NUM = string.gsub(RET_PUSH, 'int num_ret = ', '')
-        RET_NUM = string.gsub(RET_NUM, ';$', '')
-        RET_PUSH = ""
-    end
-
     write(format_snippet([[
         static int _${CPPCLS_PATH}_${CPPFUNC}${FUNC_INDEX}(lua_State *L)
         {
@@ -288,7 +283,9 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
             // ${FUNC_DECL}
             ${RET_EXP}${CALLER}${CALLFUNC}${ARGS_BEGIN}${CALLER_ARGS}${ARGS_END};
             ${RET_PUSH}
+
             ${REF_CHUNK}
+
             return ${RET_NUM};
         }
     ]]))
@@ -311,35 +308,30 @@ local function gen_test_and_call(cls, fns)
     for fn, fi in ipairs(fns) do
         local FUNC_INDEX = fi.INDEX
         local CPPFUNC = fi.CPPFUNC
-        local CPPCLS_PATH = class_path(cls.RAWCPPCLS or cls.CPPCLS)
+        local CPPCLS_PATH = class_path(cls)
 
         if #fi.ARGS > 0 then
             local TEST_ARGS = {}
             for i, ai in ipairs(fi.ARGS) do
                 local IDX = (fi.STATIC and 0 or 1) + i
                 local FUNC_IS_VALUE = ai.TYPE.FUNC_IS_VALUE
+                local NULLABLE_BEGIN = ""
+                local NULLABLE_END = ""
+
                 if ai.DEFAULT or ai.ATTR.NULLABLE then
-                    if ai.TYPE.LUACLS then
-                        local LUACLS = ai.TYPE.LUACLS
-                        TEST_ARGS[#TEST_ARGS + 1] = format_snippet([[
-                            (${FUNC_IS_VALUE}(L, ${IDX}, "${LUACLS}") || olua_isnil(L, ${IDX}))
-                        ]])
-                    else
-                        TEST_ARGS[#TEST_ARGS + 1] = format_snippet([[
-                            (${FUNC_IS_VALUE}(L, ${IDX}) || olua_isnil(L, ${IDX})
-                        ]])
-                    end
+                    NULLABLE_BEGIN = '('
+                    NULLABLE_END = ' ' .. format_snippet('|| olua_isnil(L, ${IDX}))')
+                end
+
+                if ai.TYPE.LUACLS then
+                    local LUACLS = ai.TYPE.LUACLS
+                    TEST_ARGS[#TEST_ARGS + 1] = format_snippet([[
+                        ${NULLABLE_BEGIN}${FUNC_IS_VALUE}(L, ${IDX}, "${LUACLS}")${NULLABLE_END}
+                    ]])
                 else
-                    if ai.TYPE.LUACLS then
-                        local LUACLS = ai.TYPE.LUACLS
-                        TEST_ARGS[#TEST_ARGS + 1] = format_snippet([[
-                            ${FUNC_IS_VALUE}(L, ${IDX}, "${LUACLS}")
-                        ]])
-                    else
-                        TEST_ARGS[#TEST_ARGS + 1] = format_snippet([[
-                            ${FUNC_IS_VALUE}(L, ${IDX})
-                        ]])
-                    end
+                    TEST_ARGS[#TEST_ARGS + 1] = format_snippet([[
+                        ${NULLABLE_BEGIN}${FUNC_IS_VALUE}(L, ${IDX})${NULLABLE_END}
+                    ]])
                 end
             end
 
@@ -377,7 +369,7 @@ end
 function gen_multi_func(cls, fis, write, func_filter)
     local NUM_ARGS = fis.MAX_ARGS
     local CPPCLS = cls.CPPCLS
-    local CPPCLS_PATH = class_path(cls.RAWCPPCLS or cls.CPPCLS)
+    local CPPCLS_PATH = class_path(cls)
     local CPPFUNC = fis[1].CPPFUNC
     local HAS_OBJ = fis[1].STATIC and "" or " - 1"
     local IF_CHUNK = {}

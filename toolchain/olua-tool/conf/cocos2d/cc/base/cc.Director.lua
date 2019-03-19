@@ -89,6 +89,7 @@ cls.funcs([[
     bool isValid()
 ]])
 cls.props [[
+    instance
     runningScene
     animationInterval
     displayStats

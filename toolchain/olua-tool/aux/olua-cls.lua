@@ -530,7 +530,8 @@ function merge(t, file)
     end
 end
 
-function class_path(classname)
+function class_path(cls)
+    local classname = cls.RAWCPPCLS or cls.CPPCLS
     return string.gsub(classname, '[.:]+', '_')
 end
 

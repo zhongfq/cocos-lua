@@ -29,7 +29,10 @@ local eventDispatcher = Director.getInstance().eventDispatcher
 function main()
     print("hello bootstrap!")
 
+    local view = Widget.create()
+
     local node = Node.create()
+    view:addChild(node)
 
     local sprite = Sprite.create("res/HelloWorld.png")
     sprite.name = "xxxx"
@@ -48,7 +51,7 @@ function main()
     print(Director.getInstance().notificationNode)
     print(Director.getInstance().eventDispatcher)
     print(Director.getInstance().renderer)
-    Director.getInstance().runningScene:addChild(node)
+    Director.getInstance().runningScene:addChild(view)
     printUserValue(director)
 
     sprite:runAction(Sequence.create(
@@ -63,6 +66,13 @@ function main()
 
     util.printdump(FileUtils.instance:listFiles(filesystem.cacheDirectory))
     util.printdump(FileUtils.instance:listFilesRecursively(filesystem.cacheDirectory .. '/..'))
+
+    view.width = 400
+    view.height = 400
+    view:setTouchEnabled(true)
+    view:addClickEventListener(function ( ... )
+        print("#####", ...)
+    end)
 end
 
 function printarr(arr)

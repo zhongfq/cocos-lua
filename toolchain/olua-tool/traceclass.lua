@@ -56,4 +56,5 @@ local function trace(str)
 end
 
 trace [[
+
 ]]

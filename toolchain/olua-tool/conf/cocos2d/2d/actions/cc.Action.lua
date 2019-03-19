@@ -67,11 +67,11 @@ cls.funcs([[
 ]])
 cls.prop('boundarySet')
 
-merge(M, 'conf/cocos2d/cc/2d/actions/cc.TweenFunction.lua')
-merge(M, 'conf/cocos2d/cc/2d/actions/cc.ActionInterval.lua')
-merge(M, 'conf/cocos2d/cc/2d/actions/cc.ActionCamera.lua')
-merge(M, 'conf/cocos2d/cc/2d/actions/cc.ActionEase.lua')
-merge(M, 'conf/cocos2d/cc/2d/actions/cc.ActionCatmullRom.lua')
-merge(M, 'conf/cocos2d/cc/2d/actions/cc.ActionInstant.lua')
+merge(M, 'conf/cocos2d/2d/actions/cc.TweenFunction.lua')
+merge(M, 'conf/cocos2d/2d/actions/cc.ActionInterval.lua')
+merge(M, 'conf/cocos2d/2d/actions/cc.ActionCamera.lua')
+merge(M, 'conf/cocos2d/2d/actions/cc.ActionEase.lua')
+merge(M, 'conf/cocos2d/2d/actions/cc.ActionCatmullRom.lua')
+merge(M, 'conf/cocos2d/2d/actions/cc.ActionInstant.lua')
 
 return M

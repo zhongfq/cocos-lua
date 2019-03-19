@@ -5460,8 +5460,8 @@ int luaopen_cocos2d_ui(lua_State *L)
     olua_require(L, "ccui.HBox", luaopen_cocos2d_ui_HBox);
     olua_require(L, "ccui.VBox", luaopen_cocos2d_ui_VBox);
     olua_require(L, "ccui.RelativeBox", luaopen_cocos2d_ui_RelativeBox);
-    #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN)
     olua_require(L, "ccui.WebView", luaopen_cocos2d_experimental_ui_WebView);
-    #endif
+#endif
     return 0;
 }

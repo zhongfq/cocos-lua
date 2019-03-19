@@ -83,6 +83,8 @@ end
 function gen_source(module)
     local arr = {}
     local function append(value)
+        value = string.gsub(value, ' *#if', '#if')
+        value = string.gsub(value, ' *#endif', '#endif')
         arr[#arr + 1] = value
     end
 

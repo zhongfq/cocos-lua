@@ -24,8 +24,8 @@ REG_TYPE {
 }
 
 REG_TYPE {
-    TYPENAME = 'cocos2d::Vec2',
-    CONV_FUNC = make_auto_conv_func,
+    TYPENAME = 'cocos2d::Vec2|cocos2d::Point',
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_Vec2',
     INIT_VALUE = false,
     VARS = 2,
 }
@@ -134,9 +134,13 @@ REG_TYPE {
         'cocos2d::Texture2D::PixelFormat',
         'cocos2d::TextVAlignment',
         'cocos2d::TransitionScene::Orientation',
+        'cocos2d::ui::LayoutComponent::HorizontalEdge',
+        'cocos2d::ui::LayoutComponent::VerticalEdge',
         'cocos2d::ui::LayoutParameter::Type',
         'cocos2d::ui::LinearLayoutParameter::LinearGravity',
         'cocos2d::ui::RelativeLayoutParameter::RelativeAlign',
+        'cocos2d::ui::Scale9Sprite::RenderingType',
+        'cocos2d::ui::Scale9Sprite::State',
         'cocos2d::ui::Widget::BrightStyle',
         'cocos2d::ui::Widget::FocusDirection',
         'cocos2d::ui::Widget::PositionType',
@@ -333,6 +337,8 @@ REG_TYPE {
         'cocos2d::ui::LayoutParameter *',
         'cocos2d::ui::LinearLayoutParameter *',
         'cocos2d::ui::RelativeLayoutParameter *',
+        'cocos2d::ui::LayoutComponent *',
+        'cocos2d::ui::Scale9Sprite *',
         'cocos2d::ui::Widget *',
         'cocos2d::UserDefault *',
         'cocos2d::Vec3 *',

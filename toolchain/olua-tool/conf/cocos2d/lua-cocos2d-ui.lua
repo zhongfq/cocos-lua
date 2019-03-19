@@ -23,7 +23,10 @@ M.STATIC_CHUNK = [[
 
 M.CLASSES = {
     include("conf/cocos2d/ui/base/ccui.Widget.lua"),
+    include("conf/cocos2d/ui/base/ccui.Helper.lua"),
+    include("conf/cocos2d/ui/base/ccui.Scale9Sprite.lua"),
     include("conf/cocos2d/ui/base/ccui.LayoutParameter.lua"),
+    include("conf/cocos2d/ui/base/ccui.LayoutComponent.lua"),
 }
 
 return M

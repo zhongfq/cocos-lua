@@ -1,5 +1,5 @@
-#ifndef LuaComponent_hpp
-#define LuaComponent_hpp
+#ifndef __LUACOMPONENT_H__
+#define __LUACOMPONENT_H__
 
 #include "2d/CCComponent.h"
 

@@ -187,6 +187,7 @@ REG_TYPE {
         'cocos2d::CatmullRomBy *',
         'cocos2d::CatmullRomTo *',
         'cocos2d::Component *',
+        'cocos2d::Component *',
         'cocos2d::DelayTime *',
         'cocos2d::DirectionLight *',
         'cocos2d::Director *',
@@ -242,6 +243,8 @@ REG_TYPE {
         'cocos2d::EventListenerTouchOneByOne *',
         'cocos2d::EventMouse *',
         'cocos2d::EventTouch *',
+        'cocos2d::experimental::ui::VideoPlayer *',
+        'cocos2d::experimental::ui::WebView *',
         'cocos2d::FadeIn *',
         'cocos2d::FadeOut *',
         'cocos2d::FadeTo *',
@@ -265,6 +268,7 @@ REG_TYPE {
         'cocos2d::LayerColor *',
         'cocos2d::LayerGradient *',
         'cocos2d::LayerRadialGradient *',
+        'cocos2d::LuaComponent *',
         'cocos2d::MoveBy *',
         'cocos2d::MoveTo *',
         'cocos2d::Node *',
@@ -340,8 +344,6 @@ REG_TYPE {
         'cocos2d::TransitionZoomFlipAngular *',
         'cocos2d::TransitionZoomFlipX *',
         'cocos2d::TransitionZoomFlipY *',
-        'cocos2d::experimental::ui::WebView *',
-        'cocos2d::experimental::ui::VideoPlayer *',
         'cocos2d::ui::HBox *',
         'cocos2d::ui::Layout *',
         'cocos2d::ui::LayoutComponent *',
@@ -360,10 +362,3 @@ REG_TYPE {
     CONV_FUNC = "olua_$$_cppobj",
     LUACLS = make_luacls,
 }
-
-REG_TYPE {
-    TYPENAME = 'cocos2d::LuaComponent *',
-    CONV_FUNC = "olua_$$_cppobj",
-    LUACLS = "cc.Component",
-}
-

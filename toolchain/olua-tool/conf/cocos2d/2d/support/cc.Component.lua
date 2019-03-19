@@ -1,10 +1,11 @@
-local cls = class()
-cls.CPPCLS = "cocos2d::LuaComponent"
-cls.RAWCPPCLS = "cocos2d::Component"
+local M = {}
+
+local cls = class(M)
+cls.CPPCLS = "cocos2d::Component"
 cls.LUACLS = "cc.Component"
 cls.SUPERCLS = "cc.Ref"
 cls.funcs([[
-    static LuaComponent* create()
+    static Component* create()
     bool isEnabled()
     void setEnabled(bool enabled)
     const std::string& getName()
@@ -23,6 +24,14 @@ cls.props [[
     name
     owner
 ]]
+
+local cls = class(M)
+cls.CPPCLS = "cocos2d::LuaComponent"
+cls.LUACLS = "cc.LuaComponent"
+cls.SUPERCLS = "cc.Component"
+cls.funcs [[
+    static LuaComponent* create()
+]]
 cls.vars [[
     @nullable std::function<void(float)> onUpdateCallback;
     @nullable std::function<void()> onEnterCallback;
@@ -30,4 +39,5 @@ cls.vars [[
     @nullable std::function<void()> onAddCallback;
     @nullable std::function<void()> onRemoveCallback;
 ]]
-return cls
+
+return M

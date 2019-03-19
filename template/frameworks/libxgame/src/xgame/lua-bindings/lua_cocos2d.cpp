@@ -18627,6 +18627,68 @@ static int _cocos2d_AtlasNode_getQuadsToDraw(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_AtlasNode_getTexture(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::AtlasNode *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.AtlasNode");
+
+    // Texture2D* getTexture() const override;
+    cocos2d::Texture2D *ret = (cocos2d::Texture2D *)self->getTexture();
+    int num_ret = olua_push_cppobj<cocos2d::Texture2D>(L, ret, "cc.Texture2D");
+
+    return num_ret;
+}
+
+static int _cocos2d_AtlasNode_setTexture(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::AtlasNode *self = nullptr;
+    cocos2d::Texture2D *arg1 = nullptr;   /** texture */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.AtlasNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Texture2D");
+
+    // void setTexture(Texture2D *texture)
+    self->setTexture(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_AtlasNode_setBlendFunc(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::AtlasNode *self = nullptr;
+    cocos2d::BlendFunc arg1;       /** blendFunc */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.AtlasNode");
+    auto_luacv_check_cocos2d_BlendFunc(L, 2, &arg1);
+
+    // void setBlendFunc(const BlendFunc& blendFunc)
+    self->setBlendFunc(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_AtlasNode_getBlendFunc(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::AtlasNode *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.AtlasNode");
+
+    // const BlendFunc& getBlendFunc()
+    const cocos2d::BlendFunc &ret = (const cocos2d::BlendFunc &)self->getBlendFunc();
+    int num_ret = auto_luacv_push_cocos2d_BlendFunc(L, &ret);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_AtlasNode(lua_State *L)
 {
     oluacls_class(L, "cc.AtlasNode", "cc.Node");
@@ -18636,6 +18698,14 @@ static int luaopen_cocos2d_AtlasNode(lua_State *L)
     oluacls_setfunc(L, "getTextureAtlas", _cocos2d_AtlasNode_getTextureAtlas);
     oluacls_setfunc(L, "setQuadsToDraw", _cocos2d_AtlasNode_setQuadsToDraw);
     oluacls_setfunc(L, "getQuadsToDraw", _cocos2d_AtlasNode_getQuadsToDraw);
+    oluacls_setfunc(L, "getTexture", _cocos2d_AtlasNode_getTexture);
+    oluacls_setfunc(L, "setTexture", _cocos2d_AtlasNode_setTexture);
+    oluacls_setfunc(L, "setBlendFunc", _cocos2d_AtlasNode_setBlendFunc);
+    oluacls_setfunc(L, "getBlendFunc", _cocos2d_AtlasNode_getBlendFunc);
+    oluacls_property(L, "textureAtlas", _cocos2d_AtlasNode_getTextureAtlas, _cocos2d_AtlasNode_setTextureAtlas);
+    oluacls_property(L, "quadsToDraw", _cocos2d_AtlasNode_getQuadsToDraw, _cocos2d_AtlasNode_setQuadsToDraw);
+    oluacls_property(L, "texture", _cocos2d_AtlasNode_getTexture, _cocos2d_AtlasNode_setTexture);
+    oluacls_property(L, "blendFunc", _cocos2d_AtlasNode_getBlendFunc, _cocos2d_AtlasNode_setBlendFunc);
 
     olua_registerluatype<cocos2d::AtlasNode>(L, "cc.AtlasNode");
     oluacls_createclassproxy(L);
@@ -22554,6 +22624,1769 @@ static int luaopen_cocos2d_LayerRadialGradient(lua_State *L)
     return 1;
 }
 
+static int luaopen_cocos2d_TransitionScene_Orientation(lua_State *L)
+{
+    oluacls_class(L, "cc.TransitionScene.Orientation", nullptr);
+    oluacls_const_integer(L, "LEFT_OVER", (lua_Integer)cocos2d::TransitionScene::Orientation::LEFT_OVER);
+    oluacls_const_integer(L, "RIGHT_OVER", (lua_Integer)cocos2d::TransitionScene::Orientation::RIGHT_OVER);
+    oluacls_const_integer(L, "UP_OVER", (lua_Integer)cocos2d::TransitionScene::Orientation::UP_OVER);
+    oluacls_const_integer(L, "DOWN_OVER", (lua_Integer)cocos2d::TransitionScene::Orientation::DOWN_OVER);
+
+    olua_registerluatype<cocos2d::TransitionScene::Orientation>(L, "cc.TransitionScene.Orientation");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_TransitionScene_create(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** scene */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+
+    // static TransitionScene * create(float t, @ref Scene *scene)
+    cocos2d::TransitionScene *ret = (cocos2d::TransitionScene *)cocos2d::TransitionScene::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionScene>(L, ret, "cc.TransitionScene");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int _cocos2d_TransitionScene_finish(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::TransitionScene *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.TransitionScene");
+
+    // void finish(void)
+    self->finish();
+
+    return 0;
+}
+
+static int _cocos2d_TransitionScene_hideOutShowIn(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::TransitionScene *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.TransitionScene");
+
+    // void hideOutShowIn(void)
+    self->hideOutShowIn();
+
+    return 0;
+}
+
+static int _cocos2d_TransitionScene_getInScene(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::TransitionScene *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.TransitionScene");
+
+    // Scene* getInScene()
+    cocos2d::Scene *ret = (cocos2d::Scene *)self->getInScene();
+    int num_ret = olua_push_cppobj<cocos2d::Scene>(L, ret, "cc.Scene");
+
+    return num_ret;
+}
+
+static int _cocos2d_TransitionScene_getDuration(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::TransitionScene *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.TransitionScene");
+
+    // float getDuration()
+    float ret = (float)self->getDuration();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_TransitionScene(lua_State *L)
+{
+    oluacls_class(L, "cc.TransitionScene", "cc.Scene");
+    oluacls_setfunc(L, "create", _cocos2d_TransitionScene_create);
+    oluacls_setfunc(L, "finish", _cocos2d_TransitionScene_finish);
+    oluacls_setfunc(L, "hideOutShowIn", _cocos2d_TransitionScene_hideOutShowIn);
+    oluacls_setfunc(L, "getInScene", _cocos2d_TransitionScene_getInScene);
+    oluacls_setfunc(L, "getDuration", _cocos2d_TransitionScene_getDuration);
+    oluacls_property(L, "inScene", _cocos2d_TransitionScene_getInScene, nullptr);
+    oluacls_property(L, "duration", _cocos2d_TransitionScene_getDuration, nullptr);
+
+    olua_registerluatype<cocos2d::TransitionScene>(L, "cc.TransitionScene");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_TransitionSceneOriented_create(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** scene */
+    lua_Unsigned arg3 = 0;   /** orientation */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+    olua_check_uint(L, 3, &arg3);
+
+    // static TransitionSceneOriented * create(float t, @ref Scene* scene, TransitionScene::Orientation orientation)
+    cocos2d::TransitionSceneOriented *ret = (cocos2d::TransitionSceneOriented *)cocos2d::TransitionSceneOriented::create((float)arg1, arg2, (cocos2d::TransitionScene::Orientation)arg3);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionSceneOriented>(L, ret, "cc.TransitionSceneOriented");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_TransitionSceneOriented(lua_State *L)
+{
+    oluacls_class(L, "cc.TransitionSceneOriented", "cc.TransitionScene");
+    oluacls_setfunc(L, "create", _cocos2d_TransitionSceneOriented_create);
+
+    olua_registerluatype<cocos2d::TransitionSceneOriented>(L, "cc.TransitionSceneOriented");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_TransitionRotoZoom_create(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** scene */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+
+    // static TransitionRotoZoom* create(float t, @ref Scene* scene)
+    cocos2d::TransitionRotoZoom *ret = (cocos2d::TransitionRotoZoom *)cocos2d::TransitionRotoZoom::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionRotoZoom>(L, ret, "cc.TransitionRotoZoom");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_TransitionRotoZoom(lua_State *L)
+{
+    oluacls_class(L, "cc.TransitionRotoZoom", "cc.TransitionScene");
+    oluacls_setfunc(L, "create", _cocos2d_TransitionRotoZoom_create);
+
+    olua_registerluatype<cocos2d::TransitionRotoZoom>(L, "cc.TransitionRotoZoom");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_TransitionJumpZoom_create(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** scene */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+
+    // static TransitionJumpZoom* create(float t, @ref Scene* scene)
+    cocos2d::TransitionJumpZoom *ret = (cocos2d::TransitionJumpZoom *)cocos2d::TransitionJumpZoom::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionJumpZoom>(L, ret, "cc.TransitionJumpZoom");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_TransitionJumpZoom(lua_State *L)
+{
+    oluacls_class(L, "cc.TransitionJumpZoom", "cc.TransitionScene");
+    oluacls_setfunc(L, "create", _cocos2d_TransitionJumpZoom_create);
+
+    olua_registerluatype<cocos2d::TransitionJumpZoom>(L, "cc.TransitionJumpZoom");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_TransitionMoveInL_create(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** scene */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+
+    // static TransitionMoveInL* create(float t, @ref Scene* scene)
+    cocos2d::TransitionMoveInL *ret = (cocos2d::TransitionMoveInL *)cocos2d::TransitionMoveInL::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionMoveInL>(L, ret, "cc.TransitionMoveInL");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int _cocos2d_TransitionMoveInL_action(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::TransitionMoveInL *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.TransitionMoveInL");
+
+    // ActionInterval* action(void)
+    cocos2d::ActionInterval *ret = (cocos2d::ActionInterval *)self->action();
+    int num_ret = olua_push_cppobj<cocos2d::ActionInterval>(L, ret, "cc.ActionInterval");
+
+    return num_ret;
+}
+
+static int _cocos2d_TransitionMoveInL_easeActionWithAction(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::TransitionMoveInL *self = nullptr;
+    cocos2d::ActionInterval *arg1 = nullptr;   /** action */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.TransitionMoveInL");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.ActionInterval");
+
+    // ActionInterval* easeActionWithAction(@ref(single action) ActionInterval * action)
+    cocos2d::ActionInterval *ret = (cocos2d::ActionInterval *)self->easeActionWithAction(arg1);
+    int num_ret = olua_push_cppobj<cocos2d::ActionInterval>(L, ret, "cc.ActionInterval");
+
+    // ref value
+    olua_singleref(L, 1, "action", 2);
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_TransitionMoveInL(lua_State *L)
+{
+    oluacls_class(L, "cc.TransitionMoveInL", "cc.TransitionScene");
+    oluacls_setfunc(L, "create", _cocos2d_TransitionMoveInL_create);
+    oluacls_setfunc(L, "action", _cocos2d_TransitionMoveInL_action);
+    oluacls_setfunc(L, "easeActionWithAction", _cocos2d_TransitionMoveInL_easeActionWithAction);
+
+    olua_registerluatype<cocos2d::TransitionMoveInL>(L, "cc.TransitionMoveInL");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_TransitionMoveInR_create(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** scene */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+
+    // static TransitionMoveInR* create(float t, @ref Scene* scene)
+    cocos2d::TransitionMoveInR *ret = (cocos2d::TransitionMoveInR *)cocos2d::TransitionMoveInR::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionMoveInR>(L, ret, "cc.TransitionMoveInR");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_TransitionMoveInR(lua_State *L)
+{
+    oluacls_class(L, "cc.TransitionMoveInR", "cc.TransitionMoveInL");
+    oluacls_setfunc(L, "create", _cocos2d_TransitionMoveInR_create);
+
+    olua_registerluatype<cocos2d::TransitionMoveInR>(L, "cc.TransitionMoveInR");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_TransitionMoveInT_create(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** scene */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+
+    // static TransitionMoveInT* create(float t, @ref Scene* scene)
+    cocos2d::TransitionMoveInT *ret = (cocos2d::TransitionMoveInT *)cocos2d::TransitionMoveInT::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionMoveInT>(L, ret, "cc.TransitionMoveInT");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_TransitionMoveInT(lua_State *L)
+{
+    oluacls_class(L, "cc.TransitionMoveInT", "cc.TransitionMoveInL");
+    oluacls_setfunc(L, "create", _cocos2d_TransitionMoveInT_create);
+
+    olua_registerluatype<cocos2d::TransitionMoveInT>(L, "cc.TransitionMoveInT");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_TransitionMoveInB_create(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** scene */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+
+    // static TransitionMoveInB* create(float t, @ref Scene* scene)
+    cocos2d::TransitionMoveInB *ret = (cocos2d::TransitionMoveInB *)cocos2d::TransitionMoveInB::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionMoveInB>(L, ret, "cc.TransitionMoveInB");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_TransitionMoveInB(lua_State *L)
+{
+    oluacls_class(L, "cc.TransitionMoveInB", "cc.TransitionMoveInL");
+    oluacls_setfunc(L, "create", _cocos2d_TransitionMoveInB_create);
+
+    olua_registerluatype<cocos2d::TransitionMoveInB>(L, "cc.TransitionMoveInB");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_TransitionSlideInL_create(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** scene */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+
+    // static TransitionSlideInL* create(float t, @ref Scene* scene)
+    cocos2d::TransitionSlideInL *ret = (cocos2d::TransitionSlideInL *)cocos2d::TransitionSlideInL::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionSlideInL>(L, ret, "cc.TransitionSlideInL");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int _cocos2d_TransitionSlideInL_easeActionWithAction(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::TransitionSlideInL *self = nullptr;
+    cocos2d::ActionInterval *arg1 = nullptr;   /** action */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.TransitionSlideInL");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.ActionInterval");
+
+    // ActionInterval* easeActionWithAction(@ref(single action)ActionInterval * action)
+    cocos2d::ActionInterval *ret = (cocos2d::ActionInterval *)self->easeActionWithAction(arg1);
+    int num_ret = olua_push_cppobj<cocos2d::ActionInterval>(L, ret, "cc.ActionInterval");
+
+    // ref value
+    olua_singleref(L, 1, "action", 2);
+
+    return num_ret;
+}
+
+static int _cocos2d_TransitionSlideInL_action(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::TransitionSlideInL *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.TransitionSlideInL");
+
+    // ActionInterval* action(void)
+    cocos2d::ActionInterval *ret = (cocos2d::ActionInterval *)self->action();
+    int num_ret = olua_push_cppobj<cocos2d::ActionInterval>(L, ret, "cc.ActionInterval");
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_TransitionSlideInL(lua_State *L)
+{
+    oluacls_class(L, "cc.TransitionSlideInL", "cc.TransitionScene");
+    oluacls_setfunc(L, "create", _cocos2d_TransitionSlideInL_create);
+    oluacls_setfunc(L, "easeActionWithAction", _cocos2d_TransitionSlideInL_easeActionWithAction);
+    oluacls_setfunc(L, "action", _cocos2d_TransitionSlideInL_action);
+
+    olua_registerluatype<cocos2d::TransitionSlideInL>(L, "cc.TransitionSlideInL");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_TransitionSlideInR_create(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** scene */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+
+    // static TransitionSlideInR* create(float t, @ref Scene* scene)
+    cocos2d::TransitionSlideInR *ret = (cocos2d::TransitionSlideInR *)cocos2d::TransitionSlideInR::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionSlideInR>(L, ret, "cc.TransitionSlideInR");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_TransitionSlideInR(lua_State *L)
+{
+    oluacls_class(L, "cc.TransitionSlideInR", "cc.TransitionSlideInL");
+    oluacls_setfunc(L, "create", _cocos2d_TransitionSlideInR_create);
+
+    olua_registerluatype<cocos2d::TransitionSlideInR>(L, "cc.TransitionSlideInR");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_TransitionSlideInB_create(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** scene */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+
+    // static TransitionSlideInB* create(float t, @ref Scene* scene)
+    cocos2d::TransitionSlideInB *ret = (cocos2d::TransitionSlideInB *)cocos2d::TransitionSlideInB::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionSlideInB>(L, ret, "cc.TransitionSlideInB");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_TransitionSlideInB(lua_State *L)
+{
+    oluacls_class(L, "cc.TransitionSlideInB", "cc.TransitionSlideInL");
+    oluacls_setfunc(L, "create", _cocos2d_TransitionSlideInB_create);
+
+    olua_registerluatype<cocos2d::TransitionSlideInB>(L, "cc.TransitionSlideInB");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_TransitionSlideInT_create(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** scene */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+
+    // static TransitionSlideInT* create(float t, @ref Scene* scene)
+    cocos2d::TransitionSlideInT *ret = (cocos2d::TransitionSlideInT *)cocos2d::TransitionSlideInT::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionSlideInT>(L, ret, "cc.TransitionSlideInT");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_TransitionSlideInT(lua_State *L)
+{
+    oluacls_class(L, "cc.TransitionSlideInT", "cc.TransitionSlideInL");
+    oluacls_setfunc(L, "create", _cocos2d_TransitionSlideInT_create);
+
+    olua_registerluatype<cocos2d::TransitionSlideInT>(L, "cc.TransitionSlideInT");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_TransitionShrinkGrow_create(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** scene */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+
+    // static TransitionShrinkGrow* create(float t, @ref Scene* scene)
+    cocos2d::TransitionShrinkGrow *ret = (cocos2d::TransitionShrinkGrow *)cocos2d::TransitionShrinkGrow::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionShrinkGrow>(L, ret, "cc.TransitionShrinkGrow");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int _cocos2d_TransitionShrinkGrow_easeActionWithAction(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::TransitionShrinkGrow *self = nullptr;
+    cocos2d::ActionInterval *arg1 = nullptr;   /** action */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.TransitionShrinkGrow");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.ActionInterval");
+
+    // ActionInterval* easeActionWithAction(@ref(single action) ActionInterval * action)
+    cocos2d::ActionInterval *ret = (cocos2d::ActionInterval *)self->easeActionWithAction(arg1);
+    int num_ret = olua_push_cppobj<cocos2d::ActionInterval>(L, ret, "cc.ActionInterval");
+
+    // ref value
+    olua_singleref(L, 1, "action", 2);
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_TransitionShrinkGrow(lua_State *L)
+{
+    oluacls_class(L, "cc.TransitionShrinkGrow", "cc.TransitionScene");
+    oluacls_setfunc(L, "create", _cocos2d_TransitionShrinkGrow_create);
+    oluacls_setfunc(L, "easeActionWithAction", _cocos2d_TransitionShrinkGrow_easeActionWithAction);
+
+    olua_registerluatype<cocos2d::TransitionShrinkGrow>(L, "cc.TransitionShrinkGrow");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_TransitionFlipX_create1(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** s */
+    lua_Unsigned arg3 = 0;   /** o */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+    olua_check_uint(L, 3, &arg3);
+
+    // static TransitionFlipX* create(float t, @ref Scene* s, TransitionScene::Orientation o)
+    cocos2d::TransitionFlipX *ret = (cocos2d::TransitionFlipX *)cocos2d::TransitionFlipX::create((float)arg1, arg2, (cocos2d::TransitionScene::Orientation)arg3);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionFlipX>(L, ret, "cc.TransitionFlipX");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int _cocos2d_TransitionFlipX_create2(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** s */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+
+    // static TransitionFlipX* create(float t, @ref Scene* s)
+    cocos2d::TransitionFlipX *ret = (cocos2d::TransitionFlipX *)cocos2d::TransitionFlipX::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionFlipX>(L, ret, "cc.TransitionFlipX");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int _cocos2d_TransitionFlipX_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 2) {
+        // if (olua_is_number(L, 1) && olua_is_cppobj(L, 2, "cc.Scene")) {
+            return _cocos2d_TransitionFlipX_create2(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if (olua_is_number(L, 1) && olua_is_cppobj(L, 2, "cc.Scene") && olua_is_uint(L, 3)) {
+            return _cocos2d_TransitionFlipX_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::TransitionFlipX::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int luaopen_cocos2d_TransitionFlipX(lua_State *L)
+{
+    oluacls_class(L, "cc.TransitionFlipX", "cc.TransitionSceneOriented");
+    oluacls_setfunc(L, "create", _cocos2d_TransitionFlipX_create);
+
+    olua_registerluatype<cocos2d::TransitionFlipX>(L, "cc.TransitionFlipX");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_TransitionFlipY_create1(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** s */
+    lua_Unsigned arg3 = 0;   /** o */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+    olua_check_uint(L, 3, &arg3);
+
+    // static TransitionFlipY* create(float t, @ref Scene* s, TransitionScene::Orientation o)
+    cocos2d::TransitionFlipY *ret = (cocos2d::TransitionFlipY *)cocos2d::TransitionFlipY::create((float)arg1, arg2, (cocos2d::TransitionScene::Orientation)arg3);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionFlipY>(L, ret, "cc.TransitionFlipY");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int _cocos2d_TransitionFlipY_create2(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** s */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+
+    // static TransitionFlipY* create(float t, @ref Scene* s)
+    cocos2d::TransitionFlipY *ret = (cocos2d::TransitionFlipY *)cocos2d::TransitionFlipY::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionFlipY>(L, ret, "cc.TransitionFlipY");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int _cocos2d_TransitionFlipY_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 2) {
+        // if (olua_is_number(L, 1) && olua_is_cppobj(L, 2, "cc.Scene")) {
+            return _cocos2d_TransitionFlipY_create2(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if (olua_is_number(L, 1) && olua_is_cppobj(L, 2, "cc.Scene") && olua_is_uint(L, 3)) {
+            return _cocos2d_TransitionFlipY_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::TransitionFlipY::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int luaopen_cocos2d_TransitionFlipY(lua_State *L)
+{
+    oluacls_class(L, "cc.TransitionFlipY", "cc.TransitionSceneOriented");
+    oluacls_setfunc(L, "create", _cocos2d_TransitionFlipY_create);
+
+    olua_registerluatype<cocos2d::TransitionFlipY>(L, "cc.TransitionFlipY");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_TransitionFlipAngular_create1(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** s */
+    lua_Unsigned arg3 = 0;   /** o */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+    olua_check_uint(L, 3, &arg3);
+
+    // static TransitionFlipAngular* create(float t, @ref Scene* s, TransitionScene::Orientation o)
+    cocos2d::TransitionFlipAngular *ret = (cocos2d::TransitionFlipAngular *)cocos2d::TransitionFlipAngular::create((float)arg1, arg2, (cocos2d::TransitionScene::Orientation)arg3);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionFlipAngular>(L, ret, "cc.TransitionFlipAngular");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int _cocos2d_TransitionFlipAngular_create2(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** s */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+
+    // static TransitionFlipAngular* create(float t, @ref Scene* s)
+    cocos2d::TransitionFlipAngular *ret = (cocos2d::TransitionFlipAngular *)cocos2d::TransitionFlipAngular::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionFlipAngular>(L, ret, "cc.TransitionFlipAngular");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int _cocos2d_TransitionFlipAngular_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 2) {
+        // if (olua_is_number(L, 1) && olua_is_cppobj(L, 2, "cc.Scene")) {
+            return _cocos2d_TransitionFlipAngular_create2(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if (olua_is_number(L, 1) && olua_is_cppobj(L, 2, "cc.Scene") && olua_is_uint(L, 3)) {
+            return _cocos2d_TransitionFlipAngular_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::TransitionFlipAngular::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int luaopen_cocos2d_TransitionFlipAngular(lua_State *L)
+{
+    oluacls_class(L, "cc.TransitionFlipAngular", "cc.TransitionSceneOriented");
+    oluacls_setfunc(L, "create", _cocos2d_TransitionFlipAngular_create);
+
+    olua_registerluatype<cocos2d::TransitionFlipAngular>(L, "cc.TransitionFlipAngular");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_TransitionZoomFlipX_create1(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** s */
+    lua_Unsigned arg3 = 0;   /** o */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+    olua_check_uint(L, 3, &arg3);
+
+    // static TransitionZoomFlipX* create(float t, @ref Scene* s, TransitionScene::Orientation o)
+    cocos2d::TransitionZoomFlipX *ret = (cocos2d::TransitionZoomFlipX *)cocos2d::TransitionZoomFlipX::create((float)arg1, arg2, (cocos2d::TransitionScene::Orientation)arg3);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionZoomFlipX>(L, ret, "cc.TransitionZoomFlipX");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int _cocos2d_TransitionZoomFlipX_create2(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** s */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+
+    // static TransitionZoomFlipX* create(float t, @ref Scene* s)
+    cocos2d::TransitionZoomFlipX *ret = (cocos2d::TransitionZoomFlipX *)cocos2d::TransitionZoomFlipX::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionZoomFlipX>(L, ret, "cc.TransitionZoomFlipX");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int _cocos2d_TransitionZoomFlipX_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 2) {
+        // if (olua_is_number(L, 1) && olua_is_cppobj(L, 2, "cc.Scene")) {
+            return _cocos2d_TransitionZoomFlipX_create2(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if (olua_is_number(L, 1) && olua_is_cppobj(L, 2, "cc.Scene") && olua_is_uint(L, 3)) {
+            return _cocos2d_TransitionZoomFlipX_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::TransitionZoomFlipX::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int luaopen_cocos2d_TransitionZoomFlipX(lua_State *L)
+{
+    oluacls_class(L, "cc.TransitionZoomFlipX", "cc.TransitionSceneOriented");
+    oluacls_setfunc(L, "create", _cocos2d_TransitionZoomFlipX_create);
+
+    olua_registerluatype<cocos2d::TransitionZoomFlipX>(L, "cc.TransitionZoomFlipX");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_TransitionZoomFlipY_create1(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** s */
+    lua_Unsigned arg3 = 0;   /** o */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+    olua_check_uint(L, 3, &arg3);
+
+    // static TransitionZoomFlipY* create(float t, @ref Scene* s, TransitionScene::Orientation o)
+    cocos2d::TransitionZoomFlipY *ret = (cocos2d::TransitionZoomFlipY *)cocos2d::TransitionZoomFlipY::create((float)arg1, arg2, (cocos2d::TransitionScene::Orientation)arg3);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionZoomFlipY>(L, ret, "cc.TransitionZoomFlipY");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int _cocos2d_TransitionZoomFlipY_create2(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** s */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+
+    // static TransitionZoomFlipY* create(float t, @ref Scene* s)
+    cocos2d::TransitionZoomFlipY *ret = (cocos2d::TransitionZoomFlipY *)cocos2d::TransitionZoomFlipY::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionZoomFlipY>(L, ret, "cc.TransitionZoomFlipY");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int _cocos2d_TransitionZoomFlipY_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 2) {
+        // if (olua_is_number(L, 1) && olua_is_cppobj(L, 2, "cc.Scene")) {
+            return _cocos2d_TransitionZoomFlipY_create2(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if (olua_is_number(L, 1) && olua_is_cppobj(L, 2, "cc.Scene") && olua_is_uint(L, 3)) {
+            return _cocos2d_TransitionZoomFlipY_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::TransitionZoomFlipY::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int luaopen_cocos2d_TransitionZoomFlipY(lua_State *L)
+{
+    oluacls_class(L, "cc.TransitionZoomFlipY", "cc.TransitionSceneOriented");
+    oluacls_setfunc(L, "create", _cocos2d_TransitionZoomFlipY_create);
+
+    olua_registerluatype<cocos2d::TransitionZoomFlipY>(L, "cc.TransitionZoomFlipY");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_TransitionZoomFlipAngular_create1(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** s */
+    lua_Unsigned arg3 = 0;   /** o */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+    olua_check_uint(L, 3, &arg3);
+
+    // static TransitionZoomFlipAngular* create(float t, @ref Scene* s, TransitionScene::Orientation o)
+    cocos2d::TransitionZoomFlipAngular *ret = (cocos2d::TransitionZoomFlipAngular *)cocos2d::TransitionZoomFlipAngular::create((float)arg1, arg2, (cocos2d::TransitionScene::Orientation)arg3);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionZoomFlipAngular>(L, ret, "cc.TransitionZoomFlipAngular");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int _cocos2d_TransitionZoomFlipAngular_create2(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** s */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+
+    // static TransitionZoomFlipAngular* create(float t, @ref Scene* s)
+    cocos2d::TransitionZoomFlipAngular *ret = (cocos2d::TransitionZoomFlipAngular *)cocos2d::TransitionZoomFlipAngular::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionZoomFlipAngular>(L, ret, "cc.TransitionZoomFlipAngular");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int _cocos2d_TransitionZoomFlipAngular_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 2) {
+        // if (olua_is_number(L, 1) && olua_is_cppobj(L, 2, "cc.Scene")) {
+            return _cocos2d_TransitionZoomFlipAngular_create2(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if (olua_is_number(L, 1) && olua_is_cppobj(L, 2, "cc.Scene") && olua_is_uint(L, 3)) {
+            return _cocos2d_TransitionZoomFlipAngular_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::TransitionZoomFlipAngular::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int luaopen_cocos2d_TransitionZoomFlipAngular(lua_State *L)
+{
+    oluacls_class(L, "cc.TransitionZoomFlipAngular", "cc.TransitionSceneOriented");
+    oluacls_setfunc(L, "create", _cocos2d_TransitionZoomFlipAngular_create);
+
+    olua_registerluatype<cocos2d::TransitionZoomFlipAngular>(L, "cc.TransitionZoomFlipAngular");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_TransitionFade_create1(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    lua_Number arg1 = 0;   /** duration */
+    cocos2d::Scene *arg2 = nullptr;   /** scene */
+    cocos2d::Color3B arg3;       /** color */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+    manual_luacv_check_cocos2d_Color3B(L, 3, &arg3);
+
+    // static TransitionFade* create(float duration, @ref Scene* scene, const Color3B& color)
+    cocos2d::TransitionFade *ret = (cocos2d::TransitionFade *)cocos2d::TransitionFade::create((float)arg1, arg2, arg3);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionFade>(L, ret, "cc.TransitionFade");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int _cocos2d_TransitionFade_create2(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    lua_Number arg1 = 0;   /** duration */
+    cocos2d::Scene *arg2 = nullptr;   /** scene */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+
+    // static TransitionFade* create(float duration, @ref Scene* scene)
+    cocos2d::TransitionFade *ret = (cocos2d::TransitionFade *)cocos2d::TransitionFade::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionFade>(L, ret, "cc.TransitionFade");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int _cocos2d_TransitionFade_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 2) {
+        // if (olua_is_number(L, 1) && olua_is_cppobj(L, 2, "cc.Scene")) {
+            return _cocos2d_TransitionFade_create2(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if (olua_is_number(L, 1) && olua_is_cppobj(L, 2, "cc.Scene") && manual_luacv_is_cocos2d_Color3B(L, 3)) {
+            return _cocos2d_TransitionFade_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::TransitionFade::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int luaopen_cocos2d_TransitionFade(lua_State *L)
+{
+    oluacls_class(L, "cc.TransitionFade", "cc.TransitionScene");
+    oluacls_setfunc(L, "create", _cocos2d_TransitionFade_create);
+
+    olua_registerluatype<cocos2d::TransitionFade>(L, "cc.TransitionFade");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_TransitionCrossFade_create(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** scene */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+
+    // static TransitionCrossFade* create(float t, @ref Scene* scene)
+    cocos2d::TransitionCrossFade *ret = (cocos2d::TransitionCrossFade *)cocos2d::TransitionCrossFade::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionCrossFade>(L, ret, "cc.TransitionCrossFade");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_TransitionCrossFade(lua_State *L)
+{
+    oluacls_class(L, "cc.TransitionCrossFade", "cc.TransitionScene");
+    oluacls_setfunc(L, "create", _cocos2d_TransitionCrossFade_create);
+
+    olua_registerluatype<cocos2d::TransitionCrossFade>(L, "cc.TransitionCrossFade");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_TransitionTurnOffTiles_create(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** scene */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+
+    // static TransitionTurnOffTiles* create(float t, @ref Scene* scene)
+    cocos2d::TransitionTurnOffTiles *ret = (cocos2d::TransitionTurnOffTiles *)cocos2d::TransitionTurnOffTiles::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionTurnOffTiles>(L, ret, "cc.TransitionTurnOffTiles");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int _cocos2d_TransitionTurnOffTiles_easeActionWithAction(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::TransitionTurnOffTiles *self = nullptr;
+    cocos2d::ActionInterval *arg1 = nullptr;   /** action */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.TransitionTurnOffTiles");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.ActionInterval");
+
+    // ActionInterval * easeActionWithAction(@ref(single action) ActionInterval * action)
+    cocos2d::ActionInterval *ret = (cocos2d::ActionInterval *)self->easeActionWithAction(arg1);
+    int num_ret = olua_push_cppobj<cocos2d::ActionInterval>(L, ret, "cc.ActionInterval");
+
+    // ref value
+    olua_singleref(L, 1, "action", 2);
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_TransitionTurnOffTiles(lua_State *L)
+{
+    oluacls_class(L, "cc.TransitionTurnOffTiles", "cc.TransitionScene");
+    oluacls_setfunc(L, "create", _cocos2d_TransitionTurnOffTiles_create);
+    oluacls_setfunc(L, "easeActionWithAction", _cocos2d_TransitionTurnOffTiles_easeActionWithAction);
+
+    olua_registerluatype<cocos2d::TransitionTurnOffTiles>(L, "cc.TransitionTurnOffTiles");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_TransitionSplitCols_create(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** scene */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+
+    // static TransitionSplitCols* create(float t, @ref Scene* scene)
+    cocos2d::TransitionSplitCols *ret = (cocos2d::TransitionSplitCols *)cocos2d::TransitionSplitCols::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionSplitCols>(L, ret, "cc.TransitionSplitCols");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int _cocos2d_TransitionSplitCols_action(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::TransitionSplitCols *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.TransitionSplitCols");
+
+    // ActionInterval* action()
+    cocos2d::ActionInterval *ret = (cocos2d::ActionInterval *)self->action();
+    int num_ret = olua_push_cppobj<cocos2d::ActionInterval>(L, ret, "cc.ActionInterval");
+
+    return num_ret;
+}
+
+static int _cocos2d_TransitionSplitCols_easeActionWithAction(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::TransitionSplitCols *self = nullptr;
+    cocos2d::ActionInterval *arg1 = nullptr;   /** action */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.TransitionSplitCols");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.ActionInterval");
+
+    // ActionInterval * easeActionWithAction(@ref(single action) ActionInterval * action)
+    cocos2d::ActionInterval *ret = (cocos2d::ActionInterval *)self->easeActionWithAction(arg1);
+    int num_ret = olua_push_cppobj<cocos2d::ActionInterval>(L, ret, "cc.ActionInterval");
+
+    // ref value
+    olua_singleref(L, 1, "action", 2);
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_TransitionSplitCols(lua_State *L)
+{
+    oluacls_class(L, "cc.TransitionSplitCols", "cc.TransitionScene");
+    oluacls_setfunc(L, "create", _cocos2d_TransitionSplitCols_create);
+    oluacls_setfunc(L, "action", _cocos2d_TransitionSplitCols_action);
+    oluacls_setfunc(L, "easeActionWithAction", _cocos2d_TransitionSplitCols_easeActionWithAction);
+
+    olua_registerluatype<cocos2d::TransitionSplitCols>(L, "cc.TransitionSplitCols");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_TransitionSplitRows_create(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** scene */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+
+    // static TransitionSplitRows* create(float t, @ref Scene* scene)
+    cocos2d::TransitionSplitRows *ret = (cocos2d::TransitionSplitRows *)cocos2d::TransitionSplitRows::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionSplitRows>(L, ret, "cc.TransitionSplitRows");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_TransitionSplitRows(lua_State *L)
+{
+    oluacls_class(L, "cc.TransitionSplitRows", "cc.TransitionSplitCols");
+    oluacls_setfunc(L, "create", _cocos2d_TransitionSplitRows_create);
+
+    olua_registerluatype<cocos2d::TransitionSplitRows>(L, "cc.TransitionSplitRows");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_TransitionFadeTR_create(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** scene */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+
+    // static TransitionFadeTR* create(float t, @ref Scene* scene)
+    cocos2d::TransitionFadeTR *ret = (cocos2d::TransitionFadeTR *)cocos2d::TransitionFadeTR::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionFadeTR>(L, ret, "cc.TransitionFadeTR");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int _cocos2d_TransitionFadeTR_actionWithSize(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::TransitionFadeTR *self = nullptr;
+    cocos2d::Size arg1;       /** size */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.TransitionFadeTR");
+    auto_luacv_check_cocos2d_Size(L, 2, &arg1);
+
+    // ActionInterval* actionWithSize(const Size& size)
+    cocos2d::ActionInterval *ret = (cocos2d::ActionInterval *)self->actionWithSize(arg1);
+    int num_ret = olua_push_cppobj<cocos2d::ActionInterval>(L, ret, "cc.ActionInterval");
+
+    return num_ret;
+}
+
+static int _cocos2d_TransitionFadeTR_easeActionWithAction(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::TransitionFadeTR *self = nullptr;
+    cocos2d::ActionInterval *arg1 = nullptr;   /** action */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.TransitionFadeTR");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.ActionInterval");
+
+    // ActionInterval* easeActionWithAction(@ref(single action) ActionInterval * action)
+    cocos2d::ActionInterval *ret = (cocos2d::ActionInterval *)self->easeActionWithAction(arg1);
+    int num_ret = olua_push_cppobj<cocos2d::ActionInterval>(L, ret, "cc.ActionInterval");
+
+    // ref value
+    olua_singleref(L, 1, "action", 2);
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_TransitionFadeTR(lua_State *L)
+{
+    oluacls_class(L, "cc.TransitionFadeTR", "cc.TransitionScene");
+    oluacls_setfunc(L, "create", _cocos2d_TransitionFadeTR_create);
+    oluacls_setfunc(L, "actionWithSize", _cocos2d_TransitionFadeTR_actionWithSize);
+    oluacls_setfunc(L, "easeActionWithAction", _cocos2d_TransitionFadeTR_easeActionWithAction);
+
+    olua_registerluatype<cocos2d::TransitionFadeTR>(L, "cc.TransitionFadeTR");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_TransitionFadeBL_create(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** scene */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+
+    // static TransitionFadeBL* create(float t, @ref Scene* scene)
+    cocos2d::TransitionFadeBL *ret = (cocos2d::TransitionFadeBL *)cocos2d::TransitionFadeBL::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionFadeBL>(L, ret, "cc.TransitionFadeBL");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int _cocos2d_TransitionFadeBL_actionWithSize(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::TransitionFadeBL *self = nullptr;
+    cocos2d::Size arg1;       /** size */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.TransitionFadeBL");
+    auto_luacv_check_cocos2d_Size(L, 2, &arg1);
+
+    // ActionInterval* actionWithSize(const Size& size)
+    cocos2d::ActionInterval *ret = (cocos2d::ActionInterval *)self->actionWithSize(arg1);
+    int num_ret = olua_push_cppobj<cocos2d::ActionInterval>(L, ret, "cc.ActionInterval");
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_TransitionFadeBL(lua_State *L)
+{
+    oluacls_class(L, "cc.TransitionFadeBL", "cc.TransitionFadeTR");
+    oluacls_setfunc(L, "create", _cocos2d_TransitionFadeBL_create);
+    oluacls_setfunc(L, "actionWithSize", _cocos2d_TransitionFadeBL_actionWithSize);
+
+    olua_registerluatype<cocos2d::TransitionFadeBL>(L, "cc.TransitionFadeBL");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_TransitionFadeUp_create(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** scene */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+
+    // static TransitionFadeUp* create(float t, @ref Scene* scene)
+    cocos2d::TransitionFadeUp *ret = (cocos2d::TransitionFadeUp *)cocos2d::TransitionFadeUp::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionFadeUp>(L, ret, "cc.TransitionFadeUp");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int _cocos2d_TransitionFadeUp_actionWithSize(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::TransitionFadeUp *self = nullptr;
+    cocos2d::Size arg1;       /** size */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.TransitionFadeUp");
+    auto_luacv_check_cocos2d_Size(L, 2, &arg1);
+
+    // ActionInterval* actionWithSize(const Size& size)
+    cocos2d::ActionInterval *ret = (cocos2d::ActionInterval *)self->actionWithSize(arg1);
+    int num_ret = olua_push_cppobj<cocos2d::ActionInterval>(L, ret, "cc.ActionInterval");
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_TransitionFadeUp(lua_State *L)
+{
+    oluacls_class(L, "cc.TransitionFadeUp", "cc.TransitionFadeTR");
+    oluacls_setfunc(L, "create", _cocos2d_TransitionFadeUp_create);
+    oluacls_setfunc(L, "actionWithSize", _cocos2d_TransitionFadeUp_actionWithSize);
+
+    olua_registerluatype<cocos2d::TransitionFadeUp>(L, "cc.TransitionFadeUp");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_TransitionFadeDown_create(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** scene */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+
+    // static TransitionFadeDown* create(float t, @ref Scene* scene)
+    cocos2d::TransitionFadeDown *ret = (cocos2d::TransitionFadeDown *)cocos2d::TransitionFadeDown::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionFadeDown>(L, ret, "cc.TransitionFadeDown");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int _cocos2d_TransitionFadeDown_actionWithSize(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::TransitionFadeDown *self = nullptr;
+    cocos2d::Size arg1;       /** size */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.TransitionFadeDown");
+    auto_luacv_check_cocos2d_Size(L, 2, &arg1);
+
+    // ActionInterval* actionWithSize(const Size& size)
+    cocos2d::ActionInterval *ret = (cocos2d::ActionInterval *)self->actionWithSize(arg1);
+    int num_ret = olua_push_cppobj<cocos2d::ActionInterval>(L, ret, "cc.ActionInterval");
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_TransitionFadeDown(lua_State *L)
+{
+    oluacls_class(L, "cc.TransitionFadeDown", "cc.TransitionFadeTR");
+    oluacls_setfunc(L, "create", _cocos2d_TransitionFadeDown_create);
+    oluacls_setfunc(L, "actionWithSize", _cocos2d_TransitionFadeDown_actionWithSize);
+
+    olua_registerluatype<cocos2d::TransitionFadeDown>(L, "cc.TransitionFadeDown");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_TransitionPageTurn_create(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** scene */
+    bool arg3 = false;   /** backwards */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+    olua_check_bool(L, 3, &arg3);
+
+    // static TransitionPageTurn* create(float t, @ref Scene* scene,bool backwards)
+    cocos2d::TransitionPageTurn *ret = (cocos2d::TransitionPageTurn *)cocos2d::TransitionPageTurn::create((float)arg1, arg2, arg3);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionPageTurn>(L, ret, "cc.TransitionPageTurn");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int _cocos2d_TransitionPageTurn_actionWithSize(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::TransitionPageTurn *self = nullptr;
+    cocos2d::Size arg1;       /** vector */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.TransitionPageTurn");
+    auto_luacv_check_cocos2d_Size(L, 2, &arg1);
+
+    // ActionInterval* actionWithSize(const Size& vector)
+    cocos2d::ActionInterval *ret = (cocos2d::ActionInterval *)self->actionWithSize(arg1);
+    int num_ret = olua_push_cppobj<cocos2d::ActionInterval>(L, ret, "cc.ActionInterval");
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_TransitionPageTurn(lua_State *L)
+{
+    oluacls_class(L, "cc.TransitionPageTurn", "cc.TransitionScene");
+    oluacls_setfunc(L, "create", _cocos2d_TransitionPageTurn_create);
+    oluacls_setfunc(L, "actionWithSize", _cocos2d_TransitionPageTurn_actionWithSize);
+
+    olua_registerluatype<cocos2d::TransitionPageTurn>(L, "cc.TransitionPageTurn");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_TransitionProgress_create(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** scene */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+
+    // static TransitionProgress* create(float t, @ref Scene* scene)
+    cocos2d::TransitionProgress *ret = (cocos2d::TransitionProgress *)cocos2d::TransitionProgress::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionProgress>(L, ret, "cc.TransitionProgress");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_TransitionProgress(lua_State *L)
+{
+    oluacls_class(L, "cc.TransitionProgress", "cc.TransitionScene");
+    oluacls_setfunc(L, "create", _cocos2d_TransitionProgress_create);
+
+    olua_registerluatype<cocos2d::TransitionProgress>(L, "cc.TransitionProgress");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_TransitionProgressRadialCCW_create(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** scene */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+
+    // static TransitionProgressRadialCCW* create(float t, @ref Scene* scene)
+    cocos2d::TransitionProgressRadialCCW *ret = (cocos2d::TransitionProgressRadialCCW *)cocos2d::TransitionProgressRadialCCW::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionProgressRadialCCW>(L, ret, "cc.TransitionProgressRadialCCW");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_TransitionProgressRadialCCW(lua_State *L)
+{
+    oluacls_class(L, "cc.TransitionProgressRadialCCW", "cc.TransitionProgress");
+    oluacls_setfunc(L, "create", _cocos2d_TransitionProgressRadialCCW_create);
+
+    olua_registerluatype<cocos2d::TransitionProgressRadialCCW>(L, "cc.TransitionProgressRadialCCW");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_TransitionProgressRadialCW_create(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** scene */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+
+    // static TransitionProgressRadialCW* create(float t, @ref Scene* scene)
+    cocos2d::TransitionProgressRadialCW *ret = (cocos2d::TransitionProgressRadialCW *)cocos2d::TransitionProgressRadialCW::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionProgressRadialCW>(L, ret, "cc.TransitionProgressRadialCW");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_TransitionProgressRadialCW(lua_State *L)
+{
+    oluacls_class(L, "cc.TransitionProgressRadialCW", "cc.TransitionProgress");
+    oluacls_setfunc(L, "create", _cocos2d_TransitionProgressRadialCW_create);
+
+    olua_registerluatype<cocos2d::TransitionProgressRadialCW>(L, "cc.TransitionProgressRadialCW");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_TransitionProgressHorizontal_create(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** scene */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+
+    // static TransitionProgressHorizontal* create(float t, @ref Scene* scene)
+    cocos2d::TransitionProgressHorizontal *ret = (cocos2d::TransitionProgressHorizontal *)cocos2d::TransitionProgressHorizontal::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionProgressHorizontal>(L, ret, "cc.TransitionProgressHorizontal");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_TransitionProgressHorizontal(lua_State *L)
+{
+    oluacls_class(L, "cc.TransitionProgressHorizontal", "cc.TransitionProgress");
+    oluacls_setfunc(L, "create", _cocos2d_TransitionProgressHorizontal_create);
+
+    olua_registerluatype<cocos2d::TransitionProgressHorizontal>(L, "cc.TransitionProgressHorizontal");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_TransitionProgressVertical_create(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** scene */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+
+    // static TransitionProgressVertical* create(float t, @ref Scene* scene)
+    cocos2d::TransitionProgressVertical *ret = (cocos2d::TransitionProgressVertical *)cocos2d::TransitionProgressVertical::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionProgressVertical>(L, ret, "cc.TransitionProgressVertical");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_TransitionProgressVertical(lua_State *L)
+{
+    oluacls_class(L, "cc.TransitionProgressVertical", "cc.TransitionProgress");
+    oluacls_setfunc(L, "create", _cocos2d_TransitionProgressVertical_create);
+
+    olua_registerluatype<cocos2d::TransitionProgressVertical>(L, "cc.TransitionProgressVertical");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_TransitionProgressInOut_create(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** scene */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+
+    // static TransitionProgressInOut* create(float t, @ref Scene* scene)
+    cocos2d::TransitionProgressInOut *ret = (cocos2d::TransitionProgressInOut *)cocos2d::TransitionProgressInOut::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionProgressInOut>(L, ret, "cc.TransitionProgressInOut");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_TransitionProgressInOut(lua_State *L)
+{
+    oluacls_class(L, "cc.TransitionProgressInOut", "cc.TransitionProgress");
+    oluacls_setfunc(L, "create", _cocos2d_TransitionProgressInOut_create);
+
+    olua_registerluatype<cocos2d::TransitionProgressInOut>(L, "cc.TransitionProgressInOut");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_TransitionProgressOutIn_create(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::Scene *arg2 = nullptr;   /** scene */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
+
+    // static TransitionProgressOutIn* create(float t, @ref Scene* scene)
+    cocos2d::TransitionProgressOutIn *ret = (cocos2d::TransitionProgressOutIn *)cocos2d::TransitionProgressOutIn::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::TransitionProgressOutIn>(L, ret, "cc.TransitionProgressOutIn");
+
+    // ref value
+    olua_mapref(L, -1, ".autoref", 2);
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_TransitionProgressOutIn(lua_State *L)
+{
+    oluacls_class(L, "cc.TransitionProgressOutIn", "cc.TransitionProgress");
+    oluacls_setfunc(L, "create", _cocos2d_TransitionProgressOutIn_create);
+
+    olua_registerluatype<cocos2d::TransitionProgressOutIn>(L, "cc.TransitionProgressOutIn");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
 static int luaopen_cocos2d_LightType(lua_State *L)
 {
     oluacls_class(L, "cc.LightType", nullptr);
@@ -23383,6 +25216,43 @@ int luaopen_cocos2d(lua_State *L)
     olua_require(L, "cc.LayerColor", luaopen_cocos2d_LayerColor);
     olua_require(L, "cc.LayerGradient", luaopen_cocos2d_LayerGradient);
     olua_require(L, "cc.LayerRadialGradient", luaopen_cocos2d_LayerRadialGradient);
+    olua_require(L, "cc.TransitionScene.Orientation", luaopen_cocos2d_TransitionScene_Orientation);
+    olua_require(L, "cc.TransitionScene", luaopen_cocos2d_TransitionScene);
+    olua_require(L, "cc.TransitionSceneOriented", luaopen_cocos2d_TransitionSceneOriented);
+    olua_require(L, "cc.TransitionRotoZoom", luaopen_cocos2d_TransitionRotoZoom);
+    olua_require(L, "cc.TransitionJumpZoom", luaopen_cocos2d_TransitionJumpZoom);
+    olua_require(L, "cc.TransitionMoveInL", luaopen_cocos2d_TransitionMoveInL);
+    olua_require(L, "cc.TransitionMoveInR", luaopen_cocos2d_TransitionMoveInR);
+    olua_require(L, "cc.TransitionMoveInT", luaopen_cocos2d_TransitionMoveInT);
+    olua_require(L, "cc.TransitionMoveInB", luaopen_cocos2d_TransitionMoveInB);
+    olua_require(L, "cc.TransitionSlideInL", luaopen_cocos2d_TransitionSlideInL);
+    olua_require(L, "cc.TransitionSlideInR", luaopen_cocos2d_TransitionSlideInR);
+    olua_require(L, "cc.TransitionSlideInB", luaopen_cocos2d_TransitionSlideInB);
+    olua_require(L, "cc.TransitionSlideInT", luaopen_cocos2d_TransitionSlideInT);
+    olua_require(L, "cc.TransitionShrinkGrow", luaopen_cocos2d_TransitionShrinkGrow);
+    olua_require(L, "cc.TransitionFlipX", luaopen_cocos2d_TransitionFlipX);
+    olua_require(L, "cc.TransitionFlipY", luaopen_cocos2d_TransitionFlipY);
+    olua_require(L, "cc.TransitionFlipAngular", luaopen_cocos2d_TransitionFlipAngular);
+    olua_require(L, "cc.TransitionZoomFlipX", luaopen_cocos2d_TransitionZoomFlipX);
+    olua_require(L, "cc.TransitionZoomFlipY", luaopen_cocos2d_TransitionZoomFlipY);
+    olua_require(L, "cc.TransitionZoomFlipAngular", luaopen_cocos2d_TransitionZoomFlipAngular);
+    olua_require(L, "cc.TransitionFade", luaopen_cocos2d_TransitionFade);
+    olua_require(L, "cc.TransitionCrossFade", luaopen_cocos2d_TransitionCrossFade);
+    olua_require(L, "cc.TransitionTurnOffTiles", luaopen_cocos2d_TransitionTurnOffTiles);
+    olua_require(L, "cc.TransitionSplitCols", luaopen_cocos2d_TransitionSplitCols);
+    olua_require(L, "cc.TransitionSplitRows", luaopen_cocos2d_TransitionSplitRows);
+    olua_require(L, "cc.TransitionFadeTR", luaopen_cocos2d_TransitionFadeTR);
+    olua_require(L, "cc.TransitionFadeBL", luaopen_cocos2d_TransitionFadeBL);
+    olua_require(L, "cc.TransitionFadeUp", luaopen_cocos2d_TransitionFadeUp);
+    olua_require(L, "cc.TransitionFadeDown", luaopen_cocos2d_TransitionFadeDown);
+    olua_require(L, "cc.TransitionPageTurn", luaopen_cocos2d_TransitionPageTurn);
+    olua_require(L, "cc.TransitionProgress", luaopen_cocos2d_TransitionProgress);
+    olua_require(L, "cc.TransitionProgressRadialCCW", luaopen_cocos2d_TransitionProgressRadialCCW);
+    olua_require(L, "cc.TransitionProgressRadialCW", luaopen_cocos2d_TransitionProgressRadialCW);
+    olua_require(L, "cc.TransitionProgressHorizontal", luaopen_cocos2d_TransitionProgressHorizontal);
+    olua_require(L, "cc.TransitionProgressVertical", luaopen_cocos2d_TransitionProgressVertical);
+    olua_require(L, "cc.TransitionProgressInOut", luaopen_cocos2d_TransitionProgressInOut);
+    olua_require(L, "cc.TransitionProgressOutIn", luaopen_cocos2d_TransitionProgressOutIn);
     olua_require(L, "cc.LightType", luaopen_cocos2d_LightType);
     olua_require(L, "cc.LightFlag", luaopen_cocos2d_LightFlag);
     olua_require(L, "cc.BaseLight", luaopen_cocos2d_BaseLight);

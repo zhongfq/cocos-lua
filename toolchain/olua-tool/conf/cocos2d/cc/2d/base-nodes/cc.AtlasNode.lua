@@ -9,6 +9,16 @@ cls.funcs([[
     TextureAtlas* getTextureAtlas()
     void setQuadsToDraw(ssize_t quadsToDraw)
     ssize_t getQuadsToDraw()
+    Texture2D* getTexture() const override;
+    void setTexture(Texture2D *texture)
+    void setBlendFunc(const BlendFunc& blendFunc)
+    const BlendFunc& getBlendFunc()
 ]])
+cls.props [[
+    textureAtlas
+    quadsToDraw
+    texture
+    blendFunc
+]]
 
 return cls

@@ -20,7 +20,13 @@ local function gen_classes(module, write)
         if ti and ti.LUACLS then
             assert(ti.LUACLS == cls.LUACLS, cls.LUACLS)
         end
+        if cls.DEFIF then
+            write(cls.DEFIF)
+        end
         gen_class(module, cls, write)
+        if cls.DEFIF then
+            write('#endif')
+        end
         write('')
     end
 
@@ -42,9 +48,15 @@ local function gen_luaopen(module, write)
     local function do_gen_open(cls)
         local LUACLS = cls.LUACLS
         local CPPCLS_PATH = class_path(cls)
+        if cls.DEFIF then
+            REQUIRES[#REQUIRES + 1] = cls.DEFIF
+        end
         REQUIRES[#REQUIRES + 1] = format_snippet([[
             olua_require(L, "${LUACLS}", luaopen_${CPPCLS_PATH});
         ]])
+        if cls.DEFIF then
+            REQUIRES[#REQUIRES + 1] = '#endif'
+        end
     end
 
     for i, cls in ipairs(module.CLASSES) do

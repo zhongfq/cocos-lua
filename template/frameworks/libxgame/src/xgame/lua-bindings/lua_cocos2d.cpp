@@ -6874,27 +6874,6 @@ static int _cocos2d_GLViewImpl_create(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_GLViewImpl_createWithRect(lua_State *L)
-{
-    lua_settop(L, 4);
-
-    std::string arg1;       /** viewName */
-    cocos2d::Rect arg2;       /** size */
-    lua_Number arg3 = 0;   /** frameZoomFactor */
-    bool arg4 = false;   /** resizable */
-
-    olua_check_std_string(L, 1, &arg1);
-    manual_luacv_check_cocos2d_Rect(L, 2, &arg2);
-    olua_opt_number(L, 3, &arg3, (lua_Number)1.0f);
-    olua_opt_bool(L, 4, &arg4, (bool)false);
-
-    // static GLViewImpl* createWithRect(const std::string& viewName, Rect size, float frameZoomFactor = 1.0f, bool resizable = false);
-    cocos2d::GLViewImpl *ret = (cocos2d::GLViewImpl *)cocos2d::GLViewImpl::createWithRect(arg1, arg2, (float)arg3, arg4);
-    int num_ret = olua_push_cppobj<cocos2d::GLViewImpl>(L, ret, "cc.GLViewImpl");
-
-    return num_ret;
-}
-
 static int _cocos2d_GLViewImpl_createWithFullScreen(lua_State *L)
 {
     lua_settop(L, 1);
@@ -6914,7 +6893,6 @@ static int luaopen_cocos2d_GLViewImpl(lua_State *L)
 {
     oluacls_class(L, "cc.GLViewImpl", "cc.GLView");
     oluacls_setfunc(L, "create", _cocos2d_GLViewImpl_create);
-    oluacls_setfunc(L, "createWithRect", _cocos2d_GLViewImpl_createWithRect);
     oluacls_setfunc(L, "createWithFullScreen", _cocos2d_GLViewImpl_createWithFullScreen);
 
     olua_registerluatype<cocos2d::GLViewImpl>(L, "cc.GLViewImpl");

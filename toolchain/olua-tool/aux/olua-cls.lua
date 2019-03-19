@@ -436,6 +436,25 @@ function class(collection)
         end
     end
 
+    function cls.callbacks(callbacks_str, callback_maker)
+        local function default_maker(name)
+            name = string.gsub(name, '^get', '')
+            name = string.gsub(name, '^set', '')
+            name = string.lower(string.sub(name, 1, 1)) .. string.sub(name, 2)
+            return 'olua_makecallbacktag("' .. name .. '")'
+        end
+        for callback_decl in string.gmatch(callbacks_str, '[^\n\r]+') do
+            callback_decl = string.gsub(callback_decl, '^ *', '')
+            local _, _, str = parse_def(callback_decl)
+            local funcname = string.match(str, '[^() ]+')
+            cls.callback(nil, {
+                CALLBACK_MAKER = (callback_maker or default_maker)(funcname),
+                CALLBACK_REPLACE = true,
+                CALLBACK_MODE = "OLUA_CALLBACK_TAG_ENDWITH",
+            }, callback_decl)
+        end
+    end
+
     function cls.var(name, var_decl)
         var_decl = string.gsub(var_decl, ';*$', '')
         local ARGS = parse_args(cls, '(' .. var_decl .. ')')

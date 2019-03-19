@@ -4829,6 +4829,608 @@ static int luaopen_cocos2d_ui_RelativeBox(lua_State *L)
     return 1;
 }
 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN)
+static int _cocos2d_experimental_ui_WebView_create(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static WebView *create()
+    cocos2d::experimental::ui::WebView *ret = (cocos2d::experimental::ui::WebView *)cocos2d::experimental::ui::WebView::create();
+    int num_ret = olua_push_cppobj<cocos2d::experimental::ui::WebView>(L, ret, "ccui.WebView");
+
+    return num_ret;
+}
+
+static int _cocos2d_experimental_ui_WebView_setJavascriptInterfaceScheme(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::experimental::ui::WebView *self = nullptr;
+    std::string arg1;       /** scheme */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void setJavascriptInterfaceScheme(const std::string &scheme)
+    self->setJavascriptInterfaceScheme(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_experimental_ui_WebView_loadData(lua_State *L)
+{
+    lua_settop(L, 5);
+
+    cocos2d::experimental::ui::WebView *self = nullptr;
+    cocos2d::Data arg1;       /** data */
+    std::string arg2;       /** MIMEType */
+    std::string arg3;       /** encoding */
+    std::string arg4;       /** baseURL */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
+    manual_luacv_check_cocos2d_Data(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+    olua_check_std_string(L, 4, &arg3);
+    olua_check_std_string(L, 5, &arg4);
+
+    // void loadData(const cocos2d::Data &data, const std::string &MIMEType, const std::string &encoding, const std::string &baseURL)
+    self->loadData(arg1, arg2, arg3, arg4);
+
+    return 0;
+}
+
+static int _cocos2d_experimental_ui_WebView_loadHTMLString(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::experimental::ui::WebView *self = nullptr;
+    std::string arg1;       /** string */
+    std::string arg2;       /** baseURL */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
+    olua_check_std_string(L, 2, &arg1);
+    olua_opt_std_string(L, 3, &arg2, (std::string)"");
+
+    // void loadHTMLString(const std::string &string, const std::string &baseURL = "")
+    self->loadHTMLString(arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_experimental_ui_WebView_loadURL1(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::experimental::ui::WebView *self = nullptr;
+    std::string arg1;       /** url */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void loadURL(const std::string &url)
+    self->loadURL(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_experimental_ui_WebView_loadURL2(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::experimental::ui::WebView *self = nullptr;
+    std::string arg1;       /** url */
+    bool arg2 = false;   /** cleanCachedData */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_bool(L, 3, &arg2);
+
+    // void loadURL(const std::string &url, bool cleanCachedData)
+    self->loadURL(arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_experimental_ui_WebView_loadURL(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if (olua_is_std_string(L, 2)) {
+            return _cocos2d_experimental_ui_WebView_loadURL1(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if (olua_is_std_string(L, 2) && olua_is_bool(L, 3)) {
+            return _cocos2d_experimental_ui_WebView_loadURL2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::experimental::ui::WebView::loadURL' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_experimental_ui_WebView_loadFile(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::experimental::ui::WebView *self = nullptr;
+    std::string arg1;       /** fileName */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void loadFile(const std::string &fileName)
+    self->loadFile(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_experimental_ui_WebView_stopLoading(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::experimental::ui::WebView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
+
+    // void stopLoading()
+    self->stopLoading();
+
+    return 0;
+}
+
+static int _cocos2d_experimental_ui_WebView_reload(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::experimental::ui::WebView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
+
+    // void reload()
+    self->reload();
+
+    return 0;
+}
+
+static int _cocos2d_experimental_ui_WebView_canGoBack(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::experimental::ui::WebView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
+
+    // bool canGoBack()
+    bool ret = (bool)self->canGoBack();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_experimental_ui_WebView_canGoForward(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::experimental::ui::WebView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
+
+    // bool canGoForward()
+    bool ret = (bool)self->canGoForward();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_experimental_ui_WebView_goBack(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::experimental::ui::WebView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
+
+    // void goBack()
+    self->goBack();
+
+    return 0;
+}
+
+static int _cocos2d_experimental_ui_WebView_goForward(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::experimental::ui::WebView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
+
+    // void goForward()
+    self->goForward();
+
+    return 0;
+}
+
+static int _cocos2d_experimental_ui_WebView_evaluateJS(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::experimental::ui::WebView *self = nullptr;
+    std::string arg1;       /** js */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void evaluateJS(const std::string &js)
+    self->evaluateJS(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_experimental_ui_WebView_setScalesPageToFit(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::experimental::ui::WebView *self = nullptr;
+    bool arg1 = false;   /** scalesPageToFit */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setScalesPageToFit(const bool scalesPageToFit)
+    self->setScalesPageToFit(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_experimental_ui_WebView_setBounces(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::experimental::ui::WebView *self = nullptr;
+    bool arg1 = false;   /** bounce */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setBounces(bool bounce)
+    self->setBounces(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_experimental_ui_WebView_draw(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    cocos2d::experimental::ui::WebView *self = nullptr;
+    cocos2d::Renderer *arg1 = nullptr;   /** renderer */
+    cocos2d::Mat4 arg2;       /** const */
+    lua_Unsigned arg3 = 0;   /** flags */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Renderer");
+    manual_luacv_check_cocos2d_Mat4(L, 3, &arg2);
+    olua_check_uint(L, 4, &arg3);
+
+    // void draw(cocos2d::Renderer *renderer, cocos2d::Mat4 const &transform, uint32_t flags)
+    self->draw(arg1, arg2, (uint32_t)arg3);
+
+    return 0;
+}
+
+static int _cocos2d_experimental_ui_WebView_setOpacityWebView(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::experimental::ui::WebView *self = nullptr;
+    lua_Number arg1 = 0;   /** opacity */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
+    olua_check_number(L, 2, &arg1);
+
+    // void setOpacityWebView(float opacity)
+    self->setOpacityWebView((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_experimental_ui_WebView_getOpacityWebView(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::experimental::ui::WebView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
+
+    // float getOpacityWebView()
+    float ret = (float)self->getOpacityWebView();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_experimental_ui_WebView_setBackgroundTransparent(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::experimental::ui::WebView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
+
+    // void setBackgroundTransparent()
+    self->setBackgroundTransparent();
+
+    return 0;
+}
+
+static int _cocos2d_experimental_ui_WebView_setOnShouldStartLoading(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::experimental::ui::WebView *self = nullptr;
+    std::function<bool(cocos2d::experimental::ui::WebView *, const std::string &)> arg1 = nullptr;   /** callback */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
+
+    if (olua_is_std_function(L, 2)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onShouldStartLoading");
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+        arg1 = [callback_store_obj, func, tag](cocos2d::experimental::ui::WebView *arg1, const std::string &arg2) {
+            lua_State *L = olua_mainthread();
+            int top = lua_gettop(L);
+            bool ret = false;
+            olua_push_cppobj<cocos2d::experimental::ui::WebView>(L, arg1, "ccui.WebView");
+            olua_push_std_string(L, arg2);
+            olua_callback(L, callback_store_obj, func.c_str(), 2);
+            olua_opt_bool(L, -1, &ret, false);
+
+            lua_settop(L, top);
+            return ret;
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onShouldStartLoading");
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+        arg1 = nullptr;
+    }
+
+    // void setOnShouldStartLoading(@nullable const std::function<bool(WebView *sender, const std::string &url)>& callback)
+    self->setOnShouldStartLoading(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_experimental_ui_WebView_setOnDidFinishLoading(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::experimental::ui::WebView *self = nullptr;
+    std::function<void(cocos2d::experimental::ui::WebView *, const std::string &)> arg1 = nullptr;   /** callback */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
+
+    if (olua_is_std_function(L, 2)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onDidFinishLoading");
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+        arg1 = [callback_store_obj, func, tag](cocos2d::experimental::ui::WebView *arg1, const std::string &arg2) {
+            lua_State *L = olua_mainthread();
+            int top = lua_gettop(L);
+
+            olua_push_cppobj<cocos2d::experimental::ui::WebView>(L, arg1, "ccui.WebView");
+            olua_push_std_string(L, arg2);
+            olua_callback(L, callback_store_obj, func.c_str(), 2);
+
+            lua_settop(L, top);
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onDidFinishLoading");
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+        arg1 = nullptr;
+    }
+
+    // void setOnDidFinishLoading(@nullable const std::function<void(WebView *sender, const std::string &url)>& callback)
+    self->setOnDidFinishLoading(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_experimental_ui_WebView_setOnDidFailLoading(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::experimental::ui::WebView *self = nullptr;
+    std::function<void(cocos2d::experimental::ui::WebView *, const std::string &)> arg1 = nullptr;   /** callback */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
+
+    if (olua_is_std_function(L, 2)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onDidFailLoading");
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+        arg1 = [callback_store_obj, func, tag](cocos2d::experimental::ui::WebView *arg1, const std::string &arg2) {
+            lua_State *L = olua_mainthread();
+            int top = lua_gettop(L);
+
+            olua_push_cppobj<cocos2d::experimental::ui::WebView>(L, arg1, "ccui.WebView");
+            olua_push_std_string(L, arg2);
+            olua_callback(L, callback_store_obj, func.c_str(), 2);
+
+            lua_settop(L, top);
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onDidFailLoading");
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+        arg1 = nullptr;
+    }
+
+    // void setOnDidFailLoading(@nullable const std::function<void(WebView *sender, const std::string &url)>& callback)
+    self->setOnDidFailLoading(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_experimental_ui_WebView_setOnJSCallback(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::experimental::ui::WebView *self = nullptr;
+    std::function<void(cocos2d::experimental::ui::WebView *, const std::string &)> arg1 = nullptr;   /** callback */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
+
+    if (olua_is_std_function(L, 2)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onJSCallback");
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+        arg1 = [callback_store_obj, func, tag](cocos2d::experimental::ui::WebView *arg1, const std::string &arg2) {
+            lua_State *L = olua_mainthread();
+            int top = lua_gettop(L);
+
+            olua_push_cppobj<cocos2d::experimental::ui::WebView>(L, arg1, "ccui.WebView");
+            olua_push_std_string(L, arg2);
+            olua_callback(L, callback_store_obj, func.c_str(), 2);
+
+            lua_settop(L, top);
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onJSCallback");
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+        arg1 = nullptr;
+    }
+
+    // void setOnJSCallback(@nullable const std::function<void(WebView *sender, const std::string &url)>& callback)
+    self->setOnJSCallback(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_experimental_ui_WebView_getOnShouldStartLoading(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::experimental::ui::WebView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onShouldStartLoading");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+
+    // std::function<bool(WebView *sender, const std::string &url)> getOnShouldStartLoading()
+    std::function<bool(cocos2d::experimental::ui::WebView *, const std::string &)> ret = (std::function<bool(cocos2d::experimental::ui::WebView *, const std::string &)>)self->getOnShouldStartLoading();
+    int num_ret = olua_push_std_function(L, (std::function<bool(cocos2d::experimental::ui::WebView *, const std::string &)>)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_experimental_ui_WebView_getOnDidFinishLoading(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::experimental::ui::WebView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onDidFinishLoading");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+
+    // std::function<void(WebView *sender, const std::string &url)> getOnDidFinishLoading()
+    std::function<void(cocos2d::experimental::ui::WebView *, const std::string &)> ret = (std::function<void(cocos2d::experimental::ui::WebView *, const std::string &)>)self->getOnDidFinishLoading();
+    int num_ret = olua_push_std_function(L, (std::function<void(cocos2d::experimental::ui::WebView *, const std::string &)>)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_experimental_ui_WebView_getOnDidFailLoading(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::experimental::ui::WebView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onDidFailLoading");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+
+    // std::function<void(WebView *sender, const std::string &url)> getOnDidFailLoading()
+    std::function<void(cocos2d::experimental::ui::WebView *, const std::string &)> ret = (std::function<void(cocos2d::experimental::ui::WebView *, const std::string &)>)self->getOnDidFailLoading();
+    int num_ret = olua_push_std_function(L, (std::function<void(cocos2d::experimental::ui::WebView *, const std::string &)>)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_experimental_ui_WebView_getOnJSCallback(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::experimental::ui::WebView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onJSCallback");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+
+    // std::function<void(WebView *sender, const std::string &url)> getOnJSCallback()
+    std::function<void(cocos2d::experimental::ui::WebView *, const std::string &)> ret = (std::function<void(cocos2d::experimental::ui::WebView *, const std::string &)>)self->getOnJSCallback();
+    int num_ret = olua_push_std_function(L, (std::function<void(cocos2d::experimental::ui::WebView *, const std::string &)>)ret);
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_experimental_ui_WebView(lua_State *L)
+{
+    oluacls_class(L, "ccui.WebView", "ccui.Widget");
+    oluacls_setfunc(L, "create", _cocos2d_experimental_ui_WebView_create);
+    oluacls_setfunc(L, "setJavascriptInterfaceScheme", _cocos2d_experimental_ui_WebView_setJavascriptInterfaceScheme);
+    oluacls_setfunc(L, "loadData", _cocos2d_experimental_ui_WebView_loadData);
+    oluacls_setfunc(L, "loadHTMLString", _cocos2d_experimental_ui_WebView_loadHTMLString);
+    oluacls_setfunc(L, "loadURL", _cocos2d_experimental_ui_WebView_loadURL);
+    oluacls_setfunc(L, "loadFile", _cocos2d_experimental_ui_WebView_loadFile);
+    oluacls_setfunc(L, "stopLoading", _cocos2d_experimental_ui_WebView_stopLoading);
+    oluacls_setfunc(L, "reload", _cocos2d_experimental_ui_WebView_reload);
+    oluacls_setfunc(L, "canGoBack", _cocos2d_experimental_ui_WebView_canGoBack);
+    oluacls_setfunc(L, "canGoForward", _cocos2d_experimental_ui_WebView_canGoForward);
+    oluacls_setfunc(L, "goBack", _cocos2d_experimental_ui_WebView_goBack);
+    oluacls_setfunc(L, "goForward", _cocos2d_experimental_ui_WebView_goForward);
+    oluacls_setfunc(L, "evaluateJS", _cocos2d_experimental_ui_WebView_evaluateJS);
+    oluacls_setfunc(L, "setScalesPageToFit", _cocos2d_experimental_ui_WebView_setScalesPageToFit);
+    oluacls_setfunc(L, "setBounces", _cocos2d_experimental_ui_WebView_setBounces);
+    oluacls_setfunc(L, "draw", _cocos2d_experimental_ui_WebView_draw);
+    oluacls_setfunc(L, "setOpacityWebView", _cocos2d_experimental_ui_WebView_setOpacityWebView);
+    oluacls_setfunc(L, "getOpacityWebView", _cocos2d_experimental_ui_WebView_getOpacityWebView);
+    oluacls_setfunc(L, "setBackgroundTransparent", _cocos2d_experimental_ui_WebView_setBackgroundTransparent);
+    oluacls_setfunc(L, "setOnShouldStartLoading", _cocos2d_experimental_ui_WebView_setOnShouldStartLoading);
+    oluacls_setfunc(L, "setOnDidFinishLoading", _cocos2d_experimental_ui_WebView_setOnDidFinishLoading);
+    oluacls_setfunc(L, "setOnDidFailLoading", _cocos2d_experimental_ui_WebView_setOnDidFailLoading);
+    oluacls_setfunc(L, "setOnJSCallback", _cocos2d_experimental_ui_WebView_setOnJSCallback);
+    oluacls_setfunc(L, "getOnShouldStartLoading", _cocos2d_experimental_ui_WebView_getOnShouldStartLoading);
+    oluacls_setfunc(L, "getOnDidFinishLoading", _cocos2d_experimental_ui_WebView_getOnDidFinishLoading);
+    oluacls_setfunc(L, "getOnDidFailLoading", _cocos2d_experimental_ui_WebView_getOnDidFailLoading);
+    oluacls_setfunc(L, "getOnJSCallback", _cocos2d_experimental_ui_WebView_getOnJSCallback);
+    oluacls_property(L, "onShouldStartLoading", _cocos2d_experimental_ui_WebView_getOnShouldStartLoading, _cocos2d_experimental_ui_WebView_setOnShouldStartLoading);
+    oluacls_property(L, "onDidFinishLoading", _cocos2d_experimental_ui_WebView_getOnDidFinishLoading, _cocos2d_experimental_ui_WebView_setOnDidFinishLoading);
+    oluacls_property(L, "onDidFailLoading", _cocos2d_experimental_ui_WebView_getOnDidFailLoading, _cocos2d_experimental_ui_WebView_setOnDidFailLoading);
+    oluacls_property(L, "onJSCallback", _cocos2d_experimental_ui_WebView_getOnJSCallback, _cocos2d_experimental_ui_WebView_setOnJSCallback);
+
+    olua_registerluatype<cocos2d::experimental::ui::WebView>(L, "ccui.WebView");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+#endif
+
 int luaopen_cocos2d_ui(lua_State *L)
 {
     olua_require(L, "ccui.Widget.FocusDirection", luaopen_cocos2d_ui_Widget_FocusDirection);
@@ -4858,5 +5460,8 @@ int luaopen_cocos2d_ui(lua_State *L)
     olua_require(L, "ccui.HBox", luaopen_cocos2d_ui_HBox);
     olua_require(L, "ccui.VBox", luaopen_cocos2d_ui_VBox);
     olua_require(L, "ccui.RelativeBox", luaopen_cocos2d_ui_RelativeBox);
+    #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN)
+    olua_require(L, "ccui.WebView", luaopen_cocos2d_experimental_ui_WebView);
+    #endif
     return 0;
 }

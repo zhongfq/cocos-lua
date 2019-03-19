@@ -72,7 +72,7 @@ cls.LUACLS = "cc.GLViewImpl"
 cls.SUPERCLS = "cc.GLView"
 cls.funcs([[
     static GLViewImpl* create(const std::string& viewName);
-    static GLViewImpl* createWithRect(const std::string& viewName, Rect size, float frameZoomFactor = 1.0f, bool resizable = false);
+    // static GLViewImpl* createWithRect(const std::string& viewName, Rect size, float frameZoomFactor = 1.0f, bool resizable = false);
     static GLViewImpl* createWithFullScreen(const std::string& viewName);
 ]])
 

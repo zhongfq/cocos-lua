@@ -1,5 +1,6 @@
 local function make_luacls(cppname)
     cppname = string.gsub(cppname, 'cocos2d::ui::', 'ccui.')
+    cppname = string.gsub(cppname, 'cocos2d::experimental::ui::', 'ccui.')
     cppname = string.gsub(cppname, "cocos2d::", "cc.")
     cppname = string.gsub(cppname, "[ *]*$", '')
     return cppname
@@ -338,6 +339,7 @@ REG_TYPE {
         'cocos2d::TransitionZoomFlipAngular *',
         'cocos2d::TransitionZoomFlipX *',
         'cocos2d::TransitionZoomFlipY *',
+        'cocos2d::experimental::ui::WebView *',
         'cocos2d::ui::HBox *',
         'cocos2d::ui::Layout *',
         'cocos2d::ui::LayoutComponent *',

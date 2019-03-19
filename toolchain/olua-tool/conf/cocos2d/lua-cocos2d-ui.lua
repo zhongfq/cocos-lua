@@ -32,6 +32,7 @@ M.CLASSES = {
     include("conf/cocos2d/ui/layout/ccui.VBox.lua"),
     include("conf/cocos2d/ui/layout/ccui.RelativeBox.lua"),
     include("conf/cocos2d/ui/experimental/ccui.WebView.lua"),
+    include("conf/cocos2d/ui/experimental/ccui.VideoPlayer.lua"),
 }
 
 return M

@@ -11,7 +11,7 @@ M.HEADER_INCLUDES = [[
 #include "lua.hpp"
 
 #include "cocos2d.h"
-#include "ui/UILayoutParameter.h"
+#include "ui/CocosGUI.h"
 ]]
 
 M.INCLUDES = [[
@@ -194,7 +194,15 @@ M.CONVS = {
             float right;
             float bottom;
         ]]
-    }
+    },
+    REG_CONV {
+        CPPCLS = 'cocos2d::ResourceData',
+        DEF = [[
+            int         type;
+            std::string file;
+            std::string plist;
+        ]]
+    },
 }
 
 return M

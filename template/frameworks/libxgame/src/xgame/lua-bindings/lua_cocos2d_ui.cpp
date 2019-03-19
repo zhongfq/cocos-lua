@@ -2673,370 +2673,6 @@ static int luaopen_cocos2d_ui_Scale9Sprite(lua_State *L)
     return 1;
 }
 
-static int luaopen_cocos2d_ui_LayoutParameter_Type(lua_State *L)
-{
-    oluacls_class(L, "ccui.LayoutParameter.Type", nullptr);
-    oluacls_const_integer(L, "NONE", (lua_Integer)cocos2d::ui::LayoutParameter::Type::NONE);
-    oluacls_const_integer(L, "LINEAR", (lua_Integer)cocos2d::ui::LayoutParameter::Type::LINEAR);
-    oluacls_const_integer(L, "RELATIVE", (lua_Integer)cocos2d::ui::LayoutParameter::Type::RELATIVE);
-
-    olua_registerluatype<cocos2d::ui::LayoutParameter::Type>(L, "ccui.LayoutParameter.Type");
-    oluacls_createclassproxy(L);
-
-    return 1;
-}
-
-static int _cocos2d_ui_LayoutParameter_create(lua_State *L)
-{
-    lua_settop(L, 0);
-
-    // static LayoutParameter* create()
-    cocos2d::ui::LayoutParameter *ret = (cocos2d::ui::LayoutParameter *)cocos2d::ui::LayoutParameter::create();
-    int num_ret = olua_push_cppobj<cocos2d::ui::LayoutParameter>(L, ret, "ccui.LayoutParameter");
-
-    return num_ret;
-}
-
-static int _cocos2d_ui_LayoutParameter_setMargin(lua_State *L)
-{
-    lua_settop(L, 2);
-
-    cocos2d::ui::LayoutParameter *self = nullptr;
-    cocos2d::ui::Margin arg1;       /** margin */
-
-    olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutParameter");
-    auto_luacv_check_cocos2d_ui_Margin(L, 2, &arg1);
-
-    // void setMargin(const Margin& margin)
-    self->setMargin(arg1);
-
-    return 0;
-}
-
-static int _cocos2d_ui_LayoutParameter_getMargin(lua_State *L)
-{
-    lua_settop(L, 1);
-
-    cocos2d::ui::LayoutParameter *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutParameter");
-
-    // const Margin& getMargin()
-    const cocos2d::ui::Margin &ret = (const cocos2d::ui::Margin &)self->getMargin();
-    int num_ret = auto_luacv_push_cocos2d_ui_Margin(L, &ret);
-
-    return num_ret;
-}
-
-static int _cocos2d_ui_LayoutParameter_getLayoutType(lua_State *L)
-{
-    lua_settop(L, 1);
-
-    cocos2d::ui::LayoutParameter *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutParameter");
-
-    // Type getLayoutType()
-    cocos2d::ui::LayoutParameter::Type ret = (cocos2d::ui::LayoutParameter::Type)self->getLayoutType();
-    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
-
-    return num_ret;
-}
-
-static int _cocos2d_ui_LayoutParameter_clone(lua_State *L)
-{
-    lua_settop(L, 1);
-
-    cocos2d::ui::LayoutParameter *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutParameter");
-
-    // LayoutParameter* clone()
-    cocos2d::ui::LayoutParameter *ret = (cocos2d::ui::LayoutParameter *)self->clone();
-    int num_ret = olua_push_cppobj<cocos2d::ui::LayoutParameter>(L, ret, "ccui.LayoutParameter");
-
-    return num_ret;
-}
-
-static int _cocos2d_ui_LayoutParameter_createCloneInstance(lua_State *L)
-{
-    lua_settop(L, 1);
-
-    cocos2d::ui::LayoutParameter *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutParameter");
-
-    // LayoutParameter* createCloneInstance()
-    cocos2d::ui::LayoutParameter *ret = (cocos2d::ui::LayoutParameter *)self->createCloneInstance();
-    int num_ret = olua_push_cppobj<cocos2d::ui::LayoutParameter>(L, ret, "ccui.LayoutParameter");
-
-    return num_ret;
-}
-
-static int _cocos2d_ui_LayoutParameter_copyProperties(lua_State *L)
-{
-    lua_settop(L, 2);
-
-    cocos2d::ui::LayoutParameter *self = nullptr;
-    cocos2d::ui::LayoutParameter *arg1 = nullptr;   /** model */
-
-    olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutParameter");
-    olua_check_cppobj(L, 2, (void **)&arg1, "ccui.LayoutParameter");
-
-    // void copyProperties(LayoutParameter* model)
-    self->copyProperties(arg1);
-
-    return 0;
-}
-
-static int luaopen_cocos2d_ui_LayoutParameter(lua_State *L)
-{
-    oluacls_class(L, "ccui.LayoutParameter", "cc.Ref");
-    oluacls_setfunc(L, "create", _cocos2d_ui_LayoutParameter_create);
-    oluacls_setfunc(L, "setMargin", _cocos2d_ui_LayoutParameter_setMargin);
-    oluacls_setfunc(L, "getMargin", _cocos2d_ui_LayoutParameter_getMargin);
-    oluacls_setfunc(L, "getLayoutType", _cocos2d_ui_LayoutParameter_getLayoutType);
-    oluacls_setfunc(L, "clone", _cocos2d_ui_LayoutParameter_clone);
-    oluacls_setfunc(L, "createCloneInstance", _cocos2d_ui_LayoutParameter_createCloneInstance);
-    oluacls_setfunc(L, "copyProperties", _cocos2d_ui_LayoutParameter_copyProperties);
-    oluacls_property(L, "margin", _cocos2d_ui_LayoutParameter_getMargin, _cocos2d_ui_LayoutParameter_setMargin);
-    oluacls_property(L, "layoutType", _cocos2d_ui_LayoutParameter_getLayoutType, nullptr);
-
-    olua_registerluatype<cocos2d::ui::LayoutParameter>(L, "ccui.LayoutParameter");
-    oluacls_createclassproxy(L);
-
-    return 1;
-}
-
-static int luaopen_cocos2d_ui_LinearLayoutParameter_LinearGravity(lua_State *L)
-{
-    oluacls_class(L, "ccui.LinearLayoutParameter.LinearGravity", nullptr);
-    oluacls_const_integer(L, "NONE", (lua_Integer)cocos2d::ui::LinearLayoutParameter::LinearGravity::NONE);
-    oluacls_const_integer(L, "LEFT", (lua_Integer)cocos2d::ui::LinearLayoutParameter::LinearGravity::LEFT);
-    oluacls_const_integer(L, "TOP", (lua_Integer)cocos2d::ui::LinearLayoutParameter::LinearGravity::TOP);
-    oluacls_const_integer(L, "RIGHT", (lua_Integer)cocos2d::ui::LinearLayoutParameter::LinearGravity::RIGHT);
-    oluacls_const_integer(L, "BOTTOM", (lua_Integer)cocos2d::ui::LinearLayoutParameter::LinearGravity::BOTTOM);
-    oluacls_const_integer(L, "CENTER_VERTICAL", (lua_Integer)cocos2d::ui::LinearLayoutParameter::LinearGravity::CENTER_VERTICAL);
-    oluacls_const_integer(L, "CENTER_HORIZONTAL", (lua_Integer)cocos2d::ui::LinearLayoutParameter::LinearGravity::CENTER_HORIZONTAL);
-
-    olua_registerluatype<cocos2d::ui::LinearLayoutParameter::LinearGravity>(L, "ccui.LinearLayoutParameter.LinearGravity");
-    oluacls_createclassproxy(L);
-
-    return 1;
-}
-
-static int _cocos2d_ui_LinearLayoutParameter_create(lua_State *L)
-{
-    lua_settop(L, 0);
-
-    // static LinearLayoutParameter* create()
-    cocos2d::ui::LinearLayoutParameter *ret = (cocos2d::ui::LinearLayoutParameter *)cocos2d::ui::LinearLayoutParameter::create();
-    int num_ret = olua_push_cppobj<cocos2d::ui::LinearLayoutParameter>(L, ret, "ccui.LinearLayoutParameter");
-
-    return num_ret;
-}
-
-static int _cocos2d_ui_LinearLayoutParameter_setGravity(lua_State *L)
-{
-    lua_settop(L, 2);
-
-    cocos2d::ui::LinearLayoutParameter *self = nullptr;
-    lua_Unsigned arg1 = 0;   /** gravity */
-
-    olua_to_cppobj(L, 1, (void **)&self, "ccui.LinearLayoutParameter");
-    olua_check_uint(L, 2, &arg1);
-
-    // void setGravity(LinearGravity gravity)
-    self->setGravity((cocos2d::ui::LinearLayoutParameter::LinearGravity)arg1);
-
-    return 0;
-}
-
-static int _cocos2d_ui_LinearLayoutParameter_getGravity(lua_State *L)
-{
-    lua_settop(L, 1);
-
-    cocos2d::ui::LinearLayoutParameter *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "ccui.LinearLayoutParameter");
-
-    // LinearGravity getGravity()
-    cocos2d::ui::LinearLayoutParameter::LinearGravity ret = (cocos2d::ui::LinearLayoutParameter::LinearGravity)self->getGravity();
-    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
-
-    return num_ret;
-}
-
-static int luaopen_cocos2d_ui_LinearLayoutParameter(lua_State *L)
-{
-    oluacls_class(L, "ccui.LinearLayoutParameter", "ccui.LayoutParameter");
-    oluacls_setfunc(L, "create", _cocos2d_ui_LinearLayoutParameter_create);
-    oluacls_setfunc(L, "setGravity", _cocos2d_ui_LinearLayoutParameter_setGravity);
-    oluacls_setfunc(L, "getGravity", _cocos2d_ui_LinearLayoutParameter_getGravity);
-    oluacls_property(L, "gravity", _cocos2d_ui_LinearLayoutParameter_getGravity, _cocos2d_ui_LinearLayoutParameter_setGravity);
-
-    olua_registerluatype<cocos2d::ui::LinearLayoutParameter>(L, "ccui.LinearLayoutParameter");
-    oluacls_createclassproxy(L);
-
-    return 1;
-}
-
-static int luaopen_cocos2d_ui_RelativeLayoutParameter_RelativeAlign(lua_State *L)
-{
-    oluacls_class(L, "ccui.RelativeLayoutParameter.RelativeAlign", nullptr);
-    oluacls_const_integer(L, "NONE", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::NONE);
-    oluacls_const_integer(L, "PARENT_TOP_LEFT", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_TOP_LEFT);
-    oluacls_const_integer(L, "PARENT_TOP_CENTER_HORIZONTAL", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_TOP_CENTER_HORIZONTAL);
-    oluacls_const_integer(L, "PARENT_TOP_RIGHT", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_TOP_RIGHT);
-    oluacls_const_integer(L, "PARENT_LEFT_CENTER_VERTICAL", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_LEFT_CENTER_VERTICAL);
-    oluacls_const_integer(L, "CENTER_IN_PARENT", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::CENTER_IN_PARENT);
-    oluacls_const_integer(L, "PARENT_RIGHT_CENTER_VERTICAL", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_RIGHT_CENTER_VERTICAL);
-    oluacls_const_integer(L, "PARENT_LEFT_BOTTOM", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_LEFT_BOTTOM);
-    oluacls_const_integer(L, "PARENT_BOTTOM_CENTER_HORIZONTAL", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_BOTTOM_CENTER_HORIZONTAL);
-    oluacls_const_integer(L, "PARENT_RIGHT_BOTTOM", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_RIGHT_BOTTOM);
-    oluacls_const_integer(L, "LOCATION_ABOVE_LEFTALIGN", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_ABOVE_LEFTALIGN);
-    oluacls_const_integer(L, "LOCATION_ABOVE_CENTER", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_ABOVE_CENTER);
-    oluacls_const_integer(L, "LOCATION_ABOVE_RIGHTALIGN", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_ABOVE_RIGHTALIGN);
-    oluacls_const_integer(L, "LOCATION_LEFT_OF_TOPALIGN", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_LEFT_OF_TOPALIGN);
-    oluacls_const_integer(L, "LOCATION_LEFT_OF_CENTER", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_LEFT_OF_CENTER);
-    oluacls_const_integer(L, "LOCATION_LEFT_OF_BOTTOMALIGN", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_LEFT_OF_BOTTOMALIGN);
-    oluacls_const_integer(L, "LOCATION_RIGHT_OF_TOPALIGN", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_RIGHT_OF_TOPALIGN);
-    oluacls_const_integer(L, "LOCATION_RIGHT_OF_CENTER", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_RIGHT_OF_CENTER);
-    oluacls_const_integer(L, "LOCATION_RIGHT_OF_BOTTOMALIGN", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_RIGHT_OF_BOTTOMALIGN);
-    oluacls_const_integer(L, "LOCATION_BELOW_LEFTALIGN", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_BELOW_LEFTALIGN);
-    oluacls_const_integer(L, "LOCATION_BELOW_CENTER", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_BELOW_CENTER);
-    oluacls_const_integer(L, "LOCATION_BELOW_RIGHTALIGN", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_BELOW_RIGHTALIGN);
-
-    olua_registerluatype<cocos2d::ui::RelativeLayoutParameter::RelativeAlign>(L, "ccui.RelativeLayoutParameter.RelativeAlign");
-    oluacls_createclassproxy(L);
-
-    return 1;
-}
-
-static int _cocos2d_ui_RelativeLayoutParameter_create(lua_State *L)
-{
-    lua_settop(L, 0);
-
-    // static RelativeLayoutParameter* create()
-    cocos2d::ui::RelativeLayoutParameter *ret = (cocos2d::ui::RelativeLayoutParameter *)cocos2d::ui::RelativeLayoutParameter::create();
-    int num_ret = olua_push_cppobj<cocos2d::ui::RelativeLayoutParameter>(L, ret, "ccui.RelativeLayoutParameter");
-
-    return num_ret;
-}
-
-static int _cocos2d_ui_RelativeLayoutParameter_setAlign(lua_State *L)
-{
-    lua_settop(L, 2);
-
-    cocos2d::ui::RelativeLayoutParameter *self = nullptr;
-    lua_Unsigned arg1 = 0;   /** align */
-
-    olua_to_cppobj(L, 1, (void **)&self, "ccui.RelativeLayoutParameter");
-    olua_check_uint(L, 2, &arg1);
-
-    // void setAlign(RelativeAlign align)
-    self->setAlign((cocos2d::ui::RelativeLayoutParameter::RelativeAlign)arg1);
-
-    return 0;
-}
-
-static int _cocos2d_ui_RelativeLayoutParameter_getAlign(lua_State *L)
-{
-    lua_settop(L, 1);
-
-    cocos2d::ui::RelativeLayoutParameter *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "ccui.RelativeLayoutParameter");
-
-    // RelativeAlign getAlign()
-    cocos2d::ui::RelativeLayoutParameter::RelativeAlign ret = (cocos2d::ui::RelativeLayoutParameter::RelativeAlign)self->getAlign();
-    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
-
-    return num_ret;
-}
-
-static int _cocos2d_ui_RelativeLayoutParameter_setRelativeToWidgetName(lua_State *L)
-{
-    lua_settop(L, 2);
-
-    cocos2d::ui::RelativeLayoutParameter *self = nullptr;
-    std::string arg1;       /** name */
-
-    olua_to_cppobj(L, 1, (void **)&self, "ccui.RelativeLayoutParameter");
-    olua_check_std_string(L, 2, &arg1);
-
-    // void setRelativeToWidgetName(const std::string& name)
-    self->setRelativeToWidgetName(arg1);
-
-    return 0;
-}
-
-static int _cocos2d_ui_RelativeLayoutParameter_getRelativeToWidgetName(lua_State *L)
-{
-    lua_settop(L, 1);
-
-    cocos2d::ui::RelativeLayoutParameter *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "ccui.RelativeLayoutParameter");
-
-    // const std::string& getRelativeToWidgetName()
-    const std::string &ret = (const std::string &)self->getRelativeToWidgetName();
-    int num_ret = olua_push_std_string(L, ret);
-
-    return num_ret;
-}
-
-static int _cocos2d_ui_RelativeLayoutParameter_setRelativeName(lua_State *L)
-{
-    lua_settop(L, 2);
-
-    cocos2d::ui::RelativeLayoutParameter *self = nullptr;
-    std::string arg1;       /** name */
-
-    olua_to_cppobj(L, 1, (void **)&self, "ccui.RelativeLayoutParameter");
-    olua_check_std_string(L, 2, &arg1);
-
-    // void setRelativeName(const std::string& name)
-    self->setRelativeName(arg1);
-
-    return 0;
-}
-
-static int _cocos2d_ui_RelativeLayoutParameter_getRelativeName(lua_State *L)
-{
-    lua_settop(L, 1);
-
-    cocos2d::ui::RelativeLayoutParameter *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "ccui.RelativeLayoutParameter");
-
-    // const std::string& getRelativeName()
-    const std::string &ret = (const std::string &)self->getRelativeName();
-    int num_ret = olua_push_std_string(L, ret);
-
-    return num_ret;
-}
-
-static int luaopen_cocos2d_ui_RelativeLayoutParameter(lua_State *L)
-{
-    oluacls_class(L, "ccui.RelativeLayoutParameter", "ccui.LayoutParameter");
-    oluacls_setfunc(L, "create", _cocos2d_ui_RelativeLayoutParameter_create);
-    oluacls_setfunc(L, "setAlign", _cocos2d_ui_RelativeLayoutParameter_setAlign);
-    oluacls_setfunc(L, "getAlign", _cocos2d_ui_RelativeLayoutParameter_getAlign);
-    oluacls_setfunc(L, "setRelativeToWidgetName", _cocos2d_ui_RelativeLayoutParameter_setRelativeToWidgetName);
-    oluacls_setfunc(L, "getRelativeToWidgetName", _cocos2d_ui_RelativeLayoutParameter_getRelativeToWidgetName);
-    oluacls_setfunc(L, "setRelativeName", _cocos2d_ui_RelativeLayoutParameter_setRelativeName);
-    oluacls_setfunc(L, "getRelativeName", _cocos2d_ui_RelativeLayoutParameter_getRelativeName);
-    oluacls_property(L, "align", _cocos2d_ui_RelativeLayoutParameter_getAlign, _cocos2d_ui_RelativeLayoutParameter_setAlign);
-    oluacls_property(L, "relativeToWidgetName", _cocos2d_ui_RelativeLayoutParameter_getRelativeToWidgetName, _cocos2d_ui_RelativeLayoutParameter_setRelativeToWidgetName);
-    oluacls_property(L, "relativeName", _cocos2d_ui_RelativeLayoutParameter_getRelativeName, _cocos2d_ui_RelativeLayoutParameter_setRelativeName);
-
-    olua_registerluatype<cocos2d::ui::RelativeLayoutParameter>(L, "ccui.RelativeLayoutParameter");
-    oluacls_createclassproxy(L);
-
-    return 1;
-}
-
 static int luaopen_cocos2d_ui_LayoutComponent_HorizontalEdge(lua_State *L)
 {
     oluacls_class(L, "ccui.LayoutComponent.HorizontalEdge", nullptr);
@@ -3930,6 +3566,1287 @@ static int luaopen_cocos2d_ui_LayoutComponent(lua_State *L)
     return 1;
 }
 
+static int luaopen_cocos2d_ui_LayoutParameter_Type(lua_State *L)
+{
+    oluacls_class(L, "ccui.LayoutParameter.Type", nullptr);
+    oluacls_const_integer(L, "NONE", (lua_Integer)cocos2d::ui::LayoutParameter::Type::NONE);
+    oluacls_const_integer(L, "LINEAR", (lua_Integer)cocos2d::ui::LayoutParameter::Type::LINEAR);
+    oluacls_const_integer(L, "RELATIVE", (lua_Integer)cocos2d::ui::LayoutParameter::Type::RELATIVE);
+
+    olua_registerluatype<cocos2d::ui::LayoutParameter::Type>(L, "ccui.LayoutParameter.Type");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_ui_LayoutParameter_create(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static LayoutParameter* create()
+    cocos2d::ui::LayoutParameter *ret = (cocos2d::ui::LayoutParameter *)cocos2d::ui::LayoutParameter::create();
+    int num_ret = olua_push_cppobj<cocos2d::ui::LayoutParameter>(L, ret, "ccui.LayoutParameter");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_LayoutParameter_setMargin(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::LayoutParameter *self = nullptr;
+    cocos2d::ui::Margin arg1;       /** margin */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutParameter");
+    auto_luacv_check_cocos2d_ui_Margin(L, 2, &arg1);
+
+    // void setMargin(const Margin& margin)
+    self->setMargin(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_LayoutParameter_getMargin(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::LayoutParameter *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutParameter");
+
+    // const Margin& getMargin()
+    const cocos2d::ui::Margin &ret = (const cocos2d::ui::Margin &)self->getMargin();
+    int num_ret = auto_luacv_push_cocos2d_ui_Margin(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_LayoutParameter_getLayoutType(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::LayoutParameter *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutParameter");
+
+    // Type getLayoutType()
+    cocos2d::ui::LayoutParameter::Type ret = (cocos2d::ui::LayoutParameter::Type)self->getLayoutType();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_LayoutParameter_clone(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::LayoutParameter *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutParameter");
+
+    // LayoutParameter* clone()
+    cocos2d::ui::LayoutParameter *ret = (cocos2d::ui::LayoutParameter *)self->clone();
+    int num_ret = olua_push_cppobj<cocos2d::ui::LayoutParameter>(L, ret, "ccui.LayoutParameter");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_LayoutParameter_createCloneInstance(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::LayoutParameter *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutParameter");
+
+    // LayoutParameter* createCloneInstance()
+    cocos2d::ui::LayoutParameter *ret = (cocos2d::ui::LayoutParameter *)self->createCloneInstance();
+    int num_ret = olua_push_cppobj<cocos2d::ui::LayoutParameter>(L, ret, "ccui.LayoutParameter");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_LayoutParameter_copyProperties(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::LayoutParameter *self = nullptr;
+    cocos2d::ui::LayoutParameter *arg1 = nullptr;   /** model */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutParameter");
+    olua_check_cppobj(L, 2, (void **)&arg1, "ccui.LayoutParameter");
+
+    // void copyProperties(LayoutParameter* model)
+    self->copyProperties(arg1);
+
+    return 0;
+}
+
+static int luaopen_cocos2d_ui_LayoutParameter(lua_State *L)
+{
+    oluacls_class(L, "ccui.LayoutParameter", "cc.Ref");
+    oluacls_setfunc(L, "create", _cocos2d_ui_LayoutParameter_create);
+    oluacls_setfunc(L, "setMargin", _cocos2d_ui_LayoutParameter_setMargin);
+    oluacls_setfunc(L, "getMargin", _cocos2d_ui_LayoutParameter_getMargin);
+    oluacls_setfunc(L, "getLayoutType", _cocos2d_ui_LayoutParameter_getLayoutType);
+    oluacls_setfunc(L, "clone", _cocos2d_ui_LayoutParameter_clone);
+    oluacls_setfunc(L, "createCloneInstance", _cocos2d_ui_LayoutParameter_createCloneInstance);
+    oluacls_setfunc(L, "copyProperties", _cocos2d_ui_LayoutParameter_copyProperties);
+    oluacls_property(L, "margin", _cocos2d_ui_LayoutParameter_getMargin, _cocos2d_ui_LayoutParameter_setMargin);
+    oluacls_property(L, "layoutType", _cocos2d_ui_LayoutParameter_getLayoutType, nullptr);
+
+    olua_registerluatype<cocos2d::ui::LayoutParameter>(L, "ccui.LayoutParameter");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_ui_LinearLayoutParameter_LinearGravity(lua_State *L)
+{
+    oluacls_class(L, "ccui.LinearLayoutParameter.LinearGravity", nullptr);
+    oluacls_const_integer(L, "NONE", (lua_Integer)cocos2d::ui::LinearLayoutParameter::LinearGravity::NONE);
+    oluacls_const_integer(L, "LEFT", (lua_Integer)cocos2d::ui::LinearLayoutParameter::LinearGravity::LEFT);
+    oluacls_const_integer(L, "TOP", (lua_Integer)cocos2d::ui::LinearLayoutParameter::LinearGravity::TOP);
+    oluacls_const_integer(L, "RIGHT", (lua_Integer)cocos2d::ui::LinearLayoutParameter::LinearGravity::RIGHT);
+    oluacls_const_integer(L, "BOTTOM", (lua_Integer)cocos2d::ui::LinearLayoutParameter::LinearGravity::BOTTOM);
+    oluacls_const_integer(L, "CENTER_VERTICAL", (lua_Integer)cocos2d::ui::LinearLayoutParameter::LinearGravity::CENTER_VERTICAL);
+    oluacls_const_integer(L, "CENTER_HORIZONTAL", (lua_Integer)cocos2d::ui::LinearLayoutParameter::LinearGravity::CENTER_HORIZONTAL);
+
+    olua_registerluatype<cocos2d::ui::LinearLayoutParameter::LinearGravity>(L, "ccui.LinearLayoutParameter.LinearGravity");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_ui_LinearLayoutParameter_create(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static LinearLayoutParameter* create()
+    cocos2d::ui::LinearLayoutParameter *ret = (cocos2d::ui::LinearLayoutParameter *)cocos2d::ui::LinearLayoutParameter::create();
+    int num_ret = olua_push_cppobj<cocos2d::ui::LinearLayoutParameter>(L, ret, "ccui.LinearLayoutParameter");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_LinearLayoutParameter_setGravity(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::LinearLayoutParameter *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** gravity */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.LinearLayoutParameter");
+    olua_check_uint(L, 2, &arg1);
+
+    // void setGravity(LinearGravity gravity)
+    self->setGravity((cocos2d::ui::LinearLayoutParameter::LinearGravity)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_LinearLayoutParameter_getGravity(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::LinearLayoutParameter *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.LinearLayoutParameter");
+
+    // LinearGravity getGravity()
+    cocos2d::ui::LinearLayoutParameter::LinearGravity ret = (cocos2d::ui::LinearLayoutParameter::LinearGravity)self->getGravity();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_ui_LinearLayoutParameter(lua_State *L)
+{
+    oluacls_class(L, "ccui.LinearLayoutParameter", "ccui.LayoutParameter");
+    oluacls_setfunc(L, "create", _cocos2d_ui_LinearLayoutParameter_create);
+    oluacls_setfunc(L, "setGravity", _cocos2d_ui_LinearLayoutParameter_setGravity);
+    oluacls_setfunc(L, "getGravity", _cocos2d_ui_LinearLayoutParameter_getGravity);
+    oluacls_property(L, "gravity", _cocos2d_ui_LinearLayoutParameter_getGravity, _cocos2d_ui_LinearLayoutParameter_setGravity);
+
+    olua_registerluatype<cocos2d::ui::LinearLayoutParameter>(L, "ccui.LinearLayoutParameter");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_ui_RelativeLayoutParameter_RelativeAlign(lua_State *L)
+{
+    oluacls_class(L, "ccui.RelativeLayoutParameter.RelativeAlign", nullptr);
+    oluacls_const_integer(L, "NONE", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::NONE);
+    oluacls_const_integer(L, "PARENT_TOP_LEFT", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_TOP_LEFT);
+    oluacls_const_integer(L, "PARENT_TOP_CENTER_HORIZONTAL", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_TOP_CENTER_HORIZONTAL);
+    oluacls_const_integer(L, "PARENT_TOP_RIGHT", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_TOP_RIGHT);
+    oluacls_const_integer(L, "PARENT_LEFT_CENTER_VERTICAL", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_LEFT_CENTER_VERTICAL);
+    oluacls_const_integer(L, "CENTER_IN_PARENT", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::CENTER_IN_PARENT);
+    oluacls_const_integer(L, "PARENT_RIGHT_CENTER_VERTICAL", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_RIGHT_CENTER_VERTICAL);
+    oluacls_const_integer(L, "PARENT_LEFT_BOTTOM", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_LEFT_BOTTOM);
+    oluacls_const_integer(L, "PARENT_BOTTOM_CENTER_HORIZONTAL", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_BOTTOM_CENTER_HORIZONTAL);
+    oluacls_const_integer(L, "PARENT_RIGHT_BOTTOM", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_RIGHT_BOTTOM);
+    oluacls_const_integer(L, "LOCATION_ABOVE_LEFTALIGN", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_ABOVE_LEFTALIGN);
+    oluacls_const_integer(L, "LOCATION_ABOVE_CENTER", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_ABOVE_CENTER);
+    oluacls_const_integer(L, "LOCATION_ABOVE_RIGHTALIGN", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_ABOVE_RIGHTALIGN);
+    oluacls_const_integer(L, "LOCATION_LEFT_OF_TOPALIGN", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_LEFT_OF_TOPALIGN);
+    oluacls_const_integer(L, "LOCATION_LEFT_OF_CENTER", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_LEFT_OF_CENTER);
+    oluacls_const_integer(L, "LOCATION_LEFT_OF_BOTTOMALIGN", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_LEFT_OF_BOTTOMALIGN);
+    oluacls_const_integer(L, "LOCATION_RIGHT_OF_TOPALIGN", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_RIGHT_OF_TOPALIGN);
+    oluacls_const_integer(L, "LOCATION_RIGHT_OF_CENTER", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_RIGHT_OF_CENTER);
+    oluacls_const_integer(L, "LOCATION_RIGHT_OF_BOTTOMALIGN", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_RIGHT_OF_BOTTOMALIGN);
+    oluacls_const_integer(L, "LOCATION_BELOW_LEFTALIGN", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_BELOW_LEFTALIGN);
+    oluacls_const_integer(L, "LOCATION_BELOW_CENTER", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_BELOW_CENTER);
+    oluacls_const_integer(L, "LOCATION_BELOW_RIGHTALIGN", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_BELOW_RIGHTALIGN);
+
+    olua_registerluatype<cocos2d::ui::RelativeLayoutParameter::RelativeAlign>(L, "ccui.RelativeLayoutParameter.RelativeAlign");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_ui_RelativeLayoutParameter_create(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static RelativeLayoutParameter* create()
+    cocos2d::ui::RelativeLayoutParameter *ret = (cocos2d::ui::RelativeLayoutParameter *)cocos2d::ui::RelativeLayoutParameter::create();
+    int num_ret = olua_push_cppobj<cocos2d::ui::RelativeLayoutParameter>(L, ret, "ccui.RelativeLayoutParameter");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_RelativeLayoutParameter_setAlign(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::RelativeLayoutParameter *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** align */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.RelativeLayoutParameter");
+    olua_check_uint(L, 2, &arg1);
+
+    // void setAlign(RelativeAlign align)
+    self->setAlign((cocos2d::ui::RelativeLayoutParameter::RelativeAlign)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_RelativeLayoutParameter_getAlign(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::RelativeLayoutParameter *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.RelativeLayoutParameter");
+
+    // RelativeAlign getAlign()
+    cocos2d::ui::RelativeLayoutParameter::RelativeAlign ret = (cocos2d::ui::RelativeLayoutParameter::RelativeAlign)self->getAlign();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_RelativeLayoutParameter_setRelativeToWidgetName(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::RelativeLayoutParameter *self = nullptr;
+    std::string arg1;       /** name */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.RelativeLayoutParameter");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void setRelativeToWidgetName(const std::string& name)
+    self->setRelativeToWidgetName(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_RelativeLayoutParameter_getRelativeToWidgetName(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::RelativeLayoutParameter *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.RelativeLayoutParameter");
+
+    // const std::string& getRelativeToWidgetName()
+    const std::string &ret = (const std::string &)self->getRelativeToWidgetName();
+    int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_RelativeLayoutParameter_setRelativeName(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::RelativeLayoutParameter *self = nullptr;
+    std::string arg1;       /** name */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.RelativeLayoutParameter");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void setRelativeName(const std::string& name)
+    self->setRelativeName(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_RelativeLayoutParameter_getRelativeName(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::RelativeLayoutParameter *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.RelativeLayoutParameter");
+
+    // const std::string& getRelativeName()
+    const std::string &ret = (const std::string &)self->getRelativeName();
+    int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_ui_RelativeLayoutParameter(lua_State *L)
+{
+    oluacls_class(L, "ccui.RelativeLayoutParameter", "ccui.LayoutParameter");
+    oluacls_setfunc(L, "create", _cocos2d_ui_RelativeLayoutParameter_create);
+    oluacls_setfunc(L, "setAlign", _cocos2d_ui_RelativeLayoutParameter_setAlign);
+    oluacls_setfunc(L, "getAlign", _cocos2d_ui_RelativeLayoutParameter_getAlign);
+    oluacls_setfunc(L, "setRelativeToWidgetName", _cocos2d_ui_RelativeLayoutParameter_setRelativeToWidgetName);
+    oluacls_setfunc(L, "getRelativeToWidgetName", _cocos2d_ui_RelativeLayoutParameter_getRelativeToWidgetName);
+    oluacls_setfunc(L, "setRelativeName", _cocos2d_ui_RelativeLayoutParameter_setRelativeName);
+    oluacls_setfunc(L, "getRelativeName", _cocos2d_ui_RelativeLayoutParameter_getRelativeName);
+    oluacls_property(L, "align", _cocos2d_ui_RelativeLayoutParameter_getAlign, _cocos2d_ui_RelativeLayoutParameter_setAlign);
+    oluacls_property(L, "relativeToWidgetName", _cocos2d_ui_RelativeLayoutParameter_getRelativeToWidgetName, _cocos2d_ui_RelativeLayoutParameter_setRelativeToWidgetName);
+    oluacls_property(L, "relativeName", _cocos2d_ui_RelativeLayoutParameter_getRelativeName, _cocos2d_ui_RelativeLayoutParameter_setRelativeName);
+
+    olua_registerluatype<cocos2d::ui::RelativeLayoutParameter>(L, "ccui.RelativeLayoutParameter");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_ui_Layout_Type(lua_State *L)
+{
+    oluacls_class(L, "ccui.Layout.Type", nullptr);
+    oluacls_const_integer(L, "ABSOLUTE", (lua_Integer)cocos2d::ui::Layout::Type::ABSOLUTE);
+    oluacls_const_integer(L, "VERTICAL", (lua_Integer)cocos2d::ui::Layout::Type::VERTICAL);
+    oluacls_const_integer(L, "HORIZONTAL", (lua_Integer)cocos2d::ui::Layout::Type::HORIZONTAL);
+    oluacls_const_integer(L, "RELATIVE", (lua_Integer)cocos2d::ui::Layout::Type::RELATIVE);
+
+    olua_registerluatype<cocos2d::ui::Layout::Type>(L, "ccui.Layout.Type");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_ui_Layout_ClippingType(lua_State *L)
+{
+    oluacls_class(L, "ccui.Layout.ClippingType", nullptr);
+    oluacls_const_integer(L, "STENCIL", (lua_Integer)cocos2d::ui::Layout::ClippingType::STENCIL);
+    oluacls_const_integer(L, "SCISSOR", (lua_Integer)cocos2d::ui::Layout::ClippingType::SCISSOR);
+
+    olua_registerluatype<cocos2d::ui::Layout::ClippingType>(L, "ccui.Layout.ClippingType");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_ui_Layout_BackGroundColorType(lua_State *L)
+{
+    oluacls_class(L, "ccui.Layout.BackGroundColorType", nullptr);
+    oluacls_const_integer(L, "NONE", (lua_Integer)cocos2d::ui::Layout::BackGroundColorType::NONE);
+    oluacls_const_integer(L, "SOLID", (lua_Integer)cocos2d::ui::Layout::BackGroundColorType::SOLID);
+    oluacls_const_integer(L, "GRADIENT", (lua_Integer)cocos2d::ui::Layout::BackGroundColorType::GRADIENT);
+
+    olua_registerluatype<cocos2d::ui::Layout::BackGroundColorType>(L, "ccui.Layout.BackGroundColorType");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_ui_Layout_create(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static Layout* create()
+    cocos2d::ui::Layout *ret = (cocos2d::ui::Layout *)cocos2d::ui::Layout::create();
+    int num_ret = olua_push_cppobj<cocos2d::ui::Layout>(L, ret, "ccui.Layout");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_Layout_setBackGroundImage(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ui::Layout *self = nullptr;
+    std::string arg1;       /** fileName */
+    lua_Unsigned arg2 = 0;   /** texType */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+    olua_check_std_string(L, 2, &arg1);
+    olua_opt_uint(L, 3, &arg2, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+
+    // void setBackGroundImage(const std::string& fileName, Widget::TextureResType texType = Widget::TextureResType::LOCAL)
+    self->setBackGroundImage(arg1, (cocos2d::ui::Widget::TextureResType)arg2);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Layout_setBackGroundImageCapInsets(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::Layout *self = nullptr;
+    cocos2d::Rect arg1;       /** capInsets */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+    manual_luacv_check_cocos2d_Rect(L, 2, &arg1);
+
+    // void setBackGroundImageCapInsets(const Rect& capInsets)
+    self->setBackGroundImageCapInsets(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Layout_getBackGroundImageCapInsets(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::Layout *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+
+    // const Rect& getBackGroundImageCapInsets()
+    const cocos2d::Rect &ret = (const cocos2d::Rect &)self->getBackGroundImageCapInsets();
+    int num_ret = manual_luacv_push_cocos2d_Rect(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_Layout_setBackGroundColorType(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::Layout *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** type */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+    olua_check_uint(L, 2, &arg1);
+
+    // void setBackGroundColorType(BackGroundColorType type)
+    self->setBackGroundColorType((cocos2d::ui::Layout::BackGroundColorType)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Layout_getBackGroundColorType(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::Layout *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+
+    // BackGroundColorType getBackGroundColorType()
+    cocos2d::ui::Layout::BackGroundColorType ret = (cocos2d::ui::Layout::BackGroundColorType)self->getBackGroundColorType();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_Layout_setBackGroundImageScale9Enabled(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::Layout *self = nullptr;
+    bool arg1 = false;   /** enabled */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setBackGroundImageScale9Enabled(bool enabled)
+    self->setBackGroundImageScale9Enabled(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Layout_isBackGroundImageScale9Enabled(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::Layout *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+
+    // bool isBackGroundImageScale9Enabled()
+    bool ret = (bool)self->isBackGroundImageScale9Enabled();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_Layout_setBackGroundColor1(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::Layout *self = nullptr;
+    cocos2d::Color3B arg1;       /** color */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+    manual_luacv_check_cocos2d_Color3B(L, 2, &arg1);
+
+    // void setBackGroundColor(const Color3B &color)
+    self->setBackGroundColor(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Layout_setBackGroundColor2(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ui::Layout *self = nullptr;
+    cocos2d::Color3B arg1;       /** startColor */
+    cocos2d::Color3B arg2;       /** endColor */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+    manual_luacv_check_cocos2d_Color3B(L, 2, &arg1);
+    manual_luacv_check_cocos2d_Color3B(L, 3, &arg2);
+
+    // void setBackGroundColor(const Color3B &startColor, const Color3B &endColor)
+    self->setBackGroundColor(arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Layout_setBackGroundColor(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if (manual_luacv_is_cocos2d_Color3B(L, 2)) {
+            return _cocos2d_ui_Layout_setBackGroundColor1(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if (manual_luacv_is_cocos2d_Color3B(L, 2) && manual_luacv_is_cocos2d_Color3B(L, 3)) {
+            return _cocos2d_ui_Layout_setBackGroundColor2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::Layout::setBackGroundColor' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Layout_getBackGroundColor(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::Layout *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+
+    // const Color3B& getBackGroundColor()
+    const cocos2d::Color3B &ret = (const cocos2d::Color3B &)self->getBackGroundColor();
+    int num_ret = manual_luacv_push_cocos2d_Color3B(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_Layout_getBackGroundStartColor(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::Layout *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+
+    // const Color3B& getBackGroundStartColor()
+    const cocos2d::Color3B &ret = (const cocos2d::Color3B &)self->getBackGroundStartColor();
+    int num_ret = manual_luacv_push_cocos2d_Color3B(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_Layout_getBackGroundEndColor(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::Layout *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+
+    // const Color3B& getBackGroundEndColor()
+    const cocos2d::Color3B &ret = (const cocos2d::Color3B &)self->getBackGroundEndColor();
+    int num_ret = manual_luacv_push_cocos2d_Color3B(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_Layout_setBackGroundColorOpacity(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::Layout *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** opacity */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+    olua_check_uint(L, 2, &arg1);
+
+    // void setBackGroundColorOpacity(GLubyte opacity)
+    self->setBackGroundColorOpacity((GLubyte)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Layout_getBackGroundColorOpacity(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::Layout *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+
+    // GLubyte getBackGroundColorOpacity()
+    GLubyte ret = (GLubyte)self->getBackGroundColorOpacity();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_Layout_setBackGroundColorVector(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ui::Layout *self = nullptr;
+    cocos2d::Vec2 arg1;       /** vector */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+
+    // void setBackGroundColorVector(@pack const Vec2 &vector)
+    self->setBackGroundColorVector(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Layout_getBackGroundColorVector(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::Layout *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+
+    // @unpack const Vec2& getBackGroundColorVector()
+    const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getBackGroundColorVector();
+    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_Layout_setBackGroundImageColor(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::Layout *self = nullptr;
+    cocos2d::Color3B arg1;       /** color */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+    manual_luacv_check_cocos2d_Color3B(L, 2, &arg1);
+
+    // void setBackGroundImageColor(const Color3B& color)
+    self->setBackGroundImageColor(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Layout_setBackGroundImageOpacity(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::Layout *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** opacity */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+    olua_check_uint(L, 2, &arg1);
+
+    // void setBackGroundImageOpacity(GLubyte opacity)
+    self->setBackGroundImageOpacity((GLubyte)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Layout_getBackGroundImageColor(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::Layout *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+
+    // const Color3B& getBackGroundImageColor()
+    const cocos2d::Color3B &ret = (const cocos2d::Color3B &)self->getBackGroundImageColor();
+    int num_ret = manual_luacv_push_cocos2d_Color3B(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_Layout_getBackGroundImageOpacity(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::Layout *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+
+    // GLubyte getBackGroundImageOpacity()
+    GLubyte ret = (GLubyte)self->getBackGroundImageOpacity();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_Layout_removeBackGroundImage(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::Layout *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+
+    // void removeBackGroundImage()
+    self->removeBackGroundImage();
+
+    return 0;
+}
+
+static int _cocos2d_ui_Layout_getBackGroundImageTextureSize(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::Layout *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+
+    // const Size& getBackGroundImageTextureSize()
+    const cocos2d::Size &ret = (const cocos2d::Size &)self->getBackGroundImageTextureSize();
+    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_Layout_setClippingEnabled(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::Layout *self = nullptr;
+    bool arg1 = false;   /** enabled */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setClippingEnabled(bool enabled)
+    self->setClippingEnabled(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Layout_setClippingType(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::Layout *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** type */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+    olua_check_uint(L, 2, &arg1);
+
+    // void setClippingType(ClippingType type)
+    self->setClippingType((cocos2d::ui::Layout::ClippingType)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Layout_getClippingType(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::Layout *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+
+    // ClippingType getClippingType()
+    cocos2d::ui::Layout::ClippingType ret = (cocos2d::ui::Layout::ClippingType)self->getClippingType();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_Layout_isClippingEnabled(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::Layout *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+
+    // bool isClippingEnabled()
+    bool ret = (bool)self->isClippingEnabled();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_Layout_setLayoutType(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::Layout *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** type */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+    olua_check_uint(L, 2, &arg1);
+
+    // void setLayoutType(Type type)
+    self->setLayoutType((cocos2d::ui::Layout::Type)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Layout_getLayoutType(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::Layout *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+
+    // Type getLayoutType()
+    cocos2d::ui::Layout::Type ret = (cocos2d::ui::Layout::Type)self->getLayoutType();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_Layout_forceDoLayout(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::Layout *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+
+    // void forceDoLayout()
+    self->forceDoLayout();
+
+    return 0;
+}
+
+static int _cocos2d_ui_Layout_requestDoLayout(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::Layout *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+
+    // void requestDoLayout()
+    self->requestDoLayout();
+
+    return 0;
+}
+
+static int _cocos2d_ui_Layout_setLoopFocus(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::Layout *self = nullptr;
+    bool arg1 = false;   /** loop */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setLoopFocus(bool loop)
+    self->setLoopFocus(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Layout_isLoopFocus(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::Layout *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+
+    // bool isLoopFocus()
+    bool ret = (bool)self->isLoopFocus();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_Layout_setPassFocusToChild(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::Layout *self = nullptr;
+    bool arg1 = false;   /** pass */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setPassFocusToChild(bool pass)
+    self->setPassFocusToChild(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Layout_isPassFocusToChild(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::Layout *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+
+    // bool isPassFocusToChild()
+    bool ret = (bool)self->isPassFocusToChild();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_Layout_getRenderFile(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::Layout *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+
+    // ResourceData getRenderFile()
+    cocos2d::ResourceData ret = (cocos2d::ResourceData)self->getRenderFile();
+    int num_ret = manual_luacv_push_cocos2d_ResourceData(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_Layout_setBackGroundColor(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ui::Layout *self = nullptr;
+    cocos2d::Color3B arg1;       /** startColor */
+    cocos2d::Color3B arg2;       /** endColor */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+    manual_luacv_check_cocos2d_Color3B(L, 2, &arg1);
+    manual_luacv_check_cocos2d_Color3B(L, 3, &arg2);
+
+    // void setBackGroundColor(const Color3B &startColor, const Color3B &endColor)
+    self->setBackGroundColor(arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Layout_get_onPassFocusToChild(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::Layout *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onPassFocusToChild");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+
+    // <function var>
+    std::function<int(cocos2d::ui::Widget::FocusDirection, cocos2d::ui::Widget *)> ret = (std::function<int(cocos2d::ui::Widget::FocusDirection, cocos2d::ui::Widget *)>)self->onPassFocusToChild;
+    int num_ret = olua_push_std_function(L, (std::function<int(cocos2d::ui::Widget::FocusDirection, cocos2d::ui::Widget *)>)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_Layout_set_onPassFocusToChild(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::Layout *self = nullptr;
+    std::function<int(cocos2d::ui::Widget::FocusDirection, cocos2d::ui::Widget *)> arg1 = nullptr;   /** onPassFocusToChild */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+
+    if (olua_is_std_function(L, 2)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onPassFocusToChild");
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+        arg1 = [callback_store_obj, func, tag](cocos2d::ui::Widget::FocusDirection arg1, cocos2d::ui::Widget *arg2) {
+            lua_State *L = olua_mainthread();
+            int top = lua_gettop(L);
+            lua_Integer ret = 0;
+            olua_push_uint(L, (lua_Unsigned)arg1);
+            olua_push_cppobj<cocos2d::ui::Widget>(L, arg2, "ccui.Widget");
+            olua_callback(L, callback_store_obj, func.c_str(), 2);
+            olua_opt_int(L, -1, &ret, 0);
+
+            lua_settop(L, top);
+            return ret;
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onPassFocusToChild");
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+        arg1 = nullptr;
+    }
+
+    // <function var>
+    self->onPassFocusToChild = arg1;
+
+    return 0;
+}
+
+static int luaopen_cocos2d_ui_Layout(lua_State *L)
+{
+    oluacls_class(L, "ccui.Layout", "ccui.Widget");
+    oluacls_setfunc(L, "create", _cocos2d_ui_Layout_create);
+    oluacls_setfunc(L, "setBackGroundImage", _cocos2d_ui_Layout_setBackGroundImage);
+    oluacls_setfunc(L, "setBackGroundImageCapInsets", _cocos2d_ui_Layout_setBackGroundImageCapInsets);
+    oluacls_setfunc(L, "getBackGroundImageCapInsets", _cocos2d_ui_Layout_getBackGroundImageCapInsets);
+    oluacls_setfunc(L, "setBackGroundColorType", _cocos2d_ui_Layout_setBackGroundColorType);
+    oluacls_setfunc(L, "getBackGroundColorType", _cocos2d_ui_Layout_getBackGroundColorType);
+    oluacls_setfunc(L, "setBackGroundImageScale9Enabled", _cocos2d_ui_Layout_setBackGroundImageScale9Enabled);
+    oluacls_setfunc(L, "isBackGroundImageScale9Enabled", _cocos2d_ui_Layout_isBackGroundImageScale9Enabled);
+    oluacls_setfunc(L, "setBackGroundColor", _cocos2d_ui_Layout_setBackGroundColor);
+    oluacls_setfunc(L, "getBackGroundColor", _cocos2d_ui_Layout_getBackGroundColor);
+    oluacls_setfunc(L, "getBackGroundStartColor", _cocos2d_ui_Layout_getBackGroundStartColor);
+    oluacls_setfunc(L, "getBackGroundEndColor", _cocos2d_ui_Layout_getBackGroundEndColor);
+    oluacls_setfunc(L, "setBackGroundColorOpacity", _cocos2d_ui_Layout_setBackGroundColorOpacity);
+    oluacls_setfunc(L, "getBackGroundColorOpacity", _cocos2d_ui_Layout_getBackGroundColorOpacity);
+    oluacls_setfunc(L, "setBackGroundColorVector", _cocos2d_ui_Layout_setBackGroundColorVector);
+    oluacls_setfunc(L, "getBackGroundColorVector", _cocos2d_ui_Layout_getBackGroundColorVector);
+    oluacls_setfunc(L, "setBackGroundImageColor", _cocos2d_ui_Layout_setBackGroundImageColor);
+    oluacls_setfunc(L, "setBackGroundImageOpacity", _cocos2d_ui_Layout_setBackGroundImageOpacity);
+    oluacls_setfunc(L, "getBackGroundImageColor", _cocos2d_ui_Layout_getBackGroundImageColor);
+    oluacls_setfunc(L, "getBackGroundImageOpacity", _cocos2d_ui_Layout_getBackGroundImageOpacity);
+    oluacls_setfunc(L, "removeBackGroundImage", _cocos2d_ui_Layout_removeBackGroundImage);
+    oluacls_setfunc(L, "getBackGroundImageTextureSize", _cocos2d_ui_Layout_getBackGroundImageTextureSize);
+    oluacls_setfunc(L, "setClippingEnabled", _cocos2d_ui_Layout_setClippingEnabled);
+    oluacls_setfunc(L, "setClippingType", _cocos2d_ui_Layout_setClippingType);
+    oluacls_setfunc(L, "getClippingType", _cocos2d_ui_Layout_getClippingType);
+    oluacls_setfunc(L, "isClippingEnabled", _cocos2d_ui_Layout_isClippingEnabled);
+    oluacls_setfunc(L, "setLayoutType", _cocos2d_ui_Layout_setLayoutType);
+    oluacls_setfunc(L, "getLayoutType", _cocos2d_ui_Layout_getLayoutType);
+    oluacls_setfunc(L, "forceDoLayout", _cocos2d_ui_Layout_forceDoLayout);
+    oluacls_setfunc(L, "requestDoLayout", _cocos2d_ui_Layout_requestDoLayout);
+    oluacls_setfunc(L, "setLoopFocus", _cocos2d_ui_Layout_setLoopFocus);
+    oluacls_setfunc(L, "isLoopFocus", _cocos2d_ui_Layout_isLoopFocus);
+    oluacls_setfunc(L, "setPassFocusToChild", _cocos2d_ui_Layout_setPassFocusToChild);
+    oluacls_setfunc(L, "isPassFocusToChild", _cocos2d_ui_Layout_isPassFocusToChild);
+    oluacls_setfunc(L, "getRenderFile", _cocos2d_ui_Layout_getRenderFile);
+    oluacls_property(L, "backGroundImageCapInsets", _cocos2d_ui_Layout_getBackGroundImageCapInsets, _cocos2d_ui_Layout_setBackGroundImageCapInsets);
+    oluacls_property(L, "backGroundColorType", _cocos2d_ui_Layout_getBackGroundColorType, _cocos2d_ui_Layout_setBackGroundColorType);
+    oluacls_property(L, "backGroundImageScale9Enabled", _cocos2d_ui_Layout_isBackGroundImageScale9Enabled, _cocos2d_ui_Layout_setBackGroundImageScale9Enabled);
+    oluacls_property(L, "backGroundColor", _cocos2d_ui_Layout_getBackGroundColor, _cocos2d_ui_Layout_setBackGroundColor);
+    oluacls_property(L, "backGroundStartColor", _cocos2d_ui_Layout_getBackGroundStartColor, nullptr);
+    oluacls_property(L, "backGroundEndColor", _cocos2d_ui_Layout_getBackGroundEndColor, nullptr);
+    oluacls_property(L, "backGroundColorOpacity", _cocos2d_ui_Layout_getBackGroundColorOpacity, _cocos2d_ui_Layout_setBackGroundColorOpacity);
+    oluacls_property(L, "backGroundImageColor", _cocos2d_ui_Layout_getBackGroundImageColor, _cocos2d_ui_Layout_setBackGroundImageColor);
+    oluacls_property(L, "backGroundImageOpacity", _cocos2d_ui_Layout_getBackGroundImageOpacity, _cocos2d_ui_Layout_setBackGroundImageOpacity);
+    oluacls_property(L, "backGroundImageTextureSize", _cocos2d_ui_Layout_getBackGroundImageTextureSize, nullptr);
+    oluacls_property(L, "clippingType", _cocos2d_ui_Layout_getClippingType, _cocos2d_ui_Layout_setClippingType);
+    oluacls_property(L, "clippingEnabled", _cocos2d_ui_Layout_isClippingEnabled, _cocos2d_ui_Layout_setClippingEnabled);
+    oluacls_property(L, "layoutType", _cocos2d_ui_Layout_getLayoutType, _cocos2d_ui_Layout_setLayoutType);
+    oluacls_property(L, "loopFocus", _cocos2d_ui_Layout_isLoopFocus, _cocos2d_ui_Layout_setLoopFocus);
+    oluacls_property(L, "passFocusToChild", _cocos2d_ui_Layout_isPassFocusToChild, _cocos2d_ui_Layout_setPassFocusToChild);
+    oluacls_property(L, "renderFile", _cocos2d_ui_Layout_getRenderFile, nullptr);
+    oluacls_property(L, "onPassFocusToChild", _cocos2d_ui_Layout_get_onPassFocusToChild, _cocos2d_ui_Layout_set_onPassFocusToChild);
+
+    olua_registerluatype<cocos2d::ui::Layout>(L, "ccui.Layout");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_ui_HBox_create1(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static HBox* create()
+    cocos2d::ui::HBox *ret = (cocos2d::ui::HBox *)cocos2d::ui::HBox::create();
+    int num_ret = olua_push_cppobj<cocos2d::ui::HBox>(L, ret, "ccui.HBox");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_HBox_create2(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Size arg1;       /** size */
+
+    auto_luacv_pack_cocos2d_Size(L, 1, &arg1);
+
+    // static HBox* create(@pack const Size& size)
+    cocos2d::ui::HBox *ret = (cocos2d::ui::HBox *)cocos2d::ui::HBox::create(arg1);
+    int num_ret = olua_push_cppobj<cocos2d::ui::HBox>(L, ret, "ccui.HBox");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_HBox_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        return _cocos2d_ui_HBox_create1(L);
+    }
+
+    if (num_args == 2) {
+        // if (auto_luacv_ispack_cocos2d_Size(L, 1)) {
+            return _cocos2d_ui_HBox_create2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::HBox::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int luaopen_cocos2d_ui_HBox(lua_State *L)
+{
+    oluacls_class(L, "ccui.HBox", "ccui.Layout");
+    oluacls_setfunc(L, "create", _cocos2d_ui_HBox_create);
+
+    olua_registerluatype<cocos2d::ui::HBox>(L, "ccui.HBox");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_ui_VBox_create1(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static VBox* create()
+    cocos2d::ui::VBox *ret = (cocos2d::ui::VBox *)cocos2d::ui::VBox::create();
+    int num_ret = olua_push_cppobj<cocos2d::ui::VBox>(L, ret, "ccui.VBox");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_VBox_create2(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Size arg1;       /** size */
+
+    auto_luacv_pack_cocos2d_Size(L, 1, &arg1);
+
+    // static VBox* create(@pack const Size& size)
+    cocos2d::ui::VBox *ret = (cocos2d::ui::VBox *)cocos2d::ui::VBox::create(arg1);
+    int num_ret = olua_push_cppobj<cocos2d::ui::VBox>(L, ret, "ccui.VBox");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_VBox_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        return _cocos2d_ui_VBox_create1(L);
+    }
+
+    if (num_args == 2) {
+        // if (auto_luacv_ispack_cocos2d_Size(L, 1)) {
+            return _cocos2d_ui_VBox_create2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::VBox::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int luaopen_cocos2d_ui_VBox(lua_State *L)
+{
+    oluacls_class(L, "ccui.VBox", "ccui.Layout");
+    oluacls_setfunc(L, "create", _cocos2d_ui_VBox_create);
+
+    olua_registerluatype<cocos2d::ui::VBox>(L, "ccui.VBox");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_ui_RelativeBox_create1(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static RelativeBox* create()
+    cocos2d::ui::RelativeBox *ret = (cocos2d::ui::RelativeBox *)cocos2d::ui::RelativeBox::create();
+    int num_ret = olua_push_cppobj<cocos2d::ui::RelativeBox>(L, ret, "ccui.RelativeBox");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_RelativeBox_create2(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Size arg1;       /** size */
+
+    auto_luacv_pack_cocos2d_Size(L, 1, &arg1);
+
+    // static RelativeBox* create(@pack const Size& size)
+    cocos2d::ui::RelativeBox *ret = (cocos2d::ui::RelativeBox *)cocos2d::ui::RelativeBox::create(arg1);
+    int num_ret = olua_push_cppobj<cocos2d::ui::RelativeBox>(L, ret, "ccui.RelativeBox");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_RelativeBox_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        return _cocos2d_ui_RelativeBox_create1(L);
+    }
+
+    if (num_args == 2) {
+        // if (auto_luacv_ispack_cocos2d_Size(L, 1)) {
+            return _cocos2d_ui_RelativeBox_create2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::RelativeBox::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int luaopen_cocos2d_ui_RelativeBox(lua_State *L)
+{
+    oluacls_class(L, "ccui.RelativeBox", "ccui.Layout");
+    oluacls_setfunc(L, "create", _cocos2d_ui_RelativeBox_create);
+
+    olua_registerluatype<cocos2d::ui::RelativeBox>(L, "ccui.RelativeBox");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
 int luaopen_cocos2d_ui(lua_State *L)
 {
     olua_require(L, "ccui.Widget.FocusDirection", luaopen_cocos2d_ui_Widget_FocusDirection);
@@ -3943,14 +4860,21 @@ int luaopen_cocos2d_ui(lua_State *L)
     olua_require(L, "ccui.Scale9Sprite.State", luaopen_cocos2d_ui_Scale9Sprite_State);
     olua_require(L, "ccui.Scale9Sprite.RenderingType", luaopen_cocos2d_ui_Scale9Sprite_RenderingType);
     olua_require(L, "ccui.Scale9Sprite", luaopen_cocos2d_ui_Scale9Sprite);
+    olua_require(L, "ccui.LayoutComponent.HorizontalEdge", luaopen_cocos2d_ui_LayoutComponent_HorizontalEdge);
+    olua_require(L, "ccui.LayoutComponent.VerticalEdge", luaopen_cocos2d_ui_LayoutComponent_VerticalEdge);
+    olua_require(L, "ccui.LayoutComponent", luaopen_cocos2d_ui_LayoutComponent);
     olua_require(L, "ccui.LayoutParameter.Type", luaopen_cocos2d_ui_LayoutParameter_Type);
     olua_require(L, "ccui.LayoutParameter", luaopen_cocos2d_ui_LayoutParameter);
     olua_require(L, "ccui.LinearLayoutParameter.LinearGravity", luaopen_cocos2d_ui_LinearLayoutParameter_LinearGravity);
     olua_require(L, "ccui.LinearLayoutParameter", luaopen_cocos2d_ui_LinearLayoutParameter);
     olua_require(L, "ccui.RelativeLayoutParameter.RelativeAlign", luaopen_cocos2d_ui_RelativeLayoutParameter_RelativeAlign);
     olua_require(L, "ccui.RelativeLayoutParameter", luaopen_cocos2d_ui_RelativeLayoutParameter);
-    olua_require(L, "ccui.LayoutComponent.HorizontalEdge", luaopen_cocos2d_ui_LayoutComponent_HorizontalEdge);
-    olua_require(L, "ccui.LayoutComponent.VerticalEdge", luaopen_cocos2d_ui_LayoutComponent_VerticalEdge);
-    olua_require(L, "ccui.LayoutComponent", luaopen_cocos2d_ui_LayoutComponent);
+    olua_require(L, "ccui.Layout.Type", luaopen_cocos2d_ui_Layout_Type);
+    olua_require(L, "ccui.Layout.ClippingType", luaopen_cocos2d_ui_Layout_ClippingType);
+    olua_require(L, "ccui.Layout.BackGroundColorType", luaopen_cocos2d_ui_Layout_BackGroundColorType);
+    olua_require(L, "ccui.Layout", luaopen_cocos2d_ui_Layout);
+    olua_require(L, "ccui.HBox", luaopen_cocos2d_ui_HBox);
+    olua_require(L, "ccui.VBox", luaopen_cocos2d_ui_VBox);
+    olua_require(L, "ccui.RelativeBox", luaopen_cocos2d_ui_RelativeBox);
     return 0;
 }

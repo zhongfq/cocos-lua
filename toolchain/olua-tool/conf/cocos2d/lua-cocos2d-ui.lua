@@ -25,8 +25,12 @@ M.CLASSES = {
     include("conf/cocos2d/ui/base/ccui.Widget.lua"),
     include("conf/cocos2d/ui/base/ccui.Helper.lua"),
     include("conf/cocos2d/ui/base/ccui.Scale9Sprite.lua"),
-    include("conf/cocos2d/ui/base/ccui.LayoutParameter.lua"),
     include("conf/cocos2d/ui/base/ccui.LayoutComponent.lua"),
+    include("conf/cocos2d/ui/layout/ccui.LayoutParameter.lua"),
+    include("conf/cocos2d/ui/layout/ccui.Layout.lua"),
+    include("conf/cocos2d/ui/layout/ccui.HBox.lua"),
+    include("conf/cocos2d/ui/layout/ccui.VBox.lua"),
+    include("conf/cocos2d/ui/layout/ccui.RelativeBox.lua"),
 }
 
 return M

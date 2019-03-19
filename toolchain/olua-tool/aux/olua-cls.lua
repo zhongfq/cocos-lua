@@ -365,7 +365,7 @@ local function parse_prop(cls, name, func_get, func_set)
             for _, f in ipairs(v) do
                 if to_prop_func_name(name, 'set') == f.CPPFUNC or
                     to_prop_func_name(name2, 'set') == f.CPPFUNC then
-                    assert(#f.ARGS == 1, f.CPPFUNC)
+                    assert(#f.ARGS >= 1, f.CPPFUNC)
                     pi.SET = f
                 end
             end
@@ -646,6 +646,9 @@ function REG_CONV(ci)
     assert(ti, ci.CPPCLS)
     if ti.VARS and ti.VARS > 1 then
         ci.FUNC['ISPACK'] = true
+    else
+        ci.FUNC['UNPACK'] = nil
+        ci.FUNC['PACK'] = nil
     end
 
     ci.FUNC.IS = true

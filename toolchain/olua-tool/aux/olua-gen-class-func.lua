@@ -282,6 +282,7 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
     local funcname = format_snippet([[
         _${CPPCLS_PATH}_${CPPFUNC}${FUNC_INDEX}
     ]])
+
     if func_filter[funcname] then
         return
     end
@@ -453,6 +454,12 @@ function gen_multi_func(cls, fis, write, func_filter)
     for _, fi in ipairs(fis) do
         gen_one_func(cls, fi, write, fi.INDEX, func_filter)
     end
+
+    local funcname = format_snippet([[
+        _${CPPCLS_PATH}_${CPPFUNC}
+    ]])
+    assert(not func_filter[funcname], cls.CPPCLS .. ' ' .. CPPFUNC)
+    func_filter[funcname] = true
 
     for i = 0, NUM_ARGS do
         local fns = get_func_n(fis, i)

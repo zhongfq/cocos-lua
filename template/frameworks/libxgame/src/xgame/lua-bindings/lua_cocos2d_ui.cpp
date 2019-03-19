@@ -4537,27 +4537,9 @@ static int _cocos2d_ui_Layout_getRenderFile(lua_State *L)
 
     // ResourceData getRenderFile()
     cocos2d::ResourceData ret = (cocos2d::ResourceData)self->getRenderFile();
-    int num_ret = manual_luacv_push_cocos2d_ResourceData(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_ResourceData(L, &ret);
 
     return num_ret;
-}
-
-static int _cocos2d_ui_Layout_setBackGroundColor(lua_State *L)
-{
-    lua_settop(L, 3);
-
-    cocos2d::ui::Layout *self = nullptr;
-    cocos2d::Color3B arg1;       /** startColor */
-    cocos2d::Color3B arg2;       /** endColor */
-
-    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
-    manual_luacv_check_cocos2d_Color3B(L, 2, &arg1);
-    manual_luacv_check_cocos2d_Color3B(L, 3, &arg2);
-
-    // void setBackGroundColor(const Color3B &startColor, const Color3B &endColor)
-    self->setBackGroundColor(arg1, arg2);
-
-    return 0;
 }
 
 static int _cocos2d_ui_Layout_get_onPassFocusToChild(lua_State *L)

@@ -5420,6 +5420,22 @@ static int _cocos2d_FileUtils_loadFilenameLookupDictionaryFromFile(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_FileUtils_setFilenameLookupDictionary(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::FileUtils *self = nullptr;
+    cocos2d::ValueMap arg1;       /** filenameLookupDict */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.FileUtils");
+    manual_luacv_check_cocos2d_ValueMap(L, 2, &arg1);
+
+    // void setFilenameLookupDictionary(const ValueMap& filenameLookupDict)
+    self->setFilenameLookupDictionary(arg1);
+
+    return 0;
+}
+
 static int _cocos2d_FileUtils_fullPathFromRelativeFile(lua_State *L)
 {
     lua_settop(L, 3);
@@ -5439,6 +5455,31 @@ static int _cocos2d_FileUtils_fullPathFromRelativeFile(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_FileUtils_setSearchResolutionsOrder(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::FileUtils *self = nullptr;
+    std::vector<std::string> arg1;       /** searchResolutionsOrder */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.FileUtils");
+    luaL_checktype(L, 2, LUA_TTABLE);
+    size_t arg1_total = lua_rawlen(L, 2);
+    arg1.reserve(arg1_total);
+    for (int i = 1; i <= arg1_total; i++) {
+        std::string obj;
+        lua_rawgeti(L, 2, i);
+        olua_check_std_string(L, -1, &obj);
+        arg1.push_back(obj);
+        lua_pop(L, 1);
+    }
+
+    // void setSearchResolutionsOrder(const std::vector<std::string>& searchResolutionsOrder)
+    self->setSearchResolutionsOrder(arg1);
+
+    return 0;
+}
+
 static int _cocos2d_FileUtils_addSearchResolutionsOrder(lua_State *L)
 {
     lua_settop(L, 3);
@@ -5453,6 +5494,52 @@ static int _cocos2d_FileUtils_addSearchResolutionsOrder(lua_State *L)
 
     // void addSearchResolutionsOrder(const std::string &order,const bool front=false)
     self->addSearchResolutionsOrder(arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_FileUtils_getSearchResolutionsOrder(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::FileUtils *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.FileUtils");
+
+    // const std::vector<std::string> getSearchResolutionsOrder()
+    const std::vector<std::string> ret = (const std::vector<std::string>)self->getSearchResolutionsOrder();
+    int num_ret = 1;
+    int num_eles = 1;
+    lua_createtable(L, (int)ret.size(), 0);
+    for (const auto &it : ret) {
+        olua_push_std_string(L, it);
+        lua_rawseti(L, -2, num_eles++);
+    }
+
+    return num_ret;
+}
+
+static int _cocos2d_FileUtils_setSearchPaths(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::FileUtils *self = nullptr;
+    std::vector<std::string> arg1;       /** searchPaths */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.FileUtils");
+    luaL_checktype(L, 2, LUA_TTABLE);
+    size_t arg1_total = lua_rawlen(L, 2);
+    arg1.reserve(arg1_total);
+    for (int i = 1; i <= arg1_total; i++) {
+        std::string obj;
+        lua_rawgeti(L, 2, i);
+        olua_check_std_string(L, -1, &obj);
+        arg1.push_back(obj);
+        lua_pop(L, 1);
+    }
+
+    // void setSearchPaths(const std::vector<std::string>& searchPaths)
+    self->setSearchPaths(arg1);
 
     return 0;
 }
@@ -5504,6 +5591,48 @@ static int _cocos2d_FileUtils_addSearchPath(lua_State *L)
     self->addSearchPath(arg1, arg2);
 
     return 0;
+}
+
+static int _cocos2d_FileUtils_getSearchPaths(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::FileUtils *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.FileUtils");
+
+    // const std::vector<std::string> getSearchPaths()
+    const std::vector<std::string> ret = (const std::vector<std::string>)self->getSearchPaths();
+    int num_ret = 1;
+    int num_eles = 1;
+    lua_createtable(L, (int)ret.size(), 0);
+    for (const auto &it : ret) {
+        olua_push_std_string(L, it);
+        lua_rawseti(L, -2, num_eles++);
+    }
+
+    return num_ret;
+}
+
+static int _cocos2d_FileUtils_getOriginalSearchPaths(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::FileUtils *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.FileUtils");
+
+    // const std::vector<std::string> getOriginalSearchPaths()
+    const std::vector<std::string> ret = (const std::vector<std::string>)self->getOriginalSearchPaths();
+    int num_ret = 1;
+    int num_eles = 1;
+    lua_createtable(L, (int)ret.size(), 0);
+    for (const auto &it : ret) {
+        olua_push_std_string(L, it);
+        lua_rawseti(L, -2, num_eles++);
+    }
+
+    return num_ret;
 }
 
 static int _cocos2d_FileUtils_getWritablePath(lua_State *L)
@@ -5568,6 +5697,61 @@ static int _cocos2d_FileUtils_isPopupNotify(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_FileUtils_getValueMapFromFile(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::FileUtils *self = nullptr;
+    std::string arg1;       /** filename */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.FileUtils");
+    olua_check_std_string(L, 2, &arg1);
+
+    // ValueMap getValueMapFromFile(const std::string& filename)
+    cocos2d::ValueMap ret = (cocos2d::ValueMap)self->getValueMapFromFile(arg1);
+    int num_ret = manual_luacv_push_cocos2d_ValueMap(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_FileUtils_getValueMapFromData(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::FileUtils *self = nullptr;
+    const char *arg1 = nullptr;   /** filedata */
+    lua_Integer arg2 = 0;   /** filesize */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.FileUtils");
+    olua_check_string(L, 2, &arg1);
+    olua_check_int(L, 3, &arg2);
+
+    // ValueMap getValueMapFromData(const char* filedata, int filesize)
+    cocos2d::ValueMap ret = (cocos2d::ValueMap)self->getValueMapFromData(arg1, (int)arg2);
+    int num_ret = manual_luacv_push_cocos2d_ValueMap(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_FileUtils_writeToFile(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::FileUtils *self = nullptr;
+    cocos2d::ValueMap arg1;       /** dict */
+    std::string arg2;       /** fullPath */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.FileUtils");
+    manual_luacv_check_cocos2d_ValueMap(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+
+    // bool writeToFile(const ValueMap& dict, const std::string& fullPath)
+    bool ret = (bool)self->writeToFile(arg1, arg2);
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
 static int _cocos2d_FileUtils_writeStringToFile(lua_State *L)
 {
     lua_settop(L, 3);
@@ -5587,6 +5771,63 @@ static int _cocos2d_FileUtils_writeStringToFile(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_FileUtils_writeDataToFile(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::FileUtils *self = nullptr;
+    cocos2d::Data arg1;       /** data */
+    std::string arg2;       /** fullPath */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.FileUtils");
+    manual_luacv_check_cocos2d_Data(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+
+    // bool writeDataToFile(const Data& data, const std::string& fullPath)
+    bool ret = (bool)self->writeDataToFile(arg1, arg2);
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_FileUtils_writeValueMapToFile(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::FileUtils *self = nullptr;
+    cocos2d::ValueMap arg1;       /** dict */
+    std::string arg2;       /** fullPath */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.FileUtils");
+    manual_luacv_check_cocos2d_ValueMap(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+
+    // bool writeValueMapToFile(const ValueMap& dict, const std::string& fullPath)
+    bool ret = (bool)self->writeValueMapToFile(arg1, arg2);
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_FileUtils_writeValueVectorToFile(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::FileUtils *self = nullptr;
+    cocos2d::ValueVector arg1;       /** vecData */
+    std::string arg2;       /** fullPath */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.FileUtils");
+    manual_luacv_check_cocos2d_ValueVector(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+
+    // bool writeValueVectorToFile(const ValueVector& vecData, const std::string& fullPath)
+    bool ret = (bool)self->writeValueVectorToFile(arg1, arg2);
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
 static int _cocos2d_FileUtils_getSuitableFOpen(lua_State *L)
 {
     lua_settop(L, 2);
@@ -5600,6 +5841,23 @@ static int _cocos2d_FileUtils_getSuitableFOpen(lua_State *L)
     // std::string getSuitableFOpen(const std::string& filenameUtf8)
     std::string ret = (std::string)self->getSuitableFOpen(arg1);
     int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_FileUtils_getValueVectorFromFile(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::FileUtils *self = nullptr;
+    std::string arg1;       /** filename */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.FileUtils");
+    olua_check_std_string(L, 2, &arg1);
+
+    // ValueVector getValueVectorFromFile(const std::string& filename)
+    cocos2d::ValueVector ret = (cocos2d::ValueVector)self->getValueVectorFromFile(arg1);
+    int num_ret = manual_luacv_push_cocos2d_ValueVector(L, &ret);
 
     return num_ret;
 }
@@ -5801,6 +6059,29 @@ static int _cocos2d_FileUtils_getFileSize(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_FileUtils_listFiles(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::FileUtils *self = nullptr;
+    std::string arg1;       /** dirPath */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.FileUtils");
+    olua_check_std_string(L, 2, &arg1);
+
+    // std::vector<std::string> listFiles(const std::string& dirPath)
+    std::vector<std::string> ret = (std::vector<std::string>)self->listFiles(arg1);
+    int num_ret = 1;
+    int num_eles = 1;
+    lua_createtable(L, (int)ret.size(), 0);
+    for (const auto &it : ret) {
+        olua_push_std_string(L, it);
+        lua_rawseti(L, -2, num_eles++);
+    }
+
+    return num_ret;
+}
+
 static int _cocos2d_FileUtils_getNewFilename(lua_State *L)
 {
     lua_settop(L, 2);
@@ -5818,6 +6099,55 @@ static int _cocos2d_FileUtils_getNewFilename(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_FileUtils_getFileDataFromZip(lua_State *L)
+{
+    lua_settop(L, 3);
+    ssize_t size;
+    cocos2d::FileUtils *self = (cocos2d::FileUtils *)olua_toobj(L, 1, "cc.FileUtils");
+    std::string filePath = olua_checkstring(L, 2);
+    std::string filename = olua_checkstring(L, 3);
+    const unsigned char * data= self->getFileDataFromZip(filePath, filename, &size);
+    if (data) {
+        lua_pushlstring(L, (const char *)data, (size_t)size);
+        lua_pushinteger(L, (lua_Integer)size);
+        free((void *)data);
+        return 2;
+    } else {
+        lua_pushnil(L);
+    }
+    return 1;
+}
+
+static int _cocos2d_FileUtils_listFilesRecursively(lua_State *L)
+{
+    lua_settop(L, 2);
+    cocos2d::FileUtils *self = (cocos2d::FileUtils *)olua_toobj(L, 1, "cc.FileUtils");
+    std::vector<std::string> files;
+    std::string dirPath = olua_checkstring(L, 2);
+    self->listFilesRecursively(dirPath, &files);
+    lua_createtable(L, (int)files.size(), 0);
+    int num_eles = 1;
+    for (const auto &it : files) {
+        olua_push_std_string(L, it);
+        lua_rawseti(L, -2, num_eles++);
+    }
+    return 1;
+}
+
+static int _cocos2d_FileUtils_getFullPathCache(lua_State *L)
+{
+    lua_settop(L, 1);
+    cocos2d::FileUtils *self = (cocos2d::FileUtils *)olua_toobj(L, 1, "cc.FileUtils");
+    const std::unordered_map<std::string, std::string> paths  = self->getFullPathCache();
+    lua_createtable(L, 0, 4);
+    for (const auto &it : paths) {
+        olua_push_std_string(L, it.first);
+        olua_push_std_string(L, it.second);
+        lua_rawset(L, -3);
+    }
+    return 1;
+}
+
 static int luaopen_cocos2d_FileUtils(lua_State *L)
 {
     oluacls_class(L, "cc.FileUtils", nullptr);
@@ -5829,17 +6159,30 @@ static int luaopen_cocos2d_FileUtils(lua_State *L)
     oluacls_setfunc(L, "getDataFromFile", _cocos2d_FileUtils_getDataFromFile);
     oluacls_setfunc(L, "fullPathForFilename", _cocos2d_FileUtils_fullPathForFilename);
     oluacls_setfunc(L, "loadFilenameLookupDictionaryFromFile", _cocos2d_FileUtils_loadFilenameLookupDictionaryFromFile);
+    oluacls_setfunc(L, "setFilenameLookupDictionary", _cocos2d_FileUtils_setFilenameLookupDictionary);
     oluacls_setfunc(L, "fullPathFromRelativeFile", _cocos2d_FileUtils_fullPathFromRelativeFile);
+    oluacls_setfunc(L, "setSearchResolutionsOrder", _cocos2d_FileUtils_setSearchResolutionsOrder);
     oluacls_setfunc(L, "addSearchResolutionsOrder", _cocos2d_FileUtils_addSearchResolutionsOrder);
+    oluacls_setfunc(L, "getSearchResolutionsOrder", _cocos2d_FileUtils_getSearchResolutionsOrder);
+    oluacls_setfunc(L, "setSearchPaths", _cocos2d_FileUtils_setSearchPaths);
     oluacls_setfunc(L, "getDefaultResourceRootPath", _cocos2d_FileUtils_getDefaultResourceRootPath);
     oluacls_setfunc(L, "setDefaultResourceRootPath", _cocos2d_FileUtils_setDefaultResourceRootPath);
     oluacls_setfunc(L, "addSearchPath", _cocos2d_FileUtils_addSearchPath);
+    oluacls_setfunc(L, "getSearchPaths", _cocos2d_FileUtils_getSearchPaths);
+    oluacls_setfunc(L, "getOriginalSearchPaths", _cocos2d_FileUtils_getOriginalSearchPaths);
     oluacls_setfunc(L, "getWritablePath", _cocos2d_FileUtils_getWritablePath);
     oluacls_setfunc(L, "setWritablePath", _cocos2d_FileUtils_setWritablePath);
     oluacls_setfunc(L, "setPopupNotify", _cocos2d_FileUtils_setPopupNotify);
     oluacls_setfunc(L, "isPopupNotify", _cocos2d_FileUtils_isPopupNotify);
+    oluacls_setfunc(L, "getValueMapFromFile", _cocos2d_FileUtils_getValueMapFromFile);
+    oluacls_setfunc(L, "getValueMapFromData", _cocos2d_FileUtils_getValueMapFromData);
+    oluacls_setfunc(L, "writeToFile", _cocos2d_FileUtils_writeToFile);
     oluacls_setfunc(L, "writeStringToFile", _cocos2d_FileUtils_writeStringToFile);
+    oluacls_setfunc(L, "writeDataToFile", _cocos2d_FileUtils_writeDataToFile);
+    oluacls_setfunc(L, "writeValueMapToFile", _cocos2d_FileUtils_writeValueMapToFile);
+    oluacls_setfunc(L, "writeValueVectorToFile", _cocos2d_FileUtils_writeValueVectorToFile);
     oluacls_setfunc(L, "getSuitableFOpen", _cocos2d_FileUtils_getSuitableFOpen);
+    oluacls_setfunc(L, "getValueVectorFromFile", _cocos2d_FileUtils_getValueVectorFromFile);
     oluacls_setfunc(L, "isFileExist", _cocos2d_FileUtils_isFileExist);
     oluacls_setfunc(L, "getFileExtension", _cocos2d_FileUtils_getFileExtension);
     oluacls_setfunc(L, "isAbsolutePath", _cocos2d_FileUtils_isAbsolutePath);
@@ -5849,7 +6192,12 @@ static int luaopen_cocos2d_FileUtils(lua_State *L)
     oluacls_setfunc(L, "removeFile", _cocos2d_FileUtils_removeFile);
     oluacls_setfunc(L, "renameFile", _cocos2d_FileUtils_renameFile);
     oluacls_setfunc(L, "getFileSize", _cocos2d_FileUtils_getFileSize);
+    oluacls_setfunc(L, "listFiles", _cocos2d_FileUtils_listFiles);
     oluacls_setfunc(L, "getNewFilename", _cocos2d_FileUtils_getNewFilename);
+    oluacls_setfunc(L, "getFileDataFromZip", _cocos2d_FileUtils_getFileDataFromZip);
+    oluacls_setfunc(L, "listFilesRecursively", _cocos2d_FileUtils_listFilesRecursively);
+    oluacls_setfunc(L, "getFullPathCache", _cocos2d_FileUtils_getFullPathCache);
+    oluacls_property(L, "instance", _cocos2d_FileUtils_getInstance, nullptr);
 
     olua_registerluatype<cocos2d::FileUtils>(L, "cc.FileUtils");
     oluacls_createclassproxy(L);

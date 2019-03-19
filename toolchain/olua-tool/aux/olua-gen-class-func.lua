@@ -97,10 +97,60 @@ local function gen_func_args(cls, fi)
                 ${FUNC_CHECK_VALUE}(L, ${IDX}, (void **)&${ARG_N}, "${LUACLS}");
             ]])
         elseif ai.TYPE.SUBTYPE then
-            local SUBTYPE = assert(ai.TYPE.SUBTYPE.LUACLS, ai.TYPE.DECL_TYPE)
-            ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
-                ${FUNC_CHECK_VALUE}(L, ${IDX}, ${ARG_N}, "${SUBTYPE}");
-            ]])
+            local SUBTYPE = ai.TYPE.SUBTYPE
+            if SUBTYPE.LUACLS then
+                local SUB_LUACLS = SUBTYPE.LUACLS
+                ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
+                    ${FUNC_CHECK_VALUE}(L, ${IDX}, ${ARG_N}, "${SUB_LUACLS}");
+                ]])
+            elseif ai.TYPE.TYPENAME == 'std::vector' then
+                local CAST = ""
+                local SUBTYPE_CHECK_FUNC = SUBTYPE.FUNC_CHECK_VALUE
+                local SUBTYPE_DECL_TYPE = SUBTYPE.DECL_TYPE
+                if SUBTYPE.DECL_TYPE ~= SUBTYPE.TYPENAME then
+                    if not SUBTYPE.VALUE_TYPE then
+                        print(SUBTYPE.DECL_TYPE, SUBTYPE.TYPENAME)
+                        error(SUBTYPE.TYPENAME)
+                    end
+                    CAST = string.format("(%s)", SUBTYPE.DECL_TYPE)
+                end
+                ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
+                    luaL_checktype(L, ${IDX}, LUA_TTABLE);
+                    size_t ${ARG_N}_total = lua_rawlen(L, ${IDX});
+                    ${ARG_N}.reserve(${ARG_N}_total);
+                    for (int i = 1; i <= ${ARG_N}_total; i++) {
+                        ${SUBTYPE_DECL_TYPE} obj;
+                        lua_rawgeti(L, ${IDX}, i);
+                        ${SUBTYPE_CHECK_FUNC}(L, -1, &obj);
+                        ${ARG_N}.push_back(${CAST}obj);
+                        lua_pop(L, 1);
+                    }
+                ]])
+            elseif ai.TYPE.TYPENAME == 'std::set' then
+                local CAST = ""
+                local SUBTYPE_CHECK_FUNC = SUBTYPE.FUNC_CHECK_VALUE
+                local SUBTYPE_DECL_TYPE = SUBTYPE.DECL_TYPE
+                if SUBTYPE.DECL_TYPE ~= SUBTYPE.TYPENAME then
+                    if not SUBTYPE.VALUE_TYPE then
+                        print(SUBTYPE.DECL_TYPE, SUBTYPE.TYPENAME)
+                        error(SUBTYPE.TYPENAME)
+                    end
+                    CAST = string.format("(%s)", SUBTYPE.DECL_TYPE)
+                end
+                ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
+                    luaL_checktype(L, ${IDX}, LUA_TTABLE);
+                    size_t ${ARG_N}_total = lua_rawlen(L, ${IDX});
+                    for (int i = 1; i <= ${ARG_N}_total; i++) {
+                        ${SUBTYPE_DECL_TYPE} obj;
+                        lua_rawgeti(L, ${IDX}, i);
+                        ${SUBTYPE_CHECK_FUNC}(L, -1, &obj);
+                        ${ARG_N}.insert(${CAST}obj);
+                        lua_pop(L, 1);
+                    }
+                ]])
+            else
+                error(ai.TYPE.TYPENAME)
+            end
         elseif not ai.CALLBACK.ARGS then
             if ai.ATTR.PACK then
                 FUNC_CHECK_VALUE = ai.TYPE.FUNC_PACK_VALUE
@@ -163,8 +213,30 @@ local function gen_func_ret(cls, fi)
                 RET_PUSH = format_snippet('int num_ret = ${FUNC_PUSH_VALUE}(L, ret, "${LUACLS}");')
             end
         elseif fi.RET.TYPE.SUBTYPE then
-            local SUBTYPE = assert(fi.RET.TYPE.SUBTYPE.LUACLS, fi.RET.DECL_TYPE)
-            RET_PUSH = format_snippet('int num_ret = ${FUNC_PUSH_VALUE}(L, ret, "${SUBTYPE}");')
+            local SUBTYPE = fi.RET.TYPE.SUBTYPE
+            if SUBTYPE.LUACLS then
+                local SUB_LUACLS = SUBTYPE.LUACLS
+                RET_PUSH = format_snippet('int num_ret = ${FUNC_PUSH_VALUE}(L, ret, "${SUB_LUACLS}");')
+            else
+                local CAST = ""
+                local SUBTYPE_PUSH_FUNC = SUBTYPE.FUNC_PUSH_VALUE
+                if SUBTYPE.DECL_TYPE ~= SUBTYPE.TYPENAME then
+                    if not SUBTYPE.VALUE_TYPE then
+                        print(SUBTYPE.DECL_TYPE, SUBTYPE.TYPENAME)
+                        error(SUBTYPE.TYPENAME)
+                    end
+                    CAST = string.format("(%s)", SUBTYPE.DECL_TYPE)
+                end
+                RET_PUSH = format_snippet([[
+                    int num_ret = 1;
+                    int num_eles = 1;
+                    lua_createtable(L, (int)ret.size(), 0);
+                    for (const auto &it : ret) {
+                        ${SUBTYPE_PUSH_FUNC}(L, ${CAST}it);
+                        lua_rawseti(L, -2, num_eles++);
+                    }
+                ]])
+            end
         else
             if fi.RET.ATTR.UNPACK then
                 FUNC_PUSH_VALUE = fi.RET.TYPE.FUNC_UNPACK_VALUE

@@ -7,6 +7,7 @@
 #include "cocos2d.h"
 
 int manual_luacv_push_cocos2d_Data(lua_State *L, const cocos2d::Data *value);
+int manual_luacv_check_cocos2d_Data(lua_State *L, int idx, cocos2d::Data *value);
 
 int manual_luacv_push_cocos2d_Mat4(lua_State *L, const cocos2d::Mat4 &value);
 void manual_luacv_check_cocos2d_Mat4(lua_State *L, int idx, cocos2d::Mat4 *value);

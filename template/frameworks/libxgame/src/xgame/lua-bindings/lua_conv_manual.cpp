@@ -13,6 +13,17 @@ int manual_luacv_push_cocos2d_Data(lua_State *L, const cocos2d::Data *value)
     return 1;
 }
 
+int manual_luacv_check_cocos2d_Data(lua_State *L, int idx, cocos2d::Data *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    size_t len;
+    const char *data = olua_checklstring(L, idx, &len);
+    value->copy((const unsigned char *)data, (ssize_t)len);
+    return 0;
+}
+
 int manual_luacv_push_cocos2d_Mat4(lua_State *L, const cocos2d::Mat4 &value)
 {
     lua_createtable(L, 16, 0);

@@ -77,6 +77,7 @@ REG_TYPE {
         'cocos2d::Color3B',
         'cocos2d::Color4B',
         'cocos2d::ValueMap',
+        'cocos2d::ValueVector',
         'cocos2d::Vector',
     }, "|"),
     CONV_FUNC = make_manual_conv_func,

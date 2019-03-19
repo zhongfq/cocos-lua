@@ -1,21 +1,44 @@
+local class_map = {}
+
+local function check_gen_class_func(cls, fi, write, func_filter)
+    local meta = assert(class_map[cls.LUACLS], cls.LUACLS)
+    if meta and getmetatable(meta) then
+        local supermeta = getmetatable(meta).__index
+        for _, f in ipairs(fi) do
+            if f.PROTOTYPE and rawget(meta, f.PROTOTYPE) and supermeta[f.PROTOTYPE] then
+                print(string.format("super class already export the func: %s %s", cls.CPPCLS, f.PROTOTYPE))
+            end
+        end
+    end
+    gen_class_func(cls, fi, write, func_filter)
+end
+
 local function gen_class_funcs(cls, write)
+    local clsmeta = cls.PROTOTYPES
+
+    if cls.SUPERCLS then
+        assert(class_map[cls.SUPERCLS], cls.CPPCLS .. '|' .. cls.SUPERCLS)
+        clsmeta = setmetatable(clsmeta, {__index = class_map[cls.SUPERCLS]})
+    end
+    class_map[cls.LUACLS] = clsmeta
+
     local func_filter = {}
     for i, fi in ipairs(cls.FUNCS) do
-        gen_class_func(cls, fi, write, func_filter)
+        check_gen_class_func(cls, fi, write, func_filter)
     end
 
     for i, pi in ipairs(cls.PROPS) do
         if pi.GET then
-            gen_class_func(cls, {pi.GET}, write, func_filter)
+            check_gen_class_func(cls, {pi.GET}, write, func_filter)
         end
         if pi.SET then
-            gen_class_func(cls, {pi.SET}, write, func_filter)
+            check_gen_class_func(cls, {pi.SET}, write, func_filter)
         end
     end
 
     for i, ai in ipairs(cls.VARS) do
-        gen_class_func(cls, {ai.GET}, write, func_filter)
-        gen_class_func(cls, {ai.SET}, write, func_filter)
+        check_gen_class_func(cls, {ai.GET}, write, func_filter)
+        check_gen_class_func(cls, {ai.SET}, write, func_filter)
     end
 end
 

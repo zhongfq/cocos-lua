@@ -263,6 +263,7 @@ local function parse_func(cls, name, ...)
             fi.RET.TYPE = get_typeinfo('void', cls)
             fi.RET.ATTR = {}
             fi.ARGS = {}
+            fi.PROTOTYPE = false
         else
             local typename, attr, str = parse_def(func_decl)
             fi.CPPFUNC = string.match(str, '[^ ()]+')
@@ -287,6 +288,22 @@ local function parse_func(cls, name, ...)
                 fi.RET.ATTR = attr
             end
             fi.ARGS = parse_args(cls, string.sub(str, #fi.CPPFUNC + 1))
+
+            do
+                local ARGS_DECL = {}
+                local RET_DECL = fi.RET.DECL_TYPE
+                local CPPFUNC = fi.CPPFUNC
+                local STATIC = fi.STATIC and "static " or ""
+                for _, v in ipairs(fi.ARGS) do
+                    ARGS_DECL[#ARGS_DECL + 1] = v.DECL_TYPE
+                end
+                ARGS_DECL = table.concat(ARGS_DECL, ", ")
+
+                fi.PROTOTYPE = format_snippet([[
+                    ${STATIC}${RET_DECL} ${CPPFUNC}(${ARGS_DECL})
+                ]])
+                cls.PROTOTYPES[fi.PROTOTYPE] = true
+            end
 
             if is_static_func == nil then
                 is_static_func = fi.STATIC
@@ -368,6 +385,7 @@ function class(collection)
     cls.ENUMS = {}
     cls.PROPS = {}
     cls.VARS = {}
+    cls.PROTOTYPES = {}
     cls.REG_LUATYPE = true
 
     if collection then

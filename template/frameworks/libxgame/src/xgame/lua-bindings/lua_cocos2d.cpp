@@ -23992,28 +23992,10 @@ static int _cocos2d_TransitionFadeBL_create(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_TransitionFadeBL_actionWithSize(lua_State *L)
-{
-    lua_settop(L, 2);
-
-    cocos2d::TransitionFadeBL *self = nullptr;
-    cocos2d::Size arg1;       /** size */
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.TransitionFadeBL");
-    auto_luacv_check_cocos2d_Size(L, 2, &arg1);
-
-    // ActionInterval* actionWithSize(const Size& size)
-    cocos2d::ActionInterval *ret = (cocos2d::ActionInterval *)self->actionWithSize(arg1);
-    int num_ret = olua_push_cppobj<cocos2d::ActionInterval>(L, ret, "cc.ActionInterval");
-
-    return num_ret;
-}
-
 static int luaopen_cocos2d_TransitionFadeBL(lua_State *L)
 {
     oluacls_class(L, "cc.TransitionFadeBL", "cc.TransitionFadeTR");
     oluacls_setfunc(L, "create", _cocos2d_TransitionFadeBL_create);
-    oluacls_setfunc(L, "actionWithSize", _cocos2d_TransitionFadeBL_actionWithSize);
 
     olua_registerluatype<cocos2d::TransitionFadeBL>(L, "cc.TransitionFadeBL");
     oluacls_createclassproxy(L);
@@ -24041,28 +24023,10 @@ static int _cocos2d_TransitionFadeUp_create(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_TransitionFadeUp_actionWithSize(lua_State *L)
-{
-    lua_settop(L, 2);
-
-    cocos2d::TransitionFadeUp *self = nullptr;
-    cocos2d::Size arg1;       /** size */
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.TransitionFadeUp");
-    auto_luacv_check_cocos2d_Size(L, 2, &arg1);
-
-    // ActionInterval* actionWithSize(const Size& size)
-    cocos2d::ActionInterval *ret = (cocos2d::ActionInterval *)self->actionWithSize(arg1);
-    int num_ret = olua_push_cppobj<cocos2d::ActionInterval>(L, ret, "cc.ActionInterval");
-
-    return num_ret;
-}
-
 static int luaopen_cocos2d_TransitionFadeUp(lua_State *L)
 {
     oluacls_class(L, "cc.TransitionFadeUp", "cc.TransitionFadeTR");
     oluacls_setfunc(L, "create", _cocos2d_TransitionFadeUp_create);
-    oluacls_setfunc(L, "actionWithSize", _cocos2d_TransitionFadeUp_actionWithSize);
 
     olua_registerluatype<cocos2d::TransitionFadeUp>(L, "cc.TransitionFadeUp");
     oluacls_createclassproxy(L);
@@ -24090,28 +24054,10 @@ static int _cocos2d_TransitionFadeDown_create(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_TransitionFadeDown_actionWithSize(lua_State *L)
-{
-    lua_settop(L, 2);
-
-    cocos2d::TransitionFadeDown *self = nullptr;
-    cocos2d::Size arg1;       /** size */
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.TransitionFadeDown");
-    auto_luacv_check_cocos2d_Size(L, 2, &arg1);
-
-    // ActionInterval* actionWithSize(const Size& size)
-    cocos2d::ActionInterval *ret = (cocos2d::ActionInterval *)self->actionWithSize(arg1);
-    int num_ret = olua_push_cppobj<cocos2d::ActionInterval>(L, ret, "cc.ActionInterval");
-
-    return num_ret;
-}
-
 static int luaopen_cocos2d_TransitionFadeDown(lua_State *L)
 {
     oluacls_class(L, "cc.TransitionFadeDown", "cc.TransitionFadeTR");
     oluacls_setfunc(L, "create", _cocos2d_TransitionFadeDown_create);
-    oluacls_setfunc(L, "actionWithSize", _cocos2d_TransitionFadeDown_actionWithSize);
 
     olua_registerluatype<cocos2d::TransitionFadeDown>(L, "cc.TransitionFadeDown");
     oluacls_createclassproxy(L);

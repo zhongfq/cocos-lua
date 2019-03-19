@@ -108,7 +108,6 @@ cls.LUACLS = "cc.TransitionSlideInB"
 cls.SUPERCLS = "cc.TransitionSlideInL"
 cls.funcs([[
     static TransitionSlideInB* create(float t, @ref Scene* scene)
-    // TODO ActionInterval* action(void)
 ]])
 
 local cls = class(M)
@@ -224,7 +223,6 @@ cls.LUACLS = "cc.TransitionSplitRows"
 cls.SUPERCLS = "cc.TransitionSplitCols"
 cls.funcs([[
     static TransitionSplitRows* create(float t, @ref Scene* scene)
-    // TODO virtual ActionInterval* action(void)
 ]])
 
 local cls = class(M)
@@ -243,7 +241,6 @@ cls.LUACLS = "cc.TransitionFadeBL"
 cls.SUPERCLS = "cc.TransitionFadeTR"
 cls.funcs([[
     static TransitionFadeBL* create(float t, @ref Scene* scene)
-    ActionInterval* actionWithSize(const Size& size)
 ]])
 
 local cls = class(M)
@@ -252,7 +249,6 @@ cls.LUACLS = "cc.TransitionFadeUp"
 cls.SUPERCLS = "cc.TransitionFadeTR"
 cls.funcs([[
     static TransitionFadeUp* create(float t, @ref Scene* scene)
-    ActionInterval* actionWithSize(const Size& size)
 ]])
 
 local cls = class(M)
@@ -261,7 +257,6 @@ cls.LUACLS = "cc.TransitionFadeDown"
 cls.SUPERCLS = "cc.TransitionFadeTR"
 cls.funcs([[
     static TransitionFadeDown* create(float t, @ref Scene* scene)
-    ActionInterval* actionWithSize(const Size& size)
 ]])
 
 return M

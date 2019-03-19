@@ -162,26 +162,13 @@ cls.vars [[
     @nullable std::function<Widget*(FocusDirection)> onNextFocusedWidget
 ]]
 
-cls.callback(nil, {
-        CALLBACK_MAKER = 'olua_makecallbacktag("touchEventListener")',
-        CALLBACK_REPLACE = true,
-        CALLBACK_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
-    }, 
-    'void addTouchEventListener(@nullable const std::function<void(Ref*,Widget::TouchEventType)>& callback)'
-)
-cls.callback(nil, {
-        CALLBACK_MAKER = 'olua_makecallbacktag("clickEventListener")',
-        CALLBACK_REPLACE = true,
-        CALLBACK_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
-    }, 
-    'void addClickEventListener(@nullable std::function<void(Ref*)>& callback)'
-)
-cls.callback(nil, {
-        CALLBACK_MAKER = 'olua_makecallbacktag("ccsEventListener")',
-        CALLBACK_REPLACE = true,
-        CALLBACK_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
-    }, 
-    'void addCCSEventListener(@nullable const std::function<void(Ref*, int)>& callback)'
-)
+cls.callbacks([[
+    void addTouchEventListener(@nullable const std::function<void(Ref*,Widget::TouchEventType)>& callback)
+    void addClickEventListener(@nullable std::function<void(Ref*)>& callback)
+    void addCCSEventListener(@nullable const std::function<void(Ref*, int)>& callback)
+]], function (name)
+    name = string.gsub(name, '^add', '')
+    return 'olua_makecallbacktag("' .. name .. '")'
+end)
 
 return M

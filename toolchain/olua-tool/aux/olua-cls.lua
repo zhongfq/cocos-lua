@@ -440,7 +440,6 @@ function class(collection)
         local function default_maker(name)
             name = string.gsub(name, '^get', '')
             name = string.gsub(name, '^set', '')
-            name = string.lower(string.sub(name, 1, 1)) .. string.sub(name, 2)
             return 'olua_makecallbacktag("' .. name .. '")'
         end
         for callback_decl in string.gmatch(callbacks_str, '[^\n\r]+') do

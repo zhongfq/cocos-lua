@@ -256,6 +256,9 @@ function parse_args(cls, args_str)
 end
 
 local function parse_func(cls, name, ...)
+    local function copy(t)
+        return setmetatable({}, {__index = t})
+    end
     local arr = {MAX_ARGS = 0}
     local is_static_func
     for i, func_decl in ipairs({...}) do
@@ -317,11 +320,38 @@ local function parse_func(cls, name, ...)
             else
                 assert(is_static_func == fi.STATIC, func_decl)
             end
+
+            -- has @pack? gen one more func
+            if fi.MAX_ARGS ~= #fi.ARGS then
+                local packarg
+                local fi2 = copy(fi)
+                fi2.RET = copy(fi.RET)
+                fi2.RET.ATTR = copy(fi.RET.ATTR)
+                fi2.ARGS = {}
+                fi2.FUNC_DECL = string.gsub(fi.FUNC_DECL, '@pack *', '')
+                for i in ipairs(fi.ARGS) do
+                    fi2.ARGS[i] = copy(fi.ARGS[i])
+                    fi2.ARGS[i].ATTR = copy(fi.ARGS[i].ATTR)
+                    if fi.ARGS[i].ATTR.PACK then
+                        assert(not packarg, 'too many pack args')
+                        packarg = fi.ARGS[i]
+                        fi2.ARGS[i].ATTR.PACK = false
+                        fi2.MAX_ARGS = fi2.MAX_ARGS + 1 - packarg.TYPE.VARS
+                    end
+                end
+                assert(packarg, func_decl)
+                if packarg.TYPE.TYPENAME == fi.RET.TYPE.TYPENAME then
+                    fi2.RET.ATTR.UNPACK = fi.RET.ATTR.UNPACK or false
+                    fi.RET.ATTR.UNPACK = true
+                end
+                arr[#arr + 1] = fi2
+                fi2.INDEX = #arr
+            end
         end
         assert(not string.find(fi.LUAFUNC, '[^_%w]+'), '"' .. fi.LUAFUNC .. '"')
-        fi.INDEX = i
         arr[#arr + 1] = fi
         arr.MAX_ARGS = math.max(arr.MAX_ARGS, fi.MAX_ARGS)
+        fi.INDEX = #arr
     end
 
     return arr

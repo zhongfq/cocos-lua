@@ -62,6 +62,7 @@ void manual_luacv_pack_cocos2d_Rect(lua_State *L, int idx, cocos2d::Rect *value)
 int manual_luacv_unpack_cocos2d_Rect(lua_State *L, const cocos2d::Rect *value);
 bool manual_luacv_is_cocos2d_Rect(lua_State *L, int idx);
 void manual_luacv_pack_cocos2d_ccBezierConfig(lua_State *L, int idx, cocos2d::ccBezierConfig *value);
+void manual_luacv_check_cocos2d_ccBezierConfig(lua_State *L, int idx, cocos2d::ccBezierConfig *value);
 void manual_luacv_check_cocos2d_Value(lua_State *L, int idx, cocos2d::Value *value);
 int manual_luacv_push_cocos2d_Value(lua_State *L, const cocos2d::Value *value);
 int manual_luacv_is_cocos2d_ValueVector(lua_State *L, int idx);

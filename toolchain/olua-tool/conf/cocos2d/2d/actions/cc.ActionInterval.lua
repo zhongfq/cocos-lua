@@ -185,7 +185,7 @@ cls.CPPCLS = "cocos2d::BezierBy"
 cls.LUACLS = "cc.BezierBy"
 cls.SUPERCLS = "cc.ActionInterval"
 cls.funcs([[
-    static BezierBy* create(float t, ccBezierConfig& c);
+    static BezierBy* create(float t, @pack ccBezierConfig& c);
 ]])
 
 local cls = class(M)
@@ -193,7 +193,7 @@ cls.CPPCLS = "cocos2d::BezierTo"
 cls.LUACLS = "cc.BezierTo"
 cls.SUPERCLS = "cc.BezierBy"
 cls.funcs([[
-    static BezierTo* create(float t, ccBezierConfig& c);
+    static BezierTo* create(float t, @pack ccBezierConfig& c);
 ]])
 
 local cls = class(M)

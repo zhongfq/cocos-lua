@@ -45,7 +45,7 @@ cls.funcs [[
     void setEndOpacity( GLubyte endOpacity )
     GLubyte getEndOpacity()
     void setVector(const Vec2& alongVector)
-    @unapck const Vec2& getVector()
+    const Vec2& getVector()
 ]]
 cls.props [[
     compressedInterpolation

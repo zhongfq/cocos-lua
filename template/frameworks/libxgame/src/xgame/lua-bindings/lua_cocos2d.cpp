@@ -1068,7 +1068,7 @@ static int _cocos2d_Director_getSafeAreaRect(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_Director_convertToGL(lua_State *L)
+static int _cocos2d_Director_convertToGL1(lua_State *L)
 {
     lua_settop(L, 2);
 
@@ -1085,7 +1085,45 @@ static int _cocos2d_Director_convertToGL(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_Director_convertToUI(lua_State *L)
+static int _cocos2d_Director_convertToGL2(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::Director *self = nullptr;
+    cocos2d::Vec2 arg1;       /** point */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+
+    // Vec2 convertToGL(@pack const Vec2& point)
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->convertToGL(arg1);
+    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Director_convertToGL(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if (auto_luacv_is_cocos2d_Vec2(L, 2)) {
+            return _cocos2d_Director_convertToGL1(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if (auto_luacv_ispack_cocos2d_Vec2(L, 2)) {
+            return _cocos2d_Director_convertToGL2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Director::convertToGL' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_Director_convertToUI1(lua_State *L)
 {
     lua_settop(L, 2);
 
@@ -1100,6 +1138,44 @@ static int _cocos2d_Director_convertToUI(lua_State *L)
     int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
+}
+
+static int _cocos2d_Director_convertToUI2(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::Director *self = nullptr;
+    cocos2d::Vec2 arg1;       /** point */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
+    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+
+    // Vec2 convertToUI(@pack const Vec2& point)
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->convertToUI(arg1);
+    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Director_convertToUI(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if (auto_luacv_is_cocos2d_Vec2(L, 2)) {
+            return _cocos2d_Director_convertToUI1(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if (auto_luacv_ispack_cocos2d_Vec2(L, 2)) {
+            return _cocos2d_Director_convertToUI2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Director::convertToUI' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _cocos2d_Director_getZEye(lua_State *L)
@@ -12081,7 +12157,7 @@ static int luaopen_cocos2d_JumpTo(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_BezierBy_create(lua_State *L)
+static int _cocos2d_BezierBy_create1(lua_State *L)
 {
     lua_settop(L, 2);
 
@@ -12098,6 +12174,44 @@ static int _cocos2d_BezierBy_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_BezierBy_create2(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::ccBezierConfig arg2;       /** c */
+
+    olua_check_number(L, 1, &arg1);
+    manual_luacv_pack_cocos2d_ccBezierConfig(L, 2, &arg2);
+
+    // static BezierBy* create(float t, @pack ccBezierConfig& c);
+    cocos2d::BezierBy *ret = (cocos2d::BezierBy *)cocos2d::BezierBy::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::BezierBy>(L, ret, "cc.BezierBy");
+
+    return num_ret;
+}
+
+static int _cocos2d_BezierBy_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 2) {
+        // if (olua_is_number(L, 1) && manual_luacv_is_cocos2d_ccBezierConfig(L, 2)) {
+            return _cocos2d_BezierBy_create1(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if (olua_is_number(L, 1) && manual_luacv_ispack_cocos2d_ccBezierConfig(L, 2)) {
+            return _cocos2d_BezierBy_create2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::BezierBy::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
 static int luaopen_cocos2d_BezierBy(lua_State *L)
 {
     oluacls_class(L, "cc.BezierBy", "cc.ActionInterval");
@@ -12109,7 +12223,7 @@ static int luaopen_cocos2d_BezierBy(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_BezierTo_create(lua_State *L)
+static int _cocos2d_BezierTo_create1(lua_State *L)
 {
     lua_settop(L, 2);
 
@@ -12124,6 +12238,44 @@ static int _cocos2d_BezierTo_create(lua_State *L)
     int num_ret = olua_push_cppobj<cocos2d::BezierTo>(L, ret, "cc.BezierTo");
 
     return num_ret;
+}
+
+static int _cocos2d_BezierTo_create2(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    lua_Number arg1 = 0;   /** t */
+    cocos2d::ccBezierConfig arg2;       /** c */
+
+    olua_check_number(L, 1, &arg1);
+    manual_luacv_pack_cocos2d_ccBezierConfig(L, 2, &arg2);
+
+    // static BezierTo* create(float t, @pack ccBezierConfig& c);
+    cocos2d::BezierTo *ret = (cocos2d::BezierTo *)cocos2d::BezierTo::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::BezierTo>(L, ret, "cc.BezierTo");
+
+    return num_ret;
+}
+
+static int _cocos2d_BezierTo_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 2) {
+        // if (olua_is_number(L, 1) && manual_luacv_is_cocos2d_ccBezierConfig(L, 2)) {
+            return _cocos2d_BezierTo_create1(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if (olua_is_number(L, 1) && manual_luacv_ispack_cocos2d_ccBezierConfig(L, 2)) {
+            return _cocos2d_BezierTo_create2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::BezierTo::create' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int luaopen_cocos2d_BezierTo(lua_State *L)
@@ -17308,7 +17460,7 @@ static int _cocos2d_Node_getWorldToNodeAffineTransform(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_Node_convertToNodeSpace(lua_State *L)
+static int _cocos2d_Node_convertToNodeSpace1(lua_State *L)
 {
     lua_settop(L, 2);
 
@@ -17325,7 +17477,45 @@ static int _cocos2d_Node_convertToNodeSpace(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_Node_convertToWorldSpace(lua_State *L)
+static int _cocos2d_Node_convertToNodeSpace2(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::Node *self = nullptr;
+    cocos2d::Vec2 arg1;       /** worldPoint */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
+    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+
+    // Vec2 convertToNodeSpace(@pack Vec2& worldPoint)
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->convertToNodeSpace(arg1);
+    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Node_convertToNodeSpace(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if (auto_luacv_is_cocos2d_Vec2(L, 2)) {
+            return _cocos2d_Node_convertToNodeSpace1(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if (auto_luacv_ispack_cocos2d_Vec2(L, 2)) {
+            return _cocos2d_Node_convertToNodeSpace2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Node::convertToNodeSpace' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_Node_convertToWorldSpace1(lua_State *L)
 {
     lua_settop(L, 2);
 
@@ -17342,7 +17532,45 @@ static int _cocos2d_Node_convertToWorldSpace(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_Node_convertToNodeSpaceAR(lua_State *L)
+static int _cocos2d_Node_convertToWorldSpace2(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::Node *self = nullptr;
+    cocos2d::Vec2 arg1;       /** nodePoint */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
+    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+
+    // Vec2 convertToWorldSpace(@pack Vec2& nodePoint)
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->convertToWorldSpace(arg1);
+    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Node_convertToWorldSpace(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if (auto_luacv_is_cocos2d_Vec2(L, 2)) {
+            return _cocos2d_Node_convertToWorldSpace1(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if (auto_luacv_ispack_cocos2d_Vec2(L, 2)) {
+            return _cocos2d_Node_convertToWorldSpace2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Node::convertToWorldSpace' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_Node_convertToNodeSpaceAR1(lua_State *L)
 {
     lua_settop(L, 2);
 
@@ -17359,7 +17587,45 @@ static int _cocos2d_Node_convertToNodeSpaceAR(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_Node_convertToWorldSpaceAR(lua_State *L)
+static int _cocos2d_Node_convertToNodeSpaceAR2(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::Node *self = nullptr;
+    cocos2d::Vec2 arg1;       /** worldPoint */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
+    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+
+    // Vec2 convertToNodeSpaceAR(@pack Vec2& worldPoint)
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->convertToNodeSpaceAR(arg1);
+    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Node_convertToNodeSpaceAR(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if (auto_luacv_is_cocos2d_Vec2(L, 2)) {
+            return _cocos2d_Node_convertToNodeSpaceAR1(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if (auto_luacv_ispack_cocos2d_Vec2(L, 2)) {
+            return _cocos2d_Node_convertToNodeSpaceAR2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Node::convertToNodeSpaceAR' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_Node_convertToWorldSpaceAR1(lua_State *L)
 {
     lua_settop(L, 2);
 
@@ -17376,6 +17642,44 @@ static int _cocos2d_Node_convertToWorldSpaceAR(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_Node_convertToWorldSpaceAR2(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::Node *self = nullptr;
+    cocos2d::Vec2 arg1;       /** nodePoint */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
+    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+
+    // Vec2 convertToWorldSpaceAR(@pack Vec2& nodePoint)
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->convertToWorldSpaceAR(arg1);
+    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Node_convertToWorldSpaceAR(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if (auto_luacv_is_cocos2d_Vec2(L, 2)) {
+            return _cocos2d_Node_convertToWorldSpaceAR1(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if (auto_luacv_ispack_cocos2d_Vec2(L, 2)) {
+            return _cocos2d_Node_convertToWorldSpaceAR2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Node::convertToWorldSpaceAR' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
 static int _cocos2d_Node_convertTouchToNodeSpace(lua_State *L)
 {
     lua_settop(L, 2);
@@ -17386,7 +17690,7 @@ static int _cocos2d_Node_convertTouchToNodeSpace(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Touch");
 
-    // @unapck Vec2 convertTouchToNodeSpace(Touch * touch)
+    // Vec2 convertTouchToNodeSpace(Touch * touch)
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->convertTouchToNodeSpace(arg1);
     int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
@@ -22253,7 +22557,7 @@ static int _cocos2d_LayerGradient_getVector(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.LayerGradient");
 
-    // @unapck const Vec2& getVector()
+    // const Vec2& getVector()
     const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getVector();
     int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 

@@ -224,6 +224,19 @@ void manual_luacv_pack_cocos2d_ccBezierConfig(lua_State *L, int idx, cocos2d::cc
     auto_luacv_check_cocos2d_Vec2(L, idx + 2, &(value->endPosition));
 }
 
+void manual_luacv_check_cocos2d_ccBezierConfig(lua_State *L, int idx, cocos2d::ccBezierConfig *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    idx = lua_absindex(L, idx);
+    olua_rawgetfield(L, idx, "controlPoint_1");
+    olua_rawgetfield(L, idx, "controlPoint_2");
+    olua_rawgetfield(L, idx, "endPosition");
+    manual_luacv_pack_cocos2d_ccBezierConfig(L, idx + 1, value);
+    lua_pop(L, 3);
+}
+
 void manual_luacv_check_cocos2d_Value(lua_State *L, int idx, cocos2d::Value *value)
 {
     int top = lua_gettop(L);

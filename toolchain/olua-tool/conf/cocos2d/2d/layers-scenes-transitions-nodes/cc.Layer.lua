@@ -44,7 +44,7 @@ cls.funcs [[
     GLubyte getStartOpacity()
     void setEndOpacity( GLubyte endOpacity )
     GLubyte getEndOpacity()
-    void setVector(@pack const Vec2& alongVector)
+    void setVector(const Vec2& alongVector)
     @unapck const Vec2& getVector()
 ]]
 cls.props [[
@@ -68,8 +68,8 @@ cls.funcs([[
     GLubyte getEndOpacity()
     void setRadius(float radius)
     float getRadius()
-    void setCenter(@pack const Vec2& center)
-    @unpack Vec2 getCenter()
+    void setCenter(const Vec2& center)
+    Vec2 getCenter()
     void setExpand(float expand)
     float getExpand()
     void setStartColor(const Color4B& color)

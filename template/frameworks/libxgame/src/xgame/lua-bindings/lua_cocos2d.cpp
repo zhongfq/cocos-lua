@@ -1001,9 +1001,9 @@ static int _cocos2d_Director_getWinSize(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
 
-    // @unpack const Size& getWinSize()
+    // const Size& getWinSize()
     const cocos2d::Size &ret = (const cocos2d::Size &)self->getWinSize();
-    int num_ret = auto_luacv_unpack_cocos2d_Size(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
@@ -1016,9 +1016,9 @@ static int _cocos2d_Director_getWinSizeInPixels(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
 
-    // @unpack Size getWinSizeInPixels()
+    // Size getWinSizeInPixels()
     cocos2d::Size ret = (cocos2d::Size)self->getWinSizeInPixels();
-    int num_ret = auto_luacv_unpack_cocos2d_Size(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
@@ -1031,9 +1031,9 @@ static int _cocos2d_Director_getVisibleSize(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
 
-    // @unpack Size getVisibleSize()
+    // Size getVisibleSize()
     cocos2d::Size ret = (cocos2d::Size)self->getVisibleSize();
-    int num_ret = auto_luacv_unpack_cocos2d_Size(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
@@ -1046,9 +1046,9 @@ static int _cocos2d_Director_getVisibleOrigin(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
 
-    // @unpack Vec2 getVisibleOrigin()
+    // Vec2 getVisibleOrigin()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getVisibleOrigin();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -1061,43 +1061,43 @@ static int _cocos2d_Director_getSafeAreaRect(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
 
-    // @unpack Rect getSafeAreaRect()
+    // Rect getSafeAreaRect()
     cocos2d::Rect ret = (cocos2d::Rect)self->getSafeAreaRect();
-    int num_ret = manual_luacv_unpack_cocos2d_Rect(L, &ret);
+    int num_ret = manual_luacv_push_cocos2d_Rect(L, &ret);
 
     return num_ret;
 }
 
 static int _cocos2d_Director_convertToGL(lua_State *L)
 {
-    lua_settop(L, 3);
+    lua_settop(L, 2);
 
     cocos2d::Director *self = nullptr;
     cocos2d::Vec2 arg1;       /** point */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
-    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // @unpack Vec2 convertToGL(@pack const Vec2& point)
+    // Vec2 convertToGL(const Vec2& point)
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->convertToGL(arg1);
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
 
 static int _cocos2d_Director_convertToUI(lua_State *L)
 {
-    lua_settop(L, 3);
+    lua_settop(L, 2);
 
     cocos2d::Director *self = nullptr;
     cocos2d::Vec2 arg1;       /** point */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
-    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // @unpack Vec2 convertToUI(@pack const Vec2& point)
+    // Vec2 convertToUI(const Vec2& point)
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->convertToUI(arg1);
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -4439,9 +4439,9 @@ static int _cocos2d_EventMouse_getLocation(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventMouse");
 
-    // @unpack Vec2 getLocation()
+    // Vec2 getLocation()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getLocation();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -4454,9 +4454,9 @@ static int _cocos2d_EventMouse_getPreviousLocation(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventMouse");
 
-    // @unpack Vec2 getPreviousLocation()
+    // Vec2 getPreviousLocation()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getPreviousLocation();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -4469,9 +4469,9 @@ static int _cocos2d_EventMouse_getStartLocation(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventMouse");
 
-    // @unpack Vec2 getStartLocation()
+    // Vec2 getStartLocation()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getStartLocation();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -4484,9 +4484,9 @@ static int _cocos2d_EventMouse_getDelta(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventMouse");
 
-    // @unpack Vec2 getDelta()
+    // Vec2 getDelta()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getDelta();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -4499,9 +4499,9 @@ static int _cocos2d_EventMouse_getLocationInView(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventMouse");
 
-    // @unpack Vec2 getLocationInView()
+    // Vec2 getLocationInView()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getLocationInView();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -4514,9 +4514,9 @@ static int _cocos2d_EventMouse_getPreviousLocationInView(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventMouse");
 
-    // @unpack Vec2 getPreviousLocationInView()
+    // Vec2 getPreviousLocationInView()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getPreviousLocationInView();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -4529,9 +4529,9 @@ static int _cocos2d_EventMouse_getStartLocationInView(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventMouse");
 
-    // @unpack Vec2 getStartLocationInView()
+    // Vec2 getStartLocationInView()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getStartLocationInView();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -4773,9 +4773,9 @@ static int _cocos2d_Touch_getLocation(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Touch");
 
-    // @unpack Vec2 getLocation()
+    // Vec2 getLocation()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getLocation();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -4788,9 +4788,9 @@ static int _cocos2d_Touch_getPreviousLocation(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Touch");
 
-    // @unpack Vec2 getPreviousLocation()
+    // Vec2 getPreviousLocation()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getPreviousLocation();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -4803,9 +4803,9 @@ static int _cocos2d_Touch_getStartLocation(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Touch");
 
-    // @unpack Vec2 getStartLocation()
+    // Vec2 getStartLocation()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getStartLocation();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -4818,9 +4818,9 @@ static int _cocos2d_Touch_getDelta(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Touch");
 
-    // @unpack Vec2 getDelta()
+    // Vec2 getDelta()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getDelta();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -4833,9 +4833,9 @@ static int _cocos2d_Touch_getLocationInView(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Touch");
 
-    // @unpack Vec2 getLocationInView()
+    // Vec2 getLocationInView()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getLocationInView();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -4848,9 +4848,9 @@ static int _cocos2d_Touch_getPreviousLocationInView(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Touch");
 
-    // @unpack Vec2 getPreviousLocationInView()
+    // Vec2 getPreviousLocationInView()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getPreviousLocationInView();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -4863,9 +4863,9 @@ static int _cocos2d_Touch_getStartLocationInView(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Touch");
 
-    // @unpack Vec2 getStartLocationInView()
+    // Vec2 getStartLocationInView()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getStartLocationInView();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -6342,9 +6342,9 @@ static int _cocos2d_GLView_getFrameSize(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
 
-    // @unpack Size getFrameSize()
+    // Size getFrameSize()
     cocos2d::Size ret = (cocos2d::Size)self->getFrameSize();
-    int num_ret = auto_luacv_unpack_cocos2d_Size(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
@@ -6484,9 +6484,9 @@ static int _cocos2d_GLView_getVisibleSize(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
 
-    // @unpack Size getVisibleSize()
+    // Size getVisibleSize()
     cocos2d::Size ret = (cocos2d::Size)self->getVisibleSize();
-    int num_ret = auto_luacv_unpack_cocos2d_Size(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
@@ -6499,9 +6499,9 @@ static int _cocos2d_GLView_getVisibleOrigin(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
 
-    // @unpack Vec2 getVisibleOrigin()
+    // Vec2 getVisibleOrigin()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getVisibleOrigin();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -6514,9 +6514,9 @@ static int _cocos2d_GLView_getVisibleRect(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
 
-    // @unpack Rect getVisibleRect()
+    // Rect getVisibleRect()
     cocos2d::Rect ret = (cocos2d::Rect)self->getVisibleRect();
-    int num_ret = manual_luacv_unpack_cocos2d_Rect(L, &ret);
+    int num_ret = manual_luacv_push_cocos2d_Rect(L, &ret);
 
     return num_ret;
 }
@@ -6529,9 +6529,9 @@ static int _cocos2d_GLView_getSafeAreaRect(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
 
-    // @unpack Rect getSafeAreaRect()
+    // Rect getSafeAreaRect()
     cocos2d::Rect ret = (cocos2d::Rect)self->getSafeAreaRect();
-    int num_ret = manual_luacv_unpack_cocos2d_Rect(L, &ret);
+    int num_ret = manual_luacv_push_cocos2d_Rect(L, &ret);
 
     return num_ret;
 }
@@ -6564,9 +6564,9 @@ static int _cocos2d_GLView_getDesignResolutionSize(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
 
-    // @unpack const Size&  getDesignResolutionSize() const;
+    // const Size&  getDesignResolutionSize() const;
     const cocos2d::Size &ret = (const cocos2d::Size &)self->getDesignResolutionSize();
-    int num_ret = auto_luacv_unpack_cocos2d_Size(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
@@ -6638,9 +6638,9 @@ static int _cocos2d_GLView_getScissorRect(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
 
-    // @unpack Rect getScissorRect()
+    // Rect getScissorRect()
     cocos2d::Rect ret = (cocos2d::Rect)self->getScissorRect();
-    int num_ret = manual_luacv_unpack_cocos2d_Rect(L, &ret);
+    int num_ret = manual_luacv_push_cocos2d_Rect(L, &ret);
 
     return num_ret;
 }
@@ -6684,9 +6684,9 @@ static int _cocos2d_GLView_getViewPortRect(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
 
-    // @unpack const Rect& getViewPortRect()
+    // const Rect& getViewPortRect()
     const cocos2d::Rect &ret = (const cocos2d::Rect &)self->getViewPortRect();
-    int num_ret = manual_luacv_unpack_cocos2d_Rect(L, &ret);
+    int num_ret = manual_luacv_push_cocos2d_Rect(L, &ret);
 
     return num_ret;
 }
@@ -9308,9 +9308,9 @@ static int _cocos2d_Texture2D_getContentSizeInPixels(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Texture2D");
 
-    // @unpack const Size& getContentSizeInPixels()
+    // const Size& getContentSizeInPixels()
     const cocos2d::Size &ret = (const cocos2d::Size &)self->getContentSizeInPixels();
-    int num_ret = auto_luacv_unpack_cocos2d_Size(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
@@ -9353,9 +9353,9 @@ static int _cocos2d_Texture2D_getContentSize(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Texture2D");
 
-    // @unpack Size getContentSize()
+    // Size getContentSize()
     cocos2d::Size ret = (cocos2d::Size)self->getContentSize();
-    int num_ret = auto_luacv_unpack_cocos2d_Size(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
@@ -11775,15 +11775,15 @@ static int luaopen_cocos2d_RotateBy(lua_State *L)
 
 static int _cocos2d_MoveBy_create1(lua_State *L)
 {
-    lua_settop(L, 3);
+    lua_settop(L, 2);
 
     lua_Number arg1 = 0;   /** duration */
     cocos2d::Vec2 arg2;       /** deltaPosition */
 
     olua_check_number(L, 1, &arg1);
-    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg2);
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg2);
 
-    // static MoveBy* create(float duration, @pack const Vec2& deltaPosition)
+    // static MoveBy* create(float duration, Vec2& deltaPosition)
     cocos2d::MoveBy *ret = (cocos2d::MoveBy *)cocos2d::MoveBy::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::MoveBy>(L, ret, "cc.MoveBy");
 
@@ -11792,15 +11792,15 @@ static int _cocos2d_MoveBy_create1(lua_State *L)
 
 static int _cocos2d_MoveBy_create2(lua_State *L)
 {
-    lua_settop(L, 4);
+    lua_settop(L, 2);
 
     lua_Number arg1 = 0;   /** duration */
     cocos2d::Vec3 arg2;       /** deltaPosition */
 
     olua_check_number(L, 1, &arg1);
-    auto_luacv_pack_cocos2d_Vec3(L, 2, &arg2);
+    auto_luacv_check_cocos2d_Vec3(L, 2, &arg2);
 
-    // static MoveBy* create(float duration, @pack const Vec3& deltaPosition)
+    // static MoveBy* create(float duration, Vec3& deltaPosition)
     cocos2d::MoveBy *ret = (cocos2d::MoveBy *)cocos2d::MoveBy::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::MoveBy>(L, ret, "cc.MoveBy");
 
@@ -11811,14 +11811,12 @@ static int _cocos2d_MoveBy_create(lua_State *L)
 {
     int num_args = lua_gettop(L);
 
-    if (num_args == 3) {
-        // if (olua_is_number(L, 1) && auto_luacv_ispack_cocos2d_Vec2(L, 2)) {
+    if (num_args == 2) {
+        if (olua_is_number(L, 1) && auto_luacv_is_cocos2d_Vec2(L, 2)) {
             return _cocos2d_MoveBy_create1(L);
-        // }
-    }
+        }
 
-    if (num_args == 4) {
-        // if (olua_is_number(L, 1) && auto_luacv_ispack_cocos2d_Vec3(L, 2)) {
+        // if (olua_is_number(L, 1) && auto_luacv_is_cocos2d_Vec3(L, 2)) {
             return _cocos2d_MoveBy_create2(L);
         // }
     }
@@ -11841,15 +11839,15 @@ static int luaopen_cocos2d_MoveBy(lua_State *L)
 
 static int _cocos2d_MoveTo_create1(lua_State *L)
 {
-    lua_settop(L, 3);
+    lua_settop(L, 2);
 
     lua_Number arg1 = 0;   /** duration */
     cocos2d::Vec2 arg2;       /** position */
 
     olua_check_number(L, 1, &arg1);
-    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg2);
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg2);
 
-    // static MoveTo* create(float duration, @pack const Vec2& position)
+    // static MoveTo* create(float duration, Vec2& position)
     cocos2d::MoveTo *ret = (cocos2d::MoveTo *)cocos2d::MoveTo::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::MoveTo>(L, ret, "cc.MoveTo");
 
@@ -11858,15 +11856,15 @@ static int _cocos2d_MoveTo_create1(lua_State *L)
 
 static int _cocos2d_MoveTo_create2(lua_State *L)
 {
-    lua_settop(L, 4);
+    lua_settop(L, 2);
 
     lua_Number arg1 = 0;   /** duration */
     cocos2d::Vec3 arg2;       /** position */
 
     olua_check_number(L, 1, &arg1);
-    auto_luacv_pack_cocos2d_Vec3(L, 2, &arg2);
+    auto_luacv_check_cocos2d_Vec3(L, 2, &arg2);
 
-    // static MoveTo* create(float duration, @pack const Vec3& position)
+    // static MoveTo* create(float duration, Vec3& position)
     cocos2d::MoveTo *ret = (cocos2d::MoveTo *)cocos2d::MoveTo::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::MoveTo>(L, ret, "cc.MoveTo");
 
@@ -11877,14 +11875,12 @@ static int _cocos2d_MoveTo_create(lua_State *L)
 {
     int num_args = lua_gettop(L);
 
-    if (num_args == 3) {
-        // if (olua_is_number(L, 1) && auto_luacv_ispack_cocos2d_Vec2(L, 2)) {
+    if (num_args == 2) {
+        if (olua_is_number(L, 1) && auto_luacv_is_cocos2d_Vec2(L, 2)) {
             return _cocos2d_MoveTo_create1(L);
-        // }
-    }
+        }
 
-    if (num_args == 4) {
-        // if (olua_is_number(L, 1) && auto_luacv_ispack_cocos2d_Vec3(L, 2)) {
+        // if (olua_is_number(L, 1) && auto_luacv_is_cocos2d_Vec3(L, 2)) {
             return _cocos2d_MoveTo_create2(L);
         // }
     }
@@ -11967,15 +11963,15 @@ static int luaopen_cocos2d_SkewBy(lua_State *L)
 
 static int _cocos2d_ResizeTo_create(lua_State *L)
 {
-    lua_settop(L, 3);
+    lua_settop(L, 2);
 
     lua_Number arg1 = 0;   /** duration */
     cocos2d::Size arg2;       /** final_size */
 
     olua_check_number(L, 1, &arg1);
-    auto_luacv_pack_cocos2d_Size(L, 2, &arg2);
+    auto_luacv_check_cocos2d_Size(L, 2, &arg2);
 
-    // static ResizeTo* create(float duration, @pack const cocos2d::Size& final_size);
+    // static ResizeTo* create(float duration, cocos2d::Size& final_size);
     cocos2d::ResizeTo *ret = (cocos2d::ResizeTo *)cocos2d::ResizeTo::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::ResizeTo>(L, ret, "cc.ResizeTo");
 
@@ -11995,15 +11991,15 @@ static int luaopen_cocos2d_ResizeTo(lua_State *L)
 
 static int _cocos2d_ResizeBy_create(lua_State *L)
 {
-    lua_settop(L, 3);
+    lua_settop(L, 2);
 
     lua_Number arg1 = 0;   /** duration */
     cocos2d::Size arg2;       /** deltaSize */
 
     olua_check_number(L, 1, &arg1);
-    auto_luacv_pack_cocos2d_Size(L, 2, &arg2);
+    auto_luacv_check_cocos2d_Size(L, 2, &arg2);
 
-    // static ResizeBy* create(float duration, @pack const cocos2d::Size& deltaSize);
+    // static ResizeBy* create(float duration, cocos2d::Size& deltaSize);
     cocos2d::ResizeBy *ret = (cocos2d::ResizeBy *)cocos2d::ResizeBy::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::ResizeBy>(L, ret, "cc.ResizeBy");
 
@@ -12023,7 +12019,7 @@ static int luaopen_cocos2d_ResizeBy(lua_State *L)
 
 static int _cocos2d_JumpBy_create(lua_State *L)
 {
-    lua_settop(L, 5);
+    lua_settop(L, 4);
 
     lua_Number arg1 = 0;   /** duration */
     cocos2d::Vec2 arg2;       /** position */
@@ -12031,11 +12027,11 @@ static int _cocos2d_JumpBy_create(lua_State *L)
     lua_Integer arg4 = 0;   /** jumps */
 
     olua_check_number(L, 1, &arg1);
-    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg2);
-    olua_check_number(L, 4, &arg3);
-    olua_check_int(L, 5, &arg4);
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+    olua_check_int(L, 4, &arg4);
 
-    // static JumpBy* create(float duration, @pack const Vec2& position, float height, int jumps);
+    // static JumpBy* create(float duration, Vec2& position, float height, int jumps);
     cocos2d::JumpBy *ret = (cocos2d::JumpBy *)cocos2d::JumpBy::create((float)arg1, arg2, (float)arg3, (int)arg4);
     int num_ret = olua_push_cppobj<cocos2d::JumpBy>(L, ret, "cc.JumpBy");
 
@@ -12055,7 +12051,7 @@ static int luaopen_cocos2d_JumpBy(lua_State *L)
 
 static int _cocos2d_JumpTo_create(lua_State *L)
 {
-    lua_settop(L, 5);
+    lua_settop(L, 4);
 
     lua_Number arg1 = 0;   /** duration */
     cocos2d::Vec2 arg2;       /** position */
@@ -12063,11 +12059,11 @@ static int _cocos2d_JumpTo_create(lua_State *L)
     lua_Integer arg4 = 0;   /** jumps */
 
     olua_check_number(L, 1, &arg1);
-    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg2);
-    olua_check_number(L, 4, &arg3);
-    olua_check_int(L, 5, &arg4);
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+    olua_check_int(L, 4, &arg4);
 
-    // static JumpTo* create(float duration, @pack const Vec2& position, float height, int jumps);
+    // static JumpTo* create(float duration, Vec2& position, float height, int jumps);
     cocos2d::JumpTo *ret = (cocos2d::JumpTo *)cocos2d::JumpTo::create((float)arg1, arg2, (float)arg3, (int)arg4);
     int num_ret = olua_push_cppobj<cocos2d::JumpTo>(L, ret, "cc.JumpTo");
 
@@ -12087,15 +12083,15 @@ static int luaopen_cocos2d_JumpTo(lua_State *L)
 
 static int _cocos2d_BezierBy_create(lua_State *L)
 {
-    lua_settop(L, 4);
+    lua_settop(L, 2);
 
     lua_Number arg1 = 0;   /** t */
     cocos2d::ccBezierConfig arg2;       /** c */
 
     olua_check_number(L, 1, &arg1);
-    manual_luacv_pack_cocos2d_ccBezierConfig(L, 2, &arg2);
+    manual_luacv_check_cocos2d_ccBezierConfig(L, 2, &arg2);
 
-    // static BezierBy* create(float t, @pack const ccBezierConfig& c);
+    // static BezierBy* create(float t, ccBezierConfig& c);
     cocos2d::BezierBy *ret = (cocos2d::BezierBy *)cocos2d::BezierBy::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::BezierBy>(L, ret, "cc.BezierBy");
 
@@ -12115,15 +12111,15 @@ static int luaopen_cocos2d_BezierBy(lua_State *L)
 
 static int _cocos2d_BezierTo_create(lua_State *L)
 {
-    lua_settop(L, 4);
+    lua_settop(L, 2);
 
     lua_Number arg1 = 0;   /** t */
     cocos2d::ccBezierConfig arg2;       /** c */
 
     olua_check_number(L, 1, &arg1);
-    manual_luacv_pack_cocos2d_ccBezierConfig(L, 2, &arg2);
+    manual_luacv_check_cocos2d_ccBezierConfig(L, 2, &arg2);
 
-    // static BezierTo* create(float t, @pack const ccBezierConfig& c);
+    // static BezierTo* create(float t, ccBezierConfig& c);
     cocos2d::BezierTo *ret = (cocos2d::BezierTo *)cocos2d::BezierTo::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::BezierTo>(L, ret, "cc.BezierTo");
 
@@ -15461,15 +15457,15 @@ static int _cocos2d_Node_setPosition(lua_State *L)
 
 static int _cocos2d_Node_setPositionNormalized(lua_State *L)
 {
-    lua_settop(L, 3);
+    lua_settop(L, 2);
 
     cocos2d::Node *self = nullptr;
     cocos2d::Vec2 arg1;       /** position */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
-    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // void setPositionNormalized(@pack const Vec2 &position)
+    // void setPositionNormalized(Vec2 &position)
     self->setPositionNormalized(arg1);
 
     return 0;
@@ -15483,9 +15479,9 @@ static int _cocos2d_Node_getPosition(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
 
-    // @unpack const Vec2& getPosition()
+    // const Vec2& getPosition()
     const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getPosition();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -15498,9 +15494,9 @@ static int _cocos2d_Node_getPositionNormalized(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
 
-    // @unpack const Vec2& getPositionNormalized()
+    // const Vec2& getPositionNormalized()
     const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getPositionNormalized();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -15569,15 +15565,15 @@ static int _cocos2d_Node_getPositionY(lua_State *L)
 
 static int _cocos2d_Node_setPosition3D(lua_State *L)
 {
-    lua_settop(L, 4);
+    lua_settop(L, 2);
 
     cocos2d::Node *self = nullptr;
     cocos2d::Vec3 arg1;       /** position */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
-    auto_luacv_pack_cocos2d_Vec3(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec3(L, 2, &arg1);
 
-    // void setPosition3D(@pack const Vec3& position)
+    // void setPosition3D(Vec3& position)
     self->setPosition3D(arg1);
 
     return 0;
@@ -15591,9 +15587,9 @@ static int _cocos2d_Node_getPosition3D(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
 
-    // @unpack Vec3 getPosition3D()
+    // Vec3 getPosition3D()
     cocos2d::Vec3 ret = (cocos2d::Vec3)self->getPosition3D();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec3(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec3(L, &ret);
 
     return num_ret;
 }
@@ -15693,15 +15689,15 @@ static int _cocos2d_Node_getSkewY(lua_State *L)
 
 static int _cocos2d_Node_setAnchorPoint(lua_State *L)
 {
-    lua_settop(L, 3);
+    lua_settop(L, 2);
 
     cocos2d::Node *self = nullptr;
     cocos2d::Vec2 arg1;       /** anchorPoint */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
-    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // void setAnchorPoint(@pack const Vec2& anchorPoint)
+    // void setAnchorPoint(Vec2& anchorPoint)
     self->setAnchorPoint(arg1);
 
     return 0;
@@ -15715,9 +15711,9 @@ static int _cocos2d_Node_getAnchorPoint(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
 
-    // @unpack const Vec2& getAnchorPoint()
+    // const Vec2& getAnchorPoint()
     const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getAnchorPoint();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -15730,24 +15726,24 @@ static int _cocos2d_Node_getAnchorPointInPoints(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
 
-    // @unpack const Vec2& getAnchorPointInPoints()
+    // const Vec2& getAnchorPointInPoints()
     const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getAnchorPointInPoints();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
 
 static int _cocos2d_Node_setContentSize(lua_State *L)
 {
-    lua_settop(L, 3);
+    lua_settop(L, 2);
 
     cocos2d::Node *self = nullptr;
     cocos2d::Size arg1;       /** contentSize */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
-    auto_luacv_pack_cocos2d_Size(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Size(L, 2, &arg1);
 
-    // void setContentSize(@pack const Size& contentSize)
+    // void setContentSize(Size& contentSize)
     self->setContentSize(arg1);
 
     return 0;
@@ -15761,9 +15757,9 @@ static int _cocos2d_Node_getContentSize(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
 
-    // @unpack const Size& getContentSize()
+    // const Size& getContentSize()
     const cocos2d::Size &ret = (const cocos2d::Size &)self->getContentSize();
-    int num_ret = auto_luacv_unpack_cocos2d_Size(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
@@ -15832,15 +15828,15 @@ static int _cocos2d_Node_getRotation(lua_State *L)
 
 static int _cocos2d_Node_setRotation3D(lua_State *L)
 {
-    lua_settop(L, 4);
+    lua_settop(L, 2);
 
     cocos2d::Node *self = nullptr;
     cocos2d::Vec3 arg1;       /** rotation */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
-    auto_luacv_pack_cocos2d_Vec3(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec3(L, 2, &arg1);
 
-    // void setRotation3D(@pack const Vec3& rotation)
+    // void setRotation3D(Vec3& rotation)
     self->setRotation3D(arg1);
 
     return 0;
@@ -15854,9 +15850,9 @@ static int _cocos2d_Node_getRotation3D(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
 
-    // @unpack Vec3 getRotation3D()
+    // Vec3 getRotation3D()
     cocos2d::Vec3 ret = (cocos2d::Vec3)self->getRotation3D();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec3(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec3(L, &ret);
 
     return num_ret;
 }
@@ -16741,9 +16737,9 @@ static int _cocos2d_Node_getBoundingBox(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
 
-    // @unpack Rect getBoundingBox()
+    // Rect getBoundingBox()
     cocos2d::Rect ret = (cocos2d::Rect)self->getBoundingBox();
-    int num_ret = manual_luacv_unpack_cocos2d_Rect(L, &ret);
+    int num_ret = manual_luacv_push_cocos2d_Rect(L, &ret);
 
     return num_ret;
 }
@@ -17314,68 +17310,68 @@ static int _cocos2d_Node_getWorldToNodeAffineTransform(lua_State *L)
 
 static int _cocos2d_Node_convertToNodeSpace(lua_State *L)
 {
-    lua_settop(L, 3);
+    lua_settop(L, 2);
 
     cocos2d::Node *self = nullptr;
     cocos2d::Vec2 arg1;       /** worldPoint */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
-    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // @unpack Vec2 convertToNodeSpace(@pack const Vec2& worldPoint)
+    // Vec2 convertToNodeSpace(Vec2& worldPoint)
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->convertToNodeSpace(arg1);
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
 
 static int _cocos2d_Node_convertToWorldSpace(lua_State *L)
 {
-    lua_settop(L, 3);
+    lua_settop(L, 2);
 
     cocos2d::Node *self = nullptr;
     cocos2d::Vec2 arg1;       /** nodePoint */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
-    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // @unpack Vec2 convertToWorldSpace(@pack const Vec2& nodePoint)
+    // Vec2 convertToWorldSpace(Vec2& nodePoint)
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->convertToWorldSpace(arg1);
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
 
 static int _cocos2d_Node_convertToNodeSpaceAR(lua_State *L)
 {
-    lua_settop(L, 3);
+    lua_settop(L, 2);
 
     cocos2d::Node *self = nullptr;
     cocos2d::Vec2 arg1;       /** worldPoint */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
-    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // @unpack Vec2 convertToNodeSpaceAR(@pack const Vec2& worldPoint)
+    // Vec2 convertToNodeSpaceAR(Vec2& worldPoint)
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->convertToNodeSpaceAR(arg1);
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
 
 static int _cocos2d_Node_convertToWorldSpaceAR(lua_State *L)
 {
-    lua_settop(L, 3);
+    lua_settop(L, 2);
 
     cocos2d::Node *self = nullptr;
     cocos2d::Vec2 arg1;       /** nodePoint */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
-    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // @unpack Vec2 convertToWorldSpaceAR(@pack const Vec2& nodePoint)
+    // Vec2 convertToWorldSpaceAR(Vec2& nodePoint)
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->convertToWorldSpaceAR(arg1);
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -17407,9 +17403,9 @@ static int _cocos2d_Node_convertTouchToNodeSpaceAR(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Touch");
 
-    // @unpack Vec2 convertTouchToNodeSpaceAR(Touch * touch)
+    // Vec2 convertTouchToNodeSpaceAR(Touch * touch)
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->convertTouchToNodeSpaceAR(arg1);
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -21310,24 +21306,24 @@ static int _cocos2d_SpriteFrame_getOffsetInPixels(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteFrame");
 
-    // @unpack const Vec2& getOffsetInPixels()
+    // const Vec2& getOffsetInPixels()
     const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getOffsetInPixels();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
 
 static int _cocos2d_SpriteFrame_setOffsetInPixels(lua_State *L)
 {
-    lua_settop(L, 3);
+    lua_settop(L, 2);
 
     cocos2d::SpriteFrame *self = nullptr;
     cocos2d::Vec2 arg1;       /** offsetInPixels */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteFrame");
-    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // void setOffsetInPixels(@pack const Vec2& offsetInPixels)
+    // void setOffsetInPixels(const Vec2& offsetInPixels)
     self->setOffsetInPixels(arg1);
 
     return 0;
@@ -21341,24 +21337,24 @@ static int _cocos2d_SpriteFrame_getOriginalSizeInPixels(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteFrame");
 
-    // @unpack const Size& getOriginalSizeInPixels()
+    // const Size& getOriginalSizeInPixels()
     const cocos2d::Size &ret = (const cocos2d::Size &)self->getOriginalSizeInPixels();
-    int num_ret = auto_luacv_unpack_cocos2d_Size(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
 
 static int _cocos2d_SpriteFrame_setOriginalSizeInPixels(lua_State *L)
 {
-    lua_settop(L, 3);
+    lua_settop(L, 2);
 
     cocos2d::SpriteFrame *self = nullptr;
     cocos2d::Size arg1;       /** sizeInPixels */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteFrame");
-    auto_luacv_pack_cocos2d_Size(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Size(L, 2, &arg1);
 
-    // void setOriginalSizeInPixels(@pack const Size& sizeInPixels)
+    // void setOriginalSizeInPixels(const Size& sizeInPixels)
     self->setOriginalSizeInPixels(arg1);
 
     return 0;
@@ -21372,24 +21368,24 @@ static int _cocos2d_SpriteFrame_getOriginalSize(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteFrame");
 
-    // @unpack const Size& getOriginalSize()
+    // const Size& getOriginalSize()
     const cocos2d::Size &ret = (const cocos2d::Size &)self->getOriginalSize();
-    int num_ret = auto_luacv_unpack_cocos2d_Size(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
 
 static int _cocos2d_SpriteFrame_setOriginalSize(lua_State *L)
 {
-    lua_settop(L, 3);
+    lua_settop(L, 2);
 
     cocos2d::SpriteFrame *self = nullptr;
     cocos2d::Size arg1;       /** sizeInPixels */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteFrame");
-    auto_luacv_pack_cocos2d_Size(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Size(L, 2, &arg1);
 
-    // void setOriginalSize(@pack const Size& sizeInPixels)
+    // void setOriginalSize(const Size& sizeInPixels)
     self->setOriginalSize(arg1);
 
     return 0;
@@ -21434,24 +21430,24 @@ static int _cocos2d_SpriteFrame_getOffset(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteFrame");
 
-    // @unpack const Vec2& getOffset()
+    // const Vec2& getOffset()
     const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getOffset();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
 
 static int _cocos2d_SpriteFrame_setOffset(lua_State *L)
 {
-    lua_settop(L, 3);
+    lua_settop(L, 2);
 
     cocos2d::SpriteFrame *self = nullptr;
     cocos2d::Vec2 arg1;       /** offsets */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteFrame");
-    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // void setOffset(@pack const Vec2& offsets)
+    // void setOffset(const Vec2& offsets)
     self->setOffset(arg1);
 
     return 0;
@@ -21465,24 +21461,24 @@ static int _cocos2d_SpriteFrame_getAnchorPoint(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteFrame");
 
-    // @unpack const Vec2& getAnchorPoint()
+    // const Vec2& getAnchorPoint()
     const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getAnchorPoint();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
 
 static int _cocos2d_SpriteFrame_setAnchorPoint(lua_State *L)
 {
-    lua_settop(L, 3);
+    lua_settop(L, 2);
 
     cocos2d::SpriteFrame *self = nullptr;
     cocos2d::Vec2 arg1;       /** anchorPoint */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteFrame");
-    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // void setAnchorPoint(@pack const Vec2& anchorPoint)
+    // void setAnchorPoint(const Vec2& anchorPoint)
     self->setAnchorPoint(arg1);
 
     return 0;
@@ -21743,13 +21739,13 @@ static int _cocos2d_Scene_create(lua_State *L)
 
 static int _cocos2d_Scene_createWithSize(lua_State *L)
 {
-    lua_settop(L, 2);
+    lua_settop(L, 1);
 
     cocos2d::Size arg1;       /** size */
 
-    auto_luacv_pack_cocos2d_Size(L, 1, &arg1);
+    auto_luacv_check_cocos2d_Size(L, 1, &arg1);
 
-    // static Scene *createWithSize(@pack const Size& size)
+    // static Scene *createWithSize(const Size& size)
     cocos2d::Scene *ret = (cocos2d::Scene *)cocos2d::Scene::createWithSize(arg1);
     int num_ret = olua_push_cppobj<cocos2d::Scene>(L, ret, "cc.Scene");
 
@@ -22235,15 +22231,15 @@ static int _cocos2d_LayerGradient_getEndOpacity(lua_State *L)
 
 static int _cocos2d_LayerGradient_setVector(lua_State *L)
 {
-    lua_settop(L, 3);
+    lua_settop(L, 2);
 
     cocos2d::LayerGradient *self = nullptr;
     cocos2d::Vec2 arg1;       /** alongVector */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.LayerGradient");
-    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // void setVector(@pack const Vec2& alongVector)
+    // void setVector(const Vec2& alongVector)
     self->setVector(arg1);
 
     return 0;
@@ -22440,15 +22436,15 @@ static int _cocos2d_LayerRadialGradient_getRadius(lua_State *L)
 
 static int _cocos2d_LayerRadialGradient_setCenter(lua_State *L)
 {
-    lua_settop(L, 3);
+    lua_settop(L, 2);
 
     cocos2d::LayerRadialGradient *self = nullptr;
     cocos2d::Vec2 arg1;       /** center */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.LayerRadialGradient");
-    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // void setCenter(@pack const Vec2& center)
+    // void setCenter(const Vec2& center)
     self->setCenter(arg1);
 
     return 0;
@@ -22462,9 +22458,9 @@ static int _cocos2d_LayerRadialGradient_getCenter(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.LayerRadialGradient");
 
-    // @unpack Vec2 getCenter()
+    // Vec2 getCenter()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getCenter();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -24524,15 +24520,15 @@ static int _cocos2d_DirectionLight_create(lua_State *L)
 
 static int _cocos2d_DirectionLight_setDirection(lua_State *L)
 {
-    lua_settop(L, 4);
+    lua_settop(L, 2);
 
     cocos2d::DirectionLight *self = nullptr;
     cocos2d::Vec3 arg1;       /** dir */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.DirectionLight");
-    auto_luacv_pack_cocos2d_Vec3(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec3(L, 2, &arg1);
 
-    // void setDirection(@pack const Vec3 &dir)
+    // void setDirection(const Vec3 &dir)
     self->setDirection(arg1);
 
     return 0;
@@ -24546,9 +24542,9 @@ static int _cocos2d_DirectionLight_getDirection(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.DirectionLight");
 
-    // @unpack Vec3 getDirection()
+    // Vec3 getDirection()
     cocos2d::Vec3 ret = (cocos2d::Vec3)self->getDirection();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec3(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec3(L, &ret);
 
     return num_ret;
 }
@@ -24561,9 +24557,9 @@ static int _cocos2d_DirectionLight_getDirectionInWorld(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.DirectionLight");
 
-    // @unpack Vec3 getDirectionInWorld()
+    // Vec3 getDirectionInWorld()
     cocos2d::Vec3 ret = (cocos2d::Vec3)self->getDirectionInWorld();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec3(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec3(L, &ret);
 
     return num_ret;
 }
@@ -24673,15 +24669,15 @@ static int _cocos2d_SpotLight_create(lua_State *L)
 
 static int _cocos2d_SpotLight_setDirection(lua_State *L)
 {
-    lua_settop(L, 4);
+    lua_settop(L, 2);
 
     cocos2d::SpotLight *self = nullptr;
     cocos2d::Vec3 arg1;       /** dir */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.SpotLight");
-    auto_luacv_pack_cocos2d_Vec3(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec3(L, 2, &arg1);
 
-    // void setDirection(@pack const Vec3 &dir)
+    // void setDirection(const Vec3 &dir)
     self->setDirection(arg1);
 
     return 0;
@@ -24695,9 +24691,9 @@ static int _cocos2d_SpotLight_getDirection(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.SpotLight");
 
-    // @unpack Vec3 getDirection()
+    // Vec3 getDirection()
     cocos2d::Vec3 ret = (cocos2d::Vec3)self->getDirection();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec3(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec3(L, &ret);
 
     return num_ret;
 }
@@ -24710,9 +24706,9 @@ static int _cocos2d_SpotLight_getDirectionInWorld(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.SpotLight");
 
-    // @unpack Vec3 getDirectionInWorld()
+    // Vec3 getDirectionInWorld()
     cocos2d::Vec3 ret = (cocos2d::Vec3)self->getDirectionInWorld();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec3(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec3(L, &ret);
 
     return num_ret;
 }

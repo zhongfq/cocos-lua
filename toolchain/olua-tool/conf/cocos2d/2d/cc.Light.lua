@@ -58,9 +58,9 @@ cls.LUACLS = "cc.DirectionLight"
 cls.SUPERCLS = "cc.BaseLight"
 cls.funcs([[
     static DirectionLight* create(const Vec3 &direction, const Color3B &color)
-    void setDirection(@pack const Vec3 &dir)
-    @unpack Vec3 getDirection()
-    @unpack Vec3 getDirectionInWorld()
+    void setDirection(const Vec3 &dir)
+    Vec3 getDirection()
+    Vec3 getDirectionInWorld()
 ]])
 
 local cls = class(M)
@@ -82,9 +82,9 @@ cls.LUACLS = "cc.SpotLight"
 cls.SUPERCLS = "cc.BaseLight"
 cls.funcs([[
     static SpotLight* create(const Vec3 &direction, const Vec3 &position, const Color3B &color, float innerAngle, float outerAngle, float range)
-    void setDirection(@pack const Vec3 &dir)
-    @unpack Vec3 getDirection()
-    @unpack Vec3 getDirectionInWorld()
+    void setDirection(const Vec3 &dir)
+    Vec3 getDirection()
+    Vec3 getDirectionInWorld()
     void setRange(float range)
     float getRange()
     void setInnerAngle(float angle)

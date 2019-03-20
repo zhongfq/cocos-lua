@@ -119,8 +119,8 @@ cls.CPPCLS = "cocos2d::MoveBy"
 cls.LUACLS = "cc.MoveBy"
 cls.SUPERCLS = "cc.ActionInterval"
 cls.funcs([[
-    static MoveBy* create(float duration, @pack const Vec2& deltaPosition)
-    static MoveBy* create(float duration, @pack const Vec3& deltaPosition)
+    static MoveBy* create(float duration, Vec2& deltaPosition)
+    static MoveBy* create(float duration, Vec3& deltaPosition)
 ]])
 
 local cls = class(M)
@@ -128,8 +128,8 @@ cls.CPPCLS = "cocos2d::MoveTo"
 cls.LUACLS = "cc.MoveTo"
 cls.SUPERCLS = "cc.MoveBy"
 cls.funcs([[
-    static MoveTo* create(float duration, @pack const Vec2& position)
-    static MoveTo* create(float duration, @pack const Vec3& position)
+    static MoveTo* create(float duration, Vec2& position)
+    static MoveTo* create(float duration, Vec3& position)
 ]])
 
 local cls = class(M)
@@ -153,7 +153,7 @@ cls.CPPCLS = "cocos2d::ResizeTo"
 cls.LUACLS = "cc.ResizeTo"
 cls.SUPERCLS = "cc.ActionInterval"
 cls.funcs([[
-    static ResizeTo* create(float duration, @pack const cocos2d::Size& final_size);
+    static ResizeTo* create(float duration, cocos2d::Size& final_size);
 ]])
 
 local cls = class(M)
@@ -161,7 +161,7 @@ cls.CPPCLS = "cocos2d::ResizeBy"
 cls.LUACLS = "cc.ResizeBy"
 cls.SUPERCLS = "cc.ActionInterval"
 cls.funcs([[
-     static ResizeBy* create(float duration, @pack const cocos2d::Size& deltaSize);
+     static ResizeBy* create(float duration, cocos2d::Size& deltaSize);
 ]])
 
 local cls = class(M)
@@ -169,7 +169,7 @@ cls.CPPCLS = "cocos2d::JumpBy"
 cls.LUACLS = "cc.JumpBy"
 cls.SUPERCLS = "cc.ActionInterval"
 cls.funcs([[
-    static JumpBy* create(float duration, @pack const Vec2& position, float height, int jumps);
+    static JumpBy* create(float duration, Vec2& position, float height, int jumps);
 ]])
 
 local cls = class(M)
@@ -177,7 +177,7 @@ cls.CPPCLS = "cocos2d::JumpTo"
 cls.LUACLS = "cc.JumpTo"
 cls.SUPERCLS = "cc.JumpBy"
 cls.funcs([[
-    static JumpTo* create(float duration, @pack const Vec2& position, float height, int jumps);
+    static JumpTo* create(float duration, Vec2& position, float height, int jumps);
 ]])
 
 local cls = class(M)
@@ -185,7 +185,7 @@ cls.CPPCLS = "cocos2d::BezierBy"
 cls.LUACLS = "cc.BezierBy"
 cls.SUPERCLS = "cc.ActionInterval"
 cls.funcs([[
-    static BezierBy* create(float t, @pack const ccBezierConfig& c);
+    static BezierBy* create(float t, ccBezierConfig& c);
 ]])
 
 local cls = class(M)
@@ -193,7 +193,7 @@ cls.CPPCLS = "cocos2d::BezierTo"
 cls.LUACLS = "cc.BezierTo"
 cls.SUPERCLS = "cc.BezierBy"
 cls.funcs([[
-    static BezierTo* create(float t, @pack const ccBezierConfig& c);
+    static BezierTo* create(float t, ccBezierConfig& c);
 ]])
 
 local cls = class(M)

@@ -302,15 +302,15 @@ static int _cocos2d_ui_Widget_getTopBoundary(lua_State *L)
 
 static int _cocos2d_ui_Widget_setPositionPercent(lua_State *L)
 {
-    lua_settop(L, 3);
+    lua_settop(L, 2);
 
     cocos2d::ui::Widget *self = nullptr;
     cocos2d::Vec2 arg1;       /** percent */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
-    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // void setPositionPercent(@pack const Vec2 &percent)
+    // void setPositionPercent(const Vec2 &percent)
     self->setPositionPercent(arg1);
 
     return 0;
@@ -324,9 +324,9 @@ static int _cocos2d_ui_Widget_getPositionPercent(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
 
-    // @unpack const Vec2& getPositionPercent()
+    // const Vec2& getPositionPercent()
     const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getPositionPercent();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -426,15 +426,15 @@ static int _cocos2d_ui_Widget_isFlippedY(lua_State *L)
 
 static int _cocos2d_ui_Widget_isClippingParentContainsPoint(lua_State *L)
 {
-    lua_settop(L, 3);
+    lua_settop(L, 2);
 
     cocos2d::ui::Widget *self = nullptr;
     cocos2d::Vec2 arg1;       /** pt */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
-    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // bool isClippingParentContainsPoint(@pack const Vec2& pt)
+    // bool isClippingParentContainsPoint(const Vec2& pt)
     bool ret = (bool)self->isClippingParentContainsPoint(arg1);
     int num_ret = olua_push_bool(L, ret);
 
@@ -449,9 +449,9 @@ static int _cocos2d_ui_Widget_getTouchBeganPosition(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
 
-    // @unpack const Vec2& getTouchBeganPosition()
+    // const Vec2& getTouchBeganPosition()
     const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getTouchBeganPosition();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -464,9 +464,9 @@ static int _cocos2d_ui_Widget_getTouchMovePosition(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
 
-    // @unpack const Vec2& getTouchMovePosition()
+    // const Vec2& getTouchMovePosition()
     const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getTouchMovePosition();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -479,24 +479,24 @@ static int _cocos2d_ui_Widget_getTouchEndPosition(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
 
-    // @unpack const Vec2& getTouchEndPosition()
+    // const Vec2& getTouchEndPosition()
     const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getTouchEndPosition();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
 
 static int _cocos2d_ui_Widget_setSizePercent(lua_State *L)
 {
-    lua_settop(L, 3);
+    lua_settop(L, 2);
 
     cocos2d::ui::Widget *self = nullptr;
     cocos2d::Vec2 arg1;       /** percent */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
-    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // void setSizePercent(@pack const Vec2 &percent)
+    // void setSizePercent(const Vec2 &percent)
     self->setSizePercent(arg1);
 
     return 0;
@@ -541,9 +541,9 @@ static int _cocos2d_ui_Widget_getCustomSize(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
 
-    // @unpack const Size& getCustomSize()
+    // const Size& getCustomSize()
     const cocos2d::Size &ret = (const cocos2d::Size &)self->getCustomSize();
-    int num_ret = auto_luacv_unpack_cocos2d_Size(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
@@ -556,9 +556,9 @@ static int _cocos2d_ui_Widget_getLayoutSize(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
 
-    // @unpack const Size& getLayoutSize()
+    // const Size& getLayoutSize()
     const cocos2d::Size &ret = (const cocos2d::Size &)self->getLayoutSize();
-    int num_ret = auto_luacv_unpack_cocos2d_Size(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
@@ -571,9 +571,9 @@ static int _cocos2d_ui_Widget_getSizePercent(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
 
-    // @unpack const Vec2& getSizePercent()
+    // const Vec2& getSizePercent()
     const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getSizePercent();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -742,9 +742,9 @@ static int _cocos2d_ui_Widget_getWorldPosition(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
 
-    // @unpack Vec2 getWorldPosition()
+    // Vec2 getWorldPosition()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getWorldPosition();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -772,9 +772,9 @@ static int _cocos2d_ui_Widget_getVirtualRendererSize(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
 
-    // @unpack Size getVirtualRendererSize()
+    // Size getVirtualRendererSize()
     cocos2d::Size ret = (cocos2d::Size)self->getVirtualRendererSize();
-    int num_ret = auto_luacv_unpack_cocos2d_Size(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
@@ -810,15 +810,15 @@ static int _cocos2d_ui_Widget_updateSizeAndPosition1(lua_State *L)
 
 static int _cocos2d_ui_Widget_updateSizeAndPosition2(lua_State *L)
 {
-    lua_settop(L, 3);
+    lua_settop(L, 2);
 
     cocos2d::ui::Widget *self = nullptr;
     cocos2d::Size arg1;       /** parentSize */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
-    auto_luacv_pack_cocos2d_Size(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Size(L, 2, &arg1);
 
-    // void updateSizeAndPosition(@pack const Size& parentSize)
+    // void updateSizeAndPosition(const Size& parentSize)
     self->updateSizeAndPosition(arg1);
 
     return 0;
@@ -832,8 +832,8 @@ static int _cocos2d_ui_Widget_updateSizeAndPosition(lua_State *L)
         return _cocos2d_ui_Widget_updateSizeAndPosition1(L);
     }
 
-    if (num_args == 2) {
-        // if (auto_luacv_ispack_cocos2d_Size(L, 2)) {
+    if (num_args == 1) {
+        // if (auto_luacv_is_cocos2d_Size(L, 2)) {
             return _cocos2d_ui_Widget_updateSizeAndPosition2(L);
         // }
     }
@@ -2322,24 +2322,24 @@ static int _cocos2d_ui_Scale9Sprite_getOriginalSize(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Scale9Sprite");
 
-    // @unpack Size getOriginalSize()
+    // Size getOriginalSize()
     cocos2d::Size ret = (cocos2d::Size)self->getOriginalSize();
-    int num_ret = auto_luacv_unpack_cocos2d_Size(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
 
 static int _cocos2d_ui_Scale9Sprite_setPreferredSize(lua_State *L)
 {
-    lua_settop(L, 3);
+    lua_settop(L, 2);
 
     cocos2d::ui::Scale9Sprite *self = nullptr;
     cocos2d::Size arg1;       /** size */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Scale9Sprite");
-    auto_luacv_pack_cocos2d_Size(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Size(L, 2, &arg1);
 
-    // void setPreferredSize(@pack const Size& size)
+    // void setPreferredSize(Size& size)
     self->setPreferredSize(arg1);
 
     return 0;
@@ -2760,15 +2760,15 @@ static int _cocos2d_ui_LayoutComponent_getUsingPercentContentSize(lua_State *L)
 
 static int _cocos2d_ui_LayoutComponent_setPercentContentSize(lua_State *L)
 {
-    lua_settop(L, 3);
+    lua_settop(L, 2);
 
     cocos2d::ui::LayoutComponent *self = nullptr;
     cocos2d::Vec2 arg1;       /** percent */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutComponent");
-    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // void setPercentContentSize(@pack const Vec2 &percent)
+    // void setPercentContentSize(const Vec2 &percent)
     self->setPercentContentSize(arg1);
 
     return 0;
@@ -2782,9 +2782,9 @@ static int _cocos2d_ui_LayoutComponent_getPercentContentSize(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutComponent");
 
-    // @unpack Vec2 getPercentContentSize()
+    // Vec2 getPercentContentSize()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getPercentContentSize();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -2797,24 +2797,24 @@ static int _cocos2d_ui_LayoutComponent_getAnchorPosition(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutComponent");
 
-    // @unpack const Point& getAnchorPosition()
+    // const Point& getAnchorPosition()
     const cocos2d::Point &ret = (const cocos2d::Point &)self->getAnchorPosition();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
 
 static int _cocos2d_ui_LayoutComponent_setAnchorPosition(lua_State *L)
 {
-    lua_settop(L, 3);
+    lua_settop(L, 2);
 
     cocos2d::ui::LayoutComponent *self = nullptr;
     cocos2d::Point arg1;       /** point */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutComponent");
-    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // void setAnchorPosition(@pack const Point& point)
+    // void setAnchorPosition(const Point& point)
     self->setAnchorPosition(arg1);
 
     return 0;
@@ -2828,24 +2828,24 @@ static int _cocos2d_ui_LayoutComponent_getPosition(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutComponent");
 
-    // @unpack const Point& getPosition()
+    // const Point& getPosition()
     const cocos2d::Point &ret = (const cocos2d::Point &)self->getPosition();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
 
 static int _cocos2d_ui_LayoutComponent_setPosition(lua_State *L)
 {
-    lua_settop(L, 3);
+    lua_settop(L, 2);
 
     cocos2d::ui::LayoutComponent *self = nullptr;
     cocos2d::Point arg1;       /** position */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutComponent");
-    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // void setPosition(@pack const Point& position)
+    // void setPosition(const Point& position)
     self->setPosition(arg1);
 
     return 0;
@@ -3169,24 +3169,24 @@ static int _cocos2d_ui_LayoutComponent_getSize(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutComponent");
 
-    // @unpack const Size& getSize()
+    // const Size& getSize()
     const cocos2d::Size &ret = (const cocos2d::Size &)self->getSize();
-    int num_ret = auto_luacv_unpack_cocos2d_Size(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
 
 static int _cocos2d_ui_LayoutComponent_setSize(lua_State *L)
 {
-    lua_settop(L, 3);
+    lua_settop(L, 2);
 
     cocos2d::ui::LayoutComponent *self = nullptr;
     cocos2d::Size arg1;       /** size */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutComponent");
-    auto_luacv_pack_cocos2d_Size(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Size(L, 2, &arg1);
 
-    // void setSize(@pack const Size& size)
+    // void setSize(const Size& size)
     self->setSize(arg1);
 
     return 0;
@@ -4224,15 +4224,15 @@ static int _cocos2d_ui_Layout_getBackGroundColorOpacity(lua_State *L)
 
 static int _cocos2d_ui_Layout_setBackGroundColorVector(lua_State *L)
 {
-    lua_settop(L, 3);
+    lua_settop(L, 2);
 
     cocos2d::ui::Layout *self = nullptr;
     cocos2d::Vec2 arg1;       /** vector */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
-    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // void setBackGroundColorVector(@pack const Vec2 &vector)
+    // void setBackGroundColorVector(Vec2 &vector)
     self->setBackGroundColorVector(arg1);
 
     return 0;
@@ -4246,9 +4246,9 @@ static int _cocos2d_ui_Layout_getBackGroundColorVector(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
 
-    // @unpack const Vec2& getBackGroundColorVector()
+    // const Vec2& getBackGroundColorVector()
     const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getBackGroundColorVector();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -4674,13 +4674,13 @@ static int _cocos2d_ui_HBox_create1(lua_State *L)
 
 static int _cocos2d_ui_HBox_create2(lua_State *L)
 {
-    lua_settop(L, 2);
+    lua_settop(L, 1);
 
     cocos2d::Size arg1;       /** size */
 
-    auto_luacv_pack_cocos2d_Size(L, 1, &arg1);
+    auto_luacv_check_cocos2d_Size(L, 1, &arg1);
 
-    // static HBox* create(@pack const Size& size)
+    // static HBox* create(Size& size)
     cocos2d::ui::HBox *ret = (cocos2d::ui::HBox *)cocos2d::ui::HBox::create(arg1);
     int num_ret = olua_push_cppobj<cocos2d::ui::HBox>(L, ret, "ccui.HBox");
 
@@ -4695,8 +4695,8 @@ static int _cocos2d_ui_HBox_create(lua_State *L)
         return _cocos2d_ui_HBox_create1(L);
     }
 
-    if (num_args == 2) {
-        // if (auto_luacv_ispack_cocos2d_Size(L, 1)) {
+    if (num_args == 1) {
+        // if (auto_luacv_is_cocos2d_Size(L, 1)) {
             return _cocos2d_ui_HBox_create2(L);
         // }
     }
@@ -4730,13 +4730,13 @@ static int _cocos2d_ui_VBox_create1(lua_State *L)
 
 static int _cocos2d_ui_VBox_create2(lua_State *L)
 {
-    lua_settop(L, 2);
+    lua_settop(L, 1);
 
     cocos2d::Size arg1;       /** size */
 
-    auto_luacv_pack_cocos2d_Size(L, 1, &arg1);
+    auto_luacv_check_cocos2d_Size(L, 1, &arg1);
 
-    // static VBox* create(@pack const Size& size)
+    // static VBox* create(Size& size)
     cocos2d::ui::VBox *ret = (cocos2d::ui::VBox *)cocos2d::ui::VBox::create(arg1);
     int num_ret = olua_push_cppobj<cocos2d::ui::VBox>(L, ret, "ccui.VBox");
 
@@ -4751,8 +4751,8 @@ static int _cocos2d_ui_VBox_create(lua_State *L)
         return _cocos2d_ui_VBox_create1(L);
     }
 
-    if (num_args == 2) {
-        // if (auto_luacv_ispack_cocos2d_Size(L, 1)) {
+    if (num_args == 1) {
+        // if (auto_luacv_is_cocos2d_Size(L, 1)) {
             return _cocos2d_ui_VBox_create2(L);
         // }
     }
@@ -4786,13 +4786,13 @@ static int _cocos2d_ui_RelativeBox_create1(lua_State *L)
 
 static int _cocos2d_ui_RelativeBox_create2(lua_State *L)
 {
-    lua_settop(L, 2);
+    lua_settop(L, 1);
 
     cocos2d::Size arg1;       /** size */
 
-    auto_luacv_pack_cocos2d_Size(L, 1, &arg1);
+    auto_luacv_check_cocos2d_Size(L, 1, &arg1);
 
-    // static RelativeBox* create(@pack const Size& size)
+    // static RelativeBox* create(Size& size)
     cocos2d::ui::RelativeBox *ret = (cocos2d::ui::RelativeBox *)cocos2d::ui::RelativeBox::create(arg1);
     int num_ret = olua_push_cppobj<cocos2d::ui::RelativeBox>(L, ret, "ccui.RelativeBox");
 
@@ -4807,8 +4807,8 @@ static int _cocos2d_ui_RelativeBox_create(lua_State *L)
         return _cocos2d_ui_RelativeBox_create1(L);
     }
 
-    if (num_args == 2) {
-        // if (auto_luacv_ispack_cocos2d_Size(L, 1)) {
+    if (num_args == 1) {
+        // if (auto_luacv_is_cocos2d_Size(L, 1)) {
             return _cocos2d_ui_RelativeBox_create2(L);
         // }
     }
@@ -7171,9 +7171,9 @@ static int _cocos2d_ui_ScrollView_getScrolledPercentBothDirection(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
 
-    // @unpack Vec2 getScrolledPercentBothDirection()
+    // Vec2 getScrolledPercentBothDirection()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getScrolledPercentBothDirection();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -7324,15 +7324,15 @@ static int _cocos2d_ui_ScrollView_jumpToPercentHorizontal(lua_State *L)
 
 static int _cocos2d_ui_ScrollView_jumpToPercentBothDirection(lua_State *L)
 {
-    lua_settop(L, 3);
+    lua_settop(L, 2);
 
     cocos2d::ui::ScrollView *self = nullptr;
     cocos2d::Vec2 arg1;       /** percent */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
-    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // void jumpToPercentBothDirection(@pack const Vec2& percent)
+    // void jumpToPercentBothDirection(const Vec2& percent)
     self->jumpToPercentBothDirection(arg1);
 
     return 0;
@@ -7340,15 +7340,15 @@ static int _cocos2d_ui_ScrollView_jumpToPercentBothDirection(lua_State *L)
 
 static int _cocos2d_ui_ScrollView_setInnerContainerSize(lua_State *L)
 {
-    lua_settop(L, 3);
+    lua_settop(L, 2);
 
     cocos2d::ui::ScrollView *self = nullptr;
     cocos2d::Size arg1;       /** size */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
-    auto_luacv_pack_cocos2d_Size(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Size(L, 2, &arg1);
 
-    // void setInnerContainerSize(@pack const Size &size)
+    // void setInnerContainerSize(const Size &size)
     self->setInnerContainerSize(arg1);
 
     return 0;
@@ -7371,15 +7371,15 @@ static int _cocos2d_ui_ScrollView_getInnerContainerSize(lua_State *L)
 
 static int _cocos2d_ui_ScrollView_setInnerContainerPosition(lua_State *L)
 {
-    lua_settop(L, 3);
+    lua_settop(L, 2);
 
     cocos2d::ui::ScrollView *self = nullptr;
     cocos2d::Vec2 arg1;       /** pos */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
-    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // void setInnerContainerPosition(@pack const Vec2 &pos)
+    // void setInnerContainerPosition(const Vec2 &pos)
     self->setInnerContainerPosition(arg1);
 
     return 0;
@@ -7393,9 +7393,9 @@ static int _cocos2d_ui_ScrollView_getInnerContainerPosition(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
 
-    // @unpack const Vec2& getInnerContainerPosition()
+    // const Vec2& getInnerContainerPosition()
     const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getInnerContainerPosition();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -7510,15 +7510,15 @@ static int _cocos2d_ui_ScrollView_isScrollBarEnabled(lua_State *L)
 
 static int _cocos2d_ui_ScrollView_setScrollBarPositionFromCorner(lua_State *L)
 {
-    lua_settop(L, 3);
+    lua_settop(L, 2);
 
     cocos2d::ui::ScrollView *self = nullptr;
     cocos2d::Vec2 arg1;       /** positionFromCorner */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
-    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // void setScrollBarPositionFromCorner(@pack const Vec2& positionFromCorner)
+    // void setScrollBarPositionFromCorner(const Vec2& positionFromCorner)
     self->setScrollBarPositionFromCorner(arg1);
 
     return 0;
@@ -7526,15 +7526,15 @@ static int _cocos2d_ui_ScrollView_setScrollBarPositionFromCorner(lua_State *L)
 
 static int _cocos2d_ui_ScrollView_setScrollBarPositionFromCornerForVertical(lua_State *L)
 {
-    lua_settop(L, 3);
+    lua_settop(L, 2);
 
     cocos2d::ui::ScrollView *self = nullptr;
     cocos2d::Vec2 arg1;       /** positionFromCorner */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
-    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // void setScrollBarPositionFromCornerForVertical(@pack const Vec2& positionFromCorner)
+    // void setScrollBarPositionFromCornerForVertical(const Vec2& positionFromCorner)
     self->setScrollBarPositionFromCornerForVertical(arg1);
 
     return 0;
@@ -7548,24 +7548,24 @@ static int _cocos2d_ui_ScrollView_getScrollBarPositionFromCornerForVertical(lua_
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
 
-    // @unpack Vec2 getScrollBarPositionFromCornerForVertical()
+    // Vec2 getScrollBarPositionFromCornerForVertical()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getScrollBarPositionFromCornerForVertical();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
 
 static int _cocos2d_ui_ScrollView_setScrollBarPositionFromCornerForHorizontal(lua_State *L)
 {
-    lua_settop(L, 3);
+    lua_settop(L, 2);
 
     cocos2d::ui::ScrollView *self = nullptr;
     cocos2d::Vec2 arg1;       /** positionFromCorner */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
-    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // void setScrollBarPositionFromCornerForHorizontal(@pack const Vec2& positionFromCorner)
+    // void setScrollBarPositionFromCornerForHorizontal(const Vec2& positionFromCorner)
     self->setScrollBarPositionFromCornerForHorizontal(arg1);
 
     return 0;
@@ -7579,9 +7579,9 @@ static int _cocos2d_ui_ScrollView_getScrollBarPositionFromCornerForHorizontal(lu
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
 
-    // @unpack Vec2 getScrollBarPositionFromCornerForHorizontal()
+    // Vec2 getScrollBarPositionFromCornerForHorizontal()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getScrollBarPositionFromCornerForHorizontal();
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }

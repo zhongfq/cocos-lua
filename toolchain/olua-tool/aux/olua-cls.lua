@@ -115,7 +115,7 @@ local function to_decl_type(cls, typename, remove_const, keep_ref)
     return typename
 end
 
-local function paser_attr(arg)
+local function parse_attr(arg)
     local attr = {}
     arg = string.gsub(arg, '^ *', '')
     while true do
@@ -144,7 +144,7 @@ end
 
 local function parse_def(str)
     local KEYWORD = {const = true, signed = true, unsigned = true}
-    local attr, str = paser_attr(str)
+    local attr, str = parse_attr(str)
     local typename = string.match(str, '^[^<>(),]*%b<>[ &*]*')
     if not typename then
         local from, to
@@ -408,7 +408,7 @@ function class(collection)
         local dict = {}
         for func_decl in string.gmatch(funcs_str, '[^\n\r]+') do
             if not string.find(func_decl, '^ *//') then
-                local _, str = paser_attr(func_decl)
+                local _, str = parse_attr(func_decl)
                 local fn = string.match(str, '([^ ]+)%(')
                 local t = dict[fn]
                 if not t then
@@ -506,7 +506,11 @@ function class(collection)
         for line in string.gmatch(vars_str, '[^\n\r]+') do
             line = string.gsub(line, '^ *', '')
             if #line > 0 then
+                local line, readonly = string.gsub(line, '@readonly', '')
                 cls.var(nil, line)
+                if readonly > 0 then
+                    cls.VARS[#cls.VARS].SET = nil
+                end
             end
         end
     end

@@ -18,6 +18,12 @@ extern "C" {
 #define OLUA_OBJ_NEW    1
 #define OLUA_OBJ_UPDATE 2
     
+#ifdef OLUA_MAINTHREAD
+#define olua_mainthread() OLUA_MAINTHREAD()
+#else
+#define olua_mainthread (static_assert(false), NULL)
+#endif
+    
 #define olua_isfunction(L,n)        (lua_type(L, (n)) == LUA_TFUNCTION)
 #define olua_istable(L,n)           (lua_type(L, (n)) == LUA_TTABLE)
 #define olua_islightuserdata(L,n)   (lua_type(L, (n)) == LUA_TLIGHTUSERDATA)
@@ -32,21 +38,24 @@ extern "C" {
     
 #define olua_newuserdata(L, obj, t) (*(t*)lua_newuserdata(L, sizeof(t)) = (obj))
 #define olua_touserdata(L, n, t)    (*(t*)lua_touserdata(L, (n)))
+#define olua_tonumber(L, i)         lua_tonumber(L, i)
+#define olua_tointeger(L, i)        lua_tointeger(L, i)
+#define olua_tostring(L, i)         lua_tostring(L, i)
+#define olua_tolstring(L, i, l)     lua_tolstring(L, i, l)
+#define olua_toboolean(L, i)        lua_toboolean(L, i)
+#define olua_checkstring(L, i)      olua_checklstring(L, i, NULL)
+#define olua_optinteger(L, i, d)    luaL_opt(L, olua_checkinteger, i, d)
+#define olua_optstring(L, i, d)     luaL_opt(L, olua_checkstring, i, d)
+#define olua_optlstring(L, i, d, l) luaL_opt(L, olua_checklstring, i, d, l)
+#define olua_optnumber(L, i, d)     luaL_opt(L, olua_checknumber, i, d)
     
-#ifdef OLUA_MAINTHREAD
-#define olua_mainthread() OLUA_MAINTHREAD()
-#else
-#define olua_mainthread (static_assert(false), NULL)
-#endif
-
+#define olua_addobjcount()  olua_changeobjcount(1)
+#define olua_subobjcount()  olua_changeobjcount(-1)
+#define olua_objcount()     olua_changeobjcount(0)
+    
 LUALIB_API lua_Integer olua_checkinteger(lua_State *L, int idx);
-#define olua_optinteger(L, idx, def) luaL_opt(L, olua_checkinteger, idx, def)
 LUALIB_API lua_Number olua_checknumber(lua_State *L, int idx);
-#define olua_optnumber(L, idx, def) luaL_opt(L, olua_checknumber, idx, def)
 LUALIB_API const char *olua_checklstring (lua_State *L, int arg, size_t *len);
-#define olua_checkstring(L, idx) olua_checklstring(L, idx, NULL)
-#define olua_optstring(L, idx, def) luaL_opt(L, olua_checkstring, idx, def)
-#define olua_optlstring(L, idx, def, len) luaL_opt(L, olua_checklstring, idx, def, len)
 LUALIB_API bool olua_checkboolean(lua_State *L, int idx);
 LUALIB_API int olua_rawgetfield(lua_State *L, int idx, const char *field);
 LUALIB_API void olua_rawsetfield(lua_State *L, int idx, const char *field);
@@ -54,9 +63,6 @@ LUALIB_API void olua_seterrfunc(lua_CFunction errfunc);
 LUALIB_API const char *olua_typename(lua_State *L, int idx);
 LUALIB_API const char *olua_objtostring(lua_State *L, int idx);
 LUALIB_API int olua_changeobjcount(int add);
-#define olua_addobjcount() (olua_changeobjcount(1))
-#define olua_subobjcount() (olua_changeobjcount(-1))
-#define olua_objcount() (olua_changeobjcount(0))
 LUALIB_API void olua_require(lua_State *L, const char *name, lua_CFunction func);
 LUALIB_API void olua_preload(lua_State *L, const char *name, lua_CFunction func);
 LUALIB_API bool olua_isa(lua_State *L, int idx, const char *cls);

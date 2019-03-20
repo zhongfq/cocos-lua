@@ -38,7 +38,9 @@ local function gen_class_funcs(cls, write)
 
     for i, ai in ipairs(cls.VARS) do
         check_gen_class_func(cls, {ai.GET}, write, func_filter)
-        check_gen_class_func(cls, {ai.SET}, write, func_filter)
+        if ai.SET then
+            check_gen_class_func(cls, {ai.SET}, write, func_filter)
+        end
     end
 end
 
@@ -76,7 +78,10 @@ local function gen_class_open(cls, write)
     for i, vi in ipairs(cls.VARS) do
         local VARNAME = vi.VARNAME
         local FUNC_GET = string.format("_%s_%s", CPPCLS_PATH, vi.GET.CPPFUNC)
-        local FUNC_SET = string.format("_%s_%s", CPPCLS_PATH, vi.SET.CPPFUNC)
+        local FUNC_SET = "nullptr"
+        if vi.SET and vi.SET.CPPFUNC then
+           FUNC_SET = string.format("_%s_%s", CPPCLS_PATH, vi.SET.CPPFUNC)
+        end
         FUNCS[#FUNCS + 1] = format_snippet([[
             oluacls_property(L, "${VARNAME}", ${FUNC_GET}, ${FUNC_SET});
         ]])

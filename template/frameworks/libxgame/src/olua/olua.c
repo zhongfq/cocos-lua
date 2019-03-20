@@ -50,7 +50,7 @@ LUALIB_API lua_Number olua_checknumber(lua_State *L, int idx)
 LUALIB_API const char *olua_checklstring(lua_State *L, int idx, size_t *len)
 {
     luaL_checktype(L, idx, LUA_TSTRING);
-    return lua_tolstring(L, idx, len);
+    return olua_tolstring(L, idx, len);
 }
 
 LUALIB_API bool olua_checkboolean(lua_State *L, int idx)
@@ -58,7 +58,7 @@ LUALIB_API bool olua_checkboolean(lua_State *L, int idx)
     if (!(olua_isnoneornil(L, idx) || olua_isboolean(L, idx))) {
         luaL_checktype(L, idx, LUA_TBOOLEAN);
     }
-    return lua_toboolean(L, idx);
+    return olua_toboolean(L, idx);
 }
 
 LUALIB_API int olua_rawgetfield(lua_State *L, int idx, const char *field)
@@ -86,7 +86,7 @@ LUALIB_API const char *olua_typename(lua_State *L, int idx)
     const char *tn = NULL;
     if (lua_getmetatable(L, idx)) {
         if (olua_rawgetfield(L, -1, "classname") == LUA_TSTRING) {
-            tn = lua_tostring(L, -1);
+            tn = olua_tostring(L, -1);
         }
         lua_pop(L, 2); // pop mt and value
     }
@@ -133,7 +133,7 @@ LUALIB_API bool olua_isa(lua_State *L, int idx, const char *cls)
     if (lua_getmetatable(L, idx)) {
         if (olua_rawgetfield(L, -1, CLS_ISA) == LUA_TTABLE) {
             olua_rawgetfield(L, -1, cls);
-            isa = lua_toboolean(L, -1);
+            isa = olua_toboolean(L, -1);
         }
     }
     lua_settop(L, top);
@@ -297,7 +297,7 @@ LUALIB_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag
         lua_pushnil(L);                                 // L: ct k
         while (lua_next(L, -2)) {                       // L: ct k v
             if (olua_isstring(L, -2) &&
-                strendwith(lua_tostring(L, -2), tag)) {
+                strendwith(olua_tostring(L, -2), tag)) {
                 lua_pop(L, 1);                          // L: ct k
                 break;
             }
@@ -313,14 +313,14 @@ LUALIB_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag
     lua_pushvalue(L, func);                             // L: ct k k v
     lua_rawset(L, -4);                                  // L: ct k
     lua_remove(L, -2);                                  // L: k
-    return lua_tostring(L, -1);
+    return olua_tostring(L, -1);
 }
 
 static bool test_tag_mode(lua_State *L, int idx, const char *tag, olua_callback_tag_t mode)
 {
     const char *field = NULL;
     if (olua_isstring(L, idx)) {
-        field = lua_tostring(L, idx);
+        field = olua_tostring(L, idx);
         if (mode == OLUA_CALLBACK_TAG_WILDCARD) {
             return strstr(field, tag) != NULL;
         } else if (mode == OLUA_CALLBACK_TAG_ENDWITH) {
@@ -582,7 +582,7 @@ static bool ismetafunc(lua_State *L, int idx, const char *func)
     };
     
     if (!func && olua_isstring(L, idx)) {
-        func = lua_tostring(L, idx);
+        func = olua_tostring(L, idx);
     }
     
     if (func) {
@@ -689,13 +689,13 @@ static int cls_newindex(lua_State *L)
     
     lua_settop(L, 3);
     if (trycacheget(L, CLS_GETIDX, 2) != LUA_TNIL) {
-        luaL_error(L, "readonly property: %s", lua_tostring(L, 2));
+        luaL_error(L, "readonly property: %s", olua_tostring(L, 2));
     }
     
     if (lua_type(L, 1) == LUA_TUSERDATA) {
         if (olua_isstring(L, 2)) {
             size_t len;
-            const char *key = lua_tolstring(L, 2, &len);
+            const char *key = olua_tolstring(L, 2, &len);
             if (len > 0 && key[0] == '.') {
                 luaL_error(L, "variable name can't start with '.' char.");
             }
@@ -881,7 +881,7 @@ LUALIB_API void olua_check_bool(lua_State *L, int idx, bool *value)
 
 LUALIB_API void olua_opt_bool(lua_State *L, int idx, bool *value, bool def)
 {
-    *value = olua_isnoneornil(L, idx) ? def : lua_toboolean(L, idx) != 0;
+    *value = olua_isnoneornil(L, idx) ? def : olua_toboolean(L, idx) != 0;
 }
 
 LUALIB_API int olua_push_string(lua_State *L, const char *value)
@@ -985,7 +985,7 @@ static void auxchecktype(lua_State *L, int t, const char *field, int type, bool 
             tname = "integer";
         }
         if (luaL_getmetafield(L, idx, "__name") == LUA_TSTRING) {
-            typearg = lua_tostring(L, -1);
+            typearg = olua_tostring(L, -1);
         } else if (lua_type(L, idx) == LUA_TLIGHTUSERDATA) {
             typearg = "light userdata";
         } else {
@@ -1000,7 +1000,7 @@ LUALIB_API const char *olua_checkfieldstring(lua_State *L, int idx, const char *
 {
     const char *value;
     auxchecktype(L, idx, field, LUA_TSTRING, false);
-    value = lua_tostring(L, -1);
+    value = olua_tostring(L, -1);
     lua_pop(L, 1);
     return value;
 }
@@ -1009,7 +1009,7 @@ LUALIB_API lua_Number olua_checkfieldnumber(lua_State *L, int idx, const char *f
 {
     lua_Number value;
     auxchecktype(L, idx, field, LUA_TNUMBER, false);
-    value = lua_tonumber(L, -1);
+    value = olua_tonumber(L, -1);
     lua_pop(L, 1);
     return value;
 }
@@ -1018,7 +1018,7 @@ LUALIB_API lua_Integer olua_checkfieldinteger(lua_State *L, int idx, const char 
 {
     lua_Integer value;
     auxchecktype(L, idx, field, LUA_TNUMBER, true);
-    value = lua_tointeger(L, -1);
+    value = olua_tointeger(L, -1);
     lua_pop(L, 1);
     return value;
 }
@@ -1027,7 +1027,7 @@ LUALIB_API bool olua_checkfieldboolean(lua_State *L, int idx, const char *field)
 {
     bool value;
     auxchecktype(L, idx, field, LUA_TBOOLEAN, false);
-    value = lua_toboolean(L, -1);
+    value = olua_toboolean(L, -1);
     lua_pop(L, 1);
     return value;
 }

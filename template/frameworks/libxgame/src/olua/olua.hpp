@@ -31,7 +31,7 @@ template <typename T> const char *olua_getluatype(lua_State *L, T *obj, const ch
         const char *type = typeid(*obj).name();
         lua_pushstring(L, type);
         if (lua_rawget(L, LUA_REGISTRYINDEX) == LUA_TSTRING) {
-            cls = lua_tostring(L, -1);
+            cls = olua_tostring(L, -1);
         }
         lua_pop(L, 1);
     }

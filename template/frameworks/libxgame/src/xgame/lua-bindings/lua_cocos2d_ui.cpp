@@ -5725,6 +5725,2208 @@ static int luaopen_cocos2d_experimental_ui_VideoPlayer(lua_State *L)
 }
 #endif
 
+static int _cocos2d_ui_AbstractCheckButton_loadTextures(lua_State *L)
+{
+    lua_settop(L, 7);
+
+    cocos2d::ui::AbstractCheckButton *self = nullptr;
+    std::string arg1;       /** background */
+    std::string arg2;       /** backgroundSelected */
+    std::string arg3;       /** cross */
+    std::string arg4;       /** backgroundDisabled */
+    std::string arg5;       /** frontCrossDisabled */
+    lua_Unsigned arg6 = 0;   /** texType */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+    olua_check_std_string(L, 4, &arg3);
+    olua_check_std_string(L, 5, &arg4);
+    olua_check_std_string(L, 6, &arg5);
+    olua_opt_uint(L, 7, &arg6, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+
+    // void loadTextures(const std::string& background,const std::string& backgroundSelected,const std::string& cross,const std::string& backgroundDisabled,const std::string& frontCrossDisabled,Widget::TextureResType texType = Widget::TextureResType::LOCAL)
+    self->loadTextures(arg1, arg2, arg3, arg4, arg5, (cocos2d::ui::Widget::TextureResType)arg6);
+
+    return 0;
+}
+
+static int _cocos2d_ui_AbstractCheckButton_loadTextureBackGround(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ui::AbstractCheckButton *self = nullptr;
+    std::string arg1;       /** backGround */
+    lua_Unsigned arg2 = 0;   /** type */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
+    olua_check_std_string(L, 2, &arg1);
+    olua_opt_uint(L, 3, &arg2, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+
+    // void loadTextureBackGround(const std::string& backGround,Widget::TextureResType type = Widget::TextureResType::LOCAL)
+    self->loadTextureBackGround(arg1, (cocos2d::ui::Widget::TextureResType)arg2);
+
+    return 0;
+}
+
+static int _cocos2d_ui_AbstractCheckButton_loadTextureBackGroundSelected(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ui::AbstractCheckButton *self = nullptr;
+    std::string arg1;       /** backGroundSelected */
+    lua_Unsigned arg2 = 0;   /** texType */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
+    olua_check_std_string(L, 2, &arg1);
+    olua_opt_uint(L, 3, &arg2, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+
+    // void loadTextureBackGroundSelected(const std::string& backGroundSelected,Widget::TextureResType texType = Widget::TextureResType::LOCAL)
+    self->loadTextureBackGroundSelected(arg1, (cocos2d::ui::Widget::TextureResType)arg2);
+
+    return 0;
+}
+
+static int _cocos2d_ui_AbstractCheckButton_loadTextureFrontCross(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ui::AbstractCheckButton *self = nullptr;
+    std::string arg1;       /** crossTextureName */
+    lua_Unsigned arg2 = 0;   /** texType */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
+    olua_check_std_string(L, 2, &arg1);
+    olua_opt_uint(L, 3, &arg2, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+
+    // void loadTextureFrontCross(const std::string& crossTextureName,Widget::TextureResType texType = Widget::TextureResType::LOCAL)
+    self->loadTextureFrontCross(arg1, (cocos2d::ui::Widget::TextureResType)arg2);
+
+    return 0;
+}
+
+static int _cocos2d_ui_AbstractCheckButton_loadTextureBackGroundDisabled(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ui::AbstractCheckButton *self = nullptr;
+    std::string arg1;       /** backGroundDisabled */
+    lua_Unsigned arg2 = 0;   /** texType */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
+    olua_check_std_string(L, 2, &arg1);
+    olua_opt_uint(L, 3, &arg2, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+
+    // void loadTextureBackGroundDisabled(const std::string& backGroundDisabled,Widget::TextureResType texType = Widget::TextureResType::LOCAL)
+    self->loadTextureBackGroundDisabled(arg1, (cocos2d::ui::Widget::TextureResType)arg2);
+
+    return 0;
+}
+
+static int _cocos2d_ui_AbstractCheckButton_loadTextureFrontCrossDisabled(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ui::AbstractCheckButton *self = nullptr;
+    std::string arg1;       /** frontCrossDisabled */
+    lua_Unsigned arg2 = 0;   /** texType */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
+    olua_check_std_string(L, 2, &arg1);
+    olua_opt_uint(L, 3, &arg2, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+
+    // void loadTextureFrontCrossDisabled(const std::string& frontCrossDisabled,Widget::TextureResType texType = Widget::TextureResType::LOCAL)
+    self->loadTextureFrontCrossDisabled(arg1, (cocos2d::ui::Widget::TextureResType)arg2);
+
+    return 0;
+}
+
+static int _cocos2d_ui_AbstractCheckButton_isSelected(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::AbstractCheckButton *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
+
+    // bool isSelected()
+    bool ret = (bool)self->isSelected();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_AbstractCheckButton_setSelected(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::AbstractCheckButton *self = nullptr;
+    bool arg1 = false;   /** selected */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setSelected(bool selected)
+    self->setSelected(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_AbstractCheckButton_setZoomScale(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::AbstractCheckButton *self = nullptr;
+    lua_Number arg1 = 0;   /** scale */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
+    olua_check_number(L, 2, &arg1);
+
+    // void setZoomScale(float scale)
+    self->setZoomScale((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_AbstractCheckButton_getZoomScale(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::AbstractCheckButton *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
+
+    // float getZoomScale()
+    float ret = (float)self->getZoomScale();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_AbstractCheckButton_getRendererBackground(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::AbstractCheckButton *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
+
+    // Sprite* getRendererBackground()
+    cocos2d::Sprite *ret = (cocos2d::Sprite *)self->getRendererBackground();
+    int num_ret = olua_push_cppobj<cocos2d::Sprite>(L, ret, "cc.Sprite");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_AbstractCheckButton_getRendererBackgroundSelected(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::AbstractCheckButton *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
+
+    // Sprite* getRendererBackgroundSelected()
+    cocos2d::Sprite *ret = (cocos2d::Sprite *)self->getRendererBackgroundSelected();
+    int num_ret = olua_push_cppobj<cocos2d::Sprite>(L, ret, "cc.Sprite");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_AbstractCheckButton_getRendererFrontCross(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::AbstractCheckButton *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
+
+    // Sprite* getRendererFrontCross()
+    cocos2d::Sprite *ret = (cocos2d::Sprite *)self->getRendererFrontCross();
+    int num_ret = olua_push_cppobj<cocos2d::Sprite>(L, ret, "cc.Sprite");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_AbstractCheckButton_getRendererBackgroundDisabled(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::AbstractCheckButton *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
+
+    // Sprite* getRendererBackgroundDisabled()
+    cocos2d::Sprite *ret = (cocos2d::Sprite *)self->getRendererBackgroundDisabled();
+    int num_ret = olua_push_cppobj<cocos2d::Sprite>(L, ret, "cc.Sprite");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_AbstractCheckButton_getRendererFrontCrossDisabled(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::AbstractCheckButton *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
+
+    // Sprite* getRendererFrontCrossDisabled()
+    cocos2d::Sprite *ret = (cocos2d::Sprite *)self->getRendererFrontCrossDisabled();
+    int num_ret = olua_push_cppobj<cocos2d::Sprite>(L, ret, "cc.Sprite");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_AbstractCheckButton_getBackNormalFile(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::AbstractCheckButton *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
+
+    // ResourceData getBackNormalFile()
+    cocos2d::ResourceData ret = (cocos2d::ResourceData)self->getBackNormalFile();
+    int num_ret = auto_luacv_push_cocos2d_ResourceData(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_AbstractCheckButton_getBackPressedFile(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::AbstractCheckButton *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
+
+    // ResourceData getBackPressedFile()
+    cocos2d::ResourceData ret = (cocos2d::ResourceData)self->getBackPressedFile();
+    int num_ret = auto_luacv_push_cocos2d_ResourceData(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_AbstractCheckButton_getBackDisabledFile(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::AbstractCheckButton *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
+
+    // ResourceData getBackDisabledFile()
+    cocos2d::ResourceData ret = (cocos2d::ResourceData)self->getBackDisabledFile();
+    int num_ret = auto_luacv_push_cocos2d_ResourceData(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_AbstractCheckButton_getCrossNormalFile(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::AbstractCheckButton *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
+
+    // ResourceData getCrossNormalFile()
+    cocos2d::ResourceData ret = (cocos2d::ResourceData)self->getCrossNormalFile();
+    int num_ret = auto_luacv_push_cocos2d_ResourceData(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_AbstractCheckButton_getCrossDisabledFile(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::AbstractCheckButton *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
+
+    // ResourceData getCrossDisabledFile()
+    cocos2d::ResourceData ret = (cocos2d::ResourceData)self->getCrossDisabledFile();
+    int num_ret = auto_luacv_push_cocos2d_ResourceData(L, &ret);
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_ui_AbstractCheckButton(lua_State *L)
+{
+    oluacls_class(L, "ccui.AbstractCheckButton", "ccui.Widget");
+    oluacls_setfunc(L, "loadTextures", _cocos2d_ui_AbstractCheckButton_loadTextures);
+    oluacls_setfunc(L, "loadTextureBackGround", _cocos2d_ui_AbstractCheckButton_loadTextureBackGround);
+    oluacls_setfunc(L, "loadTextureBackGroundSelected", _cocos2d_ui_AbstractCheckButton_loadTextureBackGroundSelected);
+    oluacls_setfunc(L, "loadTextureFrontCross", _cocos2d_ui_AbstractCheckButton_loadTextureFrontCross);
+    oluacls_setfunc(L, "loadTextureBackGroundDisabled", _cocos2d_ui_AbstractCheckButton_loadTextureBackGroundDisabled);
+    oluacls_setfunc(L, "loadTextureFrontCrossDisabled", _cocos2d_ui_AbstractCheckButton_loadTextureFrontCrossDisabled);
+    oluacls_setfunc(L, "isSelected", _cocos2d_ui_AbstractCheckButton_isSelected);
+    oluacls_setfunc(L, "setSelected", _cocos2d_ui_AbstractCheckButton_setSelected);
+    oluacls_setfunc(L, "setZoomScale", _cocos2d_ui_AbstractCheckButton_setZoomScale);
+    oluacls_setfunc(L, "getZoomScale", _cocos2d_ui_AbstractCheckButton_getZoomScale);
+    oluacls_setfunc(L, "getRendererBackground", _cocos2d_ui_AbstractCheckButton_getRendererBackground);
+    oluacls_setfunc(L, "getRendererBackgroundSelected", _cocos2d_ui_AbstractCheckButton_getRendererBackgroundSelected);
+    oluacls_setfunc(L, "getRendererFrontCross", _cocos2d_ui_AbstractCheckButton_getRendererFrontCross);
+    oluacls_setfunc(L, "getRendererBackgroundDisabled", _cocos2d_ui_AbstractCheckButton_getRendererBackgroundDisabled);
+    oluacls_setfunc(L, "getRendererFrontCrossDisabled", _cocos2d_ui_AbstractCheckButton_getRendererFrontCrossDisabled);
+    oluacls_setfunc(L, "getBackNormalFile", _cocos2d_ui_AbstractCheckButton_getBackNormalFile);
+    oluacls_setfunc(L, "getBackPressedFile", _cocos2d_ui_AbstractCheckButton_getBackPressedFile);
+    oluacls_setfunc(L, "getBackDisabledFile", _cocos2d_ui_AbstractCheckButton_getBackDisabledFile);
+    oluacls_setfunc(L, "getCrossNormalFile", _cocos2d_ui_AbstractCheckButton_getCrossNormalFile);
+    oluacls_setfunc(L, "getCrossDisabledFile", _cocos2d_ui_AbstractCheckButton_getCrossDisabledFile);
+    oluacls_property(L, "selected", _cocos2d_ui_AbstractCheckButton_isSelected, _cocos2d_ui_AbstractCheckButton_setSelected);
+    oluacls_property(L, "zoomScale", _cocos2d_ui_AbstractCheckButton_getZoomScale, _cocos2d_ui_AbstractCheckButton_setZoomScale);
+    oluacls_property(L, "rendererBackground", _cocos2d_ui_AbstractCheckButton_getRendererBackground, nullptr);
+    oluacls_property(L, "rendererBackgroundSelected", _cocos2d_ui_AbstractCheckButton_getRendererBackgroundSelected, nullptr);
+    oluacls_property(L, "rendererFrontCross", _cocos2d_ui_AbstractCheckButton_getRendererFrontCross, nullptr);
+    oluacls_property(L, "rendererBackgroundDisabled", _cocos2d_ui_AbstractCheckButton_getRendererBackgroundDisabled, nullptr);
+    oluacls_property(L, "rendererFrontCrossDisabled", _cocos2d_ui_AbstractCheckButton_getRendererFrontCrossDisabled, nullptr);
+    oluacls_property(L, "backNormalFile", _cocos2d_ui_AbstractCheckButton_getBackNormalFile, nullptr);
+    oluacls_property(L, "backPressedFile", _cocos2d_ui_AbstractCheckButton_getBackPressedFile, nullptr);
+    oluacls_property(L, "backDisabledFile", _cocos2d_ui_AbstractCheckButton_getBackDisabledFile, nullptr);
+    oluacls_property(L, "crossNormalFile", _cocos2d_ui_AbstractCheckButton_getCrossNormalFile, nullptr);
+    oluacls_property(L, "crossDisabledFile", _cocos2d_ui_AbstractCheckButton_getCrossDisabledFile, nullptr);
+
+    olua_registerluatype<cocos2d::ui::AbstractCheckButton>(L, "ccui.AbstractCheckButton");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_ui_TabHeader_EventType(lua_State *L)
+{
+    oluacls_class(L, "ccui.TabHeader.EventType", nullptr);
+    oluacls_const_integer(L, "SELECTED", (lua_Integer)cocos2d::ui::TabHeader::EventType::SELECTED);
+    oluacls_const_integer(L, "UNSELECTED", (lua_Integer)cocos2d::ui::TabHeader::EventType::UNSELECTED);
+
+    olua_registerluatype<cocos2d::ui::TabHeader::EventType>(L, "ccui.TabHeader.EventType");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_ui_TabHeader_create1(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static TabHeader* create()
+    cocos2d::ui::TabHeader *ret = (cocos2d::ui::TabHeader *)cocos2d::ui::TabHeader::create();
+    int num_ret = olua_push_cppobj<cocos2d::ui::TabHeader>(L, ret, "ccui.TabHeader");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_TabHeader_create2(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    std::string arg1;       /** titleStr */
+    std::string arg2;       /** backGround */
+    std::string arg3;       /** cross */
+    lua_Unsigned arg4 = 0;   /** texType */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+    olua_check_std_string(L, 3, &arg3);
+    olua_opt_uint(L, 4, &arg4, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+
+    // static TabHeader* create(const std::string& titleStr, const std::string& backGround, const std::string& cross, Widget::TextureResType texType = Widget::TextureResType::LOCAL)
+    cocos2d::ui::TabHeader *ret = (cocos2d::ui::TabHeader *)cocos2d::ui::TabHeader::create(arg1, arg2, arg3, (cocos2d::ui::Widget::TextureResType)arg4);
+    int num_ret = olua_push_cppobj<cocos2d::ui::TabHeader>(L, ret, "ccui.TabHeader");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_TabHeader_create3(lua_State *L)
+{
+    lua_settop(L, 7);
+
+    std::string arg1;       /** titleStr */
+    std::string arg2;       /** backGround */
+    std::string arg3;       /** backGroundSelected */
+    std::string arg4;       /** cross */
+    std::string arg5;       /** backGroundDisabled */
+    std::string arg6;       /** frontCrossDisabled */
+    lua_Unsigned arg7 = 0;   /** texType */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+    olua_check_std_string(L, 3, &arg3);
+    olua_check_std_string(L, 4, &arg4);
+    olua_check_std_string(L, 5, &arg5);
+    olua_check_std_string(L, 6, &arg6);
+    olua_opt_uint(L, 7, &arg7, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+
+    // static TabHeader* create(const std::string& titleStr, const std::string& backGround, const std::string& backGroundSelected, const std::string& cross, const std::string& backGroundDisabled, const std::string& frontCrossDisabled, Widget::TextureResType texType = Widget::TextureResType::LOCAL)
+    cocos2d::ui::TabHeader *ret = (cocos2d::ui::TabHeader *)cocos2d::ui::TabHeader::create(arg1, arg2, arg3, arg4, arg5, arg6, (cocos2d::ui::Widget::TextureResType)arg7);
+    int num_ret = olua_push_cppobj<cocos2d::ui::TabHeader>(L, ret, "ccui.TabHeader");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_TabHeader_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        return _cocos2d_ui_TabHeader_create1(L);
+    }
+
+    if (num_args == 4) {
+        // if (olua_is_std_string(L, 1) && olua_is_std_string(L, 2) && olua_is_std_string(L, 3) && (olua_is_uint(L, 4) || olua_isnil(L, 4))) {
+            return _cocos2d_ui_TabHeader_create2(L);
+        // }
+    }
+
+    if (num_args == 7) {
+        // if (olua_is_std_string(L, 1) && olua_is_std_string(L, 2) && olua_is_std_string(L, 3) && olua_is_std_string(L, 4) && olua_is_std_string(L, 5) && olua_is_std_string(L, 6) && (olua_is_uint(L, 7) || olua_isnil(L, 7))) {
+            return _cocos2d_ui_TabHeader_create3(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::TabHeader::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_ui_TabHeader_getTitleRenderer(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::TabHeader *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.TabHeader");
+
+    // Label* getTitleRenderer()
+    cocos2d::Label *ret = (cocos2d::Label *)self->getTitleRenderer();
+    int num_ret = olua_push_cppobj<cocos2d::Label>(L, ret, "cc.Label");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_TabHeader_setTitleText(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::TabHeader *self = nullptr;
+    std::string arg1;       /** text */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.TabHeader");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void setTitleText(const std::string& text)
+    self->setTitleText(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_TabHeader_getTitleText(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::TabHeader *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.TabHeader");
+
+    // std::string getTitleText()
+    std::string ret = (std::string)self->getTitleText();
+    int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_TabHeader_setTitleColor(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::TabHeader *self = nullptr;
+    cocos2d::Color4B arg1;       /** color */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.TabHeader");
+    manual_luacv_check_cocos2d_Color4B(L, 2, &arg1);
+
+    // void setTitleColor(const Color4B& color)
+    self->setTitleColor(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_TabHeader_getTitleColor(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::TabHeader *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.TabHeader");
+
+    // const Color4B& getTitleColor()
+    const cocos2d::Color4B &ret = (const cocos2d::Color4B &)self->getTitleColor();
+    int num_ret = manual_luacv_push_cocos2d_Color4B(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_TabHeader_setTitleFontSize(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::TabHeader *self = nullptr;
+    lua_Number arg1 = 0;   /** size */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.TabHeader");
+    olua_check_number(L, 2, &arg1);
+
+    // void setTitleFontSize(float size)
+    self->setTitleFontSize((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_TabHeader_getTitleFontSize(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::TabHeader *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.TabHeader");
+
+    // float getTitleFontSize()
+    float ret = (float)self->getTitleFontSize();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_TabHeader_setTitleFontName(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::TabHeader *self = nullptr;
+    std::string arg1;       /** fontName */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.TabHeader");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void setTitleFontName(const std::string& fontName)
+    self->setTitleFontName(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_TabHeader_getTitleFontName(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::TabHeader *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.TabHeader");
+
+    // std::string getTitleFontName()
+    std::string ret = (std::string)self->getTitleFontName();
+    int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_TabHeader_getIndexInTabControl(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::TabHeader *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.TabHeader");
+
+    // int   getIndexInTabControl()
+    int ret = (int)self->getIndexInTabControl();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_ui_TabHeader(lua_State *L)
+{
+    oluacls_class(L, "ccui.TabHeader", "ccui.AbstractCheckButton");
+    oluacls_setfunc(L, "create", _cocos2d_ui_TabHeader_create);
+    oluacls_setfunc(L, "getTitleRenderer", _cocos2d_ui_TabHeader_getTitleRenderer);
+    oluacls_setfunc(L, "setTitleText", _cocos2d_ui_TabHeader_setTitleText);
+    oluacls_setfunc(L, "getTitleText", _cocos2d_ui_TabHeader_getTitleText);
+    oluacls_setfunc(L, "setTitleColor", _cocos2d_ui_TabHeader_setTitleColor);
+    oluacls_setfunc(L, "getTitleColor", _cocos2d_ui_TabHeader_getTitleColor);
+    oluacls_setfunc(L, "setTitleFontSize", _cocos2d_ui_TabHeader_setTitleFontSize);
+    oluacls_setfunc(L, "getTitleFontSize", _cocos2d_ui_TabHeader_getTitleFontSize);
+    oluacls_setfunc(L, "setTitleFontName", _cocos2d_ui_TabHeader_setTitleFontName);
+    oluacls_setfunc(L, "getTitleFontName", _cocos2d_ui_TabHeader_getTitleFontName);
+    oluacls_setfunc(L, "getIndexInTabControl", _cocos2d_ui_TabHeader_getIndexInTabControl);
+
+    olua_registerluatype<cocos2d::ui::TabHeader>(L, "ccui.TabHeader");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_ui_TabControl_Dock(lua_State *L)
+{
+    oluacls_class(L, "ccui.TabControl.Dock", nullptr);
+    oluacls_const_integer(L, "TOP", (lua_Integer)cocos2d::ui::TabControl::Dock::TOP);
+    oluacls_const_integer(L, "LEFT", (lua_Integer)cocos2d::ui::TabControl::Dock::LEFT);
+    oluacls_const_integer(L, "BOTTOM", (lua_Integer)cocos2d::ui::TabControl::Dock::BOTTOM);
+    oluacls_const_integer(L, "RIGHT", (lua_Integer)cocos2d::ui::TabControl::Dock::RIGHT);
+
+    olua_registerluatype<cocos2d::ui::TabControl::Dock>(L, "ccui.TabControl.Dock");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_ui_TabControl_EventType(lua_State *L)
+{
+    oluacls_class(L, "ccui.TabControl.EventType", nullptr);
+    oluacls_const_integer(L, "SELECT_CHANGED", (lua_Integer)cocos2d::ui::TabControl::EventType::SELECT_CHANGED);
+
+    olua_registerluatype<cocos2d::ui::TabControl::EventType>(L, "ccui.TabControl.EventType");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_ui_TabControl_create(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static TabControl* create()
+    cocos2d::ui::TabControl *ret = (cocos2d::ui::TabControl *)cocos2d::ui::TabControl::create();
+    int num_ret = olua_push_cppobj<cocos2d::ui::TabControl>(L, ret, "ccui.TabControl");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_TabControl_removeTab(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::TabControl *self = nullptr;
+    lua_Integer arg1 = 0;   /** index */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.TabControl");
+    olua_check_int(L, 2, &arg1);
+
+    // void      removeTab(int index)
+    self->removeTab((int)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_TabControl_setSelectTab1(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::TabControl *self = nullptr;
+    lua_Integer arg1 = 0;   /** index */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.TabControl");
+    olua_check_int(L, 2, &arg1);
+
+    // void      setSelectTab(int index)
+    self->setSelectTab((int)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_TabControl_setSelectTab2(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::TabControl *self = nullptr;
+    cocos2d::ui::TabHeader *arg1 = nullptr;   /** tabHeader */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.TabControl");
+    olua_check_cppobj(L, 2, (void **)&arg1, "ccui.TabHeader");
+
+    // void      setSelectTab(TabHeader* tabHeader)
+    self->setSelectTab(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_TabControl_setSelectTab(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        if (olua_is_int(L, 2)) {
+            return _cocos2d_ui_TabControl_setSelectTab1(L);
+        }
+
+        // if (olua_is_cppobj(L, 2, "ccui.TabHeader")) {
+            return _cocos2d_ui_TabControl_setSelectTab2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::TabControl::setSelectTab' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_ui_TabControl_getTabHeader(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::TabControl *self = nullptr;
+    lua_Integer arg1 = 0;   /** index */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.TabControl");
+    olua_check_int(L, 2, &arg1);
+
+    // TabHeader* getTabHeader(int index)
+    cocos2d::ui::TabHeader *ret = (cocos2d::ui::TabHeader *)self->getTabHeader((int)arg1);
+    int num_ret = olua_push_cppobj<cocos2d::ui::TabHeader>(L, ret, "ccui.TabHeader");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_TabControl_getTabContainer(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::TabControl *self = nullptr;
+    lua_Integer arg1 = 0;   /** index */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.TabControl");
+    olua_check_int(L, 2, &arg1);
+
+    // Layout*   getTabContainer(int index)
+    cocos2d::ui::Layout *ret = (cocos2d::ui::Layout *)self->getTabContainer((int)arg1);
+    int num_ret = olua_push_cppobj<cocos2d::ui::Layout>(L, ret, "ccui.Layout");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_TabControl_insertTab(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    cocos2d::ui::TabControl *self = nullptr;
+    lua_Integer arg1 = 0;   /** index */
+    cocos2d::ui::TabHeader *arg2 = nullptr;   /** header */
+    cocos2d::ui::Layout *arg3 = nullptr;   /** container */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.TabControl");
+    olua_check_int(L, 2, &arg1);
+    olua_check_cppobj(L, 3, (void **)&arg2, "ccui.TabHeader");
+    olua_check_cppobj(L, 4, (void **)&arg3, "ccui.Layout");
+
+    // void      insertTab(int index, TabHeader* header, Layout* container)
+    self->insertTab((int)arg1, arg2, arg3);
+
+    return 0;
+}
+
+static int _cocos2d_ui_TabControl_getTabCount(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::TabControl *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.TabControl");
+
+    // size_t    getTabCount()
+    size_t ret = (size_t)self->getTabCount();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_TabControl_getSelectedTabIndex(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::TabControl *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.TabControl");
+
+    // int getSelectedTabIndex()
+    int ret = (int)self->getSelectedTabIndex();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_TabControl_indexOfTabHeader(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::TabControl *self = nullptr;
+    cocos2d::ui::TabHeader *arg1 = nullptr;   /** tabCell */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.TabControl");
+    olua_check_cppobj(L, 2, (void **)&arg1, "ccui.TabHeader");
+
+    // int indexOfTabHeader(const TabHeader* tabCell)
+    int ret = (int)self->indexOfTabHeader(arg1);
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_TabControl_setHeaderWidth(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::TabControl *self = nullptr;
+    lua_Number arg1 = 0;   /** headerWidth */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.TabControl");
+    olua_check_number(L, 2, &arg1);
+
+    // void  setHeaderWidth(float headerWidth)
+    self->setHeaderWidth((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_TabControl_getHeaderWidth(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::TabControl *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.TabControl");
+
+    // float getHeaderWidth()
+    float ret = (float)self->getHeaderWidth();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_TabControl_setHeaderHeight(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::TabControl *self = nullptr;
+    lua_Number arg1 = 0;   /** headerHeight */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.TabControl");
+    olua_check_number(L, 2, &arg1);
+
+    // void  setHeaderHeight(float headerHeight)
+    self->setHeaderHeight((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_TabControl_getHeaderHeight(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::TabControl *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.TabControl");
+
+    // int   getHeaderHeight()
+    int ret = (int)self->getHeaderHeight();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_TabControl_ignoreHeadersTextureSize(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::TabControl *self = nullptr;
+    bool arg1 = false;   /** ignore */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.TabControl");
+    olua_check_bool(L, 2, &arg1);
+
+    // void  ignoreHeadersTextureSize(bool ignore)
+    self->ignoreHeadersTextureSize(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_TabControl_isIgnoreHeadersTextureSize(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::TabControl *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.TabControl");
+
+    // bool  isIgnoreHeadersTextureSize()
+    bool ret = (bool)self->isIgnoreHeadersTextureSize();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_TabControl_setHeaderSelectedZoom(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::TabControl *self = nullptr;
+    lua_Number arg1 = 0;   /** zoom */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.TabControl");
+    olua_check_number(L, 2, &arg1);
+
+    // void  setHeaderSelectedZoom(float zoom)
+    self->setHeaderSelectedZoom((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_TabControl_getHeaderSelectedZoom(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::TabControl *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.TabControl");
+
+    // float getHeaderSelectedZoom()
+    float ret = (float)self->getHeaderSelectedZoom();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_TabControl_setHeaderDockPlace(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::TabControl *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** dockPlace */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.TabControl");
+    olua_check_uint(L, 2, &arg1);
+
+    // void         setHeaderDockPlace(TabControl::Dock dockPlace)
+    self->setHeaderDockPlace((cocos2d::ui::TabControl::Dock)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_TabControl_getHeaderDockPlace(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::TabControl *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.TabControl");
+
+    // TabControl::Dock getHeaderDockPlace()
+    cocos2d::ui::TabControl::Dock ret = (cocos2d::ui::TabControl::Dock)self->getHeaderDockPlace();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_TabControl_setTabChangedEventListener(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::TabControl *self = nullptr;
+    std::function<void(int, cocos2d::ui::TabControl::EventType)> arg1 = nullptr;   /** callback */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.TabControl");
+
+    if (olua_is_std_function(L, 2)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("TabChangedEventListener");
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+        arg1 = [callback_store_obj, func, tag](int arg1, cocos2d::ui::TabControl::EventType arg2) {
+            lua_State *L = olua_mainthread();
+            int top = lua_gettop(L);
+
+            olua_push_int(L, (lua_Integer)arg1);
+            olua_push_uint(L, (lua_Unsigned)arg2);
+            olua_callback(L, callback_store_obj, func.c_str(), 2);
+
+            lua_settop(L, top);
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("TabChangedEventListener");
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+        arg1 = nullptr;
+    }
+
+    // void setTabChangedEventListener(@nullable const std::function<void(int tabIndex, EventType)>& callback)
+    self->setTabChangedEventListener(arg1);
+
+    return 0;
+}
+
+static int luaopen_cocos2d_ui_TabControl(lua_State *L)
+{
+    oluacls_class(L, "ccui.TabControl", "ccui.Widget");
+    oluacls_setfunc(L, "create", _cocos2d_ui_TabControl_create);
+    oluacls_setfunc(L, "removeTab", _cocos2d_ui_TabControl_removeTab);
+    oluacls_setfunc(L, "setSelectTab", _cocos2d_ui_TabControl_setSelectTab);
+    oluacls_setfunc(L, "getTabHeader", _cocos2d_ui_TabControl_getTabHeader);
+    oluacls_setfunc(L, "getTabContainer", _cocos2d_ui_TabControl_getTabContainer);
+    oluacls_setfunc(L, "insertTab", _cocos2d_ui_TabControl_insertTab);
+    oluacls_setfunc(L, "getTabCount", _cocos2d_ui_TabControl_getTabCount);
+    oluacls_setfunc(L, "getSelectedTabIndex", _cocos2d_ui_TabControl_getSelectedTabIndex);
+    oluacls_setfunc(L, "indexOfTabHeader", _cocos2d_ui_TabControl_indexOfTabHeader);
+    oluacls_setfunc(L, "setHeaderWidth", _cocos2d_ui_TabControl_setHeaderWidth);
+    oluacls_setfunc(L, "getHeaderWidth", _cocos2d_ui_TabControl_getHeaderWidth);
+    oluacls_setfunc(L, "setHeaderHeight", _cocos2d_ui_TabControl_setHeaderHeight);
+    oluacls_setfunc(L, "getHeaderHeight", _cocos2d_ui_TabControl_getHeaderHeight);
+    oluacls_setfunc(L, "ignoreHeadersTextureSize", _cocos2d_ui_TabControl_ignoreHeadersTextureSize);
+    oluacls_setfunc(L, "isIgnoreHeadersTextureSize", _cocos2d_ui_TabControl_isIgnoreHeadersTextureSize);
+    oluacls_setfunc(L, "setHeaderSelectedZoom", _cocos2d_ui_TabControl_setHeaderSelectedZoom);
+    oluacls_setfunc(L, "getHeaderSelectedZoom", _cocos2d_ui_TabControl_getHeaderSelectedZoom);
+    oluacls_setfunc(L, "setHeaderDockPlace", _cocos2d_ui_TabControl_setHeaderDockPlace);
+    oluacls_setfunc(L, "getHeaderDockPlace", _cocos2d_ui_TabControl_getHeaderDockPlace);
+    oluacls_setfunc(L, "setTabChangedEventListener", _cocos2d_ui_TabControl_setTabChangedEventListener);
+
+    olua_registerluatype<cocos2d::ui::TabControl>(L, "ccui.TabControl");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_ui_ScrollView_Direction(lua_State *L)
+{
+    oluacls_class(L, "ccui.ScrollView.Direction", nullptr);
+    oluacls_const_integer(L, "NONE", (lua_Integer)cocos2d::ui::ScrollView::Direction::NONE);
+    oluacls_const_integer(L, "VERTICAL", (lua_Integer)cocos2d::ui::ScrollView::Direction::VERTICAL);
+    oluacls_const_integer(L, "HORIZONTAL", (lua_Integer)cocos2d::ui::ScrollView::Direction::HORIZONTAL);
+    oluacls_const_integer(L, "BOTH", (lua_Integer)cocos2d::ui::ScrollView::Direction::BOTH);
+
+    olua_registerluatype<cocos2d::ui::ScrollView::Direction>(L, "ccui.ScrollView.Direction");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_ui_ScrollView_EventType(lua_State *L)
+{
+    oluacls_class(L, "ccui.ScrollView.EventType", nullptr);
+    oluacls_const_integer(L, "SCROLL_TO_TOP", (lua_Integer)cocos2d::ui::ScrollView::EventType::SCROLL_TO_TOP);
+    oluacls_const_integer(L, "SCROLL_TO_BOTTOM", (lua_Integer)cocos2d::ui::ScrollView::EventType::SCROLL_TO_BOTTOM);
+    oluacls_const_integer(L, "SCROLL_TO_LEFT", (lua_Integer)cocos2d::ui::ScrollView::EventType::SCROLL_TO_LEFT);
+    oluacls_const_integer(L, "SCROLL_TO_RIGHT", (lua_Integer)cocos2d::ui::ScrollView::EventType::SCROLL_TO_RIGHT);
+    oluacls_const_integer(L, "SCROLLING", (lua_Integer)cocos2d::ui::ScrollView::EventType::SCROLLING);
+    oluacls_const_integer(L, "BOUNCE_TOP", (lua_Integer)cocos2d::ui::ScrollView::EventType::BOUNCE_TOP);
+    oluacls_const_integer(L, "BOUNCE_BOTTOM", (lua_Integer)cocos2d::ui::ScrollView::EventType::BOUNCE_BOTTOM);
+    oluacls_const_integer(L, "BOUNCE_LEFT", (lua_Integer)cocos2d::ui::ScrollView::EventType::BOUNCE_LEFT);
+    oluacls_const_integer(L, "BOUNCE_RIGHT", (lua_Integer)cocos2d::ui::ScrollView::EventType::BOUNCE_RIGHT);
+    oluacls_const_integer(L, "CONTAINER_MOVED", (lua_Integer)cocos2d::ui::ScrollView::EventType::CONTAINER_MOVED);
+    oluacls_const_integer(L, "SCROLLING_BEGAN", (lua_Integer)cocos2d::ui::ScrollView::EventType::SCROLLING_BEGAN);
+    oluacls_const_integer(L, "SCROLLING_ENDED", (lua_Integer)cocos2d::ui::ScrollView::EventType::SCROLLING_ENDED);
+    oluacls_const_integer(L, "AUTOSCROLL_ENDED", (lua_Integer)cocos2d::ui::ScrollView::EventType::AUTOSCROLL_ENDED);
+
+    olua_registerluatype<cocos2d::ui::ScrollView::EventType>(L, "ccui.ScrollView.EventType");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_ui_ScrollView_create(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static ScrollView* create()
+    cocos2d::ui::ScrollView *ret = (cocos2d::ui::ScrollView *)cocos2d::ui::ScrollView::create();
+    int num_ret = olua_push_cppobj<cocos2d::ui::ScrollView>(L, ret, "ccui.ScrollView");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ScrollView_setDirection(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** dir */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+    olua_check_uint(L, 2, &arg1);
+
+    // void setDirection(Direction dir)
+    self->setDirection((cocos2d::ui::ScrollView::Direction)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_getDirection(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+
+    // Direction getDirection()
+    cocos2d::ui::ScrollView::Direction ret = (cocos2d::ui::ScrollView::Direction)self->getDirection();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ScrollView_getInnerContainer(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+
+    // @ref(single innerContainer) Layout* getInnerContainer()
+    cocos2d::ui::Layout *ret = (cocos2d::ui::Layout *)self->getInnerContainer();
+    int num_ret = olua_push_cppobj<cocos2d::ui::Layout>(L, ret, "ccui.Layout");
+
+    olua_singleref(L, 1, "innerContainer", -1);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ScrollView_stopScroll(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+
+    // void stopScroll()
+    self->stopScroll();
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_stopAutoScroll(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+
+    // void stopAutoScroll()
+    self->stopAutoScroll();
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_stopOverallScroll(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+
+    // void stopOverallScroll()
+    self->stopOverallScroll();
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_scrollToBottom(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+    lua_Number arg1 = 0;   /** timeInSec */
+    bool arg2 = false;   /** attenuated */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+    olua_check_number(L, 2, &arg1);
+    olua_check_bool(L, 3, &arg2);
+
+    // void scrollToBottom(float timeInSec, bool attenuated)
+    self->scrollToBottom((float)arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_scrollToTop(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+    lua_Number arg1 = 0;   /** timeInSec */
+    bool arg2 = false;   /** attenuated */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+    olua_check_number(L, 2, &arg1);
+    olua_check_bool(L, 3, &arg2);
+
+    // void scrollToTop(float timeInSec, bool attenuated)
+    self->scrollToTop((float)arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_scrollToLeft(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+    lua_Number arg1 = 0;   /** timeInSec */
+    bool arg2 = false;   /** attenuated */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+    olua_check_number(L, 2, &arg1);
+    olua_check_bool(L, 3, &arg2);
+
+    // void scrollToLeft(float timeInSec, bool attenuated)
+    self->scrollToLeft((float)arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_scrollToRight(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+    lua_Number arg1 = 0;   /** timeInSec */
+    bool arg2 = false;   /** attenuated */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+    olua_check_number(L, 2, &arg1);
+    olua_check_bool(L, 3, &arg2);
+
+    // void scrollToRight(float timeInSec, bool attenuated)
+    self->scrollToRight((float)arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_scrollToTopLeft(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+    lua_Number arg1 = 0;   /** timeInSec */
+    bool arg2 = false;   /** attenuated */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+    olua_check_number(L, 2, &arg1);
+    olua_check_bool(L, 3, &arg2);
+
+    // void scrollToTopLeft(float timeInSec, bool attenuated)
+    self->scrollToTopLeft((float)arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_scrollToTopRight(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+    lua_Number arg1 = 0;   /** timeInSec */
+    bool arg2 = false;   /** attenuated */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+    olua_check_number(L, 2, &arg1);
+    olua_check_bool(L, 3, &arg2);
+
+    // void scrollToTopRight(float timeInSec, bool attenuated)
+    self->scrollToTopRight((float)arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_scrollToBottomLeft(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+    lua_Number arg1 = 0;   /** timeInSec */
+    bool arg2 = false;   /** attenuated */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+    olua_check_number(L, 2, &arg1);
+    olua_check_bool(L, 3, &arg2);
+
+    // void scrollToBottomLeft(float timeInSec, bool attenuated)
+    self->scrollToBottomLeft((float)arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_scrollToBottomRight(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+    lua_Number arg1 = 0;   /** timeInSec */
+    bool arg2 = false;   /** attenuated */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+    olua_check_number(L, 2, &arg1);
+    olua_check_bool(L, 3, &arg2);
+
+    // void scrollToBottomRight(float timeInSec, bool attenuated)
+    self->scrollToBottomRight((float)arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_scrollToPercentVertical(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+    lua_Number arg1 = 0;   /** percent */
+    lua_Number arg2 = 0;   /** timeInSec */
+    bool arg3 = false;   /** attenuated */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+    olua_check_number(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+    olua_check_bool(L, 4, &arg3);
+
+    // void scrollToPercentVertical(float percent, float timeInSec, bool attenuated)
+    self->scrollToPercentVertical((float)arg1, (float)arg2, arg3);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_scrollToPercentHorizontal(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+    lua_Number arg1 = 0;   /** percent */
+    lua_Number arg2 = 0;   /** timeInSec */
+    bool arg3 = false;   /** attenuated */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+    olua_check_number(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+    olua_check_bool(L, 4, &arg3);
+
+    // void scrollToPercentHorizontal(float percent, float timeInSec, bool attenuated)
+    self->scrollToPercentHorizontal((float)arg1, (float)arg2, arg3);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_scrollToPercentBothDirection(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+    cocos2d::Vec2 arg1;       /** percent */
+    lua_Number arg2 = 0;   /** timeInSec */
+    bool arg3 = false;   /** attenuated */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+    olua_check_bool(L, 4, &arg3);
+
+    // void scrollToPercentBothDirection(const Vec2& percent, float timeInSec, bool attenuated)
+    self->scrollToPercentBothDirection(arg1, (float)arg2, arg3);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_getScrolledPercentVertical(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+
+    // float getScrolledPercentVertical()
+    float ret = (float)self->getScrolledPercentVertical();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ScrollView_getScrolledPercentHorizontal(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+
+    // float getScrolledPercentHorizontal()
+    float ret = (float)self->getScrolledPercentHorizontal();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ScrollView_getScrolledPercentBothDirection(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+
+    // @unpack Vec2 getScrolledPercentBothDirection()
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->getScrolledPercentBothDirection();
+    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ScrollView_jumpToBottom(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+
+    // void jumpToBottom()
+    self->jumpToBottom();
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_jumpToTop(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+
+    // void jumpToTop()
+    self->jumpToTop();
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_jumpToLeft(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+
+    // void jumpToLeft()
+    self->jumpToLeft();
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_jumpToRight(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+
+    // void jumpToRight()
+    self->jumpToRight();
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_jumpToTopLeft(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+
+    // void jumpToTopLeft()
+    self->jumpToTopLeft();
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_jumpToTopRight(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+
+    // void jumpToTopRight()
+    self->jumpToTopRight();
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_jumpToBottomLeft(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+
+    // void jumpToBottomLeft()
+    self->jumpToBottomLeft();
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_jumpToBottomRight(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+
+    // void jumpToBottomRight()
+    self->jumpToBottomRight();
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_jumpToPercentVertical(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+    lua_Number arg1 = 0;   /** percent */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+    olua_check_number(L, 2, &arg1);
+
+    // void jumpToPercentVertical(float percent)
+    self->jumpToPercentVertical((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_jumpToPercentHorizontal(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+    lua_Number arg1 = 0;   /** percent */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+    olua_check_number(L, 2, &arg1);
+
+    // void jumpToPercentHorizontal(float percent)
+    self->jumpToPercentHorizontal((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_jumpToPercentBothDirection(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+    cocos2d::Vec2 arg1;       /** percent */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+
+    // void jumpToPercentBothDirection(@pack const Vec2& percent)
+    self->jumpToPercentBothDirection(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_setInnerContainerSize(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+    cocos2d::Size arg1;       /** size */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+    auto_luacv_pack_cocos2d_Size(L, 2, &arg1);
+
+    // void setInnerContainerSize(@pack const Size &size)
+    self->setInnerContainerSize(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_getInnerContainerSize(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+
+    // const Size& getInnerContainerSize()
+    const cocos2d::Size &ret = (const cocos2d::Size &)self->getInnerContainerSize();
+    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ScrollView_setInnerContainerPosition(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+    cocos2d::Vec2 arg1;       /** pos */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+
+    // void setInnerContainerPosition(@pack const Vec2 &pos)
+    self->setInnerContainerPosition(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_getInnerContainerPosition(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+
+    // @unpack const Vec2& getInnerContainerPosition()
+    const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getInnerContainerPosition();
+    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ScrollView_getChildren(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+
+    // Vector<Node*>& getChildren()
+    cocos2d::Vector<cocos2d::Node *> &ret = (cocos2d::Vector<cocos2d::Node *> &)self->getChildren();
+    int num_ret = manual_luacv_push_cocos2d_Vector(L, ret, "cc.Node");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ScrollView_setBounceEnabled(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+    bool arg1 = false;   /** enabled */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setBounceEnabled(bool enabled)
+    self->setBounceEnabled(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_isBounceEnabled(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+
+    // bool isBounceEnabled()
+    bool ret = (bool)self->isBounceEnabled();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ScrollView_setInertiaScrollEnabled(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+    bool arg1 = false;   /** enabled */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setInertiaScrollEnabled(bool enabled)
+    self->setInertiaScrollEnabled(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_isInertiaScrollEnabled(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+
+    // bool isInertiaScrollEnabled()
+    bool ret = (bool)self->isInertiaScrollEnabled();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ScrollView_setScrollBarEnabled(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+    bool arg1 = false;   /** enabled */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setScrollBarEnabled(bool enabled)
+    self->setScrollBarEnabled(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_isScrollBarEnabled(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+
+    // bool isScrollBarEnabled()
+    bool ret = (bool)self->isScrollBarEnabled();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ScrollView_setScrollBarPositionFromCorner(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+    cocos2d::Vec2 arg1;       /** positionFromCorner */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+
+    // void setScrollBarPositionFromCorner(@pack const Vec2& positionFromCorner)
+    self->setScrollBarPositionFromCorner(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_setScrollBarPositionFromCornerForVertical(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+    cocos2d::Vec2 arg1;       /** positionFromCorner */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+
+    // void setScrollBarPositionFromCornerForVertical(@pack const Vec2& positionFromCorner)
+    self->setScrollBarPositionFromCornerForVertical(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_getScrollBarPositionFromCornerForVertical(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+
+    // @unpack Vec2 getScrollBarPositionFromCornerForVertical()
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->getScrollBarPositionFromCornerForVertical();
+    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ScrollView_setScrollBarPositionFromCornerForHorizontal(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+    cocos2d::Vec2 arg1;       /** positionFromCorner */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+
+    // void setScrollBarPositionFromCornerForHorizontal(@pack const Vec2& positionFromCorner)
+    self->setScrollBarPositionFromCornerForHorizontal(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_getScrollBarPositionFromCornerForHorizontal(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+
+    // @unpack Vec2 getScrollBarPositionFromCornerForHorizontal()
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->getScrollBarPositionFromCornerForHorizontal();
+    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ScrollView_setScrollBarWidth(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+    lua_Number arg1 = 0;   /** width */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+    olua_check_number(L, 2, &arg1);
+
+    // void setScrollBarWidth(float width)
+    self->setScrollBarWidth((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_getScrollBarWidth(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+
+    // float getScrollBarWidth()
+    float ret = (float)self->getScrollBarWidth();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ScrollView_setScrollBarColor(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+    cocos2d::Color3B arg1;       /** color */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+    manual_luacv_check_cocos2d_Color3B(L, 2, &arg1);
+
+    // void setScrollBarColor(const Color3B& color)
+    self->setScrollBarColor(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_getScrollBarColor(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+
+    // const Color3B& getScrollBarColor()
+    const cocos2d::Color3B &ret = (const cocos2d::Color3B &)self->getScrollBarColor();
+    int num_ret = manual_luacv_push_cocos2d_Color3B(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ScrollView_setScrollBarOpacity(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** opacity */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+    olua_check_uint(L, 2, &arg1);
+
+    // void setScrollBarOpacity(GLubyte opacity)
+    self->setScrollBarOpacity((GLubyte)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_getScrollBarOpacity(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+
+    // GLubyte getScrollBarOpacity()
+    GLubyte ret = (GLubyte)self->getScrollBarOpacity();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ScrollView_setScrollBarAutoHideEnabled(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+    bool arg1 = false;   /** autoHideEnabled */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setScrollBarAutoHideEnabled(bool autoHideEnabled)
+    self->setScrollBarAutoHideEnabled(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_isScrollBarAutoHideEnabled(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+
+    // bool isScrollBarAutoHideEnabled()
+    bool ret = (bool)self->isScrollBarAutoHideEnabled();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ScrollView_setScrollBarAutoHideTime(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+    lua_Number arg1 = 0;   /** autoHideTime */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+    olua_check_number(L, 2, &arg1);
+
+    // void setScrollBarAutoHideTime(float autoHideTime)
+    self->setScrollBarAutoHideTime((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_getScrollBarAutoHideTime(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+
+    // float getScrollBarAutoHideTime()
+    float ret = (float)self->getScrollBarAutoHideTime();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ScrollView_setTouchTotalTimeThreshold(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+    lua_Number arg1 = 0;   /** touchTotalTimeThreshold */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+    olua_check_number(L, 2, &arg1);
+
+    // void setTouchTotalTimeThreshold(float touchTotalTimeThreshold)
+    self->setTouchTotalTimeThreshold((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ScrollView_getTouchTotalTimeThreshold(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+
+    // float getTouchTotalTimeThreshold()
+    float ret = (float)self->getTouchTotalTimeThreshold();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ScrollView_isScrolling(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+
+    // bool isScrolling()
+    bool ret = (bool)self->isScrolling();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ScrollView_isAutoScrolling(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+
+    // bool isAutoScrolling()
+    bool ret = (bool)self->isAutoScrolling();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ScrollView_addEventListener(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::ScrollView *self = nullptr;
+    std::function<void(cocos2d::Ref *, cocos2d::ui::ScrollView::EventType)> arg1 = nullptr;   /** callback */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
+
+    if (olua_is_std_function(L, 2)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("ScrollViewCallback");
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+        arg1 = [callback_store_obj, func, tag](cocos2d::Ref *arg1, cocos2d::ui::ScrollView::EventType arg2) {
+            lua_State *L = olua_mainthread();
+            int top = lua_gettop(L);
+
+            olua_push_cppobj<cocos2d::Ref>(L, arg1, "cc.Ref");
+            olua_push_uint(L, (lua_Unsigned)arg2);
+            olua_callback(L, callback_store_obj, func.c_str(), 2);
+
+            lua_settop(L, top);
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("ScrollViewCallback");
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+        arg1 = nullptr;
+    }
+
+    // void addEventListener(@nullable const std::function<void(Ref*, EventType)>& callback)
+    self->addEventListener(arg1);
+
+    return 0;
+}
+
+static int luaopen_cocos2d_ui_ScrollView(lua_State *L)
+{
+    oluacls_class(L, "ccui.ScrollView", "ccui.Layout");
+    oluacls_setfunc(L, "create", _cocos2d_ui_ScrollView_create);
+    oluacls_setfunc(L, "setDirection", _cocos2d_ui_ScrollView_setDirection);
+    oluacls_setfunc(L, "getDirection", _cocos2d_ui_ScrollView_getDirection);
+    oluacls_setfunc(L, "getInnerContainer", _cocos2d_ui_ScrollView_getInnerContainer);
+    oluacls_setfunc(L, "stopScroll", _cocos2d_ui_ScrollView_stopScroll);
+    oluacls_setfunc(L, "stopAutoScroll", _cocos2d_ui_ScrollView_stopAutoScroll);
+    oluacls_setfunc(L, "stopOverallScroll", _cocos2d_ui_ScrollView_stopOverallScroll);
+    oluacls_setfunc(L, "scrollToBottom", _cocos2d_ui_ScrollView_scrollToBottom);
+    oluacls_setfunc(L, "scrollToTop", _cocos2d_ui_ScrollView_scrollToTop);
+    oluacls_setfunc(L, "scrollToLeft", _cocos2d_ui_ScrollView_scrollToLeft);
+    oluacls_setfunc(L, "scrollToRight", _cocos2d_ui_ScrollView_scrollToRight);
+    oluacls_setfunc(L, "scrollToTopLeft", _cocos2d_ui_ScrollView_scrollToTopLeft);
+    oluacls_setfunc(L, "scrollToTopRight", _cocos2d_ui_ScrollView_scrollToTopRight);
+    oluacls_setfunc(L, "scrollToBottomLeft", _cocos2d_ui_ScrollView_scrollToBottomLeft);
+    oluacls_setfunc(L, "scrollToBottomRight", _cocos2d_ui_ScrollView_scrollToBottomRight);
+    oluacls_setfunc(L, "scrollToPercentVertical", _cocos2d_ui_ScrollView_scrollToPercentVertical);
+    oluacls_setfunc(L, "scrollToPercentHorizontal", _cocos2d_ui_ScrollView_scrollToPercentHorizontal);
+    oluacls_setfunc(L, "scrollToPercentBothDirection", _cocos2d_ui_ScrollView_scrollToPercentBothDirection);
+    oluacls_setfunc(L, "getScrolledPercentVertical", _cocos2d_ui_ScrollView_getScrolledPercentVertical);
+    oluacls_setfunc(L, "getScrolledPercentHorizontal", _cocos2d_ui_ScrollView_getScrolledPercentHorizontal);
+    oluacls_setfunc(L, "getScrolledPercentBothDirection", _cocos2d_ui_ScrollView_getScrolledPercentBothDirection);
+    oluacls_setfunc(L, "jumpToBottom", _cocos2d_ui_ScrollView_jumpToBottom);
+    oluacls_setfunc(L, "jumpToTop", _cocos2d_ui_ScrollView_jumpToTop);
+    oluacls_setfunc(L, "jumpToLeft", _cocos2d_ui_ScrollView_jumpToLeft);
+    oluacls_setfunc(L, "jumpToRight", _cocos2d_ui_ScrollView_jumpToRight);
+    oluacls_setfunc(L, "jumpToTopLeft", _cocos2d_ui_ScrollView_jumpToTopLeft);
+    oluacls_setfunc(L, "jumpToTopRight", _cocos2d_ui_ScrollView_jumpToTopRight);
+    oluacls_setfunc(L, "jumpToBottomLeft", _cocos2d_ui_ScrollView_jumpToBottomLeft);
+    oluacls_setfunc(L, "jumpToBottomRight", _cocos2d_ui_ScrollView_jumpToBottomRight);
+    oluacls_setfunc(L, "jumpToPercentVertical", _cocos2d_ui_ScrollView_jumpToPercentVertical);
+    oluacls_setfunc(L, "jumpToPercentHorizontal", _cocos2d_ui_ScrollView_jumpToPercentHorizontal);
+    oluacls_setfunc(L, "jumpToPercentBothDirection", _cocos2d_ui_ScrollView_jumpToPercentBothDirection);
+    oluacls_setfunc(L, "setInnerContainerSize", _cocos2d_ui_ScrollView_setInnerContainerSize);
+    oluacls_setfunc(L, "getInnerContainerSize", _cocos2d_ui_ScrollView_getInnerContainerSize);
+    oluacls_setfunc(L, "setInnerContainerPosition", _cocos2d_ui_ScrollView_setInnerContainerPosition);
+    oluacls_setfunc(L, "getInnerContainerPosition", _cocos2d_ui_ScrollView_getInnerContainerPosition);
+    oluacls_setfunc(L, "getChildren", _cocos2d_ui_ScrollView_getChildren);
+    oluacls_setfunc(L, "setBounceEnabled", _cocos2d_ui_ScrollView_setBounceEnabled);
+    oluacls_setfunc(L, "isBounceEnabled", _cocos2d_ui_ScrollView_isBounceEnabled);
+    oluacls_setfunc(L, "setInertiaScrollEnabled", _cocos2d_ui_ScrollView_setInertiaScrollEnabled);
+    oluacls_setfunc(L, "isInertiaScrollEnabled", _cocos2d_ui_ScrollView_isInertiaScrollEnabled);
+    oluacls_setfunc(L, "setScrollBarEnabled", _cocos2d_ui_ScrollView_setScrollBarEnabled);
+    oluacls_setfunc(L, "isScrollBarEnabled", _cocos2d_ui_ScrollView_isScrollBarEnabled);
+    oluacls_setfunc(L, "setScrollBarPositionFromCorner", _cocos2d_ui_ScrollView_setScrollBarPositionFromCorner);
+    oluacls_setfunc(L, "setScrollBarPositionFromCornerForVertical", _cocos2d_ui_ScrollView_setScrollBarPositionFromCornerForVertical);
+    oluacls_setfunc(L, "getScrollBarPositionFromCornerForVertical", _cocos2d_ui_ScrollView_getScrollBarPositionFromCornerForVertical);
+    oluacls_setfunc(L, "setScrollBarPositionFromCornerForHorizontal", _cocos2d_ui_ScrollView_setScrollBarPositionFromCornerForHorizontal);
+    oluacls_setfunc(L, "getScrollBarPositionFromCornerForHorizontal", _cocos2d_ui_ScrollView_getScrollBarPositionFromCornerForHorizontal);
+    oluacls_setfunc(L, "setScrollBarWidth", _cocos2d_ui_ScrollView_setScrollBarWidth);
+    oluacls_setfunc(L, "getScrollBarWidth", _cocos2d_ui_ScrollView_getScrollBarWidth);
+    oluacls_setfunc(L, "setScrollBarColor", _cocos2d_ui_ScrollView_setScrollBarColor);
+    oluacls_setfunc(L, "getScrollBarColor", _cocos2d_ui_ScrollView_getScrollBarColor);
+    oluacls_setfunc(L, "setScrollBarOpacity", _cocos2d_ui_ScrollView_setScrollBarOpacity);
+    oluacls_setfunc(L, "getScrollBarOpacity", _cocos2d_ui_ScrollView_getScrollBarOpacity);
+    oluacls_setfunc(L, "setScrollBarAutoHideEnabled", _cocos2d_ui_ScrollView_setScrollBarAutoHideEnabled);
+    oluacls_setfunc(L, "isScrollBarAutoHideEnabled", _cocos2d_ui_ScrollView_isScrollBarAutoHideEnabled);
+    oluacls_setfunc(L, "setScrollBarAutoHideTime", _cocos2d_ui_ScrollView_setScrollBarAutoHideTime);
+    oluacls_setfunc(L, "getScrollBarAutoHideTime", _cocos2d_ui_ScrollView_getScrollBarAutoHideTime);
+    oluacls_setfunc(L, "setTouchTotalTimeThreshold", _cocos2d_ui_ScrollView_setTouchTotalTimeThreshold);
+    oluacls_setfunc(L, "getTouchTotalTimeThreshold", _cocos2d_ui_ScrollView_getTouchTotalTimeThreshold);
+    oluacls_setfunc(L, "isScrolling", _cocos2d_ui_ScrollView_isScrolling);
+    oluacls_setfunc(L, "isAutoScrolling", _cocos2d_ui_ScrollView_isAutoScrolling);
+    oluacls_setfunc(L, "addEventListener", _cocos2d_ui_ScrollView_addEventListener);
+    oluacls_property(L, "direction", _cocos2d_ui_ScrollView_getDirection, _cocos2d_ui_ScrollView_setDirection);
+    oluacls_property(L, "innerContainer", _cocos2d_ui_ScrollView_getInnerContainer, nullptr);
+    oluacls_property(L, "scrolledPercentVertical", _cocos2d_ui_ScrollView_getScrolledPercentVertical, nullptr);
+    oluacls_property(L, "scrolledPercentHorizontal", _cocos2d_ui_ScrollView_getScrolledPercentHorizontal, nullptr);
+    oluacls_property(L, "children", _cocos2d_ui_ScrollView_getChildren, nullptr);
+    oluacls_property(L, "bounceEnabled", _cocos2d_ui_ScrollView_isBounceEnabled, _cocos2d_ui_ScrollView_setBounceEnabled);
+    oluacls_property(L, "inertiaScrollEnabled", _cocos2d_ui_ScrollView_isInertiaScrollEnabled, _cocos2d_ui_ScrollView_setInertiaScrollEnabled);
+    oluacls_property(L, "scrollBarEnabled", _cocos2d_ui_ScrollView_isScrollBarEnabled, _cocos2d_ui_ScrollView_setScrollBarEnabled);
+    oluacls_property(L, "scrollBarWidth", _cocos2d_ui_ScrollView_getScrollBarWidth, _cocos2d_ui_ScrollView_setScrollBarWidth);
+    oluacls_property(L, "scrollBarColor", _cocos2d_ui_ScrollView_getScrollBarColor, _cocos2d_ui_ScrollView_setScrollBarColor);
+    oluacls_property(L, "scrollBarOpacity", _cocos2d_ui_ScrollView_getScrollBarOpacity, _cocos2d_ui_ScrollView_setScrollBarOpacity);
+    oluacls_property(L, "scrollBarAutoHideEnabled", _cocos2d_ui_ScrollView_isScrollBarAutoHideEnabled, _cocos2d_ui_ScrollView_setScrollBarAutoHideEnabled);
+    oluacls_property(L, "scrollBarAutoHideTime", _cocos2d_ui_ScrollView_getScrollBarAutoHideTime, _cocos2d_ui_ScrollView_setScrollBarAutoHideTime);
+    oluacls_property(L, "touchTotalTimeThreshold", _cocos2d_ui_ScrollView_getTouchTotalTimeThreshold, _cocos2d_ui_ScrollView_setTouchTotalTimeThreshold);
+    oluacls_property(L, "scrolling", _cocos2d_ui_ScrollView_isScrolling, nullptr);
+    oluacls_property(L, "autoScrolling", _cocos2d_ui_ScrollView_isAutoScrolling, nullptr);
+
+    olua_registerluatype<cocos2d::ui::ScrollView>(L, "ccui.ScrollView");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
 int luaopen_cocos2d_ui(lua_State *L)
 {
     olua_require(L, "ccui.Widget.FocusDirection", luaopen_cocos2d_ui_Widget_FocusDirection);
@@ -5763,5 +7965,14 @@ int luaopen_cocos2d_ui(lua_State *L)
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN) && !defined(CC_PLATFORM_OS_TVOS)
     olua_require(L, "ccui.VideoPlayer", luaopen_cocos2d_experimental_ui_VideoPlayer);
 #endif
+    olua_require(L, "ccui.AbstractCheckButton", luaopen_cocos2d_ui_AbstractCheckButton);
+    olua_require(L, "ccui.TabHeader.EventType", luaopen_cocos2d_ui_TabHeader_EventType);
+    olua_require(L, "ccui.TabHeader", luaopen_cocos2d_ui_TabHeader);
+    olua_require(L, "ccui.TabControl.Dock", luaopen_cocos2d_ui_TabControl_Dock);
+    olua_require(L, "ccui.TabControl.EventType", luaopen_cocos2d_ui_TabControl_EventType);
+    olua_require(L, "ccui.TabControl", luaopen_cocos2d_ui_TabControl);
+    olua_require(L, "ccui.ScrollView.Direction", luaopen_cocos2d_ui_ScrollView_Direction);
+    olua_require(L, "ccui.ScrollView.EventType", luaopen_cocos2d_ui_ScrollView_EventType);
+    olua_require(L, "ccui.ScrollView", luaopen_cocos2d_ui_ScrollView);
     return 0;
 }

@@ -33,6 +33,9 @@ M.CLASSES = {
     include("conf/cocos2d/ui/layout/ccui.RelativeBox.lua"),
     include("conf/cocos2d/ui/experimental/ccui.WebView.lua"),
     include("conf/cocos2d/ui/experimental/ccui.VideoPlayer.lua"),
+    include("conf/cocos2d/ui/widget/ccui.AbstractCheckButton.lua"),
+    include("conf/cocos2d/ui/widget/ccui.TabControl.lua"),
+    include("conf/cocos2d/ui/widget/ccui.ScrollView.lua"),
 }
 
 return M

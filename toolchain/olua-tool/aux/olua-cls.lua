@@ -625,7 +625,7 @@ function stringfy(value)
 end
 
 function REG_TYPE(typeinfo)
-    for n in string.gmatch(typeinfo.TYPENAME, '[^|]+') do
+    for n in string.gmatch(typeinfo.TYPENAME, '[^\n\r]+') do
         local typename = to_pretty_typename(n)
         local info = setmetatable({}, {__index = typeinfo})
         info.TYPENAME = typename

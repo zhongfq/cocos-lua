@@ -439,7 +439,8 @@ function class(collection)
         for func_decl in string.gmatch(funcs_str, '[^\n\r]+') do
             if not string.find(func_decl, '^ *//') then
                 local _, str = parse_attr(func_decl)
-                local fn = string.match(str, '([^ ]+)%(')
+                local fn = string.match(str, '([^ ]+)( *)%(')
+                print( fn )
                 local t = dict[fn]
                 if not t then
                     t = {}

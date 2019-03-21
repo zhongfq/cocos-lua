@@ -20,6 +20,7 @@ local BezierBy      = require "cc.BezierBy"
 local ActionFloat   = require "cc.ActionFloat"
 local CallFunc      = require "cc.CallFunc"
 local Widget        = require "ccui.Widget"
+local SkeletonAnimation = require "sp.SkeletonAnimation"
 
 window.setDesignSize(1334, 750, 1)
 
@@ -30,6 +31,8 @@ function main()
     print("hello bootstrap!")
 
     local view = Widget.create()
+    view.ignoreAnchorPointForPosition = true
+    Director.getInstance().runningScene:addChild(view)
 
     local node = Node.create()
     view:addChild(node)
@@ -43,6 +46,8 @@ function main()
     sprite1:setPosition(500, 400)
     node:addChild(sprite1)
     node:addChild(sprite)
+    print("######## node:convertToNodeSpace(0, 0) =>", node:convertToNodeSpace(0, 0))
+    print("######## node:convertToNodeSpace({x = 0, y = 0}) => ", util.dump(node:convertToNodeSpace({x = 0, y = 0})))
     print(Director.getInstance():getScheduler())
     print(Director.getInstance():getScheduler())
     print(Director.getInstance().textureCache)
@@ -51,7 +56,6 @@ function main()
     print(Director.getInstance().notificationNode)
     print(Director.getInstance().eventDispatcher)
     print(Director.getInstance().renderer)
-    Director.getInstance().runningScene:addChild(view)
     printUserValue(director)
 
     sprite:runAction(Sequence.create(
@@ -64,15 +68,19 @@ function main()
         -- print("##action float", ...)
     end))
 
-    util.printdump(FileUtils.instance:listFiles(filesystem.cacheDirectory))
-    util.printdump(FileUtils.instance:listFilesRecursively(filesystem.cacheDirectory .. '/..'))
-
     view.width = 400
     view.height = 400
     view:setTouchEnabled(true)
     view:addClickEventListener(function ( ... )
         print("#####", ...)
     end)
+
+    -- spine 
+    local animation = SkeletonAnimation.createWithJsonFile("res/spine/raptor.json", "res/spine/raptor.atlas", 0.4)
+    animation.x = 500
+    animation.y = 100
+    animation:setAnimation(0, 'walk', true)
+    view:addChild(animation)
 end
 
 function printarr(arr)

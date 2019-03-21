@@ -1,7 +1,8 @@
 local function make_luacls(cppname)
-    cppname = string.gsub(cppname, 'cocos2d::ui::', 'ccui.')
-    cppname = string.gsub(cppname, 'cocos2d::experimental::ui::', 'ccui.')
-    cppname = string.gsub(cppname, "cocos2d::", "cc.")
+    cppname = string.gsub(cppname, '^cocos2d::ui::', 'ccui.')
+    cppname = string.gsub(cppname, '^cocos2d::experimental::ui::', 'ccui.')
+    cppname = string.gsub(cppname, "^cocos2d::", "cc.")
+    cppname = string.gsub(cppname, "^spine::", "sp.")
     cppname = string.gsub(cppname, "[ *]*$", '')
     return cppname
 end
@@ -164,6 +165,7 @@ REG_TYPE {
         cocos2d::ui::Widget::SizeType
         cocos2d::ui::Widget::TextureResType
         cocos2d::ui::Widget::TouchEventType
+        spEventType
         ResolutionPolicy
     ]],
     DECL_TYPE = 'lua_Unsigned',
@@ -374,7 +376,32 @@ REG_TYPE {
         cocos2d::Vec3 *
         cocos2d::VRIHeadTracker *
         cocos2d::VRIRenderer *
+        spine::SkeletonAnimation *
+        spine::SkeletonRenderer *
     ]],
     CONV_FUNC = "olua_$$_cppobj",
     LUACLS = make_luacls,
+}
+
+REG_TYPE {
+    TYPENAME = [[
+        spAnimation *
+        spAnimationStateData *
+        spAnimationState *
+        spAtlas *
+        spAttachment *
+        spBone *
+        spEvent *
+        spSkeleton *
+        spSkeletonData *
+        spSlot *
+        spTrackEntry *
+        spVertexEffect *
+    ]],
+    CONV_FUNC = "olua_$$_obj",
+    LUACLS = function (name)
+        name = string.gsub(name, 'sp', 'sp.')
+        name = string.gsub(name, '[ *]+', '')
+        return name
+    end,
 }

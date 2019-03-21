@@ -6,7 +6,10 @@ REG_TYPE {
 }
 
 REG_TYPE {
-    TYPENAME = 'void *|GLvoid *',
+    TYPENAME = [[
+        void *
+        GLvoid *
+    ]],
     LUACLS = 'void *',
     CONV_FUNC = 'olua_$$_obj',
 }
@@ -24,7 +27,10 @@ REG_TYPE {
 }
 
 REG_TYPE {
-    TYPENAME = 'const unsigned char *|const GLchar *',
+    TYPENAME = [[
+        const unsigned char *
+        const GLchar *
+    ]],
     DECL_TYPE = 'const char *',
     CONV_FUNC = 'olua_$$_string',
     VALUE_TYPE = true,
@@ -58,39 +64,43 @@ REG_TYPE {
 }
 
 REG_TYPE {
-    TYPENAME = 'float|double|GLfloat',
+    TYPENAME = [[
+        float
+        double
+        GLfloat
+    ]],
     DECL_TYPE = 'lua_Number',
     CONV_FUNC = 'olua_$$_number',
     VALUE_TYPE = true,
 }
 
 REG_TYPE {
-    TYPENAME = table.concat({
-        'int',
-        'long',
-        'ssize_t',
-        'std::int32_t',
-        'unsigned short',
-        'GLint',
-        'GLshort',
-        'GLsizei',
-    }, '|'),
+    TYPENAME = [[
+        int
+        long
+        ssize_t
+        std::int32_t
+        unsigned short
+        GLint
+        GLshort
+        GLsizei
+    ]],
     DECL_TYPE = 'lua_Integer',
     CONV_FUNC = 'olua_$$_int',
     VALUE_TYPE = true,
 }
 
 REG_TYPE {
-    TYPENAME = table.concat({
-        'unsigned int',
-        'uint32_t',
-        'uint64_t',
-        'size_t',
-        'GLuint',
-        'GLenum',
-        'GLubyte',
-        'GLboolean',
-    }, '|'),
+    TYPENAME = [[
+        unsigned int
+        uint32_t
+        uint64_t
+        size_t
+        GLuint
+        GLenum
+        GLubyte
+        GLboolean
+    ]],
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     VALUE_TYPE = true,

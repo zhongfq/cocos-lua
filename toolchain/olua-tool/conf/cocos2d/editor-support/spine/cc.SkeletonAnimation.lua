@@ -10,7 +10,6 @@ cls.funcs [[
     static SkeletonAnimation* createWithJsonFile (const std::string& skeletonJsonFile, const std::string& atlasFile, float scale = 1)
     static SkeletonAnimation* createWithBinaryFile (const std::string& skeletonBinaryFile, spAtlas* atlas, float scale = 1)
     static SkeletonAnimation* createWithBinaryFile (const std::string& skeletonBinaryFile, const std::string& atlasFile, float scale = 1)
-    void update (float deltaTime)
     void setAnimationStateData (spAnimationStateData* stateData)
     void setMix (const std::string& fromAnimation, const std::string& toAnimation, float duration)
     spTrackEntry* setAnimation (int trackIndex, const std::string& name, bool loop)

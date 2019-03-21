@@ -22,6 +22,8 @@ M.STATIC_CHUNK = [[
 ]]
 
 M.CLASSES = {
+    include("conf/cocos2d/editor-support/spine/cc.spine.lua"),
+    include("conf/cocos2d/editor-support/spine/cc.SkeletonRenderer.lua"),
     include("conf/cocos2d/editor-support/spine/cc.SkeletonAnimation.lua"),
 }
 

@@ -437,16 +437,20 @@ function class(collection)
         local arr = {}
         local dict = {}
         for func_decl in string.gmatch(funcs_str, '[^\n\r]+') do
-            if not string.find(func_decl, '^ *//') then
-                local _, str = parse_attr(func_decl)
-                local fn = string.match(str, '([^ ]+)%(')
-                local t = dict[fn]
-                if not t then
-                    t = {}
-                    arr[#arr + 1] = t
-                    dict[fn] = t
+            func_decl = string.gsub(func_decl, '^ *', '')
+            if #func_decl > 0 then
+                if not string.find(func_decl, '^ *//') then
+                    local _, str = parse_attr(func_decl)
+                    local fn = string.match(str, '([^ ]+) *%(')
+                    local t = dict[fn]
+                    assert(fn, func_decl)
+                    if not t then
+                        t = {}
+                        arr[#arr + 1] = t
+                        dict[fn] = t
+                    end
+                    t[#t + 1] = string.gsub(func_decl, '^ *', '')
                 end
-                t[#t + 1] = string.gsub(func_decl, '^ *', '')
             end
         end
         for _, v in ipairs(arr) do

@@ -15,12 +15,12 @@
 static int luaopen_spEventType(lua_State *L)
 {
     oluacls_class(L, "sp.EventType", nullptr);
-    oluacls_const_integer(L, "ANIMATION_START", (lua_Integer)spEventType::ANIMATION_START);
-    oluacls_const_integer(L, "ANIMATION_INTERRUPT", (lua_Integer)spEventType::ANIMATION_INTERRUPT);
-    oluacls_const_integer(L, "ANIMATION_END", (lua_Integer)spEventType::ANIMATION_END);
-    oluacls_const_integer(L, "ANIMATION_COMPLETE", (lua_Integer)spEventType::ANIMATION_COMPLETE);
-    oluacls_const_integer(L, "ANIMATION_DISPOSE", (lua_Integer)spEventType::ANIMATION_DISPOSE);
-    oluacls_const_integer(L, "ANIMATION_EVENT", (lua_Integer)spEventType::ANIMATION_EVENT);
+    oluacls_const_integer(L, "ANIMATION_START", (lua_Integer)spEventType::SP_ANIMATION_START);
+    oluacls_const_integer(L, "ANIMATION_INTERRUPT", (lua_Integer)spEventType::SP_ANIMATION_INTERRUPT);
+    oluacls_const_integer(L, "ANIMATION_END", (lua_Integer)spEventType::SP_ANIMATION_END);
+    oluacls_const_integer(L, "ANIMATION_COMPLETE", (lua_Integer)spEventType::SP_ANIMATION_COMPLETE);
+    oluacls_const_integer(L, "ANIMATION_DISPOSE", (lua_Integer)spEventType::SP_ANIMATION_DISPOSE);
+    oluacls_const_integer(L, "ANIMATION_EVENT", (lua_Integer)spEventType::SP_ANIMATION_EVENT);
 
     olua_registerluatype<spEventType>(L, "sp.EventType");
     oluacls_createclassproxy(L);
@@ -31,13 +31,13 @@ static int luaopen_spEventType(lua_State *L)
 static int luaopen_spAttachmentType(lua_State *L)
 {
     oluacls_class(L, "sp.AttachmentType", nullptr);
-    oluacls_const_integer(L, "ATTACHMENT_REGION", (lua_Integer)spAttachmentType::ATTACHMENT_REGION);
-    oluacls_const_integer(L, "ATTACHMENT_BOUNDING_BOX", (lua_Integer)spAttachmentType::ATTACHMENT_BOUNDING_BOX);
-    oluacls_const_integer(L, "ATTACHMENT_MESH", (lua_Integer)spAttachmentType::ATTACHMENT_MESH);
-    oluacls_const_integer(L, "ATTACHMENT_LINKED_MESH", (lua_Integer)spAttachmentType::ATTACHMENT_LINKED_MESH);
-    oluacls_const_integer(L, "ATTACHMENT_PATH", (lua_Integer)spAttachmentType::ATTACHMENT_PATH);
-    oluacls_const_integer(L, "ATTACHMENT_POINT", (lua_Integer)spAttachmentType::ATTACHMENT_POINT);
-    oluacls_const_integer(L, "ATTACHMENT_CLIPPING", (lua_Integer)spAttachmentType::ATTACHMENT_CLIPPING);
+    oluacls_const_integer(L, "ATTACHMENT_REGION", (lua_Integer)spAttachmentType::SP_ATTACHMENT_REGION);
+    oluacls_const_integer(L, "ATTACHMENT_BOUNDING_BOX", (lua_Integer)spAttachmentType::SP_ATTACHMENT_BOUNDING_BOX);
+    oluacls_const_integer(L, "ATTACHMENT_MESH", (lua_Integer)spAttachmentType::SP_ATTACHMENT_MESH);
+    oluacls_const_integer(L, "ATTACHMENT_LINKED_MESH", (lua_Integer)spAttachmentType::SP_ATTACHMENT_LINKED_MESH);
+    oluacls_const_integer(L, "ATTACHMENT_PATH", (lua_Integer)spAttachmentType::SP_ATTACHMENT_PATH);
+    oluacls_const_integer(L, "ATTACHMENT_POINT", (lua_Integer)spAttachmentType::SP_ATTACHMENT_POINT);
+    oluacls_const_integer(L, "ATTACHMENT_CLIPPING", (lua_Integer)spAttachmentType::SP_ATTACHMENT_CLIPPING);
 
     olua_registerluatype<spAttachmentType>(L, "sp.AttachmentType");
     oluacls_createclassproxy(L);
@@ -500,7 +500,7 @@ static int _spEvent_get_data(lua_State *L)
     return num_ret;
 }
 
-static int _spEvent_get_const(lua_State *L)
+static int _spEvent_get_time(lua_State *L)
 {
     lua_settop(L, 1);
 
@@ -509,7 +509,7 @@ static int _spEvent_get_const(lua_State *L)
     olua_to_obj(L, 1, (void **)&self, "sp.Event");
 
     // <function var>
-    float ret = (float)self->const;
+    float ret = (float)self->time;
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     return num_ret;
@@ -564,7 +564,7 @@ static int luaopen_spEvent(lua_State *L)
 {
     oluacls_class(L, "sp.Event", nullptr);
     oluacls_property(L, "data", _spEvent_get_data, nullptr);
-    oluacls_property(L, "const", _spEvent_get_const, nullptr);
+    oluacls_property(L, "time", _spEvent_get_time, nullptr);
     oluacls_property(L, "intValue", _spEvent_get_intValue, nullptr);
     oluacls_property(L, "floatValue", _spEvent_get_floatValue, nullptr);
     oluacls_property(L, "stringValue", _spEvent_get_stringValue, nullptr);

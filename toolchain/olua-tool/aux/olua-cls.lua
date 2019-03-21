@@ -584,9 +584,14 @@ function class(collection)
 
     function cls.enums(enums_str)
         for line in string.gmatch(enums_str, '[^\n\r]+') do
-            local name = string.match(line, '[%w:_]+')
+            local name, value = string.match(line, '([^ ]+) *= *([^ ]+)')
+            if not name then
+                name = string.match(line, '[%w:_]+')
+            elseif not string.find(value, cls.CPPCLS) then
+                value = cls.CPPCLS .. '::' .. value
+            end
             if name then
-                cls.enum(name)
+                cls.enum(name, value)
             end
         end
     end

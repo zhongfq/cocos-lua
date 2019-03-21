@@ -4,25 +4,25 @@ local cls = class(M)
 cls.CPPCLS = 'spEventType'
 cls.LUACLS = 'sp.EventType'
 cls.enums [[
-    ANIMATION_START
-    ANIMATION_INTERRUPT
-    ANIMATION_END
-    ANIMATION_COMPLETE
-    ANIMATION_DISPOSE
-    ANIMATION_EVENT
+    ANIMATION_START     = SP_ANIMATION_START
+    ANIMATION_INTERRUPT = SP_ANIMATION_INTERRUPT
+    ANIMATION_END       = SP_ANIMATION_END
+    ANIMATION_COMPLETE  = SP_ANIMATION_COMPLETE
+    ANIMATION_DISPOSE   = SP_ANIMATION_DISPOSE
+    ANIMATION_EVENT     = SP_ANIMATION_EVENT
 ]]
 
 local cls = class(M)
 cls.CPPCLS = 'spAttachmentType'
 cls.LUACLS = 'sp.AttachmentType'
 cls.enums [[
-    ATTACHMENT_REGION,
-    ATTACHMENT_BOUNDING_BOX,
-    ATTACHMENT_MESH,
-    ATTACHMENT_LINKED_MESH,
-    ATTACHMENT_PATH,
-    ATTACHMENT_POINT,
-    ATTACHMENT_CLIPPING
+    ATTACHMENT_REGION       = SP_ATTACHMENT_REGION
+    ATTACHMENT_BOUNDING_BOX = SP_ATTACHMENT_BOUNDING_BOX
+    ATTACHMENT_MESH         = SP_ATTACHMENT_MESH
+    ATTACHMENT_LINKED_MESH  = SP_ATTACHMENT_LINKED_MESH
+    ATTACHMENT_PATH         = SP_ATTACHMENT_PATH
+    ATTACHMENT_POINT        = SP_ATTACHMENT_POINT
+    ATTACHMENT_CLIPPING     = SP_ATTACHMENT_CLIPPING
 ]]
 
 local cls = class(M)
@@ -75,7 +75,7 @@ cls.CPPCLS = 'spEvent'
 cls.LUACLS = 'sp.Event'
 cls.vars [[
     @readonly spEventData* data;
-    @readonly float const time;
+    @readonly float time;
     @readonly int intValue;
     @readonly float floatValue;
     @readonly const char* stringValue;

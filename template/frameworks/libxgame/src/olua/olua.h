@@ -92,6 +92,7 @@ LUALIB_API int olua_getvariable(lua_State *L, int idx);
 LUALIB_API void olua_setvariable(lua_State *L, int idx);
     
 // for ref chain
+LUALIB_API void olua_getreftable(lua_State *L, int idx, const char *field);
 LUALIB_API void olua_singleref(lua_State *L, int obj, const char *field, int vidx);
 LUALIB_API void olua_singleunref(lua_State *L, int obj, const char *field);
 LUALIB_API void olua_mapref(lua_State *L, int obj, const char *t, int vidx);

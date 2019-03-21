@@ -60,12 +60,12 @@ function main()
     printUserValue(director)
 
     sprite:runAction(Sequence.create(
-        BezierBy.create(4, {x = 100, y = 100}, {x = 200, y = 400}, {x = 400, y = 0}),
+        BezierBy.create(2, {x = 100, y = 100}, {x = 200, y = 400}, {x = 400, y = 0}),
         CallFunc.create(function ()
             print("CallFunc xxxxx")
         end)
     ))
-    sprite:runAction(ActionFloat.create(5, 3.5, 8, function ( ... )
+    sprite:runAction(ActionFloat.create(2, 3.5, 8, function ( ... )
         -- print("##action float", ...)
     end))
 
@@ -111,6 +111,27 @@ function main()
         end
     end
     eventDispatcher:addEventListenerWithSceneGraphPriority(eventlistener, view)
+    eventDispatcher:addCustomEventListener("hello", function ( ... )
+        print("### hello", ...)
+    end)
+
+    timer.delay(2.5, function ( ... )
+        print("---------------2.5----------------------------")
+        collectgarbage('collect')
+        printUserValue(eventDispatcher)
+    end)
+    timer.delay(2.7, function ( ... )
+        print("---------------2.7----------------------------")
+        eventDispatcher:dispatchCustomEvent("hello", eventDispatcher)
+        printUserValue(eventDispatcher)
+        eventDispatcher:removeCustomEventListeners("hello")
+    end)
+    timer.delay(3, function ( ... )
+        print("---------------3------------------------------")
+        collectgarbage('collect')
+        eventDispatcher:dispatchCustomEvent("hello", eventDispatcher)
+        printUserValue(eventDispatcher)
+    end)
 end
 
 function printarr(arr)

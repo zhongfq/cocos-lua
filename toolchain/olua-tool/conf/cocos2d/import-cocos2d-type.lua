@@ -126,6 +126,7 @@ REG_TYPE {
         cocos2d::EventMouse::MouseButton
         cocos2d::EventMouse::MouseEventType
         cocos2d::EventTouch::EventCode
+        cocos2d::experimental::ui::VideoPlayer::EventType
         cocos2d::GlyphCollection
         cocos2d::Image::Format
         cocos2d::Label::LabelType
@@ -140,7 +141,6 @@ REG_TYPE {
         cocos2d::Texture2D::PixelFormat
         cocos2d::TextVAlignment
         cocos2d::TransitionScene::Orientation
-        cocos2d::experimental::ui::VideoPlayer::EventType
         cocos2d::ui::Layout::BackGroundColorType
         cocos2d::ui::Layout::ClippingType
         cocos2d::ui::Layout::Type
@@ -165,8 +165,9 @@ REG_TYPE {
         cocos2d::ui::Widget::SizeType
         cocos2d::ui::Widget::TextureResType
         cocos2d::ui::Widget::TouchEventType
-        spEventType
         ResolutionPolicy
+        spAttachmentType
+        spEventType
     ]],
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = "olua_$$_uint",

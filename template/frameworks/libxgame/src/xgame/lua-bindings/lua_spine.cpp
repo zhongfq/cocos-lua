@@ -15,14 +15,31 @@
 static int luaopen_spEventType(lua_State *L)
 {
     oluacls_class(L, "sp.EventType", nullptr);
-    oluacls_const_integer(L, "SP_ANIMATION_START", (lua_Integer)spEventType::SP_ANIMATION_START);
-    oluacls_const_integer(L, "SP_ANIMATION_INTERRUPT", (lua_Integer)spEventType::SP_ANIMATION_INTERRUPT);
-    oluacls_const_integer(L, "SP_ANIMATION_END", (lua_Integer)spEventType::SP_ANIMATION_END);
-    oluacls_const_integer(L, "SP_ANIMATION_COMPLETE", (lua_Integer)spEventType::SP_ANIMATION_COMPLETE);
-    oluacls_const_integer(L, "SP_ANIMATION_DISPOSE", (lua_Integer)spEventType::SP_ANIMATION_DISPOSE);
-    oluacls_const_integer(L, "SP_ANIMATION_EVENT", (lua_Integer)spEventType::SP_ANIMATION_EVENT);
+    oluacls_const_integer(L, "ANIMATION_START", (lua_Integer)spEventType::ANIMATION_START);
+    oluacls_const_integer(L, "ANIMATION_INTERRUPT", (lua_Integer)spEventType::ANIMATION_INTERRUPT);
+    oluacls_const_integer(L, "ANIMATION_END", (lua_Integer)spEventType::ANIMATION_END);
+    oluacls_const_integer(L, "ANIMATION_COMPLETE", (lua_Integer)spEventType::ANIMATION_COMPLETE);
+    oluacls_const_integer(L, "ANIMATION_DISPOSE", (lua_Integer)spEventType::ANIMATION_DISPOSE);
+    oluacls_const_integer(L, "ANIMATION_EVENT", (lua_Integer)spEventType::ANIMATION_EVENT);
 
     olua_registerluatype<spEventType>(L, "sp.EventType");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_spAttachmentType(lua_State *L)
+{
+    oluacls_class(L, "sp.AttachmentType", nullptr);
+    oluacls_const_integer(L, "ATTACHMENT_REGION", (lua_Integer)spAttachmentType::ATTACHMENT_REGION);
+    oluacls_const_integer(L, "ATTACHMENT_BOUNDING_BOX", (lua_Integer)spAttachmentType::ATTACHMENT_BOUNDING_BOX);
+    oluacls_const_integer(L, "ATTACHMENT_MESH", (lua_Integer)spAttachmentType::ATTACHMENT_MESH);
+    oluacls_const_integer(L, "ATTACHMENT_LINKED_MESH", (lua_Integer)spAttachmentType::ATTACHMENT_LINKED_MESH);
+    oluacls_const_integer(L, "ATTACHMENT_PATH", (lua_Integer)spAttachmentType::ATTACHMENT_PATH);
+    oluacls_const_integer(L, "ATTACHMENT_POINT", (lua_Integer)spAttachmentType::ATTACHMENT_POINT);
+    oluacls_const_integer(L, "ATTACHMENT_CLIPPING", (lua_Integer)spAttachmentType::ATTACHMENT_CLIPPING);
+
+    olua_registerluatype<spAttachmentType>(L, "sp.AttachmentType");
     oluacls_createclassproxy(L);
 
     return 1;
@@ -672,9 +689,41 @@ static int luaopen_spSlot(lua_State *L)
     return 1;
 }
 
+static int _spAttachment_get_name(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    spAttachment *self = nullptr;
+
+    olua_to_obj(L, 1, (void **)&self, "sp.Attachment");
+
+    // <function var>
+    const char *ret = (const char *)self->name;
+    int num_ret = olua_push_string(L, ret);
+
+    return num_ret;
+}
+
+static int _spAttachment_get_type(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    spAttachment *self = nullptr;
+
+    olua_to_obj(L, 1, (void **)&self, "sp.Attachment");
+
+    // <function var>
+    const spAttachmentType ret = (const spAttachmentType)self->type;
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
 static int luaopen_spAttachment(lua_State *L)
 {
     oluacls_class(L, "sp.Attachment", nullptr);
+    oluacls_property(L, "name", _spAttachment_get_name, nullptr);
+    oluacls_property(L, "type", _spAttachment_get_type, nullptr);
 
     olua_registerluatype<spAttachment>(L, "sp.Attachment");
     oluacls_createclassproxy(L);
@@ -2158,6 +2207,7 @@ static int luaopen_spine_SkeletonAnimation(lua_State *L)
 int luaopen_spine(lua_State *L)
 {
     olua_require(L, "sp.EventType", luaopen_spEventType);
+    olua_require(L, "sp.AttachmentType", luaopen_spAttachmentType);
     olua_require(L, "sp.TrackEntry", luaopen_spTrackEntry);
     olua_require(L, "sp.SkeletonData", luaopen_spSkeletonData);
     olua_require(L, "sp.Animation", luaopen_spAnimation);

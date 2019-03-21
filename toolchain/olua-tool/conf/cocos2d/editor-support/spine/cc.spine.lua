@@ -4,12 +4,25 @@ local cls = class(M)
 cls.CPPCLS = 'spEventType'
 cls.LUACLS = 'sp.EventType'
 cls.enums [[
-    SP_ANIMATION_START
-    SP_ANIMATION_INTERRUPT
-    SP_ANIMATION_END
-    SP_ANIMATION_COMPLETE
-    SP_ANIMATION_DISPOSE
-    SP_ANIMATION_EVENT
+    ANIMATION_START
+    ANIMATION_INTERRUPT
+    ANIMATION_END
+    ANIMATION_COMPLETE
+    ANIMATION_DISPOSE
+    ANIMATION_EVENT
+]]
+
+local cls = class(M)
+cls.CPPCLS = 'spAttachmentType'
+cls.LUACLS = 'sp.AttachmentType'
+cls.enums [[
+    ATTACHMENT_REGION,
+    ATTACHMENT_BOUNDING_BOX,
+    ATTACHMENT_MESH,
+    ATTACHMENT_LINKED_MESH,
+    ATTACHMENT_PATH,
+    ATTACHMENT_POINT,
+    ATTACHMENT_CLIPPING
 ]]
 
 local cls = class(M)
@@ -97,6 +110,10 @@ cls.LUACLS = 'sp.Slot'
 local cls = class(M)
 cls.CPPCLS = 'spAttachment'
 cls.LUACLS = 'sp.Attachment'
+cls.vars [[
+    @readonly const char* name;
+    @readonly const spAttachmentType type;
+]]
 
 local cls = class(M)
 cls.CPPCLS = 'spVertexEffect'

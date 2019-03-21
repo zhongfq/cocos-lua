@@ -386,12 +386,13 @@ REG_TYPE {
 REG_TYPE {
     TYPENAME = [[
         spAnimation *
-        spAnimationStateData *
         spAnimationState *
+        spAnimationStateData *
         spAtlas *
         spAttachment *
         spBone *
         spEvent *
+        spEventData *
         spSkeleton *
         spSkeletonData *
         spSlot *

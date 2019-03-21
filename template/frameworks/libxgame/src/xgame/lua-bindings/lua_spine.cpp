@@ -28,9 +28,377 @@ static int luaopen_spEventType(lua_State *L)
     return 1;
 }
 
+static int _spTrackEntry_get_animation(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    spTrackEntry *self = nullptr;
+
+    olua_to_obj(L, 1, (void **)&self, "sp.TrackEntry");
+
+    // <function var>
+    spAnimation *ret = (spAnimation *)self->animation;
+    int num_ret = olua_push_obj(L, ret, "sp.Animation");
+
+    return num_ret;
+}
+
+static int _spTrackEntry_get_next(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    spTrackEntry *self = nullptr;
+
+    olua_to_obj(L, 1, (void **)&self, "sp.TrackEntry");
+
+    // <function var>
+    spTrackEntry *ret = (spTrackEntry *)self->next;
+    int num_ret = olua_push_obj(L, ret, "sp.TrackEntry");
+
+    return num_ret;
+}
+
+static int _spTrackEntry_get_mixingFrom(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    spTrackEntry *self = nullptr;
+
+    olua_to_obj(L, 1, (void **)&self, "sp.TrackEntry");
+
+    // <function var>
+    spTrackEntry *ret = (spTrackEntry *)self->mixingFrom;
+    int num_ret = olua_push_obj(L, ret, "sp.TrackEntry");
+
+    return num_ret;
+}
+
+static int _spTrackEntry_get_trackIndex(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    spTrackEntry *self = nullptr;
+
+    olua_to_obj(L, 1, (void **)&self, "sp.TrackEntry");
+
+    // <function var>
+    int ret = (int)self->trackIndex;
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _spTrackEntry_get_loop(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    spTrackEntry *self = nullptr;
+
+    olua_to_obj(L, 1, (void **)&self, "sp.TrackEntry");
+
+    // <function var>
+    int ret = (int)self->loop;
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _spTrackEntry_get_eventThreshold(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    spTrackEntry *self = nullptr;
+
+    olua_to_obj(L, 1, (void **)&self, "sp.TrackEntry");
+
+    // <function var>
+    float ret = (float)self->eventThreshold;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _spTrackEntry_get_attachmentThreshold(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    spTrackEntry *self = nullptr;
+
+    olua_to_obj(L, 1, (void **)&self, "sp.TrackEntry");
+
+    // <function var>
+    float ret = (float)self->attachmentThreshold;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _spTrackEntry_get_drawOrderThreshold(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    spTrackEntry *self = nullptr;
+
+    olua_to_obj(L, 1, (void **)&self, "sp.TrackEntry");
+
+    // <function var>
+    float ret = (float)self->drawOrderThreshold;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _spTrackEntry_get_animationStart(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    spTrackEntry *self = nullptr;
+
+    olua_to_obj(L, 1, (void **)&self, "sp.TrackEntry");
+
+    // <function var>
+    float ret = (float)self->animationStart;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _spTrackEntry_get_animationEnd(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    spTrackEntry *self = nullptr;
+
+    olua_to_obj(L, 1, (void **)&self, "sp.TrackEntry");
+
+    // <function var>
+    float ret = (float)self->animationEnd;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _spTrackEntry_get_animationLast(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    spTrackEntry *self = nullptr;
+
+    olua_to_obj(L, 1, (void **)&self, "sp.TrackEntry");
+
+    // <function var>
+    float ret = (float)self->animationLast;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _spTrackEntry_get_nextAnimationLast(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    spTrackEntry *self = nullptr;
+
+    olua_to_obj(L, 1, (void **)&self, "sp.TrackEntry");
+
+    // <function var>
+    float ret = (float)self->nextAnimationLast;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _spTrackEntry_get_delay(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    spTrackEntry *self = nullptr;
+
+    olua_to_obj(L, 1, (void **)&self, "sp.TrackEntry");
+
+    // <function var>
+    float ret = (float)self->delay;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _spTrackEntry_get_trackTime(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    spTrackEntry *self = nullptr;
+
+    olua_to_obj(L, 1, (void **)&self, "sp.TrackEntry");
+
+    // <function var>
+    float ret = (float)self->trackTime;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _spTrackEntry_get_trackLast(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    spTrackEntry *self = nullptr;
+
+    olua_to_obj(L, 1, (void **)&self, "sp.TrackEntry");
+
+    // <function var>
+    float ret = (float)self->trackLast;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _spTrackEntry_get_nextTrackLast(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    spTrackEntry *self = nullptr;
+
+    olua_to_obj(L, 1, (void **)&self, "sp.TrackEntry");
+
+    // <function var>
+    float ret = (float)self->nextTrackLast;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _spTrackEntry_get_trackEnd(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    spTrackEntry *self = nullptr;
+
+    olua_to_obj(L, 1, (void **)&self, "sp.TrackEntry");
+
+    // <function var>
+    float ret = (float)self->trackEnd;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _spTrackEntry_get_timeScale(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    spTrackEntry *self = nullptr;
+
+    olua_to_obj(L, 1, (void **)&self, "sp.TrackEntry");
+
+    // <function var>
+    float ret = (float)self->timeScale;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _spTrackEntry_get_alpha(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    spTrackEntry *self = nullptr;
+
+    olua_to_obj(L, 1, (void **)&self, "sp.TrackEntry");
+
+    // <function var>
+    float ret = (float)self->alpha;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _spTrackEntry_get_mixTime(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    spTrackEntry *self = nullptr;
+
+    olua_to_obj(L, 1, (void **)&self, "sp.TrackEntry");
+
+    // <function var>
+    float ret = (float)self->mixTime;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _spTrackEntry_get_mixDuration(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    spTrackEntry *self = nullptr;
+
+    olua_to_obj(L, 1, (void **)&self, "sp.TrackEntry");
+
+    // <function var>
+    float ret = (float)self->mixDuration;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _spTrackEntry_get_interruptAlpha(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    spTrackEntry *self = nullptr;
+
+    olua_to_obj(L, 1, (void **)&self, "sp.TrackEntry");
+
+    // <function var>
+    float ret = (float)self->interruptAlpha;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _spTrackEntry_get_totalAlpha(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    spTrackEntry *self = nullptr;
+
+    olua_to_obj(L, 1, (void **)&self, "sp.TrackEntry");
+
+    // <function var>
+    float ret = (float)self->totalAlpha;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
 static int luaopen_spTrackEntry(lua_State *L)
 {
     oluacls_class(L, "sp.TrackEntry", nullptr);
+    oluacls_property(L, "animation", _spTrackEntry_get_animation, nullptr);
+    oluacls_property(L, "next", _spTrackEntry_get_next, nullptr);
+    oluacls_property(L, "mixingFrom", _spTrackEntry_get_mixingFrom, nullptr);
+    oluacls_property(L, "trackIndex", _spTrackEntry_get_trackIndex, nullptr);
+    oluacls_property(L, "loop", _spTrackEntry_get_loop, nullptr);
+    oluacls_property(L, "eventThreshold", _spTrackEntry_get_eventThreshold, nullptr);
+    oluacls_property(L, "attachmentThreshold", _spTrackEntry_get_attachmentThreshold, nullptr);
+    oluacls_property(L, "drawOrderThreshold", _spTrackEntry_get_drawOrderThreshold, nullptr);
+    oluacls_property(L, "animationStart", _spTrackEntry_get_animationStart, nullptr);
+    oluacls_property(L, "animationEnd", _spTrackEntry_get_animationEnd, nullptr);
+    oluacls_property(L, "animationLast", _spTrackEntry_get_animationLast, nullptr);
+    oluacls_property(L, "nextAnimationLast", _spTrackEntry_get_nextAnimationLast, nullptr);
+    oluacls_property(L, "delay", _spTrackEntry_get_delay, nullptr);
+    oluacls_property(L, "trackTime", _spTrackEntry_get_trackTime, nullptr);
+    oluacls_property(L, "trackLast", _spTrackEntry_get_trackLast, nullptr);
+    oluacls_property(L, "nextTrackLast", _spTrackEntry_get_nextTrackLast, nullptr);
+    oluacls_property(L, "trackEnd", _spTrackEntry_get_trackEnd, nullptr);
+    oluacls_property(L, "timeScale", _spTrackEntry_get_timeScale, nullptr);
+    oluacls_property(L, "alpha", _spTrackEntry_get_alpha, nullptr);
+    oluacls_property(L, "mixTime", _spTrackEntry_get_mixTime, nullptr);
+    oluacls_property(L, "mixDuration", _spTrackEntry_get_mixDuration, nullptr);
+    oluacls_property(L, "interruptAlpha", _spTrackEntry_get_interruptAlpha, nullptr);
+    oluacls_property(L, "totalAlpha", _spTrackEntry_get_totalAlpha, nullptr);
 
     olua_registerluatype<spTrackEntry>(L, "sp.TrackEntry");
     oluacls_createclassproxy(L);
@@ -100,11 +468,165 @@ static int luaopen_spAtlas(lua_State *L)
     return 1;
 }
 
+static int _spEvent_get_data(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    spEvent *self = nullptr;
+
+    olua_to_obj(L, 1, (void **)&self, "sp.Event");
+
+    // <function var>
+    spEventData *ret = (spEventData *)self->data;
+    int num_ret = olua_push_obj(L, ret, "sp.EventData");
+
+    return num_ret;
+}
+
+static int _spEvent_get_const(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    spEvent *self = nullptr;
+
+    olua_to_obj(L, 1, (void **)&self, "sp.Event");
+
+    // <function var>
+    float ret = (float)self->const;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _spEvent_get_intValue(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    spEvent *self = nullptr;
+
+    olua_to_obj(L, 1, (void **)&self, "sp.Event");
+
+    // <function var>
+    int ret = (int)self->intValue;
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _spEvent_get_floatValue(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    spEvent *self = nullptr;
+
+    olua_to_obj(L, 1, (void **)&self, "sp.Event");
+
+    // <function var>
+    float ret = (float)self->floatValue;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _spEvent_get_stringValue(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    spEvent *self = nullptr;
+
+    olua_to_obj(L, 1, (void **)&self, "sp.Event");
+
+    // <function var>
+    const char *ret = (const char *)self->stringValue;
+    int num_ret = olua_push_string(L, ret);
+
+    return num_ret;
+}
+
 static int luaopen_spEvent(lua_State *L)
 {
     oluacls_class(L, "sp.Event", nullptr);
+    oluacls_property(L, "data", _spEvent_get_data, nullptr);
+    oluacls_property(L, "const", _spEvent_get_const, nullptr);
+    oluacls_property(L, "intValue", _spEvent_get_intValue, nullptr);
+    oluacls_property(L, "floatValue", _spEvent_get_floatValue, nullptr);
+    oluacls_property(L, "stringValue", _spEvent_get_stringValue, nullptr);
 
     olua_registerluatype<spEvent>(L, "sp.Event");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _spEventData_get_name(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    spEventData *self = nullptr;
+
+    olua_to_obj(L, 1, (void **)&self, "sp.EventData");
+
+    // <function var>
+    const char *ret = (const char *)self->name;
+    int num_ret = olua_push_string(L, ret);
+
+    return num_ret;
+}
+
+static int _spEventData_get_intValue(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    spEventData *self = nullptr;
+
+    olua_to_obj(L, 1, (void **)&self, "sp.EventData");
+
+    // <function var>
+    int ret = (int)self->intValue;
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _spEventData_get_floatValue(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    spEventData *self = nullptr;
+
+    olua_to_obj(L, 1, (void **)&self, "sp.EventData");
+
+    // <function var>
+    float ret = (float)self->floatValue;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _spEventData_get_stringValue(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    spEventData *self = nullptr;
+
+    olua_to_obj(L, 1, (void **)&self, "sp.EventData");
+
+    // <function var>
+    const char *ret = (const char *)self->stringValue;
+    int num_ret = olua_push_string(L, ret);
+
+    return num_ret;
+}
+
+static int luaopen_spEventData(lua_State *L)
+{
+    oluacls_class(L, "sp.EventData", nullptr);
+    oluacls_property(L, "name", _spEventData_get_name, nullptr);
+    oluacls_property(L, "intValue", _spEventData_get_intValue, nullptr);
+    oluacls_property(L, "floatValue", _spEventData_get_floatValue, nullptr);
+    oluacls_property(L, "stringValue", _spEventData_get_stringValue, nullptr);
+
+    olua_registerluatype<spEventData>(L, "sp.EventData");
     oluacls_createclassproxy(L);
 
     return 1;
@@ -1641,6 +2163,7 @@ int luaopen_spine(lua_State *L)
     olua_require(L, "sp.Animation", luaopen_spAnimation);
     olua_require(L, "sp.Atlas", luaopen_spAtlas);
     olua_require(L, "sp.Event", luaopen_spEvent);
+    olua_require(L, "sp.EventData", luaopen_spEventData);
     olua_require(L, "sp.AnimationState", luaopen_spAnimationState);
     olua_require(L, "sp.Skeleton", luaopen_spSkeleton);
     olua_require(L, "sp.Bone", luaopen_spBone);

@@ -6878,11 +6878,9 @@ static int _cocos2d_ui_ScrollView_getInnerContainer(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
 
-    // @ref(single innerContainer) Layout* getInnerContainer()
+    // Layout* getInnerContainer()
     cocos2d::ui::Layout *ret = (cocos2d::ui::Layout *)self->getInnerContainer();
     int num_ret = olua_push_cppobj<cocos2d::ui::Layout>(L, ret, "ccui.Layout");
-
-    olua_singleref(L, 1, "innerContainer", -1);
 
     return num_ret;
 }
@@ -7904,6 +7902,7 @@ static int luaopen_cocos2d_ui_ScrollView(lua_State *L)
     oluacls_setfunc(L, "isScrolling", _cocos2d_ui_ScrollView_isScrolling);
     oluacls_setfunc(L, "isAutoScrolling", _cocos2d_ui_ScrollView_isAutoScrolling);
     oluacls_setfunc(L, "addEventListener", _cocos2d_ui_ScrollView_addEventListener);
+    oluacls_setfunc(L, "addScrollViewEventListener", _cocos2d_ui_ScrollView_addEventListener);
     oluacls_property(L, "direction", _cocos2d_ui_ScrollView_getDirection, _cocos2d_ui_ScrollView_setDirection);
     oluacls_property(L, "innerContainer", _cocos2d_ui_ScrollView_getInnerContainer, nullptr);
     oluacls_property(L, "scrolledPercentVertical", _cocos2d_ui_ScrollView_getScrolledPercentVertical, nullptr);
@@ -7922,6 +7921,836 @@ static int luaopen_cocos2d_ui_ScrollView(lua_State *L)
     oluacls_property(L, "autoScrolling", _cocos2d_ui_ScrollView_isAutoScrolling, nullptr);
 
     olua_registerluatype<cocos2d::ui::ScrollView>(L, "ccui.ScrollView");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_ui_ListView_Gravity(lua_State *L)
+{
+    oluacls_class(L, "ccui.ListView.Gravity", nullptr);
+    oluacls_const_integer(L, "LEFT", (lua_Integer)cocos2d::ui::ListView::Gravity::LEFT);
+    oluacls_const_integer(L, "RIGHT", (lua_Integer)cocos2d::ui::ListView::Gravity::RIGHT);
+    oluacls_const_integer(L, "CENTER_HORIZONTAL", (lua_Integer)cocos2d::ui::ListView::Gravity::CENTER_HORIZONTAL);
+    oluacls_const_integer(L, "TOP", (lua_Integer)cocos2d::ui::ListView::Gravity::TOP);
+    oluacls_const_integer(L, "BOTTOM", (lua_Integer)cocos2d::ui::ListView::Gravity::BOTTOM);
+    oluacls_const_integer(L, "CENTER_VERTICAL", (lua_Integer)cocos2d::ui::ListView::Gravity::CENTER_VERTICAL);
+
+    olua_registerluatype<cocos2d::ui::ListView::Gravity>(L, "ccui.ListView.Gravity");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_ui_ListView_EventType(lua_State *L)
+{
+    oluacls_class(L, "ccui.ListView.EventType", nullptr);
+    oluacls_const_integer(L, "ON_SELECTED_ITEM_START", (lua_Integer)cocos2d::ui::ListView::EventType::ON_SELECTED_ITEM_START);
+    oluacls_const_integer(L, "ON_SELECTED_ITEM_END", (lua_Integer)cocos2d::ui::ListView::EventType::ON_SELECTED_ITEM_END);
+
+    olua_registerluatype<cocos2d::ui::ListView::EventType>(L, "ccui.ListView.EventType");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_ui_ListView_MagneticType(lua_State *L)
+{
+    oluacls_class(L, "ccui.ListView.MagneticType", nullptr);
+    oluacls_const_integer(L, "NONE", (lua_Integer)cocos2d::ui::ListView::MagneticType::NONE);
+    oluacls_const_integer(L, "CENTER", (lua_Integer)cocos2d::ui::ListView::MagneticType::CENTER);
+    oluacls_const_integer(L, "BOTH_END", (lua_Integer)cocos2d::ui::ListView::MagneticType::BOTH_END);
+    oluacls_const_integer(L, "LEFT", (lua_Integer)cocos2d::ui::ListView::MagneticType::LEFT);
+    oluacls_const_integer(L, "RIGHT", (lua_Integer)cocos2d::ui::ListView::MagneticType::RIGHT);
+    oluacls_const_integer(L, "TOP", (lua_Integer)cocos2d::ui::ListView::MagneticType::TOP);
+    oluacls_const_integer(L, "BOTTOM", (lua_Integer)cocos2d::ui::ListView::MagneticType::BOTTOM);
+
+    olua_registerluatype<cocos2d::ui::ListView::MagneticType>(L, "ccui.ListView.MagneticType");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_ui_ListView_create(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static ListView* create()
+    cocos2d::ui::ListView *ret = (cocos2d::ui::ListView *)cocos2d::ui::ListView::create();
+    int num_ret = olua_push_cppobj<cocos2d::ui::ListView>(L, ret, "ccui.ListView");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ListView_setItemModel(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::ListView *self = nullptr;
+    cocos2d::ui::Widget *arg1 = nullptr;   /** model */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+    olua_check_cppobj(L, 2, (void **)&arg1, "ccui.Widget");
+
+    // void setItemModel(Widget* model)
+    self->setItemModel(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ListView_pushBackDefaultItem(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ListView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+
+    // void pushBackDefaultItem()
+    self->pushBackDefaultItem();
+
+    return 0;
+}
+
+static int _cocos2d_ui_ListView_insertDefaultItem(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::ListView *self = nullptr;
+    lua_Integer arg1 = 0;   /** index */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+    olua_check_int(L, 2, &arg1);
+
+    // void insertDefaultItem(ssize_t index)
+    self->insertDefaultItem((ssize_t)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ListView_pushBackCustomItem(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::ListView *self = nullptr;
+    cocos2d::ui::Widget *arg1 = nullptr;   /** item */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+    olua_check_cppobj(L, 2, (void **)&arg1, "ccui.Widget");
+
+    // void pushBackCustomItem(Widget* item)
+    self->pushBackCustomItem(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ListView_insertCustomItem(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ui::ListView *self = nullptr;
+    cocos2d::ui::Widget *arg1 = nullptr;   /** item */
+    lua_Integer arg2 = 0;   /** index */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+    olua_check_cppobj(L, 2, (void **)&arg1, "ccui.Widget");
+    olua_check_int(L, 3, &arg2);
+
+    // void insertCustomItem(Widget* item, ssize_t index)
+    self->insertCustomItem(arg1, (ssize_t)arg2);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ListView_removeLastItem(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ListView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+
+    // void removeLastItem()
+    self->removeLastItem();
+
+    return 0;
+}
+
+static int _cocos2d_ui_ListView_removeItem(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::ListView *self = nullptr;
+    lua_Integer arg1 = 0;   /** index */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+    olua_check_int(L, 2, &arg1);
+
+    // void removeItem(ssize_t index)
+    self->removeItem((ssize_t)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ListView_removeAllItems(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ListView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+
+    // void removeAllItems()
+    self->removeAllItems();
+
+    return 0;
+}
+
+static int _cocos2d_ui_ListView_getItem(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::ListView *self = nullptr;
+    lua_Integer arg1 = 0;   /** index */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+    olua_check_int(L, 2, &arg1);
+
+    // Widget* getItem(ssize_t index)
+    cocos2d::ui::Widget *ret = (cocos2d::ui::Widget *)self->getItem((ssize_t)arg1);
+    int num_ret = olua_push_cppobj<cocos2d::ui::Widget>(L, ret, "ccui.Widget");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ListView_getItems(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ListView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+
+    // Vector<Widget*>& getItems()
+    cocos2d::Vector<cocos2d::ui::Widget *> &ret = (cocos2d::Vector<cocos2d::ui::Widget *> &)self->getItems();
+    int num_ret = manual_luacv_push_cocos2d_Vector(L, ret, "ccui.Widget");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ListView_getIndex(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::ListView *self = nullptr;
+    cocos2d::ui::Widget *arg1 = nullptr;   /** item */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+    olua_check_cppobj(L, 2, (void **)&arg1, "ccui.Widget");
+
+    // ssize_t getIndex(Widget* item)
+    ssize_t ret = (ssize_t)self->getIndex(arg1);
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ListView_setGravity(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::ListView *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** gravity */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+    olua_check_uint(L, 2, &arg1);
+
+    // void setGravity(Gravity gravity)
+    self->setGravity((cocos2d::ui::ListView::Gravity)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ListView_setMagneticType(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::ListView *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** magneticType */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+    olua_check_uint(L, 2, &arg1);
+
+    // void setMagneticType(MagneticType magneticType)
+    self->setMagneticType((cocos2d::ui::ListView::MagneticType)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ListView_getMagneticType(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ListView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+
+    // MagneticType getMagneticType()
+    cocos2d::ui::ListView::MagneticType ret = (cocos2d::ui::ListView::MagneticType)self->getMagneticType();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ListView_setMagneticAllowedOutOfBoundary(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::ListView *self = nullptr;
+    bool arg1 = false;   /** magneticAllowedOutOfBoundary */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setMagneticAllowedOutOfBoundary(bool magneticAllowedOutOfBoundary)
+    self->setMagneticAllowedOutOfBoundary(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ListView_getMagneticAllowedOutOfBoundary(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ListView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+
+    // bool getMagneticAllowedOutOfBoundary()
+    bool ret = (bool)self->getMagneticAllowedOutOfBoundary();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ListView_setItemsMargin(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::ListView *self = nullptr;
+    lua_Number arg1 = 0;   /** margin */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+    olua_check_number(L, 2, &arg1);
+
+    // void setItemsMargin(float margin)
+    self->setItemsMargin((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ListView_getItemsMargin(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ListView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+
+    // float getItemsMargin()
+    float ret = (float)self->getItemsMargin();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ListView_setPadding(lua_State *L)
+{
+    lua_settop(L, 5);
+
+    cocos2d::ui::ListView *self = nullptr;
+    lua_Number arg1 = 0;   /** l */
+    lua_Number arg2 = 0;   /** t */
+    lua_Number arg3 = 0;   /** r */
+    lua_Number arg4 = 0;   /** b */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+    olua_check_number(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+    olua_check_number(L, 5, &arg4);
+
+    // void setPadding(float l, float t, float r, float b)
+    self->setPadding((float)arg1, (float)arg2, (float)arg3, (float)arg4);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ListView_setLeftPadding(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::ListView *self = nullptr;
+    lua_Number arg1 = 0;   /** l */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+    olua_check_number(L, 2, &arg1);
+
+    // void setLeftPadding(float l)
+    self->setLeftPadding((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ListView_setTopPadding(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::ListView *self = nullptr;
+    lua_Number arg1 = 0;   /** t */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+    olua_check_number(L, 2, &arg1);
+
+    // void setTopPadding(float t)
+    self->setTopPadding((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ListView_setRightPadding(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::ListView *self = nullptr;
+    lua_Number arg1 = 0;   /** r */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+    olua_check_number(L, 2, &arg1);
+
+    // void setRightPadding(float r)
+    self->setRightPadding((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ListView_setBottomPadding(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::ListView *self = nullptr;
+    lua_Number arg1 = 0;   /** b */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+    olua_check_number(L, 2, &arg1);
+
+    // void setBottomPadding(float b)
+    self->setBottomPadding((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ListView_getLeftPadding(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ListView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+
+    // float getLeftPadding()
+    float ret = (float)self->getLeftPadding();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ListView_getTopPadding(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ListView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+
+    // float getTopPadding()
+    float ret = (float)self->getTopPadding();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ListView_getRightPadding(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ListView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+
+    // float getRightPadding()
+    float ret = (float)self->getRightPadding();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ListView_getBottomPadding(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ListView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+
+    // float getBottomPadding()
+    float ret = (float)self->getBottomPadding();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ListView_setScrollDuration(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::ListView *self = nullptr;
+    lua_Number arg1 = 0;   /** time */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+    olua_check_number(L, 2, &arg1);
+
+    // void  setScrollDuration(float time)
+    self->setScrollDuration((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ListView_getScrollDuration(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ListView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+
+    // float getScrollDuration()
+    float ret = (float)self->getScrollDuration();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ListView_getClosestItemToPosition(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ui::ListView *self = nullptr;
+    cocos2d::Vec2 arg1;       /** targetPosition */
+    cocos2d::Vec2 arg2;       /** itemAnchorPoint */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 3, &arg2);
+
+    // Widget* getClosestItemToPosition(const Vec2& targetPosition, const Vec2& itemAnchorPoint)
+    cocos2d::ui::Widget *ret = (cocos2d::ui::Widget *)self->getClosestItemToPosition(arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::ui::Widget>(L, ret, "ccui.Widget");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ListView_getClosestItemToPositionInCurrentView(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ui::ListView *self = nullptr;
+    cocos2d::Vec2 arg1;       /** positionRatioInView */
+    cocos2d::Vec2 arg2;       /** itemAnchorPoint */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 3, &arg2);
+
+    // Widget* getClosestItemToPositionInCurrentView(const Vec2& positionRatioInView, const Vec2& itemAnchorPoint)
+    cocos2d::ui::Widget *ret = (cocos2d::ui::Widget *)self->getClosestItemToPositionInCurrentView(arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::ui::Widget>(L, ret, "ccui.Widget");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ListView_getCenterItemInCurrentView(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ListView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+
+    // Widget* getCenterItemInCurrentView()
+    cocos2d::ui::Widget *ret = (cocos2d::ui::Widget *)self->getCenterItemInCurrentView();
+    int num_ret = olua_push_cppobj<cocos2d::ui::Widget>(L, ret, "ccui.Widget");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ListView_getLeftmostItemInCurrentView(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ListView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+
+    // Widget* getLeftmostItemInCurrentView()
+    cocos2d::ui::Widget *ret = (cocos2d::ui::Widget *)self->getLeftmostItemInCurrentView();
+    int num_ret = olua_push_cppobj<cocos2d::ui::Widget>(L, ret, "ccui.Widget");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ListView_getRightmostItemInCurrentView(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ListView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+
+    // Widget* getRightmostItemInCurrentView()
+    cocos2d::ui::Widget *ret = (cocos2d::ui::Widget *)self->getRightmostItemInCurrentView();
+    int num_ret = olua_push_cppobj<cocos2d::ui::Widget>(L, ret, "ccui.Widget");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ListView_getTopmostItemInCurrentView(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ListView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+
+    // Widget* getTopmostItemInCurrentView()
+    cocos2d::ui::Widget *ret = (cocos2d::ui::Widget *)self->getTopmostItemInCurrentView();
+    int num_ret = olua_push_cppobj<cocos2d::ui::Widget>(L, ret, "ccui.Widget");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ListView_getBottommostItemInCurrentView(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ListView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+
+    // Widget* getBottommostItemInCurrentView()
+    cocos2d::ui::Widget *ret = (cocos2d::ui::Widget *)self->getBottommostItemInCurrentView();
+    int num_ret = olua_push_cppobj<cocos2d::ui::Widget>(L, ret, "ccui.Widget");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ListView_jumpToItem(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    cocos2d::ui::ListView *self = nullptr;
+    lua_Integer arg1 = 0;   /** itemIndex */
+    cocos2d::Vec2 arg2;       /** positionRatioInView */
+    cocos2d::Vec2 arg3;       /** itemAnchorPoint */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+    olua_check_int(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 3, &arg2);
+    auto_luacv_check_cocos2d_Vec2(L, 4, &arg3);
+
+    // void jumpToItem(ssize_t itemIndex, const Vec2& positionRatioInView, const Vec2& itemAnchorPoint)
+    self->jumpToItem((ssize_t)arg1, arg2, arg3);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ListView_scrollToItem1(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    cocos2d::ui::ListView *self = nullptr;
+    lua_Integer arg1 = 0;   /** itemIndex */
+    cocos2d::Vec2 arg2;       /** positionRatioInView */
+    cocos2d::Vec2 arg3;       /** itemAnchorPoint */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+    olua_check_int(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 3, &arg2);
+    auto_luacv_check_cocos2d_Vec2(L, 4, &arg3);
+
+    // void scrollToItem(ssize_t itemIndex, const Vec2& positionRatioInView, const Vec2& itemAnchorPoint)
+    self->scrollToItem((ssize_t)arg1, arg2, arg3);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ListView_scrollToItem2(lua_State *L)
+{
+    lua_settop(L, 5);
+
+    cocos2d::ui::ListView *self = nullptr;
+    lua_Integer arg1 = 0;   /** itemIndex */
+    cocos2d::Vec2 arg2;       /** positionRatioInView */
+    cocos2d::Vec2 arg3;       /** itemAnchorPoint */
+    lua_Number arg4 = 0;   /** timeInSec */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+    olua_check_int(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 3, &arg2);
+    auto_luacv_check_cocos2d_Vec2(L, 4, &arg3);
+    olua_check_number(L, 5, &arg4);
+
+    // void scrollToItem(ssize_t itemIndex, const Vec2& positionRatioInView, const Vec2& itemAnchorPoint, float timeInSec)
+    self->scrollToItem((ssize_t)arg1, arg2, arg3, (float)arg4);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ListView_scrollToItem(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 3) {
+        // if (olua_is_int(L, 2) && auto_luacv_is_cocos2d_Vec2(L, 3) && auto_luacv_is_cocos2d_Vec2(L, 4)) {
+            return _cocos2d_ui_ListView_scrollToItem1(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if (olua_is_int(L, 2) && auto_luacv_is_cocos2d_Vec2(L, 3) && auto_luacv_is_cocos2d_Vec2(L, 4) && olua_is_number(L, 5)) {
+            return _cocos2d_ui_ListView_scrollToItem2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::ListView::scrollToItem' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ListView_getCurSelectedIndex(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::ListView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+
+    // ssize_t getCurSelectedIndex()
+    ssize_t ret = (ssize_t)self->getCurSelectedIndex();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ListView_setCurSelectedIndex(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::ListView *self = nullptr;
+    lua_Integer arg1 = 0;   /** itemIndex */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+    olua_check_int(L, 2, &arg1);
+
+    // void setCurSelectedIndex(int itemIndex)
+    self->setCurSelectedIndex((int)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ListView_addEventListener(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::ListView *self = nullptr;
+    std::function<void(cocos2d::Ref *, cocos2d::ui::ListView::EventType)> arg1 = nullptr;   /** callback */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
+
+    if (olua_is_std_function(L, 2)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("ListViewCallback");
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+        arg1 = [callback_store_obj, func, tag](cocos2d::Ref *arg1, cocos2d::ui::ListView::EventType arg2) {
+            lua_State *L = olua_mainthread();
+            int top = lua_gettop(L);
+
+            olua_push_cppobj<cocos2d::Ref>(L, arg1, "cc.Ref");
+            olua_push_uint(L, (lua_Unsigned)arg2);
+            olua_callback(L, callback_store_obj, func.c_str(), 2);
+
+            lua_settop(L, top);
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("ListViewCallback");
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+        arg1 = nullptr;
+    }
+
+    // void addEventListener(@nullable const std::function<void(Ref*, EventType)>& callback)
+    self->addEventListener(arg1);
+
+    return 0;
+}
+
+static int luaopen_cocos2d_ui_ListView(lua_State *L)
+{
+    oluacls_class(L, "ccui.ListView", "ccui.ScrollView");
+    oluacls_setfunc(L, "create", _cocos2d_ui_ListView_create);
+    oluacls_setfunc(L, "setItemModel", _cocos2d_ui_ListView_setItemModel);
+    oluacls_setfunc(L, "pushBackDefaultItem", _cocos2d_ui_ListView_pushBackDefaultItem);
+    oluacls_setfunc(L, "insertDefaultItem", _cocos2d_ui_ListView_insertDefaultItem);
+    oluacls_setfunc(L, "pushBackCustomItem", _cocos2d_ui_ListView_pushBackCustomItem);
+    oluacls_setfunc(L, "insertCustomItem", _cocos2d_ui_ListView_insertCustomItem);
+    oluacls_setfunc(L, "removeLastItem", _cocos2d_ui_ListView_removeLastItem);
+    oluacls_setfunc(L, "removeItem", _cocos2d_ui_ListView_removeItem);
+    oluacls_setfunc(L, "removeAllItems", _cocos2d_ui_ListView_removeAllItems);
+    oluacls_setfunc(L, "getItem", _cocos2d_ui_ListView_getItem);
+    oluacls_setfunc(L, "getItems", _cocos2d_ui_ListView_getItems);
+    oluacls_setfunc(L, "getIndex", _cocos2d_ui_ListView_getIndex);
+    oluacls_setfunc(L, "setGravity", _cocos2d_ui_ListView_setGravity);
+    oluacls_setfunc(L, "setMagneticType", _cocos2d_ui_ListView_setMagneticType);
+    oluacls_setfunc(L, "getMagneticType", _cocos2d_ui_ListView_getMagneticType);
+    oluacls_setfunc(L, "setMagneticAllowedOutOfBoundary", _cocos2d_ui_ListView_setMagneticAllowedOutOfBoundary);
+    oluacls_setfunc(L, "getMagneticAllowedOutOfBoundary", _cocos2d_ui_ListView_getMagneticAllowedOutOfBoundary);
+    oluacls_setfunc(L, "setItemsMargin", _cocos2d_ui_ListView_setItemsMargin);
+    oluacls_setfunc(L, "getItemsMargin", _cocos2d_ui_ListView_getItemsMargin);
+    oluacls_setfunc(L, "setPadding", _cocos2d_ui_ListView_setPadding);
+    oluacls_setfunc(L, "setLeftPadding", _cocos2d_ui_ListView_setLeftPadding);
+    oluacls_setfunc(L, "setTopPadding", _cocos2d_ui_ListView_setTopPadding);
+    oluacls_setfunc(L, "setRightPadding", _cocos2d_ui_ListView_setRightPadding);
+    oluacls_setfunc(L, "setBottomPadding", _cocos2d_ui_ListView_setBottomPadding);
+    oluacls_setfunc(L, "getLeftPadding", _cocos2d_ui_ListView_getLeftPadding);
+    oluacls_setfunc(L, "getTopPadding", _cocos2d_ui_ListView_getTopPadding);
+    oluacls_setfunc(L, "getRightPadding", _cocos2d_ui_ListView_getRightPadding);
+    oluacls_setfunc(L, "getBottomPadding", _cocos2d_ui_ListView_getBottomPadding);
+    oluacls_setfunc(L, "setScrollDuration", _cocos2d_ui_ListView_setScrollDuration);
+    oluacls_setfunc(L, "getScrollDuration", _cocos2d_ui_ListView_getScrollDuration);
+    oluacls_setfunc(L, "getClosestItemToPosition", _cocos2d_ui_ListView_getClosestItemToPosition);
+    oluacls_setfunc(L, "getClosestItemToPositionInCurrentView", _cocos2d_ui_ListView_getClosestItemToPositionInCurrentView);
+    oluacls_setfunc(L, "getCenterItemInCurrentView", _cocos2d_ui_ListView_getCenterItemInCurrentView);
+    oluacls_setfunc(L, "getLeftmostItemInCurrentView", _cocos2d_ui_ListView_getLeftmostItemInCurrentView);
+    oluacls_setfunc(L, "getRightmostItemInCurrentView", _cocos2d_ui_ListView_getRightmostItemInCurrentView);
+    oluacls_setfunc(L, "getTopmostItemInCurrentView", _cocos2d_ui_ListView_getTopmostItemInCurrentView);
+    oluacls_setfunc(L, "getBottommostItemInCurrentView", _cocos2d_ui_ListView_getBottommostItemInCurrentView);
+    oluacls_setfunc(L, "jumpToItem", _cocos2d_ui_ListView_jumpToItem);
+    oluacls_setfunc(L, "scrollToItem", _cocos2d_ui_ListView_scrollToItem);
+    oluacls_setfunc(L, "getCurSelectedIndex", _cocos2d_ui_ListView_getCurSelectedIndex);
+    oluacls_setfunc(L, "setCurSelectedIndex", _cocos2d_ui_ListView_setCurSelectedIndex);
+    oluacls_setfunc(L, "addEventListener", _cocos2d_ui_ListView_addEventListener);
+
+    olua_registerluatype<cocos2d::ui::ListView>(L, "ccui.ListView");
     oluacls_createclassproxy(L);
 
     return 1;
@@ -7974,5 +8803,9 @@ int luaopen_cocos2d_ui(lua_State *L)
     olua_require(L, "ccui.ScrollView.Direction", luaopen_cocos2d_ui_ScrollView_Direction);
     olua_require(L, "ccui.ScrollView.EventType", luaopen_cocos2d_ui_ScrollView_EventType);
     olua_require(L, "ccui.ScrollView", luaopen_cocos2d_ui_ScrollView);
+    olua_require(L, "ccui.ListView.Gravity", luaopen_cocos2d_ui_ListView_Gravity);
+    olua_require(L, "ccui.ListView.EventType", luaopen_cocos2d_ui_ListView_EventType);
+    olua_require(L, "ccui.ListView.MagneticType", luaopen_cocos2d_ui_ListView_MagneticType);
+    olua_require(L, "ccui.ListView", luaopen_cocos2d_ui_ListView);
     return 0;
 }

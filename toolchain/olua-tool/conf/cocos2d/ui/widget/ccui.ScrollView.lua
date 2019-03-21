@@ -37,7 +37,7 @@ cls.funcs [[
     static ScrollView* create()
     void setDirection(Direction dir)
     Direction getDirection()
-    @ref(single innerContainer) Layout* getInnerContainer()
+    Layout* getInnerContainer()
     void stopScroll()
     void stopAutoScroll()
     void stopOverallScroll()
@@ -103,6 +103,13 @@ cls.callbacks([[
 ]], function (funcname)
     return 'olua_makecallbacktag("ScrollViewCallback")'
 end)
+cls.callback('addScrollViewEventListener', {
+        CALLBACK_MODE = 'olua_makecallbacktag("ScrollViewCallback")',
+        CALLBACK_REPLACE = true,
+        CALLBACK_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
+    },
+    'void addEventListener(@nullable const std::function<void(Ref*, EventType)>& callback)'
+)
 
 cls.props [[
     direction

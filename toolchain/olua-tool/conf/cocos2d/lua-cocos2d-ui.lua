@@ -36,6 +36,7 @@ M.CLASSES = {
     include("conf/cocos2d/ui/widget/ccui.AbstractCheckButton.lua"),
     include("conf/cocos2d/ui/widget/ccui.TabControl.lua"),
     include("conf/cocos2d/ui/widget/ccui.ScrollView.lua"),
+    include("conf/cocos2d/ui/widget/ccui.ListView.lua"),
 }
 
 return M

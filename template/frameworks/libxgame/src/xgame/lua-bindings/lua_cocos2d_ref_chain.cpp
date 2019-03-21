@@ -106,9 +106,21 @@ static void record_reference_count(lua_State *L, int idx)
 
 static int should_unref_obj(lua_State *L)
 {
-    if (olua_isa(L, -2, "cc.Ref")) {
+    if (olua_isa(L, -2, "cc.Action")) {
+        cocos2d::Action *obj = olua_touserdata(L, -2, cocos2d::Action *);
+        if (obj) {
+            if (!obj->getTarget() || obj->isDone() || obj->getReferenceCount() == 1) {
+                return 1;
+            } else if (olua_isinteger(L, -1)) {
+                int last = (int)olua_tointeger(L, -1);
+                if (obj->getReferenceCount() < last) {
+                    return 1;
+                }
+            }
+        }
+    } else if (olua_isa(L, -2, "cc.Ref")) {
         cocos2d::Ref *obj = (cocos2d::Ref *)olua_toobj(L, -2, "cc.Ref");
-        if (olua_isinteger(L, -1)) {
+        if (obj && olua_isinteger(L, -1)) {
             int last = (int)olua_tointeger(L, -1);
             if (obj->getReferenceCount() < last) {
                 return 1;
@@ -310,48 +322,13 @@ static int wrap_cocos2d_Node_removeChildByName(lua_State *L)
     return lua_gettop(L);
 }
 
-static int should_unref_action(lua_State *L)
-{
-    if (olua_isa(L, -2, "cc.Action")) {
-        cocos2d::Action *act = olua_touserdata(L, -2, cocos2d::Action *);
-        if (act && (!act->getTarget() || act->isDone() || act->getReferenceCount() == 1)) {
-            return 1;
-        }
-    }
-    return 0;
-}
-
-static void check_node_actions(lua_State *L)
-{
-    olua_mapwalkunref(L, 1, REFNAME, should_unref_action);
-}
-
 // Action* runAction(Action* action)
 static int wrap_cocos2d_Node_runAction(lua_State *L)
 {
-    check_node_actions(L);
+    record_reference_count(L, 1);
+    check_reference_count(L, 1);
     olua_mapref(L, 1, REFNAME, 2);
     call_real_function(L, false);
-    return lua_gettop(L);
-}
-
-// void stopAllActions()
-static int wrap_cocos2d_Node_stopAllActions(lua_State *L)
-{
-    olua_unrefall(L, 1, REFNAME);
-    call_real_function(L, false);
-    return lua_gettop(L);
-}
-
-// void stopAction(Action* action)
-// void stopActionByTag(int tag)
-// void stopAllActionsByTag(int tag)
-// void stopActionsByFlags(unsigned int flags)
-static int wrap_cocos2d_Node_stopAction(lua_State *L)
-{
-    call_real_function(L, KEEP_SELF);
-    check_node_actions(L);
-    lua_remove(L, 1);
     return lua_gettop(L);
 }
 
@@ -399,11 +376,16 @@ static int wrap_cocos2d_Node(lua_State *L)
     wrap_func(L, NODE_CHILDREN, "removeAllChildrenWithCleanup", mapunrefall);
     
     wrap_func(L, NODE_ACTIONS, "runAction", wrap_cocos2d_Node_runAction);
-    wrap_func(L, NODE_ACTIONS, "stopAllActions", wrap_cocos2d_Node_stopAllActions);
-    wrap_func(L, NODE_ACTIONS, "stopAction", wrap_cocos2d_Node_stopAction);
-    wrap_func(L, NODE_ACTIONS, "stopActionByTag", wrap_cocos2d_Node_stopAction);
-    wrap_func(L, NODE_ACTIONS, "stopAllActionsByTag", wrap_cocos2d_Node_stopAction);
-    wrap_func(L, NODE_ACTIONS, "stopActionsByFlags", wrap_cocos2d_Node_stopAction);
+    // void stopAllActions()
+    // void stopAction(Action* action)
+    // void stopActionByTag(int tag)
+    // void stopAllActionsByTag(int tag)
+    // void stopActionsByFlags(unsigned int flags)
+    wrap_func(L, NODE_ACTIONS, "stopAllActions", mapunef_by_compare);
+    wrap_func(L, NODE_ACTIONS, "stopAction", mapunef_by_compare);
+    wrap_func(L, NODE_ACTIONS, "stopActionByTag", mapunef_by_compare);
+    wrap_func(L, NODE_ACTIONS, "stopAllActionsByTag", mapunef_by_compare);
+    wrap_func(L, NODE_ACTIONS, "stopActionsByFlags", mapunef_by_compare);
     // Action* getActionByTag(int tag)
     wrap_func(L, NODE_ACTIONS, "getActionByTag", mapref_return_value);
     

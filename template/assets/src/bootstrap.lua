@@ -21,6 +21,7 @@ local ActionFloat   = require "cc.ActionFloat"
 local CallFunc      = require "cc.CallFunc"
 local Widget        = require "ccui.Widget"
 local SkeletonAnimation = require "sp.SkeletonAnimation"
+local EventListenerTouchOneByOne = require( "cc.EventListenerTouchOneByOne" )
 
 window.setDesignSize(1334, 750, 1)
 
@@ -81,6 +82,35 @@ function main()
     animation.y = 100
     animation:setAnimation(0, 'walk', true)
     view:addChild(animation)
+
+    local boy = SkeletonAnimation.createWithJsonFile("res/spine/spineboy-pro.json", "res/spine/spineboy.atlas", 0.4)
+    boy:setMix("walk", "jump", 0.4)
+    boy:setMix("jump", "run", 0.4)
+    boy:addAnimation(0, "walk", true)
+    local jumpEntry = boy:addAnimation(0, "jump", false, 1)
+    boy:addAnimation(0, "run", true)
+    boy.x = 800
+    boy.y = 100
+    view:addChild(boy)
+
+    boy:setStartListener(function( entry )
+        print( "start", entry )
+    end)
+
+    boy:setTrackStartListener(jumpEntry, function( entry )
+        print( "jump!" )
+    end)
+
+    local eventlistener = EventListenerTouchOneByOne:create()
+    eventlistener.onTouchBegan = function( touch, event )
+        if not boy:getDebugBonesEnabled() then
+            boy:setDebugBonesEnabled(true)
+        elseif boy:getTimeScale() == 1 then
+            boy:setTimeScale(0.3)
+        else
+        end
+    end
+    eventDispatcher:addEventListenerWithSceneGraphPriority(eventlistener, view)
 end
 
 function printarr(arr)

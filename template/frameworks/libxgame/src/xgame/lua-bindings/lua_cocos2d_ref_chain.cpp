@@ -255,47 +255,20 @@ static int wrap_cocos2d_Node_removeFromParent(lua_State *L)
     return lua_gettop(L);
 }
 
-// void removeChildByTag(int tag, bool cleanup = true)
-static int wrap_cocos2d_Node_removeChildByTag(lua_State *L)
+static int wrap_cocos2d_Node_removeChild(lua_State *L)
 {
     cocos2d::Node *self = (cocos2d::Node *)olua_toobj(L, 1, "cc.Node");
-    cocos2d::Node *child = self->getChildByTag((int)olua_checkinteger(L, 2));
-    if (olua_getobj(L, child)) {
+    cocos2d::Node *child = nullptr;
+    if (olua_isinteger(L, 2)) {
+        child = self->getChildByTag((int)olua_tointeger(L, 2));
+    } else if (olua_isstring(L, 2)) {
+        child = self->getChildByName(olua_tostring(L, 2));
+    }
+    if (child && olua_getobj(L, child)) {
         olua_mapunref(L, 1, REFNAME, -1);
         lua_pop(L, 1);
     }
-    call_real_function(L, false);
-    return lua_gettop(L);
-}
-
-// void removeChildByName(const std::string &name, bool cleanup = true)
-static int wrap_cocos2d_Node_removeChildByName(lua_State *L)
-{
-    cocos2d::Node *self = (cocos2d::Node *)olua_toobj(L, 1, "cc.Node");
-    cocos2d::Node *child = self->getChildByName(olua_checkstring(L, 2));
-    if (olua_getobj(L, child)) {
-        olua_mapunref(L, 1, REFNAME, -1);
-        lua_pop(L, 1);
-    }
-    call_real_function(L, false);
-    return lua_gettop(L);
-}
-
-// bool removeComponent(const std::string& name)
-// bool removeComponent(Component *component)
-static int wrap_cocos2d_Node_removeComponent(lua_State *L)
-{
-    if (olua_isstring(L, 2)) {
-        std::string name = lua_tostring(L, 2);
-        cocos2d::Node *self = (cocos2d::Node *)olua_checkobj(L, 1, "cc.Node");
-        cocos2d::Component *obj = self->getComponent(name);
-        if (olua_getobj(L, obj)) {
-            olua_mapunref(L, 1, REFNAME, -1);
-            lua_pop(L, 1);
-        }
-    } else {
-         olua_mapunref(L, 1, REFNAME, 2);
-    }
+    
     call_real_function(L, false);
     return lua_gettop(L);
 }
@@ -317,8 +290,10 @@ static int wrap_cocos2d_Node(lua_State *L)
     wrap_func(L, NODE_CHILDREN, "removeFromParentAndCleanup", wrap_cocos2d_Node_removeFromParent);
     // void removeChild(Node* child, bool cleanup = true)
     wrap_func(L, NODE_CHILDREN, "removeChild", mapunref_argument_value);
-    wrap_func(L, NODE_CHILDREN, "removeChildByTag", wrap_cocos2d_Node_removeChildByTag);
-    wrap_func(L, NODE_CHILDREN, "removeChildByName", wrap_cocos2d_Node_removeChildByName);
+    // void removeChildByTag(int tag, bool cleanup = true)
+    // void removeChildByName(const std::string &name, bool cleanup = true)
+    wrap_func(L, NODE_CHILDREN, "removeChildByTag", wrap_cocos2d_Node_removeChild);
+    wrap_func(L, NODE_CHILDREN, "removeChildByName", wrap_cocos2d_Node_removeChild);
     // void removeAllChildren()
     // void removeAllChildrenWithCleanup(bool cleanup)
     wrap_func(L, NODE_CHILDREN, "removeAllChildren", mapunrefall);
@@ -330,21 +305,23 @@ static int wrap_cocos2d_Node(lua_State *L)
     // void stopActionByTag(int tag)
     // void stopAllActionsByTag(int tag)
     // void stopActionsByFlags(unsigned int flags)
+    // Action* getActionByTag(int tag)
     wrap_func(L, NODE_ACTIONS, "runAction", mapref_argument_value_and_mapunef_by_compare);
     wrap_func(L, NODE_ACTIONS, "stopAllActions", mapunef_by_compare);
     wrap_func(L, NODE_ACTIONS, "stopAction", mapunef_by_compare);
     wrap_func(L, NODE_ACTIONS, "stopActionByTag", mapunef_by_compare);
     wrap_func(L, NODE_ACTIONS, "stopAllActionsByTag", mapunef_by_compare);
     wrap_func(L, NODE_ACTIONS, "stopActionsByFlags", mapunef_by_compare);
-    // Action* getActionByTag(int tag)
     wrap_func(L, NODE_ACTIONS, "getActionByTag", mapref_return_value);
     
     // Component* getComponent(const std::string& name)
-    wrap_func(L, NODE_COMPONENTS, "getComponent", mapref_return_value);
     // bool addComponent(Component *component)
-    wrap_func(L, NODE_COMPONENTS, "addComponent", mapref_argument_value);
-    wrap_func(L, NODE_COMPONENTS, "removeComponent", wrap_cocos2d_Node_removeComponent);
+    // bool removeComponent(const std::string& name)
+    // bool removeComponent(Component *component)
     // void removeAllComponents()
+    wrap_func(L, NODE_COMPONENTS, "getComponent", mapref_return_value);
+    wrap_func(L, NODE_COMPONENTS, "addComponent", mapref_argument_value);
+    wrap_func(L, NODE_COMPONENTS, "removeComponent", mapunef_by_compare);
     wrap_func(L, NODE_COMPONENTS, "removeAllComponents", mapunrefall);
     return 0;
 }

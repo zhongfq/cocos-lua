@@ -289,6 +289,7 @@ int xlua_errorfunc(lua_State *L)
     const char *errinfo = lua_tostring(L, -1);
     if (strendwith(errinfo, "stack traceback:")) {
         lua_pushstring(L, runtime::getNativeStackTrace().c_str());
+        lua_concat(L, 2);
         errinfo = lua_tostring(L, -1);
     }
     

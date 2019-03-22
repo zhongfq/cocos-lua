@@ -1,5 +1,6 @@
 local window        = require "kernel.window"
 local util          = require "util"
+local Director      = require "cc.Director"
 
 window.setDesignSize(1334, 750, 1)
 
@@ -8,7 +9,12 @@ function main()
 end
 
 function runTest(path)
-    require(path)
+    local TestClass = require(path)
+    if TestClass.available then
+        Director.instance:pushScene(TestClass.new())
+    else
+        print("test not support:", path)
+    end
 end
 
 function printUserValue(obj, ...)

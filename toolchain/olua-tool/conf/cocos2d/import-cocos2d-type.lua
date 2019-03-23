@@ -1,6 +1,7 @@
 local function make_luacls(cppname)
     cppname = string.gsub(cppname, '^cocos2d::ui::', 'ccui.')
     cppname = string.gsub(cppname, '^cocos2d::experimental::ui::', 'ccui.')
+    cppname = string.gsub(cppname, '^cocos2d::experimental::', 'cc.')
     cppname = string.gsub(cppname, "^cocos2d::", "cc.")
     cppname = string.gsub(cppname, "^spine::", "sp.")
     cppname = string.gsub(cppname, "[ *]*$", '')
@@ -165,6 +166,7 @@ REG_TYPE {
         cocos2d::ui::Widget::SizeType
         cocos2d::ui::Widget::TextureResType
         cocos2d::ui::Widget::TouchEventType
+        cocos2d::experimental::AudioEngine::AudioState
         ResolutionPolicy
         spAttachmentType
         spEventType
@@ -379,6 +381,8 @@ REG_TYPE {
         cocos2d::VRIRenderer *
         spine::SkeletonAnimation *
         spine::SkeletonRenderer *
+        cocos2d::experimental::AudioProfile *
+        cocos2d::experimental::AudioEngine *
     ]],
     CONV_FUNC = "olua_$$_cppobj",
     LUACLS = make_luacls,

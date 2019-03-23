@@ -10,7 +10,9 @@ function M.new()
 
     local scene = Scene.create()
 
-    AudioEngine:play2d("audio/bgm.mp3", true, 50)
+    AudioEngine.play2d("res/audio/bgm.mp3", true, 50)
+
+    -- AudioEngine.play2d("res/audio/click.mp3", false, 100)
 
     return scene
 end

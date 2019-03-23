@@ -117,9 +117,17 @@ local function gen_class_open(cls, write)
     FUNCS = table.concat(FUNCS, "\n")
 
     if cls.REG_LUATYPE then
-        REG_LUATYPE = format_snippet([[
-            olua_registerluatype<${CPPCLS}>(L, "${LUACLS}");
-        ]])
+        if cls.RAWCPPCLS then
+            local RAWCPPCLS = cls.RAWCPPCLS
+            REG_LUATYPE = format_snippet([[
+                olua_registerluatype<${CPPCLS}>(L, "${LUACLS}");
+                olua_registerluatype<${RAWCPPCLS}>(L, "${LUACLS}");
+            ]])
+        else
+            REG_LUATYPE = format_snippet([[
+                olua_registerluatype<${CPPCLS}>(L, "${LUACLS}");
+            ]])
+        end
     end
 
     write(format_snippet([[

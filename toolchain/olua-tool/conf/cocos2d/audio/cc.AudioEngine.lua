@@ -11,7 +11,7 @@ cls.vars [[
 
 local cls = class(M)
 cls.CPPCLS = "cocos2d::experimental::AudioEngine::AudioState"
-cls.LUACLS = "cc.AudioState"
+cls.LUACLS = "cc.AudioEngine.AudioState"
 cls.enums [[
     ERROR
     INITIALIZING
@@ -23,11 +23,31 @@ local cls = class(M)
 cls.CPPCLS = "cocos2d::experimental::AudioEngine"
 cls.LUACLS = "cc.AudioEngine"
 cls.DEFCHUNK = [[
+NS_CC_BEGIN
+class LuaAudioEngine : public cocos2d::experimental::AudioEngine
+{
+public:
+    static std::list<int> getAudioIDs(const std::string &path)
+    {
+        std::list<int> list;
+        auto it = _audioPathIDMap.find(path);
+        if (it != _audioPathIDMap.end()) {
+            list = it->second;
+        }
+        return list;
+    }
+};
+NS_CC_END
+
 static const std::string makeFinishCallback(lua_Integer id)
 {
-    char buf[64];
-    sprintf(buf, "finishCallback.%d", (int)id);
-    return std::string(buf);
+    if (id < 0) {
+        return "finishCallback.";
+    } else {
+        char buf[64];
+        sprintf(buf, "finishCallback.%d", (int)id);
+        return std::string(buf);
+    }
 }]]
 
 cls.funcs [[
@@ -49,13 +69,29 @@ cls.funcs [[
     static AudioState getState(int audioID)
     static int getMaxAudioInstance()
     static bool setMaxAudioInstance(int maxInstances)
-    static void uncache(const std::string& filePath) //TODO:
     static AudioProfile* getProfile(int audioID)
     static AudioProfile* getProfile(const std::string &profileName)
     static int getPlayingAudioCount()
     static void setEnabled(bool isEnabled)
     static bool isEnabled()
 ]]
+
+cls.func('uncache', [[
+{
+    lua_settop(L, 1);
+    
+    std::string path = olua_checkstring(L, 1);
+    std::list<int> ids = cocos2d::LuaAudioEngine::getAudioIDs(path);
+    void *callback_store_obj = (void *)olua_callbackstore(L, "cc.AudioEngine");
+    for (auto id : ids) {
+        std::string tag = makeFinishCallback((lua_Integer)id);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+    }
+    
+    cocos2d::experimental::AudioEngine::uncache(path);
+
+    return 0;
+}]])
 
 cls.callback(nil, 
     {
@@ -67,7 +103,7 @@ cls.callback(nil,
 )
 
 cls.callback(nil, {
-        CALLBACK_MAKER = 'olua_makecallbacktag("finishCallback")',
+        CALLBACK_MAKER = 'makeFinishCallback(-1)',
         CALLBACK_MODE = "OLUA_CALLBACK_TAG_WILDCARD",
         CALLBACK_REMOVE = true,
     },
@@ -75,7 +111,7 @@ cls.callback(nil, {
 )
 
 cls.callback(nil, {
-        CALLBACK_MAKER = 'olua_makecallbacktag("finishCallback")',
+        CALLBACK_MAKER = 'makeFinishCallback(-1)',
         CALLBACK_MODE = "OLUA_CALLBACK_TAG_WILDCARD",
         CALLBACK_REMOVE = true,
     },
@@ -95,6 +131,7 @@ cls.callback(nil, {
         CALLBACK_CALLONCE = true,
         CALLBACK_MODE = "OLUA_CALLBACK_TAG_EQUAL",
     }, 
+    'static void preload(const std::string& filePath)',
     'static void preload(const std::string& filePath, std::function<void(bool isSuccess)> callback)'
 )
 

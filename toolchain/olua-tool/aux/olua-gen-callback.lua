@@ -94,7 +94,9 @@ function gen_callback(cls, fi, write)
         return gen_ret_callback(cls, fi, write)
     end
 
-    assert(ai, cls.CPPCLS .. '::' .. fi.FUNC_DECL)
+    if not ai then
+        return ''
+    end
 
     local CALLBACK_MAKER = gen_maker(cls, fi, write)
     local REMOVE_CALLBACK = ""

@@ -18,7 +18,7 @@ function M.new()
 
     timer.delay(3, function ( ... )
         printUserValue(AudioEngine.class['.callback'], 'before stop')
-        AudioEngine.stop(id)
+        AudioEngine.uncache('res/audio/bgm.mp3')
         printUserValue(AudioEngine.class['.callback'], 'after stop')
     end)
 

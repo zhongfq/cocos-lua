@@ -18,6 +18,7 @@ M.INCLUDES = [[
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "audio/include/AudioEngine.h"
+#include "audio/include/SimpleAudioEngine.h"
 #include "vr/CCVRGenericRenderer.h"
 #include "vr/CCVRGenericHeadTracker.h"
 ]]
@@ -54,6 +55,7 @@ M.CLASSES = {
     include("conf/cocos2d/base/cc.EventKeyboard.KeyCode.lua"),
     include("conf/cocos2d/base/cc.Touch.lua"),
     include("conf/cocos2d/audio/cc.AudioEngine.lua"),
+    include("conf/cocos2d/audio/cc.SimpleAudioEngine.lua"),
     include("conf/cocos2d/platform/cc.Application.lua"),
     include("conf/cocos2d/platform/cc.Device.lua"),
     include("conf/cocos2d/platform/cc.FileUtils.lua"),

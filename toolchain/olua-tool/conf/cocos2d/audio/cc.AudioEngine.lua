@@ -39,7 +39,7 @@ public:
 };
 NS_CC_END
 
-static const std::string makeFinishCallback(lua_Integer id)
+static const std::string makeAudioEngineFinishCallbackTag(lua_Integer id)
 {
     if (id < 0) {
         return "finishCallback.";
@@ -84,7 +84,7 @@ cls.func('uncache', [[
     std::list<int> ids = cocos2d::LuaAudioEngine::getAudioIDs(path);
     void *callback_store_obj = (void *)olua_callbackstore(L, "cc.AudioEngine");
     for (auto id : ids) {
-        std::string tag = makeFinishCallback((lua_Integer)id);
+        std::string tag = makeAudioEngineFinishCallbackTag((lua_Integer)id);
         olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
     }
     
@@ -95,7 +95,7 @@ cls.func('uncache', [[
 
 cls.callback(nil, 
     {
-        CALLBACK_MAKER = 'makeFinishCallback(#1)',
+        CALLBACK_MAKER = 'makeAudioEngineFinishCallbackTag(#1)',
         CALLBACK_REMOVE = true,
         CALLBACK_MODE = "OLUA_CALLBACK_TAG_ENDWITH",
     }, 
@@ -103,7 +103,7 @@ cls.callback(nil,
 )
 
 cls.callback(nil, {
-        CALLBACK_MAKER = 'makeFinishCallback(-1)',
+        CALLBACK_MAKER = 'makeAudioEngineFinishCallbackTag(-1)',
         CALLBACK_MODE = "OLUA_CALLBACK_TAG_WILDCARD",
         CALLBACK_REMOVE = true,
     },
@@ -111,7 +111,7 @@ cls.callback(nil, {
 )
 
 cls.callback(nil, {
-        CALLBACK_MAKER = 'makeFinishCallback(-1)',
+        CALLBACK_MAKER = 'makeAudioEngineFinishCallbackTag(-1)',
         CALLBACK_MODE = "OLUA_CALLBACK_TAG_WILDCARD",
         CALLBACK_REMOVE = true,
     },
@@ -119,7 +119,7 @@ cls.callback(nil, {
 )
 
 cls.callback(nil, {
-        CALLBACK_MAKER = 'makeFinishCallback(#1)',
+        CALLBACK_MAKER = 'makeAudioEngineFinishCallbackTag(#1)',
         CALLBACK_CALLONCE = true,
         CALLBACK_MODE = "OLUA_CALLBACK_TAG_ENDWITH",
     }, 

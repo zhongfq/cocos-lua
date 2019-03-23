@@ -11,6 +11,7 @@
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "audio/include/AudioEngine.h"
+#include "audio/include/SimpleAudioEngine.h"
 #include "vr/CCVRGenericRenderer.h"
 #include "vr/CCVRGenericHeadTracker.h"
 
@@ -5218,7 +5219,7 @@ public:
 };
 NS_CC_END
 
-static const std::string makeFinishCallback(lua_Integer id)
+static const std::string makeAudioEngineFinishCallbackTag(lua_Integer id)
 {
     if (id < 0) {
         return "finishCallback.";
@@ -5573,7 +5574,7 @@ static int _cocos2d_experimental_AudioEngine_uncache(lua_State *L)
     std::list<int> ids = cocos2d::LuaAudioEngine::getAudioIDs(path);
     void *callback_store_obj = (void *)olua_callbackstore(L, "cc.AudioEngine");
     for (auto id : ids) {
-        std::string tag = makeFinishCallback((lua_Integer)id);
+        std::string tag = makeAudioEngineFinishCallbackTag((lua_Integer)id);
         olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
     }
 
@@ -5590,7 +5591,7 @@ static int _cocos2d_experimental_AudioEngine_stop(lua_State *L)
 
     olua_check_int(L, 1, &arg1);
 
-    std::string tag = makeFinishCallback(arg1);
+    std::string tag = makeAudioEngineFinishCallbackTag(arg1);
     void *callback_store_obj = (void *)olua_callbackstore(L, "cc.AudioEngine");
     olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
 
@@ -5604,7 +5605,7 @@ static int _cocos2d_experimental_AudioEngine_stopAll(lua_State *L)
 {
     lua_settop(L, 0);
 
-    std::string tag = makeFinishCallback(-1);
+    std::string tag = makeAudioEngineFinishCallbackTag(-1);
     void *callback_store_obj = (void *)olua_callbackstore(L, "cc.AudioEngine");
     olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_WILDCARD);
 
@@ -5618,7 +5619,7 @@ static int _cocos2d_experimental_AudioEngine_uncacheAll(lua_State *L)
 {
     lua_settop(L, 0);
 
-    std::string tag = makeFinishCallback(-1);
+    std::string tag = makeAudioEngineFinishCallbackTag(-1);
     void *callback_store_obj = (void *)olua_callbackstore(L, "cc.AudioEngine");
     olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_WILDCARD);
 
@@ -5639,7 +5640,7 @@ static int _cocos2d_experimental_AudioEngine_setFinishCallback(lua_State *L)
 
     if (olua_is_std_function(L, 2)) {
         void *callback_store_obj = (void *)olua_callbackstore(L, "cc.AudioEngine");
-        std::string tag = makeFinishCallback(arg1);
+        std::string tag = makeAudioEngineFinishCallbackTag(arg1);
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_NEW);
         arg2 = [callback_store_obj, func, tag](int arg1, const std::string &arg2) {
             lua_State *L = olua_mainthread();
@@ -5655,7 +5656,7 @@ static int _cocos2d_experimental_AudioEngine_setFinishCallback(lua_State *L)
         };
     } else {
         void *callback_store_obj = (void *)olua_callbackstore(L, "cc.AudioEngine");
-        std::string tag = makeFinishCallback(arg1);
+        std::string tag = makeAudioEngineFinishCallbackTag(arg1);
         olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
         arg2 = nullptr;
     }
@@ -5764,6 +5765,365 @@ static int luaopen_cocos2d_experimental_AudioEngine(lua_State *L)
     oluacls_setfunc(L, "preload", _cocos2d_experimental_AudioEngine_preload);
 
     olua_registerluatype<cocos2d::experimental::AudioEngine>(L, "cc.AudioEngine");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _CocosDenshion_SimpleAudioEngine_getInstance(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static SimpleAudioEngine* getInstance()
+    CocosDenshion::SimpleAudioEngine *ret = (CocosDenshion::SimpleAudioEngine *)CocosDenshion::SimpleAudioEngine::getInstance();
+    int num_ret = olua_push_cppobj<CocosDenshion::SimpleAudioEngine>(L, ret, "cc.SimpleAudioEngine");
+
+    return num_ret;
+}
+
+static int _CocosDenshion_SimpleAudioEngine_end(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static void end()
+    CocosDenshion::SimpleAudioEngine::end();
+
+    return 0;
+}
+
+static int _CocosDenshion_SimpleAudioEngine_preloadBackgroundMusic(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    CocosDenshion::SimpleAudioEngine *self = nullptr;
+    const char *arg1 = nullptr;   /** filePath */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SimpleAudioEngine");
+    olua_check_string(L, 2, &arg1);
+
+    // void preloadBackgroundMusic(const char* filePath)
+    self->preloadBackgroundMusic(arg1);
+
+    return 0;
+}
+
+static int _CocosDenshion_SimpleAudioEngine_playBackgroundMusic(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    CocosDenshion::SimpleAudioEngine *self = nullptr;
+    const char *arg1 = nullptr;   /** filePath */
+    bool arg2 = false;   /** loop */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SimpleAudioEngine");
+    olua_check_string(L, 2, &arg1);
+    olua_opt_bool(L, 3, &arg2, (bool)false);
+
+    // void playBackgroundMusic(const char* filePath, bool loop = false)
+    self->playBackgroundMusic(arg1, arg2);
+
+    return 0;
+}
+
+static int _CocosDenshion_SimpleAudioEngine_stopBackgroundMusic(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    CocosDenshion::SimpleAudioEngine *self = nullptr;
+    bool arg1 = false;   /** releaseData */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SimpleAudioEngine");
+    olua_opt_bool(L, 2, &arg1, (bool)false);
+
+    // void stopBackgroundMusic(bool releaseData = false)
+    self->stopBackgroundMusic(arg1);
+
+    return 0;
+}
+
+static int _CocosDenshion_SimpleAudioEngine_pauseBackgroundMusic(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    CocosDenshion::SimpleAudioEngine *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SimpleAudioEngine");
+
+    // void pauseBackgroundMusic()
+    self->pauseBackgroundMusic();
+
+    return 0;
+}
+
+static int _CocosDenshion_SimpleAudioEngine_resumeBackgroundMusic(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    CocosDenshion::SimpleAudioEngine *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SimpleAudioEngine");
+
+    // void resumeBackgroundMusic()
+    self->resumeBackgroundMusic();
+
+    return 0;
+}
+
+static int _CocosDenshion_SimpleAudioEngine_rewindBackgroundMusic(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    CocosDenshion::SimpleAudioEngine *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SimpleAudioEngine");
+
+    // void rewindBackgroundMusic()
+    self->rewindBackgroundMusic();
+
+    return 0;
+}
+
+static int _CocosDenshion_SimpleAudioEngine_willPlayBackgroundMusic(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    CocosDenshion::SimpleAudioEngine *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SimpleAudioEngine");
+
+    // bool willPlayBackgroundMusic()
+    bool ret = (bool)self->willPlayBackgroundMusic();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _CocosDenshion_SimpleAudioEngine_isBackgroundMusicPlaying(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    CocosDenshion::SimpleAudioEngine *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SimpleAudioEngine");
+
+    // bool isBackgroundMusicPlaying()
+    bool ret = (bool)self->isBackgroundMusicPlaying();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _CocosDenshion_SimpleAudioEngine_getBackgroundMusicVolume(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    CocosDenshion::SimpleAudioEngine *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SimpleAudioEngine");
+
+    // float getBackgroundMusicVolume()
+    float ret = (float)self->getBackgroundMusicVolume();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _CocosDenshion_SimpleAudioEngine_setBackgroundMusicVolume(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    CocosDenshion::SimpleAudioEngine *self = nullptr;
+    lua_Number arg1 = 0;   /** volume */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SimpleAudioEngine");
+    olua_check_number(L, 2, &arg1);
+
+    // void setBackgroundMusicVolume(float volume)
+    self->setBackgroundMusicVolume((float)arg1);
+
+    return 0;
+}
+
+static int _CocosDenshion_SimpleAudioEngine_getEffectsVolume(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    CocosDenshion::SimpleAudioEngine *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SimpleAudioEngine");
+
+    // float getEffectsVolume()
+    float ret = (float)self->getEffectsVolume();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _CocosDenshion_SimpleAudioEngine_setEffectsVolume(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    CocosDenshion::SimpleAudioEngine *self = nullptr;
+    lua_Number arg1 = 0;   /** volume */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SimpleAudioEngine");
+    olua_check_number(L, 2, &arg1);
+
+    // void setEffectsVolume(float volume)
+    self->setEffectsVolume((float)arg1);
+
+    return 0;
+}
+
+static int _CocosDenshion_SimpleAudioEngine_pauseEffect(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    CocosDenshion::SimpleAudioEngine *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** soundId */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SimpleAudioEngine");
+    olua_check_uint(L, 2, &arg1);
+
+    // void pauseEffect(unsigned int soundId)
+    self->pauseEffect((unsigned int)arg1);
+
+    return 0;
+}
+
+static int _CocosDenshion_SimpleAudioEngine_pauseAllEffects(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    CocosDenshion::SimpleAudioEngine *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SimpleAudioEngine");
+
+    // void pauseAllEffects()
+    self->pauseAllEffects();
+
+    return 0;
+}
+
+static int _CocosDenshion_SimpleAudioEngine_resumeEffect(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    CocosDenshion::SimpleAudioEngine *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** soundId */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SimpleAudioEngine");
+    olua_check_uint(L, 2, &arg1);
+
+    // void resumeEffect(unsigned int soundId)
+    self->resumeEffect((unsigned int)arg1);
+
+    return 0;
+}
+
+static int _CocosDenshion_SimpleAudioEngine_resumeAllEffects(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    CocosDenshion::SimpleAudioEngine *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SimpleAudioEngine");
+
+    // void resumeAllEffects()
+    self->resumeAllEffects();
+
+    return 0;
+}
+
+static int _CocosDenshion_SimpleAudioEngine_stopEffect(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    CocosDenshion::SimpleAudioEngine *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** soundId */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SimpleAudioEngine");
+    olua_check_uint(L, 2, &arg1);
+
+    // void stopEffect(unsigned int soundId)
+    self->stopEffect((unsigned int)arg1);
+
+    return 0;
+}
+
+static int _CocosDenshion_SimpleAudioEngine_stopAllEffects(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    CocosDenshion::SimpleAudioEngine *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SimpleAudioEngine");
+
+    // void stopAllEffects()
+    self->stopAllEffects();
+
+    return 0;
+}
+
+static int _CocosDenshion_SimpleAudioEngine_preloadEffect(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    CocosDenshion::SimpleAudioEngine *self = nullptr;
+    const char *arg1 = nullptr;   /** filePath */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SimpleAudioEngine");
+    olua_check_string(L, 2, &arg1);
+
+    // void preloadEffect(const char* filePath)
+    self->preloadEffect(arg1);
+
+    return 0;
+}
+
+static int _CocosDenshion_SimpleAudioEngine_unloadEffect(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    CocosDenshion::SimpleAudioEngine *self = nullptr;
+    const char *arg1 = nullptr;   /** filePath */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SimpleAudioEngine");
+    olua_check_string(L, 2, &arg1);
+
+    // void unloadEffect(const char* filePath)
+    self->unloadEffect(arg1);
+
+    return 0;
+}
+
+static int luaopen_CocosDenshion_SimpleAudioEngine(lua_State *L)
+{
+    oluacls_class(L, "cc.SimpleAudioEngine", nullptr);
+    oluacls_setfunc(L, "getInstance", _CocosDenshion_SimpleAudioEngine_getInstance);
+    oluacls_setfunc(L, "end", _CocosDenshion_SimpleAudioEngine_end);
+    oluacls_setfunc(L, "preloadBackgroundMusic", _CocosDenshion_SimpleAudioEngine_preloadBackgroundMusic);
+    oluacls_setfunc(L, "playBackgroundMusic", _CocosDenshion_SimpleAudioEngine_playBackgroundMusic);
+    oluacls_setfunc(L, "stopBackgroundMusic", _CocosDenshion_SimpleAudioEngine_stopBackgroundMusic);
+    oluacls_setfunc(L, "pauseBackgroundMusic", _CocosDenshion_SimpleAudioEngine_pauseBackgroundMusic);
+    oluacls_setfunc(L, "resumeBackgroundMusic", _CocosDenshion_SimpleAudioEngine_resumeBackgroundMusic);
+    oluacls_setfunc(L, "rewindBackgroundMusic", _CocosDenshion_SimpleAudioEngine_rewindBackgroundMusic);
+    oluacls_setfunc(L, "willPlayBackgroundMusic", _CocosDenshion_SimpleAudioEngine_willPlayBackgroundMusic);
+    oluacls_setfunc(L, "isBackgroundMusicPlaying", _CocosDenshion_SimpleAudioEngine_isBackgroundMusicPlaying);
+    oluacls_setfunc(L, "getBackgroundMusicVolume", _CocosDenshion_SimpleAudioEngine_getBackgroundMusicVolume);
+    oluacls_setfunc(L, "setBackgroundMusicVolume", _CocosDenshion_SimpleAudioEngine_setBackgroundMusicVolume);
+    oluacls_setfunc(L, "getEffectsVolume", _CocosDenshion_SimpleAudioEngine_getEffectsVolume);
+    oluacls_setfunc(L, "setEffectsVolume", _CocosDenshion_SimpleAudioEngine_setEffectsVolume);
+    oluacls_setfunc(L, "pauseEffect", _CocosDenshion_SimpleAudioEngine_pauseEffect);
+    oluacls_setfunc(L, "pauseAllEffects", _CocosDenshion_SimpleAudioEngine_pauseAllEffects);
+    oluacls_setfunc(L, "resumeEffect", _CocosDenshion_SimpleAudioEngine_resumeEffect);
+    oluacls_setfunc(L, "resumeAllEffects", _CocosDenshion_SimpleAudioEngine_resumeAllEffects);
+    oluacls_setfunc(L, "stopEffect", _CocosDenshion_SimpleAudioEngine_stopEffect);
+    oluacls_setfunc(L, "stopAllEffects", _CocosDenshion_SimpleAudioEngine_stopAllEffects);
+    oluacls_setfunc(L, "preloadEffect", _CocosDenshion_SimpleAudioEngine_preloadEffect);
+    oluacls_setfunc(L, "unloadEffect", _CocosDenshion_SimpleAudioEngine_unloadEffect);
+
+    olua_registerluatype<CocosDenshion::SimpleAudioEngine>(L, "cc.SimpleAudioEngine");
     oluacls_createclassproxy(L);
 
     return 1;
@@ -26024,6 +26384,7 @@ int luaopen_cocos2d(lua_State *L)
     olua_require(L, "cc.AudioProfile", luaopen_cocos2d_experimental_AudioProfile);
     olua_require(L, "cc.AudioEngine.AudioState", luaopen_cocos2d_experimental_AudioEngine_AudioState);
     olua_require(L, "cc.AudioEngine", luaopen_cocos2d_experimental_AudioEngine);
+    olua_require(L, "cc.SimpleAudioEngine", luaopen_CocosDenshion_SimpleAudioEngine);
     olua_require(L, "cc.Application.Platform", luaopen_cocos2d_Application_Platform);
     olua_require(L, "cc.LanguageType", luaopen_cocos2d_LanguageType);
     olua_require(L, "cc.Application", luaopen_cocos2d_Application);

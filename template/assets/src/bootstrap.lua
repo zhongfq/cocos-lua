@@ -11,7 +11,7 @@ end
 
 function runTest(path)
     local TestClass = require(path)
-    if TestClass.available then
+    if TestClass.available or TestClass.available == nil then
         Director.instance:pushScene(TestClass.new())
     else
         print("test not support:", path)

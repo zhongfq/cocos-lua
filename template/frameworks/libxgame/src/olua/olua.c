@@ -1,14 +1,15 @@
 #include "olua/olua.h"
 
-#define CLS_CLSIDX  (lua_upvalueindex(1))
-#define CLS_ISAIDX  (lua_upvalueindex(2))
-#define CLS_FUNCIDX (lua_upvalueindex(3))
-#define CLS_GETIDX  (lua_upvalueindex(4))
-#define CLS_SETIDX  (lua_upvalueindex(5))
-#define CLS_ISA     ".isa"
-#define CLS_FUNC    ".func"
-#define CLS_GET     ".get"
-#define CLS_SET     ".set"
+#define CLS_CLSIDX      (lua_upvalueindex(1))
+#define CLS_ISAIDX      (lua_upvalueindex(2))
+#define CLS_FUNCIDX     (lua_upvalueindex(3))
+#define CLS_GETIDX      (lua_upvalueindex(4))
+#define CLS_SETIDX      (lua_upvalueindex(5))
+#define CLS_ISA         ".isa"
+#define CLS_FUNC        ".func"
+#define CLS_GET         ".get"
+#define CLS_SET         ".set"
+#define CLS_CALLBACK    ".callback" // static func callback store
 
 #define VOIDCLS     "void *"
 #define OBJ_REF_TABLE ((void *)olua_pushobj)
@@ -277,6 +278,17 @@ static void auxgetusertable(lua_State *L, int idx)
         lua_pushvalue(L, -1);
         lua_setuservalue(L, idx);
     }
+}
+
+LUALIB_API void *olua_callbackstore(lua_State *L, const char *cls)
+{
+    void *store_obj = NULL;
+    luaL_getmetatable(L, cls);                  // L: cls
+    olua_rawgetfield(L, -1, CLS_CALLBACK);      // L: cls store_obj
+    luaL_checktype(L, -1, LUA_TUSERDATA);
+    store_obj = (void *)lua_topointer(L, -1);
+    lua_pop(L, 2);
+    return store_obj;
 }
 
 LUALIB_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag, int func, olua_callback_tag_t mode)
@@ -818,6 +830,14 @@ LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *super)
         lua_pushboolean(L, true);
         lua_rawset(L, -3);
         lua_pop(L, 1);
+        
+        // for sotre static function callback
+        auxgetobjtable(L);                              // L: mt objs
+        lua_newuserdata(L, sizeof(void *));             // L: mt objs store
+        lua_pushvalue(L, -1);                           // L: mt objs store store
+        olua_rawsetfield(L, -4, CLS_CALLBACK);          // L: mt objs store     mt[.callback] = store
+        lua_rawsetp(L, -2, lua_topointer(L, -1));       // L: mt objs           objs[store_ptr] = store
+        lua_pop(L, 1);                                  // L: mt
     }
 }
 

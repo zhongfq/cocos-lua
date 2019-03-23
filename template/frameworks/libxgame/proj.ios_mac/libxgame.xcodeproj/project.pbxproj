@@ -169,7 +169,6 @@
 		0ECC4C8621EB8D4600E3BBF9 /* lua_cjson.c in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC4C5C21EB8D4600E3BBF9 /* lua_cjson.c */; };
 		0EE4B2BE21FC9FE60043AC9D /* xpreferences.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EE4B2BC21FC9FE60043AC9D /* xpreferences.cpp */; };
 		0EE4B2BF21FC9FE60043AC9D /* xpreferences.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EE4B2BC21FC9FE60043AC9D /* xpreferences.cpp */; };
-		FAC123672246035600DFB412 /* lua_audio_engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAC123652246035600DFB412 /* lua_audio_engine.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -336,8 +335,6 @@
 		0ECC4C5C21EB8D4600E3BBF9 /* lua_cjson.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lua_cjson.c; sourceTree = "<group>"; };
 		0EE4B2BC21FC9FE60043AC9D /* xpreferences.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xpreferences.cpp; sourceTree = "<group>"; };
 		0EE4B2BD21FC9FE60043AC9D /* xpreferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xpreferences.h; sourceTree = "<group>"; };
-		FAC123652246035600DFB412 /* lua_audio_engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_audio_engine.cpp; sourceTree = "<group>"; };
-		FAC123662246035600DFB412 /* lua_audio_engine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_audio_engine.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -453,20 +450,18 @@
 		0E2E9AB02226550D0085145E /* lua-bindings */ = {
 			isa = PBXGroup;
 			children = (
-				FAC123652246035600DFB412 /* lua_audio_engine.cpp */,
-				FAC123662246035600DFB412 /* lua_audio_engine.h */,
 				0E669F8C2238C59900BD58EB /* lua_cocos2d_ref_chain.cpp */,
 				0E669F8B2238C59900BD58EB /* lua_cocos2d_ref_chain.h */,
 				0E669F6C22367D1F00BD58EB /* lua_cocos2d_ui.cpp */,
 				0E669F6B22367D1E00BD58EB /* lua_cocos2d_ui.h */,
-				0E7411642243489900B1BD72 /* lua_spine.cpp */,
-				0E7411632243489900B1BD72 /* lua_spine.h */,
 				0E2E9AB9222771D00085145E /* lua_cocos2d.cpp */,
 				0E2E9ABA222771D00085145E /* lua_cocos2d.h */,
 				0E669F7A223795FF00BD58EB /* lua_conv_manual.cpp */,
 				0E669F7B2237960000BD58EB /* lua_conv_manual.h */,
 				0E6C97C7222FD37E00B2C17F /* lua_conv.cpp */,
 				0E6C97C8222FD37E00B2C17F /* lua_conv.h */,
+				0E7411642243489900B1BD72 /* lua_spine.cpp */,
+				0E7411632243489900B1BD72 /* lua_spine.h */,
 				0E2E9AB12226550D0085145E /* lua_xgame.cpp */,
 				0E2E9AB22226550D0085145E /* lua_xgame.h */,
 				0EB05DC6223B976C00491357 /* LuaComponent.cpp */,
@@ -765,7 +760,6 @@
 				0ECC4BB921E79E3E00E3BBF9 /* lmathlib.c in Sources */,
 				0E0C706821F9F5FE00049240 /* xfilesystem.cpp in Sources */,
 				0ECC4BA721E79E3E00E3BBF9 /* loslib.c in Sources */,
-				FAC123672246035600DFB412 /* lua_audio_engine.cpp in Sources */,
 				0EB05DC8223B976C00491357 /* LuaComponent.cpp in Sources */,
 				0ECC4BDD21E79E3E00E3BBF9 /* lcode.c in Sources */,
 			);

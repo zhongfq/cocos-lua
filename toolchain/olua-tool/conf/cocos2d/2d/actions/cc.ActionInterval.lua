@@ -309,11 +309,12 @@ local cls = class(M)
 cls.CPPCLS = "cocos2d::ActionFloat"
 cls.LUACLS = "cc.ActionFloat"
 cls.SUPERCLS = "cc.ActionInterval"
-cls.callback(nil, {
+cls.callback(
+    'static ActionFloat* create(float duration, float from, float to, std::function<void(float value)> callback)', 
+    {
         CALLBACK_MAKER = 'olua_makecallbacktag("ActionFloat")',
-        CALLBACK_INITFUNC = 'initWithDuration',
-    },
-    'static ActionFloat* create(float duration, float from, float to, std::function<void(float value)> callback)'
+        CALLBACK_INITFUNC = 'initWithDuration'
+    }
 )
 
 return M

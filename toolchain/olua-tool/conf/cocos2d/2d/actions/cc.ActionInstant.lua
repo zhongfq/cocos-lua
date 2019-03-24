@@ -65,12 +65,12 @@ local cls = class(M)
 cls.CPPCLS = "cocos2d::CallFunc"
 cls.LUACLS = "cc.CallFunc"
 cls.SUPERCLS = "cc.ActionInstant"
-cls.callback(nil, 
+cls.callback(
+    'static CallFunc * create(const std::function<void()>& func)', 
     {
         CALLBACK_MAKER = 'olua_makecallbacktag("CallFunc")',
-        CALLBACK_INITFUNC = 'initWithFunction',
-    },
-    'static CallFunc * create(const std::function<void()>& func)'
+        CALLBACK_INITFUNC = 'initWithFunction'
+    }
 )
 
 return M

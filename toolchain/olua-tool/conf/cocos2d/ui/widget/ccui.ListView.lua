@@ -82,10 +82,13 @@ cls.funcs [[
     void setCurSelectedIndex(int itemIndex)
 ]]
 
-cls.callback('addEventListener', {
-    CALLBACK_MAKER = 'olua_makecallbacktag("ListViewCallback")',
-    CALLBACK_REPLACE = true,
-    CALLBACK_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
-}, 'void addEventListener(@nullable const std::function<void(Ref*, EventType)>& callback)')
+cls.callback(
+    'void addEventListener(@nullable const std::function<void(Ref*, EventType)>& callback)',
+    {
+        CALLBACK_MAKER = 'olua_makecallbacktag("ListViewCallback")',
+        CALLBACK_REPLACE = true,
+        CALLBACK_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
+    }
+)
 
 return M

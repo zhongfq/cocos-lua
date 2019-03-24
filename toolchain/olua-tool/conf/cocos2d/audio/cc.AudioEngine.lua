@@ -87,46 +87,50 @@ cls.inject('uncache', 'BEFORE', [[
     }
 ]])
 
-cls.callback(nil, 
+cls.callback(
+    'static void stop(int audioID)', 
     {
         CALLBACK_MAKER = 'makeAudioEngineFinishCallbackTag(#1)',
         CALLBACK_REMOVE = true,
         CALLBACK_MODE = "OLUA_CALLBACK_TAG_ENDWITH",
-    }, 
-    'static void stop(int audioID)'
+    }
 )
 
-cls.callback(nil, {
+cls.callback(
+    'static void stopAll()',
+    {
         CALLBACK_MAKER = 'makeAudioEngineFinishCallbackTag(-1)',
         CALLBACK_MODE = "OLUA_CALLBACK_TAG_WILDCARD",
         CALLBACK_REMOVE = true,
-    },
-    'static void stopAll()'
+    }
 )
 
-cls.callback(nil, {
+cls.callback(
+    'static void uncacheAll()',
+    {
         CALLBACK_MAKER = 'makeAudioEngineFinishCallbackTag(-1)',
         CALLBACK_MODE = "OLUA_CALLBACK_TAG_WILDCARD",
         CALLBACK_REMOVE = true,
-    },
-    'static void uncacheAll()'
+    }
 )
 
-cls.callback(nil, {
+cls.callback(
+    'static void setFinishCallback(int audioID, @nullable const std::function<void(int,const std::string&)>& callback)',
+    {
         CALLBACK_MAKER = 'makeAudioEngineFinishCallbackTag(#1)',
         CALLBACK_CALLONCE = true,
         CALLBACK_MODE = "OLUA_CALLBACK_TAG_ENDWITH",
-    }, 
-    'static void setFinishCallback(int audioID, @nullable const std::function<void(int,const std::string&)>& callback)'
+    }
 )
 
-cls.callback(nil, {
+cls.callback(
+    'static void preload(const std::string& filePath)',
+    'static void preload(const std::string& filePath, std::function<void(bool isSuccess)> callback)',
+    {
         CALLBACK_MAKER = 'olua_makecallbacktag("preload")',
         CALLBACK_CALLONCE = true,
         CALLBACK_MODE = "OLUA_CALLBACK_TAG_EQUAL",
-    }, 
-    'static void preload(const std::string& filePath)',
-    'static void preload(const std::string& filePath, std::function<void(bool isSuccess)> callback)'
+    }
 )
 
 return M

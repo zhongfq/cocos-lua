@@ -63,11 +63,12 @@ local cls = class(M)
 cls.CPPCLS = "cocos2d::EventListenerCustom"
 cls.LUACLS = "cc.EventListenerCustom"
 cls.SUPERCLS = "cc.EventListener"
-cls.callback("create", {
+cls.callback(
+    'static EventListenerCustom* create(const std::string& eventName, const std::function<void(@stack EventCustom*)>& callback)',
+    {
         CALLBACK_MAKER = 'olua_makecallbacktag("EventListenerCustom")',
         CALLBACK_INITFUNC = 'init',
-    },
-    'static EventListenerCustom* create(const std::string& eventName, const std::function<void(@stack EventCustom*)>& callback)'
+    }
 )
 
 local cls = class(M)
@@ -86,11 +87,12 @@ local cls = class(M)
 cls.CPPCLS = "cocos2d::EventListenerAcceleration"
 cls.LUACLS = "cc.EventListenerAcceleration"
 cls.SUPERCLS = "cc.EventListener"
-cls.callback("create", {
+cls.callback(
+    'static EventListenerAcceleration* create(const std::function<void(@stack Acceleration*, @stack Event*)>& callback)',
+    {
         CALLBACK_MAKER = 'olua_makecallbacktag("EventListenerAcceleration")',
         CALLBACK_INITFUNC = 'init',
-    },
-    'static EventListenerAcceleration* create(const std::function<void(@stack Acceleration*, @stack Event*)>& callback)'
+    }
 )
 
 local cls = class(M)

@@ -169,97 +169,113 @@ cls.funcs([[
 
 -- void setOnEnterCallback(const std::function<void()>& callback = nullptr)
 -- const std::function<void()>& getOnEnterCallback()
-cls.callback(nil, {
+cls.callback(
+    'void setOnEnterCallback(const std::function<void()>& callback = nullptr)',
+    {
         CALLBACK_MAKER = 'olua_makecallbacktag("onEnterCallback")',
         CALLBACK_MODE = "OLUA_CALLBACK_TAG_ENDWITH",
         CALLBACK_REPLACE = true,
-    },
-    'void setOnEnterCallback(const std::function<void()>& callback = nullptr)'
+    }
 )
-cls.callback(nil, {
+cls.callback(
+    'const std::function<void()>& getOnEnterCallback()',
+    {
         CALLBACK_MAKER = 'olua_makecallbacktag("onEnterCallback")',
         CALLBACK_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
-    },
-    'const std::function<void()>& getOnEnterCallback()'
+    }
 )
 
 -- void setOnExitCallback(const std::function<void()>& callback = nullptr)
 -- const std::function<void()>& getOnExitCallback()
-cls.callback(nil, {
+cls.callback(
+    'void setOnExitCallback(const std::function<void()>& callback = nullptr)',
+    {
         CALLBACK_MAKER = 'olua_makecallbacktag("onExitCallback")',
         CALLBACK_MODE = "OLUA_CALLBACK_TAG_ENDWITH",
         CALLBACK_REPLACE = true,
-    },
-    'void setOnExitCallback(const std::function<void()>& callback = nullptr)'
+    }
 )
-cls.callback(nil, {
+cls.callback(
+    'const std::function<void()>& getOnExitCallback()',
+    {
         CALLBACK_MAKER = 'olua_makecallbacktag("onExitCallback")',
         CALLBACK_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
-    },
-    'const std::function<void()>& getOnExitCallback()'
+    }
 )
 
 -- void setonEnterTransitionDidFinishCallback(const std::function<void()>& callback)
 -- const std::function<void()>& getonEnterTransitionDidFinishCallback()
-cls.callback('setOnEnterTransitionDidFinishCallback', {
+cls.callback(
+    'setOnEnterTransitionDidFinishCallback',
+    'void setonEnterTransitionDidFinishCallback(const std::function<void()>& callback = nullptr)',
+    {
         CALLBACK_MAKER = 'olua_makecallbacktag("onEnterTransitionDidFinishCallback")',
         CALLBACK_MODE = "OLUA_CALLBACK_TAG_ENDWITH",
         CALLBACK_REPLACE = true,
-    },
-    'void setonEnterTransitionDidFinishCallback(const std::function<void()>& callback = nullptr)'
+    }
 )
-cls.callback('getOnEnterTransitionDidFinishCallback', {
+cls.callback(
+    'getOnEnterTransitionDidFinishCallback',
+    'const std::function<void()>& getonEnterTransitionDidFinishCallback()',
+    {
         CALLBACK_MAKER = 'olua_makecallbacktag("onEnterTransitionDidFinishCallback")',
         CALLBACK_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
-    },
-    'const std::function<void()>& getonEnterTransitionDidFinishCallback()'
+    }
 )
 
 -- void setonExitTransitionDidStartCallback(const std::function<void()>& callback)
 -- const std::function<void()>& getonExitTransitionDidStartCallback()
-cls.callback('setOnExitTransitionDidStartCallback', {
+cls.callback(
+    'setOnExitTransitionDidStartCallback', 
+    'void setonExitTransitionDidStartCallback(const std::function<void()>& callback = nullptr)',
+    {
         CALLBACK_MAKER = 'olua_makecallbacktag("onExitTransitionDidStartCallback")',
         CALLBACK_MODE = "OLUA_CALLBACK_TAG_ENDWITH",
         CALLBACK_REPLACE = true,
-    },
-    'void setonExitTransitionDidStartCallback(const std::function<void()>& callback = nullptr)'
+    }
 )
-cls.callback('getOnExitTransitionDidStartCallback', {
+cls.callback(
+    'getOnExitTransitionDidStartCallback', 
+    'const std::function<void()>& getonExitTransitionDidStartCallback()',
+    {
         CALLBACK_MAKER = 'olua_makecallbacktag("onExitTransitionDidStartCallback")',
         CALLBACK_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
-    },
-    'const std::function<void()>& getonExitTransitionDidStartCallback()'
+    }
 )
 
-cls.callback(nil, {
+cls.callback(
+    'void scheduleOnce(const std::function<void(float)>& callback, float delay, const std::string &key)',
+    {
         CALLBACK_MAKER = "makeScheduleCallbackTag(#-1)",
         CALLBACK_REPLACE = true,
         CALLBACK_CALLONCE = true,
         CALLBACK_MODE = "OLUA_CALLBACK_TAG_EQUAL",
-    },
-    'void scheduleOnce(const std::function<void(float)>& callback, float delay, const std::string &key)'
+    }
 )
-cls.callback(nil, {
-        CALLBACK_MAKER = "makeScheduleCallbackTag(#-1)",
-        CALLBACK_REPLACE = true,
-    },
+cls.callback(
     'void schedule(const std::function<void(float)>& callback, const std::string &key)',
     'void schedule(const std::function<void(float)>& callback, float interval, const std::string &key)',
-    'void schedule(const std::function<void(float)>& callback, float interval, unsigned int repeat, float delay, const std::string &key)'
+    'void schedule(const std::function<void(float)>& callback, float interval, unsigned int repeat, float delay, const std::string &key)',
+    {
+        CALLBACK_MAKER = "makeScheduleCallbackTag(#-1)",
+        CALLBACK_REPLACE = true,
+    }
 )
-cls.callback(nil, {
+cls.callback(
+    'void unschedule(const std::string &key)', 
+    {
         CALLBACK_MAKER = "makeScheduleCallbackTag(#1)",
         CALLBACK_MODE = "OLUA_CALLBACK_TAG_ENDWITH",
         CALLBACK_REMOVE = true,
-    },
-    'void unschedule(const std::string &key)'
+    }
 )
-cls.callback(nil, {
+cls.callback(
+    'void unscheduleAllCallbacks()',
+    {
         CALLBACK_MAKER = "makeScheduleCallbackTag()",
         CALLBACK_MODE = "OLUA_CALLBACK_TAG_WILDCARD",
         CALLBACK_REMOVE = true,
-    },
-    'void unscheduleAllCallbacks()'
+    }
 )
 cls.prop('attachedNodeCount')
 cls.prop('description')

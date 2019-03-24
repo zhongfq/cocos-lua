@@ -28,36 +28,40 @@ cls.enum('PRIORITY_NON_SYSTEM_MIN', 'cocos2d::Scheduler::PRIORITY_NON_SYSTEM_MIN
 cls.prop('timeScale', 'float getTimeScale()', 'void setTimeScale(float timeScale)')
 cls.func('new', new_ccobj(cls))
 cls.func(nil, 'void update(float dt)')
-cls.callback(nil, {
+cls.callback(
+    'void schedule(const std::function<void(float)>& callback, void *target, float interval, bool paused, const std::string& key)',
+    'void schedule(const std::function<void(float)>& callback, void *target, float interval, unsigned int repeat, float delay, bool paused, const std::string& key)',
+    {
         CALLBACK_MAKER = 'makeScheduleCallbackTag(#-1)',
         CALLBACK_STORE = 2, -- 2th void *target
         CALLBACK_REPLACE = true,
-    },
-    'void schedule(const std::function<void(float)>& callback, void *target, float interval, bool paused, const std::string& key)',
-    'void schedule(const std::function<void(float)>& callback, void *target, float interval, unsigned int repeat, float delay, bool paused, const std::string& key)'
+    }
 )
-cls.callback(nil, {
+cls.callback(
+    'void unschedule(const std::string& key, void *target)',
+    {
         CALLBACK_MAKER = 'makeScheduleCallbackTag(#1)',
         CALLBACK_STORE = 2, -- 2th void *target
         CALLBACK_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
         CALLBACK_REMOVE = true,
-    },
-    'void unschedule(const std::string& key, void *target)'
+    }
 )
-cls.callback(nil, {
+cls.callback(
+    'void unscheduleAllForTarget(void *target)',
+    {
         CALLBACK_MAKER = 'makeScheduleCallbackTag("")',
         CALLBACK_MODE = 'OLUA_CALLBACK_TAG_WILDCARD',
         CALLBACK_STORE = 1, -- 1th void *target
         CALLBACK_REMOVE = true,
-    },
-    'void unscheduleAllForTarget(void *target)'
+    }
 )
-cls.callback(nil, {
+cls.callback(
+    'void unscheduleAll()',
+    {
         CALLBACK_MAKER = 'makeScheduleCallbackTag("")',
         CALLBACK_MODE = 'OLUA_CALLBACK_TAG_WILDCARD',
         CALLBACK_REMOVE = true,
-    },
-    'void unscheduleAll()'
+    }
 )
 cls.func('scheduleUpdate', [[
 {

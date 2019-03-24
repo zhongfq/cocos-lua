@@ -478,8 +478,17 @@ function class(collection)
         assert(found, 'func not found: ' .. funcname)
     end
 
-    function cls.callback(name, opt, ...)
-        cls.FUNCS[#cls.FUNCS + 1] = parse_func(cls, name, ...)
+    function cls.callback(...)
+        local arr = {...}
+        local opt = table.remove(arr, #arr)
+        local name = arr[1]
+        if string.find(name, '%(') then
+            name = nil
+        else
+            table.remove(arr, 1)
+        end
+        assert(type(opt) == 'table', 'no callback opt')
+        cls.FUNCS[#cls.FUNCS + 1] = parse_func(cls, name, table.unpack(arr))
         for i, v in ipairs(cls.FUNCS[#cls.FUNCS]) do
             v.CALLBACK_OPT = assert(opt)
             if type(v.CALLBACK_OPT.CALLBACK_MAKER) == 'table' then
@@ -500,11 +509,11 @@ function class(collection)
             callback_decl = string.gsub(callback_decl, '^ *', '')
             local _, _, str = parse_def(callback_decl)
             local funcname = string.match(str, '[^() ]+')
-            cls.callback(nil, {
+            cls.callback(callback_decl, {
                 CALLBACK_MAKER = (callback_maker or default_maker)(funcname),
                 CALLBACK_REPLACE = true,
                 CALLBACK_MODE = "OLUA_CALLBACK_TAG_ENDWITH",
-            }, callback_decl)
+            })
         end
     end
 

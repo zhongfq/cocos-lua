@@ -103,12 +103,13 @@ cls.callbacks([[
 ]], function (funcname)
     return 'olua_makecallbacktag("ScrollViewCallback")'
 end)
-cls.callback('addScrollViewEventListener', {
+cls.callback('addScrollViewEventListener',
+    'void addEventListener(@nullable const std::function<void(Ref*, EventType)>& callback)',
+    {
         CALLBACK_MODE = 'olua_makecallbacktag("ScrollViewCallback")',
         CALLBACK_REPLACE = true,
         CALLBACK_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
-    },
-    'void addEventListener(@nullable const std::function<void(Ref*, EventType)>& callback)'
+    }
 )
 
 cls.props [[

@@ -69,6 +69,7 @@ cls.funcs [[
     static AudioState getState(int audioID)
     static int getMaxAudioInstance()
     static bool setMaxAudioInstance(int maxInstances)
+    static void uncache(const std::string& filePath)
     static AudioProfile* getProfile(int audioID)
     static AudioProfile* getProfile(const std::string &profileName)
     static int getPlayingAudioCount()
@@ -76,10 +77,7 @@ cls.funcs [[
     static bool isEnabled()
 ]]
 
-cls.func('uncache', [[
-{
-    lua_settop(L, 1);
-    
+cls.inject('uncache', 'BEFORE', [[
     std::string path = olua_checkstring(L, 1);
     std::list<int> ids = cocos2d::LuaAudioEngine::getAudioIDs(path);
     void *callback_store_obj = (void *)olua_callbackstore(L, "cc.AudioEngine");
@@ -87,11 +85,7 @@ cls.func('uncache', [[
         std::string tag = makeAudioEngineFinishCallbackTag((lua_Integer)id);
         olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
     }
-    
-    cocos2d::experimental::AudioEngine::uncache(path);
-
-    return 0;
-}]])
+]])
 
 cls.callback(nil, 
     {

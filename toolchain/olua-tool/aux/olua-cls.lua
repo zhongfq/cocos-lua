@@ -458,6 +458,26 @@ function class(collection)
         end
     end
 
+    function cls.inject(funcname, where, code)
+        local found
+        for _, arr in ipairs(cls.FUNCS) do
+            for _, fi in ipairs(arr) do
+                if fi.LUAFUNC == funcname then
+                    found = true
+                    if where == 'BEFORE' then
+                        fi.INJECT_BEFORE = code
+                    elseif where == 'AFTER' then
+                        fi.INJECT_AFTER = code
+                    else
+                        error('not support inject: ' .. where)
+                    end
+                end
+            end
+        end
+
+        assert(found, 'func not found: ' .. funcname)
+    end
+
     function cls.callback(name, opt, ...)
         cls.FUNCS[#cls.FUNCS + 1] = parse_func(cls, name, ...)
         for i, v in ipairs(cls.FUNCS[#cls.FUNCS]) do

@@ -5481,6 +5481,28 @@ static int _cocos2d_experimental_AudioEngine_setMaxAudioInstance(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_experimental_AudioEngine_uncache(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    std::string arg1;       /** filePath */
+
+    olua_check_std_string(L, 1, &arg1);
+
+    std::string path = olua_checkstring(L, 1);
+    std::list<int> ids = cocos2d::LuaAudioEngine::getAudioIDs(path);
+    void *callback_store_obj = (void *)olua_callbackstore(L, "cc.AudioEngine");
+    for (auto id : ids) {
+        std::string tag = makeAudioEngineFinishCallbackTag((lua_Integer)id);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+    }
+
+    // static void uncache(const std::string& filePath)
+    cocos2d::experimental::AudioEngine::uncache(arg1);
+
+    return 0;
+}
+
 static int _cocos2d_experimental_AudioEngine_getProfile1(lua_State *L)
 {
     lua_settop(L, 1);
@@ -5564,23 +5586,6 @@ static int _cocos2d_experimental_AudioEngine_isEnabled(lua_State *L)
     int num_ret = olua_push_bool(L, ret);
 
     return num_ret;
-}
-
-static int _cocos2d_experimental_AudioEngine_uncache(lua_State *L)
-{
-    lua_settop(L, 1);
-
-    std::string path = olua_checkstring(L, 1);
-    std::list<int> ids = cocos2d::LuaAudioEngine::getAudioIDs(path);
-    void *callback_store_obj = (void *)olua_callbackstore(L, "cc.AudioEngine");
-    for (auto id : ids) {
-        std::string tag = makeAudioEngineFinishCallbackTag((lua_Integer)id);
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
-    }
-
-    cocos2d::experimental::AudioEngine::uncache(path);
-
-    return 0;
 }
 
 static int _cocos2d_experimental_AudioEngine_stop(lua_State *L)
@@ -5753,11 +5758,11 @@ static int luaopen_cocos2d_experimental_AudioEngine(lua_State *L)
     oluacls_setfunc(L, "getState", _cocos2d_experimental_AudioEngine_getState);
     oluacls_setfunc(L, "getMaxAudioInstance", _cocos2d_experimental_AudioEngine_getMaxAudioInstance);
     oluacls_setfunc(L, "setMaxAudioInstance", _cocos2d_experimental_AudioEngine_setMaxAudioInstance);
+    oluacls_setfunc(L, "uncache", _cocos2d_experimental_AudioEngine_uncache);
     oluacls_setfunc(L, "getProfile", _cocos2d_experimental_AudioEngine_getProfile);
     oluacls_setfunc(L, "getPlayingAudioCount", _cocos2d_experimental_AudioEngine_getPlayingAudioCount);
     oluacls_setfunc(L, "setEnabled", _cocos2d_experimental_AudioEngine_setEnabled);
     oluacls_setfunc(L, "isEnabled", _cocos2d_experimental_AudioEngine_isEnabled);
-    oluacls_setfunc(L, "uncache", _cocos2d_experimental_AudioEngine_uncache);
     oluacls_setfunc(L, "stop", _cocos2d_experimental_AudioEngine_stop);
     oluacls_setfunc(L, "stopAll", _cocos2d_experimental_AudioEngine_stopAll);
     oluacls_setfunc(L, "uncacheAll", _cocos2d_experimental_AudioEngine_uncacheAll);

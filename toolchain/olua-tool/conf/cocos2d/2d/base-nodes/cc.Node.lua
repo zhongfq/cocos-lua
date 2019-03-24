@@ -163,6 +163,10 @@ cls.funcs([[
     void setCameraMask(unsigned short mask, bool applyChildren = true)
 ]])
 
+-- cls.inject('addChild', 'BEFORE', 'olua_mapref(L, 1, "children", 2);')
+-- cls.inject('getChildByTag', 'AFTER', 'olua_mapref(L, 1, "children", -1);')
+-- cls.inject('getChildByName', 'AFTER', 'olua_mapref(L, 1, "children", -1);')
+
 -- void setOnEnterCallback(const std::function<void()>& callback = nullptr)
 -- const std::function<void()>& getOnEnterCallback()
 cls.callback(nil, {

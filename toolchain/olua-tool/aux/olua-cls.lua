@@ -458,24 +458,32 @@ function class(collection)
         end
     end
 
-    function cls.inject(funcname, where, code)
+    function cls.inject(cppfunc, where, code)
         local found
-        for _, arr in ipairs(cls.FUNCS) do
-            for _, fi in ipairs(arr) do
-                if fi.LUAFUNC == funcname then
-                    found = true
-                    if where == 'BEFORE' then
-                        fi.INJECT_BEFORE = code
-                    elseif where == 'AFTER' then
-                        fi.INJECT_AFTER = code
-                    else
-                        error('not support inject: ' .. where)
-                    end
+        local function doinject(fi)
+            if fi and fi.CPPFUNC == cppfunc then
+                found = true
+                if where == 'BEFORE' then
+                    fi.INJECT_BEFORE = code
+                elseif where == 'AFTER' then
+                    fi.INJECT_AFTER = code
+                else
+                    error('not support inject: ' .. where)
                 end
             end
         end
+        for _, arr in ipairs(cls.FUNCS) do
+            for _, fi in ipairs(arr) do
+                doinject(fi)
+            end
+        end
 
-        assert(found, 'func not found: ' .. funcname)
+        for _, pi in ipairs(cls.PROPS) do
+            doinject(pi.GET)
+            doinject(pi.SET)
+        end
+
+        assert(found, 'func not found: ' .. cppfunc)
     end
 
     function cls.callback(...)

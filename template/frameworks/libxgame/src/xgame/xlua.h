@@ -34,5 +34,7 @@ template <typename T> void xlua_report_push_status(lua_State *L, T* value, int s
     }
 }
 
+void xlua_startcmpunref(lua_State *L, int idx, const char *refname);
+void xlua_endcmpunref(lua_State *L, int idx, const char *refname);
 
 #endif

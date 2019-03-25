@@ -445,3 +445,53 @@ int xlua_ccobjgc(lua_State *L)
     }
     return 0;
 }
+
+
+void xlua_startcmpunref(lua_State *L, int idx, const char *refname)
+{
+    olua_getreftable(L, idx, refname);                      // L: t
+    lua_pushnil(L);                                         // L: t k
+    while (lua_next(L, -2)) {                               // L: t k v
+        if (olua_isa(L, -2, "cc.Ref")) {
+            cocos2d::Ref *obj = (cocos2d::Ref *)olua_toobj(L, -2, "cc.Ref");
+            lua_pushvalue(L, -2);                           // L: t k v k
+            lua_pushinteger(L, obj->getReferenceCount());   // L: t k v k refcount
+            lua_rawset(L, -5);                              // L: t k v
+        }
+        lua_pop(L, 1);                                      // L: t k
+    }                                                       // L: t
+    lua_pop(L, 1);
+}
+
+static int should_unref_obj(lua_State *L)
+{
+    if (olua_isa(L, -2, "cc.Action")) {
+        cocos2d::Action *obj = olua_touserdata(L, -2, cocos2d::Action *);
+        if (obj) {
+            unsigned int curr = obj->getReferenceCount();
+            if (!obj->getTarget() || obj->isDone() || curr == 1) {
+                return 1;
+            } else if (olua_isinteger(L, -1)) {
+                unsigned int last = (unsigned int)olua_tointeger(L, -1);
+                if (curr < last) {
+                    return 1;
+                }
+            }
+        }
+    } else if (olua_isa(L, -2, "cc.Ref")) {
+        cocos2d::Ref *obj = (cocos2d::Ref *)olua_toobj(L, -2, "cc.Ref");
+        if (obj && olua_isinteger(L, -1)) {
+            unsigned int last = (unsigned int)olua_tointeger(L, -1);
+            unsigned int curr = obj->getReferenceCount();
+            if (curr < last || curr == 1) {
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
+void xlua_endcmpunref(lua_State *L, int idx, const char *refname)
+{
+     olua_mapwalkunref(L, idx, refname, should_unref_obj);
+}

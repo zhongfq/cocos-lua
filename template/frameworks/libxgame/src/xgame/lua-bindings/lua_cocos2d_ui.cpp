@@ -7811,7 +7811,7 @@ static int _cocos2d_ui_ScrollView_addEventListener(lua_State *L)
 
     if (olua_is_std_function(L, 2)) {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("ScrollViewCallback");
+        std::string tag = olua_makecallbacktag("ScrollCallback");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
         arg1 = [callback_store_obj, func, tag](cocos2d::Ref *arg1, cocos2d::ui::ScrollView::EventType arg2) {
             lua_State *L = olua_mainthread();
@@ -7825,7 +7825,7 @@ static int _cocos2d_ui_ScrollView_addEventListener(lua_State *L)
         };
     } else {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("ScrollViewCallback");
+        std::string tag = olua_makecallbacktag("ScrollCallback");
         olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
         arg1 = nullptr;
     }
@@ -7902,7 +7902,7 @@ static int luaopen_cocos2d_ui_ScrollView(lua_State *L)
     oluacls_setfunc(L, "isScrolling", _cocos2d_ui_ScrollView_isScrolling);
     oluacls_setfunc(L, "isAutoScrolling", _cocos2d_ui_ScrollView_isAutoScrolling);
     oluacls_setfunc(L, "addEventListener", _cocos2d_ui_ScrollView_addEventListener);
-    oluacls_setfunc(L, "addScrollViewEventListener", _cocos2d_ui_ScrollView_addEventListener);
+    oluacls_setfunc(L, "addScrollEventListener", _cocos2d_ui_ScrollView_addEventListener);
     oluacls_property(L, "direction", _cocos2d_ui_ScrollView_getDirection, _cocos2d_ui_ScrollView_setDirection);
     oluacls_property(L, "innerContainer", _cocos2d_ui_ScrollView_getInnerContainer, nullptr);
     oluacls_property(L, "scrolledPercentVertical", _cocos2d_ui_ScrollView_getScrolledPercentVertical, nullptr);
@@ -8679,7 +8679,7 @@ static int _cocos2d_ui_ListView_addEventListener(lua_State *L)
 
     if (olua_is_std_function(L, 2)) {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("ListViewCallback");
+        std::string tag = olua_makecallbacktag("ListCallback");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
         arg1 = [callback_store_obj, func, tag](cocos2d::Ref *arg1, cocos2d::ui::ListView::EventType arg2) {
             lua_State *L = olua_mainthread();
@@ -8693,7 +8693,7 @@ static int _cocos2d_ui_ListView_addEventListener(lua_State *L)
         };
     } else {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("ListViewCallback");
+        std::string tag = olua_makecallbacktag("ListCallback");
         olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
         arg1 = nullptr;
     }
@@ -8749,6 +8749,7 @@ static int luaopen_cocos2d_ui_ListView(lua_State *L)
     oluacls_setfunc(L, "getCurSelectedIndex", _cocos2d_ui_ListView_getCurSelectedIndex);
     oluacls_setfunc(L, "setCurSelectedIndex", _cocos2d_ui_ListView_setCurSelectedIndex);
     oluacls_setfunc(L, "addEventListener", _cocos2d_ui_ListView_addEventListener);
+    oluacls_setfunc(L, "addListEventListener", _cocos2d_ui_ListView_addEventListener);
 
     olua_registerluatype<cocos2d::ui::ListView>(L, "ccui.ListView");
     oluacls_createclassproxy(L);

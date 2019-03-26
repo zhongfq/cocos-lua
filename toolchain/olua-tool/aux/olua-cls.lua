@@ -486,6 +486,23 @@ function class(collection)
         assert(found, 'func not found: ' .. cppfunc)
     end
 
+    function cls.alias(func, aliasname)
+        local funcs = {}
+        for _, arr in ipairs(cls.FUNCS) do
+            for _, fi in ipairs(arr) do
+                if fi.LUAFUNC == func then
+                    funcs[#funcs + 1] = setmetatable({LUAFUNC = assert(aliasname)}, {__index = fi})
+                end
+            end
+            if #funcs > 0 then
+                cls.FUNCS[#cls.FUNCS + 1] = funcs
+                return
+            end
+        end
+
+        error('func not found: ' .. func)
+    end
+
     function cls.callback(...)
         local arr = {...}
         local opt = table.remove(arr, #arr)

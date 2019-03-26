@@ -116,47 +116,20 @@ cls.props [[
 --
 -- ref
 --
+local ref = require("conf.lua-ref")
 -- Scene* getRunningScene()
-cls.inject('getRunningScene', {
-    AFTER = [[
-        olua_mapref(L, 1, "scenes", -1);
-    ]]
-})
-
 -- void runWithScene(Scene *scene)
 -- void replaceScene(Scene *scene)
-local codes = {
-    BEFORE = [[
-        olua_mapref(L, 1, "scenes", 2);
-        xlua_startcmpunref(L, 1, "scenes");
-    ]],
-    AFTER = [[
-        xlua_endcmpunref(L, 1, "scenes");
-    ]]
-}
-cls.inject('runWithScene', codes)
-cls.inject('replaceScene', codes)
-
 -- void pushScene(Scene *scene)
-cls.inject('pushScene', {
-    AFTER = [[
-        olua_mapref(L, 1, "scenes", 2);
-    ]]
-})
-
 -- void popScene()
 -- void popToRootScene()
 -- void popToSceneStackLevel(int level)
-local codes = {
-    BEFORE = [[
-        xlua_startcmpunref(L, 1, "scenes");
-    ]],
-    AFTER = [[
-        xlua_endcmpunref(L, 1, "scenes");
-    ]]
-}
-cls.inject('popScene', codes)
-cls.inject('popToRootScene', codes)
-cls.inject('popToSceneStackLevel', codes)
+cls.inject('getRunningScene',       ref.mapref_return_value('scenes'))
+cls.inject('runWithScene',          ref.mapref_arg_value_and_mapunef_by_compare('scenes'))
+cls.inject('replaceScene',          ref.mapref_arg_value_and_mapunef_by_compare('scenes'))
+cls.inject('pushScene',             ref.mapref_arg_value('scenes'))
+cls.inject('popScene',              ref.mapunef_by_compare('scenes'))
+cls.inject('popToRootScene',        ref.mapunef_by_compare('scenes'))
+cls.inject('popToSceneStackLevel',  ref.mapunef_by_compare('scenes'))
 
 return M

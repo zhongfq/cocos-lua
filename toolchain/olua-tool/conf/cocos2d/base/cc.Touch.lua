@@ -11,9 +11,6 @@ cls.CPPCLS = "cocos2d::Touch"
 cls.LUACLS = "cc.Touch"
 cls.SUPERCLS = "cc.Ref"
 cls.func('new', new_ccobj(cls))
-cls.prop('id', 'int getID()')
-cls.prop('currentForce', 'float getCurrentForce()')
-cls.prop('maxForce', 'float getMaxForce()')
 cls.funcs([[
     Vec2 getLocation()
     Vec2 getPreviousLocation()
@@ -27,7 +24,11 @@ cls.funcs([[
     int getID()
     float getCurrentForce()
     float getMaxForce()
-
 ]])
+cls.props [[
+    id
+    currentForce
+    maxForce
+]]
 
 return M

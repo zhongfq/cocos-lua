@@ -2,10 +2,6 @@ local cls = class()
 cls.CPPCLS = "cocos2d::GLProgram"
 cls.LUACLS = "cc.GLProgram"
 cls.SUPERCLS = "cc.Ref"
-cls.prop('vertexShaderLog', 'std::string getVertexShaderLog()')
-cls.prop('fragmentShaderLog', 'std::string getFragmentShaderLog()')
-cls.prop('programLog', 'std::string getProgramLog()')
-cls.prop('program', 'GLuint getProgram()')
 cls.funcs [[
     static GLProgram* createWithByteArrays(const GLchar* vShaderByteArray, const GLchar* fShaderByteArray)
     static GLProgram* createWithByteArrays(const GLchar* vShaderByteArray, const GLchar* fShaderByteArray, const std::string& compileTimeDefines)
@@ -43,5 +39,15 @@ cls.funcs [[
     void setUniformsForBuiltins()
     void setUniformsForBuiltins(const Mat4 &modelView)
     void reset()
+    std::string getVertexShaderLog()
+    std::string getFragmentShaderLog()
+    std::string getProgramLog()
+    GLuint getProgram()
+]]
+cls.props [[
+    vertexShaderLog
+    fragmentShaderLog
+    programLog
+    program
 ]]
 return cls

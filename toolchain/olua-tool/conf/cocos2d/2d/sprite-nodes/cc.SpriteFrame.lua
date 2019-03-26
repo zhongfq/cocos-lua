@@ -3,8 +3,6 @@ cls.CPPCLS = "cocos2d::SpriteFrame"
 cls.LUACLS = "cc.SpriteFrame"
 cls.SUPERCLS = "cc.Ref"
 cls.func("new", new_ccobj(cls))
-cls.prop('rotated', 'bool isRotated()', 'void setRotated(bool rotated)')
-cls.prop('texture', 'Texture2D* getTexture()', 'void setTexture(Texture2D* pobTexture)')
 cls.funcs([[
     static SpriteFrame* create(const std::string& filename, const Rect& rect)
     static SpriteFrame* create(const std::string& filename, const Rect& rect, bool rotated, const Vec2& offset, const Size& originalSize)
@@ -41,5 +39,10 @@ cls.funcs([[
     bool initWithTexture(Texture2D* pobTexture, const Rect& rect, bool rotated, const Vec2& offset, const Size& originalSize)
     bool initWithTextureFilename(const std::string& filename, const Rect& rect, bool rotated, const Vec2& offset, const Size& originalSize)
 ]])
+
+cls.props [[
+    rotated
+    texture
+]]
 
 return cls

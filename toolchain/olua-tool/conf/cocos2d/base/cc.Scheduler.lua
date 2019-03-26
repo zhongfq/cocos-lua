@@ -25,9 +25,7 @@ template <typename T> bool doScheduleUpdate(lua_State *L, const char *cls)
 }]]
 cls.enum('PRIORITY_SYSTEM', 'cocos2d::Scheduler::PRIORITY_SYSTEM')
 cls.enum('PRIORITY_NON_SYSTEM_MIN', 'cocos2d::Scheduler::PRIORITY_NON_SYSTEM_MIN')
-cls.prop('timeScale', 'float getTimeScale()', 'void setTimeScale(float timeScale)')
 cls.func('new', new_ccobj(cls))
-cls.func(nil, 'void update(float dt)')
 cls.callback(
     'void schedule(const std::function<void(float)>& callback, void *target, float interval, bool paused, const std::string& key)',
     'void schedule(const std::function<void(float)>& callback, void *target, float interval, unsigned int repeat, float delay, bool paused, const std::string& key)',
@@ -81,6 +79,9 @@ cls.func('scheduleUpdate', [[
     return 0;
 }]])
 cls.funcs([[
+    float getTimeScale()
+    void setTimeScale(float timeScale)
+    void update(float dt)
     void unscheduleUpdate(void *target)
     void unscheduleAllWithMinPriority(int minPriority)
     bool isScheduled(const std::string& key, const void *target)
@@ -92,5 +93,7 @@ cls.funcs([[
     void resumeTargets(const std::set<void*>& targetsToResume)
     void removeAllFunctionsToBePerformedInCocosThread()
 ]])
+cls.props [[timeScale]]
+
 
 return cls

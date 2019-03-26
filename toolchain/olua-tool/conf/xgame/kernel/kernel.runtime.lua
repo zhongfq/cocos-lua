@@ -1,25 +1,38 @@
 local cls = class()
 cls.CPPCLS = "xgame::runtime"
 cls.LUACLS = "kernel.runtime"
-cls.func(nil, 'static void clearStorage()')
-cls.func(nil, 'static bool launch(const std::string &scriptPath)')
-cls.func(nil, 'static bool restart()')
-cls.func(nil, 'static bool isRestarting()')
-cls.func(nil, 'static void setAntialias(bool enabled, unsigned int numSamples)')
-cls.func(nil, 'static bool isAntialias()')
-cls.func(nil, 'static unsigned int getNumSamples()')
-cls.func(nil, 'static bool canOpenURL(const std::string &uri)')
-cls.func(nil, 'static bool support(const std::string &api)')
-cls.func(nil, 'static void printSupport()')
-cls.func(nil, 'static void disableReport()')
-cls.prop('packageName', 'static const std::string getPackageName()')
-cls.prop('version', 'static const std::string getVersion()')
-cls.prop('versionBuild', 'static const std::string getVersionBuild()')
-cls.prop('channel', 'static const std::string getChannel()')
-cls.prop('os', 'static const std::string getOS()')
-cls.prop('deviceInfo', 'static const std::string getDeviceInfo()')
-cls.prop('language', 'static const std::string getLanguage()')
-cls.prop('logPath', 'static const std::string getLogPath()', 'static void setLogPath(const std::string &path)')
+cls.funcs [[
+    static void clearStorage()
+    static bool launch(const std::string &scriptPath)
+    static bool restart()
+    static bool isRestarting()
+    static void setAntialias(bool enabled, unsigned int numSamples)
+    static bool isAntialias()
+    static unsigned int getNumSamples()
+    static bool canOpenURL(const std::string &uri)
+    static bool support(const std::string &api)
+    static void printSupport()
+    static void disableReport()
+    static const std::string getPackageName()
+    static const std::string getVersion()
+    static const std::string getVersionBuild()
+    static const std::string getChannel()
+    static const std::string getOS()
+    static const std::string getDeviceInfo()
+    static const std::string getLanguage()
+    static const std::string getLogPath()
+    static void setLogPath(const std::string &path)
+]]
+cls.props [[
+    packageName
+    version
+    versionBuild
+    channel
+    os
+    deviceInfo
+    language
+    logPath
+]]
 cls.func("setDispatcher", [[
 {
     int handler = xlua_reffunc(L, 1);

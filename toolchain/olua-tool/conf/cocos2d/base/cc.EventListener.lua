@@ -19,25 +19,27 @@ local cls = class(M)
 cls.CPPCLS = "cocos2d::EventListener"
 cls.LUACLS = "cc.EventListener"
 cls.SUPERCLS = "cc.Ref"
-cls.prop('enabled', 'bool isEnabled()', 'void setEnabled(bool enabled)')
-cls.prop('available', 'bool checkAvailable()')
 cls.funcs([[
     bool checkAvailable()
     EventListener* clone()
     void setEnabled(bool enabled)
     bool isEnabled()
 ]])
+cls.props [[enabled]]
+cls.prop('available', 'bool checkAvailable()')
 
 local cls = class(M)
 cls.CPPCLS = "cocos2d::EventListenerTouchOneByOne"
 cls.LUACLS = "cc.EventListenerTouchOneByOne"
 cls.SUPERCLS = "cc.EventListener"
-cls.prop('swallowTouches', 'bool isSwallowTouches()', 'void setSwallowTouches(bool needSwallow)')
 cls.funcs([[
     static EventListenerTouchOneByOne* create()
     void setSwallowTouches(bool needSwallow)
     bool isSwallowTouches()
 ]])
+cls.props [[
+    swallowTouches
+]]
 cls.vars [[
     std::function<bool(@stack Touch*, @stack Event*)> onTouchBegan = nullptr
     std::function<void(@stack Touch*, @stack Event*)> onTouchMoved = nullptr

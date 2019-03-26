@@ -25,6 +25,7 @@ cls.enums [[
     ATTACHMENT_CLIPPING     = SP_ATTACHMENT_CLIPPING
 ]]
 
+-- TODO: ensure life cycle
 local cls = class(M)
 cls.CPPCLS = 'spTrackEntry'
 cls.LUACLS = 'sp.TrackEntry'

@@ -3,29 +3,19 @@ local M = {}
 local cls = class(M)
 cls.CPPCLS = "ResolutionPolicy"
 cls.LUACLS = "cc.ResolutionPolicy"
-cls.enum('EXACT_FIT')
-cls.enum('NO_BORDER')
-cls.enum('SHOW_ALL')
-cls.enum('FIXED_HEIGHT')
-cls.enum('FIXED_WIDTH')
-cls.enum('UNKNOWN')
+cls.enums [[
+    EXACT_FIT
+    NO_BORDER
+    SHOW_ALL
+    FIXED_HEIGHT
+    FIXED_WIDTH
+    UNKNOWN
+]]
 
 local cls = class(M)
 cls.CPPCLS = "cocos2d::GLView"
 cls.LUACLS = "cc.GLView"
 cls.SUPERCLS = "cc.Ref"
-cls.prop('glContextAttrs', 'static GLContextAttrs getGLContextAttrs()', 'static void setGLContextAttrs(GLContextAttrs& glContextAttrs)')
-cls.prop('openGLReady', 'bool isOpenGLReady()')
-cls.prop('frameZoomFactor', 'float getFrameZoomFactor()', 'void setFrameZoomFactor(float zoomFactor)')
-cls.prop('retinaFactor', 'int getRetinaFactor()')
-cls.prop('contentScaleFactor', 'bool setContentScaleFactor(float scaleFactor)', 'void setContentScaleFactor(float scaleFactor)')
-cls.prop('retinaDisplay', 'bool isRetinaDisplay()')
-cls.prop('scissorEnabled', 'bool isScissorEnabled()')
-cls.prop('viewName', 'const std::string& getViewName()', 'void setViewName(const std::string& viewname)')
-cls.prop('scaleX', 'float getScaleX()')
-cls.prop('scaleY', 'float getScaleY()')
-cls.prop('resolutionPolicy', 'ResolutionPolicy getResolutionPolicy()')
-cls.prop('vr', 'VRIRenderer* getVR()', 'void setVR(VRIRenderer* vrrenderer)')
 cls.funcs([[
     static void setGLContextAttrs(GLContextAttrs& glContextAttrs)
     static GLContextAttrs getGLContextAttrs()
@@ -65,6 +55,20 @@ cls.funcs([[
     void setVR(VRIRenderer* vrrenderer)
     VRIRenderer* getVR()
 ]])
+cls.props [[
+    glContextAttrs
+    openGLReady
+    frameZoomFactor
+    retinaFactor
+    contentScaleFactor
+    retinaDisplay
+    scissorEnabled
+    viewName
+    scaleX
+    scaleY
+    resolutionPolicy
+    vr
+]]
 
 local cls = class(M)
 cls.CPPCLS = "cocos2d::GLViewImpl"

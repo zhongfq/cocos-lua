@@ -30,7 +30,7 @@ static int _cocos2d_UserDefault_getBoolForKey1(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.UserDefault");
     olua_check_string(L, 2, &arg1);
 
-    // bool getBoolForKey(const char *key);
+    // bool getBoolForKey(const char *key)
     bool ret = (bool)self->getBoolForKey(arg1);
     int num_ret = olua_push_bool(L, ret);
 
@@ -49,7 +49,7 @@ static int _cocos2d_UserDefault_getBoolForKey2(lua_State *L)
     olua_check_string(L, 2, &arg1);
     olua_check_bool(L, 3, &arg2);
 
-    // bool getBoolForKey(const char *key, bool defaultValue);
+    // bool getBoolForKey(const char *key, bool defaultValue)
     bool ret = (bool)self->getBoolForKey(arg1, arg2);
     int num_ret = olua_push_bool(L, ret);
 
@@ -87,7 +87,7 @@ static int _cocos2d_UserDefault_getIntegerForKey1(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.UserDefault");
     olua_check_string(L, 2, &arg1);
 
-    // int getIntegerForKey(const char *key);
+    // int getIntegerForKey(const char *key)
     int ret = (int)self->getIntegerForKey(arg1);
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
@@ -106,7 +106,7 @@ static int _cocos2d_UserDefault_getIntegerForKey2(lua_State *L)
     olua_check_string(L, 2, &arg1);
     olua_check_int(L, 3, &arg2);
 
-    // int getIntegerForKey(const char *key, int defaultValue);
+    // int getIntegerForKey(const char *key, int defaultValue)
     int ret = (int)self->getIntegerForKey(arg1, (int)arg2);
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
@@ -144,7 +144,7 @@ static int _cocos2d_UserDefault_getFloatForKey1(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.UserDefault");
     olua_check_string(L, 2, &arg1);
 
-    // float getFloatForKey(const char *key);
+    // float getFloatForKey(const char *key)
     float ret = (float)self->getFloatForKey(arg1);
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
@@ -163,7 +163,7 @@ static int _cocos2d_UserDefault_getFloatForKey2(lua_State *L)
     olua_check_string(L, 2, &arg1);
     olua_check_number(L, 3, &arg2);
 
-    // float getFloatForKey(const char *key, float defaultValue);
+    // float getFloatForKey(const char *key, float defaultValue)
     float ret = (float)self->getFloatForKey(arg1, (float)arg2);
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
@@ -201,7 +201,7 @@ static int _cocos2d_UserDefault_getDoubleForKey1(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.UserDefault");
     olua_check_string(L, 2, &arg1);
 
-    // double getDoubleForKey(const char *key);
+    // double getDoubleForKey(const char *key)
     double ret = (double)self->getDoubleForKey(arg1);
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
@@ -220,7 +220,7 @@ static int _cocos2d_UserDefault_getDoubleForKey2(lua_State *L)
     olua_check_string(L, 2, &arg1);
     olua_check_number(L, 3, &arg2);
 
-    // double getDoubleForKey(const char *key, double defaultValue);
+    // double getDoubleForKey(const char *key, double defaultValue)
     double ret = (double)self->getDoubleForKey(arg1, (double)arg2);
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
@@ -258,7 +258,7 @@ static int _cocos2d_UserDefault_getStringForKey1(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.UserDefault");
     olua_check_string(L, 2, &arg1);
 
-    // std::string getStringForKey(const char *key);
+    // std::string getStringForKey(const char *key)
     std::string ret = (std::string)self->getStringForKey(arg1);
     int num_ret = olua_push_std_string(L, ret);
 
@@ -277,7 +277,7 @@ static int _cocos2d_UserDefault_getStringForKey2(lua_State *L)
     olua_check_string(L, 2, &arg1);
     olua_check_std_string(L, 3, &arg2);
 
-    // std::string getStringForKey(const char *key, const std::string & defaultValue);
+    // std::string getStringForKey(const char *key, const std::string & defaultValue)
     std::string ret = (std::string)self->getStringForKey(arg1, arg2);
     int num_ret = olua_push_std_string(L, ret);
 
@@ -317,7 +317,7 @@ static int _cocos2d_UserDefault_setBoolForKey(lua_State *L)
     olua_check_string(L, 2, &arg1);
     olua_check_bool(L, 3, &arg2);
 
-    // void setBoolForKey(const char *key, bool value);
+    // void setBoolForKey(const char *key, bool value)
     self->setBoolForKey(arg1, arg2);
 
     return 0;
@@ -335,7 +335,7 @@ static int _cocos2d_UserDefault_setIntegerForKey(lua_State *L)
     olua_check_string(L, 2, &arg1);
     olua_check_int(L, 3, &arg2);
 
-    // void setIntegerForKey(const char *key, int value);
+    // void setIntegerForKey(const char *key, int value)
     self->setIntegerForKey(arg1, (int)arg2);
 
     return 0;
@@ -353,7 +353,7 @@ static int _cocos2d_UserDefault_setFloatForKey(lua_State *L)
     olua_check_string(L, 2, &arg1);
     olua_check_number(L, 3, &arg2);
 
-    // void setFloatForKey(const char *key, float value);
+    // void setFloatForKey(const char *key, float value)
     self->setFloatForKey(arg1, (float)arg2);
 
     return 0;
@@ -371,7 +371,7 @@ static int _cocos2d_UserDefault_setDoubleForKey(lua_State *L)
     olua_check_string(L, 2, &arg1);
     olua_check_number(L, 3, &arg2);
 
-    // void setDoubleForKey(const char *key, double value);
+    // void setDoubleForKey(const char *key, double value)
     self->setDoubleForKey(arg1, (double)arg2);
 
     return 0;
@@ -389,7 +389,7 @@ static int _cocos2d_UserDefault_setStringForKey(lua_State *L)
     olua_check_string(L, 2, &arg1);
     olua_check_std_string(L, 3, &arg2);
 
-    // void setStringForKey(const char *key, const std::string & value);
+    // void setStringForKey(const char *key, const std::string & value)
     self->setStringForKey(arg1, arg2);
 
     return 0;
@@ -403,7 +403,7 @@ static int _cocos2d_UserDefault_flush(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.UserDefault");
 
-    // void flush();
+    // void flush()
     self->flush();
 
     return 0;
@@ -419,7 +419,7 @@ static int _cocos2d_UserDefault_deleteValueForKey(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.UserDefault");
     olua_check_string(L, 2, &arg1);
 
-    // void deleteValueForKey(const char *key);
+    // void deleteValueForKey(const char *key)
     self->deleteValueForKey(arg1);
 
     return 0;
@@ -429,7 +429,7 @@ static int _cocos2d_UserDefault_getInstance(lua_State *L)
 {
     lua_settop(L, 0);
 
-    // static cocos2d::UserDefault *getInstance();
+    // static cocos2d::UserDefault *getInstance()
     cocos2d::UserDefault *ret = (cocos2d::UserDefault *)cocos2d::UserDefault::getInstance();
     int num_ret = olua_push_cppobj<cocos2d::UserDefault>(L, ret, "cc.UserDefault");
 
@@ -440,7 +440,7 @@ static int _cocos2d_UserDefault_getXMLFilePath(lua_State *L)
 {
     lua_settop(L, 0);
 
-    // static const std::string& getXMLFilePath();
+    // static const std::string& getXMLFilePath()
     const std::string &ret = (const std::string &)cocos2d::UserDefault::getXMLFilePath();
     int num_ret = olua_push_std_string(L, ret);
 
@@ -451,7 +451,7 @@ static int _cocos2d_UserDefault_isXMLFileExist(lua_State *L)
 {
     lua_settop(L, 0);
 
-    // static bool isXMLFileExist();
+    // static bool isXMLFileExist()
     bool ret = (bool)cocos2d::UserDefault::isXMLFileExist();
     int num_ret = olua_push_bool(L, ret);
 
@@ -2107,22 +2107,6 @@ static int _cocos2d_Scheduler_new(lua_State *L)
     return olua_push_cppobj<cocos2d::Scheduler>(L, obj, "cc.Scheduler");
 }
 
-static int _cocos2d_Scheduler_update(lua_State *L)
-{
-    lua_settop(L, 2);
-
-    cocos2d::Scheduler *self = nullptr;
-    lua_Number arg1 = 0;   /** dt */
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.Scheduler");
-    olua_check_number(L, 2, &arg1);
-
-    // void update(float dt)
-    self->update((float)arg1);
-
-    return 0;
-}
-
 static int _cocos2d_Scheduler_schedule1(lua_State *L)
 {
     lua_settop(L, 6);
@@ -2298,6 +2282,53 @@ static int _cocos2d_Scheduler_scheduleUpdate(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_Scheduler_getTimeScale(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Scheduler *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Scheduler");
+
+    // float getTimeScale()
+    float ret = (float)self->getTimeScale();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Scheduler_setTimeScale(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Scheduler *self = nullptr;
+    lua_Number arg1 = 0;   /** timeScale */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Scheduler");
+    olua_check_number(L, 2, &arg1);
+
+    // void setTimeScale(float timeScale)
+    self->setTimeScale((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Scheduler_update(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Scheduler *self = nullptr;
+    lua_Number arg1 = 0;   /** dt */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Scheduler");
+    olua_check_number(L, 2, &arg1);
+
+    // void update(float dt)
+    self->update((float)arg1);
+
+    return 0;
+}
+
 static int _cocos2d_Scheduler_unscheduleUpdate(lua_State *L)
 {
     lua_settop(L, 2);
@@ -2460,47 +2491,18 @@ static int _cocos2d_Scheduler_removeAllFunctionsToBePerformedInCocosThread(lua_S
     return 0;
 }
 
-static int _cocos2d_Scheduler_getTimeScale(lua_State *L)
-{
-    lua_settop(L, 1);
-
-    cocos2d::Scheduler *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.Scheduler");
-
-    // float getTimeScale()
-    float ret = (float)self->getTimeScale();
-    int num_ret = olua_push_number(L, (lua_Number)ret);
-
-    return num_ret;
-}
-
-static int _cocos2d_Scheduler_setTimeScale(lua_State *L)
-{
-    lua_settop(L, 2);
-
-    cocos2d::Scheduler *self = nullptr;
-    lua_Number arg1 = 0;   /** timeScale */
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.Scheduler");
-    olua_check_number(L, 2, &arg1);
-
-    // void setTimeScale(float timeScale)
-    self->setTimeScale((float)arg1);
-
-    return 0;
-}
-
 static int luaopen_cocos2d_Scheduler(lua_State *L)
 {
     oluacls_class(L, "cc.Scheduler", "cc.Ref");
     oluacls_setfunc(L, "new", _cocos2d_Scheduler_new);
-    oluacls_setfunc(L, "update", _cocos2d_Scheduler_update);
     oluacls_setfunc(L, "schedule", _cocos2d_Scheduler_schedule);
     oluacls_setfunc(L, "unschedule", _cocos2d_Scheduler_unschedule);
     oluacls_setfunc(L, "unscheduleAllForTarget", _cocos2d_Scheduler_unscheduleAllForTarget);
     oluacls_setfunc(L, "unscheduleAll", _cocos2d_Scheduler_unscheduleAll);
     oluacls_setfunc(L, "scheduleUpdate", _cocos2d_Scheduler_scheduleUpdate);
+    oluacls_setfunc(L, "getTimeScale", _cocos2d_Scheduler_getTimeScale);
+    oluacls_setfunc(L, "setTimeScale", _cocos2d_Scheduler_setTimeScale);
+    oluacls_setfunc(L, "update", _cocos2d_Scheduler_update);
     oluacls_setfunc(L, "unscheduleUpdate", _cocos2d_Scheduler_unscheduleUpdate);
     oluacls_setfunc(L, "unscheduleAllWithMinPriority", _cocos2d_Scheduler_unscheduleAllWithMinPriority);
     oluacls_setfunc(L, "isScheduled", _cocos2d_Scheduler_isScheduled);
@@ -7973,7 +7975,7 @@ static int luaopen_cocos2d_GLView(lua_State *L)
     oluacls_property(L, "openGLReady", _cocos2d_GLView_isOpenGLReady, nullptr);
     oluacls_property(L, "frameZoomFactor", _cocos2d_GLView_getFrameZoomFactor, _cocos2d_GLView_setFrameZoomFactor);
     oluacls_property(L, "retinaFactor", _cocos2d_GLView_getRetinaFactor, nullptr);
-    oluacls_property(L, "contentScaleFactor", _cocos2d_GLView_setContentScaleFactor, _cocos2d_GLView_setContentScaleFactor);
+    oluacls_property(L, "contentScaleFactor", _cocos2d_GLView_getContentScaleFactor, _cocos2d_GLView_setContentScaleFactor);
     oluacls_property(L, "retinaDisplay", _cocos2d_GLView_isRetinaDisplay, nullptr);
     oluacls_property(L, "scissorEnabled", _cocos2d_GLView_isScissorEnabled, nullptr);
     oluacls_property(L, "viewName", _cocos2d_GLView_getViewName, _cocos2d_GLView_setViewName);
@@ -8337,6 +8339,15 @@ static int luaopen_cocos2d_Image(lua_State *L)
     oluacls_setfunc(L, "saveToFile", _cocos2d_Image_saveToFile);
     oluacls_setfunc(L, "hasPremultipliedAlpha", _cocos2d_Image_hasPremultipliedAlpha);
     oluacls_setfunc(L, "hasAlpha", _cocos2d_Image_hasAlpha);
+    oluacls_setfunc(L, "getData", _cocos2d_Image_getData);
+    oluacls_setfunc(L, "getDataLen", _cocos2d_Image_getDataLen);
+    oluacls_setfunc(L, "getFileType", _cocos2d_Image_getFileType);
+    oluacls_setfunc(L, "getRenderFormat", _cocos2d_Image_getRenderFormat);
+    oluacls_setfunc(L, "getWidth", _cocos2d_Image_getWidth);
+    oluacls_setfunc(L, "getHeight", _cocos2d_Image_getHeight);
+    oluacls_setfunc(L, "getFilePath", _cocos2d_Image_getFilePath);
+    oluacls_setfunc(L, "getBitPerPixel", _cocos2d_Image_getBitPerPixel);
+    oluacls_setfunc(L, "isCompressed", _cocos2d_Image_isCompressed);
     oluacls_property(L, "data", _cocos2d_Image_getData, nullptr);
     oluacls_property(L, "dataLen", _cocos2d_Image_getDataLen, nullptr);
     oluacls_property(L, "fileType", _cocos2d_Image_getFileType, nullptr);
@@ -9037,6 +9048,10 @@ static int luaopen_cocos2d_GLProgram(lua_State *L)
     oluacls_setfunc(L, "setUniformLocationWith4f", _cocos2d_GLProgram_setUniformLocationWith4f);
     oluacls_setfunc(L, "setUniformsForBuiltins", _cocos2d_GLProgram_setUniformsForBuiltins);
     oluacls_setfunc(L, "reset", _cocos2d_GLProgram_reset);
+    oluacls_setfunc(L, "getVertexShaderLog", _cocos2d_GLProgram_getVertexShaderLog);
+    oluacls_setfunc(L, "getFragmentShaderLog", _cocos2d_GLProgram_getFragmentShaderLog);
+    oluacls_setfunc(L, "getProgramLog", _cocos2d_GLProgram_getProgramLog);
+    oluacls_setfunc(L, "getProgram", _cocos2d_GLProgram_getProgram);
     oluacls_property(L, "vertexShaderLog", _cocos2d_GLProgram_getVertexShaderLog, nullptr);
     oluacls_property(L, "fragmentShaderLog", _cocos2d_GLProgram_getFragmentShaderLog, nullptr);
     oluacls_property(L, "programLog", _cocos2d_GLProgram_getProgramLog, nullptr);
@@ -9791,6 +9806,117 @@ static int _cocos2d_GLProgramState_setParameterAutoBinding(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_GLProgramState_setVertexAttribCallback(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::GLProgramState *self = nullptr;
+    std::string arg1;       /** name */
+    std::function<void(cocos2d::VertexAttrib *)> arg2 = nullptr;   /** callback */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLProgramState");
+    olua_check_std_string(L, 2, &arg1);
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("VertexAttribCallback");
+    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_CALLBACK_TAG_REPLACE);
+    arg2 = [callback_store_obj, func, tag](cocos2d::VertexAttrib *arg1) {
+        lua_State *L = olua_mainthread();
+        int top = lua_gettop(L);
+
+        auto_luacv_push_cocos2d_VertexAttrib(L, arg1);
+        olua_callback(L, callback_store_obj, func.c_str(), 1);
+
+        lua_settop(L, top);
+    };
+
+    // void setVertexAttribCallback(const std::string& name, const std::function<void(VertexAttrib*)> &callback)
+    self->setVertexAttribCallback(arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_GLProgramState_setUniformCallback1(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::GLProgramState *self = nullptr;
+    std::string arg1;       /** uniformName */
+    std::function<void(cocos2d::GLProgram *, cocos2d::Uniform *)> arg2 = nullptr;   /** callback */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLProgramState");
+    olua_check_std_string(L, 2, &arg1);
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("UniformCallback");
+    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_CALLBACK_TAG_REPLACE);
+    arg2 = [callback_store_obj, func, tag](cocos2d::GLProgram *arg1, cocos2d::Uniform *arg2) {
+        lua_State *L = olua_mainthread();
+        int top = lua_gettop(L);
+
+        olua_push_cppobj<cocos2d::GLProgram>(L, arg1, "cc.GLProgram");
+        auto_luacv_push_cocos2d_Uniform(L, arg2);
+        olua_callback(L, callback_store_obj, func.c_str(), 2);
+
+        lua_settop(L, top);
+    };
+
+    // void setUniformCallback(const std::string& uniformName, const std::function<void(GLProgram*, Uniform*)> &callback)
+    self->setUniformCallback(arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_GLProgramState_setUniformCallback2(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::GLProgramState *self = nullptr;
+    lua_Integer arg1 = 0;   /** uniformLocation */
+    std::function<void(cocos2d::GLProgram *, cocos2d::Uniform *)> arg2 = nullptr;   /** callback */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLProgramState");
+    olua_check_int(L, 2, &arg1);
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("UniformCallback");
+    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_CALLBACK_TAG_REPLACE);
+    arg2 = [callback_store_obj, func, tag](cocos2d::GLProgram *arg1, cocos2d::Uniform *arg2) {
+        lua_State *L = olua_mainthread();
+        int top = lua_gettop(L);
+
+        olua_push_cppobj<cocos2d::GLProgram>(L, arg1, "cc.GLProgram");
+        auto_luacv_push_cocos2d_Uniform(L, arg2);
+        olua_callback(L, callback_store_obj, func.c_str(), 2);
+
+        lua_settop(L, top);
+    };
+
+    // void setUniformCallback(GLint uniformLocation, const std::function<void(GLProgram*, Uniform*)> &callback)
+    self->setUniformCallback((GLint)arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_GLProgramState_setUniformCallback(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 2) {
+        if (olua_is_std_string(L, 2) && olua_is_std_function(L, 3)) {
+            return _cocos2d_GLProgramState_setUniformCallback1(L);
+        }
+
+        // if (olua_is_int(L, 2) && olua_is_std_function(L, 3)) {
+            return _cocos2d_GLProgramState_setUniformCallback2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::GLProgramState::setUniformCallback' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
 static int luaopen_cocos2d_GLProgramState(lua_State *L)
 {
     oluacls_class(L, "cc.GLProgramState", "cc.Ref");
@@ -9820,6 +9946,8 @@ static int luaopen_cocos2d_GLProgramState(lua_State *L)
     oluacls_setfunc(L, "setNodeBinding", _cocos2d_GLProgramState_setNodeBinding);
     oluacls_setfunc(L, "applyAutoBinding", _cocos2d_GLProgramState_applyAutoBinding);
     oluacls_setfunc(L, "setParameterAutoBinding", _cocos2d_GLProgramState_setParameterAutoBinding);
+    oluacls_setfunc(L, "setVertexAttribCallback", _cocos2d_GLProgramState_setVertexAttribCallback);
+    oluacls_setfunc(L, "setUniformCallback", _cocos2d_GLProgramState_setUniformCallback);
     oluacls_property(L, "glProgram", _cocos2d_GLProgramState_getGLProgram, _cocos2d_GLProgramState_setGLProgram);
     oluacls_property(L, "nodeBinding", _cocos2d_GLProgramState_getNodeBinding, _cocos2d_GLProgramState_setNodeBinding);
     oluacls_property(L, "vertexAttribsFlags", _cocos2d_GLProgramState_getVertexAttribsFlags, nullptr);

@@ -17,7 +17,6 @@ cls.funcs([[
     @ref(single glProgram) GLProgram* getGLProgram()
     uint32_t getVertexAttribsFlags()
     ssize_t getVertexAttribCount()
-    // void setVertexAttribCallback(const std::string& name, const std::function<void(VertexAttrib*)> &callback)
     void setVertexAttribPointer(const std::string& name, GLint size, GLenum type, GLboolean normalized, GLsizei stride, GLvoid *pointer)
     ssize_t getUniformCount()
     void setUniformInt(const std::string& uniformName, int value)
@@ -30,7 +29,6 @@ cls.funcs([[
     void setUniformVec4(const std::string& uniformName, const Vec4& value)
     // TODO void setUniformVec4v(const std::string& uniformName, ssize_t size, const Vec4* pointer)
     void setUniformMat4(const std::string& uniformName, const Mat4& value)
-    // void setUniformCallback(const std::string& uniformName, const std::function<void(GLProgram*, Uniform*)> &callback)
     void setUniformTexture(const std::string& uniformName, Texture2D *texture)
     void setUniformInt(GLint uniformLocation, int value)
     void setUniformFloat(GLint uniformLocation, float value)
@@ -42,16 +40,23 @@ cls.funcs([[
     void setUniformVec4(GLint uniformLocation, const Vec4& value)
     // TODO void setUniformVec4v(GLint uniformLocation, ssize_t size, const Vec4* pointer)
     void setUniformMat4(GLint uniformLocation, const Mat4& value)
-    //void setUniformCallback(GLint uniformLocation, const std::function<void(GLProgram*, Uniform*)> &callback)
     void setUniformTexture(GLint uniformLocation, Texture2D *texture)
     @ref(single nodeBinding) Node* getNodeBinding()
     void setNodeBinding(@ref(single nodeBinding) Node* node)
     void applyAutoBinding(const std::string& uniformName, const std::string& autoBinding)
     void setParameterAutoBinding(const std::string& uniformName, const std::string& autoBinding)
 ]])
-cls.prop('glProgram')
-cls.prop('nodeBinding')
-cls.prop('vertexAttribsFlags')
-cls.prop('vertexAttribCount')
-cls.prop('uniformCount')
+cls.props [[
+    glProgram
+    nodeBinding
+    vertexAttribsFlags
+    vertexAttribCount
+    uniformCount
+]]
+
+cls.callbacks [[
+    void setVertexAttribCallback(const std::string& name, const std::function<void(VertexAttrib*)> &callback)
+    void setUniformCallback(const std::string& uniformName, const std::function<void(GLProgram*, Uniform*)> &callback)
+    void setUniformCallback(GLint uniformLocation, const std::function<void(GLProgram*, Uniform*)> &callback)
+]]
 return cls

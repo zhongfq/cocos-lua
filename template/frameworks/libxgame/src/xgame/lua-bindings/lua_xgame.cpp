@@ -147,48 +147,6 @@ static int _xgame_runtime_disableReport(lua_State *L)
     return 0;
 }
 
-static int _xgame_runtime_setDispatcher(lua_State *L)
-{
-    int handler = xlua_reffunc(L, 1);
-    xgame::runtime::setDispatcher([handler](const std::string &event, const std::string &args) {
-        lua_State *L = olua_mainthread();
-        int top = lua_gettop(L);
-        lua_pushcfunction(L, xlua_errorfunc);
-        xlua_getref(L, handler);
-        if (lua_isfunction(L, -1)) {
-            lua_pushstring(L, event.c_str());
-            lua_pushstring(L, args.c_str());
-            lua_pcall(L, 2, 0, top + 1);
-        }
-        lua_settop(L, top);
-    });
-    return 0;
-}
-
-static int _xgame_runtime_openURL(lua_State *L)
-{
-    lua_settop(L, 2);
-    int callback = LUA_REFNIL;
-    if (lua_isfunction(L, 2)) {
-        callback = xlua_reffunc(L, 2);
-    }
-    xgame::runtime::openURL(olua_checkstring(L, 1), [callback](bool success) {
-        if (callback != LUA_REFNIL) {
-            lua_State *L = olua_mainthread();
-            int top = lua_gettop(L);
-            lua_pushcfunction(L, xlua_errorfunc);
-            xlua_getref(L, callback);
-            if (lua_isfunction(L, -1)) {
-                lua_pushboolean(L, success);
-                lua_pcall(L, 1, 0, top + 1);
-                xlua_unref(L, callback);
-            }
-            lua_settop(L, top);
-        }
-    });
-    return 0;
-}
-
 static int _xgame_runtime_getPackageName(lua_State *L)
 {
     lua_settop(L, 0);
@@ -291,6 +249,48 @@ static int _xgame_runtime_setLogPath(lua_State *L)
     return 0;
 }
 
+static int _xgame_runtime_setDispatcher(lua_State *L)
+{
+    int handler = xlua_reffunc(L, 1);
+    xgame::runtime::setDispatcher([handler](const std::string &event, const std::string &args) {
+        lua_State *L = olua_mainthread();
+        int top = lua_gettop(L);
+        lua_pushcfunction(L, xlua_errorfunc);
+        xlua_getref(L, handler);
+        if (lua_isfunction(L, -1)) {
+            lua_pushstring(L, event.c_str());
+            lua_pushstring(L, args.c_str());
+            lua_pcall(L, 2, 0, top + 1);
+        }
+        lua_settop(L, top);
+    });
+    return 0;
+}
+
+static int _xgame_runtime_openURL(lua_State *L)
+{
+    lua_settop(L, 2);
+    int callback = LUA_REFNIL;
+    if (lua_isfunction(L, 2)) {
+        callback = xlua_reffunc(L, 2);
+    }
+    xgame::runtime::openURL(olua_checkstring(L, 1), [callback](bool success) {
+        if (callback != LUA_REFNIL) {
+            lua_State *L = olua_mainthread();
+            int top = lua_gettop(L);
+            lua_pushcfunction(L, xlua_errorfunc);
+            xlua_getref(L, callback);
+            if (lua_isfunction(L, -1)) {
+                lua_pushboolean(L, success);
+                lua_pcall(L, 1, 0, top + 1);
+                xlua_unref(L, callback);
+            }
+            lua_settop(L, top);
+        }
+    });
+    return 0;
+}
+
 static int luaopen_xgame_runtime(lua_State *L)
 {
     oluacls_class(L, "kernel.runtime", nullptr);
@@ -305,6 +305,15 @@ static int luaopen_xgame_runtime(lua_State *L)
     oluacls_setfunc(L, "support", _xgame_runtime_support);
     oluacls_setfunc(L, "printSupport", _xgame_runtime_printSupport);
     oluacls_setfunc(L, "disableReport", _xgame_runtime_disableReport);
+    oluacls_setfunc(L, "getPackageName", _xgame_runtime_getPackageName);
+    oluacls_setfunc(L, "getVersion", _xgame_runtime_getVersion);
+    oluacls_setfunc(L, "getVersionBuild", _xgame_runtime_getVersionBuild);
+    oluacls_setfunc(L, "getChannel", _xgame_runtime_getChannel);
+    oluacls_setfunc(L, "getOS", _xgame_runtime_getOS);
+    oluacls_setfunc(L, "getDeviceInfo", _xgame_runtime_getDeviceInfo);
+    oluacls_setfunc(L, "getLanguage", _xgame_runtime_getLanguage);
+    oluacls_setfunc(L, "getLogPath", _xgame_runtime_getLogPath);
+    oluacls_setfunc(L, "setLogPath", _xgame_runtime_setLogPath);
     oluacls_setfunc(L, "setDispatcher", _xgame_runtime_setDispatcher);
     oluacls_setfunc(L, "openURL", _xgame_runtime_openURL);
     oluacls_property(L, "packageName", _xgame_runtime_getPackageName, nullptr);
@@ -570,6 +579,11 @@ static int luaopen_xgame_filesystem(lua_State *L)
     oluacls_setfunc(L, "write", _xgame_filesystem_write);
     oluacls_setfunc(L, "read", _xgame_filesystem_read);
     oluacls_setfunc(L, "unzip", _xgame_filesystem_unzip);
+    oluacls_setfunc(L, "getWritablePath", _xgame_filesystem_getWritablePath);
+    oluacls_setfunc(L, "getCacheDirectory", _xgame_filesystem_getCacheDirectory);
+    oluacls_setfunc(L, "getDocumentDirectory", _xgame_filesystem_getDocumentDirectory);
+    oluacls_setfunc(L, "getTmpDirectory", _xgame_filesystem_getTmpDirectory);
+    oluacls_setfunc(L, "getSDCardDirectory", _xgame_filesystem_getSDCardDirectory);
     oluacls_property(L, "writablePath", _xgame_filesystem_getWritablePath, nullptr);
     oluacls_property(L, "cacheDirectory", _xgame_filesystem_getCacheDirectory, nullptr);
     oluacls_property(L, "documentDirectory", _xgame_filesystem_getDocumentDirectory, nullptr);

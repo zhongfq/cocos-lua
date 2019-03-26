@@ -17,22 +17,22 @@ local cls = class(M)
 cls.CPPCLS = "cocos2d::Event"
 cls.LUACLS = "cc.Event"
 cls.SUPERCLS = "cc.Ref"
-cls.prop('type', 'Type getType()')
-cls.prop('currentTarget', 'Node* getCurrentTarget()')
-cls.prop('stopped', 'bool isStopped()')
 cls.funcs([[
     Type getType();
     void stopPropagation()
     bool isStopped()
     Node* getCurrentTarget()
 ]])
+cls.props [[
+    type
+    currentTarget
+    stopped
+]]
 
 local cls = class(M)
 cls.CPPCLS = "cocos2d::EventCustom"
 cls.LUACLS = "cc.EventCustom"
 cls.SUPERCLS = "cc.Event"
-cls.prop('eventName', 'const std::string& getEventName()')
-cls.prop('userData', 'void* getUserData()', 'void setUserData(void* data)')
 cls.func('new', [[
 {
     lua_settop(L, 1);
@@ -46,6 +46,10 @@ cls.funcs([[
     void* getUserData()
     const std::string& getEventName()
 ]])
+cls.props [[
+    eventName
+    userData
+]]
 
 local cls = class(M)
 cls.CPPCLS = "cocos2d::EventTouch::EventCode"
@@ -61,12 +65,14 @@ local cls = class(M)
 cls.CPPCLS = "cocos2d::EventTouch"
 cls.LUACLS = "cc.EventTouch"
 cls.SUPERCLS = "cc.Event"
-cls.prop('eventCode', 'EventCode getEventCode()')
-cls.prop('touches', 'const std::vector<Touch*>& getTouches()')
 cls.funcs([[
     EventCode getEventCode()
     const std::vector<Touch*>& getTouches()
 ]])
+cls.props [[
+    eventCode
+    touches
+]]
 
 local cls = class(M)
 cls.CPPCLS = "cocos2d::EventKeyboard"
@@ -87,34 +93,33 @@ cls.SUPERCLS = "cc.Event"
 local cls = class(M)
 cls.CPPCLS = "cocos2d::EventMouse::MouseEventType"
 cls.LUACLS = "cc.EventMouse.MouseEventType"
-cls.enum('MOUSE_NONE')
-cls.enum('MOUSE_DOWN')
-cls.enum('MOUSE_UP')
-cls.enum('MOUSE_MOVE')
-cls.enum('MOUSE_SCROLL')
+cls.enums [[
+    MOUSE_NONE
+    MOUSE_DOWN
+    MOUSE_UP
+    MOUSE_MOVE
+    MOUSE_SCROLL
+]]
 
 local cls = class(M)
 cls.CPPCLS = "cocos2d::EventMouse::MouseButton"
 cls.LUACLS = "cc.EventMouse.MouseButton"
-cls.enum('BUTTON_UNSET')
-cls.enum('BUTTON_LEFT')
-cls.enum('BUTTON_RIGHT')
-cls.enum('BUTTON_MIDDLE')
-cls.enum('BUTTON_4')
-cls.enum('BUTTON_5')
-cls.enum('BUTTON_6')
-cls.enum('BUTTON_7')
-cls.enum('BUTTON_8')
+cls.enums [[
+    BUTTON_UNSET
+    BUTTON_LEFT
+    BUTTON_RIGHT
+    BUTTON_MIDDLE
+    BUTTON_4
+    BUTTON_5
+    BUTTON_6
+    BUTTON_7
+    BUTTON_8
+]]
 
 local cls = class(M)
 cls.CPPCLS = "cocos2d::EventMouse"
 cls.LUACLS = "cc.EventMouse"
 cls.SUPERCLS = "cc.Event"
-cls.prop('scrollX', 'float getScrollX()')
-cls.prop('scrollY', 'float getScrollY()')
-cls.prop('mouseButton', 'MouseButton getMouseButton()', 'void setMouseButton(MouseButton button)')
-cls.prop('cursorX', 'float getCursorX()')
-cls.prop('cursorY', 'float getCursorY()')
 cls.funcs([[
     void setScrollData(float scrollX, float scrollY)
     float getScrollX()
@@ -132,5 +137,12 @@ cls.funcs([[
     Vec2 getPreviousLocationInView()
     Vec2 getStartLocationInView()
 ]])
+cls.props [[
+    scrollX
+    scrollY
+    mouseButton
+    cursorX
+    cursorY
+]]
 
 return M

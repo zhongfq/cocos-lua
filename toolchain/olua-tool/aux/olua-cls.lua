@@ -272,6 +272,7 @@ local function parse_func(cls, name, ...)
             fi.RET.TYPE = get_typeinfo('void', cls)
             fi.RET.ATTR = {}
             fi.ARGS = {}
+            fi.INJECT = {}
             fi.PROTOTYPE = false
             fi.MAX_ARGS = #fi.ARGS
         else
@@ -280,6 +281,7 @@ local function parse_func(cls, name, ...)
             fi.LUAFUNC = name or fi.CPPFUNC
             fi.STATIC = attr.STATIC
             fi.FUNC_DECL = func_decl
+            fi.INJECT = {}
             if string.find(typename, 'std::function<') then
                 local callback = parse_callback(cls, typename, default)
                 fi.RET = {
@@ -458,18 +460,13 @@ function class(collection)
         end
     end
 
-    function cls.inject(cppfunc, where, code)
+    function cls.inject(cppfunc, codes)
         local found
         local function doinject(fi)
             if fi and fi.CPPFUNC == cppfunc then
                 found = true
-                if where == 'BEFORE' then
-                    fi.INJECT_BEFORE = code
-                elseif where == 'AFTER' then
-                    fi.INJECT_AFTER = code
-                else
-                    error('not support inject: ' .. where)
-                end
+                fi.INJECT.BEFORE = codes.BEFORE
+                fi.INJECT.AFTER = codes.AFTER
             end
         end
         for _, arr in ipairs(cls.FUNCS) do
@@ -573,6 +570,7 @@ function class(collection)
                 LUAFUNC = name,
                 CPPFUNC = 'get_' .. ARGS[1].VARNAME,
                 VARNAME = ARGS[1].VARNAME,
+                INJECT = {},
                 FUNC_DECL = '<function var>',
                 RET = {
                     NUM = 1,
@@ -589,6 +587,7 @@ function class(collection)
                 LUAFUNC = name,
                 CPPFUNC = 'set_' .. ARGS[1].VARNAME,
                 VARNAME = ARGS[1].VARNAME,
+                INJECT = {},
                 FUNC_DECL = '<function var>',
                 RET = {
                     NUM = 0,

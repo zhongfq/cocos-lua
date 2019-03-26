@@ -710,6 +710,8 @@ static int _cocos2d_Director_getRunningScene(lua_State *L)
     cocos2d::Scene *ret = (cocos2d::Scene *)self->getRunningScene();
     int num_ret = olua_push_cppobj<cocos2d::Scene>(L, ret, "cc.Scene");
 
+    olua_mapref(L, 1, "scenes", -1);
+
     return num_ret;
 }
 
@@ -1205,8 +1207,13 @@ static int _cocos2d_Director_runWithScene(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Scene");
 
+    olua_mapref(L, 1, "scenes", 2);
+    xlua_startcmpunref(L, 1, "scenes");
+
     // void runWithScene(Scene *scene)
     self->runWithScene(arg1);
+
+    xlua_endcmpunref(L, 1, "scenes");
 
     return 0;
 }
@@ -1224,6 +1231,8 @@ static int _cocos2d_Director_pushScene(lua_State *L)
     // void pushScene(Scene *scene)
     self->pushScene(arg1);
 
+    olua_mapref(L, 1, "scenes", 2);
+
     return 0;
 }
 
@@ -1235,8 +1244,12 @@ static int _cocos2d_Director_popScene(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
 
+    xlua_startcmpunref(L, 1, "scenes");
+
     // void popScene()
     self->popScene();
+
+    xlua_endcmpunref(L, 1, "scenes");
 
     return 0;
 }
@@ -1249,8 +1262,12 @@ static int _cocos2d_Director_popToRootScene(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
 
+    xlua_startcmpunref(L, 1, "scenes");
+
     // void popToRootScene()
     self->popToRootScene();
+
+    xlua_endcmpunref(L, 1, "scenes");
 
     return 0;
 }
@@ -1265,8 +1282,12 @@ static int _cocos2d_Director_popToSceneStackLevel(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
     olua_check_int(L, 2, &arg1);
 
+    xlua_startcmpunref(L, 1, "scenes");
+
     // void popToSceneStackLevel(int level)
     self->popToSceneStackLevel((int)arg1);
+
+    xlua_endcmpunref(L, 1, "scenes");
 
     return 0;
 }
@@ -1281,8 +1302,13 @@ static int _cocos2d_Director_replaceScene(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Scene");
 
+    olua_mapref(L, 1, "scenes", 2);
+    xlua_startcmpunref(L, 1, "scenes");
+
     // void replaceScene(Scene *scene)
     self->replaceScene(arg1);
+
+    xlua_endcmpunref(L, 1, "scenes");
 
     return 0;
 }

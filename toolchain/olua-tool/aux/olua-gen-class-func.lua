@@ -278,8 +278,8 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
     local CALLER = "self->"
     local ARGS_BEGIN = "("
     local ARGS_END = ")"
-    local INJECT_BEFORE = format_snippet(fi.INJECT_BEFORE or '')
-    local INJECT_AFTER = format_snippet(fi.INJECT_AFTER or '')
+    local INJECT_BEFORE = format_snippet(fi.INJECT.BEFORE or '')
+    local INJECT_AFTER = format_snippet(fi.INJECT.AFTER or '')
 
     local funcname = format_snippet([[
         _${CPPCLS_PATH}_${CPPFUNC}${FUNC_INDEX}

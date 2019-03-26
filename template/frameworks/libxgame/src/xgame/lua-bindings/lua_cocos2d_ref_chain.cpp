@@ -156,29 +156,6 @@ static int mapref_argument_value_and_mapunef_by_compare(lua_State *L)
     return lua_gettop(L);
 }
 
-//
-// Director
-//
-static int wrap_cocos2d_Director(lua_State *L)
-{
-    luaL_getmetatable(L, "cc.Director");
-    CCASSERT(olua_istable(L, -1), "not found 'cc.Director'");
-    // void runWithScene(Scene *scene)
-    // void pushScene(Scene *scene)
-    // void popScene()
-    // void popToRootScene()
-    // void popToSceneStackLevel(int level)
-    // void replaceScene(Scene *scene)
-    wrap_getf(L, DIRECTOR_SCENES, "runningScene", "getRunningScene", mapref_return_value);
-    wrap_func(L, DIRECTOR_SCENES, "runWithScene", mapref_argument_value_and_mapunef_by_compare);
-    wrap_func(L, DIRECTOR_SCENES, "pushScene", mapref_argument_value);
-    wrap_func(L, DIRECTOR_SCENES, "popScene", mapunef_by_compare);
-    wrap_func(L, DIRECTOR_SCENES, "popToRootScene", mapunef_by_compare);
-    wrap_func(L, DIRECTOR_SCENES, "popToSceneStackLevel", mapunef_by_compare);
-    wrap_func(L, DIRECTOR_SCENES, "replaceScene", mapref_argument_value_and_mapunef_by_compare);
-    return 0;
-}
-
 // void addEventListenerWithSceneGraphPriority(EventListener* listener, Node* node)
 static int wrap_cocos2d_EventDispatche_addEventListenerWithSceneGraphPriority(lua_State *L)
 {
@@ -360,7 +337,6 @@ static int wrap_cocos2d_ProtectedNode(lua_State *L)
 
 LUALIB_API int luaopen_cocos2d_ref_chain(lua_State *L)
 {
-    xlua_call(L, wrap_cocos2d_Director);
     xlua_call(L, wrap_cocos2d_EventDispatcher);
     xlua_call(L, wrap_cocos2d_Node);
     xlua_call(L, wrap_cocos2d_ProtectedNode);

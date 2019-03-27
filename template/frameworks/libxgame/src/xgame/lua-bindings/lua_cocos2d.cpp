@@ -20821,6 +20821,570 @@ static int luaopen_cocos2d_ProtectedNode(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_DrawNode_create(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    lua_Number arg1 = 0;   /** defaultLineWidth */
+
+    olua_opt_number(L, 1, &arg1, (lua_Number)2);
+
+    // static DrawNode* create(GLfloat defaultLineWidth = 2)
+    cocos2d::DrawNode *ret = (cocos2d::DrawNode *)cocos2d::DrawNode::create((GLfloat)arg1);
+    int num_ret = olua_push_cppobj<cocos2d::DrawNode>(L, ret, "cc.DrawNode");
+
+    return num_ret;
+}
+
+static int _cocos2d_DrawNode_drawPoint(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    cocos2d::DrawNode *self = nullptr;
+    cocos2d::Vec2 arg1;       /** point */
+    lua_Number arg2 = 0;   /** pointSize */
+    cocos2d::Color4F arg3;       /** color */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.DrawNode");
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+    auto_luacv_check_cocos2d_Color4F(L, 4, &arg3);
+
+    // void drawPoint(const Vec2& point, const float pointSize, const Color4F &color)
+    self->drawPoint(arg1, (float)arg2, arg3);
+
+    return 0;
+}
+
+static int _cocos2d_DrawNode_drawLine(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    cocos2d::DrawNode *self = nullptr;
+    cocos2d::Vec2 arg1;       /** origin */
+    cocos2d::Vec2 arg2;       /** destination */
+    cocos2d::Color4F arg3;       /** color */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.DrawNode");
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 3, &arg2);
+    auto_luacv_check_cocos2d_Color4F(L, 4, &arg3);
+
+    // void drawLine(const Vec2 &origin, const Vec2 &destination, const Color4F &color)
+    self->drawLine(arg1, arg2, arg3);
+
+    return 0;
+}
+
+static int _cocos2d_DrawNode_drawRect1(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    cocos2d::DrawNode *self = nullptr;
+    cocos2d::Vec2 arg1;       /** origin */
+    cocos2d::Vec2 arg2;       /** destination */
+    cocos2d::Color4F arg3;       /** color */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.DrawNode");
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 3, &arg2);
+    auto_luacv_check_cocos2d_Color4F(L, 4, &arg3);
+
+    // void drawRect(const Vec2 &origin, const Vec2 &destination, const Color4F &color)
+    self->drawRect(arg1, arg2, arg3);
+
+    return 0;
+}
+
+static int _cocos2d_DrawNode_drawRect2(lua_State *L)
+{
+    lua_settop(L, 6);
+
+    cocos2d::DrawNode *self = nullptr;
+    cocos2d::Vec2 arg1;       /** p1 */
+    cocos2d::Vec2 arg2;       /** p2 */
+    cocos2d::Vec2 arg3;       /** p3 */
+    cocos2d::Vec2 arg4;       /** p4 */
+    cocos2d::Color4F arg5;       /** color */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.DrawNode");
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 3, &arg2);
+    auto_luacv_check_cocos2d_Vec2(L, 4, &arg3);
+    auto_luacv_check_cocos2d_Vec2(L, 5, &arg4);
+    auto_luacv_check_cocos2d_Color4F(L, 6, &arg5);
+
+    // void drawRect(const Vec2 &p1, const Vec2 &p2, const Vec2 &p3, const Vec2& p4, const Color4F &color)
+    self->drawRect(arg1, arg2, arg3, arg4, arg5);
+
+    return 0;
+}
+
+static int _cocos2d_DrawNode_drawRect(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 3) {
+        // if (auto_luacv_is_cocos2d_Vec2(L, 2) && auto_luacv_is_cocos2d_Vec2(L, 3) && auto_luacv_is_cocos2d_Color4F(L, 4)) {
+            return _cocos2d_DrawNode_drawRect1(L);
+        // }
+    }
+
+    if (num_args == 5) {
+        // if (auto_luacv_is_cocos2d_Vec2(L, 2) && auto_luacv_is_cocos2d_Vec2(L, 3) && auto_luacv_is_cocos2d_Vec2(L, 4) && auto_luacv_is_cocos2d_Vec2(L, 5) && auto_luacv_is_cocos2d_Color4F(L, 6)) {
+            return _cocos2d_DrawNode_drawRect2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::DrawNode::drawRect' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_DrawNode_drawCircle1(lua_State *L)
+{
+    lua_settop(L, 9);
+
+    cocos2d::DrawNode *self = nullptr;
+    cocos2d::Vec2 arg1;       /** center */
+    lua_Number arg2 = 0;   /** radius */
+    lua_Number arg3 = 0;   /** angle */
+    lua_Unsigned arg4 = 0;   /** segments */
+    bool arg5 = false;   /** drawLineToCenter */
+    lua_Number arg6 = 0;   /** scaleX */
+    lua_Number arg7 = 0;   /** scaleY */
+    cocos2d::Color4F arg8;       /** color */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.DrawNode");
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+    olua_check_uint(L, 5, &arg4);
+    olua_check_bool(L, 6, &arg5);
+    olua_check_number(L, 7, &arg6);
+    olua_check_number(L, 8, &arg7);
+    auto_luacv_check_cocos2d_Color4F(L, 9, &arg8);
+
+    // void drawCircle( const Vec2& center, float radius, float angle, unsigned int segments, bool drawLineToCenter, float scaleX, float scaleY, const Color4F &color)
+    self->drawCircle(arg1, (float)arg2, (float)arg3, (unsigned int)arg4, arg5, (float)arg6, (float)arg7, arg8);
+
+    return 0;
+}
+
+static int _cocos2d_DrawNode_drawCircle2(lua_State *L)
+{
+    lua_settop(L, 7);
+
+    cocos2d::DrawNode *self = nullptr;
+    cocos2d::Vec2 arg1;       /** center */
+    lua_Number arg2 = 0;   /** radius */
+    lua_Number arg3 = 0;   /** angle */
+    lua_Unsigned arg4 = 0;   /** segments */
+    bool arg5 = false;   /** drawLineToCenter */
+    cocos2d::Color4F arg6;       /** color */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.DrawNode");
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+    olua_check_uint(L, 5, &arg4);
+    olua_check_bool(L, 6, &arg5);
+    auto_luacv_check_cocos2d_Color4F(L, 7, &arg6);
+
+    // void drawCircle(const Vec2 &center, float radius, float angle, unsigned int segments, bool drawLineToCenter, const Color4F &color)
+    self->drawCircle(arg1, (float)arg2, (float)arg3, (unsigned int)arg4, arg5, arg6);
+
+    return 0;
+}
+
+static int _cocos2d_DrawNode_drawCircle(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 6) {
+        // if (auto_luacv_is_cocos2d_Vec2(L, 2) && olua_is_number(L, 3) && olua_is_number(L, 4) && olua_is_uint(L, 5) && olua_is_bool(L, 6) && auto_luacv_is_cocos2d_Color4F(L, 7)) {
+            return _cocos2d_DrawNode_drawCircle2(L);
+        // }
+    }
+
+    if (num_args == 8) {
+        // if (auto_luacv_is_cocos2d_Vec2(L, 2) && olua_is_number(L, 3) && olua_is_number(L, 4) && olua_is_uint(L, 5) && olua_is_bool(L, 6) && olua_is_number(L, 7) && olua_is_number(L, 8) && auto_luacv_is_cocos2d_Color4F(L, 9)) {
+            return _cocos2d_DrawNode_drawCircle1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::DrawNode::drawCircle' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_DrawNode_drawQuadBezier(lua_State *L)
+{
+    lua_settop(L, 6);
+
+    cocos2d::DrawNode *self = nullptr;
+    cocos2d::Vec2 arg1;       /** origin */
+    cocos2d::Vec2 arg2;       /** control */
+    cocos2d::Vec2 arg3;       /** destination */
+    lua_Unsigned arg4 = 0;   /** segments */
+    cocos2d::Color4F arg5;       /** color */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.DrawNode");
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 3, &arg2);
+    auto_luacv_check_cocos2d_Vec2(L, 4, &arg3);
+    olua_check_uint(L, 5, &arg4);
+    auto_luacv_check_cocos2d_Color4F(L, 6, &arg5);
+
+    // void drawQuadBezier(const Vec2 &origin, const Vec2 &control, const Vec2 &destination, unsigned int segments, const Color4F &color)
+    self->drawQuadBezier(arg1, arg2, arg3, (unsigned int)arg4, arg5);
+
+    return 0;
+}
+
+static int _cocos2d_DrawNode_drawCubicBezier(lua_State *L)
+{
+    lua_settop(L, 7);
+
+    cocos2d::DrawNode *self = nullptr;
+    cocos2d::Vec2 arg1;       /** origin */
+    cocos2d::Vec2 arg2;       /** control1 */
+    cocos2d::Vec2 arg3;       /** control2 */
+    cocos2d::Vec2 arg4;       /** destination */
+    lua_Unsigned arg5 = 0;   /** segments */
+    cocos2d::Color4F arg6;       /** color */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.DrawNode");
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 3, &arg2);
+    auto_luacv_check_cocos2d_Vec2(L, 4, &arg3);
+    auto_luacv_check_cocos2d_Vec2(L, 5, &arg4);
+    olua_check_uint(L, 6, &arg5);
+    auto_luacv_check_cocos2d_Color4F(L, 7, &arg6);
+
+    // void drawCubicBezier(const Vec2 &origin, const Vec2 &control1, const Vec2 &control2, const Vec2 &destination, unsigned int segments, const Color4F &color)
+    self->drawCubicBezier(arg1, arg2, arg3, arg4, (unsigned int)arg5, arg6);
+
+    return 0;
+}
+
+static int _cocos2d_DrawNode_drawDot(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    cocos2d::DrawNode *self = nullptr;
+    cocos2d::Vec2 arg1;       /** pos */
+    lua_Number arg2 = 0;   /** radius */
+    cocos2d::Color4F arg3;       /** color */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.DrawNode");
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+    auto_luacv_check_cocos2d_Color4F(L, 4, &arg3);
+
+    // void drawDot(const Vec2 &pos, float radius, const Color4F &color)
+    self->drawDot(arg1, (float)arg2, arg3);
+
+    return 0;
+}
+
+static int _cocos2d_DrawNode_drawSolidRect(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    cocos2d::DrawNode *self = nullptr;
+    cocos2d::Vec2 arg1;       /** origin */
+    cocos2d::Vec2 arg2;       /** destination */
+    cocos2d::Color4F arg3;       /** color */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.DrawNode");
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 3, &arg2);
+    auto_luacv_check_cocos2d_Color4F(L, 4, &arg3);
+
+    // void drawSolidRect(const Vec2 &origin, const Vec2 &destination, const Color4F &color)
+    self->drawSolidRect(arg1, arg2, arg3);
+
+    return 0;
+}
+
+static int _cocos2d_DrawNode_drawSolidCircle1(lua_State *L)
+{
+    lua_settop(L, 8);
+
+    cocos2d::DrawNode *self = nullptr;
+    cocos2d::Vec2 arg1;       /** center */
+    lua_Number arg2 = 0;   /** radius */
+    lua_Number arg3 = 0;   /** angle */
+    lua_Unsigned arg4 = 0;   /** segments */
+    lua_Number arg5 = 0;   /** scaleX */
+    lua_Number arg6 = 0;   /** scaleY */
+    cocos2d::Color4F arg7;       /** color */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.DrawNode");
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+    olua_check_uint(L, 5, &arg4);
+    olua_check_number(L, 6, &arg5);
+    olua_check_number(L, 7, &arg6);
+    auto_luacv_check_cocos2d_Color4F(L, 8, &arg7);
+
+    // void drawSolidCircle(const Vec2& center, float radius, float angle, unsigned int segments, float scaleX, float scaleY, const Color4F &color)
+    self->drawSolidCircle(arg1, (float)arg2, (float)arg3, (unsigned int)arg4, (float)arg5, (float)arg6, arg7);
+
+    return 0;
+}
+
+static int _cocos2d_DrawNode_drawSolidCircle2(lua_State *L)
+{
+    lua_settop(L, 6);
+
+    cocos2d::DrawNode *self = nullptr;
+    cocos2d::Vec2 arg1;       /** center */
+    lua_Number arg2 = 0;   /** radius */
+    lua_Number arg3 = 0;   /** angle */
+    lua_Unsigned arg4 = 0;   /** segments */
+    cocos2d::Color4F arg5;       /** color */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.DrawNode");
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+    olua_check_uint(L, 5, &arg4);
+    auto_luacv_check_cocos2d_Color4F(L, 6, &arg5);
+
+    // void drawSolidCircle(const Vec2& center, float radius, float angle, unsigned int segments, const Color4F& color)
+    self->drawSolidCircle(arg1, (float)arg2, (float)arg3, (unsigned int)arg4, arg5);
+
+    return 0;
+}
+
+static int _cocos2d_DrawNode_drawSolidCircle(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 5) {
+        // if (auto_luacv_is_cocos2d_Vec2(L, 2) && olua_is_number(L, 3) && olua_is_number(L, 4) && olua_is_uint(L, 5) && auto_luacv_is_cocos2d_Color4F(L, 6)) {
+            return _cocos2d_DrawNode_drawSolidCircle2(L);
+        // }
+    }
+
+    if (num_args == 7) {
+        // if (auto_luacv_is_cocos2d_Vec2(L, 2) && olua_is_number(L, 3) && olua_is_number(L, 4) && olua_is_uint(L, 5) && olua_is_number(L, 6) && olua_is_number(L, 7) && auto_luacv_is_cocos2d_Color4F(L, 8)) {
+            return _cocos2d_DrawNode_drawSolidCircle1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::DrawNode::drawSolidCircle' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_DrawNode_drawSegment(lua_State *L)
+{
+    lua_settop(L, 5);
+
+    cocos2d::DrawNode *self = nullptr;
+    cocos2d::Vec2 arg1;       /** from */
+    cocos2d::Vec2 arg2;       /** to */
+    lua_Number arg3 = 0;   /** radius */
+    cocos2d::Color4F arg4;       /** color */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.DrawNode");
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+    auto_luacv_check_cocos2d_Color4F(L, 5, &arg4);
+
+    // void drawSegment(const Vec2 &from, const Vec2 &to, float radius, const Color4F &color)
+    self->drawSegment(arg1, arg2, (float)arg3, arg4);
+
+    return 0;
+}
+
+static int _cocos2d_DrawNode_drawTriangle(lua_State *L)
+{
+    lua_settop(L, 5);
+
+    cocos2d::DrawNode *self = nullptr;
+    cocos2d::Vec2 arg1;       /** p1 */
+    cocos2d::Vec2 arg2;       /** p2 */
+    cocos2d::Vec2 arg3;       /** p3 */
+    cocos2d::Color4F arg4;       /** color */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.DrawNode");
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 3, &arg2);
+    auto_luacv_check_cocos2d_Vec2(L, 4, &arg3);
+    auto_luacv_check_cocos2d_Color4F(L, 5, &arg4);
+
+    // void drawTriangle(const Vec2 &p1, const Vec2 &p2, const Vec2 &p3, const Color4F &color)
+    self->drawTriangle(arg1, arg2, arg3, arg4);
+
+    return 0;
+}
+
+static int _cocos2d_DrawNode_clear(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::DrawNode *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.DrawNode");
+
+    // void clear()
+    self->clear();
+
+    return 0;
+}
+
+static int _cocos2d_DrawNode_getBlendFunc(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::DrawNode *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.DrawNode");
+
+    // const BlendFunc& getBlendFunc()
+    const cocos2d::BlendFunc &ret = (const cocos2d::BlendFunc &)self->getBlendFunc();
+    int num_ret = auto_luacv_push_cocos2d_BlendFunc(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_DrawNode_setBlendFunc(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::DrawNode *self = nullptr;
+    cocos2d::BlendFunc arg1;       /** blendFunc */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.DrawNode");
+    auto_luacv_check_cocos2d_BlendFunc(L, 2, &arg1);
+
+    // void setBlendFunc(const BlendFunc &blendFunc)
+    self->setBlendFunc(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_DrawNode_onDraw(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::DrawNode *self = nullptr;
+    cocos2d::Mat4 arg1;       /** transform */
+    lua_Unsigned arg2 = 0;   /** flags */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.DrawNode");
+    manual_luacv_check_cocos2d_Mat4(L, 2, &arg1);
+    olua_check_uint(L, 3, &arg2);
+
+    // void onDraw(const Mat4 &transform, uint32_t flags)
+    self->onDraw(arg1, (uint32_t)arg2);
+
+    return 0;
+}
+
+static int _cocos2d_DrawNode_onDrawGLLine(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::DrawNode *self = nullptr;
+    cocos2d::Mat4 arg1;       /** transform */
+    lua_Unsigned arg2 = 0;   /** flags */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.DrawNode");
+    manual_luacv_check_cocos2d_Mat4(L, 2, &arg1);
+    olua_check_uint(L, 3, &arg2);
+
+    // void onDrawGLLine(const Mat4 &transform, uint32_t flags)
+    self->onDrawGLLine(arg1, (uint32_t)arg2);
+
+    return 0;
+}
+
+static int _cocos2d_DrawNode_onDrawGLPoint(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::DrawNode *self = nullptr;
+    cocos2d::Mat4 arg1;       /** transform */
+    lua_Unsigned arg2 = 0;   /** flags */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.DrawNode");
+    manual_luacv_check_cocos2d_Mat4(L, 2, &arg1);
+    olua_check_uint(L, 3, &arg2);
+
+    // void onDrawGLPoint(const Mat4 &transform, uint32_t flags)
+    self->onDrawGLPoint(arg1, (uint32_t)arg2);
+
+    return 0;
+}
+
+static int _cocos2d_DrawNode_setLineWidth(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::DrawNode *self = nullptr;
+    lua_Number arg1 = 0;   /** lineWidth */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.DrawNode");
+    olua_check_number(L, 2, &arg1);
+
+    // void setLineWidth(GLfloat lineWidth)
+    self->setLineWidth((GLfloat)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_DrawNode_getLineWidth(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::DrawNode *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.DrawNode");
+
+    // GLfloat getLineWidth()
+    GLfloat ret = (GLfloat)self->getLineWidth();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_DrawNode(lua_State *L)
+{
+    oluacls_class(L, "cc.DrawNode", "cc.Node");
+    oluacls_setfunc(L, "create", _cocos2d_DrawNode_create);
+    oluacls_setfunc(L, "drawPoint", _cocos2d_DrawNode_drawPoint);
+    oluacls_setfunc(L, "drawLine", _cocos2d_DrawNode_drawLine);
+    oluacls_setfunc(L, "drawRect", _cocos2d_DrawNode_drawRect);
+    oluacls_setfunc(L, "drawCircle", _cocos2d_DrawNode_drawCircle);
+    oluacls_setfunc(L, "drawQuadBezier", _cocos2d_DrawNode_drawQuadBezier);
+    oluacls_setfunc(L, "drawCubicBezier", _cocos2d_DrawNode_drawCubicBezier);
+    oluacls_setfunc(L, "drawDot", _cocos2d_DrawNode_drawDot);
+    oluacls_setfunc(L, "drawSolidRect", _cocos2d_DrawNode_drawSolidRect);
+    oluacls_setfunc(L, "drawSolidCircle", _cocos2d_DrawNode_drawSolidCircle);
+    oluacls_setfunc(L, "drawSegment", _cocos2d_DrawNode_drawSegment);
+    oluacls_setfunc(L, "drawTriangle", _cocos2d_DrawNode_drawTriangle);
+    oluacls_setfunc(L, "clear", _cocos2d_DrawNode_clear);
+    oluacls_setfunc(L, "getBlendFunc", _cocos2d_DrawNode_getBlendFunc);
+    oluacls_setfunc(L, "setBlendFunc", _cocos2d_DrawNode_setBlendFunc);
+    oluacls_setfunc(L, "onDraw", _cocos2d_DrawNode_onDraw);
+    oluacls_setfunc(L, "onDrawGLLine", _cocos2d_DrawNode_onDrawGLLine);
+    oluacls_setfunc(L, "onDrawGLPoint", _cocos2d_DrawNode_onDrawGLPoint);
+    oluacls_setfunc(L, "setLineWidth", _cocos2d_DrawNode_setLineWidth);
+    oluacls_setfunc(L, "getLineWidth", _cocos2d_DrawNode_getLineWidth);
+
+    olua_registerluatype<cocos2d::DrawNode>(L, "cc.DrawNode");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
 static int luaopen_cocos2d_TextHAlignment(lua_State *L)
 {
     oluacls_class(L, "cc.TextHAlignment", nullptr);
@@ -29117,6 +29681,7 @@ int luaopen_cocos2d(lua_State *L)
     olua_require(L, "cc.Node", luaopen_cocos2d_Node);
     olua_require(L, "cc.AtlasNode", luaopen_cocos2d_AtlasNode);
     olua_require(L, "cc.ProtectedNode", luaopen_cocos2d_ProtectedNode);
+    olua_require(L, "cc.DrawNode", luaopen_cocos2d_DrawNode);
     olua_require(L, "cc.TextHAlignment", luaopen_cocos2d_TextHAlignment);
     olua_require(L, "cc.TextVAlignment", luaopen_cocos2d_TextVAlignment);
     olua_require(L, "cc.GlyphCollection", luaopen_cocos2d_GlyphCollection);

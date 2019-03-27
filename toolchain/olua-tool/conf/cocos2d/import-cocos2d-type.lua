@@ -221,6 +221,7 @@ REG_TYPE {
         cocos2d::DelayTime *
         cocos2d::DirectionLight *
         cocos2d::Director *
+        cocos2d::DrawNode *
         cocos2d::EaseBackIn *
         cocos2d::EaseBackInOut *
         cocos2d::EaseBackOut *

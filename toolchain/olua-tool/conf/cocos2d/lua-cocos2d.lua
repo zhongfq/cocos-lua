@@ -74,6 +74,7 @@ M.CLASSES = {
     include("conf/cocos2d/2d/base-nodes/cc.Node.lua"),
     include("conf/cocos2d/2d/base-nodes/cc.AtlasNode.lua"),
     include("conf/cocos2d/2d/base-nodes/cc.ProtectedNode.lua"),
+    include("conf/cocos2d/2d/draw-nodes/cc.DrawNode.lua"),
     include("conf/cocos2d/2d/label-nodes/cc.Label.lua"),
     include("conf/cocos2d/2d/label-nodes/cc.LabelAtlas.lua"),
     include("conf/cocos2d/2d/label-nodes/cc.FontAtlas.lua"),

@@ -18,9 +18,14 @@ cls.funcs [[
     static RadioButton* create(const std::string& backGround, const std::string& cross, Widget::TextureResType texType = Widget::TextureResType::LOCAL)
 ]]
 
-cls.callbacks [[
-    void addEventListener(@nullable const std::function<void(RadioButton* radioButton, EventType)>& callback)
-]]
+cls.callback(
+    'void addEventListener(@nullable const std::function<void(RadioButton* radioButton, EventType)>& callback)',
+    {
+        CALLBACK_MAKER = 'olua_makecallbacktag("RadioButtonCallback")',
+        CALLBACK_REPLACE = true,
+        CALLBACK_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
+    }
+)
 
 local cls = class(M)
 cls.CPPCLS = "cocos2d::ui::RadioButtonGroup::EventType"
@@ -53,8 +58,20 @@ cls.props [[
     numberOfRadioButtons
     allowedNoSelection
 ]]
-cls.callbacks [[
-    void addEventListener(const std::function<void(RadioButton* radioButton, int index, EventType)>& callback)
-]]
+cls.callback(
+    'void addEventListener(@nullable const std::function<void(RadioButton* radioButton, int index, EventType)>& callback)',
+    {
+        CALLBACK_MAKER = 'olua_makecallbacktag("RadioButtonGroupCallback")',
+        CALLBACK_REPLACE = true,
+        CALLBACK_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
+    }
+)
+
+-- ref
+local REFNAME = 'radioButtons'
+cls.inject('addRadioButton',        mapref_arg_value(REFNAME))
+cls.inject('getRadioButtonByIndex', mapref_return_value(REFNAME))
+cls.inject('removeRadioButton',     mapunref_arg_value(REFNAME))
+cls.inject('removeAllRadioButtons', mapunref_all(REFNAME))
 
 return M

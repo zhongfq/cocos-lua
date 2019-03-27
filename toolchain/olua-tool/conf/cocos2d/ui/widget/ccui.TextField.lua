@@ -102,11 +102,14 @@ cls.funcs [[
     void setCursorFromPoint(const Vec2 &point, const Camera* camera)
 ]]
 
-cls.callbacks [[
-    void addEventListener(@nullable const std::function<void(Ref*, EventType)>& callback)
-]]
-
-cls.alias('addEventListener', 'addTextFieldEventListener')
+cls.callback(
+    'void addEventListener(@nullable const std::function<void(Ref*, EventType)>& callback)',
+    {
+        CALLBACK_MAKER = 'olua_makecallbacktag("TextFieldCallback")',
+        CALLBACK_REPLACE = true,
+        CALLBACK_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
+    }
+)
 
 cls.props [[
     touchSize

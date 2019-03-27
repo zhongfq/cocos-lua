@@ -18,8 +18,13 @@ cls.funcs [[
     static CheckBox* create(const std::string& backGround, const std::string& cross, Widget::TextureResType texType = Widget::TextureResType::LOCAL)
 ]]
 
-cls.callbacks [[
-    void addEventListener(@nullable const std::function<void(Ref*,CheckBox::EventType)>& callback)
-]]
+cls.callback(
+    'void addEventListener(@nullable const std::function<void(Ref*,CheckBox::EventType)>& callback)',
+    {
+        CALLBACK_MAKER = 'olua_makecallbacktag("CheckBoxCallback")',
+        CALLBACK_REPLACE = true,
+        CALLBACK_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
+    }
+)
 
 return M

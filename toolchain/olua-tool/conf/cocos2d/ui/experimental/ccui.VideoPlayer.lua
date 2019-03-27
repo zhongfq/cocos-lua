@@ -32,11 +32,14 @@ cls.funcs [[
     bool isFullScreenEnabled()
     void onPlayEvent(int event)
 ]]
-cls.callbacks([[
-    void addEventListener(@nullable const std::function<void(Ref*,VideoPlayer::EventType)>& callback)
-]], function (name)
-    return 'olua_makecallbacktag("VideoPlayerCallback")'
-end)
+cls.callback(
+    'void addEventListener(@nullable const std::function<void(Ref*,VideoPlayer::EventType)>& callback)',
+    {
+        CALLBACK_MAKER = 'olua_makecallbacktag("VideoPlayerCallback")',
+        CALLBACK_REPLACE = true,
+        CALLBACK_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
+    }
+)
 cls.props [[
     fileName
     url

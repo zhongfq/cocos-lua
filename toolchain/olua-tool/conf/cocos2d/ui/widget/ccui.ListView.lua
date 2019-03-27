@@ -85,12 +85,12 @@ cls.funcs [[
 cls.callback(
     'void addEventListener(@nullable const std::function<void(Ref*, EventType)>& callback)',
     {
-        CALLBACK_MAKER = 'olua_makecallbacktag("ListCallback")',
+        CALLBACK_MAKER = 'olua_makecallbacktag("ListViewCallback")',
         CALLBACK_REPLACE = true,
         CALLBACK_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
     }
 )
-cls.alias('addEventListener', 'addListEventListener')
+cls.alias('addEventListener', 'addListViewEventListener')
 
 cls.props [[
     items

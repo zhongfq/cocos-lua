@@ -56,10 +56,15 @@ cls.funcs [[
     void setAutoScrollStopEpsilon(float epsilon)
 ]]
 
-cls.callbacks [[
-    void addEventListener(@nullable const std::function<void(Ref*, PageView::EventType)>& callback)
-]]
-cls.alias('addEventListener', 'addPageEventListener')
+cls.callback(
+    'void addEventListener(@nullable const std::function<void(Ref*, PageView::EventType)>& callback)',
+    {
+        CALLBACK_MAKER = 'olua_makecallbacktag("PageViewCallback")',
+        CALLBACK_REPLACE = true,
+        CALLBACK_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
+    }
+)
+cls.alias('addEventListener', 'addPageViewEventListener')
 
 cls.props [[
     currentPageIndex

@@ -45,10 +45,14 @@ cls.funcs [[
     ResourceData getBallDisabledFile()
 ]]
 
-cls.callbacks [[
-    void addEventListener(@nullable const std::function<void(Ref*,EventType)>& callback)
-]]
-cls.alias('addEventListener', 'addSliderEventListener')
+cls.callback(
+    'void addEventListener(@nullable const std::function<void(Ref*,EventType)>& callback)',
+    {
+        CALLBACK_MAKER = 'olua_makecallbacktag("SliderCallback")',
+        CALLBACK_REPLACE = true,
+        CALLBACK_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
+    }
+)
 
 cls.props [[
     scale9Enabled

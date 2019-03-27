@@ -337,4 +337,84 @@ cls.prop('alpha', [[
     self->setOpacity(olua_checknumber(L, 2) * 255.0f);
     return 0;   
 }]])
+
+--
+-- ref
+--
+local REMOVE_FROM_PARENT = {
+    BEFORE = [[
+        cocos2d::Node *parent = self->getParent();
+        if (olua_getobj(L, parent)) {
+            olua_mapunref(L, -1, "children", 1);
+            lua_pop(L, 1);
+        }
+    ]]
+}
+local REMOVE_BY_NAME = {
+    BEFORE = [[
+        cocos2d::Node *child = self->getChildByName(arg1);
+        if (olua_getobj(L, child)) {
+            olua_mapunref(L, 1, "children", -1);
+            lua_pop(L, 1);
+        }
+    ]]
+}
+local REMOVE_BY_TAG = {
+    BEFORE = [[
+        cocos2d::Node *child = self->getChildByTag((int)arg1);
+        if (olua_getobj(L, child)) {
+            olua_mapunref(L, 1, "children", -1);
+            lua_pop(L, 1);
+        }
+    ]]
+}
+-- void addChild(Node * child)
+-- void addChild(Node * child, int localZOrder)
+-- void addChild(Node* child, int localZOrder, int tag)
+-- void addChild(Node* child, int localZOrder, const std::string &name)
+-- Node *getChildByName(const std::string& name)
+-- Node *getChildByTag(int tag) const
+-- void removeFromParent()
+-- void removeFromParentAndCleanup(bool cleanup)
+-- void removeChildByName(const std::string &name, bool cleanup = true)
+-- void removeChildByTag(int tag, bool cleanup = true)
+-- void removeChild(Node* child, bool cleanup = true)
+-- void removeAllChildren()
+-- void removeAllChildrenWithCleanup(bool cleanup)
+cls.inject('addChild',                      mapref_arg_value('children'))
+cls.inject('getChildByName',                mapref_return_value('children'))
+cls.inject('getChildByTag',                 mapref_return_value('children'))
+cls.inject('removeFromParent',              REMOVE_FROM_PARENT)
+cls.inject('removeFromParentAndCleanup',    REMOVE_FROM_PARENT)
+cls.inject('removeChildByName',             REMOVE_BY_NAME)
+cls.inject('removeChildByTag',              REMOVE_BY_TAG)
+cls.inject('removeChild',                   mapunref_arg_value('children'))
+cls.inject('removeAllChildren',             mapunref_all('children'))
+cls.inject('removeAllChildrenWithCleanup',  mapunref_all('children'))
+
+-- Action* runAction(Action* action)
+-- void stopAllActions()
+-- void stopAction(Action* action)
+-- void stopActionByTag(int tag)
+-- void stopAllActionsByTag(int tag)
+-- void stopActionsByFlags(unsigned int flags)
+-- Action* getActionByTag(int tag)
+cls.inject("runAction",             mapref_arg_value_and_mapunef_by_compare('actions'))
+cls.inject("stopAllActions",        mapunef_by_compare('actions'))
+cls.inject("stopAction",            mapunef_by_compare('actions'))
+cls.inject("stopActionByTag",       mapunef_by_compare('actions'))
+cls.inject("stopAllActionsByTag",   mapunef_by_compare('actions'))
+cls.inject("stopActionsByFlags",    mapunef_by_compare('actions'))
+cls.inject("getActionByTag",        mapref_return_value('actions'))
+
+-- Component* getComponent(const std::string& name)
+-- bool addComponent(Component *component)
+-- bool removeComponent(const std::string& name)
+-- bool removeComponent(Component *component)
+-- void removeAllComponents()
+cls.inject("getComponent", mapref_return_value('components'))
+cls.inject("addComponent", mapref_arg_value('components'))
+cls.inject("removeComponent", mapunef_by_compare('components'))
+cls.inject("removeAllComponents", mapunref_all('components'))
+
 return cls

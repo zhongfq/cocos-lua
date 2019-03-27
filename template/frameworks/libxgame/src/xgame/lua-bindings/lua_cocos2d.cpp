@@ -17394,6 +17394,8 @@ static int _cocos2d_Node_addChild1(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
 
+    olua_mapref(L, 1, "children", 2);
+
     // void addChild(Node * child)
     self->addChild(arg1);
 
@@ -17411,6 +17413,8 @@ static int _cocos2d_Node_addChild2(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
     olua_check_int(L, 3, &arg2);
+
+    olua_mapref(L, 1, "children", 2);
 
     // void addChild(Node * child, int localZOrder)
     self->addChild(arg1, (int)arg2);
@@ -17432,6 +17436,8 @@ static int _cocos2d_Node_addChild3(lua_State *L)
     olua_check_int(L, 3, &arg2);
     olua_check_int(L, 4, &arg3);
 
+    olua_mapref(L, 1, "children", 2);
+
     // void addChild(Node* child, int localZOrder, int tag)
     self->addChild(arg1, (int)arg2, (int)arg3);
 
@@ -17451,6 +17457,8 @@ static int _cocos2d_Node_addChild4(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
     olua_check_int(L, 3, &arg2);
     olua_check_std_string(L, 4, &arg3);
+
+    olua_mapref(L, 1, "children", 2);
 
     // void addChild(Node* child, int localZOrder, const std::string &name)
     self->addChild(arg1, (int)arg2, arg3);
@@ -17503,6 +17511,8 @@ static int _cocos2d_Node_getChildByTag(lua_State *L)
     cocos2d::Node *ret = (cocos2d::Node *)self->getChildByTag((int)arg1);
     int num_ret = olua_push_cppobj<cocos2d::Node>(L, ret, "cc.Node");
 
+    olua_mapref(L, 1, "children", -1);
+
     return num_ret;
 }
 
@@ -17519,6 +17529,8 @@ static int _cocos2d_Node_getChildByName(lua_State *L)
     // Node* getChildByName(const std::string& name)
     cocos2d::Node *ret = (cocos2d::Node *)self->getChildByName(arg1);
     int num_ret = olua_push_cppobj<cocos2d::Node>(L, ret, "cc.Node");
+
+    olua_mapref(L, 1, "children", -1);
 
     return num_ret;
 }
@@ -17592,6 +17604,12 @@ static int _cocos2d_Node_removeFromParent(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
 
+    cocos2d::Node *parent = self->getParent();
+    if (olua_getobj(L, parent)) {
+        olua_mapunref(L, -1, "children", 1);
+        lua_pop(L, 1);
+    }
+
     // void removeFromParent()
     self->removeFromParent();
 
@@ -17607,6 +17625,12 @@ static int _cocos2d_Node_removeFromParentAndCleanup(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
     olua_check_bool(L, 2, &arg1);
+
+    cocos2d::Node *parent = self->getParent();
+    if (olua_getobj(L, parent)) {
+        olua_mapunref(L, -1, "children", 1);
+        lua_pop(L, 1);
+    }
 
     // void removeFromParentAndCleanup(bool cleanup)
     self->removeFromParentAndCleanup(arg1);
@@ -17626,6 +17650,8 @@ static int _cocos2d_Node_removeChild(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
     olua_opt_bool(L, 3, &arg2, (bool)true);
 
+    olua_mapunref(L, 1, "children", 2);
+
     // void removeChild(Node* child, bool cleanup = true)
     self->removeChild(arg1, arg2);
 
@@ -17643,6 +17669,12 @@ static int _cocos2d_Node_removeChildByTag(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
     olua_check_int(L, 2, &arg1);
     olua_opt_bool(L, 3, &arg2, (bool)true);
+
+    cocos2d::Node *child = self->getChildByTag((int)arg1);
+    if (olua_getobj(L, child)) {
+        olua_mapunref(L, 1, "children", -1);
+        lua_pop(L, 1);
+    }
 
     // void removeChildByTag(int tag, bool cleanup = true)
     self->removeChildByTag((int)arg1, arg2);
@@ -17662,6 +17694,12 @@ static int _cocos2d_Node_removeChildByName(lua_State *L)
     olua_check_std_string(L, 2, &arg1);
     olua_opt_bool(L, 3, &arg2, (bool)true);
 
+    cocos2d::Node *child = self->getChildByName(arg1);
+    if (olua_getobj(L, child)) {
+        olua_mapunref(L, 1, "children", -1);
+        lua_pop(L, 1);
+    }
+
     // void removeChildByName(const std::string &name, bool cleanup = true)
     self->removeChildByName(arg1, arg2);
 
@@ -17675,6 +17713,8 @@ static int _cocos2d_Node_removeAllChildren(lua_State *L)
     cocos2d::Node *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
+
+    olua_unrefall(L, 1, "children");
 
     // void removeAllChildren()
     self->removeAllChildren();
@@ -17691,6 +17731,8 @@ static int _cocos2d_Node_removeAllChildrenWithCleanup(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
     olua_check_bool(L, 2, &arg1);
+
+    olua_unrefall(L, 1, "children");
 
     // void removeAllChildrenWithCleanup(bool cleanup)
     self->removeAllChildrenWithCleanup(arg1);
@@ -18219,9 +18261,14 @@ static int _cocos2d_Node_runAction(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Action");
 
+    olua_mapref(L, 1, "actions", 2);
+    xlua_startcmpunref(L, 1, "actions");
+
     // Action* runAction(Action* action)
     cocos2d::Action *ret = (cocos2d::Action *)self->runAction(arg1);
     int num_ret = olua_push_cppobj<cocos2d::Action>(L, ret, "cc.Action");
+
+    xlua_endcmpunref(L, 1, "actions");
 
     return num_ret;
 }
@@ -18234,8 +18281,12 @@ static int _cocos2d_Node_stopAllActions(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
 
+    xlua_startcmpunref(L, 1, "actions");
+
     // void stopAllActions()
     self->stopAllActions();
+
+    xlua_endcmpunref(L, 1, "actions");
 
     return 0;
 }
@@ -18250,8 +18301,12 @@ static int _cocos2d_Node_stopAction(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Action");
 
+    xlua_startcmpunref(L, 1, "actions");
+
     // void stopAction(Action* action)
     self->stopAction(arg1);
+
+    xlua_endcmpunref(L, 1, "actions");
 
     return 0;
 }
@@ -18266,8 +18321,12 @@ static int _cocos2d_Node_stopActionByTag(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
     olua_check_int(L, 2, &arg1);
 
+    xlua_startcmpunref(L, 1, "actions");
+
     // void stopActionByTag(int tag)
     self->stopActionByTag((int)arg1);
+
+    xlua_endcmpunref(L, 1, "actions");
 
     return 0;
 }
@@ -18282,8 +18341,12 @@ static int _cocos2d_Node_stopAllActionsByTag(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
     olua_check_int(L, 2, &arg1);
 
+    xlua_startcmpunref(L, 1, "actions");
+
     // void stopAllActionsByTag(int tag)
     self->stopAllActionsByTag((int)arg1);
+
+    xlua_endcmpunref(L, 1, "actions");
 
     return 0;
 }
@@ -18298,8 +18361,12 @@ static int _cocos2d_Node_stopActionsByFlags(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
     olua_check_uint(L, 2, &arg1);
 
+    xlua_startcmpunref(L, 1, "actions");
+
     // void stopActionsByFlags(unsigned int flags)
     self->stopActionsByFlags((unsigned int)arg1);
+
+    xlua_endcmpunref(L, 1, "actions");
 
     return 0;
 }
@@ -18317,6 +18384,8 @@ static int _cocos2d_Node_getActionByTag(lua_State *L)
     // Action* getActionByTag(int tag)
     cocos2d::Action *ret = (cocos2d::Action *)self->getActionByTag((int)arg1);
     int num_ret = olua_push_cppobj<cocos2d::Action>(L, ret, "cc.Action");
+
+    olua_mapref(L, 1, "actions", -1);
 
     return num_ret;
 }
@@ -19030,6 +19099,8 @@ static int _cocos2d_Node_getComponent(lua_State *L)
     cocos2d::Component *ret = (cocos2d::Component *)self->getComponent(arg1);
     int num_ret = olua_push_cppobj<cocos2d::Component>(L, ret, "cc.Component");
 
+    olua_mapref(L, 1, "components", -1);
+
     return num_ret;
 }
 
@@ -19042,6 +19113,8 @@ static int _cocos2d_Node_addComponent(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Component");
+
+    olua_mapref(L, 1, "components", 2);
 
     // bool addComponent(Component *component)
     bool ret = (bool)self->addComponent(arg1);
@@ -19060,9 +19133,13 @@ static int _cocos2d_Node_removeComponent1(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
     olua_check_std_string(L, 2, &arg1);
 
+    xlua_startcmpunref(L, 1, "components");
+
     // bool removeComponent(const std::string& name)
     bool ret = (bool)self->removeComponent(arg1);
     int num_ret = olua_push_bool(L, ret);
+
+    xlua_endcmpunref(L, 1, "components");
 
     return num_ret;
 }
@@ -19077,9 +19154,13 @@ static int _cocos2d_Node_removeComponent2(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Component");
 
+    xlua_startcmpunref(L, 1, "components");
+
     // bool removeComponent(Component *component)
     bool ret = (bool)self->removeComponent(arg1);
     int num_ret = olua_push_bool(L, ret);
+
+    xlua_endcmpunref(L, 1, "components");
 
     return num_ret;
 }
@@ -19110,6 +19191,8 @@ static int _cocos2d_Node_removeAllComponents(lua_State *L)
     cocos2d::Node *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
+
+    olua_unrefall(L, 1, "components");
 
     // void removeAllComponents()
     self->removeAllComponents();
@@ -20291,6 +20374,8 @@ static int _cocos2d_ProtectedNode_addProtectedChild1(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.ProtectedNode");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
 
+    olua_mapref(L, 1, "protectedChildren", 2);
+
     // void addProtectedChild(Node * child)
     self->addProtectedChild(arg1);
 
@@ -20308,6 +20393,8 @@ static int _cocos2d_ProtectedNode_addProtectedChild2(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.ProtectedNode");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
     olua_check_int(L, 3, &arg2);
+
+    olua_mapref(L, 1, "protectedChildren", 2);
 
     // void addProtectedChild(Node * child, int localZOrder)
     self->addProtectedChild(arg1, (int)arg2);
@@ -20328,6 +20415,8 @@ static int _cocos2d_ProtectedNode_addProtectedChild3(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
     olua_check_int(L, 3, &arg2);
     olua_check_int(L, 4, &arg3);
+
+    olua_mapref(L, 1, "protectedChildren", 2);
 
     // void addProtectedChild(Node* child, int localZOrder, int tag)
     self->addProtectedChild(arg1, (int)arg2, (int)arg3);
@@ -20376,6 +20465,8 @@ static int _cocos2d_ProtectedNode_getProtectedChildByTag(lua_State *L)
     cocos2d::Node *ret = (cocos2d::Node *)self->getProtectedChildByTag((int)arg1);
     int num_ret = olua_push_cppobj<cocos2d::Node>(L, ret, "cc.Node");
 
+    olua_mapref(L, 1, "protectedChildren", -1);
+
     return num_ret;
 }
 
@@ -20390,6 +20481,8 @@ static int _cocos2d_ProtectedNode_removeProtectedChild(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.ProtectedNode");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
     olua_opt_bool(L, 3, &arg2, (bool)true);
+
+    olua_mapunref(L, 1, "protectedChildren", 2);
 
     // void removeProtectedChild(Node* child, bool cleanup = true)
     self->removeProtectedChild(arg1, arg2);
@@ -20409,6 +20502,12 @@ static int _cocos2d_ProtectedNode_removeProtectedChildByTag(lua_State *L)
     olua_check_int(L, 2, &arg1);
     olua_opt_bool(L, 3, &arg2, (bool)true);
 
+    cocos2d::Node *child = self->getProtectedChildByTag((int)arg1);
+    if (olua_getobj(L, child)) {
+        olua_mapunref(L, 1, "children", -1);
+        lua_pop(L, 1);
+    }
+
     // void removeProtectedChildByTag(int tag, bool cleanup = true)
     self->removeProtectedChildByTag((int)arg1, arg2);
 
@@ -20422,6 +20521,8 @@ static int _cocos2d_ProtectedNode_removeAllProtectedChildren(lua_State *L)
     cocos2d::ProtectedNode *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.ProtectedNode");
+
+    olua_unrefall(L, 1, "protectedChildren");
 
     // void removeAllProtectedChildren()
     self->removeAllProtectedChildren();
@@ -20438,6 +20539,8 @@ static int _cocos2d_ProtectedNode_removeAllProtectedChildrenWithCleanup(lua_Stat
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.ProtectedNode");
     olua_check_bool(L, 2, &arg1);
+
+    olua_unrefall(L, 1, "protectedChildren");
 
     // void removeAllProtectedChildrenWithCleanup(bool cleanup)
     self->removeAllProtectedChildrenWithCleanup(arg1);

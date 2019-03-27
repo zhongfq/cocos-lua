@@ -17,6 +17,25 @@ function mapref_arg_value(REFNAME, WHERE, OBJ)
     }
 end
 
+function mapunref_arg_value(REFNAME, WHERE, OBJ)
+    WHERE = WHERE or 1
+    OBJ = OBJ or 2
+    return {
+        BEFORE = format_snippet [[
+            olua_mapunref(L, ${WHERE}, "${REFNAME}", ${OBJ});
+        ]]
+    }
+end
+
+function mapunref_all(REFNAME, WHERE)
+    WHERE = WHERE or 1
+    return {
+        BEFORE = format_snippet [[
+            olua_unrefall(L, ${WHERE}, "${REFNAME}");
+        ]]
+    }
+end
+
 function mapunef_by_compare(REFNAME, WHERE)
     WHERE = WHERE or 1
     return {

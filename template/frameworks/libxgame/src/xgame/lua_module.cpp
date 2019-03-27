@@ -6,7 +6,6 @@
 #include "xgame/lua-bindings/lua_xgame.h"
 #include "xgame/lua-bindings/lua_cocos2d.h"
 #include "xgame/lua-bindings/lua_cocos2d_ui.h"
-#include "xgame/lua-bindings/lua_cocos2d_ref_chain.h"
 #include "xgame/lua-bindings/lua_spine.h"
 #include "cjson/lua_cjson.h"
 #include "md5/md5.h"
@@ -28,7 +27,6 @@ int luaopen_module(lua_State *L)
     
     xlua_call(L, luaopen_cocos2d);
     xlua_call(L, luaopen_cocos2d_ui);
-    xlua_call(L, luaopen_cocos2d_ref_chain);
     xlua_call(L, luaopen_spine);
     xlua_call(L, luaopen_xgame);
     

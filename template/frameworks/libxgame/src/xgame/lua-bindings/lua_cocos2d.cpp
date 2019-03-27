@@ -19378,7 +19378,7 @@ static int _cocos2d_Node_setOnEnterCallback(lua_State *L)
 
     if (olua_is_std_function(L, 2)) {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onEnterCallback");
+        std::string tag = olua_makecallbacktag("OnEnterCallback");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
         arg1 = [callback_store_obj, func, tag]() {
             lua_State *L = olua_mainthread();
@@ -19390,12 +19390,12 @@ static int _cocos2d_Node_setOnEnterCallback(lua_State *L)
         };
     } else {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onEnterCallback");
+        std::string tag = olua_makecallbacktag("OnEnterCallback");
         olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
         arg1 = nullptr;
     }
 
-    // void setOnEnterCallback(const std::function<void()>& callback = nullptr)
+    // void setOnEnterCallback(@nullable const std::function<void()>& callback)
     self->setOnEnterCallback(arg1);
 
     return 0;
@@ -19410,7 +19410,7 @@ static int _cocos2d_Node_getOnEnterCallback(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
 
     void *callback_store_obj = (void *)self;
-    std::string tag = olua_makecallbacktag("onEnterCallback");
+    std::string tag = olua_makecallbacktag("OnEnterCallback");
     olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
 
     // const std::function<void()>& getOnEnterCallback()
@@ -19431,7 +19431,7 @@ static int _cocos2d_Node_setOnExitCallback(lua_State *L)
 
     if (olua_is_std_function(L, 2)) {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onExitCallback");
+        std::string tag = olua_makecallbacktag("OnExitCallback");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
         arg1 = [callback_store_obj, func, tag]() {
             lua_State *L = olua_mainthread();
@@ -19443,12 +19443,12 @@ static int _cocos2d_Node_setOnExitCallback(lua_State *L)
         };
     } else {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onExitCallback");
+        std::string tag = olua_makecallbacktag("OnExitCallback");
         olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
         arg1 = nullptr;
     }
 
-    // void setOnExitCallback(const std::function<void()>& callback = nullptr)
+    // void setOnExitCallback(@nullable const std::function<void()>& callback)
     self->setOnExitCallback(arg1);
 
     return 0;
@@ -19463,7 +19463,7 @@ static int _cocos2d_Node_getOnExitCallback(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
 
     void *callback_store_obj = (void *)self;
-    std::string tag = olua_makecallbacktag("onExitCallback");
+    std::string tag = olua_makecallbacktag("OnExitCallback");
     olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
 
     // const std::function<void()>& getOnExitCallback()
@@ -19501,7 +19501,7 @@ static int _cocos2d_Node_setonEnterTransitionDidFinishCallback(lua_State *L)
         arg1 = nullptr;
     }
 
-    // void setonEnterTransitionDidFinishCallback(const std::function<void()>& callback = nullptr)
+    // void setonEnterTransitionDidFinishCallback(@nullable const std::function<void()>& callback)
     self->setonEnterTransitionDidFinishCallback(arg1);
 
     return 0;
@@ -19554,7 +19554,7 @@ static int _cocos2d_Node_setonExitTransitionDidStartCallback(lua_State *L)
         arg1 = nullptr;
     }
 
-    // void setonExitTransitionDidStartCallback(const std::function<void()>& callback = nullptr)
+    // void setonExitTransitionDidStartCallback(@nullable const std::function<void()>& callback)
     self->setonExitTransitionDidStartCallback(arg1);
 
     return 0;
@@ -20019,6 +20019,10 @@ static int luaopen_cocos2d_Node(lua_State *L)
     oluacls_setfunc(L, "getOnEnterCallback", _cocos2d_Node_getOnEnterCallback);
     oluacls_setfunc(L, "setOnExitCallback", _cocos2d_Node_setOnExitCallback);
     oluacls_setfunc(L, "getOnExitCallback", _cocos2d_Node_getOnExitCallback);
+    oluacls_setfunc(L, "setonEnterTransitionDidFinishCallback", _cocos2d_Node_setonEnterTransitionDidFinishCallback);
+    oluacls_setfunc(L, "getonEnterTransitionDidFinishCallback", _cocos2d_Node_getonEnterTransitionDidFinishCallback);
+    oluacls_setfunc(L, "setonExitTransitionDidStartCallback", _cocos2d_Node_setonExitTransitionDidStartCallback);
+    oluacls_setfunc(L, "getonExitTransitionDidStartCallback", _cocos2d_Node_getonExitTransitionDidStartCallback);
     oluacls_setfunc(L, "setOnEnterTransitionDidFinishCallback", _cocos2d_Node_setonEnterTransitionDidFinishCallback);
     oluacls_setfunc(L, "getOnEnterTransitionDidFinishCallback", _cocos2d_Node_getonEnterTransitionDidFinishCallback);
     oluacls_setfunc(L, "setOnExitTransitionDidStartCallback", _cocos2d_Node_setonExitTransitionDidStartCallback);
@@ -20035,9 +20039,6 @@ static int luaopen_cocos2d_Node(lua_State *L)
     oluacls_property(L, "scaleY", _cocos2d_Node_getScaleY, _cocos2d_Node_setScaleY);
     oluacls_property(L, "scaleZ", _cocos2d_Node_getScaleZ, _cocos2d_Node_setScaleZ);
     oluacls_property(L, "scale", _cocos2d_Node_getScale, _cocos2d_Node_setScale);
-    oluacls_property(L, "x", _cocos2d_Node_getPositionX, _cocos2d_Node_setPositionX);
-    oluacls_property(L, "y", _cocos2d_Node_getPositionY, _cocos2d_Node_setPositionY);
-    oluacls_property(L, "z", _cocos2d_Node_getPositionZ, _cocos2d_Node_setPositionZ);
     oluacls_property(L, "skewX", _cocos2d_Node_getSkewX, _cocos2d_Node_setSkewX);
     oluacls_property(L, "skewY", _cocos2d_Node_getSkewY, _cocos2d_Node_setSkewY);
     oluacls_property(L, "visible", _cocos2d_Node_isVisible, _cocos2d_Node_setVisible);
@@ -20067,6 +20068,13 @@ static int luaopen_cocos2d_Node(lua_State *L)
     oluacls_property(L, "displayedColor", _cocos2d_Node_getDisplayedColor, nullptr);
     oluacls_property(L, "cascadeColorEnabled", _cocos2d_Node_isCascadeColorEnabled, _cocos2d_Node_setCascadeColorEnabled);
     oluacls_property(L, "opacityModifyRGB", _cocos2d_Node_isOpacityModifyRGB, _cocos2d_Node_setOpacityModifyRGB);
+    oluacls_property(L, "onEnterCallback", _cocos2d_Node_getOnEnterCallback, _cocos2d_Node_setOnEnterCallback);
+    oluacls_property(L, "onExitCallback", _cocos2d_Node_getOnExitCallback, _cocos2d_Node_setOnExitCallback);
+    oluacls_property(L, "onEnterTransitionDidFinishCallback", _cocos2d_Node_getonEnterTransitionDidFinishCallback, _cocos2d_Node_setonEnterTransitionDidFinishCallback);
+    oluacls_property(L, "onExitTransitionDidStartCallback", _cocos2d_Node_getonExitTransitionDidStartCallback, _cocos2d_Node_setonExitTransitionDidStartCallback);
+    oluacls_property(L, "x", _cocos2d_Node_getPositionX, _cocos2d_Node_setPositionX);
+    oluacls_property(L, "y", _cocos2d_Node_getPositionY, _cocos2d_Node_setPositionY);
+    oluacls_property(L, "z", _cocos2d_Node_getPositionZ, _cocos2d_Node_setPositionZ);
     oluacls_property(L, "anchorX", _cocos2d_Node_get_anchorX, _cocos2d_Node_set_anchorX);
     oluacls_property(L, "anchorY", _cocos2d_Node_get_anchorY, _cocos2d_Node_set_anchorY);
     oluacls_property(L, "width", _cocos2d_Node_get_width, _cocos2d_Node_set_width);

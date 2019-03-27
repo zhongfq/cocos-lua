@@ -163,85 +163,21 @@ cls.funcs([[
     void setCameraMask(unsigned short mask, bool applyChildren = true)
 ]])
 
--- cls.inject('addChild', 'BEFORE', 'olua_mapref(L, 1, "children", 2);')
--- cls.inject('getChildByTag', 'AFTER', 'olua_mapref(L, 1, "children", -1);')
--- cls.inject('getChildByName', 'AFTER', 'olua_mapref(L, 1, "children", -1);')
+cls.callbacks [[
+    void setOnEnterCallback(@nullable const std::function<void()>& callback)
+    const std::function<void()>& getOnEnterCallback()
+    void setOnExitCallback(@nullable const std::function<void()>& callback)
+    const std::function<void()>& getOnExitCallback()
+    void setonEnterTransitionDidFinishCallback(@nullable const std::function<void()>& callback)
+    const std::function<void()>& getonEnterTransitionDidFinishCallback()
+    void setonExitTransitionDidStartCallback(@nullable const std::function<void()>& callback)
+    const std::function<void()>& getonExitTransitionDidStartCallback()
+]]
 
--- void setOnEnterCallback(const std::function<void()>& callback = nullptr)
--- const std::function<void()>& getOnEnterCallback()
-cls.callback(
-    'void setOnEnterCallback(const std::function<void()>& callback = nullptr)',
-    {
-        CALLBACK_MAKER = 'olua_makecallbacktag("onEnterCallback")',
-        CALLBACK_MODE = "OLUA_CALLBACK_TAG_ENDWITH",
-        CALLBACK_REPLACE = true,
-    }
-)
-cls.callback(
-    'const std::function<void()>& getOnEnterCallback()',
-    {
-        CALLBACK_MAKER = 'olua_makecallbacktag("onEnterCallback")',
-        CALLBACK_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
-    }
-)
-
--- void setOnExitCallback(const std::function<void()>& callback = nullptr)
--- const std::function<void()>& getOnExitCallback()
-cls.callback(
-    'void setOnExitCallback(const std::function<void()>& callback = nullptr)',
-    {
-        CALLBACK_MAKER = 'olua_makecallbacktag("onExitCallback")',
-        CALLBACK_MODE = "OLUA_CALLBACK_TAG_ENDWITH",
-        CALLBACK_REPLACE = true,
-    }
-)
-cls.callback(
-    'const std::function<void()>& getOnExitCallback()',
-    {
-        CALLBACK_MAKER = 'olua_makecallbacktag("onExitCallback")',
-        CALLBACK_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
-    }
-)
-
--- void setonEnterTransitionDidFinishCallback(const std::function<void()>& callback)
--- const std::function<void()>& getonEnterTransitionDidFinishCallback()
-cls.callback(
-    'setOnEnterTransitionDidFinishCallback',
-    'void setonEnterTransitionDidFinishCallback(const std::function<void()>& callback = nullptr)',
-    {
-        CALLBACK_MAKER = 'olua_makecallbacktag("onEnterTransitionDidFinishCallback")',
-        CALLBACK_MODE = "OLUA_CALLBACK_TAG_ENDWITH",
-        CALLBACK_REPLACE = true,
-    }
-)
-cls.callback(
-    'getOnEnterTransitionDidFinishCallback',
-    'const std::function<void()>& getonEnterTransitionDidFinishCallback()',
-    {
-        CALLBACK_MAKER = 'olua_makecallbacktag("onEnterTransitionDidFinishCallback")',
-        CALLBACK_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
-    }
-)
-
--- void setonExitTransitionDidStartCallback(const std::function<void()>& callback)
--- const std::function<void()>& getonExitTransitionDidStartCallback()
-cls.callback(
-    'setOnExitTransitionDidStartCallback', 
-    'void setonExitTransitionDidStartCallback(const std::function<void()>& callback = nullptr)',
-    {
-        CALLBACK_MAKER = 'olua_makecallbacktag("onExitTransitionDidStartCallback")',
-        CALLBACK_MODE = "OLUA_CALLBACK_TAG_ENDWITH",
-        CALLBACK_REPLACE = true,
-    }
-)
-cls.callback(
-    'getOnExitTransitionDidStartCallback', 
-    'const std::function<void()>& getonExitTransitionDidStartCallback()',
-    {
-        CALLBACK_MAKER = 'olua_makecallbacktag("onExitTransitionDidStartCallback")',
-        CALLBACK_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
-    }
-)
+cls.alias('setonEnterTransitionDidFinishCallback', 'setOnEnterTransitionDidFinishCallback')
+cls.alias('getonEnterTransitionDidFinishCallback', 'getOnEnterTransitionDidFinishCallback')
+cls.alias('setonExitTransitionDidStartCallback', 'setOnExitTransitionDidStartCallback')
+cls.alias('getonExitTransitionDidStartCallback', 'getOnExitTransitionDidStartCallback')
 
 cls.callback(
     'void scheduleOnce(const std::function<void(float)>& callback, float delay, const std::string &key)',
@@ -277,46 +213,52 @@ cls.callback(
         CALLBACK_REMOVE = true,
     }
 )
-cls.prop('attachedNodeCount')
-cls.prop('description')
-cls.prop('localZOrder')
-cls.prop('globalZOrder')
-cls.prop('scaleX')
-cls.prop('scaleY')
-cls.prop('scaleZ')
-cls.prop('scale')
+cls.props [[
+    attachedNodeCount
+    description
+    localZOrder
+    globalZOrder
+    scaleX
+    scaleY
+    scaleZ
+    scale
+    skewX
+    skewY
+    visible
+    rotation
+    rotationSkewX
+    rotationSkewY
+    ignoreAnchorPointForPosition
+    children
+    childrenCount
+    parent
+    tag
+    name
+    userData
+    userObject
+    glProgram
+    glProgramState
+    running
+    scene
+    eventDispatcher
+    actionManager
+    numberOfRunningActions
+    scheduler
+    opacity
+    displayedOpacity
+    cascadeOpacityEnabled
+    color
+    displayedColor
+    cascadeColorEnabled
+    opacityModifyRGB
+    onEnterCallback
+    onExitCallback
+    onEnterTransitionDidFinishCallback
+    onExitTransitionDidStartCallback
+]]
 cls.prop('x', 'float getPositionX()', 'void setPositionX(float x)')
 cls.prop('y', 'float getPositionY()', 'void setPositionY(float y)')
 cls.prop('z', 'float getPositionZ()', 'void setPositionZ(float z)')
-cls.prop('skewX')
-cls.prop('skewY')
-cls.prop('visible')
-cls.prop('rotation')
-cls.prop('rotationSkewX')
-cls.prop('rotationSkewY')
-cls.prop('ignoreAnchorPointForPosition')
-cls.prop('children')
-cls.prop('childrenCount')
-cls.prop('parent')
-cls.prop('tag')
-cls.prop('name')
-cls.prop('userData')
-cls.prop('userObject')
-cls.prop('glProgram')
-cls.prop('glProgramState')
-cls.prop('running')
-cls.prop('scene')
-cls.prop('eventDispatcher')
-cls.prop('actionManager')
-cls.prop('numberOfRunningActions')
-cls.prop('scheduler')
-cls.prop('opacity')
-cls.prop('displayedOpacity')
-cls.prop('cascadeOpacityEnabled')
-cls.prop('color')
-cls.prop('displayedColor')
-cls.prop('cascadeColorEnabled')
-cls.prop('opacityModifyRGB')
 cls.prop('anchorX', [[
 {
     lua_settop(L, 1);

@@ -35,12 +35,6 @@ static void wrap_func(lua_State *L, const char *refname, const char *name, lua_C
     set_func(L, CLS_FUNC, name, func, refname);
 }
 
-static void wrap_getf(lua_State *L, const char *refname, const char *prop, const char *fn, lua_CFunction func)
-{
-    set_func(L, CLS_FUNC, fn, func, refname);
-    set_func(L, CLS_GET, prop, func, refname);
-}
-
 //static void wrap_set(lua_State *L, const char *fn, const char *prop, lua_CFunction func)
 //{
 //    set_func(L, CLS_FUNC, fn, func, refname);
@@ -154,65 +148,6 @@ static int mapref_argument_value_and_mapunef_by_compare(lua_State *L)
     check_reference_count(L, 1);
     lua_remove(L, 1);
     return lua_gettop(L);
-}
-
-// void addEventListenerWithSceneGraphPriority(EventListener* listener, Node* node)
-static int wrap_cocos2d_EventDispatche_addEventListenerWithSceneGraphPriority(lua_State *L)
-{
-    olua_mapref(L, 3, REFNAME, 2);
-    call_real_function(L, false);
-    return lua_gettop(L);
-}
-
-static void doRemoveEventListenersForTarget(lua_State *L, cocos2d::Node *target, bool recursive, const char *refname)
-{
-    if (olua_getobj(L, target)) {
-        olua_unrefall(L, -1, refname);
-        lua_pop(L, 1);
-    }
-    if (recursive) {
-        const auto &children = target->getChildren();
-        for (const auto& child : children)
-        {
-            doRemoveEventListenersForTarget(L, child, recursive, refname);
-        }
-    }
-}
-
-// void removeEventListenersForTarget(Node* target, bool recursive = false)
-static int wrap_cocos2d_EventDispatcher_removeEventListenersForTarget(lua_State *L)
-{
-    bool recursive = false;
-    cocos2d::Node *target = (cocos2d::Node *)olua_checkobj(L, 2, "cc.Node");
-    if (lua_gettop(L) >= 3) {
-        recursive = olua_toboolean(L, 3);
-    }
-    doRemoveEventListenersForTarget(L, target, recursive, REFNAME);
-    
-    return lua_gettop(L);
-}
-
-static int wrap_cocos2d_EventDispatcher(lua_State *L)
-{
-    luaL_getmetatable(L, "cc.EventDispatcher");
-    CCASSERT(olua_istable(L, -1), "not found 'cc.EventDispatcher'");
-    // void addEventListenerWithSceneGraphPriority(EventListener* listener, Node* node)
-    wrap_func(L, EVENTDISPATCHER_LISTENER, "addEventListenerWithSceneGraphPriority", wrap_cocos2d_EventDispatche_addEventListenerWithSceneGraphPriority);
-    // EventListenerCustom* addCustomEventListener(const std::string &eventName, const std::function<void(EventCustom*)>& callback);
-    wrap_func(L, EVENTDISPATCHER_LISTENER, "addCustomEventListener", mapref_return_value);
-    // void addEventListenerWithFixedPriority(EventListener* listener, int fixedPriority)
-    wrap_func(L, EVENTDISPATCHER_LISTENER, "addEventListenerWithFixedPriority", mapref_argument_value);
-    // void removeCustomEventListeners(const std::string& customEventName)
-    // void removeEventListenersForType(EventListener::Type listenerType)
-    // void removeEventListener(EventListener* listener)
-    wrap_func(L, EVENTDISPATCHER_LISTENER, "removeCustomEventListeners", mapunef_by_compare);
-    wrap_func(L, EVENTDISPATCHER_LISTENER, "removeEventListenersForType", mapunef_by_compare);
-    wrap_func(L, EVENTDISPATCHER_LISTENER, "removeEventListener", mapunef_by_compare);
-    // void removeEventListenersForTarget(Node* target, bool recursive = false)
-    wrap_func(L, EVENTDISPATCHER_LISTENER, "removeEventListenersForTarget", wrap_cocos2d_EventDispatcher_removeEventListenersForTarget);
-//    void removeAllEventListeners()
-    wrap_func(L, EVENTDISPATCHER_LISTENER, "removeAllEventListeners", mapunrefall);
-    return 0;
 }
 
 //
@@ -337,7 +272,6 @@ static int wrap_cocos2d_ProtectedNode(lua_State *L)
 
 LUALIB_API int luaopen_cocos2d_ref_chain(lua_State *L)
 {
-    xlua_call(L, wrap_cocos2d_EventDispatcher);
     xlua_call(L, wrap_cocos2d_Node);
     xlua_call(L, wrap_cocos2d_ProtectedNode);
     

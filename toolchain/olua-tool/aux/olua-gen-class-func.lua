@@ -2,10 +2,12 @@ local function gen_snippet_func(cls, fi, write)
     local CPPCLS_PATH = class_path(cls)
     local CPPFUNC = fi.CPPFUNC
     local CPPFUNC_SNIPPET = fi.CPPFUNC_SNIPPET
-    write(format_snippet([[
+    local INJECT_AFTER = fi.INJECT.AFTER or ""
+    local INJECT_BEFORE = fi.INJECT.BEFORE or ""
+    write(format_snippet(format_snippet([[
         static int _${CPPCLS_PATH}_${CPPFUNC}(lua_State *L)
         ${CPPFUNC_SNIPPET}
-    ]]))
+    ]])))
     write('')
 end
 

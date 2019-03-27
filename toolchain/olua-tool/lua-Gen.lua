@@ -9,6 +9,8 @@ require "aux.olua-gen-class-func"
 require "aux.olua-gen-callback"
 require "aux.olua-gen-conv"
 
+require "conf.lua-ref"
+
 PROJECT_ROOT = '../../'
 
 function gen_module(module)

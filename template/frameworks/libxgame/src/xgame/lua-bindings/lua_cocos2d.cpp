@@ -1228,10 +1228,10 @@ static int _cocos2d_Director_pushScene(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Scene");
 
+    olua_mapref(L, 1, "scenes", 2);
+
     // void pushScene(Scene *scene)
     self->pushScene(arg1);
-
-    olua_mapref(L, 1, "scenes", 2);
 
     return 0;
 }
@@ -2549,6 +2549,21 @@ static int luaopen_cocos2d_Scheduler(lua_State *L)
     return 1;
 }
 
+static void doRemoveEventListenersForTarget(lua_State *L, cocos2d::Node *target, bool recursive, const char *refname)
+{
+    if (olua_getobj(L, target)) {
+        olua_unrefall(L, -1, refname);
+        lua_pop(L, 1);
+    }
+    if (recursive) {
+        const auto &children = target->getChildren();
+        for (const auto& child : children)
+        {
+            doRemoveEventListenersForTarget(L, child, recursive, refname);
+        }
+    }
+}
+
 static int _cocos2d_EventDispatcher_addEventListenerWithSceneGraphPriority(lua_State *L)
 {
     lua_settop(L, 3);
@@ -2560,6 +2575,8 @@ static int _cocos2d_EventDispatcher_addEventListenerWithSceneGraphPriority(lua_S
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventDispatcher");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.EventListener");
     olua_check_cppobj(L, 3, (void **)&arg2, "cc.Node");
+
+    olua_mapref(L, 3, "listeners", 2);
 
     // void addEventListenerWithSceneGraphPriority(EventListener* listener, Node* node)
     self->addEventListenerWithSceneGraphPriority(arg1, arg2);
@@ -2579,6 +2596,8 @@ static int _cocos2d_EventDispatcher_addEventListenerWithFixedPriority(lua_State 
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.EventListener");
     olua_check_int(L, 3, &arg2);
 
+    olua_mapref(L, 1, "listeners", 2);
+
     // void addEventListenerWithFixedPriority(EventListener* listener, int fixedPriority)
     self->addEventListenerWithFixedPriority(arg1, (int)arg2);
 
@@ -2595,8 +2614,12 @@ static int _cocos2d_EventDispatcher_removeCustomEventListeners(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventDispatcher");
     olua_check_std_string(L, 2, &arg1);
 
+    xlua_startcmpunref(L, 1, "listeners");
+
     // void removeCustomEventListeners(const std::string& customEventName)
     self->removeCustomEventListeners(arg1);
+
+    xlua_endcmpunref(L, 1, "listeners");
 
     return 0;
 }
@@ -2611,8 +2634,12 @@ static int _cocos2d_EventDispatcher_removeEventListener(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventDispatcher");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.EventListener");
 
+    xlua_startcmpunref(L, 1, "listeners");
+
     // void removeEventListener(EventListener* listener)
     self->removeEventListener(arg1);
+
+    xlua_endcmpunref(L, 1, "listeners");
 
     return 0;
 }
@@ -2627,8 +2654,12 @@ static int _cocos2d_EventDispatcher_removeEventListenersForType(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventDispatcher");
     olua_check_uint(L, 2, &arg1);
 
+    xlua_startcmpunref(L, 1, "listeners");
+
     // void removeEventListenersForType(EventListener::Type listenerType)
     self->removeEventListenersForType((cocos2d::EventListener::Type)arg1);
+
+    xlua_endcmpunref(L, 1, "listeners");
 
     return 0;
 }
@@ -2645,6 +2676,13 @@ static int _cocos2d_EventDispatcher_removeEventListenersForTarget(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
     olua_opt_bool(L, 3, &arg2, (bool)false);
 
+    bool recursive = false;
+    cocos2d::Node *node = (cocos2d::Node *)olua_checkobj(L, 2, "cc.Node");
+    if (lua_gettop(L) >= 3) {
+        recursive = olua_toboolean(L, 3);
+    }
+    doRemoveEventListenersForTarget(L, node, recursive, "listeners");
+
     // void removeEventListenersForTarget(Node* target, bool recursive = false)
     self->removeEventListenersForTarget(arg1, arg2);
 
@@ -2659,8 +2697,12 @@ static int _cocos2d_EventDispatcher_removeAllEventListeners(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventDispatcher");
 
+    xlua_startcmpunref(L, 1, "listeners");
+
     // void removeAllEventListeners()
     self->removeAllEventListeners();
+
+    xlua_endcmpunref(L, 1, "listeners");
 
     return 0;
 }
@@ -2837,8 +2879,9 @@ static int _cocos2d_EventDispatcher_addCustomEventListener(lua_State *L)
     //      return listener;
     //  }
     self->addEventListenerWithFixedPriority(listener, 1);
-
     lua_pushvalue(L, 4);
+
+    olua_mapref(L, 1, "listeners", -1);
 
     return 1;
 }
@@ -2848,6 +2891,9 @@ static int _cocos2d_EventDispatcher_addEventListener(lua_State *L)
     lua_settop(L, 2);
     cocos2d::EventDispatcher *self = (cocos2d::EventDispatcher *)olua_toobj(L, 1, "cc.EventDispatcher");
     cocos2d::EventListener *listener = (cocos2d::EventListener *)olua_checkobj(L, 2, "cc.EventListener");
+
+    olua_mapref(L, 1, "listeners", 2);
+
     self->addEventListenerWithFixedPriority(listener, 1);
     return 0;
 }
@@ -12650,7 +12696,6 @@ static int _cocos2d_Sequence_create(lua_State *L)
     return 1;
 }
 
-
 static int _cocos2d_Sequence_createWithTwoActions(lua_State *L)
 {
     lua_settop(L, 2);
@@ -12843,7 +12888,6 @@ static int _cocos2d_Spawn_create(lua_State *L)
 
     return 1;
 }
-
 
 static int _cocos2d_Spawn_createWithTwoActions(lua_State *L)
 {
@@ -19740,7 +19784,6 @@ static int _cocos2d_Node_get_anchorX(lua_State *L)
     return 1;
 }
 
-
 static int _cocos2d_Node_set_anchorX(lua_State *L)
 {
     lua_settop(L, 2);
@@ -19758,7 +19801,6 @@ static int _cocos2d_Node_get_anchorY(lua_State *L)
     lua_pushnumber(L, self->getAnchorPoint().y);
     return 1;
 }
-
 
 static int _cocos2d_Node_set_anchorY(lua_State *L)
 {
@@ -19778,7 +19820,6 @@ static int _cocos2d_Node_get_width(lua_State *L)
     return 1;
 }
 
-
 static int _cocos2d_Node_set_width(lua_State *L)
 {
     lua_settop(L, 2);
@@ -19797,7 +19838,6 @@ static int _cocos2d_Node_get_height(lua_State *L)
     return 1;
 }
 
-
 static int _cocos2d_Node_set_height(lua_State *L)
 {
     lua_settop(L, 2);
@@ -19815,7 +19855,6 @@ static int _cocos2d_Node_get_alpha(lua_State *L)
     lua_pushnumber(L, self->getOpacity() / 255.0f);
     return 1;
 }
-
 
 static int _cocos2d_Node_set_alpha(lua_State *L)
 {

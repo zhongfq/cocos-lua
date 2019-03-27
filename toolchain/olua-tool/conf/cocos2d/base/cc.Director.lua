@@ -116,7 +116,6 @@ cls.props [[
 --
 -- ref
 --
-local ref = require("conf.lua-ref")
 -- Scene* getRunningScene()
 -- void runWithScene(Scene *scene)
 -- void replaceScene(Scene *scene)
@@ -124,12 +123,12 @@ local ref = require("conf.lua-ref")
 -- void popScene()
 -- void popToRootScene()
 -- void popToSceneStackLevel(int level)
-cls.inject('getRunningScene',       ref.mapref_return_value('scenes'))
-cls.inject('runWithScene',          ref.mapref_arg_value_and_mapunef_by_compare('scenes'))
-cls.inject('replaceScene',          ref.mapref_arg_value_and_mapunef_by_compare('scenes'))
-cls.inject('pushScene',             ref.mapref_arg_value('scenes'))
-cls.inject('popScene',              ref.mapunef_by_compare('scenes'))
-cls.inject('popToRootScene',        ref.mapunef_by_compare('scenes'))
-cls.inject('popToSceneStackLevel',  ref.mapunef_by_compare('scenes'))
+cls.inject('getRunningScene',       mapref_return_value('scenes'))
+cls.inject('runWithScene',          mapref_arg_value_and_mapunef_by_compare('scenes'))
+cls.inject('replaceScene',          mapref_arg_value_and_mapunef_by_compare('scenes'))
+cls.inject('pushScene',             mapref_arg_value('scenes'))
+cls.inject('popScene',              mapunef_by_compare('scenes'))
+cls.inject('popToRootScene',        mapunef_by_compare('scenes'))
+cls.inject('popToSceneStackLevel',  mapunef_by_compare('scenes'))
 
 return M

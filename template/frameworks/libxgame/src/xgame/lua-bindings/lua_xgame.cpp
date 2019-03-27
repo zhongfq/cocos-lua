@@ -927,7 +927,6 @@ static int _xgame_window_visibleBounds(lua_State *L)
     return 4;
 }
 
-
 static int _xgame_window_getDesignSize(lua_State *L)
 {
     auto size = cocos2d::Director::getInstance()->getOpenGLView()->getDesignResolutionSize();

@@ -465,6 +465,8 @@ function class(collection)
         local function doinject(fi)
             if fi and fi.CPPFUNC == cppfunc then
                 found = true
+                assert(not fi.INJECT.BEFORE or fi.INJECT.AFTER == codes.AFTER, 'already has inject before')
+                assert(not fi.INJECT.AFTER or fi.INJECT.AFTER == codes.AFTER, 'already has inject after')
                 fi.INJECT.BEFORE = codes.BEFORE
                 fi.INJECT.AFTER = codes.AFTER
             end

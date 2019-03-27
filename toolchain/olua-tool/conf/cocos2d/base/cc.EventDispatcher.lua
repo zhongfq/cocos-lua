@@ -2,7 +2,21 @@ local cls = class()
 cls.CPPCLS = "cocos2d::EventDispatcher"
 cls.LUACLS = "cc.EventDispatcher"
 cls.SUPERCLS = "cc.Ref"
-cls.prop('enabled', 'bool isEnabled()', 'void setEnabled(bool isEnabled)')
+cls.DEFCHUNK = [[
+static void doRemoveEventListenersForTarget(lua_State *L, cocos2d::Node *target, bool recursive, const char *refname)
+{
+    if (olua_getobj(L, target)) {
+        olua_unrefall(L, -1, refname);
+        lua_pop(L, 1);
+    }
+    if (recursive) {
+        const auto &children = target->getChildren();
+        for (const auto& child : children)
+        {
+            doRemoveEventListenersForTarget(L, child, recursive, refname);
+        }
+    }
+}]]
 cls.funcs([[
     void addEventListenerWithSceneGraphPriority(EventListener* listener, Node* node)
     void addEventListenerWithFixedPriority(EventListener* listener, int fixedPriority)
@@ -20,6 +34,9 @@ cls.funcs([[
     void dispatchCustomEvent(const std::string &eventName, void *optionalUserData = nullptr)
     bool hasEventListener(const EventListener::ListenerID& listenerID)
 ]])
+cls.props [[
+    enabled
+]]
 cls.func('addCustomEventListener', [[
 {
     lua_settop(L, 3);
@@ -56,8 +73,9 @@ cls.func('addCustomEventListener', [[
     //      return listener;
     //  }
     self->addEventListenerWithFixedPriority(listener, 1);
-    
     lua_pushvalue(L, 4);
+
+    ${INJECT_AFTER}
 
     return 1;
 }]])
@@ -66,7 +84,39 @@ cls.func('addEventListener', [[
     lua_settop(L, 2);
     cocos2d::EventDispatcher *self = (cocos2d::EventDispatcher *)olua_toobj(L, 1, "cc.EventDispatcher");
     cocos2d::EventListener *listener = (cocos2d::EventListener *)olua_checkobj(L, 2, "cc.EventListener");
+
+    ${INJECT_BEFORE}
+
     self->addEventListenerWithFixedPriority(listener, 1);
     return 0;
 }]])
+
+--
+-- ref
+--
+-- void addEventListenerWithSceneGraphPriority(EventListener* listener, Node* node)
+-- EventListenerCustom* addCustomEventListener(const std::string &eventName, const std::function<void(EventCustom*)>& callback)
+-- void addEventListenerWithFixedPriority(EventListener* listener, int fixedPriority)
+cls.inject('addEventListenerWithSceneGraphPriority', mapref_arg_value('listeners', 3, 2))
+cls.inject('addEventListenerWithFixedPriority', mapref_arg_value('listeners'))
+cls.inject('addEventListener', mapref_arg_value('listeners'))
+cls.inject('addCustomEventListener', mapref_return_value('listeners'))
+-- void removeCustomEventListeners(const std::string& customEventName)
+-- void removeEventListenersForType(EventListener::Type listenerType)
+-- void removeEventListener(EventListener* listener)
+cls.inject('removeEventListenersForTarget', {
+    BEFORE = [[
+        bool recursive = false;
+        cocos2d::Node *node = (cocos2d::Node *)olua_checkobj(L, 2, "cc.Node");
+        if (lua_gettop(L) >= 3) {
+            recursive = olua_toboolean(L, 3);
+        }
+        doRemoveEventListenersForTarget(L, node, recursive, "listeners");
+    ]]
+})
+cls.inject('removeCustomEventListeners', mapunef_by_compare('listeners'))
+cls.inject('removeEventListenersForType', mapunef_by_compare('listeners'))
+cls.inject('removeEventListener', mapunef_by_compare('listeners'))
+cls.inject('removeAllEventListeners', mapunef_by_compare('listeners'))
+
 return cls

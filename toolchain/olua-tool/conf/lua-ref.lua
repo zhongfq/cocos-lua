@@ -1,42 +1,44 @@
-local _ENV = setmetatable({}, {__index = _ENV})
-
-function mapref_return_value(REFNAME)
+function mapref_return_value(REFNAME, WHERE)
+    WHERE = WHERE or 1
     return {
         AFTER = format_snippet [[
-            olua_mapref(L, 1, "${REFNAME}", -1);
+            olua_mapref(L, ${WHERE}, "${REFNAME}", -1);
         ]]
     }
 end
 
-function mapref_arg_value(REFNAME)
-    return {
-        AFTER = format_snippet [[
-            olua_mapref(L, 1, "${REFNAME}", 2);
-        ]]
-    }
-end
-
-function mapunef_by_compare(REFNAME)
+function mapref_arg_value(REFNAME, WHERE, OBJ)
+    WHERE = WHERE or 1
+    OBJ = OBJ or 2
     return {
         BEFORE = format_snippet [[
-            xlua_startcmpunref(L, 1, "${REFNAME}");
-        ]],
-        AFTER = format_snippet [[
-            xlua_endcmpunref(L, 1, "${REFNAME}");
+            olua_mapref(L, ${WHERE}, "${REFNAME}", ${OBJ});
         ]]
     }
 end
 
-function mapref_arg_value_and_mapunef_by_compare(REFNAME)
+function mapunef_by_compare(REFNAME, WHERE)
+    WHERE = WHERE or 1
     return {
         BEFORE = format_snippet [[
-            olua_mapref(L, 1, "${REFNAME}", 2);
-            xlua_startcmpunref(L, 1, "${REFNAME}");
+            xlua_startcmpunref(L, ${WHERE}, "${REFNAME}");
         ]],
         AFTER = format_snippet [[
-            xlua_endcmpunref(L, 1, "${REFNAME}");
+            xlua_endcmpunref(L, ${WHERE}, "${REFNAME}");
         ]]
     }
 end
 
-return _ENV
+function mapref_arg_value_and_mapunef_by_compare(REFNAME, WHERE, OBJ)
+    WHERE = WHERE or 1
+    OBJ = OBJ or 2
+    return {
+        BEFORE = format_snippet [[
+            olua_mapref(L, ${WHERE}, "${REFNAME}", ${OBJ});
+            xlua_startcmpunref(L, ${WHERE}, "${REFNAME}");
+        ]],
+        AFTER = format_snippet [[
+            xlua_endcmpunref(L, ${WHERE}, "${REFNAME}");
+        ]]
+    }
+end

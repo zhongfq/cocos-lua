@@ -23583,7 +23583,18 @@ static int luaopen_cocos2d_SpriteFrame(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_Sprite_create(lua_State *L)
+static int _cocos2d_Sprite_create1(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static Sprite* create()
+    cocos2d::Sprite *ret = (cocos2d::Sprite *)cocos2d::Sprite::create();
+    int num_ret = olua_push_cppobj<cocos2d::Sprite>(L, ret, "cc.Sprite");
+
+    return num_ret;
+}
+
+static int _cocos2d_Sprite_create2(lua_State *L)
 {
     lua_settop(L, 1);
 
@@ -23591,9 +23602,761 @@ static int _cocos2d_Sprite_create(lua_State *L)
 
     olua_check_std_string(L, 1, &arg1);
 
-    // static cocos2d::Sprite *create(const std::string &filename)
+    // static Sprite* create(const std::string& filename)
     cocos2d::Sprite *ret = (cocos2d::Sprite *)cocos2d::Sprite::create(arg1);
     int num_ret = olua_push_cppobj<cocos2d::Sprite>(L, ret, "cc.Sprite");
+
+    return num_ret;
+}
+
+static int _cocos2d_Sprite_create3(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    std::string arg1;       /** filename */
+    cocos2d::Rect arg2;       /** rect */
+
+    olua_check_std_string(L, 1, &arg1);
+    manual_luacv_check_cocos2d_Rect(L, 2, &arg2);
+
+    // static Sprite* create(const std::string& filename, const Rect& rect)
+    cocos2d::Sprite *ret = (cocos2d::Sprite *)cocos2d::Sprite::create(arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::Sprite>(L, ret, "cc.Sprite");
+
+    return num_ret;
+}
+
+static int _cocos2d_Sprite_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        return _cocos2d_Sprite_create1(L);
+    }
+
+    if (num_args == 1) {
+        // if (olua_is_std_string(L, 1)) {
+            return _cocos2d_Sprite_create2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if (olua_is_std_string(L, 1) && manual_luacv_is_cocos2d_Rect(L, 2)) {
+            return _cocos2d_Sprite_create3(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Sprite::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_Sprite_createWithTexture1(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Texture2D *arg1 = nullptr;   /** texture */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "cc.Texture2D");
+
+    // static Sprite* createWithTexture(Texture2D *texture)
+    cocos2d::Sprite *ret = (cocos2d::Sprite *)cocos2d::Sprite::createWithTexture(arg1);
+    int num_ret = olua_push_cppobj<cocos2d::Sprite>(L, ret, "cc.Sprite");
+
+    return num_ret;
+}
+
+static int _cocos2d_Sprite_createWithTexture2(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::Texture2D *arg1 = nullptr;   /** texture */
+    cocos2d::Rect arg2;       /** rect */
+    bool arg3 = false;   /** rotated */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "cc.Texture2D");
+    manual_luacv_check_cocos2d_Rect(L, 2, &arg2);
+    olua_opt_bool(L, 3, &arg3, (bool)false);
+
+    // static Sprite* createWithTexture(Texture2D *texture, const Rect& rect, bool rotated=false)
+    cocos2d::Sprite *ret = (cocos2d::Sprite *)cocos2d::Sprite::createWithTexture(arg1, arg2, arg3);
+    int num_ret = olua_push_cppobj<cocos2d::Sprite>(L, ret, "cc.Sprite");
+
+    return num_ret;
+}
+
+static int _cocos2d_Sprite_createWithTexture(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 1) {
+        // if (olua_is_cppobj(L, 1, "cc.Texture2D")) {
+            return _cocos2d_Sprite_createWithTexture1(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if (olua_is_cppobj(L, 1, "cc.Texture2D") && manual_luacv_is_cocos2d_Rect(L, 2) && (olua_is_bool(L, 3) || olua_isnil(L, 3))) {
+            return _cocos2d_Sprite_createWithTexture2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Sprite::createWithTexture' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_Sprite_createWithSpriteFrame(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::SpriteFrame *arg1 = nullptr;   /** spriteFrame */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "cc.SpriteFrame");
+
+    // static Sprite* createWithSpriteFrame(SpriteFrame *spriteFrame)
+    cocos2d::Sprite *ret = (cocos2d::Sprite *)cocos2d::Sprite::createWithSpriteFrame(arg1);
+    int num_ret = olua_push_cppobj<cocos2d::Sprite>(L, ret, "cc.Sprite");
+
+    return num_ret;
+}
+
+static int _cocos2d_Sprite_createWithSpriteFrameName(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    std::string arg1;       /** spriteFrameName */
+
+    olua_check_std_string(L, 1, &arg1);
+
+    // static Sprite* createWithSpriteFrameName(const std::string& spriteFrameName)
+    cocos2d::Sprite *ret = (cocos2d::Sprite *)cocos2d::Sprite::createWithSpriteFrameName(arg1);
+    int num_ret = olua_push_cppobj<cocos2d::Sprite>(L, ret, "cc.Sprite");
+
+    return num_ret;
+}
+
+static int _cocos2d_Sprite_getBatchNode(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Sprite *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite");
+
+    // SpriteBatchNode* getBatchNode()
+    cocos2d::SpriteBatchNode *ret = (cocos2d::SpriteBatchNode *)self->getBatchNode();
+    int num_ret = olua_push_cppobj<cocos2d::SpriteBatchNode>(L, ret, "cc.SpriteBatchNode");
+
+    return num_ret;
+}
+
+static int _cocos2d_Sprite_setBatchNode(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Sprite *self = nullptr;
+    cocos2d::SpriteBatchNode *arg1 = nullptr;   /** spriteBatchNode */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.SpriteBatchNode");
+
+    // void setBatchNode(SpriteBatchNode *spriteBatchNode)
+    self->setBatchNode(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Sprite_setTexture1(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Sprite *self = nullptr;
+    std::string arg1;       /** filename */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void setTexture(const std::string &filename )
+    self->setTexture(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Sprite_setTexture2(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Sprite *self = nullptr;
+    cocos2d::Texture2D *arg1 = nullptr;   /** texture */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Texture2D");
+
+    // void setTexture(Texture2D *texture)
+    self->setTexture(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Sprite_setTexture(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        if (olua_is_std_string(L, 2)) {
+            return _cocos2d_Sprite_setTexture1(L);
+        }
+
+        // if (olua_is_cppobj(L, 2, "cc.Texture2D")) {
+            return _cocos2d_Sprite_setTexture2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Sprite::setTexture' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_Sprite_getTexture(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Sprite *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite");
+
+    // Texture2D* getTexture()
+    cocos2d::Texture2D *ret = (cocos2d::Texture2D *)self->getTexture();
+    int num_ret = olua_push_cppobj<cocos2d::Texture2D>(L, ret, "cc.Texture2D");
+
+    return num_ret;
+}
+
+static int _cocos2d_Sprite_setTextureRect1(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Sprite *self = nullptr;
+    cocos2d::Rect arg1;       /** rect */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite");
+    manual_luacv_check_cocos2d_Rect(L, 2, &arg1);
+
+    // void setTextureRect(const Rect& rect)
+    self->setTextureRect(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Sprite_setTextureRect2(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    cocos2d::Sprite *self = nullptr;
+    cocos2d::Rect arg1;       /** rect */
+    bool arg2 = false;   /** rotated */
+    cocos2d::Size arg3;       /** untrimmedSize */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite");
+    manual_luacv_check_cocos2d_Rect(L, 2, &arg1);
+    olua_check_bool(L, 3, &arg2);
+    auto_luacv_check_cocos2d_Size(L, 4, &arg3);
+
+    // void setTextureRect(const Rect& rect, bool rotated, const Size& untrimmedSize)
+    self->setTextureRect(arg1, arg2, arg3);
+
+    return 0;
+}
+
+static int _cocos2d_Sprite_setTextureRect(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if (manual_luacv_is_cocos2d_Rect(L, 2)) {
+            return _cocos2d_Sprite_setTextureRect1(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if (manual_luacv_is_cocos2d_Rect(L, 2) && olua_is_bool(L, 3) && auto_luacv_is_cocos2d_Size(L, 4)) {
+            return _cocos2d_Sprite_setTextureRect2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Sprite::setTextureRect' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_Sprite_setVertexRect(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Sprite *self = nullptr;
+    cocos2d::Rect arg1;       /** rect */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite");
+    manual_luacv_check_cocos2d_Rect(L, 2, &arg1);
+
+    // void setVertexRect(const Rect& rect)
+    self->setVertexRect(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Sprite_setCenterRectNormalized(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Sprite *self = nullptr;
+    cocos2d::Rect arg1;       /** rect */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite");
+    manual_luacv_check_cocos2d_Rect(L, 2, &arg1);
+
+    // void setCenterRectNormalized(const Rect& rect)
+    self->setCenterRectNormalized(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Sprite_getCenterRectNormalized(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Sprite *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite");
+
+    // Rect getCenterRectNormalized()
+    cocos2d::Rect ret = (cocos2d::Rect)self->getCenterRectNormalized();
+    int num_ret = manual_luacv_push_cocos2d_Rect(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Sprite_setCenterRect(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Sprite *self = nullptr;
+    cocos2d::Rect arg1;       /** rect */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite");
+    manual_luacv_check_cocos2d_Rect(L, 2, &arg1);
+
+    // void setCenterRect(const Rect& rect)
+    self->setCenterRect(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Sprite_getCenterRect(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Sprite *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite");
+
+    // Rect getCenterRect()
+    cocos2d::Rect ret = (cocos2d::Rect)self->getCenterRect();
+    int num_ret = manual_luacv_push_cocos2d_Rect(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Sprite_setSpriteFrame1(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Sprite *self = nullptr;
+    std::string arg1;       /** spriteFrameName */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void setSpriteFrame(const std::string &spriteFrameName)
+    self->setSpriteFrame(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Sprite_setSpriteFrame2(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Sprite *self = nullptr;
+    cocos2d::SpriteFrame *arg1 = nullptr;   /** newFrame */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.SpriteFrame");
+
+    // void setSpriteFrame(SpriteFrame* newFrame)
+    self->setSpriteFrame(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Sprite_setSpriteFrame(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        if (olua_is_std_string(L, 2)) {
+            return _cocos2d_Sprite_setSpriteFrame1(L);
+        }
+
+        // if (olua_is_cppobj(L, 2, "cc.SpriteFrame")) {
+            return _cocos2d_Sprite_setSpriteFrame2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Sprite::setSpriteFrame' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_Sprite_isFrameDisplayed(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Sprite *self = nullptr;
+    cocos2d::SpriteFrame *arg1 = nullptr;   /** frame */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.SpriteFrame");
+
+    // bool isFrameDisplayed(SpriteFrame *frame)
+    bool ret = (bool)self->isFrameDisplayed(arg1);
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Sprite_getSpriteFrame(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Sprite *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite");
+
+    // SpriteFrame* getSpriteFrame()
+    cocos2d::SpriteFrame *ret = (cocos2d::SpriteFrame *)self->getSpriteFrame();
+    int num_ret = olua_push_cppobj<cocos2d::SpriteFrame>(L, ret, "cc.SpriteFrame");
+
+    return num_ret;
+}
+
+static int _cocos2d_Sprite_setDisplayFrameWithAnimationName(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::Sprite *self = nullptr;
+    std::string arg1;       /** animationName */
+    lua_Integer arg2 = 0;   /** frameIndex */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_int(L, 3, &arg2);
+
+    // void setDisplayFrameWithAnimationName(const std::string& animationName, ssize_t frameIndex)
+    self->setDisplayFrameWithAnimationName(arg1, (ssize_t)arg2);
+
+    return 0;
+}
+
+static int _cocos2d_Sprite_isDirty(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Sprite *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite");
+
+    // bool isDirty()
+    bool ret = (bool)self->isDirty();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Sprite_setDirty(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Sprite *self = nullptr;
+    bool arg1 = false;   /** dirty */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setDirty(bool dirty)
+    self->setDirty(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Sprite_isTextureRectRotated(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Sprite *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite");
+
+    // bool isTextureRectRotated()
+    bool ret = (bool)self->isTextureRectRotated();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Sprite_getAtlasIndex(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Sprite *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite");
+
+    // ssize_t getAtlasIndex()
+    ssize_t ret = (ssize_t)self->getAtlasIndex();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Sprite_setAtlasIndex(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Sprite *self = nullptr;
+    lua_Integer arg1 = 0;   /** atlasIndex */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite");
+    olua_check_int(L, 2, &arg1);
+
+    // void setAtlasIndex(ssize_t atlasIndex)
+    self->setAtlasIndex((ssize_t)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Sprite_getTextureRect(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Sprite *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite");
+
+    // const Rect& getTextureRect()
+    const cocos2d::Rect &ret = (const cocos2d::Rect &)self->getTextureRect();
+    int num_ret = manual_luacv_push_cocos2d_Rect(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Sprite_getTextureAtlas(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Sprite *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite");
+
+    // TextureAtlas* getTextureAtlas()
+    cocos2d::TextureAtlas *ret = (cocos2d::TextureAtlas *)self->getTextureAtlas();
+    int num_ret = olua_push_cppobj<cocos2d::TextureAtlas>(L, ret, "cc.TextureAtlas");
+
+    return num_ret;
+}
+
+static int _cocos2d_Sprite_setTextureAtlas(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Sprite *self = nullptr;
+    cocos2d::TextureAtlas *arg1 = nullptr;   /** textureAtlas */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.TextureAtlas");
+
+    // void setTextureAtlas(TextureAtlas *textureAtlas)
+    self->setTextureAtlas(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Sprite_getOffsetPosition(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Sprite *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite");
+
+    // const Vec2& getOffsetPosition()
+    const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getOffsetPosition();
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Sprite_isFlippedX(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Sprite *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite");
+
+    // bool isFlippedX()
+    bool ret = (bool)self->isFlippedX();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Sprite_setFlippedX(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Sprite *self = nullptr;
+    bool arg1 = false;   /** flippedX */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setFlippedX(bool flippedX)
+    self->setFlippedX(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Sprite_isFlippedY(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Sprite *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite");
+
+    // bool isFlippedY()
+    bool ret = (bool)self->isFlippedY();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Sprite_setFlippedY(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Sprite *self = nullptr;
+    bool arg1 = false;   /** flippedY */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setFlippedY(bool flippedY)
+    self->setFlippedY(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Sprite_setStretchEnabled(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Sprite *self = nullptr;
+    bool arg1 = false;   /** enabled */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setStretchEnabled(bool enabled)
+    self->setStretchEnabled(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Sprite_isStretchEnabled(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Sprite *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite");
+
+    // bool isStretchEnabled()
+    bool ret = (bool)self->isStretchEnabled();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Sprite_setBlendFunc(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Sprite *self = nullptr;
+    cocos2d::BlendFunc arg1;       /** blendFunc */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite");
+    auto_luacv_check_cocos2d_BlendFunc(L, 2, &arg1);
+
+    // void setBlendFunc(const BlendFunc &blendFunc)
+    self->setBlendFunc(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Sprite_getBlendFunc(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Sprite *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite");
+
+    // const BlendFunc& getBlendFunc()
+    const cocos2d::BlendFunc &ret = (const cocos2d::BlendFunc &)self->getBlendFunc();
+    int num_ret = auto_luacv_push_cocos2d_BlendFunc(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Sprite_getResourceType(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Sprite *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite");
+
+    // int getResourceType()
+    int ret = (int)self->getResourceType();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Sprite_getResourceName(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Sprite *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Sprite");
+
+    // const std::string& getResourceName()
+    const std::string &ret = (const std::string &)self->getResourceName();
+    int num_ret = olua_push_std_string(L, ret);
 
     return num_ret;
 }
@@ -23602,8 +24365,869 @@ static int luaopen_cocos2d_Sprite(lua_State *L)
 {
     oluacls_class(L, "cc.Sprite", "cc.Node");
     oluacls_setfunc(L, "create", _cocos2d_Sprite_create);
+    oluacls_setfunc(L, "createWithTexture", _cocos2d_Sprite_createWithTexture);
+    oluacls_setfunc(L, "createWithSpriteFrame", _cocos2d_Sprite_createWithSpriteFrame);
+    oluacls_setfunc(L, "createWithSpriteFrameName", _cocos2d_Sprite_createWithSpriteFrameName);
+    oluacls_setfunc(L, "getBatchNode", _cocos2d_Sprite_getBatchNode);
+    oluacls_setfunc(L, "setBatchNode", _cocos2d_Sprite_setBatchNode);
+    oluacls_setfunc(L, "setTexture", _cocos2d_Sprite_setTexture);
+    oluacls_setfunc(L, "getTexture", _cocos2d_Sprite_getTexture);
+    oluacls_setfunc(L, "setTextureRect", _cocos2d_Sprite_setTextureRect);
+    oluacls_setfunc(L, "setVertexRect", _cocos2d_Sprite_setVertexRect);
+    oluacls_setfunc(L, "setCenterRectNormalized", _cocos2d_Sprite_setCenterRectNormalized);
+    oluacls_setfunc(L, "getCenterRectNormalized", _cocos2d_Sprite_getCenterRectNormalized);
+    oluacls_setfunc(L, "setCenterRect", _cocos2d_Sprite_setCenterRect);
+    oluacls_setfunc(L, "getCenterRect", _cocos2d_Sprite_getCenterRect);
+    oluacls_setfunc(L, "setSpriteFrame", _cocos2d_Sprite_setSpriteFrame);
+    oluacls_setfunc(L, "isFrameDisplayed", _cocos2d_Sprite_isFrameDisplayed);
+    oluacls_setfunc(L, "getSpriteFrame", _cocos2d_Sprite_getSpriteFrame);
+    oluacls_setfunc(L, "setDisplayFrameWithAnimationName", _cocos2d_Sprite_setDisplayFrameWithAnimationName);
+    oluacls_setfunc(L, "isDirty", _cocos2d_Sprite_isDirty);
+    oluacls_setfunc(L, "setDirty", _cocos2d_Sprite_setDirty);
+    oluacls_setfunc(L, "isTextureRectRotated", _cocos2d_Sprite_isTextureRectRotated);
+    oluacls_setfunc(L, "getAtlasIndex", _cocos2d_Sprite_getAtlasIndex);
+    oluacls_setfunc(L, "setAtlasIndex", _cocos2d_Sprite_setAtlasIndex);
+    oluacls_setfunc(L, "getTextureRect", _cocos2d_Sprite_getTextureRect);
+    oluacls_setfunc(L, "getTextureAtlas", _cocos2d_Sprite_getTextureAtlas);
+    oluacls_setfunc(L, "setTextureAtlas", _cocos2d_Sprite_setTextureAtlas);
+    oluacls_setfunc(L, "getOffsetPosition", _cocos2d_Sprite_getOffsetPosition);
+    oluacls_setfunc(L, "isFlippedX", _cocos2d_Sprite_isFlippedX);
+    oluacls_setfunc(L, "setFlippedX", _cocos2d_Sprite_setFlippedX);
+    oluacls_setfunc(L, "isFlippedY", _cocos2d_Sprite_isFlippedY);
+    oluacls_setfunc(L, "setFlippedY", _cocos2d_Sprite_setFlippedY);
+    oluacls_setfunc(L, "setStretchEnabled", _cocos2d_Sprite_setStretchEnabled);
+    oluacls_setfunc(L, "isStretchEnabled", _cocos2d_Sprite_isStretchEnabled);
+    oluacls_setfunc(L, "setBlendFunc", _cocos2d_Sprite_setBlendFunc);
+    oluacls_setfunc(L, "getBlendFunc", _cocos2d_Sprite_getBlendFunc);
+    oluacls_setfunc(L, "getResourceType", _cocos2d_Sprite_getResourceType);
+    oluacls_setfunc(L, "getResourceName", _cocos2d_Sprite_getResourceName);
+    oluacls_property(L, "batchNode", _cocos2d_Sprite_getBatchNode, _cocos2d_Sprite_setBatchNode);
+    oluacls_property(L, "texture", _cocos2d_Sprite_getTexture, _cocos2d_Sprite_setTexture);
+    oluacls_property(L, "centerRectNormalized", _cocos2d_Sprite_getCenterRectNormalized, _cocos2d_Sprite_setCenterRectNormalized);
+    oluacls_property(L, "centerRect", _cocos2d_Sprite_getCenterRect, _cocos2d_Sprite_setCenterRect);
+    oluacls_property(L, "spriteFrame", _cocos2d_Sprite_getSpriteFrame, _cocos2d_Sprite_setSpriteFrame);
+    oluacls_property(L, "dirty", _cocos2d_Sprite_isDirty, _cocos2d_Sprite_setDirty);
+    oluacls_property(L, "textureRectRotated", _cocos2d_Sprite_isTextureRectRotated, nullptr);
+    oluacls_property(L, "atlasIndex", _cocos2d_Sprite_getAtlasIndex, _cocos2d_Sprite_setAtlasIndex);
+    oluacls_property(L, "textureRect", _cocos2d_Sprite_getTextureRect, _cocos2d_Sprite_setTextureRect);
+    oluacls_property(L, "textureAtlas", _cocos2d_Sprite_getTextureAtlas, _cocos2d_Sprite_setTextureAtlas);
+    oluacls_property(L, "offsetPosition", _cocos2d_Sprite_getOffsetPosition, nullptr);
+    oluacls_property(L, "flippedX", _cocos2d_Sprite_isFlippedX, _cocos2d_Sprite_setFlippedX);
+    oluacls_property(L, "flippedY", _cocos2d_Sprite_isFlippedY, _cocos2d_Sprite_setFlippedY);
+    oluacls_property(L, "stretchEnabled", _cocos2d_Sprite_isStretchEnabled, _cocos2d_Sprite_setStretchEnabled);
+    oluacls_property(L, "blendFunc", _cocos2d_Sprite_getBlendFunc, _cocos2d_Sprite_setBlendFunc);
+    oluacls_property(L, "resourceType", _cocos2d_Sprite_getResourceType, nullptr);
+    oluacls_property(L, "resourceName", _cocos2d_Sprite_getResourceName, nullptr);
 
     olua_registerluatype<cocos2d::Sprite>(L, "cc.Sprite");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_SpriteBatchNode_createWithTexture(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Texture2D *arg1 = nullptr;   /** tex */
+    lua_Integer arg2 = 0;   /** capacity */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "cc.Texture2D");
+    olua_opt_int(L, 2, &arg2, (lua_Integer)29);
+
+    // static SpriteBatchNode* createWithTexture(Texture2D* tex, ssize_t capacity = 29)
+    cocos2d::SpriteBatchNode *ret = (cocos2d::SpriteBatchNode *)cocos2d::SpriteBatchNode::createWithTexture(arg1, (ssize_t)arg2);
+    int num_ret = olua_push_cppobj<cocos2d::SpriteBatchNode>(L, ret, "cc.SpriteBatchNode");
+
+    return num_ret;
+}
+
+static int _cocos2d_SpriteBatchNode_create(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    std::string arg1;       /** fileImage */
+    lua_Integer arg2 = 0;   /** capacity */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_opt_int(L, 2, &arg2, (lua_Integer)29);
+
+    // static SpriteBatchNode* create(const std::string& fileImage, ssize_t capacity = 29)
+    cocos2d::SpriteBatchNode *ret = (cocos2d::SpriteBatchNode *)cocos2d::SpriteBatchNode::create(arg1, (ssize_t)arg2);
+    int num_ret = olua_push_cppobj<cocos2d::SpriteBatchNode>(L, ret, "cc.SpriteBatchNode");
+
+    return num_ret;
+}
+
+static int _cocos2d_SpriteBatchNode_getTextureAtlas(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::SpriteBatchNode *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteBatchNode");
+
+    // TextureAtlas* getTextureAtlas()
+    cocos2d::TextureAtlas *ret = (cocos2d::TextureAtlas *)self->getTextureAtlas();
+    int num_ret = olua_push_cppobj<cocos2d::TextureAtlas>(L, ret, "cc.TextureAtlas");
+
+    return num_ret;
+}
+
+static int _cocos2d_SpriteBatchNode_setTextureAtlas(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::SpriteBatchNode *self = nullptr;
+    cocos2d::TextureAtlas *arg1 = nullptr;   /** textureAtlas */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteBatchNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.TextureAtlas");
+
+    // void setTextureAtlas(TextureAtlas* textureAtlas)
+    self->setTextureAtlas(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_SpriteBatchNode_getDescendants(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::SpriteBatchNode *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteBatchNode");
+
+    // const std::vector<Sprite*>& getDescendants()
+    const std::vector<cocos2d::Sprite *> &ret = (const std::vector<cocos2d::Sprite *> &)self->getDescendants();
+    int num_ret = olua_push_std_vector(L, ret, "cc.Sprite");
+
+    return num_ret;
+}
+
+static int _cocos2d_SpriteBatchNode_increaseAtlasCapacity(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::SpriteBatchNode *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteBatchNode");
+
+    // void increaseAtlasCapacity()
+    self->increaseAtlasCapacity();
+
+    return 0;
+}
+
+static int _cocos2d_SpriteBatchNode_removeChildAtIndex(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::SpriteBatchNode *self = nullptr;
+    lua_Integer arg1 = 0;   /** index */
+    bool arg2 = false;   /** doCleanup */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteBatchNode");
+    olua_check_int(L, 2, &arg1);
+    olua_check_bool(L, 3, &arg2);
+
+    // void removeChildAtIndex(ssize_t index, bool doCleanup)
+    self->removeChildAtIndex((ssize_t)arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_SpriteBatchNode_appendChild(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::SpriteBatchNode *self = nullptr;
+    cocos2d::Sprite *arg1 = nullptr;   /** sprite */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteBatchNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Sprite");
+
+    // void appendChild(Sprite* sprite)
+    self->appendChild(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_SpriteBatchNode_removeSpriteFromAtlas(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::SpriteBatchNode *self = nullptr;
+    cocos2d::Sprite *arg1 = nullptr;   /** sprite */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteBatchNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Sprite");
+
+    // void removeSpriteFromAtlas(Sprite *sprite)
+    self->removeSpriteFromAtlas(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_SpriteBatchNode_rebuildIndexInOrder(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::SpriteBatchNode *self = nullptr;
+    cocos2d::Sprite *arg1 = nullptr;   /** parent */
+    lua_Integer arg2 = 0;   /** index */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteBatchNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Sprite");
+    olua_check_int(L, 3, &arg2);
+
+    // ssize_t rebuildIndexInOrder(Sprite *parent, ssize_t index)
+    ssize_t ret = (ssize_t)self->rebuildIndexInOrder(arg1, (ssize_t)arg2);
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_SpriteBatchNode_highestAtlasIndexInChild(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::SpriteBatchNode *self = nullptr;
+    cocos2d::Sprite *arg1 = nullptr;   /** sprite */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteBatchNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Sprite");
+
+    // ssize_t highestAtlasIndexInChild(Sprite *sprite)
+    ssize_t ret = (ssize_t)self->highestAtlasIndexInChild(arg1);
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_SpriteBatchNode_lowestAtlasIndexInChild(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::SpriteBatchNode *self = nullptr;
+    cocos2d::Sprite *arg1 = nullptr;   /** sprite */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteBatchNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Sprite");
+
+    // ssize_t lowestAtlasIndexInChild(Sprite *sprite)
+    ssize_t ret = (ssize_t)self->lowestAtlasIndexInChild(arg1);
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_SpriteBatchNode_atlasIndexForChild(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::SpriteBatchNode *self = nullptr;
+    cocos2d::Sprite *arg1 = nullptr;   /** sprite */
+    lua_Integer arg2 = 0;   /** z */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteBatchNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Sprite");
+    olua_check_int(L, 3, &arg2);
+
+    // ssize_t atlasIndexForChild(Sprite *sprite, int z)
+    ssize_t ret = (ssize_t)self->atlasIndexForChild(arg1, (int)arg2);
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_SpriteBatchNode_reorderBatch(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::SpriteBatchNode *self = nullptr;
+    bool arg1 = false;   /** reorder */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteBatchNode");
+    olua_check_bool(L, 2, &arg1);
+
+    // void reorderBatch(bool reorder)
+    self->reorderBatch(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_SpriteBatchNode_getTexture(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::SpriteBatchNode *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteBatchNode");
+
+    // Texture2D* getTexture()
+    cocos2d::Texture2D *ret = (cocos2d::Texture2D *)self->getTexture();
+    int num_ret = olua_push_cppobj<cocos2d::Texture2D>(L, ret, "cc.Texture2D");
+
+    return num_ret;
+}
+
+static int _cocos2d_SpriteBatchNode_setTexture(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::SpriteBatchNode *self = nullptr;
+    cocos2d::Texture2D *arg1 = nullptr;   /** texture */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteBatchNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Texture2D");
+
+    // void setTexture(Texture2D *texture)
+    self->setTexture(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_SpriteBatchNode_setBlendFunc(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::SpriteBatchNode *self = nullptr;
+    cocos2d::BlendFunc arg1;       /** blendFunc */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteBatchNode");
+    auto_luacv_check_cocos2d_BlendFunc(L, 2, &arg1);
+
+    // void setBlendFunc(const BlendFunc &blendFunc)
+    self->setBlendFunc(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_SpriteBatchNode_getBlendFunc(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::SpriteBatchNode *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteBatchNode");
+
+    // const BlendFunc& getBlendFunc()
+    const cocos2d::BlendFunc &ret = (const cocos2d::BlendFunc &)self->getBlendFunc();
+    int num_ret = auto_luacv_push_cocos2d_BlendFunc(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_SpriteBatchNode_insertQuadFromSprite(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::SpriteBatchNode *self = nullptr;
+    cocos2d::Sprite *arg1 = nullptr;   /** sprite */
+    lua_Integer arg2 = 0;   /** index */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteBatchNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Sprite");
+    olua_check_int(L, 3, &arg2);
+
+    // void insertQuadFromSprite(Sprite *sprite, ssize_t index)
+    self->insertQuadFromSprite(arg1, (ssize_t)arg2);
+
+    return 0;
+}
+
+static int _cocos2d_SpriteBatchNode_addSpriteWithoutQuad(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    cocos2d::SpriteBatchNode *self = nullptr;
+    cocos2d::Sprite *arg1 = nullptr;   /** child */
+    lua_Integer arg2 = 0;   /** z */
+    lua_Integer arg3 = 0;   /** aTag */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteBatchNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Sprite");
+    olua_check_int(L, 3, &arg2);
+    olua_check_int(L, 4, &arg3);
+
+    // SpriteBatchNode * addSpriteWithoutQuad(Sprite *child, int z, int aTag)
+    cocos2d::SpriteBatchNode *ret = (cocos2d::SpriteBatchNode *)self->addSpriteWithoutQuad(arg1, (int)arg2, (int)arg3);
+    int num_ret = olua_push_cppobj<cocos2d::SpriteBatchNode>(L, ret, "cc.SpriteBatchNode");
+
+    return num_ret;
+}
+
+static int _cocos2d_SpriteBatchNode_reserveCapacity(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::SpriteBatchNode *self = nullptr;
+    lua_Integer arg1 = 0;   /** newCapacity */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteBatchNode");
+    olua_check_int(L, 2, &arg1);
+
+    // void reserveCapacity(ssize_t newCapacity)
+    self->reserveCapacity((ssize_t)arg1);
+
+    return 0;
+}
+
+static int luaopen_cocos2d_SpriteBatchNode(lua_State *L)
+{
+    oluacls_class(L, "cc.SpriteBatchNode", "cc.Node");
+    oluacls_setfunc(L, "createWithTexture", _cocos2d_SpriteBatchNode_createWithTexture);
+    oluacls_setfunc(L, "create", _cocos2d_SpriteBatchNode_create);
+    oluacls_setfunc(L, "getTextureAtlas", _cocos2d_SpriteBatchNode_getTextureAtlas);
+    oluacls_setfunc(L, "setTextureAtlas", _cocos2d_SpriteBatchNode_setTextureAtlas);
+    oluacls_setfunc(L, "getDescendants", _cocos2d_SpriteBatchNode_getDescendants);
+    oluacls_setfunc(L, "increaseAtlasCapacity", _cocos2d_SpriteBatchNode_increaseAtlasCapacity);
+    oluacls_setfunc(L, "removeChildAtIndex", _cocos2d_SpriteBatchNode_removeChildAtIndex);
+    oluacls_setfunc(L, "appendChild", _cocos2d_SpriteBatchNode_appendChild);
+    oluacls_setfunc(L, "removeSpriteFromAtlas", _cocos2d_SpriteBatchNode_removeSpriteFromAtlas);
+    oluacls_setfunc(L, "rebuildIndexInOrder", _cocos2d_SpriteBatchNode_rebuildIndexInOrder);
+    oluacls_setfunc(L, "highestAtlasIndexInChild", _cocos2d_SpriteBatchNode_highestAtlasIndexInChild);
+    oluacls_setfunc(L, "lowestAtlasIndexInChild", _cocos2d_SpriteBatchNode_lowestAtlasIndexInChild);
+    oluacls_setfunc(L, "atlasIndexForChild", _cocos2d_SpriteBatchNode_atlasIndexForChild);
+    oluacls_setfunc(L, "reorderBatch", _cocos2d_SpriteBatchNode_reorderBatch);
+    oluacls_setfunc(L, "getTexture", _cocos2d_SpriteBatchNode_getTexture);
+    oluacls_setfunc(L, "setTexture", _cocos2d_SpriteBatchNode_setTexture);
+    oluacls_setfunc(L, "setBlendFunc", _cocos2d_SpriteBatchNode_setBlendFunc);
+    oluacls_setfunc(L, "getBlendFunc", _cocos2d_SpriteBatchNode_getBlendFunc);
+    oluacls_setfunc(L, "insertQuadFromSprite", _cocos2d_SpriteBatchNode_insertQuadFromSprite);
+    oluacls_setfunc(L, "addSpriteWithoutQuad", _cocos2d_SpriteBatchNode_addSpriteWithoutQuad);
+    oluacls_setfunc(L, "reserveCapacity", _cocos2d_SpriteBatchNode_reserveCapacity);
+    oluacls_property(L, "textureAtlas", _cocos2d_SpriteBatchNode_getTextureAtlas, _cocos2d_SpriteBatchNode_setTextureAtlas);
+    oluacls_property(L, "descendants", _cocos2d_SpriteBatchNode_getDescendants, nullptr);
+    oluacls_property(L, "texture", _cocos2d_SpriteBatchNode_getTexture, _cocos2d_SpriteBatchNode_setTexture);
+    oluacls_property(L, "blendFunc", _cocos2d_SpriteBatchNode_getBlendFunc, _cocos2d_SpriteBatchNode_setBlendFunc);
+
+    olua_registerluatype<cocos2d::SpriteBatchNode>(L, "cc.SpriteBatchNode");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_SpriteFrameCache_getInstance(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static SpriteFrameCache* getInstance()
+    cocos2d::SpriteFrameCache *ret = (cocos2d::SpriteFrameCache *)cocos2d::SpriteFrameCache::getInstance();
+    int num_ret = olua_push_cppobj<cocos2d::SpriteFrameCache>(L, ret, "cc.SpriteFrameCache");
+
+    return num_ret;
+}
+
+static int _cocos2d_SpriteFrameCache_destroyInstance(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static void destroyInstance()
+    cocos2d::SpriteFrameCache::destroyInstance();
+
+    return 0;
+}
+
+static int _cocos2d_SpriteFrameCache_addSpriteFramesWithFile1(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::SpriteFrameCache *self = nullptr;
+    std::string arg1;       /** plist */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteFrameCache");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void addSpriteFramesWithFile(const std::string& plist)
+    self->addSpriteFramesWithFile(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_SpriteFrameCache_addSpriteFramesWithFile2(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::SpriteFrameCache *self = nullptr;
+    std::string arg1;       /** plist */
+    std::string arg2;       /** textureFileName */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteFrameCache");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+
+    // void addSpriteFramesWithFile(const std::string& plist, const std::string& textureFileName)
+    self->addSpriteFramesWithFile(arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_SpriteFrameCache_addSpriteFramesWithFile3(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::SpriteFrameCache *self = nullptr;
+    std::string arg1;       /** plist */
+    cocos2d::Texture2D *arg2 = nullptr;   /** texture */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteFrameCache");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_cppobj(L, 3, (void **)&arg2, "cc.Texture2D");
+
+    // void addSpriteFramesWithFile(const std::string& plist, Texture2D *texture)
+    self->addSpriteFramesWithFile(arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_SpriteFrameCache_addSpriteFramesWithFile(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if (olua_is_std_string(L, 2)) {
+            return _cocos2d_SpriteFrameCache_addSpriteFramesWithFile1(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        if (olua_is_std_string(L, 2) && olua_is_std_string(L, 3)) {
+            return _cocos2d_SpriteFrameCache_addSpriteFramesWithFile2(L);
+        }
+
+        // if (olua_is_std_string(L, 2) && olua_is_cppobj(L, 3, "cc.Texture2D")) {
+            return _cocos2d_SpriteFrameCache_addSpriteFramesWithFile3(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::SpriteFrameCache::addSpriteFramesWithFile' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_SpriteFrameCache_addSpriteFramesWithFileContent(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::SpriteFrameCache *self = nullptr;
+    std::string arg1;       /** plist_content */
+    cocos2d::Texture2D *arg2 = nullptr;   /** texture */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteFrameCache");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_cppobj(L, 3, (void **)&arg2, "cc.Texture2D");
+
+    // void addSpriteFramesWithFileContent(const std::string& plist_content, Texture2D *texture)
+    self->addSpriteFramesWithFileContent(arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_SpriteFrameCache_addSpriteFrame(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::SpriteFrameCache *self = nullptr;
+    cocos2d::SpriteFrame *arg1 = nullptr;   /** frame */
+    std::string arg2;       /** frameName */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteFrameCache");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.SpriteFrame");
+    olua_check_std_string(L, 3, &arg2);
+
+    // void addSpriteFrame(SpriteFrame *frame, const std::string& frameName)
+    self->addSpriteFrame(arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_SpriteFrameCache_isSpriteFramesWithFileLoaded(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::SpriteFrameCache *self = nullptr;
+    std::string arg1;       /** plist */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteFrameCache");
+    olua_check_std_string(L, 2, &arg1);
+
+    // bool isSpriteFramesWithFileLoaded(const std::string& plist)
+    bool ret = (bool)self->isSpriteFramesWithFileLoaded(arg1);
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_SpriteFrameCache_removeSpriteFrames(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::SpriteFrameCache *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteFrameCache");
+
+    // void removeSpriteFrames()
+    self->removeSpriteFrames();
+
+    return 0;
+}
+
+static int _cocos2d_SpriteFrameCache_removeUnusedSpriteFrames(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::SpriteFrameCache *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteFrameCache");
+
+    // void removeUnusedSpriteFrames()
+    self->removeUnusedSpriteFrames();
+
+    return 0;
+}
+
+static int _cocos2d_SpriteFrameCache_removeSpriteFrameByName(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::SpriteFrameCache *self = nullptr;
+    std::string arg1;       /** name */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteFrameCache");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void removeSpriteFrameByName(const std::string& name)
+    self->removeSpriteFrameByName(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_SpriteFrameCache_removeSpriteFramesFromFile(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::SpriteFrameCache *self = nullptr;
+    std::string arg1;       /** plist */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteFrameCache");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void removeSpriteFramesFromFile(const std::string& plist)
+    self->removeSpriteFramesFromFile(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_SpriteFrameCache_removeSpriteFramesFromFileContent(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::SpriteFrameCache *self = nullptr;
+    std::string arg1;       /** plist_content */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteFrameCache");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void removeSpriteFramesFromFileContent(const std::string& plist_content)
+    self->removeSpriteFramesFromFileContent(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_SpriteFrameCache_removeSpriteFramesFromTexture(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::SpriteFrameCache *self = nullptr;
+    cocos2d::Texture2D *arg1 = nullptr;   /** texture */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteFrameCache");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Texture2D");
+
+    // void removeSpriteFramesFromTexture(Texture2D* texture)
+    self->removeSpriteFramesFromTexture(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_SpriteFrameCache_getSpriteFrameByName(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::SpriteFrameCache *self = nullptr;
+    std::string arg1;       /** name */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteFrameCache");
+    olua_check_std_string(L, 2, &arg1);
+
+    // SpriteFrame* getSpriteFrameByName(const std::string& name)
+    cocos2d::SpriteFrame *ret = (cocos2d::SpriteFrame *)self->getSpriteFrameByName(arg1);
+    int num_ret = olua_push_cppobj<cocos2d::SpriteFrame>(L, ret, "cc.SpriteFrame");
+
+    return num_ret;
+}
+
+static int _cocos2d_SpriteFrameCache_reloadTexture(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::SpriteFrameCache *self = nullptr;
+    std::string arg1;       /** plist */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteFrameCache");
+    olua_check_std_string(L, 2, &arg1);
+
+    // bool reloadTexture(const std::string& plist)
+    bool ret = (bool)self->reloadTexture(arg1);
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_SpriteFrameCache(lua_State *L)
+{
+    oluacls_class(L, "cc.SpriteFrameCache", "cc.Ref");
+    oluacls_setfunc(L, "getInstance", _cocos2d_SpriteFrameCache_getInstance);
+    oluacls_setfunc(L, "destroyInstance", _cocos2d_SpriteFrameCache_destroyInstance);
+    oluacls_setfunc(L, "addSpriteFramesWithFile", _cocos2d_SpriteFrameCache_addSpriteFramesWithFile);
+    oluacls_setfunc(L, "addSpriteFramesWithFileContent", _cocos2d_SpriteFrameCache_addSpriteFramesWithFileContent);
+    oluacls_setfunc(L, "addSpriteFrame", _cocos2d_SpriteFrameCache_addSpriteFrame);
+    oluacls_setfunc(L, "isSpriteFramesWithFileLoaded", _cocos2d_SpriteFrameCache_isSpriteFramesWithFileLoaded);
+    oluacls_setfunc(L, "removeSpriteFrames", _cocos2d_SpriteFrameCache_removeSpriteFrames);
+    oluacls_setfunc(L, "removeUnusedSpriteFrames", _cocos2d_SpriteFrameCache_removeUnusedSpriteFrames);
+    oluacls_setfunc(L, "removeSpriteFrameByName", _cocos2d_SpriteFrameCache_removeSpriteFrameByName);
+    oluacls_setfunc(L, "removeSpriteFramesFromFile", _cocos2d_SpriteFrameCache_removeSpriteFramesFromFile);
+    oluacls_setfunc(L, "removeSpriteFramesFromFileContent", _cocos2d_SpriteFrameCache_removeSpriteFramesFromFileContent);
+    oluacls_setfunc(L, "removeSpriteFramesFromTexture", _cocos2d_SpriteFrameCache_removeSpriteFramesFromTexture);
+    oluacls_setfunc(L, "getSpriteFrameByName", _cocos2d_SpriteFrameCache_getSpriteFrameByName);
+    oluacls_setfunc(L, "reloadTexture", _cocos2d_SpriteFrameCache_reloadTexture);
+
+    olua_registerluatype<cocos2d::SpriteFrameCache>(L, "cc.SpriteFrameCache");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_AnimationCache_getInstance(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static AnimationCache* getInstance()
+    cocos2d::AnimationCache *ret = (cocos2d::AnimationCache *)cocos2d::AnimationCache::getInstance();
+    int num_ret = olua_push_cppobj<cocos2d::AnimationCache>(L, ret, "cc.AnimationCache");
+
+    return num_ret;
+}
+
+static int _cocos2d_AnimationCache_destroyInstance(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static void destroyInstance()
+    cocos2d::AnimationCache::destroyInstance();
+
+    return 0;
+}
+
+static int _cocos2d_AnimationCache_addAnimation(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::AnimationCache *self = nullptr;
+    cocos2d::Animation *arg1 = nullptr;   /** animation */
+    std::string arg2;       /** name */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.AnimationCache");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Animation");
+    olua_check_std_string(L, 3, &arg2);
+
+    // void addAnimation(Animation *animation, const std::string& name)
+    self->addAnimation(arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_AnimationCache_removeAnimation(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::AnimationCache *self = nullptr;
+    std::string arg1;       /** name */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.AnimationCache");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void removeAnimation(const std::string& name)
+    self->removeAnimation(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_AnimationCache_getAnimation(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::AnimationCache *self = nullptr;
+    std::string arg1;       /** name */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.AnimationCache");
+    olua_check_std_string(L, 2, &arg1);
+
+    // Animation* getAnimation(const std::string& name)
+    cocos2d::Animation *ret = (cocos2d::Animation *)self->getAnimation(arg1);
+    int num_ret = olua_push_cppobj<cocos2d::Animation>(L, ret, "cc.Animation");
+
+    return num_ret;
+}
+
+static int _cocos2d_AnimationCache_addAnimationsWithDictionary(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::AnimationCache *self = nullptr;
+    cocos2d::ValueMap arg1;       /** dictionary */
+    std::string arg2;       /** plist */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.AnimationCache");
+    manual_luacv_check_cocos2d_ValueMap(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+
+    // void addAnimationsWithDictionary(const ValueMap& dictionary,const std::string& plist)
+    self->addAnimationsWithDictionary(arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_AnimationCache_addAnimationsWithFile(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::AnimationCache *self = nullptr;
+    std::string arg1;       /** plist */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.AnimationCache");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void addAnimationsWithFile(const std::string& plist)
+    self->addAnimationsWithFile(arg1);
+
+    return 0;
+}
+
+static int luaopen_cocos2d_AnimationCache(lua_State *L)
+{
+    oluacls_class(L, "cc.AnimationCache", "cc.Ref");
+    oluacls_setfunc(L, "getInstance", _cocos2d_AnimationCache_getInstance);
+    oluacls_setfunc(L, "destroyInstance", _cocos2d_AnimationCache_destroyInstance);
+    oluacls_setfunc(L, "addAnimation", _cocos2d_AnimationCache_addAnimation);
+    oluacls_setfunc(L, "removeAnimation", _cocos2d_AnimationCache_removeAnimation);
+    oluacls_setfunc(L, "getAnimation", _cocos2d_AnimationCache_getAnimation);
+    oluacls_setfunc(L, "addAnimationsWithDictionary", _cocos2d_AnimationCache_addAnimationsWithDictionary);
+    oluacls_setfunc(L, "addAnimationsWithFile", _cocos2d_AnimationCache_addAnimationsWithFile);
+
+    olua_registerluatype<cocos2d::AnimationCache>(L, "cc.AnimationCache");
     oluacls_createclassproxy(L);
 
     return 1;
@@ -27044,6 +28668,9 @@ int luaopen_cocos2d(lua_State *L)
     olua_require(L, "cc.Animation", luaopen_cocos2d_Animation);
     olua_require(L, "cc.SpriteFrame", luaopen_cocos2d_SpriteFrame);
     olua_require(L, "cc.Sprite", luaopen_cocos2d_Sprite);
+    olua_require(L, "cc.SpriteBatchNode", luaopen_cocos2d_SpriteBatchNode);
+    olua_require(L, "cc.SpriteFrameCache", luaopen_cocos2d_SpriteFrameCache);
+    olua_require(L, "cc.AnimationCache", luaopen_cocos2d_AnimationCache);
     olua_require(L, "cc.Scene", luaopen_cocos2d_Scene);
     olua_require(L, "cc.Layer", luaopen_cocos2d_Layer);
     olua_require(L, "cc.LayerColor", luaopen_cocos2d_LayerColor);

@@ -412,9 +412,9 @@ cls.inject("getActionByTag",        mapref_return_value('actions'))
 -- bool removeComponent(const std::string& name)
 -- bool removeComponent(Component *component)
 -- void removeAllComponents()
-cls.inject("getComponent", mapref_return_value('components'))
-cls.inject("addComponent", mapref_arg_value('components'))
-cls.inject("removeComponent", mapunef_by_compare('components'))
-cls.inject("removeAllComponents", mapunref_all('components'))
+cls.inject("getComponent",          mapref_return_value('components'))
+cls.inject("addComponent",          mapref_arg_value('components'))
+cls.inject("removeComponent",       mapunef_by_compare('components'))
+cls.inject("removeAllComponents",   mapunref_all('components'))
 
 return cls

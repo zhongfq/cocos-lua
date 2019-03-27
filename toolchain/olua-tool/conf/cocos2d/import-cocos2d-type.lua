@@ -190,6 +190,7 @@ REG_TYPE {
         cocos2d::AmbientLight *
         cocos2d::Animate *
         cocos2d::Animation *
+        cocos2d::AnimationCache *
         cocos2d::AnimationFrame *
         cocos2d::Application *
         cocos2d::AtlasNode *
@@ -318,7 +319,9 @@ REG_TYPE {
         cocos2d::Speed *
         cocos2d::SpotLight *
         cocos2d::Sprite *
+        cocos2d::SpriteBatchNode *
         cocos2d::SpriteFrame *
+        cocos2d::SpriteFrameCache *
         cocos2d::TargetedAction *
         cocos2d::Texture2D *
         cocos2d::TextureAtlas *

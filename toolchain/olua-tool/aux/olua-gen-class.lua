@@ -152,7 +152,7 @@ local function gen_class_decl_val(cls, write)
 end
 
 function gen_class(module, cls, write)
-    assert(not string.find(cls.LUACLS, ':_ '))
+    assert(not string.find(cls.LUACLS, '[: ]'), cls.LUACLS)
     gen_class_decl_val(cls, write)
     gen_class_funcs(cls, write)
     gen_class_open(cls, write)

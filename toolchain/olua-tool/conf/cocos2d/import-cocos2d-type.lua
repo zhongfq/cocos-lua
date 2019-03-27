@@ -142,7 +142,9 @@ REG_TYPE {
         cocos2d::TextHAlignment
         cocos2d::Texture2D::PixelFormat
         cocos2d::TextVAlignment
+        cocos2d::experimental::AudioEngine::AudioState
         cocos2d::TransitionScene::Orientation
+        cocos2d::ui::CheckBox::EventType
         cocos2d::ui::Layout::BackGroundColorType
         cocos2d::ui::Layout::ClippingType
         cocos2d::ui::Layout::Type
@@ -153,21 +155,31 @@ REG_TYPE {
         cocos2d::ui::ListView::EventType
         cocos2d::ui::ListView::Gravity
         cocos2d::ui::ListView::MagneticType
+        cocos2d::ui::LoadingBar::Direction
+        cocos2d::ui::PageView::EventType
+        cocos2d::ui::PageView::TouchDirection
+        cocos2d::ui::RadioButton::EventType
+        cocos2d::ui::RadioButtonGroup::EventType
         cocos2d::ui::RelativeLayoutParameter::RelativeAlign
+        cocos2d::ui::RichElement::Type
+        cocos2d::ui::RichText::HorizontalAlignment
+        cocos2d::ui::RichText::WrapMode
         cocos2d::ui::Scale9Sprite::RenderingType
         cocos2d::ui::Scale9Sprite::State
         cocos2d::ui::ScrollView::Direction
         cocos2d::ui::ScrollView::EventType
+        cocos2d::ui::Slider::EventType
         cocos2d::ui::TabControl::Dock
         cocos2d::ui::TabControl::EventType
         cocos2d::ui::TabHeader::EventType
+        cocos2d::ui::Text::Type
+        cocos2d::ui::TextField::EventType
         cocos2d::ui::Widget::BrightStyle
         cocos2d::ui::Widget::FocusDirection
         cocos2d::ui::Widget::PositionType
         cocos2d::ui::Widget::SizeType
         cocos2d::ui::Widget::TextureResType
         cocos2d::ui::Widget::TouchEventType
-        cocos2d::experimental::AudioEngine::AudioState
         ResolutionPolicy
         spAttachmentType
         spEventType
@@ -323,6 +335,7 @@ REG_TYPE {
         cocos2d::SpriteFrame *
         cocos2d::SpriteFrameCache *
         cocos2d::TargetedAction *
+        cocos2d::TextFieldTTF *
         cocos2d::Texture2D *
         cocos2d::TextureAtlas *
         cocos2d::TextureCache *
@@ -367,18 +380,39 @@ REG_TYPE {
         cocos2d::TransitionZoomFlipX *
         cocos2d::TransitionZoomFlipY *
         cocos2d::ui::AbstractCheckButton *
+        cocos2d::ui::Button *
+        cocos2d::ui::CheckBox *
         cocos2d::ui::HBox *
+        cocos2d::ui::ImageView *
         cocos2d::ui::Layout *
         cocos2d::ui::LayoutComponent *
         cocos2d::ui::LayoutParameter *
         cocos2d::ui::LinearLayoutParameter *
         cocos2d::ui::ListView *
+        cocos2d::ui::LoadingBar *
+        cocos2d::ui::PageView *
+        cocos2d::ui::PageViewIndicator *
+        cocos2d::ui::RadioButton *
+        cocos2d::ui::RadioButtonGroup *
         cocos2d::ui::RelativeBox *
         cocos2d::ui::RelativeLayoutParameter *
+        cocos2d::ui::RichElement *
+        cocos2d::ui::RichElementCustomNode *
+        cocos2d::ui::RichElementImage *
+        cocos2d::ui::RichElementNewLine *
+        cocos2d::ui::RichElementText *
+        cocos2d::ui::RichText *
         cocos2d::ui::Scale9Sprite *
         cocos2d::ui::ScrollView *
+        cocos2d::ui::ScrollViewBar *
+        cocos2d::ui::Slider *
         cocos2d::ui::TabControl *
         cocos2d::ui::TabHeader *
+        cocos2d::ui::Text *
+        cocos2d::ui::TextAtlas *
+        cocos2d::ui::TextBMFont *
+        cocos2d::ui::TextField *
+        cocos2d::ui::UICCTextField *
         cocos2d::ui::VBox *
         cocos2d::ui::Widget *
         cocos2d::UserDefault *

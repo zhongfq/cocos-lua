@@ -30,17 +30,6 @@ cls.funcs [[
     static Scale9Sprite* createWithSpriteFrame(SpriteFrame* spriteFrame, const Rect& capInsets)
     static Scale9Sprite* createWithSpriteFrameName(const std::string& spriteFrameName)
     static Scale9Sprite* createWithSpriteFrameName(const std::string& spriteFrameName, const Rect& capInsets)
-    bool initWithFile(const std::string& file, const Rect& rect,  const Rect& capInsets)
-    bool initWithFile(const Rect& capInsets, const std::string& file)
-    bool initWithSpriteFrame(SpriteFrame* spriteFrame, const Rect& capInsets)
-    bool initWithSpriteFrameName(const std::string& spriteFrameName, const Rect& capInsets)
-    bool initWithFile(const std::string& file, const Rect& rect)
-    bool initWithFile(const std::string& file)
-    bool initWithSpriteFrameName(const std::string& spriteFrameName)
-    bool init()
-    bool init(Sprite* sprite, const Rect& rect, bool rotated, const Rect& capInsets)
-    bool init(Sprite* sprite, const Rect& rect, const Rect& capInsets)
-    bool init(Sprite* sprite, const Rect& rect, bool rotated, const Vec2 &offset, const Size &originalSize, const Rect& capInsets)
     Scale9Sprite* resizableSpriteWithCapInsets(const Rect& capInsets)
     bool updateWithSprite(Sprite* sprite, const Rect& rect, bool rotated, const Rect& capInsets)
     bool updateWithSprite(Sprite* sprite, const Rect& rect, bool rotated, const Vec2 &offset, const Size &originalSize, const Rect& capInsets)
@@ -71,6 +60,7 @@ cls.funcs [[
 cls.props [[
     state
     originalSize
+    preferredSize
     insetLeft
     insetTop
     insetRight
@@ -78,6 +68,7 @@ cls.props [[
     scale9Enabled
     sprite
     renderingType
+    capInsets
 ]]
 
 return M

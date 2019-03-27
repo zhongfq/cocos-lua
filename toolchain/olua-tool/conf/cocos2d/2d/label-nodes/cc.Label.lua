@@ -76,7 +76,6 @@ cls.funcs [[
     static Label* createWithCharMap(const std::string& charMapFile, int itemWidth, int itemHeight, int startCharMap)
     static Label* createWithCharMap(Texture2D* texture, int itemWidth, int itemHeight, int startCharMap)
     static Label* createWithCharMap(const std::string& plistFile)
-
     bool setTTFConfig(const TTFConfig& ttfConfig)
     const TTFConfig& getTTFConfig()
     bool setBMFontFilePath(const std::string& bmfontFilePath, const Vec2& imageOffset = Vec2::ZERO, float fontSize = 0)
@@ -89,6 +88,8 @@ cls.funcs [[
     void setSystemFontSize(float fontSize)
     float getSystemFontSize()
     void requestSystemFontRefresh()
+    void setString(const std::string& text)
+    const std::string& getString()
     int getStringNumLines()
     int getStringLength()
     void setTextColor(const Color4B &color)
@@ -139,11 +140,45 @@ cls.funcs [[
     float getLineHeight()
     void setLineSpacing(float height)
     float getLineSpacing()
-    LabelType getLabelType()
-    float getRenderingFontSize()
     void setAdditionalKerning(float space)
     float getAdditionalKerning()
-    // FontAtlas* getFontAtlas()
+    FontAtlas* getFontAtlas()
+    const BlendFunc& getBlendFunc()
+    void setBlendFunc(const BlendFunc &blendFunc)
+]]
+
+cls.props [[
+    ttfConfig
+    bmFontFilePath
+    systemFontName
+    systemFontSize
+    string
+    stringNumLines
+    stringLength
+    textColor
+    shadowEnabled
+    shadowOffset
+    shadowBlurRadius
+    shadowColor
+    outlineSize
+    labelEffectType
+    effectColor
+    textAlignment
+    horizontalAlignment
+    verticalAlignment
+    maxLineWidth
+    bmFontSize
+    wrapEnabled
+    overflow
+    width
+    height
+    dimensions
+    clipMarginEnabled
+    lineHeight
+    lineSpacing
+    additionalKerning
+    fontAtlas
+    blendFunc
 ]]
 
 return M

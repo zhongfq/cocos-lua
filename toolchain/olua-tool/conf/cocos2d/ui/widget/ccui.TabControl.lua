@@ -16,7 +16,7 @@ cls.funcs [[
     static TabHeader* create()
     static TabHeader* create(const std::string& titleStr, const std::string& backGround, const std::string& cross, Widget::TextureResType texType = Widget::TextureResType::LOCAL)
     static TabHeader* create(const std::string& titleStr, const std::string& backGround, const std::string& backGroundSelected, const std::string& cross, const std::string& backGroundDisabled, const std::string& frontCrossDisabled, Widget::TextureResType texType = Widget::TextureResType::LOCAL)
-    Label* getTitleRenderer()
+    @ref(single titleRenderer) Label* getTitleRenderer()
     void setTitleText(const std::string& text)
     std::string getTitleText()
     void setTitleColor(const Color4B& color)
@@ -26,6 +26,15 @@ cls.funcs [[
     void setTitleFontName(const std::string& fontName)
     std::string getTitleFontName()
     int   getIndexInTabControl()
+]]
+
+cls.props [[
+    titleRenderer
+    titleText
+    titleColor
+    titleFontSize
+    titleFontName
+    indexInTabControl
 ]]
 
 local cls = class(M)
@@ -75,5 +84,25 @@ cls.funcs [[
 cls.callbacks [[
     void setTabChangedEventListener(@nullable const std::function<void(int tabIndex, EventType)>& callback)
 ]]
+
+cls.props [[
+    tabCount
+    selectedTabIndex
+    headerWidth
+    headerHeight
+    ignoreHeadersTextureSize
+    headerSelectedZoom
+    headerDockPlace
+]]
+
+-- ref
+local REFNAME = 'controls'
+cls.inject('getTabHeader', mapref_return_value(REFNAME))
+cls.inject('getTabContainer', mapref_return_value(REFNAME))
+cls.inject('removeTab', mapunef_by_compare(REFNAME))
+cls.inject('insertTab', mapref_combo(
+    mapref_arg_value(REFNAME, 1, 2),
+    mapref_arg_value(REFNAME, 1, 3)
+))
 
 return M

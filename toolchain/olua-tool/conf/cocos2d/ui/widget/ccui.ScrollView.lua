@@ -113,6 +113,9 @@ cls.props [[
     innerContainer
     scrolledPercentVertical
     scrolledPercentHorizontal
+    scrolledPercentBothDirection
+    innerContainerSize
+    innerContainerPosition
     children
     bounceEnabled
     inertiaScrollEnabled

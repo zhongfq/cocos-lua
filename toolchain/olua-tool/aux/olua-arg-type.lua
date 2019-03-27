@@ -82,6 +82,7 @@ REG_TYPE {
         std::int32_t
         unsigned short
         GLint
+        char
         GLshort
         GLsizei
     ]],
@@ -96,6 +97,7 @@ REG_TYPE {
         uint32_t
         uint64_t
         size_t
+        std::size_t
         GLuint
         GLenum
         GLubyte

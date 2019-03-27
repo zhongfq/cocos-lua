@@ -88,6 +88,7 @@ M.CLASSES = {
     include("conf/cocos2d/2d/layers-scenes-transitions-nodes/cc.Transition.lua"),
     include("conf/cocos2d/2d/layers-scenes-transitions-nodes/cc.TransitionPageTurn.lua"),
     include("conf/cocos2d/2d/layers-scenes-transitions-nodes/cc.TransitionProgress.lua"),
+    include("conf/cocos2d/2d/text-input-node/cc.TextFieldTTF.lua"),
     include("conf/cocos2d/2d/cc.Light.lua"),
     include("conf/cocos2d/2d/cc.Camera.lua"),
 }

@@ -61,3 +61,20 @@ function mapref_arg_value_and_mapunef_by_compare(REFNAME, WHERE, OBJ)
         ]]
     }
 end
+
+function mapref_combo(...)
+    local BEFORE = ''
+    local AFTER = ''
+    for _, v in ipairs({...}) do
+        if v.BEFORE then
+            BEFORE = BEFORE .. '\n' .. v.BEFORE
+        end
+        if v.AFTER then
+            AFTER = AFTER .. '\n' .. v.AFTER
+        end
+    end
+    return {
+        BEFORE = #BEFORE > 0 and BEFORE or nil,
+        AFTER = #AFTER > 0 and AFTER or nil,
+    }
+end

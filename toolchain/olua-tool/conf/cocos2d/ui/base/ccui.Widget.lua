@@ -138,13 +138,22 @@ cls.props [[
     bottomBoundary
     rightBoundary
     topBoundary
+    positionPercent
     positionType
     flippedX
     flippedY
+    touchBeganPosition
+    touchMovePosition
+    touchEndPosition
     sizeType
+    customSize
+    layoutSize
+    sizePercent
     layoutParameter
     ignoreContentAdaptWithSize
+    worldPosition
     virtualRenderer
+    virtualRendererSize
     actionTag
     propagateTouchEvents
     swallowTouches
@@ -162,13 +171,10 @@ cls.vars [[
     @nullable std::function<Widget*(FocusDirection)> onNextFocusedWidget
 ]]
 
-cls.callbacks([[
+cls.callbacks [[
     void addTouchEventListener(@nullable const std::function<void(Ref*,Widget::TouchEventType)>& callback)
     void addClickEventListener(@nullable std::function<void(Ref*)>& callback)
     void addCCSEventListener(@nullable const std::function<void(Ref*, int)>& callback)
-]], function (name)
-    name = string.gsub(name, '^add', '')
-    return 'olua_makecallbacktag("' .. name .. '")'
-end)
+]]
 
 return M

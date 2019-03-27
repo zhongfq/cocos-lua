@@ -21348,6 +21348,37 @@ static int _cocos2d_Label_requestSystemFontRefresh(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_Label_setString(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Label *self = nullptr;
+    std::string arg1;       /** text */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Label");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void setString(const std::string& text)
+    self->setString(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Label_getString(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Label *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Label");
+
+    // const std::string& getString()
+    const std::string &ret = (const std::string &)self->getString();
+    int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
 static int _cocos2d_Label_getStringNumLines(lua_State *L)
 {
     lua_settop(L, 1);
@@ -22164,36 +22195,6 @@ static int _cocos2d_Label_getLineSpacing(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_Label_getLabelType(lua_State *L)
-{
-    lua_settop(L, 1);
-
-    cocos2d::Label *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.Label");
-
-    // LabelType getLabelType()
-    cocos2d::Label::LabelType ret = (cocos2d::Label::LabelType)self->getLabelType();
-    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
-
-    return num_ret;
-}
-
-static int _cocos2d_Label_getRenderingFontSize(lua_State *L)
-{
-    lua_settop(L, 1);
-
-    cocos2d::Label *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.Label");
-
-    // float getRenderingFontSize()
-    float ret = (float)self->getRenderingFontSize();
-    int num_ret = olua_push_number(L, (lua_Number)ret);
-
-    return num_ret;
-}
-
 static int _cocos2d_Label_setAdditionalKerning(lua_State *L)
 {
     lua_settop(L, 2);
@@ -22225,6 +22226,52 @@ static int _cocos2d_Label_getAdditionalKerning(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_Label_getFontAtlas(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Label *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Label");
+
+    // FontAtlas* getFontAtlas()
+    cocos2d::FontAtlas *ret = (cocos2d::FontAtlas *)self->getFontAtlas();
+    int num_ret = olua_push_cppobj<cocos2d::FontAtlas>(L, ret, "cc.FontAtlas");
+
+    return num_ret;
+}
+
+static int _cocos2d_Label_getBlendFunc(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Label *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Label");
+
+    // const BlendFunc& getBlendFunc()
+    const cocos2d::BlendFunc &ret = (const cocos2d::BlendFunc &)self->getBlendFunc();
+    int num_ret = auto_luacv_push_cocos2d_BlendFunc(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Label_setBlendFunc(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Label *self = nullptr;
+    cocos2d::BlendFunc arg1;       /** blendFunc */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Label");
+    auto_luacv_check_cocos2d_BlendFunc(L, 2, &arg1);
+
+    // void setBlendFunc(const BlendFunc &blendFunc)
+    self->setBlendFunc(arg1);
+
+    return 0;
+}
+
 static int luaopen_cocos2d_Label(lua_State *L)
 {
     oluacls_class(L, "cc.Label", "cc.Node");
@@ -22243,6 +22290,8 @@ static int luaopen_cocos2d_Label(lua_State *L)
     oluacls_setfunc(L, "setSystemFontSize", _cocos2d_Label_setSystemFontSize);
     oluacls_setfunc(L, "getSystemFontSize", _cocos2d_Label_getSystemFontSize);
     oluacls_setfunc(L, "requestSystemFontRefresh", _cocos2d_Label_requestSystemFontRefresh);
+    oluacls_setfunc(L, "setString", _cocos2d_Label_setString);
+    oluacls_setfunc(L, "getString", _cocos2d_Label_getString);
     oluacls_setfunc(L, "getStringNumLines", _cocos2d_Label_getStringNumLines);
     oluacls_setfunc(L, "getStringLength", _cocos2d_Label_getStringLength);
     oluacls_setfunc(L, "setTextColor", _cocos2d_Label_setTextColor);
@@ -22291,10 +22340,42 @@ static int luaopen_cocos2d_Label(lua_State *L)
     oluacls_setfunc(L, "getLineHeight", _cocos2d_Label_getLineHeight);
     oluacls_setfunc(L, "setLineSpacing", _cocos2d_Label_setLineSpacing);
     oluacls_setfunc(L, "getLineSpacing", _cocos2d_Label_getLineSpacing);
-    oluacls_setfunc(L, "getLabelType", _cocos2d_Label_getLabelType);
-    oluacls_setfunc(L, "getRenderingFontSize", _cocos2d_Label_getRenderingFontSize);
     oluacls_setfunc(L, "setAdditionalKerning", _cocos2d_Label_setAdditionalKerning);
     oluacls_setfunc(L, "getAdditionalKerning", _cocos2d_Label_getAdditionalKerning);
+    oluacls_setfunc(L, "getFontAtlas", _cocos2d_Label_getFontAtlas);
+    oluacls_setfunc(L, "getBlendFunc", _cocos2d_Label_getBlendFunc);
+    oluacls_setfunc(L, "setBlendFunc", _cocos2d_Label_setBlendFunc);
+    oluacls_property(L, "ttfConfig", _cocos2d_Label_getTTFConfig, _cocos2d_Label_setTTFConfig);
+    oluacls_property(L, "bmFontFilePath", _cocos2d_Label_getBMFontFilePath, _cocos2d_Label_setBMFontFilePath);
+    oluacls_property(L, "systemFontName", _cocos2d_Label_getSystemFontName, _cocos2d_Label_setSystemFontName);
+    oluacls_property(L, "systemFontSize", _cocos2d_Label_getSystemFontSize, _cocos2d_Label_setSystemFontSize);
+    oluacls_property(L, "string", _cocos2d_Label_getString, _cocos2d_Label_setString);
+    oluacls_property(L, "stringNumLines", _cocos2d_Label_getStringNumLines, nullptr);
+    oluacls_property(L, "stringLength", _cocos2d_Label_getStringLength, nullptr);
+    oluacls_property(L, "textColor", _cocos2d_Label_getTextColor, _cocos2d_Label_setTextColor);
+    oluacls_property(L, "shadowEnabled", _cocos2d_Label_isShadowEnabled, nullptr);
+    oluacls_property(L, "shadowOffset", _cocos2d_Label_getShadowOffset, nullptr);
+    oluacls_property(L, "shadowBlurRadius", _cocos2d_Label_getShadowBlurRadius, nullptr);
+    oluacls_property(L, "shadowColor", _cocos2d_Label_getShadowColor, nullptr);
+    oluacls_property(L, "outlineSize", _cocos2d_Label_getOutlineSize, nullptr);
+    oluacls_property(L, "labelEffectType", _cocos2d_Label_getLabelEffectType, nullptr);
+    oluacls_property(L, "effectColor", _cocos2d_Label_getEffectColor, nullptr);
+    oluacls_property(L, "textAlignment", _cocos2d_Label_getTextAlignment, nullptr);
+    oluacls_property(L, "horizontalAlignment", _cocos2d_Label_getHorizontalAlignment, _cocos2d_Label_setHorizontalAlignment);
+    oluacls_property(L, "verticalAlignment", _cocos2d_Label_getVerticalAlignment, _cocos2d_Label_setVerticalAlignment);
+    oluacls_property(L, "maxLineWidth", _cocos2d_Label_getMaxLineWidth, _cocos2d_Label_setMaxLineWidth);
+    oluacls_property(L, "bmFontSize", _cocos2d_Label_getBMFontSize, _cocos2d_Label_setBMFontSize);
+    oluacls_property(L, "wrapEnabled", _cocos2d_Label_isWrapEnabled, nullptr);
+    oluacls_property(L, "overflow", _cocos2d_Label_getOverflow, _cocos2d_Label_setOverflow);
+    oluacls_property(L, "width", _cocos2d_Label_getWidth, _cocos2d_Label_setWidth);
+    oluacls_property(L, "height", _cocos2d_Label_getHeight, _cocos2d_Label_setHeight);
+    oluacls_property(L, "dimensions", _cocos2d_Label_getDimensions, _cocos2d_Label_setDimensions);
+    oluacls_property(L, "clipMarginEnabled", _cocos2d_Label_isClipMarginEnabled, _cocos2d_Label_setClipMarginEnabled);
+    oluacls_property(L, "lineHeight", _cocos2d_Label_getLineHeight, _cocos2d_Label_setLineHeight);
+    oluacls_property(L, "lineSpacing", _cocos2d_Label_getLineSpacing, _cocos2d_Label_setLineSpacing);
+    oluacls_property(L, "additionalKerning", _cocos2d_Label_getAdditionalKerning, _cocos2d_Label_setAdditionalKerning);
+    oluacls_property(L, "fontAtlas", _cocos2d_Label_getFontAtlas, nullptr);
+    oluacls_property(L, "blendFunc", _cocos2d_Label_getBlendFunc, _cocos2d_Label_setBlendFunc);
 
     olua_registerluatype<cocos2d::Label>(L, "cc.Label");
     oluacls_createclassproxy(L);
@@ -27839,6 +27920,387 @@ static int luaopen_cocos2d_TransitionProgressOutIn(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_TextFieldTTF_textFieldWithPlaceHolder1(lua_State *L)
+{
+    lua_settop(L, 5);
+
+    std::string arg1;       /** placeholder */
+    cocos2d::Size arg2;       /** dimensions */
+    lua_Unsigned arg3 = 0;   /** alignment */
+    std::string arg4;       /** fontName */
+    lua_Number arg5 = 0;   /** fontSize */
+
+    olua_check_std_string(L, 1, &arg1);
+    auto_luacv_check_cocos2d_Size(L, 2, &arg2);
+    olua_check_uint(L, 3, &arg3);
+    olua_check_std_string(L, 4, &arg4);
+    olua_check_number(L, 5, &arg5);
+
+    // static TextFieldTTF * textFieldWithPlaceHolder(const std::string& placeholder, const Size& dimensions, TextHAlignment alignment, const std::string& fontName, float fontSize)
+    cocos2d::TextFieldTTF *ret = (cocos2d::TextFieldTTF *)cocos2d::TextFieldTTF::textFieldWithPlaceHolder(arg1, arg2, (cocos2d::TextHAlignment)arg3, arg4, (float)arg5);
+    int num_ret = olua_push_cppobj<cocos2d::TextFieldTTF>(L, ret, "cc.TextFieldTTF");
+
+    return num_ret;
+}
+
+static int _cocos2d_TextFieldTTF_textFieldWithPlaceHolder2(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    std::string arg1;       /** placeholder */
+    std::string arg2;       /** fontName */
+    lua_Number arg3 = 0;   /** fontSize */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+
+    // static TextFieldTTF * textFieldWithPlaceHolder(const std::string& placeholder, const std::string& fontName, float fontSize)
+    cocos2d::TextFieldTTF *ret = (cocos2d::TextFieldTTF *)cocos2d::TextFieldTTF::textFieldWithPlaceHolder(arg1, arg2, (float)arg3);
+    int num_ret = olua_push_cppobj<cocos2d::TextFieldTTF>(L, ret, "cc.TextFieldTTF");
+
+    return num_ret;
+}
+
+static int _cocos2d_TextFieldTTF_textFieldWithPlaceHolder(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 3) {
+        // if (olua_is_std_string(L, 1) && olua_is_std_string(L, 2) && olua_is_number(L, 3)) {
+            return _cocos2d_TextFieldTTF_textFieldWithPlaceHolder2(L);
+        // }
+    }
+
+    if (num_args == 5) {
+        // if (olua_is_std_string(L, 1) && auto_luacv_is_cocos2d_Size(L, 2) && olua_is_uint(L, 3) && olua_is_std_string(L, 4) && olua_is_number(L, 5)) {
+            return _cocos2d_TextFieldTTF_textFieldWithPlaceHolder1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::TextFieldTTF::textFieldWithPlaceHolder' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_TextFieldTTF_attachWithIME(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::TextFieldTTF *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.TextFieldTTF");
+
+    // bool attachWithIME()
+    bool ret = (bool)self->attachWithIME();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_TextFieldTTF_detachWithIME(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::TextFieldTTF *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.TextFieldTTF");
+
+    // bool detachWithIME()
+    bool ret = (bool)self->detachWithIME();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_TextFieldTTF_getCharCount(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::TextFieldTTF *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.TextFieldTTF");
+
+    // std::size_t getCharCount()
+    std::size_t ret = (std::size_t)self->getCharCount();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_TextFieldTTF_getColorSpaceHolder(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::TextFieldTTF *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.TextFieldTTF");
+
+    // const Color4B& getColorSpaceHolder()
+    const cocos2d::Color4B &ret = (const cocos2d::Color4B &)self->getColorSpaceHolder();
+    int num_ret = manual_luacv_push_cocos2d_Color4B(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_TextFieldTTF_setColorSpaceHolder1(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::TextFieldTTF *self = nullptr;
+    cocos2d::Color3B arg1;       /** color */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.TextFieldTTF");
+    manual_luacv_check_cocos2d_Color3B(L, 2, &arg1);
+
+    // void setColorSpaceHolder(const Color3B& color)
+    self->setColorSpaceHolder(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_TextFieldTTF_setColorSpaceHolder2(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::TextFieldTTF *self = nullptr;
+    cocos2d::Color4B arg1;       /** color */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.TextFieldTTF");
+    manual_luacv_check_cocos2d_Color4B(L, 2, &arg1);
+
+    // void setColorSpaceHolder(const Color4B& color)
+    self->setColorSpaceHolder(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_TextFieldTTF_setColorSpaceHolder(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        if (manual_luacv_is_cocos2d_Color3B(L, 2)) {
+            return _cocos2d_TextFieldTTF_setColorSpaceHolder1(L);
+        }
+
+        // if (manual_luacv_is_cocos2d_Color4B(L, 2)) {
+            return _cocos2d_TextFieldTTF_setColorSpaceHolder2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::TextFieldTTF::setColorSpaceHolder' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_TextFieldTTF_appendString(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::TextFieldTTF *self = nullptr;
+    std::string arg1;       /** text */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.TextFieldTTF");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void appendString(const std::string& text)
+    self->appendString(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_TextFieldTTF_setPlaceHolder(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::TextFieldTTF *self = nullptr;
+    std::string arg1;       /** text */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.TextFieldTTF");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void setPlaceHolder(const std::string& text)
+    self->setPlaceHolder(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_TextFieldTTF_getPlaceHolder(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::TextFieldTTF *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.TextFieldTTF");
+
+    // const std::string& getPlaceHolder()
+    const std::string &ret = (const std::string &)self->getPlaceHolder();
+    int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_TextFieldTTF_setSecureTextEntry(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::TextFieldTTF *self = nullptr;
+    bool arg1 = false;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.TextFieldTTF");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setSecureTextEntry(bool value)
+    self->setSecureTextEntry(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_TextFieldTTF_setPasswordTextStyle(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::TextFieldTTF *self = nullptr;
+    std::string arg1;       /** text */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.TextFieldTTF");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void setPasswordTextStyle(const std::string& text)
+    self->setPasswordTextStyle(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_TextFieldTTF_getPasswordTextStyle(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::TextFieldTTF *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.TextFieldTTF");
+
+    // const std::string& getPasswordTextStyle()
+    const std::string &ret = (const std::string &)self->getPasswordTextStyle();
+    int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_TextFieldTTF_isSecureTextEntry(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::TextFieldTTF *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.TextFieldTTF");
+
+    // bool isSecureTextEntry()
+    bool ret = (bool)self->isSecureTextEntry();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_TextFieldTTF_setCursorEnabled(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::TextFieldTTF *self = nullptr;
+    bool arg1 = false;   /** enabled */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.TextFieldTTF");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setCursorEnabled(bool enabled)
+    self->setCursorEnabled(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_TextFieldTTF_setCursorChar(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::TextFieldTTF *self = nullptr;
+    lua_Integer arg1 = 0;   /** cursor */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.TextFieldTTF");
+    olua_check_int(L, 2, &arg1);
+
+    // void setCursorChar(char cursor)
+    self->setCursorChar((char)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_TextFieldTTF_setCursorPosition(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::TextFieldTTF *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** cursorPosition */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.TextFieldTTF");
+    olua_check_uint(L, 2, &arg1);
+
+    // void setCursorPosition(std::size_t cursorPosition)
+    self->setCursorPosition((std::size_t)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_TextFieldTTF_setCursorFromPoint(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::TextFieldTTF *self = nullptr;
+    cocos2d::Vec2 arg1;       /** point */
+    cocos2d::Camera *arg2 = nullptr;   /** camera */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.TextFieldTTF");
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    olua_check_cppobj(L, 3, (void **)&arg2, "cc.Camera");
+
+    // void setCursorFromPoint(const Vec2 &point, const Camera* camera)
+    self->setCursorFromPoint(arg1, arg2);
+
+    return 0;
+}
+
+static int luaopen_cocos2d_TextFieldTTF(lua_State *L)
+{
+    oluacls_class(L, "cc.TextFieldTTF", "cc.Label");
+    oluacls_setfunc(L, "textFieldWithPlaceHolder", _cocos2d_TextFieldTTF_textFieldWithPlaceHolder);
+    oluacls_setfunc(L, "attachWithIME", _cocos2d_TextFieldTTF_attachWithIME);
+    oluacls_setfunc(L, "detachWithIME", _cocos2d_TextFieldTTF_detachWithIME);
+    oluacls_setfunc(L, "getCharCount", _cocos2d_TextFieldTTF_getCharCount);
+    oluacls_setfunc(L, "getColorSpaceHolder", _cocos2d_TextFieldTTF_getColorSpaceHolder);
+    oluacls_setfunc(L, "setColorSpaceHolder", _cocos2d_TextFieldTTF_setColorSpaceHolder);
+    oluacls_setfunc(L, "appendString", _cocos2d_TextFieldTTF_appendString);
+    oluacls_setfunc(L, "setPlaceHolder", _cocos2d_TextFieldTTF_setPlaceHolder);
+    oluacls_setfunc(L, "getPlaceHolder", _cocos2d_TextFieldTTF_getPlaceHolder);
+    oluacls_setfunc(L, "setSecureTextEntry", _cocos2d_TextFieldTTF_setSecureTextEntry);
+    oluacls_setfunc(L, "setPasswordTextStyle", _cocos2d_TextFieldTTF_setPasswordTextStyle);
+    oluacls_setfunc(L, "getPasswordTextStyle", _cocos2d_TextFieldTTF_getPasswordTextStyle);
+    oluacls_setfunc(L, "isSecureTextEntry", _cocos2d_TextFieldTTF_isSecureTextEntry);
+    oluacls_setfunc(L, "setCursorEnabled", _cocos2d_TextFieldTTF_setCursorEnabled);
+    oluacls_setfunc(L, "setCursorChar", _cocos2d_TextFieldTTF_setCursorChar);
+    oluacls_setfunc(L, "setCursorPosition", _cocos2d_TextFieldTTF_setCursorPosition);
+    oluacls_setfunc(L, "setCursorFromPoint", _cocos2d_TextFieldTTF_setCursorFromPoint);
+    oluacls_property(L, "charCount", _cocos2d_TextFieldTTF_getCharCount, nullptr);
+    oluacls_property(L, "colorSpaceHolder", _cocos2d_TextFieldTTF_getColorSpaceHolder, _cocos2d_TextFieldTTF_setColorSpaceHolder);
+    oluacls_property(L, "placeHolder", _cocos2d_TextFieldTTF_getPlaceHolder, _cocos2d_TextFieldTTF_setPlaceHolder);
+    oluacls_property(L, "passwordTextStyle", _cocos2d_TextFieldTTF_getPasswordTextStyle, _cocos2d_TextFieldTTF_setPasswordTextStyle);
+    oluacls_property(L, "secureTextEntry", _cocos2d_TextFieldTTF_isSecureTextEntry, _cocos2d_TextFieldTTF_setSecureTextEntry);
+
+    olua_registerluatype<cocos2d::TextFieldTTF>(L, "cc.TextFieldTTF");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
 static int luaopen_cocos2d_LightType(lua_State *L)
 {
     oluacls_class(L, "cc.LightType", nullptr);
@@ -28713,6 +29175,7 @@ int luaopen_cocos2d(lua_State *L)
     olua_require(L, "cc.TransitionProgressVertical", luaopen_cocos2d_TransitionProgressVertical);
     olua_require(L, "cc.TransitionProgressInOut", luaopen_cocos2d_TransitionProgressInOut);
     olua_require(L, "cc.TransitionProgressOutIn", luaopen_cocos2d_TransitionProgressOutIn);
+    olua_require(L, "cc.TextFieldTTF", luaopen_cocos2d_TextFieldTTF);
     olua_require(L, "cc.LightType", luaopen_cocos2d_LightType);
     olua_require(L, "cc.LightFlag", luaopen_cocos2d_LightFlag);
     olua_require(L, "cc.BaseLight", luaopen_cocos2d_BaseLight);

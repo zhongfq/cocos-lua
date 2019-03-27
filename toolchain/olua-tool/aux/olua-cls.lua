@@ -530,6 +530,7 @@ function class(collection)
 
     function cls.callbacks(callbacks_str, callback_maker)
         local function default_maker(name)
+            name = string.gsub(name, '^add', '')
             name = string.gsub(name, '^get', '')
             name = string.gsub(name, '^set', '')
             return 'olua_makecallbacktag("' .. name .. '")'
@@ -537,17 +538,19 @@ function class(collection)
         local dict = {}
         local funcs = {}
         for callback_decl in string.gmatch(callbacks_str, '[^\n\r]+') do
-            callback_decl = string.gsub(callback_decl, '^ *', '')
-            local _, _, str = parse_def(callback_decl)
-            local funcname = string.match(str, '[^() ]+')
-            local arr = dict[funcname]
-            if not arr then
-                arr = {}
-                dict[funcname] =  arr
-                funcs[#funcs + 1] = arr
-                arr.funcname = funcname
+            if not string.find(callback_decl, '^ *//') then
+                callback_decl = string.gsub(callback_decl, '^ *', '')
+                local _, _, str = parse_def(callback_decl)
+                local funcname = string.match(str, '[^() ]+')
+                local arr = dict[funcname]
+                if not arr then
+                    arr = {}
+                    dict[funcname] =  arr
+                    funcs[#funcs + 1] = arr
+                    arr.funcname = funcname
+                end
+                arr[#arr + 1] = callback_decl
             end
-            arr[#arr + 1] = callback_decl
         end
         for _, v in ipairs(funcs) do
             v[#v + 1] = {

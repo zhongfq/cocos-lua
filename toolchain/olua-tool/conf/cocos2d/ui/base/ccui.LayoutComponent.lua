@@ -80,6 +80,9 @@ cls.funcs [[
 ]]
 cls.props [[
     usingPercentContentSize
+    percentContentSize
+    anchorPosition
+    position
     positionPercentXEnabled
     positionPercentX
     positionPercentYEnabled
@@ -90,6 +93,7 @@ cls.props [[
     rightMargin
     topMargin
     bottomMargin
+    size
     percentWidthEnabled
     sizeWidth
     percentWidth

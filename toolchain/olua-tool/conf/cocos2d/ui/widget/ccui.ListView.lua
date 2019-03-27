@@ -92,4 +92,17 @@ cls.callback(
 )
 cls.alias('addEventListener', 'addListEventListener')
 
+cls.props [[
+    items
+    magneticType
+    magneticAllowedOutOfBoundary
+    itemsMargin
+    leftPadding
+    topPadding
+    rightPadding
+    bottomPadding
+    scrollDuration
+    curSelectedIndex
+]]
+
 return M

@@ -77,6 +77,7 @@ cls.props [[
     backGroundStartColor
     backGroundEndColor
     backGroundColorOpacity
+    backGroundColorVector
     backGroundImageColor
     backGroundImageOpacity
     backGroundImageTextureSize

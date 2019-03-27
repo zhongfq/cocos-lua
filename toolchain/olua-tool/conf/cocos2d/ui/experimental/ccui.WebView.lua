@@ -38,6 +38,7 @@ cls.callbacks([[
 ]])
 
 cls.props [[
+    opacityWebView
     onShouldStartLoading
     onDidFinishLoading
     onDidFailLoading

@@ -12975,6 +12975,23 @@ static int _cocos2d_RotateTo_create3(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_RotateTo_create4(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    lua_Number arg1 = 0;   /** duration */
+    cocos2d::Vec3 arg2;       /** dstAngle3D */
+
+    olua_check_number(L, 1, &arg1);
+    auto_luacv_pack_cocos2d_Vec3(L, 2, &arg2);
+
+    // static RotateTo* create(float duration, @pack const Vec3& dstAngle3D)
+    cocos2d::RotateTo *ret = (cocos2d::RotateTo *)cocos2d::RotateTo::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::RotateTo>(L, ret, "cc.RotateTo");
+
+    return num_ret;
+}
+
 static int _cocos2d_RotateTo_create(lua_State *L)
 {
     int num_args = lua_gettop(L);
@@ -12992,6 +13009,12 @@ static int _cocos2d_RotateTo_create(lua_State *L)
     if (num_args == 3) {
         // if (olua_is_number(L, 1) && olua_is_number(L, 2) && olua_is_number(L, 3)) {
             return _cocos2d_RotateTo_create1(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if (olua_is_number(L, 1) && auto_luacv_ispack_cocos2d_Vec3(L, 2)) {
+            return _cocos2d_RotateTo_create4(L);
         // }
     }
 
@@ -13064,6 +13087,23 @@ static int _cocos2d_RotateBy_create3(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_RotateBy_create4(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    lua_Number arg1 = 0;   /** duration */
+    cocos2d::Vec3 arg2;       /** deltaAngle3D */
+
+    olua_check_number(L, 1, &arg1);
+    auto_luacv_pack_cocos2d_Vec3(L, 2, &arg2);
+
+    // static RotateBy* create(float duration, @pack const Vec3& deltaAngle3D)
+    cocos2d::RotateBy *ret = (cocos2d::RotateBy *)cocos2d::RotateBy::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::RotateBy>(L, ret, "cc.RotateBy");
+
+    return num_ret;
+}
+
 static int _cocos2d_RotateBy_create(lua_State *L)
 {
     int num_args = lua_gettop(L);
@@ -13081,6 +13121,12 @@ static int _cocos2d_RotateBy_create(lua_State *L)
     if (num_args == 3) {
         // if (olua_is_number(L, 1) && olua_is_number(L, 2) && olua_is_number(L, 3)) {
             return _cocos2d_RotateBy_create2(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if (olua_is_number(L, 1) && auto_luacv_ispack_cocos2d_Vec3(L, 2)) {
+            return _cocos2d_RotateBy_create4(L);
         // }
     }
 
@@ -13119,6 +13165,23 @@ static int _cocos2d_MoveBy_create1(lua_State *L)
 
 static int _cocos2d_MoveBy_create2(lua_State *L)
 {
+    lua_settop(L, 3);
+
+    lua_Number arg1 = 0;   /** duration */
+    cocos2d::Vec2 arg2;       /** deltaPosition */
+
+    olua_check_number(L, 1, &arg1);
+    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg2);
+
+    // static MoveBy* create(float duration, @pack Vec2& deltaPosition)
+    cocos2d::MoveBy *ret = (cocos2d::MoveBy *)cocos2d::MoveBy::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::MoveBy>(L, ret, "cc.MoveBy");
+
+    return num_ret;
+}
+
+static int _cocos2d_MoveBy_create3(lua_State *L)
+{
     lua_settop(L, 2);
 
     lua_Number arg1 = 0;   /** duration */
@@ -13128,6 +13191,23 @@ static int _cocos2d_MoveBy_create2(lua_State *L)
     auto_luacv_check_cocos2d_Vec3(L, 2, &arg2);
 
     // static MoveBy* create(float duration, Vec3& deltaPosition)
+    cocos2d::MoveBy *ret = (cocos2d::MoveBy *)cocos2d::MoveBy::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::MoveBy>(L, ret, "cc.MoveBy");
+
+    return num_ret;
+}
+
+static int _cocos2d_MoveBy_create4(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    lua_Number arg1 = 0;   /** duration */
+    cocos2d::Vec3 arg2;       /** deltaPosition */
+
+    olua_check_number(L, 1, &arg1);
+    auto_luacv_pack_cocos2d_Vec3(L, 2, &arg2);
+
+    // static MoveBy* create(float duration, @pack Vec3& deltaPosition)
     cocos2d::MoveBy *ret = (cocos2d::MoveBy *)cocos2d::MoveBy::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::MoveBy>(L, ret, "cc.MoveBy");
 
@@ -13144,7 +13224,19 @@ static int _cocos2d_MoveBy_create(lua_State *L)
         }
 
         // if (olua_is_number(L, 1) && auto_luacv_is_cocos2d_Vec3(L, 2)) {
+            return _cocos2d_MoveBy_create3(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if (olua_is_number(L, 1) && auto_luacv_ispack_cocos2d_Vec2(L, 2)) {
             return _cocos2d_MoveBy_create2(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if (olua_is_number(L, 1) && auto_luacv_ispack_cocos2d_Vec3(L, 2)) {
+            return _cocos2d_MoveBy_create4(L);
         // }
     }
 
@@ -13183,6 +13275,23 @@ static int _cocos2d_MoveTo_create1(lua_State *L)
 
 static int _cocos2d_MoveTo_create2(lua_State *L)
 {
+    lua_settop(L, 3);
+
+    lua_Number arg1 = 0;   /** duration */
+    cocos2d::Vec2 arg2;       /** position */
+
+    olua_check_number(L, 1, &arg1);
+    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg2);
+
+    // static MoveTo* create(float duration, @pack Vec2& position)
+    cocos2d::MoveTo *ret = (cocos2d::MoveTo *)cocos2d::MoveTo::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::MoveTo>(L, ret, "cc.MoveTo");
+
+    return num_ret;
+}
+
+static int _cocos2d_MoveTo_create3(lua_State *L)
+{
     lua_settop(L, 2);
 
     lua_Number arg1 = 0;   /** duration */
@@ -13192,6 +13301,23 @@ static int _cocos2d_MoveTo_create2(lua_State *L)
     auto_luacv_check_cocos2d_Vec3(L, 2, &arg2);
 
     // static MoveTo* create(float duration, Vec3& position)
+    cocos2d::MoveTo *ret = (cocos2d::MoveTo *)cocos2d::MoveTo::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::MoveTo>(L, ret, "cc.MoveTo");
+
+    return num_ret;
+}
+
+static int _cocos2d_MoveTo_create4(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    lua_Number arg1 = 0;   /** duration */
+    cocos2d::Vec3 arg2;       /** position */
+
+    olua_check_number(L, 1, &arg1);
+    auto_luacv_pack_cocos2d_Vec3(L, 2, &arg2);
+
+    // static MoveTo* create(float duration, @pack Vec3& position)
     cocos2d::MoveTo *ret = (cocos2d::MoveTo *)cocos2d::MoveTo::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::MoveTo>(L, ret, "cc.MoveTo");
 
@@ -13208,7 +13334,19 @@ static int _cocos2d_MoveTo_create(lua_State *L)
         }
 
         // if (olua_is_number(L, 1) && auto_luacv_is_cocos2d_Vec3(L, 2)) {
+            return _cocos2d_MoveTo_create3(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if (olua_is_number(L, 1) && auto_luacv_ispack_cocos2d_Vec2(L, 2)) {
             return _cocos2d_MoveTo_create2(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if (olua_is_number(L, 1) && auto_luacv_ispack_cocos2d_Vec3(L, 2)) {
+            return _cocos2d_MoveTo_create4(L);
         // }
     }
 
@@ -13344,7 +13482,7 @@ static int luaopen_cocos2d_ResizeBy(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_JumpBy_create(lua_State *L)
+static int _cocos2d_JumpBy_create1(lua_State *L)
 {
     lua_settop(L, 4);
 
@@ -13365,6 +13503,48 @@ static int _cocos2d_JumpBy_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_JumpBy_create2(lua_State *L)
+{
+    lua_settop(L, 5);
+
+    lua_Number arg1 = 0;   /** duration */
+    cocos2d::Vec2 arg2;       /** position */
+    lua_Number arg3 = 0;   /** height */
+    lua_Integer arg4 = 0;   /** jumps */
+
+    olua_check_number(L, 1, &arg1);
+    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg2);
+    olua_check_number(L, 4, &arg3);
+    olua_check_int(L, 5, &arg4);
+
+    // static JumpBy* create(float duration, @pack Vec2& position, float height, int jumps);
+    cocos2d::JumpBy *ret = (cocos2d::JumpBy *)cocos2d::JumpBy::create((float)arg1, arg2, (float)arg3, (int)arg4);
+    int num_ret = olua_push_cppobj<cocos2d::JumpBy>(L, ret, "cc.JumpBy");
+
+    return num_ret;
+}
+
+static int _cocos2d_JumpBy_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 4) {
+        // if (olua_is_number(L, 1) && auto_luacv_is_cocos2d_Vec2(L, 2) && olua_is_number(L, 3) && olua_is_int(L, 4)) {
+            return _cocos2d_JumpBy_create1(L);
+        // }
+    }
+
+    if (num_args == 5) {
+        // if (olua_is_number(L, 1) && auto_luacv_ispack_cocos2d_Vec2(L, 2) && olua_is_number(L, 3) && olua_is_int(L, 4)) {
+            return _cocos2d_JumpBy_create2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::JumpBy::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
 static int luaopen_cocos2d_JumpBy(lua_State *L)
 {
     oluacls_class(L, "cc.JumpBy", "cc.ActionInterval");
@@ -13376,7 +13556,7 @@ static int luaopen_cocos2d_JumpBy(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_JumpTo_create(lua_State *L)
+static int _cocos2d_JumpTo_create1(lua_State *L)
 {
     lua_settop(L, 4);
 
@@ -13395,6 +13575,48 @@ static int _cocos2d_JumpTo_create(lua_State *L)
     int num_ret = olua_push_cppobj<cocos2d::JumpTo>(L, ret, "cc.JumpTo");
 
     return num_ret;
+}
+
+static int _cocos2d_JumpTo_create2(lua_State *L)
+{
+    lua_settop(L, 5);
+
+    lua_Number arg1 = 0;   /** duration */
+    cocos2d::Vec2 arg2;       /** position */
+    lua_Number arg3 = 0;   /** height */
+    lua_Integer arg4 = 0;   /** jumps */
+
+    olua_check_number(L, 1, &arg1);
+    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg2);
+    olua_check_number(L, 4, &arg3);
+    olua_check_int(L, 5, &arg4);
+
+    // static JumpTo* create(float duration, @pack Vec2& position, float height, int jumps);
+    cocos2d::JumpTo *ret = (cocos2d::JumpTo *)cocos2d::JumpTo::create((float)arg1, arg2, (float)arg3, (int)arg4);
+    int num_ret = olua_push_cppobj<cocos2d::JumpTo>(L, ret, "cc.JumpTo");
+
+    return num_ret;
+}
+
+static int _cocos2d_JumpTo_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 4) {
+        // if (olua_is_number(L, 1) && auto_luacv_is_cocos2d_Vec2(L, 2) && olua_is_number(L, 3) && olua_is_int(L, 4)) {
+            return _cocos2d_JumpTo_create1(L);
+        // }
+    }
+
+    if (num_args == 5) {
+        // if (olua_is_number(L, 1) && auto_luacv_ispack_cocos2d_Vec2(L, 2) && olua_is_number(L, 3) && olua_is_int(L, 4)) {
+            return _cocos2d_JumpTo_create2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::JumpTo::create' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int luaopen_cocos2d_JumpTo(lua_State *L)
@@ -20504,7 +20726,7 @@ static int _cocos2d_ProtectedNode_removeProtectedChildByTag(lua_State *L)
 
     cocos2d::Node *child = self->getProtectedChildByTag((int)arg1);
     if (olua_getobj(L, child)) {
-        olua_mapunref(L, 1, "children", -1);
+        olua_mapunref(L, 1, "protectedChildren", -1);
         lua_pop(L, 1);
     }
 

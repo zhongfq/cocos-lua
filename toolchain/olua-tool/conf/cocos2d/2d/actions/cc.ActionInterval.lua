@@ -101,7 +101,7 @@ cls.SUPERCLS = "cc.ActionInterval"
 cls.funcs([[
     static RotateTo* create(float duration, float dstAngleX, float dstAngleY)
     static RotateTo* create(float duration, float dstAngle)
-    static RotateTo* create(float duration, const Vec3& dstAngle3D)
+    static RotateTo* create(float duration, @pack const Vec3& dstAngle3D)
 ]])
 
 local cls = class(M)
@@ -111,7 +111,7 @@ cls.SUPERCLS = "cc.ActionInterval"
 cls.funcs([[
     static RotateBy* create(float duration, float deltaAngle)
     static RotateBy* create(float duration, float deltaAngleZ_X, float deltaAngleZ_Y)
-    static RotateBy* create(float duration, const Vec3& deltaAngle3D)
+    static RotateBy* create(float duration, @pack const Vec3& deltaAngle3D)
 ]])
 
 local cls = class(M)
@@ -119,8 +119,8 @@ cls.CPPCLS = "cocos2d::MoveBy"
 cls.LUACLS = "cc.MoveBy"
 cls.SUPERCLS = "cc.ActionInterval"
 cls.funcs([[
-    static MoveBy* create(float duration, Vec2& deltaPosition)
-    static MoveBy* create(float duration, Vec3& deltaPosition)
+    static MoveBy* create(float duration, @pack Vec2& deltaPosition)
+    static MoveBy* create(float duration, @pack Vec3& deltaPosition)
 ]])
 
 local cls = class(M)
@@ -128,8 +128,8 @@ cls.CPPCLS = "cocos2d::MoveTo"
 cls.LUACLS = "cc.MoveTo"
 cls.SUPERCLS = "cc.MoveBy"
 cls.funcs([[
-    static MoveTo* create(float duration, Vec2& position)
-    static MoveTo* create(float duration, Vec3& position)
+    static MoveTo* create(float duration, @pack Vec2& position)
+    static MoveTo* create(float duration, @pack Vec3& position)
 ]])
 
 local cls = class(M)
@@ -169,7 +169,7 @@ cls.CPPCLS = "cocos2d::JumpBy"
 cls.LUACLS = "cc.JumpBy"
 cls.SUPERCLS = "cc.ActionInterval"
 cls.funcs([[
-    static JumpBy* create(float duration, Vec2& position, float height, int jumps);
+    static JumpBy* create(float duration, @pack Vec2& position, float height, int jumps);
 ]])
 
 local cls = class(M)
@@ -177,7 +177,7 @@ cls.CPPCLS = "cocos2d::JumpTo"
 cls.LUACLS = "cc.JumpTo"
 cls.SUPERCLS = "cc.JumpBy"
 cls.funcs([[
-    static JumpTo* create(float duration, Vec2& position, float height, int jumps);
+    static JumpTo* create(float duration, @pack Vec2& position, float height, int jumps);
 ]])
 
 local cls = class(M)

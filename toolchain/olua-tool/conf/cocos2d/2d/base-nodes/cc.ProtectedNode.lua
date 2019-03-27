@@ -23,7 +23,7 @@ local REMOVE_BY_TAG = {
     BEFORE = [[
         cocos2d::Node *child = self->getProtectedChildByTag((int)arg1);
         if (olua_getobj(L, child)) {
-            olua_mapunref(L, 1, "children", -1);
+            olua_mapunref(L, 1, "protectedChildren", -1);
             lua_pop(L, 1);
         }
     ]]

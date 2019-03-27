@@ -14965,67 +14965,6 @@ static int _cocos2d_ui_RadioButton_create(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_ui_RadioButton_releaseUpEvent(lua_State *L)
-{
-    lua_settop(L, 1);
-
-    cocos2d::ui::RadioButton *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "ccui.RadioButton");
-
-    // void releaseUpEvent()
-    self->releaseUpEvent();
-
-    return 0;
-}
-
-static int _cocos2d_ui_RadioButton_dispatchSelectChangedEvent(lua_State *L)
-{
-    lua_settop(L, 2);
-
-    cocos2d::ui::RadioButton *self = nullptr;
-    bool arg1 = false;   /** selected */
-
-    olua_to_cppobj(L, 1, (void **)&self, "ccui.RadioButton");
-    olua_check_bool(L, 2, &arg1);
-
-    // void dispatchSelectChangedEvent(bool selected)
-    self->dispatchSelectChangedEvent(arg1);
-
-    return 0;
-}
-
-static int _cocos2d_ui_RadioButton_createCloneInstance(lua_State *L)
-{
-    lua_settop(L, 1);
-
-    cocos2d::ui::RadioButton *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "ccui.RadioButton");
-
-    // Widget* createCloneInstance()
-    cocos2d::ui::Widget *ret = (cocos2d::ui::Widget *)self->createCloneInstance();
-    int num_ret = olua_push_cppobj<cocos2d::ui::Widget>(L, ret, "ccui.Widget");
-
-    return num_ret;
-}
-
-static int _cocos2d_ui_RadioButton_copySpecialProperties(lua_State *L)
-{
-    lua_settop(L, 2);
-
-    cocos2d::ui::RadioButton *self = nullptr;
-    cocos2d::ui::Widget *arg1 = nullptr;   /** model */
-
-    olua_to_cppobj(L, 1, (void **)&self, "ccui.RadioButton");
-    olua_check_cppobj(L, 2, (void **)&arg1, "ccui.Widget");
-
-    // void copySpecialProperties(Widget* model)
-    self->copySpecialProperties(arg1);
-
-    return 0;
-}
-
 static int _cocos2d_ui_RadioButton_addEventListener(lua_State *L)
 {
     lua_settop(L, 2);
@@ -15066,10 +15005,6 @@ static int luaopen_cocos2d_ui_RadioButton(lua_State *L)
 {
     oluacls_class(L, "ccui.RadioButton", "ccui.AbstractCheckButton");
     oluacls_setfunc(L, "create", _cocos2d_ui_RadioButton_create);
-    oluacls_setfunc(L, "releaseUpEvent", _cocos2d_ui_RadioButton_releaseUpEvent);
-    oluacls_setfunc(L, "dispatchSelectChangedEvent", _cocos2d_ui_RadioButton_dispatchSelectChangedEvent);
-    oluacls_setfunc(L, "createCloneInstance", _cocos2d_ui_RadioButton_createCloneInstance);
-    oluacls_setfunc(L, "copySpecialProperties", _cocos2d_ui_RadioButton_copySpecialProperties);
     oluacls_setfunc(L, "addEventListener", _cocos2d_ui_RadioButton_addEventListener);
 
     olua_registerluatype<cocos2d::ui::RadioButton>(L, "ccui.RadioButton");

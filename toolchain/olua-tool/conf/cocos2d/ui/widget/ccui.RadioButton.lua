@@ -16,10 +16,6 @@ cls.funcs [[
     static RadioButton* create()
     static RadioButton* create(const std::string& backGround, const std::string& backGroundSelected, const std::string& cross, const std::string& backGroundDisabled, const std::string& frontCrossDisabled, Widget::TextureResType texType = Widget::TextureResType::LOCAL)
     static RadioButton* create(const std::string& backGround, const std::string& cross, Widget::TextureResType texType = Widget::TextureResType::LOCAL)
-    void releaseUpEvent()
-    void dispatchSelectChangedEvent(bool selected)
-    Widget* createCloneInstance()
-    void copySpecialProperties(Widget* model)
 ]]
 
 cls.callbacks [[

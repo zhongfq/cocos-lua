@@ -2,7 +2,7 @@
 #include "GComponent.h"
 #include "GRoot.h"
 #include "tween/GTween.h"
-#include "utils/Bytebuffer.h"
+#include "utils/ByteBuffer.h"
 
 NS_FGUI_BEGIN
 USING_NS_CC;

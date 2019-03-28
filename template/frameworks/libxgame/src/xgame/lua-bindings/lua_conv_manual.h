@@ -26,6 +26,12 @@ void manual_luacv_check_cocos2d_Color4B(lua_State *L, int idx, cocos2d::Color4B 
 void manual_luacv_opt_cocos2d_Color4B(lua_State *L, int idx, cocos2d::Color4B *value, const cocos2d::Color4B &def);
 bool manual_luacv_is_cocos2d_Color4B(lua_State *L, int idx);
 
+// cocos2d::Color4F
+int manual_luacv_push_cocos2d_Color4F(lua_State *L, const cocos2d::Color4F *value);
+void manual_luacv_check_cocos2d_Color4F(lua_State *L, int idx, cocos2d::Color4F *value);
+void manual_luacv_opt_cocos2d_Color4F(lua_State *L, int idx, cocos2d::Color4F *value, const cocos2d::Color4F &def);
+bool manual_luacv_is_cocos2d_Color4F(lua_State *L, int idx);
+
 // Vector
 template <typename T> int manual_luacv_push_cocos2d_Vector(lua_State *L, const cocos2d::Vector<T*> &v, const char *cls)
 {

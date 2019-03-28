@@ -279,56 +279,6 @@ bool auto_luacv_ispack_cocos2d_Size(lua_State *L, int idx)
     return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1);
 }
 
-int auto_luacv_push_cocos2d_Color4F(lua_State *L, const cocos2d::Color4F *value)
-{
-    if (value) {
-        lua_createtable(L, 0, 4);
-        olua_rawsetfieldnumber(L, -1, "r", value->r);
-        olua_rawsetfieldnumber(L, -1, "g", value->g);
-        olua_rawsetfieldnumber(L, -1, "b", value->b);
-        olua_rawsetfieldnumber(L, -1, "a", value->a);
-    } else {
-        lua_pushnil(L);
-    }
-
-    return 1;
-}
-
-void auto_luacv_check_cocos2d_Color4F(lua_State *L, int idx, cocos2d::Color4F *value)
-{
-    if (!value) {
-        luaL_error(L, "value is NULL");
-    }
-    idx = lua_absindex(L, idx);
-    luaL_checktype(L, idx, LUA_TTABLE);
-    value->r = (GLfloat)olua_checkfieldnumber(L, idx, "r");
-    value->g = (GLfloat)olua_checkfieldnumber(L, idx, "g");
-    value->b = (GLfloat)olua_checkfieldnumber(L, idx, "b");
-    value->a = (GLfloat)olua_checkfieldnumber(L, idx, "a");
-}
-
-void auto_luacv_opt_cocos2d_Color4F(lua_State *L, int idx, cocos2d::Color4F *value, const cocos2d::Color4F &def)
-{
-    if (!value) {
-        luaL_error(L, "value is NULL");
-    }
-    if (olua_isnil(L, idx)) {
-        *value = def;
-    } else {
-        idx = lua_absindex(L, idx);
-        luaL_checktype(L, idx, LUA_TTABLE);
-        value->r = (GLfloat)olua_checkfieldnumber(L, idx, "r");
-        value->g = (GLfloat)olua_checkfieldnumber(L, idx, "g");
-        value->b = (GLfloat)olua_checkfieldnumber(L, idx, "b");
-        value->a = (GLfloat)olua_checkfieldnumber(L, idx, "a");
-    }
-}
-
-bool auto_luacv_is_cocos2d_Color4F(lua_State *L, int idx)
-{
-    return lua_istable(L, idx);
-}
-
 int auto_luacv_push_cocos2d_Texture2D_TexParams(lua_State *L, const cocos2d::Texture2D::TexParams *value)
 {
     if (value) {

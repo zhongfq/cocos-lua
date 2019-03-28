@@ -34,6 +34,8 @@ M.CLASSES = {
     include('conf/fairygui/fgui/fgui.ScrollPane.lua'),
     include('conf/fairygui/fgui/fgui.GScrollBar.lua'),
     include('conf/fairygui/fgui/fgui.Transition.lua'),
+    include('conf/fairygui/fgui/fgui.Window.lua'),
+    include('conf/fairygui/fgui/fgui.GGraph.lua'),
     include('conf/fairygui/fgui/gears/fgui.GearBase.lua'),
 }
 

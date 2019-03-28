@@ -67,13 +67,17 @@ REG_TYPE {
         fairygui::GRoot *
         fairygui::GScrollBar *
         fairygui::IHitTest *
+        fairygui::IUISource *
         fairygui::PackageItem *
         fairygui::RelationItem *
         fairygui::Relations *
         fairygui::ScrollPane *
         fairygui::ScrollPane *
         fairygui::Transition *
+        fairygui::GGraph *
         fairygui::UIEventDispatcher *
+        fairygui::UISource *
+        fairygui::Window *
     ]],
     CONV_FUNC = "olua_$$_cppobj",
     LUACLS = make_luacls,

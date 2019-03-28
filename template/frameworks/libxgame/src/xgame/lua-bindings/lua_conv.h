@@ -44,12 +44,6 @@ int auto_luacv_unpack_cocos2d_Size(lua_State *L, const cocos2d::Size *value);
 bool auto_luacv_is_cocos2d_Size(lua_State *L, int idx);
 bool auto_luacv_ispack_cocos2d_Size(lua_State *L, int idx);
 
-// cocos2d::Color4F
-int auto_luacv_push_cocos2d_Color4F(lua_State *L, const cocos2d::Color4F *value);
-void auto_luacv_check_cocos2d_Color4F(lua_State *L, int idx, cocos2d::Color4F *value);
-void auto_luacv_opt_cocos2d_Color4F(lua_State *L, int idx, cocos2d::Color4F *value, const cocos2d::Color4F &def);
-bool auto_luacv_is_cocos2d_Color4F(lua_State *L, int idx);
-
 // cocos2d::Texture2D::TexParams
 int auto_luacv_push_cocos2d_Texture2D_TexParams(lua_State *L, const cocos2d::Texture2D::TexParams *value);
 void auto_luacv_check_cocos2d_Texture2D_TexParams(lua_State *L, int idx, cocos2d::Texture2D::TexParams *value);

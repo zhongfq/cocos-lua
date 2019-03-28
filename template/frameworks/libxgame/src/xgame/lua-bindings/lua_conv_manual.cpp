@@ -117,6 +117,48 @@ bool manual_luacv_is_cocos2d_Color4B(lua_State *L, int idx)
     return olua_isinteger(L, idx);
 }
 
+int manual_luacv_push_cocos2d_Color4F(lua_State *L, const cocos2d::Color4F *value)
+{
+    uint32_t color = 0;
+    if (value) {
+        color |= (uint32_t)((uint8_t)(value->r * 255)) << 24;
+        color |= (uint32_t)((uint8_t)(value->g * 255)) << 16;
+        color |= (uint32_t)((uint8_t)(value->b * 255)) << 8;
+        color |= (uint32_t)((uint8_t)(value->a * 255));
+    }
+    lua_pushinteger(L, color);
+    return 1;
+}
+
+void manual_luacv_check_cocos2d_Color4F(lua_State *L, int idx, cocos2d::Color4F *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    uint32_t color = (uint32_t)olua_checkinteger(L, idx);
+    value->r = ((uint8_t)(color >> 24 & 0xFF)) / 255.0f;
+    value->g = ((uint8_t)(color >> 16 & 0xFF)) / 255.0f;
+    value->b = ((uint8_t)(color >> 8 & 0xFF)) / 255.0f;
+    value->a = ((uint8_t)(color & 0xFF)) / 255.0f;
+}
+
+void manual_luacv_opt_cocos2d_Color4F(lua_State *L, int idx, cocos2d::Color4F *value, const cocos2d::Color4F &def)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    if (olua_isnil(L, idx)) {
+        *value = def;
+    } else {
+        manual_luacv_check_cocos2d_Color4F(L, idx, value);
+    }
+}
+
+bool manual_luacv_is_cocos2d_Color4F(lua_State *L, int idx)
+{
+    return olua_isinteger(L, idx);
+}
+
 bool manual_luacv_is_cocos2d_Mat4(lua_State *L, int idx)
 {
     if (lua_istable(L, idx) && lua_rawlen(L, idx) == 16) {

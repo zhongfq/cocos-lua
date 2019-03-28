@@ -17,6 +17,14 @@ local function make_manual_conv_func(cppname)
 end
 
 REG_TYPE {
+    TYPENAME = [[
+        fairygui::Margin
+    ]],
+    CONV_FUNC = make_auto_conv_func,
+    INIT_VALUE = false,
+}
+
+REG_TYPE {
     TYPENAME = 'fairygui::EventTag',
     CONV_FUNC = 'manual_luacv_$$_fairygui_EventTag',
     INIT_VALUE = false,
@@ -52,14 +60,19 @@ REG_TYPE {
     TYPENAME = [[
         fairygui::EventContext *
         fairygui::GComponent *
+        fairygui::GController *
+        fairygui::GearBase *
         fairygui::GGroup *
         fairygui::GObject *
         fairygui::GRoot *
+        fairygui::GScrollBar *
+        fairygui::IHitTest *
         fairygui::PackageItem *
         fairygui::RelationItem *
         fairygui::Relations *
-        fairygui::GearBase *
-        fairygui::GController *
+        fairygui::ScrollPane *
+        fairygui::ScrollPane *
+        fairygui::Transition *
         fairygui::UIEventDispatcher *
     ]],
     CONV_FUNC = "olua_$$_cppobj",

@@ -21,6 +21,7 @@ M.CLASSES = {
     include('conf/fairygui/fgui/event/fgui.UIEventType.lua'),
     include('conf/fairygui/fgui/event/fgui.UIEventDispatcher.lua'),
     include('conf/fairygui/fgui/event/fgui.EventContext.lua'),
+    include('conf/fairygui/fgui/event/fgui.HitTest.lua'),
     include('conf/fairygui/fgui/fgui.PackageItem.lua'),
     include('conf/fairygui/fgui/fgui.FieldTypes.lua'),
     include('conf/fairygui/fgui/fgui.GController.lua'),
@@ -30,6 +31,9 @@ M.CLASSES = {
     include('conf/fairygui/fgui/fgui.GGroup.lua'),
     include('conf/fairygui/fgui/fgui.Relations.lua'),
     include('conf/fairygui/fgui/fgui.RelationItem.lua'),
+    include('conf/fairygui/fgui/fgui.ScrollPane.lua'),
+    include('conf/fairygui/fgui/fgui.GScrollBar.lua'),
+    include('conf/fairygui/fgui/fgui.Transition.lua'),
     include('conf/fairygui/fgui/gears/fgui.GearBase.lua'),
 }
 

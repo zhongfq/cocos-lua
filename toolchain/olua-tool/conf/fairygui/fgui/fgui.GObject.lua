@@ -69,10 +69,10 @@ cls.funcs [[
     void stopDrag()
     std::string getResourceURL()
     PackageItem* getPackageItem()
-    cocos2d::Vec2 globalToLocal(const cocos2d::Vec2& pt)
-    cocos2d::Rect globalToLocal(const cocos2d::Rect& rect)
-    cocos2d::Vec2 localToGlobal(const cocos2d::Vec2& pt)
-    cocos2d::Rect localToGlobal(const cocos2d::Rect& rect)
+    cocos2d::Vec2 globalToLocal(@pack const cocos2d::Vec2& pt)
+    cocos2d::Rect globalToLocal(@pack const cocos2d::Rect& rect)
+    cocos2d::Vec2 localToGlobal(@pack const cocos2d::Vec2& pt)
+    cocos2d::Rect localToGlobal(@pack const cocos2d::Rect& rect)
     cocos2d::Rect transformRect(const cocos2d::Rect& rect, GObject* targetSpace)
     Relations* relations()
     void addRelation(GObject* target, RelationType relationType, bool usePercent = false)
@@ -117,6 +117,15 @@ cls.callback(
         CALLBACK_REMOVE = true,
     }
 )
+
+cls.vars [[
+    std::string id;
+    std::string name;
+    cocos2d::Size sourceSize;
+    cocos2d::Size initSize;
+    cocos2d::Size minSize;
+    cocos2d::Size maxSize;
+]]
 
 cls.props [[
     x

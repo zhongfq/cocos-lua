@@ -60,6 +60,7 @@ REG_TYPE {
 REG_TYPE {
     TYPENAME = 'cocos2d::Rect',
     CONV_FUNC = make_manual_conv_func,
+    VARS = 4,
     INIT_VALUE = false,
 }
 

@@ -529,6 +529,36 @@ static int luaopen_fairygui_EventContext(lua_State *L)
     return 1;
 }
 
+static int _fairygui_IHitTest_hitTest(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    fairygui::IHitTest *self = nullptr;
+    fairygui::GComponent *arg1 = nullptr;   /** obj */
+    cocos2d::Vec2 arg2;       /** localPoint */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.IHitTest");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GComponent");
+    auto_luacv_check_cocos2d_Vec2(L, 3, &arg2);
+
+    // bool hitTest(GComponent* obj, const cocos2d::Vec2& localPoint)
+    bool ret = (bool)self->hitTest(arg1, arg2);
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int luaopen_fairygui_IHitTest(lua_State *L)
+{
+    oluacls_class(L, "fgui.IHitTest", nullptr);
+    oluacls_setfunc(L, "hitTest", _fairygui_IHitTest_hitTest);
+
+    olua_registerluatype<fairygui::IHitTest>(L, "fgui.IHitTest");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
 static int luaopen_fairygui_PackageItem(lua_State *L)
 {
     oluacls_class(L, "fgui.PackageItem", nullptr);
@@ -2167,6 +2197,23 @@ static int _fairygui_GObject_globalToLocal1(lua_State *L)
 
 static int _fairygui_GObject_globalToLocal2(lua_State *L)
 {
+    lua_settop(L, 3);
+
+    fairygui::GObject *self = nullptr;
+    cocos2d::Vec2 arg1;       /** pt */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
+    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+
+    // cocos2d::Vec2 globalToLocal(@pack const cocos2d::Vec2& pt)
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->globalToLocal(arg1);
+    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+
+    return num_ret;
+}
+
+static int _fairygui_GObject_globalToLocal3(lua_State *L)
+{
     lua_settop(L, 2);
 
     fairygui::GObject *self = nullptr;
@@ -2182,6 +2229,23 @@ static int _fairygui_GObject_globalToLocal2(lua_State *L)
     return num_ret;
 }
 
+static int _fairygui_GObject_globalToLocal4(lua_State *L)
+{
+    lua_settop(L, 5);
+
+    fairygui::GObject *self = nullptr;
+    cocos2d::Rect arg1;       /** rect */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
+    manual_luacv_pack_cocos2d_Rect(L, 2, &arg1);
+
+    // cocos2d::Rect globalToLocal(@pack const cocos2d::Rect& rect)
+    cocos2d::Rect ret = (cocos2d::Rect)self->globalToLocal(arg1);
+    int num_ret = manual_luacv_unpack_cocos2d_Rect(L, &ret);
+
+    return num_ret;
+}
+
 static int _fairygui_GObject_globalToLocal(lua_State *L)
 {
     int num_args = lua_gettop(L) - 1;
@@ -2192,7 +2256,19 @@ static int _fairygui_GObject_globalToLocal(lua_State *L)
         }
 
         // if (manual_luacv_is_cocos2d_Rect(L, 2)) {
+            return _fairygui_GObject_globalToLocal3(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if (auto_luacv_ispack_cocos2d_Vec2(L, 2)) {
             return _fairygui_GObject_globalToLocal2(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if (manual_luacv_ispack_cocos2d_Rect(L, 2)) {
+            return _fairygui_GObject_globalToLocal4(L);
         // }
     }
 
@@ -2220,6 +2296,23 @@ static int _fairygui_GObject_localToGlobal1(lua_State *L)
 
 static int _fairygui_GObject_localToGlobal2(lua_State *L)
 {
+    lua_settop(L, 3);
+
+    fairygui::GObject *self = nullptr;
+    cocos2d::Vec2 arg1;       /** pt */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
+    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+
+    // cocos2d::Vec2 localToGlobal(@pack const cocos2d::Vec2& pt)
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->localToGlobal(arg1);
+    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+
+    return num_ret;
+}
+
+static int _fairygui_GObject_localToGlobal3(lua_State *L)
+{
     lua_settop(L, 2);
 
     fairygui::GObject *self = nullptr;
@@ -2235,6 +2328,23 @@ static int _fairygui_GObject_localToGlobal2(lua_State *L)
     return num_ret;
 }
 
+static int _fairygui_GObject_localToGlobal4(lua_State *L)
+{
+    lua_settop(L, 5);
+
+    fairygui::GObject *self = nullptr;
+    cocos2d::Rect arg1;       /** rect */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
+    manual_luacv_pack_cocos2d_Rect(L, 2, &arg1);
+
+    // cocos2d::Rect localToGlobal(@pack const cocos2d::Rect& rect)
+    cocos2d::Rect ret = (cocos2d::Rect)self->localToGlobal(arg1);
+    int num_ret = manual_luacv_unpack_cocos2d_Rect(L, &ret);
+
+    return num_ret;
+}
+
 static int _fairygui_GObject_localToGlobal(lua_State *L)
 {
     int num_args = lua_gettop(L) - 1;
@@ -2245,7 +2355,19 @@ static int _fairygui_GObject_localToGlobal(lua_State *L)
         }
 
         // if (manual_luacv_is_cocos2d_Rect(L, 2)) {
+            return _fairygui_GObject_localToGlobal3(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if (auto_luacv_ispack_cocos2d_Vec2(L, 2)) {
             return _fairygui_GObject_localToGlobal2(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if (manual_luacv_ispack_cocos2d_Rect(L, 2)) {
+            return _fairygui_GObject_localToGlobal4(L);
         // }
     }
 
@@ -2631,6 +2753,192 @@ static int _fairygui_GObject_removeClickListener(lua_State *L)
     return 0;
 }
 
+static int _fairygui_GObject_get_id(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::GObject *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
+
+    // <function var>
+    std::string ret = (std::string)self->id;
+    int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
+static int _fairygui_GObject_set_id(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GObject *self = nullptr;
+    std::string arg1;       /** id */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
+    olua_check_std_string(L, 2, &arg1);
+
+    // <function var>
+    self->id = arg1;
+
+    return 0;
+}
+
+static int _fairygui_GObject_get_name(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::GObject *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
+
+    // <function var>
+    std::string ret = (std::string)self->name;
+    int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
+static int _fairygui_GObject_set_name(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GObject *self = nullptr;
+    std::string arg1;       /** name */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
+    olua_check_std_string(L, 2, &arg1);
+
+    // <function var>
+    self->name = arg1;
+
+    return 0;
+}
+
+static int _fairygui_GObject_get_sourceSize(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::GObject *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
+
+    // <function var>
+    cocos2d::Size ret = (cocos2d::Size)self->sourceSize;
+    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
+
+    return num_ret;
+}
+
+static int _fairygui_GObject_set_sourceSize(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GObject *self = nullptr;
+    cocos2d::Size arg1;       /** sourceSize */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
+    auto_luacv_check_cocos2d_Size(L, 2, &arg1);
+
+    // <function var>
+    self->sourceSize = arg1;
+
+    return 0;
+}
+
+static int _fairygui_GObject_get_initSize(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::GObject *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
+
+    // <function var>
+    cocos2d::Size ret = (cocos2d::Size)self->initSize;
+    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
+
+    return num_ret;
+}
+
+static int _fairygui_GObject_set_initSize(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GObject *self = nullptr;
+    cocos2d::Size arg1;       /** initSize */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
+    auto_luacv_check_cocos2d_Size(L, 2, &arg1);
+
+    // <function var>
+    self->initSize = arg1;
+
+    return 0;
+}
+
+static int _fairygui_GObject_get_minSize(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::GObject *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
+
+    // <function var>
+    cocos2d::Size ret = (cocos2d::Size)self->minSize;
+    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
+
+    return num_ret;
+}
+
+static int _fairygui_GObject_set_minSize(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GObject *self = nullptr;
+    cocos2d::Size arg1;       /** minSize */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
+    auto_luacv_check_cocos2d_Size(L, 2, &arg1);
+
+    // <function var>
+    self->minSize = arg1;
+
+    return 0;
+}
+
+static int _fairygui_GObject_get_maxSize(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::GObject *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
+
+    // <function var>
+    cocos2d::Size ret = (cocos2d::Size)self->maxSize;
+    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
+
+    return num_ret;
+}
+
+static int _fairygui_GObject_set_maxSize(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GObject *self = nullptr;
+    cocos2d::Size arg1;       /** maxSize */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
+    auto_luacv_check_cocos2d_Size(L, 2, &arg1);
+
+    // <function var>
+    self->maxSize = arg1;
+
+    return 0;
+}
+
 static int luaopen_fairygui_GObject(lua_State *L)
 {
     oluacls_class(L, "fgui.GObject", "fgui.UIEventDispatcher");
@@ -2752,6 +3060,12 @@ static int luaopen_fairygui_GObject(lua_State *L)
     oluacls_property(L, "root", _fairygui_GObject_getRoot, nullptr);
     oluacls_property(L, "relations", _fairygui_GObject_relations, nullptr);
     oluacls_property(L, "displayObject", _fairygui_GObject_displayObject, nullptr);
+    oluacls_property(L, "id", _fairygui_GObject_get_id, _fairygui_GObject_set_id);
+    oluacls_property(L, "name", _fairygui_GObject_get_name, _fairygui_GObject_set_name);
+    oluacls_property(L, "sourceSize", _fairygui_GObject_get_sourceSize, _fairygui_GObject_set_sourceSize);
+    oluacls_property(L, "initSize", _fairygui_GObject_get_initSize, _fairygui_GObject_set_initSize);
+    oluacls_property(L, "minSize", _fairygui_GObject_get_minSize, _fairygui_GObject_set_minSize);
+    oluacls_property(L, "maxSize", _fairygui_GObject_get_maxSize, _fairygui_GObject_set_maxSize);
 
     olua_registerluatype<fairygui::GObject>(L, "fgui.GObject");
     oluacls_createclassproxy(L);
@@ -2759,9 +3073,912 @@ static int luaopen_fairygui_GObject(lua_State *L)
     return 1;
 }
 
+static int _fairygui_GComponent_create(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static GComponent* create()
+    fairygui::GComponent *ret = (fairygui::GComponent *)fairygui::GComponent::create();
+    int num_ret = olua_push_cppobj<fairygui::GComponent>(L, ret, "fgui.GComponent");
+
+    return num_ret;
+}
+
+static int _fairygui_GComponent_addChild(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GComponent *self = nullptr;
+    fairygui::GObject *arg1 = nullptr;   /** child */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GObject");
+
+    // GObject* addChild(GObject* child)
+    fairygui::GObject *ret = (fairygui::GObject *)self->addChild(arg1);
+    int num_ret = olua_push_cppobj<fairygui::GObject>(L, ret, "fgui.GObject");
+
+    return num_ret;
+}
+
+static int _fairygui_GComponent_addChildAt(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    fairygui::GComponent *self = nullptr;
+    fairygui::GObject *arg1 = nullptr;   /** child */
+    lua_Integer arg2 = 0;   /** index */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GObject");
+    olua_check_int(L, 3, &arg2);
+
+    // GObject* addChildAt(GObject* child, int index)
+    fairygui::GObject *ret = (fairygui::GObject *)self->addChildAt(arg1, (int)arg2);
+    int num_ret = olua_push_cppobj<fairygui::GObject>(L, ret, "fgui.GObject");
+
+    return num_ret;
+}
+
+static int _fairygui_GComponent_removeChild(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GComponent *self = nullptr;
+    fairygui::GObject *arg1 = nullptr;   /** child */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GObject");
+
+    // void removeChild(GObject * child)
+    self->removeChild(arg1);
+
+    return 0;
+}
+
+static int _fairygui_GComponent_removeChildAt(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GComponent *self = nullptr;
+    lua_Integer arg1 = 0;   /** index */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+    olua_check_int(L, 2, &arg1);
+
+    // void removeChildAt(int index)
+    self->removeChildAt((int)arg1);
+
+    return 0;
+}
+
+static int _fairygui_GComponent_removeChildren1(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::GComponent *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+
+    // void removeChildren()
+    self->removeChildren();
+
+    return 0;
+}
+
+static int _fairygui_GComponent_removeChildren2(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    fairygui::GComponent *self = nullptr;
+    lua_Integer arg1 = 0;   /** beginIndex */
+    lua_Integer arg2 = 0;   /** endIndex */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+    olua_check_int(L, 2, &arg1);
+    olua_check_int(L, 3, &arg2);
+
+    // void removeChildren(int beginIndex, int endIndex)
+    self->removeChildren((int)arg1, (int)arg2);
+
+    return 0;
+}
+
+static int _fairygui_GComponent_removeChildren(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 0) {
+        return _fairygui_GComponent_removeChildren1(L);
+    }
+
+    if (num_args == 2) {
+        // if (olua_is_int(L, 2) && olua_is_int(L, 3)) {
+            return _fairygui_GComponent_removeChildren2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::GComponent::removeChildren' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _fairygui_GComponent_getChildAt(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GComponent *self = nullptr;
+    lua_Integer arg1 = 0;   /** index */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+    olua_check_int(L, 2, &arg1);
+
+    // GObject * getChildAt(int index)
+    fairygui::GObject *ret = (fairygui::GObject *)self->getChildAt((int)arg1);
+    int num_ret = olua_push_cppobj<fairygui::GObject>(L, ret, "fgui.GObject");
+
+    return num_ret;
+}
+
+static int _fairygui_GComponent_getChild(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GComponent *self = nullptr;
+    std::string arg1;       /** name */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+    olua_check_std_string(L, 2, &arg1);
+
+    // GObject * getChild(const std::string& name)
+    fairygui::GObject *ret = (fairygui::GObject *)self->getChild(arg1);
+    int num_ret = olua_push_cppobj<fairygui::GObject>(L, ret, "fgui.GObject");
+
+    return num_ret;
+}
+
+static int _fairygui_GComponent_getChildInGroup(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    fairygui::GComponent *self = nullptr;
+    fairygui::GGroup *arg1 = nullptr;   /** group */
+    std::string arg2;       /** name */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GGroup");
+    olua_check_std_string(L, 3, &arg2);
+
+    // GObject * getChildInGroup(const GGroup * group, const std::string& name)
+    fairygui::GObject *ret = (fairygui::GObject *)self->getChildInGroup(arg1, arg2);
+    int num_ret = olua_push_cppobj<fairygui::GObject>(L, ret, "fgui.GObject");
+
+    return num_ret;
+}
+
+static int _fairygui_GComponent_getChildById(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GComponent *self = nullptr;
+    std::string arg1;       /** id */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+    olua_check_std_string(L, 2, &arg1);
+
+    // GObject * getChildById(const std::string& id)
+    fairygui::GObject *ret = (fairygui::GObject *)self->getChildById(arg1);
+    int num_ret = olua_push_cppobj<fairygui::GObject>(L, ret, "fgui.GObject");
+
+    return num_ret;
+}
+
+static int _fairygui_GComponent_getChildren(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::GComponent *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+
+    // const cocos2d::Vector<GObject*>& getChildren()
+    const cocos2d::Vector<fairygui::GObject *> &ret = (const cocos2d::Vector<fairygui::GObject *> &)self->getChildren();
+    int num_ret = manual_luacv_push_cocos2d_Vector(L, ret, "fgui.GObject");
+
+    return num_ret;
+}
+
+static int _fairygui_GComponent_getChildIndex(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GComponent *self = nullptr;
+    fairygui::GObject *arg1 = nullptr;   /** child */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GObject");
+
+    // int getChildIndex(const GObject* child)
+    int ret = (int)self->getChildIndex(arg1);
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _fairygui_GComponent_setChildIndex(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    fairygui::GComponent *self = nullptr;
+    fairygui::GObject *arg1 = nullptr;   /** child */
+    lua_Integer arg2 = 0;   /** index */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GObject");
+    olua_check_int(L, 3, &arg2);
+
+    // void setChildIndex(GObject* child, int index)
+    self->setChildIndex(arg1, (int)arg2);
+
+    return 0;
+}
+
+static int _fairygui_GComponent_setChildIndexBefore(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    fairygui::GComponent *self = nullptr;
+    fairygui::GObject *arg1 = nullptr;   /** child */
+    lua_Integer arg2 = 0;   /** index */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GObject");
+    olua_check_int(L, 3, &arg2);
+
+    // int setChildIndexBefore(GObject* child, int index)
+    int ret = (int)self->setChildIndexBefore(arg1, (int)arg2);
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _fairygui_GComponent_swapChildren(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    fairygui::GComponent *self = nullptr;
+    fairygui::GObject *arg1 = nullptr;   /** child1 */
+    fairygui::GObject *arg2 = nullptr;   /** child2 */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GObject");
+    olua_check_cppobj(L, 3, (void **)&arg2, "fgui.GObject");
+
+    // void swapChildren(GObject* child1, GObject* child2)
+    self->swapChildren(arg1, arg2);
+
+    return 0;
+}
+
+static int _fairygui_GComponent_swapChildrenAt(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    fairygui::GComponent *self = nullptr;
+    lua_Integer arg1 = 0;   /** index1 */
+    lua_Integer arg2 = 0;   /** index2 */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+    olua_check_int(L, 2, &arg1);
+    olua_check_int(L, 3, &arg2);
+
+    // void swapChildrenAt(int index1, int index2)
+    self->swapChildrenAt((int)arg1, (int)arg2);
+
+    return 0;
+}
+
+static int _fairygui_GComponent_numChildren(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::GComponent *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+
+    // int numChildren()
+    int ret = (int)self->numChildren();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _fairygui_GComponent_isAncestorOf(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GComponent *self = nullptr;
+    fairygui::GObject *arg1 = nullptr;   /** obj */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GObject");
+
+    // bool isAncestorOf(const GObject* obj)
+    bool ret = (bool)self->isAncestorOf(arg1);
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _fairygui_GComponent_isChildInView(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GComponent *self = nullptr;
+    fairygui::GObject *arg1 = nullptr;   /** child */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GObject");
+
+    // bool isChildInView(GObject* child)
+    bool ret = (bool)self->isChildInView(arg1);
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _fairygui_GComponent_getFirstChildInView(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::GComponent *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+
+    // int getFirstChildInView()
+    int ret = (int)self->getFirstChildInView();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _fairygui_GComponent_addController(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GComponent *self = nullptr;
+    fairygui::GController *arg1 = nullptr;   /** c */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GController");
+
+    // void addController(GController* c)
+    self->addController(arg1);
+
+    return 0;
+}
+
+static int _fairygui_GComponent_getControllerAt(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GComponent *self = nullptr;
+    lua_Integer arg1 = 0;   /** index */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+    olua_check_int(L, 2, &arg1);
+
+    // GController* getControllerAt(int index)
+    fairygui::GController *ret = (fairygui::GController *)self->getControllerAt((int)arg1);
+    int num_ret = olua_push_cppobj<fairygui::GController>(L, ret, "fgui.GController");
+
+    return num_ret;
+}
+
+static int _fairygui_GComponent_getController(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GComponent *self = nullptr;
+    std::string arg1;       /** name */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+    olua_check_std_string(L, 2, &arg1);
+
+    // GController* getController(const std::string& name)
+    fairygui::GController *ret = (fairygui::GController *)self->getController(arg1);
+    int num_ret = olua_push_cppobj<fairygui::GController>(L, ret, "fgui.GController");
+
+    return num_ret;
+}
+
+static int _fairygui_GComponent_getControllers(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::GComponent *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+
+    // const cocos2d::Vector<GController*>& getControllers()
+    const cocos2d::Vector<fairygui::GController *> &ret = (const cocos2d::Vector<fairygui::GController *> &)self->getControllers();
+    int num_ret = manual_luacv_push_cocos2d_Vector(L, ret, "fgui.GController");
+
+    return num_ret;
+}
+
+static int _fairygui_GComponent_removeController(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GComponent *self = nullptr;
+    fairygui::GController *arg1 = nullptr;   /** c */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GController");
+
+    // void removeController(GController* c)
+    self->removeController(arg1);
+
+    return 0;
+}
+
+static int _fairygui_GComponent_applyController(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GComponent *self = nullptr;
+    fairygui::GController *arg1 = nullptr;   /** c */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GController");
+
+    // void applyController(GController* c)
+    self->applyController(arg1);
+
+    return 0;
+}
+
+static int _fairygui_GComponent_applyAllControllers(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::GComponent *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+
+    // void applyAllControllers()
+    self->applyAllControllers();
+
+    return 0;
+}
+
+static int _fairygui_GComponent_getTransition(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GComponent *self = nullptr;
+    std::string arg1;       /** name */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+    olua_check_std_string(L, 2, &arg1);
+
+    // Transition* getTransition(const std::string& name)
+    fairygui::Transition *ret = (fairygui::Transition *)self->getTransition(arg1);
+    int num_ret = olua_push_cppobj<fairygui::Transition>(L, ret, "fgui.Transition");
+
+    return num_ret;
+}
+
+static int _fairygui_GComponent_getTransitionAt(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GComponent *self = nullptr;
+    lua_Integer arg1 = 0;   /** index */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+    olua_check_int(L, 2, &arg1);
+
+    // Transition* getTransitionAt(int index)
+    fairygui::Transition *ret = (fairygui::Transition *)self->getTransitionAt((int)arg1);
+    int num_ret = olua_push_cppobj<fairygui::Transition>(L, ret, "fgui.Transition");
+
+    return num_ret;
+}
+
+static int _fairygui_GComponent_getTransitions(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::GComponent *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+
+    // const cocos2d::Vector<Transition*>& getTransitions()
+    const cocos2d::Vector<fairygui::Transition *> &ret = (const cocos2d::Vector<fairygui::Transition *> &)self->getTransitions();
+    int num_ret = manual_luacv_push_cocos2d_Vector(L, ret, "fgui.Transition");
+
+    return num_ret;
+}
+
+static int _fairygui_GComponent_getOpaque(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::GComponent *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+
+    // bool getOpaque()
+    bool ret = (bool)self->getOpaque();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _fairygui_GComponent_setOpaque(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GComponent *self = nullptr;
+    bool arg1 = false;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setOpaque(bool value)
+    self->setOpaque(arg1);
+
+    return 0;
+}
+
+static int _fairygui_GComponent_getMargin(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::GComponent *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+
+    // const Margin& getMargin()
+    const fairygui::Margin &ret = (const fairygui::Margin &)self->getMargin();
+    int num_ret = auto_luacv_push_fairygui_Margin(L, &ret);
+
+    return num_ret;
+}
+
+static int _fairygui_GComponent_setMargin(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GComponent *self = nullptr;
+    fairygui::Margin arg1;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+    auto_luacv_check_fairygui_Margin(L, 2, &arg1);
+
+    // void setMargin(const Margin& value)
+    self->setMargin(arg1);
+
+    return 0;
+}
+
+static int _fairygui_GComponent_getChildrenRenderOrder(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::GComponent *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+
+    // ChildrenRenderOrder getChildrenRenderOrder()
+    fairygui::ChildrenRenderOrder ret = (fairygui::ChildrenRenderOrder)self->getChildrenRenderOrder();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _fairygui_GComponent_setChildrenRenderOrder(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GComponent *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+    olua_check_uint(L, 2, &arg1);
+
+    // void setChildrenRenderOrder(ChildrenRenderOrder value)
+    self->setChildrenRenderOrder((fairygui::ChildrenRenderOrder)arg1);
+
+    return 0;
+}
+
+static int _fairygui_GComponent_getApexIndex(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::GComponent *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+
+    // int getApexIndex()
+    int ret = (int)self->getApexIndex();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _fairygui_GComponent_setApexIndex(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GComponent *self = nullptr;
+    lua_Integer arg1 = 0;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+    olua_check_int(L, 2, &arg1);
+
+    // void setApexIndex(int value)
+    self->setApexIndex((int)arg1);
+
+    return 0;
+}
+
+static int _fairygui_GComponent_getMask(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::GComponent *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+
+    // cocos2d::Node* getMask()
+    cocos2d::Node *ret = (cocos2d::Node *)self->getMask();
+    int num_ret = olua_push_cppobj<cocos2d::Node>(L, ret, "cc.Node");
+
+    return num_ret;
+}
+
+static int _fairygui_GComponent_setMask(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    fairygui::GComponent *self = nullptr;
+    cocos2d::Node *arg1 = nullptr;   /** value */
+    bool arg2 = false;   /** inverted */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
+    olua_opt_bool(L, 3, &arg2, (bool)false);
+
+    // void setMask(cocos2d::Node* value, bool inverted = false)
+    self->setMask(arg1, arg2);
+
+    return 0;
+}
+
+static int _fairygui_GComponent_getHitArea(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::GComponent *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+
+    // IHitTest* getHitArea()
+    fairygui::IHitTest *ret = (fairygui::IHitTest *)self->getHitArea();
+    int num_ret = olua_push_cppobj<fairygui::IHitTest>(L, ret, "fgui.IHitTest");
+
+    return num_ret;
+}
+
+static int _fairygui_GComponent_setHitArea(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GComponent *self = nullptr;
+    fairygui::IHitTest *arg1 = nullptr;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.IHitTest");
+
+    // void setHitArea(IHitTest* value)
+    self->setHitArea(arg1);
+
+    return 0;
+}
+
+static int _fairygui_GComponent_getScrollPane(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::GComponent *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+
+    // ScrollPane* getScrollPane()
+    fairygui::ScrollPane *ret = (fairygui::ScrollPane *)self->getScrollPane();
+    int num_ret = olua_push_cppobj<fairygui::ScrollPane>(L, ret, "fgui.ScrollPane");
+
+    return num_ret;
+}
+
+static int _fairygui_GComponent_getViewWidth(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::GComponent *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+
+    // float getViewWidth()
+    float ret = (float)self->getViewWidth();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _fairygui_GComponent_setViewWidth(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GComponent *self = nullptr;
+    lua_Number arg1 = 0;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+    olua_check_number(L, 2, &arg1);
+
+    // void setViewWidth(float value)
+    self->setViewWidth((float)arg1);
+
+    return 0;
+}
+
+static int _fairygui_GComponent_getViewHeight(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::GComponent *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+
+    // float getViewHeight()
+    float ret = (float)self->getViewHeight();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _fairygui_GComponent_setViewHeight(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GComponent *self = nullptr;
+    lua_Number arg1 = 0;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+    olua_check_number(L, 2, &arg1);
+
+    // void setViewHeight(float value)
+    self->setViewHeight((float)arg1);
+
+    return 0;
+}
+
+static int _fairygui_GComponent_setBoundsChangedFlag(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::GComponent *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+
+    // void setBoundsChangedFlag()
+    self->setBoundsChangedFlag();
+
+    return 0;
+}
+
+static int _fairygui_GComponent_ensureBoundsCorrect(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::GComponent *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+
+    // void ensureBoundsCorrect()
+    self->ensureBoundsCorrect();
+
+    return 0;
+}
+
+static int _fairygui_GComponent_getSnappingPosition(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GComponent *self = nullptr;
+    cocos2d::Vec2 arg1;       /** pt */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+
+    // cocos2d::Vec2 getSnappingPosition(const cocos2d::Vec2& pt)
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->getSnappingPosition(arg1);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
+
+    return num_ret;
+}
+
 static int luaopen_fairygui_GComponent(lua_State *L)
 {
     oluacls_class(L, "fgui.GComponent", "fgui.GObject");
+    oluacls_setfunc(L, "create", _fairygui_GComponent_create);
+    oluacls_setfunc(L, "addChild", _fairygui_GComponent_addChild);
+    oluacls_setfunc(L, "addChildAt", _fairygui_GComponent_addChildAt);
+    oluacls_setfunc(L, "removeChild", _fairygui_GComponent_removeChild);
+    oluacls_setfunc(L, "removeChildAt", _fairygui_GComponent_removeChildAt);
+    oluacls_setfunc(L, "removeChildren", _fairygui_GComponent_removeChildren);
+    oluacls_setfunc(L, "getChildAt", _fairygui_GComponent_getChildAt);
+    oluacls_setfunc(L, "getChild", _fairygui_GComponent_getChild);
+    oluacls_setfunc(L, "getChildInGroup", _fairygui_GComponent_getChildInGroup);
+    oluacls_setfunc(L, "getChildById", _fairygui_GComponent_getChildById);
+    oluacls_setfunc(L, "getChildren", _fairygui_GComponent_getChildren);
+    oluacls_setfunc(L, "getChildIndex", _fairygui_GComponent_getChildIndex);
+    oluacls_setfunc(L, "setChildIndex", _fairygui_GComponent_setChildIndex);
+    oluacls_setfunc(L, "setChildIndexBefore", _fairygui_GComponent_setChildIndexBefore);
+    oluacls_setfunc(L, "swapChildren", _fairygui_GComponent_swapChildren);
+    oluacls_setfunc(L, "swapChildrenAt", _fairygui_GComponent_swapChildrenAt);
+    oluacls_setfunc(L, "numChildren", _fairygui_GComponent_numChildren);
+    oluacls_setfunc(L, "isAncestorOf", _fairygui_GComponent_isAncestorOf);
+    oluacls_setfunc(L, "isChildInView", _fairygui_GComponent_isChildInView);
+    oluacls_setfunc(L, "getFirstChildInView", _fairygui_GComponent_getFirstChildInView);
+    oluacls_setfunc(L, "addController", _fairygui_GComponent_addController);
+    oluacls_setfunc(L, "getControllerAt", _fairygui_GComponent_getControllerAt);
+    oluacls_setfunc(L, "getController", _fairygui_GComponent_getController);
+    oluacls_setfunc(L, "getControllers", _fairygui_GComponent_getControllers);
+    oluacls_setfunc(L, "removeController", _fairygui_GComponent_removeController);
+    oluacls_setfunc(L, "applyController", _fairygui_GComponent_applyController);
+    oluacls_setfunc(L, "applyAllControllers", _fairygui_GComponent_applyAllControllers);
+    oluacls_setfunc(L, "getTransition", _fairygui_GComponent_getTransition);
+    oluacls_setfunc(L, "getTransitionAt", _fairygui_GComponent_getTransitionAt);
+    oluacls_setfunc(L, "getTransitions", _fairygui_GComponent_getTransitions);
+    oluacls_setfunc(L, "getOpaque", _fairygui_GComponent_getOpaque);
+    oluacls_setfunc(L, "setOpaque", _fairygui_GComponent_setOpaque);
+    oluacls_setfunc(L, "getMargin", _fairygui_GComponent_getMargin);
+    oluacls_setfunc(L, "setMargin", _fairygui_GComponent_setMargin);
+    oluacls_setfunc(L, "getChildrenRenderOrder", _fairygui_GComponent_getChildrenRenderOrder);
+    oluacls_setfunc(L, "setChildrenRenderOrder", _fairygui_GComponent_setChildrenRenderOrder);
+    oluacls_setfunc(L, "getApexIndex", _fairygui_GComponent_getApexIndex);
+    oluacls_setfunc(L, "setApexIndex", _fairygui_GComponent_setApexIndex);
+    oluacls_setfunc(L, "getMask", _fairygui_GComponent_getMask);
+    oluacls_setfunc(L, "setMask", _fairygui_GComponent_setMask);
+    oluacls_setfunc(L, "getHitArea", _fairygui_GComponent_getHitArea);
+    oluacls_setfunc(L, "setHitArea", _fairygui_GComponent_setHitArea);
+    oluacls_setfunc(L, "getScrollPane", _fairygui_GComponent_getScrollPane);
+    oluacls_setfunc(L, "getViewWidth", _fairygui_GComponent_getViewWidth);
+    oluacls_setfunc(L, "setViewWidth", _fairygui_GComponent_setViewWidth);
+    oluacls_setfunc(L, "getViewHeight", _fairygui_GComponent_getViewHeight);
+    oluacls_setfunc(L, "setViewHeight", _fairygui_GComponent_setViewHeight);
+    oluacls_setfunc(L, "setBoundsChangedFlag", _fairygui_GComponent_setBoundsChangedFlag);
+    oluacls_setfunc(L, "ensureBoundsCorrect", _fairygui_GComponent_ensureBoundsCorrect);
+    oluacls_setfunc(L, "getSnappingPosition", _fairygui_GComponent_getSnappingPosition);
+    oluacls_property(L, "children", _fairygui_GComponent_getChildren, nullptr);
+    oluacls_property(L, "firstChildInView", _fairygui_GComponent_getFirstChildInView, nullptr);
+    oluacls_property(L, "controllers", _fairygui_GComponent_getControllers, nullptr);
+    oluacls_property(L, "transitions", _fairygui_GComponent_getTransitions, nullptr);
+    oluacls_property(L, "opaque", _fairygui_GComponent_getOpaque, _fairygui_GComponent_setOpaque);
+    oluacls_property(L, "margin", _fairygui_GComponent_getMargin, _fairygui_GComponent_setMargin);
+    oluacls_property(L, "childrenRenderOrder", _fairygui_GComponent_getChildrenRenderOrder, _fairygui_GComponent_setChildrenRenderOrder);
+    oluacls_property(L, "apexIndex", _fairygui_GComponent_getApexIndex, _fairygui_GComponent_setApexIndex);
+    oluacls_property(L, "mask", _fairygui_GComponent_getMask, _fairygui_GComponent_setMask);
+    oluacls_property(L, "hitArea", _fairygui_GComponent_getHitArea, _fairygui_GComponent_setHitArea);
+    oluacls_property(L, "scrollPane", _fairygui_GComponent_getScrollPane, nullptr);
+    oluacls_property(L, "viewWidth", _fairygui_GComponent_getViewWidth, _fairygui_GComponent_setViewWidth);
+    oluacls_property(L, "viewHeight", _fairygui_GComponent_getViewHeight, _fairygui_GComponent_setViewHeight);
+    oluacls_property(L, "numChildren", _fairygui_GComponent_numChildren, nullptr);
 
     olua_registerluatype<fairygui::GComponent>(L, "fgui.GComponent");
     oluacls_createclassproxy(L);
@@ -3333,6 +4550,1668 @@ static int luaopen_fairygui_RelationItem(lua_State *L)
     return 1;
 }
 
+static int _fairygui_ScrollPane_getOwner(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::ScrollPane *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+
+    // GComponent* getOwner()
+    fairygui::GComponent *ret = (fairygui::GComponent *)self->getOwner();
+    int num_ret = olua_push_cppobj<fairygui::GComponent>(L, ret, "fgui.GComponent");
+
+    return num_ret;
+}
+
+static int _fairygui_ScrollPane_getHeader(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::ScrollPane *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+
+    // GComponent* getHeader()
+    fairygui::GComponent *ret = (fairygui::GComponent *)self->getHeader();
+    int num_ret = olua_push_cppobj<fairygui::GComponent>(L, ret, "fgui.GComponent");
+
+    return num_ret;
+}
+
+static int _fairygui_ScrollPane_getFooter(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::ScrollPane *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+
+    // GComponent* getFooter()
+    fairygui::GComponent *ret = (fairygui::GComponent *)self->getFooter();
+    int num_ret = olua_push_cppobj<fairygui::GComponent>(L, ret, "fgui.GComponent");
+
+    return num_ret;
+}
+
+static int _fairygui_ScrollPane_getVtScrollBar(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::ScrollPane *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+
+    // GScrollBar* getVtScrollBar()
+    fairygui::GScrollBar *ret = (fairygui::GScrollBar *)self->getVtScrollBar();
+    int num_ret = olua_push_cppobj<fairygui::GScrollBar>(L, ret, "fgui.GScrollBar");
+
+    return num_ret;
+}
+
+static int _fairygui_ScrollPane_getHzScrollBar(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::ScrollPane *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+
+    // GScrollBar* getHzScrollBar()
+    fairygui::GScrollBar *ret = (fairygui::GScrollBar *)self->getHzScrollBar();
+    int num_ret = olua_push_cppobj<fairygui::GScrollBar>(L, ret, "fgui.GScrollBar");
+
+    return num_ret;
+}
+
+static int _fairygui_ScrollPane_isBouncebackEffect(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::ScrollPane *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+
+    // bool isBouncebackEffect()
+    bool ret = (bool)self->isBouncebackEffect();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _fairygui_ScrollPane_setBouncebackEffect(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::ScrollPane *self = nullptr;
+    bool arg1 = false;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setBouncebackEffect(bool value)
+    self->setBouncebackEffect(arg1);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_isTouchEffect(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::ScrollPane *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+
+    // bool isTouchEffect()
+    bool ret = (bool)self->isTouchEffect();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _fairygui_ScrollPane_setTouchEffect(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::ScrollPane *self = nullptr;
+    bool arg1 = false;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setTouchEffect(bool value)
+    self->setTouchEffect(arg1);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_isInertiaDisabled(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::ScrollPane *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+
+    // bool isInertiaDisabled()
+    bool ret = (bool)self->isInertiaDisabled();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _fairygui_ScrollPane_setInertiaDisabled(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::ScrollPane *self = nullptr;
+    bool arg1 = false;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setInertiaDisabled(bool value)
+    self->setInertiaDisabled(arg1);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_getScrollStep(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::ScrollPane *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+
+    // float getScrollStep()
+    float ret = (float)self->getScrollStep();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _fairygui_ScrollPane_setScrollStep(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::ScrollPane *self = nullptr;
+    lua_Number arg1 = 0;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    olua_check_number(L, 2, &arg1);
+
+    // void setScrollStep(float value)
+    self->setScrollStep((float)arg1);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_isSnapToItem(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::ScrollPane *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+
+    // bool isSnapToItem()
+    bool ret = (bool)self->isSnapToItem();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _fairygui_ScrollPane_setSnapToItem(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::ScrollPane *self = nullptr;
+    bool arg1 = false;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setSnapToItem(bool value)
+    self->setSnapToItem(arg1);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_isPageMode(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::ScrollPane *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+
+    // bool isPageMode()
+    bool ret = (bool)self->isPageMode();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _fairygui_ScrollPane_setPageMode(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::ScrollPane *self = nullptr;
+    bool arg1 = false;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setPageMode(bool value)
+    self->setPageMode(arg1);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_getPageController(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::ScrollPane *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+
+    // GController* getPageController()
+    fairygui::GController *ret = (fairygui::GController *)self->getPageController();
+    int num_ret = olua_push_cppobj<fairygui::GController>(L, ret, "fgui.GController");
+
+    return num_ret;
+}
+
+static int _fairygui_ScrollPane_setPageController(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::ScrollPane *self = nullptr;
+    fairygui::GController *arg1 = nullptr;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GController");
+
+    // void setPageController(GController* value)
+    self->setPageController(arg1);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_isMouseWheelEnabled(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::ScrollPane *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+
+    // bool isMouseWheelEnabled()
+    bool ret = (bool)self->isMouseWheelEnabled();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _fairygui_ScrollPane_setMouseWheelEnabled(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::ScrollPane *self = nullptr;
+    bool arg1 = false;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setMouseWheelEnabled(bool value)
+    self->setMouseWheelEnabled(arg1);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_getDecelerationRate(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::ScrollPane *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+
+    // float getDecelerationRate()
+    float ret = (float)self->getDecelerationRate();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _fairygui_ScrollPane_setDecelerationRate(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::ScrollPane *self = nullptr;
+    lua_Number arg1 = 0;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    olua_check_number(L, 2, &arg1);
+
+    // void setDecelerationRate(float value)
+    self->setDecelerationRate((float)arg1);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_getPosX(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::ScrollPane *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+
+    // float getPosX()
+    float ret = (float)self->getPosX();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _fairygui_ScrollPane_setPosX(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    fairygui::ScrollPane *self = nullptr;
+    lua_Number arg1 = 0;   /** value */
+    bool arg2 = false;   /** ani */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    olua_check_number(L, 2, &arg1);
+    olua_opt_bool(L, 3, &arg2, (bool)false);
+
+    // void setPosX(float value, bool ani = false)
+    self->setPosX((float)arg1, arg2);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_getPosY(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::ScrollPane *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+
+    // float getPosY()
+    float ret = (float)self->getPosY();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _fairygui_ScrollPane_setPosY(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    fairygui::ScrollPane *self = nullptr;
+    lua_Number arg1 = 0;   /** value */
+    bool arg2 = false;   /** ani */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    olua_check_number(L, 2, &arg1);
+    olua_opt_bool(L, 3, &arg2, (bool)false);
+
+    // void setPosY(float value, bool ani = false)
+    self->setPosY((float)arg1, arg2);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_getPercX(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::ScrollPane *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+
+    // float getPercX()
+    float ret = (float)self->getPercX();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _fairygui_ScrollPane_setPercX(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    fairygui::ScrollPane *self = nullptr;
+    lua_Number arg1 = 0;   /** value */
+    bool arg2 = false;   /** ani */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    olua_check_number(L, 2, &arg1);
+    olua_opt_bool(L, 3, &arg2, (bool)false);
+
+    // void setPercX(float value, bool ani = false)
+    self->setPercX((float)arg1, arg2);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_getPercY(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::ScrollPane *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+
+    // float getPercY()
+    float ret = (float)self->getPercY();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _fairygui_ScrollPane_setPercY(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    fairygui::ScrollPane *self = nullptr;
+    lua_Number arg1 = 0;   /** value */
+    bool arg2 = false;   /** ani */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    olua_check_number(L, 2, &arg1);
+    olua_opt_bool(L, 3, &arg2, (bool)false);
+
+    // void setPercY(float value, bool ani = false)
+    self->setPercY((float)arg1, arg2);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_isBottomMost(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::ScrollPane *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+
+    // bool isBottomMost()
+    bool ret = (bool)self->isBottomMost();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _fairygui_ScrollPane_isRightMost(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::ScrollPane *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+
+    // bool isRightMost()
+    bool ret = (bool)self->isRightMost();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _fairygui_ScrollPane_scrollLeft(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    fairygui::ScrollPane *self = nullptr;
+    lua_Number arg1 = 0;   /** ratio */
+    bool arg2 = false;   /** ani */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    olua_opt_number(L, 2, &arg1, (lua_Number)1);
+    olua_opt_bool(L, 3, &arg2, (bool)false);
+
+    // void scrollLeft(float ratio = 1, bool ani = false)
+    self->scrollLeft((float)arg1, arg2);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_scrollRight(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    fairygui::ScrollPane *self = nullptr;
+    lua_Number arg1 = 0;   /** ratio */
+    bool arg2 = false;   /** ani */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    olua_opt_number(L, 2, &arg1, (lua_Number)1);
+    olua_opt_bool(L, 3, &arg2, (bool)false);
+
+    // void scrollRight(float ratio = 1, bool ani = false)
+    self->scrollRight((float)arg1, arg2);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_scrollUp(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    fairygui::ScrollPane *self = nullptr;
+    lua_Number arg1 = 0;   /** ratio */
+    bool arg2 = false;   /** ani */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    olua_opt_number(L, 2, &arg1, (lua_Number)1);
+    olua_opt_bool(L, 3, &arg2, (bool)false);
+
+    // void scrollUp(float ratio = 1, bool ani = false)
+    self->scrollUp((float)arg1, arg2);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_scrollDown(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    fairygui::ScrollPane *self = nullptr;
+    lua_Number arg1 = 0;   /** ratio */
+    bool arg2 = false;   /** ani */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    olua_opt_number(L, 2, &arg1, (lua_Number)1);
+    olua_opt_bool(L, 3, &arg2, (bool)false);
+
+    // void scrollDown(float ratio = 1, bool ani = false)
+    self->scrollDown((float)arg1, arg2);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_scrollTop(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::ScrollPane *self = nullptr;
+    bool arg1 = false;   /** ani */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    olua_opt_bool(L, 2, &arg1, (bool)false);
+
+    // void scrollTop(bool ani = false)
+    self->scrollTop(arg1);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_scrollBottom(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::ScrollPane *self = nullptr;
+    bool arg1 = false;   /** ani */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    olua_opt_bool(L, 2, &arg1, (bool)false);
+
+    // void scrollBottom(bool ani = false)
+    self->scrollBottom(arg1);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_scrollToView1(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    fairygui::ScrollPane *self = nullptr;
+    fairygui::GObject *arg1 = nullptr;   /** obj */
+    bool arg2 = false;   /** ani */
+    bool arg3 = false;   /** setFirst */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GObject");
+    olua_opt_bool(L, 3, &arg2, (bool)false);
+    olua_opt_bool(L, 4, &arg3, (bool)false);
+
+    // void scrollToView(GObject* obj, bool ani = false, bool setFirst = false)
+    self->scrollToView(arg1, arg2, arg3);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_scrollToView2(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    fairygui::ScrollPane *self = nullptr;
+    cocos2d::Rect arg1;       /** rect */
+    bool arg2 = false;   /** ani */
+    bool arg3 = false;   /** setFirst */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    manual_luacv_check_cocos2d_Rect(L, 2, &arg1);
+    olua_opt_bool(L, 3, &arg2, (bool)false);
+    olua_opt_bool(L, 4, &arg3, (bool)false);
+
+    // void scrollToView(const cocos2d::Rect& rect, bool ani = false, bool setFirst = false)
+    self->scrollToView(arg1, arg2, arg3);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_scrollToView(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 3) {
+        if (olua_is_cppobj(L, 2, "fgui.GObject") && (olua_is_bool(L, 3) || olua_isnil(L, 3)) && (olua_is_bool(L, 4) || olua_isnil(L, 4))) {
+            return _fairygui_ScrollPane_scrollToView1(L);
+        }
+
+        // if (manual_luacv_is_cocos2d_Rect(L, 2) && (olua_is_bool(L, 3) || olua_isnil(L, 3)) && (olua_is_bool(L, 4) || olua_isnil(L, 4))) {
+            return _fairygui_ScrollPane_scrollToView2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::ScrollPane::scrollToView' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_isChildInView(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::ScrollPane *self = nullptr;
+    fairygui::GObject *arg1 = nullptr;   /** obj */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GObject");
+
+    // bool isChildInView(GObject* obj)
+    bool ret = (bool)self->isChildInView(arg1);
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _fairygui_ScrollPane_getPageX(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::ScrollPane *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+
+    // int getPageX()
+    int ret = (int)self->getPageX();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _fairygui_ScrollPane_setPageX(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    fairygui::ScrollPane *self = nullptr;
+    lua_Integer arg1 = 0;   /** value */
+    bool arg2 = false;   /** ani */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    olua_check_int(L, 2, &arg1);
+    olua_opt_bool(L, 3, &arg2, (bool)false);
+
+    // void setPageX(int value, bool ani = false)
+    self->setPageX((int)arg1, arg2);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_getPageY(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::ScrollPane *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+
+    // int getPageY()
+    int ret = (int)self->getPageY();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _fairygui_ScrollPane_setPageY(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    fairygui::ScrollPane *self = nullptr;
+    lua_Integer arg1 = 0;   /** value */
+    bool arg2 = false;   /** ani */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    olua_check_int(L, 2, &arg1);
+    olua_opt_bool(L, 3, &arg2, (bool)false);
+
+    // void setPageY(int value, bool ani = false)
+    self->setPageY((int)arg1, arg2);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_getScrollingPosX(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::ScrollPane *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+
+    // float getScrollingPosX()
+    float ret = (float)self->getScrollingPosX();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _fairygui_ScrollPane_getScrollingPosY(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::ScrollPane *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+
+    // float getScrollingPosY()
+    float ret = (float)self->getScrollingPosY();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _fairygui_ScrollPane_getContentSize(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::ScrollPane *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+
+    // const cocos2d::Size& getContentSize()
+    const cocos2d::Size &ret = (const cocos2d::Size &)self->getContentSize();
+    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
+
+    return num_ret;
+}
+
+static int _fairygui_ScrollPane_getViewSize(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::ScrollPane *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+
+    // const cocos2d::Size& getViewSize()
+    const cocos2d::Size &ret = (const cocos2d::Size &)self->getViewSize();
+    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
+
+    return num_ret;
+}
+
+static int _fairygui_ScrollPane_lockHeader(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::ScrollPane *self = nullptr;
+    lua_Integer arg1 = 0;   /** size */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    olua_check_int(L, 2, &arg1);
+
+    // void lockHeader(int size)
+    self->lockHeader((int)arg1);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_lockFooter(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::ScrollPane *self = nullptr;
+    lua_Integer arg1 = 0;   /** size */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    olua_check_int(L, 2, &arg1);
+
+    // void lockFooter(int size)
+    self->lockFooter((int)arg1);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_cancelDragging(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::ScrollPane *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+
+    // void cancelDragging()
+    self->cancelDragging();
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_getDraggingPane(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static ScrollPane* getDraggingPane()
+    fairygui::ScrollPane *ret = (fairygui::ScrollPane *)fairygui::ScrollPane::getDraggingPane();
+    int num_ret = olua_push_cppobj<fairygui::ScrollPane>(L, ret, "fgui.ScrollPane");
+
+    return num_ret;
+}
+
+static int luaopen_fairygui_ScrollPane(lua_State *L)
+{
+    oluacls_class(L, "fgui.ScrollPane", "cc.Ref");
+    oluacls_setfunc(L, "getOwner", _fairygui_ScrollPane_getOwner);
+    oluacls_setfunc(L, "getHeader", _fairygui_ScrollPane_getHeader);
+    oluacls_setfunc(L, "getFooter", _fairygui_ScrollPane_getFooter);
+    oluacls_setfunc(L, "getVtScrollBar", _fairygui_ScrollPane_getVtScrollBar);
+    oluacls_setfunc(L, "getHzScrollBar", _fairygui_ScrollPane_getHzScrollBar);
+    oluacls_setfunc(L, "isBouncebackEffect", _fairygui_ScrollPane_isBouncebackEffect);
+    oluacls_setfunc(L, "setBouncebackEffect", _fairygui_ScrollPane_setBouncebackEffect);
+    oluacls_setfunc(L, "isTouchEffect", _fairygui_ScrollPane_isTouchEffect);
+    oluacls_setfunc(L, "setTouchEffect", _fairygui_ScrollPane_setTouchEffect);
+    oluacls_setfunc(L, "isInertiaDisabled", _fairygui_ScrollPane_isInertiaDisabled);
+    oluacls_setfunc(L, "setInertiaDisabled", _fairygui_ScrollPane_setInertiaDisabled);
+    oluacls_setfunc(L, "getScrollStep", _fairygui_ScrollPane_getScrollStep);
+    oluacls_setfunc(L, "setScrollStep", _fairygui_ScrollPane_setScrollStep);
+    oluacls_setfunc(L, "isSnapToItem", _fairygui_ScrollPane_isSnapToItem);
+    oluacls_setfunc(L, "setSnapToItem", _fairygui_ScrollPane_setSnapToItem);
+    oluacls_setfunc(L, "isPageMode", _fairygui_ScrollPane_isPageMode);
+    oluacls_setfunc(L, "setPageMode", _fairygui_ScrollPane_setPageMode);
+    oluacls_setfunc(L, "getPageController", _fairygui_ScrollPane_getPageController);
+    oluacls_setfunc(L, "setPageController", _fairygui_ScrollPane_setPageController);
+    oluacls_setfunc(L, "isMouseWheelEnabled", _fairygui_ScrollPane_isMouseWheelEnabled);
+    oluacls_setfunc(L, "setMouseWheelEnabled", _fairygui_ScrollPane_setMouseWheelEnabled);
+    oluacls_setfunc(L, "getDecelerationRate", _fairygui_ScrollPane_getDecelerationRate);
+    oluacls_setfunc(L, "setDecelerationRate", _fairygui_ScrollPane_setDecelerationRate);
+    oluacls_setfunc(L, "getPosX", _fairygui_ScrollPane_getPosX);
+    oluacls_setfunc(L, "setPosX", _fairygui_ScrollPane_setPosX);
+    oluacls_setfunc(L, "getPosY", _fairygui_ScrollPane_getPosY);
+    oluacls_setfunc(L, "setPosY", _fairygui_ScrollPane_setPosY);
+    oluacls_setfunc(L, "getPercX", _fairygui_ScrollPane_getPercX);
+    oluacls_setfunc(L, "setPercX", _fairygui_ScrollPane_setPercX);
+    oluacls_setfunc(L, "getPercY", _fairygui_ScrollPane_getPercY);
+    oluacls_setfunc(L, "setPercY", _fairygui_ScrollPane_setPercY);
+    oluacls_setfunc(L, "isBottomMost", _fairygui_ScrollPane_isBottomMost);
+    oluacls_setfunc(L, "isRightMost", _fairygui_ScrollPane_isRightMost);
+    oluacls_setfunc(L, "scrollLeft", _fairygui_ScrollPane_scrollLeft);
+    oluacls_setfunc(L, "scrollRight", _fairygui_ScrollPane_scrollRight);
+    oluacls_setfunc(L, "scrollUp", _fairygui_ScrollPane_scrollUp);
+    oluacls_setfunc(L, "scrollDown", _fairygui_ScrollPane_scrollDown);
+    oluacls_setfunc(L, "scrollTop", _fairygui_ScrollPane_scrollTop);
+    oluacls_setfunc(L, "scrollBottom", _fairygui_ScrollPane_scrollBottom);
+    oluacls_setfunc(L, "scrollToView", _fairygui_ScrollPane_scrollToView);
+    oluacls_setfunc(L, "isChildInView", _fairygui_ScrollPane_isChildInView);
+    oluacls_setfunc(L, "getPageX", _fairygui_ScrollPane_getPageX);
+    oluacls_setfunc(L, "setPageX", _fairygui_ScrollPane_setPageX);
+    oluacls_setfunc(L, "getPageY", _fairygui_ScrollPane_getPageY);
+    oluacls_setfunc(L, "setPageY", _fairygui_ScrollPane_setPageY);
+    oluacls_setfunc(L, "getScrollingPosX", _fairygui_ScrollPane_getScrollingPosX);
+    oluacls_setfunc(L, "getScrollingPosY", _fairygui_ScrollPane_getScrollingPosY);
+    oluacls_setfunc(L, "getContentSize", _fairygui_ScrollPane_getContentSize);
+    oluacls_setfunc(L, "getViewSize", _fairygui_ScrollPane_getViewSize);
+    oluacls_setfunc(L, "lockHeader", _fairygui_ScrollPane_lockHeader);
+    oluacls_setfunc(L, "lockFooter", _fairygui_ScrollPane_lockFooter);
+    oluacls_setfunc(L, "cancelDragging", _fairygui_ScrollPane_cancelDragging);
+    oluacls_setfunc(L, "getDraggingPane", _fairygui_ScrollPane_getDraggingPane);
+    oluacls_property(L, "owner", _fairygui_ScrollPane_getOwner, nullptr);
+    oluacls_property(L, "header", _fairygui_ScrollPane_getHeader, nullptr);
+    oluacls_property(L, "footer", _fairygui_ScrollPane_getFooter, nullptr);
+    oluacls_property(L, "vtScrollBar", _fairygui_ScrollPane_getVtScrollBar, nullptr);
+    oluacls_property(L, "hzScrollBar", _fairygui_ScrollPane_getHzScrollBar, nullptr);
+    oluacls_property(L, "bouncebackEffect", _fairygui_ScrollPane_isBouncebackEffect, _fairygui_ScrollPane_setBouncebackEffect);
+    oluacls_property(L, "touchEffect", _fairygui_ScrollPane_isTouchEffect, _fairygui_ScrollPane_setTouchEffect);
+    oluacls_property(L, "inertiaDisabled", _fairygui_ScrollPane_isInertiaDisabled, _fairygui_ScrollPane_setInertiaDisabled);
+    oluacls_property(L, "scrollStep", _fairygui_ScrollPane_getScrollStep, _fairygui_ScrollPane_setScrollStep);
+    oluacls_property(L, "snapToItem", _fairygui_ScrollPane_isSnapToItem, _fairygui_ScrollPane_setSnapToItem);
+    oluacls_property(L, "pageMode", _fairygui_ScrollPane_isPageMode, _fairygui_ScrollPane_setPageMode);
+    oluacls_property(L, "pageController", _fairygui_ScrollPane_getPageController, _fairygui_ScrollPane_setPageController);
+    oluacls_property(L, "mouseWheelEnabled", _fairygui_ScrollPane_isMouseWheelEnabled, _fairygui_ScrollPane_setMouseWheelEnabled);
+    oluacls_property(L, "decelerationRate", _fairygui_ScrollPane_getDecelerationRate, _fairygui_ScrollPane_setDecelerationRate);
+    oluacls_property(L, "posX", _fairygui_ScrollPane_getPosX, _fairygui_ScrollPane_setPosX);
+    oluacls_property(L, "posY", _fairygui_ScrollPane_getPosY, _fairygui_ScrollPane_setPosY);
+    oluacls_property(L, "percX", _fairygui_ScrollPane_getPercX, _fairygui_ScrollPane_setPercX);
+    oluacls_property(L, "percY", _fairygui_ScrollPane_getPercY, _fairygui_ScrollPane_setPercY);
+    oluacls_property(L, "bottomMost", _fairygui_ScrollPane_isBottomMost, nullptr);
+    oluacls_property(L, "rightMost", _fairygui_ScrollPane_isRightMost, nullptr);
+    oluacls_property(L, "pageX", _fairygui_ScrollPane_getPageX, _fairygui_ScrollPane_setPageX);
+    oluacls_property(L, "pageY", _fairygui_ScrollPane_getPageY, _fairygui_ScrollPane_setPageY);
+    oluacls_property(L, "scrollingPosX", _fairygui_ScrollPane_getScrollingPosX, nullptr);
+    oluacls_property(L, "scrollingPosY", _fairygui_ScrollPane_getScrollingPosY, nullptr);
+    oluacls_property(L, "contentSize", _fairygui_ScrollPane_getContentSize, nullptr);
+    oluacls_property(L, "viewSize", _fairygui_ScrollPane_getViewSize, nullptr);
+    oluacls_property(L, "draggingPane", _fairygui_ScrollPane_getDraggingPane, nullptr);
+
+    olua_registerluatype<fairygui::ScrollPane>(L, "fgui.ScrollPane");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _fairygui_GScrollBar_create(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static GScrollBar* create()
+    fairygui::GScrollBar *ret = (fairygui::GScrollBar *)fairygui::GScrollBar::create();
+    int num_ret = olua_push_cppobj<fairygui::GScrollBar>(L, ret, "fgui.GScrollBar");
+
+    return num_ret;
+}
+
+static int _fairygui_GScrollBar_setScrollPane(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    fairygui::GScrollBar *self = nullptr;
+    fairygui::ScrollPane *arg1 = nullptr;   /** target */
+    bool arg2 = false;   /** vertical */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GScrollBar");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.ScrollPane");
+    olua_check_bool(L, 3, &arg2);
+
+    // void setScrollPane(ScrollPane* target, bool vertical)
+    self->setScrollPane(arg1, arg2);
+
+    return 0;
+}
+
+static int _fairygui_GScrollBar_setDisplayPerc(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GScrollBar *self = nullptr;
+    lua_Number arg1 = 0;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GScrollBar");
+    olua_check_number(L, 2, &arg1);
+
+    // void setDisplayPerc(float value)
+    self->setDisplayPerc((float)arg1);
+
+    return 0;
+}
+
+static int _fairygui_GScrollBar_setScrollPerc(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GScrollBar *self = nullptr;
+    lua_Number arg1 = 0;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GScrollBar");
+    olua_check_number(L, 2, &arg1);
+
+    // void setScrollPerc(float value)
+    self->setScrollPerc((float)arg1);
+
+    return 0;
+}
+
+static int _fairygui_GScrollBar_getMinSize(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::GScrollBar *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GScrollBar");
+
+    // float getMinSize()
+    float ret = (float)self->getMinSize();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int luaopen_fairygui_GScrollBar(lua_State *L)
+{
+    oluacls_class(L, "fgui.GScrollBar", "fgui.GComponent");
+    oluacls_setfunc(L, "create", _fairygui_GScrollBar_create);
+    oluacls_setfunc(L, "setScrollPane", _fairygui_GScrollBar_setScrollPane);
+    oluacls_setfunc(L, "setDisplayPerc", _fairygui_GScrollBar_setDisplayPerc);
+    oluacls_setfunc(L, "setScrollPerc", _fairygui_GScrollBar_setScrollPerc);
+    oluacls_setfunc(L, "getMinSize", _fairygui_GScrollBar_getMinSize);
+    oluacls_property(L, "minSize", _fairygui_GScrollBar_getMinSize, nullptr);
+
+    olua_registerluatype<fairygui::GScrollBar>(L, "fgui.GScrollBar");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _fairygui_Transition_getOwner(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::Transition *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.Transition");
+
+    // GComponent* getOwner()
+    fairygui::GComponent *ret = (fairygui::GComponent *)self->getOwner();
+    int num_ret = olua_push_cppobj<fairygui::GComponent>(L, ret, "fgui.GComponent");
+
+    return num_ret;
+}
+
+static int _fairygui_Transition_isPlaying(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::Transition *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.Transition");
+
+    // bool isPlaying()
+    bool ret = (bool)self->isPlaying();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _fairygui_Transition_changePlayTimes(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::Transition *self = nullptr;
+    lua_Integer arg1 = 0;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.Transition");
+    olua_check_int(L, 2, &arg1);
+
+    // void changePlayTimes(int value)
+    self->changePlayTimes((int)arg1);
+
+    return 0;
+}
+
+static int _fairygui_Transition_stop1(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::Transition *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.Transition");
+
+    // void stop()
+    self->stop();
+
+    return 0;
+}
+
+static int _fairygui_Transition_stop2(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    fairygui::Transition *self = nullptr;
+    bool arg1 = false;   /** setToComplete */
+    bool arg2 = false;   /** processCallback */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.Transition");
+    olua_check_bool(L, 2, &arg1);
+    olua_check_bool(L, 3, &arg2);
+
+    // void stop(bool setToComplete, bool processCallback)
+    self->stop(arg1, arg2);
+
+    return 0;
+}
+
+static int _fairygui_Transition_stop(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 0) {
+        return _fairygui_Transition_stop1(L);
+    }
+
+    if (num_args == 2) {
+        // if (olua_is_bool(L, 2) && olua_is_bool(L, 3)) {
+            return _fairygui_Transition_stop2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::Transition::stop' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _fairygui_Transition_setAutoPlay(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    fairygui::Transition *self = nullptr;
+    bool arg1 = false;   /** autoPlay */
+    lua_Integer arg2 = 0;   /** times */
+    lua_Number arg3 = 0;   /** delay */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.Transition");
+    olua_check_bool(L, 2, &arg1);
+    olua_check_int(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+
+    // void setAutoPlay(bool autoPlay, int times, float delay)
+    self->setAutoPlay(arg1, (int)arg2, (float)arg3);
+
+    return 0;
+}
+
+static int _fairygui_Transition_setPaused(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::Transition *self = nullptr;
+    bool arg1 = false;   /** paused */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.Transition");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setPaused(bool paused)
+    self->setPaused(arg1);
+
+    return 0;
+}
+
+static int _fairygui_Transition_setValue(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    fairygui::Transition *self = nullptr;
+    std::string arg1;       /** label */
+    cocos2d::ValueVector arg2;       /** values */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.Transition");
+    olua_check_std_string(L, 2, &arg1);
+    manual_luacv_check_cocos2d_ValueVector(L, 3, &arg2);
+
+    // void setValue(const std::string& label, const cocos2d::ValueVector& values)
+    self->setValue(arg1, arg2);
+
+    return 0;
+}
+
+static int _fairygui_Transition_setTarget(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    fairygui::Transition *self = nullptr;
+    std::string arg1;       /** label */
+    fairygui::GObject *arg2 = nullptr;   /** newTarget */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.Transition");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_cppobj(L, 3, (void **)&arg2, "fgui.GObject");
+
+    // void setTarget(const std::string& label, GObject* newTarget)
+    self->setTarget(arg1, arg2);
+
+    return 0;
+}
+
+static int _fairygui_Transition_setDuration(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    fairygui::Transition *self = nullptr;
+    std::string arg1;       /** label */
+    lua_Number arg2 = 0;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.Transition");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+
+    // void setDuration(const std::string& label, float value)
+    self->setDuration(arg1, (float)arg2);
+
+    return 0;
+}
+
+static int _fairygui_Transition_getLabelTime(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::Transition *self = nullptr;
+    std::string arg1;       /** label */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.Transition");
+    olua_check_std_string(L, 2, &arg1);
+
+    // float getLabelTime(const std::string& label)
+    float ret = (float)self->getLabelTime(arg1);
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _fairygui_Transition_getTimeScale(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::Transition *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.Transition");
+
+    // float getTimeScale()
+    float ret = (float)self->getTimeScale();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _fairygui_Transition_setTimeScale(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::Transition *self = nullptr;
+    lua_Number arg1 = 0;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.Transition");
+    olua_check_number(L, 2, &arg1);
+
+    // void setTimeScale(float value)
+    self->setTimeScale((float)arg1);
+
+    return 0;
+}
+
+static int _fairygui_Transition_updateFromRelations(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    fairygui::Transition *self = nullptr;
+    std::string arg1;       /** targetId */
+    lua_Number arg2 = 0;   /** dx */
+    lua_Number arg3 = 0;   /** dy */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.Transition");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+
+    // void updateFromRelations(const std::string& targetId, float dx, float dy)
+    self->updateFromRelations(arg1, (float)arg2, (float)arg3);
+
+    return 0;
+}
+
+static int _fairygui_Transition_onOwnerAddedToStage(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::Transition *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.Transition");
+
+    // void onOwnerAddedToStage()
+    self->onOwnerAddedToStage();
+
+    return 0;
+}
+
+static int _fairygui_Transition_onOwnerRemovedFromStage(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::Transition *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.Transition");
+
+    // void onOwnerRemovedFromStage()
+    self->onOwnerRemovedFromStage();
+
+    return 0;
+}
+
+static int _fairygui_Transition_play1(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::Transition *self = nullptr;
+    std::function<void()> arg1 = nullptr;   /** callback */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.Transition");
+
+    if (olua_is_std_function(L, 2)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("play");
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+        arg1 = [callback_store_obj, func, tag]() {
+            lua_State *L = olua_mainthread();
+            int top = lua_gettop(L);
+
+            olua_callback(L, callback_store_obj, func.c_str(), 0);
+
+            lua_settop(L, top);
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("play");
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+        arg1 = nullptr;
+    }
+
+    // void play(std::function<void()> callback = nullptr)
+    self->play(arg1);
+
+    return 0;
+}
+
+static int _fairygui_Transition_play2(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    fairygui::Transition *self = nullptr;
+    lua_Integer arg1 = 0;   /** times */
+    lua_Number arg2 = 0;   /** delay */
+    std::function<void()> arg3 = nullptr;   /** callback */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.Transition");
+    olua_check_int(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+
+    if (olua_is_std_function(L, 4)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("play");
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 4, OLUA_CALLBACK_TAG_REPLACE);
+        arg3 = [callback_store_obj, func, tag]() {
+            lua_State *L = olua_mainthread();
+            int top = lua_gettop(L);
+
+            olua_callback(L, callback_store_obj, func.c_str(), 0);
+
+            lua_settop(L, top);
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("play");
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+        arg3 = nullptr;
+    }
+
+    // void play(int times, float delay, std::function<void()> callback = nullptr)
+    self->play((int)arg1, (float)arg2, arg3);
+
+    return 0;
+}
+
+static int _fairygui_Transition_play3(lua_State *L)
+{
+    lua_settop(L, 6);
+
+    fairygui::Transition *self = nullptr;
+    lua_Integer arg1 = 0;   /** times */
+    lua_Number arg2 = 0;   /** delay */
+    lua_Number arg3 = 0;   /** startTime */
+    lua_Number arg4 = 0;   /** endTime */
+    std::function<void()> arg5 = nullptr;   /** callback */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.Transition");
+    olua_check_int(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+    olua_check_number(L, 5, &arg4);
+
+    if (olua_is_std_function(L, 6)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("play");
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 6, OLUA_CALLBACK_TAG_REPLACE);
+        arg5 = [callback_store_obj, func, tag]() {
+            lua_State *L = olua_mainthread();
+            int top = lua_gettop(L);
+
+            olua_callback(L, callback_store_obj, func.c_str(), 0);
+
+            lua_settop(L, top);
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("play");
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+        arg5 = nullptr;
+    }
+
+    // void play(int times, float delay, float startTime, float endTime, std::function<void()> callback = nullptr)
+    self->play((int)arg1, (float)arg2, (float)arg3, (float)arg4, arg5);
+
+    return 0;
+}
+
+static int _fairygui_Transition_play(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if (olua_is_std_function(L, 2)) {
+            return _fairygui_Transition_play1(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if (olua_is_int(L, 2) && olua_is_number(L, 3) && olua_is_std_function(L, 4)) {
+            return _fairygui_Transition_play2(L);
+        // }
+    }
+
+    if (num_args == 5) {
+        // if (olua_is_int(L, 2) && olua_is_number(L, 3) && olua_is_number(L, 4) && olua_is_number(L, 5) && olua_is_std_function(L, 6)) {
+            return _fairygui_Transition_play3(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::Transition::play' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _fairygui_Transition_playReverse1(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::Transition *self = nullptr;
+    std::function<void()> arg1 = nullptr;   /** callback */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.Transition");
+
+    if (olua_is_std_function(L, 2)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("playReverse");
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+        arg1 = [callback_store_obj, func, tag]() {
+            lua_State *L = olua_mainthread();
+            int top = lua_gettop(L);
+
+            olua_callback(L, callback_store_obj, func.c_str(), 0);
+
+            lua_settop(L, top);
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("playReverse");
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+        arg1 = nullptr;
+    }
+
+    // void playReverse(std::function<void()> callback = nullptr)
+    self->playReverse(arg1);
+
+    return 0;
+}
+
+static int _fairygui_Transition_playReverse2(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    fairygui::Transition *self = nullptr;
+    lua_Integer arg1 = 0;   /** times */
+    lua_Number arg2 = 0;   /** delay */
+    std::function<void()> arg3 = nullptr;   /** callback */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.Transition");
+    olua_check_int(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+
+    if (olua_is_std_function(L, 4)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("playReverse");
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 4, OLUA_CALLBACK_TAG_REPLACE);
+        arg3 = [callback_store_obj, func, tag]() {
+            lua_State *L = olua_mainthread();
+            int top = lua_gettop(L);
+
+            olua_callback(L, callback_store_obj, func.c_str(), 0);
+
+            lua_settop(L, top);
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("playReverse");
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+        arg3 = nullptr;
+    }
+
+    // void playReverse(int times, float delay, std::function<void()> callback = nullptr)
+    self->playReverse((int)arg1, (float)arg2, arg3);
+
+    return 0;
+}
+
+static int _fairygui_Transition_playReverse(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if (olua_is_std_function(L, 2)) {
+            return _fairygui_Transition_playReverse1(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if (olua_is_int(L, 2) && olua_is_number(L, 3) && olua_is_std_function(L, 4)) {
+            return _fairygui_Transition_playReverse2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::Transition::playReverse' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _fairygui_Transition_setHook(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    fairygui::Transition *self = nullptr;
+    std::string arg1;       /** label */
+    std::function<void()> arg2 = nullptr;   /** callback */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.Transition");
+    olua_check_std_string(L, 2, &arg1);
+
+    if (olua_is_std_function(L, 3)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("hook." + arg1);
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_CALLBACK_TAG_NEW);
+        arg2 = [callback_store_obj, func, tag]() {
+            lua_State *L = olua_mainthread();
+            int top = lua_gettop(L);
+
+            olua_callback(L, callback_store_obj, func.c_str(), 0);
+
+            lua_settop(L, top);
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("hook." + arg1);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+        arg2 = nullptr;
+    }
+
+    // void setHook(const std::string& label, @nullable std::function<void()> callback)
+    self->setHook(arg1, arg2);
+
+    return 0;
+}
+
+static int _fairygui_Transition_clearHooks(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::Transition *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.Transition");
+
+    std::string tag = olua_makecallbacktag("hook.");
+    void *callback_store_obj = (void *)self;
+    olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_WILDCARD);
+
+    // void clearHooks()
+    self->clearHooks();
+
+    return 0;
+}
+
+static int luaopen_fairygui_Transition(lua_State *L)
+{
+    oluacls_class(L, "fgui.Transition", "cc.Ref");
+    oluacls_setfunc(L, "getOwner", _fairygui_Transition_getOwner);
+    oluacls_setfunc(L, "isPlaying", _fairygui_Transition_isPlaying);
+    oluacls_setfunc(L, "changePlayTimes", _fairygui_Transition_changePlayTimes);
+    oluacls_setfunc(L, "stop", _fairygui_Transition_stop);
+    oluacls_setfunc(L, "setAutoPlay", _fairygui_Transition_setAutoPlay);
+    oluacls_setfunc(L, "setPaused", _fairygui_Transition_setPaused);
+    oluacls_setfunc(L, "setValue", _fairygui_Transition_setValue);
+    oluacls_setfunc(L, "setTarget", _fairygui_Transition_setTarget);
+    oluacls_setfunc(L, "setDuration", _fairygui_Transition_setDuration);
+    oluacls_setfunc(L, "getLabelTime", _fairygui_Transition_getLabelTime);
+    oluacls_setfunc(L, "getTimeScale", _fairygui_Transition_getTimeScale);
+    oluacls_setfunc(L, "setTimeScale", _fairygui_Transition_setTimeScale);
+    oluacls_setfunc(L, "updateFromRelations", _fairygui_Transition_updateFromRelations);
+    oluacls_setfunc(L, "onOwnerAddedToStage", _fairygui_Transition_onOwnerAddedToStage);
+    oluacls_setfunc(L, "onOwnerRemovedFromStage", _fairygui_Transition_onOwnerRemovedFromStage);
+    oluacls_setfunc(L, "play", _fairygui_Transition_play);
+    oluacls_setfunc(L, "playReverse", _fairygui_Transition_playReverse);
+    oluacls_setfunc(L, "setHook", _fairygui_Transition_setHook);
+    oluacls_setfunc(L, "clearHooks", _fairygui_Transition_clearHooks);
+    oluacls_property(L, "timeScale", _fairygui_Transition_getTimeScale, _fairygui_Transition_setTimeScale);
+
+    olua_registerluatype<fairygui::Transition>(L, "fgui.Transition");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
 static int luaopen_fairygui_GearBase(lua_State *L)
 {
     oluacls_class(L, "fgui.GearBase", nullptr);
@@ -3348,6 +6227,7 @@ int luaopen_fairygui(lua_State *L)
     olua_require(L, "fgui.UIEventType", luaopen_fairygui_UIEventType);
     olua_require(L, "fgui.UIEventDispatcher", luaopen_fairygui_UIEventDispatcher);
     olua_require(L, "fgui.EventContext", luaopen_fairygui_EventContext);
+    olua_require(L, "fgui.IHitTest", luaopen_fairygui_IHitTest);
     olua_require(L, "fgui.PackageItem", luaopen_fairygui_PackageItem);
     olua_require(L, "fgui.PackageItemType", luaopen_fairygui_PackageItemType);
     olua_require(L, "fgui.ObjectType", luaopen_fairygui_ObjectType);
@@ -3374,6 +6254,9 @@ int luaopen_fairygui(lua_State *L)
     olua_require(L, "fgui.Relations", luaopen_fairygui_Relations);
     olua_require(L, "fgui.RelationType", luaopen_fairygui_RelationType);
     olua_require(L, "fgui.RelationItem", luaopen_fairygui_RelationItem);
+    olua_require(L, "fgui.ScrollPane", luaopen_fairygui_ScrollPane);
+    olua_require(L, "fgui.GScrollBar", luaopen_fairygui_GScrollBar);
+    olua_require(L, "fgui.Transition", luaopen_fairygui_Transition);
     olua_require(L, "fgui.GearBase", luaopen_fairygui_GearBase);
     return 0;
 }

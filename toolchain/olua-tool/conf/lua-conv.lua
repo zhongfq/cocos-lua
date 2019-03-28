@@ -1,4 +1,5 @@
 require 'conf.cocos2d.import-cocos2d-type'
+require "conf.fairygui.import-fairygui-type"
 
 local M = {}
 
@@ -12,6 +13,7 @@ M.HEADER_INCLUDES = [[
 
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
+#include "FairyGUI.h"
 ]]
 
 M.INCLUDES = [[
@@ -201,6 +203,15 @@ M.CONVS = {
             int         type;
             std::string file;
             std::string plist;
+        ]]
+    },
+    REG_CONV {
+        CPPCLS = 'fairygui::Margin',
+        DEF = [[
+            float left;
+            float top;
+            float right;
+            float bottom;
         ]]
     },
 }

@@ -968,3 +968,53 @@ bool auto_luacv_is_cocos2d_ResourceData(lua_State *L, int idx)
 {
     return lua_istable(L, idx);
 }
+
+int auto_luacv_push_fairygui_Margin(lua_State *L, const fairygui::Margin *value)
+{
+    if (value) {
+        lua_createtable(L, 0, 4);
+        olua_rawsetfieldnumber(L, -1, "left", value->left);
+        olua_rawsetfieldnumber(L, -1, "top", value->top);
+        olua_rawsetfieldnumber(L, -1, "right", value->right);
+        olua_rawsetfieldnumber(L, -1, "bottom", value->bottom);
+    } else {
+        lua_pushnil(L);
+    }
+
+    return 1;
+}
+
+void auto_luacv_check_fairygui_Margin(lua_State *L, int idx, fairygui::Margin *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    idx = lua_absindex(L, idx);
+    luaL_checktype(L, idx, LUA_TTABLE);
+    value->left = (float)olua_checkfieldnumber(L, idx, "left");
+    value->top = (float)olua_checkfieldnumber(L, idx, "top");
+    value->right = (float)olua_checkfieldnumber(L, idx, "right");
+    value->bottom = (float)olua_checkfieldnumber(L, idx, "bottom");
+}
+
+void auto_luacv_opt_fairygui_Margin(lua_State *L, int idx, fairygui::Margin *value, const fairygui::Margin &def)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    if (olua_isnil(L, idx)) {
+        *value = def;
+    } else {
+        idx = lua_absindex(L, idx);
+        luaL_checktype(L, idx, LUA_TTABLE);
+        value->left = (float)olua_checkfieldnumber(L, idx, "left");
+        value->top = (float)olua_checkfieldnumber(L, idx, "top");
+        value->right = (float)olua_checkfieldnumber(L, idx, "right");
+        value->bottom = (float)olua_checkfieldnumber(L, idx, "bottom");
+    }
+}
+
+bool auto_luacv_is_fairygui_Margin(lua_State *L, int idx)
+{
+    return lua_istable(L, idx);
+}

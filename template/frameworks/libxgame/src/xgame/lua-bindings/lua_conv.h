@@ -9,6 +9,7 @@
 
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
+#include "FairyGUI.h"
 
 // cocos2d::Vec2
 int auto_luacv_push_cocos2d_Vec2(lua_State *L, const cocos2d::Vec2 *value);
@@ -124,5 +125,11 @@ int auto_luacv_push_cocos2d_ResourceData(lua_State *L, const cocos2d::ResourceDa
 void auto_luacv_check_cocos2d_ResourceData(lua_State *L, int idx, cocos2d::ResourceData *value);
 void auto_luacv_opt_cocos2d_ResourceData(lua_State *L, int idx, cocos2d::ResourceData *value, const cocos2d::ResourceData &def);
 bool auto_luacv_is_cocos2d_ResourceData(lua_State *L, int idx);
+
+// fairygui::Margin
+int auto_luacv_push_fairygui_Margin(lua_State *L, const fairygui::Margin *value);
+void auto_luacv_check_fairygui_Margin(lua_State *L, int idx, fairygui::Margin *value);
+void auto_luacv_opt_fairygui_Margin(lua_State *L, int idx, fairygui::Margin *value, const fairygui::Margin &def);
+bool auto_luacv_is_fairygui_Margin(lua_State *L, int idx);
 
 #endif

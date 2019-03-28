@@ -76,15 +76,16 @@ REG_TYPE {
 
 REG_TYPE {
     TYPENAME = [[
+        char
+        GLint
+        GLshort
+        GLsizei
         int
         long
+        short
         ssize_t
         std::int32_t
         unsigned short
-        GLint
-        char
-        GLshort
-        GLsizei
     ]],
     DECL_TYPE = 'lua_Integer',
     CONV_FUNC = 'olua_$$_int',
@@ -93,15 +94,17 @@ REG_TYPE {
 
 REG_TYPE {
     TYPENAME = [[
-        unsigned int
-        uint32_t
-        uint64_t
-        size_t
-        std::size_t
-        GLuint
+        GLboolean
         GLenum
         GLubyte
-        GLboolean
+        GLuint
+        size_t
+        std::size_t
+        uint32_t
+        uint64_t
+        unsigned char
+        unsigned int
+        unsigned short
     ]],
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',

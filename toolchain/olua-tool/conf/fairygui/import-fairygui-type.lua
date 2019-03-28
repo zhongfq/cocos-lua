@@ -24,6 +24,24 @@ REG_TYPE {
 
 REG_TYPE {
     TYPENAME = [[
+        fairygui::AutoSizeType
+        fairygui::ButtonMode
+        fairygui::ChildrenRenderOrder
+        fairygui::FillMethod
+        fairygui::FillOrigin
+        fairygui::FlipType
+        fairygui::GroupLayoutType
+        fairygui::ListLayoutType
+        fairygui::ListSelectionMode
+        fairygui::LoaderFillType
+        fairygui::ObjectType
+        fairygui::OverflowType
+        fairygui::PackageItemType
+        fairygui::PopupDirection
+        fairygui::ProgressTitleType
+        fairygui::RelationType
+        fairygui::ScrollType
+        fairygui::TransitionActionType
     ]],
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = "olua_$$_uint",
@@ -32,8 +50,17 @@ REG_TYPE {
 
 REG_TYPE {
     TYPENAME = [[
-        fairygui::UIEventDispatcher *
         fairygui::EventContext *
+        fairygui::GComponent *
+        fairygui::GGroup *
+        fairygui::GObject *
+        fairygui::GRoot *
+        fairygui::PackageItem *
+        fairygui::RelationItem *
+        fairygui::Relations *
+        fairygui::GearBase *
+        fairygui::GController *
+        fairygui::UIEventDispatcher *
     ]],
     CONV_FUNC = "olua_$$_cppobj",
     LUACLS = make_luacls,

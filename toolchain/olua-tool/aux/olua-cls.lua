@@ -617,7 +617,7 @@ function class(collection)
     function cls.vars(vars_str)
         for line in string.gmatch(vars_str, '[^\n\r]+') do
             line = string.gsub(line, '^ *', '')
-            if #line > 0 then
+            if #line > 0 and not string.find(line, '^ *//') then
                 local line, readonly = string.gsub(line, '@readonly', '')
                 cls.var(nil, line)
                 if readonly > 0 then

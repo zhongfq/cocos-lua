@@ -18,8 +18,19 @@ M.INCLUDES = [[
 ]]
 
 M.CLASSES = {
+    include('conf/fairygui/fgui/event/fgui.UIEventType.lua'),
     include('conf/fairygui/fgui/event/fgui.UIEventDispatcher.lua'),
     include('conf/fairygui/fgui/event/fgui.EventContext.lua'),
+    include('conf/fairygui/fgui/fgui.PackageItem.lua'),
+    include('conf/fairygui/fgui/fgui.FieldTypes.lua'),
+    include('conf/fairygui/fgui/fgui.GController.lua'),
+    include('conf/fairygui/fgui/fgui.GObject.lua'),
+    include('conf/fairygui/fgui/fgui.GComponent.lua'),
+    include('conf/fairygui/fgui/fgui.GRoot.lua'),
+    include('conf/fairygui/fgui/fgui.GGroup.lua'),
+    include('conf/fairygui/fgui/fgui.Relations.lua'),
+    include('conf/fairygui/fgui/fgui.RelationItem.lua'),
+    include('conf/fairygui/fgui/gears/fgui.GearBase.lua'),
 }
 
 return M

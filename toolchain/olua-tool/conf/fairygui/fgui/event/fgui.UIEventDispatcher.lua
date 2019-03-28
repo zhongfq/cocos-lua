@@ -3,11 +3,10 @@ cls.CPPCLS = "fairygui::UIEventDispatcher"
 cls.LUACLS = "fgui.UIEventDispatcher"
 cls.SUPERCLS = "cc.Ref"
 cls.DEFCHUNK = [[
-static std::string makeUIEventDispatcherTag(lua_State *L, int typeidx, int tagidx)
+static std::string makeListenerTag(lua_State *L, lua_Integer type, int tagidx)
 {
     char buf[64];
-    if (typeidx > 0) {
-        int type = (int)olua_checkinteger(L, typeidx);
+    if (type >= 0) {
         if (tagidx > 0) {
             intptr_t p = 0;
             if (olua_isinteger(L, tagidx)) {
@@ -15,9 +14,9 @@ static std::string makeUIEventDispatcherTag(lua_State *L, int typeidx, int tagid
             } else {
                 p = (uintptr_t)olua_checkobj(L, tagidx, OLUA_VOIDCLS);
             }
-            sprintf(buf, "listeners.%d.%ld", type, p);
+            sprintf(buf, "listeners.%d.%ld", (int)type, p);
         } else {
-            sprintf(buf, "listeners.%d", type);
+            sprintf(buf, "listeners.%d", (int)type);
         }
     } else {
         sprintf(buf, "listeners.");
@@ -37,7 +36,7 @@ cls.callback(
     'void addEventListener(int eventType, const std::function<void(@stack EventContext* context)>& callback)',
     'void addEventListener(int eventType, const std::function<void(@stack EventContext* context)>& callback, const EventTag& tag)',
     {
-        CALLBACK_MAKER = {'makeUIEventDispatcherTag(L, 2, 0)', 'makeUIEventDispatcherTag(L, 2, 4)'},
+        CALLBACK_MAKER = {'makeListenerTag(L, #1, 0)', 'makeListenerTag(L, #1, 4)'},
     }
 )
 
@@ -45,7 +44,7 @@ cls.callback(
     'void removeEventListener(int eventType)',
     'void removeEventListener(int eventType, const EventTag& tag)',
     {
-        CALLBACK_MAKER = {'makeUIEventDispatcherTag(L, 2, 0)', 'makeUIEventDispatcherTag(L, 2, 3)'},
+        CALLBACK_MAKER = {'makeListenerTag(L, #1, 0)', 'makeListenerTag(L, #1, 3)'},
         CALLBACK_REMOVE = true,
         CALLBACK_MODE = {'OLUA_CALLBACK_TAG_WILDCARD', 'OLUA_CALLBACK_TAG_ENDWITH'},
     }
@@ -54,7 +53,7 @@ cls.callback(
 cls.callback(
     'void removeEventListeners()',
     {
-        CALLBACK_MAKER = 'makeUIEventDispatcherTag(L, 0, 0)',
+        CALLBACK_MAKER = 'makeListenerTag(L, -1, 0)',
         CALLBACK_REMOVE = true,
         CALLBACK_MODE = 'OLUA_CALLBACK_TAG_WILDCARD',
     }

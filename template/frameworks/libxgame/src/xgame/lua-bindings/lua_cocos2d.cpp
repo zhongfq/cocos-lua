@@ -19649,7 +19649,7 @@ static int _cocos2d_Node_getCameraMask(lua_State *L)
 
     // unsigned short getCameraMask()
     unsigned short ret = (unsigned short)self->getCameraMask();
-    int num_ret = olua_push_int(L, (lua_Integer)ret);
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     return num_ret;
 }
@@ -19659,11 +19659,11 @@ static int _cocos2d_Node_setCameraMask(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::Node *self = nullptr;
-    lua_Integer arg1 = 0;   /** mask */
+    lua_Unsigned arg1 = 0;   /** mask */
     bool arg2 = false;   /** applyChildren */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
-    olua_check_int(L, 2, &arg1);
+    olua_check_uint(L, 2, &arg1);
     olua_opt_bool(L, 3, &arg2, (bool)true);
 
     // void setCameraMask(unsigned short mask, bool applyChildren = true)

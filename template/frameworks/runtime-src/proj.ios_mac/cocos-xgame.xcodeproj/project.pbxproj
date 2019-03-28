@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0E2E9A3E221D18860085145E /* libxgame iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ECC4B6121E796C400E3BBF9 /* libxgame iOS.a */; };
 		0E2E9A3F221D188F0085145E /* libxgame Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ECC4B5F21E796C400E3BBF9 /* libxgame Mac.a */; };
+		0E7756D6224C8EEE005070EF /* libfairygui iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E7756C9224C8C32005070EF /* libfairygui iOS.a */; };
+		0E7756D9224C8EFE005070EF /* libfairygui Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E7756CB224C8C32005070EF /* libfairygui Mac.a */; };
 		15427CD3198F221400DC375D /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A8A4251834BDA200142BE0 /* libcocos2d iOS.a */; };
 		15427CEE198F24AF00DC375D /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A8A4171834BDA200142BE0 /* libcocos2d Mac.a */; };
 		15A8A4881834C90F00142BE0 /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A8A4871834C90E00142BE0 /* libcurl.dylib */; };
@@ -62,6 +64,41 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		0E7756C8224C8C32005070EF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0E7756C3224C8C32005070EF /* fairygui.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 445402201FB3E8D500869375;
+			remoteInfo = "libfairygui iOS";
+		};
+		0E7756CA224C8C32005070EF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0E7756C3224C8C32005070EF /* fairygui.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 445402F81FB3EFFA00869375;
+			remoteInfo = "libfairygui Mac";
+		};
+		0E7756D2224C8EE5005070EF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0ECC4B5921E796C400E3BBF9 /* libxgame.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 0E25A68C2117479A006B88E1;
+			remoteInfo = "libxgame iOS";
+		};
+		0E7756D4224C8EE8005070EF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0E7756C3224C8C32005070EF /* fairygui.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 4454021F1FB3E8D500869375;
+			remoteInfo = "libfairygui iOS";
+		};
+		0E7756D7224C8EF6005070EF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0E7756C3224C8C32005070EF /* fairygui.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 445402F71FB3EFFA00869375;
+			remoteInfo = "libfairygui Mac";
+		};
 		0ECC4B5E21E796C400E3BBF9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0ECC4B5921E796C400E3BBF9 /* libxgame.xcodeproj */;
@@ -142,6 +179,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0E7756C3224C8C32005070EF /* fairygui.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = fairygui.xcodeproj; path = ../../libfairygui/proj.ios_mac/fairygui.xcodeproj; sourceTree = "<group>"; };
 		0ECC4B5921E796C400E3BBF9 /* libxgame.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libxgame.xcodeproj; path = ../../libxgame/proj.ios_mac/libxgame.xcodeproj; sourceTree = "<group>"; };
 		15A8A4031834BDA200142BE0 /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = "../../cocos2d-x/build/cocos2d_libs.xcodeproj"; sourceTree = "<group>"; };
 		15A8A4871834C90E00142BE0 /* libcurl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.dylib; path = usr/lib/libcurl.dylib; sourceTree = SDKROOT; };
@@ -202,6 +240,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E7756D9224C8EFE005070EF /* libfairygui Mac.a in Frameworks */,
 				0E2E9A3F221D188F0085145E /* libxgame Mac.a in Frameworks */,
 				ED545A8B1B68A24500C3958E /* libiconv.dylib in Frameworks */,
 				DA9E7D881AB1ABCC004B27C8 /* Security.framework in Frameworks */,
@@ -224,6 +263,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E7756D6224C8EEE005070EF /* libfairygui iOS.a in Frameworks */,
 				0E2E9A3E221D18860085145E /* libxgame iOS.a in Frameworks */,
 				294D0D721D0D572600F7F5D4 /* CoreText.framework in Frameworks */,
 				9FA3AE4E1BE9BCC900FC9645 /* CFNetwork.framework in Frameworks */,
@@ -248,6 +288,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E7756C4224C8C32005070EF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0E7756C9224C8C32005070EF /* libfairygui iOS.a */,
+				0E7756CB224C8C32005070EF /* libfairygui Mac.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		0ECC4B5A21E796C400E3BBF9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -322,6 +371,7 @@
 			children = (
 				15A8A4031834BDA200142BE0 /* cocos2d_libs.xcodeproj */,
 				9FF504781A5E86D600AFDA55 /* libsimulator.xcodeproj */,
+				0E7756C3224C8C32005070EF /* fairygui.xcodeproj */,
 				0ECC4B5921E796C400E3BBF9 /* libxgame.xcodeproj */,
 				F293BB7C15EB830F00256477 /* Classes */,
 				F293B3CB15EB7BE500256477 /* Frameworks */,
@@ -395,6 +445,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				0E7756D8224C8EF6005070EF /* PBXTargetDependency */,
 				0ECC4BE221E79E5D00E3BBF9 /* PBXTargetDependency */,
 				9FEE0E441A5FC95000FEA1B0 /* PBXTargetDependency */,
 				9FF505C11A5F0F0900AFDA55 /* PBXTargetDependency */,
@@ -416,6 +467,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				0E7756D5224C8EE8005070EF /* PBXTargetDependency */,
+				0E7756D3224C8EE5005070EF /* PBXTargetDependency */,
 				9FF504891A5E8B4C00AFDA55 /* PBXTargetDependency */,
 				15D1F3091994BBCA00302043 /* PBXTargetDependency */,
 			);
@@ -439,7 +492,7 @@
 			};
 			buildConfigurationList = F293B3C215EB7BE500256477 /* Build configuration list for PBXProject "cocos-xgame" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -453,6 +506,10 @@
 				{
 					ProductGroup = 15A8A4041834BDA200142BE0 /* Products */;
 					ProjectRef = 15A8A4031834BDA200142BE0 /* cocos2d_libs.xcodeproj */;
+				},
+				{
+					ProductGroup = 0E7756C4224C8C32005070EF /* Products */;
+					ProjectRef = 0E7756C3224C8C32005070EF /* fairygui.xcodeproj */;
 				},
 				{
 					ProductGroup = 9FF504791A5E86D600AFDA55 /* Products */;
@@ -472,6 +529,20 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		0E7756C9224C8C32005070EF /* libfairygui iOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libfairygui iOS.a";
+			remoteRef = 0E7756C8224C8C32005070EF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		0E7756CB224C8C32005070EF /* libfairygui Mac.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libfairygui Mac.a";
+			remoteRef = 0E7756CA224C8C32005070EF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		0ECC4B5F21E796C400E3BBF9 /* libxgame Mac.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -570,6 +641,21 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		0E7756D3224C8EE5005070EF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "libxgame iOS";
+			targetProxy = 0E7756D2224C8EE5005070EF /* PBXContainerItemProxy */;
+		};
+		0E7756D5224C8EE8005070EF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "libfairygui iOS";
+			targetProxy = 0E7756D4224C8EE8005070EF /* PBXContainerItemProxy */;
+		};
+		0E7756D8224C8EF6005070EF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "libfairygui Mac";
+			targetProxy = 0E7756D7224C8EF6005070EF /* PBXContainerItemProxy */;
+		};
 		0ECC4BE221E79E5D00E3BBF9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "libxgame Mac";

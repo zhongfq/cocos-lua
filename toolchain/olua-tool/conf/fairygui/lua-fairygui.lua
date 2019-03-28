@@ -1,4 +1,6 @@
 require "aux.olua-cls"
+require "conf.cocos2d.import-cocos2d-type"
+require "conf.fairygui.import-fairygui-type"
 
 local M = {}
 
@@ -16,6 +18,8 @@ M.INCLUDES = [[
 ]]
 
 M.CLASSES = {
+    include('conf/fairygui/fgui/event/fgui.UIEventDispatcher.lua'),
+    include('conf/fairygui/fgui/event/fgui.EventContext.lua'),
 }
 
 return M

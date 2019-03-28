@@ -18,6 +18,8 @@ extern "C" {
 #define OLUA_OBJ_NEW    1
 #define OLUA_OBJ_UPDATE 2
     
+#define OLUA_VOIDCLS "void *"
+    
 #ifdef OLUA_MAINTHREAD
 #define olua_mainthread() OLUA_MAINTHREAD()
 #else

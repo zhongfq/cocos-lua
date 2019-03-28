@@ -237,6 +237,24 @@ void manual_luacv_check_cocos2d_ccBezierConfig(lua_State *L, int idx, cocos2d::c
     lua_pop(L, 3);
 }
 
+bool manual_luacv_is_cocos2d_Value(lua_State *L, int idx)
+{
+    return olua_istable(L, idx);
+}
+
+void manual_luacv_opt_cocos2d_Value(lua_State *L, int idx, cocos2d::Value *value, const cocos2d::Value &def)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    idx = lua_absindex(L, idx);
+    if (manual_luacv_is_cocos2d_Value(L, idx)) {
+        manual_luacv_check_cocos2d_Value(L, idx, value);
+    } else {
+        *value = def;
+    }
+}
+
 void manual_luacv_check_cocos2d_Value(lua_State *L, int idx, cocos2d::Value *value)
 {
     int top = lua_gettop(L);
@@ -457,4 +475,21 @@ void manual_luacv_check_cocos2d_ValueMap(lua_State *L, int idx, cocos2d::ValueMa
         lua_pop(L, 1);
     }
     lua_settop(L, top);
+}
+
+bool manual_luacv_is_fairygui_EventTag(lua_State *L, int idx)
+{
+    return olua_isinteger(L, idx) || olua_isa(L, idx, OLUA_VOIDCLS);
+}
+
+void manual_luacv_check_fairygui_EventTag(lua_State *L, int idx, fairygui::EventTag *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    if (olua_isinteger(L, idx)) {
+        *value = (int)olua_tointeger(L, idx);
+    } else {
+        *value = (void *)olua_checkobj(L, idx, OLUA_VOIDCLS);
+    }
 }

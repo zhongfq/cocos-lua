@@ -8,7 +8,491 @@
 #include "olua/olua.hpp"
 #include "FairyGUI.h"
 
+static std::string makeUIEventDispatcherTag(lua_State *L, int typeidx, int tagidx)
+{
+    char buf[64];
+    if (typeidx > 0) {
+        int type = (int)olua_checkinteger(L, typeidx);
+        if (tagidx > 0) {
+            intptr_t p = 0;
+            if (olua_isinteger(L, tagidx)) {
+                p = (uintptr_t)olua_tointeger(L, tagidx);
+            } else {
+                p = (uintptr_t)olua_checkobj(L, tagidx, OLUA_VOIDCLS);
+            }
+            sprintf(buf, "listeners.%d.%ld", type, p);
+        } else {
+            sprintf(buf, "listeners.%d", type);
+        }
+    } else {
+        sprintf(buf, "listeners.");
+    }
+    return std::string(buf);
+}
+
+static int _fairygui_UIEventDispatcher_hasEventListener1(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::UIEventDispatcher *self = nullptr;
+    lua_Integer arg1 = 0;   /** eventType */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.UIEventDispatcher");
+    olua_check_int(L, 2, &arg1);
+
+    // bool hasEventListener(int eventType)
+    bool ret = (bool)self->hasEventListener((int)arg1);
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _fairygui_UIEventDispatcher_hasEventListener2(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    fairygui::UIEventDispatcher *self = nullptr;
+    lua_Integer arg1 = 0;   /** eventType */
+    fairygui::EventTag arg2;       /** tag */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.UIEventDispatcher");
+    olua_check_int(L, 2, &arg1);
+    manual_luacv_check_fairygui_EventTag(L, 3, &arg2);
+
+    // bool hasEventListener(int eventType, const EventTag& tag)
+    bool ret = (bool)self->hasEventListener((int)arg1, arg2);
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _fairygui_UIEventDispatcher_hasEventListener(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if (olua_is_int(L, 2)) {
+            return _fairygui_UIEventDispatcher_hasEventListener1(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if (olua_is_int(L, 2) && manual_luacv_is_fairygui_EventTag(L, 3)) {
+            return _fairygui_UIEventDispatcher_hasEventListener2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::UIEventDispatcher::hasEventListener' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _fairygui_UIEventDispatcher_dispatchEvent(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    fairygui::UIEventDispatcher *self = nullptr;
+    lua_Integer arg1 = 0;   /** eventType */
+    void *arg2 = nullptr;   /** data */
+    cocos2d::Value arg3;       /** dataValue */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.UIEventDispatcher");
+    olua_check_int(L, 2, &arg1);
+    olua_opt_obj(L, 3, (void **)&arg2, "void *", nullptr);
+    manual_luacv_opt_cocos2d_Value(L, 4, &arg3, (cocos2d::Value)cocos2d::Value::Null);
+
+    // bool dispatchEvent(int eventType, void* data = nullptr, const cocos2d::Value& dataValue = cocos2d::Value::Null)
+    bool ret = (bool)self->dispatchEvent((int)arg1, arg2, arg3);
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _fairygui_UIEventDispatcher_bubbleEvent(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    fairygui::UIEventDispatcher *self = nullptr;
+    lua_Integer arg1 = 0;   /** eventType */
+    void *arg2 = nullptr;   /** data */
+    cocos2d::Value arg3;       /** dataValue */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.UIEventDispatcher");
+    olua_check_int(L, 2, &arg1);
+    olua_opt_obj(L, 3, (void **)&arg2, "void *", nullptr);
+    manual_luacv_opt_cocos2d_Value(L, 4, &arg3, (cocos2d::Value)cocos2d::Value::Null);
+
+    // bool bubbleEvent(int eventType, void* data = nullptr, const cocos2d::Value& dataValue = cocos2d::Value::Null)
+    bool ret = (bool)self->bubbleEvent((int)arg1, arg2, arg3);
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _fairygui_UIEventDispatcher_isDispatchingEvent(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::UIEventDispatcher *self = nullptr;
+    lua_Integer arg1 = 0;   /** eventType */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.UIEventDispatcher");
+    olua_check_int(L, 2, &arg1);
+
+    // bool isDispatchingEvent(int eventType)
+    bool ret = (bool)self->isDispatchingEvent((int)arg1);
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _fairygui_UIEventDispatcher_addEventListener1(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    fairygui::UIEventDispatcher *self = nullptr;
+    lua_Integer arg1 = 0;   /** eventType */
+    std::function<void(fairygui::EventContext *)> arg2 = nullptr;   /** callback */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.UIEventDispatcher");
+    olua_check_int(L, 2, &arg1);
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = makeUIEventDispatcherTag(L, 2, 0);
+    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_CALLBACK_TAG_NEW);
+    arg2 = [callback_store_obj, func, tag](fairygui::EventContext *arg1) {
+        lua_State *L = olua_mainthread();
+        int top = lua_gettop(L);
+
+        olua_push_cppobj<fairygui::EventContext>(L, arg1, "fgui.EventContext");
+        olua_callback(L, callback_store_obj, func.c_str(), 1);
+
+        //may be stack value
+        olua_push_cppobj<fairygui::EventContext>(L, arg1, "fgui.EventContext");
+        olua_callgc(L, -1, false);
+
+        lua_settop(L, top);
+    };
+
+    // void addEventListener(int eventType, const std::function<void(@stack EventContext* context)>& callback)
+    self->addEventListener((int)arg1, arg2);
+
+    return 0;
+}
+
+static int _fairygui_UIEventDispatcher_addEventListener2(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    fairygui::UIEventDispatcher *self = nullptr;
+    lua_Integer arg1 = 0;   /** eventType */
+    std::function<void(fairygui::EventContext *)> arg2 = nullptr;   /** callback */
+    fairygui::EventTag arg3;       /** tag */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.UIEventDispatcher");
+    olua_check_int(L, 2, &arg1);
+    manual_luacv_check_fairygui_EventTag(L, 4, &arg3);
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = makeUIEventDispatcherTag(L, 2, 4);
+    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_CALLBACK_TAG_NEW);
+    arg2 = [callback_store_obj, func, tag](fairygui::EventContext *arg1) {
+        lua_State *L = olua_mainthread();
+        int top = lua_gettop(L);
+
+        olua_push_cppobj<fairygui::EventContext>(L, arg1, "fgui.EventContext");
+        olua_callback(L, callback_store_obj, func.c_str(), 1);
+
+        //may be stack value
+        olua_push_cppobj<fairygui::EventContext>(L, arg1, "fgui.EventContext");
+        olua_callgc(L, -1, false);
+
+        lua_settop(L, top);
+    };
+
+    // void addEventListener(int eventType, const std::function<void(@stack EventContext* context)>& callback, const EventTag& tag)
+    self->addEventListener((int)arg1, arg2, arg3);
+
+    return 0;
+}
+
+static int _fairygui_UIEventDispatcher_addEventListener(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 2) {
+        // if (olua_is_int(L, 2) && olua_is_std_function(L, 3)) {
+            return _fairygui_UIEventDispatcher_addEventListener1(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if (olua_is_int(L, 2) && olua_is_std_function(L, 3) && manual_luacv_is_fairygui_EventTag(L, 4)) {
+            return _fairygui_UIEventDispatcher_addEventListener2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::UIEventDispatcher::addEventListener' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _fairygui_UIEventDispatcher_removeEventListener1(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::UIEventDispatcher *self = nullptr;
+    lua_Integer arg1 = 0;   /** eventType */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.UIEventDispatcher");
+    olua_check_int(L, 2, &arg1);
+
+    std::string tag = makeUIEventDispatcherTag(L, 2, 0);
+    void *callback_store_obj = (void *)self;
+    olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_WILDCARD);
+
+    // void removeEventListener(int eventType)
+    self->removeEventListener((int)arg1);
+
+    return 0;
+}
+
+static int _fairygui_UIEventDispatcher_removeEventListener2(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    fairygui::UIEventDispatcher *self = nullptr;
+    lua_Integer arg1 = 0;   /** eventType */
+    fairygui::EventTag arg2;       /** tag */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.UIEventDispatcher");
+    olua_check_int(L, 2, &arg1);
+    manual_luacv_check_fairygui_EventTag(L, 3, &arg2);
+
+    std::string tag = makeUIEventDispatcherTag(L, 2, 3);
+    void *callback_store_obj = (void *)self;
+    olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+
+    // void removeEventListener(int eventType, const EventTag& tag)
+    self->removeEventListener((int)arg1, arg2);
+
+    return 0;
+}
+
+static int _fairygui_UIEventDispatcher_removeEventListener(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if (olua_is_int(L, 2)) {
+            return _fairygui_UIEventDispatcher_removeEventListener1(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if (olua_is_int(L, 2) && manual_luacv_is_fairygui_EventTag(L, 3)) {
+            return _fairygui_UIEventDispatcher_removeEventListener2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::UIEventDispatcher::removeEventListener' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _fairygui_UIEventDispatcher_removeEventListeners(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::UIEventDispatcher *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.UIEventDispatcher");
+
+    std::string tag = makeUIEventDispatcherTag(L, 0, 0);
+    void *callback_store_obj = (void *)self;
+    olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_WILDCARD);
+
+    // void removeEventListeners()
+    self->removeEventListeners();
+
+    return 0;
+}
+
+static int luaopen_fairygui_UIEventDispatcher(lua_State *L)
+{
+    oluacls_class(L, "fgui.UIEventDispatcher", "cc.Ref");
+    oluacls_setfunc(L, "hasEventListener", _fairygui_UIEventDispatcher_hasEventListener);
+    oluacls_setfunc(L, "dispatchEvent", _fairygui_UIEventDispatcher_dispatchEvent);
+    oluacls_setfunc(L, "bubbleEvent", _fairygui_UIEventDispatcher_bubbleEvent);
+    oluacls_setfunc(L, "isDispatchingEvent", _fairygui_UIEventDispatcher_isDispatchingEvent);
+    oluacls_setfunc(L, "addEventListener", _fairygui_UIEventDispatcher_addEventListener);
+    oluacls_setfunc(L, "removeEventListener", _fairygui_UIEventDispatcher_removeEventListener);
+    oluacls_setfunc(L, "removeEventListeners", _fairygui_UIEventDispatcher_removeEventListeners);
+
+    olua_registerluatype<fairygui::UIEventDispatcher>(L, "fgui.UIEventDispatcher");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _fairygui_EventContext_getType(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::EventContext *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.EventContext");
+
+    // int getType()
+    int ret = (int)self->getType();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _fairygui_EventContext_getSender(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::EventContext *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.EventContext");
+
+    // cocos2d::Ref* getSender()
+    cocos2d::Ref *ret = (cocos2d::Ref *)self->getSender();
+    int num_ret = olua_push_cppobj<cocos2d::Ref>(L, ret, "cc.Ref");
+
+    return num_ret;
+}
+
+static int _fairygui_EventContext_stopPropagation(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::EventContext *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.EventContext");
+
+    // void stopPropagation()
+    self->stopPropagation();
+
+    return 0;
+}
+
+static int _fairygui_EventContext_preventDefault(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::EventContext *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.EventContext");
+
+    // void preventDefault()
+    self->preventDefault();
+
+    return 0;
+}
+
+static int _fairygui_EventContext_isDefaultPrevented(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::EventContext *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.EventContext");
+
+    // bool isDefaultPrevented()
+    bool ret = (bool)self->isDefaultPrevented();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _fairygui_EventContext_captureTouch(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::EventContext *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.EventContext");
+
+    // void captureTouch()
+    self->captureTouch();
+
+    return 0;
+}
+
+static int _fairygui_EventContext_uncaptureTouch(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::EventContext *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.EventContext");
+
+    // void uncaptureTouch()
+    self->uncaptureTouch();
+
+    return 0;
+}
+
+static int _fairygui_EventContext_getDataValue(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::EventContext *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.EventContext");
+
+    // const cocos2d::Value& getDataValue()
+    const cocos2d::Value &ret = (const cocos2d::Value &)self->getDataValue();
+    int num_ret = manual_luacv_push_cocos2d_Value(L, &ret);
+
+    return num_ret;
+}
+
+static int _fairygui_EventContext_getData(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::EventContext *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.EventContext");
+
+    // void* getData()
+    void *ret = (void *)self->getData();
+    int num_ret = olua_push_obj(L, ret, "void *");
+
+    return num_ret;
+}
+
+static int luaopen_fairygui_EventContext(lua_State *L)
+{
+    oluacls_class(L, "fgui.EventContext", nullptr);
+    oluacls_setfunc(L, "getType", _fairygui_EventContext_getType);
+    oluacls_setfunc(L, "getSender", _fairygui_EventContext_getSender);
+    oluacls_setfunc(L, "stopPropagation", _fairygui_EventContext_stopPropagation);
+    oluacls_setfunc(L, "preventDefault", _fairygui_EventContext_preventDefault);
+    oluacls_setfunc(L, "isDefaultPrevented", _fairygui_EventContext_isDefaultPrevented);
+    oluacls_setfunc(L, "captureTouch", _fairygui_EventContext_captureTouch);
+    oluacls_setfunc(L, "uncaptureTouch", _fairygui_EventContext_uncaptureTouch);
+    oluacls_setfunc(L, "getDataValue", _fairygui_EventContext_getDataValue);
+    oluacls_setfunc(L, "getData", _fairygui_EventContext_getData);
+    oluacls_property(L, "type", _fairygui_EventContext_getType, nullptr);
+    oluacls_property(L, "sender", _fairygui_EventContext_getSender, nullptr);
+    oluacls_property(L, "defaultPrevented", _fairygui_EventContext_isDefaultPrevented, nullptr);
+    oluacls_property(L, "dataValue", _fairygui_EventContext_getDataValue, nullptr);
+    oluacls_property(L, "data", _fairygui_EventContext_getData, nullptr);
+
+    olua_registerluatype<fairygui::EventContext>(L, "fgui.EventContext");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
 int luaopen_fairygui(lua_State *L)
 {
+    olua_require(L, "fgui.UIEventDispatcher", luaopen_fairygui_UIEventDispatcher);
+    olua_require(L, "fgui.EventContext", luaopen_fairygui_EventContext);
     return 0;
 }

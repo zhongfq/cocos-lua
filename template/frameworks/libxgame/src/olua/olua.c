@@ -11,7 +11,6 @@
 #define CLS_SET         ".set"
 #define CLS_CALLBACK    ".callback" // static func callback store
 
-#define VOIDCLS     "void *"
 #define OBJ_REF_TABLE ((void *)olua_pushobj)
 #define TRACEBACK (_traceback ? _traceback : dummy_traceback)
 #define MAX(a, b)   ((a) > (b) ? (a) : (b))
@@ -181,7 +180,7 @@ LUALIB_API int olua_pushobj(lua_State *L, void *obj, const char *cls)
         }
     }
     
-    if (!strequal(cls, VOIDCLS) && luaL_testudata(L, -1, VOIDCLS)) {
+    if (!strequal(cls, OLUA_VOIDCLS) && luaL_testudata(L, -1, OLUA_VOIDCLS)) {
         luaL_setmetatable(L, cls);
         status = OLUA_OBJ_UPDATE;
     }
@@ -789,10 +788,10 @@ LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *super)
         }
         lua_pop(L, 1);
     } else {
-        if (!strequal(cls, VOIDCLS)) {
-            oluacls_class(L, VOIDCLS, NULL);
+        if (!strequal(cls, OLUA_VOIDCLS)) {
+            oluacls_class(L, OLUA_VOIDCLS, NULL);
             lua_pop(L, 1);
-            super = VOIDCLS;
+            super = OLUA_VOIDCLS;
         }
     }
     

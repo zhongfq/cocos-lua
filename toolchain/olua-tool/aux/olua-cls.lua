@@ -520,10 +520,12 @@ function class(collection)
         cls.FUNCS[#cls.FUNCS + 1] = parse_func(cls, name, table.unpack(arr))
         for i, v in ipairs(cls.FUNCS[#cls.FUNCS]) do
             v.CALLBACK_OPT = assert(opt)
+            v.CALLBACK_OPT = setmetatable({}, {__index = assert(opt)})
             if type(v.CALLBACK_OPT.CALLBACK_MAKER) == 'table' then
-                v.CALLBACK_OPT = setmetatable({
-                    CALLBACK_MAKER = assert(v.CALLBACK_OPT.CALLBACK_MAKER[i])
-                }, {__index = v.CALLBACK_OPT})
+                v.CALLBACK_OPT.CALLBACK_MAKER = assert(v.CALLBACK_OPT.CALLBACK_MAKER[i])
+            end
+            if type(v.CALLBACK_OPT.CALLBACK_MODE) == 'table' then
+                v.CALLBACK_OPT.CALLBACK_MODE = assert(v.CALLBACK_OPT.CALLBACK_MODE[i])
             end
         end
     end

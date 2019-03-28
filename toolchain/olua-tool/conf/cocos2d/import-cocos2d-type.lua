@@ -81,6 +81,7 @@ REG_TYPE {
     TYPENAME = [[
         cocos2d::Color3B
         cocos2d::Color4B
+        cocos2d::Value
         cocos2d::ValueMap
         cocos2d::ValueVector
         cocos2d::Vector

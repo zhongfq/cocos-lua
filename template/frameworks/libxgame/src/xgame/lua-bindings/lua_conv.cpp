@@ -968,3 +968,48 @@ bool auto_luacv_is_fairygui_Margin(lua_State *L, int idx)
 {
     return lua_istable(L, idx);
 }
+
+int auto_luacv_push_cocos2d_Quad3(lua_State *L, const cocos2d::Quad3 *value)
+{
+    if (value) {
+        lua_createtable(L, 0, 4);
+        auto_luacv_push_cocos2d_Vec3(L, &value->bl);
+        olua_rawgetfield(L, -2, "bl");
+        auto_luacv_push_cocos2d_Vec3(L, &value->br);
+        olua_rawgetfield(L, -2, "br");
+        auto_luacv_push_cocos2d_Vec3(L, &value->tl);
+        olua_rawgetfield(L, -2, "tl");
+        auto_luacv_push_cocos2d_Vec3(L, &value->tr);
+        olua_rawgetfield(L, -2, "tr");
+    } else {
+        lua_pushnil(L);
+    }
+
+    return 1;
+}
+
+void auto_luacv_check_cocos2d_Quad3(lua_State *L, int idx, cocos2d::Quad3 *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    idx = lua_absindex(L, idx);
+    luaL_checktype(L, idx, LUA_TTABLE);
+    olua_rawgetfield(L, -1, "bl");
+    auto_luacv_check_cocos2d_Vec3(L, idx, &value->bl);
+    lua_pop(L, 1);
+    olua_rawgetfield(L, -1, "br");
+    auto_luacv_check_cocos2d_Vec3(L, idx, &value->br);
+    lua_pop(L, 1);
+    olua_rawgetfield(L, -1, "tl");
+    auto_luacv_check_cocos2d_Vec3(L, idx, &value->tl);
+    lua_pop(L, 1);
+    olua_rawgetfield(L, -1, "tr");
+    auto_luacv_check_cocos2d_Vec3(L, idx, &value->tr);
+    lua_pop(L, 1);
+}
+
+bool auto_luacv_is_cocos2d_Quad3(lua_State *L, int idx)
+{
+    return lua_istable(L, idx);
+}

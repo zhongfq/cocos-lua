@@ -114,6 +114,7 @@ REG_TYPE {
         cocos2d::Uniform *
         cocos2d::VertexAttrib *
         GLContextAttrs
+        cocos2d::Quad3
     ]],
     CONV_FUNC = make_auto_conv_func,
     INIT_VALUE = false,
@@ -422,6 +423,42 @@ REG_TYPE {
         cocos2d::Vec3 *
         cocos2d::VRIHeadTracker *
         cocos2d::VRIRenderer *
+        cocos2d::NodeGrid *
+        cocos2d::GridBase *
+        cocos2d::Grid3D *
+        cocos2d::TiledGrid3D *
+        cocos2d::Grabber *
+        cocos2d::GridAction * 
+        cocos2d::Grid3DAction *
+        cocos2d::TiledGrid3DAction *
+        cocos2d::AccelDeccelAmplitude *
+        cocos2d::AccelAmplitude *
+        cocos2d::DeccelAmplitude *
+        cocos2d::StopGrid *
+        cocos2d::ReuseGrid *
+        cocos2d::Waves3D *
+        cocos2d::FlipX3D *
+        cocos2d::FlipY3D *
+        cocos2d::Lens3D *
+        cocos2d::Ripple3D *
+        cocos2d::Shaky3D *
+        cocos2d::Liquid *
+        cocos2d::Waves *
+        cocos2d::Twirl *
+        cocos2d::PageTurn3D *
+        cocos2d::ShakyTiles3D *
+        cocos2d::ShakyTiles3D"
+        cocos2d::ShatteredTiles3D *
+        cocos2d::ShuffleTiles *
+        cocos2d::FadeOutTRTiles *
+        cocos2d::FadeOutBLTiles *
+        cocos2d::FadeOutUpTiles *
+        cocos2d::FadeOutDownTiles *
+        cocos2d::TurnOffTiles *
+        cocos2d::WavesTiles3D *
+        cocos2d::JumpTiles3D *
+        cocos2d::SplitRows *
+        cocos2d::SplitCols *
         CocosDenshion::SimpleAudioEngine *
         spine::SkeletonAnimation *
         spine::SkeletonRenderer *

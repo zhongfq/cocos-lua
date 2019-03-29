@@ -214,6 +214,16 @@ M.CONVS = {
             float bottom;
         ]]
     },
+    REG_CONV {
+        CPPCLS = 'cocos2d::Quad3',
+        DEF = [[
+            cocos2d::Vec3 bl;
+            cocos2d::Vec3 br;
+            cocos2d::Vec3 tl;
+            cocos2d::Vec3 tr;
+        ]],
+        FUNC = 'push|check|is',
+    },
 }
 
 return M

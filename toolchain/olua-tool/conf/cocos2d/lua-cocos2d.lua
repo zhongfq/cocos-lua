@@ -92,6 +92,12 @@ M.CLASSES = {
     include("conf/cocos2d/2d/text-input-node/cc.TextFieldTTF.lua"),
     include("conf/cocos2d/2d/cc.Light.lua"),
     include("conf/cocos2d/2d/cc.Camera.lua"),
+    include("conf/cocos2d/2d/grid/cc.Grid.lua"),
+    include("conf/cocos2d/2d/grid/cc.Grabber.lua"),
+    include("conf/cocos2d/2d/grid/cc.NodeGrid.lua"),
+    include("conf/cocos2d/2d/grid/cc.ActionGrid.lua"),
+    include("conf/cocos2d/2d/grid/cc.ActionGrid3D.lua"),
+    include("conf/cocos2d/2d/grid/cc.ActionTileGrid.lua"),
 }
 
 return M

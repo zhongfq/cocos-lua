@@ -126,4 +126,9 @@ void auto_luacv_check_fairygui_Margin(lua_State *L, int idx, fairygui::Margin *v
 void auto_luacv_opt_fairygui_Margin(lua_State *L, int idx, fairygui::Margin *value, const fairygui::Margin &def);
 bool auto_luacv_is_fairygui_Margin(lua_State *L, int idx);
 
+// cocos2d::Quad3
+int auto_luacv_push_cocos2d_Quad3(lua_State *L, const cocos2d::Quad3 *value);
+void auto_luacv_check_cocos2d_Quad3(lua_State *L, int idx, cocos2d::Quad3 *value);
+bool auto_luacv_is_cocos2d_Quad3(lua_State *L, int idx);
+
 #endif

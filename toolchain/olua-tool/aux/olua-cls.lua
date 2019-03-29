@@ -260,7 +260,6 @@ local function parse_func(cls, name, ...)
         return setmetatable({}, {__index = t})
     end
     local arr = {MAX_ARGS = 0}
-    local is_static_func
     for i, func_decl in ipairs({...}) do
         local fi = {RET = {}}
         if string.find(func_decl, '{') then
@@ -315,12 +314,6 @@ local function parse_func(cls, name, ...)
                     ${STATIC}${RET_DECL} ${CPPFUNC}(${ARGS_DECL})
                 ]])
                 cls.PROTOTYPES[fi.PROTOTYPE] = true
-            end
-
-            if is_static_func == nil then
-                is_static_func = fi.STATIC
-            else
-                assert(is_static_func == fi.STATIC, func_decl)
             end
 
             -- has @pack? gen one more func

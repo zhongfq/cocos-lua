@@ -51,15 +51,17 @@ static int luaopen_fairygui_UIEventType(lua_State *L)
 static std::string makeListenerTag(lua_State *L, lua_Integer type, int tagidx)
 {
     char buf[64];
+    intptr_t tag = 0;
+    if (tagidx > 0) {
+        if (olua_isinteger(L, tagidx)) {
+            tag = (intptr_t)olua_tointeger(L, tagidx);
+        } else {
+            tag = (intptr_t)olua_checkobj(L, tagidx, OLUA_VOIDCLS);
+        }
+    }
     if (type >= 0) {
-        if (tagidx > 0) {
-            intptr_t p = 0;
-            if (olua_isinteger(L, tagidx)) {
-                p = (uintptr_t)olua_tointeger(L, tagidx);
-            } else {
-                p = (uintptr_t)olua_checkobj(L, tagidx, OLUA_VOIDCLS);
-            }
-            sprintf(buf, "listeners.%d.%ld", (int)type, p);
+        if (tag > 0) {
+            sprintf(buf, "listeners.%d.%ld", (int)type, tag);
         } else {
             sprintf(buf, "listeners.%d", (int)type);
         }

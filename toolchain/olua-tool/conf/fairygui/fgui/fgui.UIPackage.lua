@@ -1,6 +1,7 @@
 local cls = class(M)
 cls.CPPCLS = "fairygui::UIPackage"
 cls.LUACLS = "fgui.UIPackage"
+cls.SUPERCLS = "cc.Ref"
 cls.funcs [[
     static UIPackage* getById(const std::string& id)
     static UIPackage* getByName(const std::string& name)

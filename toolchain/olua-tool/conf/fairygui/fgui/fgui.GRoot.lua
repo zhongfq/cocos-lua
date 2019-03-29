@@ -18,7 +18,7 @@ cls.funcs [[
     GGraph* getModalLayer()
     bool hasModalWindow()
     bool isModalWaiting()
-    // InputProcessor* getInputProcessor()
+    InputProcessor* getInputProcessor()
     cocos2d::Vec2 getTouchPosition(int touchId)
     GObject* getTouchTarget()
     void showPopup(GObject* popup)
@@ -37,6 +37,17 @@ cls.funcs [[
     void setSoundEnabled(bool value)
     float getSoundVolumeScale()
     void setSoundVolumeScale(float value)
+]]
+cls.props [[
+    instance
+    topWindow
+    modalWaitingPane
+    modalLayer
+    modalWaiting
+    inputProcessor
+    touchTarget
+    soundEnabled
+    soundVolumeScale
 ]]
 
 return cls

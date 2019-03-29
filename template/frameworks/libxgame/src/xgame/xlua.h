@@ -30,6 +30,11 @@ template <typename T> void xlua_report_push_status(lua_State *L, T* value, int s
     if ((status == OLUA_OBJ_NEW || status == OLUA_OBJ_UPDATE) &&
         std::is_base_of<cocos2d::Ref, T>::value) {
         ((cocos2d::Ref *)value)->retain();
+#ifdef COCOS2D_DEBUG
+        if (!olua_isa(L, -1, "cc.Ref")) {
+            luaL_error(L, "class '%s' not inherit from 'cc.Ref'", olua_getluatype(L, value, ""));
+        }
+#endif
         olua_addobjcount();
     }
 }

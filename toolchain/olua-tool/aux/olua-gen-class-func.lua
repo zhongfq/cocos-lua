@@ -114,7 +114,7 @@ local function gen_func_args(cls, fi)
                         print(SUBTYPE.DECL_TYPE, SUBTYPE.TYPENAME)
                         error(SUBTYPE.TYPENAME)
                     end
-                    CAST = string.format("(%s)", SUBTYPE.DECL_TYPE)
+                    CAST = string.format("(%s)", SUBTYPE.TYPENAME)
                 end
                 ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
                     luaL_checktype(L, ${IDX}, LUA_TTABLE);
@@ -267,11 +267,6 @@ local function gen_func_ret(cls, fi)
 end
 
 local function gen_one_func(cls, fi, write, funcidx, func_filter)
-    if fi.CPPFUNC_SNIPPET then
-        gen_snippet_func(cls, fi, write)
-        return
-    end
-
     local CPPCLS_PATH = class_path(cls)
     local CPPFUNC = fi.CPPFUNC
     local CALLFUNC = CPPFUNC
@@ -291,6 +286,11 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
         return
     end
     func_filter[funcname] = true
+
+    if fi.CPPFUNC_SNIPPET then
+        gen_snippet_func(cls, fi, write)
+        return
+    end
 
     if fi.STATIC then
         CALLER = cls.CPPCLS .. '::'

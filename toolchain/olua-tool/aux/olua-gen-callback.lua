@@ -187,18 +187,24 @@ function gen_callback(cls, fi, write)
     if ai.CALLBACK.RET.TYPENAME ~= "void" then
         local DECL_TYPE = ai.CALLBACK.RET.DECL_TYPE
         local INIT_VALUE = ai.CALLBACK.RET.INIT_VALUE
-        local FUNC_OPT_VALUE = ai.CALLBACK.RET.FUNC_OPT_VALUE
-        RESULT_DECL = format_snippet([[
-            ${DECL_TYPE} ret = ${INIT_VALUE};
-        ]])
+        local FUNC_CHECK_VALUE = ai.CALLBACK.RET.FUNC_CHECK_VALUE
+        if INIT_VALUE then
+            RESULT_DECL = format_snippet([[
+                ${DECL_TYPE} ret = ${INIT_VALUE};
+            ]])
+        else
+             RESULT_DECL = format_snippet([[
+                ${DECL_TYPE} ret;
+            ]])
+        end
         if ai.CALLBACK.RET.LUACLS then
             local LUACLS = ai.CALLBACK.RET.LUACLS
             RESULT_GET = format_snippet([[
-                ${FUNC_OPT_VALUE}(L, -1, (void **)&ret, "${LUACLS}", ${INIT_VALUE});
+                ${FUNC_CHECK_VALUE}(L, -1, (void **)&ret, "${LUACLS}");
             ]])
         else
             RESULT_GET = format_snippet([[
-                ${FUNC_OPT_VALUE}(L, -1, &ret, ${INIT_VALUE});
+                ${FUNC_CHECK_VALUE}(L, -1, &ret);
             ]])
         end
         RESULT_RET = "return ret;"

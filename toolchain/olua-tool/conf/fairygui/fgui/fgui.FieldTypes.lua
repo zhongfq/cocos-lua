@@ -75,6 +75,16 @@ cls.enums [[
 ]]
 
 local cls = class(M)
+cls.CPPCLS = "fairygui::ScrollBarDisplayType"
+cls.LUACLS = "fgui.ScrollBarDisplayType"
+cls.enums [[
+    DEFAULT
+    VISIBLE
+    AUTO
+    HIDDEN
+]]
+
+local cls = class(M)
 cls.CPPCLS = "fairygui::LoaderFillType"
 cls.LUACLS = "fgui.LoaderFillType"
 cls.enums [[

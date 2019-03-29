@@ -45,7 +45,7 @@ cls.funcs [[
 ]]
 cls.func('copyFrom', [[
 {
-    lua_settop(L, 1);
+    lua_settop(L, 2);
     
     fairygui::RelationItem *self = (fairygui::RelationItem *)olua_toobj(L, 1, "fgui.RelationItem");
     fairygui::RelationItem *source = (fairygui::RelationItem *)olua_checkobj(L, 2, "fgui.RelationItem");

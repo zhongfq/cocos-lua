@@ -4,7 +4,7 @@ cls.LUACLS = "fgui.EventContext"
 cls.funcs [[
     int getType()
     cocos2d::Ref* getSender()
-    // InputEvent* getInput()
+    InputEvent* getInput()
     void stopPropagation()
     void preventDefault()
     bool isDefaultPrevented()
@@ -17,6 +17,7 @@ cls.funcs [[
 cls.props [[
     type
     sender
+    input
     defaultPrevented
     dataValue
     data

@@ -402,7 +402,9 @@ local function parse_prop(cls, name, func_get, func_set)
             for _, f in ipairs(v) do
                 if test(f, name, 'set') or
                     test(f, name2, 'set') then
-                    assert(#f.ARGS >= 1, f.CPPFUNC)
+                    if not f.CPPFUNC_SNIPPET then
+                        assert(#f.ARGS >= 1, f.CPPFUNC)
+                    end
                     pi.SET = f
                 end
             end
@@ -411,11 +413,11 @@ local function parse_prop(cls, name, func_get, func_set)
 
     if not pi.GET.CPPFUNC_SNIPPET then
         assert(pi.GET.RET.NUM > 0, func_get)
-    else
+    elseif func_get then
         pi.GET.CPPFUNC = 'get_' .. pi.GET.CPPFUNC
     end
 
-    if pi.SET and pi.SET.CPPFUNC_SNIPPET then
+    if pi.SET and pi.SET.CPPFUNC_SNIPPET and func_set then
         pi.SET.CPPFUNC = 'set_' .. pi.SET.CPPFUNC
     end
 
@@ -566,6 +568,7 @@ function class(collection)
 
     function cls.var(name, var_decl)
         var_decl = string.gsub(var_decl, ';*$', '')
+        local var_decl, static = string.gsub(var_decl, '^ *static *', '')
         local ARGS = parse_args(cls, '(' .. var_decl .. ')')
         local CALLBACK_OPT
         name = name or ARGS[1].VARNAME
@@ -590,6 +593,7 @@ function class(collection)
                     DECL_TYPE = ARGS[1].DECL_TYPE,
                     ATTR = {},
                 },
+                STATIC = static > 0,
                 ISVAR = true,
                 ARGS = {},
                 INDEX = 0,
@@ -600,6 +604,7 @@ function class(collection)
                 CPPFUNC = 'set_' .. ARGS[1].VARNAME,
                 VARNAME = ARGS[1].VARNAME,
                 INJECT = {},
+                STATIC = static > 0,
                 FUNC_DECL = '<function var>',
                 RET = {
                     NUM = 0,

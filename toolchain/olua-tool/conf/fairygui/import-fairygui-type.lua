@@ -48,6 +48,7 @@ REG_TYPE {
         fairygui::PopupDirection
         fairygui::ProgressTitleType
         fairygui::RelationType
+        fairygui::ScrollBarDisplayType
         fairygui::ScrollType
         fairygui::TransitionActionType
     ]],
@@ -58,24 +59,41 @@ REG_TYPE {
 
 REG_TYPE {
     TYPENAME = [[
+        fairygui::DragDropManager *
         fairygui::EventContext *
+        fairygui::GButton *
+        fairygui::GComboBox *
         fairygui::GComponent *
         fairygui::GController *
         fairygui::GearBase *
+        fairygui::GGraph *
         fairygui::GGroup *
+        fairygui::GImage *
+        fairygui::GLabel *
+        fairygui::GList *
+        fairygui::GLoader *
+        fairygui::GMovieClip *
         fairygui::GObject *
+        fairygui::GProgressBar *
+        fairygui::GRichTextField *
         fairygui::GRoot *
         fairygui::GScrollBar *
+        fairygui::GSlider *
+        fairygui::GTextField *
+        fairygui::GTextInput *
         fairygui::IHitTest *
+        fairygui::InputEvent *
+        fairygui::InputProcessor *
         fairygui::IUISource *
         fairygui::PackageItem *
+        fairygui::PopupMenu *
         fairygui::RelationItem *
         fairygui::Relations *
         fairygui::ScrollPane *
-        fairygui::ScrollPane *
+        fairygui::TextFormat *
         fairygui::Transition *
-        fairygui::GGraph *
         fairygui::UIEventDispatcher *
+        fairygui::UIPackage *
         fairygui::UISource *
         fairygui::Window *
     ]],

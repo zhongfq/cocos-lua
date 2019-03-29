@@ -3103,7 +3103,7 @@ static int _cocos2d_EventListenerTouchOneByOne_set_onTouchBegan(lua_State *L)
             olua_push_cppobj<cocos2d::Touch>(L, arg1, "cc.Touch");
             olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
             olua_callback(L, callback_store_obj, func.c_str(), 2);
-            olua_opt_bool(L, -1, &ret, false);
+            olua_check_bool(L, -1, &ret);
 
             //may be stack value
             olua_push_cppobj<cocos2d::Touch>(L, arg1, "cc.Touch");

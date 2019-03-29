@@ -1382,7 +1382,7 @@ static int _cocos2d_ui_Widget_set_onNextFocusedWidget(lua_State *L)
             cocos2d::ui::Widget * ret = nullptr;
             olua_push_uint(L, (lua_Unsigned)arg1);
             olua_callback(L, callback_store_obj, func.c_str(), 1);
-            olua_opt_cppobj(L, -1, (void **)&ret, "ccui.Widget", nullptr);
+            olua_check_cppobj(L, -1, (void **)&ret, "ccui.Widget");
 
             lua_settop(L, top);
             return ret;
@@ -4294,7 +4294,7 @@ static int _cocos2d_ui_Layout_set_onPassFocusToChild(lua_State *L)
             olua_push_uint(L, (lua_Unsigned)arg1);
             olua_push_cppobj<cocos2d::ui::Widget>(L, arg2, "ccui.Widget");
             olua_callback(L, callback_store_obj, func.c_str(), 2);
-            olua_opt_int(L, -1, &ret, 0);
+            olua_check_int(L, -1, &ret);
 
             lua_settop(L, top);
             return ret;
@@ -4901,7 +4901,7 @@ static int _cocos2d_experimental_ui_WebView_setOnShouldStartLoading(lua_State *L
             olua_push_cppobj<cocos2d::experimental::ui::WebView>(L, arg1, "ccui.WebView");
             olua_push_std_string(L, arg2);
             olua_callback(L, callback_store_obj, func.c_str(), 2);
-            olua_opt_bool(L, -1, &ret, false);
+            olua_check_bool(L, -1, &ret);
 
             lua_settop(L, top);
             return ret;

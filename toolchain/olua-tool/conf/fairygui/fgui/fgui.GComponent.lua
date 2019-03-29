@@ -72,4 +72,20 @@ cls.props [[
 ]]
 cls.prop('numChildren', 'int numChildren()')
 
+-- ref
+local REFNAME = 'children'
+-- GObject* addChild(GObject* child)
+-- GObject* addChildAt(GObject* child, int index)
+-- void removeChild(GObject * child);
+-- void removeChildAt(int index);
+-- void removeChildren() { removeChildren(0, -1); }
+-- void removeChildren(int beginIndex, int endIndex);
+-- GObject *getChildAt(int index) const;
+-- GObject *getChild(const std::string& name) const;
+-- GObject *getChildInGroup(const GGroup * group, const std::string& name) const;
+-- GObject *getChildById(const std::string& id) const;
+-- const cocos2d::Vector<GObject*>& getChildren() const { return _children; }
+cls.inject('addChild',      mapref_arg_value(REFNAME))
+cls.inject('addChildAt',    mapref_arg_value(REFNAME))
+
 return cls

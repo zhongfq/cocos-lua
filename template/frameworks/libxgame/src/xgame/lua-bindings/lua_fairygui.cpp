@@ -3395,9 +3395,11 @@ static int _fairygui_GObject_getGroup(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
 
-    // GGroup* getGroup()
+    // @ref(single group) GGroup* getGroup()
     fairygui::GGroup *ret = (fairygui::GGroup *)self->getGroup();
     int num_ret = olua_push_cppobj<fairygui::GGroup>(L, ret, "fgui.GGroup");
+
+    olua_singleref(L, 1, "group", -1);
 
     return num_ret;
 }
@@ -3412,8 +3414,11 @@ static int _fairygui_GObject_setGroup(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
     olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GGroup");
 
-    // void setGroup(GGroup* value)
+    // void setGroup(@ref(single group) GGroup* value)
     self->setGroup(arg1);
+
+    // ref value
+    olua_singleref(L, 1, "group", 2);
 
     return 0;
 }
@@ -4596,6 +4601,8 @@ static int _fairygui_GComponent_addChild(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
     olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GObject");
 
+    olua_mapref(L, 1, "children", 2);
+
     // GObject* addChild(GObject* child)
     fairygui::GObject *ret = (fairygui::GObject *)self->addChild(arg1);
     int num_ret = olua_push_cppobj<fairygui::GObject>(L, ret, "fgui.GObject");
@@ -4614,6 +4621,8 @@ static int _fairygui_GComponent_addChildAt(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
     olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GObject");
     olua_check_int(L, 3, &arg2);
+
+    olua_mapref(L, 1, "children", 2);
 
     // GObject* addChildAt(GObject* child, int index)
     fairygui::GObject *ret = (fairygui::GObject *)self->addChildAt(arg1, (int)arg2);

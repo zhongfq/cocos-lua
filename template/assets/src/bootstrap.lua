@@ -6,7 +6,7 @@ window.setDesignSize(1334, 750, 1)
 
 function main()
     -- runTest('test.WebViewTest')
-    runTest("test.RefChainTest")
+    runTest("test.FGUITest")
 end
 
 function runTest(path)

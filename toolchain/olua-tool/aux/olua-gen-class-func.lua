@@ -33,6 +33,9 @@ local function gen_func_args(cls, fi)
         ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
             ${FUNC_TO_VALUE}(L, 1, (void **)&self, "${LUACLS}");
         ]])
+    elseif fi.ISVAR then
+        TOTAL_ARGS = TOTAL_ARGS + 1
+        idx = idx + 1
     end
 
     for i, ai in ipairs(fi.ARGS) do

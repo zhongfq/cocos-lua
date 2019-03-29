@@ -12521,7 +12521,7 @@ static int _fairygui_UIConfig_getRealFontName(lua_State *L)
 
 static int _fairygui_UIConfig_get_defaultFont(lua_State *L)
 {
-    lua_settop(L, 0);
+    lua_settop(L, 1);
 
     // <function var>
     std::string ret = (std::string)fairygui::UIConfig::defaultFont;
@@ -12532,11 +12532,11 @@ static int _fairygui_UIConfig_get_defaultFont(lua_State *L)
 
 static int _fairygui_UIConfig_set_defaultFont(lua_State *L)
 {
-    lua_settop(L, 1);
+    lua_settop(L, 2);
 
     std::string arg1;       /** defaultFont */
 
-    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg1);
 
     // <function var>
     fairygui::UIConfig::defaultFont = arg1;
@@ -12546,7 +12546,7 @@ static int _fairygui_UIConfig_set_defaultFont(lua_State *L)
 
 static int _fairygui_UIConfig_get_buttonSound(lua_State *L)
 {
-    lua_settop(L, 0);
+    lua_settop(L, 1);
 
     // <function var>
     std::string ret = (std::string)fairygui::UIConfig::buttonSound;
@@ -12557,11 +12557,11 @@ static int _fairygui_UIConfig_get_buttonSound(lua_State *L)
 
 static int _fairygui_UIConfig_set_buttonSound(lua_State *L)
 {
-    lua_settop(L, 1);
+    lua_settop(L, 2);
 
     std::string arg1;       /** buttonSound */
 
-    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg1);
 
     // <function var>
     fairygui::UIConfig::buttonSound = arg1;
@@ -12571,7 +12571,7 @@ static int _fairygui_UIConfig_set_buttonSound(lua_State *L)
 
 static int _fairygui_UIConfig_get_buttonSoundVolumeScale(lua_State *L)
 {
-    lua_settop(L, 0);
+    lua_settop(L, 1);
 
     // <function var>
     float ret = (float)fairygui::UIConfig::buttonSoundVolumeScale;
@@ -12582,11 +12582,11 @@ static int _fairygui_UIConfig_get_buttonSoundVolumeScale(lua_State *L)
 
 static int _fairygui_UIConfig_set_buttonSoundVolumeScale(lua_State *L)
 {
-    lua_settop(L, 1);
+    lua_settop(L, 2);
 
     lua_Number arg1 = 0;   /** buttonSoundVolumeScale */
 
-    olua_check_number(L, 1, &arg1);
+    olua_check_number(L, 2, &arg1);
 
     // <function var>
     fairygui::UIConfig::buttonSoundVolumeScale = (float)arg1;
@@ -12596,7 +12596,7 @@ static int _fairygui_UIConfig_set_buttonSoundVolumeScale(lua_State *L)
 
 static int _fairygui_UIConfig_get_defaultScrollStep(lua_State *L)
 {
-    lua_settop(L, 0);
+    lua_settop(L, 1);
 
     // <function var>
     int ret = (int)fairygui::UIConfig::defaultScrollStep;
@@ -12607,11 +12607,11 @@ static int _fairygui_UIConfig_get_defaultScrollStep(lua_State *L)
 
 static int _fairygui_UIConfig_set_defaultScrollStep(lua_State *L)
 {
-    lua_settop(L, 1);
+    lua_settop(L, 2);
 
     lua_Integer arg1 = 0;   /** defaultScrollStep */
 
-    olua_check_int(L, 1, &arg1);
+    olua_check_int(L, 2, &arg1);
 
     // <function var>
     fairygui::UIConfig::defaultScrollStep = (int)arg1;
@@ -12621,7 +12621,7 @@ static int _fairygui_UIConfig_set_defaultScrollStep(lua_State *L)
 
 static int _fairygui_UIConfig_get_defaultScrollDecelerationRate(lua_State *L)
 {
-    lua_settop(L, 0);
+    lua_settop(L, 1);
 
     // <function var>
     float ret = (float)fairygui::UIConfig::defaultScrollDecelerationRate;
@@ -12632,11 +12632,11 @@ static int _fairygui_UIConfig_get_defaultScrollDecelerationRate(lua_State *L)
 
 static int _fairygui_UIConfig_set_defaultScrollDecelerationRate(lua_State *L)
 {
-    lua_settop(L, 1);
+    lua_settop(L, 2);
 
     lua_Number arg1 = 0;   /** defaultScrollDecelerationRate */
 
-    olua_check_number(L, 1, &arg1);
+    olua_check_number(L, 2, &arg1);
 
     // <function var>
     fairygui::UIConfig::defaultScrollDecelerationRate = (float)arg1;
@@ -12646,7 +12646,7 @@ static int _fairygui_UIConfig_set_defaultScrollDecelerationRate(lua_State *L)
 
 static int _fairygui_UIConfig_get_defaultScrollTouchEffect(lua_State *L)
 {
-    lua_settop(L, 0);
+    lua_settop(L, 1);
 
     // <function var>
     bool ret = (bool)fairygui::UIConfig::defaultScrollTouchEffect;
@@ -12657,11 +12657,11 @@ static int _fairygui_UIConfig_get_defaultScrollTouchEffect(lua_State *L)
 
 static int _fairygui_UIConfig_set_defaultScrollTouchEffect(lua_State *L)
 {
-    lua_settop(L, 1);
+    lua_settop(L, 2);
 
     bool arg1 = false;   /** defaultScrollTouchEffect */
 
-    olua_check_bool(L, 1, &arg1);
+    olua_check_bool(L, 2, &arg1);
 
     // <function var>
     fairygui::UIConfig::defaultScrollTouchEffect = arg1;
@@ -12671,7 +12671,7 @@ static int _fairygui_UIConfig_set_defaultScrollTouchEffect(lua_State *L)
 
 static int _fairygui_UIConfig_get_defaultScrollBounceEffect(lua_State *L)
 {
-    lua_settop(L, 0);
+    lua_settop(L, 1);
 
     // <function var>
     bool ret = (bool)fairygui::UIConfig::defaultScrollBounceEffect;
@@ -12682,11 +12682,11 @@ static int _fairygui_UIConfig_get_defaultScrollBounceEffect(lua_State *L)
 
 static int _fairygui_UIConfig_set_defaultScrollBounceEffect(lua_State *L)
 {
-    lua_settop(L, 1);
+    lua_settop(L, 2);
 
     bool arg1 = false;   /** defaultScrollBounceEffect */
 
-    olua_check_bool(L, 1, &arg1);
+    olua_check_bool(L, 2, &arg1);
 
     // <function var>
     fairygui::UIConfig::defaultScrollBounceEffect = arg1;
@@ -12696,7 +12696,7 @@ static int _fairygui_UIConfig_set_defaultScrollBounceEffect(lua_State *L)
 
 static int _fairygui_UIConfig_get_defaultScrollBarDisplay(lua_State *L)
 {
-    lua_settop(L, 0);
+    lua_settop(L, 1);
 
     // <function var>
     fairygui::ScrollBarDisplayType ret = (fairygui::ScrollBarDisplayType)fairygui::UIConfig::defaultScrollBarDisplay;
@@ -12707,11 +12707,11 @@ static int _fairygui_UIConfig_get_defaultScrollBarDisplay(lua_State *L)
 
 static int _fairygui_UIConfig_set_defaultScrollBarDisplay(lua_State *L)
 {
-    lua_settop(L, 1);
+    lua_settop(L, 2);
 
     lua_Unsigned arg1 = 0;   /** defaultScrollBarDisplay */
 
-    olua_check_uint(L, 1, &arg1);
+    olua_check_uint(L, 2, &arg1);
 
     // <function var>
     fairygui::UIConfig::defaultScrollBarDisplay = (fairygui::ScrollBarDisplayType)arg1;
@@ -12721,7 +12721,7 @@ static int _fairygui_UIConfig_set_defaultScrollBarDisplay(lua_State *L)
 
 static int _fairygui_UIConfig_get_verticalScrollBar(lua_State *L)
 {
-    lua_settop(L, 0);
+    lua_settop(L, 1);
 
     // <function var>
     std::string ret = (std::string)fairygui::UIConfig::verticalScrollBar;
@@ -12732,11 +12732,11 @@ static int _fairygui_UIConfig_get_verticalScrollBar(lua_State *L)
 
 static int _fairygui_UIConfig_set_verticalScrollBar(lua_State *L)
 {
-    lua_settop(L, 1);
+    lua_settop(L, 2);
 
     std::string arg1;       /** verticalScrollBar */
 
-    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg1);
 
     // <function var>
     fairygui::UIConfig::verticalScrollBar = arg1;
@@ -12746,7 +12746,7 @@ static int _fairygui_UIConfig_set_verticalScrollBar(lua_State *L)
 
 static int _fairygui_UIConfig_get_horizontalScrollBar(lua_State *L)
 {
-    lua_settop(L, 0);
+    lua_settop(L, 1);
 
     // <function var>
     std::string ret = (std::string)fairygui::UIConfig::horizontalScrollBar;
@@ -12757,11 +12757,11 @@ static int _fairygui_UIConfig_get_horizontalScrollBar(lua_State *L)
 
 static int _fairygui_UIConfig_set_horizontalScrollBar(lua_State *L)
 {
-    lua_settop(L, 1);
+    lua_settop(L, 2);
 
     std::string arg1;       /** horizontalScrollBar */
 
-    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg1);
 
     // <function var>
     fairygui::UIConfig::horizontalScrollBar = arg1;
@@ -12771,7 +12771,7 @@ static int _fairygui_UIConfig_set_horizontalScrollBar(lua_State *L)
 
 static int _fairygui_UIConfig_get_touchDragSensitivity(lua_State *L)
 {
-    lua_settop(L, 0);
+    lua_settop(L, 1);
 
     // <function var>
     int ret = (int)fairygui::UIConfig::touchDragSensitivity;
@@ -12782,11 +12782,11 @@ static int _fairygui_UIConfig_get_touchDragSensitivity(lua_State *L)
 
 static int _fairygui_UIConfig_set_touchDragSensitivity(lua_State *L)
 {
-    lua_settop(L, 1);
+    lua_settop(L, 2);
 
     lua_Integer arg1 = 0;   /** touchDragSensitivity */
 
-    olua_check_int(L, 1, &arg1);
+    olua_check_int(L, 2, &arg1);
 
     // <function var>
     fairygui::UIConfig::touchDragSensitivity = (int)arg1;
@@ -12796,7 +12796,7 @@ static int _fairygui_UIConfig_set_touchDragSensitivity(lua_State *L)
 
 static int _fairygui_UIConfig_get_clickDragSensitivity(lua_State *L)
 {
-    lua_settop(L, 0);
+    lua_settop(L, 1);
 
     // <function var>
     int ret = (int)fairygui::UIConfig::clickDragSensitivity;
@@ -12807,11 +12807,11 @@ static int _fairygui_UIConfig_get_clickDragSensitivity(lua_State *L)
 
 static int _fairygui_UIConfig_set_clickDragSensitivity(lua_State *L)
 {
-    lua_settop(L, 1);
+    lua_settop(L, 2);
 
     lua_Integer arg1 = 0;   /** clickDragSensitivity */
 
-    olua_check_int(L, 1, &arg1);
+    olua_check_int(L, 2, &arg1);
 
     // <function var>
     fairygui::UIConfig::clickDragSensitivity = (int)arg1;
@@ -12821,7 +12821,7 @@ static int _fairygui_UIConfig_set_clickDragSensitivity(lua_State *L)
 
 static int _fairygui_UIConfig_get_touchScrollSensitivity(lua_State *L)
 {
-    lua_settop(L, 0);
+    lua_settop(L, 1);
 
     // <function var>
     int ret = (int)fairygui::UIConfig::touchScrollSensitivity;
@@ -12832,11 +12832,11 @@ static int _fairygui_UIConfig_get_touchScrollSensitivity(lua_State *L)
 
 static int _fairygui_UIConfig_set_touchScrollSensitivity(lua_State *L)
 {
-    lua_settop(L, 1);
+    lua_settop(L, 2);
 
     lua_Integer arg1 = 0;   /** touchScrollSensitivity */
 
-    olua_check_int(L, 1, &arg1);
+    olua_check_int(L, 2, &arg1);
 
     // <function var>
     fairygui::UIConfig::touchScrollSensitivity = (int)arg1;
@@ -12846,7 +12846,7 @@ static int _fairygui_UIConfig_set_touchScrollSensitivity(lua_State *L)
 
 static int _fairygui_UIConfig_get_defaultComboBoxVisibleItemCount(lua_State *L)
 {
-    lua_settop(L, 0);
+    lua_settop(L, 1);
 
     // <function var>
     int ret = (int)fairygui::UIConfig::defaultComboBoxVisibleItemCount;
@@ -12857,11 +12857,11 @@ static int _fairygui_UIConfig_get_defaultComboBoxVisibleItemCount(lua_State *L)
 
 static int _fairygui_UIConfig_set_defaultComboBoxVisibleItemCount(lua_State *L)
 {
-    lua_settop(L, 1);
+    lua_settop(L, 2);
 
     lua_Integer arg1 = 0;   /** defaultComboBoxVisibleItemCount */
 
-    olua_check_int(L, 1, &arg1);
+    olua_check_int(L, 2, &arg1);
 
     // <function var>
     fairygui::UIConfig::defaultComboBoxVisibleItemCount = (int)arg1;
@@ -12871,7 +12871,7 @@ static int _fairygui_UIConfig_set_defaultComboBoxVisibleItemCount(lua_State *L)
 
 static int _fairygui_UIConfig_get_globalModalWaiting(lua_State *L)
 {
-    lua_settop(L, 0);
+    lua_settop(L, 1);
 
     // <function var>
     std::string ret = (std::string)fairygui::UIConfig::globalModalWaiting;
@@ -12882,11 +12882,11 @@ static int _fairygui_UIConfig_get_globalModalWaiting(lua_State *L)
 
 static int _fairygui_UIConfig_set_globalModalWaiting(lua_State *L)
 {
-    lua_settop(L, 1);
+    lua_settop(L, 2);
 
     std::string arg1;       /** globalModalWaiting */
 
-    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg1);
 
     // <function var>
     fairygui::UIConfig::globalModalWaiting = arg1;
@@ -12896,7 +12896,7 @@ static int _fairygui_UIConfig_set_globalModalWaiting(lua_State *L)
 
 static int _fairygui_UIConfig_get_modalLayerColor(lua_State *L)
 {
-    lua_settop(L, 0);
+    lua_settop(L, 1);
 
     // <function var>
     cocos2d::Color4F ret = (cocos2d::Color4F)fairygui::UIConfig::modalLayerColor;
@@ -12907,11 +12907,11 @@ static int _fairygui_UIConfig_get_modalLayerColor(lua_State *L)
 
 static int _fairygui_UIConfig_set_modalLayerColor(lua_State *L)
 {
-    lua_settop(L, 1);
+    lua_settop(L, 2);
 
     cocos2d::Color4F arg1;       /** modalLayerColor */
 
-    manual_luacv_check_cocos2d_Color4F(L, 1, &arg1);
+    manual_luacv_check_cocos2d_Color4F(L, 2, &arg1);
 
     // <function var>
     fairygui::UIConfig::modalLayerColor = arg1;
@@ -12921,7 +12921,7 @@ static int _fairygui_UIConfig_set_modalLayerColor(lua_State *L)
 
 static int _fairygui_UIConfig_get_tooltipsWin(lua_State *L)
 {
-    lua_settop(L, 0);
+    lua_settop(L, 1);
 
     // <function var>
     std::string ret = (std::string)fairygui::UIConfig::tooltipsWin;
@@ -12932,11 +12932,11 @@ static int _fairygui_UIConfig_get_tooltipsWin(lua_State *L)
 
 static int _fairygui_UIConfig_set_tooltipsWin(lua_State *L)
 {
-    lua_settop(L, 1);
+    lua_settop(L, 2);
 
     std::string arg1;       /** tooltipsWin */
 
-    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg1);
 
     // <function var>
     fairygui::UIConfig::tooltipsWin = arg1;
@@ -12946,7 +12946,7 @@ static int _fairygui_UIConfig_set_tooltipsWin(lua_State *L)
 
 static int _fairygui_UIConfig_get_bringWindowToFrontOnClick(lua_State *L)
 {
-    lua_settop(L, 0);
+    lua_settop(L, 1);
 
     // <function var>
     bool ret = (bool)fairygui::UIConfig::bringWindowToFrontOnClick;
@@ -12957,11 +12957,11 @@ static int _fairygui_UIConfig_get_bringWindowToFrontOnClick(lua_State *L)
 
 static int _fairygui_UIConfig_set_bringWindowToFrontOnClick(lua_State *L)
 {
-    lua_settop(L, 1);
+    lua_settop(L, 2);
 
     bool arg1 = false;   /** bringWindowToFrontOnClick */
 
-    olua_check_bool(L, 1, &arg1);
+    olua_check_bool(L, 2, &arg1);
 
     // <function var>
     fairygui::UIConfig::bringWindowToFrontOnClick = arg1;
@@ -12971,7 +12971,7 @@ static int _fairygui_UIConfig_set_bringWindowToFrontOnClick(lua_State *L)
 
 static int _fairygui_UIConfig_get_windowModalWaiting(lua_State *L)
 {
-    lua_settop(L, 0);
+    lua_settop(L, 1);
 
     // <function var>
     std::string ret = (std::string)fairygui::UIConfig::windowModalWaiting;
@@ -12982,11 +12982,11 @@ static int _fairygui_UIConfig_get_windowModalWaiting(lua_State *L)
 
 static int _fairygui_UIConfig_set_windowModalWaiting(lua_State *L)
 {
-    lua_settop(L, 1);
+    lua_settop(L, 2);
 
     std::string arg1;       /** windowModalWaiting */
 
-    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg1);
 
     // <function var>
     fairygui::UIConfig::windowModalWaiting = arg1;
@@ -12996,7 +12996,7 @@ static int _fairygui_UIConfig_set_windowModalWaiting(lua_State *L)
 
 static int _fairygui_UIConfig_get_popupMenu(lua_State *L)
 {
-    lua_settop(L, 0);
+    lua_settop(L, 1);
 
     // <function var>
     std::string ret = (std::string)fairygui::UIConfig::popupMenu;
@@ -13007,11 +13007,11 @@ static int _fairygui_UIConfig_get_popupMenu(lua_State *L)
 
 static int _fairygui_UIConfig_set_popupMenu(lua_State *L)
 {
-    lua_settop(L, 1);
+    lua_settop(L, 2);
 
     std::string arg1;       /** popupMenu */
 
-    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg1);
 
     // <function var>
     fairygui::UIConfig::popupMenu = arg1;
@@ -13021,7 +13021,7 @@ static int _fairygui_UIConfig_set_popupMenu(lua_State *L)
 
 static int _fairygui_UIConfig_get_popupMenu_seperator(lua_State *L)
 {
-    lua_settop(L, 0);
+    lua_settop(L, 1);
 
     // <function var>
     std::string ret = (std::string)fairygui::UIConfig::popupMenu_seperator;
@@ -13032,11 +13032,11 @@ static int _fairygui_UIConfig_get_popupMenu_seperator(lua_State *L)
 
 static int _fairygui_UIConfig_set_popupMenu_seperator(lua_State *L)
 {
-    lua_settop(L, 1);
+    lua_settop(L, 2);
 
     std::string arg1;       /** popupMenu_seperator */
 
-    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg1);
 
     // <function var>
     fairygui::UIConfig::popupMenu_seperator = arg1;

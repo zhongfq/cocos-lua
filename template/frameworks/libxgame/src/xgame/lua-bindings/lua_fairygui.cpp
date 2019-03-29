@@ -1933,9 +1933,121 @@ static int luaopen_fairygui_UIPackage(lua_State *L)
     return 1;
 }
 
+static int _fairygui_PackageItem_get_type(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::PackageItem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.PackageItem");
+
+    // <function var>
+    fairygui::PackageItemType ret = (fairygui::PackageItemType)self->type;
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _fairygui_PackageItem_get_objectType(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::PackageItem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.PackageItem");
+
+    // <function var>
+    fairygui::ObjectType ret = (fairygui::ObjectType)self->objectType;
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _fairygui_PackageItem_get_id(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::PackageItem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.PackageItem");
+
+    // <function var>
+    std::string ret = (std::string)self->id;
+    int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
+static int _fairygui_PackageItem_get_name(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::PackageItem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.PackageItem");
+
+    // <function var>
+    std::string ret = (std::string)self->name;
+    int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
+static int _fairygui_PackageItem_get_width(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::PackageItem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.PackageItem");
+
+    // <function var>
+    int ret = (int)self->width;
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _fairygui_PackageItem_get_height(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::PackageItem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.PackageItem");
+
+    // <function var>
+    int ret = (int)self->height;
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _fairygui_PackageItem_get_file(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::PackageItem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.PackageItem");
+
+    // <function var>
+    std::string ret = (std::string)self->file;
+    int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
 static int luaopen_fairygui_PackageItem(lua_State *L)
 {
     oluacls_class(L, "fgui.PackageItem", "cc.Ref");
+    oluacls_property(L, "type", _fairygui_PackageItem_get_type, nullptr);
+    oluacls_property(L, "objectType", _fairygui_PackageItem_get_objectType, nullptr);
+    oluacls_property(L, "id", _fairygui_PackageItem_get_id, nullptr);
+    oluacls_property(L, "name", _fairygui_PackageItem_get_name, nullptr);
+    oluacls_property(L, "width", _fairygui_PackageItem_get_width, nullptr);
+    oluacls_property(L, "height", _fairygui_PackageItem_get_height, nullptr);
+    oluacls_property(L, "file", _fairygui_PackageItem_get_file, nullptr);
 
     olua_registerluatype<fairygui::PackageItem>(L, "fgui.PackageItem");
     oluacls_createclassproxy(L);

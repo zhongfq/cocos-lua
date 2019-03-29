@@ -1908,7 +1908,7 @@ static int _fairygui_UIPackage_getItemByName(lua_State *L)
 
 static int luaopen_fairygui_UIPackage(lua_State *L)
 {
-    oluacls_class(L, "fgui.UIPackage", nullptr);
+    oluacls_class(L, "fgui.UIPackage", "cc.Ref");
     oluacls_setfunc(L, "getById", _fairygui_UIPackage_getById);
     oluacls_setfunc(L, "getByName", _fairygui_UIPackage_getByName);
     oluacls_setfunc(L, "addPackage", _fairygui_UIPackage_addPackage);
@@ -1935,7 +1935,7 @@ static int luaopen_fairygui_UIPackage(lua_State *L)
 
 static int luaopen_fairygui_PackageItem(lua_State *L)
 {
-    oluacls_class(L, "fgui.PackageItem", nullptr);
+    oluacls_class(L, "fgui.PackageItem", "cc.Ref");
 
     olua_registerluatype<fairygui::PackageItem>(L, "fgui.PackageItem");
     oluacls_createclassproxy(L);

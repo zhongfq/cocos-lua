@@ -1,6 +1,7 @@
 local cls = class()
 cls.CPPCLS = "fairygui::PackageItem"
 cls.LUACLS = "fgui.PackageItem"
+cls.SUPERCLS = "cc.Ref"
 -- cls.vars [[
 --     UIPackage* owner;
 

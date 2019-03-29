@@ -186,10 +186,10 @@ int manual_luacv_push_cocos2d_Rect(lua_State *L, const cocos2d::Rect *value)
 {
     if (value) {
         lua_createtable(L, 0, 4);
-        olua_rawsetfieldnumber(L, -1, "x", value->origin.x);
-        olua_rawsetfieldnumber(L, -1, "y", value->origin.y);
-        olua_rawsetfieldnumber(L, -1, "width", value->size.width);
-        olua_rawsetfieldnumber(L, -1, "height", value->size.height);
+        olua_setfieldnumber(L, -1, "x", value->origin.x);
+        olua_setfieldnumber(L, -1, "y", value->origin.y);
+        olua_setfieldnumber(L, -1, "width", value->size.width);
+        olua_setfieldnumber(L, -1, "height", value->size.height);
     } else {
         lua_pushnil(L);
     }

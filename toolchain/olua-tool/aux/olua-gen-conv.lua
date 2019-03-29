@@ -81,18 +81,18 @@ local function gen_push_func(cv, write)
         local isbase = true
         local DECL_TYPE = ""
         if pi.TYPE.DECL_TYPE == 'lua_Number' then
-            PUSH_FUNC = 'olua_rawsetfieldnumber'
+            PUSH_FUNC = 'olua_setfieldnumber'
         elseif pi.TYPE.DECL_TYPE == 'lua_Integer'
             or pi.TYPE.DECL_TYPE == 'lua_Unsigned' then
-            PUSH_FUNC = 'olua_rawsetfieldinteger'
+            PUSH_FUNC = 'olua_setfieldinteger'
             DECL_TYPE = '(' .. pi.TYPE.DECL_TYPE .. ')'
         elseif pi.TYPE.TYPENAME == 'std::string' then
-            PUSH_FUNC = 'olua_rawsetfieldstring'
+            PUSH_FUNC = 'olua_setfieldstring'
             VARNAME = VARNAME .. '.c_str()'
         elseif pi.TYPE.TYPENAME == 'bool' then
-            PUSH_FUNC = 'olua_rawsetfieldboolean'
+            PUSH_FUNC = 'olua_setfieldboolean'
         elseif pi.TYPE.TYPENAME == 'const char *' then
-            PUSH_FUNC = 'olua_rawsetfieldstring'
+            PUSH_FUNC = 'olua_setfieldstring'
         else
             isbase = false
             PUSH_FUNC = pi.TYPE.FUNC_PUSH_VALUE
@@ -105,7 +105,7 @@ local function gen_push_func(cv, write)
         else
             ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
                 ${PUSH_FUNC}(L, &value->${VARNAME});
-                olua_rawgetfield(L, -2, "${LUANAME}");
+                lua_setfield(L, -2, "${LUANAME}");
             ]])
         end
     end
@@ -161,7 +161,7 @@ local function gen_check_func(cv, write)
             ]])
         else
             ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
-                olua_rawgetfield(L, -1, "${LUANAME}");
+                lua_getfield(L, -1, "${LUANAME}");
                 ${CHECK_FUNC}(L, idx, &value->${VARNAME});
                 lua_pop(L, 1);
             ]])
@@ -195,17 +195,19 @@ local function gen_opt_func(cv, write)
         local TYPENAME = pi.TYPE.TYPENAME
         local CHECK_FUNC
         local isbase = true
+        local INIT_VALUE = pi.TYPE.INIT_VALUE
         if pi.TYPE.DECL_TYPE == 'lua_Number' then
-            CHECK_FUNC = 'olua_checkfieldnumber'
+            CHECK_FUNC = 'olua_optfieldnumber'
         elseif pi.TYPE.DECL_TYPE == 'lua_Integer'
             or pi.TYPE.DECL_TYPE == 'lua_Unsigned' then
-            CHECK_FUNC = 'olua_checkfieldinteger'
+            CHECK_FUNC = 'olua_optfieldinteger'
         elseif pi.TYPE.TYPENAME == 'std::string' then
-            CHECK_FUNC = 'olua_checkfieldstring'
+            CHECK_FUNC = 'olua_optfieldstring'
+            INIT_VALUE = '""'
         elseif pi.TYPE.TYPENAME == 'bool' then
-            CHECK_FUNC = 'olua_checkfieldboolean'
+            CHECK_FUNC = 'olua_optfieldboolean'
         elseif pi.TYPE.TYPENAME == 'const char *' then
-            CHECK_FUNC = 'olua_checkfieldstring'
+            CHECK_FUNC = 'olua_optfieldstring'
         else
             CHECK_FUNC = pi.TYPE.FUNC_CHECK_VALUE
             isbase = false
@@ -213,11 +215,11 @@ local function gen_opt_func(cv, write)
         end
         if isbase then
             ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
-                value->${VARNAME} = (${TYPENAME})${CHECK_FUNC}(L, idx, "${LUANAME}");
+                value->${VARNAME} = (${TYPENAME})${CHECK_FUNC}(L, idx, "${LUANAME}", ${INIT_VALUE});
             ]])
         else
             ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
-                olua_rawgetfield(L, -1, "${LUANAME}");
+                lua_getfield(L, -1, "${LUANAME}");
                 ${CHECK_FUNC}(L, idx, &value->${VARNAME});
                 lua_pop(L, 1);
             ]])

@@ -7,6 +7,7 @@
 #include "xgame/xlua.h"
 #include "olua/olua.hpp"
 #include "FairyGUI.h"
+#include "tween/EaseManager.h"
 
 static int luaopen_fairygui_UIEventType(lua_State *L)
 {
@@ -1606,6 +1607,82 @@ static int luaopen_fairygui_TextFormat(lua_State *L)
     oluacls_const_integer(L, "GLOW", (lua_Integer)fairygui::TextFormat::GLOW);
 
     olua_registerluatype<fairygui::TextFormat>(L, "fgui.TextFormat");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_fairygui_EaseType(lua_State *L)
+{
+    oluacls_class(L, "fgui.EaseType", nullptr);
+    oluacls_const_integer(L, "Linear", (lua_Integer)fairygui::EaseType::Linear);
+    oluacls_const_integer(L, "SineIn", (lua_Integer)fairygui::EaseType::SineIn);
+    oluacls_const_integer(L, "SineOut", (lua_Integer)fairygui::EaseType::SineOut);
+    oluacls_const_integer(L, "SineInOut", (lua_Integer)fairygui::EaseType::SineInOut);
+    oluacls_const_integer(L, "QuadIn", (lua_Integer)fairygui::EaseType::QuadIn);
+    oluacls_const_integer(L, "QuadOut", (lua_Integer)fairygui::EaseType::QuadOut);
+    oluacls_const_integer(L, "QuadInOut", (lua_Integer)fairygui::EaseType::QuadInOut);
+    oluacls_const_integer(L, "CubicIn", (lua_Integer)fairygui::EaseType::CubicIn);
+    oluacls_const_integer(L, "CubicOut", (lua_Integer)fairygui::EaseType::CubicOut);
+    oluacls_const_integer(L, "CubicInOut", (lua_Integer)fairygui::EaseType::CubicInOut);
+    oluacls_const_integer(L, "QuartIn", (lua_Integer)fairygui::EaseType::QuartIn);
+    oluacls_const_integer(L, "QuartOut", (lua_Integer)fairygui::EaseType::QuartOut);
+    oluacls_const_integer(L, "QuartInOut", (lua_Integer)fairygui::EaseType::QuartInOut);
+    oluacls_const_integer(L, "QuintIn", (lua_Integer)fairygui::EaseType::QuintIn);
+    oluacls_const_integer(L, "QuintOut", (lua_Integer)fairygui::EaseType::QuintOut);
+    oluacls_const_integer(L, "QuintInOut", (lua_Integer)fairygui::EaseType::QuintInOut);
+    oluacls_const_integer(L, "ExpoIn", (lua_Integer)fairygui::EaseType::ExpoIn);
+    oluacls_const_integer(L, "ExpoOut", (lua_Integer)fairygui::EaseType::ExpoOut);
+    oluacls_const_integer(L, "ExpoInOut", (lua_Integer)fairygui::EaseType::ExpoInOut);
+    oluacls_const_integer(L, "CircIn", (lua_Integer)fairygui::EaseType::CircIn);
+    oluacls_const_integer(L, "CircOut", (lua_Integer)fairygui::EaseType::CircOut);
+    oluacls_const_integer(L, "CircInOut", (lua_Integer)fairygui::EaseType::CircInOut);
+    oluacls_const_integer(L, "ElasticIn", (lua_Integer)fairygui::EaseType::ElasticIn);
+    oluacls_const_integer(L, "ElasticOut", (lua_Integer)fairygui::EaseType::ElasticOut);
+    oluacls_const_integer(L, "ElasticInOut", (lua_Integer)fairygui::EaseType::ElasticInOut);
+    oluacls_const_integer(L, "BackIn", (lua_Integer)fairygui::EaseType::BackIn);
+    oluacls_const_integer(L, "BackOut", (lua_Integer)fairygui::EaseType::BackOut);
+    oluacls_const_integer(L, "BackInOut", (lua_Integer)fairygui::EaseType::BackInOut);
+    oluacls_const_integer(L, "BounceIn", (lua_Integer)fairygui::EaseType::BounceIn);
+    oluacls_const_integer(L, "BounceOut", (lua_Integer)fairygui::EaseType::BounceOut);
+    oluacls_const_integer(L, "BounceInOut", (lua_Integer)fairygui::EaseType::BounceInOut);
+    oluacls_const_integer(L, "Custom", (lua_Integer)fairygui::EaseType::Custom);
+
+    olua_registerluatype<fairygui::EaseType>(L, "fgui.EaseType");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _fairygui_EaseManager_evaluate(lua_State *L)
+{
+    lua_settop(L, 5);
+
+    lua_Unsigned arg1 = 0;   /** easeType */
+    lua_Number arg2 = 0;   /** time */
+    lua_Number arg3 = 0;   /** duration */
+    lua_Number arg4 = 0;   /** overshootOrAmplitude */
+    lua_Number arg5 = 0;   /** period */
+
+    olua_check_uint(L, 1, &arg1);
+    olua_check_number(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+    olua_check_number(L, 4, &arg4);
+    olua_check_number(L, 5, &arg5);
+
+    // static float evaluate(EaseType easeType, float time, float duration, float overshootOrAmplitude, float period)
+    float ret = (float)fairygui::EaseManager::evaluate((fairygui::EaseType)arg1, (float)arg2, (float)arg3, (float)arg4, (float)arg5);
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int luaopen_fairygui_EaseManager(lua_State *L)
+{
+    oluacls_class(L, "fgui.EaseManager", nullptr);
+    oluacls_setfunc(L, "evaluate", _fairygui_EaseManager_evaluate);
+
+    olua_registerluatype<fairygui::EaseManager>(L, "fgui.EaseManager");
     oluacls_createclassproxy(L);
 
     return 1;
@@ -14102,6 +14179,8 @@ int luaopen_fairygui(lua_State *L)
     olua_require(L, "fgui.InputProcessor", luaopen_fairygui_InputProcessor);
     olua_require(L, "fgui.InputEvent", luaopen_fairygui_InputEvent);
     olua_require(L, "fgui.TextFormat", luaopen_fairygui_TextFormat);
+    olua_require(L, "fgui.EaseType", luaopen_fairygui_EaseType);
+    olua_require(L, "fgui.EaseManager", luaopen_fairygui_EaseManager);
     olua_require(L, "fgui.UIPackage", luaopen_fairygui_UIPackage);
     olua_require(L, "fgui.PackageItem", luaopen_fairygui_PackageItem);
     olua_require(L, "fgui.PackageItemType", luaopen_fairygui_PackageItemType);

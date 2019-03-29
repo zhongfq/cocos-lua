@@ -6,8 +6,8 @@ window.setDesignSize(1334, 750, 1)
 
 function main()
     -- runTest('test.WebViewTest')
-    -- runTest("test.FGUITest")
-    runTest("test.GridActionTest")
+    runTest("test.FGUITest")
+    -- runTest("test.GridActionTest")
 end
 
 function runTest(path)

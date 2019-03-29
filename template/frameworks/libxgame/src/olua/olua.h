@@ -50,6 +50,7 @@ extern "C" {
 #define olua_optstring(L, i, d)     luaL_opt(L, olua_checkstring, i, d)
 #define olua_optlstring(L, i, d, l) luaL_opt(L, olua_checklstring, i, d, l)
 #define olua_optnumber(L, i, d)     luaL_opt(L, olua_checknumber, i, d)
+#define olua_optboolean(L, i, d)    (olua_isnoneornil(L, i) ? (d) : olua_toboolean(L, i) != 0)
     
 #define olua_addobjcount()  olua_changeobjcount(1)
 #define olua_subobjcount()  olua_changeobjcount(-1)
@@ -181,10 +182,14 @@ LUALIB_API const char *olua_checkfieldstring(lua_State *L, int idx, const char *
 LUALIB_API lua_Number olua_checkfieldnumber(lua_State *L, int idx, const char *field);
 LUALIB_API lua_Integer olua_checkfieldinteger(lua_State *L, int idx, const char *field);
 LUALIB_API bool olua_checkfieldboolean(lua_State *L, int idx, const char *field);
-LUALIB_API void olua_rawsetfieldnumber(lua_State *L, int idx, const char *field, lua_Number value);
-LUALIB_API void olua_rawsetfieldinteger(lua_State *L, int idx, const char *field, lua_Integer value);
-LUALIB_API void olua_rawsetfieldstring(lua_State *L, int idx, const char *field, const char *value);
-LUALIB_API void olua_rawsetfieldboolean(lua_State *L, int idx, const char *field, bool value);
+LUALIB_API void olua_setfieldnumber(lua_State *L, int idx, const char *field, lua_Number value);
+LUALIB_API void olua_setfieldinteger(lua_State *L, int idx, const char *field, lua_Integer value);
+LUALIB_API void olua_setfieldstring(lua_State *L, int idx, const char *field, const char *value);
+LUALIB_API void olua_setfieldboolean(lua_State *L, int idx, const char *field, bool value);
+LUALIB_API const char *olua_optfieldstring(lua_State *L, int idx, const char *field, const char *def);
+LUALIB_API lua_Number olua_optfieldnumber(lua_State *L, int idx, const char *field, lua_Number def);
+LUALIB_API lua_Integer olua_optfieldinteger(lua_State *L, int idx, const char *field, lua_Integer def);
+LUALIB_API bool olua_optfieldboolean(lua_State *L, int idx, const char *field, bool def);
     
 // for debug
 #ifdef OLUA_DEBUG

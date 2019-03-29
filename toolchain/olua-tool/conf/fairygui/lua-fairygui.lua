@@ -15,6 +15,7 @@ M.INCLUDES = [[
 #include "xgame/xlua.h"
 #include "olua/olua.hpp"
 #include "FairyGUI.h"
+#include "tween/EaseManager.h"
 ]]
 
 M.CLASSES = {
@@ -25,6 +26,7 @@ M.CLASSES = {
     include('conf/fairygui/fgui/event/fgui.InputProcessor.lua'),
     include('conf/fairygui/fgui/event/fgui.InputEvent.lua'),
     include('conf/fairygui/fgui/display/fgui.TextFormat.lua'),
+    include('conf/fairygui/fgui/tween/fgui.EaseManager.lua'),
     include('conf/fairygui/fgui/fgui.UIPackage.lua'),
     include('conf/fairygui/fgui/fgui.PackageItem.lua'),
     include('conf/fairygui/fgui/fgui.FieldTypes.lua'),

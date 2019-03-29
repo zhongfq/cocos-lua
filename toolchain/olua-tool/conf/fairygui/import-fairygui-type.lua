@@ -19,6 +19,7 @@ end
 REG_TYPE {
     TYPENAME = [[
         fairygui::Margin
+        fairygui::TweenValue
     ]],
     CONV_FUNC = make_auto_conv_func,
     INIT_VALUE = false,
@@ -51,6 +52,7 @@ REG_TYPE {
         fairygui::ScrollBarDisplayType
         fairygui::ScrollType
         fairygui::TransitionActionType
+        fairygui::EaseType
     ]],
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = "olua_$$_uint",

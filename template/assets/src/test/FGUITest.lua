@@ -35,15 +35,20 @@ function new()
             window.contentPane:getChild("n11").icon = item.icon
             window.contentPane:getChild("n13").text = item.text
         end)
-        list.itemRenderer = function (index, obj)
-            obj.icon = string.format("res/fgui/icons/i%d.png", math.random(0, 9))
-            obj.text = string.format("%d", math.random(1, 100))
-        end
-        list.numItems = 45
+        -- list.itemRenderer = function (index, obj)
+        --     obj.icon = string.format("res/fgui/icons/i%d.png", math.random(0, 9))
+        --     obj.text = string.format("%d", math.random(1, 100))
+        -- end
+        -- list.numItems = 45
 
         view:getChild('bagBtn'):addClickListener(function (...)
             print("bagBtn click:", ...)
             window:show()
+        end)
+
+        timer.delay(5, function ()
+            UIPackage.removePackage('Bag')
+            collectgarbage('collect')
         end)
     end)
     

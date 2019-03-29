@@ -906,7 +906,7 @@ LUALIB_API void olua_check_bool(lua_State *L, int idx, bool *value)
 
 LUALIB_API void olua_opt_bool(lua_State *L, int idx, bool *value, bool def)
 {
-    *value = olua_isnoneornil(L, idx) ? def : olua_toboolean(L, idx) != 0;
+    *value = olua_optboolean(L, idx, def);
 }
 
 LUALIB_API int olua_push_string(lua_State *L, const char *value)
@@ -1057,30 +1057,62 @@ LUALIB_API bool olua_checkfieldboolean(lua_State *L, int idx, const char *field)
     return value;
 }
 
-LUALIB_API void olua_rawsetfieldnumber(lua_State *L, int idx, const char *field, lua_Number value)
+LUALIB_API void olua_setfieldnumber(lua_State *L, int idx, const char *field, lua_Number value)
 {
     idx = lua_absindex(L, idx);
     lua_pushnumber(L, value);
-    olua_rawsetfield(L, idx, field);
+    lua_setfield(L, idx, field);
 }
 
-LUALIB_API void olua_rawsetfieldinteger(lua_State *L, int idx, const char *field, lua_Integer value)
+LUALIB_API void olua_setfieldinteger(lua_State *L, int idx, const char *field, lua_Integer value)
 {
     idx = lua_absindex(L, idx);
     lua_pushinteger(L, value);
-    olua_rawsetfield(L, idx, field);
+    lua_setfield(L, idx, field);
 }
 
-LUALIB_API void olua_rawsetfieldstring(lua_State *L, int idx, const char *field, const char *value)
+LUALIB_API void olua_setfieldstring(lua_State *L, int idx, const char *field, const char *value)
 {
     idx = lua_absindex(L, idx);
     lua_pushstring(L, value);
-    olua_rawsetfield(L, idx, field);
+    lua_setfield(L, idx, field);
 }
 
-LUALIB_API void olua_rawsetfieldboolean(lua_State *L, int idx, const char *field, bool value)
+LUALIB_API void olua_setfieldboolean(lua_State *L, int idx, const char *field, bool value)
 {
     idx = lua_absindex(L, idx);
     lua_pushboolean(L, value);
-    olua_rawsetfield(L, idx, field);
+    lua_setfield(L, idx, field);
+}
+
+LUALIB_API const char *olua_optfieldstring(lua_State *L, int idx, const char *field, const char *def)
+{
+    lua_getfield(L, idx, field);
+    def = olua_optstring(L, -1, def);
+    lua_pop(L, 1);
+    return def;
+}
+
+LUALIB_API lua_Number olua_optfieldnumber(lua_State *L, int idx, const char *field, lua_Number def)
+{
+    lua_getfield(L, idx, field);
+    def = olua_optnumber(L, -1, def);
+    lua_pop(L, 1);
+    return def;
+}
+
+LUALIB_API lua_Integer olua_optfieldinteger(lua_State *L, int idx, const char *field, lua_Integer def)
+{
+    lua_getfield(L, idx, field);
+    def = olua_optinteger(L, -1, def);
+    lua_pop(L, 1);
+    return def;
+}
+
+LUALIB_API bool olua_optfieldboolean(lua_State *L, int idx, const char *field, bool def)
+{
+    lua_getfield(L, idx, field);
+    def = olua_optboolean(L, -1, def);
+    lua_pop(L, 1);
+    return def;
 }

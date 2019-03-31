@@ -22,6 +22,7 @@ cls.enums [[
 local cls = class(M)
 cls.CPPCLS = "fairygui::GTweener"
 cls.LUACLS = "fgui.GTweener"
+cls.SUPERCLS = "cc.Ref"
 cls.funcs [[
     GTweener* setDelay(float value)
     float getDelay()

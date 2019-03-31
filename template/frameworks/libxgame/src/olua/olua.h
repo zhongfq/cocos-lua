@@ -195,9 +195,9 @@ LUALIB_API bool olua_optfieldboolean(lua_State *L, int idx, const char *field, b
     
 // for debug
 #ifdef OLUA_DEBUG
-#define OLUA_ASSERT assert
+#define olua_assert assert
 #else
-#define OLUA_ASSERT
+#define olua_assert
 #endif
 
 #ifdef __cplusplus

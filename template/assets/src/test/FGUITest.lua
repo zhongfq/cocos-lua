@@ -9,6 +9,8 @@ local UIConfig      = require "fgui.UIConfig"
 local GRoot         = require "fgui.GRoot"
 local Window        = require "fgui.Window"
 local UIEventType   = require "fgui.UIEventType"
+local GTween        = require "fgui.GTween"
+local TweenPropType = require "fgui.TweenPropType"
 
 function new()
     local scene = Scene.create()
@@ -44,6 +46,19 @@ function new()
         view:getChild('bagBtn'):addClickListener(function (...)
             print("bagBtn click:", ...)
             window:show()
+        end)
+
+        local btn = view:getChild('bagBtn')
+        GTween.to(btn.x, btn.x + 400, 2):setTarget(btn, TweenPropType.X)
+        printUserValue(GTween.class['.store'])
+
+        timer.delay(1.8, function ()
+            GTween.to(btn.x, btn.x + 100, 1):setTarget(btn, TweenPropType.X)
+            printUserValue(GTween.class['.store'])
+        end)
+        timer.delay(2.8, function ()
+            GTween.to(btn.x, btn.x - 100, 1):setTarget(btn, TweenPropType.X)
+            printUserValue(GTween.class['.store'])
         end)
 
         timer.delay(5, function ()

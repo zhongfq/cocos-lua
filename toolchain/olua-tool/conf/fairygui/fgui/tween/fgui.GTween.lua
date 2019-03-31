@@ -1,6 +1,18 @@
 local cls = class()
 cls.CPPCLS = "fairygui::GTween"
 cls.LUACLS = "fgui.GTween"
+cls.DEFCHUNK = [[
+static int should_unref_tween(lua_State *L)
+{
+    if (olua_isa(L, -2, "fgui.GTweener")) {
+        fairygui::GTweener *obj = (fairygui::GTweener *)olua_toobj(L, -2, "fgui.GTweener");
+        if (obj->getReferenceCount() == 1 || obj->allCompleted()) {
+            return 1;
+        }
+    }
+    return 0;
+}
+]]
 cls.funcs [[
     static GTweener* to(float startValue, float endValue, float duration)
     static GTweener* to(const cocos2d::Vec2& startValue, const cocos2d::Vec2& endValue, float duration)
@@ -22,9 +34,17 @@ cls.funcs [[
 
 -- ref
 local REFNAME = 'tweeners'
+local UNREF_TWEEN = {
+    AFTER = format_snippet [[
+        olua_getstore(L, "fgui.GTween");
+        olua_mapwalkunref(L, -1, "${REFNAME}", should_unref_tween);
+        lua_pop(L, 1);
+    ]]
+}
 local REF_TEWEENER = {
     AFTER = format_snippet [[
         olua_getstore(L, "fgui.GTween");
+        olua_mapwalkunref(L, -1, "${REFNAME}", should_unref_tween);
         olua_mapref(L, -1, "${REFNAME}", -2);
         lua_pop(L, 1);
     ]]
@@ -33,5 +53,7 @@ cls.inject('to', REF_TEWEENER)
 cls.inject('toDouble', REF_TEWEENER)
 cls.inject('delayedCall', REF_TEWEENER)
 cls.inject('shake', REF_TEWEENER)
+cls.inject('kill', UNREF_TWEEN)
+cls.inject('clean', mapunref_all(REFNAME))
 
 return cls

@@ -28,7 +28,7 @@ M.CLASSES = {
     include('conf/fairygui/fgui/display/fgui.TextFormat.lua'),
     include('conf/fairygui/fgui/tween/fgui.EaseManager.lua'),
     include('conf/fairygui/fgui/tween/fgui.GTweener.lua'),
-    include('conf/fairygui/fgui/tween/fgui.Tween.lua'),
+    include('conf/fairygui/fgui/tween/fgui.GTween.lua'),
     include('conf/fairygui/fgui/fgui.UIPackage.lua'),
     include('conf/fairygui/fgui/fgui.PackageItem.lua'),
     include('conf/fairygui/fgui/fgui.FieldTypes.lua'),

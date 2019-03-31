@@ -266,7 +266,7 @@ LUALIB_API void olua_callgc(lua_State *L, int idx, bool isarrary)
 static void auxgetusertable(lua_State *L, int idx)
 {
     if (lua_getuservalue(L, idx) != LUA_TTABLE) {
-        OLUA_ASSERT(olua_isnil(L, -1));
+        olua_assert(olua_isnil(L, -1));
         lua_pop(L, 1);
         idx = lua_absindex(L, idx);
         lua_createtable(L, 0, 4);
@@ -420,7 +420,7 @@ LUALIB_API void olua_getstore(lua_State *L, const char *cls)
     luaL_getmetatable(L, cls);                  // L: cls
     olua_rawgetfield(L, -1, CLS_STORE);         // L: cls store
     lua_remove(L, -2);                          // L: store
-    OLUA_ASSERT(olua_isuserdata(L, -1));
+    olua_assert(olua_isuserdata(L, -1));
 }
 
 LUALIB_API void *olua_getstoreobj(lua_State *L, const char *cls)
@@ -457,7 +457,7 @@ static const char *auxpushrefkey(lua_State *L, const char *field)
 
 LUALIB_API void olua_getreftable(lua_State *L, int obj, const char *field)
 {
-    OLUA_ASSERT(olua_isuserdata(L, obj));
+    olua_assert(olua_isuserdata(L, obj));
     auxgetusertable(L, obj);            // L: uv
     field = auxpushrefkey(L, field);    // L: uv refkey
     luaL_getsubtable(L, -2, field);     // L: uv refkey reftable
@@ -467,8 +467,8 @@ LUALIB_API void olua_getreftable(lua_State *L, int obj, const char *field)
 
 LUALIB_API void olua_singleref(lua_State *L, int obj, const char *field, int vidx)
 {
-    OLUA_ASSERT(olua_isuserdata(L, obj));
-    OLUA_ASSERT(olua_isuserdata(L, vidx) || olua_isnoneornil(L, vidx));
+    olua_assert(olua_isuserdata(L, obj));
+    olua_assert(olua_isuserdata(L, vidx) || olua_isnoneornil(L, vidx));
     vidx = lua_absindex(L, vidx);
     auxgetusertable(L, obj);                // L: uv
     auxpushrefkey(L, field);                // L: uv refk
@@ -486,8 +486,8 @@ LUALIB_API void olua_singleunref(lua_State *L, int obj, const char *field)
 
 static void auxmaprefvalue(lua_State *L, int obj, const char *t, int vidx, bool ref)
 {
-    OLUA_ASSERT(olua_isuserdata(L, obj));
-    OLUA_ASSERT(olua_isuserdata(L, vidx));
+    olua_assert(olua_isuserdata(L, obj));
+    olua_assert(olua_isuserdata(L, vidx));
     vidx = lua_absindex(L, vidx);
     olua_getreftable(L, obj, t);            // L: t
     lua_pushvalue(L, vidx);                 // L: t v
@@ -512,7 +512,7 @@ LUALIB_API void olua_mapunref(lua_State *L, int obj, const char *t, int vidx)
 
 LUALIB_API void olua_mapwalkunref(lua_State *L, int obj, const char *t, lua_CFunction walk)
 {
-    OLUA_ASSERT(olua_isuserdata(L, obj));
+    olua_assert(olua_isuserdata(L, obj));
     obj = lua_absindex(L, obj);
     olua_getreftable(L, obj, t);            // L: t
     lua_pushnil(L);                         // L: t k
@@ -529,7 +529,7 @@ LUALIB_API void olua_mapwalkunref(lua_State *L, int obj, const char *t, lua_CFun
 
 LUALIB_API void olua_unrefall(lua_State *L, int obj, const char *t)
 {
-    OLUA_ASSERT(olua_isuserdata(L, obj));
+    olua_assert(olua_isuserdata(L, obj));
     auxgetusertable(L, obj);                // L: uv
     auxpushrefkey(L, t);                    // L: uv k
     lua_pushnil(L);                         // L: uv k nil
@@ -539,8 +539,8 @@ LUALIB_API void olua_unrefall(lua_State *L, int obj, const char *t)
 
 LUALIB_API void olua_arrayref(lua_State *L, int obj, const char *t, int vidx)
 {
-    OLUA_ASSERT(olua_isuserdata(L, obj));
-    OLUA_ASSERT(olua_isuserdata(L, vidx));
+    olua_assert(olua_isuserdata(L, obj));
+    olua_assert(olua_isuserdata(L, vidx));
     if (olua_isuserdata(L, vidx)) {
         int len;
         obj = lua_absindex(L, obj);
@@ -564,7 +564,7 @@ LUALIB_API void olua_arrayref(lua_State *L, int obj, const char *t, int vidx)
 LUALIB_API void olua_arrayunref(lua_State *L, int obj, const char *t, int idx)
 {
     size_t len;
-    OLUA_ASSERT(olua_isuserdata(L, obj));
+    olua_assert(olua_isuserdata(L, obj));
     olua_getreftable(L, obj, t);             // L: t
     len = (size_t)lua_rawlen(L, -1);
     idx += idx < 0 ? (len + 1) : 0;
@@ -582,7 +582,7 @@ LUALIB_API void olua_arrayunref(lua_State *L, int obj, const char *t, int idx)
 LUALIB_API size_t olua_arraylen(lua_State *L, int obj, const char *t)
 {
     size_t len;
-    OLUA_ASSERT(olua_isuserdata(L, obj));
+    olua_assert(olua_isuserdata(L, obj));
     olua_getreftable(L, obj, t);             // L: t
     len = lua_rawlen(L, -1);
     lua_pop(L, 1);

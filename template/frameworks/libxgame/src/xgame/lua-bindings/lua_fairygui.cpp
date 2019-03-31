@@ -1688,6 +1688,1016 @@ static int luaopen_fairygui_EaseManager(lua_State *L)
     return 1;
 }
 
+static int luaopen_fairygui_TweenPropType(lua_State *L)
+{
+    oluacls_class(L, "fgui.TweenPropType", nullptr);
+    oluacls_const_integer(L, "None", (lua_Integer)fairygui::TweenPropType::None);
+    oluacls_const_integer(L, "X", (lua_Integer)fairygui::TweenPropType::X);
+    oluacls_const_integer(L, "Y", (lua_Integer)fairygui::TweenPropType::Y);
+    oluacls_const_integer(L, "Position", (lua_Integer)fairygui::TweenPropType::Position);
+    oluacls_const_integer(L, "Width", (lua_Integer)fairygui::TweenPropType::Width);
+    oluacls_const_integer(L, "Height", (lua_Integer)fairygui::TweenPropType::Height);
+    oluacls_const_integer(L, "Size", (lua_Integer)fairygui::TweenPropType::Size);
+    oluacls_const_integer(L, "ScaleX", (lua_Integer)fairygui::TweenPropType::ScaleX);
+    oluacls_const_integer(L, "ScaleY", (lua_Integer)fairygui::TweenPropType::ScaleY);
+    oluacls_const_integer(L, "Scale", (lua_Integer)fairygui::TweenPropType::Scale);
+    oluacls_const_integer(L, "Rotation", (lua_Integer)fairygui::TweenPropType::Rotation);
+    oluacls_const_integer(L, "Alpha", (lua_Integer)fairygui::TweenPropType::Alpha);
+    oluacls_const_integer(L, "Progress", (lua_Integer)fairygui::TweenPropType::Progress);
+
+    olua_registerluatype<fairygui::TweenPropType>(L, "fgui.TweenPropType");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _fairygui_GTweener_setDelay(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GTweener *self = nullptr;
+    lua_Number arg1 = 0;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
+    olua_check_number(L, 2, &arg1);
+
+    // GTweener* setDelay(float value)
+    fairygui::GTweener *ret = (fairygui::GTweener *)self->setDelay((float)arg1);
+    int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fgui.GTweener");
+
+    return num_ret;
+}
+
+static int _fairygui_GTweener_getDelay(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::GTweener *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
+
+    // float getDelay()
+    float ret = (float)self->getDelay();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _fairygui_GTweener_setDuration(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GTweener *self = nullptr;
+    lua_Number arg1 = 0;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
+    olua_check_number(L, 2, &arg1);
+
+    // GTweener* setDuration(float value)
+    fairygui::GTweener *ret = (fairygui::GTweener *)self->setDuration((float)arg1);
+    int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fgui.GTweener");
+
+    return num_ret;
+}
+
+static int _fairygui_GTweener_getDuration(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::GTweener *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
+
+    // float getDuration()
+    float ret = (float)self->getDuration();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _fairygui_GTweener_setBreakpoint(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GTweener *self = nullptr;
+    lua_Number arg1 = 0;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
+    olua_check_number(L, 2, &arg1);
+
+    // GTweener* setBreakpoint(float value)
+    fairygui::GTweener *ret = (fairygui::GTweener *)self->setBreakpoint((float)arg1);
+    int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fgui.GTweener");
+
+    return num_ret;
+}
+
+static int _fairygui_GTweener_setEase(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GTweener *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
+    olua_check_uint(L, 2, &arg1);
+
+    // GTweener* setEase(EaseType value)
+    fairygui::GTweener *ret = (fairygui::GTweener *)self->setEase((fairygui::EaseType)arg1);
+    int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fgui.GTweener");
+
+    return num_ret;
+}
+
+static int _fairygui_GTweener_setEasePeriod(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GTweener *self = nullptr;
+    lua_Number arg1 = 0;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
+    olua_check_number(L, 2, &arg1);
+
+    // GTweener* setEasePeriod(float value)
+    fairygui::GTweener *ret = (fairygui::GTweener *)self->setEasePeriod((float)arg1);
+    int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fgui.GTweener");
+
+    return num_ret;
+}
+
+static int _fairygui_GTweener_setEaseOvershootOrAmplitude(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GTweener *self = nullptr;
+    lua_Number arg1 = 0;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
+    olua_check_number(L, 2, &arg1);
+
+    // GTweener* setEaseOvershootOrAmplitude(float value)
+    fairygui::GTweener *ret = (fairygui::GTweener *)self->setEaseOvershootOrAmplitude((float)arg1);
+    int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fgui.GTweener");
+
+    return num_ret;
+}
+
+static int _fairygui_GTweener_setRepeat(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    fairygui::GTweener *self = nullptr;
+    lua_Integer arg1 = 0;   /** repeat */
+    bool arg2 = false;   /** yoyo */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
+    olua_check_int(L, 2, &arg1);
+    olua_opt_bool(L, 3, &arg2, (bool)false);
+
+    // GTweener* setRepeat(int repeat, bool yoyo = false)
+    fairygui::GTweener *ret = (fairygui::GTweener *)self->setRepeat((int)arg1, arg2);
+    int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fgui.GTweener");
+
+    return num_ret;
+}
+
+static int _fairygui_GTweener_getRepeat(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::GTweener *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
+
+    // int getRepeat()
+    int ret = (int)self->getRepeat();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _fairygui_GTweener_setTimeScale(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GTweener *self = nullptr;
+    lua_Number arg1 = 0;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
+    olua_check_number(L, 2, &arg1);
+
+    // GTweener* setTimeScale(float value)
+    fairygui::GTweener *ret = (fairygui::GTweener *)self->setTimeScale((float)arg1);
+    int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fgui.GTweener");
+
+    return num_ret;
+}
+
+static int _fairygui_GTweener_setSnapping(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GTweener *self = nullptr;
+    bool arg1 = false;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
+    olua_check_bool(L, 2, &arg1);
+
+    // GTweener* setSnapping(bool value)
+    fairygui::GTweener *ret = (fairygui::GTweener *)self->setSnapping(arg1);
+    int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fgui.GTweener");
+
+    return num_ret;
+}
+
+static int _fairygui_GTweener_setTargetAny(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GTweener *self = nullptr;
+    void *arg1 = nullptr;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
+    olua_check_obj(L, 2, (void **)&arg1, "void *");
+
+    // GTweener* setTargetAny(void* value)
+    fairygui::GTweener *ret = (fairygui::GTweener *)self->setTargetAny(arg1);
+    int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fgui.GTweener");
+
+    return num_ret;
+}
+
+static int _fairygui_GTweener_setTarget1(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GTweener *self = nullptr;
+    cocos2d::Ref *arg1 = nullptr;   /** target */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Ref");
+
+    // GTweener* setTarget(cocos2d::Ref* target)
+    fairygui::GTweener *ret = (fairygui::GTweener *)self->setTarget(arg1);
+    int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fgui.GTweener");
+
+    return num_ret;
+}
+
+static int _fairygui_GTweener_setTarget2(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    fairygui::GTweener *self = nullptr;
+    cocos2d::Ref *arg1 = nullptr;   /** target */
+    lua_Unsigned arg2 = 0;   /** propType */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Ref");
+    olua_check_uint(L, 3, &arg2);
+
+    // GTweener* setTarget(cocos2d::Ref* target, TweenPropType propType)
+    fairygui::GTweener *ret = (fairygui::GTweener *)self->setTarget(arg1, (fairygui::TweenPropType)arg2);
+    int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fgui.GTweener");
+
+    return num_ret;
+}
+
+static int _fairygui_GTweener_setTarget(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if (olua_is_cppobj(L, 2, "cc.Ref")) {
+            return _fairygui_GTweener_setTarget1(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if (olua_is_cppobj(L, 2, "cc.Ref") && olua_is_uint(L, 3)) {
+            return _fairygui_GTweener_setTarget2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::GTweener::setTarget' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _fairygui_GTweener_getTarget(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::GTweener *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
+
+    // void* getTarget()
+    void *ret = (void *)self->getTarget();
+    int num_ret = olua_push_obj(L, ret, "void *");
+
+    return num_ret;
+}
+
+static int _fairygui_GTweener_setUserData(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GTweener *self = nullptr;
+    cocos2d::Value arg1;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
+    manual_luacv_check_cocos2d_Value(L, 2, &arg1);
+
+    // GTweener* setUserData(const cocos2d::Value& value)
+    fairygui::GTweener *ret = (fairygui::GTweener *)self->setUserData(arg1);
+    int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fgui.GTweener");
+
+    return num_ret;
+}
+
+static int _fairygui_GTweener_getUserData(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::GTweener *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
+
+    // const cocos2d::Value& getUserData()
+    const cocos2d::Value &ret = (const cocos2d::Value &)self->getUserData();
+    int num_ret = manual_luacv_push_cocos2d_Value(L, &ret);
+
+    return num_ret;
+}
+
+static int _fairygui_GTweener_getNormalizedTime(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::GTweener *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
+
+    // float getNormalizedTime()
+    float ret = (float)self->getNormalizedTime();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _fairygui_GTweener_isCompleted(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::GTweener *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
+
+    // bool isCompleted()
+    bool ret = (bool)self->isCompleted();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _fairygui_GTweener_allCompleted(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::GTweener *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
+
+    // bool allCompleted()
+    bool ret = (bool)self->allCompleted();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _fairygui_GTweener_setPaused(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GTweener *self = nullptr;
+    bool arg1 = false;   /** paused */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
+    olua_check_bool(L, 2, &arg1);
+
+    // GTweener* setPaused(bool paused)
+    fairygui::GTweener *ret = (fairygui::GTweener *)self->setPaused(arg1);
+    int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fgui.GTweener");
+
+    return num_ret;
+}
+
+static int _fairygui_GTweener_seek(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GTweener *self = nullptr;
+    lua_Number arg1 = 0;   /** time */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
+    olua_check_number(L, 2, &arg1);
+
+    // void seek(float time)
+    self->seek((float)arg1);
+
+    return 0;
+}
+
+static int _fairygui_GTweener_kill(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GTweener *self = nullptr;
+    bool arg1 = false;   /** complete */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
+    olua_opt_bool(L, 2, &arg1, (bool)false);
+
+    // void kill(bool complete = false)
+    self->kill(arg1);
+
+    return 0;
+}
+
+static int _fairygui_GTweener_onUpdate(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GTweener *self = nullptr;
+    std::function<void(fairygui::GTweener *)> arg1 = nullptr;   /** callback */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onUpdate");
+    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+    arg1 = [callback_store_obj, func, tag](fairygui::GTweener *arg1) {
+        lua_State *L = olua_mainthread();
+        int top = lua_gettop(L);
+
+        olua_push_cppobj<fairygui::GTweener>(L, arg1, "fgui.GTweener");
+        olua_callback(L, callback_store_obj, func.c_str(), 1);
+
+        lua_settop(L, top);
+    };
+
+    // GTweener* onUpdate(std::function<void(GTweener* tweener)> callback)
+    fairygui::GTweener *ret = (fairygui::GTweener *)self->onUpdate(arg1);
+    int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fgui.GTweener");
+
+    return num_ret;
+}
+
+static int _fairygui_GTweener_onStart(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GTweener *self = nullptr;
+    std::function<void(fairygui::GTweener *)> arg1 = nullptr;   /** callback */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onStart");
+    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+    arg1 = [callback_store_obj, func, tag](fairygui::GTweener *arg1) {
+        lua_State *L = olua_mainthread();
+        int top = lua_gettop(L);
+
+        olua_push_cppobj<fairygui::GTweener>(L, arg1, "fgui.GTweener");
+        olua_callback(L, callback_store_obj, func.c_str(), 1);
+
+        lua_settop(L, top);
+    };
+
+    // GTweener* onStart(std::function<void(GTweener* tweener)> callback)
+    fairygui::GTweener *ret = (fairygui::GTweener *)self->onStart(arg1);
+    int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fgui.GTweener");
+
+    return num_ret;
+}
+
+static int _fairygui_GTweener_onComplete(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GTweener *self = nullptr;
+    std::function<void()> arg1 = nullptr;   /** callback */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onComplete");
+    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+    arg1 = [callback_store_obj, func, tag]() {
+        lua_State *L = olua_mainthread();
+        int top = lua_gettop(L);
+
+        olua_callback(L, callback_store_obj, func.c_str(), 0);
+
+        lua_settop(L, top);
+    };
+
+    // GTweener* onComplete(std::function<void()> callback)
+    fairygui::GTweener *ret = (fairygui::GTweener *)self->onComplete(arg1);
+    int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fgui.GTweener");
+
+    return num_ret;
+}
+
+static int _fairygui_GTweener_onComplete1(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GTweener *self = nullptr;
+    std::function<void(fairygui::GTweener *)> arg1 = nullptr;   /** callback */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onComplete1");
+    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+    arg1 = [callback_store_obj, func, tag](fairygui::GTweener *arg1) {
+        lua_State *L = olua_mainthread();
+        int top = lua_gettop(L);
+
+        olua_push_cppobj<fairygui::GTweener>(L, arg1, "fgui.GTweener");
+        olua_callback(L, callback_store_obj, func.c_str(), 1);
+
+        lua_settop(L, top);
+    };
+
+    // GTweener* onComplete1(std::function<void(GTweener* tweener)> callback)
+    fairygui::GTweener *ret = (fairygui::GTweener *)self->onComplete1(arg1);
+    int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fgui.GTweener");
+
+    return num_ret;
+}
+
+static int luaopen_fairygui_GTweener(lua_State *L)
+{
+    oluacls_class(L, "fgui.GTweener", nullptr);
+    oluacls_setfunc(L, "setDelay", _fairygui_GTweener_setDelay);
+    oluacls_setfunc(L, "getDelay", _fairygui_GTweener_getDelay);
+    oluacls_setfunc(L, "setDuration", _fairygui_GTweener_setDuration);
+    oluacls_setfunc(L, "getDuration", _fairygui_GTweener_getDuration);
+    oluacls_setfunc(L, "setBreakpoint", _fairygui_GTweener_setBreakpoint);
+    oluacls_setfunc(L, "setEase", _fairygui_GTweener_setEase);
+    oluacls_setfunc(L, "setEasePeriod", _fairygui_GTweener_setEasePeriod);
+    oluacls_setfunc(L, "setEaseOvershootOrAmplitude", _fairygui_GTweener_setEaseOvershootOrAmplitude);
+    oluacls_setfunc(L, "setRepeat", _fairygui_GTweener_setRepeat);
+    oluacls_setfunc(L, "getRepeat", _fairygui_GTweener_getRepeat);
+    oluacls_setfunc(L, "setTimeScale", _fairygui_GTweener_setTimeScale);
+    oluacls_setfunc(L, "setSnapping", _fairygui_GTweener_setSnapping);
+    oluacls_setfunc(L, "setTargetAny", _fairygui_GTweener_setTargetAny);
+    oluacls_setfunc(L, "setTarget", _fairygui_GTweener_setTarget);
+    oluacls_setfunc(L, "getTarget", _fairygui_GTweener_getTarget);
+    oluacls_setfunc(L, "setUserData", _fairygui_GTweener_setUserData);
+    oluacls_setfunc(L, "getUserData", _fairygui_GTweener_getUserData);
+    oluacls_setfunc(L, "getNormalizedTime", _fairygui_GTweener_getNormalizedTime);
+    oluacls_setfunc(L, "isCompleted", _fairygui_GTweener_isCompleted);
+    oluacls_setfunc(L, "allCompleted", _fairygui_GTweener_allCompleted);
+    oluacls_setfunc(L, "setPaused", _fairygui_GTweener_setPaused);
+    oluacls_setfunc(L, "seek", _fairygui_GTweener_seek);
+    oluacls_setfunc(L, "kill", _fairygui_GTweener_kill);
+    oluacls_setfunc(L, "onUpdate", _fairygui_GTweener_onUpdate);
+    oluacls_setfunc(L, "onStart", _fairygui_GTweener_onStart);
+    oluacls_setfunc(L, "onComplete", _fairygui_GTweener_onComplete);
+    oluacls_setfunc(L, "onComplete1", _fairygui_GTweener_onComplete1);
+
+    olua_registerluatype<fairygui::GTweener>(L, "fgui.GTweener");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _fairygui_GTween_to1(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    lua_Number arg1 = 0;   /** startValue */
+    lua_Number arg2 = 0;   /** endValue */
+    lua_Number arg3 = 0;   /** duration */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_number(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+
+    // static GTweener* to(float startValue, float endValue, float duration)
+    fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::to((float)arg1, (float)arg2, (float)arg3);
+    int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fgui.GTweener");
+
+    olua_getstore(L, "fgui.GTween");
+    olua_mapref(L, -1, "tweeners", -2);
+    lua_pop(L, 1);
+
+    return num_ret;
+}
+
+static int _fairygui_GTween_to2(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::Vec2 arg1;       /** startValue */
+    cocos2d::Vec2 arg2;       /** endValue */
+    lua_Number arg3 = 0;   /** duration */
+
+    auto_luacv_check_cocos2d_Vec2(L, 1, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+
+    // static GTweener* to(const cocos2d::Vec2& startValue, const cocos2d::Vec2& endValue, float duration)
+    fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::to(arg1, arg2, (float)arg3);
+    int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fgui.GTweener");
+
+    olua_getstore(L, "fgui.GTween");
+    olua_mapref(L, -1, "tweeners", -2);
+    lua_pop(L, 1);
+
+    return num_ret;
+}
+
+static int _fairygui_GTween_to3(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::Vec3 arg1;       /** startValue */
+    cocos2d::Vec3 arg2;       /** endValue */
+    lua_Number arg3 = 0;   /** duration */
+
+    auto_luacv_check_cocos2d_Vec3(L, 1, &arg1);
+    auto_luacv_check_cocos2d_Vec3(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+
+    // static GTweener* to(const cocos2d::Vec3& startValue, const cocos2d::Vec3& endValue, float duration)
+    fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::to(arg1, arg2, (float)arg3);
+    int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fgui.GTweener");
+
+    olua_getstore(L, "fgui.GTween");
+    olua_mapref(L, -1, "tweeners", -2);
+    lua_pop(L, 1);
+
+    return num_ret;
+}
+
+static int _fairygui_GTween_to4(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::Vec4 arg1;       /** startValue */
+    cocos2d::Vec4 arg2;       /** endValue */
+    lua_Number arg3 = 0;   /** duration */
+
+    auto_luacv_check_cocos2d_Vec4(L, 1, &arg1);
+    auto_luacv_check_cocos2d_Vec4(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+
+    // static GTweener* to(const cocos2d::Vec4& startValue, const cocos2d::Vec4& endValue, float duration)
+    fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::to(arg1, arg2, (float)arg3);
+    int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fgui.GTweener");
+
+    olua_getstore(L, "fgui.GTween");
+    olua_mapref(L, -1, "tweeners", -2);
+    lua_pop(L, 1);
+
+    return num_ret;
+}
+
+static int _fairygui_GTween_to5(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::Color4B arg1;       /** startValue */
+    cocos2d::Color4B arg2;       /** endValue */
+    lua_Number arg3 = 0;   /** duration */
+
+    manual_luacv_check_cocos2d_Color4B(L, 1, &arg1);
+    manual_luacv_check_cocos2d_Color4B(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+
+    // static GTweener* to(const cocos2d::Color4B& startValue, const cocos2d::Color4B& endValue, float duration)
+    fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::to(arg1, arg2, (float)arg3);
+    int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fgui.GTweener");
+
+    olua_getstore(L, "fgui.GTween");
+    olua_mapref(L, -1, "tweeners", -2);
+    lua_pop(L, 1);
+
+    return num_ret;
+}
+
+static int _fairygui_GTween_to(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 3) {
+        if (olua_is_number(L, 1) && olua_is_number(L, 2) && olua_is_number(L, 3)) {
+            return _fairygui_GTween_to1(L);
+        }
+
+        if (auto_luacv_is_cocos2d_Vec2(L, 1) && auto_luacv_is_cocos2d_Vec2(L, 2) && olua_is_number(L, 3)) {
+            return _fairygui_GTween_to2(L);
+        }
+
+        if (auto_luacv_is_cocos2d_Vec3(L, 1) && auto_luacv_is_cocos2d_Vec3(L, 2) && olua_is_number(L, 3)) {
+            return _fairygui_GTween_to3(L);
+        }
+
+        if (auto_luacv_is_cocos2d_Vec4(L, 1) && auto_luacv_is_cocos2d_Vec4(L, 2) && olua_is_number(L, 3)) {
+            return _fairygui_GTween_to4(L);
+        }
+
+        // if (manual_luacv_is_cocos2d_Color4B(L, 1) && manual_luacv_is_cocos2d_Color4B(L, 2) && olua_is_number(L, 3)) {
+            return _fairygui_GTween_to5(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::GTween::to' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _fairygui_GTween_toDouble(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    lua_Number arg1 = 0;   /** startValue */
+    lua_Number arg2 = 0;   /** endValue */
+    lua_Number arg3 = 0;   /** duration */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_number(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+
+    // static GTweener* toDouble(double startValue, double endValue, float duration)
+    fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::toDouble((double)arg1, (double)arg2, (float)arg3);
+    int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fgui.GTweener");
+
+    olua_getstore(L, "fgui.GTween");
+    olua_mapref(L, -1, "tweeners", -2);
+    lua_pop(L, 1);
+
+    return num_ret;
+}
+
+static int _fairygui_GTween_delayedCall(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    lua_Number arg1 = 0;   /** delay */
+
+    olua_check_number(L, 1, &arg1);
+
+    // static GTweener* delayedCall(float delay)
+    fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::delayedCall((float)arg1);
+    int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fgui.GTweener");
+
+    olua_getstore(L, "fgui.GTween");
+    olua_mapref(L, -1, "tweeners", -2);
+    lua_pop(L, 1);
+
+    return num_ret;
+}
+
+static int _fairygui_GTween_shake(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::Vec2 arg1;       /** startValue */
+    lua_Number arg2 = 0;   /** amplitude */
+    lua_Number arg3 = 0;   /** duration */
+
+    auto_luacv_check_cocos2d_Vec2(L, 1, &arg1);
+    olua_check_number(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+
+    // static GTweener* shake(const cocos2d::Vec2& startValue, float amplitude, float duration)
+    fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::shake(arg1, (float)arg2, (float)arg3);
+    int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fgui.GTweener");
+
+    olua_getstore(L, "fgui.GTween");
+    olua_mapref(L, -1, "tweeners", -2);
+    lua_pop(L, 1);
+
+    return num_ret;
+}
+
+static int _fairygui_GTween_isTweening1(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Ref *arg1 = nullptr;   /** target */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "cc.Ref");
+
+    // static bool isTweening(cocos2d::Ref* target)
+    bool ret = (bool)fairygui::GTween::isTweening(arg1);
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _fairygui_GTween_isTweening2(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Ref *arg1 = nullptr;   /** target */
+    lua_Unsigned arg2 = 0;   /** propType */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "cc.Ref");
+    olua_check_uint(L, 2, &arg2);
+
+    // static bool isTweening(cocos2d::Ref* target, TweenPropType propType)
+    bool ret = (bool)fairygui::GTween::isTweening(arg1, (fairygui::TweenPropType)arg2);
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _fairygui_GTween_isTweening(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 1) {
+        // if (olua_is_cppobj(L, 1, "cc.Ref")) {
+            return _fairygui_GTween_isTweening1(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if (olua_is_cppobj(L, 1, "cc.Ref") && olua_is_uint(L, 2)) {
+            return _fairygui_GTween_isTweening2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::GTween::isTweening' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _fairygui_GTween_kill1(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Ref *arg1 = nullptr;   /** target */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "cc.Ref");
+
+    // static void kill(cocos2d::Ref* target)
+    fairygui::GTween::kill(arg1);
+
+    return 0;
+}
+
+static int _fairygui_GTween_kill2(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Ref *arg1 = nullptr;   /** target */
+    bool arg2 = false;   /** complete */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "cc.Ref");
+    olua_check_bool(L, 2, &arg2);
+
+    // static void kill(cocos2d::Ref* target, bool complete)
+    fairygui::GTween::kill(arg1, arg2);
+
+    return 0;
+}
+
+static int _fairygui_GTween_kill3(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::Ref *arg1 = nullptr;   /** target */
+    lua_Unsigned arg2 = 0;   /** propType */
+    bool arg3 = false;   /** complete */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "cc.Ref");
+    olua_check_uint(L, 2, &arg2);
+    olua_check_bool(L, 3, &arg3);
+
+    // static void kill(cocos2d::Ref* target, TweenPropType propType, bool complete)
+    fairygui::GTween::kill(arg1, (fairygui::TweenPropType)arg2, arg3);
+
+    return 0;
+}
+
+static int _fairygui_GTween_kill(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 1) {
+        // if (olua_is_cppobj(L, 1, "cc.Ref")) {
+            return _fairygui_GTween_kill1(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if (olua_is_cppobj(L, 1, "cc.Ref") && olua_is_bool(L, 2)) {
+            return _fairygui_GTween_kill2(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if (olua_is_cppobj(L, 1, "cc.Ref") && olua_is_uint(L, 2) && olua_is_bool(L, 3)) {
+            return _fairygui_GTween_kill3(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::GTween::kill' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _fairygui_GTween_getTween1(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Ref *arg1 = nullptr;   /** target */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "cc.Ref");
+
+    // static GTweener* getTween(cocos2d::Ref* target)
+    fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::getTween(arg1);
+    int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fgui.GTweener");
+
+    return num_ret;
+}
+
+static int _fairygui_GTween_getTween2(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Ref *arg1 = nullptr;   /** target */
+    lua_Unsigned arg2 = 0;   /** propType */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "cc.Ref");
+    olua_check_uint(L, 2, &arg2);
+
+    // static GTweener* getTween(cocos2d::Ref* target, TweenPropType propType)
+    fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::getTween(arg1, (fairygui::TweenPropType)arg2);
+    int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fgui.GTweener");
+
+    return num_ret;
+}
+
+static int _fairygui_GTween_getTween(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 1) {
+        // if (olua_is_cppobj(L, 1, "cc.Ref")) {
+            return _fairygui_GTween_getTween1(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if (olua_is_cppobj(L, 1, "cc.Ref") && olua_is_uint(L, 2)) {
+            return _fairygui_GTween_getTween2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::GTween::getTween' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _fairygui_GTween_clean(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static void clean()
+    fairygui::GTween::clean();
+
+    return 0;
+}
+
+static int luaopen_fairygui_GTween(lua_State *L)
+{
+    oluacls_class(L, "fgui.GTween", nullptr);
+    oluacls_setfunc(L, "to", _fairygui_GTween_to);
+    oluacls_setfunc(L, "toDouble", _fairygui_GTween_toDouble);
+    oluacls_setfunc(L, "delayedCall", _fairygui_GTween_delayedCall);
+    oluacls_setfunc(L, "shake", _fairygui_GTween_shake);
+    oluacls_setfunc(L, "isTweening", _fairygui_GTween_isTweening);
+    oluacls_setfunc(L, "kill", _fairygui_GTween_kill);
+    oluacls_setfunc(L, "getTween", _fairygui_GTween_getTween);
+    oluacls_setfunc(L, "clean", _fairygui_GTween_clean);
+
+    olua_registerluatype<fairygui::GTween>(L, "fgui.GTween");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
 static int _fairygui_UIPackage_getById(lua_State *L)
 {
     lua_settop(L, 1);
@@ -14099,7 +15109,7 @@ static int _fairygui_UIObjectFactory_setPackageItemExtension(lua_State *L)
 
     olua_check_std_string(L, 1, &arg1);
 
-    void *callback_store_obj = (void *)olua_callbackstore(L, "fgui.UIObjectFactory");
+    void *callback_store_obj = (void *)olua_getstoreobj(L, "fgui.UIObjectFactory");
     std::string tag = olua_makecallbacktag("PackageItemExtension");
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
     arg2 = [callback_store_obj, func, tag]() {
@@ -14126,7 +15136,7 @@ static int _fairygui_UIObjectFactory_setLoaderExtension(lua_State *L)
 
     std::function<fairygui::GLoader *()> arg1 = nullptr;   /** creator */
 
-    void *callback_store_obj = (void *)olua_callbackstore(L, "fgui.UIObjectFactory");
+    void *callback_store_obj = (void *)olua_getstoreobj(L, "fgui.UIObjectFactory");
     std::string tag = olua_makecallbacktag("LoaderExtension");
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 1, OLUA_CALLBACK_TAG_REPLACE);
     arg1 = [callback_store_obj, func, tag]() {
@@ -14181,6 +15191,9 @@ int luaopen_fairygui(lua_State *L)
     olua_require(L, "fgui.TextFormat", luaopen_fairygui_TextFormat);
     olua_require(L, "fgui.EaseType", luaopen_fairygui_EaseType);
     olua_require(L, "fgui.EaseManager", luaopen_fairygui_EaseManager);
+    olua_require(L, "fgui.TweenPropType", luaopen_fairygui_TweenPropType);
+    olua_require(L, "fgui.GTweener", luaopen_fairygui_GTweener);
+    olua_require(L, "fgui.GTween", luaopen_fairygui_GTween);
     olua_require(L, "fgui.UIPackage", luaopen_fairygui_UIPackage);
     olua_require(L, "fgui.PackageItem", luaopen_fairygui_PackageItem);
     olua_require(L, "fgui.PackageItemType", luaopen_fairygui_PackageItemType);

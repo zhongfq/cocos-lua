@@ -19,7 +19,6 @@ end
 REG_TYPE {
     TYPENAME = [[
         fairygui::Margin
-        fairygui::TweenValue
     ]],
     CONV_FUNC = make_auto_conv_func,
     INIT_VALUE = false,
@@ -52,6 +51,7 @@ REG_TYPE {
         fairygui::ScrollBarDisplayType
         fairygui::ScrollType
         fairygui::TransitionActionType
+        fairygui::TweenPropType
         fairygui::EaseType
     ]],
     DECL_TYPE = 'lua_Unsigned',
@@ -98,6 +98,7 @@ REG_TYPE {
         fairygui::UIPackage *
         fairygui::UISource *
         fairygui::Window *
+        fairygui::GTweener *
     ]],
     CONV_FUNC = "olua_$$_cppobj",
     LUACLS = make_luacls,

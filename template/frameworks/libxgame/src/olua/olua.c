@@ -1,15 +1,15 @@
 #include "olua/olua.h"
 
-#define CLS_CLSIDX      (lua_upvalueindex(1))
-#define CLS_ISAIDX      (lua_upvalueindex(2))
-#define CLS_FUNCIDX     (lua_upvalueindex(3))
-#define CLS_GETIDX      (lua_upvalueindex(4))
-#define CLS_SETIDX      (lua_upvalueindex(5))
-#define CLS_ISA         ".isa"
-#define CLS_FUNC        ".func"
-#define CLS_GET         ".get"
-#define CLS_SET         ".set"
-#define CLS_CALLBACK    ".callback" // static func callback store
+#define CLS_CLSIDX  (lua_upvalueindex(1))
+#define CLS_ISAIDX  (lua_upvalueindex(2))
+#define CLS_FUNCIDX (lua_upvalueindex(3))
+#define CLS_GETIDX  (lua_upvalueindex(4))
+#define CLS_SETIDX  (lua_upvalueindex(5))
+#define CLS_ISA     ".isa"
+#define CLS_FUNC    ".func"
+#define CLS_GET     ".get"
+#define CLS_SET     ".set"
+#define CLS_STORE   ".store" // static store for cls
 
 #define OBJ_REF_TABLE ((void *)olua_pushobj)
 #define TRACEBACK (_traceback ? _traceback : dummy_traceback)
@@ -266,28 +266,13 @@ LUALIB_API void olua_callgc(lua_State *L, int idx, bool isarrary)
 static void auxgetusertable(lua_State *L, int idx)
 {
     if (lua_getuservalue(L, idx) != LUA_TTABLE) {
-#ifdef OLUA_DEBUG
-        if (!olua_isnil(L, -1)) {
-            luaL_error(L, "user value must be a table!");
-        }
-#endif
+        OLUA_ASSERT(olua_isnil(L, -1));
         lua_pop(L, 1);
         idx = lua_absindex(L, idx);
         lua_createtable(L, 0, 4);
         lua_pushvalue(L, -1);
         lua_setuservalue(L, idx);
     }
-}
-
-LUALIB_API void *olua_callbackstore(lua_State *L, const char *cls)
-{
-    void *store_obj = NULL;
-    luaL_getmetatable(L, cls);                  // L: cls
-    olua_rawgetfield(L, -1, CLS_CALLBACK);      // L: cls store_obj
-    luaL_checktype(L, -1, LUA_TUSERDATA);
-    store_obj = (void *)lua_topointer(L, -1);
-    lua_pop(L, 2);
-    return store_obj;
 }
 
 LUALIB_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag, int func, olua_callback_tag_t mode)
@@ -430,6 +415,23 @@ LUALIB_API int olua_callback(lua_State *L, void *obj, const char *field, int n)
     return status;
 }
 
+LUALIB_API void olua_getstore(lua_State *L, const char *cls)
+{
+    luaL_getmetatable(L, cls);                  // L: cls
+    olua_rawgetfield(L, -1, CLS_STORE);         // L: cls store
+    lua_remove(L, -2);                          // L: store
+    OLUA_ASSERT(olua_isuserdata(L, -1));
+}
+
+LUALIB_API void *olua_getstoreobj(lua_State *L, const char *cls)
+{
+    void *store_obj = NULL;
+    olua_getstore(L, cls);
+    store_obj = (void *)lua_topointer(L, -1);
+    lua_pop(L, 1);
+    return store_obj;
+}
+
 LUALIB_API int olua_getvariable(lua_State *L, int idx)
 {
     int type = LUA_TNIL;
@@ -455,6 +457,7 @@ static const char *auxpushrefkey(lua_State *L, const char *field)
 
 LUALIB_API void olua_getreftable(lua_State *L, int obj, const char *field)
 {
+    OLUA_ASSERT(olua_isuserdata(L, obj));
     auxgetusertable(L, obj);            // L: uv
     field = auxpushrefkey(L, field);    // L: uv refkey
     luaL_getsubtable(L, -2, field);     // L: uv refkey reftable
@@ -464,55 +467,52 @@ LUALIB_API void olua_getreftable(lua_State *L, int obj, const char *field)
 
 LUALIB_API void olua_singleref(lua_State *L, int obj, const char *field, int vidx)
 {
-    if (olua_isuserdata(L, vidx)) {
-        obj = lua_absindex(L, obj);
-        vidx = lua_absindex(L, vidx);
-        auxgetusertable(L, obj);                // L: uv
-        auxpushrefkey(L, field);                // L: uv refk
-        lua_pushvalue(L, vidx);                 // L: uv refk refv
-        lua_rawset(L, -3);                      // L: uv      uv[refk] = refv
-        lua_pop(L, 1);                          // L:
-    }
+    OLUA_ASSERT(olua_isuserdata(L, obj));
+    OLUA_ASSERT(olua_isuserdata(L, vidx) || olua_isnoneornil(L, vidx));
+    vidx = lua_absindex(L, vidx);
+    auxgetusertable(L, obj);                // L: uv
+    auxpushrefkey(L, field);                // L: uv refk
+    lua_pushvalue(L, vidx);                 // L: uv refk refv
+    lua_rawset(L, -3);                      // L: uv      uv[refk] = refv
+    lua_pop(L, 1);                          // L:
 }
 
 LUALIB_API void olua_singleunref(lua_State *L, int obj, const char *field)
 {
-    obj = lua_absindex(L, obj);
-    auxgetusertable(L, obj);                // L: uv
-    auxpushrefkey(L, field);                // L: uv refk
-    lua_pushnil(L);                         // L: uv refk nil
-    lua_rawset(L, -3);                      // L: uv      uv[refk] = nil
-    lua_pop(L, 1);                          // L:
+    lua_pushnil(L);
+    olua_singleref(L, obj, field, -1);
+    lua_pop(L, 1);
+}
+
+static void auxmaprefvalue(lua_State *L, int obj, const char *t, int vidx, bool ref)
+{
+    OLUA_ASSERT(olua_isuserdata(L, obj));
+    OLUA_ASSERT(olua_isuserdata(L, vidx));
+    vidx = lua_absindex(L, vidx);
+    olua_getreftable(L, obj, t);            // L: t
+    lua_pushvalue(L, vidx);                 // L: t v
+    if (ref) {
+        lua_pushboolean(L, true);           // L: t v true
+    } else {
+        lua_pushnil(L);                     // L: t v nil
+    }
+    lua_rawset(L, -3);                      // L: t
+    lua_pop(L, 1);
 }
 
 LUALIB_API void olua_mapref(lua_State *L, int obj, const char *t, int vidx)
 {
-    if (olua_isuserdata(L, vidx)) {
-        obj = lua_absindex(L, obj);
-        vidx = lua_absindex(L, vidx);
-        olua_getreftable(L, obj, t);            // L: t
-        lua_pushvalue(L, vidx);                 // L: t v
-        lua_pushboolean(L, true);               // L: t v true
-        lua_rawset(L, -3);                      // L: t        t[v] = true
-        lua_pop(L, 1);
-    }
+    auxmaprefvalue(L, obj, t, vidx, true);
 }
 
 LUALIB_API void olua_mapunref(lua_State *L, int obj, const char *t, int vidx)
 {
-    if (olua_isuserdata(L, vidx)) {
-        obj = lua_absindex(L, obj);
-        vidx = lua_absindex(L, vidx);
-        olua_getreftable(L, obj, t);            // L: t
-        lua_pushvalue(L, vidx);                 // L: t v
-        lua_pushnil(L);                         // L: t v nil
-        lua_rawset(L, -3);                      // L: t        t[v] = nil
-        lua_pop(L, 1);
-    }
+    auxmaprefvalue(L, obj, t, vidx, false);
 }
 
 LUALIB_API void olua_mapwalkunref(lua_State *L, int obj, const char *t, lua_CFunction walk)
 {
+    OLUA_ASSERT(olua_isuserdata(L, obj));
     obj = lua_absindex(L, obj);
     olua_getreftable(L, obj, t);            // L: t
     lua_pushnil(L);                         // L: t k
@@ -529,6 +529,7 @@ LUALIB_API void olua_mapwalkunref(lua_State *L, int obj, const char *t, lua_CFun
 
 LUALIB_API void olua_unrefall(lua_State *L, int obj, const char *t)
 {
+    OLUA_ASSERT(olua_isuserdata(L, obj));
     auxgetusertable(L, obj);                // L: uv
     auxpushrefkey(L, t);                    // L: uv k
     lua_pushnil(L);                         // L: uv k nil
@@ -538,6 +539,8 @@ LUALIB_API void olua_unrefall(lua_State *L, int obj, const char *t)
 
 LUALIB_API void olua_arrayref(lua_State *L, int obj, const char *t, int vidx)
 {
+    OLUA_ASSERT(olua_isuserdata(L, obj));
+    OLUA_ASSERT(olua_isuserdata(L, vidx));
     if (olua_isuserdata(L, vidx)) {
         int len;
         obj = lua_absindex(L, obj);
@@ -561,7 +564,7 @@ LUALIB_API void olua_arrayref(lua_State *L, int obj, const char *t, int vidx)
 LUALIB_API void olua_arrayunref(lua_State *L, int obj, const char *t, int idx)
 {
     size_t len;
-    obj = lua_absindex(L, obj);
+    OLUA_ASSERT(olua_isuserdata(L, obj));
     olua_getreftable(L, obj, t);             // L: t
     len = (size_t)lua_rawlen(L, -1);
     idx += idx < 0 ? (len + 1) : 0;
@@ -579,6 +582,7 @@ LUALIB_API void olua_arrayunref(lua_State *L, int obj, const char *t, int idx)
 LUALIB_API size_t olua_arraylen(lua_State *L, int obj, const char *t)
 {
     size_t len;
+    OLUA_ASSERT(olua_isuserdata(L, obj));
     olua_getreftable(L, obj, t);             // L: t
     len = lua_rawlen(L, -1);
     lua_pop(L, 1);
@@ -834,7 +838,7 @@ LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *super)
         auxgetobjtable(L);                              // L: mt objs
         lua_newuserdata(L, sizeof(void *));             // L: mt objs store
         lua_pushvalue(L, -1);                           // L: mt objs store store
-        olua_rawsetfield(L, -4, CLS_CALLBACK);          // L: mt objs store     mt[.callback] = store
+        olua_rawsetfield(L, -4, CLS_STORE);             // L: mt objs store     mt[.store] = store
         lua_rawsetp(L, -2, lua_topointer(L, -1));       // L: mt objs           objs[store_ptr] = store
         lua_pop(L, 1);                                  // L: mt
     }

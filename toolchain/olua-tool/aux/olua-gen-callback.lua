@@ -34,7 +34,7 @@ local function gen_remove_callback(cls, fi, write)
         CALLBACK_STORE_OBJ = 'self'
         if fi.STATIC then
             local LUACLS = cls.LUACLS
-            CALLBACK_STORE_OBJ = format_snippet('olua_callbackstore(L, "${LUACLS}")')
+            CALLBACK_STORE_OBJ = format_snippet('olua_getstoreobj(L, "${LUACLS}")')
         end
     else
         CALLBACK_STORE_OBJ = 'arg' .. CALLBACK_STORE
@@ -215,7 +215,7 @@ function gen_callback(cls, fi, write)
         CALLBACK_STORE_OBJ = 'self'
         if fi.STATIC and fi.RET.TYPE.TYPENAME == 'void' then
             local LUACLS = cls.LUACLS
-            CALLBACK_STORE_OBJ = format_snippet('olua_callbackstore(L, "${LUACLS}")')
+            CALLBACK_STORE_OBJ = format_snippet('olua_getstoreobj(L, "${LUACLS}")')
         end
     else
         CALLBACK_STORE_OBJ = 'arg' .. (CALLBACK_STORE - 1)

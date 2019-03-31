@@ -89,12 +89,14 @@ typedef enum {
 #define OLUA_CALLBACK_MISS  1
 #define OLUA_CALLBACK_ERR   2
 
-LUALIB_API void *olua_callbackstore(lua_State *L, const char *cls);
 LUALIB_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag, int func, olua_callback_tag_t mode);
 LUALIB_API void olua_getcallback(lua_State *L, void *obj, const char *tag, olua_callback_tag_t mode);
 LUALIB_API void olua_removecallback(lua_State *L, void *obj, const char *tag, olua_callback_tag_t mode);
 LUALIB_API int olua_callback(lua_State *L, void *obj, const char *field, int num_args);
 #define olua_makecallbacktag(tag) (tag)
+    
+LUALIB_API void olua_getstore(lua_State *L, const char *cls);
+LUALIB_API void *olua_getstoreobj(lua_State *L, const char *cls);
 
 LUALIB_API int olua_getvariable(lua_State *L, int idx);
 LUALIB_API void olua_setvariable(lua_State *L, int idx);
@@ -195,6 +197,7 @@ LUALIB_API bool olua_optfieldboolean(lua_State *L, int idx, const char *field, b
 #ifdef OLUA_DEBUG
 #define OLUA_ASSERT assert
 #else
+#define OLUA_ASSERT
 #endif
 
 #ifdef __cplusplus

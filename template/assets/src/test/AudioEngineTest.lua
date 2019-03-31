@@ -16,10 +16,13 @@ function M.new()
         print("AudioEngine finishCallback", id, ...)
     end)
 
+    print(Director.instance.runningScene)
+
     timer.delay(3, function ( ... )
-        printUserValue(AudioEngine.class['.callback'], 'before stop')
+        printUserValue(AudioEngine.class['.store'], 'before stop')
         AudioEngine.uncache('res/audio/bgm.mp3')
-        printUserValue(AudioEngine.class['.callback'], 'after stop')
+        printUserValue(AudioEngine.class['.store'], 'after stop')
+        printUserValue(Director.instance)
     end)
 
     -- AudioEngine.play2d("res/audio/click.mp3", false, 100)

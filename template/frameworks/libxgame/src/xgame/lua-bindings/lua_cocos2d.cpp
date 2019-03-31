@@ -5565,7 +5565,7 @@ static int _cocos2d_experimental_AudioEngine_uncache(lua_State *L)
 
     std::string path = olua_checkstring(L, 1);
     std::list<int> ids = cocos2d::LuaAudioEngine::getAudioIDs(path);
-    void *callback_store_obj = (void *)olua_callbackstore(L, "cc.AudioEngine");
+    void *callback_store_obj = (void *)olua_getstoreobj(L, "cc.AudioEngine");
     for (auto id : ids) {
         std::string tag = makeAudioEngineFinishCallbackTag((lua_Integer)id);
         olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
@@ -5671,7 +5671,7 @@ static int _cocos2d_experimental_AudioEngine_stop(lua_State *L)
     olua_check_int(L, 1, &arg1);
 
     std::string tag = makeAudioEngineFinishCallbackTag(arg1);
-    void *callback_store_obj = (void *)olua_callbackstore(L, "cc.AudioEngine");
+    void *callback_store_obj = (void *)olua_getstoreobj(L, "cc.AudioEngine");
     olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
 
     // static void stop(int audioID)
@@ -5685,7 +5685,7 @@ static int _cocos2d_experimental_AudioEngine_stopAll(lua_State *L)
     lua_settop(L, 0);
 
     std::string tag = makeAudioEngineFinishCallbackTag(-1);
-    void *callback_store_obj = (void *)olua_callbackstore(L, "cc.AudioEngine");
+    void *callback_store_obj = (void *)olua_getstoreobj(L, "cc.AudioEngine");
     olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_WILDCARD);
 
     // static void stopAll()
@@ -5699,7 +5699,7 @@ static int _cocos2d_experimental_AudioEngine_uncacheAll(lua_State *L)
     lua_settop(L, 0);
 
     std::string tag = makeAudioEngineFinishCallbackTag(-1);
-    void *callback_store_obj = (void *)olua_callbackstore(L, "cc.AudioEngine");
+    void *callback_store_obj = (void *)olua_getstoreobj(L, "cc.AudioEngine");
     olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_WILDCARD);
 
     // static void uncacheAll()
@@ -5718,7 +5718,7 @@ static int _cocos2d_experimental_AudioEngine_setFinishCallback(lua_State *L)
     olua_check_int(L, 1, &arg1);
 
     if (olua_is_std_function(L, 2)) {
-        void *callback_store_obj = (void *)olua_callbackstore(L, "cc.AudioEngine");
+        void *callback_store_obj = (void *)olua_getstoreobj(L, "cc.AudioEngine");
         std::string tag = makeAudioEngineFinishCallbackTag(arg1);
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_NEW);
         arg2 = [callback_store_obj, func, tag](int arg1, const std::string &arg2) {
@@ -5734,7 +5734,7 @@ static int _cocos2d_experimental_AudioEngine_setFinishCallback(lua_State *L)
             lua_settop(L, top);
         };
     } else {
-        void *callback_store_obj = (void *)olua_callbackstore(L, "cc.AudioEngine");
+        void *callback_store_obj = (void *)olua_getstoreobj(L, "cc.AudioEngine");
         std::string tag = makeAudioEngineFinishCallbackTag(arg1);
         olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
         arg2 = nullptr;
@@ -5769,7 +5769,7 @@ static int _cocos2d_experimental_AudioEngine_preload2(lua_State *L)
 
     olua_check_std_string(L, 1, &arg1);
 
-    void *callback_store_obj = (void *)olua_callbackstore(L, "cc.AudioEngine");
+    void *callback_store_obj = (void *)olua_getstoreobj(L, "cc.AudioEngine");
     std::string tag = olua_makecallbacktag("preload");
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_NEW);
     arg2 = [callback_store_obj, func, tag](bool arg1) {

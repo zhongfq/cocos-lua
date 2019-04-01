@@ -15714,6 +15714,11 @@ static int _fairygui_TreeNode_addChild(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.TreeNode");
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.TreeNode");
 
+    // inject code 
+    {
+        olua_mapref(L, 1, "children", 2);
+    }
+
     // TreeNode* addChild(TreeNode* child)
     fairygui::TreeNode *ret = (fairygui::TreeNode *)self->addChild(arg1);
     int num_ret = olua_push_cppobj<fairygui::TreeNode>(L, ret, "fui.TreeNode");
@@ -15733,6 +15738,14 @@ static int _fairygui_TreeNode_addChildAt(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.TreeNode");
     olua_check_int(L, 3, &arg2);
 
+    // inject code 
+    {
+        if (!(arg2 >= 0 && arg2 <= self->numChildren())) {
+            luaL_error(L, "index out of range");
+        }
+        olua_mapref(L, 1, "children", 2);
+    }
+
     // TreeNode* addChildAt(TreeNode* child, int index)
     fairygui::TreeNode *ret = (fairygui::TreeNode *)self->addChildAt(arg1, (int)arg2);
     int num_ret = olua_push_cppobj<fairygui::TreeNode>(L, ret, "fui.TreeNode");
@@ -15750,6 +15763,11 @@ static int _fairygui_TreeNode_removeChild(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.TreeNode");
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.TreeNode");
 
+    // inject code 
+    {
+        olua_mapunref(L, 1, "children", 2);
+    }
+
     // void removeChild(TreeNode * child)
     self->removeChild(arg1);
 
@@ -15766,6 +15784,18 @@ static int _fairygui_TreeNode_removeChildAt(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.TreeNode");
     olua_check_int(L, 2, &arg1);
 
+    // inject code 
+    {
+        if (!(arg1 >= 0 && arg1 < self->numChildren())) {
+            luaL_error(L, "index out of range");
+        }
+        fairygui::TreeNode *child = self->getChildAt((int)arg1);
+        if (olua_getobj(L, child)) {
+            olua_mapunref(L, 1, "children", -1);
+            lua_pop(L, 1);
+        }
+    }
+
     // void removeChildAt(int index)
     self->removeChildAt((int)arg1);
 
@@ -15780,8 +15810,28 @@ static int _fairygui_TreeNode_removeChildren1(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.TreeNode");
 
+    // inject code 
+    {
+        if (lua_gettop(L) == 3) {
+            int arg1 = (int)olua_checkinteger(L, 2);
+            int arg2 = (int)olua_checkinteger(L, 3);
+            if (!(arg1 >= 0 && arg1 < self->numChildren())) {
+                luaL_error(L, "beginIndex index out of range");
+            }
+            if (!(arg2 == -1 || (arg2 >= 0 && arg2 < self->numChildren()))) {
+                luaL_error(L, "endIndex index out of range");
+            }
+        }
+        xlua_startcmpunref(L, 1, "children");
+    }
+
     // void removeChildren()
     self->removeChildren();
+
+    // inject code 
+    {
+        xlua_endcmpunref(L, 1, "children");
+    }
 
     return 0;
 }
@@ -15798,8 +15848,28 @@ static int _fairygui_TreeNode_removeChildren2(lua_State *L)
     olua_check_int(L, 2, &arg1);
     olua_check_int(L, 3, &arg2);
 
+    // inject code 
+    {
+        if (lua_gettop(L) == 3) {
+            int arg1 = (int)olua_checkinteger(L, 2);
+            int arg2 = (int)olua_checkinteger(L, 3);
+            if (!(arg1 >= 0 && arg1 < self->numChildren())) {
+                luaL_error(L, "beginIndex index out of range");
+            }
+            if (!(arg2 == -1 || (arg2 >= 0 && arg2 < self->numChildren()))) {
+                luaL_error(L, "endIndex index out of range");
+            }
+        }
+        xlua_startcmpunref(L, 1, "children");
+    }
+
     // void removeChildren(int beginIndex, int endIndex)
     self->removeChildren((int)arg1, (int)arg2);
+
+    // inject code 
+    {
+        xlua_endcmpunref(L, 1, "children");
+    }
 
     return 0;
 }
@@ -15833,9 +15903,21 @@ static int _fairygui_TreeNode_getChildAt(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.TreeNode");
     olua_check_int(L, 2, &arg1);
 
+    // inject code 
+    {
+        if (!(arg1 >= 0 && arg1 < self->numChildren())) {
+            luaL_error(L, "index out of range");
+        }
+    }
+
     // TreeNode* getChildAt(int index)
     fairygui::TreeNode *ret = (fairygui::TreeNode *)self->getChildAt((int)arg1);
     int num_ret = olua_push_cppobj<fairygui::TreeNode>(L, ret, "fui.TreeNode");
+
+    // inject code 
+    {
+        olua_mapref(L, 1, "children", -1);
+    }
 
     return num_ret;
 }
@@ -15852,6 +15934,11 @@ static int _fairygui_TreeNode_getPrevSibling(lua_State *L)
     fairygui::TreeNode *ret = (fairygui::TreeNode *)self->getPrevSibling();
     int num_ret = olua_push_cppobj<fairygui::TreeNode>(L, ret, "fui.TreeNode");
 
+    // inject code 
+    {
+        olua_mapref(L, 1, "children", -1);
+    }
+
     return num_ret;
 }
 
@@ -15866,6 +15953,11 @@ static int _fairygui_TreeNode_getNextSibling(lua_State *L)
     // TreeNode* getNextSibling()
     fairygui::TreeNode *ret = (fairygui::TreeNode *)self->getNextSibling();
     int num_ret = olua_push_cppobj<fairygui::TreeNode>(L, ret, "fui.TreeNode");
+
+    // inject code 
+    {
+        olua_mapref(L, 1, "children", -1);
+    }
 
     return num_ret;
 }
@@ -16031,6 +16123,11 @@ static int _fairygui_TreeView_create(lua_State *L)
     fairygui::TreeView *ret = (fairygui::TreeView *)fairygui::TreeView::create(arg1);
     int num_ret = olua_push_cppobj<fairygui::TreeView>(L, ret, "fui.TreeView");
 
+    // inject code 
+    {
+        olua_singleref(L, -1, "list", 1);
+    }
+
     return num_ret;
 }
 
@@ -16045,6 +16142,11 @@ static int _fairygui_TreeView_getList(lua_State *L)
     // GList* getList()
     fairygui::GList *ret = (fairygui::GList *)self->getList();
     int num_ret = olua_push_cppobj<fairygui::GList>(L, ret, "fui.GList");
+
+    // inject code 
+    {
+        olua_singleref(L, 1, "list", -1);
+    }
 
     return num_ret;
 }
@@ -16061,6 +16163,11 @@ static int _fairygui_TreeView_getRootNode(lua_State *L)
     fairygui::TreeNode *ret = (fairygui::TreeNode *)self->getRootNode();
     int num_ret = olua_push_cppobj<fairygui::TreeNode>(L, ret, "fui.TreeNode");
 
+    // inject code 
+    {
+        olua_mapref(L, 1, "nodes", -1);
+    }
+
     return num_ret;
 }
 
@@ -16075,6 +16182,11 @@ static int _fairygui_TreeView_getSelectedNode(lua_State *L)
     // TreeNode* getSelectedNode()
     fairygui::TreeNode *ret = (fairygui::TreeNode *)self->getSelectedNode();
     int num_ret = olua_push_cppobj<fairygui::TreeNode>(L, ret, "fui.TreeNode");
+
+    // inject code 
+    {
+        olua_mapref(L, 1, "nodes", -1);
+    }
 
     return num_ret;
 }
@@ -16091,6 +16203,11 @@ static int _fairygui_TreeView_addSelection(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.TreeNode");
     olua_opt_bool(L, 3, &arg2, (bool)false);
 
+    // inject code 
+    {
+        olua_mapref(L, 1, "nodes", 2);
+    }
+
     // void addSelection(TreeNode* node, bool scrollItToView = false)
     self->addSelection(arg1, arg2);
 
@@ -16106,6 +16223,11 @@ static int _fairygui_TreeView_removeSelection(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.TreeView");
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.TreeNode");
+
+    // inject code 
+    {
+        olua_mapunref(L, 1, "nodes", 2);
+    }
 
     // void removeSelection(TreeNode* node)
     self->removeSelection(arg1);

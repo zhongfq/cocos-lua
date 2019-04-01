@@ -73,7 +73,7 @@ cls.funcs [[
     cocos2d::Rect globalToLocal(@pack const cocos2d::Rect& rect)
     cocos2d::Vec2 localToGlobal(@pack const cocos2d::Vec2& pt)
     cocos2d::Rect localToGlobal(@pack const cocos2d::Rect& rect)
-    cocos2d::Rect transformRect(const cocos2d::Rect& rect, GObject* targetSpace)
+    cocos2d::Rect transformRect(@pack const cocos2d::Rect& rect, GObject* targetSpace)
     Relations* relations()
     void addRelation(GObject* target, RelationType relationType, bool usePercent = false)
     void removeRelation(GObject* target, RelationType relationType)

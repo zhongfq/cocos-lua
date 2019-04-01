@@ -5003,7 +5003,7 @@ static int _fairygui_GObject_localToGlobal(lua_State *L)
     return 0;
 }
 
-static int _fairygui_GObject_transformRect(lua_State *L)
+static int _fairygui_GObject_transformRect1(lua_State *L)
 {
     lua_settop(L, 3);
 
@@ -5020,6 +5020,46 @@ static int _fairygui_GObject_transformRect(lua_State *L)
     int num_ret = manual_luacv_push_cocos2d_Rect(L, &ret);
 
     return num_ret;
+}
+
+static int _fairygui_GObject_transformRect2(lua_State *L)
+{
+    lua_settop(L, 6);
+
+    fairygui::GObject *self = nullptr;
+    cocos2d::Rect arg1;       /** rect */
+    fairygui::GObject *arg2 = nullptr;   /** targetSpace */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
+    manual_luacv_pack_cocos2d_Rect(L, 2, &arg1);
+    olua_check_cppobj(L, 6, (void **)&arg2, "fgui.GObject");
+
+    // cocos2d::Rect transformRect(@pack const cocos2d::Rect& rect, GObject* targetSpace)
+    cocos2d::Rect ret = (cocos2d::Rect)self->transformRect(arg1, arg2);
+    int num_ret = manual_luacv_unpack_cocos2d_Rect(L, &ret);
+
+    return num_ret;
+}
+
+static int _fairygui_GObject_transformRect(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 2) {
+        // if (manual_luacv_is_cocos2d_Rect(L, 2) && olua_is_cppobj(L, 3, "fgui.GObject")) {
+            return _fairygui_GObject_transformRect1(L);
+        // }
+    }
+
+    if (num_args == 5) {
+        // if (manual_luacv_ispack_cocos2d_Rect(L, 2) && olua_is_cppobj(L, 3, "fgui.GObject")) {
+            return _fairygui_GObject_transformRect2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::GObject::transformRect' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _fairygui_GObject_relations(lua_State *L)

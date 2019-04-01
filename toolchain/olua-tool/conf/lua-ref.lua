@@ -1,10 +1,18 @@
-function mapref_return_value(REFNAME, WHERE)
+function mapref_return_value(REFNAME, WHERE, isarr)
     WHERE = WHERE or 1
-    return {
-        AFTER = format_snippet [[
-            olua_mapref(L, ${WHERE}, "${REFNAME}", -1);
-        ]]
-    }
+    if isarr then
+        return {
+            AFTER = format_snippet [[
+                olua_maprefarray(L, ${WHERE}, "${REFNAME}", -1);
+            ]]
+        }
+    else
+        return {
+            AFTER = format_snippet [[
+                olua_mapref(L, ${WHERE}, "${REFNAME}", -1);
+            ]]
+        }
+    end
 end
 
 function mapref_arg_value(REFNAME, WHERE, OBJ)

@@ -757,6 +757,7 @@ function REG_CONV(ci)
     local func = ci.FUNC or "push|check|pack|unpack|opt|is"
     ci.PROPS = {}
     for line in string.gmatch(assert(ci.DEF, 'no DEF'), '[^\n\r]+') do
+        local attr, line = parse_attr(line)
         local typename, varname, luaname = string.match(line, '([^{} ]+[ *&])([^ *&]+) *= *([^ ;]*)')
         if not typename then
             typename, varname = string.match(line, '([^{}]+[ *&])([^ *&;]+)')
@@ -770,6 +771,7 @@ function REG_CONV(ci)
                 TYPE = typeinfo,
                 VARNAME = varname,
                 LUANAME = luaname,
+                ATTR = attr,
             }
         end
     end

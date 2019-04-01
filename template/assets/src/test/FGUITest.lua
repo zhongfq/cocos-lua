@@ -18,54 +18,54 @@ function new()
 
     scene.root = root -- hold
 
-    UIPackage.addPackage("res/fgui/UI/Bag")
-    UIConfig.horizontalScrollBar = ""
-    UIConfig.verticalScrollBar = ""
+    UIPackage.addPackage("res/fgui/UI/Transition")
 
-    local view = UIPackage.createObject('Bag', 'Main')
-    root:addChild(view)
-
-    timer.delay(0.1, function ()
-        local window = Window.create()
-        window.contentPane = UIPackage.createObject('Bag', 'BagWin')
-        window:center()
-        window.modal = true
-        local list = window.contentPane:getChild("list")
-        list:addEventListener(UIEventType.ClickItem, function (eventContext)
-            print("click item:", eventContext)
-            local item = eventContext.data
-            window.contentPane:getChild("n11").icon = item.icon
-            window.contentPane:getChild("n13").text = item.text
-        end)
-        -- list.itemRenderer = function (index, obj)
-        --     obj.icon = string.format("res/fgui/icons/i%d.png", math.random(0, 9))
-        --     obj.text = string.format("%d", math.random(1, 100))
-        -- end
-        -- list.numItems = 45
-
-        view:getChild('bagBtn'):addClickListener(function (...)
-            print("bagBtn click:", ...)
-            window:show()
+    scene.onEnterCallback = function ()
+        local startValue = 10000
+        local endValue = startValue + math.random(1000, 10000)
+        local view = UIPackage.createObject("Transition", "Main")
+        local btnGroup = view:getChild("g0")
+        local g1 = UIPackage.createObject("Transition", "BOSS")
+        local g2 = UIPackage.createObject("Transition", "BOSS_SKILL")
+        local g3 = UIPackage.createObject("Transition", "TRAP")
+        local g4 = UIPackage.createObject("Transition", "GoodHit")
+        local g5 = UIPackage.createObject("Transition", "PowerUp")
+        g5:getTransition("t0"):setHook("play_num_now", function ()
+            GTween.to(startValue, endValue, 0.3):onUpdate(function (tweener)
+                g5:getChild("value").text = tostring(tweener.value.x)
+            end)
         end)
 
-        local btn = view:getChild('bagBtn')
-        GTween.to(btn.x, btn.x + 400, 2):setTarget(btn, TweenPropType.X)
-        printUserValue(GTween.class['.store'])
+        local function play(target)
+            btnGroup.visible = false
+            root:addChild(target)
+            local t = target:getTransition('t0')
+            t:play(function ()
+                btnGroup.visible = true
+                root:removeChild(target)
+            end)
+        end
 
-        timer.delay(1.8, function ()
-            GTween.to(btn.x, btn.x + 100, 1):setTarget(btn, TweenPropType.X)
-            printUserValue(GTween.class['.store'])
-        end)
-        timer.delay(2.8, function ()
-            GTween.to(btn.x, btn.x - 100, 1):setTarget(btn, TweenPropType.X)
-            printUserValue(GTween.class['.store'])
-        end)
-
-        timer.delay(5, function ()
-            UIPackage.removePackage('Bag')
+        view:getChild("btn0"):addClickListener(function ()
             collectgarbage('collect')
+            play(g1)
         end)
-    end)
+        view:getChild("btn1"):addClickListener(function ()
+            collectgarbage('collect')
+            play(g2)
+        end)
+        view:getChild("btn2"):addClickListener(function ()
+            collectgarbage('collect')
+            play(g3)
+            root:removeChild(view)
+            timer.delay(0.5, function ()
+                print('gc')
+                collectgarbage('collect')
+            end)
+        end)
+
+        root:addChild(view)
+    end
     
     return scene
 end

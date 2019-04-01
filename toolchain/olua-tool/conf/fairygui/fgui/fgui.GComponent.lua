@@ -42,8 +42,8 @@ cls.funcs [[
     void setChildrenRenderOrder(ChildrenRenderOrder value)
     int getApexIndex()
     void setApexIndex(int value)
-    cocos2d::Node* getMask()
-    void setMask(cocos2d::Node* value, bool inverted = false)
+    @ref(single mask) cocos2d::Node* getMask()
+    void setMask(@ref(single mask) cocos2d::Node* value, bool inverted = false)
     IHitTest* getHitArea()
     void setHitArea(IHitTest* value)
     ScrollPane* getScrollPane()
@@ -73,44 +73,90 @@ cls.props [[
 cls.prop('numChildren', 'int numChildren()')
 
 -- ref
-local REFNAME = 'children'
--- GObject* addChild(GObject* child)
--- GObject* addChildAt(GObject* child, int index)
--- void removeChild(GObject * child);
--- void removeChildAt(int index);
--- void removeChildren() { removeChildren(0, -1); }
--- void removeChildren(int beginIndex, int endIndex);
--- GObject *getChildAt(int index) const;
--- GObject *getChild(const std::string& name) const;
--- GObject *getChildInGroup(const GGroup * group, const std::string& name) const;
--- GObject *getChildById(const std::string& id) const;
--- const cocos2d::Vector<GObject*>& getChildren() const { return _children; }
-local CHECK_RANGE = {
-    BEFORE = format_snippet [[
-        if (!(arg1 >= 0 && arg1 < self->numChildren())) {
-            luaL_error(L, "index out of range");
-        }
-    ]]
-}
-local CHECK_ADD_RANGE = {
-    BEFORE = format_snippet [[
-        if (!(arg2 >= 0 && arg2 <= self->numChildren())) {
-            luaL_error(L, "index out of range");
-        }
-    ]]
-}
-local REMOVE_BY_INDEX = {
-    BEFORE = format_snippet [[
-        fairygui::GObject *child = self->getChildAt((int)arg1);
-        if (olua_getobj(L, child)) {
-            olua_mapunref(L, 1, "${REFNAME}", -1);
-            lua_pop(L, 1);
-        }
-    ]]
-}
-cls.inject('addChild',      mapref_arg_value(REFNAME))
-cls.inject('addChildAt',    mapref_combo(CHECK_ADD_RANGE, mapref_arg_value(REFNAME)))
-cls.inject('removeChild',   mapunref_arg_value(REFNAME))
-cls.inject('removeChildAt', mapref_combo(CHECK_RANGE, REMOVE_BY_INDEX))
+do
+    local REFNAME = 'children'
+    local CHECK_RANGE = {
+        BEFORE = format_snippet [[
+            if (!(arg1 >= 0 && arg1 < self->numChildren())) {
+                luaL_error(L, "index out of range");
+            }
+        ]]
+    }
+    local CHECK_ADD_RANGE = {
+        BEFORE = format_snippet [[
+            if (!(arg2 >= 0 && arg2 <= self->numChildren())) {
+                luaL_error(L, "index out of range");
+            }
+        ]]
+    }
+    local UNREF_BY_INDEX = {
+        BEFORE = format_snippet [[
+            fairygui::GObject *child = self->getChildAt((int)arg1);
+            if (olua_getobj(L, child)) {
+                olua_mapunref(L, 1, "${REFNAME}", -1);
+                lua_pop(L, 1);
+            }
+        ]]
+    }
+    local CHECK_REMOVE_CHILDREN_RANGE = {
+        BEFORE = format_snippet [[
+            if (lua_gettop(L) == 3) {
+                int arg1 = (int)olua_checkinteger(L, 2);
+                int arg2 = (int)olua_checkinteger(L, 3);
+                if (!(arg1 >= 0 && arg1 < self->numChildren())) {
+                    luaL_error(L, "beginIndex index out of range");
+                }
+                if (!(arg2 == -1 || (arg2 >= 0 && arg2 < self->numChildren()))) {
+                    luaL_error(L, "endIndex index out of range");
+                }
+            }
+        ]]
+    }
+    -- GObject* addChild(GObject* child)
+    cls.inject('addChild',      mapref_arg_value(REFNAME))
+
+    -- GObject* addChildAt(GObject* child, int index)
+    cls.inject('addChildAt',    mapref_combo(CHECK_ADD_RANGE, mapref_arg_value(REFNAME)))
+
+    -- void removeChild(GObject * child);
+    cls.inject('removeChild',   mapunref_arg_value(REFNAME))
+
+    -- void removeChildAt(int index);
+    cls.inject('removeChildAt', mapref_combo(CHECK_RANGE, UNREF_BY_INDEX))
+
+    -- void removeChildren() { removeChildren(0, -1); }
+    -- void removeChildren(int beginIndex, int endIndex);
+    cls.inject('removeChildren', mapref_combo(CHECK_REMOVE_CHILDREN_RANGE, mapunef_by_compare(REFNAME)))
+
+    -- GObject *getChildAt(int index) const;
+    cls.inject('getChildAt',    mapref_combo(CHECK_RANGE, mapref_return_value(REFNAME)))
+
+    -- GObject *getChild(const std::string& name) const;
+    -- GObject *getChildInGroup(const GGroup * group, const std::string& name) const;
+    -- GObject *getChildById(const std::string& id) const;
+    cls.inject('getChild',          mapref_return_value(REFNAME))
+    cls.inject('getChildInGroup',   mapref_return_value(REFNAME))
+    cls.inject('getChildById',      mapref_return_value(REFNAME))
+
+    -- const cocos2d::Vector<GObject*>& getChildren() const { return _children; }
+    cls.inject('getChildren',       mapref_return_value(REFNAME, 1, true))
+end
+
+do
+    local REFNAME = 'transitions'
+    -- Transition* getTransition(const std::string& name)
+    -- Transition* getTransitionAt(int index)
+    -- const cocos2d::Vector<Transition*>& getTransitions()
+    local CHECK_RANGE = {
+        BEFORE = format_snippet [[
+            if (!(arg1 >= 0 && arg1 < self->getTransitions().size())) {
+                luaL_error(L, "index out of range");
+            }
+        ]]
+    }
+    cls.inject('getTransition',     mapref_return_value(REFNAME))
+    cls.inject('getTransitionAt',   mapref_combo(CHECK_RANGE, mapref_return_value(REFNAME)))
+    cls.inject('getTransitions',    mapref_return_value(REFNAME, 1, true))
+end
 
 return cls

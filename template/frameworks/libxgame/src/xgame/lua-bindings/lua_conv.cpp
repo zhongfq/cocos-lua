@@ -1013,3 +1013,56 @@ bool auto_luacv_is_cocos2d_Quad3(lua_State *L, int idx)
 {
     return lua_istable(L, idx);
 }
+
+int auto_luacv_push_fairygui_TweenValue(lua_State *L, const fairygui::TweenValue *value)
+{
+    if (value) {
+        lua_createtable(L, 0, 5);
+        olua_setfieldnumber(L, -1, "x", value->x);
+        olua_setfieldnumber(L, -1, "y", value->y);
+        olua_setfieldnumber(L, -1, "z", value->z);
+        olua_setfieldnumber(L, -1, "w", value->w);
+        olua_setfieldnumber(L, -1, "d", value->d);
+    } else {
+        lua_pushnil(L);
+    }
+
+    return 1;
+}
+
+void auto_luacv_check_fairygui_TweenValue(lua_State *L, int idx, fairygui::TweenValue *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    idx = lua_absindex(L, idx);
+    luaL_checktype(L, idx, LUA_TTABLE);
+    value->x = (float)olua_optfieldnumber(L, idx, "x", 0);
+    value->y = (float)olua_optfieldnumber(L, idx, "y", 0);
+    value->z = (float)olua_optfieldnumber(L, idx, "z", 0);
+    value->w = (float)olua_optfieldnumber(L, idx, "w", 0);
+    value->d = (double)olua_optfieldnumber(L, idx, "d", 0);
+}
+
+void auto_luacv_opt_fairygui_TweenValue(lua_State *L, int idx, fairygui::TweenValue *value, const fairygui::TweenValue &def)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    if (olua_isnil(L, idx)) {
+        *value = def;
+    } else {
+        idx = lua_absindex(L, idx);
+        luaL_checktype(L, idx, LUA_TTABLE);
+        value->x = (float)olua_optfieldnumber(L, idx, "x", 0);
+        value->y = (float)olua_optfieldnumber(L, idx, "y", 0);
+        value->z = (float)olua_optfieldnumber(L, idx, "z", 0);
+        value->w = (float)olua_optfieldnumber(L, idx, "w", 0);
+        value->d = (double)olua_optfieldnumber(L, idx, "d", 0);
+    }
+}
+
+bool auto_luacv_is_fairygui_TweenValue(lua_State *L, int idx)
+{
+    return lua_istable(L, idx);
+}

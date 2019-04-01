@@ -50,6 +50,13 @@ cls.funcs [[
     void kill(bool complete = false)
 ]]
 
+cls.vars [[
+    TweenValue startValue
+    TweenValue endValue
+    TweenValue value
+    TweenValue deltaValue
+]]
+
 cls.callbacks [[
     GTweener* onUpdate(std::function<void(GTweener* tweener)> callback)
     GTweener* onStart(std::function<void(GTweener* tweener)> callback)

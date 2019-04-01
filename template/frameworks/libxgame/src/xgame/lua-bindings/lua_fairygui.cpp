@@ -2241,6 +2241,130 @@ static int _fairygui_GTweener_onComplete1(lua_State *L)
     return num_ret;
 }
 
+static int _fairygui_GTweener_get_startValue(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::GTweener *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
+
+    // <function var>
+    fairygui::TweenValue ret = (fairygui::TweenValue)self->startValue;
+    int num_ret = auto_luacv_push_fairygui_TweenValue(L, &ret);
+
+    return num_ret;
+}
+
+static int _fairygui_GTweener_set_startValue(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GTweener *self = nullptr;
+    fairygui::TweenValue arg1;       /** startValue */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
+    auto_luacv_check_fairygui_TweenValue(L, 2, &arg1);
+
+    // <function var>
+    self->startValue = arg1;
+
+    return 0;
+}
+
+static int _fairygui_GTweener_get_endValue(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::GTweener *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
+
+    // <function var>
+    fairygui::TweenValue ret = (fairygui::TweenValue)self->endValue;
+    int num_ret = auto_luacv_push_fairygui_TweenValue(L, &ret);
+
+    return num_ret;
+}
+
+static int _fairygui_GTweener_set_endValue(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GTweener *self = nullptr;
+    fairygui::TweenValue arg1;       /** endValue */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
+    auto_luacv_check_fairygui_TweenValue(L, 2, &arg1);
+
+    // <function var>
+    self->endValue = arg1;
+
+    return 0;
+}
+
+static int _fairygui_GTweener_get_value(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::GTweener *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
+
+    // <function var>
+    fairygui::TweenValue ret = (fairygui::TweenValue)self->value;
+    int num_ret = auto_luacv_push_fairygui_TweenValue(L, &ret);
+
+    return num_ret;
+}
+
+static int _fairygui_GTweener_set_value(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GTweener *self = nullptr;
+    fairygui::TweenValue arg1;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
+    auto_luacv_check_fairygui_TweenValue(L, 2, &arg1);
+
+    // <function var>
+    self->value = arg1;
+
+    return 0;
+}
+
+static int _fairygui_GTweener_get_deltaValue(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::GTweener *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
+
+    // <function var>
+    fairygui::TweenValue ret = (fairygui::TweenValue)self->deltaValue;
+    int num_ret = auto_luacv_push_fairygui_TweenValue(L, &ret);
+
+    return num_ret;
+}
+
+static int _fairygui_GTweener_set_deltaValue(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GTweener *self = nullptr;
+    fairygui::TweenValue arg1;       /** deltaValue */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
+    auto_luacv_check_fairygui_TweenValue(L, 2, &arg1);
+
+    // <function var>
+    self->deltaValue = arg1;
+
+    return 0;
+}
+
 static int luaopen_fairygui_GTweener(lua_State *L)
 {
     oluacls_class(L, "fgui.GTweener", "cc.Ref");
@@ -2271,6 +2395,10 @@ static int luaopen_fairygui_GTweener(lua_State *L)
     oluacls_setfunc(L, "onStart", _fairygui_GTweener_onStart);
     oluacls_setfunc(L, "onComplete", _fairygui_GTweener_onComplete);
     oluacls_setfunc(L, "onComplete1", _fairygui_GTweener_onComplete1);
+    oluacls_property(L, "startValue", _fairygui_GTweener_get_startValue, _fairygui_GTweener_set_startValue);
+    oluacls_property(L, "endValue", _fairygui_GTweener_get_endValue, _fairygui_GTweener_set_endValue);
+    oluacls_property(L, "value", _fairygui_GTweener_get_value, _fairygui_GTweener_set_value);
+    oluacls_property(L, "deltaValue", _fairygui_GTweener_get_deltaValue, _fairygui_GTweener_set_deltaValue);
 
     olua_registerluatype<fairygui::GTweener>(L, "fgui.GTweener");
     oluacls_createclassproxy(L);
@@ -5898,8 +6026,28 @@ static int _fairygui_GComponent_removeChildren1(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
 
+    // inject code 
+    {
+        if (lua_gettop(L) == 3) {
+            int arg1 = (int)olua_checkinteger(L, 2);
+            int arg2 = (int)olua_checkinteger(L, 3);
+            if (!(arg1 >= 0 && arg1 < self->numChildren())) {
+                luaL_error(L, "beginIndex index out of range");
+            }
+            if (!(arg2 == -1 || (arg2 >= 0 && arg2 < self->numChildren()))) {
+                luaL_error(L, "endIndex index out of range");
+            }
+        }
+        xlua_startcmpunref(L, 1, "children");
+    }
+
     // void removeChildren()
     self->removeChildren();
+
+    // inject code 
+    {
+        xlua_endcmpunref(L, 1, "children");
+    }
 
     return 0;
 }
@@ -5916,8 +6064,28 @@ static int _fairygui_GComponent_removeChildren2(lua_State *L)
     olua_check_int(L, 2, &arg1);
     olua_check_int(L, 3, &arg2);
 
+    // inject code 
+    {
+        if (lua_gettop(L) == 3) {
+            int arg1 = (int)olua_checkinteger(L, 2);
+            int arg2 = (int)olua_checkinteger(L, 3);
+            if (!(arg1 >= 0 && arg1 < self->numChildren())) {
+                luaL_error(L, "beginIndex index out of range");
+            }
+            if (!(arg2 == -1 || (arg2 >= 0 && arg2 < self->numChildren()))) {
+                luaL_error(L, "endIndex index out of range");
+            }
+        }
+        xlua_startcmpunref(L, 1, "children");
+    }
+
     // void removeChildren(int beginIndex, int endIndex)
     self->removeChildren((int)arg1, (int)arg2);
+
+    // inject code 
+    {
+        xlua_endcmpunref(L, 1, "children");
+    }
 
     return 0;
 }
@@ -5951,9 +6119,21 @@ static int _fairygui_GComponent_getChildAt(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
     olua_check_int(L, 2, &arg1);
 
+    // inject code 
+    {
+        if (!(arg1 >= 0 && arg1 < self->numChildren())) {
+            luaL_error(L, "index out of range");
+        }
+    }
+
     // GObject * getChildAt(int index)
     fairygui::GObject *ret = (fairygui::GObject *)self->getChildAt((int)arg1);
     int num_ret = olua_push_cppobj<fairygui::GObject>(L, ret, "fgui.GObject");
+
+    // inject code 
+    {
+        olua_mapref(L, 1, "children", -1);
+    }
 
     return num_ret;
 }
@@ -5971,6 +6151,11 @@ static int _fairygui_GComponent_getChild(lua_State *L)
     // GObject * getChild(const std::string& name)
     fairygui::GObject *ret = (fairygui::GObject *)self->getChild(arg1);
     int num_ret = olua_push_cppobj<fairygui::GObject>(L, ret, "fgui.GObject");
+
+    // inject code 
+    {
+        olua_mapref(L, 1, "children", -1);
+    }
 
     return num_ret;
 }
@@ -5991,6 +6176,11 @@ static int _fairygui_GComponent_getChildInGroup(lua_State *L)
     fairygui::GObject *ret = (fairygui::GObject *)self->getChildInGroup(arg1, arg2);
     int num_ret = olua_push_cppobj<fairygui::GObject>(L, ret, "fgui.GObject");
 
+    // inject code 
+    {
+        olua_mapref(L, 1, "children", -1);
+    }
+
     return num_ret;
 }
 
@@ -6008,6 +6198,11 @@ static int _fairygui_GComponent_getChildById(lua_State *L)
     fairygui::GObject *ret = (fairygui::GObject *)self->getChildById(arg1);
     int num_ret = olua_push_cppobj<fairygui::GObject>(L, ret, "fgui.GObject");
 
+    // inject code 
+    {
+        olua_mapref(L, 1, "children", -1);
+    }
+
     return num_ret;
 }
 
@@ -6022,6 +6217,11 @@ static int _fairygui_GComponent_getChildren(lua_State *L)
     // const cocos2d::Vector<GObject*>& getChildren()
     const cocos2d::Vector<fairygui::GObject *> &ret = (const cocos2d::Vector<fairygui::GObject *> &)self->getChildren();
     int num_ret = manual_luacv_push_cocos2d_Vector(L, ret, "fgui.GObject");
+
+    // inject code 
+    {
+        olua_maprefarray(L, 1, "children", -1);
+    }
 
     return num_ret;
 }
@@ -6305,6 +6505,11 @@ static int _fairygui_GComponent_getTransition(lua_State *L)
     fairygui::Transition *ret = (fairygui::Transition *)self->getTransition(arg1);
     int num_ret = olua_push_cppobj<fairygui::Transition>(L, ret, "fgui.Transition");
 
+    // inject code 
+    {
+        olua_mapref(L, 1, "transitions", -1);
+    }
+
     return num_ret;
 }
 
@@ -6318,9 +6523,21 @@ static int _fairygui_GComponent_getTransitionAt(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
     olua_check_int(L, 2, &arg1);
 
+    // inject code 
+    {
+        if (!(arg1 >= 0 && arg1 < self->getTransitions().size())) {
+            luaL_error(L, "index out of range");
+        }
+    }
+
     // Transition* getTransitionAt(int index)
     fairygui::Transition *ret = (fairygui::Transition *)self->getTransitionAt((int)arg1);
     int num_ret = olua_push_cppobj<fairygui::Transition>(L, ret, "fgui.Transition");
+
+    // inject code 
+    {
+        olua_mapref(L, 1, "transitions", -1);
+    }
 
     return num_ret;
 }
@@ -6336,6 +6553,11 @@ static int _fairygui_GComponent_getTransitions(lua_State *L)
     // const cocos2d::Vector<Transition*>& getTransitions()
     const cocos2d::Vector<fairygui::Transition *> &ret = (const cocos2d::Vector<fairygui::Transition *> &)self->getTransitions();
     int num_ret = manual_luacv_push_cocos2d_Vector(L, ret, "fgui.Transition");
+
+    // inject code 
+    {
+        olua_maprefarray(L, 1, "transitions", -1);
+    }
 
     return num_ret;
 }
@@ -6472,9 +6694,14 @@ static int _fairygui_GComponent_getMask(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
 
-    // cocos2d::Node* getMask()
+    // @ref(single mask) cocos2d::Node* getMask()
     cocos2d::Node *ret = (cocos2d::Node *)self->getMask();
     int num_ret = olua_push_cppobj<cocos2d::Node>(L, ret, "cc.Node");
+
+    // inject code 
+    {
+        olua_singleref(L, 1, "mask", -1);
+    }
 
     return num_ret;
 }
@@ -6491,7 +6718,12 @@ static int _fairygui_GComponent_setMask(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
     olua_opt_bool(L, 3, &arg2, (bool)false);
 
-    // void setMask(cocos2d::Node* value, bool inverted = false)
+    // inject code 
+    {
+        olua_singleref(L, 1, "mask", 2);
+    }
+
+    // void setMask(@ref(single mask) cocos2d::Node* value, bool inverted = false)
     self->setMask(arg1, arg2);
 
     return 0;

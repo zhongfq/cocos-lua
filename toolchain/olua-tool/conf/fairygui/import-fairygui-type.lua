@@ -19,6 +19,7 @@ end
 REG_TYPE {
     TYPENAME = [[
         fairygui::Margin
+        fairygui::TweenValue
     ]],
     CONV_FUNC = make_auto_conv_func,
     INIT_VALUE = false,

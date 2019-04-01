@@ -139,6 +139,7 @@ local function gen_check_func(cv, write)
         local TYPENAME = pi.TYPE.TYPENAME
         local CHECK_FUNC
         local isbase = true
+        local INIT_VALUE = pi.TYPE.INIT_VALUE
         if pi.TYPE.DECL_TYPE == 'lua_Number' then
             CHECK_FUNC = 'olua_checkfieldnumber'
         elseif pi.TYPE.DECL_TYPE == 'lua_Integer'
@@ -155,16 +156,31 @@ local function gen_check_func(cv, write)
             isbase = false
             -- error(string.format("%s %s %s", cv.VARNAME, cv.LUANAME, cv.TYPE.TYPENAME))
         end
-        if isbase then
-            ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
-                value->${VARNAME} = (${TYPENAME})${CHECK_FUNC}(L, idx, "${LUANAME}");
-            ]])
+        if pi.ATTR.OPTION then
+            CHECK_FUNC = string.gsub(CHECK_FUNC, '_check', '_opt')
+            if isbase then
+                ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
+                    value->${VARNAME} = (${TYPENAME})${CHECK_FUNC}(L, idx, "${LUANAME}", ${INIT_VALUE});
+                ]])
+            else
+                ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
+                    lua_getfield(L, -1, "${LUANAME}");
+                    ${CHECK_FUNC}(L, idx, &value->${VARNAME});
+                    lua_pop(L, 1);
+                ]])
+            end
         else
-            ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
-                lua_getfield(L, -1, "${LUANAME}");
-                ${CHECK_FUNC}(L, idx, &value->${VARNAME});
-                lua_pop(L, 1);
-            ]])
+            if isbase then
+                ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
+                    value->${VARNAME} = (${TYPENAME})${CHECK_FUNC}(L, idx, "${LUANAME}");
+                ]])
+            else
+                ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
+                    lua_getfield(L, -1, "${LUANAME}");
+                    ${CHECK_FUNC}(L, idx, &value->${VARNAME});
+                    lua_pop(L, 1);
+                ]])
+            end
         end
     end
 

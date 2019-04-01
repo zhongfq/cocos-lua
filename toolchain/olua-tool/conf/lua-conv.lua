@@ -224,6 +224,16 @@ M.CONVS = {
         ]],
         FUNC = 'push|check|is',
     },
+    REG_CONV {
+        CPPCLS = 'fairygui::TweenValue',
+        DEF = [[
+            @option float x;
+            @option float y;
+            @option float z;
+            @option float w;
+            @option double d;
+        ]]
+    }
 }
 
 return M

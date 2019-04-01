@@ -83,6 +83,7 @@ REG_TYPE {
         fairygui::GSlider *
         fairygui::GTextField *
         fairygui::GTextInput *
+        fairygui::GTweener *
         fairygui::IHitTest *
         fairygui::InputEvent *
         fairygui::InputProcessor *
@@ -94,11 +95,12 @@ REG_TYPE {
         fairygui::ScrollPane *
         fairygui::TextFormat *
         fairygui::Transition *
+        fairygui::TreeNode *
+        fairygui::TreeView *
         fairygui::UIEventDispatcher *
         fairygui::UIPackage *
         fairygui::UISource *
         fairygui::Window *
-        fairygui::GTweener *
     ]],
     CONV_FUNC = "olua_$$_cppobj",
     LUACLS = make_luacls,

@@ -61,6 +61,8 @@ M.CLASSES = {
     include('conf/fairygui/fgui/fgui.DragDropManager.lua'),
     include('conf/fairygui/fgui/fgui.UIObjectFactory.lua'),
     include('conf/fairygui/fgui/gears/fgui.GearBase.lua'),
+    include('conf/fairygui/fgui/treeview/fgui.TreeNode.lua'),
+    include('conf/fairygui/fgui/treeview/fgui.TreeView.lua'),
 }
 
 return M

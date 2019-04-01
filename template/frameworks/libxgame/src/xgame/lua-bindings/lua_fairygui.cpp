@@ -15213,6 +15213,836 @@ static int luaopen_fairygui_GearBase(lua_State *L)
     return 1;
 }
 
+static int _fairygui_TreeNode_create(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    bool arg1 = false;   /** isFolder */
+
+    olua_opt_bool(L, 1, &arg1, (bool)false);
+
+    // static TreeNode* create(bool isFolder = false)
+    fairygui::TreeNode *ret = (fairygui::TreeNode *)fairygui::TreeNode::create(arg1);
+    int num_ret = olua_push_cppobj<fairygui::TreeNode>(L, ret, "fgui.TreeNode");
+
+    return num_ret;
+}
+
+static int _fairygui_TreeNode_getParent(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::TreeNode *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+
+    // TreeNode* getParent()
+    fairygui::TreeNode *ret = (fairygui::TreeNode *)self->getParent();
+    int num_ret = olua_push_cppobj<fairygui::TreeNode>(L, ret, "fgui.TreeNode");
+
+    return num_ret;
+}
+
+static int _fairygui_TreeNode_getRoot(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::TreeNode *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+
+    // TreeView* getRoot()
+    fairygui::TreeView *ret = (fairygui::TreeView *)self->getRoot();
+    int num_ret = olua_push_cppobj<fairygui::TreeView>(L, ret, "fgui.TreeView");
+
+    return num_ret;
+}
+
+static int _fairygui_TreeNode_getCell(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::TreeNode *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+
+    // GComponent* getCell()
+    fairygui::GComponent *ret = (fairygui::GComponent *)self->getCell();
+    int num_ret = olua_push_cppobj<fairygui::GComponent>(L, ret, "fgui.GComponent");
+
+    return num_ret;
+}
+
+static int _fairygui_TreeNode_getData(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::TreeNode *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+
+    // const cocos2d::Value& getData()
+    const cocos2d::Value &ret = (const cocos2d::Value &)self->getData();
+    int num_ret = manual_luacv_push_cocos2d_Value(L, &ret);
+
+    return num_ret;
+}
+
+static int _fairygui_TreeNode_setData(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::TreeNode *self = nullptr;
+    cocos2d::Value arg1;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+    manual_luacv_check_cocos2d_Value(L, 2, &arg1);
+
+    // void setData(const cocos2d::Value& value)
+    self->setData(arg1);
+
+    return 0;
+}
+
+static int _fairygui_TreeNode_isExpanded(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::TreeNode *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+
+    // bool isExpanded()
+    bool ret = (bool)self->isExpanded();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _fairygui_TreeNode_setExpaned(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::TreeNode *self = nullptr;
+    bool arg1 = false;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setExpaned(bool value)
+    self->setExpaned(arg1);
+
+    return 0;
+}
+
+static int _fairygui_TreeNode_isFolder(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::TreeNode *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+
+    // bool isFolder()
+    bool ret = (bool)self->isFolder();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _fairygui_TreeNode_getText(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::TreeNode *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+
+    // const std::string& getText()
+    const std::string &ret = (const std::string &)self->getText();
+    int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
+static int _fairygui_TreeNode_addChild(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::TreeNode *self = nullptr;
+    fairygui::TreeNode *arg1 = nullptr;   /** child */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.TreeNode");
+
+    // TreeNode* addChild(TreeNode* child)
+    fairygui::TreeNode *ret = (fairygui::TreeNode *)self->addChild(arg1);
+    int num_ret = olua_push_cppobj<fairygui::TreeNode>(L, ret, "fgui.TreeNode");
+
+    return num_ret;
+}
+
+static int _fairygui_TreeNode_addChildAt(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    fairygui::TreeNode *self = nullptr;
+    fairygui::TreeNode *arg1 = nullptr;   /** child */
+    lua_Integer arg2 = 0;   /** index */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.TreeNode");
+    olua_check_int(L, 3, &arg2);
+
+    // TreeNode* addChildAt(TreeNode* child, int index)
+    fairygui::TreeNode *ret = (fairygui::TreeNode *)self->addChildAt(arg1, (int)arg2);
+    int num_ret = olua_push_cppobj<fairygui::TreeNode>(L, ret, "fgui.TreeNode");
+
+    return num_ret;
+}
+
+static int _fairygui_TreeNode_removeChild(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::TreeNode *self = nullptr;
+    fairygui::TreeNode *arg1 = nullptr;   /** child */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.TreeNode");
+
+    // void removeChild(TreeNode * child)
+    self->removeChild(arg1);
+
+    return 0;
+}
+
+static int _fairygui_TreeNode_removeChildAt(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::TreeNode *self = nullptr;
+    lua_Integer arg1 = 0;   /** index */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+    olua_check_int(L, 2, &arg1);
+
+    // void removeChildAt(int index)
+    self->removeChildAt((int)arg1);
+
+    return 0;
+}
+
+static int _fairygui_TreeNode_removeChildren1(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::TreeNode *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+
+    // void removeChildren()
+    self->removeChildren();
+
+    return 0;
+}
+
+static int _fairygui_TreeNode_removeChildren2(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    fairygui::TreeNode *self = nullptr;
+    lua_Integer arg1 = 0;   /** beginIndex */
+    lua_Integer arg2 = 0;   /** endIndex */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+    olua_check_int(L, 2, &arg1);
+    olua_check_int(L, 3, &arg2);
+
+    // void removeChildren(int beginIndex, int endIndex)
+    self->removeChildren((int)arg1, (int)arg2);
+
+    return 0;
+}
+
+static int _fairygui_TreeNode_removeChildren(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 0) {
+        return _fairygui_TreeNode_removeChildren1(L);
+    }
+
+    if (num_args == 2) {
+        // if (olua_is_int(L, 2) && olua_is_int(L, 3)) {
+            return _fairygui_TreeNode_removeChildren2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::TreeNode::removeChildren' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _fairygui_TreeNode_getChildAt(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::TreeNode *self = nullptr;
+    lua_Integer arg1 = 0;   /** index */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+    olua_check_int(L, 2, &arg1);
+
+    // TreeNode* getChildAt(int index)
+    fairygui::TreeNode *ret = (fairygui::TreeNode *)self->getChildAt((int)arg1);
+    int num_ret = olua_push_cppobj<fairygui::TreeNode>(L, ret, "fgui.TreeNode");
+
+    return num_ret;
+}
+
+static int _fairygui_TreeNode_getPrevSibling(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::TreeNode *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+
+    // TreeNode* getPrevSibling()
+    fairygui::TreeNode *ret = (fairygui::TreeNode *)self->getPrevSibling();
+    int num_ret = olua_push_cppobj<fairygui::TreeNode>(L, ret, "fgui.TreeNode");
+
+    return num_ret;
+}
+
+static int _fairygui_TreeNode_getNextSibling(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::TreeNode *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+
+    // TreeNode* getNextSibling()
+    fairygui::TreeNode *ret = (fairygui::TreeNode *)self->getNextSibling();
+    int num_ret = olua_push_cppobj<fairygui::TreeNode>(L, ret, "fgui.TreeNode");
+
+    return num_ret;
+}
+
+static int _fairygui_TreeNode_getChildIndex(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::TreeNode *self = nullptr;
+    fairygui::TreeNode *arg1 = nullptr;   /** child */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.TreeNode");
+
+    // int getChildIndex(const TreeNode* child)
+    int ret = (int)self->getChildIndex(arg1);
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _fairygui_TreeNode_setChildIndex(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    fairygui::TreeNode *self = nullptr;
+    fairygui::TreeNode *arg1 = nullptr;   /** child */
+    lua_Integer arg2 = 0;   /** index */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.TreeNode");
+    olua_check_int(L, 3, &arg2);
+
+    // void setChildIndex(TreeNode* child, int index)
+    self->setChildIndex(arg1, (int)arg2);
+
+    return 0;
+}
+
+static int _fairygui_TreeNode_setChildIndexBefore(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    fairygui::TreeNode *self = nullptr;
+    fairygui::TreeNode *arg1 = nullptr;   /** child */
+    lua_Integer arg2 = 0;   /** index */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.TreeNode");
+    olua_check_int(L, 3, &arg2);
+
+    // int setChildIndexBefore(TreeNode* child, int index)
+    int ret = (int)self->setChildIndexBefore(arg1, (int)arg2);
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _fairygui_TreeNode_swapChildren(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    fairygui::TreeNode *self = nullptr;
+    fairygui::TreeNode *arg1 = nullptr;   /** child1 */
+    fairygui::TreeNode *arg2 = nullptr;   /** child2 */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.TreeNode");
+    olua_check_cppobj(L, 3, (void **)&arg2, "fgui.TreeNode");
+
+    // void swapChildren(TreeNode* child1, TreeNode* child2)
+    self->swapChildren(arg1, arg2);
+
+    return 0;
+}
+
+static int _fairygui_TreeNode_swapChildrenAt(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    fairygui::TreeNode *self = nullptr;
+    lua_Integer arg1 = 0;   /** index1 */
+    lua_Integer arg2 = 0;   /** index2 */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+    olua_check_int(L, 2, &arg1);
+    olua_check_int(L, 3, &arg2);
+
+    // void swapChildrenAt(int index1, int index2)
+    self->swapChildrenAt((int)arg1, (int)arg2);
+
+    return 0;
+}
+
+static int _fairygui_TreeNode_numChildren(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::TreeNode *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+
+    // int numChildren()
+    int ret = (int)self->numChildren();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int luaopen_fairygui_TreeNode(lua_State *L)
+{
+    oluacls_class(L, "fgui.TreeNode", "cc.Ref");
+    oluacls_setfunc(L, "create", _fairygui_TreeNode_create);
+    oluacls_setfunc(L, "getParent", _fairygui_TreeNode_getParent);
+    oluacls_setfunc(L, "getRoot", _fairygui_TreeNode_getRoot);
+    oluacls_setfunc(L, "getCell", _fairygui_TreeNode_getCell);
+    oluacls_setfunc(L, "getData", _fairygui_TreeNode_getData);
+    oluacls_setfunc(L, "setData", _fairygui_TreeNode_setData);
+    oluacls_setfunc(L, "isExpanded", _fairygui_TreeNode_isExpanded);
+    oluacls_setfunc(L, "setExpaned", _fairygui_TreeNode_setExpaned);
+    oluacls_setfunc(L, "isFolder", _fairygui_TreeNode_isFolder);
+    oluacls_setfunc(L, "getText", _fairygui_TreeNode_getText);
+    oluacls_setfunc(L, "addChild", _fairygui_TreeNode_addChild);
+    oluacls_setfunc(L, "addChildAt", _fairygui_TreeNode_addChildAt);
+    oluacls_setfunc(L, "removeChild", _fairygui_TreeNode_removeChild);
+    oluacls_setfunc(L, "removeChildAt", _fairygui_TreeNode_removeChildAt);
+    oluacls_setfunc(L, "removeChildren", _fairygui_TreeNode_removeChildren);
+    oluacls_setfunc(L, "getChildAt", _fairygui_TreeNode_getChildAt);
+    oluacls_setfunc(L, "getPrevSibling", _fairygui_TreeNode_getPrevSibling);
+    oluacls_setfunc(L, "getNextSibling", _fairygui_TreeNode_getNextSibling);
+    oluacls_setfunc(L, "getChildIndex", _fairygui_TreeNode_getChildIndex);
+    oluacls_setfunc(L, "setChildIndex", _fairygui_TreeNode_setChildIndex);
+    oluacls_setfunc(L, "setChildIndexBefore", _fairygui_TreeNode_setChildIndexBefore);
+    oluacls_setfunc(L, "swapChildren", _fairygui_TreeNode_swapChildren);
+    oluacls_setfunc(L, "swapChildrenAt", _fairygui_TreeNode_swapChildrenAt);
+    oluacls_setfunc(L, "numChildren", _fairygui_TreeNode_numChildren);
+    oluacls_property(L, "parent", _fairygui_TreeNode_getParent, nullptr);
+    oluacls_property(L, "root", _fairygui_TreeNode_getRoot, nullptr);
+    oluacls_property(L, "cell", _fairygui_TreeNode_getCell, nullptr);
+    oluacls_property(L, "data", _fairygui_TreeNode_getData, _fairygui_TreeNode_setData);
+    oluacls_property(L, "expanded", _fairygui_TreeNode_isExpanded, nullptr);
+    oluacls_property(L, "folder", _fairygui_TreeNode_isFolder, nullptr);
+    oluacls_property(L, "text", _fairygui_TreeNode_getText, nullptr);
+    oluacls_property(L, "prevSibling", _fairygui_TreeNode_getPrevSibling, nullptr);
+    oluacls_property(L, "nextSibling", _fairygui_TreeNode_getNextSibling, nullptr);
+    oluacls_property(L, "numChildren", _fairygui_TreeNode_numChildren, nullptr);
+
+    olua_registerluatype<fairygui::TreeNode>(L, "fgui.TreeNode");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _fairygui_TreeView_create(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::GList *arg1 = nullptr;   /** list */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "fgui.GList");
+
+    // static TreeView* create(GList* list)
+    fairygui::TreeView *ret = (fairygui::TreeView *)fairygui::TreeView::create(arg1);
+    int num_ret = olua_push_cppobj<fairygui::TreeView>(L, ret, "fgui.TreeView");
+
+    return num_ret;
+}
+
+static int _fairygui_TreeView_getList(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::TreeView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeView");
+
+    // GList* getList()
+    fairygui::GList *ret = (fairygui::GList *)self->getList();
+    int num_ret = olua_push_cppobj<fairygui::GList>(L, ret, "fgui.GList");
+
+    return num_ret;
+}
+
+static int _fairygui_TreeView_getRootNode(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::TreeView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeView");
+
+    // TreeNode* getRootNode()
+    fairygui::TreeNode *ret = (fairygui::TreeNode *)self->getRootNode();
+    int num_ret = olua_push_cppobj<fairygui::TreeNode>(L, ret, "fgui.TreeNode");
+
+    return num_ret;
+}
+
+static int _fairygui_TreeView_getSelectedNode(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::TreeView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeView");
+
+    // TreeNode* getSelectedNode()
+    fairygui::TreeNode *ret = (fairygui::TreeNode *)self->getSelectedNode();
+    int num_ret = olua_push_cppobj<fairygui::TreeNode>(L, ret, "fgui.TreeNode");
+
+    return num_ret;
+}
+
+static int _fairygui_TreeView_addSelection(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    fairygui::TreeView *self = nullptr;
+    fairygui::TreeNode *arg1 = nullptr;   /** node */
+    bool arg2 = false;   /** scrollItToView */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeView");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.TreeNode");
+    olua_opt_bool(L, 3, &arg2, (bool)false);
+
+    // void addSelection(TreeNode* node, bool scrollItToView = false)
+    self->addSelection(arg1, arg2);
+
+    return 0;
+}
+
+static int _fairygui_TreeView_removeSelection(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::TreeView *self = nullptr;
+    fairygui::TreeNode *arg1 = nullptr;   /** node */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeView");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.TreeNode");
+
+    // void removeSelection(TreeNode* node)
+    self->removeSelection(arg1);
+
+    return 0;
+}
+
+static int _fairygui_TreeView_clearSelection(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::TreeView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeView");
+
+    // void clearSelection()
+    self->clearSelection();
+
+    return 0;
+}
+
+static int _fairygui_TreeView_getNodeIndex(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::TreeView *self = nullptr;
+    fairygui::TreeNode *arg1 = nullptr;   /** node */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeView");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.TreeNode");
+
+    // int getNodeIndex(TreeNode* node)
+    int ret = (int)self->getNodeIndex(arg1);
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _fairygui_TreeView_updateNode(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::TreeView *self = nullptr;
+    fairygui::TreeNode *arg1 = nullptr;   /** node */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeView");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.TreeNode");
+
+    // void updateNode(TreeNode* node)
+    self->updateNode(arg1);
+
+    return 0;
+}
+
+static int _fairygui_TreeView_expandAll(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::TreeView *self = nullptr;
+    fairygui::TreeNode *arg1 = nullptr;   /** folderNode */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeView");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.TreeNode");
+
+    // void expandAll(TreeNode* folderNode)
+    self->expandAll(arg1);
+
+    return 0;
+}
+
+static int _fairygui_TreeView_collapseAll(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::TreeView *self = nullptr;
+    fairygui::TreeNode *arg1 = nullptr;   /** folderNode */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeView");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.TreeNode");
+
+    // void collapseAll(TreeNode* folderNode)
+    self->collapseAll(arg1);
+
+    return 0;
+}
+
+static int _fairygui_TreeView_getSelection(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GList *self = (fairygui::GList *)olua_toobj(L, 1, "fgui.GList");
+    std::vector<int> selections;
+    self->getSelection(selections);
+    int idx = 1;
+    lua_createtable(L, (int)selections.size(), 0);
+    for (auto v : selections) {
+        lua_pushinteger(L, v);
+        lua_rawseti(L, -2, idx++);
+    }
+
+    return 1;
+}
+
+static int _fairygui_TreeView_get_treeNodeCreateCell(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::TreeView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeView");
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("treeNodeCreateCell");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+
+    // <function var>
+    std::function<fairygui::GComponent *(fairygui::TreeNode *)> ret = (std::function<fairygui::GComponent *(fairygui::TreeNode *)>)self->treeNodeCreateCell;
+    int num_ret = olua_push_std_function(L, (std::function<fairygui::GComponent *(fairygui::TreeNode *)>)ret);
+
+    return num_ret;
+}
+
+static int _fairygui_TreeView_set_treeNodeCreateCell(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::TreeView *self = nullptr;
+    std::function<fairygui::GComponent *(fairygui::TreeNode *)> arg1 = nullptr;   /** treeNodeCreateCell */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeView");
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("treeNodeCreateCell");
+    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+    arg1 = [callback_store_obj, func, tag](fairygui::TreeNode *arg1) {
+        lua_State *L = olua_mainthread();
+        int top = lua_gettop(L);
+        fairygui::GComponent * ret = nullptr;
+        olua_push_cppobj<fairygui::TreeNode>(L, arg1, "fgui.TreeNode");
+        olua_callback(L, callback_store_obj, func.c_str(), 1);
+        olua_check_cppobj(L, -1, (void **)&ret, "fgui.GComponent");
+
+        lua_settop(L, top);
+        return ret;
+    };
+
+    // <function var>
+    self->treeNodeCreateCell = arg1;
+
+    return 0;
+}
+
+static int _fairygui_TreeView_get_treeNodeRender(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::TreeView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeView");
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("treeNodeRender");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+
+    // <function var>
+    std::function<void(fairygui::TreeNode *)> ret = (std::function<void(fairygui::TreeNode *)>)self->treeNodeRender;
+    int num_ret = olua_push_std_function(L, (std::function<void(fairygui::TreeNode *)>)ret);
+
+    return num_ret;
+}
+
+static int _fairygui_TreeView_set_treeNodeRender(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::TreeView *self = nullptr;
+    std::function<void(fairygui::TreeNode *)> arg1 = nullptr;   /** treeNodeRender */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeView");
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("treeNodeRender");
+    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+    arg1 = [callback_store_obj, func, tag](fairygui::TreeNode *arg1) {
+        lua_State *L = olua_mainthread();
+        int top = lua_gettop(L);
+
+        olua_push_cppobj<fairygui::TreeNode>(L, arg1, "fgui.TreeNode");
+        olua_callback(L, callback_store_obj, func.c_str(), 1);
+
+        lua_settop(L, top);
+    };
+
+    // <function var>
+    self->treeNodeRender = arg1;
+
+    return 0;
+}
+
+static int _fairygui_TreeView_get_treeNodeWillExpand(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    fairygui::TreeView *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeView");
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("treeNodeWillExpand");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+
+    // <function var>
+    std::function<void(fairygui::TreeNode *, bool)> ret = (std::function<void(fairygui::TreeNode *, bool)>)self->treeNodeWillExpand;
+    int num_ret = olua_push_std_function(L, (std::function<void(fairygui::TreeNode *, bool)>)ret);
+
+    return num_ret;
+}
+
+static int _fairygui_TreeView_set_treeNodeWillExpand(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::TreeView *self = nullptr;
+    std::function<void(fairygui::TreeNode *, bool)> arg1 = nullptr;   /** treeNodeWillExpand */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeView");
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("treeNodeWillExpand");
+    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+    arg1 = [callback_store_obj, func, tag](fairygui::TreeNode *arg1, bool arg2) {
+        lua_State *L = olua_mainthread();
+        int top = lua_gettop(L);
+
+        olua_push_cppobj<fairygui::TreeNode>(L, arg1, "fgui.TreeNode");
+        olua_push_bool(L, arg2);
+        olua_callback(L, callback_store_obj, func.c_str(), 2);
+
+        lua_settop(L, top);
+    };
+
+    // <function var>
+    self->treeNodeWillExpand = arg1;
+
+    return 0;
+}
+
+static int luaopen_fairygui_TreeView(lua_State *L)
+{
+    oluacls_class(L, "fgui.TreeView", "fgui.UIEventDispatcher");
+    oluacls_setfunc(L, "create", _fairygui_TreeView_create);
+    oluacls_setfunc(L, "getList", _fairygui_TreeView_getList);
+    oluacls_setfunc(L, "getRootNode", _fairygui_TreeView_getRootNode);
+    oluacls_setfunc(L, "getSelectedNode", _fairygui_TreeView_getSelectedNode);
+    oluacls_setfunc(L, "addSelection", _fairygui_TreeView_addSelection);
+    oluacls_setfunc(L, "removeSelection", _fairygui_TreeView_removeSelection);
+    oluacls_setfunc(L, "clearSelection", _fairygui_TreeView_clearSelection);
+    oluacls_setfunc(L, "getNodeIndex", _fairygui_TreeView_getNodeIndex);
+    oluacls_setfunc(L, "updateNode", _fairygui_TreeView_updateNode);
+    oluacls_setfunc(L, "expandAll", _fairygui_TreeView_expandAll);
+    oluacls_setfunc(L, "collapseAll", _fairygui_TreeView_collapseAll);
+    oluacls_setfunc(L, "getSelection", _fairygui_TreeView_getSelection);
+    oluacls_property(L, "list", _fairygui_TreeView_getList, nullptr);
+    oluacls_property(L, "rootNode", _fairygui_TreeView_getRootNode, nullptr);
+    oluacls_property(L, "selectedNode", _fairygui_TreeView_getSelectedNode, nullptr);
+    oluacls_property(L, "selection", _fairygui_TreeView_getSelection, nullptr);
+    oluacls_property(L, "treeNodeCreateCell", _fairygui_TreeView_get_treeNodeCreateCell, _fairygui_TreeView_set_treeNodeCreateCell);
+    oluacls_property(L, "treeNodeRender", _fairygui_TreeView_get_treeNodeRender, _fairygui_TreeView_set_treeNodeRender);
+    oluacls_property(L, "treeNodeWillExpand", _fairygui_TreeView_get_treeNodeWillExpand, _fairygui_TreeView_set_treeNodeWillExpand);
+
+    olua_registerluatype<fairygui::TreeView>(L, "fgui.TreeView");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
 int luaopen_fairygui(lua_State *L)
 {
     olua_require(L, "fgui.UIEventType", luaopen_fairygui_UIEventType);
@@ -15279,5 +16109,7 @@ int luaopen_fairygui(lua_State *L)
     olua_require(L, "fgui.DragDropManager", luaopen_fairygui_DragDropManager);
     olua_require(L, "fgui.UIObjectFactory", luaopen_fairygui_UIObjectFactory);
     olua_require(L, "fgui.GearBase", luaopen_fairygui_GearBase);
+    olua_require(L, "fgui.TreeNode", luaopen_fairygui_TreeNode);
+    olua_require(L, "fgui.TreeView", luaopen_fairygui_TreeView);
     return 0;
 }

@@ -50,4 +50,14 @@ cls.props [[
     soundVolumeScale
 ]]
 
+-- ref
+cls.inject('create', {
+    AFTER = [[
+        olua_push_cppobj<cocos2d::Node>(L, ret->displayObject(), "cc.Node");
+        olua_singleref(L, -1, "fui.root", -2);
+        olua_mapref(L, 1, "children", -1);
+        lua_pop(L, 1);
+    ]]
+})
+
 return cls

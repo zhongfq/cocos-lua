@@ -401,13 +401,11 @@ LUALIB_API int olua_callback(lua_State *L, void *obj, const char *field, int n)
     }
     
     if (status != OLUA_CALLBACK_OK) {
-#ifdef OLUA_DEBUG
         if (status == OLUA_CALLBACK_MISS) {
             lua_pushcfunction(L, TRACEBACK);
             lua_pushfstring(L, "callback missed: %s", field);
-            lua_call(L, 1, 0);
+            lua_pcall(L, 1, 0, 0);
         }
-#endif
         lua_settop(L, top);
         lua_pushnil(L);
     }

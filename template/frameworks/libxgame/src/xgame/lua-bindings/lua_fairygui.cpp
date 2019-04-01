@@ -6970,6 +6970,14 @@ static int _fairygui_GRoot_create(lua_State *L)
     fairygui::GRoot *ret = (fairygui::GRoot *)fairygui::GRoot::create(arg1, (int)arg2);
     int num_ret = olua_push_cppobj<fairygui::GRoot>(L, ret, "fui.GRoot");
 
+    // inject code 
+    {
+        olua_push_cppobj<cocos2d::Node>(L, ret->displayObject(), "cc.Node");
+        olua_singleref(L, -1, "fui.root", -2);
+        olua_mapref(L, 1, "children", -1);
+        lua_pop(L, 1);
+    }
+
     return num_ret;
 }
 

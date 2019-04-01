@@ -85,7 +85,32 @@ local REFNAME = 'children'
 -- GObject *getChildInGroup(const GGroup * group, const std::string& name) const;
 -- GObject *getChildById(const std::string& id) const;
 -- const cocos2d::Vector<GObject*>& getChildren() const { return _children; }
+local CHECK_RANGE = {
+    BEFORE = format_snippet [[
+        if (!(arg1 >= 0 && arg1 < self->numChildren())) {
+            luaL_error(L, "index out of range");
+        }
+    ]]
+}
+local CHECK_ADD_RANGE = {
+    BEFORE = format_snippet [[
+        if (!(arg2 >= 0 && arg2 <= self->numChildren())) {
+            luaL_error(L, "index out of range");
+        }
+    ]]
+}
+local REMOVE_BY_INDEX = {
+    BEFORE = format_snippet [[
+        fairygui::GObject *child = self->getChildAt((int)arg1);
+        if (olua_getobj(L, child)) {
+            olua_mapunref(L, 1, "${REFNAME}", -1);
+            lua_pop(L, 1);
+        }
+    ]]
+}
 cls.inject('addChild',      mapref_arg_value(REFNAME))
-cls.inject('addChildAt',    mapref_arg_value(REFNAME))
+cls.inject('addChildAt',    mapref_combo(CHECK_ADD_RANGE, mapref_arg_value(REFNAME)))
+cls.inject('removeChild',   mapunref_arg_value(REFNAME))
+cls.inject('removeChildAt', mapref_combo(CHECK_RANGE, REMOVE_BY_INDEX))
 
 return cls

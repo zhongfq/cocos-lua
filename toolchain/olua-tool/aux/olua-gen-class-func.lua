@@ -185,10 +185,6 @@ local function gen_func_args(cls, fi)
         end
     end
 
-    if #REF_CHUNK > 0 then
-        table.insert(REF_CHUNK, 1, "// ref value")
-    end
-
     ARGS_CHUNK = table.concat(ARGS_CHUNK, "\n")
     DECL_CHUNK = table.concat(DECL_CHUNK, "\n")
     CALLER_ARGS = table.concat(CALLER_ARGS, ", ")
@@ -331,6 +327,16 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
         end
     end
 
+    if #REF_CHUNK > 0 then
+        if #INJECT_BEFORE > 0 then
+            INJECT_BEFORE = table.concat(REF_CHUNK,  '\n') .. '\n' .. INJECT_BEFORE
+        else
+            INJECT_BEFORE = table.concat(REF_CHUNK,  '\n')
+        end
+        REF_CHUNK = {}
+    end
+
+
     if fi.RET.ATTR.REF then
         assert(not fi.STATIC or (fi.RET.NUM > 0 and fi.RET.TYPE.LUACLS), fi.CPPFUNC)
         if fi.RET.ATTR.REF == true then
@@ -347,7 +353,32 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
         end
     end
 
-    REF_CHUNK = table.concat(REF_CHUNK, "\n")
+    if #REF_CHUNK > 0 then
+        if #INJECT_AFTER > 0 then
+            INJECT_AFTER = table.concat(REF_CHUNK,  '\n') .. '\n' .. INJECT_AFTER
+        else
+            INJECT_AFTER = table.concat(REF_CHUNK,  '\n')
+        end
+        REF_CHUNK = {}
+    end
+
+    if #INJECT_BEFORE > 0 then
+        INJECT_BEFORE = format_snippet [[
+            // inject code 
+            {
+                ${INJECT_BEFORE}
+            }
+        ]]
+    end
+
+    if #INJECT_AFTER > 0 then
+        INJECT_AFTER = format_snippet [[
+            // inject code 
+            {
+                ${INJECT_AFTER}
+            }
+        ]]
+    end
 
     write(format_snippet([[
         static int _${CPPCLS_PATH}_${CPPFUNC}${FUNC_INDEX}(lua_State *L)
@@ -367,8 +398,6 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
             ${RET_PUSH}
 
             ${INJECT_AFTER}
-
-            ${REF_CHUNK}
 
             return ${RET_NUM};
         }

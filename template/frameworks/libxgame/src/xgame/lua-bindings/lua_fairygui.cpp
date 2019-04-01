@@ -2305,10 +2305,13 @@ static int _fairygui_GTween_to1(lua_State *L)
     fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::to((float)arg1, (float)arg2, (float)arg3);
     int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fgui.GTweener");
 
-    olua_getstore(L, "fgui.GTween");
-    olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
-    olua_mapref(L, -1, "tweeners", -2);
-    lua_pop(L, 1);
+    // inject code 
+    {
+        olua_getstore(L, "fgui.GTween");
+        olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
+        olua_mapref(L, -1, "tweeners", -2);
+        lua_pop(L, 1);
+    }
 
     return num_ret;
 }
@@ -2329,10 +2332,13 @@ static int _fairygui_GTween_to2(lua_State *L)
     fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::to(arg1, arg2, (float)arg3);
     int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fgui.GTweener");
 
-    olua_getstore(L, "fgui.GTween");
-    olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
-    olua_mapref(L, -1, "tweeners", -2);
-    lua_pop(L, 1);
+    // inject code 
+    {
+        olua_getstore(L, "fgui.GTween");
+        olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
+        olua_mapref(L, -1, "tweeners", -2);
+        lua_pop(L, 1);
+    }
 
     return num_ret;
 }
@@ -2353,10 +2359,13 @@ static int _fairygui_GTween_to3(lua_State *L)
     fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::to(arg1, arg2, (float)arg3);
     int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fgui.GTweener");
 
-    olua_getstore(L, "fgui.GTween");
-    olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
-    olua_mapref(L, -1, "tweeners", -2);
-    lua_pop(L, 1);
+    // inject code 
+    {
+        olua_getstore(L, "fgui.GTween");
+        olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
+        olua_mapref(L, -1, "tweeners", -2);
+        lua_pop(L, 1);
+    }
 
     return num_ret;
 }
@@ -2377,10 +2386,13 @@ static int _fairygui_GTween_to4(lua_State *L)
     fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::to(arg1, arg2, (float)arg3);
     int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fgui.GTweener");
 
-    olua_getstore(L, "fgui.GTween");
-    olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
-    olua_mapref(L, -1, "tweeners", -2);
-    lua_pop(L, 1);
+    // inject code 
+    {
+        olua_getstore(L, "fgui.GTween");
+        olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
+        olua_mapref(L, -1, "tweeners", -2);
+        lua_pop(L, 1);
+    }
 
     return num_ret;
 }
@@ -2401,10 +2413,13 @@ static int _fairygui_GTween_to5(lua_State *L)
     fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::to(arg1, arg2, (float)arg3);
     int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fgui.GTweener");
 
-    olua_getstore(L, "fgui.GTween");
-    olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
-    olua_mapref(L, -1, "tweeners", -2);
-    lua_pop(L, 1);
+    // inject code 
+    {
+        olua_getstore(L, "fgui.GTween");
+        olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
+        olua_mapref(L, -1, "tweeners", -2);
+        lua_pop(L, 1);
+    }
 
     return num_ret;
 }
@@ -2456,10 +2471,13 @@ static int _fairygui_GTween_toDouble(lua_State *L)
     fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::toDouble((double)arg1, (double)arg2, (float)arg3);
     int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fgui.GTweener");
 
-    olua_getstore(L, "fgui.GTween");
-    olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
-    olua_mapref(L, -1, "tweeners", -2);
-    lua_pop(L, 1);
+    // inject code 
+    {
+        olua_getstore(L, "fgui.GTween");
+        olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
+        olua_mapref(L, -1, "tweeners", -2);
+        lua_pop(L, 1);
+    }
 
     return num_ret;
 }
@@ -2476,10 +2494,13 @@ static int _fairygui_GTween_delayedCall(lua_State *L)
     fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::delayedCall((float)arg1);
     int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fgui.GTweener");
 
-    olua_getstore(L, "fgui.GTween");
-    olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
-    olua_mapref(L, -1, "tweeners", -2);
-    lua_pop(L, 1);
+    // inject code 
+    {
+        olua_getstore(L, "fgui.GTween");
+        olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
+        olua_mapref(L, -1, "tweeners", -2);
+        lua_pop(L, 1);
+    }
 
     return num_ret;
 }
@@ -2500,10 +2521,13 @@ static int _fairygui_GTween_shake(lua_State *L)
     fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::shake(arg1, (float)arg2, (float)arg3);
     int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fgui.GTweener");
 
-    olua_getstore(L, "fgui.GTween");
-    olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
-    olua_mapref(L, -1, "tweeners", -2);
-    lua_pop(L, 1);
+    // inject code 
+    {
+        olua_getstore(L, "fgui.GTween");
+        olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
+        olua_mapref(L, -1, "tweeners", -2);
+        lua_pop(L, 1);
+    }
 
     return num_ret;
 }
@@ -2572,9 +2596,12 @@ static int _fairygui_GTween_kill1(lua_State *L)
     // static void kill(cocos2d::Ref* target)
     fairygui::GTween::kill(arg1);
 
-    olua_getstore(L, "fgui.GTween");
-    olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
-    lua_pop(L, 1);
+    // inject code 
+    {
+        olua_getstore(L, "fgui.GTween");
+        olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
+        lua_pop(L, 1);
+    }
 
     return 0;
 }
@@ -2592,9 +2619,12 @@ static int _fairygui_GTween_kill2(lua_State *L)
     // static void kill(cocos2d::Ref* target, bool complete)
     fairygui::GTween::kill(arg1, arg2);
 
-    olua_getstore(L, "fgui.GTween");
-    olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
-    lua_pop(L, 1);
+    // inject code 
+    {
+        olua_getstore(L, "fgui.GTween");
+        olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
+        lua_pop(L, 1);
+    }
 
     return 0;
 }
@@ -2614,9 +2644,12 @@ static int _fairygui_GTween_kill3(lua_State *L)
     // static void kill(cocos2d::Ref* target, TweenPropType propType, bool complete)
     fairygui::GTween::kill(arg1, (fairygui::TweenPropType)arg2, arg3);
 
-    olua_getstore(L, "fgui.GTween");
-    olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
-    lua_pop(L, 1);
+    // inject code 
+    {
+        olua_getstore(L, "fgui.GTween");
+        olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
+        lua_pop(L, 1);
+    }
 
     return 0;
 }
@@ -2705,7 +2738,10 @@ static int _fairygui_GTween_clean(lua_State *L)
 {
     lua_settop(L, 0);
 
-    olua_unrefall(L, 1, "tweeners");
+    // inject code 
+    {
+        olua_unrefall(L, 1, "tweeners");
+    }
 
     // static void clean()
     fairygui::GTween::clean();
@@ -4519,7 +4555,10 @@ static int _fairygui_GObject_getGroup(lua_State *L)
     fairygui::GGroup *ret = (fairygui::GGroup *)self->getGroup();
     int num_ret = olua_push_cppobj<fairygui::GGroup>(L, ret, "fgui.GGroup");
 
-    olua_singleref(L, 1, "group", -1);
+    // inject code 
+    {
+        olua_singleref(L, 1, "group", -1);
+    }
 
     return num_ret;
 }
@@ -4534,11 +4573,13 @@ static int _fairygui_GObject_setGroup(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
     olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GGroup");
 
+    // inject code 
+    {
+        olua_singleref(L, 1, "group", 2);
+    }
+
     // void setGroup(@ref(single group) GGroup* value)
     self->setGroup(arg1);
-
-    // ref value
-    olua_singleref(L, 1, "group", 2);
 
     return 0;
 }
@@ -5761,7 +5802,10 @@ static int _fairygui_GComponent_addChild(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
     olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GObject");
 
-    olua_mapref(L, 1, "children", 2);
+    // inject code 
+    {
+        olua_mapref(L, 1, "children", 2);
+    }
 
     // GObject* addChild(GObject* child)
     fairygui::GObject *ret = (fairygui::GObject *)self->addChild(arg1);
@@ -5782,7 +5826,13 @@ static int _fairygui_GComponent_addChildAt(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GObject");
     olua_check_int(L, 3, &arg2);
 
-    olua_mapref(L, 1, "children", 2);
+    // inject code 
+    {
+        if (!(arg2 >= 0 && arg2 <= self->numChildren())) {
+            luaL_error(L, "index out of range");
+        }
+        olua_mapref(L, 1, "children", 2);
+    }
 
     // GObject* addChildAt(GObject* child, int index)
     fairygui::GObject *ret = (fairygui::GObject *)self->addChildAt(arg1, (int)arg2);
@@ -5801,6 +5851,11 @@ static int _fairygui_GComponent_removeChild(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
     olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GObject");
 
+    // inject code 
+    {
+        olua_mapunref(L, 1, "children", 2);
+    }
+
     // void removeChild(GObject * child)
     self->removeChild(arg1);
 
@@ -5816,6 +5871,18 @@ static int _fairygui_GComponent_removeChildAt(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
     olua_check_int(L, 2, &arg1);
+
+    // inject code 
+    {
+        if (!(arg1 >= 0 && arg1 < self->numChildren())) {
+            luaL_error(L, "index out of range");
+        }
+        fairygui::GObject *child = self->getChildAt((int)arg1);
+        if (olua_getobj(L, child)) {
+            olua_mapunref(L, 1, "children", -1);
+            lua_pop(L, 1);
+        }
+    }
 
     // void removeChildAt(int index)
     self->removeChildAt((int)arg1);

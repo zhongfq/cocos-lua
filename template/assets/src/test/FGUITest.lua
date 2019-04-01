@@ -16,8 +16,6 @@ function new()
     local scene = Scene.create()
     local root = GRoot.create(scene)
 
-    scene.root = root -- hold
-
     UIPackage.addPackage("res/fui/UI/Transition")
 
     scene.onEnterCallback = function ()
@@ -44,6 +42,9 @@ function new()
                 btnGroup.visible = true
                 root:removeChild(target)
             end)
+            timer.delay(0.1, function ()
+                collectgarbage('collect')
+            end)
         end
 
         view:getChild("btn0"):addClickListener(function ()
@@ -65,6 +66,10 @@ function new()
         end)
 
         root:addChild(view)
+
+        printUserValue(scene, 'scene')
+        printUserValue(root.displayObject, 'displayObject')
+        printUserValue(root, 'root')
     end
     
     return scene

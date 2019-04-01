@@ -1,5 +1,5 @@
 local function make_luacls(cppname)
-    cppname = string.gsub(cppname, '^fairygui::', 'fgui.')
+    cppname = string.gsub(cppname, '^fairygui::', 'fui.')
     cppname = string.gsub(cppname, "[ *]*$", '')
     return cppname
 end

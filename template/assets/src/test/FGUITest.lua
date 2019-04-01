@@ -4,13 +4,13 @@ local runtime       = require "kernel.runtime"
 local timer         = require "kernel.timer"
 local Director      = require "cc.Director"
 local Scene         = require "cc.Scene"
-local UIPackage     = require "fgui.UIPackage"
-local UIConfig      = require "fgui.UIConfig"
-local GRoot         = require "fgui.GRoot"
-local Window        = require "fgui.Window"
-local UIEventType   = require "fgui.UIEventType"
-local GTween        = require "fgui.GTween"
-local TweenPropType = require "fgui.TweenPropType"
+local UIPackage     = require "fui.UIPackage"
+local UIConfig      = require "fui.UIConfig"
+local GRoot         = require "fui.GRoot"
+local Window        = require "fui.Window"
+local UIEventType   = require "fui.UIEventType"
+local GTween        = require "fui.GTween"
+local TweenPropType = require "fui.TweenPropType"
 
 function new()
     local scene = Scene.create()
@@ -18,7 +18,7 @@ function new()
 
     scene.root = root -- hold
 
-    UIPackage.addPackage("res/fgui/UI/Transition")
+    UIPackage.addPackage("res/fui/UI/Transition")
 
     scene.onEnterCallback = function ()
         local startValue = 10000
@@ -58,7 +58,7 @@ function new()
             collectgarbage('collect')
             play(g3)
             root:removeChild(view)
-            timer.delay(0.5, function ()
+            timer.delay(4, function ()
                 print('gc')
                 collectgarbage('collect')
             end)

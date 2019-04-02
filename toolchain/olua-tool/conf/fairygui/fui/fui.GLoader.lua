@@ -34,7 +34,7 @@ cls.funcs [[
     void setFillClockwise(bool value)
     float getFillAmount()
     void setFillAmount(float value)
-    GComponent* getComponent()
+    @ref(single component) GComponent* getComponent()
 ]]
 cls.props [[
     url

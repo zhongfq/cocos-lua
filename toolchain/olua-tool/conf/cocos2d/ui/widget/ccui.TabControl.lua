@@ -97,12 +97,9 @@ cls.props [[
 
 -- ref
 local REFNAME = 'controls'
-cls.inject('getTabHeader', mapref_return_value(REFNAME))
-cls.inject('getTabContainer', mapref_return_value(REFNAME))
-cls.inject('removeTab', mapunef_by_compare(REFNAME))
-cls.inject('insertTab', mapref_combo(
-    mapref_arg_value(REFNAME, 1, 2),
-    mapref_arg_value(REFNAME, 1, 3)
-))
+cls.inject('getTabHeader',      mapref_return_value(REFNAME))
+cls.inject('getTabContainer',   mapref_return_value(REFNAME))
+cls.inject('removeTab',         mapunef_by_compare(REFNAME))
+cls.inject('insertTab',         mapref_arg_value(REFNAME, 1, 2), mapref_arg_value(REFNAME, 1, 3))
 
 return M

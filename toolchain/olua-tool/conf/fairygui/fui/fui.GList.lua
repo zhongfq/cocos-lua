@@ -45,8 +45,8 @@ cls.funcs [[
     void resizeToFit(int itemCount)
     void resizeToFit(int itemCount, int minSize)
     void scrollToView(int index, bool ani = false, bool setFirst = false)
-    GController* getSelectionController()
-    void setSelectionController(GController* value)
+    @ref(single selectionController) GController* getSelectionController()
+    void setSelectionController(@ref(single selectionController) GController* value)
     void setVirtual()
     void setVirtualAndLoop()
     bool isVirtual()
@@ -79,5 +79,54 @@ cls.props [[
     selectionController
     numItems
 ]]
+
+-- ref
+-- ref
+do
+    local REFNAME = 'children'
+    local CHECK_RANGE = {
+        BEFORE = format_snippet [[
+            if (!(arg1 >= 0 && arg1 < self->numChildren())) {
+                luaL_error(L, "index out of range");
+            }
+        ]]
+    }
+    local UNREF_BY_INDEX = {
+        BEFORE = format_snippet [[
+            fairygui::GObject *child = self->getChildAt((int)arg1);
+            if (olua_getobj(L, child)) {
+                olua_mapunref(L, 1, "${REFNAME}", -1);
+                lua_pop(L, 1);
+            }
+        ]]
+    }
+    local CHECK_REMOVE_CHILDREN_RANGE = {
+        BEFORE = format_snippet [[
+            if (lua_gettop(L) == 3) {
+                int arg1 = (int)olua_checkinteger(L, 2);
+                int arg2 = (int)olua_checkinteger(L, 3);
+                if (!(arg1 >= 0 && arg1 < self->numChildren())) {
+                    luaL_error(L, "beginIndex index out of range");
+                }
+                if (!(arg2 == -1 || (arg2 >= 0 && arg2 < self->numChildren()))) {
+                    luaL_error(L, "endIndex index out of range");
+                }
+            }
+        ]]
+    }
+    -- GObject* addItemFromPool()
+    -- GObject* addItemFromPool(const std::string& url)
+    cls.inject('addItemFromPool',       mapref_return_value(REFNAME))
+
+    -- void removeChildToPool(GObject *child)
+    cls.inject('removeChildToPool',     mapunref_arg_value(REFNAME))
+
+    -- void removeChildToPoolAt(int index);
+    cls.inject('removeChildToPoolAt',   CHECK_RANGE, UNREF_BY_INDEX)
+
+    -- void removeChildrenToPool()
+    -- void removeChildrenToPool(int beginIndex, int endIndex)
+    cls.inject('removeChildrenToPool',  CHECK_REMOVE_CHILDREN_RANGE, mapunef_by_compare(REFNAME))
+end
 
 return cls

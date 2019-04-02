@@ -16,11 +16,11 @@ cls.funcs [[
     void setTitleFontSize(int value)
     bool isSelected()
     void setSelected(bool value)
-    GController* getRelatedController()
-    void setRelatedController(GController* c)
+    @ref(single relatedController) GController* getRelatedController()
+    void setRelatedController(@ref(single relatedController) GController* c)
     bool isChangeStateOnClick()
     void setChangeStateOnClick(bool value)
-    GTextField* getTextField()
+    @ref(single textField) GTextField* getTextField()
 ]]
 
 cls.props [[

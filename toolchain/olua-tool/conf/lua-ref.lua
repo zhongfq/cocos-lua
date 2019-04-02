@@ -69,20 +69,3 @@ function mapref_arg_value_and_mapunef_by_compare(REFNAME, WHERE, OBJ)
         ]]
     }
 end
-
-function mapref_combo(...)
-    local BEFORES = {}
-    local AFTERS = {}
-    for _, v in ipairs({...}) do
-        if v.BEFORE then
-            BEFORES[#BEFORES + 1] = v.BEFORE
-        end
-        if v.AFTER then
-            AFTERS[#AFTERS + 1] = v.AFTER
-        end
-    end
-    return {
-        BEFORE = #BEFORES > 0 and table.concat(BEFORES, '\n') or nil,
-        AFTER = #AFTERS > 0 and table.concat(AFTERS, '\n') or nil,
-    }
-end

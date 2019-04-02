@@ -5,8 +5,8 @@ cls.SUPERCLS = "cc.Ref"
 cls.funcs [[
     static TreeNode* create(bool isFolder = false)
     TreeNode* getParent()
-    TreeView* getRoot()
-    GComponent* getCell()
+    @ref(single root) TreeView* getRoot()
+    @ref(single cell) GComponent* getCell()
     const cocos2d::Value& getData()
     void setData(const cocos2d::Value& value)
     bool isExpanded()
@@ -84,28 +84,25 @@ do
         ]]
     }
     -- GObject* addChild(GObject* child)
-    cls.inject('addChild',      mapref_arg_value(REFNAME))
-
     -- GObject* addChildAt(GObject* child, int index)
-    cls.inject('addChildAt',    mapref_combo(CHECK_ADD_RANGE, mapref_arg_value(REFNAME)))
+    cls.inject('addChild',          mapref_arg_value(REFNAME))
+    cls.inject('addChildAt',        CHECK_ADD_RANGE, mapref_arg_value(REFNAME))
 
-    -- void removeChild(GObject * child);
-    cls.inject('removeChild',   mapunref_arg_value(REFNAME))
-
-    -- void removeChildAt(int index);
-    cls.inject('removeChildAt', mapref_combo(CHECK_RANGE, UNREF_BY_INDEX))
+    -- void removeChild(GObject * child)
+    -- void removeChildAt(int index)
+    cls.inject('removeChild',       mapunref_arg_value(REFNAME))
+    cls.inject('removeChildAt',     CHECK_RANGE, UNREF_BY_INDEX)
 
     -- void removeChildren() { removeChildren(0, -1); }
     -- void removeChildren(int beginIndex, int endIndex);
-    cls.inject('removeChildren', mapref_combo(CHECK_REMOVE_CHILDREN_RANGE, mapunef_by_compare(REFNAME)))
+    cls.inject('removeChildren',    CHECK_REMOVE_CHILDREN_RANGE, mapunef_by_compare(REFNAME))
 
-    -- GObject *getChildAt(int index) const;
-    cls.inject('getChildAt',    mapref_combo(CHECK_RANGE, mapref_return_value(REFNAME)))
-
+    -- GObject *getChildAt(int index) const
     -- TreeNode* getPrevSibling()
     -- TreeNode* getNextSibling()
-    cls.inject('getPrevSibling', mapref_return_value(REFNAME))
-    cls.inject('getNextSibling', mapref_return_value(REFNAME))
+    cls.inject('getChildAt',        CHECK_RANGE, mapref_return_value(REFNAME))
+    cls.inject('getPrevSibling',    mapref_return_value(REFNAME))
+    cls.inject('getNextSibling',    mapref_return_value(REFNAME))
 end
 
 return cls

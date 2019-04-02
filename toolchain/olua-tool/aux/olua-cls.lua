@@ -460,7 +460,24 @@ function class(collection)
         end
     end
 
-    function cls.inject(cppfunc, codes)
+    function cls.inject(cppfunc, ...)
+        local function join(...)
+            local BEFORES = {}
+            local AFTERS = {}
+            for _, v in ipairs({...}) do
+                if v.BEFORE then
+                    BEFORES[#BEFORES + 1] = v.BEFORE
+                end
+                if v.AFTER then
+                    AFTERS[#AFTERS + 1] = v.AFTER
+                end
+            end
+            return {
+                BEFORE = #BEFORES > 0 and table.concat(BEFORES, '\n') or nil,
+                AFTER = #AFTERS > 0 and table.concat(AFTERS, '\n') or nil,
+            }
+        end
+        local codes = join(...)
         local found
         local function doinject(fi)
             if fi and fi.CPPFUNC == cppfunc then

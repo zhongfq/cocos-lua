@@ -83,7 +83,7 @@ cls.funcs [[
     void releaseDisplayLock(uint32_t token)
     GComponent* getParent()
     GObject* findParent()
-    cocos2d::Node* displayObject()
+    @ref(single displayObject) cocos2d::Node* displayObject()
     GRoot* getRoot()
     bool onStage()
     void removeFromParent()

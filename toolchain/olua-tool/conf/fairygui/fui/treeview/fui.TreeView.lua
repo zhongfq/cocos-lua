@@ -61,6 +61,8 @@ cls.inject('getSelectedNode',   mapref_return_value(REFNAME))
 cls.inject('addSelection',      mapref_arg_value(REFNAME))
 -- void removeSelection(TreeNode* node)
 cls.inject('removeSelection',   mapunref_arg_value(REFNAME))
+-- void clearSelection()
+cls.inject('clearSelection',    mapunref_all(REFNAME))
 
 
 return cls

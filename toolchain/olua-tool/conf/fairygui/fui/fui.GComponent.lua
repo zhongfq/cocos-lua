@@ -113,23 +113,22 @@ do
         ]]
     }
     -- GObject* addChild(GObject* child)
-    cls.inject('addChild',      mapref_arg_value(REFNAME))
-
     -- GObject* addChildAt(GObject* child, int index)
-    cls.inject('addChildAt',    mapref_combo(CHECK_ADD_RANGE, mapref_arg_value(REFNAME)))
+    cls.inject('addChild',          mapref_arg_value(REFNAME))
+    cls.inject('addChildAt',        CHECK_ADD_RANGE, mapref_arg_value(REFNAME))
 
     -- void removeChild(GObject * child);
-    cls.inject('removeChild',   mapunref_arg_value(REFNAME))
+    cls.inject('removeChild',       mapunref_arg_value(REFNAME))
 
     -- void removeChildAt(int index);
-    cls.inject('removeChildAt', mapref_combo(CHECK_RANGE, UNREF_BY_INDEX))
+    cls.inject('removeChildAt',     CHECK_RANGE, UNREF_BY_INDEX)
 
     -- void removeChildren() { removeChildren(0, -1); }
     -- void removeChildren(int beginIndex, int endIndex);
-    cls.inject('removeChildren', mapref_combo(CHECK_REMOVE_CHILDREN_RANGE, mapunef_by_compare(REFNAME)))
+    cls.inject('removeChildren',    CHECK_REMOVE_CHILDREN_RANGE, mapunef_by_compare(REFNAME))
 
     -- GObject *getChildAt(int index) const;
-    cls.inject('getChildAt',    mapref_combo(CHECK_RANGE, mapref_return_value(REFNAME)))
+    cls.inject('getChildAt',        CHECK_RANGE, mapref_return_value(REFNAME))
 
     -- GObject *getChild(const std::string& name) const;
     -- GObject *getChildInGroup(const GGroup * group, const std::string& name) const;
@@ -155,8 +154,28 @@ do
         ]]
     }
     cls.inject('getTransition',     mapref_return_value(REFNAME))
-    cls.inject('getTransitionAt',   mapref_combo(CHECK_RANGE, mapref_return_value(REFNAME)))
+    cls.inject('getTransitionAt',   CHECK_RANGE, mapref_return_value(REFNAME))
     cls.inject('getTransitions',    mapref_return_value(REFNAME, 1, true))
+end
+
+do
+    local REFNAME = 'controllers'
+    -- void addController(GController* c)
+    -- GController* getControllerAt(int index)
+    -- GController* getController(const std::string& name)
+    -- const cocos2d::Vector<GController*>& getControllers()
+    -- void removeController(GController* c)
+    local CHECK_RANGE = {
+        BEFORE = format_snippet [[
+            if (!(arg1 >= 0 && arg1 < self->getControllers().size())) {
+                luaL_error(L, "index out of range");
+            }
+        ]]
+    }
+    cls.inject('getControllerAt',   CHECK_RANGE, mapref_return_value(REFNAME))
+    cls.inject('getController',     mapref_return_value(REFNAME))
+    cls.inject('getControllers',    mapref_return_value(REFNAME, 1, true))
+    cls.inject('removeController',  mapunref_arg_value(REFNAME))
 end
 
 return cls

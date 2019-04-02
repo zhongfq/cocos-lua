@@ -468,7 +468,7 @@ LUALIB_API void olua_getreftable(lua_State *L, int obj, const char *field)
 LUALIB_API void olua_singleref(lua_State *L, int obj, const char *field, int vidx)
 {
     olua_assert(olua_isuserdata(L, obj));
-    olua_assert(olua_isuserdata(L, vidx) || olua_isnoneornil(L, vidx));
+    olua_assert(olua_isuserdata(L, vidx) || olua_isnil(L, vidx));
     vidx = lua_absindex(L, vidx);
     auxgetusertable(L, obj);                // L: uv
     auxpushrefkey(L, field);                // L: uv refk
@@ -502,7 +502,9 @@ static void auxmaprefvalue(lua_State *L, int obj, const char *t, int vidx, bool 
 
 LUALIB_API void olua_mapref(lua_State *L, int obj, const char *t, int vidx)
 {
-    auxmaprefvalue(L, obj, t, vidx, true);
+    if (!olua_isnil(L, vidx)) {
+        auxmaprefvalue(L, obj, t, vidx, true);
+    }
 }
 
 LUALIB_API void olua_maprefarray(lua_State *L, int obj, const char *t, int vidx)
@@ -524,7 +526,9 @@ LUALIB_API void olua_maprefarray(lua_State *L, int obj, const char *t, int vidx)
 
 LUALIB_API void olua_mapunref(lua_State *L, int obj, const char *t, int vidx)
 {
-    auxmaprefvalue(L, obj, t, vidx, false);
+    if (!olua_isnil(L, vidx)) {
+        auxmaprefvalue(L, obj, t, vidx, false);
+    }
 }
 
 LUALIB_API void olua_mapwalkunref(lua_State *L, int obj, const char *t, lua_CFunction walk)
@@ -557,7 +561,7 @@ LUALIB_API void olua_unrefall(lua_State *L, int obj, const char *t)
 LUALIB_API void olua_arrayref(lua_State *L, int obj, const char *t, int vidx)
 {
     olua_assert(olua_isuserdata(L, obj));
-    olua_assert(olua_isuserdata(L, vidx));
+    olua_assert(olua_isuserdata(L, vidx) || olua_isnil(L, vidx));
     if (olua_isuserdata(L, vidx)) {
         int len;
         obj = lua_absindex(L, obj);

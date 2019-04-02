@@ -2864,13 +2864,13 @@ static int _fairygui_GTween_clean(lua_State *L)
 {
     lua_settop(L, 0);
 
+    // static void clean()
+    fairygui::GTween::clean();
+
     // inject code 
     {
         olua_unrefall(L, 1, "tweeners");
     }
-
-    // static void clean()
-    fairygui::GTween::clean();
 
     return 0;
 }
@@ -5943,14 +5943,14 @@ static int _fairygui_GComponent_addChild(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.GComponent");
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.GObject");
 
+    // GObject* addChild(GObject* child)
+    fairygui::GObject *ret = (fairygui::GObject *)self->addChild(arg1);
+    int num_ret = olua_push_cppobj<fairygui::GObject>(L, ret, "fui.GObject");
+
     // inject code 
     {
         olua_mapref(L, 1, "children", 2);
     }
-
-    // GObject* addChild(GObject* child)
-    fairygui::GObject *ret = (fairygui::GObject *)self->addChild(arg1);
-    int num_ret = olua_push_cppobj<fairygui::GObject>(L, ret, "fui.GObject");
 
     return num_ret;
 }
@@ -5972,12 +5972,16 @@ static int _fairygui_GComponent_addChildAt(lua_State *L)
         if (!(arg2 >= 0 && arg2 <= self->numChildren())) {
             luaL_error(L, "index out of range");
         }
-        olua_mapref(L, 1, "children", 2);
     }
 
     // GObject* addChildAt(GObject* child, int index)
     fairygui::GObject *ret = (fairygui::GObject *)self->addChildAt(arg1, (int)arg2);
     int num_ret = olua_push_cppobj<fairygui::GObject>(L, ret, "fui.GObject");
+
+    // inject code 
+    {
+        olua_mapref(L, 1, "children", 2);
+    }
 
     return num_ret;
 }
@@ -5992,13 +5996,13 @@ static int _fairygui_GComponent_removeChild(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.GComponent");
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.GObject");
 
+    // void removeChild(GObject * child)
+    self->removeChild(arg1);
+
     // inject code 
     {
         olua_mapunref(L, 1, "children", 2);
     }
-
-    // void removeChild(GObject * child)
-    self->removeChild(arg1);
 
     return 0;
 }
@@ -6490,13 +6494,13 @@ static int _fairygui_GComponent_removeController(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.GComponent");
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.GController");
 
+    // void removeController(GController* c)
+    self->removeController(arg1);
+
     // inject code 
     {
         olua_mapunref(L, 1, "controllers", 2);
     }
-
-    // void removeController(GController* c)
-    self->removeController(arg1);
 
     return 0;
 }
@@ -7044,6 +7048,11 @@ static int _fairygui_GRoot_showWindow(lua_State *L)
 
     // void showWindow(Window* win)
     self->showWindow(arg1);
+
+    // inject code 
+    {
+        olua_mapref(L, 1, "children", 2);
+    }
 
     return 0;
 }
@@ -10101,13 +10110,13 @@ static int _fairygui_GList_removeChildToPool(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.GList");
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.GObject");
 
+    // void removeChildToPool(GObject *child)
+    self->removeChildToPool(arg1);
+
     // inject code 
     {
         olua_mapunref(L, 1, "children", 2);
     }
-
-    // void removeChildToPool(GObject *child)
-    self->removeChildToPool(arg1);
 
     return 0;
 }
@@ -15954,14 +15963,14 @@ static int _fairygui_TreeNode_addChild(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.TreeNode");
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.TreeNode");
 
+    // TreeNode* addChild(TreeNode* child)
+    fairygui::TreeNode *ret = (fairygui::TreeNode *)self->addChild(arg1);
+    int num_ret = olua_push_cppobj<fairygui::TreeNode>(L, ret, "fui.TreeNode");
+
     // inject code 
     {
         olua_mapref(L, 1, "children", 2);
     }
-
-    // TreeNode* addChild(TreeNode* child)
-    fairygui::TreeNode *ret = (fairygui::TreeNode *)self->addChild(arg1);
-    int num_ret = olua_push_cppobj<fairygui::TreeNode>(L, ret, "fui.TreeNode");
 
     return num_ret;
 }
@@ -15983,12 +15992,16 @@ static int _fairygui_TreeNode_addChildAt(lua_State *L)
         if (!(arg2 >= 0 && arg2 <= self->numChildren())) {
             luaL_error(L, "index out of range");
         }
-        olua_mapref(L, 1, "children", 2);
     }
 
     // TreeNode* addChildAt(TreeNode* child, int index)
     fairygui::TreeNode *ret = (fairygui::TreeNode *)self->addChildAt(arg1, (int)arg2);
     int num_ret = olua_push_cppobj<fairygui::TreeNode>(L, ret, "fui.TreeNode");
+
+    // inject code 
+    {
+        olua_mapref(L, 1, "children", 2);
+    }
 
     return num_ret;
 }
@@ -16003,13 +16016,13 @@ static int _fairygui_TreeNode_removeChild(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.TreeNode");
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.TreeNode");
 
+    // void removeChild(TreeNode * child)
+    self->removeChild(arg1);
+
     // inject code 
     {
         olua_mapunref(L, 1, "children", 2);
     }
-
-    // void removeChild(TreeNode * child)
-    self->removeChild(arg1);
 
     return 0;
 }
@@ -16443,13 +16456,13 @@ static int _fairygui_TreeView_addSelection(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.TreeNode");
     olua_opt_bool(L, 3, &arg2, (bool)false);
 
+    // void addSelection(TreeNode* node, bool scrollItToView = false)
+    self->addSelection(arg1, arg2);
+
     // inject code 
     {
         olua_mapref(L, 1, "nodes", 2);
     }
-
-    // void addSelection(TreeNode* node, bool scrollItToView = false)
-    self->addSelection(arg1, arg2);
 
     return 0;
 }
@@ -16464,13 +16477,13 @@ static int _fairygui_TreeView_removeSelection(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.TreeView");
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.TreeNode");
 
+    // void removeSelection(TreeNode* node)
+    self->removeSelection(arg1);
+
     // inject code 
     {
         olua_mapunref(L, 1, "nodes", 2);
     }
-
-    // void removeSelection(TreeNode* node)
-    self->removeSelection(arg1);
 
     return 0;
 }
@@ -16483,13 +16496,13 @@ static int _fairygui_TreeView_clearSelection(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.TreeView");
 
+    // void clearSelection()
+    self->clearSelection();
+
     // inject code 
     {
         olua_unrefall(L, 1, "nodes");
     }
-
-    // void clearSelection()
-    self->clearSelection();
 
     return 0;
 }

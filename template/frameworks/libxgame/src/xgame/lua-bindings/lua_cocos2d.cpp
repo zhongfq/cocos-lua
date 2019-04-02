@@ -1220,7 +1220,6 @@ static int _cocos2d_Director_runWithScene(lua_State *L)
 
     // inject code 
     {
-        olua_mapref(L, 1, "scenes", 2);
         xlua_startcmpunref(L, 1, "scenes");
     }
 
@@ -1230,6 +1229,7 @@ static int _cocos2d_Director_runWithScene(lua_State *L)
     // inject code 
     {
         xlua_endcmpunref(L, 1, "scenes");
+        olua_mapref(L, 1, "scenes", 2);
     }
 
     return 0;
@@ -1245,13 +1245,13 @@ static int _cocos2d_Director_pushScene(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Scene");
 
+    // void pushScene(Scene *scene)
+    self->pushScene(arg1);
+
     // inject code 
     {
         olua_mapref(L, 1, "scenes", 2);
     }
-
-    // void pushScene(Scene *scene)
-    self->pushScene(arg1);
 
     return 0;
 }
@@ -1342,7 +1342,6 @@ static int _cocos2d_Director_replaceScene(lua_State *L)
 
     // inject code 
     {
-        olua_mapref(L, 1, "scenes", 2);
         xlua_startcmpunref(L, 1, "scenes");
     }
 
@@ -1352,6 +1351,7 @@ static int _cocos2d_Director_replaceScene(lua_State *L)
     // inject code 
     {
         xlua_endcmpunref(L, 1, "scenes");
+        olua_mapref(L, 1, "scenes", 2);
     }
 
     return 0;
@@ -2638,13 +2638,13 @@ static int _cocos2d_EventDispatcher_addEventListenerWithSceneGraphPriority(lua_S
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.EventListener");
     olua_check_cppobj(L, 3, (void **)&arg2, "cc.Node");
 
+    // void addEventListenerWithSceneGraphPriority(EventListener* listener, Node* node)
+    self->addEventListenerWithSceneGraphPriority(arg1, arg2);
+
     // inject code 
     {
         olua_mapref(L, 3, "listeners", 2);
     }
-
-    // void addEventListenerWithSceneGraphPriority(EventListener* listener, Node* node)
-    self->addEventListenerWithSceneGraphPriority(arg1, arg2);
 
     return 0;
 }
@@ -2661,13 +2661,13 @@ static int _cocos2d_EventDispatcher_addEventListenerWithFixedPriority(lua_State 
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.EventListener");
     olua_check_int(L, 3, &arg2);
 
+    // void addEventListenerWithFixedPriority(EventListener* listener, int fixedPriority)
+    self->addEventListenerWithFixedPriority(arg1, (int)arg2);
+
     // inject code 
     {
         olua_mapref(L, 1, "listeners", 2);
     }
-
-    // void addEventListenerWithFixedPriority(EventListener* listener, int fixedPriority)
-    self->addEventListenerWithFixedPriority(arg1, (int)arg2);
 
     return 0;
 }
@@ -2986,8 +2986,6 @@ static int _cocos2d_EventDispatcher_addEventListener(lua_State *L)
     lua_settop(L, 2);
     cocos2d::EventDispatcher *self = (cocos2d::EventDispatcher *)olua_toobj(L, 1, "cc.EventDispatcher");
     cocos2d::EventListener *listener = (cocos2d::EventListener *)olua_checkobj(L, 2, "cc.EventListener");
-
-    olua_mapref(L, 1, "listeners", 2);
 
     self->addEventListenerWithFixedPriority(listener, 1);
     return 0;
@@ -17828,13 +17826,13 @@ static int _cocos2d_Node_addChild1(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
 
+    // void addChild(Node * child)
+    self->addChild(arg1);
+
     // inject code 
     {
         olua_mapref(L, 1, "children", 2);
     }
-
-    // void addChild(Node * child)
-    self->addChild(arg1);
 
     return 0;
 }
@@ -17851,13 +17849,13 @@ static int _cocos2d_Node_addChild2(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
     olua_check_int(L, 3, &arg2);
 
+    // void addChild(Node * child, int localZOrder)
+    self->addChild(arg1, (int)arg2);
+
     // inject code 
     {
         olua_mapref(L, 1, "children", 2);
     }
-
-    // void addChild(Node * child, int localZOrder)
-    self->addChild(arg1, (int)arg2);
 
     return 0;
 }
@@ -17876,13 +17874,13 @@ static int _cocos2d_Node_addChild3(lua_State *L)
     olua_check_int(L, 3, &arg2);
     olua_check_int(L, 4, &arg3);
 
+    // void addChild(Node* child, int localZOrder, int tag)
+    self->addChild(arg1, (int)arg2, (int)arg3);
+
     // inject code 
     {
         olua_mapref(L, 1, "children", 2);
     }
-
-    // void addChild(Node* child, int localZOrder, int tag)
-    self->addChild(arg1, (int)arg2, (int)arg3);
 
     return 0;
 }
@@ -17901,13 +17899,13 @@ static int _cocos2d_Node_addChild4(lua_State *L)
     olua_check_int(L, 3, &arg2);
     olua_check_std_string(L, 4, &arg3);
 
+    // void addChild(Node* child, int localZOrder, const std::string &name)
+    self->addChild(arg1, (int)arg2, arg3);
+
     // inject code 
     {
         olua_mapref(L, 1, "children", 2);
     }
-
-    // void addChild(Node* child, int localZOrder, const std::string &name)
-    self->addChild(arg1, (int)arg2, arg3);
 
     return 0;
 }
@@ -18108,13 +18106,13 @@ static int _cocos2d_Node_removeChild(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
     olua_opt_bool(L, 3, &arg2, (bool)true);
 
+    // void removeChild(Node* child, bool cleanup = true)
+    self->removeChild(arg1, arg2);
+
     // inject code 
     {
         olua_mapunref(L, 1, "children", 2);
     }
-
-    // void removeChild(Node* child, bool cleanup = true)
-    self->removeChild(arg1, arg2);
 
     return 0;
 }
@@ -18181,13 +18179,13 @@ static int _cocos2d_Node_removeAllChildren(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
 
+    // void removeAllChildren()
+    self->removeAllChildren();
+
     // inject code 
     {
         olua_unrefall(L, 1, "children");
     }
-
-    // void removeAllChildren()
-    self->removeAllChildren();
 
     return 0;
 }
@@ -18202,13 +18200,13 @@ static int _cocos2d_Node_removeAllChildrenWithCleanup(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
     olua_check_bool(L, 2, &arg1);
 
+    // void removeAllChildrenWithCleanup(bool cleanup)
+    self->removeAllChildrenWithCleanup(arg1);
+
     // inject code 
     {
         olua_unrefall(L, 1, "children");
     }
-
-    // void removeAllChildrenWithCleanup(bool cleanup)
-    self->removeAllChildrenWithCleanup(arg1);
 
     return 0;
 }
@@ -18746,7 +18744,6 @@ static int _cocos2d_Node_runAction(lua_State *L)
 
     // inject code 
     {
-        olua_mapref(L, 1, "actions", 2);
         xlua_startcmpunref(L, 1, "actions");
     }
 
@@ -18757,6 +18754,7 @@ static int _cocos2d_Node_runAction(lua_State *L)
     // inject code 
     {
         xlua_endcmpunref(L, 1, "actions");
+        olua_mapref(L, 1, "actions", 2);
     }
 
     return num_ret;
@@ -19639,14 +19637,14 @@ static int _cocos2d_Node_addComponent(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Component");
 
+    // bool addComponent(Component *component)
+    bool ret = (bool)self->addComponent(arg1);
+    int num_ret = olua_push_bool(L, ret);
+
     // inject code 
     {
         olua_mapref(L, 1, "components", 2);
     }
-
-    // bool addComponent(Component *component)
-    bool ret = (bool)self->addComponent(arg1);
-    int num_ret = olua_push_bool(L, ret);
 
     return num_ret;
 }
@@ -19732,13 +19730,13 @@ static int _cocos2d_Node_removeAllComponents(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
 
+    // void removeAllComponents()
+    self->removeAllComponents();
+
     // inject code 
     {
         olua_unrefall(L, 1, "components");
     }
-
-    // void removeAllComponents()
-    self->removeAllComponents();
 
     return 0;
 }
@@ -20917,13 +20915,13 @@ static int _cocos2d_ProtectedNode_addProtectedChild1(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.ProtectedNode");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
 
+    // void addProtectedChild(Node * child)
+    self->addProtectedChild(arg1);
+
     // inject code 
     {
         olua_mapref(L, 1, "protectedChildren", 2);
     }
-
-    // void addProtectedChild(Node * child)
-    self->addProtectedChild(arg1);
 
     return 0;
 }
@@ -20940,13 +20938,13 @@ static int _cocos2d_ProtectedNode_addProtectedChild2(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
     olua_check_int(L, 3, &arg2);
 
+    // void addProtectedChild(Node * child, int localZOrder)
+    self->addProtectedChild(arg1, (int)arg2);
+
     // inject code 
     {
         olua_mapref(L, 1, "protectedChildren", 2);
     }
-
-    // void addProtectedChild(Node * child, int localZOrder)
-    self->addProtectedChild(arg1, (int)arg2);
 
     return 0;
 }
@@ -20965,13 +20963,13 @@ static int _cocos2d_ProtectedNode_addProtectedChild3(lua_State *L)
     olua_check_int(L, 3, &arg2);
     olua_check_int(L, 4, &arg3);
 
+    // void addProtectedChild(Node* child, int localZOrder, int tag)
+    self->addProtectedChild(arg1, (int)arg2, (int)arg3);
+
     // inject code 
     {
         olua_mapref(L, 1, "protectedChildren", 2);
     }
-
-    // void addProtectedChild(Node* child, int localZOrder, int tag)
-    self->addProtectedChild(arg1, (int)arg2, (int)arg3);
 
     return 0;
 }
@@ -21037,13 +21035,13 @@ static int _cocos2d_ProtectedNode_removeProtectedChild(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
     olua_opt_bool(L, 3, &arg2, (bool)true);
 
+    // void removeProtectedChild(Node* child, bool cleanup = true)
+    self->removeProtectedChild(arg1, arg2);
+
     // inject code 
     {
         olua_mapunref(L, 1, "protectedChildren", 2);
     }
-
-    // void removeProtectedChild(Node* child, bool cleanup = true)
-    self->removeProtectedChild(arg1, arg2);
 
     return 0;
 }
@@ -21083,13 +21081,13 @@ static int _cocos2d_ProtectedNode_removeAllProtectedChildren(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.ProtectedNode");
 
+    // void removeAllProtectedChildren()
+    self->removeAllProtectedChildren();
+
     // inject code 
     {
         olua_unrefall(L, 1, "protectedChildren");
     }
-
-    // void removeAllProtectedChildren()
-    self->removeAllProtectedChildren();
 
     return 0;
 }
@@ -21104,13 +21102,13 @@ static int _cocos2d_ProtectedNode_removeAllProtectedChildrenWithCleanup(lua_Stat
     olua_to_cppobj(L, 1, (void **)&self, "cc.ProtectedNode");
     olua_check_bool(L, 2, &arg1);
 
+    // void removeAllProtectedChildrenWithCleanup(bool cleanup)
+    self->removeAllProtectedChildrenWithCleanup(arg1);
+
     // inject code 
     {
         olua_unrefall(L, 1, "protectedChildren");
     }
-
-    // void removeAllProtectedChildrenWithCleanup(bool cleanup)
-    self->removeAllProtectedChildrenWithCleanup(arg1);
 
     return 0;
 }

@@ -6263,14 +6263,14 @@ static int _cocos2d_ui_TabControl_insertTab(lua_State *L)
     olua_check_cppobj(L, 3, (void **)&arg2, "ccui.TabHeader");
     olua_check_cppobj(L, 4, (void **)&arg3, "ccui.Layout");
 
+    // void      insertTab(int index, TabHeader* header, Layout* container)
+    self->insertTab((int)arg1, arg2, arg3);
+
     // inject code 
     {
         olua_mapref(L, 1, "controls", 2);
         olua_mapref(L, 1, "controls", 3);
     }
-
-    // void      insertTab(int index, TabHeader* header, Layout* container)
-    self->insertTab((int)arg1, arg2, arg3);
 
     return 0;
 }
@@ -8817,13 +8817,13 @@ static int _cocos2d_ui_PageView_addPage(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccui.PageView");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.Widget");
 
+    // void addPage(Widget* page)
+    self->addPage(arg1);
+
     // inject code 
     {
         olua_mapref(L, 1, "pages", 2);
     }
-
-    // void addPage(Widget* page)
-    self->addPage(arg1);
 
     return 0;
 }
@@ -8840,13 +8840,13 @@ static int _cocos2d_ui_PageView_insertPage(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.Widget");
     olua_check_int(L, 3, &arg2);
 
+    // void insertPage(Widget* page, int idx)
+    self->insertPage(arg1, (int)arg2);
+
     // inject code 
     {
         olua_mapref(L, 1, "pages", 2);
     }
-
-    // void insertPage(Widget* page, int idx)
-    self->insertPage(arg1, (int)arg2);
 
     return 0;
 }
@@ -8861,13 +8861,13 @@ static int _cocos2d_ui_PageView_removePage(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccui.PageView");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.Widget");
 
+    // void removePage(Widget* page)
+    self->removePage(arg1);
+
     // inject code 
     {
         olua_mapunref(L, 1, "pages", 2);
     }
-
-    // void removePage(Widget* page)
-    self->removePage(arg1);
 
     return 0;
 }
@@ -8906,13 +8906,13 @@ static int _cocos2d_ui_PageView_removeAllPages(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.PageView");
 
+    // void removeAllPages()
+    self->removeAllPages();
+
     // inject code 
     {
         olua_unrefall(L, 1, "pages");
     }
-
-    // void removeAllPages()
-    self->removeAllPages();
 
     return 0;
 }
@@ -15196,13 +15196,13 @@ static int _cocos2d_ui_RadioButtonGroup_addRadioButton(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RadioButtonGroup");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.RadioButton");
 
+    // void addRadioButton(RadioButton* radioButton)
+    self->addRadioButton(arg1);
+
     // inject code 
     {
         olua_mapref(L, 1, "radioButtons", 2);
     }
-
-    // void addRadioButton(RadioButton* radioButton)
-    self->addRadioButton(arg1);
 
     return 0;
 }
@@ -15217,13 +15217,13 @@ static int _cocos2d_ui_RadioButtonGroup_removeRadioButton(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RadioButtonGroup");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.RadioButton");
 
+    // void removeRadioButton(RadioButton* radioButton)
+    self->removeRadioButton(arg1);
+
     // inject code 
     {
         olua_mapunref(L, 1, "radioButtons", 2);
     }
-
-    // void removeRadioButton(RadioButton* radioButton)
-    self->removeRadioButton(arg1);
 
     return 0;
 }
@@ -15236,13 +15236,13 @@ static int _cocos2d_ui_RadioButtonGroup_removeAllRadioButtons(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RadioButtonGroup");
 
+    // void removeAllRadioButtons()
+    self->removeAllRadioButtons();
+
     // inject code 
     {
         olua_unrefall(L, 1, "radioButtons");
     }
-
-    // void removeAllRadioButtons()
-    self->removeAllRadioButtons();
 
     return 0;
 }

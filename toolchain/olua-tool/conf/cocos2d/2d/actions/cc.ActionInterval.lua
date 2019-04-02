@@ -39,7 +39,7 @@ cls.func('create', [[
 }
 ]])
 cls.funcs([[
-    static Sequence* createWithTwoActions(@ref FiniteTimeAction *actionOne, @ref FiniteTimeAction *actionTwo);
+    static Sequence* createWithTwoActions(@mapref FiniteTimeAction *actionOne, @mapref FiniteTimeAction *actionTwo);
 ]])
 
 local cls = class(M)
@@ -91,7 +91,7 @@ cls.func('create', [[
 }
 ]])
 cls.funcs([[
-    static Spawn* createWithTwoActions(@ref FiniteTimeAction *action1, @ref FiniteTimeAction *action2);
+    static Spawn* createWithTwoActions(@mapref FiniteTimeAction *action1, @mapref FiniteTimeAction *action2);
 ]])
 
 local cls = class(M)
@@ -278,7 +278,7 @@ cls.CPPCLS = "cocos2d::ReverseTime"
 cls.LUACLS = "cc.ReverseTime"
 cls.SUPERCLS = "cc.ActionInterval"
 cls.funcs([[
-    static ReverseTime* create(@ref FiniteTimeAction *action)
+    static ReverseTime* create(@mapref FiniteTimeAction *action)
 ]])
 
 local cls = class(M)
@@ -299,7 +299,7 @@ cls.CPPCLS = "cocos2d::TargetedAction"
 cls.LUACLS = "cc.TargetedAction"
 cls.SUPERCLS = "cc.ActionInterval"
 cls.funcs([[
-    static TargetedAction* create(Node* target, @ref FiniteTimeAction* action)
+    static TargetedAction* create(Node* target, @mapref FiniteTimeAction* action)
     void setForcedTarget(Node* forcedTarget)
     Node* getForcedTarget()
 ]])

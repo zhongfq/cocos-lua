@@ -3651,13 +3651,13 @@ static int _fairygui_GController_setParent(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.GController");
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.GComponent");
 
+    // void setParent(@singleref(parent) GComponent* value)
+    self->setParent(arg1);
+
     // inject code 
     {
         olua_singleref(L, 1, "parent", 2);
     }
-
-    // void setParent(@singleref(parent) GComponent* value)
-    self->setParent(arg1);
 
     return 0;
 }
@@ -4709,13 +4709,13 @@ static int _fairygui_GObject_setGroup(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.GObject");
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.GGroup");
 
+    // void setGroup(@singleref(group) GGroup* value)
+    self->setGroup(arg1);
+
     // inject code 
     {
         olua_singleref(L, 1, "group", 2);
     }
-
-    // void setGroup(@singleref(group) GGroup* value)
-    self->setGroup(arg1);
 
     return 0;
 }
@@ -6758,13 +6758,13 @@ static int _fairygui_GComponent_setMask(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
     olua_opt_bool(L, 3, &arg2, (bool)false);
 
+    // void setMask(@singleref(mask) cocos2d::Node* value, bool inverted = false)
+    self->setMask(arg1, arg2);
+
     // inject code 
     {
         olua_singleref(L, 1, "mask", 2);
     }
-
-    // void setMask(@singleref(mask) cocos2d::Node* value, bool inverted = false)
-    self->setMask(arg1, arg2);
 
     return 0;
 }
@@ -9143,13 +9143,13 @@ static int _fairygui_GButton_setRelatedController(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.GButton");
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.GController");
 
+    // void setRelatedController(@singleref(relatedController) GController* c)
+    self->setRelatedController(arg1);
+
     // inject code 
     {
         olua_singleref(L, 1, "relatedController", 2);
     }
-
-    // void setRelatedController(@singleref(relatedController) GController* c)
-    self->setRelatedController(arg1);
 
     return 0;
 }
@@ -10456,13 +10456,13 @@ static int _fairygui_GList_setSelectionController(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.GList");
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.GController");
 
+    // void setSelectionController(@singleref(selectionController) GController* value)
+    self->setSelectionController(arg1);
+
     // inject code 
     {
         olua_singleref(L, 1, "selectionController", 2);
     }
-
-    // void setSelectionController(@singleref(selectionController) GController* value)
-    self->setSelectionController(arg1);
 
     return 0;
 }
@@ -11414,13 +11414,13 @@ static int _fairygui_GComboBox_setSelectionController(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.GComboBox");
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.GController");
 
+    // void setSelectionController(@singleref(selectionController) GController* value)
+    self->setSelectionController(arg1);
+
     // inject code 
     {
         olua_singleref(L, 1, "selectionController", 2);
     }
-
-    // void setSelectionController(@singleref(selectionController) GController* value)
-    self->setSelectionController(arg1);
 
     return 0;
 }
@@ -12564,13 +12564,13 @@ static int _fairygui_RelationItem_setTarget(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.RelationItem");
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.GObject");
 
+    // void setTarget(@singleref(target) GObject* value)
+    self->setTarget(arg1);
+
     // inject code 
     {
         olua_singleref(L, 1, "target", 2);
     }
-
-    // void setTarget(@singleref(target) GObject* value)
-    self->setTarget(arg1);
 
     return 0;
 }
@@ -13010,13 +13010,13 @@ static int _fairygui_ScrollPane_setPageController(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.ScrollPane");
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.GController");
 
+    // void setPageController(@singleref(pageController) GController* value)
+    self->setPageController(arg1);
+
     // inject code 
     {
         olua_singleref(L, 1, "pageController", 2);
     }
-
-    // void setPageController(@singleref(pageController) GController* value)
-    self->setPageController(arg1);
 
     return 0;
 }

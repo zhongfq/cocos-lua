@@ -488,6 +488,7 @@ static void auxmaprefvalue(lua_State *L, int obj, const char *t, int vidx, bool 
 {
     olua_assert(olua_isuserdata(L, obj));
     olua_assert(olua_isuserdata(L, vidx));
+    olua_assert(!lua_rawequal(L, obj, vidx));
     vidx = lua_absindex(L, vidx);
     olua_getreftable(L, obj, t);            // L: t
     lua_pushvalue(L, vidx);                 // L: t v

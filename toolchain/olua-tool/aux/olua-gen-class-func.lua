@@ -172,16 +172,12 @@ local function gen_func_args(cls, fi)
             REF_CHUNK[#REF_CHUNK + 1] = format_snippet([[
                 olua_singleref(L, 1, "${REF_NAME", ${IDX});
             ]])
-        elseif ai.ATTR.REF then
+        elseif ai.ATTR.MAPREF then
             assert(not fi.STATIC or (fi.RET.NUM > 0 and fi.RET.TYPE.LUACLS), fi.CPPFUNC)
             local WHICH_OBJ = fi.STATIC and -1 or 1
-            if ai.ATTR.REF == true then
-                REF_CHUNK[#REF_CHUNK + 1] = format_snippet([[
-                    olua_mapref(L, ${WHICH_OBJ}, ".autoref", ${IDX});
-                ]])
-            else
-                error(ai.ATTR.REF[1])
-            end
+            REF_CHUNK[#REF_CHUNK + 1] = format_snippet([[
+                olua_mapref(L, ${WHICH_OBJ}, "autoref", ${IDX});
+            ]])
         end
     end
 
@@ -327,29 +323,17 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
         end
     end
 
-    if #REF_CHUNK > 0 then
-        if #INJECT_BEFORE > 0 then
-            INJECT_BEFORE = table.concat(REF_CHUNK,  '\n') .. '\n' .. INJECT_BEFORE
-        else
-            INJECT_BEFORE = table.concat(REF_CHUNK,  '\n')
-        end
-        REF_CHUNK = {}
-    end
-
     if fi.RET.ATTR.SINGLEREF then
         local REF_NAME = assert(fi.RET.ATTR.SINGLEREF[1], 'no ref name')
         REF_CHUNK[#REF_CHUNK + 1] = format_snippet([[
             olua_singleref(L, 1, "${REF_NAME", -1);
         ]])
-    elseif fi.RET.ATTR.REF then
-        assert(not fi.STATIC or (fi.RET.NUM > 0 and fi.RET.TYPE.LUACLS), fi.CPPFUNC)
-        if fi.RET.ATTR.REF == true then
-            REF_CHUNK[#REF_CHUNK + 1] = format_snippet([[
-                olua_mapref(L, 1, ".autoref", -1);
-            ]])
-        else
-            error(fi.RET.ATTR.REF[1])
-        end
+    elseif fi.RET.ATTR.MAPREF then
+        assert(fi.RET.NUM > 0 and fi.RET.TYPE.LUACLS, fi.CPPFUNC)
+        assert(#fi.ARGS > 0 and fi.ARGS[1].TYPE.LUACLS, fi.CPPFUNC)
+        REF_CHUNK[#REF_CHUNK + 1] = format_snippet([[
+            olua_mapref(L, 1, "autoref", -1);
+        ]])
     end
 
     if #REF_CHUNK > 0 then

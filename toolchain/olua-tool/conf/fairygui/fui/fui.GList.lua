@@ -77,6 +77,7 @@ cls.props [[
     selectionMode
     selectedIndex
     selectionController
+    virtual
     numItems
 ]]
 
@@ -134,6 +135,17 @@ do
     cls.inject('setNumItems', mapunef_by_compare(REFNAME))
     cls.inject('setVirtual', mapunef_by_compare(REFNAME))
     cls.inject('setVirtualAndLoop', mapunef_by_compare(REFNAME))
+
+    -- std::function<void(int, GObject*)> itemRenderer;
+    cls.inject('itemRenderer', {
+        CALLBACK_BEFORE = format_snippet [[
+            if (arg2->getParent()) {
+                olua_push_cppobj<fairygui::GComponent>(L, arg2->getParent(), "fui.GComponent");
+                olua_mapref(L, -1, "${REFNAME}", -2);
+                lua_pop(L, 1);
+            }
+        ]]
+    })
 end
 
 return cls

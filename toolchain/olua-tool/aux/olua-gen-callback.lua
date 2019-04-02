@@ -110,6 +110,8 @@ function gen_callback(cls, fi, write)
     local RESULT_DECL = ""
     local RESULT_RET = ""
     local RESULT_GET = ""
+    local INJECT_CALLBACK_AFTER = fi.INJECT.CALLBACK_AFTER or ''
+    local INJECT_CALLBACK_BEFORE = fi.INJECT.CALLBACK_BEFORE or ''
 
     for i, v in ipairs(ai.CALLBACK.ARGS) do
         local ARG_N = 'arg' .. i
@@ -221,6 +223,20 @@ function gen_callback(cls, fi, write)
         CALLBACK_STORE_OBJ = 'arg' .. (CALLBACK_STORE - 1)
     end
 
+    if #INJECT_CALLBACK_BEFORE > 0 then
+        INJECT_CALLBACK_BEFORE = format_snippet [[
+            // inject code before call
+            ${INJECT_CALLBACK_BEFORE}
+        ]]
+    end
+
+    if #INJECT_CALLBACK_AFTER > 0 then
+        INJECT_CALLBACK_AFTER = format_snippet [[
+            // inject code after call
+            ${INJECT_CALLBACK_AFTER}
+        ]]
+    end
+
     local CALLBACK_CHUNK = format_snippet([[
         void *callback_store_obj = (void *)${CALLBACK_STORE_OBJ};
         std::string tag = ${CALLBACK_MAKER};
@@ -230,8 +246,14 @@ function gen_callback(cls, fi, write)
             int top = lua_gettop(L);
             ${RESULT_DECL}
             ${PUSH_ARGS}
+
+            ${INJECT_CALLBACK_BEFORE}
+
             olua_callback(L, callback_store_obj, func.c_str(), ${NUM_ARGS});
             ${RESULT_GET}
+
+            ${INJECT_CALLBACK_AFTER}
+
             ${REMOVE_CALLBACK}
             
             ${INSTACKS}

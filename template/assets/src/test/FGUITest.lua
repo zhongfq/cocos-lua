@@ -23,6 +23,14 @@ function new()
     window.contentPane = UIPackage.createObject("Bag", "BagWin")
     -- window:center()
     window.modal = true
+    local list = window.contentPane:getChild("list")
+    list.itemRenderer = function (index, obj)
+        obj.icon = string.format('res/fui/icons/i%d.png', math.random(0, 9))
+        obj.text = string.format('%d', math.random(1, 100))
+    end
+    list.virtual = true
+    list.numItems = 20
+    printUserValue(list)
 
     scene.onEnterCallback = function ()
         local startValue = 10000

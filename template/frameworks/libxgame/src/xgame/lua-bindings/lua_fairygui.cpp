@@ -205,6 +205,7 @@ static int _fairygui_UIEventDispatcher_addEventListener1(lua_State *L)
         int top = lua_gettop(L);
 
         olua_push_cppobj<fairygui::EventContext>(L, arg1, "fui.EventContext");
+
         olua_callback(L, callback_store_obj, func.c_str(), 1);
 
         //may be stack value
@@ -241,6 +242,7 @@ static int _fairygui_UIEventDispatcher_addEventListener2(lua_State *L)
         int top = lua_gettop(L);
 
         olua_push_cppobj<fairygui::EventContext>(L, arg1, "fui.EventContext");
+
         olua_callback(L, callback_store_obj, func.c_str(), 1);
 
         //may be stack value
@@ -706,6 +708,7 @@ static int _fairygui_InputProcessor_setCaptureCallback(lua_State *L)
             int top = lua_gettop(L);
 
             olua_push_int(L, (lua_Integer)arg1);
+
             olua_callback(L, callback_store_obj, func.c_str(), 1);
 
             lua_settop(L, top);
@@ -2141,6 +2144,7 @@ static int _fairygui_GTweener_onUpdate(lua_State *L)
         int top = lua_gettop(L);
 
         olua_push_cppobj<fairygui::GTweener>(L, arg1, "fui.GTweener");
+
         olua_callback(L, callback_store_obj, func.c_str(), 1);
 
         lua_settop(L, top);
@@ -2170,6 +2174,7 @@ static int _fairygui_GTweener_onStart(lua_State *L)
         int top = lua_gettop(L);
 
         olua_push_cppobj<fairygui::GTweener>(L, arg1, "fui.GTweener");
+
         olua_callback(L, callback_store_obj, func.c_str(), 1);
 
         lua_settop(L, top);
@@ -2227,6 +2232,7 @@ static int _fairygui_GTweener_onComplete1(lua_State *L)
         int top = lua_gettop(L);
 
         olua_push_cppobj<fairygui::GTweener>(L, arg1, "fui.GTweener");
+
         olua_callback(L, callback_store_obj, func.c_str(), 1);
 
         lua_settop(L, top);
@@ -5488,6 +5494,7 @@ static int _fairygui_GObject_addClickListener1(lua_State *L)
         int top = lua_gettop(L);
 
         olua_push_cppobj<fairygui::EventContext>(L, arg1, "fui.EventContext");
+
         olua_callback(L, callback_store_obj, func.c_str(), 1);
 
         //may be stack value
@@ -5522,6 +5529,7 @@ static int _fairygui_GObject_addClickListener2(lua_State *L)
         int top = lua_gettop(L);
 
         olua_push_cppobj<fairygui::EventContext>(L, arg1, "fui.EventContext");
+
         olua_callback(L, callback_store_obj, func.c_str(), 1);
 
         //may be stack value
@@ -10622,6 +10630,14 @@ static int _fairygui_GList_set_itemRenderer(lua_State *L)
 
         olua_push_int(L, (lua_Integer)arg1);
         olua_push_cppobj<fairygui::GObject>(L, arg2, "fui.GObject");
+
+        // inject code before call
+        if (arg2->getParent()) {
+            olua_push_cppobj<fairygui::GComponent>(L, arg2->getParent(), "fui.GComponent");
+            olua_mapref(L, -1, "children", -2);
+            lua_pop(L, 1);
+        }
+
         olua_callback(L, callback_store_obj, func.c_str(), 2);
 
         lua_settop(L, top);
@@ -10669,6 +10685,7 @@ static int _fairygui_GList_set_itemProvider(lua_State *L)
         int top = lua_gettop(L);
         std::string ret;
         olua_push_int(L, (lua_Integer)arg1);
+
         olua_callback(L, callback_store_obj, func.c_str(), 1);
         olua_check_std_string(L, -1, &ret);
 
@@ -10807,6 +10824,7 @@ static int luaopen_fairygui_GList(lua_State *L)
     oluacls_property(L, "selectionMode", _fairygui_GList_getSelectionMode, _fairygui_GList_setSelectionMode);
     oluacls_property(L, "selectedIndex", _fairygui_GList_getSelectedIndex, _fairygui_GList_setSelectedIndex);
     oluacls_property(L, "selectionController", _fairygui_GList_getSelectionController, _fairygui_GList_setSelectionController);
+    oluacls_property(L, "virtual", _fairygui_GList_isVirtual, _fairygui_GList_setVirtual);
     oluacls_property(L, "numItems", _fairygui_GList_getNumItems, _fairygui_GList_setNumItems);
     oluacls_property(L, "itemRenderer", _fairygui_GList_get_itemRenderer, _fairygui_GList_set_itemRenderer);
     oluacls_property(L, "itemProvider", _fairygui_GList_get_itemProvider, _fairygui_GList_set_itemProvider);
@@ -16652,6 +16670,7 @@ static int _fairygui_TreeView_set_treeNodeCreateCell(lua_State *L)
         int top = lua_gettop(L);
         fairygui::GComponent * ret = nullptr;
         olua_push_cppobj<fairygui::TreeNode>(L, arg1, "fui.TreeNode");
+
         olua_callback(L, callback_store_obj, func.c_str(), 1);
         olua_check_cppobj(L, -1, (void **)&ret, "fui.GComponent");
 
@@ -16701,6 +16720,7 @@ static int _fairygui_TreeView_set_treeNodeRender(lua_State *L)
         int top = lua_gettop(L);
 
         olua_push_cppobj<fairygui::TreeNode>(L, arg1, "fui.TreeNode");
+
         olua_callback(L, callback_store_obj, func.c_str(), 1);
 
         lua_settop(L, top);
@@ -16749,6 +16769,7 @@ static int _fairygui_TreeView_set_treeNodeWillExpand(lua_State *L)
 
         olua_push_cppobj<fairygui::TreeNode>(L, arg1, "fui.TreeNode");
         olua_push_bool(L, arg2);
+
         olua_callback(L, callback_store_obj, func.c_str(), 2);
 
         lua_settop(L, top);

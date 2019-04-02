@@ -1747,6 +1747,7 @@ static int _spine_SkeletonAnimation_setStartListener(lua_State *L)
             int top = lua_gettop(L);
 
             olua_push_obj(L, arg1, "sp.TrackEntry");
+
             olua_callback(L, callback_store_obj, func.c_str(), 1);
 
             lua_settop(L, top);
@@ -1782,6 +1783,7 @@ static int _spine_SkeletonAnimation_setInterruptListener(lua_State *L)
             int top = lua_gettop(L);
 
             olua_push_obj(L, arg1, "sp.TrackEntry");
+
             olua_callback(L, callback_store_obj, func.c_str(), 1);
 
             lua_settop(L, top);
@@ -1817,6 +1819,7 @@ static int _spine_SkeletonAnimation_setEndListener(lua_State *L)
             int top = lua_gettop(L);
 
             olua_push_obj(L, arg1, "sp.TrackEntry");
+
             olua_callback(L, callback_store_obj, func.c_str(), 1);
 
             lua_settop(L, top);
@@ -1852,6 +1855,7 @@ static int _spine_SkeletonAnimation_setDisposeListener(lua_State *L)
             int top = lua_gettop(L);
 
             olua_push_obj(L, arg1, "sp.TrackEntry");
+
             olua_callback(L, callback_store_obj, func.c_str(), 1);
 
             lua_settop(L, top);
@@ -1887,6 +1891,7 @@ static int _spine_SkeletonAnimation_setCompleteListener(lua_State *L)
             int top = lua_gettop(L);
 
             olua_push_obj(L, arg1, "sp.TrackEntry");
+
             olua_callback(L, callback_store_obj, func.c_str(), 1);
 
             lua_settop(L, top);
@@ -1923,6 +1928,7 @@ static int _spine_SkeletonAnimation_setEventListener(lua_State *L)
 
             olua_push_obj(L, arg1, "sp.TrackEntry");
             olua_push_obj(L, arg2, "sp.Event");
+
             olua_callback(L, callback_store_obj, func.c_str(), 2);
 
             lua_settop(L, top);
@@ -1960,6 +1966,7 @@ static int _spine_SkeletonAnimation_setTrackStartListener(lua_State *L)
             int top = lua_gettop(L);
 
             olua_push_obj(L, arg1, "sp.TrackEntry");
+
             olua_callback(L, callback_store_obj, func.c_str(), 1);
 
             lua_settop(L, top);
@@ -1997,6 +2004,7 @@ static int _spine_SkeletonAnimation_setTrackInterruptListener(lua_State *L)
             int top = lua_gettop(L);
 
             olua_push_obj(L, arg1, "sp.TrackEntry");
+
             olua_callback(L, callback_store_obj, func.c_str(), 1);
 
             lua_settop(L, top);
@@ -2034,6 +2042,7 @@ static int _spine_SkeletonAnimation_setTrackEndListener(lua_State *L)
             int top = lua_gettop(L);
 
             olua_push_obj(L, arg1, "sp.TrackEntry");
+
             olua_callback(L, callback_store_obj, func.c_str(), 1);
 
             lua_settop(L, top);
@@ -2071,6 +2080,7 @@ static int _spine_SkeletonAnimation_setTrackDisposeListener(lua_State *L)
             int top = lua_gettop(L);
 
             olua_push_obj(L, arg1, "sp.TrackEntry");
+
             olua_callback(L, callback_store_obj, func.c_str(), 1);
 
             lua_settop(L, top);
@@ -2108,6 +2118,7 @@ static int _spine_SkeletonAnimation_setTrackCompleteListener(lua_State *L)
             int top = lua_gettop(L);
 
             olua_push_obj(L, arg1, "sp.TrackEntry");
+
             olua_callback(L, callback_store_obj, func.c_str(), 1);
 
             lua_settop(L, top);
@@ -2146,6 +2157,7 @@ static int _spine_SkeletonAnimation_setTrackEventListener(lua_State *L)
 
             olua_push_obj(L, arg1, "sp.TrackEntry");
             olua_push_obj(L, arg2, "sp.Event");
+
             olua_callback(L, callback_store_obj, func.c_str(), 2);
 
             lua_settop(L, top);

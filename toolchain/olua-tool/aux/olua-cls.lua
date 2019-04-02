@@ -395,9 +395,6 @@ local function parse_prop(cls, name, func_get, func_set)
             for _, f in ipairs(v) do
                 if test(f, name, 'set') or
                     test(f, name2, 'set') then
-                    if not f.CPPFUNC_SNIPPET then
-                        assert(#f.ARGS >= 1, f.CPPFUNC)
-                    end
                     pi.SET = f
                 end
             end
@@ -464,6 +461,8 @@ function class(collection)
         local function join(...)
             local BEFORES = {}
             local AFTERS = {}
+            local CALLBACK_BEFORES = {}
+            local CALLBACK_AFTERS = {}
             for _, v in ipairs({...}) do
                 if v.BEFORE then
                     BEFORES[#BEFORES + 1] = v.BEFORE
@@ -471,21 +470,33 @@ function class(collection)
                 if v.AFTER then
                     AFTERS[#AFTERS + 1] = v.AFTER
                 end
+                if v.CALLBACK_BEFORE then
+                    CALLBACK_BEFORES[#CALLBACK_BEFORES + 1] = v.CALLBACK_BEFORE
+                end
+                if v.CALLBACK_AFTER then
+                    CALLBACK_AFTERS[#CALLBACK_AFTERS + 1] = v.CALLBACK_AFTER
+                end
             end
             return {
                 BEFORE = #BEFORES > 0 and table.concat(BEFORES, '\n') or nil,
                 AFTER = #AFTERS > 0 and table.concat(AFTERS, '\n') or nil,
+                CALLBACK_BEFORE = #CALLBACK_BEFORES > 0 and table.concat(CALLBACK_BEFORES, '\n') or nil,
+                CALLBACK_AFTER = #CALLBACK_AFTERS > 0 and table.concat(CALLBACK_AFTERS, '\n') or nil,
             }
         end
         local codes = join(...)
         local found
-        local function doinject(fi)
-            if fi and fi.CPPFUNC == cppfunc then
+        local function doinject(fi, testname)
+            if fi and (fi.CPPFUNC == cppfunc or (testname and fi.LUAFUNC == cppfunc))then
                 found = true
-                assert(not fi.INJECT.BEFORE or fi.INJECT.AFTER == codes.AFTER, 'already has inject before')
+                assert(not fi.INJECT.BEFORE or fi.INJECT.BEFORE == codes.BEFORE, 'already has inject before')
                 assert(not fi.INJECT.AFTER or fi.INJECT.AFTER == codes.AFTER, 'already has inject after')
+                assert(not fi.INJECT.CALLBACK_BEFORE or fi.INJECT.CALLBACK_BEFORE == codes.CALLBACK_BEFORE, 'already has inject callback before')
+                assert(not fi.INJECT.CALLBACK_AFTER or fi.INJECT.CALLBACK_AFTER == codes.CALLBACK_AFTER, 'already has inject callback after')
                 fi.INJECT.BEFORE = codes.BEFORE
                 fi.INJECT.AFTER = codes.AFTER
+                fi.INJECT.CALLBACK_BEFORE = codes.CALLBACK_BEFORE
+                fi.INJECT.CALLBACK_AFTER = codes.CALLBACK_AFTER
             end
         end
         for _, arr in ipairs(cls.FUNCS) do
@@ -497,6 +508,11 @@ function class(collection)
         for _, pi in ipairs(cls.PROPS) do
             doinject(pi.GET)
             doinject(pi.SET)
+        end
+
+        for _, vi in ipairs(cls.VARS) do
+            doinject(vi.GET, true)
+            doinject(vi.SET, true)
         end
 
         assert(found, 'func not found: ' .. cppfunc)

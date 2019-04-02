@@ -1201,6 +1201,7 @@ static int _cocos2d_ui_Widget_addTouchEventListener(lua_State *L)
 
             olua_push_cppobj<cocos2d::Ref>(L, arg1, "cc.Ref");
             olua_push_uint(L, (lua_Unsigned)arg2);
+
             olua_callback(L, callback_store_obj, func.c_str(), 2);
 
             lua_settop(L, top);
@@ -1236,6 +1237,7 @@ static int _cocos2d_ui_Widget_addClickEventListener(lua_State *L)
             int top = lua_gettop(L);
 
             olua_push_cppobj<cocos2d::Ref>(L, arg1, "cc.Ref");
+
             olua_callback(L, callback_store_obj, func.c_str(), 1);
 
             lua_settop(L, top);
@@ -1272,6 +1274,7 @@ static int _cocos2d_ui_Widget_addCCSEventListener(lua_State *L)
 
             olua_push_cppobj<cocos2d::Ref>(L, arg1, "cc.Ref");
             olua_push_int(L, (lua_Integer)arg2);
+
             olua_callback(L, callback_store_obj, func.c_str(), 2);
 
             lua_settop(L, top);
@@ -1327,6 +1330,7 @@ static int _cocos2d_ui_Widget_set_onFocusChanged(lua_State *L)
 
             olua_push_cppobj<cocos2d::ui::Widget>(L, arg1, "ccui.Widget");
             olua_push_cppobj<cocos2d::ui::Widget>(L, arg2, "ccui.Widget");
+
             olua_callback(L, callback_store_obj, func.c_str(), 2);
 
             lua_settop(L, top);
@@ -1381,6 +1385,7 @@ static int _cocos2d_ui_Widget_set_onNextFocusedWidget(lua_State *L)
             int top = lua_gettop(L);
             cocos2d::ui::Widget * ret = nullptr;
             olua_push_uint(L, (lua_Unsigned)arg1);
+
             olua_callback(L, callback_store_obj, func.c_str(), 1);
             olua_check_cppobj(L, -1, (void **)&ret, "ccui.Widget");
 
@@ -4293,6 +4298,7 @@ static int _cocos2d_ui_Layout_set_onPassFocusToChild(lua_State *L)
             lua_Integer ret = 0;
             olua_push_uint(L, (lua_Unsigned)arg1);
             olua_push_cppobj<cocos2d::ui::Widget>(L, arg2, "ccui.Widget");
+
             olua_callback(L, callback_store_obj, func.c_str(), 2);
             olua_check_int(L, -1, &ret);
 
@@ -4900,6 +4906,7 @@ static int _cocos2d_experimental_ui_WebView_setOnShouldStartLoading(lua_State *L
             bool ret = false;
             olua_push_cppobj<cocos2d::experimental::ui::WebView>(L, arg1, "ccui.WebView");
             olua_push_std_string(L, arg2);
+
             olua_callback(L, callback_store_obj, func.c_str(), 2);
             olua_check_bool(L, -1, &ret);
 
@@ -4938,6 +4945,7 @@ static int _cocos2d_experimental_ui_WebView_setOnDidFinishLoading(lua_State *L)
 
             olua_push_cppobj<cocos2d::experimental::ui::WebView>(L, arg1, "ccui.WebView");
             olua_push_std_string(L, arg2);
+
             olua_callback(L, callback_store_obj, func.c_str(), 2);
 
             lua_settop(L, top);
@@ -4974,6 +4982,7 @@ static int _cocos2d_experimental_ui_WebView_setOnDidFailLoading(lua_State *L)
 
             olua_push_cppobj<cocos2d::experimental::ui::WebView>(L, arg1, "ccui.WebView");
             olua_push_std_string(L, arg2);
+
             olua_callback(L, callback_store_obj, func.c_str(), 2);
 
             lua_settop(L, top);
@@ -5010,6 +5019,7 @@ static int _cocos2d_experimental_ui_WebView_setOnJSCallback(lua_State *L)
 
             olua_push_cppobj<cocos2d::experimental::ui::WebView>(L, arg1, "ccui.WebView");
             olua_push_std_string(L, arg2);
+
             olua_callback(L, callback_store_obj, func.c_str(), 2);
 
             lua_settop(L, top);
@@ -5392,6 +5402,7 @@ static int _cocos2d_experimental_ui_VideoPlayer_addEventListener(lua_State *L)
 
             olua_push_cppobj<cocos2d::Ref>(L, arg1, "cc.Ref");
             olua_push_uint(L, (lua_Unsigned)arg2);
+
             olua_callback(L, callback_store_obj, func.c_str(), 2);
 
             lua_settop(L, top);
@@ -6484,6 +6495,7 @@ static int _cocos2d_ui_TabControl_setTabChangedEventListener(lua_State *L)
 
             olua_push_int(L, (lua_Integer)arg1);
             olua_push_uint(L, (lua_Unsigned)arg2);
+
             olua_callback(L, callback_store_obj, func.c_str(), 2);
 
             lua_settop(L, top);
@@ -7566,6 +7578,7 @@ static int _cocos2d_ui_ScrollView_addEventListener(lua_State *L)
 
             olua_push_cppobj<cocos2d::Ref>(L, arg1, "cc.Ref");
             olua_push_uint(L, (lua_Unsigned)arg2);
+
             olua_callback(L, callback_store_obj, func.c_str(), 2);
 
             lua_settop(L, top);
@@ -8437,6 +8450,7 @@ static int _cocos2d_ui_ListView_addEventListener(lua_State *L)
 
             olua_push_cppobj<cocos2d::Ref>(L, arg1, "cc.Ref");
             olua_push_uint(L, (lua_Unsigned)arg2);
+
             olua_callback(L, callback_store_obj, func.c_str(), 2);
 
             lua_settop(L, top);
@@ -9366,6 +9380,7 @@ static int _cocos2d_ui_PageView_addEventListener(lua_State *L)
 
             olua_push_cppobj<cocos2d::Ref>(L, arg1, "cc.Ref");
             olua_push_uint(L, (lua_Unsigned)arg2);
+
             olua_callback(L, callback_store_obj, func.c_str(), 2);
 
             lua_settop(L, top);
@@ -10870,6 +10885,7 @@ static int _cocos2d_ui_RichText_createWithXML3(lua_State *L)
         int top = lua_gettop(L);
 
         olua_push_std_string(L, arg1);
+
         olua_callback(L, callback_store_obj, func.c_str(), 1);
 
         lua_settop(L, top);
@@ -10926,6 +10942,7 @@ static int _cocos2d_ui_RichText_setOpenUrlHandler(lua_State *L)
         int top = lua_gettop(L);
 
         olua_push_std_string(L, arg1);
+
         olua_callback(L, callback_store_obj, func.c_str(), 1);
 
         lua_settop(L, top);
@@ -11700,6 +11717,7 @@ static int _cocos2d_ui_Slider_addEventListener(lua_State *L)
 
             olua_push_cppobj<cocos2d::Ref>(L, arg1, "cc.Ref");
             olua_push_uint(L, (lua_Unsigned)arg2);
+
             olua_callback(L, callback_store_obj, func.c_str(), 2);
 
             lua_settop(L, top);
@@ -13915,6 +13933,7 @@ static int _cocos2d_ui_TextField_addEventListener(lua_State *L)
 
             olua_push_cppobj<cocos2d::Ref>(L, arg1, "cc.Ref");
             olua_push_uint(L, (lua_Unsigned)arg2);
+
             olua_callback(L, callback_store_obj, func.c_str(), 2);
 
             lua_settop(L, top);
@@ -14854,6 +14873,7 @@ static int _cocos2d_ui_CheckBox_addEventListener(lua_State *L)
 
             olua_push_cppobj<cocos2d::Ref>(L, arg1, "cc.Ref");
             olua_push_uint(L, (lua_Unsigned)arg2);
+
             olua_callback(L, callback_store_obj, func.c_str(), 2);
 
             lua_settop(L, top);
@@ -14994,6 +15014,7 @@ static int _cocos2d_ui_RadioButton_addEventListener(lua_State *L)
 
             olua_push_cppobj<cocos2d::ui::RadioButton>(L, arg1, "ccui.RadioButton");
             olua_push_uint(L, (lua_Unsigned)arg2);
+
             olua_callback(L, callback_store_obj, func.c_str(), 2);
 
             lua_settop(L, top);
@@ -15303,6 +15324,7 @@ static int _cocos2d_ui_RadioButtonGroup_addEventListener(lua_State *L)
             olua_push_cppobj<cocos2d::ui::RadioButton>(L, arg1, "ccui.RadioButton");
             olua_push_int(L, (lua_Integer)arg2);
             olua_push_uint(L, (lua_Unsigned)arg3);
+
             olua_callback(L, callback_store_obj, func.c_str(), 3);
 
             lua_settop(L, top);

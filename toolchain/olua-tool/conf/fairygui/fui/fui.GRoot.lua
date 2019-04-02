@@ -60,4 +60,48 @@ cls.inject('create', {
     ]]
 })
 
+do
+    local REFNAME = 'children'
+    -- void showWindow(Window* win)
+    cls.inject('showWindow', mapref_arg_value(REFNAME))
+
+    -- void hideWindow(Window* win)
+    -- void hideWindowImmediately(Window* win)
+    local HIDE_WINDOW = {
+        BEFORE = format_snippet [[
+            if (arg1->getParent()) {
+                olua_push_cppobj<fairygui::GComponent>(L, arg1->getParent(), "fui.GComponent");
+                xlua_startcmpunref(L, -1, "children");
+            } else {
+                lua_pushnil(L);
+            }
+        ]],
+        AFTER = format_snippet [[
+            if (!olua_isnil(L, -1)) {
+                xlua_endcmpunref(L, -1, "children");
+            }
+        ]]
+    }
+    cls.inject('hideWindow',            HIDE_WINDOW)
+    cls.inject('hideWindowImmediately', HIDE_WINDOW)
+
+    -- Window* getTopWindow()
+    -- GObject* getModalWaitingPane()
+    -- GGraph* getModalLayer()
+    cls.inject('getTopWindow',          mapref_return_value(REFNAME))
+    cls.inject('getModalWaitingPane',   mapref_return_value(REFNAME))
+    cls.inject('getModalLayer',         mapref_return_value(REFNAME))
+
+    -- void showPopup(GObject* popup)
+    -- void showPopup(GObject* popup, GObject* target, PopupDirection dir)
+    -- void togglePopup(GObject* popup)
+    -- void togglePopup(GObject* popup, GObject* target, PopupDirection dir)
+    cls.inject('showPopup',     mapref_arg_value(REFNAME))
+    cls.inject('togglePopup',   mapref_arg_value(REFNAME))
+
+    -- void hidePopup()
+    -- void hidePopup(GObject* popup)
+    cls.inject('hidePopup',     mapunef_by_compare(REFNAME))
+end
+
 return cls

@@ -85,16 +85,22 @@ cls.funcs [[
     void addUISource(IUISource* uiSource)
     bool isBringToFrontOnClick()
     void setBringToFrontOnClick(bool value)
-    GComponent* getContentPane()
-    void setContentPane(GComponent* value)
-    GComponent* getFrame()
-    GObject* getCloseButton()
-    void setCloseButton(GObject* value)
-    GObject* getDragArea()
-    void setDragArea(GObject* value)
-    GObject* getContentArea()
-    void setContentArea(GObject* value)
-    GObject* getModalWaitingPane()
+
+    @singleref(contentPane) GComponent* getContentPane()
+    void setContentPane(@singleref(contentPane) GComponent* value)
+
+    @singleref(frame) GComponent* getFrame()
+
+    @singleref(closeButton) GObject* getCloseButton()
+    void setCloseButton(@singleref(closeButton) GObject* value)
+
+    @singleref(dragArea) GObject* getDragArea()
+    void setDragArea(@singleref(dragArea) GObject* value)
+
+    @singleref(contentArea) GObject* getContentArea()
+    void setContentArea(@singleref(contentArea) GObject* value)
+
+    @singleref(modalWaitingPane) GObject* getModalWaitingPane()
 ]]
 cls.props [[
     showing
@@ -108,5 +114,44 @@ cls.props [[
     contentArea
     modalWaitingPane
 ]]
+
+-- ref
+do
+    local REFNAME = 'children'
+    -- void show()
+    local SHOW_WINDOW = {
+        BEFORE = format_snippet [[
+            if (UIRoot == nullptr) {
+                luaL_error(L, "UIRoot is nullptr");
+            }
+        ]],
+        AFTER = format_snippet [[
+            olua_push_cppobj<fairygui::GComponent>(L, UIRoot, "fui.GComponent");
+            olua_mapref(L, -1, "${REFNAME", 1);
+            lua_pop(L, 1);
+        ]]
+    }
+
+
+    -- void hide()
+    -- void hideImmediately()
+    local HIDE_WINDOW = {
+        BEFORE = format_snippet [[
+            if (self->getParent()) {
+                olua_push_cppobj<fairygui::GComponent>(L, self->getParent(), "fui.GComponent");
+                xlua_startcmpunref(L, -1, "children");
+            } else {
+                lua_pushnil(L);
+            }
+        ]],
+        AFTER = format_snippet [[
+            if (!olua_isnil(L, -1)) {
+                xlua_endcmpunref(L, -1, "children");
+            }
+        ]]
+    }
+    cls.inject('hide',              HIDE_WINDOW)
+    cls.inject('hideImmediately',   HIDE_WINDOW)
+end
 
 return M

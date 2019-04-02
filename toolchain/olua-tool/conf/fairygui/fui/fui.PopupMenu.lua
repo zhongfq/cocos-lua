@@ -35,6 +35,8 @@ cls.func('addItem', [[
     std::string caption = olua_checkstring(L, 2);
     fairygui::GButton *ret = (fairygui::GButton *)self->addItem(caption, nullptr);
 
+    ${INJECT_BEFORE}
+
     void *callback_store_obj = (void *)ret;
     std::string tag = makeListenerTag(L, fairygui::UIEventType::ClickMenu, 0);
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_CALLBACK_TAG_NEW);
@@ -54,7 +56,11 @@ cls.func('addItem', [[
 
     ret->addEventListener(fairygui::UIEventType::ClickMenu, callback);
 
-    return olua_push_cppobj<fairygui::GButton>(L, ret, "fui.GButton");
+    olua_push_cppobj<fairygui::GButton>(L, ret, "fui.GButton");
+
+    ${INJECT_AFTER}
+
+    return 1;
 }]])
 
 cls.func('addItemAt', [[
@@ -65,6 +71,8 @@ cls.func('addItemAt', [[
     std::string caption = olua_checkstring(L, 2);
     int index = (int)olua_checkinteger(L, 3);
     fairygui::GButton *ret = (fairygui::GButton *)self->addItemAt(caption, index, nullptr);
+
+    ${INJECT_BEFORE}
 
     void *callback_store_obj = (void *)ret;
     std::string tag = makeListenerTag(L, fairygui::UIEventType::ClickMenu, 0);
@@ -85,7 +93,50 @@ cls.func('addItemAt', [[
     
     ret->addEventListener(fairygui::UIEventType::ClickMenu, callback);
     
-    return olua_push_cppobj<fairygui::GButton>(L, ret, "fui.GButton");
+    olua_push_cppobj<fairygui::GButton>(L, ret, "fui.GButton");
+
+    ${INJECT_AFTER}
+
+    return 1;
 }]])
+
+-- ref
+local REFNAME = 'children'
+-- void show()
+-- void show(GObject* target, PopupDirection dir)
+local SHOW = {
+    AFTER = format_snippet [[
+        olua_push_cppobj<fairygui::GComponent>(L, self->getContentPane()->getParent(), "fui.GComponent");
+        olua_mapref(L, -1, "${REFNAME}", -2);
+        lua_pop(L, 1);
+    ]]
+}
+cls.inject('show', SHOW)
+
+-- GButton* addItem(const std::string& caption, EventCallback callback);
+-- GButton* addItemAt(const std::string& caption, int index, EventCallback callback);
+local ADD_ITEM = {
+    AFTER = format_snippet [[
+        olua_push_cppobj<fairygui::GComponent>(L, ret->getParent(), "fui.GComponent");
+        olua_mapref(L, -1, "${REFNAME}", -2);
+        lua_pop(L, 1);
+    ]]
+}
+cls.inject('addItem',   ADD_ITEM)
+cls.inject('addItemAt', ADD_ITEM)
+
+-- bool removeItem(const std::string& name)
+-- void clearItems()
+local REMOVE_ITEM = {
+    BEFORE = format_snippet [[
+        olua_push_cppobj<fairygui::GList>(L, self->getList(), "fui.GList");
+        xlua_startcmpunref(L, -1, "${REFNAME}");
+    ]],
+    AFTER = format_snippet [[
+        xlua_endcmpunref(L, -1, "${REFNAME}");
+    ]],
+}
+cls.inject('removeItem', REMOVE_ITEM)
+cls.inject('clearItems', REMOVE_ITEM)
 
 return cls

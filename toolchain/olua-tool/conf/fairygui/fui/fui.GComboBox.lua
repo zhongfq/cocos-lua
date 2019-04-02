@@ -14,14 +14,14 @@ cls.funcs [[
     void setValue(const std::string& value)
     int getSelectedIndex()
     void setSelectedIndex(int value)
-    @ref(single selectionController) GController* getSelectionController()
-    void setSelectionController(@ref(single selectionController) GController* value)
+    @singleref(selectionController) GController* getSelectionController()
+    void setSelectionController(@singleref(selectionController) GController* value)
     std::vector<std::string>& getItems()
     std::vector<std::string>& getIcons()
     std::vector<std::string>& getValues()
-    @ref(single dropdown) GObject* getDropdown()
+    @singleref(dropdown) GObject* getDropdown()
     void refresh()
-    @ref(single textField) GTextField* getTextField()
+    @singleref(textField) GTextField* getTextField()
 ]]
 cls.props [[
     title

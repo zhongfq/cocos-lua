@@ -10,7 +10,7 @@ cls.funcs [[
     void setTitleColor(const cocos2d::Color3B& value)
     int getTitleFontSize()
     void setTitleFontSize(int value)
-    @ref(single textField) GTextField* getTextField()
+    @singleref(textField) GTextField* getTextField()
 ]]
 
 cls.props [[

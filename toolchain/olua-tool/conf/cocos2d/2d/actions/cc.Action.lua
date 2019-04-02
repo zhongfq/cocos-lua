@@ -46,11 +46,11 @@ cls.CPPCLS = "cocos2d::Speed"
 cls.LUACLS = "cc.Speed"
 cls.SUPERCLS = "cc.Action"
 cls.funcs([[
-    static Speed* create(@ref(single innerAction) ActionInterval* action, float speed)
+    static Speed* create(@singleref(innerAction) ActionInterval* action, float speed)
     float getSpeed()
     void setSpeed(float speed)
-    void setInnerAction(@ref(single innerAction) ActionInterval *action)
-    @ref(single innerAction) ActionInterval* getInnerAction()
+    void setInnerAction(@singleref(innerAction) ActionInterval *action)
+    @singleref(innerAction) ActionInterval* getInnerAction()
 ]])
 cls.prop('speed')
 cls.prop('innerAction')

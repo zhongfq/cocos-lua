@@ -16,7 +16,7 @@ cls.funcs [[
     static TabHeader* create()
     static TabHeader* create(const std::string& titleStr, const std::string& backGround, const std::string& cross, Widget::TextureResType texType = Widget::TextureResType::LOCAL)
     static TabHeader* create(const std::string& titleStr, const std::string& backGround, const std::string& backGroundSelected, const std::string& cross, const std::string& backGroundDisabled, const std::string& frontCrossDisabled, Widget::TextureResType texType = Widget::TextureResType::LOCAL)
-    @ref(single titleRenderer) Label* getTitleRenderer()
+    @singleref(titleRenderer) Label* getTitleRenderer()
     void setTitleText(const std::string& text)
     std::string getTitleText()
     void setTitleColor(const Color4B& color)

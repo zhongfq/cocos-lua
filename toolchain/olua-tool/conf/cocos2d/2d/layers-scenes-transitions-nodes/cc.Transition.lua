@@ -57,7 +57,7 @@ cls.SUPERCLS = "cc.TransitionScene"
 cls.funcs([[
     static TransitionMoveInL* create(float t, @ref Scene* scene)
     ActionInterval* action(void)
-    ActionInterval* easeActionWithAction(@ref(single action) ActionInterval * action)
+    ActionInterval* easeActionWithAction(@singleref(action) ActionInterval * action)
 ]])
 
 local cls = class(M)
@@ -90,7 +90,7 @@ cls.LUACLS = "cc.TransitionSlideInL"
 cls.SUPERCLS = "cc.TransitionScene"
 cls.funcs([[
     static TransitionSlideInL* create(float t, @ref Scene* scene)
-    ActionInterval* easeActionWithAction(@ref(single action)ActionInterval * action)
+    ActionInterval* easeActionWithAction(@singleref(action)ActionInterval * action)
     ActionInterval* action(void)
 ]])
 
@@ -124,7 +124,7 @@ cls.LUACLS = "cc.TransitionShrinkGrow"
 cls.SUPERCLS = "cc.TransitionScene"
 cls.funcs([[
     static TransitionShrinkGrow* create(float t, @ref Scene* scene)
-    ActionInterval* easeActionWithAction(@ref(single action) ActionInterval * action)
+    ActionInterval* easeActionWithAction(@singleref(action) ActionInterval * action)
 ]])
 
 local cls = class(M)
@@ -204,7 +204,7 @@ cls.LUACLS = "cc.TransitionTurnOffTiles"
 cls.SUPERCLS = "cc.TransitionScene"
 cls.funcs([[
     static TransitionTurnOffTiles* create(float t, @ref Scene* scene)
-    ActionInterval * easeActionWithAction(@ref(single action) ActionInterval * action)
+    ActionInterval * easeActionWithAction(@singleref(action) ActionInterval * action)
 ]])
 
 local cls = class(M)
@@ -214,7 +214,7 @@ cls.SUPERCLS = "cc.TransitionScene"
 cls.funcs([[
     static TransitionSplitCols* create(float t, @ref Scene* scene)
     ActionInterval* action()
-    ActionInterval * easeActionWithAction(@ref(single action) ActionInterval * action)
+    ActionInterval * easeActionWithAction(@singleref(action) ActionInterval * action)
 ]])
 
 local cls = class(M)
@@ -232,7 +232,7 @@ cls.SUPERCLS = "cc.TransitionScene"
 cls.funcs([[
     static TransitionFadeTR* create(float t, @ref Scene* scene)
     ActionInterval* actionWithSize(const Size& size)
-    ActionInterval* easeActionWithAction(@ref(single action) ActionInterval * action)
+    ActionInterval* easeActionWithAction(@singleref(action) ActionInterval * action)
 ]])
 
 local cls = class(M)

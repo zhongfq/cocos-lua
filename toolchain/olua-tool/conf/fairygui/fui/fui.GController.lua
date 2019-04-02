@@ -3,8 +3,8 @@ cls.CPPCLS = "fairygui::GController"
 cls.LUACLS = "fui.GController"
 cls.SUPERCLS = "fui.UIEventDispatcher"
 cls.funcs [[
-    @ref(single parent) GComponent* getParent()
-    void setParent(@ref(single parent) GComponent* value)
+    @singleref(parent) GComponent* getParent()
+    void setParent(@singleref(parent) GComponent* value)
     int getSelectedIndex()
     void setSelectedIndex(int value)
     const std::string& getSelectedPage()

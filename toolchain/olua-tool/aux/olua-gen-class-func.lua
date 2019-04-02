@@ -167,17 +167,17 @@ local function gen_func_args(cls, fi)
             ]])
         end
 
-        if ai.ATTR.REF then
+        if ai.ATTR.SINGLEREF then
+            local REF_NAME = assert(ai.ATTR.SINGLEREF[1], 'no ref name')
+            REF_CHUNK[#REF_CHUNK + 1] = format_snippet([[
+                olua_singleref(L, 1, "${REF_NAME", ${IDX});
+            ]])
+        elseif ai.ATTR.REF then
             assert(not fi.STATIC or (fi.RET.NUM > 0 and fi.RET.TYPE.LUACLS), fi.CPPFUNC)
             local WHICH_OBJ = fi.STATIC and -1 or 1
             if ai.ATTR.REF == true then
                 REF_CHUNK[#REF_CHUNK + 1] = format_snippet([[
                     olua_mapref(L, ${WHICH_OBJ}, ".autoref", ${IDX});
-                ]])
-            elseif ai.ATTR.REF[1] == "single" then
-                local REF_NAME = assert(ai.ATTR.REF[2], 'no ref name')
-                REF_CHUNK[#REF_CHUNK + 1] = format_snippet([[
-                    olua_singleref(L, ${WHICH_OBJ}, "${REF_NAME", ${IDX});
                 ]])
             else
                 error(ai.ATTR.REF[1])
@@ -336,17 +336,16 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
         REF_CHUNK = {}
     end
 
-
-    if fi.RET.ATTR.REF then
+    if fi.RET.ATTR.SINGLEREF then
+        local REF_NAME = assert(fi.RET.ATTR.SINGLEREF[1], 'no ref name')
+        REF_CHUNK[#REF_CHUNK + 1] = format_snippet([[
+            olua_singleref(L, 1, "${REF_NAME", -1);
+        ]])
+    elseif fi.RET.ATTR.REF then
         assert(not fi.STATIC or (fi.RET.NUM > 0 and fi.RET.TYPE.LUACLS), fi.CPPFUNC)
         if fi.RET.ATTR.REF == true then
             REF_CHUNK[#REF_CHUNK + 1] = format_snippet([[
                 olua_mapref(L, 1, ".autoref", -1);
-            ]])
-        elseif fi.RET.ATTR.REF[1] == "single" then
-            local REF_NAME = assert(fi.RET.ATTR.REF[2], 'no ref name')
-            REF_CHUNK[#REF_CHUNK + 1] = format_snippet([[
-                olua_singleref(L, 1, "${REF_NAME", -1);
             ]])
         else
             error(fi.RET.ATTR.REF[1])

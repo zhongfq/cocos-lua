@@ -5914,7 +5914,7 @@ static int _cocos2d_ui_TabHeader_getTitleRenderer(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TabHeader");
 
-    // @ref(single titleRenderer) Label* getTitleRenderer()
+    // @singleref(titleRenderer) Label* getTitleRenderer()
     cocos2d::Label *ret = (cocos2d::Label *)self->getTitleRenderer();
     int num_ret = olua_push_cppobj<cocos2d::Label>(L, ret, "cc.Label");
 

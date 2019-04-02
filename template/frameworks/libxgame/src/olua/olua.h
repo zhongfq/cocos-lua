@@ -193,6 +193,7 @@ LUALIB_API const char *olua_optfieldstring(lua_State *L, int idx, const char *fi
 LUALIB_API lua_Number olua_optfieldnumber(lua_State *L, int idx, const char *field, lua_Number def);
 LUALIB_API lua_Integer olua_optfieldinteger(lua_State *L, int idx, const char *field, lua_Integer def);
 LUALIB_API bool olua_optfieldboolean(lua_State *L, int idx, const char *field, bool def);
+LUALIB_API bool olua_hasfield(lua_State *L, int idx, const char *field);
     
 // for debug
 #ifdef OLUA_DEBUG

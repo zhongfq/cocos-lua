@@ -38,13 +38,13 @@ static int dummy_traceback(lua_State *L)
 LUALIB_API lua_Integer olua_checkinteger(lua_State *L, int idx)
 {
     luaL_checktype(L, idx, LUA_TNUMBER);
-    return luaL_checkinteger(L, idx);
+    return olua_tointeger(L, idx);
 }
 
 LUALIB_API lua_Number olua_checknumber(lua_State *L, int idx)
 {
     luaL_checktype(L, idx, LUA_TNUMBER);
-    return luaL_checknumber(L, idx);
+    return olua_tonumber(L, idx);
 }
 
 LUALIB_API const char *olua_checklstring(lua_State *L, int idx, size_t *len)
@@ -692,6 +692,8 @@ static int cls_index(lua_State *L)
         return 1;
     }
     
+    lua_pushnil(L);
+    
     return 1;
 }
 
@@ -736,7 +738,7 @@ static int cls_newindex(lua_State *L)
             size_t len;
             const char *key = olua_tolstring(L, 2, &len);
             if (len > 0 && key[0] == '.') {
-                luaL_error(L, "variable name can't start with '.' char.");
+                luaL_error(L, "variable name can't start with '.' char");
             }
         }
         lua_settop(L, 3);
@@ -1031,7 +1033,7 @@ static void auxchecktype(lua_State *L, int t, const char *field, int type, bool 
         }
         if (luaL_getmetafield(L, idx, "__name") == LUA_TSTRING) {
             typearg = olua_tostring(L, -1);
-        } else if (lua_type(L, idx) == LUA_TLIGHTUSERDATA) {
+        } else if (olua_islightuserdata(L, idx)) {
             typearg = "light userdata";
         } else {
             typearg = luaL_typename(L, idx);
@@ -1135,4 +1137,11 @@ LUALIB_API bool olua_optfieldboolean(lua_State *L, int idx, const char *field, b
     def = olua_optboolean(L, -1, def);
     lua_pop(L, 1);
     return def;
+}
+
+LUALIB_API bool olua_hasfield(lua_State *L, int idx, const char *field)
+{
+    int type = lua_getfield(L, idx, field);
+    lua_pop(L, 1);
+    return type != LUA_TNIL;
 }

@@ -446,7 +446,6 @@ int xlua_ccobjgc(lua_State *L)
     return 0;
 }
 
-
 void xlua_startcmpunref(lua_State *L, int idx, const char *refname)
 {
     olua_getreftable(L, idx, refname);                      // L: t

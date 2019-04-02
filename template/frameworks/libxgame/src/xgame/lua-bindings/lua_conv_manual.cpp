@@ -252,7 +252,11 @@ int manual_luacv_unpack_cocos2d_Rect(lua_State *L, const cocos2d::Rect *value)
 
 bool manual_luacv_is_cocos2d_Rect(lua_State *L, int idx)
 {
-    return lua_istable(L, idx);
+    return olua_istable(L, idx)
+        && olua_hasfield(L, idx, "height")
+        && olua_hasfield(L, idx, "width")
+        && olua_hasfield(L, idx, "y")
+        && olua_hasfield(L, idx, "x");
 }
 
 void manual_luacv_pack_cocos2d_ccBezierConfig(lua_State *L, int idx, cocos2d::ccBezierConfig *value)

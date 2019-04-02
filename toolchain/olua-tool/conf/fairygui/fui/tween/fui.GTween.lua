@@ -15,9 +15,9 @@ static int should_unref_tween(lua_State *L)
 ]]
 cls.funcs [[
     static GTweener* to(float startValue, float endValue, float duration)
-    static GTweener* to(const cocos2d::Vec2& startValue, const cocos2d::Vec2& endValue, float duration)
-    static GTweener* to(const cocos2d::Vec3& startValue, const cocos2d::Vec3& endValue, float duration)
     static GTweener* to(const cocos2d::Vec4& startValue, const cocos2d::Vec4& endValue, float duration)
+    static GTweener* to(const cocos2d::Vec3& startValue, const cocos2d::Vec3& endValue, float duration)
+    static GTweener* to(const cocos2d::Vec2& startValue, const cocos2d::Vec2& endValue, float duration)
     static GTweener* to(const cocos2d::Color4B& startValue, const cocos2d::Color4B& endValue, float duration)
     static GTweener* toDouble(double startValue, double endValue, float duration)
     static GTweener* delayedCall(float delay)

@@ -359,10 +359,18 @@ end
 local function gen_is_func(cv, write)
     local CPPCLS = cv.CPPCLS
     local CPPCLS_PATH = class_path(cv)
+    local TEST_HAS = {'olua_istable(L, idx)'}
+    for i, pi in ipairs(cv.PROPS) do
+        local LUANAME = pi.LUANAME
+        table.insert(TEST_HAS, 2, format_snippet([[
+            olua_hasfield(L, idx, "${LUANAME}")
+        ]]))
+    end
+    TEST_HAS = table.concat(TEST_HAS, " && ")
     write(format_snippet([[
         bool auto_luacv_is_${CPPCLS_PATH}(lua_State *L, int idx)
         {
-            return lua_istable(L, idx);
+            return ${TEST_HAS};
         }
     ]]))
     write('')

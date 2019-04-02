@@ -119,8 +119,8 @@ cls.CPPCLS = "cocos2d::MoveBy"
 cls.LUACLS = "cc.MoveBy"
 cls.SUPERCLS = "cc.ActionInterval"
 cls.funcs([[
-    static MoveBy* create(float duration, @pack Vec2& deltaPosition)
     static MoveBy* create(float duration, @pack Vec3& deltaPosition)
+    static MoveBy* create(float duration, @pack Vec2& deltaPosition)
 ]])
 
 local cls = class(M)
@@ -128,8 +128,8 @@ cls.CPPCLS = "cocos2d::MoveTo"
 cls.LUACLS = "cc.MoveTo"
 cls.SUPERCLS = "cc.MoveBy"
 cls.funcs([[
-    static MoveTo* create(float duration, @pack Vec2& position)
     static MoveTo* create(float duration, @pack Vec3& position)
+    static MoveTo* create(float duration, @pack Vec2& position)
 ]])
 
 local cls = class(M)

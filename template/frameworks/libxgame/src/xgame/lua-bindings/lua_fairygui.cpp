@@ -2448,15 +2448,15 @@ static int _fairygui_GTween_to2(lua_State *L)
 {
     lua_settop(L, 3);
 
-    cocos2d::Vec2 arg1;       /** startValue */
-    cocos2d::Vec2 arg2;       /** endValue */
+    cocos2d::Vec4 arg1;       /** startValue */
+    cocos2d::Vec4 arg2;       /** endValue */
     lua_Number arg3 = 0;   /** duration */
 
-    auto_luacv_check_cocos2d_Vec2(L, 1, &arg1);
-    auto_luacv_check_cocos2d_Vec2(L, 2, &arg2);
+    auto_luacv_check_cocos2d_Vec4(L, 1, &arg1);
+    auto_luacv_check_cocos2d_Vec4(L, 2, &arg2);
     olua_check_number(L, 3, &arg3);
 
-    // static GTweener* to(const cocos2d::Vec2& startValue, const cocos2d::Vec2& endValue, float duration)
+    // static GTweener* to(const cocos2d::Vec4& startValue, const cocos2d::Vec4& endValue, float duration)
     fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::to(arg1, arg2, (float)arg3);
     int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fui.GTweener");
 
@@ -2502,15 +2502,15 @@ static int _fairygui_GTween_to4(lua_State *L)
 {
     lua_settop(L, 3);
 
-    cocos2d::Vec4 arg1;       /** startValue */
-    cocos2d::Vec4 arg2;       /** endValue */
+    cocos2d::Vec2 arg1;       /** startValue */
+    cocos2d::Vec2 arg2;       /** endValue */
     lua_Number arg3 = 0;   /** duration */
 
-    auto_luacv_check_cocos2d_Vec4(L, 1, &arg1);
-    auto_luacv_check_cocos2d_Vec4(L, 2, &arg2);
+    auto_luacv_check_cocos2d_Vec2(L, 1, &arg1);
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg2);
     olua_check_number(L, 3, &arg3);
 
-    // static GTweener* to(const cocos2d::Vec4& startValue, const cocos2d::Vec4& endValue, float duration)
+    // static GTweener* to(const cocos2d::Vec2& startValue, const cocos2d::Vec2& endValue, float duration)
     fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::to(arg1, arg2, (float)arg3);
     int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fui.GTweener");
 
@@ -2561,7 +2561,7 @@ static int _fairygui_GTween_to(lua_State *L)
             return _fairygui_GTween_to1(L);
         }
 
-        if (auto_luacv_is_cocos2d_Vec2(L, 1) && auto_luacv_is_cocos2d_Vec2(L, 2) && olua_is_number(L, 3)) {
+        if (auto_luacv_is_cocos2d_Vec4(L, 1) && auto_luacv_is_cocos2d_Vec4(L, 2) && olua_is_number(L, 3)) {
             return _fairygui_GTween_to2(L);
         }
 
@@ -2569,7 +2569,7 @@ static int _fairygui_GTween_to(lua_State *L)
             return _fairygui_GTween_to3(L);
         }
 
-        if (auto_luacv_is_cocos2d_Vec4(L, 1) && auto_luacv_is_cocos2d_Vec4(L, 2) && olua_is_number(L, 3)) {
+        if (auto_luacv_is_cocos2d_Vec2(L, 1) && auto_luacv_is_cocos2d_Vec2(L, 2) && olua_is_number(L, 3)) {
             return _fairygui_GTween_to4(L);
         }
 
@@ -4979,40 +4979,6 @@ static int _fairygui_GObject_globalToLocal1(lua_State *L)
     lua_settop(L, 2);
 
     fairygui::GObject *self = nullptr;
-    cocos2d::Vec2 arg1;       /** pt */
-
-    olua_to_cppobj(L, 1, (void **)&self, "fui.GObject");
-    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
-
-    // cocos2d::Vec2 globalToLocal(const cocos2d::Vec2& pt)
-    cocos2d::Vec2 ret = (cocos2d::Vec2)self->globalToLocal(arg1);
-    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
-
-    return num_ret;
-}
-
-static int _fairygui_GObject_globalToLocal2(lua_State *L)
-{
-    lua_settop(L, 3);
-
-    fairygui::GObject *self = nullptr;
-    cocos2d::Vec2 arg1;       /** pt */
-
-    olua_to_cppobj(L, 1, (void **)&self, "fui.GObject");
-    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
-
-    // cocos2d::Vec2 globalToLocal(@pack const cocos2d::Vec2& pt)
-    cocos2d::Vec2 ret = (cocos2d::Vec2)self->globalToLocal(arg1);
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
-
-    return num_ret;
-}
-
-static int _fairygui_GObject_globalToLocal3(lua_State *L)
-{
-    lua_settop(L, 2);
-
-    fairygui::GObject *self = nullptr;
     cocos2d::Rect arg1;       /** rect */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GObject");
@@ -5025,7 +4991,7 @@ static int _fairygui_GObject_globalToLocal3(lua_State *L)
     return num_ret;
 }
 
-static int _fairygui_GObject_globalToLocal4(lua_State *L)
+static int _fairygui_GObject_globalToLocal2(lua_State *L)
 {
     lua_settop(L, 5);
 
@@ -5042,38 +5008,7 @@ static int _fairygui_GObject_globalToLocal4(lua_State *L)
     return num_ret;
 }
 
-static int _fairygui_GObject_globalToLocal(lua_State *L)
-{
-    int num_args = lua_gettop(L) - 1;
-
-    if (num_args == 1) {
-        if (auto_luacv_is_cocos2d_Vec2(L, 2)) {
-            return _fairygui_GObject_globalToLocal1(L);
-        }
-
-        // if (manual_luacv_is_cocos2d_Rect(L, 2)) {
-            return _fairygui_GObject_globalToLocal3(L);
-        // }
-    }
-
-    if (num_args == 2) {
-        // if (auto_luacv_ispack_cocos2d_Vec2(L, 2)) {
-            return _fairygui_GObject_globalToLocal2(L);
-        // }
-    }
-
-    if (num_args == 4) {
-        // if (manual_luacv_ispack_cocos2d_Rect(L, 2)) {
-            return _fairygui_GObject_globalToLocal4(L);
-        // }
-    }
-
-    luaL_error(L, "method 'fairygui::GObject::globalToLocal' not support '%d' arguments", num_args);
-
-    return 0;
-}
-
-static int _fairygui_GObject_localToGlobal1(lua_State *L)
+static int _fairygui_GObject_globalToLocal3(lua_State *L)
 {
     lua_settop(L, 2);
 
@@ -5083,14 +5018,14 @@ static int _fairygui_GObject_localToGlobal1(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.GObject");
     auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // cocos2d::Vec2 localToGlobal(const cocos2d::Vec2& pt)
-    cocos2d::Vec2 ret = (cocos2d::Vec2)self->localToGlobal(arg1);
+    // cocos2d::Vec2 globalToLocal(const cocos2d::Vec2& pt)
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->globalToLocal(arg1);
     int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
 
-static int _fairygui_GObject_localToGlobal2(lua_State *L)
+static int _fairygui_GObject_globalToLocal4(lua_State *L)
 {
     lua_settop(L, 3);
 
@@ -5100,14 +5035,45 @@ static int _fairygui_GObject_localToGlobal2(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.GObject");
     auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
 
-    // cocos2d::Vec2 localToGlobal(@pack const cocos2d::Vec2& pt)
-    cocos2d::Vec2 ret = (cocos2d::Vec2)self->localToGlobal(arg1);
+    // cocos2d::Vec2 globalToLocal(@pack const cocos2d::Vec2& pt)
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->globalToLocal(arg1);
     int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
 
-static int _fairygui_GObject_localToGlobal3(lua_State *L)
+static int _fairygui_GObject_globalToLocal(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        if (manual_luacv_is_cocos2d_Rect(L, 2)) {
+            return _fairygui_GObject_globalToLocal1(L);
+        }
+
+        // if (auto_luacv_is_cocos2d_Vec2(L, 2)) {
+            return _fairygui_GObject_globalToLocal3(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if (auto_luacv_ispack_cocos2d_Vec2(L, 2)) {
+            return _fairygui_GObject_globalToLocal4(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if (manual_luacv_ispack_cocos2d_Rect(L, 2)) {
+            return _fairygui_GObject_globalToLocal2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::GObject::globalToLocal' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _fairygui_GObject_localToGlobal1(lua_State *L)
 {
     lua_settop(L, 2);
 
@@ -5124,7 +5090,7 @@ static int _fairygui_GObject_localToGlobal3(lua_State *L)
     return num_ret;
 }
 
-static int _fairygui_GObject_localToGlobal4(lua_State *L)
+static int _fairygui_GObject_localToGlobal2(lua_State *L)
 {
     lua_settop(L, 5);
 
@@ -5141,29 +5107,63 @@ static int _fairygui_GObject_localToGlobal4(lua_State *L)
     return num_ret;
 }
 
+static int _fairygui_GObject_localToGlobal3(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    fairygui::GObject *self = nullptr;
+    cocos2d::Vec2 arg1;       /** pt */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fui.GObject");
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+
+    // cocos2d::Vec2 localToGlobal(const cocos2d::Vec2& pt)
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->localToGlobal(arg1);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
+
+    return num_ret;
+}
+
+static int _fairygui_GObject_localToGlobal4(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    fairygui::GObject *self = nullptr;
+    cocos2d::Vec2 arg1;       /** pt */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fui.GObject");
+    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+
+    // cocos2d::Vec2 localToGlobal(@pack const cocos2d::Vec2& pt)
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->localToGlobal(arg1);
+    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+
+    return num_ret;
+}
+
 static int _fairygui_GObject_localToGlobal(lua_State *L)
 {
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        if (auto_luacv_is_cocos2d_Vec2(L, 2)) {
+        if (manual_luacv_is_cocos2d_Rect(L, 2)) {
             return _fairygui_GObject_localToGlobal1(L);
         }
 
-        // if (manual_luacv_is_cocos2d_Rect(L, 2)) {
+        // if (auto_luacv_is_cocos2d_Vec2(L, 2)) {
             return _fairygui_GObject_localToGlobal3(L);
         // }
     }
 
     if (num_args == 2) {
         // if (auto_luacv_ispack_cocos2d_Vec2(L, 2)) {
-            return _fairygui_GObject_localToGlobal2(L);
+            return _fairygui_GObject_localToGlobal4(L);
         // }
     }
 
     if (num_args == 4) {
         // if (manual_luacv_ispack_cocos2d_Rect(L, 2)) {
-            return _fairygui_GObject_localToGlobal4(L);
+            return _fairygui_GObject_localToGlobal2(L);
         // }
     }
 

@@ -2431,13 +2431,11 @@ static int _fairygui_GTween_to1(lua_State *L)
     fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::to((float)arg1, (float)arg2, (float)arg3);
     int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fui.GTweener");
 
-    // inject code 
-    {
-        olua_getstore(L, "fui.GTween");
-        olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
-        olua_mapref(L, -1, "tweeners", -2);
-        lua_pop(L, 1);
-    }
+    // inject code after call
+    olua_getstore(L, "fui.GTween");
+    olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
+    olua_mapref(L, -1, "tweeners", -2);
+    lua_pop(L, 1);
 
     return num_ret;
 }
@@ -2458,13 +2456,11 @@ static int _fairygui_GTween_to2(lua_State *L)
     fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::to(arg1, arg2, (float)arg3);
     int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fui.GTweener");
 
-    // inject code 
-    {
-        olua_getstore(L, "fui.GTween");
-        olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
-        olua_mapref(L, -1, "tweeners", -2);
-        lua_pop(L, 1);
-    }
+    // inject code after call
+    olua_getstore(L, "fui.GTween");
+    olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
+    olua_mapref(L, -1, "tweeners", -2);
+    lua_pop(L, 1);
 
     return num_ret;
 }
@@ -2485,13 +2481,11 @@ static int _fairygui_GTween_to3(lua_State *L)
     fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::to(arg1, arg2, (float)arg3);
     int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fui.GTweener");
 
-    // inject code 
-    {
-        olua_getstore(L, "fui.GTween");
-        olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
-        olua_mapref(L, -1, "tweeners", -2);
-        lua_pop(L, 1);
-    }
+    // inject code after call
+    olua_getstore(L, "fui.GTween");
+    olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
+    olua_mapref(L, -1, "tweeners", -2);
+    lua_pop(L, 1);
 
     return num_ret;
 }
@@ -2512,13 +2506,11 @@ static int _fairygui_GTween_to4(lua_State *L)
     fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::to(arg1, arg2, (float)arg3);
     int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fui.GTweener");
 
-    // inject code 
-    {
-        olua_getstore(L, "fui.GTween");
-        olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
-        olua_mapref(L, -1, "tweeners", -2);
-        lua_pop(L, 1);
-    }
+    // inject code after call
+    olua_getstore(L, "fui.GTween");
+    olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
+    olua_mapref(L, -1, "tweeners", -2);
+    lua_pop(L, 1);
 
     return num_ret;
 }
@@ -2539,13 +2531,11 @@ static int _fairygui_GTween_to5(lua_State *L)
     fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::to(arg1, arg2, (float)arg3);
     int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fui.GTweener");
 
-    // inject code 
-    {
-        olua_getstore(L, "fui.GTween");
-        olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
-        olua_mapref(L, -1, "tweeners", -2);
-        lua_pop(L, 1);
-    }
+    // inject code after call
+    olua_getstore(L, "fui.GTween");
+    olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
+    olua_mapref(L, -1, "tweeners", -2);
+    lua_pop(L, 1);
 
     return num_ret;
 }
@@ -2597,13 +2587,11 @@ static int _fairygui_GTween_toDouble(lua_State *L)
     fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::toDouble((double)arg1, (double)arg2, (float)arg3);
     int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fui.GTweener");
 
-    // inject code 
-    {
-        olua_getstore(L, "fui.GTween");
-        olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
-        olua_mapref(L, -1, "tweeners", -2);
-        lua_pop(L, 1);
-    }
+    // inject code after call
+    olua_getstore(L, "fui.GTween");
+    olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
+    olua_mapref(L, -1, "tweeners", -2);
+    lua_pop(L, 1);
 
     return num_ret;
 }
@@ -2620,13 +2608,11 @@ static int _fairygui_GTween_delayedCall(lua_State *L)
     fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::delayedCall((float)arg1);
     int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fui.GTweener");
 
-    // inject code 
-    {
-        olua_getstore(L, "fui.GTween");
-        olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
-        olua_mapref(L, -1, "tweeners", -2);
-        lua_pop(L, 1);
-    }
+    // inject code after call
+    olua_getstore(L, "fui.GTween");
+    olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
+    olua_mapref(L, -1, "tweeners", -2);
+    lua_pop(L, 1);
 
     return num_ret;
 }
@@ -2647,13 +2633,11 @@ static int _fairygui_GTween_shake(lua_State *L)
     fairygui::GTweener *ret = (fairygui::GTweener *)fairygui::GTween::shake(arg1, (float)arg2, (float)arg3);
     int num_ret = olua_push_cppobj<fairygui::GTweener>(L, ret, "fui.GTweener");
 
-    // inject code 
-    {
-        olua_getstore(L, "fui.GTween");
-        olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
-        olua_mapref(L, -1, "tweeners", -2);
-        lua_pop(L, 1);
-    }
+    // inject code after call
+    olua_getstore(L, "fui.GTween");
+    olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
+    olua_mapref(L, -1, "tweeners", -2);
+    lua_pop(L, 1);
 
     return num_ret;
 }
@@ -2722,12 +2706,10 @@ static int _fairygui_GTween_kill1(lua_State *L)
     // static void kill(cocos2d::Ref* target)
     fairygui::GTween::kill(arg1);
 
-    // inject code 
-    {
-        olua_getstore(L, "fui.GTween");
-        olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
-        lua_pop(L, 1);
-    }
+    // inject code after call
+    olua_getstore(L, "fui.GTween");
+    olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
+    lua_pop(L, 1);
 
     return 0;
 }
@@ -2745,12 +2727,10 @@ static int _fairygui_GTween_kill2(lua_State *L)
     // static void kill(cocos2d::Ref* target, bool complete)
     fairygui::GTween::kill(arg1, arg2);
 
-    // inject code 
-    {
-        olua_getstore(L, "fui.GTween");
-        olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
-        lua_pop(L, 1);
-    }
+    // inject code after call
+    olua_getstore(L, "fui.GTween");
+    olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
+    lua_pop(L, 1);
 
     return 0;
 }
@@ -2770,12 +2750,10 @@ static int _fairygui_GTween_kill3(lua_State *L)
     // static void kill(cocos2d::Ref* target, TweenPropType propType, bool complete)
     fairygui::GTween::kill(arg1, (fairygui::TweenPropType)arg2, arg3);
 
-    // inject code 
-    {
-        olua_getstore(L, "fui.GTween");
-        olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
-        lua_pop(L, 1);
-    }
+    // inject code after call
+    olua_getstore(L, "fui.GTween");
+    olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
+    lua_pop(L, 1);
 
     return 0;
 }
@@ -2867,10 +2845,8 @@ static int _fairygui_GTween_clean(lua_State *L)
     // static void clean()
     fairygui::GTween::clean();
 
-    // inject code 
-    {
-        olua_unrefall(L, 1, "tweeners");
-    }
+    // inject code after call
+    olua_unrefall(L, 1, "tweeners");
 
     return 0;
 }
@@ -3633,10 +3609,8 @@ static int _fairygui_GController_getParent(lua_State *L)
     fairygui::GComponent *ret = (fairygui::GComponent *)self->getParent();
     int num_ret = olua_push_cppobj<fairygui::GComponent>(L, ret, "fui.GComponent");
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "parent", -1);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "parent", -1);
 
     return num_ret;
 }
@@ -3654,10 +3628,8 @@ static int _fairygui_GController_setParent(lua_State *L)
     // void setParent(@singleref(parent) GComponent* value)
     self->setParent(arg1);
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "parent", 2);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "parent", 2);
 
     return 0;
 }
@@ -4266,11 +4238,9 @@ static int _fairygui_GObject_center(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.GObject");
     olua_opt_bool(L, 2, &arg1, (bool)false);
 
-    // inject code 
-    {
-        if (!self->getParent() && !fairygui::UIRoot) {
-            luaL_error(L, "UIRoot and parent is nullptr");
-        }
+    // inject code before call
+    if (!self->getParent() && !fairygui::UIRoot) {
+        luaL_error(L, "UIRoot and parent is nullptr");
     }
 
     // void center(bool restraint = false)
@@ -4287,11 +4257,9 @@ static int _fairygui_GObject_makeFullScreen(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GObject");
 
-    // inject code 
-    {
-        if (!fairygui::UIRoot) {
-            luaL_error(L, "UIRoot is nullptr");
-        }
+    // inject code before call
+    if (!fairygui::UIRoot) {
+        luaL_error(L, "UIRoot is nullptr");
     }
 
     // void makeFullScreen()
@@ -4705,10 +4673,8 @@ static int _fairygui_GObject_getGroup(lua_State *L)
     fairygui::GGroup *ret = (fairygui::GGroup *)self->getGroup();
     int num_ret = olua_push_cppobj<fairygui::GGroup>(L, ret, "fui.GGroup");
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "group", -1);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "group", -1);
 
     return num_ret;
 }
@@ -4726,10 +4692,8 @@ static int _fairygui_GObject_setGroup(lua_State *L)
     // void setGroup(@singleref(group) GGroup* value)
     self->setGroup(arg1);
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "group", 2);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "group", 2);
 
     return 0;
 }
@@ -5415,10 +5379,8 @@ static int _fairygui_GObject_displayObject(lua_State *L)
     cocos2d::Node *ret = (cocos2d::Node *)self->displayObject();
     int num_ret = olua_push_cppobj<cocos2d::Node>(L, ret, "cc.Node");
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "displayObject", -1);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "displayObject", -1);
 
     return num_ret;
 }
@@ -5961,10 +5923,8 @@ static int _fairygui_GComponent_addChild(lua_State *L)
     fairygui::GObject *ret = (fairygui::GObject *)self->addChild(arg1);
     int num_ret = olua_push_cppobj<fairygui::GObject>(L, ret, "fui.GObject");
 
-    // inject code 
-    {
-        olua_mapref(L, 1, "children", 2);
-    }
+    // inject code after call
+    olua_mapref(L, 1, "children", 2);
 
     return num_ret;
 }
@@ -5981,21 +5941,17 @@ static int _fairygui_GComponent_addChildAt(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.GObject");
     olua_check_int(L, 3, &arg2);
 
-    // inject code 
-    {
-        if (!(arg2 >= 0 && arg2 <= self->numChildren())) {
-            luaL_error(L, "index out of range");
-        }
+    // inject code before call
+    if (!(arg2 >= 0 && arg2 <= self->numChildren())) {
+        luaL_error(L, "index out of range");
     }
 
     // GObject* addChildAt(GObject* child, int index)
     fairygui::GObject *ret = (fairygui::GObject *)self->addChildAt(arg1, (int)arg2);
     int num_ret = olua_push_cppobj<fairygui::GObject>(L, ret, "fui.GObject");
 
-    // inject code 
-    {
-        olua_mapref(L, 1, "children", 2);
-    }
+    // inject code after call
+    olua_mapref(L, 1, "children", 2);
 
     return num_ret;
 }
@@ -6013,10 +5969,8 @@ static int _fairygui_GComponent_removeChild(lua_State *L)
     // void removeChild(GObject * child)
     self->removeChild(arg1);
 
-    // inject code 
-    {
-        olua_mapunref(L, 1, "children", 2);
-    }
+    // inject code after call
+    olua_mapunref(L, 1, "children", 2);
 
     return 0;
 }
@@ -6031,16 +5985,14 @@ static int _fairygui_GComponent_removeChildAt(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.GComponent");
     olua_check_int(L, 2, &arg1);
 
-    // inject code 
-    {
-        if (!(arg1 >= 0 && arg1 < self->numChildren())) {
-            luaL_error(L, "index out of range");
-        }
-        fairygui::GObject *child = self->getChildAt((int)arg1);
-        if (olua_getobj(L, child)) {
-            olua_mapunref(L, 1, "children", -1);
-            lua_pop(L, 1);
-        }
+    // inject code before call
+    if (!(arg1 >= 0 && arg1 < self->numChildren())) {
+        luaL_error(L, "index out of range");
+    }
+    fairygui::GObject *child = self->getChildAt((int)arg1);
+    if (olua_getobj(L, child)) {
+        olua_mapunref(L, 1, "children", -1);
+        lua_pop(L, 1);
     }
 
     // void removeChildAt(int index)
@@ -6057,28 +6009,24 @@ static int _fairygui_GComponent_removeChildren1(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GComponent");
 
-    // inject code 
-    {
-        if (lua_gettop(L) == 3) {
-            int arg1 = (int)olua_checkinteger(L, 2);
-            int arg2 = (int)olua_checkinteger(L, 3);
-            if (!(arg1 >= 0 && arg1 < self->numChildren())) {
-                luaL_error(L, "beginIndex index out of range");
-            }
-            if (!(arg2 == -1 || (arg2 >= 0 && arg2 < self->numChildren()))) {
-                luaL_error(L, "endIndex index out of range");
-            }
+    // inject code before call
+    if (lua_gettop(L) == 3) {
+        int arg1 = (int)olua_checkinteger(L, 2);
+        int arg2 = (int)olua_checkinteger(L, 3);
+        if (!(arg1 >= 0 && arg1 < self->numChildren())) {
+            luaL_error(L, "beginIndex index out of range");
         }
-        xlua_startcmpunref(L, 1, "children");
+        if (!(arg2 == -1 || (arg2 >= 0 && arg2 < self->numChildren()))) {
+            luaL_error(L, "endIndex index out of range");
+        }
     }
+    xlua_startcmpunref(L, 1, "children");
 
     // void removeChildren()
     self->removeChildren();
 
-    // inject code 
-    {
-        xlua_endcmpunref(L, 1, "children");
-    }
+    // inject code after call
+    xlua_endcmpunref(L, 1, "children");
 
     return 0;
 }
@@ -6095,28 +6043,24 @@ static int _fairygui_GComponent_removeChildren2(lua_State *L)
     olua_check_int(L, 2, &arg1);
     olua_check_int(L, 3, &arg2);
 
-    // inject code 
-    {
-        if (lua_gettop(L) == 3) {
-            int arg1 = (int)olua_checkinteger(L, 2);
-            int arg2 = (int)olua_checkinteger(L, 3);
-            if (!(arg1 >= 0 && arg1 < self->numChildren())) {
-                luaL_error(L, "beginIndex index out of range");
-            }
-            if (!(arg2 == -1 || (arg2 >= 0 && arg2 < self->numChildren()))) {
-                luaL_error(L, "endIndex index out of range");
-            }
+    // inject code before call
+    if (lua_gettop(L) == 3) {
+        int arg1 = (int)olua_checkinteger(L, 2);
+        int arg2 = (int)olua_checkinteger(L, 3);
+        if (!(arg1 >= 0 && arg1 < self->numChildren())) {
+            luaL_error(L, "beginIndex index out of range");
         }
-        xlua_startcmpunref(L, 1, "children");
+        if (!(arg2 == -1 || (arg2 >= 0 && arg2 < self->numChildren()))) {
+            luaL_error(L, "endIndex index out of range");
+        }
     }
+    xlua_startcmpunref(L, 1, "children");
 
     // void removeChildren(int beginIndex, int endIndex)
     self->removeChildren((int)arg1, (int)arg2);
 
-    // inject code 
-    {
-        xlua_endcmpunref(L, 1, "children");
-    }
+    // inject code after call
+    xlua_endcmpunref(L, 1, "children");
 
     return 0;
 }
@@ -6150,21 +6094,17 @@ static int _fairygui_GComponent_getChildAt(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.GComponent");
     olua_check_int(L, 2, &arg1);
 
-    // inject code 
-    {
-        if (!(arg1 >= 0 && arg1 < self->numChildren())) {
-            luaL_error(L, "index out of range");
-        }
+    // inject code before call
+    if (!(arg1 >= 0 && arg1 < self->numChildren())) {
+        luaL_error(L, "index out of range");
     }
 
     // GObject * getChildAt(int index)
     fairygui::GObject *ret = (fairygui::GObject *)self->getChildAt((int)arg1);
     int num_ret = olua_push_cppobj<fairygui::GObject>(L, ret, "fui.GObject");
 
-    // inject code 
-    {
-        olua_mapref(L, 1, "children", -1);
-    }
+    // inject code after call
+    olua_mapref(L, 1, "children", -1);
 
     return num_ret;
 }
@@ -6183,10 +6123,8 @@ static int _fairygui_GComponent_getChild(lua_State *L)
     fairygui::GObject *ret = (fairygui::GObject *)self->getChild(arg1);
     int num_ret = olua_push_cppobj<fairygui::GObject>(L, ret, "fui.GObject");
 
-    // inject code 
-    {
-        olua_mapref(L, 1, "children", -1);
-    }
+    // inject code after call
+    olua_mapref(L, 1, "children", -1);
 
     return num_ret;
 }
@@ -6207,10 +6145,8 @@ static int _fairygui_GComponent_getChildInGroup(lua_State *L)
     fairygui::GObject *ret = (fairygui::GObject *)self->getChildInGroup(arg1, arg2);
     int num_ret = olua_push_cppobj<fairygui::GObject>(L, ret, "fui.GObject");
 
-    // inject code 
-    {
-        olua_mapref(L, 1, "children", -1);
-    }
+    // inject code after call
+    olua_mapref(L, 1, "children", -1);
 
     return num_ret;
 }
@@ -6229,10 +6165,8 @@ static int _fairygui_GComponent_getChildById(lua_State *L)
     fairygui::GObject *ret = (fairygui::GObject *)self->getChildById(arg1);
     int num_ret = olua_push_cppobj<fairygui::GObject>(L, ret, "fui.GObject");
 
-    // inject code 
-    {
-        olua_mapref(L, 1, "children", -1);
-    }
+    // inject code after call
+    olua_mapref(L, 1, "children", -1);
 
     return num_ret;
 }
@@ -6249,10 +6183,8 @@ static int _fairygui_GComponent_getChildren(lua_State *L)
     const cocos2d::Vector<fairygui::GObject *> &ret = (const cocos2d::Vector<fairygui::GObject *> &)self->getChildren();
     int num_ret = manual_luacv_push_cocos2d_Vector(L, ret, "fui.GObject");
 
-    // inject code 
-    {
-        olua_maprefarray(L, 1, "children", -1);
-    }
+    // inject code after call
+    olua_maprefarray(L, 1, "children", -1);
 
     return num_ret;
 }
@@ -6437,21 +6369,17 @@ static int _fairygui_GComponent_getControllerAt(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.GComponent");
     olua_check_int(L, 2, &arg1);
 
-    // inject code 
-    {
-        if (!(arg1 >= 0 && arg1 < self->getControllers().size())) {
-            luaL_error(L, "index out of range");
-        }
+    // inject code before call
+    if (!(arg1 >= 0 && arg1 < self->getControllers().size())) {
+        luaL_error(L, "index out of range");
     }
 
     // GController* getControllerAt(int index)
     fairygui::GController *ret = (fairygui::GController *)self->getControllerAt((int)arg1);
     int num_ret = olua_push_cppobj<fairygui::GController>(L, ret, "fui.GController");
 
-    // inject code 
-    {
-        olua_mapref(L, 1, "controllers", -1);
-    }
+    // inject code after call
+    olua_mapref(L, 1, "controllers", -1);
 
     return num_ret;
 }
@@ -6470,10 +6398,8 @@ static int _fairygui_GComponent_getController(lua_State *L)
     fairygui::GController *ret = (fairygui::GController *)self->getController(arg1);
     int num_ret = olua_push_cppobj<fairygui::GController>(L, ret, "fui.GController");
 
-    // inject code 
-    {
-        olua_mapref(L, 1, "controllers", -1);
-    }
+    // inject code after call
+    olua_mapref(L, 1, "controllers", -1);
 
     return num_ret;
 }
@@ -6490,10 +6416,8 @@ static int _fairygui_GComponent_getControllers(lua_State *L)
     const cocos2d::Vector<fairygui::GController *> &ret = (const cocos2d::Vector<fairygui::GController *> &)self->getControllers();
     int num_ret = manual_luacv_push_cocos2d_Vector(L, ret, "fui.GController");
 
-    // inject code 
-    {
-        olua_maprefarray(L, 1, "controllers", -1);
-    }
+    // inject code after call
+    olua_maprefarray(L, 1, "controllers", -1);
 
     return num_ret;
 }
@@ -6511,10 +6435,8 @@ static int _fairygui_GComponent_removeController(lua_State *L)
     // void removeController(GController* c)
     self->removeController(arg1);
 
-    // inject code 
-    {
-        olua_mapunref(L, 1, "controllers", 2);
-    }
+    // inject code after call
+    olua_mapunref(L, 1, "controllers", 2);
 
     return 0;
 }
@@ -6563,10 +6485,8 @@ static int _fairygui_GComponent_getTransition(lua_State *L)
     fairygui::Transition *ret = (fairygui::Transition *)self->getTransition(arg1);
     int num_ret = olua_push_cppobj<fairygui::Transition>(L, ret, "fui.Transition");
 
-    // inject code 
-    {
-        olua_mapref(L, 1, "transitions", -1);
-    }
+    // inject code after call
+    olua_mapref(L, 1, "transitions", -1);
 
     return num_ret;
 }
@@ -6581,21 +6501,17 @@ static int _fairygui_GComponent_getTransitionAt(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.GComponent");
     olua_check_int(L, 2, &arg1);
 
-    // inject code 
-    {
-        if (!(arg1 >= 0 && arg1 < self->getTransitions().size())) {
-            luaL_error(L, "index out of range");
-        }
+    // inject code before call
+    if (!(arg1 >= 0 && arg1 < self->getTransitions().size())) {
+        luaL_error(L, "index out of range");
     }
 
     // Transition* getTransitionAt(int index)
     fairygui::Transition *ret = (fairygui::Transition *)self->getTransitionAt((int)arg1);
     int num_ret = olua_push_cppobj<fairygui::Transition>(L, ret, "fui.Transition");
 
-    // inject code 
-    {
-        olua_mapref(L, 1, "transitions", -1);
-    }
+    // inject code after call
+    olua_mapref(L, 1, "transitions", -1);
 
     return num_ret;
 }
@@ -6612,10 +6528,8 @@ static int _fairygui_GComponent_getTransitions(lua_State *L)
     const cocos2d::Vector<fairygui::Transition *> &ret = (const cocos2d::Vector<fairygui::Transition *> &)self->getTransitions();
     int num_ret = manual_luacv_push_cocos2d_Vector(L, ret, "fui.Transition");
 
-    // inject code 
-    {
-        olua_maprefarray(L, 1, "transitions", -1);
-    }
+    // inject code after call
+    olua_maprefarray(L, 1, "transitions", -1);
 
     return num_ret;
 }
@@ -6756,10 +6670,8 @@ static int _fairygui_GComponent_getMask(lua_State *L)
     cocos2d::Node *ret = (cocos2d::Node *)self->getMask();
     int num_ret = olua_push_cppobj<cocos2d::Node>(L, ret, "cc.Node");
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "mask", -1);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "mask", -1);
 
     return num_ret;
 }
@@ -6779,10 +6691,8 @@ static int _fairygui_GComponent_setMask(lua_State *L)
     // void setMask(@singleref(mask) cocos2d::Node* value, bool inverted = false)
     self->setMask(arg1, arg2);
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "mask", 2);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "mask", 2);
 
     return 0;
 }
@@ -7028,13 +6938,11 @@ static int _fairygui_GRoot_create(lua_State *L)
     fairygui::GRoot *ret = (fairygui::GRoot *)fairygui::GRoot::create(arg1, (int)arg2);
     int num_ret = olua_push_cppobj<fairygui::GRoot>(L, ret, "fui.GRoot");
 
-    // inject code 
-    {
-        olua_push_cppobj<cocos2d::Node>(L, ret->displayObject(), "cc.Node");
-        olua_singleref(L, -1, "fui.root", -2);
-        olua_mapref(L, 1, "children", -1);
-        lua_pop(L, 1);
-    }
+    // inject code after call
+    olua_push_cppobj<cocos2d::Node>(L, ret->displayObject(), "cc.Node");
+    olua_singleref(L, -1, "fui.root", -2);
+    olua_mapref(L, 1, "children", -1);
+    lua_pop(L, 1);
 
     return num_ret;
 }
@@ -7060,19 +6968,15 @@ static int _fairygui_GRoot_showWindow(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.GRoot");
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.Window");
 
-    // inject code 
-    {
-        xlua_startcmpunref(L, 1, "children");
-    }
+    // inject code before call
+    xlua_startcmpunref(L, 1, "children");
 
     // void showWindow(Window* win)
     self->showWindow(arg1);
 
-    // inject code 
-    {
-        olua_mapref(L, 1, "children", 2);
-        xlua_endcmpunref(L, 1, "children");
-    }
+    // inject code after call
+    olua_mapref(L, 1, "children", 2);
+    xlua_endcmpunref(L, 1, "children");
 
     return 0;
 }
@@ -7087,24 +6991,20 @@ static int _fairygui_GRoot_hideWindow(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.GRoot");
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.Window");
 
-    // inject code 
-    {
-        if (arg1->getParent()) {
-            olua_push_cppobj<fairygui::GComponent>(L, arg1->getParent(), "fui.GComponent");
-            xlua_startcmpunref(L, -1, "children");
-        } else {
-            lua_pushnil(L);
-        }
+    // inject code before call
+    if (arg1->getParent()) {
+        olua_push_cppobj<fairygui::GComponent>(L, arg1->getParent(), "fui.GComponent");
+        xlua_startcmpunref(L, -1, "children");
+    } else {
+        lua_pushnil(L);
     }
 
     // void hideWindow(Window* win)
     self->hideWindow(arg1);
 
-    // inject code 
-    {
-        if (!olua_isnil(L, -1)) {
-            xlua_endcmpunref(L, -1, "children");
-        }
+    // inject code after call
+    if (!olua_isnil(L, -1)) {
+        xlua_endcmpunref(L, -1, "children");
     }
 
     return 0;
@@ -7120,24 +7020,20 @@ static int _fairygui_GRoot_hideWindowImmediately(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.GRoot");
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.Window");
 
-    // inject code 
-    {
-        if (arg1->getParent()) {
-            olua_push_cppobj<fairygui::GComponent>(L, arg1->getParent(), "fui.GComponent");
-            xlua_startcmpunref(L, -1, "children");
-        } else {
-            lua_pushnil(L);
-        }
+    // inject code before call
+    if (arg1->getParent()) {
+        olua_push_cppobj<fairygui::GComponent>(L, arg1->getParent(), "fui.GComponent");
+        xlua_startcmpunref(L, -1, "children");
+    } else {
+        lua_pushnil(L);
     }
 
     // void hideWindowImmediately(Window* win)
     self->hideWindowImmediately(arg1);
 
-    // inject code 
-    {
-        if (!olua_isnil(L, -1)) {
-            xlua_endcmpunref(L, -1, "children");
-        }
+    // inject code after call
+    if (!olua_isnil(L, -1)) {
+        xlua_endcmpunref(L, -1, "children");
     }
 
     return 0;
@@ -7227,10 +7123,8 @@ static int _fairygui_GRoot_getTopWindow(lua_State *L)
     fairygui::Window *ret = (fairygui::Window *)self->getTopWindow();
     int num_ret = olua_push_cppobj<fairygui::Window>(L, ret, "fui.Window");
 
-    // inject code 
-    {
-        olua_mapref(L, 1, "children", -1);
-    }
+    // inject code after call
+    olua_mapref(L, 1, "children", -1);
 
     return num_ret;
 }
@@ -7247,10 +7141,8 @@ static int _fairygui_GRoot_getModalWaitingPane(lua_State *L)
     fairygui::GObject *ret = (fairygui::GObject *)self->getModalWaitingPane();
     int num_ret = olua_push_cppobj<fairygui::GObject>(L, ret, "fui.GObject");
 
-    // inject code 
-    {
-        olua_mapref(L, 1, "children", -1);
-    }
+    // inject code after call
+    olua_mapref(L, 1, "children", -1);
 
     return num_ret;
 }
@@ -7267,10 +7159,8 @@ static int _fairygui_GRoot_getModalLayer(lua_State *L)
     fairygui::GGraph *ret = (fairygui::GGraph *)self->getModalLayer();
     int num_ret = olua_push_cppobj<fairygui::GGraph>(L, ret, "fui.GGraph");
 
-    // inject code 
-    {
-        olua_mapref(L, 1, "children", -1);
-    }
+    // inject code after call
+    olua_mapref(L, 1, "children", -1);
 
     return num_ret;
 }
@@ -7362,13 +7252,15 @@ static int _fairygui_GRoot_showPopup1(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.GRoot");
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.GObject");
 
+    // inject code before call
+    xlua_startcmpunref(L, 1, "children");
+
     // void showPopup(GObject* popup)
     self->showPopup(arg1);
 
-    // inject code 
-    {
-        olua_mapref(L, 1, "children", 2);
-    }
+    // inject code after call
+    olua_mapref(L, 1, "children", 2);
+    xlua_endcmpunref(L, 1, "children");
 
     return 0;
 }
@@ -7387,13 +7279,15 @@ static int _fairygui_GRoot_showPopup2(lua_State *L)
     olua_check_cppobj(L, 3, (void **)&arg2, "fui.GObject");
     olua_check_uint(L, 4, &arg3);
 
+    // inject code before call
+    xlua_startcmpunref(L, 1, "children");
+
     // void showPopup(GObject* popup, GObject* target, PopupDirection dir)
     self->showPopup(arg1, arg2, (fairygui::PopupDirection)arg3);
 
-    // inject code 
-    {
-        olua_mapref(L, 1, "children", 2);
-    }
+    // inject code after call
+    olua_mapref(L, 1, "children", 2);
+    xlua_endcmpunref(L, 1, "children");
 
     return 0;
 }
@@ -7429,13 +7323,15 @@ static int _fairygui_GRoot_togglePopup1(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.GRoot");
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.GObject");
 
+    // inject code before call
+    xlua_startcmpunref(L, 1, "children");
+
     // void togglePopup(GObject* popup)
     self->togglePopup(arg1);
 
-    // inject code 
-    {
-        olua_mapref(L, 1, "children", 2);
-    }
+    // inject code after call
+    olua_mapref(L, 1, "children", 2);
+    xlua_endcmpunref(L, 1, "children");
 
     return 0;
 }
@@ -7454,13 +7350,15 @@ static int _fairygui_GRoot_togglePopup2(lua_State *L)
     olua_check_cppobj(L, 3, (void **)&arg2, "fui.GObject");
     olua_check_uint(L, 4, &arg3);
 
+    // inject code before call
+    xlua_startcmpunref(L, 1, "children");
+
     // void togglePopup(GObject* popup, GObject* target, PopupDirection dir)
     self->togglePopup(arg1, arg2, (fairygui::PopupDirection)arg3);
 
-    // inject code 
-    {
-        olua_mapref(L, 1, "children", 2);
-    }
+    // inject code after call
+    olua_mapref(L, 1, "children", 2);
+    xlua_endcmpunref(L, 1, "children");
 
     return 0;
 }
@@ -7494,18 +7392,14 @@ static int _fairygui_GRoot_hidePopup1(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GRoot");
 
-    // inject code 
-    {
-        xlua_startcmpunref(L, 1, "children");
-    }
+    // inject code before call
+    xlua_startcmpunref(L, 1, "children");
 
     // void hidePopup()
     self->hidePopup();
 
-    // inject code 
-    {
-        xlua_endcmpunref(L, 1, "children");
-    }
+    // inject code after call
+    xlua_endcmpunref(L, 1, "children");
 
     return 0;
 }
@@ -7520,18 +7414,14 @@ static int _fairygui_GRoot_hidePopup2(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.GRoot");
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.GObject");
 
-    // inject code 
-    {
-        xlua_startcmpunref(L, 1, "children");
-    }
+    // inject code before call
+    xlua_startcmpunref(L, 1, "children");
 
     // void hidePopup(GObject* popup)
     self->hidePopup(arg1);
 
-    // inject code 
-    {
-        xlua_endcmpunref(L, 1, "children");
-    }
+    // inject code after call
+    xlua_endcmpunref(L, 1, "children");
 
     return 0;
 }
@@ -8526,10 +8416,8 @@ static int _fairygui_GLoader_getComponent(lua_State *L)
     fairygui::GComponent *ret = (fairygui::GComponent *)self->getComponent();
     int num_ret = olua_push_cppobj<fairygui::GComponent>(L, ret, "fui.GComponent");
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "component", -1);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "component", -1);
 
     return num_ret;
 }
@@ -9243,10 +9131,8 @@ static int _fairygui_GButton_getRelatedController(lua_State *L)
     fairygui::GController *ret = (fairygui::GController *)self->getRelatedController();
     int num_ret = olua_push_cppobj<fairygui::GController>(L, ret, "fui.GController");
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "relatedController", -1);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "relatedController", -1);
 
     return num_ret;
 }
@@ -9264,10 +9150,8 @@ static int _fairygui_GButton_setRelatedController(lua_State *L)
     // void setRelatedController(@singleref(relatedController) GController* c)
     self->setRelatedController(arg1);
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "relatedController", 2);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "relatedController", 2);
 
     return 0;
 }
@@ -9315,10 +9199,8 @@ static int _fairygui_GButton_getTextField(lua_State *L)
     fairygui::GTextField *ret = (fairygui::GTextField *)self->getTextField();
     int num_ret = olua_push_cppobj<fairygui::GTextField>(L, ret, "fui.GTextField");
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "textField", -1);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "textField", -1);
 
     return num_ret;
 }
@@ -9702,10 +9584,8 @@ static int _fairygui_GLabel_getTextField(lua_State *L)
     fairygui::GTextField *ret = (fairygui::GTextField *)self->getTextField();
     int num_ret = olua_push_cppobj<fairygui::GTextField>(L, ret, "fui.GTextField");
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "textField", -1);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "textField", -1);
 
     return num_ret;
 }
@@ -10132,10 +10012,8 @@ static int _fairygui_GList_addItemFromPool1(lua_State *L)
     fairygui::GObject *ret = (fairygui::GObject *)self->addItemFromPool();
     int num_ret = olua_push_cppobj<fairygui::GObject>(L, ret, "fui.GObject");
 
-    // inject code 
-    {
-        olua_mapref(L, 1, "children", -1);
-    }
+    // inject code after call
+    olua_mapref(L, 1, "children", -1);
 
     return num_ret;
 }
@@ -10154,10 +10032,8 @@ static int _fairygui_GList_addItemFromPool2(lua_State *L)
     fairygui::GObject *ret = (fairygui::GObject *)self->addItemFromPool(arg1);
     int num_ret = olua_push_cppobj<fairygui::GObject>(L, ret, "fui.GObject");
 
-    // inject code 
-    {
-        olua_mapref(L, 1, "children", -1);
-    }
+    // inject code after call
+    olua_mapref(L, 1, "children", -1);
 
     return num_ret;
 }
@@ -10191,16 +10067,14 @@ static int _fairygui_GList_removeChildToPoolAt(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.GList");
     olua_check_int(L, 2, &arg1);
 
-    // inject code 
-    {
-        if (!(arg1 >= 0 && arg1 < self->numChildren())) {
-            luaL_error(L, "index out of range");
-        }
-        fairygui::GObject *child = self->getChildAt((int)arg1);
-        if (olua_getobj(L, child)) {
-            olua_mapunref(L, 1, "children", -1);
-            lua_pop(L, 1);
-        }
+    // inject code before call
+    if (!(arg1 >= 0 && arg1 < self->numChildren())) {
+        luaL_error(L, "index out of range");
+    }
+    fairygui::GObject *child = self->getChildAt((int)arg1);
+    if (olua_getobj(L, child)) {
+        olua_mapunref(L, 1, "children", -1);
+        lua_pop(L, 1);
     }
 
     // void removeChildToPoolAt(int index)
@@ -10222,10 +10096,8 @@ static int _fairygui_GList_removeChildToPool(lua_State *L)
     // void removeChildToPool(GObject *child)
     self->removeChildToPool(arg1);
 
-    // inject code 
-    {
-        olua_mapunref(L, 1, "children", 2);
-    }
+    // inject code after call
+    olua_mapunref(L, 1, "children", 2);
 
     return 0;
 }
@@ -10238,28 +10110,24 @@ static int _fairygui_GList_removeChildrenToPool1(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GList");
 
-    // inject code 
-    {
-        if (lua_gettop(L) == 3) {
-            int arg1 = (int)olua_checkinteger(L, 2);
-            int arg2 = (int)olua_checkinteger(L, 3);
-            if (!(arg1 >= 0 && arg1 < self->numChildren())) {
-                luaL_error(L, "beginIndex index out of range");
-            }
-            if (!(arg2 == -1 || (arg2 >= 0 && arg2 < self->numChildren()))) {
-                luaL_error(L, "endIndex index out of range");
-            }
+    // inject code before call
+    if (lua_gettop(L) == 3) {
+        int arg1 = (int)olua_checkinteger(L, 2);
+        int arg2 = (int)olua_checkinteger(L, 3);
+        if (!(arg1 >= 0 && arg1 < self->numChildren())) {
+            luaL_error(L, "beginIndex index out of range");
         }
-        xlua_startcmpunref(L, 1, "children");
+        if (!(arg2 == -1 || (arg2 >= 0 && arg2 < self->numChildren()))) {
+            luaL_error(L, "endIndex index out of range");
+        }
     }
+    xlua_startcmpunref(L, 1, "children");
 
     // void removeChildrenToPool()
     self->removeChildrenToPool();
 
-    // inject code 
-    {
-        xlua_endcmpunref(L, 1, "children");
-    }
+    // inject code after call
+    xlua_endcmpunref(L, 1, "children");
 
     return 0;
 }
@@ -10276,28 +10144,24 @@ static int _fairygui_GList_removeChildrenToPool2(lua_State *L)
     olua_check_int(L, 2, &arg1);
     olua_check_int(L, 3, &arg2);
 
-    // inject code 
-    {
-        if (lua_gettop(L) == 3) {
-            int arg1 = (int)olua_checkinteger(L, 2);
-            int arg2 = (int)olua_checkinteger(L, 3);
-            if (!(arg1 >= 0 && arg1 < self->numChildren())) {
-                luaL_error(L, "beginIndex index out of range");
-            }
-            if (!(arg2 == -1 || (arg2 >= 0 && arg2 < self->numChildren()))) {
-                luaL_error(L, "endIndex index out of range");
-            }
+    // inject code before call
+    if (lua_gettop(L) == 3) {
+        int arg1 = (int)olua_checkinteger(L, 2);
+        int arg2 = (int)olua_checkinteger(L, 3);
+        if (!(arg1 >= 0 && arg1 < self->numChildren())) {
+            luaL_error(L, "beginIndex index out of range");
         }
-        xlua_startcmpunref(L, 1, "children");
+        if (!(arg2 == -1 || (arg2 >= 0 && arg2 < self->numChildren()))) {
+            luaL_error(L, "endIndex index out of range");
+        }
     }
+    xlua_startcmpunref(L, 1, "children");
 
     // void removeChildrenToPool(int beginIndex, int endIndex)
     self->removeChildrenToPool((int)arg1, (int)arg2);
 
-    // inject code 
-    {
-        xlua_endcmpunref(L, 1, "children");
-    }
+    // inject code after call
+    xlua_endcmpunref(L, 1, "children");
 
     return 0;
 }
@@ -10556,10 +10420,8 @@ static int _fairygui_GList_getSelectionController(lua_State *L)
     fairygui::GController *ret = (fairygui::GController *)self->getSelectionController();
     int num_ret = olua_push_cppobj<fairygui::GController>(L, ret, "fui.GController");
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "selectionController", -1);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "selectionController", -1);
 
     return num_ret;
 }
@@ -10577,10 +10439,8 @@ static int _fairygui_GList_setSelectionController(lua_State *L)
     // void setSelectionController(@singleref(selectionController) GController* value)
     self->setSelectionController(arg1);
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "selectionController", 2);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "selectionController", 2);
 
     return 0;
 }
@@ -10593,8 +10453,14 @@ static int _fairygui_GList_setVirtual(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GList");
 
+    // inject code before call
+    xlua_startcmpunref(L, 1, "children");
+
     // void setVirtual()
     self->setVirtual();
+
+    // inject code after call
+    xlua_endcmpunref(L, 1, "children");
 
     return 0;
 }
@@ -10607,8 +10473,14 @@ static int _fairygui_GList_setVirtualAndLoop(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GList");
 
+    // inject code before call
+    xlua_startcmpunref(L, 1, "children");
+
     // void setVirtualAndLoop()
     self->setVirtualAndLoop();
+
+    // inject code after call
+    xlua_endcmpunref(L, 1, "children");
 
     return 0;
 }
@@ -10667,8 +10539,14 @@ static int _fairygui_GList_setNumItems(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.GList");
     olua_check_int(L, 2, &arg1);
 
+    // inject code before call
+    xlua_startcmpunref(L, 1, "children");
+
     // void setNumItems(int value)
     self->setNumItems((int)arg1);
+
+    // inject code after call
+    xlua_endcmpunref(L, 1, "children");
 
     return 0;
 }
@@ -11514,10 +11392,8 @@ static int _fairygui_GComboBox_getSelectionController(lua_State *L)
     fairygui::GController *ret = (fairygui::GController *)self->getSelectionController();
     int num_ret = olua_push_cppobj<fairygui::GController>(L, ret, "fui.GController");
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "selectionController", -1);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "selectionController", -1);
 
     return num_ret;
 }
@@ -11535,10 +11411,8 @@ static int _fairygui_GComboBox_setSelectionController(lua_State *L)
     // void setSelectionController(@singleref(selectionController) GController* value)
     self->setSelectionController(arg1);
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "selectionController", 2);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "selectionController", 2);
 
     return 0;
 }
@@ -11618,10 +11492,8 @@ static int _fairygui_GComboBox_getDropdown(lua_State *L)
     fairygui::GObject *ret = (fairygui::GObject *)self->getDropdown();
     int num_ret = olua_push_cppobj<fairygui::GObject>(L, ret, "fui.GObject");
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "dropdown", -1);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "dropdown", -1);
 
     return num_ret;
 }
@@ -11652,10 +11524,8 @@ static int _fairygui_GComboBox_getTextField(lua_State *L)
     fairygui::GTextField *ret = (fairygui::GTextField *)self->getTextField();
     int num_ret = olua_push_cppobj<fairygui::GTextField>(L, ret, "fui.GTextField");
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "textField", -1);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "textField", -1);
 
     return num_ret;
 }
@@ -12210,20 +12080,16 @@ static int _fairygui_PopupMenu_removeItem(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.PopupMenu");
     olua_check_std_string(L, 2, &arg1);
 
-    // inject code 
-    {
-        olua_push_cppobj<fairygui::GList>(L, self->getList(), "fui.GList");
-        xlua_startcmpunref(L, -1, "children");
-    }
+    // inject code before call
+    olua_push_cppobj<fairygui::GList>(L, self->getList(), "fui.GList");
+    xlua_startcmpunref(L, -1, "children");
 
     // bool removeItem(const std::string& name)
     bool ret = (bool)self->removeItem(arg1);
     int num_ret = olua_push_bool(L, ret);
 
-    // inject code 
-    {
-        xlua_endcmpunref(L, -1, "children");
-    }
+    // inject code after call
+    xlua_endcmpunref(L, -1, "children");
 
     return num_ret;
 }
@@ -12236,19 +12102,15 @@ static int _fairygui_PopupMenu_clearItems(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.PopupMenu");
 
-    // inject code 
-    {
-        olua_push_cppobj<fairygui::GList>(L, self->getList(), "fui.GList");
-        xlua_startcmpunref(L, -1, "children");
-    }
+    // inject code before call
+    olua_push_cppobj<fairygui::GList>(L, self->getList(), "fui.GList");
+    xlua_startcmpunref(L, -1, "children");
 
     // void clearItems()
     self->clearItems();
 
-    // inject code 
-    {
-        xlua_endcmpunref(L, -1, "children");
-    }
+    // inject code after call
+    xlua_endcmpunref(L, -1, "children");
 
     return 0;
 }
@@ -12280,10 +12142,8 @@ static int _fairygui_PopupMenu_getContentPane(lua_State *L)
     fairygui::GComponent *ret = (fairygui::GComponent *)self->getContentPane();
     int num_ret = olua_push_cppobj<fairygui::GComponent>(L, ret, "fui.GComponent");
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "contentPane", -1);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "contentPane", -1);
 
     return num_ret;
 }
@@ -12300,10 +12160,8 @@ static int _fairygui_PopupMenu_getList(lua_State *L)
     fairygui::GList *ret = (fairygui::GList *)self->getList();
     int num_ret = olua_push_cppobj<fairygui::GList>(L, ret, "fui.GList");
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "list", -1);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "list", -1);
 
     return num_ret;
 }
@@ -12319,17 +12177,16 @@ static int _fairygui_PopupMenu_show1(lua_State *L)
     // void show()
     self->show();
 
-    // inject code 
-    {
-        olua_push_cppobj<fairygui::GComponent>(L, self->getContentPane()->getParent(), "fui.GComponent");
-        olua_mapref(L, -1, "children", -2);
+    // inject code after call
+    olua_push_cppobj<fairygui::GComponent>(L, self->getContentPane()->getParent(), "fui.GComponent");
+    olua_push_cppobj<fairygui::GComponent>(L, self->getContentPane(), "fui.GComponent");
+    olua_mapref(L, -2, "children", -1);
 
-        // check others
-        xlua_startcmpunref(L, -1, "children");
-        xlua_endcmpunref(L, -1, "children");
+    // check others
+    xlua_startcmpunref(L, -2, "children");
+    xlua_endcmpunref(L, -2, "children");
 
-        lua_pop(L, 1);
-    }
+    lua_pop(L, 2);
 
     return 0;
 }
@@ -12349,17 +12206,16 @@ static int _fairygui_PopupMenu_show2(lua_State *L)
     // void show(GObject* target, PopupDirection dir)
     self->show(arg1, (fairygui::PopupDirection)arg2);
 
-    // inject code 
-    {
-        olua_push_cppobj<fairygui::GComponent>(L, self->getContentPane()->getParent(), "fui.GComponent");
-        olua_mapref(L, -1, "children", -2);
+    // inject code after call
+    olua_push_cppobj<fairygui::GComponent>(L, self->getContentPane()->getParent(), "fui.GComponent");
+    olua_push_cppobj<fairygui::GComponent>(L, self->getContentPane(), "fui.GComponent");
+    olua_mapref(L, -2, "children", -1);
 
-        // check others
-        xlua_startcmpunref(L, -1, "children");
-        xlua_endcmpunref(L, -1, "children");
+    // check others
+    xlua_startcmpunref(L, -2, "children");
+    xlua_endcmpunref(L, -2, "children");
 
-        lua_pop(L, 1);
-    }
+    lua_pop(L, 2);
 
     return 0;
 }
@@ -12722,10 +12578,8 @@ static int _fairygui_RelationItem_getTarget(lua_State *L)
     fairygui::GObject *ret = (fairygui::GObject *)self->getTarget();
     int num_ret = olua_push_cppobj<fairygui::GObject>(L, ret, "fui.GObject");
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "target", -1);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "target", -1);
 
     return num_ret;
 }
@@ -12743,10 +12597,8 @@ static int _fairygui_RelationItem_setTarget(lua_State *L)
     // void setTarget(@singleref(target) GObject* value)
     self->setTarget(arg1);
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "target", 2);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "target", 2);
 
     return 0;
 }
@@ -12882,10 +12734,8 @@ static int _fairygui_ScrollPane_getOwner(lua_State *L)
     fairygui::GComponent *ret = (fairygui::GComponent *)self->getOwner();
     int num_ret = olua_push_cppobj<fairygui::GComponent>(L, ret, "fui.GComponent");
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "owner", -1);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "owner", -1);
 
     return num_ret;
 }
@@ -12902,10 +12752,8 @@ static int _fairygui_ScrollPane_getHeader(lua_State *L)
     fairygui::GComponent *ret = (fairygui::GComponent *)self->getHeader();
     int num_ret = olua_push_cppobj<fairygui::GComponent>(L, ret, "fui.GComponent");
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "header", -1);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "header", -1);
 
     return num_ret;
 }
@@ -12922,10 +12770,8 @@ static int _fairygui_ScrollPane_getFooter(lua_State *L)
     fairygui::GComponent *ret = (fairygui::GComponent *)self->getFooter();
     int num_ret = olua_push_cppobj<fairygui::GComponent>(L, ret, "fui.GComponent");
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "footer", -1);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "footer", -1);
 
     return num_ret;
 }
@@ -12942,10 +12788,8 @@ static int _fairygui_ScrollPane_getVtScrollBar(lua_State *L)
     fairygui::GScrollBar *ret = (fairygui::GScrollBar *)self->getVtScrollBar();
     int num_ret = olua_push_cppobj<fairygui::GScrollBar>(L, ret, "fui.GScrollBar");
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "vtScrollBar", -1);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "vtScrollBar", -1);
 
     return num_ret;
 }
@@ -12962,10 +12806,8 @@ static int _fairygui_ScrollPane_getHzScrollBar(lua_State *L)
     fairygui::GScrollBar *ret = (fairygui::GScrollBar *)self->getHzScrollBar();
     int num_ret = olua_push_cppobj<fairygui::GScrollBar>(L, ret, "fui.GScrollBar");
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "hzScrollBar", -1);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "hzScrollBar", -1);
 
     return num_ret;
 }
@@ -13168,10 +13010,8 @@ static int _fairygui_ScrollPane_getPageController(lua_State *L)
     fairygui::GController *ret = (fairygui::GController *)self->getPageController();
     int num_ret = olua_push_cppobj<fairygui::GController>(L, ret, "fui.GController");
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "pageController", -1);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "pageController", -1);
 
     return num_ret;
 }
@@ -13189,10 +13029,8 @@ static int _fairygui_ScrollPane_setPageController(lua_State *L)
     // void setPageController(@singleref(pageController) GController* value)
     self->setPageController(arg1);
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "pageController", 2);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "pageController", 2);
 
     return 0;
 }
@@ -13886,10 +13724,8 @@ static int _fairygui_Transition_getOwner(lua_State *L)
     fairygui::GComponent *ret = (fairygui::GComponent *)self->getOwner();
     int num_ret = olua_push_cppobj<fairygui::GComponent>(L, ret, "fui.GComponent");
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "owner", -1);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "owner", -1);
 
     return num_ret;
 }
@@ -15252,24 +15088,20 @@ static int _fairygui_Window_show(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.Window");
 
-    // inject code 
-    {
-        if (fairygui::UIRoot == nullptr) {
-            luaL_error(L, "UIRoot is nullptr");
-        }
-        olua_push_cppobj<fairygui::GComponent>(L, fairygui::UIRoot, "fui.GComponent");
-        xlua_startcmpunref(L, -1, "children");
+    // inject code before call
+    if (fairygui::UIRoot == nullptr) {
+        luaL_error(L, "UIRoot is nullptr");
     }
+    olua_push_cppobj<fairygui::GComponent>(L, fairygui::UIRoot, "fui.GComponent");
+    xlua_startcmpunref(L, -1, "children");
 
     // void show()
     self->show();
 
-    // inject code 
-    {
-        xlua_endcmpunref(L, -1, "children");
-        olua_mapref(L, -1, "children", 1);
-        lua_pop(L, 1);
-    }
+    // inject code after call
+    xlua_endcmpunref(L, -1, "children");
+    olua_mapref(L, -1, "children", 1);
+    lua_pop(L, 1);
 
     return 0;
 }
@@ -15282,24 +15114,20 @@ static int _fairygui_Window_hide(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.Window");
 
-    // inject code 
-    {
-        if (self->getParent()) {
-            olua_push_cppobj<fairygui::GComponent>(L, self->getParent(), "fui.GComponent");
-            xlua_startcmpunref(L, -1, "children");
-        } else {
-            lua_pushnil(L);
-        }
+    // inject code before call
+    if (self->getParent()) {
+        olua_push_cppobj<fairygui::GComponent>(L, self->getParent(), "fui.GComponent");
+        xlua_startcmpunref(L, -1, "children");
+    } else {
+        lua_pushnil(L);
     }
 
     // void hide()
     self->hide();
 
-    // inject code 
-    {
-        if (!olua_isnil(L, -1)) {
-            xlua_endcmpunref(L, -1, "children");
-        }
+    // inject code after call
+    if (!olua_isnil(L, -1)) {
+        xlua_endcmpunref(L, -1, "children");
     }
 
     return 0;
@@ -15313,24 +15141,20 @@ static int _fairygui_Window_hideImmediately(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.Window");
 
-    // inject code 
-    {
-        if (self->getParent()) {
-            olua_push_cppobj<fairygui::GComponent>(L, self->getParent(), "fui.GComponent");
-            xlua_startcmpunref(L, -1, "children");
-        } else {
-            lua_pushnil(L);
-        }
+    // inject code before call
+    if (self->getParent()) {
+        olua_push_cppobj<fairygui::GComponent>(L, self->getParent(), "fui.GComponent");
+        xlua_startcmpunref(L, -1, "children");
+    } else {
+        lua_pushnil(L);
     }
 
     // void hideImmediately()
     self->hideImmediately();
 
-    // inject code 
-    {
-        if (!olua_isnil(L, -1)) {
-            xlua_endcmpunref(L, -1, "children");
-        }
+    // inject code after call
+    if (!olua_isnil(L, -1)) {
+        xlua_endcmpunref(L, -1, "children");
     }
 
     return 0;
@@ -15598,10 +15422,8 @@ static int _fairygui_Window_getContentPane(lua_State *L)
     fairygui::GComponent *ret = (fairygui::GComponent *)self->getContentPane();
     int num_ret = olua_push_cppobj<fairygui::GComponent>(L, ret, "fui.GComponent");
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "contentPane", -1);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "contentPane", -1);
 
     return num_ret;
 }
@@ -15619,10 +15441,8 @@ static int _fairygui_Window_setContentPane(lua_State *L)
     // void setContentPane(@singleref(contentPane) GComponent* value)
     self->setContentPane(arg1);
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "contentPane", 2);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "contentPane", 2);
 
     return 0;
 }
@@ -15639,10 +15459,8 @@ static int _fairygui_Window_getFrame(lua_State *L)
     fairygui::GComponent *ret = (fairygui::GComponent *)self->getFrame();
     int num_ret = olua_push_cppobj<fairygui::GComponent>(L, ret, "fui.GComponent");
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "frame", -1);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "frame", -1);
 
     return num_ret;
 }
@@ -15659,10 +15477,8 @@ static int _fairygui_Window_getCloseButton(lua_State *L)
     fairygui::GObject *ret = (fairygui::GObject *)self->getCloseButton();
     int num_ret = olua_push_cppobj<fairygui::GObject>(L, ret, "fui.GObject");
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "closeButton", -1);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "closeButton", -1);
 
     return num_ret;
 }
@@ -15680,10 +15496,8 @@ static int _fairygui_Window_setCloseButton(lua_State *L)
     // void setCloseButton(@singleref(closeButton) GObject* value)
     self->setCloseButton(arg1);
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "closeButton", 2);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "closeButton", 2);
 
     return 0;
 }
@@ -15700,10 +15514,8 @@ static int _fairygui_Window_getDragArea(lua_State *L)
     fairygui::GObject *ret = (fairygui::GObject *)self->getDragArea();
     int num_ret = olua_push_cppobj<fairygui::GObject>(L, ret, "fui.GObject");
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "dragArea", -1);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "dragArea", -1);
 
     return num_ret;
 }
@@ -15721,10 +15533,8 @@ static int _fairygui_Window_setDragArea(lua_State *L)
     // void setDragArea(@singleref(dragArea) GObject* value)
     self->setDragArea(arg1);
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "dragArea", 2);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "dragArea", 2);
 
     return 0;
 }
@@ -15741,10 +15551,8 @@ static int _fairygui_Window_getContentArea(lua_State *L)
     fairygui::GObject *ret = (fairygui::GObject *)self->getContentArea();
     int num_ret = olua_push_cppobj<fairygui::GObject>(L, ret, "fui.GObject");
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "contentArea", -1);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "contentArea", -1);
 
     return num_ret;
 }
@@ -15762,10 +15570,8 @@ static int _fairygui_Window_setContentArea(lua_State *L)
     // void setContentArea(@singleref(contentArea) GObject* value)
     self->setContentArea(arg1);
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "contentArea", 2);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "contentArea", 2);
 
     return 0;
 }
@@ -15782,10 +15588,8 @@ static int _fairygui_Window_getModalWaitingPane(lua_State *L)
     fairygui::GObject *ret = (fairygui::GObject *)self->getModalWaitingPane();
     int num_ret = olua_push_cppobj<fairygui::GObject>(L, ret, "fui.GObject");
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "modalWaitingPane", -1);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "modalWaitingPane", -1);
 
     return num_ret;
 }
@@ -16100,10 +15904,8 @@ static int _fairygui_TreeNode_getRoot(lua_State *L)
     fairygui::TreeView *ret = (fairygui::TreeView *)self->getRoot();
     int num_ret = olua_push_cppobj<fairygui::TreeView>(L, ret, "fui.TreeView");
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "root", -1);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "root", -1);
 
     return num_ret;
 }
@@ -16120,10 +15922,8 @@ static int _fairygui_TreeNode_getCell(lua_State *L)
     fairygui::GComponent *ret = (fairygui::GComponent *)self->getCell();
     int num_ret = olua_push_cppobj<fairygui::GComponent>(L, ret, "fui.GComponent");
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "cell", -1);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "cell", -1);
 
     return num_ret;
 }
@@ -16234,10 +16034,8 @@ static int _fairygui_TreeNode_addChild(lua_State *L)
     fairygui::TreeNode *ret = (fairygui::TreeNode *)self->addChild(arg1);
     int num_ret = olua_push_cppobj<fairygui::TreeNode>(L, ret, "fui.TreeNode");
 
-    // inject code 
-    {
-        olua_mapref(L, 1, "children", 2);
-    }
+    // inject code after call
+    olua_mapref(L, 1, "children", 2);
 
     return num_ret;
 }
@@ -16254,21 +16052,17 @@ static int _fairygui_TreeNode_addChildAt(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.TreeNode");
     olua_check_int(L, 3, &arg2);
 
-    // inject code 
-    {
-        if (!(arg2 >= 0 && arg2 <= self->numChildren())) {
-            luaL_error(L, "index out of range");
-        }
+    // inject code before call
+    if (!(arg2 >= 0 && arg2 <= self->numChildren())) {
+        luaL_error(L, "index out of range");
     }
 
     // TreeNode* addChildAt(TreeNode* child, int index)
     fairygui::TreeNode *ret = (fairygui::TreeNode *)self->addChildAt(arg1, (int)arg2);
     int num_ret = olua_push_cppobj<fairygui::TreeNode>(L, ret, "fui.TreeNode");
 
-    // inject code 
-    {
-        olua_mapref(L, 1, "children", 2);
-    }
+    // inject code after call
+    olua_mapref(L, 1, "children", 2);
 
     return num_ret;
 }
@@ -16286,10 +16080,8 @@ static int _fairygui_TreeNode_removeChild(lua_State *L)
     // void removeChild(TreeNode * child)
     self->removeChild(arg1);
 
-    // inject code 
-    {
-        olua_mapunref(L, 1, "children", 2);
-    }
+    // inject code after call
+    olua_mapunref(L, 1, "children", 2);
 
     return 0;
 }
@@ -16304,16 +16096,14 @@ static int _fairygui_TreeNode_removeChildAt(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.TreeNode");
     olua_check_int(L, 2, &arg1);
 
-    // inject code 
-    {
-        if (!(arg1 >= 0 && arg1 < self->numChildren())) {
-            luaL_error(L, "index out of range");
-        }
-        fairygui::TreeNode *child = self->getChildAt((int)arg1);
-        if (olua_getobj(L, child)) {
-            olua_mapunref(L, 1, "children", -1);
-            lua_pop(L, 1);
-        }
+    // inject code before call
+    if (!(arg1 >= 0 && arg1 < self->numChildren())) {
+        luaL_error(L, "index out of range");
+    }
+    fairygui::TreeNode *child = self->getChildAt((int)arg1);
+    if (olua_getobj(L, child)) {
+        olua_mapunref(L, 1, "children", -1);
+        lua_pop(L, 1);
     }
 
     // void removeChildAt(int index)
@@ -16330,28 +16120,24 @@ static int _fairygui_TreeNode_removeChildren1(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.TreeNode");
 
-    // inject code 
-    {
-        if (lua_gettop(L) == 3) {
-            int arg1 = (int)olua_checkinteger(L, 2);
-            int arg2 = (int)olua_checkinteger(L, 3);
-            if (!(arg1 >= 0 && arg1 < self->numChildren())) {
-                luaL_error(L, "beginIndex index out of range");
-            }
-            if (!(arg2 == -1 || (arg2 >= 0 && arg2 < self->numChildren()))) {
-                luaL_error(L, "endIndex index out of range");
-            }
+    // inject code before call
+    if (lua_gettop(L) == 3) {
+        int arg1 = (int)olua_checkinteger(L, 2);
+        int arg2 = (int)olua_checkinteger(L, 3);
+        if (!(arg1 >= 0 && arg1 < self->numChildren())) {
+            luaL_error(L, "beginIndex index out of range");
         }
-        xlua_startcmpunref(L, 1, "children");
+        if (!(arg2 == -1 || (arg2 >= 0 && arg2 < self->numChildren()))) {
+            luaL_error(L, "endIndex index out of range");
+        }
     }
+    xlua_startcmpunref(L, 1, "children");
 
     // void removeChildren()
     self->removeChildren();
 
-    // inject code 
-    {
-        xlua_endcmpunref(L, 1, "children");
-    }
+    // inject code after call
+    xlua_endcmpunref(L, 1, "children");
 
     return 0;
 }
@@ -16368,28 +16154,24 @@ static int _fairygui_TreeNode_removeChildren2(lua_State *L)
     olua_check_int(L, 2, &arg1);
     olua_check_int(L, 3, &arg2);
 
-    // inject code 
-    {
-        if (lua_gettop(L) == 3) {
-            int arg1 = (int)olua_checkinteger(L, 2);
-            int arg2 = (int)olua_checkinteger(L, 3);
-            if (!(arg1 >= 0 && arg1 < self->numChildren())) {
-                luaL_error(L, "beginIndex index out of range");
-            }
-            if (!(arg2 == -1 || (arg2 >= 0 && arg2 < self->numChildren()))) {
-                luaL_error(L, "endIndex index out of range");
-            }
+    // inject code before call
+    if (lua_gettop(L) == 3) {
+        int arg1 = (int)olua_checkinteger(L, 2);
+        int arg2 = (int)olua_checkinteger(L, 3);
+        if (!(arg1 >= 0 && arg1 < self->numChildren())) {
+            luaL_error(L, "beginIndex index out of range");
         }
-        xlua_startcmpunref(L, 1, "children");
+        if (!(arg2 == -1 || (arg2 >= 0 && arg2 < self->numChildren()))) {
+            luaL_error(L, "endIndex index out of range");
+        }
     }
+    xlua_startcmpunref(L, 1, "children");
 
     // void removeChildren(int beginIndex, int endIndex)
     self->removeChildren((int)arg1, (int)arg2);
 
-    // inject code 
-    {
-        xlua_endcmpunref(L, 1, "children");
-    }
+    // inject code after call
+    xlua_endcmpunref(L, 1, "children");
 
     return 0;
 }
@@ -16423,21 +16205,17 @@ static int _fairygui_TreeNode_getChildAt(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.TreeNode");
     olua_check_int(L, 2, &arg1);
 
-    // inject code 
-    {
-        if (!(arg1 >= 0 && arg1 < self->numChildren())) {
-            luaL_error(L, "index out of range");
-        }
+    // inject code before call
+    if (!(arg1 >= 0 && arg1 < self->numChildren())) {
+        luaL_error(L, "index out of range");
     }
 
     // TreeNode* getChildAt(int index)
     fairygui::TreeNode *ret = (fairygui::TreeNode *)self->getChildAt((int)arg1);
     int num_ret = olua_push_cppobj<fairygui::TreeNode>(L, ret, "fui.TreeNode");
 
-    // inject code 
-    {
-        olua_mapref(L, 1, "children", -1);
-    }
+    // inject code after call
+    olua_mapref(L, 1, "children", -1);
 
     return num_ret;
 }
@@ -16454,10 +16232,8 @@ static int _fairygui_TreeNode_getPrevSibling(lua_State *L)
     fairygui::TreeNode *ret = (fairygui::TreeNode *)self->getPrevSibling();
     int num_ret = olua_push_cppobj<fairygui::TreeNode>(L, ret, "fui.TreeNode");
 
-    // inject code 
-    {
-        olua_mapref(L, 1, "children", -1);
-    }
+    // inject code after call
+    olua_mapref(L, 1, "children", -1);
 
     return num_ret;
 }
@@ -16474,10 +16250,8 @@ static int _fairygui_TreeNode_getNextSibling(lua_State *L)
     fairygui::TreeNode *ret = (fairygui::TreeNode *)self->getNextSibling();
     int num_ret = olua_push_cppobj<fairygui::TreeNode>(L, ret, "fui.TreeNode");
 
-    // inject code 
-    {
-        olua_mapref(L, 1, "children", -1);
-    }
+    // inject code after call
+    olua_mapref(L, 1, "children", -1);
 
     return num_ret;
 }
@@ -16643,10 +16417,8 @@ static int _fairygui_TreeView_create(lua_State *L)
     fairygui::TreeView *ret = (fairygui::TreeView *)fairygui::TreeView::create(arg1);
     int num_ret = olua_push_cppobj<fairygui::TreeView>(L, ret, "fui.TreeView");
 
-    // inject code 
-    {
-        olua_singleref(L, -1, "list", 1);
-    }
+    // inject code after call
+    olua_singleref(L, -1, "list", 1);
 
     return num_ret;
 }
@@ -16663,10 +16435,8 @@ static int _fairygui_TreeView_getList(lua_State *L)
     fairygui::GList *ret = (fairygui::GList *)self->getList();
     int num_ret = olua_push_cppobj<fairygui::GList>(L, ret, "fui.GList");
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "list", -1);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "list", -1);
 
     return num_ret;
 }
@@ -16683,10 +16453,8 @@ static int _fairygui_TreeView_getRootNode(lua_State *L)
     fairygui::TreeNode *ret = (fairygui::TreeNode *)self->getRootNode();
     int num_ret = olua_push_cppobj<fairygui::TreeNode>(L, ret, "fui.TreeNode");
 
-    // inject code 
-    {
-        olua_mapref(L, 1, "nodes", -1);
-    }
+    // inject code after call
+    olua_mapref(L, 1, "nodes", -1);
 
     return num_ret;
 }
@@ -16703,10 +16471,8 @@ static int _fairygui_TreeView_getSelectedNode(lua_State *L)
     fairygui::TreeNode *ret = (fairygui::TreeNode *)self->getSelectedNode();
     int num_ret = olua_push_cppobj<fairygui::TreeNode>(L, ret, "fui.TreeNode");
 
-    // inject code 
-    {
-        olua_mapref(L, 1, "nodes", -1);
-    }
+    // inject code after call
+    olua_mapref(L, 1, "nodes", -1);
 
     return num_ret;
 }
@@ -16726,10 +16492,8 @@ static int _fairygui_TreeView_addSelection(lua_State *L)
     // void addSelection(TreeNode* node, bool scrollItToView = false)
     self->addSelection(arg1, arg2);
 
-    // inject code 
-    {
-        olua_mapref(L, 1, "nodes", 2);
-    }
+    // inject code after call
+    olua_mapref(L, 1, "nodes", 2);
 
     return 0;
 }
@@ -16747,10 +16511,8 @@ static int _fairygui_TreeView_removeSelection(lua_State *L)
     // void removeSelection(TreeNode* node)
     self->removeSelection(arg1);
 
-    // inject code 
-    {
-        olua_mapunref(L, 1, "nodes", 2);
-    }
+    // inject code after call
+    olua_mapunref(L, 1, "nodes", 2);
 
     return 0;
 }
@@ -16766,10 +16528,8 @@ static int _fairygui_TreeView_clearSelection(lua_State *L)
     // void clearSelection()
     self->clearSelection();
 
-    // inject code 
-    {
-        olua_unrefall(L, 1, "nodes");
-    }
+    // inject code after call
+    olua_unrefall(L, 1, "nodes");
 
     return 0;
 }

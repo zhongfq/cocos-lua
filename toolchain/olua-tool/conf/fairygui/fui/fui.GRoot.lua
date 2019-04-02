@@ -96,8 +96,8 @@ do
     -- void showPopup(GObject* popup, GObject* target, PopupDirection dir)
     -- void togglePopup(GObject* popup)
     -- void togglePopup(GObject* popup, GObject* target, PopupDirection dir)
-    cls.inject('showPopup',     mapref_arg_value(REFNAME))
-    cls.inject('togglePopup',   mapref_arg_value(REFNAME))
+    cls.inject('showPopup',     mapref_arg_value(REFNAME), mapunef_by_compare(REFNAME))
+    cls.inject('togglePopup',   mapref_arg_value(REFNAME), mapunef_by_compare(REFNAME))
 
     -- void hidePopup()
     -- void hidePopup(GObject* popup)

@@ -127,6 +127,13 @@ do
     -- void removeChildrenToPool()
     -- void removeChildrenToPool(int beginIndex, int endIndex)
     cls.inject('removeChildrenToPool',  CHECK_REMOVE_CHILDREN_RANGE, mapunef_by_compare(REFNAME))
+
+    -- void setNumItems(int value)
+    -- void setVirtual()
+    -- void setVirtualAndLoop()
+    cls.inject('setNumItems', mapunef_by_compare(REFNAME))
+    cls.inject('setVirtual', mapunef_by_compare(REFNAME))
+    cls.inject('setVirtualAndLoop', mapunef_by_compare(REFNAME))
 end
 
 return cls

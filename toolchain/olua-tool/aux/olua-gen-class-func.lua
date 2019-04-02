@@ -347,19 +347,15 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
 
     if #INJECT_BEFORE > 0 then
         INJECT_BEFORE = format_snippet [[
-            // inject code 
-            {
-                ${INJECT_BEFORE}
-            }
+            // inject code before call
+            ${INJECT_BEFORE}
         ]]
     end
 
     if #INJECT_AFTER > 0 then
         INJECT_AFTER = format_snippet [[
-            // inject code 
-            {
-                ${INJECT_AFTER}
-            }
+            // inject code after call
+            ${INJECT_AFTER}
         ]]
     end
 

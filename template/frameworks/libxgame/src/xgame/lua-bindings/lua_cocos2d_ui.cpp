@@ -5918,10 +5918,8 @@ static int _cocos2d_ui_TabHeader_getTitleRenderer(lua_State *L)
     cocos2d::Label *ret = (cocos2d::Label *)self->getTitleRenderer();
     int num_ret = olua_push_cppobj<cocos2d::Label>(L, ret, "cc.Label");
 
-    // inject code 
-    {
-        olua_singleref(L, 1, "titleRenderer", -1);
-    }
+    // inject code after call
+    olua_singleref(L, 1, "titleRenderer", -1);
 
     return num_ret;
 }
@@ -6138,18 +6136,14 @@ static int _cocos2d_ui_TabControl_removeTab(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TabControl");
     olua_check_int(L, 2, &arg1);
 
-    // inject code 
-    {
-        xlua_startcmpunref(L, 1, "controls");
-    }
+    // inject code before call
+    xlua_startcmpunref(L, 1, "controls");
 
     // void      removeTab(int index)
     self->removeTab((int)arg1);
 
-    // inject code 
-    {
-        xlua_endcmpunref(L, 1, "controls");
-    }
+    // inject code after call
+    xlua_endcmpunref(L, 1, "controls");
 
     return 0;
 }
@@ -6219,10 +6213,8 @@ static int _cocos2d_ui_TabControl_getTabHeader(lua_State *L)
     cocos2d::ui::TabHeader *ret = (cocos2d::ui::TabHeader *)self->getTabHeader((int)arg1);
     int num_ret = olua_push_cppobj<cocos2d::ui::TabHeader>(L, ret, "ccui.TabHeader");
 
-    // inject code 
-    {
-        olua_mapref(L, 1, "controls", -1);
-    }
+    // inject code after call
+    olua_mapref(L, 1, "controls", -1);
 
     return num_ret;
 }
@@ -6241,10 +6233,8 @@ static int _cocos2d_ui_TabControl_getTabContainer(lua_State *L)
     cocos2d::ui::Layout *ret = (cocos2d::ui::Layout *)self->getTabContainer((int)arg1);
     int num_ret = olua_push_cppobj<cocos2d::ui::Layout>(L, ret, "ccui.Layout");
 
-    // inject code 
-    {
-        olua_mapref(L, 1, "controls", -1);
-    }
+    // inject code after call
+    olua_mapref(L, 1, "controls", -1);
 
     return num_ret;
 }
@@ -6266,11 +6256,9 @@ static int _cocos2d_ui_TabControl_insertTab(lua_State *L)
     // void      insertTab(int index, TabHeader* header, Layout* container)
     self->insertTab((int)arg1, arg2, arg3);
 
-    // inject code 
-    {
-        olua_mapref(L, 1, "controls", 2);
-        olua_mapref(L, 1, "controls", 3);
-    }
+    // inject code after call
+    olua_mapref(L, 1, "controls", 2);
+    olua_mapref(L, 1, "controls", 3);
 
     return 0;
 }
@@ -8820,10 +8808,8 @@ static int _cocos2d_ui_PageView_addPage(lua_State *L)
     // void addPage(Widget* page)
     self->addPage(arg1);
 
-    // inject code 
-    {
-        olua_mapref(L, 1, "pages", 2);
-    }
+    // inject code after call
+    olua_mapref(L, 1, "pages", 2);
 
     return 0;
 }
@@ -8843,10 +8829,8 @@ static int _cocos2d_ui_PageView_insertPage(lua_State *L)
     // void insertPage(Widget* page, int idx)
     self->insertPage(arg1, (int)arg2);
 
-    // inject code 
-    {
-        olua_mapref(L, 1, "pages", 2);
-    }
+    // inject code after call
+    olua_mapref(L, 1, "pages", 2);
 
     return 0;
 }
@@ -8864,10 +8848,8 @@ static int _cocos2d_ui_PageView_removePage(lua_State *L)
     // void removePage(Widget* page)
     self->removePage(arg1);
 
-    // inject code 
-    {
-        olua_mapunref(L, 1, "pages", 2);
-    }
+    // inject code after call
+    olua_mapunref(L, 1, "pages", 2);
 
     return 0;
 }
@@ -8882,18 +8864,14 @@ static int _cocos2d_ui_PageView_removePageAtIndex(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccui.PageView");
     olua_check_int(L, 2, &arg1);
 
-    // inject code 
-    {
-        xlua_startcmpunref(L, 1, "pages");
-    }
+    // inject code before call
+    xlua_startcmpunref(L, 1, "pages");
 
     // void removePageAtIndex(ssize_t index)
     self->removePageAtIndex((ssize_t)arg1);
 
-    // inject code 
-    {
-        xlua_endcmpunref(L, 1, "pages");
-    }
+    // inject code after call
+    xlua_endcmpunref(L, 1, "pages");
 
     return 0;
 }
@@ -8909,10 +8887,8 @@ static int _cocos2d_ui_PageView_removeAllPages(lua_State *L)
     // void removeAllPages()
     self->removeAllPages();
 
-    // inject code 
-    {
-        olua_unrefall(L, 1, "pages");
-    }
+    // inject code after call
+    olua_unrefall(L, 1, "pages");
 
     return 0;
 }
@@ -15199,10 +15175,8 @@ static int _cocos2d_ui_RadioButtonGroup_addRadioButton(lua_State *L)
     // void addRadioButton(RadioButton* radioButton)
     self->addRadioButton(arg1);
 
-    // inject code 
-    {
-        olua_mapref(L, 1, "radioButtons", 2);
-    }
+    // inject code after call
+    olua_mapref(L, 1, "radioButtons", 2);
 
     return 0;
 }
@@ -15220,10 +15194,8 @@ static int _cocos2d_ui_RadioButtonGroup_removeRadioButton(lua_State *L)
     // void removeRadioButton(RadioButton* radioButton)
     self->removeRadioButton(arg1);
 
-    // inject code 
-    {
-        olua_mapunref(L, 1, "radioButtons", 2);
-    }
+    // inject code after call
+    olua_mapunref(L, 1, "radioButtons", 2);
 
     return 0;
 }
@@ -15239,10 +15211,8 @@ static int _cocos2d_ui_RadioButtonGroup_removeAllRadioButtons(lua_State *L)
     // void removeAllRadioButtons()
     self->removeAllRadioButtons();
 
-    // inject code 
-    {
-        olua_unrefall(L, 1, "radioButtons");
-    }
+    // inject code after call
+    olua_unrefall(L, 1, "radioButtons");
 
     return 0;
 }
@@ -15276,10 +15246,8 @@ static int _cocos2d_ui_RadioButtonGroup_getRadioButtonByIndex(lua_State *L)
     cocos2d::ui::RadioButton *ret = (cocos2d::ui::RadioButton *)self->getRadioButtonByIndex((int)arg1);
     int num_ret = olua_push_cppobj<cocos2d::ui::RadioButton>(L, ret, "ccui.RadioButton");
 
-    // inject code 
-    {
-        olua_mapref(L, 1, "radioButtons", -1);
-    }
+    // inject code after call
+    olua_mapref(L, 1, "radioButtons", -1);
 
     return num_ret;
 }

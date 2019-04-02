@@ -17,6 +17,12 @@ function new()
     local root = GRoot.create(scene)
 
     UIPackage.addPackage("res/fui/UI/Transition")
+    UIPackage.addPackage("res/fui/UI/Bag")
+
+    local window = Window.create()
+    window.contentPane = UIPackage.createObject("Bag", "BagWin")
+    -- window:center()
+    window.modal = true
 
     scene.onEnterCallback = function ()
         local startValue = 10000
@@ -63,6 +69,20 @@ function new()
                 print('gc')
                 collectgarbage('collect')
             end)
+        end)
+
+        view:getChild("btn3"):addClickListener(function ()
+            print("click btn3")
+            window:show()
+            printUserValue(root)
+        end)
+
+        view:getChild("btn4"):addClickListener(function ()
+            print("click btn4")
+            local window = Window.create()
+            window.contentPane = UIPackage.createObject("Bag", "BagWin")
+            window:show()
+            printUserValue(root)
         end)
 
         root:addChild(view)

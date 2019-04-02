@@ -63,7 +63,7 @@ cls.inject('create', {
 do
     local REFNAME = 'children'
     -- void showWindow(Window* win)
-    cls.inject('showWindow', mapref_arg_value(REFNAME))
+    cls.inject('showWindow', mapref_arg_value(REFNAME), mapunef_by_compare(REFNAME))
 
     -- void hideWindow(Window* win)
     -- void hideWindowImmediately(Window* win)

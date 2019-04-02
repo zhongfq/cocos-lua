@@ -121,17 +121,19 @@ do
     -- void show()
     local SHOW_WINDOW = {
         BEFORE = format_snippet [[
-            if (UIRoot == nullptr) {
+            if (fairygui::UIRoot == nullptr) {
                 luaL_error(L, "UIRoot is nullptr");
             }
+            olua_push_cppobj<fairygui::GComponent>(L, fairygui::UIRoot, "fui.GComponent");
+            xlua_startcmpunref(L, -1, "children");
         ]],
         AFTER = format_snippet [[
-            olua_push_cppobj<fairygui::GComponent>(L, UIRoot, "fui.GComponent");
+            xlua_endcmpunref(L, -1, "children");
             olua_mapref(L, -1, "${REFNAME", 1);
             lua_pop(L, 1);
         ]]
     }
-
+    cls.inject('show', SHOW_WINDOW)
 
     -- void hide()
     -- void hideImmediately()

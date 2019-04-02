@@ -4266,6 +4266,13 @@ static int _fairygui_GObject_center(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.GObject");
     olua_opt_bool(L, 2, &arg1, (bool)false);
 
+    // inject code 
+    {
+        if (!self->getParent() && !fairygui::UIRoot) {
+            luaL_error(L, "UIRoot and parent is nullptr");
+        }
+    }
+
     // void center(bool restraint = false)
     self->center(arg1);
 
@@ -4279,6 +4286,13 @@ static int _fairygui_GObject_makeFullScreen(lua_State *L)
     fairygui::GObject *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GObject");
+
+    // inject code 
+    {
+        if (!fairygui::UIRoot) {
+            luaL_error(L, "UIRoot is nullptr");
+        }
+    }
 
     // void makeFullScreen()
     self->makeFullScreen();
@@ -7046,12 +7060,18 @@ static int _fairygui_GRoot_showWindow(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.GRoot");
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.Window");
 
+    // inject code 
+    {
+        xlua_startcmpunref(L, 1, "children");
+    }
+
     // void showWindow(Window* win)
     self->showWindow(arg1);
 
     // inject code 
     {
         olua_mapref(L, 1, "children", 2);
+        xlua_endcmpunref(L, 1, "children");
     }
 
     return 0;
@@ -12303,6 +12323,11 @@ static int _fairygui_PopupMenu_show1(lua_State *L)
     {
         olua_push_cppobj<fairygui::GComponent>(L, self->getContentPane()->getParent(), "fui.GComponent");
         olua_mapref(L, -1, "children", -2);
+
+        // check others
+        xlua_startcmpunref(L, -1, "children");
+        xlua_endcmpunref(L, -1, "children");
+
         lua_pop(L, 1);
     }
 
@@ -12328,6 +12353,11 @@ static int _fairygui_PopupMenu_show2(lua_State *L)
     {
         olua_push_cppobj<fairygui::GComponent>(L, self->getContentPane()->getParent(), "fui.GComponent");
         olua_mapref(L, -1, "children", -2);
+
+        // check others
+        xlua_startcmpunref(L, -1, "children");
+        xlua_endcmpunref(L, -1, "children");
+
         lua_pop(L, 1);
     }
 
@@ -15222,8 +15252,24 @@ static int _fairygui_Window_show(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.Window");
 
+    // inject code 
+    {
+        if (fairygui::UIRoot == nullptr) {
+            luaL_error(L, "UIRoot is nullptr");
+        }
+        olua_push_cppobj<fairygui::GComponent>(L, fairygui::UIRoot, "fui.GComponent");
+        xlua_startcmpunref(L, -1, "children");
+    }
+
     // void show()
     self->show();
+
+    // inject code 
+    {
+        xlua_endcmpunref(L, -1, "children");
+        olua_mapref(L, -1, "children", 1);
+        lua_pop(L, 1);
+    }
 
     return 0;
 }

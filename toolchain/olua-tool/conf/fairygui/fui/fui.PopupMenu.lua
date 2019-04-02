@@ -108,6 +108,11 @@ local SHOW = {
     AFTER = format_snippet [[
         olua_push_cppobj<fairygui::GComponent>(L, self->getContentPane()->getParent(), "fui.GComponent");
         olua_mapref(L, -1, "${REFNAME}", -2);
+
+        // check others
+        xlua_startcmpunref(L, -1, "${REFNAME}");
+        xlua_endcmpunref(L, -1, "${REFNAME}");
+
         lua_pop(L, 1);
     ]]
 }

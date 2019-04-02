@@ -162,4 +162,20 @@ cls.props [[
 cls.prop('relations', 'Relations* relations()')
 cls.prop('displayObject', 'cocos2d::Node* displayObject()')
 
+-- check
+cls.inject('center', {
+    BEFORE = [[
+        if (!self->getParent() && !fairygui::UIRoot) {
+            luaL_error(L, "UIRoot and parent is nullptr");
+        }
+    ]]
+})
+cls.inject('makeFullScreen', {
+    BEFORE = [[
+        if (!fairygui::UIRoot) {
+            luaL_error(L, "UIRoot is nullptr");
+        }
+    ]]
+})
+
 return cls

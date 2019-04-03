@@ -5,23 +5,27 @@ cls.SUPERCLS = "cc.Ref"
 cls.funcs [[
     static TreeNode* create(bool isFolder = false)
     TreeNode* getParent()
-    @ref(single root) TreeView* getRoot()
+    TreeView* getRoot()
+    
     @ref(single cell) GComponent* getCell()
+    
     const cocos2d::Value& getData()
     void setData(const cocos2d::Value& value)
     bool isExpanded()
     void setExpaned(bool value)
     bool isFolder()
     const std::string& getText()
-    TreeNode* addChild(TreeNode* child)
-    TreeNode* addChildAt(TreeNode* child, int index)
-    void removeChild(TreeNode * child)
-    void removeChildAt(int index)
-    void removeChildren()
-    void removeChildren(int beginIndex, int endIndex)
-    TreeNode* getChildAt(int index)
-    TreeNode* getPrevSibling()
-    TreeNode* getNextSibling()
+
+    TreeNode* addChild(@ref(map children) TreeNode* child)
+    TreeNode* addChildAt(@ref(map children) TreeNode* child, int index)
+    void removeChild(@unref(map children) TreeNode * child)
+    @unref(cmp children) void removeChildAt(int index)
+    @unref(cmp children) void removeChildren()
+    @unref(cmp children) void removeChildren(int beginIndex, int endIndex)
+    @ref(map children) TreeNode* getChildAt(int index)
+    @ref(map children) TreeNode* getPrevSibling()
+    @ref(map children) TreeNode* getNextSibling()
+
     int getChildIndex(const TreeNode* child)
     void setChildIndex(TreeNode* child, int index)
     int setChildIndexBefore(TreeNode* child, int index)
@@ -43,66 +47,34 @@ cls.props [[
 ]]
 cls.prop('numChildren', 'int numChildren()')
 
--- ref
-do
-    local REFNAME = 'children'
-    local CHECK_RANGE = {
-        BEFORE = format_snippet [[
+
+cls.inject('addChildAt', {
+    BEFORE = format_snippet [[
+        if (!(arg2 >= 0 && arg2 <= self->numChildren())) {
+            luaL_error(L, "index out of range");
+        }
+    ]]
+})
+cls.inject({'getChildAt', 'removeChildAt'}, {
+    BEFORE = format_snippet [[
+        if (!(arg1 >= 0 && arg1 < self->numChildren())) {
+            luaL_error(L, "index out of range");
+        }
+    ]]
+})
+cls.inject('removeChildren', {
+    BEFORE = format_snippet [[
+        if (lua_gettop(L) == 3) {
+            int arg1 = (int)olua_checkinteger(L, 2);
+            int arg2 = (int)olua_checkinteger(L, 3);
             if (!(arg1 >= 0 && arg1 < self->numChildren())) {
-                luaL_error(L, "index out of range");
+                luaL_error(L, "beginIndex index out of range");
             }
-        ]]
-    }
-    local CHECK_ADD_RANGE = {
-        BEFORE = format_snippet [[
-            if (!(arg2 >= 0 && arg2 <= self->numChildren())) {
-                luaL_error(L, "index out of range");
+            if (!(arg2 == -1 || (arg2 >= 0 && arg2 < self->numChildren()))) {
+                luaL_error(L, "endIndex index out of range");
             }
-        ]]
-    }
-    local UNREF_BY_INDEX = {
-        BEFORE = format_snippet [[
-            fairygui::TreeNode *child = self->getChildAt((int)arg1);
-            if (olua_getobj(L, child)) {
-                olua_mapunref(L, 1, "${REFNAME}", -1);
-                lua_pop(L, 1);
-            }
-        ]]
-    }
-    local CHECK_REMOVE_CHILDREN_RANGE = {
-        BEFORE = format_snippet [[
-            if (lua_gettop(L) == 3) {
-                int arg1 = (int)olua_checkinteger(L, 2);
-                int arg2 = (int)olua_checkinteger(L, 3);
-                if (!(arg1 >= 0 && arg1 < self->numChildren())) {
-                    luaL_error(L, "beginIndex index out of range");
-                }
-                if (!(arg2 == -1 || (arg2 >= 0 && arg2 < self->numChildren()))) {
-                    luaL_error(L, "endIndex index out of range");
-                }
-            }
-        ]]
-    }
-    -- GObject* addChild(GObject* child)
-    -- GObject* addChildAt(GObject* child, int index)
-    cls.inject('addChild',          mapref_arg_value(REFNAME))
-    cls.inject('addChildAt',        CHECK_ADD_RANGE, mapref_arg_value(REFNAME))
-
-    -- void removeChild(GObject * child)
-    -- void removeChildAt(int index)
-    cls.inject('removeChild',       mapunref_arg_value(REFNAME))
-    cls.inject('removeChildAt',     CHECK_RANGE, UNREF_BY_INDEX)
-
-    -- void removeChildren() { removeChildren(0, -1); }
-    -- void removeChildren(int beginIndex, int endIndex);
-    cls.inject('removeChildren',    CHECK_REMOVE_CHILDREN_RANGE, mapunef_by_compare(REFNAME))
-
-    -- GObject *getChildAt(int index) const
-    -- TreeNode* getPrevSibling()
-    -- TreeNode* getNextSibling()
-    cls.inject('getChildAt',        CHECK_RANGE, mapref_return_value(REFNAME))
-    cls.inject('getPrevSibling',    mapref_return_value(REFNAME))
-    cls.inject('getNextSibling',    mapref_return_value(REFNAME))
-end
+        }
+    ]]
+})
 
 return cls

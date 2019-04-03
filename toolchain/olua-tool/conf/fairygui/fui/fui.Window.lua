@@ -68,9 +68,11 @@ cls.LUACLS = "fui.Window"
 cls.SUPERCLS = "fui.GComponent"
 cls.funcs [[
     static Window *create()
-    void show()
-    void hide()
-    void hideImmediately()
+
+    @unref(cmp children parent)@ref(map children parent) void show()
+    @unref(cmp children parent) void hide()
+    @unref(cmp children parent) void hideImmediately()
+
     void toggleStatus()
     void bringToFront()
     bool isShowing()
@@ -115,45 +117,27 @@ cls.props [[
     modalWaitingPane
 ]]
 
--- ref
-do
-    local REFNAME = 'children'
-    -- void show()
-    local SHOW_WINDOW = {
-        BEFORE = format_snippet [[
-            if (fairygui::UIRoot == nullptr) {
-                luaL_error(L, "UIRoot is nullptr");
-            }
-            olua_push_cppobj<fairygui::GComponent>(L, fairygui::UIRoot, "fui.GComponent");
-            xlua_startcmpunref(L, -1, "children");
-        ]],
-        AFTER = format_snippet [[
-            xlua_endcmpunref(L, -1, "children");
-            olua_mapref(L, -1, "${REFNAME", 1);
-            lua_pop(L, 1);
-        ]]
-    }
-    cls.inject('show', SHOW_WINDOW)
+local REFNAME = 'children'
+cls.inject('show', {
+    BEFORE = format_snippet [[
+        fairygui::GComponent *root = fairygui::UIRoot;
+        if (!root) {
+            luaL_error(L, "no root to add 'Window'");
+        }
+        olua_push_cppobj<fairygui::GComponent>(L, root, "fui.GComponent");
+        int parent = lua_gettop(L);
+    ]]
+})
 
-    -- void hide()
-    -- void hideImmediately()
-    local HIDE_WINDOW = {
-        BEFORE = format_snippet [[
-            if (self->getParent()) {
-                olua_push_cppobj<fairygui::GComponent>(L, self->getParent(), "fui.GComponent");
-                xlua_startcmpunref(L, -1, "children");
-            } else {
-                lua_pushnil(L);
-            }
-        ]],
-        AFTER = format_snippet [[
-            if (!olua_isnil(L, -1)) {
-                xlua_endcmpunref(L, -1, "children");
-            }
-        ]]
-    }
-    cls.inject('hide',              HIDE_WINDOW)
-    cls.inject('hideImmediately',   HIDE_WINDOW)
-end
+cls.inject({'hide', 'hideImmediately'}, {
+    BEFORE = format_snippet [[
+        fairygui::GComponent *root = self->getParent() ? self->getParent() : fairygui::UIRoot;
+        if (!root) {
+            return 0;
+        }
+        olua_push_cppobj<fairygui::GComponent>(L, root, "fui.GComponent");
+        int parent = lua_gettop(L);
+    ]]
+})
 
 return M

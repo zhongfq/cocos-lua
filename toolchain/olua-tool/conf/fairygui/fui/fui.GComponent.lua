@@ -101,21 +101,13 @@ cls.inject('removeChildren', {
         }
     ]]
 })
-cls.inject('removeChildAt', {
+cls.inject({'getChildAt', 'removeChildAt'}, {
     BEFORE = format_snippet [[
         if (!(arg1 >= 0 && arg1 < self->numChildren())) {
             luaL_error(L, "index out of range");
         }
     ]]
 })
-cls.inject('getChildAt', {
-    BEFORE = format_snippet [[
-        if (!(arg1 >= 0 && arg1 < self->numChildren())) {
-            luaL_error(L, "index out of range");
-        }
-    ]]
-})
-
 cls.inject('getTransitionAt', {
     BEFORE = [[
         if (!(arg1 >= 0 && arg1 < self->getTransitions().size())) {

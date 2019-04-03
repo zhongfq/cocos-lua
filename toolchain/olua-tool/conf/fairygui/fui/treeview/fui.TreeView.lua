@@ -3,13 +3,15 @@ cls.CPPCLS = "fairygui::TreeView"
 cls.LUACLS = "fui.TreeView"
 cls.SUPERCLS = "fui.UIEventDispatcher"
 cls.funcs [[
-    static TreeView* create(GList* list)
-    GList* getList()
-    TreeNode* getRootNode()
+    static TreeView* create(@ref(single list) GList* list)
+    @ref(single list) GList* getList()
+    @ref(single rootNode) TreeNode* getRootNode()
+
     TreeNode* getSelectedNode()
     void addSelection(TreeNode* node, bool scrollItToView = false)
     void removeSelection(TreeNode* node)
     void clearSelection()
+
     int getNodeIndex(TreeNode* node)
     void updateNode(TreeNode* node)
     void expandAll(TreeNode* folderNode)
@@ -46,23 +48,21 @@ cls.vars [[
     std::function<void(TreeNode* node, bool expand)> treeNodeWillExpand;
 ]]
 
--- ref
--- static TreeView* create(GList* list)
--- GList* getList()
-cls.inject('create', {AFTER = 'olua_singleref(L, -1, "list", 1);'})
-cls.inject('getList', {AFTER = 'olua_singleref(L, 1, "list", -1);'})
+cls.inject('create', {
+    AFTER = [[
+        olua_push_cppobj<fairygui::TreeNode>(L, ret->getRootNode(), "fui.TreeNode");
+        olua_singleref(L, -2, "rootNode", -1);
+        lua_pop(L, 1);
+    ]]
+})
 
-local REFNAME = 'nodes'
--- TreeNode* getRootNode()
--- TreeNode* getSelectedNode()
-cls.inject('getRootNode',       mapref_return_value(REFNAME))
-cls.inject('getSelectedNode',   mapref_return_value(REFNAME))
--- void addSelection(TreeNode* node, bool scrollItToView = false)
-cls.inject('addSelection',      mapref_arg_value(REFNAME))
--- void removeSelection(TreeNode* node)
-cls.inject('removeSelection',   mapunref_arg_value(REFNAME))
--- void clearSelection()
-cls.inject('clearSelection',    mapunref_all(REFNAME))
-
+-- std::function<GComponent*(TreeNode* node)> treeNodeCreateCell;
+cls.inject('treeNodeCreateCell', {
+    CALLBACK_AFTER = [[
+        olua_push_cppobj<fairygui::TreeNode>(L, arg1, "fui.TreeNode");
+        olua_singleref(L, -1, "cell", -2);
+        lua_pop(L, 1);
+    ]]
+})
 
 return cls

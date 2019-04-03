@@ -50,8 +50,10 @@ cls.funcs [[
     void setTouchable(bool value)
     int getSortingOrder()
     void setSortingOrder(int value)
+
     @ref(single group) GGroup* getGroup()
     void setGroup(@ref(single group) GGroup* value)
+
     const std::string& getText()
     void setText(const std::string& text)
     const std::string& getIcon()
@@ -83,7 +85,9 @@ cls.funcs [[
     void releaseDisplayLock(uint32_t token)
     GComponent* getParent()
     GObject* findParent()
+
     @ref(single displayObject) cocos2d::Node* displayObject()
+    
     GRoot* getRoot()
     bool onStage()
     void removeFromParent()
@@ -166,7 +170,7 @@ cls.prop('displayObject', 'cocos2d::Node* displayObject()')
 cls.inject('center', {
     BEFORE = [[
         if (!self->getParent() && !fairygui::UIRoot) {
-            luaL_error(L, "UIRoot and parent is nullptr");
+            luaL_error(L, "UIRoot and parent are both nullptr");
         }
     ]]
 })

@@ -458,6 +458,7 @@ function class(collection)
     end
 
     function cls.inject(cppfunc, ...)
+        local funcs = type(cppfunc) == "string" and {cppfunc} or cppfunc
         local function join(...)
             local BEFORES = {}
             local AFTERS = {}
@@ -499,20 +500,24 @@ function class(collection)
                 fi.INJECT.CALLBACK_AFTER = codes.CALLBACK_AFTER
             end
         end
-        for _, arr in ipairs(cls.FUNCS) do
-            for _, fi in ipairs(arr) do
-                doinject(fi)
+
+        for _, v in ipairs(funcs) do
+            cppfunc = v
+            for _, arr in ipairs(cls.FUNCS) do
+                for _, fi in ipairs(arr) do
+                    doinject(fi)
+                end
             end
-        end
 
-        for _, pi in ipairs(cls.PROPS) do
-            doinject(pi.GET)
-            doinject(pi.SET)
-        end
+            for _, pi in ipairs(cls.PROPS) do
+                doinject(pi.GET)
+                doinject(pi.SET)
+            end
 
-        for _, vi in ipairs(cls.VARS) do
-            doinject(vi.GET, true)
-            doinject(vi.SET, true)
+            for _, vi in ipairs(cls.VARS) do
+                doinject(vi.GET, true)
+                doinject(vi.SET, true)
+            end
         end
 
         assert(found, 'func not found: ' .. cppfunc)

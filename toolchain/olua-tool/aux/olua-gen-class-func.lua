@@ -352,7 +352,9 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
         local IDX = -1
 
         if fi.RET.TYPE.TYPENAME == 'void' then
-            assert(REF == 'cmpunref', fi.CPPFUNC .. ' void type only support cmpunref')
+            assert(not fi.STATIC, 'no ref object')
+            IDX = 1
+            WHICH_OBJ = assert(fi.RET.ATTR.REF[3], 'no store obj')
         elseif fi.RET.TYPE.IS_ARRAY then
             assert(REF == 'map')
             assert(fi.RET.TYPE.SUBTYPE.LUACLS, fi.CPPFUNC .. ' sub ref object must be a userdata')

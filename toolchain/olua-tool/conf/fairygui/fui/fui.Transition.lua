@@ -3,7 +3,7 @@ cls.CPPCLS = "fairygui::Transition"
 cls.LUACLS = "fui.Transition"
 cls.SUPERCLS = "cc.Ref"
 cls.funcs [[
-    @ref(singleref owner) GComponent* getOwner()
+    @ref(single owner) GComponent* getOwner()
     bool isPlaying()
     void changePlayTimes(int value)
     void stop()

@@ -172,13 +172,26 @@ local function gen_func_args(cls, fi)
             local REF = assert(ai.ATTR.REF[1], fi.CPPFUNC .. ' no ref action')
             local REFNAME = assert(ai.ATTR.REF[2], fi.CPPFUNC .. ' no refname')
             local WHICH_OBJ = ai.ATTR.REF[3] or (fi.STATIC and -1 or 1)
-            if REF == 'mapref' then
+            if REF == 'map' then
                 REF_CHUNK[#REF_CHUNK + 1] = format_snippet([[
                     olua_mapref(L, ${WHICH_OBJ}, "${REFNAME}", ${IDX});
                 ]])
-            elseif REF == "singleref" then
+            elseif REF == "single" then
                 REF_CHUNK[#REF_CHUNK + 1] = format_snippet([[
                     olua_singleref(L, ${WHICH_OBJ}, "${REFNAME", ${IDX});
+                ]])
+            else
+                error('no support ref action: ' .. REF)
+            end
+        end
+        if ai.ATTR.UNREF then
+            assert(not fi.STATIC or (fi.RET.NUM > 0 and fi.RET.TYPE.LUACLS), fi.CPPFUNC)
+            local REF = assert(ai.ATTR.UNREF[1], fi.CPPFUNC .. ' no ref action')
+            local REFNAME = assert(ai.ATTR.UNREF[2], fi.CPPFUNC .. ' no refname')
+            local WHICH_OBJ = ai.ATTR.UNREF[3] or (fi.STATIC and -1 or 1)
+            if REF == 'map' then
+                REF_CHUNK[#REF_CHUNK + 1] = format_snippet([[
+                    olua_mapunref(L, ${WHICH_OBJ}, "${REFNAME}", ${IDX});
                 ]])
             else
                 error('no support ref action: ' .. REF)
@@ -275,8 +288,8 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
     local CALLER = "self->"
     local ARGS_BEGIN = "("
     local ARGS_END = ")"
-    local INJECT_BEFORE = format_snippet(fi.INJECT.BEFORE or '')
-    local INJECT_AFTER = format_snippet(fi.INJECT.AFTER or '')
+    local INJECT_BEFORE = fi.INJECT.BEFORE and {fi.INJECT.BEFORE} or {}
+    local INJECT_AFTER = fi.INJECT.AFTER and {fi.INJECT.AFTER} or {}
 
     local funcname = format_snippet([[
         _${CPPCLS_PATH}_${CPPFUNC}${FUNC_INDEX}
@@ -328,44 +341,83 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
         end
     end
 
+    for _, v in ipairs(REF_CHUNK) do
+        INJECT_AFTER[#INJECT_AFTER + 1] = v
+    end
+
     if fi.RET.ATTR.REF then
-        assert(fi.RET.TYPE.LUACLS, fi.CPPFUNC .. ' ref object must be a userdata')
-        assert(not fi.STATIC, fi.CPPFUNC .. ' only support instance func')
         local REF = assert(fi.RET.ATTR.REF[1], fi.CPPFUNC .. ' no ref name')
-        local REF_NAME = assert(fi.RET.ATTR.REF[2], fi.CPPFUNC .. ' no ref name')
+        local REFNAME = assert(fi.RET.ATTR.REF[2], fi.CPPFUNC .. ' no ref name')
         local WHICH_OBJ = fi.RET.ATTR.REF[3] or (fi.STATIC and -1 or 1)
         local IDX = -1
-        if REF == 'singleref' then
-            REF_CHUNK[#REF_CHUNK + 1] = format_snippet([[
-                olua_singleref(L, ${WHICH_OBJ}, "${REF_NAME", ${IDX});
+
+        if fi.RET.TYPE.TYPENAME == 'void' then
+            assert(REF == 'cmpunref', fi.CPPFUNC .. ' void type only support cmpunref')
+        elseif fi.RET.TYPE.IS_ARRAY then
+            assert(REF == 'map')
+            assert(fi.RET.TYPE.SUBTYPE.LUACLS, fi.CPPFUNC .. ' sub ref object must be a userdata')
+        else
+            assert(fi.RET.TYPE.LUACLS, fi.CPPFUNC .. ' ref object must be a userdata')
+        end
+        assert(not fi.STATIC, fi.CPPFUNC .. ' only support instance func')
+
+        if REF == 'single' then
+            INJECT_AFTER[#INJECT_AFTER + 1] = format_snippet([[
+                olua_singleref(L, ${WHICH_OBJ}, "${REFNAME}", ${IDX});
+            ]])
+        elseif REF == 'map' then
+            if fi.RET.TYPE.IS_ARRAY then
+                INJECT_AFTER[#INJECT_AFTER + 1] = format_snippet([[
+                    olua_maprefarray(L, ${WHICH_OBJ}, "${REFNAME}", ${IDX});
+                ]])
+            else
+                INJECT_AFTER[#INJECT_AFTER + 1] = format_snippet([[
+                    olua_mapref(L, ${WHICH_OBJ}, "${REFNAME}", ${IDX});
+                ]])
+            end
+        elseif REF == 'cmpunref' then
+            INJECT_BEFORE[#INJECT_BEFORE + 1] = format_snippet([[
+                olua_startcmpunref(L, ${WHICH_OBJ}, "${REFNAME}");
+            ]])
+            INJECT_AFTER[#INJECT_AFTER + 1] = format_snippet([[
+                olua_endcmpunref(L, ${WHICH_OBJ}, "${REFNAME}");
             ]])
         else
             error('no support ref action: ' .. REF)
         end
     end
 
-    if #REF_CHUNK > 0 then
-        if #INJECT_AFTER > 0 then
-            INJECT_AFTER = table.concat(REF_CHUNK,  '\n') .. '\n' .. INJECT_AFTER
+    if fi.RET.ATTR.UNREF then
+        local REF = assert(fi.RET.ATTR.UNREF[1], fi.CPPFUNC .. ' no ref name')
+        local REFNAME = assert(fi.RET.ATTR.UNREF[2], fi.CPPFUNC .. ' no ref name')
+        local WHICH_OBJ = fi.RET.ATTR.UNREF[3] or (fi.STATIC and -1 or 1)
+        local IDX = -1
+
+        assert(REF == 'cmp', fi.CPPFUNC .. ' void type only support cmpunref')
+        assert(not fi.STATIC, fi.CPPFUNC .. ' only support instance func')
+
+        if REF == 'cmp' then
+            INJECT_BEFORE[#INJECT_BEFORE + 1] = format_snippet([[
+                olua_startcmpunref(L, ${WHICH_OBJ}, "${REFNAME}");
+            ]])
+            INJECT_AFTER[#INJECT_AFTER + 1] = format_snippet([[
+                olua_endcmpunref(L, ${WHICH_OBJ}, "${REFNAME}");
+            ]])
         else
-            INJECT_AFTER = table.concat(REF_CHUNK,  '\n')
+            error('no support ref action: ' .. REF)
         end
-        REF_CHUNK = {}
     end
 
     if #INJECT_BEFORE > 0 then
-        INJECT_BEFORE = format_snippet [[
-            // inject code before call
-            ${INJECT_BEFORE}
-        ]]
+        table.insert(INJECT_BEFORE, 1, '// inject code before call')
     end
 
     if #INJECT_AFTER > 0 then
-        INJECT_AFTER = format_snippet [[
-            // inject code after call
-            ${INJECT_AFTER}
-        ]]
+        table.insert(INJECT_AFTER, 1, '// inject code after call')
     end
+
+    INJECT_AFTER = table.concat(INJECT_AFTER, '\n')
+    INJECT_BEFORE = table.concat(INJECT_BEFORE, '\n')
 
     write(format_snippet([[
         static int _${CPPCLS_PATH}_${CPPFUNC}${FUNC_INDEX}(lua_State *L)

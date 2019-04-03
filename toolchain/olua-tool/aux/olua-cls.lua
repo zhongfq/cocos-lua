@@ -465,16 +465,16 @@ function class(collection)
             local CALLBACK_AFTERS = {}
             for _, v in ipairs({...}) do
                 if v.BEFORE then
-                    BEFORES[#BEFORES + 1] = v.BEFORE
+                    BEFORES[#BEFORES + 1] = format_snippet(v.BEFORE)
                 end
                 if v.AFTER then
-                    AFTERS[#AFTERS + 1] = v.AFTER
+                    AFTERS[#AFTERS + 1] = format_snippet(v.AFTER)
                 end
                 if v.CALLBACK_BEFORE then
-                    CALLBACK_BEFORES[#CALLBACK_BEFORES + 1] = v.CALLBACK_BEFORE
+                    CALLBACK_BEFORES[#CALLBACK_BEFORES + 1] = format_snippet(v.CALLBACK_BEFORE)
                 end
                 if v.CALLBACK_AFTER then
-                    CALLBACK_AFTERS[#CALLBACK_AFTERS + 1] = v.CALLBACK_AFTER
+                    CALLBACK_AFTERS[#CALLBACK_AFTERS + 1] = format_snippet(v.CALLBACK_AFTER)
                 end
             end
             return {

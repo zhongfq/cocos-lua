@@ -832,7 +832,7 @@ static int _cocos2d_Director_getTextureCache(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
 
-    // @ref(singleref textureCache) TextureCache* getTextureCache()
+    // @ref(single textureCache) TextureCache* getTextureCache()
     cocos2d::TextureCache *ret = (cocos2d::TextureCache *)self->getTextureCache();
     int num_ret = olua_push_cppobj<cocos2d::TextureCache>(L, ret, "cc.TextureCache");
 
@@ -971,7 +971,7 @@ static int _cocos2d_Director_getNotificationNode(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
 
-    // @ref(singleref notificationNode) Node* getNotificationNode()
+    // @ref(single notificationNode) Node* getNotificationNode()
     cocos2d::Node *ret = (cocos2d::Node *)self->getNotificationNode();
     int num_ret = olua_push_cppobj<cocos2d::Node>(L, ret, "cc.Node");
 
@@ -991,7 +991,7 @@ static int _cocos2d_Director_setNotificationNode(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
 
-    // void setNotificationNode(@ref(singleref notificationNode) Node *node)
+    // void setNotificationNode(@ref(single notificationNode) Node *node)
     self->setNotificationNode(arg1);
 
     // inject code after call
@@ -1603,7 +1603,7 @@ static int _cocos2d_Director_getScheduler(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
 
-    // @ref(singleref scheduler) Scheduler* getScheduler()
+    // @ref(single scheduler) Scheduler* getScheduler()
     cocos2d::Scheduler *ret = (cocos2d::Scheduler *)self->getScheduler();
     int num_ret = olua_push_cppobj<cocos2d::Scheduler>(L, ret, "cc.Scheduler");
 
@@ -1623,7 +1623,7 @@ static int _cocos2d_Director_setScheduler(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Scheduler");
 
-    // void setScheduler(@ref(singleref scheduler) Scheduler* scheduler)
+    // void setScheduler(@ref(single scheduler) Scheduler* scheduler)
     self->setScheduler(arg1);
 
     // inject code after call
@@ -1640,7 +1640,7 @@ static int _cocos2d_Director_getActionManager(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
 
-    // @ref(singleref actionManager) ActionManager* getActionManager()
+    // @ref(single actionManager) ActionManager* getActionManager()
     cocos2d::ActionManager *ret = (cocos2d::ActionManager *)self->getActionManager();
     int num_ret = olua_push_cppobj<cocos2d::ActionManager>(L, ret, "cc.ActionManager");
 
@@ -1660,7 +1660,7 @@ static int _cocos2d_Director_setActionManager(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.ActionManager");
 
-    // void setActionManager(@ref(singleref actionManager) ActionManager* actionManager)
+    // void setActionManager(@ref(single actionManager) ActionManager* actionManager)
     self->setActionManager(arg1);
 
     // inject code after call
@@ -1677,7 +1677,7 @@ static int _cocos2d_Director_getEventDispatcher(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
 
-    // @ref(singleref eventDispatcher) EventDispatcher* getEventDispatcher()
+    // @ref(single eventDispatcher) EventDispatcher* getEventDispatcher()
     cocos2d::EventDispatcher *ret = (cocos2d::EventDispatcher *)self->getEventDispatcher();
     int num_ret = olua_push_cppobj<cocos2d::EventDispatcher>(L, ret, "cc.EventDispatcher");
 
@@ -1697,7 +1697,7 @@ static int _cocos2d_Director_setEventDispatcher(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.EventDispatcher");
 
-    // void setEventDispatcher(@ref(singleref eventDispatcher) EventDispatcher* dispatcher)
+    // void setEventDispatcher(@ref(single eventDispatcher) EventDispatcher* dispatcher)
     self->setEventDispatcher(arg1);
 
     // inject code after call
@@ -1714,7 +1714,7 @@ static int _cocos2d_Director_getRenderer(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
 
-    // @ref(singleref renderer) Renderer* getRenderer()
+    // @ref(single renderer) Renderer* getRenderer()
     cocos2d::Renderer *ret = (cocos2d::Renderer *)self->getRenderer();
     int num_ret = olua_push_cppobj<cocos2d::Renderer>(L, ret, "cc.Renderer");
 
@@ -9373,7 +9373,7 @@ static int _cocos2d_GLProgramState_setGLProgram(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.GLProgramState");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.GLProgram");
 
-    // void setGLProgram(@ref(singleref glProgram) GLProgram* glprogram)
+    // void setGLProgram(@ref(single glProgram) GLProgram* glprogram)
     self->setGLProgram(arg1);
 
     // inject code after call
@@ -9390,7 +9390,7 @@ static int _cocos2d_GLProgramState_getGLProgram(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.GLProgramState");
 
-    // @ref(singleref glProgram) GLProgram* getGLProgram()
+    // @ref(single glProgram) GLProgram* getGLProgram()
     cocos2d::GLProgram *ret = (cocos2d::GLProgram *)self->getGLProgram();
     int num_ret = olua_push_cppobj<cocos2d::GLProgram>(L, ret, "cc.GLProgram");
 
@@ -9864,7 +9864,7 @@ static int _cocos2d_GLProgramState_getNodeBinding(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.GLProgramState");
 
-    // @ref(singleref nodeBinding) Node* getNodeBinding()
+    // @ref(single nodeBinding) Node* getNodeBinding()
     cocos2d::Node *ret = (cocos2d::Node *)self->getNodeBinding();
     int num_ret = olua_push_cppobj<cocos2d::Node>(L, ret, "cc.Node");
 
@@ -9884,7 +9884,7 @@ static int _cocos2d_GLProgramState_setNodeBinding(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.GLProgramState");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
 
-    // void setNodeBinding(@ref(singleref nodeBinding) Node* node)
+    // void setNodeBinding(@ref(single nodeBinding) Node* node)
     self->setNodeBinding(arg1);
 
     // inject code after call
@@ -11820,7 +11820,7 @@ static int _cocos2d_Speed_create(lua_State *L)
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
     olua_check_number(L, 2, &arg2);
 
-    // static Speed* create(@ref(singleref innerAction) ActionInterval* action, float speed)
+    // static Speed* create(@ref(single innerAction) ActionInterval* action, float speed)
     cocos2d::Speed *ret = (cocos2d::Speed *)cocos2d::Speed::create(arg1, (float)arg2);
     int num_ret = olua_push_cppobj<cocos2d::Speed>(L, ret, "cc.Speed");
 
@@ -11871,7 +11871,7 @@ static int _cocos2d_Speed_setInnerAction(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Speed");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.ActionInterval");
 
-    // void setInnerAction(@ref(singleref innerAction) ActionInterval *action)
+    // void setInnerAction(@ref(single innerAction) ActionInterval *action)
     self->setInnerAction(arg1);
 
     // inject code after call
@@ -11888,7 +11888,7 @@ static int _cocos2d_Speed_getInnerAction(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Speed");
 
-    // @ref(singleref innerAction) ActionInterval* getInnerAction()
+    // @ref(single innerAction) ActionInterval* getInnerAction()
     cocos2d::ActionInterval *ret = (cocos2d::ActionInterval *)self->getInnerAction();
     int num_ret = olua_push_cppobj<cocos2d::ActionInterval>(L, ret, "cc.ActionInterval");
 
@@ -12763,7 +12763,7 @@ static int _cocos2d_Sequence_createWithTwoActions(lua_State *L)
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.FiniteTimeAction");
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.FiniteTimeAction");
 
-    // static Sequence* createWithTwoActions(@ref(mapref autoref) FiniteTimeAction *actionOne, @ref(mapref autoref) FiniteTimeAction *actionTwo);
+    // static Sequence* createWithTwoActions(@ref(map autoref) FiniteTimeAction *actionOne, @ref(map autoref) FiniteTimeAction *actionTwo);
     cocos2d::Sequence *ret = (cocos2d::Sequence *)cocos2d::Sequence::createWithTwoActions(arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::Sequence>(L, ret, "cc.Sequence");
 
@@ -12796,7 +12796,7 @@ static int _cocos2d_Repeat_create(lua_State *L)
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.FiniteTimeAction");
     olua_check_uint(L, 2, &arg2);
 
-    // static Repeat* create(@ref(singleref innerAction) FiniteTimeAction *action, unsigned int times)
+    // static Repeat* create(@ref(single innerAction) FiniteTimeAction *action, unsigned int times)
     cocos2d::Repeat *ret = (cocos2d::Repeat *)cocos2d::Repeat::create(arg1, (unsigned int)arg2);
     int num_ret = olua_push_cppobj<cocos2d::Repeat>(L, ret, "cc.Repeat");
 
@@ -12816,7 +12816,7 @@ static int _cocos2d_Repeat_setInnerAction(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Repeat");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.FiniteTimeAction");
 
-    // void setInnerAction(@ref(singleref innerAction) FiniteTimeAction *action)
+    // void setInnerAction(@ref(single innerAction) FiniteTimeAction *action)
     self->setInnerAction(arg1);
 
     // inject code after call
@@ -12833,7 +12833,7 @@ static int _cocos2d_Repeat_getInnerAction(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Repeat");
 
-    // @ref(singleref innerAction) FiniteTimeAction* getInnerAction()
+    // @ref(single innerAction) FiniteTimeAction* getInnerAction()
     cocos2d::FiniteTimeAction *ret = (cocos2d::FiniteTimeAction *)self->getInnerAction();
     int num_ret = olua_push_cppobj<cocos2d::FiniteTimeAction>(L, ret, "cc.FiniteTimeAction");
 
@@ -12865,7 +12865,7 @@ static int _cocos2d_RepeatForever_create(lua_State *L)
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
 
-    // static RepeatForever* create(@ref(singleref innerAction) ActionInterval *action)
+    // static RepeatForever* create(@ref(single innerAction) ActionInterval *action)
     cocos2d::RepeatForever *ret = (cocos2d::RepeatForever *)cocos2d::RepeatForever::create(arg1);
     int num_ret = olua_push_cppobj<cocos2d::RepeatForever>(L, ret, "cc.RepeatForever");
 
@@ -12885,7 +12885,7 @@ static int _cocos2d_RepeatForever_setInnerAction(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.RepeatForever");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.ActionInterval");
 
-    // void setInnerAction(@ref(singleref innerAction) ActionInterval *action)
+    // void setInnerAction(@ref(single innerAction) ActionInterval *action)
     self->setInnerAction(arg1);
 
     // inject code after call
@@ -12902,7 +12902,7 @@ static int _cocos2d_RepeatForever_getInnerAction(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.RepeatForever");
 
-    // @ref(singleref innerAction) ActionInterval* getInnerAction()
+    // @ref(single innerAction) ActionInterval* getInnerAction()
     cocos2d::ActionInterval *ret = (cocos2d::ActionInterval *)self->getInnerAction();
     int num_ret = olua_push_cppobj<cocos2d::ActionInterval>(L, ret, "cc.ActionInterval");
 
@@ -12958,7 +12958,7 @@ static int _cocos2d_Spawn_createWithTwoActions(lua_State *L)
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.FiniteTimeAction");
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.FiniteTimeAction");
 
-    // static Spawn* createWithTwoActions(@ref(mapref autoref) FiniteTimeAction *action1, @ref(mapref autoref) FiniteTimeAction *action2);
+    // static Spawn* createWithTwoActions(@ref(map autoref) FiniteTimeAction *action1, @ref(map autoref) FiniteTimeAction *action2);
     cocos2d::Spawn *ret = (cocos2d::Spawn *)cocos2d::Spawn::createWithTwoActions(arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::Spawn>(L, ret, "cc.Spawn");
 
@@ -14255,7 +14255,7 @@ static int _cocos2d_ReverseTime_create(lua_State *L)
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.FiniteTimeAction");
 
-    // static ReverseTime* create(@ref(mapref autoref) FiniteTimeAction *action)
+    // static ReverseTime* create(@ref(map autoref) FiniteTimeAction *action)
     cocos2d::ReverseTime *ret = (cocos2d::ReverseTime *)cocos2d::ReverseTime::create(arg1);
     int num_ret = olua_push_cppobj<cocos2d::ReverseTime>(L, ret, "cc.ReverseTime");
 
@@ -14363,7 +14363,7 @@ static int _cocos2d_TargetedAction_create(lua_State *L)
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.Node");
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.FiniteTimeAction");
 
-    // static TargetedAction* create(Node* target, @ref(mapref autoref) FiniteTimeAction* action)
+    // static TargetedAction* create(Node* target, @ref(map autoref) FiniteTimeAction* action)
     cocos2d::TargetedAction *ret = (cocos2d::TargetedAction *)cocos2d::TargetedAction::create(arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::TargetedAction>(L, ret, "cc.TargetedAction");
 
@@ -14693,7 +14693,7 @@ static int _cocos2d_EaseRateAction_create(lua_State *L)
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
     olua_check_number(L, 2, &arg2);
 
-    // static EaseRateAction* create(@ref(singleref innerAction) ActionInterval* action, float rate)
+    // static EaseRateAction* create(@ref(single innerAction) ActionInterval* action, float rate)
     cocos2d::EaseRateAction *ret = (cocos2d::EaseRateAction *)cocos2d::EaseRateAction::create(arg1, (float)arg2);
     int num_ret = olua_push_cppobj<cocos2d::EaseRateAction>(L, ret, "cc.EaseRateAction");
 
@@ -14756,7 +14756,7 @@ static int _cocos2d_EaseExponentialIn_create(lua_State *L)
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
 
-    // static EaseExponentialIn* create(@ref(singleref innerAction) ActionInterval* action)
+    // static EaseExponentialIn* create(@ref(single innerAction) ActionInterval* action)
     cocos2d::EaseExponentialIn *ret = (cocos2d::EaseExponentialIn *)cocos2d::EaseExponentialIn::create(arg1);
     int num_ret = olua_push_cppobj<cocos2d::EaseExponentialIn>(L, ret, "cc.EaseExponentialIn");
 
@@ -14785,7 +14785,7 @@ static int _cocos2d_EaseExponentialOut_create(lua_State *L)
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
 
-    // static EaseExponentialOut* create(@ref(singleref innerAction) ActionInterval* action)
+    // static EaseExponentialOut* create(@ref(single innerAction) ActionInterval* action)
     cocos2d::EaseExponentialOut *ret = (cocos2d::EaseExponentialOut *)cocos2d::EaseExponentialOut::create(arg1);
     int num_ret = olua_push_cppobj<cocos2d::EaseExponentialOut>(L, ret, "cc.EaseExponentialOut");
 
@@ -14814,7 +14814,7 @@ static int _cocos2d_EaseExponentialInOut_create(lua_State *L)
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
 
-    // static EaseExponentialInOut* create(@ref(singleref innerAction) ActionInterval* action)
+    // static EaseExponentialInOut* create(@ref(single innerAction) ActionInterval* action)
     cocos2d::EaseExponentialInOut *ret = (cocos2d::EaseExponentialInOut *)cocos2d::EaseExponentialInOut::create(arg1);
     int num_ret = olua_push_cppobj<cocos2d::EaseExponentialInOut>(L, ret, "cc.EaseExponentialInOut");
 
@@ -14843,7 +14843,7 @@ static int _cocos2d_EaseSineIn_create(lua_State *L)
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
 
-    // static EaseSineIn* create(@ref(singleref innerAction) ActionInterval* action)
+    // static EaseSineIn* create(@ref(single innerAction) ActionInterval* action)
     cocos2d::EaseSineIn *ret = (cocos2d::EaseSineIn *)cocos2d::EaseSineIn::create(arg1);
     int num_ret = olua_push_cppobj<cocos2d::EaseSineIn>(L, ret, "cc.EaseSineIn");
 
@@ -14872,7 +14872,7 @@ static int _cocos2d_EaseSineOut_create(lua_State *L)
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
 
-    // static EaseSineOut* create(@ref(singleref innerAction) ActionInterval* action)
+    // static EaseSineOut* create(@ref(single innerAction) ActionInterval* action)
     cocos2d::EaseSineOut *ret = (cocos2d::EaseSineOut *)cocos2d::EaseSineOut::create(arg1);
     int num_ret = olua_push_cppobj<cocos2d::EaseSineOut>(L, ret, "cc.EaseSineOut");
 
@@ -14901,7 +14901,7 @@ static int _cocos2d_EaseSineInOut_create(lua_State *L)
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
 
-    // static EaseSineInOut* create(@ref(singleref innerAction) ActionInterval* action)
+    // static EaseSineInOut* create(@ref(single innerAction) ActionInterval* action)
     cocos2d::EaseSineInOut *ret = (cocos2d::EaseSineInOut *)cocos2d::EaseSineInOut::create(arg1);
     int num_ret = olua_push_cppobj<cocos2d::EaseSineInOut>(L, ret, "cc.EaseSineInOut");
 
@@ -14930,7 +14930,7 @@ static int _cocos2d_EaseBounceIn_create(lua_State *L)
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
 
-    // static EaseBounceIn* create(@ref(singleref innerAction) ActionInterval* action)
+    // static EaseBounceIn* create(@ref(single innerAction) ActionInterval* action)
     cocos2d::EaseBounceIn *ret = (cocos2d::EaseBounceIn *)cocos2d::EaseBounceIn::create(arg1);
     int num_ret = olua_push_cppobj<cocos2d::EaseBounceIn>(L, ret, "cc.EaseBounceIn");
 
@@ -14959,7 +14959,7 @@ static int _cocos2d_EaseBounceOut_create(lua_State *L)
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
 
-    // static EaseBounceOut* create(@ref(singleref innerAction) ActionInterval* action)
+    // static EaseBounceOut* create(@ref(single innerAction) ActionInterval* action)
     cocos2d::EaseBounceOut *ret = (cocos2d::EaseBounceOut *)cocos2d::EaseBounceOut::create(arg1);
     int num_ret = olua_push_cppobj<cocos2d::EaseBounceOut>(L, ret, "cc.EaseBounceOut");
 
@@ -14988,7 +14988,7 @@ static int _cocos2d_EaseBounceInOut_create(lua_State *L)
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
 
-    // static EaseBounceInOut* create(@ref(singleref innerAction) ActionInterval* action)
+    // static EaseBounceInOut* create(@ref(single innerAction) ActionInterval* action)
     cocos2d::EaseBounceInOut *ret = (cocos2d::EaseBounceInOut *)cocos2d::EaseBounceInOut::create(arg1);
     int num_ret = olua_push_cppobj<cocos2d::EaseBounceInOut>(L, ret, "cc.EaseBounceInOut");
 
@@ -15017,7 +15017,7 @@ static int _cocos2d_EaseBackIn_create(lua_State *L)
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
 
-    // static EaseBackIn* create(@ref(singleref innerAction) ActionInterval* action)
+    // static EaseBackIn* create(@ref(single innerAction) ActionInterval* action)
     cocos2d::EaseBackIn *ret = (cocos2d::EaseBackIn *)cocos2d::EaseBackIn::create(arg1);
     int num_ret = olua_push_cppobj<cocos2d::EaseBackIn>(L, ret, "cc.EaseBackIn");
 
@@ -15046,7 +15046,7 @@ static int _cocos2d_EaseBackOut_create(lua_State *L)
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
 
-    // static EaseBackOut* create(@ref(singleref innerAction) ActionInterval* action)
+    // static EaseBackOut* create(@ref(single innerAction) ActionInterval* action)
     cocos2d::EaseBackOut *ret = (cocos2d::EaseBackOut *)cocos2d::EaseBackOut::create(arg1);
     int num_ret = olua_push_cppobj<cocos2d::EaseBackOut>(L, ret, "cc.EaseBackOut");
 
@@ -15075,7 +15075,7 @@ static int _cocos2d_EaseBackInOut_create(lua_State *L)
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
 
-    // static EaseBackInOut* create(@ref(singleref innerAction) ActionInterval* action)
+    // static EaseBackInOut* create(@ref(single innerAction) ActionInterval* action)
     cocos2d::EaseBackInOut *ret = (cocos2d::EaseBackInOut *)cocos2d::EaseBackInOut::create(arg1);
     int num_ret = olua_push_cppobj<cocos2d::EaseBackInOut>(L, ret, "cc.EaseBackInOut");
 
@@ -15104,7 +15104,7 @@ static int _cocos2d_EaseQuadraticActionIn_create(lua_State *L)
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
 
-    // static EaseQuadraticActionIn* create(@ref(singleref innerAction) ActionInterval* action)
+    // static EaseQuadraticActionIn* create(@ref(single innerAction) ActionInterval* action)
     cocos2d::EaseQuadraticActionIn *ret = (cocos2d::EaseQuadraticActionIn *)cocos2d::EaseQuadraticActionIn::create(arg1);
     int num_ret = olua_push_cppobj<cocos2d::EaseQuadraticActionIn>(L, ret, "cc.EaseQuadraticActionIn");
 
@@ -15133,7 +15133,7 @@ static int _cocos2d_EaseQuadraticActionOut_create(lua_State *L)
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
 
-    // static EaseQuadraticActionOut* create(@ref(singleref innerAction) ActionInterval* action)
+    // static EaseQuadraticActionOut* create(@ref(single innerAction) ActionInterval* action)
     cocos2d::EaseQuadraticActionOut *ret = (cocos2d::EaseQuadraticActionOut *)cocos2d::EaseQuadraticActionOut::create(arg1);
     int num_ret = olua_push_cppobj<cocos2d::EaseQuadraticActionOut>(L, ret, "cc.EaseQuadraticActionOut");
 
@@ -15162,7 +15162,7 @@ static int _cocos2d_EaseQuadraticActionInOut_create(lua_State *L)
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
 
-    // static EaseQuadraticActionInOut* create(@ref(singleref innerAction) ActionInterval* action)
+    // static EaseQuadraticActionInOut* create(@ref(single innerAction) ActionInterval* action)
     cocos2d::EaseQuadraticActionInOut *ret = (cocos2d::EaseQuadraticActionInOut *)cocos2d::EaseQuadraticActionInOut::create(arg1);
     int num_ret = olua_push_cppobj<cocos2d::EaseQuadraticActionInOut>(L, ret, "cc.EaseQuadraticActionInOut");
 
@@ -15191,7 +15191,7 @@ static int _cocos2d_EaseQuarticActionIn_create(lua_State *L)
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
 
-    // static EaseQuarticActionIn* create(@ref(singleref innerAction) ActionInterval* action)
+    // static EaseQuarticActionIn* create(@ref(single innerAction) ActionInterval* action)
     cocos2d::EaseQuarticActionIn *ret = (cocos2d::EaseQuarticActionIn *)cocos2d::EaseQuarticActionIn::create(arg1);
     int num_ret = olua_push_cppobj<cocos2d::EaseQuarticActionIn>(L, ret, "cc.EaseQuarticActionIn");
 
@@ -15220,7 +15220,7 @@ static int _cocos2d_EaseQuarticActionOut_create(lua_State *L)
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
 
-    // static EaseQuarticActionOut* create(@ref(singleref innerAction) ActionInterval* action)
+    // static EaseQuarticActionOut* create(@ref(single innerAction) ActionInterval* action)
     cocos2d::EaseQuarticActionOut *ret = (cocos2d::EaseQuarticActionOut *)cocos2d::EaseQuarticActionOut::create(arg1);
     int num_ret = olua_push_cppobj<cocos2d::EaseQuarticActionOut>(L, ret, "cc.EaseQuarticActionOut");
 
@@ -15249,7 +15249,7 @@ static int _cocos2d_EaseQuarticActionInOut_create(lua_State *L)
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
 
-    // static EaseQuarticActionInOut* create(@ref(singleref innerAction) ActionInterval* action)
+    // static EaseQuarticActionInOut* create(@ref(single innerAction) ActionInterval* action)
     cocos2d::EaseQuarticActionInOut *ret = (cocos2d::EaseQuarticActionInOut *)cocos2d::EaseQuarticActionInOut::create(arg1);
     int num_ret = olua_push_cppobj<cocos2d::EaseQuarticActionInOut>(L, ret, "cc.EaseQuarticActionInOut");
 
@@ -15278,7 +15278,7 @@ static int _cocos2d_EaseQuinticActionIn_create(lua_State *L)
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
 
-    // static EaseQuinticActionIn* create(@ref(singleref innerAction) ActionInterval* action)
+    // static EaseQuinticActionIn* create(@ref(single innerAction) ActionInterval* action)
     cocos2d::EaseQuinticActionIn *ret = (cocos2d::EaseQuinticActionIn *)cocos2d::EaseQuinticActionIn::create(arg1);
     int num_ret = olua_push_cppobj<cocos2d::EaseQuinticActionIn>(L, ret, "cc.EaseQuinticActionIn");
 
@@ -15307,7 +15307,7 @@ static int _cocos2d_EaseQuinticActionOut_create(lua_State *L)
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
 
-    // static EaseQuinticActionOut* create(@ref(singleref innerAction) ActionInterval* action)
+    // static EaseQuinticActionOut* create(@ref(single innerAction) ActionInterval* action)
     cocos2d::EaseQuinticActionOut *ret = (cocos2d::EaseQuinticActionOut *)cocos2d::EaseQuinticActionOut::create(arg1);
     int num_ret = olua_push_cppobj<cocos2d::EaseQuinticActionOut>(L, ret, "cc.EaseQuinticActionOut");
 
@@ -15336,7 +15336,7 @@ static int _cocos2d_EaseQuinticActionInOut_create(lua_State *L)
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
 
-    // static EaseQuinticActionInOut* create(@ref(singleref innerAction) ActionInterval* action)
+    // static EaseQuinticActionInOut* create(@ref(single innerAction) ActionInterval* action)
     cocos2d::EaseQuinticActionInOut *ret = (cocos2d::EaseQuinticActionInOut *)cocos2d::EaseQuinticActionInOut::create(arg1);
     int num_ret = olua_push_cppobj<cocos2d::EaseQuinticActionInOut>(L, ret, "cc.EaseQuinticActionInOut");
 
@@ -15365,7 +15365,7 @@ static int _cocos2d_EaseCircleActionIn_create(lua_State *L)
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
 
-    // static EaseCircleActionIn* create(@ref(singleref innerAction) ActionInterval* action)
+    // static EaseCircleActionIn* create(@ref(single innerAction) ActionInterval* action)
     cocos2d::EaseCircleActionIn *ret = (cocos2d::EaseCircleActionIn *)cocos2d::EaseCircleActionIn::create(arg1);
     int num_ret = olua_push_cppobj<cocos2d::EaseCircleActionIn>(L, ret, "cc.EaseCircleActionIn");
 
@@ -15394,7 +15394,7 @@ static int _cocos2d_EaseCircleActionOut_create(lua_State *L)
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
 
-    // static EaseCircleActionOut* create(@ref(singleref innerAction) ActionInterval* action)
+    // static EaseCircleActionOut* create(@ref(single innerAction) ActionInterval* action)
     cocos2d::EaseCircleActionOut *ret = (cocos2d::EaseCircleActionOut *)cocos2d::EaseCircleActionOut::create(arg1);
     int num_ret = olua_push_cppobj<cocos2d::EaseCircleActionOut>(L, ret, "cc.EaseCircleActionOut");
 
@@ -15423,7 +15423,7 @@ static int _cocos2d_EaseCircleActionInOut_create(lua_State *L)
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
 
-    // static EaseCircleActionInOut* create(@ref(singleref innerAction) ActionInterval* action)
+    // static EaseCircleActionInOut* create(@ref(single innerAction) ActionInterval* action)
     cocos2d::EaseCircleActionInOut *ret = (cocos2d::EaseCircleActionInOut *)cocos2d::EaseCircleActionInOut::create(arg1);
     int num_ret = olua_push_cppobj<cocos2d::EaseCircleActionInOut>(L, ret, "cc.EaseCircleActionInOut");
 
@@ -15452,7 +15452,7 @@ static int _cocos2d_EaseCubicActionIn_create(lua_State *L)
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
 
-    // static EaseCubicActionIn* create(@ref(singleref innerAction) ActionInterval* action)
+    // static EaseCubicActionIn* create(@ref(single innerAction) ActionInterval* action)
     cocos2d::EaseCubicActionIn *ret = (cocos2d::EaseCubicActionIn *)cocos2d::EaseCubicActionIn::create(arg1);
     int num_ret = olua_push_cppobj<cocos2d::EaseCubicActionIn>(L, ret, "cc.EaseCubicActionIn");
 
@@ -15481,7 +15481,7 @@ static int _cocos2d_EaseCubicActionOut_create(lua_State *L)
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
 
-    // static EaseCubicActionOut* create(@ref(singleref innerAction) ActionInterval* action)
+    // static EaseCubicActionOut* create(@ref(single innerAction) ActionInterval* action)
     cocos2d::EaseCubicActionOut *ret = (cocos2d::EaseCubicActionOut *)cocos2d::EaseCubicActionOut::create(arg1);
     int num_ret = olua_push_cppobj<cocos2d::EaseCubicActionOut>(L, ret, "cc.EaseCubicActionOut");
 
@@ -15510,7 +15510,7 @@ static int _cocos2d_EaseCubicActionInOut_create(lua_State *L)
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
 
-    // static EaseCubicActionInOut* create(@ref(singleref innerAction) ActionInterval* action)
+    // static EaseCubicActionInOut* create(@ref(single innerAction) ActionInterval* action)
     cocos2d::EaseCubicActionInOut *ret = (cocos2d::EaseCubicActionInOut *)cocos2d::EaseCubicActionInOut::create(arg1);
     int num_ret = olua_push_cppobj<cocos2d::EaseCubicActionInOut>(L, ret, "cc.EaseCubicActionInOut");
 
@@ -15541,7 +15541,7 @@ static int _cocos2d_EaseIn_create(lua_State *L)
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
     olua_check_number(L, 2, &arg2);
 
-    // static EaseIn* create(@ref(singleref innerAction) ActionInterval* action, float rate)
+    // static EaseIn* create(@ref(single innerAction) ActionInterval* action, float rate)
     cocos2d::EaseIn *ret = (cocos2d::EaseIn *)cocos2d::EaseIn::create(arg1, (float)arg2);
     int num_ret = olua_push_cppobj<cocos2d::EaseIn>(L, ret, "cc.EaseIn");
 
@@ -15572,7 +15572,7 @@ static int _cocos2d_EaseOut_create(lua_State *L)
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
     olua_check_number(L, 2, &arg2);
 
-    // static EaseOut* create(@ref(singleref innerAction) ActionInterval* action, float rate)
+    // static EaseOut* create(@ref(single innerAction) ActionInterval* action, float rate)
     cocos2d::EaseOut *ret = (cocos2d::EaseOut *)cocos2d::EaseOut::create(arg1, (float)arg2);
     int num_ret = olua_push_cppobj<cocos2d::EaseOut>(L, ret, "cc.EaseOut");
 
@@ -15603,7 +15603,7 @@ static int _cocos2d_EaseInOut_create(lua_State *L)
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
     olua_check_number(L, 2, &arg2);
 
-    // static EaseInOut* create(@ref(singleref innerAction) ActionInterval* action, float rate)
+    // static EaseInOut* create(@ref(single innerAction) ActionInterval* action, float rate)
     cocos2d::EaseInOut *ret = (cocos2d::EaseInOut *)cocos2d::EaseInOut::create(arg1, (float)arg2);
     int num_ret = olua_push_cppobj<cocos2d::EaseInOut>(L, ret, "cc.EaseInOut");
 
@@ -15678,7 +15678,7 @@ static int _cocos2d_EaseElasticIn_create(lua_State *L)
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
     olua_opt_number(L, 2, &arg2, (lua_Number)0.3f);
 
-    // static EaseElasticIn* create(@ref(singleref innerAction) ActionInterval* action, float rate = 0.3f)
+    // static EaseElasticIn* create(@ref(single innerAction) ActionInterval* action, float rate = 0.3f)
     cocos2d::EaseElasticIn *ret = (cocos2d::EaseElasticIn *)cocos2d::EaseElasticIn::create(arg1, (float)arg2);
     int num_ret = olua_push_cppobj<cocos2d::EaseElasticIn>(L, ret, "cc.EaseElasticIn");
 
@@ -15709,7 +15709,7 @@ static int _cocos2d_EaseElasticOut_create(lua_State *L)
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
     olua_opt_number(L, 2, &arg2, (lua_Number)0.3f);
 
-    // static EaseElasticOut* create(@ref(singleref innerAction) ActionInterval* action, float rate = 0.3f)
+    // static EaseElasticOut* create(@ref(single innerAction) ActionInterval* action, float rate = 0.3f)
     cocos2d::EaseElasticOut *ret = (cocos2d::EaseElasticOut *)cocos2d::EaseElasticOut::create(arg1, (float)arg2);
     int num_ret = olua_push_cppobj<cocos2d::EaseElasticOut>(L, ret, "cc.EaseElasticOut");
 
@@ -15740,7 +15740,7 @@ static int _cocos2d_EaseElasticInOut_create(lua_State *L)
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
     olua_opt_number(L, 2, &arg2, (lua_Number)0.3f);
 
-    // static EaseElasticInOut* create(@ref(singleref innerAction) ActionInterval* action, float rate = 0.3f)
+    // static EaseElasticInOut* create(@ref(single innerAction) ActionInterval* action, float rate = 0.3f)
     cocos2d::EaseElasticInOut *ret = (cocos2d::EaseElasticInOut *)cocos2d::EaseElasticInOut::create(arg1, (float)arg2);
     int num_ret = olua_push_cppobj<cocos2d::EaseElasticInOut>(L, ret, "cc.EaseElasticInOut");
 
@@ -15769,7 +15769,7 @@ static int _cocos2d_EaseBezierAction_create(lua_State *L)
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.ActionInterval");
 
-    // static EaseBezierAction* create(@ref(singleref innerAction) ActionInterval* action)
+    // static EaseBezierAction* create(@ref(single innerAction) ActionInterval* action)
     cocos2d::EaseBezierAction *ret = (cocos2d::EaseBezierAction *)cocos2d::EaseBezierAction::create(arg1);
     int num_ret = olua_push_cppobj<cocos2d::EaseBezierAction>(L, ret, "cc.EaseBezierAction");
 
@@ -16412,7 +16412,7 @@ static int _cocos2d_Component_getOwner(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Component");
 
-    // @ref(singleref owner) Node* getOwner()
+    // @ref(single owner) Node* getOwner()
     cocos2d::Node *ret = (cocos2d::Node *)self->getOwner();
     int num_ret = olua_push_cppobj<cocos2d::Node>(L, ret, "cc.Node");
 
@@ -16432,7 +16432,7 @@ static int _cocos2d_Component_setOwner(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Component");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
 
-    // void setOwner(@ref(singleref owner) Node *owner)
+    // void setOwner(@ref(single owner) Node *owner)
     self->setOwner(arg1);
 
     // inject code after call
@@ -18201,7 +18201,7 @@ static int _cocos2d_Node_getGLProgram(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
 
-    // @ref(singleref glProgram) GLProgram* getGLProgram()
+    // @ref(single glProgram) GLProgram* getGLProgram()
     cocos2d::GLProgram *ret = (cocos2d::GLProgram *)self->getGLProgram();
     int num_ret = olua_push_cppobj<cocos2d::GLProgram>(L, ret, "cc.GLProgram");
 
@@ -18221,7 +18221,7 @@ static int _cocos2d_Node_setGLProgram(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.GLProgram");
 
-    // void setGLProgram(@ref(singleref glProgram) GLProgram *glprogram)
+    // void setGLProgram(@ref(single glProgram) GLProgram *glprogram)
     self->setGLProgram(arg1);
 
     // inject code after call
@@ -18238,7 +18238,7 @@ static int _cocos2d_Node_getGLProgramState(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
 
-    // @ref(singleref glProgramState) GLProgramState *getGLProgramState()
+    // @ref(single glProgramState) GLProgramState *getGLProgramState()
     cocos2d::GLProgramState *ret = (cocos2d::GLProgramState *)self->getGLProgramState();
     int num_ret = olua_push_cppobj<cocos2d::GLProgramState>(L, ret, "cc.GLProgramState");
 
@@ -18258,7 +18258,7 @@ static int _cocos2d_Node_setGLProgramState(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.GLProgramState");
 
-    // void setGLProgramState(@ref(singleref glProgramState) GLProgramState *glProgramState)
+    // void setGLProgramState(@ref(single glProgramState) GLProgramState *glProgramState)
     self->setGLProgramState(arg1);
 
     // inject code after call
@@ -26908,7 +26908,7 @@ static int _cocos2d_TransitionScene_create(lua_State *L)
     olua_check_number(L, 1, &arg1);
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
 
-    // static TransitionScene * create(float t, @ref(mapref autoref) Scene *scene)
+    // static TransitionScene * create(float t, @ref(map autoref) Scene *scene)
     cocos2d::TransitionScene *ret = (cocos2d::TransitionScene *)cocos2d::TransitionScene::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::TransitionScene>(L, ret, "cc.TransitionScene");
 
@@ -27005,7 +27005,7 @@ static int _cocos2d_TransitionSceneOriented_create(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
     olua_check_uint(L, 3, &arg3);
 
-    // static TransitionSceneOriented * create(float t, @ref(mapref autoref) Scene* scene, TransitionScene::Orientation orientation)
+    // static TransitionSceneOriented * create(float t, @ref(map autoref) Scene* scene, TransitionScene::Orientation orientation)
     cocos2d::TransitionSceneOriented *ret = (cocos2d::TransitionSceneOriented *)cocos2d::TransitionSceneOriented::create((float)arg1, arg2, (cocos2d::TransitionScene::Orientation)arg3);
     int num_ret = olua_push_cppobj<cocos2d::TransitionSceneOriented>(L, ret, "cc.TransitionSceneOriented");
 
@@ -27036,7 +27036,7 @@ static int _cocos2d_TransitionRotoZoom_create(lua_State *L)
     olua_check_number(L, 1, &arg1);
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
 
-    // static TransitionRotoZoom* create(float t, @ref(mapref autoref) Scene* scene)
+    // static TransitionRotoZoom* create(float t, @ref(map autoref) Scene* scene)
     cocos2d::TransitionRotoZoom *ret = (cocos2d::TransitionRotoZoom *)cocos2d::TransitionRotoZoom::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::TransitionRotoZoom>(L, ret, "cc.TransitionRotoZoom");
 
@@ -27067,7 +27067,7 @@ static int _cocos2d_TransitionJumpZoom_create(lua_State *L)
     olua_check_number(L, 1, &arg1);
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
 
-    // static TransitionJumpZoom* create(float t, @ref(mapref autoref) Scene* scene)
+    // static TransitionJumpZoom* create(float t, @ref(map autoref) Scene* scene)
     cocos2d::TransitionJumpZoom *ret = (cocos2d::TransitionJumpZoom *)cocos2d::TransitionJumpZoom::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::TransitionJumpZoom>(L, ret, "cc.TransitionJumpZoom");
 
@@ -27098,7 +27098,7 @@ static int _cocos2d_TransitionMoveInL_create(lua_State *L)
     olua_check_number(L, 1, &arg1);
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
 
-    // static TransitionMoveInL* create(float t, @ref(mapref autoref) Scene* scene)
+    // static TransitionMoveInL* create(float t, @ref(map autoref) Scene* scene)
     cocos2d::TransitionMoveInL *ret = (cocos2d::TransitionMoveInL *)cocos2d::TransitionMoveInL::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::TransitionMoveInL>(L, ret, "cc.TransitionMoveInL");
 
@@ -27133,7 +27133,7 @@ static int _cocos2d_TransitionMoveInL_easeActionWithAction(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.TransitionMoveInL");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.ActionInterval");
 
-    // ActionInterval* easeActionWithAction(@ref(singleref action) ActionInterval * action)
+    // ActionInterval* easeActionWithAction(@ref(single action) ActionInterval * action)
     cocos2d::ActionInterval *ret = (cocos2d::ActionInterval *)self->easeActionWithAction(arg1);
     int num_ret = olua_push_cppobj<cocos2d::ActionInterval>(L, ret, "cc.ActionInterval");
 
@@ -27166,7 +27166,7 @@ static int _cocos2d_TransitionMoveInR_create(lua_State *L)
     olua_check_number(L, 1, &arg1);
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
 
-    // static TransitionMoveInR* create(float t, @ref(mapref autoref) Scene* scene)
+    // static TransitionMoveInR* create(float t, @ref(map autoref) Scene* scene)
     cocos2d::TransitionMoveInR *ret = (cocos2d::TransitionMoveInR *)cocos2d::TransitionMoveInR::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::TransitionMoveInR>(L, ret, "cc.TransitionMoveInR");
 
@@ -27197,7 +27197,7 @@ static int _cocos2d_TransitionMoveInT_create(lua_State *L)
     olua_check_number(L, 1, &arg1);
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
 
-    // static TransitionMoveInT* create(float t, @ref(mapref autoref) Scene* scene)
+    // static TransitionMoveInT* create(float t, @ref(map autoref) Scene* scene)
     cocos2d::TransitionMoveInT *ret = (cocos2d::TransitionMoveInT *)cocos2d::TransitionMoveInT::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::TransitionMoveInT>(L, ret, "cc.TransitionMoveInT");
 
@@ -27228,7 +27228,7 @@ static int _cocos2d_TransitionMoveInB_create(lua_State *L)
     olua_check_number(L, 1, &arg1);
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
 
-    // static TransitionMoveInB* create(float t, @ref(mapref autoref) Scene* scene)
+    // static TransitionMoveInB* create(float t, @ref(map autoref) Scene* scene)
     cocos2d::TransitionMoveInB *ret = (cocos2d::TransitionMoveInB *)cocos2d::TransitionMoveInB::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::TransitionMoveInB>(L, ret, "cc.TransitionMoveInB");
 
@@ -27259,7 +27259,7 @@ static int _cocos2d_TransitionSlideInL_create(lua_State *L)
     olua_check_number(L, 1, &arg1);
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
 
-    // static TransitionSlideInL* create(float t, @ref(mapref autoref) Scene* scene)
+    // static TransitionSlideInL* create(float t, @ref(map autoref) Scene* scene)
     cocos2d::TransitionSlideInL *ret = (cocos2d::TransitionSlideInL *)cocos2d::TransitionSlideInL::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::TransitionSlideInL>(L, ret, "cc.TransitionSlideInL");
 
@@ -27279,7 +27279,7 @@ static int _cocos2d_TransitionSlideInL_easeActionWithAction(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.TransitionSlideInL");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.ActionInterval");
 
-    // ActionInterval* easeActionWithAction(@ref(singleref action)ActionInterval * action)
+    // ActionInterval* easeActionWithAction(@ref(single action)ActionInterval * action)
     cocos2d::ActionInterval *ret = (cocos2d::ActionInterval *)self->easeActionWithAction(arg1);
     int num_ret = olua_push_cppobj<cocos2d::ActionInterval>(L, ret, "cc.ActionInterval");
 
@@ -27327,7 +27327,7 @@ static int _cocos2d_TransitionSlideInR_create(lua_State *L)
     olua_check_number(L, 1, &arg1);
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
 
-    // static TransitionSlideInR* create(float t, @ref(mapref autoref) Scene* scene)
+    // static TransitionSlideInR* create(float t, @ref(map autoref) Scene* scene)
     cocos2d::TransitionSlideInR *ret = (cocos2d::TransitionSlideInR *)cocos2d::TransitionSlideInR::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::TransitionSlideInR>(L, ret, "cc.TransitionSlideInR");
 
@@ -27358,7 +27358,7 @@ static int _cocos2d_TransitionSlideInB_create(lua_State *L)
     olua_check_number(L, 1, &arg1);
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
 
-    // static TransitionSlideInB* create(float t, @ref(mapref autoref) Scene* scene)
+    // static TransitionSlideInB* create(float t, @ref(map autoref) Scene* scene)
     cocos2d::TransitionSlideInB *ret = (cocos2d::TransitionSlideInB *)cocos2d::TransitionSlideInB::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::TransitionSlideInB>(L, ret, "cc.TransitionSlideInB");
 
@@ -27389,7 +27389,7 @@ static int _cocos2d_TransitionSlideInT_create(lua_State *L)
     olua_check_number(L, 1, &arg1);
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
 
-    // static TransitionSlideInT* create(float t, @ref(mapref autoref) Scene* scene)
+    // static TransitionSlideInT* create(float t, @ref(map autoref) Scene* scene)
     cocos2d::TransitionSlideInT *ret = (cocos2d::TransitionSlideInT *)cocos2d::TransitionSlideInT::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::TransitionSlideInT>(L, ret, "cc.TransitionSlideInT");
 
@@ -27420,7 +27420,7 @@ static int _cocos2d_TransitionShrinkGrow_create(lua_State *L)
     olua_check_number(L, 1, &arg1);
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
 
-    // static TransitionShrinkGrow* create(float t, @ref(mapref autoref) Scene* scene)
+    // static TransitionShrinkGrow* create(float t, @ref(map autoref) Scene* scene)
     cocos2d::TransitionShrinkGrow *ret = (cocos2d::TransitionShrinkGrow *)cocos2d::TransitionShrinkGrow::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::TransitionShrinkGrow>(L, ret, "cc.TransitionShrinkGrow");
 
@@ -27440,7 +27440,7 @@ static int _cocos2d_TransitionShrinkGrow_easeActionWithAction(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.TransitionShrinkGrow");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.ActionInterval");
 
-    // ActionInterval* easeActionWithAction(@ref(singleref action) ActionInterval * action)
+    // ActionInterval* easeActionWithAction(@ref(single action) ActionInterval * action)
     cocos2d::ActionInterval *ret = (cocos2d::ActionInterval *)self->easeActionWithAction(arg1);
     int num_ret = olua_push_cppobj<cocos2d::ActionInterval>(L, ret, "cc.ActionInterval");
 
@@ -27474,7 +27474,7 @@ static int _cocos2d_TransitionFlipX_create1(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
     olua_check_uint(L, 3, &arg3);
 
-    // static TransitionFlipX* create(float t, @ref(mapref autoref) Scene* s, TransitionScene::Orientation o)
+    // static TransitionFlipX* create(float t, @ref(map autoref) Scene* s, TransitionScene::Orientation o)
     cocos2d::TransitionFlipX *ret = (cocos2d::TransitionFlipX *)cocos2d::TransitionFlipX::create((float)arg1, arg2, (cocos2d::TransitionScene::Orientation)arg3);
     int num_ret = olua_push_cppobj<cocos2d::TransitionFlipX>(L, ret, "cc.TransitionFlipX");
 
@@ -27494,7 +27494,7 @@ static int _cocos2d_TransitionFlipX_create2(lua_State *L)
     olua_check_number(L, 1, &arg1);
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
 
-    // static TransitionFlipX* create(float t, @ref(mapref autoref) Scene* s)
+    // static TransitionFlipX* create(float t, @ref(map autoref) Scene* s)
     cocos2d::TransitionFlipX *ret = (cocos2d::TransitionFlipX *)cocos2d::TransitionFlipX::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::TransitionFlipX>(L, ret, "cc.TransitionFlipX");
 
@@ -27548,7 +27548,7 @@ static int _cocos2d_TransitionFlipY_create1(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
     olua_check_uint(L, 3, &arg3);
 
-    // static TransitionFlipY* create(float t, @ref(mapref autoref) Scene* s, TransitionScene::Orientation o)
+    // static TransitionFlipY* create(float t, @ref(map autoref) Scene* s, TransitionScene::Orientation o)
     cocos2d::TransitionFlipY *ret = (cocos2d::TransitionFlipY *)cocos2d::TransitionFlipY::create((float)arg1, arg2, (cocos2d::TransitionScene::Orientation)arg3);
     int num_ret = olua_push_cppobj<cocos2d::TransitionFlipY>(L, ret, "cc.TransitionFlipY");
 
@@ -27568,7 +27568,7 @@ static int _cocos2d_TransitionFlipY_create2(lua_State *L)
     olua_check_number(L, 1, &arg1);
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
 
-    // static TransitionFlipY* create(float t, @ref(mapref autoref) Scene* s)
+    // static TransitionFlipY* create(float t, @ref(map autoref) Scene* s)
     cocos2d::TransitionFlipY *ret = (cocos2d::TransitionFlipY *)cocos2d::TransitionFlipY::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::TransitionFlipY>(L, ret, "cc.TransitionFlipY");
 
@@ -27622,7 +27622,7 @@ static int _cocos2d_TransitionFlipAngular_create1(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
     olua_check_uint(L, 3, &arg3);
 
-    // static TransitionFlipAngular* create(float t, @ref(mapref autoref) Scene* s, TransitionScene::Orientation o)
+    // static TransitionFlipAngular* create(float t, @ref(map autoref) Scene* s, TransitionScene::Orientation o)
     cocos2d::TransitionFlipAngular *ret = (cocos2d::TransitionFlipAngular *)cocos2d::TransitionFlipAngular::create((float)arg1, arg2, (cocos2d::TransitionScene::Orientation)arg3);
     int num_ret = olua_push_cppobj<cocos2d::TransitionFlipAngular>(L, ret, "cc.TransitionFlipAngular");
 
@@ -27642,7 +27642,7 @@ static int _cocos2d_TransitionFlipAngular_create2(lua_State *L)
     olua_check_number(L, 1, &arg1);
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
 
-    // static TransitionFlipAngular* create(float t, @ref(mapref autoref) Scene* s)
+    // static TransitionFlipAngular* create(float t, @ref(map autoref) Scene* s)
     cocos2d::TransitionFlipAngular *ret = (cocos2d::TransitionFlipAngular *)cocos2d::TransitionFlipAngular::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::TransitionFlipAngular>(L, ret, "cc.TransitionFlipAngular");
 
@@ -27696,7 +27696,7 @@ static int _cocos2d_TransitionZoomFlipX_create1(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
     olua_check_uint(L, 3, &arg3);
 
-    // static TransitionZoomFlipX* create(float t, @ref(mapref autoref) Scene* s, TransitionScene::Orientation o)
+    // static TransitionZoomFlipX* create(float t, @ref(map autoref) Scene* s, TransitionScene::Orientation o)
     cocos2d::TransitionZoomFlipX *ret = (cocos2d::TransitionZoomFlipX *)cocos2d::TransitionZoomFlipX::create((float)arg1, arg2, (cocos2d::TransitionScene::Orientation)arg3);
     int num_ret = olua_push_cppobj<cocos2d::TransitionZoomFlipX>(L, ret, "cc.TransitionZoomFlipX");
 
@@ -27716,7 +27716,7 @@ static int _cocos2d_TransitionZoomFlipX_create2(lua_State *L)
     olua_check_number(L, 1, &arg1);
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
 
-    // static TransitionZoomFlipX* create(float t, @ref(mapref autoref) Scene* s)
+    // static TransitionZoomFlipX* create(float t, @ref(map autoref) Scene* s)
     cocos2d::TransitionZoomFlipX *ret = (cocos2d::TransitionZoomFlipX *)cocos2d::TransitionZoomFlipX::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::TransitionZoomFlipX>(L, ret, "cc.TransitionZoomFlipX");
 
@@ -27770,7 +27770,7 @@ static int _cocos2d_TransitionZoomFlipY_create1(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
     olua_check_uint(L, 3, &arg3);
 
-    // static TransitionZoomFlipY* create(float t, @ref(mapref autoref) Scene* s, TransitionScene::Orientation o)
+    // static TransitionZoomFlipY* create(float t, @ref(map autoref) Scene* s, TransitionScene::Orientation o)
     cocos2d::TransitionZoomFlipY *ret = (cocos2d::TransitionZoomFlipY *)cocos2d::TransitionZoomFlipY::create((float)arg1, arg2, (cocos2d::TransitionScene::Orientation)arg3);
     int num_ret = olua_push_cppobj<cocos2d::TransitionZoomFlipY>(L, ret, "cc.TransitionZoomFlipY");
 
@@ -27790,7 +27790,7 @@ static int _cocos2d_TransitionZoomFlipY_create2(lua_State *L)
     olua_check_number(L, 1, &arg1);
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
 
-    // static TransitionZoomFlipY* create(float t, @ref(mapref autoref) Scene* s)
+    // static TransitionZoomFlipY* create(float t, @ref(map autoref) Scene* s)
     cocos2d::TransitionZoomFlipY *ret = (cocos2d::TransitionZoomFlipY *)cocos2d::TransitionZoomFlipY::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::TransitionZoomFlipY>(L, ret, "cc.TransitionZoomFlipY");
 
@@ -27844,7 +27844,7 @@ static int _cocos2d_TransitionZoomFlipAngular_create1(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
     olua_check_uint(L, 3, &arg3);
 
-    // static TransitionZoomFlipAngular* create(float t, @ref(mapref autoref) Scene* s, TransitionScene::Orientation o)
+    // static TransitionZoomFlipAngular* create(float t, @ref(map autoref) Scene* s, TransitionScene::Orientation o)
     cocos2d::TransitionZoomFlipAngular *ret = (cocos2d::TransitionZoomFlipAngular *)cocos2d::TransitionZoomFlipAngular::create((float)arg1, arg2, (cocos2d::TransitionScene::Orientation)arg3);
     int num_ret = olua_push_cppobj<cocos2d::TransitionZoomFlipAngular>(L, ret, "cc.TransitionZoomFlipAngular");
 
@@ -27864,7 +27864,7 @@ static int _cocos2d_TransitionZoomFlipAngular_create2(lua_State *L)
     olua_check_number(L, 1, &arg1);
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
 
-    // static TransitionZoomFlipAngular* create(float t, @ref(mapref autoref) Scene* s)
+    // static TransitionZoomFlipAngular* create(float t, @ref(map autoref) Scene* s)
     cocos2d::TransitionZoomFlipAngular *ret = (cocos2d::TransitionZoomFlipAngular *)cocos2d::TransitionZoomFlipAngular::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::TransitionZoomFlipAngular>(L, ret, "cc.TransitionZoomFlipAngular");
 
@@ -27918,7 +27918,7 @@ static int _cocos2d_TransitionFade_create1(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
     manual_luacv_check_cocos2d_Color3B(L, 3, &arg3);
 
-    // static TransitionFade* create(float duration, @ref(mapref autoref) Scene* scene, const Color3B& color)
+    // static TransitionFade* create(float duration, @ref(map autoref) Scene* scene, const Color3B& color)
     cocos2d::TransitionFade *ret = (cocos2d::TransitionFade *)cocos2d::TransitionFade::create((float)arg1, arg2, arg3);
     int num_ret = olua_push_cppobj<cocos2d::TransitionFade>(L, ret, "cc.TransitionFade");
 
@@ -27938,7 +27938,7 @@ static int _cocos2d_TransitionFade_create2(lua_State *L)
     olua_check_number(L, 1, &arg1);
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
 
-    // static TransitionFade* create(float duration, @ref(mapref autoref) Scene* scene)
+    // static TransitionFade* create(float duration, @ref(map autoref) Scene* scene)
     cocos2d::TransitionFade *ret = (cocos2d::TransitionFade *)cocos2d::TransitionFade::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::TransitionFade>(L, ret, "cc.TransitionFade");
 
@@ -27990,7 +27990,7 @@ static int _cocos2d_TransitionCrossFade_create(lua_State *L)
     olua_check_number(L, 1, &arg1);
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
 
-    // static TransitionCrossFade* create(float t, @ref(mapref autoref) Scene* scene)
+    // static TransitionCrossFade* create(float t, @ref(map autoref) Scene* scene)
     cocos2d::TransitionCrossFade *ret = (cocos2d::TransitionCrossFade *)cocos2d::TransitionCrossFade::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::TransitionCrossFade>(L, ret, "cc.TransitionCrossFade");
 
@@ -28021,7 +28021,7 @@ static int _cocos2d_TransitionTurnOffTiles_create(lua_State *L)
     olua_check_number(L, 1, &arg1);
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
 
-    // static TransitionTurnOffTiles* create(float t, @ref(mapref autoref) Scene* scene)
+    // static TransitionTurnOffTiles* create(float t, @ref(map autoref) Scene* scene)
     cocos2d::TransitionTurnOffTiles *ret = (cocos2d::TransitionTurnOffTiles *)cocos2d::TransitionTurnOffTiles::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::TransitionTurnOffTiles>(L, ret, "cc.TransitionTurnOffTiles");
 
@@ -28041,7 +28041,7 @@ static int _cocos2d_TransitionTurnOffTiles_easeActionWithAction(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.TransitionTurnOffTiles");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.ActionInterval");
 
-    // ActionInterval * easeActionWithAction(@ref(singleref action) ActionInterval * action)
+    // ActionInterval * easeActionWithAction(@ref(single action) ActionInterval * action)
     cocos2d::ActionInterval *ret = (cocos2d::ActionInterval *)self->easeActionWithAction(arg1);
     int num_ret = olua_push_cppobj<cocos2d::ActionInterval>(L, ret, "cc.ActionInterval");
 
@@ -28073,7 +28073,7 @@ static int _cocos2d_TransitionSplitCols_create(lua_State *L)
     olua_check_number(L, 1, &arg1);
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
 
-    // static TransitionSplitCols* create(float t, @ref(mapref autoref) Scene* scene)
+    // static TransitionSplitCols* create(float t, @ref(map autoref) Scene* scene)
     cocos2d::TransitionSplitCols *ret = (cocos2d::TransitionSplitCols *)cocos2d::TransitionSplitCols::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::TransitionSplitCols>(L, ret, "cc.TransitionSplitCols");
 
@@ -28108,7 +28108,7 @@ static int _cocos2d_TransitionSplitCols_easeActionWithAction(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.TransitionSplitCols");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.ActionInterval");
 
-    // ActionInterval * easeActionWithAction(@ref(singleref action) ActionInterval * action)
+    // ActionInterval * easeActionWithAction(@ref(single action) ActionInterval * action)
     cocos2d::ActionInterval *ret = (cocos2d::ActionInterval *)self->easeActionWithAction(arg1);
     int num_ret = olua_push_cppobj<cocos2d::ActionInterval>(L, ret, "cc.ActionInterval");
 
@@ -28141,7 +28141,7 @@ static int _cocos2d_TransitionSplitRows_create(lua_State *L)
     olua_check_number(L, 1, &arg1);
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
 
-    // static TransitionSplitRows* create(float t, @ref(mapref autoref) Scene* scene)
+    // static TransitionSplitRows* create(float t, @ref(map autoref) Scene* scene)
     cocos2d::TransitionSplitRows *ret = (cocos2d::TransitionSplitRows *)cocos2d::TransitionSplitRows::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::TransitionSplitRows>(L, ret, "cc.TransitionSplitRows");
 
@@ -28172,7 +28172,7 @@ static int _cocos2d_TransitionFadeTR_create(lua_State *L)
     olua_check_number(L, 1, &arg1);
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
 
-    // static TransitionFadeTR* create(float t, @ref(mapref autoref) Scene* scene)
+    // static TransitionFadeTR* create(float t, @ref(map autoref) Scene* scene)
     cocos2d::TransitionFadeTR *ret = (cocos2d::TransitionFadeTR *)cocos2d::TransitionFadeTR::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::TransitionFadeTR>(L, ret, "cc.TransitionFadeTR");
 
@@ -28209,7 +28209,7 @@ static int _cocos2d_TransitionFadeTR_easeActionWithAction(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.TransitionFadeTR");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.ActionInterval");
 
-    // ActionInterval* easeActionWithAction(@ref(singleref action) ActionInterval * action)
+    // ActionInterval* easeActionWithAction(@ref(single action) ActionInterval * action)
     cocos2d::ActionInterval *ret = (cocos2d::ActionInterval *)self->easeActionWithAction(arg1);
     int num_ret = olua_push_cppobj<cocos2d::ActionInterval>(L, ret, "cc.ActionInterval");
 
@@ -28242,7 +28242,7 @@ static int _cocos2d_TransitionFadeBL_create(lua_State *L)
     olua_check_number(L, 1, &arg1);
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
 
-    // static TransitionFadeBL* create(float t, @ref(mapref autoref) Scene* scene)
+    // static TransitionFadeBL* create(float t, @ref(map autoref) Scene* scene)
     cocos2d::TransitionFadeBL *ret = (cocos2d::TransitionFadeBL *)cocos2d::TransitionFadeBL::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::TransitionFadeBL>(L, ret, "cc.TransitionFadeBL");
 
@@ -28273,7 +28273,7 @@ static int _cocos2d_TransitionFadeUp_create(lua_State *L)
     olua_check_number(L, 1, &arg1);
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
 
-    // static TransitionFadeUp* create(float t, @ref(mapref autoref) Scene* scene)
+    // static TransitionFadeUp* create(float t, @ref(map autoref) Scene* scene)
     cocos2d::TransitionFadeUp *ret = (cocos2d::TransitionFadeUp *)cocos2d::TransitionFadeUp::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::TransitionFadeUp>(L, ret, "cc.TransitionFadeUp");
 
@@ -28304,7 +28304,7 @@ static int _cocos2d_TransitionFadeDown_create(lua_State *L)
     olua_check_number(L, 1, &arg1);
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
 
-    // static TransitionFadeDown* create(float t, @ref(mapref autoref) Scene* scene)
+    // static TransitionFadeDown* create(float t, @ref(map autoref) Scene* scene)
     cocos2d::TransitionFadeDown *ret = (cocos2d::TransitionFadeDown *)cocos2d::TransitionFadeDown::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::TransitionFadeDown>(L, ret, "cc.TransitionFadeDown");
 
@@ -28337,7 +28337,7 @@ static int _cocos2d_TransitionPageTurn_create(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
     olua_check_bool(L, 3, &arg3);
 
-    // static TransitionPageTurn* create(float t, @ref(mapref autoref) Scene* scene,bool backwards)
+    // static TransitionPageTurn* create(float t, @ref(map autoref) Scene* scene,bool backwards)
     cocos2d::TransitionPageTurn *ret = (cocos2d::TransitionPageTurn *)cocos2d::TransitionPageTurn::create((float)arg1, arg2, arg3);
     int num_ret = olua_push_cppobj<cocos2d::TransitionPageTurn>(L, ret, "cc.TransitionPageTurn");
 
@@ -28386,7 +28386,7 @@ static int _cocos2d_TransitionProgress_create(lua_State *L)
     olua_check_number(L, 1, &arg1);
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
 
-    // static TransitionProgress* create(float t, @ref(mapref autoref) Scene* scene)
+    // static TransitionProgress* create(float t, @ref(map autoref) Scene* scene)
     cocos2d::TransitionProgress *ret = (cocos2d::TransitionProgress *)cocos2d::TransitionProgress::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::TransitionProgress>(L, ret, "cc.TransitionProgress");
 
@@ -28417,7 +28417,7 @@ static int _cocos2d_TransitionProgressRadialCCW_create(lua_State *L)
     olua_check_number(L, 1, &arg1);
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
 
-    // static TransitionProgressRadialCCW* create(float t, @ref(mapref autoref) Scene* scene)
+    // static TransitionProgressRadialCCW* create(float t, @ref(map autoref) Scene* scene)
     cocos2d::TransitionProgressRadialCCW *ret = (cocos2d::TransitionProgressRadialCCW *)cocos2d::TransitionProgressRadialCCW::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::TransitionProgressRadialCCW>(L, ret, "cc.TransitionProgressRadialCCW");
 
@@ -28448,7 +28448,7 @@ static int _cocos2d_TransitionProgressRadialCW_create(lua_State *L)
     olua_check_number(L, 1, &arg1);
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
 
-    // static TransitionProgressRadialCW* create(float t, @ref(mapref autoref) Scene* scene)
+    // static TransitionProgressRadialCW* create(float t, @ref(map autoref) Scene* scene)
     cocos2d::TransitionProgressRadialCW *ret = (cocos2d::TransitionProgressRadialCW *)cocos2d::TransitionProgressRadialCW::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::TransitionProgressRadialCW>(L, ret, "cc.TransitionProgressRadialCW");
 
@@ -28479,7 +28479,7 @@ static int _cocos2d_TransitionProgressHorizontal_create(lua_State *L)
     olua_check_number(L, 1, &arg1);
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
 
-    // static TransitionProgressHorizontal* create(float t, @ref(mapref autoref) Scene* scene)
+    // static TransitionProgressHorizontal* create(float t, @ref(map autoref) Scene* scene)
     cocos2d::TransitionProgressHorizontal *ret = (cocos2d::TransitionProgressHorizontal *)cocos2d::TransitionProgressHorizontal::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::TransitionProgressHorizontal>(L, ret, "cc.TransitionProgressHorizontal");
 
@@ -28510,7 +28510,7 @@ static int _cocos2d_TransitionProgressVertical_create(lua_State *L)
     olua_check_number(L, 1, &arg1);
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
 
-    // static TransitionProgressVertical* create(float t, @ref(mapref autoref) Scene* scene)
+    // static TransitionProgressVertical* create(float t, @ref(map autoref) Scene* scene)
     cocos2d::TransitionProgressVertical *ret = (cocos2d::TransitionProgressVertical *)cocos2d::TransitionProgressVertical::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::TransitionProgressVertical>(L, ret, "cc.TransitionProgressVertical");
 
@@ -28541,7 +28541,7 @@ static int _cocos2d_TransitionProgressInOut_create(lua_State *L)
     olua_check_number(L, 1, &arg1);
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
 
-    // static TransitionProgressInOut* create(float t, @ref(mapref autoref) Scene* scene)
+    // static TransitionProgressInOut* create(float t, @ref(map autoref) Scene* scene)
     cocos2d::TransitionProgressInOut *ret = (cocos2d::TransitionProgressInOut *)cocos2d::TransitionProgressInOut::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::TransitionProgressInOut>(L, ret, "cc.TransitionProgressInOut");
 
@@ -28572,7 +28572,7 @@ static int _cocos2d_TransitionProgressOutIn_create(lua_State *L)
     olua_check_number(L, 1, &arg1);
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.Scene");
 
-    // static TransitionProgressOutIn* create(float t, @ref(mapref autoref) Scene* scene)
+    // static TransitionProgressOutIn* create(float t, @ref(map autoref) Scene* scene)
     cocos2d::TransitionProgressOutIn *ret = (cocos2d::TransitionProgressOutIn *)cocos2d::TransitionProgressOutIn::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::TransitionProgressOutIn>(L, ret, "cc.TransitionProgressOutIn");
 

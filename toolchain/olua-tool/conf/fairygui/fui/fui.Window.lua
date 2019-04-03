@@ -86,21 +86,21 @@ cls.funcs [[
     bool isBringToFrontOnClick()
     void setBringToFrontOnClick(bool value)
 
-    @ref(singleref contentPane) GComponent* getContentPane()
-    void setContentPane(@ref(singleref contentPane) GComponent* value)
+    @ref(single contentPane) GComponent* getContentPane()
+    void setContentPane(@ref(single contentPane) GComponent* value)
 
-    @ref(singleref frame) GComponent* getFrame()
+    @ref(single frame) GComponent* getFrame()
 
-    @ref(singleref closeButton) GObject* getCloseButton()
-    void setCloseButton(@ref(singleref closeButton) GObject* value)
+    @ref(single closeButton) GObject* getCloseButton()
+    void setCloseButton(@ref(single closeButton) GObject* value)
 
-    @ref(singleref dragArea) GObject* getDragArea()
-    void setDragArea(@ref(singleref dragArea) GObject* value)
+    @ref(single dragArea) GObject* getDragArea()
+    void setDragArea(@ref(single dragArea) GObject* value)
 
-    @ref(singleref contentArea) GObject* getContentArea()
-    void setContentArea(@ref(singleref contentArea) GObject* value)
+    @ref(single contentArea) GObject* getContentArea()
+    void setContentArea(@ref(single contentArea) GObject* value)
 
-    @ref(singleref modalWaitingPane) GObject* getModalWaitingPane()
+    @ref(single modalWaitingPane) GObject* getModalWaitingPane()
 ]]
 cls.props [[
     showing

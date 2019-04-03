@@ -16,8 +16,8 @@ cls.funcs [[
     bool removeItem(const std::string& name)
     void clearItems()
     int getItemCount()
-    @ref(singleref contentPane) GComponent* getContentPane()
-    @ref(singleref list) GList* getList()
+    @ref(single contentPane) GComponent* getContentPane()
+    @ref(single list) GList* getList()
     void show()
     void show(GObject* target, PopupDirection dir)
 ]]

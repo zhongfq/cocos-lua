@@ -53,6 +53,7 @@ REG_TYPE {
 REG_TYPE {
     TYPENAME = 'std::set',
     INIT_VALUE = false,
+    IS_ARRAY = true,
     CONV_FUNC = 'olua_$$_std_set',
 }
 

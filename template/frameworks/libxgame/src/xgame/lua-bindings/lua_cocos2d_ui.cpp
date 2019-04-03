@@ -6148,13 +6148,13 @@ static int _cocos2d_ui_TabControl_removeTab(lua_State *L)
     olua_check_int(L, 2, &arg1);
 
     // inject code before call
-    xlua_startcmpunref(L, 1, "controls");
+    olua_startcmpunref(L, 1, "controls");
 
-    // void      removeTab(int index)
+    // @unref(cmp controls) void removeTab(int index)
     self->removeTab((int)arg1);
 
     // inject code after call
-    xlua_endcmpunref(L, 1, "controls");
+    olua_endcmpunref(L, 1, "controls");
 
     return 0;
 }
@@ -6169,7 +6169,7 @@ static int _cocos2d_ui_TabControl_setSelectTab1(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TabControl");
     olua_check_int(L, 2, &arg1);
 
-    // void      setSelectTab(int index)
+    // void setSelectTab(int index)
     self->setSelectTab((int)arg1);
 
     return 0;
@@ -6185,7 +6185,7 @@ static int _cocos2d_ui_TabControl_setSelectTab2(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TabControl");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.TabHeader");
 
-    // void      setSelectTab(TabHeader* tabHeader)
+    // void setSelectTab(TabHeader* tabHeader)
     self->setSelectTab(arg1);
 
     return 0;
@@ -6220,7 +6220,7 @@ static int _cocos2d_ui_TabControl_getTabHeader(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TabControl");
     olua_check_int(L, 2, &arg1);
 
-    // TabHeader* getTabHeader(int index)
+    // @ref(map controls) TabHeader* getTabHeader(int index)
     cocos2d::ui::TabHeader *ret = (cocos2d::ui::TabHeader *)self->getTabHeader((int)arg1);
     int num_ret = olua_push_cppobj<cocos2d::ui::TabHeader>(L, ret, "ccui.TabHeader");
 
@@ -6240,7 +6240,7 @@ static int _cocos2d_ui_TabControl_getTabContainer(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TabControl");
     olua_check_int(L, 2, &arg1);
 
-    // Layout*   getTabContainer(int index)
+    // @ref(map controls) Layout* getTabContainer(int index)
     cocos2d::ui::Layout *ret = (cocos2d::ui::Layout *)self->getTabContainer((int)arg1);
     int num_ret = olua_push_cppobj<cocos2d::ui::Layout>(L, ret, "ccui.Layout");
 
@@ -6264,12 +6264,12 @@ static int _cocos2d_ui_TabControl_insertTab(lua_State *L)
     olua_check_cppobj(L, 3, (void **)&arg2, "ccui.TabHeader");
     olua_check_cppobj(L, 4, (void **)&arg3, "ccui.Layout");
 
-    // void      insertTab(int index, TabHeader* header, Layout* container)
+    // void insertTab(int index, @ref(map controls) TabHeader* header, @ref(map controls) Layout* container)
     self->insertTab((int)arg1, arg2, arg3);
 
     // inject code after call
-    olua_mapref(L, 1, "controls", 2);
     olua_mapref(L, 1, "controls", 3);
+    olua_mapref(L, 1, "controls", 4);
 
     return 0;
 }
@@ -8819,7 +8819,7 @@ static int _cocos2d_ui_PageView_addPage(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccui.PageView");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.Widget");
 
-    // void addPage(Widget* page)
+    // void addPage(@ref(map pages) Widget* page)
     self->addPage(arg1);
 
     // inject code after call
@@ -8840,7 +8840,7 @@ static int _cocos2d_ui_PageView_insertPage(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.Widget");
     olua_check_int(L, 3, &arg2);
 
-    // void insertPage(Widget* page, int idx)
+    // void insertPage(@ref(map pages) Widget* page, int idx)
     self->insertPage(arg1, (int)arg2);
 
     // inject code after call
@@ -8859,7 +8859,7 @@ static int _cocos2d_ui_PageView_removePage(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccui.PageView");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.Widget");
 
-    // void removePage(Widget* page)
+    // void removePage(@unref(map pages) Widget* page)
     self->removePage(arg1);
 
     // inject code after call
@@ -8879,13 +8879,13 @@ static int _cocos2d_ui_PageView_removePageAtIndex(lua_State *L)
     olua_check_int(L, 2, &arg1);
 
     // inject code before call
-    xlua_startcmpunref(L, 1, "pages");
+    olua_startcmpunref(L, 1, "pages");
 
-    // void removePageAtIndex(ssize_t index)
+    // @unref(cmp pages) void removePageAtIndex(ssize_t index)
     self->removePageAtIndex((ssize_t)arg1);
 
     // inject code after call
-    xlua_endcmpunref(L, 1, "pages");
+    olua_endcmpunref(L, 1, "pages");
 
     return 0;
 }
@@ -8898,7 +8898,7 @@ static int _cocos2d_ui_PageView_removeAllPages(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.PageView");
 
-    // void removeAllPages()
+    // @unref(all pages) void removeAllPages()
     self->removeAllPages();
 
     // inject code after call
@@ -15193,7 +15193,7 @@ static int _cocos2d_ui_RadioButtonGroup_addRadioButton(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RadioButtonGroup");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.RadioButton");
 
-    // void addRadioButton(RadioButton* radioButton)
+    // void addRadioButton(@ref(map radioButtons) RadioButton* radioButton)
     self->addRadioButton(arg1);
 
     // inject code after call
@@ -15212,7 +15212,7 @@ static int _cocos2d_ui_RadioButtonGroup_removeRadioButton(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RadioButtonGroup");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.RadioButton");
 
-    // void removeRadioButton(RadioButton* radioButton)
+    // void removeRadioButton(@unref(map radioButtons) RadioButton* radioButton)
     self->removeRadioButton(arg1);
 
     // inject code after call
@@ -15229,7 +15229,7 @@ static int _cocos2d_ui_RadioButtonGroup_removeAllRadioButtons(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RadioButtonGroup");
 
-    // void removeAllRadioButtons()
+    // @unref(all radioButtons) void removeAllRadioButtons()
     self->removeAllRadioButtons();
 
     // inject code after call
@@ -15263,7 +15263,7 @@ static int _cocos2d_ui_RadioButtonGroup_getRadioButtonByIndex(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RadioButtonGroup");
     olua_check_int(L, 2, &arg1);
 
-    // RadioButton* getRadioButtonByIndex(int index)
+    // @ref(map radioButtons) RadioButton* getRadioButtonByIndex(int index)
     cocos2d::ui::RadioButton *ret = (cocos2d::ui::RadioButton *)self->getRadioButtonByIndex((int)arg1);
     int num_ret = olua_push_cppobj<cocos2d::ui::RadioButton>(L, ret, "ccui.RadioButton");
 

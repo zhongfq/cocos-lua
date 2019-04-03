@@ -440,7 +440,7 @@ function class(collection)
             if #func_decl > 0 then
                 if not string.find(func_decl, '^ *//') then
                     local _, str = parse_attr(func_decl)
-                    local fn = string.match(str, '([^ ]+) *%(')
+                    local fn = string.match(str, '([^ ()]+) *%(')
                     local t = dict[fn]
                     assert(fn, func_decl)
                     if not t then

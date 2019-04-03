@@ -60,12 +60,12 @@ cls.LUACLS = "ccui.TabControl"
 cls.SUPERCLS = "ccui.Widget"
 cls.funcs [[
     static TabControl* create()
-    void      removeTab(int index)
-    void      setSelectTab(int index)
-    void      setSelectTab(TabHeader* tabHeader)
-    TabHeader* getTabHeader(int index)
-    Layout*   getTabContainer(int index)
-    void      insertTab(int index, TabHeader* header, Layout* container)
+    @unref(cmp controls) void removeTab(int index)
+    void setSelectTab(int index)
+    void setSelectTab(TabHeader* tabHeader)
+    @ref(map controls) TabHeader* getTabHeader(int index)
+    @ref(map controls) Layout* getTabContainer(int index)
+    void insertTab(int index, @ref(map controls) TabHeader* header, @ref(map controls) Layout* container)
     size_t    getTabCount()
     int getSelectedTabIndex()
     int indexOfTabHeader(const TabHeader* tabCell)
@@ -94,12 +94,5 @@ cls.props [[
     headerSelectedZoom
     headerDockPlace
 ]]
-
--- ref
-local REFNAME = 'controls'
-cls.inject('getTabHeader',      mapref_return_value(REFNAME))
-cls.inject('getTabContainer',   mapref_return_value(REFNAME))
-cls.inject('removeTab',         mapunef_by_compare(REFNAME))
-cls.inject('insertTab',         mapref_arg_value(REFNAME, 1, 2), mapref_arg_value(REFNAME, 1, 3))
 
 return M

@@ -12,15 +12,20 @@ cls.LUACLS = "cc.Director"
 cls.SUPERCLS = "cc.Ref"
 cls.funcs([[
     static Director *getInstance()
-    Scene* getRunningScene()
+
+    @ref(map scenes) Scene* getRunningScene()
+
     float getAnimationInterval()
     void setAnimationInterval(float interval)
     bool isDisplayStats()
     void setDisplayStats(bool displayStats)
     float getSecondsPerFrame()
-    GLView* getOpenGLView()
-    void setOpenGLView(GLView *openGLView)
+
+    @ref(single openGLView)  GLView* getOpenGLView()
+    void setOpenGLView(@ref(single openGLView) GLView *openGLView)
+
     @ref(single textureCache) TextureCache* getTextureCache()
+
     bool isNextDeltaTimeZero()
     void setNextDeltaTimeZero(bool nextDeltaTimeZero)
     bool isPaused()
@@ -29,8 +34,10 @@ cls.funcs([[
     void setProjection(Projection projection)
     void setViewport()
     bool isSendCleanupToScene()
+
     @ref(single notificationNode) Node* getNotificationNode()
     void setNotificationNode(@ref(single notificationNode) Node *node)
+
     const Size& getWinSize()
     Size getWinSizeInPixels()
     Size getVisibleSize()
@@ -39,12 +46,14 @@ cls.funcs([[
     Vec2 convertToGL(@pack const Vec2& point)
     Vec2 convertToUI(@pack const Vec2& point)
     float getZEye()
-    void runWithScene(Scene *scene)
-    void pushScene(Scene *scene)
-    void popScene()
-    void popToRootScene()
-    void popToSceneStackLevel(int level)
-    void replaceScene(Scene *scene)
+
+    void runWithScene(@ref(map scenes) Scene *scene)
+    void pushScene(@ref(map scenes) Scene *scene)
+    @unref(cmp scenes) void popScene()
+    @unref(cmp scenes) void popToRootScene()
+    @unref(cmp scenes) void popToSceneStackLevel(int level)
+    @unref(cmp scenes) void replaceScene(@ref(map scenes) Scene *scene)
+
     void end()
     void pause()
     void resume()
@@ -62,13 +71,18 @@ cls.funcs([[
     void mainLoop(float dt)
     void setContentScaleFactor(float scaleFactor)
     float getContentScaleFactor()
+
     @ref(single scheduler) Scheduler* getScheduler()
     void setScheduler(@ref(single scheduler) Scheduler* scheduler)
+
     @ref(single actionManager) ActionManager* getActionManager()
     void setActionManager(@ref(single actionManager) ActionManager* actionManager)
+
     @ref(single eventDispatcher) EventDispatcher* getEventDispatcher()
     void setEventDispatcher(@ref(single eventDispatcher) EventDispatcher* dispatcher)
+
     @ref(single renderer) Renderer* getRenderer()
+
     float getDeltaTime()
     float getFrameRate()
     void pushMatrix(MATRIX_STACK_TYPE type)
@@ -112,23 +126,5 @@ cls.props [[
     frameRate
     valid
 ]]
-
---
--- ref
---
--- Scene* getRunningScene()
--- void runWithScene(Scene *scene)
--- void replaceScene(Scene *scene)
--- void pushScene(Scene *scene)
--- void popScene()
--- void popToRootScene()
--- void popToSceneStackLevel(int level)
-cls.inject('getRunningScene',       mapref_return_value('scenes'))
-cls.inject('runWithScene',          mapref_arg_value_and_mapunef_by_compare('scenes'))
-cls.inject('replaceScene',          mapref_arg_value_and_mapunef_by_compare('scenes'))
-cls.inject('pushScene',             mapref_arg_value('scenes'))
-cls.inject('popScene',              mapunef_by_compare('scenes'))
-cls.inject('popToRootScene',        mapunef_by_compare('scenes'))
-cls.inject('popToSceneStackLevel',  mapunef_by_compare('scenes'))
 
 return M

@@ -4,43 +4,18 @@ cls.LUACLS = "cc.ProtectedNode"
 cls.SUPERCLS = "cc.Node"
 cls.funcs([[
     static ProtectedNode * create(void)
-    void addProtectedChild(Node * child)
-    void addProtectedChild(Node * child, int localZOrder)
-    void addProtectedChild(Node* child, int localZOrder, int tag)
-    Node * getProtectedChildByTag(int tag)
-    void removeProtectedChild(Node* child, bool cleanup = true)
-    void removeProtectedChildByTag(int tag, bool cleanup = true)
-    void removeAllProtectedChildren()
-    void removeAllProtectedChildrenWithCleanup(bool cleanup)
+
+    void addProtectedChild(@ref(map protectedChildren) Node * child)
+    void addProtectedChild(@ref(map protectedChildren) Node * child, int localZOrder)
+    void addProtectedChild(@ref(map protectedChildren) Node* child, int localZOrder, int tag)
+    @ref(map protectedChildren) Node * getProtectedChildByTag(int tag)
+    void removeProtectedChild(@unref(map protectedChildren) Node* child, bool cleanup = true)
+    @unref(cmp protectedChildren) void removeProtectedChildByTag(int tag, bool cleanup = true)
+    @unref(all protectedChildren) void removeAllProtectedChildren()
+    @unref(all protectedChildren) void removeAllProtectedChildrenWithCleanup(bool cleanup)
+
     void reorderProtectedChild(Node * child, int localZOrder)
     void sortAllProtectedChildren()
 ]])
-
---
--- ref
---
-local REMOVE_BY_TAG = {
-    BEFORE = [[
-        cocos2d::Node *child = self->getProtectedChildByTag((int)arg1);
-        if (olua_getobj(L, child)) {
-            olua_mapunref(L, 1, "protectedChildren", -1);
-            lua_pop(L, 1);
-        }
-    ]]
-}
--- void addProtectedChild(Node * child)
--- void addProtectedChild(Node * child, int localZOrder)
--- void addProtectedChild(Node* child, int localZOrder, int tag)
--- Node *getProtectedChildByTag(int tag) const
--- void removeProtectedChildByTag(int tag, bool cleanup = true)
--- void removeProtectedChild(Node* child, bool cleanup = true)
--- void removeAllProtectedChildren()
--- void removeAllProtectedChildrenWithCleanup(bool cleanup)
-cls.inject('addProtectedChild',                     mapref_arg_value('protectedChildren'))
-cls.inject('getProtectedChildByTag',                mapref_return_value('protectedChildren'))
-cls.inject('removeProtectedChildByTag',             REMOVE_BY_TAG)
-cls.inject('removeProtectedChild',                  mapunref_arg_value('protectedChildren'))
-cls.inject('removeAllProtectedChildren',            mapunref_all('protectedChildren'))
-cls.inject('removeAllProtectedChildrenWithCleanup', mapunref_all('protectedChildren'))
 
 return cls

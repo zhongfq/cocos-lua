@@ -23,11 +23,13 @@ cls.LUACLS = "ccui.PageView"
 cls.SUPERCLS = "ccui.ListView"
 cls.funcs [[
     static PageView* create()
-    void addPage(Widget* page)
-    void insertPage(Widget* page, int idx)
-    void removePage(Widget* page)
-    void removePageAtIndex(ssize_t index)
-    void removeAllPages()
+
+    void addPage(@ref(map pages) Widget* page)
+    void insertPage(@ref(map pages) Widget* page, int idx)
+    void removePage(@unref(map pages) Widget* page)
+    @unref(cmp pages) void removePageAtIndex(ssize_t index)
+    @unref(all pages) void removeAllPages()
+
     void scrollToPage(ssize_t idx)
     void scrollToPage(ssize_t idx, float time)
     void scrollToItem(ssize_t itemIndex)
@@ -78,18 +80,5 @@ cls.props [[
     indicatorIndexNodesOpacity
     indicatorIndexNodesScale
 ]]
-
--- ref
--- void addPage(Widget* page)
--- void insertPage(Widget* page, int idx)
--- void removePage(Widget* page)
--- void removePageAtIndex(ssize_t index)
--- void removeAllPages()
-local REFNAME = 'pages'
-cls.inject('addPage',           mapref_arg_value(REFNAME))
-cls.inject('insertPage',        mapref_arg_value(REFNAME))
-cls.inject('removePage',        mapunref_arg_value(REFNAME))
-cls.inject('removePageAtIndex', mapunef_by_compare(REFNAME))
-cls.inject('removeAllPages',    mapunref_all(REFNAME))
 
 return M

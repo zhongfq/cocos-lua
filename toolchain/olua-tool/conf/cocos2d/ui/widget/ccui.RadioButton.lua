@@ -45,11 +45,13 @@ cls.funcs [[
     void setSelectedButton(RadioButton* radioButton)
     void setSelectedButtonWithoutEvent(int index)
     void setSelectedButtonWithoutEvent(RadioButton* radioButton)
-    void addRadioButton(RadioButton* radioButton)
-    void removeRadioButton(RadioButton* radioButton)
-    void removeAllRadioButtons()
+
+    void addRadioButton(@ref(map radioButtons) RadioButton* radioButton)
+    void removeRadioButton(@unref(map radioButtons) RadioButton* radioButton)
+    @unref(all radioButtons) void removeAllRadioButtons()
     ssize_t getNumberOfRadioButtons()
-    RadioButton* getRadioButtonByIndex(int index)
+    @ref(map radioButtons) RadioButton* getRadioButtonByIndex(int index)
+
     void setAllowedNoSelection(bool allowedNoSelection)
     bool isAllowedNoSelection()
 ]]
@@ -66,12 +68,5 @@ cls.callback(
         CALLBACK_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
     }
 )
-
--- ref
-local REFNAME = 'radioButtons'
-cls.inject('addRadioButton',        mapref_arg_value(REFNAME))
-cls.inject('getRadioButtonByIndex', mapref_return_value(REFNAME))
-cls.inject('removeRadioButton',     mapunref_arg_value(REFNAME))
-cls.inject('removeAllRadioButtons', mapunref_all(REFNAME))
 
 return M

@@ -395,8 +395,13 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
         local WHICH_OBJ = fi.RET.ATTR.UNREF[3] or (fi.STATIC and -1 or 1)
         local IDX = -1
 
-        assert(REF == 'cmp', fi.CPPFUNC .. ' void type only support cmpunref')
-        assert(not fi.STATIC, fi.CPPFUNC .. ' only support instance func')
+        if REF == 'map' then
+            WHICH_OBJ = assert(fi.RET.ATTR.UNREF[3], 'no obj')
+            IDX = 1
+        else
+            assert(REF == 'cmp' or REF == 'all', fi.CPPFUNC .. ' void type only support cmpunref')
+            assert(not fi.STATIC, fi.CPPFUNC .. ' only support instance func')
+        end
 
         if REF == 'cmp' then
             INJECT_BEFORE[#INJECT_BEFORE + 1] = format_snippet([[
@@ -404,6 +409,14 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
             ]])
             INJECT_AFTER[#INJECT_AFTER + 1] = format_snippet([[
                 olua_endcmpunref(L, ${WHICH_OBJ}, "${REFNAME}");
+            ]])
+        elseif REF == 'all' then
+            INJECT_AFTER[#INJECT_AFTER + 1] = format_snippet([[
+                olua_unrefall(L, ${WHICH_OBJ}, "${REFNAME}");
+            ]])
+        elseif REF == 'map' then
+            INJECT_AFTER[#INJECT_AFTER + 1] = format_snippet([[
+            olua_mapunref(L, ${WHICH_OBJ}, "${REFNAME}", ${IDX});
             ]])
         else
             error('no support ref action: ' .. REF)

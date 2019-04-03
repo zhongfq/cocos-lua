@@ -19,7 +19,9 @@ cls.funcs [[
     void setScale9Enabled(bool enable)
     bool isScale9Enabled()
     void setPressedActionEnabled(bool enabled)
-    Label* getTitleRenderer()
+
+    @ref(map protectedChildren) Label* getTitleRenderer()
+
     void setTitleText(const std::string& text)
     std::string getTitleText()
     void setTitleColor(const Color3B& color)
@@ -30,13 +32,17 @@ cls.funcs [[
     std::string getTitleFontName()
     void setTitleAlignment(TextHAlignment hAlignment)
     void setTitleAlignment(TextHAlignment hAlignment, TextVAlignment vAlignment)
-    void setTitleLabel(Label* label)
-    Label* getTitleLabel()
+
+    void setTitleLabel(@ref(map protectedChildren) Label* label)
+    @ref(map protectedChildren) Label* getTitleLabel()
+
     void setZoomScale(float scale)
     float getZoomScale()
-    Scale9Sprite* getRendererNormal()
-    Scale9Sprite* getRendererClicked()
-    Scale9Sprite* getRendererDisabled()
+
+    @ref(map protectedChildren) Scale9Sprite* getRendererNormal()
+    @ref(map protectedChildren) Scale9Sprite* getRendererClicked()
+    @ref(map protectedChildren) Scale9Sprite* getRendererDisabled()
+    
     void resetNormalRender()
     void resetPressedRender()
     void resetDisabledRender()

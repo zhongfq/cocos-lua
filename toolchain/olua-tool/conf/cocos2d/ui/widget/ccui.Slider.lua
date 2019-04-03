@@ -34,10 +34,12 @@ cls.funcs [[
     int getMaxPercent()
     void setZoomScale(float scale)
     float getZoomScale()
-    Sprite* getSlidBallNormalRenderer()
-    Sprite* getSlidBallPressedRenderer()
-    Sprite* getSlidBallDisabledRenderer()
-    Node* getSlidBallRenderer()
+
+    @ref(map protectedChildren) Sprite* getSlidBallNormalRenderer()
+    @ref(map protectedChildren) Sprite* getSlidBallPressedRenderer()
+    @ref(map protectedChildren) Sprite* getSlidBallDisabledRenderer()
+    @ref(map protectedChildren) Node* getSlidBallRenderer()
+
     ResourceData getBackFile()
     ResourceData getProgressBarFile()
     ResourceData getBallNormalFile()

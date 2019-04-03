@@ -37,7 +37,9 @@ cls.funcs [[
     static ScrollView* create()
     void setDirection(Direction dir)
     Direction getDirection()
-    Layout* getInnerContainer()
+
+    @ref(map protectedChildren) Layout* getInnerContainer()
+
     void stopScroll()
     void stopAutoScroll()
     void stopOverallScroll()
@@ -70,7 +72,6 @@ cls.funcs [[
     const Size& getInnerContainerSize()
     void setInnerContainerPosition(const Vec2 &pos)
     const Vec2& getInnerContainerPosition()
-    Vector<Node*>& getChildren()
     void setBounceEnabled(bool enabled)
     bool isBounceEnabled()
     void setInertiaScrollEnabled(bool enabled)
@@ -116,7 +117,6 @@ cls.props [[
     scrolledPercentBothDirection
     innerContainerSize
     innerContainerPosition
-    children
     bounceEnabled
     inertiaScrollEnabled
     scrollBarEnabled

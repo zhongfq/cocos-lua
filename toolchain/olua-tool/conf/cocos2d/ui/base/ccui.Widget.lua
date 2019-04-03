@@ -100,7 +100,9 @@ cls.funcs [[
     void ignoreContentAdaptWithSize(bool ignore)
     bool isIgnoreContentAdaptWithSize()
     Vec2 getWorldPosition()
-    Node* getVirtualRenderer()
+
+    @ref(map protectedChildren) Node* getVirtualRenderer()
+    
     Size getVirtualRendererSize()
     Widget* clone()
     void updateSizeAndPosition()

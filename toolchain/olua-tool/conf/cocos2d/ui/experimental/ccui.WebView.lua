@@ -20,7 +20,6 @@ cls.funcs [[
     void evaluateJS(const std::string &js)
     void setScalesPageToFit(const bool scalesPageToFit)
     void setBounces(bool bounce)
-    void draw(cocos2d::Renderer *renderer, cocos2d::Mat4 const &transform, uint32_t flags)
     void setOpacityWebView(float opacity)
     float getOpacityWebView()
     void setBackgroundTransparent()

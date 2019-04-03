@@ -16,7 +16,9 @@ cls.funcs [[
     static TabHeader* create()
     static TabHeader* create(const std::string& titleStr, const std::string& backGround, const std::string& cross, Widget::TextureResType texType = Widget::TextureResType::LOCAL)
     static TabHeader* create(const std::string& titleStr, const std::string& backGround, const std::string& backGroundSelected, const std::string& cross, const std::string& backGroundDisabled, const std::string& frontCrossDisabled, Widget::TextureResType texType = Widget::TextureResType::LOCAL)
-    @ref(single titleRenderer) Label* getTitleRenderer()
+
+    @ref(map protectedChildren) Label* getTitleRenderer()
+
     void setTitleText(const std::string& text)
     std::string getTitleText()
     void setTitleColor(const Color4B& color)
@@ -60,12 +62,14 @@ cls.LUACLS = "ccui.TabControl"
 cls.SUPERCLS = "ccui.Widget"
 cls.funcs [[
     static TabControl* create()
-    @unref(cmp controls) void removeTab(int index)
+
+    @unref(cmp protectedChildren) void removeTab(int index)
     void setSelectTab(int index)
     void setSelectTab(TabHeader* tabHeader)
-    @ref(map controls) TabHeader* getTabHeader(int index)
-    @ref(map controls) Layout* getTabContainer(int index)
-    void insertTab(int index, @ref(map controls) TabHeader* header, @ref(map controls) Layout* container)
+    @ref(map protectedChildren) TabHeader* getTabHeader(int index)
+    @ref(map protectedChildren) Layout* getTabContainer(int index)
+    void insertTab(int index, @ref(map protectedChildren) TabHeader* header, @ref(map protectedChildren) Layout* container)
+
     size_t    getTabCount()
     int getSelectedTabIndex()
     int indexOfTabHeader(const TabHeader* tabCell)

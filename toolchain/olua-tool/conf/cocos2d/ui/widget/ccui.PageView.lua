@@ -24,11 +24,11 @@ cls.SUPERCLS = "ccui.ListView"
 cls.funcs [[
     static PageView* create()
 
-    void addPage(@ref(map pages) Widget* page)
-    void insertPage(@ref(map pages) Widget* page, int idx)
-    void removePage(@unref(map pages) Widget* page)
-    @unref(cmp pages) void removePageAtIndex(ssize_t index)
-    @unref(all pages) void removeAllPages()
+    void addPage(@ref(map children) Widget* page)
+    void insertPage(@ref(map children) Widget* page, int idx)
+    void removePage(@unref(map children) Widget* page)
+    @unref(cmp children) void removePageAtIndex(ssize_t index)
+    @unref(all children) void removeAllPages()
 
     void scrollToPage(ssize_t idx)
     void scrollToPage(ssize_t idx, float time)

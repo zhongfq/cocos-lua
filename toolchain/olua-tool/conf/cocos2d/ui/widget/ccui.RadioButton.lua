@@ -46,11 +46,11 @@ cls.funcs [[
     void setSelectedButtonWithoutEvent(int index)
     void setSelectedButtonWithoutEvent(RadioButton* radioButton)
 
-    void addRadioButton(@ref(map radioButtons) RadioButton* radioButton)
-    void removeRadioButton(@unref(map radioButtons) RadioButton* radioButton)
-    @unref(all radioButtons) void removeAllRadioButtons()
+    void addRadioButton(RadioButton* radioButton)
+    void removeRadioButton(RadioButton* radioButton)
+    void removeAllRadioButtons()
     ssize_t getNumberOfRadioButtons()
-    @ref(map radioButtons) RadioButton* getRadioButtonByIndex(int index)
+    RadioButton* getRadioButtonByIndex(int index)
 
     void setAllowedNoSelection(bool allowedNoSelection)
     bool isAllowedNoSelection()

@@ -14,7 +14,7 @@ cls.CPPCLS = "cocos2d::EaseRateAction"
 cls.LUACLS = "cc.EaseRateAction"
 cls.SUPERCLS = "cc.ActionEase"
 cls.funcs([[
-    static EaseRateAction* create(@singleref(innerAction) ActionInterval* action, float rate)
+    static EaseRateAction* create(@ref(singleref innerAction) ActionInterval* action, float rate)
     void setRate(float rate)
     float getRate()
 ]])
@@ -26,7 +26,7 @@ local function ease_class(NAME)
     cls.LUACLS = format_snippet "cc.${NAME}"
     cls.SUPERCLS = "cc.ActionEase"
     cls.funcs(format_snippet([[
-        static ${NAME* create(@singleref(innerAction) ActionInterval* action)
+        static ${NAME* create(@ref(singleref innerAction) ActionInterval* action)
     ]]))
 end
 
@@ -64,7 +64,7 @@ local function ease_rate_class(NAME)
     cls.LUACLS = format_snippet "cc.${NAME}"
     cls.SUPERCLS = "cc.EaseRateAction"
     cls.funcs(format_snippet([[
-        static ${NAME* create(@singleref(innerAction) ActionInterval* action, float rate)
+        static ${NAME* create(@ref(singleref innerAction) ActionInterval* action, float rate)
     ]]))
 end
 
@@ -88,7 +88,7 @@ local function ease_elastic_class(NAME)
     cls.LUACLS = format_snippet "cc.${NAME}"
     cls.SUPERCLS = "cc.EaseElastic"
     cls.funcs(format_snippet([[
-        static ${NAME* create(@singleref(innerAction) ActionInterval* action, float rate = 0.3f)
+        static ${NAME* create(@ref(singleref innerAction) ActionInterval* action, float rate = 0.3f)
     ]]))
 end
 
@@ -101,7 +101,7 @@ cls.CPPCLS = "cocos2d::EaseBezierAction"
 cls.LUACLS = "cc.EaseBezierAction"
 cls.SUPERCLS = "cc.ActionEase"
 cls.funcs([[
-    static EaseBezierAction* create(@singleref(innerAction) ActionInterval* action)
+    static EaseBezierAction* create(@ref(singleref innerAction) ActionInterval* action)
     void setBezierParamer( float p0, float p1, float p2, float p3)
 ]])
 

@@ -35,8 +35,8 @@ local cls = class(M)
 cls.CPPCLS = "fairygui::RelationItem"
 cls.LUACLS = "fui.RelationItem"
 cls.funcs [[
-    @singleref(target) GObject* getTarget()
-    void setTarget(@singleref(target) GObject* value)
+    @ref(singleref target) GObject* getTarget()
+    void setTarget(@ref(singleref target) GObject* value)
     void add(RelationType relationType, bool usePercent)
     void internalAdd(RelationType relationType, bool usePercent)
     void remove(RelationType relationType)

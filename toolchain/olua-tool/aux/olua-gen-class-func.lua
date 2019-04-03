@@ -167,26 +167,22 @@ local function gen_func_args(cls, fi)
             ]])
         end
 
-        if ai.ATTR.SINGLEREF then
-            local REF_NAME = assert(ai.ATTR.SINGLEREF[1], 'no ref name')
-            REF_CHUNK[#REF_CHUNK + 1] = format_snippet([[
-                olua_singleref(L, 1, "${REF_NAME", ${IDX});
-            ]])
-        elseif ai.ATTR.MAPREF then
+        if ai.ATTR.REF then
             assert(not fi.STATIC or (fi.RET.NUM > 0 and fi.RET.TYPE.LUACLS), fi.CPPFUNC)
-            local WHICH_OBJ = ai.ATTR.MAPREF[2] or (fi.STATIC and -1 or 1)
-            local REFNAME = ai.ATTR.MAPREF[1] or "autoref"
-            REF_CHUNK[#REF_CHUNK + 1] = format_snippet([[
-                olua_mapref(L, ${WHICH_OBJ}, "${REFNAME}", ${IDX});
-            ]])
-        elseif ai.ATTR.MAPUNREF then
-            assert(not fi.STATIC, fi.CPPFUNC)
-            assert(#fi.ARGS > 0 and fi.ARGS[1].TYPE.LUACLS, fi.CPPFUNC)
-            local WHICH_OBJ = ai.ATTR.MAPUNREF[2] or 1
-            local REFNAME = assert(ai.ATTR.MAPUNREF[1], fi.CPPFUNC .. ' no refname')
-            REF_CHUNK[#REF_CHUNK + 1] = format_snippet([[
-                olua_mapunref(L, ${WHICH_OBJ}, "${REFNAME}", ${IDX});
-            ]])
+            local REF = assert(ai.ATTR.REF[1], fi.CPPFUNC .. ' no ref action')
+            local REFNAME = assert(ai.ATTR.REF[2], fi.CPPFUNC .. ' no refname')
+            local WHICH_OBJ = ai.ATTR.REF[3] or (fi.STATIC and -1 or 1)
+            if REF == 'mapref' then
+                REF_CHUNK[#REF_CHUNK + 1] = format_snippet([[
+                    olua_mapref(L, ${WHICH_OBJ}, "${REFNAME}", ${IDX});
+                ]])
+            elseif REF == "singleref" then
+                REF_CHUNK[#REF_CHUNK + 1] = format_snippet([[
+                    olua_singleref(L, ${WHICH_OBJ}, "${REFNAME", ${IDX});
+                ]])
+            else
+                error('no support ref action: ' .. REF)
+            end
         end
     end
 
@@ -332,19 +328,20 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
         end
     end
 
-    if fi.RET.ATTR.SINGLEREF then
-        local REF_NAME = assert(fi.RET.ATTR.SINGLEREF[1], 'no ref name')
-        REF_CHUNK[#REF_CHUNK + 1] = format_snippet([[
-            olua_singleref(L, 1, "${REF_NAME", -1);
-        ]])
-    elseif fi.RET.ATTR.MAPREF then
-        assert(fi.RET.NUM > 0 and fi.RET.TYPE.LUACLS, fi.CPPFUNC)
-        assert(#fi.ARGS > 0 and fi.ARGS[1].TYPE.LUACLS, fi.CPPFUNC)
-        local WHICH_OBJ = fi.RET.ATTR.MAPREF[2] or 1
-        local REFNAME = fi.RET.ATTR.MAPREF[1] or "autoref"
-        REF_CHUNK[#REF_CHUNK + 1] = format_snippet([[
-            olua_mapref(L, ${WHICH_OBJ}, "${REFNAME}", -1);
-        ]])
+    if fi.RET.ATTR.REF then
+        assert(fi.RET.TYPE.LUACLS, fi.CPPFUNC .. ' ref object must be a userdata')
+        assert(not fi.STATIC, fi.CPPFUNC .. ' only support instance func')
+        local REF = assert(fi.RET.ATTR.REF[1], fi.CPPFUNC .. ' no ref name')
+        local REF_NAME = assert(fi.RET.ATTR.REF[2], fi.CPPFUNC .. ' no ref name')
+        local WHICH_OBJ = fi.RET.ATTR.REF[3] or (fi.STATIC and -1 or 1)
+        local IDX = -1
+        if REF == 'singleref' then
+            REF_CHUNK[#REF_CHUNK + 1] = format_snippet([[
+                olua_singleref(L, ${WHICH_OBJ}, "${REF_NAME", ${IDX});
+            ]])
+        else
+            error('no support ref action: ' .. REF)
+        end
     end
 
     if #REF_CHUNK > 0 then

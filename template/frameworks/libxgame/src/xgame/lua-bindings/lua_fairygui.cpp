@@ -3611,7 +3611,7 @@ static int _fairygui_GController_getParent(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GController");
 
-    // @singleref(parent) GComponent* getParent()
+    // @ref(singleref parent) GComponent* getParent()
     fairygui::GComponent *ret = (fairygui::GComponent *)self->getParent();
     int num_ret = olua_push_cppobj<fairygui::GComponent>(L, ret, "fui.GComponent");
 
@@ -3631,7 +3631,7 @@ static int _fairygui_GController_setParent(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.GController");
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.GComponent");
 
-    // void setParent(@singleref(parent) GComponent* value)
+    // void setParent(@ref(singleref parent) GComponent* value)
     self->setParent(arg1);
 
     // inject code after call
@@ -4675,7 +4675,7 @@ static int _fairygui_GObject_getGroup(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GObject");
 
-    // @singleref(group) GGroup* getGroup()
+    // @ref(singleref group) GGroup* getGroup()
     fairygui::GGroup *ret = (fairygui::GGroup *)self->getGroup();
     int num_ret = olua_push_cppobj<fairygui::GGroup>(L, ret, "fui.GGroup");
 
@@ -4695,7 +4695,7 @@ static int _fairygui_GObject_setGroup(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.GObject");
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.GGroup");
 
-    // void setGroup(@singleref(group) GGroup* value)
+    // void setGroup(@ref(singleref group) GGroup* value)
     self->setGroup(arg1);
 
     // inject code after call
@@ -5381,7 +5381,7 @@ static int _fairygui_GObject_displayObject(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GObject");
 
-    // @singleref(displayObject) cocos2d::Node* displayObject()
+    // @ref(singleref displayObject) cocos2d::Node* displayObject()
     cocos2d::Node *ret = (cocos2d::Node *)self->displayObject();
     int num_ret = olua_push_cppobj<cocos2d::Node>(L, ret, "cc.Node");
 
@@ -6674,7 +6674,7 @@ static int _fairygui_GComponent_getMask(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GComponent");
 
-    // @singleref(mask) cocos2d::Node* getMask()
+    // @ref(singleref mask) cocos2d::Node* getMask()
     cocos2d::Node *ret = (cocos2d::Node *)self->getMask();
     int num_ret = olua_push_cppobj<cocos2d::Node>(L, ret, "cc.Node");
 
@@ -6696,7 +6696,7 @@ static int _fairygui_GComponent_setMask(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
     olua_opt_bool(L, 3, &arg2, (bool)false);
 
-    // void setMask(@singleref(mask) cocos2d::Node* value, bool inverted = false)
+    // void setMask(@ref(singleref mask) cocos2d::Node* value, bool inverted = false)
     self->setMask(arg1, arg2);
 
     // inject code after call
@@ -8420,7 +8420,7 @@ static int _fairygui_GLoader_getComponent(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GLoader");
 
-    // @singleref(component) GComponent* getComponent()
+    // @ref(singleref component) GComponent* getComponent()
     fairygui::GComponent *ret = (fairygui::GComponent *)self->getComponent();
     int num_ret = olua_push_cppobj<fairygui::GComponent>(L, ret, "fui.GComponent");
 
@@ -9135,7 +9135,7 @@ static int _fairygui_GButton_getRelatedController(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GButton");
 
-    // @singleref(relatedController) GController* getRelatedController()
+    // @ref(singleref relatedController) GController* getRelatedController()
     fairygui::GController *ret = (fairygui::GController *)self->getRelatedController();
     int num_ret = olua_push_cppobj<fairygui::GController>(L, ret, "fui.GController");
 
@@ -9155,7 +9155,7 @@ static int _fairygui_GButton_setRelatedController(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.GButton");
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.GController");
 
-    // void setRelatedController(@singleref(relatedController) GController* c)
+    // void setRelatedController(@ref(singleref relatedController) GController* c)
     self->setRelatedController(arg1);
 
     // inject code after call
@@ -9203,7 +9203,7 @@ static int _fairygui_GButton_getTextField(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GButton");
 
-    // @singleref(textField) GTextField* getTextField()
+    // @ref(singleref textField) GTextField* getTextField()
     fairygui::GTextField *ret = (fairygui::GTextField *)self->getTextField();
     int num_ret = olua_push_cppobj<fairygui::GTextField>(L, ret, "fui.GTextField");
 
@@ -9588,7 +9588,7 @@ static int _fairygui_GLabel_getTextField(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GLabel");
 
-    // @singleref(textField) GTextField* getTextField()
+    // @ref(singleref textField) GTextField* getTextField()
     fairygui::GTextField *ret = (fairygui::GTextField *)self->getTextField();
     int num_ret = olua_push_cppobj<fairygui::GTextField>(L, ret, "fui.GTextField");
 
@@ -10424,7 +10424,7 @@ static int _fairygui_GList_getSelectionController(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GList");
 
-    // @singleref(selectionController) GController* getSelectionController()
+    // @ref(singleref selectionController) GController* getSelectionController()
     fairygui::GController *ret = (fairygui::GController *)self->getSelectionController();
     int num_ret = olua_push_cppobj<fairygui::GController>(L, ret, "fui.GController");
 
@@ -10444,7 +10444,7 @@ static int _fairygui_GList_setSelectionController(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.GList");
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.GController");
 
-    // void setSelectionController(@singleref(selectionController) GController* value)
+    // void setSelectionController(@ref(singleref selectionController) GController* value)
     self->setSelectionController(arg1);
 
     // inject code after call
@@ -11406,7 +11406,7 @@ static int _fairygui_GComboBox_getSelectionController(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GComboBox");
 
-    // @singleref(selectionController) GController* getSelectionController()
+    // @ref(singleref selectionController) GController* getSelectionController()
     fairygui::GController *ret = (fairygui::GController *)self->getSelectionController();
     int num_ret = olua_push_cppobj<fairygui::GController>(L, ret, "fui.GController");
 
@@ -11426,7 +11426,7 @@ static int _fairygui_GComboBox_setSelectionController(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.GComboBox");
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.GController");
 
-    // void setSelectionController(@singleref(selectionController) GController* value)
+    // void setSelectionController(@ref(singleref selectionController) GController* value)
     self->setSelectionController(arg1);
 
     // inject code after call
@@ -11506,7 +11506,7 @@ static int _fairygui_GComboBox_getDropdown(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GComboBox");
 
-    // @singleref(dropdown) GObject* getDropdown()
+    // @ref(singleref dropdown) GObject* getDropdown()
     fairygui::GObject *ret = (fairygui::GObject *)self->getDropdown();
     int num_ret = olua_push_cppobj<fairygui::GObject>(L, ret, "fui.GObject");
 
@@ -11538,7 +11538,7 @@ static int _fairygui_GComboBox_getTextField(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GComboBox");
 
-    // @singleref(textField) GTextField* getTextField()
+    // @ref(singleref textField) GTextField* getTextField()
     fairygui::GTextField *ret = (fairygui::GTextField *)self->getTextField();
     int num_ret = olua_push_cppobj<fairygui::GTextField>(L, ret, "fui.GTextField");
 
@@ -12156,7 +12156,7 @@ static int _fairygui_PopupMenu_getContentPane(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.PopupMenu");
 
-    // @singleref(contentPane) GComponent* getContentPane()
+    // @ref(singleref contentPane) GComponent* getContentPane()
     fairygui::GComponent *ret = (fairygui::GComponent *)self->getContentPane();
     int num_ret = olua_push_cppobj<fairygui::GComponent>(L, ret, "fui.GComponent");
 
@@ -12174,7 +12174,7 @@ static int _fairygui_PopupMenu_getList(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.PopupMenu");
 
-    // @singleref(list) GList* getList()
+    // @ref(singleref list) GList* getList()
     fairygui::GList *ret = (fairygui::GList *)self->getList();
     int num_ret = olua_push_cppobj<fairygui::GList>(L, ret, "fui.GList");
 
@@ -12592,7 +12592,7 @@ static int _fairygui_RelationItem_getTarget(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.RelationItem");
 
-    // @singleref(target) GObject* getTarget()
+    // @ref(singleref target) GObject* getTarget()
     fairygui::GObject *ret = (fairygui::GObject *)self->getTarget();
     int num_ret = olua_push_cppobj<fairygui::GObject>(L, ret, "fui.GObject");
 
@@ -12612,7 +12612,7 @@ static int _fairygui_RelationItem_setTarget(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.RelationItem");
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.GObject");
 
-    // void setTarget(@singleref(target) GObject* value)
+    // void setTarget(@ref(singleref target) GObject* value)
     self->setTarget(arg1);
 
     // inject code after call
@@ -12748,7 +12748,7 @@ static int _fairygui_ScrollPane_getOwner(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.ScrollPane");
 
-    // @singleref(owner) GComponent* getOwner()
+    // @ref(singleref owner) GComponent* getOwner()
     fairygui::GComponent *ret = (fairygui::GComponent *)self->getOwner();
     int num_ret = olua_push_cppobj<fairygui::GComponent>(L, ret, "fui.GComponent");
 
@@ -12766,7 +12766,7 @@ static int _fairygui_ScrollPane_getHeader(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.ScrollPane");
 
-    // @singleref(header) GComponent* getHeader()
+    // @ref(singleref header) GComponent* getHeader()
     fairygui::GComponent *ret = (fairygui::GComponent *)self->getHeader();
     int num_ret = olua_push_cppobj<fairygui::GComponent>(L, ret, "fui.GComponent");
 
@@ -12784,7 +12784,7 @@ static int _fairygui_ScrollPane_getFooter(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.ScrollPane");
 
-    // @singleref(footer) GComponent* getFooter()
+    // @ref(singleref footer) GComponent* getFooter()
     fairygui::GComponent *ret = (fairygui::GComponent *)self->getFooter();
     int num_ret = olua_push_cppobj<fairygui::GComponent>(L, ret, "fui.GComponent");
 
@@ -12802,7 +12802,7 @@ static int _fairygui_ScrollPane_getVtScrollBar(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.ScrollPane");
 
-    // @singleref(vtScrollBar) GScrollBar* getVtScrollBar()
+    // @ref(singleref vtScrollBar) GScrollBar* getVtScrollBar()
     fairygui::GScrollBar *ret = (fairygui::GScrollBar *)self->getVtScrollBar();
     int num_ret = olua_push_cppobj<fairygui::GScrollBar>(L, ret, "fui.GScrollBar");
 
@@ -12820,7 +12820,7 @@ static int _fairygui_ScrollPane_getHzScrollBar(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.ScrollPane");
 
-    // @singleref(hzScrollBar) GScrollBar* getHzScrollBar()
+    // @ref(singleref hzScrollBar) GScrollBar* getHzScrollBar()
     fairygui::GScrollBar *ret = (fairygui::GScrollBar *)self->getHzScrollBar();
     int num_ret = olua_push_cppobj<fairygui::GScrollBar>(L, ret, "fui.GScrollBar");
 
@@ -13024,7 +13024,7 @@ static int _fairygui_ScrollPane_getPageController(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.ScrollPane");
 
-    // @singleref(pageController) GController* getPageController()
+    // @ref(singleref pageController) GController* getPageController()
     fairygui::GController *ret = (fairygui::GController *)self->getPageController();
     int num_ret = olua_push_cppobj<fairygui::GController>(L, ret, "fui.GController");
 
@@ -13044,7 +13044,7 @@ static int _fairygui_ScrollPane_setPageController(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.ScrollPane");
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.GController");
 
-    // void setPageController(@singleref(pageController) GController* value)
+    // void setPageController(@ref(singleref pageController) GController* value)
     self->setPageController(arg1);
 
     // inject code after call
@@ -13738,7 +13738,7 @@ static int _fairygui_Transition_getOwner(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.Transition");
 
-    // @singleref(owner) GComponent* getOwner()
+    // @ref(singleref owner) GComponent* getOwner()
     fairygui::GComponent *ret = (fairygui::GComponent *)self->getOwner();
     int num_ret = olua_push_cppobj<fairygui::GComponent>(L, ret, "fui.GComponent");
 
@@ -15436,7 +15436,7 @@ static int _fairygui_Window_getContentPane(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.Window");
 
-    // @singleref(contentPane) GComponent* getContentPane()
+    // @ref(singleref contentPane) GComponent* getContentPane()
     fairygui::GComponent *ret = (fairygui::GComponent *)self->getContentPane();
     int num_ret = olua_push_cppobj<fairygui::GComponent>(L, ret, "fui.GComponent");
 
@@ -15456,7 +15456,7 @@ static int _fairygui_Window_setContentPane(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.Window");
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.GComponent");
 
-    // void setContentPane(@singleref(contentPane) GComponent* value)
+    // void setContentPane(@ref(singleref contentPane) GComponent* value)
     self->setContentPane(arg1);
 
     // inject code after call
@@ -15473,7 +15473,7 @@ static int _fairygui_Window_getFrame(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.Window");
 
-    // @singleref(frame) GComponent* getFrame()
+    // @ref(singleref frame) GComponent* getFrame()
     fairygui::GComponent *ret = (fairygui::GComponent *)self->getFrame();
     int num_ret = olua_push_cppobj<fairygui::GComponent>(L, ret, "fui.GComponent");
 
@@ -15491,7 +15491,7 @@ static int _fairygui_Window_getCloseButton(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.Window");
 
-    // @singleref(closeButton) GObject* getCloseButton()
+    // @ref(singleref closeButton) GObject* getCloseButton()
     fairygui::GObject *ret = (fairygui::GObject *)self->getCloseButton();
     int num_ret = olua_push_cppobj<fairygui::GObject>(L, ret, "fui.GObject");
 
@@ -15511,7 +15511,7 @@ static int _fairygui_Window_setCloseButton(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.Window");
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.GObject");
 
-    // void setCloseButton(@singleref(closeButton) GObject* value)
+    // void setCloseButton(@ref(singleref closeButton) GObject* value)
     self->setCloseButton(arg1);
 
     // inject code after call
@@ -15528,7 +15528,7 @@ static int _fairygui_Window_getDragArea(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.Window");
 
-    // @singleref(dragArea) GObject* getDragArea()
+    // @ref(singleref dragArea) GObject* getDragArea()
     fairygui::GObject *ret = (fairygui::GObject *)self->getDragArea();
     int num_ret = olua_push_cppobj<fairygui::GObject>(L, ret, "fui.GObject");
 
@@ -15548,7 +15548,7 @@ static int _fairygui_Window_setDragArea(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.Window");
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.GObject");
 
-    // void setDragArea(@singleref(dragArea) GObject* value)
+    // void setDragArea(@ref(singleref dragArea) GObject* value)
     self->setDragArea(arg1);
 
     // inject code after call
@@ -15565,7 +15565,7 @@ static int _fairygui_Window_getContentArea(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.Window");
 
-    // @singleref(contentArea) GObject* getContentArea()
+    // @ref(singleref contentArea) GObject* getContentArea()
     fairygui::GObject *ret = (fairygui::GObject *)self->getContentArea();
     int num_ret = olua_push_cppobj<fairygui::GObject>(L, ret, "fui.GObject");
 
@@ -15585,7 +15585,7 @@ static int _fairygui_Window_setContentArea(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.Window");
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.GObject");
 
-    // void setContentArea(@singleref(contentArea) GObject* value)
+    // void setContentArea(@ref(singleref contentArea) GObject* value)
     self->setContentArea(arg1);
 
     // inject code after call
@@ -15602,7 +15602,7 @@ static int _fairygui_Window_getModalWaitingPane(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.Window");
 
-    // @singleref(modalWaitingPane) GObject* getModalWaitingPane()
+    // @ref(singleref modalWaitingPane) GObject* getModalWaitingPane()
     fairygui::GObject *ret = (fairygui::GObject *)self->getModalWaitingPane();
     int num_ret = olua_push_cppobj<fairygui::GObject>(L, ret, "fui.GObject");
 
@@ -15918,7 +15918,7 @@ static int _fairygui_TreeNode_getRoot(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.TreeNode");
 
-    // @singleref(root) TreeView* getRoot()
+    // @ref(singleref root) TreeView* getRoot()
     fairygui::TreeView *ret = (fairygui::TreeView *)self->getRoot();
     int num_ret = olua_push_cppobj<fairygui::TreeView>(L, ret, "fui.TreeView");
 
@@ -15936,7 +15936,7 @@ static int _fairygui_TreeNode_getCell(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.TreeNode");
 
-    // @singleref(cell) GComponent* getCell()
+    // @ref(singleref cell) GComponent* getCell()
     fairygui::GComponent *ret = (fairygui::GComponent *)self->getCell();
     int num_ret = olua_push_cppobj<fairygui::GComponent>(L, ret, "fui.GComponent");
 

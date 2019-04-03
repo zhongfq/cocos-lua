@@ -5,8 +5,8 @@ cls.SUPERCLS = "cc.Ref"
 cls.funcs [[
     static TreeNode* create(bool isFolder = false)
     TreeNode* getParent()
-    @singleref(root) TreeView* getRoot()
-    @singleref(cell) GComponent* getCell()
+    @ref(singleref root) TreeView* getRoot()
+    @ref(singleref cell) GComponent* getCell()
     const cocos2d::Value& getData()
     void setData(const cocos2d::Value& value)
     bool isExpanded()

@@ -3,11 +3,11 @@ cls.CPPCLS = "fairygui::ScrollPane"
 cls.LUACLS = "fui.ScrollPane"
 cls.SUPERCLS = "cc.Ref"
 cls.funcs [[
-    @singleref(owner) GComponent* getOwner()
-    @singleref(header) GComponent* getHeader()
-    @singleref(footer) GComponent* getFooter()
-    @singleref(vtScrollBar) GScrollBar* getVtScrollBar()
-    @singleref(hzScrollBar) GScrollBar* getHzScrollBar()
+    @ref(singleref owner) GComponent* getOwner()
+    @ref(singleref header) GComponent* getHeader()
+    @ref(singleref footer) GComponent* getFooter()
+    @ref(singleref vtScrollBar) GScrollBar* getVtScrollBar()
+    @ref(singleref hzScrollBar) GScrollBar* getHzScrollBar()
     bool isBouncebackEffect()
     void setBouncebackEffect(bool value)
     bool isTouchEffect()
@@ -20,8 +20,8 @@ cls.funcs [[
     void setSnapToItem(bool value)
     bool isPageMode()
     void setPageMode(bool value)
-    @singleref(pageController) GController* getPageController()
-    void setPageController(@singleref(pageController) GController* value)
+    @ref(singleref pageController) GController* getPageController()
+    void setPageController(@ref(singleref pageController) GController* value)
     bool isMouseWheelEnabled()
     void setMouseWheelEnabled(bool value)
     float getDecelerationRate()

@@ -39,7 +39,7 @@ cls.func('create', [[
 }
 ]])
 cls.funcs([[
-    static Sequence* createWithTwoActions(@mapref FiniteTimeAction *actionOne, @mapref FiniteTimeAction *actionTwo);
+    static Sequence* createWithTwoActions(@ref(mapref autoref) FiniteTimeAction *actionOne, @ref(mapref autoref) FiniteTimeAction *actionTwo);
 ]])
 
 local cls = class(M)
@@ -47,9 +47,9 @@ cls.CPPCLS = "cocos2d::Repeat"
 cls.LUACLS = "cc.Repeat"
 cls.SUPERCLS = "cc.ActionInterval"
 cls.funcs([[
-    static Repeat* create(@singleref(innerAction) FiniteTimeAction *action, unsigned int times)
-    void setInnerAction(@singleref(innerAction) FiniteTimeAction *action)
-    @singleref(innerAction) FiniteTimeAction* getInnerAction()
+    static Repeat* create(@ref(singleref innerAction) FiniteTimeAction *action, unsigned int times)
+    void setInnerAction(@ref(singleref innerAction) FiniteTimeAction *action)
+    @ref(singleref innerAction) FiniteTimeAction* getInnerAction()
 ]])
 cls.prop('innerAction')
 
@@ -58,9 +58,9 @@ cls.CPPCLS = "cocos2d::RepeatForever"
 cls.LUACLS = "cc.RepeatForever"
 cls.SUPERCLS = "cc.ActionInterval"
 cls.funcs([[
-    static RepeatForever* create(@singleref(innerAction) ActionInterval *action)
-    void setInnerAction(@singleref(innerAction) ActionInterval *action)
-    @singleref(innerAction) ActionInterval* getInnerAction()
+    static RepeatForever* create(@ref(singleref innerAction) ActionInterval *action)
+    void setInnerAction(@ref(singleref innerAction) ActionInterval *action)
+    @ref(singleref innerAction) ActionInterval* getInnerAction()
 ]])
 cls.prop("innerAction")
 
@@ -91,7 +91,7 @@ cls.func('create', [[
 }
 ]])
 cls.funcs([[
-    static Spawn* createWithTwoActions(@mapref FiniteTimeAction *action1, @mapref FiniteTimeAction *action2);
+    static Spawn* createWithTwoActions(@ref(mapref autoref) FiniteTimeAction *action1, @ref(mapref autoref) FiniteTimeAction *action2);
 ]])
 
 local cls = class(M)
@@ -278,7 +278,7 @@ cls.CPPCLS = "cocos2d::ReverseTime"
 cls.LUACLS = "cc.ReverseTime"
 cls.SUPERCLS = "cc.ActionInterval"
 cls.funcs([[
-    static ReverseTime* create(@mapref FiniteTimeAction *action)
+    static ReverseTime* create(@ref(mapref autoref) FiniteTimeAction *action)
 ]])
 
 local cls = class(M)
@@ -299,7 +299,7 @@ cls.CPPCLS = "cocos2d::TargetedAction"
 cls.LUACLS = "cc.TargetedAction"
 cls.SUPERCLS = "cc.ActionInterval"
 cls.funcs([[
-    static TargetedAction* create(Node* target, @mapref FiniteTimeAction* action)
+    static TargetedAction* create(Node* target, @ref(mapref autoref) FiniteTimeAction* action)
     void setForcedTarget(Node* forcedTarget)
     Node* getForcedTarget()
 ]])

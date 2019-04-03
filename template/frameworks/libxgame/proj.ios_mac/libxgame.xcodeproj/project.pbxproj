@@ -907,6 +907,8 @@
 					OLUA_DEBUG,
 					"OLUA_REPORT_PUSH_STATUS=xlua_report_push_status",
 					"OLUA_MAINTHREAD=xlua_cocosthread",
+					"OLUA_STARTCMPUNREF=xlua_startcmpunref",
+					"OLUA_ENDCMPUNREF=xlua_endcmpunref",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -982,6 +984,8 @@
 					"CC_FILEUTILS_APPLE_ENABLE_OBJC=0",
 					"OLUA_REPORT_PUSH_STATUS=xlua_report_push_status",
 					"OLUA_MAINTHREAD=xlua_cocosthread",
+					"OLUA_STARTCMPUNREF=xlua_startcmpunref",
+					"OLUA_ENDCMPUNREF=xlua_endcmpunref",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

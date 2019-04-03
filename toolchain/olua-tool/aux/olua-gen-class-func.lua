@@ -174,9 +174,18 @@ local function gen_func_args(cls, fi)
             ]])
         elseif ai.ATTR.MAPREF then
             assert(not fi.STATIC or (fi.RET.NUM > 0 and fi.RET.TYPE.LUACLS), fi.CPPFUNC)
-            local WHICH_OBJ = fi.STATIC and -1 or 1
+            local WHICH_OBJ = ai.ATTR.MAPREF[2] or (fi.STATIC and -1 or 1)
+            local REFNAME = ai.ATTR.MAPREF[1] or "autoref"
             REF_CHUNK[#REF_CHUNK + 1] = format_snippet([[
-                olua_mapref(L, ${WHICH_OBJ}, "autoref", ${IDX});
+                olua_mapref(L, ${WHICH_OBJ}, "${REFNAME}", ${IDX});
+            ]])
+        elseif ai.ATTR.MAPUNREF then
+            assert(not fi.STATIC, fi.CPPFUNC)
+            assert(#fi.ARGS > 0 and fi.ARGS[1].TYPE.LUACLS, fi.CPPFUNC)
+            local WHICH_OBJ = ai.ATTR.MAPUNREF[2] or 1
+            local REFNAME = assert(ai.ATTR.MAPUNREF[1], fi.CPPFUNC .. ' no refname')
+            REF_CHUNK[#REF_CHUNK + 1] = format_snippet([[
+                olua_mapunref(L, ${WHICH_OBJ}, "${REFNAME}", ${IDX});
             ]])
         end
     end
@@ -331,8 +340,10 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
     elseif fi.RET.ATTR.MAPREF then
         assert(fi.RET.NUM > 0 and fi.RET.TYPE.LUACLS, fi.CPPFUNC)
         assert(#fi.ARGS > 0 and fi.ARGS[1].TYPE.LUACLS, fi.CPPFUNC)
+        local WHICH_OBJ = fi.RET.ATTR.MAPREF[2] or 1
+        local REFNAME = fi.RET.ATTR.MAPREF[1] or "autoref"
         REF_CHUNK[#REF_CHUNK + 1] = format_snippet([[
-            olua_mapref(L, 1, "autoref", -1);
+            olua_mapref(L, ${WHICH_OBJ}, "${REFNAME}", -1);
         ]])
     end
 

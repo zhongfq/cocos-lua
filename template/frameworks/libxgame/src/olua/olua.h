@@ -26,6 +26,14 @@ extern "C" {
 #define olua_mainthread (static_assert(false), NULL)
 #endif
     
+#ifdef OLUA_STARTCMPUNREF
+#define olua_startcmpunref(L, i, n) (OLUA_STARTCMPUNREF(L, i, n))
+#define olua_endcmpunref(L, i, n)   (OLUA_ENDCMPUNREF(L, i, n))
+#else
+#define olua_startcmpunref(L, i, n) (static_assert(false), NULL)
+#define olua_endcmpunref(L, i, n) (static_assert(false), NULL)
+#endif
+    
 #define olua_isfunction(L,n)        (lua_type(L, (n)) == LUA_TFUNCTION)
 #define olua_istable(L,n)           (lua_type(L, (n)) == LUA_TTABLE)
 #define olua_islightuserdata(L,n)   (lua_type(L, (n)) == LUA_TLIGHTUSERDATA)

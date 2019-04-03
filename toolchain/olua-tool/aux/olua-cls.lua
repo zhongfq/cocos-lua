@@ -130,7 +130,7 @@ local function parse_attr(arg)
         else
             opt = string.match(arg, '^@(%w+)')
             if opt then
-                attr[string.upper(opt)] = true
+                attr[string.upper(opt)] = {}
                 arg = string.gsub(arg, '^@%w+', '')
             else
                 break

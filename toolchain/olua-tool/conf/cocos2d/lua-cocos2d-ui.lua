@@ -53,6 +53,7 @@ M.CLASSES = {
     include("conf/cocos2d/ui/widget/ccui.CheckBox.lua"),
     include("conf/cocos2d/ui/widget/ccui.RadioButton.lua"),
     include("conf/cocos2d/ui/widget/ccui.ImageView.lua"),
+    include("conf/cocos2d/ui/widget/ccui.EditBox.lua"),
 }
 
 return M

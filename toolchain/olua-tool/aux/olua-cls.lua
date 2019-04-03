@@ -306,7 +306,7 @@ local function parse_func(cls, name, ...)
                 local CPPFUNC = fi.CPPFUNC
                 local STATIC = fi.STATIC and "static " or ""
                 for _, v in ipairs(fi.ARGS) do
-                    ARGS_DECL[#ARGS_DECL + 1] = (v.TYPE.SUBTYPE or v.CALLBACK) and v.DECL_TYPE or v.TYPE.TYPENAME
+                    ARGS_DECL[#ARGS_DECL + 1] = (v.TYPE.SUBTYPE or next(v.CALLBACK)) and v.DECL_TYPE or v.TYPE.TYPENAME
                 end
                 ARGS_DECL = table.concat(ARGS_DECL, ", ")
 

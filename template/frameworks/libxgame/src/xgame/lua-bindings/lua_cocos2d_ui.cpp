@@ -15611,6 +15611,1358 @@ static int luaopen_cocos2d_ui_ImageView(lua_State *L)
     return 1;
 }
 
+static int luaopen_cocos2d_ui_EditBoxDelegate_EditBoxEndAction(lua_State *L)
+{
+    oluacls_class(L, "ccui.EditBoxDelegate.EditBoxEndAction", nullptr);
+    oluacls_const_integer(L, "UNKNOWN", (lua_Integer)cocos2d::ui::EditBoxDelegate::EditBoxEndAction::UNKNOWN);
+    oluacls_const_integer(L, "TAB_TO_NEXT", (lua_Integer)cocos2d::ui::EditBoxDelegate::EditBoxEndAction::TAB_TO_NEXT);
+    oluacls_const_integer(L, "TAB_TO_PREVIOUS", (lua_Integer)cocos2d::ui::EditBoxDelegate::EditBoxEndAction::TAB_TO_PREVIOUS);
+    oluacls_const_integer(L, "RETURN", (lua_Integer)cocos2d::ui::EditBoxDelegate::EditBoxEndAction::RETURN);
+
+    olua_registerluatype<cocos2d::ui::EditBoxDelegate::EditBoxEndAction>(L, "ccui.EditBoxDelegate.EditBoxEndAction");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_ui_EditBoxDelegate_editBoxEditingDidBegin(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::EditBoxDelegate *self = nullptr;
+    cocos2d::ui::EditBox *arg1 = nullptr;   /** editBox */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBoxDelegate");
+    olua_check_cppobj(L, 2, (void **)&arg1, "ccui.EditBox");
+
+    // void editBoxEditingDidBegin(EditBox* editBox)
+    self->editBoxEditingDidBegin(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBoxDelegate_editBoxTextChanged(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ui::EditBoxDelegate *self = nullptr;
+    cocos2d::ui::EditBox *arg1 = nullptr;   /** editBox */
+    std::string arg2;       /** text */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBoxDelegate");
+    olua_check_cppobj(L, 2, (void **)&arg1, "ccui.EditBox");
+    olua_check_std_string(L, 3, &arg2);
+
+    // void editBoxTextChanged(EditBox* editBox, const std::string& text)
+    self->editBoxTextChanged(arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBoxDelegate_editBoxReturn(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::EditBoxDelegate *self = nullptr;
+    cocos2d::ui::EditBox *arg1 = nullptr;   /** editBox */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBoxDelegate");
+    olua_check_cppobj(L, 2, (void **)&arg1, "ccui.EditBox");
+
+    // void editBoxReturn(EditBox* editBox)
+    self->editBoxReturn(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBoxDelegate_editBoxEditingDidEndWithAction(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ui::EditBoxDelegate *self = nullptr;
+    cocos2d::ui::EditBox *arg1 = nullptr;   /** editBox */
+    lua_Unsigned arg2 = 0;   /** action */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBoxDelegate");
+    olua_check_cppobj(L, 2, (void **)&arg1, "ccui.EditBox");
+    olua_check_uint(L, 3, &arg2);
+
+    // void editBoxEditingDidEndWithAction(EditBox* editBox, EditBoxEndAction action)
+    self->editBoxEditingDidEndWithAction(arg1, (cocos2d::ui::EditBoxDelegate::EditBoxEndAction)arg2);
+
+    return 0;
+}
+
+static int luaopen_cocos2d_ui_EditBoxDelegate(lua_State *L)
+{
+    oluacls_class(L, "ccui.EditBoxDelegate", "cc.Ref");
+    oluacls_setfunc(L, "editBoxEditingDidBegin", _cocos2d_ui_EditBoxDelegate_editBoxEditingDidBegin);
+    oluacls_setfunc(L, "editBoxTextChanged", _cocos2d_ui_EditBoxDelegate_editBoxTextChanged);
+    oluacls_setfunc(L, "editBoxReturn", _cocos2d_ui_EditBoxDelegate_editBoxReturn);
+    oluacls_setfunc(L, "editBoxEditingDidEndWithAction", _cocos2d_ui_EditBoxDelegate_editBoxEditingDidEndWithAction);
+
+    olua_registerluatype<cocos2d::ui::EditBoxDelegate>(L, "ccui.EditBoxDelegate");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+NS_CC_BEGIN
+namespace ui {
+    class LuaEditBoxDelegate : public cocos2d::Ref, public EditBoxDelegate {
+    public:
+        CREATE_FUNC(LuaEditBoxDelegate);
+        virtual void editBoxEditingDidBegin(EditBox* editBox)
+        {
+            if (onEditingDidBegin) {
+                onEditingDidBegin(editBox);
+            }
+        }
+
+        virtual void editBoxTextChanged(EditBox* editBox, const std::string& text)
+        {
+            if (onTextChanged) {
+                onTextChanged(editBox, text);
+            }
+        }
+
+        virtual void editBoxReturn(EditBox* editBox)
+        {
+            if (onReturn) {
+                onReturn(editBox);
+            }
+        }
+
+        virtual void editBoxEditingDidEndWithAction(EditBox* editBox, EditBoxDelegate::EditBoxEndAction action)
+        {
+            if (onEditingDidEndWithAction) {
+                onEditingDidEndWithAction(editBox, action);
+            }
+        }
+
+        std::function<void(EditBox *)> onEditingDidBegin;
+        std::function<void(EditBox *, const std::string &)> onTextChanged;
+        std::function<void(EditBox *)> onReturn;
+        std::function<void(EditBox *, EditBoxDelegate::EditBoxEndAction)> onEditingDidEndWithAction;
+    private:
+        LuaEditBoxDelegate()
+        :onEditingDidBegin(nullptr)
+        ,onTextChanged(nullptr)
+        ,onReturn(nullptr)
+        ,onEditingDidEndWithAction(nullptr)
+        {
+        }
+        bool init() { return true; }
+    };
+}
+NS_CC_END
+
+static int _cocos2d_ui_LuaEditBoxDelegate_create(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::LuaEditBoxDelegate *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.LuaEditBoxDelegate");
+
+    // LuaEditBoxDelegate *create()
+    cocos2d::ui::LuaEditBoxDelegate *ret = (cocos2d::ui::LuaEditBoxDelegate *)self->create();
+    int num_ret = olua_push_cppobj<cocos2d::ui::LuaEditBoxDelegate>(L, ret, "ccui.LuaEditBoxDelegate");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_LuaEditBoxDelegate_get_onEditingDidBegin(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::LuaEditBoxDelegate *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.LuaEditBoxDelegate");
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onEditingDidBegin");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+
+    // <function var>
+    std::function<void(cocos2d::ui::EditBox *)> ret = (std::function<void(cocos2d::ui::EditBox *)>)self->onEditingDidBegin;
+    int num_ret = olua_push_std_function(L, (std::function<void(cocos2d::ui::EditBox *)>)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_LuaEditBoxDelegate_set_onEditingDidBegin(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::LuaEditBoxDelegate *self = nullptr;
+    std::function<void(cocos2d::ui::EditBox *)> arg1 = nullptr;   /** onEditingDidBegin */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.LuaEditBoxDelegate");
+
+    if (olua_is_std_function(L, 2)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onEditingDidBegin");
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+        arg1 = [callback_store_obj, func, tag](cocos2d::ui::EditBox *arg1) {
+            lua_State *L = olua_mainthread();
+            int top = lua_gettop(L);
+
+            olua_push_cppobj<cocos2d::ui::EditBox>(L, arg1, "ccui.EditBox");
+
+            olua_callback(L, callback_store_obj, func.c_str(), 1);
+
+            lua_settop(L, top);
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onEditingDidBegin");
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+        arg1 = nullptr;
+    }
+
+    // <function var>
+    self->onEditingDidBegin = arg1;
+
+    return 0;
+}
+
+static int _cocos2d_ui_LuaEditBoxDelegate_get_onTextChanged(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::LuaEditBoxDelegate *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.LuaEditBoxDelegate");
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onTextChanged");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+
+    // <function var>
+    std::function<void(cocos2d::ui::EditBox *, const std::string &)> ret = (std::function<void(cocos2d::ui::EditBox *, const std::string &)>)self->onTextChanged;
+    int num_ret = olua_push_std_function(L, (std::function<void(cocos2d::ui::EditBox *, const std::string &)>)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_LuaEditBoxDelegate_set_onTextChanged(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::LuaEditBoxDelegate *self = nullptr;
+    std::function<void(cocos2d::ui::EditBox *, const std::string &)> arg1 = nullptr;   /** onTextChanged */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.LuaEditBoxDelegate");
+
+    if (olua_is_std_function(L, 2)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onTextChanged");
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+        arg1 = [callback_store_obj, func, tag](cocos2d::ui::EditBox *arg1, const std::string &arg2) {
+            lua_State *L = olua_mainthread();
+            int top = lua_gettop(L);
+
+            olua_push_cppobj<cocos2d::ui::EditBox>(L, arg1, "ccui.EditBox");
+            olua_push_std_string(L, arg2);
+
+            olua_callback(L, callback_store_obj, func.c_str(), 2);
+
+            lua_settop(L, top);
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onTextChanged");
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+        arg1 = nullptr;
+    }
+
+    // <function var>
+    self->onTextChanged = arg1;
+
+    return 0;
+}
+
+static int _cocos2d_ui_LuaEditBoxDelegate_get_onReturn(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::LuaEditBoxDelegate *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.LuaEditBoxDelegate");
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onReturn");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+
+    // <function var>
+    std::function<void(cocos2d::ui::EditBox *)> ret = (std::function<void(cocos2d::ui::EditBox *)>)self->onReturn;
+    int num_ret = olua_push_std_function(L, (std::function<void(cocos2d::ui::EditBox *)>)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_LuaEditBoxDelegate_set_onReturn(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::LuaEditBoxDelegate *self = nullptr;
+    std::function<void(cocos2d::ui::EditBox *)> arg1 = nullptr;   /** onReturn */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.LuaEditBoxDelegate");
+
+    if (olua_is_std_function(L, 2)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onReturn");
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+        arg1 = [callback_store_obj, func, tag](cocos2d::ui::EditBox *arg1) {
+            lua_State *L = olua_mainthread();
+            int top = lua_gettop(L);
+
+            olua_push_cppobj<cocos2d::ui::EditBox>(L, arg1, "ccui.EditBox");
+
+            olua_callback(L, callback_store_obj, func.c_str(), 1);
+
+            lua_settop(L, top);
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onReturn");
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+        arg1 = nullptr;
+    }
+
+    // <function var>
+    self->onReturn = arg1;
+
+    return 0;
+}
+
+static int _cocos2d_ui_LuaEditBoxDelegate_get_onEditingDidEndWithAction(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::LuaEditBoxDelegate *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.LuaEditBoxDelegate");
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onEditingDidEndWithAction");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+
+    // <function var>
+    std::function<void(cocos2d::ui::EditBox *, cocos2d::ui::EditBoxDelegate::EditBoxEndAction)> ret = (std::function<void(cocos2d::ui::EditBox *, cocos2d::ui::EditBoxDelegate::EditBoxEndAction)>)self->onEditingDidEndWithAction;
+    int num_ret = olua_push_std_function(L, (std::function<void(cocos2d::ui::EditBox *, cocos2d::ui::EditBoxDelegate::EditBoxEndAction)>)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_LuaEditBoxDelegate_set_onEditingDidEndWithAction(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::LuaEditBoxDelegate *self = nullptr;
+    std::function<void(cocos2d::ui::EditBox *, cocos2d::ui::EditBoxDelegate::EditBoxEndAction)> arg1 = nullptr;   /** onEditingDidEndWithAction */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.LuaEditBoxDelegate");
+
+    if (olua_is_std_function(L, 2)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onEditingDidEndWithAction");
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+        arg1 = [callback_store_obj, func, tag](cocos2d::ui::EditBox *arg1, cocos2d::ui::EditBoxDelegate::EditBoxEndAction arg2) {
+            lua_State *L = olua_mainthread();
+            int top = lua_gettop(L);
+
+            olua_push_cppobj<cocos2d::ui::EditBox>(L, arg1, "ccui.EditBox");
+            olua_push_uint(L, (lua_Unsigned)arg2);
+
+            olua_callback(L, callback_store_obj, func.c_str(), 2);
+
+            lua_settop(L, top);
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onEditingDidEndWithAction");
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+        arg1 = nullptr;
+    }
+
+    // <function var>
+    self->onEditingDidEndWithAction = arg1;
+
+    return 0;
+}
+
+static int luaopen_cocos2d_ui_LuaEditBoxDelegate(lua_State *L)
+{
+    oluacls_class(L, "ccui.LuaEditBoxDelegate", "ccui.EditBoxDelegate");
+    oluacls_setfunc(L, "create", _cocos2d_ui_LuaEditBoxDelegate_create);
+    oluacls_property(L, "onEditingDidBegin", _cocos2d_ui_LuaEditBoxDelegate_get_onEditingDidBegin, _cocos2d_ui_LuaEditBoxDelegate_set_onEditingDidBegin);
+    oluacls_property(L, "onTextChanged", _cocos2d_ui_LuaEditBoxDelegate_get_onTextChanged, _cocos2d_ui_LuaEditBoxDelegate_set_onTextChanged);
+    oluacls_property(L, "onReturn", _cocos2d_ui_LuaEditBoxDelegate_get_onReturn, _cocos2d_ui_LuaEditBoxDelegate_set_onReturn);
+    oluacls_property(L, "onEditingDidEndWithAction", _cocos2d_ui_LuaEditBoxDelegate_get_onEditingDidEndWithAction, _cocos2d_ui_LuaEditBoxDelegate_set_onEditingDidEndWithAction);
+
+    olua_registerluatype<cocos2d::ui::LuaEditBoxDelegate>(L, "ccui.LuaEditBoxDelegate");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_ui_EditBox_KeyboardReturnType(lua_State *L)
+{
+    oluacls_class(L, "ccui.EditBox.KeyboardReturnType", nullptr);
+    oluacls_const_integer(L, "DEFAULT", (lua_Integer)cocos2d::ui::EditBox::KeyboardReturnType::DEFAULT);
+    oluacls_const_integer(L, "DONE", (lua_Integer)cocos2d::ui::EditBox::KeyboardReturnType::DONE);
+    oluacls_const_integer(L, "SEND", (lua_Integer)cocos2d::ui::EditBox::KeyboardReturnType::SEND);
+    oluacls_const_integer(L, "SEARCH", (lua_Integer)cocos2d::ui::EditBox::KeyboardReturnType::SEARCH);
+    oluacls_const_integer(L, "GO", (lua_Integer)cocos2d::ui::EditBox::KeyboardReturnType::GO);
+    oluacls_const_integer(L, "NEXT", (lua_Integer)cocos2d::ui::EditBox::KeyboardReturnType::NEXT);
+
+    olua_registerluatype<cocos2d::ui::EditBox::KeyboardReturnType>(L, "ccui.EditBox.KeyboardReturnType");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_ui_EditBox_InputMode(lua_State *L)
+{
+    oluacls_class(L, "ccui.EditBox.InputMode", nullptr);
+    oluacls_const_integer(L, "ANY", (lua_Integer)cocos2d::ui::EditBox::InputMode::ANY);
+    oluacls_const_integer(L, "EMAIL_ADDRESS", (lua_Integer)cocos2d::ui::EditBox::InputMode::EMAIL_ADDRESS);
+    oluacls_const_integer(L, "NUMERIC", (lua_Integer)cocos2d::ui::EditBox::InputMode::NUMERIC);
+    oluacls_const_integer(L, "PHONE_NUMBER", (lua_Integer)cocos2d::ui::EditBox::InputMode::PHONE_NUMBER);
+    oluacls_const_integer(L, "URL", (lua_Integer)cocos2d::ui::EditBox::InputMode::URL);
+    oluacls_const_integer(L, "DECIMAL", (lua_Integer)cocos2d::ui::EditBox::InputMode::DECIMAL);
+    oluacls_const_integer(L, "SINGLE_LINE", (lua_Integer)cocos2d::ui::EditBox::InputMode::SINGLE_LINE);
+
+    olua_registerluatype<cocos2d::ui::EditBox::InputMode>(L, "ccui.EditBox.InputMode");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_ui_EditBox_InputFlag(lua_State *L)
+{
+    oluacls_class(L, "ccui.EditBox.InputFlag", nullptr);
+    oluacls_const_integer(L, "PASSWORD", (lua_Integer)cocos2d::ui::EditBox::InputFlag::PASSWORD);
+    oluacls_const_integer(L, "SENSITIVE", (lua_Integer)cocos2d::ui::EditBox::InputFlag::SENSITIVE);
+    oluacls_const_integer(L, "INITIAL_CAPS_WORD", (lua_Integer)cocos2d::ui::EditBox::InputFlag::INITIAL_CAPS_WORD);
+    oluacls_const_integer(L, "INITIAL_CAPS_SENTENCE", (lua_Integer)cocos2d::ui::EditBox::InputFlag::INITIAL_CAPS_SENTENCE);
+    oluacls_const_integer(L, "INITIAL_CAPS_ALL_CHARACTERS", (lua_Integer)cocos2d::ui::EditBox::InputFlag::INITIAL_CAPS_ALL_CHARACTERS);
+    oluacls_const_integer(L, "LOWERCASE_ALL_CHARACTERS", (lua_Integer)cocos2d::ui::EditBox::InputFlag::LOWERCASE_ALL_CHARACTERS);
+
+    olua_registerluatype<cocos2d::ui::EditBox::InputFlag>(L, "ccui.EditBox.InputFlag");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_ui_EditBox_create1(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    cocos2d::Size arg1;       /** size */
+    cocos2d::ui::Scale9Sprite *arg2 = nullptr;   /** normalSprite */
+    cocos2d::ui::Scale9Sprite *arg3 = nullptr;   /** pressedSprite */
+    cocos2d::ui::Scale9Sprite *arg4 = nullptr;   /** disabledSprite */
+
+    auto_luacv_check_cocos2d_Size(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "ccui.Scale9Sprite");
+    olua_opt_cppobj(L, 3, (void **)&arg3, "ccui.Scale9Sprite", nullptr);
+    olua_opt_cppobj(L, 4, (void **)&arg4, "ccui.Scale9Sprite", nullptr);
+
+    // static EditBox* create(const Size& size, Scale9Sprite* normalSprite, Scale9Sprite* pressedSprite = nullptr, Scale9Sprite* disabledSprite = nullptr)
+    cocos2d::ui::EditBox *ret = (cocos2d::ui::EditBox *)cocos2d::ui::EditBox::create(arg1, arg2, arg3, arg4);
+    int num_ret = olua_push_cppobj<cocos2d::ui::EditBox>(L, ret, "ccui.EditBox");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_EditBox_create2(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::Size arg1;       /** size */
+    std::string arg2;       /** normalImage */
+    lua_Unsigned arg3 = 0;   /** texType */
+
+    auto_luacv_check_cocos2d_Size(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+    olua_check_uint(L, 3, &arg3);
+
+    // static EditBox* create(const Size& size, const std::string& normalImage, Widget::TextureResType texType)
+    cocos2d::ui::EditBox *ret = (cocos2d::ui::EditBox *)cocos2d::ui::EditBox::create(arg1, arg2, (cocos2d::ui::Widget::TextureResType)arg3);
+    int num_ret = olua_push_cppobj<cocos2d::ui::EditBox>(L, ret, "ccui.EditBox");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_EditBox_create3(lua_State *L)
+{
+    lua_settop(L, 5);
+
+    cocos2d::Size arg1;       /** size */
+    std::string arg2;       /** normalImage */
+    std::string arg3;       /** pressedImage */
+    std::string arg4;       /** disabledImage */
+    lua_Unsigned arg5 = 0;   /** texType */
+
+    auto_luacv_check_cocos2d_Size(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+    olua_opt_std_string(L, 3, &arg3, (std::string)"");
+    olua_opt_std_string(L, 4, &arg4, (std::string)"");
+    olua_opt_uint(L, 5, &arg5, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+
+    // static EditBox* create(const Size& size, const std::string& normalImage, const std::string& pressedImage = "", const std::string& disabledImage = "", Widget::TextureResType texType = Widget::TextureResType::LOCAL)
+    cocos2d::ui::EditBox *ret = (cocos2d::ui::EditBox *)cocos2d::ui::EditBox::create(arg1, arg2, arg3, arg4, (cocos2d::ui::Widget::TextureResType)arg5);
+    int num_ret = olua_push_cppobj<cocos2d::ui::EditBox>(L, ret, "ccui.EditBox");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_EditBox_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 3) {
+        // if (auto_luacv_is_cocos2d_Size(L, 1) && olua_is_std_string(L, 2) && olua_is_uint(L, 3)) {
+            return _cocos2d_ui_EditBox_create2(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if (auto_luacv_is_cocos2d_Size(L, 1) && olua_is_cppobj(L, 2, "ccui.Scale9Sprite") && (olua_is_cppobj(L, 3, "ccui.Scale9Sprite") || olua_isnil(L, 3)) && (olua_is_cppobj(L, 4, "ccui.Scale9Sprite") || olua_isnil(L, 4))) {
+            return _cocos2d_ui_EditBox_create1(L);
+        // }
+    }
+
+    if (num_args == 5) {
+        // if (auto_luacv_is_cocos2d_Size(L, 1) && olua_is_std_string(L, 2) && (olua_is_std_string(L, 3) || olua_isnil(L, 3)) && (olua_is_std_string(L, 4) || olua_isnil(L, 4)) && (olua_is_uint(L, 5) || olua_isnil(L, 5))) {
+            return _cocos2d_ui_EditBox_create3(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::EditBox::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBox_loadTextures(lua_State *L)
+{
+    lua_settop(L, 5);
+
+    cocos2d::ui::EditBox *self = nullptr;
+    std::string arg1;       /** normal */
+    std::string arg2;       /** pressed */
+    std::string arg3;       /** disabled */
+    lua_Unsigned arg4 = 0;   /** texType */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+    olua_opt_std_string(L, 4, &arg3, (std::string)"");
+    olua_opt_uint(L, 5, &arg4, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+
+    // void loadTextures(const std::string& normal, const std::string& pressed, const std::string& disabled = "", Widget::TextureResType texType = Widget::TextureResType::LOCAL)
+    self->loadTextures(arg1, arg2, arg3, (cocos2d::ui::Widget::TextureResType)arg4);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBox_loadTextureNormal(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ui::EditBox *self = nullptr;
+    std::string arg1;       /** normal */
+    lua_Unsigned arg2 = 0;   /** texType */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+    olua_check_std_string(L, 2, &arg1);
+    olua_opt_uint(L, 3, &arg2, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+
+    // void loadTextureNormal(const std::string& normal, Widget::TextureResType texType = Widget::TextureResType::LOCAL)
+    self->loadTextureNormal(arg1, (cocos2d::ui::Widget::TextureResType)arg2);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBox_loadTexturePressed(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ui::EditBox *self = nullptr;
+    std::string arg1;       /** pressed */
+    lua_Unsigned arg2 = 0;   /** texType */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+    olua_check_std_string(L, 2, &arg1);
+    olua_opt_uint(L, 3, &arg2, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+
+    // void loadTexturePressed(const std::string& pressed, Widget::TextureResType texType = Widget::TextureResType::LOCAL)
+    self->loadTexturePressed(arg1, (cocos2d::ui::Widget::TextureResType)arg2);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBox_loadTextureDisabled(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ui::EditBox *self = nullptr;
+    std::string arg1;       /** disabled */
+    lua_Unsigned arg2 = 0;   /** texType */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+    olua_check_std_string(L, 2, &arg1);
+    olua_opt_uint(L, 3, &arg2, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+
+    // void loadTextureDisabled(const std::string& disabled, Widget::TextureResType texType = Widget::TextureResType::LOCAL)
+    self->loadTextureDisabled(arg1, (cocos2d::ui::Widget::TextureResType)arg2);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBox_setCapInsets(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::EditBox *self = nullptr;
+    cocos2d::Rect arg1;       /** capInsets */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+    manual_luacv_check_cocos2d_Rect(L, 2, &arg1);
+
+    // void setCapInsets(const Rect &capInsets)
+    self->setCapInsets(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBox_setCapInsetsNormalRenderer(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::EditBox *self = nullptr;
+    cocos2d::Rect arg1;       /** capInsets */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+    manual_luacv_check_cocos2d_Rect(L, 2, &arg1);
+
+    // void setCapInsetsNormalRenderer(const Rect &capInsets)
+    self->setCapInsetsNormalRenderer(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBox_getCapInsetsNormalRenderer(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::EditBox *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+
+    // const Rect& getCapInsetsNormalRenderer()
+    const cocos2d::Rect &ret = (const cocos2d::Rect &)self->getCapInsetsNormalRenderer();
+    int num_ret = manual_luacv_push_cocos2d_Rect(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_EditBox_setCapInsetsPressedRenderer(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::EditBox *self = nullptr;
+    cocos2d::Rect arg1;       /** capInsets */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+    manual_luacv_check_cocos2d_Rect(L, 2, &arg1);
+
+    // void setCapInsetsPressedRenderer(const Rect &capInsets)
+    self->setCapInsetsPressedRenderer(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBox_getCapInsetsPressedRenderer(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::EditBox *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+
+    // const Rect& getCapInsetsPressedRenderer()
+    const cocos2d::Rect &ret = (const cocos2d::Rect &)self->getCapInsetsPressedRenderer();
+    int num_ret = manual_luacv_push_cocos2d_Rect(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_EditBox_setCapInsetsDisabledRenderer(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::EditBox *self = nullptr;
+    cocos2d::Rect arg1;       /** capInsets */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+    manual_luacv_check_cocos2d_Rect(L, 2, &arg1);
+
+    // void setCapInsetsDisabledRenderer(const Rect &capInsets)
+    self->setCapInsetsDisabledRenderer(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBox_getCapInsetsDisabledRenderer(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::EditBox *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+
+    // const Rect& getCapInsetsDisabledRenderer()
+    const cocos2d::Rect &ret = (const cocos2d::Rect &)self->getCapInsetsDisabledRenderer();
+    int num_ret = manual_luacv_push_cocos2d_Rect(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_EditBox_setDelegate(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::EditBox *self = nullptr;
+    cocos2d::ui::EditBoxDelegate *arg1 = nullptr;   /** delegate */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+    olua_check_cppobj(L, 2, (void **)&arg1, "ccui.EditBoxDelegate");
+
+    // void setDelegate(@ref(single delegate) EditBoxDelegate* delegate)
+    self->setDelegate(arg1);
+
+    // inject code after call
+    olua_singleref(L, 1, "delegate", 2);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBox_getDelegate(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::EditBox *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+
+    // @ref(single delegate) EditBoxDelegate* getDelegate()
+    cocos2d::ui::EditBoxDelegate *ret = (cocos2d::ui::EditBoxDelegate *)self->getDelegate();
+    int num_ret = olua_push_cppobj<cocos2d::ui::EditBoxDelegate>(L, ret, "ccui.EditBoxDelegate");
+
+    // inject code after call
+    olua_singleref(L, 1, "delegate", -1);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_EditBox_setText(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::EditBox *self = nullptr;
+    const char *arg1 = nullptr;   /** pText */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+    olua_check_string(L, 2, &arg1);
+
+    // void setText(const char* pText)
+    self->setText(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBox_getText(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::EditBox *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+
+    // const char* getText()
+    const char *ret = (const char *)self->getText();
+    int num_ret = olua_push_string(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_EditBox_setFont(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ui::EditBox *self = nullptr;
+    const char *arg1 = nullptr;   /** pFontName */
+    lua_Integer arg2 = 0;   /** fontSize */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+    olua_check_string(L, 2, &arg1);
+    olua_check_int(L, 3, &arg2);
+
+    // void setFont(const char* pFontName, int fontSize)
+    self->setFont(arg1, (int)arg2);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBox_setFontName(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::EditBox *self = nullptr;
+    const char *arg1 = nullptr;   /** pFontName */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+    olua_check_string(L, 2, &arg1);
+
+    // void setFontName(const char* pFontName)
+    self->setFontName(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBox_getFontName(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::EditBox *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+
+    // const char* getFontName()
+    const char *ret = (const char *)self->getFontName();
+    int num_ret = olua_push_string(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_EditBox_setFontSize(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::EditBox *self = nullptr;
+    lua_Integer arg1 = 0;   /** fontSize */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+    olua_check_int(L, 2, &arg1);
+
+    // void setFontSize(int fontSize)
+    self->setFontSize((int)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBox_getFontSize(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::EditBox *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+
+    // int getFontSize()
+    int ret = (int)self->getFontSize();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_EditBox_setFontColor1(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::EditBox *self = nullptr;
+    cocos2d::Color3B arg1;       /** color */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+    manual_luacv_check_cocos2d_Color3B(L, 2, &arg1);
+
+    // void setFontColor(const Color3B& color)
+    self->setFontColor(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBox_setFontColor2(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::EditBox *self = nullptr;
+    cocos2d::Color4B arg1;       /** color */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+    manual_luacv_check_cocos2d_Color4B(L, 2, &arg1);
+
+    // void setFontColor(const Color4B& color)
+    self->setFontColor(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBox_setFontColor(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        if (manual_luacv_is_cocos2d_Color3B(L, 2)) {
+            return _cocos2d_ui_EditBox_setFontColor1(L);
+        }
+
+        // if (manual_luacv_is_cocos2d_Color4B(L, 2)) {
+            return _cocos2d_ui_EditBox_setFontColor2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::EditBox::setFontColor' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBox_getFontColor(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::EditBox *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+
+    // const Color4B& getFontColor()
+    const cocos2d::Color4B &ret = (const cocos2d::Color4B &)self->getFontColor();
+    int num_ret = manual_luacv_push_cocos2d_Color4B(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_EditBox_setPlaceholderFont(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ui::EditBox *self = nullptr;
+    const char *arg1 = nullptr;   /** pFontName */
+    lua_Integer arg2 = 0;   /** fontSize */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+    olua_check_string(L, 2, &arg1);
+    olua_check_int(L, 3, &arg2);
+
+    // void setPlaceholderFont(const char* pFontName, int fontSize)
+    self->setPlaceholderFont(arg1, (int)arg2);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBox_setPlaceholderFontName(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::EditBox *self = nullptr;
+    const char *arg1 = nullptr;   /** pFontName */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+    olua_check_string(L, 2, &arg1);
+
+    // void setPlaceholderFontName(const char* pFontName)
+    self->setPlaceholderFontName(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBox_getPlaceholderFontName(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::EditBox *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+
+    // const char* getPlaceholderFontName()
+    const char *ret = (const char *)self->getPlaceholderFontName();
+    int num_ret = olua_push_string(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_EditBox_setPlaceholderFontSize(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::EditBox *self = nullptr;
+    lua_Integer arg1 = 0;   /** fontSize */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+    olua_check_int(L, 2, &arg1);
+
+    // void setPlaceholderFontSize(int fontSize)
+    self->setPlaceholderFontSize((int)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBox_getPlaceholderFontSize(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::EditBox *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+
+    // int getPlaceholderFontSize()
+    int ret = (int)self->getPlaceholderFontSize();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_EditBox_setPlaceholderFontColor1(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::EditBox *self = nullptr;
+    cocos2d::Color3B arg1;       /** color */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+    manual_luacv_check_cocos2d_Color3B(L, 2, &arg1);
+
+    // void setPlaceholderFontColor(const Color3B& color)
+    self->setPlaceholderFontColor(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBox_setPlaceholderFontColor2(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::EditBox *self = nullptr;
+    cocos2d::Color4B arg1;       /** color */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+    manual_luacv_check_cocos2d_Color4B(L, 2, &arg1);
+
+    // void setPlaceholderFontColor(const Color4B& color)
+    self->setPlaceholderFontColor(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBox_setPlaceholderFontColor(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        if (manual_luacv_is_cocos2d_Color3B(L, 2)) {
+            return _cocos2d_ui_EditBox_setPlaceholderFontColor1(L);
+        }
+
+        // if (manual_luacv_is_cocos2d_Color4B(L, 2)) {
+            return _cocos2d_ui_EditBox_setPlaceholderFontColor2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::EditBox::setPlaceholderFontColor' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBox_getPlaceholderFontColor(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::EditBox *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+
+    // const Color4B& getPlaceholderFontColor()
+    const cocos2d::Color4B &ret = (const cocos2d::Color4B &)self->getPlaceholderFontColor();
+    int num_ret = manual_luacv_push_cocos2d_Color4B(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_EditBox_setPlaceHolder(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::EditBox *self = nullptr;
+    const char *arg1 = nullptr;   /** pText */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+    olua_check_string(L, 2, &arg1);
+
+    // void setPlaceHolder(const char* pText)
+    self->setPlaceHolder(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBox_getPlaceHolder(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::EditBox *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+
+    // const char* getPlaceHolder()
+    const char *ret = (const char *)self->getPlaceHolder();
+    int num_ret = olua_push_string(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_EditBox_setInputMode(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::EditBox *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** inputMode */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+    olua_check_uint(L, 2, &arg1);
+
+    // void setInputMode(InputMode inputMode)
+    self->setInputMode((cocos2d::ui::EditBox::InputMode)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBox_getInputMode(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::EditBox *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+
+    // InputMode getInputMode()
+    cocos2d::ui::EditBox::InputMode ret = (cocos2d::ui::EditBox::InputMode)self->getInputMode();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_EditBox_setMaxLength(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::EditBox *self = nullptr;
+    lua_Integer arg1 = 0;   /** maxLength */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+    olua_check_int(L, 2, &arg1);
+
+    // void setMaxLength(int maxLength)
+    self->setMaxLength((int)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBox_getMaxLength(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::EditBox *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+
+    // int getMaxLength()
+    int ret = (int)self->getMaxLength();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_EditBox_setInputFlag(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::EditBox *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** inputFlag */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+    olua_check_uint(L, 2, &arg1);
+
+    // void setInputFlag(InputFlag inputFlag)
+    self->setInputFlag((cocos2d::ui::EditBox::InputFlag)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBox_getInputFlag(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::EditBox *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+
+    // InputFlag getInputFlag()
+    cocos2d::ui::EditBox::InputFlag ret = (cocos2d::ui::EditBox::InputFlag)self->getInputFlag();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_EditBox_setReturnType(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::EditBox *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** returnType */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+    olua_check_uint(L, 2, &arg1);
+
+    // void setReturnType(KeyboardReturnType returnType)
+    self->setReturnType((cocos2d::ui::EditBox::KeyboardReturnType)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBox_getReturnType(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::EditBox *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+
+    // KeyboardReturnType getReturnType()
+    cocos2d::ui::EditBox::KeyboardReturnType ret = (cocos2d::ui::EditBox::KeyboardReturnType)self->getReturnType();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_EditBox_setTextHorizontalAlignment(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ui::EditBox *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** alignment */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+    olua_check_uint(L, 2, &arg1);
+
+    // void setTextHorizontalAlignment(TextHAlignment alignment)
+    self->setTextHorizontalAlignment((cocos2d::TextHAlignment)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBox_getTextHorizontalAlignment(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::EditBox *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+
+    // TextHAlignment getTextHorizontalAlignment()
+    cocos2d::TextHAlignment ret = (cocos2d::TextHAlignment)self->getTextHorizontalAlignment();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_EditBox_openKeyboard(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::EditBox *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+
+    // void openKeyboard()
+    self->openKeyboard();
+
+    return 0;
+}
+
+static int luaopen_cocos2d_ui_EditBox(lua_State *L)
+{
+    oluacls_class(L, "ccui.EditBox", "ccui.Widget");
+    oluacls_setfunc(L, "create", _cocos2d_ui_EditBox_create);
+    oluacls_setfunc(L, "loadTextures", _cocos2d_ui_EditBox_loadTextures);
+    oluacls_setfunc(L, "loadTextureNormal", _cocos2d_ui_EditBox_loadTextureNormal);
+    oluacls_setfunc(L, "loadTexturePressed", _cocos2d_ui_EditBox_loadTexturePressed);
+    oluacls_setfunc(L, "loadTextureDisabled", _cocos2d_ui_EditBox_loadTextureDisabled);
+    oluacls_setfunc(L, "setCapInsets", _cocos2d_ui_EditBox_setCapInsets);
+    oluacls_setfunc(L, "setCapInsetsNormalRenderer", _cocos2d_ui_EditBox_setCapInsetsNormalRenderer);
+    oluacls_setfunc(L, "getCapInsetsNormalRenderer", _cocos2d_ui_EditBox_getCapInsetsNormalRenderer);
+    oluacls_setfunc(L, "setCapInsetsPressedRenderer", _cocos2d_ui_EditBox_setCapInsetsPressedRenderer);
+    oluacls_setfunc(L, "getCapInsetsPressedRenderer", _cocos2d_ui_EditBox_getCapInsetsPressedRenderer);
+    oluacls_setfunc(L, "setCapInsetsDisabledRenderer", _cocos2d_ui_EditBox_setCapInsetsDisabledRenderer);
+    oluacls_setfunc(L, "getCapInsetsDisabledRenderer", _cocos2d_ui_EditBox_getCapInsetsDisabledRenderer);
+    oluacls_setfunc(L, "setDelegate", _cocos2d_ui_EditBox_setDelegate);
+    oluacls_setfunc(L, "getDelegate", _cocos2d_ui_EditBox_getDelegate);
+    oluacls_setfunc(L, "setText", _cocos2d_ui_EditBox_setText);
+    oluacls_setfunc(L, "getText", _cocos2d_ui_EditBox_getText);
+    oluacls_setfunc(L, "setFont", _cocos2d_ui_EditBox_setFont);
+    oluacls_setfunc(L, "setFontName", _cocos2d_ui_EditBox_setFontName);
+    oluacls_setfunc(L, "getFontName", _cocos2d_ui_EditBox_getFontName);
+    oluacls_setfunc(L, "setFontSize", _cocos2d_ui_EditBox_setFontSize);
+    oluacls_setfunc(L, "getFontSize", _cocos2d_ui_EditBox_getFontSize);
+    oluacls_setfunc(L, "setFontColor", _cocos2d_ui_EditBox_setFontColor);
+    oluacls_setfunc(L, "getFontColor", _cocos2d_ui_EditBox_getFontColor);
+    oluacls_setfunc(L, "setPlaceholderFont", _cocos2d_ui_EditBox_setPlaceholderFont);
+    oluacls_setfunc(L, "setPlaceholderFontName", _cocos2d_ui_EditBox_setPlaceholderFontName);
+    oluacls_setfunc(L, "getPlaceholderFontName", _cocos2d_ui_EditBox_getPlaceholderFontName);
+    oluacls_setfunc(L, "setPlaceholderFontSize", _cocos2d_ui_EditBox_setPlaceholderFontSize);
+    oluacls_setfunc(L, "getPlaceholderFontSize", _cocos2d_ui_EditBox_getPlaceholderFontSize);
+    oluacls_setfunc(L, "setPlaceholderFontColor", _cocos2d_ui_EditBox_setPlaceholderFontColor);
+    oluacls_setfunc(L, "getPlaceholderFontColor", _cocos2d_ui_EditBox_getPlaceholderFontColor);
+    oluacls_setfunc(L, "setPlaceHolder", _cocos2d_ui_EditBox_setPlaceHolder);
+    oluacls_setfunc(L, "getPlaceHolder", _cocos2d_ui_EditBox_getPlaceHolder);
+    oluacls_setfunc(L, "setInputMode", _cocos2d_ui_EditBox_setInputMode);
+    oluacls_setfunc(L, "getInputMode", _cocos2d_ui_EditBox_getInputMode);
+    oluacls_setfunc(L, "setMaxLength", _cocos2d_ui_EditBox_setMaxLength);
+    oluacls_setfunc(L, "getMaxLength", _cocos2d_ui_EditBox_getMaxLength);
+    oluacls_setfunc(L, "setInputFlag", _cocos2d_ui_EditBox_setInputFlag);
+    oluacls_setfunc(L, "getInputFlag", _cocos2d_ui_EditBox_getInputFlag);
+    oluacls_setfunc(L, "setReturnType", _cocos2d_ui_EditBox_setReturnType);
+    oluacls_setfunc(L, "getReturnType", _cocos2d_ui_EditBox_getReturnType);
+    oluacls_setfunc(L, "setTextHorizontalAlignment", _cocos2d_ui_EditBox_setTextHorizontalAlignment);
+    oluacls_setfunc(L, "getTextHorizontalAlignment", _cocos2d_ui_EditBox_getTextHorizontalAlignment);
+    oluacls_setfunc(L, "openKeyboard", _cocos2d_ui_EditBox_openKeyboard);
+    oluacls_property(L, "capInsetsNormalRenderer", _cocos2d_ui_EditBox_getCapInsetsNormalRenderer, _cocos2d_ui_EditBox_setCapInsetsNormalRenderer);
+    oluacls_property(L, "capInsetsPressedRenderer", _cocos2d_ui_EditBox_getCapInsetsPressedRenderer, _cocos2d_ui_EditBox_setCapInsetsPressedRenderer);
+    oluacls_property(L, "capInsetsDisabledRenderer", _cocos2d_ui_EditBox_getCapInsetsDisabledRenderer, _cocos2d_ui_EditBox_setCapInsetsDisabledRenderer);
+    oluacls_property(L, "delegate", _cocos2d_ui_EditBox_getDelegate, _cocos2d_ui_EditBox_setDelegate);
+    oluacls_property(L, "text", _cocos2d_ui_EditBox_getText, _cocos2d_ui_EditBox_setText);
+    oluacls_property(L, "fontName", _cocos2d_ui_EditBox_getFontName, _cocos2d_ui_EditBox_setFontName);
+    oluacls_property(L, "fontSize", _cocos2d_ui_EditBox_getFontSize, _cocos2d_ui_EditBox_setFontSize);
+    oluacls_property(L, "fontColor", _cocos2d_ui_EditBox_getFontColor, _cocos2d_ui_EditBox_setFontColor);
+    oluacls_property(L, "placeholderFontName", _cocos2d_ui_EditBox_getPlaceholderFontName, _cocos2d_ui_EditBox_setPlaceholderFontName);
+    oluacls_property(L, "placeholderFontSize", _cocos2d_ui_EditBox_getPlaceholderFontSize, _cocos2d_ui_EditBox_setPlaceholderFontSize);
+    oluacls_property(L, "placeholderFontColor", _cocos2d_ui_EditBox_getPlaceholderFontColor, _cocos2d_ui_EditBox_setPlaceholderFontColor);
+    oluacls_property(L, "placeHolder", _cocos2d_ui_EditBox_getPlaceHolder, _cocos2d_ui_EditBox_setPlaceHolder);
+    oluacls_property(L, "inputMode", _cocos2d_ui_EditBox_getInputMode, _cocos2d_ui_EditBox_setInputMode);
+    oluacls_property(L, "maxLength", _cocos2d_ui_EditBox_getMaxLength, _cocos2d_ui_EditBox_setMaxLength);
+    oluacls_property(L, "inputFlag", _cocos2d_ui_EditBox_getInputFlag, _cocos2d_ui_EditBox_setInputFlag);
+    oluacls_property(L, "returnType", _cocos2d_ui_EditBox_getReturnType, _cocos2d_ui_EditBox_setReturnType);
+    oluacls_property(L, "textHorizontalAlignment", _cocos2d_ui_EditBox_getTextHorizontalAlignment, _cocos2d_ui_EditBox_setTextHorizontalAlignment);
+
+    olua_registerluatype<cocos2d::ui::EditBox>(L, "ccui.EditBox");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
 int luaopen_cocos2d_ui(lua_State *L)
 {
     olua_require(L, "ccui.Widget.FocusDirection", luaopen_cocos2d_ui_Widget_FocusDirection);
@@ -15695,5 +17047,12 @@ int luaopen_cocos2d_ui(lua_State *L)
     olua_require(L, "ccui.RadioButtonGroup.EventType", luaopen_cocos2d_ui_RadioButtonGroup_EventType);
     olua_require(L, "ccui.RadioButtonGroup", luaopen_cocos2d_ui_RadioButtonGroup);
     olua_require(L, "ccui.ImageView", luaopen_cocos2d_ui_ImageView);
+    olua_require(L, "ccui.EditBoxDelegate.EditBoxEndAction", luaopen_cocos2d_ui_EditBoxDelegate_EditBoxEndAction);
+    olua_require(L, "ccui.EditBoxDelegate", luaopen_cocos2d_ui_EditBoxDelegate);
+    olua_require(L, "ccui.LuaEditBoxDelegate", luaopen_cocos2d_ui_LuaEditBoxDelegate);
+    olua_require(L, "ccui.EditBox.KeyboardReturnType", luaopen_cocos2d_ui_EditBox_KeyboardReturnType);
+    olua_require(L, "ccui.EditBox.InputMode", luaopen_cocos2d_ui_EditBox_InputMode);
+    olua_require(L, "ccui.EditBox.InputFlag", luaopen_cocos2d_ui_EditBox_InputFlag);
+    olua_require(L, "ccui.EditBox", luaopen_cocos2d_ui_EditBox);
     return 0;
 }

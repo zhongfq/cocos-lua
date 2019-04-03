@@ -137,6 +137,7 @@ REG_TYPE {
         cocos2d::EventMouse::MouseButton
         cocos2d::EventMouse::MouseEventType
         cocos2d::EventTouch::EventCode
+        cocos2d::experimental::AudioEngine::AudioState
         cocos2d::experimental::ui::VideoPlayer::EventType
         cocos2d::GlyphCollection
         cocos2d::Image::Format
@@ -151,9 +152,12 @@ REG_TYPE {
         cocos2d::TextHAlignment
         cocos2d::Texture2D::PixelFormat
         cocos2d::TextVAlignment
-        cocos2d::experimental::AudioEngine::AudioState
         cocos2d::TransitionScene::Orientation
         cocos2d::ui::CheckBox::EventType
+        cocos2d::ui::EditBox::InputFlag
+        cocos2d::ui::EditBox::InputMode
+        cocos2d::ui::EditBox::KeyboardReturnType
+        cocos2d::ui::EditBoxDelegate::EditBoxEndAction
         cocos2d::ui::Layout::BackGroundColorType
         cocos2d::ui::Layout::ClippingType
         cocos2d::ui::Layout::Type
@@ -200,6 +204,8 @@ REG_TYPE {
 
 REG_TYPE {
     TYPENAME = [[
+        cocos2d::AccelAmplitude *
+        cocos2d::AccelDeccelAmplitude *
         cocos2d::Acceleration *
         cocos2d::Action *
         cocos2d::ActionCamera *
@@ -227,6 +233,7 @@ REG_TYPE {
         cocos2d::CatmullRomTo *
         cocos2d::Component *
         cocos2d::Component *
+        cocos2d::DeccelAmplitude *
         cocos2d::DelayTime *
         cocos2d::DirectionLight *
         cocos2d::Director *
@@ -289,20 +296,32 @@ REG_TYPE {
         cocos2d::experimental::ui::WebView *
         cocos2d::FadeIn *
         cocos2d::FadeOut *
+        cocos2d::FadeOutBLTiles *
+        cocos2d::FadeOutDownTiles *
+        cocos2d::FadeOutTRTiles *
+        cocos2d::FadeOutUpTiles *
         cocos2d::FadeTo *
         cocos2d::FileUtils *
         cocos2d::FiniteTimeAction *
         cocos2d::FlipX *
+        cocos2d::FlipX3D *
         cocos2d::FlipY *
+        cocos2d::FlipY3D *
         cocos2d::Follow *
         cocos2d::FontAtlas *
         cocos2d::GLProgram *
         cocos2d::GLProgramState *
         cocos2d::GLView *
         cocos2d::GLViewImpl *
+        cocos2d::Grabber *
+        cocos2d::Grid3D *
+        cocos2d::Grid3DAction *
+        cocos2d::GridAction * 
+        cocos2d::GridBase *
         cocos2d::Hide *
         cocos2d::Image *
         cocos2d::JumpBy *
+        cocos2d::JumpTiles3D *
         cocos2d::JumpTo *
         cocos2d::Label *
         cocos2d::LabelAtlas *
@@ -310,11 +329,15 @@ REG_TYPE {
         cocos2d::LayerColor *
         cocos2d::LayerGradient *
         cocos2d::LayerRadialGradient *
+        cocos2d::Lens3D *
+        cocos2d::Liquid *
         cocos2d::LuaComponent *
         cocos2d::MoveBy *
         cocos2d::MoveTo *
         cocos2d::Node *
+        cocos2d::NodeGrid *
         cocos2d::OrbitCamera *
+        cocos2d::PageTurn3D *
         cocos2d::Place *
         cocos2d::PointArray *
         cocos2d::PointLight *
@@ -326,7 +349,9 @@ REG_TYPE {
         cocos2d::RepeatForever *
         cocos2d::ResizeBy *
         cocos2d::ResizeTo *
+        cocos2d::ReuseGrid *
         cocos2d::ReverseTime *
+        cocos2d::Ripple3D *
         cocos2d::RotateBy *
         cocos2d::RotateTo *
         cocos2d::ScaleBy *
@@ -334,21 +359,31 @@ REG_TYPE {
         cocos2d::Scene *
         cocos2d::Scheduler *
         cocos2d::Sequence *
+        cocos2d::Shaky3D *
+        cocos2d::ShakyTiles3D *
+        cocos2d::ShakyTiles3D"
+        cocos2d::ShatteredTiles3D *
         cocos2d::Show *
+        cocos2d::ShuffleTiles *
         cocos2d::SkewBy *
         cocos2d::SkewTo *
         cocos2d::Spawn *
         cocos2d::Speed *
+        cocos2d::SplitCols *
+        cocos2d::SplitRows *
         cocos2d::SpotLight *
         cocos2d::Sprite *
         cocos2d::SpriteBatchNode *
         cocos2d::SpriteFrame *
         cocos2d::SpriteFrameCache *
+        cocos2d::StopGrid *
         cocos2d::TargetedAction *
         cocos2d::TextFieldTTF *
         cocos2d::Texture2D *
         cocos2d::TextureAtlas *
         cocos2d::TextureCache *
+        cocos2d::TiledGrid3D *
+        cocos2d::TiledGrid3DAction *
         cocos2d::TintBy *
         cocos2d::TintTo *
         cocos2d::ToggleVisibility *
@@ -389,9 +424,13 @@ REG_TYPE {
         cocos2d::TransitionZoomFlipAngular *
         cocos2d::TransitionZoomFlipX *
         cocos2d::TransitionZoomFlipY *
+        cocos2d::TurnOffTiles *
+        cocos2d::Twirl *
         cocos2d::ui::AbstractCheckButton *
         cocos2d::ui::Button *
         cocos2d::ui::CheckBox *
+        cocos2d::ui::EditBox *
+        cocos2d::ui::EditBoxDelegate *
         cocos2d::ui::HBox *
         cocos2d::ui::ImageView *
         cocos2d::ui::Layout *
@@ -400,6 +439,7 @@ REG_TYPE {
         cocos2d::ui::LinearLayoutParameter *
         cocos2d::ui::ListView *
         cocos2d::ui::LoadingBar *
+        cocos2d::ui::LuaEditBoxDelegate *
         cocos2d::ui::PageView *
         cocos2d::ui::PageViewIndicator *
         cocos2d::ui::RadioButton *
@@ -429,42 +469,9 @@ REG_TYPE {
         cocos2d::Vec3 *
         cocos2d::VRIHeadTracker *
         cocos2d::VRIRenderer *
-        cocos2d::NodeGrid *
-        cocos2d::GridBase *
-        cocos2d::Grid3D *
-        cocos2d::TiledGrid3D *
-        cocos2d::Grabber *
-        cocos2d::GridAction * 
-        cocos2d::Grid3DAction *
-        cocos2d::TiledGrid3DAction *
-        cocos2d::AccelDeccelAmplitude *
-        cocos2d::AccelAmplitude *
-        cocos2d::DeccelAmplitude *
-        cocos2d::StopGrid *
-        cocos2d::ReuseGrid *
-        cocos2d::Waves3D *
-        cocos2d::FlipX3D *
-        cocos2d::FlipY3D *
-        cocos2d::Lens3D *
-        cocos2d::Ripple3D *
-        cocos2d::Shaky3D *
-        cocos2d::Liquid *
         cocos2d::Waves *
-        cocos2d::Twirl *
-        cocos2d::PageTurn3D *
-        cocos2d::ShakyTiles3D *
-        cocos2d::ShakyTiles3D"
-        cocos2d::ShatteredTiles3D *
-        cocos2d::ShuffleTiles *
-        cocos2d::FadeOutTRTiles *
-        cocos2d::FadeOutBLTiles *
-        cocos2d::FadeOutUpTiles *
-        cocos2d::FadeOutDownTiles *
-        cocos2d::TurnOffTiles *
+        cocos2d::Waves3D *
         cocos2d::WavesTiles3D *
-        cocos2d::JumpTiles3D *
-        cocos2d::SplitRows *
-        cocos2d::SplitCols *
         CocosDenshion::SimpleAudioEngine *
         spine::SkeletonAnimation *
         spine::SkeletonRenderer *

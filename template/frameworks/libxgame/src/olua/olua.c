@@ -221,6 +221,7 @@ LUALIB_API void *olua_checkobj(lua_State *L, int idx, const char *cls)
 LUALIB_API void *olua_toobj(lua_State *L, int idx, const char *cls)
 {
     if (olua_isuserdata(L, idx)) {
+        olua_assert(olua_isa(L, idx, cls));
         void *obj = olua_touserdata(L, idx, void *);
         if (obj) {
             return obj;

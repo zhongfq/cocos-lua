@@ -43,8 +43,11 @@
 #ifndef _unz64_H
 #define _unz64_H
 
+#if defined(ANDROID)
+#define CC_DLL
+#else
 #include "platform/CCPlatformDefine.h"
-//#define CC_DLL
+#endif
 
 #ifndef _ZLIB_H
 #include "zlib.h"

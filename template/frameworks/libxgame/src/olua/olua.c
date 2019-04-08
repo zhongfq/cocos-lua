@@ -683,6 +683,12 @@ static int cls_index(lua_State *L)
         return 1;
     }
     
+    // try func
+    lua_settop(L, 2);
+    if (trycacheget(L, CLS_FUNCIDX, 2) != LUA_TNIL) {
+        return 1;
+    }
+    
     // try variable
     if (olua_isuserdata(L, 1)) {
         lua_settop(L, 2);
@@ -690,12 +696,6 @@ static int cls_index(lua_State *L)
         if (olua_getvariable(L, 1) != LUA_TNIL) {
             return 1;
         }
-    }
-    
-    // try func
-    lua_settop(L, 2);
-    if (trycacheget(L, CLS_FUNCIDX, 2) != LUA_TNIL) {
-        return 1;
     }
     
     lua_pushnil(L);
@@ -792,20 +792,22 @@ static void create_table(lua_State *L, int idx, const char *field, const char *s
 
 static void copysupermetafunc(lua_State *L, int idx, const char *supercls)
 {
-    idx = lua_absindex(L, idx);             // L: mt
-    if (supercls) {
-        luaL_getmetatable(L, supercls);     // L: mt super
-        lua_pushnil(L);                     // L: mt super k
-        while (lua_next(L, -2)) {           // L: mt super k v
-            if (ismetafunc(L, -2, NULL)) {
-                lua_pushvalue(L, -2);       // L: mt super k v k
-                lua_pushvalue(L, -2);       // L: mt super k v k v
-                lua_rawset(L, idx);         // L: mt super k v
-            }
-            lua_pop(L, 1);                  // L: mt super k
-        }                                   // L: mt super
-        lua_pop(L, 1);                      // L: mt
+    if (!supercls) {
+        return;
     }
+    
+    idx = lua_absindex(L, idx);             // L: mt
+    luaL_getmetatable(L, supercls);         // L: mt super
+    lua_pushnil(L);                         // L: mt super k
+    while (lua_next(L, -2)) {               // L: mt super k v
+        if (ismetafunc(L, -2, NULL)) {
+            lua_pushvalue(L, -2);           // L: mt super k v k
+            lua_pushvalue(L, -2);           // L: mt super k v k v
+            lua_rawset(L, idx);             // L: mt super k v
+        }
+        lua_pop(L, 1);                      // L: mt super k
+    }                                       // L: mt super
+    lua_pop(L, 1);                          // L: mt
 }
 
 LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *super)
@@ -815,12 +817,10 @@ LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *super)
             luaL_error(L, "'%s' super class not found: %s", cls, super);
         }
         lua_pop(L, 1);
-    } else {
-        if (!strequal(cls, OLUA_VOIDCLS)) {
-            oluacls_class(L, OLUA_VOIDCLS, NULL);
-            lua_pop(L, 1);
-            super = OLUA_VOIDCLS;
-        }
+    } else if (!strequal(cls, OLUA_VOIDCLS)) {
+        oluacls_class(L, OLUA_VOIDCLS, NULL);
+        lua_pop(L, 1);
+        super = OLUA_VOIDCLS;
     }
     
     if (luaL_getmetatable(L, cls) == LUA_TNIL) {

@@ -1,0 +1,54 @@
+set(XGAME_HEADER
+    src/xgame/AppContext-ios.h
+    src/xgame/AppRootViewController-ios.h
+    src/xgame/lua-bindings/lua_cocos2d.h
+    src/xgame/lua-bindings/lua_cocos2d_ui.h
+    src/xgame/lua-bindings/lua_conv.h
+    src/xgame/lua-bindings/lua_conv_manual.h
+    src/xgame/lua-bindings/lua_fairygui.h
+    src/xgame/lua-bindings/lua_spine.h
+    src/xgame/lua-bindings/lua_xgame.h
+    src/xgame/lua-bindings/LuaComponent.h
+    src/xgame/lua_crypto.h
+    src/xgame/lua_javabridge.h
+    src/xgame/lua_module.h
+    src/xgame/lua_socket.h
+    src/xgame/xdef.h
+    src/xgame/xdownloader.h
+    src/xgame/xfilefinder.h
+    src/xgame/xfilesystem-private.h
+    src/xgame/xfilesystem.h
+    src/xgame/xlua.h
+    src/xgame/xpreferences.h
+    src/xgame/xrootscene.h
+    src/xgame/xruntime-private.h
+    src/xgame/xruntime.h
+    src/xgame/xsocket.h
+    src/xgame/xtimer.h
+)
+
+set(XGAME_SRC
+    src/xgame/lua-bindings/lua_cocos2d.cpp
+    src/xgame/lua-bindings/lua_cocos2d_ui.cpp
+    src/xgame/lua-bindings/lua_conv.cpp
+    src/xgame/lua-bindings/lua_conv_manual.cpp
+    src/xgame/lua-bindings/lua_fairygui.cpp
+    src/xgame/lua-bindings/lua_spine.cpp
+    src/xgame/lua-bindings/lua_xgame.cpp
+    src/xgame/lua-bindings/LuaComponent.cpp
+    src/xgame/lua_crypto.cpp
+    src/xgame/lua_javabridge.cpp
+    src/xgame/lua_module.cpp
+    src/xgame/lua_socket.cpp
+    src/xgame/xdownloader.cpp
+    src/xgame/xfilefinder.cpp
+    src/xgame/xfilesystem-private-android.cpp
+    src/xgame/xfilesystem.cpp
+    src/xgame/xlua.cpp
+    src/xgame/xpreferences.cpp
+    src/xgame/xrootscene.cpp
+    src/xgame/xruntime-private-android.cpp
+    src/xgame/xruntime.cpp
+    src/xgame/xsocket.cpp
+    src/xgame/xtimer.cpp
+)

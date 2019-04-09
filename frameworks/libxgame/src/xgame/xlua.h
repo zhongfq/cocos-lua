@@ -24,8 +24,7 @@ void xlua_getref(lua_State *L, int ref);
 
 int xlua_ccobjgc(lua_State *L);
 
-// #define OLUA_REPORT_PUSH_STATUS=xlua_report_push_status
-template <typename T> void xlua_report_push_status(lua_State *L, T* value, int status)
+template <typename T> void xlua_handlestatus(lua_State *L, T* value, int status)
 {
     if ((status == OLUA_OBJ_NEW || status == OLUA_OBJ_UPDATE) &&
         std::is_base_of<cocos2d::Ref, T>::value) {

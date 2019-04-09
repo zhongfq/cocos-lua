@@ -8,6 +8,12 @@
 #include <set>
 #include <vector>
 
+#ifdef OLUA_HANDLESTATUS
+#define olua_handlestatus(L, v, s) OLUA_HANDLESTATUS(L, v, s)
+#else
+#define olua_handlestatus (static_assert(false), NULL)
+#endif
+
 template <typename T> void olua_registerluatype(lua_State *L, const char *cls)
 {
     const char *type = typeid(T).name();
@@ -47,12 +53,7 @@ static inline const char *olua_getluatype(lua_State *L, void *obj, const char *c
 template <typename T> int olua_push_cppobj(lua_State *L, T* value, const char *cls)
 {
     cls = olua_getluatype(L, value, cls);
-#ifdef OLUA_REPORT_PUSH_STATUS
-    int status = olua_pushobj(L, value, cls);
-    OLUA_REPORT_PUSH_STATUS(L, value, status);
-#else
-    olua_pushobj(L, value, cls);
-#endif
+    olua_handlestatus(L, value, olua_pushobj(L, value, cls));
     return 1;
 }
 

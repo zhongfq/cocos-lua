@@ -1,0 +1,50 @@
+set(LAME_HEADER
+    src/lame/bitstream.h
+    src/lame/encoder.h
+    src/lame/fft.h
+    src/lame/gain_analysis.h
+    src/lame/id3tag.h
+    src/lame/l3side.h
+    src/lame/lame-analysis.h
+    src/lame/lame.h
+    src/lame/lame_global_flags.h
+    src/lame/lameerror.h
+    src/lame/lua_lame.h
+    src/lame/machine.h
+    src/lame/newmdct.h
+    src/lame/psymodel.h
+    src/lame/quantize.h
+    src/lame/quantize_pvt.h
+    src/lame/reservoir.h
+    src/lame/set_get.h
+    src/lame/tables.h
+    src/lame/util.h
+    src/lame/vbrquantize.h
+    src/lame/VbrTag.h
+    src/lame/version.h
+)
+
+set(LAME_SRC
+    src/lame/bitstream.c
+    src/lame/encoder.c
+    src/lame/fft.c
+    src/lame/gain_analysis.c
+    src/lame/id3tag.c
+    src/lame/lame.c
+    src/lame/lua_lame.cpp
+    src/lame/mpglib_interface.c
+    src/lame/newmdct.c
+    src/lame/presets.c
+    src/lame/psymodel.c
+    src/lame/quantize.c
+    src/lame/quantize_pvt.c
+    src/lame/reservoir.c
+    src/lame/set_get.c
+    src/lame/tables.c
+    src/lame/takehiro.c
+    src/lame/util.c
+    src/lame/vbrquantize.c
+    src/lame/VbrTag.c
+    src/lame/vector
+    src/lame/version.c
+)

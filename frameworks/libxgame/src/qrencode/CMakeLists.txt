@@ -1,0 +1,23 @@
+set(QRCODE_HEADER
+    src/qrencode/qrencode.h
+    src/qrencode/bitstream.h
+    src/qrencode/lua_qrcode.h
+    src/qrencode/mask.h
+    src/qrencode/qrinput.h
+    src/qrencode/qrspec.h
+    src/qrencode/QRSprite.h
+    src/qrencode/rscode.h
+    src/qrencode/split.h
+)
+
+set(QRCODE_SRC
+    src/qrencode/bitstream.c
+    src/qrencode/lua_qrcode.cpp
+    src/qrencode/mask.c
+    src/qrencode/qrencode.c
+    src/qrencode/qrinput.c
+    src/qrencode/qrspec.c
+    src/qrencode/QRSprite.cpp
+    src/qrencode/rscode.c
+    src/qrencode/split.c
+)

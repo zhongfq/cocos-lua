@@ -1,0 +1,32 @@
+set(PBC_HEADER
+    src/pbc/alloc.h
+    src/pbc/array.h
+    src/pbc/bootstrap.h
+    src/pbc/context.h
+    src/pbc/descriptor.pbc.h
+    src/pbc/map.h
+    src/pbc/packet.h
+    src/pbc/pattern.h
+    src/pbc/pbc.h
+    src/pbc/proto.h
+    src/pbc/stringpool.h
+    src/pbc/varint.h
+)
+
+set(PBC_SRC
+    src/pbc/alloc.c
+    src/pbc/array.c
+    src/pbc/bootstrap.c
+    src/pbc/context.c
+    src/pbc/decode.c
+    src/pbc/map.c
+    src/pbc/packet.c
+    src/pbc/pattern.c
+    src/pbc/pbc-lua53.c
+    src/pbc/proto.c
+    src/pbc/register.c
+    src/pbc/rmessage.c
+    src/pbc/stringpool.c
+    src/pbc/varint.c
+    src/pbc/wmessage.c
+)

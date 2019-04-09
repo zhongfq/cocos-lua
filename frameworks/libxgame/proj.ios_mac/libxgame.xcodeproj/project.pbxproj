@@ -47,6 +47,68 @@
 		0E2E9AB42226550E0085145E /* lua_xgame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E9AB12226550D0085145E /* lua_xgame.cpp */; };
 		0E2E9ABB222771D00085145E /* lua_cocos2d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E9AB9222771D00085145E /* lua_cocos2d.cpp */; };
 		0E2E9ABC222771D00085145E /* lua_cocos2d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E9AB9222771D00085145E /* lua_cocos2d.cpp */; };
+		0E4C8C3F225CAF490095CF59 /* quantize_pvt.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8BFD225CAF490095CF59 /* quantize_pvt.c */; };
+		0E4C8C40225CAF490095CF59 /* quantize_pvt.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8BFD225CAF490095CF59 /* quantize_pvt.c */; };
+		0E4C8C41225CAF490095CF59 /* bitstream.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C00225CAF490095CF59 /* bitstream.c */; settings = {COMPILER_FLAGS = "-Wno-unused-variable"; }; };
+		0E4C8C42225CAF490095CF59 /* bitstream.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C00225CAF490095CF59 /* bitstream.c */; settings = {COMPILER_FLAGS = "-Wno-unused-variable"; }; };
+		0E4C8C43225CAF490095CF59 /* tables.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C04225CAF490095CF59 /* tables.c */; };
+		0E4C8C44225CAF490095CF59 /* tables.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C04225CAF490095CF59 /* tables.c */; };
+		0E4C8C45225CAF490095CF59 /* lua_lame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C05225CAF490095CF59 /* lua_lame.cpp */; };
+		0E4C8C46225CAF490095CF59 /* lua_lame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C05225CAF490095CF59 /* lua_lame.cpp */; };
+		0E4C8C47225CAF490095CF59 /* vbrquantize.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C08225CAF490095CF59 /* vbrquantize.c */; settings = {COMPILER_FLAGS = "-Wno-unused-variable"; }; };
+		0E4C8C48225CAF490095CF59 /* vbrquantize.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C08225CAF490095CF59 /* vbrquantize.c */; settings = {COMPILER_FLAGS = "-Wno-unused-variable"; }; };
+		0E4C8C49225CAF490095CF59 /* util.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C09225CAF490095CF59 /* util.c */; };
+		0E4C8C4A225CAF490095CF59 /* util.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C09225CAF490095CF59 /* util.c */; };
+		0E4C8C4B225CAF490095CF59 /* encoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C0A225CAF490095CF59 /* encoder.c */; };
+		0E4C8C4C225CAF490095CF59 /* encoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C0A225CAF490095CF59 /* encoder.c */; };
+		0E4C8C4D225CAF490095CF59 /* lame.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C0D225CAF490095CF59 /* lame.c */; };
+		0E4C8C4E225CAF490095CF59 /* lame.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C0D225CAF490095CF59 /* lame.c */; };
+		0E4C8C4F225CAF490095CF59 /* id3tag.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C10225CAF490095CF59 /* id3tag.c */; };
+		0E4C8C50225CAF490095CF59 /* id3tag.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C10225CAF490095CF59 /* id3tag.c */; };
+		0E4C8C51225CAF490095CF59 /* takehiro.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C12225CAF490095CF59 /* takehiro.c */; };
+		0E4C8C52225CAF490095CF59 /* takehiro.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C12225CAF490095CF59 /* takehiro.c */; };
+		0E4C8C53225CAF490095CF59 /* VbrTag.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C14225CAF490095CF59 /* VbrTag.c */; settings = {COMPILER_FLAGS = "-Wno-tautological-pointer-compare"; }; };
+		0E4C8C54225CAF490095CF59 /* VbrTag.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C14225CAF490095CF59 /* VbrTag.c */; settings = {COMPILER_FLAGS = "-Wno-tautological-pointer-compare"; }; };
+		0E4C8C55225CAF490095CF59 /* quantize.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C15225CAF490095CF59 /* quantize.c */; };
+		0E4C8C56225CAF490095CF59 /* quantize.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C15225CAF490095CF59 /* quantize.c */; };
+		0E4C8C57225CAF490095CF59 /* set_get.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C16225CAF490095CF59 /* set_get.c */; };
+		0E4C8C58225CAF490095CF59 /* set_get.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C16225CAF490095CF59 /* set_get.c */; };
+		0E4C8C59225CAF490095CF59 /* fft.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C18225CAF490095CF59 /* fft.c */; };
+		0E4C8C5A225CAF490095CF59 /* fft.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C18225CAF490095CF59 /* fft.c */; };
+		0E4C8C5B225CAF490095CF59 /* newmdct.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C1C225CAF490095CF59 /* newmdct.c */; };
+		0E4C8C5C225CAF490095CF59 /* newmdct.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C1C225CAF490095CF59 /* newmdct.c */; };
+		0E4C8C5D225CAF490095CF59 /* presets.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C1D225CAF490095CF59 /* presets.c */; };
+		0E4C8C5E225CAF490095CF59 /* presets.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C1D225CAF490095CF59 /* presets.c */; };
+		0E4C8C5F225CAF490095CF59 /* reservoir.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C1F225CAF490095CF59 /* reservoir.c */; };
+		0E4C8C60225CAF490095CF59 /* reservoir.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C1F225CAF490095CF59 /* reservoir.c */; };
+		0E4C8C61225CAF490095CF59 /* version.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C21225CAF490095CF59 /* version.c */; };
+		0E4C8C62225CAF490095CF59 /* version.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C21225CAF490095CF59 /* version.c */; };
+		0E4C8C63225CAF490095CF59 /* mpglib_interface.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C25225CAF490095CF59 /* mpglib_interface.c */; };
+		0E4C8C64225CAF490095CF59 /* mpglib_interface.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C25225CAF490095CF59 /* mpglib_interface.c */; };
+		0E4C8C65225CAF490095CF59 /* xmm_quantize_sub.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C27225CAF490095CF59 /* xmm_quantize_sub.c */; };
+		0E4C8C66225CAF490095CF59 /* xmm_quantize_sub.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C27225CAF490095CF59 /* xmm_quantize_sub.c */; };
+		0E4C8C67225CAF490095CF59 /* psymodel.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C29225CAF490095CF59 /* psymodel.c */; settings = {COMPILER_FLAGS = "-Wno-comma"; }; };
+		0E4C8C68225CAF490095CF59 /* psymodel.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C29225CAF490095CF59 /* psymodel.c */; settings = {COMPILER_FLAGS = "-Wno-comma"; }; };
+		0E4C8C69225CAF490095CF59 /* gain_analysis.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C2A225CAF490095CF59 /* gain_analysis.c */; };
+		0E4C8C6A225CAF490095CF59 /* gain_analysis.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C2A225CAF490095CF59 /* gain_analysis.c */; };
+		0E4C8C6B225CAF490095CF59 /* bitstream.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C2F225CAF490095CF59 /* bitstream.c */; };
+		0E4C8C6C225CAF490095CF59 /* bitstream.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C2F225CAF490095CF59 /* bitstream.c */; };
+		0E4C8C6D225CAF490095CF59 /* QRSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C30225CAF490095CF59 /* QRSprite.cpp */; };
+		0E4C8C6E225CAF490095CF59 /* QRSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C30225CAF490095CF59 /* QRSprite.cpp */; };
+		0E4C8C6F225CAF490095CF59 /* lua_qrcode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C31225CAF490095CF59 /* lua_qrcode.cpp */; };
+		0E4C8C70225CAF490095CF59 /* lua_qrcode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C31225CAF490095CF59 /* lua_qrcode.cpp */; };
+		0E4C8C71225CAF490095CF59 /* qrencode.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C32225CAF490095CF59 /* qrencode.c */; };
+		0E4C8C72225CAF490095CF59 /* qrencode.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C32225CAF490095CF59 /* qrencode.c */; };
+		0E4C8C73225CAF490095CF59 /* split.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C34225CAF490095CF59 /* split.c */; };
+		0E4C8C74225CAF490095CF59 /* split.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C34225CAF490095CF59 /* split.c */; };
+		0E4C8C75225CAF490095CF59 /* qrinput.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C36225CAF490095CF59 /* qrinput.c */; };
+		0E4C8C76225CAF490095CF59 /* qrinput.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C36225CAF490095CF59 /* qrinput.c */; };
+		0E4C8C77225CAF490095CF59 /* mask.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C38225CAF490095CF59 /* mask.c */; };
+		0E4C8C78225CAF490095CF59 /* mask.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C38225CAF490095CF59 /* mask.c */; };
+		0E4C8C79225CAF490095CF59 /* qrspec.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C3B225CAF490095CF59 /* qrspec.c */; };
+		0E4C8C7A225CAF490095CF59 /* qrspec.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C3B225CAF490095CF59 /* qrspec.c */; };
+		0E4C8C7B225CAF490095CF59 /* rscode.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C3E225CAF490095CF59 /* rscode.c */; };
+		0E4C8C7C225CAF490095CF59 /* rscode.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C3E225CAF490095CF59 /* rscode.c */; };
 		0E669F6D22367D1F00BD58EB /* lua_cocos2d_ui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E669F6C22367D1F00BD58EB /* lua_cocos2d_ui.cpp */; };
 		0E669F6E22367D1F00BD58EB /* lua_cocos2d_ui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E669F6C22367D1F00BD58EB /* lua_cocos2d_ui.cpp */; };
 		0E669F7C2237960000BD58EB /* lua_conv_manual.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E669F7A223795FF00BD58EB /* lua_conv_manual.cpp */; };
@@ -219,6 +281,70 @@
 		0E2E9AB22226550D0085145E /* lua_xgame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_xgame.h; sourceTree = "<group>"; };
 		0E2E9AB9222771D00085145E /* lua_cocos2d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_cocos2d.cpp; sourceTree = "<group>"; };
 		0E2E9ABA222771D00085145E /* lua_cocos2d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_cocos2d.h; sourceTree = "<group>"; };
+		0E4C8BFD225CAF490095CF59 /* quantize_pvt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = quantize_pvt.c; sourceTree = "<group>"; };
+		0E4C8BFE225CAF490095CF59 /* fft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fft.h; sourceTree = "<group>"; };
+		0E4C8BFF225CAF490095CF59 /* quantize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = quantize.h; sourceTree = "<group>"; };
+		0E4C8C00225CAF490095CF59 /* bitstream.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bitstream.c; sourceTree = "<group>"; };
+		0E4C8C01225CAF490095CF59 /* set_get.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = set_get.h; sourceTree = "<group>"; };
+		0E4C8C02225CAF490095CF59 /* id3tag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = id3tag.h; sourceTree = "<group>"; };
+		0E4C8C03225CAF490095CF59 /* VbrTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VbrTag.h; sourceTree = "<group>"; };
+		0E4C8C04225CAF490095CF59 /* tables.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tables.c; sourceTree = "<group>"; };
+		0E4C8C05225CAF490095CF59 /* lua_lame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_lame.cpp; sourceTree = "<group>"; };
+		0E4C8C06225CAF490095CF59 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
+		0E4C8C07225CAF490095CF59 /* reservoir.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = reservoir.h; sourceTree = "<group>"; };
+		0E4C8C08225CAF490095CF59 /* vbrquantize.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vbrquantize.c; sourceTree = "<group>"; };
+		0E4C8C09225CAF490095CF59 /* util.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = util.c; sourceTree = "<group>"; };
+		0E4C8C0A225CAF490095CF59 /* encoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = encoder.c; sourceTree = "<group>"; };
+		0E4C8C0B225CAF490095CF59 /* machine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = machine.h; sourceTree = "<group>"; };
+		0E4C8C0C225CAF490095CF59 /* newmdct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = newmdct.h; sourceTree = "<group>"; };
+		0E4C8C0D225CAF490095CF59 /* lame.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lame.c; sourceTree = "<group>"; };
+		0E4C8C0E225CAF490095CF59 /* gain_analysis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gain_analysis.h; sourceTree = "<group>"; };
+		0E4C8C0F225CAF490095CF59 /* psymodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = psymodel.h; sourceTree = "<group>"; };
+		0E4C8C10225CAF490095CF59 /* id3tag.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = id3tag.c; sourceTree = "<group>"; };
+		0E4C8C11225CAF490095CF59 /* l3side.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = l3side.h; sourceTree = "<group>"; };
+		0E4C8C12225CAF490095CF59 /* takehiro.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = takehiro.c; sourceTree = "<group>"; };
+		0E4C8C13225CAF490095CF59 /* tables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tables.h; sourceTree = "<group>"; };
+		0E4C8C14225CAF490095CF59 /* VbrTag.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = VbrTag.c; sourceTree = "<group>"; };
+		0E4C8C15225CAF490095CF59 /* quantize.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = quantize.c; sourceTree = "<group>"; };
+		0E4C8C16225CAF490095CF59 /* set_get.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = set_get.c; sourceTree = "<group>"; };
+		0E4C8C17225CAF490095CF59 /* bitstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bitstream.h; sourceTree = "<group>"; };
+		0E4C8C18225CAF490095CF59 /* fft.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fft.c; sourceTree = "<group>"; };
+		0E4C8C19225CAF490095CF59 /* quantize_pvt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = quantize_pvt.h; sourceTree = "<group>"; };
+		0E4C8C1A225CAF490095CF59 /* encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = encoder.h; sourceTree = "<group>"; };
+		0E4C8C1B225CAF490095CF59 /* lame-analysis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "lame-analysis.h"; sourceTree = "<group>"; };
+		0E4C8C1C225CAF490095CF59 /* newmdct.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = newmdct.c; sourceTree = "<group>"; };
+		0E4C8C1D225CAF490095CF59 /* presets.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = presets.c; sourceTree = "<group>"; };
+		0E4C8C1E225CAF490095CF59 /* util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = util.h; sourceTree = "<group>"; };
+		0E4C8C1F225CAF490095CF59 /* reservoir.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = reservoir.c; sourceTree = "<group>"; };
+		0E4C8C20225CAF490095CF59 /* vbrquantize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vbrquantize.h; sourceTree = "<group>"; };
+		0E4C8C21225CAF490095CF59 /* version.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = version.c; sourceTree = "<group>"; };
+		0E4C8C22225CAF490095CF59 /* lame_global_flags.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lame_global_flags.h; sourceTree = "<group>"; };
+		0E4C8C23225CAF490095CF59 /* lua_lame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_lame.h; sourceTree = "<group>"; };
+		0E4C8C24225CAF490095CF59 /* lameerror.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lameerror.h; sourceTree = "<group>"; };
+		0E4C8C25225CAF490095CF59 /* mpglib_interface.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mpglib_interface.c; sourceTree = "<group>"; };
+		0E4C8C27225CAF490095CF59 /* xmm_quantize_sub.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xmm_quantize_sub.c; sourceTree = "<group>"; };
+		0E4C8C28225CAF490095CF59 /* lame_intrin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lame_intrin.h; sourceTree = "<group>"; };
+		0E4C8C29225CAF490095CF59 /* psymodel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = psymodel.c; sourceTree = "<group>"; };
+		0E4C8C2A225CAF490095CF59 /* gain_analysis.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gain_analysis.c; sourceTree = "<group>"; };
+		0E4C8C2B225CAF490095CF59 /* lame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lame.h; sourceTree = "<group>"; };
+		0E4C8C2D225CAF490095CF59 /* mask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mask.h; sourceTree = "<group>"; };
+		0E4C8C2E225CAF490095CF59 /* qrinput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = qrinput.h; sourceTree = "<group>"; };
+		0E4C8C2F225CAF490095CF59 /* bitstream.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bitstream.c; sourceTree = "<group>"; };
+		0E4C8C30225CAF490095CF59 /* QRSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QRSprite.cpp; sourceTree = "<group>"; };
+		0E4C8C31225CAF490095CF59 /* lua_qrcode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_qrcode.cpp; sourceTree = "<group>"; };
+		0E4C8C32225CAF490095CF59 /* qrencode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = qrencode.c; sourceTree = "<group>"; };
+		0E4C8C33225CAF490095CF59 /* qrspec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = qrspec.h; sourceTree = "<group>"; };
+		0E4C8C34225CAF490095CF59 /* split.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = split.c; sourceTree = "<group>"; };
+		0E4C8C35225CAF490095CF59 /* rscode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rscode.h; sourceTree = "<group>"; };
+		0E4C8C36225CAF490095CF59 /* qrinput.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = qrinput.c; sourceTree = "<group>"; };
+		0E4C8C37225CAF490095CF59 /* bitstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bitstream.h; sourceTree = "<group>"; };
+		0E4C8C38225CAF490095CF59 /* mask.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mask.c; sourceTree = "<group>"; };
+		0E4C8C39225CAF490095CF59 /* QRSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRSprite.h; sourceTree = "<group>"; };
+		0E4C8C3A225CAF490095CF59 /* lua_qrcode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_qrcode.h; sourceTree = "<group>"; };
+		0E4C8C3B225CAF490095CF59 /* qrspec.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = qrspec.c; sourceTree = "<group>"; };
+		0E4C8C3C225CAF490095CF59 /* qrencode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = qrencode.h; sourceTree = "<group>"; };
+		0E4C8C3D225CAF490095CF59 /* split.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = split.h; sourceTree = "<group>"; };
+		0E4C8C3E225CAF490095CF59 /* rscode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = rscode.c; sourceTree = "<group>"; };
 		0E669F6B22367D1E00BD58EB /* lua_cocos2d_ui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_cocos2d_ui.h; sourceTree = "<group>"; };
 		0E669F6C22367D1F00BD58EB /* lua_cocos2d_ui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_cocos2d_ui.cpp; sourceTree = "<group>"; };
 		0E669F7A223795FF00BD58EB /* lua_conv_manual.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_conv_manual.cpp; sourceTree = "<group>"; };
@@ -470,6 +596,94 @@
 			path = "lua-bindings";
 			sourceTree = "<group>";
 		};
+		0E4C8BFC225CAF490095CF59 /* lame */ = {
+			isa = PBXGroup;
+			children = (
+				0E4C8C00225CAF490095CF59 /* bitstream.c */,
+				0E4C8C17225CAF490095CF59 /* bitstream.h */,
+				0E4C8C0A225CAF490095CF59 /* encoder.c */,
+				0E4C8C1A225CAF490095CF59 /* encoder.h */,
+				0E4C8C18225CAF490095CF59 /* fft.c */,
+				0E4C8BFE225CAF490095CF59 /* fft.h */,
+				0E4C8C2A225CAF490095CF59 /* gain_analysis.c */,
+				0E4C8C0E225CAF490095CF59 /* gain_analysis.h */,
+				0E4C8C10225CAF490095CF59 /* id3tag.c */,
+				0E4C8C02225CAF490095CF59 /* id3tag.h */,
+				0E4C8C11225CAF490095CF59 /* l3side.h */,
+				0E4C8C22225CAF490095CF59 /* lame_global_flags.h */,
+				0E4C8C1B225CAF490095CF59 /* lame-analysis.h */,
+				0E4C8C0D225CAF490095CF59 /* lame.c */,
+				0E4C8C2B225CAF490095CF59 /* lame.h */,
+				0E4C8C24225CAF490095CF59 /* lameerror.h */,
+				0E4C8C05225CAF490095CF59 /* lua_lame.cpp */,
+				0E4C8C23225CAF490095CF59 /* lua_lame.h */,
+				0E4C8C0B225CAF490095CF59 /* machine.h */,
+				0E4C8C25225CAF490095CF59 /* mpglib_interface.c */,
+				0E4C8C1C225CAF490095CF59 /* newmdct.c */,
+				0E4C8C0C225CAF490095CF59 /* newmdct.h */,
+				0E4C8C1D225CAF490095CF59 /* presets.c */,
+				0E4C8C29225CAF490095CF59 /* psymodel.c */,
+				0E4C8C0F225CAF490095CF59 /* psymodel.h */,
+				0E4C8BFD225CAF490095CF59 /* quantize_pvt.c */,
+				0E4C8C19225CAF490095CF59 /* quantize_pvt.h */,
+				0E4C8C15225CAF490095CF59 /* quantize.c */,
+				0E4C8BFF225CAF490095CF59 /* quantize.h */,
+				0E4C8C1F225CAF490095CF59 /* reservoir.c */,
+				0E4C8C07225CAF490095CF59 /* reservoir.h */,
+				0E4C8C16225CAF490095CF59 /* set_get.c */,
+				0E4C8C01225CAF490095CF59 /* set_get.h */,
+				0E4C8C04225CAF490095CF59 /* tables.c */,
+				0E4C8C13225CAF490095CF59 /* tables.h */,
+				0E4C8C12225CAF490095CF59 /* takehiro.c */,
+				0E4C8C09225CAF490095CF59 /* util.c */,
+				0E4C8C1E225CAF490095CF59 /* util.h */,
+				0E4C8C08225CAF490095CF59 /* vbrquantize.c */,
+				0E4C8C20225CAF490095CF59 /* vbrquantize.h */,
+				0E4C8C14225CAF490095CF59 /* VbrTag.c */,
+				0E4C8C03225CAF490095CF59 /* VbrTag.h */,
+				0E4C8C26225CAF490095CF59 /* vector */,
+				0E4C8C21225CAF490095CF59 /* version.c */,
+				0E4C8C06225CAF490095CF59 /* version.h */,
+			);
+			name = lame;
+			path = ../src/lame;
+			sourceTree = "<group>";
+		};
+		0E4C8C26225CAF490095CF59 /* vector */ = {
+			isa = PBXGroup;
+			children = (
+				0E4C8C27225CAF490095CF59 /* xmm_quantize_sub.c */,
+				0E4C8C28225CAF490095CF59 /* lame_intrin.h */,
+			);
+			path = vector;
+			sourceTree = "<group>";
+		};
+		0E4C8C2C225CAF490095CF59 /* qrencode */ = {
+			isa = PBXGroup;
+			children = (
+				0E4C8C2F225CAF490095CF59 /* bitstream.c */,
+				0E4C8C37225CAF490095CF59 /* bitstream.h */,
+				0E4C8C31225CAF490095CF59 /* lua_qrcode.cpp */,
+				0E4C8C3A225CAF490095CF59 /* lua_qrcode.h */,
+				0E4C8C38225CAF490095CF59 /* mask.c */,
+				0E4C8C2D225CAF490095CF59 /* mask.h */,
+				0E4C8C32225CAF490095CF59 /* qrencode.c */,
+				0E4C8C3C225CAF490095CF59 /* qrencode.h */,
+				0E4C8C36225CAF490095CF59 /* qrinput.c */,
+				0E4C8C2E225CAF490095CF59 /* qrinput.h */,
+				0E4C8C3B225CAF490095CF59 /* qrspec.c */,
+				0E4C8C33225CAF490095CF59 /* qrspec.h */,
+				0E4C8C30225CAF490095CF59 /* QRSprite.cpp */,
+				0E4C8C39225CAF490095CF59 /* QRSprite.h */,
+				0E4C8C3E225CAF490095CF59 /* rscode.c */,
+				0E4C8C35225CAF490095CF59 /* rscode.h */,
+				0E4C8C34225CAF490095CF59 /* split.c */,
+				0E4C8C3D225CAF490095CF59 /* split.h */,
+			);
+			name = qrencode;
+			path = ../src/qrencode;
+			sourceTree = "<group>";
+		};
 		0E6C9793222ADCEE00B2C17F /* olua */ = {
 			isa = PBXGroup;
 			children = (
@@ -486,9 +700,11 @@
 			children = (
 				0ECC4C5421EB8D4600E3BBF9 /* cjson */,
 				0E2E9A7B221EBB570085145E /* crypto */,
+				0E4C8BFC225CAF490095CF59 /* lame */,
 				0ECC4B6321E79E2400E3BBF9 /* lua */,
-				0ECC4C3821EB8D4500E3BBF9 /* pbc */,
 				0E6C9793222ADCEE00B2C17F /* olua */,
+				0ECC4C3821EB8D4500E3BBF9 /* pbc */,
+				0E4C8C2C225CAF490095CF59 /* qrencode */,
 				0E0C702221F9600D00049240 /* xgame */,
 			);
 			name = src;
@@ -686,14 +902,21 @@
 			files = (
 				0ECC4C7121EB8D4600E3BBF9 /* map.c in Sources */,
 				0ECC4BD121E79E3E00E3BBF9 /* lfunc.c in Sources */,
+				0E4C8C61225CAF490095CF59 /* version.c in Sources */,
+				0E4C8C7B225CAF490095CF59 /* rscode.c in Sources */,
 				0ECC4BC121E79E3E00E3BBF9 /* ldblib.c in Sources */,
 				0ECC4C6721EB8D4600E3BBF9 /* register.c in Sources */,
 				0ECC4BCD21E79E3E00E3BBF9 /* loadlib.c in Sources */,
+				0E4C8C63225CAF490095CF59 /* mpglib_interface.c in Sources */,
 				0E0C704D21F9EEBD00049240 /* lua_javabridge.cpp in Sources */,
 				0ECC4BB721E79E3E00E3BBF9 /* lmem.c in Sources */,
+				0E4C8C41225CAF490095CF59 /* bitstream.c in Sources */,
 				0E2E9A79221EB7B00085145E /* lua_crypto.cpp in Sources */,
+				0E4C8C55225CAF490095CF59 /* quantize.c in Sources */,
+				0E4C8C6F225CAF490095CF59 /* lua_qrcode.cpp in Sources */,
 				0ECC4C6321EB8D4600E3BBF9 /* rmessage.c in Sources */,
 				0ECC4BAB21E79E3E00E3BBF9 /* lcorolib.c in Sources */,
+				0E4C8C4D225CAF490095CF59 /* lame.c in Sources */,
 				0ECC4BB121E79E3E00E3BBF9 /* lbaselib.c in Sources */,
 				0E7411652243489900B1BD72 /* lua_spine.cpp in Sources */,
 				0ECC4BC721E79E3E00E3BBF9 /* lutf8lib.c in Sources */,
@@ -704,20 +927,29 @@
 				0E0C706021F9EFC700049240 /* xruntime-private-ios-mac.mm in Sources */,
 				0ECC4C6921EB8D4600E3BBF9 /* decode.c in Sources */,
 				0E0C704B21F9EEBD00049240 /* xdownloader.cpp in Sources */,
+				0E4C8C6B225CAF490095CF59 /* bitstream.c in Sources */,
 				0E0C705C21F9EFC700049240 /* xsocket.cpp in Sources */,
 				0ECC4BBF21E79E3E00E3BBF9 /* liolib.c in Sources */,
 				0E669F6D22367D1F00BD58EB /* lua_cocos2d_ui.cpp in Sources */,
 				0E2E9A84221EBB570085145E /* xxtea.cpp in Sources */,
+				0E4C8C47225CAF490095CF59 /* vbrquantize.c in Sources */,
 				0ECC4C7D21EB8D4600E3BBF9 /* bootstrap.c in Sources */,
 				0ECC4C6D21EB8D4600E3BBF9 /* alloc.c in Sources */,
 				0E2E9A77221EB7B00085145E /* lua_module.cpp in Sources */,
 				0ECC4C7F21EB8D4600E3BBF9 /* fpconv.c in Sources */,
+				0E4C8C5D225CAF490095CF59 /* presets.c in Sources */,
 				0E2E9AB32226550E0085145E /* lua_xgame.cpp in Sources */,
+				0E4C8C65225CAF490095CF59 /* xmm_quantize_sub.c in Sources */,
+				0E4C8C75225CAF490095CF59 /* qrinput.c in Sources */,
+				0E4C8C57225CAF490095CF59 /* set_get.c in Sources */,
 				0ECC4BCB21E79E3E00E3BBF9 /* lobject.c in Sources */,
 				0ECC4C6F21EB8D4600E3BBF9 /* varint.c in Sources */,
+				0E4C8C67225CAF490095CF59 /* psymodel.c in Sources */,
 				0ECC4BD321E79E3E00E3BBF9 /* lauxlib.c in Sources */,
 				0ECC4C8521EB8D4600E3BBF9 /* lua_cjson.c in Sources */,
+				0E4C8C49225CAF490095CF59 /* util.c in Sources */,
 				0E7756DC224C8F91005070EF /* lua_fairygui.cpp in Sources */,
+				0E4C8C45225CAF490095CF59 /* lua_lame.cpp in Sources */,
 				0ECC4BB321E79E3E00E3BBF9 /* lapi.c in Sources */,
 				0ECC4BA121E79E3E00E3BBF9 /* ldebug.c in Sources */,
 				0ECC4BD921E79E3E00E3BBF9 /* lstate.c in Sources */,
@@ -728,19 +960,26 @@
 				0ECC4C7B21EB8D4600E3BBF9 /* pattern.c in Sources */,
 				0ECC4BAF21E79E3E00E3BBF9 /* lundump.c in Sources */,
 				0E0C702621F9600D00049240 /* xrootscene.cpp in Sources */,
+				0E4C8C59225CAF490095CF59 /* fft.c in Sources */,
+				0E4C8C51225CAF490095CF59 /* takehiro.c in Sources */,
 				0ECC4BBB21E79E3E00E3BBF9 /* lbitlib.c in Sources */,
 				0E2E9A82221EBB570085145E /* md5util.c in Sources */,
 				0E0C705E21F9EFC700049240 /* xlua.cpp in Sources */,
+				0E4C8C79225CAF490095CF59 /* qrspec.c in Sources */,
 				0ECC4B9F21E79E3E00E3BBF9 /* linit.c in Sources */,
+				0E4C8C4F225CAF490095CF59 /* id3tag.c in Sources */,
+				0E4C8C5B225CAF490095CF59 /* newmdct.c in Sources */,
 				0ECC4C7521EB8D4600E3BBF9 /* context.c in Sources */,
 				0ECC4C6B21EB8D4600E3BBF9 /* stringpool.c in Sources */,
 				0ECC4BCF21E79E3E00E3BBF9 /* ldump.c in Sources */,
+				0E4C8C6D225CAF490095CF59 /* QRSprite.cpp in Sources */,
 				0E9D2A6B221A9C76003C2121 /* xfilesystem-private-ios-mac.mm in Sources */,
 				0E0C706C21F9F60B00049240 /* xtimer.cpp in Sources */,
 				0ECC4C8121EB8D4600E3BBF9 /* strbuf.c in Sources */,
 				0E669F7C2237960000BD58EB /* lua_conv_manual.cpp in Sources */,
 				0ECC4C7321EB8D4600E3BBF9 /* proto.c in Sources */,
 				0ECC4C7721EB8D4600E3BBF9 /* pbc-lua53.c in Sources */,
+				0E4C8C3F225CAF490095CF59 /* quantize_pvt.c in Sources */,
 				0E0C705A21F9EFC700049240 /* xruntime.cpp in Sources */,
 				0ECC4BC521E79E3E00E3BBF9 /* lgc.c in Sources */,
 				0ECC4BDF21E79E3E00E3BBF9 /* ltable.c in Sources */,
@@ -750,18 +989,26 @@
 				0E2E9A86221EBB570085145E /* md5.c in Sources */,
 				0ECC4BBD21E79E3E00E3BBF9 /* llex.c in Sources */,
 				0ECC4C6121EB8D4600E3BBF9 /* array.c in Sources */,
+				0E4C8C77225CAF490095CF59 /* mask.c in Sources */,
 				0ECC4C8321EB8D4600E3BBF9 /* cJSON.c in Sources */,
 				0EE4B2BE21FC9FE60043AC9D /* xpreferences.cpp in Sources */,
 				0ECC4BD521E79E3E00E3BBF9 /* lstrlib.c in Sources */,
 				0E6C9796222ADD1300B2C17F /* olua.c in Sources */,
+				0E4C8C43225CAF490095CF59 /* tables.c in Sources */,
 				0ECC4BC921E79E3E00E3BBF9 /* lzio.c in Sources */,
 				0ECC4BA921E79E3E00E3BBF9 /* lctype.c in Sources */,
 				0ECC4BDB21E79E3E00E3BBF9 /* ltablib.c in Sources */,
 				0ECC4BC321E79E3E00E3BBF9 /* lopcodes.c in Sources */,
 				0ECC4BB921E79E3E00E3BBF9 /* lmathlib.c in Sources */,
 				0E0C706821F9F5FE00049240 /* xfilesystem.cpp in Sources */,
+				0E4C8C69225CAF490095CF59 /* gain_analysis.c in Sources */,
+				0E4C8C73225CAF490095CF59 /* split.c in Sources */,
 				0ECC4BA721E79E3E00E3BBF9 /* loslib.c in Sources */,
 				0EB05DC8223B976C00491357 /* LuaComponent.cpp in Sources */,
+				0E4C8C53225CAF490095CF59 /* VbrTag.c in Sources */,
+				0E4C8C5F225CAF490095CF59 /* reservoir.c in Sources */,
+				0E4C8C71225CAF490095CF59 /* qrencode.c in Sources */,
+				0E4C8C4B225CAF490095CF59 /* encoder.c in Sources */,
 				0ECC4BDD21E79E3E00E3BBF9 /* lcode.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -772,14 +1019,20 @@
 			files = (
 				0ECC4C7221EB8D4600E3BBF9 /* map.c in Sources */,
 				0ECC4BD221E79E3E00E3BBF9 /* lfunc.c in Sources */,
+				0E4C8C72225CAF490095CF59 /* qrencode.c in Sources */,
 				0ECC4BC221E79E3E00E3BBF9 /* ldblib.c in Sources */,
 				0ECC4C6821EB8D4600E3BBF9 /* register.c in Sources */,
+				0E4C8C62225CAF490095CF59 /* version.c in Sources */,
 				0ECC4BCE21E79E3E00E3BBF9 /* loadlib.c in Sources */,
 				0E0C704E21F9EEBD00049240 /* lua_javabridge.cpp in Sources */,
 				0ECC4BB821E79E3E00E3BBF9 /* lmem.c in Sources */,
+				0E4C8C42225CAF490095CF59 /* bitstream.c in Sources */,
 				0ECC4C6421EB8D4600E3BBF9 /* rmessage.c in Sources */,
 				0E6C97CA222FD37E00B2C17F /* lua_conv.cpp in Sources */,
+				0E4C8C74225CAF490095CF59 /* split.c in Sources */,
 				0E7756DD224C8F91005070EF /* lua_fairygui.cpp in Sources */,
+				0E4C8C54225CAF490095CF59 /* VbrTag.c in Sources */,
+				0E4C8C5C225CAF490095CF59 /* newmdct.c in Sources */,
 				0E2E9A7A221EB7B00085145E /* lua_crypto.cpp in Sources */,
 				0ECC4BAC21E79E3E00E3BBF9 /* lcorolib.c in Sources */,
 				0E669F6E22367D1F00BD58EB /* lua_cocos2d_ui.cpp in Sources */,
@@ -792,19 +1045,25 @@
 				0ECC4C6621EB8D4600E3BBF9 /* packet.c in Sources */,
 				0E0C706121F9EFC700049240 /* xruntime-private-ios-mac.mm in Sources */,
 				0E669F7D2237960000BD58EB /* lua_conv_manual.cpp in Sources */,
+				0E4C8C52225CAF490095CF59 /* takehiro.c in Sources */,
 				0ECC4C6A21EB8D4600E3BBF9 /* decode.c in Sources */,
 				0E0C704C21F9EEBD00049240 /* xdownloader.cpp in Sources */,
 				0E0C705D21F9EFC700049240 /* xsocket.cpp in Sources */,
 				0ECC4BC021E79E3E00E3BBF9 /* liolib.c in Sources */,
+				0E4C8C6C225CAF490095CF59 /* bitstream.c in Sources */,
 				0ECC4C7E21EB8D4600E3BBF9 /* bootstrap.c in Sources */,
 				0ECC4C6E21EB8D4600E3BBF9 /* alloc.c in Sources */,
 				0ECC4C8021EB8D4600E3BBF9 /* fpconv.c in Sources */,
 				0ECC4BCC21E79E3E00E3BBF9 /* lobject.c in Sources */,
 				0ECC4C7021EB8D4600E3BBF9 /* varint.c in Sources */,
 				0ECC4BD421E79E3E00E3BBF9 /* lauxlib.c in Sources */,
+				0E4C8C48225CAF490095CF59 /* vbrquantize.c in Sources */,
+				0E4C8C68225CAF490095CF59 /* psymodel.c in Sources */,
+				0E4C8C5E225CAF490095CF59 /* presets.c in Sources */,
 				0ECC4C8621EB8D4600E3BBF9 /* lua_cjson.c in Sources */,
 				0ECC4BB421E79E3E00E3BBF9 /* lapi.c in Sources */,
 				0ECC4BA221E79E3E00E3BBF9 /* ldebug.c in Sources */,
+				0E4C8C40225CAF490095CF59 /* quantize_pvt.c in Sources */,
 				0ECC4BDA21E79E3E00E3BBF9 /* lstate.c in Sources */,
 				0E2E9AB42226550E0085145E /* lua_xgame.cpp in Sources */,
 				0ECC4C7A21EB8D4600E3BBF9 /* wmessage.c in Sources */,
@@ -816,24 +1075,40 @@
 				0ECC4C7C21EB8D4600E3BBF9 /* pattern.c in Sources */,
 				0E2E9A3A221C37070085145E /* AppRootViewController-ios.mm in Sources */,
 				0ECC4BB021E79E3E00E3BBF9 /* lundump.c in Sources */,
+				0E4C8C7A225CAF490095CF59 /* qrspec.c in Sources */,
+				0E4C8C44225CAF490095CF59 /* tables.c in Sources */,
+				0E4C8C4A225CAF490095CF59 /* util.c in Sources */,
 				0E2E9ABC222771D00085145E /* lua_cocos2d.cpp in Sources */,
 				0E0C702721F9600D00049240 /* xrootscene.cpp in Sources */,
+				0E4C8C64225CAF490095CF59 /* mpglib_interface.c in Sources */,
 				0ECC4BBC21E79E3E00E3BBF9 /* lbitlib.c in Sources */,
 				0E0C705F21F9EFC700049240 /* xlua.cpp in Sources */,
+				0E4C8C78225CAF490095CF59 /* mask.c in Sources */,
 				0ECC4BA021E79E3E00E3BBF9 /* linit.c in Sources */,
 				0ECC4C7621EB8D4600E3BBF9 /* context.c in Sources */,
+				0E4C8C5A225CAF490095CF59 /* fft.c in Sources */,
 				0ECC4C6C21EB8D4600E3BBF9 /* stringpool.c in Sources */,
+				0E4C8C4C225CAF490095CF59 /* encoder.c in Sources */,
+				0E4C8C66225CAF490095CF59 /* xmm_quantize_sub.c in Sources */,
+				0E4C8C7C225CAF490095CF59 /* rscode.c in Sources */,
 				0ECC4BD021E79E3E00E3BBF9 /* ldump.c in Sources */,
 				0E9D2A6C221A9C76003C2121 /* xfilesystem-private-ios-mac.mm in Sources */,
 				0E0C706D21F9F60B00049240 /* xtimer.cpp in Sources */,
 				0ECC4C8221EB8D4600E3BBF9 /* strbuf.c in Sources */,
 				0ECC4C7421EB8D4600E3BBF9 /* proto.c in Sources */,
 				0ECC4C7821EB8D4600E3BBF9 /* pbc-lua53.c in Sources */,
+				0E4C8C46225CAF490095CF59 /* lua_lame.cpp in Sources */,
 				0E0C705B21F9EFC700049240 /* xruntime.cpp in Sources */,
 				0ECC4BC621E79E3E00E3BBF9 /* lgc.c in Sources */,
+				0E4C8C60225CAF490095CF59 /* reservoir.c in Sources */,
+				0E4C8C6E225CAF490095CF59 /* QRSprite.cpp in Sources */,
 				0ECC4BE021E79E3E00E3BBF9 /* ltable.c in Sources */,
 				0ECC4BAE21E79E3E00E3BBF9 /* lstring.c in Sources */,
+				0E4C8C70225CAF490095CF59 /* lua_qrcode.cpp in Sources */,
+				0E4C8C6A225CAF490095CF59 /* gain_analysis.c in Sources */,
 				0ECC4BB621E79E3E00E3BBF9 /* lvm.c in Sources */,
+				0E4C8C50225CAF490095CF59 /* id3tag.c in Sources */,
+				0E4C8C56225CAF490095CF59 /* quantize.c in Sources */,
 				0ECC4BBE21E79E3E00E3BBF9 /* llex.c in Sources */,
 				0E2E9A85221EBB570085145E /* xxtea.cpp in Sources */,
 				0ECC4C6221EB8D4600E3BBF9 /* array.c in Sources */,
@@ -843,12 +1118,15 @@
 				0EB05DC9223B976C00491357 /* LuaComponent.cpp in Sources */,
 				0ECC4BD621E79E3E00E3BBF9 /* lstrlib.c in Sources */,
 				0ECC4BCA21E79E3E00E3BBF9 /* lzio.c in Sources */,
+				0E4C8C4E225CAF490095CF59 /* lame.c in Sources */,
+				0E4C8C76225CAF490095CF59 /* qrinput.c in Sources */,
 				0ECC4BAA21E79E3E00E3BBF9 /* lctype.c in Sources */,
 				0ECC4BDC21E79E3E00E3BBF9 /* ltablib.c in Sources */,
 				0E7411662243489900B1BD72 /* lua_spine.cpp in Sources */,
 				0ECC4BC421E79E3E00E3BBF9 /* lopcodes.c in Sources */,
 				0ECC4BBA21E79E3E00E3BBF9 /* lmathlib.c in Sources */,
 				0E0C706921F9F5FE00049240 /* xfilesystem.cpp in Sources */,
+				0E4C8C58225CAF490095CF59 /* set_get.c in Sources */,
 				0ECC4BA821E79E3E00E3BBF9 /* loslib.c in Sources */,
 				0ECC4BDE21E79E3E00E3BBF9 /* lcode.c in Sources */,
 			);
@@ -904,6 +1182,7 @@
 					"CC_ENABLE_SCRIPT_BINDING=0",
 					"CC_CONSTRUCTOR_ACCESS=public",
 					"CC_FILEUTILS_APPLE_ENABLE_OBJC=0",
+					STDC_HEADERS,
 					OLUA_DEBUG,
 					"OLUA_REPORT_PUSH_STATUS=xlua_report_push_status",
 					"OLUA_MAINTHREAD=xlua_cocosthread",
@@ -982,6 +1261,7 @@
 					"CC_ENABLE_SCRIPT_BINDING=0",
 					"CC_CONSTRUCTOR_ACCESS=public",
 					"CC_FILEUTILS_APPLE_ENABLE_OBJC=0",
+					STDC_HEADERS,
 					"OLUA_REPORT_PUSH_STATUS=xlua_report_push_status",
 					"OLUA_MAINTHREAD=xlua_cocosthread",
 					"OLUA_STARTCMPUNREF=xlua_startcmpunref",

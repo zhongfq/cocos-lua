@@ -3,8 +3,8 @@ require "aux.olua-cls"
 local M = {}
 
 M.NAME = "xgame"
-M.HEADER_PATH = "template/frameworks/libxgame/src/xgame/lua-bindings/lua_xgame.h"
-M.SOURCE_PATH = "template/frameworks/libxgame/src/xgame/lua-bindings/lua_xgame.cpp"
+M.HEADER_PATH = "frameworks/libxgame/src/xgame/lua-bindings/lua_xgame.h"
+M.SOURCE_PATH = "frameworks/libxgame/src/xgame/lua-bindings/lua_xgame.cpp"
 
 M.INCLUDES = [[
 #include "xgame/lua-bindings/lua_xgame.h"

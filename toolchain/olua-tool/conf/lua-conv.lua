@@ -4,8 +4,8 @@ require "conf.fairygui.import-fairygui-type"
 local M = {}
 
 M.NAME = "CONV"
-M.HEADER_PATH = "template/frameworks/libxgame/src/xgame/lua-bindings/lua_conv.h"
-M.SOURCE_PATH = "template/frameworks/libxgame/src/xgame/lua-bindings/lua_conv.cpp"
+M.HEADER_PATH = "frameworks/libxgame/src/xgame/lua-bindings/lua_conv.h"
+M.SOURCE_PATH = "frameworks/libxgame/src/xgame/lua-bindings/lua_conv.cpp"
 
 M.HEADER_INCLUDES = [[
 #include "xgame/xlua.h"

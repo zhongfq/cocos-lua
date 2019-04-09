@@ -12,6 +12,7 @@ function write(path, content)
     print("write:", path)
 
     local file = io.open(path, "w")
+    assert(file, path)
     file:write(content)
     file:flush()
     file:close()

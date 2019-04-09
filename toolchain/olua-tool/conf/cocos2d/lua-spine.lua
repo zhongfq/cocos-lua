@@ -4,8 +4,8 @@ require "conf.cocos2d.import-cocos2d-type"
 local M = {}
 
 M.NAME = "spine"
-M.HEADER_PATH = "template/frameworks/libxgame/src/xgame/lua-bindings/lua_spine.h"
-M.SOURCE_PATH = "template/frameworks/libxgame/src/xgame/lua-bindings/lua_spine.cpp"
+M.HEADER_PATH = "frameworks/libxgame/src/xgame/lua-bindings/lua_spine.h"
+M.SOURCE_PATH = "frameworks/libxgame/src/xgame/lua-bindings/lua_spine.cpp"
 
 M.INCLUDES = [[
 #include "xgame/lua-bindings/lua_cocos2d_ui.h"

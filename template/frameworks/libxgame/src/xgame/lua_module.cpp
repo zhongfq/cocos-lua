@@ -23,7 +23,7 @@ int luaopen_module(lua_State *L)
     olua_preload(L, "kernel.crypto.cjson.safe", luaopen_cjson_safe);
     
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
-    xlua_preload(L, "kernel.luaj", luaopen_javabridge);
+    olua_preload(L, "kernel.luaj", luaopen_javabridge);
 #endif
     
     xlua_call(L, luaopen_cocos2d);

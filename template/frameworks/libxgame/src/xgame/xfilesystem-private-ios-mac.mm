@@ -47,9 +47,3 @@ const std::string __filesystem_getTmpDirectory()
     return filesystem::getWritablePath() + "/Tmp";
 }
 #endif
-
-const std::string __filesystem_getSDCardDirectory()
-{
-    runtime::log("filesystem::getSDCardDirectory only support android");
-    return "/";
-}

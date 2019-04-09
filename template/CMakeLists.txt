@@ -31,8 +31,12 @@ set(RUNTIME_SRC_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/frameworks/runtime-src)
 set(COCOS2DX_ROOT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/frameworks/cocos2d-x)
 set(CMAKE_MODULE_PATH ${COCOS2DX_ROOT_PATH}/cmake/Modules/)
 
+add_definitions(-DCC_ENABLE_SCRIPT_BINDING=0)
+add_definitions(-DCC_FILEUTILS_APPLE_ENABLE_OBJC=0)
+add_definitions(-DCC_CONSTRUCTOR_ACCESS=public)
+
 include(CocosBuildSet)
-set(BUILD_LUA_LIBS ON)
+# set(BUILD_LUA_LIBS ON)
 add_subdirectory(${COCOS2DX_ROOT_PATH}/cocos ${ENGINE_BINARY_PATH}/cocos/core)
 
 # script and source files info, not need to compile
@@ -58,10 +62,7 @@ set(GAME_SOURCE ${RUNTIME_SRC_ROOT}/Classes/AppDelegate.cpp)
 # sources need to compile info, include dirs and source files
 include_directories(
         ${RUNTIME_SRC_ROOT}/Classes
-        ${COCOS2DX_ROOT_PATH}/cocos/scripting/lua-bindings/auto
-        ${COCOS2DX_ROOT_PATH}/cocos/scripting/lua-bindings/manual
-        ${COCOS2DX_ROOT_PATH}/external/lua/luajit/include
-        ${COCOS2DX_ROOT_PATH}/external/lua/tolua
+        ${COCOS2DX_ROOT_PATH}/cocos
         ${COCOS2DX_ROOT_PATH}/tools/simulator/libsimulator/lib
 )
 if(ANDROID)
@@ -137,11 +138,12 @@ else()
     add_library(${APP_NAME} SHARED ${APP_SRC})
     add_subdirectory(${COCOS2DX_ROOT_PATH}/cocos/platform/android ${ENGINE_BINARY_PATH}/cocos/platform)
     target_link_libraries(${APP_NAME} -Wl,--whole-archive cpp_android_spec -Wl,--no-whole-archive)
-    add_subdirectory(${COCOS2DX_ROOT_PATH}/cocos/scripting/lua-bindings/proj.android ${ENGINE_BINARY_PATH}/cocos/lua-android)
-    target_link_libraries(${APP_NAME} -Wl,--whole-archive lua_android_spec -Wl,--no-whole-archive)
 endif()
 
-target_link_libraries(${APP_NAME} luacocos2d)
+add_subdirectory(${RUNTIME_SRC_ROOT}/../libfairygui)
+add_subdirectory(${RUNTIME_SRC_ROOT}/../libxgame)
+
+target_link_libraries(${APP_NAME} cocos2d fairygui xgame)
 target_include_directories(${APP_NAME} PRIVATE ${RUNTIME_SRC_ROOT}/Classes)
 
 if(WINDOWS OR MACOSX)

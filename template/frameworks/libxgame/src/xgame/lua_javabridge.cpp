@@ -2,7 +2,7 @@
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 #include "base/ccUTF8.h"
-#include "runtime.h"
+#include "xgame/xruntime.h"
 
 #include <stdlib.h>
 
@@ -143,7 +143,7 @@ int luaj_invoke(lua_State *L)
                 }
                 case TYPE_INT: {
                     if (lua_isfunction(L, 4 + i)) {
-                        args[i].i = (jint)luaext_reffunction(L, 4 + i);
+                        args[i].i = (jint)xlua_reffunc(L, 4 + i);
                     } else {
                         args[i].i = (jint)luaL_checkinteger(L, 4 + i);
                     }
@@ -275,12 +275,12 @@ JNIEXPORT void JNICALL Java_kernel_android_LuaJavaBridge_invoke
     CC_UNUSED_PARAM(env);
     CC_UNUSED_PARAM(cls);
 
-    if (!xgame::runtime::is_restarting()) {
+    if (!xgame::runtime::isRestarting()) {
         std::string args = cocos2d::JniHelper::jstring2string(value);
-        lua_State *L = luaext_cocosthread();
+        lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
-        lua_pushcfunction(L, luaext_errorfunc);
-        luaext_getref(L, func);
+        lua_pushcfunction(L, xlua_errorfunc);
+        xlua_getref(L, func);
         if (!lua_isnil(L, -1)) {
             lua_pushstring(L, args.c_str());
             lua_pcall(L, 1, 0, top + 1);
@@ -297,8 +297,8 @@ JNIEXPORT void JNICALL Java_kernel_android_LuaJavaBridge_unref
     CC_UNUSED_PARAM(env);
     CC_UNUSED_PARAM(cls);
 
-    lua_State *L = luaext_cocosthread();
-    luaext_unref(L, func);
+    lua_State *L = olua_mainthread();
+    xlua_unref(L, func);
 }
 }
 

@@ -205,9 +205,9 @@ LUALIB_API bool olua_hasfield(lua_State *L, int idx, const char *field);
     
 // for debug
 #ifdef OLUA_DEBUG
-#define olua_assert assert
+#define olua_assert(e) assert(e)
 #else
-#define olua_assert
+#define olua_assert(e) ((void)0)
 #endif
 
 #ifdef __cplusplus

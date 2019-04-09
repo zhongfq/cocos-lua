@@ -46,11 +46,11 @@ bool AppDelegate::applicationDidFinishLaunching()
         CrashReport::log(CrashReport::Verbose, "bugly", msg);
     });
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-    CrashReport::initCrashReport(BUGLY_APPID_ANDROID, false, CrashReport::CRLogLevel::Verbose);
-    runtime::log("init bugly for android");
+    // CrashReport::initCrashReport(BUGLY_APPID_ANDROID, false, CrashReport::CRLogLevel::Verbose);
+    // runtime::log("init bugly for android");
 #endif
-    runtime::set_error_reporter([](const char *err_msg, const char *traceback) {
-        CrashReport::reportException(CATEGORY_LUA_EXCEPTION, "", err_msg, traceback);
+    runtime::setErrorReporter([](const char *err_msg, const char *traceback) {
+        //CrashReport::reportException(CATEGORY_LUA_EXCEPTION, "", err_msg, traceback);
     });
 #endif
     

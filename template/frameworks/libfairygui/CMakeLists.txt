@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.6)
 
 if(POLICY CMP0022)
     cmake_policy(SET CMP0022 NEW)
@@ -9,75 +9,75 @@ project(fairygui)
 # file list
 
 set(FAIRYGUI_SRC   Classes/GSlider.cpp
-  Classes/GLoader.cpp
-  Classes/GTextInput.cpp
-  Classes/tween/TweenManager.cpp
-  Classes/tween/TweenValue.cpp
-  Classes/tween/GTweener.cpp
-  Classes/tween/EaseManager.cpp
-  Classes/tween/TweenPropType.cpp
-  Classes/tween/GTween.cpp
-  Classes/GGroup.cpp
-  Classes/Margin.cpp
-  Classes/Transition.cpp
-  Classes/DragDropManager.cpp
-  Classes/ScrollPane.cpp
-  Classes/GRoot.cpp
-  Classes/UIPackage.cpp
-  Classes/treeview/TreeNode.cpp
-  Classes/treeview/TreeView.cpp
-  Classes/Window.cpp
-  Classes/PackageItem.cpp
-  Classes/GObjectPool.cpp
-  Classes/utils/ByteBuffer.cpp
-  Classes/utils/WeakPtr.cpp
-  Classes/utils/UBBParser.cpp
-  Classes/utils/ToolSet.cpp
-  Classes/GLabel.cpp
-  Classes/UIObjectFactory.cpp
-  Classes/controller_action/ChangePageAction.cpp
-  Classes/controller_action/ControllerAction.cpp
-  Classes/controller_action/PlayTransitionAction.cpp
-  Classes/GObject.cpp
-  Classes/GComboBox.cpp
-  Classes/GComponent.cpp
-  Classes/GRichTextField.cpp
-  Classes/UIConfig.cpp
-  Classes/PopupMenu.cpp
-  Classes/GGraph.cpp
-  Classes/GTextField.cpp
-  Classes/GImage.cpp
-  Classes/display/FUILabel.cpp
-  Classes/display/BitmapFont.cpp
-  Classes/display/FUIContainer.cpp
-  Classes/display/FUIRichText.cpp
-  Classes/display/FUIInput.cpp
-  Classes/display/TextFormat.cpp
-  Classes/display/FUISprite.cpp
-  Classes/Controller.cpp
-  Classes/Relations.cpp
-  Classes/TranslationHelper.cpp
-  Classes/GProgressBar.cpp
-  Classes/gears/GearText.cpp
-  Classes/gears/GearAnimation.cpp
-  Classes/gears/GearBase.cpp
-  Classes/gears/GearXY.cpp
-  Classes/gears/GearColor.cpp
-  Classes/gears/GearDisplay.cpp
-  Classes/gears/GearSize.cpp
-  Classes/gears/GearLook.cpp
-  Classes/gears/GearIcon.cpp
-  Classes/GScrollBar.cpp
-  Classes/event/EventContext.cpp
-  Classes/event/UIEventDispatcher.cpp
-  Classes/event/InputEvent.cpp
-  Classes/event/InputProcessor.cpp
-  Classes/event/HitTest.cpp
-  Classes/GMovieClip.cpp
-  Classes/GList.cpp
-  Classes/GButton.cpp
-  Classes/RelationItem.cpp
-  )
+    Classes/GLoader.cpp
+    Classes/GTextInput.cpp
+    Classes/tween/TweenManager.cpp
+    Classes/tween/TweenValue.cpp
+    Classes/tween/GTweener.cpp
+    Classes/tween/EaseManager.cpp
+    Classes/tween/TweenPropType.cpp
+    Classes/tween/GTween.cpp
+    Classes/GGroup.cpp
+    Classes/Margin.cpp
+    Classes/Transition.cpp
+    Classes/DragDropManager.cpp
+    Classes/ScrollPane.cpp
+    Classes/GRoot.cpp
+    Classes/UIPackage.cpp
+    Classes/treeview/TreeNode.cpp
+    Classes/treeview/TreeView.cpp
+    Classes/Window.cpp
+    Classes/PackageItem.cpp
+    Classes/GObjectPool.cpp
+    Classes/utils/ByteBuffer.cpp
+    Classes/utils/WeakPtr.cpp
+    Classes/utils/UBBParser.cpp
+    Classes/utils/ToolSet.cpp
+    Classes/GLabel.cpp
+    Classes/UIObjectFactory.cpp
+    Classes/controller_action/ChangePageAction.cpp
+    Classes/controller_action/ControllerAction.cpp
+    Classes/controller_action/PlayTransitionAction.cpp
+    Classes/GObject.cpp
+    Classes/GComboBox.cpp
+    Classes/GComponent.cpp
+    Classes/GRichTextField.cpp
+    Classes/UIConfig.cpp
+    Classes/PopupMenu.cpp
+    Classes/GGraph.cpp
+    Classes/GTextField.cpp
+    Classes/GImage.cpp
+    Classes/display/FUILabel.cpp
+    Classes/display/BitmapFont.cpp
+    Classes/display/FUIContainer.cpp
+    Classes/display/FUIRichText.cpp
+    Classes/display/FUIInput.cpp
+    Classes/display/TextFormat.cpp
+    Classes/display/FUISprite.cpp
+    Classes/Controller.cpp
+    Classes/Relations.cpp
+    Classes/TranslationHelper.cpp
+    Classes/GProgressBar.cpp
+    Classes/gears/GearText.cpp
+    Classes/gears/GearAnimation.cpp
+    Classes/gears/GearBase.cpp
+    Classes/gears/GearXY.cpp
+    Classes/gears/GearColor.cpp
+    Classes/gears/GearDisplay.cpp
+    Classes/gears/GearSize.cpp
+    Classes/gears/GearLook.cpp
+    Classes/gears/GearIcon.cpp
+    Classes/GScrollBar.cpp
+    Classes/event/EventContext.cpp
+    Classes/event/UIEventDispatcher.cpp
+    Classes/event/InputEvent.cpp
+    Classes/event/InputProcessor.cpp
+    Classes/event/HitTest.cpp
+    Classes/GMovieClip.cpp
+    Classes/GList.cpp
+    Classes/GButton.cpp
+    Classes/RelationItem.cpp
+    )
 
 
 
@@ -160,19 +160,16 @@ set(FAIRYGUI_HEADER Classes/GTextField.h
 list(APPEND FAIRYGUI_SRC ${FAIRYGUI_HEADER})
 
 include_directories(
-        ${COCOS2DX_ROOT_PATH}/cocos/audio/include/
+    ${COCOS2DX_ROOT_PATH}/cocos/audio/include/
 )
 
-
 add_library(fairygui ${FAIRYGUI_SRC})
-
 
 target_link_libraries(
     fairygui
     PRIVATE
     cocos2d
 )
-
 
 target_include_directories(fairygui
     PUBLIC

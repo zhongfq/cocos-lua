@@ -1,6 +1,8 @@
 #ifndef __XDEF_H__
 #define __XDEF_H__
 
+#include "platform/CCPlatformConfig.h"
+
 #include <string.h>
 #include <stdio.h>
 

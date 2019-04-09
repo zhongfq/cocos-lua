@@ -30,8 +30,22 @@ const std::string filesystem::getTmpDirectory()
 
 const std::string filesystem::getSDCardDirectory()
 {
+#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
     return __filesystem_getSDCardDirectory();
+#else
+    return "/";
+#endif
 }
+
+const std::string filesystem::getDirectory(const std::string &type)
+{
+#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+    return __filesystem_getDir(type);
+#else
+    return "/";
+#endif
+}
+
 
 const std::string filesystem::getWritablePath()
 {

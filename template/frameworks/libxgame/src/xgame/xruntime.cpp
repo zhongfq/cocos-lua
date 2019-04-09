@@ -98,20 +98,21 @@ void runtime::init()
 #endif
     
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+    runtime::setLogPath(filesystem::getDirectory("external.cache") + "/console.log");
     runtime::getPackageName();
     runtime::getDeviceInfo();
     filesystem::getDocumentDirectory();
     filesystem::getCacheDirectory();
     filesystem::getTmpDirectory();
     filesystem::getSDCardDirectory();
+#else
+    runtime::setLogPath(filesystem::getCacheDirectory() + "/console.log");
 #endif
     
     // 创建所需路径
     filesystem::createDirectory(filesystem::getCacheDirectory());
     filesystem::createDirectory(filesystem::getTmpDirectory());
     filesystem::createDirectory(filesystem::getDocumentDirectory() + "/assets");
-    
-    runtime::setLogPath(filesystem::getCacheDirectory() + "/console.log");
     
     // 版本清理
     std::string versionRuntime = preferences::getString(CONF_VERSION_RUNTIME);

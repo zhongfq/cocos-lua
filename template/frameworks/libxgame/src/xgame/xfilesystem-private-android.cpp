@@ -51,3 +51,8 @@ const std::string __filesystem_getSDCardDirectory()
     
     return path;
 }
+
+const std::string __filesystem_getDir(const std::string &type)
+{
+    return JniHelper::callStaticStringMethod(JAVA_RUNTIME_CLASS, "getDirectory", type);
+}

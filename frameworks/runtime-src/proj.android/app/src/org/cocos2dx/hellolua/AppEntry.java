@@ -1,4 +1,4 @@
-package org.cocos2dx.helloxgame;
+package org.cocos2dx.hellolua;
 
 import android.os.Bundle;
 

@@ -1,8 +1,6 @@
 package kernel.android;
 
-import android.Manifest;
 import android.app.AlertDialog;
-import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,29 +9,21 @@ import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.Settings;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.hjq.permissions.OnPermission;
 import com.hjq.permissions.XXPermissions;
 
-import org.cocos2dx.lib.Cocos2dxActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -42,7 +32,6 @@ import java.util.List;
 
 public class Runtime {
     private static final String TAG = Runtime.class.getSimpleName();
-    private static final int REQUEST_PERMISSION = 0xFF;
 
     @SuppressWarnings("unused")
     public static String getDeviceInfo() {
@@ -52,7 +41,7 @@ public class Runtime {
 
     @SuppressWarnings("unused")
     public static void installAPK(final String path) {
-        final AppContext context = (AppContext) Cocos2dxActivity.getContext();
+        final AppContext context = (AppContext) AppContext.getContext();
         context.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -90,7 +79,7 @@ public class Runtime {
     @SuppressWarnings("unused")
     public static String getVersion() {
         try {
-            final AppContext context = (AppContext) Cocos2dxActivity.getContext();
+            final AppContext context = (AppContext) AppContext.getContext();
             PackageManager pm = context.getPackageManager();
             PackageInfo pi = pm.getPackageInfo(context.getPackageName(),
                     PackageManager.GET_CONFIGURATIONS);
@@ -104,7 +93,7 @@ public class Runtime {
     @SuppressWarnings("unused")
     public static String getVersionCode() {
         try {
-            final AppContext context = (AppContext) Cocos2dxActivity.getContext();
+            final AppContext context = (AppContext) AppContext.getContext();
             PackageManager pm = context.getPackageManager();
             PackageInfo pi = pm.getPackageInfo(context.getPackageName(),
                     PackageManager.GET_CONFIGURATIONS);
@@ -122,7 +111,7 @@ public class Runtime {
 
     @SuppressWarnings({"unused", "SameParameterValue", "WeakerAccess"})
     public static String getMetaData(String name) {
-        final Context context = Cocos2dxActivity.getContext().getApplicationContext();
+        final Context context = AppContext.getContext().getApplicationContext();
         try {
             ApplicationInfo ai = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
             Bundle bundle = ai.metaData;
@@ -163,7 +152,7 @@ public class Runtime {
     }
 
     private static String getDirectory(String type) {
-        final AppContext context = (AppContext) Cocos2dxActivity.getContext();
+        final AppContext context = (AppContext) AppContext.getContext();
         String path = context.getFilesDir().getAbsolutePath();
 
         if ("documents".equals(type)) {
@@ -187,7 +176,7 @@ public class Runtime {
 
     @SuppressWarnings("unused")
     public static String getArgs() {
-        AppContext context = (AppContext) Cocos2dxActivity.getContext();
+        AppContext context = (AppContext) AppContext.getContext();
         HashMap<String, Object> args = context.getArgs();
         JSONObject info = new JSONObject();
         if (args != null) {
@@ -204,7 +193,7 @@ public class Runtime {
 
     @SuppressWarnings("unused")
     public static String getPackageName() {
-        AppContext context = (AppContext) Cocos2dxActivity.getContext();
+        AppContext context = (AppContext) AppContext.getContext();
         return context.getPackageName();
     }
 
@@ -216,18 +205,48 @@ public class Runtime {
         return result.toString();
     }
 
+    private static boolean canOpenApp(String packageName) {
+        AppContext context = (AppContext) AppContext.getContext();
+        final PackageManager packageManager = context.getPackageManager();
+        List<PackageInfo> info = packageManager.getInstalledPackages(0);
+        for (int i = 0; i < info.size(); i++) {
+            if (info.get(i).packageName.equalsIgnoreCase(packageName))
+                return true;
+        }
+        return false;
+
+    }
+
+    private static boolean openApp(String packageName) {
+        AppContext context = (AppContext) AppContext.getContext();
+        Intent intent = context.getPackageManager().getLaunchIntentForPackage(packageName);
+        if (intent != null) {
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     @SuppressWarnings("unused")
     public static boolean canOpenURL(String url) {
-        AppContext context = (AppContext) AppContext.getContext();
-        PackageManager pm = context.getPackageManager();
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-        ComponentName cn = intent.resolveActivity(pm);
-        return cn != null;
+        if (!canOpenApp(url)) {
+            AppContext context = (AppContext) AppContext.getContext();
+            PackageManager pm = context.getPackageManager();
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            ComponentName cn = intent.resolveActivity(pm);
+            return cn != null;
+        } else {
+            return true;
+        }
     }
 
     @SuppressWarnings("unused")
     public static boolean openURL(String url) {
-        if (canOpenURL(url)) {
+        if (canOpenApp(url)) {
+            return openApp(url);
+        } else if (canOpenURL(url)) {
             AppContext context = (AppContext) AppContext.getContext();
             Uri uri = Uri.parse(url);
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);

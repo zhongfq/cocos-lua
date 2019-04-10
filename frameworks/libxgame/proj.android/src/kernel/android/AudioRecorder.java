@@ -1,7 +1,5 @@
 package kernel.android;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
@@ -16,6 +14,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+@SuppressWarnings("unused")
 public class AudioRecorder {
     public enum State {
         ERR_CREATE_FILE,
@@ -28,9 +27,9 @@ public class AudioRecorder {
         void onStateChanged(State state);
     }
 
-    public static final int SAMPLE_RATE = 44100;
-    public static final int AUDIO_ENCODING = AudioFormat.ENCODING_PCM_16BIT;
-    public static final int AUDIO_CHANNEL = AudioFormat.CHANNEL_IN_MONO;
+    private static final int SAMPLE_RATE = 44100;
+    private static final int AUDIO_ENCODING = AudioFormat.ENCODING_PCM_16BIT;
+    private static final int AUDIO_CHANNEL = AudioFormat.CHANNEL_IN_MONO;
 
     private static final String TAG = AudioRecorder.class.getSimpleName();
 
@@ -38,22 +37,22 @@ public class AudioRecorder {
     private boolean _running = false;
     private StateListener _listener = null;
 
-    public AudioRecorder(String filename) {
+    private AudioRecorder(String filename) {
         _filename = filename;
     }
 
-    public void startRecording() {
+    private void startRecording() {
         if (!_running) {
             _running = true;
             new Thread(new RecordTask()).start();
         }
     }
 
-    public void stopRecording() {
+    private void stopRecording() {
         _running = false;
     }
 
-    public void setStateListener(StateListener listener) {
+    private void setStateListener(StateListener listener) {
         _listener = listener;
     }
 
@@ -200,68 +199,5 @@ public class AudioRecorder {
             _record.stopRecording();
             _record = null;
         }
-    }
-
-    public static void requestPermission(final int callback) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                int buffSize = AudioRecord.getMinBufferSize(AudioRecorder.SAMPLE_RATE,
-                        AudioRecorder.AUDIO_CHANNEL, AudioRecorder.AUDIO_ENCODING);
-                AudioRecord recorder = new AudioRecord(MediaRecorder.AudioSource.MIC,
-                        AudioRecorder.SAMPLE_RATE, AudioRecorder.AUDIO_CHANNEL,
-                        AudioRecorder.AUDIO_ENCODING, buffSize);
-
-                boolean canRecord = false;
-
-                try {
-                    recorder.startRecording();
-                } catch (IllegalStateException e){
-                    e.printStackTrace();
-                }
-
-                if (recorder.getRecordingState() == AudioRecord.RECORDSTATE_RECORDING) {
-                    canRecord = true;
-                }
-
-                recorder.release();
-
-                final String granted = canRecord ? "true" : "false";
-                final AppContext context = (AppContext) Cocos2dxActivity.getContext();
-
-                if (!canRecord)
-                {
-                    context.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                            builder.setMessage("没有权限使用访问您的麦克风！");
-                            builder.setPositiveButton("知道了", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    context.runOnGLThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            LuaJ.invokeOnce(callback, granted);
-                                        }
-                                    });
-                                }
-                            });
-                            builder.setCancelable(false);
-                            builder.show();
-                        }
-                    });
-                }
-                else
-                {
-                    context.runOnGLThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            LuaJ.invokeOnce(callback, granted);
-                        }
-                    });
-                }
-            }
-        }).start();
     }
 }

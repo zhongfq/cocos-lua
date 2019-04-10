@@ -2,7 +2,6 @@ package kernel.android;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.WindowManager;
 
@@ -13,7 +12,6 @@ import java.util.HashMap;
 public class AppContext extends Cocos2dxActivity {
     private static final String TAG = AppContext.class.getName();
     private ActivityResultCallback m_callback;
-    private ActivityPermissionsResultCallback m_permissionCallback;
 
     private HashMap<String, Object> _args = null;
 
@@ -34,18 +32,6 @@ public class AppContext extends Cocos2dxActivity {
         if (m_callback != null) {
             m_callback.onActivityResult(requestCode, resultCode, data);
             m_callback = null;
-        }
-    }
-
-    public void setActivityPermissionResultCallback(ActivityPermissionsResultCallback callback) {
-        m_permissionCallback = callback;
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (m_permissionCallback != null) {
-            m_permissionCallback.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 

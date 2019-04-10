@@ -23,6 +23,9 @@ import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.hjq.permissions.OnPermission;
+import com.hjq.permissions.XXPermissions;
+
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -110,6 +113,11 @@ public class Runtime {
             e.printStackTrace();
         }
         return "0";
+    }
+
+    @SuppressWarnings("unused")
+    public static int getSDKInt() {
+        return Build.VERSION.SDK_INT;
     }
 
     @SuppressWarnings({"unused", "SameParameterValue", "WeakerAccess"})
@@ -209,36 +217,6 @@ public class Runtime {
     }
 
     @SuppressWarnings("unused")
-    public static boolean gotoMarket(String market, String packageName) {
-        AppContext context = (AppContext) AppContext.getContext();
-        try {
-            if ("letv".equals(market)) {
-                Intent intent = new Intent();
-                intent.setClassName("com.letv.app.appstore", "com.letv.app.appstore.appmodule.details.DetailsActivity");
-                intent.setAction("com.letv.app.appstore.appdetailactivity");
-                intent.putExtra("packageName", packageName);
-                context.startActivity(intent);
-            } else if ("samsung".equals(market)) {
-                Uri uri = Uri.parse("http://www.samsungapps.com/appquery/appDetail.as?appId=" + packageName);
-                Intent goToMarket = new Intent();
-                goToMarket.setClassName("com.sec.android.app.samsungapps", "com.sec.android.app.samsungapps.Main");
-                goToMarket.setData(uri);
-                context.startActivity(goToMarket);
-            } else {
-                Uri uri = Uri.parse("market://details?id=" + packageName);
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                context.startActivity(intent);
-            }
-
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return false;
-    }
-
-    @SuppressWarnings("unused")
     public static boolean canOpenURL(String url) {
         AppContext context = (AppContext) AppContext.getContext();
         PackageManager pm = context.getPackageManager();
@@ -272,13 +250,13 @@ public class Runtime {
                         .setPositiveButton(confirmLabel, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                LuaJavaBridge.invokeOnce(callback, "true");
+                                LuaJ.invokeOnce(callback, "true");
                             }
                         })
                         .setNegativeButton(cancelLabel, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                LuaJavaBridge.invokeOnce(callback, "false");
+                                LuaJ.invokeOnce(callback, "false");
                             }
                         })
                         .setCancelable(false)
@@ -294,277 +272,56 @@ public class Runtime {
 
     private static int readPermissionStatus(String permission) {
         final AppContext context = (AppContext) AppContext.getContext();
-        SharedPreferences preferences = context.getSharedPreferences("permission", Context.MODE_PRIVATE);
+        SharedPreferences preferences = context.getSharedPreferences("permissions", Context.MODE_PRIVATE);
         return preferences.getInt(permission, PERMISSION_STATUS_NOT_DETERMINED);
     }
 
     private static void writePermissionStatus(String permission, int status) {
         final AppContext context = (AppContext) AppContext.getContext();
-        SharedPreferences preferences = context.getSharedPreferences("permission", Context.MODE_PRIVATE);
+        SharedPreferences preferences = context.getSharedPreferences("permissions", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putInt(permission, status);
         editor.apply();
     }
 
     @SuppressWarnings("unused")
-    public static int getSDKInt() {
-        return Build.VERSION.SDK_INT;
+    public static int getPermissionStatus(String permission) {
+        final AppContext context = (AppContext) AppContext.getContext();
+        if (XXPermissions.isHasPermission(context, permission)) {
+            return PERMISSION_STATUS_AUTHORIZED;
+        } else {
+            return readPermissionStatus(permission);
+        }
     }
 
     @SuppressWarnings({"unused", "WeakerAccess"})
     public static void requestPermission(final String permission, final int callback) {
         final AppContext context = (AppContext) AppContext.getContext();
-        if (ContextCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
-            int status = readPermissionStatus(permission);
-            if (status != PERMISSION_STATUS_NOT_DETERMINED) {
-                LuaJavaBridge.invokeOnce(callback, "nil");
-            } else {
-                context.setActivityPermissionResultCallback(new ActivityPermissionsResultCallback() {
-                    @Override
-                    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-                        if (requestCode == REQUEST_PERMISSION) {
-                            context.setActivityPermissionResultCallback(null);
-                            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                                writePermissionStatus(permission, PERMISSION_STATUS_AUTHORIZED);
-                                LuaJavaBridge.invokeOnce(callback, "true");
-                            } else {
-                                writePermissionStatus(permission, PERMISSION_STATUS_DENIED);
-                                LuaJavaBridge.invokeOnce(callback, "false");
-                            }
-                        }
-                    }
-                });
-                ActivityCompat.requestPermissions(context, new String[]{permission}, REQUEST_PERMISSION);
-            }
-        } else {
+        if (XXPermissions.isHasPermission(context, permission)) {
             writePermissionStatus(permission, PERMISSION_STATUS_AUTHORIZED);
-            LuaJavaBridge.invokeOnce(callback, "true");
-        }
-    }
-
-    @SuppressWarnings("unused")
-    public static void requestExternalStoragePermission(final int callback) {
-        requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, callback);
-    }
-
-    @SuppressWarnings("unused")
-    public static void requestCameraPermission(final int callback) {
-        requestPermission(Manifest.permission.CAMERA, callback);
-    }
-
-    @SuppressWarnings("unused")
-    public static void openPermissionSetting() {
-        String name = Build.MANUFACTURER;
-        Log.i(TAG, "jumpPermissionPage --- name : " + name);
-        switch (name) {
-            case "HUAWEI":
-                goHuaWeiMainager();
-                break;
-            case "vivo":
-                goVivoMainager();
-                break;
-            case "OPPO":
-                goOppoMainager();
-                break;
-            case "Coolpad":
-                goCoolpadMainager();
-                break;
-            case "Meizu":
-                goMeizuMainager();
-                break;
-            case "Xiaomi":
-                goXiaoMiMainager();
-                break;
-            case "samsung":
-                goSangXinMainager();
-                break;
-            case "Sony":
-                goSonyMainager();
-                break;
-            case "LG":
-                goLGMainager();
-                break;
-            default:
-                goIntentSetting();
-                break;
-        }
-    }
-
-    private static void goLGMainager() {
-        final AppContext context = (AppContext) AppContext.getContext();
-        try {
-            Intent intent = new Intent(context.getPackageName());
-            ComponentName comp = new ComponentName("com.android.settings", "com.android.settings.Settings$AccessLockSummaryActivity");
-            intent.setComponent(comp);
-            context.startActivity(intent);
-        } catch (Exception e) {
-            Toast.makeText(context, "跳转失败", Toast.LENGTH_LONG).show();
-            e.printStackTrace();
-            goIntentSetting();
-        }
-    }
-
-    private static void goSonyMainager() {
-        final AppContext context = (AppContext) AppContext.getContext();
-        try {
-            Intent intent = new Intent(context.getPackageName());
-            ComponentName comp = new ComponentName("com.sonymobile.cta", "com.sonymobile.cta.SomcCTAMainActivity");
-            intent.setComponent(comp);
-            context.startActivity(intent);
-        } catch (Exception e) {
-            Toast.makeText(context, "跳转失败", Toast.LENGTH_LONG).show();
-            e.printStackTrace();
-            goIntentSetting();
-        }
-    }
-
-    private static void goHuaWeiMainager() {
-        final AppContext context = (AppContext) AppContext.getContext();
-        try {
-            Intent intent = new Intent(context.getPackageName());
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            ComponentName comp = new ComponentName("com.huawei.systemmanager", "com.huawei.permissionmanager.ui.MainActivity");
-            intent.setComponent(comp);
-            context.startActivity(intent);
-        } catch (Exception e) {
-            Toast.makeText(context, "跳转失败", Toast.LENGTH_LONG).show();
-            e.printStackTrace();
-            goIntentSetting();
-        }
-    }
-
-    private static String getMiuiVersion() {
-        String propName = "ro.miui.ui.version.name";
-        String line;
-        BufferedReader input = null;
-        try {
-            Process p = java.lang.Runtime.getRuntime().exec("getprop " + propName);
-            input = new BufferedReader(
-                    new InputStreamReader(p.getInputStream()), 1024);
-            line = input.readLine();
-            input.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return null;
-        } finally {
-            try {
-                if (input != null) {
-                    input.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return line;
-    }
-
-    private static void goXiaoMiMainager() {
-        final AppContext context = (AppContext) AppContext.getContext();
-        String rom = getMiuiVersion();
-        Intent intent = new Intent();
-        if ("V6".equals(rom) || "V7".equals(rom)) {
-            intent.setAction("miui.intent.action.APP_PERM_EDITOR");
-            intent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.AppPermissionsEditorActivity");
-            intent.putExtra("extra_pkgname", context.getPackageName());
-            context.startActivity(intent);
-        } else if ("V8".equals(rom) || "V9".equals(rom)) {
-            intent.setAction("miui.intent.action.APP_PERM_EDITOR");
-            intent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.PermissionsEditorActivity");
-            intent.putExtra("extra_pkgname", context.getPackageName());
-            context.startActivity(intent);
+            LuaJ.invokeOnce(callback, "GRANTED");
         } else {
-            goIntentSetting();
+            XXPermissions.with(context)
+                    .permission(permission)
+                    .request(new OnPermission() {
+                        @Override
+                        public void hasPermission(List<String> granted, boolean isAll) {
+                            writePermissionStatus(permission, PERMISSION_STATUS_AUTHORIZED);
+                            LuaJ.invokeOnce(callback, "GRANTED");
+                        }
+
+                        @Override
+                        public void noPermission(List<String> denied, boolean quick) {
+                            writePermissionStatus(permission, PERMISSION_STATUS_DENIED);
+                            LuaJ.invokeOnce(callback, "DENIED");
+                        }
+                    });
         }
     }
 
-    private static void goMeizuMainager() {
+    @SuppressWarnings("unused")
+    public static void openPermissionSettings() {
         final AppContext context = (AppContext) AppContext.getContext();
-        try {
-            Intent intent = new Intent("com.meizu.safe.security.SHOW_APPSEC");
-            intent.addCategory(Intent.CATEGORY_DEFAULT);
-            intent.putExtra("packageName", context.getPackageName());
-            context.startActivity(intent);
-        } catch (ActivityNotFoundException localActivityNotFoundException) {
-            localActivityNotFoundException.printStackTrace();
-            goIntentSetting();
-        }
-    }
-
-    private static void goSangXinMainager() {
-        //三星4.3可以直接跳转
-        goIntentSetting();
-    }
-
-    private static void goIntentSetting() {
-        final AppContext context = (AppContext) AppContext.getContext();
-        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-        Uri uri = Uri.fromParts("package", context.getPackageName(), null);
-        intent.setData(uri);
-        try {
-            context.startActivity(intent);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void goOppoMainager() {
-        doStartApplicationWithPackageName("com.coloros.safecenter");
-    }
-
-    /**
-     * doStartApplicationWithPackageName("com.yulong.android.security:remote")
-     * 和Intent open = getPackageManager().getLaunchIntentForPackage("com.yulong.android.security:remote");
-     * startActivity(open);
-     * 本质上没有什么区别，通过Intent open...打开比调用doStartApplicationWithPackageName方法更快，也是android本身提供的方法
-     */
-    private static void goCoolpadMainager() {
-        doStartApplicationWithPackageName("com.yulong.android.security:remote");
-      /*  Intent openQQ = getPackageManager().getLaunchIntentForPackage("com.yulong.android.security:remote");
-        startActivity(openQQ);*/
-    }
-
-    private static void goVivoMainager() {
-        doStartApplicationWithPackageName("com.bairenkeji.icaller");
-    }
-
-    private static void doStartApplicationWithPackageName(String packagename) {
-        // 通过包名获取此APP详细信息，包括Activities、services、versioncode、name等等
-        final AppContext context = (AppContext) AppContext.getContext();
-        PackageInfo packageinfo = null;
-        try {
-            packageinfo = context.getPackageManager().getPackageInfo(packagename, 0);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        if (packageinfo == null) {
-            return;
-        }
-        // 创建一个类别为CATEGORY_LAUNCHER的该包名的Intent
-        Intent resolveIntent = new Intent(Intent.ACTION_MAIN, null);
-        resolveIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-        resolveIntent.setPackage(packageinfo.packageName);
-        // 通过getPackageManager()的queryIntentActivities方法遍历
-        List<ResolveInfo> resolveinfoList = context.getPackageManager()
-                .queryIntentActivities(resolveIntent, 0);
-        Log.e("PermissionPageManager", "resolveinfoList" + resolveinfoList.size());
-        ResolveInfo resolveinfo = resolveinfoList.iterator().next();
-        if (resolveinfo != null) {
-            // packageName参数2 = 参数 packname
-            String packageName = resolveinfo.activityInfo.packageName;
-            // 这个就是我们要找的该APP的LAUNCHER的Activity[组织形式：packageName参数2.mainActivityname]
-            String className = resolveinfo.activityInfo.name;
-            // LAUNCHER Intent
-            Intent intent = new Intent(Intent.ACTION_MAIN);
-            intent.addCategory(Intent.CATEGORY_LAUNCHER);
-            // 设置ComponentName参数1:packageName参数2:MainActivity路径
-            ComponentName cn = new ComponentName(packageName, className);
-            intent.setComponent(cn);
-            try {
-                context.startActivity(intent);
-            } catch (Exception e) {
-                goIntentSetting();
-                e.printStackTrace();
-            }
-        }
+        XXPermissions.gotoPermissionSettings(context);
     }
 }

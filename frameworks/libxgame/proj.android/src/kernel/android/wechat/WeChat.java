@@ -28,16 +28,15 @@ import java.io.ByteArrayOutputStream;
 import java.util.Date;
 
 import kernel.android.AppContext;
-import kernel.android.LuaJavaBridge;
+import kernel.android.LuaJ;
 import kernel.android.ActivityResultCallback;
 
 import static android.app.Activity.RESULT_OK;
 
 public class WeChat {
     private static final String TAG = WeChat.class.getName();
-    public static String APP_ID = "";
-
-    public static WeChatCallback notifyRespose;
+    static String APP_ID = "";
+    static WeChatCallback notifyRespose;
 
     private static final int THUMB_SIZE = 150;
 
@@ -55,8 +54,7 @@ public class WeChat {
 
     public static boolean isInstalled() {
         IWXAPI api = WXAPIFactory.createWXAPI(Cocos2dxActivity.getContext(), WeChat.APP_ID);
-        boolean installed = api.isWXAppInstalled();
-        return installed;
+        return api.isWXAppInstalled();
     }
 
     public static void init(String appid) {
@@ -69,6 +67,7 @@ public class WeChat {
         wx.registerApp(appid);
     }
 
+    @SuppressWarnings("unused")
     public static void authorize(String scope, String state, final int handler) {
         AppContext context = (AppContext)Cocos2dxActivity.getContext();
         final SendAuth.Req req = new SendAuth.Req();
@@ -88,13 +87,13 @@ public class WeChat {
                         data.put("state", authResp.state);
                         data.put("lang", authResp.lang);
                         data.put("country", authResp.country);
-                        LuaJavaBridge.invokeOnce(handler, data.toString());
+                        LuaJ.invokeOnce(handler, data.toString());
                     } catch (Exception e) {
                         e.printStackTrace();
-                        LuaJavaBridge.invokeOnce(handler, "{\"errcode\":-1}");
+                        LuaJ.invokeOnce(handler, "{\"errcode\":-1}");
                     }
                 } else {
-                    LuaJavaBridge.invokeOnce(handler, "{\"errcode\":-1}");
+                    LuaJ.invokeOnce(handler, "{\"errcode\":-1}");
                 }
             }
         };
@@ -103,6 +102,7 @@ public class WeChat {
         api.sendReq(req);
     }
 
+    @SuppressWarnings("unused")
     public static void authorizeFromWeb(String url, final int handler) {
         AppContext context = (AppContext)Cocos2dxActivity.getContext();
         final int REQUEST_CODE = 0x100;
@@ -118,9 +118,9 @@ public class WeChat {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    LuaJavaBridge.invokeOnce(handler, obj.toString());
+                    LuaJ.invokeOnce(handler, obj.toString());
                 } else {
-                    LuaJavaBridge.invokeOnce(handler, "{\"errcode\":-1}");
+                    LuaJ.invokeOnce(handler, "{\"errcode\":-1}");
                 }
             }
         });
@@ -130,6 +130,7 @@ public class WeChat {
         context.startActivityForResult(intent, REQUEST_CODE);
     }
 
+    @SuppressWarnings("unused")
     public static void pay(String partnerId, String prepayId, String nonceStr, String timeStamp,
                            String packageValue, String sign, final int handler) {
         AppContext context = (AppContext)Cocos2dxActivity.getContext();
@@ -159,10 +160,10 @@ public class WeChat {
                     JSONObject data = new JSONObject();
                     data.put("errcode", resp.errCode);
                     data.put("return_key", resp.returnKey);
-                    LuaJavaBridge.invokeOnce(handler, data.toString());
+                    LuaJ.invokeOnce(handler, data.toString());
                 } catch (Exception e) {
                     e.printStackTrace();
-                    LuaJavaBridge.invokeOnce(handler, "{\"errcode\":-1}");
+                    LuaJ.invokeOnce(handler, "{\"errcode\":-1}");
                 }
             }
         };
@@ -172,7 +173,7 @@ public class WeChat {
     }
 
     private static final int IMAGE_SIZE = 32768;
-    private static byte[] bmpToByteArray(final Bitmap bmp, final boolean needRecycle) {
+    private static byte[] bmpToByteArray(final Bitmap bmp) {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, 95, output);
         int options = 100;
@@ -182,9 +183,8 @@ public class WeChat {
             options -= 10;
         }
 
-        if (needRecycle) {
-            bmp.recycle();
-        }
+
+        bmp.recycle();
 
         Log.d(TAG, "size: " + output.toByteArray().length);
 
@@ -210,10 +210,10 @@ public class WeChat {
                 try {
                     JSONObject data = new JSONObject();
                     data.put("errcode", baseResp.errCode);
-                    LuaJavaBridge.invokeOnce(callback, data.toString());
+                    LuaJ.invokeOnce(callback, data.toString());
                 } catch (Exception e) {
                     e.printStackTrace();
-                    LuaJavaBridge.invokeOnce(callback, "{\"errcode\":-1}");
+                    LuaJ.invokeOnce(callback, "{\"errcode\":-1}");
                 }
             }
 
@@ -234,7 +234,7 @@ public class WeChat {
                 case PICTURE: {
                     message.thumbData = bmpToByteArray(Bitmap.createScaledBitmap(
                             BitmapFactory.decodeFile(obj.getString("thumb")),
-                            THUMB_SIZE, THUMB_SIZE, true), true);
+                            THUMB_SIZE, THUMB_SIZE, true));
                     message.title = obj.getString("title");
                     message.description = obj.getString("description");
 
@@ -246,7 +246,7 @@ public class WeChat {
                 case MUSIC: {
                     message.thumbData = bmpToByteArray(Bitmap.createScaledBitmap(
                             BitmapFactory.decodeFile(obj.getString("thumb")),
-                            THUMB_SIZE, THUMB_SIZE, true), true);
+                            THUMB_SIZE, THUMB_SIZE, true));
                     message.title = obj.getString("title");
                     message.description = obj.getString("description");
 
@@ -259,7 +259,7 @@ public class WeChat {
                 case VIDEO: {
                     message.thumbData = bmpToByteArray(Bitmap.createScaledBitmap(
                             BitmapFactory.decodeFile(obj.getString("thumb")),
-                            THUMB_SIZE, THUMB_SIZE, true), true);
+                            THUMB_SIZE, THUMB_SIZE, true));
                     message.title = obj.getString("title");
                     message.description = obj.getString("description");
 
@@ -271,7 +271,7 @@ public class WeChat {
                 case WEB: {
                     message.thumbData = bmpToByteArray(Bitmap.createScaledBitmap(
                             BitmapFactory.decodeFile(obj.getString("thumb")),
-                            THUMB_SIZE, THUMB_SIZE, true), true);
+                            THUMB_SIZE, THUMB_SIZE, true));
                     message.title = obj.getString("title");
                     message.description = obj.getString("description");
 
@@ -287,11 +287,11 @@ public class WeChat {
             req.message = message;
             req.scene = obj.getInt("scene");
             if (!api.sendReq(req)) {
-                LuaJavaBridge.invokeOnce(callback, "{\"errcode\":-4}");
+                LuaJ.invokeOnce(callback, "{\"errcode\":-4}");
             }
         } catch (JSONException e) {
             e.printStackTrace();
-            LuaJavaBridge.invokeOnce(callback, "{\"errcode\":-1}");
+            LuaJ.invokeOnce(callback, "{\"errcode\":-1}");
         }
     }
 }

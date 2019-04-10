@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.6)
 
-project(xgame)
-
 set(XGAME_ROOT ${CMAKE_CURRENT_SOURCE_DIR})
 
 include(src/cjson/CMakeLists.txt)

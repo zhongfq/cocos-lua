@@ -5,7 +5,7 @@ import com.alipay.sdk.app.PayTask;
 import org.cocos2dx.lib.Cocos2dxActivity;
 
 import kernel.android.AppContext;
-import kernel.android.LuaJavaBridge;
+import kernel.android.LuaJ;
 
 public class Alipay {
     public static void pay(final String order, final int handler) {
@@ -20,7 +20,7 @@ public class Alipay {
                     @Override
                     public void run() {
                         AlipayResult result = new AlipayResult(resultstr);
-                        LuaJavaBridge.invokeOnce(handler, AlipayUtil.appendVerifyStatus(result, false));
+                        LuaJ.invokeOnce(handler, AlipayUtil.appendVerifyStatus(result, false));
                     }
                 });
             }

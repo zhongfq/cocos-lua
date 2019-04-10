@@ -270,7 +270,7 @@ int luaopen_javabridge(lua_State *L)
 }
 
 extern "C" {
-JNIEXPORT void JNICALL Java_kernel_android_LuaJavaBridge_invoke
+JNIEXPORT void JNICALL Java_kernel_android_LuaJ_invoke
         (JNIEnv *env, jclass cls, jint func, jstring value) {
     CC_UNUSED_PARAM(env);
     CC_UNUSED_PARAM(cls);
@@ -292,7 +292,7 @@ JNIEXPORT void JNICALL Java_kernel_android_LuaJavaBridge_invoke
     }
 }
 
-JNIEXPORT void JNICALL Java_kernel_android_LuaJavaBridge_unref
+JNIEXPORT void JNICALL Java_kernel_android_LuaJ_unref
         (JNIEnv *env, jclass cls, jint func) {
     CC_UNUSED_PARAM(env);
     CC_UNUSED_PARAM(cls);

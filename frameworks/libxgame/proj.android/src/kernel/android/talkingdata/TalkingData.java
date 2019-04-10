@@ -12,7 +12,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import kernel.android.AppContext;
-import kernel.android.LuaJavaBridge;
+import kernel.android.LuaJ;
 
 public class TalkingData {
     private static final String TAG = TalkingData.class.getName();
@@ -59,7 +59,7 @@ public class TalkingData {
             context.runOnGLThread(new Runnable() {
                 @Override
                 public void run() {
-                    LuaJavaBridge.invoke(_print, "[talkingdata] " + str);
+                    LuaJ.invoke(_print, "[talkingdata] " + str);
                 }
             });
         }

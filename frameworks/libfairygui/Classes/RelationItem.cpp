@@ -515,6 +515,8 @@ void RelationItem::applyOnSizeChanged(GObject* target, const RelationDef& info)
             }
         }
         break;
+    default:
+        break;
     }
 }
 

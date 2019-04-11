@@ -7656,6 +7656,7 @@ static int luaopen_fairygui_GRoot(lua_State *L)
     oluacls_property(L, "touchTarget", _fairygui_GRoot_getTouchTarget, nullptr);
     oluacls_property(L, "soundEnabled", _fairygui_GRoot_isSoundEnabled, _fairygui_GRoot_setSoundEnabled);
     oluacls_property(L, "soundVolumeScale", _fairygui_GRoot_getSoundVolumeScale, _fairygui_GRoot_setSoundVolumeScale);
+    oluacls_property(L, "UIRoot", _fairygui_GRoot_getInstance, nullptr);
 
     olua_registerluatype<fairygui::GRoot>(L, "fui.GRoot");
     oluacls_createclassproxy(L);

@@ -55,6 +55,7 @@ cls.props [[
     soundEnabled
     soundVolumeScale
 ]]
+cls.prop('UIRoot', 'static GRoot* getInstance()')
 
 -- ref
 cls.inject('create', {

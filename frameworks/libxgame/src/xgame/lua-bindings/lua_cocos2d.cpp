@@ -8165,6 +8165,13 @@ static int luaopen_cocos2d_Image_Format(lua_State *L)
     return 1;
 }
 
+NS_CC_BEGIN
+class LuaImage : public cocos2d::Image {
+public:
+    static bool getPNGPremultipliedAlphaEnabled() { return PNG_PREMULTIPLIED_ALPHA_ENABLED; };
+};
+NS_CC_END
+
 static int _cocos2d_Image_setPNGPremultipliedAlphaEnabled(lua_State *L)
 {
     lua_settop(L, 1);
@@ -8440,6 +8447,13 @@ static int _cocos2d_Image_isCompressed(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_Image_getPNGPremultipliedAlphaEnabled(lua_State *L)
+{
+    lua_settop(L, 0);
+    lua_pushboolean(L, cocos2d::LuaImage::getPNGPremultipliedAlphaEnabled());
+    return 1;
+}
+
 static int luaopen_cocos2d_Image(lua_State *L)
 {
     oluacls_class(L, "cc.Image", "cc.Ref");
@@ -8460,6 +8474,7 @@ static int luaopen_cocos2d_Image(lua_State *L)
     oluacls_setfunc(L, "getFilePath", _cocos2d_Image_getFilePath);
     oluacls_setfunc(L, "getBitPerPixel", _cocos2d_Image_getBitPerPixel);
     oluacls_setfunc(L, "isCompressed", _cocos2d_Image_isCompressed);
+    oluacls_setfunc(L, "getPNGPremultipliedAlphaEnabled", _cocos2d_Image_getPNGPremultipliedAlphaEnabled);
     oluacls_property(L, "data", _cocos2d_Image_getData, nullptr);
     oluacls_property(L, "dataLen", _cocos2d_Image_getDataLen, nullptr);
     oluacls_property(L, "fileType", _cocos2d_Image_getFileType, nullptr);
@@ -8469,6 +8484,7 @@ static int luaopen_cocos2d_Image(lua_State *L)
     oluacls_property(L, "filePath", _cocos2d_Image_getFilePath, nullptr);
     oluacls_property(L, "bitPerPixel", _cocos2d_Image_getBitPerPixel, nullptr);
     oluacls_property(L, "compressed", _cocos2d_Image_isCompressed, nullptr);
+    oluacls_property(L, "pngPremultipliedAlphaEnabled", _cocos2d_Image_getPNGPremultipliedAlphaEnabled, _cocos2d_Image_setPNGPremultipliedAlphaEnabled);
 
     olua_registerluatype<cocos2d::Image>(L, "cc.Image");
     oluacls_createclassproxy(L);

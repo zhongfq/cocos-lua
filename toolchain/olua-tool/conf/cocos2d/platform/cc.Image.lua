@@ -21,6 +21,14 @@ local cls = class(M)
 cls.CPPCLS = "cocos2d::Image"
 cls.LUACLS = "cc.Image"
 cls.SUPERCLS = "cc.Ref"
+cls.DEFCHUNK = [[
+NS_CC_BEGIN
+class LuaImage : public cocos2d::Image {
+public:
+    static bool getPNGPremultipliedAlphaEnabled() { return PNG_PREMULTIPLIED_ALPHA_ENABLED; };
+};
+NS_CC_END
+]]
 cls.funcs [[
     static void setPNGPremultipliedAlphaEnabled(bool enabled)
     static void setPVRImagesHavePremultipliedAlpha(bool haveAlphaPremultiplied)
@@ -40,6 +48,12 @@ cls.funcs [[
     int getBitPerPixel()
     bool isCompressed()
 ]]
+cls.func('getPNGPremultipliedAlphaEnabled', [[
+{
+    lua_settop(L, 0);
+    lua_pushboolean(L, cocos2d::LuaImage::getPNGPremultipliedAlphaEnabled());
+    return 1;
+}]])
 cls.props [[
     data
     dataLen
@@ -50,5 +64,6 @@ cls.props [[
     filePath
     bitPerPixel
     compressed
+    pngPremultipliedAlphaEnabled
 ]]
 return M

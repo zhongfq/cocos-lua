@@ -18,6 +18,14 @@ function write(path, content)
     file:close()
 end
 
+function exist(path)
+    local f = io.open(path, 'r')
+    if f then
+        f:close()
+    end
+    return f ~= nil
+end
+
 local function lookup(level, key)
     assert(key and #key > 0, key)
 

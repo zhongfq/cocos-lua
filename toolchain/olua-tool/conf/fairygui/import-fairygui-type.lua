@@ -106,14 +106,3 @@ REG_TYPE {
     CONV_FUNC = "olua_$$_cppobj",
     LUACLS = make_luacls,
 }
-
-REG_TYPE {
-    TYPENAME = [[
-    ]],
-    CONV_FUNC = "olua_$$_obj",
-    LUACLS = function (name)
-        name = string.gsub(name, 'sp', 'sp.')
-        name = string.gsub(name, '[ *]+', '')
-        return name
-    end,
-}

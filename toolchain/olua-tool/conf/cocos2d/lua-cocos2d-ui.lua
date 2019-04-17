@@ -19,9 +19,6 @@ M.INCLUDES = [[
 #include "ui/UIScrollViewBar.h"
 ]]
 
-M.STATIC_CHUNK = [[
-]]
-
 M.CLASSES = {
     include("conf/cocos2d/ui/base/ccui.Widget.lua"),
     include("conf/cocos2d/ui/base/ccui.Helper.lua"),

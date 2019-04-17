@@ -19,8 +19,13 @@ function gen_module(module)
 end
 
 gen_conv(require("conf.lua-conv"))
+gen_conv(require("conf.fairygui.lua-fairygui-conv"))
 gen_module(require("conf.cocos2d.lua-cocos2d"))
 gen_module(require("conf.cocos2d.lua-cocos2d-ui"))
 gen_module(require("conf.cocos2d.lua-spine"))
 gen_module(require("conf.fairygui.lua-fairygui"))
 gen_module(require("conf.xgame.lua-xgame"))
+
+if exist('conf/swf/lua-swf.lua') then
+    --gen_module(require('conf.swf.lua-swf'))
+end

@@ -6,6 +6,7 @@ set(XGAME_HEADER
     src/xgame/lua-bindings/lua_conv.h
     src/xgame/lua-bindings/lua_conv_manual.h
     src/xgame/lua-bindings/lua_fairygui.h
+    src/xgame/lua-bindings/lua_fairygui_conv.h
     src/xgame/lua-bindings/lua_spine.h
     src/xgame/lua-bindings/lua_xgame.h
     src/xgame/lua-bindings/LuaComponent.h
@@ -33,6 +34,7 @@ set(XGAME_SRC
     src/xgame/lua-bindings/lua_conv.cpp
     src/xgame/lua-bindings/lua_conv_manual.cpp
     src/xgame/lua-bindings/lua_fairygui.cpp
+    src/xgame/lua-bindings/lua_fairygui_conv.cpp
     src/xgame/lua-bindings/lua_spine.cpp
     src/xgame/lua-bindings/lua_xgame.cpp
     src/xgame/lua-bindings/LuaComponent.cpp

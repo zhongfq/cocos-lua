@@ -4,9 +4,30 @@
 #include "xgame/lua-bindings/lua_fairygui.h"
 #include "xgame/lua-bindings/lua_conv.h"
 #include "xgame/lua-bindings/lua_conv_manual.h"
+#include "xgame/lua-bindings/lua_fairygui_conv.h"
 #include "xgame/xlua.h"
 #include "FairyGUI.h"
 #include "tween/EaseManager.h"
+
+/**
+static bool manual_luacv_is_fairygui_EventTag(lua_State *L, int idx)
+{
+    return olua_isinteger(L, idx) || olua_isa(L, idx, OLUA_VOIDCLS);
+}
+*/
+
+static void manual_luacv_check_fairygui_EventTag(lua_State *L, int idx, fairygui::EventTag *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    if (olua_isinteger(L, idx)) {
+        *value = (int)olua_tointeger(L, idx);
+    } else {
+        *value = (void *)olua_checkobj(L, idx, OLUA_VOIDCLS);
+    }
+}
+
 
 static int luaopen_fairygui_UIEventType(lua_State *L)
 {

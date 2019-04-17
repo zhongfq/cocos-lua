@@ -9,8 +9,6 @@
 #include "cocos2d.h"
 #include "spine/spine-cocos2dx.h"
 
-
-
 static int luaopen_spEventType(lua_State *L)
 {
     oluacls_class(L, "sp.EventType", nullptr);

@@ -5,11 +5,8 @@
 #define __AUTO_GEN_LUA_CONV_H__
 
 #include "xgame/xlua.h"
-#include "lua.hpp"
-
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
-#include "FairyGUI.h"
 
 // cocos2d::Vec2
 int auto_luacv_push_cocos2d_Vec2(lua_State *L, const cocos2d::Vec2 *value);
@@ -120,21 +117,9 @@ void auto_luacv_check_cocos2d_ResourceData(lua_State *L, int idx, cocos2d::Resou
 void auto_luacv_opt_cocos2d_ResourceData(lua_State *L, int idx, cocos2d::ResourceData *value, const cocos2d::ResourceData &def);
 bool auto_luacv_is_cocos2d_ResourceData(lua_State *L, int idx);
 
-// fairygui::Margin
-int auto_luacv_push_fairygui_Margin(lua_State *L, const fairygui::Margin *value);
-void auto_luacv_check_fairygui_Margin(lua_State *L, int idx, fairygui::Margin *value);
-void auto_luacv_opt_fairygui_Margin(lua_State *L, int idx, fairygui::Margin *value, const fairygui::Margin &def);
-bool auto_luacv_is_fairygui_Margin(lua_State *L, int idx);
-
 // cocos2d::Quad3
 int auto_luacv_push_cocos2d_Quad3(lua_State *L, const cocos2d::Quad3 *value);
 void auto_luacv_check_cocos2d_Quad3(lua_State *L, int idx, cocos2d::Quad3 *value);
 bool auto_luacv_is_cocos2d_Quad3(lua_State *L, int idx);
-
-// fairygui::TweenValue
-int auto_luacv_push_fairygui_TweenValue(lua_State *L, const fairygui::TweenValue *value);
-void auto_luacv_check_fairygui_TweenValue(lua_State *L, int idx, fairygui::TweenValue *value);
-void auto_luacv_opt_fairygui_TweenValue(lua_State *L, int idx, fairygui::TweenValue *value, const fairygui::TweenValue &def);
-bool auto_luacv_is_fairygui_TweenValue(lua_State *L, int idx);
 
 #endif

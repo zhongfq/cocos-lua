@@ -22,7 +22,7 @@ M.INCLUDES = [[
 #include "vr/CCVRGenericHeadTracker.h"
 ]]
 
-M.STATIC_CHUNK = [[
+M.CHUNK = [[
 static const std::string makeScheduleCallbackTag(const std::string &key)
 {
     return "schedule." + key;

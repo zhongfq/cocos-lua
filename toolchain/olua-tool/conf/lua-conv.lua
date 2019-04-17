@@ -9,17 +9,12 @@ M.SOURCE_PATH = "frameworks/libxgame/src/xgame/lua-bindings/lua_conv.cpp"
 
 M.HEADER_INCLUDES = [[
 #include "xgame/xlua.h"
-#include "lua.hpp"
-
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
-#include "FairyGUI.h"
 ]]
 
 M.INCLUDES = [[
 #include "xgame/lua-bindings/lua_conv.h"
-#include "xgame/xlua.h"
-#include "olua/olua.hpp"
 ]]
 
 M.CONVS = {
@@ -206,15 +201,6 @@ M.CONVS = {
         ]]
     },
     REG_CONV {
-        CPPCLS = 'fairygui::Margin',
-        DEF = [[
-            float left;
-            float top;
-            float right;
-            float bottom;
-        ]]
-    },
-    REG_CONV {
         CPPCLS = 'cocos2d::Quad3',
         DEF = [[
             cocos2d::Vec3 bl;
@@ -224,16 +210,6 @@ M.CONVS = {
         ]],
         FUNC = 'push|check|is',
     },
-    REG_CONV {
-        CPPCLS = 'fairygui::TweenValue',
-        DEF = [[
-            @option float x;
-            @option float y;
-            @option float z;
-            @option float w;
-            @option double d;
-        ]]
-    }
 }
 
 return M

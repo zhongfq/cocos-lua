@@ -522,20 +522,3 @@ void manual_luacv_check_cocos2d_ValueMap(lua_State *L, int idx, cocos2d::ValueMa
     }
     lua_settop(L, top);
 }
-
-bool manual_luacv_is_fairygui_EventTag(lua_State *L, int idx)
-{
-    return olua_isinteger(L, idx) || olua_isa(L, idx, OLUA_VOIDCLS);
-}
-
-void manual_luacv_check_fairygui_EventTag(lua_State *L, int idx, fairygui::EventTag *value)
-{
-    if (!value) {
-        luaL_error(L, "value is NULL");
-    }
-    if (olua_isinteger(L, idx)) {
-        *value = (int)olua_tointeger(L, idx);
-    } else {
-        *value = (void *)olua_checkobj(L, idx, OLUA_VOIDCLS);
-    }
-}

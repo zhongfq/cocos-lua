@@ -9,8 +9,12 @@ local function gen_include(module, write)
     ]]))
     write('')
     if CHUNK then
-        write(CHUNK)
+        write(format_snippet(CHUNK))
         write('')
+    end
+
+    if module.CONVS then
+        gen_conv(module, write)
     end
 end
 

@@ -12,21 +12,18 @@ M.INCLUDES = [[
 #include "xgame/lua-bindings/lua_fairygui.h"
 #include "xgame/lua-bindings/lua_conv.h"
 #include "xgame/lua-bindings/lua_conv_manual.h"
-#include "xgame/lua-bindings/lua_fairygui_conv.h"
 #include "xgame/xlua.h"
 #include "FairyGUI.h"
 #include "tween/EaseManager.h"
 ]]
 
 M.CHUNK = [[
-/**
-static bool manual_luacv_is_fairygui_EventTag(lua_State *L, int idx)
+bool manual_luacv_is_fairygui_EventTag(lua_State *L, int idx)
 {
     return olua_isinteger(L, idx) || olua_isa(L, idx, OLUA_VOIDCLS);
 }
-*/
 
-static void manual_luacv_check_fairygui_EventTag(lua_State *L, int idx, fairygui::EventTag *value)
+void manual_luacv_check_fairygui_EventTag(lua_State *L, int idx, fairygui::EventTag *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -38,6 +35,28 @@ static void manual_luacv_check_fairygui_EventTag(lua_State *L, int idx, fairygui
     }
 }
 ]]
+
+M.CONVS = {
+    REG_CONV {
+        CPPCLS = 'fairygui::Margin',
+        DEF = [[
+            float left;
+            float top;
+            float right;
+            float bottom;
+        ]]
+    },
+    REG_CONV {
+        CPPCLS = 'fairygui::TweenValue',
+        DEF = [[
+            @option float x;
+            @option float y;
+            @option float z;
+            @option float w;
+            @option double d;
+        ]]
+    }
+}
 
 M.CLASSES = {
     include('conf/fairygui/fui/event/fui.UIEventType.lua'),

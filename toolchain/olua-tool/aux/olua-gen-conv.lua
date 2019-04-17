@@ -44,12 +44,6 @@ local function gen_conv_header(module)
         DECL_FUNCS[#DECL_FUNCS + 1] = ""
     end
 
-    for line in string.gmatch(module.DECLCHUNK or "", '[^\n\r]+') do
-        if string.find(line, '%)$') then
-            DECL_FUNCS[#DECL_FUNCS + 1] = line .. ';'
-        end
-    end
-
     DECL_FUNCS = table.concat(DECL_FUNCS, "\n")
 
     local HEADER_INCLUDES = module.HEADER_INCLUDES
@@ -440,12 +434,16 @@ local function gen_conv_source(module)
         gen_funcs(cv, append)
     end
 
-    append(module.DECLCHUNK)
-
     write(PROJECT_ROOT .. module.SOURCE_PATH, table.concat(arr, "\n"))
 end
 
-function gen_conv(module)
-    gen_conv_header(module)
-    gen_conv_source(module)
+function gen_conv(module, write)
+    if write then
+        for _, cv in ipairs(module.CONVS) do
+            gen_funcs(cv, write)
+        end
+    else
+        gen_conv_header(module)
+        gen_conv_source(module)
+    end
 end

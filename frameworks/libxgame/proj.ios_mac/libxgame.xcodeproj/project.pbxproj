@@ -229,8 +229,6 @@
 		0ECC4C8421EB8D4600E3BBF9 /* cJSON.c in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC4C5B21EB8D4600E3BBF9 /* cJSON.c */; settings = {COMPILER_FLAGS = "-Wno-comma"; }; };
 		0ECC4C8521EB8D4600E3BBF9 /* lua_cjson.c in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC4C5C21EB8D4600E3BBF9 /* lua_cjson.c */; };
 		0ECC4C8621EB8D4600E3BBF9 /* lua_cjson.c in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC4C5C21EB8D4600E3BBF9 /* lua_cjson.c */; };
-		0ED455FE2266FF5300415006 /* lua_fairygui_conv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0ED455FD2266FF5300415006 /* lua_fairygui_conv.cpp */; };
-		0ED455FF2266FF5300415006 /* lua_fairygui_conv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0ED455FD2266FF5300415006 /* lua_fairygui_conv.cpp */; };
 		0EE4B2BE21FC9FE60043AC9D /* xpreferences.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EE4B2BC21FC9FE60043AC9D /* xpreferences.cpp */; };
 		0EE4B2BF21FC9FE60043AC9D /* xpreferences.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EE4B2BC21FC9FE60043AC9D /* xpreferences.cpp */; };
 /* End PBXBuildFile section */
@@ -461,8 +459,6 @@
 		0ECC4C5A21EB8D4600E3BBF9 /* strbuf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = strbuf.c; sourceTree = "<group>"; };
 		0ECC4C5B21EB8D4600E3BBF9 /* cJSON.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cJSON.c; sourceTree = "<group>"; };
 		0ECC4C5C21EB8D4600E3BBF9 /* lua_cjson.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lua_cjson.c; sourceTree = "<group>"; };
-		0ED455FC2266FF5200415006 /* lua_fairygui_conv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_fairygui_conv.h; sourceTree = "<group>"; };
-		0ED455FD2266FF5300415006 /* lua_fairygui_conv.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_fairygui_conv.cpp; sourceTree = "<group>"; };
 		0EE4B2BC21FC9FE60043AC9D /* xpreferences.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xpreferences.cpp; sourceTree = "<group>"; };
 		0EE4B2BD21FC9FE60043AC9D /* xpreferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xpreferences.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -588,8 +584,6 @@
 				0E669F7B2237960000BD58EB /* lua_conv_manual.h */,
 				0E6C97C7222FD37E00B2C17F /* lua_conv.cpp */,
 				0E6C97C8222FD37E00B2C17F /* lua_conv.h */,
-				0ED455FD2266FF5300415006 /* lua_fairygui_conv.cpp */,
-				0ED455FC2266FF5200415006 /* lua_fairygui_conv.h */,
 				0E7756DA224C8F90005070EF /* lua_fairygui.cpp */,
 				0E7756DB224C8F91005070EF /* lua_fairygui.h */,
 				0E7411642243489900B1BD72 /* lua_spine.cpp */,
@@ -951,7 +945,6 @@
 				0ECC4BCB21E79E3E00E3BBF9 /* lobject.c in Sources */,
 				0ECC4C6F21EB8D4600E3BBF9 /* varint.c in Sources */,
 				0E4C8C67225CAF490095CF59 /* psymodel.c in Sources */,
-				0ED455FE2266FF5300415006 /* lua_fairygui_conv.cpp in Sources */,
 				0ECC4BD321E79E3E00E3BBF9 /* lauxlib.c in Sources */,
 				0ECC4C8521EB8D4600E3BBF9 /* lua_cjson.c in Sources */,
 				0E4C8C49225CAF490095CF59 /* util.c in Sources */,
@@ -1039,7 +1032,6 @@
 				0E4C8C74225CAF490095CF59 /* split.c in Sources */,
 				0E7756DD224C8F91005070EF /* lua_fairygui.cpp in Sources */,
 				0E4C8C54225CAF490095CF59 /* VbrTag.c in Sources */,
-				0ED455FF2266FF5300415006 /* lua_fairygui_conv.cpp in Sources */,
 				0E4C8C5C225CAF490095CF59 /* newmdct.c in Sources */,
 				0E2E9A7A221EB7B00085145E /* lua_crypto.cpp in Sources */,
 				0ECC4BAC21E79E3E00E3BBF9 /* lcorolib.c in Sources */,

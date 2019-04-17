@@ -11,7 +11,7 @@
 #ifdef OLUA_HANDLESTATUS
 #define olua_handlestatus(L, v, s) OLUA_HANDLESTATUS(L, v, s)
 #else
-#define olua_handlestatus (static_assert(false), NULL)
+#define olua_handlestatus(L, v, s) assert(false && "not define OLUA_HANDLESTATUS")
 #endif
 
 template <typename T> void olua_registerluatype(lua_State *L, const char *cls)

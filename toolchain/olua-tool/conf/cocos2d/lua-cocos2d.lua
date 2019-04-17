@@ -14,7 +14,6 @@ M.INCLUDES = [[
 #include "xgame/lua-bindings/LuaComponent.h"
 #include "xgame/xlua.h"
 #include "xgame/xruntime.h"
-#include "olua/olua.hpp"
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "audio/include/AudioEngine.h"

@@ -13,7 +13,6 @@ M.INCLUDES = [[
 #include "xgame/lua-bindings/lua_conv_manual.h"
 #include "xgame/xlua.h"
 #include "xgame/xruntime.h"
-#include "olua/olua.hpp"
 #include "cocos2d.h"
 #include "spine/spine-cocos2dx.h"
 ]]

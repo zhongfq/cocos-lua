@@ -8,14 +8,8 @@ frameworks/libfairygui/proj.ios_mac/fairygui.xcodeproj/xcuserdata
 frameworks/libxgame/proj.android/build
 frameworks/libxgame/proj.android/libxgame.iml
 frameworks/libxgame/proj.ios_mac/libxgame.xcodeproj/xcuserdata
-frameworks/runtime-src/proj.android/.gradle
-frameworks/runtime-src/proj.android/.idea
-frameworks/runtime-src/proj.android/app/.externalNativeBuild
-frameworks/runtime-src/proj.android/app/build
-frameworks/runtime-src/proj.android/app/cocos-lua.iml
-frameworks/runtime-src/proj.android/build
-frameworks/runtime-src/proj.android/local.properties
-frameworks/runtime-src/proj.android/proj.android.iml
 frameworks/runtime-src/proj.ios_mac/cocos-lua.xcodeproj/project.xcworkspace/xcshareddata
 frameworks/runtime-src/proj.ios_mac/cocos-lua.xcodeproj/project.xcworkspace/xcuserdata
 frameworks/runtime-src/proj.ios_mac/cocos-lua.xcodeproj/xcuserdata
+toolchain/olua-tool/conf/swf
+cocos-lua.sublime-workspace

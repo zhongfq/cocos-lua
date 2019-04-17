@@ -1,0 +1,8 @@
+.gradle
+.idea
+app/.externalNativeBuild
+app/build
+app/cocos-lua.iml
+build
+local.properties
+proj.android.iml

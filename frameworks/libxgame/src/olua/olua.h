@@ -23,15 +23,15 @@ extern "C" {
 #ifdef OLUA_MAINTHREAD
 #define olua_mainthread() OLUA_MAINTHREAD()
 #else
-#define olua_mainthread (static_assert(false), NULL)
+#define olua_mainthread() assert(false && "not define OLUA_MAINTHREAD")
 #endif
     
 #ifdef OLUA_STARTCMPUNREF
 #define olua_startcmpunref(L, i, n) (OLUA_STARTCMPUNREF(L, i, n))
 #define olua_endcmpunref(L, i, n)   (OLUA_ENDCMPUNREF(L, i, n))
 #else
-#define olua_startcmpunref(L, i, n) (static_assert(false), NULL)
-#define olua_endcmpunref(L, i, n) (static_assert(false), NULL)
+#define olua_startcmpunref(L, i, n) assert(false && "not define OLUA_STARTCMPUNREF")
+#define olua_endcmpunref(L, i, n)   assert(false && "not define OLUA_STARTCMPUNREF")
 #endif
     
 #define olua_isfunction(L,n)        (lua_type(L, (n)) == LUA_TFUNCTION)

@@ -33,13 +33,15 @@ template <typename T> void olua_registerluatype(lua_State *L, const char *cls)
 
 template <typename T> const char *olua_getluatype(lua_State *L, T *obj, const char *cls)
 {
-    if (obj) {
-        const char *type = typeid(*obj).name();
-        lua_pushstring(L, type);
-        if (lua_rawget(L, LUA_REGISTRYINDEX) == LUA_TSTRING) {
-            cls = olua_tostring(L, -1);
-        }
-        lua_pop(L, 1);
+    const char *type = obj ? typeid(*obj).name() : typeid(T).name();
+    lua_pushstring(L, type);
+    if (lua_rawget(L, LUA_REGISTRYINDEX) == LUA_TSTRING) {
+        cls = olua_tostring(L, -1);
+    }
+    lua_pop(L, 1);
+    
+    if (!cls) {
+        luaL_error(L, "object lua class not found: %s", typeid(T).name());
     }
     
     return cls;
@@ -48,6 +50,18 @@ template <typename T> const char *olua_getluatype(lua_State *L, T *obj, const ch
 static inline const char *olua_getluatype(lua_State *L, void *obj, const char *cls)
 {
     return cls;
+}
+
+template <typename T> T *olua_toobj(lua_State *L, int idx)
+{
+    const char *cls = olua_getluatype<T>(L, nullptr, nullptr);
+    return (T *)olua_toobj(L, idx, cls);
+}
+
+template <typename T> T *olua_checkobj(lua_State *L, int idx)
+{
+    const char *cls = olua_getluatype<T>(L, nullptr, nullptr);
+    return (T *)olua_checkobj(L, idx, cls);
 }
 
 template <typename T> int olua_push_cppobj(lua_State *L, T* value, const char *cls)

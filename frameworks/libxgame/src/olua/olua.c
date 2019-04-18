@@ -95,14 +95,13 @@ LUALIB_API const char *olua_typename(lua_State *L, int idx)
 
 LUALIB_API const char *olua_objtostring(lua_State *L, int idx)
 {
+    intptr_t p;
     if (olua_isuserdata(L, idx)) {
-        intptr_t p = (intptr_t)olua_touserdata(L, idx, void *);
-        intptr_t p2 = (intptr_t)lua_topointer(L, idx);
-        return lua_pushfstring(L, "%s: %p|%p", olua_typename(L, idx), p, p2);
+        p = (intptr_t)olua_touserdata(L, idx, void *);
     } else {
-        intptr_t p = (intptr_t)lua_topointer(L, idx);
-        return lua_pushfstring(L, "%s: %p", olua_typename(L, idx), p);
+        p = (intptr_t)lua_topointer(L, idx);
     }
+    return lua_pushfstring(L, "%s: %p", olua_typename(L, idx), p);
 }
 
 LUALIB_API int olua_changeobjcount(int add)
@@ -161,6 +160,10 @@ LUALIB_API int olua_pushobj(lua_State *L, void *obj, const char *cls)
     if (!obj) {
         lua_pushnil(L);
         return status;
+    }
+    
+    if (!cls) {
+        luaL_error(L, "class is null");
     }
     
     auxgetobjtable(L);

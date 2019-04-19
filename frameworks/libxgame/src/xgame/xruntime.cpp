@@ -534,8 +534,10 @@ void RuntimeContext::applicationWillTerminate()
     downloader::end();
     AudioEngine::uncacheAll();
     AudioEngine::end();
+#if CC_TARGET_PLATFORM != CC_PLATFORM_MAC
     Director::getInstance()->end();
     Director::getInstance()->mainLoop();
+#endif
     PoolManager::destroyInstance();
     CC_SAFE_RELEASE(_scheduler);
 }

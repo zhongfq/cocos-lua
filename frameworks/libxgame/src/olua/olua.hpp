@@ -33,13 +33,22 @@ template <typename T> void olua_registerluatype(lua_State *L, const char *cls)
 
 template <typename T> const char *olua_getluatype(lua_State *L, T *obj, const char *cls)
 {
-    const char *type = obj ? typeid(*obj).name() : typeid(T).name();
-    lua_pushstring(L, type);
-    if (lua_rawget(L, LUA_REGISTRYINDEX) == LUA_TSTRING) {
-        cls = olua_tostring(L, -1);
+    const char *preferred = nullptr;
+    if (obj) {
+        lua_pushstring(L, typeid(*obj).name());
+        if (lua_rawget(L, LUA_REGISTRYINDEX) == LUA_TSTRING) {
+            preferred = olua_tostring(L, -1);
+        }
+        lua_pop(L, 1);
     }
-    lua_pop(L, 1);
-    
+    if (!preferred) {
+        lua_pushstring(L, typeid(T).name());
+        if (lua_rawget(L, LUA_REGISTRYINDEX) == LUA_TSTRING) {
+            preferred = olua_tostring(L, -1);
+        }
+        lua_pop(L, 1);
+    }
+    cls = preferred ? preferred : cls;
     if (!cls) {
         luaL_error(L, "object lua class not found: %s", typeid(T).name());
     }

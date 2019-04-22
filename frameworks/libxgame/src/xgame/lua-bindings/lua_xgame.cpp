@@ -249,6 +249,14 @@ static int _xgame_runtime_setLogPath(lua_State *L)
     return 0;
 }
 
+static int _xgame_runtime_testCrash(lua_State *L)
+{
+    xgame::runtime::log("test native crash!!!!");
+    char *prt = NULL;
+    *prt = 0;
+    return 0;
+}
+
 static int _xgame_runtime_setDispatcher(lua_State *L)
 {
     int handler = xlua_reffunc(L, 1);
@@ -314,6 +322,7 @@ static int luaopen_xgame_runtime(lua_State *L)
     oluacls_setfunc(L, "getLanguage", _xgame_runtime_getLanguage);
     oluacls_setfunc(L, "getLogPath", _xgame_runtime_getLogPath);
     oluacls_setfunc(L, "setLogPath", _xgame_runtime_setLogPath);
+    oluacls_setfunc(L, "testCrash", _xgame_runtime_testCrash);
     oluacls_setfunc(L, "setDispatcher", _xgame_runtime_setDispatcher);
     oluacls_setfunc(L, "openURL", _xgame_runtime_openURL);
     oluacls_property(L, "packageName", _xgame_runtime_getPackageName, nullptr);

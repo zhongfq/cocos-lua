@@ -54,22 +54,7 @@ bool AppDelegate::applicationDidFinishLaunching()
         director->setOpenGLView(glview);
     }
     
-#ifndef COCOS2D_DEBUG
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    CrashReport::initCrashReport(BUGLY_APPID_IOS, false, CrashReport::CRLogLevel::Verbose);
-    runtime::log("init bugly for ios");
-    runtime::set_log_reporter([](const char *msg) {
-        CrashReport::log(CrashReport::Verbose, "bugly", msg);
-    });
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-    // CrashReport::initCrashReport(BUGLY_APPID_ANDROID, false, CrashReport::CRLogLevel::Verbose);
-    // runtime::log("init bugly for android");
-#endif
-    runtime::setErrorReporter([](const char *err_msg, const char *traceback) {
-        //CrashReport::reportException(CATEGORY_LUA_EXCEPTION, "", err_msg, traceback);
-    });
-#endif
-
+    xgame::runtime::initBugly(BUGLY_APPID);
     xgame::runtime::luaOpen(_open_sdk);
     
     return RuntimeContext::applicationDidFinishLaunching();

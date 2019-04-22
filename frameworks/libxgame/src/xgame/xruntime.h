@@ -56,13 +56,9 @@ public:
     static void printSupport();
     
     // error
-    typedef std::function<void (const char *err, const char *traceback)> ErrorReporter;
-    typedef std::function<void (const char *msg)> LogReporter;
+    static void initBugly(const char* appid);
     static void disableReport();
-    static void setErrorReporter(const ErrorReporter &callback);
     static void reportError(const char *err, const char *traceback);
-    static void setLogReporter(const LogReporter &callback);
-    static void reportLog(const char *msg);
 };
 
 class RuntimeContext : public cocos2d::Application

@@ -8,6 +8,10 @@
 #include "xgame/xtimer.h"
 #include "xgame/lua_module.h"
 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+#include "bugly/CrashReport.h"
+#endif
+
 #include "audio/include/AudioEngine.h"
 
 #include <time.h>
@@ -32,8 +36,7 @@ static std::mutex _logMutex;
 static std::string _logPath;
 static std::string _logCache;
 
-static runtime::ErrorReporter _errorReporter = nullptr;
-static runtime::LogReporter _logReporter = nullptr;
+static bool _reportError = true;
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 static std::string StringWideCharToUtf8(const std::wstring &strWideChar)
@@ -398,8 +401,6 @@ void runtime::log(const char *fmt, ...)
 #ifdef COCOS2D_DEBUG
     cocos2d::log("%s", _logBuf);
 #endif
-    
-    runtime::reportLog(_logBuf);
 }
 
 //
@@ -450,34 +451,26 @@ void runtime::registerFeature(const std::string &api, bool enabled)
 //
 // error
 //
-void runtime::disableReport()
+void runtime::initBugly(const char* appid)
 {
-    _errorReporter = nullptr;
-    _logReporter = nullptr;
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    runtime::log("init bugly: appid=%s", appid);
+    CrashReport::initCrashReport(appid, false, CrashReport::CRLogLevel::Verbose);
+#endif
 }
 
-void runtime::setErrorReporter(const ErrorReporter &callback)
+void runtime::disableReport()
 {
-    _errorReporter = callback;
+    _reportError = false;
 }
 
 void runtime::reportError(const char *err, const char *traceback)
 {
-    if (_errorReporter) {
-        _errorReporter(err, traceback);
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    if (_reportError) {
+        CrashReport::reportException(CATEGORY_LUA_EXCEPTION, "", err, traceback);
     }
-}
-
-void runtime::setLogReporter(const LogReporter &callback)
-{
-    _logReporter = callback;
-}
-
-void runtime::reportLog(const char *msg)
-{
-    if (_logReporter) {
-        _logReporter(msg);
-    }
+#endif
 }
 
 //

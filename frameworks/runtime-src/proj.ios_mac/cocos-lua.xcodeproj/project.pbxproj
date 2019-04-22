@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E4B9340226DE2DC00B22B9F /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E4B933F226DE2DC00B22B9F /* GameController.framework */; };
 		0E4C8BA0225C76500095CF59 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 0E4C8B9B225C76500095CF59 /* res */; };
 		0E4C8BA1225C76500095CF59 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 0E4C8B9B225C76500095CF59 /* res */; };
 		0E4C8BBD225C83690095CF59 /* src in Resources */ = {isa = PBXBuildFile; fileRef = 0E4C8BBC225C83690095CF59 /* src */; };
@@ -141,6 +142,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0E4B933F226DE2DC00B22B9F /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/GameController.framework; sourceTree = DEVELOPER_DIR; };
 		0E4C8B9B225C76500095CF59 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../../../../assets/res; sourceTree = "<group>"; };
 		0E4C8BAA225C82AC0095CF59 /* libxgame.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libxgame.xcodeproj; path = ../../libxgame/proj.ios_mac/libxgame.xcodeproj; sourceTree = "<group>"; };
 		0E4C8BB3225C82B50095CF59 /* fairygui.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = fairygui.xcodeproj; path = ../../libfairygui/proj.ios_mac/fairygui.xcodeproj; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 				BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */,
 				D44C620C132DFF330009C878 /* OpenAL.framework in Frameworks */,
 				D44C620E132DFF430009C878 /* AVFoundation.framework in Frameworks */,
+				0E4B9340226DE2DC00B22B9F /* GameController.framework in Frameworks */,
 				D44C6210132DFF4E0009C878 /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -313,6 +316,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0E4B933F226DE2DC00B22B9F /* GameController.framework */,
 				0E4C8BDF225C8FCA0095CF59 /* MediaPlayer.framework */,
 				294D0D631D0D56D500F7F5D4 /* CoreText.framework */,
 				ED545A7D1B68A1FA00C3958E /* libiconv.dylib */,
@@ -550,7 +554,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "UPLOAD_SIMULATOR_SYMBOLS=0\nUPLOAD_DEBUG_SYMBOLS=0\nBUGLY_APP_ID=\"546f1cf279\"\nBUGLY_APP_KEY=\"d21353e4-26c8-4f94-b646-cf88a225f039\"\nBUNDLE_IDENTIFIER=\"org.cocos2dx.hellolua\"\n. dsymtool/dSYMUpload.sh\n";
+			shellScript = "UPLOAD_SIMULATOR_SYMBOLS=0\nUPLOAD_DEBUG_SYMBOLS=0\nBUGLY_APP_ID=\"546f1cf279\"\nBUGLY_APP_KEY=\"d21353e4-26c8-4f94-b646-cf88a225f039\"\nBUNDLE_IDENTIFIER=\"org.cocos2dx.hellolua\"\n. ../../plugins/bugly/dsymtool/dSYMUpload.sh\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -632,6 +636,10 @@
 				OTHER_LDFLAGS = (
 					"$(_COCOS_LIB_IOS_BEGIN)",
 					"$(_COCOS_LIB_IOS_END)",
+					"-force_load",
+					"$(SRCROOT)/../../plugins/bugly/ios/bugly/libBuglyAgent.a",
+					"-force_load",
+					"$(SRCROOT)/../..//plugins/bugly/ios/bugly/Bugly.framework/Bugly",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.cocos2dx.hellolua;
 				SDKROOT = iphoneos;
@@ -662,6 +670,10 @@
 				OTHER_LDFLAGS = (
 					"$(_COCOS_LIB_IOS_BEGIN)",
 					"$(_COCOS_LIB_IOS_END)",
+					"-force_load",
+					"$(SRCROOT)/../../plugins/bugly/ios/bugly/libBuglyAgent.a",
+					"-force_load",
+					"$(SRCROOT)/../..//plugins/bugly/ios/bugly/Bugly.framework/Bugly",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.cocos2dx.hellolua;
 				SDKROOT = iphoneos;

@@ -33,6 +33,13 @@ cls.props [[
     language
     logPath
 ]]
+cls.func("testCrash", [[
+{
+    xgame::runtime::log("test native crash!!!!");
+    char *prt = NULL;
+    *prt = 0;
+    return 0;
+}]])
 cls.func("setDispatcher", [[
 {
     int handler = xlua_reffunc(L, 1);

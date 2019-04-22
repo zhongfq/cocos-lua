@@ -24,12 +24,14 @@
 
 #include "AppDelegate.h"
 
-#define BUGLY_APPID_IOS     "xxxxxxxxxx"
-#define BUGLY_APPID_ANDROID "xxxxxxxxxx"
+#include "xgame/xlua.h"
+
+#define BUGLY_APPID_IOS     "da940b4f6e" // d21353e4-26c8-4f94-b646-cf88a225f039
+#define BUGLY_APPID_ANDROID "c082cf3ca0" // c332369f-17b2-4f8e-9481-5810319e8c46
 
 USING_NS_CC;
 
-static int _open_sdk(lua_State *)
+static int _open_sdk(lua_State *L)
 {
     return 0;
 }

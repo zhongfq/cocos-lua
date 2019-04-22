@@ -1,15 +1,6 @@
+assets/res/swf
 build/xcode
-cocos2d/build/cocos2d_libs.xcodeproj/xcuserdata
-cocos2d/cocos/platform/android/libcocos2dx/build
-frameworks/cocos2d-x/build/cocos2d_libs.xcodeproj/xcuserdata
-frameworks/cocos2d-x/cocos/platform/android/libcocos2dx/build
-frameworks/cocos2d-x/cocos/platform/android/libcocos2dx/libcocos2dx.iml
-frameworks/libfairygui/proj.ios_mac/fairygui.xcodeproj/xcuserdata
-frameworks/libxgame/proj.android/build
-frameworks/libxgame/proj.android/libxgame.iml
-frameworks/libxgame/proj.ios_mac/libxgame.xcodeproj/xcuserdata
+cocos-lua.sublime-workspace
 frameworks/runtime-src/proj.ios_mac/cocos-lua.xcodeproj/project.xcworkspace/xcshareddata
 frameworks/runtime-src/proj.ios_mac/cocos-lua.xcodeproj/project.xcworkspace/xcuserdata
 frameworks/runtime-src/proj.ios_mac/cocos-lua.xcodeproj/xcuserdata
-toolchain/olua-tool/conf/swf
-cocos-lua.sublime-workspace

@@ -17,13 +17,14 @@
 int luaopen_module(lua_State *L)
 {
     olua_preload(L, "protobuf.c", luaopen_protobuf_c);
-    olua_preload(L, "kernel.md5" , luaopen_md5);
-    olua_preload(L, "kernel.base64", luaopen_base64);
-    olua_preload(L, "kernel.xxtea", luaopen_xxtea);
-    olua_preload(L, "kernel.cjson", luaopen_cjson);
-    olua_preload(L, "kernel.cjson.safe", luaopen_cjson_safe);
-    olua_preload(L, "kernel.qrcode", luaopen_qrcode);
-    olua_preload(L, "kernel.qrcode.QRSprite", luaopen_qrsprite);
+    olua_preload(L, "kernel.crypto.md5" , luaopen_md5);
+    olua_preload(L, "kernel.crypto.base64", luaopen_base64);
+    olua_preload(L, "kernel.crypto.xxtea", luaopen_xxtea);
+    olua_preload(L, "kernel.crypto.openssl", luaopen_openssl);
+    olua_preload(L, "kernel.crypto.cjson", luaopen_cjson);
+    olua_preload(L, "kernel.crypto.cjson.safe", luaopen_cjson_safe);
+    olua_preload(L, "kernel.crypto.qrcode", luaopen_qrcode);
+    olua_preload(L, "kernel.crypto.qrcode.QRSprite", luaopen_qrsprite);
     olua_preload(L, "kernel.lame", luaopen_lame);
     
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID

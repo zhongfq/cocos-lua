@@ -1310,6 +1310,7 @@
 				USER_HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../../cocos2d-x/external/glfw3/include/mac",
+					"$(SRCROOT)/../../cocos2d-x/external/openssl/include/mac",
 				);
 			};
 			name = Debug;
@@ -1330,6 +1331,7 @@
 				USER_HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../../cocos2d-x/external/glfw3/include/mac",
+					"$(SRCROOT)/../../cocos2d-x/external/openssl/include/mac",
 				);
 			};
 			name = Release;
@@ -1350,7 +1352,10 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "$(inherited)";
+				USER_HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../cocos2d-x/external/openssl/include/ios",
+				);
 			};
 			name = Debug;
 		};
@@ -1371,7 +1376,10 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "$(inherited)";
+				USER_HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../cocos2d-x/external/openssl/include/ios",
+				);
 			};
 			name = Release;
 		};

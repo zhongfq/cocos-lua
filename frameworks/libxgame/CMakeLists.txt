@@ -38,12 +38,6 @@ list(APPEND SRC ${HEADER})
 add_library(xgame ${SRC})
 
 target_compile_definitions(xgame PUBLIC STDC_HEADERS)
-target_compile_definitions(xgame PUBLIC OLUA_HANDLESTATUS=xlua_handlestatus)
-target_compile_definitions(xgame PUBLIC OLUA_MAINTHREAD=xlua_cocosthread)
-target_compile_definitions(xgame PUBLIC OLUA_STARTCMPUNREF=xlua_startcmpunref)
-target_compile_definitions(xgame PUBLIC OLUA_ENDCMPUNREF=xlua_endcmpunref)
-# TODO: RM
-target_compile_definitions(xgame PUBLIC OLUA_DEBUG)
 
 target_link_libraries(xgame 
 	PRIVATE fairygui

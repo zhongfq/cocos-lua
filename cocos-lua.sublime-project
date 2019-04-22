@@ -6,6 +6,9 @@
 		},
 		{
 			"path": "toolchain"
+		},
+		{
+			"path": "~/Library/Containers/org.cocos2dx.hellolua"
 		}
 	]
 }

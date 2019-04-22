@@ -26,8 +26,13 @@
 
 #include "xgame/xlua.h"
 
-#define BUGLY_APPID_IOS     "da940b4f6e" // d21353e4-26c8-4f94-b646-cf88a225f039
-#define BUGLY_APPID_ANDROID "c082cf3ca0" // c332369f-17b2-4f8e-9481-5810319e8c46
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+#define BUGLY_APPID "546f1cf279" // d21353e4-26c8-4f94-b646-cf88a225f039
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+#define BUGLY_APPID "c082cf3ca0" // c332369f-17b2-4f8e-9481-5810319e8c46
+#else
+#define BUGLY_APPID "<no appid>"
+#endif
 
 USING_NS_CC;
 

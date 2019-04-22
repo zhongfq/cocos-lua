@@ -12,22 +12,17 @@ static int _md5_sumhexa(lua_State *L)
     size_t len = 0;
     const char *str = luaL_checklstring(L, 1, &len);
     unsigned char result[MD5_STR_LEN];
-    md5str(result, str, len);
-    lua_pushstring(L, (const char *)result);
-    return 1;
-}
-
-static int _md5_file(lua_State *L)
-{
-    const char *path = luaL_checkstring(L, 1);
-    unsigned char result[MD5_STR_LEN];
-    
-    if (md5f(result, FileUtils::getInstance()->fullPathForFilename(path).c_str())) {
-        lua_pushstring(L, (const char *)result);
+    bool isfile = olua_optboolean(L, 2, false);
+    if (isfile) {
+        if (md5f(result, FileUtils::getInstance()->fullPathForFilename(str).c_str())) {
+            lua_pushstring(L, (const char *)result);
+        } else {
+            lua_pushnil(L);
+        }
     } else {
-        lua_pushnil(L);
+        md5str(result, str, len);
+        lua_pushstring(L, (const char *)result);
     }
-    
     return 1;
 }
 
@@ -109,9 +104,7 @@ static int _xxtea_decrypt(lua_State *L)
 int luaopen_md5(lua_State *L)
 {
     static luaL_Reg lib[] = {
-        {"str", _md5_sumhexa},
         {"sumhexa", _md5_sumhexa},
-        {"file", _md5_file},
         {NULL, NULL}
     };
 

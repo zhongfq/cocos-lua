@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.6)
 
 set(XGAME_ROOT ${CMAKE_CURRENT_SOURCE_DIR})
 
+include(src/bugly/CMakeLists.txt)
 include(src/cjson/CMakeLists.txt)
 include(src/crypto/CMakeLists.txt)
 include(src/lame/CMakeLists.txt)
@@ -13,6 +14,7 @@ include(src/qrencode/CMakeLists.txt)
 include(src/xgame/CMakeLists.txt)
 
 set(SRC
+    ${BUGLY_SRC}
     ${CJSON_SRC}
     ${CRYPTO_SRC}
     ${LAME_SRC}
@@ -25,6 +27,7 @@ set(SRC
 )
 
 set(HEADER
+    ${BUGLY_HEADER}
     ${CJSON_HEADER}
     ${CRYPTO_HEADER}
     ${LAME_HEADER}

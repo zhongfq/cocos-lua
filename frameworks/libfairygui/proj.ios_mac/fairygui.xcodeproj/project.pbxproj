@@ -980,7 +980,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				EXECUTABLE_PREFIX = "";
-				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "libfairygui iOS";
 				SKIP_INSTALL = YES;
 			};
@@ -990,7 +989,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				EXECUTABLE_PREFIX = "";
-				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "libfairygui iOS";
 				SKIP_INSTALL = YES;
 			};

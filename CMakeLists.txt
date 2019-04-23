@@ -132,8 +132,9 @@ endif()
 
 add_subdirectory(${FRAMEWORK_ROOT_PATH}/libfairygui)
 add_subdirectory(${FRAMEWORK_ROOT_PATH}/libxgame)
+add_subdirectory(${FRAMEWORK_ROOT_PATH}/plugins)
 
-target_link_libraries(${APP_NAME} cocos2d fairygui xgame)
+target_link_libraries(${APP_NAME} cocos2d fairygui xgame plugins)
 target_include_directories(${APP_NAME}
         PRIVATE ${RUNTIME_SRC_ROOT}/Classes
         PRIVATE ${COCOS2DX_ROOT_PATH}/cocos/audio/include/

@@ -554,7 +554,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "UPLOAD_SIMULATOR_SYMBOLS=0\nUPLOAD_DEBUG_SYMBOLS=0\nBUGLY_APP_ID=\"546f1cf279\"\nBUGLY_APP_KEY=\"d21353e4-26c8-4f94-b646-cf88a225f039\"\nBUNDLE_IDENTIFIER=\"org.cocos2dx.hellolua\"\n. ../../plugins/bugly/dsymtool/dSYMUpload.sh\n";
+			shellScript = "UPLOAD_SIMULATOR_SYMBOLS=0\nUPLOAD_DEBUG_SYMBOLS=0\nBUGLY_APP_ID=\"546f1cf279\"\nBUGLY_APP_KEY=\"d21353e4-26c8-4f94-b646-cf88a225f039\"\nBUNDLE_IDENTIFIER=\"org.cocos2dx.hellolua\"\n. ../../libxgame/src/bugly/dsymtool/dSYMUpload.sh\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -634,12 +634,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
-					"$(_COCOS_LIB_IOS_BEGIN)",
-					"$(_COCOS_LIB_IOS_END)",
 					"-force_load",
-					"$(SRCROOT)/../../plugins/bugly/ios/bugly/libBuglyAgent.a",
+					"$(SRCROOT)/../../libxgame/src/bugly/ios/bugly/libBuglyAgent.a",
 					"-force_load",
-					"$(SRCROOT)/../..//plugins/bugly/ios/bugly/Bugly.framework/Bugly",
+					"$(SRCROOT)/../../libxgame/src/bugly/ios/bugly/Bugly.framework/Bugly",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.cocos2dx.hellolua;
 				SDKROOT = iphoneos;
@@ -668,12 +666,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
-					"$(_COCOS_LIB_IOS_BEGIN)",
-					"$(_COCOS_LIB_IOS_END)",
 					"-force_load",
-					"$(SRCROOT)/../../plugins/bugly/ios/bugly/libBuglyAgent.a",
+					"$(SRCROOT)/../../libxgame/src/bugly/ios/bugly/libBuglyAgent.a",
 					"-force_load",
-					"$(SRCROOT)/../..//plugins/bugly/ios/bugly/Bugly.framework/Bugly",
+					"$(SRCROOT)/../../libxgame/src/bugly/ios/bugly/Bugly.framework/Bugly",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.cocos2dx.hellolua;
 				SDKROOT = iphoneos;
@@ -708,10 +704,6 @@
 				INFOPLIST_FILE = mac/Info.plist;
 				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				OTHER_LDFLAGS = (
-					"$(_COCOS_LIB_MAC_BEGIN)",
-					"$(_COCOS_LIB_MAC_END)",
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.cocos2dx.hellolua;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
@@ -741,10 +733,6 @@
 				INFOPLIST_FILE = mac/Info.plist;
 				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				OTHER_LDFLAGS = (
-					"$(_COCOS_LIB_MAC_BEGIN)",
-					"$(_COCOS_LIB_MAC_END)",
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.cocos2dx.hellolua;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};

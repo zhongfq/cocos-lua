@@ -1,5 +1,5 @@
-#include "xgame/lua-bindings/lua_conv_manual.h"
-#include "xgame/lua-bindings/lua_conv.h"
+#include "lua_conv_manual.h"
+#include "lua_conv.h"
 #include "xgame/xlua.h"
 #include "olua/olua.hpp"
 

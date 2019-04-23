@@ -1,4 +1,4 @@
-#include "xgame/lua-bindings/LuaComponent.h"
+#include "LuaComponent.h"
 
 NS_CC_BEGIN
 

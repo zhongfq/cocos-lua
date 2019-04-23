@@ -1,4 +1,4 @@
-#include "xgame/lua_javabridge.h"
+#include "lua_javabridge.h"
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 #include "base/ccUTF8.h"

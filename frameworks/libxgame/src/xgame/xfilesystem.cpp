@@ -1,7 +1,7 @@
 #include "xgame/xfilesystem.h"
 #include "xgame/xfilesystem-private.h"
 #include "xgame/xruntime.h"
-#include "xgame/lua_javabridge.h"
+#include "lua-bindings/lua_javabridge.h"
 
 #include "cocos2d.h"
 #include "unzip/unzip.h"

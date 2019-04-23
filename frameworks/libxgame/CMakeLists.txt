@@ -6,6 +6,7 @@ include(src/cjson/CMakeLists.txt)
 include(src/crypto/CMakeLists.txt)
 include(src/lame/CMakeLists.txt)
 include(src/lua/CMakeLists.txt)
+include(src/lua-bindings/CMakeLists.txt)
 include(src/olua/CMakeLists.txt)
 include(src/pbc/CMakeLists.txt)
 include(src/qrencode/CMakeLists.txt)
@@ -16,6 +17,7 @@ set(SRC
     ${CRYPTO_SRC}
     ${LAME_SRC}
     ${LUA_SRC}
+    ${LUA_BINDINGS_SRC}
     ${OLUA_SRC}
     ${PBC_SRC}
     ${QRCODE_SRC}
@@ -27,6 +29,7 @@ set(HEADER
     ${CRYPTO_HEADER}
     ${LAME_HEADER}
     ${LUA_HEADER}
+    ${LUA_BINDINGS_HEADER}
     ${OLUA_HEADER}
     ${PBC_HEADER}
     ${QRCODE_HEADER}

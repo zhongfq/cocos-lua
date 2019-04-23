@@ -4,14 +4,14 @@ require "conf.cocos2d.import-cocos2d-type"
 local M = {}
 
 M.NAME = "cocos2d"
-M.HEADER_PATH = "frameworks/libxgame/src/xgame/lua-bindings/lua_cocos2d.h"
-M.SOURCE_PATH = "frameworks/libxgame/src/xgame/lua-bindings/lua_cocos2d.cpp"
+M.HEADER_PATH = "frameworks/libxgame/src/lua-bindings/lua_cocos2d.h"
+M.SOURCE_PATH = "frameworks/libxgame/src/lua-bindings/lua_cocos2d.cpp"
 
 M.INCLUDES = [[
-#include "xgame/lua-bindings/lua_cocos2d.h"
-#include "xgame/lua-bindings/lua_conv.h"
-#include "xgame/lua-bindings/lua_conv_manual.h"
-#include "xgame/lua-bindings/LuaComponent.h"
+#include "lua-bindings/lua_cocos2d.h"
+#include "lua-bindings/lua_conv.h"
+#include "lua-bindings/lua_conv_manual.h"
+#include "lua-bindings/LuaComponent.h"
 #include "xgame/xlua.h"
 #include "xgame/xruntime.h"
 #include "cocos2d.h"

@@ -1,4 +1,4 @@
-#include "xgame/lua_socket.h"
+#include "lua_socket.h"
 #include "xgame/xsocket.h"
 #include "xgame/xlua.h"
 #include "olua/olua.hpp"

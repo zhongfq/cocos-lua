@@ -6,7 +6,7 @@
 #include "xgame/xpreferences.h"
 #include "xgame/xrootscene.h"
 #include "xgame/xtimer.h"
-#include "xgame/lua_module.h"
+#include "lua-bindings/lua_bindings.h"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 #include "bugly/CrashReport.h"
@@ -210,7 +210,7 @@ lua_State *runtime::luaVM()
 {
     if (_luaVM == nullptr) {
         _luaVM = xlua_new();
-        luaopen_module(_luaVM);
+        luaopen_bindings(_luaVM);
         for (auto func : _luaLibs) {
             xlua_call(_luaVM, func);
         }

@@ -1,4 +1,4 @@
-#include "xgame/lua_crypto.h"
+#include "lua_crypto.h"
 #include "platform/CCFileUtils.h"
 #include "base/base64.h"
 #include "crypto/md5util.h"

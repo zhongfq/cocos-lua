@@ -1,13 +1,13 @@
-#include "xgame/lua_module.h"
-#include "xgame/lua_crypto.h"
-#include "xgame/lua_javabridge.h"
+#include "lua_bindings.h"
+#include "lua_crypto.h"
+#include "lua_javabridge.h"
+#include "lua_xgame.h"
+#include "lua_cocos2d.h"
+#include "lua_cocos2d_ui.h"
+#include "lua_spine.h"
+#include "lua_fairygui.h"
 #include "xgame/xruntime.h"
 #include "xgame/xlua.h"
-#include "xgame/lua-bindings/lua_xgame.h"
-#include "xgame/lua-bindings/lua_cocos2d.h"
-#include "xgame/lua-bindings/lua_cocos2d_ui.h"
-#include "xgame/lua-bindings/lua_spine.h"
-#include "xgame/lua-bindings/lua_fairygui.h"
 #include "cjson/lua_cjson.h"
 #include "md5/md5.h"
 #include "pbc/pbc.h"
@@ -18,7 +18,7 @@
 #include "bugly/lua_bugly.h"
 #endif
 
-int luaopen_module(lua_State *L)
+int luaopen_bindings(lua_State *L)
 {
     xlua_call(L, luaopen_cocos2d);
     xlua_call(L, luaopen_cocos2d_ui);

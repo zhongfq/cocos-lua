@@ -5,13 +5,13 @@ require "conf.fairygui.import-fairygui-type"
 local M = {}
 
 M.NAME = "fairygui"
-M.HEADER_PATH = "frameworks/libxgame/src/xgame/lua-bindings/lua_fairygui.h"
-M.SOURCE_PATH = "frameworks/libxgame/src/xgame/lua-bindings/lua_fairygui.cpp"
+M.HEADER_PATH = "frameworks/libxgame/src/lua-bindings/lua_fairygui.h"
+M.SOURCE_PATH = "frameworks/libxgame/src/lua-bindings/lua_fairygui.cpp"
 
 M.INCLUDES = [[
-#include "xgame/lua-bindings/lua_fairygui.h"
-#include "xgame/lua-bindings/lua_conv.h"
-#include "xgame/lua-bindings/lua_conv_manual.h"
+#include "lua-bindings/lua_fairygui.h"
+#include "lua-bindings/lua_conv.h"
+#include "lua-bindings/lua_conv_manual.h"
 #include "xgame/xlua.h"
 #include "FairyGUI.h"
 #include "tween/EaseManager.h"

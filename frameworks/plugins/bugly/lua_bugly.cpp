@@ -82,18 +82,6 @@ static int _printLog(lua_State *L) {
     return 0;
 }
 
-static int _setAppChannel(lua_State *L)
-{
-    CrashReport::setAppChannel(olua_checkstring(L, 1));
-    return 0;
-}
-
-static int _setAppVersion(lua_State *L)
-{
-    CrashReport::setAppVersion(olua_checkstring(L, 1));
-    return 0;
-}
-
 int luaopen_bugly(lua_State *L)
 {
     static luaL_Reg lib[] = {
@@ -103,8 +91,6 @@ int luaopen_bugly(lua_State *L)
         {"addUserValue", _addUserValue},
         {"removeUserValue", _removeUserValue},
         {"log", _printLog},
-        {"setAppChannel", _setAppChannel},
-        {"setAppVersion", _setAppVersion},
         {NULL, NULL}
     };
     

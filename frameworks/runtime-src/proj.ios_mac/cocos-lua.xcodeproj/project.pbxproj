@@ -10,6 +10,7 @@
 		0E24B3BD226FFC0C000054C9 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E24B3B4226FFC0B000054C9 /* libWeChatSDK.a */; };
 		0E24B3BE226FFC0C000054C9 /* libWXSpeech.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E24B3B5226FFC0C000054C9 /* libWXSpeech.a */; };
 		0E24B3BF226FFC0C000054C9 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0E24B3BB226FFC0C000054C9 /* README.txt */; };
+		0E24B3E422701692000054C9 /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E24B3E322701692000054C9 /* Bugly.framework */; };
 		0E4B9340226DE2DC00B22B9F /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E4B933F226DE2DC00B22B9F /* GameController.framework */; };
 		0E4C8BA0225C76500095CF59 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 0E4C8B9B225C76500095CF59 /* res */; };
 		0E4C8BA1225C76500095CF59 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 0E4C8B9B225C76500095CF59 /* res */; };
@@ -155,6 +156,7 @@
 		0E24B3BA226FFC0C000054C9 /* WXVoiceTTS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WXVoiceTTS.h; path = ../../../../../plugins/wechat/ios/WXVoiceTTS.h; sourceTree = "<group>"; };
 		0E24B3BB226FFC0C000054C9 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.txt; path = ../../../../../plugins/wechat/ios/README.txt; sourceTree = "<group>"; };
 		0E24B3BC226FFC0C000054C9 /* WXVoiceRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WXVoiceRecognizer.h; path = ../../../../../plugins/wechat/ios/WXVoiceRecognizer.h; sourceTree = "<group>"; };
+		0E24B3E322701692000054C9 /* Bugly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bugly.framework; path = ../../libxgame/src/bugly/ios/Bugly.framework; sourceTree = "<group>"; };
 		0E4B933F226DE2DC00B22B9F /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/GameController.framework; sourceTree = DEVELOPER_DIR; };
 		0E4C8B9B225C76500095CF59 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../../../../assets/res; sourceTree = "<group>"; };
 		0E4C8BAA225C82AC0095CF59 /* libxgame.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libxgame.xcodeproj; path = ../../libxgame/proj.ios_mac/libxgame.xcodeproj; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 				BF1712471292920000B8313A /* libz.dylib in Frameworks */,
 				0E24B3BE226FFC0C000054C9 /* libWXSpeech.a in Frameworks */,
 				0E24B3BD226FFC0C000054C9 /* libWeChatSDK.a in Frameworks */,
+				0E24B3E422701692000054C9 /* Bugly.framework in Frameworks */,
 				D44C6210132DFF4E0009C878 /* AudioToolbox.framework in Frameworks */,
 				D44C620E132DFF430009C878 /* AVFoundation.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
@@ -365,6 +368,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0E24B3E322701692000054C9 /* Bugly.framework */,
 				0E4B933F226DE2DC00B22B9F /* GameController.framework */,
 				0E4C8BDF225C8FCA0095CF59 /* MediaPlayer.framework */,
 				294D0D631D0D56D500F7F5D4 /* CoreText.framework */,
@@ -674,6 +678,7 @@
 				COMPRESS_PNG_FILES = NO;
 				DEVELOPMENT_TEAM = 2GKUK57LGJ;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../../libxgame/src/bugly/ios";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -682,13 +687,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LIBRARY_SEARCH_PATHS = "";
-				OTHER_LDFLAGS = (
-					"-force_load",
-					"$(SRCROOT)/../../libxgame/src/bugly/ios/bugly/libBuglyAgent.a",
-					"-force_load",
-					"$(SRCROOT)/../../libxgame/src/bugly/ios/bugly/Bugly.framework/Bugly",
-				);
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../../plugins/wechat/ios";
 				PRODUCT_BUNDLE_IDENTIFIER = org.cocos2dx.hellolua;
 				SDKROOT = iphoneos;
 				STRIP_PNG_TEXT = NO;
@@ -707,6 +706,7 @@
 				COMPRESS_PNG_FILES = NO;
 				DEVELOPMENT_TEAM = 2GKUK57LGJ;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../../libxgame/src/bugly/ios";
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ios/Prefix.pch;
@@ -714,13 +714,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LIBRARY_SEARCH_PATHS = "";
-				OTHER_LDFLAGS = (
-					"-force_load",
-					"$(SRCROOT)/../../libxgame/src/bugly/ios/bugly/libBuglyAgent.a",
-					"-force_load",
-					"$(SRCROOT)/../../libxgame/src/bugly/ios/bugly/Bugly.framework/Bugly",
-				);
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../../plugins/wechat/ios";
 				PRODUCT_BUNDLE_IDENTIFIER = org.cocos2dx.hellolua;
 				SDKROOT = iphoneos;
 				STRIP_PNG_TEXT = NO;

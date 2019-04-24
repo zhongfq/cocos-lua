@@ -25,6 +25,7 @@
 		0E0C706921F9F5FE00049240 /* xfilesystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C706621F9F5FE00049240 /* xfilesystem.cpp */; };
 		0E0C706C21F9F60B00049240 /* xtimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C706A21F9F60B00049240 /* xtimer.cpp */; };
 		0E0C706D21F9F60B00049240 /* xtimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C706A21F9F60B00049240 /* xtimer.cpp */; };
+		0E24B3C32270014C000054C9 /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E24B3C22270014B000054C9 /* Bugly.framework */; };
 		0E25A89E211D410E006B88E1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E25A89D211D410E006B88E1 /* SystemConfiguration.framework */; };
 		0E25A8A2211D4123006B88E1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E25A8A1211D4123006B88E1 /* Security.framework */; };
 		0E2E9A3A221C37070085145E /* AppRootViewController-ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E9A37221C37070085145E /* AppRootViewController-ios.mm */; };
@@ -59,11 +60,9 @@
 		0E4B9379226E9E8B00B22B9F /* lua_spine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B935F226E9E8B00B22B9F /* lua_spine.cpp */; };
 		0E4B937A226E9E8B00B22B9F /* lua_fairygui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B9361226E9E8B00B22B9F /* lua_fairygui.cpp */; };
 		0E4B937B226E9E8B00B22B9F /* lua_fairygui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B9361226E9E8B00B22B9F /* lua_fairygui.cpp */; };
-		0E4B9395226EE2B300B22B9F /* CrashReport.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B9391226EE2B300B22B9F /* CrashReport.mm */; };
-		0E4B9396226EE2B300B22B9F /* CrashReport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B9392226EE2B300B22B9F /* CrashReport.cpp */; };
+		0E4B9395226EE2B300B22B9F /* CrashReport-ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B9391226EE2B300B22B9F /* CrashReport-ios.mm */; };
+		0E4B9396226EE2B300B22B9F /* CrashReport-android.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B9392226EE2B300B22B9F /* CrashReport-android.cpp */; };
 		0E4B9397226EE2B300B22B9F /* lua_bugly.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B9394226EE2B300B22B9F /* lua_bugly.cpp */; };
-		0E4B939D226EE2D000B22B9F /* libBuglyAgent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E4B939A226EE2D000B22B9F /* libBuglyAgent.a */; };
-		0E4B939E226EE2D000B22B9F /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E4B939C226EE2D000B22B9F /* Bugly.framework */; };
 		0E4C8C3F225CAF490095CF59 /* quantize_pvt.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8BFD225CAF490095CF59 /* quantize_pvt.c */; };
 		0E4C8C40225CAF490095CF59 /* quantize_pvt.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8BFD225CAF490095CF59 /* quantize_pvt.c */; };
 		0E4C8C41225CAF490095CF59 /* bitstream.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C00225CAF490095CF59 /* bitstream.c */; settings = {COMPILER_FLAGS = "-Wno-unused-variable"; }; };
@@ -257,6 +256,7 @@
 		0E0C706721F9F5FE00049240 /* xfilesystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xfilesystem.h; sourceTree = "<group>"; };
 		0E0C706A21F9F60B00049240 /* xtimer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xtimer.cpp; sourceTree = "<group>"; };
 		0E0C706B21F9F60B00049240 /* xtimer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xtimer.h; sourceTree = "<group>"; };
+		0E24B3C22270014B000054C9 /* Bugly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bugly.framework; path = ../../../src/bugly/ios/Bugly.framework; sourceTree = "<group>"; };
 		0E25A2D421172BC2006B88E1 /* libxgame Mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libxgame Mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E25A7192117479A006B88E1 /* libxgame iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libxgame iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E25A89D211D410E006B88E1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.4.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
@@ -299,14 +299,10 @@
 		0E4B9362226E9E8B00B22B9F /* lua_fairygui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_fairygui.h; sourceTree = "<group>"; };
 		0E4B9363226E9E8B00B22B9F /* lua_bindings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_bindings.h; sourceTree = "<group>"; };
 		0E4B9390226EE2B300B22B9F /* CrashReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CrashReport.h; path = ../../src/bugly/CrashReport.h; sourceTree = "<group>"; };
-		0E4B9391226EE2B300B22B9F /* CrashReport.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CrashReport.mm; path = ../../src/bugly/CrashReport.mm; sourceTree = "<group>"; };
-		0E4B9392226EE2B300B22B9F /* CrashReport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CrashReport.cpp; path = ../../src/bugly/CrashReport.cpp; sourceTree = "<group>"; };
+		0E4B9391226EE2B300B22B9F /* CrashReport-ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "CrashReport-ios.mm"; path = "../../src/bugly/CrashReport-ios.mm"; sourceTree = "<group>"; };
+		0E4B9392226EE2B300B22B9F /* CrashReport-android.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "CrashReport-android.cpp"; path = "../../src/bugly/CrashReport-android.cpp"; sourceTree = "<group>"; };
 		0E4B9393226EE2B300B22B9F /* lua_bugly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lua_bugly.h; path = ../../src/bugly/lua_bugly.h; sourceTree = "<group>"; };
 		0E4B9394226EE2B300B22B9F /* lua_bugly.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = lua_bugly.cpp; path = ../../src/bugly/lua_bugly.cpp; sourceTree = "<group>"; };
-		0E4B9399226EE2D000B22B9F /* BuglyAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BuglyAgent.h; path = ../../../src/bugly/ios/bugly/BuglyAgent.h; sourceTree = "<group>"; };
-		0E4B939A226EE2D000B22B9F /* libBuglyAgent.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBuglyAgent.a; path = ../../../src/bugly/ios/bugly/libBuglyAgent.a; sourceTree = "<group>"; };
-		0E4B939B226EE2D000B22B9F /* BuglyAgentV2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BuglyAgentV2.h; path = ../../../src/bugly/ios/bugly/BuglyAgentV2.h; sourceTree = "<group>"; };
-		0E4B939C226EE2D000B22B9F /* Bugly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bugly.framework; path = ../../../src/bugly/ios/bugly/Bugly.framework; sourceTree = "<group>"; };
 		0E4C8BFD225CAF490095CF59 /* quantize_pvt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = quantize_pvt.c; sourceTree = "<group>"; };
 		0E4C8BFE225CAF490095CF59 /* fft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fft.h; sourceTree = "<group>"; };
 		0E4C8BFF225CAF490095CF59 /* quantize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = quantize.h; sourceTree = "<group>"; };
@@ -489,9 +485,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E4B939D226EE2D000B22B9F /* libBuglyAgent.a in Frameworks */,
+				0E24B3C32270014C000054C9 /* Bugly.framework in Frameworks */,
 				0E25A8A2211D4123006B88E1 /* Security.framework in Frameworks */,
-				0E4B939E226EE2D000B22B9F /* Bugly.framework in Frameworks */,
 				0E25A89E211D410E006B88E1 /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -616,9 +611,9 @@
 			isa = PBXGroup;
 			children = (
 				0E4B9398226EE2BA00B22B9F /* ios */,
-				0E4B9392226EE2B300B22B9F /* CrashReport.cpp */,
+				0E4B9392226EE2B300B22B9F /* CrashReport-android.cpp */,
+				0E4B9391226EE2B300B22B9F /* CrashReport-ios.mm */,
 				0E4B9390226EE2B300B22B9F /* CrashReport.h */,
-				0E4B9391226EE2B300B22B9F /* CrashReport.mm */,
 				0E4B9394226EE2B300B22B9F /* lua_bugly.cpp */,
 				0E4B9393226EE2B300B22B9F /* lua_bugly.h */,
 			);
@@ -628,10 +623,7 @@
 		0E4B9398226EE2BA00B22B9F /* ios */ = {
 			isa = PBXGroup;
 			children = (
-				0E4B939C226EE2D000B22B9F /* Bugly.framework */,
-				0E4B9399226EE2D000B22B9F /* BuglyAgent.h */,
-				0E4B939B226EE2D000B22B9F /* BuglyAgentV2.h */,
-				0E4B939A226EE2D000B22B9F /* libBuglyAgent.a */,
+				0E24B3C22270014B000054C9 /* Bugly.framework */,
 			);
 			path = ios;
 			sourceTree = "<group>";
@@ -1068,7 +1060,7 @@
 				0E4B936D226E9E8B00B22B9F /* lua_cocos2d_ui.cpp in Sources */,
 				0E4C8C62225CAF490095CF59 /* version.c in Sources */,
 				0ECC4BCE21E79E3E00E3BBF9 /* loadlib.c in Sources */,
-				0E4B9395226EE2B300B22B9F /* CrashReport.mm in Sources */,
+				0E4B9395226EE2B300B22B9F /* CrashReport-ios.mm in Sources */,
 				0ECC4BB821E79E3E00E3BBF9 /* lmem.c in Sources */,
 				0E4C8C42225CAF490095CF59 /* bitstream.c in Sources */,
 				0ECC4C6421EB8D4600E3BBF9 /* rmessage.c in Sources */,
@@ -1159,7 +1151,7 @@
 				0ECC4C6221EB8D4600E3BBF9 /* array.c in Sources */,
 				0E2E9A87221EBB570085145E /* md5.c in Sources */,
 				0ECC4C8421EB8D4600E3BBF9 /* cJSON.c in Sources */,
-				0E4B9396226EE2B300B22B9F /* CrashReport.cpp in Sources */,
+				0E4B9396226EE2B300B22B9F /* CrashReport-android.cpp in Sources */,
 				0EE4B2BF21FC9FE60043AC9D /* xpreferences.cpp in Sources */,
 				0ECC4BD621E79E3E00E3BBF9 /* lstrlib.c in Sources */,
 				0ECC4BCA21E79E3E00E3BBF9 /* lzio.c in Sources */,
@@ -1386,12 +1378,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_BITCODE = NO;
 				EXECUTABLE_PREFIX = "";
-				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../src/bugly/ios/bugly";
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../src/bugly/ios";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					CC_TARGET_OS_IPHONE,
 				);
-				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../src/bugly/ios/bugly";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1399,7 +1390,6 @@
 				USER_HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../../cocos2d-x/external/openssl/include/ios",
-					"$(SRCROOT)/../src/bugly/ios",
 				);
 			};
 			name = Debug;
@@ -1412,12 +1402,11 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_BITCODE = NO;
 				EXECUTABLE_PREFIX = "";
-				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../src/bugly/ios/bugly";
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../src/bugly/ios";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					CC_TARGET_OS_IPHONE,
 				);
-				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../src/bugly/ios/bugly";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1425,7 +1414,6 @@
 				USER_HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../../cocos2d-x/external/openssl/include/ios",
-					"$(SRCROOT)/../src/bugly/ios",
 				);
 			};
 			name = Release;

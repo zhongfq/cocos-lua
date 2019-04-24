@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E24B3BD226FFC0C000054C9 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E24B3B4226FFC0B000054C9 /* libWeChatSDK.a */; };
+		0E24B3BE226FFC0C000054C9 /* libWXSpeech.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E24B3B5226FFC0C000054C9 /* libWXSpeech.a */; };
+		0E24B3BF226FFC0C000054C9 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0E24B3BB226FFC0C000054C9 /* README.txt */; };
 		0E4B9340226DE2DC00B22B9F /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E4B933F226DE2DC00B22B9F /* GameController.framework */; };
 		0E4C8BA0225C76500095CF59 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 0E4C8B9B225C76500095CF59 /* res */; };
 		0E4C8BA1225C76500095CF59 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 0E4C8B9B225C76500095CF59 /* res */; };
@@ -142,6 +145,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0E24B3B3226FFC0B000054C9 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WXApiObject.h; path = ../../../../../plugins/wechat/ios/WXApiObject.h; sourceTree = "<group>"; };
+		0E24B3B4226FFC0B000054C9 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = ../../../../../plugins/wechat/ios/libWeChatSDK.a; sourceTree = "<group>"; };
+		0E24B3B5226FFC0C000054C9 /* libWXSpeech.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWXSpeech.a; path = ../../../../../plugins/wechat/ios/libWXSpeech.a; sourceTree = "<group>"; };
+		0E24B3B6226FFC0C000054C9 /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WechatAuthSDK.h; path = ../../../../../plugins/wechat/ios/WechatAuthSDK.h; sourceTree = "<group>"; };
+		0E24B3B7226FFC0C000054C9 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WXApi.h; path = ../../../../../plugins/wechat/ios/WXApi.h; sourceTree = "<group>"; };
+		0E24B3B8226FFC0C000054C9 /* WXVoiceSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WXVoiceSDK.h; path = ../../../../../plugins/wechat/ios/WXVoiceSDK.h; sourceTree = "<group>"; };
+		0E24B3B9226FFC0C000054C9 /* WXSpeechSynthesizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WXSpeechSynthesizer.h; path = ../../../../../plugins/wechat/ios/WXSpeechSynthesizer.h; sourceTree = "<group>"; };
+		0E24B3BA226FFC0C000054C9 /* WXVoiceTTS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WXVoiceTTS.h; path = ../../../../../plugins/wechat/ios/WXVoiceTTS.h; sourceTree = "<group>"; };
+		0E24B3BB226FFC0C000054C9 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.txt; path = ../../../../../plugins/wechat/ios/README.txt; sourceTree = "<group>"; };
+		0E24B3BC226FFC0C000054C9 /* WXVoiceRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WXVoiceRecognizer.h; path = ../../../../../plugins/wechat/ios/WXVoiceRecognizer.h; sourceTree = "<group>"; };
 		0E4B933F226DE2DC00B22B9F /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/GameController.framework; sourceTree = DEVELOPER_DIR; };
 		0E4C8B9B225C76500095CF59 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../../../../assets/res; sourceTree = "<group>"; };
 		0E4C8BAA225C82AC0095CF59 /* libxgame.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libxgame.xcodeproj; path = ../../libxgame/proj.ios_mac/libxgame.xcodeproj; sourceTree = "<group>"; };
@@ -194,22 +207,24 @@
 			files = (
 				0E4C8BDE225C8BF60095CF59 /* libxgame iOS.a in Frameworks */,
 				0E4C8BDD225C8BEF0095CF59 /* libfairygui iOS.a in Frameworks */,
-				294D0D641D0D56D500F7F5D4 /* CoreText.framework in Frameworks */,
-				ED545A7C1B68A1F400C3958E /* libiconv.dylib in Frameworks */,
-				52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */,
 				1AC6FB30180E99EB004C840B /* libcocos2d iOS.a in Frameworks */,
-				D6B0611B1803AB670077942B /* CoreMotion.framework in Frameworks */,
-				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
-				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
-				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
-				BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */,
+				ED545A7C1B68A1F400C3958E /* libiconv.dylib in Frameworks */,
 				BF1712471292920000B8313A /* libz.dylib in Frameworks */,
+				0E24B3BE226FFC0C000054C9 /* libWXSpeech.a in Frameworks */,
+				0E24B3BD226FFC0C000054C9 /* libWeChatSDK.a in Frameworks */,
+				D44C6210132DFF4E0009C878 /* AudioToolbox.framework in Frameworks */,
+				D44C620E132DFF430009C878 /* AVFoundation.framework in Frameworks */,
+				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
+				52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */,
+				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
+				D6B0611B1803AB670077942B /* CoreMotion.framework in Frameworks */,
+				294D0D641D0D56D500F7F5D4 /* CoreText.framework in Frameworks */,
+				0E4B9340226DE2DC00B22B9F /* GameController.framework in Frameworks */,
 				0E4C8BE0225C8FCA0095CF59 /* MediaPlayer.framework in Frameworks */,
 				BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */,
 				D44C620C132DFF330009C878 /* OpenAL.framework in Frameworks */,
-				D44C620E132DFF430009C878 /* AVFoundation.framework in Frameworks */,
-				0E4B9340226DE2DC00B22B9F /* GameController.framework in Frameworks */,
-				D44C6210132DFF4E0009C878 /* AudioToolbox.framework in Frameworks */,
+				BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */,
+				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,24 +234,57 @@
 			files = (
 				0E4C8BC4225C84B60095CF59 /* libxgame Mac.a in Frameworks */,
 				0E4C8BC3225C84B10095CF59 /* libfairygui Mac.a in Frameworks */,
-				ED545A7E1B68A1FA00C3958E /* libiconv.dylib in Frameworks */,
 				1AC6FB21180E996B004C840B /* libcocos2d Mac.a in Frameworks */,
+				ED545A7E1B68A1FA00C3958E /* libiconv.dylib in Frameworks */,
 				5087E76717EB910900C73F5D /* libz.dylib in Frameworks */,
-				8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */,
+				5087E78917EB974C00C73F5D /* AppKit.framework in Frameworks */,
+				5087E76B17EB910900C73F5D /* AudioToolbox.framework in Frameworks */,
+				5087E76A17EB910900C73F5D /* AVFoundation.framework in Frameworks */,
+				5087E76317EB910900C73F5D /* Foundation.framework in Frameworks */,
 				503AE11B17EB9C5A00D1A890 /* IOKit.framework in Frameworks */,
 				5087E78B17EB975400C73F5D /* OpenGL.framework in Frameworks */,
-				5087E78917EB974C00C73F5D /* AppKit.framework in Frameworks */,
-				5087E76317EB910900C73F5D /* Foundation.framework in Frameworks */,
-				5087E76817EB910900C73F5D /* QuartzCore.framework in Frameworks */,
 				5087E76917EB910900C73F5D /* OpenAL.framework in Frameworks */,
-				5087E76A17EB910900C73F5D /* AVFoundation.framework in Frameworks */,
-				5087E76B17EB910900C73F5D /* AudioToolbox.framework in Frameworks */,
+				5087E76817EB910900C73F5D /* QuartzCore.framework in Frameworks */,
+				8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E24B3B0226FFBBF000054C9 /* Plugins */ = {
+			isa = PBXGroup;
+			children = (
+				0E24B3B1226FFBE3000054C9 /* wechat */,
+			);
+			path = Plugins;
+			sourceTree = "<group>";
+		};
+		0E24B3B1226FFBE3000054C9 /* wechat */ = {
+			isa = PBXGroup;
+			children = (
+				0E24B3B2226FFBF2000054C9 /* ios */,
+			);
+			path = wechat;
+			sourceTree = "<group>";
+		};
+		0E24B3B2226FFBF2000054C9 /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				0E24B3B4226FFC0B000054C9 /* libWeChatSDK.a */,
+				0E24B3B5226FFC0C000054C9 /* libWXSpeech.a */,
+				0E24B3BB226FFC0C000054C9 /* README.txt */,
+				0E24B3B6226FFC0C000054C9 /* WechatAuthSDK.h */,
+				0E24B3B7226FFC0C000054C9 /* WXApi.h */,
+				0E24B3B3226FFC0B000054C9 /* WXApiObject.h */,
+				0E24B3B9226FFC0C000054C9 /* WXSpeechSynthesizer.h */,
+				0E24B3BC226FFC0C000054C9 /* WXVoiceRecognizer.h */,
+				0E24B3B8226FFC0C000054C9 /* WXVoiceSDK.h */,
+				0E24B3BA226FFC0C000054C9 /* WXVoiceTTS.h */,
+			);
+			path = ios;
+			sourceTree = "<group>";
+		};
 		0E4C8B9A225C762D0095CF59 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -304,6 +352,7 @@
 				0E4C8BB3225C82B50095CF59 /* fairygui.xcodeproj */,
 				0E4C8BAA225C82AC0095CF59 /* libxgame.xcodeproj */,
 				0E4C8B9A225C762D0095CF59 /* Resources */,
+				0E24B3B0226FFBBF000054C9 /* Plugins */,
 				46880B8319C43A87006E1F66 /* Classes */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				1AF87B461F6F77D6007BE51C /* ios */,
@@ -522,6 +571,7 @@
 				0E4C8BA0225C76500095CF59 /* res in Resources */,
 				1AF87B891F6F781D007BE51C /* LaunchScreenBackground.jpg in Resources */,
 				1AF87B881F6F781D007BE51C /* LaunchScreen.storyboard in Resources */,
+				0E24B3BF226FFC0C000054C9 /* README.txt in Resources */,
 				0E4C8BBD225C83690095CF59 /* src in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

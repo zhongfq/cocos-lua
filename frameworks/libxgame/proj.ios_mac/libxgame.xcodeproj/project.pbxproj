@@ -580,13 +580,6 @@
 			path = ../src/crypto;
 			sourceTree = "<group>";
 		};
-		0E4B932B226DD58F00B22B9F /* plugins */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = plugins;
-			sourceTree = "<group>";
-		};
 		0E4B934B226E9E8B00B22B9F /* lua-bindings */ = {
 			isa = PBXGroup;
 			children = (
@@ -753,7 +746,6 @@
 				0E4B934B226E9E8B00B22B9F /* lua-bindings */,
 				0E6C9793222ADCEE00B2C17F /* olua */,
 				0ECC4C3821EB8D4500E3BBF9 /* pbc */,
-				0E4B932B226DD58F00B22B9F /* plugins */,
 				0E4C8C2C225CAF490095CF59 /* qrencode */,
 				0E0C702221F9600D00049240 /* xgame */,
 			);

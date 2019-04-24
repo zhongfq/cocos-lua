@@ -25,6 +25,7 @@
 #include "AppDelegate.h"
 
 #include "xgame/xlua.h"
+#include "wechat/lua_wechat.h"
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
 #define BUGLY_APPID "546f1cf279" // d21353e4-26c8-4f94-b646-cf88a225f039
@@ -36,8 +37,9 @@
 
 USING_NS_CC;
 
-static int _open_sdk(lua_State *L)
+static int _open_plugins(lua_State *L)
 {
+    olua_require(L, "kernel.plugins.wechat", luaopen_wechat);
     return 0;
 }
 
@@ -55,7 +57,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     }
     
     xgame::runtime::initBugly(BUGLY_APPID);
-    xgame::runtime::luaOpen(_open_sdk);
+    xgame::runtime::luaOpen(_open_plugins);
     
     return RuntimeContext::applicationDidFinishLaunching();
 }

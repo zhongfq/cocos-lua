@@ -8,10 +8,8 @@
 #include <set>
 #include <vector>
 
-#ifdef OLUA_HANDLESTATUS
-#define olua_handlestatus(L, v, s) OLUA_HANDLESTATUS(L, v, s)
-#else
-#define olua_handlestatus(L, v, s) assert(false && "not define OLUA_HANDLESTATUS")
+#ifndef olua_handlestatus
+#define olua_handlestatus(L, i, n) assert(false && "not define olua_handlestatus")
 #endif
 
 template <typename T> void olua_registerluatype(lua_State *L, const char *cls)

@@ -1221,10 +1221,6 @@
 					"CC_FILEUTILS_APPLE_ENABLE_OBJC=0",
 					STDC_HEADERS,
 					OLUA_DEBUG,
-					"OLUA_HANDLESTATUS=xlua_handlestatus",
-					"OLUA_MAINTHREAD=xlua_cocosthread",
-					"OLUA_STARTCMPUNREF=xlua_startcmpunref",
-					"OLUA_ENDCMPUNREF=xlua_endcmpunref",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1299,10 +1295,6 @@
 					"CC_CONSTRUCTOR_ACCESS=public",
 					"CC_FILEUTILS_APPLE_ENABLE_OBJC=0",
 					STDC_HEADERS,
-					"OLUA_HANDLESTATUS=xlua_handlestatus",
-					"OLUA_MAINTHREAD=xlua_cocosthread",
-					"OLUA_STARTCMPUNREF=xlua_startcmpunref",
-					"OLUA_ENDCMPUNREF=xlua_endcmpunref",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

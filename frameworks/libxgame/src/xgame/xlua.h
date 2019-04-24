@@ -1,6 +1,11 @@
 #ifndef __XLUA_H__
 #define __XLUA_H__
 
+#define olua_mainthread()           xlua_cocosthread()
+#define olua_startcmpunref(L, i, n) xlua_startcmpunref(L, i, n)
+#define olua_endcmpunref(L, i, n)   xlua_endcmpunref(L, i, n)
+#define olua_handlestatus(L, v, s)  xlua_handlestatus(L, v, s)
+
 #include "xgame/xdef.h"
 #include "lua.hpp"
 #include "olua/olua.hpp"
@@ -9,7 +14,6 @@
 
 lua_State *xlua_new();
 
-// #define OLUA_MAINTHREAD=xlua_cocosthread
 lua_State *xlua_cocosthread();
 
 int xlua_errorfunc(lua_State *L);

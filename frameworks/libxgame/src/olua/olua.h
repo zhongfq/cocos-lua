@@ -20,18 +20,16 @@ extern "C" {
     
 #define OLUA_VOIDCLS "void *"
     
-#ifdef OLUA_MAINTHREAD
-#define olua_mainthread() OLUA_MAINTHREAD()
-#else
-#define olua_mainthread() assert(false && "not define OLUA_MAINTHREAD")
+#ifndef olua_mainthread
+#define olua_mainthread() assert(false && "not define olua_mainthread")
 #endif
     
-#ifdef OLUA_STARTCMPUNREF
-#define olua_startcmpunref(L, i, n) (OLUA_STARTCMPUNREF(L, i, n))
-#define olua_endcmpunref(L, i, n)   (OLUA_ENDCMPUNREF(L, i, n))
-#else
-#define olua_startcmpunref(L, i, n) assert(false && "not define OLUA_STARTCMPUNREF")
-#define olua_endcmpunref(L, i, n)   assert(false && "not define OLUA_STARTCMPUNREF")
+#ifndef olua_startcmpunref
+#define olua_startcmpunref(L, i, n) assert(false && "not define olua_startcmpunref")
+#endif
+    
+#ifndef olua_endcmpunref
+#define olua_endcmpunref(L, i, n) assert(false && "not define olua_endcmpunref")
 #endif
     
 #define olua_isfunction(L,n)        (lua_type(L, (n)) == LUA_TFUNCTION)

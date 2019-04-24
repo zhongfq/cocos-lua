@@ -37,10 +37,6 @@ set(CMAKE_MODULE_PATH ${COCOS2DX_ROOT_PATH}/cmake/Modules/)
 add_definitions(-DCC_ENABLE_SCRIPT_BINDING=0)
 add_definitions(-DCC_CONSTRUCTOR_ACCESS=public)
 
-add_definitions(-DOLUA_HANDLESTATUS=xlua_handlestatus)
-add_definitions(-DOLUA_MAINTHREAD=xlua_cocosthread)
-add_definitions(-DOLUA_STARTCMPUNREF=xlua_startcmpunref)
-add_definitions(-DOLUA_ENDCMPUNREF=xlua_endcmpunref)
 add_definitions(-DOLUA_DEBUG) # TODO: RM
 
 include(CocosBuildSet)
@@ -132,11 +128,11 @@ endif()
 
 add_subdirectory(${FRAMEWORK_ROOT_PATH}/libfairygui)
 add_subdirectory(${FRAMEWORK_ROOT_PATH}/libxgame)
+add_subdirectory(${FRAMEWORK_ROOT_PATH}/plugins)
 
-target_link_libraries(${APP_NAME} cocos2d fairygui xgame)
+target_link_libraries(${APP_NAME} cocos2d fairygui xgame plugins)
 target_include_directories(${APP_NAME}
-        PRIVATE ${RUNTIME_SRC_ROOT}/Classes
-        PRIVATE ${COCOS2DX_ROOT_PATH}/cocos/audio/include/
+    PRIVATE ${RUNTIME_SRC_ROOT}/Classes
 )
 
 # mark app resources

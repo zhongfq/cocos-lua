@@ -21,6 +21,8 @@ int xlua_pcall(lua_State *L, int n, int r);
 void xlua_call(lua_State *L, lua_CFunction func);
 int xlua_dofile(lua_State *L, const char *filename);
 
+int xlua_createnonsupport(lua_State *L, const char *name);
+
 int xlua_ref(lua_State *L, int idx);
 int xlua_reffunc(lua_State *L, int idx);
 void xlua_unref(lua_State *L, int ref);

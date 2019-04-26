@@ -29,9 +29,24 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Runtime {
     private static final String TAG = Runtime.class.getSimpleName();
+
+    private static HashMap<String, Boolean> _apis = new HashMap<>();
+
+    @SuppressWarnings("unused")
+    public static void registerFeature(String api, boolean enabled) {
+        _apis.put(api, enabled);
+    }
+
+    @SuppressWarnings({"unused", "ConstantConditions"})
+    public static void pullAllFeatures() {
+        for (Map.Entry<String, Boolean> entry : _apis.entrySet()) {
+            LuaJ.registerFeature(entry.getKey(), entry.getValue());
+        }
+    }
 
     @SuppressWarnings("unused")
     public static String getDeviceInfo() {

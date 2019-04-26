@@ -6,6 +6,7 @@
 #include "lua_cocos2d_ui.h"
 #include "lua_spine.h"
 #include "lua_fairygui.h"
+#include "lua_xml_http_request.h"
 #include "xgame/xruntime.h"
 #include "xgame/xlua.h"
 #include "cjson/lua_cjson.h"
@@ -25,6 +26,7 @@ int luaopen_bindings(lua_State *L)
     xlua_call(L, luaopen_spine);
     xlua_call(L, luaopen_fairygui);
     xlua_call(L, luaopen_xgame);
+    xlua_call(L, luaopen_xml_http_request);
     
     olua_require(L, "kernel.crypto.protobuf.c", luaopen_protobuf_c);
     olua_require(L, "kernel.crypto.md5" , luaopen_md5);

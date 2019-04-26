@@ -1,3 +1,5 @@
+
+
 #include "lua_javabridge.h"
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
@@ -299,6 +301,14 @@ JNIEXPORT void JNICALL Java_kernel_android_LuaJ_unref
 
     lua_State *L = olua_mainthread();
     xlua_unref(L, func);
+}
+
+JNIEXPORT void JNICALL Java_kernel_android_LuaJ_registerFeature
+        (JNIEnv *env, jclass cls, jstring japi, jboolean enabled) {
+    CC_UNUSED_PARAM(env);
+    CC_UNUSED_PARAM(cls);
+    std::string api = cocos2d::JniHelper::jstring2string(japi);
+    xgame::runtime::registerFeature(api, (bool)enabled);
 }
 }
 

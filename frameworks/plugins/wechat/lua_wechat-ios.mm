@@ -50,7 +50,7 @@ static NSString *objectToString(NSObject *obj)
             [dict setValue:authResp.lang forKey:@"lang"];
             [dict setValue:authResp.country forKey:@"country"];
             message = objectToString(dict);
-            event = @"authorize";
+            event = @"auth";
         } else if ([resp isKindOfClass:[SendMessageToWXResp class]]) {
             event = @"share";
             NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
@@ -58,7 +58,8 @@ static NSString *objectToString(NSObject *obj)
             message = objectToString(dict);
         }
         
-        if (event != nil) {
+        if (event != nil && _callback != nullptr) {
+            _callback([event UTF8String], [message UTF8String]);
         }
     }
 }
@@ -255,7 +256,7 @@ int luaopen_wechat(lua_State *L)
     oluacls_setfunc(L, "auth", _authorize);
     oluacls_setfunc(L, "share", _share);
     
-    xgame::runtime::registerFeature("kernel.plugins.wechat.ios", true);
+    xgame::runtime::registerFeature("wechat.ios", true);
     
     WeChatConnector *connector = [[WeChatConnector alloc] init];
     olua_push_obj(L, (void *)CFBridgingRetain(connector), CLASS_CONNECTOR);

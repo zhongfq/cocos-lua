@@ -1,6 +1,8 @@
 #ifndef __XRUNTIME_PRIVATE_H__
 #define __XRUNTIME_PRIVATE_H__
 
+#include "platform/CCPlatformConfig.h"
+
 #include <string>
 
 const std::string __runtime_getPackageName();
@@ -12,5 +14,9 @@ const std::string __runtime_getNativeStackTrace();
 const std::string __runtime_getLanguage();
 void __runtime_openURL(const std::string &uri, const std::function<void (bool)> callback);
 bool __runtime_canOpenURL(const std::string &uri);
+
+#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+void __runtime_pullAllFeatures();
+#endif
 
 #endif

@@ -101,6 +101,7 @@ void runtime::init()
 #endif
     
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+    __runtime_pullAllFeatures();
     runtime::setLogPath(filesystem::getDirectory("external.cache") + "/console.log");
     runtime::getPackageName();
     runtime::getDeviceInfo();
@@ -425,14 +426,11 @@ unsigned int runtime::getNumSamples()
 //
 // feature
 //
-bool runtime::support(const std::string &api)
-{
+bool runtime::support(const std::string &api) {
     auto itor = _supportedFeatures.find(api);
-    
     if (itor == _supportedFeatures.end()) {
         itor = _supportedFeatures.find(api + "." + runtime::getOS());
     }
-    
     return itor != _supportedFeatures.end() && itor->second;
 }
 
@@ -456,6 +454,9 @@ void runtime::initBugly(const char* appid)
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     runtime::log("init bugly: appid=%s", appid);
     CrashReport::initCrashReport(appid, false, CrashReport::CRLogLevel::Verbose);
+#ifdef COCOS2D_DEBUG
+    runtime::disableReport();
+#endif
 #endif
 }
 

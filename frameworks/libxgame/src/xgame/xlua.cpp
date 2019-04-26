@@ -353,6 +353,41 @@ int xlua_dofile(lua_State *L, const char *filename)
     return status;
 }
 
+static int _nonsupport_func(lua_State *L)
+{
+    lua_settop(L, 0);
+    lua_pushvalue(L, lua_upvalueindex(1));
+    lua_pushvalue(L, lua_upvalueindex(2));
+    lua_getfield(L, 1, "__name");
+    xgame::runtime::log("function '%s.%s' not supported",
+        lua_tostring(L, -1), lua_tostring(L, 2));
+    return 0;
+}
+
+static int _nonsupport_index(lua_State *L)
+{
+    lua_pushvalue(L, 1);
+    lua_pushvalue(L, 2);
+    lua_pushcclosure(L, _nonsupport_func, 2);
+    return 1;
+}
+
+int xlua_createnonsupport(lua_State *L, const char *name)
+{
+    lua_newtable(L);
+    lua_pushstring(L, name);
+    lua_setfield(L, -2, "__name");
+    
+    lua_pushvalue(L, -1);
+    lua_pushcclosure(L, _nonsupport_index, 1);
+    lua_setfield(L, -2, "__index");
+    
+    lua_pushvalue(L, -1);
+    lua_setmetatable(L, -2);
+    
+    return 1;
+}
+
 static void xlua_getmappingtable(lua_State *L)
 {
     if (lua_rawgetp(L, LUA_REGISTRYINDEX, XLUA_REF_TABLE) == LUA_TNIL) {

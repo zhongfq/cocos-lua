@@ -91,4 +91,9 @@ const std::string __runtime_getLanguage()
     return "zh-CN";
 }
 
+void __runtime_pullAllFeatures()
+{
+    JniHelper::callStaticVoidMethod(JAVA_RUNTIME_CLASS, "pullAllFeatures");
+}
+
 #endif

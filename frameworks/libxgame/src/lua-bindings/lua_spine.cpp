@@ -390,29 +390,29 @@ static int _spTrackEntry_get_totalAlpha(lua_State *L)
 static int luaopen_spTrackEntry(lua_State *L)
 {
     oluacls_class(L, "sp.TrackEntry", nullptr);
-    oluacls_property(L, "animation", _spTrackEntry_get_animation, nullptr);
-    oluacls_property(L, "next", _spTrackEntry_get_next, nullptr);
-    oluacls_property(L, "mixingFrom", _spTrackEntry_get_mixingFrom, nullptr);
-    oluacls_property(L, "trackIndex", _spTrackEntry_get_trackIndex, nullptr);
-    oluacls_property(L, "loop", _spTrackEntry_get_loop, nullptr);
-    oluacls_property(L, "eventThreshold", _spTrackEntry_get_eventThreshold, nullptr);
-    oluacls_property(L, "attachmentThreshold", _spTrackEntry_get_attachmentThreshold, nullptr);
-    oluacls_property(L, "drawOrderThreshold", _spTrackEntry_get_drawOrderThreshold, nullptr);
-    oluacls_property(L, "animationStart", _spTrackEntry_get_animationStart, nullptr);
-    oluacls_property(L, "animationEnd", _spTrackEntry_get_animationEnd, nullptr);
-    oluacls_property(L, "animationLast", _spTrackEntry_get_animationLast, nullptr);
-    oluacls_property(L, "nextAnimationLast", _spTrackEntry_get_nextAnimationLast, nullptr);
-    oluacls_property(L, "delay", _spTrackEntry_get_delay, nullptr);
-    oluacls_property(L, "trackTime", _spTrackEntry_get_trackTime, nullptr);
-    oluacls_property(L, "trackLast", _spTrackEntry_get_trackLast, nullptr);
-    oluacls_property(L, "nextTrackLast", _spTrackEntry_get_nextTrackLast, nullptr);
-    oluacls_property(L, "trackEnd", _spTrackEntry_get_trackEnd, nullptr);
-    oluacls_property(L, "timeScale", _spTrackEntry_get_timeScale, nullptr);
-    oluacls_property(L, "alpha", _spTrackEntry_get_alpha, nullptr);
-    oluacls_property(L, "mixTime", _spTrackEntry_get_mixTime, nullptr);
-    oluacls_property(L, "mixDuration", _spTrackEntry_get_mixDuration, nullptr);
-    oluacls_property(L, "interruptAlpha", _spTrackEntry_get_interruptAlpha, nullptr);
-    oluacls_property(L, "totalAlpha", _spTrackEntry_get_totalAlpha, nullptr);
+    oluacls_prop(L, "animation", _spTrackEntry_get_animation, nullptr);
+    oluacls_prop(L, "next", _spTrackEntry_get_next, nullptr);
+    oluacls_prop(L, "mixingFrom", _spTrackEntry_get_mixingFrom, nullptr);
+    oluacls_prop(L, "trackIndex", _spTrackEntry_get_trackIndex, nullptr);
+    oluacls_prop(L, "loop", _spTrackEntry_get_loop, nullptr);
+    oluacls_prop(L, "eventThreshold", _spTrackEntry_get_eventThreshold, nullptr);
+    oluacls_prop(L, "attachmentThreshold", _spTrackEntry_get_attachmentThreshold, nullptr);
+    oluacls_prop(L, "drawOrderThreshold", _spTrackEntry_get_drawOrderThreshold, nullptr);
+    oluacls_prop(L, "animationStart", _spTrackEntry_get_animationStart, nullptr);
+    oluacls_prop(L, "animationEnd", _spTrackEntry_get_animationEnd, nullptr);
+    oluacls_prop(L, "animationLast", _spTrackEntry_get_animationLast, nullptr);
+    oluacls_prop(L, "nextAnimationLast", _spTrackEntry_get_nextAnimationLast, nullptr);
+    oluacls_prop(L, "delay", _spTrackEntry_get_delay, nullptr);
+    oluacls_prop(L, "trackTime", _spTrackEntry_get_trackTime, nullptr);
+    oluacls_prop(L, "trackLast", _spTrackEntry_get_trackLast, nullptr);
+    oluacls_prop(L, "nextTrackLast", _spTrackEntry_get_nextTrackLast, nullptr);
+    oluacls_prop(L, "trackEnd", _spTrackEntry_get_trackEnd, nullptr);
+    oluacls_prop(L, "timeScale", _spTrackEntry_get_timeScale, nullptr);
+    oluacls_prop(L, "alpha", _spTrackEntry_get_alpha, nullptr);
+    oluacls_prop(L, "mixTime", _spTrackEntry_get_mixTime, nullptr);
+    oluacls_prop(L, "mixDuration", _spTrackEntry_get_mixDuration, nullptr);
+    oluacls_prop(L, "interruptAlpha", _spTrackEntry_get_interruptAlpha, nullptr);
+    oluacls_prop(L, "totalAlpha", _spTrackEntry_get_totalAlpha, nullptr);
 
     olua_registerluatype<spTrackEntry>(L, "sp.TrackEntry");
     oluacls_createclassproxy(L);
@@ -463,8 +463,8 @@ static int _spAnimation_get_duration(lua_State *L)
 static int luaopen_spAnimation(lua_State *L)
 {
     oluacls_class(L, "sp.Animation", nullptr);
-    oluacls_property(L, "name", _spAnimation_get_name, nullptr);
-    oluacls_property(L, "duration", _spAnimation_get_duration, nullptr);
+    oluacls_prop(L, "name", _spAnimation_get_name, nullptr);
+    oluacls_prop(L, "duration", _spAnimation_get_duration, nullptr);
 
     olua_registerluatype<spAnimation>(L, "sp.Animation");
     oluacls_createclassproxy(L);
@@ -560,11 +560,11 @@ static int _spEvent_get_stringValue(lua_State *L)
 static int luaopen_spEvent(lua_State *L)
 {
     oluacls_class(L, "sp.Event", nullptr);
-    oluacls_property(L, "data", _spEvent_get_data, nullptr);
-    oluacls_property(L, "time", _spEvent_get_time, nullptr);
-    oluacls_property(L, "intValue", _spEvent_get_intValue, nullptr);
-    oluacls_property(L, "floatValue", _spEvent_get_floatValue, nullptr);
-    oluacls_property(L, "stringValue", _spEvent_get_stringValue, nullptr);
+    oluacls_prop(L, "data", _spEvent_get_data, nullptr);
+    oluacls_prop(L, "time", _spEvent_get_time, nullptr);
+    oluacls_prop(L, "intValue", _spEvent_get_intValue, nullptr);
+    oluacls_prop(L, "floatValue", _spEvent_get_floatValue, nullptr);
+    oluacls_prop(L, "stringValue", _spEvent_get_stringValue, nullptr);
 
     olua_registerluatype<spEvent>(L, "sp.Event");
     oluacls_createclassproxy(L);
@@ -635,10 +635,10 @@ static int _spEventData_get_stringValue(lua_State *L)
 static int luaopen_spEventData(lua_State *L)
 {
     oluacls_class(L, "sp.EventData", nullptr);
-    oluacls_property(L, "name", _spEventData_get_name, nullptr);
-    oluacls_property(L, "intValue", _spEventData_get_intValue, nullptr);
-    oluacls_property(L, "floatValue", _spEventData_get_floatValue, nullptr);
-    oluacls_property(L, "stringValue", _spEventData_get_stringValue, nullptr);
+    oluacls_prop(L, "name", _spEventData_get_name, nullptr);
+    oluacls_prop(L, "intValue", _spEventData_get_intValue, nullptr);
+    oluacls_prop(L, "floatValue", _spEventData_get_floatValue, nullptr);
+    oluacls_prop(L, "stringValue", _spEventData_get_stringValue, nullptr);
 
     olua_registerluatype<spEventData>(L, "sp.EventData");
     oluacls_createclassproxy(L);
@@ -719,8 +719,8 @@ static int _spAttachment_get_type(lua_State *L)
 static int luaopen_spAttachment(lua_State *L)
 {
     oluacls_class(L, "sp.Attachment", nullptr);
-    oluacls_property(L, "name", _spAttachment_get_name, nullptr);
-    oluacls_property(L, "type", _spAttachment_get_type, nullptr);
+    oluacls_prop(L, "name", _spAttachment_get_name, nullptr);
+    oluacls_prop(L, "type", _spAttachment_get_type, nullptr);
 
     olua_registerluatype<spAttachment>(L, "sp.Attachment");
     oluacls_createclassproxy(L);
@@ -1292,33 +1292,33 @@ static int _spine_SkeletonRenderer_getBlendFunc(lua_State *L)
 static int luaopen_spine_SkeletonRenderer(lua_State *L)
 {
     oluacls_class(L, "sp.SkeletonRenderer", "cc.Node");
-    oluacls_setfunc(L, "create", _spine_SkeletonRenderer_create);
-    oluacls_setfunc(L, "createWithData", _spine_SkeletonRenderer_createWithData);
-    oluacls_setfunc(L, "createWithFile", _spine_SkeletonRenderer_createWithFile);
-    oluacls_setfunc(L, "drawDebug", _spine_SkeletonRenderer_drawDebug);
-    oluacls_setfunc(L, "getSkeleton", _spine_SkeletonRenderer_getSkeleton);
-    oluacls_setfunc(L, "setTimeScale", _spine_SkeletonRenderer_setTimeScale);
-    oluacls_setfunc(L, "getTimeScale", _spine_SkeletonRenderer_getTimeScale);
-    oluacls_setfunc(L, "setDebugSlotsEnabled", _spine_SkeletonRenderer_setDebugSlotsEnabled);
-    oluacls_setfunc(L, "getDebugSlotsEnabled", _spine_SkeletonRenderer_getDebugSlotsEnabled);
-    oluacls_setfunc(L, "setDebugBonesEnabled", _spine_SkeletonRenderer_setDebugBonesEnabled);
-    oluacls_setfunc(L, "getDebugBonesEnabled", _spine_SkeletonRenderer_getDebugBonesEnabled);
-    oluacls_setfunc(L, "setDebugMeshesEnabled", _spine_SkeletonRenderer_setDebugMeshesEnabled);
-    oluacls_setfunc(L, "getDebugMeshesEnabled", _spine_SkeletonRenderer_getDebugMeshesEnabled);
-    oluacls_setfunc(L, "updateWorldTransform", _spine_SkeletonRenderer_updateWorldTransform);
-    oluacls_setfunc(L, "setToSetupPose", _spine_SkeletonRenderer_setToSetupPose);
-    oluacls_setfunc(L, "setBonesToSetupPose", _spine_SkeletonRenderer_setBonesToSetupPose);
-    oluacls_setfunc(L, "setSlotsToSetupPose", _spine_SkeletonRenderer_setSlotsToSetupPose);
-    oluacls_setfunc(L, "findBone", _spine_SkeletonRenderer_findBone);
-    oluacls_setfunc(L, "findSlot", _spine_SkeletonRenderer_findSlot);
-    oluacls_setfunc(L, "setSkin", _spine_SkeletonRenderer_setSkin);
-    oluacls_setfunc(L, "getAttachment", _spine_SkeletonRenderer_getAttachment);
-    oluacls_setfunc(L, "setAttachment", _spine_SkeletonRenderer_setAttachment);
-    oluacls_setfunc(L, "setTwoColorTint", _spine_SkeletonRenderer_setTwoColorTint);
-    oluacls_setfunc(L, "isTwoColorTint", _spine_SkeletonRenderer_isTwoColorTint);
-    oluacls_setfunc(L, "setVertexEffect", _spine_SkeletonRenderer_setVertexEffect);
-    oluacls_setfunc(L, "setBlendFunc", _spine_SkeletonRenderer_setBlendFunc);
-    oluacls_setfunc(L, "getBlendFunc", _spine_SkeletonRenderer_getBlendFunc);
+    oluacls_func(L, "create", _spine_SkeletonRenderer_create);
+    oluacls_func(L, "createWithData", _spine_SkeletonRenderer_createWithData);
+    oluacls_func(L, "createWithFile", _spine_SkeletonRenderer_createWithFile);
+    oluacls_func(L, "drawDebug", _spine_SkeletonRenderer_drawDebug);
+    oluacls_func(L, "getSkeleton", _spine_SkeletonRenderer_getSkeleton);
+    oluacls_func(L, "setTimeScale", _spine_SkeletonRenderer_setTimeScale);
+    oluacls_func(L, "getTimeScale", _spine_SkeletonRenderer_getTimeScale);
+    oluacls_func(L, "setDebugSlotsEnabled", _spine_SkeletonRenderer_setDebugSlotsEnabled);
+    oluacls_func(L, "getDebugSlotsEnabled", _spine_SkeletonRenderer_getDebugSlotsEnabled);
+    oluacls_func(L, "setDebugBonesEnabled", _spine_SkeletonRenderer_setDebugBonesEnabled);
+    oluacls_func(L, "getDebugBonesEnabled", _spine_SkeletonRenderer_getDebugBonesEnabled);
+    oluacls_func(L, "setDebugMeshesEnabled", _spine_SkeletonRenderer_setDebugMeshesEnabled);
+    oluacls_func(L, "getDebugMeshesEnabled", _spine_SkeletonRenderer_getDebugMeshesEnabled);
+    oluacls_func(L, "updateWorldTransform", _spine_SkeletonRenderer_updateWorldTransform);
+    oluacls_func(L, "setToSetupPose", _spine_SkeletonRenderer_setToSetupPose);
+    oluacls_func(L, "setBonesToSetupPose", _spine_SkeletonRenderer_setBonesToSetupPose);
+    oluacls_func(L, "setSlotsToSetupPose", _spine_SkeletonRenderer_setSlotsToSetupPose);
+    oluacls_func(L, "findBone", _spine_SkeletonRenderer_findBone);
+    oluacls_func(L, "findSlot", _spine_SkeletonRenderer_findSlot);
+    oluacls_func(L, "setSkin", _spine_SkeletonRenderer_setSkin);
+    oluacls_func(L, "getAttachment", _spine_SkeletonRenderer_getAttachment);
+    oluacls_func(L, "setAttachment", _spine_SkeletonRenderer_setAttachment);
+    oluacls_func(L, "setTwoColorTint", _spine_SkeletonRenderer_setTwoColorTint);
+    oluacls_func(L, "isTwoColorTint", _spine_SkeletonRenderer_isTwoColorTint);
+    oluacls_func(L, "setVertexEffect", _spine_SkeletonRenderer_setVertexEffect);
+    oluacls_func(L, "setBlendFunc", _spine_SkeletonRenderer_setBlendFunc);
+    oluacls_func(L, "getBlendFunc", _spine_SkeletonRenderer_getBlendFunc);
 
     olua_registerluatype<spine::SkeletonRenderer>(L, "sp.SkeletonRenderer");
     oluacls_createclassproxy(L);
@@ -2175,37 +2175,37 @@ static int _spine_SkeletonAnimation_setTrackEventListener(lua_State *L)
 static int luaopen_spine_SkeletonAnimation(lua_State *L)
 {
     oluacls_class(L, "sp.SkeletonAnimation", "sp.SkeletonRenderer");
-    oluacls_setfunc(L, "createWithData", _spine_SkeletonAnimation_createWithData);
-    oluacls_setfunc(L, "createWithJsonFile", _spine_SkeletonAnimation_createWithJsonFile);
-    oluacls_setfunc(L, "createWithBinaryFile", _spine_SkeletonAnimation_createWithBinaryFile);
-    oluacls_setfunc(L, "setAnimationStateData", _spine_SkeletonAnimation_setAnimationStateData);
-    oluacls_setfunc(L, "setMix", _spine_SkeletonAnimation_setMix);
-    oluacls_setfunc(L, "setAnimation", _spine_SkeletonAnimation_setAnimation);
-    oluacls_setfunc(L, "addAnimation", _spine_SkeletonAnimation_addAnimation);
-    oluacls_setfunc(L, "setEmptyAnimation", _spine_SkeletonAnimation_setEmptyAnimation);
-    oluacls_setfunc(L, "setEmptyAnimations", _spine_SkeletonAnimation_setEmptyAnimations);
-    oluacls_setfunc(L, "addEmptyAnimation", _spine_SkeletonAnimation_addEmptyAnimation);
-    oluacls_setfunc(L, "findAnimation", _spine_SkeletonAnimation_findAnimation);
-    oluacls_setfunc(L, "getCurrent", _spine_SkeletonAnimation_getCurrent);
-    oluacls_setfunc(L, "clearTracks", _spine_SkeletonAnimation_clearTracks);
-    oluacls_setfunc(L, "clearTrack", _spine_SkeletonAnimation_clearTrack);
-    oluacls_setfunc(L, "onAnimationStateEvent", _spine_SkeletonAnimation_onAnimationStateEvent);
-    oluacls_setfunc(L, "onTrackEntryEvent", _spine_SkeletonAnimation_onTrackEntryEvent);
-    oluacls_setfunc(L, "getState", _spine_SkeletonAnimation_getState);
-    oluacls_setfunc(L, "initialize", _spine_SkeletonAnimation_initialize);
-    oluacls_setfunc(L, "setStartListener", _spine_SkeletonAnimation_setStartListener);
-    oluacls_setfunc(L, "setInterruptListener", _spine_SkeletonAnimation_setInterruptListener);
-    oluacls_setfunc(L, "setEndListener", _spine_SkeletonAnimation_setEndListener);
-    oluacls_setfunc(L, "setDisposeListener", _spine_SkeletonAnimation_setDisposeListener);
-    oluacls_setfunc(L, "setCompleteListener", _spine_SkeletonAnimation_setCompleteListener);
-    oluacls_setfunc(L, "setEventListener", _spine_SkeletonAnimation_setEventListener);
-    oluacls_setfunc(L, "setTrackStartListener", _spine_SkeletonAnimation_setTrackStartListener);
-    oluacls_setfunc(L, "setTrackInterruptListener", _spine_SkeletonAnimation_setTrackInterruptListener);
-    oluacls_setfunc(L, "setTrackEndListener", _spine_SkeletonAnimation_setTrackEndListener);
-    oluacls_setfunc(L, "setTrackDisposeListener", _spine_SkeletonAnimation_setTrackDisposeListener);
-    oluacls_setfunc(L, "setTrackCompleteListener", _spine_SkeletonAnimation_setTrackCompleteListener);
-    oluacls_setfunc(L, "setTrackEventListener", _spine_SkeletonAnimation_setTrackEventListener);
-    oluacls_property(L, "state", _spine_SkeletonAnimation_getState, nullptr);
+    oluacls_func(L, "createWithData", _spine_SkeletonAnimation_createWithData);
+    oluacls_func(L, "createWithJsonFile", _spine_SkeletonAnimation_createWithJsonFile);
+    oluacls_func(L, "createWithBinaryFile", _spine_SkeletonAnimation_createWithBinaryFile);
+    oluacls_func(L, "setAnimationStateData", _spine_SkeletonAnimation_setAnimationStateData);
+    oluacls_func(L, "setMix", _spine_SkeletonAnimation_setMix);
+    oluacls_func(L, "setAnimation", _spine_SkeletonAnimation_setAnimation);
+    oluacls_func(L, "addAnimation", _spine_SkeletonAnimation_addAnimation);
+    oluacls_func(L, "setEmptyAnimation", _spine_SkeletonAnimation_setEmptyAnimation);
+    oluacls_func(L, "setEmptyAnimations", _spine_SkeletonAnimation_setEmptyAnimations);
+    oluacls_func(L, "addEmptyAnimation", _spine_SkeletonAnimation_addEmptyAnimation);
+    oluacls_func(L, "findAnimation", _spine_SkeletonAnimation_findAnimation);
+    oluacls_func(L, "getCurrent", _spine_SkeletonAnimation_getCurrent);
+    oluacls_func(L, "clearTracks", _spine_SkeletonAnimation_clearTracks);
+    oluacls_func(L, "clearTrack", _spine_SkeletonAnimation_clearTrack);
+    oluacls_func(L, "onAnimationStateEvent", _spine_SkeletonAnimation_onAnimationStateEvent);
+    oluacls_func(L, "onTrackEntryEvent", _spine_SkeletonAnimation_onTrackEntryEvent);
+    oluacls_func(L, "getState", _spine_SkeletonAnimation_getState);
+    oluacls_func(L, "initialize", _spine_SkeletonAnimation_initialize);
+    oluacls_func(L, "setStartListener", _spine_SkeletonAnimation_setStartListener);
+    oluacls_func(L, "setInterruptListener", _spine_SkeletonAnimation_setInterruptListener);
+    oluacls_func(L, "setEndListener", _spine_SkeletonAnimation_setEndListener);
+    oluacls_func(L, "setDisposeListener", _spine_SkeletonAnimation_setDisposeListener);
+    oluacls_func(L, "setCompleteListener", _spine_SkeletonAnimation_setCompleteListener);
+    oluacls_func(L, "setEventListener", _spine_SkeletonAnimation_setEventListener);
+    oluacls_func(L, "setTrackStartListener", _spine_SkeletonAnimation_setTrackStartListener);
+    oluacls_func(L, "setTrackInterruptListener", _spine_SkeletonAnimation_setTrackInterruptListener);
+    oluacls_func(L, "setTrackEndListener", _spine_SkeletonAnimation_setTrackEndListener);
+    oluacls_func(L, "setTrackDisposeListener", _spine_SkeletonAnimation_setTrackDisposeListener);
+    oluacls_func(L, "setTrackCompleteListener", _spine_SkeletonAnimation_setTrackCompleteListener);
+    oluacls_func(L, "setTrackEventListener", _spine_SkeletonAnimation_setTrackEventListener);
+    oluacls_prop(L, "state", _spine_SkeletonAnimation_getState, nullptr);
 
     olua_registerluatype<spine::SkeletonAnimation>(L, "sp.SkeletonAnimation");
     oluacls_createclassproxy(L);

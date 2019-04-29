@@ -248,13 +248,13 @@ static int _share(lua_State *L)
 int luaopen_wechat(lua_State *L)
 {
     oluacls_class(L, CLASS_CONNECTOR, nullptr);
-    oluacls_setfunc(L, "__gc", _gc);
-    oluacls_setfunc(L, "init", _init);
-    oluacls_setfunc(L, "handleOpenURL", _handle_open_url);
-    oluacls_setfunc(L, "isInstalled", _is_installed);
-    oluacls_setfunc(L, "setDispatcher", _set_callback);
-    oluacls_setfunc(L, "auth", _authorize);
-    oluacls_setfunc(L, "share", _share);
+    oluacls_func(L, "__gc", _gc);
+    oluacls_func(L, "init", _init);
+    oluacls_func(L, "handleOpenURL", _handle_open_url);
+    oluacls_func(L, "isInstalled", _is_installed);
+    oluacls_func(L, "setDispatcher", _set_callback);
+    oluacls_func(L, "auth", _authorize);
+    oluacls_func(L, "share", _share);
     
     xgame::runtime::registerFeature("wechat.ios", true);
     

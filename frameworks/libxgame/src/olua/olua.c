@@ -892,13 +892,13 @@ static void aux_setfunc(lua_State *L, const char *t, const char *field, lua_CFun
     }
 }
 
-LUALIB_API void oluacls_property(lua_State *L, const char *field, lua_CFunction getter, lua_CFunction setter)
+LUALIB_API void oluacls_prop(lua_State *L, const char *field, lua_CFunction getter, lua_CFunction setter)
 {
     aux_setfunc(L, CLS_GET, field, getter);
     aux_setfunc(L, CLS_SET, field, setter);
 }
 
-LUALIB_API void oluacls_setfunc(lua_State *L, const char *name, lua_CFunction func)
+LUALIB_API void oluacls_func(lua_State *L, const char *name, lua_CFunction func)
 {
     aux_setfunc(L, CLS_FUNC, name, func);
     if (func && ismetafunc(L, 0, name)) {

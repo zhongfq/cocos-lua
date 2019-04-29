@@ -283,20 +283,20 @@ static int _init_params(lua_State *L)
 int luaopen_lame(lua_State *L)
 {
     oluacls_class(L, LUA_LAMEHANDLE, nullptr);
-    oluacls_setfunc(L, "__gc", _gc);
-    oluacls_setfunc(L, "start", _start);
-    oluacls_setfunc(L, "stop", _stop);
-    oluacls_setfunc(L, "cancel", _cancel);
-    oluacls_setfunc(L, "init", _init);
-    oluacls_setfunc(L, "new", _init);
-    oluacls_setfunc(L, "init_params", _init_params);
-    oluacls_property(L, "in_samplerate", _get_in_samplerate, _set_in_samplerate);
-    oluacls_property(L, "num_channels", _get_num_channels, _set_num_channels);
-    oluacls_property(L, "mode", _get_mode, _set_mode);
-    oluacls_property(L, "quality", _get_quality, _set_quality);
-    oluacls_property(L, "brate", _get_brate, _set_brate);
-    oluacls_property(L, "vbr", _get_VBR, _set_VBR);
-    oluacls_property(L, "vbr_mean_bitrate_kbps", _get_VBR_mean_bitrate_kbps, _set_VBR_mean_bitrate_kbps);
+    oluacls_func(L, "__gc", _gc);
+    oluacls_func(L, "start", _start);
+    oluacls_func(L, "stop", _stop);
+    oluacls_func(L, "cancel", _cancel);
+    oluacls_func(L, "init", _init);
+    oluacls_func(L, "new", _init);
+    oluacls_func(L, "init_params", _init_params);
+    oluacls_prop(L, "in_samplerate", _get_in_samplerate, _set_in_samplerate);
+    oluacls_prop(L, "num_channels", _get_num_channels, _set_num_channels);
+    oluacls_prop(L, "mode", _get_mode, _set_mode);
+    oluacls_prop(L, "quality", _get_quality, _set_quality);
+    oluacls_prop(L, "brate", _get_brate, _set_brate);
+    oluacls_prop(L, "vbr", _get_VBR, _set_VBR);
+    oluacls_prop(L, "vbr_mean_bitrate_kbps", _get_VBR_mean_bitrate_kbps, _set_VBR_mean_bitrate_kbps);
     
     oluacls_createclassproxy(L);
     

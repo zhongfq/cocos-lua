@@ -217,24 +217,24 @@ static int _cocos2d_XMLHttpRequest_getResponseText(lua_State *L)
 static int luaopen_cocos2d_XMLHttpRequest(lua_State *L)
 {
     oluacls_class(L, "cc.XMLHttpRequest", "cc.Ref");
-    oluacls_setfunc(L, "new", _cocos2d_XMLHttpRequest_new);
-    oluacls_setfunc(L, "open", _cocos2d_XMLHttpRequest_open);
-    oluacls_setfunc(L, "setRequestHeader", _cocos2d_XMLHttpRequest_setRequestHeader);
-    oluacls_setfunc(L, "send", _cocos2d_XMLHttpRequest_send);
-    oluacls_setfunc(L, "abort", _cocos2d_XMLHttpRequest_abort);
-    oluacls_setfunc(L, "getResponseHeader", _cocos2d_XMLHttpRequest_getResponseHeader);
-    oluacls_setfunc(L, "getAllResponseHeaders", _cocos2d_XMLHttpRequest_getAllResponseHeaders);
-    oluacls_setfunc(L, "setResponseCallback", _cocos2d_XMLHttpRequest_setResponseCallback);
-    oluacls_property(L, "aborted", _cocos2d_XMLHttpRequest_isAborted, nullptr);
-    oluacls_property(L, "readyState", _cocos2d_XMLHttpRequest_getReadyState, nullptr);
-    oluacls_property(L, "timeout", _cocos2d_XMLHttpRequest_getTimeout, _cocos2d_XMLHttpRequest_setTimeout);
-    oluacls_property(L, "withCredentials", _cocos2d_XMLHttpRequest_getWithCredentials, _cocos2d_XMLHttpRequest_setWithCredentials);
-    oluacls_property(L, "responseURL", _cocos2d_XMLHttpRequest_getResponseURL, nullptr);
-    oluacls_property(L, "responseType", _cocos2d_XMLHttpRequest_getResponseType, _cocos2d_XMLHttpRequest_setResponseType);
-    oluacls_property(L, "status", _cocos2d_XMLHttpRequest_getStatus, nullptr);
-    oluacls_property(L, "statusText", _cocos2d_XMLHttpRequest_getStatusText, nullptr);
-    oluacls_property(L, "response", _cocos2d_XMLHttpRequest_getResponse, nullptr);
-    oluacls_property(L, "responseText", _cocos2d_XMLHttpRequest_getResponseText, nullptr);
+    oluacls_func(L, "new", _cocos2d_XMLHttpRequest_new);
+    oluacls_func(L, "open", _cocos2d_XMLHttpRequest_open);
+    oluacls_func(L, "setRequestHeader", _cocos2d_XMLHttpRequest_setRequestHeader);
+    oluacls_func(L, "send", _cocos2d_XMLHttpRequest_send);
+    oluacls_func(L, "abort", _cocos2d_XMLHttpRequest_abort);
+    oluacls_func(L, "getResponseHeader", _cocos2d_XMLHttpRequest_getResponseHeader);
+    oluacls_func(L, "getAllResponseHeaders", _cocos2d_XMLHttpRequest_getAllResponseHeaders);
+    oluacls_func(L, "setResponseCallback", _cocos2d_XMLHttpRequest_setResponseCallback);
+    oluacls_prop(L, "aborted", _cocos2d_XMLHttpRequest_isAborted, nullptr);
+    oluacls_prop(L, "readyState", _cocos2d_XMLHttpRequest_getReadyState, nullptr);
+    oluacls_prop(L, "timeout", _cocos2d_XMLHttpRequest_getTimeout, _cocos2d_XMLHttpRequest_setTimeout);
+    oluacls_prop(L, "withCredentials", _cocos2d_XMLHttpRequest_getWithCredentials, _cocos2d_XMLHttpRequest_setWithCredentials);
+    oluacls_prop(L, "responseURL", _cocos2d_XMLHttpRequest_getResponseURL, nullptr);
+    oluacls_prop(L, "responseType", _cocos2d_XMLHttpRequest_getResponseType, _cocos2d_XMLHttpRequest_setResponseType);
+    oluacls_prop(L, "status", _cocos2d_XMLHttpRequest_getStatus, nullptr);
+    oluacls_prop(L, "statusText", _cocos2d_XMLHttpRequest_getStatusText, nullptr);
+    oluacls_prop(L, "response", _cocos2d_XMLHttpRequest_getResponse, nullptr);
+    oluacls_prop(L, "responseText", _cocos2d_XMLHttpRequest_getResponseText, nullptr);
     
     olua_registerluatype<cocos2d::XMLHttpRequest>(L, "cc.XMLHttpRequest");
     oluacls_createclassproxy(L);

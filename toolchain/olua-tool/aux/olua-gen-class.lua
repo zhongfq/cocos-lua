@@ -56,7 +56,7 @@ local function gen_class_open(cls, write)
         local CPPFUNC = fis[1].CPPFUNC
         local LUAFUNC = fis[1].LUAFUNC
         FUNCS[#FUNCS + 1] = format_snippet([[
-            oluacls_setfunc(L, "${LUAFUNC}", _${CPPCLS_PATH}_${CPPFUNC});
+            oluacls_func(L, "${LUAFUNC}", _${CPPCLS_PATH}_${CPPFUNC});
         ]])
     end
 
@@ -71,7 +71,7 @@ local function gen_class_open(cls, write)
             FUNC_SET = string.format("_%s_%s", CPPCLS_PATH, pi.SET.CPPFUNC)
         end
         FUNCS[#FUNCS + 1] = format_snippet([[
-            oluacls_property(L, "${PROP_NAME}", ${FUNC_GET}, ${FUNC_SET});
+            oluacls_prop(L, "${PROP_NAME}", ${FUNC_GET}, ${FUNC_SET});
         ]])
     end
 
@@ -83,7 +83,7 @@ local function gen_class_open(cls, write)
            FUNC_SET = string.format("_%s_%s", CPPCLS_PATH, vi.SET.CPPFUNC)
         end
         FUNCS[#FUNCS + 1] = format_snippet([[
-            oluacls_property(L, "${VARNAME}", ${FUNC_GET}, ${FUNC_SET});
+            oluacls_prop(L, "${VARNAME}", ${FUNC_GET}, ${FUNC_SET});
         ]])
     end
 

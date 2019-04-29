@@ -302,37 +302,37 @@ static int _xgame_runtime_openURL(lua_State *L)
 static int luaopen_xgame_runtime(lua_State *L)
 {
     oluacls_class(L, "kernel.runtime", nullptr);
-    oluacls_setfunc(L, "clearStorage", _xgame_runtime_clearStorage);
-    oluacls_setfunc(L, "launch", _xgame_runtime_launch);
-    oluacls_setfunc(L, "restart", _xgame_runtime_restart);
-    oluacls_setfunc(L, "isRestarting", _xgame_runtime_isRestarting);
-    oluacls_setfunc(L, "setAntialias", _xgame_runtime_setAntialias);
-    oluacls_setfunc(L, "isAntialias", _xgame_runtime_isAntialias);
-    oluacls_setfunc(L, "getNumSamples", _xgame_runtime_getNumSamples);
-    oluacls_setfunc(L, "canOpenURL", _xgame_runtime_canOpenURL);
-    oluacls_setfunc(L, "support", _xgame_runtime_support);
-    oluacls_setfunc(L, "printSupport", _xgame_runtime_printSupport);
-    oluacls_setfunc(L, "disableReport", _xgame_runtime_disableReport);
-    oluacls_setfunc(L, "getPackageName", _xgame_runtime_getPackageName);
-    oluacls_setfunc(L, "getVersion", _xgame_runtime_getVersion);
-    oluacls_setfunc(L, "getVersionBuild", _xgame_runtime_getVersionBuild);
-    oluacls_setfunc(L, "getChannel", _xgame_runtime_getChannel);
-    oluacls_setfunc(L, "getOS", _xgame_runtime_getOS);
-    oluacls_setfunc(L, "getDeviceInfo", _xgame_runtime_getDeviceInfo);
-    oluacls_setfunc(L, "getLanguage", _xgame_runtime_getLanguage);
-    oluacls_setfunc(L, "getLogPath", _xgame_runtime_getLogPath);
-    oluacls_setfunc(L, "setLogPath", _xgame_runtime_setLogPath);
-    oluacls_setfunc(L, "testCrash", _xgame_runtime_testCrash);
-    oluacls_setfunc(L, "setDispatcher", _xgame_runtime_setDispatcher);
-    oluacls_setfunc(L, "openURL", _xgame_runtime_openURL);
-    oluacls_property(L, "packageName", _xgame_runtime_getPackageName, nullptr);
-    oluacls_property(L, "version", _xgame_runtime_getVersion, nullptr);
-    oluacls_property(L, "versionBuild", _xgame_runtime_getVersionBuild, nullptr);
-    oluacls_property(L, "channel", _xgame_runtime_getChannel, nullptr);
-    oluacls_property(L, "os", _xgame_runtime_getOS, nullptr);
-    oluacls_property(L, "deviceInfo", _xgame_runtime_getDeviceInfo, nullptr);
-    oluacls_property(L, "language", _xgame_runtime_getLanguage, nullptr);
-    oluacls_property(L, "logPath", _xgame_runtime_getLogPath, _xgame_runtime_setLogPath);
+    oluacls_func(L, "clearStorage", _xgame_runtime_clearStorage);
+    oluacls_func(L, "launch", _xgame_runtime_launch);
+    oluacls_func(L, "restart", _xgame_runtime_restart);
+    oluacls_func(L, "isRestarting", _xgame_runtime_isRestarting);
+    oluacls_func(L, "setAntialias", _xgame_runtime_setAntialias);
+    oluacls_func(L, "isAntialias", _xgame_runtime_isAntialias);
+    oluacls_func(L, "getNumSamples", _xgame_runtime_getNumSamples);
+    oluacls_func(L, "canOpenURL", _xgame_runtime_canOpenURL);
+    oluacls_func(L, "support", _xgame_runtime_support);
+    oluacls_func(L, "printSupport", _xgame_runtime_printSupport);
+    oluacls_func(L, "disableReport", _xgame_runtime_disableReport);
+    oluacls_func(L, "getPackageName", _xgame_runtime_getPackageName);
+    oluacls_func(L, "getVersion", _xgame_runtime_getVersion);
+    oluacls_func(L, "getVersionBuild", _xgame_runtime_getVersionBuild);
+    oluacls_func(L, "getChannel", _xgame_runtime_getChannel);
+    oluacls_func(L, "getOS", _xgame_runtime_getOS);
+    oluacls_func(L, "getDeviceInfo", _xgame_runtime_getDeviceInfo);
+    oluacls_func(L, "getLanguage", _xgame_runtime_getLanguage);
+    oluacls_func(L, "getLogPath", _xgame_runtime_getLogPath);
+    oluacls_func(L, "setLogPath", _xgame_runtime_setLogPath);
+    oluacls_func(L, "testCrash", _xgame_runtime_testCrash);
+    oluacls_func(L, "setDispatcher", _xgame_runtime_setDispatcher);
+    oluacls_func(L, "openURL", _xgame_runtime_openURL);
+    oluacls_prop(L, "packageName", _xgame_runtime_getPackageName, nullptr);
+    oluacls_prop(L, "version", _xgame_runtime_getVersion, nullptr);
+    oluacls_prop(L, "versionBuild", _xgame_runtime_getVersionBuild, nullptr);
+    oluacls_prop(L, "channel", _xgame_runtime_getChannel, nullptr);
+    oluacls_prop(L, "os", _xgame_runtime_getOS, nullptr);
+    oluacls_prop(L, "deviceInfo", _xgame_runtime_getDeviceInfo, nullptr);
+    oluacls_prop(L, "language", _xgame_runtime_getLanguage, nullptr);
+    oluacls_prop(L, "logPath", _xgame_runtime_getLogPath, _xgame_runtime_setLogPath);
 
     olua_registerluatype<xgame::runtime>(L, "kernel.runtime");
     oluacls_createclassproxy(L);
@@ -577,27 +577,27 @@ static int _xgame_filesystem_getSDCardDirectory(lua_State *L)
 static int luaopen_xgame_filesystem(lua_State *L)
 {
     oluacls_class(L, "kernel.filesystem", nullptr);
-    oluacls_setfunc(L, "shortPath", _xgame_filesystem_shortPath);
-    oluacls_setfunc(L, "createDirectory", _xgame_filesystem_createDirectory);
-    oluacls_setfunc(L, "remove", _xgame_filesystem_remove);
-    oluacls_setfunc(L, "exist", _xgame_filesystem_exist);
-    oluacls_setfunc(L, "isFile", _xgame_filesystem_isFile);
-    oluacls_setfunc(L, "isDirectory", _xgame_filesystem_isDirectory);
-    oluacls_setfunc(L, "rename", _xgame_filesystem_rename);
-    oluacls_setfunc(L, "copy", _xgame_filesystem_copy);
-    oluacls_setfunc(L, "write", _xgame_filesystem_write);
-    oluacls_setfunc(L, "read", _xgame_filesystem_read);
-    oluacls_setfunc(L, "unzip", _xgame_filesystem_unzip);
-    oluacls_setfunc(L, "getWritablePath", _xgame_filesystem_getWritablePath);
-    oluacls_setfunc(L, "getCacheDirectory", _xgame_filesystem_getCacheDirectory);
-    oluacls_setfunc(L, "getDocumentDirectory", _xgame_filesystem_getDocumentDirectory);
-    oluacls_setfunc(L, "getTmpDirectory", _xgame_filesystem_getTmpDirectory);
-    oluacls_setfunc(L, "getSDCardDirectory", _xgame_filesystem_getSDCardDirectory);
-    oluacls_property(L, "writablePath", _xgame_filesystem_getWritablePath, nullptr);
-    oluacls_property(L, "cacheDirectory", _xgame_filesystem_getCacheDirectory, nullptr);
-    oluacls_property(L, "documentDirectory", _xgame_filesystem_getDocumentDirectory, nullptr);
-    oluacls_property(L, "tmpDirectory", _xgame_filesystem_getTmpDirectory, nullptr);
-    oluacls_property(L, "sdCardDirectory", _xgame_filesystem_getSDCardDirectory, nullptr);
+    oluacls_func(L, "shortPath", _xgame_filesystem_shortPath);
+    oluacls_func(L, "createDirectory", _xgame_filesystem_createDirectory);
+    oluacls_func(L, "remove", _xgame_filesystem_remove);
+    oluacls_func(L, "exist", _xgame_filesystem_exist);
+    oluacls_func(L, "isFile", _xgame_filesystem_isFile);
+    oluacls_func(L, "isDirectory", _xgame_filesystem_isDirectory);
+    oluacls_func(L, "rename", _xgame_filesystem_rename);
+    oluacls_func(L, "copy", _xgame_filesystem_copy);
+    oluacls_func(L, "write", _xgame_filesystem_write);
+    oluacls_func(L, "read", _xgame_filesystem_read);
+    oluacls_func(L, "unzip", _xgame_filesystem_unzip);
+    oluacls_func(L, "getWritablePath", _xgame_filesystem_getWritablePath);
+    oluacls_func(L, "getCacheDirectory", _xgame_filesystem_getCacheDirectory);
+    oluacls_func(L, "getDocumentDirectory", _xgame_filesystem_getDocumentDirectory);
+    oluacls_func(L, "getTmpDirectory", _xgame_filesystem_getTmpDirectory);
+    oluacls_func(L, "getSDCardDirectory", _xgame_filesystem_getSDCardDirectory);
+    oluacls_prop(L, "writablePath", _xgame_filesystem_getWritablePath, nullptr);
+    oluacls_prop(L, "cacheDirectory", _xgame_filesystem_getCacheDirectory, nullptr);
+    oluacls_prop(L, "documentDirectory", _xgame_filesystem_getDocumentDirectory, nullptr);
+    oluacls_prop(L, "tmpDirectory", _xgame_filesystem_getTmpDirectory, nullptr);
+    oluacls_prop(L, "sdCardDirectory", _xgame_filesystem_getSDCardDirectory, nullptr);
 
     olua_registerluatype<xgame::filesystem>(L, "kernel.filesystem");
     oluacls_createclassproxy(L);
@@ -797,18 +797,18 @@ static int _xgame_preferences_flush(lua_State *L)
 static int luaopen_xgame_preferences(lua_State *L)
 {
     oluacls_class(L, "kernel.preferences", nullptr);
-    oluacls_setfunc(L, "getBoolean", _xgame_preferences_getBoolean);
-    oluacls_setfunc(L, "setBoolean", _xgame_preferences_setBoolean);
-    oluacls_setfunc(L, "getFloat", _xgame_preferences_getFloat);
-    oluacls_setfunc(L, "setFloat", _xgame_preferences_setFloat);
-    oluacls_setfunc(L, "getDouble", _xgame_preferences_getDouble);
-    oluacls_setfunc(L, "setDouble", _xgame_preferences_setDouble);
-    oluacls_setfunc(L, "getInteger", _xgame_preferences_getInteger);
-    oluacls_setfunc(L, "setInteger", _xgame_preferences_setInteger);
-    oluacls_setfunc(L, "getString", _xgame_preferences_getString);
-    oluacls_setfunc(L, "setString", _xgame_preferences_setString);
-    oluacls_setfunc(L, "deleteKey", _xgame_preferences_deleteKey);
-    oluacls_setfunc(L, "flush", _xgame_preferences_flush);
+    oluacls_func(L, "getBoolean", _xgame_preferences_getBoolean);
+    oluacls_func(L, "setBoolean", _xgame_preferences_setBoolean);
+    oluacls_func(L, "getFloat", _xgame_preferences_getFloat);
+    oluacls_func(L, "setFloat", _xgame_preferences_setFloat);
+    oluacls_func(L, "getDouble", _xgame_preferences_getDouble);
+    oluacls_func(L, "setDouble", _xgame_preferences_setDouble);
+    oluacls_func(L, "getInteger", _xgame_preferences_getInteger);
+    oluacls_func(L, "setInteger", _xgame_preferences_setInteger);
+    oluacls_func(L, "getString", _xgame_preferences_getString);
+    oluacls_func(L, "setString", _xgame_preferences_setString);
+    oluacls_func(L, "deleteKey", _xgame_preferences_deleteKey);
+    oluacls_func(L, "flush", _xgame_preferences_flush);
 
     olua_registerluatype<xgame::preferences>(L, "kernel.preferences");
     oluacls_createclassproxy(L);
@@ -914,11 +914,11 @@ static int _xgame_timer_unschedule(lua_State *L)
 static int luaopen_xgame_timer(lua_State *L)
 {
     oluacls_class(L, "kernel.timer", nullptr);
-    oluacls_setfunc(L, "killDelay", _xgame_timer_killDelay);
-    oluacls_setfunc(L, "delay", _xgame_timer_delay);
-    oluacls_setfunc(L, "delayWithTag", _xgame_timer_delayWithTag);
-    oluacls_setfunc(L, "schedule", _xgame_timer_schedule);
-    oluacls_setfunc(L, "unschedule", _xgame_timer_unschedule);
+    oluacls_func(L, "killDelay", _xgame_timer_killDelay);
+    oluacls_func(L, "delay", _xgame_timer_delay);
+    oluacls_func(L, "delayWithTag", _xgame_timer_delayWithTag);
+    oluacls_func(L, "schedule", _xgame_timer_schedule);
+    oluacls_func(L, "unschedule", _xgame_timer_unschedule);
 
     olua_registerluatype<xgame::timer>(L, "kernel.timer");
     oluacls_createclassproxy(L);
@@ -1001,10 +1001,10 @@ static int _xgame_window_convertToCameraSpace(lua_State *L)
 static int luaopen_xgame_window(lua_State *L)
 {
     oluacls_class(L, "kernel.window", nullptr);
-    oluacls_setfunc(L, "visibleBounds", _xgame_window_visibleBounds);
-    oluacls_setfunc(L, "getDesignSize", _xgame_window_getDesignSize);
-    oluacls_setfunc(L, "setDesignSize", _xgame_window_setDesignSize);
-    oluacls_setfunc(L, "convertToCameraSpace", _xgame_window_convertToCameraSpace);
+    oluacls_func(L, "visibleBounds", _xgame_window_visibleBounds);
+    oluacls_func(L, "getDesignSize", _xgame_window_getDesignSize);
+    oluacls_func(L, "setDesignSize", _xgame_window_setDesignSize);
+    oluacls_func(L, "convertToCameraSpace", _xgame_window_convertToCameraSpace);
 
     oluacls_createclassproxy(L);
 
@@ -1046,8 +1046,8 @@ static int _xgame_downloader_setDispatcher(lua_State *L)
 static int luaopen_xgame_downloader(lua_State *L)
 {
     oluacls_class(L, "kernel.downloader", nullptr);
-    oluacls_setfunc(L, "load", _xgame_downloader_load);
-    oluacls_setfunc(L, "setDispatcher", _xgame_downloader_setDispatcher);
+    oluacls_func(L, "load", _xgame_downloader_load);
+    oluacls_func(L, "setDispatcher", _xgame_downloader_setDispatcher);
 
     olua_registerluatype<xgame::downloader>(L, "kernel.downloader");
     oluacls_createclassproxy(L);

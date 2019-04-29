@@ -128,7 +128,7 @@ int _qrsprite_create(lua_State *L)
 int luaopen_qrsprite(lua_State *L)
 {
     oluacls_class(L, "QRSprite*", "cc.Sprite");
-    oluacls_setfunc(L, "create", _qrsprite_create);
+    oluacls_func(L, "create", _qrsprite_create);
     
     olua_registerluatype<QRSprite>(L, "QRSprite*");
     oluacls_createclassproxy(L);

@@ -1,8 +1,7 @@
-
-
 #include "lua_javabridge.h"
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+#include "platform/android/jni/JniHelper.h"
 #include "base/ccUTF8.h"
 #include "xgame/xruntime.h"
 
@@ -10,63 +9,48 @@
 
 using namespace cocos2d;
 
-#define TYPE_VOID     0
-#define TYPE_BOOL     1
-#define TYPE_STRING   2
-#define TYPE_INT      3
-#define TYPE_LONG     4
-#define TYPE_FLOAT    5
-#define TYPE_DOUBLE   6
+#define TYPE_VOID     'V'
+#define TYPE_BOOL     'Z'
+#define TYPE_STRING   'L'
+#define TYPE_INT      'I'
+#define TYPE_LONG     'J'
+#define TYPE_FLOAT    'F'
+#define TYPE_DOUBLE   'D'
 
 static const char *_token(const char *signature, int *arg_type)
 {
     switch (*signature) {
-        case 'I': {
-            *arg_type = TYPE_INT;
-            return ++signature;
-        }
-        case 'J': {
-            *arg_type = TYPE_LONG;
-            return ++signature;
-        }
-        case 'F': {
-            *arg_type = TYPE_FLOAT;
-            return ++signature;
-        }
-        case 'D': {
-            *arg_type = TYPE_DOUBLE;
-            return ++signature;
-        }
-        case 'Z': {
-            *arg_type = TYPE_BOOL;
-            return ++signature;
-        }
-        case 'V': {
-            *arg_type = TYPE_VOID;
-            return ++signature;
-        }
-        case 'L': {
-            *arg_type = TYPE_STRING;
+        case TYPE_VOID:
+        case TYPE_BOOL:
+        case TYPE_STRING:
+        case TYPE_INT:
+        case TYPE_LONG:
+        case TYPE_FLOAT:
+        case TYPE_DOUBLE: {
+            if (*signature != TYPE_STRING) {
+                *arg_type = *signature;
+                return ++signature;
+            }
+            
             const char *sep = strchr(signature, ';');
-            if (sep == NULL)
-                return NULL;
-            
-            if (strnequal("Ljava/lang/String;", signature, sep - signature + 1))
+            if (sep && strnequal("Ljava/lang/String;", signature, sep - signature + 1)) {
+                *arg_type = *signature;
                 return ++sep;
-            
-            return NULL;
+            }
+            break;
         }
-        default:
-            return NULL;
     }
+    
+    return NULL;
 }
 
 static int _parse(const char *signature, int *ret_type, int **arg_types)
 {
     int count = 0;
     
-    if (signature == NULL || *signature++ != '(')
+    if (signature == NULL || *signature++ != '(') {
         return -1;
+    }
     
     int capacity = 0;
     int *types = NULL;
@@ -81,7 +65,7 @@ static int _parse(const char *signature, int *ret_type, int **arg_types)
         }
         
         if (count >= capacity) {
-            capacity = capacity == 0 ?  4 : 2 * capacity;
+            capacity = capacity == 0 ?  16 : 2 * capacity;
             types = (int *)realloc(types, sizeof(int) * capacity);
         }
         
@@ -104,7 +88,7 @@ static int _parse(const char *signature, int *ret_type, int **arg_types)
     return count;
 }
 
-int luaj_invoke(lua_State *L)
+static int luaj_invoke(lua_State *L)
 {
     lua_checkstack(L, 3);
 
@@ -129,8 +113,7 @@ int luaj_invoke(lua_State *L)
     lua_settop(L, 3 + count);
 
     jvalue *args = NULL;
-    if (count > 0)
-    {
+    if (count > 0) {
         args = (jvalue *)malloc(sizeof(jvalue) * count);
         for (int i = 0; i < count; i++) {
             switch (arg_types[i]) {
@@ -311,5 +294,10 @@ JNIEXPORT void JNICALL Java_kernel_android_LuaJ_registerFeature
     xgame::runtime::registerFeature(api, (bool)enabled);
 }
 }
-
+#else
+int luaopen_javabridge(lua_State *L)
+{
+    xlua_createnonsupport(L, olua_checkstring(L, 1));
+    return 1;
+}
 #endif

@@ -43,8 +43,7 @@ int luaopen_bindings(lua_State *L)
     olua_require(L, "kernel.plugins.bugly", luaopen_bugly);
 #endif
     
-#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
     olua_preload(L, "kernel.luaj", luaopen_javabridge);
-#endif
+
     return 0;
 }

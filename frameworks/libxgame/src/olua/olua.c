@@ -263,6 +263,8 @@ LUALIB_API void olua_callgc(lua_State *L, int idx, bool isarrary)
             lua_pushnil(L);
             lua_rawsetp(L, -2, obj);
         }
+        
+        *(void **)lua_touserdata(L, idx) = NULL;
     }
     lua_settop(L, top);
 }
@@ -438,10 +440,14 @@ LUALIB_API int olua_getvariable(lua_State *L, int idx)
 {
     int type = LUA_TNIL;
     olua_assert(olua_isuserdata(L, idx));
-    auxgetusertable(L, idx);        // L: k uv
-    lua_insert(L, -2);              // L: uv k
-    type = lua_rawget(L, -2);       // L: uv v
-    lua_remove(L, -2);              // L: v
+    if (lua_getuservalue(L, idx) == LUA_TTABLE) {   // L: k uv
+        lua_insert(L, -2);                          // L: uv k
+        type = lua_rawget(L, -2);                   // L: uv v
+        lua_remove(L, -2);                          // L: v
+    } else {
+        lua_pop(L, 2);                              // L:
+        lua_pushnil(L);                             // L: nilp
+    }
     return type;
 }
 

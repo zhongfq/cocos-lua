@@ -23,6 +23,8 @@ class FileFinder : public cocos2d::FileUtilsWin32 {
 public:
     FileFinder();
     virtual ~FileFinder();
+    
+    virtual std::string fullPathForFilename(const std::string &filename) const override;
 };
 
 NS_XGAME_END

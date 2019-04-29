@@ -121,20 +121,6 @@
 			remoteGlobalIDString = 0E25A68C2117479A006B88E1;
 			remoteInfo = "libxgame iOS";
 		};
-		0E730CAC2276ADCB0067866B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0E730CA72276ADCB0067866B /* libswf.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 0ED452F72265C6BD00415006;
-			remoteInfo = "libswf iOS";
-		};
-		0E730CAE2276ADCB0067866B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0E730CA72276ADCB0067866B /* libswf.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 0ED453072265C71100415006;
-			remoteInfo = "libswf Mac";
-		};
 		1AC6FAF8180E9839004C840B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */;
@@ -188,7 +174,6 @@
 		0E730C7F2272B4900067866B /* lua_wechat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = lua_wechat.cpp; path = ../../plugins/wechat/lua_wechat.cpp; sourceTree = "<group>"; };
 		0E730C802272B4900067866B /* lua_wechat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lua_wechat.h; path = ../../plugins/wechat/lua_wechat.h; sourceTree = "<group>"; };
 		0E730C812272B4900067866B /* lua_wechat-ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "lua_wechat-ios.mm"; path = "../../plugins/wechat/lua_wechat-ios.mm"; sourceTree = "<group>"; };
-		0E730CA72276ADCB0067866B /* libswf.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libswf.xcodeproj; path = ../../libswf/proj.ios_mac/libswf.xcodeproj; sourceTree = "<group>"; };
 		1A88B2631FC3D9C9005C14AE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = "../../cocos2d-x/build/cocos2d_libs.xcodeproj"; sourceTree = "<group>"; };
 		1ACB3243164770DE00914215 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = ../../cocos2dx/platform/third_party/ios/libraries/libcurl.a; sourceTree = "<group>"; };
@@ -346,15 +331,6 @@
 			name = ios;
 			sourceTree = "<group>";
 		};
-		0E730CA82276ADCB0067866B /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				0E730CAD2276ADCB0067866B /* libswf iOS.a */,
-				0E730CAF2276ADCB0067866B /* libswf Mac.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -391,7 +367,6 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				0E730CA72276ADCB0067866B /* libswf.xcodeproj */,
 				1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */,
 				0E4C8BB3225C82B50095CF59 /* fairygui.xcodeproj */,
 				0E4C8BAA225C82AC0095CF59 /* libxgame.xcodeproj */,
@@ -552,10 +527,6 @@
 					ProjectRef = 0E4C8BB3225C82B50095CF59 /* fairygui.xcodeproj */;
 				},
 				{
-					ProductGroup = 0E730CA82276ADCB0067866B /* Products */;
-					ProjectRef = 0E730CA72276ADCB0067866B /* libswf.xcodeproj */;
-				},
-				{
 					ProductGroup = 0E4C8BAB225C82AC0095CF59 /* Products */;
 					ProjectRef = 0E4C8BAA225C82AC0095CF59 /* libxgame.xcodeproj */;
 				},
@@ -595,20 +566,6 @@
 			fileType = archive.ar;
 			path = "libfairygui Mac.a";
 			remoteRef = 0E4C8BBA225C82B50095CF59 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		0E730CAD2276ADCB0067866B /* libswf iOS.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libswf iOS.a";
-			remoteRef = 0E730CAC2276ADCB0067866B /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		0E730CAF2276ADCB0067866B /* libswf Mac.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.dylib";
-			path = "libswf Mac.a";
-			remoteRef = 0E730CAE2276ADCB0067866B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		1AC6FAF9180E9839004C840B /* libcocos2d Mac.a */ = {

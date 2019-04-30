@@ -4,7 +4,7 @@ cls.LUACLS = "sp.SkeletonRenderer"
 cls.SUPERCLS = "cc.Node"
 cls.funcs [[
     static SkeletonRenderer* create()
-    static SkeletonRenderer* createWithData (spSkeletonData* skeletonData, bool ownsSkeletonData = false)
+    static SkeletonRenderer* createWithData (@ref(single skeletonData) spSkeletonData* skeletonData, bool ownsSkeletonData = false)
     static SkeletonRenderer* createWithFile (const std::string& skeletonDataFile, spAtlas* atlas, float scale = 1)
     static SkeletonRenderer* createWithFile (const std::string& skeletonDataFile, const std::string& atlasFile, float scale = 1)
     void drawDebug (cocos2d::Renderer* renderer, const cocos2d::Mat4& transform, uint32_t transformFlags)

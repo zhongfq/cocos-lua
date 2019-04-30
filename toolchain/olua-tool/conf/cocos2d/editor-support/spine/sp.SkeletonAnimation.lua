@@ -5,7 +5,7 @@ cls.CPPCLS = "spine::SkeletonAnimation"
 cls.LUACLS = "sp.SkeletonAnimation"
 cls.SUPERCLS = "sp.SkeletonRenderer"
 cls.funcs [[
-    static SkeletonAnimation* createWithData (spSkeletonData* skeletonData, bool ownsSkeletonData = false)
+    static SkeletonAnimation* createWithData (@ref(single skeletonData) spSkeletonData* skeletonData, bool ownsSkeletonData = false)
     static SkeletonAnimation* createWithJsonFile (const std::string& skeletonJsonFile, spAtlas* atlas, float scale = 1)
     static SkeletonAnimation* createWithJsonFile (const std::string& skeletonJsonFile, const std::string& atlasFile, float scale = 1)
     static SkeletonAnimation* createWithBinaryFile (const std::string& skeletonBinaryFile, spAtlas* atlas, float scale = 1)

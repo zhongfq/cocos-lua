@@ -18,9 +18,10 @@ M.INCLUDES = [[
 ]]
 
 M.CLASSES = {
-    include("conf/cocos2d/editor-support/spine/cc.spine.lua"),
-    include("conf/cocos2d/editor-support/spine/cc.SkeletonRenderer.lua"),
-    include("conf/cocos2d/editor-support/spine/cc.SkeletonAnimation.lua"),
+    include("conf/cocos2d/editor-support/spine/sp.spine.lua"),
+    include("conf/cocos2d/editor-support/spine/sp.SkeletonData.lua"),
+    include("conf/cocos2d/editor-support/spine/sp.SkeletonRenderer.lua"),
+    include("conf/cocos2d/editor-support/spine/sp.SkeletonAnimation.lua"),
 }
 
 return M

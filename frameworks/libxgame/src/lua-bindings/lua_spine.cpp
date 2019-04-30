@@ -420,16 +420,6 @@ static int luaopen_spTrackEntry(lua_State *L)
     return 1;
 }
 
-static int luaopen_spSkeletonData(lua_State *L)
-{
-    oluacls_class(L, "sp.SkeletonData", nullptr);
-
-    olua_registerluatype<spSkeletonData>(L, "sp.SkeletonData");
-    oluacls_createclassproxy(L);
-
-    return 1;
-}
-
 static int _spAnimation_get_name(lua_State *L)
 {
     lua_settop(L, 1);
@@ -748,6 +738,93 @@ static int luaopen_spAnimationStateData(lua_State *L)
     return 1;
 }
 
+static int _spSkeletonData___gc(lua_State *L)
+{
+    if (olua_isa(L, 1, "sp.SkeletonData")) {
+        spSkeletonData *self = olua_touserdata(L, 1, spSkeletonData *);
+        lua_pushstring(L, ".ownership");
+        olua_getvariable(L, 1);
+        if (lua_toboolean(L, -1) && self) {
+            *(void **)lua_touserdata(L, 1) = nullptr;
+
+            lua_pushstring(L, ".skel.loader");
+            olua_getvariable(L, 1);
+            spAttachmentLoader *loader = olua_touserdata(L, -1, spAttachmentLoader *);
+            spAttachmentLoader_dispose(loader);
+
+            lua_pushstring(L, ".skel.atlas");
+            olua_getvariable(L, 1);
+            spAtlas *atlas = olua_touserdata(L, -1, spAtlas *);
+            spAtlas_dispose(atlas);
+
+            spSkeletonData_dispose(self);
+        }
+    }
+    return 0;
+}
+
+static int _spSkeletonData_new(lua_State *L)
+{
+    const char *skel_path = olua_checkstring(L, 1);
+    const char *atlas_path = olua_checkstring(L, 2);
+    float scale = olua_optnumber(L, 3, 1);
+
+    spAtlas* atlas = spAtlas_createFromFile(atlas_path, 0);
+    if (!atlas) {
+        luaL_error(L, "error reading altas file: %s", atlas_path);
+    }
+
+    spSkeletonData *skel_data = nullptr;
+    spAttachmentLoader *loader = (spAttachmentLoader *)Cocos2dAttachmentLoader_create(atlas);
+
+    if (strendwith(skel_path, ".skel")) {
+        spSkeletonBinary *reader = spSkeletonBinary_createWithLoader(loader);
+        reader->scale = scale;
+        skel_data = spSkeletonBinary_readSkeletonDataFile(reader, skel_path);
+        spSkeletonBinary_dispose(reader);
+    } else {
+        spSkeletonJson *reader = spSkeletonJson_createWithLoader(loader);
+        reader->scale = scale;
+        skel_data = spSkeletonJson_readSkeletonDataFile(reader, skel_path);
+        spSkeletonJson_dispose(reader);
+    }
+
+    if (!skel_data) {
+        spAttachmentLoader_dispose(loader);
+        spAtlas_dispose(atlas);
+        luaL_error(L, "error reading skeleton file: %s", skel_path);
+    }
+
+    olua_push_obj(L, skel_data, "sp.SkeletonData");
+
+    lua_pushstring(L, ".ownership");
+    lua_pushboolean(L, true);
+    olua_setvariable(L, -3);
+
+    lua_pushstring(L, ".skel.loader");
+    lua_pushlightuserdata(L, loader);
+    olua_setvariable(L, -3);
+
+    lua_pushstring(L, ".skel.atlas");
+    lua_pushlightuserdata(L, atlas);
+    olua_setvariable(L, -3);
+
+    return 1;
+}
+
+static int luaopen_spSkeletonData(lua_State *L)
+{
+    oluacls_class(L, "sp.SkeletonData", nullptr);
+    oluacls_func(L, "__gc", _spSkeletonData___gc);
+    oluacls_func(L, "dispose", _spSkeletonData___gc);
+    oluacls_func(L, "new", _spSkeletonData_new);
+
+    olua_registerluatype<spSkeletonData>(L, "sp.SkeletonData");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
 static int _spine_SkeletonRenderer_create(lua_State *L)
 {
     lua_settop(L, 0);
@@ -769,9 +846,12 @@ static int _spine_SkeletonRenderer_createWithData(lua_State *L)
     olua_check_obj(L, 1, (void **)&arg1, "sp.SkeletonData");
     olua_opt_bool(L, 2, &arg2, (bool)false);
 
-    // static SkeletonRenderer* createWithData (spSkeletonData* skeletonData, bool ownsSkeletonData = false)
+    // static SkeletonRenderer* createWithData (@ref(single skeletonData) spSkeletonData* skeletonData, bool ownsSkeletonData = false)
     spine::SkeletonRenderer *ret = (spine::SkeletonRenderer *)spine::SkeletonRenderer::createWithData(arg1, arg2);
     int num_ret = olua_push_cppobj<spine::SkeletonRenderer>(L, ret, "sp.SkeletonRenderer");
+
+    // inject code after call
+    olua_singleref(L, -1, "skeletonData", 1);
 
     return num_ret;
 }
@@ -1336,9 +1416,12 @@ static int _spine_SkeletonAnimation_createWithData(lua_State *L)
     olua_check_obj(L, 1, (void **)&arg1, "sp.SkeletonData");
     olua_opt_bool(L, 2, &arg2, (bool)false);
 
-    // static SkeletonAnimation* createWithData (spSkeletonData* skeletonData, bool ownsSkeletonData = false)
+    // static SkeletonAnimation* createWithData (@ref(single skeletonData) spSkeletonData* skeletonData, bool ownsSkeletonData = false)
     spine::SkeletonAnimation *ret = (spine::SkeletonAnimation *)spine::SkeletonAnimation::createWithData(arg1, arg2);
     int num_ret = olua_push_cppobj<spine::SkeletonAnimation>(L, ret, "sp.SkeletonAnimation");
+
+    // inject code after call
+    olua_singleref(L, -1, "skeletonData", 1);
 
     return num_ret;
 }
@@ -2218,7 +2301,6 @@ int luaopen_spine(lua_State *L)
     olua_require(L, "sp.EventType", luaopen_spEventType);
     olua_require(L, "sp.AttachmentType", luaopen_spAttachmentType);
     olua_require(L, "sp.TrackEntry", luaopen_spTrackEntry);
-    olua_require(L, "sp.SkeletonData", luaopen_spSkeletonData);
     olua_require(L, "sp.Animation", luaopen_spAnimation);
     olua_require(L, "sp.Atlas", luaopen_spAtlas);
     olua_require(L, "sp.Event", luaopen_spEvent);
@@ -2230,6 +2312,7 @@ int luaopen_spine(lua_State *L)
     olua_require(L, "sp.Attachment", luaopen_spAttachment);
     olua_require(L, "sp.VertexEffect", luaopen_spVertexEffect);
     olua_require(L, "sp.AnimationStateData", luaopen_spAnimationStateData);
+    olua_require(L, "sp.SkeletonData", luaopen_spSkeletonData);
     olua_require(L, "sp.SkeletonRenderer", luaopen_spine_SkeletonRenderer);
     olua_require(L, "sp.SkeletonAnimation", luaopen_spine_SkeletonAnimation);
     return 0;

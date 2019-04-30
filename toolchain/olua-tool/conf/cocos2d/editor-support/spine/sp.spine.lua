@@ -56,10 +56,6 @@ cls.vars [[
 ]]
 
 local cls = class(M)
-cls.CPPCLS = 'spSkeletonData'
-cls.LUACLS = 'sp.SkeletonData'
-
-local cls = class(M)
 cls.CPPCLS = 'spAnimation'
 cls.LUACLS = 'sp.Animation'
 cls.vars [[

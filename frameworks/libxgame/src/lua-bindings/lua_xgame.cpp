@@ -357,6 +357,21 @@ static int _xgame_filesystem_shortPath(lua_State *L)
     return num_ret;
 }
 
+static int _xgame_filesystem_fullPath(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    std::string arg1;       /** path */
+
+    olua_check_std_string(L, 1, &arg1);
+
+    // static const std::string fullPath(const std::string &path)
+    const std::string ret = (const std::string)xgame::filesystem::fullPath(arg1);
+    int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
 static int _xgame_filesystem_createDirectory(lua_State *L)
 {
     lua_settop(L, 2);
@@ -578,6 +593,7 @@ static int luaopen_xgame_filesystem(lua_State *L)
 {
     oluacls_class(L, "kernel.filesystem", nullptr);
     oluacls_func(L, "shortPath", _xgame_filesystem_shortPath);
+    oluacls_func(L, "fullPath", _xgame_filesystem_fullPath);
     oluacls_func(L, "createDirectory", _xgame_filesystem_createDirectory);
     oluacls_func(L, "remove", _xgame_filesystem_remove);
     oluacls_func(L, "exist", _xgame_filesystem_exist);

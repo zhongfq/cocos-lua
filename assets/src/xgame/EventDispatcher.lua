@@ -90,7 +90,7 @@ end
 function hashlist:insert(key, value, priority)
     local idx = makeindex(key, value)
 
-    if self.entries[idx] then 
+    if self.entries[idx] then
         return
     end
 

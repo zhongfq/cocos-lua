@@ -4,7 +4,7 @@ local XMLHttpRequest    = require "cc.XMLHttpRequest"
 local ResponseType      = require "cc.XMLHttpRequest.ResponseType"
 
 local function createRequest(data)
-    local xhr = cc.XMLHttpRequest.new()
+    local xhr = XMLHttpRequest.new()
     xhr.timeout = data.timeout or 0
 
     if data.headers then
@@ -57,8 +57,8 @@ function M.block(func)
 end
 
 function M.decodeURI(s)
-    s = string.gsub(s, '%%(%x%x)', function(h) 
-        return string.char(tonumber(h, 16)) 
+    s = string.gsub(s, '%%(%x%x)', function(h)
+        return string.char(tonumber(h, 16))
     end)
     s = string.gsub(s, '+', ' ')
     return s
@@ -66,22 +66,22 @@ end
 
 function M.encodeURI(s)
     s = string.gsub(s, ' ', '+')
-    s = string.gsub(s, "([^A-Za-z0-9!#$&'()*+,-./:;=?@_~])", function(c) 
-        return string.format("%%%02X", string.byte(c)) 
+    s = string.gsub(s, "([^A-Za-z0-9!#$&'()*+,-./:;=?@_~])", function(c)
+        return string.format("%%%02X", string.byte(c))
     end)
     return s
 end
 
 function M.encodeURIComponent(s)
-    s = string.gsub(s, "([^A-Za-z0-9!'()*-._~])", function(c) 
-        return string.format("%%%02X", string.byte(c)) 
+    s = string.gsub(s, "([^A-Za-z0-9!'()*-._~])", function(c)
+        return string.format("%%%02X", string.byte(c))
     end)
     return s
 end
 
 function M.decodeURIComponent(s)
-    s = string.gsub(s, '%%(%x%x)', function(h) 
-        return string.char(tonumber(h, 16)) 
+    s = string.gsub(s, '%%(%x%x)', function(h)
+        return string.char(tonumber(h, 16))
     end)
     return s
 end

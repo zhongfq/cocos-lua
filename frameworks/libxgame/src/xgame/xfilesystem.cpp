@@ -68,6 +68,11 @@ const std::string filesystem::shortPath(const std::string &path, size_t limit)
     }
 }
 
+const std::string filesystem::fullPath(const std::string &path)
+{
+    return FileUtils::getInstance()->fullPathForFilename(path);
+}
+
 bool filesystem::createDirectory(const std::string &path, bool isFilePath)
 {
     std::string dir = path;

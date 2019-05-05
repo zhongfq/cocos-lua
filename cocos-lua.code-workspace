@@ -10,7 +10,7 @@
 	"settings": {
 		"luacheck.globals": ["main"],
 		"luacheck.ignore": [
-			"611", "43.", "631"
+			"212", "611", "43.", "631"
 		]
 	},
 	"launch": {

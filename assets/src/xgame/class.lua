@@ -17,7 +17,7 @@ local function class(classname, super)
     local Set = cls.Set
 
     if super then
-        -- copy super method 
+        -- copy super method
         for key, value in pairs(super) do
             if type(value) == "function" and key ~= "ctor" then
                 cls[key] = value

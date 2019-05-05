@@ -1,9 +1,8 @@
 local luaj = require "kernel.luaj"
 
-local M = {}
-
 local cache = {}
 local RET_TYPES = {'V', 'Ljava/lang/String;', 'I', 'Z', 'J', 'F', 'D'}
+local M = {}
 
 local function append(arr, ...)
     local len = select("#", ...)
@@ -15,7 +14,7 @@ local function append(arr, ...)
     else
         local newarr = {}
         for _, sign in ipairs({...}) do
-            for i, v in ipairs(arr) do
+            for _, v in ipairs(arr) do
                 newarr[#newarr + 1] = v .. sign
             end
         end
@@ -44,9 +43,9 @@ function M.invoke(cls, func, ...)
         end
         arr = append(arr, ')')
 
-        for _, argSign in ipairs(arr) do
-            for _, retSign in ipairs(RET_TYPES) do
-                local testSign = argSign .. retSign
+        for _, arg in ipairs(arr) do
+            for _, ret in ipairs(RET_TYPES) do
+                local testSign = arg .. ret
                 if luaj.validate(cls, func, testSign) then
                     signature = testSign
                     cache[cls .. func] = signature

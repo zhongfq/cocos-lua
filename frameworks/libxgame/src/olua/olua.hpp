@@ -1,7 +1,7 @@
 #ifndef __OLUA_HPP__
 #define __OLUA_HPP__
 
-#include "olua/olua.h"
+#include "olua.h"
 
 #include <string>
 #include <functional>

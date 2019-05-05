@@ -1,4 +1,4 @@
-#include "olua/olua.h"
+#include "olua.h"
 
 #define CLS_CLSIDX  (lua_upvalueindex(1))
 #define CLS_ISAIDX  (lua_upvalueindex(2))

@@ -2,7 +2,7 @@ local cls = class()
 cls.CPPCLS = "cocos2d::Scheduler"
 cls.LUACLS = "cc.Scheduler"
 cls.SUPERCLS = "cc.Ref"
-cls.DEFCHUNK = [[
+cls.CHUNK = [[
 template <typename T> bool doScheduleUpdate(lua_State *L, const char *cls)
 {
     if (olua_is_cppobj(L, 2, cls)) {

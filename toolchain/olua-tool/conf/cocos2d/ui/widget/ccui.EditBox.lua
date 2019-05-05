@@ -25,7 +25,7 @@ local cls = class(M)
 cls.CPPCLS = "cocos2d::ui::LuaEditBoxDelegate"
 cls.LUACLS = "ccui.LuaEditBoxDelegate"
 cls.SUPERCLS = "ccui.EditBoxDelegate"
-cls.DEFCHUNK = [[
+cls.CHUNK = [[
 NS_CC_BEGIN
 namespace ui {
     class LuaEditBoxDelegate : public cocos2d::Ref, public EditBoxDelegate {

@@ -1,0 +1,41 @@
+{
+	"folders": [
+		{
+			"path": "assets/src",
+		},
+		{
+			"path": ".",
+		}
+	],
+	"settings": {
+		"luacheck.globals": ["printUserValue", "main"],
+		"luacheck.ignore": [
+			"611"
+		],
+		"files.associations": {
+			"olua.h": "c",
+			"lualib.h": "c",
+			"lauxlib.h": "c",
+			"string.h": "c",
+			"stdlib.h": "c",
+			"lua.h": "c",
+			"assert.h": "c",
+			"stdbool.h": "c"
+		}
+	},
+	"launch": {
+		"configurations": [
+			{
+				"name": "lua",
+				"type": "lua",
+				"request": "launch",
+				"program": "${file}",
+				"stopOnEntry": false,
+				"cwd": "${fileDirname}",
+				"LUA_PATH": "?.lua",
+				"LUA_CPATH": "?.dll"
+			}
+		],
+		"compounds": []
+	}
+}

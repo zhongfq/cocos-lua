@@ -21,7 +21,7 @@ local cls = class(M)
 cls.CPPCLS = "fairygui::UISource"
 cls.LUACLS = "fui.UISource"
 cls.SUPERCLS = "fui.IUISource"
-cls.DEFCHUNK = [[
+cls.CHUNK = [[
 NS_FGUI_BEGIN
 class UISource : public IUISource {
 public:

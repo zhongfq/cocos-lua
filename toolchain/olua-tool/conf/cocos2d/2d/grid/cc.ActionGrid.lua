@@ -23,7 +23,7 @@ local cls = class(M)
 cls.CPPCLS = "cocos2d::TiledGrid3DAction"
 cls.LUACLS = "cc.TiledGrid3DAction"
 cls.SUPERCLS = "cc.GridAction"
-cls.DEFCHUNK = [[
+cls.CHUNK = [[
 NS_CC_BEGIN
 TiledGrid3DAction* TiledGrid3DAction::create(float duration, const Size& gridSize)
 {

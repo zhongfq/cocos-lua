@@ -21,7 +21,7 @@ local cls = class(M)
 cls.CPPCLS = "cocos2d::Image"
 cls.LUACLS = "cc.Image"
 cls.SUPERCLS = "cc.Ref"
-cls.DEFCHUNK = [[
+cls.CHUNK = [[
 NS_CC_BEGIN
 class LuaImage : public cocos2d::Image {
 public:

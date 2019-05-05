@@ -1,7 +1,7 @@
 local cls = class()
 cls.CPPCLS = "fairygui::GTween"
 cls.LUACLS = "fui.GTween"
-cls.DEFCHUNK = [[
+cls.CHUNK = [[
 static int should_unref_tween(lua_State *L)
 {
     if (olua_isa(L, -2, "fui.GTweener")) {

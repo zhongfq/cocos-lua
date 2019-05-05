@@ -2,7 +2,7 @@ local cls = class(M)
 cls.CPPCLS = "fairygui::UIEventDispatcher"
 cls.LUACLS = "fui.UIEventDispatcher"
 cls.SUPERCLS = "cc.Ref"
-cls.DEFCHUNK = [[
+cls.CHUNK = [[
 static std::string makeListenerTag(lua_State *L, lua_Integer type, int tagidx)
 {
     char buf[64];

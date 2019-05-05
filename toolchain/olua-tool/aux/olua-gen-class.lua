@@ -145,8 +145,8 @@ local function gen_class_open(cls, write)
 end
 
 local function gen_class_decl_val(cls, write)
-    if cls.DEFCHUNK then
-        write(format_snippet(cls.DEFCHUNK))
+    if cls.CHUNK then
+        write(format_snippet(cls.CHUNK))
         write('')
     end
 end

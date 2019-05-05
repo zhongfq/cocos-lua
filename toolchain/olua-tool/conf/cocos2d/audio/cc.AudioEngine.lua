@@ -22,7 +22,7 @@ cls.enums [[
 local cls = class(M)
 cls.CPPCLS = "cocos2d::experimental::AudioEngine"
 cls.LUACLS = "cc.AudioEngine"
-cls.DEFCHUNK = [[
+cls.CHUNK = [[
 NS_CC_BEGIN
 class LuaAudioEngine : public cocos2d::experimental::AudioEngine
 {

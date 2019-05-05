@@ -2,7 +2,7 @@ local cls = class()
 cls.CPPCLS = "cocos2d::EventDispatcher"
 cls.LUACLS = "cc.EventDispatcher"
 cls.SUPERCLS = "cc.Ref"
-cls.DEFCHUNK = [[
+cls.CHUNK = [[
 static void doRemoveEventListenersForTarget(lua_State *L, cocos2d::Node *target, bool recursive, const char *refname)
 {
     if (olua_getobj(L, target)) {

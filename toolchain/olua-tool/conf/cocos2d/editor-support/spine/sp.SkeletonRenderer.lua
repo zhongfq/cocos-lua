@@ -35,4 +35,14 @@ cls.funcs [[
     const cocos2d::BlendFunc& getBlendFunc ()
 ]]
 
+cls.props [[
+    skeleton
+    timeScale
+    debugSlotsEnabled
+    debugBonesEnabled
+    debugMeshesEnabled
+    twoColorTint
+    blendFunc
+]]
+
 return cls

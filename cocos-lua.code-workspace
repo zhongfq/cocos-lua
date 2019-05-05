@@ -8,20 +8,10 @@
 		}
 	],
 	"settings": {
-		"luacheck.globals": ["printUserValue", "main"],
+		"luacheck.globals": ["main"],
 		"luacheck.ignore": [
-			"611"
-		],
-		"files.associations": {
-			"olua.h": "c",
-			"lualib.h": "c",
-			"lauxlib.h": "c",
-			"string.h": "c",
-			"stdlib.h": "c",
-			"lua.h": "c",
-			"assert.h": "c",
-			"stdbool.h": "c"
-		}
+			"611", "43.", "631"
+		]
 	},
 	"launch": {
 		"configurations": [

@@ -1399,6 +1399,13 @@ static int luaopen_spine_SkeletonRenderer(lua_State *L)
     oluacls_func(L, "setVertexEffect", _spine_SkeletonRenderer_setVertexEffect);
     oluacls_func(L, "setBlendFunc", _spine_SkeletonRenderer_setBlendFunc);
     oluacls_func(L, "getBlendFunc", _spine_SkeletonRenderer_getBlendFunc);
+    oluacls_prop(L, "skeleton", _spine_SkeletonRenderer_getSkeleton, nullptr);
+    oluacls_prop(L, "timeScale", _spine_SkeletonRenderer_getTimeScale, _spine_SkeletonRenderer_setTimeScale);
+    oluacls_prop(L, "debugSlotsEnabled", _spine_SkeletonRenderer_getDebugSlotsEnabled, _spine_SkeletonRenderer_setDebugSlotsEnabled);
+    oluacls_prop(L, "debugBonesEnabled", _spine_SkeletonRenderer_getDebugBonesEnabled, _spine_SkeletonRenderer_setDebugBonesEnabled);
+    oluacls_prop(L, "debugMeshesEnabled", _spine_SkeletonRenderer_getDebugMeshesEnabled, _spine_SkeletonRenderer_setDebugMeshesEnabled);
+    oluacls_prop(L, "twoColorTint", _spine_SkeletonRenderer_isTwoColorTint, _spine_SkeletonRenderer_setTwoColorTint);
+    oluacls_prop(L, "blendFunc", _spine_SkeletonRenderer_getBlendFunc, _spine_SkeletonRenderer_setBlendFunc);
 
     olua_registerluatype<spine::SkeletonRenderer>(L, "sp.SkeletonRenderer");
     oluacls_createclassproxy(L);

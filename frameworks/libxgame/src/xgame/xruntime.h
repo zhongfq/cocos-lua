@@ -42,7 +42,8 @@ public:
     static bool canOpenURL(const std::string &uri);
     
     // log
-    static void updateLogTimestamp();
+    static const std::string &getTimestamp();
+    static void updateTimestamp();
     static void setLogPath(const std::string &path);
     static const std::string getLogPath();
     static void log(const char *format, ...);

@@ -1,13 +1,15 @@
 local window        = require "kernel.window"
-local util          = require "util"
+local util          = require "xgame.util"
 local Director      = require "cc.Director"
+
+require "xgame.xGame"
 
 window.setDesignSize(1334, 750, 1)
 
 function main()
     -- runTest('test.WebViewTest')
     -- runTest('test.AudioEngineTest')
-    runTest("test.FGUITest")
+    runTest("test.WeChatTest")
     -- runTest("test.GridActionTest")
 end
 
@@ -22,5 +24,5 @@ end
 
 function printUserValue(obj, ...)
     print("uservalue", obj, ...)
-    util.printdump(debug.getuservalue(obj) or {})
+    util.dump(debug.getuservalue(obj) or {})
 end

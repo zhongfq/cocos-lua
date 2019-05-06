@@ -2,14 +2,8 @@ local M = {}
 
 local print = print
 local string = string
-
-function M.time()
-    local sec = os.time() % (3600 * 24)
-    local h = sec // 3600 + 8
-    local m = sec % 3600 // 60
-    local s = sec % 60
-    return h, m, s
-end
+local table = table
+local xpcall = xpcall
 
 function M.getupvalues(func)
     local u = {}
@@ -31,17 +25,21 @@ function M.callee()
     return debug.getinfo(2, "f").func
 end
 
-function M.print(fmt, ...)
-    xpcall(function (...)
-        if DEBUG == nil then
-            local h, m, s = M.time()
-            print(string.format("[%02d:%02d:%02d] " .. fmt, h, m, s, ...))
-        else
-            print(string.format(fmt, ...))
-        end
-    end, function (error)
-        print(debug.traceback(error, 2))
-    end, ...)
+function M.hook(obj, method, callback)
+    local fn = assert(obj[method], method)
+    assert(callback)
+    obj[method] = function (...)
+        fn(...)
+        callback(obj, select(2, ...))
+    end
+end
+
+function M.trace(prefix)
+    return function(fmt, ...)
+        xpcall(function (...)
+            print(string.format("%s " .. fmt, prefix, ...))
+        end, __TRACEBACK__, ...)
+    end
 end
 
 function M.dump(root, ...)

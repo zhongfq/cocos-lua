@@ -8,7 +8,7 @@
 		}
 	],
 	"settings": {
-		"luacheck.globals": ["main", "xGame"],
+		"luacheck.globals": ["main", "xGame", "__TRACEBACK__", "DEBUG"],
 		"luacheck.ignore": [
 			"212", "611", "43.", "631"
 		]

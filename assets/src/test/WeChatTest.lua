@@ -1,15 +1,11 @@
-local _ENV = setmetatable({}, {__index = _ENV})
-
-local runtime       = require "kernel.runtime"
-local timer         = require "kernel.timer"
+local util          = require "xgame.util"
 local Director      = require "cc.Director"
 local Scene         = require "cc.Scene"
-local util          = require "util"
-
 local Layout        = require "ccui.Layout"
-local wechat        = require "kernel.plugins.wechat"
+local wechat        = require "xgame.plugins.wechat"
+local PluginEvent   = require "xgame.plugins.PluginEvent"
 
-function new()
+local function new()
     local scene = Scene.create()
 
     local btn = Layout.create()
@@ -24,22 +20,23 @@ function new()
         print("xxxx click")
         wechat:auth("snsapi_userinfo", "")
     end)
-
-    runtime.setDispatcher(function (event, data)
-        if event == 'openURL' then
-            wechat:handleOpenURL(data)
-        end
-    end)
-
-    -- 3cf49e483cfcba309309dbca90cfb662
-    wechat:init('wx4f5a7db510e75204')
-    wechat:setDispatcher(function (...)
-        print("wechat", ...)
-    end)
-
     scene:addChild(btn)
+
+    wechat:init('wx4f5a7db510e75204', "95dbbdde5aba7e11697ccc8939d161af")
+    wechat:addListener(PluginEvent.AUTH_CANCEL, function ()
+        print("wechat auth cancel")
+    end)
+
+    wechat:addListener(PluginEvent.AUTH_FAILURE, function ()
+        print("wechat auth fail")
+    end)
+
+    wechat:addListener(PluginEvent.AUTH_SUCCESS, function (_, info)
+        print("wechat auth success")
+        util.dump(info)
+    end)
     
     return scene
 end
     
-return _ENV
+return {new = new}

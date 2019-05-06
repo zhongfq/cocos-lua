@@ -30,7 +30,7 @@ static std::string _openURI;
 static std::map<std::string, bool> _supportedFeatures;
 
 static char _logBuf[MAX_LOG_LENGTH];
-static char _logTimestamp[64];
+static std::string _timestamp;
 static FILE *_logFile = NULL;
 static std::mutex _logMutex;
 static std::string _logPath;
@@ -75,7 +75,7 @@ void runtime::init()
     preferences::setString(CONF_VERSION_BUILD, runtime::getVersionBuild().c_str());
     preferences::flush();
     
-    timer::schedule(1, [](float dt){ updateLogTimestamp(); });
+    timer::schedule(1, [](float dt){ updateTimestamp(); });
     
     Texture2D::setDefaultAlphaPixelFormat(Texture2D::PixelFormat::AUTO);
     AudioEngine::lazyInit();
@@ -291,7 +291,7 @@ void runtime::openURL(const std::string &uri, const std::function<void (bool)> c
 void runtime::handleOpenURL(const std::string &uri)
 {
     _openURI = uri;
-    runtime::dispatchEvent("openURL", uri);
+    runtime::dispatchEventImmediately("openURL", uri);
 }
 
 bool runtime::canOpenURL(const std::string &uri)
@@ -302,15 +302,18 @@ bool runtime::canOpenURL(const std::string &uri)
 //
 // log
 //
-void runtime::updateLogTimestamp()
+const std::string &runtime::getTimestamp()
 {
-    // TODO: 获取本地时间
+    return _timestamp;
+}
+
+void runtime::updateTimestamp()
+{
+    static char buf[64];
     time_t t = time(NULL);
-    int sec = t % (3600 * 24);
-    int h = sec / 3600 + 8;
-    int m = sec % 3600 / 60;
-    int s = sec % 60;
-    sprintf(_logTimestamp, "%02d:%02d:%02d", h, m, s);
+    struct tm *stm = localtime(&t);
+    sprintf(buf, "%02d:%02d:%02d", stm->tm_hour, stm->tm_min, stm->tm_sec);
+    _timestamp.assign(buf);
 }
 
 void runtime::setLogPath(const std::string &path)
@@ -354,12 +357,12 @@ void runtime::log(const char *fmt, ...)
     va_list args;
     va_start(args, fmt);
     
-    if (strlen(_logTimestamp) == 0) {
-        updateLogTimestamp();
+    if (_timestamp.size() == 0) {
+        updateTimestamp();
     }
     
     int maxLen = MAX_LOG_LENGTH - 4;
-    int len = sprintf(_logBuf, "[%s] ", _logTimestamp);
+    int len = sprintf(_logBuf, "[%s] ", _timestamp.c_str());
     // cocos2d::log has a bug when log length > MAX_LOG_LEGNTH - 3
     maxLen -= len;
     len = vsnprintf(_logBuf + len, maxLen, fmt, args);

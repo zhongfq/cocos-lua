@@ -25,8 +25,7 @@ const std::string __filesystem_getCacheDirectory()
 const std::string __filesystem_getTmpDirectory()
 {
     std::string str = [NSTemporaryDirectory() UTF8String];
-    if (str[str.size() - 1] == '/')
-    {
+    if (str[str.size() - 1] == '/') {
         return str.substr(0, str.size() - 1);
     }
     return str;

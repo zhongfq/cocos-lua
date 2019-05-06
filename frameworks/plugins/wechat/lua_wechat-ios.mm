@@ -1,20 +1,27 @@
 #import "lua_wechat.h"
 #import "xgame/xruntime.h"
+#import "xgame/xfilesystem.h"
 #import "cocos2d.h"
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
 #import "WXApi.h"
+#import "WechatAuthSDK.h"
 #import <TargetConditionals.h>
 
-@interface WeChatConnector : NSObject<WXApiDelegate>
+@interface WeChatConnector : NSObject<WXApiDelegate, WechatAuthAPIDelegate>
 
 // wechat sdk
 - (void)onReq:(BaseReq*)req;
 - (void)onResp:(BaseResp*)resp;
 
+- (void)onAuthGotQrcode:(UIImage *)image;
+- (void)onQrcodeScanned;
+- (void)onAuthFinish:(int)errCode AuthCode:(nullable NSString *)authCode;
+
 - (instancetype)init;
 
 @property std::function<void(const std::string &event, const std::string &data)> callback;
+@property(nonatomic, strong) WechatAuthSDK *authSDK;
 
 @end
 
@@ -28,6 +35,8 @@ static NSString *objectToString(NSObject *obj)
 
 - (instancetype)init
 {
+    _authSDK = [[WechatAuthSDK alloc] init];
+    [_authSDK setDelegate:self];
     _callback = nullptr;
     return [super init];
 }
@@ -58,9 +67,47 @@ static NSString *objectToString(NSObject *obj)
             message = objectToString(dict);
         }
         
-        if (event != nil && _callback != nullptr) {
+        if (event != nil) {
             _callback([event UTF8String], [message UTF8String]);
         }
+    }
+}
+
+- (void)onAuthGotQrcode:(UIImage *)image
+{
+    @autoreleasepool {
+        NSData *data = UIImageJPEGRepresentation(image, 1.0f);
+        
+        auto ccimg = new cocos2d::Image();
+        ccimg->autorelease();
+        ccimg->initWithImageData((const unsigned char *)data.bytes, (ssize_t)data.length);
+        
+        auto path = xgame::filesystem::getTmpDirectory() + "/wechat_auth_qrcode.jpg";
+        auto textureCache = cocos2d::Director::getInstance()->getTextureCache();
+        textureCache->removeTextureForKey(path);
+        textureCache->addImage(ccimg, path);
+        
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+        [dict setValue:[NSNumber numberWithInt:0] forKey:@"errcode"];
+        [dict setValue:[NSString stringWithUTF8String:path.c_str()] forKey:@"path"];
+        
+        _callback("auth_qrcode", [objectToString(dict) UTF8String]);
+    }
+}
+
+- (void)onQrcodeScanned
+{
+    @autoreleasepool {
+    }
+}
+
+- (void)onAuthFinish:(int)errCode AuthCode:(nullable NSString *)authCode
+{
+    @autoreleasepool {
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+        [dict setValue:[NSNumber numberWithInt:errCode] forKey:@"errcode"];
+        [dict setValue:authCode forKey:@"code"];
+        _callback("auth", [objectToString(dict) UTF8String]);
     }
 }
 
@@ -112,9 +159,14 @@ static int _is_installed(lua_State *L)
 static int _authorize(lua_State *L)
 {
     @autoreleasepool {
+        lua_settop(L, 3);
         xgame::runtime::log("send wechat auth request");
 
         WeChatConnector *connector = olua_checkconnector(L, 1);
+        if (connector.callback == nullptr) {
+            luaL_error(L, "wechat not set dispatcher");
+        }
+        
         SendAuthReq *req = [[SendAuthReq alloc] init];
         req.scope = NSStringMake(olua_checkstring(L, 2));
         req.state = NSStringMake(olua_checkstring(L, 3));
@@ -123,6 +175,29 @@ static int _authorize(lua_State *L)
                   delegate:connector];
     }
     
+    return 0;
+}
+
+static int _authorize_qrcode(lua_State *L)
+{
+    @autoreleasepool {
+        lua_settop(L, 7);
+        WeChatConnector *connector = olua_checkconnector(L, 1);
+        if (connector.callback == nullptr) {
+            luaL_error(L, "wechat not set dispatcher");
+        }
+        
+        [connector.authSDK setDelegate:nil];
+        [connector.authSDK StopAuth];
+        [connector.authSDK setDelegate:connector];
+        BOOL status = [connector.authSDK Auth:NSStringMake(olua_checkstring(L, 2))
+                       nonceStr:NSStringMake(olua_checkstring(L, 3))
+                      timeStamp:NSStringMake(olua_checkstring(L, 4))
+                          scope:NSStringMake(olua_checkstring(L, 5))
+                      signature:NSStringMake(olua_checkstring(L, 6))
+                     schemeData:NSStringMake(olua_checkstring(L, 7))];
+        xgame::runtime::log("[%s] send wechat qrcode auth request", BOOL_STR(status));
+    }
     return 0;
 }
 
@@ -254,6 +329,7 @@ int luaopen_wechat(lua_State *L)
     oluacls_func(L, "isInstalled", _is_installed);
     oluacls_func(L, "setDispatcher", _set_callback);
     oluacls_func(L, "auth", _authorize);
+    oluacls_func(L, "authQRCode", _authorize_qrcode);
     oluacls_func(L, "share", _share);
     
     xgame::runtime::registerFeature("wechat.ios", true);

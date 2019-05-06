@@ -1,6 +1,6 @@
 return {
-    ENGINE_PAUSE        = "enginePause",
-    ENGINE_RESUME       = "engineResume",
+    RUNTIME_PAUSE       = "runtimePause",
+    RUNTIME_RESUME      = "runtimeResume",
     AFTER_UPDATE        = "afterUpdate",
     AFTER_DRAW          = "afterDraw",
     PROJECTION_CHANGED  = "projectionChanged",

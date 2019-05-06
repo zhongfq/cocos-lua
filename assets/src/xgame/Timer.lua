@@ -1,0 +1,1 @@
+local class = require "xgame.class"

@@ -43,11 +43,7 @@ void runtime::init()
     FileFinder::setDelegate(new FileFinder());
     FileUtils::getInstance()->addSearchPath(filesystem::getDocumentDirectory() + "/assets", true);
     Director::getInstance()->setAnimationInterval(1.0f / 60);
-#ifdef COCOS2D_DEBUG
-    Director::getInstance()->setDisplayStats(true);
-#else
-    Director::getInstance()->setDisplayStats(false);
-#endif
+    Director::getInstance()->setDisplayStats(runtime::isDebug());
     
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
     __runtime_pullAllFeatures();
@@ -62,12 +58,12 @@ void runtime::init()
     runtime::setLogPath(filesystem::getCacheDirectory() + "/console.log");
 #endif
     
-    // 创建所需路径
+    // create paths
     filesystem::createDirectory(filesystem::getCacheDirectory());
     filesystem::createDirectory(filesystem::getTmpDirectory());
     filesystem::createDirectory(filesystem::getDocumentDirectory() + "/assets");
     
-    // 版本清理
+    // clean cache if version changed
     std::string versionRuntime = preferences::getString(CONF_VERSION_RUNTIME);
     std::string versionBuild = preferences::getString(CONF_VERSION_BUILD);
     if (versionBuild != runtime::getVersionBuild() ||
@@ -83,6 +79,18 @@ void runtime::init()
     
     Texture2D::setDefaultAlphaPixelFormat(Texture2D::PixelFormat::AUTO);
     AudioEngine::lazyInit();
+    
+    // cocos event
+    auto dispatcher = Director::getInstance()->getEventDispatcher();
+    dispatcher->addCustomEventListener("director_after_draw", [](EventCustom *e) {
+        runtime::dispatchEventImmediately("afterDraw", "");
+    });
+    dispatcher->addCustomEventListener("director_after_update", [](EventCustom *e) {
+        runtime::dispatchEventImmediately("afterUpdate", "");
+    });
+    dispatcher->addCustomEventListener("director_projection_changed", [](EventCustom *e) {
+        runtime::dispatchEventImmediately("projectionChanged", "");
+    });
 }
 
 void runtime::clearStorage()
@@ -143,6 +151,15 @@ bool runtime::launch(const std::string &scriptPath)
 bool runtime::isRestarting()
 {
     return _restarting;
+}
+
+bool runtime::isDebug()
+{
+#ifdef COCOS2D_DEBUG
+    return true;
+#else
+    return false;
+#endif
 }
 
 bool runtime::restart()
@@ -248,12 +265,17 @@ void runtime::setDispatcher(const EventDispatcher &dispatcher)
 void runtime::dispatchEvent(const std::string &event, const std::string &args)
 {
     runtime::runOnCocosThread([event, args]() {
-        if (_dispatcher) {
-            _dispatcher(event, args);
-        } else {
-            _suspendedEvents.push_back(std::make_pair(event, args));
-        }
+        runtime::dispatchEventImmediately(event, args);
     });
+}
+
+void runtime::dispatchEventImmediately(const std::string &event, const std::string &args)
+{
+    if (_dispatcher) {
+        _dispatcher(event, args);
+    } else {
+        _suspendedEvents.push_back(std::make_pair(event, args));
+    }
 }
 
 void runtime::runOnCocosThread(const std::function<void ()> &callback)
@@ -460,14 +482,13 @@ bool RuntimeContext::applicationDidFinishLaunching()
 void RuntimeContext::applicationDidEnterBackground()
 {
     Director::getInstance()->stopAnimation();
-    runtime::dispatchEvent("runtimePause", "");
-    Director::getInstance()->mainLoop(0);
+    runtime::dispatchEventImmediately("runtimePause", "");
 }
 
 void RuntimeContext::applicationWillEnterForeground()
 {
     Director::getInstance()->startAnimation();
-    runtime::dispatchEvent("runtimeResume", "");
+    runtime::dispatchEventImmediately("runtimeResume", "");
 }
 
 void RuntimeContext::applicationWillTerminate()

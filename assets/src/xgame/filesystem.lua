@@ -12,7 +12,7 @@ M.dir = {
 }
 
 local function encodeURI(s)
-    s = string.gsub(s, "([^%w%.%- ])", function(c)
+    s = string.gsub(s, "([^%w%.%-])", function(c)
         return string.format("%%%02X", string.byte(c))
     end)
     return string.gsub(s, " ", "+")

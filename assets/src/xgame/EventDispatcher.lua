@@ -14,7 +14,7 @@ function EventDispatcher:ctor()
     self._listeners = {}
 end
 
-function EventDispatcher:addEventlistener(event, listener, owner, priority)
+function EventDispatcher:addListener(event, listener, owner, priority)
     assert(event, "no event")
     assert(listener, "no listener")
     
@@ -27,7 +27,7 @@ function EventDispatcher:addEventlistener(event, listener, owner, priority)
     list:insert(owner or ANONYMOUS, listener, priority)
 end
 
-function EventDispatcher:removeEventlistener(event, listener, owner)
+function EventDispatcher:removeListener(event, listener, owner)
     assert(event, "no event")
     assert(listener, "no listener")
     
@@ -40,10 +40,10 @@ function EventDispatcher:removeEventlistener(event, listener, owner)
     end
 end
 
-function EventDispatcher:dispatchEvent(event, ...)
+function EventDispatcher:dispatch(event, ...)
     assert(event, "no event")
     
-    if self:hasEventlistener(event) then
+    if self:hasListener(event) then
         for _, owner, listener in pairs(self._listeners[event]) do
             if owner == ANONYMOUS then
                 listener(self, ...)
@@ -54,7 +54,7 @@ function EventDispatcher:dispatchEvent(event, ...)
     end
 end
 
-function EventDispatcher:hasEventlistener(event)
+function EventDispatcher:hasListener(event)
     return self._listeners[event] ~= nil
 end
 

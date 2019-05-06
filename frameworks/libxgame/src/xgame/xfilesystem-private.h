@@ -9,6 +9,10 @@ const std::string __filesystem_getCacheDirectory();
 const std::string __filesystem_getDocumentDirectory();
 const std::string __filesystem_getTmpDirectory();
 
+#if CC_TARGET_PLATFORM == CC_PLATFORM_MAC || CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+const std::string __filesystem_getAppDataDirectory();
+#endif
+
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 const std::string __filesystem_getSDCardDirectory();
 const std::string __filesystem_getDir(const std::string &type);

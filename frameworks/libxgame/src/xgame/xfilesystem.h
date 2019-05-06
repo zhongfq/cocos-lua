@@ -11,6 +11,10 @@ NS_XGAME_BEGIN
 
 class filesystem {
 public:
+#if CC_TARGET_PLATFORM == CC_PLATFORM_MAC || CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+    static const std::string getAppDataDirectory();
+#endif
+    
     static const std::string getWritablePath();
     static const std::string getCacheDirectory();
     static const std::string getDocumentDirectory();

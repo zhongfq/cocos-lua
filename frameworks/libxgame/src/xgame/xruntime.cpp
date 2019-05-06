@@ -38,60 +38,9 @@ static std::string _logCache;
 
 static bool _reportError = true;
 
-#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-static std::string StringWideCharToUtf8(const std::wstring &strWideChar)
-{
-    std::string ret;
-    if (!strWideChar.empty()) {
-        int nNum = WideCharToMultiByte(CP_UTF8, 0, strWideChar.c_str(), -1, nullptr, 0, nullptr, FALSE);
-        if (nNum) {
-            char* utf8String = new char[nNum + 1];
-            utf8String[0] = 0;
-            
-            nNum = WideCharToMultiByte(CP_UTF8, 0, strWideChar.c_str(), -1, utf8String, nNum + 1, nullptr, FALSE);
-            
-            ret = utf8String;
-            delete[] utf8String;
-        } else {
-            CCLOG("Wrong convert to Utf8 code:0x%x", GetLastError());
-        }
-    }
-    
-    return ret;
-}
-
-static inline std::string convertPathFormatToUnixStyle(const std::string &path)
-{
-    std::string ret = path;
-    int len = ret.length();
-    for (int i = 0; i < len; ++i) {
-        if (ret[i] == '\\') {
-            ret[i] = '/';
-        }
-    }
-    return ret;
-}
-#endif // CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-
 void runtime::init()
 {
     FileFinder::setDelegate(new FileFinder());
-    
-#if CC_TARGET_PLATFORM == CC_PLATFORM_MAC
-    std::string path = FileUtils::getInstance()->getWritablePath();
-    path = path.substr(0, path.size() - 1);
-    path = path.substr(0, path.find_last_of('/'));
-    FileUtils::getInstance()->setWritablePath(path + "/Library/Containers/" + runtime::getPackageName() + "/");
-#elif CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-#define CC_MAX_PATH  512
-    WCHAR app_path[CC_MAX_PATH + 1] = { 0 };
-    ::GetModuleFileName(nullptr, app_path, CC_MAX_PATH + 1);
-    std::string path = convertPathFormatToUnixStyle(StringWideCharToUtf8(app_path));
-    path = path.substr(0, path.find_last_of('/') + 1);
-    FileUtils::getInstance()->setWritablePath(path);
-    FileUtils::getInstance()->addSearchPath(path + "../../assets");
-#endif
-    
     FileUtils::getInstance()->addSearchPath(filesystem::getDocumentDirectory() + "/assets", true);
     Director::getInstance()->setAnimationInterval(1.0f / 60);
 #ifdef COCOS2D_DEBUG
@@ -512,6 +461,7 @@ void RuntimeContext::applicationDidEnterBackground()
 {
     Director::getInstance()->stopAnimation();
     runtime::dispatchEvent("runtimePause", "");
+    Director::getInstance()->mainLoop(0);
 }
 
 void RuntimeContext::applicationWillEnterForeground()

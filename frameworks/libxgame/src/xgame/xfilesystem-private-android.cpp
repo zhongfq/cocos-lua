@@ -3,6 +3,8 @@
 
 #include "cocos2d.h"
 
+#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+
 #define JAVA_RUNTIME_CLASS "kernel/android/Runtime"
 
 USING_NS_XGAME;
@@ -56,3 +58,5 @@ const std::string __filesystem_getDir(const std::string &type)
 {
     return JniHelper::callStaticStringMethod(JAVA_RUNTIME_CLASS, "getDirectory", type);
 }
+
+#endif

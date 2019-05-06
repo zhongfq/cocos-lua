@@ -13,6 +13,13 @@ USING_NS_CC;
 
 NS_XGAME_BEGIN
 
+#if CC_TARGET_PLATFORM == CC_PLATFORM_MAC || CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+const std::string filesystem::getAppDataDirectory()
+{
+    return __filesystem_getAppDataDirectory();
+}
+#endif
+
 const std::string filesystem::getDocumentDirectory()
 {
     return __filesystem_getDocumentDirectory();

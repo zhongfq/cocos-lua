@@ -449,6 +449,7 @@ static int report_gc_error(lua_State *L)
 
 int xlua_ccobjgc(lua_State *L)
 {
+    lua_settop(L, 1);
     if (olua_isa(L, 1, "cc.Ref")) {
         cocos2d::Ref *obj = *(cocos2d::Ref **)lua_touserdata(L, 1);
         if (obj) {

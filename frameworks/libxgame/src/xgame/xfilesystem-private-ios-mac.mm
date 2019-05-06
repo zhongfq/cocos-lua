@@ -32,6 +32,13 @@ const std::string __filesystem_getTmpDirectory()
     return str;
 }
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_MAC
+const std::string __filesystem_getAppDataDirectory()
+{
+    NSArray<NSString *> *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+    std::string str = [[paths objectAtIndex:0] UTF8String];
+    return str + "/Containers/" + runtime::getPackageName();
+}
+
 const std::string __filesystem_getDocumentDirectory()
 {
     return filesystem::getWritablePath() + "/Documents";

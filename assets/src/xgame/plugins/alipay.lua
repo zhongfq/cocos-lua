@@ -20,11 +20,11 @@ function Alipay:_didResponse(action, message)
         local info = cjson.decode(message)
         local status = info.result_status
         if status == "9000" or status == "8000" then
-            self:dispatch_event(PluginEvent.PAY_SUCCESS)
+            self:dispatch(PluginEvent.PAY_SUCCESS)
         elseif status == "6001" then
-            self:dispatch_event(PluginEvent.PAY_CANCEL)
+            self:dispatch(PluginEvent.PAY_CANCEL)
         else
-            self:dispatch_event(PluginEvent.PAY_FAILURE)
+            self:dispatch(PluginEvent.PAY_FAILURE)
         end
     end
 end

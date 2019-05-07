@@ -1,6 +1,7 @@
 local util          = require "xgame.util"
 local Director      = require "cc.Director"
 local Scene         = require "cc.Scene"
+local Sprite        = require "cc.Sprite"
 local Layout        = require "ccui.Layout"
 local wechat        = require "xgame.plugins.wechat"
 local PluginEvent   = require "xgame.plugins.PluginEvent"
@@ -18,7 +19,7 @@ local function new()
     btn.touchEnabled = true
     btn:addClickEventListener(function ()
         print("xxxx click")
-        wechat:auth("snsapi_userinfo", "")
+        wechat:auth()
     end)
     scene:addChild(btn)
 
@@ -34,6 +35,14 @@ local function new()
     wechat:addListener(PluginEvent.AUTH_SUCCESS, function (_, info)
         print("wechat auth success")
         util.dump(info)
+    end)
+
+    wechat:addListener(PluginEvent.GOT_QRCODE, function (_, path)
+        print("wechat got qrcode", path)
+        local image = Sprite.create(path)
+        image.x = 600
+        image.y = 300
+        scene:addChild(image)
     end)
     
     return scene

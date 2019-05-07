@@ -28,16 +28,16 @@ int luaopen_bindings(lua_State *L)
     xlua_call(L, luaopen_xgame);
     xlua_call(L, luaopen_xml_http_request);
     
-    olua_require(L, "kernel.crypto.protobuf.c", luaopen_protobuf_c);
-    olua_require(L, "kernel.crypto.md5" , luaopen_md5);
-    olua_require(L, "kernel.crypto.base64", luaopen_base64);
-    olua_require(L, "kernel.crypto.xxtea", luaopen_xxtea);
-    olua_require(L, "kernel.crypto.openssl", luaopen_openssl);
-    olua_require(L, "kernel.crypto.cjson", luaopen_cjson);
-    olua_require(L, "kernel.crypto.cjson.safe", luaopen_cjson_safe);
-    olua_require(L, "kernel.crypto.qrcode", luaopen_qrcode);
-    olua_require(L, "kernel.crypto.qrcode.QRSprite", luaopen_qrsprite);
-    olua_require(L, "kernel.audio.lame", luaopen_lame);
+    olua_require(L, "kernel.protobuf.c", luaopen_protobuf_c);
+    olua_require(L, "kernel.md5" , luaopen_md5);
+    olua_require(L, "kernel.base64", luaopen_base64);
+    olua_require(L, "kernel.xxtea", luaopen_xxtea);
+    olua_require(L, "kernel.openssl", luaopen_openssl);
+    olua_require(L, "kernel.cjson", luaopen_cjson);
+    olua_require(L, "kernel.cjson.safe", luaopen_cjson_safe);
+    olua_require(L, "kernel.qrcode", luaopen_qrcode);
+    olua_require(L, "kernel.qrcode.QRSprite", luaopen_qrsprite);
+    olua_require(L, "kernel.lame", luaopen_lame);
     
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     olua_require(L, "kernel.plugins.bugly", luaopen_bugly);

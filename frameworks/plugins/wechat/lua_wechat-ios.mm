@@ -35,9 +35,9 @@ static NSString *objectToString(NSObject *obj)
 
 - (instancetype)init
 {
-    _authSDK = [[WechatAuthSDK alloc] init];
-    [_authSDK setDelegate:self];
-    _callback = nullptr;
+    self.authSDK = [[WechatAuthSDK alloc] init];
+    [self.authSDK setDelegate:self];
+    self.callback = nullptr;
     return [super init];
 }
 
@@ -76,22 +76,18 @@ static NSString *objectToString(NSObject *obj)
 - (void)onAuthGotQrcode:(UIImage *)image
 {
     @autoreleasepool {
-        NSData *data = UIImageJPEGRepresentation(image, 1.0f);
-        
-        auto ccimg = new cocos2d::Image();
-        ccimg->autorelease();
-        ccimg->initWithImageData((const unsigned char *)data.bytes, (ssize_t)data.length);
-        
         auto path = xgame::filesystem::getTmpDirectory() + "/wechat_auth_qrcode.jpg";
         auto textureCache = cocos2d::Director::getInstance()->getTextureCache();
         textureCache->removeTextureForKey(path);
-        textureCache->addImage(ccimg, path);
+        
+        NSData *data = UIImageJPEGRepresentation(image, 1.0f);
+        [data writeToFile:[NSString stringWithUTF8String:path.c_str()] atomically:YES];
         
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         [dict setValue:[NSNumber numberWithInt:0] forKey:@"errcode"];
         [dict setValue:[NSString stringWithUTF8String:path.c_str()] forKey:@"path"];
         
-        _callback("auth_qrcode", [objectToString(dict) UTF8String]);
+        _callback("auth_got_qrcode", [objectToString(dict) UTF8String]);
     }
 }
 
@@ -107,7 +103,7 @@ static NSString *objectToString(NSObject *obj)
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         [dict setValue:[NSNumber numberWithInt:errCode] forKey:@"errcode"];
         [dict setValue:authCode forKey:@"code"];
-        _callback("auth", [objectToString(dict) UTF8String]);
+        _callback("auth_qrcode", [objectToString(dict) UTF8String]);
     }
 }
 

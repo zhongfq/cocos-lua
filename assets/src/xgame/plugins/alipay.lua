@@ -1,0 +1,58 @@
+local class         = require "xgame.class"
+local util          = require "xgame.util"
+local PluginEvent   = require "xgame.plugins.PluginEvent"
+local cjson         = require "kernel.cjson.safe"
+
+local trace = util.trace("[alipay]")
+local impl
+
+local Alipay = class("Alipay", require("xgame.EventDispatcher"))
+
+function Alipay:ctor()
+    impl:setDispatcher(function (...)
+        self:_didResponse(...)
+    end)
+end
+
+function Alipay:_didResponse(action, message)
+    trace("response: %s %s", action, message)
+    if action == "pay" then
+        local info = cjson.decode(message)
+        local status = info.result_status
+        if status == "9000" or status == "8000" then
+            self:dispatch_event(PluginEvent.PAY_SUCCESS)
+        elseif status == "6001" then
+            self:dispatch_event(PluginEvent.PAY_CANCEL)
+        else
+            self:dispatch_event(PluginEvent.PAY_FAILURE)
+        end
+    end
+end
+
+function Alipay:pay(order)
+    impl:play(assert(order, "no order"))
+end
+
+if xGame.os == "android" then
+    local luaj = require "xgame.luaj"
+    local inst = luaj.new("kernel/plugins/alipay/Alipay")
+    impl = {}
+
+    function impl:setDispatcher(callback)
+        impl.callback = callback
+    end
+
+    function impl:pay(order)
+        inst.pay(order, function (...)
+            impl.callback("pay", ...)
+        end)
+    end
+else
+    impl = setmetatable({}, {__index = function (_, func)
+        return function ()
+            trace("function 'kernel.plugins.alipay.%s' not supported", func)
+        end
+    end})
+end
+
+return Alipay.new()

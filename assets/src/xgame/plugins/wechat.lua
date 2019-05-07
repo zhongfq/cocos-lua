@@ -94,7 +94,7 @@ function WeChat:auth(ticket)
     self.userInfo = false
     self.deferredEvent = self.deferredEvent or PluginEvent.AUTH_CANCEL
 
-    if self.installedxxxx then
+    if self.installed then
         impl:auth(self.authScope, self.authState)
     elseif ticket then
         self:_doAuthQRCode(ticket)

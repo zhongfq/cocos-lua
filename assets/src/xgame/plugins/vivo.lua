@@ -32,7 +32,7 @@ function Vivo:pay(order)
         assert(order.orderno),
         assert(order.url),
         assert(order.price),
-        assert(order.title),
+        assert(order.name),
         assert(order.desc),
         assert(order.sign)
     )
@@ -47,8 +47,8 @@ if xGame.os == "android" then
         impl.callback = callback
     end
 
-    function impl:pay(appid, orderno, url, price, title, desc, sign)
-        inst.pay(appid, orderno, url, price, title, desc, sign, function (...)
+    function impl:pay(appid, orderno, url, price, name, desc, sign)
+        inst.pay(appid, orderno, url, price, name, desc, sign, function (...)
             impl.callback("pay", ...)
         end)
     end

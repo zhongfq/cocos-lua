@@ -16,13 +16,8 @@ public class Alipay {
                 PayTask payTask = new PayTask(context);
                 final String resultstr = payTask.pay(order);
 
-                context.runOnGLThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        AlipayResult result = new AlipayResult(resultstr);
-                        LuaJ.invokeOnce(handler, AlipayUtil.appendVerifyStatus(result, false));
-                    }
-                });
+                AlipayResult result = new AlipayResult(resultstr);
+                LuaJ.invokeOnce(handler, AlipayUtil.appendVerifyStatus(result, false));
             }
         }).start();
     }

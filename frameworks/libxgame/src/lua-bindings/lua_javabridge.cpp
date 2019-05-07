@@ -255,7 +255,7 @@ int luaopen_javabridge(lua_State *L)
 }
 
 extern "C" {
-JNIEXPORT void JNICALL Java_kernel_LuaJ_invoke
+JNIEXPORT void JNICALL Java_kernel_LuaJ_call
         (JNIEnv *env, jclass cls, jint func, jstring value) {
     CC_UNUSED_PARAM(env);
     CC_UNUSED_PARAM(cls);

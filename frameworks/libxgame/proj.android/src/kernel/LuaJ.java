@@ -1,14 +1,31 @@
 package kernel;
 
 public class LuaJ {
-    public static native void unref(int func);
+    private static native void unref(int func);
 
-    public static native void invoke(int func, String value);
+    private static native void call(int func, String value);
 
     public static native void registerFeature(String api, boolean enabled);
 
-    public static void invokeOnce(int func, String value) {
-        LuaJ.invoke(func, value);
-        LuaJ.unref(func);
+    public static void invokeOnce(final int func, final String value) {
+        AppContext context = (AppContext) AppContext.getContext();
+        context.runOnGLThread(new Runnable() {
+            @Override
+            public void run() {
+                LuaJ.call(func, value);
+                LuaJ.unref(func);
+            }
+        });
+    }
+
+    public static void invoke(final int func, final String value)
+    {
+        AppContext context = (AppContext) AppContext.getContext();
+        context.runOnGLThread(new Runnable() {
+            @Override
+            public void run() {
+                LuaJ.call(func, value);
+            }
+        });
     }
 }

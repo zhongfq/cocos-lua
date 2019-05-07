@@ -118,14 +118,11 @@ public class CameraRoll extends Activity {
                                 (float)_height / bitmap.getHeight());
                         Bitmap newBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, false);
                         newBitmap.compress(Bitmap.CompressFormat.JPEG, 95, os);
+
+                        bitmap.recycle();
+                        newBitmap.recycle();
+
                         os.flush();
-
-                        if (bitmap.isRecycled())
-                            bitmap.recycle();
-
-                        if (newBitmap.isRecycled())
-                            newBitmap.recycle();
-
                         os.close();
                         notifyResult.onResult("complete");
                         finish();
@@ -158,12 +155,7 @@ public class CameraRoll extends Activity {
         CameraRoll.notifyResult = new CameraRoll.CameraRollCallback() {
             @Override
             public void onResult(final String message) {
-                context.runOnGLThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        LuaJ.invokeOnce(handler, message);
-                    }
-                });
+                LuaJ.invokeOnce(handler, message);
             }
         };
 
@@ -182,12 +174,7 @@ public class CameraRoll extends Activity {
         CameraRoll.notifyResult = new CameraRoll.CameraRollCallback() {
             @Override
             public void onResult(final String message) {
-                context.runOnGLThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        LuaJ.invokeOnce(handler, message);
-                    }
-                });
+                LuaJ.invokeOnce(handler, message);
             }
         };
 
@@ -206,12 +193,7 @@ public class CameraRoll extends Activity {
         CameraRoll.notifyResult = new CameraRoll.CameraRollCallback() {
             @Override
             public void onResult(final String message) {
-                context.runOnGLThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        LuaJ.invokeOnce(handler, message);
-                    }
-                });
+                LuaJ.invokeOnce(handler, message);
             }
         };
         context.startActivity(intent);

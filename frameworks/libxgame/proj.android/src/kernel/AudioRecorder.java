@@ -177,16 +177,12 @@ public class AudioRecorder {
         _record.setStateListener(new AudioRecorder.StateListener() {
             @Override
             public void onStateChanged(final AudioRecorder.State state) {
-                context.runOnGLThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        LuaJ.invoke(callback, state.name());
-                        if (state != AudioRecorder.State.STARTED) {
-                            _record = null;
-                            LuaJ.unref(callback);
-                        }
-                    }
-                });
+                if (state != AudioRecorder.State.STARTED) {
+                    _record = null;
+                    LuaJ.invokeOnce(callback, state.name());
+                } else {
+                    LuaJ.invoke(callback, state.name());
+                }
             }
         });
         _record.startRecording();

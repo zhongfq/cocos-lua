@@ -166,7 +166,7 @@ public class Runtime {
         return Environment.getExternalStorageDirectory().getAbsolutePath();
     }
 
-    private static String getDirectory(String type) {
+    public static String getDirectory(String type) {
         final AppContext context = (AppContext) AppContext.getContext();
         String path = context.getFilesDir().getAbsolutePath();
 

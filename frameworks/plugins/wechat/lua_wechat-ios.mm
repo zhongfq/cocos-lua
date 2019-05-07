@@ -77,9 +77,6 @@ static NSString *objectToString(NSObject *obj)
 {
     @autoreleasepool {
         auto path = xgame::filesystem::getTmpDirectory() + "/wechat_auth_qrcode.jpg";
-        auto textureCache = cocos2d::Director::getInstance()->getTextureCache();
-        textureCache->removeTextureForKey(path);
-        
         NSData *data = UIImageJPEGRepresentation(image, 1.0f);
         [data writeToFile:[NSString stringWithUTF8String:path.c_str()] atomically:YES];
         
@@ -87,7 +84,7 @@ static NSString *objectToString(NSObject *obj)
         [dict setValue:[NSNumber numberWithInt:0] forKey:@"errcode"];
         [dict setValue:[NSString stringWithUTF8String:path.c_str()] forKey:@"path"];
         
-        _callback("auth_got_qrcode", [objectToString(dict) UTF8String]);
+        _callback("auth_qrcode", [objectToString(dict) UTF8String]);
     }
 }
 

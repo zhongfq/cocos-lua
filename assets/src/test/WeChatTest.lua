@@ -3,11 +3,20 @@ local Director      = require "cc.Director"
 local Scene         = require "cc.Scene"
 local Sprite        = require "cc.Sprite"
 local Layout        = require "ccui.Layout"
+local filesystem    = require "xgame.filesystem"
 local wechat        = require "xgame.plugins.wechat"
 local PluginEvent   = require "xgame.plugins.PluginEvent"
 
 local function new()
     local scene = Scene.create()
+
+    local bg = Layout.create()
+    bg.backGroundColorType = 1
+    bg.backGroundColor = 0xFFFFFF
+    bg.width = 1334
+    bg.height = 750
+    scene:addChild(bg)
+
 
     local btn = Layout.create()
     btn.backGroundColorType = 1
@@ -19,7 +28,7 @@ local function new()
     btn.touchEnabled = true
     btn:addClickEventListener(function ()
         print("xxxx click")
-        wechat:auth()
+        wechat:auth('ApLNZQ7OekfcASNpXguqxsbmIilixOWjl_1qFwRLOFRUeV2XiEwq-I5ErDpfB5G7rLLFNfrIzoFZ4KaPir0EnQ')
     end)
     scene:addChild(btn)
 
@@ -38,12 +47,20 @@ local function new()
     end)
 
     wechat:addListener(PluginEvent.GOT_QRCODE, function (_, path)
-        print("wechat got qrcode", path)
+        print("wechat got qrcode1", path)
+        print("wechat got qrcode2", filesystem.dir.sdcard .. '/tencent/MicroMsg/oauth_qrcode.png')
         local image = Sprite.create(path)
         image.x = 600
         image.y = 300
         scene:addChild(image)
     end)
+
+    local image = Sprite.create(filesystem.dir.sdcard .. '/tencent/MicroMsg/oauth_qrcode.png')
+    if image then
+        image.x = 900
+        image.y = 300
+        scene:addChild(image)
+    end
     
     return scene
 end

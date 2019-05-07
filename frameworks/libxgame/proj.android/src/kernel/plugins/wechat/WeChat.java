@@ -5,6 +5,10 @@ import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
+import com.tencent.mm.opensdk.diffdev.DiffDevOAuthFactory;
+import com.tencent.mm.opensdk.diffdev.IDiffDevOAuth;
+import com.tencent.mm.opensdk.diffdev.OAuthErrCode;
+import com.tencent.mm.opensdk.diffdev.OAuthListener;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
@@ -23,11 +27,14 @@ import org.cocos2dx.lib.Cocos2dxActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.util.Date;
 
 import kernel.AppContext;
 import kernel.LuaJ;
+import kernel.Runtime;
 
 public class WeChat {
     private static final String TAG = WeChat.class.getName();
@@ -96,6 +103,60 @@ public class WeChat {
 
         IWXAPI api = WXAPIFactory.createWXAPI(context, WeChat.APP_ID);
         api.sendReq(req);
+    }
+
+    public static void authQRCode(String appid, String scope, String noncestr, String timestamp, String signature, final int handler) {
+        IDiffDevOAuth oauth = DiffDevOAuthFactory.getDiffDevOAuth();
+        oauth.removeAllListeners();
+        oauth.stopAuth();
+        oauth.auth(appid, scope, noncestr, timestamp, signature, new OAuthListener() {
+            @Override
+            public void onAuthGotQrcode(String s, byte[] bytes) {
+                try {
+                    String path = Runtime.getDirectory("external.tmp") + "/wechat_auth_qrcode.jpg";
+
+                    if (bytes != null) {
+                        try {
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                            BufferedOutputStream os = new BufferedOutputStream(new FileOutputStream(path));
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, 95, os);
+                            bitmap.recycle();
+                            os.flush();
+                            os.close();
+                        } catch (Throwable e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        path = s;
+                    }
+
+                    JSONObject data = new JSONObject();
+                    data.put("errcode", OAuthErrCode.WechatAuth_Err_OK.getCode());
+                    data.put("path", path);
+                    LuaJ.invoke(handler, data.toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    LuaJ.invoke(handler, "{\"errcode\":-4}");
+                }
+            }
+
+            @Override
+            public void onQrcodeScanned() {
+            }
+
+            @Override
+            public void onAuthFinish(OAuthErrCode errCode, String code) {
+                try {
+                    JSONObject data = new JSONObject();
+                    data.put("errcode", errCode.getCode());
+                    data.put("code", code);
+                    LuaJ.invokeOnce(handler, data.toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    LuaJ.invokeOnce(handler, "{\"errcode\":-4}");
+                }
+            }
+        });
     }
 
     @SuppressWarnings("unused")

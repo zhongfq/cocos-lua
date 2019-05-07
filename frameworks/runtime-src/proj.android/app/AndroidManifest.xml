@@ -24,6 +24,10 @@
 		<meta-data android:name="android.app.lib_name"
 				   android:value="cocoslua" />
 
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
         <activity
             android:name=".AppEntry"
             android:launchMode="singleTask"

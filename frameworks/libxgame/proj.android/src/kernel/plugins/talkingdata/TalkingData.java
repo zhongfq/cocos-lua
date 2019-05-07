@@ -56,12 +56,7 @@ public class TalkingData {
     public static void print(final String str) {
         if (_print > 0) {
             final AppContext context = (AppContext) AppContext.getContext();
-            context.runOnGLThread(new Runnable() {
-                @Override
-                public void run() {
-                    LuaJ.invoke(_print, "[talkingdata] " + str);
-                }
-            });
+            LuaJ.invoke(_print, "[talkingdata] " + str);
         }
     }
 

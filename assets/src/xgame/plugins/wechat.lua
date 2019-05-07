@@ -7,6 +7,7 @@ local runtime       = require "kernel.runtime"
 local impl          = require "kernel.plugins.wechat"
 local openssl       = require "kernel.openssl"
 local cjson         = require "kernel.cjson.safe"
+local Director      = require "cc.Director"
 
 local trace = util.trace("[wechat]")
 
@@ -91,7 +92,7 @@ function WeChat:auth(ticket)
     self.userInfo = false
     self.deferredEvent = self.deferredEvent or PluginEvent.AUTH_CANCEL
 
-    if self.installed then
+    if self.installedxx then
         assert(self.authScope, "no auth scope")
         assert(self.authState, "no auth state")
         impl:auth(self.authScope, self.authState)
@@ -131,6 +132,7 @@ function WeChat:_requestTicket()
 end
 
 function WeChat:_doAuthQRCode(ticket)
+    print(ticket)
     local timestamp = tostring(os.time())
     local noncestr = openssl.sha1(timestamp)
     local str = string.format("appid=%s", self._appid)
@@ -168,10 +170,14 @@ function WeChat:_didResponse(action, message)
         else
             self:dispatch(PluginEvent.AUTH_FAILURE)
         end
-    elseif action == "auth_got_qrcode" then
-        self:dispatch(PluginEvent.GOT_QRCODE, data.path)
     elseif action == "auth_qrcode" then
-        if data.errcode == WECHAT_AUTH_ERR_OK then
+        if data.path then
+            local textureCache = Director.instance.textureCache
+            textureCache:reloadTexture(data.path)
+            local texture = textureCache:getTextureForKey(data.path)
+            texture:setAliasTexParameters()
+            self:dispatch(PluginEvent.GOT_QRCODE, data.path)
+        elseif data.errcode == WECHAT_AUTH_ERR_OK then
             self:_requestToken(data)
         elseif data.errcode == WECHAT_AUTH_ERR_CANCEL then
             self:dispatch(PluginEvent.AUTH_CANCEL)
@@ -257,6 +263,12 @@ elseif runtime.os == "android" then
     function impl:auth(scope, state)
         inst.auth(scope, state, function (...)
             impl.callback("auth", ...)
+        end)
+    end
+
+    function impl:authQRCode(appid, noncestr, timestamp, scope, sign)
+        inst.authQRCode(appid, scope, noncestr, timestamp, sign, function (...)
+            impl.callback("auth_qrcode", ...)
         end)
     end
 

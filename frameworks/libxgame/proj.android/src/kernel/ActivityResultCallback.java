@@ -1,4 +1,4 @@
-package kernel.android;
+package kernel;
 
 import android.content.Intent;
 

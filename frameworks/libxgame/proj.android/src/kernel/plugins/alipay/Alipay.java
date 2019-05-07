@@ -1,11 +1,11 @@
-package kernel.android.alipay;
+package kernel.plugins.alipay;
 
 import com.alipay.sdk.app.PayTask;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
 
-import kernel.android.AppContext;
-import kernel.android.LuaJ;
+import kernel.AppContext;
+import kernel.LuaJ;
 
 public class Alipay {
     public static void pay(final String order, final int handler) {

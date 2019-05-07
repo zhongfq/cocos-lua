@@ -1,6 +1,6 @@
-package com.xqw369.ttsz.wxapi;
+package org.cocos2dx.hellolua.wxapi;
 
-import kernel.android.wechat.WeChatPayEntryActivity;
+import kernel.plugins.wechat.WeChatPayEntryActivity;
 
 public class WXPayEntryActivity extends WeChatPayEntryActivity {
 }

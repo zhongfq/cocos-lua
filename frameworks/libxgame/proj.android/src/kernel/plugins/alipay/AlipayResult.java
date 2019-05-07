@@ -1,4 +1,4 @@
-package kernel.android.alipay;
+package kernel.plugins.alipay;
 
 import android.text.TextUtils;
 

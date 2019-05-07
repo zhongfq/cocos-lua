@@ -10,6 +10,7 @@ set(LUA_BINDINGS_HEADER
     src/lua-bindings/lua_socket.h
     src/lua-bindings/lua_spine.h
     src/lua-bindings/lua_xgame.h
+    src/lua-bindings/lua_xml_http_request.h
     src/lua-bindings/LuaComponent.h
 )
 
@@ -25,5 +26,6 @@ set(LUA_BINDINGS_SRC
     src/lua-bindings/lua_socket.cpp
     src/lua-bindings/lua_spine.cpp
     src/lua-bindings/lua_xgame.cpp
+    src/lua-bindings/lua_xml_http_request.cpp
     src/lua-bindings/LuaComponent.cpp
 )

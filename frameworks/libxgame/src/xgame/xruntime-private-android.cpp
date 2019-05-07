@@ -6,7 +6,7 @@
 
 USING_NS_CC;
 
-#define JAVA_RUNTIME_CLASS "kernel/android/Runtime"
+#define JAVA_RUNTIME_CLASS "kernel/Runtime"
 
 const std::string __runtime_getPackageName()
 {

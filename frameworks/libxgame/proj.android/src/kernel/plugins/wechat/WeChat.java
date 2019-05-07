@@ -1,6 +1,5 @@
-package kernel.android.wechat;
+package kernel.plugins.wechat;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
@@ -27,11 +26,8 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.util.Date;
 
-import kernel.android.AppContext;
-import kernel.android.LuaJ;
-import kernel.android.ActivityResultCallback;
-
-import static android.app.Activity.RESULT_OK;
+import kernel.AppContext;
+import kernel.LuaJ;
 
 public class WeChat {
     private static final String TAG = WeChat.class.getName();
@@ -68,7 +64,7 @@ public class WeChat {
     }
 
     @SuppressWarnings("unused")
-    public static void authorize(String scope, String state, final int handler) {
+    public static void auth(String scope, String state, final int handler) {
         AppContext context = (AppContext)Cocos2dxActivity.getContext();
         final SendAuth.Req req = new SendAuth.Req();
         req.scope = scope;
@@ -100,34 +96,6 @@ public class WeChat {
 
         IWXAPI api = WXAPIFactory.createWXAPI(context, WeChat.APP_ID);
         api.sendReq(req);
-    }
-
-    @SuppressWarnings("unused")
-    public static void authorizeFromWeb(String url, final int handler) {
-        AppContext context = (AppContext)Cocos2dxActivity.getContext();
-        final int REQUEST_CODE = 0x100;
-        context.setActivityResultCallback(new ActivityResultCallback() {
-            @Override
-            public void onActivityResult(int requestCode, int resultCode, Intent data) {
-                if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
-                    String code = data.getStringExtra("code");
-                    JSONObject obj = new JSONObject();
-                    try {
-                        obj.put("errcode", 0);
-                        obj.put("code", code);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    LuaJ.invokeOnce(handler, obj.toString());
-                } else {
-                    LuaJ.invokeOnce(handler, "{\"errcode\":-1}");
-                }
-            }
-        });
-
-        Intent intent = new Intent(context, WeChatWebAuthActivity.class);
-        intent.putExtra("url", url);
-        context.startActivityForResult(intent, REQUEST_CODE);
     }
 
     @SuppressWarnings("unused")

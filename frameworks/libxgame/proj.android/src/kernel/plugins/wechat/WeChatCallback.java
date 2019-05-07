@@ -1,4 +1,4 @@
-package kernel.android.wechat;
+package kernel.plugins.wechat;
 
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 

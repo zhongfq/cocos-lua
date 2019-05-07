@@ -1,4 +1,4 @@
-package kernel.android;
+package kernel;
 
 import android.media.AudioFormat;
 import android.media.AudioRecord;

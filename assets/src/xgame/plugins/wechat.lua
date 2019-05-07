@@ -69,24 +69,21 @@ function WeChat.Get:installed()
 end
 
 function WeChat:pay(order)
+    assert(self.installed, "no wechat client")
+    assert(self._appid, "no app id")
+    assert(order.noncestr, "no noncestr")
+    assert(order.partnerid, "no partner id")
+    assert(order.prepayid, "no prepay id")
+    assert(order.timestamp, "no timestamp")
+    assert(order.sign, "no sign")
+
     if xGame.os == "ios" then
-        assert(self.installed, "no wechat client")
-        local URL_PAY = "weixin://app/%s/pay/?nonceStr=%s&package=Sign%%3DWXPay" ..
-            "&partnerId=%s&prepayId=%s&timeStamp=%d&sign=%s&signType=SHA1"
-        local url = string.format(URL_PAY,
-            assert(self._appid, "no app id"),
-            assert(order.noncestr, "no noncestr"),
-            assert(order.partnerid, "no partner id"),
-            assert(order.prepayid, "no prepay id"),
-            assert(order.timestamp, "no timestamp"),
-            assert(order.sign, "no sign")
-        )
         self.deferredEvent = self.deferredEvent or PluginEvent.PAY_CANCEL
         xGame:addListener(Event.RUNTIME_RESUME, self._onResume, self)
-        xGame:openURL(url)
-    else
-        impl:pay(order)
     end
+
+    impl:pay(self._appid, order.partnerid, order.prepayid, order.noncestr,
+        order.timestamp, order.sign)
 end
 
 function WeChat:auth(ticket)
@@ -95,6 +92,8 @@ function WeChat:auth(ticket)
     self.deferredEvent = self.deferredEvent or PluginEvent.AUTH_CANCEL
 
     if self.installed then
+        assert(self.authScope, "no auth scope")
+        assert(self.authState, "no auth state")
         impl:auth(self.authScope, self.authState)
     elseif ticket then
         self:_doAuthQRCode(ticket)
@@ -220,25 +219,51 @@ function WeChat:_requestToken(data)
                 nickname = result.nickname,
                 sex = result.sex,
             }
-            util.dump(result)
             self:dispatch(PluginEvent.AUTH_SUCCESS, self.userInfo)
         end
     end)
 end
 
-if runtime.os == "android" then
+if runtime.os == "ios" then
+    function impl:pay(appid, partnerid, prepayid, noncestr, timestamp, sign)
+        local URL_PAY = "weixin://app/%s/pay/?nonceStr=%s&package=Sign%%3DWXPay" ..
+            "&partnerId=%s&prepayId=%s&timeStamp=%d&sign=%s&signType=SHA1"
+        local url = string.format(URL_PAY, appid, noncestr, partnerid, prepayid, timestamp, sign)
+        xGame:openURL(url)
+    end
+elseif runtime.os == "android" then
     local luaj = require "xgame.luaj"
-    local cls = luaj.new("kernel/plugins/wechat/WeChat")
+    local inst = luaj.new("kernel/plugins/wechat/WeChat")
     impl = {}
 
-    function impl:init(appid, appsecret)
-        cls.init(appid, appsecret)
+    function impl:setDispatcher(callback)
+        impl.callback = callback
     end
 
-    function impl:pay()
+    function impl:init(appid)
+        inst.init(appid)
     end
 
-    function impl:auth()
+    function impl:isInstalled()
+        return inst.isInstalled()
+    end
+
+    function impl:pay(appid, partnerid, prepayid, noncestr, timestamp, sign)
+        inst.pay(partnerid, prepayid, noncestr, timestamp, 'Sign=WXPay', sign, function (...)
+            impl.callback("pay", ...)
+        end)
+    end
+
+    function impl:auth(scope, state)
+        inst.auth(scope, state, function (...)
+            impl.callback("auth", ...)
+        end)
+    end
+
+    function impl:share(message)
+        inst.share(cjson.encode(message), function (...)
+            impl.callback("share", ...)
+        end)
     end
 end
 

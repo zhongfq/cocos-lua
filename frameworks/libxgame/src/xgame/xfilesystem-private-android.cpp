@@ -5,7 +5,7 @@
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 
-#define JAVA_RUNTIME_CLASS "kernel/android/Runtime"
+#define JAVA_RUNTIME_CLASS "kernel/Runtime"
 
 USING_NS_XGAME;
 USING_NS_CC;

@@ -1,6 +1,6 @@
-package com.xqw369.ttsz.wxapi;
+package org.cocos2dx.hellolua.wxapi;
 
-import kernel.android.wechat.WeChatEntryActivity;
+import kernel.plugins.wechat.WeChatEntryActivity;
 
 public class WXEntryActivity extends WeChatEntryActivity {
 }

@@ -1,4 +1,4 @@
-package kernel.android;
+package kernel;
 
 public class LuaJ {
     public static native void unref(int func);

@@ -1,4 +1,4 @@
-package kernel.android.talkingdata;
+package kernel.plugins.talkingdata;
 
 import com.tendcloud.tenddata.Order;
 import com.tendcloud.tenddata.TCAgent;
@@ -11,8 +11,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import kernel.android.AppContext;
-import kernel.android.LuaJ;
+import kernel.AppContext;
+import kernel.LuaJ;
 
 public class TalkingData {
     private static final String TAG = TalkingData.class.getName();

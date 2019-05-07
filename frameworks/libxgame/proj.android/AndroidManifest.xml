@@ -3,7 +3,7 @@
     <application>
         <!-- cameraroll -->
         <activity
-            android:name="kernel.android.CameraRoll"
+            android:name="kernel.CameraRoll"
             android:exported="true"
             android:launchMode="singleTask"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -16,14 +16,6 @@
             android:exported="false"
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden" />
-
-        <!-- wechat -->
-        <activity android:name="kernel.android.wechat.WeChatWebAuthActivity"
-            android:exported="true"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"/>
 
         <!-- talkingdata -->
         <service

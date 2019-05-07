@@ -1,4 +1,4 @@
-package kernel.android;
+package kernel;
 
 import android.app.AlertDialog;
 import android.content.ComponentName;

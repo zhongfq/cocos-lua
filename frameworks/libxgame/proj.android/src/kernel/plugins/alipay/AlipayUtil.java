@@ -1,4 +1,4 @@
-package kernel.android.alipay;
+package kernel.plugins.alipay;
 
 import org.json.JSONObject;
 

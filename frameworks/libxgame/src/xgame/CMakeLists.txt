@@ -7,6 +7,7 @@ set(XGAME_HEADER
     src/xgame/xfilesystem-private.h
     src/xgame/xfilesystem.h
     src/xgame/xlua.h
+    src/xgame/XMLHttpRequest.h
     src/xgame/xpreferences.h
     src/xgame/xrootscene.h
     src/xgame/xruntime-private.h
@@ -21,6 +22,7 @@ set(XGAME_SRC
     src/xgame/xfilesystem-private-android.cpp
     src/xgame/xfilesystem.cpp
     src/xgame/xlua.cpp
+    src/xgame/XMLHttpRequest.cpp
     src/xgame/xpreferences.cpp
     src/xgame/xrootscene.cpp
     src/xgame/xruntime-private-android.cpp

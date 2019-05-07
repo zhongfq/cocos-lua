@@ -1,4 +1,4 @@
-package kernel.android.wechat;
+package kernel.plugins.wechat;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,8 +11,8 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
-public class WeChatPayEntryActivity extends Activity implements IWXAPIEventHandler {
-    private static final String TAG = WeChatPayEntryActivity.class.getName();
+public class WeChatEntryActivity extends Activity implements IWXAPIEventHandler {
+    private static final String TAG = WeChatEntryActivity.class.getName();
 
     private IWXAPI _api;
 
@@ -32,12 +32,12 @@ public class WeChatPayEntryActivity extends Activity implements IWXAPIEventHandl
     }
 
     @Override
-    public void onReq(BaseReq req) {
+    public void onReq(BaseReq baseReq) {
     }
 
     @Override
-    public void onResp(BaseResp resp) {
-        Log.d(TAG, "onPayFinish, errCode = " + resp.errCode);
+    public void onResp(final BaseResp resp) {
+        Log.d(TAG, "errCode = " + resp.errCode);
         WeChat.notifyRespose.onResponse(resp);
         finish();
     }

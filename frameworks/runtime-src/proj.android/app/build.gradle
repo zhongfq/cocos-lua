@@ -122,18 +122,16 @@ android.applicationVariants.all { variant ->
         copy {
             from "${buildDir}/../../../../../assets/src"
             into "${buildDir}/intermediates/assets/${variant.dirName}/src"
-            exclude 'xgame'
-            exclude 'firmware'
         }
 
-//        copy {
-//            from ("${buildDir}/../../../../xgame/lua") {
-//                include '**/*'
-//            }
-//            into "${buildDir}/intermediates/assets/${variant.dirName}/src"
-//        }
-//
 //        compileAssets("${buildDir}/intermediates/assets/${variant.dirName}")
+
+        copy {
+            from ("${buildDir}/../assets") {
+                include '**/*'
+            }
+            into "${buildDir}/intermediates/assets/${variant.dirName}"
+        }
     }
 }
 

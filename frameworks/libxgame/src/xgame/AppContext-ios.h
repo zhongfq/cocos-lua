@@ -16,5 +16,7 @@
 - (void)applicationWillTerminate:(UIApplication *)application;
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application;
 
+-(void)handleInterruption:(NSNotification*)notification;
+
 @end
 

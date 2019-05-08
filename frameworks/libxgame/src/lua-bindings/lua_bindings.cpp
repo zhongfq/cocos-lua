@@ -7,6 +7,8 @@
 #include "lua_spine.h"
 #include "lua_fairygui.h"
 #include "lua_xml_http_request.h"
+#include "lua_photo.h"
+#include "lua_recorder.h"
 #include "xgame/xruntime.h"
 #include "xgame/xlua.h"
 #include "cjson/lua_cjson.h"
@@ -14,10 +16,7 @@
 #include "pbc/pbc.h"
 #include "lame/lua_lame.h"
 #include "qrencode/lua_qrcode.h"
-
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 #include "bugly/lua_bugly.h"
-#endif
 
 int luaopen_bindings(lua_State *L)
 {
@@ -38,11 +37,9 @@ int luaopen_bindings(lua_State *L)
     olua_require(L, "kernel.qrcode", luaopen_qrcode);
     olua_require(L, "kernel.qrcode.QRSprite", luaopen_qrsprite);
     olua_require(L, "kernel.lame", luaopen_lame);
-    
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    olua_require(L, "kernel.plugins.bugly", luaopen_bugly);
-#endif
-    
+    olua_require(L, "kernel.photo", luaopen_photo);
+    olua_require(L, "kernel.recorder", luaopen_recorder);
+    olua_require(L, "kernel.bugly", luaopen_bugly);
     olua_preload(L, "kernel.luaj", luaopen_javabridge);
 
     return 0;

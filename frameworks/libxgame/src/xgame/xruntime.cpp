@@ -247,6 +247,16 @@ const std::string runtime::getLanguage()
     return __runtime_getLanguage();
 }
 
+void runtime::setAudioSessionCatalog(const std::string &catalog)
+{
+    __runtime_setAudioSessionCatalog(catalog);
+}
+
+const std::string runtime::getAudioSessionCatalog()
+{
+    return __runtime_getAudioSessionCatalog();
+}
+
 //
 // event dispatch
 //
@@ -458,6 +468,20 @@ RuntimeContext::RuntimeContext()
 
 RuntimeContext::~RuntimeContext()
 {
+}
+
+void RuntimeContext::initGLView(const std::string &title, const cocos2d::Rect &rect)
+{
+    auto director = Director::getInstance();
+    auto glview = director->getOpenGLView();
+    if(!glview) {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
+        glview = GLViewImpl::createWithRect(title, rect);
+#else
+        glview = GLViewImpl::create(title);
+#endif
+        director->setOpenGLView(glview);
+    }
 }
 
 void RuntimeContext::initGLContextAttrs()

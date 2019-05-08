@@ -31,6 +31,10 @@ public:
     static const std::string getNativeStackTrace();
     static const std::string getLanguage();
     
+    // ios only
+    static void setAudioSessionCatalog(const std::string &catalog);
+    static const std::string getAudioSessionCatalog();
+    
     // event dispatch
     typedef std::function<void (const std::string &event, const std::string &args)> EventDispatcher;
     static void setDispatcher(const EventDispatcher &dispatcher);
@@ -70,6 +74,7 @@ public:
     RuntimeContext();
     virtual ~RuntimeContext();
     
+    virtual void initGLView(const std::string &title, const cocos2d::Rect &rect);
     virtual void initGLContextAttrs();
     virtual bool applicationDidFinishLaunching();
     virtual void applicationDidEnterBackground();

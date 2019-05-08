@@ -1,6 +1,4 @@
 set(XGAME_HEADER
-    src/xgame/AppContext-ios.h
-    src/xgame/AppRootViewController-ios.h
     src/xgame/xdef.h
     src/xgame/xdownloader.h
     src/xgame/xfilefinder.h
@@ -19,13 +17,13 @@ set(XGAME_HEADER
 set(XGAME_SRC
     src/xgame/xdownloader.cpp
     src/xgame/xfilefinder.cpp
-    src/xgame/xfilesystem-private-android.cpp
+    src/xgame/xfilesystem-private.cpp
     src/xgame/xfilesystem.cpp
     src/xgame/xlua.cpp
     src/xgame/XMLHttpRequest.cpp
     src/xgame/xpreferences.cpp
     src/xgame/xrootscene.cpp
-    src/xgame/xruntime-private-android.cpp
+    src/xgame/xruntime-private.cpp
     src/xgame/xruntime.cpp
     src/xgame/xsocket.cpp
     src/xgame/xtimer.cpp

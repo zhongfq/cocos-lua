@@ -14,6 +14,7 @@ USING_NS_XGAME;
 
 static std::string _deviceInfo;
 static std::string _channel;
+static std::string _audioSessionCatalog;
 
 const std::string __runtime_getPackageName()
 {
@@ -101,4 +102,19 @@ const std::string __runtime_getLanguage()
     NSArray *languages = [defaults objectForKey:@"AppleLanguages"];
     NSString *currentLanguage = [languages objectAtIndex:0];
     return [currentLanguage UTF8String];
+}
+
+
+void __runtime_setAudioSessionCatalog(const std::string &catalog)
+{
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+    _audioSessionCatalog = catalog;
+    BOOL status = [[AVAudioSession sharedInstance] setCategory:[NSString stringWithUTF8String:catalog.c_str()] error:nil];
+    runtime::log("[%s] set session catalog: %s", status ? "OK" : "NO", catalog.c_str());
+#endif
+}
+
+const std::string __runtime_getAudioSessionCatalog()
+{
+    return _audioSessionCatalog;
 }

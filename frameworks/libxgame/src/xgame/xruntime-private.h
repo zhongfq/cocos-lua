@@ -15,6 +15,9 @@ const std::string __runtime_getLanguage();
 void __runtime_openURL(const std::string &uri, const std::function<void (bool)> callback);
 bool __runtime_canOpenURL(const std::string &uri);
 
+void __runtime_setAudioSessionCatalog(const std::string &catalog);
+const std::string __runtime_getAudioSessionCatalog();
+
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 void __runtime_pullAllFeatures();
 #endif

@@ -237,6 +237,9 @@
 		0ECC4C8421EB8D4600E3BBF9 /* cJSON.c in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC4C5B21EB8D4600E3BBF9 /* cJSON.c */; settings = {COMPILER_FLAGS = "-Wno-comma"; }; };
 		0ECC4C8521EB8D4600E3BBF9 /* lua_cjson.c in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC4C5C21EB8D4600E3BBF9 /* lua_cjson.c */; };
 		0ECC4C8621EB8D4600E3BBF9 /* lua_cjson.c in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC4C5C21EB8D4600E3BBF9 /* lua_cjson.c */; };
+		0ED5D1A12282B8430072F3DB /* lua_recorder.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0ED5D19B2282B8420072F3DB /* lua_recorder.mm */; };
+		0ED5D1A42282C86C0072F3DB /* PluginConnector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0ED5D1A22282C86C0072F3DB /* PluginConnector.mm */; };
+		0ED5D1A82282D3D20072F3DB /* lua_photo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0ED5D1942282B8410072F3DB /* lua_photo.mm */; };
 		0EE4B2BE21FC9FE60043AC9D /* xpreferences.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EE4B2BC21FC9FE60043AC9D /* xpreferences.cpp */; };
 		0EE4B2BF21FC9FE60043AC9D /* xpreferences.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EE4B2BC21FC9FE60043AC9D /* xpreferences.cpp */; };
 /* End PBXBuildFile section */
@@ -477,6 +480,16 @@
 		0ECC4C5A21EB8D4600E3BBF9 /* strbuf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = strbuf.c; sourceTree = "<group>"; };
 		0ECC4C5B21EB8D4600E3BBF9 /* cJSON.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cJSON.c; sourceTree = "<group>"; };
 		0ECC4C5C21EB8D4600E3BBF9 /* lua_cjson.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lua_cjson.c; sourceTree = "<group>"; };
+		0ED5D1942282B8410072F3DB /* lua_photo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = lua_photo.mm; sourceTree = "<group>"; };
+		0ED5D1952282B8420072F3DB /* lua_iap.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = lua_iap.mm; sourceTree = "<group>"; };
+		0ED5D1962282B8420072F3DB /* lua_recorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_recorder.h; sourceTree = "<group>"; };
+		0ED5D1972282B8420072F3DB /* lua_keychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_keychain.h; sourceTree = "<group>"; };
+		0ED5D1982282B8420072F3DB /* lua_keychain.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = lua_keychain.mm; sourceTree = "<group>"; };
+		0ED5D19A2282B8420072F3DB /* lua_iap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_iap.h; sourceTree = "<group>"; };
+		0ED5D19B2282B8420072F3DB /* lua_recorder.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = lua_recorder.mm; sourceTree = "<group>"; };
+		0ED5D19C2282B8420072F3DB /* lua_photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_photo.h; sourceTree = "<group>"; };
+		0ED5D1A22282C86C0072F3DB /* PluginConnector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PluginConnector.mm; sourceTree = "<group>"; };
+		0ED5D1A32282C86C0072F3DB /* PluginConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PluginConnector.h; sourceTree = "<group>"; };
 		0EE4B2BC21FC9FE60043AC9D /* xpreferences.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xpreferences.cpp; sourceTree = "<group>"; };
 		0EE4B2BD21FC9FE60043AC9D /* xpreferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xpreferences.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -505,6 +518,8 @@
 		0E0C702221F9600D00049240 /* xgame */ = {
 			isa = PBXGroup;
 			children = (
+				0ED5D1A32282C86C0072F3DB /* PluginConnector.h */,
+				0ED5D1A22282C86C0072F3DB /* PluginConnector.mm */,
 				0E2E9A38221C37070085145E /* AppContext-ios.h */,
 				0E2E9A39221C37070085145E /* AppContext-ios.mm */,
 				0E2E9A3D221D17260085145E /* AppRootViewController-ios.h */,
@@ -602,8 +617,16 @@
 				0E4B9352226E9E8B00B22B9F /* lua_crypto.h */,
 				0E4B9361226E9E8B00B22B9F /* lua_fairygui.cpp */,
 				0E4B9362226E9E8B00B22B9F /* lua_fairygui.h */,
+				0ED5D19A2282B8420072F3DB /* lua_iap.h */,
+				0ED5D1952282B8420072F3DB /* lua_iap.mm */,
 				0E4B9354226E9E8B00B22B9F /* lua_javabridge.cpp */,
 				0E4B935A226E9E8B00B22B9F /* lua_javabridge.h */,
+				0ED5D1972282B8420072F3DB /* lua_keychain.h */,
+				0ED5D1982282B8420072F3DB /* lua_keychain.mm */,
+				0ED5D19C2282B8420072F3DB /* lua_photo.h */,
+				0ED5D1942282B8410072F3DB /* lua_photo.mm */,
+				0ED5D1962282B8420072F3DB /* lua_recorder.h */,
+				0ED5D19B2282B8420072F3DB /* lua_recorder.mm */,
 				0E4B934D226E9E8B00B22B9F /* lua_socket.cpp */,
 				0E4B935D226E9E8B00B22B9F /* lua_socket.h */,
 				0E4B935F226E9E8B00B22B9F /* lua_spine.cpp */,
@@ -1088,8 +1111,10 @@
 				0ECC4BA621E79E3E00E3BBF9 /* ldo.c in Sources */,
 				0E6C9797222ADD1300B2C17F /* olua.c in Sources */,
 				0ECC4C6621EB8D4600E3BBF9 /* packet.c in Sources */,
+				0ED5D1A82282D3D20072F3DB /* lua_photo.mm in Sources */,
 				0E0C706121F9EFC700049240 /* xruntime-private-ios-mac.mm in Sources */,
 				0E4B937B226E9E8B00B22B9F /* lua_fairygui.cpp in Sources */,
+				0ED5D1A12282B8430072F3DB /* lua_recorder.mm in Sources */,
 				0E4C8C52225CAF490095CF59 /* takehiro.c in Sources */,
 				0ECC4C6A21EB8D4600E3BBF9 /* decode.c in Sources */,
 				0E0C704C21F9EEBD00049240 /* xdownloader.cpp in Sources */,
@@ -1132,6 +1157,7 @@
 				0E4C8C64225CAF490095CF59 /* mpglib_interface.c in Sources */,
 				0ECC4BBC21E79E3E00E3BBF9 /* lbitlib.c in Sources */,
 				0E0C705F21F9EFC700049240 /* xlua.cpp in Sources */,
+				0ED5D1A42282C86C0072F3DB /* PluginConnector.mm in Sources */,
 				0E4C8C78225CAF490095CF59 /* mask.c in Sources */,
 				0E4B9373226E9E8B00B22B9F /* lua_conv.cpp in Sources */,
 				0ECC4BA021E79E3E00E3BBF9 /* linit.c in Sources */,

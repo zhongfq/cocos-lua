@@ -4,6 +4,8 @@
 
 #import "cocos2d.h"
 
+#import <AVFoundation/AVFoundation.h>
+
 @implementation AppContext
 
 @synthesize window;
@@ -28,8 +30,32 @@
     cocos2d::Director::getInstance()->setOpenGLView(glview);
     
     app->run();
+    
+    xgame::runtime::setAudioSessionCatalog([AVAudioSessionCategoryAmbient UTF8String]);
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleInterruption:) name:UIApplicationDidBecomeActiveNotification object:nil];
 
     return YES;
+}
+
+-(void)handleInterruption:(NSNotification*)notification
+{
+    if ([notification.name isEqualToString:UIApplicationDidBecomeActiveNotification])
+    {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            std::string catalog = xgame::runtime::getAudioSessionCatalog();
+            
+            if (catalog.size() > 0) {
+                xgame::runtime::setAudioSessionCatalog(catalog);
+            }
+            if (cocos2d::Director::getInstance()->isPaused() && [UIApplication sharedApplication].applicationState == UIApplicationStateActive)
+            {
+                xgame::runtime::log("post notification 'AVAudioSessionInterruptionTypeEnded'");
+                NSDictionary *info = @{AVAudioSessionInterruptionTypeKey:[NSNumber numberWithInteger:AVAudioSessionInterruptionTypeEnded]};
+                [[NSNotificationCenter defaultCenter] postNotificationName:AVAudioSessionInterruptionNotification object:[AVAudioSession sharedInstance] userInfo:info];
+            }
+        });
+    }
 }
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
@@ -73,6 +99,8 @@
 #else
 - (void)dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
+    
     [window release];
     [_viewController release];
     [super dealloc];

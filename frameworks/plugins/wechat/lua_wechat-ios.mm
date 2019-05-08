@@ -1,6 +1,7 @@
 #import "lua_wechat.h"
 #import "xgame/xruntime.h"
 #import "xgame/xfilesystem.h"
+#import "xgame/PluginConnector.h"
 #import "cocos2d.h"
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
@@ -8,7 +9,7 @@
 #import "WechatAuthSDK.h"
 #import <TargetConditionals.h>
 
-@interface WeChatConnector : NSObject<WXApiDelegate, WechatAuthAPIDelegate>
+@interface WeChatConnector : PluginConnector<WXApiDelegate, WechatAuthAPIDelegate>
 
 // wechat sdk
 - (void)onReq:(BaseReq*)req;
@@ -20,7 +21,6 @@
 
 - (instancetype)init;
 
-@property std::function<void(const std::string &event, const std::string &data)> callback;
 @property(nonatomic, strong) WechatAuthSDK *authSDK;
 
 @end
@@ -37,7 +37,6 @@ static NSString *objectToString(NSObject *obj)
 {
     self.authSDK = [[WechatAuthSDK alloc] init];
     [self.authSDK setDelegate:self];
-    self.callback = nullptr;
     return [super init];
 }
 
@@ -68,7 +67,7 @@ static NSString *objectToString(NSObject *obj)
         }
         
         if (event != nil) {
-            _callback([event UTF8String], [message UTF8String]);
+            [self dispatch:event withMessage:message];
         }
     }
 }
@@ -84,7 +83,7 @@ static NSString *objectToString(NSObject *obj)
         [dict setValue:[NSNumber numberWithInt:0] forKey:@"errcode"];
         [dict setValue:[NSString stringWithUTF8String:path.c_str()] forKey:@"path"];
         
-        _callback("auth_qrcode", [objectToString(dict) UTF8String]);
+        [self dispatch:@"auth_qrcode" withMessage:objectToString(dict)];
     }
 }
 
@@ -100,7 +99,7 @@ static NSString *objectToString(NSObject *obj)
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         [dict setValue:[NSNumber numberWithInt:errCode] forKey:@"errcode"];
         [dict setValue:authCode forKey:@"code"];
-        _callback("auth_qrcode", [objectToString(dict) UTF8String]);
+        [self dispatch:@"auth_qrcode" withMessage:objectToString(dict)];
     }
 }
 
@@ -112,6 +111,7 @@ static NSString *objectToString(NSObject *obj)
 
 static int _gc(lua_State *L)
 {
+    lua_settop(L, 1);
     WeChatConnector *connector = olua_checkconnector(L, 1);
     CFBridgingRelease((__bridge CFTypeRef)connector);
     return 0;
@@ -120,6 +120,7 @@ static int _gc(lua_State *L)
 static int _init(lua_State *L)
 {
     @autoreleasepool {
+        lua_settop(L, 2);
         if (!TARGET_IPHONE_SIMULATOR) {
             const char *appid = olua_checkstring(L, 2);
             [WXApi registerApp:NSStringMake(appid)];
@@ -133,6 +134,7 @@ static int _init(lua_State *L)
 static int _handle_open_url(lua_State *L)
 {
     @autoreleasepool {
+        lua_settop(L, 2);
         WeChatConnector *connector = olua_checkconnector(L, 1);
         NSURL *url = [NSURL URLWithString:NSStringMake(olua_checkstring(L, 2))];
         [WXApi handleOpenURL:url delegate:connector];
@@ -154,12 +156,7 @@ static int _authorize(lua_State *L)
     @autoreleasepool {
         lua_settop(L, 3);
         xgame::runtime::log("send wechat auth request");
-
         WeChatConnector *connector = olua_checkconnector(L, 1);
-        if (connector.callback == nullptr) {
-            luaL_error(L, "wechat not set dispatcher");
-        }
-        
         SendAuthReq *req = [[SendAuthReq alloc] init];
         req.scope = NSStringMake(olua_checkstring(L, 2));
         req.state = NSStringMake(olua_checkstring(L, 3));
@@ -176,10 +173,6 @@ static int _authorize_qrcode(lua_State *L)
     @autoreleasepool {
         lua_settop(L, 7);
         WeChatConnector *connector = olua_checkconnector(L, 1);
-        if (connector.callback == nullptr) {
-            luaL_error(L, "wechat not set dispatcher");
-        }
-        
         [connector.authSDK setDelegate:nil];
         [connector.authSDK StopAuth];
         [connector.authSDK setDelegate:connector];
@@ -197,10 +190,11 @@ static int _authorize_qrcode(lua_State *L)
 static int _set_callback(lua_State *L)
 {
     @autoreleasepool {
+        lua_settop(L, 2);
         WeChatConnector *connector = olua_checkconnector(L, 1);
         void *cb_store = (void *)connector;
         std::string func = olua_setcallback(L, cb_store, "dispatcher", 2, OLUA_CALLBACK_TAG_REPLACE);
-        connector.callback = [cb_store, func] (const std::string &event, const std::string &data) {
+        connector.dispatcher = [cb_store, func] (const std::string &event, const std::string &data) {
             lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
             lua_pushstring(L, event.c_str());

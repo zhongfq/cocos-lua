@@ -235,6 +235,31 @@ static int _xgame_runtime_getLogPath(lua_State *L)
     return num_ret;
 }
 
+static int _xgame_runtime_setAudioSessionCatalog(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    std::string arg1;       /** catalog */
+
+    olua_check_std_string(L, 1, &arg1);
+
+    // static void setAudioSessionCatalog(const std::string &catalog);
+    xgame::runtime::setAudioSessionCatalog(arg1);
+
+    return 0;
+}
+
+static int _xgame_runtime_getAudioSessionCatalog(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static const std::string getAudioSessionCatalog();
+    const std::string ret = (const std::string)xgame::runtime::getAudioSessionCatalog();
+    int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
 static int _xgame_runtime_setLogPath(lua_State *L)
 {
     lua_settop(L, 1);
@@ -321,6 +346,8 @@ static int luaopen_xgame_runtime(lua_State *L)
     oluacls_func(L, "getDeviceInfo", _xgame_runtime_getDeviceInfo);
     oluacls_func(L, "getLanguage", _xgame_runtime_getLanguage);
     oluacls_func(L, "getLogPath", _xgame_runtime_getLogPath);
+    oluacls_func(L, "setAudioSessionCatalog", _xgame_runtime_setAudioSessionCatalog);
+    oluacls_func(L, "getAudioSessionCatalog", _xgame_runtime_getAudioSessionCatalog);
     oluacls_func(L, "setLogPath", _xgame_runtime_setLogPath);
     oluacls_func(L, "testCrash", _xgame_runtime_testCrash);
     oluacls_func(L, "setDispatcher", _xgame_runtime_setDispatcher);
@@ -332,6 +359,7 @@ static int luaopen_xgame_runtime(lua_State *L)
     oluacls_prop(L, "os", _xgame_runtime_getOS, nullptr);
     oluacls_prop(L, "deviceInfo", _xgame_runtime_getDeviceInfo, nullptr);
     oluacls_prop(L, "language", _xgame_runtime_getLanguage, nullptr);
+    oluacls_prop(L, "audioSessionCatalog", _xgame_runtime_getAudioSessionCatalog, _xgame_runtime_setAudioSessionCatalog);
     oluacls_prop(L, "logPath", _xgame_runtime_getLogPath, _xgame_runtime_setLogPath);
 
     olua_registerluatype<xgame::runtime>(L, "kernel.runtime");

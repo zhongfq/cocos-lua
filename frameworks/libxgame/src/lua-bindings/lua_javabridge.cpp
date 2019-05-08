@@ -294,10 +294,4 @@ JNIEXPORT void JNICALL Java_kernel_LuaJ_registerFeature
     xgame::runtime::registerFeature(api, (bool)enabled);
 }
 }
-#else
-int luaopen_javabridge(lua_State *L)
-{
-    xlua_createnonsupport(L, olua_checkstring(L, 1));
-    return 1;
-}
 #endif

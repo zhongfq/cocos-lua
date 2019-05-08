@@ -21,6 +21,8 @@ cls.funcs [[
     static const std::string getDeviceInfo()
     static const std::string getLanguage()
     static const std::string getLogPath()
+    static void setAudioSessionCatalog(const std::string &catalog);
+    static const std::string getAudioSessionCatalog();
     static void setLogPath(const std::string &path)
 ]]
 cls.props [[
@@ -31,6 +33,7 @@ cls.props [[
     os
     deviceInfo
     language
+    audioSessionCatalog
     logPath
 ]]
 cls.func("testCrash", [[

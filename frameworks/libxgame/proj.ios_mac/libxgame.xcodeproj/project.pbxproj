@@ -240,6 +240,8 @@
 		0ED5D1A12282B8430072F3DB /* lua_recorder.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0ED5D19B2282B8420072F3DB /* lua_recorder.mm */; };
 		0ED5D1A42282C86C0072F3DB /* PluginConnector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0ED5D1A22282C86C0072F3DB /* PluginConnector.mm */; };
 		0ED5D1A82282D3D20072F3DB /* lua_photo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0ED5D1942282B8410072F3DB /* lua_photo.mm */; };
+		0ED5D1AD2283BFBF0072F3DB /* lua_keychain.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0ED5D1982282B8420072F3DB /* lua_keychain.mm */; };
+		0ED5D1AE2283C3D50072F3DB /* lua_iap.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0ED5D1952282B8420072F3DB /* lua_iap.mm */; };
 		0EE4B2BE21FC9FE60043AC9D /* xpreferences.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EE4B2BC21FC9FE60043AC9D /* xpreferences.cpp */; };
 		0EE4B2BF21FC9FE60043AC9D /* xpreferences.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EE4B2BC21FC9FE60043AC9D /* xpreferences.cpp */; };
 /* End PBXBuildFile section */
@@ -1181,6 +1183,7 @@
 				0ECC4BC621E79E3E00E3BBF9 /* lgc.c in Sources */,
 				0E4C8C60225CAF490095CF59 /* reservoir.c in Sources */,
 				0E4C8C6E225CAF490095CF59 /* QRSprite.cpp in Sources */,
+				0ED5D1AE2283C3D50072F3DB /* lua_iap.mm in Sources */,
 				0ECC4BE021E79E3E00E3BBF9 /* ltable.c in Sources */,
 				0ECC4BAE21E79E3E00E3BBF9 /* lstring.c in Sources */,
 				0E4C8C70225CAF490095CF59 /* lua_qrcode.cpp in Sources */,
@@ -1188,6 +1191,7 @@
 				0ECC4BB621E79E3E00E3BBF9 /* lvm.c in Sources */,
 				0E4C8C50225CAF490095CF59 /* id3tag.c in Sources */,
 				0E4C8C56225CAF490095CF59 /* quantize.c in Sources */,
+				0ED5D1AD2283BFBF0072F3DB /* lua_keychain.mm in Sources */,
 				0ECC4BBE21E79E3E00E3BBF9 /* llex.c in Sources */,
 				0E2E9A85221EBB570085145E /* xxtea.cpp in Sources */,
 				0ECC4C6221EB8D4600E3BBF9 /* array.c in Sources */,

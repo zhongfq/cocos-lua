@@ -26,6 +26,7 @@
 		0E730C842272B4910067866B /* lua_wechat-ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E730C812272B4900067866B /* lua_wechat-ios.mm */; };
 		0E730C852272B4910067866B /* lua_wechat-ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E730C812272B4900067866B /* lua_wechat-ios.mm */; };
 		0ED5D1AB2282D80E0072F3DB /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED5D1A92282D80D0072F3DB /* Photos.framework */; };
+		0ED5D1B02283CA640072F3DB /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED5D1AF2283CA630072F3DB /* StoreKit.framework */; };
 		1A88B2641FC3D9C9005C14AE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A88B2631FC3D9C9005C14AE /* Images.xcassets */; };
 		1AC6FB21180E996B004C840B /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FAF9180E9839004C840B /* libcocos2d Mac.a */; };
 		1AC6FB30180E99EB004C840B /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB07180E9839004C840B /* libcocos2d iOS.a */; };
@@ -174,6 +175,7 @@
 		0E730C812272B4900067866B /* lua_wechat-ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "lua_wechat-ios.mm"; path = "../../plugins/wechat/lua_wechat-ios.mm"; sourceTree = "<group>"; };
 		0ED5D1A92282D80D0072F3DB /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Photos.framework; sourceTree = DEVELOPER_DIR; };
 		0ED5D1AA2282D80E0072F3DB /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/PhotosUI.framework; sourceTree = DEVELOPER_DIR; };
+		0ED5D1AF2283CA630072F3DB /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
 		1A88B2631FC3D9C9005C14AE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = "../../cocos2d-x/build/cocos2d_libs.xcodeproj"; sourceTree = "<group>"; };
 		1ACB3243164770DE00914215 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = ../../cocos2dx/platform/third_party/ios/libraries/libcurl.a; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 				D44C620C132DFF330009C878 /* OpenAL.framework in Frameworks */,
 				BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */,
 				0ED5D1AB2282D80E0072F3DB /* Photos.framework in Frameworks */,
+				0ED5D1B02283CA640072F3DB /* StoreKit.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -384,6 +387,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0ED5D1AF2283CA630072F3DB /* StoreKit.framework */,
 				0ED5D1A92282D80D0072F3DB /* Photos.framework */,
 				0ED5D1AA2282D80E0072F3DB /* PhotosUI.framework */,
 				0E24B3FD22703ECC000054C9 /* libsqlite3.tbd */,

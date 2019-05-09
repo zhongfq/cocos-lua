@@ -8,7 +8,9 @@
 #include "lua_fairygui.h"
 #include "lua_xml_http_request.h"
 #include "lua_photo.h"
+#include "lua_iap.h"
 #include "lua_recorder.h"
+#include "lua_keychain.h"
 #include "xgame/xruntime.h"
 #include "xgame/xlua.h"
 #include "cjson/lua_cjson.h"
@@ -35,12 +37,14 @@ int luaopen_bindings(lua_State *L)
     olua_require(L, "kernel.cjson", luaopen_cjson);
     olua_require(L, "kernel.cjson.safe", luaopen_cjson_safe);
     olua_require(L, "kernel.qrcode", luaopen_qrcode);
-    olua_require(L, "kernel.qrcode.QRSprite", luaopen_qrsprite);
+    olua_require(L, "kernel.QRSprite", luaopen_qrsprite);
     olua_require(L, "kernel.lame", luaopen_lame);
     olua_require(L, "kernel.photo", luaopen_photo);
     olua_require(L, "kernel.recorder", luaopen_recorder);
+    olua_require(L, "kernel.keychain", luaopen_keychain);
     olua_require(L, "kernel.bugly", luaopen_bugly);
-    olua_preload(L, "kernel.luaj", luaopen_javabridge);
+    olua_require(L, "kernel.iap", luaopen_iap);
+    olua_require(L, "kernel.luaj", luaopen_javabridge);
 
     return 0;
 }

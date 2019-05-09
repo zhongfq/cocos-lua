@@ -3,6 +3,10 @@
 
 #include "xgame/xlua.h"
     
-int luaopen_keychain_ios(lua_State *L);
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+int luaopen_keychain(lua_State *L);
+#else
+#define luaopen_keychain xlua_nonsupport
+#endif
 
 #endif

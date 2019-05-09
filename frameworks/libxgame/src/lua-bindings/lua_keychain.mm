@@ -1,5 +1,7 @@
 #include "lua_keychain.h"
 
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+
 #import <Foundation/Foundation.h>
 #import <Security/Security.h>
 
@@ -40,13 +42,15 @@ static int _get_string(lua_State *L)
             value = [[NSString alloc] initWithData:(__bridge NSData *)key_data encoding:NSUTF8StringEncoding];
         }
         
-        if (key_data)
+        if (key_data) {
             CFRelease(key_data);
+        }
         
-        if (value)
+        if (value) {
             lua_pushstring(L, [value UTF8String]);
-        else
+        } else {
             lua_pushnil(L);
+        }
     }
     return 1;
 }
@@ -61,12 +65,12 @@ static int _delete_key(lua_State *L)
     return 1;
 }
 
-int luaopen_keychain_ios(lua_State *L)
+int luaopen_keychain(lua_State *L)
 {
     static const luaL_Reg lib[] = {
-        {"get_string", _get_string},
-        {"set_string", _set_string},
-        {"delete_key", _delete_key},
+        {"getString", _get_string},
+        {"setString", _set_string},
+        {"deleteKey", _delete_key},
         {NULL, NULL}
     };
     
@@ -74,3 +78,5 @@ int luaopen_keychain_ios(lua_State *L)
     
     return 1;
 }
+
+#endif

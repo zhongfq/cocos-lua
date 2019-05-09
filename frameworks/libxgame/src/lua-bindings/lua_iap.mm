@@ -2,10 +2,10 @@
 #include "cocos2d.h"
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
-
+#import "xgame/PluginConnector.h"
 #import <StoreKit/StoreKit.h>
 
-@interface IAPStoreConnector : NSObject<SKPaymentTransactionObserver, SKRequestDelegate, SKProductsRequestDelegate>
+@interface IAPConnector : PluginConnector<SKPaymentTransactionObserver, SKRequestDelegate, SKProductsRequestDelegate>
 @property(readwrite, strong, nonatomic) NSArray<SKProduct *> *products;
 
 // SKPaymentTransactionObserver
@@ -32,8 +32,8 @@ static NSString *objectToJSONString(NSObject *obj)
 static NSDictionary *transactionToDictionary(SKPaymentTransaction *transaction)
 {
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    [dict setValue:transaction.payment.productIdentifier forKey:@"product_identifier"];
-    [dict setValue:[NSNumber numberWithInteger:transaction.payment.quantity] forKey:@"product_quantity"];
+    [dict setValue:transaction.payment.productIdentifier forKey:@"productIdentifier"];
+    [dict setValue:[NSNumber numberWithInteger:transaction.payment.quantity] forKey:@"productQuantity"];
     [dict setValue:transaction.transactionIdentifier forKey:@"identifier"];
     
     if (transaction.transactionState == SKPaymentTransactionStatePurchased ||
@@ -59,7 +59,7 @@ static NSDictionary *transactionToDictionary(SKPaymentTransaction *transaction)
     if(transaction.transactionState == SKPaymentTransactionStateRestored &&
        transaction.originalTransaction.transactionState != SKPaymentTransactionStatePurchasing)
     {
-        [dict setValue:transactionToDictionary(transaction.originalTransaction) forKey:@"original_transaction"];
+        [dict setValue:transactionToDictionary(transaction.originalTransaction) forKey:@"originalTransaction"];
     }
     
     return dict;
@@ -88,7 +88,7 @@ static NSString *productsToString(NSArray<SKProduct *> *products)
         [dict setValue:p.localizedTitle forKey:@"title"];
         [dict setValue:p.localizedDescription forKey:@"description"];
         [dict setValue:p.productIdentifier forKey:@"identifier"];
-        [dict setValue:p.priceLocale.localeIdentifier forKey:@"price_locale"];
+        [dict setValue:p.priceLocale.localeIdentifier forKey:@"priceLocale"];
         [dict setValue:p.price forKey:@"price"];
         [values addObject:dict];
     }
@@ -96,7 +96,7 @@ static NSString *productsToString(NSArray<SKProduct *> *products)
     return objectToJSONString(values);
 }
 
-@implementation IAPStoreConnector
+@implementation IAPConnector
 
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray<SKPaymentTransaction *> *)transactions
 {
@@ -107,13 +107,13 @@ static NSString *productsToString(NSArray<SKProduct *> *products)
         switch (transaction.transactionState)
         {
             case SKPaymentTransactionStatePurchased:
-                event = @"purchase_transaction_success";
+                event = @"purchaseTransactionSuccess";
                 break;
             case SKPaymentTransactionStateRestored:
-                event = @"restore_transaction_success";
+                event = @"restoreTransactionSuccess";
                 break;
             case SKPaymentTransactionStateFailed:
-                event = transaction.error.code == SKErrorPaymentCancelled ? @"purchase_transaction_cancel" : @"purchase_transaction_fail";
+                event = transaction.error.code == SKErrorPaymentCancelled ? @"purchaseTransactionCancel" : @"purchaseTransactionFail";
                 break;
             default:
                 break;
@@ -128,7 +128,7 @@ static NSString *productsToString(NSArray<SKProduct *> *products)
 - (void)paymentQueue:(SKPaymentQueue *)queue removedTransactions:(NSArray<SKPaymentTransaction *> *)transactions
 {
     @autoreleasepool {
-        [self dispatch:@"finish_transaction_success" withMessage:transactionsToString(transactions)];
+        [self dispatch:@"finishTransactionSuccess" withMessage:transactionsToString(transactions)];
     }
 }
 
@@ -136,13 +136,13 @@ static NSString *productsToString(NSArray<SKProduct *> *products)
 {
     @autoreleasepool {
         NSString *errstr = [[error localizedDescription] stringByAppendingFormat:@":%ld", (long)error.code];
-        [self dispatch:@"restore_transaction_fail" withMessage:errstr];
+        [self dispatch:@"restoreTransactionFail" withMessage:errstr];
     }
 }
 
 - (void)paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue
 {
-    [self dispatch:@"restore_transaction_complete" withMessage:@""];
+    [self dispatch:@"restoreTransactionComplete" withMessage:@""];
 }
 
 - (BOOL)paymentQueue:(SKPaymentQueue *)queue shouldAddStorePayment:(SKPayment *)payment forProduct:(SKProduct *)product
@@ -155,49 +155,63 @@ static NSString *productsToString(NSArray<SKProduct *> *products)
 {
     @autoreleasepool {
         self.products = response.products;
-        [self dispatch:@"product_details_success" withMessage:productsToString(response.products)];
+        [self dispatch:@"productDetailsSuccess" withMessage:productsToString(response.products)];
         
         if (response.invalidProductIdentifiers.count > 0)
         {
-            [self dispatch:@"product_details_invalid" withMessage:objectToJSONString(response.invalidProductIdentifiers)];
+            [self dispatch:@"productDetailsInvalid" withMessage:objectToJSONString(response.invalidProductIdentifiers)];
         }
     }
 }
 
 - (void)requestDidFinish:(SKRequest *)request
 {
-    
 }
 
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error
 {
     @autoreleasepool {
         NSString *errstr = [[error localizedDescription] stringByAppendingFormat:@":%ld", (long)error.code];
-        [self dispatch:@"product_details_fail" withMessage:errstr];
+        [self dispatch:@"productDetailsFail" withMessage:errstr];
     }
 }
 
 @end
 
-#define LUA_CONNECTORHANDLE "IAPStoreConnector*"
-#define toconnector(L) ((__bridge IAPStoreConnector *)(*(void **)luaL_checkudata(L, 1, LUA_CONNECTORHANDLE)))
+#define CLASS_CONNECTOR "IAPConnector*"
+#define olua_checkconnector(L, i) ((__bridge IAPConnector *)olua_checkobj(L, i, CLASS_CONNECTOR))
+#define NSStringMake(str) (str == NULL ? nil : @(str))
 
-static int gc(lua_State *L)
+static int _gc(lua_State *L)
 {
-    IAPStoreConnector *connector = toconnector(L);
+    lua_settop(L, 1);
+    IAPConnector *connector = olua_checkconnector(L, 1);
     CFBridgingRelease((__bridge CFTypeRef)connector);
     
     return 0;
 }
 
-static int set_callback(lua_State *L)
+static int _set_callback(lua_State *L)
 {
-    IAPStoreConnector *connector = toconnector(L);
-    [connector setCallback:luaext_reffunction(L, 2)];
+    @autoreleasepool {
+        lua_settop(L, 2);
+        IAPConnector *connector = olua_checkconnector(L, 1);
+        void *cb_store = (void *)connector;
+        std::string func = olua_setcallback(L, cb_store, "dispatcher", 2, OLUA_CALLBACK_TAG_REPLACE);
+        connector.dispatcher = [cb_store, func] (const std::string &event, const std::string &data) {
+            lua_State *L = olua_mainthread();
+            int top = lua_gettop(L);
+            lua_pushstring(L, event.c_str());
+            lua_pushstring(L, data.c_str());
+            olua_callback(L, cb_store, func.c_str(), 2);
+            lua_settop(L, top);
+        };
+    }
+    
     return 0;
 }
 
-static int can_make_payments(lua_State *L)
+static int _can_make_payments(lua_State *L)
 {
     @autoreleasepool {
         lua_pushboolean(L, [SKPaymentQueue canMakePayments]);
@@ -206,53 +220,46 @@ static int can_make_payments(lua_State *L)
     return 1;
 }
 
-static int request_products(lua_State *L)
+static int _request_products(lua_State *L)
 {
     @autoreleasepool {
-        IAPStoreConnector *connector = toconnector(L);
+        lua_settop(L, 2);
+        IAPConnector *connector = olua_checkconnector(L, 1);
         NSString *idsstr = [NSString stringWithUTF8String:luaL_checkstring(L, 2)];
         NSMutableSet *ids = [NSMutableSet setWithArray:[idsstr componentsSeparatedByString:@","]];
-        
         SKProductsRequest *req = [[SKProductsRequest alloc] initWithProductIdentifiers:ids];
         req.delegate = connector;
         [req start];
-        
         xgame::runtime::log("request products: %s", [idsstr UTF8String]);
     }
     
     return 1;
 }
 
-static int purchase(lua_State *L)
+static int _purchase(lua_State *L)
 {
     @autoreleasepool {
-        IAPStoreConnector *connector = toconnector(L);
+        lua_settop(L, 3);
+        IAPConnector *connector = olua_checkconnector(L, 1);
         NSString *pid = [NSString stringWithUTF8String:luaL_checkstring(L, 2)];
         NSNumber *quantify = [NSNumber numberWithInteger:(int)luaL_checkinteger(L, 3)];
         SKProduct *product = nil;
         
-        if (connector.products != nil)
-        {
-            for (SKProduct *p in connector.products)
-            {
-                if ([p.productIdentifier isEqualToString:pid])
-                {
+        if (connector.products != nil) {
+            for (SKProduct *p in connector.products) {
+                if ([p.productIdentifier isEqualToString:pid]) {
                     product = p;
                     break;
                 }
             }
         }
         
-        if (product != nil)
-        {
+        if (product != nil) {
             xgame::runtime::log("purchase product: pid=%s quantity=%d", [pid UTF8String], (int)[quantify integerValue]);
-            
             SKMutablePayment *payment = [SKMutablePayment paymentWithProduct:product];
             payment.quantity = MAX(1, [quantify integerValue]);
             [[SKPaymentQueue defaultQueue] addPayment:payment];
-        }
-        else
-        {
+        } else {
             xgame::runtime::log("can't find product: %s", [pid UTF8String]);
         }
     }
@@ -260,19 +267,17 @@ static int purchase(lua_State *L)
     return 0;
 }
 
-static int finish_transaction(lua_State *L)
+static int _finish_transaction(lua_State *L)
 {
     @autoreleasepool {
+        lua_settop(L, 2);
         NSString *tid = [NSString stringWithUTF8String:luaL_checkstring(L, 2)];
         xgame::runtime::log("try to finish transaction: %s", [tid UTF8String]);
         for (SKPaymentTransaction *t in [SKPaymentQueue defaultQueue].transactions)
         {
-            if ([t.transactionIdentifier isEqualToString:tid])
-            {
+            if ([t.transactionIdentifier isEqualToString:tid]) {
                 [[SKPaymentQueue defaultQueue] finishTransaction:t];
-            }
-            else if (t.originalTransaction && [t.originalTransaction.transactionIdentifier isEqualToString:tid])
-            {
+            } else if (t.originalTransaction && [t.originalTransaction.transactionIdentifier isEqualToString:tid]) {
                 [[SKPaymentQueue defaultQueue] finishTransaction:t.originalTransaction];
                 [[SKPaymentQueue defaultQueue] finishTransaction:t];
             }
@@ -282,7 +287,7 @@ static int finish_transaction(lua_State *L)
     return 0;
 }
 
-static int restore_completed_transactions(lua_State *L)
+static int _restore_completed_transactions(lua_State *L)
 {
     @autoreleasepool {
         [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
@@ -291,12 +296,12 @@ static int restore_completed_transactions(lua_State *L)
     return 0;
 }
 
-static int pending_transactions(lua_State *L)
+static int _pending_transactions(lua_State *L)
 {
     @autoreleasepool {
+        lua_settop(L, 1);
         NSMutableArray<SKPaymentTransaction *> *transactions = [[NSMutableArray alloc] init];
-        for (SKPaymentTransaction *t in [SKPaymentQueue defaultQueue].transactions)
-        {
+        for (SKPaymentTransaction *t in [SKPaymentQueue defaultQueue].transactions) {
             switch (t.transactionState) {
                 case SKPaymentTransactionStatePurchased:
                 case SKPaymentTransactionStateRestored:
@@ -316,29 +321,22 @@ static int pending_transactions(lua_State *L)
     return 1;
 }
 
-static const luaL_Reg lib[] = {
-    {"__gc", gc},
-    {"set_callback", set_callback},
-    {"can_make_payments", can_make_payments},
-    {"request_products", request_products},
-    {"purchase", purchase},
-    {"finish_transaction", finish_transaction},
-    {"restore_completed_transactions", restore_completed_transactions},
-    {"pending_transactions", pending_transactions},
-    {NULL, NULL},
-};
-
-int luaopen_iapstore_ios(lua_State *L)
+int luaopen_iap(lua_State *L)
 {
-    luaL_newmetatable(L, LUA_CONNECTORHANDLE);
-    luaL_setfuncs(L, lib, 0);
-    lua_pushvalue(L, -1);
-    lua_setfield(L, -2, "__index");
+    oluacls_class(L, CLASS_CONNECTOR, nullptr);
+    oluacls_func(L, "__gc", _gc);
+    oluacls_func(L, "setDispatcher", _set_callback);
+    oluacls_func(L, "canMakePayments", _can_make_payments);
+    oluacls_func(L, "requestProducts", _request_products);
+    oluacls_func(L, "purchase", _purchase);
+    oluacls_func(L, "finishTransaction", _finish_transaction);
+    oluacls_func(L, "restoreCompletedTransactions", _restore_completed_transactions);
+    oluacls_prop(L, "pendingTransactions", _pending_transactions, nullptr);
     
-    IAPStoreConnector *connector = [[IAPStoreConnector alloc] init];
-    [[SKPaymentQueue defaultQueue] addTransactionObserver:connector];
-    *(void **)lua_newuserdata(L, sizeof(void *)) = (void *)CFBridgingRetain(connector);
-    luaL_setmetatable(L, LUA_CONNECTORHANDLE);
+    xgame::runtime::registerFeature("iap.ios", true);
+    
+    IAPConnector *connector = [[IAPConnector alloc] init];
+    olua_push_obj(L, (void *)CFBridgingRetain(connector), CLASS_CONNECTOR);
     
     return 1;
 }

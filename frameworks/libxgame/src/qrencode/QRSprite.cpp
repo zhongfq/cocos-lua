@@ -1,7 +1,3 @@
-//
-// $id: QRSprite.cpp O $
-//
-
 #include "QRSprite.h"
 #include "qrencode.h"
 

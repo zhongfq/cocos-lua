@@ -210,8 +210,10 @@ int luaopen_recorder(lua_State *L)
     
     xgame::runtime::registerFeature("recorder.ios", true);
     
-    RecorderConnector *connector = [[RecorderConnector alloc] init];
-    olua_push_obj(L, (void *)CFBridgingRetain(connector), CLASS_CONNECTOR);
+    @autoreleasepool {
+        RecorderConnector *connector = [[RecorderConnector alloc] init];
+        olua_push_obj(L, (void *)CFBridgingRetain(connector), CLASS_CONNECTOR);
+    }
     
     return 1;
 }

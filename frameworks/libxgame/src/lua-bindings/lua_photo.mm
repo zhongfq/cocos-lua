@@ -26,6 +26,7 @@ typedef enum {
 @property(readwrite, strong, nonatomic) UIImagePickerController *imagePicker;
 @property(readwrite, strong, nonatomic) NSString *cachePath;
 @property(readwrite, assign, nonatomic) CGSize size;
+@property(readwrite, assign, nonatomic) float quality;
 @property(readwrite, assign, nonatomic) CameraRollMode mode;
 
 - (instancetype)init;
@@ -45,6 +46,7 @@ typedef enum {
     self.imagePicker = [[UIImagePickerController alloc] init];
     self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     self.imagePicker.delegate = self;
+    self.quality = 0.85f;
     
     return [super init];
 }
@@ -61,22 +63,21 @@ typedef enum {
             if (self.mode == kCameraRollModeAvatar)
             {
                 image = image_resize_to([info objectForKey:UIImagePickerControllerEditedImage], self.size.width, self.size.height);
-                ok = [UIImageJPEGRepresentation(image, 0.8f) writeToFile:self.cachePath atomically:YES];
             }
             else
             {
                 image = [info objectForKey:UIImagePickerControllerOriginalImage];
-                ok = [UIImageJPEGRepresentation(image, 0.5f) writeToFile:self.cachePath atomically:YES];
             }
             
-            if (ok)
-            {
-                [self dispatch:@"selectImage" withMessage:@"complete"];
+            if (image) {
+                if (strendwith([self.cachePath UTF8String], ".png")) {
+                    ok = [UIImagePNGRepresentation(image) writeToFile:self.cachePath atomically:YES];
+                } else {
+                    ok = [UIImageJPEGRepresentation(image, self.quality) writeToFile:self.cachePath atomically:YES];
+                }
             }
-            else
-            {
-                [self dispatch:@"selectImage" withMessage:@"ioerror"];
-            }
+            
+            [self dispatch:@"selectImage" withMessage: ok ? @"complete" : "ioerror"];
         }
         else
         {
@@ -281,8 +282,9 @@ static int _request_permission(lua_State *L)
 static int _select_image(lua_State *L)
 {
     @autoreleasepool {
-        lua_settop(L, 2);
+        lua_settop(L, 3);
         PhotoConnector *connector = olua_checkconnector(L, 1);
+        connector.quality = olua_optnumber(L, 3, 0.85f);
         [connector selectImage:[NSString stringWithUTF8String:luaL_checkstring(L, 2)]];
     }
     return 0;
@@ -291,11 +293,12 @@ static int _select_image(lua_State *L)
 static int _select_avatar(lua_State *L)
 {
     @autoreleasepool {
-        lua_settop(L, 5);
+        lua_settop(L, 6);
         PhotoConnector *connector = olua_checkconnector(L, 1);
         const char *where = olua_checkstring(L, 2);
         NSString *cachePath = [NSString stringWithUTF8String:luaL_checkstring(L, 3)];
         CGSize size = CGSizeMake((int)luaL_checkinteger(L, 4), (int)luaL_checkinteger(L, 5));
+        connector.quality = olua_optnumber(L, 6, 0.85f);
         if (strequal(where, "PHOTO")) {
             [connector selectAvatarFromPhotoLibrary:cachePath withSize:size];
         } else {
@@ -316,8 +319,10 @@ int luaopen_photo(lua_State *L)
     
     xgame::runtime::registerFeature("photo.ios", true);
     
-    PhotoConnector *connector = [[PhotoConnector alloc] init];
-    olua_push_obj(L, (void *)CFBridgingRetain(connector), CLASS_CONNECTOR);
+    @autoreleasepool {
+        PhotoConnector *connector = [[PhotoConnector alloc] init];
+        olua_push_obj(L, (void *)CFBridgingRetain(connector), CLASS_CONNECTOR);
+    }
     
     return 1;
 }

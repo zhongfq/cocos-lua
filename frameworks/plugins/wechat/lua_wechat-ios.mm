@@ -321,8 +321,10 @@ int luaopen_wechat(lua_State *L)
     
     xgame::runtime::registerFeature("wechat.ios", true);
     
-    WeChatConnector *connector = [[WeChatConnector alloc] init];
-    olua_push_obj(L, (void *)CFBridgingRetain(connector), CLASS_CONNECTOR);
+    @autoreleasepool {
+        WeChatConnector *connector = [[WeChatConnector alloc] init];
+        olua_push_obj(L, (void *)CFBridgingRetain(connector), CLASS_CONNECTOR);
+    }
     
     return 1;
 }

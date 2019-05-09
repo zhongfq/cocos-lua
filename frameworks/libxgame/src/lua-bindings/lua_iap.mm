@@ -335,8 +335,10 @@ int luaopen_iap(lua_State *L)
     
     xgame::runtime::registerFeature("iap.ios", true);
     
-    IAPConnector *connector = [[IAPConnector alloc] init];
-    olua_push_obj(L, (void *)CFBridgingRetain(connector), CLASS_CONNECTOR);
+    @autoreleasepool {
+        IAPConnector *connector = [[IAPConnector alloc] init];
+        olua_push_obj(L, (void *)CFBridgingRetain(connector), CLASS_CONNECTOR);
+    }
     
     return 1;
 }

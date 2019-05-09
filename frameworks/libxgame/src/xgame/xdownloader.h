@@ -14,13 +14,13 @@ public:
     enum FileState {
         IOERROR = 0,
         LOADED,
-        VALID,
+        PENDING,
         INVALID,
     };
     
     struct FileTask {
         std::string url;
-        std::string storagePath;
+        std::string path;
         std::string md5;
         FileState state;
     };

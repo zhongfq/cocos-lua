@@ -43,8 +43,9 @@ bool md5f(unsigned char result[MD5_STR_LEN], const char *filepath)
     
     FILE *file = fopen(filepath, "rb");
     
-    if (!file)
+    if (!file) {
         return false;
+    }
     
     MD5Init(&ctx);
     while ((len = fread(buf, sizeof(char), 1024, file)) > 0) {

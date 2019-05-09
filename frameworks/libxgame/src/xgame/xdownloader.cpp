@@ -53,7 +53,7 @@ void downloader::init()
         FileTask file;
         file.md5 = task.identifier;
         file.url = task.requestURL;
-        file.storagePath = task.storagePath;
+        file.path = task.storagePath;
         file.state = FileState::IOERROR;
         
         std::lock_guard<std::mutex> lck(_mutex);
@@ -64,8 +64,8 @@ void downloader::init()
         FileTask file;
         file.md5 = task.identifier;
         file.url = task.requestURL;
-        file.storagePath = task.storagePath;
-        file.state = FileState::LOADED;
+        file.path = task.storagePath;
+        file.state = FileState::PENDING;
         
         std::lock_guard<std::mutex> lck(_mutex);
         _tasks.push_back(file);
@@ -81,13 +81,13 @@ void downloader::setDispatcher(const std::function<void(const FileTask &)> callb
 static bool verifyFile(const downloader::FileTask &task)
 {
     unsigned char result[MD5_STR_LEN];
-    return md5f(result, task.storagePath.c_str()) &&
+    return md5f(result, task.path.c_str()) &&
         strcaseequal((const char *)result, task.md5.c_str());
 }
 
 void downloader::load(const FileTask &task)
 {
-    auto path = task.storagePath;
+    auto path = task.path;
     auto pos = path.find_last_of("/");
     
     if (pos != std::string::npos) {
@@ -95,8 +95,10 @@ void downloader::load(const FileTask &task)
     }
     
     filesystem::createDirectory(path);
-    filesystem::remove(task.storagePath + ".tmp");
-    _loader->createDownloadFileTask(task.url, task.storagePath, task.md5);
+    if (filesystem::exist(task.path + ".tmp")) {
+        filesystem::remove(task.path + ".tmp");
+    }
+    _loader->createDownloadFileTask(task.url, task.path, task.md5);
 }
 
 void downloader::start()
@@ -108,16 +110,16 @@ void downloader::start()
             _tasks.pop_back();
             _mutex.unlock();
             
-            if (task.state == FileState::LOADED) {
+            if (task.state == FileState::PENDING) {
                 if (task.md5.size() > 0) {
-                    task.state = verifyFile(task) ? FileState::VALID : FileState::INVALID;
+                    task.state = verifyFile(task) ? FileState::LOADED : FileState::INVALID;
                 } else {
-                    task.state = FileState::VALID;
+                    task.state = FileState::LOADED;
                 }
             }
             
-            if (task.state != FileState::VALID) {
-                filesystem::remove(task.storagePath);
+            if (task.state != FileState::LOADED && filesystem::exist(task.path)) {
+                filesystem::remove(task.path);
             }
             
             cocos2d::Director::getInstance()->getScheduler()->performFunctionInCocosThread([task]() {

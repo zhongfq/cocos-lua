@@ -1060,7 +1060,7 @@ static int _xgame_downloader_load(lua_State *L)
     lua_settop(L, 3);
     xgame::downloader::FileTask task;
     task.url = olua_checkstring(L, 1);
-    task.storagePath = olua_checkstring(L, 2);
+    task.path = olua_checkstring(L, 2);
     task.md5 = olua_optstring(L, 3, "");
     xgame::downloader::load(task);
     return 0;
@@ -1068,7 +1068,7 @@ static int _xgame_downloader_load(lua_State *L)
 
 static int _xgame_downloader_setDispatcher(lua_State *L)
 {
-    static const char *STATES[] = {"ioerror", "loaded", "valid", "invalid"};
+    static const char *STATES[] = {"ioerror", "loaded", "pending", "invalid"};
 
     lua_settop(L, 1);
     void *store_obj = olua_getstoreobj(L, "kernel.downloader");
@@ -1077,7 +1077,7 @@ static int _xgame_downloader_setDispatcher(lua_State *L)
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
         lua_pushstring(L, task.url.c_str());
-        lua_pushstring(L, task.storagePath.c_str());
+        lua_pushstring(L, task.path.c_str());
         lua_pushstring(L, STATES[task.state]);
         olua_callback(L, store_obj, func.c_str(), 3);
         lua_settop(L, top);

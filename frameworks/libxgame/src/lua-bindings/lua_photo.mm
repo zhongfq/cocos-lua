@@ -77,7 +77,7 @@ typedef enum {
                 }
             }
             
-            [self dispatch:@"selectImage" withMessage: ok ? @"complete" : "ioerror"];
+            [self dispatch:@"selectImage" withMessage: ok ? @"complete" : @"ioerror"];
         }
         else
         {

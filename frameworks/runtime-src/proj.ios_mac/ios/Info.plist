@@ -63,5 +63,11 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 	</array>
+    <key>NSCameraUsageDescription</key>
+    <string>访问您的相机以便拍摄图片用于更换头像。</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>使用您的麦克风录制古诗或故事作品。</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>访问您的相册以便选择图片用于更换头像。</string>
 </dict>
 </plist>

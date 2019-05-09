@@ -1,0 +1,7 @@
+{
+  "main" : {
+    "package_url":"http://192.168.0.80/ttsz/assets",
+    "manifest_url":"http://192.168.0.80/ttsz/assets/manifest",
+    "version":"1.0.63"
+  }
+}

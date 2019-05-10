@@ -1,6 +1,6 @@
 local shell = require "core.shell"
 local setting = require "setting"
-local buildManifest = require "buildManifest"
+local buildManifest = require "build-manifest"
 
 local conf = {
     DEBUG = false,

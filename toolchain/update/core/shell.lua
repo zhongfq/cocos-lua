@@ -1,3 +1,5 @@
+local cjson = require "cjson.safe"
+local lfs = require "lfs"
 local M = {}
 
 M.OS = io.popen('uname'):read("*l")
@@ -23,24 +25,40 @@ function M.addCSearchPath(path)
     end
 end
 
-function M.read(path)
-    local file = io.open(path)
-    assert(file, "file not found: " .. path)
-    local data = file:read("*a")
-    file:close()
-    return data
+function M.toversion(str)
+    local v1, v2, v3 = string.match(str, "(%d+)%.(%d+)%.(%d+)")
+    assert(v1, 'invalid version string: ' .. tostring(str))
+    return tonumber(v1) * 1000000 + tonumber(v2) * 1000 + tonumber(v3)
+end
+
+function M.nextversion(str)
+    local v = M.toversion(str) + 1
+    return string.format("%d.%d.%d", v // 1000000 % 1000, v // 1000 % 1000, v % 1000)
+end
+
+function M.read(path, defautl)
+    if M.exist(path) then
+        local file = io.open(path)
+        local data = file:read("*a")
+        file:close()
+        return data
+    elseif defautl then
+        return defautl
+    else
+        error('no such file: ' .. tostring(path))
+    end
+end
+
+function M.readJson(path, defautl)
+    if M.exist(path) then
+        return cjson.decode(M.read(path)) or defautl
+    elseif defautl then
+        return defautl
+    end
 end
 
 function M.exist(path)
-    if not path then
-        return
-    end
-
-    local file = io.open(path)
-    if file then
-        file:close()
-    end
-    return file ~= nil
+    return lfs.attributes(path)
 end
 
 function M.command(fmt, ...)

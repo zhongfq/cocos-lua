@@ -2,40 +2,56 @@ local shell = require "core.shell"
 local setting = require "setting"
 local buildManifest = require "build-manifest"
 
-local conf = {
-    DEBUG = false,
-    NAME = 'LOCAL',
-    VERSION = '1.0.0',
-    PUBLIC_PATH = false,
-}
-setmetatable(conf, {__index = setting[conf.NAME]})
+local ARG_DEBUG = false
+local ARG_NAME = 'LOCAL'
+local ARG_VERSION = nil
+local ARG_PUBLISH_PATH = nil
 
 -- parse cmd line args
 local args = {...}
 while #args > 0 do
     local c = table.remove(args, 1)
     if c == '--debug' then
-        conf.DEBUG = true
+        ARG_DEBUG = true
     elseif c == '--setting' then
-        conf.NAME = assert(table.remove(args, 1), 'no setting name')
-        assert(setting[conf.NAME], 'setting not found: ' .. conf.NAME)
-        setmetatable(conf, {__index = setting[conf.NAME]})
-    elseif c == '--public-path' then
-        conf.PUBLIC_PATH = assert(table.remove(args, 1), 'no public path')
+        ARG_NAME = assert(table.remove(args, 1), 'no setting name')
+        assert(setting[ARG_NAME], 'setting not found: ' .. ARG_NAME)
+    elseif c == '--publish-path' then
+        ARG_PUBLISH_PATH = assert(table.remove(args, 1), 'no publish path')
+    elseif c == '--version' then
+        ARG_VERSION = assert(table.remove(args, 1), 'no version')
     end
 end
 
-if conf.COMPILE then
-    local ASSETS_PATH = conf.ASSETS_PATH
-    local NEW_ASSETS_PATH = 'build/assets'
-    shell.unuse(ASSETS_PATH, NEW_ASSETS_PATH)
-    shell.bash 'mkdir -p ${NEW_ASSETS_PATH}'
-    shell.bash 'cp -rf ${ASSETS_PATH}/* ${NEW_ASSETS_PATH}'
-    conf.ASSETS_PATH = NEW_ASSETS_PATH
+-- check publish directory
+ARG_PUBLISH_PATH = ARG_PUBLISH_PATH or setting[ARG_NAME].PUBLISH_PATH
+if not shell.exist(ARG_PUBLISH_PATH) then
+    error('no such directory: ' .. assert(ARG_PUBLISH_PATH))
 end
 
-conf.PROJECT_PATH = "xxxx"
-conf.WORK_PATH = "xxxxxxxxxfasdf"
+-- try get version
+if not ARG_VERSION then
+    ARG_VERSION = shell.readJson(ARG_PUBLISH_PATH .. '/current/manifest', {version = '0.0.0'}).version
+end
+ARG_VERSION = shell.nextversion(ARG_VERSION)
+
+local conf = {
+    DEBUG = ARG_DEBUG,
+    NAME = ARG_NAME,
+    VERSION = ARG_VERSION,
+    PUBLISH_PATH = ARG_PUBLISH_PATH,
+    BUILD_PATH = setting[ARG_NAME].BUILD_PATH,
+    COMPILE = setting[ARG_NAME].COMPILE,
+    URL = setting[ARG_NAME].URL .. '/' .. (ARG_NAME == 'LOCAL' and 'current' or  ARG_VERSION),
+}
+
+if not conf.BUILD_PATH or conf.COMPILE then
+    shell.bash 'rm -rf build'
+    shell.bash 'mkdir -p build/assets'
+    shell.bash 'cp -rf ../../assets/* build/assets'
+    conf.BUILD_PATH = 'build'
+end
+
 buildManifest(conf)
 
 -- shell.bash 'rm -rf build'

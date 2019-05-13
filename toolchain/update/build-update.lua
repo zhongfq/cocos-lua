@@ -52,6 +52,13 @@ if not conf.BUILD_PATH or conf.COMPILE then
     conf.BUILD_PATH = 'build'
 end
 
-buildManifest(conf)
+local hasUpdate = buildManifest(conf)
+
+if ARG_NAME ~= 'LOCAL' and hasUpdate then
+    local BUILD_PATH = conf.BUILD_PATH
+    local PUBLISH_PATH = conf.PUBLISH_PATH .. '/' .. conf.VERSION
+    shell.unuse(BUILD_PATH, PUBLISH_PATH)
+    shell.bash 'cp -rf ${BUILD_PATH} ${PUBLISH_PATH}'
+end
 
 -- shell.bash 'rm -rf build'

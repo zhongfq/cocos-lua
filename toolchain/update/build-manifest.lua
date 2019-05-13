@@ -1,6 +1,5 @@
 return function (conf)
     local shell = require "core.shell"
-    local cjson = require "cjson.safe"
     local lfs   = require "lfs"
 
     require "core.simulator"
@@ -13,8 +12,7 @@ return function (conf)
     print("       version: " .. conf.VERSION)
     print("         debug: " .. tostring(conf.DEBUG))
 
-    local MANIFEST_PATH = conf.BUILD_PATH .. '/manifest'
-    local LAST_MANIFEST_PATH = conf.PUBLISH_PATH .. '/current/manifest'
+    local LAST_MANIFEST_PATH = conf.PUBLISH_PATH .. '/current/assets.manifest'
     local ASSETS_PATH = conf.BUILD_PATH .. '/assets'
     local SHOULD_BUILD = conf.SHOULD_BUILD or function () return true end
     local IS_BUILTIN = conf.IS_BUILTIN or function () return false end
@@ -77,7 +75,7 @@ return function (conf)
 
         writeline('{')
         writeline('  "package_url":"%s",', conf.URL .. '/assets')
-        writeline('  "manifest_url":"%s",', conf.URL .. '/manifest')
+        writeline('  "manifest_url":"%s",', conf.URL .. '/assets.manifest')
         writeline('  "date":"%s",', os.date("!%Y-%m-%d %H:%M:%S", os.time() + 8 * 60 * 60))
         writeline('  "version":"%s",', conf.VERSION)
 
@@ -96,6 +94,19 @@ return function (conf)
         writeline(table.concat(assets, ',\n'))
         writeline('  }')
         writeline('}')
-        shell.write(MANIFEST_PATH, table.concat(data, ''))
+        shell.write(conf.BUILD_PATH .. '/assets.manifest', table.concat(data, ''))
+
+        data = {}
+        writeline('{')
+        writeline('  "main": {')
+        writeline('    "package_url":"%s",', conf.URL .. '/assets')
+        writeline('    "manifest_url":"%s",', conf.URL .. '/assets.manifest')
+        writeline('    "date":"%s",', os.date("!%Y-%m-%d %H:%M:%S", os.time() + 8 * 60 * 60))
+        writeline('    "version":"%s"', conf.VERSION)
+        writeline('  }')
+        writeline('}')
+        shell.write(conf.BUILD_PATH .. '/version.manifest', table.concat(data, ''))
     end
+
+    return hasUpdate
 end

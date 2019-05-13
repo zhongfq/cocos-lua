@@ -5,3 +5,4 @@ frameworks/runtime-src/proj.ios_mac/cocos-lua.xcodeproj/project.xcworkspace/xcsh
 frameworks/runtime-src/proj.ios_mac/cocos-lua.xcodeproj/project.xcworkspace/xcuserdata
 frameworks/runtime-src/proj.ios_mac/cocos-lua.xcodeproj/xcuserdata
 frameworks/runtime-src/proj.android/app/bugly
+wwwroot/current/*.manifest

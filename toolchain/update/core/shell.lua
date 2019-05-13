@@ -1,5 +1,3 @@
-local cjson = require "cjson.safe"
-local lfs = require "lfs"
 local M = {}
 
 M.OS = io.popen('uname'):read("*l")
@@ -22,8 +20,20 @@ function M.addCSearchPath(path)
     if not string.find(package.cpath, path, 1, true) then
         print("add search path: " .. path)
         package.cpath = path .. "/?.so;" .. package.cpath
+        print(package.cpath)
     end
 end
+
+if M.OS == 'osx' then
+    M.addCSearchPath('../usr/osx/lib/lua')
+elseif M.OS == 'linux' then
+    M.addCSearchPath('../usr/linux/lib/lua')
+else
+    error('TODO')
+end
+
+local cjson = require "cjson.safe"
+local lfs = require "lfs"
 
 function M.toversion(str)
     local v1, v2, v3 = string.match(str, "(%d+)%.(%d+)%.(%d+)")

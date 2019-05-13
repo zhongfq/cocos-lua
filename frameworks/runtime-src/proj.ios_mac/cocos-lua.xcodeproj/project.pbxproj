@@ -10,6 +10,8 @@
 		0E24B3E422701692000054C9 /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E24B3E322701692000054C9 /* Bugly.framework */; };
 		0E24B3FC22703EC0000054C9 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E24B3FB22703EC0000054C9 /* CoreTelephony.framework */; };
 		0E24B3FE22703ECC000054C9 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E24B3FD22703ECC000054C9 /* libsqlite3.tbd */; };
+		0E2EC2E522895B4100CA3701 /* builtin.manifest in Resources */ = {isa = PBXBuildFile; fileRef = 0E2EC2E422895B4100CA3701 /* builtin.manifest */; };
+		0E2EC2E622895B4100CA3701 /* builtin.manifest in Resources */ = {isa = PBXBuildFile; fileRef = 0E2EC2E422895B4100CA3701 /* builtin.manifest */; };
 		0E4B9340226DE2DC00B22B9F /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E4B933F226DE2DC00B22B9F /* GameController.framework */; };
 		0E4C8BA0225C76500095CF59 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 0E4C8B9B225C76500095CF59 /* res */; };
 		0E4C8BA1225C76500095CF59 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 0E4C8B9B225C76500095CF59 /* res */; };
@@ -155,6 +157,7 @@
 		0E24B3E322701692000054C9 /* Bugly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bugly.framework; path = ../../libxgame/src/bugly/ios/Bugly.framework; sourceTree = "<group>"; };
 		0E24B3FB22703EC0000054C9 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/CoreTelephony.framework; sourceTree = DEVELOPER_DIR; };
 		0E24B3FD22703ECC000054C9 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/usr/lib/libsqlite3.tbd; sourceTree = DEVELOPER_DIR; };
+		0E2EC2E422895B4100CA3701 /* builtin.manifest */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = builtin.manifest; path = ../../../../assets/builtin.manifest; sourceTree = "<group>"; };
 		0E4B933F226DE2DC00B22B9F /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/GameController.framework; sourceTree = DEVELOPER_DIR; };
 		0E4C8B9B225C76500095CF59 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../../../../assets/res; sourceTree = "<group>"; };
 		0E4C8BAA225C82AC0095CF59 /* libxgame.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libxgame.xcodeproj; path = ../../libxgame/proj.ios_mac/libxgame.xcodeproj; sourceTree = "<group>"; };
@@ -275,6 +278,7 @@
 		0E4C8B9A225C762D0095CF59 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0E2EC2E422895B4100CA3701 /* builtin.manifest */,
 				0E4C8B9B225C76500095CF59 /* res */,
 				0E4C8BBC225C83690095CF59 /* src */,
 			);
@@ -599,6 +603,7 @@
 				0E4C8BA0225C76500095CF59 /* res in Resources */,
 				1AF87B891F6F781D007BE51C /* LaunchScreenBackground.jpg in Resources */,
 				1AF87B881F6F781D007BE51C /* LaunchScreen.storyboard in Resources */,
+				0E2EC2E522895B4100CA3701 /* builtin.manifest in Resources */,
 				0E730C7D2272B4810067866B /* README.txt in Resources */,
 				0E4C8BBD225C83690095CF59 /* src in Resources */,
 			);
@@ -608,6 +613,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E2EC2E622895B4100CA3701 /* builtin.manifest in Resources */,
 				0E4C8BBE225C83690095CF59 /* src in Resources */,
 				503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */,
 				0E4C8BA1225C76500095CF59 /* res in Resources */,

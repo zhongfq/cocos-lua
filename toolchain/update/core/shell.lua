@@ -190,7 +190,9 @@ function M.bash(expr, ...)
         end)
     end
     
-    os.execute(eval(expr))
+    local cmd = eval(expr)
+    print("bash: " .. cmd)
+    os.execute(cmd)
 end
 
 return M

@@ -7,22 +7,17 @@ return function (conf)
     print("start build manifest")
     print("  setting name: " .. conf.NAME)
     print("    build path: " .. conf.BUILD_PATH)
-    print("  publish path: " .. conf.PUBLISH_PATH)
+    print("  publish path: " .. (conf.PUBLISH_PATH))
     print("           url: " .. conf.URL)
     print("       version: " .. conf.VERSION)
     print("         debug: " .. tostring(conf.DEBUG))
 
-    local LAST_MANIFEST_PATH = conf.PUBLISH_PATH .. '/current/assets.manifest'
     local ASSETS_PATH = conf.BUILD_PATH .. '/assets'
     local SHOULD_BUILD = conf.SHOULD_BUILD or function () return true end
     local IS_BUILTIN = conf.IS_BUILTIN or function () return false end
 
-    if conf.NAME == 'BUILTIN' then
-        LAST_MANIFEST_PATH = conf.BUILD_PATH .. '/assets/builtin.manifest'
-    end
-
-    local lastManifest = shell.readJson(LAST_MANIFEST_PATH, {assets = {}})
-    local currManifest = {assets = {}}
+    local latestManifest = assert(conf.LATEST_MANIFEST)
+    local currentManifest = {assets = {}}
     local hasUpdate = false
 
     for _, path in ipairs(shell.list(ASSETS_PATH)) do
@@ -32,7 +27,7 @@ return function (conf)
 
         local fullPath = ASSETS_PATH .. "/" .. path
         local modified = lfs.attributes(fullPath, "modification")
-        local last = lastManifest.assets[path]
+        local last = latestManifest.assets[path]
         local curr
 
         if DEBUG and last and last.modified == modified then
@@ -52,7 +47,7 @@ return function (conf)
             }
         end
 
-        currManifest.assets[#currManifest.assets + 1] = curr
+        currentManifest.assets[#currentManifest.assets + 1] = curr
         curr.builtin = IS_BUILTIN(path) and true or false
         if last and last.md5 == curr.md5 and last.builtin == curr.builtin then
             curr.date = last.date
@@ -67,7 +62,7 @@ return function (conf)
     if not hasUpdate then
         print("manifest is up-to-date")
     else
-        table.sort(currManifest.assets, function (v1, v2)
+        table.sort(currentManifest.assets, function (v1, v2)
             return v1.path < v2.path
         end)
 
@@ -84,7 +79,7 @@ return function (conf)
         writeline('  "version":"%s",', conf.VERSION)
 
         local assets = {}
-        for _, entry in ipairs(currManifest.assets) do
+        for _, entry in ipairs(currentManifest.assets) do
             local t = {}
             t[#t + 1] = string.format('"md5":"%s"', entry.md5)
             t[#t + 1] = string.format('"date":"%s"', entry.date)
@@ -99,11 +94,9 @@ return function (conf)
         writeline('  }')
         writeline('}')
 
-        if conf.NAME == 'BUILTIN' then
-            shell.write(conf.BUILD_PATH .. '/assets/builtin.manifest', table.concat(data, ''))
-        else
-            shell.write(conf.BUILD_PATH .. '/assets.manifest', table.concat(data, ''))
+        shell.write(conf.ASSETS_MANIFEST_PATH, table.concat(data, ''))
 
+        if conf.VERSION_MANIFEST_PATH then
             data = {}
             writeline('{')
             writeline('  "main": {')
@@ -113,7 +106,7 @@ return function (conf)
             writeline('    "version":"%s"', conf.VERSION)
             writeline('  }')
             writeline('}')
-            shell.write(conf.BUILD_PATH .. '/version.manifest', table.concat(data, ''))
+            shell.write(conf.VERSION_MANIFEST_PATH, table.concat(data, ''))
         end
     end
 

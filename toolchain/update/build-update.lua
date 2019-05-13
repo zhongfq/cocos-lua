@@ -1,6 +1,7 @@
 local shell = require "core.shell"
 local setting = require "setting"
 local buildManifest = require "build-manifest"
+local buildModule = require "build-module"
 
 local ARG_DEBUG = false
 local ARG_NAME = 'LOCAL'
@@ -29,20 +30,27 @@ if not shell.exist(ARG_PUBLISH_PATH) then
     error('no such directory: ' .. assert(ARG_PUBLISH_PATH))
 end
 
--- try get version
-if not ARG_VERSION then
-    ARG_VERSION = shell.readJson(ARG_PUBLISH_PATH .. '/current/manifest', {version = '0.0.0'}).version
+-- read latest manifest
+local latestManifestPath
+if ARG_NAME == 'BUILTIN' then
+    latestManifestPath = setting[ARG_NAME].BUILD_PATH .. '/assets/builtin.manifest'
+else
+    latestManifestPath = ARG_PUBLISH_PATH .. '/current/assets.manifest'
 end
-ARG_VERSION = shell.nextversion(ARG_VERSION)
+local latestManifest = shell.readJson(latestManifestPath, {assets = {}, version = '0.0.0'})
 
+-- calc current version
+ARG_VERSION = shell.nextversion(ARG_VERSION or latestManifest.version)
+
+-- create build conf
 local conf = {
     DEBUG = ARG_DEBUG,
     NAME = ARG_NAME,
     VERSION = ARG_VERSION,
-    PUBLISH_PATH = ARG_PUBLISH_PATH,
+    LATEST_MANIFEST = latestManifest,
     BUILD_PATH = setting[ARG_NAME].BUILD_PATH,
     COMPILE = setting[ARG_NAME].COMPILE,
-    URL = setting[ARG_NAME].URL .. '/' .. (ARG_NAME == 'LOCAL' and 'current' or  ARG_VERSION),
+    URL = setting[ARG_NAME].URL .. '/' ..  ARG_VERSION,
 }
 
 if not conf.BUILD_PATH or conf.COMPILE then
@@ -52,13 +60,28 @@ if not conf.BUILD_PATH or conf.COMPILE then
     conf.BUILD_PATH = 'build'
 end
 
+conf.ASSETS_MANIFEST_PATH = conf.BUILD_PATH .. '/assets.manifest'
+conf.VERSION_MANIFEST_PATH = conf.BUILD_PATH .. '/version.manifest'
+conf.PUBLISH_PATH = ARG_PUBLISH_PATH .. '/' .. conf.VERSION
+
+if conf.NAME == 'BUILTIN' then
+    conf.ASSETS_MANIFEST_PATH = conf.BUILD_PATH .. '/assets/builtin.manifest'
+    conf.VERSION_MANIFEST_PATH = nil
+    conf.PUBLISH_PATH = conf.BUILD_PATH
+elseif conf.NAME == 'LOCAL' then
+    conf.URL = setting[ARG_NAME].URL .. '/current'
+    conf.PUBLISH_PATH = ARG_PUBLISH_PATH .. '/current'
+end
+
 local hasUpdate = buildManifest(conf)
 
-if ARG_NAME ~= 'LOCAL' and ARG_NAME ~= 'BUILTIN' and hasUpdate then
+if conf.BUILD_PATH ~= conf.PUBLISH_PATH and hasUpdate then
     local BUILD_PATH = conf.BUILD_PATH
-    local PUBLISH_PATH = conf.PUBLISH_PATH .. '/' .. conf.VERSION
-    shell.unuse(BUILD_PATH, PUBLISH_PATH)
-    shell.bash 'cp -rf ${BUILD_PATH} ${PUBLISH_PATH}'
+    local PUBLISH_PATH = conf.PUBLISH_PATH
+    print(string.format("publish assets: %s => %s ", BUILD_PATH, PUBLISH_PATH))
+    shell.bash 'rm -rf ${PUBLISH_PATH}'
+    shell.bash 'mkdir -p ${PUBLISH_PATH}'
+    shell.bash 'cp -rf ${BUILD_PATH}/* ${PUBLISH_PATH}'
 end
 
 -- shell.bash 'rm -rf build'

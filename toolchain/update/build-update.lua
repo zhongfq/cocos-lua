@@ -7,8 +7,6 @@ local ARG_NAME = 'LOCAL'
 local ARG_VERSION = nil
 local ARG_PUBLISH_PATH = nil
 
-ARG_NAME ='BUILTIN'
-
 -- parse cmd line args
 local args = {...}
 while #args > 0 do

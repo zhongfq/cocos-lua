@@ -127,6 +127,7 @@ function M.write(path, content)
     file:write(content)
     file:flush()
     file:close()
+    print("write: " .. path)
 end
 
 local function lookup(level, key)

@@ -18,20 +18,5 @@
 		"luacheck.ignore": [
 			"212", "611", "43.", "631"
 		]
-	},
-	"launch": {
-		"configurations": [
-			{
-				"name": "lua",
-				"type": "lua",
-				"request": "launch",
-				"program": "${file}",
-				"stopOnEntry": false,
-				"cwd": "${fileDirname}",
-				"LUA_PATH": "?.lua",
-				"LUA_CPATH": "?.dll"
-			}
-		],
-		"compounds": []
 	}
 }

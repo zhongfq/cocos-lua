@@ -43,11 +43,13 @@ local latestManifest = shell.readJson(latestManifestPath, {assets = {}, version 
 ARG_VERSION = shell.nextversion(ARG_VERSION or latestManifest.version)
 
 -- create build conf
+local OUTPUT_PATH
 local conf = {
     DEBUG = ARG_DEBUG,
     NAME = ARG_NAME,
     VERSION = ARG_VERSION,
     LATEST_MANIFEST = latestManifest,
+    MODULES = setting[ARG_NAME].MODULES,
     BUILD_PATH = setting[ARG_NAME].BUILD_PATH,
     COMPILE = setting[ARG_NAME].COMPILE,
     URL = setting[ARG_NAME].URL .. '/' ..  ARG_VERSION,
@@ -62,26 +64,32 @@ end
 
 conf.ASSETS_MANIFEST_PATH = conf.BUILD_PATH .. '/assets.manifest'
 conf.VERSION_MANIFEST_PATH = conf.BUILD_PATH .. '/version.manifest'
-conf.PUBLISH_PATH = ARG_PUBLISH_PATH .. '/' .. conf.VERSION
+conf.PUBLISH_PATH = ARG_PUBLISH_PATH
+OUTPUT_PATH = ARG_PUBLISH_PATH .. '/' .. conf.VERSION
 
 if conf.NAME == 'BUILTIN' then
     conf.ASSETS_MANIFEST_PATH = conf.BUILD_PATH .. '/assets/builtin.manifest'
     conf.VERSION_MANIFEST_PATH = nil
-    conf.PUBLISH_PATH = conf.BUILD_PATH
+    OUTPUT_PATH = conf.BUILD_PATH
 elseif conf.NAME == 'LOCAL' then
     conf.URL = setting[ARG_NAME].URL .. '/current'
-    conf.PUBLISH_PATH = ARG_PUBLISH_PATH .. '/current'
+    OUTPUT_PATH = ARG_PUBLISH_PATH .. '/current'
 end
 
 local hasUpdate = buildManifest(conf)
 
-if conf.BUILD_PATH ~= conf.PUBLISH_PATH and hasUpdate then
-    local BUILD_PATH = conf.BUILD_PATH
-    local PUBLISH_PATH = conf.PUBLISH_PATH
-    print(string.format("publish assets: %s => %s ", BUILD_PATH, PUBLISH_PATH))
-    shell.bash 'rm -rf ${PUBLISH_PATH}'
-    shell.bash 'mkdir -p ${PUBLISH_PATH}'
-    shell.bash 'cp -rf ${BUILD_PATH}/* ${PUBLISH_PATH}'
+if hasUpdate then
+    if conf.MODULES then
+        buildModule(conf)
+    end
+
+    if conf.BUILD_PATH ~= OUTPUT_PATH then
+        local BUILD_PATH = conf.BUILD_PATH
+        print(string.format("publish assets: %s => %s ", BUILD_PATH, OUTPUT_PATH))
+        shell.bash 'rm -rf ${OUTPUT_PATH}'
+        shell.bash 'mkdir -p ${OUTPUT_PATH}'
+        shell.bash 'cp -rf ${BUILD_PATH}/* ${OUTPUT_PATH}'
+    end
 end
 
 -- shell.bash 'rm -rf build'

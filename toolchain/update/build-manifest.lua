@@ -99,12 +99,8 @@ return function (conf)
         if conf.VERSION_MANIFEST_PATH then
             data = {}
             writeline('{')
-            writeline('  "main": {')
-            writeline('    "package_url":"%s",', conf.URL .. '/assets')
-            writeline('    "manifest_url":"%s",', conf.URL .. '/assets.manifest')
-            writeline('    "date":"%s",', os.date("!%Y-%m-%d %H:%M:%S", os.time() + 8 * 60 * 60))
-            writeline('    "version":"%s"', conf.VERSION)
-            writeline('  }')
+            writeline('  "main": {"url":"%s", "version":"%s"}',
+                conf.URL .. '/assets.manifest', conf.VERSION)
             writeline('}')
             shell.write(conf.VERSION_MANIFEST_PATH, table.concat(data, ''))
         end

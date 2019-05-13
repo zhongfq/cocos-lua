@@ -20,7 +20,6 @@ function M.addCSearchPath(path)
     if not string.find(package.cpath, path, 1, true) then
         print("add search path: " .. path)
         package.cpath = path .. "/?.so;" .. package.cpath
-        print(package.cpath)
     end
 end
 

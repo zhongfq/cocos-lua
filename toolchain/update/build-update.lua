@@ -7,6 +7,8 @@ local ARG_NAME = 'LOCAL'
 local ARG_VERSION = nil
 local ARG_PUBLISH_PATH = nil
 
+ARG_NAME ='BUILTIN'
+
 -- parse cmd line args
 local args = {...}
 while #args > 0 do
@@ -54,7 +56,7 @@ end
 
 local hasUpdate = buildManifest(conf)
 
-if ARG_NAME ~= 'LOCAL' and hasUpdate then
+if ARG_NAME ~= 'LOCAL' and ARG_NAME ~= 'BUILTIN' and hasUpdate then
     local BUILD_PATH = conf.BUILD_PATH
     local PUBLISH_PATH = conf.PUBLISH_PATH .. '/' .. conf.VERSION
     shell.unuse(BUILD_PATH, PUBLISH_PATH)

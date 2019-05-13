@@ -17,12 +17,16 @@ return function (conf)
     local SHOULD_BUILD = conf.SHOULD_BUILD or function () return true end
     local IS_BUILTIN = conf.IS_BUILTIN or function () return false end
 
+    if conf.NAME == 'BUILTIN' then
+        LAST_MANIFEST_PATH = conf.BUILD_PATH .. '/assets/builtin.manifest'
+    end
+
     local lastManifest = shell.readJson(LAST_MANIFEST_PATH, {assets = {}})
     local currManifest = {assets = {}}
     local hasUpdate = false
 
     for _, path in ipairs(shell.list(ASSETS_PATH)) do
-        if path == 'src/builtin.manifest' or not SHOULD_BUILD(path) then
+        if path == 'builtin.manifest' or not SHOULD_BUILD(path) then
             goto continue
         end
 
@@ -94,18 +98,23 @@ return function (conf)
         writeline(table.concat(assets, ',\n'))
         writeline('  }')
         writeline('}')
-        shell.write(conf.BUILD_PATH .. '/assets.manifest', table.concat(data, ''))
 
-        data = {}
-        writeline('{')
-        writeline('  "main": {')
-        writeline('    "package_url":"%s",', conf.URL .. '/assets')
-        writeline('    "manifest_url":"%s",', conf.URL .. '/assets.manifest')
-        writeline('    "date":"%s",', os.date("!%Y-%m-%d %H:%M:%S", os.time() + 8 * 60 * 60))
-        writeline('    "version":"%s"', conf.VERSION)
-        writeline('  }')
-        writeline('}')
-        shell.write(conf.BUILD_PATH .. '/version.manifest', table.concat(data, ''))
+        if conf.NAME == 'BUILTIN' then
+            shell.write(conf.BUILD_PATH .. '/assets/builtin.manifest', table.concat(data, ''))
+        else
+            shell.write(conf.BUILD_PATH .. '/assets.manifest', table.concat(data, ''))
+
+            data = {}
+            writeline('{')
+            writeline('  "main": {')
+            writeline('    "package_url":"%s",', conf.URL .. '/assets')
+            writeline('    "manifest_url":"%s",', conf.URL .. '/assets.manifest')
+            writeline('    "date":"%s",', os.date("!%Y-%m-%d %H:%M:%S", os.time() + 8 * 60 * 60))
+            writeline('    "version":"%s"', conf.VERSION)
+            writeline('  }')
+            writeline('}')
+            shell.write(conf.BUILD_PATH .. '/version.manifest', table.concat(data, ''))
+        end
     end
 
     return hasUpdate

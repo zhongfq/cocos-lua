@@ -120,6 +120,7 @@ cls.callback(
     'static void setFinishCallback(int audioID, @nullable const std::function<void(int,const std::string&)>& callback)',
     {
         CALLBACK_MAKER = 'makeAudioEngineFinishCallbackTag(#1)',
+        CALLBACK_REPLACE = true,
         CALLBACK_CALLONCE = true,
         CALLBACK_MODE = "OLUA_CALLBACK_TAG_ENDWITH",
     }

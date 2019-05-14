@@ -5757,7 +5757,7 @@ static int _cocos2d_experimental_AudioEngine_setFinishCallback(lua_State *L)
     if (olua_is_std_function(L, 2)) {
         void *callback_store_obj = (void *)olua_getstoreobj(L, "cc.AudioEngine");
         std::string tag = makeAudioEngineFinishCallbackTag(arg1);
-        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_NEW);
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
         arg2 = [callback_store_obj, func, tag](int arg1, const std::string &arg2) {
             lua_State *L = olua_mainthread();
             int top = lua_gettop(L);

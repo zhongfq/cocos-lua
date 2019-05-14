@@ -20,7 +20,9 @@ local M = {}
 local DEFERRED_UNCACHE_TIME = 10
 
 local audios = setmetatable({}, {__index = function (t, path)
-    return rawset(t, path, {})
+    local list = {}
+    rawset(t, path, list)
+    return list
 end})
 
 local function makeTag(path)
@@ -98,7 +100,7 @@ end
 function M.stop(path)
     local arr = rawget(audios, path)
     if arr then
-        for _, inst in pairs(audios[path]) do
+        for _, inst in pairs(arr) do
             inst:stop()
         end
     end
@@ -114,6 +116,10 @@ function M.unload(path)
     else
         uncache(path)
     end
+end
+
+function M.dumpCallbacks()
+    util.dumpUserValue(AudioEngine.class['.store'])
 end
 
 --

@@ -5,7 +5,7 @@ local string = string
 local table = table
 local xpcall = xpcall
 
-function M.getupvalues(func)
+function M.getUpValues(func)
     local u = {}
     local i = 0
     while true do
@@ -68,7 +68,11 @@ function M.dump(root, ...)
     _dump(root, "", "")
     table.insert(tbl, "}")
 
-    print(table.concat(tbl, "\n"))
+    return table.concat(tbl, "\n")
+end
+
+function M.dumpUserValue(obj)
+    print("uservalue(" .. tostring(obj) .. ') ' .. M.dump(debug.getuservalue(obj) or {}))
 end
 
 return M

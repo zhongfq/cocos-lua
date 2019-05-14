@@ -1,4 +1,4 @@
-require "aux.olua-cls"
+require "core.olua-cls"
 require "conf.cocos2d.import-cocos2d-type"
 require "conf.fairygui.import-fairygui-type"
 

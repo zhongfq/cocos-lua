@@ -1,8 +1,8 @@
 local M = {}
 
 local modules = {
-    {NAME = "xgame", PATTERN = '^src/xgame/'},
-    {NAME = "main", PATTERN = ".*"},
+    {NAME = "module.xgame", PATTERN = '^src/xgame/'},
+    {NAME = "module.main", PATTERN = ".*"},
 }
 
 M.BUILTIN = {

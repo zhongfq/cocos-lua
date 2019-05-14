@@ -1,6 +1,5 @@
 require "core.olua-aux"
 require "core.olua-cls"
-require "core.olua-ref"
 require "core.olua-arg-type"
 require "core.olua-gen-header"
 require "core.olua-gen-source"

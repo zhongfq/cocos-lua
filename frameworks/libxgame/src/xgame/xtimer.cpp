@@ -5,18 +5,16 @@ NS_XGAME_BEGIN
 
 USING_NS_CC;
 
-void timer::schedule(float interval, const std::string &tag, const std::function<void (float)> callback)
+void timer::schedule(float interval, unsigned int repeat, const std::string &tag, const std::function<void (float)> callback)
 {
-    auto director = Director::getInstance();
-    director->getScheduler()->schedule([=](float delta) {
-        callback(delta);
-    }, director, interval, false, tag);
+    auto scheduler = Director::getInstance()->getScheduler();
+    scheduler->schedule(callback, scheduler, interval, repeat, 0, false, tag);
 }
 
 void timer::unschedule(const std::string &tag)
 {
-    auto director = Director::getInstance();
-    director->getScheduler()->unschedule(tag, director);
+    auto scheduler = Director::getInstance()->getScheduler();
+    scheduler->unschedule(tag, scheduler);
 }
 
 const std::string timer::createScheduleTag(unsigned int handler)
@@ -35,8 +33,7 @@ unsigned int timer::createScheduleHandler()
 void timer::delayWithTag(float time, const std::string &tag, std::function<void ()> callback)
 {
     timer::killDelay(tag);
-    timer::schedule(time, tag, [=](float delta){
-        timer::killDelay(tag);
+    timer::schedule(time, 0, tag, [=](float delta) {
         callback();
     });
 }
@@ -50,8 +47,7 @@ void timer::delay(float time, const std::function<void ()> callback)
 {
     unsigned int handler = timer::createScheduleHandler();
     const std::string tag = timer::createScheduleTag(handler);
-    timer::schedule(time, tag, [=](float delta){
-        timer::killDelay(tag);
+    timer::schedule(time, 0, tag, [=](float delta) {
         callback();
     });
 }
@@ -60,7 +56,7 @@ unsigned int timer::schedule(float interval, const std::function<void (float)> c
 {
     unsigned int handler = timer::createScheduleHandler();
     const std::string tag = timer::createScheduleTag(handler);
-    timer::schedule(fmax(0, interval), tag, callback);
+    timer::schedule(fmax(0, interval), CC_REPEAT_FOREVER, tag, callback);
     return handler;
 }
 

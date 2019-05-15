@@ -16,7 +16,7 @@ public:
     static unsigned int schedule(float interval, const std::function<void (float)> callback);
     static void unschedule(unsigned int id);
 private:
-    static void schedule(float interval, const std::string &tag, const std::function<void (float)> callback);
+    static void schedule(float interval, unsigned int repeat, const std::string &tag, const std::function<void (float)> callback);
     static void unschedule(const std::string &tag);
     static const std::string createScheduleTag(unsigned int handler);
     static unsigned int createScheduleHandler();

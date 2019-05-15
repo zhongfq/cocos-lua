@@ -115,18 +115,16 @@ android.applicationVariants.all { variant ->
 
     variant.mergeAssets.doLast {
         copy {
-            from "${buildDir}/../../../../../assets" {
-                include '**/*'
-            }
+            from "${buildDir}/../../../../../assets"
+            include '**/*'
             into "${buildDir}/intermediates/assets/${variant.dirName}"
         }
 
 //        compileAssets("${buildDir}/intermediates/assets/${variant.dirName}")
 
         copy {
-            from ("${buildDir}/../assets") {
-                include '**/*'
-            }
+            from "${buildDir}/../assets"
+            include '**/*'
             into "${buildDir}/intermediates/assets/${variant.dirName}"
         }
     }

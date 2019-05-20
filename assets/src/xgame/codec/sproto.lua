@@ -1,3 +1,5 @@
+-- https://github.com/cloudwu/sproto
+
 local core = require "kernel.sproto.core"
 local assert = assert
 
@@ -33,7 +35,7 @@ function sproto.sharenew(cobj)
 end
 
 function sproto.parse(ptext)
-	local parser = require "xgame.sproto.sprotoparser"
+	local parser = require "xgame.codec.sprotoparser"
 	local pbin = parser.parse(ptext)
 	return sproto.new(pbin)
 end

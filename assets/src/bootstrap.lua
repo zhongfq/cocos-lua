@@ -9,7 +9,7 @@ window.setDesignSize(1334, 750, 1)
 function main()
     -- runTest('test.WebViewTest')
     -- runTest('test.AudioEngineTest')
-    runTest("test.WeChatTest")
+    -- runTest("test.WeChatTest")
     -- runTest("test.GridActionTest")
 end
 

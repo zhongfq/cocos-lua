@@ -19,6 +19,8 @@
 #include "lame/lua_lame.h"
 #include "qrencode/lua_qrcode.h"
 #include "bugly/lua_bugly.h"
+#include "sproto/lsproto.h"
+#include "lpeg/lptree.h"
 
 int luaopen_bindings(lua_State *L)
 {
@@ -29,7 +31,9 @@ int luaopen_bindings(lua_State *L)
     xlua_call(L, luaopen_xgame);
     xlua_call(L, luaopen_xml_http_request);
     
+    olua_require(L, "kernel.sproto.core", luaopen_sproto_core);
     olua_require(L, "kernel.protobuf.c", luaopen_protobuf_c);
+    olua_require(L, "kernel.lpeg", luaopen_lpeg);
     olua_require(L, "kernel.md5" , luaopen_md5);
     olua_require(L, "kernel.base64", luaopen_base64);
     olua_require(L, "kernel.xxtea", luaopen_xxtea);

@@ -1,0 +1,15 @@
+set(LPEG_HEADER
+    src/lpeg/lpcap.h
+    src/lpeg/lpcode.h
+    src/lpeg/lpprint.h
+    src/lpeg/lptree.h
+    src/lpeg/lptypes.h
+    src/lpeg/lpvm.h
+)
+set(LPEG_SRC
+    src/lpeg/lpcap.c
+    src/lpeg/lpcode.c
+    src/lpeg/lpprint.c
+    src/lpeg/lptree.c
+    src/lpeg/lpvm.c
+)

@@ -6,11 +6,13 @@ include(src/bugly/CMakeLists.txt)
 include(src/cjson/CMakeLists.txt)
 include(src/crypto/CMakeLists.txt)
 include(src/lame/CMakeLists.txt)
+include(src/lpeg/CMakeLists.txt)
 include(src/lua/CMakeLists.txt)
 include(src/lua-bindings/CMakeLists.txt)
 include(src/olua/CMakeLists.txt)
 include(src/pbc/CMakeLists.txt)
 include(src/qrencode/CMakeLists.txt)
+include(src/sproto/CMakeLists.txt)
 include(src/xgame/CMakeLists.txt)
 
 set(SRC
@@ -18,11 +20,13 @@ set(SRC
     ${CJSON_SRC}
     ${CRYPTO_SRC}
     ${LAME_SRC}
+    ${LPEG_SRC}
     ${LUA_SRC}
     ${LUA_BINDINGS_SRC}
     ${OLUA_SRC}
     ${PBC_SRC}
     ${QRCODE_SRC}
+    ${SPROTO_SRC}
     ${XGAME_SRC}
 )
 
@@ -31,11 +35,13 @@ set(HEADER
     ${CJSON_HEADER}
     ${CRYPTO_HEADER}
     ${LAME_HEADER}
+    ${LPEG_HEADER}
     ${LUA_HEADER}
     ${LUA_BINDINGS_HEADER}
     ${OLUA_HEADER}
     ${PBC_HEADER}
     ${QRCODE_HEADER}
+    ${SPROTO_HEADER}
     ${XGAME_HEADER}
 )
 

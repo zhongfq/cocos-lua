@@ -16,7 +16,11 @@
 	"settings": {
 		"luacheck.globals": ["main", "xGame", "__TRACEBACK__", "DEBUG"],
 		"luacheck.ignore": [
-			"212", "611", "43.", "631"
+			"212", // Unused argument
+			"311", // Value assigned to a local variable is unused
+			"43.", // Redefining or Shadowing (local|argument|upvalue) variable
+			"611", // A line consists of nothing but whitespace
+			"631", // Line is too long
 		]
 	}
 }

@@ -6,35 +6,37 @@ local assert = assert
 local MAX_LOADING_FILES = 10
 local MAX_ATTEMPTS = 3
 local ATTEMPT_INTERVAL = 0.5
-local TAG_CHECK_START = "__downloader_check_start__"
 
 local loadQueue = {}
 local loadTasks = {}
+local started = false
 
 local function checkStart()
-    local count = MAX_LOADING_FILES
-    for _, task in pairs(loadQueue) do
-        if task.attempts > 0 then
-            count = count - 1
-        end
-    end
-    
-    for _, task in pairs(loadQueue) do
-        if count < 0 then
-            break
-        end
-        count = count - 1
+    if not started then
+        started = true
+        timer.delay(0.01, function ()
+            started = false
 
-        if task.attempts == 0 then
-            task.attempts = 1
-            downloader.load(task.url, task.path, task.md5)
-        end
-    end
-end
+            local count = MAX_LOADING_FILES
+            for _, task in pairs(loadQueue) do
+                if task.attempts > 0 then
+                    count = count - 1
+                end
+            end
+            
+            for _, task in pairs(loadQueue) do
+                if count < 0 then
+                    break
+                end
+                count = count - 1
 
-local function deferCheckStart()
-    timer.killDelay(TAG_CHECK_START)
-    timer.delayWithTag(0.01, TAG_CHECK_START, checkStart)
+                if task.attempts == 0 then
+                    task.attempts = 1
+                    downloader.load(task.url, task.path, task.md5)
+                end
+            end
+        end)
+    end
 end
 
 local function load(task)
@@ -49,7 +51,7 @@ local function load(task)
     end
     
     loadTasks[task] = true
-    deferCheckStart()
+    checkStart()
 end
 
 local function notify(url, loaded)
@@ -65,7 +67,7 @@ local function notify(url, loaded)
             task.callback(loaded, task)
         end
     end
-    deferCheckStart()
+    checkStart()
 end
 
 downloader.setDispatcher(function (url, path, state)

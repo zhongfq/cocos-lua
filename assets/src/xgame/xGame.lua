@@ -1,14 +1,16 @@
-local class     = require "xgame.class"
-local Event     = require "xgame.Event"
-local audio     = require "xgame.audio"
-local Timer     = require "xgame.Timer"
-local timer     = require "kernel.timer"
-local runtime   = require "kernel.runtime"
-local Director  = require "cc.Director"
+local class         = require "xgame.class"
+local Event         = require "xgame.Event"
+local audio         = require "xgame.audio"
+local Timer         = require "xgame.Timer"
+local SceneStack    = require "xgame.private.SceneStack"
+local timer         = require "kernel.timer"
+local runtime       = require "kernel.runtime"
+local Director      = require "cc.Director"
 
 xGame = class("xGame", require("xgame.EventDispatcher"))
 
 function xGame:ctor()
+    self._sceneStack = SceneStack.new()
     self:_initTimer()
 
     self:schedule(0.1, function ()
@@ -18,6 +20,31 @@ function xGame:ctor()
     runtime.setDispatcher(function (event, args)
         self:dispatch(event, args)
     end)
+end
+
+-- scene api
+function xGame:startScene(cls, ...)
+    return self._sceneStack:startScene(cls, ...)
+end
+
+function xGame:replaceScene(cls, ...)
+    return self._sceneStack:replaceScene(cls, ...)
+end
+
+function xGame:popScene()
+    self._sceneStack:popScene()
+end
+
+function xGame:popAll()
+    self._sceneStack:popAll()
+end
+
+function xGame:showView(cls, ...)
+    self._sceneStack:showView(cls)
+end
+
+function xGame:topScene()
+    return self._sceneStack:topScene()
 end
 
 -- timer api

@@ -223,7 +223,11 @@ local function gen_func_ret(cls, fi)
             local LUACLS = fi.RET.TYPE.LUACLS
             if FUNC_PUSH_VALUE == "olua_push_cppobj" then
                 local TYPENAME = string.gsub(fi.RET.TYPE.TYPENAME, '[ *]*$', '')
-                RET_PUSH = format_snippet('int num_ret = ${FUNC_PUSH_VALUE}<${TYPENAME}>(L, ret, "${LUACLS}");')
+                if string.find(DECL_TYPE, '^const') then
+                    RET_PUSH = format_snippet('int num_ret = ${FUNC_PUSH_VALUE}<${TYPENAME}>(L, (${TYPENAME} *)ret, "${LUACLS}");')
+                else
+                    RET_PUSH = format_snippet('int num_ret = ${FUNC_PUSH_VALUE}<${TYPENAME}>(L, ret, "${LUACLS}");')
+                end
             else
                 RET_PUSH = format_snippet('int num_ret = ${FUNC_PUSH_VALUE}(L, ret, "${LUACLS}");')
             end

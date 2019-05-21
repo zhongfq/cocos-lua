@@ -7,6 +7,15 @@ cls.LUACLS = "db.BaseObject"
 local cls = class(M)
 cls.CPPCLS = "dragonBones::EventObject"
 cls.LUACLS = "db.EventObject"
+cls.vars [[
+    AnimationState* animationState
+    float time
+    std::string type
+    std::string name
+    Armature* armature
+    Bone* bone
+    Slot* slot
+]]
 
 local cls = class(M)
 cls.CPPCLS = "dragonBones::TransformObject"
@@ -42,6 +51,14 @@ local cls = class(M)
 cls.CPPCLS = "dragonBones::ArmatureData"
 cls.LUACLS = "db.ArmatureData"
 cls.SUPERCLS = "db.BaseObject"
+cls.vars [[
+    SkinData* defaultSkin;
+]]
+
+local cls = class(M)
+cls.CPPCLS = "dragonBones::SkinData"
+cls.LUACLS = "db.SkinData"
+cls.SUPERCLS = "db.BaseObject"
 
 local cls = class(M)
 cls.CPPCLS = "dragonBones::BoneData"
@@ -57,6 +74,9 @@ local cls = class(M)
 cls.CPPCLS = "dragonBones::AnimationState"
 cls.LUACLS = "db.AnimationState"
 cls.SUPERCLS = "db.BaseObject"
+cls.vars [[
+    std::string name
+]]
 
 local cls = class(M)
 cls.CPPCLS = "dragonBones::AnimationData"
@@ -81,6 +101,7 @@ local cls = class(M)
 cls.CPPCLS = "dragonBones::BaseFactory"
 cls.LUACLS = "db.BaseFactory"
 cls.funcs [[
+    ArmatureData* getArmatureData(const std::string& name, const std::string& dragonBonesName = "")
     void replaceDisplay(Slot* slot, DisplayData* displayData, int displayIndex)
     // bool replaceSkin(Armature* armature, SkinData* skin, bool isOverride = false, const std::vector<std::string>* exclude = nullptr)
     bool replaceAnimation(Armature* armature, ArmatureData* armatureData, bool isReplaceAll = true)

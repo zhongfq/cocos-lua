@@ -323,13 +323,15 @@ static int _fairygui_UIEventDispatcher_addEventListener1(lua_State *L)
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
 
+        int stack_level = olua_get_stackpool(L);
+        olua_begin_stackpool(L);
         olua_push_cppobj<fairygui::EventContext>(L, arg1, "fui.EventContext");
+        olua_end_stackpool(L);
 
         olua_callback(L, callback_store_obj, func.c_str(), 1);
 
-        //may be stack value
-        olua_push_cppobj<fairygui::EventContext>(L, arg1, "fui.EventContext");
-        olua_callgc(L, -1, false);
+        //pop stack value
+        olua_pop_stackpool(L, stack_level);
 
         lua_settop(L, top);
     };
@@ -360,13 +362,15 @@ static int _fairygui_UIEventDispatcher_addEventListener2(lua_State *L)
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
 
+        int stack_level = olua_get_stackpool(L);
+        olua_begin_stackpool(L);
         olua_push_cppobj<fairygui::EventContext>(L, arg1, "fui.EventContext");
+        olua_end_stackpool(L);
 
         olua_callback(L, callback_store_obj, func.c_str(), 1);
 
-        //may be stack value
-        olua_push_cppobj<fairygui::EventContext>(L, arg1, "fui.EventContext");
-        olua_callgc(L, -1, false);
+        //pop stack value
+        olua_pop_stackpool(L, stack_level);
 
         lua_settop(L, top);
     };
@@ -5612,13 +5616,15 @@ static int _fairygui_GObject_addClickListener1(lua_State *L)
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
 
+        int stack_level = olua_get_stackpool(L);
+        olua_begin_stackpool(L);
         olua_push_cppobj<fairygui::EventContext>(L, arg1, "fui.EventContext");
+        olua_end_stackpool(L);
 
         olua_callback(L, callback_store_obj, func.c_str(), 1);
 
-        //may be stack value
-        olua_push_cppobj<fairygui::EventContext>(L, arg1, "fui.EventContext");
-        olua_callgc(L, -1, false);
+        //pop stack value
+        olua_pop_stackpool(L, stack_level);
 
         lua_settop(L, top);
     };
@@ -5647,13 +5653,15 @@ static int _fairygui_GObject_addClickListener2(lua_State *L)
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
 
+        int stack_level = olua_get_stackpool(L);
+        olua_begin_stackpool(L);
         olua_push_cppobj<fairygui::EventContext>(L, arg1, "fui.EventContext");
+        olua_end_stackpool(L);
 
         olua_callback(L, callback_store_obj, func.c_str(), 1);
 
-        //may be stack value
-        olua_push_cppobj<fairygui::EventContext>(L, arg1, "fui.EventContext");
-        olua_callgc(L, -1, false);
+        //pop stack value
+        olua_pop_stackpool(L, stack_level);
 
         lua_settop(L, top);
     };

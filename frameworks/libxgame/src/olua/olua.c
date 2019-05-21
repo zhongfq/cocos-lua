@@ -11,10 +11,13 @@
 #define CLS_SET     ".set"
 #define CLS_STORE   ".store" // static store for cls
 
-#define OBJ_REF_TABLE ((void *)olua_pushobj)
+#define OBJ_REF_TABLE   ((void *)olua_pushobj)
+#define USING_STACKPOOL ((void *)olua_begin_stackpool)
+#define STACKPOOL_TABLE ((void *)olua_poolpush)
+
 #define TRACEBACK (_traceback ? _traceback : dummy_traceback)
-#define MAX(a, b)   ((a) > (b) ? (a) : (b))
-#define MIN(a, b)   ((a) < (b) ? (a) : (b))
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
+#define MIN(a, b) ((a) < (b) ? (a) : (b))
 
 static lua_CFunction _traceback = NULL;
 static int _count = 0;
@@ -153,6 +156,52 @@ static void auxgetobjtable(lua_State *L)
     }
 }
 
+static inline bool isusingpool(lua_State *L)
+{
+    bool b;
+    lua_rawgetp(L, LUA_REGISTRYINDEX, USING_STACKPOOL);
+    b = olua_toboolean(L, -1);
+    lua_pop(L, 1);
+    return b;
+}
+
+static int olua_poolpush(lua_State *L, void *obj, const char *cls)
+{
+    int level = 0;
+    if (lua_rawgetp(L, LUA_REGISTRYINDEX, STACKPOOL_TABLE) != LUA_TTABLE) {
+        lua_pop(L, 1);
+        lua_createtable(L, 16, 0);
+        lua_pushvalue(L, -1);
+        lua_rawsetp(L, LUA_REGISTRYINDEX, STACKPOOL_TABLE);
+    }
+    
+    lua_rawgeti(L, -1, 0);
+    level = (int)olua_optinteger(L, -1, 0) + 1;
+    lua_pop(L, 1);
+    lua_pushinteger(L, level);
+    lua_rawseti(L, -2, 0);
+    
+    if (lua_rawgeti(L, -1, level) != LUA_TUSERDATA) {
+        lua_pop(L, 1);
+        lua_newuserdata(L, sizeof(void *));
+        lua_pushvalue(L, -1);
+        lua_rawseti(L, -3, level);
+    }
+    
+    *(void **)lua_touserdata(L, -1) = obj;
+    luaL_setmetatable(L, cls);
+    
+    if (!lua_getmetatable(L, -1)) {
+        luaL_error(L, "metatable not found: %s", cls);
+    } else {
+        lua_pop(L, 1);
+    }
+    
+    lua_remove(L, -2);
+    
+    return OLUA_OBJ_EXIST;
+}
+
 LUALIB_API int olua_pushobj(lua_State *L, void *obj, const char *cls)
 {
     int status = OLUA_OBJ_EXIST;
@@ -164,6 +213,10 @@ LUALIB_API int olua_pushobj(lua_State *L, void *obj, const char *cls)
     
     if (!cls) {
         luaL_error(L, "class is null");
+    }
+    
+    if (isusingpool(L)) {
+        return olua_poolpush(L, obj, cls);
     }
     
     auxgetobjtable(L);
@@ -267,6 +320,51 @@ LUALIB_API void olua_callgc(lua_State *L, int idx, bool isarrary)
         *(void **)lua_touserdata(L, idx) = NULL;
     }
     lua_settop(L, top);
+}
+
+LUALIB_API void olua_begin_stackpool(lua_State *L)
+{
+    lua_pushboolean(L, true);
+    lua_rawsetp(L, LUA_REGISTRYINDEX, USING_STACKPOOL);
+}
+
+LUALIB_API void olua_end_stackpool(lua_State *L)
+{
+    lua_pushboolean(L, false);
+    lua_rawsetp(L, LUA_REGISTRYINDEX, USING_STACKPOOL);
+}
+
+LUALIB_API int olua_get_stackpool(lua_State *L)
+{
+    int level = 0;
+    if (lua_rawgetp(L, LUA_REGISTRYINDEX, STACKPOOL_TABLE) == LUA_TTABLE) {
+        lua_rawgeti(L, -1, 0);
+        level = (int)olua_optinteger(L, -1, 0);
+        lua_pop(L, 1);
+    }
+    lua_pop(L, 1);
+    return level;
+}
+
+LUALIB_API void olua_pop_stackpool(lua_State *L, int level)
+{
+    if (lua_rawgetp(L, LUA_REGISTRYINDEX, STACKPOOL_TABLE) == LUA_TTABLE) {
+        int len = (int)lua_rawlen(L, -1);
+        olua_assert(level >= 0 && level < len);
+        for (int i = level + 1; i <= len; i++) {
+            lua_rawgeti(L, -1, i);
+            void **ud = (void **)lua_touserdata(L, -1);
+            lua_pop(L, 1);
+            if (*ud != NULL) {
+                *ud = NULL;
+            } else {
+                break;
+            }
+        }
+        lua_pushinteger(L, level);
+        lua_rawseti(L, -2, 0);
+    }
+    lua_pop(L, 1);
 }
 
 static void auxgetusertable(lua_State *L, int idx)
@@ -567,58 +665,6 @@ LUALIB_API void olua_unrefall(lua_State *L, int obj, const char *t)
     lua_pushnil(L);                         // L: uv k nil
     lua_rawset(L, -3);                      // L: uv
     lua_pop(L, 1);                          // L:
-}
-
-LUALIB_API void olua_arrayref(lua_State *L, int obj, const char *t, int vidx)
-{
-    olua_assert(olua_isuserdata(L, obj));
-    olua_assert(olua_isuserdata(L, vidx) || olua_isnil(L, vidx));
-    if (olua_isuserdata(L, vidx)) {
-        int len;
-        obj = lua_absindex(L, obj);
-        vidx = lua_absindex(L, vidx);
-        olua_getreftable(L, obj, t);            // L: t
-        lua_pushnil(L);                         // L: t k
-        while (lua_next(L, -2)) {               // L: t k v
-            if (lua_rawequal(L, vidx, -1)) {
-                lua_pop(L, 3);                  // L:
-                return;
-            }
-            lua_pop(L, 1);                      // L: t k
-        }
-        len = (int)lua_rawlen(L, -1);
-        lua_pushvalue(L, vidx);                 // L: t v
-        lua_rawseti(L, -2, len + 1);            // L: t
-        lua_pop(L, 1);                          // L:
-    }
-}
-
-LUALIB_API void olua_arrayunref(lua_State *L, int obj, const char *t, int idx)
-{
-    size_t len;
-    olua_assert(olua_isuserdata(L, obj));
-    olua_getreftable(L, obj, t);             // L: t
-    len = (size_t)lua_rawlen(L, -1);
-    idx += idx < 0 ? (len + 1) : 0;
-    if (idx >= 1 && idx <= len) {
-        for ( ; idx < len; idx++) {
-            lua_rawgeti(L, -1, idx + 1);    // L: t (idx+1)
-            lua_rawseti(L, -2, idx);        // L: t      t[idx] = t[idx + 1]
-        }
-        lua_pushnil(L);
-        lua_rawseti(L, -2, idx);
-    }
-    lua_pop(L, 1);
-}
-
-LUALIB_API size_t olua_arraylen(lua_State *L, int obj, const char *t)
-{
-    size_t len;
-    olua_assert(olua_isuserdata(L, obj));
-    olua_getreftable(L, obj, t);             // L: t
-    len = lua_rawlen(L, -1);
-    lua_pop(L, 1);
-    return len;
 }
 
 static bool ismetafunc(lua_State *L, int idx, const char *func)

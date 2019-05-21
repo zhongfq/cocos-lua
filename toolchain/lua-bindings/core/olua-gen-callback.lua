@@ -104,7 +104,7 @@ function gen_callback(cls, fi, write)
     local NUM_ARGS = #ai.CALLBACK.ARGS
     local ARGS = {}
     local PUSH_ARGS = {}
-    local INSTACKS = {}
+    local POP_STACKPOOL = ""
     local CALLBACK_STORE_OBJ
     local CALLBACK_STORE
     local RESULT_DECL = ""
@@ -112,10 +112,32 @@ function gen_callback(cls, fi, write)
     local RESULT_GET = ""
     local INJECT_CALLBACK_AFTER = fi.INJECT.CALLBACK_AFTER or ''
     local INJECT_CALLBACK_BEFORE = fi.INJECT.CALLBACK_BEFORE or ''
+    local HAS_STACK_BEGIN = false
+
+    for _, v in ipairs(ai.CALLBACK.ARGS) do
+        if v.ATTR.STACK then
+            PUSH_ARGS[#PUSH_ARGS + 1] = "int stack_level = olua_get_stackpool(L);"
+            POP_STACKPOOL = format_snippet([[
+                //pop stack value
+                olua_pop_stackpool(L, stack_level);
+            ]])
+           break
+        end
+    end
 
     for i, v in ipairs(ai.CALLBACK.ARGS) do
         local ARG_N = 'arg' .. i
         local PUSH_FUNC = v.TYPE.FUNC_PUSH_VALUE
+
+        if v.ATTR.STACK then
+            if not HAS_STACK_BEGIN then
+                HAS_STACK_BEGIN = true
+                PUSH_ARGS[#PUSH_ARGS + 1] = "olua_begin_stackpool(L);"
+            end
+        elseif HAS_STACK_BEGIN then
+            HAS_STACK_BEGIN = false
+            PUSH_ARGS[#PUSH_ARGS + 1] = "olua_end_stackpool(L);"
+        end
     
         if v.TYPE.LUACLS then
             local LUACLS = v.TYPE.LUACLS
@@ -145,25 +167,6 @@ function gen_callback(cls, fi, write)
             ]])
         end
 
-        if v.ATTR.STACK then
-            local PUSH_VALUE = PUSH_ARGS[#PUSH_ARGS]
-            if #INSTACKS == 0 then
-                INSTACKS[#INSTACKS + 1] = "//may be stack value"
-            end
-            if v.TYPE.SUBTYPE then
-                assert(v.TYPE.TYPENAME == 'std::vector')
-                INSTACKS[#INSTACKS + 1] = format_snippet([[
-                    ${PUSH_VALUE}
-                    olua_callgc(L, -1, true);
-                ]])
-            else
-                INSTACKS[#INSTACKS + 1] = format_snippet([[
-                    ${PUSH_VALUE}
-                    olua_callgc(L, -1, false);
-                ]])
-            end
-        end
-
         local DECL_TYPE = v.FUNC_ARG_DECL_TYPE
         local SPACE = string.find(DECL_TYPE, '[*&]$') and '' or ' '
         ARGS[#ARGS + 1] = format_snippet([[
@@ -171,9 +174,13 @@ function gen_callback(cls, fi, write)
         ]])
     end
 
+    if HAS_STACK_BEGIN then
+        PUSH_ARGS[#PUSH_ARGS + 1] = "olua_end_stackpool(L);"
+        HAS_STACK_BEGIN = false
+    end
+
     ARGS = table.concat(ARGS, ", ")
     PUSH_ARGS = table.concat(PUSH_ARGS, "\n")
-    INSTACKS = table.concat(INSTACKS, "\n")
 
     if fi.CALLBACK_OPT.CALLBACK_CALLONCE then
         local CALLBACK_MODE = fi.CALLBACK_OPT.CALLBACK_MODE
@@ -256,7 +263,7 @@ function gen_callback(cls, fi, write)
 
             ${REMOVE_CALLBACK}
             
-            ${INSTACKS}
+            ${POP_STACKPOOL}
 
             lua_settop(L, top);
             ${RESULT_RET}

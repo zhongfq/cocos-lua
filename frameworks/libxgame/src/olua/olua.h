@@ -81,6 +81,11 @@ LUALIB_API void *olua_checkobj(lua_State *L, int idx, const char *cls);
 LUALIB_API void *olua_toobj(lua_State *L, int idx, const char *cls);
 LUALIB_API void olua_callgc(lua_State *L, int idx, bool isarrary);
     
+LUALIB_API void olua_begin_stackpool(lua_State *L);
+LUALIB_API void olua_end_stackpool(lua_State *L);
+LUALIB_API int olua_get_stackpool(lua_State *L);
+LUALIB_API void olua_pop_stackpool(lua_State *L, int level);
+    
 typedef enum {
     // for olua_setcallback
     OLUA_CALLBACK_TAG_NEW,
@@ -116,9 +121,6 @@ LUALIB_API void olua_maprefarray(lua_State *L, int obj, const char *t, int vidx)
 LUALIB_API void olua_mapunref(lua_State *L, int obj, const char *t, int vidx);
 LUALIB_API void olua_mapwalkunref(lua_State *L, int obj, const char *t, lua_CFunction walk);
 LUALIB_API void olua_unrefall(lua_State *L, int obj, const char *t);
-LUALIB_API void olua_arrayref(lua_State *L, int obj, const char *t, int vidx);
-LUALIB_API void olua_arrayunref(lua_State *L, int obj, const char *t, int idx);
-LUALIB_API size_t olua_arraylen(lua_State *L, int obj, const char *t);
 
 //
 // lua class model

@@ -1012,11 +1012,10 @@
 		0ECC4B6221E79E0E00E3BBF9 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				FA826C9E22929A2C00F73DCB /* rapidjson */,
-				FA826C01229290E900F73DCB /* dragonbones */,
 				0E4B938F226EE27F00B22B9F /* bugly */,
 				0ECC4C5421EB8D4600E3BBF9 /* cjson */,
 				0E2E9A7B221EBB570085145E /* crypto */,
+				FA826C01229290E900F73DCB /* dragonbones */,
 				0E4C8BFC225CAF490095CF59 /* lame */,
 				0E2EC30422924EE900CA3701 /* lpeg */,
 				0ECC4B6321E79E2400E3BBF9 /* lua */,
@@ -1024,6 +1023,7 @@
 				0E6C9793222ADCEE00B2C17F /* olua */,
 				0ECC4C3821EB8D4500E3BBF9 /* pbc */,
 				0E4C8C2C225CAF490095CF59 /* qrencode */,
+				FA826C9E22929A2C00F73DCB /* rapidjson */,
 				0E2EC2FA22924A0F00CA3701 /* sproto */,
 				0E0C702221F9600D00049240 /* xgame */,
 			);
@@ -1150,24 +1150,24 @@
 		FA826C01229290E900F73DCB /* dragonbones */ = {
 			isa = PBXGroup;
 			children = (
-				FA826C02229290E900F73DCB /* CCTextureAtlasData.h */,
 				FA826C03229290E900F73DCB /* CCArmatureDisplay.cpp */,
-				FA826C04229290E900F73DCB /* CCSlot.cpp */,
 				FA826C05229290E900F73DCB /* CCArmatureDisplay.h */,
-				FA826C06229290E900F73DCB /* DragonBonesHeaders.h */,
-				FA826C07229290E900F73DCB /* core */,
-				FA826C0C229290E900F73DCB /* armature */,
-				FA826C1A229290E900F73DCB /* animation */,
-				FA826C26229290E900F73DCB /* CCFactory.cpp */,
-				FA826C27229290E900F73DCB /* parser */,
 				FA826C2E229290E900F73DCB /* CCDragonBonesHeaders.h */,
-				FA826C2F229290E900F73DCB /* CCTextureAtlasData.cpp */,
-				FA826C30229290E900F73DCB /* geom */,
-				FA826C38229290E900F73DCB /* model */,
+				FA826C26229290E900F73DCB /* CCFactory.cpp */,
 				FA826C4F229290E900F73DCB /* CCFactory.h */,
+				FA826C04229290E900F73DCB /* CCSlot.cpp */,
 				FA826C50229290E900F73DCB /* CCSlot.h */,
+				FA826C2F229290E900F73DCB /* CCTextureAtlasData.cpp */,
+				FA826C02229290E900F73DCB /* CCTextureAtlasData.h */,
+				FA826C06229290E900F73DCB /* DragonBonesHeaders.h */,
+				FA826C1A229290E900F73DCB /* animation */,
+				FA826C0C229290E900F73DCB /* armature */,
+				FA826C07229290E900F73DCB /* core */,
 				FA826C51229290E900F73DCB /* event */,
 				FA826C55229290E900F73DCB /* factory */,
+				FA826C30229290E900F73DCB /* geom */,
+				FA826C38229290E900F73DCB /* model */,
+				FA826C27229290E900F73DCB /* parser */,
 			);
 			name = dragonbones;
 			path = ../src/dragonbones;
@@ -1176,10 +1176,10 @@
 		FA826C07229290E900F73DCB /* core */ = {
 			isa = PBXGroup;
 			children = (
-				FA826C08229290E900F73DCB /* BaseObject.h */,
 				FA826C09229290E900F73DCB /* BaseObject.cpp */,
-				FA826C0A229290E900F73DCB /* DragonBones.h */,
+				FA826C08229290E900F73DCB /* BaseObject.h */,
 				FA826C0B229290E900F73DCB /* DragonBones.cpp */,
+				FA826C0A229290E900F73DCB /* DragonBones.h */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -1187,19 +1187,19 @@
 		FA826C0C229290E900F73DCB /* armature */ = {
 			isa = PBXGroup;
 			children = (
+				FA826C12229290E900F73DCB /* Armature.cpp */,
+				FA826C14229290E900F73DCB /* Armature.h */,
 				FA826C0D229290E900F73DCB /* Bone.cpp */,
-				FA826C0E229290E900F73DCB /* TransformObject.h */,
-				FA826C0F229290E900F73DCB /* DeformVertices.cpp */,
 				FA826C10229290E900F73DCB /* Bone.h */,
 				FA826C11229290E900F73DCB /* Constraint.cpp */,
-				FA826C12229290E900F73DCB /* Armature.cpp */,
-				FA826C13229290E900F73DCB /* DeformVertices.h */,
-				FA826C14229290E900F73DCB /* Armature.h */,
 				FA826C15229290E900F73DCB /* Constraint.h */,
+				FA826C0F229290E900F73DCB /* DeformVertices.cpp */,
+				FA826C13229290E900F73DCB /* DeformVertices.h */,
 				FA826C16229290E900F73DCB /* IArmatureProxy.h */,
 				FA826C17229290E900F73DCB /* Slot.cpp */,
 				FA826C18229290E900F73DCB /* Slot.h */,
 				FA826C19229290E900F73DCB /* TransformObject.cpp */,
+				FA826C0E229290E900F73DCB /* TransformObject.h */,
 			);
 			path = armature;
 			sourceTree = "<group>";
@@ -1207,17 +1207,17 @@
 		FA826C1A229290E900F73DCB /* animation */ = {
 			isa = PBXGroup;
 			children = (
-				FA826C1B229290E900F73DCB /* Animation.h */,
-				FA826C1C229290E900F73DCB /* BaseTimelineState.h */,
-				FA826C1D229290E900F73DCB /* WorldClock.h */,
-				FA826C1E229290E900F73DCB /* WorldClock.cpp */,
-				FA826C1F229290E900F73DCB /* TimelineState.h */,
-				FA826C20229290E900F73DCB /* TimelineState.cpp */,
-				FA826C21229290E900F73DCB /* BaseTimelineState.cpp */,
 				FA826C22229290E900F73DCB /* Animation.cpp */,
-				FA826C23229290E900F73DCB /* IAnimatable.h */,
+				FA826C1B229290E900F73DCB /* Animation.h */,
 				FA826C24229290E900F73DCB /* AnimationState.cpp */,
 				FA826C25229290E900F73DCB /* AnimationState.h */,
+				FA826C21229290E900F73DCB /* BaseTimelineState.cpp */,
+				FA826C1C229290E900F73DCB /* BaseTimelineState.h */,
+				FA826C23229290E900F73DCB /* IAnimatable.h */,
+				FA826C20229290E900F73DCB /* TimelineState.cpp */,
+				FA826C1F229290E900F73DCB /* TimelineState.h */,
+				FA826C1E229290E900F73DCB /* WorldClock.cpp */,
+				FA826C1D229290E900F73DCB /* WorldClock.h */,
 			);
 			path = animation;
 			sourceTree = "<group>";
@@ -1225,12 +1225,12 @@
 		FA826C27229290E900F73DCB /* parser */ = {
 			isa = PBXGroup;
 			children = (
-				FA826C28229290E900F73DCB /* JSONDataParser.h */,
-				FA826C29229290E900F73DCB /* DataParser.h */,
 				FA826C2A229290E900F73DCB /* BinaryDataParser.cpp */,
-				FA826C2B229290E900F73DCB /* JSONDataParser.cpp */,
-				FA826C2C229290E900F73DCB /* DataParser.cpp */,
 				FA826C2D229290E900F73DCB /* BinaryDataParser.h */,
+				FA826C2C229290E900F73DCB /* DataParser.cpp */,
+				FA826C29229290E900F73DCB /* DataParser.h */,
+				FA826C2B229290E900F73DCB /* JSONDataParser.cpp */,
+				FA826C28229290E900F73DCB /* JSONDataParser.h */,
 			);
 			path = parser;
 			sourceTree = "<group>";
@@ -1238,13 +1238,13 @@
 		FA826C30229290E900F73DCB /* geom */ = {
 			isa = PBXGroup;
 			children = (
-				FA826C31229290E900F73DCB /* Point.h */,
-				FA826C32229290E900F73DCB /* Matrix.h */,
-				FA826C33229290E900F73DCB /* Transform.cpp */,
-				FA826C34229290E900F73DCB /* Point.cpp */,
-				FA826C35229290E900F73DCB /* Transform.h */,
-				FA826C36229290E900F73DCB /* Rectangle.h */,
 				FA826C37229290E900F73DCB /* ColorTransform.h */,
+				FA826C32229290E900F73DCB /* Matrix.h */,
+				FA826C34229290E900F73DCB /* Point.cpp */,
+				FA826C31229290E900F73DCB /* Point.h */,
+				FA826C36229290E900F73DCB /* Rectangle.h */,
+				FA826C33229290E900F73DCB /* Transform.cpp */,
+				FA826C35229290E900F73DCB /* Transform.h */,
 			);
 			path = geom;
 			sourceTree = "<group>";
@@ -1252,28 +1252,28 @@
 		FA826C38229290E900F73DCB /* model */ = {
 			isa = PBXGroup;
 			children = (
-				FA826C39229290E900F73DCB /* ArmatureData.h */,
-				FA826C3A229290E900F73DCB /* BoundingBoxData.h */,
-				FA826C3B229290E900F73DCB /* TextureAtlasData.h */,
-				FA826C3C229290E900F73DCB /* DragonBonesData.cpp */,
-				FA826C3D229290E900F73DCB /* AnimationData.h */,
-				FA826C3E229290E900F73DCB /* BoundingBoxData.cpp */,
-				FA826C3F229290E900F73DCB /* DisplayData.cpp */,
-				FA826C40229290E900F73DCB /* ConstraintData.cpp */,
 				FA826C41229290E900F73DCB /* AnimationConfig.cpp */,
-				FA826C42229290E900F73DCB /* UserData.h */,
+				FA826C4B229290E900F73DCB /* AnimationConfig.h */,
+				FA826C46229290E900F73DCB /* AnimationData.cpp */,
+				FA826C3D229290E900F73DCB /* AnimationData.h */,
+				FA826C48229290E900F73DCB /* ArmatureData.cpp */,
+				FA826C39229290E900F73DCB /* ArmatureData.h */,
+				FA826C3E229290E900F73DCB /* BoundingBoxData.cpp */,
+				FA826C3A229290E900F73DCB /* BoundingBoxData.h */,
+				FA826C47229290E900F73DCB /* CanvasData.cpp */,
+				FA826C49229290E900F73DCB /* CanvasData.h */,
+				FA826C40229290E900F73DCB /* ConstraintData.cpp */,
+				FA826C4C229290E900F73DCB /* ConstraintData.h */,
+				FA826C3F229290E900F73DCB /* DisplayData.cpp */,
+				FA826C45229290E900F73DCB /* DisplayData.h */,
+				FA826C3C229290E900F73DCB /* DragonBonesData.cpp */,
+				FA826C4A229290E900F73DCB /* DragonBonesData.h */,
 				FA826C43229290E900F73DCB /* SkinData.cpp */,
 				FA826C44229290E900F73DCB /* SkinData.h */,
-				FA826C45229290E900F73DCB /* DisplayData.h */,
-				FA826C46229290E900F73DCB /* AnimationData.cpp */,
-				FA826C47229290E900F73DCB /* CanvasData.cpp */,
-				FA826C48229290E900F73DCB /* ArmatureData.cpp */,
-				FA826C49229290E900F73DCB /* CanvasData.h */,
-				FA826C4A229290E900F73DCB /* DragonBonesData.h */,
-				FA826C4B229290E900F73DCB /* AnimationConfig.h */,
-				FA826C4C229290E900F73DCB /* ConstraintData.h */,
-				FA826C4D229290E900F73DCB /* UserData.cpp */,
 				FA826C4E229290E900F73DCB /* TextureAtlasData.cpp */,
+				FA826C3B229290E900F73DCB /* TextureAtlasData.h */,
+				FA826C4D229290E900F73DCB /* UserData.cpp */,
+				FA826C42229290E900F73DCB /* UserData.h */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1300,27 +1300,27 @@
 		FA826C9E22929A2C00F73DCB /* rapidjson */ = {
 			isa = PBXGroup;
 			children = (
-				FA826C9F22929A2C00F73DCB /* fwd.h */,
-				FA826CA022929A2C00F73DCB /* memorystream.h */,
-				FA826CA122929A2C00F73DCB /* reader.h */,
-				FA826CA222929A2C00F73DCB /* prettywriter.h */,
-				FA826CA322929A2C00F73DCB /* ostreamwrapper.h */,
+				FA826CBB22929A2C00F73DCB /* allocators.h */,
+				FA826CBA22929A2C00F73DCB /* document.h */,
 				FA826CA422929A2C00F73DCB /* encodedstream.h */,
-				FA826CA522929A2C00F73DCB /* filereadstream.h */,
-				FA826CA622929A2C00F73DCB /* istreamwrapper.h */,
-				FA826CA722929A2C00F73DCB /* stringbuffer.h */,
-				FA826CA822929A2C00F73DCB /* internal */,
 				FA826CB522929A2C00F73DCB /* encodings.h */,
+				FA826CA522929A2C00F73DCB /* filereadstream.h */,
+				FA826CB822929A2C00F73DCB /* filewritestream.h */,
+				FA826C9F22929A2C00F73DCB /* fwd.h */,
+				FA826CA622929A2C00F73DCB /* istreamwrapper.h */,
+				FA826CC022929A2C00F73DCB /* memorybuffer.h */,
+				FA826CA022929A2C00F73DCB /* memorystream.h */,
+				FA826CA322929A2C00F73DCB /* ostreamwrapper.h */,
+				FA826CC122929A2C00F73DCB /* pointer.h */,
+				FA826CA222929A2C00F73DCB /* prettywriter.h */,
+				FA826CB922929A2C00F73DCB /* rapidjson.h */,
+				FA826CA122929A2C00F73DCB /* reader.h */,
 				FA826CB622929A2C00F73DCB /* schema.h */,
 				FA826CB722929A2C00F73DCB /* stream.h */,
-				FA826CB822929A2C00F73DCB /* filewritestream.h */,
-				FA826CB922929A2C00F73DCB /* rapidjson.h */,
-				FA826CBA22929A2C00F73DCB /* document.h */,
-				FA826CBB22929A2C00F73DCB /* allocators.h */,
+				FA826CA722929A2C00F73DCB /* stringbuffer.h */,
 				FA826CBC22929A2C00F73DCB /* writer.h */,
 				FA826CBD22929A2C00F73DCB /* error */,
-				FA826CC022929A2C00F73DCB /* memorybuffer.h */,
-				FA826CC122929A2C00F73DCB /* pointer.h */,
+				FA826CA822929A2C00F73DCB /* internal */,
 				FA826CC222929A2C00F73DCB /* msinttypes */,
 			);
 			name = rapidjson;
@@ -1330,18 +1330,18 @@
 		FA826CA822929A2C00F73DCB /* internal */ = {
 			isa = PBXGroup;
 			children = (
-				FA826CA922929A2C00F73DCB /* ieee754.h */,
-				FA826CAA22929A2C00F73DCB /* strtod.h */,
-				FA826CAB22929A2C00F73DCB /* swap.h */,
-				FA826CAC22929A2C00F73DCB /* regex.h */,
-				FA826CAD22929A2C00F73DCB /* diyfp.h */,
 				FA826CAE22929A2C00F73DCB /* biginteger.h */,
-				FA826CAF22929A2C00F73DCB /* strfunc.h */,
-				FA826CB022929A2C00F73DCB /* itoa.h */,
-				FA826CB122929A2C00F73DCB /* stack.h */,
+				FA826CAD22929A2C00F73DCB /* diyfp.h */,
 				FA826CB222929A2C00F73DCB /* dtoa.h */,
+				FA826CA922929A2C00F73DCB /* ieee754.h */,
+				FA826CB022929A2C00F73DCB /* itoa.h */,
 				FA826CB322929A2C00F73DCB /* meta.h */,
 				FA826CB422929A2C00F73DCB /* pow10.h */,
+				FA826CAC22929A2C00F73DCB /* regex.h */,
+				FA826CB122929A2C00F73DCB /* stack.h */,
+				FA826CAF22929A2C00F73DCB /* strfunc.h */,
+				FA826CAA22929A2C00F73DCB /* strtod.h */,
+				FA826CAB22929A2C00F73DCB /* swap.h */,
 			);
 			path = internal;
 			sourceTree = "<group>";
@@ -1349,8 +1349,8 @@
 		FA826CBD22929A2C00F73DCB /* error */ = {
 			isa = PBXGroup;
 			children = (
-				FA826CBE22929A2C00F73DCB /* error.h */,
 				FA826CBF22929A2C00F73DCB /* en.h */,
+				FA826CBE22929A2C00F73DCB /* error.h */,
 			);
 			path = error;
 			sourceTree = "<group>";

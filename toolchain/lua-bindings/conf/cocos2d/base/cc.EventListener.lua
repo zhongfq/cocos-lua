@@ -44,7 +44,7 @@ cls.vars [[
     std::function<bool(@stack Touch*, @stack Event*)> onTouchBegan = nullptr
     std::function<void(@stack Touch*, @stack Event*)> onTouchMoved = nullptr
     std::function<void(@stack Touch*, @stack Event*)> onTouchEnded = nullptr
-    std::function<void(Touch*, @stack Event*)> onTouchCancelled = nullptr
+    std::function<void(@stack Touch*, @stack Event*)> onTouchCancelled = nullptr
 ]]
 
 local cls = class(M)
@@ -55,7 +55,7 @@ cls.vars [[
     std::function<void(@stack const std::vector<Touch*>&, @stack Event*)> onTouchesBegan = nullptr
     std::function<void(@stack const std::vector<Touch*>&, @stack Event*)> onTouchesMoved = nullptr
     std::function<void(@stack const std::vector<Touch*>&, @stack Event*)> onTouchesEnded = nullptr
-    std::function<void(const std::vector<Touch*>&, @stack Event*)> onTouchesCancelled = nullptr
+    std::function<void(@stack const std::vector<Touch*>&, @stack Event*)> onTouchesCancelled = nullptr
 ]]
 cls.funcs([[
     static EventListenerTouchAllAtOnce* create()

@@ -1142,21 +1142,48 @@ static int _dragonBones_CCArmatureDisplay_addDBEventListener(lua_State *L)
     olua_check_std_string(L, 2, &arg1);
 
     void *callback_store_obj = (void *)self;
-    std::string tag = olua_makecallbacktag("DBEventListener");
-    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_CALLBACK_TAG_REPLACE);
+    std::string tag = olua_makecallbacktag(arg1);
+    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_CALLBACK_TAG_NEW);
     arg2 = [callback_store_obj, func, tag](dragonBones::EventObject *arg1) {
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
 
+        int stack_level = olua_push_stackpool(L);
+        olua_enable_stackpool(L);
         olua_push_cppobj<dragonBones::EventObject>(L, arg1, "db.EventObject");
+        olua_disable_stackpool(L);
 
         olua_callback(L, callback_store_obj, func.c_str(), 1);
+
+        //pop stack value
+        olua_pop_stackpool(L, stack_level);
 
         lua_settop(L, top);
     };
 
-    // void addDBEventListener(const std::string& type, const std::function<void(EventObject*)>& listener)
+    // void addDBEventListener(const std::string& type, const std::function<void(@stack EventObject*)>& listener)
     self->addDBEventListener(arg1, arg2);
+
+    return 0;
+}
+
+static int _dragonBones_CCArmatureDisplay_removeDBEventListener(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    dragonBones::CCArmatureDisplay *self = nullptr;
+    std::string arg1;       /** type */
+    std::function<void(dragonBones::EventObject *)> arg2 = nullptr;   /** listener */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureDisplay");
+    olua_check_std_string(L, 2, &arg1);
+
+    std::string tag = olua_makecallbacktag(arg1);
+    void *callback_store_obj = (void *)self;
+    olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+
+    // void removeDBEventListener(const std::string& type, @nullable const std::function<void(EventObject*)>& listener)
+    self->removeDBEventListener(arg1, arg2);
 
     return 0;
 }
@@ -1170,6 +1197,7 @@ static int luaopen_dragonBones_CCArmatureDisplay(lua_State *L)
     oluacls_func(L, "getArmature", _dragonBones_CCArmatureDisplay_getArmature);
     oluacls_func(L, "getAnimation", _dragonBones_CCArmatureDisplay_getAnimation);
     oluacls_func(L, "addDBEventListener", _dragonBones_CCArmatureDisplay_addDBEventListener);
+    oluacls_func(L, "removeDBEventListener", _dragonBones_CCArmatureDisplay_removeDBEventListener);
 
     olua_registerluatype<dragonBones::CCArmatureDisplay>(L, "db.ArmatureDisplay");
     oluacls_createclassproxy(L);

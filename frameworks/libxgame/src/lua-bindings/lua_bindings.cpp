@@ -33,6 +33,7 @@ int luaopen_bindings(lua_State *L)
     xlua_call(L, luaopen_xgame);
     xlua_call(L, luaopen_xml_http_request);
     
+    olua_require(L, "olua", luaopen_olua);
     olua_require(L, "kernel.sproto.core", luaopen_sproto_core);
     olua_require(L, "kernel.protobuf.c", luaopen_protobuf_c);
     olua_require(L, "kernel.lpeg", luaopen_lpeg);

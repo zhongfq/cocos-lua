@@ -20245,7 +20245,7 @@ static int _cocos2d_Node_set_anchorX(lua_State *L)
     cocos2d::Vec2 anchor = self->getAnchorPoint();
     anchor.x = olua_checknumber(L, 2);
     self->setAnchorPoint(anchor);
-    return 0;   
+    return 0;
 }
 
 static int _cocos2d_Node_get_anchorY(lua_State *L)
@@ -20263,7 +20263,7 @@ static int _cocos2d_Node_set_anchorY(lua_State *L)
     cocos2d::Vec2 anchor = self->getAnchorPoint();
     anchor.y = olua_checknumber(L, 2);
     self->setAnchorPoint(anchor);
-    return 0;   
+    return 0;
 }
 
 static int _cocos2d_Node_get_width(lua_State *L)
@@ -20281,7 +20281,7 @@ static int _cocos2d_Node_set_width(lua_State *L)
     cocos2d::Size size = self->getContentSize();
     size.width = olua_checknumber(L, 2);
     self->setContentSize(size);
-    return 0;   
+    return 0;
 }
 
 static int _cocos2d_Node_get_height(lua_State *L)
@@ -20299,7 +20299,7 @@ static int _cocos2d_Node_set_height(lua_State *L)
     cocos2d::Size size = self->getContentSize();
     size.height = olua_checknumber(L, 2);
     self->setContentSize(size);
-    return 0;   
+    return 0;
 }
 
 static int _cocos2d_Node_get_alpha(lua_State *L)
@@ -20315,7 +20315,7 @@ static int _cocos2d_Node_set_alpha(lua_State *L)
     lua_settop(L, 2);
     cocos2d::Node *self = (cocos2d::Node *)olua_toobj(L, 1, "cc.Node");
     self->setOpacity(olua_checknumber(L, 2) * 255.0f);
-    return 0;   
+    return 0;
 }
 
 static int luaopen_cocos2d_Node(lua_State *L)

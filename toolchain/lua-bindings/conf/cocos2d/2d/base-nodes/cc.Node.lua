@@ -211,7 +211,7 @@ cls.callback(
     }
 )
 cls.callback(
-    'void unschedule(const std::string &key)', 
+    'void unschedule(const std::string &key)',
     {
         CALLBACK_MAKER = "makeScheduleCallbackTag(#1)",
         CALLBACK_MODE = "OLUA_CALLBACK_TAG_ENDWITH",
@@ -286,7 +286,7 @@ cls.prop('anchorX', [[
     cocos2d::Vec2 anchor = self->getAnchorPoint();
     anchor.x = olua_checknumber(L, 2);
     self->setAnchorPoint(anchor);
-    return 0;   
+    return 0;
 }]])
 cls.prop('anchorY', [[
 {
@@ -302,7 +302,7 @@ cls.prop('anchorY', [[
     cocos2d::Vec2 anchor = self->getAnchorPoint();
     anchor.y = olua_checknumber(L, 2);
     self->setAnchorPoint(anchor);
-    return 0;   
+    return 0;
 }]])
 cls.prop('width', [[
 {
@@ -318,7 +318,7 @@ cls.prop('width', [[
     cocos2d::Size size = self->getContentSize();
     size.width = olua_checknumber(L, 2);
     self->setContentSize(size);
-    return 0;   
+    return 0;
 }]])
 cls.prop('height', [[
 {
@@ -334,7 +334,7 @@ cls.prop('height', [[
     cocos2d::Size size = self->getContentSize();
     size.height = olua_checknumber(L, 2);
     self->setContentSize(size);
-    return 0;   
+    return 0;
 }]])
 cls.prop('alpha', [[
 {
@@ -348,7 +348,7 @@ cls.prop('alpha', [[
     lua_settop(L, 2);
     cocos2d::Node *self = (cocos2d::Node *)olua_toobj(L, 1, "cc.Node");
     self->setOpacity(olua_checknumber(L, 2) * 255.0f);
-    return 0;   
+    return 0;
 }]])
 
 cls.inject({'removeFromParent', 'removeFromParentAndCleanup'}, {

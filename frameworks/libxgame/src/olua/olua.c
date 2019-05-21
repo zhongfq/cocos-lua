@@ -1175,3 +1175,42 @@ LUALIB_API bool olua_hasfield(lua_State *L, int idx, const char *field)
     lua_pop(L, 1);
     return type != LUA_TNIL;
 }
+
+static int _olua_with(lua_State *L)
+{
+    lua_settop(L, 3);
+    luaL_checktype(L, 1, LUA_TUSERDATA);
+    luaL_checktype(L, 3, LUA_TFUNCTION);
+    const char *cls = olua_checkstring(L, 2);
+    if (!lua_getmetatable(L, 1)) {      // L: obj cls func mt trackback
+        lua_pushnil(L);                 // L: obj cls func nil trackback
+    }
+    
+    if (luaL_getmetatable(L, cls) == LUA_TTABLE) {
+        lua_setmetatable(L, 1);
+    } else {
+        lua_pop(L, 1);
+        luaL_error(L, "metatable not found: %s", cls);
+    }
+    
+    lua_pushcfunction(L, TRACEBACK);    // L: obj cls func mt trackback
+    lua_pushvalue(L, 3);                // L: obj cls func mt trackback func
+    lua_pushvalue(L, 1);                // L: obj cls func mt trackback func obj
+    lua_pcall(L, 1, 0, 5);              // L: obj cls func mt trackback
+    lua_pop(L, 1);                      // L: obj cls func mt
+    lua_setmetatable(L, 1);             // L: obj cls func
+    
+    return 0;
+}
+
+LUALIB_API int luaopen_olua(lua_State *L)
+{
+    static const luaL_Reg lib[] = {
+        {"with", _olua_with},
+        {NULL, NULL}
+    };
+    
+    luaL_newlib(L,lib);
+    
+    return 1;
+}

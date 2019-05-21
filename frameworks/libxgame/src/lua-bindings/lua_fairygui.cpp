@@ -12414,13 +12414,14 @@ static int _fairygui_PopupMenu_addItemAt(lua_State *L)
     std::function<void(fairygui::EventContext *)> callback = [callback_store_obj, func, tag](fairygui::EventContext *event) {
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
-
+        int stack_level = olua_get_stackpool(L);
+        olua_begin_stackpool(L);
         olua_push_cppobj<fairygui::EventContext>(L, event, "fui.EventContext");
+        olua_end_stackpool(L);
         olua_callback(L, callback_store_obj, func.c_str(), 1);
 
-        // stack value
-        olua_push_cppobj<fairygui::EventContext>(L, event, "fui.EventContext");
-        olua_callgc(L, -1, false);
+        //pop stack value
+        olua_pop_stackpool(L, stack_level);
 
         lua_settop(L, top);
     };

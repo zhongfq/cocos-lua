@@ -2894,12 +2894,14 @@ static int _cocos2d_EventDispatcher_addCustomEventListener(lua_State *L)
     listener->init(eventName, [callback_store_obj, func](cocos2d::EventCustom *event) {
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
+        int stack_level = olua_get_stackpool(L);
+        olua_begin_stackpool(L);
         olua_push_cppobj<cocos2d::EventCustom>(L, event, "cc.EventCustom");
+        olua_end_stackpool(L);
         olua_callback(L, callback_store_obj, func.c_str(), 1);
 
-        // stack value
-        olua_push_cppobj<cocos2d::EventCustom>(L, event, "cc.EventCustom");
-        olua_callgc(L, -1, false);
+        //pop stack value
+        olua_pop_stackpool(L, stack_level);
 
         lua_settop(L, top);
     });

@@ -291,37 +291,6 @@ LUALIB_API void *olua_toobj(lua_State *L, int idx, const char *cls)
     return NULL;
 }
 
-LUALIB_API void olua_callgc(lua_State *L, int idx, bool isarrary)
-{
-    int top = lua_gettop(L);
-    idx = lua_absindex(L, idx);
-    olua_assert(olua_istable(L, idx) || olua_isuserdata(L, idx));
-    if (isarrary) {
-        if (olua_istable(L, idx)) {
-            lua_pushnil(L);                     // L: k
-            while (lua_next(L, idx)) {          // L: k v
-                olua_callgc(L, -1, false);
-                lua_pop(L, 1);
-            }
-        }
-    } else if (olua_isuserdata(L, idx)) {
-        void *obj = olua_touserdata(L, idx, void *);
-        lua_pushcfunction(L, TRACEBACK);
-        if (lua_getfield(L, idx, "__gc") == LUA_TFUNCTION) {
-            lua_pushvalue(L, idx);
-            lua_pcall(L, 1, 0, top + 1);
-        }
-        if (obj) {
-            auxgetobjtable(L);
-            lua_pushnil(L);
-            lua_rawsetp(L, -2, obj);
-        }
-        
-        *(void **)lua_touserdata(L, idx) = NULL;
-    }
-    lua_settop(L, top);
-}
-
 LUALIB_API void olua_begin_stackpool(lua_State *L)
 {
     lua_pushboolean(L, true);

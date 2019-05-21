@@ -79,7 +79,6 @@ LUALIB_API int olua_pushobj(lua_State *L, void *obj, const char *cls);
 LUALIB_API bool olua_getobj(lua_State *L, void *obj);
 LUALIB_API void *olua_checkobj(lua_State *L, int idx, const char *cls);
 LUALIB_API void *olua_toobj(lua_State *L, int idx, const char *cls);
-LUALIB_API void olua_callgc(lua_State *L, int idx, bool isarrary);
     
 LUALIB_API void olua_begin_stackpool(lua_State *L);
 LUALIB_API void olua_end_stackpool(lua_State *L);

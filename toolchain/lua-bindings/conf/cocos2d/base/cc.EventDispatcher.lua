@@ -56,10 +56,10 @@ cls.func('addCustomEventListener', [[
     listener->init(eventName, [callback_store_obj, func](cocos2d::EventCustom *event) {
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
-        int stack_level = olua_get_stackpool(L);
-        olua_begin_stackpool(L);
+        int stack_level = olua_push_stackpool(L);
+        olua_enable_stackpool(L);
         olua_push_cppobj<cocos2d::EventCustom>(L, event, "cc.EventCustom");
-        olua_end_stackpool(L);
+        olua_disable_stackpool(L);
         olua_callback(L, callback_store_obj, func.c_str(), 1);
 
         //pop stack value

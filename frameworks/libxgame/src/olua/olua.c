@@ -12,7 +12,7 @@
 #define CLS_STORE   ".store" // static store for cls
 
 #define OBJ_REF_TABLE   ((void *)olua_pushobj)
-#define USING_STACKPOOL ((void *)olua_begin_stackpool)
+#define USING_STACKPOOL ((void *)olua_enable_stackpool)
 #define STACKPOOL_TABLE ((void *)olua_poolpush)
 
 #define TRACEBACK (_traceback ? _traceback : dummy_traceback)
@@ -291,19 +291,19 @@ LUALIB_API void *olua_toobj(lua_State *L, int idx, const char *cls)
     return NULL;
 }
 
-LUALIB_API void olua_begin_stackpool(lua_State *L)
+LUALIB_API void olua_enable_stackpool(lua_State *L)
 {
     lua_pushboolean(L, true);
     lua_rawsetp(L, LUA_REGISTRYINDEX, USING_STACKPOOL);
 }
 
-LUALIB_API void olua_end_stackpool(lua_State *L)
+LUALIB_API void olua_disable_stackpool(lua_State *L)
 {
     lua_pushboolean(L, false);
     lua_rawsetp(L, LUA_REGISTRYINDEX, USING_STACKPOOL);
 }
 
-LUALIB_API int olua_get_stackpool(lua_State *L)
+LUALIB_API int olua_push_stackpool(lua_State *L)
 {
     int level = 0;
     if (lua_rawgetp(L, LUA_REGISTRYINDEX, STACKPOOL_TABLE) == LUA_TTABLE) {

@@ -46,10 +46,10 @@ cls.func('addItemAt', [[
     std::function<void(fairygui::EventContext *)> callback = [callback_store_obj, func, tag](fairygui::EventContext *event) {
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
-        int stack_level = olua_get_stackpool(L);
-        olua_begin_stackpool(L);
+        int stack_level = olua_push_stackpool(L);
+        olua_enable_stackpool(L);
         olua_push_cppobj<fairygui::EventContext>(L, event, "fui.EventContext");
-        olua_end_stackpool(L);
+        olua_disable_stackpool(L);
         olua_callback(L, callback_store_obj, func.c_str(), 1);
         
         //pop stack value

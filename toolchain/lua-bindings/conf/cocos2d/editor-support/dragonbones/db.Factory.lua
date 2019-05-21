@@ -1,7 +1,7 @@
 local M = {}
 
 local cls = class(M)
-cls.CPPCLS = "CCFactory"
+cls.CPPCLS = "dragonBones::CCFactory"
 cls.LUACLS = "db.Factory"
 cls.SUPERCLS = "db.BaseFactory"
 cls.funcs [[

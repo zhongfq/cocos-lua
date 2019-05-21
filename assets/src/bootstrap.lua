@@ -11,6 +11,8 @@ function main()
     -- runTest('test.AudioEngineTest')
     -- runTest("test.WeChatTest")
     -- runTest("test.GridActionTest")
+    -- runTest("test.SpineTest")
+    runTest("test.DragonBonesTest")
 end
 
 function runTest(path)

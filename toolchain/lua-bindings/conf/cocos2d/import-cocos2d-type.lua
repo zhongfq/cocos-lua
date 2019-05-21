@@ -5,6 +5,8 @@ local function make_luacls(cppname)
     cppname = string.gsub(cppname, "^cocos2d::", "cc.")
     cppname = string.gsub(cppname, "^CocosDenshion::", "cc.")
     cppname = string.gsub(cppname, "^spine::", "sp.")
+    cppname = string.gsub(cppname, "^dragonBones::CC", "db.")
+    cppname = string.gsub(cppname, "^dragonBones::", "db.")
     cppname = string.gsub(cppname, "[ *]*$", '')
     return cppname
 end
@@ -475,6 +477,31 @@ REG_TYPE {
         CocosDenshion::SimpleAudioEngine *
         spine::SkeletonAnimation *
         spine::SkeletonRenderer *
+        dragonBones::CCFactory *
+        dragonBones::DragonBonesData *
+        dragonBones::TextureAtlasData *
+        dragonBones::CCArmatureDisplay *
+        dragonBones::Armature *
+        dragonBones::Animation *
+        dragonBones::BaseObject *
+        dragonBones::EventObject *
+        dragonBones::BaseFactory *
+        dragonBones::TransformObject *
+        dragonBones::Slot *
+        dragonBones::Bone *
+        dragonBones::DragonBonesData *
+        dragonBones::DisplayData *
+        dragonBones::TextureAtlasData *
+        dragonBones::TextureData *
+        dragonBones::ArmatureData *
+        dragonBones::SkinData *
+        dragonBones::BoneData *
+        dragonBones::SlotData *
+        dragonBones::AnimationState *
+        dragonBones::AnimationData *
+        dragonBones::AnimationConfig *
+        dragonBones::Armature *
+        dragonBones::Animation *
     ]],
     CONV_FUNC = "olua_$$_cppobj",
     LUACLS = make_luacls,

@@ -258,6 +258,8 @@
 		0ED5D1AE2283C3D50072F3DB /* lua_iap.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0ED5D1952282B8420072F3DB /* lua_iap.mm */; };
 		0EE4B2BE21FC9FE60043AC9D /* xpreferences.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EE4B2BC21FC9FE60043AC9D /* xpreferences.cpp */; };
 		0EE4B2BF21FC9FE60043AC9D /* xpreferences.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EE4B2BC21FC9FE60043AC9D /* xpreferences.cpp */; };
+		FA2993812293E15300FE9EC6 /* lua_dragonbones.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA2993802293E15300FE9EC6 /* lua_dragonbones.cpp */; };
+		FA2993822293E15300FE9EC6 /* lua_dragonbones.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA2993802293E15300FE9EC6 /* lua_dragonbones.cpp */; };
 		FA826C58229290E900F73DCB /* CCArmatureDisplay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C03229290E900F73DCB /* CCArmatureDisplay.cpp */; };
 		FA826C59229290E900F73DCB /* CCArmatureDisplay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C03229290E900F73DCB /* CCArmatureDisplay.cpp */; };
 		FA826C5A229290E900F73DCB /* CCSlot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C04229290E900F73DCB /* CCSlot.cpp */; settings = {COMPILER_FLAGS = "-Wno-shorten-64-to-32"; }; };
@@ -594,6 +596,8 @@
 		0ED5D1A32282C86C0072F3DB /* PluginConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PluginConnector.h; sourceTree = "<group>"; };
 		0EE4B2BC21FC9FE60043AC9D /* xpreferences.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xpreferences.cpp; sourceTree = "<group>"; };
 		0EE4B2BD21FC9FE60043AC9D /* xpreferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xpreferences.h; sourceTree = "<group>"; };
+		FA29937F2293E15200FE9EC6 /* lua_dragonbones.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_dragonbones.h; sourceTree = "<group>"; };
+		FA2993802293E15300FE9EC6 /* lua_dragonbones.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_dragonbones.cpp; sourceTree = "<group>"; };
 		FA826C02229290E900F73DCB /* CCTextureAtlasData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTextureAtlasData.h; sourceTree = "<group>"; };
 		FA826C03229290E900F73DCB /* CCArmatureDisplay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCArmatureDisplay.cpp; sourceTree = "<group>"; };
 		FA826C04229290E900F73DCB /* CCSlot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCSlot.cpp; sourceTree = "<group>"; };
@@ -850,6 +854,8 @@
 		0E4B934B226E9E8B00B22B9F /* lua-bindings */ = {
 			isa = PBXGroup;
 			children = (
+				FA2993802293E15300FE9EC6 /* lua_dragonbones.cpp */,
+				FA29937F2293E15200FE9EC6 /* lua_dragonbones.h */,
 				0E4B934E226E9E8B00B22B9F /* lua_bindings.cpp */,
 				0E4B9363226E9E8B00B22B9F /* lua_bindings.h */,
 				0E4B9351226E9E8B00B22B9F /* lua_cocos2d_ui.cpp */,
@@ -1546,6 +1552,7 @@
 				0E4B936E226E9E8B00B22B9F /* lua_conv_manual.cpp in Sources */,
 				FA826C9C229290E900F73DCB /* BaseFactory.cpp in Sources */,
 				0E0C705A21F9EFC700049240 /* xruntime.cpp in Sources */,
+				FA2993812293E15300FE9EC6 /* lua_dragonbones.cpp in Sources */,
 				FA826C5A229290E900F73DCB /* CCSlot.cpp in Sources */,
 				0ECC4BC521E79E3E00E3BBF9 /* lgc.c in Sources */,
 				0ECC4BDF21E79E3E00E3BBF9 /* ltable.c in Sources */,
@@ -1687,6 +1694,7 @@
 				0E4C8C64225CAF490095CF59 /* mpglib_interface.c in Sources */,
 				FA826C6F229290E900F73DCB /* TimelineState.cpp in Sources */,
 				0ECC4BBC21E79E3E00E3BBF9 /* lbitlib.c in Sources */,
+				FA2993822293E15300FE9EC6 /* lua_dragonbones.cpp in Sources */,
 				0E0C705F21F9EFC700049240 /* xlua.cpp in Sources */,
 				0ED5D1A42282C86C0072F3DB /* PluginConnector.mm in Sources */,
 				0E4C8C78225CAF490095CF59 /* mask.c in Sources */,

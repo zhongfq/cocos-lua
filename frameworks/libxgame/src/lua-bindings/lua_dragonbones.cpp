@@ -2574,21 +2574,6 @@ static int _dragonBones_CCArmatureDisplay_getAnimation(lua_State *L)
     return num_ret;
 }
 
-static int _dragonBones_CCArmatureDisplay_getBoundingBox(lua_State *L)
-{
-    lua_settop(L, 1);
-
-    dragonBones::CCArmatureDisplay *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureDisplay");
-
-    // cocos2d::Rect getBoundingBox()
-    cocos2d::Rect ret = (cocos2d::Rect)self->getBoundingBox();
-    int num_ret = manual_luacv_push_cocos2d_Rect(L, &ret);
-
-    return num_ret;
-}
-
 static int _dragonBones_CCArmatureDisplay_dispose(lua_State *L)
 {
     lua_settop(L, 2);
@@ -2702,7 +2687,6 @@ static int luaopen_dragonBones_CCArmatureDisplay(lua_State *L)
     oluacls_func(L, "dispatchDBEvent", _dragonBones_CCArmatureDisplay_dispatchDBEvent);
     oluacls_func(L, "getArmature", _dragonBones_CCArmatureDisplay_getArmature);
     oluacls_func(L, "getAnimation", _dragonBones_CCArmatureDisplay_getAnimation);
-    oluacls_func(L, "getBoundingBox", _dragonBones_CCArmatureDisplay_getBoundingBox);
     oluacls_func(L, "dispose", _dragonBones_CCArmatureDisplay_dispose);
     oluacls_func(L, "addDBEventListener", _dragonBones_CCArmatureDisplay_addDBEventListener);
     oluacls_func(L, "removeDBEventListener", _dragonBones_CCArmatureDisplay_removeDBEventListener);

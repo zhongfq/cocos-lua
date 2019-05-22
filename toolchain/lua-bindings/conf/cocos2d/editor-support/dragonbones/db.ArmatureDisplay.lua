@@ -10,6 +10,12 @@ cls.funcs [[
     void dispatchDBEvent(const std::string& type, EventObject* value)
     Armature* getArmature()
     Animation* getAnimation()
+    cocos2d::Rect getBoundingBox()
+    void dispose(bool disposeProxy = true)
+]]
+
+cls.vars [[
+    bool debugDraw
 ]]
 
 cls.callback(

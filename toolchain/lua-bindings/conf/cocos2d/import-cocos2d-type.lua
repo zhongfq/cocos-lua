@@ -198,6 +198,9 @@ REG_TYPE {
         ResolutionPolicy
         spAttachmentType
         spEventType
+        dragonBones::AnimationFadeOutMode
+        dragonBones::DisplayType
+        dragonBones::OffsetMode
     ]],
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = "olua_$$_uint",
@@ -502,6 +505,7 @@ REG_TYPE {
         dragonBones::AnimationConfig *
         dragonBones::Armature *
         dragonBones::Animation *
+        dragonBones::Point *
     ]],
     CONV_FUNC = "olua_$$_cppobj",
     LUACLS = make_luacls,

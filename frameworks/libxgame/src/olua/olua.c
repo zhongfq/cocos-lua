@@ -13,7 +13,7 @@
 
 #define OBJ_REF_TABLE   ((void *)olua_pushobj)
 #define USING_STACKPOOL ((void *)olua_enable_stackpool)
-#define STACKPOOL_TABLE ((void *)olua_poolpush)
+#define STACKPOOL_TABLE ((void *)olua_stackpool_push)
 
 #define TRACEBACK (_traceback ? _traceback : dummy_traceback)
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -165,7 +165,7 @@ static inline bool isusingpool(lua_State *L)
     return b;
 }
 
-static int olua_poolpush(lua_State *L, void *obj, const char *cls)
+static int olua_stackpool_push(lua_State *L, void *obj, const char *cls)
 {
     int level = 0;
     if (lua_rawgetp(L, LUA_REGISTRYINDEX, STACKPOOL_TABLE) != LUA_TTABLE) {
@@ -216,7 +216,7 @@ LUALIB_API int olua_pushobj(lua_State *L, void *obj, const char *cls)
     }
     
     if (isusingpool(L)) {
-        return olua_poolpush(L, obj, cls);
+        return olua_stackpool_push(L, obj, cls);
     }
     
     auxgetobjtable(L);

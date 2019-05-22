@@ -155,6 +155,18 @@ cls.funcs [[
     const std::string& getName()
     const AnimationData* getAnimationData()
 ]]
+cls.props [[
+    fadeIn
+    fadeOut
+    fadeComplete
+    playing
+    completed
+    currentPlayTimes
+    totalTime
+    currentTime
+    name
+    animationData
+]]
 
 local cls = class(M)
 cls.CPPCLS = "dragonBones::AnimationData"
@@ -195,30 +207,28 @@ cls.func('replaceSkin', [[
     dragonBones::Armature *arg1 = nullptr;   /** armature */
     dragonBones::SkinData *arg2 = nullptr;   /** skin */
     bool arg3 = false;   /** isOverride */
-    std::vector<std::string> *arg4 = nullptr;   /** exclude **/
+    std::vector<std::string> arg4;   /** exclude **/
 
     olua_to_cppobj(L, 1, (void **)&self, "db.BaseFactory");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.Armature");
     olua_check_cppobj(L, 3, (void **)&arg2, "db.SkinData");
     olua_opt_bool(L, 4, &arg3, (bool)false);
 
-    if (olua_isnil(L, 5)) {
-        arg4 = nullptr;
-    }
-    else {
+    if (!olua_isnil(L, 5)) {
+        luaL_checktype(L, 5, LUA_TTABLE);
         size_t arg4_total = lua_rawlen(L, 5);
-        (*arg4).reserve(arg4_total);
+        arg4.reserve(arg4_total);
         for (int i = 1; i <= arg4_total; i++) {
             std::string obj;
             lua_rawgeti(L, 5, i);
             olua_check_std_string(L, -1, &obj);
-            (*arg4).push_back(obj);
+            arg4.push_back(obj);
             lua_pop(L, 1);
         }
     }
 
     // bool replaceSkin(Armature* armature, SkinData* skin, bool isOverride = false, const std::vector<std::string>* exclude = nullptr)
-    bool ret = (bool)self->replaceSkin(arg1, arg2, arg3, arg4);
+    bool ret = (bool)self->replaceSkin(arg1, arg2, arg3, &arg4);
     int num_ret = olua_push_bool(L, ret);
 
     return num_ret;
@@ -248,6 +258,18 @@ cls.funcs [[
     void* getReplacedTexture()
     void setReplacedTexture(void* value)
     Slot* getParent()
+]]
+cls.props [[
+    bones
+    slots
+    flipX
+    flipY
+    name
+    armatureData
+    animation
+    display
+    replacedTexture
+    parent
 ]]
 
 local cls = class(M)
@@ -294,13 +316,23 @@ cls.func('getAnimations', [[
     dragonBones::Animation *self = nullptr;
     olua_to_cppobj(L, 1, (void **)&self, "db.Animation");
     lua_newtable(L);
-    int index = 1;
-    for (const auto name : self->getAnimationNames())
+    for (auto it : self->getAnimations())
     {
-        lua_pushstring(L, name.c_str());
-        lua_rawseti(L, -2, index++);
+        lua_pushstring(L, it.first.c_str());
+        olua_push_cppobj<dragonBones::AnimationData>(L, it.second, nullptr);
+        lua_rawset(L, -3);
     }
     return 1;
 }]])
+cls.props [[
+    states
+    playing
+    completed
+    lastAnimationName
+    animationNames
+    animationConfig
+    lastAnimationState
+    animations
+]]
 
 return M

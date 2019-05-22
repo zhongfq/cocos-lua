@@ -6,11 +6,19 @@ cls.LUACLS = "db.ArmatureDisplay"
 cls.SUPERCLS = "cc.Node"
 cls.funcs [[
     static CCArmatureDisplay* create()
+    void dbInit(Armature* armature)
+    void dbClear()
+    void dbUpdate()
+    void dispose(bool disposeProxy = true)
     bool hasDBEventListener(const std::string& type)
     void dispatchDBEvent(const std::string& type, EventObject* value)
     Armature* getArmature()
     Animation* getAnimation()
-    void dispose(bool disposeProxy = true)
+]]
+
+cls.props [[
+    armature
+    animation
 ]]
 
 cls.vars [[

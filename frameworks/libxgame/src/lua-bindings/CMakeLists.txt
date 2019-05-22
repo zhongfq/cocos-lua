@@ -1,10 +1,11 @@
 set(LUA_BINDINGS_HEADER
     src/lua-bindings/lua_bindings.h
-    src/lua-bindings/lua_cocos2d.h
     src/lua-bindings/lua_cocos2d_ui.h
-    src/lua-bindings/lua_conv.h
+    src/lua-bindings/lua_cocos2d.h
     src/lua-bindings/lua_conv_manual.h
+    src/lua-bindings/lua_conv.h
     src/lua-bindings/lua_crypto.h
+    src/lua-bindings/lua_dragonbones.h
     src/lua-bindings/lua_fairygui.h
     src/lua-bindings/lua_javabridge.h
     src/lua-bindings/lua_socket.h
@@ -16,11 +17,12 @@ set(LUA_BINDINGS_HEADER
 
 set(LUA_BINDINGS_SRC
     src/lua-bindings/lua_bindings.cpp
-    src/lua-bindings/lua_cocos2d.cpp
     src/lua-bindings/lua_cocos2d_ui.cpp
-    src/lua-bindings/lua_conv.cpp
+    src/lua-bindings/lua_cocos2d.cpp
     src/lua-bindings/lua_conv_manual.cpp
+    src/lua-bindings/lua_conv.cpp
     src/lua-bindings/lua_crypto.cpp
+    src/lua-bindings/lua_dragonbones.cpp
     src/lua-bindings/lua_fairygui.cpp
     src/lua-bindings/lua_javabridge.cpp
     src/lua-bindings/lua_socket.cpp

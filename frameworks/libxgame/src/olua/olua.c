@@ -11,9 +11,9 @@
 #define CLS_SET     ".set"
 #define CLS_STORE   ".store" // static store for cls
 
-#define OBJ_REF_TABLE   ((void *)olua_pushobj)
-#define USING_STACKPOOL ((void *)olua_enable_stackpool)
-#define STACKPOOL_TABLE ((void *)olua_stackpool_push)
+#define OBJ_REF_TABLE       ((void *)olua_pushobj)
+#define STACKPOOL_ENABLED   ((void *)olua_enable_stackpool)
+#define STACKPOOL_TABLE     ((void *)olua_stackpool_push)
 
 #define TRACEBACK (_traceback ? _traceback : dummy_traceback)
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -159,7 +159,7 @@ static void auxgetobjtable(lua_State *L)
 static inline bool isusingpool(lua_State *L)
 {
     bool b;
-    lua_rawgetp(L, LUA_REGISTRYINDEX, USING_STACKPOOL);
+    lua_rawgetp(L, LUA_REGISTRYINDEX, STACKPOOL_ENABLED);
     b = olua_toboolean(L, -1);
     lua_pop(L, 1);
     return b;
@@ -294,13 +294,13 @@ LUALIB_API void *olua_toobj(lua_State *L, int idx, const char *cls)
 LUALIB_API void olua_enable_stackpool(lua_State *L)
 {
     lua_pushboolean(L, true);
-    lua_rawsetp(L, LUA_REGISTRYINDEX, USING_STACKPOOL);
+    lua_rawsetp(L, LUA_REGISTRYINDEX, STACKPOOL_ENABLED);
 }
 
 LUALIB_API void olua_disable_stackpool(lua_State *L)
 {
     lua_pushboolean(L, false);
-    lua_rawsetp(L, LUA_REGISTRYINDEX, USING_STACKPOOL);
+    lua_rawsetp(L, LUA_REGISTRYINDEX, STACKPOOL_ENABLED);
 }
 
 LUALIB_API int olua_push_stackpool(lua_State *L)

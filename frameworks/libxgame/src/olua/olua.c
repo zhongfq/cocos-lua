@@ -838,7 +838,7 @@ LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *super)
 {
     if (super != NULL) {
         if (luaL_getmetatable(L, super) == LUA_TNIL) {
-            luaL_error(L, "'%s' super class not found: %s", cls, super);
+            luaL_error(L, "'%s' super class '%s' is not found", cls, super);
         }
         lua_pop(L, 1);
     } else if (!strequal(cls, OLUA_VOIDCLS)) {
@@ -848,38 +848,39 @@ LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *super)
     }
     
     if (luaL_getmetatable(L, cls) == LUA_TNIL) {
-        int idx = lua_gettop(L);
-        lua_pop(L, 1);
-        luaL_newmetatable(L, cls);                      // L: mt
-        lua_pushvalue(L, -1);                           // L: mt mt
-        copysupermetafunc(L, -1, super);
-        create_table(L, idx, CLS_ISA, super, true);     // L: mt mt .isa
-        create_table(L, idx, CLS_FUNC, super, false);   // L: mt mt .isa .func
-        create_table(L, idx, CLS_GET, super, false);    // L: mt mt .isa .func .get
-        create_table(L, idx, CLS_SET, super, false);    // L: mt mt .isa .func .get .set
-        
         static const luaL_Reg lib[] = {
             {"__index", cls_index},
             {"__newindex", cls_newindex},
             {"__tostring", cls_tostring},
             {NULL, NULL}
         };
+        
+        int idx = lua_gettop(L);
+        lua_pop(L, 1);
+        luaL_newmetatable(L, cls);                      // L: mt
+        copysupermetafunc(L, -1, super);
+
+        lua_pushvalue(L, -1);                           // L: mt mt
+        create_table(L, idx, CLS_ISA, super, true);     // L: mt mt .isa
+        create_table(L, idx, CLS_FUNC, super, false);   // L: mt mt .isa .func
+        create_table(L, idx, CLS_GET, super, false);    // L: mt mt .isa .func .get
+        create_table(L, idx, CLS_SET, super, false);    // L: mt mt .isa .func .get .set
         luaL_setfuncs(L, lib,  5);                      // L: mt
         
         lua_pushvalue(L, -1);
-        oluacls_const(L, "class");
+        oluacls_const(L, "class");                      // mt.class = mt
         lua_pushstring(L, cls);
-        oluacls_const(L, "classname");
+        oluacls_const(L, "classname");                  // mt.classname = cls
         
         if (super) {
             luaL_getmetatable(L, super);
-            oluacls_const(L, "super");
+            oluacls_const(L, "super");                  // mt.super = supermt
         }
         
         olua_rawgetfield(L, idx, CLS_ISA);
         lua_pushstring(L, cls);
         lua_pushboolean(L, true);
-        lua_rawset(L, -3);
+        lua_rawset(L, -3);                              // mt[.isa][cls] = true
         lua_pop(L, 1);
         
         // for sotre static function callback

@@ -49,7 +49,6 @@ cls.CPPCLS = "cocos2d::Application"
 cls.LUACLS = "cc.Application"
 cls.funcs([[
     void setAnimationInterval(float interval)
-    void setAnimationInterval(float interval, SetIntervalReason reason)
     static Application* getInstance()
     LanguageType getCurrentLanguage()
     const char * getCurrentLanguageCode()

@@ -225,7 +225,7 @@ bool Bundle3D::loadObj(MeshDatas& meshdatas, MaterialDatas& materialdatas, NodeD
         int i = 0;
         char str[20];
         std::string dir = "";
-        auto last = fullPath.rfind("/");
+        auto last = fullPath.rfind('/');
         if (last != std::string::npos)
             dir = fullPath.substr(0, last + 1);
         for (auto& material : materials) {
@@ -2210,7 +2210,7 @@ std::vector<Vec3> Bundle3D::getTrianglesList(const std::string& path)
     Bundle3D::destroyBundle(bundle);
     for (auto iter : meshs.meshDatas){
         int preVertexSize = iter->getPerVertexSize() / sizeof(float);
-        for (auto indexArray : iter->subMeshIndices){
+        for (const auto& indexArray : iter->subMeshIndices){
             for (auto i : indexArray){
                 trianglesList.push_back(Vec3(iter->vertex[i * preVertexSize], iter->vertex[i * preVertexSize + 1], iter->vertex[i * preVertexSize + 2]));
             }

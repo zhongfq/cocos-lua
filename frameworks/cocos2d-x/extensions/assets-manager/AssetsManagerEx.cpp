@@ -224,7 +224,7 @@ void AssetsManagerEx::loadLocalManifest(const std::string& /*manifestUrl*/)
     {
         std::vector<std::string> cacheSearchPaths = cachedManifest->getSearchPaths();
         std::vector<std::string> trimmedPaths = searchPaths;
-        for (auto path : cacheSearchPaths)
+        for (const auto& path : cacheSearchPaths)
         {
             const auto pos = std::find(trimmedPaths.begin(), trimmedPaths.end(), path);
             if (pos != trimmedPaths.end())
@@ -989,7 +989,7 @@ void AssetsManagerEx::fileSuccess(const std::string &customId, const std::string
         // Reduce count only when unit found in _downloadUnits
         _totalWaitToDownload--;
         
-        _percentByFile = 100 * (float)(_totalToDownload - _totalWaitToDownload) / _totalToDownload;
+        _percent = _percentByFile = 100 * (float)(_totalToDownload - _totalWaitToDownload) / _totalToDownload;
         // Notify progression event
         dispatchUpdateEvent(EventAssetsManagerEx::EventCode::UPDATE_PROGRESSION, "");
     }
@@ -1133,7 +1133,7 @@ void AssetsManagerEx::destroyDownloadedVersion()
 void AssetsManagerEx::batchDownload()
 {
     _queue.clear();
-    for(auto iter : _downloadUnits)
+    for(const auto& iter : _downloadUnits)
     {
         const DownloadUnit& unit = iter.second;
         if (unit.size > 0)

@@ -298,9 +298,9 @@ void TMXMapInfo::startElement(void* /*ctx*/, const char *name, const char **atts
             _externalTilesetFilename = externalTilesetFilename;
 
             // Tileset file will be relative to the map file. So we need to convert it to an absolute path
-            if (_TMXFileName.find_last_of("/") != string::npos)
+            if (_TMXFileName.find_last_of('/') != string::npos)
             {
-                string dir = _TMXFileName.substr(0, _TMXFileName.find_last_of("/") + 1);
+                string dir = _TMXFileName.substr(0, _TMXFileName.find_last_of('/') + 1);
                 externalTilesetFilename = dir + externalTilesetFilename;
             }
             else 
@@ -434,12 +434,12 @@ void TMXMapInfo::startElement(void* /*ctx*/, const char *name, const char **atts
 
         if (!_externalTilesetFullPath.empty())
         {
-            string dir = _externalTilesetFullPath.substr(0, _externalTilesetFullPath.find_last_of("/") + 1);
+            string dir = _externalTilesetFullPath.substr(0, _externalTilesetFullPath.find_last_of('/') + 1);
             tileset->_sourceImage = dir + imagename;
         }
-        else if (_TMXFileName.find_last_of("/") != string::npos)
+        else if (_TMXFileName.find_last_of('/') != string::npos)
         {
-            string dir = _TMXFileName.substr(0, _TMXFileName.find_last_of("/") + 1);
+            string dir = _TMXFileName.substr(0, _TMXFileName.find_last_of('/') + 1);
             tileset->_sourceImage = dir + imagename;
         }
         else 
@@ -752,7 +752,7 @@ void TMXMapInfo::endElement(void* /*ctx*/, const char *name)
             }
 
             uint32_t* bufferPtr = reinterpret_cast<uint32_t*>(buffer);
-            for(auto gidToken : gidTokens) {
+            for(const auto& gidToken : gidTokens) {
                 auto tileGid = (uint32_t)strtoul(gidToken.c_str(), nullptr, 10);
                 *bufferPtr = tileGid;
                 bufferPtr++;

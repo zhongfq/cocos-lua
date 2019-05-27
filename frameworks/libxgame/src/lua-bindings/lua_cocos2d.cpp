@@ -658,21 +658,6 @@ static int luaopen_cocos2d_Vec3(lua_State *L)
     return 1;
 }
 
-static int luaopen_cocos2d_SetIntervalReason(lua_State *L)
-{
-    oluacls_class(L, "cc.SetIntervalReason", nullptr);
-    oluacls_const_integer(L, "BY_GAME", (lua_Integer)cocos2d::SetIntervalReason::BY_GAME);
-    oluacls_const_integer(L, "BY_ENGINE", (lua_Integer)cocos2d::SetIntervalReason::BY_ENGINE);
-    oluacls_const_integer(L, "BY_SYSTEM", (lua_Integer)cocos2d::SetIntervalReason::BY_SYSTEM);
-    oluacls_const_integer(L, "BY_SCENE_CHANGE", (lua_Integer)cocos2d::SetIntervalReason::BY_SCENE_CHANGE);
-    oluacls_const_integer(L, "BY_DIRECTOR_PAUSE", (lua_Integer)cocos2d::SetIntervalReason::BY_DIRECTOR_PAUSE);
-
-    olua_registerluatype<cocos2d::SetIntervalReason>(L, "cc.SetIntervalReason");
-    oluacls_createclassproxy(L);
-
-    return 1;
-}
-
 static int luaopen_cocos2d_MATRIX_STACK_TYPE(lua_State *L)
 {
     oluacls_class(L, "cc.MATRIX_STACK_TYPE", nullptr);
@@ -6319,7 +6304,7 @@ static int luaopen_cocos2d_LanguageType(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_Application_setAnimationInterval1(lua_State *L)
+static int _cocos2d_Application_setAnimationInterval(lua_State *L)
 {
     lua_settop(L, 2);
 
@@ -6331,45 +6316,6 @@ static int _cocos2d_Application_setAnimationInterval1(lua_State *L)
 
     // void setAnimationInterval(float interval)
     self->setAnimationInterval((float)arg1);
-
-    return 0;
-}
-
-static int _cocos2d_Application_setAnimationInterval2(lua_State *L)
-{
-    lua_settop(L, 3);
-
-    cocos2d::Application *self = nullptr;
-    lua_Number arg1 = 0;   /** interval */
-    lua_Unsigned arg2 = 0;   /** reason */
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.Application");
-    olua_check_number(L, 2, &arg1);
-    olua_check_uint(L, 3, &arg2);
-
-    // void setAnimationInterval(float interval, SetIntervalReason reason)
-    self->setAnimationInterval((float)arg1, (cocos2d::SetIntervalReason)arg2);
-
-    return 0;
-}
-
-static int _cocos2d_Application_setAnimationInterval(lua_State *L)
-{
-    int num_args = lua_gettop(L) - 1;
-
-    if (num_args == 1) {
-        // if (olua_is_number(L, 2)) {
-            return _cocos2d_Application_setAnimationInterval1(L);
-        // }
-    }
-
-    if (num_args == 2) {
-        // if (olua_is_number(L, 2) && olua_is_uint(L, 3)) {
-            return _cocos2d_Application_setAnimationInterval2(L);
-        // }
-    }
-
-    luaL_error(L, "method 'cocos2d::Application::setAnimationInterval' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -32378,7 +32324,6 @@ int luaopen_cocos2d(lua_State *L)
     olua_require(L, "cc.Ref", luaopen_cocos2d_Ref);
     olua_require(L, "cc.Acceleration", luaopen_cocos2d_Acceleration);
     olua_require(L, "cc.Vec3", luaopen_cocos2d_Vec3);
-    olua_require(L, "cc.SetIntervalReason", luaopen_cocos2d_SetIntervalReason);
     olua_require(L, "cc.MATRIX_STACK_TYPE", luaopen_cocos2d_MATRIX_STACK_TYPE);
     olua_require(L, "cc.Director", luaopen_cocos2d_Director);
     olua_require(L, "cc.Scheduler", luaopen_cocos2d_Scheduler);

@@ -1,9 +1,8 @@
 local class         = require "xgame.class"
 local Event         = require "xgame.Event"
 local audio         = require "xgame.audio"
-local Timer         = require "xgame.Timer"
 local SceneStack    = require "xgame.private.SceneStack"
-local timer         = require "kernel.timer"
+local timer         = require "xgame.timer"
 local runtime       = require "kernel.runtime"
 local Director      = require "cc.Director"
 
@@ -49,10 +48,10 @@ end
 
 -- timer api
 function xGame:_initTimer()
-    local t = Timer.new()
-    self._timer = t
+    local inst = timer.new()
+    self._timer = inst
     timer.schedule(0, function (dt)
-        t:update(dt)
+        inst:update(dt)
     end)
 end
 

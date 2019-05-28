@@ -1,8 +1,9 @@
 local filesystem = require "kernel.filesystem"
 
-local M = setmetatable({}, {__index = filesystem})
+assert(not filesystem.dir)
+assert(not filesystem.localCachePath)
 
-M.dir = {
+filesystem.dir = {
     sdcard = assert(filesystem.sdCardDirectory), -- android only
     document = assert(filesystem.documentDirectory),
     assets = assert(filesystem.documentDirectory) .. "/assets",
@@ -11,6 +12,8 @@ M.dir = {
     writablePath = assert(filesystem.writablePath),
 }
 
+local cacheDirectory = filesystem.dir.cache
+
 local function encodeURI(s)
     s = string.gsub(s, "([^%w%.%-])", function(c)
         return string.format("%%%02X", string.byte(c))
@@ -18,14 +21,14 @@ local function encodeURI(s)
     return string.gsub(s, " ", "+")
 end
 
-function M.localCachePath(url)
+function filesystem.localCachePath(url)
     if string.find(url, "^http[s]?://static") == 1 then
-        return M.dir.cache .. "/http_static/" .. encodeURI(url)
+        return cacheDirectory .. "/http_static/" .. encodeURI(url)
     elseif string.find(url, "^http[s]?://") == 1 then
-        return M.dir.cache .. "/http/" .. encodeURI(url)
+        return cacheDirectory .. "/http/" .. encodeURI(url)
     else
         return url
     end
 end
 
-return M
+return filesystem

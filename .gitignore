@@ -1,8 +1,7 @@
 assets/res/swf
 build/xcode
 cocos-lua.sublime-workspace
-frameworks/runtime-src/proj.ios_mac/cocos-lua.xcodeproj/project.xcworkspace/xcshareddata
-frameworks/runtime-src/proj.ios_mac/cocos-lua.xcodeproj/project.xcworkspace/xcuserdata
-frameworks/runtime-src/proj.ios_mac/cocos-lua.xcodeproj/xcuserdata
-frameworks/runtime-src/proj.android/app/bugly
+runtime-src/proj.ios_mac/cocos-lua.xcodeproj/project.xcworkspace/xcshareddata
+runtime-src/proj.ios_mac/cocos-lua.xcodeproj/project.xcworkspace/xcuserdata
+runtime-src/proj.ios_mac/cocos-lua.xcodeproj/xcuserdata
 wwwroot/current/*.manifest

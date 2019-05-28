@@ -60,7 +60,7 @@ android {
             }
         } else if (PROP_BUILD_TYPE == 'cmake') {
             cmake {
-                path "../../../../CMakeLists.txt"
+                path "../../../CMakeLists.txt"
             }
         }
     }

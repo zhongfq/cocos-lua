@@ -10610,7 +10610,7 @@
 		1551A34A158F2AB200E66CFE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
@@ -10655,13 +10655,25 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/..",
+					"$(SRCROOT)/../cocos",
+					"$(SRCROOT)/../cocos/editor-support",
+					"$(SRCROOT)/../external/chipmunk/include",
+					"$(SRCROOT)/../external",
+					"$(SRCROOT)/../extensions",
+					"$(SRCROOT)/../external/poly2tri",
+					"$(SRCROOT)/../external/poly2tri/common",
+					"$(SRCROOT)/../external/poly2tri/sweep",
+					"$(SRCROOT)/../external/bullet/include",
+					"$(SRCROOT)/../external/bullet/include/bullet",
+					"$(SRCROOT)/../external/Box2D/include",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/.. $(SRCROOT)/../cocos $(SRCROOT)/../cocos/editor-support $(SRCROOT)/../external/chipmunk/include $(SRCROOT)/../external $(SRCROOT)/../extensions $(SRCROOT)/../external/poly2tri $(SRCROOT)/../external/poly2tri/common $(SRCROOT)/../external/poly2tri/sweep $(SRCROOT)/../external/bullet/include $(SRCROOT)/../external/bullet/include/bullet $(SRCROOT)/../external/Box2D/include";
 				WARNING_CFLAGS = (
 					"-Wno-comma",
 					"-Wno-deprecated-declarations",
@@ -10687,7 +10699,7 @@
 		1551A34B158F2AB200E66CFE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
@@ -10728,12 +10740,24 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/..",
+					"$(SRCROOT)/../cocos",
+					"$(SRCROOT)/../cocos/editor-support",
+					"$(SRCROOT)/../external/chipmunk/include",
+					"$(SRCROOT)/../external",
+					"$(SRCROOT)/../extensions",
+					"$(SRCROOT)/../external/poly2tri",
+					"$(SRCROOT)/../external/poly2tri/common",
+					"$(SRCROOT)/../external/poly2tri/sweep",
+					"$(SRCROOT)/../external/bullet/include",
+					"$(SRCROOT)/../external/bullet/include/bullet",
+					"$(SRCROOT)/../external/Box2D/include",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/.. $(SRCROOT)/../cocos $(SRCROOT)/../cocos/editor-support $(SRCROOT)/../external/chipmunk/include $(SRCROOT)/../external $(SRCROOT)/../extensions $(SRCROOT)/../external/poly2tri $(SRCROOT)/../external/poly2tri/common $(SRCROOT)/../external/poly2tri/sweep $(SRCROOT)/../external/bullet/include $(SRCROOT)/../external/bullet/include/bullet $(SRCROOT)/../external/Box2D/include";
 				VALIDATE_PRODUCT = YES;
 				WARNING_CFLAGS = (
 					"-Wno-comma",
@@ -10760,7 +10784,6 @@
 		1551A34D158F2AB200E66CFE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				EXECUTABLE_EXTENSION = a;
@@ -10773,7 +10796,22 @@
 					CC_KEYBOARD_SUPPORT,
 					_USRDLL,
 				);
-				HEADER_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../external/png/include/mac",
+					"$(SRCROOT)/../external/tiff/include/mac",
+					"$(SRCROOT)/../external/webp/include/mac",
+					"$(SRCROOT)/../external/jpeg/include/mac",
+					"$(SRCROOT)/../external/freetype2/include/mac",
+					"$(SRCROOT)/../external/glfw3/include/mac",
+					"$(SRCROOT)/../external/websockets/include/mac",
+					"$(SRCROOT)/../external/curl/include/mac",
+					"$(SRCROOT)/../external/freetype2/include/mac/freetype2",
+					"$(SRCROOT)/../external/openssl/include/mac",
+					"$(SRCROOT)/../external/bullet/include",
+					"$(SRCROOT)/../external/bullet/include/bullet",
+					"$(SRCROOT)/../external/uv/include",
+				);
 				LD_DYLIB_INSTALL_NAME = "";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -10794,14 +10832,12 @@
 				);
 				MACH_O_TYPE = staticlib;
 				OTHER_LDFLAGS = "-llibsql3";
-				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../external/png/include/mac $(SRCROOT)/../external/tiff/include/mac $(SRCROOT)/../external/webp/include/mac $(SRCROOT)/../external/jpeg/include/mac $(SRCROOT)/../external/freetype2/include/mac $(SRCROOT)/../external/glfw3/include/mac $(SRCROOT)/../external/websockets/include/mac $(SRCROOT)/../external/curl/include/mac $(SRCROOT)/../external/freetype2/include/mac/freetype2 $(SRCROOT)/../external/openssl/include/mac $(SRCROOT)/../external/bullet/include $(SRCROOT)/../external/bullet/include/bullet $(SRCROOT)/../external/uv/include";
 			};
 			name = Debug;
 		};
 		1551A34E158F2AB200E66CFE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				EXECUTABLE_EXTENSION = a;
@@ -10815,7 +10851,22 @@
 					CC_TARGET_OS_MAC,
 					_USRDLL,
 				);
-				HEADER_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../external/png/include/mac",
+					"$(SRCROOT)/../external/tiff/include/mac",
+					"$(SRCROOT)/../external/webp/include/mac",
+					"$(SRCROOT)/../external/jpeg/include/mac",
+					"$(SRCROOT)/../external/freetype2/include/mac",
+					"$(SRCROOT)/../external/glfw3/include/mac",
+					"$(SRCROOT)/../external/websockets/include/mac",
+					"$(SRCROOT)/../external/curl/include/mac",
+					"$(SRCROOT)/../external/freetype2/include/mac/freetype2",
+					"$(SRCROOT)/../external/openssl/include/mac",
+					"$(SRCROOT)/../external/bullet/include",
+					"$(SRCROOT)/../external/bullet/include/bullet",
+					"$(SRCROOT)/../external/uv/include",
+				);
 				LD_DYLIB_INSTALL_NAME = "";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -10836,14 +10887,12 @@
 				);
 				MACH_O_TYPE = staticlib;
 				OTHER_LDFLAGS = "-llibsql3";
-				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../external/png/include/mac $(SRCROOT)/../external/tiff/include/mac $(SRCROOT)/../external/webp/include/mac $(SRCROOT)/../external/jpeg/include/mac $(SRCROOT)/../external/freetype2/include/mac $(SRCROOT)/../external/glfw3/include/mac $(SRCROOT)/../external/websockets/include/mac $(SRCROOT)/../external/curl/include/mac $(SRCROOT)/../external/freetype2/include/mac/freetype2 $(SRCROOT)/../external/openssl/include/mac $(SRCROOT)/../external/bullet/include $(SRCROOT)/../external/bullet/include/bullet $(SRCROOT)/../external/uv/include";
 			};
 			name = Release;
 		};
 		A07A4D621783777C0073F6A7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				ENABLE_BITCODE = NO;
 				EXECUTABLE_PREFIX = "";
@@ -10854,7 +10903,21 @@
 					CC_TARGET_OS_IPHONE,
 				);
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = YES;
-				HEADER_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../external/freetype2/include/ios",
+					"$(SRCROOT)/../external/curl/include/ios",
+					"$(SRCROOT)/../external/webp/include/ios",
+					"$(SRCROOT)/../external/tiff/include/ios",
+					"$(SRCROOT)/../external/jpeg/include/ios",
+					"$(SRCROOT)/../external/png/include/ios",
+					"$(SRCROOT)/../external/websockets/include/ios",
+					"$(SRCROOT)/../external/freetype2/include/ios/freetype2",
+					"$(SRCROOT)/../external/openssl/include/ios",
+					"$(SRCROOT)/../external/bullet/include/bullet",
+					"$(SRCROOT)/../external/bullet/include",
+					"$(SRCROOT)/../external/uv/include",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../external/png/prebuilt/ios\"",
@@ -10873,14 +10936,12 @@
 				OTHER_LDFLAGS = "-llibsql3";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../external/freetype2/include/ios $(SRCROOT)/../external/curl/include/ios $(SRCROOT)/../external/webp/include/ios $(SRCROOT)/../external/tiff/include/ios $(SRCROOT)/../external/jpeg/include/ios $(SRCROOT)/../external/png/include/ios $(SRCROOT)/../external/websockets/include/ios $(SRCROOT)/../external/freetype2/include/ios/freetype2 $(SRCROOT)/../external/openssl/include/ios $(SRCROOT)/../external/bullet/include/bullet $(SRCROOT)/../external/bullet/include $(SRCROOT)/../external/uv/include";
 			};
 			name = Debug;
 		};
 		A07A4D631783777C0073F6A7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				ENABLE_BITCODE = NO;
 				EXECUTABLE_PREFIX = "";
@@ -10892,7 +10953,21 @@
 					CC_TARGET_OS_IPHONE,
 				);
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = YES;
-				HEADER_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../external/freetype2/include/ios",
+					"$(SRCROOT)/../external/curl/include/ios",
+					"$(SRCROOT)/../external/webp/include/ios",
+					"$(SRCROOT)/../external/tiff/include/ios",
+					"$(SRCROOT)/../external/jpeg/include/ios",
+					"$(SRCROOT)/../external/png/include/ios",
+					"$(SRCROOT)/../external/websockets/include/ios",
+					"$(SRCROOT)/../external/freetype2/include/ios/freetype2",
+					"$(SRCROOT)/../external/openssl/include/ios",
+					"$(SRCROOT)/../external/bullet/include/bullet",
+					"$(SRCROOT)/../external/bullet/include",
+					"$(SRCROOT)/../external/uv/include",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../external/png/prebuilt/ios\"",
@@ -10911,7 +10986,6 @@
 				OTHER_LDFLAGS = "-llibsql3";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../external/freetype2/include/ios $(SRCROOT)/../external/curl/include/ios $(SRCROOT)/../external/webp/include/ios $(SRCROOT)/../external/tiff/include/ios $(SRCROOT)/../external/jpeg/include/ios $(SRCROOT)/../external/png/include/ios $(SRCROOT)/../external/websockets/include/ios $(SRCROOT)/../external/freetype2/include/ios/freetype2 $(SRCROOT)/../external/openssl/include/ios $(SRCROOT)/../external/bullet/include/bullet $(SRCROOT)/../external/bullet/include $(SRCROOT)/../external/uv/include";
 			};
 			name = Release;
 		};

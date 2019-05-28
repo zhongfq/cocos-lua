@@ -70,11 +70,15 @@ function M:charCodeAt(index)
 end
 
 function M:replace(p, repl)
-    return M.new(string.gsub(self._str, p, {[p] = repl}, 1))
+    return M.new(string.gsub(self._str, p, function ()
+        return repl
+    end, 1))
 end
 
 function M:replaceAll(p, repl)
-    return M.new(string.gsub(self._str, p, {[p] = repl}))
+    return M.new(string.gsub(self._str, p, function ()
+        return repl
+    end))
 end
 
 function M:sub(startIndex, endIndex)

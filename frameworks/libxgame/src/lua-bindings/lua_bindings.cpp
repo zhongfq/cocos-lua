@@ -5,8 +5,6 @@
 #include "lua_cocos2d.h"
 #include "lua_cocos2d_ui.h"
 #include "lua_spine.h"
-#include "lua_dragonbones.h"
-#include "lua_fairygui.h"
 #include "lua_xml_http_request.h"
 #include "lua_photo.h"
 #include "lua_iap.h"
@@ -27,9 +25,7 @@ int luaopen_bindings(lua_State *L)
 {
     xlua_call(L, luaopen_cocos2d);
     xlua_call(L, luaopen_cocos2d_ui);
-    xlua_call(L, luaopen_dragonbones);
     xlua_call(L, luaopen_spine);
-    xlua_call(L, luaopen_fairygui);
     xlua_call(L, luaopen_xgame);
     xlua_call(L, luaopen_xml_http_request);
     

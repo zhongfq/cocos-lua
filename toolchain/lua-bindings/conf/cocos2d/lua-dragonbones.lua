@@ -14,7 +14,7 @@ M.INCLUDES = [[
 #include "xgame/xlua.h"
 #include "xgame/xruntime.h"
 #include "cocos2d.h"
-#include "dragonbones/CCDragonBonesHeaders.h"
+#include "CCDragonBonesHeaders.h"
 ]]
 
 M.CLASSES = {

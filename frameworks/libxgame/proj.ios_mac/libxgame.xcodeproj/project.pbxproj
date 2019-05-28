@@ -260,76 +260,6 @@
 		0EE4B2BF21FC9FE60043AC9D /* xpreferences.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EE4B2BC21FC9FE60043AC9D /* xpreferences.cpp */; };
 		FA2993812293E15300FE9EC6 /* lua_dragonbones.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA2993802293E15300FE9EC6 /* lua_dragonbones.cpp */; };
 		FA2993822293E15300FE9EC6 /* lua_dragonbones.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA2993802293E15300FE9EC6 /* lua_dragonbones.cpp */; };
-		FA826C58229290E900F73DCB /* CCArmatureDisplay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C03229290E900F73DCB /* CCArmatureDisplay.cpp */; };
-		FA826C59229290E900F73DCB /* CCArmatureDisplay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C03229290E900F73DCB /* CCArmatureDisplay.cpp */; };
-		FA826C5A229290E900F73DCB /* CCSlot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C04229290E900F73DCB /* CCSlot.cpp */; settings = {COMPILER_FLAGS = "-Wno-shorten-64-to-32"; }; };
-		FA826C5B229290E900F73DCB /* CCSlot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C04229290E900F73DCB /* CCSlot.cpp */; settings = {COMPILER_FLAGS = "-Wno-shorten-64-to-32"; }; };
-		FA826C5C229290E900F73DCB /* BaseObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C09229290E900F73DCB /* BaseObject.cpp */; };
-		FA826C5D229290E900F73DCB /* BaseObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C09229290E900F73DCB /* BaseObject.cpp */; };
-		FA826C5E229290E900F73DCB /* DragonBones.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C0B229290E900F73DCB /* DragonBones.cpp */; };
-		FA826C5F229290E900F73DCB /* DragonBones.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C0B229290E900F73DCB /* DragonBones.cpp */; };
-		FA826C60229290E900F73DCB /* Bone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C0D229290E900F73DCB /* Bone.cpp */; };
-		FA826C61229290E900F73DCB /* Bone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C0D229290E900F73DCB /* Bone.cpp */; };
-		FA826C62229290E900F73DCB /* DeformVertices.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C0F229290E900F73DCB /* DeformVertices.cpp */; };
-		FA826C63229290E900F73DCB /* DeformVertices.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C0F229290E900F73DCB /* DeformVertices.cpp */; };
-		FA826C64229290E900F73DCB /* Constraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C11229290E900F73DCB /* Constraint.cpp */; };
-		FA826C65229290E900F73DCB /* Constraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C11229290E900F73DCB /* Constraint.cpp */; };
-		FA826C66229290E900F73DCB /* Armature.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C12229290E900F73DCB /* Armature.cpp */; settings = {COMPILER_FLAGS = "-Wno-shorten-64-to-32"; }; };
-		FA826C67229290E900F73DCB /* Armature.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C12229290E900F73DCB /* Armature.cpp */; settings = {COMPILER_FLAGS = "-Wno-shorten-64-to-32"; }; };
-		FA826C68229290E900F73DCB /* Slot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C17229290E900F73DCB /* Slot.cpp */; settings = {COMPILER_FLAGS = "-Wno-shorten-64-to-32"; }; };
-		FA826C69229290E900F73DCB /* Slot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C17229290E900F73DCB /* Slot.cpp */; settings = {COMPILER_FLAGS = "-Wno-shorten-64-to-32"; }; };
-		FA826C6A229290E900F73DCB /* TransformObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C19229290E900F73DCB /* TransformObject.cpp */; };
-		FA826C6B229290E900F73DCB /* TransformObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C19229290E900F73DCB /* TransformObject.cpp */; };
-		FA826C6C229290E900F73DCB /* WorldClock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C1E229290E900F73DCB /* WorldClock.cpp */; };
-		FA826C6D229290E900F73DCB /* WorldClock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C1E229290E900F73DCB /* WorldClock.cpp */; };
-		FA826C6E229290E900F73DCB /* TimelineState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C20229290E900F73DCB /* TimelineState.cpp */; settings = {COMPILER_FLAGS = "-Wno-shorten-64-to-32"; }; };
-		FA826C6F229290E900F73DCB /* TimelineState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C20229290E900F73DCB /* TimelineState.cpp */; settings = {COMPILER_FLAGS = "-Wno-shorten-64-to-32"; }; };
-		FA826C70229290E900F73DCB /* BaseTimelineState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C21229290E900F73DCB /* BaseTimelineState.cpp */; };
-		FA826C71229290E900F73DCB /* BaseTimelineState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C21229290E900F73DCB /* BaseTimelineState.cpp */; };
-		FA826C72229290E900F73DCB /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C22229290E900F73DCB /* Animation.cpp */; settings = {COMPILER_FLAGS = "-Wno-shorten-64-to-32"; }; };
-		FA826C73229290E900F73DCB /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C22229290E900F73DCB /* Animation.cpp */; settings = {COMPILER_FLAGS = "-Wno-shorten-64-to-32"; }; };
-		FA826C74229290E900F73DCB /* AnimationState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C24229290E900F73DCB /* AnimationState.cpp */; };
-		FA826C75229290E900F73DCB /* AnimationState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C24229290E900F73DCB /* AnimationState.cpp */; };
-		FA826C76229290E900F73DCB /* CCFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C26229290E900F73DCB /* CCFactory.cpp */; };
-		FA826C77229290E900F73DCB /* CCFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C26229290E900F73DCB /* CCFactory.cpp */; };
-		FA826C78229290E900F73DCB /* BinaryDataParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C2A229290E900F73DCB /* BinaryDataParser.cpp */; settings = {COMPILER_FLAGS = "-Wno-shorten-64-to-32"; }; };
-		FA826C79229290E900F73DCB /* BinaryDataParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C2A229290E900F73DCB /* BinaryDataParser.cpp */; settings = {COMPILER_FLAGS = "-Wno-shorten-64-to-32"; }; };
-		FA826C7A229290E900F73DCB /* JSONDataParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C2B229290E900F73DCB /* JSONDataParser.cpp */; settings = {COMPILER_FLAGS = "-Wno-shorten-64-to-32 -Wno-switch"; }; };
-		FA826C7B229290E900F73DCB /* JSONDataParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C2B229290E900F73DCB /* JSONDataParser.cpp */; settings = {COMPILER_FLAGS = "-Wno-shorten-64-to-32 -Wno-switch"; }; };
-		FA826C7C229290E900F73DCB /* DataParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C2C229290E900F73DCB /* DataParser.cpp */; };
-		FA826C7D229290E900F73DCB /* DataParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C2C229290E900F73DCB /* DataParser.cpp */; };
-		FA826C7E229290E900F73DCB /* CCTextureAtlasData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C2F229290E900F73DCB /* CCTextureAtlasData.cpp */; };
-		FA826C7F229290E900F73DCB /* CCTextureAtlasData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C2F229290E900F73DCB /* CCTextureAtlasData.cpp */; };
-		FA826C80229290E900F73DCB /* Transform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C33229290E900F73DCB /* Transform.cpp */; };
-		FA826C81229290E900F73DCB /* Transform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C33229290E900F73DCB /* Transform.cpp */; };
-		FA826C82229290E900F73DCB /* Point.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C34229290E900F73DCB /* Point.cpp */; };
-		FA826C83229290E900F73DCB /* Point.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C34229290E900F73DCB /* Point.cpp */; };
-		FA826C84229290E900F73DCB /* DragonBonesData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C3C229290E900F73DCB /* DragonBonesData.cpp */; };
-		FA826C85229290E900F73DCB /* DragonBonesData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C3C229290E900F73DCB /* DragonBonesData.cpp */; };
-		FA826C86229290E900F73DCB /* BoundingBoxData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C3E229290E900F73DCB /* BoundingBoxData.cpp */; };
-		FA826C87229290E900F73DCB /* BoundingBoxData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C3E229290E900F73DCB /* BoundingBoxData.cpp */; };
-		FA826C88229290E900F73DCB /* DisplayData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C3F229290E900F73DCB /* DisplayData.cpp */; };
-		FA826C89229290E900F73DCB /* DisplayData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C3F229290E900F73DCB /* DisplayData.cpp */; };
-		FA826C8A229290E900F73DCB /* ConstraintData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C40229290E900F73DCB /* ConstraintData.cpp */; };
-		FA826C8B229290E900F73DCB /* ConstraintData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C40229290E900F73DCB /* ConstraintData.cpp */; };
-		FA826C8C229290E900F73DCB /* AnimationConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C41229290E900F73DCB /* AnimationConfig.cpp */; };
-		FA826C8D229290E900F73DCB /* AnimationConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C41229290E900F73DCB /* AnimationConfig.cpp */; };
-		FA826C8E229290E900F73DCB /* SkinData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C43229290E900F73DCB /* SkinData.cpp */; };
-		FA826C8F229290E900F73DCB /* SkinData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C43229290E900F73DCB /* SkinData.cpp */; };
-		FA826C90229290E900F73DCB /* AnimationData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C46229290E900F73DCB /* AnimationData.cpp */; };
-		FA826C91229290E900F73DCB /* AnimationData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C46229290E900F73DCB /* AnimationData.cpp */; settings = {COMPILER_FLAGS = "-Wno-shorten-64-to-32"; }; };
-		FA826C92229290E900F73DCB /* CanvasData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C47229290E900F73DCB /* CanvasData.cpp */; };
-		FA826C93229290E900F73DCB /* CanvasData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C47229290E900F73DCB /* CanvasData.cpp */; };
-		FA826C94229290E900F73DCB /* ArmatureData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C48229290E900F73DCB /* ArmatureData.cpp */; settings = {COMPILER_FLAGS = "-Wno-shorten-64-to-32"; }; };
-		FA826C95229290E900F73DCB /* ArmatureData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C48229290E900F73DCB /* ArmatureData.cpp */; settings = {COMPILER_FLAGS = "-Wno-shorten-64-to-32"; }; };
-		FA826C96229290E900F73DCB /* UserData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C4D229290E900F73DCB /* UserData.cpp */; };
-		FA826C97229290E900F73DCB /* UserData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C4D229290E900F73DCB /* UserData.cpp */; };
-		FA826C98229290E900F73DCB /* TextureAtlasData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C4E229290E900F73DCB /* TextureAtlasData.cpp */; };
-		FA826C99229290E900F73DCB /* TextureAtlasData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C4E229290E900F73DCB /* TextureAtlasData.cpp */; };
-		FA826C9A229290E900F73DCB /* EventObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C52229290E900F73DCB /* EventObject.cpp */; };
-		FA826C9B229290E900F73DCB /* EventObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C52229290E900F73DCB /* EventObject.cpp */; };
-		FA826C9C229290E900F73DCB /* BaseFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C56229290E900F73DCB /* BaseFactory.cpp */; settings = {COMPILER_FLAGS = "-Wno-unused"; }; };
-		FA826C9D229290E900F73DCB /* BaseFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA826C56229290E900F73DCB /* BaseFactory.cpp */; settings = {COMPILER_FLAGS = "-Wno-unused"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -598,119 +528,6 @@
 		0EE4B2BD21FC9FE60043AC9D /* xpreferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xpreferences.h; sourceTree = "<group>"; };
 		FA29937F2293E15200FE9EC6 /* lua_dragonbones.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_dragonbones.h; sourceTree = "<group>"; };
 		FA2993802293E15300FE9EC6 /* lua_dragonbones.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_dragonbones.cpp; sourceTree = "<group>"; };
-		FA826C02229290E900F73DCB /* CCTextureAtlasData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTextureAtlasData.h; sourceTree = "<group>"; };
-		FA826C03229290E900F73DCB /* CCArmatureDisplay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCArmatureDisplay.cpp; sourceTree = "<group>"; };
-		FA826C04229290E900F73DCB /* CCSlot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCSlot.cpp; sourceTree = "<group>"; };
-		FA826C05229290E900F73DCB /* CCArmatureDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCArmatureDisplay.h; sourceTree = "<group>"; };
-		FA826C06229290E900F73DCB /* DragonBonesHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DragonBonesHeaders.h; sourceTree = "<group>"; };
-		FA826C08229290E900F73DCB /* BaseObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseObject.h; sourceTree = "<group>"; };
-		FA826C09229290E900F73DCB /* BaseObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BaseObject.cpp; sourceTree = "<group>"; };
-		FA826C0A229290E900F73DCB /* DragonBones.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DragonBones.h; sourceTree = "<group>"; };
-		FA826C0B229290E900F73DCB /* DragonBones.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DragonBones.cpp; sourceTree = "<group>"; };
-		FA826C0D229290E900F73DCB /* Bone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bone.cpp; sourceTree = "<group>"; };
-		FA826C0E229290E900F73DCB /* TransformObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransformObject.h; sourceTree = "<group>"; };
-		FA826C0F229290E900F73DCB /* DeformVertices.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DeformVertices.cpp; sourceTree = "<group>"; };
-		FA826C10229290E900F73DCB /* Bone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bone.h; sourceTree = "<group>"; };
-		FA826C11229290E900F73DCB /* Constraint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Constraint.cpp; sourceTree = "<group>"; };
-		FA826C12229290E900F73DCB /* Armature.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Armature.cpp; sourceTree = "<group>"; };
-		FA826C13229290E900F73DCB /* DeformVertices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeformVertices.h; sourceTree = "<group>"; };
-		FA826C14229290E900F73DCB /* Armature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Armature.h; sourceTree = "<group>"; };
-		FA826C15229290E900F73DCB /* Constraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constraint.h; sourceTree = "<group>"; };
-		FA826C16229290E900F73DCB /* IArmatureProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IArmatureProxy.h; sourceTree = "<group>"; };
-		FA826C17229290E900F73DCB /* Slot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Slot.cpp; sourceTree = "<group>"; };
-		FA826C18229290E900F73DCB /* Slot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Slot.h; sourceTree = "<group>"; };
-		FA826C19229290E900F73DCB /* TransformObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TransformObject.cpp; sourceTree = "<group>"; };
-		FA826C1B229290E900F73DCB /* Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Animation.h; sourceTree = "<group>"; };
-		FA826C1C229290E900F73DCB /* BaseTimelineState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTimelineState.h; sourceTree = "<group>"; };
-		FA826C1D229290E900F73DCB /* WorldClock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorldClock.h; sourceTree = "<group>"; };
-		FA826C1E229290E900F73DCB /* WorldClock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WorldClock.cpp; sourceTree = "<group>"; };
-		FA826C1F229290E900F73DCB /* TimelineState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimelineState.h; sourceTree = "<group>"; };
-		FA826C20229290E900F73DCB /* TimelineState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TimelineState.cpp; sourceTree = "<group>"; };
-		FA826C21229290E900F73DCB /* BaseTimelineState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BaseTimelineState.cpp; sourceTree = "<group>"; };
-		FA826C22229290E900F73DCB /* Animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Animation.cpp; sourceTree = "<group>"; };
-		FA826C23229290E900F73DCB /* IAnimatable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAnimatable.h; sourceTree = "<group>"; };
-		FA826C24229290E900F73DCB /* AnimationState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AnimationState.cpp; sourceTree = "<group>"; };
-		FA826C25229290E900F73DCB /* AnimationState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationState.h; sourceTree = "<group>"; };
-		FA826C26229290E900F73DCB /* CCFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCFactory.cpp; sourceTree = "<group>"; };
-		FA826C28229290E900F73DCB /* JSONDataParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONDataParser.h; sourceTree = "<group>"; };
-		FA826C29229290E900F73DCB /* DataParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataParser.h; sourceTree = "<group>"; };
-		FA826C2A229290E900F73DCB /* BinaryDataParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BinaryDataParser.cpp; sourceTree = "<group>"; };
-		FA826C2B229290E900F73DCB /* JSONDataParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JSONDataParser.cpp; sourceTree = "<group>"; };
-		FA826C2C229290E900F73DCB /* DataParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DataParser.cpp; sourceTree = "<group>"; };
-		FA826C2D229290E900F73DCB /* BinaryDataParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BinaryDataParser.h; sourceTree = "<group>"; };
-		FA826C2E229290E900F73DCB /* CCDragonBonesHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDragonBonesHeaders.h; sourceTree = "<group>"; };
-		FA826C2F229290E900F73DCB /* CCTextureAtlasData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCTextureAtlasData.cpp; sourceTree = "<group>"; };
-		FA826C31229290E900F73DCB /* Point.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Point.h; sourceTree = "<group>"; };
-		FA826C32229290E900F73DCB /* Matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Matrix.h; sourceTree = "<group>"; };
-		FA826C33229290E900F73DCB /* Transform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Transform.cpp; sourceTree = "<group>"; };
-		FA826C34229290E900F73DCB /* Point.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Point.cpp; sourceTree = "<group>"; };
-		FA826C35229290E900F73DCB /* Transform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transform.h; sourceTree = "<group>"; };
-		FA826C36229290E900F73DCB /* Rectangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rectangle.h; sourceTree = "<group>"; };
-		FA826C37229290E900F73DCB /* ColorTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorTransform.h; sourceTree = "<group>"; };
-		FA826C39229290E900F73DCB /* ArmatureData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArmatureData.h; sourceTree = "<group>"; };
-		FA826C3A229290E900F73DCB /* BoundingBoxData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoundingBoxData.h; sourceTree = "<group>"; };
-		FA826C3B229290E900F73DCB /* TextureAtlasData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureAtlasData.h; sourceTree = "<group>"; };
-		FA826C3C229290E900F73DCB /* DragonBonesData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DragonBonesData.cpp; sourceTree = "<group>"; };
-		FA826C3D229290E900F73DCB /* AnimationData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationData.h; sourceTree = "<group>"; };
-		FA826C3E229290E900F73DCB /* BoundingBoxData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BoundingBoxData.cpp; sourceTree = "<group>"; };
-		FA826C3F229290E900F73DCB /* DisplayData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DisplayData.cpp; sourceTree = "<group>"; };
-		FA826C40229290E900F73DCB /* ConstraintData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConstraintData.cpp; sourceTree = "<group>"; };
-		FA826C41229290E900F73DCB /* AnimationConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AnimationConfig.cpp; sourceTree = "<group>"; };
-		FA826C42229290E900F73DCB /* UserData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserData.h; sourceTree = "<group>"; };
-		FA826C43229290E900F73DCB /* SkinData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SkinData.cpp; sourceTree = "<group>"; };
-		FA826C44229290E900F73DCB /* SkinData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkinData.h; sourceTree = "<group>"; };
-		FA826C45229290E900F73DCB /* DisplayData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisplayData.h; sourceTree = "<group>"; };
-		FA826C46229290E900F73DCB /* AnimationData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AnimationData.cpp; sourceTree = "<group>"; };
-		FA826C47229290E900F73DCB /* CanvasData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CanvasData.cpp; sourceTree = "<group>"; };
-		FA826C48229290E900F73DCB /* ArmatureData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ArmatureData.cpp; sourceTree = "<group>"; };
-		FA826C49229290E900F73DCB /* CanvasData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CanvasData.h; sourceTree = "<group>"; };
-		FA826C4A229290E900F73DCB /* DragonBonesData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DragonBonesData.h; sourceTree = "<group>"; };
-		FA826C4B229290E900F73DCB /* AnimationConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationConfig.h; sourceTree = "<group>"; };
-		FA826C4C229290E900F73DCB /* ConstraintData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConstraintData.h; sourceTree = "<group>"; };
-		FA826C4D229290E900F73DCB /* UserData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UserData.cpp; sourceTree = "<group>"; };
-		FA826C4E229290E900F73DCB /* TextureAtlasData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextureAtlasData.cpp; sourceTree = "<group>"; };
-		FA826C4F229290E900F73DCB /* CCFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCFactory.h; sourceTree = "<group>"; };
-		FA826C50229290E900F73DCB /* CCSlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCSlot.h; sourceTree = "<group>"; };
-		FA826C52229290E900F73DCB /* EventObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EventObject.cpp; sourceTree = "<group>"; };
-		FA826C53229290E900F73DCB /* EventObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventObject.h; sourceTree = "<group>"; };
-		FA826C54229290E900F73DCB /* IEventDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IEventDispatcher.h; sourceTree = "<group>"; };
-		FA826C56229290E900F73DCB /* BaseFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BaseFactory.cpp; sourceTree = "<group>"; };
-		FA826C57229290E900F73DCB /* BaseFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseFactory.h; sourceTree = "<group>"; };
-		FA826C9F22929A2C00F73DCB /* fwd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fwd.h; sourceTree = "<group>"; };
-		FA826CA022929A2C00F73DCB /* memorystream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = memorystream.h; sourceTree = "<group>"; };
-		FA826CA122929A2C00F73DCB /* reader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = reader.h; sourceTree = "<group>"; };
-		FA826CA222929A2C00F73DCB /* prettywriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = prettywriter.h; sourceTree = "<group>"; };
-		FA826CA322929A2C00F73DCB /* ostreamwrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ostreamwrapper.h; sourceTree = "<group>"; };
-		FA826CA422929A2C00F73DCB /* encodedstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = encodedstream.h; sourceTree = "<group>"; };
-		FA826CA522929A2C00F73DCB /* filereadstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = filereadstream.h; sourceTree = "<group>"; };
-		FA826CA622929A2C00F73DCB /* istreamwrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = istreamwrapper.h; sourceTree = "<group>"; };
-		FA826CA722929A2C00F73DCB /* stringbuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stringbuffer.h; sourceTree = "<group>"; };
-		FA826CA922929A2C00F73DCB /* ieee754.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ieee754.h; sourceTree = "<group>"; };
-		FA826CAA22929A2C00F73DCB /* strtod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strtod.h; sourceTree = "<group>"; };
-		FA826CAB22929A2C00F73DCB /* swap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = swap.h; sourceTree = "<group>"; };
-		FA826CAC22929A2C00F73DCB /* regex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = regex.h; sourceTree = "<group>"; };
-		FA826CAD22929A2C00F73DCB /* diyfp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = diyfp.h; sourceTree = "<group>"; };
-		FA826CAE22929A2C00F73DCB /* biginteger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = biginteger.h; sourceTree = "<group>"; };
-		FA826CAF22929A2C00F73DCB /* strfunc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strfunc.h; sourceTree = "<group>"; };
-		FA826CB022929A2C00F73DCB /* itoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = itoa.h; sourceTree = "<group>"; };
-		FA826CB122929A2C00F73DCB /* stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stack.h; sourceTree = "<group>"; };
-		FA826CB222929A2C00F73DCB /* dtoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dtoa.h; sourceTree = "<group>"; };
-		FA826CB322929A2C00F73DCB /* meta.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = meta.h; sourceTree = "<group>"; };
-		FA826CB422929A2C00F73DCB /* pow10.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pow10.h; sourceTree = "<group>"; };
-		FA826CB522929A2C00F73DCB /* encodings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = encodings.h; sourceTree = "<group>"; };
-		FA826CB622929A2C00F73DCB /* schema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = schema.h; sourceTree = "<group>"; };
-		FA826CB722929A2C00F73DCB /* stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stream.h; sourceTree = "<group>"; };
-		FA826CB822929A2C00F73DCB /* filewritestream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = filewritestream.h; sourceTree = "<group>"; };
-		FA826CB922929A2C00F73DCB /* rapidjson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rapidjson.h; sourceTree = "<group>"; };
-		FA826CBA22929A2C00F73DCB /* document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = document.h; sourceTree = "<group>"; };
-		FA826CBB22929A2C00F73DCB /* allocators.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = allocators.h; sourceTree = "<group>"; };
-		FA826CBC22929A2C00F73DCB /* writer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = writer.h; sourceTree = "<group>"; };
-		FA826CBE22929A2C00F73DCB /* error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = error.h; sourceTree = "<group>"; };
-		FA826CBF22929A2C00F73DCB /* en.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = en.h; sourceTree = "<group>"; };
-		FA826CC022929A2C00F73DCB /* memorybuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = memorybuffer.h; sourceTree = "<group>"; };
-		FA826CC122929A2C00F73DCB /* pointer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pointer.h; sourceTree = "<group>"; };
-		FA826CC322929A2C00F73DCB /* inttypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inttypes.h; sourceTree = "<group>"; };
-		FA826CC422929A2C00F73DCB /* stdint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stdint.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1021,7 +838,6 @@
 				0E4B938F226EE27F00B22B9F /* bugly */,
 				0ECC4C5421EB8D4600E3BBF9 /* cjson */,
 				0E2E9A7B221EBB570085145E /* crypto */,
-				FA826C01229290E900F73DCB /* dragonbones */,
 				0E4C8BFC225CAF490095CF59 /* lame */,
 				0E2EC30422924EE900CA3701 /* lpeg */,
 				0ECC4B6321E79E2400E3BBF9 /* lua */,
@@ -1029,7 +845,6 @@
 				0E6C9793222ADCEE00B2C17F /* olua */,
 				0ECC4C3821EB8D4500E3BBF9 /* pbc */,
 				0E4C8C2C225CAF490095CF59 /* qrencode */,
-				FA826C9E22929A2C00F73DCB /* rapidjson */,
 				0E2EC2FA22924A0F00CA3701 /* sproto */,
 				0E0C702221F9600D00049240 /* xgame */,
 			);
@@ -1153,223 +968,6 @@
 			path = ../src/cjson;
 			sourceTree = "<group>";
 		};
-		FA826C01229290E900F73DCB /* dragonbones */ = {
-			isa = PBXGroup;
-			children = (
-				FA826C03229290E900F73DCB /* CCArmatureDisplay.cpp */,
-				FA826C05229290E900F73DCB /* CCArmatureDisplay.h */,
-				FA826C2E229290E900F73DCB /* CCDragonBonesHeaders.h */,
-				FA826C26229290E900F73DCB /* CCFactory.cpp */,
-				FA826C4F229290E900F73DCB /* CCFactory.h */,
-				FA826C04229290E900F73DCB /* CCSlot.cpp */,
-				FA826C50229290E900F73DCB /* CCSlot.h */,
-				FA826C2F229290E900F73DCB /* CCTextureAtlasData.cpp */,
-				FA826C02229290E900F73DCB /* CCTextureAtlasData.h */,
-				FA826C06229290E900F73DCB /* DragonBonesHeaders.h */,
-				FA826C1A229290E900F73DCB /* animation */,
-				FA826C0C229290E900F73DCB /* armature */,
-				FA826C07229290E900F73DCB /* core */,
-				FA826C51229290E900F73DCB /* event */,
-				FA826C55229290E900F73DCB /* factory */,
-				FA826C30229290E900F73DCB /* geom */,
-				FA826C38229290E900F73DCB /* model */,
-				FA826C27229290E900F73DCB /* parser */,
-			);
-			name = dragonbones;
-			path = ../src/dragonbones;
-			sourceTree = "<group>";
-		};
-		FA826C07229290E900F73DCB /* core */ = {
-			isa = PBXGroup;
-			children = (
-				FA826C09229290E900F73DCB /* BaseObject.cpp */,
-				FA826C08229290E900F73DCB /* BaseObject.h */,
-				FA826C0B229290E900F73DCB /* DragonBones.cpp */,
-				FA826C0A229290E900F73DCB /* DragonBones.h */,
-			);
-			path = core;
-			sourceTree = "<group>";
-		};
-		FA826C0C229290E900F73DCB /* armature */ = {
-			isa = PBXGroup;
-			children = (
-				FA826C12229290E900F73DCB /* Armature.cpp */,
-				FA826C14229290E900F73DCB /* Armature.h */,
-				FA826C0D229290E900F73DCB /* Bone.cpp */,
-				FA826C10229290E900F73DCB /* Bone.h */,
-				FA826C11229290E900F73DCB /* Constraint.cpp */,
-				FA826C15229290E900F73DCB /* Constraint.h */,
-				FA826C0F229290E900F73DCB /* DeformVertices.cpp */,
-				FA826C13229290E900F73DCB /* DeformVertices.h */,
-				FA826C16229290E900F73DCB /* IArmatureProxy.h */,
-				FA826C17229290E900F73DCB /* Slot.cpp */,
-				FA826C18229290E900F73DCB /* Slot.h */,
-				FA826C19229290E900F73DCB /* TransformObject.cpp */,
-				FA826C0E229290E900F73DCB /* TransformObject.h */,
-			);
-			path = armature;
-			sourceTree = "<group>";
-		};
-		FA826C1A229290E900F73DCB /* animation */ = {
-			isa = PBXGroup;
-			children = (
-				FA826C22229290E900F73DCB /* Animation.cpp */,
-				FA826C1B229290E900F73DCB /* Animation.h */,
-				FA826C24229290E900F73DCB /* AnimationState.cpp */,
-				FA826C25229290E900F73DCB /* AnimationState.h */,
-				FA826C21229290E900F73DCB /* BaseTimelineState.cpp */,
-				FA826C1C229290E900F73DCB /* BaseTimelineState.h */,
-				FA826C23229290E900F73DCB /* IAnimatable.h */,
-				FA826C20229290E900F73DCB /* TimelineState.cpp */,
-				FA826C1F229290E900F73DCB /* TimelineState.h */,
-				FA826C1E229290E900F73DCB /* WorldClock.cpp */,
-				FA826C1D229290E900F73DCB /* WorldClock.h */,
-			);
-			path = animation;
-			sourceTree = "<group>";
-		};
-		FA826C27229290E900F73DCB /* parser */ = {
-			isa = PBXGroup;
-			children = (
-				FA826C2A229290E900F73DCB /* BinaryDataParser.cpp */,
-				FA826C2D229290E900F73DCB /* BinaryDataParser.h */,
-				FA826C2C229290E900F73DCB /* DataParser.cpp */,
-				FA826C29229290E900F73DCB /* DataParser.h */,
-				FA826C2B229290E900F73DCB /* JSONDataParser.cpp */,
-				FA826C28229290E900F73DCB /* JSONDataParser.h */,
-			);
-			path = parser;
-			sourceTree = "<group>";
-		};
-		FA826C30229290E900F73DCB /* geom */ = {
-			isa = PBXGroup;
-			children = (
-				FA826C37229290E900F73DCB /* ColorTransform.h */,
-				FA826C32229290E900F73DCB /* Matrix.h */,
-				FA826C34229290E900F73DCB /* Point.cpp */,
-				FA826C31229290E900F73DCB /* Point.h */,
-				FA826C36229290E900F73DCB /* Rectangle.h */,
-				FA826C33229290E900F73DCB /* Transform.cpp */,
-				FA826C35229290E900F73DCB /* Transform.h */,
-			);
-			path = geom;
-			sourceTree = "<group>";
-		};
-		FA826C38229290E900F73DCB /* model */ = {
-			isa = PBXGroup;
-			children = (
-				FA826C41229290E900F73DCB /* AnimationConfig.cpp */,
-				FA826C4B229290E900F73DCB /* AnimationConfig.h */,
-				FA826C46229290E900F73DCB /* AnimationData.cpp */,
-				FA826C3D229290E900F73DCB /* AnimationData.h */,
-				FA826C48229290E900F73DCB /* ArmatureData.cpp */,
-				FA826C39229290E900F73DCB /* ArmatureData.h */,
-				FA826C3E229290E900F73DCB /* BoundingBoxData.cpp */,
-				FA826C3A229290E900F73DCB /* BoundingBoxData.h */,
-				FA826C47229290E900F73DCB /* CanvasData.cpp */,
-				FA826C49229290E900F73DCB /* CanvasData.h */,
-				FA826C40229290E900F73DCB /* ConstraintData.cpp */,
-				FA826C4C229290E900F73DCB /* ConstraintData.h */,
-				FA826C3F229290E900F73DCB /* DisplayData.cpp */,
-				FA826C45229290E900F73DCB /* DisplayData.h */,
-				FA826C3C229290E900F73DCB /* DragonBonesData.cpp */,
-				FA826C4A229290E900F73DCB /* DragonBonesData.h */,
-				FA826C43229290E900F73DCB /* SkinData.cpp */,
-				FA826C44229290E900F73DCB /* SkinData.h */,
-				FA826C4E229290E900F73DCB /* TextureAtlasData.cpp */,
-				FA826C3B229290E900F73DCB /* TextureAtlasData.h */,
-				FA826C4D229290E900F73DCB /* UserData.cpp */,
-				FA826C42229290E900F73DCB /* UserData.h */,
-			);
-			path = model;
-			sourceTree = "<group>";
-		};
-		FA826C51229290E900F73DCB /* event */ = {
-			isa = PBXGroup;
-			children = (
-				FA826C52229290E900F73DCB /* EventObject.cpp */,
-				FA826C53229290E900F73DCB /* EventObject.h */,
-				FA826C54229290E900F73DCB /* IEventDispatcher.h */,
-			);
-			path = event;
-			sourceTree = "<group>";
-		};
-		FA826C55229290E900F73DCB /* factory */ = {
-			isa = PBXGroup;
-			children = (
-				FA826C56229290E900F73DCB /* BaseFactory.cpp */,
-				FA826C57229290E900F73DCB /* BaseFactory.h */,
-			);
-			path = factory;
-			sourceTree = "<group>";
-		};
-		FA826C9E22929A2C00F73DCB /* rapidjson */ = {
-			isa = PBXGroup;
-			children = (
-				FA826CBB22929A2C00F73DCB /* allocators.h */,
-				FA826CBA22929A2C00F73DCB /* document.h */,
-				FA826CA422929A2C00F73DCB /* encodedstream.h */,
-				FA826CB522929A2C00F73DCB /* encodings.h */,
-				FA826CA522929A2C00F73DCB /* filereadstream.h */,
-				FA826CB822929A2C00F73DCB /* filewritestream.h */,
-				FA826C9F22929A2C00F73DCB /* fwd.h */,
-				FA826CA622929A2C00F73DCB /* istreamwrapper.h */,
-				FA826CC022929A2C00F73DCB /* memorybuffer.h */,
-				FA826CA022929A2C00F73DCB /* memorystream.h */,
-				FA826CA322929A2C00F73DCB /* ostreamwrapper.h */,
-				FA826CC122929A2C00F73DCB /* pointer.h */,
-				FA826CA222929A2C00F73DCB /* prettywriter.h */,
-				FA826CB922929A2C00F73DCB /* rapidjson.h */,
-				FA826CA122929A2C00F73DCB /* reader.h */,
-				FA826CB622929A2C00F73DCB /* schema.h */,
-				FA826CB722929A2C00F73DCB /* stream.h */,
-				FA826CA722929A2C00F73DCB /* stringbuffer.h */,
-				FA826CBC22929A2C00F73DCB /* writer.h */,
-				FA826CBD22929A2C00F73DCB /* error */,
-				FA826CA822929A2C00F73DCB /* internal */,
-				FA826CC222929A2C00F73DCB /* msinttypes */,
-			);
-			name = rapidjson;
-			path = ../src/rapidjson;
-			sourceTree = "<group>";
-		};
-		FA826CA822929A2C00F73DCB /* internal */ = {
-			isa = PBXGroup;
-			children = (
-				FA826CAE22929A2C00F73DCB /* biginteger.h */,
-				FA826CAD22929A2C00F73DCB /* diyfp.h */,
-				FA826CB222929A2C00F73DCB /* dtoa.h */,
-				FA826CA922929A2C00F73DCB /* ieee754.h */,
-				FA826CB022929A2C00F73DCB /* itoa.h */,
-				FA826CB322929A2C00F73DCB /* meta.h */,
-				FA826CB422929A2C00F73DCB /* pow10.h */,
-				FA826CAC22929A2C00F73DCB /* regex.h */,
-				FA826CB122929A2C00F73DCB /* stack.h */,
-				FA826CAF22929A2C00F73DCB /* strfunc.h */,
-				FA826CAA22929A2C00F73DCB /* strtod.h */,
-				FA826CAB22929A2C00F73DCB /* swap.h */,
-			);
-			path = internal;
-			sourceTree = "<group>";
-		};
-		FA826CBD22929A2C00F73DCB /* error */ = {
-			isa = PBXGroup;
-			children = (
-				FA826CBF22929A2C00F73DCB /* en.h */,
-				FA826CBE22929A2C00F73DCB /* error.h */,
-			);
-			path = error;
-			sourceTree = "<group>";
-		};
-		FA826CC222929A2C00F73DCB /* msinttypes */ = {
-			isa = PBXGroup;
-			children = (
-				FA826CC322929A2C00F73DCB /* inttypes.h */,
-				FA826CC422929A2C00F73DCB /* stdint.h */,
-			);
-			path = msinttypes;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1443,19 +1041,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA826C88229290E900F73DCB /* DisplayData.cpp in Sources */,
 				0ECC4C7121EB8D4600E3BBF9 /* map.c in Sources */,
 				0ECC4BD121E79E3E00E3BBF9 /* lfunc.c in Sources */,
 				0E4C8C61225CAF490095CF59 /* version.c in Sources */,
 				0E4C8C7B225CAF490095CF59 /* rscode.c in Sources */,
-				FA826C64229290E900F73DCB /* Constraint.cpp in Sources */,
-				FA826C92229290E900F73DCB /* CanvasData.cpp in Sources */,
 				0E4B9374226E9E8B00B22B9F /* lua_crypto.cpp in Sources */,
 				0ECC4BC121E79E3E00E3BBF9 /* ldblib.c in Sources */,
 				0ECC4C6721EB8D4600E3BBF9 /* register.c in Sources */,
 				0E4B9370226E9E8B00B22B9F /* lua_javabridge.cpp in Sources */,
 				0E2EC2FF22924A0F00CA3701 /* lsproto.c in Sources */,
-				FA826C84229290E900F73DCB /* DragonBonesData.cpp in Sources */,
 				0ECC4BCD21E79E3E00E3BBF9 /* loadlib.c in Sources */,
 				0E4C8C63225CAF490095CF59 /* mpglib_interface.c in Sources */,
 				0E4B9368226E9E8B00B22B9F /* lua_xgame.cpp in Sources */,
@@ -1465,7 +1059,6 @@
 				0E4B9376226E9E8B00B22B9F /* lua_cocos2d.cpp in Sources */,
 				0E4C8C6F225CAF490095CF59 /* lua_qrcode.cpp in Sources */,
 				0ECC4C6321EB8D4600E3BBF9 /* rmessage.c in Sources */,
-				FA826C62229290E900F73DCB /* DeformVertices.cpp in Sources */,
 				0ECC4BAB21E79E3E00E3BBF9 /* lcorolib.c in Sources */,
 				0E730C8C2272E6100067866B /* lua_xml_http_request.cpp in Sources */,
 				0E4B937A226E9E8B00B22B9F /* lua_fairygui.cpp in Sources */,
@@ -1473,12 +1066,8 @@
 				0E2EC30122924A0F00CA3701 /* sproto.c in Sources */,
 				0ECC4BB121E79E3E00E3BBF9 /* lbaselib.c in Sources */,
 				0ECC4BC721E79E3E00E3BBF9 /* lutf8lib.c in Sources */,
-				FA826C68229290E900F73DCB /* Slot.cpp in Sources */,
-				FA826C74229290E900F73DCB /* AnimationState.cpp in Sources */,
-				FA826C60229290E900F73DCB /* Bone.cpp in Sources */,
 				0ECC4BA321E79E3E00E3BBF9 /* ltm.c in Sources */,
 				0ECC4BA521E79E3E00E3BBF9 /* ldo.c in Sources */,
-				FA826C7C229290E900F73DCB /* DataParser.cpp in Sources */,
 				0ECC4C6521EB8D4600E3BBF9 /* packet.c in Sources */,
 				0E0C706021F9EFC700049240 /* xruntime-private-ios-mac.mm in Sources */,
 				0ECC4C6921EB8D4600E3BBF9 /* decode.c in Sources */,
@@ -1488,18 +1077,14 @@
 				0ECC4BBF21E79E3E00E3BBF9 /* liolib.c in Sources */,
 				0E2E9A84221EBB570085145E /* xxtea.cpp in Sources */,
 				0E4C8C47225CAF490095CF59 /* vbrquantize.c in Sources */,
-				FA826C90229290E900F73DCB /* AnimationData.cpp in Sources */,
 				0ECC4C7D21EB8D4600E3BBF9 /* bootstrap.c in Sources */,
-				FA826C6C229290E900F73DCB /* WorldClock.cpp in Sources */,
 				0ECC4C6D21EB8D4600E3BBF9 /* alloc.c in Sources */,
 				0ECC4C7F21EB8D4600E3BBF9 /* fpconv.c in Sources */,
 				0E4C8C5D225CAF490095CF59 /* presets.c in Sources */,
 				0E4C8C65225CAF490095CF59 /* xmm_quantize_sub.c in Sources */,
 				0E4C8C75225CAF490095CF59 /* qrinput.c in Sources */,
-				FA826C9A229290E900F73DCB /* EventObject.cpp in Sources */,
 				0E4C8C57225CAF490095CF59 /* set_get.c in Sources */,
 				0ECC4BCB21E79E3E00E3BBF9 /* lobject.c in Sources */,
-				FA826C70229290E900F73DCB /* BaseTimelineState.cpp in Sources */,
 				0ECC4C6F21EB8D4600E3BBF9 /* varint.c in Sources */,
 				0E4C8C67225CAF490095CF59 /* psymodel.c in Sources */,
 				0ECC4BD321E79E3E00E3BBF9 /* lauxlib.c in Sources */,
@@ -1510,22 +1095,15 @@
 				0ECC4BA121E79E3E00E3BBF9 /* ldebug.c in Sources */,
 				0ECC4BD921E79E3E00E3BBF9 /* lstate.c in Sources */,
 				0ECC4C7921EB8D4600E3BBF9 /* wmessage.c in Sources */,
-				FA826C94229290E900F73DCB /* ArmatureData.cpp in Sources */,
-				FA826C7A229290E900F73DCB /* JSONDataParser.cpp in Sources */,
 				0E0C706421F9F38200049240 /* xfilefinder.cpp in Sources */,
 				0ECC4BD721E79E3E00E3BBF9 /* lparser.c in Sources */,
 				0ECC4C7B21EB8D4600E3BBF9 /* pattern.c in Sources */,
-				FA826C8C229290E900F73DCB /* AnimationConfig.cpp in Sources */,
 				0E2EC31622924EE900CA3701 /* lptree.c in Sources */,
 				0ECC4BAF21E79E3E00E3BBF9 /* lundump.c in Sources */,
 				0E24B40122706001000054C9 /* XMLHttpRequest.cpp in Sources */,
 				0E0C702621F9600D00049240 /* xrootscene.cpp in Sources */,
-				FA826C80229290E900F73DCB /* Transform.cpp in Sources */,
-				FA826C98229290E900F73DCB /* TextureAtlasData.cpp in Sources */,
 				0E4B936A226E9E8B00B22B9F /* LuaComponent.cpp in Sources */,
-				FA826C7E229290E900F73DCB /* CCTextureAtlasData.cpp in Sources */,
 				0E4C8C59225CAF490095CF59 /* fft.c in Sources */,
-				FA826C5C229290E900F73DCB /* BaseObject.cpp in Sources */,
 				0E2EC31222924EE900CA3701 /* lpvm.c in Sources */,
 				0E4C8C51225CAF490095CF59 /* takehiro.c in Sources */,
 				0ECC4BBB21E79E3E00E3BBF9 /* lbitlib.c in Sources */,
@@ -1537,8 +1115,6 @@
 				0ECC4B9F21E79E3E00E3BBF9 /* linit.c in Sources */,
 				0E4C8C4F225CAF490095CF59 /* id3tag.c in Sources */,
 				0E4C8C5B225CAF490095CF59 /* newmdct.c in Sources */,
-				FA826C6E229290E900F73DCB /* TimelineState.cpp in Sources */,
-				FA826C86229290E900F73DCB /* BoundingBoxData.cpp in Sources */,
 				0ECC4C7521EB8D4600E3BBF9 /* context.c in Sources */,
 				0ECC4C6B21EB8D4600E3BBF9 /* stringpool.c in Sources */,
 				0ECC4BCF21E79E3E00E3BBF9 /* ldump.c in Sources */,
@@ -1550,10 +1126,8 @@
 				0ECC4C7721EB8D4600E3BBF9 /* pbc-lua53.c in Sources */,
 				0E4C8C3F225CAF490095CF59 /* quantize_pvt.c in Sources */,
 				0E4B936E226E9E8B00B22B9F /* lua_conv_manual.cpp in Sources */,
-				FA826C9C229290E900F73DCB /* BaseFactory.cpp in Sources */,
 				0E0C705A21F9EFC700049240 /* xruntime.cpp in Sources */,
 				FA2993812293E15300FE9EC6 /* lua_dragonbones.cpp in Sources */,
-				FA826C5A229290E900F73DCB /* CCSlot.cpp in Sources */,
 				0ECC4BC521E79E3E00E3BBF9 /* lgc.c in Sources */,
 				0ECC4BDF21E79E3E00E3BBF9 /* ltable.c in Sources */,
 				0ECC4BAD21E79E3E00E3BBF9 /* lstring.c in Sources */,
@@ -1568,12 +1142,9 @@
 				0ECC4BD521E79E3E00E3BBF9 /* lstrlib.c in Sources */,
 				0E6C9796222ADD1300B2C17F /* olua.c in Sources */,
 				0E4C8C43225CAF490095CF59 /* tables.c in Sources */,
-				FA826C8E229290E900F73DCB /* SkinData.cpp in Sources */,
-				FA826C82229290E900F73DCB /* Point.cpp in Sources */,
 				0ECC4BC921E79E3E00E3BBF9 /* lzio.c in Sources */,
 				0ECC4BA921E79E3E00E3BBF9 /* lctype.c in Sources */,
 				0E4B9364226E9E8B00B22B9F /* lua_socket.cpp in Sources */,
-				FA826C66229290E900F73DCB /* Armature.cpp in Sources */,
 				0ECC4BDB21E79E3E00E3BBF9 /* ltablib.c in Sources */,
 				0ECC4BC321E79E3E00E3BBF9 /* lopcodes.c in Sources */,
 				0ECC4BB921E79E3E00E3BBF9 /* lmathlib.c in Sources */,
@@ -1586,18 +1157,10 @@
 				0E4C8C5F225CAF490095CF59 /* reservoir.c in Sources */,
 				0E2EC31022924EE900CA3701 /* lpprint.c in Sources */,
 				0E4C8C71225CAF490095CF59 /* qrencode.c in Sources */,
-				FA826C58229290E900F73DCB /* CCArmatureDisplay.cpp in Sources */,
-				FA826C6A229290E900F73DCB /* TransformObject.cpp in Sources */,
 				0E4B9378226E9E8B00B22B9F /* lua_spine.cpp in Sources */,
-				FA826C78229290E900F73DCB /* BinaryDataParser.cpp in Sources */,
 				0E4C8C4B225CAF490095CF59 /* encoder.c in Sources */,
-				FA826C8A229290E900F73DCB /* ConstraintData.cpp in Sources */,
-				FA826C72229290E900F73DCB /* Animation.cpp in Sources */,
 				0ECC4BDD21E79E3E00E3BBF9 /* lcode.c in Sources */,
-				FA826C96229290E900F73DCB /* UserData.cpp in Sources */,
-				FA826C76229290E900F73DCB /* CCFactory.cpp in Sources */,
 				0E4B936C226E9E8B00B22B9F /* lua_cocos2d_ui.cpp in Sources */,
-				FA826C5E229290E900F73DCB /* DragonBones.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1605,7 +1168,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA826C91229290E900F73DCB /* AnimationData.cpp in Sources */,
 				0ECC4C7221EB8D4600E3BBF9 /* map.c in Sources */,
 				0E4B9365226E9E8B00B22B9F /* lua_socket.cpp in Sources */,
 				0ECC4BD221E79E3E00E3BBF9 /* lfunc.c in Sources */,
@@ -1621,8 +1183,6 @@
 				0E4C8C42225CAF490095CF59 /* bitstream.c in Sources */,
 				0ECC4C6421EB8D4600E3BBF9 /* rmessage.c in Sources */,
 				0E4C8C74225CAF490095CF59 /* split.c in Sources */,
-				FA826C69229290E900F73DCB /* Slot.cpp in Sources */,
-				FA826C85229290E900F73DCB /* DragonBonesData.cpp in Sources */,
 				0E4C8C54225CAF490095CF59 /* VbrTag.c in Sources */,
 				0E4C8C5C225CAF490095CF59 /* newmdct.c in Sources */,
 				0ECC4BAC21E79E3E00E3BBF9 /* lcorolib.c in Sources */,
@@ -1631,20 +1191,16 @@
 				0ECC4BA421E79E3E00E3BBF9 /* ltm.c in Sources */,
 				0ECC4BA621E79E3E00E3BBF9 /* ldo.c in Sources */,
 				0E6C9797222ADD1300B2C17F /* olua.c in Sources */,
-				FA826C7B229290E900F73DCB /* JSONDataParser.cpp in Sources */,
 				0ECC4C6621EB8D4600E3BBF9 /* packet.c in Sources */,
 				0ED5D1A82282D3D20072F3DB /* lua_photo.mm in Sources */,
 				0E0C706121F9EFC700049240 /* xruntime-private-ios-mac.mm in Sources */,
 				0E4B937B226E9E8B00B22B9F /* lua_fairygui.cpp in Sources */,
 				0ED5D1A12282B8430072F3DB /* lua_recorder.mm in Sources */,
-				FA826C7D229290E900F73DCB /* DataParser.cpp in Sources */,
 				0E4C8C52225CAF490095CF59 /* takehiro.c in Sources */,
-				FA826C83229290E900F73DCB /* Point.cpp in Sources */,
 				0ECC4C6A21EB8D4600E3BBF9 /* decode.c in Sources */,
 				0E0C704C21F9EEBD00049240 /* xdownloader.cpp in Sources */,
 				0E0C705D21F9EFC700049240 /* xsocket.cpp in Sources */,
 				0ECC4BC021E79E3E00E3BBF9 /* liolib.c in Sources */,
-				FA826C93229290E900F73DCB /* CanvasData.cpp in Sources */,
 				0E4C8C6C225CAF490095CF59 /* bitstream.c in Sources */,
 				0ECC4C7E21EB8D4600E3BBF9 /* bootstrap.c in Sources */,
 				0ECC4C6E21EB8D4600E3BBF9 /* alloc.c in Sources */,
@@ -1657,12 +1213,10 @@
 				0ECC4BD421E79E3E00E3BBF9 /* lauxlib.c in Sources */,
 				0E4C8C48225CAF490095CF59 /* vbrquantize.c in Sources */,
 				0E4C8C68225CAF490095CF59 /* psymodel.c in Sources */,
-				FA826C59229290E900F73DCB /* CCArmatureDisplay.cpp in Sources */,
 				0E4C8C5E225CAF490095CF59 /* presets.c in Sources */,
 				0E4B936B226E9E8B00B22B9F /* LuaComponent.cpp in Sources */,
 				0ECC4C8621EB8D4600E3BBF9 /* lua_cjson.c in Sources */,
 				0E730C8D2272E6100067866B /* lua_xml_http_request.cpp in Sources */,
-				FA826C79229290E900F73DCB /* BinaryDataParser.cpp in Sources */,
 				0ECC4BB421E79E3E00E3BBF9 /* lapi.c in Sources */,
 				0ECC4BA221E79E3E00E3BBF9 /* ldebug.c in Sources */,
 				0E4B9397226EE2B300B22B9F /* lua_bugly.cpp in Sources */,
@@ -1671,12 +1225,8 @@
 				0ECC4BDA21E79E3E00E3BBF9 /* lstate.c in Sources */,
 				0ECC4C7A21EB8D4600E3BBF9 /* wmessage.c in Sources */,
 				0E2EC31322924EE900CA3701 /* lpvm.c in Sources */,
-				FA826C71229290E900F73DCB /* BaseTimelineState.cpp in Sources */,
 				0E2E9A3B221C37070085145E /* AppContext-ios.mm in Sources */,
-				FA826C5B229290E900F73DCB /* CCSlot.cpp in Sources */,
 				0E0C706521F9F38200049240 /* xfilefinder.cpp in Sources */,
-				FA826C5D229290E900F73DCB /* BaseObject.cpp in Sources */,
-				FA826C6B229290E900F73DCB /* TransformObject.cpp in Sources */,
 				0E2E9A83221EBB570085145E /* md5util.c in Sources */,
 				0ECC4BD821E79E3E00E3BBF9 /* lparser.c in Sources */,
 				0E4B9377226E9E8B00B22B9F /* lua_cocos2d.cpp in Sources */,
@@ -1684,15 +1234,12 @@
 				0E2E9A3A221C37070085145E /* AppRootViewController-ios.mm in Sources */,
 				0ECC4BB021E79E3E00E3BBF9 /* lundump.c in Sources */,
 				0E4C8C7A225CAF490095CF59 /* qrspec.c in Sources */,
-				FA826C77229290E900F73DCB /* CCFactory.cpp in Sources */,
-				FA826C6D229290E900F73DCB /* WorldClock.cpp in Sources */,
 				0E4C8C44225CAF490095CF59 /* tables.c in Sources */,
 				0E2EC31922924EE900CA3701 /* lpcode.c in Sources */,
 				0E4C8C4A225CAF490095CF59 /* util.c in Sources */,
 				0E24B40222706001000054C9 /* XMLHttpRequest.cpp in Sources */,
 				0E0C702721F9600D00049240 /* xrootscene.cpp in Sources */,
 				0E4C8C64225CAF490095CF59 /* mpglib_interface.c in Sources */,
-				FA826C6F229290E900F73DCB /* TimelineState.cpp in Sources */,
 				0ECC4BBC21E79E3E00E3BBF9 /* lbitlib.c in Sources */,
 				FA2993822293E15300FE9EC6 /* lua_dragonbones.cpp in Sources */,
 				0E0C705F21F9EFC700049240 /* xlua.cpp in Sources */,
@@ -1701,24 +1248,18 @@
 				0E4B9373226E9E8B00B22B9F /* lua_conv.cpp in Sources */,
 				0ECC4BA021E79E3E00E3BBF9 /* linit.c in Sources */,
 				0E4B9379226E9E8B00B22B9F /* lua_spine.cpp in Sources */,
-				FA826C73229290E900F73DCB /* Animation.cpp in Sources */,
-				FA826C8B229290E900F73DCB /* ConstraintData.cpp in Sources */,
 				0ECC4C7621EB8D4600E3BBF9 /* context.c in Sources */,
 				0E4C8C5A225CAF490095CF59 /* fft.c in Sources */,
 				0ECC4C6C21EB8D4600E3BBF9 /* stringpool.c in Sources */,
 				0E4C8C4C225CAF490095CF59 /* encoder.c in Sources */,
 				0E4C8C66225CAF490095CF59 /* xmm_quantize_sub.c in Sources */,
 				0E4C8C7C225CAF490095CF59 /* rscode.c in Sources */,
-				FA826C89229290E900F73DCB /* DisplayData.cpp in Sources */,
 				0ECC4BD021E79E3E00E3BBF9 /* ldump.c in Sources */,
 				0E9D2A6C221A9C76003C2121 /* xfilesystem-private-ios-mac.mm in Sources */,
-				FA826C9B229290E900F73DCB /* EventObject.cpp in Sources */,
 				0E4B9371226E9E8B00B22B9F /* lua_javabridge.cpp in Sources */,
 				0E0C706D21F9F60B00049240 /* xtimer.cpp in Sources */,
-				FA826C8D229290E900F73DCB /* AnimationConfig.cpp in Sources */,
 				0E4B9367226E9E8B00B22B9F /* lua_bindings.cpp in Sources */,
 				0ECC4C8221EB8D4600E3BBF9 /* strbuf.c in Sources */,
-				FA826C75229290E900F73DCB /* AnimationState.cpp in Sources */,
 				0ECC4C7421EB8D4600E3BBF9 /* proto.c in Sources */,
 				0ECC4C7821EB8D4600E3BBF9 /* pbc-lua53.c in Sources */,
 				0E4C8C46225CAF490095CF59 /* lua_lame.cpp in Sources */,
@@ -1726,7 +1267,6 @@
 				0ECC4BC621E79E3E00E3BBF9 /* lgc.c in Sources */,
 				0E4C8C60225CAF490095CF59 /* reservoir.c in Sources */,
 				0E4C8C6E225CAF490095CF59 /* QRSprite.cpp in Sources */,
-				FA826C7F229290E900F73DCB /* CCTextureAtlasData.cpp in Sources */,
 				0ED5D1AE2283C3D50072F3DB /* lua_iap.mm in Sources */,
 				0ECC4BE021E79E3E00E3BBF9 /* ltable.c in Sources */,
 				0ECC4BAE21E79E3E00E3BBF9 /* lstring.c in Sources */,
@@ -1734,11 +1274,7 @@
 				0E4C8C6A225CAF490095CF59 /* gain_analysis.c in Sources */,
 				0E2EC31122924EE900CA3701 /* lpprint.c in Sources */,
 				0ECC4BB621E79E3E00E3BBF9 /* lvm.c in Sources */,
-				FA826C81229290E900F73DCB /* Transform.cpp in Sources */,
 				0E4C8C50225CAF490095CF59 /* id3tag.c in Sources */,
-				FA826C99229290E900F73DCB /* TextureAtlasData.cpp in Sources */,
-				FA826C61229290E900F73DCB /* Bone.cpp in Sources */,
-				FA826C5F229290E900F73DCB /* DragonBones.cpp in Sources */,
 				0E4C8C56225CAF490095CF59 /* quantize.c in Sources */,
 				0ED5D1AD2283BFBF0072F3DB /* lua_keychain.mm in Sources */,
 				0ECC4BBE21E79E3E00E3BBF9 /* llex.c in Sources */,
@@ -1747,26 +1283,18 @@
 				0E2E9A87221EBB570085145E /* md5.c in Sources */,
 				0ECC4C8421EB8D4600E3BBF9 /* cJSON.c in Sources */,
 				0E4B9396226EE2B300B22B9F /* CrashReport-android.cpp in Sources */,
-				FA826C87229290E900F73DCB /* BoundingBoxData.cpp in Sources */,
 				0EE4B2BF21FC9FE60043AC9D /* xpreferences.cpp in Sources */,
 				0E2EC30022924A0F00CA3701 /* lsproto.c in Sources */,
 				0ECC4BD621E79E3E00E3BBF9 /* lstrlib.c in Sources */,
 				0ECC4BCA21E79E3E00E3BBF9 /* lzio.c in Sources */,
 				0E4C8C4E225CAF490095CF59 /* lame.c in Sources */,
-				FA826C65229290E900F73DCB /* Constraint.cpp in Sources */,
-				FA826C67229290E900F73DCB /* Armature.cpp in Sources */,
-				FA826C97229290E900F73DCB /* UserData.cpp in Sources */,
 				0E4C8C76225CAF490095CF59 /* qrinput.c in Sources */,
 				0ECC4BAA21E79E3E00E3BBF9 /* lctype.c in Sources */,
-				FA826C8F229290E900F73DCB /* SkinData.cpp in Sources */,
 				0E4B936F226E9E8B00B22B9F /* lua_conv_manual.cpp in Sources */,
 				0ECC4BDC21E79E3E00E3BBF9 /* ltablib.c in Sources */,
-				FA826C9D229290E900F73DCB /* BaseFactory.cpp in Sources */,
-				FA826C63229290E900F73DCB /* DeformVertices.cpp in Sources */,
 				0ECC4BC421E79E3E00E3BBF9 /* lopcodes.c in Sources */,
 				0ECC4BBA21E79E3E00E3BBF9 /* lmathlib.c in Sources */,
 				0E0C706921F9F5FE00049240 /* xfilesystem.cpp in Sources */,
-				FA826C95229290E900F73DCB /* ArmatureData.cpp in Sources */,
 				0E4C8C58225CAF490095CF59 /* set_get.c in Sources */,
 				0ECC4BA821E79E3E00E3BBF9 /* loslib.c in Sources */,
 				0ECC4BDE21E79E3E00E3BBF9 /* lcode.c in Sources */,
@@ -1841,6 +1369,7 @@
 					"$(SRCROOT)/../../cocos2d-x/extensions",
 					"$(SRCROOT)/../../cocos2d-x/external",
 					"$(SRCROOT)/../../libfairygui/Classes",
+					"$(SRCROOT)/../../libdragonbones/src",
 					"$(SRCROOT)/../src",
 					"$(SRCROOT)/../src/lua/src",
 				);
@@ -1915,6 +1444,7 @@
 					"$(SRCROOT)/../../cocos2d-x/extensions",
 					"$(SRCROOT)/../../cocos2d-x/external",
 					"$(SRCROOT)/../../libfairygui/Classes",
+					"$(SRCROOT)/../../libdragonbones/src",
 					"$(SRCROOT)/../src",
 					"$(SRCROOT)/../src/lua/src",
 				);

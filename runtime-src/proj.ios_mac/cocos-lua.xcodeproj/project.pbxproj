@@ -12,6 +12,8 @@
 		0E24B3FE22703ECC000054C9 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E24B3FD22703ECC000054C9 /* libsqlite3.tbd */; };
 		0E2EC2E522895B4100CA3701 /* builtin.manifest in Resources */ = {isa = PBXBuildFile; fileRef = 0E2EC2E422895B4100CA3701 /* builtin.manifest */; };
 		0E2EC2E622895B4100CA3701 /* builtin.manifest in Resources */ = {isa = PBXBuildFile; fileRef = 0E2EC2E422895B4100CA3701 /* builtin.manifest */; };
+		0E33593C229D089200F6FF15 /* libdragonbones Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E335937229D079100F6FF15 /* libdragonbones Mac.a */; };
+		0E335945229D13FE00F6FF15 /* libdragonbones iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E335939229D079100F6FF15 /* libdragonbones iOS.a */; };
 		0E4B9340226DE2DC00B22B9F /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E4B933F226DE2DC00B22B9F /* GameController.framework */; };
 		0E4C8BA0225C76500095CF59 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 0E4C8B9B225C76500095CF59 /* res */; };
 		0E4C8BA1225C76500095CF59 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 0E4C8B9B225C76500095CF59 /* res */; };
@@ -67,6 +69,34 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		0E335936229D079100F6FF15 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0E335931229D079100F6FF15 /* libdragonbones.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0E25A2D421172BC2006B88E1;
+			remoteInfo = "libdragonbones Mac";
+		};
+		0E335938229D079100F6FF15 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0E335931229D079100F6FF15 /* libdragonbones.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0E25A7192117479A006B88E1;
+			remoteInfo = "libdragonbones iOS";
+		};
+		0E33593A229D088800F6FF15 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0E335931229D079100F6FF15 /* libdragonbones.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 0E25A2D321172BC2006B88E1;
+			remoteInfo = "libdragonbones Mac";
+		};
+		0E335942229D13F500F6FF15 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0E335931229D079100F6FF15 /* libdragonbones.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 0E25A68C2117479A006B88E1;
+			remoteInfo = "libdragonbones iOS";
+		};
 		0E4C8BAF225C82AC0095CF59 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0E4C8BAA225C82AC0095CF59 /* libxgame.xcodeproj */;
@@ -158,6 +188,7 @@
 		0E24B3FB22703EC0000054C9 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/CoreTelephony.framework; sourceTree = DEVELOPER_DIR; };
 		0E24B3FD22703ECC000054C9 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/usr/lib/libsqlite3.tbd; sourceTree = DEVELOPER_DIR; };
 		0E2EC2E422895B4100CA3701 /* builtin.manifest */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = builtin.manifest; path = ../../../assets/builtin.manifest; sourceTree = "<group>"; };
+		0E335931229D079100F6FF15 /* libdragonbones.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libdragonbones.xcodeproj; path = ../../frameworks/libdragonbones/proj.ios_mac/libdragonbones.xcodeproj; sourceTree = "<group>"; };
 		0E4B933F226DE2DC00B22B9F /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/GameController.framework; sourceTree = DEVELOPER_DIR; };
 		0E4C8B9B225C76500095CF59 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../../../assets/res; sourceTree = "<group>"; };
 		0E4C8BAA225C82AC0095CF59 /* libxgame.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libxgame.xcodeproj; path = ../../frameworks/libxgame/proj.ios_mac/libxgame.xcodeproj; sourceTree = "<group>"; };
@@ -223,6 +254,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E335945229D13FE00F6FF15 /* libdragonbones iOS.a in Frameworks */,
 				0E4C8BDE225C8BF60095CF59 /* libxgame iOS.a in Frameworks */,
 				0E4C8BDD225C8BEF0095CF59 /* libfairygui iOS.a in Frameworks */,
 				1AC6FB30180E99EB004C840B /* libcocos2d iOS.a in Frameworks */,
@@ -255,6 +287,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E33593C229D089200F6FF15 /* libdragonbones Mac.a in Frameworks */,
 				0E4C8BC4225C84B60095CF59 /* libxgame Mac.a in Frameworks */,
 				0E4C8BC3225C84B10095CF59 /* libfairygui Mac.a in Frameworks */,
 				1AC6FB21180E996B004C840B /* libcocos2d Mac.a in Frameworks */,
@@ -275,6 +308,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E335932229D079100F6FF15 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0E335937229D079100F6FF15 /* libdragonbones Mac.a */,
+				0E335939229D079100F6FF15 /* libdragonbones iOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		0E4C8B9A225C762D0095CF59 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -376,6 +418,7 @@
 			children = (
 				1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */,
 				0E4C8BB3225C82B50095CF59 /* fairygui.xcodeproj */,
+				0E335931229D079100F6FF15 /* libdragonbones.xcodeproj */,
 				0E4C8BAA225C82AC0095CF59 /* libxgame.xcodeproj */,
 				0E4C8B9A225C762D0095CF59 /* Resources */,
 				46880B8319C43A87006E1F66 /* Classes */,
@@ -468,6 +511,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				0E335943229D13F500F6FF15 /* PBXTargetDependency */,
 				0E4C8BDC225C8BE80095CF59 /* PBXTargetDependency */,
 				0E4C8BDA225C8BE40095CF59 /* PBXTargetDependency */,
 				1AC6FB25180E99E1004C840B /* PBXTargetDependency */,
@@ -488,6 +532,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				0E33593B229D088800F6FF15 /* PBXTargetDependency */,
 				0E4C8BC2225C84A90095CF59 /* PBXTargetDependency */,
 				0E4C8BC0225C84A40095CF59 /* PBXTargetDependency */,
 				1AC6FB16180E9959004C840B /* PBXTargetDependency */,
@@ -537,6 +582,10 @@
 					ProjectRef = 0E4C8BB3225C82B50095CF59 /* fairygui.xcodeproj */;
 				},
 				{
+					ProductGroup = 0E335932229D079100F6FF15 /* Products */;
+					ProjectRef = 0E335931229D079100F6FF15 /* libdragonbones.xcodeproj */;
+				},
+				{
 					ProductGroup = 0E4C8BAB225C82AC0095CF59 /* Products */;
 					ProjectRef = 0E4C8BAA225C82AC0095CF59 /* libxgame.xcodeproj */;
 				},
@@ -550,6 +599,20 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		0E335937229D079100F6FF15 /* libdragonbones Mac.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libdragonbones Mac.a";
+			remoteRef = 0E335936229D079100F6FF15 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		0E335939229D079100F6FF15 /* libdragonbones iOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libdragonbones iOS.a";
+			remoteRef = 0E335938229D079100F6FF15 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		0E4C8BB0225C82AC0095CF59 /* libxgame Mac.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -667,6 +730,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		0E33593B229D088800F6FF15 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "libdragonbones Mac";
+			targetProxy = 0E33593A229D088800F6FF15 /* PBXContainerItemProxy */;
+		};
+		0E335943229D13F500F6FF15 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "libdragonbones iOS";
+			targetProxy = 0E335942229D13F500F6FF15 /* PBXContainerItemProxy */;
+		};
 		0E4C8BC0225C84A40095CF59 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "libxgame Mac";

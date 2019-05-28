@@ -7,7 +7,7 @@
 #include "xgame/xlua.h"
 #include "xgame/xruntime.h"
 #include "cocos2d.h"
-#include "dragonbones/CCDragonBonesHeaders.h"
+#include "CCDragonBonesHeaders.h"
 
 static int luaopen_dragonBones_BaseObject(lua_State *L)
 {

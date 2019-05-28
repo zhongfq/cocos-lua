@@ -23,11 +23,6 @@ int xlua_dofile(lua_State *L, const char *filename);
 
 int xlua_nonsupport(lua_State *L);
 
-int xlua_ref(lua_State *L, int idx);
-int xlua_reffunc(lua_State *L, int idx);
-void xlua_unref(lua_State *L, int ref);
-void xlua_getref(lua_State *L, int ref);
-
 int xlua_ccobjgc(lua_State *L);
 
 template <typename T> void xlua_handlestatus(lua_State *L, T* value, int status)

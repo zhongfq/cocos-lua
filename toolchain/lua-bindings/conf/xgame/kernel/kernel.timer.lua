@@ -35,15 +35,15 @@ cls.func("delay", [[
 {
     lua_settop(L, 2);
     float time = (float)olua_checknumber(L, 1);
-    unsigned int callback = xlua_reffunc(L, 2);
+    unsigned int callback = olua_reffunc(L, 2);
     xgame::timer::delay(time, [callback]() {
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
         lua_pushcfunction(L, xlua_errorfunc);
-        xlua_getref(L, callback);
+        olua_getref(L, callback);
         if (lua_isfunction(L, -1)) {
             lua_pcall(L, 0, 0, top + 1);
-            xlua_unref(L, callback);
+            olua_unref(L, callback);
         }
         lua_settop(L, top);
     });
@@ -53,12 +53,12 @@ cls.func('schedule', [[
 {
     lua_settop(L, 2);
     float interval = (float)olua_checknumber(L, 1);
-    unsigned int callback = xlua_reffunc(L, 2);
+    unsigned int callback = olua_reffunc(L, 2);
     unsigned int id = xgame::timer::schedule(interval, [callback](float dt) {
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
         lua_pushcfunction(L, xlua_errorfunc);
-        xlua_getref(L, callback);
+        olua_getref(L, callback);
         if (lua_isfunction(L, -1)) {
             lua_pushnumber(L, dt);
             lua_pcall(L, 1, 0, top + 1);
@@ -74,7 +74,7 @@ cls.func('unschedule', [[
     uint64_t value = olua_checkinteger(L, 1);
     unsigned int callback = value >> 32;
     unsigned int id = value & 0xFFFFFFFF;
-    xlua_unref(L, callback);
+    olua_unref(L, callback);
     xgame::timer::unschedule(id);
     return 0;
 }]])

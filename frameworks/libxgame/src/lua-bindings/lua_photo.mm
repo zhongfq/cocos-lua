@@ -183,11 +183,11 @@ static void did_request_permission(int handler, bool granted)
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
         lua_pushcfunction(L, xlua_errorfunc);
-        xlua_getref(L, handler);
+        olua_getref(L, handler);
         if (lua_isfunction(L, -1)) {
             lua_pushboolean(L, granted);
             lua_pcall(L, 1, 0, top + 1);
-            xlua_unref(L, handler);
+            olua_unref(L, handler);
         }
         lua_settop(L, top);
     });
@@ -195,7 +195,7 @@ static void did_request_permission(int handler, bool granted)
 
 static void request_photolibray_permission(lua_State *L)
 {
-    int handler = xlua_reffunc(L, 3);
+    int handler = olua_reffunc(L, 3);
     PHAuthorizationStatus current_status = [PHPhotoLibrary authorizationStatus];
     [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
         if (current_status == PHAuthorizationStatusDenied || status == PHAuthorizationStatusRestricted)
@@ -231,7 +231,7 @@ static void request_photolibray_permission(lua_State *L)
 
 static void request_camera_permission(lua_State *L)
 {
-    int handler = xlua_reffunc(L, 3);
+    int handler = olua_reffunc(L, 3);
     AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
     [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
         if (granted || status != AVAuthorizationStatusDenied)

@@ -4,6 +4,7 @@
 #include "platform/android/jni/JniHelper.h"
 #include "base/ccUTF8.h"
 #include "xgame/xruntime.h"
+#include "xgame/xlua.h"
 
 #include <stdlib.h>
 
@@ -128,7 +129,7 @@ static int luaj_invoke(lua_State *L)
                 }
                 case TYPE_INT: {
                     if (lua_isfunction(L, 4 + i)) {
-                        args[i].i = (jint)xlua_reffunc(L, 4 + i);
+                        args[i].i = (jint)olua_reffunc(L, 4 + i);
                     } else {
                         args[i].i = (jint)luaL_checkinteger(L, 4 + i);
                     }
@@ -265,7 +266,7 @@ JNIEXPORT void JNICALL Java_kernel_LuaJ_call
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
         lua_pushcfunction(L, xlua_errorfunc);
-        xlua_getref(L, func);
+        olua_getref(L, func);
         if (!lua_isnil(L, -1)) {
             lua_pushstring(L, args.c_str());
             lua_pcall(L, 1, 0, top + 1);
@@ -283,7 +284,7 @@ JNIEXPORT void JNICALL Java_kernel_LuaJ_unref
     CC_UNUSED_PARAM(cls);
 
     lua_State *L = olua_mainthread();
-    xlua_unref(L, func);
+    olua_unref(L, func);
 }
 
 JNIEXPORT void JNICALL Java_kernel_LuaJ_registerFeature

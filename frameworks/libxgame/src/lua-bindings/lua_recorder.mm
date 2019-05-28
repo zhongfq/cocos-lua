@@ -126,11 +126,11 @@ static void did_request_permission(int handler, bool granted)
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
         lua_pushcfunction(L, xlua_errorfunc);
-        xlua_getref(L, handler);
+        olua_getref(L, handler);
         if (lua_isfunction(L, -1)) {
             lua_pushboolean(L, granted);
             lua_pcall(L, 1, 0, top + 1);
-            xlua_unref(L, handler);
+            olua_unref(L, handler);
         }
         lua_settop(L, top);
     });
@@ -140,7 +140,7 @@ static int _request_permission(lua_State *L)
 {
     @autoreleasepool {
         lua_settop(L, 2);
-        int handler = xlua_reffunc(L, 2);
+        int handler = olua_reffunc(L, 2);
         AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
         [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
             if (granted || status != AVAuthorizationStatusDenied)

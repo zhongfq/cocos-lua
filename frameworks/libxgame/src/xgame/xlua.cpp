@@ -8,8 +8,6 @@
 USING_NS_CC;
 USING_NS_XGAME;
 
-#define XLUA_REF_TABLE ((void *)xlua_getmappingtable)
-
 static int _coroutine_resume(lua_State *L)
 {
     lua_pushvalue(L, 1);
@@ -389,59 +387,6 @@ int xlua_nonsupport(lua_State *L)
     lua_setmetatable(L, -2);
     
     return 1;
-}
-
-static void xlua_getmappingtable(lua_State *L)
-{
-    if (lua_rawgetp(L, LUA_REGISTRYINDEX, XLUA_REF_TABLE) == LUA_TNIL) {
-        lua_pop(L, 1); // pop nil
-        lua_newtable(L);
-        lua_pushvalue(L, -1);
-        lua_rawsetp(L, LUA_REGISTRYINDEX, XLUA_REF_TABLE);
-    }
-    luaL_checktype(L, -1, LUA_TTABLE);
-}
-
-int xlua_ref(lua_State *L, int idx)
-{
-    static int ref_count = 0;
-    
-    int ref = LUA_REFNIL;
-    idx = lua_absindex(L, idx);
-    if (!olua_isnil(L, idx)) {
-        ref = ++ref_count;
-        xlua_getmappingtable(L);
-        lua_pushvalue(L, idx);
-        lua_rawseti(L, -2, ref);
-        lua_pop(L, 1); // pop mapping table
-    }
-    
-    return ref;
-}
-
-int xlua_reffunc(lua_State *L, int idx)
-{
-    idx = lua_absindex(L, idx);
-    luaL_checktype(L, idx, LUA_TFUNCTION);
-    return xlua_ref(L, idx);
-}
-
-void xlua_unref(lua_State *L, int ref)
-{
-    int top = lua_gettop(L);
-    xlua_getmappingtable(L);
-    if (lua_rawgeti(L, top + 1, ref) != LUA_TNIL) {
-        lua_pushnil(L);
-        lua_rawseti(L, top + 1, ref);
-    }
-    lua_settop(L, top);
-}
-
-void xlua_getref(lua_State *L, int ref)
-{
-    xlua_getmappingtable(L);
-    lua_rawgeti(L, -1, ref);
-    lua_remove(L, -2); // pop mapping table
 }
 
 static int report_gc_error(lua_State *L)

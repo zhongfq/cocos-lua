@@ -57,6 +57,7 @@ extern "C" {
 #define olua_endcmpunref(L, i, n) assert(false && "not define olua_endcmpunref")
 #endif
     
+// compare the value raw type
 #define olua_isfunction(L,n)        (lua_type(L, (n)) == LUA_TFUNCTION)
 #define olua_istable(L,n)           (lua_type(L, (n)) == LUA_TTABLE)
 #define olua_islightuserdata(L,n)   (lua_type(L, (n)) == LUA_TLIGHTUSERDATA)
@@ -69,6 +70,7 @@ extern "C" {
 #define olua_isinteger(L,n)         (lua_isinteger(L, n))
 #define olua_isthread(L,n)          (lua_type(L, (n)) == LUA_TTHREAD)
     
+// check or get the raw value
 #define olua_newuserdata(L, obj, t) (*(t*)lua_newuserdata(L, sizeof(t)) = (obj))
 #define olua_touserdata(L, n, t)    (*(t*)lua_touserdata(L, (n)))
 #define olua_tonumber(L, i)         lua_tonumber(L, i)
@@ -94,17 +96,20 @@ LUALIB_API bool olua_checkboolean(lua_State *L, int idx);
 LUALIB_API int olua_rawgetfield(lua_State *L, int idx, const char *field);
 LUALIB_API void olua_rawsetfield(lua_State *L, int idx, const char *field);
 LUALIB_API void olua_seterrfunc(lua_CFunction errfunc);
-LUALIB_API const char *olua_typename(lua_State *L, int idx);
-LUALIB_API const char *olua_objtostring(lua_State *L, int idx);
 LUALIB_API int olua_changeobjcount(int add);
 LUALIB_API void olua_require(lua_State *L, const char *name, lua_CFunction func);
 LUALIB_API void olua_preload(lua_State *L, const char *name, lua_CFunction func);
+    
+// manipulate userdata api
+LUALIB_API const char *olua_typename(lua_State *L, int idx);
+LUALIB_API const char *olua_objtostring(lua_State *L, int idx);
 LUALIB_API bool olua_isa(lua_State *L, int idx, const char *cls);
 LUALIB_API int olua_pushobj(lua_State *L, void *obj, const char *cls);
 LUALIB_API bool olua_getobj(lua_State *L, void *obj);
 LUALIB_API void *olua_checkobj(lua_State *L, int idx, const char *cls);
 LUALIB_API void *olua_toobj(lua_State *L, int idx, const char *cls);
     
+// optimize temporary userdata
 LUALIB_API void olua_enable_stackpool(lua_State *L);
 LUALIB_API void olua_disable_stackpool(lua_State *L);
 LUALIB_API int olua_push_stackpool(lua_State *L);
@@ -124,20 +129,29 @@ typedef enum {
 #define OLUA_CALLBACK_MISS  1
 #define OLUA_CALLBACK_ERR   2
 
+// callback functions
 LUALIB_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag, int func, olua_callback_tag_t mode);
 LUALIB_API void olua_getcallback(lua_State *L, void *obj, const char *tag, olua_callback_tag_t mode);
 LUALIB_API void olua_removecallback(lua_State *L, void *obj, const char *tag, olua_callback_tag_t mode);
 LUALIB_API int olua_callback(lua_State *L, void *obj, const char *field, int num_args);
 #define olua_makecallbacktag(tag) (tag)
     
+// class store, store static callback or other
 LUALIB_API void olua_getstore(lua_State *L, const char *cls);
 LUALIB_API void *olua_getstoreobj(lua_State *L, const char *cls);
 
+// get or set variable in userdata
 LUALIB_API int olua_getvariable(lua_State *L, int idx);
 LUALIB_API void olua_setvariable(lua_State *L, int idx);
     
-// for ref chain
-LUALIB_API void olua_getreftable(lua_State *L, int idx, const char *field);
+// lua style ref
+LUALIB_API int olua_ref(lua_State *L, int idx);
+LUALIB_API int olua_reffunc(lua_State *L, int idx);
+LUALIB_API void olua_unref(lua_State *L, int ref);
+LUALIB_API void olua_getref(lua_State *L, int ref);
+    
+// for ref chain, if callback store in userdata, it will keep callback available
+LUALIB_API void olua_getreftable(lua_State *L, int obj, const char *field);
 LUALIB_API void olua_singleref(lua_State *L, int obj, const char *field, int vidx);
 LUALIB_API void olua_singleunref(lua_State *L, int obj, const char *field);
 LUALIB_API void olua_mapref(lua_State *L, int obj, const char *t, int vidx);
@@ -213,6 +227,7 @@ LUALIB_API void olua_opt_obj(lua_State *L, int idx, void **value, const char *cl
 LUALIB_API void olua_to_obj(lua_State *L, int idx, void **value, const char *cls);
 #define olua_is_obj(L, idx, cls) olua_isa(L, idx, cls)
     
+// get or set value for table
 LUALIB_API const char *olua_checkfieldstring(lua_State *L, int idx, const char *field);
 LUALIB_API lua_Number olua_checkfieldnumber(lua_State *L, int idx, const char *field);
 LUALIB_API lua_Integer olua_checkfieldinteger(lua_State *L, int idx, const char *field);

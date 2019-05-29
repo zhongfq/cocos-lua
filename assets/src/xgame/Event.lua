@@ -1,9 +1,8 @@
 return {
     RUNTIME_PAUSE       = "runtimePause",
     RUNTIME_RESUME      = "runtimeResume",
-    AFTER_UPDATE        = "afterUpdate",
-    AFTER_DRAW          = "afterDraw",
-    PROJECTION_CHANGED  = "projectionChanged",
+    RUNTIME_UPDATE      = "runtimeUpdate",
+    RUNTIME_RESIZE      = "runtimeResize",
     CHANGE              = "change",
     CANCEL              = "cancel",
     SELECT              = "select",

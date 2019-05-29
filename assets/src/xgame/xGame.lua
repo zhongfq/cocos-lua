@@ -2,7 +2,7 @@ local class         = require "xgame.class"
 local Event         = require "xgame.Event"
 local SceneStack    = require "xgame.private.SceneStack"
 local timer         = require "xgame.timer"
-local runtime       = require "kernel.runtime"
+local runtime       = require "xgame.runtime"
 local Director      = require "cc.Director"
 
 xGame = class("xGame", require("xgame.EventDispatcher"))
@@ -10,10 +10,7 @@ xGame = class("xGame", require("xgame.EventDispatcher"))
 function xGame:ctor()
     self._sceneStack = SceneStack.new()
     self:_initTimer()
-
-    runtime.setDispatcher(function (event, args)
-        self:dispatch(event, args)
-    end)
+    self:_initRuntimeEvents()
 end
 
 -- scene api
@@ -41,7 +38,9 @@ function xGame:topScene()
     return self._sceneStack:topScene()
 end
 
+--
 -- timer api
+--
 function xGame:_initTimer()
     local inst = timer.new()
     self._timer = inst
@@ -85,6 +84,21 @@ end
 
 function xGame:unschedule(id)
     return self._timer:unschedule(id)
+end
+
+--
+-- runtime event
+--
+function xGame:_initRuntimeEvents()
+    local function listen(event)
+        runtime.on(event, function (...)
+            self:dispatch(event, ...)
+        end)
+    end
+    listen('runtimeUpdate')
+    listen('runtimeResize')
+    listen('runtimePause')
+    listen('runtimeResume')
 end
 
 --

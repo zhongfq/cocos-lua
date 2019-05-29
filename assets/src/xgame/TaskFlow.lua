@@ -11,24 +11,24 @@ local TaskFlow = class("TaskFlow", Task)
 function TaskFlow:ctor(name)
     self.root = self
     self._tasks = Array.new()
-    self._last_running_task = false
-    self._running_task = false
-    self._current_task = false
+    self._lastRunningTask = false
+    self._runningTask = false
+    self._currentTask = false
 end
 
-function TaskFlow.Get:running_task()
-    return self._running_task
+function TaskFlow.Get:runningTask()
+    return self._runningTask
 end
 
-function TaskFlow:push_back(task)
-    self._tasks:push_back(task)
+function TaskFlow:pushBack(task)
+    self._tasks:pushBack(task)
 end
 
-function TaskFlow:push_front(task)
-    self._tasks:push_front(task)
+function TaskFlow:pushFront(task)
+    self._tasks:pushFront(task)
 end
 
-function TaskFlow:find_task(name)
+function TaskFlow:findTask(name)
     for _, task in ipairs(self._tasks) do
         if task.name == name then
             return task
@@ -37,19 +37,19 @@ function TaskFlow:find_task(name)
 end
 
 function TaskFlow:start()
-    self:_setup_next_task()
+    self:_setupNextTask()
 end
 
 function TaskFlow:stop()
-    local task = self._current_task
+    local task = self._currentTask
     if task then
-        task:remove_event_listener(Event.COMPLETE, self._task_done, self)
+        task:removeListener(Event.COMPLETE, self._taskDone, self)
         task:stop()
-        self._current_task = false
+        self._currentTask = false
     end
 end
 
-function TaskFlow:_setup_next_task()
+function TaskFlow:_setupNextTask()
     if #self._tasks == 0 then
         self:complete()
         return
@@ -57,19 +57,19 @@ function TaskFlow:_setup_next_task()
 
     local task = self._tasks:shift()
     trace("=> %s start:  %s", self.root.name or "", task.name)
-    self._current_task = task
-    self._last_running_task = self.root._running_task
-    self.root._running_task = task
+    self._currentTask = task
+    self._lastRunningTask = self.root._runningTask
+    self.root._runningTask = task
     task.root = self.root
-    task:add_event_listener(Event.COMPLETE, self._task_done, self)
+    task:addListener(Event.COMPLETE, self._taskDone, self)
     task:prepare()
     task:start()
 end
 
-function TaskFlow:_task_done(task)
-    task:remove_event_listener(Event.COMPLETE, self._task_done, self)
-    self.root._running_task = self._last_running_task
-    self:_setup_next_task()
+function TaskFlow:_taskDone(task)
+    task:removeListener(Event.COMPLETE, self._taskDone, self)
+    self.root._runningTask = self._lastRunningTask
+    self:_setupNextTask()
 end
 
 return TaskFlow

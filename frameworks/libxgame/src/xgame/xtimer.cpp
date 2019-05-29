@@ -30,6 +30,13 @@ unsigned int timer::createScheduleHandler()
     return ++ref;
 }
 
+std::string timer::createTag()
+{
+    char buf[128];
+    snprintf(buf, sizeof(buf), "timer::delay::%d", createScheduleHandler());
+    return std::string(buf);
+}
+
 void timer::delayWithTag(float time, const std::string &tag, std::function<void ()> callback)
 {
     timer::killDelay(tag);

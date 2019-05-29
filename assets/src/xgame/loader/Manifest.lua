@@ -6,7 +6,7 @@ local cjson         = require "kernel.cjson.safe"
 local Manifest = class("Manifest")
 
 function Manifest:ctor(path)
-    self._tag = '__manifest_update_' .. os.time() .. '__'
+    self._tag = timer.createTag()
     self._path = path
     self._data = assert(cjson.decode(filesystem.read(path)), path)
     assert(self._data.assets, "bad manifest format")

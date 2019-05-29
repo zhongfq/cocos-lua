@@ -511,25 +511,6 @@ static int _xgame_filesystem_copy(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_filesystem_write(lua_State *L)
-{
-    lua_settop(L, 3);
-
-    std::string arg1;       /** path */
-    const char *arg2 = nullptr;   /** data */
-    lua_Unsigned arg3 = 0;   /** len */
-
-    olua_check_std_string(L, 1, &arg1);
-    olua_check_string(L, 2, &arg2);
-    olua_check_uint(L, 3, &arg3);
-
-    // static bool write(const std::string &path, const char *data, size_t len)
-    bool ret = (bool)xgame::filesystem::write(arg1, arg2, (size_t)arg3);
-    int num_ret = olua_push_bool(L, ret);
-
-    return num_ret;
-}
-
 static int _xgame_filesystem_read(lua_State *L)
 {
     lua_settop(L, 1);
@@ -617,6 +598,17 @@ static int _xgame_filesystem_getSDCardDirectory(lua_State *L)
     return num_ret;
 }
 
+static int _xgame_filesystem_write(lua_State *L)
+{
+    size_t len;
+    lua_settop(L, 2);
+    std::string path = olua_tostring(L, 1);
+    const char *data = olua_checklstring(L, 2, &len);
+    bool ret = (bool)xgame::filesystem::write(path, data, len);
+    olua_push_bool(L, ret);
+    return 1;
+}
+
 static int luaopen_xgame_filesystem(lua_State *L)
 {
     oluacls_class(L, "kernel.filesystem", nullptr);
@@ -629,7 +621,6 @@ static int luaopen_xgame_filesystem(lua_State *L)
     oluacls_func(L, "isDirectory", _xgame_filesystem_isDirectory);
     oluacls_func(L, "rename", _xgame_filesystem_rename);
     oluacls_func(L, "copy", _xgame_filesystem_copy);
-    oluacls_func(L, "write", _xgame_filesystem_write);
     oluacls_func(L, "read", _xgame_filesystem_read);
     oluacls_func(L, "unzip", _xgame_filesystem_unzip);
     oluacls_func(L, "getWritablePath", _xgame_filesystem_getWritablePath);
@@ -637,6 +628,7 @@ static int luaopen_xgame_filesystem(lua_State *L)
     oluacls_func(L, "getDocumentDirectory", _xgame_filesystem_getDocumentDirectory);
     oluacls_func(L, "getTmpDirectory", _xgame_filesystem_getTmpDirectory);
     oluacls_func(L, "getSDCardDirectory", _xgame_filesystem_getSDCardDirectory);
+    oluacls_func(L, "write", _xgame_filesystem_write);
     oluacls_prop(L, "writablePath", _xgame_filesystem_getWritablePath, nullptr);
     oluacls_prop(L, "cacheDirectory", _xgame_filesystem_getCacheDirectory, nullptr);
     oluacls_prop(L, "documentDirectory", _xgame_filesystem_getDocumentDirectory, nullptr);
@@ -860,6 +852,17 @@ static int luaopen_xgame_preferences(lua_State *L)
     return 1;
 }
 
+static int _xgame_timer_createTag(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static std::string createTag()
+    std::string ret = (std::string)xgame::timer::createTag();
+    int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
 static int _xgame_timer_killDelay(lua_State *L)
 {
     lua_settop(L, 1);
@@ -945,6 +948,7 @@ static int _xgame_timer_unschedule(lua_State *L)
 static int luaopen_xgame_timer(lua_State *L)
 {
     oluacls_class(L, "kernel.timer", nullptr);
+    oluacls_func(L, "createTag", _xgame_timer_createTag);
     oluacls_func(L, "killDelay", _xgame_timer_killDelay);
     oluacls_func(L, "delayWithTag", _xgame_timer_delayWithTag);
     oluacls_func(L, "delay", _xgame_timer_delay);

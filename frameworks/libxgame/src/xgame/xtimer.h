@@ -10,6 +10,7 @@ NS_XGAME_BEGIN
 
 class timer {
 public:
+    static std::string createTag();
     static void delay(float time, const std::function<void ()> callback);
     static void delayWithTag(float time, const std::string &tag, std::function<void ()> callback);
     static void killDelay(const std::string &tag);

@@ -11,7 +11,6 @@ cls.funcs [[
     static bool isDirectory(const std::string &path)
     static bool rename(const std::string &oldPath, const std::string &newPath)
     static bool copy(const std::string &srcPath, const std::string &destPath)
-    static bool write(const std::string &path, const char *data, size_t len)
     static cocos2d::Data read(const std::string &path)
     static bool unzip(const std::string &path, const std::string &dest)
     static const std::string getWritablePath()
@@ -20,6 +19,17 @@ cls.funcs [[
     static const std::string getTmpDirectory()
     static const std::string getSDCardDirectory()
 ]]
+cls.func('write', [[
+{
+    size_t len;
+    lua_settop(L, 2);
+    std::string path = olua_tostring(L, 1);
+    const char *data = olua_checklstring(L, 2, &len);
+    bool ret = (bool)xgame::filesystem::write(path, data, len);
+    olua_push_bool(L, ret);
+    return 1;
+}
+]])
 cls.props [[
     writablePath
     cacheDirectory

@@ -1,6 +1,9 @@
 local cls = class()
 cls.CPPCLS = "xgame::timer"
 cls.LUACLS = "kernel.timer"
+cls.funcs [[
+    static std::string createTag()
+]]
 cls.func('killDelay', [[
 {
     lua_settop(L, 1);

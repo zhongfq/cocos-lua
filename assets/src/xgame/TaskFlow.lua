@@ -1,13 +1,8 @@
---
--- $id: TaskFlow.lua O $
---
-
-local class             = require "xgame.class"
-local util              = require "xgame.util"
-local Event             = require "xgame.Event"
-local Task              = require "xgame.Task"
-local Array             = require "xgame.Array"
-local EventDispatcher   = require "xgame.EventDispatcher"
+local class = require "xgame.class"
+local util  = require "xgame.util"
+local Event = require "xgame.Event"
+local Task  = require "xgame.Task"
+local Array = require "xgame.Array"
 
 local trace = util.trace("[TaskFlow]")
 

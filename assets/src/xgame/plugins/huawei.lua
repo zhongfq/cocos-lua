@@ -1,5 +1,6 @@
 local class         = require "xgame.class"
 local util          = require "xgame.util"
+local runtime       = require "xgame.runtime"
 local PluginEvent   = require "xgame.plugins.PluginEvent"
 local cjson         = require "kernel.cjson.safe"
 
@@ -59,7 +60,7 @@ function Huawei:_didResponse(action, infostr)
     end
 end
 
-if xGame.os == "android" then
+if runtime.os == "android" then
     local luaj = require "xgame.luaj"
     local inst = luaj.new("kernel/plugins/huawei/Huawei")
     impl = {}

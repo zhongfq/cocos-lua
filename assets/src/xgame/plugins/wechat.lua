@@ -3,7 +3,8 @@ local util          = require "xgame.util"
 local http          = require "xgame.http"
 local Event         = require "xgame.Event"
 local PluginEvent   = require "xgame.plugins.PluginEvent"
-local runtime       = require "kernel.runtime"
+local timer         = require "xgame.timer"
+local runtime       = require "xgame.runtime"
 local impl          = require "kernel.plugins.wechat"
 local openssl       = require "kernel.openssl"
 local cjson         = require "kernel.cjson.safe"
@@ -11,7 +12,7 @@ local Director      = require "cc.Director"
 
 local trace = util.trace("[wechat]")
 
-local TAG_DEFERRED = {}
+local TAG_DEFERRED = "__wechat_deferred_event__"
 
 local WXSUCCESS = 0 -- 成功
 -- local WXERRCODE_COMMON = -1 -- 普通错误类型
@@ -41,9 +42,9 @@ function WeChat:ctor()
         self:_didResponse(...)
     end)
 
-    xGame:addListener(Event.OPEN_URL, function (_, url)
+    runtime.on(Event.OPEN_URL, function (_, url)
         if string.find(url, self._scheme) == 1 then
-            xGame:killDelay(TAG_DEFERRED)
+            timer.killDelay(TAG_DEFERRED)
             if string.find(url, '://pay/?') then
                 -- wx4f5a7db510e75204://pay/?returnKey=(null)&ret=-2
                 -- wx4f5a7db510e75204://pay/?returnKey=&ret=0
@@ -78,9 +79,9 @@ function WeChat:pay(order)
     assert(order.timestamp, "no timestamp")
     assert(order.sign, "no sign")
 
-    if xGame.os == "ios" then
+    if runtime.os == "ios" then
         self.deferredEvent = self.deferredEvent or PluginEvent.PAY_CANCEL
-        xGame:addListener(Event.RUNTIME_RESUME, self._onResume, self)
+        runtime.on(Event.RUNTIME_RESUME, self._onResume, self)
     end
 
     impl:pay(self._appid, order.partnerid, order.prepayid, order.noncestr,
@@ -103,8 +104,8 @@ function WeChat:auth(ticket)
         self:_requestTicket()
     end
 
-    if xGame.os == 'ios' then
-        xGame:addListener(Event.RUNTIME_RESUME, self._onResume, self)
+    if runtime.os == 'ios' then
+        runtime.on(Event.RUNTIME_RESUME, self._onResume, self)
     end
 end
 
@@ -132,7 +133,6 @@ function WeChat:_requestTicket()
 end
 
 function WeChat:_doAuthQRCode(ticket)
-    print(ticket)
     local timestamp = tostring(os.time())
     local noncestr = openssl.sha1(timestamp)
     local str = string.format("appid=%s", self._appid)
@@ -144,10 +144,10 @@ function WeChat:_doAuthQRCode(ticket)
 end
 
 function WeChat:_onResume()
-    xGame:removeListener(Event.RUNTIME_RESUME, self._onResume, self)
+    runtime.off(Event.RUNTIME_RESUME, self._onResume)
     
     if self.deferredEvent then
-        xGame:delayWithTag(0.5, TAG_DEFERRED, function ()
+        timer.delayWithTag(0.5, TAG_DEFERRED, function ()
             if self.deferredEvent then
                 self:dispatch(self.deferredEvent)
                 self.deferredEvent = false
@@ -158,7 +158,7 @@ end
 
 function WeChat:_didResponse(action, message)
     self.deferredEvent = false
-    xGame:killDelay(TAG_DEFERRED)
+    timer.killDelay(TAG_DEFERRED)
 
     trace("%s response: %s", action, message)
     local data = cjson.decode(message)
@@ -235,7 +235,7 @@ if runtime.os == "ios" then
         local URL_PAY = "weixin://app/%s/pay/?nonceStr=%s&package=Sign%%3DWXPay" ..
             "&partnerId=%s&prepayId=%s&timeStamp=%d&sign=%s&signType=SHA1"
         local url = string.format(URL_PAY, appid, noncestr, partnerid, prepayid, timestamp, sign)
-        xGame:openURL(url)
+        runtime.openURL(url)
     end
 elseif runtime.os == "android" then
     local luaj = require "xgame.luaj"

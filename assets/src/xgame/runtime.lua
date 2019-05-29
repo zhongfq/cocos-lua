@@ -3,22 +3,23 @@ local runtime = require "kernel.runtime"
 assert(not runtime.on)
 assert(not runtime.off)
 
+local ANONYMOUS = {}
 local dispatching = false
 local suspended = {}
 local listeners = {}
 
-function runtime.on(event, callback)
+function runtime.on(event, callback, caller)
     assert(event, 'no event')
     assert(type(callback) == 'function', 'no callback')
     if dispatching then
-        suspended[#suspended + 1] = {runtime.on, event, callback}
+        suspended[#suspended + 1] = {runtime.on, event, callback, caller}
     else
         local map = listeners[event]
         if not map then
             map = {}
             listeners[event] = map
         end
-        map[callback] = true
+        map[callback] = caller or ANONYMOUS
     end
 end
 
@@ -39,8 +40,12 @@ runtime.setDispatcher(function (event, args)
     local map = listeners[event]
     dispatching = true
     if map then
-        for callback in pairs(map) do
-            callback(args)
+        for callback, caller in pairs(map) do
+            if caller == ANONYMOUS then
+                callback(args)
+            else
+                callback(caller, args)
+            end
         end
     end
     dispatching = false

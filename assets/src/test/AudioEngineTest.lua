@@ -1,5 +1,5 @@
-local runtime = require "kernel.runtime"
-local timer = require "kernel.timer"
+local util  = require "xgame.util"
+local timer = require "xgame.timer"
 
 local M = {}
 
@@ -19,10 +19,10 @@ function M.new()
     print(Director.instance.runningScene)
 
     timer.delay(3, function ( ... )
-        printUserValue(AudioEngine.class['.store'], 'before stop')
+        util.dumpUserValue(AudioEngine.class['.store'], 'before stop')
         AudioEngine.uncache('res/audio/bgm.mp3')
-        printUserValue(AudioEngine.class['.store'], 'after stop')
-        printUserValue(Director.instance)
+        util.dumpUserValue(AudioEngine.class['.store'], 'after stop')
+        util.dumpUserValue(Director.instance)
     end)
 
     -- AudioEngine.play2d("res/audio/click.mp3", false, 100)

@@ -1,6 +1,5 @@
 local class         = require "xgame.class"
 local Event         = require "xgame.Event"
-local audio         = require "xgame.audio"
 local SceneStack    = require "xgame.private.SceneStack"
 local timer         = require "xgame.timer"
 local runtime       = require "kernel.runtime"
@@ -11,10 +10,6 @@ xGame = class("xGame", require("xgame.EventDispatcher"))
 function xGame:ctor()
     self._sceneStack = SceneStack.new()
     self:_initTimer()
-
-    self:schedule(0.1, function ()
-        audio.update()
-    end)
 
     runtime.setDispatcher(function (event, args)
         self:dispatch(event, args)

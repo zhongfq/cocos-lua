@@ -1,9 +1,9 @@
-local class             = require "xgame.class"
-local util              = require "xgame.util"
-local filesystem        = require "xgame.filesystem"
-local Event             = require "xgame.Event"
-local EventDispatcher   = require "xgame.EventDispatcher"
-local AudioEngine       = require "cc.AudioEngine"
+local class         = require "xgame.class"
+local util          = require "xgame.util"
+local filesystem    = require "xgame.filesystem"
+local timer         = require "xgame.timer"
+local Event         = require "xgame.Event"
+local AudioEngine   = require "cc.AudioEngine"
 
 local INVALID_AUDIO_ID = -1
 local STATE_STOPPED = "stateStopped"
@@ -31,15 +31,15 @@ end
 
 local function uncache(path)
     local tag = makeTag(path)
-    xGame:killDelay(tag)
-    xGame:delayWithTag(DEFERRED_UNCACHE_TIME, tag, function ()
+    timer.killDelay(tag)
+    timer.delayWithTag(DEFERRED_UNCACHE_TIME, tag, function ()
         audios[path] = nil
         AudioEngine.uncache(path)
         trace('uncache: %s', path)
     end)
 end
 
-function M.update()
+timer.schedule(0.1, function ()
     local willDones
     for path, arr in pairs(audios) do
         local autoremove = true
@@ -73,14 +73,14 @@ function M.update()
             end
         end
     end
-end
+end)
 
 function M.play(path, loop, volume, autoremove)
     if not filesystem.exist(path) then
         error(string.format("file not found: %s", path))
     end
 
-    xGame:killDelay(makeTag(path))
+    timer.killDelay(makeTag(path))
 
     loop = loop == true
     volume = volume and volume or 1
@@ -125,7 +125,7 @@ end
 --
 -- AudioObject
 --
-AudioObject = class("AudioObject", EventDispatcher)
+AudioObject = class("AudioObject", require("xgame.EventDispatcher"))
 
 function AudioObject:ctor(id, loop, volume, path, autoremove)
     self.autoremove = autoremove

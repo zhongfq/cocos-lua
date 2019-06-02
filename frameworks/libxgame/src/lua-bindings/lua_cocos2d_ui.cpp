@@ -5152,6 +5152,20 @@ static int luaopen_cocos2d_experimental_ui_VideoPlayer_EventType(lua_State *L)
 #endif
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN) && !defined(CC_PLATFORM_OS_TVOS)
+static int luaopen_cocos2d_experimental_ui_VideoPlayer_StyleType(lua_State *L)
+{
+    oluacls_class(L, "ccui.VideoPlayer.StyleType", nullptr);
+    oluacls_const_integer(L, "DEFAULT", (lua_Integer)cocos2d::experimental::ui::VideoPlayer::StyleType::DEFAULT);
+    oluacls_const_integer(L, "NONE", (lua_Integer)cocos2d::experimental::ui::VideoPlayer::StyleType::NONE);
+
+    olua_registerluatype<cocos2d::experimental::ui::VideoPlayer::StyleType>(L, "ccui.VideoPlayer.StyleType");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+#endif
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN) && !defined(CC_PLATFORM_OS_TVOS)
 static int _cocos2d_experimental_ui_VideoPlayer_create(lua_State *L)
 {
     lua_settop(L, 0);
@@ -5225,6 +5239,54 @@ static int _cocos2d_experimental_ui_VideoPlayer_getURL(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_experimental_ui_VideoPlayer_setLooping(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::experimental::ui::VideoPlayer *self = nullptr;
+    bool arg1 = false;   /** looping */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.VideoPlayer");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setLooping(bool looping)
+    self->setLooping(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_experimental_ui_VideoPlayer_setUserInputEnabled(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::experimental::ui::VideoPlayer *self = nullptr;
+    bool arg1 = false;   /** enableInput */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.VideoPlayer");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setUserInputEnabled(bool enableInput)
+    self->setUserInputEnabled(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_experimental_ui_VideoPlayer_setStyle(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::experimental::ui::VideoPlayer *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** style */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.VideoPlayer");
+    olua_check_uint(L, 2, &arg1);
+
+    // void setStyle(StyleType style)
+    self->setStyle((cocos2d::experimental::ui::VideoPlayer::StyleType)arg1);
+
+    return 0;
+}
+
 static int _cocos2d_experimental_ui_VideoPlayer_play(lua_State *L)
 {
     lua_settop(L, 1);
@@ -5279,6 +5341,36 @@ static int _cocos2d_experimental_ui_VideoPlayer_isPlaying(lua_State *L)
 
     // bool isPlaying()
     bool ret = (bool)self->isPlaying();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_experimental_ui_VideoPlayer_isLooping(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::experimental::ui::VideoPlayer *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.VideoPlayer");
+
+    // bool isLooping()
+    bool ret = (bool)self->isLooping();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_experimental_ui_VideoPlayer_isUserInputEnabled(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::experimental::ui::VideoPlayer *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.VideoPlayer");
+
+    // bool isUserInputEnabled()
+    bool ret = (bool)self->isUserInputEnabled();
     int num_ret = olua_push_bool(L, ret);
 
     return num_ret;
@@ -5407,10 +5499,15 @@ static int luaopen_cocos2d_experimental_ui_VideoPlayer(lua_State *L)
     oluacls_func(L, "getFileName", _cocos2d_experimental_ui_VideoPlayer_getFileName);
     oluacls_func(L, "setURL", _cocos2d_experimental_ui_VideoPlayer_setURL);
     oluacls_func(L, "getURL", _cocos2d_experimental_ui_VideoPlayer_getURL);
+    oluacls_func(L, "setLooping", _cocos2d_experimental_ui_VideoPlayer_setLooping);
+    oluacls_func(L, "setUserInputEnabled", _cocos2d_experimental_ui_VideoPlayer_setUserInputEnabled);
+    oluacls_func(L, "setStyle", _cocos2d_experimental_ui_VideoPlayer_setStyle);
     oluacls_func(L, "play", _cocos2d_experimental_ui_VideoPlayer_play);
     oluacls_func(L, "stop", _cocos2d_experimental_ui_VideoPlayer_stop);
     oluacls_func(L, "seekTo", _cocos2d_experimental_ui_VideoPlayer_seekTo);
     oluacls_func(L, "isPlaying", _cocos2d_experimental_ui_VideoPlayer_isPlaying);
+    oluacls_func(L, "isLooping", _cocos2d_experimental_ui_VideoPlayer_isLooping);
+    oluacls_func(L, "isUserInputEnabled", _cocos2d_experimental_ui_VideoPlayer_isUserInputEnabled);
     oluacls_func(L, "setKeepAspectRatioEnabled", _cocos2d_experimental_ui_VideoPlayer_setKeepAspectRatioEnabled);
     oluacls_func(L, "isKeepAspectRatioEnabled", _cocos2d_experimental_ui_VideoPlayer_isKeepAspectRatioEnabled);
     oluacls_func(L, "setFullScreenEnabled", _cocos2d_experimental_ui_VideoPlayer_setFullScreenEnabled);
@@ -5420,6 +5517,8 @@ static int luaopen_cocos2d_experimental_ui_VideoPlayer(lua_State *L)
     oluacls_prop(L, "fileName", _cocos2d_experimental_ui_VideoPlayer_getFileName, _cocos2d_experimental_ui_VideoPlayer_setFileName);
     oluacls_prop(L, "url", _cocos2d_experimental_ui_VideoPlayer_getURL, _cocos2d_experimental_ui_VideoPlayer_setURL);
     oluacls_prop(L, "playing", _cocos2d_experimental_ui_VideoPlayer_isPlaying, nullptr);
+    oluacls_prop(L, "looping", _cocos2d_experimental_ui_VideoPlayer_isLooping, _cocos2d_experimental_ui_VideoPlayer_setLooping);
+    oluacls_prop(L, "userInputEnabled", _cocos2d_experimental_ui_VideoPlayer_isUserInputEnabled, _cocos2d_experimental_ui_VideoPlayer_setUserInputEnabled);
     oluacls_prop(L, "keepAspectRatioEnabled", _cocos2d_experimental_ui_VideoPlayer_isKeepAspectRatioEnabled, _cocos2d_experimental_ui_VideoPlayer_setKeepAspectRatioEnabled);
     oluacls_prop(L, "fullScreenEnabled", _cocos2d_experimental_ui_VideoPlayer_isFullScreenEnabled, _cocos2d_experimental_ui_VideoPlayer_setFullScreenEnabled);
 
@@ -16994,6 +17093,9 @@ int luaopen_cocos2d_ui(lua_State *L)
 #endif
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN) && !defined(CC_PLATFORM_OS_TVOS)
     olua_require(L, "ccui.VideoPlayer.EventType", luaopen_cocos2d_experimental_ui_VideoPlayer_EventType);
+#endif
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN) && !defined(CC_PLATFORM_OS_TVOS)
+    olua_require(L, "ccui.VideoPlayer.StyleType", luaopen_cocos2d_experimental_ui_VideoPlayer_StyleType);
 #endif
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN) && !defined(CC_PLATFORM_OS_TVOS)
     olua_require(L, "ccui.VideoPlayer", luaopen_cocos2d_experimental_ui_VideoPlayer);

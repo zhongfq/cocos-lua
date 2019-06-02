@@ -141,6 +141,7 @@ REG_TYPE {
         cocos2d::EventTouch::EventCode
         cocos2d::experimental::AudioEngine::AudioState
         cocos2d::experimental::ui::VideoPlayer::EventType
+        cocos2d::experimental::ui::VideoPlayer::StyleType
         cocos2d::GlyphCollection
         cocos2d::Image::Format
         cocos2d::Label::LabelType

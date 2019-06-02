@@ -1,3 +1,5 @@
+// LICENSE: https://github.com/mkottman/luaclang-parser
+
 #include "clang-c/Index.h"
 #include "lua.hpp"
 

@@ -399,7 +399,7 @@ int xlua_ccobjgc(lua_State *L)
 {
     lua_settop(L, 1);
     if (olua_isa(L, 1, "cc.Ref")) {
-        cocos2d::Ref *obj = *(cocos2d::Ref **)lua_touserdata(L, 1);
+        auto obj = olua_touserdata(L, -2, cocos2d::Ref *);
         if (obj) {
 #ifdef COCOS2D_DEBUG
             int top = lua_gettop(L);
@@ -436,10 +436,12 @@ void xlua_startcmpunref(lua_State *L, int idx, const char *refname)
     lua_pushnil(L);                                         // L: t k
     while (lua_next(L, -2)) {                               // L: t k v
         if (olua_isa(L, -2, "cc.Ref")) {
-            cocos2d::Ref *obj = (cocos2d::Ref *)olua_toobj(L, -2, "cc.Ref");
-            lua_pushvalue(L, -2);                           // L: t k v k
-            lua_pushinteger(L, obj->getReferenceCount());   // L: t k v k refcount
-            lua_rawset(L, -5);                              // L: t k v
+            auto obj = olua_touserdata(L, -2, cocos2d::Ref *);
+            if (obj) {
+                lua_pushvalue(L, -2);                        // L: t k v k
+                lua_pushinteger(L, obj->getReferenceCount());// L: t k v k refcount
+                lua_rawset(L, -5);                           // L: t k v
+            }
         }
         lua_pop(L, 1);                                      // L: t k
     }                                                       // L: t
@@ -449,7 +451,7 @@ void xlua_startcmpunref(lua_State *L, int idx, const char *refname)
 static int should_unref_obj(lua_State *L)
 {
     if (olua_isa(L, -2, "cc.Action")) {
-        cocos2d::Action *obj = olua_touserdata(L, -2, cocos2d::Action *);
+        auto obj = olua_touserdata(L, -2, cocos2d::Action *);
         if (obj) {
             unsigned int curr = obj->getReferenceCount();
             if (!obj->getTarget() || obj->isDone() || curr == 1) {
@@ -462,7 +464,7 @@ static int should_unref_obj(lua_State *L)
             }
         }
     } else if (olua_isa(L, -2, "cc.Ref")) {
-        cocos2d::Ref *obj = (cocos2d::Ref *)olua_toobj(L, -2, "cc.Ref");
+        auto obj = olua_touserdata(L, -2, cocos2d::Ref *);
         if (obj && olua_isinteger(L, -1)) {
             unsigned int last = (unsigned int)olua_tointeger(L, -1);
             unsigned int curr = obj->getReferenceCount();

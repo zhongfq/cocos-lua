@@ -138,6 +138,7 @@ print("### heloo")
  local tu = assert(index:parse('../../frameworks/cocos2d-x/cocos/ui/UIWidget.h', {
      "-I../..//frameworks/cocos2d-x/cocos",
      "-x",
+     "-DCC_DLL=",
      "c++",
     }))
 --[=[]]

@@ -6,7 +6,7 @@ local cjson         = require "kernel.cjson.safe"
 local Manifest = class("Manifest")
 
 function Manifest:ctor(path)
-    self._tag = timer.createTag()
+    self._flushing = false
     self._path = path
     self._data = assert(cjson.decode(filesystem.read(path)), path)
     assert(self._data.assets, "bad manifest format")
@@ -30,10 +30,13 @@ end
 
 function Manifest:update(path, info)
     self._data.assets[path] = info
-    timer.killDelay(self._tag)
-    timer.delayWithTag(1, self._tag, function ()
-        self:flush()
-    end)
+    if not self._flushing then
+        self._flushing = true
+        timer.delay(0.001, function ()
+            self._flushing = false
+            self:flush()
+        end)
+    end
 end
 
 function Manifest:flush()

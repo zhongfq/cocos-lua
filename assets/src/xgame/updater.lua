@@ -1,3 +1,4 @@
+local class         = require "xgame.class"
 local util          = require "xgame.util"
 local downloader    = require "xgame.downloader"
 local http          = require "xgame.http"
@@ -9,15 +10,6 @@ local cjson         = require "kernel.cjson.safe"
 
 local _traceback = __TRACEBACK__
 
-local MANIFEST_REMOTE_PATH = filesystem.dir.assets .. '/remote.manifest'
-local MANIFEST_BUILTIN_PATH = "builtin.manifest"
-local MAX_ATTEMPT_TIMES = 3
-local ATTEMPT_INTERVAL = 0.3
-
-local url
-local callback
-local attemptTimes = 0
-
 function __TRACEBACK__(...)
     _traceback(...)
     __TRACEBACK__ = _traceback
@@ -28,35 +20,64 @@ function __TRACEBACK__(...)
     runtime:restart()
 end
 
--- funcs
-local checkVersion
+local MANIFEST_REMOTE_PATH = filesystem.dir.assets .. '/remote.manifest'
+local MANIFEST_LOCAL_PATH = filesystem.dir.assets .. '/local.manifest'
+local MANIFEST_BUILTIN_PATH = "builtin.manifest"
+local MAX_ATTEMPT_TIMES = 3
+local ATTEMPT_INTERVAL = 0.3
 
-local function deferTry()
-    if attemptTimes < MAX_ATTEMPT_TIMES then
+local M = class('updater')
+
+function M:ctor(url)
+    self.filter = function () return true end
+    self._url = url
+    self._attemptTimes = 0
+end
+
+function M:_deferTry()
+    if self._attemptTimes < MAX_ATTEMPT_TIMES then
+        self._attemptTimes = self._attemptTimes + 1
         timer.delay(ATTEMPT_INTERVAL, function ()
-            checkVersion()
+            self:_checkVersion()
         end)
     else
-        callback('error', function ()
-            checkVersion()
+        self.onError(function ()
+            self:_checkVersion()
         end)
     end
 end
 
-local function toPath(name)
+function M:_removeFileIfExist(path)
+    if filesystem.exist(path) then
+        filesystem.remove(path)
+    end
+end
+
+function M:_createAssetPath(path)
+    return filesystem.dir.assets .. '/' .. path
+end
+
+function M:_createManifestPath(name)
     return string.format('%s/%s.manifest', filesystem.dir.assets, name)
 end
 
-local function toIntVersion(version)
-    local v1, v2, v3 = string.match(version, "(%d+)%.(%d+)%.(%d+)")
-    if v1 then
-        return v1 * 1000000 + v2 * 1000 + v3
-    else
-        return 0
+function M:_cmpVersion(v1, v2)
+    local function toIntVersion(v)
+        local v1, v2, v3 = string.match(v, "(%d+)%.(%d+)%.(%d+)")
+        if v1 then
+            return v1 * 1000000 + v2 * 1000 + v3
+        else
+            return 0
+        end
     end
+    return toIntVersion(v1) - toIntVersion(v2)
 end
 
-local function readManifestVersion(path)
+function M:_maxVersion(v1, v2)
+    return self:_cmpVersion(v1, v2) < 0 and v2 or v1
+end
+
+function M:_readManifestVersion(path)
     local version = "0.0.0"
     if filesystem.exist(path) then
         local manifest = cjson.decode(filesystem.read(path))
@@ -67,13 +88,13 @@ local function readManifestVersion(path)
     return version
 end
 
-local function checkAndDownloadManifest(name, info)
-    local path = toPath(name)
-    local version = readManifestVersion(path)
+function M:_checkAndDownloadManifest(name, info)
+    local path = self:_createManifestPath(name)
+    local version = self:_readManifestVersion(path)
     if version ~= info.version then
         local status, data = http({url = info.url})
         if status ~= 200 then
-            deferTry()
+            self:_deferTry()
             return
         else
             filesystem.write(path, data)
@@ -83,33 +104,120 @@ local function checkAndDownloadManifest(name, info)
     end
 end
 
-function checkVersion()
-    local version = readManifestVersion(MANIFEST_REMOTE_PATH)
-    local url = string.format('%s?os=%s&runtime=%s&version=%s&channel=%s',
-        url, runtime.os, runtime.version, version, runtime.channel)
-    http.block(function ()
-        local status, data = http({url = url, responseType = 'JSON'})
-        if status ~= 200 then
-            deferTry()
+function M:_mergeManifests(data)
+    local newVersion = '0.0.0'
+    local remote = {assets = {}, package_url = "", manifest_url = ""}
+    for name, info in pairs(data) do
+        newVersion = self:_maxVersion(newVersion, info.version)
+        local m = Manifest.new(self:_createManifestPath(name))
+        for path, asset in pairs(m.assets) do
+            asset.url = m.packageURL .. '/' .. path
+            remote.assets[path] = asset
+        end
+    end
+    remote.version = newVersion
+    filesystem.write(MANIFEST_REMOTE_PATH, cjson.encode(remote))
+end
+
+function M:_startDownloadAssets(assets)
+end
+
+function M:_validateAndDownloadAssets()
+    if not filesystem.exist(MANIFEST_LOCAL_PATH) then
+        filesystem.copy(MANIFEST_BUILTIN_PATH, MANIFEST_LOCAL_PATH)
+    end
+
+    local builtinManifest = Manifest.new(MANIFEST_BUILTIN_PATH)
+    local localManifest = Manifest.new(MANIFEST_LOCAL_PATH)
+    local remoteManifest = Manifest.new(MANIFEST_REMOTE_PATH)
+
+    -- compare builtin.manifest and local.manifest
+    -- remove file when the date of builtin asset is newer
+    for path, builtinAsset in pairs(builtinManifest.assets) do
+        local localAsset = localManifest.assets[path]
+        if not localAsset or builtinAsset.date > localAsset.date then
+            self:_removeFileIfExist(self:_createAssetPath(path))
+            localManifest:update(path, builtinAsset)
+            print('use builtin file asset: ' .. path)
+        end
+    end
+
+    -- compare local.manifest and remote.manifest, should updated when:
+    -- 1. date not equal and asset.builtin = true
+    -- 2. date not equal and pass filter test
+    -- 3. date equal but file lose
+    local assets = {}
+    for path, remoteAsset in pairs(remoteManifest.assets) do
+        local builtinAsset = builtinManifest.assets[path]
+        local localAsset = localManifest.assets[path]
+        local shouldUpdated = false
+        if not localAsset or localAsset.date < remoteAsset.date then
+            self:_removeFileIfExist(self:_createAssetPath(path))
+            if builtinAsset or remoteAsset.builtin then
+                print('will update builtin file: ' .. path)
+                shouldUpdated = true
+            elseif self.filter(path) then
+                print('will update file: ' .. path)
+                shouldUpdated = true
+            -- else donwload on-demand
+            end
+        elseif localAsset.date == remoteAsset.date then
+            if (not builtinAsset or builtinAsset.date < localAsset.date)
+                and not filesystem.exist(self:_createAssetPath(path)) then
+                print('will update missed file:' .. path)
+                shouldUpdated = true
+            end
+        else
+            -- if localAsset.date > remoteAsset.date, should rollback
+            runtime.clearStorage()
+            runtime.restart()
             return
         end
 
-        local maxVersion = 0
+        if shouldUpdated then
+            assets[path] = remoteAsset
+        end
+    end
 
-        for name, info in pairs(data) do
-            maxVersion = math.max(maxVersion, toIntVersion(info.version))
-            checkAndDownloadManifest(name, info)
+    self:_startDownloadAssets(assets)
+end
+
+function M:_checkVersion()
+    local version = self:_readManifestVersion(MANIFEST_REMOTE_PATH)
+    local url = string.format('%s?os=%s&runtime=%s&version=%s&channel=%s',
+        self._url, runtime.os, runtime.version, version, runtime.channel)
+    http.block(function ()
+        local status, data = http({url = url, responseType = 'JSON'})
+        if status ~= 200 then
+            self:_deferTry()
+            return
         end
 
-        print(util.dump(data))
+        local newVersion = "0.0.0"
+
+        for name, info in pairs(data) do
+            newVersion = self:_maxVersion(newVersion, info.version)
+            self:_checkAndDownloadManifest(name, info)
+        end
+
+        self:_mergeManifests(data)
+
+        -- rollback?
+        if newVersion < version then
+            runtime.clearStorage()
+            runtime.restart()
+        else
+            self:_validateAndDownloadAssets()
+        end
     end)
 end
 
-local function start(_url, _callback)
-    attemptTimes = 0
-    url = assert(_url, 'no version url')
-    callback = assert(_callback, 'no callback function')
-    checkVersion()
+function M:start()
+    assert(self.onError, 'no error handler')
+    assert(self.onComplete, 'no complete handler')
+    assert(self.onMessage, 'no message handler')
+    assert(self.onUpdate, 'no update handler')
+    self:_checkVersion()
 end
 
-return {start = start}
+return M

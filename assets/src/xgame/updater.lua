@@ -20,9 +20,9 @@ function __TRACEBACK__(...)
     runtime:restart()
 end
 
-local MANIFEST_REMOTE_PATH = filesystem.dir.assets .. '/remote.manifest'
-local MANIFEST_LOCAL_PATH = filesystem.dir.assets .. '/local.manifest'
-local MANIFEST_BUILTIN_PATH = "builtin.manifest"
+local REMOTE_PATH = filesystem.dir.assets .. '/remote.manifest'
+local LOCAL_PATH = filesystem.dir.assets .. '/local.manifest'
+local BUILTIN_PATH = "builtin.manifest"
 local MAX_ATTEMPT_TIMES = 3
 local ATTEMPT_INTERVAL = 0.3
 
@@ -32,6 +32,7 @@ function M:ctor(url)
     self.filter = function () return true end
     self._url = url
     self._attemptTimes = 0
+    self:_removeFileIfExist(self:_resolveAssetPath(BUILTIN_PATH))
 end
 
 function M:_deferTry()
@@ -41,9 +42,7 @@ function M:_deferTry()
             self:_checkVersion()
         end)
     else
-        self.onError(function ()
-            self:_checkVersion()
-        end)
+        self.onError('version')
     end
 end
 
@@ -116,16 +115,17 @@ function M:_mergeManifests(data)
         end
     end
     remote.version = newVersion
-    filesystem.write(MANIFEST_REMOTE_PATH, cjson.encode(remote))
+    filesystem.write(REMOTE_PATH, cjson.encode(remote))
 end
 
 function M:_startDownloadAssets(localManifest, assets)
     for path, asset in pairs(assets) do
         local function callback(success)
             if success then
+                assets[path] = nil
                 localManifest:update(path, asset)
             else
-                error('todo')
+                self.onError('asset', asset)
             end
         end
         downloader.load({
@@ -139,13 +139,13 @@ function M:_startDownloadAssets(localManifest, assets)
 end
 
 function M:_validateAndDownloadAssets()
-    if not filesystem.exist(MANIFEST_LOCAL_PATH) then
-        filesystem.copy(MANIFEST_BUILTIN_PATH, MANIFEST_LOCAL_PATH)
+    if not filesystem.exist(LOCAL_PATH) then
+        filesystem.copy(BUILTIN_PATH, LOCAL_PATH)
     end
 
-    local builtinManifest = Manifest.new(MANIFEST_BUILTIN_PATH)
-    local localManifest = Manifest.new(MANIFEST_LOCAL_PATH)
-    local remoteManifest = Manifest.new(MANIFEST_REMOTE_PATH)
+    local builtinManifest = Manifest.new(BUILTIN_PATH)
+    local localManifest = Manifest.new(LOCAL_PATH)
+    local remoteManifest = Manifest.new(REMOTE_PATH)
 
     -- compare builtin.manifest and local.manifest
     -- remove file when the date of builtin asset is newer
@@ -204,7 +204,7 @@ function M:_validateAndDownloadAssets()
 end
 
 function M:_checkVersion()
-    local version = self:_readManifestVersion(MANIFEST_REMOTE_PATH)
+    local version = self:_readManifestVersion(REMOTE_PATH)
     local url = string.format('%s?os=%s&runtime=%s&version=%s&channel=%s',
         self._url, runtime.os, runtime.version, version, runtime.channel)
     http.block(function ()

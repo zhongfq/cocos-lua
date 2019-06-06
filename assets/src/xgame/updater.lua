@@ -53,11 +53,11 @@ function M:_removeFileIfExist(path)
     end
 end
 
-function M:_createAssetPath(path)
+function M:_resolveAssetPath(path)
     return filesystem.dir.assets .. '/' .. path
 end
 
-function M:_createManifestPath(name)
+function M:_resolveManifestPath(name)
     return string.format('%s/%s.manifest', filesystem.dir.assets, name)
 end
 
@@ -89,7 +89,7 @@ function M:_readManifestVersion(path)
 end
 
 function M:_checkAndDownloadManifest(name, info)
-    local path = self:_createManifestPath(name)
+    local path = self:_resolveManifestPath(name)
     local version = self:_readManifestVersion(path)
     if version ~= info.version then
         local status, data = http({url = info.url})
@@ -109,7 +109,7 @@ function M:_mergeManifests(data)
     local remote = {assets = {}, package_url = "", manifest_url = ""}
     for name, info in pairs(data) do
         newVersion = self:_maxVersion(newVersion, info.version)
-        local m = Manifest.new(self:_createManifestPath(name))
+        local m = Manifest.new(self:_resolveManifestPath(name))
         for path, asset in pairs(m.assets) do
             asset.url = m.packageURL .. '/' .. path
             remote.assets[path] = asset
@@ -119,7 +119,23 @@ function M:_mergeManifests(data)
     filesystem.write(MANIFEST_REMOTE_PATH, cjson.encode(remote))
 end
 
-function M:_startDownloadAssets(assets)
+function M:_startDownloadAssets(localManifest, assets)
+    for path, asset in pairs(assets) do
+        local function callback(success)
+            if success then
+                localManifest:update(path, asset)
+            else
+                error('todo')
+            end
+        end
+        downloader.load({
+            url = asset.url,
+            md5 = asset.md5,
+            asset = asset,
+            path = self:_resolveAssetPath(path),
+            callback = callback,
+        })
+    end
 end
 
 function M:_validateAndDownloadAssets()
@@ -136,7 +152,7 @@ function M:_validateAndDownloadAssets()
     for path, builtinAsset in pairs(builtinManifest.assets) do
         local localAsset = localManifest.assets[path]
         if not localAsset or builtinAsset.date > localAsset.date then
-            self:_removeFileIfExist(self:_createAssetPath(path))
+            self:_removeFileIfExist(self:_resolveAssetPath(path))
             localManifest:update(path, builtinAsset)
             print('use builtin file asset: ' .. path)
         end
@@ -152,7 +168,7 @@ function M:_validateAndDownloadAssets()
         local localAsset = localManifest.assets[path]
         local shouldUpdated = false
         if not localAsset or localAsset.date < remoteAsset.date then
-            self:_removeFileIfExist(self:_createAssetPath(path))
+            self:_removeFileIfExist(self:_resolveAssetPath(path))
             if builtinAsset or remoteAsset.builtin then
                 print('will update builtin file: ' .. path)
                 shouldUpdated = true
@@ -163,7 +179,7 @@ function M:_validateAndDownloadAssets()
             end
         elseif localAsset.date == remoteAsset.date then
             if (not builtinAsset or builtinAsset.date < localAsset.date)
-                and not filesystem.exist(self:_createAssetPath(path)) then
+                and not filesystem.exist(self:_resolveAssetPath(path)) then
                 print('will update missed file:' .. path)
                 shouldUpdated = true
             end
@@ -179,7 +195,12 @@ function M:_validateAndDownloadAssets()
         end
     end
 
-    self:_startDownloadAssets(assets)
+        if next(assets) then
+            self:_startDownloadAssets(localManifest, assets)
+        else
+            print("all assets is up-to-date")
+            self.onComplete(false)
+        end
 end
 
 function M:_checkVersion()

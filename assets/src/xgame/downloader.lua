@@ -54,7 +54,7 @@ local function load(task)
     checkStart()
 end
 
-local function notify(url, loaded)
+local function notify(url, success)
     local doneTasks = {}
     for task in pairs(loadTasks) do
         if task.url == url then
@@ -64,7 +64,7 @@ local function notify(url, loaded)
     for _, task in ipairs(doneTasks) do
         loadTasks[task] = nil
         if task.callback then
-            task.callback(loaded, task)
+            task.callback(success, task)
         end
     end
     checkStart()

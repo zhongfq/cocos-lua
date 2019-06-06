@@ -399,7 +399,7 @@ int xlua_ccobjgc(lua_State *L)
 {
     lua_settop(L, 1);
     if (olua_isa(L, 1, "cc.Ref")) {
-        auto obj = olua_touserdata(L, -2, cocos2d::Ref *);
+        auto obj = olua_touserdata(L, 1, cocos2d::Ref *);
         if (obj) {
 #ifdef COCOS2D_DEBUG
             int top = lua_gettop(L);

@@ -40,6 +40,14 @@ function Oppo:pay(order)
     )
 end
 
+function Oppo:auth()
+    impl:auth()
+end
+
+function Oppo:exit()
+    impl:exit()
+end
+
 if runtime.os == "android" then
     local luaj = require "xgame.luaj"
     local inst = luaj.new("kernel/plugins/oppo/Oppo")
@@ -53,6 +61,16 @@ if runtime.os == "android" then
         inst.pay(orderno, attach, price, name, desc, url, function (...)
             impl.callback("pay", ...)
         end)
+    end
+
+    function impl:auth()
+        inst.auth(function (...)
+            impl.callback('auth', ...)
+        end)
+    end
+
+    function impl:exit()
+        inst.exit()
     end
 else
     impl = setmetatable({}, {__index = function (_, func)

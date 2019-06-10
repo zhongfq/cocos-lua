@@ -42,7 +42,7 @@ cls.func("delay", [[
     xgame::timer::delay(time, [callback]() {
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
-        lua_pushcfunction(L, xlua_errorfunc);
+        olua_geterrorfunc(L);
         olua_getref(L, callback);
         if (lua_isfunction(L, -1)) {
             lua_pcall(L, 0, 0, top + 1);
@@ -60,7 +60,7 @@ cls.func('schedule', [[
     unsigned int id = xgame::timer::schedule(interval, [callback](float dt) {
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
-        lua_pushcfunction(L, xlua_errorfunc);
+        olua_geterrorfunc(L);
         olua_getref(L, callback);
         if (lua_isfunction(L, -1)) {
             lua_pushnumber(L, dt);

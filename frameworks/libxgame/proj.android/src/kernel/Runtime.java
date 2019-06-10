@@ -212,14 +212,6 @@ public class Runtime {
         return context.getPackageName();
     }
 
-    @SuppressWarnings("unused")
-    public static String getStackTrace() {
-        Writer result = new StringWriter();
-        PrintWriter printWriter = new PrintWriter(result);
-        new Throwable().printStackTrace(printWriter);
-        return result.toString();
-    }
-
     private static boolean canOpenApp(String packageName) {
         AppContext context = (AppContext) AppContext.getContext();
         final PackageManager packageManager = context.getPackageManager();

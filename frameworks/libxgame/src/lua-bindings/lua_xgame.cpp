@@ -288,7 +288,7 @@ static int _xgame_runtime_setDispatcher(lua_State *L)
     xgame::runtime::setDispatcher([handler](const std::string &event, const std::string &args) {
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
-        lua_pushcfunction(L, xlua_errorfunc);
+        olua_geterrorfunc(L);
         olua_getref(L, handler);
         if (lua_isfunction(L, -1)) {
             lua_pushstring(L, event.c_str());
@@ -311,7 +311,7 @@ static int _xgame_runtime_openURL(lua_State *L)
         if (callback != LUA_REFNIL) {
             lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
-            lua_pushcfunction(L, xlua_errorfunc);
+            olua_geterrorfunc(L);
             olua_getref(L, callback);
             if (lua_isfunction(L, -1)) {
                 lua_pushboolean(L, success);
@@ -903,7 +903,7 @@ static int _xgame_timer_delay(lua_State *L)
     xgame::timer::delay(time, [callback]() {
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
-        lua_pushcfunction(L, xlua_errorfunc);
+        olua_geterrorfunc(L);
         olua_getref(L, callback);
         if (lua_isfunction(L, -1)) {
             lua_pcall(L, 0, 0, top + 1);
@@ -922,7 +922,7 @@ static int _xgame_timer_schedule(lua_State *L)
     unsigned int id = xgame::timer::schedule(interval, [callback](float dt) {
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
-        lua_pushcfunction(L, xlua_errorfunc);
+        olua_geterrorfunc(L);
         olua_getref(L, callback);
         if (lua_isfunction(L, -1)) {
             lua_pushnumber(L, dt);

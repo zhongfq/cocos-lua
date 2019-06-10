@@ -63,17 +63,6 @@ const std::string __runtime_getDeviceInfo()
     return value;
 }
 
-const std::string __runtime_getNativeStackTrace()
-{
-    static std::string value;
-
-    if (value.size() == 0) {
-        value = JniHelper::callStaticStringMethod(JAVA_RUNTIME_CLASS, "getStackTrace");
-    }
-
-    return value;
-}
-
 void __runtime_openURL(const std::string &uri, const std::function<void (bool)> callback)
 {
     bool ret = JniHelper::callStaticBooleanMethod(JAVA_RUNTIME_CLASS, "openURL", uri);

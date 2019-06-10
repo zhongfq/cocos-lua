@@ -40,11 +40,9 @@
 #define STACKPOOL_ENABLED   ((void *)olua_enable_stackpool)
 #define STACKPOOL_TABLE     ((void *)olua_stackpool_push)
 
-#define TRACEBACK (_traceback ? _traceback : dummy_traceback)
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 
-static lua_CFunction _traceback = NULL;
 static int _count = 0;
 
 static inline bool strequal(const char *str1, const char *str2)
@@ -58,8 +56,14 @@ static inline bool strendwith(const char *src, const char *suffix)
     return !pos ? false : (src + strlen(src) == pos + strlen(suffix));
 }
 
-static int dummy_traceback(lua_State *L)
+static int errfunc(lua_State *L)
 {
+    if (olua_isthread(L, 1)) {
+        luaL_traceback(L, lua_tothread(L, 1), lua_tostring(L, 2), 0);
+        lua_insert(L, 1);
+    }
+    luaL_traceback(L, L, lua_tostring(L, 1), 1);
+    printf("%s\n", lua_tostring(L, -1));
     return 0;
 }
 
@@ -104,11 +108,6 @@ LUALIB_API void olua_rawsetfield(lua_State *L, int idx, const char *field)
     lua_rawset(L, idx);
 }
 
-LUALIB_API void olua_seterrfunc(lua_CFunction errfunc)
-{
-    _traceback = errfunc;
-}
-
 LUALIB_API int olua_changeobjcount(int add)
 {
     _count += add;
@@ -121,6 +120,15 @@ LUALIB_API void olua_preload(lua_State *L, const char *name, lua_CFunction func)
     lua_pushcfunction(L, func);                                 // L: preload func
     lua_setfield(L, -2, name);                                  // L: preload
     lua_pop(L, 1);                                              // L:
+}
+
+LUALIB_API int olua_geterrorfunc(lua_State *L)
+{
+    if (lua_getglobal(L, "__TRACEBACK__") != LUA_TFUNCTION) {
+        lua_pop(L, 1);
+        lua_pushcfunction(L, errfunc);
+    }
+    return lua_gettop(L);
 }
 
 LUALIB_API void olua_require(lua_State *L, const char *name, lua_CFunction func)
@@ -487,7 +495,7 @@ LUALIB_API int olua_callback(lua_State *L, void *obj, const char *field, int n)
         if (olua_rawgetfield(L, -1, field) == LUA_TFUNCTION) {  // L: arg...n obj uv callback
             lua_insert(L, top + 1);                             // L: callback arg...n obj uv
             lua_pop(L, 2);                                      // L: callback arg...n
-            lua_pushcfunction(L, TRACEBACK);                    // L: callback arg...n errfunc
+            olua_geterrorfunc(L);                               // L: callback arg...n errfunc
             lua_insert(L, top + 1);                             // L: errfunc callback arg...n
             if (lua_pcall(L, n, 1, top + 1) == LUA_OK) {        // L: errfunc result
                 status = OLUA_CALLBACK_OK;
@@ -500,7 +508,7 @@ LUALIB_API int olua_callback(lua_State *L, void *obj, const char *field, int n)
     
     if (status != OLUA_CALLBACK_OK) {
         if (status == OLUA_CALLBACK_MISS) {
-            lua_pushcfunction(L, TRACEBACK);
+            olua_geterrorfunc(L);
             lua_pushfstring(L, "callback missed: %s", field);
             lua_pcall(L, 1, 0, 0);
         }
@@ -1268,7 +1276,7 @@ static int _olua_with(lua_State *L)
         luaL_error(L, "metatable not found: %s", cls);
     }
     
-    lua_pushcfunction(L, TRACEBACK);    // L: obj cls func mt trackback
+    olua_geterrorfunc(L);               // L: obj cls func mt trackback
     lua_pushvalue(L, 3);                // L: obj cls func mt trackback func
     lua_pushvalue(L, 1);                // L: obj cls func mt trackback func obj
     lua_pcall(L, 1, 0, 5);              // L: obj cls func mt trackback

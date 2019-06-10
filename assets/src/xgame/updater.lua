@@ -197,12 +197,12 @@ function M:_validateAndDownloadAssets()
         end
     end
 
-        if next(assets) then
-            self:_startDownloadAssets(localManifest, assets)
-        else
-            print("all assets is up-to-date")
-            self.onComplete(false)
-        end
+    if next(assets) then
+        self:_startDownloadAssets(localManifest, assets)
+    else
+        print("all assets is up-to-date")
+        self.onComplete(false)
+    end
 end
 
 function M:_checkVersion()

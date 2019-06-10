@@ -95,10 +95,10 @@ LUALIB_API const char *olua_checklstring (lua_State *L, int arg, size_t *len);
 LUALIB_API bool olua_checkboolean(lua_State *L, int idx);
 LUALIB_API int olua_rawgetfield(lua_State *L, int idx, const char *field);
 LUALIB_API void olua_rawsetfield(lua_State *L, int idx, const char *field);
-LUALIB_API void olua_seterrfunc(lua_CFunction errfunc);
 LUALIB_API int olua_changeobjcount(int add);
 LUALIB_API void olua_require(lua_State *L, const char *name, lua_CFunction func);
 LUALIB_API void olua_preload(lua_State *L, const char *name, lua_CFunction func);
+LUALIB_API int olua_geterrorfunc(lua_State *L);
     
 // manipulate userdata api
 LUALIB_API const char *olua_typename(lua_State *L, int idx);

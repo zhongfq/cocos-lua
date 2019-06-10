@@ -18,7 +18,7 @@ static int _coroutine_resume(lua_State *L)
     lua_call(L, lua_gettop(L) - 2, LUA_MULTRET);
     
     if (lua_toboolean(L, 2) == 0) {
-        lua_pushcfunction(L, xlua_errorfunc);
+        olua_geterrorfunc(L);
         lua_pushvalue(L, 1);
         lua_pushvalue(L, 3);
         lua_pcall(L, 2, 0, 0);
@@ -27,21 +27,13 @@ static int _coroutine_resume(lua_State *L)
     return lua_gettop(L) - 1;
 }
 
-static int xlua_fixcoresume(lua_State *L)
+static int _fixcoresume(lua_State *L)
 {
     lua_getglobal(L, LUA_COLIBNAME);
     lua_getfield(L, -1, "resume");
     lua_pushcclosure(L, _coroutine_resume, 1);
     lua_setfield(L, -2, "resume");
     lua_pop(L, 1);
-    return 0;
-}
-
-static int xlua_trackback(lua_State *L)
-{
-    lua_pushcfunction(L, xlua_errorfunc);
-    lua_pushvalue(L, -1);
-    lua_setglobal(L, "__TRACEBACK__");
     return 0;
 }
 
@@ -86,14 +78,14 @@ static int _print(lua_State *L)
     return 0;
 }
 
-static int xlua_fixprint(lua_State *L)
+static int _fixprint(lua_State *L)
 {
     lua_pushcfunction(L, _print);
     lua_setglobal(L, "print");
     return 0;
 }
 
-static int xlua_addsearchpath(lua_State *L)
+static int _addsearchpath(lua_State *L)
 {
     lua_getglobal(L, LUA_LOADLIBNAME);
     lua_getfield(L, -1, "path");
@@ -151,7 +143,7 @@ static int _loader (lua_State *L)
     return 1;
 }
 
-static int xlua_addlualoader(lua_State *L)
+static int _addlualoader(lua_State *L)
 {
     lua_getglobal(L, LUA_LOADLIBNAME);                          // L: package
     lua_getfield(L, -1, "searchers");                           // L: package, searchers
@@ -165,33 +157,6 @@ static int xlua_addlualoader(lua_State *L)
     lua_rawseti(L, -2, 2);                                      // L: package, searchers
     
     return 0;
-}
-
-lua_State *xlua_new()
-{
-    lua_State *L = luaL_newstate();
-    luaL_openlibs(L);
-    xlua_call(L, xlua_fixcoresume);
-    xlua_call(L, xlua_fixprint);
-    xlua_call(L, xlua_trackback);
-    xlua_call(L, xlua_addsearchpath);
-    xlua_call(L, xlua_addlualoader);
-    
-    olua_seterrfunc(xlua_errorfunc);
-    
-#ifdef COCOS2D_DEBUG
-    lua_pushboolean(L, true);
-#else
-    lua_pushboolean(L, false);
-#endif
-    lua_setglobal(L, "DEBUG");
-    
-    return L;
-}
-
-lua_State *xlua_cocosthread()
-{
-    return runtime::luaVM();
 }
 
 static char *simplify_traceback(const char *msg)
@@ -239,68 +204,65 @@ static char *simplify_traceback(const char *msg)
     return buffer;
 }
 
-int xlua_errorfunc(lua_State *L)
+static int _errorfunc(lua_State *L)
 {
     const char *errmsg = NULL;
-    const char *errstack1 = NULL;
-    const char *errstack2 = NULL;
+    const char *errstack = NULL;
     
     if (olua_isthread(L, 1)) {
         errmsg = luaL_optstring(L, 2, "");
-        lua_getglobal(L, "debug");
-        lua_getfield(L, -1, "traceback");
-        lua_pushvalue(L, 1);
-        lua_pcall(L, 1, 1, 0);
-        errstack1 = simplify_traceback(luaL_gsub(L, luaL_optstring(L, -1, ""), LUA_DIRSEP, "/"));
+        luaL_traceback(L, lua_tothread(L, 1), NULL, 0);
+        errstack = lua_tostring(L, -1);
     } else {
         errmsg = lua_tostring(L, 1);
     }
     
-    lua_getglobal(L, "debug");
-    lua_getfield(L, -1, "traceback");
-    lua_pushnil(L);
-    lua_pushinteger(L, 2);
-    lua_pcall(L, 2, 1, 0);
-    errstack2 = simplify_traceback(luaL_gsub(L, luaL_optstring(L, -1, ""), LUA_DIRSEP, "/"));
+    luaL_traceback(L, L, errstack, 1);
+    errstack = simplify_traceback(lua_tostring(L, -1));
     
     if (errmsg == NULL) {
         errmsg = "";
     }
     
-    luaL_Buffer buffer;
+    runtime::reportError(errmsg, errstack);
+    runtime::log("--------------------LUA ERROR--------------------\n%s\n%s", errmsg, errstack);
     
-    //send error message to server
-    luaL_buffinit(L, &buffer);
-    luaL_addstring(&buffer, errmsg);
-    luaL_addchar(&buffer, '\n');
-    if (errstack1 != NULL) {
-        luaL_addstring(&buffer, errstack1);
-        luaL_addchar(&buffer, '\n');
-        free((void *)errstack1);
-        errstack1 = NULL;
-    }
-    luaL_addstring(&buffer, errstack2);
-    luaL_pushresult(&buffer);
-    free((void *)errstack2);
-    errstack2 = NULL;
-    
-    const char *errinfo = lua_tostring(L, -1);
-    if (strendwith(errinfo, "stack traceback:")) {
-        lua_pushstring(L, runtime::getNativeStackTrace().c_str());
-        lua_concat(L, 2);
-        errinfo = lua_tostring(L, -1);
-    }
-    
-    runtime::reportError(errmsg, errinfo + strlen(errmsg) + 1);
-    runtime::log("--------------------LUA ERROR--------------------\n%s", errinfo);
+    free((void *)errstack);
     
     return 0;
+}
+
+lua_State *xlua_new()
+{
+    lua_State *L = luaL_newstate();
+    luaL_openlibs(L);
+    xlua_call(L, _fixcoresume);
+    xlua_call(L, _fixprint);
+    xlua_call(L, _addsearchpath);
+    xlua_call(L, _addlualoader);
+    
+    lua_pushcfunction(L, _errorfunc);
+    lua_setglobal(L, "__TRACEBACK__");
+    
+#ifdef COCOS2D_DEBUG
+    lua_pushboolean(L, true);
+#else
+    lua_pushboolean(L, false);
+#endif
+    lua_setglobal(L, "DEBUG");
+    
+    return L;
+}
+
+lua_State *xlua_cocosthread()
+{
+    return runtime::luaVM();
 }
 
 int xlua_pcall(lua_State *L, int n, int r)
 {
     int errfunc, status;
-    lua_pushcfunction(L, xlua_errorfunc);       // L: func arg1 ... argN errfunc
+    olua_geterrorfunc(L);                       // L: func arg1 ... argN errfunc
     errfunc = lua_absindex(L, -(n + 1 + 1));    // n(args) + 1(func) + 1(errfunc)
     lua_insert(L, errfunc);                     // L: errfunc func arg1 ... argN
     status = lua_pcall(L, n, r, errfunc);       // L: errfunc ret1 ... retN
@@ -311,7 +273,7 @@ int xlua_pcall(lua_State *L, int n, int r)
 void xlua_call(lua_State *L, lua_CFunction func)
 {
     int top = lua_gettop(L);
-    lua_pushcfunction(L, xlua_errorfunc);
+    olua_geterrorfunc(L);
     lua_pushcfunction(L, func);
     lua_pcall(L, 0, 0, top + 1);
     lua_settop(L, top);
@@ -321,8 +283,7 @@ int xlua_dofile(lua_State *L, const char *filename)
 {
     int errfunc, status;
     
-    lua_pushcfunction(L, xlua_errorfunc);               // L: errfunc
-    errfunc = lua_gettop(L);
+    errfunc = olua_geterrorfunc(L);                     // L: errfunc
     
     luaL_gsub(L, filename, ".lua", "");                 // L: errfunc "xxx.xxxx"
     luaL_gsub(L, lua_tostring(L, -1), "/", ".");        // L: errfunc "xxx.xxxx" "xxx/xxxx"
@@ -408,8 +369,7 @@ int xlua_ccobjgc(lua_State *L)
                 str, obj->getReferenceCount() - 1, olua_objcount() - 1);
             
             if (obj->getReferenceCount() > 0xFFFF) {
-                int errfuc = lua_gettop(L) + 1;
-                lua_pushcfunction(L, xlua_errorfunc);
+                int errfuc = olua_geterrorfunc(L);
                 lua_pushcfunction(L, report_gc_error);
                 lua_pushvalue(L, -3);
                 lua_pcall(L, 1, 0, errfuc);

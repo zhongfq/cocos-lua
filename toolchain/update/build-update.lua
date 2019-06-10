@@ -1,7 +1,7 @@
 local shell = require "core.shell"
 local setting = require "setting"
 local buildManifest = require "build-manifest"
-local buildModule = require "build-module"
+local buildSharding = require "build-sharding"
 
 local ARG_DEBUG = false
 local ARG_NAME = 'LOCAL'
@@ -49,7 +49,7 @@ local conf = {
     NAME = ARG_NAME,
     VERSION = ARG_VERSION,
     LATEST_MANIFEST = latestManifest,
-    MODULES = setting[ARG_NAME].MODULES,
+    SHARDS = setting[ARG_NAME].SHARDS,
     BUILD_PATH = setting[ARG_NAME].BUILD_PATH,
     COMPILE = setting[ARG_NAME].COMPILE,
     URL = setting[ARG_NAME].URL .. '/' ..  ARG_VERSION,
@@ -79,8 +79,8 @@ end
 local hasUpdate = buildManifest(conf)
 
 if hasUpdate then
-    if conf.MODULES then
-        buildModule(conf)
+    if conf.SHARDS then
+        buildSharding(conf)
     end
 
     if conf.BUILD_PATH ~= OUTPUT_PATH then

@@ -184,10 +184,12 @@ function M:_validateAndDownloadAssets()
                 shouldUpdated = true
             end
         else
-            -- if localAsset.date > remoteAsset.date, should rollback
-            runtime.clearStorage()
-            runtime.restart()
-            return
+            -- if localAsset.date > remoteAsset.date, should rollback?
+            if filesystem.exist(self:_resolveAssetPath(path)) then
+                runtime.clearStorage()
+                runtime.restart()
+                return
+            end
         end
 
         if shouldUpdated then

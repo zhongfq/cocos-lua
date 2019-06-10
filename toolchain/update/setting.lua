@@ -1,8 +1,8 @@
 local M = {}
 
-local modules = {
-    {NAME = "module.xgame", PATTERN = '^src/xgame/'},
-    {NAME = "module.main", PATTERN = ".*"},
+local shards = {
+    {NAME = "shard.xgame", PATTERN = '^src/xgame/'},
+    {NAME = "shard.main", PATTERN = ".*"},
 }
 
 M.BUILTIN = {
@@ -17,7 +17,7 @@ M.LOCAL = {
     BUILD_PATH = "../../wwwroot/current",
     URL = "http://127.0.0.1/cocoslua",
     COMPILE = false,
-    MODULES = modules,
+    SHARDS = shards,
 }
 
 return M

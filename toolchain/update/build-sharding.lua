@@ -1,6 +1,6 @@
 local shell = require "core.shell"
 
-local function writeManifest(conf, name, module)
+local function writeManifest(conf, name, shard)
     local manifestPath = conf.BUILD_PATH .. '/' .. name
     local hasUpdate = false
     local data = {}
@@ -9,20 +9,20 @@ local function writeManifest(conf, name, module)
         data[#data + 1] = '\n'
     end
 
-    table.sort(module.assets, function (v1, v2)
+    table.sort(shard.assets, function (v1, v2)
         return v1.path < v2.path
     end)
 
     local latestManifest = shell.readJson(conf.PUBLISH_PATH .. '/current/' .. name, {assets = {}})
 
     writeline('{')
-    writeline('  "package_url":"%s",', module.package_url)
-    writeline('  "manifest_url":"%s",', module.manifest_url)
+    writeline('  "package_url":"%s",', shard.package_url)
+    writeline('  "manifest_url":"%s",', shard.manifest_url)
     writeline('  "date":"%s",', os.date("!%Y-%m-%d %H:%M:%S", os.time() + 8 * 60 * 60))
-    writeline('  "version":"%s",', module.version)
+    writeline('  "version":"%s",', shard.version)
 
     local assets = {}
-    for _, entry in ipairs(module.assets) do
+    for _, entry in ipairs(shard.assets) do
         local latest = latestManifest.assets[entry.path]
         if not latest or latest.md5 ~= entry.md5 or latest.builtin ~= entry.builtin then
             hasUpdate = true
@@ -56,7 +56,7 @@ local function writeVersions(conf)
     end
 
     local t = {}
-    for _, m in ipairs(conf.MODULES) do
+    for _, m in ipairs(conf.SHARDS) do
         local manifest = shell.readJson(conf.BUILD_PATH .. '/' .. m.NAME .. '.manifest')
         t[#t + 1] = string.format('  "%s":{"url":"%s", "version":"%s"}',
             m.NAME, manifest.manifest_url, manifest.version)
@@ -69,11 +69,11 @@ local function writeVersions(conf)
 end
 
 return function (conf)
-    print("start build modules:")
+    print("start build shards:")
 
     local manifest = shell.readJson(conf.ASSETS_MANIFEST_PATH)
-    for _, m in ipairs(conf.MODULES) do
-        local module = {
+    for _, m in ipairs(conf.SHARDS) do
+        local shard = {
             assets = {},
             name = m.NAME,
             version = manifest.version,
@@ -84,19 +84,19 @@ return function (conf)
             for p in string.gmatch(m.PATTERN, '[^;]+') do
                 if string.match(path, p) then
                     info.path = path
-                    module.assets[#module.assets + 1] = info
+                    shard.assets[#shard.assets + 1] = info
                     manifest.assets[path] = nil
                 end
             end
         end
-        writeManifest(conf, m.NAME .. '.manifest', module)
+        writeManifest(conf, m.NAME .. '.manifest', shard)
     end
 
     if next(manifest.assets) then
         for path in pairs(manifest.assets) do
             print("no pattern for path: " .. path)
         end
-        error("build module error")
+        error("build sharding error")
     end
 
     writeVersions(conf)

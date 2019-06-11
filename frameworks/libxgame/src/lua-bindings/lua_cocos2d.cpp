@@ -16822,6 +16822,18 @@ static int luaopen_cocos2d_LuaComponent(lua_State *L)
     return 1;
 }
 
+static cocos2d::Node *_find_ancestor(cocos2d::Node *node1, cocos2d::Node *node2)
+{
+    for (auto *p1 = node1; p1 != nullptr; p1 = p1->getParent()) {
+        for (auto *p2 = node2; p2 != nullptr; p2 = p2->getParent()) {
+            if (p1 == p2) {
+                return p1;
+            }
+        }
+    }
+    return NULL;
+}
+
 static int _cocos2d_Node_create(lua_State *L)
 {
     lua_settop(L, 0);
@@ -19763,6 +19775,52 @@ static int _cocos2d_Node_setCameraMask(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_Node_getBounds(lua_State *L)
+{
+    auto self = olua_checkobj<cocos2d::Node>(L, 1);
+    auto target = olua_checkobj<cocos2d::Node>(L, 2);
+
+    float left = luaL_checknumber(L, 3);
+    float right = luaL_checknumber(L, 4);
+    float top = luaL_checknumber(L, 5);
+    float bottom = luaL_checknumber(L, 6);
+
+    cocos2d::Vec3 p1(left, bottom, 0);
+    cocos2d::Vec3 p2(right, top, 0);
+
+    auto m = cocos2d::Mat4::IDENTITY;
+
+    if (target == self->getParent()) {
+        m = self->getNodeToParentTransform();
+    } else if (target != self) {
+        auto ancestor = _find_ancestor(target, self);
+        if (!ancestor) {
+            m = target->getWorldToNodeTransform() * self->getNodeToWorldTransform();
+        } else if (target == ancestor) {
+            m = self->getNodeToParentTransform(target);
+        } else if (self == ancestor) {
+            m = target->getNodeToParentTransform(self).getInversed();
+        } else {
+            m = target->getNodeToParentTransform(ancestor).getInversed() * self->getNodeToParentTransform(ancestor);
+        }
+    }
+
+    m.transformPoint(&p1);
+    m.transformPoint(&p2);
+
+    left = MIN(p1.x, p2.x);
+    right = MAX(p1.x, p2.x);
+    top = MAX(p1.y, p2.y);
+    bottom = MIN(p1.y, p2.y);
+
+    lua_pushnumber(L, left);
+    lua_pushnumber(L, right);
+    lua_pushnumber(L, top);
+    lua_pushnumber(L, bottom);
+
+    return 4;
+}
+
 static int _cocos2d_Node_setOnEnterCallback(lua_State *L)
 {
     lua_settop(L, 2);
@@ -20415,6 +20473,7 @@ static int luaopen_cocos2d_Node(lua_State *L)
     oluacls_func(L, "isOpacityModifyRGB", _cocos2d_Node_isOpacityModifyRGB);
     oluacls_func(L, "getCameraMask", _cocos2d_Node_getCameraMask);
     oluacls_func(L, "setCameraMask", _cocos2d_Node_setCameraMask);
+    oluacls_func(L, "getBounds", _cocos2d_Node_getBounds);
     oluacls_func(L, "setOnEnterCallback", _cocos2d_Node_setOnEnterCallback);
     oluacls_func(L, "getOnEnterCallback", _cocos2d_Node_getOnEnterCallback);
     oluacls_func(L, "setOnExitCallback", _cocos2d_Node_setOnExitCallback);

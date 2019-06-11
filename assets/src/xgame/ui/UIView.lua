@@ -1,28 +1,24 @@
---
--- $id: UIView.lua O $
---
+local class     = require "xgame.class"
+local Event     = require "xgame.Event"
+local UIAlign   = require "xgame.display.UIAlign"
+local UIObject  = require "xgame.display.UIObject"
 
-local class         = require "xgame.class"
-local Event         = require "xgame.Event"
-local UIAlign       = require "xgame.display.UIAlign"
-local UITouchable   = require "xgame.display.UITouchable"
-
-local pairs = pairs
-
-local UIView = class("UIView", UITouchable)
+local UIView = class("UIView", UIObject)
 
 function UIView:ctor()
     self._initialized       = false
-    self.touchable          = false 
-    self.touch_children     = false 
-    self.horizontal_align   = UIAlign.NONE
-    self.horizontal_center  = 0
-    self.left               = 0
-    self.right              = 0
-    self.vertical_align     = UIAlign.NONE
-    self.vertical_center    = 0
-    self.top                = 0
-    self.bottom             = 0
+    self.touchable          = false
+    self.touchChildren      = false
+    self.layoutParams       = {
+        horizontalAlign     = UIAlign.NONE,
+        horizontalCenter    = 0,
+        left                = 0,
+        right               = 0,
+        verticalAlign       = UIAlign.NONE,
+        verticalCenter      = 0,
+        top                 = 0,
+        bottom              = 0,
+    }
     self.cobj:setIgnoreAnchorPointForPosition(true)
     self.cobj:setAnchorPoint(0.5, 0.5)
 end
@@ -31,170 +27,143 @@ function UIView.Get:initialized()
     return self._initialized
 end
 
-function UIView:validate_display()
+function UIView:validateDisplay()
 end
 
-function UIView:_validate_now()
+function UIView:_validateNow()
     if self._stage and self._parent then
-        self._parent:_notify_update(self)
+        self._parent:_notifyUpdate(self)
     end
 end
 
-function UIView:bounds_test(x, y)
+function UIView:boundsTest(x, y)
     local left, bottom, right, top = 0, 0, self.width, self.height
     return not (x < left or x > right or y > top or y < bottom)
 end
 
-function UIView:get_bounds(target)
+function UIView:getBounds(target)
     return self.cobj:getBounds(target.cobj, 0, self.width, self.height, 0)
 end
 
-function UIView:remove_self()
+function UIView:removeSelf()
     local parent = self.parent
     if parent and self.cobj then
-        parent:remove_child(self)
+        parent:removeChild(self)
     end
 end
 
-function UIView:run_action(action)
+function UIView:runAction(action)
     self.cobj:runAction(action)
 end
 
-function UIView:stop_action(action)
+function UIView:stopAction(action)
     self.cobj:stopAction(action)
 end
 
-function UIView:stop_action_by_tag(tag)
+function UIView:stopActionByTag(tag)
     self.cobj:stopActionByTag(tag)
 end
 
-function UIView:stop_all_actions_by_tag(tag)
+function UIView:stopAllActionsByTag(tag)
     self.cobj:stopAllActionsByTag(tag)
 end
 
-function UIView:stop_all_actions()
+function UIView:stopAllActions()
     self.cobj:stopAllActions()
 end
 
-function UIView:stop_actions_by_flags(flags)
+function UIView:stopActionsByFlags(flags)
     self.cobj:stopActionsByFlags(flags)
 end
 
-function UIView:schedule_update(callback)
-    self.cobj:scheduleUpdateWithPriorityLua(callback, 0)
-end
-
-function UIView:unschedule_update()
-    self.cobj:unscheduleUpdate()
-end
-
-function UIView:global_to_local(x, y)
+function UIView:globalToGocal(x, y)
     return self.cobj:convertToNodeSpace(x, y)
 end
 
-function UIView:local_to_global(x, y)
+function UIView:localToGlobal(x, y)
     return self.cobj:convertToWorldSpace(x, y)
 end
 
-function UIView:set_position(x, y)
-    self.cobj:setPosition(x, y)
+function UIView.Get:x() return self.cobj.x end
+function UIView.Set:x(value)
+    self.cobj.x = value
 end
 
-function UIView:set_scale(x, y)
-    self.cobj:setScale(x, y)
+function UIView.Get:y() return self.cobj.y end
+function UIView.Set:y(value)
+    self.cobj.y = value
 end
 
-function UIView:get_position()
-    return self.cobj:getPosition()
+function UIView.Get:scaleX() return self.cobj.scaleX end
+function UIView.Set:scaleX(value)
+    self.cobj.scaleX = value
 end
 
-function UIView.Get:x() return self.cobj:getPositionX() end
-function UIView.Set:x(value) 
-    self.cobj:setPositionX(value) 
+function UIView.Get:scaleY() return self.cobj.scaleY end
+function UIView.Set:scaleY(value)
+    self.cobj.scaleY = value
 end
 
-function UIView.Get:y() return self.cobj:getPositionY() end
-function UIView.Set:y(value) 
-    self.cobj:setPositionY(value) 
+function UIView.Get:anchorX() return self.cobj.anchorX end
+function UIView.Set:anchorX(value)
+    self.cobj.anchorX = value
 end
 
-function UIView.Get:scale_x() return self.cobj:getScaleX() end
-function UIView.Set:scale_x(value) 
-    self.cobj:setScaleX(value) 
+function UIView.Get:anchorY() return self.cobj.anchorY end
+function UIView.Set:anchorY(value)
+    self.cobj.anchorY = value
 end
 
-function UIView.Get:scale_y() return self.cobj:getScaleY() end
-function UIView.Set:scale_y(value) 
-    self.cobj:setScaleY(value) 
+function UIView.Get:visible() return self.cobj.visible end
+function UIView.Set:visible(value)
+    self.cobj.visible = value
 end
 
-function UIView.Get:anchor_x() return self.cobj:getAnchorX() end
-function UIView.Set:anchor_x(value) 
-    self.cobj:setAnchorX(value) 
+function UIView.Get:rotation() return self.cobj.rotation end
+function UIView.Set:rotation(value)
+    self.cobj.rotation = value
 end
 
-function UIView.Get:anchor_y() return self.cobj:getAnchorY() end
-function UIView.Set:anchor_y(value) 
-    self.cobj:setAnchorY(value) 
+function UIView.Get:color() return self.cobj.color end
+function UIView.Set:color(value)
+    self.cobj.color = value
 end
 
-function UIView.Get:visible() return self.cobj:isVisible() end
-function UIView.Set:visible(value) 
-    self.cobj:setVisible(value) 
+function UIView.Get:alpha() return self.cobj.alpha end
+function UIView.Set:alpha(value)
+    self.cobj.alpha = value
 end
 
-function UIView.Get:rotation() return self.cobj:getRotation() end
-function UIView.Set:rotation(value) 
-    self.cobj:setRotation(value) 
+function UIView.Get:width() return self.cobj.width end
+function UIView.Set:width(value)
+    self.cobj.width = value
 end
 
-local function colortoint(c)
-    return c.r << 16 | c.g << 8 | c.b
-end
-
-function UIView.Get:color() return colortoint(self.cobj:getColor()) end
-function UIView.Set:color(value) 
-    local R = value >> 16 & 0xFF
-    local G = value >> 8 & 0xFF
-    local B = value & 0xFF
-    self.cobj:setColor({r = R, g = G, b = B}) 
-end
-
-function UIView.Get:alpha() return self.cobj:getOpacity() / 255 end
-function UIView.Set:alpha(value) 
-    self.cobj:setOpacity(value * 255) 
-end
-
-function UIView.Get:width() return self.cobj:getWidth() end
-function UIView.Set:width(value) 
-    self.cobj:setWidth(value) 
-end
-
-function UIView.Get:height() return self.cobj:getHeight() end
-function UIView.Set:height(value) 
-    self.cobj:setHeight(value) 
+function UIView.Get:height() return self.cobj.height end
+function UIView.Set:height(value)
+    self.cobj.height = value
 end
 
 function UIView.Get:parent() return self._parent end
 
 function UIView.Get:stage() return self._stage end
-function UIView:_set_stage(value)
+function UIView:_setStage(value)
     --remove form stage
     if not value and self._stage then
         local stage = self._stage
         if stage.focus == self then
             stage.focus = false
         end
-        self:dispatch_event(Event.REMOVED_FORM_STAGE)
-        stage:dispatch_event(Event.REMOVED_FORM_STAGE, self)
+        self:dispatch(Event.REMOVED)
+        stage:dispatch(Event.REMOVED, self)
     end
 
     self._stage = value
 
     --add to stage
     if value then
-        self:dispatch_event(Event.ADDED_TO_STAGE)
-        value:dispatch_event(Event.ADDED_TO_STAGE, self)
+        self:dispatch(Event.ADDED)
+        value:dispatch(Event.ADDED, self)
     end
 end
 

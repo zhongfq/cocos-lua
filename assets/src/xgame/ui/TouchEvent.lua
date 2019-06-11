@@ -1,14 +1,10 @@
---
--- $id: TouchEvent.lua O $
---
-
 return {
     CLICK = "click",
-    TOUCH_DOWN = "touch_down",
-    TOUCH_UP = "touch_up",
-    TOUCH_MOVE = "touch_move",
-    SCROLL_BEGIN = "scroll_begin",
+    TOUCH_DOWN = "touchDown",
+    TOUCH_UP = "touchUp",
+    TOUCH_MOVE = "touchMove",
+    SCROLL_BEGIN = "scrollBegin",
     SCROLLING = "scrolling",
-    SCROLL_END = "scroll_end",
+    SCROLL_END = "scrollEnd",
     ZOOMING = "zooming",
 }

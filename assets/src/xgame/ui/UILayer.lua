@@ -1,7 +1,3 @@
---
--- $id: UILayer.lua O $
---
-
 local class             = require "xgame.class"
 local Event             = require "xgame.Event"
 local Array             = require "xgame.Array"
@@ -16,8 +12,8 @@ local UILayer = class("UILayer", UIView)
 function UILayer:ctor()
     self.music_option = {} -- path|keep
     self.render_option = {}
-    self._raw_children = {} 
-    self._children = false 
+    self._raw_children = {}
+    self._children = false
     self._real_parent = self
     self.touch_children = true
     self.cobj:setCascadeOpacityEnabled(true)
@@ -127,7 +123,7 @@ function UILayer:add_child_at(child, index)
     if self._children then
         self._children:add_item_at(child, index)
         for i = index + 1, self.num_children do
-            local child = self._children[i] 
+            local child = self._children[i]
             child.cobj:setLocalZOrder(i)
         end
     end
@@ -149,7 +145,7 @@ end
 
 local function internal_remove_child(child)
     if child.stage then
-        child:stop_all_actions()    
+        child:stop_all_actions()
         child:_set_stage(false)
         child._parent = false
         child.cobj = false
@@ -170,7 +166,7 @@ function UILayer:remove_child(child)
         if index > 0 then
             self._children:remove_item_at(index)
             for i = index, self.num_children do
-                local child = self._children[i] 
+                local child = self._children[i]
                 child.cobj:setLocalZOrder(i)
             end
         end
@@ -227,7 +223,7 @@ function UILayer.Set:layout(value)
     self._layout:do_layout()
 end
 
-function UILayer.Get:clipping_enabled() 
+function UILayer.Get:clipping_enabled()
     return self.cobj:isClippingEnabled()
 end
 

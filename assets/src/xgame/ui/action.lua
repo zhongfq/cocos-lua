@@ -47,198 +47,198 @@ local EaseQuinticActionInOut = require "cc.EaseQuinticActionInOut"
 
 local M = {}
 
-function M.animate(...)
+function M.Animate(...)
     return Animate.create(...)
 end
 
-function M.moveTo(duration, x, y)
+function M.MoveTo(duration, x, y)
     return MoveTo.create(duration, x, y)
 end
 
-function M.moveBy(duration, x, y)
+function M.MoveBy(duration, x, y)
     return MoveBy.create(duration, x, y)
 end
 
-function M.callFunc(func)
+function M.CallFunc(func)
     return CallFunc.create(func)
 end
 
-function M.sequence(...)
+function M.Sequence(...)
     return Sequence.create(...)
 end
 
-function M.delayTime(delay)
+function M.DelayTime(delay)
     return DelayTime.create(delay)
 end
 
-function M.delayCall(time, func)
-    return M.sequence(M.delayTime(time), M.callFunc(func))
+function M.DelayCall(time, func)
+    return M.Sequence(M.DelayTime(time), M.CallFunc(func))
 end
 
-function M.scaleTo(...)
+function M.ScaleTo(...)
     return ScaleTo.create(...)
 end
 
-function M.speed(...)
+function M.Speed(...)
     return Speed.create(...)
 end
 
-function M.repeatTimes(...)
+function M.Repeat(...)
     return Repeat.create(...)
 end
 
-function M.repeatForever(...)
+function M.RepeatForever(...)
     return RepeatForever.create(...)
 end
 
-function M.fadeTo(duration, alpha)
+function M.FadeTo(duration, alpha)
     return FadeTo.create(duration, alpha * 255)
 end
 
-function M.fadeIn(...)
+function M.FadeIn(...)
     return FadeIn.create(...)
 end
 
-function M.fadeOut(...)
+function M.FadeOut(...)
     return FadeOut.create(...)
 end
 
-function M.removeSelf(view)
+function M.RemoveSelf(view)
     assert(view)
-    return M.callFunc(function()
+    return M.CallFunc(function()
         view:removeSelf()
     end)
 end
 
-function M.rotateBy(...)
+function M.RotateBy(...)
     return RotateBy.create(...)
 end
 
-function M.hide()
+function M.Hide()
     return Hide.create()
 end
 
-function M.show()
+function M.Show()
     return Show.create()
 end
 
-function M.spawn(...)
+function M.Spawn(...)
     return Spawn.create(...)
 end
 
-function M.rotateTo(...)
+function M.RotateTo(...)
     return RotateTo.create(...)
 end
 
-function M.easeRate(...)
+function M.EaseRate(...)
     return EaseRateAction.create(...)
 end
 
-function M.easeIn(...)
+function M.EaseIn(...)
     return EaseIn.create(...)
 end
 
-function M.easeOut(...)
+function M.EaseOut(...)
     return EaseOut.create(...)
 end
 
-function M.easeInOut(...)
+function M.EaseInOut(...)
     return EaseInOut.create(...)
 end
 
-function M.easeExponentialIn(...)
+function M.EaseExponentialIn(...)
     return EaseExponentialIn.create(...)
 end
 
-function M.easeExponentialOut(...)
+function M.EaseExponentialOut(...)
     return EaseExponentialOut.create(...)
 end
 
-function M.easeExponentialInOut(...)
+function M.EaseExponentialInOut(...)
     return EaseExponentialInOut.create(...)
 end
 
-function M.easeSineIn(...)
+function M.EaseSineIn(...)
     return EaseSineIn.create(...)
 end
 
-function M.easeSineOut(...)
+function M.EaseSineOut(...)
     return EaseSineOut.create(...)
 end
 
-function M.easeSineInOut(...)
+function M.EaseSineInOut(...)
     return EaseSineInOut.create(...)
 end
 
-function M.easeElasticIn(...)
+function M.EaseElasticIn(...)
     return EaseElasticIn.create(...)
 end
 
-function M.easeElasticOut(...)
+function M.EaseElasticOut(...)
     return EaseElasticOut.create(...)
 end
 
-function M.easeElasticInOut(...)
+function M.EaseElasticInOut(...)
     return EaseElasticInOut.create(...)
 end
 
-function M.easeBounceIn(...)
+function M.EaseBounceIn(...)
     return EaseBounceIn.create(...)
 end
 
-function M.easeBounceOut(...)
+function M.EaseBounceOut(...)
     return EaseBounceOut.create(...)
 end
 
-function M.easeBounceInOut(...)
+function M.EaseBounceInOut(...)
     return EaseBounceInOut.create(...)
 end
 
-function M.easeBackIn(...)
+function M.EaseBackIn(...)
     return EaseBackIn.create(...)
 end
 
-function M.easeBackOut(...)
+function M.EaseBackOut(...)
     return EaseBackOut.create(...)
 end
 
-function M.easeBackInOut(...)
+function M.EaseBackInOut(...)
     return EaseBackInOut.create(...)
 end
 
-function M.easeQuadraticIn(...)
+function M.EaseQuadraticIn(...)
     return EaseQuadraticActionIn.create(...)
 end
 
-function M.easeQuadraticOut(...)
+function M.EaseQuadraticOut(...)
     return EaseQuadraticActionOut.create(...)
 end
 
-function M.easeQuadraticInOut(...)
+function M.EaseQuadraticInOut(...)
     return EaseQuadraticActionInOut.create(...)
 end
 
-function M.easeQuarticIn(...)
+function M.EaseQuarticIn(...)
     return EaseQuarticActionIn.create(...)
 end
 
-function M.easeQuarticOut(...)
+function M.EaseQuarticOut(...)
     return EaseQuarticActionOut.create(...)
 end
 
-function M.easeQuarticInOut(...)
+function M.EaseQuarticInOut(...)
     return EaseQuarticActionInOut.create(...)
 end
 
-function M.easeQuinticIn(...)
+function M.EaseQuinticIn(...)
     return EaseQuinticActionIn.create(...)
 end
 
-function M.easeQuinticOut(...)
+function M.EaseQuinticOut(...)
     return EaseQuinticActionOut.create(...)
 end
 
-function M.easeQuinticInOut(...)
+function M.EaseQuinticInOut(...)
     return EaseQuinticActionInOut.create(...)
 end
 

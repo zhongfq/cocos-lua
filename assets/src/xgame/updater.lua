@@ -1,5 +1,4 @@
 local class         = require "xgame.class"
-local util          = require "xgame.util"
 local downloader    = require "xgame.downloader"
 local http          = require "xgame.http"
 local filesystem    = require "xgame.filesystem"
@@ -44,7 +43,7 @@ function M:_deferTry()
             self:_checkVersion()
         end)
     else
-        self.onError('version')
+        self:_didError('version')
     end
 end
 
@@ -141,14 +140,15 @@ function M:_downloadAssets(localManifest, assets)
                 localManifest:update(path, asset)
 
                 current = current + 1
-                self.onUpdate('donwloadAssets', current, total)
+                self:_didUpdate('donwloadAssets', current, total)
 
                 if not next(assets) then
+                    localManifest:flush()
                     self:_saveRemoteManifestVersion()
-                    self.onComplete(true)
+                    self:_didComplete(true)
                 end
             else
-                self.onError('asset', asset)
+                self._didError('asset', asset)
             end
         end
         downloader.load({
@@ -159,11 +159,11 @@ function M:_downloadAssets(localManifest, assets)
             callback = callback,
         })
     end
-    self.onUpdate('donwloadAssets', current, total)
+    self:_didUpdate('donwloadAssets', current, total)
 end
 
 function M:_verifyAssets()
-    self.onUpdate('verifyAssets')
+    self:_didUpdate('verifyAssets')
     
     if not filesystem.exist(LOCAL_MANIFEST_PATH) then
         filesystem.copy(BUILTIN_MANIFEST_PATH, LOCAL_MANIFEST_PATH)
@@ -175,13 +175,18 @@ function M:_verifyAssets()
 
     -- compare builtin.manifest and local.manifest
     -- remove file when the date of builtin asset is newer
+    local shouldSave = false
     for path, builtinAsset in pairs(builtinManifest.assets) do
         local localAsset = localManifest.assets[path]
         if not localAsset or builtinAsset.date > localAsset.date then
             self:_removeFileIfExist(self:_resolveAssetPath(path))
-            localManifest:update(path, builtinAsset)
+            shouldSave = true
+            localManifest.assets[path] = builtinAsset
             print('use builtin file asset: ' .. path)
         end
+    end
+    if shouldSave then
+        localManifest:flush()
     end
 
     -- compare local.manifest and remote.manifest, should updated when:
@@ -229,12 +234,12 @@ function M:_verifyAssets()
     else
         print("all assets is up-to-date")
         self:_saveRemoteManifestVersion()
-        self.onComplete(false)
+        self:_didComplete(false)
     end
 end
 
 function M:_checkVersion()
-    self.onUpdate('checkUpdate')
+    self:_didUpdate('checkUpdate')
     http.block(function ()
         local version = self:_readManifestVersion(REMOTE_MANIFEST_PATH)
         local url = string.format('%s?os=%s&runtime=%s&version=%s&channel=%s',
@@ -247,7 +252,7 @@ function M:_checkVersion()
 
         local newVersion = "0.0.0"
 
-        self.onUpdate('updateManifest')
+        self:_didUpdate('updateManifest')
         for name, info in pairs(list) do
             newVersion = self:_maxVersion(newVersion, info.version)
             self:_checkAndDownloadManifest(name, info)
@@ -264,6 +269,19 @@ function M:_checkVersion()
             self:_verifyAssets()
         end
     end)
+end
+
+function M:_didComplete(...)
+    __TRACEBACK__ = _traceback
+    self.onComplete(...)
+end
+
+function M:_didError(...)
+    self.onError(...)
+end
+
+function M:_didUpdate(...)
+    self.onUpdate(...)
 end
 
 function M:start()

@@ -148,7 +148,7 @@ function M:_downloadAssets(localManifest, assets)
                     self:_didComplete(true)
                 end
             else
-                self._didError('asset', asset)
+                self:_didError('asset', asset)
             end
         end
         downloader.load({

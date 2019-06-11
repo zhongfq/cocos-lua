@@ -7,12 +7,8 @@ function main()
         print("## onError")
     end
 
-    inst.onUpdate = function (...)
-        print("## onUpdate", ...)
-    end
-
-    inst.onMessage = function (...)
-        print("## onMessage", ...)
+    inst.onUpdate = function (event, current, total)
+        print("## onUpdate", event, current, total)
     end
 
     inst.onComplete = function (shouldRestart)

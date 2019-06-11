@@ -1265,8 +1265,8 @@ static int _olua_with(lua_State *L)
     luaL_checktype(L, 1, LUA_TUSERDATA);
     luaL_checktype(L, 3, LUA_TFUNCTION);
     const char *cls = olua_checkstring(L, 2);
-    if (!lua_getmetatable(L, 1)) {      // L: obj cls func mt trackback
-        lua_pushnil(L);                 // L: obj cls func nil trackback
+    if (!lua_getmetatable(L, 1)) {      // L: obj cls func mt
+        lua_pushnil(L);                 // L: obj cls func nil
     }
     
     if (luaL_getmetatable(L, cls) == LUA_TTABLE) {

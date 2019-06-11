@@ -159,7 +159,8 @@ DragonBonesData* CCFactory::loadDragonBonesData(const std::string& filePath, con
 
 TextureAtlasData* CCFactory::loadTextureAtlasData(const std::string& filePath, const std::string& name, float scale)
 {
-    _prevPath = cocos2d::FileUtils::getInstance()->fullPathForFilename(filePath);
+    _prevPath = filePath;
+//    _prevPath = cocos2d::FileUtils::getInstance()->fullPathForFilename(filePath);
     const auto data = cocos2d::FileUtils::getInstance()->getStringFromFile(_prevPath);
     if (data.empty())
     {

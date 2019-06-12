@@ -92,4 +92,41 @@ cls.vars [[
     @nullable std::function<int(Widget::FocusDirection, Widget*)> onPassFocusToChild;
 ]]
 
+local cls = class(M)
+cls.CPPCLS = "cocos2d::ui::MaskLayout"
+cls.LUACLS = "ccui.MaskLayout"
+cls.SUPERCLS = "ccui.Layout"
+cls.CHUNK = [[
+NS_CC_BEGIN
+namespace ui {
+class MaskLayout : public Layout {
+public:
+    static MaskLayout *create()
+    {
+        MaskLayout *layout = new (std::nothrow) MaskLayout();
+        if (layout && layout->init())
+        {
+            layout->autorelease();
+            return layout;
+        }
+        CC_SAFE_DELETE(layout);
+        return nullptr;
+    };
+    
+    cocos2d::DrawNode *getClippingNode()
+    {
+        return _clippingStencil;
+    };
+};
+}
+NS_CC_END
+]]
+cls.funcs [[
+    static MaskLayout *create()
+    cocos2d::DrawNode *getClippingNode()
+]]
+cls.props [[
+    clippingNode
+]]
+
 return M

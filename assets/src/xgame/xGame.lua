@@ -1,11 +1,11 @@
 local class         = require "xgame.class"
-local Event         = require "xgame.Event"
+local Event         = require "xgame.event.Event"
 local SceneStack    = require "xgame.private.SceneStack"
 local timer         = require "xgame.timer"
 local runtime       = require "xgame.runtime"
 local Director      = require "cc.Director"
 
-xGame = class("xGame", require("xgame.EventDispatcher"))
+xGame = class("xGame", require("xgame.event.EventDispatcher"))
 
 function xGame:ctor()
     self._sceneStack = SceneStack.new()

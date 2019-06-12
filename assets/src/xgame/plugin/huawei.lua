@@ -1,13 +1,13 @@
 local class         = require "xgame.class"
 local util          = require "xgame.util"
 local runtime       = require "xgame.runtime"
-local PluginEvent   = require "xgame.plugins.PluginEvent"
+local PluginEvent   = require "xgame.plugin.PluginEvent"
 local cjson         = require "kernel.cjson.safe"
 
 local trace = util.trace("[huawei]")
 local impl
 
-local Huawei = class("Huawei", require("xgame.EventDispatcher"))
+local Huawei = class("Huawei", require("xgame.event.EventDispatcher"))
 
 function Huawei:ctor()
     impl:setDispatcher(function (...)

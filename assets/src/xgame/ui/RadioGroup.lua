@@ -3,8 +3,8 @@
 --
 
 local class             = require "xgame.class"
-local Event             = require "xgame.Event"
-local EventDispatcher   = require "xgame.EventDispatcher"
+local Event             = require "xgame.event.Event"
+local EventDispatcher   = require "xgame.event.EventDispatcher"
 local xtable            = require "xgame.xtable"
 
 local RadioGroup = class("RadioGroup", EventDispatcher)

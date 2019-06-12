@@ -1,13 +1,13 @@
 local class         = require "xgame.class"
 local util          = require "xgame.util"
 local runtime       = require "xgame.runtime"
-local PluginEvent   = require "xgame.plugins.PluginEvent"
+local PluginEvent   = require "xgame.plugin.PluginEvent"
 local cjson         = require "kernel.cjson.safe"
 
 local trace = util.trace("[alipay]")
 local impl
 
-local Alipay = class("Alipay", require("xgame.EventDispatcher"))
+local Alipay = class("Alipay", require("xgame.event.EventDispatcher"))
 
 function Alipay:ctor()
     impl:setDispatcher(function (...)

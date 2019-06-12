@@ -4,7 +4,7 @@
 
 local class         = require "xgame.class"
 local util          = require "xgame.util"
-local Event         = require "xgame.Event"
+local Event         = require "xgame.event.Event"
 local assetcache    = require "xgame.assetcache"
 local TouchEvent    = require "xgame.display.TouchEvent"
 local DataLoader    = require "xgame.display.support.DataLoader"

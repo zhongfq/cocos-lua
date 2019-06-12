@@ -1,19 +1,15 @@
---
--- $id: MixScene.lua O $
---
-
 local class         = require "xgame.class"
-local Timer         = require "xgame.Timer"
+local timer         = require "xgame.timer"
 local HandlerProxy  = require "xgame.HandlerProxy"
 local UIScene       = require "xgame.display.UIScene"
 
 local MixScene = class("MixScene", UIScene)
 
 function MixScene:ctor()
-    self.mediator_class = self.class
+    self.mediatorClass = self.class
     self._event_proxy = HandlerProxy.new()
-    self._timer = Timer.new()
-    self._update_handler = xGame:schedule(0, function (delta)
+    self._timer = timer.new()
+    self._updateHandler = xGame:schedule(0, function (delta)
         self._timer:update(delta)
     end)
     self.E = function (target, priority)
@@ -26,19 +22,19 @@ function MixScene:has_more_assets()
     return false
 end
 
-function MixScene:did_active()
-    UIScene.did_active(self)
-    if not self._update_handler then
-        self._update_handler = xGame:schedule(0, function (delta)
+function MixScene:didActive()
+    UIScene.didActive(self)
+    if not self._updateHandler then
+        self._updateHandler = xGame:schedule(0, function (delta)
             self._timer:update(delta)
         end)
     end
 end
 
-function MixScene:did_inactive()
-    UIScene.did_inactive(self)
-    xGame:unschedule(self._update_handler)
-    self._update_handler = false
+function MixScene:didInactive()
+    UIScene.didInactive(self)
+    xGame:unschedule(self._updateHandler)
+    self._updateHandler = false
 end
 
 function MixScene:on_create()
@@ -46,7 +42,7 @@ end
 
 function MixScene:on_destroy()
     self._event_proxy:clear()
-    xGame:unschedule(self._update_handler)
+    xGame:unschedule(self._updateHandler)
     self:remove_children()
     self._event_proxy = false
     self._timer = false

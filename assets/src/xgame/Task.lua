@@ -1,7 +1,7 @@
 local class = require "xgame.class"
-local Event = require "xgame.Event"
+local Event = require "xgame.event.Event"
 
-local Task = class("Task", require("xgame.EventDispatcher"))
+local Task = class("Task", require("xgame.event.EventDispatcher"))
 
 function Task:ctor(name)
     self.name = name or "<unknow task>"

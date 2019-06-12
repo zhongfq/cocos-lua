@@ -1,8 +1,8 @@
 local class         = require "xgame.class"
 local util          = require "xgame.util"
 local http          = require "xgame.http"
-local Event         = require "xgame.Event"
-local PluginEvent   = require "xgame.plugins.PluginEvent"
+local Event         = require "xgame.event.Event"
+local PluginEvent   = require "xgame.plugin.PluginEvent"
 local timer         = require "xgame.timer"
 local runtime       = require "xgame.runtime"
 local impl          = require "kernel.plugins.wechat"
@@ -28,7 +28,7 @@ local WECHAT_AUTH_ERR_OK = 0 --Auth成功
 local WECHAT_AUTH_ERR_CANCEL = -4    --用户取消授权
 -- local WECHAT_AUTH_ERR_TIMEOUT = -5   --超时
 
-local WeChat = class("WeChat", require("xgame.EventDispatcher"))
+local WeChat = class("WeChat", require("xgame.event.EventDispatcher"))
 
 function WeChat:ctor()
     self.authScope = 'snsapi_userinfo'

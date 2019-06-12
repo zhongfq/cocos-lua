@@ -3,7 +3,7 @@
 --
 
 local class         = require "xgame.class"
-local Event         = require "xgame.Event"
+local Event         = require "xgame.event.Event"
 local TouchEvent    = require "xgame.display.TouchEvent"
 local ScrollImpl    = require "xgame.display.support.ScrollImpl"
 local MovieClip     = require "xgame.swf.MovieClip"

@@ -4,7 +4,7 @@
 
 local class     = require "xgame.class"
 local util      = require "xgame.util"
-local Event     = require "xgame.Event"
+local Event     = require "xgame.event.Event"
 local Image     = require "xgame.swf.Image"
 local Shape     = require "xgame.swf.Shape"
 local TextField = require "xgame.swf.TextField"

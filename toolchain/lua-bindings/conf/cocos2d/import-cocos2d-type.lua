@@ -439,6 +439,7 @@ REG_TYPE {
         cocos2d::ui::EditBoxDelegate *
         cocos2d::ui::HBox *
         cocos2d::ui::ImageView *
+        cocos2d::ui::MaskLayout *
         cocos2d::ui::Layout *
         cocos2d::ui::LayoutComponent *
         cocos2d::ui::LayoutParameter *

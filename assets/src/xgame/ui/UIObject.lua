@@ -4,7 +4,7 @@ local TouchEvent    = require "xgame.display.TouchEvent"
 
 local pairs = pairs
 
-local UIObject = class("UIObject", require("xgame.EventDispatcher"))
+local UIObject = class("UIObject", require("xgame.event.EventDispatcher"))
 
 function UIObject:ctor()
     self.touchable = false

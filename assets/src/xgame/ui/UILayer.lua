@@ -1,8 +1,8 @@
 local class             = require "xgame.class"
-local Event             = require "xgame.Event"
 local Array             = require "xgame.Array"
 local UIView            = require "xgame.display.UIView"
 local AbsoluteLayout    = require "xgame.display.support.AbsoluteLayout"
+local MaskLayout        = require "ccui.MaskLayout"
 
 local assert = assert
 local ipairs = ipairs
@@ -10,12 +10,12 @@ local ipairs = ipairs
 local UILayer = class("UILayer", UIView)
 
 function UILayer:ctor()
-    self.music_option = {} -- path|keep
-    self.render_option = {}
-    self._raw_children = {}
+    self.musicOption = {} -- path|keep
+    self.renderOption = {}
+    self._rawChildren = {}
     self._children = false
-    self._real_parent = self
-    self.touch_children = true
+    self._realParent = self
+    self.touchChildren = true
     self.cobj:setCascadeOpacityEnabled(true)
     self.cobj:setCascadeColorEnabled(false)
     self.cobj:setTouchEnabled(false)
@@ -23,25 +23,13 @@ function UILayer:ctor()
 end
 
 function UILayer.Get:cobj()
-    local cobj = ccui.Layout:create()
+    local cobj = MaskLayout.create()
     rawset(self, "cobj", cobj)
     return cobj
 end
 
-function UILayer:_set_children_active(target)
-    if target.children then
-        for _, child in ipairs(target.children) do
-            if child.did_active then
-                child:did_active()
-            else
-                self:_set_children_active(child)
-            end
-        end
-    end
-end
-
-function UILayer:adapt_children(adapt_width, adapt_height)
-    self._layout:do_layout()
+function UILayer:reszieToChildren(resizeWidth, resizeHeight)
+    self._layout:doLayout()
     local left = math.maxinteger
     local right = math.mininteger
     local top = math.mininteger
@@ -51,7 +39,7 @@ function UILayer:adapt_children(adapt_width, adapt_height)
             goto continue
         end
 
-        local cl, cr, ct, cb = child:get_bounds(self)
+        local cl, cr, ct, cb = child:getBounds(self)
         left = math.min(left, cl)
         right = math.max(right, cr)
         top = math.max(top, ct)
@@ -60,22 +48,26 @@ function UILayer:adapt_children(adapt_width, adapt_height)
         ::continue::
     end
 
-    if adapt_width ~= false then
+    if resizeWidth ~= false then
         self.width = right - left
     end
 
-    if adapt_height ~= false then
+    if resizeHeight ~= false then
         self.height = top - bottom
     end
 end
 
-function UILayer:_set_children_inactive(target)
+function UILayer:_setChildrenActive(target, active)
     if target.children then
         for _, child in ipairs(target.children) do
-            if child.did_inactive then
-                child:did_inactive()
+            if child.didActive or child.didInactive then
+                if active then
+                    child:didActive()
+                else
+                    child.didInactive()
+                end
             else
-                self:_set_children_inactive(child)
+                self:_setChildrenActive(child, active)
             end
         end
     end
@@ -83,15 +75,14 @@ end
 
 function UILayer:hit(points)
     -- test children
-    if self.touch_children then
+    if self.touchChildren then
         local children = self.children
         for i = #self.children, 1, -1 do
             local child = children[i]
-            if child and child.cobj and child.visible and (child.touchable
-                or child.touch_children) then
-                local hit, capture_points = child:hit(points)
+            if child.visible and (child.touchable or child.touchChildren) then
+                local hit, capturePoints = child:hit(points)
                 if hit then
-                    return hit, capture_points
+                    return hit, capturePoints
                 end
             end
         end
@@ -103,108 +94,108 @@ function UILayer:hit(points)
     end
 end
 
-function UILayer:_notify_update(child)
+function UILayer:_notifyUpdate(child)
     self.layout:notify("UPDATE", child)
 end
 
-function UILayer:add_child_at(child, index)
-    assert(not child.stage)
-    assert(index > 0 and index <= self.num_children + 1, index)
-
-    self._raw_children[child.cobj] = child
-    self.cobj:addChild(child.cobj, index, -1)
-
-    child._parent = self._real_parent
-
-    if self._stage then
-        child:_set_stage(self._stage)
-    end
-
-    if self._children then
-        self._children:add_item_at(child, index)
-        for i = index + 1, self.num_children do
-            local child = self._children[i]
-            child.cobj:setLocalZOrder(i)
+function UILayer:_buildChildren()
+    if not self._children then
+        self.cobj:sortAllChildren()
+        self._children = Array.new()
+        for i, rawChild in ipairs(self.cobj.children) do
+            rawChild:setLocalZOrder(i)
+            self._children:add(self._rawChildren[rawChild])
         end
     end
+end
 
-    self:_notify_update(child)
+function UILayer:addChild(child)
+    return self:addChildAt(child, self.numChildren + 1)
+end
+
+function UILayer:_internalAddChild(child, index, silence)
+    self._rawChildren[child.cobj] = child
+    self.cobj:addChild(child, index)
+    self.children:addAt(child, index)
+    child._parent = self._real_parent
+    if self.stage and not silence then
+        child:_setStage(self.stage)
+    end
+end
+
+function UILayer:addChildAt(child, index)
+    self:_buildChildren()
+    if child.parent then
+        local oldIndex = child.parent:getChildIndex(child)
+        assert(oldIndex > 0)
+        child.parent:_internalRemoveChild(oldIndex, true)
+        self:_internalAddChild(child, index, true)
+    else
+        self:_internalAddChild(child, index)
+    end
+
+    self:_notifyUpdate(child)
 
     return child
 end
 
-function UILayer:add_child(child)
-    return self:add_child_at(child, self.num_children + 1)
-end
-
-function UILayer:get_child_at(index)
+function UILayer:getChildAt(index)
     if self._children then
-        return self._children:get_item_at(index)
+        return self._children:at(index)
     end
 end
 
-local function internal_remove_child(child)
-    if child.stage then
-        child:stop_all_actions()
-        child:_set_stage(false)
-        child._parent = false
-        child.cobj = false
-    end
-end
-
-function UILayer:remove_child(child)
-    local cobj = child.cobj
-    assert(cobj)
-
-	internal_remove_child(child)
-
-    self._raw_children[cobj] = nil
-    self.cobj:removeChild(cobj, true) -- child.cobj will be nil
-
-    if self._children then
-        local index = self._children:get_item_index(child)
-        if index > 0 then
-            self._children:remove_item_at(index)
-            for i = index, self.num_children do
-                local child = self._children[i]
-                child.cobj:setLocalZOrder(i)
-            end
+function UILayer:getChildIndex(child)
+    for index, child2 in ipairs(self.children) do
+        if child.cobj == child2.cobj then
+            return index
         end
     end
-
-    self:_notify_update(child)
+    return 0
 end
 
-function UILayer:remove_children()
-    for _, child in pairs(self._raw_children) do
-        internal_remove_child(child)
+function UILayer:_internalRemoveChild(index, silence)
+    local child = self.children:removeAt(index)
+    self._rawChildren[child.cobj] = nil
+    self.cobj:removeChild(child.cobj)
+    child._parent = false
+    if child.stage and not silence then
+        child:_setStage(false)
     end
-    self.cobj:removeAllChildren(true)
-    self._raw_children = {}
+    return child
+end
 
-    if self._children then
-        self._children:clear()
+function UILayer:removeChild(child)
+    local index = self.children:indexOf(child)
+    return self:removeChildAt(index)
+end
+
+function UILayer:removeChildAt(index)
+    local child = self:_internalRemoveChild(index)
+    self:_notifyUpdate(child)
+    return child
+end
+
+function UILayer:removeChildren(from, to)
+    local numChildren = self.numChildren
+    from = from or 1
+    to = math.min(numChildren, to or numChildren)
+    for i = to, from, -1 do
+        self:removeChildAt(i)
     end
 end
 
-function UILayer:reorder_child(child, order)
+function UILayer:reorderChild(child, order)
     self.cobj:reorderChild(child.cobj, order)
     self._children = false
 end
 
-function UILayer.Get:num_children()
+function UILayer.Get:numChildren()
     return #self.children
 end
 
 function UILayer.Get:children()
-    if not self._children then
-        self.cobj:sortAllChildren()
-        self._children = Array.new()
-        for i, raw_child in ipairs(self.cobj:getChildren()) do
-            raw_child:setLocalZOrder(i)
-            self._children:add_item(self._raw_children[raw_child])
-        end
-    end
+    self:_buildChildren()
     return self._children
 end
 
@@ -213,47 +204,26 @@ function UILayer.Get:layout()
         self._layout = AbsoluteLayout.new()
         self._layout.target = self
     end
-
     return self._layout
 end
 
 function UILayer.Set:layout(value)
     self._layout = value
     self._layout.target = self
-    self._layout:do_layout()
+    self._layout:doLayout()
 end
 
-function UILayer.Get:clipping_enabled()
-    return self.cobj:isClippingEnabled()
+function UILayer.Get:clippingEnabled() return self.cobj.clippingEnabled end
+function UILayer.Set:clippingEnabled(value)
+    self.cobj.clippingEnabled = value
 end
 
-function UILayer.Set:clipping_enabled(value)
-    return self.cobj:setClippingEnabled(value)
-end
-
-function UILayer:_set_stage(value)
+function UILayer:_setStage(value)
     if self._stage ~= value then
         for _, child in ipairs(self.children) do
-            child:_set_stage(value)
-            if not value then
-                child.cobj = false
-            end
+            child:_setStage(value)
         end
-        UIView._set_stage(self, value)
-    end
-end
-
-function UILayer.Set:width(value)
-    self.cobj:setWidth(value)
-    if self.background_image then
-        self.background_image:setWidth(value)
-    end
-end
-
-function UILayer.Set:height(value)
-    self.cobj:setHeight(value)
-    if self.background_image then
-        self.background_image:setHeight(value)
+        UIView._setStage(self, value)
     end
 end
 

@@ -4,7 +4,7 @@
 
 local class         = require "xgame.class"
 local AudioEngine   = require "xgame.AudioEngine"
-local Event         = require "xgame.Event"
+local Event         = require "xgame.event.Event"
 local HandlerProxy  = require "xgame.HandlerProxy"
 local filesystem    = require "xgame.filesystem"
 local LoadTask      = require "xgame.loader.LoadTask"

@@ -3,7 +3,7 @@
 --
 
 local class = require "xgame.class"
-local Event = require "xgame.Event"
+local Event = require "xgame.event.Event"
 
 local LayoutManager = class("LayoutManager")
 

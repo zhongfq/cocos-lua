@@ -4381,6 +4381,69 @@ static int luaopen_cocos2d_ui_Layout(lua_State *L)
     return 1;
 }
 
+NS_CC_BEGIN
+namespace ui {
+class MaskLayout : public Layout {
+public:
+    static MaskLayout *create()
+    {
+        MaskLayout *layout = new (std::nothrow) MaskLayout();
+        if (layout && layout->init())
+        {
+            layout->autorelease();
+            return layout;
+        }
+        CC_SAFE_DELETE(layout);
+        return nullptr;
+    };
+
+    cocos2d::DrawNode *getClippingNode()
+    {
+        return _clippingStencil;
+    };
+};
+}
+NS_CC_END
+
+static int _cocos2d_ui_MaskLayout_create(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static MaskLayout *create()
+    cocos2d::ui::MaskLayout *ret = (cocos2d::ui::MaskLayout *)cocos2d::ui::MaskLayout::create();
+    int num_ret = olua_push_cppobj<cocos2d::ui::MaskLayout>(L, ret, "ccui.MaskLayout");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_MaskLayout_getClippingNode(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ui::MaskLayout *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.MaskLayout");
+
+    // cocos2d::DrawNode *getClippingNode()
+    cocos2d::DrawNode *ret = (cocos2d::DrawNode *)self->getClippingNode();
+    int num_ret = olua_push_cppobj<cocos2d::DrawNode>(L, ret, "cc.DrawNode");
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_ui_MaskLayout(lua_State *L)
+{
+    oluacls_class(L, "ccui.MaskLayout", "ccui.Layout");
+    oluacls_func(L, "create", _cocos2d_ui_MaskLayout_create);
+    oluacls_func(L, "getClippingNode", _cocos2d_ui_MaskLayout_getClippingNode);
+    oluacls_prop(L, "clippingNode", _cocos2d_ui_MaskLayout_getClippingNode, nullptr);
+
+    olua_registerluatype<cocos2d::ui::MaskLayout>(L, "ccui.MaskLayout");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
 static int _cocos2d_ui_HBox_create1(lua_State *L)
 {
     lua_settop(L, 0);
@@ -17085,6 +17148,7 @@ int luaopen_cocos2d_ui(lua_State *L)
     olua_require(L, "ccui.Layout.ClippingType", luaopen_cocos2d_ui_Layout_ClippingType);
     olua_require(L, "ccui.Layout.BackGroundColorType", luaopen_cocos2d_ui_Layout_BackGroundColorType);
     olua_require(L, "ccui.Layout", luaopen_cocos2d_ui_Layout);
+    olua_require(L, "ccui.MaskLayout", luaopen_cocos2d_ui_MaskLayout);
     olua_require(L, "ccui.HBox", luaopen_cocos2d_ui_HBox);
     olua_require(L, "ccui.VBox", luaopen_cocos2d_ui_VBox);
     olua_require(L, "ccui.RelativeBox", luaopen_cocos2d_ui_RelativeBox);

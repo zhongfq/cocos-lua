@@ -1,8 +1,7 @@
-local class             = require "xgame.class"
-local Event             = require "xgame.Event"
-local EventDispatcher   = require "xgame.EventDispatcher"
+local class = require "xgame.class"
+local Event = require "xgame.event.Event"
 
-local Array = class("Array", EventDispatcher)
+local Array = class("Array", require("xgame.event.EventDispatcher"))
 
 local assert = assert
 local table = table
@@ -99,6 +98,7 @@ local function checkRange(self, index, min, max)
 end
 
 function Array:addAt(item, index)
+    assert(item, 'item is nil')
     checkRange(self, index, 1, #self + 1)
     table.insert(self, index, item)
     self:dispatch(Event.CHANGE, "ADD", index, item)

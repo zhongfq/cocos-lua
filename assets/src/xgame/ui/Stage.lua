@@ -4,7 +4,7 @@
 
 local class         = require "xgame.class"
 local util          = require "xgame.util"
-local Event         = require "xgame.Event"
+local Event         = require "xgame.event.Event"
 local KeyboardEvent = require "xgame.KeyboardEvent"
 local UILayer       = require "xgame.display.UILayer"
 local window        = require "kernel.window"

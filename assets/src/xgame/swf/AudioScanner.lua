@@ -4,7 +4,7 @@
 
 local class             = require "xgame.class"
 local util              = require "xgame.util"
-local EventDispatcher   = require "xgame.EventDispatcher"
+local EventDispatcher   = require "xgame.event.EventDispatcher"
 local AudioEvent        = require "xgame.swf.AudioEvent"
 
 local assert = assert

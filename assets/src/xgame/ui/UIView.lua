@@ -1,5 +1,5 @@
 local class     = require "xgame.class"
-local Event     = require "xgame.Event"
+local Event     = require "xgame.event.Event"
 local UIAlign   = require "xgame.display.UIAlign"
 local UIObject  = require "xgame.display.UIObject"
 
@@ -47,7 +47,7 @@ end
 
 function UIView:removeSelf()
     local parent = self.parent
-    if parent and self.cobj then
+    if parent then
         parent:removeChild(self)
     end
 end
@@ -82,6 +82,25 @@ end
 
 function UIView:localToGlobal(x, y)
     return self.cobj:convertToWorldSpace(x, y)
+end
+
+function UIView:scheduleOnce(callback, delay, key)
+    return self.cobj:scheduleOnce(callback, delay, key)
+end
+
+-- schedule(callback, key)
+-- schedule(callback, interval, key)
+-- schedule(callback, interval, repeat, delay, key)
+function UIView:schedule(callback, ...)
+    self.cobj:schedule(callback, ...)
+end
+
+function UIView:unschedule(key)
+    self.cobj:unschedule(key)
+end
+
+function UIView:unscheduleAllCallbacks()
+    self.cobj:unscheduleAllCallbacks()
 end
 
 function UIView.Get:x() return self.cobj.x end

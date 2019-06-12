@@ -3,7 +3,7 @@
 --
 
 local class         = require "xgame.class"
-local Event         = require "xgame.Event"
+local Event         = require "xgame.event.Event"
 local Array         = require "xgame.Array"
 local UIAlign       = require "xgame.display.UIAlign"
 local TouchEvent    = require "xgame.display.TouchEvent"

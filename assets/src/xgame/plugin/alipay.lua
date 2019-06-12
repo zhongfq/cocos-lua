@@ -1,7 +1,7 @@
 local class         = require "xgame.class"
 local util          = require "xgame.util"
 local runtime       = require "xgame.runtime"
-local PluginEvent   = require "xgame.plugin.PluginEvent"
+local PluginEvent   = require "xgame.event.PluginEvent"
 local cjson         = require "kernel.cjson.safe"
 
 local trace = util.trace("[alipay]")

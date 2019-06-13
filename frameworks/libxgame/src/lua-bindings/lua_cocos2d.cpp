@@ -23284,6 +23284,812 @@ static int luaopen_cocos2d_FontAtlas(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_ClippingRectangleNode_create1(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Rect arg1;       /** clippingRegion */
+
+    manual_luacv_check_cocos2d_Rect(L, 1, &arg1);
+
+    // static ClippingRectangleNode* create(const Rect& clippingRegion)
+    cocos2d::ClippingRectangleNode *ret = (cocos2d::ClippingRectangleNode *)cocos2d::ClippingRectangleNode::create(arg1);
+    int num_ret = olua_push_cppobj<cocos2d::ClippingRectangleNode>(L, ret, "cc.ClippingRectangleNode");
+
+    return num_ret;
+}
+
+static int _cocos2d_ClippingRectangleNode_create2(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static ClippingRectangleNode* create()
+    cocos2d::ClippingRectangleNode *ret = (cocos2d::ClippingRectangleNode *)cocos2d::ClippingRectangleNode::create();
+    int num_ret = olua_push_cppobj<cocos2d::ClippingRectangleNode>(L, ret, "cc.ClippingRectangleNode");
+
+    return num_ret;
+}
+
+static int _cocos2d_ClippingRectangleNode_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        return _cocos2d_ClippingRectangleNode_create2(L);
+    }
+
+    if (num_args == 1) {
+        // if (manual_luacv_is_cocos2d_Rect(L, 1)) {
+            return _cocos2d_ClippingRectangleNode_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ClippingRectangleNode::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_ClippingRectangleNode_getClippingRegion(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ClippingRectangleNode *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ClippingRectangleNode");
+
+    // const Rect& getClippingRegion()
+    const cocos2d::Rect &ret = (const cocos2d::Rect &)self->getClippingRegion();
+    int num_ret = manual_luacv_push_cocos2d_Rect(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ClippingRectangleNode_setClippingRegion(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ClippingRectangleNode *self = nullptr;
+    cocos2d::Rect arg1;       /** clippingRegion */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ClippingRectangleNode");
+    manual_luacv_check_cocos2d_Rect(L, 2, &arg1);
+
+    // void setClippingRegion(const Rect& clippingRegion)
+    self->setClippingRegion(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ClippingRectangleNode_isClippingEnabled(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ClippingRectangleNode *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ClippingRectangleNode");
+
+    // bool isClippingEnabled()
+    bool ret = (bool)self->isClippingEnabled();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ClippingRectangleNode_setClippingEnabled(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ClippingRectangleNode *self = nullptr;
+    bool arg1 = false;   /** enabled */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ClippingRectangleNode");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setClippingEnabled(bool enabled)
+    self->setClippingEnabled(arg1);
+
+    return 0;
+}
+
+static int luaopen_cocos2d_ClippingRectangleNode(lua_State *L)
+{
+    oluacls_class(L, "cc.ClippingRectangleNode", "cc.Node");
+    oluacls_func(L, "create", _cocos2d_ClippingRectangleNode_create);
+    oluacls_func(L, "getClippingRegion", _cocos2d_ClippingRectangleNode_getClippingRegion);
+    oluacls_func(L, "setClippingRegion", _cocos2d_ClippingRectangleNode_setClippingRegion);
+    oluacls_func(L, "isClippingEnabled", _cocos2d_ClippingRectangleNode_isClippingEnabled);
+    oluacls_func(L, "setClippingEnabled", _cocos2d_ClippingRectangleNode_setClippingEnabled);
+    oluacls_prop(L, "clippingRegion", _cocos2d_ClippingRectangleNode_getClippingRegion, _cocos2d_ClippingRectangleNode_setClippingRegion);
+    oluacls_prop(L, "clippingEnabled", _cocos2d_ClippingRectangleNode_isClippingEnabled, _cocos2d_ClippingRectangleNode_setClippingEnabled);
+
+    olua_registerluatype<cocos2d::ClippingRectangleNode>(L, "cc.ClippingRectangleNode");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_RenderTexture_create1(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    lua_Integer arg1 = 0;   /** w */
+    lua_Integer arg2 = 0;   /** h */
+    lua_Unsigned arg3 = 0;   /** format */
+    lua_Unsigned arg4 = 0;   /** depthStencilFormat */
+
+    olua_check_int(L, 1, &arg1);
+    olua_check_int(L, 2, &arg2);
+    olua_check_uint(L, 3, &arg3);
+    olua_check_uint(L, 4, &arg4);
+
+    // static RenderTexture * create(int w ,int h, Texture2D::PixelFormat format, GLuint depthStencilFormat)
+    cocos2d::RenderTexture *ret = (cocos2d::RenderTexture *)cocos2d::RenderTexture::create((int)arg1, (int)arg2, (cocos2d::Texture2D::PixelFormat)arg3, (GLuint)arg4);
+    int num_ret = olua_push_cppobj<cocos2d::RenderTexture>(L, ret, "cc.RenderTexture");
+
+    return num_ret;
+}
+
+static int _cocos2d_RenderTexture_create2(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    lua_Integer arg1 = 0;   /** w */
+    lua_Integer arg2 = 0;   /** h */
+    lua_Unsigned arg3 = 0;   /** format */
+
+    olua_check_int(L, 1, &arg1);
+    olua_check_int(L, 2, &arg2);
+    olua_check_uint(L, 3, &arg3);
+
+    // static RenderTexture * create(int w, int h, Texture2D::PixelFormat format)
+    cocos2d::RenderTexture *ret = (cocos2d::RenderTexture *)cocos2d::RenderTexture::create((int)arg1, (int)arg2, (cocos2d::Texture2D::PixelFormat)arg3);
+    int num_ret = olua_push_cppobj<cocos2d::RenderTexture>(L, ret, "cc.RenderTexture");
+
+    return num_ret;
+}
+
+static int _cocos2d_RenderTexture_create3(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    lua_Integer arg1 = 0;   /** w */
+    lua_Integer arg2 = 0;   /** h */
+
+    olua_check_int(L, 1, &arg1);
+    olua_check_int(L, 2, &arg2);
+
+    // static RenderTexture * create(int w, int h)
+    cocos2d::RenderTexture *ret = (cocos2d::RenderTexture *)cocos2d::RenderTexture::create((int)arg1, (int)arg2);
+    int num_ret = olua_push_cppobj<cocos2d::RenderTexture>(L, ret, "cc.RenderTexture");
+
+    return num_ret;
+}
+
+static int _cocos2d_RenderTexture_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 2) {
+        // if (olua_is_int(L, 1) && olua_is_int(L, 2)) {
+            return _cocos2d_RenderTexture_create3(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if (olua_is_int(L, 1) && olua_is_int(L, 2) && olua_is_uint(L, 3)) {
+            return _cocos2d_RenderTexture_create2(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if (olua_is_int(L, 1) && olua_is_int(L, 2) && olua_is_uint(L, 3) && olua_is_uint(L, 4)) {
+            return _cocos2d_RenderTexture_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::RenderTexture::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_RenderTexture_begin(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::RenderTexture *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
+
+    // void begin()
+    self->begin();
+
+    return 0;
+}
+
+static int _cocos2d_RenderTexture_beginWithClear1(lua_State *L)
+{
+    lua_settop(L, 5);
+
+    cocos2d::RenderTexture *self = nullptr;
+    lua_Number arg1 = 0;   /** r */
+    lua_Number arg2 = 0;   /** g */
+    lua_Number arg3 = 0;   /** b */
+    lua_Number arg4 = 0;   /** a */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
+    olua_check_number(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+    olua_check_number(L, 5, &arg4);
+
+    // void beginWithClear(float r, float g, float b, float a)
+    self->beginWithClear((float)arg1, (float)arg2, (float)arg3, (float)arg4);
+
+    return 0;
+}
+
+static int _cocos2d_RenderTexture_beginWithClear2(lua_State *L)
+{
+    lua_settop(L, 6);
+
+    cocos2d::RenderTexture *self = nullptr;
+    lua_Number arg1 = 0;   /** r */
+    lua_Number arg2 = 0;   /** g */
+    lua_Number arg3 = 0;   /** b */
+    lua_Number arg4 = 0;   /** a */
+    lua_Number arg5 = 0;   /** depthValue */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
+    olua_check_number(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+    olua_check_number(L, 5, &arg4);
+    olua_check_number(L, 6, &arg5);
+
+    // void beginWithClear(float r, float g, float b, float a, float depthValue)
+    self->beginWithClear((float)arg1, (float)arg2, (float)arg3, (float)arg4, (float)arg5);
+
+    return 0;
+}
+
+static int _cocos2d_RenderTexture_beginWithClear3(lua_State *L)
+{
+    lua_settop(L, 7);
+
+    cocos2d::RenderTexture *self = nullptr;
+    lua_Number arg1 = 0;   /** r */
+    lua_Number arg2 = 0;   /** g */
+    lua_Number arg3 = 0;   /** b */
+    lua_Number arg4 = 0;   /** a */
+    lua_Number arg5 = 0;   /** depthValue */
+    lua_Integer arg6 = 0;   /** stencilValue */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
+    olua_check_number(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+    olua_check_number(L, 5, &arg4);
+    olua_check_number(L, 6, &arg5);
+    olua_check_int(L, 7, &arg6);
+
+    // void beginWithClear(float r, float g, float b, float a, float depthValue, int stencilValue)
+    self->beginWithClear((float)arg1, (float)arg2, (float)arg3, (float)arg4, (float)arg5, (int)arg6);
+
+    return 0;
+}
+
+static int _cocos2d_RenderTexture_beginWithClear(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 4) {
+        // if (olua_is_number(L, 2) && olua_is_number(L, 3) && olua_is_number(L, 4) && olua_is_number(L, 5)) {
+            return _cocos2d_RenderTexture_beginWithClear1(L);
+        // }
+    }
+
+    if (num_args == 5) {
+        // if (olua_is_number(L, 2) && olua_is_number(L, 3) && olua_is_number(L, 4) && olua_is_number(L, 5) && olua_is_number(L, 6)) {
+            return _cocos2d_RenderTexture_beginWithClear2(L);
+        // }
+    }
+
+    if (num_args == 6) {
+        // if (olua_is_number(L, 2) && olua_is_number(L, 3) && olua_is_number(L, 4) && olua_is_number(L, 5) && olua_is_number(L, 6) && olua_is_int(L, 7)) {
+            return _cocos2d_RenderTexture_beginWithClear3(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::RenderTexture::beginWithClear' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_RenderTexture_end(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::RenderTexture *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
+
+    // void end()
+    self->end();
+
+    return 0;
+}
+
+static int _cocos2d_RenderTexture_clear(lua_State *L)
+{
+    lua_settop(L, 5);
+
+    cocos2d::RenderTexture *self = nullptr;
+    lua_Number arg1 = 0;   /** r */
+    lua_Number arg2 = 0;   /** g */
+    lua_Number arg3 = 0;   /** b */
+    lua_Number arg4 = 0;   /** a */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
+    olua_check_number(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+    olua_check_number(L, 5, &arg4);
+
+    // void clear(float r, float g, float b, float a)
+    self->clear((float)arg1, (float)arg2, (float)arg3, (float)arg4);
+
+    return 0;
+}
+
+static int _cocos2d_RenderTexture_clearDepth(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::RenderTexture *self = nullptr;
+    lua_Number arg1 = 0;   /** depthValue */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
+    olua_check_number(L, 2, &arg1);
+
+    // void clearDepth(float depthValue)
+    self->clearDepth((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_RenderTexture_clearStencil(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::RenderTexture *self = nullptr;
+    lua_Integer arg1 = 0;   /** stencilValue */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
+    olua_check_int(L, 2, &arg1);
+
+    // void clearStencil(int stencilValue)
+    self->clearStencil((int)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_RenderTexture_newImage(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::RenderTexture *self = nullptr;
+    bool arg1 = false;   /** flipImage */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
+    olua_opt_bool(L, 2, &arg1, (bool)true);
+
+    // Image* newImage(bool flipImage = true)
+    cocos2d::Image *ret = (cocos2d::Image *)self->newImage(arg1);
+    int num_ret = olua_push_cppobj<cocos2d::Image>(L, ret, "cc.Image");
+
+    return num_ret;
+}
+
+static int _cocos2d_RenderTexture_listenToBackground(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::RenderTexture *self = nullptr;
+    cocos2d::EventCustom *arg1 = nullptr;   /** event */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.EventCustom");
+
+    // void listenToBackground(EventCustom *event)
+    self->listenToBackground(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_RenderTexture_listenToForeground(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::RenderTexture *self = nullptr;
+    cocos2d::EventCustom *arg1 = nullptr;   /** event */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.EventCustom");
+
+    // void listenToForeground(EventCustom *event)
+    self->listenToForeground(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_RenderTexture_getClearFlags(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::RenderTexture *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
+
+    // unsigned int getClearFlags()
+    unsigned int ret = (unsigned int)self->getClearFlags();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_RenderTexture_setClearFlags(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::RenderTexture *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** clearFlags */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
+    olua_check_uint(L, 2, &arg1);
+
+    // void setClearFlags(unsigned int clearFlags)
+    self->setClearFlags((unsigned int)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_RenderTexture_getClearColor(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::RenderTexture *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
+
+    // const Color4F& getClearColor()
+    const cocos2d::Color4F &ret = (const cocos2d::Color4F &)self->getClearColor();
+    int num_ret = manual_luacv_push_cocos2d_Color4F(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_RenderTexture_setClearColor(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::RenderTexture *self = nullptr;
+    cocos2d::Color4F arg1;       /** clearColor */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
+    manual_luacv_check_cocos2d_Color4F(L, 2, &arg1);
+
+    // void setClearColor(const Color4F &clearColor)
+    self->setClearColor(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_RenderTexture_getClearDepth(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::RenderTexture *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
+
+    // float getClearDepth()
+    float ret = (float)self->getClearDepth();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_RenderTexture_setClearDepth(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::RenderTexture *self = nullptr;
+    lua_Number arg1 = 0;   /** clearDepth */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
+    olua_check_number(L, 2, &arg1);
+
+    // void setClearDepth(float clearDepth)
+    self->setClearDepth((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_RenderTexture_getClearStencil(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::RenderTexture *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
+
+    // int getClearStencil()
+    int ret = (int)self->getClearStencil();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_RenderTexture_setClearStencil(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::RenderTexture *self = nullptr;
+    lua_Integer arg1 = 0;   /** clearStencil */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
+    olua_check_int(L, 2, &arg1);
+
+    // void setClearStencil(int clearStencil)
+    self->setClearStencil((int)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_RenderTexture_isAutoDraw(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::RenderTexture *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
+
+    // bool isAutoDraw()
+    bool ret = (bool)self->isAutoDraw();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_RenderTexture_setAutoDraw(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::RenderTexture *self = nullptr;
+    bool arg1 = false;   /** isAutoDraw */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setAutoDraw(bool isAutoDraw)
+    self->setAutoDraw(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_RenderTexture_getSprite(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::RenderTexture *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
+
+    // Sprite* getSprite()
+    cocos2d::Sprite *ret = (cocos2d::Sprite *)self->getSprite();
+    int num_ret = olua_push_cppobj<cocos2d::Sprite>(L, ret, "cc.Sprite");
+
+    return num_ret;
+}
+
+static int _cocos2d_RenderTexture_setSprite(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::RenderTexture *self = nullptr;
+    cocos2d::Sprite *arg1 = nullptr;   /** sprite */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Sprite");
+
+    // void setSprite(Sprite* sprite)
+    self->setSprite(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_RenderTexture_setKeepMatrix(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::RenderTexture *self = nullptr;
+    bool arg1 = false;   /** keepMatrix */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setKeepMatrix(bool keepMatrix)
+    self->setKeepMatrix(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_RenderTexture_setVirtualViewport(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    cocos2d::RenderTexture *self = nullptr;
+    cocos2d::Vec2 arg1;       /** rtBegin */
+    cocos2d::Rect arg2;       /** fullRect */
+    cocos2d::Rect arg3;       /** fullViewport */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    manual_luacv_check_cocos2d_Rect(L, 3, &arg2);
+    manual_luacv_check_cocos2d_Rect(L, 4, &arg3);
+
+    // void setVirtualViewport(const Vec2& rtBegin, const Rect& fullRect, const Rect& fullViewport)
+    self->setVirtualViewport(arg1, arg2, arg3);
+
+    return 0;
+}
+
+static int _cocos2d_RenderTexture_saveToFile1(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    cocos2d::RenderTexture *self = nullptr;
+    std::string arg1;       /** filename */
+    bool arg2 = false;   /** isRGBA */
+    std::function<void(cocos2d::RenderTexture *, const std::string &)> arg3 = nullptr;   /** callback */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_bool(L, 3, &arg2);
+
+    if (olua_is_std_function(L, 4)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("saveToFile");
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 4, OLUA_CALLBACK_TAG_NEW);
+        arg3 = [callback_store_obj, func, tag](cocos2d::RenderTexture *arg1, const std::string &arg2) {
+            lua_State *L = olua_mainthread();
+            int top = lua_gettop(L);
+
+            olua_push_cppobj<cocos2d::RenderTexture>(L, arg1, "cc.RenderTexture");
+            olua_push_std_string(L, arg2);
+
+            olua_callback(L, callback_store_obj, func.c_str(), 2);
+
+            olua_removecallback(L, callback_store_obj, func.c_str(), OLUA_CALLBACK_TAG_EQUAL);
+
+            lua_settop(L, top);
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("saveToFile");
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_EQUAL);
+        arg3 = nullptr;
+    }
+
+    // bool saveToFile(const std::string& filename, bool isRGBA = true, std::function<void (RenderTexture*, const std::string&)> callback = nullptr)
+    bool ret = (bool)self->saveToFile(arg1, arg2, arg3);
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_RenderTexture_saveToFile2(lua_State *L)
+{
+    lua_settop(L, 5);
+
+    cocos2d::RenderTexture *self = nullptr;
+    std::string arg1;       /** filename */
+    lua_Unsigned arg2 = 0;   /** format */
+    bool arg3 = false;   /** isRGBA */
+    std::function<void(cocos2d::RenderTexture *, const std::string &)> arg4 = nullptr;   /** callback */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_uint(L, 3, &arg2);
+    olua_check_bool(L, 4, &arg3);
+
+    if (olua_is_std_function(L, 5)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("saveToFile");
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 5, OLUA_CALLBACK_TAG_NEW);
+        arg4 = [callback_store_obj, func, tag](cocos2d::RenderTexture *arg1, const std::string &arg2) {
+            lua_State *L = olua_mainthread();
+            int top = lua_gettop(L);
+
+            olua_push_cppobj<cocos2d::RenderTexture>(L, arg1, "cc.RenderTexture");
+            olua_push_std_string(L, arg2);
+
+            olua_callback(L, callback_store_obj, func.c_str(), 2);
+
+            olua_removecallback(L, callback_store_obj, func.c_str(), OLUA_CALLBACK_TAG_EQUAL);
+
+            lua_settop(L, top);
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("saveToFile");
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_EQUAL);
+        arg4 = nullptr;
+    }
+
+    // bool saveToFile(const std::string& filename, Image::Format format, bool isRGBA = true, std::function<void (RenderTexture*, const std::string&)> callback = nullptr)
+    bool ret = (bool)self->saveToFile(arg1, (cocos2d::Image::Format)arg2, arg3, arg4);
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_RenderTexture_saveToFile(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 3) {
+        // if (olua_is_std_string(L, 2) && (olua_is_bool(L, 3) || olua_isnil(L, 3)) && olua_is_std_function(L, 4)) {
+            return _cocos2d_RenderTexture_saveToFile1(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if (olua_is_std_string(L, 2) && olua_is_uint(L, 3) && (olua_is_bool(L, 4) || olua_isnil(L, 4)) && olua_is_std_function(L, 5)) {
+            return _cocos2d_RenderTexture_saveToFile2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::RenderTexture::saveToFile' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int luaopen_cocos2d_RenderTexture(lua_State *L)
+{
+    oluacls_class(L, "cc.RenderTexture", "cc.Node");
+    oluacls_func(L, "create", _cocos2d_RenderTexture_create);
+    oluacls_func(L, "begin", _cocos2d_RenderTexture_begin);
+    oluacls_func(L, "beginWithClear", _cocos2d_RenderTexture_beginWithClear);
+    oluacls_func(L, "end", _cocos2d_RenderTexture_end);
+    oluacls_func(L, "clear", _cocos2d_RenderTexture_clear);
+    oluacls_func(L, "clearDepth", _cocos2d_RenderTexture_clearDepth);
+    oluacls_func(L, "clearStencil", _cocos2d_RenderTexture_clearStencil);
+    oluacls_func(L, "newImage", _cocos2d_RenderTexture_newImage);
+    oluacls_func(L, "listenToBackground", _cocos2d_RenderTexture_listenToBackground);
+    oluacls_func(L, "listenToForeground", _cocos2d_RenderTexture_listenToForeground);
+    oluacls_func(L, "getClearFlags", _cocos2d_RenderTexture_getClearFlags);
+    oluacls_func(L, "setClearFlags", _cocos2d_RenderTexture_setClearFlags);
+    oluacls_func(L, "getClearColor", _cocos2d_RenderTexture_getClearColor);
+    oluacls_func(L, "setClearColor", _cocos2d_RenderTexture_setClearColor);
+    oluacls_func(L, "getClearDepth", _cocos2d_RenderTexture_getClearDepth);
+    oluacls_func(L, "setClearDepth", _cocos2d_RenderTexture_setClearDepth);
+    oluacls_func(L, "getClearStencil", _cocos2d_RenderTexture_getClearStencil);
+    oluacls_func(L, "setClearStencil", _cocos2d_RenderTexture_setClearStencil);
+    oluacls_func(L, "isAutoDraw", _cocos2d_RenderTexture_isAutoDraw);
+    oluacls_func(L, "setAutoDraw", _cocos2d_RenderTexture_setAutoDraw);
+    oluacls_func(L, "getSprite", _cocos2d_RenderTexture_getSprite);
+    oluacls_func(L, "setSprite", _cocos2d_RenderTexture_setSprite);
+    oluacls_func(L, "setKeepMatrix", _cocos2d_RenderTexture_setKeepMatrix);
+    oluacls_func(L, "setVirtualViewport", _cocos2d_RenderTexture_setVirtualViewport);
+    oluacls_func(L, "saveToFile", _cocos2d_RenderTexture_saveToFile);
+
+    olua_registerluatype<cocos2d::RenderTexture>(L, "cc.RenderTexture");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
 static int _cocos2d_AnimationFrame_create(lua_State *L)
 {
     lua_settop(L, 3);
@@ -32539,6 +33345,8 @@ int luaopen_cocos2d(lua_State *L)
     olua_require(L, "cc.Label", luaopen_cocos2d_Label);
     olua_require(L, "cc.LabelAtlas", luaopen_cocos2d_LabelAtlas);
     olua_require(L, "cc.FontAtlas", luaopen_cocos2d_FontAtlas);
+    olua_require(L, "cc.ClippingRectangleNode", luaopen_cocos2d_ClippingRectangleNode);
+    olua_require(L, "cc.RenderTexture", luaopen_cocos2d_RenderTexture);
     olua_require(L, "cc.AnimationFrame", luaopen_cocos2d_AnimationFrame);
     olua_require(L, "cc.Animation", luaopen_cocos2d_Animation);
     olua_require(L, "cc.SpriteFrame", luaopen_cocos2d_SpriteFrame);

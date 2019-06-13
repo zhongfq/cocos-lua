@@ -237,6 +237,8 @@ REG_TYPE {
         cocos2d::CardinalSplineTo *
         cocos2d::CatmullRomBy *
         cocos2d::CatmullRomTo *
+        cocos2d::ClippingRectangleNode *
+        cocos2d::RenderTexture *
         cocos2d::Component *
         cocos2d::Component *
         cocos2d::DeccelAmplitude *

@@ -115,7 +115,7 @@ end
 
 function UILayer:_internalAddChild(child, index, silence)
     self._rawChildren[child.cobj] = child
-    self.cobj:addChild(child, index)
+    self.cobj:addChild(child.cobj, index)
     self.children:addAt(child, index)
     child._parent = self._real_parent
     if self.stage and not silence then

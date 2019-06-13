@@ -1,16 +1,27 @@
 local class         = require "xgame.class"
 local timer         = require "xgame.timer"
 local runtime       = require "xgame.runtime"
+local MediatorMap   = require "xgame.MediatorMap"
 local Stage         = require "xgame.ui.Stage"
 local SceneStack    = require "xgame.private.SceneStack"
+local Director      = require "cc.Director"
+local RenderTexture = require "cc.RenderTexture"
 
 xGame = class("xGame", require("xgame.event.EventDispatcher"))
 
 function xGame:ctor()
+    self.time = 0
     self.stage = Stage.new()
+    self._mediatorMap = MediatorMap.new(self.stage)
     self._sceneStack = SceneStack.new(self.stage)
     self:_initTimer()
     self:_initRuntimeEvents()
+
+    Director.instance.runningScene:addChild(self.stage.cobj)
+end
+
+function xGame:snapshot(node)
+    
 end
 
 -- scene api
@@ -45,6 +56,7 @@ function xGame:_initTimer()
     local inst = timer.new()
     self._timer = inst
     timer.schedule(0, function (dt)
+        self.time = self.time + dt
         inst:update(dt)
     end)
 end

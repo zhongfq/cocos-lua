@@ -77,6 +77,8 @@ M.CLASSES = {
     include("conf/cocos2d/2d/label-nodes/cc.Label.lua"),
     include("conf/cocos2d/2d/label-nodes/cc.LabelAtlas.lua"),
     include("conf/cocos2d/2d/label-nodes/cc.FontAtlas.lua"),
+    include("conf/cocos2d/2d/misc-nodes/cc.ClippingRectangleNode.lua"),
+    include("conf/cocos2d/2d/misc-nodes/cc.RenderTexture.lua"),
     include("conf/cocos2d/2d/sprite-nodes/cc.Animation.lua"),
     include("conf/cocos2d/2d/sprite-nodes/cc.SpriteFrame.lua"),
     include("conf/cocos2d/2d/sprite-nodes/cc.Sprite.lua"),

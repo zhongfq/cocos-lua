@@ -55,7 +55,7 @@ function LayoutBase:updateChildDisplay(child)
 
     if not child._initialized then
         child._initialized = true
-        child:dispatch_event(Event.CREATION_COMPLETE)
+        child:dispatch(Event.CREATION_COMPLETE)
     end
 end
 

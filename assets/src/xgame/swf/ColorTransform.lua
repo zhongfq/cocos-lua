@@ -1,7 +1,3 @@
---
--- $id: ColorTransform.lua O $
---
-
 local class = require "xgame.class"
 
 local ColorTransform = class("ColorTransform")

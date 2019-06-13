@@ -1,7 +1,3 @@
---
--- $id: UIAlign.lua O $
---
-
 return {
     NONE        = "none",
     LEFT        = "left",

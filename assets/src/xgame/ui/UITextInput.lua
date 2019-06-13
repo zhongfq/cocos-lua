@@ -1,11 +1,7 @@
---
--- $id: UITextInput.lua O $
---
-
 local class         = require "xgame.class"
 local Event         = require "xgame.event.Event"
-local TouchEvent    = require "xgame.display.TouchEvent"
-local UIView        = require "xgame.display.UIView"
+local TouchEvent    = require "xgame.event.TouchEvent"
+local UIView        = require "xgame.ui.UIView"
 
 local UITextInput = class("UITextInput", UIView)
 
@@ -62,7 +58,7 @@ function UITextInput:ctor()
         x, y = self:global_to_local(x, y)
         self._label:setPosition(x, y)
 
-        local A = require "xgame.display.action"
+        local A = require "xgame.ui.action"
         self._label:runAction(A.call_func(function ()
             if self.cobj then
                 self._label:openKeyboard()

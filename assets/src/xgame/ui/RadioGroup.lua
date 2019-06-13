@@ -1,7 +1,3 @@
---
--- $id: RadioGroup.lua O $
---
-
 local class             = require "xgame.class"
 local Event             = require "xgame.event.Event"
 local EventDispatcher   = require "xgame.event.EventDispatcher"

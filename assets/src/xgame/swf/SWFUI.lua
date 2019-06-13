@@ -1,11 +1,7 @@
---
--- $id: SWFUI.lua O $
---
-
 local class     = require "xgame.class"
 local Event     = require "xgame.event.Event"
-local UIAlign   = require "xgame.display.UIAlign"
-local UILayer   = require "xgame.display.UILayer"
+local Align   = require "xgame.ui.Align"
+local UILayer   = require "xgame.ui.UILayer"
 local SWFNode   = require "xgame.swf.SWFNode"
 
 local SWFUI = class("SWFUI", UILayer)
@@ -14,7 +10,7 @@ function SWFUI:ctor()
     self.render_option = {}
     self.percent_width = 100
     self.percent_height = 100
-    self.horizontal_align = UIAlign.CENTER
+    self.horizontal_align = Align.CENTER
     self:_load_rootswf()
 end
 

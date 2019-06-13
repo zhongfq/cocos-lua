@@ -1,10 +1,6 @@
---
--- $id: UIGrid.lua O $
---
-
 local class         = require "xgame.class"
-local UIAlign       = require "xgame.display.UIAlign"
-local ListBase      = require "xgame.display.support.ListBase"
+local Align       = require "xgame.ui.Align"
+local ListBase      = require "xgame.ui.ListBase"
 
 local UIGridLayout
 
@@ -43,8 +39,8 @@ function UIGrid.Set:orientation(value)
     if self._layout.orientation ~= value then
         self._layout.orientation = value
         self._layout:notify("UPDATE")
-        self._scroll_impl.horizontal_enabled = value ~= UIAlign.VERTICAL
-        self._scroll_impl.vertical_enabled = value == UIAlign.VERTICAL
+        self._scroll_impl.horizontal_enabled = value ~= Align.VERTICAL
+        self._scroll_impl.vertical_enabled = value == Align.VERTICAL
     end
 end
 

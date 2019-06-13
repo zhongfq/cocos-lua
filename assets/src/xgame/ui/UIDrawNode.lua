@@ -1,9 +1,5 @@
---
--- $id: UIDrawNode.lua O $
---
-
 local class     = require "xgame.class"
-local UIView    = require "xgame.display.UIView"
+local UIView    = require "xgame.ui.UIView"
 local draw_node = require "kernel.draw_node"
 
 local UIDrawNode = class("UIDrawNode", UIView)

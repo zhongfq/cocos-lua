@@ -1,7 +1,3 @@
---
--- $id: MixPlayer.lua O $
---
-
 local class             = require "xgame.class"
 local util              = require "xgame.util"
 local AnimationPlayer   = require "xgame.swf.AnimationPlayer"

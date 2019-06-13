@@ -1,17 +1,13 @@
---
--- $id: UITextField.lua O $
---
-
 local class     = require "xgame.class"
-local UIAlign   = require "xgame.display.UIAlign"
-local UIView    = require "xgame.display.UIView"
+local Align   = require "xgame.ui.Align"
+local UIView    = require "xgame.ui.UIView"
 
 local ALIGNMENT = {
-    [UIAlign.LEFT] = 0,
-    [UIAlign.CENTER] = 1,
-    [UIAlign.RIGHT] = 2,
-    [UIAlign.BOTTOM] = 2,
-    [UIAlign.TOP] = 0,
+    [Align.LEFT] = 0,
+    [Align.CENTER] = 1,
+    [Align.RIGHT] = 2,
+    [Align.BOTTOM] = 2,
+    [Align.TOP] = 0,
 }
 
 local UITextField = class("UITextField", UIView)

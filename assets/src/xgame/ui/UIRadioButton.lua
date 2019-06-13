@@ -1,11 +1,7 @@
---
--- $id: UIRadioButton.lua O $
---
-
 local class     = require "xgame.class"
 local Event     = require "xgame.event.Event"
-local UIImage   = require "xgame.display.UIImage"
-local UIView    = require "xgame.display.UIView"
+local UIImage   = require "xgame.ui.UIImage"
+local UIView    = require "xgame.ui.UIView"
 
 local UIRadioButton = class("UIRadioButton", UIView)
 

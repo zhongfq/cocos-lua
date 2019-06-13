@@ -1,7 +1,7 @@
 local class             = require "xgame.class"
 local Array             = require "xgame.Array"
-local UIView            = require "xgame.display.UIView"
-local AbsoluteLayout    = require "xgame.display.support.AbsoluteLayout"
+local UIView            = require "xgame.ui.UIView"
+local AbsoluteLayout    = require "xgame.ui.AbsoluteLayout"
 local MaskLayout        = require "ccui.MaskLayout"
 
 local assert = assert

@@ -1,26 +1,27 @@
 local class     = require "xgame.class"
 local Event     = require "xgame.event.Event"
-local UIAlign   = require "xgame.display.UIAlign"
-local UIObject  = require "xgame.display.UIObject"
+local Align     = require "xgame.ui.Align"
+local UIObject  = require "xgame.ui.UIObject"
 
 local UIView = class("UIView", UIObject)
 
 function UIView:ctor()
-    self._initialized       = false
-    self.touchable          = false
-    self.touchChildren      = false
-    self.layoutParams       = {
-        horizontalAlign     = UIAlign.NONE,
-        horizontalCenter    = 0,
-        left                = 0,
-        right               = 0,
-        verticalAlign       = UIAlign.NONE,
-        verticalCenter      = 0,
-        top                 = 0,
-        bottom              = 0,
+    self._initialized = false
+    self.touchable = false
+    self.touchChildren = false
+    self.layoutParams = {
+        horizontalAlign = Align.NONE,
+        horizontalCenter = 0,
+        verticalAlign = Align.NONE,
+        verticalCenter = 0,
+        left = 0,
+        right = 0,
+        top = 0,
+        bottom = 0,
     }
-    self.cobj:setIgnoreAnchorPointForPosition(true)
-    self.cobj:setAnchorPoint(0.5, 0.5)
+    self.cobj.ignoreAnchorPointForPosition = true
+    self.cobj.anchorX = 0.5
+    self.cobj.anchorY = 0.5
 end
 
 function UIView.Get:initialized()
@@ -42,7 +43,11 @@ function UIView:boundsTest(x, y)
 end
 
 function UIView:getBounds(target)
-    return self.cobj:getBounds(target.cobj, 0, self.width, self.height, 0)
+    if target == self then
+        return 0, self.width, self.height, 0
+    else
+        return self.cobj:getBounds(target.cobj, 0, self.width, self.height, 0)
+    end
 end
 
 function UIView:removeSelf()

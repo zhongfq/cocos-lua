@@ -1,14 +1,14 @@
 local class         = require "xgame.class"
-local Event         = require "xgame.event.Event"
-local SceneStack    = require "xgame.private.SceneStack"
 local timer         = require "xgame.timer"
 local runtime       = require "xgame.runtime"
-local Director      = require "cc.Director"
+local Stage         = require "xgame.ui.Stage"
+local SceneStack    = require "xgame.private.SceneStack"
 
 xGame = class("xGame", require("xgame.event.EventDispatcher"))
 
 function xGame:ctor()
-    self._sceneStack = SceneStack.new()
+    self.stage = Stage.new()
+    self._sceneStack = SceneStack.new(self.stage)
     self:_initTimer()
     self:_initRuntimeEvents()
 end
@@ -47,10 +47,6 @@ function xGame:_initTimer()
     timer.schedule(0, function (dt)
         inst:update(dt)
     end)
-end
-
-function xGame:later(func, ...)
-    self:delay(0.001, func, ...)
 end
 
 function xGame:delay(time, func, ...)

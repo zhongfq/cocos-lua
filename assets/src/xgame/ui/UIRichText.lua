@@ -1,11 +1,7 @@
---
--- $id: UIRichText.lua O $
---
-
 local class         = require "xgame.class"
 local Array         = require "xgame.Array"
-local UIView        = require "xgame.display.UIView"
-local UITextField   = require "xgame.display.UITextField"
+local UIView        = require "xgame.ui.UIView"
+local UITextField   = require "xgame.ui.UITextField"
 local font          = require "font"
 
 local UIRichText = class("UIRichText", UIView)

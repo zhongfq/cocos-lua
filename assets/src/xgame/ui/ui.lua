@@ -1,13 +1,9 @@
---
--- $id: ui.lua O $
---
-
 local class         = require "xgame.class"
 local util          = require "xgame.util"
 local Event         = require "xgame.event.Event"
 local assetcache    = require "xgame.assetcache"
-local TouchEvent    = require "xgame.display.TouchEvent"
-local DataLoader    = require "xgame.display.support.DataLoader"
+local TouchEvent    = require "xgame.event.TouchEvent"
+local DataLoader    = require "xgame.ui.DataLoader"
 
 local trace = util.trace("[ui]")
 
@@ -270,7 +266,7 @@ end
 -- base creator
 --
 local function bind_base_creator(classname)
-    local class = require(string.format("xgame.display.%s", classname))
+    local class = require(string.format("xgame.ui.%s", classname))
     bind_creator(classname, new_creator(class))
 end
 

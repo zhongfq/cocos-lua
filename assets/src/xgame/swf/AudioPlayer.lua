@@ -1,7 +1,3 @@
---
--- $id: AudioPlayer.lua O $
---
-
 local util          = require "xgame.util"
 local class         = require "xgame.class"
 local LinkedList    = require "xgame.LinkedList"

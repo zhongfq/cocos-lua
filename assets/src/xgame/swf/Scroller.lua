@@ -1,11 +1,7 @@
---
--- $id: Scroller.lua O $
---
-
 local class         = require "xgame.class"
 local Event         = require "xgame.event.Event"
-local TouchEvent    = require "xgame.display.TouchEvent"
-local ScrollImpl    = require "xgame.display.support.ScrollImpl"
+local TouchEvent    = require "xgame.event.TouchEvent"
+local ScrollImpl    = require "xgame.ui.ScrollImpl"
 local MovieClip     = require "xgame.swf.MovieClip"
 
 local A = swf.action
@@ -161,14 +157,14 @@ end
 
 function Scroller:scroll_to(h, v)
     self:get_scroll_bounds()
-    if h == UIAlign.LEFT then
+    if h == Align.LEFT then
         self.scroll_x = self._container.width * 2
-    elseif h == UIAlign.RIGHT then
+    elseif h == Align.RIGHT then
         self.scroll_x = -self._container.width * 2
     end
-    if v == UIAlign.TOP then
+    if v == Align.TOP then
         self.scroll_y = -self._container.height * 2
-    elseif v == UIAlign.RIGHT then
+    elseif v == Align.RIGHT then
         self.scroll_y = self._container.height * 2
     end
     self:validate_now()

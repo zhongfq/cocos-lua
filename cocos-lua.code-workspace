@@ -3,9 +3,9 @@
 		{
 			"path": "assets/src"
 		},
-		{
-			"path": "wwwroot"
-		},
+		// {
+		// 	"path": "wwwroot"
+		// },
 		{
 			"path": "."
 		},

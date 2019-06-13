@@ -1,12 +1,8 @@
---
--- $id: UIButton.lua O $
---
-
 local class         = require "xgame.class"
-local TouchStyle    = require "xgame.display.TouchStyle"
-local UIImage       = require "xgame.display.UIImage"
-local UITextField   = require "xgame.display.UITextField"
-local UIView        = require "xgame.display.UIView"
+local TouchStyle    = require "xgame.ui.TouchStyle"
+local UIImage       = require "xgame.ui.UIImage"
+local UITextField   = require "xgame.ui.UITextField"
+local UIView        = require "xgame.ui.UIView"
 local Shader        = require "xgame.Shader"
 
 local UIButton = class("UIButton", UIView)

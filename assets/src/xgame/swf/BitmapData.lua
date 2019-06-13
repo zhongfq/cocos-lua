@@ -1,7 +1,3 @@
---
--- $id: BitmapData.lua O $
---
-
 local class = require "xgame.class"
 
 local BitmapData = class("BitmapData")

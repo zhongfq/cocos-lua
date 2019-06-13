@@ -1,13 +1,9 @@
---
--- $id: UICheckBox.lua O $
---
-
 local class         = require "xgame.class"
 local Event         = require "xgame.event.Event"
-local UIImage       = require "xgame.display.UIImage"
-local UIView        = require "xgame.display.UIView"
-local TouchEvent    = require "xgame.display.TouchEvent"
-local UITextField   = require "xgame.display.UITextField"
+local UIImage       = require "xgame.ui.UIImage"
+local UIView        = require "xgame.ui.UIView"
+local TouchEvent    = require "xgame.event.TouchEvent"
+local UITextField   = require "xgame.ui.UITextField"
 
 local UICheckBox = class("UICheckBox", UIView)
 

@@ -1,25 +1,21 @@
---
--- $id: DisplayObject.lua O $
---
-
 local class             = require "xgame.class"
 local Event             = require "xgame.event.Event"
-local UIAlign           = require "xgame.display.UIAlign"
-local UITouchable       = require "xgame.display.UITouchable"
+local Align           = require "xgame.ui.Align"
+local UIObject          = require "xgame.ui.UIObject"
 local ColorTransform    = require "xgame.swf.ColorTransform"
 
-local DisplayObject = class("DisplayObject", UITouchable)
+local DisplayObject = class("DisplayObject", UIObject)
 
 function DisplayObject:ctor(cobj)
     self._color_transform = false
     self._stage = false
     self._rootnode = false
     self.name = cobj.name or ""
-    self.horizontal_align = UIAlign.NONE
+    self.horizontal_align = Align.NONE
     self.horizontal_center = 0
     self.left = 0
     self.right = 0
-    self.vertical_align = UIAlign.NONE
+    self.vertical_align = Align.NONE
     self.vertical_center = 0
     self.top = 0
     self.bottom = 0

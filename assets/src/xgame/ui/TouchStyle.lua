@@ -1,9 +1,5 @@
---
--- $id: TouchStyle.lua O $
---
-
 local util  = require "xgame.util"
-local A     = require "xgame.display.action"
+local A     = require "xgame.ui.action"
 
 local TouchStyle = {}
 

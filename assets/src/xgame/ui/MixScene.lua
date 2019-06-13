@@ -1,25 +1,21 @@
 local class         = require "xgame.class"
 local timer         = require "xgame.timer"
-local HandlerProxy  = require "xgame.HandlerProxy"
-local UIScene       = require "xgame.display.UIScene"
+local EventHandler  = require "xgame.EventHandler"
+local UIScene       = require "xgame.ui.UIScene"
 
 local MixScene = class("MixScene", UIScene)
 
 function MixScene:ctor()
     self.mediatorClass = self.class
-    self._event_proxy = HandlerProxy.new()
+    self._eventHandler = EventHandler.new()
     self._timer = timer.new()
     self._updateHandler = xGame:schedule(0, function (delta)
         self._timer:update(delta)
     end)
-    self.E = function (target, priority)
-        assert(target)
-        return self._event_proxy:E(target, priority)
-    end
 end
 
-function MixScene:has_more_assets()
-    return false
+function MixScene:__call(target, priority)
+    return self._eventHandler:wrap(target, priority)
 end
 
 function MixScene:didActive()
@@ -37,33 +33,30 @@ function MixScene:didInactive()
     self._updateHandler = false
 end
 
-function MixScene:on_create()
+function MixScene:onCreate()
 end
 
-function MixScene:on_destroy()
-    self._event_proxy:clear()
+function MixScene:onDestroy()
+    self.onDestroy = true
+    self._timer:clear()
+    self._eventHandler:clear()
     xGame:unschedule(self._updateHandler)
-    self:remove_children()
-    self._event_proxy = false
-    self._timer = false
-    self._listeners = false
-    self.on_destroy = true
 end
 
 function MixScene:delay(time, func, ...)
     self._timer:delay(time, func, ...)
 end
 
-function MixScene:kill_all()
-    self._timer:kill_all()
+function MixScene:killAll()
+    self._timer:killAll()
 end
 
-function MixScene:delay_with_tag(time, tag, func, ...)
-    self._timer:delay_with_tag(time, tag, func, ...)
+function MixScene:delayWithTag(time, tag, func, ...)
+    self._timer:delayWithTag(time, tag, func, ...)
 end
 
-function MixScene:kill_delay(tag)
-    self._timer:kill_delay(tag)
+function MixScene:killDelay(tag)
+    self._timer:killDelay(tag)
 end
 
 function MixScene:schedule(interval, func)
@@ -75,4 +68,3 @@ function MixScene:unschedule(id)
 end
 
 return MixScene
-

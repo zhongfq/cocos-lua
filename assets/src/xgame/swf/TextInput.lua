@@ -1,11 +1,7 @@
---
--- $id: TextInput.lua O
---
-
 local class         = require "xgame.class"
 local Event         = require "xgame.event.Event"
-local TouchEvent    = require "xgame.display.TouchEvent"
-local UIView        = require "xgame.display.UIView"
+local TouchEvent    = require "xgame.event.TouchEvent"
+local UIView        = require "xgame.ui.UIView"
 local MovieClip     = require "xgame.swf.MovieClip"
 
 local CocosInput

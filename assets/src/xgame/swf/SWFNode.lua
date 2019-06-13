@@ -1,10 +1,6 @@
---
--- $id: SWFNode.lua O $
---
-
 local class     = require "xgame.class"
-local UIView    = require "xgame.display.UIView"
-local ui        = require "xgame.display.ui"
+local UIView    = require "xgame.ui.UIView"
+local ui        = require "xgame.ui.ui"
 
 local SWFNode = ui.class("SWFNode", UIView)
 

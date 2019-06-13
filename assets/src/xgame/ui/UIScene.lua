@@ -1,6 +1,6 @@
 local class     = require "xgame.class"
 local Event     = require "xgame.event.Event"
-local UILayer   = require "xgame.display.UILayer"
+local UILayer   = require "xgame.ui.UILayer"
 
 local UIScene = class("UIScene", UILayer)
 

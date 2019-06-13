@@ -1,12 +1,8 @@
---
--- $id: ScrollImpl.lua O $
---
-
 local class             = require "xgame.class"
-local UIAlign           = require "xgame.display.UIAlign"
-local TouchEvent        = require "xgame.display.TouchEvent"
-local LayoutManager     = require "xgame.display.support.LayoutManager"
-local GestureDetector   = require "xgame.display.support.GestureDetector"
+local Align           = require "xgame.ui.Align"
+local TouchEvent        = require "xgame.event.TouchEvent"
+local LayoutManager     = require "xgame.ui.LayoutManager"
+local GestureDetector   = require "xgame.ui.GestureDetector"
 
 local assert = assert
 local math = math
@@ -20,9 +16,9 @@ function ScrollImpl:ctor(target, container)
     self._detector = GestureDetector.new(target, self)
     self._focuses = setmetatable({}, {__mode = "v"})
     self._horizontal_enabled = true
-    self._horizontal_align = UIAlign.LEFT
+    self._horizontal_align = Align.LEFT
     self._vertical_enabled = true
-    self._vertical_align = UIAlign.BOTTOM
+    self._vertical_align = Align.BOTTOM
     self._touch_count = 0
     self._scrolling = false
     self.rebound_enabled = true -- 回弹
@@ -297,7 +293,7 @@ function ScrollImpl:_validate_x(value, force)
     local x, y = self._container:get_position()
     local width = right - left
 
-    if self._horizontal_align == UIAlign.LEFT then
+    if self._horizontal_align == Align.LEFT then
         if left > 0 or width < target.width then
             value = self.validate_threshold("L", value, x + (0 - left))
         elseif right < target.width then
@@ -326,7 +322,7 @@ function ScrollImpl:_validate_y(value, force)
     local x, y = self._container:get_position()
     local height = top - bottom
 
-    if self._vertical_align == UIAlign.BOTTOM then
+    if self._vertical_align == Align.BOTTOM then
         if bottom > 0 or height < target.height then
             value = self.validate_threshold("B", value, y + (0 - bottom))
         elseif top < target.height then

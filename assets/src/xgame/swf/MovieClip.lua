@@ -1,10 +1,6 @@
---
--- $id: MovieClip.lua O $
---
-
 local class         = require "xgame.class"
 local util          = require "xgame.util"
-local UIAlign       = require "xgame.display.UIAlign"
+local Align       = require "xgame.ui.Align"
 local DisplayObject = require "xgame.swf.DisplayObject"
 
 local table = table
@@ -122,19 +118,19 @@ function MovieClip:align(horizontal, vertical)
     local l, r, t, b = swf.visible_bounds()
     local tl, tr, tt, tb = self:get_bounds(self)
 
-    if horizontal == UIAlign.LEFT then
+    if horizontal == Align.LEFT then
         self.x = l - tl
-    elseif horizontal == UIAlign.CENTER then
+    elseif horizontal == Align.CENTER then
         self.x = (l + r) / 2 - (tl + tr) / 2
-    elseif horizontal == UIAlign.RIGHT then
+    elseif horizontal == Align.RIGHT then
         self.x = r - tr
     end 
     
-    if vertical == UIAlign.TOP then
+    if vertical == Align.TOP then
         self.y = t - tt
-    elseif vertical == UIAlign.CENTER then
+    elseif vertical == Align.CENTER then
         self.y = (t + b) / 2 - (tt + tb) / 2
-    elseif vertical == UIAlign.BOTTOM then
+    elseif vertical == Align.BOTTOM then
         self.y = b - tb
     end 
 end
@@ -142,24 +138,24 @@ end
 function MovieClip:relative(horizontal, vertical)
     local l, r, t, b = swf.visible_bounds()
     local w, h = swf.design_size()
-    if horizontal == UIAlign.LEFT then
+    if horizontal == Align.LEFT then
         self.x = self.x + l
-    elseif horizontal == UIAlign.CENTER then
+    elseif horizontal == Align.CENTER then
         self.x = self.x + (r - l - w) / 2
-    elseif horizontal == UIAlign.RIGHT then
+    elseif horizontal == Align.RIGHT then
         self.x = self.x + r - w
     else
-        assert(horizontal == UIAlign.NONE, horizontal)
+        assert(horizontal == Align.NONE, horizontal)
     end 
     
-    if vertical == UIAlign.TOP then
+    if vertical == Align.TOP then
         self.y = self.y + t
-    elseif vertical == UIAlign.CENTER then
+    elseif vertical == Align.CENTER then
         self.y = self.y - (b - t - h)
-    elseif vertical == UIAlign.BOTTOM then
+    elseif vertical == Align.BOTTOM then
         self.y = self.y + b - h
     else
-        assert(vertical == UIAlign.NONE, vertical)
+        assert(vertical == Align.NONE, vertical)
     end 
 end
 

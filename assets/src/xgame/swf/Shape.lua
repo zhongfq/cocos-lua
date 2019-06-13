@@ -1,7 +1,3 @@
---
--- $id: Shape.lua O $
---
-
 local class             = require "xgame.class"
 local DisplayObject     = require "xgame.swf.DisplayObject"
 local BitmapData        = require "xgame.swf.BitmapData"

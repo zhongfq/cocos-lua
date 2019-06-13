@@ -1,10 +1,6 @@
---
--- $id: RadioButton.lua O $
---
-
 local class             = require "xgame.class"
 local Event             = require "xgame.event.Event"
-local TouchEvent        = require "xgame.display.TouchEvent"
+local TouchEvent        = require "xgame.event.TouchEvent"
 local MovieClip         = require "xgame.swf.MovieClip"
 
 local RadioButton = swf.class("RadioButton", MovieClip)

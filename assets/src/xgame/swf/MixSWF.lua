@@ -1,7 +1,3 @@
---
--- $id: MixSWF.lua O $
---
-
 local class         = require "xgame.class"
 local util          = require "xgame.util"
 local Timer         = require "xgame.Timer"
@@ -74,12 +70,12 @@ function MixSWF:kill_all()
     self._timer:kill_all()
 end
 
-function MixSWF:delay_with_tag(time, tag, func, ...)
-    self._timer:delay_with_tag(time, tag, func, ...)
+function MixSWF:delayWithTag(time, tag, func, ...)
+    self._timer:delayWithTag(time, tag, func, ...)
 end
 
-function MixSWF:kill_delay(tag)
-    self._timer:kill_delay(tag)
+function MixSWF:killDelay(tag)
+    self._timer:killDelay(tag)
 end
 
 function MixSWF:schedule(interval, func)

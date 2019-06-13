@@ -1,5 +1,5 @@
 local class         = require "xgame.class"
-local TouchEvent    = require "xgame.display.TouchEvent"
+local TouchEvent    = require "xgame.event.TouchEvent"
 
 local math = math
 local assert = assert
@@ -17,9 +17,9 @@ function GestureDetector:ctor(target, delegate, tap_square, max_fling_delay)
     self._last_zoom_time = 0
     self._max_fling_delay = max_fling_delay or 0.08
 
-    target:add_event_listener(TouchEvent.TOUCH_DOWN, self._touch_down, self)
-    target:add_event_listener(TouchEvent.TOUCH_MOVE, self._touch_move, self)
-    target:add_event_listener(TouchEvent.TOUCH_UP, self._touch_up, self)
+    target:addListener(TouchEvent.TOUCH_DOWN, self._touch_down, self)
+    target:addListener(TouchEvent.TOUCH_MOVE, self._touch_move, self)
+    target:addListener(TouchEvent.TOUCH_UP, self._touch_up, self)
 end
 
 function GestureDetector:_create_tracker(id)

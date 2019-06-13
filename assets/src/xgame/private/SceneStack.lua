@@ -1,8 +1,9 @@
 local class = require "xgame.class"
+local Array = require "xgame.Array"
 
 local SceneStack = class("SceneStack")
 
-function SceneStack:ctor()
+function SceneStack:ctor(stage)
 end
 
 function SceneStack:startScene(cls, ...)

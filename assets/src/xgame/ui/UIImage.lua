@@ -1,14 +1,10 @@
---
--- $id: UIImage.lua O $
---
-
 local class         = require "xgame.class"
 local util          = require "xgame.util"
 local Event         = require "xgame.event.Event"
 local assetcache    = require "xgame.assetcache"
 local HandlerProxy  = require "xgame.HandlerProxy"
 local LoadTask      = require "xgame.loader.LoadTask"
-local UIView        = require "xgame.display.UIView"
+local UIView        = require "xgame.ui.UIView"
 
 local SpriteFrameCache = cc.SpriteFrameCache:getInstance()
 local trace = util.trace("[UIImage]")

@@ -1,6 +1,3 @@
---
--- $id: AnimationPlayer.lua
---
 local class         = require "xgame.class"
 local util          = require "xgame.util"
 local LinkedList    = require "xgame.LinkedList"

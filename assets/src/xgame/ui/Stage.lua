@@ -1,16 +1,12 @@
---
--- $id: Stage.lua O $
---
-
 local class         = require "xgame.class"
-local util          = require "xgame.util"
 local Event         = require "xgame.event.Event"
-local KeyboardEvent = require "xgame.KeyboardEvent"
-local UILayer       = require "xgame.display.UILayer"
+local KeyboardEvent = require "xgame.event.KeyboardEvent"
+local UILayer       = require "xgame.ui.UILayer"
 local window        = require "kernel.window"
 
-local trace = util.trace("[Stage]")
-local ipairs, pairs = ipairs, pairs
+local ipairs = ipairs
+local pairs = pairs
+local xpcall = xpcall
 local next = next
 
 local Stage = class("Stage", UILayer)
@@ -19,93 +15,83 @@ function Stage:ctor()
     self.name = "stage"
     self._stage = self
     self._focus = false
-    self._track_points = {}
-    self:update_bounds()
-    self:init_input()
+    self._trackedTouches = {}
+    self:_initTouchListener()
+    self:_updateBounds()
 end
 
-function Stage:update_bounds()
-    local left, right, top, bottom = window.get_visible_bounds()
+function Stage:_updateBounds()
+    local left, right, top, bottom = window.visibleBounds()
     self.x = left
     self.y = bottom
     self.width = right - left
     self.height = top - bottom
 end
 
-function Stage:get_bounds()
+function Stage:getBounds()
     return 0, self.width, self.height, 0
 end
 
-function Stage:init_input()
-    local function to_tables(rawpoints)
+function Stage:_initTouchListener()
+    local EventListenerTouchAllAtOnce = require "cc.EventListenerTouchAllAtOnce"
+    local EventListenerKeyboard = require "cc.EventListenerKeyboard"
+
+    local function convert(rawpoints)
         local points = {}
         for _, touch in ipairs(rawpoints) do
             local id = touch:getId()
             local p = touch:getLocation()
-            local x, y = window.convert_to_camera_space(p.x, p.y)
-            points[id] = {x = x, y = y, id = id}
+            local x, y = window.convertToCameraSpace(p.x, p.y)
+            p.x = x
+            p.y = y
+            p.id = id
+            points[id] = p
         end
         return points
     end
 
-    local function on_touches_began(points, event)
-        return self:touch_down(to_tables(points))
+    local function addEventListenerWithSceneGraphPriority(listener)
+        local dispatcher = self.cobj.eventDispatcher
+        dispatcher:addEventListenerWithSceneGraphPriority(listener, self.cobj)
     end
 
-    local function on_touches_moved(points, event)
-        return self:touch_move(to_tables(points))
+    -- add touch listener
+    local touchListener = EventListenerTouchAllAtOnce.create()
+    touchListener.onTouchesBegan = function (touches, event)
+        return self:touchDown(convert(touches))
     end
-
-    local function on_touches_ended(points, event)
-        return self:touch_up(to_tables(points))
+    touchListener.onTouchesMoved = function (touches, event)
+        return self:touchMove(convert(touches))
     end
-
-    local function on_touches_cancelled(points, event)
-        return self:touch_cancel(to_tables(points))
+    touchListener.onTouchesEnded = function (touches, event)
+        return self:touchEnd(convert(touches))
     end
-
-    local eventDispatcher = self.cobj:getEventDispatcher()
-
-    local listener = cc.EventListenerTouchAllAtOnce:create()
-    listener:registerScriptHandler(on_touches_began, cc.Handler.EVENT_TOUCHES_BEGAN)
-    listener:registerScriptHandler(on_touches_moved, cc.Handler.EVENT_TOUCHES_MOVED)
-    listener:registerScriptHandler(on_touches_ended, cc.Handler.EVENT_TOUCHES_ENDED)
-    listener:registerScriptHandler(on_touches_cancelled, cc.Handler.EVENT_TOUCHES_CANCELLED)
-    eventDispatcher:addEventListenerWithSceneGraphPriority(listener, self.cobj)
-
-    local function on_key_pressed(keycode)
-        self:dispatch_event(KeyboardEvent.KEY_DOWN, keycode)
+    touchListener.onTouchesCancelled = function (touches, event)
+        return self:touchCancel(convert(touches))
     end
+    addEventListenerWithSceneGraphPriority(touchListener)
 
-    local function on_key_released(keycode)
-        self:dispatch_event(KeyboardEvent.KEY_UP, keycode)
+    -- add keyboard listener
+    local keyboardListener = EventListenerKeyboard.create()
+    keyboardListener.onKeyPressed = function (keycode, event)
+        self:dispatch(KeyboardEvent.KEY_DOWN, keycode)
     end
-
-    local listener = cc.EventListenerKeyboard:create()
-    listener:registerScriptHandler(on_key_pressed, cc.Handler.EVENT_KEYBOARD_PRESSED)
-    listener:registerScriptHandler(on_key_released, cc.Handler.EVENT_KEYBOARD_RELEASED)
-    eventDispatcher:addEventListenerWithSceneGraphPriority(listener, self.cobj)
+    keyboardListener.onKeyReleased = function (keycode, event)
+        self:dispatch(KeyboardEvent.KEY_UP, keycode)
+    end
+    addEventListenerWithSceneGraphPriority(keyboardListener)
 end
 
-function Stage:finish_touch()
-    for id, target in pairs(self._track_points) do
-        if target.cobj then
-            local capture_points = {[id] = {x = 0, y = 0, id = id}}
-            xpcall(target.touch_cancel, __TRACEBACK__, target, capture_points)
-        end
-    end
-    self._track_points = {}
-end
-
-function Stage:touch_down(points)
+function Stage:touchDown(points)
+    local __TRACEBACK__ = __TRACEBACK__
     while true and next(points) do
-        local target, capture_points = self:hit(points)
-        if target and target.cobj then
-            for id, _ in pairs(capture_points) do
-                self._track_points[id] = target
+        local target, capturePoints = self:hit(points)
+        if target then
+            for id in pairs(capturePoints) do
+                self._trackedTouches[id] = target
             end
             self.focus = target
-            xpcall(target.touch_down, __TRACEBACK__, target, capture_points)
+            xpcall(target.touchDown, __TRACEBACK__, target, capturePoints)
         else
             break
         end
@@ -113,25 +99,26 @@ function Stage:touch_down(points)
     return true
 end
 
-function Stage:touch_move(points)
+function Stage:touchMove(points)
+    local __TRACEBACK__ = __TRACEBACK__
     while true and next(points) do
-        local capture_points = {}
+        local capturePoints = {}
         local target
-        for id, touch in pairs(points) do
-            local obj = self._track_points[id]
-            if obj and obj.cobj and (not target or target == obj) then
-                local x, y = obj:global_to_local(touch.x, touch.y)
+        for id, p in pairs(points) do
+            local obj = self._trackedTouches[id]
+            if obj and (not target or target == obj) then
                 target = obj
-                capture_points[id] = {x = x, y = y, id = id}
+                p.x, p.y = obj:globalToLocal(p.x, p.y)
+                capturePoints[id] = p
                 points[id] = nil
             end
-            if not obj or not obj.cobj then
+            if not obj then
                 points[id] = nil
             end
         end
 
-        if target and target.cobj then
-            xpcall(target.touch_move, __TRACEBACK__, target, capture_points)
+        if target then
+            xpcall(target.touchMove, __TRACEBACK__, target, capturePoints)
         end
 
         if not next(points) then
@@ -141,49 +128,19 @@ function Stage:touch_move(points)
     return true
 end
 
-function Stage:touch_up(points)
+function Stage:touchUp(points)
+    local __TRACEBACK__ = __TRACEBACK__
     while true and next(points) do
-        local capture_points = {}
+        local capturePoints = {}
         local target
-        for id, touch in pairs(points) do
-            local obj = self._track_points[id]
-            if obj and obj.cobj and (not target or target == obj) then
-                local x, y = obj:global_to_local(touch.x, touch.y)
+        for id, p in pairs(points) do
+            local obj = self._trackedTouches[id]
+            if obj and (not target or target == obj) then
                 target = obj
-                capture_points[id] = {x = x, y = y, id = id}
+                p.x, p.y = obj:globalToLocal(p.x, p.y)
+                capturePoints[id] = p
                 points[id] = nil
-                self._track_points[id] = nil
-            end
-
-            if not obj or not obj.cobj then
-                points[id] = nil
-            end
-        end
-
-        if target and target.cobj then
-            xpcall(target.touch_up, __TRACEBACK__, target, capture_points)
-        end
-
-        if not next(points) then
-            break
-        end
-    end
-
-    return true
-end
-
-function Stage:touch_cancel(points)
-    while true and next(points) do
-        local capture_points = {}
-        local target
-        for id, touch in pairs(points) do
-            local obj = self._track_points[id]
-            if obj and obj.cobj and (not target or target == obj) then
-                local x, y = obj:global_to_local(touch.x, touch.y)
-                target = obj
-                capture_points[id] = {x = x, y = y, id = id}
-                points[id] = nil
-                self._track_points[id] = nil
+                self._trackedTouches[id] = nil
             end
 
             if not obj then
@@ -191,32 +148,36 @@ function Stage:touch_cancel(points)
             end
         end
 
-        if target and target.cobj then
-            xpcall(target.touch_cancel, __TRACEBACK__, target, capture_points)
+        if target then
+            xpcall(target.touchUp, __TRACEBACK__, target, capturePoints)
         end
 
         if not next(points) then
             break
         end
     end
-
     return true
 end
 
---
--- Setter Getter
---
+function Stage:touchCancel(points)
+    for _, p in pairs(points) do
+        p.x = math.maxinteger
+        p.y = math.maxinteger
+    end
+    return self:touchUp(points)
+end
+
 function Stage.Get:focus() return self._focus end
 function Stage.Set:focus(value)
     if self._focus ~= value then
         if self._focus then
-            self._focus:dispatch_event(Event.FOCUS_OUT)
+            self._focus:dispatch(Event.FOCUS_OUT)
         end
 
         self._focus = value
 
         if value then
-            value:dispatch_event(Event.FOCUS_IN)
+            value:dispatch(Event.FOCUS_IN)
         end
     end
 end

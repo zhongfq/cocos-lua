@@ -1,11 +1,7 @@
---
--- $id: ScrollBase.lua O $
---
-
 local class         = require "xgame.class"
-local UILayer       = require "xgame.display.UILayer"
-local UIView        = require "xgame.display.UIView"
-local ScrollImpl    = require "xgame.display.support.ScrollImpl"
+local UILayer       = require "xgame.ui.UILayer"
+local UIView        = require "xgame.ui.UIView"
+local ScrollImpl    = require "xgame.ui.ScrollImpl"
 
 local math = math
 

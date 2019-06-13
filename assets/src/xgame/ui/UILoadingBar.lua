@@ -1,9 +1,5 @@
---
--- $id: UILoadingBar.lua O $
---
-
 local class     = require "xgame.class"
-local UIView    = require "xgame.display.UIView"
+local UIView    = require "xgame.ui.UIView"
 
 local UILoadingBar = class("UILoadingBar", UIView)
 

@@ -1,7 +1,3 @@
---
--- $id: Graphics.lua O $
---
-
 local class         = require "xgame.class"
 local Point         = require "xgame.Point"
 local DisplayObject = require "xgame.swf.DisplayObject"

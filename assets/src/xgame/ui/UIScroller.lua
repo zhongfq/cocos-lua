@@ -1,11 +1,7 @@
---
--- $id: UIScroller.lua O $
---
-
 local class         = require "xgame.class"
-local UIAlign       = require "xgame.display.UIAlign"
-local ScrollBase    = require "xgame.display.support.ScrollBase"
-local ScrollImpl    = require "xgame.display.support.ScrollImpl"
+local Align       = require "xgame.ui.Align"
+local ScrollBase    = require "xgame.ui.ScrollBase"
+local ScrollImpl    = require "xgame.ui.ScrollImpl"
 
 local UIScroller = class("UIScroller", ScrollBase)
 
@@ -53,14 +49,14 @@ end
 
 function UIScroller:scroll_to(h, v)
     self:get_scroll_bounds()
-    if h == UIAlign.LEFT then
+    if h == Align.LEFT then
         self.scroll_x = self._container.width * 2
-    elseif h == UIAlign.RIGHT then
+    elseif h == Align.RIGHT then
         self.scroll_x = -self._container.width * 2
     end
-    if v == UIAlign.TOP then
+    if v == Align.TOP then
         self.scroll_y = -self._container.height * 2
-    elseif v == UIAlign.RIGHT then
+    elseif v == Align.RIGHT then
         self.scroll_y = self._container.height * 2
     end
     self:validate_now()

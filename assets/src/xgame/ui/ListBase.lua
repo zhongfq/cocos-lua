@@ -1,16 +1,12 @@
---
--- $id: ListBase.lua O $
---
-
 local class         = require "xgame.class"
 local Event         = require "xgame.event.Event"
 local Array         = require "xgame.Array"
-local UIAlign       = require "xgame.display.UIAlign"
-local TouchEvent    = require "xgame.display.TouchEvent"
-local LayoutManager = require "xgame.display.support.LayoutManager"
-local ScrollImpl    = require "xgame.display.support.ScrollImpl"
-local ScrollBase    = require "xgame.display.support.ScrollBase"
-local LayoutBase    = require "xgame.display.support.LayoutBase"
+local Align       = require "xgame.ui.Align"
+local TouchEvent    = require "xgame.event.TouchEvent"
+local LayoutManager = require "xgame.ui.LayoutManager"
+local ScrollImpl    = require "xgame.ui.ScrollImpl"
+local ScrollBase    = require "xgame.ui.ScrollBase"
+local LayoutBase    = require "xgame.ui.LayoutBase"
 
 local Layout
 
@@ -23,11 +19,11 @@ function ListBase:ctor()
     self._cursor = {from = 1, to = 0}
     self.dequeue = Array.new()
     self._scroll_impl = ScrollImpl.new(self, self._container)
-    self._scroll_impl.orientation = UIAlign.VERTICAL
+    self._scroll_impl.orientation = Align.VERTICAL
     self._scroll_impl.vertical_enabled = true
-    self._scroll_impl.vertical_align = UIAlign.TOP
+    self._scroll_impl.vertical_align = Align.TOP
     self._scroll_impl.horizontal_enabled = false
-    self._scroll_impl.horizontal_align = UIAlign.LEFT
+    self._scroll_impl.horizontal_align = Align.LEFT
     self._scroll_impl.max_vel = 6000
     self._scroll_impl.elapse_time = 1.5
     self._scroll_impl.validate_threshold = function (which, rawvalue, newvalue)
@@ -194,7 +190,7 @@ function ListBase:_create_if_need(try_times)
     local arr, index, child, data
     local wrap_count = self.layout.wrap_count
 
-    local vertical = self.layout.orientation == UIAlign.VERTICAL
+    local vertical = self.layout.orientation == Align.VERTICAL
 
     if (not vertical and right < self.width + self.inner_padding) or 
         (vertical and bottom > -self.inner_padding) then
@@ -283,7 +279,7 @@ function Layout:ctor()
     self.wrap_count = 1
     self.horizontal_gap = 6
     self.vertical_gap = 6
-    self.orientation = UIAlign.VERTICAL
+    self.orientation = Align.VERTICAL
 end
 
 function Layout:get_bounds(target)
@@ -346,7 +342,7 @@ function Layout:do_layout()
                 child.data) - 1
         end
 
-        if self.orientation == UIAlign.VERTICAL then
+        if self.orientation == Align.VERTICAL then
             i = count % wrap_count
             j = count // wrap_count
         else

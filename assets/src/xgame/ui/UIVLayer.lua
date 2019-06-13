@@ -1,10 +1,6 @@
---
--- $id: UIVLayer.lua O $
---
-
 local class             = require "xgame.class"
-local UILayer           = require "xgame.display.UILayer"
-local VerticalLayout    = require "xgame.display.support.VerticalLayout"
+local UILayer           = require "xgame.ui.UILayer"
+local VerticalLayout    = require "xgame.ui.VerticalLayout"
 
 local UIVLayer = class("UIVLayer", UILayer)
 

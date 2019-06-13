@@ -1,7 +1,3 @@
---
--- $id: AudioScanner.lua O $
---
-
 local class             = require "xgame.class"
 local util              = require "xgame.util"
 local EventDispatcher   = require "xgame.event.EventDispatcher"

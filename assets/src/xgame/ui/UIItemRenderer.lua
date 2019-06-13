@@ -1,9 +1,5 @@
---
--- $id: UIItemRenderer.lua O $
---
-
 local class     = require "xgame.class"
-local UILayer   = require "xgame.display.UILayer"
+local UILayer   = require "xgame.ui.UILayer"
 
 local UIItemRenderer = class("UIItemRenderer", UILayer)
 

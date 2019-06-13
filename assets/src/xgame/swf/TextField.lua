@@ -1,7 +1,3 @@
---
--- $id: TextField.lua O $
---
-
 local class             = require "xgame.class"
 local DisplayObject     = require "xgame.swf.DisplayObject"
 

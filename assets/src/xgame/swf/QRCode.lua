@@ -1,7 +1,3 @@
---
--- $id: QRCode.lua O $
---
-
 local qrcode        = require "qrcode"
 local class         = require "xgame.class"
 local Graphics      = require "xgame.swf.Graphics"

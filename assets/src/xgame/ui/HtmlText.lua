@@ -1,7 +1,3 @@
---
--- $id: HtmlText.lua O
---
-
 local class = require "xgame.class"
 
 local HtmlText = class("HtmlText")

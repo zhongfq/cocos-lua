@@ -1,7 +1,3 @@
---
--- $id: swf.lua O $
---
-
 local class     = require "xgame.class"
 local util      = require "xgame.util"
 local Event     = require "xgame.event.Event"

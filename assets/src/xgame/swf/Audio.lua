@@ -1,7 +1,3 @@
---
--- $id: Audio.lua O $
---
-
 local class         = require "xgame.class"
 local AudioEngine   = require "xgame.AudioEngine"
 local Event         = require "xgame.event.Event"

@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (c) 2019 code.zhong@gmail.com
+ * Copyright (c) 2019 codetypes@gmail.com
  *
  * https://github.com/zhongfq/olua
  *

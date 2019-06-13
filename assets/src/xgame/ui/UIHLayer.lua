@@ -1,11 +1,7 @@
---
--- $id: UIHLayer.lua O $
---
-
 local class             = require "xgame.class"
-local UILayer           = require "xgame.display.UILayer"
-local UIAlign           = require "xgame.display.UIAlign"
-local HorizontalLayout  = require "xgame.display.support.HorizontalLayout"
+local UILayer           = require "xgame.ui.UILayer"
+local Align           = require "xgame.ui.Align"
+local HorizontalLayout  = require "xgame.ui.HorizontalLayout"
 
 local UIHLayer = class("UIHLayer", UILayer)
 

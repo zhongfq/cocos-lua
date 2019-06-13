@@ -1,12 +1,8 @@
---
--- $id: UISlider.lua O $
---
-
 local class         = require "xgame.class"
 local util          = require "xgame.util"
 local Event         = require "xgame.event.Event"
-local TouchEvent    = require "xgame.display.TouchEvent"
-local UILayer       = require "xgame.display.UILayer"
+local TouchEvent    = require "xgame.event.TouchEvent"
+local UILayer       = require "xgame.ui.UILayer"
 
 local UISlider = class("UISlider", UILayer)
 

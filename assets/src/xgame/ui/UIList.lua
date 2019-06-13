@@ -1,10 +1,6 @@
---
--- $id: UIList.lua O $
---
-
 local class         = require "xgame.class"
-local UIAlign       = require "xgame.display.UIAlign"
-local ListBase      = require "xgame.display.support.ListBase"
+local Align       = require "xgame.ui.Align"
+local ListBase      = require "xgame.ui.ListBase"
 
 local UIList = class("UIList", ListBase)
 

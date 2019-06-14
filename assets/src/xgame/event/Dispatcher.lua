@@ -8,13 +8,13 @@ local tostring = tostring
 local ANONYMOUS = {}
 local hashlist = {}
 
-local EventDispatcher = class("EventDispatcher")
+local Dispatcher = class("Dispatcher")
 
-function EventDispatcher:ctor()
+function Dispatcher:ctor()
     self._listeners = {}
 end
 
-function EventDispatcher:addListener(event, listener, owner, priority)
+function Dispatcher:addListener(event, listener, owner, priority)
     assert(event, "no event")
     assert(listener, "no listener")
     
@@ -27,7 +27,7 @@ function EventDispatcher:addListener(event, listener, owner, priority)
     list:insert(owner or ANONYMOUS, listener, priority)
 end
 
-function EventDispatcher:removeListener(event, listener, owner)
+function Dispatcher:removeListener(event, listener, owner)
     assert(event, "no event")
     assert(listener, "no listener")
     
@@ -40,7 +40,7 @@ function EventDispatcher:removeListener(event, listener, owner)
     end
 end
 
-function EventDispatcher:dispatch(event, ...)
+function Dispatcher:dispatch(event, ...)
     assert(event, "no event")
     
     if self:hasListener(event) then
@@ -54,7 +54,7 @@ function EventDispatcher:dispatch(event, ...)
     end
 end
 
-function EventDispatcher:hasListener(event)
+function Dispatcher:hasListener(event)
     return self._listeners[event] ~= nil
 end
 
@@ -133,4 +133,4 @@ function hashlist:remove(key, value)
     end
 end
 
-return EventDispatcher
+return Dispatcher

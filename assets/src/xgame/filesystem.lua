@@ -22,9 +22,9 @@ local function encodeURI(s)
 end
 
 function filesystem.localCachePath(url)
-    if string.find(url, "^http[s]?://static") == 1 then
+    if string.find(url, "^https?://static") then
         return cacheDirectory .. "/http_static/" .. encodeURI(url)
-    elseif string.find(url, "^http[s]?://") == 1 then
+    elseif string.find(url, "^https?://") then
         return cacheDirectory .. "/http/" .. encodeURI(url)
     else
         return url

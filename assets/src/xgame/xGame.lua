@@ -5,6 +5,7 @@ local MediatorMap   = require "xgame.MediatorMap"
 local Stage         = require "xgame.ui.Stage"
 local UIImage       = require "xgame.ui.UIImage"
 local SceneStack    = require "xgame.private.SceneStack"
+local Dispatcher    = require "xgame.event.Dispatcher"
 local window        = require "kernel.window"
 local Director      = require "cc.Director"
 local RenderTexture = require "cc.RenderTexture"
@@ -12,13 +13,13 @@ local PixelFormat   = require "cc.Texture2D.PixelFormat"
 
 local director = Director.instance
 
-xGame = class("xGame", require("xgame.event.EventDispatcher"))
+xGame = class("xGame", Dispatcher)
 
 function xGame:ctor()
-    self.time = 0
     self.stage = Stage.new()
     self._mediatorMap = MediatorMap.new(self.stage)
     self._sceneStack = SceneStack.new(self.stage)
+    self._initManifests()
     self:_initTimer()
     self:_initRuntimeEvents()
 
@@ -92,6 +93,9 @@ function xGame:topScene()
     return self._sceneStack:topScene()
 end
 
+function xGame:_initManifests()
+end
+
 --
 -- timer api
 --
@@ -99,7 +103,6 @@ function xGame:_initTimer()
     local inst = timer.new()
     self._timer = inst
     timer.schedule(0, function (dt)
-        self.time = self.time + dt
         inst:update(dt)
     end)
 end
@@ -155,6 +158,10 @@ end
 --
 -- runtime api
 --
+function xGame.Get:time()
+    return runtime.time
+end
+
 function xGame.Get:os()
     return runtime.os
 end

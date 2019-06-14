@@ -6,6 +6,7 @@ cls.funcs [[
     static bool launch(const std::string &scriptPath)
     static bool restart()
     static bool isRestarting()
+    static float getTime();
     static void setAntialias(bool enabled, unsigned int numSamples)
     static bool isAntialias()
     static unsigned int getNumSamples()
@@ -26,6 +27,8 @@ cls.funcs [[
     static void setLogPath(const std::string &path)
 ]]
 cls.props [[
+    restarting
+    time
     packageName
     version
     versionBuild

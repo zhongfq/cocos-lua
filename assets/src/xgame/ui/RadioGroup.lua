@@ -1,9 +1,9 @@
-local class             = require "xgame.class"
-local Event             = require "xgame.event.Event"
-local EventDispatcher   = require "xgame.event.EventDispatcher"
-local xtable            = require "xgame.xtable"
+local class         = require "xgame.class"
+local Event         = require "xgame.event.Event"
+local Dispatcher    = require "xgame.event.Dispatcher"
+local xtable        = require "xgame.xtable"
 
-local RadioGroup = class("RadioGroup", EventDispatcher)
+local RadioGroup = class("RadioGroup", Dispatcher)
 
 function RadioGroup:ctor()
     self._selected_index = 0

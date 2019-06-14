@@ -2,12 +2,13 @@ local class         = require "xgame.class"
 local util          = require "xgame.util"
 local runtime       = require "xgame.runtime"
 local PluginEvent   = require "xgame.event.PluginEvent"
+local Dispatcher    = require "xgame.event.Dispatcher"
 local cjson         = require "kernel.cjson.safe"
 
 local trace = util.trace("[vivo]")
 local impl
 
-local Vivo = class("Vivo", require("xgame.event.EventDispatcher"))
+local Vivo = class("Vivo", Dispatcher)
 
 function Vivo:ctor()
     impl:setDispatcher(function (...)

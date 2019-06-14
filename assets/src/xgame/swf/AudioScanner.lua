@@ -1,7 +1,7 @@
-local class             = require "xgame.class"
-local util              = require "xgame.util"
-local EventDispatcher   = require "xgame.event.EventDispatcher"
-local AudioEvent        = require "xgame.swf.AudioEvent"
+local class         = require "xgame.class"
+local util          = require "xgame.util"
+local Dispatcher    = require "xgame.event.Dispatcher"
+local AudioEvent    = require "xgame.swf.AudioEvent"
 
 local assert = assert
 local ipairs, pairs = ipairs, pairs
@@ -9,7 +9,7 @@ local next = next
 local trace = util.trace("[AudioScanner]")
 local TYPE_MOVIECLIP = swf.type.MOVIECLIP
 
-local AudioScanner = class("AudioScanner", EventDispatcher)
+local AudioScanner = class("AudioScanner", Dispatcher)
 
 function AudioScanner:ctor()
     self._tag = 0

@@ -1,10 +1,11 @@
 local class         = require "xgame.class"
 local audio         = require "xgame.audio"
 local TouchEvent    = require "xgame.event.TouchEvent"
+local Dispatcher    = require "xgame.event.Dispatcher"
 
 local pairs = pairs
 
-local UIObject = class("UIObject", require("xgame.event.EventDispatcher"))
+local UIObject = class("UIObject", Dispatcher)
 
 function UIObject:ctor()
     self.touchable = false

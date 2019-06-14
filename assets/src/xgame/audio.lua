@@ -3,6 +3,7 @@ local util          = require "xgame.util"
 local filesystem    = require "xgame.filesystem"
 local timer         = require "xgame.timer"
 local Event         = require "xgame.event.Event"
+local Dispatcher    = require "xgame.event.Dispatcher"
 local AudioEngine   = require "cc.AudioEngine"
 
 local INVALID_AUDIO_ID = -1
@@ -125,7 +126,7 @@ end
 --
 -- AudioObject
 --
-AudioObject = class("AudioObject", require("xgame.event.EventDispatcher"))
+AudioObject = class("AudioObject", Dispatcher)
 
 function AudioObject:ctor(id, loop, volume, path, autoremove)
     self.autoremove = autoremove

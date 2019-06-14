@@ -154,7 +154,6 @@ function M:_downloadAssets(localManifest, assets)
         downloader.load({
             url = asset.url,
             md5 = asset.md5,
-            asset = asset,
             path = self:_resolveAssetPath(path),
             callback = callback,
         })

@@ -59,6 +59,17 @@ static int _xgame_runtime_isRestarting(lua_State *L)
     return num_ret;
 }
 
+static int _xgame_runtime_getTime(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static float getTime();
+    float ret = (float)xgame::runtime::getTime();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
 static int _xgame_runtime_setAntialias(lua_State *L)
 {
     lua_settop(L, 2);
@@ -331,6 +342,7 @@ static int luaopen_xgame_runtime(lua_State *L)
     oluacls_func(L, "launch", _xgame_runtime_launch);
     oluacls_func(L, "restart", _xgame_runtime_restart);
     oluacls_func(L, "isRestarting", _xgame_runtime_isRestarting);
+    oluacls_func(L, "getTime", _xgame_runtime_getTime);
     oluacls_func(L, "setAntialias", _xgame_runtime_setAntialias);
     oluacls_func(L, "isAntialias", _xgame_runtime_isAntialias);
     oluacls_func(L, "getNumSamples", _xgame_runtime_getNumSamples);
@@ -352,6 +364,8 @@ static int luaopen_xgame_runtime(lua_State *L)
     oluacls_func(L, "testCrash", _xgame_runtime_testCrash);
     oluacls_func(L, "setDispatcher", _xgame_runtime_setDispatcher);
     oluacls_func(L, "openURL", _xgame_runtime_openURL);
+    oluacls_prop(L, "restarting", _xgame_runtime_isRestarting, nullptr);
+    oluacls_prop(L, "time", _xgame_runtime_getTime, nullptr);
     oluacls_prop(L, "packageName", _xgame_runtime_getPackageName, nullptr);
     oluacls_prop(L, "version", _xgame_runtime_getVersion, nullptr);
     oluacls_prop(L, "versionBuild", _xgame_runtime_getVersionBuild, nullptr);

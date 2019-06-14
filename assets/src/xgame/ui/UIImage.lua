@@ -1,6 +1,6 @@
 local class             = require "xgame.class"
 local Event             = require "xgame.event.Event"
-local asset             = require "xgame.asset"
+local assetloader       = require "xgame.assetloader"
 local LoadTask          = require "xgame.loader.LoadTask"
 local UIView            = require "xgame.ui.UIView"
 local ImageView         = require "ccui.ImageView"
@@ -26,7 +26,7 @@ end
 
 function UIImage:unload()
     self.url = false
-    asset.unload(self)
+    assetloader.unload(self)
 end
 
 function UIImage:load_texture(path)
@@ -37,7 +37,7 @@ function UIImage:load_texture(path)
     self.url = path
 
     if string.find(path, "/") then
-        asset.load(self, {[path] = true})
+        assetloader.load(self, {[path] = true})
         self.cobj:loadTexture(path, TextureResType.localType)
     else
         assert(spriteFrameCache:getSpriteFrame(path), path)
@@ -80,7 +80,7 @@ end
 
 function UIImage:load_async(filepath)
     self:_do_load(filepath, function (path)
-        asset.load_async(self, {[path] = true}, function ()
+        assetloader.load_async(self, {[path] = true}, function ()
             if self.cobj then
                 self:load_texture(path)
             end

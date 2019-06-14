@@ -21,8 +21,10 @@ function main()
                 main()
             end
             if not xpcall(start, __TRACEBACK__) then
-                runtime.clearStorage()
-                runtime.restart()
+                if not DEBUG then
+                    runtime.clearStorage()
+                    runtime.restart()
+                end
             end
         end
     end

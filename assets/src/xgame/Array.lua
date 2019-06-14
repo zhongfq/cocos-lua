@@ -1,7 +1,8 @@
-local class = require "xgame.class"
-local Event = require "xgame.event.Event"
+local class         = require "xgame.class"
+local Event         = require "xgame.event.Event"
+local Dispatcher    = require "xgame.event.Dispatcher"
 
-local Array = class("Array", require("xgame.event.EventDispatcher"))
+local Array = class("Array", Dispatcher)
 
 local assert = assert
 local table = table

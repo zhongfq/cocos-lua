@@ -30,6 +30,7 @@ static std::string _openURI;
 static std::map<std::string, bool> _supportedFeatures;
 
 static char _logBuf[MAX_LOG_LENGTH];
+static float _time = 0;
 static std::string _timestamp;
 static FILE *_logFile = NULL;
 static std::mutex _logMutex;
@@ -76,6 +77,7 @@ void runtime::init()
     preferences::flush();
     
     timer::schedule(1, [](float dt){ updateTimestamp(); });
+    timer::schedule(0, [](float dt){ _time += dt; });
     
     Texture2D::setDefaultAlphaPixelFormat(Texture2D::PixelFormat::AUTO);
     AudioEngine::lazyInit();
@@ -88,6 +90,11 @@ void runtime::init()
     dispatcher->addCustomEventListener("director_projection_changed", [](EventCustom *e) {
         runtime::dispatchEventImmediately("runtimeResize", "");
     });
+}
+
+float runtime::getTime()
+{
+    return _time;
 }
 
 void runtime::clearStorage()

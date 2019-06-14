@@ -1,29 +1,29 @@
 local class         = require "xgame.class"
 local util          = require "xgame.util"
 local filesystem    = require "xgame.filesystem"
-local plistparser   = require "xgame.plistparser"
+local plist         = require "xgame.plist"
 
 local trace = util.trace("[asset]")
 local assert = assert
 local string = string
 
-local TextureCache = cc.Director:getInstance():getTextureCache()
-local SpriteFrameCache = cc.SpriteFrameCache:getInstance()
+local textureCache = require("cc.Director").instance.textureCache
+local spriteFrameCache = require("cc.SpriteFrameCache").instance
 
 local AssetObject
 
 local M = {}
 
 local assets = setmetatable({}, {__mode = 'v'})
-local view_assets = setmetatable({}, {__mode = 'k'})
-local view_watches = setmetatable({}, {__mode = "k"})
-local static_assets = {}
+local viewAssets = setmetatable({}, {__mode = 'k'})
+local viewWatches = setmetatable({}, {__mode = "k"})
+local staticAssets = {}
 
-local function short_path(path)
-    return filesystem.short_path(path, 60)
+local function shortenPath(path)
+    return filesystem.shortenPath(path, 60)
 end
 
-local function get_or_create(path)
+local function getOrCreate(path)
     local obj = assets[path]
     if not obj then
         obj = AssetObject.new(path)
@@ -32,14 +32,14 @@ local function get_or_create(path)
     return obj
 end
 
-function M.set_static(path)
+function M.setStatic(path)
     assert(path and #path > 0)
-    trace("set static asset: %s", short_path(path))
-    static_assets[path] = get_or_create(path)
+    trace("set static asset: %s", shortenPath(path))
+    staticAssets[path] = getOrCreate(path)
 end
 
 function M.watch(view)
-    view_watches[view] = true
+    viewWatches[view] = true
 end
 
 
@@ -55,29 +55,29 @@ end
 function M.load(view, paths)
     local dict = {}
     for path in pairs(paths) do
-        local asset = get_or_create(path)
+        local asset = getOrCreate(path)
         asset:load()
         dict[path] = asset
     end
 
     if view then
-        view_assets[view] = dict
+        viewAssets[view] = dict
     end
 end
 
 function M.unload(view)
     if view then
-        view_assets[view] = nil
-        view_watches[view] = nil
+        viewAssets[view] = nil
+        viewWatches[view] = nil
     end
 end
 
-function M.load_async(view, paths, callback)
+function M.loadAsync(view, paths, callback)
     assert(callback)
     paths = util.clone(paths)
     for path in pairs(paths) do
-        local asset = get_or_create(path)
-        asset:load_async(function ()
+        local asset = getOrCreate(path)
+        asset:loadAsync(function ()
             paths[path] = nil
             if not next(paths) then
                 callback()
@@ -86,11 +86,11 @@ function M.load_async(view, paths, callback)
     end
 end
 
-function M.load_scene(scene)
+function M.loadSceneAssets(scene)
     local filter = {}
 
-    local function do_load(target)
-        local dict = view_assets[target]
+    local function doLoad(target)
+        local dict = viewAssets[target]
         if dict then
             for path, asset in pairs(dict) do
                 filter[path] = asset
@@ -99,22 +99,22 @@ function M.load_scene(scene)
         end
         if target.children then
             for _, child in ipairs(target.children) do
-                do_load(child)
+                doLoad(child)
             end
         end
     end
 
-    do_load(scene)
+    doLoad(scene)
 
-    for view in pairs(view_watches) do
-        do_load(view)
+    for view in pairs(viewWatches) do
+        doLoad(view)
     end
 
     for path, asset in pairs(assets) do
-        if not(filter[path] or static_assets[path]) then
+        if not(filter[path] or staticAssets[path]) then
             -- if no view refer the asset, asset gc method will call
             -- when lua gc happen
-            asset:delete_texture()
+            asset:deleteTexture()
         end
     end
 end
@@ -124,12 +124,12 @@ function M.dump(dump_static)
     for path, asset in pairs(assets) do
         if dump_static then
             arr[#arr + 1] = string.format("  %s[static=%s, active=%s]",
-                short_path(path), 
-                static_assets[path] and true or false,
-                asset:is_active())
-        elseif not static_assets[path] then
-            arr[#arr + 1] = string.format("  %s[static=false, active=%s]", 
-                short_path(path), asset:is_active())
+                shortenPath(path),
+                staticAssets[path] and true or false,
+                asset:isActive())
+        elseif not staticAssets[path] then
+            arr[#arr + 1] = string.format("  %s[static=false, active=%s]",
+                shortenPath(path), asset:isActive())
         end
     end
     table.sort(arr)
@@ -143,90 +143,86 @@ AssetObject = class("AssetObject")
 
 function AssetObject:ctor(path)
     self.path = path
-
     if string.find(path, ".plist$") then
         self._plist = path
-        self._image = string.gsub(path, "[^/]+$", plistparser.parse(
-            filesystem.read(path)).metadata.textureFileName)
+        local data = plist.parse(filesystem.read(path))
+        self._image = string.gsub(path, "[^/]+$", data.metadata.textureFileName)
+        self._frames = data.frames
     else
         self._plist = false
         self._image = path
     end
-
-    TextureCache:retain()
-    SpriteFrameCache:retain()
 end
 
 function AssetObject:__gc()
-    xpcall(self.unload, __TRACEBACK__, self)
-    TextureCache:release()
-    SpriteFrameCache:release()
+    self:unload()
 end
 
 function AssetObject:load()
     if self._plist then
-        if not SpriteFrameCache:isSpriteFramesWithFileLoaded(self._plist) then
-            trace("L => %s", short_path(self._plist))
-            SpriteFrameCache:addSpriteFrames(self._plist)
-
-            -- TODO: hold sprite frames?
+        if not spriteFrameCache:isSpriteFramesWithFileLoaded(self._plist) then
+            trace("L => %s", shortenPath(self._plist))
+            spriteFrameCache:addSpriteFrames(self._plist)
+            for name in pairs(self._frames) do
+                self._frames[name] = spriteFrameCache:getSpriteFrame(name)
+                print("hold " .. name) -- TODO:rm
+            end
         end
     end
 
-    local texture = TextureCache:getTextureForKey(self._image)
+    local texture = textureCache:getTextureForKey(self._image)
     if not texture then
-        texture = TextureCache:addImage(self._image)
-        trace("L => %s", short_path(self._image))
+        texture = textureCache:addImage(self._image)
+        trace("L => %s", shortenPath(self._image))
     elseif texture:getName() == 0 then
-        trace("R => %s", short_path(self._image))
-        TextureCache:reloadTexture(self._image)
+        trace("R => %s", shortenPath(self._image))
+        textureCache:reloadTexture(self._image)
     end
 end
 
-function AssetObject:load_async(callback)
-    local texture = TextureCache:getTextureForKey(self._image)
+function AssetObject:loadAsync(callback)
+    local texture = textureCache:getTextureForKey(self._image)
     assert(callback)
     if not texture then
-        TextureCache:addImageAsync(self._image, function (texture)
+        textureCache:addImageAsync(self._image, function (texture)
             if texture then
-                trace("L => %s", short_path(self._image))
+                trace("L => %s", shortenPath(self._image))
                 callback()
             else
-                trace("not found: %s", short_path(self._image))
+                trace("not found: %s", shortenPath(self._image))
             end
         end)
     else
         if texture:getName() == 0 then
-            TextureCache:reloadTexture(self._image)
-            trace("R => %s", short_path(self._image))
+            textureCache:reloadTexture(self._image)
+            trace("R => %s", shortenPath(self._image))
         end
         callback()
     end
 end
 
 function AssetObject:reload()
-    -- TODO: plist reload?
-    TextureCache:reloadTexture(self._image)
+    textureCache:reloadTexture(self._image)
 end
 
 function AssetObject:unload()
     if self._plist then
-        SpriteFrameCache:removeSpriteFramesFromFile(self._plist)
+        spriteFrameCache:removeSpriteFramesFromFile(self._plist)
     end
-    TextureCache:removeTextureForKey(self._image)
-    trace("U => %s", short_path(self.path))
+    textureCache:removeTextureForKey(self._image)
+    trace("U => %s", shortenPath(self.path))
 end
 
-function AssetObject:delete_texture()
-    local texture = TextureCache:getTextureForKey(self._image)
+function AssetObject:deleteTexture()
+    local texture = textureCache:getTextureForKey(self._image)
     if texture and texture:getName() ~= 0 then
         texture:releaseGLTexture()
-        trace("D => %s", short_path(self._image))
+        trace("D => %s", shortenPath(self._image))
     end
 end
 
-function AssetObject:is_active()
-    local texture = TextureCache:getTextureForKey(self._image)
+function AssetObject:isActive()
+    local texture = textureCache:getTextureForKey(self._image)
     return (texture and texture:getName() ~= 0) and true or false
 end
 

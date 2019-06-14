@@ -13,7 +13,4 @@ source changed：
 
     3. CCTextFieldTTF.h
             + virtual void keyboardDidHide(IMEKeyboardNotificationInfo& info) override { detachWithIME(); };
-
-    4. CCDirector.cpp
-        void Director::purgeCachedData(void)
-            - SpriteFrameCache::getInstance()->removeUnusedSpriteFrames();
+            

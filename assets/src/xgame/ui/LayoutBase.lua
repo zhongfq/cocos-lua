@@ -14,12 +14,6 @@ function LayoutBase:notify(action, child)
     end
 end
 
-function LayoutBase:update()
-    if self.target and self.target.cobj then
-        self:doLayout()
-    end
-end
-
 function LayoutBase:getBounds(target)
     local left, right, top, bottom
     for _, child in ipairs(self.target.children) do

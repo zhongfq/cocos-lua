@@ -3,9 +3,14 @@ local timer         = require "xgame.timer"
 local runtime       = require "xgame.runtime"
 local MediatorMap   = require "xgame.MediatorMap"
 local Stage         = require "xgame.ui.Stage"
+local UIImage       = require "xgame.ui.UIImage"
 local SceneStack    = require "xgame.private.SceneStack"
+local window        = require "kernel.window"
 local Director      = require "cc.Director"
 local RenderTexture = require "cc.RenderTexture"
+local PixelFormat   = require "cc.Texture2D.PixelFormat"
+
+local director = Director.instance
 
 xGame = class("xGame", require("xgame.event.EventDispatcher"))
 
@@ -17,11 +22,49 @@ function xGame:ctor()
     self:_initTimer()
     self:_initRuntimeEvents()
 
-    Director.instance.runningScene:addChild(self.stage.cobj)
+    director.runningScene:addChild(self.stage.cobj)
 end
 
 function xGame:snapshot(node)
-    
+    local DEPTH24_STENCIL8_OES = 0x88f0
+    local width, height = node.width, node.height
+    local vpw, vph = xGame:designSize()
+    local renderTexture = RenderTexture.create(width, height,
+        PixelFormat.RGB565, DEPTH24_STENCIL8_OES)
+    local visible = node.cobj:isVisible()
+    renderTexture:setKeepMatrix(true)
+    renderTexture:setVirtualViewport({
+        -- begin
+        x = 0,
+        y = 0,
+    }, { -- full rect
+        x = 0,
+        y = 0,
+        width = width,
+        height = height,
+    }, {
+        -- full viewport
+        x = 0,
+        y = 0,
+        width = vpw,
+        height = vph,
+    })
+    renderTexture:beginVisit()
+    node.cobj:setVisible(true)
+    node.cobj:visit()
+    node.cobj:setVisible(visible)
+    renderTexture:endVisit()
+
+    director.renderer:render()
+
+    local image = UIImage.new()
+    image.cobj = renderTexture:getSprite()
+    image.cobj:getTexture():setAntiAliasTexParameters()
+    renderTexture:removeAllChildren()
+    image.cobj:setIgnoreAnchorPointForPosition(true)
+    image.cobj.anchorX = 0.5
+    image.cobj.anchorY = 0.5
+    return image
 end
 
 -- scene api
@@ -138,6 +181,22 @@ end
 
 function xGame:canOpenURL(url)
     return runtime.canOpenURL(url)
+end
+
+--
+-- window api
+--
+function xGame:designSize()
+    return window.getDesignSize()
+end
+
+function xGame:visibleBounds()
+    return window.getVisibleBounds()
+end
+
+function xGame:frameSize()
+    local size = Director:getOpenGLView():getFrameSize()
+    return size.width, size.height
 end
 
 xGame = xGame.new()

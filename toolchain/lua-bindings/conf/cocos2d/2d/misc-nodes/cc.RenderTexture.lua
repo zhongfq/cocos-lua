@@ -33,6 +33,9 @@ cls.funcs [[
     void setVirtualViewport(const Vec2& rtBegin, const Rect& fullRect, const Rect& fullViewport)
 ]]
 
+cls.alias('begin', 'beginVisit')
+cls.alias('end', 'endVisit')
+
 cls.callback(
     'bool saveToFile(const std::string& filename, bool isRGBA = true, std::function<void (RenderTexture*, const std::string&)> callback = nullptr)',
     'bool saveToFile(const std::string& filename, Image::Format format, bool isRGBA = true, std::function<void (RenderTexture*, const std::string&)> callback = nullptr)',

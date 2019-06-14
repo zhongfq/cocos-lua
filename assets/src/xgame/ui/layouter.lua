@@ -14,8 +14,8 @@ local function update()
     local function doUpdate(times)
         if times > 0 and next(layouts) then
             local units = reset()
-            for target in pairs(units) do
-                target:update()
+            for layout in pairs(units) do
+                layout:doLayout()
             end
             doUpdate(times - 1)
         end
@@ -27,13 +27,13 @@ local function update()
     doUpdate(3)
 end
 
-local function addUpdate(target)
-    assert(target.update, "no update function")
+local function addUpdate(layout)
+    assert(layout.update, "no update function")
     if not running then
         running = true
         runtime.on(Event.RUNTIME_UPDATE, update)
     end
-    layouts[target] = true
+    layouts[layout] = true
 end
 
 return {addUpdate = addUpdate}

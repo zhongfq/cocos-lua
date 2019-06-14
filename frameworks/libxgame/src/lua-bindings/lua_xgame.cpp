@@ -961,7 +961,7 @@ static int luaopen_xgame_timer(lua_State *L)
     return 1;
 }
 
-static int _xgame_window_visibleBounds(lua_State *L)
+static int _xgame_window_getVisibleBounds(lua_State *L)
 {
     auto rect = cocos2d::Director::getInstance()->getOpenGLView()->getVisibleRect();
     lua_pushinteger(L, rect.getMinX());
@@ -1006,7 +1006,7 @@ static int _xgame_window_convertToCameraSpace(lua_State *L)
 static int luaopen_xgame_window(lua_State *L)
 {
     oluacls_class(L, "kernel.window", nullptr);
-    oluacls_func(L, "visibleBounds", _xgame_window_visibleBounds);
+    oluacls_func(L, "getVisibleBounds", _xgame_window_getVisibleBounds);
     oluacls_func(L, "getDesignSize", _xgame_window_getDesignSize);
     oluacls_func(L, "setDesignSize", _xgame_window_setDesignSize);
     oluacls_func(L, "convertToCameraSpace", _xgame_window_convertToCameraSpace);

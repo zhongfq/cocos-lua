@@ -24082,6 +24082,8 @@ static int luaopen_cocos2d_RenderTexture(lua_State *L)
     oluacls_func(L, "setSprite", _cocos2d_RenderTexture_setSprite);
     oluacls_func(L, "setKeepMatrix", _cocos2d_RenderTexture_setKeepMatrix);
     oluacls_func(L, "setVirtualViewport", _cocos2d_RenderTexture_setVirtualViewport);
+    oluacls_func(L, "beginVisit", _cocos2d_RenderTexture_begin);
+    oluacls_func(L, "endVisit", _cocos2d_RenderTexture_end);
     oluacls_func(L, "saveToFile", _cocos2d_RenderTexture_saveToFile);
 
     olua_registerluatype<cocos2d::RenderTexture>(L, "cc.RenderTexture");

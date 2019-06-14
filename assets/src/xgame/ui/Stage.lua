@@ -21,7 +21,7 @@ function Stage:ctor()
 end
 
 function Stage:_updateBounds()
-    local left, right, top, bottom = window.visibleBounds()
+    local left, right, top, bottom = window.getVisibleBounds()
     self.x = left
     self.y = bottom
     self.width = right - left

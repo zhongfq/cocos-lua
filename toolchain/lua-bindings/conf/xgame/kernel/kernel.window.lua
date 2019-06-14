@@ -2,7 +2,7 @@ local cls = class()
 cls.CPPCLS = "xgame::window"
 cls.LUACLS = "kernel.window"
 cls.REG_LUATYPE = false
-cls.func("visibleBounds", [[
+cls.func("getVisibleBounds", [[
 {
     auto rect = cocos2d::Director::getInstance()->getOpenGLView()->getVisibleRect();
     lua_pushinteger(L, rect.getMinX());

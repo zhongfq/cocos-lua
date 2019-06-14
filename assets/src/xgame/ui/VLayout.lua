@@ -11,7 +11,6 @@ function VLayout:ctor()
 end
 
 function VLayout:do_layout()
-    LayoutManager:remove_update(self)
     if not self.target.stage then
         return
     end

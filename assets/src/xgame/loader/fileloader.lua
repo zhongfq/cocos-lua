@@ -5,8 +5,7 @@ local Manifest      = require "xgame.loader.Manifest"
 
 local M = {}
 
-local remoteManifests = {}
-local localManifests = {}
+local manifests = {}
 
 local remoteAssets = {}
 local localAssets = {}
@@ -17,10 +16,27 @@ function M._removeFileIfExist(path)
     end
 end
 
-local function shouldDownload(task)
-    local remoteAsset = remoteAssets[task.path]
+local function updateManifest(task)
+    local remoteAsset = remoteAssets[task.url]
     if remoteAsset then
-        local localAsset = localAssets[task.path]
+        local asset = {
+            date = remoteAsset.date,
+            md5 = remoteAsset.md5,
+            builtin = remoteAsset.builtin,
+        }
+        localAssets[task.url] = asset
+        for _, m in ipairs(manifests) do
+            if m.remoteManifest.assets[task.url] then
+                m.localManifest:update(task.url, asset)
+            end
+        end
+    end
+end
+
+local function shouldDownload(task)
+    local remoteAsset = remoteAssets[task.url]
+    if remoteAsset then
+        local localAsset = localAssets[task.url]
         return (not filesystem.exist(task.path) and
                 not filesystem.exist(task.url))
             or (not localAsset)
@@ -28,22 +44,21 @@ local function shouldDownload(task)
     elseif string.find(task.url, '^https?://') then
         return not filesystem.exist(task.path)
     else
-        assert(filesystem.exist(task.path), task.url)
+        assert(filesystem.exist(task.url), task.url)
         return false
     end
 end
 
 function M.load(task)
     if shouldDownload(task) then
-        local remoteAsset = remoteAssets[task.path]
+        local remoteAsset = remoteAssets[task.url]
         local function callback(success)
             if success then
                 assetloader.reload({
                     [task.path] = true,
                     [task.url] = true
                 })
-                -- TODO:
-                -- updateAsset(remoteAsset)
+                updateManifest(task)
                 task:loadSuccess()
             else
                 task:loadError()
@@ -68,10 +83,13 @@ function M.load(task)
     end
 end
 
-function M:addModule(localManifestPath, remoteManifestPath)
-    local m = Manifest.new(localManifestPath)
-    localManifests[#localManifests + 1] = m
-    for path, asset in pairs(m.assets) do
+function M.addModule(localManifestPath, remoteManifestPath)
+    local m = {
+        localManifest = Manifest.new(localManifestPath),
+        remoteManifest = Manifest.new(remoteManifestPath),
+    }
+
+    for path, asset in pairs(m.localManifest.assets) do
         if not localAssets[path] then
             localAssets[path] = asset
         else
@@ -79,9 +97,7 @@ function M:addModule(localManifestPath, remoteManifestPath)
         end
     end
 
-    m = Manifest.new(remoteManifestPath)
-    remoteManifests[#remoteManifests + 1] = m
-    for path, asset in pairs(m.assets) do
+    for path, asset in pairs(m.remoteManifest.assets) do
         if not remoteAssets[path] then
             assert(asset.url, path)
             remoteAssets[path] = asset
@@ -89,6 +105,8 @@ function M:addModule(localManifestPath, remoteManifestPath)
             print(string.format('ingore remote path: %s', path))
         end
     end
+
+    manifests[#manifests + 1] = m
 end
 
 return M

@@ -2,10 +2,12 @@ local class         = require "xgame.class"
 local timer         = require "xgame.timer"
 local runtime       = require "xgame.runtime"
 local MediatorMap   = require "xgame.MediatorMap"
+local updater       = require "xgame.updater"
 local Stage         = require "xgame.ui.Stage"
 local UIImage       = require "xgame.ui.UIImage"
 local SceneStack    = require "xgame.private.SceneStack"
 local Dispatcher    = require "xgame.event.Dispatcher"
+local fileloader    = require "xgame.loader.fileloader"
 local window        = require "kernel.window"
 local Director      = require "cc.Director"
 local RenderTexture = require "cc.RenderTexture"
@@ -19,11 +21,11 @@ function xGame:ctor()
     self.stage = Stage.new()
     self._mediatorMap = MediatorMap.new(self.stage)
     self._sceneStack = SceneStack.new(self.stage)
-    self._initManifests()
     self:_initTimer()
     self:_initRuntimeEvents()
 
     director.runningScene:addChild(self.stage.cobj)
+    fileloader.addModule(updater.LOCAL_MANIFEST_PATH, updater.REMOTE_MANIFEST_PATH)
 end
 
 function xGame:snapshot(node)
@@ -91,9 +93,6 @@ end
 
 function xGame:topScene()
     return self._sceneStack:topScene()
-end
-
-function xGame:_initManifests()
 end
 
 --

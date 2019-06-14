@@ -30,10 +30,10 @@ function main()
     end
 
     inst.filter = function (path)
-        return true
-        -- return string.find(path, '.lua', 1, true)
-        --     or string.find(path, '.json', 1, true)
-        --     or string.find(path, '.data', 1, true)
+        -- return true
+        return string.find(path, '.lua', 1, true)
+            or string.find(path, '.json', 1, true)
+            or string.find(path, '.data', 1, true)
     end
 
     inst:start()

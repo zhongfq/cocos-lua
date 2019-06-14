@@ -28,6 +28,9 @@ local ATTEMPT_INTERVAL = 0.3
 
 local M = class('updater')
 
+M.REMOTE_MANIFEST_PATH = REMOTE_MANIFEST_PATH
+M.LOCAL_MANIFEST_PATH = LOCAL_MANIFEST_PATH
+
 function M:ctor(url)
     self.filter = function () return true end
     self._url = url

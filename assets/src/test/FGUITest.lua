@@ -1,20 +1,20 @@
-local _ENV = setmetatable({}, {__index = _ENV})
-
-local runtime       = require "kernel.runtime"
-local timer         = require "kernel.timer"
-local Director      = require "cc.Director"
+local class         = require "xgame.class"
+local util          = require "xgame.util"
+local timer         = require "xgame.timer"
+local UIScene       = require "xgame.ui.UIScene"
 local Scene         = require "cc.Scene"
 local UIPackage     = require "fui.UIPackage"
-local UIConfig      = require "fui.UIConfig"
 local GRoot         = require "fui.GRoot"
 local Window        = require "fui.Window"
-local UIEventType   = require "fui.UIEventType"
 local GTween        = require "fui.GTween"
-local TweenPropType = require "fui.TweenPropType"
 
-function new()
+local FGUITest = class("GUITest", UIScene)
+
+function FGUITest:ctor()
     local scene = Scene.create()
     local root = GRoot.create(scene)
+
+    self.cobj:addChild(scene)
 
     UIPackage.addPackage("res/fui/UI/Transition")
     UIPackage.addPackage("res/fui/UI/Bag")
@@ -30,7 +30,7 @@ function new()
     end
     list.virtual = true
     list.numItems = 20
-    printUserValue(list)
+    util.dumpUserValue(list)
 
     scene.onEnterCallback = function ()
         local startValue = 10000
@@ -82,7 +82,7 @@ function new()
         view:getChild("btn3"):addClickListener(function ()
             print("click btn3")
             window:show()
-            printUserValue(root)
+            util.dumpUserValue(root)
         end)
 
         view:getChild("btn4"):addClickListener(function ()
@@ -90,17 +90,16 @@ function new()
             local window = Window.create()
             window.contentPane = UIPackage.createObject("Bag", "BagWin")
             window:show()
-            printUserValue(root)
+            util.dumpUserValue(root)
         end)
 
         root:addChild(view)
 
-        printUserValue(scene, 'scene')
-        printUserValue(root.displayObject, 'displayObject')
-        printUserValue(root, 'root')
+        util.dumpUserValue(scene, 'scene')
+        util.dumpUserValue(self.cobj, 'scene')
+        util.dumpUserValue(root.displayObject, 'displayObject')
+        util.dumpUserValue(root, 'root')
     end
-    
-    return scene
 end
     
-return _ENV
+return FGUITest

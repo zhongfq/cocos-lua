@@ -3,9 +3,13 @@ local Array             = require "xgame.Array"
 local UIView            = require "xgame.ui.UIView"
 local AbsoluteLayout    = require "xgame.ui.AbsoluteLayout"
 local MaskLayout        = require "ccui.MaskLayout"
+local Node              = require "cc.Node"
 
 local assert = assert
 local ipairs = ipairs
+
+local UnknownNode
+local dummyNode = Node.create()
 
 local UILayer = class("UILayer", UIView)
 
@@ -104,7 +108,14 @@ function UILayer:_buildChildren()
         self._children = Array.new()
         for i, rawChild in ipairs(self.cobj.children) do
             rawChild:setLocalZOrder(i)
-            self._children:add(self._rawChildren[rawChild])
+
+            local child = self._rawChildren[rawChild]
+            if not child then
+                child = UnknownNode.new()
+                child.cobj = rawChild
+                self._rawChildren[rawChild] = child
+            end
+            self._children:add(child)
         end
     end
 end
@@ -225,6 +236,16 @@ function UILayer:_setStage(value)
         end
         UIView._setStage(self, value)
     end
+end
+
+UnknownNode = class("UnknownNode", UIView)
+
+function UnknownNode:ctor()
+end
+
+function UnknownNode.Get:cobj()
+    rawset(self, 'cobj', dummyNode)
+    return dummyNode
 end
 
 return UILayer

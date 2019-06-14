@@ -1,13 +1,10 @@
+local class     = require "xgame.class"
+local UIScene   = require "xgame.ui.UIScene"
 local DBFactory = require "db.Factory"
-local olua = require( "olua" )
-local EventListenerTouchOneByOne = require( "cc.EventListenerTouchOneByOne" )
 
-local M = {}
+local DragonBonesTest = class('DragonBonesTest', UIScene)
 
-function M.new()
-    local Scene = require "cc.Scene"
-    local scene = Scene.create()
-
+function DragonBonesTest:ctor()
     local factory = DBFactory.getFactory()
     ---- hello
     -- factory:loadDragonBonesData("res/dragonbones/mecha_1002_101d_show/mecha_1002_101d_show_ske.json")
@@ -254,19 +251,8 @@ function M.new()
     pointB.offsetMode = 2
     armatureDisplay:getAnimation():play("walk")
     boundingBoxTester:getAnimation():play("0")
-    scene:addChild(armatureDisplay)
-    scene:addChild(boundingBoxTester)
-
-    local Director  = require "cc.Director"
-    local director = Director.instance
-    local scheduler = director.scheduler
-    scheduler:schedule(function( dt )
-
-    end, scene, 0, false, "update")
-
-    return scene
+    self.cobj:addChild(armatureDisplay)
+    self.cobj:addChild(boundingBoxTester)
 end
     
-return M
-
-
+return DragonBonesTest

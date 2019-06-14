@@ -20,5 +20,7 @@ function main()
     -- runTest("test.WeChatTest")
     -- runTest("test.GridActionTest")
     -- runTest("test.SpineTest")
-    runTest("test.DragonBonesTest")
+    -- runTest("test.DragonBonesTest")
+
+    xGame:startScene(require("test.DragonBonesTest"))
 end

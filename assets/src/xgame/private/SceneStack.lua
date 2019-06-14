@@ -1,27 +1,124 @@
-local class     = require "xgame.class"
-local Array     = require "xgame.Array"
-local UILayer   = require "xgame.ui.UILayer"
+local class         = require "xgame.class"
+local util          = require "xgame.util"
+local assetloader   = require "xgame.assetloader"
+local Array         = require "xgame.Array"
+local UILayer       = require "xgame.ui.UILayer"
+local UICapture     = require "xgame.ui.UICapture"
+
+local trace = util.trace("[SceneStack]")
 
 local SceneStack = class("SceneStack")
 
-function SceneStack:ctor(stage)
+function SceneStack:ctor(context)
+    self._context = context
     self._sceneStack = Array.new()
-    self._sceneLayer = stage:addChild(UILayer.new())
+    self._sceneLayer = context.stage:addChild(UILayer.new())
 end
 
 function SceneStack:startScene(cls, ...)
+    local entry = self:_getSceneEntry(-1)
+    if entry then
+        entry.scene:didInactive()
+        entry.sceneWrapper.visible = false
+    end
+    self:_doStartScene(cls, ...)
 end
 
 function SceneStack:replaceScene(cls, ...)
+    self:_doPopScene(true)
+    self:_doStartScene(cls, ...)
 end
 
 function SceneStack:popScene()
+    self:_doPopScene(false)
+
+    -- update music
 end
 
 function SceneStack:popAll()
+    while #self._sceneStack > 1 do
+        self:_doPopScene(true)
+    end
+    self:popScene()
 end
 
 function SceneStack:topScene()
+    return self:_getScene(-1)
+end
+
+function SceneStack:_doStartScene(cls, ...)
+    local snapshot = self:_doCaptureScene(self:_getSceneEntry(-1))
+    local entry = self._sceneStack:pushBack({
+        scene = false,
+        sceneWrapper = false,
+        snapshot = false,
+    })
+    trace("create scene: %s", cls.classname)
+    local scene = cls.new(...)
+    entry.scene = scene
+    entry.sceneWrapper = self:_createSceneWrapper(scene)
+    -- update bg music
+    self._sceneLayer:addChild(entry.sceneWrapper)
+
+    if scene.renderOption.snapshot and snapshot then
+        entry.sceneWrapper.cobj:addProtectedChild(snapshot.cobj)
+    end
+    assetloader.loadSceneAssets(scene)
+end
+
+function SceneStack:_doPopScene(onlypop)
+    local numScenes = #self._sceneStack
+    local entry = self._sceneStack[numScenes]
+
+    if entry then
+        trace("destory scene: %s", entry.scene.classname)
+        self._sceneStack[numScenes] = nil
+        self._sceneLayer:removeChild(entry.sceneWrapper)
+    end
+
+    if not onlypop and numScenes > 1 then
+        entry = self._scene_stack[numScenes - 1]
+        entry.scene.visible = true
+        entry.sceneWrapper.visible = true
+        entry.snapshot = false
+        assetloader.loadSceneAssets(entry.scene)
+        entry.scene:didActive()
+    end
+end
+
+function SceneStack:_doCaptureScene(entry)
+    if not entry then
+        return
+    end
+    if not entry.snapshot then
+        entry.snapshot = UICapture.new(entry.sceneWrapper)
+    end
+    return entry.snapshot
+end
+
+function SceneStack:_createSceneWrapper(scene)
+    local wrapper = UILayer.new()
+    wrapper.percentWidth = 100
+    wrapper.percentHeight = 100
+    wrapper:addChild(scene)
+    return wrapper
+end
+
+function SceneStack:_getSceneEntry(index)
+    if index < 0 then
+        index = #self._sceneStack + index + 1
+    end
+
+    if index <= #self._sceneStack then
+        return self._sceneStack[index]
+    end
+end
+
+function SceneStack:_getScene(index)
+    local entry = self:_getSceneEntry(index)
+    if entry then
+        return entry.scene
+    end
 end
 
 return SceneStack

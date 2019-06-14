@@ -1,19 +1,18 @@
 local class         = require "xgame.class"
+local util          = require "xgame.util"
 local timer         = require "xgame.timer"
 local runtime       = require "xgame.runtime"
 local MediatorMap   = require "xgame.MediatorMap"
 local updater       = require "xgame.updater"
 local Stage         = require "xgame.ui.Stage"
-local UIImage       = require "xgame.ui.UIImage"
 local SceneStack    = require "xgame.private.SceneStack"
 local Dispatcher    = require "xgame.event.Dispatcher"
 local fileloader    = require "xgame.loader.fileloader"
 local window        = require "kernel.window"
 local Director      = require "cc.Director"
-local RenderTexture = require "cc.RenderTexture"
-local PixelFormat   = require "cc.Texture2D.PixelFormat"
 
 local director = Director.instance
+local trace = util.trace("[xGame]")
 
 xGame = class("xGame", Dispatcher)
 
@@ -28,63 +27,36 @@ function xGame:ctor()
     fileloader.addModule(updater.LOCAL_MANIFEST_PATH, updater.REMOTE_MANIFEST_PATH)
 end
 
-function xGame:snapshot(node)
-    local DEPTH24_STENCIL8_OES = 0x88f0
-    local width, height = node.width, node.height
-    local vpw, vph = xGame:designSize()
-    local renderTexture = RenderTexture.create(width, height,
-        PixelFormat.RGB565, DEPTH24_STENCIL8_OES)
-    local visible = node.cobj:isVisible()
-    renderTexture:setKeepMatrix(true)
-    renderTexture:setVirtualViewport({
-        -- begin
-        x = 0,
-        y = 0,
-    }, { -- full rect
-        x = 0,
-        y = 0,
-        width = width,
-        height = height,
-    }, {
-        -- full viewport
-        x = 0,
-        y = 0,
-        width = vpw,
-        height = vph,
-    })
-    renderTexture:beginVisit()
-    node.cobj:setVisible(true)
-    node.cobj:visit()
-    node.cobj:setVisible(visible)
-    renderTexture:endVisit()
+function xGame:capture(node)
+    trace("lua mem: %fM", collectgarbage("count") / 1024)
+end
 
-    director.renderer:render()
+function xGame:gc()
+    collectgarbage("collect")
+end
 
-    local image = UIImage.new()
-    image.cobj = renderTexture:getSprite()
-    image.cobj:getTexture():setAntiAliasTexParameters()
-    renderTexture:removeAllChildren()
-    image.cobj:setIgnoreAnchorPointForPosition(true)
-    image.cobj.anchorX = 0.5
-    image.cobj.anchorY = 0.5
-    return image
+function xGame:memstat()
 end
 
 -- scene api
 function xGame:startScene(cls, ...)
-    return self._sceneStack:startScene(cls, ...)
+    self._sceneStack:startScene(cls, ...)
 end
 
 function xGame:replaceScene(cls, ...)
-    return self._sceneStack:replaceScene(cls, ...)
+    self._sceneStack:replaceScene(cls, ...)
 end
 
 function xGame:popScene()
     self._sceneStack:popScene()
+    self:delay(0.001, function ()
+    end)
 end
 
 function xGame:popAll()
     self._sceneStack:popAll()
+    self:delay(0.001, function ()
+    end)
 end
 
 function xGame:showView(cls, ...)

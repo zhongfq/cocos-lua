@@ -20,10 +20,13 @@ function UILayer:ctor()
     self._children = false
     self._realParent = self
     self.touchChildren = true
-    self.cobj:setCascadeOpacityEnabled(true)
-    self.cobj:setCascadeColorEnabled(false)
-    self.cobj:setTouchEnabled(false)
-    self.cobj:setClippingEnabled(false)
+
+    if self.cobj.setClippingEnabled then
+        self.cobj.cascadeOpacityEnabled = true
+        self.cobj.cascadeColorEnabled = false
+        self.cobj.touchEnabled = false
+        self.cobj.clippingEnabled = false
+    end
 end
 
 function UILayer.Get:cobj()
@@ -241,6 +244,8 @@ end
 UnknownNode = class("UnknownNode", UIView)
 
 function UnknownNode:ctor()
+    self.touchChildren = false
+    self.touchable = false
 end
 
 function UnknownNode.Get:cobj()

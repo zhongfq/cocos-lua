@@ -11,11 +11,7 @@ local GTween        = require "fui.GTween"
 local FGUITest = class("GUITest", UIScene)
 
 function FGUITest:ctor()
-    local scene = Scene.create()
-    local root = GRoot.create(scene)
-
-    self.cobj:addChild(scene)
-
+    local root = GRoot.create(self.cobj)
     UIPackage.addPackage("res/fui/UI/Transition")
     UIPackage.addPackage("res/fui/UI/Bag")
 
@@ -32,7 +28,7 @@ function FGUITest:ctor()
     list.numItems = 20
     util.dumpUserValue(list)
 
-    scene.onEnterCallback = function ()
+    self.cobj.onEnterCallback = function ()
         local startValue = 10000
         local endValue = startValue + math.random(1000, 10000)
         local view = UIPackage.createObject("Transition", "Main")
@@ -95,7 +91,6 @@ function FGUITest:ctor()
 
         root:addChild(view)
 
-        util.dumpUserValue(scene, 'scene')
         util.dumpUserValue(self.cobj, 'scene')
         util.dumpUserValue(root.displayObject, 'displayObject')
         util.dumpUserValue(root, 'root')

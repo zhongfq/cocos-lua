@@ -81,7 +81,7 @@ function UIView:stopActionsByFlags(flags)
     self.cobj:stopActionsByFlags(flags)
 end
 
-function UIView:globalToGocal(x, y)
+function UIView:globalToLocal(x, y)
     return self.cobj:convertToNodeSpace(x, y)
 end
 

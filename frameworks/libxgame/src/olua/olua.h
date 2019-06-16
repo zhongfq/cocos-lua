@@ -102,7 +102,6 @@ LUALIB_API int olua_geterrorfunc(lua_State *L);
     
 // manipulate userdata api
 LUALIB_API const char *olua_typename(lua_State *L, int idx);
-LUALIB_API const char *olua_objtostring(lua_State *L, int idx);
 LUALIB_API bool olua_isa(lua_State *L, int idx, const char *cls);
 LUALIB_API int olua_pushobj(lua_State *L, void *obj, const char *cls);
 LUALIB_API bool olua_getobj(lua_State *L, void *obj);

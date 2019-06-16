@@ -1,6 +1,6 @@
 local class         = require "xgame.class"
 local Event         = require "xgame.Event"
-local Timer         = require "xgame.Timer"
+local timer         = require "xgame.timer"
 local EventHandler  = require "xgame.EventHandler"
 
 local Mediator = class("Mediator")
@@ -8,7 +8,7 @@ local Mediator = class("Mediator")
 function Mediator:ctor(view)
     self.view = view
     self._eventHandler = EventHandler.new()
-    self._timer = Timer.new()
+    self._timer = timer.new()
     self._updateHandler = xGame:schedule(0, function (delta)
         self._timer:update(delta)
     end)

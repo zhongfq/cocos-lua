@@ -141,24 +141,22 @@ LUALIB_API void olua_require(lua_State *L, const char *name, lua_CFunction func)
 LUALIB_API const char *olua_typename(lua_State *L, int idx)
 {
     const char *tn = NULL;
+    intptr_t p;
     if (lua_getmetatable(L, idx)) {
         if (olua_rawget(L, -1, "classname") == LUA_TSTRING) {
             tn = olua_tostring(L, -1);
         }
         lua_pop(L, 2); // pop mt and value
     }
-    return tn ? tn : lua_typename(L, lua_type(L, idx));
-}
-
-LUALIB_API const char *olua_objtostring(lua_State *L, int idx)
-{
-    intptr_t p;
+    if (!tn) {
+        tn = lua_typename(L, lua_type(L, idx));
+    }
     if (olua_isuserdata(L, idx)) {
         p = (intptr_t)olua_touserdata(L, idx, void *);
     } else {
         p = (intptr_t)lua_topointer(L, idx);
     }
-    return lua_pushfstring(L, "%s: %p", olua_typename(L, idx), p);
+    return lua_pushfstring(L, "%s: %p", tn, p);
 }
 
 LUALIB_API bool olua_isa(lua_State *L, int idx, const char *cls)
@@ -862,8 +860,7 @@ static int cls_newindex(lua_State *L)
 
 static int cls_tostring(lua_State *L)
 {
-    olua_objtostring(L, 1);
-    
+    olua_typename(L, 1);
     return 1;
 }
 

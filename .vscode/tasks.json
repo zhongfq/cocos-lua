@@ -9,7 +9,7 @@
             "options": {
                 "cwd": "toolchain/hot-update"
             },
-            "command": "lua build-update.lua --setting BUILTIN",
+            "command": "lua build-update.lua --debug --setting BUILTIN",
         },
         {
             "label": "build-local-manifest",
@@ -17,7 +17,7 @@
             "options": {
                 "cwd": "toolchain/hot-update"
             },
-            "command": "lua build-update.lua --setting LOCAL",
+            "command": "lua build-update.lua --debug --setting LOCAL",
         }
     ]
 }

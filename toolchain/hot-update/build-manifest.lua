@@ -30,7 +30,7 @@ return function (conf)
         local last = latestManifest.assets[path]
         local curr
 
-        if DEBUG and last and last.modified == modified then
+        if conf.DEBUG and last and last.modified == modified then
             curr = {
                 path = path,
                 date = last.date,
@@ -84,7 +84,7 @@ return function (conf)
             t[#t + 1] = string.format('"md5":"%s"', entry.md5)
             t[#t + 1] = string.format('"date":"%s"', entry.date)
             t[#t + 1] = string.format('"builtin":%s', entry.builtin)
-            if DEBUG then
+            if conf.DEBUG then
                 t[#t + 1] = string.format('"modified":%d', entry.modified)
             end
             assets[#assets + 1] = string.format('    "%s":{%s}', entry.path, table.concat(t, ', '))

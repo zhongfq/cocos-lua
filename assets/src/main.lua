@@ -21,6 +21,5 @@ function main()
     -- runTest("test.GridActionTest")
     -- runTest("test.SpineTest")
     -- runTest("test.DragonBonesTest")
-
-    xGame:startScene(require("test.FGUITest"))
+    xGame:startScene(require("test.DragonBonesTest"))
 end

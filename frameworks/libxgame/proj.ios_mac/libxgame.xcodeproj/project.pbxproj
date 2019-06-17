@@ -25,7 +25,6 @@
 		0E0C706921F9F5FE00049240 /* xfilesystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C706621F9F5FE00049240 /* xfilesystem.cpp */; };
 		0E0C706C21F9F60B00049240 /* xtimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C706A21F9F60B00049240 /* xtimer.cpp */; };
 		0E0C706D21F9F60B00049240 /* xtimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C706A21F9F60B00049240 /* xtimer.cpp */; };
-		0E24B3C32270014C000054C9 /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E24B3C22270014B000054C9 /* Bugly.framework */; };
 		0E24B40122706001000054C9 /* XMLHttpRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E24B3FF22706001000054C9 /* XMLHttpRequest.cpp */; };
 		0E24B40222706001000054C9 /* XMLHttpRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E24B3FF22706001000054C9 /* XMLHttpRequest.cpp */; };
 		0E25A89E211D410E006B88E1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E25A89D211D410E006B88E1 /* SystemConfiguration.framework */; };
@@ -76,9 +75,6 @@
 		0E4B9379226E9E8B00B22B9F /* lua_spine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B935F226E9E8B00B22B9F /* lua_spine.cpp */; };
 		0E4B937A226E9E8B00B22B9F /* lua_fairygui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B9361226E9E8B00B22B9F /* lua_fairygui.cpp */; };
 		0E4B937B226E9E8B00B22B9F /* lua_fairygui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B9361226E9E8B00B22B9F /* lua_fairygui.cpp */; };
-		0E4B9395226EE2B300B22B9F /* CrashReport-ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B9391226EE2B300B22B9F /* CrashReport-ios.mm */; };
-		0E4B9396226EE2B300B22B9F /* CrashReport-android.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B9392226EE2B300B22B9F /* CrashReport-android.cpp */; };
-		0E4B9397226EE2B300B22B9F /* lua_bugly.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B9394226EE2B300B22B9F /* lua_bugly.cpp */; };
 		0E4C8C3F225CAF490095CF59 /* quantize_pvt.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8BFD225CAF490095CF59 /* quantize_pvt.c */; };
 		0E4C8C40225CAF490095CF59 /* quantize_pvt.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8BFD225CAF490095CF59 /* quantize_pvt.c */; };
 		0E4C8C41225CAF490095CF59 /* bitstream.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C00225CAF490095CF59 /* bitstream.c */; settings = {COMPILER_FLAGS = "-Wno-unused-variable"; }; };
@@ -143,6 +139,14 @@
 		0E4C8C7C225CAF490095CF59 /* rscode.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C3E225CAF490095CF59 /* rscode.c */; };
 		0E6C9796222ADD1300B2C17F /* olua.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E6C9795222ADD1300B2C17F /* olua.c */; };
 		0E6C9797222ADD1300B2C17F /* olua.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E6C9795222ADD1300B2C17F /* olua.c */; };
+		0E71F09B22B742BA004BEE5D /* lua_bugly.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E71F09022B742BA004BEE5D /* lua_bugly.cpp */; };
+		0E71F09C22B742BA004BEE5D /* lua_bugly.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E71F09022B742BA004BEE5D /* lua_bugly.cpp */; };
+		0E71F09F22B742BA004BEE5D /* CrashReport-ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E71F09522B742BA004BEE5D /* CrashReport-ios.mm */; };
+		0E71F0A022B742BA004BEE5D /* CrashReport-ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E71F09522B742BA004BEE5D /* CrashReport-ios.mm */; };
+		0E71F0A122B742BA004BEE5D /* CrashReport-android.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E71F09622B742BA004BEE5D /* CrashReport-android.cpp */; };
+		0E71F0A222B742BA004BEE5D /* CrashReport-android.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E71F09622B742BA004BEE5D /* CrashReport-android.cpp */; };
+		0E71F0A322B742BA004BEE5D /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E71F09922B742BA004BEE5D /* Bugly.framework */; };
+		0E71F0A422B742BA004BEE5D /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E71F09922B742BA004BEE5D /* Bugly.framework */; };
 		0E730C8C2272E6100067866B /* lua_xml_http_request.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E730C8A2272E6100067866B /* lua_xml_http_request.cpp */; };
 		0E730C8D2272E6100067866B /* lua_xml_http_request.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E730C8A2272E6100067866B /* lua_xml_http_request.cpp */; };
 		0E9D2A6B221A9C76003C2121 /* xfilesystem-private-ios-mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E9D2A6A221A9C76003C2121 /* xfilesystem-private-ios-mac.mm */; };
@@ -281,7 +285,6 @@
 		0E0C706721F9F5FE00049240 /* xfilesystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xfilesystem.h; sourceTree = "<group>"; };
 		0E0C706A21F9F60B00049240 /* xtimer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xtimer.cpp; sourceTree = "<group>"; };
 		0E0C706B21F9F60B00049240 /* xtimer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xtimer.h; sourceTree = "<group>"; };
-		0E24B3C22270014B000054C9 /* Bugly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bugly.framework; path = ../../../src/bugly/ios/Bugly.framework; sourceTree = "<group>"; };
 		0E24B3FF22706001000054C9 /* XMLHttpRequest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = XMLHttpRequest.cpp; sourceTree = "<group>"; };
 		0E24B40022706001000054C9 /* XMLHttpRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XMLHttpRequest.h; sourceTree = "<group>"; };
 		0E25A2D421172BC2006B88E1 /* libxgame Mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libxgame Mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -341,11 +344,6 @@
 		0E4B9361226E9E8B00B22B9F /* lua_fairygui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_fairygui.cpp; sourceTree = "<group>"; };
 		0E4B9362226E9E8B00B22B9F /* lua_fairygui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_fairygui.h; sourceTree = "<group>"; };
 		0E4B9363226E9E8B00B22B9F /* lua_bindings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_bindings.h; sourceTree = "<group>"; };
-		0E4B9390226EE2B300B22B9F /* CrashReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CrashReport.h; path = ../../src/bugly/CrashReport.h; sourceTree = "<group>"; };
-		0E4B9391226EE2B300B22B9F /* CrashReport-ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "CrashReport-ios.mm"; path = "../../src/bugly/CrashReport-ios.mm"; sourceTree = "<group>"; };
-		0E4B9392226EE2B300B22B9F /* CrashReport-android.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "CrashReport-android.cpp"; path = "../../src/bugly/CrashReport-android.cpp"; sourceTree = "<group>"; };
-		0E4B9393226EE2B300B22B9F /* lua_bugly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lua_bugly.h; path = ../../src/bugly/lua_bugly.h; sourceTree = "<group>"; };
-		0E4B9394226EE2B300B22B9F /* lua_bugly.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = lua_bugly.cpp; path = ../../src/bugly/lua_bugly.cpp; sourceTree = "<group>"; };
 		0E4C8BFD225CAF490095CF59 /* quantize_pvt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = quantize_pvt.c; sourceTree = "<group>"; };
 		0E4C8BFE225CAF490095CF59 /* fft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fft.h; sourceTree = "<group>"; };
 		0E4C8BFF225CAF490095CF59 /* quantize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = quantize.h; sourceTree = "<group>"; };
@@ -413,6 +411,12 @@
 		0E6C9794222ADD1300B2C17F /* olua.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = olua.h; sourceTree = "<group>"; };
 		0E6C9795222ADD1300B2C17F /* olua.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = olua.c; sourceTree = "<group>"; };
 		0E6C979B222AF37300B2C17F /* olua.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = olua.hpp; sourceTree = "<group>"; };
+		0E71F09022B742BA004BEE5D /* lua_bugly.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_bugly.cpp; sourceTree = "<group>"; };
+		0E71F09522B742BA004BEE5D /* CrashReport-ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "CrashReport-ios.mm"; sourceTree = "<group>"; };
+		0E71F09622B742BA004BEE5D /* CrashReport-android.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "CrashReport-android.cpp"; sourceTree = "<group>"; };
+		0E71F09722B742BA004BEE5D /* lua_bugly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_bugly.h; sourceTree = "<group>"; };
+		0E71F09922B742BA004BEE5D /* Bugly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bugly.framework; sourceTree = "<group>"; };
+		0E71F09A22B742BA004BEE5D /* CrashReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrashReport.h; sourceTree = "<group>"; };
 		0E730C8A2272E6100067866B /* lua_xml_http_request.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = lua_xml_http_request.cpp; sourceTree = "<group>"; };
 		0E730C8B2272E6100067866B /* lua_xml_http_request.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lua_xml_http_request.h; sourceTree = "<group>"; };
 		0E98BC36221C043F00F1AEEA /* libcocos2d Mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libcocos2d Mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -535,6 +539,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E71F0A322B742BA004BEE5D /* Bugly.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -542,8 +547,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E24B3C32270014C000054C9 /* Bugly.framework in Frameworks */,
 				0E25A8A2211D4123006B88E1 /* Security.framework in Frameworks */,
+				0E71F0A422B742BA004BEE5D /* Bugly.framework in Frameworks */,
 				0E25A89E211D410E006B88E1 /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -712,27 +717,6 @@
 			path = "../src/lua-bindings";
 			sourceTree = "<group>";
 		};
-		0E4B938F226EE27F00B22B9F /* bugly */ = {
-			isa = PBXGroup;
-			children = (
-				0E4B9398226EE2BA00B22B9F /* ios */,
-				0E4B9392226EE2B300B22B9F /* CrashReport-android.cpp */,
-				0E4B9391226EE2B300B22B9F /* CrashReport-ios.mm */,
-				0E4B9390226EE2B300B22B9F /* CrashReport.h */,
-				0E4B9394226EE2B300B22B9F /* lua_bugly.cpp */,
-				0E4B9393226EE2B300B22B9F /* lua_bugly.h */,
-			);
-			path = bugly;
-			sourceTree = "<group>";
-		};
-		0E4B9398226EE2BA00B22B9F /* ios */ = {
-			isa = PBXGroup;
-			children = (
-				0E24B3C22270014B000054C9 /* Bugly.framework */,
-			);
-			path = ios;
-			sourceTree = "<group>";
-		};
 		0E4C8BFC225CAF490095CF59 /* lame */ = {
 			isa = PBXGroup;
 			children = (
@@ -832,10 +816,32 @@
 			path = ../src/olua;
 			sourceTree = "<group>";
 		};
+		0E71F08F22B742BA004BEE5D /* bugly */ = {
+			isa = PBXGroup;
+			children = (
+				0E71F09822B742BA004BEE5D /* ios */,
+				0E71F09622B742BA004BEE5D /* CrashReport-android.cpp */,
+				0E71F09522B742BA004BEE5D /* CrashReport-ios.mm */,
+				0E71F09A22B742BA004BEE5D /* CrashReport.h */,
+				0E71F09022B742BA004BEE5D /* lua_bugly.cpp */,
+				0E71F09722B742BA004BEE5D /* lua_bugly.h */,
+			);
+			name = bugly;
+			path = ../src/bugly;
+			sourceTree = "<group>";
+		};
+		0E71F09822B742BA004BEE5D /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				0E71F09922B742BA004BEE5D /* Bugly.framework */,
+			);
+			path = ios;
+			sourceTree = "<group>";
+		};
 		0ECC4B6221E79E0E00E3BBF9 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				0E4B938F226EE27F00B22B9F /* bugly */,
+				0E71F08F22B742BA004BEE5D /* bugly */,
 				0ECC4C5421EB8D4600E3BBF9 /* cjson */,
 				0E2E9A7B221EBB570085145E /* crypto */,
 				0E4C8BFC225CAF490095CF59 /* lame */,
@@ -1068,6 +1074,7 @@
 				0ECC4BC721E79E3E00E3BBF9 /* lutf8lib.c in Sources */,
 				0ECC4BA321E79E3E00E3BBF9 /* ltm.c in Sources */,
 				0ECC4BA521E79E3E00E3BBF9 /* ldo.c in Sources */,
+				0E71F09F22B742BA004BEE5D /* CrashReport-ios.mm in Sources */,
 				0ECC4C6521EB8D4600E3BBF9 /* packet.c in Sources */,
 				0E0C706021F9EFC700049240 /* xruntime-private-ios-mac.mm in Sources */,
 				0ECC4C6921EB8D4600E3BBF9 /* decode.c in Sources */,
@@ -1125,6 +1132,7 @@
 				0ECC4C7321EB8D4600E3BBF9 /* proto.c in Sources */,
 				0ECC4C7721EB8D4600E3BBF9 /* pbc-lua53.c in Sources */,
 				0E4C8C3F225CAF490095CF59 /* quantize_pvt.c in Sources */,
+				0E71F09B22B742BA004BEE5D /* lua_bugly.cpp in Sources */,
 				0E4B936E226E9E8B00B22B9F /* lua_conv_manual.cpp in Sources */,
 				0E0C705A21F9EFC700049240 /* xruntime.cpp in Sources */,
 				FA2993812293E15300FE9EC6 /* lua_dragonbones.cpp in Sources */,
@@ -1149,6 +1157,7 @@
 				0ECC4BC321E79E3E00E3BBF9 /* lopcodes.c in Sources */,
 				0ECC4BB921E79E3E00E3BBF9 /* lmathlib.c in Sources */,
 				0E0C706821F9F5FE00049240 /* xfilesystem.cpp in Sources */,
+				0E71F0A122B742BA004BEE5D /* CrashReport-android.cpp in Sources */,
 				0E4C8C69225CAF490095CF59 /* gain_analysis.c in Sources */,
 				0E4C8C73225CAF490095CF59 /* split.c in Sources */,
 				0ECC4BA721E79E3E00E3BBF9 /* loslib.c in Sources */,
@@ -1178,7 +1187,6 @@
 				0E4C8C62225CAF490095CF59 /* version.c in Sources */,
 				0ECC4BCE21E79E3E00E3BBF9 /* loadlib.c in Sources */,
 				0E2EC31522924EE900CA3701 /* lpcap.c in Sources */,
-				0E4B9395226EE2B300B22B9F /* CrashReport-ios.mm in Sources */,
 				0ECC4BB821E79E3E00E3BBF9 /* lmem.c in Sources */,
 				0E4C8C42225CAF490095CF59 /* bitstream.c in Sources */,
 				0ECC4C6421EB8D4600E3BBF9 /* rmessage.c in Sources */,
@@ -1219,7 +1227,6 @@
 				0E730C8D2272E6100067866B /* lua_xml_http_request.cpp in Sources */,
 				0ECC4BB421E79E3E00E3BBF9 /* lapi.c in Sources */,
 				0ECC4BA221E79E3E00E3BBF9 /* ldebug.c in Sources */,
-				0E4B9397226EE2B300B22B9F /* lua_bugly.cpp in Sources */,
 				0E4B9369226E9E8B00B22B9F /* lua_xgame.cpp in Sources */,
 				0E4C8C40225CAF490095CF59 /* quantize_pvt.c in Sources */,
 				0ECC4BDA21E79E3E00E3BBF9 /* lstate.c in Sources */,
@@ -1233,9 +1240,11 @@
 				0ECC4C7C21EB8D4600E3BBF9 /* pattern.c in Sources */,
 				0E2E9A3A221C37070085145E /* AppRootViewController-ios.mm in Sources */,
 				0ECC4BB021E79E3E00E3BBF9 /* lundump.c in Sources */,
+				0E71F0A022B742BA004BEE5D /* CrashReport-ios.mm in Sources */,
 				0E4C8C7A225CAF490095CF59 /* qrspec.c in Sources */,
 				0E4C8C44225CAF490095CF59 /* tables.c in Sources */,
 				0E2EC31922924EE900CA3701 /* lpcode.c in Sources */,
+				0E71F09C22B742BA004BEE5D /* lua_bugly.cpp in Sources */,
 				0E4C8C4A225CAF490095CF59 /* util.c in Sources */,
 				0E24B40222706001000054C9 /* XMLHttpRequest.cpp in Sources */,
 				0E0C702721F9600D00049240 /* xrootscene.cpp in Sources */,
@@ -1281,8 +1290,8 @@
 				0E2E9A85221EBB570085145E /* xxtea.cpp in Sources */,
 				0ECC4C6221EB8D4600E3BBF9 /* array.c in Sources */,
 				0E2E9A87221EBB570085145E /* md5.c in Sources */,
+				0E71F0A222B742BA004BEE5D /* CrashReport-android.cpp in Sources */,
 				0ECC4C8421EB8D4600E3BBF9 /* cJSON.c in Sources */,
-				0E4B9396226EE2B300B22B9F /* CrashReport-android.cpp in Sources */,
 				0EE4B2BF21FC9FE60043AC9D /* xpreferences.cpp in Sources */,
 				0E2EC30022924A0F00CA3701 /* lsproto.c in Sources */,
 				0ECC4BD621E79E3E00E3BBF9 /* lstrlib.c in Sources */,

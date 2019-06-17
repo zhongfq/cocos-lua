@@ -7,7 +7,7 @@ local MAX_LOADING_FILES = 10
 local MAX_ATTEMPTS = 3
 local ATTEMPT_INTERVAL = 0.5
 
-local loadQueue = {}
+local loadingList = {}
 local loadTasks = {}
 local started = false
 
@@ -18,13 +18,13 @@ local function checkStart()
             started = false
 
             local count = MAX_LOADING_FILES
-            for _, task in pairs(loadQueue) do
+            for _, task in pairs(loadingList) do
                 if task.attempts > 0 then
                     count = count - 1
                 end
             end
             
-            for _, task in pairs(loadQueue) do
+            for _, task in pairs(loadingList) do
                 if count < 0 then
                     break
                 end
@@ -41,8 +41,8 @@ end
 
 local function load(task)
     assert(task.url, "no url")
-    if not loadQueue[task.url] then
-        loadQueue[task.url] = {
+    if not loadingList[task.url] then
+        loadingList[task.url] = {
             attempts = 0,
             url = task.url,
             path = assert(task.path, task.url),
@@ -72,11 +72,11 @@ end
 
 downloader.setDispatcher(function (url, path, state)
     if state == 'ioerror' or state == 'invalid' then
-        local task = assert(loadQueue[url], url)
+        local task = assert(loadingList[url], url)
         task.attempts = task.attempts + 1
         if task.attempts >= MAX_ATTEMPTS then
             print('[NO] load: ' .. url)
-            loadQueue[url] = nil
+            loadingList[url] = nil
             notify(url, false)
         else
             timer.delay(ATTEMPT_INTERVAL, function ()
@@ -85,7 +85,7 @@ downloader.setDispatcher(function (url, path, state)
         end
     else
         print('[OK] load: ' .. url)
-        loadQueue[url] = nil
+        loadingList[url] = nil
         notify(url, true)
     end
 end)

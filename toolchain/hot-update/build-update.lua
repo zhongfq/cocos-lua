@@ -2,6 +2,7 @@ local shell = require "core.shell"
 local setting = require "setting"
 local buildManifest = require "build-manifest"
 local buildSharding = require "build-sharding"
+local builtinAssets = require "builtin-assets"
 
 local ARG_DEBUG = false
 local ARG_NAME = 'LOCAL'
@@ -62,6 +63,8 @@ if not conf.BUILD_PATH or conf.COMPILE then
     conf.BUILD_PATH = 'build'
 end
 
+builtinAssets = builtinAssets(conf.BUILD_PATH .. '/assets')
+conf.IS_BUILTIN = function (path) return builtinAssets[path] end
 conf.ASSETS_MANIFEST_PATH = conf.BUILD_PATH .. '/assets.manifest'
 conf.VERSION_MANIFEST_PATH = conf.BUILD_PATH .. '/version.manifest'
 conf.PUBLISH_PATH = ARG_PUBLISH_PATH
@@ -71,6 +74,9 @@ if conf.NAME == 'BUILTIN' then
     conf.ASSETS_MANIFEST_PATH = conf.BUILD_PATH .. '/assets/builtin.manifest'
     conf.VERSION_MANIFEST_PATH = nil
     OUTPUT_PATH = conf.BUILD_PATH
+    conf.SHOULD_BUILD = function (path)
+        return builtinAssets[path]
+    end
 elseif conf.NAME == 'LOCAL' then
     conf.URL = setting[ARG_NAME].URL .. '/current'
     OUTPUT_PATH = ARG_PUBLISH_PATH .. '/current'

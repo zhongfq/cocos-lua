@@ -15,6 +15,12 @@ function SceneStack:ctor(context)
     self._sceneLayer = context.stage:addChild(UILayer.new())
 end
 
+function SceneStack:showWindow(cls, ...)
+    local scene = assert(self:topScene(), cls.classname)
+    local view = cls.new(...)
+    scene:addChild(view)
+end
+
 function SceneStack:startScene(cls, ...)
     local entry = self:_getSceneEntry(-1)
     if entry then

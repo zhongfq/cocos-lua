@@ -8,22 +8,22 @@ local Mediator = class("Mediator")
 function Mediator:ctor(view)
     self.view = view
     self._eventHandler = EventHandler.new()
-    self._timer = timer.new()
-    self._updateHandler = xGame:schedule(0, function (delta)
-        self._timer:update(delta)
+    self._scheduler = timer.new()
+    self._updateHandler = timer.schedule(0, function (delta)
+        self._scheduler:update(delta)
     end)
 
     self(view):on(Event.ACTIVE, function ()
         if not self._updateHandler and self.onDestroy ~= true then
-            self._updateHandler = xGame:schedule(0, function (delta)
-                self._timer:update(delta)
+            self._updateHandler = timer.schedule(0, function (delta)
+                self._scheduler:update(delta)
             end)
         end
     end)
     
     self(view):on(Event.INACTIVE, function ()
         if self._updateHandler then
-            xGame:unschedule(self._updateHandler)
+            timer.unschedule(self._updateHandler)
             self._updateHandler = false
         end
     end)
@@ -38,30 +38,30 @@ end
 
 function Mediator:onDestroy()
     self.onDestroy = true
-    self._timer:clear()
+    self._scheduler:clear()
     self._eventHandler:clear()
     self.view = false
-    xGame:unschedule(self._updateHandler)
+    timer.unschedule(self._updateHandler)
 end
 
 function Mediator:delay(time, func, ...)
-    self._timer:delay(time, func, ...)
+    self._scheduler:delay(time, func, ...)
 end
 
 function Mediator:delayWithTag(time, tag, func, ...)
-    self._timer:delayWithTag(time, tag, func, ...)
+    self._scheduler:delayWithTag(time, tag, func, ...)
 end
 
 function Mediator:killDelay(tag)
-    self._timer:killDelay(tag)
+    self._scheduler:killDelay(tag)
 end
 
 function Mediator:schedule(interval, func)
-    return self._timer:schedule(interval, func)
+    return self._scheduler:schedule(interval, func)
 end
 
 function Mediator:unschedule(id)
-    return self._timer:unschedule(id)
+    return self._scheduler:unschedule(id)
 end
 
 return Mediator

@@ -1,7 +1,7 @@
-local M = {}
-
 local XMLHttpRequest    = require "cc.XMLHttpRequest"
 local ResponseType      = require "cc.XMLHttpRequest.ResponseType"
+
+local M = {}
 
 local function createRequest(data)
     local xhr = XMLHttpRequest.new()

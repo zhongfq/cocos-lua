@@ -6,8 +6,10 @@ local MediatorMap   = require "xgame.MediatorMap"
 local updater       = require "xgame.updater"
 local Stage         = require "xgame.ui.Stage"
 local SceneStack    = require "xgame.private.SceneStack"
+local Event         = require "xgame.event.Event"
 local Dispatcher    = require "xgame.event.Dispatcher"
 local fileloader    = require "xgame.loader.fileloader"
+local LoadQueue     = require "xgame.loader.LoadQueue"
 local window        = require "kernel.window"
 local Director      = require "cc.Director"
 
@@ -39,12 +41,38 @@ function xGame:memstat()
 end
 
 -- scene api
+function xGame:_loadAssets(func, cls, ...)
+    local queue = LoadQueue.new(cls.assets(...))
+    if queue.totalCount > 0 then
+        local args = {...}
+        queue:addListener(Event.IOERROR, function ()
+            self:dispatch(Event.LOADER_ERROR, queue)
+        end)
+        queue:addListener(Event.PROGRESS, function ()
+            self:dispatch(Event.LOADER_UPDATE, queue)
+        end)
+        queue:addListener(Event.COMPLETE, function ()
+            self:dispatch(Event.LOADER_COMPLETE, queue)
+            func(self._sceneStack, cls, table.unpack(args))
+        end)
+        self:dispatch(Event.LOADER_START)
+        queue:start()
+    else
+        func(self._sceneStack, cls, ...)
+    end
+end
+
+function xGame:showWindow(cls, ...)
+    self:_loadAssets(self._sceneStack.showWindow, cls, ...)
+    self._sceneStack:showWindow(cls)
+end
+
 function xGame:startScene(cls, ...)
-    self._sceneStack:startScene(cls, ...)
+    self:_loadAssets(self._sceneStack.startScene, cls, ...)
 end
 
 function xGame:replaceScene(cls, ...)
-    self._sceneStack:replaceScene(cls, ...)
+    self:_loadAssets(self._sceneStack.replaceScene, cls, ...)
 end
 
 function xGame:popScene()
@@ -57,10 +85,6 @@ function xGame:popAll()
     self._sceneStack:popAll()
     self:delay(0.001, function ()
     end)
-end
-
-function xGame:showView(cls, ...)
-    self._sceneStack:showView(cls)
 end
 
 function xGame:topScene()

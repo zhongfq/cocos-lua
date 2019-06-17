@@ -165,7 +165,7 @@ function Array:map(func)
     return arr
 end
 
-function Array:find(func)
+function Array:mapOnce(func)
     for _, v in ipairs(self) do
         if func(v) then
             return v

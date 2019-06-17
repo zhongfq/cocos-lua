@@ -1,8 +1,16 @@
 local class     = require "xgame.class"
 local UIScene   = require "xgame.ui.UIScene"
+local R         = require "xgame.R"
 local DBFactory = require "db.Factory"
 
 local DragonBonesTest = class('DragonBonesTest', UIScene)
+
+function DragonBonesTest:assets()
+    return R.new()
+        :fromPath('res/dragonbones/bounding_box_tester/bounding_box_tester_ske.json')
+        :fromPath('res/dragonbones/bounding_box_tester/bounding_box_tester_tex.json')
+        :fromPath('res/dragonbones/bounding_box_tester/bounding_box_tester_tex.png')
+end
 
 function DragonBonesTest:ctor()
     local factory = DBFactory.getFactory()

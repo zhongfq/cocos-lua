@@ -7,7 +7,7 @@
             "label": "build-builtin-manifest",
             "type": "shell",
             "options": {
-                "cwd": "toolchain/update"
+                "cwd": "toolchain/hot-update"
             },
             "command": "lua build-update.lua --setting BUILTIN",
         },
@@ -15,7 +15,7 @@
             "label": "build-local-manifest",
             "type": "shell",
             "options": {
-                "cwd": "toolchain/update"
+                "cwd": "toolchain/hot-update"
             },
             "command": "lua build-update.lua --setting LOCAL",
         }

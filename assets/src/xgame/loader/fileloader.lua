@@ -4,25 +4,17 @@ local filesystem    = require "xgame.filesystem"
 local Manifest      = require "xgame.loader.Manifest"
 
 local M = {}
-
 local manifests = {}
-
 local remoteAssets = {}
 local localAssets = {}
 
-function M._removeFileIfExist(path)
-    if filesystem.exist(path) then
-        filesystem.remove(path)
-    end
-end
-
 local function updateManifest(task)
-    local remoteAsset = remoteAssets[task.url]
-    if remoteAsset then
+    local remoteFile = remoteAssets[task.url]
+    if remoteFile then
         local asset = {
-            date = remoteAsset.date,
-            md5 = remoteAsset.md5,
-            builtin = remoteAsset.builtin,
+            date = remoteFile.date,
+            md5 = remoteFile.md5,
+            builtin = remoteFile.builtin,
         }
         localAssets[task.url] = asset
         for _, m in ipairs(manifests) do
@@ -33,14 +25,14 @@ local function updateManifest(task)
     end
 end
 
-local function shouldDownload(task)
-    local remoteAsset = remoteAssets[task.url]
-    if remoteAsset then
-        local localAsset = localAssets[task.url]
+function M.shouldDownload(task)
+    local remoteFile = remoteAssets[task.url]
+    if remoteFile then
+        local localFile = localAssets[task.url]
         return (not filesystem.exist(task.path) and
                 not filesystem.exist(task.url))
-            or (not localAsset)
-            or (localAsset.date < remoteAsset.date)
+            or (not localFile)
+            or (localFile.date < remoteFile.date)
     elseif string.find(task.url, '^https?://') then
         return not filesystem.exist(task.path)
     else
@@ -50,8 +42,8 @@ local function shouldDownload(task)
 end
 
 function M.load(task)
-    if shouldDownload(task) then
-        local remoteAsset = remoteAssets[task.url]
+    if M.shouldDownload(task) then
+        local remoteFile = remoteAssets[task.url]
         local function callback(success)
             if success then
                 assetloader.reload({
@@ -64,11 +56,11 @@ function M.load(task)
                 task:loadError()
             end
         end
-        if remoteAsset then
+        if remoteFile then
             downloader.load({
                 path = task.path,
-                md5 = remoteAsset.md5,
-                url = remoteAsset.url,
+                md5 = remoteFile.md5,
+                url = remoteFile.url,
                 callback = callback,
             })
         else

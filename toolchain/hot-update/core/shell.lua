@@ -110,8 +110,8 @@ function M.realpath(path)
     end
 end
 
-function M.list(dir)
-    local f = io.popen(string.format('cd %s && find -L . -name "*.*"', dir))
+function M.list(dir, pattern)
+    local f = io.popen(string.format('cd %s && find -L . -name "%s"', dir, pattern or "*.*"))
     local arr = {}
     for path in string.gmatch(f:read("*a"), '[^\n\r]+') do
         path = string.gsub(path, '%./', '')

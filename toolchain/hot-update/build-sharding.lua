@@ -31,7 +31,7 @@ local function writeManifest(conf, name, shard)
         end
         local t = {}
         t[#t + 1] = string.format('"md5":"%s"', entry.md5)
-        t[#t + 1] = string.format('"date":"%s"', entry.date)
+        t[#t + 1] = string.format('"date":%d', entry.date)
         t[#t + 1] = string.format('"builtin":%s', entry.builtin)
         assets[#assets + 1] = string.format('    "%s":{%s}', entry.path, table.concat(t, ', '))
         latestManifest.assets[entry.path] = nil

@@ -98,4 +98,11 @@ if hasUpdate then
     end
 end
 
+if conf.NAME == 'BUILTIN' then
+    local data = shell.read(conf.ASSETS_MANIFEST_PATH)
+    data = string.gsub(data, '", "date":%d+', '", "date":' .. os.time())
+    print('always update builtin manifest asset date')
+    shell.write(conf.ASSETS_MANIFEST_PATH, data)
+end
+
 -- shell.bash 'rm -rf build'

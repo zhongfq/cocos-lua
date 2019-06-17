@@ -82,7 +82,7 @@ return function (conf)
         for _, entry in ipairs(currentManifest.assets) do
             local t = {}
             t[#t + 1] = string.format('"md5":"%s"', entry.md5)
-            t[#t + 1] = string.format('"date":"%s"', entry.date)
+            t[#t + 1] = string.format('"date":%d', entry.date)
             t[#t + 1] = string.format('"builtin":%s', entry.builtin)
             if conf.DEBUG then
                 t[#t + 1] = string.format('"modified":%d', entry.modified)

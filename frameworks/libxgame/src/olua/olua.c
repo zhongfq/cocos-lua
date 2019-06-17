@@ -313,7 +313,7 @@ LUALIB_API void *olua_toobj(lua_State *L, int idx, const char *cls)
         if (obj) {
             return obj;
         } else {
-            luaL_error(L, "object live from gc");
+            luaL_error(L, "object '%s' live from gc", olua_typename(L, idx));
         }
     } else {
         luaL_error(L, "#%d argument error, expect: '%s', got '%s'", idx,

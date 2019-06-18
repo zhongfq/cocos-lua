@@ -14,15 +14,22 @@ function UIObject:ctor()
     self.multiTouch = false
     self.numTouches = 0
     self.clickedSound = false
-    self.cobjType = "cocos"
+    self._buttonMode = false
+    self.cobjType = "<unknown>"
+end
+
+function UIObject.Get:buttonMode()
+    return self._buttonMode
+end
+
+function UIObject.Set:buttonMode(value)
+    self._buttonMode = value
+    self.touchChildren = not value
+    self.touchable = value
 end
 
 function UIObject:getBounds(target)
     return 0, 0, 0, 0
-end
-
-function UIObject.Get:cobj()
-    error(string.format("'%s' must implement", self.classname))
 end
 
 function UIObject:localToGlobal(x, y)
@@ -39,10 +46,6 @@ function UIObject:boundsTest(x, y)
 end
 
 function UIObject:hit(points)
-    if not self.cobj then
-        return nil, nil
-    end
-
     local capturePoints
     local numTouches = self.numTouches
     local accept = self.multiTouch and 5 or 1

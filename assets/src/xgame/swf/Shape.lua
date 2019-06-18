@@ -5,18 +5,18 @@ local BitmapData        = require "xgame.swf.BitmapData"
 local Shape = class("Shape", DisplayObject)
 
 function Shape:ctor(cobj)
-    self._bitmap_data = false
+    self._bitmapData = false
 end
 
-function Shape.Get:bitmap_data()
-    if not self._bitmap_data then
-        local bmdcobj = self.cobj.bitmap_data
+function Shape.Get:bitmapData()
+    if not self._bitmapData then
+        local bmdcobj = self.cobj.bitmapData
         if bmdcobj then
-            self._bitmap_data = BitmapData.new(0, 0, false)
-            self._bitmap_data.cobj = bmdcobj
+            self._bitmapData = BitmapData.new(0, 0, false)
+            self._bitmapData.cobj = bmdcobj
         end
     end
-    return self._bitmap_data
+    return self._bitmapData
 end
 
 return Shape

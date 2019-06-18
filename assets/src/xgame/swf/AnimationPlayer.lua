@@ -1,6 +1,5 @@
 local class         = require "xgame.class"
-local util          = require "xgame.util"
-local LinkedList    = require "xgame.LinkedList"
+local LinkedList    = require "xgame.swf.LinkedList"
 local Animation     = require "xgame.swf.Animation"
 
 local assert = assert
@@ -19,22 +18,22 @@ end
 
 function AnimationPlayer:clear()
     for _, anim in pairs(self._list) do
-        anim:stop_chain()
+        anim:stopChain()
     end
     self._list:clear()
 end
 
-function AnimationPlayer:_obtain_session()
+function AnimationPlayer:_obtainSession()
     self._session = self._session + 1
     return self._session
 end
 
-function AnimationPlayer:play(target, label, stop_when_end, times)
+function AnimationPlayer:play(target, label, playOnce, times)
     assert(target, 'no target')
     assert(label, 'no label')
-    local anim = Animation.new(self:_obtain_session(), target, label,
-        stop_when_end, times)
-    self._list:append(self._list:create_node(anim))
+    local anim = Animation.new(self:_obtainSession(), target, label,
+        playOnce, times)
+    self._list:append(anim)
     return anim
 end
 
@@ -59,7 +58,7 @@ end
 function AnimationPlayer:update()
     local list = self._list
 
-    if not self._running or list:is_empty() then
+    if not self._running or list:empty() then
         return
     end
 
@@ -70,35 +69,35 @@ function AnimationPlayer:update()
         end
     end
 
-    local function push_info(anim)
-        local info = anim.debug_info or {}
+    local function pushInfo(anim)
+        local info = anim.debugInfo or {}
         info[#info + 1] = string.format("%s:%s", anim.name, anim.label)
-        anim.debug_info = info
+        anim.debugInfo = info
     end
 
     -- try ready
     local again = true
-    while again and not list:is_empty() do
+    while again and not list:empty() do
         again = false
         for node, anim in pairs(list) do
             local anim_state = anim.state
             if anim_state == STATE_READY then
                 again = true
-                push_info(anim)
+                pushInfo(anim)
                 anim:play()
             end
 
             if anim_state == STATE_DONE then
                 again = true
-                local next_anim = anim.next_animation
+                local nextAnim = anim.nextAnimation
                 anim:dispose()
-                anim.next_animation = nil
+                anim.nextAnimation = nil
 
-                if next_anim and next_anim.state == STATE_READY then
-                    node.target = next_anim
-                    next_anim.debug_info = anim.debug_info
-                    push_info(next_anim)
-                    next_anim:play()
+                if nextAnim and nextAnim.state == STATE_READY then
+                    node.target = nextAnim
+                    nextAnim.debugInfo = anim.debugInfo
+                    pushInfo(nextAnim)
+                    nextAnim:play()
                 else
                     list:remove(node)
                 end

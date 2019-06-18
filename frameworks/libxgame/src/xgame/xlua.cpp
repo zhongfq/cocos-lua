@@ -379,6 +379,8 @@ int xlua_ccobjgc(lua_State *L)
 #endif
             obj->release();
             *(void **)lua_touserdata(L, 1) = nullptr;
+            lua_pushnil(L);
+            lua_setuservalue(L, 1);
             olua_subobjcount();
         } else {
 #ifdef COCOS2D_DEBUG

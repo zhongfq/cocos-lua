@@ -1,4 +1,4 @@
 return {
-    PLAY_AUDIO = "play_audio",
-    STOP_AUDIO = "stop_audio",
+    PLAY_AUDIO = "playAudio",
+    STOP_AUDIO = "stopAudio",
 }

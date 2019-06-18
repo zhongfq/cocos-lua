@@ -19,6 +19,7 @@ function UIView:ctor()
         top = 0,
         bottom = 0,
     }
+    self.cobjType = "cocos"
     self.cobj.ignoreAnchorPointForPosition = true
     self.cobj.anchorX = 0.5
     self.cobj.anchorY = 0.5
@@ -26,6 +27,10 @@ end
 
 function UIView.Get:initialized()
     return self._initialized
+end
+
+function UIView.Get:cobj()
+    error(string.format("'%s' must implement", self.classname))
 end
 
 function UIView:validateDisplay()

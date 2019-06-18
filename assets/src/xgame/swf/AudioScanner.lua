@@ -2,12 +2,12 @@ local class         = require "xgame.class"
 local util          = require "xgame.util"
 local Dispatcher    = require "xgame.event.Dispatcher"
 local AudioEvent    = require "xgame.swf.AudioEvent"
+local T             = require "swf.type"
 
 local assert = assert
 local ipairs, pairs = ipairs, pairs
 local next = next
 local trace = util.trace("[AudioScanner]")
-local TYPE_MOVIECLIP = swf.type.MOVIECLIP
 
 local AudioScanner = class("AudioScanner", Dispatcher)
 
@@ -16,7 +16,7 @@ function AudioScanner:ctor()
     self:clear()
 end
 
-function AudioScanner:_create_auto_table()
+function AudioScanner:_createAutoTable()
     return setmetatable({}, {__mode = "k", __index = function (t, k)
         local v = {}
         rawset(t, k, v)
@@ -24,14 +24,14 @@ function AudioScanner:_create_auto_table()
     end})
 end
 
-function AudioScanner:_clear_audios(force)
-    local playing_audios = self._playing_audios
-    if playing_audios then
-        for mc, label2tag in pairs(playing_audios) do
+function AudioScanner:_clearAudios(force)
+    local playingAudios = self._playingAudios
+    if playingAudios then
+        for mc, label2tag in pairs(playingAudios) do
             if force or not mc.stage or not mc.cobj.alive then
-                playing_audios[mc] = nil
+                playingAudios[mc] = nil
                 for _, tag in pairs(label2tag) do
-                    self:dispatch_event(AudioEvent.STOP_AUDIO, nil, tag)
+                    self:dispatch(AudioEvent.STOP_AUDIO, nil, tag)
                 end
             end
         end
@@ -39,26 +39,26 @@ function AudioScanner:_clear_audios(force)
 end
 
 function AudioScanner:clear()
-    self:_clear_audios(true)
-    self._watched_targets = setmetatable({}, {__mode = "k"}) 
-    self._playing_audios = self:_create_auto_table()
-    self._playing_states = self:_create_auto_table()
+    self:_clearAudios(true)
+    self._watchedTargets = setmetatable({}, {__mode = "k"})
+    self._playingAudios = self:_createAutoTable()
+    self._playingStates = self:_createAutoTable()
 end
 
-function AudioScanner:_obtain_tag()
+function AudioScanner:_obtainTag()
     self._tag = self._tag + 1
     return self._tag
 end
 
-function AudioScanner:add_watch(target)
+function AudioScanner:addWatch(target)
     assert(target)
-    self._watched_targets[target] = true
+    self._watchedTargets[target] = true
 end
 
-local function do_scan(self, target, found)
-    if target.cobj.type == TYPE_MOVIECLIP then
-        if not self._watched_targets[target] and target.metadata.has_audio then
-            self:add_watch(target)
+local function doScan(self, target, found)
+    if target.cobj.type == T.MOVIECLIP then
+        if not self._watchedTargets[target] and target.metadata.hasAudio then
+            self:addWatch(target)
             found[#found + 1] = target
             trace("find audio instance: '%s'", target.name)
         end
@@ -66,8 +66,8 @@ local function do_scan(self, target, found)
 
     if target.children then
         for _, child in ipairs(target.children) do
-            if child.cobj.type == TYPE_MOVIECLIP then
-                do_scan(self, child, found)
+            if child.cobj.type == T.MOVIECLIP then
+                doScan(self, child, found)
             end
         end
     end
@@ -76,70 +76,70 @@ local function do_scan(self, target, found)
 end
 
 function AudioScanner:scan(target)
-    return do_scan(self, target, {})
+    return doScan(self, target, {})
 end
 
 function AudioScanner:update()
-    local playing_audios = self._playing_audios
-    local playing_states = self._playing_states
-    local watched_targets = self._watched_targets
+    local playingAudios = self._playingAudios
+    local playingStates = self._playingStates
+    local watchedTargets = self._watchedTargets
 
-    for target, _ in pairs(watched_targets) do
+    for target, _ in pairs(watchedTargets) do
         if not target.stage or not target.cobj.alive then
-            watched_targets[target] = nil
-            trace("remove watch: name=%s[%s] label=%s", target.name, target, 
-                target.current_label)
-            goto loop_next_target
+            watchedTargets[target] = nil
+            trace("remove watch: name=%s[%s] label=%s", target.name, target,
+                target.currentLabel)
+            goto loopNextTarget
         end
 
         for _, mc in ipairs(target.children) do
-            if mc.cobj.type ~= TYPE_MOVIECLIP or not next(mc.metadata.audios) then
-                goto loop_next_child
+            if mc.cobj.type ~= T.MOVIECLIP or not next(mc.metadata.audios) then
+                goto loopNextChild
             end
 
-            local state = playing_states[mc]
-            if state.last_frame and state.last_frame > mc.current_frame then
-                state.last_frame_label = nil
+            local state = playingStates[mc]
+            if state.lastFrame and state.lastFrame > mc.currentFrame then
+                state.lastFrameLabel = nil
             end
 
-            local current_label = mc.current_label
-            if current_label ~= state.last_frame_label then
-                state.last_frame_label = current_label
+            local currentLabel = mc.currentLabel
+            if currentLabel ~= state.lastFrameLabel then
+                state.lastFrameLabel = currentLabel
 
                 local audios = mc.metadata.audios
-                local frame_labels = mc.frame_labels
-                local frame = frame_labels[current_label]
+                local frameLabels = mc.frameLabels
+                local frame = frameLabels[currentLabel]
 
-                for label, label_frame in pairs(frame_labels) do
+                for label, labelFrame in pairs(frameLabels) do
                     local option = audios[label]
-                    if frame ~= label_frame or not option then
-                        goto loop_next_label
+                    if frame ~= labelFrame or not option then
+                        goto loopNextLabel
                     end
 
-                    local label2tag = playing_audios[mc]
+                    local label2tag = playingAudios[mc]
                     local tag = label2tag[label]
 
                     if tag then
-                        self:dispatch_event(AudioEvent.STOP_AUDIO, nil, tag)
+                        self:dispatch(AudioEvent.STOP_AUDIO, nil, tag)
                     end
 
-                    local tag = self:_obtain_tag()
+                    tag = self:_obtainTag()
                     label2tag[label] = tag
-                    self:dispatch_event(AudioEvent.PLAY_AUDIO, option, tag)
+                    self:dispatch(AudioEvent.PLAY_AUDIO, option, tag)
 
-                    ::loop_next_label::
+                    ::loopNextLabel::
                 end
             end
 
-            state.last_frame = mc.current_frame
+            state.lastFrame = mc.currentFrame
 
-            ::loop_next_child::
+            ::loopNextChild::
         end
 
-        ::loop_next_target::
+        ::loopNextTarget::
     end
 
-    self:_clear_audios()
+    self:_clearAudios()
 end
 
 return AudioScanner

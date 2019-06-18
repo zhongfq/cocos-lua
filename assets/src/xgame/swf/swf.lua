@@ -1,148 +1,137 @@
 local class     = require "xgame.class"
 local util      = require "xgame.util"
 local Event     = require "xgame.event.Event"
-local Image     = require "xgame.swf.Image"
-local Shape     = require "xgame.swf.Shape"
-local TextField = require "xgame.swf.TextField"
-local MovieClip = require "xgame.swf.MovieClip"
-local Graphics  = require "xgame.swf.Graphics"
-local Shader    = require "xgame.Shader"
-local cjson     = require "cjson.safe"
-local window    = require "kernel.window"
+local shader    = require "xgame.shader"
+local cjson     = require "kernel.cjson.safe"
+local T         = require "swf.type"
+local loader    = require "swf.loader"
 
 local assert = assert
 local string = string
 local trace = util.trace("[swf]")
 
-assert(swf)
+local M = setmetatable({}, {__index = require("swf.core")})
 
-local swfclasses = {}
-local T = swf.type
-local movieinfo = {}
-local watched_ref = {}
+local userClasses = {}
+local movieInfoes = {}
+local watchedRef = {}
 
-local parse_metadata -- func
+local parseMetadata -- func
 
-local file_ids = setmetatable({count = 0}, {__index = function (file_ids, path)
-    local count = rawget(file_ids, "count") + 1
-    rawset(file_ids, "count", count)
-    rawset(file_ids, path, count)
+local fileToID = setmetatable({count = 0}, {__index = function (fileToID, path)
+    local count = rawget(fileToID, "count") + 1
+    rawset(fileToID, "count", count)
+    rawset(fileToID, path, count)
     return count
 end})
 
-local function to_global_id(cobj)
-    local filepath = cobj.filepath
-    if filepath then
-        local fid = file_ids[filepath]
+local function toGlobalID(cobj)
+    local filePath = cobj.filePath
+    if filePath then
+        local fid = fileToID[filePath]
         return fid << 16 | (cobj.id + 1) -- character id is 16bit unsinged int
     else
-        -- create by 'movieclip.create_movieclip'
+        -- create by 'movieclip.createMovieclip'
         return 0
-    end 
+    end
 end
 
 -- test only
-function swf.clear_cache()
-    movieinfo = {}
+function M.clearCache()
+    movieInfoes = {}
 end
 
-function swf.design_size()
-    return window.get_design_size()
-end
-
-function swf.visible_bounds()
-    local left, right, top, bottom = window.get_visible_bounds()
-    return left, right, bottom, top
-end
-
-function swf.metadata(cobj)
+function M.metadata(cobj)
     assert(cobj.type == T.MOVIECLIP)
-    local id = to_global_id(cobj)
-    local info = movieinfo[id]
+    local id = toGlobalID(cobj)
+    local info = movieInfoes[id]
     if not info then
-        info = parse_metadata(cobj)
-        movieinfo[id] = info
+        info = parseMetadata(cobj)
+        movieInfoes[id] = info
     end
     return info
 end
 
-function swf.class(classname, super)
+function M.class(classname, super)
     if not classname or not super then
         error(string.format("classname='%s', super='%s'", classname, super))
-    elseif swfclasses[classname] then
+    elseif userClasses[classname] then
         error(string.format("classname conflict: %s", classname))
     end
 
     local cls = class(classname, super)
-    swfclasses[classname] = cls
+    userClasses[classname] = cls
     return cls
 end
 
-function swf.new(filepath, autowatch, cls) -- autowatch default true
-    assert(string.match(filepath, "%.swf$"), filepath)
-    local movie = swf.loader.load(filepath)
+function M.new(filePath, autowatch, cls) -- autowatch default true
+    assert(string.match(filePath, "%.swf$"), filePath)
+    local movie = loader.load(filePath)
     if movie then
-        local target = cls and cls.new(movie) or swf.wrapper(movie)
+        local target = cls and cls.new(movie) or M.wrapper(movie)
         if autowatch ~= false then
-            return swf.watch(target)
+            return M.watch(target)
         else
             return target
         end
     end
 end
 
-function swf.watch(target)
-    local filepath = target.cobj.filepath
-    local ref = watched_ref[filepath]
+function M.watch(target)
+    local filePath = target.cobj.filePath
+    local ref = watchedRef[filePath]
     if not ref then
         ref = 0
-        trace("watch swf file: %s", filepath)
+        trace("watch swf file: %s", filePath)
     end
-    watched_ref[filepath] = ref + 1
-    target:add_event_listener(Event.REMOVED_FORM_STAGE, function ()
-        target:remove_event_listener(Event.REMOVED_FORM_STAGE, util.callee())
-        local ref = watched_ref[filepath]
+    watchedRef[filePath] = ref + 1
+    target:addListener(Event.REMOVED, function ()
+        target:removeListener(Event.REMOVED, util.callee())
+        local ref = watchedRef[filePath]
         if ref then
             ref = ref - 1
-            watched_ref[filepath] = ref
+            watchedRef[filePath] = ref
             if ref <= 0 then
-                swf.loader.unload(filepath)
-                trace("auto unload watched swf file: %s", filepath)
+                loader.unload(filePath)
+                trace("auto unload watched swf file: %s", filePath)
             end
         end
     end)
     return target
 end
 
-function swf.wrapper(cobj)
+function M.wrapper(cobj)
+    local function doWrapper(classname, obj)
+        return require(classname).new(obj)
+    end
     assert(cobj)
     if cobj.type == T.SHAPE then
-        return Shape.new(cobj)
+        return doWrapper('xgame.swf.Shape', cobj)
     elseif cobj.type == T.IMAGE then
-        return Image.new(cobj)
+        return doWrapper('xgame.swf.Image', cobj)
     elseif cobj.type == T.TEXTFIELD then
-        return TextField.new(cobj)
+        return doWrapper('xgame.swf.TextField', cobj)
     elseif cobj.type == T.GRAPHICS then
-        return Graphics.new(cobj) 
+        return doWrapper('xgame.swf.Graphics', cobj)
     elseif cobj.type == T.MOVIECLIP then
-        local def = swf.metadata(cobj)
+        local def = M.metadata(cobj)
         local classname = def.classname
         if classname then
-            assert(swfclasses[classname], classname)
-            return swfclasses[classname].new(cobj)
+            assert(userClasses[classname], classname)
+            return userClasses[classname].new(cobj)
         else
-            return MovieClip.new(cobj)
+            return doWrapper('xgame.swf.MovieClip', cobj)
         end
     else
         error(string.format("unknown type %s", cobj.type))
     end
 end
 
-function swf.check_labels(target, ...)
-    local frame_labels = target.frame_labels
+function M.checkLabels(target, ...)
+    local frameLabels = target.frameLabels
     
     local function test(label)
-        if not frame_labels[label] then
+        if not frameLabels[label] then
             error(string.format("label '%s' can't found in '%s'",
                 label, target.name))
         end
@@ -163,39 +152,36 @@ function swf.check_labels(target, ...)
     return target
 end
 
-function swf.has_label(target, label)
-    return target.frame_labels[label] ~= nil
+function M.hasLabel(target, label)
+    return target.frameLabels[label] ~= nil
 end
 
-function swf.check_target(target, namepath, ...)
-    local target = swf.check_name(target, namepath)
-    if swf.has_label(target, "none") then
-        target:goto_and_stop("none")
+function M.checkTarget(target, namepath, ...)
+    target = M.checkName(target, namepath)
+    if M.hasLabel(target, "none") then
+        target:gotoAndStop("none")
     end
-    swf.check_labels(target, ...)
+    M.checkLabels(target, ...)
     return target
 end
 
-function swf.lookup(target, namefmt, ...)
+function M.lookup(target, namefmt, ...)
     local found = target
-
-    local name_path = string.format(namefmt, ...)
-
+    local namePath = string.format(namefmt, ...)
     if found then
-        for k in string.gmatch(name_path, "[^.]+") do
+        for k in string.gmatch(namePath, "[^.]+") do
             if found then
                 found = found.ns[k]
             end
         end
-
         if found then
             return found
         end
     end
 end
 
-function swf.check_name(target, namefmt, ...)
-    local target = swf.lookup(target, namefmt, ...)
+function M.checkName(target, namefmt, ...)
+    target = M.lookup(target, namefmt, ...)
     if target then
         return target
     else
@@ -206,10 +192,10 @@ end
 --
 -- auxiliary function
 --
-function parse_metadata(cobj)
+function parseMetadata(cobj)
     local def = {audios = {}}
-    local frame_labels = cobj.frame_labels
-    for label, index in pairs(frame_labels) do
+    local frameLabels = cobj.frameLabels
+    for label in pairs(frameLabels) do
         local kind, data = string.match(label, "^@(%w+)({.+})$")
         if kind then
             local mt, errormsg = cjson.decode(data)
@@ -230,39 +216,15 @@ function parse_metadata(cobj)
     return def
 end
 
---
--- load & unload, ensure player->get_root() != null
---
-local loader_load = swf.loader.load
-local loader_unload = swf.loader.unload
-local loadedswf = setmetatable({}, {__mode = "v"})
-
-function swf.loader.load(path)
-    local rootswf = loader_load(path)
-    loadedswf[path] = rootswf
-    return rootswf
-end
-
-function swf.loader.unload(path)
-    watched_ref[path] = nil
-    loadedswf[path] = nil
-    loader_unload(path)
-
-    local _, rootswf = next(loadedswf)
-    if rootswf then
-        swf.set_root(rootswf)
-    end
-end
-
-function swf.dump_loaded_swf()
+function M.dumpLoadedSWF()
     local str = "loaded swf:\n"
-    for path in pairs(loadedswf) do
+    for path in pairs(loader.loaded) do
         str = str .. "    " .. path .. "\n"
     end
     trace(str)
 end
 
-Shader.load("swf_color_gray",
+shader.load("swf_color_gray",
     [[
         attribute vec4 a_position;
         attribute vec4 a_color;
@@ -298,7 +260,7 @@ Shader.load("swf_color_gray",
     ]]
 )
 
-Shader.load("swf_text_gray",
+shader.load("swf_text_gray",
     [[
         attribute vec4 a_position;
         attribute vec2 a_texCoord;
@@ -339,7 +301,7 @@ Shader.load("swf_text_gray",
     ]]
 )
 
-Shader.load("swf_bitmap_gray",
+shader.load("swf_bitmap_gray",
     [[
         attribute vec4 a_position;
         attribute vec2 a_texCoord;
@@ -377,65 +339,4 @@ Shader.load("swf_bitmap_gray",
     ]]
 )
 
--- action api
--- swf.action.sequence
--- swf.action.repeat
--- swf.action.repeat_forever
--- swf.action.enter_frame
--- swf.action.interval
--- swf.action.spawn
--- swf.action.speed
--- swf.action.delay_time
--- swf.action.scale_to
--- swf.action.scale_by
--- swf.action.move_to
--- swf.action.move_by
--- swf.action.rotate_to
--- swf.action.rotate_by
--- swf.action.fade_to
--- swf.action.fade_in
--- swf.action.fade_out
--- swf.action.tween_value
--- swf.action.jump_by
--- swf.action.jump_to
--- swf.action.bezier_by
--- swf.action.bezier_to
--- swf.action.cardinal_spline_to
--- swf.action.cardinal_spline_by
--- swf.action.catmull_rom_to
--- swf.action.catmull_rom_by
--- swf.action.show
--- swf.action.hide
--- swf.action.toggle_visibility
--- swf.action.remove_self
--- swf.action.call_func
--- swf.action.ease_rate
--- swf.action.ease_in
--- swf.action.ease_out
--- swf.action.ease_inout
--- swf.action.ease_exponential_in
--- swf.action.ease_exponential_out
--- swf.action.ease_exponential_inout
--- swf.action.ease_sine_in
--- swf.action.ease_sine_out
--- swf.action.ease_sine_inout
--- swf.action.ease_elastic_in
--- swf.action.ease_elastic_out
--- swf.action.ease_elastic_inout
--- swf.action.ease_bounce_in
--- swf.action.ease_bounce_out
--- swf.action.ease_bounce_inout
--- swf.action.ease_back_in
--- swf.action.ease_back_out
--- swf.action.ease_back_inout
--- swf.action.ease_quadratic_in
--- swf.action.ease_quadratic_out
--- swf.action.ease_quadratic_inout
--- swf.action.ease_quartic_in
--- swf.action.ease_quartic_out
--- swf.action.ease_quartic_inout
--- swf.action.ease_quintic_in
--- swf.action.ease_quintic_out
--- swf.action.ease_quintic_inout
-
-return swf
+return M

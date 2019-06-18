@@ -1,139 +1,121 @@
-local class             = require "xgame.class"
-local Event             = require "xgame.event.Event"
-local Align             = require "xgame.ui.Align"
-local UIObject          = require "xgame.ui.UIObject"
-local ColorTransform    = require "xgame.swf.ColorTransform"
+local class     = require "xgame.class"
+local Event     = require "xgame.event.Event"
+local Align     = require "xgame.ui.Align"
+local UIObject  = require "xgame.ui.UIObject"
 
 local DisplayObject = class("DisplayObject", UIObject)
 
 function DisplayObject:ctor(cobj)
-    self._color_transform = false
     self._stage = false
-    self._rootnode = false
+    self._rootNode = false
     self.name = cobj.name or ""
-    self.horizontal_align = Align.NONE
-    self.horizontal_center = 0
-    self.left = 0
-    self.right = 0
-    self.vertical_align = Align.NONE
-    self.vertical_center = 0
-    self.top = 0
-    self.bottom = 0
-    self.cobj_type = "swf"
-    rawset(self, "cobj", assert(cobj))
+    self.layoutParams = {
+        horizontalAlign = Align.NONE,
+        horizontalCenter = 0,
+        verticalAlign = Align.NONE,
+        verticalCenter = 0,
+        left = 0,
+        right = 0,
+        top = 0,
+        bottom = 0,
+    }
+    self.cobjType = "swf"
+    self.cobj = cobj
 end
 
 function DisplayObject.Get:initialized()
     return true
 end
 
-function DisplayObject:validate_display()
+function DisplayObject:validateDisplay()
 end
 
-function DisplayObject.Get:rootnode()
-    if not self._rootnode then
-        self._rootnode = self.parent.rootnode
+function DisplayObject.Get:rootNode()
+    if not self._rootNode then
+        self._rootNode = self.parent.rootNode
     end
-    return self._rootnode
+    return self._rootNode
 end
 
-function DisplayObject:remove_self()
+function DisplayObject:removeSelf()
     if self.parent then
-        self.parent:remove_child(self)
+        self.parent:removeChild(self)
     end
 end
 
-function DisplayObject:set_scale(sx, sy)
-    self.cobj:set_scale(sx, sy)
+function DisplayObject:setScale(sx, sy)
+    self.cobj:setScale(sx, sy)
 end
 
-function DisplayObject:get_scale()
-    return self.cobj:get_scale()
+function DisplayObject:getScale()
+    return self.cobj:getScale()
 end
 
-function DisplayObject:set_position(x, y)
-    self.cobj:set_position(x, y)
+function DisplayObject:setPosition(x, y)
+    self.cobj:setPosition(x, y)
 end
 
-function DisplayObject:get_position()
-    return self.cobj:get_position()
+function DisplayObject:getPosition()
+    return self.cobj:getPosition()
 end
 
-function DisplayObject:set_shader(shader_type, shader)
-    self.cobj:set_shader(shader_type, shader)
+function DisplayObject:setShader(shaderType, shader)
+    self.cobj:setShader(shaderType, shader)
 end
 
-function DisplayObject:get_shader(shader_type)
-    return self.cobj:get_shader(shader_type)
+function DisplayObject:getShader(shaderType)
+    return self.cobj:getShader(shaderType)
 end
 
-function DisplayObject:local_to_global(x, y)
-    x, y = self.cobj:local_to_global(x, y)
-    local rootnode = self.rootnode
-    if rootnode and rootnode.cobj then
-        x, y = rootnode.cobj:swf_to_world_space(x, y)
+function DisplayObject:localToGlobal(x, y)
+    x, y = self.cobj:localToGlobal(x, y)
+    local rootNode = self.rootNode
+    if rootNode then
+        x, y = rootNode.cobj:swfToWorldSpace(x, y)
     end
     return x, y
 end
 
-function DisplayObject:global_to_local(x, y)
-    local rootnode = self.rootnode
-    if rootnode and rootnode.cobj then
-        x, y = rootnode.cobj:world_to_swf_space(x, y)
+function DisplayObject:globalToLocal(x, y)
+    local rootNode = self.rootNode
+    if rootNode then
+        x, y = rootNode.cobj:worldToSWFSpace(x, y)
     end
-    return self.cobj:global_to_local(x, y)
+    return self.cobj:globalToLocal(x, y)
 end
 
-function DisplayObject:get_bounds(target, ...)
-    return self.cobj:get_bounds(target.cobj, ...)
+function DisplayObject:runAction(action)
+    self.cobj:runAction(action)
 end
 
-function DisplayObject:run_action(action)
-    return self.cobj:run_action(action)
+function DisplayObject:stopAction(action)
+    self.cobj:stopAction(action)
 end
 
-function DisplayObject:stop_action(action)
-   self.cobj:stop_action(action) 
+function DisplayObject:stopActionByTag(tag)
+    self.cobj:stopActionByTag(tag)
 end
 
-function DisplayObject:stop_all_actions()
-    self.cobj:stop_all_actions()
+function DisplayObject:stopAllActionsByTag(tag)
+    self.cobj:stopAllActionsByTag(tag)
 end
 
-function DisplayObject:stop_action_by_tag(tag)
-    self.cobj:stop_action_by_tag(tag)
+function DisplayObject:stopAllActions()
+    self.cobj:stopAllActions()
 end
 
-function DisplayObject:stop_all_actions_by_tag(tag)
-    self.cobj:stop_all_actions_by_tag(tag)
+function DisplayObject:stopActionsByFlags(flags)
+    self.cobj:stopActionsByFlags(flags)
 end
 
-function DisplayObject:stop_actions_by_flags(flags)
-    self.cobj:stop_actions_by_flags(flags)
+function DisplayObject.Get:scaleX() return self.cobj.scaleX end
+function DisplayObject.Set:scaleX(value)
+    self.cobj.scaleX = value
 end
 
-function DisplayObject.Get:color_transform()
-    if not self._color_transform then
-        self._color_transform = ColorTransform.new(
-            self.cobj:get_color_transform())
-    end
-    return self._color_transform
-end
-
-function DisplayObject.Set:color_transform(value)
-    self._color_transform = value
-    self.cobj:set_color_transform(value.mul_r, value.mul_g, value.mul_b,
-        value.mul_a, value.add_r, value.add_g, value.add_b, value.add_a)
-end
-
-function DisplayObject.Get:scale_x() return self.cobj.scale_x end
-function DisplayObject.Set:scale_x(value)
-    self.cobj.scale_x = value
-end
-
-function DisplayObject.Get:scale_y() return self.cobj.scale_y end
-function DisplayObject.Set:scale_y(value)
-    self.cobj.scale_y = value
+function DisplayObject.Get:scaleY() return self.cobj.scaleY end
+function DisplayObject.Set:scaleY(value)
+    self.cobj.scaleY = value
 end
 
 function DisplayObject.Get:x() return self.cobj.x end
@@ -168,23 +150,23 @@ function DisplayObject.Get:width() return self.cobj.width end
 function DisplayObject.Get:height() return self.cobj.height end
 
 function DisplayObject.Get:stage() return self._stage end
-function DisplayObject:_set_stage(value)
-    --remove form stage
+function DisplayObject:_setStage(value)
+    -- remove form stage
     if not value and self._stage then
         local stage = self._stage
         if stage.focus == self then
             stage.focus = false
         end
-        self:dispatch_event(Event.REMOVED_FORM_STAGE)
-        stage:dispatch_event(Event.REMOVED_FORM_STAGE, self)
+        self:dispatch(Event.REMOVED)
+        stage:dispatch(Event.REMOVED, self)
     end
 
     self._stage = value
 
-    --add to stage
+    -- add to stage
     if value then
-        self:dispatch_event(Event.ADDED_TO_STAGE)
-        value:dispatch_event(Event.ADDED_TO_STAGE, self)
+        self:dispatch(Event.ADDED)
+        value:dispatch(Event.ADDED, self)
     end
 end
 

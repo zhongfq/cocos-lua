@@ -2,6 +2,7 @@ local qrcode        = require "qrcode"
 local class         = require "xgame.class"
 local Graphics      = require "xgame.swf.Graphics"
 local BitmapData    = require "xgame.swf.BitmapData"
+local Graphics      = require "swf.Graphics"
 
 local QRCode = class("QRCode", Graphics)
 

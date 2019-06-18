@@ -40,23 +40,23 @@ function Animation:ctor(session, target, label, playOnce, times)
     self._times = math.max(times and times or 1, 1)
 
     self._labelMovie = false
-    self._onStart = false
-    self._onEnd = false
+    self._onStartCallback = false
+    self._onEndCallback = false
 
-    assert(target.frame_labels[label], label)
+    assert(target.frameLabels[label], label)
 
-    target:addListener("interruption", self.interruption_handler, self)
+    target:addListener("interruption", self.interruptionHandler, self)
     target:dispatch("interruption", session, label)
 end
 
 function Animation:dispose()
     if self._target then
-        self._target:removeListener("interruption", self.interruption_handler, self)
+        self._target:removeListener("interruption", self.interruptionHandler, self)
         self._target = nil
         self.state = Animation.STATE_DONE
         self._labelMovie = nil
-        self._onStart = nil
-        self._onEnd = nil
+        self._onStartCallback = nil
+        self._onEndCallback = nil
     end
 end
 
@@ -72,22 +72,22 @@ function Animation:resume()
     end
 end
 
-function Animation:interruption_handler(_, session, label)
+function Animation:interruptionHandler(_, session, label)
     if self.session ~= session then
         DLOG("'%s:%s:%d': interrupt by %d", self.name, self.label,
             self.session, session)
-        self:stop_chain()
+        self:stopChain()
     end
 end
 
-function Animation:stop_chain()
-    local curr_anim = self
+function Animation:stopChain()
+    local currAnim = self
     local tmp
-    while curr_anim do
-        tmp = curr_anim.nextAnimation
-        curr_anim.nextAnimation = nil
-        curr_anim:dispose()
-        curr_anim = tmp
+    while currAnim do
+        tmp = currAnim.nextAnimation
+        currAnim.nextAnimation = nil
+        currAnim:dispose()
+        currAnim = tmp
     end
     DLOG("'%s:%s:%d': stop chain", self.name, self.label, self.session)
 end
@@ -96,13 +96,13 @@ function Animation:update()
     local target = self._target
     local labelMovie = self._labelMovie
 
-    if target and target.cobj and not target.cobj.alive then
+    if target and not target.cobj.alive then
         DLOG("'%s:%s:%d': not alive", self.name, self.label, self.session)
-        self:stop_chain()
+        self:stopChain()
     end
 
     if self.state ~= Animation.STATE_DONE and (not labelMovie or
-        labelMovie.current_frame == labelMovie.total_frames) then
+        labelMovie.currentFrame == labelMovie.totalFrames) then
         self._times = self._times - 1
         -- DLOG("'%s:%s:%d': times = %d", self.name, self.label,
         --     self.session, self._times)
@@ -112,9 +112,9 @@ function Animation:update()
             if labelMovie and not self._playOnce then
                labelMovie:gotoAndPlay(1)
             end
-            if self._onEnd then
-               self._onEnd()
-               self._onEnd = nil
+            if self._onEndCallback then
+               self._onEndCallback()
+               self._onEndCallback = nil
             end
         elseif labelMovie then
             labelMovie:gotoAndStop(1)
@@ -133,9 +133,9 @@ function Animation:play()
         self._labelMovie:playOnce()
     end
 
-    if self._onStart then
-        self._onStart()
-        self._onStart = nil
+    if self._onStartCallback then
+        self._onStartCallback()
+        self._onStartCallback = nil
     end
 
     DLOG("'%s:%s:%d': play labelMovie = %s", self.name, self.label,
@@ -158,16 +158,16 @@ local function createCallback(callback, ...)
 end
 
 function Animation:onStart(callback, ...)
-    assert(not self._onStart)
+    assert(not self._onStartCallback)
     assert(type(callback) == "function")
-    self._onStart = createCallback(callback, ...)
+    self._onStartCallback = createCallback(callback, ...)
     return self
 end
 
 function Animation:onEnd(callback, ...)
-    assert(not self._onEnd)
+    assert(not self._onEndCallback)
     assert(type(callback) == "function")
-    self._onEnd = createCallback(callback, ...)
+    self._onEndCallback = createCallback(callback, ...)
     return self
 end
 

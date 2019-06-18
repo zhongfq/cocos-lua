@@ -931,6 +931,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/../../frameworks/cocos2d-x",
 					"$(SRCROOT)/../../frameworks/cocos2d-x/cocos",
+					"$(SRCROOT)/../../frameworks/libswf/Classes",
 					"$(SRCROOT)/../../frameworks/libxgame/src",
 					"$(SRCROOT)/../../frameworks/libxgame/src/lua/src",
 					"$(SRCROOT)/../../frameworks/plugins",
@@ -987,6 +988,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/../../frameworks/cocos2d-x",
 					"$(SRCROOT)/../../frameworks/cocos2d-x/cocos",
+					"$(SRCROOT)/../../frameworks/libswf/Classes",
 					"$(SRCROOT)/../../frameworks/libxgame/src",
 					"$(SRCROOT)/../../frameworks/libxgame/src/lua/src",
 					"$(SRCROOT)/../../frameworks/plugins",

@@ -1,10 +1,10 @@
-local class         = require "xgame.class"
 local Event         = require "xgame.event.Event"
 local TouchEvent    = require "xgame.event.TouchEvent"
 local ScrollImpl    = require "xgame.ui.ScrollImpl"
-local MovieClip     = require "xgame.swf.MovieClip"
-
-local A = swf.action
+local Align         = require "xgame.ui.Align"
+local A             = require "xgame.ui.action"
+local MovieClip     = require "xgame.swf.FLMovieClip"
+local swf           = require "xgame.swf.swf"
 
 local Scroller = swf.class("Scroller", MovieClip)
 

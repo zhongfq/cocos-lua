@@ -141,10 +141,8 @@ function M:_downloadAssets(localManifest, assets)
             if success then
                 assets[path] = nil
                 localManifest:update(path, asset)
-
                 current = current + 1
                 self:_didUpdate('donwloadAssets', current, total)
-
                 if not next(assets) then
                     localManifest:flush()
                     self:_saveRemoteManifestVersion()

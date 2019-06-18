@@ -985,6 +985,14 @@ static int _xgame_window_getVisibleBounds(lua_State *L)
     return 4;
 }
 
+static int _xgame_window_getFrameSize(lua_State *L)
+{
+    auto size = cocos2d::Director::getInstance()->getOpenGLView()->getFrameSize();
+    lua_pushnumber(L, size.width);
+    lua_pushnumber(L, size.height);
+    return 2;
+}
+
 static int _xgame_window_getDesignSize(lua_State *L)
 {
     auto size = cocos2d::Director::getInstance()->getOpenGLView()->getDesignResolutionSize();
@@ -1021,6 +1029,7 @@ static int luaopen_xgame_window(lua_State *L)
 {
     oluacls_class(L, "kernel.window", nullptr);
     oluacls_func(L, "getVisibleBounds", _xgame_window_getVisibleBounds);
+    oluacls_func(L, "getFrameSize", _xgame_window_getFrameSize);
     oluacls_func(L, "getDesignSize", _xgame_window_getDesignSize);
     oluacls_func(L, "setDesignSize", _xgame_window_setDesignSize);
     oluacls_func(L, "convertToCameraSpace", _xgame_window_convertToCameraSpace);

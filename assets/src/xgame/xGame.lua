@@ -188,17 +188,16 @@ end
 --
 -- window api
 --
-function xGame:designSize()
+function xGame:getDesignSize()
     return window.getDesignSize()
 end
 
-function xGame:visibleBounds()
+function xGame:getVisibleBounds()
     return window.getVisibleBounds()
 end
 
-function xGame:frameSize()
-    local size = Director:getOpenGLView():getFrameSize()
-    return size.width, size.height
+function xGame:getFrameSize()
+    return window.getFrameSize()
 end
 
 xGame = xGame.new()

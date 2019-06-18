@@ -5188,6 +5188,13 @@ static int luaopen_cocos2d_Touch(lua_State *L)
     oluacls_func(L, "getID", _cocos2d_Touch_getID);
     oluacls_func(L, "getCurrentForce", _cocos2d_Touch_getCurrentForce);
     oluacls_func(L, "getMaxForce", _cocos2d_Touch_getMaxForce);
+    oluacls_prop(L, "location", _cocos2d_Touch_getLocation, nullptr);
+    oluacls_prop(L, "previousLocation", _cocos2d_Touch_getPreviousLocation, nullptr);
+    oluacls_prop(L, "startLocation", _cocos2d_Touch_getStartLocation, nullptr);
+    oluacls_prop(L, "delta", _cocos2d_Touch_getDelta, nullptr);
+    oluacls_prop(L, "locationInView", _cocos2d_Touch_getLocationInView, nullptr);
+    oluacls_prop(L, "previousLocationInView", _cocos2d_Touch_getPreviousLocationInView, nullptr);
+    oluacls_prop(L, "startLocationInView", _cocos2d_Touch_getStartLocationInView, nullptr);
     oluacls_prop(L, "id", _cocos2d_Touch_getID, nullptr);
     oluacls_prop(L, "currentForce", _cocos2d_Touch_getCurrentForce, nullptr);
     oluacls_prop(L, "maxForce", _cocos2d_Touch_getMaxForce, nullptr);

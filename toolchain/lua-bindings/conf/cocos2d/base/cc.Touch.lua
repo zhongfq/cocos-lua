@@ -26,6 +26,13 @@ cls.funcs([[
     float getMaxForce()
 ]])
 cls.props [[
+    location
+    previousLocation
+    startLocation
+    delta
+    locationInView
+    previousLocationInView
+    startLocationInView
     id
     currentForce
     maxForce

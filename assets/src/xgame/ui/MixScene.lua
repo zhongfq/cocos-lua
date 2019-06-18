@@ -9,7 +9,7 @@ function MixScene:ctor()
     self.mediatorClass = self.class
     self._eventHandler = EventHandler.new()
     self._timer = timer.new()
-    self._updateHandler = xGame:schedule(0, function (delta)
+    self._updateHandler = timer.schedule(0, function (delta)
         self._timer:update(delta)
     end)
 end
@@ -21,7 +21,7 @@ end
 function MixScene:didActive()
     UIScene.didActive(self)
     if not self._updateHandler then
-        self._updateHandler = xGame:schedule(0, function (delta)
+        self._updateHandler = timer.schedule(0, function (delta)
             self._timer:update(delta)
         end)
     end
@@ -29,7 +29,7 @@ end
 
 function MixScene:didInactive()
     UIScene.didInactive(self)
-    xGame:unschedule(self._updateHandler)
+    timer.unschedule(self._updateHandler)
     self._updateHandler = false
 end
 
@@ -40,7 +40,7 @@ function MixScene:onDestroy()
     self.onDestroy = true
     self._timer:clear()
     self._eventHandler:clear()
-    xGame:unschedule(self._updateHandler)
+    timer.unschedule(self._updateHandler)
 end
 
 function MixScene:delay(time, func, ...)

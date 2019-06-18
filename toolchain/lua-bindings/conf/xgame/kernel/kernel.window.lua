@@ -12,6 +12,14 @@ cls.func("getVisibleBounds", [[
     return 4;
 }
 ]])
+cls.func('getFrameSize', [[
+{
+    auto size = cocos2d::Director::getInstance()->getOpenGLView()->getFrameSize();
+    lua_pushnumber(L, size.width);
+    lua_pushnumber(L, size.height);
+    return 2;
+}
+]])
 cls.func('getDesignSize', [[
 {
     auto size = cocos2d::Director::getInstance()->getOpenGLView()->getDesignResolutionSize();

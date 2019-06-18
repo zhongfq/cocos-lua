@@ -1,6 +1,6 @@
 local class             = require "xgame.class"
 local Event             = require "xgame.event.Event"
-local Align           = require "xgame.ui.Align"
+local Align             = require "xgame.ui.Align"
 local UIObject          = require "xgame.ui.UIObject"
 local ColorTransform    = require "xgame.swf.ColorTransform"
 

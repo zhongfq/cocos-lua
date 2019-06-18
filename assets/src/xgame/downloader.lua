@@ -2,6 +2,7 @@ local timer         = require "kernel.timer"
 local downloader    = require "kernel.downloader"
 
 local assert = assert
+local xpcall = xpcall
 
 local MAX_LOADING_FILES = 10
 local MAX_ATTEMPTS = 3
@@ -55,6 +56,7 @@ local function load(task)
 end
 
 local function notify(url, success)
+    local __TRACEBACK__ = __TRACEBACK__
     local doneTasks = {}
     for task in pairs(loadTasks) do
         if task.url == url then
@@ -64,7 +66,7 @@ local function notify(url, success)
     for _, task in ipairs(doneTasks) do
         loadTasks[task] = nil
         if task.callback then
-            task.callback(success, task)
+            xpcall(task.callback, __TRACEBACK__, success, task)
         end
     end
     checkStart()

@@ -39,8 +39,8 @@ function Stage:_initTouchListener()
     local function convert(rawpoints)
         local points = {}
         for _, touch in ipairs(rawpoints) do
-            local id = touch:getId()
-            local p = touch:getLocation()
+            local id = touch.id
+            local p = touch.location
             local x, y = window.convertToCameraSpace(p.x, p.y)
             p.x = x
             p.y = y

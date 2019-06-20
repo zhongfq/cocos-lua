@@ -1,7 +1,6 @@
 local class         = require "xgame.class"
 local audio         = require "xgame.audio"
 local Event         = require "xgame.event.Event"
-local EventAgent    = require "xgame.event.EventAgent"
 local filesystem    = require "xgame.filesystem"
 local LoadTask      = require "xgame.loader.LoadTask"
 
@@ -23,7 +22,6 @@ function Audio:ctor(filePath, loop, volume, delay, tag)
     self._sound = false
     self.state = Audio.STATE_READY
     self._onEndCallback = false
-    self._eventAgent = EventAgent.new()
 end
 
 function Audio.Get:volume()
@@ -49,7 +47,6 @@ function Audio:dispose()
     end
     self.state = Audio.STATE_DONE
     self._onEndCallback = false
-    self._eventAgent:clear()
 end
 
 function Audio.Get:playing()
@@ -79,7 +76,7 @@ end
 
 function Audio:play()
     if self.state == Audio.STATE_READY and self._delay <= 0 then
-        local function do_play(filePath)
+        local function doPlay(filePath)
             self._sound = audio.play(filePath, self._loop, self._volume)
             self._sound:addListener(Event.COMPLETE, self._completeHandler, self)
             self._sound:addListener(Event.STOP, self._stopHandler, self)
@@ -88,21 +85,15 @@ function Audio:play()
 
         local localCachePath = filesystem.localCachePath(self.filePath)
         if filesystem.exist(localCachePath) then
-            do_play(self.filePath)
+            doPlay(localCachePath)
         else
-            local E = function (target, priority)
-                return self._eventAgent:E(target, priority)
-            end
-
             local loader = LoadTask.new(self.filePath)
-            E(loader):addListener(Event.COMPLETE, function ()
-                self._eventAgent:clear()
+            loader:addListener(Event.COMPLETE, function ()
                 if self.state == Audio.STATE_READY then
-                    do_play(loader.local_path)
+                    doPlay(loader.path)
                 end
             end)
-            E(loader):addListener(Event.IOERROR, function ()
-                self._eventAgent:clear()
+            loader:addListener(Event.IOERROR, function ()
                 self:_stopHandler()
             end)
             loader:start()

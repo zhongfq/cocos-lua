@@ -19,6 +19,7 @@ public:
     static bool isRestarting();
     static bool isDebug();
     static float getTime();
+    static void gc();
     static lua_State *luaVM();
     static void luaOpen(lua_CFunction libfunc);
     

@@ -78,6 +78,10 @@ function DisplayObject:globalToLocal(x, y)
     return self.cobj:globalToLocal(x, y)
 end
 
+function DisplayObject:getBounds(target, ...)
+    return self.cobj:getBounds(target.cobj, ...)
+end
+
 function DisplayObject:runAction(action)
     self.cobj:runAction(action)
 end

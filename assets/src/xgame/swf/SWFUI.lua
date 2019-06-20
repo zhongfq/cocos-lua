@@ -19,20 +19,20 @@ function SWFUI:assets()
     error(string.format("'%s' need supply assets list", self.classname))
 end
 
-function SWFUI.Get:rootSWF() return self._loader.rootSWF end
-function SWFUI.Set:rootSWF(value)
-    self._loader.rootSWF = value
+function SWFUI.Get:rootswf() return self._loader.rootswf end
+function SWFUI.Set:rootswf(value)
+    self._loader.rootswf = value
 end
 
 function SWFUI:_loadRootSWF()
-    self.rootSWF = swf.new(self.rootSWFPath)
-    self.width = self.rootSWF.movieWidth
-    self.height = self.rootSWF.movieHeight
+    self.rootswf = swf.new(self.rootswfPath)
+    self.width = self.rootswf.movieWidth
+    self.height = self.rootswf.movieHeight
     self.percentWidth = -1
     self.percentHeight = -1
 end
 
-function SWFUI.Get:rootSWFPath()
+function SWFUI.Get:rootswfPath()
     error("sub class must implement!!!")
 end
 

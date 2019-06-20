@@ -30,14 +30,10 @@ function xGame:ctor()
 end
 
 function xGame:capture(node)
-    trace("lua mem: %fM", collectgarbage("count") / 1024)
 end
 
 function xGame:gc()
-    collectgarbage("collect")
-end
-
-function xGame:memstat()
+    runtime.gc()
 end
 
 -- scene api
@@ -144,6 +140,8 @@ function xGame:_initRuntimeEvents()
             self:dispatch(event, ...)
         end)
     end
+    listen('openURL')
+    listen('runtimeGC')
     listen('runtimeUpdate')
     listen('runtimeResize')
     listen('runtimePause')

@@ -7,15 +7,15 @@ local swf       = require "xgame.swf.swf"
 local SWFNode = class("SWFNode", UIView)
 
 function SWFNode:ctor()
-    self._rootSWF = false
+    self._rootswf = false
     self.width, self.height = window.getDesignSize()
     self.touchable = false
     self.touchChildren = true
 end
 
 function SWFNode.Get:children()
-    if self.rootSWF then
-        return self.rootSWF.children
+    if self.rootswf then
+        return self.rootswf.children
     else
         return {}
     end
@@ -27,20 +27,20 @@ function SWFNode.Get:cobj()
     return cobj
 end
 
-function SWFNode.Get:rootSWF()
-    return self._rootSWF
+function SWFNode.Get:rootswf()
+    return self._rootswf
 end
 
-function SWFNode.Set:rootSWF(value)
-    if self.rootSWF then
-        self.rootSWF:_setStage(false)
+function SWFNode.Set:rootswf(value)
+    if self.rootswf then
+        self.rootswf:_setStage(false)
     end
 
-    self._rootSWF = value
-    self._rootSWF._rootNode = self
-    self.cobj.rootSWF = value.cobj
+    self._rootswf = value
+    self._rootswf._rootNode = self
+    self.cobj.rootswf = value.cobj
     if self.stage then
-        self.rootSWF:_setStage(self.stage)
+        self.rootswf:_setStage(self.stage)
     end
 end
 
@@ -53,8 +53,8 @@ function SWFNode:worldToSWFSpace(x, y)
 end
 
 function SWFNode:hit(points)
-    if self.rootSWF then
-        local hit, capturePoints = self.rootSWF:hit(points)
+    if self.rootswf then
+        local hit, capturePoints = self.rootswf:hit(points)
         if hit then
             return hit, capturePoints
         end
@@ -66,8 +66,8 @@ function SWFNode:hit(points)
 end
 
 function SWFNode:_setStage(value)
-    if self.rootSWF then
-        self.rootSWF:_setStage(value)
+    if self.rootswf then
+        self.rootswf:_setStage(value)
     end
     UIView._setStage(self, value)
 end

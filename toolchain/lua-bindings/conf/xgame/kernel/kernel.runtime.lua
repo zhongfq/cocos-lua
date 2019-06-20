@@ -6,7 +6,8 @@ cls.funcs [[
     static bool launch(const std::string &scriptPath)
     static bool restart()
     static bool isRestarting()
-    static float getTime();
+    static float getTime()
+    static void gc()
     static void setAntialias(bool enabled, unsigned int numSamples)
     static bool isAntialias()
     static unsigned int getNumSamples()

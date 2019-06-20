@@ -347,7 +347,7 @@ function MovieClip:prevFrame()
     self:_buildChildren()
 end
 
-function MovieClip.Get:top_mc()
+function MovieClip.Get:topMC()
     self:_checkChildren()
     for i = #self.children, 1, -1 do
         local child = self.children[i]

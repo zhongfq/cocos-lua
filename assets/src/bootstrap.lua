@@ -1,8 +1,11 @@
-local updater = require "xgame.updater"
-local runtime = require "xgame.runtime"
+require "init"
+
+local updater   = require "xgame.updater"
+local runtime   = require "xgame.runtime"
+local conf      = require "conf"
 
 function main()
-    local inst = updater.new('http://127.0.0.1/cocoslua/version')
+    local inst = updater.new(conf.VERSION_URL)
 
     inst.onError = function (callback)
         print("## onError")

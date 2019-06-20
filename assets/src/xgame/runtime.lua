@@ -1,4 +1,5 @@
-local runtime = require "kernel.runtime"
+local util      = require "xgame.util"
+local runtime   = require "kernel.runtime"
 
 assert(not runtime.on)
 assert(not runtime.off)
@@ -21,6 +22,14 @@ function runtime.on(event, callback, caller)
         end
         map[callback] = caller or ANONYMOUS
     end
+end
+
+function runtime.once(event, callback, caller)
+    assert(type(callback) == 'function', 'no callback')
+    runtime.on(event, function (...)
+        runtime.off(event, util.callee())
+        callback(...)
+    end, caller)
 end
 
 function runtime.off(event, callback)

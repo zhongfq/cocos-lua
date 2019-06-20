@@ -1,7 +1,9 @@
 local class         = require "xgame.class"
 local util          = require "xgame.util"
-local assetloader   = require "xgame.assetloader"
+local runtime       = require "xgame.runtime"
 local Array         = require "xgame.Array"
+local assetloader   = require "xgame.assetloader"
+local Event         = require "xgame.event.Event"
 local UILayer       = require "xgame.ui.UILayer"
 local UICapture     = require "xgame.ui.UICapture"
 
@@ -40,7 +42,9 @@ end
 
 function SceneStack:popScene()
     self:_doPopScene(false)
-
+    runtime.once(Event.RUNTIME_UPDATE, function ()
+        runtime.gc()
+    end)
     -- update music
 end
 

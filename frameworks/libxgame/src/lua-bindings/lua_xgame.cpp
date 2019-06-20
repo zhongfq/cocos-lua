@@ -63,11 +63,21 @@ static int _xgame_runtime_getTime(lua_State *L)
 {
     lua_settop(L, 0);
 
-    // static float getTime();
+    // static float getTime()
     float ret = (float)xgame::runtime::getTime();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     return num_ret;
+}
+
+static int _xgame_runtime_gc(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static void gc()
+    xgame::runtime::gc();
+
+    return 0;
 }
 
 static int _xgame_runtime_setAntialias(lua_State *L)
@@ -343,6 +353,7 @@ static int luaopen_xgame_runtime(lua_State *L)
     oluacls_func(L, "restart", _xgame_runtime_restart);
     oluacls_func(L, "isRestarting", _xgame_runtime_isRestarting);
     oluacls_func(L, "getTime", _xgame_runtime_getTime);
+    oluacls_func(L, "gc", _xgame_runtime_gc);
     oluacls_func(L, "setAntialias", _xgame_runtime_setAntialias);
     oluacls_func(L, "isAntialias", _xgame_runtime_isAntialias);
     oluacls_func(L, "getNumSamples", _xgame_runtime_getNumSamples);

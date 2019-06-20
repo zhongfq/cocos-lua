@@ -126,7 +126,7 @@ end
 function Anim:play()
     self.state = Anim.STATE_RUNNING
     self._target:gotoAndStop(self.label)
-    self._labelMovie = self._target.top_mc
+    self._labelMovie = self._target.topMC
 
     if self._labelMovie then
         self._labelMovie:gotoAndStop(1)

@@ -97,6 +97,14 @@ float runtime::getTime()
     return _time;
 }
 
+void runtime::gc()
+{
+    lua_State *L = runtime::luaVM();
+    lua_gc(L, LUA_GCCOLLECT, 0);
+    runtime::log("lua mem: %.3fM", lua_gc(L, LUA_GCCOUNT, 0) / 1024.0f);
+    runtime::dispatchEventImmediately("runtimeGC", "");
+}
+
 void runtime::clearStorage()
 {
     filesystem::remove(filesystem::getDocumentDirectory() + "/assets");

@@ -20,6 +20,7 @@ return {
 
     -- runtime event
     OPEN_URL            = "openURL",
+    RUNTIME_GC          = "runtimeGC",
     RUNTIME_PAUSE       = "runtimePause",
     RUNTIME_RESUME      = "runtimeResume",
     RUNTIME_UPDATE      = "runtimeUpdate",

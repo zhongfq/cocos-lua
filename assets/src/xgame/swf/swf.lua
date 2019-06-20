@@ -2,6 +2,7 @@ local class     = require "xgame.class"
 local util      = require "xgame.util"
 local Event     = require "xgame.event.Event"
 local shader    = require "xgame.shader"
+local runtime   = require "xgame.runtime"
 local cjson     = require "kernel.cjson.safe"
 
 local assert = assert
@@ -18,6 +19,13 @@ M.Graphics = require("swf.Graphics")
 M.BitmapData = require("swf.BitmapData")
 M.SWFNode = require("swf.SWFNode")
 M.SWFSnapshot = require("swf.SWFSnapshot")
+
+runtime.on(Event.RUNTIME_GC, function ()
+    local stat = M.stat()
+    print(string.format("swf obj: holder=%d gc_object=%d texture=%d,%fM",
+        stat.numHolders, stat.numObjects,
+        stat.numTextures, stat.textureMem / (1024 ^ 2)))
+end)
 
 local T = M.ObjectType
 local userClasses = {}
@@ -100,8 +108,8 @@ function M.watch(target)
             ref = ref - 1
             watchedRef[filePath] = ref
             if ref <= 0 then
-                M.loader.unload(filePath)
                 trace("auto unload watched swf file: %s", filePath)
+                M.loader.unload(filePath)
             end
         end
     end)

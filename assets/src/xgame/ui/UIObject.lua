@@ -29,7 +29,7 @@ function UIObject.Set:buttonMode(value)
 end
 
 function UIObject:getBounds(target)
-    return 0, 0, 0, 0
+    error(string.format("'%s' must implement", self.classname))
 end
 
 function UIObject:localToGlobal(x, y)

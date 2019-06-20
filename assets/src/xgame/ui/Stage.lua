@@ -64,7 +64,7 @@ function Stage:_initTouchListener()
         return self:touchMove(convert(touches))
     end
     touchListener.onTouchesEnded = function (touches, event)
-        return self:touchEnd(convert(touches))
+        return self:touchUp(convert(touches))
     end
     touchListener.onTouchesCancelled = function (touches, event)
         return self:touchCancel(convert(touches))

@@ -2,6 +2,8 @@ local class     = require "xgame.class"
 local util      = require "xgame.util"
 local MixSWF    = require "xgame.swf.MixSWF"
 local swf       = require "xgame.swf.swf"
+local Image     = require "xgame.swf.Image"
+local A         = require "xgame.ui.action"
 
 local SWFTest = class('SWFTest', MixSWF)
 
@@ -45,8 +47,24 @@ function SWFTest:onCreate()
             local btn = mc.ns['btn_play']
             self(btn):onClick(function ()
                 print('hello click')
-                xGame:popScene()
+                -- xGame:popScene()
+                xGame:gc()
+                btn:runAction(A.Sequence(
+                    A.FadeOut(1),
+                    A.FadeIn(1)
+                ))
             end)
+
+            rootswf.ns['menu'].ns['avatar']:relative('left', 'top')
+            rootswf.ns['menu'].ns['user']:relative('left', 'top')
+            mc.ns['btn_ttsz']:relative('right', 'bottom')
+            mc.ns['btn_bbmath']:relative('right', 'bottom')
+
+            local img = Image.new()
+            img:load('http://127.0.0.1/cocoslua/current/assets/res/HelloWorld.png')
+            img.x = 500
+            img.y = 300
+            rootswf:addChild(img)
         end)
 end
 

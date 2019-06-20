@@ -109,30 +109,11 @@ function MovieClip:hit(points)
     end
 end
 
-function MovieClip:align(horizontal, vertical)
-    local l, r, t, b = window.getVisibleBounds()
-    local tl, tr, tt, tb = self:getBounds(self)
-
-    if horizontal == Align.LEFT then
-        self.x = l - tl
-    elseif horizontal == Align.CENTER then
-        self.x = (l + r) / 2 - (tl + tr) / 2
-    elseif horizontal == Align.RIGHT then
-        self.x = r - tr
-    end
-    
-    if vertical == Align.TOP then
-        self.y = t - tt
-    elseif vertical == Align.CENTER then
-        self.y = (t + b) / 2 - (tt + tb) / 2
-    elseif vertical == Align.BOTTOM then
-        self.y = b - tb
-    end
-end
-
 function MovieClip:relative(horizontal, vertical)
     local l, r, t, b = window.getVisibleBounds()
-    local w, h = window.getDesignSize()
+    l, t = self.rootNode.rootswf:globalToLocal(l, t)
+    r, b = self.rootNode.rootswf:globalToLocal(r, b)
+    local w, h = self.movieWidth, self.movieHeight
     if horizontal == Align.LEFT then
         self.x = self.x + l
     elseif horizontal == Align.CENTER then

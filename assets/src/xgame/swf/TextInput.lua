@@ -3,6 +3,8 @@ local Event         = require "xgame.event.Event"
 local TouchEvent    = require "xgame.event.TouchEvent"
 local UIView        = require "xgame.ui.UIView"
 local MovieClip     = require "xgame.swf.MovieClip"
+local swf           = require "xgame.swf.swf"
+local EditBox       = require "ccui.EditBox"
 
 local CocosInput
 
@@ -14,14 +16,14 @@ function TextInput:ctor()
     self.label = self.ns['label']
     self.mode = 'NONE'
     self.touchable = true
-    self.touch_children = false
+    self.touchChildren = false
     
-    self:add_event_listener(Event.REMOVED_FORM_STAGE, self._onremoved, self)
-    self:add_event_listener(Event.FOCUS_OUT, self._focus_out, self)
-    self:add_event_listener(TouchEvent.CLICK, self._focus_in, self)
+    self:addListener(Event.REMOVED, self._onRemoved, self)
+    self:addListener(Event.FOCUS_OUT, self._focusOut, self)
+    self:addListener(TouchEvent.CLICK, self._focusIn, self)
 end
 
-function TextInput:_onremoved()
+function TextInput:_onRemoved()
     if self._cocosobj then
         self._cocosobj.cobj:unregisterScriptEditBoxHandler()
         self._cocosobj:remove_self()
@@ -36,15 +38,15 @@ end
 function TextInput.Set:mode(value)
     self._mode = value
     if value == 'PASSWORD' then
-        self.label.display_as_password = true
+        self.label.displayAsPassword = true
         self._input_mode = 1
         self._input_flag = 0
     elseif value == 'ACCOUNT' then
-        self.label.display_as_password = false
+        self.label.displayAsPassword = false
         self._input_mode = 1
         self._input_flag = 5
     else
-        self.label.display_as_password = false
+        self.label.displayAsPassword = false
         self._input_mode = 0
         self._input_flag = 5
     end
@@ -53,38 +55,38 @@ end
 function TextInput:_create_cocosobj()
     local cocosobj = self._cocosobj
     if not cocosobj then
-        cocosobj = CocosInput.new() 
+        cocosobj = CocosInput.new()
         cocosobj.width = self.label.width
         cocosobj.height = self.label.height
-        cocosobj:set_font_size(self.label.font_size)
-        cocosobj:add_event_listener(Event.COMPLETE, function ()
+        cocosobj:setFontSize(self.label.fontSize)
+        cocosobj:addListener(Event.COMPLETE, function ()
             if self.stage and self.stage.focus == self then
                 self.stage.focus = false
             else
-                self:_focus_out()
+                self:_focusOut()
             end
-            self:dispatch_event(Event.COMPLETE)
+            self:dispatch(Event.COMPLETE)
         end)
-        cocosobj:add_event_listener(Event.CHANGE, function ()
+        cocosobj:addListener(Event.CHANGE, function ()
             self.label.text = self._cocosobj.text
-            self:dispatch_event(Event.CHANGE)
+            self:dispatch(Event.CHANGE)
         end)
         self.rootnode.cobj:addChild(cocosobj.cobj, 0xFF)
         self._cocosobj = cocosobj
     end
 end
 
-function TextInput:_focus_out()
+function TextInput:_focusOut()
     if self._cocosobj then
         self._cocosobj.visible = false
-        self._cocosobj:close_keyboard()
+        self._cocosobj:closeKeyboard()
         self.label.text = self._cocosobj.text
     end
     self.label.visible = true
 end
 
-function TextInput:_focus_in()
-    if (self._cocosobj and self._cocosobj.is_open) or
+function TextInput:_focusIn()
+    if (self._cocosobj and self._cocosobj.open) or
         not self.rootnode.cobj then
         return
     end
@@ -94,30 +96,30 @@ function TextInput:_focus_in()
     self:_create_cocosobj()
 
     local cocosobj = self._cocosobj
-    local x, y = self.label:local_to_global(
+    local x, y = self.label:localToGlobal(
         0,
-        self.label.font_size + (self.label.height - self.label.font_size) / 2)
-    x, y = self.rootnode:global_to_local(x, y)
+        self.label.fontSize + (self.label.height - self.label.fontSize) / 2)
+    x, y = self.rootnode:globalToLocal(x, y)
 
     local vbl, vbr, vbt, vbb = swf.visible_bounds()
     local dw, dh = swf.design_size()
     local offset = vbt - (dh - math.abs(vbb - vbt)) / 2
     if xGame.os == "mac" then
-        y = y - offset 
+        y = y - offset
     else
-        y = y + offset 
+        y = y + offset
     end
 
-    x, y = self.rootnode:global_to_local(x, y)
+    x, y = self.rootnode:globalToLocal(x, y)
     cocosobj.x = x
     cocosobj.y = y
     cocosobj.restrict = self.restrict
     cocosobj.text = self.label.plain_text
     cocosobj.color = self.label.color
     cocosobj.placeholder = self.placeholder
-    cocosobj:set_input_mode(self._input_mode)
-    cocosobj:set_input_flag(self._input_flag)
-    cocosobj:open_keyboard()
+    cocosobj:setInputMode(self._input_mode)
+    cocosobj:setInputFlag(self._input_flag)
+    cocosobj:openKeyboard()
 end
 
 function TextInput.Get:restrict() return self._restrict end
@@ -130,7 +132,7 @@ function TextInput.Get:text()
         self.label.text = self._cocosobj.text
     end
 
-    return self.label.plain_text or ""
+    return self.label.plainText or ""
 end
 function TextInput.Set:text(value)
     value = value or ""
@@ -159,7 +161,7 @@ function TextInput.Set:multiline(value)
     self.label.multiline = value
     if self._cocosobj then
         if not value then
-            self._cocosobj:set_input_mode(6)
+            self._cocosobj:setInputMode(6)
         end
     end
 end
@@ -168,30 +170,30 @@ end
 CocosInput = class("CocosInput", UIView)
 
 function CocosInput:ctor()
-    self.is_open = false
+    self.open = false
     self.touchable = false
     self.restrict = false
 end
 
 function CocosInput.Get:cobj()
-    local cobj = ccui.EditBox:create()
+    local cobj = EditBox.create()
     cobj:setTouchEnabled(false)
     cobj:setInputFlag(1)
     rawset(self, "cobj", cobj)
     return cobj
 end
 
-function CocosInput:open_keyboard()
+function CocosInput:openKeyboard()
     self.cobj:registerScriptEditBoxHandler(function (event)
         if event == "return" then
-            self.is_open = false
-            self:dispatch_event(Event.COMPLETE)
+            self.open = false
+            self:dispatch(Event.COMPLETE)
         elseif event == "changed" then
             if self.restrict then
                 local restrict = "[^" .. self.restrict .. "]"
                 self.text = string.gsub(self.text, restrict, "")
             end
-            self:dispatch_event(Event.CHANGE)
+            self:dispatch(Event.CHANGE)
 
             -- when use keyborad, if set text, label will be visible again
             for _, child in ipairs(self.cobj:getChildren()) do
@@ -200,31 +202,31 @@ function CocosInput:open_keyboard()
         end
     end)
     self.cobj:openKeyboard()
-    self.is_open = true
+    self.open = true
 end
 
-function CocosInput:close_keyboard()
-    if self.is_open then
+function CocosInput:closeKeyboard()
+    if self.open then
         self.cobj:closeKeyboard()
-        self.is_open = false
+        self.open = false
     end
     self.cobj:unregisterScriptEditBoxHandler()
 end
 
-function CocosInput:set_font_name(value)
+function CocosInput:setFontName(value)
     self.cobj:setFontName(value)
 end
 
-function CocosInput:set_font_size(value)
+function CocosInput:setFontSize(value)
     self.cobj:setFontSize(value)
     self.cobj:setPlaceholderFontSize(value)
 end
 
-function CocosInput:set_input_mode(value)
+function CocosInput:setInputMode(value)
     self.cobj:setInputMode(value)
 end
 
-function CocosInput:set_input_flag(value)
+function CocosInput:setInputFlag(value)
     self.cobj:setInputFlag(value)
 end
 
@@ -248,18 +250,14 @@ function CocosInput.Get:height()
     return self._height
 end
 
-function CocosInput.Get:color() 
-    local c = self.cobj:getFontColor()
-    return c.r << 16 | c.g << 8 | c.b
+function CocosInput.Get:color()
+    return self.cobj:getFontColor()
 end
 function CocosInput.Set:color(value)
-    local R = value >> 16 & 0xFF
-    local G = value >> 8 & 0xFF
-    local B = value & 0xFF
-    self.cobj:setFontColor({r = R, g = G, b = B}) 
+    self.cobj:setFontColor(value)
 end
 
-function CocosInput.Get:placeholder() 
+function CocosInput.Get:placeholder()
 	return self.cobj:getPlaceHolder()
 end
 function CocosInput.Set:placeholder(value)

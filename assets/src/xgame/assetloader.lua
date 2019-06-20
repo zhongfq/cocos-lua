@@ -19,8 +19,8 @@ local viewAssets = setmetatable({}, {__mode = 'k'})
 local viewWatches = setmetatable({}, {__mode = "k"})
 local staticAssets = {}
 
-local function shortenPath(path)
-    return filesystem.shortenPath(path, 60)
+local function shortPath(path)
+    return filesystem.shortPath(path, 60)
 end
 
 local function getOrCreate(path)
@@ -34,7 +34,7 @@ end
 
 function M.setStatic(path)
     assert(path and #path > 0)
-    trace("set static asset: %s", shortenPath(path))
+    trace("set static asset: %s", shortPath(path))
     staticAssets[path] = getOrCreate(path)
 end
 
@@ -124,12 +124,12 @@ function M.dump(dump_static)
     for path, asset in pairs(assets) do
         if dump_static then
             arr[#arr + 1] = string.format("  %s[static=%s, active=%s]",
-                shortenPath(path),
+                shortPath(path),
                 staticAssets[path] and true or false,
                 asset:isActive())
         elseif not staticAssets[path] then
             arr[#arr + 1] = string.format("  %s[static=false, active=%s]",
-                shortenPath(path), asset:isActive())
+                shortPath(path), asset:isActive())
         end
     end
     table.sort(arr)
@@ -161,7 +161,7 @@ end
 function AssetObject:load()
     if self._plist then
         if not spriteFrameCache:isSpriteFramesWithFileLoaded(self._plist) then
-            trace("L => %s", shortenPath(self._plist))
+            trace("L => %s", shortPath(self._plist))
             spriteFrameCache:addSpriteFrames(self._plist)
             for name in pairs(self._frames) do
                 self._frames[name] = spriteFrameCache:getSpriteFrame(name)
@@ -173,9 +173,9 @@ function AssetObject:load()
     local texture = textureCache:getTextureForKey(self._image)
     if not texture then
         texture = textureCache:addImage(self._image)
-        trace("L => %s", shortenPath(self._image))
+        trace("L => %s", shortPath(self._image))
     elseif texture:getName() == 0 then
-        trace("R => %s", shortenPath(self._image))
+        trace("R => %s", shortPath(self._image))
         textureCache:reloadTexture(self._image)
     end
 end
@@ -186,16 +186,16 @@ function AssetObject:loadAsync(callback)
     if not texture then
         textureCache:addImageAsync(self._image, function (texture)
             if texture then
-                trace("L => %s", shortenPath(self._image))
+                trace("L => %s", shortPath(self._image))
                 callback()
             else
-                trace("not found: %s", shortenPath(self._image))
+                trace("not found: %s", shortPath(self._image))
             end
         end)
     else
         if texture:getName() == 0 then
             textureCache:reloadTexture(self._image)
-            trace("R => %s", shortenPath(self._image))
+            trace("R => %s", shortPath(self._image))
         end
         callback()
     end
@@ -210,14 +210,14 @@ function AssetObject:unload()
         spriteFrameCache:removeSpriteFramesFromFile(self._plist)
     end
     textureCache:removeTextureForKey(self._image)
-    trace("U => %s", shortenPath(self.path))
+    trace("U => %s", shortPath(self.path))
 end
 
 function AssetObject:deleteTexture()
     local texture = textureCache:getTextureForKey(self._image)
     if texture and texture:getName() ~= 0 then
         texture:releaseGLTexture()
-        trace("D => %s", shortenPath(self._image))
+        trace("D => %s", shortPath(self._image))
     end
 end
 

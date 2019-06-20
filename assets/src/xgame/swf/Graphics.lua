@@ -92,7 +92,6 @@ local function convertLineToMesh(coords, lineWidth)
     local num_points = #coords / 2
     local numMeshPoints = (num_points - 1) * 4 + 2 * (2 * numSegments)
     local mat = swf.matrix.new()
-    local count = 0
     local vertices = {}
     for i = 1, num_points - 1 do
         local x1 = coords[(i - 1) * 2 + 1]

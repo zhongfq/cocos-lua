@@ -65,7 +65,7 @@ function MixPlayer:_playAudio(_, option, tag)
     local lastTime = self._audioPlayTimes[path] or 0
     self._audioPlayTimes[path] = runtime.time
     if runtime.time - lastTime >= self.option.sameAudioInterval then
-        self.audioPlayer:play(self:makePath(option), option.loop, 
+        self.audioPlayer:play(self:makePath(option), option.loop,
             option.volume, 0, tag)
     else
         trace('interval limit: %s', path)

@@ -812,9 +812,15 @@ static int cls_newindex(lua_State *L)
     // try setter
     lua_settop(L, 3);
     if (trycacheget(L, CLS_SETIDX, 2) != LUA_TNIL) {
-        lua_pushvalue(L, 1);                    // L: t k v setter t
-        lua_pushvalue(L, 3);                    // L: t k v setter t v
-        lua_call(L, 2, 0);                      // L: t k v
+        if (olua_isuserdata(L, 1)) {
+            lua_pushvalue(L, 1);                // L: t k v setter t
+            lua_pushvalue(L, 3);                // L: t k v setter t v
+            lua_call(L, 2, 0);                  // L: t k v
+        } else {
+            // static setter, accessed by class proxy
+            lua_pushvalue(L, 3);                // L: t k v setter v
+            lua_call(L, 1, 0);                  // L: t k v
+        }
         return 0;
     }
     

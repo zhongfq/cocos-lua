@@ -1,23 +1,24 @@
 local class = require "xgame.class"
+local swf   = require "xgame.swf.swf"
 
 local BitmapData = class("BitmapData")
 
 function BitmapData:ctor(width, height, smooth)
-    self.cobj = swf.bitmap_data.new(width, height, smooth)
+    self.cobj = swf.BitmapData.new(width, height, smooth)
 end
 
 function BitmapData.Get:width()
-    local w = self.cobj:get_size()
+    local w = self.cobj:getSize()
     return w
 end
 
 function BitmapData.Get:height()
-    local _, h = self.cobj:get_size()
+    local _, h = self.cobj:getSize()
     return h
 end
 
-function BitmapData:get_size()
-    return self.cobj:get_size()
+function BitmapData:getSize()
+    return self.cobj:getSize()
 end
 
 function BitmapData:smooth(value)
@@ -30,20 +31,20 @@ function BitmapData:set(data)
     self.cobj:set(data)
 end
 
-function BitmapData:set_cocos_texture(texture)
-    self.cobj:set_cocos_texture(texture)
+function BitmapData:setCocosTexture(texture)
+    self.cobj:setCocosTexture(texture)
 end
 
-function BitmapData:set_pixel(x, y, color)
+function BitmapData:setPixel(x, y, color)
     local mode = self.cobj:mode()
     assert(mode == "DATA", mode)
-    self.cobj:set_pixel(x, y, color)
+    self.cobj:setPixel(x, y, color)
 end
 
-function BitmapData:get_pixel(x, y)
+function BitmapData:getPixel(x, y)
     local mode = self.cobj:mode()
     assert(mode == "DATA", mode)
-    return self.cobj:get_pixel(x, y)
+    return self.cobj:getPixel(x, y)
 end
 
 return BitmapData

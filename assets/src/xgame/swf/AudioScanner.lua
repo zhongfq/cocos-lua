@@ -2,8 +2,9 @@ local class         = require "xgame.class"
 local util          = require "xgame.util"
 local Dispatcher    = require "xgame.event.Dispatcher"
 local AudioEvent    = require "xgame.swf.AudioEvent"
-local T             = require "swf.type"
+local swf           = require "xgame.swf.swf"
 
+local T = swf.ObjectType
 local assert = assert
 local ipairs, pairs = ipairs, pairs
 local next = next
@@ -56,7 +57,7 @@ function AudioScanner:addWatch(target)
 end
 
 local function doScan(self, target, found)
-    if target.cobj.type == T.MOVIECLIP then
+    if target.cobj.type == T.MOVIE_CLIP then
         if not self._watchedTargets[target] and target.metadata.hasAudio then
             self:addWatch(target)
             found[#found + 1] = target
@@ -66,7 +67,7 @@ local function doScan(self, target, found)
 
     if target.children then
         for _, child in ipairs(target.children) do
-            if child.cobj.type == T.MOVIECLIP then
+            if child.cobj.type == T.MOVIE_CLIP then
                 doScan(self, child, found)
             end
         end
@@ -93,7 +94,7 @@ function AudioScanner:update()
         end
 
         for _, mc in ipairs(target.children) do
-            if mc.cobj.type ~= T.MOVIECLIP or not next(mc.metadata.audios) then
+            if mc.cobj.type ~= T.MOVIE_CLIP or not next(mc.metadata.audios) then
                 goto loopNextChild
             end
 

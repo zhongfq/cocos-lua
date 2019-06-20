@@ -62,6 +62,7 @@ M.CLASSES = {
     include("conf/cocos2d/platform/cc.Image.lua"),
     include("conf/cocos2d/renderer/cc.Renderer.lua"),
     include("conf/cocos2d/renderer/cc.GLProgram.lua"),
+    include("conf/cocos2d/renderer/cc.GLProgramCache.lua"),
     include("conf/cocos2d/renderer/cc.GLProgramState.lua"),
     include("conf/cocos2d/renderer/cc.TextureCache.lua"),
     include("conf/cocos2d/renderer/cc.Texture2D.lua"),

@@ -1,13 +1,13 @@
 local class         = require "xgame.class"
 local Event         = require "xgame.Event"
 local timer         = require "xgame.timer"
-local EventHandler  = require "xgame.EventHandler"
+local EventAgent    = require "xgame.EventAgent"
 
 local Mediator = class("Mediator")
 
 function Mediator:ctor(view)
     self.view = view
-    self._eventHandler = EventHandler.new()
+    self._eventAgent = EventAgent.new()
     self._scheduler = timer.new()
     self._updateHandler = timer.schedule(0, function (delta)
         self._scheduler:update(delta)
@@ -30,7 +30,7 @@ function Mediator:ctor(view)
 end
 
 function Mediator:__call(target, priority)
-    return self._eventHandler:wrap(target, priority)
+    return self._eventAgent:wrap(target, priority)
 end
 
 function Mediator:onCreate()
@@ -39,7 +39,7 @@ end
 function Mediator:onDestroy()
     self.onDestroy = true
     self._scheduler:clear()
-    self._eventHandler:clear()
+    self._eventAgent:clear()
     self.view = false
     timer.unschedule(self._updateHandler)
 end

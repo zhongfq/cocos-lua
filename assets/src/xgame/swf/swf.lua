@@ -3,8 +3,6 @@ local util      = require "xgame.util"
 local Event     = require "xgame.event.Event"
 local shader    = require "xgame.shader"
 local cjson     = require "kernel.cjson.safe"
-local T         = require "swf.type"
-local loader    = require "swf.loader"
 
 local assert = assert
 local string = string
@@ -12,6 +10,16 @@ local trace = util.trace("[swf]")
 
 local M = setmetatable({}, {__index = require("swf.core")})
 
+M.Image = require "swf.Image"
+M.ObjectType = require("swf.ObjectType")
+M.loader = require("swf.loader")
+M.Image = require("swf.Image")
+M.Graphics = require("swf.Graphics")
+M.BitmapData = require("swf.BitmapData")
+M.SWFNode = require("swf.SWFNode")
+M.SWFSnapshot = require("swf.SWFSnapshot")
+
+local T = M.ObjectType
 local userClasses = {}
 local movieInfoes = {}
 local watchedRef = {}
@@ -42,7 +50,7 @@ function M.clearCache()
 end
 
 function M.metadata(cobj)
-    assert(cobj.type == T.MOVIECLIP)
+    assert(cobj.type == T.MOVIE_CLIP)
     local id = toGlobalID(cobj)
     local info = movieInfoes[id]
     if not info then
@@ -66,7 +74,7 @@ end
 
 function M.new(filePath, autowatch, cls) -- autowatch default true
     assert(string.match(filePath, "%.swf$"), filePath)
-    local movie = loader.load(filePath)
+    local movie = M.loader.load(filePath)
     if movie then
         local target = cls and cls.new(movie) or M.wrapper(movie)
         if autowatch ~= false then
@@ -92,7 +100,7 @@ function M.watch(target)
             ref = ref - 1
             watchedRef[filePath] = ref
             if ref <= 0 then
-                loader.unload(filePath)
+                M.loader.unload(filePath)
                 trace("auto unload watched swf file: %s", filePath)
             end
         end
@@ -113,7 +121,7 @@ function M.wrapper(cobj)
         return doWrapper('xgame.swf.TextField', cobj)
     elseif cobj.type == T.GRAPHICS then
         return doWrapper('xgame.swf.Graphics', cobj)
-    elseif cobj.type == T.MOVIECLIP then
+    elseif cobj.type == T.MOVIE_CLIP then
         local def = M.metadata(cobj)
         local classname = def.classname
         if classname then
@@ -218,7 +226,7 @@ end
 
 function M.dumpLoadedSWF()
     local str = "loaded swf:\n"
-    for path in pairs(loader.loaded) do
+    for path in pairs(M.loader.loaded) do
         str = str .. "    " .. path .. "\n"
     end
     trace(str)

@@ -1,13 +1,13 @@
 local class         = require "xgame.class"
 local timer         = require "xgame.timer"
-local EventHandler  = require "xgame.EventHandler"
+local EventAgent    = require "xgame.EventAgent"
 local UIScene       = require "xgame.ui.UIScene"
 
 local MixScene = class("MixScene", UIScene)
 
 function MixScene:ctor()
     self.mediatorClass = self.class
-    self._eventHandler = EventHandler.new()
+    self._eventAgent = EventAgent.new()
     self._timer = timer.new()
     self._updateHandler = timer.schedule(0, function (delta)
         self._timer:update(delta)
@@ -15,7 +15,7 @@ function MixScene:ctor()
 end
 
 function MixScene:__call(target, priority)
-    return self._eventHandler:wrap(target, priority)
+    return self._eventAgent:wrap(target, priority)
 end
 
 function MixScene:didActive()
@@ -39,7 +39,7 @@ end
 function MixScene:onDestroy()
     self.onDestroy = true
     self._timer:clear()
-    self._eventHandler:clear()
+    self._eventAgent:clear()
     timer.unschedule(self._updateHandler)
 end
 

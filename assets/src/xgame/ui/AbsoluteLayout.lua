@@ -33,29 +33,28 @@ function AbsoluteLayout:updateChildDisplay(child)
         child.height = height * percent / 100
     end
 
-    local layoutParams = child.layoutParams
-    local horizontalAlign = layoutParams.horizontalAlign
-    local verticalAlign = layoutParams.verticalAlign
+    local horizontalAlign = child.horizontalAlign
+    local verticalAlign = child.verticalAlign
     if horizontalAlign ~= Align.NONE or verticalAlign ~= Align.NONE then
         local cl, cr, ct, cb = child:getBounds(self.target)
         local x, y = child.x, child.y
 
         -- x align
         if horizontalAlign == Align.LEFT then
-            x = x + (rl - cl) + layoutParams.left
+            x = x + (rl - cl) + child.horizontalOffset
         elseif horizontalAlign == Align.CENTER then
-            x = x + ((rl + rr) / 2  - (cl + cr) / 2) + layoutParams.horizontalCenter
+            x = x + ((rl + rr) / 2  - (cl + cr) / 2) + child.horizontalOffset
         elseif horizontalAlign == Align.RIGHT then
-            x = x + (rr - cr) - layoutParams.right
+            x = x + (rr - cr) - child.horizontalOffset
         end
 
         -- y align
         if verticalAlign == Align.TOP then
-            y = y + (rt - ct) - layoutParams.top
+            y = y + (rt - ct) - child.verticalOffset
         elseif verticalAlign == Align.CENTER then
-            y = y + (rt + rb) / 2 - (ct + cb) / 2 + layoutParams.verticalCenter
+            y = y + (rt + rb) / 2 - (ct + cb) / 2 + child.verticalOffset
         elseif verticalAlign == Align.BOTTOM then
-            y = y + (rb - cb) + layoutParams.bottom
+            y = y + (rb - cb) + child.verticalOffset
         end
 
         child.x = x

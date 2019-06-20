@@ -10,7 +10,7 @@ local Event         = require "xgame.event.Event"
 local Dispatcher    = require "xgame.event.Dispatcher"
 local fileloader    = require "xgame.loader.fileloader"
 local LoadQueue     = require "xgame.loader.LoadQueue"
-local window        = require "kernel.window"
+local window        = require "xgame.window"
 local Director      = require "cc.Director"
 
 local director = Director.instance

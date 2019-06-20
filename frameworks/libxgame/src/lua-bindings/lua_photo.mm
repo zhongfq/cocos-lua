@@ -182,7 +182,7 @@ static void did_request_permission(int handler, bool granted)
     xgame::runtime::runOnCocosThread([handler, granted]() {
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
-        lua_pushcfunction(L, xlua_errorfunc);
+        lua_pushcfunction(L, olua_geterrorfunc);
         olua_getref(L, handler);
         if (lua_isfunction(L, -1)) {
             lua_pushboolean(L, granted);

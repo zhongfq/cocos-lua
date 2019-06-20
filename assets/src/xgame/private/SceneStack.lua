@@ -12,7 +12,10 @@ local SceneStack = class("SceneStack")
 function SceneStack:ctor(context)
     self._context = context
     self._sceneStack = Array.new()
-    self._sceneLayer = context.stage:addChild(UILayer.new())
+    self._sceneLayer = UILayer.new()
+    self._sceneLayer.percentWidth = 100
+    self._sceneLayer.percentHeight = 100
+    context.stage:addChild(self._sceneLayer)
 end
 
 function SceneStack:showWindow(cls, ...)

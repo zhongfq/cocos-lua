@@ -1,39 +1,40 @@
 local class         = require "xgame.class"
 local Point         = require "xgame.Point"
 local DisplayObject = require "xgame.swf.DisplayObject"
+local swf           = require "xgame.swf.swf"
 
 local Graphics = class("Graphics", DisplayObject)
 
 local _new = Graphics.new
 
 function Graphics.new(cobj)
-    return _new(cobj or swf.graphics.new())
+    return _new(cobj or swf.Graphics.new())
 end
 
 function Graphics:ctor(cobj)
-    self._current_fill = false
+    self._currentFill = false
 end
 
 function Graphics:clear()
     self.cobj:clear()
 end
 
-function Graphics:begin_fill(fill_data, mat, repeat_mode)
-    if type(fill_data) == "number" then
-        self.cobj:begin_fill(fill_data)
+function Graphics:beginFill(fillData, mat, repeatMode)
+    if type(fillData) == "number" then
+        self.cobj:beginFill(fillData)
     else
-        self.cobj:begin_fill(fill_data.cobj)
+        self.cobj:beginFill(fillData.cobj)
     end
-    self._current_fill = fill_data
+    self._currentFill = fillData
 end
 
-function Graphics:end_fill()
-    self._current_fill = false
-    self.cobj:end_fill()
+function Graphics:endFill()
+    self._currentFill = false
+    self.cobj:endFill()
 end
 
-function Graphics:draw_rect(x, y, width, height)
-    self.cobj:draw_triangles({
+function Graphics:drawRect(x, y, width, height)
+    self.cobj:drawTriangles({
         x, y,
         x, y + height,
         x + width, y,
@@ -44,17 +45,17 @@ function Graphics:draw_rect(x, y, width, height)
     })
 end
 
-local function transfrom_and_add(mat, points, x, y)
-    local px, py = mat:transform_point(x, y)
+local function transfromAndAdd(mat, points, x, y)
+    local px, py = mat:transformPoint(x, y)
     points[#points + 1] = px
     points[#points + 1] = py
 end
 
-local function add_left_join(mat, num_segments, radius, points, offset)
-    local dis = radius / num_segments
+local function addLeftJoin(mat, numSegments, radius, points, offset)
+    local dis = radius / numSegments
     local y = 0
     local x = radius
-    for i = 1, num_segments do
+    for i = 1, numSegments do
         if i == 1 then
             y = dis / 2
         else
@@ -62,17 +63,17 @@ local function add_left_join(mat, num_segments, radius, points, offset)
             y = math.sqrt(radius * radius - x * x)
         end
         
-        transfrom_and_add(mat, points, -x + offset, -y)
-        transfrom_and_add(mat, points, -x + offset, y)
+        transfromAndAdd(mat, points, -x + offset, -y)
+        transfromAndAdd(mat, points, -x + offset, y)
     end
 end
 
-local function add_right_join(mat, num_segments, radius, points, offset)
-    local dis = radius / num_segments
+local function addRightJoin(mat, numSegments, radius, points, offset)
+    local dis = radius / numSegments
     local y = 0
     local x = 0
-    for i = 1, num_segments do
-        if i == num_segments then
+    for i = 1, numSegments do
+        if i == numSegments then
             y = dis / 2
             x = x + dis
         else
@@ -80,16 +81,16 @@ local function add_right_join(mat, num_segments, radius, points, offset)
             y = math.sqrt(radius * radius - x * x)
         end
 
-        transfrom_and_add(mat, points, x + offset, -y)
-        transfrom_and_add(mat, points, x + offset, y)
+        transfromAndAdd(mat, points, x + offset, -y)
+        transfromAndAdd(mat, points, x + offset, y)
     end
 end
 
-local function convert_line_to_mesh(coords, line_width)
-    local half = line_width / 2
-    local num_segments = 3
+local function convertLineToMesh(coords, lineWidth)
+    local half = lineWidth / 2
+    local numSegments = 3
     local num_points = #coords / 2
-    local num_mesh_points = (num_points - 1) * 4 + 2 * (2 * num_segments)
+    local numMeshPoints = (num_points - 1) * 4 + 2 * (2 * numSegments)
     local mat = swf.matrix.new()
     local count = 0
     local vertices = {}
@@ -105,24 +106,24 @@ local function convert_line_to_mesh(coords, line_width)
 
         local len = Point.new(x2 - x1, y2 - y1).length
         if i == 1 then
-            add_left_join(mat, num_segments, half, vertices, 0)
+            addLeftJoin(mat, numSegments, half, vertices, 0)
         end
 
-        transfrom_and_add(mat, vertices, 0, -half)
-        transfrom_and_add(mat, vertices, 0, half)
-        transfrom_and_add(mat, vertices, len, -half)
-        transfrom_and_add(mat, vertices, len, half)
+        transfromAndAdd(mat, vertices, 0, -half)
+        transfromAndAdd(mat, vertices, 0, half)
+        transfromAndAdd(mat, vertices, len, -half)
+        transfromAndAdd(mat, vertices, len, half)
 
         if i == num_points - 1 then
-            add_right_join(mat, num_segments, half, vertices, len)
+            addRightJoin(mat, numSegments, half, vertices, len)
         end
     end
 
-    assert(num_mesh_points == #vertices / 2)
+    assert(numMeshPoints == #vertices / 2)
 
     local indices = {}
     local index = 0
-    for i = 0, num_mesh_points - 3 do
+    for i = 0, numMeshPoints - 3 do
         if i % 2 == 0 then
             indices[#indices + 1] = index
             indices[#indices + 1] = index + 1
@@ -138,13 +139,13 @@ local function convert_line_to_mesh(coords, line_width)
     return vertices, indices
 end
 
-function Graphics:draw_line(coords, line_width)
-    local vertices, indices = convert_line_to_mesh(coords, line_width)
-    self.cobj:draw_triangles(vertices, indices, {})
+function Graphics:drawLine(coords, lineWidth)
+    local vertices, indices = convertLineToMesh(coords, lineWidth)
+    self.cobj:drawTriangles(vertices, indices, {})
 end
 
-function Graphics:draw_triangles(vertices, indices, uvs)
-    self.cobj:draw_triangles(vertices, indices, uvs)
+function Graphics:drawTriangles(vertices, indices, uvs)
+    self.cobj:drawTriangles(vertices, indices, uvs)
 end
 
 return Graphics

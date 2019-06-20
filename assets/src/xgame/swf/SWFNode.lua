@@ -1,73 +1,62 @@
 local class     = require "xgame.class"
 local UIView    = require "xgame.ui.UIView"
-local ui        = require "xgame.ui.ui"
+-- local ui        = require "xgame.ui.ui"
+local window    = require "xgame.window"
+local swf       = require "xgame.swf.swf"
 
-local SWFNode = ui.class("SWFNode", UIView)
+local SWFNode = class("SWFNode", UIView)
 
-function SWFNode:ctor(rootswf)
-    self.preferred_width = false
-    self.preferred_height = false
-    self.rootswf = false
-    self.width, self.height = swf.design_size()
+function SWFNode:ctor()
+    self._rootSWF = false
+    self.width, self.height = window.getDesignSize()
     self.touchable = false
-    self.touch_children = true
-
-    if rootswf then
-        self:set_root(rootswf)
-    end
+    self.touchChildren = true
 end
 
 function SWFNode.Get:children()
-    if self.rootswf then
-        return self.rootswf.children
+    if self.rootSWF then
+        return self.rootSWF.children
     else
         return {}
     end
 end
 
 function SWFNode.Get:cobj()
-    local cobj = swf.node:create()
-    rawset(self, "cobj", cobj) 
+    local cobj = swf.SWFNode.create()
+    rawset(self, "cobj", cobj)
     return cobj
 end
 
-function SWFNode:set_root(movieclip)
-    if not self.preferred_width then
-        self.preferred_width = self.width
-        self.preferred_height = self.height
+function SWFNode.Get:rootSWF()
+    return self._rootSWF
+end
+
+function SWFNode.Set:rootSWF(value)
+    if self.rootSWF then
+        self.rootSWF:_setStage(false)
     end
-    if self.rootswf then
-        self.rootswf:_set_stage(false)
-    end
-    movieclip._rootnode = self
-    self.rootswf = movieclip
-    self.cobj:set_root(movieclip.cobj)
+
+    self._rootSWF = value
+    self._rootSWF._rootNode = self
+    self.cobj.rootSWF = value.cobj
     if self.stage then
-        self.rootswf:_set_stage(self.stage)
+        self.rootSWF:_setStage(self.stage)
     end
 end
 
-function SWFNode:schedule_update()
-    self.cobj:scheduleUpdate()
+function SWFNode:swfToWorldSpace(x, y)
+    return self.cobj:swfToWorldSpace(x, y)
 end
 
-function SWFNode:unschedule_update()
-    self.cobj:unscheduleUpdate()
-end
-
-function SWFNode:swf_to_world_space(x, y)
-    return self.cobj:swf_to_world_space(x, y)
-end
-
-function SWFNode:world_to_swf_space(x, y)
-    return self.cobj:world_to_swf_space(x, y)
+function SWFNode:worldToSWFSpace(x, y)
+    return self.cobj:worldToSWFSpace(x, y)
 end
 
 function SWFNode:hit(points)
-    if self.rootswf then
-        local hit, capture_points = self.rootswf:hit(points)
+    if self.rootSWF then
+        local hit, capturePoints = self.rootSWF:hit(points)
         if hit then
-            return hit, capture_points
+            return hit, capturePoints
         end
     end
 
@@ -76,11 +65,11 @@ function SWFNode:hit(points)
     end
 end
 
-function SWFNode:_set_stage(value)
-    if self.rootswf then
-        self.rootswf:_set_stage(value)
+function SWFNode:_setStage(value)
+    if self.rootSWF then
+        self.rootSWF:_setStage(value)
     end
-    UIView._set_stage(self, value)
+    UIView._setStage(self, value)
 end
 
 return SWFNode

@@ -1,20 +1,17 @@
 local class             = require "xgame.class"
-local util              = require "xgame.util"
 local Event             = require "xgame.event.Event"
-local filesystem        = require "xgame.filesystem"
 local assetcache        = require "xgame.assetcache"
 local HandlerProxy      = require "xgame.HandlerProxy"
 local LoadTask          = require "xgame.loader.LoadTask"
 local DisplayObject     = require "xgame.swf.DisplayObject"
-
-local trace = util.trace("[Image]")
+local swf               = require "xgame.swf.swf"
 
 local Image = class("Image", DisplayObject)
 
 local _new = Image.new
 
 function Image.new(cobj)
-    return _new(cobj or swf.image.new())
+    return _new(cobj or swf.Image.new())
 end
 
 function Image:ctor(cobj)

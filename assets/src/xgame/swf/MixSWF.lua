@@ -1,7 +1,6 @@
 local class         = require "xgame.class"
-local util          = require "xgame.util"
-local Timer         = require "xgame.Timer"
-local HandlerProxy  = require "xgame.HandlerProxy"
+local timer         = require "xgame.timer"
+local EventAgent    = require "xgame.event.EventAgent"
 local SWFUI         = require "xgame.swf.SWFUI"
 local MixPlayer     = require "xgame.swf.MixPlayer"
 
@@ -10,64 +9,61 @@ local string = string
 local MixSWF = class("MixSWF", SWFUI)
 
 function MixSWF:ctor()
-    self.mediator_class = self.class
-    self._event_proxy = HandlerProxy.new()
-    self._timer = Timer.new()
-    self._mixplayer = MixPlayer.new(R.SOUND_AUTO)
-    self:_do_update()
-    self.E = function (target, priority)
-        assert(target)
-        return self._event_proxy:E(target, priority)
-    end
+    self.mediatorClass = self.class
+    self._eventAgent = EventAgent.new()
+    self._timer = timer.new()
+    self._mixPlayer = MixPlayer.new('res/sound/auto/%s.mp3')
+    self:_doUpdate()
 end
 
-function MixSWF:did_active()
-    self._mixplayer:resume()
-    self:_do_update()
-    SWFUI.did_active(self)
+function MixSWF:assets()
+    return {}
 end
 
-function MixSWF:_do_update()
-    if not self._update_handler and self.on_destroy ~= true then
-        self._update_handler = xGame:schedule(0, function (delta)
+function MixSWF:__call(target, priority)
+    return self._eventAgent:wrap(target, priority)
+end
+
+function MixSWF:didActive()
+    self._mixPlayer:resume()
+    self:_doUpdate()
+    SWFUI.didActive(self)
+end
+
+function MixSWF:_doUpdate()
+    if not self._updateHandler and self.onDestroy ~= true then
+        self._updateHandler = timer.schedule(0, function (delta)
             self._timer:update(delta)
-            if self._mixplayer then
-                self._mixplayer:update(delta)
-            end
+            self._mixPlayer:update(delta)
         end)
     end
 end
 
-function MixSWF:did_inactive()
-    self._mixplayer:pause()
-    xGame:unschedule(self._update_handler)
-    self._update_handler = false
-    SWFUI.did_inactive(self)
+function MixSWF:didInactive()
+    self._mixPlayer:pause()
+    timer.unschedule(self._updateHandler)
+    self._updateHandler = false
+    SWFUI.didInactive(self)
 end
 
-function MixSWF:on_create()
+function MixSWF:onCreate()
 end
 
-function MixSWF:on_destroy()
-    self._event_proxy:clear()
-    self._mixplayer:clear()
+function MixSWF:onDestroy()
+    self._eventAgent:clear()
+    self._mixPlayer:clear()
     self._timer:clear()
-    self.stage:finish_touch()
-    self:remove_children()
-    if self.rootswf then
-        self.rootswf:remove_children()
-    end
-    xGame:unschedule(self._update_handler)
-    self.rootswf = false
-    self.on_destroy = true
+    self:removeChildren()
+    timer.unschedule(self._updateHandler)
+    self.onDestroy = true
 end
 
 function MixSWF:delay(time, func, ...)
     self._timer:delay(time, func, ...)
 end
 
-function MixSWF:kill_all()
-    self._timer:kill_all()
+function MixSWF:killAll()
+    self._timer:killAll()
 end
 
 function MixSWF:delayWithTag(time, tag, func, ...)
@@ -86,25 +82,24 @@ function MixSWF:unschedule(id)
     return self._timer:unschedule(id)
 end
 
-function MixSWF:play(target, label, stop_when_end, times)
-    return self._mixplayer.animation_player:play(target, label, 
-        stop_when_end, times)
+function MixSWF:play(target, label, playOnce, times)
+    return self._mixPlayer.animPlayer:play(target, label, playOnce, times)
 end
 
-function MixSWF:play_audio(filepath, delay, loop, volume, tag)
-    return self._mixplayer.audio_player:play(filepath, delay, 
+function MixSWF:playAudio(filepath, delay, loop, volume, tag)
+    return self._mixPlayer.audioPlayer:play(filepath, delay,
         loop, volume, tag)
 end
 
-function MixSWF:stop_audio(filepath)
-    self._mixplayer.audio_player:stop_by_path(filepath)
+function MixSWF:stopAudio(filepath)
+    self._mixPlayer.audioPlayer:stopByPath(filepath)
 end
 
-function MixSWF:scan_audio(target)
-    self._mixplayer.audio_scanner:scan(target)
+function MixSWF:scanAudio(target)
+    self._mixPlayer.audioScanner:scan(target)
 end
 
-function MixSWF:make_label(base, from, to)
+function MixSWF:makeLabel(base, from, to)
     if to then
         from = math.random(from, to)
     end

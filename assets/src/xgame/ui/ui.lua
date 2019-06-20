@@ -1,7 +1,7 @@
 local class         = require "xgame.class"
 local util          = require "xgame.util"
 local Event         = require "xgame.event.Event"
-local assetcache    = require "xgame.assetcache"
+local assetloader   = require "xgame.assetloader"
 local TouchEvent    = require "xgame.event.TouchEvent"
 local DataLoader    = require "xgame.ui.DataLoader"
 
@@ -190,10 +190,10 @@ function ui.new(symbol, parent, fill_parent)
     last_new = symbol
     new_statck[#new_statck + 1] = symbol
 
-    assetcache.load(nil, data.assets)
+    assetloader.load(nil, data.assets)
     local view = ui.inflate(data, parent, fill_parent)
     view_symbols[view] = symbol
-    assetcache.load(view, data.assets) -- bind assets to view
+    assetloader.load(view, data.assets) -- bind assets to view
 
     view:add_event_listener(Event.CREATION_COMPLETE, function ()
         view:remove_event_listener(Event.CREATION_COMPLETE, util.callee())

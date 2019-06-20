@@ -3,14 +3,14 @@ local Align         = require "xgame.ui.Align"
 local LayoutManager = require "xgame.ui.LayoutManager"
 local LayoutBase    = require "xgame.ui.LayoutBase"
 
-local VLayout = class("VLayout", LayoutBase)
+local VerticalLayout = class("VerticalLayout", LayoutBase)
 
-function VLayout:ctor()
+function VerticalLayout:ctor()
     self.gap = 6
     self.content_h_align = Align.LEFT
 end
 
-function VLayout:do_layout()
+function VerticalLayout:do_layout()
     if not self.target.stage then
         return
     end
@@ -103,4 +103,4 @@ function VLayout:do_layout()
     end
 end
 
-return VLayout
+return VerticalLayout

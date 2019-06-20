@@ -2,9 +2,10 @@ local class         = require "xgame.class"
 local util          = require "xgame.util"
 local Align         = require "xgame.ui.Align"
 local DisplayObject = require "xgame.swf.DisplayObject"
+local window        = require "xgame.window"
 local swf           = require "xgame.swf.swf"
-local T             = require "swf.type"
-local window        = require "kernel.window"
+
+local T = swf.ObjectType
 
 local table = table
 local next = next
@@ -350,7 +351,7 @@ function MovieClip.Get:top_mc()
     self:_checkChildren()
     for i = #self.children, 1, -1 do
         local child = self.children[i]
-        if child.cobj.type == T.MOVIECLIP then
+        if child.cobj.type == T.MOVIE_CLIP then
             return child
         end
     end

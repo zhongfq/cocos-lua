@@ -1,5 +1,5 @@
 local GLProgramCache    = require "cc.GLProgramCache"
-local GLProgram         = require "cc.cc.GLProgram"
+local GLProgram         = require "cc.GLProgram"
 
 local mt = {}
 local M = setmetatable({}, mt)

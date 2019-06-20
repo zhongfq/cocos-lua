@@ -9,7 +9,7 @@ local swf           = require "xgame.swf.swf"
 local Scroller = swf.class("Scroller", MovieClip)
 
 function Scroller:ctor()
-    self.touch_children = false
+    self.touchChildren = false
     self.touchable = true
     self._clipalbe = false
 
@@ -24,9 +24,9 @@ function Scroller:ctor()
     rawset(container, 'width', bounds.width)
     rawset(container, 'height', bounds.height)
 
-    self._scroll_impl = ScrollImpl.new(self, container)
-    self._scroll_impl.horizontal_enabled = self.metadata.horizontal_enabled
-    self._scroll_impl.vertical_enabled = self.metadata.vertical_enabled
+    self._scrollImpl = ScrollImpl.new(self, container)
+    self._scrollImpl.horizontal_enabled = self.metadata.horizontal_enabled
+    self._scrollImpl.vertical_enabled = self.metadata.vertical_enabled
 
     if bounds ~= container then
         bounds.visible = false
@@ -86,9 +86,9 @@ function Scroller:get_scroll_bounds()
     return l * sx + x, r * sx + x, t * sy + y, b * sy + y
 end
 
-function Scroller:validate_display()
+function Scroller:validateDisplay()
     self._children_bounds = false
-    self._scroll_impl:validate_later()
+    self._scrollImpl:validate_later()
 end
 
 function Scroller.Get:clipable() return self._clipalbe end
@@ -120,39 +120,39 @@ function Scroller.Get:scroll_heigh()
 end
 
 function Scroller:set_scroll_option(key, value)
-    self._scroll_impl[key] = value
+    self._scrollImpl[key] = value
 end
 
 function Scroller.Get:rebound_enabled()
-    return self._scroll_impl.rebound_enabled
+    return self._scrollImpl.rebound_enabled
 end
 function Scroller.Set:rebound_enabled(value)
-    self._scroll_impl.rebound_enabled = value
+    self._scrollImpl.rebound_enabled = value
 end
 
 function Scroller.Get:scale_enabled()
-    return self._scroll_impl.scale_enabled
+    return self._scrollImpl.scale_enabled
 end
 function Scroller.Set:scale_enabled(value)
-    self._scroll_impl.scale_enabled = value
+    self._scrollImpl.scale_enabled = value
 end
 
 function Scroller.Get:max_scale()
-    return self._scroll_impl.max_scale
+    return self._scrollImpl.max_scale
 end
 function Scroller.Set:max_scale(value)
-    self._scroll_impl.max_scale = value
+    self._scrollImpl.max_scale = value
 end
 
 function Scroller.Get:min_scale()
-    return self._scroll_impl.min_scale
+    return self._scrollImpl.min_scale
 end
 function Scroller.Set:min_scale(value)
-    self._scroll_impl.min_scale = value
+    self._scrollImpl.min_scale = value
 end
 
 function Scroller:validate_now()
-    self._scroll_impl:validate()
+    self._scrollImpl:validate()
 end
 
 function Scroller:scroll_to(h, v)
@@ -171,31 +171,31 @@ function Scroller:scroll_to(h, v)
 end
 
 function Scroller.Get:horizontal_scroll_enabled()
-    return self._scroll_impl.horizontal_enabled
+    return self._scrollImpl.horizontal_enabled
 end
 function Scroller.Set:horizontal_scroll_enabled(value)
-    self._scroll_impl.horizontal_enabled = value
+    self._scrollImpl.horizontal_enabled = value
 end
 
 function Scroller.Get:vertical_scroll_enabled()
-    return self._scroll_impl.vertical_enabled
+    return self._scrollImpl.vertical_enabled
 end
 function Scroller.Set:vertical_scroll_enabled(value)
-    self._scroll_impl.vertical_enabled = value
+    self._scrollImpl.vertical_enabled = value
 end
 
 function Scroller.Get:horizontal_scroll_align()
-    return self._scroll_impl.horizontal_align
+    return self._scrollImpl.horizontal_align
 end
 function Scroller.Set:horizontal_scroll_align(value)
-    self._scroll_impl.horizontal_align = value
+    self._scrollImpl.horizontal_align = value
 end
 
 function Scroller.Get:vertical_scroll_align()
-    return self._scroll_impl.vertical_align
+    return self._scrollImpl.vertical_align
 end
 function Scroller.Set:vertical_scroll_align(value)
-    self._scroll_impl.vertical_align = value
+    self._scrollImpl.vertical_align = value
 end
 
 return Scroller

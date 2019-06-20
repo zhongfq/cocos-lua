@@ -10,6 +10,10 @@ function UIScene:ctor()
     self.percentHeight = 100
 end
 
+function UIScene:assets()
+    return {}
+end
+
 function UIScene.Get:cobj()
     local cobj = Scene.create()
     rawset(self, 'cobj', cobj)

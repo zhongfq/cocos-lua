@@ -17,7 +17,7 @@ function ScrollBase.Get:cobj()
     self._container = UILayer.new()
     self._container.anchor_x = 0
     self._container.anchor_y = 0
-    self._container._real_parent = self
+    self._container._realParent = self
     self._container.touchable = false
     self._container._parent = self
     self._container.layout = self.layout

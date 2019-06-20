@@ -9,16 +9,10 @@ function DisplayObject:ctor(cobj)
     self._stage = false
     self._rootNode = false
     self.name = cobj.name or ""
-    self.layoutParams = {
-        horizontalAlign = Align.NONE,
-        horizontalCenter = 0,
-        verticalAlign = Align.NONE,
-        verticalCenter = 0,
-        left = 0,
-        right = 0,
-        top = 0,
-        bottom = 0,
-    }
+    self.horizontalAlign = Align.NONE
+    self.horizontalOffset = 0
+    self.verticalAlign = Align.NONE
+    self.verticalOffset = 0
     self.cobjType = "swf"
     self.cobj = cobj
 end

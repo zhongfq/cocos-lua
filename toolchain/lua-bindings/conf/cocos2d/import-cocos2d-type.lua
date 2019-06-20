@@ -318,6 +318,7 @@ REG_TYPE {
         cocos2d::Follow *
         cocos2d::FontAtlas *
         cocos2d::GLProgram *
+        cocos2d::GLProgramCache *
         cocos2d::GLProgramState *
         cocos2d::GLView *
         cocos2d::GLViewImpl *

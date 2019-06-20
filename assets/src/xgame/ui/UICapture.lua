@@ -1,6 +1,6 @@
 local class         = require "xgame.class"
 local UIView        = require "xgame.ui.UIView"
-local window        = require "kernel.window"
+local window        = require "xgame.window"
 local Director      = require "cc.Director"
 local RenderTexture = require "cc.RenderTexture"
 local PixelFormat   = require "cc.Texture2D.PixelFormat"

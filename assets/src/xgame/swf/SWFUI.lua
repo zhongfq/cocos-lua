@@ -1,81 +1,63 @@
 local class     = require "xgame.class"
 local Event     = require "xgame.event.Event"
-local Align   = require "xgame.ui.Align"
+local Align     = require "xgame.ui.Align"
 local UILayer   = require "xgame.ui.UILayer"
 local SWFNode   = require "xgame.swf.SWFNode"
+local swf       = require "xgame.swf.swf"
 
 local SWFUI = class("SWFUI", UILayer)
 
 function SWFUI:ctor()
-    self.render_option = {}
-    self.percent_width = 100
-    self.percent_height = 100
-    self.horizontal_align = Align.CENTER
-    self:_load_rootswf()
-end
-
-function SWFUI.Get:loader()
-    local node = SWFNode.new()
-    rawset(self, "loader", node)
-    self:add_child(node)
-    return node
+    self.percentWidth = 100
+    self.percentHeight = 100
+    self.horizontalAlign = Align.CENTER
+    self._loader = self:addChild(SWFNode.new())
+    self:_loadRootSWF()
 end
 
 function SWFUI:assets()
     error(string.format("'%s' need supply assets list", self.classname))
 end
 
-function SWFUI:has_more_assets()
-    return false
+function SWFUI.Get:rootSWF() return self._loader.rootSWF end
+function SWFUI.Set:rootSWF(value)
+    self._loader.rootSWF = value
 end
 
-function SWFUI.Get:rootswf() return self.loader.rootswf end
-function SWFUI.Set:rootswf(value)
-    self.loader.rootswf = value
+function SWFUI:_loadRootSWF()
+    self.rootSWF = swf.new(self.rootSWFPath)
+    self.width = self.rootSWF.movieWidth
+    self.height = self.rootSWF.movieHeight
+    self.percentWidth = -1
+    self.percentHeight = -1
 end
 
-function SWFUI:_load_rootswf()
-    self.loader:set_root(swf.new(self.rootswf_path))
-    self.width = self.rootswf.movie_width
-    self.height = self.rootswf.movie_height
-    self.percent_width = -1
-    self.percent_height = -1
-end
-
-function SWFUI.Get:rootswf_path()
+function SWFUI.Get:rootSWFPath()
     error("sub class must implement!!!")
 end
 
-function SWFUI:did_active() -- called by xGame
-    if self.loader.cobj then
-        self.loader.cobj:scheduleUpdate()
-    end
-    self:_set_children_active(self)
-    self:dispatch_event(Event.ACTIVE)
+function SWFUI:didActive()
+    self._loader:scheduleUpdate()
+    self:_setChildrenActive(self, true)
+    self:dispatch(Event.ACTIVE)
 end
 
-function SWFUI:did_inactive() -- called by xGame
-    if self.loader.cobj then
-        self.loader.cobj:unscheduleUpdate()
-    end
-    self:_set_children_inactive(self)
-    self:dispatch_event(Event.INACTIVE)
+function SWFUI:didInactive()
+    self._loader:unscheduleUpdate()
+    self:_setChildrenActive(self, false)
+    self:dispatch(Event.INACTIVE)
 end
 
-function SWFUI:schedule_update()
-    if self.loader.cobj then
-        self.loader.cobj:scheduleUpdate()
-    end
+function SWFUI:scheduleUpdate()
+    self._loader:scheduleUpdate()
 end
 
-function SWFUI:unschedule_update()
-    if self.loader.cobj then
-        self.loader.cobj:unscheduleUpdate()
-    end
+function SWFUI:unscheduleUpdate()
+    self._loader:unscheduleUpdate()
 end
 
-function SWFUI:check_labels(target, ...)
-    return swf.check_labels(target, ...)
+function SWFUI:checkLabels(target, ...)
+    return swf.checkLabels(target, ...)
 end
 
 return SWFUI

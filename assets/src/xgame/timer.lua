@@ -168,8 +168,8 @@ function timer.new()
         scheduler:update(delta)
     end
     
-    local function internalDelay(delay, tag, callback, ...)
-        if delay <= 0 then
+    local function internalDelay(time, tag, callback, ...)
+        if time <= 0 then
             callback(...)
             return
         end
@@ -179,7 +179,7 @@ function timer.new()
             inst:killDelay(tag)
         end
     
-        local handler = delay:timeout(delay, function(...)
+        local handler = delay:timeout(time, function(...)
             handlers[tag] = nil
             callback(...)
         end, ...)
@@ -189,13 +189,13 @@ function timer.new()
         handlers[tag] = handler
     end
     
-    function inst:delay(delay, callback, ...)
-        internalDelay(delay, nil, callback, ...)
+    function inst:delay(time, callback, ...)
+        internalDelay(time, nil, callback, ...)
     end
     
-    function inst:delayWithTag(delay, tag, callback, ...)
+    function inst:delayWithTag(time, tag, callback, ...)
         assert(tag)
-        internalDelay(delay, tag, callback, ...)
+        internalDelay(time, tag, callback, ...)
     end
     
     function inst:killDelay(tag)

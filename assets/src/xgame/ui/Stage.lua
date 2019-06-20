@@ -2,7 +2,7 @@ local class         = require "xgame.class"
 local Event         = require "xgame.event.Event"
 local KeyboardEvent = require "xgame.event.KeyboardEvent"
 local UILayer       = require "xgame.ui.UILayer"
-local window        = require "kernel.window"
+local window        = require "xgame.window"
 
 local ipairs = ipairs
 local pairs = pairs

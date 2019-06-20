@@ -1,43 +1,43 @@
 local class         = require "xgame.class"
 local LinkedList    = require "xgame.swf.LinkedList"
-local Animation     = require "xgame.swf.Animation"
+local Anim          = require "xgame.swf.Anim"
 
 local assert = assert
 local string = string
 
-local STATE_DONE = Animation.STATE_DONE
-local STATE_READY = Animation.STATE_READY
+local STATE_DONE = Anim.STATE_DONE
+local STATE_READY = Anim.STATE_READY
 
-local AnimationPlayer = class("AnimationPlayer")
+local AnimPlayer = class("AnimPlayer")
 
-function AnimationPlayer:ctor()
+function AnimPlayer:ctor()
     self._list = LinkedList.new()
     self._session = 0
     self._running = true
 end
 
-function AnimationPlayer:clear()
+function AnimPlayer:clear()
     for _, anim in pairs(self._list) do
         anim:stopChain()
     end
     self._list:clear()
 end
 
-function AnimationPlayer:_obtainSession()
+function AnimPlayer:_obtainSession()
     self._session = self._session + 1
     return self._session
 end
 
-function AnimationPlayer:play(target, label, playOnce, times)
+function AnimPlayer:play(target, label, playOnce, times)
     assert(target, 'no target')
     assert(label, 'no label')
-    local anim = Animation.new(self:_obtainSession(), target, label,
+    local anim = Anim.new(self:_obtainSession(), target, label,
         playOnce, times)
     self._list:append(anim)
     return anim
 end
 
-function AnimationPlayer:pause()
+function AnimPlayer:pause()
     if self._running then
         self._running = false
         for _, anim in pairs(self._list) do
@@ -46,7 +46,7 @@ function AnimationPlayer:pause()
     end
 end
 
-function AnimationPlayer:resume()
+function AnimPlayer:resume()
     if not self._running then
         self._running = true
         for _, anim in pairs(self._list) do
@@ -55,10 +55,10 @@ function AnimationPlayer:resume()
     end
 end
 
-function AnimationPlayer:update()
+function AnimPlayer:update()
     local list = self._list
 
-    if not self._running or list:empty() then
+    if not self._running or list.empty then
         return
     end
 
@@ -77,7 +77,7 @@ function AnimationPlayer:update()
 
     -- try ready
     local again = true
-    while again and not list:empty() do
+    while again and not list.empty do
         again = false
         for node, anim in pairs(list) do
             local anim_state = anim.state
@@ -89,9 +89,9 @@ function AnimationPlayer:update()
 
             if anim_state == STATE_DONE then
                 again = true
-                local nextAnim = anim.nextAnimation
+                local nextAnim = anim.nextAnim
                 anim:dispose()
-                anim.nextAnimation = nil
+                anim.nextAnim = nil
 
                 if nextAnim and nextAnim.state == STATE_READY then
                     node.target = nextAnim
@@ -106,4 +106,4 @@ function AnimationPlayer:update()
     end
 end
 
-return AnimationPlayer
+return AnimPlayer

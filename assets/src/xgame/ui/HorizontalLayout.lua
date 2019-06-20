@@ -3,15 +3,15 @@ local Align         = require "xgame.ui.Align"
 local LayoutManager = require "xgame.ui.LayoutManager"
 local LayoutBase    = require "xgame.ui.LayoutBase"
 
-local HLayout = class("HLayout", LayoutBase)
+local HorizontalLayout = class("HorizontalLayout", LayoutBase)
 
-function HLayout:ctor()
+function HorizontalLayout:ctor()
     self.gap = 6
     self.content_h_align = Align.LEFT
     self.content_v_align = Align.BOTTOM
 end
 
-function HLayout:do_layout()
+function HorizontalLayout:do_layout()
     if not self.target.stage then
         return
     end
@@ -102,4 +102,4 @@ function HLayout:do_layout()
     end
 end
 
-return HLayout
+return HorizontalLayout

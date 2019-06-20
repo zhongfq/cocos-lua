@@ -17,14 +17,9 @@ function AudioPlayer:clear()
     self:stopAll()
 end
 
-function AudioPlayer:play(filePath, delay, loop, volume, tag)
-    return self:play_with_option(filePath, Audio.Option.new("",
-        volume, loop, ""), delay, tag)
-end
-
-function AudioPlayer:play_with_option(filePath, option, delay, tag)
-    local audio = Audio.new(filePath, option, delay, tag)
-    self._list:append(self._list:create_node(audio))
+function AudioPlayer:play(filePath, loop, volume, delay, tag)
+    local audio = Audio.new(filePath, loop, volume, delay, tag)
+    self._list:append(audio)
     audio:play()
     return audio
 end

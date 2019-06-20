@@ -9,16 +9,10 @@ function UIView:ctor()
     self._initialized = false
     self.touchable = false
     self.touchChildren = false
-    self.layoutParams = {
-        horizontalAlign = Align.NONE,
-        horizontalCenter = 0,
-        verticalAlign = Align.NONE,
-        verticalCenter = 0,
-        left = 0,
-        right = 0,
-        top = 0,
-        bottom = 0,
-    }
+    self.horizontalAlign = Align.NONE
+    self.horizontalOffset = 0
+    self.verticalAlign = Align.NONE
+    self.verticalOffset = 0
     self.cobjType = "cocos"
     self.cobj.ignoreAnchorPointForPosition = true
     self.cobj.anchorX = 0.5
@@ -96,6 +90,14 @@ end
 
 function UIView:scheduleOnce(callback, delay, key)
     return self.cobj:scheduleOnce(callback, delay, key)
+end
+
+function UIView:scheduleUpdate()
+    self.cobj:scheduleUpdate()
+end
+
+function UIView:unscheduleUpdate()
+    self.cobj:unscheduleUpdate()
 end
 
 -- schedule(callback, key)

@@ -9163,6 +9163,122 @@ static int luaopen_cocos2d_GLProgram(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_GLProgramCache_getInstance(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static GLProgramCache* getInstance()
+    cocos2d::GLProgramCache *ret = (cocos2d::GLProgramCache *)cocos2d::GLProgramCache::getInstance();
+    int num_ret = olua_push_cppobj<cocos2d::GLProgramCache>(L, ret, "cc.GLProgramCache");
+
+    return num_ret;
+}
+
+static int _cocos2d_GLProgramCache_destroyInstance(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static void destroyInstance()
+    cocos2d::GLProgramCache::destroyInstance();
+
+    return 0;
+}
+
+static int _cocos2d_GLProgramCache_loadDefaultGLPrograms(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::GLProgramCache *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLProgramCache");
+
+    // void loadDefaultGLPrograms()
+    self->loadDefaultGLPrograms();
+
+    return 0;
+}
+
+static int _cocos2d_GLProgramCache_reloadDefaultGLPrograms(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::GLProgramCache *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLProgramCache");
+
+    // void reloadDefaultGLPrograms()
+    self->reloadDefaultGLPrograms();
+
+    return 0;
+}
+
+static int _cocos2d_GLProgramCache_getGLProgram(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::GLProgramCache *self = nullptr;
+    std::string arg1;       /** key */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLProgramCache");
+    olua_check_std_string(L, 2, &arg1);
+
+    // GLProgram * getGLProgram(const std::string &key)
+    cocos2d::GLProgram *ret = (cocos2d::GLProgram *)self->getGLProgram(arg1);
+    int num_ret = olua_push_cppobj<cocos2d::GLProgram>(L, ret, "cc.GLProgram");
+
+    return num_ret;
+}
+
+static int _cocos2d_GLProgramCache_addGLProgram(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::GLProgramCache *self = nullptr;
+    cocos2d::GLProgram *arg1 = nullptr;   /** program */
+    std::string arg2;       /** key */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLProgramCache");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.GLProgram");
+    olua_check_std_string(L, 3, &arg2);
+
+    // void addGLProgram(GLProgram* program, const std::string &key)
+    self->addGLProgram(arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_GLProgramCache_reloadDefaultGLProgramsRelativeToLights(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::GLProgramCache *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLProgramCache");
+
+    // void reloadDefaultGLProgramsRelativeToLights()
+    self->reloadDefaultGLProgramsRelativeToLights();
+
+    return 0;
+}
+
+static int luaopen_cocos2d_GLProgramCache(lua_State *L)
+{
+    oluacls_class(L, "cc.GLProgramCache", "cc.Ref");
+    oluacls_func(L, "getInstance", _cocos2d_GLProgramCache_getInstance);
+    oluacls_func(L, "destroyInstance", _cocos2d_GLProgramCache_destroyInstance);
+    oluacls_func(L, "loadDefaultGLPrograms", _cocos2d_GLProgramCache_loadDefaultGLPrograms);
+    oluacls_func(L, "reloadDefaultGLPrograms", _cocos2d_GLProgramCache_reloadDefaultGLPrograms);
+    oluacls_func(L, "getGLProgram", _cocos2d_GLProgramCache_getGLProgram);
+    oluacls_func(L, "addGLProgram", _cocos2d_GLProgramCache_addGLProgram);
+    oluacls_func(L, "reloadDefaultGLProgramsRelativeToLights", _cocos2d_GLProgramCache_reloadDefaultGLProgramsRelativeToLights);
+    oluacls_prop(L, "instance", _cocos2d_GLProgramCache_getInstance, nullptr);
+
+    olua_registerluatype<cocos2d::GLProgramCache>(L, "cc.GLProgramCache");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
 static int _cocos2d_GLProgramState_create(lua_State *L)
 {
     lua_settop(L, 1);
@@ -33241,6 +33357,7 @@ int luaopen_cocos2d(lua_State *L)
     olua_require(L, "cc.Image", luaopen_cocos2d_Image);
     olua_require(L, "cc.Renderer", luaopen_cocos2d_Renderer);
     olua_require(L, "cc.GLProgram", luaopen_cocos2d_GLProgram);
+    olua_require(L, "cc.GLProgramCache", luaopen_cocos2d_GLProgramCache);
     olua_require(L, "cc.GLProgramState", luaopen_cocos2d_GLProgramState);
     olua_require(L, "cc.TextureCache", luaopen_cocos2d_TextureCache);
     olua_require(L, "cc.Texture2D.PixelFormat", luaopen_cocos2d_Texture2D_PixelFormat);

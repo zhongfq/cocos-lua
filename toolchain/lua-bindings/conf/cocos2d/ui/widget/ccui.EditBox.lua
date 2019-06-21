@@ -13,7 +13,6 @@ cls.enums [[
 local cls = class(M)
 cls.CPPCLS = "cocos2d::ui::EditBoxDelegate"
 cls.LUACLS = "ccui.EditBoxDelegate"
-cls.SUPERCLS = "cc.Ref"
 cls.funcs [[
     void editBoxEditingDidBegin(EditBox* editBox)
     void editBoxTextChanged(EditBox* editBox, const std::string& text)
@@ -28,9 +27,13 @@ cls.SUPERCLS = "ccui.EditBoxDelegate"
 cls.CHUNK = [[
 NS_CC_BEGIN
 namespace ui {
-    class LuaEditBoxDelegate : public cocos2d::Ref, public EditBoxDelegate {
+    class LuaEditBoxDelegate : public EditBoxDelegate {
     public:
-        CREATE_FUNC(LuaEditBoxDelegate);
+        static LuaEditBoxDelegate *create()
+        {
+            return new LuaEditBoxDelegate();
+        }
+
         virtual void editBoxEditingDidBegin(EditBox* editBox)
         {
             if (onEditingDidBegin) {
@@ -78,8 +81,19 @@ namespace ui {
 NS_CC_END
 ]]
 cls.funcs [[
-    LuaEditBoxDelegate *create()
+    static LuaEditBoxDelegate *create()
 ]]
+cls.func('__gc', [[
+{
+    lua_settop(L, 1);
+    auto self = olua_touserdata(L, 1, cocos2d::ui::LuaEditBoxDelegate *);
+    if (self) {
+        *(void **)lua_touserdata(L, 1) = nullptr;
+        delete self;
+    }
+    return 0;
+}
+]])
 cls.vars [[
     @nullable std::function<void(EditBox *)> onEditingDidBegin;
     @nullable std::function<void(EditBox *, const std::string &)> onTextChanged;

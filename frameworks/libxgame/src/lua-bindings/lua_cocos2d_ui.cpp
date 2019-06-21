@@ -15854,7 +15854,7 @@ static int _cocos2d_ui_EditBoxDelegate_editBoxEditingDidEndWithAction(lua_State 
 
 static int luaopen_cocos2d_ui_EditBoxDelegate(lua_State *L)
 {
-    oluacls_class(L, "ccui.EditBoxDelegate", "cc.Ref");
+    oluacls_class(L, "ccui.EditBoxDelegate", nullptr);
     oluacls_func(L, "editBoxEditingDidBegin", _cocos2d_ui_EditBoxDelegate_editBoxEditingDidBegin);
     oluacls_func(L, "editBoxTextChanged", _cocos2d_ui_EditBoxDelegate_editBoxTextChanged);
     oluacls_func(L, "editBoxReturn", _cocos2d_ui_EditBoxDelegate_editBoxReturn);
@@ -15868,9 +15868,13 @@ static int luaopen_cocos2d_ui_EditBoxDelegate(lua_State *L)
 
 NS_CC_BEGIN
 namespace ui {
-    class LuaEditBoxDelegate : public cocos2d::Ref, public EditBoxDelegate {
+    class LuaEditBoxDelegate : public EditBoxDelegate {
     public:
-        CREATE_FUNC(LuaEditBoxDelegate);
+        static LuaEditBoxDelegate *create()
+        {
+            return new LuaEditBoxDelegate();
+        }
+
         virtual void editBoxEditingDidBegin(EditBox* editBox)
         {
             if (onEditingDidBegin) {
@@ -15918,17 +15922,24 @@ NS_CC_END
 
 static int _cocos2d_ui_LuaEditBoxDelegate_create(lua_State *L)
 {
-    lua_settop(L, 1);
+    lua_settop(L, 0);
 
-    cocos2d::ui::LuaEditBoxDelegate *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "ccui.LuaEditBoxDelegate");
-
-    // LuaEditBoxDelegate *create()
-    cocos2d::ui::LuaEditBoxDelegate *ret = (cocos2d::ui::LuaEditBoxDelegate *)self->create();
+    // static LuaEditBoxDelegate *create()
+    cocos2d::ui::LuaEditBoxDelegate *ret = (cocos2d::ui::LuaEditBoxDelegate *)cocos2d::ui::LuaEditBoxDelegate::create();
     int num_ret = olua_push_cppobj<cocos2d::ui::LuaEditBoxDelegate>(L, ret, "ccui.LuaEditBoxDelegate");
 
     return num_ret;
+}
+
+static int _cocos2d_ui_LuaEditBoxDelegate___gc(lua_State *L)
+{
+    lua_settop(L, 1);
+    auto self = olua_touserdata(L, 1, cocos2d::ui::LuaEditBoxDelegate *);
+    if (self) {
+        *(void **)lua_touserdata(L, 1) = nullptr;
+        delete self;
+    }
+    return 0;
 }
 
 static int _cocos2d_ui_LuaEditBoxDelegate_get_onEditingDidBegin(lua_State *L)
@@ -16157,6 +16168,7 @@ static int luaopen_cocos2d_ui_LuaEditBoxDelegate(lua_State *L)
 {
     oluacls_class(L, "ccui.LuaEditBoxDelegate", "ccui.EditBoxDelegate");
     oluacls_func(L, "create", _cocos2d_ui_LuaEditBoxDelegate_create);
+    oluacls_func(L, "__gc", _cocos2d_ui_LuaEditBoxDelegate___gc);
     oluacls_prop(L, "onEditingDidBegin", _cocos2d_ui_LuaEditBoxDelegate_get_onEditingDidBegin, _cocos2d_ui_LuaEditBoxDelegate_set_onEditingDidBegin);
     oluacls_prop(L, "onTextChanged", _cocos2d_ui_LuaEditBoxDelegate_get_onTextChanged, _cocos2d_ui_LuaEditBoxDelegate_set_onTextChanged);
     oluacls_prop(L, "onReturn", _cocos2d_ui_LuaEditBoxDelegate_get_onReturn, _cocos2d_ui_LuaEditBoxDelegate_set_onReturn);

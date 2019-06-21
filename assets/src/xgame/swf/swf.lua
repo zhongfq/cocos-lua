@@ -52,6 +52,14 @@ local function toGlobalID(cobj)
     end
 end
 
+local function lazyRequire()
+    require "xgame.swf.TextInput"
+    -- require "xgame.swf.Scroller"
+    require "xgame.swf.RadioButton"
+
+    lazyRequire = function () end
+end
+
 -- test only
 function M.clearCache()
     movieInfoes = {}
@@ -81,6 +89,7 @@ function M.class(classname, super)
 end
 
 function M.new(filePath, autowatch, cls) -- autowatch default true
+    lazyRequire()
     assert(string.match(filePath, "%.swf$"), filePath)
     local movie = M.loader.load(filePath)
     if movie then

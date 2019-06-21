@@ -4,3 +4,4 @@ runtime-src/proj.ios_mac/cocos-lua.xcodeproj/project.xcworkspace/xcshareddata
 runtime-src/proj.ios_mac/cocos-lua.xcodeproj/project.xcworkspace/xcuserdata
 runtime-src/proj.ios_mac/cocos-lua.xcodeproj/xcuserdata
 wwwroot/current/*.manifest
+assets/res/font

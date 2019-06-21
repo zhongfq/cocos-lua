@@ -4,7 +4,6 @@ local TouchEvent    = require "xgame.event.TouchEvent"
 local UIView        = require "xgame.ui.UIView"
 local MovieClip     = require "xgame.swf.MovieClip"
 local swf           = require "xgame.swf.swf"
-local window        = require "xgame.window"
 local EditBox       = require "ccui.EditBox"
 local InputFlag     = require "ccui.EditBox.InputFlag"
 local InputMode     = require "ccui.EditBox.InputMode"
@@ -28,9 +27,7 @@ end
 
 function TextInput:_onRemoved()
     if self._cocosobj then
-        self._cocosobj.cobj:unregisterScriptEditBoxHandler()
-        self._cocosobj:remove_self()
-        self._cocosobj = false
+        self._cocosobj:removeSelf()
     end
 end
 

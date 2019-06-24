@@ -21,4 +21,8 @@ cls.funcs [[
     bool reloadTexture(const std::string& plist)
 ]]
 
+cls.props [[
+    instance
+]]
+
 return cls

@@ -144,6 +144,7 @@ REG_TYPE {
         cocos2d::experimental::ui::VideoPlayer::StyleType
         cocos2d::GlyphCollection
         cocos2d::Image::Format
+        cocos2d::ProgressTimer::Type
         cocos2d::Label::LabelType
         cocos2d::Label::Overflow
         cocos2d::LabelEffect
@@ -297,6 +298,7 @@ REG_TYPE {
         cocos2d::EventListenerTouchAllAtOnce *
         cocos2d::EventListenerTouchOneByOne *
         cocos2d::EventMouse *
+        cocos2d::ProgressTimer *
         cocos2d::EventTouch *
         cocos2d::experimental::AudioEngine *
         cocos2d::experimental::AudioProfile *

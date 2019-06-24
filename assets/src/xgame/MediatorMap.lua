@@ -1,6 +1,7 @@
 local class = require "xgame.class"
 local util  = require "xgame.util"
 local Event = require "xgame.event.Event"
+local ui    = require "xgame.ui.ui"
 
 local assert = assert
 local trace = util.trace("[MediatorMap]")
@@ -26,10 +27,9 @@ function MediatorMap:_addedHandler(_, view)
 
     local function create()
         local m = mcls == view.class and view or mcls.new(view)
-        -- TODO
-        -- ui.bind_events(view, m)
         self._instances[view] = m
         DLOG("create '%s' for '%s'", m.classname, view.classname)
+        ui.bindEvents(view, m)
         m:onCreate()
     end
 

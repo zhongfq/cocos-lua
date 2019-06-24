@@ -47,7 +47,7 @@ local function UIImage(self, data)
         self:loadTexture(data.skin)
     end
 
-    if data.scale9_enabled then
+    if data.scale9Enabled then
         self.scale9Enabled = true
         if data.width then
             self.width = data.width
@@ -60,13 +60,6 @@ local function UIImage(self, data)
             data.insetRight or 0,
             data.insetTop or 0,
             data.insetBottom or 0)
-    end
-
-    if data.width then
-        self.preferredWidth = data.width
-    end
-    if data.height then
-        self.preferredHeight = data.height
     end
 end
 

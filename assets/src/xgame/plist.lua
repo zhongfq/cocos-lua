@@ -112,7 +112,7 @@ function plp.dictionary(s, i)
 end
 
 local function plistParse(s)
-    local _, i, ni, label, empty = 0
+    local i, _, ni, label, empty = 0
 
     while label ~= "plist" do
         ni, i, label, _ = string.find(s, "<([%w:]+)(.-)>", i+1)

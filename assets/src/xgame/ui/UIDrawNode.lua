@@ -1,6 +1,6 @@
 local class     = require "xgame.class"
 local UIView    = require "xgame.ui.UIView"
-local draw_node = require "kernel.draw_node"
+local DrawNode  = require "kernel.DrawNode"
 
 local UIDrawNode = class("UIDrawNode", UIView)
 
@@ -8,7 +8,7 @@ function UIDrawNode:ctor()
 end
 
 function UIDrawNode.Get:cobj()
-    local cobj = draw_node:create()
+    local cobj = DrawNode.create()
     rawset(self, "cobj", cobj)
     return cobj
 end
@@ -17,8 +17,8 @@ function UIDrawNode:clear()
     self.cobj:clear()
 end
 
-function UIDrawNode:begin_fill(texture)
-    self.cobj:begin_fill(texture)
+function UIDrawNode:beginFill(texture)
+    self.cobj:beginFill(texture)
 end
 
 --  y
@@ -30,7 +30,7 @@ end
 --  +---------- x
 --  v
 --
---  draw_triangles({
+--  drawTriangles({
 --     {x = 0, y = 0, u = 0, v = 1},
 --     {x = 0, y = h, u = 0, v = 0},
 --     {x = w, y = 0, u = 1, v = 1},
@@ -38,12 +38,12 @@ end
 --  }, {
 --     0, 1, 2, 2, 1, 3
 --  })
-function UIDrawNode:draw_triangles(vertices, indices)
-    self.cobj:draw_triangles(vertices, indices)
+function UIDrawNode:drawTriangles(vertices, indices)
+    self.cobj:drawTriangles(vertices, indices)
 end
 
-function UIDrawNode:end_fill()
-    self.cobj:end_fill()
+function UIDrawNode:endFill()
+    self.cobj:endFill()
 end
 
 return UIDrawNode

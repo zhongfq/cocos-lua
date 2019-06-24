@@ -119,10 +119,10 @@ function M.loadSceneAssets(scene)
     end
 end
 
-function M.dump(dump_static)
+function M.dump(dumpStatic)
     local arr = {}
     for path, asset in pairs(assets) do
-        if dump_static then
+        if dumpStatic then
             arr[#arr + 1] = string.format("  %s[static=%s, active=%s]",
                 shortPath(path),
                 staticAssets[path] and true or false,
@@ -162,10 +162,9 @@ function AssetObject:load()
     if self._plist then
         if not spriteFrameCache:isSpriteFramesWithFileLoaded(self._plist) then
             trace("L => %s", shortPath(self._plist))
-            spriteFrameCache:addSpriteFrames(self._plist)
+            spriteFrameCache:addSpriteFramesWithFile(self._plist)
             for name in pairs(self._frames) do
-                self._frames[name] = spriteFrameCache:getSpriteFrame(name)
-                print("hold " .. name) -- TODO:rm
+                self._frames[name] = spriteFrameCache:getSpriteFrameByName(name)
             end
         end
     end
@@ -174,7 +173,7 @@ function AssetObject:load()
     if not texture then
         texture = textureCache:addImage(self._image)
         trace("L => %s", shortPath(self._image))
-    elseif texture:getName() == 0 then
+    elseif texture.name == 0 then
         trace("R => %s", shortPath(self._image))
         textureCache:reloadTexture(self._image)
     end
@@ -193,7 +192,7 @@ function AssetObject:loadAsync(callback)
             end
         end)
     else
-        if texture:getName() == 0 then
+        if texture.name == 0 then
             textureCache:reloadTexture(self._image)
             trace("R => %s", shortPath(self._image))
         end
@@ -215,7 +214,7 @@ end
 
 function AssetObject:deleteTexture()
     local texture = textureCache:getTextureForKey(self._image)
-    if texture and texture:getName() ~= 0 then
+    if texture and texture.name ~= 0 then
         texture:releaseGLTexture()
         trace("D => %s", shortPath(self._image))
     end
@@ -223,7 +222,7 @@ end
 
 function AssetObject:isActive()
     local texture = textureCache:getTextureForKey(self._image)
-    return (texture and texture:getName() ~= 0) and true or false
+    return (texture and texture.name ~= 0) and true or false
 end
 
 return M

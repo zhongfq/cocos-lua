@@ -24215,6 +24215,248 @@ static int luaopen_cocos2d_RenderTexture(lua_State *L)
     return 1;
 }
 
+static int luaopen_cocos2d_ProgressTimer_Type(lua_State *L)
+{
+    oluacls_class(L, "cc.ProgressTimer.Type", nullptr);
+    oluacls_const_integer(L, "RADIAL", (lua_Integer)cocos2d::ProgressTimer::Type::RADIAL);
+    oluacls_const_integer(L, "BAR", (lua_Integer)cocos2d::ProgressTimer::Type::BAR);
+
+    olua_registerluatype<cocos2d::ProgressTimer::Type>(L, "cc.ProgressTimer.Type");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_ProgressTimer_create(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Sprite *arg1 = nullptr;   /** sp */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "cc.Sprite");
+
+    // static ProgressTimer* create(Sprite* sp)
+    cocos2d::ProgressTimer *ret = (cocos2d::ProgressTimer *)cocos2d::ProgressTimer::create(arg1);
+    int num_ret = olua_push_cppobj<cocos2d::ProgressTimer>(L, ret, "cc.ProgressTimer");
+
+    return num_ret;
+}
+
+static int _cocos2d_ProgressTimer_getType(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ProgressTimer *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ProgressTimer");
+
+    // Type getType()
+    cocos2d::ProgressTimer::Type ret = (cocos2d::ProgressTimer::Type)self->getType();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ProgressTimer_getPercentage(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ProgressTimer *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ProgressTimer");
+
+    // float getPercentage()
+    float ret = (float)self->getPercentage();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ProgressTimer_getSprite(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ProgressTimer *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ProgressTimer");
+
+    // Sprite* getSprite()
+    cocos2d::Sprite *ret = (cocos2d::Sprite *)self->getSprite();
+    int num_ret = olua_push_cppobj<cocos2d::Sprite>(L, ret, "cc.Sprite");
+
+    return num_ret;
+}
+
+static int _cocos2d_ProgressTimer_setPercentage(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ProgressTimer *self = nullptr;
+    lua_Number arg1 = 0;   /** percentage */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ProgressTimer");
+    olua_check_number(L, 2, &arg1);
+
+    // void setPercentage(float percentage)
+    self->setPercentage((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ProgressTimer_setSprite(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ProgressTimer *self = nullptr;
+    cocos2d::Sprite *arg1 = nullptr;   /** sprite */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ProgressTimer");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Sprite");
+
+    // void setSprite(Sprite *sprite)
+    self->setSprite(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ProgressTimer_setType(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ProgressTimer *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** type */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ProgressTimer");
+    olua_check_uint(L, 2, &arg1);
+
+    // void setType(Type type)
+    self->setType((cocos2d::ProgressTimer::Type)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ProgressTimer_isReverseDirection(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ProgressTimer *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ProgressTimer");
+
+    // bool isReverseDirection()
+    bool ret = (bool)self->isReverseDirection();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ProgressTimer_setReverseDirection(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ProgressTimer *self = nullptr;
+    bool arg1 = false;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ProgressTimer");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setReverseDirection(bool value)
+    self->setReverseDirection(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ProgressTimer_setMidpoint(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ProgressTimer *self = nullptr;
+    cocos2d::Vec2 arg1;       /** point */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ProgressTimer");
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+
+    // void setMidpoint(const Vec2& point)
+    self->setMidpoint(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ProgressTimer_getMidpoint(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ProgressTimer *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ProgressTimer");
+
+    // Vec2 getMidpoint()
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->getMidpoint();
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ProgressTimer_setBarChangeRate(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ProgressTimer *self = nullptr;
+    cocos2d::Vec2 arg1;       /** barChangeRate */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ProgressTimer");
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+
+    // void setBarChangeRate(const Vec2& barChangeRate )
+    self->setBarChangeRate(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ProgressTimer_getBarChangeRate(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ProgressTimer *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ProgressTimer");
+
+    // Vec2 getBarChangeRate()
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->getBarChangeRate();
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_ProgressTimer(lua_State *L)
+{
+    oluacls_class(L, "cc.ProgressTimer", "cc.Node");
+    oluacls_func(L, "create", _cocos2d_ProgressTimer_create);
+    oluacls_func(L, "getType", _cocos2d_ProgressTimer_getType);
+    oluacls_func(L, "getPercentage", _cocos2d_ProgressTimer_getPercentage);
+    oluacls_func(L, "getSprite", _cocos2d_ProgressTimer_getSprite);
+    oluacls_func(L, "setPercentage", _cocos2d_ProgressTimer_setPercentage);
+    oluacls_func(L, "setSprite", _cocos2d_ProgressTimer_setSprite);
+    oluacls_func(L, "setType", _cocos2d_ProgressTimer_setType);
+    oluacls_func(L, "isReverseDirection", _cocos2d_ProgressTimer_isReverseDirection);
+    oluacls_func(L, "setReverseDirection", _cocos2d_ProgressTimer_setReverseDirection);
+    oluacls_func(L, "setMidpoint", _cocos2d_ProgressTimer_setMidpoint);
+    oluacls_func(L, "getMidpoint", _cocos2d_ProgressTimer_getMidpoint);
+    oluacls_func(L, "setBarChangeRate", _cocos2d_ProgressTimer_setBarChangeRate);
+    oluacls_func(L, "getBarChangeRate", _cocos2d_ProgressTimer_getBarChangeRate);
+    oluacls_prop(L, "type", _cocos2d_ProgressTimer_getType, _cocos2d_ProgressTimer_setType);
+    oluacls_prop(L, "percentage", _cocos2d_ProgressTimer_getPercentage, _cocos2d_ProgressTimer_setPercentage);
+    oluacls_prop(L, "sprite", _cocos2d_ProgressTimer_getSprite, _cocos2d_ProgressTimer_setSprite);
+    oluacls_prop(L, "reverseDirection", _cocos2d_ProgressTimer_isReverseDirection, _cocos2d_ProgressTimer_setReverseDirection);
+    oluacls_prop(L, "midpoint", _cocos2d_ProgressTimer_getMidpoint, _cocos2d_ProgressTimer_setMidpoint);
+    oluacls_prop(L, "barChangeRate", _cocos2d_ProgressTimer_getBarChangeRate, _cocos2d_ProgressTimer_setBarChangeRate);
+
+    olua_registerluatype<cocos2d::ProgressTimer>(L, "cc.ProgressTimer");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
 static int _cocos2d_AnimationFrame_create(lua_State *L)
 {
     lua_settop(L, 3);
@@ -26840,6 +27082,7 @@ static int luaopen_cocos2d_SpriteFrameCache(lua_State *L)
     oluacls_func(L, "removeSpriteFramesFromTexture", _cocos2d_SpriteFrameCache_removeSpriteFramesFromTexture);
     oluacls_func(L, "getSpriteFrameByName", _cocos2d_SpriteFrameCache_getSpriteFrameByName);
     oluacls_func(L, "reloadTexture", _cocos2d_SpriteFrameCache_reloadTexture);
+    oluacls_prop(L, "instance", _cocos2d_SpriteFrameCache_getInstance, nullptr);
 
     olua_registerluatype<cocos2d::SpriteFrameCache>(L, "cc.SpriteFrameCache");
     oluacls_createclassproxy(L);
@@ -33473,6 +33716,8 @@ int luaopen_cocos2d(lua_State *L)
     olua_require(L, "cc.FontAtlas", luaopen_cocos2d_FontAtlas);
     olua_require(L, "cc.ClippingRectangleNode", luaopen_cocos2d_ClippingRectangleNode);
     olua_require(L, "cc.RenderTexture", luaopen_cocos2d_RenderTexture);
+    olua_require(L, "cc.ProgressTimer.Type", luaopen_cocos2d_ProgressTimer_Type);
+    olua_require(L, "cc.ProgressTimer", luaopen_cocos2d_ProgressTimer);
     olua_require(L, "cc.AnimationFrame", luaopen_cocos2d_AnimationFrame);
     olua_require(L, "cc.Animation", luaopen_cocos2d_Animation);
     olua_require(L, "cc.SpriteFrame", luaopen_cocos2d_SpriteFrame);

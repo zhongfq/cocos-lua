@@ -49,11 +49,11 @@ M.CONVS = {
     REG_CONV {
         CPPCLS = 'fairygui::TweenValue',
         DEF = [[
-            @option float x;
-            @option float y;
-            @option float z;
-            @option float w;
-            @option double d;
+            float x = 0;
+            float y = 0;
+            float z = 0;
+            float w = 0;
+            double d = 0;
         ]]
     }
 }

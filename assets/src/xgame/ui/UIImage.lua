@@ -1,6 +1,7 @@
 local class             = require "xgame.class"
-local Event             = require "xgame.event.Event"
 local assetloader       = require "xgame.assetloader"
+local filesystem        = require "xgame.filesystem"
+local Event             = require "xgame.event.Event"
 local LoadTask          = require "xgame.loader.LoadTask"
 local UIView            = require "xgame.ui.UIView"
 local ImageView         = require "ccui.ImageView"
@@ -11,9 +12,9 @@ local spriteFrameCache = require("cc.SpriteFrameCache").instance
 local UIImage = class("UIImage", UIView)
 
 function UIImage:ctor()
-    self._cap_inset = false
-    self.url = false
-    self.contentMode = "normal"
+    self._capInset = false
+    self._url = false
+    self.filePath = false
     self.preferredWidth = 0
     self.preferredHeight = 0
 end
@@ -25,79 +26,60 @@ function UIImage.Get:cobj()
 end
 
 function UIImage:unload()
-    self.url = false
+    self.filePath = false
     assetloader.unload(self)
 end
 
-function UIImage:load_texture(path)
-    if self.url == path or not self.cobj then
-        return
-    end
+function UIImage:loadTexture(path)
+    self.filePath = path
 
-    self.url = path
-
-    if string.find(path, "/") then
+    if filesystem.exist(path) then
         assetloader.load(self, {[path] = true})
-        self.cobj:loadTexture(path, TextureResType.localType)
+        self.cobj:loadTexture(path, TextureResType.LOCAL)
     else
-        assert(spriteFrameCache:getSpriteFrame(path), path)
-        self.cobj:loadTexture(path, TextureResType.plistType)
-        if self.scale9Enabled and self._cap_inset then
-            self:set_cap_inset(table.unpack(self._cap_inset))
+        assert(spriteFrameCache:getSpriteFrameByName(path), path)
+        self.cobj:loadTexture(path, TextureResType.PLIST)
+        if self.scale9Enabled and self._capInset then
+            self:setCapInset(table.unpack(self._capInset))
         end
     end
 
-    self:_validate_now()
+    self:_validateNow()
 end
 
-function UIImage:_do_load(url, callback)
-    self._event_proxy:clear()
-
-    local E = function (target, priority)
-        return self._event_proxy:E(target, priority)
-    end
-
+function UIImage:_doLoad(url, callback)
     local loader = LoadTask.new(url)
-    E(loader):add_event_listener(Event.COMPLETE, function ()
-        self._event_proxy:clear()
-        if self.url ~= loader.local_path then
-            callback(loader.local_path)
+    self.filePath = loader.path
+    loader:addListener(Event.COMPLETE, function ()
+        if self.filePath == loader.path then
+            callback(loader.path)
         end
-    end)
-    E(loader):add_event_listener(Event.IOERROR, function ()
-        self._event_proxy:clear()
     end)
     loader:start()
 end
 
 function UIImage:load(filepath)
-    self:_do_load(filepath, function (path)
-        if self.cobj then
-            self:load_texture(path)
-        end
+    self:_doLoad(filepath, function (path)
+        self:loadTexture(path)
     end)
 end
 
-function UIImage:load_async(filepath)
-    self:_do_load(filepath, function (path)
-        assetloader.load_async(self, {[path] = true}, function ()
-            if self.cobj then
-                self:load_texture(path)
-            end
+function UIImage:loadAsync(filepath)
+    self:_doLoad(filepath, function (path)
+        assetloader.loadAsync(self, {[path] = true}, function ()
+            self:loadTexture(path)
         end)
     end)
 end
 
 function UIImage:validateDisplay()
-    if self.contentMode == "scale_fit" then
-        if self.preferredWidth > 0 and self.preferredHeight > 0 then
-            self.scale_x = 1
-            self.scale_y = 1
-            local width, height = self.width, self.height
-            if width > 0 and height > 0 then
-                self.scale_x = self.preferredWidth / width
-                self.scale_y = self.preferredHeight / height
-            end
+    if self.preferredWidth > 0 and self.preferredHeight > 0 then
+        self.scaleX = 1
+        self.scaleY = 1
+        local width, height = self.width, self.height
+        if width > 0 and height > 0 then
+            self.scaleX = self.preferredWidth / width
+            self.scaleY = self.preferredHeight / height
         end
     end
 end
@@ -110,20 +92,14 @@ function UIImage.Set:shader(value)
     self.cobj:setGLProgram(assert(value))
 end
 
-function UIImage:set_cap_inset(left, right, top, bottom)
+function UIImage:setCapInset(left, right, top, bottom)
     local renderer = self.cobj:getVirtualRenderer()
     renderer:setInsetLeft(left)
     renderer:setInsetRight(right)
     renderer:setInsetTop(top)
     renderer:setInsetBottom(bottom)
 
-    self._cap_inset = {left, right, top, bottom}
-end
-
-function UIImage.Get:contentMode() return self._contentMode end
-function UIImage.Set:contentMode(value)
-    self._contentMode = value
-    self:validateDisplay()
+    self._capInset = {left, right, top, bottom}
 end
 
 function UIImage.Get:scale9Enabled() return self.cobj.scale9Enabled end

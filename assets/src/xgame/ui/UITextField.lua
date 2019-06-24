@@ -1,6 +1,8 @@
 local class     = require "xgame.class"
-local Align   = require "xgame.ui.Align"
+local font      = require "xgame.font"
+local Align     = require "xgame.ui.Align"
 local UIView    = require "xgame.ui.UIView"
+local Label     = require "cc.Label"
 
 local ALIGNMENT = {
     [Align.LEFT] = 0,
@@ -12,62 +14,44 @@ local ALIGNMENT = {
 
 local UITextField = class("UITextField", UIView)
 
-UITextField.DEFAULT_FONT = "res/font/zhunyuan.ttf"
-
 function UITextField:ctor()
-    self._ttf_config = {
-        fontFilePath = false,
+    self._ttfConfig = {
+        fontFilePath = font.lookup(nil).path,
         fontSize = 20,
-        glyphs = cc.GLYPHCOLLECTION_DYNAMIC,
+        glyphs = 0,
     }
-
-    if UITextField.DEFAULT_FONT then
-        self.font_name = UITextField.DEFAULT_FONT
-    end
 end
 
 function UITextField.Get:cobj()
-    local cobj = cc.Label:create()
+    local cobj = Label.create()
     rawset(self, "cobj", cobj)
     return cobj
 end
 
-local function cti(c)
-    return c.r << 16 | c.g << 8 | c.b
-end
-
-local function itc(color)
-    local R = color >> 16 & 0xFF
-    local G = color >> 8 & 0xFF
-    local B = color & 0xFF
-    return {r = R, g = G, b = B, a = 255}
-end
-
-function UITextField.Get:text_horizontal_align()
+function UITextField.Get:textHAlign()
     return self.cobj:getHorizontalAlignment()
 end
-function UITextField.Set:text_horizontal_align(value)
+function UITextField.Set:textHAlign(value)
     self.cobj:setHorizontalAlignment(ALIGNMENT[value])
 end
 
-function UITextField.Get:text_vertical_align()
+function UITextField.Get:textVAlign()
     return self.cobj:getVerticalAlignment()
 end
-function UITextField.Set:text_vertical_align(value)
+function UITextField.Set:textVAlign(value)
     self.cobj:setVerticalAlignment(ALIGNMENT[value])
 end
 
-function UITextField:enable_outline(color, size)
-    self.cobj:enableOutline(itc(color), size or 1)
+function UITextField:enableOutline(color, size)
+    self.cobj:enableOutline(color, size or 1)
 end
 
-function UITextField:enable_shadow(color, offset_x, offset_y, blur_radius)
+function UITextField:enableShadow(color, offsetX, offsetY, blurRadius)
     color = color or 0x000000
-    offset_x = offset_x or 2
-    offset_y = offset_y or -2
-    blur_radius = blur_radius or 0
-    self.cobj:enableShadow(itc(color), {width = offset_x, height = offset_y},
-        blur_radius)
+    offsetX = offsetX or 2
+    offsetY = offsetY or -2
+    blurRadius = blurRadius or 0
+    self.cobj:enableShadow(color, {width = offsetX, height = offsetY}, blurRadius)
 end
 
 function UITextField.Get:width(value)
@@ -90,22 +74,22 @@ function UITextField.Set:height(value)
     end
 end
 
-function UITextField.Get:font_size() return self._ttf_config.fontSize end
-function UITextField.Set:font_size(value)
-    self._ttf_config.fontSize = value
-    self.cobj:setTTFConfig(self._ttf_config)
+function UITextField.Get:fontSize() return self._ttfConfig.fontSize end
+function UITextField.Set:fontSize(value)
+    self._ttfConfig.fontSize = value
+    self.cobj:setTTFConfig(self._ttfConfig)
 end
 
-function UITextField.Get:font_name() return self._ttf_config.fontFilePath end
-function UITextField.Set:font_name(value)
-    self._ttf_config.fontFilePath = value
-    self.cobj:setTTFConfig(self._ttf_config)
+function UITextField.Get:fontName() return self._ttfConfig.fontFilePath end
+function UITextField.Set:fontName(value)
+    self._ttfConfig.fontFilePath = font.lookup(value).path
+    self.cobj:setTTFConfig(self._ttfConfig)
 end
 
 function UITextField.Get:text() return self.cobj:getString() end
 function UITextField.Set:text(value)
     self.cobj:setString(value or "")
-    self:_validate_now()
+    self:_validateNow()
 end
 
 function UITextField.Get:leading() return self.cobj:getLineSpacing() end
@@ -118,8 +102,8 @@ function UITextField.Set:kerning(value)
     self.cobj:setAdditionalKerning(value)
 end
 
-function UITextField.Get:line_height() return self.cobj:getLineHeight() end
-function UITextField.Set:line_height(value)
+function UITextField.Get:lineHeight() return self.cobj:getLineHeight() end
+function UITextField.Set:lineHeight(value)
     self.cobj:setLineHeight(value)
 end
 

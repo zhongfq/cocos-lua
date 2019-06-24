@@ -1,52 +1,35 @@
-local font          = require "font"
-local class         = require "xgame.class"
-local Align       = require "xgame.ui.Align"
+local font          = require "xgame.font"
+local Align         = require "xgame.ui.Align"
 local TouchStyle    = require "xgame.ui.TouchStyle"
 
 local assert = assert
 
-local DataLoader = class("DataLoader")
-
-function DataLoader:ctor()
-    self._base_loaders = {}
-    self._loaders = setmetatable({}, {__mode = "kv"})
-    self:_init_loaders()
-end
-
-local function tocolor(value)
-    local R = value >> 16 & 0xFF
-    local G = value >> 8 & 0xFF
-    local B = value & 0xFF
-    return {r = R, g = G, b = B}
-end
+local baseLoaders = {}
+local loaders = setmetatable({}, {__mode = "kv"})
 
 local BASE_PROPERTY = {
     name                = true,
-    clicked_sound       = true,
+    clickedSound        = true,
     x                   = true,
     y                   = true,
     alpha               = true,
-    scale_x             = true,
-    scale_y             = true,
+    scaleX              = true,
+    scaleY              = true,
     rotation            = true,
     visible             = true,
-    anchor_x            = true,
-    anchor_y            = true,
+    anchorX             = true,
+    anchorY             = true,
     width               = true,
     height              = true,
     color               = true,
     touchable           = true,
-    touch_children      = true,
-    horizontal_align    = true,
-    left                = true,
-    horizontal_center   = true,
-    right               = true,
-    vertical_align      = true,
-    top                 = true,
-    vertical_center     = true,
-    bottom              = true,
-    percent_width       = true,
-    percent_height      = true,
+    touchChildren       = true,
+    horizontalAlign     = true,
+    horizontalOffset    = true,
+    verticalAlign       = true,
+    verticalOffset      = true,
+    percentWidth        = true,
+    percentHeight       = true,
 }
 
 local function UIView(self, data)
@@ -61,29 +44,29 @@ end
 local function UIImage(self, data)
     UIView(self, data)
     if data.skin then
-        self:load_texture(data.skin)
+        self:loadTexture(data.skin)
     end
 
     if data.scale9_enabled then
-        self.scale9_enabled = true
+        self.scale9Enabled = true
         if data.width then
             self.width = data.width
         end
         if data.height then
             self.height = data.height
         end
-        self:set_cap_inset(
-            data.inset_left or 0,
-            data.inset_right or 0,
-            data.inset_top or 0,
-            data.inset_bottom or 0)
+        self:setCapInset(
+            data.insetLeft or 0,
+            data.insetRight or 0,
+            data.insetTop or 0,
+            data.insetBottom or 0)
     end
 
     if data.width then
-        self.preferred_width = data.width
+        self.preferredWidth = data.width
     end
     if data.height then
-        self.preferred_height = data.height
+        self.preferredHeight = data.height
     end
 end
 
@@ -93,12 +76,12 @@ local function UITextBMFont(self, data)
     self.text = data.text
     self:set_font(data.font_family)
 
-    if data.text_h_align then
-        self.text_horizontal_align = data.text_h_align
+    if data.textHAlign then
+        self.textHAalign = data.textHAlign
     end
 
-    if data.text_v_align then
-        self.text_vertical_align = data.text_v_align
+    if data.textVAlign then
+        self.textVAlign = data.textVAlign
     end
 end
 
@@ -106,10 +89,10 @@ local function UITextField(self, data)
     UIView(self, data)
 
     self.text = data.text
-    self.font_size = data.font_size or 20
+    self.fontSize = data.fontSize or 20
     
-    if data.font_name then
-        self.font_name = font.lookup(data.font_name).path
+    if data.fontName then
+        -- self.fontName = font.lookup(data.fontName).path
     end
 
     if data.leading then
@@ -120,21 +103,21 @@ local function UITextField(self, data)
         self.kerning = data.kerning
     end
 
-    if data.outline_enabled then
-        self:enable_outline(data.outline_color, data.outline_size)
+    if data.outlineEnabled then
+        self:enableOutline(data.outlineColor, data.outlineSize)
     end
 
-    if data.shadow_enabled then
-        self:enable_shadow(data.shadow_color, data.shadow_x, data.shadow_y,
+    if data.shadowEnabled then
+        self:enableShadow(data.shadowColor, data.shadowX, data.shadowY,
             data.blur_radius)
     end
 
-    if data.text_h_align then
-        self.text_horizontal_align = data.text_h_align
+    if data.textHAlign then
+        self.textHAalign = data.textHAlign
     end
 
-    if data.text_v_align then
-        self.text_vertical_align = data.text_v_align
+    if data.textVAlign then
+        self.textVAlign = data.textVAlign
     end
 end
 
@@ -142,7 +125,7 @@ local function UIRichText(self, data)
     UIView(self, data)
 
     self.text = data.text
-    self.font_size = data.font_size or 20
+    self.fontSize = data.fontSize or 20
 
     if data.leading then
         self.leading = data.leading
@@ -154,7 +137,7 @@ local function UITextInput(self, data)
 
     self.placeholder = data.placeholder or data.text
     self.text = data.placeholder and data.text or ""
-    self.font_size = data.font_size or 20
+    self.fontSize = data.fontSize or 20
 end
 
 local function UIButton(self, data)
@@ -169,10 +152,10 @@ local function UIButton(self, data)
 
     UIImage(self._renderer, {
         scale9_enabled = data.scale9_enabled,
-        inset_left = data.inset_left,
-        inset_right = data.inset_right,
-        inset_top = data.inset_top,
-        inset_bottom = data.inset_bottom,
+        insetLeft = data.insetLeft,
+        insetRight = data.insetRight,
+        insetTop = data.insetTop,
+        insetBottom = data.insetBottom,
         skin = data.skin.normal,
         width = data.width,
         height = data.height,
@@ -181,12 +164,12 @@ local function UIButton(self, data)
     UITextField(self._label, {
         text = data.text,
         color = data.font_color,
-        font_size = data.font_size,
-        shadow_enabled = data.shadow_enabled,
-        shadow_color = data.shadow_color,
-        outline_enabled = data.outline_enabled,
-        outline_color = data.outline_color,
-        outline_size = data.outline_size,
+        fontSize = data.fontSize,
+        shadowEnabled = data.shadowEnabled,
+        shadowColor = data.shadowColor,
+        outlineEnabled = data.outlineEnabled,
+        outlineColor = data.outlineColor,
+        outlineSize = data.outlineSize,
         kerning = data.kerning,
     })
 end
@@ -199,12 +182,12 @@ local function UICheckBox(self, data)
     UITextField(self._label, {
         text = data.text,
         color = data.font_color,
-        font_size = data.font_size,
-        shadow_enabled = data.shadow_enabled,
-        shadow_color = data.shadow_color,
-        outline_enabled = data.outline_enabled,
-        outline_color = data.outline_color,
-        outline_size = data.outline_size,
+        fontSize = data.fontSize,
+        shadowEnabled = data.shadowEnabled,
+        shadowColor = data.shadowColor,
+        outlineEnabled = data.outlineEnabled,
+        outlineColor = data.outlineColor,
+        outlineSize = data.outlineSize,
         kerning = data.kerning,
     })
     
@@ -222,7 +205,7 @@ local function UILoadingBar(self, data)
     self.radial = data.radial
     
     if data.skin then
-        self:load_texture(data.skin)
+        self:loadTexture(data.skin)
     end
 end
 
@@ -231,17 +214,23 @@ end
 --
 local function UILayer(self, data)
     UIView(self, data)
-    self.cobj:setClippingEnabled(data.clipping_enabled or false)
-    self.cobj:setBackGroundColorType(data.color_type or 0)
-    self.cobj:setBackGroundColorOpacity((data.color_alpha or 1) * 255)
-    self.cobj:setBackGroundColor(tocolor(self.color))
 
-    if data.clipping_enabled then
+    if self.cobj.clippingEnabled then
+        self.cobj:setClippingEnabled(data.clippingEnabled or false)
+    end
+
+    if self.cobj.setBackGroundColorType then
+        self.cobj:setBackGroundColorType(data.colorType or 0)
+        self.cobj:setBackGroundColorOpacity((data.colorAlpha or 1) * 255)
+        self.cobj:setBackGroundColor(self.color)
+    end
+
+    if data.clippingEnabled then
         local w, h = self.width, self.height
         local mask = self.cobj:getClippingNode()
 
-        local function draw_circle(x, y, r)
-            mask:drawSolidCircle({x = x, y = y}, r, 0, 50, 
+        local function drawCircle(x, y, r)
+            mask:drawSolidCircle({x = x, y = y}, r, 0, 50,
                 {r = 1, g = 1, b = 1, a = 1})
         end
 
@@ -249,20 +238,20 @@ local function UILayer(self, data)
             mask:drawSolidRect({x = x1, y = y1}, {x = x2, y = y2},
                 {r = 1, g = 1, b = 1, a = 1})
         end
-        if data.clipping_type == 1 then
+        if data.clippingType == 1 then
             mask:clear()
-            draw_circle(w / 2, h / 2, w / 2)
-        elseif data.clipping_type == 2 then
-            local r = data.clipping_radius
+            drawCircle(w / 2, h / 2, w / 2)
+        elseif data.clippingType == 2 then
+            local r = data.clippingRadius
             mask:clear()
-            draw_circle(r, r, r)
-            draw_circle(r, h - r, r)
-            draw_circle(w - r, h - r, r)
-            draw_circle(w - r, r, r)
+            drawCircle(r, r, r)
+            drawCircle(r, h - r, r)
+            drawCircle(w - r, h - r, r)
+            drawCircle(w - r, r, r)
             draw_rect(r, 0, w - r, h)
             draw_rect(0, r, r, h - r)
             draw_rect(w - r, r, w, h - r)
-        elseif data.clipping_type == 3 then
+        elseif data.clippingType == 3 then
         end
     end
 end
@@ -270,15 +259,15 @@ end
 local function UIHLayer(self, data)
     UILayer(self, data)
     self.layout.gap = data.gap or 6
-    self.layout.content_h_align = data.content_h_align or Align.LEFT
-    self.layout.content_v_align = data.content_v_align or Align.BOTTOM
+    self.layout.contentHAlign = data.contentHAlign or Align.LEFT
+    self.layout.contentVAlign = data.contentVAlign or Align.BOTTOM
 end
 
 local function UIVLayer(self, data)
     UILayer(self, data)
     self.layout.gap = data.gap or 6
-    self.layout.content_h_align = data.content_h_align or Align.LEFT
-    self.layout.content_v_align = data.content_v_align or Align.BOTTOM
+    self.layout.contentHAlign = data.contentHAlign or Align.LEFT
+    self.layout.contentVAlign = data.contentVAlign or Align.BOTTOM
 end
 
 --
@@ -315,42 +304,40 @@ local function UIList(self, data)
     self.layout.horizontal_gap = data.gap or 0
 end
 
-function DataLoader:_init_loaders()
-    self._base_loaders["UIView"] = UIView
-    self._base_loaders["UIButton"] = UIButton
-    self._base_loaders["UITextInput"] = UITextInput
-    self._base_loaders["UITextField"] = UITextField
-    self._base_loaders["UIRichText"] = UIRichText
-    self._base_loaders["UITextBMFont"] = UITextBMFont
-    self._base_loaders["UIImage"] = UIImage
-    self._base_loaders["UICheckBox"] = UICheckBox
-    self._base_loaders["UIRadioButton"] = UIRadioButton
-    self._base_loaders["UILoadingBar"] = UILoadingBar
-    self._base_loaders["UILayer"] = UILayer
-    self._base_loaders["UIHLayer"] = UIHLayer
-    self._base_loaders["UIVLayer"] = UIVLayer
-    self._base_loaders["ScrollBase"] = ScrollBase
-    self._base_loaders["UIScroller"] = UIScroller
-    self._base_loaders["ListBase"] = ListBase
-    self._base_loaders["UIList"] = UIList
-    self._base_loaders["UIGrid"] = UIGrid
-end
+baseLoaders["UIView"] = UIView
+baseLoaders["UIButton"] = UIButton
+baseLoaders["UITextInput"] = UITextInput
+baseLoaders["UITextField"] = UITextField
+baseLoaders["UIRichText"] = UIRichText
+baseLoaders["UITextBMFont"] = UITextBMFont
+baseLoaders["UIImage"] = UIImage
+baseLoaders["UICheckBox"] = UICheckBox
+baseLoaders["UIRadioButton"] = UIRadioButton
+baseLoaders["UILoadingBar"] = UILoadingBar
+baseLoaders["UILayer"] = UILayer
+baseLoaders["UIHLayer"] = UIHLayer
+baseLoaders["UIVLayer"] = UIVLayer
+baseLoaders["ScrollBase"] = ScrollBase
+baseLoaders["UIScroller"] = UIScroller
+baseLoaders["ListBase"] = ListBase
+baseLoaders["UIList"] = UIList
+baseLoaders["UIGrid"] = UIGrid
 
-function DataLoader:fill_target(target, data)
-    local loader = self._loaders[target.class]
+local function fill(target, data)
+    local loader = loaders[target.class]
     if not loader then
         local super = target.class
         while super do
-            loader = self._base_loaders[super.classname]
+            loader = baseLoaders[super.classname]
             if loader then
                 break
             else
                 super = super.super
             end
         end
-        self._loaders[target.class] = assert(loader, target.classname)
+        loaders[target.class] = assert(loader, target.classname)
     end
     loader(target, data)
 end
 
-return DataLoader.new()
+return {fill = fill}

@@ -14,6 +14,9 @@ function LayoutBase:notify(action, child)
     end
 end
 
+function LayoutBase:update()
+end
+
 function LayoutBase:getBounds(target)
     local left, right, top, bottom
     for _, child in ipairs(self.target.children) do

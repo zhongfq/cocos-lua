@@ -109,7 +109,12 @@ bool filesystem::remove(const std::string &path)
 
 bool filesystem::exist(const std::string &path)
 {
-    return FileUtils::getInstance()->isFileExist(path);
+    auto fileUtils = FileUtils::getInstance();
+    auto notify = fileUtils->isPopupNotify();
+    fileUtils->setPopupNotify(false);
+    auto exist = fileUtils->isFileExist(path);
+    fileUtils->setPopupNotify(notify);
+    return exist;
 }
 
 bool filesystem::isFile(const std::string &path)

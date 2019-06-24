@@ -1,22 +1,19 @@
 local class         = require "xgame.class"
 local UILayer       = require "xgame.ui.UILayer"
-local UIView        = require "xgame.ui.UIView"
-local ScrollImpl    = require "xgame.ui.ScrollImpl"
-
-local math = math
+local UIView = require "xgame.ui.UIView"
 
 local ScrollBase = class("ScrollBase", UILayer)
 
 function ScrollBase:ctor()
-    self.cobj:setClippingEnabled(true)
-    self._children_bounds = false
+    self.cobj.clippingEnabled = true
+    self._childrenBounds = false
 end
 
 function ScrollBase.Get:cobj()
-    local cobj = UILayer.Get.cobj(self)
+    local cobj = UILayer.Get.cobj(self) -- create cobj
     self._container = UILayer.new()
-    self._container.anchor_x = 0
-    self._container.anchor_y = 0
+    self._container.anchorX = 0
+    self._container.anchorY = 0
     self._container._realParent = self
     self._container.touchable = false
     self._container._parent = self
@@ -33,17 +30,17 @@ function ScrollBase:hit(points)
     end
     
     -- test children
-    if self.touch_children then
+    if self.touchChildren then
         return self._container:hit(points)
     end
 end
 
 function ScrollBase:_invalidate()
-    self._children_bounds = false
-    self._scroll_impl:validate_later()
+    self._childrenBounds = false
+    self._scrollImpl:validateLater()
 end
 
-function ScrollBase:validate_display()
+function ScrollBase:validateDisplay()
     self:_invalidate()
 end
 
@@ -51,33 +48,57 @@ function ScrollBase.Get:children()
     return self._container.children
 end
 
-function ScrollBase:add_child_at(child, index)
-    self._container:add_child_at(child, index)
+function ScrollBase:addChild(child)
+    return self._container:addChild(child)
 end
 
-function ScrollBase:remove_child(child)
-    self._container:remove_child(child)
+function ScrollBase:addChildAt(child, index)
+    return self._container:addChildAt(child, index)
 end
 
-function ScrollBase:remove_children()
-    self._container:remove_children()
+function ScrollBase:getChildAt(index)
+    return self._container:getChildAt(index)
 end
 
-function ScrollBase:reorder_child(child, order)
-    self._container:reorder_child(child, order)
+function ScrollBase:getChildIndex(child)
+    return self._container:getChildIndex(child)
 end
 
-function ScrollBase:_set_stage(value)
+function ScrollBase:removeChild(child)
+    return self._container:removeChild(child)
+end
+
+function ScrollBase:removeChildAt(index)
+    return self._container:removeChildAt(index)
+end
+
+function ScrollBase:removeChildren(from, to)
+    self._container:removeChildren(from, to)
+end
+
+function ScrollBase:reorderChild(child, order)
+    self._container:reorderChild(child, order)
+end
+
+function ScrollBase.Get:numChildren()
+    return #self._container.children
+end
+
+function ScrollBase.Get:children()
+    return self._container.children
+end
+
+function ScrollBase:_setStage(value)
     if self._stage ~= value then
-        self._container:_set_stage(value)
-        UILayer._set_stage(self, value)
+        self._container:_setStage(value)
+        UILayer._setStage(self, value)
     end
 end
 
-function ScrollBase:get_scroll_bounds()
-    local bounds = self._children_bounds
+function ScrollBase:getScrollBounds()
+    local bounds = self._childrenBounds
     if not bounds then
-        local l, r, t, b = self._layout:get_bounds(self._container)
+        local l, r, t, b = self._layout:getBounds(self._container)
         bounds = {}
         bounds.left = l
         bounds.right = r
@@ -85,31 +106,42 @@ function ScrollBase:get_scroll_bounds()
         bounds.bottom = b
         self._container.width = r - l
         self._container.height = t - b
-        self._children_bounds = bounds
+        self._childrenBounds = bounds
     end
 
     local l, r, t, b = bounds.left, bounds.right, bounds.top, bounds.bottom
-    local x, y = self._container:get_position()
-    local sx, sy = self._container.scale_x, self._container.scale_y
+    local x = self._container.x
+    local y = self._container.y
+    local sx, sy = self._container.scaleX, self._container.scaleY
 
     return l * sx + x, r * sx + x, t * sy + y, b * sy + y
 end
 
-function ScrollBase.Get:scroll_x() return self._container.x end
-function ScrollBase.Set:scroll_x(value)
+function ScrollBase.Get:scrollX() return self._container.x end
+function ScrollBase.Set:scrollX(value)
     self._container.x = value
 end
 
-function ScrollBase.Get:scroll_y() return self._container.y end
-function ScrollBase.Set:scroll_y(value)
+function ScrollBase.Get:scrollY() return self._container.y end
+function ScrollBase.Set:scrollY(value)
     self._container.y = value
 end
 
-function ScrollBase.Get:scroll_width()
+function ScrollBase.Get:scrollScaleX() return self._container.scaleX end
+function ScrollBase.Set:scrollScaleX(value)
+    self._container.scaleX = value
+end
+
+function ScrollBase.Get:scrollScaleY() return self._container.scaleY end
+function ScrollBase.Set:scrollScaleY(value)
+    self._container.scaleY = value
+end
+
+function ScrollBase.Get:scrollWidth()
     return self._container.width
 end
 
-function ScrollBase.Get:scroll_heigh()
+function ScrollBase.Get:scrollHeigh()
     return self._container.height
 end
 

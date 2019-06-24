@@ -2,39 +2,37 @@ local class         = require "xgame.class"
 local Event         = require "xgame.event.Event"
 local TouchEvent    = require "xgame.event.TouchEvent"
 local UIView        = require "xgame.ui.UIView"
+local Layout        = require "ccui.Layout"
+local EditBox       = require "ccui.EditBox"
+local Scale9Sprite  = require "ccui.Scale9Sprite"
 
 local UITextInput = class("UITextInput", UIView)
 
 function UITextInput:ctor()
     self._color = 0x000000
-    self._placeholder_color = 0x000000
-    self._font_name = false
-    self._font_size = false
+    self._placeholderColor = 0x000000
+    self._fontName = false
+    self._fontSize = false
     self._label:setReturnType(1)
-    self:set_input_mode(0)
-    self:set_input_flag(5)
+    self:setInputMode(0)
+    self:setInputFlag(5)
     self.touchable = true
 
-    self._is_open = false
+    self._open = false
 
-    self:add_event_listener(Event.REMOVED_FORM_STAGE, function ()
-        self._label:unregisterScriptEditBoxHandler()
-    end)
-
-    self:add_event_listener(Event.FOCUS_OUT, function ()
-        if self._is_open then
-            self._is_open = false
+    self:addListener(Event.FOCUS_OUT, function ()
+        if self._open then
+            self._open = false
             self._label:closeKeyboard()
         end
         self._label:setPosition(0, 0)
-        self._label:unregisterScriptEditBoxHandler()
     end)
 
-    self:add_event_listener(TouchEvent.CLICK, function ()
+    self:addListener(TouchEvent.CLICK, function ()
         self._label:registerScriptEditBoxHandler(function (event)
             if event == "return" then
                 self._label:setPosition(0, 0)
-                self._is_open = false
+                self._open = false
                 if self.stage and self.stage.focus == self then
                     self.stage.focus = false
                 end
@@ -62,97 +60,87 @@ function UITextInput:ctor()
         self._label:runAction(A.call_func(function ()
             if self.cobj then
                 self._label:openKeyboard()
-                self._is_open = true
+                self._open = true
             end
         end))
     end)
 end
 
 function UITextInput.Get:cobj()
-    local cobj = ccui.Layout:create()
-    cobj:setTouchEnabled(false)
+    local cobj = Layout.create()
+    cobj.touchEnabled = false
     rawset(self, "cobj", cobj)
 
-    local label = ccui.EditBox:create()
-    label:setTouchEnabled(false)
-    label:setIgnoreAnchorPointForPosition(true)
+    local label = EditBox.create({width = 10, height = 10},
+        Scale9Sprite.create(), nil, nil)
+    label.touchEnabled = false
+    label.ignoreAnchorPointForPosition = true
     cobj:addChild(label, 0)
     self._label = label
 
     return cobj
 end
 
-function UITextInput:set_input_mode(value)
-    self._label:setInputMode(value)
+function UITextInput:setInputMode(value)
+    self._label.inputMode = value
 end
 
-function UITextInput:set_input_flag(value)
-    self._label:setInputFlag(value)
-end
-
-local function cti(c)
-    return c.r << 16 | c.g << 8 | c.b
-end
-
-local function itc(color)
-    local R = color >> 16 & 0xFF
-    local G = color >> 8 & 0xFF
-    local B = color & 0xFF
-    return {r = R, g = G, b = B, a = 255}
+function UITextInput:setInputFlag(value)
+    self._label.inputFlag = value
 end
 
 function UITextInput.Set:width(value)
     UIView.Set.width(self, value)
     if value ~= 0 then
-        self._label:setWidth(value)
+        self._label.width = value
     end
 end
 
 function UITextInput.Set:height(value)
     UIView.Set.height(self, value)
     if value ~= 0 then
-        self._label:setHeight(value)
+        self._label.height = value
     end
 end
 
-function UITextInput.Get:max_length() return self._label:getMaxLength() end
-function UITextInput.Set:max_length(value)
-    self._label:setMaxLength(value)
+function UITextInput.Get:maxLength() return self._label.maxLength end
+function UITextInput.Set:maxLength(value)
+    self._label.maxLength = value
 end
 
-function UITextInput.Get:text() return self._label:getText() end
+function UITextInput.Get:text() return self._label.text end
 function UITextInput.Set:text(value)
-    self._label:setText(value or "")
+    self._label.text = value or ""
 end
 
 function UITextInput.Get:color() return self._color end
-function UITextInput.Set:color(value) 
+function UITextInput.Set:color(value)
     self._color = value
-    self._label:setFontColor(itc(value)) 
+    self._label.fontColor = value
 end
 
-function UITextInput.Get:font_size() return self._font_size end
-function UITextInput.Set:font_size(value)
-    self._font_size = value
-    self._label:setFontSize(value)
-    self._label:setPlaceholderFontSize(value)
+function UITextInput.Get:fontSize() return self._fontSize end
+function UITextInput.Set:fontSize(value)
+    self._fontSize = value
+    self._label.fontSize = value
+    self._label.placeholderFontSize = value
 end
 
-function UITextInput.Get:font_name() return self._font_name end
-function UITextInput.Set:font_name(value)
-    self._label:setFontName(value)
-    self._label:setPlaceholderFontName(value)
+function UITextInput.Get:fontName() return self._fontName end
+function UITextInput.Set:fontName(value)
+    self._label.fontName = value
+    self._label.placeholderFontName = value
 end
 
-function UITextInput.Get:placeholder() return self._label:getPlaceHolder() end
+function UITextInput.Get:placeholder() return self._label.placeHolder end
 function UITextInput.Set:placeholder(value)
-    self._label:setPlaceHolder(value or "")
+    self._label.placeHolder = value or ""
 end
 
-function UITextInput.Get:placeholder_color() return self._placeholder_color end
-function UITextInput.Set:placeholder_color(value) 
-    self._placeholder_color = value
-    self._label:setPlaceholderFontColor(itc(value)) 
+function UITextInput.Get:placeholderColor() return self._placeholderColor end
+function UITextInput.Set:placeholderColor(value)
+    self._placeholderColor = value
+    self._label.placeholderFontColor = value
 end
 
 return UITextInput

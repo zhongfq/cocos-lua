@@ -1,9 +1,9 @@
 local class         = require "xgame.class"
-local TouchStyle    = require "xgame.ui.TouchStyle"
+local shader        = require "xgame.shader"
 local UIImage       = require "xgame.ui.UIImage"
 local UITextField   = require "xgame.ui.UITextField"
 local UIView        = require "xgame.ui.UIView"
-local Shader        = require "xgame.Shader"
+local Widget        = require "ccui.Widget"
 
 local UIButton = class("UIButton", UIView)
 
@@ -11,7 +11,7 @@ function UIButton:ctor()
 end
 
 function UIButton.Get:cobj()
-    local cobj = ccui.Widget:create()
+    local cobj = Widget.create()
     cobj:setTouchEnabled(false)
     rawset(self, "cobj", cobj)
 
@@ -25,22 +25,22 @@ function UIButton.Get:cobj()
     return cobj
 end
 
-function UIButton:load_texture(skin)
-    self._renderer:load_texture(skin)
+function UIButton:loadTexture(skin)
+    self._renderer:loadTexture(skin)
     self.cobj:setContentSize(self._renderer.cobj:getContentSize())
 end
 
-function UIButton:validate_display()
-    self._label:set_position(
-        self.width / 2 + self._label.cobj:getAdditionalKerning() / 2,
-        self.height / 2)
+function UIButton:validateDisplay()
+    local label = self._label
+    label.x = self.width / 2 + label.cobj:getAdditionalKerning() / 2
+    label.y = self.height / 2
 end
 
-function UIButton:set_gray(value)
+function UIButton:setGray(value)
     if value then
-        self._renderer.cobj:setGLProgram(Shader.gray)
+        self._renderer.cobj:setGLProgram(shader.gray)
     else
-        self._renderer.cobj:setGLProgram(Shader.default)
+        self._renderer.cobj:setGLProgram(shader.default)
     end
 end
 

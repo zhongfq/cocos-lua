@@ -4,6 +4,7 @@ local UIImage       = require "xgame.ui.UIImage"
 local UIView        = require "xgame.ui.UIView"
 local TouchEvent    = require "xgame.event.TouchEvent"
 local UITextField   = require "xgame.ui.UITextField"
+local Widget        = require "ccui.Widget"
 
 local UICheckBox = class("UICheckBox", UIView)
 
@@ -11,14 +12,14 @@ function UICheckBox:ctor()
     self._skin = false
     self._selected = false
 
-    self:add_event_listener(TouchEvent.CLICK, function ()
+    self:addListener(TouchEvent.CLICK, function ()
         self.selected = not self._selected
-        self:dispatch_event(Event.CHANGE)
+        self:dispatch(Event.CHANGE)
     end)
 end
 
 function UICheckBox.Get:cobj()
-    local cobj = ccui.Widget:create()
+    local cobj = Widget:create()
     cobj:setTouchEnabled(false)
     rawset(self, "cobj", cobj)
 
@@ -32,26 +33,26 @@ function UICheckBox.Get:cobj()
     return cobj
 end
 
-function UICheckBox:_load_texture(skin)
+function UICheckBox:_loadTexture(skin)
     if skin then
-        self._renderer:load_texture(skin)
+        self._renderer:loadTexture(skin)
         self.cobj:setContentSize(self._renderer.cobj:getContentSize())
     end
 end
 
-function UICheckBox:validate_display()
-    self._label:set_position(
-        self.width / 2 + self._label.cobj:getAdditionalKerning() / 2,
-        self.height / 2)
+function UICheckBox:validateDisplay()
+    local label = self._label
+    label.x = self.width / 2 + label.cobj:getAdditionalKerning() / 2
+    label.y = self.height / 2
 end
 
 function UICheckBox.Get:selected() return self._selected end
 function UICheckBox.Set:selected(value)
     self._selected = value == true
     if value then
-        self:_load_texture(self._skin.selected)
+        self:_loadTexture(self._skin.selected)
     else
-        self:_load_texture(self._skin.unselected)
+        self:_loadTexture(self._skin.unselected)
     end
 end
 

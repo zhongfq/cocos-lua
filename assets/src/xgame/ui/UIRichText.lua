@@ -1,31 +1,34 @@
-local class         = require "xgame.class"
-local Array         = require "xgame.Array"
-local UIView        = require "xgame.ui.UIView"
-local UITextField   = require "xgame.ui.UITextField"
-local font          = require "font"
+local class                 = require "xgame.class"
+local Array                 = require "xgame.Array"
+local UIView                = require "xgame.ui.UIView"
+local UITextField           = require "xgame.ui.UITextField"
+local font                  = require "xgame.font"
+local RichText              = require "ccui.RichText"
+local RichElementText       = require "ccui.RichElementText"
+local RichElementNewLine    = require "ccui.RichElementNewLine"
 
 local UIRichText = class("UIRichText", UIView)
 
 function UIRichText:ctor()
-    self._rich_elements = Array.new()
-    self._font_size = 10
-    self._font_color = 0xFFFFFF
+    self._richElements = Array.new()
+    self._fontSize = 10
+    self._fontColor = 0xFFFFFF
     self._text = ""
-    self._html_text = ""
+    self._htmlText = ""
     self._leading = 0
 end
 
 function UIRichText.Get:cobj()
-    local cobj = ccui.RichText:create()
+    local cobj = RichText.create()
     rawset(self, "cobj", cobj)
     return cobj
 end
 
 function UIRichText:_clear()
-    for _, ele in ipairs(self._rich_elements) do
+    for _, ele in ipairs(self._richElements) do
         self.cobj:removeElement(ele)
     end
-    self._rich_elements:clear()
+    self._richElements:clear()
 end
 
 function UIRichText.Set:width(value)
@@ -42,21 +45,21 @@ function UIRichText.Set:height(value)
     end
 end
 
-function UIRichText.Get:font_size()
-    return self._font_size
+function UIRichText.Get:fontSize()
+    return self._fontSize
 end
 
-function UIRichText.Set:font_size(value)
-    self._font_size = value
+function UIRichText.Set:fontSize(value)
+    self._fontSize = value
     self.cobj:setFontSize(value)
 end
 
-function UIRichText.Get:color()
-    return self._font_color
+function UIRichText.Get:fontColor()
+    return self._fontColor
 end
 
-function UIRichText.Set:color(color)
-    self._font_color = color
+function UIRichText.Set:fontColor(color)
+    self._fontColor = color
     self.cobj:setFontColor(string.format("#%06d", color))
 end
 
@@ -66,7 +69,7 @@ function UIRichText.Set:leading(value)
     self.cobj:setVerticalSpace(value)
 end
 
-local function tocolor(color)
+local function toColor(color)
     return {
         r = color >> 16 & 0xFF,
         g = color >> 8 & 0xFF,
@@ -74,7 +77,7 @@ local function tocolor(color)
     }
 end
 
-local function toflag(obj)
+local function toFlag(obj)
     local flag = 0
 
     if obj.shadow then
@@ -88,41 +91,41 @@ local function toflag(obj)
     return flag
 end
 
-function UIRichText:_push_newline()
-    local nl = ccui.RichElementNewLine:create(#self._rich_elements,
+function UIRichText:_pushNewline()
+    local nl = RichElementNewLine.create(#self._richElements,
         {r = 0, g = 0, b = 0}, 255)
-    self._rich_elements:push_back(nl)
+    self._richElements:push_back(nl)
     self.cobj:pushBackElement(nl)
 end
 
-function UIRichText:_push_text(obj)
+function UIRichText:_pushText(obj)
     assert(obj.text)
     local newline = false
     for text in string.gmatch(obj.text, "[^\n]+") do
         if newline then
-            self:_push_newline()
+            self:_pushNewline()
         end
-        local ele = ccui.RichElementText:create(#self._rich_elements,
-            tocolor(obj.color),
+        local ele = RichElementText.create(#self._richElements,
+            toColor(obj.color),
             0xFF,
             text,
             obj.face or UITextField.DEFAULT_FONT,
             obj.size,
-            toflag(obj),
+            toFlag(obj),
             obj.url or "",
-            tocolor(obj.outline_color or 0xFFFFFF),
-            obj.outline_size or -1,
-            tocolor(obj.shadow_color or 0x000000),
-            obj.shadow_offset or {x = 2, y = -2},
-            obj.shadow_blur_radius or 0
+            toColor(obj.outlineColor or 0xFFFFFF),
+            obj.outlineSize or -1,
+            toColor(obj.shadowColor or 0x000000),
+            obj.shadowOffset or {x = 2, y = -2},
+            obj.shadowBlurRadius or 0
         )
-        self._rich_elements:push_back(ele)
+        self._richElements:push_back(ele)
         self.cobj:pushBackElement(ele)
         newline = true
     end
 
     if string.find(obj.text, "\n$") then
-        self:_push_newline()
+        self:_pushNewline()
     end
 end
 
@@ -132,81 +135,82 @@ end
 
 function UIRichText.Set:text(value)
     self._text = value
-    self._html_text = value
+    self._htmlText = value
 
     self:_clear()
-    self:_push_text({
-        text = value, 
-        size = self.font_size,
+    self:_pushText({
+        text = value,
+        size = self.fontSize,
         color = self.color,
     })
     self.cobj:formatText()
 end
 
-function UIRichText.Get:html_text()
-    return self._html_text
+function UIRichText.Get:htmlText()
+    return self._htmlText
 end
 
-function UIRichText.Set:html_text(value)
+function UIRichText.Set:htmlText(value)
     self._text = string.gsub(value, "(</?font[^>]*>)", "")
-    self._html_text = value
+    self._htmlText = value
 
     self:_clear()
 
     local start = 1
+    local size, color
     local patten = "(<font[^>]*>)([^<]*)</font>"
     while start do
         local from, to, style, text = string.find(value, patten, start)
         if from then
             if from > start then
-                size = size and tonumber(size) or self.font_size
+                size = size and tonumber(size) or self.fontSize
                 color = color and tonumber(color, 16) or self.color
-                self:_push_text({
+                self:_pushText({
                     text = string.sub(value, start, from - 1),
-                    font_size = size, 
-                    font_color = color,
+                    fontSize = size,
+                    fontColor = color,
                 })
             end
             if #text > 0 then
                 local size = string.match(style, 'size[ ]*=[ ]*"([0-9]+)"')
                 local face = string.match(style, 'face[ ]*=[ ]*"([^"]+)"')
                 local color = string.match(style, 'color[ ]*=[ ]*"#([0-9A-Fa-f]+)"')
-                size = size and tonumber(size) or self.font_size
+                size = size and tonumber(size) or self.fontSize
                 color = color and tonumber(color, 16) or self.color
                 local obj = {
-                    text = text, 
+                    text = text,
                     size = size,
                     color = color,
-                    face = face and font.lookup(face).path or UITextField.DEFAULT_FONT,
+                    face = face and font.lookup(face),
                 }
 
-                local outline_color, outline_size = string.match(style,
+                local outlineColor, outlineSize = string.match(style,
                     'outline[ ]*=[ ]*"#([0-9A-Fa-f]+)[ ]*(%d+)"')
-                if outline_color then
+                if outlineColor then
                     obj.outline = true
-                    obj.outline_color = tonumber(outline_color, 16)
-                    obj.outline_size = tonumber(outline_size)
+                    obj.outlineColor = tonumber(outlineColor, 16)
+                    obj.outlineSize = tonumber(outlineSize)
                 end
 
-                local shadow_color, shadow_x, shadow_y, shadow_blur_radius = string.match(style,
+                local shadowColor, shadow_x, shadow_y, shadowBlurRadius = string.match(style,
                     'shadow[ ]*=[ ]*"#([0-9A-Fa-f]+)[ ]*(%d+)[ ]*(%d+)[ ]*(%d+)"')
-                if shadow_color then
+                if shadowColor then
                     obj.shadow = true
-                    obj.shadow_color = tonumber(shadow_color, 16)
+                    obj.shadowColor = tonumber(shadowColor, 16)
                     obj.shadow_x = tonumber(shadow_x)
                     obj.shadow_y = tonumber(shadow_y)
-                    obj.shadow_blur_radius = tonumber(shadow_blur_radius)
+                    obj.shadowBlurRadius = tonumber(shadowBlurRadius)
                 end
 
-                self:_push_text(obj)
+                self:_pushText(obj)
             end
         else
             text = string.sub(value, start)
             if #text > 0 then
-                self:_push_text({
+                self:_pushText({
                     text = text,
-                    font_size = self.font_size,
-                    font_color = self.color,
+                    fontSize = self.fontSize,
+                    fontColor = self.color,
                 })
             end
             break
@@ -216,7 +220,7 @@ function UIRichText.Set:html_text(value)
     end
 
     self.cobj:formatText()
-    self:_validate_now()
+    self:_validateNow()
 end
 
-return UIRichText 
+return UIRichText

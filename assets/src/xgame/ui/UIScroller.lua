@@ -1,98 +1,89 @@
 local class         = require "xgame.class"
-local Align       = require "xgame.ui.Align"
+local Align         = require "xgame.ui.Align"
 local ScrollBase    = require "xgame.ui.ScrollBase"
 local ScrollImpl    = require "xgame.ui.ScrollImpl"
 
 local UIScroller = class("UIScroller", ScrollBase)
 
 function UIScroller:ctor()
-    self.touch_children = false
+    self.touchChildren = false
     self.touchable = true
-    self._scroll_impl = ScrollImpl.new(self, self._container)
+    self._scrollImpl = ScrollImpl.new(self, self._container)
 end
 
-function UIScroller:set_scroll_option(key, value)
-    self._scroll_impl[key] = value
+function UIScroller.Get:reboundEnabled()
+    return self._scrollImpl.reboundEnabled
+end
+function UIScroller.Set:reboundEnabled(value)
+    self._scrollImpl.reboundEnabled = value
 end
 
-function UIScroller.Get:rebound_enabled()
-    return self._scroll_impl.rebound_enabled
+function UIScroller.Get:scaleEnabled()
+    return self._scrollImpl.scaleEnabled
 end
-function UIScroller.Set:rebound_enabled(value)
-    self._scroll_impl.rebound_enabled = value
-end
-
-function UIScroller.Get:scale_enabled()
-    return self._scroll_impl.scale_enabled
-end
-function UIScroller.Set:scale_enabled(value)
-    self._scroll_impl.scale_enabled = value
+function UIScroller.Set:scaleEnabled(value)
+    self._scrollImpl.scaleEnabled = value
 end
 
-function UIScroller.Get:max_scale()
-    return self._scroll_impl.max_scale
+function UIScroller.Get:maxScale()
+    return self._scrollImpl.maxScale
 end
-function UIScroller.Set:max_scale(value)
-    self._scroll_impl.max_scale = value
-end
-
-function UIScroller.Get:min_scale()
-    return self._scroll_impl.min_scale
-end
-function UIScroller.Set:min_scale(value)
-    self._scroll_impl.min_scale = value
+function UIScroller.Set:maxScale(value)
+    self._scrollImpl.maxScale = value
 end
 
-function UIScroller:validate_now()
-    self._scroll_impl:validate()
+function UIScroller.Get:minScale()
+    return self._scrollImpl.minScale
+end
+function UIScroller.Set:minScale(value)
+    self._scrollImpl.minScale = value
 end
 
-function UIScroller:scroll_to(h, v)
-    self:get_scroll_bounds()
+function UIScroller:validateNow()
+    self._scrollImpl:validate()
+end
+
+function UIScroller:scrollTo(h, v)
+    self:getScrollBounds()
     if h == Align.LEFT then
-        self.scroll_x = self._container.width * 2
+        self.scrollX = self._container.width * 2
     elseif h == Align.RIGHT then
-        self.scroll_x = -self._container.width * 2
+        self.scrollX = -self._container.width * 2
     end
     if v == Align.TOP then
-        self.scroll_y = -self._container.height * 2
+        self.scrollY = -self._container.height * 2
     elseif v == Align.RIGHT then
-        self.scroll_y = self._container.height * 2
+        self.scrollY = self._container.height * 2
     end
-    self:validate_now()
+    self:validateNow()
 end
 
-function UIScroller:set_scroll_scale(value)
-    self._container.scale_x = value
-    self._container.scale_y = value
+function UIScroller.Get:scrollHEnabled()
+    return self._scrollImpl.horizontalEnabled
+end
+function UIScroller.Set:scrollHEnabled(value)
+    self._scrollImpl.horizontalEnabled = value
 end
 
-function UIScroller.Get:horizontal_scroll_enabled()
-    return self._scroll_impl.horizontal_enabled
+function UIScroller.Get:scrollVEnabled()
+    return self._scrollImpl.verticalEnabled
 end
-function UIScroller.Set:horizontal_scroll_enabled(value)
-    self._scroll_impl.horizontal_enabled = value
-end
-
-function UIScroller.Get:vertical_scroll_enabled()
-    return self._scroll_impl.vertical_enabled
-end
-function UIScroller.Set:vertical_scroll_enabled(value)
-    self._scroll_impl.vertical_enabled = value
+function UIScroller.Set:scrollVEnabled(value)
+    self._scrollImpl.verticalEnabled = value
 end
 
-function UIScroller.Get:horizontal_scroll_align()
-    return self._scroll_impl.horizontal_align
+function UIScroller.Get:scrollHAlign()
+    return self._scrollImpl.horizontalAlign
 end
-function UIScroller.Set:horizontal_scroll_align(value)
-    self._scroll_impl.horizontal_align = value
+function UIScroller.Set:scrollHAlign(value)
+    self._scrollImpl.horizontalAlign = value
 end
 
-function UIScroller.Get:vertical_scroll_align()
-    return self._scroll_impl.vertical_align
+function UIScroller.Get:scrollVAlign()
+    return self._scrollImpl.verticalAlign
 end
-function UIScroller.Set:vertical_scroll_align(value)
-    self._scroll_impl.vertical_align = value
+function UIScroller.Set:scrollVAlign(value)
+    self._scrollImpl.verticalAlign = value
 end
 
 return UIScroller

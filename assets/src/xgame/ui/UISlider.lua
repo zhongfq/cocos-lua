@@ -9,19 +9,19 @@ local UISlider = class("UISlider", UILayer)
 function UISlider:ctor()
     self._dragging = false
     self.position = 0 -- 0 ~ 1
-    self:add_event_listener(Event.CREATION_COMPLETE, function ()
-        self:remove_event_listener(Event.CREATION_COMPLETE, util.callee())
+    self:addListener(Event.CREATION_COMPLETE, function ()
+        self:removeListener(Event.CREATION_COMPLETE, util.callee())
         self:_update()
 
-        self.slider:add_event_listener(TouchEvent.TOUCH_MOVE, function (_, points)
+        self.slider:addListener(TouchEvent.TOUCH_MOVE, function (_, points)
             local _, p = next(points)
-            local x, y = self.slider:local_to_global(p.x, p.y)
-            x, y = self:global_to_local(x, y)
+            local x, y = self.slider:localToGlobal(p.x, p.y)
+            x, y = self:globalToLocal(x, y)
 
-            self._position = math.max(0, math.min(1, 
+            self._position = math.max(0, math.min(1,
                 x / (self.background.width - self.slider.width)))
             self:_update()
-            self:dispatch_event(Event.CHANGE)
+            self:dispatch(Event.CHANGE)
         end)
     end)
 end

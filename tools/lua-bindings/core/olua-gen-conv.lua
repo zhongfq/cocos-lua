@@ -150,11 +150,12 @@ local function gen_check_func(cv, write)
             isbase = false
             -- error(string.format("%s %s %s", cv.VARNAME, cv.LUANAME, cv.TYPE.TYPENAME))
         end
-        if pi.ATTR.OPTION then
+        if pi.DEFAULT then
+            local DEFAULT = pi.DEFAULT
             CHECK_FUNC = string.gsub(CHECK_FUNC, '_check', '_opt')
             if isbase then
                 ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
-                    value->${VARNAME} = (${TYPENAME})${CHECK_FUNC}(L, idx, "${LUANAME}", ${INIT_VALUE});
+                    value->${VARNAME} = (${TYPENAME})${CHECK_FUNC}(L, idx, "${LUANAME}", ${DEFAULT});
                 ]])
             else
                 ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[

@@ -1,6 +1,5 @@
 local class         = require "xgame.class"
 local Align         = require "xgame.ui.Align"
-local LayoutManager = require "xgame.ui.LayoutManager"
 local LayoutBase    = require "xgame.ui.LayoutBase"
 
 local HorizontalLayout = class("HorizontalLayout", LayoutBase)

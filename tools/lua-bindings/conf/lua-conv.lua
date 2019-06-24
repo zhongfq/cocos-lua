@@ -105,10 +105,10 @@ M.CONVS = {
     REG_CONV {
         CPPCLS = 'cocos2d::experimental::Viewport',
         DEF = [[
-            float _left = left;
-            float _bottom = bottom;
-            float _width = width;
-            float _height = height;
+            float _left;
+            float _bottom;
+            float _width;
+            float _height;
         ]],
     },
     REG_CONV {
@@ -164,15 +164,15 @@ M.CONVS = {
         CPPCLS = 'cocos2d::TTFConfig',
         DEF = [[
             std::string fontFilePath;
-            float fontSize;
-            cocos2d::GlyphCollection glyphs;
-            const char *customGlyphs;
-            bool distanceFieldEnabled;
-            int outlineSize;
-            bool italics;
-            bool bold;
-            bool underline;
-            bool strikethrough;
+            float fontSize = 12;
+            cocos2d::GlyphCollection glyphs = 0;
+            const char *customGlyphs = nullptr;
+            bool distanceFieldEnabled = false;
+            int outlineSize = 0;
+            bool italics = false;
+            bool bold = false;
+            bool underline = false;
+            bool strikethrough = false;
         ]],
         FUNC = 'push|check|is'
     },

@@ -1,40 +1,40 @@
 local class         = require "xgame.class"
+local Array         = require "xgame.Array"
 local Event         = require "xgame.event.Event"
 local Dispatcher    = require "xgame.event.Dispatcher"
-local xtable        = require "xgame.xtable"
 
 local RadioGroup = class("RadioGroup", Dispatcher)
 
 function RadioGroup:ctor()
-    self._selected_index = 0
-    self._items = {}
+    self._selectedIndex = 0
+    self._items = Array.new()
 end
 
-function RadioGroup:add_item(item)
-    self._items[#self._items + 1] = item
+function RadioGroup:add(item)
+    self._items:pushBack(item)
     item.selected = false
-    item:add_event_listener(Event.CHANGE, self._onchange, self)
+    item:addListener(Event.CHANGE, self._onChange, self)
 end
 
-function RadioGroup:_onchange(target)
-    self.selected_index = xtable.indexof(self._items, target)
+function RadioGroup:_onChange(target)
+    self.selectedIndex = self._items:indexOf(target)
 end
 
-function RadioGroup.Get:selected_item()
-    return self._items[self._selected_index]
+function RadioGroup.Get:selectedItem()
+    return self._items[self._selectedIndex]
 end
 
-function RadioGroup.Get:selected_index() return self._selected_index end
-function RadioGroup.Set:selected_index(value)
-    if self._selected_index > 0 then
-        self._items[self._selected_index].selected = false
-        self._items[self._selected_index].touchable = true
+function RadioGroup.Get:selectedIndex() return self._selectedIndex end
+function RadioGroup.Set:selectedIndex(value)
+    if self._selectedIndex > 0 then
+        self._items[self._selectedIndex].selected = false
+        self._items[self._selectedIndex].touchable = true
     end
-    if value > 0 and value ~= self._selected_index then
-        self._selected_index = value
-        self._items[self._selected_index].selected = true
-        self._items[self._selected_index].touchable = false
-        self:dispatch_event(Event.CHANGE)
+    if value > 0 and value ~= self._selectedIndex then
+        self._selectedIndex = value
+        self._items[self._selectedIndex].selected = true
+        self._items[self._selectedIndex].touchable = false
+        self:dispatch(Event.CHANGE)
     end
 end
 

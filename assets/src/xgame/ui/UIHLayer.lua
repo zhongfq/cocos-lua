@@ -1,6 +1,5 @@
 local class             = require "xgame.class"
 local UILayer           = require "xgame.ui.UILayer"
-local Align           = require "xgame.ui.Align"
 local HorizontalLayout  = require "xgame.ui.HorizontalLayout"
 
 local UIHLayer = class("UIHLayer", UILayer)

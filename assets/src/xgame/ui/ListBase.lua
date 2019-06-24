@@ -1,9 +1,8 @@
 local class         = require "xgame.class"
 local Event         = require "xgame.event.Event"
 local Array         = require "xgame.Array"
-local Align       = require "xgame.ui.Align"
+local Align         = require "xgame.ui.Align"
 local TouchEvent    = require "xgame.event.TouchEvent"
-local LayoutManager = require "xgame.ui.LayoutManager"
 local ScrollImpl    = require "xgame.ui.ScrollImpl"
 local ScrollBase    = require "xgame.ui.ScrollBase"
 local LayoutBase    = require "xgame.ui.LayoutBase"
@@ -18,15 +17,15 @@ function ListBase:ctor()
     self.recyclable = true
     self._cursor = {from = 1, to = 0}
     self.dequeue = Array.new()
-    self._scroll_impl = ScrollImpl.new(self, self._container)
-    self._scroll_impl.orientation = Align.VERTICAL
-    self._scroll_impl.vertical_enabled = true
-    self._scroll_impl.vertical_align = Align.TOP
-    self._scroll_impl.horizontal_enabled = false
-    self._scroll_impl.horizontal_align = Align.LEFT
-    self._scroll_impl.max_vel = 6000
-    self._scroll_impl.elapse_time = 1.5
-    self._scroll_impl.validate_threshold = function (which, rawvalue, newvalue)
+    self._scrollImpl = ScrollImpl.new(self, self._container)
+    self._scrollImpl.orientation = Align.VERTICAL
+    self._scrollImpl.scrollVenabled = true
+    self._scrollImpl.scrollVAlgin = Align.TOP
+    self._scrollImpl.scrollHenabled = false
+    self._scrollImpl.scrollHAlgin = Align.LEFT
+    self._scrollImpl.maxVel = 6000
+    self._scrollImpl.elapseTime = 1.5
+    self._scrollImpl.validateThreshold = function (which, rawvalue, newvalue)
         if which == "L" or which == "T" then
             if self._cursor.from > 1 then
                 return rawvalue
@@ -40,11 +39,11 @@ function ListBase:ctor()
         return newvalue
     end
 
-    self:add_event_listener(Event.REMOVED_FORM_STAGE, function ()
+    self:addListener(Event.REMOVED, function ()
         self.data = false
     end)
-    self:add_event_listener(TouchEvent.SCROLLING, function ()
-        self:_create_if_need()
+    self:addListener(TouchEvent.SCROLLING, function ()
+        self:_createIfneed()
     end)
 end
 
@@ -70,7 +69,7 @@ function ListBase:_internal_add_child(child, data)
         else
             child = self.item_renderer.new()
         end
-        child:add_event_listener(TouchEvent.CLICK, self._on_select_item, self)
+        child:addListener(TouchEvent.CLICK, self._on_select_item, self)
         self:add_child(child)
     end
 
@@ -95,9 +94,9 @@ function ListBase:_on_data_change(_, action, index, data)
             local child = self:_internal_add_child(nil, data)
             self._cursor.to = to + 1
             self.dequeue:add_item_at(child, index - from + 1)
-            self:_create_if_need()
+            self:_createIfneed()
         else
-            self:_create_if_need()
+            self:_createIfneed()
         end
     elseif action == "REMOVE" then
         if index < from then
@@ -107,7 +106,7 @@ function ListBase:_on_data_change(_, action, index, data)
             local child = self.dequeue:remove_item_at(index - from + 1)
             self._cursor.to = to - 1
             self:remove_child(child)
-            self:_create_if_need()
+            self:_createIfneed()
         end
     elseif action == "CLEAR" then
         self:remove_children()
@@ -174,7 +173,7 @@ function ListBase:_obtain_recyclable_children()
     return arr
 end
 
-function ListBase:_create_if_need(try_times)
+function ListBase:_createIfneed(try_times)
     if not self.data then
         return
     end
@@ -231,8 +230,8 @@ function ListBase:_create_if_need(try_times)
             v:remove_self()
         end
         self.layout:do_layout()
-        self._scroll_impl:validate()
-        self:_create_if_need(try_times)
+        self._scrollImpl:validate()
+        self:_createIfneed(try_times)
     end
 end
 
@@ -254,9 +253,9 @@ function ListBase.Set:data(value)
         return
     end
 
-    value:add_event_listener(Event.CHANGE, self._on_data_change, self)
+    value:addListener(Event.CHANGE, self._on_data_change, self)
 
-    self:_create_if_need()
+    self:_createIfneed()
 end
 
 --
@@ -318,7 +317,6 @@ function Layout:get_bounds(target)
 end
 
 function Layout:do_layout()
-    LayoutManager:remove_update(self)
     if not self.target.stage then
         return
     end

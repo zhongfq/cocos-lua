@@ -760,15 +760,15 @@ void auto_luacv_check_cocos2d_TTFConfig(lua_State *L, int idx, cocos2d::TTFConfi
     idx = lua_absindex(L, idx);
     luaL_checktype(L, idx, LUA_TTABLE);
     value->fontFilePath = (std::string)olua_checkfieldstring(L, idx, "fontFilePath");
-    value->fontSize = (float)olua_checkfieldnumber(L, idx, "fontSize");
-    value->glyphs = (cocos2d::GlyphCollection)olua_checkfieldinteger(L, idx, "glyphs");
-    value->customGlyphs = (const char *)olua_checkfieldstring(L, idx, "customGlyphs");
-    value->distanceFieldEnabled = (bool)olua_checkfieldboolean(L, idx, "distanceFieldEnabled");
-    value->outlineSize = (int)olua_checkfieldinteger(L, idx, "outlineSize");
-    value->italics = (bool)olua_checkfieldboolean(L, idx, "italics");
-    value->bold = (bool)olua_checkfieldboolean(L, idx, "bold");
-    value->underline = (bool)olua_checkfieldboolean(L, idx, "underline");
-    value->strikethrough = (bool)olua_checkfieldboolean(L, idx, "strikethrough");
+    value->fontSize = (float)olua_optfieldnumber(L, idx, "fontSize", 12);
+    value->glyphs = (cocos2d::GlyphCollection)olua_optfieldinteger(L, idx, "glyphs", 0);
+    value->customGlyphs = (const char *)olua_optfieldstring(L, idx, "customGlyphs", nullptr);
+    value->distanceFieldEnabled = (bool)olua_optfieldboolean(L, idx, "distanceFieldEnabled", false);
+    value->outlineSize = (int)olua_optfieldinteger(L, idx, "outlineSize", 0);
+    value->italics = (bool)olua_optfieldboolean(L, idx, "italics", false);
+    value->bold = (bool)olua_optfieldboolean(L, idx, "bold", false);
+    value->underline = (bool)olua_optfieldboolean(L, idx, "underline", false);
+    value->strikethrough = (bool)olua_optfieldboolean(L, idx, "strikethrough", false);
 }
 
 bool auto_luacv_is_cocos2d_TTFConfig(lua_State *L, int idx)

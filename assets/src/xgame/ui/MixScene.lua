@@ -1,6 +1,6 @@
 local class         = require "xgame.class"
 local timer         = require "xgame.timer"
-local EventAgent    = require "xgame.EventAgent"
+local EventAgent    = require "xgame.event.EventAgent"
 local UIScene       = require "xgame.ui.UIScene"
 
 local MixScene = class("MixScene", UIScene)

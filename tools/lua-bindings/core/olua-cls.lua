@@ -796,19 +796,24 @@ function REG_CONV(ci)
     ci.PROPS = {}
     for line in string.gmatch(assert(ci.DEF, 'no DEF'), '[^\n\r]+') do
         local attr, line = parse_attr(line)
-        local typename, varname, luaname = string.match(line, '([^{} ]+[ *&])([^ *&]+) *= *([^ ;]*)')
-        if not typename then
-            typename, varname = string.match(line, '([^{}]+[ *&])([^ *&;]+)')
+
+        local typename, attr, varname, default
+        if line and #line > 0 then
+            typename, attr, line = parse_def(line)
+            varname, default = string.match(line, '^([^ ]+) *= *([^ ,;]*)')
+            if not varname then
+                varname = string.match(line, '^ *[^ ,;]+')
+            end
         end
         if typename then
             typename = to_pretty_typename(typename)
             varname = to_pretty_typename(varname)
-            luaname = to_pretty_typename(luaname or varname)
             local typeinfo, typename = get_typeinfo(typename)
             ci.PROPS[#ci.PROPS + 1] = {
                 TYPE = typeinfo,
                 VARNAME = varname,
-                LUANAME = luaname,
+                LUANAME = string.gsub(varname, '^_*', ''),
+                DEFAULT = default,
                 ATTR = attr,
             }
         end

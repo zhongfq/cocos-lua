@@ -1031,110 +1031,6 @@ LUALIB_API void oluacls_const(lua_State *L, const char *field)
     lua_pop(L, 1);                              // L: cls
 }
 
-LUALIB_API int olua_push_bool(lua_State *L, bool value)
-{
-    lua_pushboolean(L, value);
-    return 1;
-}
-
-LUALIB_API void olua_check_bool(lua_State *L, int idx, bool *value)
-{
-    *value = olua_checkboolean(L, idx);
-}
-
-LUALIB_API void olua_opt_bool(lua_State *L, int idx, bool *value, bool def)
-{
-    *value = olua_optboolean(L, idx, def);
-}
-
-LUALIB_API int olua_push_string(lua_State *L, const char *value)
-{
-    lua_pushstring(L, value);
-    return 1;
-}
-
-LUALIB_API void olua_check_string(lua_State *L, int idx, const char **value)
-{
-    *value = olua_checkstring(L, idx);
-}
-
-LUALIB_API void olua_opt_string(lua_State *L, int idx, const char **value, const char *def)
-{
-    *value = olua_optstring(L, idx, def);
-}
-
-LUALIB_API int olua_push_number(lua_State *L, lua_Number value)
-{
-    lua_pushnumber(L, value);
-    return 1;
-}
-
-LUALIB_API void olua_check_number(lua_State *L, int idx, lua_Number *value)
-{
-    *value = olua_checknumber(L, idx);
-}
-
-LUALIB_API void olua_opt_number(lua_State *L, int idx, lua_Number *value, lua_Number def)
-{
-    *value = olua_optnumber(L, idx, def);
-}
-
-LUALIB_API int olua_push_int(lua_State *L, lua_Integer value)
-{
-    lua_pushinteger(L, value);
-    return 1;
-}
-
-LUALIB_API void olua_check_int(lua_State *L, int idx, lua_Integer *value)
-{
-    *value = olua_checkinteger(L, idx);
-}
-
-LUALIB_API void olua_opt_int(lua_State *L, int idx, lua_Integer *value, lua_Integer def)
-{
-    *value = olua_optinteger(L, idx, def);
-}
-
-LUALIB_API int olua_push_uint(lua_State *L, lua_Unsigned value)
-{
-    return olua_push_int(L, (lua_Integer)value);
-}
-
-LUALIB_API void olua_check_uint(lua_State *L, int idx, lua_Unsigned *value)
-{
-    *value = (lua_Unsigned)olua_checkinteger(L, idx);
-}
-
-LUALIB_API void olua_opt_uint(lua_State *L, int idx, lua_Unsigned *value, lua_Unsigned def)
-{
-    *value = (lua_Unsigned)olua_optinteger(L, idx, (lua_Integer)def);
-}
-
-LUALIB_API int olua_push_obj(lua_State *L, void *obj, const char *cls)
-{
-    olua_pushobj(L, obj, cls);
-    return 1;
-}
-
-LUALIB_API void olua_check_obj(lua_State *L, int idx, void **value, const char *cls)
-{
-    *value = olua_checkobj(L, idx, cls);
-}
-
-LUALIB_API void olua_opt_obj(lua_State *L, int idx, void **value, const char *cls, void *def)
-{
-    if (olua_isnil(L, idx)) {
-        *value = def;
-    } else {
-        olua_check_obj(L, idx, value, cls);
-    }
-}
-
-LUALIB_API void olua_to_obj(lua_State *L, int idx, void **value, const char *cls)
-{
-    *value = olua_toobj(L, idx, cls);
-}
-
 static void auxchecktype(lua_State *L, int t, const char *field, int type, bool isinteger)
 {
     int idx = lua_gettop(L) + 1;
@@ -1262,7 +1158,7 @@ LUALIB_API bool olua_hasfield(lua_State *L, int idx, const char *field)
     return type != LUA_TNIL;
 }
 
-static int _olua_with(lua_State *L)
+static int _lwith(lua_State *L)
 {
     lua_settop(L, 3);
     luaL_checktype(L, 1, LUA_TUSERDATA);
@@ -1289,10 +1185,18 @@ static int _olua_with(lua_State *L)
     return 0;
 }
 
+static int _lisa(lua_State *L)
+{
+    lua_settop(L, 2);
+    olua_isa(L, 1, olua_checkstring(L, 2));
+    return 1;
+}
+
 LUALIB_API int luaopen_olua(lua_State *L)
 {
     static const luaL_Reg lib[] = {
-        {"with", _olua_with},
+        {"with", _lwith},
+        {"isa", _lisa},
         {NULL, NULL}
     };
     

@@ -6,19 +6,18 @@ local HorizontalLayout = class("HorizontalLayout", LayoutBase)
 
 function HorizontalLayout:ctor()
     self.gap = 6
-    self.content_h_align = Align.LEFT
-    self.content_v_align = Align.BOTTOM
+    self.contentHAlign = Align.LEFT
+    self.contentVAlign = Align.BOTTOM
 end
 
-function HorizontalLayout:do_layout()
+function HorizontalLayout:doLayout()
     if not self.target.stage then
         return
     end
 
-    local rl, rr, rt, rb = self:getRelativeBounds()
-
-    local total_percent = 0
-    local total_width = 0
+    local _, _, rt, rb = self.target:getBounds(self.target)
+    local totalPercent = 0
+    local totalWidth = 0
     local num = 0
 
     for _, child in ipairs(self.target.children) do
@@ -26,28 +25,28 @@ function HorizontalLayout:do_layout()
             goto continue
         end
 
-        if child.percent_width and child.percent_width > 0 then
-            total_percent = total_percent + child.percent_width
+        if child.percentWidth and child.percentWidth > 0 then
+            totalPercent = totalPercent + child.percentWidth
         else
-            total_width = total_width + child.width
+            totalWidth = totalWidth + child.width
         end
 
-        if child.percent_height and child.percent_height > 0 then
-            child.height = (rt - rb) * child.percent_height / 100
+        if child.percentHeight and child.percentHeight > 0 then
+            child.height = (rt - rb) * child.percentHeight / 100
         end
 
         ::continue::
     end
 
-    local width = self.target.width - total_width - (num - 1) * self.gap
+    local width = self.target.width - totalWidth - (num - 1) * self.gap
     if width > 0 then
         for _, child in ipairs(self.target.children) do
             if not child.visible then
                 goto continue
             end
 
-            if child.percent_width and child.percent_width > 0 then
-                child.width = width * child.percent_width / total_percent
+            if child.percentWidth and child.percentWidth > 0 then
+                child.width = width * child.percentWidth / totalPercent
             end
 
             ::continue::
@@ -68,9 +67,9 @@ function HorizontalLayout:do_layout()
     width = width - self.gap
 
     local pos = 0
-    if self.content_h_align == Align.CENTER then
+    if self.contentHAlign == Align.CENTER then
         pos = (self.target.width - width) / 2
-    elseif self.content_h_align == Align.RIGHT then
+    elseif self.contentHAlign == Align.RIGHT then
         pos = self.target.width - width
     end
 
@@ -79,12 +78,12 @@ function HorizontalLayout:do_layout()
             goto continue
         end
 
-        local cl, cr, ct, cb = child:get_bounds(self.target)
-        local x, y = child:get_position()
+        local cl, cr, ct, cb = child:getBounds(self.target)
+        local x, y = child.x, child.y
 
-        if self.content_v_align == Align.TOP then
+        if self.contentVAlign == Align.TOP then
             y = y + (rt - ct)
-        elseif self.content_v_align == Align.CENTER then
+        elseif self.contentVAlign == Align.CENTER then
             y = y + (rt + rb) / 2 - (ct + cb) / 2
         else
             y = y + (rb - cb)
@@ -92,10 +91,11 @@ function HorizontalLayout:do_layout()
 
         x = x - cl + pos
 
-        child:set_position(x, y)
+        child.x = x
+        child.y = y
         pos = pos + (cr - cl) + self.gap
 
-        self:update_child_display(child)
+        self:updateChildDisplay(child)
 
         ::continue::
     end

@@ -1,10 +1,11 @@
-local class         = require "xgame.class"
-local Event         = require "xgame.event.Event"
-local TouchEvent    = require "xgame.event.TouchEvent"
-local UIView        = require "xgame.ui.UIView"
-local Layout        = require "ccui.Layout"
-local EditBox       = require "ccui.EditBox"
-local Scale9Sprite  = require "ccui.Scale9Sprite"
+local class             = require "xgame.class"
+local Event             = require "xgame.event.Event"
+local TouchEvent        = require "xgame.event.TouchEvent"
+local UIView            = require "xgame.ui.UIView"
+local Layout            = require "ccui.Layout"
+local EditBox           = require "ccui.EditBox"
+local Scale9Sprite      = require "ccui.Scale9Sprite"
+local EditBoxDelegate   = require "ccui.LuaEditBoxDelegate"
 
 local UITextInput = class("UITextInput", UIView)
 
@@ -14,55 +15,13 @@ function UITextInput:ctor()
     self._fontName = false
     self._fontSize = false
     self._label:setReturnType(1)
+    self.restrict = false
     self:setInputMode(0)
     self:setInputFlag(5)
     self.touchable = true
 
-    self._open = false
-
-    self:addListener(Event.FOCUS_OUT, function ()
-        if self._open then
-            self._open = false
-            self._label:closeKeyboard()
-        end
-        self._label:setPosition(0, 0)
-    end)
-
     self:addListener(TouchEvent.CLICK, function ()
-        self._label:registerScriptEditBoxHandler(function (event)
-            if event == "return" then
-                self._label:setPosition(0, 0)
-                self._open = false
-                if self.stage and self.stage.focus == self then
-                    self.stage.focus = false
-                end
-                self._label:unregisterScriptEditBoxHandler()
-                self:dispatch_event(Event.COMPLETE)
-            elseif event == "changed" then
-                self:dispatch_event(Event.CHANGE)
-            end
-        end)
-        
-
-        local vbl, vbr, vbt, vbb = xGame:visible_bounds()
-        local dw, dh = xGame:design_size()
-        local offset = (dh - math.abs(vbb - vbt)) / 2
-        local x, y = self:local_to_global(0, 0)
-        if xGame.os == "mac" then
-            y = y - xGame.stage.y - offset
-        else
-            y = y - xGame.stage.y + offset
-        end
-        x, y = self:global_to_local(x, y)
-        self._label:setPosition(x, y)
-
-        local A = require "xgame.ui.action"
-        self._label:runAction(A.call_func(function ()
-            if self.cobj then
-                self._label:openKeyboard()
-                self._open = true
-            end
-        end))
+        self._label:openKeyboard()
     end)
 end
 
@@ -77,6 +36,25 @@ function UITextInput.Get:cobj()
     label.ignoreAnchorPointForPosition = true
     cobj:addChild(label, 0)
     self._label = label
+
+    local delegate = EditBoxDelegate.create()
+
+    delegate.onReturn = function ()
+        if self.stage and self.stage.focus == self then
+            self.stage.focus = false
+        end
+        self:dispatch(Event.COMPLETE)
+    end
+
+    delegate.onTextChanged = function (_, text)
+        if self.restrict then
+            local restrict = "[^" .. self.restrict .. "]"
+            self.text = string.gsub(self.text, restrict, "")
+        end
+        self:dispatch(Event.CHANGE)
+    end
+
+    label.delegate = delegate
 
     return cobj
 end

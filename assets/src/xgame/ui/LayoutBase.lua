@@ -15,6 +15,7 @@ function LayoutBase:notify(action, child)
 end
 
 function LayoutBase:update()
+    self:doLayout()
 end
 
 function LayoutBase:getBounds(target)

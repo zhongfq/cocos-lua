@@ -79,17 +79,12 @@ end
 function TextInput:_focusOut()
     if self._cocosobj then
         self._cocosobj.visible = false
-        self._cocosobj:closeKeyboard()
         self.label.text = self._cocosobj.text
     end
     self.label.visible = true
 end
 
 function TextInput:_focusIn()
-    if (self._cocosobj and self._cocosobj.open) then
-        return
-    end
-
     self.label.visible = false
 
     self:_createCocosobj()
@@ -101,7 +96,7 @@ function TextInput:_focusIn()
     cocosobj.x = x
     cocosobj.y = y
     cocosobj.restrict = self.restrict
-    cocosobj.text = self.label.plain_text
+    cocosobj.text = self.label.plainText
     cocosobj.color = self.label.color
     cocosobj.placeholder = self.placeholder
     cocosobj:setInputMode(self._inputMode)
@@ -156,13 +151,12 @@ end
 --
 -- CocosInput
 --
-local LuaEditBoxDelegate = require "ccui.LuaEditBoxDelegate"
+local EditBoxDelegate = require "ccui.LuaEditBoxDelegate"
 local Scale9Sprite = require "ccui.Scale9Sprite"
 
 CocosInput = class("CocosInput", UIView)
 
 function CocosInput:ctor()
-    self.open = false
     self.touchable = false
     self.restrict = false
 end
@@ -174,10 +168,9 @@ function CocosInput.Get:cobj()
     cobj.inputFlag = InputFlag.SENSITIVE
     rawset(self, "cobj", cobj)
 
-    local delegate = LuaEditBoxDelegate.create()
+    local delegate = EditBoxDelegate.create()
 
     delegate.onReturn = function ()
-        self.open = false
         self:dispatch(Event.COMPLETE)
     end
 
@@ -187,11 +180,6 @@ function CocosInput.Get:cobj()
             self.text = string.gsub(self.text, restrict, "")
         end
         self:dispatch(Event.CHANGE)
-
-        -- when use keyborad, if set text, label will be visible again
-        for _, child in ipairs(self.cobj:getChildren()) do
-            child.visible = false
-        end
     end
 
     cobj.delegate = delegate
@@ -201,14 +189,6 @@ end
 
 function CocosInput:openKeyboard()
     self.cobj:openKeyboard()
-    self.open = true
-end
-
-function CocosInput:closeKeyboard()
-    if self.open then
-        self.cobj:closeKeyboard()
-        self.open = false
-    end
 end
 
 function CocosInput:setFontName(value)

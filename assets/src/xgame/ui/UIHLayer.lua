@@ -7,19 +7,19 @@ local UIHLayer = class("UIHLayer", UILayer)
 function UIHLayer:ctor()
 end
 
-function UIHLayer:validate_display()
+function UIHLayer:validateDisplay()
     self._layout:notify("UPDATE")
 end
 
-function UIHLayer.Get:content_h_align() return self._layout.content_h_align end
-function UIHLayer.Set:content_h_align(value)
-    self._layout.content_h_align = value
+function UIHLayer.Get:contentHAlign() return self._layout.contentHAlign end
+function UIHLayer.Set:contentHAlign(value)
+    self._layout.contentHAlign = value
     self._layout:notify("UPDATE")
 end
 
-function UIHLayer.Get:content_v_align() return self._layout.content_v_align end
-function UIHLayer.Set:content_v_align(value)
-    self._layout.content_v_align = value
+function UIHLayer.Get:contentVAlign() return self._layout.contentVAlign end
+function UIHLayer.Set:contentVAlign(value)
+    self._layout.contentVAlign = value
     self._layout:notify("UPDATE")
 end
 

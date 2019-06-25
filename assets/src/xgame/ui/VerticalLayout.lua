@@ -6,18 +6,18 @@ local VerticalLayout = class("VerticalLayout", LayoutBase)
 
 function VerticalLayout:ctor()
     self.gap = 6
-    self.content_h_align = Align.LEFT
+    self.contentHAlgin = Align.LEFT
+    self.contentVAlign = Align.BOTTOM
 end
 
-function VerticalLayout:do_layout()
+function VerticalLayout:doLayout()
     if not self.target.stage then
         return
     end
 
-    local rl, rr, rt, rb = self:getRelativeBounds()
-
-    local total_percent = 0
-    local total_height = 0
+    local rl, rr = self.target:getBounds(self.target)
+    local totalPercent = 0
+    local totalHeight = 0
     local num = 0
 
     for _, child in ipairs(self.target.children) do
@@ -25,28 +25,28 @@ function VerticalLayout:do_layout()
             goto continue
         end
 
-        if child.percent_height and child.percent_height > 0 then
-            total_percent = total_percent + child.percent_height
+        if child.percentHeight and child.percentHeight > 0 then
+            totalPercent = totalPercent + child.percentHeight
         else
-            total_height = total_height + child.height
+            totalHeight = totalHeight + child.height
         end
 
-        if child.percent_width and child.percent_width > 0 then
-            child.width = (rr - rl) * child.percent_width / 100
+        if child.percentWidth and child.percentWidth > 0 then
+            child.width = (rr - rl) * child.percentWidth / 100
         end
 
         ::continue::
     end
 
-    local height = self.target.height - total_height - (num - 1) * self.gap
+    local height = self.target.height - totalHeight - (num - 1) * self.gap
     if height > 0 then
         for _, child in ipairs(self.target.children) do
             if not child.visible then
                 goto continue
             end
 
-            if child.percent_height and child.percent_height > 0 then
-                child.height = height * child.percent_height / total_percent
+            if child.percentHeight and child.percentHeight > 0 then
+                child.height = height * child.percentHeight / totalPercent
             end
 
             ::continue::
@@ -67,36 +67,37 @@ function VerticalLayout:do_layout()
     height = height - self.gap
 
     local pos = 0
-    if self.content_v_align == Align.CENTER then
+    if self.contentVAlign == Align.CENTER then
         pos = (self.target.height - height) / 2
-    elseif self.content_v_align == Align.TOP then
+    elseif self.contentVAlign == Align.TOP then
         pos = self.target.height - height
     end
 
     local children = self.target.children
     for i = #children, 1, -1 do
-        child = children[i]
+        local child = children[i]
         if not child.visible then
             goto continue
         end
 
-        local cl, cr, ct, cb = child:get_bounds(self.target)
-        local x, y = child:get_position()
+        local cl, cr, ct, cb = child:getBounds(self.target)
+        local x, y = child.x, child.y
 
-        if self.content_h_align == Align.RIGHT then
+        if self.contentHAlgin == Align.RIGHT then
             x = x + (rr - cr)
-        elseif self.content_h_align == Align.CENTER then
-            x = x + (rl + rr) / 2  - (cl + cr) / 2 
+        elseif self.contentHAlgin == Align.CENTER then
+            x = x + (rl + rr) / 2  - (cl + cr) / 2
         else
             x = x + (rl - cl)
         end
 
         y = y - cb + pos
 
-        child:set_position(x, y)
+        child.x = x
+        child.y = y
         pos = pos + (ct - cb) + self.gap
 
-        self:update_child_display(child)
+        self:updateChildDisplay(child)
 
         ::continue::
     end

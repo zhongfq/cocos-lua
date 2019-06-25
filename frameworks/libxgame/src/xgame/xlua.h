@@ -34,7 +34,7 @@ template <typename T> void xlua_handlestatus(lua_State *L, T* value, int status)
             luaL_error(L, "class '%s' not inherit from 'cc.Ref'", olua_getluatype(L, value, ""));
         }
 #endif
-        olua_addobjcount();
+        olua_addobjcount(L);
     }
 }
 

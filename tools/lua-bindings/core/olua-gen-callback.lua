@@ -116,10 +116,10 @@ function gen_callback(cls, fi, write)
 
     for _, v in ipairs(ai.CALLBACK.ARGS) do
         if v.ATTR.STACK then
-            PUSH_ARGS[#PUSH_ARGS + 1] = "int stack_level = olua_push_stackpool(L);"
+            PUSH_ARGS[#PUSH_ARGS + 1] = "size_t last = olua_push_objpool(L);"
             POP_STACKPOOL = format_snippet([[
                 //pop stack value
-                olua_pop_stackpool(L, stack_level);
+                olua_pop_objpool(L, last);
             ]])
            break
         end
@@ -132,11 +132,11 @@ function gen_callback(cls, fi, write)
         if v.ATTR.STACK then
             if not HAS_STACK_BEGIN then
                 HAS_STACK_BEGIN = true
-                PUSH_ARGS[#PUSH_ARGS + 1] = "olua_enable_stackpool(L);"
+                PUSH_ARGS[#PUSH_ARGS + 1] = "olua_enable_objpool(L);"
             end
         elseif HAS_STACK_BEGIN then
             HAS_STACK_BEGIN = false
-            PUSH_ARGS[#PUSH_ARGS + 1] = "olua_disable_stackpool(L);"
+            PUSH_ARGS[#PUSH_ARGS + 1] = "olua_disable_objpool(L);"
         end
     
         if v.TYPE.LUACLS then
@@ -175,7 +175,7 @@ function gen_callback(cls, fi, write)
     end
 
     if HAS_STACK_BEGIN then
-        PUSH_ARGS[#PUSH_ARGS + 1] = "olua_disable_stackpool(L);"
+        PUSH_ARGS[#PUSH_ARGS + 1] = "olua_disable_objpool(L);"
         HAS_STACK_BEGIN = false
     end
 

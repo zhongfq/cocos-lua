@@ -84,10 +84,20 @@ extern "C" {
 #define olua_optlstring(L, i, d, l) luaL_opt(L, olua_checklstring, (i), (d), (l))
 #define olua_optnumber(L, i, d)     luaL_opt(L, olua_checknumber, (i), (d))
 #define olua_optboolean(L, i, d)    (olua_isnoneornil(L, (i)) ? (d) : olua_toboolean(L, (i)) != 0)
+
+typedef struct {
+    size_t objcount;
+    size_t objpoolcount;
+    bool objpoolenabled;
+} olua_metadata_t;
+
+// metadata point must treat olua_metadata_t as first member
+LUALIB_API lua_State *olua_newstate(olua_metadata_t *mt);
+#define olua_getmetadata(L, t) (*(t*)lua_getextraspace(L))
     
-#define olua_addobjcount()  olua_changeobjcount(1)
-#define olua_subobjcount()  olua_changeobjcount(-1)
-#define olua_objcount()     olua_changeobjcount(0)
+#define olua_addobjcount(L)  olua_changeobjcount(L, 1)
+#define olua_subobjcount(L)  olua_changeobjcount(L, -1)
+#define olua_objcount(L)     olua_changeobjcount(L, 0)
     
 LUALIB_API lua_Integer olua_checkinteger(lua_State *L, int idx);
 LUALIB_API lua_Number olua_checknumber(lua_State *L, int idx);
@@ -95,7 +105,7 @@ LUALIB_API const char *olua_checklstring (lua_State *L, int arg, size_t *len);
 LUALIB_API bool olua_checkboolean(lua_State *L, int idx);
 LUALIB_API int olua_rawget(lua_State *L, int idx, const char *field);
 LUALIB_API void olua_rawset(lua_State *L, int idx, const char *field);
-LUALIB_API int olua_changeobjcount(int add);
+LUALIB_API size_t olua_changeobjcount(lua_State *L, int add);
 LUALIB_API void olua_require(lua_State *L, const char *name, lua_CFunction func);
 LUALIB_API void olua_preload(lua_State *L, const char *name, lua_CFunction func);
 LUALIB_API int olua_geterrorfunc(lua_State *L);
@@ -109,10 +119,10 @@ LUALIB_API void *olua_checkobj(lua_State *L, int idx, const char *cls);
 LUALIB_API void *olua_toobj(lua_State *L, int idx, const char *cls);
     
 // optimize temporary userdata
-LUALIB_API void olua_enable_stackpool(lua_State *L);
-LUALIB_API void olua_disable_stackpool(lua_State *L);
-LUALIB_API int olua_push_stackpool(lua_State *L);
-LUALIB_API void olua_pop_stackpool(lua_State *L, int level);
+LUALIB_API void olua_enable_objpool(lua_State *L);
+LUALIB_API void olua_disable_objpool(lua_State *L);
+LUALIB_API size_t olua_push_objpool(lua_State *L);
+LUALIB_API void olua_pop_objpool(lua_State *L, size_t level);
     
 typedef enum {
     // for olua_setcallback

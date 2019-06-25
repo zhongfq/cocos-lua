@@ -234,7 +234,7 @@ static int _errorfunc(lua_State *L)
 
 lua_State *xlua_new()
 {
-    lua_State *L = luaL_newstate();
+    lua_State *L = olua_newstate(NULL);
     luaL_openlibs(L);
     xlua_call(L, _fixcoresume);
     xlua_call(L, _fixprint);
@@ -366,7 +366,7 @@ int xlua_ccobjgc(lua_State *L)
             int top = lua_gettop(L);
             const char *str = olua_typename(L, 1);
             xgame::runtime::log("lua gc: obj=%s obj_ref_count=%d total_obj_count=%d",
-                str, obj->getReferenceCount() - 1, olua_objcount() - 1);
+                str, obj->getReferenceCount() - 1, olua_objcount(L) - 1);
             
             if (obj->getReferenceCount() > 0xFFFF) {
                 int errfuc = olua_geterrorfunc(L);
@@ -381,7 +381,7 @@ int xlua_ccobjgc(lua_State *L)
             *(void **)lua_touserdata(L, 1) = nullptr;
             lua_pushnil(L);
             lua_setuservalue(L, 1);
-            olua_subobjcount();
+            olua_subobjcount(L);
         } else {
 #ifdef COCOS2D_DEBUG
             const char *str = olua_typename(L, 1);

@@ -73,21 +73,31 @@ extern "C" {
 // check or get the raw value
 #define olua_newuserdata(L, obj, t) (*(t*)lua_newuserdata(L, sizeof(t)) = (obj))
 #define olua_touserdata(L, n, t)    (*(t*)lua_touserdata(L, (n)))
-#define olua_tonumber(L, i)         lua_tonumber(L, i)
-#define olua_tointeger(L, i)        lua_tointeger(L, i)
-#define olua_tostring(L, i)         lua_tostring(L, i)
-#define olua_tolstring(L, i, l)     lua_tolstring(L, i, l)
-#define olua_toboolean(L, i)        lua_toboolean(L, i)
-#define olua_checkstring(L, i)      olua_checklstring(L, i, NULL)
-#define olua_optinteger(L, i, d)    luaL_opt(L, olua_checkinteger, i, d)
-#define olua_optstring(L, i, d)     luaL_opt(L, olua_checkstring, i, d)
-#define olua_optlstring(L, i, d, l) luaL_opt(L, olua_checklstring, i, d, l)
-#define olua_optnumber(L, i, d)     luaL_opt(L, olua_checknumber, i, d)
-#define olua_optboolean(L, i, d)    (olua_isnoneornil(L, i) ? (d) : olua_toboolean(L, i) != 0)
+#define olua_tonumber(L, i)         lua_tonumber(L, (i))
+#define olua_tointeger(L, i)        lua_tointeger(L, (i))
+#define olua_tostring(L, i)         lua_tostring(L, (i))
+#define olua_tolstring(L, i, l)     lua_tolstring(L, (i), (l))
+#define olua_toboolean(L, i)        lua_toboolean(L, (i))
+#define olua_checkstring(L, i)      olua_checklstring(L, (i), NULL)
+#define olua_optinteger(L, i, d)    luaL_opt(L, olua_checkinteger, (i), (d))
+#define olua_optstring(L, i, d)     luaL_opt(L, olua_checkstring, (i), (d))
+#define olua_optlstring(L, i, d, l) luaL_opt(L, olua_checklstring, (i), (d), (l))
+#define olua_optnumber(L, i, d)     luaL_opt(L, olua_checknumber, (i), (d))
+#define olua_optboolean(L, i, d)    (olua_isnoneornil(L, (i)) ? (d) : olua_toboolean(L, (i)) != 0)
+
+typedef struct {
+    size_t objcount;
+    size_t objpoolcount;
+    bool objpoolenabled;
+} olua_metadata_t;
+
+// metadata point must treat olua_metadata_t as first member
+LUALIB_API lua_State *olua_newstate(olua_metadata_t *mt);
+#define olua_getmetadata(L, t) (*(t*)lua_getextraspace(L))
     
-#define olua_addobjcount()  olua_changeobjcount(1)
-#define olua_subobjcount()  olua_changeobjcount(-1)
-#define olua_objcount()     olua_changeobjcount(0)
+#define olua_addobjcount(L)  olua_changeobjcount(L, 1)
+#define olua_subobjcount(L)  olua_changeobjcount(L, -1)
+#define olua_objcount(L)     olua_changeobjcount(L, 0)
     
 LUALIB_API lua_Integer olua_checkinteger(lua_State *L, int idx);
 LUALIB_API lua_Number olua_checknumber(lua_State *L, int idx);
@@ -95,7 +105,7 @@ LUALIB_API const char *olua_checklstring (lua_State *L, int arg, size_t *len);
 LUALIB_API bool olua_checkboolean(lua_State *L, int idx);
 LUALIB_API int olua_rawget(lua_State *L, int idx, const char *field);
 LUALIB_API void olua_rawset(lua_State *L, int idx, const char *field);
-LUALIB_API int olua_changeobjcount(int add);
+LUALIB_API size_t olua_changeobjcount(lua_State *L, int add);
 LUALIB_API void olua_require(lua_State *L, const char *name, lua_CFunction func);
 LUALIB_API void olua_preload(lua_State *L, const char *name, lua_CFunction func);
 LUALIB_API int olua_geterrorfunc(lua_State *L);
@@ -109,10 +119,10 @@ LUALIB_API void *olua_checkobj(lua_State *L, int idx, const char *cls);
 LUALIB_API void *olua_toobj(lua_State *L, int idx, const char *cls);
     
 // optimize temporary userdata
-LUALIB_API void olua_enable_stackpool(lua_State *L);
-LUALIB_API void olua_disable_stackpool(lua_State *L);
-LUALIB_API int olua_push_stackpool(lua_State *L);
-LUALIB_API void olua_pop_stackpool(lua_State *L, int level);
+LUALIB_API void olua_enable_objpool(lua_State *L);
+LUALIB_API void olua_disable_objpool(lua_State *L);
+LUALIB_API size_t olua_push_objpool(lua_State *L);
+LUALIB_API void olua_pop_objpool(lua_State *L, size_t level);
     
 typedef enum {
     // for olua_setcallback
@@ -190,41 +200,53 @@ LUALIB_API void oluacls_createclassproxy(lua_State *L);
 LUALIB_API void oluacls_prop(lua_State *L, const char *field, lua_CFunction getter, lua_CFunction setter);
 LUALIB_API void oluacls_func(lua_State *L, const char *funcname, lua_CFunction func);
 LUALIB_API void oluacls_const(lua_State *L, const char *field);
-#define oluacls_const_bool(L, field, value) {lua_pushboolean(L, value); oluacls_const(L, field);}
-#define oluacls_const_number(L, field, value) {lua_pushnumber(L, value); oluacls_const(L, field);}
-#define oluacls_const_integer(L, field, value) {lua_pushinteger(L, value); oluacls_const(L, field);}
-#define oluacls_const_string(L, field, value) {lua_pushstring(L, value); oluacls_const(L, field);}
+#define oluacls_const_bool(L, f, v) {       \
+    lua_pushboolean(L, (v));                \
+    oluacls_const(L, (f));                  \
+}
+#define oluacls_const_number(L, f, v) {     \
+    lua_pushnumber(L, (v));                 \
+    oluacls_const(L, (f));                  \
+}
+#define oluacls_const_integer(L, f, v) {    \
+    lua_pushinteger(L, (v));                \
+    oluacls_const(L, (f));                  \
+}
+#define oluacls_const_string(L, f, v) {     \
+    lua_pushstring(L, (v));                 \
+    oluacls_const(L, (f));                  \
+}
     
-LUALIB_API int olua_push_bool(lua_State *L, bool value);
-LUALIB_API void olua_check_bool(lua_State *L, int idx, bool *value);
-LUALIB_API void olua_opt_bool(lua_State *L, int idx, bool *value, bool def);
-#define olua_is_bool(L, idx) olua_isboolean(L, idx)
+#define olua_push_bool(L, v)        (lua_pushboolean(L, (v)), 1)
+#define olua_check_bool(L, i, v)    (*(v) = olua_checkboolean(L, (i)))
+#define olua_opt_bool(L, i, v, d)   (*(v) = olua_optboolean(L, (i), (d)))
+#define olua_is_bool(L, i)          (olua_isboolean(L, (i)))
 
-LUALIB_API int olua_push_string(lua_State *L, const char *value);
-LUALIB_API void olua_check_string(lua_State *L, int idx, const char **value);
-LUALIB_API void olua_opt_string(lua_State *L, int idx, const char **value, const char *def);
-#define olua_is_string(L, idx) olua_isstring(L, idx)
+#define olua_push_string(L, v)      (lua_pushstring(L, v), 1)
+#define olua_check_string(L, i, v)  (*(v) = olua_checkstring(L, (i)))
+#define olua_opt_string(L, i, v, d) (*(v) = olua_optstring(L, (i), (d)))
+#define olua_is_string(L, i)        (olua_isstring(L, (i)))
 
-LUALIB_API int olua_push_number(lua_State *L, lua_Number value);
-LUALIB_API void olua_check_number(lua_State *L, int idx, lua_Number *value);
-LUALIB_API void olua_opt_number(lua_State *L, int idx, lua_Number *value, lua_Number def);
-#define olua_is_number(L, idx) olua_isnumber(L, idx)
+#define olua_push_number(L, v)      (lua_pushnumber(L, (v)), 1)
+#define olua_check_number(L, i, v)  (*(v) = olua_checknumber(L, (i)))
+#define olua_opt_number(L, i, v, d) (*(v) = olua_optnumber(L, (i), (d)))
+#define olua_is_number(L, i)        (olua_isnumber(L, (i)))
 
-LUALIB_API int olua_push_int(lua_State *L, lua_Integer value);
-LUALIB_API void olua_check_int(lua_State *L, int idx, lua_Integer *value);
-LUALIB_API void olua_opt_int(lua_State *L, int idx, lua_Integer *value, lua_Integer def);
-#define olua_is_int(L, idx) olua_isinteger(L, idx)
+#define olua_push_int(L, v)         (lua_pushinteger(L, (v)), 1)
+#define olua_check_int(L, i, v)     (*(v) = olua_checkinteger(L, (i)))
+#define olua_opt_int(L, i, v, d)    (*(v) = olua_optinteger(L, (i), (d)))
+#define olua_is_int(L, i)           (olua_isinteger(L, (i)))
 
-LUALIB_API int olua_push_uint(lua_State *L, lua_Unsigned value);
-LUALIB_API void olua_check_uint(lua_State *L, int idx, lua_Unsigned *value);
-LUALIB_API void olua_opt_uint(lua_State *L, int idx, lua_Unsigned *value, lua_Unsigned def);
-#define olua_is_uint(L, idx) olua_isinteger(L, idx)
+#define olua_push_uint(L, v)        (lua_pushinteger(L, (lua_Integer)v), 1)
+#define olua_check_uint(L, i, v)    (*(v) = (lua_Unsigned)olua_checkinteger(L, (i)))
+#define olua_opt_uint(L, i, v, d)   (*(v) = (lua_Unsigned)olua_optinteger(L, (i), (lua_Integer)(d)))
+#define olua_is_uint(L, i)          (olua_isinteger(L, (i)))
 
-LUALIB_API int olua_push_obj(lua_State *L, void *obj, const char *cls);
-LUALIB_API void olua_check_obj(lua_State *L, int idx, void **value, const char *cls);
-LUALIB_API void olua_opt_obj(lua_State *L, int idx, void **value, const char *cls, void *def);
-LUALIB_API void olua_to_obj(lua_State *L, int idx, void **value, const char *cls);
-#define olua_is_obj(L, idx, cls) olua_isa(L, idx, cls)
+#define olua_push_obj(L, o, c)      (olua_pushobj(L, (o), (c)), 1)
+#define olua_check_obj(L, i, v, c)  (*(v) = olua_checkobj(L, (i), (c)))
+#define olua_opt_obj(L, i, v, c, d) (olua_isnil(L, (i)) ? (*(v) = (d)) : olua_check_obj(L, (i), (v), (c)))
+#define olua_to_obj(L, i, v, c)     (*(v) = olua_toobj(L, (i), (c)))
+#define olua_is_obj(L, i, c)        (olua_isa(L, (i), (c)))
     
 // get or set value for table
 LUALIB_API const char *olua_checkfieldstring(lua_State *L, int idx, const char *field);

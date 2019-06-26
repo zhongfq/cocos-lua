@@ -70,11 +70,6 @@
     return YES;
 }
 
-- (BOOL)prefersHomeIndicatorAutoHidden
-{
-    return YES;
-}
-
 -(UIRectEdge)preferredScreenEdgesDeferringSystemGestures
 {
     return UIRectEdgeBottom; 

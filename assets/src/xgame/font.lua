@@ -16,7 +16,8 @@ function M.lookup(name)
                 return font
             end
         end
-        error(string.format("font '%s' not found", name))
+        print(string.format("font '%s' not found", name))
+        return assert(lib[1], 'no default font')
     end
 end
 

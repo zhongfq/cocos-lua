@@ -85,7 +85,7 @@ local function UITextField(self, data)
     self.fontSize = data.fontSize or 20
     
     if data.fontName then
-        -- self.fontName = font.lookup(data.fontName).path
+        self.fontName = font.lookup(data.fontName).path
     end
 
     if data.leading then
@@ -137,7 +137,7 @@ local function UIButton(self, data)
     UIView(self, data)
 
     if data.style == "state" then
-        self.touch_style = TouchStyle.newstate(data.skin.pressed, 
+        self.touch_style = TouchStyle.newstate(data.skin.pressed,
             data.skin.normal)
     else
         self.touch_style = TouchStyle.newelastic(1.1, 1)
@@ -227,7 +227,7 @@ local function UILayer(self, data)
                 {r = 1, g = 1, b = 1, a = 1})
         end
 
-        local function draw_rect(x1, y1, x2, y2)
+        local function drawRect(x1, y1, x2, y2)
             mask:drawSolidRect({x = x1, y = y1}, {x = x2, y = y2},
                 {r = 1, g = 1, b = 1, a = 1})
         end
@@ -241,10 +241,9 @@ local function UILayer(self, data)
             drawCircle(r, h - r, r)
             drawCircle(w - r, h - r, r)
             drawCircle(w - r, r, r)
-            draw_rect(r, 0, w - r, h)
-            draw_rect(0, r, r, h - r)
-            draw_rect(w - r, r, w, h - r)
-        elseif data.clippingType == 3 then
+            drawRect(r, 0, w - r, h)
+            drawRect(0, r, r, h - r)
+            drawRect(w - r, r, w, h - r)
         end
     end
 end

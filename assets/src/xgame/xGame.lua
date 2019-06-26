@@ -141,6 +141,7 @@ function xGame:_initRuntimeEvents()
         end)
     end
     listen('openURL')
+    listen('memoryWarning')
     listen('runtimeGC')
     listen('runtimeUpdate')
     listen('runtimeResize')

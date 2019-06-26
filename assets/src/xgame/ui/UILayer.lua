@@ -62,6 +62,7 @@ function UILayer:reszieToChildren(resizeWidth, resizeHeight)
     if resizeHeight ~= false then
         self.height = top - bottom
     end
+    self:_validateNow()
 end
 
 function UILayer:_setChildrenActive(target, active)

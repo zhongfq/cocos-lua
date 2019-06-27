@@ -11,11 +11,11 @@ function UIScroller:ctor()
     self._scrollImpl = ScrollImpl.new(self, self._container)
 end
 
-function UIScroller.Get:reboundEnabled()
-    return self._scrollImpl.reboundEnabled
+function UIScroller.Get:bounceEnabled()
+    return self._scrollImpl.bounceEnabled
 end
-function UIScroller.Set:reboundEnabled(value)
-    self._scrollImpl.reboundEnabled = value
+function UIScroller.Set:bounceEnabled(value)
+    self._scrollImpl.bounceEnabled = value
 end
 
 function UIScroller.Get:scaleEnabled()

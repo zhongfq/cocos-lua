@@ -7,10 +7,10 @@ return {
     COMPLETE            = "complete",
     PROGRESS            = "progress",
     IOERROR             = "ioerror",
-    CREATION_COMPLETE   = "creationComplete",
     CLOSE               = "close",
 
     -- view event
+    CREATION_COMPLETE   = "creationComplete",
     ADDED               = "added",
     REMOVED             = "removed",
     FOCUS_IN            = "focusIn",

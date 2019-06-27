@@ -21,7 +21,7 @@ function ScrollImpl:ctor(target, container)
     self._scrollVAlign = Align.BOTTOM
     self._touchCount = 0
     self._scrolling = false
-    self.reboundEnabled = true -- 回弹
+    self.bounceEnabled = true -- 回弹
     self.maxVel = 4500
     self.minVel = 400
     self.elapseTime = 1
@@ -149,7 +149,7 @@ function ScrollImpl:pan(deltaX, deltaY)
         end
 
         -- 不需要回弹
-        if not self.reboundEnabled then
+        if not self.bounceEnabled then
             if left + deltaX > 0 then
                 deltaX = 0 - left
             elseif right + deltaX < target.width then
@@ -167,7 +167,7 @@ function ScrollImpl:pan(deltaX, deltaY)
         end
 
         -- 不需要回弹
-        if not self.reboundEnabled then
+        if not self.bounceEnabled then
             if bottom + deltaY > 0 then
                 deltaY = 0 - bottom
             elseif top + deltaY < target.height then
@@ -252,7 +252,7 @@ function ScrollImpl:fling(velX, velY)
         self._container.x = x
         self._container.y = y
 
-        if not self.reboundEnabled then
+        if not self.bounceEnabled then
             self:validate()
         end
 

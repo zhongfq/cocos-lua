@@ -13,11 +13,13 @@ local _traceback = __TRACEBACK__
 function __TRACEBACK__(...)
     _traceback(...)
     __TRACEBACK__ = _traceback
-    print(string.rep("*", 80))
-    print('* update error, clear all and restart!!!!')
-    print(string.rep("*", 80))
-    runtime:clearStorage()
-    runtime:restart()
+    if not DEBUG then
+        print(string.rep("*", 80))
+        print('* update error, clear all and restart!!!!')
+        print(string.rep("*", 80))
+        runtime:clearStorage()
+        runtime:restart()
+    end
 end
 
 local REMOTE_MANIFEST_PATH = filesystem.dir.assets .. '/remote.manifest'

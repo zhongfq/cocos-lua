@@ -10,7 +10,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.v4.content.FileProvider;
+import android.support.v4.content.FileProvider;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
 

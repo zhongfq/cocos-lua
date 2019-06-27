@@ -265,7 +265,7 @@ JNIEXPORT void JNICALL Java_kernel_LuaJ_call
         std::string args = cocos2d::JniHelper::jstring2string(value);
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
-        lua_pushcfunction(L, xlua_errorfunc);
+        olua_geterrorfunc(L);
         olua_getref(L, func);
         if (!lua_isnil(L, -1)) {
             lua_pushstring(L, args.c_str());

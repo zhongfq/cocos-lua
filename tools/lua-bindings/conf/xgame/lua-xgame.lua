@@ -1,4 +1,4 @@
-require "core.olua-cls"
+require "olua.olua-cls"
 
 local M = {}
 

@@ -1,4 +1,4 @@
-require "core.olua-cls"
+require "olua.olua-cls"
 require "conf.cocos2d.import-cocos2d-type"
 
 local M = {}

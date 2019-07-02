@@ -591,6 +591,12 @@ static int l_isVirtual(lua_State *L) {
     return 1;
 }
 
+static int l_isConstType(lua_State *L) {
+    CXCursor cur = toCursor(L, 1);
+    lua_pushboolean(L, clang_CXXMethod_isConst(cur));
+    return 1;
+}
+
 static int l_resultType(lua_State *L) {
     CXCursor cur = toCursor(L, 1);
     CXType *type = newType(L);
@@ -623,6 +629,7 @@ static luaL_Reg cursor_functions[] = {
     {"definition", l_definition},
     {"isStatic", l_isStatic},
     {"isVirtual", l_isVirtual},
+    {"isConst", l_isConstType},
     {"resultType", l_resultType},
     {"__eq", l_cursorEqual},
     {NULL, NULL}

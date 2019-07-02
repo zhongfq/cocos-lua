@@ -7,6 +7,7 @@ local function make_luacls(cppname)
     cppname = string.gsub(cppname, "^spine::", "sp.")
     cppname = string.gsub(cppname, "^dragonBones::CC", "db.")
     cppname = string.gsub(cppname, "^dragonBones::", "db.")
+    cppname = string.gsub(cppname, "::", ".")
     cppname = string.gsub(cppname, "[ *]*$", '')
     return cppname
 end
@@ -130,7 +131,7 @@ REG_TYPE {
 
 REG_TYPE {
     TYPENAME = [[
-        cocos2d::Application::Platform
+        cocos2d::ApplicationProtocol::Platform
         cocos2d::Camera::Type
         cocos2d::Director::Projection
         cocos2d::Event::Type
@@ -187,6 +188,7 @@ REG_TYPE {
         cocos2d::ui::ScrollView::EventType
         cocos2d::ui::Slider::EventType
         cocos2d::ui::TabControl::Dock
+        cocos2d::Touch::DispatchMode
         cocos2d::ui::TabControl::EventType
         cocos2d::ui::TabHeader::EventType
         cocos2d::ui::Text::Type
@@ -207,14 +209,20 @@ REG_TYPE {
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = "olua_$$_uint",
     VALUE_TYPE = true,
+    LUACLS = make_luacls,
 }
 
 REG_TYPE {
     TYPENAME = [[
+        cocos2d::tweenfunc *
+        cocos2d::Device *
+        cocos2d::VRGenericRenderer *
+        cocos2d::VRGenericHeadTracker *
         cocos2d::AccelAmplitude *
         cocos2d::AccelDeccelAmplitude *
         cocos2d::Acceleration *
         cocos2d::Action *
+        cocos2d::TextFieldDelegate *
         cocos2d::ActionCamera *
         cocos2d::ActionEase *
         cocos2d::ActionFloat *
@@ -268,6 +276,7 @@ REG_TYPE {
         cocos2d::EaseExponentialInOut *
         cocos2d::EaseExponentialOut *
         cocos2d::EaseIn *
+        cocos2d::ApplicationProtocol *
         cocos2d::EaseInOut *
         cocos2d::EaseOut *
         cocos2d::EaseQuadraticActionIn *
@@ -327,7 +336,7 @@ REG_TYPE {
         cocos2d::Grabber *
         cocos2d::Grid3D *
         cocos2d::Grid3DAction *
-        cocos2d::GridAction * 
+        cocos2d::GridAction *
         cocos2d::GridBase *
         cocos2d::Hide *
         cocos2d::Image *

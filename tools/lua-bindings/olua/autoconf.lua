@@ -16,6 +16,7 @@ function M:parse(path)
     local header = io.open(headerPath, 'w')
     header:write('#ifndef __AUTOCONF_H__\n')
     header:write('#define __AUTOCONF_H__\n')
+    header:write(string.format('#include "%s"\n', "gltypes.h"))
     for _, v in ipairs(self.module.PARSER.PATH) do
         header:write(string.format('#include "%s"\n', v))
     end
@@ -26,6 +27,7 @@ function M:parse(path)
     local args = self.module.PARSER.ARGS
     args[#args + 1] = '-I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1'
     args[#args + 1] = '-I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include'
+    args[#args + 1] = '-Iheaders'
     args[#args + 1] = '-x'
     args[#args + 1] = 'c++'
     args[#args + 1] = '-std=c++11'

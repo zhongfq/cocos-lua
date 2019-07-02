@@ -1444,6 +1444,12 @@ cls = class(M.CLASSES)
 cls.CPPCLS = "cocos2d::GLProgram"
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
+    static GLProgram* createWithByteArrays(const GLchar* vShaderByteArray, const GLchar* fShaderByteArray)
+    bool initWithByteArrays(const GLchar* vShaderByteArray, const GLchar* fShaderByteArray)
+    static GLProgram* createWithByteArrays(const GLchar* vShaderByteArray, const GLchar* fShaderByteArray, const std::string& compileTimeDefines)
+    bool initWithByteArrays(const GLchar* vShaderByteArray, const GLchar* fShaderByteArray, const std::string& compileTimeDefines)
+    static GLProgram* createWithByteArrays(const GLchar* vShaderByteArray, const GLchar* fShaderByteArray, const std::string& compileTimeHeaders, const std::string& compileTimeDefines)
+    bool initWithByteArrays(const GLchar* vShaderByteArray, const GLchar* fShaderByteArray, const std::string& compileTimeHeaders, const std::string& compileTimeDefines)
     static GLProgram* createWithFilenames(const std::string& vShaderFilename, const std::string& fShaderFilename)
     bool initWithFilenames(const std::string& vShaderFilename, const std::string& fShaderFilename)
     static GLProgram* createWithFilenames(const std::string& vShaderFilename, const std::string& fShaderFilename, const std::string& compileTimeDefines)
@@ -1516,6 +1522,7 @@ cls.funcs [[
     @ref(single glProgram) GLProgram* getGLProgram()
     uint32_t getVertexAttribsFlags()
     ssize_t getVertexAttribCount()
+    void setVertexAttribPointer(const std::string& name, GLint size, GLenum type, GLboolean normalized, GLsizei stride, GLvoid *pointer)
     ssize_t getUniformCount()
     void setUniformInt(const std::string& uniformName, int value)
     void setUniformFloat(const std::string& uniformName, float value)
@@ -4508,6 +4515,17 @@ cls.props [[
 cls = class(M.CLASSES)
 cls.CPPCLS = "cocos2d::TiledGrid3DAction"
 cls.SUPERCLS = "cocos2d::GridAction"
+cls.CHUNK = [[
+NS_CC_BEGIN
+TiledGrid3DAction* TiledGrid3DAction::create(float duration, const Size& gridSize)
+{
+    TiledGrid3DAction* ret = new TiledGrid3DAction();
+    ret->autorelease();
+    ret->initWithDuration(duration, gridSize);
+    return ret;
+}
+NS_CC_END
+]]
 cls.funcs [[
     static TiledGrid3DAction* create(float duration, const Size& gridSize)
     Quad3 getTile(const Vec2& position)

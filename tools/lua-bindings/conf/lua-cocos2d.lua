@@ -1204,7 +1204,20 @@ typeconf 'cocos2d::Grabber'
 typeconf 'cocos2d::NodeGrid'
 typeconf 'cocos2d::GridAction'
 typeconf 'cocos2d::Grid3DAction'
-typeconf 'cocos2d::TiledGrid3DAction'
+
+local TiledGrid3DAction = typeconf 'cocos2d::TiledGrid3DAction'
+TiledGrid3DAction.CHUNK = [[
+NS_CC_BEGIN
+TiledGrid3DAction* TiledGrid3DAction::create(float duration, const Size& gridSize)
+{
+    TiledGrid3DAction* ret = new TiledGrid3DAction();
+    ret->autorelease();
+    ret->initWithDuration(duration, gridSize);
+    return ret;
+}
+NS_CC_END
+]]
+
 typeconf 'cocos2d::AccelDeccelAmplitude'
 typeconf 'cocos2d::AccelAmplitude'
 typeconf 'cocos2d::DeccelAmplitude'

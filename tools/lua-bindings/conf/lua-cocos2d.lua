@@ -147,7 +147,7 @@ Scheduler.FUNC('new', [[
 {
     auto obj = new cocos2d::Scheduler();
     obj->autorelease();
-    return olua_push_cppobj<cocos2d::Scheduler>(L, obj, nullptr);
+    return olua_push_cppobj<cocos2d::Scheduler>(L, obj);
 }
 ]])
 Scheduler.CALLBACK('schedule', {
@@ -235,7 +235,7 @@ EventDispatcher.FUNC('addCustomEventListener', [[
     
     cocos2d::EventListenerCustom *listener = new cocos2d::EventListenerCustom();
     listener->autorelease();
-    olua_push_cppobj<cocos2d::EventListenerCustom>(L, listener, "cc.EventListenerCustom");
+    olua_push_cppobj<cocos2d::EventListenerCustom>(L, listener);
     callback_store_obj = listener;
     std::string func = olua_setcallback(L, callback_store_obj, eventName.c_str(), 3, OLUA_CALLBACK_TAG_NEW);
     listener->init(eventName, [callback_store_obj, func](cocos2d::EventCustom *event) {
@@ -243,7 +243,7 @@ EventDispatcher.FUNC('addCustomEventListener', [[
         int top = lua_gettop(L);
         size_t last = olua_push_objpool(L);
         olua_enable_objpool(L);
-        olua_push_cppobj<cocos2d::EventCustom>(L, event, "cc.EventCustom");
+        olua_push_cppobj<cocos2d::EventCustom>(L, event);
         olua_disable_objpool(L);
         olua_callback(L, callback_store_obj, func.c_str(), 1);
 
@@ -339,7 +339,7 @@ EventCustom.FUNC('new', [[
     const char *event = olua_checkstring(L, 1);
     auto obj = new cocos2d::EventCustom(event);
     obj->autorelease();
-    return olua_push_cppobj<cocos2d::EventCustom>(L, obj, nullptr);
+    return olua_push_cppobj<cocos2d::EventCustom>(L, obj);
 }]])
 
 typeconf 'cocos2d::EventTouch::EventCode'
@@ -358,7 +358,7 @@ Touch.FUNC('new', [[
 {
     auto obj = new cocos2d::Touch();
     obj->autorelease();
-    return olua_push_cppobj<cocos2d::Touch>(L, obj, nullptr);
+    return olua_push_cppobj<cocos2d::Touch>(L, obj);
 }]])
 
 typeconf 'cocos2d::experimental::AudioProfile'
@@ -588,7 +588,15 @@ typeconf 'cocos2d::VRIHeadTracker'
 typeconf 'cocos2d::VRIRenderer'
 typeconf 'cocos2d::VRGenericRenderer'
 typeconf 'cocos2d::VRGenericHeadTracker'
-typeconf 'cocos2d::ActionManager'
+
+local ActionManager = typeconf 'cocos2d::ActionManager'
+ActionManager.FUNC('new', [[
+{
+    auto obj = new cocos2d::ActionManager();
+    obj->autorelease();
+    return olua_push_cppobj<cocos2d::ActionManager>(L, obj);
+}
+]])
 
 -- actions
 local Action = typeconf 'cocos2d::Action'
@@ -632,7 +640,7 @@ Sequence.FUNC('create', [[
 
     auto ret = new cocos2d::Sequence();
     ret->autorelease();
-    olua_push_cppobj<cocos2d::Sequence>(L, ret, nullptr);
+    olua_push_cppobj<cocos2d::Sequence>(L, ret);
 
     for (int i = 1; i <= n; i++) {
         cocos2d::FiniteTimeAction *obj;
@@ -666,7 +674,7 @@ Spawn.FUNC('create', [[
 
     auto ret = new cocos2d::Spawn();
     ret->autorelease();
-    olua_push_cppobj<cocos2d::Spawn>(L, ret, nullptr);
+    olua_push_cppobj<cocos2d::Spawn>(L, ret);
 
     for (int i = 1; i <= n; i++) {
         cocos2d::FiniteTimeAction *obj;
@@ -720,7 +728,9 @@ local ReverseTime = typeconf 'cocos2d::ReverseTime'
 ReverseTime.ATTR('create', {ARG1 = '@ref(map autoref)'})
 
 typeconf 'cocos2d::Animate'
-typeconf 'cocos2d::TargetedAction'
+
+local TargetedAction = typeconf 'cocos2d::TargetedAction'
+TargetedAction.ATTR('create', {ARG2 = '@ref(map autoref)'})
 
 local ActionFloat = typeconf 'cocos2d::ActionFloat'
 ActionFloat.CALLBACK('create', {
@@ -1067,7 +1077,7 @@ Node.INJECT({'removeFromParent', 'removeFromParentAndCleanup'}, {
         if (!self->getParent()) {
             return 0;
         }
-        olua_push_cppobj<cocos2d::Node>(L, self->getParent(), "cc.Node");
+        olua_push_cppobj<cocos2d::Node>(L, self->getParent());
         int parent = lua_gettop(L);
     ]]
 })

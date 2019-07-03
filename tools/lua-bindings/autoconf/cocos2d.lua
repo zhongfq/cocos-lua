@@ -248,7 +248,7 @@ cls.enum('PRIORITY_NON_SYSTEM_MIN', 'cocos2d::Scheduler::PRIORITY_NON_SYSTEM_MIN
 cls.func('new', [[{
     auto obj = new cocos2d::Scheduler();
     obj->autorelease();
-    return olua_push_cppobj<cocos2d::Scheduler>(L, obj, nullptr);
+    return olua_push_cppobj<cocos2d::Scheduler>(L, obj);
 }
 ]])
 cls.func('scheduleUpdate', [[{
@@ -358,7 +358,7 @@ cls.func('addCustomEventListener', [[{
     
     cocos2d::EventListenerCustom *listener = new cocos2d::EventListenerCustom();
     listener->autorelease();
-    olua_push_cppobj<cocos2d::EventListenerCustom>(L, listener, "cc.EventListenerCustom");
+    olua_push_cppobj<cocos2d::EventListenerCustom>(L, listener);
     callback_store_obj = listener;
     std::string func = olua_setcallback(L, callback_store_obj, eventName.c_str(), 3, OLUA_CALLBACK_TAG_NEW);
     listener->init(eventName, [callback_store_obj, func](cocos2d::EventCustom *event) {
@@ -366,7 +366,7 @@ cls.func('addCustomEventListener', [[{
         int top = lua_gettop(L);
         size_t last = olua_push_objpool(L);
         olua_enable_objpool(L);
-        olua_push_cppobj<cocos2d::EventCustom>(L, event, "cc.EventCustom");
+        olua_push_cppobj<cocos2d::EventCustom>(L, event);
         olua_disable_objpool(L);
         olua_callback(L, callback_store_obj, func.c_str(), 1);
 
@@ -563,7 +563,7 @@ cls.func('new', [[{
     const char *event = olua_checkstring(L, 1);
     auto obj = new cocos2d::EventCustom(event);
     obj->autorelease();
-    return olua_push_cppobj<cocos2d::EventCustom>(L, obj, nullptr);
+    return olua_push_cppobj<cocos2d::EventCustom>(L, obj);
 }]])
 cls.props [[
     userData
@@ -872,7 +872,7 @@ cls.funcs [[
 cls.func('new', [[{
     auto obj = new cocos2d::Touch();
     obj->autorelease();
-    return olua_push_cppobj<cocos2d::Touch>(L, obj, nullptr);
+    return olua_push_cppobj<cocos2d::Touch>(L, obj);
 }]])
 cls.props [[
     location
@@ -1792,6 +1792,12 @@ cls.funcs [[
     void resumeTargets(const Vector<Node*>& targetsToResume)
     void update(float dt)
 ]]
+cls.func('new', [[{
+    auto obj = new cocos2d::ActionManager();
+    obj->autorelease();
+    return olua_push_cppobj<cocos2d::ActionManager>(L, obj);
+}
+]])
 cls.props [[
     numberOfRunningActions
 ]]
@@ -1937,7 +1943,7 @@ cls.func('create', [[{
 
     auto ret = new cocos2d::Sequence();
     ret->autorelease();
-    olua_push_cppobj<cocos2d::Sequence>(L, ret, nullptr);
+    olua_push_cppobj<cocos2d::Sequence>(L, ret);
 
     for (int i = 1; i <= n; i++) {
         cocos2d::FiniteTimeAction *obj;
@@ -1988,7 +1994,7 @@ cls.func('create', [[{
 
     auto ret = new cocos2d::Spawn();
     ret->autorelease();
-    olua_push_cppobj<cocos2d::Spawn>(L, ret, nullptr);
+    olua_push_cppobj<cocos2d::Spawn>(L, ret);
 
     for (int i = 1; i <= n; i++) {
         cocos2d::FiniteTimeAction *obj;
@@ -2185,7 +2191,7 @@ cls = class(M.CLASSES)
 cls.CPPCLS = "cocos2d::TargetedAction"
 cls.SUPERCLS = "cocos2d::ActionInterval"
 cls.funcs [[
-    static TargetedAction* create(Node* target, FiniteTimeAction* action)
+    static TargetedAction* create(Node* target, @ref(map autoref) FiniteTimeAction* action)
     void setForcedTarget(Node* forcedTarget)
     Node* getForcedTarget()
     bool initWithTarget(Node* target, FiniteTimeAction* action)
@@ -3067,7 +3073,7 @@ cls.inject({'removeFromParent', 'removeFromParentAndCleanup'}, {
         if (!self->getParent()) {
             return 0;
         }
-        olua_push_cppobj<cocos2d::Node>(L, self->getParent(), "cc.Node");
+        olua_push_cppobj<cocos2d::Node>(L, self->getParent());
         int parent = lua_gettop(L);
     ]],
 })

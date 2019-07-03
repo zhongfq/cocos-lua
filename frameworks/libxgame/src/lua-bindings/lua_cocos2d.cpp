@@ -4,7 +4,7 @@
 #include "lua-bindings/lua_cocos2d.h"
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
-#include "lua-bindings/LuaComponent.h"
+#include "lua-bindings/LuaCocosAdapter.h"
 #include "xgame/xlua.h"
 #include "xgame/xruntime.h"
 #include "cocos2d.h"
@@ -752,6 +752,20 @@ static int luaopen_cocos2d_MATRIX_STACK_TYPE(lua_State *L)
     oluacls_const_integer(L, "MATRIX_STACK_TEXTURE", (lua_Integer)cocos2d::MATRIX_STACK_TYPE::MATRIX_STACK_TEXTURE);
 
     olua_registerluatype<cocos2d::MATRIX_STACK_TYPE>(L, "cc.MATRIX_STACK_TYPE");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_Director_Projection(lua_State *L)
+{
+    oluacls_class(L, "cc.Director.Projection", nullptr);
+    oluacls_const_integer(L, "_2D", (lua_Integer)cocos2d::Director::Projection::_2D);
+    oluacls_const_integer(L, "_3D", (lua_Integer)cocos2d::Director::Projection::_3D);
+    oluacls_const_integer(L, "CUSTOM", (lua_Integer)cocos2d::Director::Projection::CUSTOM);
+    oluacls_const_integer(L, "DEFAULT", (lua_Integer)cocos2d::Director::Projection::DEFAULT);
+
+    olua_registerluatype<cocos2d::Director::Projection>(L, "cc.Director.Projection");
     oluacls_createclassproxy(L);
 
     return 1;
@@ -6696,21 +6710,6 @@ static int _cocos2d_Application_getInstance(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_Application_getStartupScriptFilename(lua_State *L)
-{
-    lua_settop(L, 1);
-
-    cocos2d::Application *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.Application");
-
-    // const std::string& getStartupScriptFilename(void)
-    const std::string &ret = (const std::string &)self->getStartupScriptFilename();
-    int num_ret = olua_push_std_string(L, ret);
-
-    return num_ret;
-}
-
 static int _cocos2d_Application_run(lua_State *L)
 {
     lua_settop(L, 1);
@@ -6730,10 +6729,8 @@ static int luaopen_cocos2d_Application(lua_State *L)
 {
     oluacls_class(L, "cc.Application", "cc.ApplicationProtocol");
     oluacls_func(L, "getInstance", _cocos2d_Application_getInstance);
-    oluacls_func(L, "getStartupScriptFilename", _cocos2d_Application_getStartupScriptFilename);
     oluacls_func(L, "run", _cocos2d_Application_run);
     oluacls_prop(L, "instance", _cocos2d_Application_getInstance, nullptr);
-    oluacls_prop(L, "startupScriptFilename", _cocos2d_Application_getStartupScriptFilename, nullptr);
 
     olua_registerluatype<cocos2d::Application>(L, "cc.Application");
     oluacls_createclassproxy(L);
@@ -7733,7 +7730,7 @@ static int luaopen_cocos2d_FileUtils(lua_State *L)
 
 static int luaopen_ResolutionPolicy(lua_State *L)
 {
-    oluacls_class(L, "ResolutionPolicy", nullptr);
+    oluacls_class(L, "cc.ResolutionPolicy", nullptr);
     oluacls_const_integer(L, "EXACT_FIT", (lua_Integer)ResolutionPolicy::EXACT_FIT);
     oluacls_const_integer(L, "NO_BORDER", (lua_Integer)ResolutionPolicy::NO_BORDER);
     oluacls_const_integer(L, "SHOW_ALL", (lua_Integer)ResolutionPolicy::SHOW_ALL);
@@ -7741,7 +7738,7 @@ static int luaopen_ResolutionPolicy(lua_State *L)
     oluacls_const_integer(L, "FIXED_WIDTH", (lua_Integer)ResolutionPolicy::FIXED_WIDTH);
     oluacls_const_integer(L, "UNKNOWN", (lua_Integer)ResolutionPolicy::UNKNOWN);
 
-    olua_registerluatype<ResolutionPolicy>(L, "ResolutionPolicy");
+    olua_registerluatype<ResolutionPolicy>(L, "cc.ResolutionPolicy");
     oluacls_createclassproxy(L);
 
     return 1;
@@ -8510,163 +8507,9 @@ static int luaopen_cocos2d_GLView(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_GLViewImpl_enableRetina(lua_State *L)
-{
-    lua_settop(L, 2);
-
-    cocos2d::GLViewImpl *self = nullptr;
-    bool arg1 = false;   /** enabled */
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.GLViewImpl");
-    olua_check_bool(L, 2, &arg1);
-
-    // void enableRetina(bool enabled)
-    self->enableRetina(arg1);
-
-    return 0;
-}
-
-static int _cocos2d_GLViewImpl_getMonitorCount(lua_State *L)
-{
-    lua_settop(L, 1);
-
-    cocos2d::GLViewImpl *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.GLViewImpl");
-
-    // int getMonitorCount()
-    int ret = (int)self->getMonitorCount();
-    int num_ret = olua_push_int(L, (lua_Integer)ret);
-
-    return num_ret;
-}
-
-static int _cocos2d_GLViewImpl_getMonitorSize(lua_State *L)
-{
-    lua_settop(L, 1);
-
-    cocos2d::GLViewImpl *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.GLViewImpl");
-
-    // Size getMonitorSize()
-    cocos2d::Size ret = (cocos2d::Size)self->getMonitorSize();
-    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
-
-    return num_ret;
-}
-
-static int _cocos2d_GLViewImpl_isFullscreen(lua_State *L)
-{
-    lua_settop(L, 1);
-
-    cocos2d::GLViewImpl *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.GLViewImpl");
-
-    // bool isFullscreen()
-    bool ret = (bool)self->isFullscreen();
-    int num_ret = olua_push_bool(L, ret);
-
-    return num_ret;
-}
-
-static int _cocos2d_GLViewImpl_isRetinaEnabled(lua_State *L)
-{
-    lua_settop(L, 1);
-
-    cocos2d::GLViewImpl *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.GLViewImpl");
-
-    // bool isRetinaEnabled()
-    bool ret = (bool)self->isRetinaEnabled();
-    int num_ret = olua_push_bool(L, ret);
-
-    return num_ret;
-}
-
-static int _cocos2d_GLViewImpl_setFullscreen1(lua_State *L)
-{
-    lua_settop(L, 1);
-
-    cocos2d::GLViewImpl *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.GLViewImpl");
-
-    // void setFullscreen()
-    self->setFullscreen();
-
-    return 0;
-}
-
-static int _cocos2d_GLViewImpl_setFullscreen2(lua_State *L)
-{
-    lua_settop(L, 2);
-
-    cocos2d::GLViewImpl *self = nullptr;
-    lua_Integer arg1 = 0;   /** monitorIndex */
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.GLViewImpl");
-    olua_check_int(L, 2, &arg1);
-
-    // void setFullscreen(int monitorIndex)
-    self->setFullscreen((int)arg1);
-
-    return 0;
-}
-
-static int _cocos2d_GLViewImpl_setFullscreen(lua_State *L)
-{
-    int num_args = lua_gettop(L) - 1;
-
-    if (num_args == 0) {
-        return _cocos2d_GLViewImpl_setFullscreen1(L);
-    }
-
-    if (num_args == 1) {
-        // if (olua_is_int(L, 2)) {
-            return _cocos2d_GLViewImpl_setFullscreen2(L);
-        // }
-    }
-
-    luaL_error(L, "method 'cocos2d::GLViewImpl::setFullscreen' not support '%d' arguments", num_args);
-
-    return 0;
-}
-
-static int _cocos2d_GLViewImpl_setWindowed(lua_State *L)
-{
-    lua_settop(L, 3);
-
-    cocos2d::GLViewImpl *self = nullptr;
-    lua_Integer arg1 = 0;   /** width */
-    lua_Integer arg2 = 0;   /** height */
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.GLViewImpl");
-    olua_check_int(L, 2, &arg1);
-    olua_check_int(L, 3, &arg2);
-
-    // void setWindowed(int width, int height)
-    self->setWindowed((int)arg1, (int)arg2);
-
-    return 0;
-}
-
 static int luaopen_cocos2d_GLViewImpl(lua_State *L)
 {
     oluacls_class(L, "cc.GLViewImpl", "cc.GLView");
-    oluacls_func(L, "enableRetina", _cocos2d_GLViewImpl_enableRetina);
-    oluacls_func(L, "getMonitorCount", _cocos2d_GLViewImpl_getMonitorCount);
-    oluacls_func(L, "getMonitorSize", _cocos2d_GLViewImpl_getMonitorSize);
-    oluacls_func(L, "isFullscreen", _cocos2d_GLViewImpl_isFullscreen);
-    oluacls_func(L, "isRetinaEnabled", _cocos2d_GLViewImpl_isRetinaEnabled);
-    oluacls_func(L, "setFullscreen", _cocos2d_GLViewImpl_setFullscreen);
-    oluacls_func(L, "setWindowed", _cocos2d_GLViewImpl_setWindowed);
-    oluacls_prop(L, "fullscreen", _cocos2d_GLViewImpl_isFullscreen, _cocos2d_GLViewImpl_setFullscreen);
-    oluacls_prop(L, "monitorCount", _cocos2d_GLViewImpl_getMonitorCount, nullptr);
-    oluacls_prop(L, "monitorSize", _cocos2d_GLViewImpl_getMonitorSize, nullptr);
-    oluacls_prop(L, "retinaEnabled", _cocos2d_GLViewImpl_isRetinaEnabled, nullptr);
 
     olua_registerluatype<cocos2d::GLViewImpl>(L, "cc.GLViewImpl");
     oluacls_createclassproxy(L);
@@ -10916,65 +10759,6 @@ static int _cocos2d_GLProgramState_setUniformVec3(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_GLProgramState_setUniformVec3v1(lua_State *L)
-{
-    lua_settop(L, 4);
-
-    cocos2d::GLProgramState *self = nullptr;
-    std::string arg1;       /** uniformName */
-    lua_Integer arg2 = 0;   /** size */
-    cocos2d::Vec3 *arg3 = nullptr;   /** pointer */
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.GLProgramState");
-    olua_check_std_string(L, 2, &arg1);
-    olua_check_int(L, 3, &arg2);
-    olua_check_cppobj(L, 4, (void **)&arg3, "cc.Vec3");
-
-    // void setUniformVec3v(const std::string& uniformName, ssize_t size, const Vec3* pointer)
-    self->setUniformVec3v(arg1, (ssize_t)arg2, arg3);
-
-    return 0;
-}
-
-static int _cocos2d_GLProgramState_setUniformVec3v2(lua_State *L)
-{
-    lua_settop(L, 4);
-
-    cocos2d::GLProgramState *self = nullptr;
-    lua_Integer arg1 = 0;   /** uniformLocation */
-    lua_Integer arg2 = 0;   /** size */
-    cocos2d::Vec3 *arg3 = nullptr;   /** pointer */
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.GLProgramState");
-    olua_check_int(L, 2, &arg1);
-    olua_check_int(L, 3, &arg2);
-    olua_check_cppobj(L, 4, (void **)&arg3, "cc.Vec3");
-
-    // void setUniformVec3v(GLint uniformLocation, ssize_t size, const Vec3* pointer)
-    self->setUniformVec3v((GLint)arg1, (ssize_t)arg2, arg3);
-
-    return 0;
-}
-
-static int _cocos2d_GLProgramState_setUniformVec3v(lua_State *L)
-{
-    int num_args = lua_gettop(L) - 1;
-
-    if (num_args == 3) {
-        if (olua_is_std_string(L, 2) && olua_is_int(L, 3) && olua_is_cppobj(L, 4, "cc.Vec3")) {
-            return _cocos2d_GLProgramState_setUniformVec3v1(L);
-        }
-
-        // if (olua_is_int(L, 2) && olua_is_int(L, 3) && olua_is_cppobj(L, 4, "cc.Vec3")) {
-            return _cocos2d_GLProgramState_setUniformVec3v2(L);
-        // }
-    }
-
-    luaL_error(L, "method 'cocos2d::GLProgramState::setUniformVec3v' not support '%d' arguments", num_args);
-
-    return 0;
-}
-
 static int _cocos2d_GLProgramState_setUniformVec41(lua_State *L)
 {
     lua_settop(L, 3);
@@ -11083,7 +10867,6 @@ static int luaopen_cocos2d_GLProgramState(lua_State *L)
     oluacls_func(L, "setUniformTexture", _cocos2d_GLProgramState_setUniformTexture);
     oluacls_func(L, "setUniformVec2", _cocos2d_GLProgramState_setUniformVec2);
     oluacls_func(L, "setUniformVec3", _cocos2d_GLProgramState_setUniformVec3);
-    oluacls_func(L, "setUniformVec3v", _cocos2d_GLProgramState_setUniformVec3v);
     oluacls_func(L, "setUniformVec4", _cocos2d_GLProgramState_setUniformVec4);
     oluacls_func(L, "setVertexAttribPointer", _cocos2d_GLProgramState_setVertexAttribPointer);
     oluacls_prop(L, "glProgram", _cocos2d_GLProgramState_getGLProgram, _cocos2d_GLProgramState_setGLProgram);
@@ -12226,6 +12009,58 @@ static int luaopen_cocos2d_Texture2D(lua_State *L)
     oluacls_prop(L, "stringForFormat", _cocos2d_Texture2D_getStringForFormat, nullptr);
 
     olua_registerluatype<cocos2d::Texture2D>(L, "cc.Texture2D");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_TextureCube_create(lua_State *L)
+{
+    lua_settop(L, 6);
+
+    std::string arg1;       /** positive_x */
+    std::string arg2;       /** negative_x */
+    std::string arg3;       /** positive_y */
+    std::string arg4;       /** negative_y */
+    std::string arg5;       /** positive_z */
+    std::string arg6;       /** negative_z */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+    olua_check_std_string(L, 3, &arg3);
+    olua_check_std_string(L, 4, &arg4);
+    olua_check_std_string(L, 5, &arg5);
+    olua_check_std_string(L, 6, &arg6);
+
+    // static TextureCube* create(const std::string& positive_x, const std::string& negative_x, const std::string& positive_y, const std::string& negative_y, const std::string& positive_z, const std::string& negative_z)
+    cocos2d::TextureCube *ret = (cocos2d::TextureCube *)cocos2d::TextureCube::create(arg1, arg2, arg3, arg4, arg5, arg6);
+    int num_ret = olua_push_cppobj<cocos2d::TextureCube>(L, ret, "cc.TextureCube");
+
+    return num_ret;
+}
+
+static int _cocos2d_TextureCube_reloadTexture(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::TextureCube *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.TextureCube");
+
+    // bool reloadTexture()
+    bool ret = (bool)self->reloadTexture();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_TextureCube(lua_State *L)
+{
+    oluacls_class(L, "cc.TextureCube", "cc.Texture2D");
+    oluacls_func(L, "create", _cocos2d_TextureCube_create);
+    oluacls_func(L, "reloadTexture", _cocos2d_TextureCube_reloadTexture);
+
+    olua_registerluatype<cocos2d::TextureCube>(L, "cc.TextureCube");
     oluacls_createclassproxy(L);
 
     return 1;
@@ -34103,6 +33938,1126 @@ static int luaopen_cocos2d_AmbientLight(lua_State *L)
     return 1;
 }
 
+static int luaopen_cocos2d_CameraFlag(lua_State *L)
+{
+    oluacls_class(L, "cc.CameraFlag", nullptr);
+    oluacls_const_integer(L, "DEFAULT", (lua_Integer)cocos2d::CameraFlag::DEFAULT);
+    oluacls_const_integer(L, "USER1", (lua_Integer)cocos2d::CameraFlag::USER1);
+    oluacls_const_integer(L, "USER2", (lua_Integer)cocos2d::CameraFlag::USER2);
+    oluacls_const_integer(L, "USER3", (lua_Integer)cocos2d::CameraFlag::USER3);
+    oluacls_const_integer(L, "USER4", (lua_Integer)cocos2d::CameraFlag::USER4);
+    oluacls_const_integer(L, "USER5", (lua_Integer)cocos2d::CameraFlag::USER5);
+    oluacls_const_integer(L, "USER6", (lua_Integer)cocos2d::CameraFlag::USER6);
+    oluacls_const_integer(L, "USER7", (lua_Integer)cocos2d::CameraFlag::USER7);
+    oluacls_const_integer(L, "USER8", (lua_Integer)cocos2d::CameraFlag::USER8);
+
+    olua_registerluatype<cocos2d::CameraFlag>(L, "cc.CameraFlag");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_Camera_Type(lua_State *L)
+{
+    oluacls_class(L, "cc.Camera.Type", nullptr);
+    oluacls_const_integer(L, "PERSPECTIVE", (lua_Integer)cocos2d::Camera::Type::PERSPECTIVE);
+    oluacls_const_integer(L, "ORTHOGRAPHIC", (lua_Integer)cocos2d::Camera::Type::ORTHOGRAPHIC);
+
+    olua_registerluatype<cocos2d::Camera::Type>(L, "cc.Camera.Type");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_Camera_apply(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Camera *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Camera");
+
+    // void apply()
+    self->apply();
+
+    return 0;
+}
+
+static int _cocos2d_Camera_applyFrameBufferObject(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Camera *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Camera");
+
+    // void applyFrameBufferObject()
+    self->applyFrameBufferObject();
+
+    return 0;
+}
+
+static int _cocos2d_Camera_applyViewport(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Camera *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Camera");
+
+    // void applyViewport()
+    self->applyViewport();
+
+    return 0;
+}
+
+static int _cocos2d_Camera_clearBackground(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Camera *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Camera");
+
+    // void clearBackground()
+    self->clearBackground();
+
+    return 0;
+}
+
+static int _cocos2d_Camera_create(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static Camera* create()
+    cocos2d::Camera *ret = (cocos2d::Camera *)cocos2d::Camera::create();
+    int num_ret = olua_push_cppobj<cocos2d::Camera>(L, ret, "cc.Camera");
+
+    return num_ret;
+}
+
+static int _cocos2d_Camera_createOrthographic(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    lua_Number arg1 = 0;   /** zoomX */
+    lua_Number arg2 = 0;   /** zoomY */
+    lua_Number arg3 = 0;   /** nearPlane */
+    lua_Number arg4 = 0;   /** farPlane */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_number(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+    olua_check_number(L, 4, &arg4);
+
+    // static Camera* createOrthographic(float zoomX, float zoomY, float nearPlane, float farPlane)
+    cocos2d::Camera *ret = (cocos2d::Camera *)cocos2d::Camera::createOrthographic((float)arg1, (float)arg2, (float)arg3, (float)arg4);
+    int num_ret = olua_push_cppobj<cocos2d::Camera>(L, ret, "cc.Camera");
+
+    return num_ret;
+}
+
+static int _cocos2d_Camera_createPerspective(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    lua_Number arg1 = 0;   /** fieldOfView */
+    lua_Number arg2 = 0;   /** aspectRatio */
+    lua_Number arg3 = 0;   /** nearPlane */
+    lua_Number arg4 = 0;   /** farPlane */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_number(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+    olua_check_number(L, 4, &arg4);
+
+    // static Camera* createPerspective(float fieldOfView, float aspectRatio, float nearPlane, float farPlane)
+    cocos2d::Camera *ret = (cocos2d::Camera *)cocos2d::Camera::createPerspective((float)arg1, (float)arg2, (float)arg3, (float)arg4);
+    int num_ret = olua_push_cppobj<cocos2d::Camera>(L, ret, "cc.Camera");
+
+    return num_ret;
+}
+
+static int _cocos2d_Camera_getBackgroundBrush(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Camera *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Camera");
+
+    // CameraBackgroundBrush* getBackgroundBrush()
+    cocos2d::CameraBackgroundBrush *ret = (cocos2d::CameraBackgroundBrush *)self->getBackgroundBrush();
+    int num_ret = olua_push_cppobj<cocos2d::CameraBackgroundBrush>(L, ret, "cc.CameraBackgroundBrush");
+
+    return num_ret;
+}
+
+static int _cocos2d_Camera_getCameraFlag(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Camera *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Camera");
+
+    // CameraFlag getCameraFlag()
+    cocos2d::CameraFlag ret = (cocos2d::CameraFlag)self->getCameraFlag();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Camera_getDefaultCamera(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static Camera* getDefaultCamera()
+    cocos2d::Camera *ret = (cocos2d::Camera *)cocos2d::Camera::getDefaultCamera();
+    int num_ret = olua_push_cppobj<cocos2d::Camera>(L, ret, "cc.Camera");
+
+    return num_ret;
+}
+
+static int _cocos2d_Camera_getDefaultViewport(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static const experimental::Viewport& getDefaultViewport()
+    const cocos2d::experimental::Viewport &ret = (const cocos2d::experimental::Viewport &)cocos2d::Camera::getDefaultViewport();
+    int num_ret = auto_luacv_push_cocos2d_experimental_Viewport(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Camera_getDepth(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Camera *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Camera");
+
+    // int8_t getDepth()
+    int8_t ret = (int8_t)self->getDepth();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Camera_getDepthInView(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Camera *self = nullptr;
+    cocos2d::Mat4 arg1;       /** transform */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Camera");
+    manual_luacv_check_cocos2d_Mat4(L, 2, &arg1);
+
+    // float getDepthInView(const Mat4& transform)
+    float ret = (float)self->getDepthInView(arg1);
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Camera_getFarPlane(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Camera *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Camera");
+
+    // float getFarPlane()
+    float ret = (float)self->getFarPlane();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Camera_getNearPlane(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Camera *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Camera");
+
+    // float getNearPlane()
+    float ret = (float)self->getNearPlane();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Camera_getProjectionMatrix(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Camera *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Camera");
+
+    // const Mat4& getProjectionMatrix()
+    const cocos2d::Mat4 &ret = (const cocos2d::Mat4 &)self->getProjectionMatrix();
+    int num_ret = manual_luacv_push_cocos2d_Mat4(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Camera_getRenderOrder(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Camera *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Camera");
+
+    // int getRenderOrder()
+    int ret = (int)self->getRenderOrder();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Camera_getType(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Camera *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Camera");
+
+    // Camera::Type getType()
+    cocos2d::Camera::Type ret = (cocos2d::Camera::Type)self->getType();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Camera_getViewMatrix(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Camera *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Camera");
+
+    // const Mat4& getViewMatrix()
+    const cocos2d::Mat4 &ret = (const cocos2d::Mat4 &)self->getViewMatrix();
+    int num_ret = manual_luacv_push_cocos2d_Mat4(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Camera_getViewProjectionMatrix(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Camera *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Camera");
+
+    // const Mat4& getViewProjectionMatrix()
+    const cocos2d::Mat4 &ret = (const cocos2d::Mat4 &)self->getViewProjectionMatrix();
+    int num_ret = manual_luacv_push_cocos2d_Mat4(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Camera_getVisitingCamera(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static const Camera* getVisitingCamera()
+    const cocos2d::Camera *ret = (const cocos2d::Camera *)cocos2d::Camera::getVisitingCamera();
+    int num_ret = olua_push_cppobj<cocos2d::Camera>(L, (cocos2d::Camera *)ret, "cc.Camera");
+
+    return num_ret;
+}
+
+static int _cocos2d_Camera_initDefault(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Camera *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Camera");
+
+    // bool initDefault()
+    bool ret = (bool)self->initDefault();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Camera_initOrthographic(lua_State *L)
+{
+    lua_settop(L, 5);
+
+    cocos2d::Camera *self = nullptr;
+    lua_Number arg1 = 0;   /** zoomX */
+    lua_Number arg2 = 0;   /** zoomY */
+    lua_Number arg3 = 0;   /** nearPlane */
+    lua_Number arg4 = 0;   /** farPlane */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Camera");
+    olua_check_number(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+    olua_check_number(L, 5, &arg4);
+
+    // bool initOrthographic(float zoomX, float zoomY, float nearPlane, float farPlane)
+    bool ret = (bool)self->initOrthographic((float)arg1, (float)arg2, (float)arg3, (float)arg4);
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Camera_initPerspective(lua_State *L)
+{
+    lua_settop(L, 5);
+
+    cocos2d::Camera *self = nullptr;
+    lua_Number arg1 = 0;   /** fieldOfView */
+    lua_Number arg2 = 0;   /** aspectRatio */
+    lua_Number arg3 = 0;   /** nearPlane */
+    lua_Number arg4 = 0;   /** farPlane */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Camera");
+    olua_check_number(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+    olua_check_number(L, 5, &arg4);
+
+    // bool initPerspective(float fieldOfView, float aspectRatio, float nearPlane, float farPlane)
+    bool ret = (bool)self->initPerspective((float)arg1, (float)arg2, (float)arg3, (float)arg4);
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Camera_isBrushValid(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Camera *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Camera");
+
+    // bool isBrushValid()
+    bool ret = (bool)self->isBrushValid();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Camera_isViewProjectionUpdated(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Camera *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Camera");
+
+    // bool isViewProjectionUpdated()
+    bool ret = (bool)self->isViewProjectionUpdated();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Camera_lookAt(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::Camera *self = nullptr;
+    cocos2d::Vec3 arg1;       /** target */
+    cocos2d::Vec3 arg2;       /** up */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Camera");
+    auto_luacv_check_cocos2d_Vec3(L, 2, &arg1);
+    auto_luacv_opt_cocos2d_Vec3(L, 3, &arg2, (cocos2d::Vec3)cocos2d::Vec3::UNIT_Y);
+
+    // void lookAt(const Vec3& target, const Vec3& up = Vec3::UNIT_Y)
+    self->lookAt(arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_Camera_project(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Camera *self = nullptr;
+    cocos2d::Vec3 arg1;       /** src */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Camera");
+    auto_luacv_check_cocos2d_Vec3(L, 2, &arg1);
+
+    // Vec2 project(const Vec3& src)
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->project(arg1);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Camera_projectGL(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Camera *self = nullptr;
+    cocos2d::Vec3 arg1;       /** src */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Camera");
+    auto_luacv_check_cocos2d_Vec3(L, 2, &arg1);
+
+    // Vec2 projectGL(const Vec3& src)
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->projectGL(arg1);
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Camera_restore(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Camera *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Camera");
+
+    // void restore()
+    self->restore();
+
+    return 0;
+}
+
+static int _cocos2d_Camera_restoreFrameBufferObject(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Camera *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Camera");
+
+    // void restoreFrameBufferObject()
+    self->restoreFrameBufferObject();
+
+    return 0;
+}
+
+static int _cocos2d_Camera_restoreViewport(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Camera *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Camera");
+
+    // void restoreViewport()
+    self->restoreViewport();
+
+    return 0;
+}
+
+static int _cocos2d_Camera_setAdditionalProjection(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Camera *self = nullptr;
+    cocos2d::Mat4 arg1;       /** mat */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Camera");
+    manual_luacv_check_cocos2d_Mat4(L, 2, &arg1);
+
+    // void setAdditionalProjection(const Mat4& mat)
+    self->setAdditionalProjection(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Camera_setBackgroundBrush(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Camera *self = nullptr;
+    cocos2d::CameraBackgroundBrush *arg1 = nullptr;   /** clearBrush */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Camera");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.CameraBackgroundBrush");
+
+    // void setBackgroundBrush(CameraBackgroundBrush* clearBrush)
+    self->setBackgroundBrush(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Camera_setCameraFlag(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Camera *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** flag */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Camera");
+    olua_check_uint(L, 2, &arg1);
+
+    // void setCameraFlag(CameraFlag flag)
+    self->setCameraFlag((cocos2d::CameraFlag)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Camera_setDefaultViewport(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::experimental::Viewport arg1;       /** vp */
+
+    auto_luacv_check_cocos2d_experimental_Viewport(L, 1, &arg1);
+
+    // static void setDefaultViewport(const experimental::Viewport& vp)
+    cocos2d::Camera::setDefaultViewport(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Camera_setDepth(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Camera *self = nullptr;
+    lua_Integer arg1 = 0;   /** depth */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Camera");
+    olua_check_int(L, 2, &arg1);
+
+    // void setDepth(int8_t depth)
+    self->setDepth((int8_t)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Camera_setScene(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Camera *self = nullptr;
+    cocos2d::Scene *arg1 = nullptr;   /** scene */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Camera");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Scene");
+
+    // void setScene(Scene* scene)
+    self->setScene(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Camera_setViewport(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Camera *self = nullptr;
+    cocos2d::experimental::Viewport arg1;       /** vp */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Camera");
+    auto_luacv_check_cocos2d_experimental_Viewport(L, 2, &arg1);
+
+    // void setViewport(const experimental::Viewport& vp)
+    self->setViewport(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Camera_unproject(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Camera *self = nullptr;
+    cocos2d::Vec3 arg1;       /** src */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Camera");
+    auto_luacv_check_cocos2d_Vec3(L, 2, &arg1);
+
+    // Vec3 unproject(const Vec3& src)
+    cocos2d::Vec3 ret = (cocos2d::Vec3)self->unproject(arg1);
+    int num_ret = auto_luacv_push_cocos2d_Vec3(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Camera_unprojectGL(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Camera *self = nullptr;
+    cocos2d::Vec3 arg1;       /** src */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Camera");
+    auto_luacv_check_cocos2d_Vec3(L, 2, &arg1);
+
+    // Vec3 unprojectGL(const Vec3& src)
+    cocos2d::Vec3 ret = (cocos2d::Vec3)self->unprojectGL(arg1);
+    int num_ret = auto_luacv_push_cocos2d_Vec3(L, &ret);
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_Camera(lua_State *L)
+{
+    oluacls_class(L, "cc.Camera", "cc.Node");
+    oluacls_func(L, "apply", _cocos2d_Camera_apply);
+    oluacls_func(L, "applyFrameBufferObject", _cocos2d_Camera_applyFrameBufferObject);
+    oluacls_func(L, "applyViewport", _cocos2d_Camera_applyViewport);
+    oluacls_func(L, "clearBackground", _cocos2d_Camera_clearBackground);
+    oluacls_func(L, "create", _cocos2d_Camera_create);
+    oluacls_func(L, "createOrthographic", _cocos2d_Camera_createOrthographic);
+    oluacls_func(L, "createPerspective", _cocos2d_Camera_createPerspective);
+    oluacls_func(L, "getBackgroundBrush", _cocos2d_Camera_getBackgroundBrush);
+    oluacls_func(L, "getCameraFlag", _cocos2d_Camera_getCameraFlag);
+    oluacls_func(L, "getDefaultCamera", _cocos2d_Camera_getDefaultCamera);
+    oluacls_func(L, "getDefaultViewport", _cocos2d_Camera_getDefaultViewport);
+    oluacls_func(L, "getDepth", _cocos2d_Camera_getDepth);
+    oluacls_func(L, "getDepthInView", _cocos2d_Camera_getDepthInView);
+    oluacls_func(L, "getFarPlane", _cocos2d_Camera_getFarPlane);
+    oluacls_func(L, "getNearPlane", _cocos2d_Camera_getNearPlane);
+    oluacls_func(L, "getProjectionMatrix", _cocos2d_Camera_getProjectionMatrix);
+    oluacls_func(L, "getRenderOrder", _cocos2d_Camera_getRenderOrder);
+    oluacls_func(L, "getType", _cocos2d_Camera_getType);
+    oluacls_func(L, "getViewMatrix", _cocos2d_Camera_getViewMatrix);
+    oluacls_func(L, "getViewProjectionMatrix", _cocos2d_Camera_getViewProjectionMatrix);
+    oluacls_func(L, "getVisitingCamera", _cocos2d_Camera_getVisitingCamera);
+    oluacls_func(L, "initDefault", _cocos2d_Camera_initDefault);
+    oluacls_func(L, "initOrthographic", _cocos2d_Camera_initOrthographic);
+    oluacls_func(L, "initPerspective", _cocos2d_Camera_initPerspective);
+    oluacls_func(L, "isBrushValid", _cocos2d_Camera_isBrushValid);
+    oluacls_func(L, "isViewProjectionUpdated", _cocos2d_Camera_isViewProjectionUpdated);
+    oluacls_func(L, "lookAt", _cocos2d_Camera_lookAt);
+    oluacls_func(L, "project", _cocos2d_Camera_project);
+    oluacls_func(L, "projectGL", _cocos2d_Camera_projectGL);
+    oluacls_func(L, "restore", _cocos2d_Camera_restore);
+    oluacls_func(L, "restoreFrameBufferObject", _cocos2d_Camera_restoreFrameBufferObject);
+    oluacls_func(L, "restoreViewport", _cocos2d_Camera_restoreViewport);
+    oluacls_func(L, "setAdditionalProjection", _cocos2d_Camera_setAdditionalProjection);
+    oluacls_func(L, "setBackgroundBrush", _cocos2d_Camera_setBackgroundBrush);
+    oluacls_func(L, "setCameraFlag", _cocos2d_Camera_setCameraFlag);
+    oluacls_func(L, "setDefaultViewport", _cocos2d_Camera_setDefaultViewport);
+    oluacls_func(L, "setDepth", _cocos2d_Camera_setDepth);
+    oluacls_func(L, "setScene", _cocos2d_Camera_setScene);
+    oluacls_func(L, "setViewport", _cocos2d_Camera_setViewport);
+    oluacls_func(L, "unproject", _cocos2d_Camera_unproject);
+    oluacls_func(L, "unprojectGL", _cocos2d_Camera_unprojectGL);
+    oluacls_prop(L, "backgroundBrush", _cocos2d_Camera_getBackgroundBrush, _cocos2d_Camera_setBackgroundBrush);
+    oluacls_prop(L, "brushValid", _cocos2d_Camera_isBrushValid, nullptr);
+    oluacls_prop(L, "cameraFlag", _cocos2d_Camera_getCameraFlag, _cocos2d_Camera_setCameraFlag);
+    oluacls_prop(L, "defaultCamera", _cocos2d_Camera_getDefaultCamera, nullptr);
+    oluacls_prop(L, "defaultViewport", _cocos2d_Camera_getDefaultViewport, _cocos2d_Camera_setDefaultViewport);
+    oluacls_prop(L, "depth", _cocos2d_Camera_getDepth, _cocos2d_Camera_setDepth);
+    oluacls_prop(L, "farPlane", _cocos2d_Camera_getFarPlane, nullptr);
+    oluacls_prop(L, "nearPlane", _cocos2d_Camera_getNearPlane, nullptr);
+    oluacls_prop(L, "projectionMatrix", _cocos2d_Camera_getProjectionMatrix, nullptr);
+    oluacls_prop(L, "renderOrder", _cocos2d_Camera_getRenderOrder, nullptr);
+    oluacls_prop(L, "type", _cocos2d_Camera_getType, nullptr);
+    oluacls_prop(L, "viewMatrix", _cocos2d_Camera_getViewMatrix, nullptr);
+    oluacls_prop(L, "viewProjectionMatrix", _cocos2d_Camera_getViewProjectionMatrix, nullptr);
+    oluacls_prop(L, "viewProjectionUpdated", _cocos2d_Camera_isViewProjectionUpdated, nullptr);
+    oluacls_prop(L, "visitingCamera", _cocos2d_Camera_getVisitingCamera, nullptr);
+
+    olua_registerluatype<cocos2d::Camera>(L, "cc.Camera");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_CameraBackgroundBrush_BrushType(lua_State *L)
+{
+    oluacls_class(L, "cc.CameraBackgroundBrush.BrushType", nullptr);
+    oluacls_const_integer(L, "NONE", (lua_Integer)cocos2d::CameraBackgroundBrush::BrushType::NONE);
+    oluacls_const_integer(L, "DEPTH", (lua_Integer)cocos2d::CameraBackgroundBrush::BrushType::DEPTH);
+    oluacls_const_integer(L, "COLOR", (lua_Integer)cocos2d::CameraBackgroundBrush::BrushType::COLOR);
+    oluacls_const_integer(L, "SKYBOX", (lua_Integer)cocos2d::CameraBackgroundBrush::BrushType::SKYBOX);
+
+    olua_registerluatype<cocos2d::CameraBackgroundBrush::BrushType>(L, "cc.CameraBackgroundBrush.BrushType");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_CameraBackgroundBrush_createColorBrush(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Color4F arg1;       /** color */
+    lua_Number arg2 = 0;   /** depth */
+
+    manual_luacv_check_cocos2d_Color4F(L, 1, &arg1);
+    olua_check_number(L, 2, &arg2);
+
+    // static CameraBackgroundColorBrush* createColorBrush(const Color4F& color, float depth)
+    cocos2d::CameraBackgroundColorBrush *ret = (cocos2d::CameraBackgroundColorBrush *)cocos2d::CameraBackgroundBrush::createColorBrush(arg1, (float)arg2);
+    int num_ret = olua_push_cppobj<cocos2d::CameraBackgroundColorBrush>(L, ret, "cc.CameraBackgroundColorBrush");
+
+    return num_ret;
+}
+
+static int _cocos2d_CameraBackgroundBrush_createDepthBrush(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    lua_Number arg1 = 0;   /** depth */
+
+    olua_opt_number(L, 1, &arg1, (lua_Number)1.f);
+
+    // static CameraBackgroundDepthBrush* createDepthBrush(float depth = 1.f)
+    cocos2d::CameraBackgroundDepthBrush *ret = (cocos2d::CameraBackgroundDepthBrush *)cocos2d::CameraBackgroundBrush::createDepthBrush((float)arg1);
+    int num_ret = olua_push_cppobj<cocos2d::CameraBackgroundDepthBrush>(L, ret, "cc.CameraBackgroundDepthBrush");
+
+    return num_ret;
+}
+
+static int _cocos2d_CameraBackgroundBrush_createNoneBrush(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static CameraBackgroundBrush* createNoneBrush()
+    cocos2d::CameraBackgroundBrush *ret = (cocos2d::CameraBackgroundBrush *)cocos2d::CameraBackgroundBrush::createNoneBrush();
+    int num_ret = olua_push_cppobj<cocos2d::CameraBackgroundBrush>(L, ret, "cc.CameraBackgroundBrush");
+
+    return num_ret;
+}
+
+static int _cocos2d_CameraBackgroundBrush_createSkyboxBrush(lua_State *L)
+{
+    lua_settop(L, 6);
+
+    std::string arg1;       /** positive_x */
+    std::string arg2;       /** negative_x */
+    std::string arg3;       /** positive_y */
+    std::string arg4;       /** negative_y */
+    std::string arg5;       /** positive_z */
+    std::string arg6;       /** negative_z */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+    olua_check_std_string(L, 3, &arg3);
+    olua_check_std_string(L, 4, &arg4);
+    olua_check_std_string(L, 5, &arg5);
+    olua_check_std_string(L, 6, &arg6);
+
+    // static CameraBackgroundSkyBoxBrush* createSkyboxBrush(const std::string& positive_x, const std::string& negative_x, const std::string& positive_y, const std::string& negative_y, const std::string& positive_z, const std::string& negative_z)
+    cocos2d::CameraBackgroundSkyBoxBrush *ret = (cocos2d::CameraBackgroundSkyBoxBrush *)cocos2d::CameraBackgroundBrush::createSkyboxBrush(arg1, arg2, arg3, arg4, arg5, arg6);
+    int num_ret = olua_push_cppobj<cocos2d::CameraBackgroundSkyBoxBrush>(L, ret, "cc.CameraBackgroundSkyBoxBrush");
+
+    return num_ret;
+}
+
+static int _cocos2d_CameraBackgroundBrush_drawBackground(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::CameraBackgroundBrush *self = nullptr;
+    cocos2d::Camera *arg1 = nullptr;   /**  */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.CameraBackgroundBrush");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Camera");
+
+    // void drawBackground(Camera* )
+    self->drawBackground(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_CameraBackgroundBrush_getBrushType(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::CameraBackgroundBrush *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.CameraBackgroundBrush");
+
+    // BrushType getBrushType()
+    cocos2d::CameraBackgroundBrush::BrushType ret = (cocos2d::CameraBackgroundBrush::BrushType)self->getBrushType();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_CameraBackgroundBrush_init(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::CameraBackgroundBrush *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.CameraBackgroundBrush");
+
+    // bool init()
+    bool ret = (bool)self->init();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_CameraBackgroundBrush_isValid(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::CameraBackgroundBrush *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.CameraBackgroundBrush");
+
+    // bool isValid()
+    bool ret = (bool)self->isValid();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_CameraBackgroundBrush(lua_State *L)
+{
+    oluacls_class(L, "cc.CameraBackgroundBrush", "cc.Ref");
+    oluacls_func(L, "createColorBrush", _cocos2d_CameraBackgroundBrush_createColorBrush);
+    oluacls_func(L, "createDepthBrush", _cocos2d_CameraBackgroundBrush_createDepthBrush);
+    oluacls_func(L, "createNoneBrush", _cocos2d_CameraBackgroundBrush_createNoneBrush);
+    oluacls_func(L, "createSkyboxBrush", _cocos2d_CameraBackgroundBrush_createSkyboxBrush);
+    oluacls_func(L, "drawBackground", _cocos2d_CameraBackgroundBrush_drawBackground);
+    oluacls_func(L, "getBrushType", _cocos2d_CameraBackgroundBrush_getBrushType);
+    oluacls_func(L, "init", _cocos2d_CameraBackgroundBrush_init);
+    oluacls_func(L, "isValid", _cocos2d_CameraBackgroundBrush_isValid);
+    oluacls_prop(L, "brushType", _cocos2d_CameraBackgroundBrush_getBrushType, nullptr);
+    oluacls_prop(L, "valid", _cocos2d_CameraBackgroundBrush_isValid, nullptr);
+
+    olua_registerluatype<cocos2d::CameraBackgroundBrush>(L, "cc.CameraBackgroundBrush");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_CameraBackgroundDepthBrush_create(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    lua_Number arg1 = 0;   /** depth */
+
+    olua_check_number(L, 1, &arg1);
+
+    // static CameraBackgroundDepthBrush* create(float depth)
+    cocos2d::CameraBackgroundDepthBrush *ret = (cocos2d::CameraBackgroundDepthBrush *)cocos2d::CameraBackgroundDepthBrush::create((float)arg1);
+    int num_ret = olua_push_cppobj<cocos2d::CameraBackgroundDepthBrush>(L, ret, "cc.CameraBackgroundDepthBrush");
+
+    return num_ret;
+}
+
+static int _cocos2d_CameraBackgroundDepthBrush_setDepth(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::CameraBackgroundDepthBrush *self = nullptr;
+    lua_Number arg1 = 0;   /** depth */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.CameraBackgroundDepthBrush");
+    olua_check_number(L, 2, &arg1);
+
+    // void setDepth(float depth)
+    self->setDepth((float)arg1);
+
+    return 0;
+}
+
+static int luaopen_cocos2d_CameraBackgroundDepthBrush(lua_State *L)
+{
+    oluacls_class(L, "cc.CameraBackgroundDepthBrush", "cc.CameraBackgroundBrush");
+    oluacls_func(L, "create", _cocos2d_CameraBackgroundDepthBrush_create);
+    oluacls_func(L, "setDepth", _cocos2d_CameraBackgroundDepthBrush_setDepth);
+
+    olua_registerluatype<cocos2d::CameraBackgroundDepthBrush>(L, "cc.CameraBackgroundDepthBrush");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_CameraBackgroundColorBrush_create(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Color4F arg1;       /** color */
+    lua_Number arg2 = 0;   /** depth */
+
+    manual_luacv_check_cocos2d_Color4F(L, 1, &arg1);
+    olua_check_number(L, 2, &arg2);
+
+    // static CameraBackgroundColorBrush* create(const Color4F& color, float depth)
+    cocos2d::CameraBackgroundColorBrush *ret = (cocos2d::CameraBackgroundColorBrush *)cocos2d::CameraBackgroundColorBrush::create(arg1, (float)arg2);
+    int num_ret = olua_push_cppobj<cocos2d::CameraBackgroundColorBrush>(L, ret, "cc.CameraBackgroundColorBrush");
+
+    return num_ret;
+}
+
+static int _cocos2d_CameraBackgroundColorBrush_setColor(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::CameraBackgroundColorBrush *self = nullptr;
+    cocos2d::Color4F arg1;       /** color */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.CameraBackgroundColorBrush");
+    manual_luacv_check_cocos2d_Color4F(L, 2, &arg1);
+
+    // void setColor(const Color4F& color)
+    self->setColor(arg1);
+
+    return 0;
+}
+
+static int luaopen_cocos2d_CameraBackgroundColorBrush(lua_State *L)
+{
+    oluacls_class(L, "cc.CameraBackgroundColorBrush", "cc.CameraBackgroundDepthBrush");
+    oluacls_func(L, "create", _cocos2d_CameraBackgroundColorBrush_create);
+    oluacls_func(L, "setColor", _cocos2d_CameraBackgroundColorBrush_setColor);
+
+    olua_registerluatype<cocos2d::CameraBackgroundColorBrush>(L, "cc.CameraBackgroundColorBrush");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_CameraBackgroundSkyBoxBrush_create1(lua_State *L)
+{
+    lua_settop(L, 6);
+
+    std::string arg1;       /** positive_x */
+    std::string arg2;       /** negative_x */
+    std::string arg3;       /** positive_y */
+    std::string arg4;       /** negative_y */
+    std::string arg5;       /** positive_z */
+    std::string arg6;       /** negative_z */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+    olua_check_std_string(L, 3, &arg3);
+    olua_check_std_string(L, 4, &arg4);
+    olua_check_std_string(L, 5, &arg5);
+    olua_check_std_string(L, 6, &arg6);
+
+    // static CameraBackgroundSkyBoxBrush* create(const std::string& positive_x, const std::string& negative_x, const std::string& positive_y, const std::string& negative_y, const std::string& positive_z, const std::string& negative_z)
+    cocos2d::CameraBackgroundSkyBoxBrush *ret = (cocos2d::CameraBackgroundSkyBoxBrush *)cocos2d::CameraBackgroundSkyBoxBrush::create(arg1, arg2, arg3, arg4, arg5, arg6);
+    int num_ret = olua_push_cppobj<cocos2d::CameraBackgroundSkyBoxBrush>(L, ret, "cc.CameraBackgroundSkyBoxBrush");
+
+    return num_ret;
+}
+
+static int _cocos2d_CameraBackgroundSkyBoxBrush_create2(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static CameraBackgroundSkyBoxBrush* create()
+    cocos2d::CameraBackgroundSkyBoxBrush *ret = (cocos2d::CameraBackgroundSkyBoxBrush *)cocos2d::CameraBackgroundSkyBoxBrush::create();
+    int num_ret = olua_push_cppobj<cocos2d::CameraBackgroundSkyBoxBrush>(L, ret, "cc.CameraBackgroundSkyBoxBrush");
+
+    return num_ret;
+}
+
+static int _cocos2d_CameraBackgroundSkyBoxBrush_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        return _cocos2d_CameraBackgroundSkyBoxBrush_create2(L);
+    }
+
+    if (num_args == 6) {
+        // if (olua_is_std_string(L, 1) && olua_is_std_string(L, 2) && olua_is_std_string(L, 3) && olua_is_std_string(L, 4) && olua_is_std_string(L, 5) && olua_is_std_string(L, 6)) {
+            return _cocos2d_CameraBackgroundSkyBoxBrush_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::CameraBackgroundSkyBoxBrush::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_CameraBackgroundSkyBoxBrush_isActived(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::CameraBackgroundSkyBoxBrush *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.CameraBackgroundSkyBoxBrush");
+
+    // bool isActived()
+    bool ret = (bool)self->isActived();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_CameraBackgroundSkyBoxBrush_setActived(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::CameraBackgroundSkyBoxBrush *self = nullptr;
+    bool arg1 = false;   /** actived */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.CameraBackgroundSkyBoxBrush");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setActived(bool actived)
+    self->setActived(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_CameraBackgroundSkyBoxBrush_setTexture(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::CameraBackgroundSkyBoxBrush *self = nullptr;
+    cocos2d::TextureCube *arg1 = nullptr;   /** texture */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.CameraBackgroundSkyBoxBrush");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.TextureCube");
+
+    // void setTexture(TextureCube* texture)
+    self->setTexture(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_CameraBackgroundSkyBoxBrush_setTextureValid(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::CameraBackgroundSkyBoxBrush *self = nullptr;
+    bool arg1 = false;   /** valid */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.CameraBackgroundSkyBoxBrush");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setTextureValid(bool valid)
+    self->setTextureValid(arg1);
+
+    return 0;
+}
+
+static int luaopen_cocos2d_CameraBackgroundSkyBoxBrush(lua_State *L)
+{
+    oluacls_class(L, "cc.CameraBackgroundSkyBoxBrush", "cc.CameraBackgroundBrush");
+    oluacls_func(L, "create", _cocos2d_CameraBackgroundSkyBoxBrush_create);
+    oluacls_func(L, "isActived", _cocos2d_CameraBackgroundSkyBoxBrush_isActived);
+    oluacls_func(L, "setActived", _cocos2d_CameraBackgroundSkyBoxBrush_setActived);
+    oluacls_func(L, "setTexture", _cocos2d_CameraBackgroundSkyBoxBrush_setTexture);
+    oluacls_func(L, "setTextureValid", _cocos2d_CameraBackgroundSkyBoxBrush_setTextureValid);
+    oluacls_prop(L, "actived", _cocos2d_CameraBackgroundSkyBoxBrush_isActived, _cocos2d_CameraBackgroundSkyBoxBrush_setActived);
+
+    olua_registerluatype<cocos2d::CameraBackgroundSkyBoxBrush>(L, "cc.CameraBackgroundSkyBoxBrush");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
 static int _cocos2d_ActionCamera_getCenter(lua_State *L)
 {
     lua_settop(L, 1);
@@ -37082,6 +38037,7 @@ int luaopen_cocos2d(lua_State *L)
     olua_require(L, "cc.Ref", luaopen_cocos2d_Ref);
     olua_require(L, "cc.Acceleration", luaopen_cocos2d_Acceleration);
     olua_require(L, "cc.MATRIX_STACK_TYPE", luaopen_cocos2d_MATRIX_STACK_TYPE);
+    olua_require(L, "cc.Director.Projection", luaopen_cocos2d_Director_Projection);
     olua_require(L, "cc.Director", luaopen_cocos2d_Director);
     olua_require(L, "cc.Scheduler", luaopen_cocos2d_Scheduler);
     olua_require(L, "cc.EventDispatcher", luaopen_cocos2d_EventDispatcher);
@@ -37118,7 +38074,7 @@ int luaopen_cocos2d(lua_State *L)
     olua_require(L, "cc.Application", luaopen_cocos2d_Application);
     olua_require(L, "cc.Device", luaopen_cocos2d_Device);
     olua_require(L, "cc.FileUtils", luaopen_cocos2d_FileUtils);
-    olua_require(L, "ResolutionPolicy", luaopen_ResolutionPolicy);
+    olua_require(L, "cc.ResolutionPolicy", luaopen_ResolutionPolicy);
     olua_require(L, "cc.GLView", luaopen_cocos2d_GLView);
     olua_require(L, "cc.GLViewImpl", luaopen_cocos2d_GLViewImpl);
     olua_require(L, "cc.Image.Format", luaopen_cocos2d_Image_Format);
@@ -37130,6 +38086,7 @@ int luaopen_cocos2d(lua_State *L)
     olua_require(L, "cc.TextureCache", luaopen_cocos2d_TextureCache);
     olua_require(L, "cc.Texture2D.PixelFormat", luaopen_cocos2d_Texture2D_PixelFormat);
     olua_require(L, "cc.Texture2D", luaopen_cocos2d_Texture2D);
+    olua_require(L, "cc.TextureCube", luaopen_cocos2d_TextureCube);
     olua_require(L, "cc.TextureAtlas", luaopen_cocos2d_TextureAtlas);
     olua_require(L, "cc.VRIHeadTracker", luaopen_cocos2d_VRIHeadTracker);
     olua_require(L, "cc.VRIRenderer", luaopen_cocos2d_VRIRenderer);
@@ -37299,6 +38256,14 @@ int luaopen_cocos2d(lua_State *L)
     olua_require(L, "cc.PointLight", luaopen_cocos2d_PointLight);
     olua_require(L, "cc.SpotLight", luaopen_cocos2d_SpotLight);
     olua_require(L, "cc.AmbientLight", luaopen_cocos2d_AmbientLight);
+    olua_require(L, "cc.CameraFlag", luaopen_cocos2d_CameraFlag);
+    olua_require(L, "cc.Camera.Type", luaopen_cocos2d_Camera_Type);
+    olua_require(L, "cc.Camera", luaopen_cocos2d_Camera);
+    olua_require(L, "cc.CameraBackgroundBrush.BrushType", luaopen_cocos2d_CameraBackgroundBrush_BrushType);
+    olua_require(L, "cc.CameraBackgroundBrush", luaopen_cocos2d_CameraBackgroundBrush);
+    olua_require(L, "cc.CameraBackgroundDepthBrush", luaopen_cocos2d_CameraBackgroundDepthBrush);
+    olua_require(L, "cc.CameraBackgroundColorBrush", luaopen_cocos2d_CameraBackgroundColorBrush);
+    olua_require(L, "cc.CameraBackgroundSkyBoxBrush", luaopen_cocos2d_CameraBackgroundSkyBoxBrush);
     olua_require(L, "cc.ActionCamera", luaopen_cocos2d_ActionCamera);
     olua_require(L, "cc.OrbitCamera", luaopen_cocos2d_OrbitCamera);
     olua_require(L, "cc.GridBase", luaopen_cocos2d_GridBase);

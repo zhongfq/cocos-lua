@@ -57,8 +57,8 @@
 		0E4B9367226E9E8B00B22B9F /* lua_bindings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B934E226E9E8B00B22B9F /* lua_bindings.cpp */; };
 		0E4B9368226E9E8B00B22B9F /* lua_xgame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B934F226E9E8B00B22B9F /* lua_xgame.cpp */; };
 		0E4B9369226E9E8B00B22B9F /* lua_xgame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B934F226E9E8B00B22B9F /* lua_xgame.cpp */; };
-		0E4B936A226E9E8B00B22B9F /* LuaComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B9350226E9E8B00B22B9F /* LuaComponent.cpp */; };
-		0E4B936B226E9E8B00B22B9F /* LuaComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B9350226E9E8B00B22B9F /* LuaComponent.cpp */; };
+		0E4B936A226E9E8B00B22B9F /* LuaCocosAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B9350226E9E8B00B22B9F /* LuaCocosAdapter.cpp */; };
+		0E4B936B226E9E8B00B22B9F /* LuaCocosAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B9350226E9E8B00B22B9F /* LuaCocosAdapter.cpp */; };
 		0E4B936C226E9E8B00B22B9F /* lua_cocos2d_ui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B9351226E9E8B00B22B9F /* lua_cocos2d_ui.cpp */; };
 		0E4B936D226E9E8B00B22B9F /* lua_cocos2d_ui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B9351226E9E8B00B22B9F /* lua_cocos2d_ui.cpp */; };
 		0E4B936E226E9E8B00B22B9F /* lua_conv_manual.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B9353226E9E8B00B22B9F /* lua_conv_manual.cpp */; };
@@ -324,7 +324,7 @@
 		0E4B934D226E9E8B00B22B9F /* lua_socket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_socket.cpp; sourceTree = "<group>"; };
 		0E4B934E226E9E8B00B22B9F /* lua_bindings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_bindings.cpp; sourceTree = "<group>"; };
 		0E4B934F226E9E8B00B22B9F /* lua_xgame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_xgame.cpp; sourceTree = "<group>"; };
-		0E4B9350226E9E8B00B22B9F /* LuaComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LuaComponent.cpp; sourceTree = "<group>"; };
+		0E4B9350226E9E8B00B22B9F /* LuaCocosAdapter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LuaCocosAdapter.cpp; sourceTree = "<group>"; };
 		0E4B9351226E9E8B00B22B9F /* lua_cocos2d_ui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_cocos2d_ui.cpp; sourceTree = "<group>"; };
 		0E4B9352226E9E8B00B22B9F /* lua_crypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_crypto.h; sourceTree = "<group>"; };
 		0E4B9353226E9E8B00B22B9F /* lua_conv_manual.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_conv_manual.cpp; sourceTree = "<group>"; };
@@ -333,7 +333,7 @@
 		0E4B9356226E9E8B00B22B9F /* lua_xgame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_xgame.h; sourceTree = "<group>"; };
 		0E4B9357226E9E8B00B22B9F /* lua_conv.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_conv.cpp; sourceTree = "<group>"; };
 		0E4B9358226E9E8B00B22B9F /* lua_crypto.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_crypto.cpp; sourceTree = "<group>"; };
-		0E4B9359226E9E8B00B22B9F /* LuaComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaComponent.h; sourceTree = "<group>"; };
+		0E4B9359226E9E8B00B22B9F /* LuaCocosAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaCocosAdapter.h; sourceTree = "<group>"; };
 		0E4B935A226E9E8B00B22B9F /* lua_javabridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_javabridge.h; sourceTree = "<group>"; };
 		0E4B935B226E9E8B00B22B9F /* lua_conv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_conv.h; sourceTree = "<group>"; };
 		0E4B935C226E9E8B00B22B9F /* lua_cocos2d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_cocos2d.cpp; sourceTree = "<group>"; };
@@ -710,8 +710,8 @@
 				0E4B9356226E9E8B00B22B9F /* lua_xgame.h */,
 				0E730C8A2272E6100067866B /* lua_xml_http_request.cpp */,
 				0E730C8B2272E6100067866B /* lua_xml_http_request.h */,
-				0E4B9350226E9E8B00B22B9F /* LuaComponent.cpp */,
-				0E4B9359226E9E8B00B22B9F /* LuaComponent.h */,
+				0E4B9350226E9E8B00B22B9F /* LuaCocosAdapter.cpp */,
+				0E4B9359226E9E8B00B22B9F /* LuaCocosAdapter.h */,
 			);
 			name = "lua-bindings";
 			path = "../src/lua-bindings";
@@ -1109,7 +1109,7 @@
 				0ECC4BAF21E79E3E00E3BBF9 /* lundump.c in Sources */,
 				0E24B40122706001000054C9 /* XMLHttpRequest.cpp in Sources */,
 				0E0C702621F9600D00049240 /* xrootscene.cpp in Sources */,
-				0E4B936A226E9E8B00B22B9F /* LuaComponent.cpp in Sources */,
+				0E4B936A226E9E8B00B22B9F /* LuaCocosAdapter.cpp in Sources */,
 				0E4C8C59225CAF490095CF59 /* fft.c in Sources */,
 				0E2EC31222924EE900CA3701 /* lpvm.c in Sources */,
 				0E4C8C51225CAF490095CF59 /* takehiro.c in Sources */,
@@ -1222,7 +1222,7 @@
 				0E4C8C48225CAF490095CF59 /* vbrquantize.c in Sources */,
 				0E4C8C68225CAF490095CF59 /* psymodel.c in Sources */,
 				0E4C8C5E225CAF490095CF59 /* presets.c in Sources */,
-				0E4B936B226E9E8B00B22B9F /* LuaComponent.cpp in Sources */,
+				0E4B936B226E9E8B00B22B9F /* LuaCocosAdapter.cpp in Sources */,
 				0ECC4C8621EB8D4600E3BBF9 /* lua_cjson.c in Sources */,
 				0E730C8D2272E6100067866B /* lua_xml_http_request.cpp in Sources */,
 				0ECC4BB421E79E3E00E3BBF9 /* lapi.c in Sources */,

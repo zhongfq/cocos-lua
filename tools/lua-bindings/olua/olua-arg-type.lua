@@ -86,6 +86,7 @@ REG_TYPE {
         long
         short
         ssize_t
+        int8_t
         std::int32_t
         unsigned short
     ]],
@@ -102,6 +103,7 @@ REG_TYPE {
         GLuint
         size_t
         std::size_t
+        std::string::size_type
         uint32_t
         uint64_t
         unsigned char

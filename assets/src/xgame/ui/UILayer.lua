@@ -2,7 +2,7 @@ local class             = require "xgame.class"
 local Array             = require "xgame.Array"
 local UIView            = require "xgame.ui.UIView"
 local AbsoluteLayout    = require "xgame.ui.AbsoluteLayout"
-local MaskLayout        = require "ccui.MaskLayout"
+local Layout            = require "ccui.Layout"
 local Node              = require "cc.Node"
 
 local assert = assert
@@ -30,7 +30,7 @@ function UILayer:ctor()
 end
 
 function UILayer.Get:cobj()
-    local cobj = MaskLayout.create()
+    local cobj = Layout.create()
     rawset(self, "cobj", cobj)
     return cobj
 end

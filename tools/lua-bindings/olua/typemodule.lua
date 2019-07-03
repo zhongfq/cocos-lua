@@ -2,6 +2,9 @@ local function class(cls)
     cls.ATTR = setmetatable({}, {__call = function (_, name, attr)
         cls.ATTR[name] = attr
     end})
+    cls.ALIAS = setmetatable({}, {__call = function (_, name, alias)
+        cls.ALIAS[#cls.ALIAS + 1] = {NAME = name, ALIAS = alias}
+    end})
     cls.EXCLUDE = setmetatable({}, {__call = function (_, func)
         cls.EXCLUDE[func] = true
     end})
@@ -10,6 +13,7 @@ local function class(cls)
         cls.FUNC[#cls.FUNC + 1] = {FUNC = func, SNIPPET = snippet}
     end})
     cls.CALLBACK = setmetatable({}, {__call = function (_, func, opt)
+        assert(#func > 0, 'no callback function name')
         cls.EXCLUDE[func] = true
         opt.NAME = func
         cls.CALLBACK[#cls.CALLBACK + 1] = opt

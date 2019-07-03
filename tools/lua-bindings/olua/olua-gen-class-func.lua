@@ -498,7 +498,7 @@ local function gen_test_and_call(cls, fns)
                     NULLABLE_END = ' ' .. format_snippet('|| olua_isnil(L, ${IDX}))')
                 end
 
-                if ai.TYPE.LUACLS then
+                if ai.TYPE.LUACLS and ai.TYPE.DECL_TYPE ~= 'lua_Unsigned' then
                     local LUACLS = ai.TYPE.LUACLS
                     TEST_ARGS[#TEST_ARGS + 1] = format_snippet([[
                         ${NULLABLE_BEGIN}${FUNC_IS_VALUE}(L, ${IDX}, "${LUACLS}")${NULLABLE_END}

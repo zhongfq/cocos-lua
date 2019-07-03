@@ -23,10 +23,6 @@ local function gen_classes(module, write)
         local ti = test_typename(cls.CPPCLS) or test_typename(cls.CPPCLS .. ' *')
         assert(ti, cls.CPPCLS)
         cls.LUACLS = assert(ti.LUACLS, cls.CPPCLS)
-        if cls.SUPERCLS then
-            local ti = test_typename(cls.SUPERCLS) or test_typename(cls.SUPERCLS .. ' *')
-            cls.SUPERCLS = ti.LUACLS
-        end
         if cls.DEFIF then
             write(cls.DEFIF)
         end

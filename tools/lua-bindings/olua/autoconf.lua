@@ -1,5 +1,6 @@
 local clang = require "clang"
 
+local cachedClass = {}
 local M = {}
 
 function M:parse(path)
@@ -10,9 +11,9 @@ function M:parse(path)
     self.typeref = {}
 
     self._fileLines = {}
-    self._file = io.open(self.module.PARSER.BUILD .. '/' .. self.module.NAME .. '.lua', 'w')
+    self._file = io.open('autobuild/' .. self:toPath(self.module.NAME) .. '.lua', 'w')
 
-    local headerPath = self.module.PARSER.BUILD .. '/autoconf.h'
+    local headerPath = 'autobuild/autoconf.h'
     local header = io.open(headerPath, 'w')
     header:write('#ifndef __AUTOCONF_H__\n')
     header:write('#define __AUTOCONF_H__\n')
@@ -23,10 +24,12 @@ function M:parse(path)
     header:write('#endif')
     header:close()
 
-    local index = clang.createIndex(false, true)
+    -- clang_createIndex(int excludeDeclarationsFromPCH, int displayDiagnostics);
+    -- local index = clang.createIndex(false, true)
+    local index = clang.createIndex(false, false)
     local args = self.module.PARSER.ARGS
     args[#args + 1] = '-I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1'
-    args[#args + 1] = '-I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include'
+    args[#args + 1] = '-I//Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/include'
     args[#args + 1] = '-Iheaders'
     args[#args + 1] = '-x'
     args[#args + 1] = 'c++'
@@ -44,12 +47,17 @@ function M:parse(path)
         return a.CONF.INDEX < b.CONF.INDEX
     end)
 
+    self:writeLine('require "autobuild.%s-types"\n', self:toPath(self.module.NAME))
     self:writeLine('local cls')
     self:writeLine('local M = {}')
     self:writeHeader()
-    -- self:writeTypedef()
+    self:writeTypedef()
     self:writeClass()
     self:writeLine('return M')
+end
+
+function M:toPath(name)
+    return string.gsub(name, '_', '-')
 end
 
 function M:tableToKey(arr)
@@ -89,45 +97,58 @@ function M:writeHeader()
 end
 
 function M:writeTypedef()
+    local file = io.open('autobuild/' .. self:toPath(self.module.NAME) .. '-types.lua', 'w')
     local classes = {}
     local enums = {}
     for _, cls in ipairs(self.classes) do
         if cls.KIND == 'Enum' then
             enums[#enums + 1] = cls.CPPCLS
         elseif cls.KIND == 'Class' then
-            classes[#classes + 1] = cls.CPPCLS .. ' *'
+            classes[#classes + 1] = cls.CPPCLS
         end
     end
     table.sort(classes)
     table.sort(enums)
-    classes = table.concat(classes, '\n')
-    enums = table.concat(enums, '\n')
-    local LUACLS = self.module.LUACLS
-    self:writeLine(format_snippet([==[
-        REG_TYPE {
-            TYPENAME = [[
-                ${classes}
-            ]],
-            CONV_FUNC = "olua_$$_cppobj",
-            LUACLS = ${LUACLS},
-        }
-    ]==]))
-    self:writeLine('')
+    for _, v in ipairs(enums) do
+        local TYPENAME = v
+        local LUACLS = self.module.MAKE_LUACLS(v)
+        file:write(format_snippet([[
+            REG_TYPE {
+                TYPENAME = "${TYPENAME}",
+                DECL_TYPE = 'lua_Unsigned',
+                CONV_FUNC = "olua_$$_uint",
+                VALUE_TYPE = true,
+                LUACLS = "${LUACLS}",
+            }
+        ]]))
+        file:write('\n\n')
+    end
+    for _, v in ipairs(classes) do
+        local TYPENAME = v
+        local LUACLS = self.module.MAKE_LUACLS(v)
+        file:write(format_snippet([[
+            REG_TYPE {
+                TYPENAME = "${TYPENAME} *",
+                CONV_FUNC = "olua_$$_cppobj",
+                LUACLS = "${LUACLS}",
+            }
+        ]]))
+        file:write('\n\n')
+    end
 end
 
 function M:writeClass()
-    local dict = {}
     for _, cls in ipairs(self.classes) do
-        dict[cls.CPPCLS] = cls
+        cachedClass[cls.CPPCLS] = cls
     end
     for cls in pairs(self.classConf) do
-        if not dict[cls] then
+        if not cachedClass[cls] then
             error("class '" .. cls .. "' not found")
         end
     end
     local function shouldExportFunc(supercls, fn)
         if supercls then
-            local super = assert(dict[supercls], supercls)
+            local super = assert(cachedClass[supercls], "not found super class '" .. supercls .. "'")
             if super.INST_FUNCS[fn.PROTOTYPE] or super.CONF.EXCLUDE[fn.NAME] then
                 return false
             else
@@ -147,6 +168,9 @@ function M:writeClass()
         end
         if cls.CONF.REG_LUATYPE == false then
             self:writeLine('cls.REG_LUATYPE = false')
+        end
+        if cls.CONF.DEFIF then
+            self:writeLine('cls.DEFIF = "%s"', cls.CONF.DEFIF)
         end
         if cls.CONF.CHUNK then
             self:writeLine('cls.CHUNK = [[')
@@ -215,6 +239,7 @@ function M:writeClass()
             self:writeConfCallback(cls)
             self:writeConfBlock(cls)
             self:writeConfInject(cls)
+            self:writeConfAlias(cls)
             if #props > 0 then
                 self:writeLine('cls.props [[')
                 for _, v in ipairs(props) do
@@ -317,6 +342,12 @@ function M:writeConfInject(cls)
             self:writeLine('    CALLBACK_AFTER = [[\n%s]],', v.CODES.CALLBACK_AFTER)
         end
         self:writeLine('})')
+    end
+end
+
+function M:writeConfAlias(cls)
+    for _, v in ipairs(cls.CONF.ALIAS) do
+        self:writeLine("cls.alias('%s', '%s')", v.NAME, v.ALIAS)
     end
 end
 
@@ -495,7 +526,7 @@ function M:visitCXXMethod(cur)
     prototype = string.gsub(prototype, ' +', ' ')
     prototype = string.gsub(prototype, 'virtual *', '')
     prototype = string.gsub(prototype, '[^)]*$', '')
-    prototype = string.gsub(prototype, '/%*.*%*/', '')
+    prototype = string.gsub(prototype, '/%*[^/]*%*/', '')
     return prototype
 end
 
@@ -632,8 +663,9 @@ function M:visit(cur)
             self:popNamespace()
             self:visitClass(cur)
         else
+            local ns = self:toNamespace()
             for _, v in ipairs(self.module.NAMESPACES) do
-                if self:toNamespace():find(v) then
+                if string.find(v, ns) then
                     for _, c in ipairs(children) do
                         self:visit(c)
                     end

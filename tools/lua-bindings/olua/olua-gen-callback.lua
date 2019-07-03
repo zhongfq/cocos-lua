@@ -243,6 +243,9 @@ function gen_callback(cls, fi, write)
         ]]
     end
 
+    assert(OLUA_CALLBACK_TAG == 'OLUA_CALLBACK_TAG_REPLACE' or
+        OLUA_CALLBACK_TAG == 'OLUA_CALLBACK_TAG_NEW', OLUA_CALLBACK_TAG)
+
     local CALLBACK_CHUNK = format_snippet([[
         void *callback_store_obj = (void *)${CALLBACK_STORE_OBJ};
         std::string tag = ${TAG_MAKER};

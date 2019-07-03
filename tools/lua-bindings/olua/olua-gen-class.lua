@@ -21,6 +21,7 @@ local function gen_class_funcs(cls, write)
         clsmeta = setmetatable(clsmeta, {__index = class_map[cls.SUPERCLS]})
     end
     class_map[cls.LUACLS] = clsmeta
+    class_map[cls.CPPCLS] = clsmeta
 
     local func_filter = {}
     table.sort(cls.FUNCS, function (a, b)
@@ -57,7 +58,12 @@ local function gen_class_open(cls, write)
     local LUACLS = cls.LUACLS
     local CPPCLS = cls.CPPCLS
     local CPPCLS_PATH = class_path(cls)
-    local SUPRECLS = stringfy(cls.SUPERCLS) or "nullptr"
+    local SUPRECLS = "nullptr"
+    if cls.SUPERCLS then
+        local ti = test_typename(cls.SUPERCLS) or test_typename(cls.SUPERCLS .. ' *')
+        assert(ti, cls.SUPERCLS)
+        SUPRECLS = stringfy(ti.LUACLS)
+    end
     local FUNCS = {}
     local REG_LUATYPE = ''
 

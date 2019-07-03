@@ -8,7 +8,7 @@ M.PARSER = {
         'audio/include/SimpleAudioEngine.h',
         'vr/CCVRGenericRenderer.h',
         'vr/CCVRGenericHeadTracker.h',
-        'lua-bindings/LuaComponent.h'
+        'lua-bindings/LuaCocosAdapter.h'
     },
     ARGS = {
         '-I../../frameworks/cocos2d-x/cocos',
@@ -16,10 +16,8 @@ M.PARSER = {
         '-DCC_DLL=',
         '-DEXPORT_DLL=',
     },
-    BUILD = 'autoconf',
 }
 
-M.NAME = "cocos2d"
 M.NAMESPACES = {"cocos2d", "cocos2d::experimental", "CocosDenshion"}
 M.HEADER_PATH = "frameworks/libxgame/src/lua-bindings/lua_cocos2d.h"
 M.SOURCE_PATH = "frameworks/libxgame/src/lua-bindings/lua_cocos2d.cpp"
@@ -27,7 +25,7 @@ M.INCLUDES = [[
 #include "lua-bindings/lua_cocos2d.h"
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
-#include "lua-bindings/LuaComponent.h"
+#include "lua-bindings/LuaCocosAdapter.h"
 #include "xgame/xlua.h"
 #include "xgame/xruntime.h"
 #include "cocos2d.h"
@@ -43,36 +41,20 @@ static const std::string makeScheduleCallbackTag(const std::string &key)
     return "schedule." + key;
 }]]
 
-M.EXCLUDE_TYPE 'cocos2d::Console *'
-M.EXCLUDE_TYPE 'cocos2d::Font *'
-M.EXCLUDE_TYPE 'cocos2d::FontDefinition'
-M.EXCLUDE_TYPE 'cocos2d::FontLetterDefinition'
-M.EXCLUDE_TYPE 'cocos2d::GroupCommandManager *'
-M.EXCLUDE_TYPE 'cocos2d::Mat4 *'
-M.EXCLUDE_TYPE 'cocos2d::MipmapInfo *'
-M.EXCLUDE_TYPE 'cocos2d::PhysicsBody *'     -- TODO
-M.EXCLUDE_TYPE 'cocos2d::PhysicsWorld *'    -- TDDO
-M.EXCLUDE_TYPE 'cocos2d::Physics3DWorld *'  -- TDDO
-M.EXCLUDE_TYPE 'cocos2d::NavMesh *'         -- TDDO
-M.EXCLUDE_TYPE 'cocos2d::PolygonInfo'
-M.EXCLUDE_TYPE 'cocos2d::RenderCommand *'
-M.EXCLUDE_TYPE 'cocos2d::SEL_SCHEDULE'
-M.EXCLUDE_TYPE 'cocos2d::V3F_C4B_T2F_Quad *'
-M.EXCLUDE_TYPE 'cocos2d::V3F_C4B_T2F_Quad'
-M.EXCLUDE_TYPE 'cocos2d::Vec2 *'
-M.EXCLUDE_TYPE 'cocos2d::Vec4 *'
-M.EXCLUDE_TYPE 'cocos2d::Tile *'
-M.EXCLUDE_TYPE 'float *'
-M.EXCLUDE_TYPE 'GLfloat *'
-M.EXCLUDE_TYPE 'unsigned int *'
-M.EXCLUDE_TYPE 'GLint *'
-M.EXCLUDE_TYPE 'int *'
-
-M.LUACLS = [[
-function (cppname)
-    return string.gsub(cppname, "^cocos2d::", "cc.")
+M.MAKE_LUACLS = function (cppname)
+    if cppname == 'ResolutionPolicy' then
+        return 'cc.' .. cppname
+    else
+        cppname = string.gsub(cppname, '^cocos2d::experimental::', 'cc.')
+        cppname = string.gsub(cppname, "^cocos2d::", "cc.")
+        cppname = string.gsub(cppname, "^CocosDenshion::", "cc.")
+        cppname = string.gsub(cppname, "::", ".")
+        cppname = string.gsub(cppname, "[ *]*$", '')
+        return cppname
+    end
 end
-]]
+
+M.EXCLUDE_TYPE = require "conf.exclude-type"
 
 local UserDefault = typeconf 'cocos2d::UserDefault'
 UserDefault.EXCLUDE 'setDelegate'
@@ -91,6 +73,8 @@ Ref.FUNC('__gc', '{\n    return xlua_ccobjgc(L);\n}')
 typeconf 'cocos2d::Acceleration'
 
 typeconf 'cocos2d::MATRIX_STACK_TYPE'
+
+typeconf 'cocos2d::Director::Projection'
 
 local Director = typeconf 'cocos2d::Director'
 Director.EXCLUDE 'getCocos2dThreadId'
@@ -445,6 +429,7 @@ typeconf 'cocos2d::ApplicationProtocol'
 
 local Application = typeconf 'cocos2d::Application'
 Application.EXCLUDE 'setStartupScriptFilename'
+Application.EXCLUDE 'applicationScreenSizeChanged'
 
 local Device = typeconf 'cocos2d::Device'
 Device.EXCLUDE 'getTextureDataForText'
@@ -510,6 +495,7 @@ GLView.EXCLUDE 'handleTouchesEnd'
 GLView.EXCLUDE 'handleTouchesCancel'
 GLView.EXCLUDE 'getNSGLContext'
 GLView.EXCLUDE 'getCocoaWindow'
+GLView.EXCLUDE 'getEAGLView'
 GLView.ATTR('setVR', {ARG1 = '@ref(single vr)'})
 GLView.ATTR('getVR', {RET = '@ref(single vr)'})
 
@@ -517,6 +503,8 @@ local GLViewImpl = typeconf 'cocos2d::GLViewImpl'
 GLViewImpl.EXCLUDE 'create'
 GLViewImpl.EXCLUDE 'createWithRect'
 GLViewImpl.EXCLUDE 'createWithFullScreen'
+GLViewImpl.EXCLUDE 'createWithEAGLView'
+GLViewImpl.EXCLUDE 'convertAttrs'
 
 typeconf 'cocos2d::Image::Format'
 
@@ -582,6 +570,8 @@ TextureCache.CALLBACK('unbindAllImageAsync', {
 typeconf 'cocos2d::Texture2D::PixelFormat'
 local Texture2D = typeconf 'cocos2d::Texture2D'
 Texture2D.EXCLUDE 'getPixelFormatInfoMap'
+
+typeconf 'cocos2d::TextureCube'
 
 typeconf 'cocos2d::TextureAtlas'
 typeconf 'cocos2d::VRIHeadTracker'
@@ -1205,6 +1195,19 @@ typeconf 'cocos2d::DirectionLight'
 typeconf 'cocos2d::PointLight'
 typeconf 'cocos2d::SpotLight'
 typeconf 'cocos2d::AmbientLight'
+typeconf 'cocos2d::CameraFlag'
+typeconf 'cocos2d::Camera::Type'
+
+local Camera = typeconf 'cocos2d::Camera'
+Camera.EXCLUDE 'isVisibleInFrustum'
+Camera.EXCLUDE 'setFrameBufferObject'
+
+typeconf 'cocos2d::CameraBackgroundBrush::BrushType'
+typeconf 'cocos2d::CameraBackgroundBrush'
+typeconf 'cocos2d::CameraBackgroundDepthBrush'
+typeconf 'cocos2d::CameraBackgroundColorBrush'
+typeconf 'cocos2d::CameraBackgroundSkyBoxBrush'
+
 typeconf 'cocos2d::ActionCamera'
 typeconf 'cocos2d::OrbitCamera'
 typeconf 'cocos2d::GridBase'

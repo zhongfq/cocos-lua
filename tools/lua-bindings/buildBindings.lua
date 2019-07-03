@@ -13,6 +13,8 @@ require "conf.lua-ref"
 require "olua.olua-cls"
 require "conf.cocos2d.import-cocos2d-type"
 
+require 'autobuild.cocos2d-types'
+require 'autobuild.cocos2d-ui-types'
 
 PROJECT_ROOT = '../../'
 
@@ -21,7 +23,8 @@ function gen_module(module)
     gen_source(module)
 end
 
-gen_module(require("autoconf.cocos2d"))
+gen_module(require("autobuild.cocos2d"))
+gen_module(require("autobuild.cocos2d-ui"))
 
 -- gen_conv(require("conf.lua-conv"))
 -- gen_module(require("conf.cocos2d.lua-cocos2d"))

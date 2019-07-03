@@ -1,4 +1,5 @@
 local typeinfo_map = {}
+local class_map = {}
 
 local function to_pretty_typename(typename)
     -- t = '   const   type   *   &  '
@@ -41,6 +42,11 @@ function get_typeinfo(typename, cls, silence)
     local typename = to_pretty_typename(typename)
     local typeinfo
     local subtypeinfo, subtypename -- for typename<T>
+
+    if cls then
+        cls.SUPERCLS = cls.SUPERCLS
+        class_map[cls.CPPCLS] = cls
+    end
 
     if string.find(typename, '<') then
         subtypename = string.match(typename, '<(.*)>')
@@ -90,6 +96,25 @@ function get_typeinfo(typename, cls, silence)
             typeinfo = setmetatable({SUBTYPE = subtypeinfo}, {__index = typeinfo})
             return typeinfo, typename, subtypename
         end
+    end
+
+    if cls and string.find(typename, '::') then
+        local ns, t = string.match(typename, '(.*)::([^:]+)$')
+        if class_map[ns] then
+            return get_typeinfo(t, class_map[ns], silence)
+        end
+        local ns2, _ = string.match(cls.CPPCLS, '(.*)::([^:]+)$')
+        if ns2 then
+            ns = ns2 .. '::' .. ns
+            if class_map[ns] then
+                return get_typeinfo(t, class_map[ns], silence)
+            end
+        end
+    end
+
+    if cls and cls.SUPERCLS then
+        cls = assert(class_map[cls.SUPERCLS], cls.SUPERCLS)
+        return get_typeinfo(typename, cls, silence)
     end
 
     if not typeinfo and not silence then
@@ -209,8 +234,11 @@ function parse_args(cls, args_str)
 
         if default then
             if string.find(default, '%(') then
-                local other = string.match(args_str, '[^)]+%)')
-                default = default .. ', ' .. other
+                if not string.find(default, '%)') then
+                    local other = string.match(args_str, '[^)]+%)')
+                    assert(other, default .. ' ' .. args_str)
+                    default = default .. ', ' .. other
+                end
                 args_str = string.gsub(args_str, '^[^)]*%),? *', '')
                 local deft = string.match(default, '[^(]+')
                 local defti = get_typeinfo(deft, cls, true) or get_typeinfo(deft .. ' *', cls)

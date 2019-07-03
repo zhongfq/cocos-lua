@@ -463,6 +463,8 @@ public:
     virtual void setCameraMask(unsigned short mask, bool applyChildren = true) override;
 
     ResourceData getRenderFile();
+    
+    DrawNode *getClippingNode() { return _clippingStencil; }
 
 CC_CONSTRUCTOR_ACCESS:
     //override "init" method of widget.

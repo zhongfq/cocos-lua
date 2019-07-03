@@ -2,6 +2,9 @@ local cls = class()
 cls.CPPCLS = "fairygui::PopupMenu"
 cls.LUACLS = "fui.PopupMenu"
 cls.SUPERCLS = "cc.Ref"
+cls.CHUNK = [[
+static int _fairygui_PopupMenu_addItemAt(lua_State *L);
+]]
 cls.funcs [[
     static PopupMenu* create(const std::string& resourceURL)
     static PopupMenu* create()

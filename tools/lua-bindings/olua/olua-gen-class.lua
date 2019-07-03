@@ -23,10 +23,16 @@ local function gen_class_funcs(cls, write)
     class_map[cls.LUACLS] = clsmeta
 
     local func_filter = {}
+    table.sort(cls.FUNCS, function (a, b)
+        return a[1].LUAFUNC < b[1].LUAFUNC
+    end)
     for i, fi in ipairs(cls.FUNCS) do
         check_gen_class_func(cls, fi, write, func_filter)
     end
 
+    table.sort(cls.PROPS, function (a, b)
+        return a.PROP_NAME < b.PROP_NAME
+    end)
     for i, pi in ipairs(cls.PROPS) do
         if pi.GET then
             check_gen_class_func(cls, {pi.GET}, write, func_filter)
@@ -36,6 +42,9 @@ local function gen_class_funcs(cls, write)
         end
     end
 
+    table.sort(cls.VARS, function (a, b)
+        return a.VARNAME < b.VARNAME
+    end)
     for i, ai in ipairs(cls.VARS) do
         check_gen_class_func(cls, {ai.GET}, write, func_filter)
         if ai.SET then
@@ -87,6 +96,9 @@ local function gen_class_open(cls, write)
         ]])
     end
 
+    table.sort(cls.CONSTS, function (a, b)
+        return a.CONST_NAME < b.CONST_NAME
+    end)
     for i, ci in ipairs(cls.CONSTS) do
         local CONST_FUNC
         local CONST_VALUE = ci.CONST_VALUE
@@ -106,6 +118,9 @@ local function gen_class_open(cls, write)
         ]])
     end
 
+    table.sort(cls.CONSTS, function (a, b)
+        return a.ENUM_NAME < b.ENUM_NAME
+    end)
     for i, ei in ipairs(cls.ENUMS) do
         local ENUM_NAME = ei.ENUM_NAME
         local ENUM_VALUE = assert(ei.ENUM_VALUE, cls.CPPCLS)

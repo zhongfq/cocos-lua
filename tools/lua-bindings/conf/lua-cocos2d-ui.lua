@@ -224,7 +224,7 @@ PageView.ATTR('addPage', {ARG1 = '@ref(map children)'})
 PageView.ATTR('insertPage', {ARG1 = '@ref(map children)'})
 PageView.ATTR('removePage', {ARG1 = '@unref(map children)'})
 PageView.ATTR('removePageAtIndex', {RET = '@unref(cmp children)'})
-PageView.ATTR('removeAllPages', {RET = '@unref(cmp children)'})
+PageView.ATTR('removeAllPages', {RET = '@unref(all children)'})
 PageView.CALLBACK('addEventListener', {
     FUNCS = {'void addEventListener(@nullable const std::function<void(Ref*, PageView::EventType)>& callback)'},
     TAG_MAKER = 'olua_makecallbacktag("PageViewCallback")',
@@ -243,9 +243,18 @@ typeconf 'cocos2d::ui::RichText::WrapMode'
 typeconf 'cocos2d::ui::RichText::HorizontalAlignment'
 
 local RichText = typeconf 'cocos2d::ui::RichText'
-RichText.EXCLUDE 'createWithXML' -- TODO
 RichText.EXCLUDE 'setTagDescription'
 RichText.EXCLUDE 'initWithXML'
+RichText.CALLBACK('createWithXML', {
+    FUNCS = {
+        'static RichText* createWithXML(const std::string& xml)',
+        'static RichText* createWithXML(const std::string& xml, const ValueMap& defaults)',
+        'static RichText* createWithXML(const std::string& xml, const ValueMap& defaults, const std::function<void(const std::string& url)>& handleOpenUrl)',
+    },
+    TAG_MAKER = 'olua_makecallbacktag("openUrlHandler")',
+    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    INIT_FUNC = 'initWithXML',
+})
 RichText.CALLBACK('setOpenUrlHandler', {
     FUNCS = {'void setOpenUrlHandler(const std::function<void(const std::string& url)>& handleOpenUrl)'},
     TAG_MAKER = 'olua_makecallbacktag("openUrlHandler")',

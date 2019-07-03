@@ -1199,7 +1199,7 @@ cls.funcs [[
     void insertPage(@ref(map children) Widget* page, int idx)
     void removePage(@unref(map children) Widget* page)
     @unref(cmp children) void removePageAtIndex(ssize_t index)
-    @unref(cmp children) void removeAllPages()
+    @unref(all children) void removeAllPages()
     void scrollToPage(ssize_t idx)
     void scrollToPage(ssize_t idx, float time)
     void scrollToItem(ssize_t itemIndex)
@@ -1402,6 +1402,18 @@ cls.funcs [[
     static void removeTagDescription(const std::string& tag)
     void openUrl(const std::string& url)
 ]]
+cls.callback {
+    FUNCS =  {
+        'static RichText* createWithXML(const std::string& xml)',
+        'static RichText* createWithXML(const std::string& xml, const ValueMap& defaults)',
+        'static RichText* createWithXML(const std::string& xml, const ValueMap& defaults, const std::function<void(const std::string& url)>& handleOpenUrl)',
+    },
+    TAG_MAKER = 'olua_makecallbacktag("openUrlHandler")',
+    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    INIT_FUNC = 'initWithXML',
+    CALLONCE = false,
+    REMOVE = false,
+}
 cls.callback {
     FUNCS =  {
         'void setOpenUrlHandler(const std::function<void(const std::string& url)>& handleOpenUrl)',

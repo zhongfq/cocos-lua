@@ -9568,14 +9568,11 @@ static int _cocos2d_ui_PageView_removeAllPages(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.PageView");
 
-    // inject code before call
-    olua_startcmpunref(L, 1, "children");
-
-    // @unref(cmp children) void removeAllPages()
+    // @unref(all children) void removeAllPages()
     self->removeAllPages();
 
     // inject code after call
-    olua_endcmpunref(L, 1, "children");
+    olua_unrefall(L, 1, "children");
 
     return 0;
 }
@@ -10719,6 +10716,112 @@ static int _cocos2d_ui_RichText_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_ui_RichText_createWithXML1(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    std::string arg1;       /** xml */
+
+    olua_check_std_string(L, 1, &arg1);
+
+    cocos2d::ui::RichText *self = new cocos2d::ui::RichText();
+    cocos2d::ui::RichText *ret = self;
+    self->autorelease();
+    olua_push_cppobj<cocos2d::ui::RichText>(L, self, "ccui.RichText");
+
+    // static RichText* createWithXML(const std::string& xml)
+    self->initWithXML(arg1);
+    int num_ret = olua_push_cppobj<cocos2d::ui::RichText>(L, ret, "ccui.RichText");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_RichText_createWithXML2(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    std::string arg1;       /** xml */
+    cocos2d::ValueMap arg2;       /** defaults */
+
+    olua_check_std_string(L, 1, &arg1);
+    manual_luacv_check_cocos2d_ValueMap(L, 2, &arg2);
+
+    cocos2d::ui::RichText *self = new cocos2d::ui::RichText();
+    cocos2d::ui::RichText *ret = self;
+    self->autorelease();
+    olua_push_cppobj<cocos2d::ui::RichText>(L, self, "ccui.RichText");
+
+    // static RichText* createWithXML(const std::string& xml, const ValueMap& defaults)
+    self->initWithXML(arg1, arg2);
+    int num_ret = olua_push_cppobj<cocos2d::ui::RichText>(L, ret, "ccui.RichText");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_RichText_createWithXML3(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    std::string arg1;       /** xml */
+    cocos2d::ValueMap arg2;       /** defaults */
+    std::function<void(const std::string &)> arg3 = nullptr;   /** handleOpenUrl */
+
+    olua_check_std_string(L, 1, &arg1);
+    manual_luacv_check_cocos2d_ValueMap(L, 2, &arg2);
+
+    cocos2d::ui::RichText *self = new cocos2d::ui::RichText();
+    cocos2d::ui::RichText *ret = self;
+    self->autorelease();
+    olua_push_cppobj<cocos2d::ui::RichText>(L, self, "ccui.RichText");
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("openUrlHandler");
+    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_CALLBACK_TAG_REPLACE);
+    arg3 = [callback_store_obj, func, tag](const std::string &arg1) {
+        lua_State *L = olua_mainthread();
+        int top = lua_gettop(L);
+
+        olua_push_std_string(L, arg1);
+
+        olua_callback(L, callback_store_obj, func.c_str(), 1);
+
+        lua_settop(L, top);
+    };
+
+    // static RichText* createWithXML(const std::string& xml, const ValueMap& defaults, const std::function<void(const std::string& url)>& handleOpenUrl)
+    self->initWithXML(arg1, arg2, arg3);
+    int num_ret = olua_push_cppobj<cocos2d::ui::RichText>(L, ret, "ccui.RichText");
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_RichText_createWithXML(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 1) {
+        // if (olua_is_std_string(L, 1)) {
+            return _cocos2d_ui_RichText_createWithXML1(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if (olua_is_std_string(L, 1) && manual_luacv_is_cocos2d_ValueMap(L, 2)) {
+            return _cocos2d_ui_RichText_createWithXML2(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if (olua_is_std_string(L, 1) && manual_luacv_is_cocos2d_ValueMap(L, 2) && olua_is_std_function(L, 3)) {
+            return _cocos2d_ui_RichText_createWithXML3(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::RichText::createWithXML' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
 static int _cocos2d_ui_RichText_formatText(lua_State *L)
 {
     lua_settop(L, 1);
@@ -11498,6 +11601,7 @@ static int luaopen_cocos2d_ui_RichText(lua_State *L)
     oluacls_class(L, "ccui.RichText", "ccui.Widget");
     oluacls_func(L, "color3BWithString", _cocos2d_ui_RichText_color3BWithString);
     oluacls_func(L, "create", _cocos2d_ui_RichText_create);
+    oluacls_func(L, "createWithXML", _cocos2d_ui_RichText_createWithXML);
     oluacls_func(L, "formatText", _cocos2d_ui_RichText_formatText);
     oluacls_func(L, "getAnchorFontColor", _cocos2d_ui_RichText_getAnchorFontColor);
     oluacls_func(L, "getAnchorFontColor3B", _cocos2d_ui_RichText_getAnchorFontColor3B);

@@ -137,9 +137,6 @@ REG_TYPE {
         
         spAttachmentType
         spEventType
-        dragonBones::AnimationFadeOutMode
-        dragonBones::DisplayType
-        dragonBones::OffsetMode
     ]],
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = "olua_$$_uint",
@@ -154,31 +151,6 @@ REG_TYPE {
         spine::SkeletonAnimation *
         spine::SkeletonRenderer *
         dragonBones::CCFactory *
-        dragonBones::DragonBonesData *
-        dragonBones::TextureAtlasData *
-        dragonBones::CCArmatureDisplay *
-        dragonBones::Armature *
-        dragonBones::Animation *
-        dragonBones::BaseObject *
-        dragonBones::EventObject *
-        dragonBones::BaseFactory *
-        dragonBones::TransformObject *
-        dragonBones::Slot *
-        dragonBones::Bone *
-        dragonBones::DragonBonesData *
-        dragonBones::DisplayData *
-        dragonBones::TextureAtlasData *
-        dragonBones::TextureData *
-        dragonBones::ArmatureData *
-        dragonBones::SkinData *
-        dragonBones::BoneData *
-        dragonBones::SlotData *
-        dragonBones::AnimationState *
-        dragonBones::AnimationData *
-        dragonBones::AnimationConfig *
-        dragonBones::Armature *
-        dragonBones::Animation *
-        dragonBones::Point *
     ]],
     CONV_FUNC = "olua_$$_cppobj",
     LUACLS = make_luacls,

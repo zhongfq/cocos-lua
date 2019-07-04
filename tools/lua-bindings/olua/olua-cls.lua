@@ -179,6 +179,17 @@ local function parse_def(str)
                 break
             end
             typename = string.sub(str, from, to)
+            local tt = string.gsub(typename, ' ', '')
+            if tt == 'signed' or tt == 'unsigned' then
+                local substr = string.sub(str, to + 1)
+                if not (substr:find('^ *int *')
+                    or substr:find('^ *short *')
+                    or substr:find('^ *char *')) then
+                    str = string.sub(str, to + 1)
+                    typename = typename .. ' int'
+                    return to_pretty_typename(typename), attr, str
+                end
+            end
             if not KEYWORD[string.match(typename, '%w+')] then
                 typename = string.sub(str, 1, to)
                 break
@@ -465,6 +476,7 @@ function class(collection)
         local dict = {}
         for func_decl in string.gmatch(funcs_str, '[^\n\r]+') do
             func_decl = string.gsub(func_decl, '^ *', '')
+            func_decl = string.gsub(func_decl, ' *inline ', '')
             if #func_decl > 0 then
                 if not string.find(func_decl, '^ *//') then
                     local _, str = parse_attr(func_decl)

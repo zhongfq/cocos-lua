@@ -2717,7 +2717,7 @@ static int _cocos2d_ui_LayoutComponent_create(lua_State *L)
 {
     lua_settop(L, 0);
 
-    // static cocos2d::ui::LayoutComponent *create()
+    // static cocos2d::ui::LayoutComponent * create()
     cocos2d::ui::LayoutComponent *ret = (cocos2d::ui::LayoutComponent *)cocos2d::ui::LayoutComponent::create();
     int num_ret = olua_push_cppobj<cocos2d::ui::LayoutComponent>(L, ret, "ccui.LayoutComponent");
 
@@ -5562,7 +5562,7 @@ static int _cocos2d_experimental_ui_VideoPlayer_create(lua_State *L)
 {
     lua_settop(L, 0);
 
-    // static cocos2d::experimental::ui::VideoPlayer *create()
+    // static cocos2d::experimental::ui::VideoPlayer * create()
     cocos2d::experimental::ui::VideoPlayer *ret = (cocos2d::experimental::ui::VideoPlayer *)cocos2d::experimental::ui::VideoPlayer::create();
     int num_ret = olua_push_cppobj<cocos2d::experimental::ui::VideoPlayer>(L, ret, "ccui.VideoPlayer");
 

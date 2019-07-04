@@ -532,7 +532,7 @@ function M:shouldExcludeType(cur, children)
     return self.module.EXCLUDE_TYPE[type]
 end
 
-function M:visitCXXMethod(cur)
+function M:visitCXXMethod(cls, cur)
     if cur:access() ~= 'public' and cur:kind() ~= 'FunctionDecl' then
         return
     end
@@ -574,7 +574,7 @@ function M:visitCXXMethod(cur)
         if cur:isStatic() then
             arr[#arr + 1] = 'static '
         end
-        arr[#arr + 1] = self:parseType(cur:resultType(), cur:children())
+        arr[#arr + 1] = self:parseType(cur:resultType(), cur:children()) .. ' '
         arr[#arr + 1] = cur:name()
         arr[#arr + 1] = '('
         for i, arg in ipairs(cur:arguments()) do
@@ -588,6 +588,10 @@ function M:visitCXXMethod(cur)
         prototype = table.concat(arr, '')
     end
 
+    if self.module.EXCLUDE_PATTERN(cls.CPPCLS, cur:name(), prototype) then
+        return
+    end
+
     prototype = string.gsub(prototype, ' +', ' ')
     prototype = string.gsub(prototype, 'virtual *', '')
     prototype = string.gsub(prototype, '[^)]*$', '')
@@ -595,9 +599,13 @@ function M:visitCXXMethod(cur)
     return prototype
 end
 
-function M:visitFieldDecl(cur)
+function M:visitFieldDecl(cls, cur)
     if cur:access() ~= 'public' then
         return nil
+    end
+
+    if self:shouldExcludeType(cur:type(), cur:children()) then
+        return
     end
 
     local prototype
@@ -613,6 +621,14 @@ function M:visitFieldDecl(cur)
         else
             prototype = prototype .. lines[i]
         end
+    end
+
+    if self.module.EXCLUDE_PATTERN(cls.CPPCLS, cur:name(), prototype) then
+        return
+    end
+
+    if string.find(prototype, ' *const ') then
+        return
     end
 
     prototype = string.gsub(prototype, ' +', ' ')
@@ -646,6 +662,7 @@ function M:visitClass(cur)
     local cppcls = self:toClass(name)
     local conf = self.classConf[cppcls]
     cls.CPPCLS = cppcls
+    cls.SUPERCLS = conf.SUPERCLS
     cls.CONF = conf
     cls.FUNCS = {}
     cls.VARS = {}
@@ -664,7 +681,7 @@ function M:visitClass(cur)
             local displayName = c:displayName()
             local fn = c:name()
             local attr = conf.ATTR[fn]
-            local func = self:visitCXXMethod(c)
+            local func = self:visitCXXMethod(cls, c)
             if func then
                 func = 'static ' .. func
                 filter[displayName] = true
@@ -686,12 +703,11 @@ function M:visitClass(cur)
             local fn = c:name()
             local attr = conf.ATTR[fn]
             if not filter[displayName] and
-                not conf.EXCLUDE[fn] and
-                not conf.EXCLUDE_PATTERN(fn, displayName) then
+                not conf.EXCLUDE[fn] then
                 if not c:isStatic() then
                     cls.INST_FUNCS[displayName] = cls.CPPCLS
                 end
-                local func = self:visitCXXMethod(c)
+                local func = self:visitCXXMethod(cls, c)
                 if func then
                     filter[displayName] = true
                     if attr then
@@ -712,7 +728,7 @@ function M:visitClass(cur)
             self:visit(c)
         elseif kind == 'FieldDecl' then
             if not conf.EXCLUDE[c:name()] then
-                cls.VARS[#cls.VARS + 1] = self:visitFieldDecl(c)
+                cls.VARS[#cls.VARS + 1] = self:visitFieldDecl(cls, c)
             end
         elseif kind == 'VarDecl' then
             local children = c:children()

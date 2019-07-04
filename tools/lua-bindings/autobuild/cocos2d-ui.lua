@@ -322,7 +322,7 @@ cls = class(M.CLASSES)
 cls.CPPCLS = "cocos2d::ui::LayoutComponent"
 cls.SUPERCLS = "cocos2d::Component"
 cls.funcs [[
-    static cocos2d::ui::LayoutComponent *create()
+    static cocos2d::ui::LayoutComponent * create()
     static LayoutComponent* bindLayoutComponent(Node* node)
     void setUsingPercentContentSize(bool isUsed)
     bool getUsingPercentContentSize()
@@ -738,7 +738,7 @@ cls.CPPCLS = "cocos2d::experimental::ui::VideoPlayer"
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.DEFIF = "#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN)"
 cls.funcs [[
-    static cocos2d::experimental::ui::VideoPlayer *create()
+    static cocos2d::experimental::ui::VideoPlayer * create()
     void setFileName(const std::string& videoPath)
     const std::string& getFileName()
     void setURL(const std::string& _videoURL)

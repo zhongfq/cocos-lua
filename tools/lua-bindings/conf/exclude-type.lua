@@ -26,5 +26,7 @@ M.EXCLUDE_TYPE 'GLfloat *'
 M.EXCLUDE_TYPE 'unsigned int *'
 M.EXCLUDE_TYPE 'GLint *'
 M.EXCLUDE_TYPE 'int *'
+M.EXCLUDE_TYPE 'int16_t *'
+M.EXCLUDE_TYPE 'uint16_t *'
 
 return M.EXCLUDE_TYPE

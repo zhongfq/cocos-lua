@@ -782,7 +782,7 @@ cls.CPPCLS = "fairygui::GObject"
 cls.SUPERCLS = "fairygui::UIEventDispatcher"
 cls.funcs [[
     static GObject* getDraggingObject()
-    static fairygui::GObject *create()
+    static fairygui::GObject * create()
     float getX()
     void setX(float value)
     float getY()
@@ -956,7 +956,7 @@ cls = class(M.CLASSES)
 cls.CPPCLS = "fairygui::GComponent"
 cls.SUPERCLS = "fairygui::GObject"
 cls.funcs [[
-    static fairygui::GComponent *create()
+    static fairygui::GComponent * create()
     GObject* addChild(@ref(map children) GObject* child)
     GObject* addChildAt(@ref(map children) GObject* child, int index)
     void removeChild(@unref(map children) GObject * child)
@@ -1143,7 +1143,7 @@ cls = class(M.CLASSES)
 cls.CPPCLS = "fairygui::GGroup"
 cls.SUPERCLS = "fairygui::GObject"
 cls.funcs [[
-    static fairygui::GGroup *create()
+    static fairygui::GGroup * create()
     GroupLayoutType getLayout()
     void setLayout(GroupLayoutType value)
     int getColumnGap()
@@ -1164,7 +1164,7 @@ cls = class(M.CLASSES)
 cls.CPPCLS = "fairygui::GScrollBar"
 cls.SUPERCLS = "fairygui::GComponent"
 cls.funcs [[
-    static fairygui::GScrollBar *create()
+    static fairygui::GScrollBar * create()
     void setScrollPane(ScrollPane* target, bool vertical)
     void setDisplayPerc(float value)
     void setScrollPerc(float value)
@@ -1178,7 +1178,7 @@ cls = class(M.CLASSES)
 cls.CPPCLS = "fairygui::GLoader"
 cls.SUPERCLS = "fairygui::GObject"
 cls.funcs [[
-    static fairygui::GLoader *create()
+    static fairygui::GLoader * create()
     const std::string& getURL()
     void setURL(const std::string& value)
     cocos2d::TextHAlignment getAlign()
@@ -1282,7 +1282,7 @@ cls = class(M.CLASSES)
 cls.CPPCLS = "fairygui::GGraph"
 cls.SUPERCLS = "fairygui::GObject"
 cls.funcs [[
-    static fairygui::GGraph *create()
+    static fairygui::GGraph * create()
     void drawRect(float aWidth, float aHeight, int lineSize, const cocos2d::Color4F& lineColor, const cocos2d::Color4F& fillColor)
     void drawEllipse(float aWidth, float aHeight, int lineSize, const cocos2d::Color4F& lineColor, const cocos2d::Color4F& fillColor)
     bool isEmpty()
@@ -1298,7 +1298,7 @@ cls = class(M.CLASSES)
 cls.CPPCLS = "fairygui::GButton"
 cls.SUPERCLS = "fairygui::GComponent"
 cls.funcs [[
-    static fairygui::GButton *create()
+    static fairygui::GButton * create()
     const std::string& getTitle()
     void setTitle(const std::string& value)
     const std::string& getSelectedTitle()
@@ -1333,7 +1333,7 @@ cls = class(M.CLASSES)
 cls.CPPCLS = "fairygui::GImage"
 cls.SUPERCLS = "fairygui::GObject"
 cls.funcs [[
-    static fairygui::GImage *create()
+    static fairygui::GImage * create()
     FlipType getFlip()
     void setFlip(FlipType value)
     cocos2d::Color3B getColor()
@@ -1360,7 +1360,7 @@ cls = class(M.CLASSES)
 cls.CPPCLS = "fairygui::GLabel"
 cls.SUPERCLS = "fairygui::GComponent"
 cls.funcs [[
-    static fairygui::GLabel *create()
+    static fairygui::GLabel * create()
     const std::string& getTitle()
     void setTitle(const std::string& value)
     cocos2d::Color3B getTitleColor()
@@ -1380,7 +1380,7 @@ cls = class(M.CLASSES)
 cls.CPPCLS = "fairygui::GList"
 cls.SUPERCLS = "fairygui::GComponent"
 cls.funcs [[
-    static fairygui::GList *create()
+    static fairygui::GList * create()
     const std::string& getDefaultItem()
     void setDefaultItem(const std::string& value)
     ListLayoutType getLayout()
@@ -1488,7 +1488,7 @@ cls = class(M.CLASSES)
 cls.CPPCLS = "fairygui::GMovieClip"
 cls.SUPERCLS = "fairygui::GObject"
 cls.funcs [[
-    static fairygui::GMovieClip *create()
+    static fairygui::GMovieClip * create()
     bool isPlaying()
     void setPlaying(bool value)
     int getFrame()
@@ -1522,7 +1522,7 @@ cls = class(M.CLASSES)
 cls.CPPCLS = "fairygui::GProgressBar"
 cls.SUPERCLS = "fairygui::GComponent"
 cls.funcs [[
-    static fairygui::GProgressBar *create()
+    static fairygui::GProgressBar * create()
     ProgressTitleType getTitleType()
     void setTitleType(ProgressTitleType value)
     double getMax()
@@ -1541,7 +1541,7 @@ cls = class(M.CLASSES)
 cls.CPPCLS = "fairygui::GComboBox"
 cls.SUPERCLS = "fairygui::GComponent"
 cls.funcs [[
-    static fairygui::GComboBox *create()
+    static fairygui::GComboBox * create()
     const std::string& getTitle()
     void setTitle(const std::string& value)
     const cocos2d::Color3B getTitleColor()
@@ -1581,14 +1581,14 @@ cls = class(M.CLASSES)
 cls.CPPCLS = "fairygui::GRichTextField"
 cls.SUPERCLS = "fairygui::GTextField"
 cls.funcs [[
-    static fairygui::GRichTextField *create()
+    static fairygui::GRichTextField * create()
 ]]
 
 cls = class(M.CLASSES)
 cls.CPPCLS = "fairygui::GSlider"
 cls.SUPERCLS = "fairygui::GComponent"
 cls.funcs [[
-    static fairygui::GSlider *create()
+    static fairygui::GSlider * create()
     ProgressTitleType getTitleType()
     void setTitleType(ProgressTitleType value)
     double getMax()
@@ -1608,7 +1608,7 @@ cls = class(M.CLASSES)
 cls.CPPCLS = "fairygui::GTextInput"
 cls.SUPERCLS = "fairygui::GTextField"
 cls.funcs [[
-    static fairygui::GTextInput *create()
+    static fairygui::GTextInput * create()
     void setPrompt(const std::string& value)
     void setPassword(bool value)
     void setKeyboardType(int value)
@@ -2055,7 +2055,7 @@ cls = class(M.CLASSES)
 cls.CPPCLS = "fairygui::Window"
 cls.SUPERCLS = "fairygui::GComponent"
 cls.funcs [[
-    static fairygui::Window *create()
+    static fairygui::Window * create()
     @unref(cmp children parent)@ref(map children parent) void show()
     @unref(cmp children parent) void hide()
     @unref(cmp children parent) void hideImmediately()

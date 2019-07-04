@@ -9,14 +9,177 @@
 #include "cocos2d.h"
 #include "CCDragonBonesHeaders.h"
 
+
+
+static int luaopen_dragonBones_ArmatureType(lua_State *L)
+{
+    oluacls_class(L, "db.ArmatureType", nullptr);
+    oluacls_const_integer(L, "Armature", (lua_Integer)dragonBones::ArmatureType::Armature);
+    oluacls_const_integer(L, "MovieClip", (lua_Integer)dragonBones::ArmatureType::MovieClip);
+    oluacls_const_integer(L, "Stage", (lua_Integer)dragonBones::ArmatureType::Stage);
+
+    olua_registerluatype<dragonBones::ArmatureType>(L, "db.ArmatureType");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_dragonBones_ActionType(lua_State *L)
+{
+    oluacls_class(L, "db.ActionType", nullptr);
+    oluacls_const_integer(L, "Play", (lua_Integer)dragonBones::ActionType::Play);
+    oluacls_const_integer(L, "Frame", (lua_Integer)dragonBones::ActionType::Frame);
+    oluacls_const_integer(L, "Sound", (lua_Integer)dragonBones::ActionType::Sound);
+
+    olua_registerluatype<dragonBones::ActionType>(L, "db.ActionType");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _dragonBones_BaseObject_clearPool(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    lua_Unsigned arg1 = 0;   /** classTypeIndex */
+
+    olua_opt_uint(L, 1, &arg1, (lua_Unsigned)0);
+
+    // static void clearPool(std::size_t classTypeIndex = 0)
+    dragonBones::BaseObject::clearPool((std::size_t)arg1);
+
+    return 0;
+}
+
+static int _dragonBones_BaseObject_getClassTypeIndex(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::BaseObject *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.BaseObject");
+
+    // std::size_t getClassTypeIndex()
+    std::size_t ret = (std::size_t)self->getClassTypeIndex();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_BaseObject_returnToPool(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::BaseObject *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.BaseObject");
+
+    // void returnToPool()
+    self->returnToPool();
+
+    return 0;
+}
+
+static int _dragonBones_BaseObject_setMaxCount(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    lua_Unsigned arg1 = 0;   /** classTypeIndex */
+    lua_Unsigned arg2 = 0;   /** maxCount */
+
+    olua_check_uint(L, 1, &arg1);
+    olua_check_uint(L, 2, &arg2);
+
+    // static void setMaxCount(std::size_t classTypeIndex, unsigned maxCount)
+    dragonBones::BaseObject::setMaxCount((std::size_t)arg1, (unsigned int)arg2);
+
+    return 0;
+}
+
 static int luaopen_dragonBones_BaseObject(lua_State *L)
 {
     oluacls_class(L, "db.BaseObject", nullptr);
+    oluacls_func(L, "clearPool", _dragonBones_BaseObject_clearPool);
+    oluacls_func(L, "getClassTypeIndex", _dragonBones_BaseObject_getClassTypeIndex);
+    oluacls_func(L, "returnToPool", _dragonBones_BaseObject_returnToPool);
+    oluacls_func(L, "setMaxCount", _dragonBones_BaseObject_setMaxCount);
+    oluacls_prop(L, "classTypeIndex", _dragonBones_BaseObject_getClassTypeIndex, nullptr);
 
     olua_registerluatype<dragonBones::BaseObject>(L, "db.BaseObject");
     oluacls_createclassproxy(L);
 
     return 1;
+}
+
+static int _dragonBones_EventObject_getAnimationState(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::EventObject *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.EventObject");
+
+    // AnimationState* getAnimationState()
+    dragonBones::AnimationState *ret = (dragonBones::AnimationState *)self->getAnimationState();
+    int num_ret = olua_push_cppobj<dragonBones::AnimationState>(L, ret, "db.AnimationState");
+
+    return num_ret;
+}
+
+static int _dragonBones_EventObject_getArmature(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::EventObject *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.EventObject");
+
+    // Armature* getArmature()
+    dragonBones::Armature *ret = (dragonBones::Armature *)self->getArmature();
+    int num_ret = olua_push_cppobj<dragonBones::Armature>(L, ret, "db.Armature");
+
+    return num_ret;
+}
+
+static int _dragonBones_EventObject_getBone(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::EventObject *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.EventObject");
+
+    // Bone* getBone()
+    dragonBones::Bone *ret = (dragonBones::Bone *)self->getBone();
+    int num_ret = olua_push_cppobj<dragonBones::Bone>(L, ret, "db.Bone");
+
+    return num_ret;
+}
+
+static int _dragonBones_EventObject_getSlot(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::EventObject *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.EventObject");
+
+    // Slot* getSlot()
+    dragonBones::Slot *ret = (dragonBones::Slot *)self->getSlot();
+    int num_ret = olua_push_cppobj<dragonBones::Slot>(L, ret, "db.Slot");
+
+    return num_ret;
+}
+
+static int _dragonBones_EventObject_getTypeIndex(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static std::size_t getTypeIndex()
+    std::size_t ret = (std::size_t)dragonBones::EventObject::getTypeIndex();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
 }
 
 static int _dragonBones_EventObject_get_animationState(lua_State *L)
@@ -238,7 +401,17 @@ static int _dragonBones_EventObject_set_type(lua_State *L)
 
 static int luaopen_dragonBones_EventObject(lua_State *L)
 {
-    oluacls_class(L, "db.EventObject", nullptr);
+    oluacls_class(L, "db.EventObject", "db.BaseObject");
+    oluacls_func(L, "getAnimationState", _dragonBones_EventObject_getAnimationState);
+    oluacls_func(L, "getArmature", _dragonBones_EventObject_getArmature);
+    oluacls_func(L, "getBone", _dragonBones_EventObject_getBone);
+    oluacls_func(L, "getSlot", _dragonBones_EventObject_getSlot);
+    oluacls_func(L, "getTypeIndex", _dragonBones_EventObject_getTypeIndex);
+    oluacls_prop(L, "animationState", _dragonBones_EventObject_getAnimationState, nullptr);
+    oluacls_prop(L, "armature", _dragonBones_EventObject_getArmature, nullptr);
+    oluacls_prop(L, "bone", _dragonBones_EventObject_getBone, nullptr);
+    oluacls_prop(L, "slot", _dragonBones_EventObject_getSlot, nullptr);
+    oluacls_prop(L, "typeIndex", _dragonBones_EventObject_getTypeIndex, nullptr);
     oluacls_prop(L, "animationState", _dragonBones_EventObject_get_animationState, _dragonBones_EventObject_set_animationState);
     oluacls_prop(L, "armature", _dragonBones_EventObject_get_armature, _dragonBones_EventObject_set_armature);
     oluacls_prop(L, "bone", _dragonBones_EventObject_get_bone, _dragonBones_EventObject_set_bone);
@@ -253,9 +426,73 @@ static int luaopen_dragonBones_EventObject(lua_State *L)
     return 1;
 }
 
+static int _dragonBones_TransformObject_getArmature(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::TransformObject *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.TransformObject");
+
+    // Armature* getArmature()
+    dragonBones::Armature *ret = (dragonBones::Armature *)self->getArmature();
+    int num_ret = olua_push_cppobj<dragonBones::Armature>(L, ret, "db.Armature");
+
+    return num_ret;
+}
+
+static int _dragonBones_TransformObject_updateGlobalTransform(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::TransformObject *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.TransformObject");
+
+    // void updateGlobalTransform()
+    self->updateGlobalTransform();
+
+    return 0;
+}
+
+static int _dragonBones_TransformObject_get_userData(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::TransformObject *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.TransformObject");
+
+    // <function var>
+    void *ret = (void *)self->userData;
+    int num_ret = olua_push_obj(L, ret, "void *");
+
+    return num_ret;
+}
+
+static int _dragonBones_TransformObject_set_userData(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::TransformObject *self = nullptr;
+    void *arg1 = nullptr;   /** userData */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.TransformObject");
+    olua_check_obj(L, 2, (void **)&arg1, "void *");
+
+    // <function var>
+    self->userData = arg1;
+
+    return 0;
+}
+
 static int luaopen_dragonBones_TransformObject(lua_State *L)
 {
     oluacls_class(L, "db.TransformObject", "db.BaseObject");
+    oluacls_func(L, "getArmature", _dragonBones_TransformObject_getArmature);
+    oluacls_func(L, "updateGlobalTransform", _dragonBones_TransformObject_updateGlobalTransform);
+    oluacls_prop(L, "armature", _dragonBones_TransformObject_getArmature, nullptr);
+    oluacls_prop(L, "userData", _dragonBones_TransformObject_get_userData, _dragonBones_TransformObject_set_userData);
 
     olua_registerluatype<dragonBones::TransformObject>(L, "db.TransformObject");
     oluacls_createclassproxy(L);
@@ -276,6 +513,64 @@ static int luaopen_dragonBones_DisplayType(lua_State *L)
     oluacls_createclassproxy(L);
 
     return 1;
+}
+
+static int _dragonBones_Point_clear(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::Point *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.Point");
+
+    // void clear()
+    self->clear();
+
+    return 0;
+}
+
+static int _dragonBones_Point_getHelpPointA(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static Point* getHelpPointA()
+    dragonBones::Point *ret = (dragonBones::Point *)dragonBones::Point::getHelpPointA();
+    int num_ret = olua_push_cppobj<dragonBones::Point>(L, ret, "db.Point");
+
+    return num_ret;
+}
+
+static int _dragonBones_Point_getHelpPointB(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static Point* getHelpPointB()
+    dragonBones::Point *ret = (dragonBones::Point *)dragonBones::Point::getHelpPointB();
+    int num_ret = olua_push_cppobj<dragonBones::Point>(L, ret, "db.Point");
+
+    return num_ret;
+}
+
+static int _dragonBones_Point_getHelpPointC(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static Point* getHelpPointC()
+    dragonBones::Point *ret = (dragonBones::Point *)dragonBones::Point::getHelpPointC();
+    int num_ret = olua_push_cppobj<dragonBones::Point>(L, ret, "db.Point");
+
+    return num_ret;
+}
+
+static int _dragonBones_Point_getHelpPointD(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static Point* getHelpPointD()
+    dragonBones::Point *ret = (dragonBones::Point *)dragonBones::Point::getHelpPointD();
+    int num_ret = olua_push_cppobj<dragonBones::Point>(L, ret, "db.Point");
+
+    return num_ret;
 }
 
 static int _dragonBones_Point_get_x(lua_State *L)
@@ -343,6 +638,15 @@ static int _dragonBones_Point_set_y(lua_State *L)
 static int luaopen_dragonBones_Point(lua_State *L)
 {
     oluacls_class(L, "db.Point", nullptr);
+    oluacls_func(L, "clear", _dragonBones_Point_clear);
+    oluacls_func(L, "getHelpPointA", _dragonBones_Point_getHelpPointA);
+    oluacls_func(L, "getHelpPointB", _dragonBones_Point_getHelpPointB);
+    oluacls_func(L, "getHelpPointC", _dragonBones_Point_getHelpPointC);
+    oluacls_func(L, "getHelpPointD", _dragonBones_Point_getHelpPointD);
+    oluacls_prop(L, "helpPointA", _dragonBones_Point_getHelpPointA, nullptr);
+    oluacls_prop(L, "helpPointB", _dragonBones_Point_getHelpPointB, nullptr);
+    oluacls_prop(L, "helpPointC", _dragonBones_Point_getHelpPointC, nullptr);
+    oluacls_prop(L, "helpPointD", _dragonBones_Point_getHelpPointD, nullptr);
     oluacls_prop(L, "x", _dragonBones_Point_get_x, _dragonBones_Point_set_x);
     oluacls_prop(L, "y", _dragonBones_Point_get_y, _dragonBones_Point_set_y);
 
@@ -367,6 +671,21 @@ static int _dragonBones_Slot_containsPoint(lua_State *L)
     // bool containsPoint(float x, float y)
     bool ret = (bool)self->containsPoint((float)arg1, (float)arg2);
     int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_Slot_getChildArmature(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::Slot *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.Slot");
+
+    // Armature* getChildArmature()
+    dragonBones::Armature *ret = (dragonBones::Armature *)self->getChildArmature();
+    int num_ret = olua_push_cppobj<dragonBones::Armature>(L, ret, "db.Armature");
 
     return num_ret;
 }
@@ -416,6 +735,36 @@ static int _dragonBones_Slot_getMeshDisplay(lua_State *L)
     return num_ret;
 }
 
+static int _dragonBones_Slot_getName(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::Slot *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.Slot");
+
+    // const std::string& getName()
+    const std::string &ret = (const std::string &)self->getName();
+    int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_Slot_getParent(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::Slot *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.Slot");
+
+    // Bone* getParent()
+    dragonBones::Bone *ret = (dragonBones::Bone *)self->getParent();
+    int num_ret = olua_push_cppobj<dragonBones::Bone>(L, ret, "db.Bone");
+
+    return num_ret;
+}
+
 static int _dragonBones_Slot_getRawDisplay(lua_State *L)
 {
     lua_settop(L, 1);
@@ -429,6 +778,58 @@ static int _dragonBones_Slot_getRawDisplay(lua_State *L)
     int num_ret = olua_push_obj(L, ret, "void *");
 
     return num_ret;
+}
+
+static int _dragonBones_Slot_getSlotData(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::Slot *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.Slot");
+
+    // const SlotData* getSlotData()
+    const dragonBones::SlotData *ret = (const dragonBones::SlotData *)self->getSlotData();
+    int num_ret = olua_push_cppobj<dragonBones::SlotData>(L, (dragonBones::SlotData *)ret, "db.SlotData");
+
+    return num_ret;
+}
+
+static int _dragonBones_Slot_getVisible(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::Slot *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.Slot");
+
+    // bool getVisible()
+    bool ret = (bool)self->getVisible();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_Slot_init(lua_State *L)
+{
+    lua_settop(L, 5);
+
+    dragonBones::Slot *self = nullptr;
+    dragonBones::SlotData *arg1 = nullptr;   /** slotData */
+    dragonBones::Armature *arg2 = nullptr;   /** armatureValue */
+    void *arg3 = nullptr;   /** rawDisplay */
+    void *arg4 = nullptr;   /** meshDisplay */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.Slot");
+    olua_check_cppobj(L, 2, (void **)&arg1, "db.SlotData");
+    olua_check_cppobj(L, 3, (void **)&arg2, "db.Armature");
+    olua_check_obj(L, 4, (void **)&arg3, "void *");
+    olua_check_obj(L, 5, (void **)&arg4, "void *");
+
+    // void init(const SlotData* slotData, Armature* armatureValue, void* rawDisplay, void* meshDisplay)
+    self->init(arg1, arg2, arg3, arg4);
+
+    return 0;
 }
 
 static int _dragonBones_Slot_intersectsSegment(lua_State *L)
@@ -453,7 +854,7 @@ static int _dragonBones_Slot_intersectsSegment(lua_State *L)
     olua_opt_cppobj(L, 7, (void **)&arg6, "db.Point", nullptr);
     olua_opt_cppobj(L, 8, (void **)&arg7, "db.Point", nullptr);
 
-    // int intersectsSegment(float xA, float yA, float xB, float yB, Point* intersectionPointA = nullptr, Point* intersectionPointB = nullptr, Point* normalRadians = nullptr)
+    // int intersectsSegment( float xA, float yA, float xB, float yB, Point* intersectionPointA = nullptr, Point* intersectionPointB = nullptr, Point* normalRadians = nullptr )
     int ret = (int)self->intersectsSegment((float)arg1, (float)arg2, (float)arg3, (float)arg4, arg5, arg6, arg7);
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
@@ -492,6 +893,22 @@ static int _dragonBones_Slot_replaceDisplayData(lua_State *L)
     return 0;
 }
 
+static int _dragonBones_Slot_setChildArmature(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::Slot *self = nullptr;
+    dragonBones::Armature *arg1 = nullptr;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.Slot");
+    olua_check_cppobj(L, 2, (void **)&arg1, "db.Armature");
+
+    // void setChildArmature(Armature* value)
+    self->setChildArmature(arg1);
+
+    return 0;
+}
+
 static int _dragonBones_Slot_setDisplay(lua_State *L)
 {
     lua_settop(L, 3);
@@ -526,19 +943,116 @@ static int _dragonBones_Slot_setDisplayIndex(lua_State *L)
     return 0;
 }
 
+static int _dragonBones_Slot_setVisible(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::Slot *self = nullptr;
+    bool arg1 = false;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.Slot");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setVisible(bool value)
+    self->setVisible(arg1);
+
+    return 0;
+}
+
+static int _dragonBones_Slot_update(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::Slot *self = nullptr;
+    lua_Integer arg1 = 0;   /** cacheFrameIndex */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.Slot");
+    olua_check_int(L, 2, &arg1);
+
+    // void update(int cacheFrameIndex)
+    self->update((int)arg1);
+
+    return 0;
+}
+
+static int _dragonBones_Slot_updateTransformAndMatrix(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::Slot *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.Slot");
+
+    // void updateTransformAndMatrix()
+    self->updateTransformAndMatrix();
+
+    return 0;
+}
+
+static int _dragonBones_Slot_get_displayController(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::Slot *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.Slot");
+
+    // <function var>
+    std::string ret = (std::string)self->displayController;
+    int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_Slot_set_displayController(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::Slot *self = nullptr;
+    std::string arg1;       /** displayController */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.Slot");
+    olua_check_std_string(L, 2, &arg1);
+
+    // <function var>
+    self->displayController = arg1;
+
+    return 0;
+}
+
 static int luaopen_dragonBones_Slot(lua_State *L)
 {
     oluacls_class(L, "db.Slot", "db.TransformObject");
     oluacls_func(L, "containsPoint", _dragonBones_Slot_containsPoint);
+    oluacls_func(L, "getChildArmature", _dragonBones_Slot_getChildArmature);
     oluacls_func(L, "getDisplay", _dragonBones_Slot_getDisplay);
     oluacls_func(L, "getDisplayIndex", _dragonBones_Slot_getDisplayIndex);
     oluacls_func(L, "getMeshDisplay", _dragonBones_Slot_getMeshDisplay);
+    oluacls_func(L, "getName", _dragonBones_Slot_getName);
+    oluacls_func(L, "getParent", _dragonBones_Slot_getParent);
     oluacls_func(L, "getRawDisplay", _dragonBones_Slot_getRawDisplay);
+    oluacls_func(L, "getSlotData", _dragonBones_Slot_getSlotData);
+    oluacls_func(L, "getVisible", _dragonBones_Slot_getVisible);
+    oluacls_func(L, "init", _dragonBones_Slot_init);
     oluacls_func(L, "intersectsSegment", _dragonBones_Slot_intersectsSegment);
     oluacls_func(L, "invalidUpdate", _dragonBones_Slot_invalidUpdate);
     oluacls_func(L, "replaceDisplayData", _dragonBones_Slot_replaceDisplayData);
+    oluacls_func(L, "setChildArmature", _dragonBones_Slot_setChildArmature);
     oluacls_func(L, "setDisplay", _dragonBones_Slot_setDisplay);
     oluacls_func(L, "setDisplayIndex", _dragonBones_Slot_setDisplayIndex);
+    oluacls_func(L, "setVisible", _dragonBones_Slot_setVisible);
+    oluacls_func(L, "update", _dragonBones_Slot_update);
+    oluacls_func(L, "updateTransformAndMatrix", _dragonBones_Slot_updateTransformAndMatrix);
+    oluacls_prop(L, "childArmature", _dragonBones_Slot_getChildArmature, _dragonBones_Slot_setChildArmature);
+    oluacls_prop(L, "display", _dragonBones_Slot_getDisplay, _dragonBones_Slot_setDisplay);
+    oluacls_prop(L, "displayIndex", _dragonBones_Slot_getDisplayIndex, _dragonBones_Slot_setDisplayIndex);
+    oluacls_prop(L, "meshDisplay", _dragonBones_Slot_getMeshDisplay, nullptr);
+    oluacls_prop(L, "name", _dragonBones_Slot_getName, nullptr);
+    oluacls_prop(L, "parent", _dragonBones_Slot_getParent, nullptr);
+    oluacls_prop(L, "rawDisplay", _dragonBones_Slot_getRawDisplay, nullptr);
+    oluacls_prop(L, "slotData", _dragonBones_Slot_getSlotData, nullptr);
+    oluacls_prop(L, "visible", _dragonBones_Slot_getVisible, _dragonBones_Slot_setVisible);
+    oluacls_prop(L, "displayController", _dragonBones_Slot_get_displayController, _dragonBones_Slot_set_displayController);
 
     olua_registerluatype<dragonBones::Slot>(L, "db.Slot");
     oluacls_createclassproxy(L);
@@ -559,6 +1073,127 @@ static int luaopen_dragonBones_OffsetMode(lua_State *L)
     return 1;
 }
 
+static int _dragonBones_Bone_contains(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::Bone *self = nullptr;
+    dragonBones::Bone *arg1 = nullptr;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.Bone");
+    olua_check_cppobj(L, 2, (void **)&arg1, "db.Bone");
+
+    // bool contains(const Bone* value)
+    bool ret = (bool)self->contains(arg1);
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_Bone_getBoneData(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::Bone *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.Bone");
+
+    // const BoneData* getBoneData()
+    const dragonBones::BoneData *ret = (const dragonBones::BoneData *)self->getBoneData();
+    int num_ret = olua_push_cppobj<dragonBones::BoneData>(L, (dragonBones::BoneData *)ret, "db.BoneData");
+
+    return num_ret;
+}
+
+static int _dragonBones_Bone_getName(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::Bone *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.Bone");
+
+    // const std::string& getName()
+    const std::string &ret = (const std::string &)self->getName();
+    int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_Bone_getOffsetMode(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::Bone *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.Bone");
+
+    // int getOffsetMode()
+    int ret = (int)self->getOffsetMode();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_Bone_getParent(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::Bone *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.Bone");
+
+    // Bone* getParent()
+    dragonBones::Bone *ret = (dragonBones::Bone *)self->getParent();
+    int num_ret = olua_push_cppobj<dragonBones::Bone>(L, ret, "db.Bone");
+
+    return num_ret;
+}
+
+static int _dragonBones_Bone_getTypeIndex(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static std::size_t getTypeIndex()
+    std::size_t ret = (std::size_t)dragonBones::Bone::getTypeIndex();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_Bone_getVisible(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::Bone *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.Bone");
+
+    // bool getVisible()
+    bool ret = (bool)self->getVisible();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_Bone_init(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    dragonBones::Bone *self = nullptr;
+    dragonBones::BoneData *arg1 = nullptr;   /** boneData */
+    dragonBones::Armature *arg2 = nullptr;   /** armatureValue */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.Bone");
+    olua_check_cppobj(L, 2, (void **)&arg1, "db.BoneData");
+    olua_check_cppobj(L, 3, (void **)&arg2, "db.Armature");
+
+    // void init(const BoneData* boneData, Armature* armatureValue)
+    self->init(arg1, arg2);
+
+    return 0;
+}
+
 static int _dragonBones_Bone_invalidUpdate(lua_State *L)
 {
     lua_settop(L, 1);
@@ -569,6 +1204,68 @@ static int _dragonBones_Bone_invalidUpdate(lua_State *L)
 
     // void invalidUpdate()
     self->invalidUpdate();
+
+    return 0;
+}
+
+static int _dragonBones_Bone_setOffsetMode(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::Bone *self = nullptr;
+    lua_Integer arg1 = 0;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.Bone");
+    olua_check_int(L, 2, &arg1);
+
+    // void setOffsetMode(int value)
+    self->setOffsetMode((int)arg1);
+
+    return 0;
+}
+
+static int _dragonBones_Bone_setVisible(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::Bone *self = nullptr;
+    bool arg1 = false;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.Bone");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setVisible(bool value)
+    self->setVisible(arg1);
+
+    return 0;
+}
+
+static int _dragonBones_Bone_update(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::Bone *self = nullptr;
+    lua_Integer arg1 = 0;   /** cacheFrameIndex */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.Bone");
+    olua_check_int(L, 2, &arg1);
+
+    // void update(int cacheFrameIndex)
+    self->update((int)arg1);
+
+    return 0;
+}
+
+static int _dragonBones_Bone_updateByConstraint(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::Bone *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.Bone");
+
+    // void updateByConstraint()
+    self->updateByConstraint();
 
     return 0;
 }
@@ -607,7 +1304,25 @@ static int _dragonBones_Bone_set_offsetMode(lua_State *L)
 static int luaopen_dragonBones_Bone(lua_State *L)
 {
     oluacls_class(L, "db.Bone", "db.TransformObject");
+    oluacls_func(L, "contains", _dragonBones_Bone_contains);
+    oluacls_func(L, "getBoneData", _dragonBones_Bone_getBoneData);
+    oluacls_func(L, "getName", _dragonBones_Bone_getName);
+    oluacls_func(L, "getOffsetMode", _dragonBones_Bone_getOffsetMode);
+    oluacls_func(L, "getParent", _dragonBones_Bone_getParent);
+    oluacls_func(L, "getTypeIndex", _dragonBones_Bone_getTypeIndex);
+    oluacls_func(L, "getVisible", _dragonBones_Bone_getVisible);
+    oluacls_func(L, "init", _dragonBones_Bone_init);
     oluacls_func(L, "invalidUpdate", _dragonBones_Bone_invalidUpdate);
+    oluacls_func(L, "setOffsetMode", _dragonBones_Bone_setOffsetMode);
+    oluacls_func(L, "setVisible", _dragonBones_Bone_setVisible);
+    oluacls_func(L, "update", _dragonBones_Bone_update);
+    oluacls_func(L, "updateByConstraint", _dragonBones_Bone_updateByConstraint);
+    oluacls_prop(L, "boneData", _dragonBones_Bone_getBoneData, nullptr);
+    oluacls_prop(L, "name", _dragonBones_Bone_getName, nullptr);
+    oluacls_prop(L, "offsetMode", _dragonBones_Bone_getOffsetMode, _dragonBones_Bone_setOffsetMode);
+    oluacls_prop(L, "parent", _dragonBones_Bone_getParent, nullptr);
+    oluacls_prop(L, "typeIndex", _dragonBones_Bone_getTypeIndex, nullptr);
+    oluacls_prop(L, "visible", _dragonBones_Bone_getVisible, _dragonBones_Bone_setVisible);
     oluacls_prop(L, "offsetMode", _dragonBones_Bone_get_offsetMode, _dragonBones_Bone_set_offsetMode);
 
     olua_registerluatype<dragonBones::Bone>(L, "db.Bone");
@@ -616,9 +1331,205 @@ static int luaopen_dragonBones_Bone(lua_State *L)
     return 1;
 }
 
+static int _dragonBones_DisplayData_getParent(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::DisplayData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.DisplayData");
+
+    // SkinData* getParent()
+    dragonBones::SkinData *ret = (dragonBones::SkinData *)self->getParent();
+    int num_ret = olua_push_cppobj<dragonBones::SkinData>(L, ret, "db.SkinData");
+
+    return num_ret;
+}
+
+static int _dragonBones_DisplayData_getType(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::DisplayData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.DisplayData");
+
+    // int getType()
+    int ret = (int)self->getType();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_DisplayData_setParent(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::DisplayData *self = nullptr;
+    dragonBones::SkinData *arg1 = nullptr;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.DisplayData");
+    olua_check_cppobj(L, 2, (void **)&arg1, "db.SkinData");
+
+    // void setParent(SkinData* value)
+    self->setParent(arg1);
+
+    return 0;
+}
+
+static int _dragonBones_DisplayData_setType(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::DisplayData *self = nullptr;
+    lua_Integer arg1 = 0;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.DisplayData");
+    olua_check_int(L, 2, &arg1);
+
+    // void setType(int value)
+    self->setType((int)arg1);
+
+    return 0;
+}
+
+static int _dragonBones_DisplayData_get_name(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::DisplayData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.DisplayData");
+
+    // <function var>
+    std::string ret = (std::string)self->name;
+    int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_DisplayData_set_name(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::DisplayData *self = nullptr;
+    std::string arg1;       /** name */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.DisplayData");
+    olua_check_std_string(L, 2, &arg1);
+
+    // <function var>
+    self->name = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_DisplayData_get_parent(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::DisplayData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.DisplayData");
+
+    // <function var>
+    dragonBones::SkinData *ret = (dragonBones::SkinData *)self->parent;
+    int num_ret = olua_push_cppobj<dragonBones::SkinData>(L, ret, "db.SkinData");
+
+    return num_ret;
+}
+
+static int _dragonBones_DisplayData_set_parent(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::DisplayData *self = nullptr;
+    dragonBones::SkinData *arg1 = nullptr;   /** parent */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.DisplayData");
+    olua_check_cppobj(L, 2, (void **)&arg1, "db.SkinData");
+
+    // <function var>
+    self->parent = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_DisplayData_get_path(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::DisplayData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.DisplayData");
+
+    // <function var>
+    std::string ret = (std::string)self->path;
+    int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_DisplayData_set_path(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::DisplayData *self = nullptr;
+    std::string arg1;       /** path */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.DisplayData");
+    olua_check_std_string(L, 2, &arg1);
+
+    // <function var>
+    self->path = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_DisplayData_get_type(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::DisplayData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.DisplayData");
+
+    // <function var>
+    dragonBones::DisplayType ret = (dragonBones::DisplayType)self->type;
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_DisplayData_set_type(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::DisplayData *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** type */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.DisplayData");
+    olua_check_uint(L, 2, &arg1);
+
+    // <function var>
+    self->type = (dragonBones::DisplayType)arg1;
+
+    return 0;
+}
+
 static int luaopen_dragonBones_DisplayData(lua_State *L)
 {
     oluacls_class(L, "db.DisplayData", "db.BaseObject");
+    oluacls_func(L, "getParent", _dragonBones_DisplayData_getParent);
+    oluacls_func(L, "getType", _dragonBones_DisplayData_getType);
+    oluacls_func(L, "setParent", _dragonBones_DisplayData_setParent);
+    oluacls_func(L, "setType", _dragonBones_DisplayData_setType);
+    oluacls_prop(L, "parent", _dragonBones_DisplayData_getParent, _dragonBones_DisplayData_setParent);
+    oluacls_prop(L, "type", _dragonBones_DisplayData_getType, _dragonBones_DisplayData_setType);
+    oluacls_prop(L, "name", _dragonBones_DisplayData_get_name, _dragonBones_DisplayData_set_name);
+    oluacls_prop(L, "parent", _dragonBones_DisplayData_get_parent, _dragonBones_DisplayData_set_parent);
+    oluacls_prop(L, "path", _dragonBones_DisplayData_get_path, _dragonBones_DisplayData_set_path);
+    oluacls_prop(L, "type", _dragonBones_DisplayData_get_type, _dragonBones_DisplayData_set_type);
 
     olua_registerluatype<dragonBones::DisplayData>(L, "db.DisplayData");
     oluacls_createclassproxy(L);
@@ -626,9 +1537,441 @@ static int luaopen_dragonBones_DisplayData(lua_State *L)
     return 1;
 }
 
+static int _dragonBones_ActionData_getBone(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::ActionData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ActionData");
+
+    // const BoneData* getBone()
+    const dragonBones::BoneData *ret = (const dragonBones::BoneData *)self->getBone();
+    int num_ret = olua_push_cppobj<dragonBones::BoneData>(L, (dragonBones::BoneData *)ret, "db.BoneData");
+
+    return num_ret;
+}
+
+static int _dragonBones_ActionData_getSlot(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::ActionData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ActionData");
+
+    // const SlotData* getSlot()
+    const dragonBones::SlotData *ret = (const dragonBones::SlotData *)self->getSlot();
+    int num_ret = olua_push_cppobj<dragonBones::SlotData>(L, (dragonBones::SlotData *)ret, "db.SlotData");
+
+    return num_ret;
+}
+
+static int _dragonBones_ActionData_getType(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::ActionData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ActionData");
+
+    // int getType()
+    int ret = (int)self->getType();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_ActionData_getTypeIndex(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static std::size_t getTypeIndex()
+    std::size_t ret = (std::size_t)dragonBones::ActionData::getTypeIndex();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_ActionData_setBone(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::ActionData *self = nullptr;
+    dragonBones::BoneData *arg1 = nullptr;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ActionData");
+    olua_check_cppobj(L, 2, (void **)&arg1, "db.BoneData");
+
+    // void setBone(const BoneData* value)
+    self->setBone(arg1);
+
+    return 0;
+}
+
+static int _dragonBones_ActionData_setSlot(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::ActionData *self = nullptr;
+    dragonBones::SlotData *arg1 = nullptr;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ActionData");
+    olua_check_cppobj(L, 2, (void **)&arg1, "db.SlotData");
+
+    // void setSlot(const SlotData* value)
+    self->setSlot(arg1);
+
+    return 0;
+}
+
+static int _dragonBones_ActionData_setType(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::ActionData *self = nullptr;
+    lua_Integer arg1 = 0;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ActionData");
+    olua_check_int(L, 2, &arg1);
+
+    // void setType(int value)
+    self->setType((int)arg1);
+
+    return 0;
+}
+
+static int _dragonBones_ActionData_get_name(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::ActionData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ActionData");
+
+    // <function var>
+    std::string ret = (std::string)self->name;
+    int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_ActionData_set_name(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::ActionData *self = nullptr;
+    std::string arg1;       /** name */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ActionData");
+    olua_check_std_string(L, 2, &arg1);
+
+    // <function var>
+    self->name = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_ActionData_get_type(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::ActionData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ActionData");
+
+    // <function var>
+    dragonBones::ActionType ret = (dragonBones::ActionType)self->type;
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_ActionData_set_type(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::ActionData *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** type */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ActionData");
+    olua_check_uint(L, 2, &arg1);
+
+    // <function var>
+    self->type = (dragonBones::ActionType)arg1;
+
+    return 0;
+}
+
+static int luaopen_dragonBones_ActionData(lua_State *L)
+{
+    oluacls_class(L, "db.ActionData", "db.BaseObject");
+    oluacls_func(L, "getBone", _dragonBones_ActionData_getBone);
+    oluacls_func(L, "getSlot", _dragonBones_ActionData_getSlot);
+    oluacls_func(L, "getType", _dragonBones_ActionData_getType);
+    oluacls_func(L, "getTypeIndex", _dragonBones_ActionData_getTypeIndex);
+    oluacls_func(L, "setBone", _dragonBones_ActionData_setBone);
+    oluacls_func(L, "setSlot", _dragonBones_ActionData_setSlot);
+    oluacls_func(L, "setType", _dragonBones_ActionData_setType);
+    oluacls_prop(L, "bone", _dragonBones_ActionData_getBone, _dragonBones_ActionData_setBone);
+    oluacls_prop(L, "slot", _dragonBones_ActionData_getSlot, _dragonBones_ActionData_setSlot);
+    oluacls_prop(L, "type", _dragonBones_ActionData_getType, _dragonBones_ActionData_setType);
+    oluacls_prop(L, "typeIndex", _dragonBones_ActionData_getTypeIndex, nullptr);
+    oluacls_prop(L, "name", _dragonBones_ActionData_get_name, _dragonBones_ActionData_set_name);
+    oluacls_prop(L, "type", _dragonBones_ActionData_get_type, _dragonBones_ActionData_set_type);
+
+    olua_registerluatype<dragonBones::ActionData>(L, "db.ActionData");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _dragonBones_TextureAtlasData_addTexture(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::TextureAtlasData *self = nullptr;
+    dragonBones::TextureData *arg1 = nullptr;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.TextureAtlasData");
+    olua_check_cppobj(L, 2, (void **)&arg1, "db.TextureData");
+
+    // void addTexture(TextureData* value)
+    self->addTexture(arg1);
+
+    return 0;
+}
+
+static int _dragonBones_TextureAtlasData_createTexture(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::TextureAtlasData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.TextureAtlasData");
+
+    // TextureData* createTexture()
+    dragonBones::TextureData *ret = (dragonBones::TextureData *)self->createTexture();
+    int num_ret = olua_push_cppobj<dragonBones::TextureData>(L, ret, "db.TextureData");
+
+    return num_ret;
+}
+
+static int _dragonBones_TextureAtlasData_getTexture(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::TextureAtlasData *self = nullptr;
+    std::string arg1;       /** textureName */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.TextureAtlasData");
+    olua_check_std_string(L, 2, &arg1);
+
+    // TextureData* getTexture(const std::string& textureName)
+    dragonBones::TextureData *ret = (dragonBones::TextureData *)self->getTexture(arg1);
+    int num_ret = olua_push_cppobj<dragonBones::TextureData>(L, ret, "db.TextureData");
+
+    return num_ret;
+}
+
+static int _dragonBones_TextureAtlasData_get_autoSearch(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::TextureAtlasData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.TextureAtlasData");
+
+    // <function var>
+    bool ret = (bool)self->autoSearch;
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_TextureAtlasData_set_autoSearch(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::TextureAtlasData *self = nullptr;
+    bool arg1 = false;   /** autoSearch */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.TextureAtlasData");
+    olua_check_bool(L, 2, &arg1);
+
+    // <function var>
+    self->autoSearch = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_TextureAtlasData_get_height(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::TextureAtlasData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.TextureAtlasData");
+
+    // <function var>
+    unsigned int ret = (unsigned int)self->height;
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_TextureAtlasData_set_height(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::TextureAtlasData *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** height */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.TextureAtlasData");
+    olua_check_uint(L, 2, &arg1);
+
+    // <function var>
+    self->height = (unsigned int)arg1;
+
+    return 0;
+}
+
+static int _dragonBones_TextureAtlasData_get_imagePath(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::TextureAtlasData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.TextureAtlasData");
+
+    // <function var>
+    std::string ret = (std::string)self->imagePath;
+    int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_TextureAtlasData_set_imagePath(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::TextureAtlasData *self = nullptr;
+    std::string arg1;       /** imagePath */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.TextureAtlasData");
+    olua_check_std_string(L, 2, &arg1);
+
+    // <function var>
+    self->imagePath = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_TextureAtlasData_get_name(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::TextureAtlasData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.TextureAtlasData");
+
+    // <function var>
+    std::string ret = (std::string)self->name;
+    int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_TextureAtlasData_set_name(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::TextureAtlasData *self = nullptr;
+    std::string arg1;       /** name */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.TextureAtlasData");
+    olua_check_std_string(L, 2, &arg1);
+
+    // <function var>
+    self->name = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_TextureAtlasData_get_scale(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::TextureAtlasData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.TextureAtlasData");
+
+    // <function var>
+    float ret = (float)self->scale;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_TextureAtlasData_set_scale(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::TextureAtlasData *self = nullptr;
+    lua_Number arg1 = 0;   /** scale */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.TextureAtlasData");
+    olua_check_number(L, 2, &arg1);
+
+    // <function var>
+    self->scale = (float)arg1;
+
+    return 0;
+}
+
+static int _dragonBones_TextureAtlasData_get_width(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::TextureAtlasData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.TextureAtlasData");
+
+    // <function var>
+    unsigned int ret = (unsigned int)self->width;
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_TextureAtlasData_set_width(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::TextureAtlasData *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** width */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.TextureAtlasData");
+    olua_check_uint(L, 2, &arg1);
+
+    // <function var>
+    self->width = (unsigned int)arg1;
+
+    return 0;
+}
+
 static int luaopen_dragonBones_TextureAtlasData(lua_State *L)
 {
     oluacls_class(L, "db.TextureAtlasData", "db.BaseObject");
+    oluacls_func(L, "addTexture", _dragonBones_TextureAtlasData_addTexture);
+    oluacls_func(L, "createTexture", _dragonBones_TextureAtlasData_createTexture);
+    oluacls_func(L, "getTexture", _dragonBones_TextureAtlasData_getTexture);
+    oluacls_prop(L, "autoSearch", _dragonBones_TextureAtlasData_get_autoSearch, _dragonBones_TextureAtlasData_set_autoSearch);
+    oluacls_prop(L, "height", _dragonBones_TextureAtlasData_get_height, _dragonBones_TextureAtlasData_set_height);
+    oluacls_prop(L, "imagePath", _dragonBones_TextureAtlasData_get_imagePath, _dragonBones_TextureAtlasData_set_imagePath);
+    oluacls_prop(L, "name", _dragonBones_TextureAtlasData_get_name, _dragonBones_TextureAtlasData_set_name);
+    oluacls_prop(L, "scale", _dragonBones_TextureAtlasData_get_scale, _dragonBones_TextureAtlasData_set_scale);
+    oluacls_prop(L, "width", _dragonBones_TextureAtlasData_get_width, _dragonBones_TextureAtlasData_set_width);
 
     olua_registerluatype<dragonBones::TextureAtlasData>(L, "db.TextureAtlasData");
     oluacls_createclassproxy(L);
@@ -636,14 +1979,324 @@ static int luaopen_dragonBones_TextureAtlasData(lua_State *L)
     return 1;
 }
 
+static int _dragonBones_TextureData_getParent(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::TextureData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.TextureData");
+
+    // const TextureAtlasData* getParent()
+    const dragonBones::TextureAtlasData *ret = (const dragonBones::TextureAtlasData *)self->getParent();
+    int num_ret = olua_push_cppobj<dragonBones::TextureAtlasData>(L, (dragonBones::TextureAtlasData *)ret, "db.TextureAtlasData");
+
+    return num_ret;
+}
+
+static int _dragonBones_TextureData_setParent(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::TextureData *self = nullptr;
+    dragonBones::TextureAtlasData *arg1 = nullptr;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.TextureData");
+    olua_check_cppobj(L, 2, (void **)&arg1, "db.TextureAtlasData");
+
+    // void setParent(TextureAtlasData* value)
+    self->setParent(arg1);
+
+    return 0;
+}
+
+static int _dragonBones_TextureData_get_name(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::TextureData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.TextureData");
+
+    // <function var>
+    std::string ret = (std::string)self->name;
+    int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_TextureData_set_name(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::TextureData *self = nullptr;
+    std::string arg1;       /** name */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.TextureData");
+    olua_check_std_string(L, 2, &arg1);
+
+    // <function var>
+    self->name = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_TextureData_get_parent(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::TextureData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.TextureData");
+
+    // <function var>
+    dragonBones::TextureAtlasData *ret = (dragonBones::TextureAtlasData *)self->parent;
+    int num_ret = olua_push_cppobj<dragonBones::TextureAtlasData>(L, ret, "db.TextureAtlasData");
+
+    return num_ret;
+}
+
+static int _dragonBones_TextureData_set_parent(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::TextureData *self = nullptr;
+    dragonBones::TextureAtlasData *arg1 = nullptr;   /** parent */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.TextureData");
+    olua_check_cppobj(L, 2, (void **)&arg1, "db.TextureAtlasData");
+
+    // <function var>
+    self->parent = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_TextureData_get_rotated(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::TextureData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.TextureData");
+
+    // <function var>
+    bool ret = (bool)self->rotated;
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_TextureData_set_rotated(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::TextureData *self = nullptr;
+    bool arg1 = false;   /** rotated */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.TextureData");
+    olua_check_bool(L, 2, &arg1);
+
+    // <function var>
+    self->rotated = arg1;
+
+    return 0;
+}
+
 static int luaopen_dragonBones_TextureData(lua_State *L)
 {
     oluacls_class(L, "db.TextureData", "db.BaseObject");
+    oluacls_func(L, "getParent", _dragonBones_TextureData_getParent);
+    oluacls_func(L, "setParent", _dragonBones_TextureData_setParent);
+    oluacls_prop(L, "parent", _dragonBones_TextureData_getParent, _dragonBones_TextureData_setParent);
+    oluacls_prop(L, "name", _dragonBones_TextureData_get_name, _dragonBones_TextureData_set_name);
+    oluacls_prop(L, "parent", _dragonBones_TextureData_get_parent, _dragonBones_TextureData_set_parent);
+    oluacls_prop(L, "rotated", _dragonBones_TextureData_get_rotated, _dragonBones_TextureData_set_rotated);
 
     olua_registerluatype<dragonBones::TextureData>(L, "db.TextureData");
     oluacls_createclassproxy(L);
 
     return 1;
+}
+
+static int _dragonBones_ArmatureData_addAnimation(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::AnimationData *arg1 = nullptr;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+    olua_check_cppobj(L, 2, (void **)&arg1, "db.AnimationData");
+
+    // void addAnimation(AnimationData* value)
+    self->addAnimation(arg1);
+
+    return 0;
+}
+
+static int _dragonBones_ArmatureData_addBone(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::BoneData *arg1 = nullptr;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+    olua_check_cppobj(L, 2, (void **)&arg1, "db.BoneData");
+
+    // void addBone(BoneData* value)
+    self->addBone(arg1);
+
+    return 0;
+}
+
+static int _dragonBones_ArmatureData_addSkin(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::SkinData *arg1 = nullptr;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+    olua_check_cppobj(L, 2, (void **)&arg1, "db.SkinData");
+
+    // void addSkin(SkinData* value)
+    self->addSkin(arg1);
+
+    return 0;
+}
+
+static int _dragonBones_ArmatureData_addSlot(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::SlotData *arg1 = nullptr;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+    olua_check_cppobj(L, 2, (void **)&arg1, "db.SlotData");
+
+    // void addSlot(SlotData* value)
+    self->addSlot(arg1);
+
+    return 0;
+}
+
+static int _dragonBones_ArmatureData_cacheFrames(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::ArmatureData *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** frameRate */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+    olua_check_uint(L, 2, &arg1);
+
+    // void cacheFrames(unsigned frameRate)
+    self->cacheFrames((unsigned int)arg1);
+
+    return 0;
+}
+
+static int _dragonBones_ArmatureData_getActions(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::ArmatureData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+
+    // const std::vector<ActionData*>& getActions()
+    const std::vector<dragonBones::ActionData *> &ret = (const std::vector<dragonBones::ActionData *> &)self->getActions();
+    int num_ret = olua_push_std_vector(L, ret, "db.ActionData");
+
+    return num_ret;
+}
+
+static int _dragonBones_ArmatureData_getAnimation(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::ArmatureData *self = nullptr;
+    std::string arg1;       /** animationName */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+    olua_check_std_string(L, 2, &arg1);
+
+    // AnimationData* getAnimation(const std::string& animationName)
+    dragonBones::AnimationData *ret = (dragonBones::AnimationData *)self->getAnimation(arg1);
+    int num_ret = olua_push_cppobj<dragonBones::AnimationData>(L, ret, "db.AnimationData");
+
+    return num_ret;
+}
+
+static int _dragonBones_ArmatureData_getAnimationNames(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::ArmatureData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+
+    // const std::vector<std::string>& getAnimationNames()
+    const std::vector<std::string> &ret = (const std::vector<std::string> &)self->getAnimationNames();
+    int num_ret = 1;
+    int num_eles = 1;
+    lua_createtable(L, (int)ret.size(), 0);
+    for (const auto &it : ret) {
+        olua_push_std_string(L, it);
+        lua_rawseti(L, -2, num_eles++);
+    }
+
+    return num_ret;
+}
+
+static int _dragonBones_ArmatureData_getBone(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::ArmatureData *self = nullptr;
+    std::string arg1;       /** boneName */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+    olua_check_std_string(L, 2, &arg1);
+
+    // BoneData* getBone(const std::string& boneName)
+    dragonBones::BoneData *ret = (dragonBones::BoneData *)self->getBone(arg1);
+    int num_ret = olua_push_cppobj<dragonBones::BoneData>(L, ret, "db.BoneData");
+
+    return num_ret;
+}
+
+static int _dragonBones_ArmatureData_getDefaultActions(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::ArmatureData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+
+    // const std::vector<ActionData*>& getDefaultActions()
+    const std::vector<dragonBones::ActionData *> &ret = (const std::vector<dragonBones::ActionData *> &)self->getDefaultActions();
+    int num_ret = olua_push_std_vector(L, ret, "db.ActionData");
+
+    return num_ret;
+}
+
+static int _dragonBones_ArmatureData_getDefaultAnimation(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::ArmatureData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+
+    // AnimationData* getDefaultAnimation()
+    dragonBones::AnimationData *ret = (dragonBones::AnimationData *)self->getDefaultAnimation();
+    int num_ret = olua_push_cppobj<dragonBones::AnimationData>(L, ret, "db.AnimationData");
+
+    return num_ret;
 }
 
 static int _dragonBones_ArmatureData_getDefaultSkin(lua_State *L)
@@ -659,6 +2312,359 @@ static int _dragonBones_ArmatureData_getDefaultSkin(lua_State *L)
     int num_ret = olua_push_cppobj<dragonBones::SkinData>(L, ret, "db.SkinData");
 
     return num_ret;
+}
+
+static int _dragonBones_ArmatureData_getParent(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::ArmatureData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+
+    // const DragonBonesData* getParent()
+    const dragonBones::DragonBonesData *ret = (const dragonBones::DragonBonesData *)self->getParent();
+    int num_ret = olua_push_cppobj<dragonBones::DragonBonesData>(L, (dragonBones::DragonBonesData *)ret, "db.DragonBonesData");
+
+    return num_ret;
+}
+
+static int _dragonBones_ArmatureData_getSkin(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::ArmatureData *self = nullptr;
+    std::string arg1;       /** skinName */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+    olua_check_std_string(L, 2, &arg1);
+
+    // SkinData* getSkin(const std::string& skinName)
+    dragonBones::SkinData *ret = (dragonBones::SkinData *)self->getSkin(arg1);
+    int num_ret = olua_push_cppobj<dragonBones::SkinData>(L, ret, "db.SkinData");
+
+    return num_ret;
+}
+
+static int _dragonBones_ArmatureData_getSlot(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::ArmatureData *self = nullptr;
+    std::string arg1;       /** slotName */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+    olua_check_std_string(L, 2, &arg1);
+
+    // SlotData* getSlot(const std::string& slotName)
+    dragonBones::SlotData *ret = (dragonBones::SlotData *)self->getSlot(arg1);
+    int num_ret = olua_push_cppobj<dragonBones::SlotData>(L, ret, "db.SlotData");
+
+    return num_ret;
+}
+
+static int _dragonBones_ArmatureData_getSortedBones(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::ArmatureData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+
+    // const std::vector<BoneData*>& getSortedBones()
+    const std::vector<dragonBones::BoneData *> &ret = (const std::vector<dragonBones::BoneData *> &)self->getSortedBones();
+    int num_ret = olua_push_std_vector(L, ret, "db.BoneData");
+
+    return num_ret;
+}
+
+static int _dragonBones_ArmatureData_getSortedSlots(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::ArmatureData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+
+    // const std::vector<SlotData*>& getSortedSlots()
+    const std::vector<dragonBones::SlotData *> &ret = (const std::vector<dragonBones::SlotData *> &)self->getSortedSlots();
+    int num_ret = olua_push_std_vector(L, ret, "db.SlotData");
+
+    return num_ret;
+}
+
+static int _dragonBones_ArmatureData_getType(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::ArmatureData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+
+    // int getType()
+    int ret = (int)self->getType();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_ArmatureData_getTypeIndex(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static std::size_t getTypeIndex()
+    std::size_t ret = (std::size_t)dragonBones::ArmatureData::getTypeIndex();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_ArmatureData_setDefaultAnimation(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::AnimationData *arg1 = nullptr;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+    olua_check_cppobj(L, 2, (void **)&arg1, "db.AnimationData");
+
+    // void setDefaultAnimation(AnimationData* value)
+    self->setDefaultAnimation(arg1);
+
+    return 0;
+}
+
+static int _dragonBones_ArmatureData_setDefaultSkin(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::SkinData *arg1 = nullptr;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+    olua_check_cppobj(L, 2, (void **)&arg1, "db.SkinData");
+
+    // void setDefaultSkin(SkinData* value)
+    self->setDefaultSkin(arg1);
+
+    return 0;
+}
+
+static int _dragonBones_ArmatureData_setParent(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::DragonBonesData *arg1 = nullptr;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+    olua_check_cppobj(L, 2, (void **)&arg1, "db.DragonBonesData");
+
+    // void setParent(DragonBonesData* value)
+    self->setParent(arg1);
+
+    return 0;
+}
+
+static int _dragonBones_ArmatureData_setType(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::ArmatureData *self = nullptr;
+    lua_Integer arg1 = 0;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+    olua_check_int(L, 2, &arg1);
+
+    // void setType(int value)
+    self->setType((int)arg1);
+
+    return 0;
+}
+
+static int _dragonBones_ArmatureData_sortBones(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::ArmatureData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+
+    // void sortBones()
+    self->sortBones();
+
+    return 0;
+}
+
+static int _dragonBones_ArmatureData_get_actions(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::ArmatureData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+
+    // <function var>
+    std::vector<dragonBones::ActionData *> ret = (std::vector<dragonBones::ActionData *>)self->actions;
+    int num_ret = olua_push_std_vector(L, ret, "db.ActionData");
+
+    return num_ret;
+}
+
+static int _dragonBones_ArmatureData_set_actions(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::ArmatureData *self = nullptr;
+    std::vector<dragonBones::ActionData *> arg1;       /** actions */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+    olua_check_std_vector(L, 2, arg1, "db.ActionData");
+
+    // <function var>
+    self->actions = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_ArmatureData_get_animationNames(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::ArmatureData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+
+    // <function var>
+    std::vector<std::string> ret = (std::vector<std::string>)self->animationNames;
+    int num_ret = 1;
+    int num_eles = 1;
+    lua_createtable(L, (int)ret.size(), 0);
+    for (const auto &it : ret) {
+        olua_push_std_string(L, it);
+        lua_rawseti(L, -2, num_eles++);
+    }
+
+    return num_ret;
+}
+
+static int _dragonBones_ArmatureData_set_animationNames(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::ArmatureData *self = nullptr;
+    std::vector<std::string> arg1;       /** animationNames */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+    luaL_checktype(L, 2, LUA_TTABLE);
+    size_t arg1_total = lua_rawlen(L, 2);
+    arg1.reserve(arg1_total);
+    for (int i = 1; i <= arg1_total; i++) {
+        std::string obj;
+        lua_rawgeti(L, 2, i);
+        olua_check_std_string(L, -1, &obj);
+        arg1.push_back(obj);
+        lua_pop(L, 1);
+    }
+
+    // <function var>
+    self->animationNames = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_ArmatureData_get_cacheFrameRate(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::ArmatureData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+
+    // <function var>
+    unsigned int ret = (unsigned int)self->cacheFrameRate;
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_ArmatureData_set_cacheFrameRate(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::ArmatureData *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** cacheFrameRate */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+    olua_check_uint(L, 2, &arg1);
+
+    // <function var>
+    self->cacheFrameRate = (unsigned int)arg1;
+
+    return 0;
+}
+
+static int _dragonBones_ArmatureData_get_defaultActions(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::ArmatureData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+
+    // <function var>
+    std::vector<dragonBones::ActionData *> ret = (std::vector<dragonBones::ActionData *>)self->defaultActions;
+    int num_ret = olua_push_std_vector(L, ret, "db.ActionData");
+
+    return num_ret;
+}
+
+static int _dragonBones_ArmatureData_set_defaultActions(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::ArmatureData *self = nullptr;
+    std::vector<dragonBones::ActionData *> arg1;       /** defaultActions */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+    olua_check_std_vector(L, 2, arg1, "db.ActionData");
+
+    // <function var>
+    self->defaultActions = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_ArmatureData_get_defaultAnimation(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::ArmatureData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+
+    // <function var>
+    dragonBones::AnimationData *ret = (dragonBones::AnimationData *)self->defaultAnimation;
+    int num_ret = olua_push_cppobj<dragonBones::AnimationData>(L, ret, "db.AnimationData");
+
+    return num_ret;
+}
+
+static int _dragonBones_ArmatureData_set_defaultAnimation(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::AnimationData *arg1 = nullptr;   /** defaultAnimation */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+    olua_check_cppobj(L, 2, (void **)&arg1, "db.AnimationData");
+
+    // <function var>
+    self->defaultAnimation = arg1;
+
+    return 0;
 }
 
 static int _dragonBones_ArmatureData_get_defaultSkin(lua_State *L)
@@ -692,11 +2698,273 @@ static int _dragonBones_ArmatureData_set_defaultSkin(lua_State *L)
     return 0;
 }
 
+static int _dragonBones_ArmatureData_get_frameRate(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::ArmatureData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+
+    // <function var>
+    unsigned int ret = (unsigned int)self->frameRate;
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_ArmatureData_set_frameRate(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::ArmatureData *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** frameRate */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+    olua_check_uint(L, 2, &arg1);
+
+    // <function var>
+    self->frameRate = (unsigned int)arg1;
+
+    return 0;
+}
+
+static int _dragonBones_ArmatureData_get_name(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::ArmatureData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+
+    // <function var>
+    std::string ret = (std::string)self->name;
+    int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_ArmatureData_set_name(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::ArmatureData *self = nullptr;
+    std::string arg1;       /** name */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+    olua_check_std_string(L, 2, &arg1);
+
+    // <function var>
+    self->name = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_ArmatureData_get_parent(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::ArmatureData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+
+    // <function var>
+    dragonBones::DragonBonesData *ret = (dragonBones::DragonBonesData *)self->parent;
+    int num_ret = olua_push_cppobj<dragonBones::DragonBonesData>(L, ret, "db.DragonBonesData");
+
+    return num_ret;
+}
+
+static int _dragonBones_ArmatureData_set_parent(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::DragonBonesData *arg1 = nullptr;   /** parent */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+    olua_check_cppobj(L, 2, (void **)&arg1, "db.DragonBonesData");
+
+    // <function var>
+    self->parent = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_ArmatureData_get_scale(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::ArmatureData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+
+    // <function var>
+    float ret = (float)self->scale;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_ArmatureData_set_scale(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::ArmatureData *self = nullptr;
+    lua_Number arg1 = 0;   /** scale */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+    olua_check_number(L, 2, &arg1);
+
+    // <function var>
+    self->scale = (float)arg1;
+
+    return 0;
+}
+
+static int _dragonBones_ArmatureData_get_sortedBones(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::ArmatureData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+
+    // <function var>
+    std::vector<dragonBones::BoneData *> ret = (std::vector<dragonBones::BoneData *>)self->sortedBones;
+    int num_ret = olua_push_std_vector(L, ret, "db.BoneData");
+
+    return num_ret;
+}
+
+static int _dragonBones_ArmatureData_set_sortedBones(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::ArmatureData *self = nullptr;
+    std::vector<dragonBones::BoneData *> arg1;       /** sortedBones */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+    olua_check_std_vector(L, 2, arg1, "db.BoneData");
+
+    // <function var>
+    self->sortedBones = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_ArmatureData_get_sortedSlots(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::ArmatureData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+
+    // <function var>
+    std::vector<dragonBones::SlotData *> ret = (std::vector<dragonBones::SlotData *>)self->sortedSlots;
+    int num_ret = olua_push_std_vector(L, ret, "db.SlotData");
+
+    return num_ret;
+}
+
+static int _dragonBones_ArmatureData_set_sortedSlots(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::ArmatureData *self = nullptr;
+    std::vector<dragonBones::SlotData *> arg1;       /** sortedSlots */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+    olua_check_std_vector(L, 2, arg1, "db.SlotData");
+
+    // <function var>
+    self->sortedSlots = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_ArmatureData_get_type(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::ArmatureData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+
+    // <function var>
+    dragonBones::ArmatureType ret = (dragonBones::ArmatureType)self->type;
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_ArmatureData_set_type(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::ArmatureData *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** type */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
+    olua_check_uint(L, 2, &arg1);
+
+    // <function var>
+    self->type = (dragonBones::ArmatureType)arg1;
+
+    return 0;
+}
+
 static int luaopen_dragonBones_ArmatureData(lua_State *L)
 {
     oluacls_class(L, "db.ArmatureData", "db.BaseObject");
+    oluacls_func(L, "addAnimation", _dragonBones_ArmatureData_addAnimation);
+    oluacls_func(L, "addBone", _dragonBones_ArmatureData_addBone);
+    oluacls_func(L, "addSkin", _dragonBones_ArmatureData_addSkin);
+    oluacls_func(L, "addSlot", _dragonBones_ArmatureData_addSlot);
+    oluacls_func(L, "cacheFrames", _dragonBones_ArmatureData_cacheFrames);
+    oluacls_func(L, "getActions", _dragonBones_ArmatureData_getActions);
+    oluacls_func(L, "getAnimation", _dragonBones_ArmatureData_getAnimation);
+    oluacls_func(L, "getAnimationNames", _dragonBones_ArmatureData_getAnimationNames);
+    oluacls_func(L, "getBone", _dragonBones_ArmatureData_getBone);
+    oluacls_func(L, "getDefaultActions", _dragonBones_ArmatureData_getDefaultActions);
+    oluacls_func(L, "getDefaultAnimation", _dragonBones_ArmatureData_getDefaultAnimation);
     oluacls_func(L, "getDefaultSkin", _dragonBones_ArmatureData_getDefaultSkin);
+    oluacls_func(L, "getParent", _dragonBones_ArmatureData_getParent);
+    oluacls_func(L, "getSkin", _dragonBones_ArmatureData_getSkin);
+    oluacls_func(L, "getSlot", _dragonBones_ArmatureData_getSlot);
+    oluacls_func(L, "getSortedBones", _dragonBones_ArmatureData_getSortedBones);
+    oluacls_func(L, "getSortedSlots", _dragonBones_ArmatureData_getSortedSlots);
+    oluacls_func(L, "getType", _dragonBones_ArmatureData_getType);
+    oluacls_func(L, "getTypeIndex", _dragonBones_ArmatureData_getTypeIndex);
+    oluacls_func(L, "setDefaultAnimation", _dragonBones_ArmatureData_setDefaultAnimation);
+    oluacls_func(L, "setDefaultSkin", _dragonBones_ArmatureData_setDefaultSkin);
+    oluacls_func(L, "setParent", _dragonBones_ArmatureData_setParent);
+    oluacls_func(L, "setType", _dragonBones_ArmatureData_setType);
+    oluacls_func(L, "sortBones", _dragonBones_ArmatureData_sortBones);
+    oluacls_prop(L, "actions", _dragonBones_ArmatureData_getActions, nullptr);
+    oluacls_prop(L, "animationNames", _dragonBones_ArmatureData_getAnimationNames, nullptr);
+    oluacls_prop(L, "defaultActions", _dragonBones_ArmatureData_getDefaultActions, nullptr);
+    oluacls_prop(L, "defaultAnimation", _dragonBones_ArmatureData_getDefaultAnimation, _dragonBones_ArmatureData_setDefaultAnimation);
+    oluacls_prop(L, "defaultSkin", _dragonBones_ArmatureData_getDefaultSkin, _dragonBones_ArmatureData_setDefaultSkin);
+    oluacls_prop(L, "parent", _dragonBones_ArmatureData_getParent, _dragonBones_ArmatureData_setParent);
+    oluacls_prop(L, "sortedBones", _dragonBones_ArmatureData_getSortedBones, nullptr);
+    oluacls_prop(L, "sortedSlots", _dragonBones_ArmatureData_getSortedSlots, nullptr);
+    oluacls_prop(L, "type", _dragonBones_ArmatureData_getType, _dragonBones_ArmatureData_setType);
+    oluacls_prop(L, "typeIndex", _dragonBones_ArmatureData_getTypeIndex, nullptr);
+    oluacls_prop(L, "actions", _dragonBones_ArmatureData_get_actions, _dragonBones_ArmatureData_set_actions);
+    oluacls_prop(L, "animationNames", _dragonBones_ArmatureData_get_animationNames, _dragonBones_ArmatureData_set_animationNames);
+    oluacls_prop(L, "cacheFrameRate", _dragonBones_ArmatureData_get_cacheFrameRate, _dragonBones_ArmatureData_set_cacheFrameRate);
+    oluacls_prop(L, "defaultActions", _dragonBones_ArmatureData_get_defaultActions, _dragonBones_ArmatureData_set_defaultActions);
+    oluacls_prop(L, "defaultAnimation", _dragonBones_ArmatureData_get_defaultAnimation, _dragonBones_ArmatureData_set_defaultAnimation);
     oluacls_prop(L, "defaultSkin", _dragonBones_ArmatureData_get_defaultSkin, _dragonBones_ArmatureData_set_defaultSkin);
+    oluacls_prop(L, "frameRate", _dragonBones_ArmatureData_get_frameRate, _dragonBones_ArmatureData_set_frameRate);
+    oluacls_prop(L, "name", _dragonBones_ArmatureData_get_name, _dragonBones_ArmatureData_set_name);
+    oluacls_prop(L, "parent", _dragonBones_ArmatureData_get_parent, _dragonBones_ArmatureData_set_parent);
+    oluacls_prop(L, "scale", _dragonBones_ArmatureData_get_scale, _dragonBones_ArmatureData_set_scale);
+    oluacls_prop(L, "sortedBones", _dragonBones_ArmatureData_get_sortedBones, _dragonBones_ArmatureData_set_sortedBones);
+    oluacls_prop(L, "sortedSlots", _dragonBones_ArmatureData_get_sortedSlots, _dragonBones_ArmatureData_set_sortedSlots);
+    oluacls_prop(L, "type", _dragonBones_ArmatureData_get_type, _dragonBones_ArmatureData_set_type);
 
     olua_registerluatype<dragonBones::ArmatureData>(L, "db.ArmatureData");
     oluacls_createclassproxy(L);
@@ -704,9 +2972,125 @@ static int luaopen_dragonBones_ArmatureData(lua_State *L)
     return 1;
 }
 
+static int _dragonBones_SkinData_addDisplay(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    dragonBones::SkinData *self = nullptr;
+    std::string arg1;       /** slotName */
+    dragonBones::DisplayData *arg2 = nullptr;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.SkinData");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_cppobj(L, 3, (void **)&arg2, "db.DisplayData");
+
+    // void addDisplay(const std::string& slotName, DisplayData* value)
+    self->addDisplay(arg1, arg2);
+
+    return 0;
+}
+
+static int _dragonBones_SkinData_getDisplay(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    dragonBones::SkinData *self = nullptr;
+    std::string arg1;       /** slotName */
+    std::string arg2;       /** displayName */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.SkinData");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+
+    // DisplayData* getDisplay(const std::string& slotName, const std::string& displayName)
+    dragonBones::DisplayData *ret = (dragonBones::DisplayData *)self->getDisplay(arg1, arg2);
+    int num_ret = olua_push_cppobj<dragonBones::DisplayData>(L, ret, "db.DisplayData");
+
+    return num_ret;
+}
+
+static int _dragonBones_SkinData_getTypeIndex(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static std::size_t getTypeIndex()
+    std::size_t ret = (std::size_t)dragonBones::SkinData::getTypeIndex();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_SkinData_get_name(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::SkinData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.SkinData");
+
+    // <function var>
+    std::string ret = (std::string)self->name;
+    int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_SkinData_set_name(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::SkinData *self = nullptr;
+    std::string arg1;       /** name */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.SkinData");
+    olua_check_std_string(L, 2, &arg1);
+
+    // <function var>
+    self->name = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_SkinData_get_parent(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::SkinData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.SkinData");
+
+    // <function var>
+    dragonBones::ArmatureData *ret = (dragonBones::ArmatureData *)self->parent;
+    int num_ret = olua_push_cppobj<dragonBones::ArmatureData>(L, ret, "db.ArmatureData");
+
+    return num_ret;
+}
+
+static int _dragonBones_SkinData_set_parent(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::SkinData *self = nullptr;
+    dragonBones::ArmatureData *arg1 = nullptr;   /** parent */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.SkinData");
+    olua_check_cppobj(L, 2, (void **)&arg1, "db.ArmatureData");
+
+    // <function var>
+    self->parent = arg1;
+
+    return 0;
+}
+
 static int luaopen_dragonBones_SkinData(lua_State *L)
 {
     oluacls_class(L, "db.SkinData", "db.BaseObject");
+    oluacls_func(L, "addDisplay", _dragonBones_SkinData_addDisplay);
+    oluacls_func(L, "getDisplay", _dragonBones_SkinData_getDisplay);
+    oluacls_func(L, "getTypeIndex", _dragonBones_SkinData_getTypeIndex);
+    oluacls_prop(L, "typeIndex", _dragonBones_SkinData_getTypeIndex, nullptr);
+    oluacls_prop(L, "name", _dragonBones_SkinData_get_name, _dragonBones_SkinData_set_name);
+    oluacls_prop(L, "parent", _dragonBones_SkinData_get_parent, _dragonBones_SkinData_set_parent);
 
     olua_registerluatype<dragonBones::SkinData>(L, "db.SkinData");
     oluacls_createclassproxy(L);
@@ -714,9 +3098,280 @@ static int luaopen_dragonBones_SkinData(lua_State *L)
     return 1;
 }
 
+static int _dragonBones_BoneData_getParent(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::BoneData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.BoneData");
+
+    // const BoneData* getParent()
+    const dragonBones::BoneData *ret = (const dragonBones::BoneData *)self->getParent();
+    int num_ret = olua_push_cppobj<dragonBones::BoneData>(L, (dragonBones::BoneData *)ret, "db.BoneData");
+
+    return num_ret;
+}
+
+static int _dragonBones_BoneData_getTypeIndex(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static std::size_t getTypeIndex()
+    std::size_t ret = (std::size_t)dragonBones::BoneData::getTypeIndex();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_BoneData_setParent(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::BoneData *self = nullptr;
+    dragonBones::BoneData *arg1 = nullptr;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.BoneData");
+    olua_check_cppobj(L, 2, (void **)&arg1, "db.BoneData");
+
+    // void setParent(BoneData* value)
+    self->setParent(arg1);
+
+    return 0;
+}
+
+static int _dragonBones_BoneData_get_inheritReflection(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::BoneData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.BoneData");
+
+    // <function var>
+    bool ret = (bool)self->inheritReflection;
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_BoneData_set_inheritReflection(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::BoneData *self = nullptr;
+    bool arg1 = false;   /** inheritReflection */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.BoneData");
+    olua_check_bool(L, 2, &arg1);
+
+    // <function var>
+    self->inheritReflection = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_BoneData_get_inheritRotation(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::BoneData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.BoneData");
+
+    // <function var>
+    bool ret = (bool)self->inheritRotation;
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_BoneData_set_inheritRotation(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::BoneData *self = nullptr;
+    bool arg1 = false;   /** inheritRotation */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.BoneData");
+    olua_check_bool(L, 2, &arg1);
+
+    // <function var>
+    self->inheritRotation = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_BoneData_get_inheritScale(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::BoneData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.BoneData");
+
+    // <function var>
+    bool ret = (bool)self->inheritScale;
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_BoneData_set_inheritScale(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::BoneData *self = nullptr;
+    bool arg1 = false;   /** inheritScale */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.BoneData");
+    olua_check_bool(L, 2, &arg1);
+
+    // <function var>
+    self->inheritScale = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_BoneData_get_inheritTranslation(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::BoneData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.BoneData");
+
+    // <function var>
+    bool ret = (bool)self->inheritTranslation;
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_BoneData_set_inheritTranslation(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::BoneData *self = nullptr;
+    bool arg1 = false;   /** inheritTranslation */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.BoneData");
+    olua_check_bool(L, 2, &arg1);
+
+    // <function var>
+    self->inheritTranslation = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_BoneData_get_length(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::BoneData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.BoneData");
+
+    // <function var>
+    float ret = (float)self->length;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_BoneData_set_length(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::BoneData *self = nullptr;
+    lua_Number arg1 = 0;   /** length */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.BoneData");
+    olua_check_number(L, 2, &arg1);
+
+    // <function var>
+    self->length = (float)arg1;
+
+    return 0;
+}
+
+static int _dragonBones_BoneData_get_name(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::BoneData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.BoneData");
+
+    // <function var>
+    std::string ret = (std::string)self->name;
+    int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_BoneData_set_name(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::BoneData *self = nullptr;
+    std::string arg1;       /** name */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.BoneData");
+    olua_check_std_string(L, 2, &arg1);
+
+    // <function var>
+    self->name = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_BoneData_get_parent(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::BoneData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.BoneData");
+
+    // <function var>
+    dragonBones::BoneData *ret = (dragonBones::BoneData *)self->parent;
+    int num_ret = olua_push_cppobj<dragonBones::BoneData>(L, ret, "db.BoneData");
+
+    return num_ret;
+}
+
+static int _dragonBones_BoneData_set_parent(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::BoneData *self = nullptr;
+    dragonBones::BoneData *arg1 = nullptr;   /** parent */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.BoneData");
+    olua_check_cppobj(L, 2, (void **)&arg1, "db.BoneData");
+
+    // <function var>
+    self->parent = arg1;
+
+    return 0;
+}
+
 static int luaopen_dragonBones_BoneData(lua_State *L)
 {
     oluacls_class(L, "db.BoneData", "db.BaseObject");
+    oluacls_func(L, "getParent", _dragonBones_BoneData_getParent);
+    oluacls_func(L, "getTypeIndex", _dragonBones_BoneData_getTypeIndex);
+    oluacls_func(L, "setParent", _dragonBones_BoneData_setParent);
+    oluacls_prop(L, "parent", _dragonBones_BoneData_getParent, _dragonBones_BoneData_setParent);
+    oluacls_prop(L, "typeIndex", _dragonBones_BoneData_getTypeIndex, nullptr);
+    oluacls_prop(L, "inheritReflection", _dragonBones_BoneData_get_inheritReflection, _dragonBones_BoneData_set_inheritReflection);
+    oluacls_prop(L, "inheritRotation", _dragonBones_BoneData_get_inheritRotation, _dragonBones_BoneData_set_inheritRotation);
+    oluacls_prop(L, "inheritScale", _dragonBones_BoneData_get_inheritScale, _dragonBones_BoneData_set_inheritScale);
+    oluacls_prop(L, "inheritTranslation", _dragonBones_BoneData_get_inheritTranslation, _dragonBones_BoneData_set_inheritTranslation);
+    oluacls_prop(L, "length", _dragonBones_BoneData_get_length, _dragonBones_BoneData_set_length);
+    oluacls_prop(L, "name", _dragonBones_BoneData_get_name, _dragonBones_BoneData_set_name);
+    oluacls_prop(L, "parent", _dragonBones_BoneData_get_parent, _dragonBones_BoneData_set_parent);
 
     olua_registerluatype<dragonBones::BoneData>(L, "db.BoneData");
     oluacls_createclassproxy(L);
@@ -724,9 +3379,218 @@ static int luaopen_dragonBones_BoneData(lua_State *L)
     return 1;
 }
 
+static int _dragonBones_SlotData_getBlendMode(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::SlotData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.SlotData");
+
+    // int getBlendMode()
+    int ret = (int)self->getBlendMode();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_SlotData_getParent(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::SlotData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.SlotData");
+
+    // const BoneData* getParent()
+    const dragonBones::BoneData *ret = (const dragonBones::BoneData *)self->getParent();
+    int num_ret = olua_push_cppobj<dragonBones::BoneData>(L, (dragonBones::BoneData *)ret, "db.BoneData");
+
+    return num_ret;
+}
+
+static int _dragonBones_SlotData_getTypeIndex(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static std::size_t getTypeIndex()
+    std::size_t ret = (std::size_t)dragonBones::SlotData::getTypeIndex();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_SlotData_setBlendMode(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::SlotData *self = nullptr;
+    lua_Integer arg1 = 0;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.SlotData");
+    olua_check_int(L, 2, &arg1);
+
+    // void setBlendMode(int value)
+    self->setBlendMode((int)arg1);
+
+    return 0;
+}
+
+static int _dragonBones_SlotData_setParent(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::SlotData *self = nullptr;
+    dragonBones::BoneData *arg1 = nullptr;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.SlotData");
+    olua_check_cppobj(L, 2, (void **)&arg1, "db.BoneData");
+
+    // void setParent(BoneData* value)
+    self->setParent(arg1);
+
+    return 0;
+}
+
+static int _dragonBones_SlotData_get_displayIndex(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::SlotData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.SlotData");
+
+    // <function var>
+    int ret = (int)self->displayIndex;
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_SlotData_set_displayIndex(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::SlotData *self = nullptr;
+    lua_Integer arg1 = 0;   /** displayIndex */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.SlotData");
+    olua_check_int(L, 2, &arg1);
+
+    // <function var>
+    self->displayIndex = (int)arg1;
+
+    return 0;
+}
+
+static int _dragonBones_SlotData_get_name(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::SlotData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.SlotData");
+
+    // <function var>
+    std::string ret = (std::string)self->name;
+    int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_SlotData_set_name(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::SlotData *self = nullptr;
+    std::string arg1;       /** name */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.SlotData");
+    olua_check_std_string(L, 2, &arg1);
+
+    // <function var>
+    self->name = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_SlotData_get_parent(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::SlotData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.SlotData");
+
+    // <function var>
+    dragonBones::BoneData *ret = (dragonBones::BoneData *)self->parent;
+    int num_ret = olua_push_cppobj<dragonBones::BoneData>(L, ret, "db.BoneData");
+
+    return num_ret;
+}
+
+static int _dragonBones_SlotData_set_parent(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::SlotData *self = nullptr;
+    dragonBones::BoneData *arg1 = nullptr;   /** parent */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.SlotData");
+    olua_check_cppobj(L, 2, (void **)&arg1, "db.BoneData");
+
+    // <function var>
+    self->parent = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_SlotData_get_zOrder(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::SlotData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.SlotData");
+
+    // <function var>
+    int ret = (int)self->zOrder;
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_SlotData_set_zOrder(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::SlotData *self = nullptr;
+    lua_Integer arg1 = 0;   /** zOrder */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.SlotData");
+    olua_check_int(L, 2, &arg1);
+
+    // <function var>
+    self->zOrder = (int)arg1;
+
+    return 0;
+}
+
 static int luaopen_dragonBones_SlotData(lua_State *L)
 {
     oluacls_class(L, "db.SlotData", "db.BaseObject");
+    oluacls_func(L, "getBlendMode", _dragonBones_SlotData_getBlendMode);
+    oluacls_func(L, "getParent", _dragonBones_SlotData_getParent);
+    oluacls_func(L, "getTypeIndex", _dragonBones_SlotData_getTypeIndex);
+    oluacls_func(L, "setBlendMode", _dragonBones_SlotData_setBlendMode);
+    oluacls_func(L, "setParent", _dragonBones_SlotData_setParent);
+    oluacls_prop(L, "blendMode", _dragonBones_SlotData_getBlendMode, _dragonBones_SlotData_setBlendMode);
+    oluacls_prop(L, "parent", _dragonBones_SlotData_getParent, _dragonBones_SlotData_setParent);
+    oluacls_prop(L, "typeIndex", _dragonBones_SlotData_getTypeIndex, nullptr);
+    oluacls_prop(L, "displayIndex", _dragonBones_SlotData_get_displayIndex, _dragonBones_SlotData_set_displayIndex);
+    oluacls_prop(L, "name", _dragonBones_SlotData_get_name, _dragonBones_SlotData_set_name);
+    oluacls_prop(L, "parent", _dragonBones_SlotData_get_parent, _dragonBones_SlotData_set_parent);
+    oluacls_prop(L, "zOrder", _dragonBones_SlotData_get_zOrder, _dragonBones_SlotData_set_zOrder);
 
     olua_registerluatype<dragonBones::SlotData>(L, "db.SlotData");
     oluacls_createclassproxy(L);
@@ -748,6 +3612,24 @@ static int _dragonBones_AnimationState_addBoneMask(lua_State *L)
 
     // void addBoneMask(const std::string& boneName, bool recursive = true)
     self->addBoneMask(arg1, arg2);
+
+    return 0;
+}
+
+static int _dragonBones_AnimationState_advanceTime(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    dragonBones::AnimationState *self = nullptr;
+    lua_Number arg1 = 0;   /** passedTime */
+    lua_Number arg2 = 0;   /** cacheFrameRate */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
+    olua_check_number(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+
+    // void advanceTime(float passedTime, float cacheFrameRate)
+    self->advanceTime((float)arg1, (float)arg2);
 
     return 0;
 }
@@ -810,7 +3692,7 @@ static int _dragonBones_AnimationState_getCurrentPlayTimes(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
 
-    // unsigned int getCurrentPlayTimes()
+    // unsigned getCurrentPlayTimes()
     unsigned int ret = (unsigned int)self->getCurrentPlayTimes();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
@@ -860,6 +3742,37 @@ static int _dragonBones_AnimationState_getTotalTime(lua_State *L)
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     return num_ret;
+}
+
+static int _dragonBones_AnimationState_getTypeIndex(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static std::size_t getTypeIndex()
+    std::size_t ret = (std::size_t)dragonBones::AnimationState::getTypeIndex();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationState_init(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    dragonBones::AnimationState *self = nullptr;
+    dragonBones::Armature *arg1 = nullptr;   /** armature */
+    dragonBones::AnimationData *arg2 = nullptr;   /** animationData */
+    dragonBones::AnimationConfig *arg3 = nullptr;   /** animationConfig */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
+    olua_check_cppobj(L, 2, (void **)&arg1, "db.Armature");
+    olua_check_cppobj(L, 3, (void **)&arg2, "db.AnimationData");
+    olua_check_cppobj(L, 4, (void **)&arg3, "db.AnimationConfig");
+
+    // void init(Armature* armature, AnimationData* animationData, AnimationConfig* animationConfig)
+    self->init(arg1, arg2, arg3);
+
+    return 0;
 }
 
 static int _dragonBones_AnimationState_isCompleted(lua_State *L)
@@ -1009,6 +3922,68 @@ static int _dragonBones_AnimationState_stop(lua_State *L)
 
     // void stop()
     self->stop();
+
+    return 0;
+}
+
+static int _dragonBones_AnimationState_get_actionEnabled(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::AnimationState *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
+
+    // <function var>
+    bool ret = (bool)self->actionEnabled;
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationState_set_actionEnabled(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationState *self = nullptr;
+    bool arg1 = false;   /** actionEnabled */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
+    olua_check_bool(L, 2, &arg1);
+
+    // <function var>
+    self->actionEnabled = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_AnimationState_get_additiveBlending(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::AnimationState *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
+
+    // <function var>
+    bool ret = (bool)self->additiveBlending;
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationState_set_additiveBlending(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationState *self = nullptr;
+    bool arg1 = false;   /** additiveBlending */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
+    olua_check_bool(L, 2, &arg1);
+
+    // <function var>
+    self->additiveBlending = arg1;
 
     return 0;
 }
@@ -1327,6 +4302,7 @@ static int luaopen_dragonBones_AnimationState(lua_State *L)
 {
     oluacls_class(L, "db.AnimationState", "db.BaseObject");
     oluacls_func(L, "addBoneMask", _dragonBones_AnimationState_addBoneMask);
+    oluacls_func(L, "advanceTime", _dragonBones_AnimationState_advanceTime);
     oluacls_func(L, "containsBoneMask", _dragonBones_AnimationState_containsBoneMask);
     oluacls_func(L, "fadeOut", _dragonBones_AnimationState_fadeOut);
     oluacls_func(L, "getAnimationData", _dragonBones_AnimationState_getAnimationData);
@@ -1334,6 +4310,8 @@ static int luaopen_dragonBones_AnimationState(lua_State *L)
     oluacls_func(L, "getCurrentTime", _dragonBones_AnimationState_getCurrentTime);
     oluacls_func(L, "getName", _dragonBones_AnimationState_getName);
     oluacls_func(L, "getTotalTime", _dragonBones_AnimationState_getTotalTime);
+    oluacls_func(L, "getTypeIndex", _dragonBones_AnimationState_getTypeIndex);
+    oluacls_func(L, "init", _dragonBones_AnimationState_init);
     oluacls_func(L, "isCompleted", _dragonBones_AnimationState_isCompleted);
     oluacls_func(L, "isFadeComplete", _dragonBones_AnimationState_isFadeComplete);
     oluacls_func(L, "isFadeIn", _dragonBones_AnimationState_isFadeIn);
@@ -1354,6 +4332,9 @@ static int luaopen_dragonBones_AnimationState(lua_State *L)
     oluacls_prop(L, "name", _dragonBones_AnimationState_getName, nullptr);
     oluacls_prop(L, "playing", _dragonBones_AnimationState_isPlaying, nullptr);
     oluacls_prop(L, "totalTime", _dragonBones_AnimationState_getTotalTime, nullptr);
+    oluacls_prop(L, "typeIndex", _dragonBones_AnimationState_getTypeIndex, nullptr);
+    oluacls_prop(L, "actionEnabled", _dragonBones_AnimationState_get_actionEnabled, _dragonBones_AnimationState_set_actionEnabled);
+    oluacls_prop(L, "additiveBlending", _dragonBones_AnimationState_get_additiveBlending, _dragonBones_AnimationState_set_additiveBlending);
     oluacls_prop(L, "autoFadeOutTime", _dragonBones_AnimationState_get_autoFadeOutTime, _dragonBones_AnimationState_set_autoFadeOutTime);
     oluacls_prop(L, "displayControl", _dragonBones_AnimationState_get_displayControl, _dragonBones_AnimationState_set_displayControl);
     oluacls_prop(L, "fadeTotalTime", _dragonBones_AnimationState_get_fadeTotalTime, _dragonBones_AnimationState_set_fadeTotalTime);
@@ -1371,9 +4352,472 @@ static int luaopen_dragonBones_AnimationState(lua_State *L)
     return 1;
 }
 
+static int _dragonBones_AnimationData_cacheFrames(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationData *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** frameRate */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
+    olua_check_uint(L, 2, &arg1);
+
+    // void cacheFrames(unsigned frameRate)
+    self->cacheFrames((unsigned int)arg1);
+
+    return 0;
+}
+
+static int _dragonBones_AnimationData_getParent(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::AnimationData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
+
+    // ArmatureData* getParent()
+    dragonBones::ArmatureData *ret = (dragonBones::ArmatureData *)self->getParent();
+    int num_ret = olua_push_cppobj<dragonBones::ArmatureData>(L, ret, "db.ArmatureData");
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationData_getTypeIndex(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static std::size_t getTypeIndex()
+    std::size_t ret = (std::size_t)dragonBones::AnimationData::getTypeIndex();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationData_setParent(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationData *self = nullptr;
+    dragonBones::ArmatureData *arg1 = nullptr;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
+    olua_check_cppobj(L, 2, (void **)&arg1, "db.ArmatureData");
+
+    // void setParent(ArmatureData* value)
+    self->setParent(arg1);
+
+    return 0;
+}
+
+static int _dragonBones_AnimationData_get_cacheFrameRate(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::AnimationData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
+
+    // <function var>
+    float ret = (float)self->cacheFrameRate;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationData_set_cacheFrameRate(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationData *self = nullptr;
+    lua_Number arg1 = 0;   /** cacheFrameRate */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
+    olua_check_number(L, 2, &arg1);
+
+    // <function var>
+    self->cacheFrameRate = (float)arg1;
+
+    return 0;
+}
+
+static int _dragonBones_AnimationData_get_cachedFrames(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::AnimationData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
+
+    // <function var>
+    std::vector<bool> ret = (std::vector<bool>)self->cachedFrames;
+    int num_ret = 1;
+    int num_eles = 1;
+    lua_createtable(L, (int)ret.size(), 0);
+    for (auto it : ret) {
+        olua_push_bool(L, it);
+        lua_rawseti(L, -2, num_eles++);
+    }
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationData_set_cachedFrames(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationData *self = nullptr;
+    std::vector<bool> arg1;       /** cachedFrames */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
+    luaL_checktype(L, 2, LUA_TTABLE);
+    size_t arg1_total = lua_rawlen(L, 2);
+    arg1.reserve(arg1_total);
+    for (int i = 1; i <= arg1_total; i++) {
+        bool obj;
+        lua_rawgeti(L, 2, i);
+        olua_check_bool(L, -1, &obj);
+        arg1.push_back(obj);
+        lua_pop(L, 1);
+    }
+
+    // <function var>
+    self->cachedFrames = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_AnimationData_get_duration(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::AnimationData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
+
+    // <function var>
+    float ret = (float)self->duration;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationData_set_duration(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationData *self = nullptr;
+    lua_Number arg1 = 0;   /** duration */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
+    olua_check_number(L, 2, &arg1);
+
+    // <function var>
+    self->duration = (float)arg1;
+
+    return 0;
+}
+
+static int _dragonBones_AnimationData_get_fadeInTime(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::AnimationData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
+
+    // <function var>
+    float ret = (float)self->fadeInTime;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationData_set_fadeInTime(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationData *self = nullptr;
+    lua_Number arg1 = 0;   /** fadeInTime */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
+    olua_check_number(L, 2, &arg1);
+
+    // <function var>
+    self->fadeInTime = (float)arg1;
+
+    return 0;
+}
+
+static int _dragonBones_AnimationData_get_frameCount(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::AnimationData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
+
+    // <function var>
+    unsigned int ret = (unsigned int)self->frameCount;
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationData_set_frameCount(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationData *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** frameCount */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
+    olua_check_uint(L, 2, &arg1);
+
+    // <function var>
+    self->frameCount = (unsigned int)arg1;
+
+    return 0;
+}
+
+static int _dragonBones_AnimationData_get_frameFloatOffset(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::AnimationData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
+
+    // <function var>
+    unsigned int ret = (unsigned int)self->frameFloatOffset;
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationData_set_frameFloatOffset(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationData *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** frameFloatOffset */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
+    olua_check_uint(L, 2, &arg1);
+
+    // <function var>
+    self->frameFloatOffset = (unsigned int)arg1;
+
+    return 0;
+}
+
+static int _dragonBones_AnimationData_get_frameIntOffset(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::AnimationData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
+
+    // <function var>
+    unsigned int ret = (unsigned int)self->frameIntOffset;
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationData_set_frameIntOffset(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationData *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** frameIntOffset */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
+    olua_check_uint(L, 2, &arg1);
+
+    // <function var>
+    self->frameIntOffset = (unsigned int)arg1;
+
+    return 0;
+}
+
+static int _dragonBones_AnimationData_get_frameOffset(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::AnimationData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
+
+    // <function var>
+    unsigned int ret = (unsigned int)self->frameOffset;
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationData_set_frameOffset(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationData *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** frameOffset */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
+    olua_check_uint(L, 2, &arg1);
+
+    // <function var>
+    self->frameOffset = (unsigned int)arg1;
+
+    return 0;
+}
+
+static int _dragonBones_AnimationData_get_name(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::AnimationData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
+
+    // <function var>
+    std::string ret = (std::string)self->name;
+    int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationData_set_name(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationData *self = nullptr;
+    std::string arg1;       /** name */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
+    olua_check_std_string(L, 2, &arg1);
+
+    // <function var>
+    self->name = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_AnimationData_get_parent(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::AnimationData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
+
+    // <function var>
+    dragonBones::ArmatureData *ret = (dragonBones::ArmatureData *)self->parent;
+    int num_ret = olua_push_cppobj<dragonBones::ArmatureData>(L, ret, "db.ArmatureData");
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationData_set_parent(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationData *self = nullptr;
+    dragonBones::ArmatureData *arg1 = nullptr;   /** parent */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
+    olua_check_cppobj(L, 2, (void **)&arg1, "db.ArmatureData");
+
+    // <function var>
+    self->parent = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_AnimationData_get_playTimes(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::AnimationData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
+
+    // <function var>
+    unsigned int ret = (unsigned int)self->playTimes;
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationData_set_playTimes(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationData *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** playTimes */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
+    olua_check_uint(L, 2, &arg1);
+
+    // <function var>
+    self->playTimes = (unsigned int)arg1;
+
+    return 0;
+}
+
+static int _dragonBones_AnimationData_get_scale(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::AnimationData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
+
+    // <function var>
+    float ret = (float)self->scale;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationData_set_scale(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationData *self = nullptr;
+    lua_Number arg1 = 0;   /** scale */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
+    olua_check_number(L, 2, &arg1);
+
+    // <function var>
+    self->scale = (float)arg1;
+
+    return 0;
+}
+
 static int luaopen_dragonBones_AnimationData(lua_State *L)
 {
     oluacls_class(L, "db.AnimationData", "db.BaseObject");
+    oluacls_func(L, "cacheFrames", _dragonBones_AnimationData_cacheFrames);
+    oluacls_func(L, "getParent", _dragonBones_AnimationData_getParent);
+    oluacls_func(L, "getTypeIndex", _dragonBones_AnimationData_getTypeIndex);
+    oluacls_func(L, "setParent", _dragonBones_AnimationData_setParent);
+    oluacls_prop(L, "parent", _dragonBones_AnimationData_getParent, _dragonBones_AnimationData_setParent);
+    oluacls_prop(L, "typeIndex", _dragonBones_AnimationData_getTypeIndex, nullptr);
+    oluacls_prop(L, "cacheFrameRate", _dragonBones_AnimationData_get_cacheFrameRate, _dragonBones_AnimationData_set_cacheFrameRate);
+    oluacls_prop(L, "cachedFrames", _dragonBones_AnimationData_get_cachedFrames, _dragonBones_AnimationData_set_cachedFrames);
+    oluacls_prop(L, "duration", _dragonBones_AnimationData_get_duration, _dragonBones_AnimationData_set_duration);
+    oluacls_prop(L, "fadeInTime", _dragonBones_AnimationData_get_fadeInTime, _dragonBones_AnimationData_set_fadeInTime);
+    oluacls_prop(L, "frameCount", _dragonBones_AnimationData_get_frameCount, _dragonBones_AnimationData_set_frameCount);
+    oluacls_prop(L, "frameFloatOffset", _dragonBones_AnimationData_get_frameFloatOffset, _dragonBones_AnimationData_set_frameFloatOffset);
+    oluacls_prop(L, "frameIntOffset", _dragonBones_AnimationData_get_frameIntOffset, _dragonBones_AnimationData_set_frameIntOffset);
+    oluacls_prop(L, "frameOffset", _dragonBones_AnimationData_get_frameOffset, _dragonBones_AnimationData_set_frameOffset);
+    oluacls_prop(L, "name", _dragonBones_AnimationData_get_name, _dragonBones_AnimationData_set_name);
+    oluacls_prop(L, "parent", _dragonBones_AnimationData_get_parent, _dragonBones_AnimationData_set_parent);
+    oluacls_prop(L, "playTimes", _dragonBones_AnimationData_get_playTimes, _dragonBones_AnimationData_set_playTimes);
+    oluacls_prop(L, "scale", _dragonBones_AnimationData_get_scale, _dragonBones_AnimationData_set_scale);
 
     olua_registerluatype<dragonBones::AnimationData>(L, "db.AnimationData");
     oluacls_createclassproxy(L);
@@ -1381,9 +4825,871 @@ static int luaopen_dragonBones_AnimationData(lua_State *L)
     return 1;
 }
 
+static int _dragonBones_AnimationConfig_addBoneMask(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    dragonBones::AnimationConfig *self = nullptr;
+    dragonBones::Armature *arg1 = nullptr;   /** armature */
+    std::string arg2;       /** boneName */
+    bool arg3 = false;   /** recursive */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+    olua_check_cppobj(L, 2, (void **)&arg1, "db.Armature");
+    olua_check_std_string(L, 3, &arg2);
+    olua_check_bool(L, 4, &arg3);
+
+    // void addBoneMask(Armature* armature, const std::string& boneName, bool recursive)
+    self->addBoneMask(arg1, arg2, arg3);
+
+    return 0;
+}
+
+static int _dragonBones_AnimationConfig_clear(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::AnimationConfig *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+
+    // void clear()
+    self->clear();
+
+    return 0;
+}
+
+static int _dragonBones_AnimationConfig_containsBoneMask(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationConfig *self = nullptr;
+    std::string arg1;       /** boneName */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+    olua_check_std_string(L, 2, &arg1);
+
+    // bool containsBoneMask(const std::string& boneName)
+    bool ret = (bool)self->containsBoneMask(arg1);
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationConfig_copyFrom(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationConfig *self = nullptr;
+    dragonBones::AnimationConfig *arg1 = nullptr;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+    olua_check_cppobj(L, 2, (void **)&arg1, "db.AnimationConfig");
+
+    // void copyFrom(AnimationConfig* value)
+    self->copyFrom(arg1);
+
+    return 0;
+}
+
+static int _dragonBones_AnimationConfig_getFadeInTweenType(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::AnimationConfig *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+
+    // int getFadeInTweenType()
+    int ret = (int)self->getFadeInTweenType();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationConfig_getFadeOutMode(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::AnimationConfig *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+
+    // int getFadeOutMode()
+    int ret = (int)self->getFadeOutMode();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationConfig_getFadeOutTweenType(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::AnimationConfig *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+
+    // int getFadeOutTweenType()
+    int ret = (int)self->getFadeOutTweenType();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationConfig_getTypeIndex(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static std::size_t getTypeIndex()
+    std::size_t ret = (std::size_t)dragonBones::AnimationConfig::getTypeIndex();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationConfig_removeBoneMask(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    dragonBones::AnimationConfig *self = nullptr;
+    dragonBones::Armature *arg1 = nullptr;   /** armature */
+    std::string arg2;       /** boneName */
+    bool arg3 = false;   /** recursive */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+    olua_check_cppobj(L, 2, (void **)&arg1, "db.Armature");
+    olua_check_std_string(L, 3, &arg2);
+    olua_check_bool(L, 4, &arg3);
+
+    // void removeBoneMask(Armature* armature, const std::string& boneName, bool recursive)
+    self->removeBoneMask(arg1, arg2, arg3);
+
+    return 0;
+}
+
+static int _dragonBones_AnimationConfig_setFadeInTweenType(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationConfig *self = nullptr;
+    lua_Integer arg1 = 0;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+    olua_check_int(L, 2, &arg1);
+
+    // void setFadeInTweenType(int value)
+    self->setFadeInTweenType((int)arg1);
+
+    return 0;
+}
+
+static int _dragonBones_AnimationConfig_setFadeOutMode(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationConfig *self = nullptr;
+    lua_Integer arg1 = 0;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+    olua_check_int(L, 2, &arg1);
+
+    // void setFadeOutMode(int value)
+    self->setFadeOutMode((int)arg1);
+
+    return 0;
+}
+
+static int _dragonBones_AnimationConfig_setFadeOutTweenType(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationConfig *self = nullptr;
+    lua_Integer arg1 = 0;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+    olua_check_int(L, 2, &arg1);
+
+    // void setFadeOutTweenType(int value)
+    self->setFadeOutTweenType((int)arg1);
+
+    return 0;
+}
+
+static int _dragonBones_AnimationConfig_get_actionEnabled(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::AnimationConfig *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+
+    // <function var>
+    bool ret = (bool)self->actionEnabled;
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationConfig_set_actionEnabled(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationConfig *self = nullptr;
+    bool arg1 = false;   /** actionEnabled */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+    olua_check_bool(L, 2, &arg1);
+
+    // <function var>
+    self->actionEnabled = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_AnimationConfig_get_additiveBlending(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::AnimationConfig *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+
+    // <function var>
+    bool ret = (bool)self->additiveBlending;
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationConfig_set_additiveBlending(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationConfig *self = nullptr;
+    bool arg1 = false;   /** additiveBlending */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+    olua_check_bool(L, 2, &arg1);
+
+    // <function var>
+    self->additiveBlending = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_AnimationConfig_get_animation(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::AnimationConfig *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+
+    // <function var>
+    std::string ret = (std::string)self->animation;
+    int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationConfig_set_animation(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationConfig *self = nullptr;
+    std::string arg1;       /** animation */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+    olua_check_std_string(L, 2, &arg1);
+
+    // <function var>
+    self->animation = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_AnimationConfig_get_autoFadeOutTime(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::AnimationConfig *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+
+    // <function var>
+    float ret = (float)self->autoFadeOutTime;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationConfig_set_autoFadeOutTime(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationConfig *self = nullptr;
+    lua_Number arg1 = 0;   /** autoFadeOutTime */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+    olua_check_number(L, 2, &arg1);
+
+    // <function var>
+    self->autoFadeOutTime = (float)arg1;
+
+    return 0;
+}
+
+static int _dragonBones_AnimationConfig_get_boneMask(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::AnimationConfig *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+
+    // <function var>
+    std::vector<std::string> ret = (std::vector<std::string>)self->boneMask;
+    int num_ret = 1;
+    int num_eles = 1;
+    lua_createtable(L, (int)ret.size(), 0);
+    for (const auto &it : ret) {
+        olua_push_std_string(L, it);
+        lua_rawseti(L, -2, num_eles++);
+    }
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationConfig_set_boneMask(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationConfig *self = nullptr;
+    std::vector<std::string> arg1;       /** boneMask */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+    luaL_checktype(L, 2, LUA_TTABLE);
+    size_t arg1_total = lua_rawlen(L, 2);
+    arg1.reserve(arg1_total);
+    for (int i = 1; i <= arg1_total; i++) {
+        std::string obj;
+        lua_rawgeti(L, 2, i);
+        olua_check_std_string(L, -1, &obj);
+        arg1.push_back(obj);
+        lua_pop(L, 1);
+    }
+
+    // <function var>
+    self->boneMask = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_AnimationConfig_get_displayControl(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::AnimationConfig *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+
+    // <function var>
+    bool ret = (bool)self->displayControl;
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationConfig_set_displayControl(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationConfig *self = nullptr;
+    bool arg1 = false;   /** displayControl */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+    olua_check_bool(L, 2, &arg1);
+
+    // <function var>
+    self->displayControl = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_AnimationConfig_get_duration(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::AnimationConfig *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+
+    // <function var>
+    float ret = (float)self->duration;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationConfig_set_duration(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationConfig *self = nullptr;
+    lua_Number arg1 = 0;   /** duration */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+    olua_check_number(L, 2, &arg1);
+
+    // <function var>
+    self->duration = (float)arg1;
+
+    return 0;
+}
+
+static int _dragonBones_AnimationConfig_get_fadeInTime(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::AnimationConfig *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+
+    // <function var>
+    float ret = (float)self->fadeInTime;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationConfig_set_fadeInTime(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationConfig *self = nullptr;
+    lua_Number arg1 = 0;   /** fadeInTime */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+    olua_check_number(L, 2, &arg1);
+
+    // <function var>
+    self->fadeInTime = (float)arg1;
+
+    return 0;
+}
+
+static int _dragonBones_AnimationConfig_get_fadeOutMode(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::AnimationConfig *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+
+    // <function var>
+    dragonBones::AnimationFadeOutMode ret = (dragonBones::AnimationFadeOutMode)self->fadeOutMode;
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationConfig_set_fadeOutMode(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationConfig *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** fadeOutMode */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+    olua_check_uint(L, 2, &arg1);
+
+    // <function var>
+    self->fadeOutMode = (dragonBones::AnimationFadeOutMode)arg1;
+
+    return 0;
+}
+
+static int _dragonBones_AnimationConfig_get_fadeOutTime(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::AnimationConfig *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+
+    // <function var>
+    float ret = (float)self->fadeOutTime;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationConfig_set_fadeOutTime(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationConfig *self = nullptr;
+    lua_Number arg1 = 0;   /** fadeOutTime */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+    olua_check_number(L, 2, &arg1);
+
+    // <function var>
+    self->fadeOutTime = (float)arg1;
+
+    return 0;
+}
+
+static int _dragonBones_AnimationConfig_get_group(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::AnimationConfig *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+
+    // <function var>
+    std::string ret = (std::string)self->group;
+    int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationConfig_set_group(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationConfig *self = nullptr;
+    std::string arg1;       /** group */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+    olua_check_std_string(L, 2, &arg1);
+
+    // <function var>
+    self->group = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_AnimationConfig_get_layer(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::AnimationConfig *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+
+    // <function var>
+    int ret = (int)self->layer;
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationConfig_set_layer(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationConfig *self = nullptr;
+    lua_Integer arg1 = 0;   /** layer */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+    olua_check_int(L, 2, &arg1);
+
+    // <function var>
+    self->layer = (int)arg1;
+
+    return 0;
+}
+
+static int _dragonBones_AnimationConfig_get_name(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::AnimationConfig *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+
+    // <function var>
+    std::string ret = (std::string)self->name;
+    int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationConfig_set_name(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationConfig *self = nullptr;
+    std::string arg1;       /** name */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+    olua_check_std_string(L, 2, &arg1);
+
+    // <function var>
+    self->name = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_AnimationConfig_get_pauseFadeIn(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::AnimationConfig *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+
+    // <function var>
+    bool ret = (bool)self->pauseFadeIn;
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationConfig_set_pauseFadeIn(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationConfig *self = nullptr;
+    bool arg1 = false;   /** pauseFadeIn */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+    olua_check_bool(L, 2, &arg1);
+
+    // <function var>
+    self->pauseFadeIn = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_AnimationConfig_get_pauseFadeOut(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::AnimationConfig *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+
+    // <function var>
+    bool ret = (bool)self->pauseFadeOut;
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationConfig_set_pauseFadeOut(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationConfig *self = nullptr;
+    bool arg1 = false;   /** pauseFadeOut */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+    olua_check_bool(L, 2, &arg1);
+
+    // <function var>
+    self->pauseFadeOut = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_AnimationConfig_get_playTimes(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::AnimationConfig *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+
+    // <function var>
+    int ret = (int)self->playTimes;
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationConfig_set_playTimes(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationConfig *self = nullptr;
+    lua_Integer arg1 = 0;   /** playTimes */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+    olua_check_int(L, 2, &arg1);
+
+    // <function var>
+    self->playTimes = (int)arg1;
+
+    return 0;
+}
+
+static int _dragonBones_AnimationConfig_get_position(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::AnimationConfig *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+
+    // <function var>
+    float ret = (float)self->position;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationConfig_set_position(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationConfig *self = nullptr;
+    lua_Number arg1 = 0;   /** position */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+    olua_check_number(L, 2, &arg1);
+
+    // <function var>
+    self->position = (float)arg1;
+
+    return 0;
+}
+
+static int _dragonBones_AnimationConfig_get_resetToPose(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::AnimationConfig *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+
+    // <function var>
+    bool ret = (bool)self->resetToPose;
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationConfig_set_resetToPose(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationConfig *self = nullptr;
+    bool arg1 = false;   /** resetToPose */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+    olua_check_bool(L, 2, &arg1);
+
+    // <function var>
+    self->resetToPose = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_AnimationConfig_get_timeScale(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::AnimationConfig *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+
+    // <function var>
+    float ret = (float)self->timeScale;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationConfig_set_timeScale(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationConfig *self = nullptr;
+    lua_Number arg1 = 0;   /** timeScale */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+    olua_check_number(L, 2, &arg1);
+
+    // <function var>
+    self->timeScale = (float)arg1;
+
+    return 0;
+}
+
+static int _dragonBones_AnimationConfig_get_weight(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::AnimationConfig *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+
+    // <function var>
+    float ret = (float)self->weight;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_AnimationConfig_set_weight(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::AnimationConfig *self = nullptr;
+    lua_Number arg1 = 0;   /** weight */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
+    olua_check_number(L, 2, &arg1);
+
+    // <function var>
+    self->weight = (float)arg1;
+
+    return 0;
+}
+
 static int luaopen_dragonBones_AnimationConfig(lua_State *L)
 {
     oluacls_class(L, "db.AnimationConfig", "db.BaseObject");
+    oluacls_func(L, "addBoneMask", _dragonBones_AnimationConfig_addBoneMask);
+    oluacls_func(L, "clear", _dragonBones_AnimationConfig_clear);
+    oluacls_func(L, "containsBoneMask", _dragonBones_AnimationConfig_containsBoneMask);
+    oluacls_func(L, "copyFrom", _dragonBones_AnimationConfig_copyFrom);
+    oluacls_func(L, "getFadeInTweenType", _dragonBones_AnimationConfig_getFadeInTweenType);
+    oluacls_func(L, "getFadeOutMode", _dragonBones_AnimationConfig_getFadeOutMode);
+    oluacls_func(L, "getFadeOutTweenType", _dragonBones_AnimationConfig_getFadeOutTweenType);
+    oluacls_func(L, "getTypeIndex", _dragonBones_AnimationConfig_getTypeIndex);
+    oluacls_func(L, "removeBoneMask", _dragonBones_AnimationConfig_removeBoneMask);
+    oluacls_func(L, "setFadeInTweenType", _dragonBones_AnimationConfig_setFadeInTweenType);
+    oluacls_func(L, "setFadeOutMode", _dragonBones_AnimationConfig_setFadeOutMode);
+    oluacls_func(L, "setFadeOutTweenType", _dragonBones_AnimationConfig_setFadeOutTweenType);
+    oluacls_prop(L, "fadeInTweenType", _dragonBones_AnimationConfig_getFadeInTweenType, _dragonBones_AnimationConfig_setFadeInTweenType);
+    oluacls_prop(L, "fadeOutMode", _dragonBones_AnimationConfig_getFadeOutMode, _dragonBones_AnimationConfig_setFadeOutMode);
+    oluacls_prop(L, "fadeOutTweenType", _dragonBones_AnimationConfig_getFadeOutTweenType, _dragonBones_AnimationConfig_setFadeOutTweenType);
+    oluacls_prop(L, "typeIndex", _dragonBones_AnimationConfig_getTypeIndex, nullptr);
+    oluacls_prop(L, "actionEnabled", _dragonBones_AnimationConfig_get_actionEnabled, _dragonBones_AnimationConfig_set_actionEnabled);
+    oluacls_prop(L, "additiveBlending", _dragonBones_AnimationConfig_get_additiveBlending, _dragonBones_AnimationConfig_set_additiveBlending);
+    oluacls_prop(L, "animation", _dragonBones_AnimationConfig_get_animation, _dragonBones_AnimationConfig_set_animation);
+    oluacls_prop(L, "autoFadeOutTime", _dragonBones_AnimationConfig_get_autoFadeOutTime, _dragonBones_AnimationConfig_set_autoFadeOutTime);
+    oluacls_prop(L, "boneMask", _dragonBones_AnimationConfig_get_boneMask, _dragonBones_AnimationConfig_set_boneMask);
+    oluacls_prop(L, "displayControl", _dragonBones_AnimationConfig_get_displayControl, _dragonBones_AnimationConfig_set_displayControl);
+    oluacls_prop(L, "duration", _dragonBones_AnimationConfig_get_duration, _dragonBones_AnimationConfig_set_duration);
+    oluacls_prop(L, "fadeInTime", _dragonBones_AnimationConfig_get_fadeInTime, _dragonBones_AnimationConfig_set_fadeInTime);
+    oluacls_prop(L, "fadeOutMode", _dragonBones_AnimationConfig_get_fadeOutMode, _dragonBones_AnimationConfig_set_fadeOutMode);
+    oluacls_prop(L, "fadeOutTime", _dragonBones_AnimationConfig_get_fadeOutTime, _dragonBones_AnimationConfig_set_fadeOutTime);
+    oluacls_prop(L, "group", _dragonBones_AnimationConfig_get_group, _dragonBones_AnimationConfig_set_group);
+    oluacls_prop(L, "layer", _dragonBones_AnimationConfig_get_layer, _dragonBones_AnimationConfig_set_layer);
+    oluacls_prop(L, "name", _dragonBones_AnimationConfig_get_name, _dragonBones_AnimationConfig_set_name);
+    oluacls_prop(L, "pauseFadeIn", _dragonBones_AnimationConfig_get_pauseFadeIn, _dragonBones_AnimationConfig_set_pauseFadeIn);
+    oluacls_prop(L, "pauseFadeOut", _dragonBones_AnimationConfig_get_pauseFadeOut, _dragonBones_AnimationConfig_set_pauseFadeOut);
+    oluacls_prop(L, "playTimes", _dragonBones_AnimationConfig_get_playTimes, _dragonBones_AnimationConfig_set_playTimes);
+    oluacls_prop(L, "position", _dragonBones_AnimationConfig_get_position, _dragonBones_AnimationConfig_set_position);
+    oluacls_prop(L, "resetToPose", _dragonBones_AnimationConfig_get_resetToPose, _dragonBones_AnimationConfig_set_resetToPose);
+    oluacls_prop(L, "timeScale", _dragonBones_AnimationConfig_get_timeScale, _dragonBones_AnimationConfig_set_timeScale);
+    oluacls_prop(L, "weight", _dragonBones_AnimationConfig_get_weight, _dragonBones_AnimationConfig_set_weight);
 
     olua_registerluatype<dragonBones::AnimationConfig>(L, "db.AnimationConfig");
     oluacls_createclassproxy(L);
@@ -1424,16 +5730,333 @@ static int _dragonBones_DragonBonesData_getArmature(lua_State *L)
     return num_ret;
 }
 
+static int _dragonBones_DragonBonesData_getArmatureNames(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::DragonBonesData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.DragonBonesData");
+
+    // const std::vector<std::string>& getArmatureNames()
+    const std::vector<std::string> &ret = (const std::vector<std::string> &)self->getArmatureNames();
+    int num_ret = 1;
+    int num_eles = 1;
+    lua_createtable(L, (int)ret.size(), 0);
+    for (const auto &it : ret) {
+        olua_push_std_string(L, it);
+        lua_rawseti(L, -2, num_eles++);
+    }
+
+    return num_ret;
+}
+
+static int _dragonBones_DragonBonesData_getTypeIndex(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static std::size_t getTypeIndex()
+    std::size_t ret = (std::size_t)dragonBones::DragonBonesData::getTypeIndex();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_DragonBonesData_get_armatureNames(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::DragonBonesData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.DragonBonesData");
+
+    // <function var>
+    std::vector<std::string> ret = (std::vector<std::string>)self->armatureNames;
+    int num_ret = 1;
+    int num_eles = 1;
+    lua_createtable(L, (int)ret.size(), 0);
+    for (const auto &it : ret) {
+        olua_push_std_string(L, it);
+        lua_rawseti(L, -2, num_eles++);
+    }
+
+    return num_ret;
+}
+
+static int _dragonBones_DragonBonesData_set_armatureNames(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::DragonBonesData *self = nullptr;
+    std::vector<std::string> arg1;       /** armatureNames */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.DragonBonesData");
+    luaL_checktype(L, 2, LUA_TTABLE);
+    size_t arg1_total = lua_rawlen(L, 2);
+    arg1.reserve(arg1_total);
+    for (int i = 1; i <= arg1_total; i++) {
+        std::string obj;
+        lua_rawgeti(L, 2, i);
+        olua_check_std_string(L, -1, &obj);
+        arg1.push_back(obj);
+        lua_pop(L, 1);
+    }
+
+    // <function var>
+    self->armatureNames = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_DragonBonesData_get_autoSearch(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::DragonBonesData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.DragonBonesData");
+
+    // <function var>
+    bool ret = (bool)self->autoSearch;
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_DragonBonesData_set_autoSearch(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::DragonBonesData *self = nullptr;
+    bool arg1 = false;   /** autoSearch */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.DragonBonesData");
+    olua_check_bool(L, 2, &arg1);
+
+    // <function var>
+    self->autoSearch = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_DragonBonesData_get_cachedFrames(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::DragonBonesData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.DragonBonesData");
+
+    // <function var>
+    std::vector<float> ret = (std::vector<float>)self->cachedFrames;
+    int num_ret = 1;
+    int num_eles = 1;
+    lua_createtable(L, (int)ret.size(), 0);
+    for (auto it : ret) {
+        olua_push_number(L, (lua_Number)it);
+        lua_rawseti(L, -2, num_eles++);
+    }
+
+    return num_ret;
+}
+
+static int _dragonBones_DragonBonesData_set_cachedFrames(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::DragonBonesData *self = nullptr;
+    std::vector<float> arg1;       /** cachedFrames */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.DragonBonesData");
+    luaL_checktype(L, 2, LUA_TTABLE);
+    size_t arg1_total = lua_rawlen(L, 2);
+    arg1.reserve(arg1_total);
+    for (int i = 1; i <= arg1_total; i++) {
+        lua_Number obj;
+        lua_rawgeti(L, 2, i);
+        olua_check_number(L, -1, &obj);
+        arg1.push_back((float)obj);
+        lua_pop(L, 1);
+    }
+
+    // <function var>
+    self->cachedFrames = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_DragonBonesData_get_frameRate(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::DragonBonesData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.DragonBonesData");
+
+    // <function var>
+    unsigned int ret = (unsigned int)self->frameRate;
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_DragonBonesData_set_frameRate(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::DragonBonesData *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** frameRate */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.DragonBonesData");
+    olua_check_uint(L, 2, &arg1);
+
+    // <function var>
+    self->frameRate = (unsigned int)arg1;
+
+    return 0;
+}
+
+static int _dragonBones_DragonBonesData_get_name(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::DragonBonesData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.DragonBonesData");
+
+    // <function var>
+    std::string ret = (std::string)self->name;
+    int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_DragonBonesData_set_name(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::DragonBonesData *self = nullptr;
+    std::string arg1;       /** name */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.DragonBonesData");
+    olua_check_std_string(L, 2, &arg1);
+
+    // <function var>
+    self->name = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_DragonBonesData_get_version(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::DragonBonesData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.DragonBonesData");
+
+    // <function var>
+    std::string ret = (std::string)self->version;
+    int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_DragonBonesData_set_version(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::DragonBonesData *self = nullptr;
+    std::string arg1;       /** version */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.DragonBonesData");
+    olua_check_std_string(L, 2, &arg1);
+
+    // <function var>
+    self->version = arg1;
+
+    return 0;
+}
+
 static int luaopen_dragonBones_DragonBonesData(lua_State *L)
 {
     oluacls_class(L, "db.DragonBonesData", "db.BaseObject");
     oluacls_func(L, "addArmature", _dragonBones_DragonBonesData_addArmature);
     oluacls_func(L, "getArmature", _dragonBones_DragonBonesData_getArmature);
+    oluacls_func(L, "getArmatureNames", _dragonBones_DragonBonesData_getArmatureNames);
+    oluacls_func(L, "getTypeIndex", _dragonBones_DragonBonesData_getTypeIndex);
+    oluacls_prop(L, "armatureNames", _dragonBones_DragonBonesData_getArmatureNames, nullptr);
+    oluacls_prop(L, "typeIndex", _dragonBones_DragonBonesData_getTypeIndex, nullptr);
+    oluacls_prop(L, "armatureNames", _dragonBones_DragonBonesData_get_armatureNames, _dragonBones_DragonBonesData_set_armatureNames);
+    oluacls_prop(L, "autoSearch", _dragonBones_DragonBonesData_get_autoSearch, _dragonBones_DragonBonesData_set_autoSearch);
+    oluacls_prop(L, "cachedFrames", _dragonBones_DragonBonesData_get_cachedFrames, _dragonBones_DragonBonesData_set_cachedFrames);
+    oluacls_prop(L, "frameRate", _dragonBones_DragonBonesData_get_frameRate, _dragonBones_DragonBonesData_set_frameRate);
+    oluacls_prop(L, "name", _dragonBones_DragonBonesData_get_name, _dragonBones_DragonBonesData_set_name);
+    oluacls_prop(L, "version", _dragonBones_DragonBonesData_get_version, _dragonBones_DragonBonesData_set_version);
 
     olua_registerluatype<dragonBones::DragonBonesData>(L, "db.DragonBonesData");
     oluacls_createclassproxy(L);
 
     return 1;
+}
+
+static int _dragonBones_BaseFactory_addDragonBonesData(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    dragonBones::BaseFactory *self = nullptr;
+    dragonBones::DragonBonesData *arg1 = nullptr;   /** data */
+    std::string arg2;       /** name */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.BaseFactory");
+    olua_check_cppobj(L, 2, (void **)&arg1, "db.DragonBonesData");
+    olua_opt_std_string(L, 3, &arg2, (std::string)"");
+
+    // void addDragonBonesData(DragonBonesData* data, const std::string& name = "")
+    self->addDragonBonesData(arg1, arg2);
+
+    return 0;
+}
+
+static int _dragonBones_BaseFactory_addTextureAtlasData(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    dragonBones::BaseFactory *self = nullptr;
+    dragonBones::TextureAtlasData *arg1 = nullptr;   /** data */
+    std::string arg2;       /** name */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.BaseFactory");
+    olua_check_cppobj(L, 2, (void **)&arg1, "db.TextureAtlasData");
+    olua_opt_std_string(L, 3, &arg2, (std::string)"");
+
+    // void addTextureAtlasData(TextureAtlasData* data, const std::string& name = "")
+    self->addTextureAtlasData(arg1, arg2);
+
+    return 0;
+}
+
+static int _dragonBones_BaseFactory_buildArmature(lua_State *L)
+{
+    lua_settop(L, 5);
+
+    dragonBones::BaseFactory *self = nullptr;
+    std::string arg1;       /** armatureName */
+    std::string arg2;       /** dragonBonesName */
+    std::string arg3;       /** skinName */
+    std::string arg4;       /** textureAtlasName */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.BaseFactory");
+    olua_check_std_string(L, 2, &arg1);
+    olua_opt_std_string(L, 3, &arg2, (std::string)"");
+    olua_opt_std_string(L, 4, &arg3, (std::string)"");
+    olua_opt_std_string(L, 5, &arg4, (std::string)"");
+
+    // Armature* buildArmature(const std::string& armatureName, const std::string& dragonBonesName = "", const std::string& skinName = "", const std::string & textureAtlasName = "")
+    dragonBones::Armature *ret = (dragonBones::Armature *)self->buildArmature(arg1, arg2, arg3, arg4);
+    int num_ret = olua_push_cppobj<dragonBones::Armature>(L, ret, "db.Armature");
+
+    return num_ret;
 }
 
 static int _dragonBones_BaseFactory_clear(lua_State *L)
@@ -1467,6 +6090,67 @@ static int _dragonBones_BaseFactory_getArmatureData(lua_State *L)
     // ArmatureData* getArmatureData(const std::string& name, const std::string& dragonBonesName = "")
     dragonBones::ArmatureData *ret = (dragonBones::ArmatureData *)self->getArmatureData(arg1, arg2);
     int num_ret = olua_push_cppobj<dragonBones::ArmatureData>(L, ret, "db.ArmatureData");
+
+    return num_ret;
+}
+
+static int _dragonBones_BaseFactory_getDragonBonesData(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::BaseFactory *self = nullptr;
+    std::string arg1;       /** name */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.BaseFactory");
+    olua_check_std_string(L, 2, &arg1);
+
+    // DragonBonesData* getDragonBonesData(const std::string& name)
+    dragonBones::DragonBonesData *ret = (dragonBones::DragonBonesData *)self->getDragonBonesData(arg1);
+    int num_ret = olua_push_cppobj<dragonBones::DragonBonesData>(L, ret, "db.DragonBonesData");
+
+    return num_ret;
+}
+
+static int _dragonBones_BaseFactory_parseDragonBonesData(lua_State *L)
+{
+    lua_settop(L, 4);
+
+    dragonBones::BaseFactory *self = nullptr;
+    const char *arg1 = nullptr;   /** rawData */
+    std::string arg2;       /** name */
+    lua_Number arg3 = 0;   /** scale */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.BaseFactory");
+    olua_check_string(L, 2, &arg1);
+    olua_opt_std_string(L, 3, &arg2, (std::string)"");
+    olua_opt_number(L, 4, &arg3, (lua_Number)1.0f);
+
+    // DragonBonesData* parseDragonBonesData(const char* rawData, const std::string& name = "", float scale = 1.0f)
+    dragonBones::DragonBonesData *ret = (dragonBones::DragonBonesData *)self->parseDragonBonesData(arg1, arg2, (float)arg3);
+    int num_ret = olua_push_cppobj<dragonBones::DragonBonesData>(L, ret, "db.DragonBonesData");
+
+    return num_ret;
+}
+
+static int _dragonBones_BaseFactory_parseTextureAtlasData(lua_State *L)
+{
+    lua_settop(L, 5);
+
+    dragonBones::BaseFactory *self = nullptr;
+    const char *arg1 = nullptr;   /** rawData */
+    void *arg2 = nullptr;   /** textureAtlas */
+    std::string arg3;       /** name */
+    lua_Number arg4 = 0;   /** scale */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.BaseFactory");
+    olua_check_string(L, 2, &arg1);
+    olua_check_obj(L, 3, (void **)&arg2, "void *");
+    olua_opt_std_string(L, 4, &arg3, (std::string)"");
+    olua_opt_number(L, 5, &arg4, (lua_Number)1.0f);
+
+    // TextureAtlasData* parseTextureAtlasData(const char* rawData, void* textureAtlas, const std::string& name = "", float scale = 1.0f)
+    dragonBones::TextureAtlasData *ret = (dragonBones::TextureAtlasData *)self->parseTextureAtlasData(arg1, arg2, arg3, (float)arg4);
+    int num_ret = olua_push_cppobj<dragonBones::TextureAtlasData>(L, ret, "db.TextureAtlasData");
 
     return num_ret;
 }
@@ -1548,41 +6232,6 @@ static int _dragonBones_BaseFactory_replaceDisplay(lua_State *L)
     return 0;
 }
 
-static int _dragonBones_BaseFactory_replaceSkin(lua_State *L)
-{
-    lua_settop(L, 5);
-
-    dragonBones::BaseFactory *self = nullptr;
-    dragonBones::Armature *arg1 = nullptr;   /** armature */
-    dragonBones::SkinData *arg2 = nullptr;   /** skin */
-    bool arg3 = false;   /** isOverride */
-    std::vector<std::string> arg4;   /** exclude **/
-
-    olua_to_cppobj(L, 1, (void **)&self, "db.BaseFactory");
-    olua_check_cppobj(L, 2, (void **)&arg1, "db.Armature");
-    olua_check_cppobj(L, 3, (void **)&arg2, "db.SkinData");
-    olua_opt_bool(L, 4, &arg3, (bool)false);
-
-    if (!olua_isnil(L, 5)) {
-        luaL_checktype(L, 5, LUA_TTABLE);
-        size_t arg4_total = lua_rawlen(L, 5);
-        arg4.reserve(arg4_total);
-        for (int i = 1; i <= arg4_total; i++) {
-            std::string obj;
-            lua_rawgeti(L, 5, i);
-            olua_check_std_string(L, -1, &obj);
-            arg4.push_back(obj);
-            lua_pop(L, 1);
-        }
-    }
-
-    // bool replaceSkin(Armature* armature, SkinData* skin, bool isOverride = false, const std::vector<std::string>* exclude = nullptr)
-    bool ret = (bool)self->replaceSkin(arg1, arg2, arg3, &arg4);
-    int num_ret = olua_push_bool(L, ret);
-
-    return num_ret;
-}
-
 static int _dragonBones_BaseFactory_replaceSlotDisplay(lua_State *L)
 {
     lua_settop(L, 7);
@@ -1603,29 +6252,106 @@ static int _dragonBones_BaseFactory_replaceSlotDisplay(lua_State *L)
     olua_check_cppobj(L, 6, (void **)&arg5, "db.Slot");
     olua_opt_int(L, 7, &arg6, (lua_Integer)-1);
 
-    // bool replaceSlotDisplay(const std::string& dragonBonesName, const std::string& armatureName, const std::string& slotName, const std::string& displayName, Slot* slot, int displayIndex = -1)
+    // bool replaceSlotDisplay( const std::string& dragonBonesName, const std::string& armatureName, const std::string& slotName, const std::string& displayName, Slot* slot, int displayIndex = -1 )
     bool ret = (bool)self->replaceSlotDisplay(arg1, arg2, arg3, arg4, arg5, (int)arg6);
     int num_ret = olua_push_bool(L, ret);
 
     return num_ret;
 }
 
+static int _dragonBones_BaseFactory_replaceSlotDisplayList(lua_State *L)
+{
+    lua_settop(L, 5);
+
+    dragonBones::BaseFactory *self = nullptr;
+    std::string arg1;       /** dragonBonesName */
+    std::string arg2;       /** armatureName */
+    std::string arg3;       /** slotName */
+    dragonBones::Slot *arg4 = nullptr;   /** slot */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.BaseFactory");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+    olua_check_std_string(L, 4, &arg3);
+    olua_check_cppobj(L, 5, (void **)&arg4, "db.Slot");
+
+    // bool replaceSlotDisplayList( const std::string& dragonBonesName, const std::string& armatureName, const std::string& slotName, Slot* slot )
+    bool ret = (bool)self->replaceSlotDisplayList(arg1, arg2, arg3, arg4);
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_BaseFactory_get_autoSearch(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::BaseFactory *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.BaseFactory");
+
+    // <function var>
+    bool ret = (bool)self->autoSearch;
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_BaseFactory_set_autoSearch(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::BaseFactory *self = nullptr;
+    bool arg1 = false;   /** autoSearch */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.BaseFactory");
+    olua_check_bool(L, 2, &arg1);
+
+    // <function var>
+    self->autoSearch = arg1;
+
+    return 0;
+}
+
 static int luaopen_dragonBones_BaseFactory(lua_State *L)
 {
     oluacls_class(L, "db.BaseFactory", nullptr);
+    oluacls_func(L, "addDragonBonesData", _dragonBones_BaseFactory_addDragonBonesData);
+    oluacls_func(L, "addTextureAtlasData", _dragonBones_BaseFactory_addTextureAtlasData);
+    oluacls_func(L, "buildArmature", _dragonBones_BaseFactory_buildArmature);
     oluacls_func(L, "clear", _dragonBones_BaseFactory_clear);
     oluacls_func(L, "getArmatureData", _dragonBones_BaseFactory_getArmatureData);
+    oluacls_func(L, "getDragonBonesData", _dragonBones_BaseFactory_getDragonBonesData);
+    oluacls_func(L, "parseDragonBonesData", _dragonBones_BaseFactory_parseDragonBonesData);
+    oluacls_func(L, "parseTextureAtlasData", _dragonBones_BaseFactory_parseTextureAtlasData);
     oluacls_func(L, "removeDragonBonesData", _dragonBones_BaseFactory_removeDragonBonesData);
     oluacls_func(L, "removeTextureAtlasData", _dragonBones_BaseFactory_removeTextureAtlasData);
     oluacls_func(L, "replaceAnimation", _dragonBones_BaseFactory_replaceAnimation);
     oluacls_func(L, "replaceDisplay", _dragonBones_BaseFactory_replaceDisplay);
-    oluacls_func(L, "replaceSkin", _dragonBones_BaseFactory_replaceSkin);
     oluacls_func(L, "replaceSlotDisplay", _dragonBones_BaseFactory_replaceSlotDisplay);
+    oluacls_func(L, "replaceSlotDisplayList", _dragonBones_BaseFactory_replaceSlotDisplayList);
+    oluacls_prop(L, "autoSearch", _dragonBones_BaseFactory_get_autoSearch, _dragonBones_BaseFactory_set_autoSearch);
 
     olua_registerluatype<dragonBones::BaseFactory>(L, "db.BaseFactory");
     oluacls_createclassproxy(L);
 
     return 1;
+}
+
+static int _dragonBones_Armature_advanceTime(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::Armature *self = nullptr;
+    lua_Number arg1 = 0;   /** passedTime */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.Armature");
+    olua_check_number(L, 2, &arg1);
+
+    // void advanceTime(float passedTime)
+    self->advanceTime((float)arg1);
+
+    return 0;
 }
 
 static int _dragonBones_Armature_containsPoint(lua_State *L)
@@ -1645,6 +6371,20 @@ static int _dragonBones_Armature_containsPoint(lua_State *L)
     int num_ret = olua_push_cppobj<dragonBones::Slot>(L, ret, "db.Slot");
 
     return num_ret;
+}
+
+static int _dragonBones_Armature_dispose(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::Armature *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.Armature");
+
+    // void dispose()
+    self->dispose();
+
+    return 0;
 }
 
 static int _dragonBones_Armature_getAnimation(lua_State *L)
@@ -1722,6 +6462,21 @@ static int _dragonBones_Armature_getBones(lua_State *L)
     // const std::vector<Bone*>& getBones()
     const std::vector<dragonBones::Bone *> &ret = (const std::vector<dragonBones::Bone *> &)self->getBones();
     int num_ret = olua_push_std_vector(L, ret, "db.Bone");
+
+    return num_ret;
+}
+
+static int _dragonBones_Armature_getCacheFrameRate(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::Armature *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.Armature");
+
+    // unsigned getCacheFrameRate()
+    unsigned int ret = (unsigned int)self->getCacheFrameRate();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     return num_ret;
 }
@@ -1865,6 +6620,46 @@ static int _dragonBones_Armature_getSlots(lua_State *L)
     return num_ret;
 }
 
+static int _dragonBones_Armature_getTypeIndex(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static std::size_t getTypeIndex()
+    std::size_t ret = (std::size_t)dragonBones::Armature::getTypeIndex();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_Armature_intersectsSegment(lua_State *L)
+{
+    lua_settop(L, 8);
+
+    dragonBones::Armature *self = nullptr;
+    lua_Number arg1 = 0;   /** xA */
+    lua_Number arg2 = 0;   /** yA */
+    lua_Number arg3 = 0;   /** xB */
+    lua_Number arg4 = 0;   /** yB */
+    dragonBones::Point *arg5 = nullptr;   /** intersectionPointA */
+    dragonBones::Point *arg6 = nullptr;   /** intersectionPointB */
+    dragonBones::Point *arg7 = nullptr;   /** normalRadians */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.Armature");
+    olua_check_number(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+    olua_check_number(L, 5, &arg4);
+    olua_opt_cppobj(L, 6, (void **)&arg5, "db.Point", nullptr);
+    olua_opt_cppobj(L, 7, (void **)&arg6, "db.Point", nullptr);
+    olua_opt_cppobj(L, 8, (void **)&arg7, "db.Point", nullptr);
+
+    // Slot* intersectsSegment( float xA, float yA, float xB, float yB, Point* intersectionPointA = nullptr, Point* intersectionPointB = nullptr, Point* normalRadians = nullptr )
+    dragonBones::Slot *ret = (dragonBones::Slot *)self->intersectsSegment((float)arg1, (float)arg2, (float)arg3, (float)arg4, arg5, arg6, arg7);
+    int num_ret = olua_push_cppobj<dragonBones::Slot>(L, ret, "db.Slot");
+
+    return num_ret;
+}
+
 static int _dragonBones_Armature_invalidUpdate(lua_State *L)
 {
     lua_settop(L, 3);
@@ -1879,6 +6674,22 @@ static int _dragonBones_Armature_invalidUpdate(lua_State *L)
 
     // void invalidUpdate(const std::string& boneName = "", bool updateSlot = false)
     self->invalidUpdate(arg1, arg2);
+
+    return 0;
+}
+
+static int _dragonBones_Armature_setCacheFrameRate(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::Armature *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.Armature");
+    olua_check_uint(L, 2, &arg1);
+
+    // void setCacheFrameRate(unsigned value)
+    self->setCacheFrameRate((unsigned int)arg1);
 
     return 0;
 }
@@ -1931,15 +6742,80 @@ static int _dragonBones_Armature_setReplacedTexture(lua_State *L)
     return 0;
 }
 
+static int _dragonBones_Armature_get_inheritAnimation(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::Armature *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.Armature");
+
+    // <function var>
+    bool ret = (bool)self->inheritAnimation;
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_Armature_set_inheritAnimation(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::Armature *self = nullptr;
+    bool arg1 = false;   /** inheritAnimation */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.Armature");
+    olua_check_bool(L, 2, &arg1);
+
+    // <function var>
+    self->inheritAnimation = arg1;
+
+    return 0;
+}
+
+static int _dragonBones_Armature_get_userData(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::Armature *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.Armature");
+
+    // <function var>
+    void *ret = (void *)self->userData;
+    int num_ret = olua_push_obj(L, ret, "void *");
+
+    return num_ret;
+}
+
+static int _dragonBones_Armature_set_userData(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::Armature *self = nullptr;
+    void *arg1 = nullptr;   /** userData */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.Armature");
+    olua_check_obj(L, 2, (void **)&arg1, "void *");
+
+    // <function var>
+    self->userData = arg1;
+
+    return 0;
+}
+
 static int luaopen_dragonBones_Armature(lua_State *L)
 {
     oluacls_class(L, "db.Armature", "db.BaseObject");
+    oluacls_func(L, "advanceTime", _dragonBones_Armature_advanceTime);
     oluacls_func(L, "containsPoint", _dragonBones_Armature_containsPoint);
+    oluacls_func(L, "dispose", _dragonBones_Armature_dispose);
     oluacls_func(L, "getAnimation", _dragonBones_Armature_getAnimation);
     oluacls_func(L, "getArmatureData", _dragonBones_Armature_getArmatureData);
     oluacls_func(L, "getBone", _dragonBones_Armature_getBone);
     oluacls_func(L, "getBoneByDisplay", _dragonBones_Armature_getBoneByDisplay);
     oluacls_func(L, "getBones", _dragonBones_Armature_getBones);
+    oluacls_func(L, "getCacheFrameRate", _dragonBones_Armature_getCacheFrameRate);
     oluacls_func(L, "getDisplay", _dragonBones_Armature_getDisplay);
     oluacls_func(L, "getFlipX", _dragonBones_Armature_getFlipX);
     oluacls_func(L, "getFlipY", _dragonBones_Armature_getFlipY);
@@ -1949,13 +6825,17 @@ static int luaopen_dragonBones_Armature(lua_State *L)
     oluacls_func(L, "getSlot", _dragonBones_Armature_getSlot);
     oluacls_func(L, "getSlotByDisplay", _dragonBones_Armature_getSlotByDisplay);
     oluacls_func(L, "getSlots", _dragonBones_Armature_getSlots);
+    oluacls_func(L, "getTypeIndex", _dragonBones_Armature_getTypeIndex);
+    oluacls_func(L, "intersectsSegment", _dragonBones_Armature_intersectsSegment);
     oluacls_func(L, "invalidUpdate", _dragonBones_Armature_invalidUpdate);
+    oluacls_func(L, "setCacheFrameRate", _dragonBones_Armature_setCacheFrameRate);
     oluacls_func(L, "setFlipX", _dragonBones_Armature_setFlipX);
     oluacls_func(L, "setFlipY", _dragonBones_Armature_setFlipY);
     oluacls_func(L, "setReplacedTexture", _dragonBones_Armature_setReplacedTexture);
     oluacls_prop(L, "animation", _dragonBones_Armature_getAnimation, nullptr);
     oluacls_prop(L, "armatureData", _dragonBones_Armature_getArmatureData, nullptr);
     oluacls_prop(L, "bones", _dragonBones_Armature_getBones, nullptr);
+    oluacls_prop(L, "cacheFrameRate", _dragonBones_Armature_getCacheFrameRate, _dragonBones_Armature_setCacheFrameRate);
     oluacls_prop(L, "display", _dragonBones_Armature_getDisplay, nullptr);
     oluacls_prop(L, "flipX", _dragonBones_Armature_getFlipX, _dragonBones_Armature_setFlipX);
     oluacls_prop(L, "flipY", _dragonBones_Armature_getFlipY, _dragonBones_Armature_setFlipY);
@@ -1963,6 +6843,9 @@ static int luaopen_dragonBones_Armature(lua_State *L)
     oluacls_prop(L, "parent", _dragonBones_Armature_getParent, nullptr);
     oluacls_prop(L, "replacedTexture", _dragonBones_Armature_getReplacedTexture, _dragonBones_Armature_setReplacedTexture);
     oluacls_prop(L, "slots", _dragonBones_Armature_getSlots, nullptr);
+    oluacls_prop(L, "typeIndex", _dragonBones_Armature_getTypeIndex, nullptr);
+    oluacls_prop(L, "inheritAnimation", _dragonBones_Armature_get_inheritAnimation, _dragonBones_Armature_set_inheritAnimation);
+    oluacls_prop(L, "userData", _dragonBones_Armature_get_userData, _dragonBones_Armature_set_userData);
 
     olua_registerluatype<dragonBones::Armature>(L, "db.Armature");
     oluacls_createclassproxy(L);
@@ -1986,6 +6869,22 @@ static int luaopen_dragonBones_AnimationFadeOutMode(lua_State *L)
     return 1;
 }
 
+static int _dragonBones_Animation_advanceTime(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::Animation *self = nullptr;
+    lua_Number arg1 = 0;   /** passedTime */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.Animation");
+    olua_check_number(L, 2, &arg1);
+
+    // void advanceTime(float passedTime)
+    self->advanceTime((float)arg1);
+
+    return 0;
+}
+
 static int _dragonBones_Animation_fadeIn(lua_State *L)
 {
     lua_settop(L, 7);
@@ -2006,7 +6905,7 @@ static int _dragonBones_Animation_fadeIn(lua_State *L)
     olua_opt_std_string(L, 6, &arg5, (std::string)"");
     olua_opt_uint(L, 7, &arg6, (lua_Unsigned)dragonBones::AnimationFadeOutMode::SameLayerAndGroup);
 
-    // AnimationState* fadeIn(const std::string& animationName, float fadeInTime = -1.f, int playTimes = -1, int layer = 0, const std::string& group = "", AnimationFadeOutMode fadeOutMode = AnimationFadeOutMode::SameLayerAndGroup)
+    // AnimationState* fadeIn( const std::string& animationName, float fadeInTime = -1.f, int playTimes = -1, int layer = 0, const std::string& group = "", AnimationFadeOutMode fadeOutMode = AnimationFadeOutMode::SameLayerAndGroup )
     dragonBones::AnimationState *ret = (dragonBones::AnimationState *)self->fadeIn(arg1, (float)arg2, (int)arg3, (int)arg4, arg5, (dragonBones::AnimationFadeOutMode)arg6);
     int num_ret = olua_push_cppobj<dragonBones::AnimationState>(L, ret, "db.AnimationState");
 
@@ -2047,21 +6946,6 @@ static int _dragonBones_Animation_getAnimationNames(lua_State *L)
     }
 
     return num_ret;
-}
-
-static int _dragonBones_Animation_getAnimations(lua_State *L)
-{
-    lua_settop(L, 1);
-    dragonBones::Animation *self = nullptr;
-    olua_to_cppobj(L, 1, (void **)&self, "db.Animation");
-    lua_newtable(L);
-    for (auto it : self->getAnimations())
-    {
-        lua_pushstring(L, it.first.c_str());
-        olua_push_cppobj<dragonBones::AnimationData>(L, it.second, nullptr);
-        lua_rawset(L, -3);
-    }
-    return 1;
 }
 
 static int _dragonBones_Animation_getLastAnimationName(lua_State *L)
@@ -2126,6 +7010,17 @@ static int _dragonBones_Animation_getStates(lua_State *L)
     return num_ret;
 }
 
+static int _dragonBones_Animation_getTypeIndex(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static std::size_t getTypeIndex()
+    std::size_t ret = (std::size_t)dragonBones::Animation::getTypeIndex();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
 static int _dragonBones_Animation_gotoAndPlayByFrame(lua_State *L)
 {
     lua_settop(L, 4);
@@ -2140,7 +7035,7 @@ static int _dragonBones_Animation_gotoAndPlayByFrame(lua_State *L)
     olua_opt_uint(L, 3, &arg2, (lua_Unsigned)0);
     olua_opt_int(L, 4, &arg3, (lua_Integer)-1);
 
-    // AnimationState* gotoAndPlayByFrame(const std::string& animationName, unsigned int frame = 0, int playTimes = -1)
+    // AnimationState* gotoAndPlayByFrame(const std::string& animationName, unsigned frame = 0, int playTimes = -1)
     dragonBones::AnimationState *ret = (dragonBones::AnimationState *)self->gotoAndPlayByFrame(arg1, (unsigned int)arg2, (int)arg3);
     int num_ret = olua_push_cppobj<dragonBones::AnimationState>(L, ret, "db.AnimationState");
 
@@ -2201,7 +7096,7 @@ static int _dragonBones_Animation_gotoAndStopByFrame(lua_State *L)
     olua_check_std_string(L, 2, &arg1);
     olua_opt_uint(L, 3, &arg2, (lua_Unsigned)0);
 
-    // AnimationState* gotoAndStopByFrame(const std::string& animationName, unsigned int frame = 0)
+    // AnimationState* gotoAndStopByFrame(const std::string& animationName, unsigned frame = 0)
     dragonBones::AnimationState *ret = (dragonBones::AnimationState *)self->gotoAndStopByFrame(arg1, (unsigned int)arg2);
     int num_ret = olua_push_cppobj<dragonBones::AnimationState>(L, ret, "db.AnimationState");
 
@@ -2261,6 +7156,22 @@ static int _dragonBones_Animation_hasAnimation(lua_State *L)
     int num_ret = olua_push_bool(L, ret);
 
     return num_ret;
+}
+
+static int _dragonBones_Animation_init(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::Animation *self = nullptr;
+    dragonBones::Armature *arg1 = nullptr;   /** armature */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.Animation");
+    olua_check_cppobj(L, 2, (void **)&arg1, "db.Armature");
+
+    // void init(Armature* armature)
+    self->init(arg1);
+
+    return 0;
 }
 
 static int _dragonBones_Animation_isCompleted(lua_State *L)
@@ -2359,17 +7270,49 @@ static int _dragonBones_Animation_stop(lua_State *L)
     return 0;
 }
 
+static int _dragonBones_Animation_get_timeScale(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    dragonBones::Animation *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.Animation");
+
+    // <function var>
+    float ret = (float)self->timeScale;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _dragonBones_Animation_set_timeScale(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    dragonBones::Animation *self = nullptr;
+    lua_Number arg1 = 0;   /** timeScale */
+
+    olua_to_cppobj(L, 1, (void **)&self, "db.Animation");
+    olua_check_number(L, 2, &arg1);
+
+    // <function var>
+    self->timeScale = (float)arg1;
+
+    return 0;
+}
+
 static int luaopen_dragonBones_Animation(lua_State *L)
 {
     oluacls_class(L, "db.Animation", "db.BaseObject");
+    oluacls_func(L, "advanceTime", _dragonBones_Animation_advanceTime);
     oluacls_func(L, "fadeIn", _dragonBones_Animation_fadeIn);
     oluacls_func(L, "getAnimationConfig", _dragonBones_Animation_getAnimationConfig);
     oluacls_func(L, "getAnimationNames", _dragonBones_Animation_getAnimationNames);
-    oluacls_func(L, "getAnimations", _dragonBones_Animation_getAnimations);
     oluacls_func(L, "getLastAnimationName", _dragonBones_Animation_getLastAnimationName);
     oluacls_func(L, "getLastAnimationState", _dragonBones_Animation_getLastAnimationState);
     oluacls_func(L, "getState", _dragonBones_Animation_getState);
     oluacls_func(L, "getStates", _dragonBones_Animation_getStates);
+    oluacls_func(L, "getTypeIndex", _dragonBones_Animation_getTypeIndex);
     oluacls_func(L, "gotoAndPlayByFrame", _dragonBones_Animation_gotoAndPlayByFrame);
     oluacls_func(L, "gotoAndPlayByProgress", _dragonBones_Animation_gotoAndPlayByProgress);
     oluacls_func(L, "gotoAndPlayByTime", _dragonBones_Animation_gotoAndPlayByTime);
@@ -2377,6 +7320,7 @@ static int luaopen_dragonBones_Animation(lua_State *L)
     oluacls_func(L, "gotoAndStopByProgress", _dragonBones_Animation_gotoAndStopByProgress);
     oluacls_func(L, "gotoAndStopByTime", _dragonBones_Animation_gotoAndStopByTime);
     oluacls_func(L, "hasAnimation", _dragonBones_Animation_hasAnimation);
+    oluacls_func(L, "init", _dragonBones_Animation_init);
     oluacls_func(L, "isCompleted", _dragonBones_Animation_isCompleted);
     oluacls_func(L, "isPlaying", _dragonBones_Animation_isPlaying);
     oluacls_func(L, "play", _dragonBones_Animation_play);
@@ -2385,12 +7329,13 @@ static int luaopen_dragonBones_Animation(lua_State *L)
     oluacls_func(L, "stop", _dragonBones_Animation_stop);
     oluacls_prop(L, "animationConfig", _dragonBones_Animation_getAnimationConfig, nullptr);
     oluacls_prop(L, "animationNames", _dragonBones_Animation_getAnimationNames, nullptr);
-    oluacls_prop(L, "animations", _dragonBones_Animation_getAnimations, nullptr);
     oluacls_prop(L, "completed", _dragonBones_Animation_isCompleted, nullptr);
     oluacls_prop(L, "lastAnimationName", _dragonBones_Animation_getLastAnimationName, nullptr);
     oluacls_prop(L, "lastAnimationState", _dragonBones_Animation_getLastAnimationState, nullptr);
     oluacls_prop(L, "playing", _dragonBones_Animation_isPlaying, nullptr);
     oluacls_prop(L, "states", _dragonBones_Animation_getStates, nullptr);
+    oluacls_prop(L, "typeIndex", _dragonBones_Animation_getTypeIndex, nullptr);
+    oluacls_prop(L, "timeScale", _dragonBones_Animation_get_timeScale, _dragonBones_Animation_set_timeScale);
 
     olua_registerluatype<dragonBones::Animation>(L, "db.Animation");
     oluacls_createclassproxy(L);
@@ -2517,6 +7462,8 @@ static int luaopen_dragonBones_CCFactory(lua_State *L)
     oluacls_func(L, "getTextureDisplay", _dragonBones_CCFactory_getTextureDisplay);
     oluacls_func(L, "loadDragonBonesData", _dragonBones_CCFactory_loadDragonBonesData);
     oluacls_func(L, "loadTextureAtlasData", _dragonBones_CCFactory_loadTextureAtlasData);
+    oluacls_prop(L, "factory", _dragonBones_CCFactory_getFactory, nullptr);
+    oluacls_prop(L, "soundEventManager", _dragonBones_CCFactory_getSoundEventManager, nullptr);
 
     olua_registerluatype<dragonBones::CCFactory>(L, "db.Factory");
     oluacls_createclassproxy(L);
@@ -2775,6 +7722,8 @@ static int luaopen_dragonBones_CCArmatureDisplay(lua_State *L)
 
 int luaopen_dragonbones(lua_State *L)
 {
+    olua_require(L, "db.ArmatureType", luaopen_dragonBones_ArmatureType);
+    olua_require(L, "db.ActionType", luaopen_dragonBones_ActionType);
     olua_require(L, "db.BaseObject", luaopen_dragonBones_BaseObject);
     olua_require(L, "db.EventObject", luaopen_dragonBones_EventObject);
     olua_require(L, "db.TransformObject", luaopen_dragonBones_TransformObject);
@@ -2784,6 +7733,7 @@ int luaopen_dragonbones(lua_State *L)
     olua_require(L, "db.OffsetMode", luaopen_dragonBones_OffsetMode);
     olua_require(L, "db.Bone", luaopen_dragonBones_Bone);
     olua_require(L, "db.DisplayData", luaopen_dragonBones_DisplayData);
+    olua_require(L, "db.ActionData", luaopen_dragonBones_ActionData);
     olua_require(L, "db.TextureAtlasData", luaopen_dragonBones_TextureAtlasData);
     olua_require(L, "db.TextureData", luaopen_dragonBones_TextureData);
     olua_require(L, "db.ArmatureData", luaopen_dragonBones_ArmatureData);

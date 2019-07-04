@@ -246,15 +246,30 @@ local function gen_func_ret(cls, fi)
                     end
                     CAST = string.format("(%s)", SUBTYPE.DECL_TYPE)
                 end
-                RET_PUSH = format_snippet([[
-                    int num_ret = 1;
-                    int num_eles = 1;
-                    lua_createtable(L, (int)ret.size(), 0);
-                    for (const auto &it : ret) {
-                        ${SUBTYPE_PUSH_FUNC}(L, ${CAST}it);
-                        lua_rawseti(L, -2, num_eles++);
-                    }
-                ]])
+                if SUBTYPE.DECL_TYPE == 'lua_Unsigned'
+                    or SUBTYPE.DECL_TYPE == 'lua_Number'
+                    or SUBTYPE.TYPENAME == 'bool'
+                    or SUBTYPE.DECL_TYPE == 'lua_Integer' then
+                    RET_PUSH = format_snippet([[
+                        int num_ret = 1;
+                        int num_eles = 1;
+                        lua_createtable(L, (int)ret.size(), 0);
+                        for (auto it : ret) {
+                            ${SUBTYPE_PUSH_FUNC}(L, ${CAST}it);
+                            lua_rawseti(L, -2, num_eles++);
+                        }
+                    ]])
+                else
+                    RET_PUSH = format_snippet([[
+                        int num_ret = 1;
+                        int num_eles = 1;
+                        lua_createtable(L, (int)ret.size(), 0);
+                        for (const auto &it : ret) {
+                            ${SUBTYPE_PUSH_FUNC}(L, ${CAST}it);
+                            lua_rawseti(L, -2, num_eles++);
+                        }
+                    ]])
+                end
             end
         else
             if fi.RET.ATTR.UNPACK then

@@ -56,6 +56,12 @@ end
 
 M.EXCLUDE_TYPE = require "conf.exclude-type"
 
+M.EXCLUDE_PATTERN = function (cppcls, fn, decl)
+    if cppcls == 'cocos2d::FileUtils' then
+        return string.find(decl, 'std::function')
+    end
+end
+
 local UserDefault = typeconf 'cocos2d::UserDefault'
 UserDefault.EXCLUDE 'setDelegate'
 
@@ -436,9 +442,6 @@ Device.EXCLUDE 'getTextureDataForText'
 
 local FileUtils = typeconf 'cocos2d::FileUtils'
 FileUtils.EXCLUDE 'getContents'
-FileUtils.EXCLUDE_PATTERN = function (fn, decl)
-    return string.find(decl, 'std::function')
-end
 FileUtils.FUNC('getFileDataFromZip', [[
 {
     lua_settop(L, 3);

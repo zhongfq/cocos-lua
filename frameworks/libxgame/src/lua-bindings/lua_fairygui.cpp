@@ -4769,7 +4769,7 @@ static int _fairygui_GObject_create(lua_State *L)
 {
     lua_settop(L, 0);
 
-    // static fairygui::GObject *create()
+    // static fairygui::GObject * create()
     fairygui::GObject *ret = (fairygui::GObject *)fairygui::GObject::create();
     int num_ret = olua_push_cppobj<fairygui::GObject>(L, ret, "fui.GObject");
 
@@ -6724,7 +6724,7 @@ static int _fairygui_GComponent_create(lua_State *L)
 {
     lua_settop(L, 0);
 
-    // static fairygui::GComponent *create()
+    // static fairygui::GComponent * create()
     fairygui::GComponent *ret = (fairygui::GComponent *)fairygui::GComponent::create();
     int num_ret = olua_push_cppobj<fairygui::GComponent>(L, ret, "fui.GComponent");
 
@@ -8389,7 +8389,7 @@ static int _fairygui_GGroup_create(lua_State *L)
 {
     lua_settop(L, 0);
 
-    // static fairygui::GGroup *create()
+    // static fairygui::GGroup * create()
     fairygui::GGroup *ret = (fairygui::GGroup *)fairygui::GGroup::create();
     int num_ret = olua_push_cppobj<fairygui::GGroup>(L, ret, "fui.GGroup");
 
@@ -8568,7 +8568,7 @@ static int _fairygui_GScrollBar_create(lua_State *L)
 {
     lua_settop(L, 0);
 
-    // static fairygui::GScrollBar *create()
+    // static fairygui::GScrollBar * create()
     fairygui::GScrollBar *ret = (fairygui::GScrollBar *)fairygui::GScrollBar::create();
     int num_ret = olua_push_cppobj<fairygui::GScrollBar>(L, ret, "fui.GScrollBar");
 
@@ -8676,7 +8676,7 @@ static int _fairygui_GLoader_create(lua_State *L)
 {
     lua_settop(L, 0);
 
-    // static fairygui::GLoader *create()
+    // static fairygui::GLoader * create()
     fairygui::GLoader *ret = (fairygui::GLoader *)fairygui::GLoader::create();
     int num_ret = olua_push_cppobj<fairygui::GLoader>(L, ret, "fui.GLoader");
 
@@ -9531,7 +9531,7 @@ static int _fairygui_GGraph_create(lua_State *L)
 {
     lua_settop(L, 0);
 
-    // static fairygui::GGraph *create()
+    // static fairygui::GGraph * create()
     fairygui::GGraph *ret = (fairygui::GGraph *)fairygui::GGraph::create();
     int num_ret = olua_push_cppobj<fairygui::GGraph>(L, ret, "fui.GGraph");
 
@@ -9654,7 +9654,7 @@ static int _fairygui_GButton_create(lua_State *L)
 {
     lua_settop(L, 0);
 
-    // static fairygui::GButton *create()
+    // static fairygui::GButton * create()
     fairygui::GButton *ret = (fairygui::GButton *)fairygui::GButton::create();
     int num_ret = olua_push_cppobj<fairygui::GButton>(L, ret, "fui.GButton");
 
@@ -9974,7 +9974,7 @@ static int _fairygui_GImage_create(lua_State *L)
 {
     lua_settop(L, 0);
 
-    // static fairygui::GImage *create()
+    // static fairygui::GImage * create()
     fairygui::GImage *ret = (fairygui::GImage *)fairygui::GImage::create();
     int num_ret = olua_push_cppobj<fairygui::GImage>(L, ret, "fui.GImage");
 
@@ -10200,7 +10200,7 @@ static int _fairygui_GLabel_create(lua_State *L)
 {
     lua_settop(L, 0);
 
-    // static fairygui::GLabel *create()
+    // static fairygui::GLabel * create()
     fairygui::GLabel *ret = (fairygui::GLabel *)fairygui::GLabel::create();
     int num_ret = olua_push_cppobj<fairygui::GLabel>(L, ret, "fui.GLabel");
 
@@ -10450,7 +10450,7 @@ static int _fairygui_GList_create(lua_State *L)
 {
     lua_settop(L, 0);
 
-    // static fairygui::GList *create()
+    // static fairygui::GList * create()
     fairygui::GList *ret = (fairygui::GList *)fairygui::GList::create();
     int num_ret = olua_push_cppobj<fairygui::GList>(L, ret, "fui.GList");
 
@@ -11579,7 +11579,7 @@ static int _fairygui_GMovieClip_create(lua_State *L)
 {
     lua_settop(L, 0);
 
-    // static fairygui::GMovieClip *create()
+    // static fairygui::GMovieClip * create()
     fairygui::GMovieClip *ret = (fairygui::GMovieClip *)fairygui::GMovieClip::create();
     int num_ret = olua_push_cppobj<fairygui::GMovieClip>(L, ret, "fui.GMovieClip");
 
@@ -11815,7 +11815,7 @@ static int _fairygui_GProgressBar_create(lua_State *L)
 {
     lua_settop(L, 0);
 
-    // static fairygui::GProgressBar *create()
+    // static fairygui::GProgressBar * create()
     fairygui::GProgressBar *ret = (fairygui::GProgressBar *)fairygui::GProgressBar::create();
     int num_ret = olua_push_cppobj<fairygui::GProgressBar>(L, ret, "fui.GProgressBar");
 
@@ -11958,7 +11958,7 @@ static int _fairygui_GComboBox_create(lua_State *L)
 {
     lua_settop(L, 0);
 
-    // static fairygui::GComboBox *create()
+    // static fairygui::GComboBox * create()
     fairygui::GComboBox *ret = (fairygui::GComboBox *)fairygui::GComboBox::create();
     int num_ret = olua_push_cppobj<fairygui::GComboBox>(L, ret, "fui.GComboBox");
 
@@ -12378,7 +12378,7 @@ static int _fairygui_GRichTextField_create(lua_State *L)
 {
     lua_settop(L, 0);
 
-    // static fairygui::GRichTextField *create()
+    // static fairygui::GRichTextField * create()
     fairygui::GRichTextField *ret = (fairygui::GRichTextField *)fairygui::GRichTextField::create();
     int num_ret = olua_push_cppobj<fairygui::GRichTextField>(L, ret, "fui.GRichTextField");
 
@@ -12400,7 +12400,7 @@ static int _fairygui_GSlider_create(lua_State *L)
 {
     lua_settop(L, 0);
 
-    // static fairygui::GSlider *create()
+    // static fairygui::GSlider * create()
     fairygui::GSlider *ret = (fairygui::GSlider *)fairygui::GSlider::create();
     int num_ret = olua_push_cppobj<fairygui::GSlider>(L, ret, "fui.GSlider");
 
@@ -12588,7 +12588,7 @@ static int _fairygui_GTextInput_create(lua_State *L)
 {
     lua_settop(L, 0);
 
-    // static fairygui::GTextInput *create()
+    // static fairygui::GTextInput * create()
     fairygui::GTextInput *ret = (fairygui::GTextInput *)fairygui::GTextInput::create();
     int num_ret = olua_push_cppobj<fairygui::GTextInput>(L, ret, "fui.GTextInput");
 
@@ -16015,7 +16015,7 @@ static int _fairygui_Window_create(lua_State *L)
 {
     lua_settop(L, 0);
 
-    // static fairygui::Window *create()
+    // static fairygui::Window * create()
     fairygui::Window *ret = (fairygui::Window *)fairygui::Window::create();
     int num_ret = olua_push_cppobj<fairygui::Window>(L, ret, "fui.Window");
 

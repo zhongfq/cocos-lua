@@ -35,15 +35,11 @@ M.INCLUDES = [[
 M.CHUNK = [[]]
 
 M.MAKE_LUACLS = function (cppname)
-    if cppname == 'ResolutionPolicy' then
-        return 'cc.' .. cppname
-    else
-        cppname = string.gsub(cppname, '^cocos2d::experimental::ui::', 'ccui.')
-        cppname = string.gsub(cppname, '^cocos2d::ui::', 'ccui.')
-        cppname = string.gsub(cppname, "::", ".")
-        cppname = string.gsub(cppname, "[ *]*$", '')
-        return cppname
-    end
+    cppname = string.gsub(cppname, '^cocos2d::experimental::ui::', 'ccui.')
+    cppname = string.gsub(cppname, '^cocos2d::ui::', 'ccui.')
+    cppname = string.gsub(cppname, "::", ".")
+    cppname = string.gsub(cppname, "[ *]*$", '')
+    return cppname
 end
 
 M.EXCLUDE_TYPE = require "conf.exclude-type"

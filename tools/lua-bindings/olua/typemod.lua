@@ -45,6 +45,7 @@ function typemod(name)
         EXCLUDE_TYPE = {},
         TYPEDEFS = {},
         NAME = name,
+        EXCLUDE_PATTERN = function () end
     }
 
     function module.typeconf(name)

@@ -52,6 +52,11 @@ M.EXCLUDE_TYPE = require "conf.exclude-type"
 M.EXCLUDE_TYPE 'fairygui::ByteBuffer *'
 M.EXCLUDE_TYPE 'fairygui::GObjectPool *'
 
+M.EXCLUDE_PATTERN = function (cppcls, fn, decl)
+    return string.find(decl, 'operator *= *')
+        or string.find(fn, '^_')
+end
+
 M.MAKE_LUACLS = function (cppname)
     cppname = string.gsub(cppname, '^fairygui::', 'fui.')
     cppname = string.gsub(cppname, "[ *]*$", '')
@@ -158,10 +163,6 @@ InputProcessor.CALLBACK('setCaptureCallback', {
 typeconf 'fairygui::InputEvent'
 
 local TextFormat = typeconf 'fairygui::TextFormat'
-TextFormat.EXCLUDE '_hasColor'
-TextFormat.EXCLUDE_PATTERN = function (fn, decl)
-    return string.find(decl, 'operator *= *')
-end
 TextFormat.FUNC('setFormat', [[
 {
     lua_settop(L, 2);
@@ -264,9 +265,6 @@ typeconf 'fairygui::FillOrigin'
 typeconf 'fairygui::GController'
 
 local GObject = typeconf 'fairygui::GObject'
-GObject.EXCLUDE '_underConstruct'
-GObject.EXCLUDE '_gearLocked'
-GObject.EXCLUDE '_alignToBL'
 GObject.EXCLUDE 'constructFromResource'
 GObject.ATTR('getGroup', {RET = '@ref(single group)'})
 GObject.ATTR('setGroup', {ARG1 = '@ref(single group)'})
@@ -319,7 +317,6 @@ GObject.INJECT('makeFullScreen', {
 })
 
 local GComponent = typeconf 'fairygui::GComponent'
-GComponent.EXCLUDE '_buildingDisplayList'
 GComponent.ATTR('addChild', {ARG1 = '@ref(map children)'})
 GComponent.ATTR('addChildAt', {ARG1 = '@ref(map children)'})
 GComponent.ATTR('removeChild', {ARG1 = '@unref(map children)'})
@@ -416,7 +413,6 @@ GRoot.INJECT({'hideWindow', 'hideWindowImmediately'}, {
 })
 
 local GGroup =  typeconf 'fairygui::GGroup'
-GGroup.EXCLUDE '_updating'
 
 typeconf 'fairygui::GScrollBar'
 

@@ -1,4 +1,194 @@
 REG_TYPE {
+    CONV_FUNC = 'manual_luacv_$$_cocos2d_Data',
+    INIT_VALUE = false,
+    TYPENAME = 'cocos2d::Data',
+}
+
+REG_TYPE {
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_Vec2',
+    INIT_VALUE = false,
+    TYPENAME = 'cocos2d::Vec2',
+    VARS = 2,
+}
+
+REG_TYPE {
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_Vec2',
+    INIT_VALUE = false,
+    TYPENAME = 'cocos2d::Point',
+    VARS = 2,
+}
+
+REG_TYPE {
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_Vec3',
+    INIT_VALUE = false,
+    TYPENAME = 'cocos2d::Vec3',
+    VARS = 3,
+}
+
+REG_TYPE {
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_Vec4',
+    INIT_VALUE = false,
+    TYPENAME = 'cocos2d::Vec4',
+    VARS = 4,
+}
+
+REG_TYPE {
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_Size',
+    INIT_VALUE = false,
+    TYPENAME = 'cocos2d::Size',
+    VARS = 2,
+}
+
+REG_TYPE {
+    CONV_FUNC = 'manual_luacv_$$_cocos2d_Rect',
+    INIT_VALUE = false,
+    TYPENAME = 'cocos2d::Rect',
+    VARS = 4,
+}
+
+REG_TYPE {
+    CONV_FUNC = 'manual_luacv_$$_cocos2d_ccBezierConfig',
+    INIT_VALUE = false,
+    TYPENAME = 'cocos2d::ccBezierConfig',
+    VARS = 3,
+}
+
+REG_TYPE {
+    CONV_FUNC = 'manual_luacv_$$_cocos2d_Mat4',
+    INIT_VALUE = false,
+    TYPENAME = 'cocos2d::Mat4',
+    VALUE_TYPE = true,
+}
+
+REG_TYPE {
+    CONV_FUNC = 'manual_luacv_$$_cocos2d_Vector',
+    INIT_VALUE = false,
+    IS_ARRAY = true,
+    TYPENAME = 'cocos2d::Vector',
+}
+
+REG_TYPE {
+    CONV_FUNC = 'olua_$$_std_string',
+    DECL_TYPE = 'std::string',
+    INIT_VALUE = false,
+    TYPENAME = 'cocos2d::EventListener::ListenerID',
+}
+
+REG_TYPE {
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_AffineTransform',
+    INIT_VALUE = false,
+    TYPENAME = 'cocos2d::AffineTransform',
+}
+
+REG_TYPE {
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_BlendFunc',
+    INIT_VALUE = false,
+    TYPENAME = 'cocos2d::BlendFunc',
+}
+
+REG_TYPE {
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_experimental_Viewport',
+    INIT_VALUE = false,
+    TYPENAME = 'cocos2d::experimental::Viewport',
+}
+
+REG_TYPE {
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_Quaternion',
+    INIT_VALUE = false,
+    TYPENAME = 'cocos2d::Quaternion',
+}
+
+REG_TYPE {
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_ResourceData',
+    INIT_VALUE = false,
+    TYPENAME = 'cocos2d::ResourceData',
+}
+
+REG_TYPE {
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_T2F_Quad',
+    INIT_VALUE = false,
+    TYPENAME = 'cocos2d::T2F_Quad',
+}
+
+REG_TYPE {
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_Tex2F',
+    INIT_VALUE = false,
+    TYPENAME = 'cocos2d::Tex2F',
+}
+
+REG_TYPE {
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_Texture2D_TexParams',
+    INIT_VALUE = false,
+    TYPENAME = 'cocos2d::Texture2D::TexParams',
+}
+
+REG_TYPE {
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_TTFConfig',
+    INIT_VALUE = false,
+    TYPENAME = 'cocos2d::TTFConfig',
+}
+
+REG_TYPE {
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_Uniform',
+    INIT_VALUE = false,
+    TYPENAME = 'cocos2d::Uniform *',
+}
+
+REG_TYPE {
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_VertexAttrib',
+    INIT_VALUE = false,
+    TYPENAME = 'cocos2d::VertexAttrib *',
+}
+
+REG_TYPE {
+    CONV_FUNC = 'auto_luacv_$$_GLContextAttrs',
+    INIT_VALUE = false,
+    TYPENAME = 'GLContextAttrs',
+}
+
+REG_TYPE {
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_Quad3',
+    INIT_VALUE = false,
+    TYPENAME = 'cocos2d::Quad3',
+}
+
+REG_TYPE {
+    CONV_FUNC = 'manual_luacv_$$_cocos2d_Color3B',
+    INIT_VALUE = false,
+    TYPENAME = 'cocos2d::Color3B',
+}
+
+REG_TYPE {
+    CONV_FUNC = 'manual_luacv_$$_cocos2d_Color4B',
+    INIT_VALUE = false,
+    TYPENAME = 'cocos2d::Color4B',
+}
+
+REG_TYPE {
+    CONV_FUNC = 'manual_luacv_$$_cocos2d_Color4F',
+    INIT_VALUE = false,
+    TYPENAME = 'cocos2d::Color4F',
+}
+
+REG_TYPE {
+    CONV_FUNC = 'manual_luacv_$$_cocos2d_Value',
+    INIT_VALUE = false,
+    TYPENAME = 'cocos2d::Value',
+}
+
+REG_TYPE {
+    CONV_FUNC = 'manual_luacv_$$_cocos2d_ValueMap',
+    INIT_VALUE = false,
+    TYPENAME = 'cocos2d::ValueMap',
+}
+
+REG_TYPE {
+    CONV_FUNC = 'manual_luacv_$$_cocos2d_ValueVector',
+    INIT_VALUE = false,
+    TYPENAME = 'cocos2d::ValueVector',
+}
+
+REG_TYPE {
     TYPENAME = 'ResolutionPolicy',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',

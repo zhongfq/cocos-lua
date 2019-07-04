@@ -61,6 +61,10 @@ function typemod(name)
         module.TYPEDEFS[#module.TYPEDEFS + 1] = info
     end
 
+    function module.include(path)
+        loadfile(path)(module)
+    end
+
     module.EXCLUDE_TYPE = createCommand(function (_, tn)
         module.EXCLUDE_TYPE[tn] = true
     end)

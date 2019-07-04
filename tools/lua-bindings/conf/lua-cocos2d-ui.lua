@@ -1,5 +1,6 @@
 local M = typemod 'cocos2d_ui'
 local typeconf = M.typeconf
+local typedef = M.typedef
 
 M.PARSER = {
     PATH = {
@@ -33,6 +34,12 @@ M.INCLUDES = [[
 #include "ui/UIScrollViewBar.h"
 ]]
 M.CHUNK = [[]]
+
+typedef {
+    TYPENAME = 'cocos2d::ui::Margin',
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_ui_Margin',
+    INIT_VALUE = false,
+}
 
 M.MAKE_LUACLS = function (cppname)
     cppname = string.gsub(cppname, '^cocos2d::experimental::ui::', 'ccui.')

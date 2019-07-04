@@ -1,19 +1,19 @@
 REG_TYPE {
-    TYPENAME = 'fairygui::EventTag',
     CONV_FUNC = 'manual_luacv_$$_fairygui_EventTag',
     INIT_VALUE = false,
+    TYPENAME = 'fairygui::EventTag',
 }
 
 REG_TYPE {
-    TYPENAME = 'fairygui::Margin',
     CONV_FUNC = 'auto_luacv_$$_fairygui_Margin',
     INIT_VALUE = false,
+    TYPENAME = 'fairygui::Margin',
 }
 
 REG_TYPE {
-    TYPENAME = 'fairygui::TweenValue',
     CONV_FUNC = 'auto_luacv_$$_fairygui_TweenValue',
     INIT_VALUE = false,
+    TYPENAME = 'fairygui::TweenValue',
 }
 
 REG_TYPE {

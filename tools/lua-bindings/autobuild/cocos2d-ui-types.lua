@@ -1,4 +1,10 @@
 REG_TYPE {
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_ui_Margin',
+    INIT_VALUE = false,
+    TYPENAME = 'cocos2d::ui::Margin',
+}
+
+REG_TYPE {
     TYPENAME = 'cocos2d::experimental::ui::VideoPlayer::EventType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',

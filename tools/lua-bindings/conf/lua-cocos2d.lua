@@ -1,5 +1,6 @@
 local M = typemod 'cocos2d'
 local typeconf = M.typeconf
+local include = M.include
 
 M.PARSER = {
     PATH = {
@@ -40,6 +41,8 @@ static const std::string makeScheduleCallbackTag(const std::string &key)
 {
     return "schedule." + key;
 }]]
+
+include('conf/lua-cocos2d-types.lua')
 
 M.MAKE_LUACLS = function (cppname)
     if cppname == 'ResolutionPolicy' then

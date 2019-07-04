@@ -118,21 +118,18 @@ function M:writeTypedef()
         file:write('\n')
     end
     for _, v in ipairs(self.module.TYPEDEFS) do
+        local arr = {}
+        for k, v in pairs(v) do
+            arr[#arr + 1] = {k, v}
+        end
+        table.sort(arr, function (a, b) return a[1] < b[1] end)
         writeLine("REG_TYPE {")
-        writeLine("    TYPENAME = '%s',", assert(v.TYPENAME, 'no typename'))
-        writeLine("    CONV_FUNC = '%s',", assert(v.CONV_FUNC, 'no conv func'))
-        if v.LUACLS then
-            writeLine("    CONV_FUNC = '%s',", v.LUACLS)
-        end
-        if v.INIT_VALUE ~= nil then
-            if type(v.INIT_VALUE) == 'string' then
-                writeLine("    INIT_VALUE = '%s',", v.INIT_VALUE)
+        for _, p in ipairs(arr) do
+            if type(p[2]) == 'string' then
+                writeLine("    %s = '%s',", p[1], p[2])
             else
-                writeLine("    INIT_VALUE = %s,", v.INIT_VALUE)
+                writeLine("    %s = %s,", p[1], p[2])
             end
-        end
-        if v.VALUE_TYPE ~= nil then
-            writeLine("    VALUE_TYPE = %s,", v.VALUE_TYPE)
         end
         writeLine("}")
         writeLine("")

@@ -25,6 +25,7 @@ end
 
 gen_module(require("autobuild.cocos2d"))
 gen_module(require("autobuild.cocos2d-ui"))
+gen_module(require("autobuild.fairygui"))
 
 -- gen_conv(require("conf.lua-conv"))
 -- gen_module(require("conf.cocos2d.lua-cocos2d"))

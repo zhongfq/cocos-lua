@@ -67,12 +67,15 @@ function trimlastlf(expr)
     return string.gsub(expr, '[ \n]*$', '')
 end
 
-function format(expr, trim, drop_last_lf)
+function format(expr, trim, drop_last_lf, indent)
     expr = string.gsub(expr, '[\n\r]', '\n')
+    expr = string.gsub(expr, '^[\n\r]*', '')
     if trim then
-        local indent = string.match(expr, '^[ ]*')
+        local space = string.match(expr, '^[ ]*')
+        indent = string.rep(' ', indent or 0)
         expr = string.gsub(expr, '^[ ]*', '')
-        expr = string.gsub(expr, '\n' .. indent, '\n')
+        expr = string.gsub(expr, '\n' .. space, '\n' .. indent)
+        expr = indent .. expr
     end
     if drop_last_lf then
         expr = trimlastlf(expr)
@@ -131,6 +134,6 @@ function format(expr, trim, drop_last_lf)
     return expr
 end
 
-function format_snippet(expr)
-    return format(expr, true, true)
+function format_snippet(expr, indent)
+    return format(expr, true, true, indent)
 end

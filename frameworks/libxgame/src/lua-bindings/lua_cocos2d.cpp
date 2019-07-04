@@ -4599,6 +4599,7 @@ static int luaopen_cocos2d_EventTouch(lua_State *L)
     oluacls_func(L, "setTouches", _cocos2d_EventTouch_setTouches);
     oluacls_prop(L, "eventCode", _cocos2d_EventTouch_getEventCode, _cocos2d_EventTouch_setEventCode);
     oluacls_prop(L, "touches", _cocos2d_EventTouch_getTouches, _cocos2d_EventTouch_setTouches);
+    oluacls_const_integer(L, "MAX_TOUCHES", (lua_Integer)cocos2d::EventTouch::MAX_TOUCHES);
 
     olua_registerluatype<cocos2d::EventTouch>(L, "cc.EventTouch");
     oluacls_createclassproxy(L);
@@ -9146,6 +9147,9 @@ static int luaopen_cocos2d_Renderer(lua_State *L)
     oluacls_prop(L, "clearColor", _cocos2d_Renderer_getClearColor, _cocos2d_Renderer_setClearColor);
     oluacls_prop(L, "drawnBatches", _cocos2d_Renderer_getDrawnBatches, nullptr);
     oluacls_prop(L, "drawnVertices", _cocos2d_Renderer_getDrawnVertices, nullptr);
+    oluacls_const_integer(L, "VBO_SIZE", (lua_Integer)cocos2d::Renderer::VBO_SIZE);
+    oluacls_const_integer(L, "BATCH_TRIAGCOMMAND_RESERVED_SIZE", (lua_Integer)cocos2d::Renderer::BATCH_TRIAGCOMMAND_RESERVED_SIZE);
+    oluacls_const_integer(L, "MATERIAL_ID_DO_NOT_BATCH", (lua_Integer)cocos2d::Renderer::MATERIAL_ID_DO_NOT_BATCH);
 
     olua_registerluatype<cocos2d::Renderer>(L, "cc.Renderer");
     oluacls_createclassproxy(L);
@@ -14583,12 +14587,12 @@ static int _cocos2d_RotateTo_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
-        if (olua_is_number(L, 1) && olua_is_number(L, 2)) {
-            return _cocos2d_RotateTo_create2(L);
+        if (olua_is_number(L, 1) && auto_luacv_is_cocos2d_Vec3(L, 2)) {
+            return _cocos2d_RotateTo_create3(L);
         }
 
-        // if (olua_is_number(L, 1) && auto_luacv_is_cocos2d_Vec3(L, 2)) {
-            return _cocos2d_RotateTo_create3(L);
+        // if (olua_is_number(L, 1) && olua_is_number(L, 2)) {
+            return _cocos2d_RotateTo_create2(L);
         // }
     }
 
@@ -14672,12 +14676,12 @@ static int _cocos2d_RotateBy_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
-        if (olua_is_number(L, 1) && olua_is_number(L, 2)) {
-            return _cocos2d_RotateBy_create1(L);
+        if (olua_is_number(L, 1) && auto_luacv_is_cocos2d_Vec3(L, 2)) {
+            return _cocos2d_RotateBy_create3(L);
         }
 
-        // if (olua_is_number(L, 1) && auto_luacv_is_cocos2d_Vec3(L, 2)) {
-            return _cocos2d_RotateBy_create3(L);
+        // if (olua_is_number(L, 1) && olua_is_number(L, 2)) {
+            return _cocos2d_RotateBy_create1(L);
         // }
     }
 
@@ -14776,12 +14780,12 @@ static int _cocos2d_MoveBy_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
-        if (olua_is_number(L, 1) && auto_luacv_is_cocos2d_Vec2(L, 2)) {
-            return _cocos2d_MoveBy_create1(L);
+        if (olua_is_number(L, 1) && auto_luacv_is_cocos2d_Vec3(L, 2)) {
+            return _cocos2d_MoveBy_create3(L);
         }
 
-        // if (olua_is_number(L, 1) && auto_luacv_is_cocos2d_Vec3(L, 2)) {
-            return _cocos2d_MoveBy_create3(L);
+        // if (olua_is_number(L, 1) && auto_luacv_is_cocos2d_Vec2(L, 2)) {
+            return _cocos2d_MoveBy_create1(L);
         // }
     }
 
@@ -14886,12 +14890,12 @@ static int _cocos2d_MoveTo_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
-        if (olua_is_number(L, 1) && auto_luacv_is_cocos2d_Vec2(L, 2)) {
-            return _cocos2d_MoveTo_create1(L);
+        if (olua_is_number(L, 1) && auto_luacv_is_cocos2d_Vec3(L, 2)) {
+            return _cocos2d_MoveTo_create3(L);
         }
 
-        // if (olua_is_number(L, 1) && auto_luacv_is_cocos2d_Vec3(L, 2)) {
-            return _cocos2d_MoveTo_create3(L);
+        // if (olua_is_number(L, 1) && auto_luacv_is_cocos2d_Vec2(L, 2)) {
+            return _cocos2d_MoveTo_create1(L);
         // }
     }
 

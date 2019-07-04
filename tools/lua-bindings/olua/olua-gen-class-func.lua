@@ -483,11 +483,14 @@ local function gen_test_and_call(cls, fns)
 
         if #fi.ARGS > 0 then
             local TEST_ARGS = {}
+            local MAX_VARS = 1
             for i, ai in ipairs(fi.ARGS) do
                 local IDX = (fi.STATIC and 0 or 1) + i
                 local FUNC_IS_VALUE = ai.TYPE.FUNC_IS_VALUE
                 local NULLABLE_BEGIN = ""
                 local NULLABLE_END = ""
+
+                MAX_VARS = math.max(ai.TYPE.VARS or 1, MAX_VARS)
 
                 if ai.ATTR.PACK then
                     FUNC_IS_VALUE = assert(ai.TYPE.FUNC_ISPACK_VALUE, ai.TYPE.TYPENAME)
@@ -512,19 +515,19 @@ local function gen_test_and_call(cls, fns)
 
             TEST_ARGS = table.concat(TEST_ARGS, " && ")
 
-            if fn == #fns then
-                CALL_CHUNK[#CALL_CHUNK + 1] = format_snippet([[
+            CALL_CHUNK[#CALL_CHUNK + 1] = {
+                MAX_VARS = MAX_VARS,
+                EXP1 = format_snippet([[
                     // if (${TEST_ARGS}) {
                         return _${CPPCLS_PATH}_${CPPFUNC}${FUNC_INDEX}(L);
                     // }
-                ]])
-            else
-                CALL_CHUNK[#CALL_CHUNK + 1] = format_snippet([[
+                ]]),
+                EXP2 = format_snippet([[
                     if (${TEST_ARGS}) {
                         return _${CPPCLS_PATH}_${CPPFUNC}${FUNC_INDEX}(L);
                     }
-                ]])
-            end
+                ]]),
+            }
         else
             if #fns > 1 then
                 for fn, fi in ipairs(fns) do
@@ -532,10 +535,29 @@ local function gen_test_and_call(cls, fns)
                 end
             end
             assert(#fns == 1, fi.CPPFUNC)
-            CALL_CHUNK[#CALL_CHUNK + 1] = format_snippet([[
-                return _${CPPCLS_PATH}_${CPPFUNC}${FUNC_INDEX}(L);
-            ]])
+            CALL_CHUNK[#CALL_CHUNK + 1] = {
+                MAX_VARS = 1,
+                EXP1 = format_snippet([[
+                    return _${CPPCLS_PATH}_${CPPFUNC}${FUNC_INDEX}(L);
+                ]])
+            }
         end
+    end
+
+    table.sort(CALL_CHUNK, function (a, b)
+        return a.MAX_VARS > b.MAX_VARS
+    end)
+
+    if #CALL_CHUNK > 1 then
+        for i, v in ipairs(CALL_CHUNK) do
+            if i == #CALL_CHUNK then
+                CALL_CHUNK[i] = v.EXP1
+            else
+                CALL_CHUNK[i] = v.EXP2
+            end
+        end
+    else
+        CALL_CHUNK[1] = CALL_CHUNK[1].EXP1
     end
 
     return table.concat(CALL_CHUNK, "\n\n")

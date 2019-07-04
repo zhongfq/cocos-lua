@@ -43,16 +43,12 @@ function M:parse(path)
 
     local tu = index:parse(headerPath, args)
     self:visit(tu:cursor())
-    table.sort(self.classes, function (a, b)
-        return a.CONF.INDEX < b.CONF.INDEX
-    end)
-
     self:writeLine('require "autobuild.%s-types"\n', self:toPath(self.module.NAME))
     self:writeLine('local cls')
     self:writeLine('local M = {}')
     self:writeHeader()
-    self:writeTypedef()
     self:writeClass()
+    self:writeTypedef()
     self:writeLine('return M')
 end
 
@@ -94,12 +90,53 @@ function M:writeHeader()
         self:writeLine(']]')
     end
     self:writeLine('')
+    if #self.module.CONVS > 0 then
+        self:writeLine('M.CONVS = {')
+        for _, v in ipairs(self.module.CONVS) do
+            local CPPCLS = v.CPPCLS
+            local DEF = v.DEF
+            self:writeLine(format_snippet([=[
+                REG_CONV {
+                    CPPCLS = '${CPPCLS}',
+                    DEF = [[
+                        ${DEF}
+                    ]]
+                },
+            ]=], 4))
+        end
+        self:writeLine('}')
+        self:writeLine('')
+    end
 end
 
 function M:writeTypedef()
     local file = io.open('autobuild/' .. self:toPath(self.module.NAME) .. '-types.lua', 'w')
     local classes = {}
     local enums = {}
+    local function writeLine(fmt, ...)
+        file:write(string.format(fmt, ...))
+        file:write('\n')
+    end
+    for _, v in ipairs(self.module.TYPEDEFS) do
+        writeLine("REG_TYPE {")
+        writeLine("    TYPENAME = '%s',", assert(v.TYPENAME, 'no typename'))
+        writeLine("    CONV_FUNC = '%s',", assert(v.CONV_FUNC, 'no conv func'))
+        if v.LUACLS then
+            writeLine("    CONV_FUNC = '%s',", v.LUACLS)
+        end
+        if v.INIT_VALUE ~= nil then
+            if type(v.INIT_VALUE) == 'string' then
+                writeLine("    INIT_VALUE = '%s',", v.INIT_VALUE)
+            else
+                writeLine("    INIT_VALUE = %s,", v.INIT_VALUE)
+            end
+        end
+        if v.VALUE_TYPE ~= nil then
+            writeLine("    VALUE_TYPE = %s,", v.VALUE_TYPE)
+        end
+        writeLine("}")
+        writeLine("")
+    end
     for _, cls in ipairs(self.classes) do
         if cls.KIND == 'Enum' then
             enums[#enums + 1] = cls.CPPCLS
@@ -114,11 +151,11 @@ function M:writeTypedef()
         local LUACLS = self.module.MAKE_LUACLS(v)
         file:write(format_snippet([[
             REG_TYPE {
-                TYPENAME = "${TYPENAME}",
+                TYPENAME = '${TYPENAME}',
                 DECL_TYPE = 'lua_Unsigned',
-                CONV_FUNC = "olua_$$_uint",
+                CONV_FUNC = 'olua_$$_uint',
                 VALUE_TYPE = true,
-                LUACLS = "${LUACLS}",
+                LUACLS = '${LUACLS}',
             }
         ]]))
         file:write('\n\n')
@@ -128,9 +165,9 @@ function M:writeTypedef()
         local LUACLS = self.module.MAKE_LUACLS(v)
         file:write(format_snippet([[
             REG_TYPE {
-                TYPENAME = "${TYPENAME} *",
-                CONV_FUNC = "olua_$$_cppobj",
-                LUACLS = "${LUACLS}",
+                TYPENAME = '${TYPENAME} *',
+                CONV_FUNC = 'olua_$$_cppobj',
+                LUACLS = '${LUACLS}',
             }
         ]]))
         file:write('\n\n')
@@ -141,11 +178,26 @@ function M:writeClass()
     for _, cls in ipairs(self.classes) do
         cachedClass[cls.CPPCLS] = cls
     end
-    for cls in pairs(self.classConf) do
-        if not cachedClass[cls] then
-            error("class '" .. cls .. "' not found")
+    for name, cls in pairs(self.classConf) do
+        if cls.CPPCLS then
+            cachedClass[cls.CPPCLS] = {
+                KIND = 'Class',
+                CPPCLS = cls.CPPCLS,
+                SUPERCLS = cls.SUPERCLS,
+                CONF = cls,
+                FUNCS = {},
+                VARS = {},
+                ENUMS = {},
+                INST_FUNCS = {},
+            }
+            self.classes[#self.classes + 1] = cachedClass[cls.CPPCLS]
+        elseif not cachedClass[name] then
+            error("class '" .. name .. "' not found")
         end
     end
+    table.sort(self.classes, function (a, b)
+        return a.CONF.INDEX < b.CONF.INDEX
+    end)
     local function shouldExportFunc(supercls, fn)
         if supercls then
             local super = assert(cachedClass[supercls], "not found super class '" .. supercls .. "'")
@@ -211,6 +263,13 @@ function M:writeClass()
                     end
                 end
             end
+            if #cls.ENUMS > 0 then
+                self:writeLine('cls.enums [[')
+                for _, value in ipairs(cls.ENUMS) do
+                    self:writeLine('    ' .. value)
+                end
+                self:writeLine(']]')
+            end
             assert(cls.KIND == 'Class', cls.KIND)
             self:writeLine('cls.funcs [[')
             for _, fn in ipairs(cls.FUNCS) do
@@ -272,7 +331,9 @@ end
 
 function M:writeConfProp(cls)
     for _, p in ipairs(cls.CONF.PROP) do
-        if string.find(p.GET, '{') then
+        if not p.GET then
+            self:writeLine("cls.prop('%s')", p.NAME)
+        elseif string.find(p.GET, '{') then
             if p.SET then
                 self:writeLine("cls.prop('%s', [[\n%s]], [[\n%s]])", p.NAME, p.GET, p.SET)
             else
@@ -303,7 +364,11 @@ function M:writeConfCallback(cls)
         else
             self:writeLine("    TAG_MAKER = {'%s'},", table.concat(v.TAG_MAKER, "', '"))
         end
-        self:writeLine("    TAG_MODE = '%s',", v.TAG_MODE)
+        if type(v.TAG_MODE) == 'string' then
+            self:writeLine("    TAG_MODE = '%s',", v.TAG_MODE)
+        else
+            self:writeLine("    TAG_MODE = {'%s'},", table.concat(v.TAG_MODE, "', '"))
+        end
         if v.TAG_STORE then
             self:writeLine('    TAG_STORE = %s,', v.TAG_STORE)
         end
@@ -584,9 +649,10 @@ function M:visitClass(cur)
     cls.CONF = conf
     cls.FUNCS = {}
     cls.VARS = {}
+    cls.ENUMS = {}
     cls.KIND = 'Class'
     cls.INST_FUNCS = {}
-    
+
     self:pushNamespace(name)
     for _, c in ipairs(cur:children()) do
         local kind = c:kind()
@@ -647,6 +713,14 @@ function M:visitClass(cur)
         elseif kind == 'FieldDecl' then
             if not conf.EXCLUDE[c:name()] then
                 cls.VARS[#cls.VARS + 1] = self:visitFieldDecl(c)
+            end
+        elseif kind == 'VarDecl' then
+            local children = c:children()
+            if c:access() == 'public' and #children > 0 then
+                local ck = children[1]:kind()
+                if ck == 'IntegerLiteral' then
+                    cls.ENUMS[#cls.ENUMS + 1] = c:name()
+                end
             end
         end
     end

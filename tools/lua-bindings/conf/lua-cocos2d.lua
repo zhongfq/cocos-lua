@@ -1,4 +1,4 @@
-local M = typemodule 'cocos2d'
+local M = typemod 'cocos2d'
 local typeconf = M.typeconf
 
 M.PARSER = {

@@ -51,6 +51,7 @@ REG_TYPE {
     TYPENAME = 'cocos2d::Vec4',
     CONV_FUNC = make_auto_conv_func,
     INIT_VALUE = false,
+    VARS = 4,
 }
 
 REG_TYPE {

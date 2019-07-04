@@ -593,6 +593,9 @@ cls.enums [[
 cls = class(M.CLASSES)
 cls.CPPCLS = "cocos2d::EventTouch"
 cls.SUPERCLS = "cocos2d::Event"
+cls.enums [[
+    MAX_TOUCHES
+]]
 cls.funcs [[
     EventCode getEventCode()
     const std::vector<Touch*>& getTouches()
@@ -1411,6 +1414,11 @@ cls.props [[
 
 cls = class(M.CLASSES)
 cls.CPPCLS = "cocos2d::Renderer"
+cls.enums [[
+    VBO_SIZE
+    BATCH_TRIAGCOMMAND_RESERVED_SIZE
+    MATERIAL_ID_DO_NOT_BATCH
+]]
 cls.funcs [[
     void initGLView()
     void pushGroup(int renderQueueID)

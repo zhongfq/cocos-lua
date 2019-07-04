@@ -1,4 +1,4 @@
-local M = typemodule 'exclude-type'
+local M = typemod 'exclude-type'
 
 M.EXCLUDE_TYPE 'cocos2d::Console *'
 M.EXCLUDE_TYPE 'cocos2d::Font *'

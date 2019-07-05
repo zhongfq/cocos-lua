@@ -786,6 +786,8 @@ function M:visit(cur)
     elseif kind == 'ClassDecl' then
         if self:shouldExport(name) and #children > 0 then
             self:visitClass(cur)
+        -- elseif #children > 0 then
+            -- print('ignore', self:toClass(name))
         end
     elseif kind == 'EnumDecl' then
         if self:shouldExport(name) and #children > 0 then

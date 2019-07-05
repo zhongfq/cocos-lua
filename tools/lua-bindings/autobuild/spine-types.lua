@@ -135,9 +135,21 @@ REG_TYPE {
 }
 
 REG_TYPE {
+    TYPENAME = 'spine::ClippingAttachment *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'sp.ClippingAttachment',
+}
+
+REG_TYPE {
     TYPENAME = 'spine::ColorTimeline *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.ColorTimeline',
+}
+
+REG_TYPE {
+    TYPENAME = 'spine::Constraint *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'sp.Constraint',
 }
 
 REG_TYPE {
@@ -177,6 +189,12 @@ REG_TYPE {
 }
 
 REG_TYPE {
+    TYPENAME = 'spine::IkConstraint *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'sp.IkConstraint',
+}
+
+REG_TYPE {
     TYPENAME = 'spine::IkConstraintData *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.IkConstraintData',
@@ -186,6 +204,30 @@ REG_TYPE {
     TYPENAME = 'spine::IkConstraintTimeline *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.IkConstraintTimeline',
+}
+
+REG_TYPE {
+    TYPENAME = 'spine::JitterVertexEffect *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'sp.JitterVertexEffect',
+}
+
+REG_TYPE {
+    TYPENAME = 'spine::MeshAttachment *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'sp.MeshAttachment',
+}
+
+REG_TYPE {
+    TYPENAME = 'spine::PathAttachment *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'sp.PathAttachment',
+}
+
+REG_TYPE {
+    TYPENAME = 'spine::PathConstraint *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'sp.PathConstraint',
 }
 
 REG_TYPE {
@@ -213,9 +255,27 @@ REG_TYPE {
 }
 
 REG_TYPE {
+    TYPENAME = 'spine::PointAttachment *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'sp.PointAttachment',
+}
+
+REG_TYPE {
     TYPENAME = 'spine::Polygon *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.Polygon',
+}
+
+REG_TYPE {
+    TYPENAME = 'spine::RegionAttachment *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'sp.RegionAttachment',
+}
+
+REG_TYPE {
+    TYPENAME = 'spine::RotateTimeline *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'sp.RotateTimeline',
 }
 
 REG_TYPE {
@@ -291,6 +351,12 @@ REG_TYPE {
 }
 
 REG_TYPE {
+    TYPENAME = 'spine::SwirlVertexEffect *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'sp.SwirlVertexEffect',
+}
+
+REG_TYPE {
     TYPENAME = 'spine::Timeline *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.Timeline',
@@ -300,6 +366,12 @@ REG_TYPE {
     TYPENAME = 'spine::TrackEntry *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.TrackEntry',
+}
+
+REG_TYPE {
+    TYPENAME = 'spine::TransformConstraint *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'sp.TransformConstraint',
 }
 
 REG_TYPE {

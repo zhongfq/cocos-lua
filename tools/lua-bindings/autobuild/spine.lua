@@ -220,6 +220,13 @@ cls.props [[
 ]]
 
 cls = class(M.CLASSES)
+cls.CPPCLS = "spine::Updatable"
+cls.SUPERCLS = "spine::SpineObject"
+cls.funcs [[
+    void update()
+]]
+
+cls = class(M.CLASSES)
 cls.CPPCLS = "spine::AnimationState"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
@@ -377,6 +384,64 @@ cls.props [[
     darkColor
     attachmentName
     blendMode
+]]
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "spine::Constraint"
+cls.SUPERCLS = "spine::Updatable"
+cls.funcs [[
+    int getOrder()
+]]
+cls.props [[
+    order
+]]
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "spine::IkConstraint"
+cls.SUPERCLS = "spine::Constraint"
+cls.funcs [[
+    void apply()
+    Bone *getTarget()
+    void setTarget(Bone *inValue)
+    int getBendDirection()
+    void setBendDirection(int inValue)
+    bool getCompress()
+    void setCompress(bool inValue)
+    bool getStretch()
+    void setStretch(bool inValue)
+    float getMix()
+    void setMix(float inValue)
+]]
+cls.props [[
+    target
+    bendDirection
+    compress
+    stretch
+    mix
+]]
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "spine::TransformConstraint"
+cls.SUPERCLS = "spine::Constraint"
+cls.funcs [[
+    void apply()
+    Bone* getTarget()
+    void setTarget(Bone* inValue)
+    float getRotateMix()
+    void setRotateMix(float inValue)
+    float getTranslateMix()
+    void setTranslateMix(float inValue)
+    float getScaleMix()
+    void setScaleMix(float inValue)
+    float getShearMix()
+    void setShearMix(float inValue)
+]]
+cls.props [[
+    target
+    rotateMix
+    translateMix
+    scaleMix
+    shearMix
 ]]
 
 cls = class(M.CLASSES)
@@ -621,6 +686,21 @@ cls.funcs [[
 ]]
 
 cls = class(M.CLASSES)
+cls.CPPCLS = "spine::RotateTimeline"
+cls.SUPERCLS = "spine::CurveTimeline"
+cls.enums [[
+    ENTRIES
+]]
+cls.funcs [[
+    void setFrame(int frameIndex, float time, float degrees)
+    int getBoneIndex()
+    void setBoneIndex(int inValue)
+]]
+cls.props [[
+    boneIndex
+]]
+
+cls = class(M.CLASSES)
 cls.CPPCLS = "spine::TwoColorTimeline"
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.funcs [[
@@ -639,16 +719,21 @@ cls.funcs [[
 ]]
 
 cls = class(M.CLASSES)
-cls.CPPCLS = "spine::Polygon"
-cls.SUPERCLS = "spine::SpineObject"
+cls.CPPCLS = "spine::SwirlVertexEffect"
+cls.SUPERCLS = "spine::VertexEffect"
 cls.funcs [[
 ]]
 
 cls = class(M.CLASSES)
-cls.CPPCLS = "spine::Updatable"
+cls.CPPCLS = "spine::JitterVertexEffect"
+cls.SUPERCLS = "spine::VertexEffect"
+cls.funcs [[
+]]
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "spine::Polygon"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
-    void update()
 ]]
 
 cls = class(M.CLASSES)
@@ -808,9 +893,191 @@ cls.props [[
 ]]
 
 cls = class(M.CLASSES)
+cls.CPPCLS = "spine::ClippingAttachment"
+cls.SUPERCLS = "spine::VertexAttachment"
+cls.funcs [[
+    SlotData* getEndSlot()
+    void setEndSlot(SlotData* inValue)
+]]
+cls.props [[
+    endSlot
+]]
+
+cls = class(M.CLASSES)
 cls.CPPCLS = "spine::BoundingBoxAttachment"
 cls.SUPERCLS = "spine::VertexAttachment"
 cls.funcs [[
+]]
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "spine::MeshAttachment"
+cls.SUPERCLS = "spine::VertexAttachment"
+cls.funcs [[
+    void updateUVs()
+    int getHullLength()
+    void setHullLength(int inValue)
+    Color& getColor()
+    const String& getPath()
+    void setPath(const String& inValue)
+    float getRegionU()
+    void setRegionU(float inValue)
+    float getRegionV()
+    void setRegionV(float inValue)
+    float getRegionU2()
+    void setRegionU2(float inValue)
+    float getRegionV2()
+    void setRegionV2(float inValue)
+    bool getRegionRotate()
+    void setRegionRotate(bool inValue)
+    float getRegionOffsetX()
+    void setRegionOffsetX(float inValue)
+    float getRegionOffsetY()
+    void setRegionOffsetY(float inValue)
+    float getRegionWidth()
+    void setRegionWidth(float inValue)
+    float getRegionHeight()
+    void setRegionHeight(float inValue)
+    float getRegionOriginalWidth()
+    void setRegionOriginalWidth(float inValue)
+    float getRegionOriginalHeight()
+    void setRegionOriginalHeight(float inValue)
+    bool getInheritDeform()
+    void setInheritDeform(bool inValue)
+    MeshAttachment* getParentMesh()
+    void setParentMesh(MeshAttachment* inValue)
+    float getWidth()
+    void setWidth(float inValue)
+    float getHeight()
+    void setHeight(float inValue)
+]]
+cls.props [[
+    hullLength
+    color
+    path
+    regionU
+    regionV
+    regionU2
+    regionV2
+    regionRotate
+    regionOffsetX
+    regionOffsetY
+    regionWidth
+    regionHeight
+    regionOriginalWidth
+    regionOriginalHeight
+    inheritDeform
+    parentMesh
+    width
+    height
+]]
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "spine::PathAttachment"
+cls.SUPERCLS = "spine::VertexAttachment"
+cls.funcs [[
+    bool isClosed()
+    void setClosed(bool inValue)
+    bool isConstantSpeed()
+    void setConstantSpeed(bool inValue)
+]]
+cls.props [[
+    closed
+    constantSpeed
+]]
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "spine::PathConstraint"
+cls.SUPERCLS = "spine::Constraint"
+cls.funcs [[
+    void apply()
+    float getPosition()
+    void setPosition(float inValue)
+    float getSpacing()
+    void setSpacing(float inValue)
+    float getRotateMix()
+    void setRotateMix(float inValue)
+    float getTranslateMix()
+    void setTranslateMix(float inValue)
+    Slot* getTarget()
+    void setTarget(Slot* inValue)
+]]
+cls.props [[
+    position
+    spacing
+    rotateMix
+    translateMix
+    target
+]]
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "spine::PointAttachment"
+cls.SUPERCLS = "spine::Attachment"
+cls.funcs [[
+    float getX()
+    void setX(float inValue)
+    float getY()
+    void setY(float inValue)
+    float getRotation()
+    void setRotation(float inValue)
+]]
+cls.props [[
+    x
+    y
+    rotation
+]]
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "spine::RegionAttachment"
+cls.SUPERCLS = "spine::Attachment"
+cls.funcs [[
+    void updateOffset()
+    void setUVs(float u, float v, float u2, float v2, bool rotate)
+    float getX()
+    void setX(float inValue)
+    float getY()
+    void setY(float inValue)
+    float getRotation()
+    void setRotation(float inValue)
+    float getScaleX()
+    void setScaleX(float inValue)
+    float getScaleY()
+    void setScaleY(float inValue)
+    float getWidth()
+    void setWidth(float inValue)
+    float getHeight()
+    void setHeight(float inValue)
+    Color& getColor()
+    const String& getPath()
+    void setPath(const String& inValue)
+    float getRegionOffsetX()
+    void setRegionOffsetX(float inValue)
+    float getRegionOffsetY()
+    void setRegionOffsetY(float inValue)
+    float getRegionWidth()
+    void setRegionWidth(float inValue)
+    float getRegionHeight()
+    void setRegionHeight(float inValue)
+    float getRegionOriginalWidth()
+    void setRegionOriginalWidth(float inValue)
+    float getRegionOriginalHeight()
+    void setRegionOriginalHeight(float inValue)
+]]
+cls.props [[
+    x
+    y
+    rotation
+    scaleX
+    scaleY
+    width
+    height
+    color
+    path
+    regionOffsetX
+    regionOffsetY
+    regionWidth
+    regionHeight
+    regionOriginalWidth
+    regionOriginalHeight
 ]]
 
 cls = class(M.CLASSES)

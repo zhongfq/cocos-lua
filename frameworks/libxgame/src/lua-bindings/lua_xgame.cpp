@@ -12,6 +12,8 @@
 #include "xgame/xtimer.h"
 #include "olua/olua.hpp"
 
+
+
 static int _xgame_runtime_canOpenURL(lua_State *L)
 {
     lua_settop(L, 1);
@@ -61,7 +63,7 @@ static int _xgame_runtime_getAudioSessionCatalog(lua_State *L)
 {
     lua_settop(L, 0);
 
-    // static const std::string getAudioSessionCatalog();
+    // static const std::string getAudioSessionCatalog()
     const std::string ret = (const std::string)xgame::runtime::getAudioSessionCatalog();
     int num_ret = olua_push_std_string(L, ret);
 
@@ -189,6 +191,17 @@ static int _xgame_runtime_isAntialias(lua_State *L)
     return num_ret;
 }
 
+static int _xgame_runtime_isDebug(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static bool isDebug()
+    bool ret = (bool)xgame::runtime::isDebug();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
 static int _xgame_runtime_isRestarting(lua_State *L)
 {
     lua_settop(L, 0);
@@ -284,7 +297,7 @@ static int _xgame_runtime_setAudioSessionCatalog(lua_State *L)
 
     olua_check_std_string(L, 1, &arg1);
 
-    // static void setAudioSessionCatalog(const std::string &catalog);
+    // static void setAudioSessionCatalog(const std::string &catalog)
     xgame::runtime::setAudioSessionCatalog(arg1);
 
     return 0;
@@ -364,6 +377,7 @@ static int luaopen_xgame_runtime(lua_State *L)
     oluacls_func(L, "getVersion", _xgame_runtime_getVersion);
     oluacls_func(L, "getVersionBuild", _xgame_runtime_getVersionBuild);
     oluacls_func(L, "isAntialias", _xgame_runtime_isAntialias);
+    oluacls_func(L, "isDebug", _xgame_runtime_isDebug);
     oluacls_func(L, "isRestarting", _xgame_runtime_isRestarting);
     oluacls_func(L, "launch", _xgame_runtime_launch);
     oluacls_func(L, "openURL", _xgame_runtime_openURL);
@@ -375,11 +389,14 @@ static int luaopen_xgame_runtime(lua_State *L)
     oluacls_func(L, "setLogPath", _xgame_runtime_setLogPath);
     oluacls_func(L, "support", _xgame_runtime_support);
     oluacls_func(L, "testCrash", _xgame_runtime_testCrash);
+    oluacls_prop(L, "antialias", _xgame_runtime_isAntialias, _xgame_runtime_setAntialias);
     oluacls_prop(L, "audioSessionCatalog", _xgame_runtime_getAudioSessionCatalog, _xgame_runtime_setAudioSessionCatalog);
     oluacls_prop(L, "channel", _xgame_runtime_getChannel, nullptr);
+    oluacls_prop(L, "debug", _xgame_runtime_isDebug, nullptr);
     oluacls_prop(L, "deviceInfo", _xgame_runtime_getDeviceInfo, nullptr);
     oluacls_prop(L, "language", _xgame_runtime_getLanguage, nullptr);
     oluacls_prop(L, "logPath", _xgame_runtime_getLogPath, _xgame_runtime_setLogPath);
+    oluacls_prop(L, "numSamples", _xgame_runtime_getNumSamples, nullptr);
     oluacls_prop(L, "os", _xgame_runtime_getOS, nullptr);
     oluacls_prop(L, "packageName", _xgame_runtime_getPackageName, nullptr);
     oluacls_prop(L, "restarting", _xgame_runtime_isRestarting, nullptr);

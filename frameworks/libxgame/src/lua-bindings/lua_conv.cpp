@@ -199,9 +199,42 @@ void auto_luacv_opt_cocos2d_Vec4(lua_State *L, int idx, cocos2d::Vec4 *value, co
     }
 }
 
+void auto_luacv_pack_cocos2d_Vec4(lua_State *L, int idx, cocos2d::Vec4 *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    idx = lua_absindex(L, idx);
+    value->x = (float)olua_checknumber(L, idx + 0);
+    value->y = (float)olua_checknumber(L, idx + 1);
+    value->z = (float)olua_checknumber(L, idx + 2);
+    value->w = (float)olua_checknumber(L, idx + 3);
+}
+
+int auto_luacv_unpack_cocos2d_Vec4(lua_State *L, const cocos2d::Vec4 *value)
+{
+    if (value) {
+        lua_pushnumber(L, value->x);
+        lua_pushnumber(L, value->y);
+        lua_pushnumber(L, value->z);
+        lua_pushnumber(L, value->w);
+    } else {
+        for (int i = 0; i < 4; i++) {
+            lua_pushnil(L);
+        }
+    }
+
+    return 4;
+}
+
 bool auto_luacv_is_cocos2d_Vec4(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "w") && olua_hasfield(L, idx, "z") && olua_hasfield(L, idx, "y") && olua_hasfield(L, idx, "x");
+}
+
+bool auto_luacv_ispack_cocos2d_Vec4(lua_State *L, int idx)
+{
+    return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1) && olua_is_number(L, idx + 2) && olua_is_number(L, idx + 3);
 }
 
 int auto_luacv_push_cocos2d_Size(lua_State *L, const cocos2d::Size *value)

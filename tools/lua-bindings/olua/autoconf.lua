@@ -50,6 +50,8 @@ function M:parse(path)
     self:writeClass()
     self:writeTypedef()
     self:writeLine('return M')
+
+    os.remove(headerPath)
 end
 
 function M:toPath(name)

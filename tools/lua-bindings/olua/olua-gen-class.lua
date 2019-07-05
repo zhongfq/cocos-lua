@@ -17,7 +17,7 @@ local function gen_class_funcs(cls, write)
     local clsmeta = cls.PROTOTYPES
 
     if cls.SUPERCLS then
-        assert(class_map[cls.SUPERCLS], cls.CPPCLS .. '|' .. cls.SUPERCLS)
+        assert(class_map[cls.SUPERCLS], 'super class ' .. cls.SUPERCLS .. ' must exported befor ' .. cls.CPPCLS)
         clsmeta = setmetatable(clsmeta, {__index = class_map[cls.SUPERCLS]})
     end
     class_map[cls.LUACLS] = clsmeta

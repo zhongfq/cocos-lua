@@ -27,6 +27,8 @@
 #include "xgame/xlua.h"
 #include "wechat/lua_wechat.h"
 
+#include "lua_swf.h"
+
 #include "lua-bindings/lua_dragonbones.h"
 #include "lua-bindings/lua_fairygui.h"
 
@@ -45,13 +47,15 @@ static int _open_plugins(lua_State *L)
     xlua_call(L, luaopen_dragonbones);
     xlua_call(L, luaopen_fairygui);
     
+    xlua_call(L, luaopen_swf);
+    
     olua_require(L, "kernel.plugins.wechat", luaopen_wechat);
     return 0;
 }
 
 bool AppDelegate::applicationDidFinishLaunching()
 {
-    initGLView("cocos-lua", cocos2d::Rect(0, 0, 887, 500));
+    initGLView("cocos-lua", cocos2d::Rect(0, 0, 889, 500));
     xgame::runtime::initBugly(BUGLY_APPID);
     xgame::runtime::luaOpen(_open_plugins);
     

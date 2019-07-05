@@ -1,20 +1,18 @@
+local class     = require "xgame.class"
+local UIScene   = require "xgame.ui.UIScene"
+
+local SpineTest = class('SpineTest', UIScene)
+
 local SkeletonAnimation = require "sp.SkeletonAnimation"
+local SkeletonData = require "sp.SkeletonData"
 
-local M = {}
-
-function M.new()
-    local Scene = require "cc.Scene"
-    local scene = Scene.create()
-
-    local animation = SkeletonAnimation.createWithJsonFile("res/spine/raptor.json", "res/spine/raptor.atlas", 0.4)
+function SpineTest:ctor()
+    local data = SkeletonData.new("res/spine/raptor.json", "res/spine/raptor.atlas", 0.4)
+    local animation = SkeletonAnimation.createWithData(data)
     animation.x = 500
     animation.y = 100
     animation:setAnimation(0, 'walk', true)
-    scene:addChild(animation)
-
-    return scene
+    self.cobj:addChild(animation)
 end
     
-return M
-
-
+return SpineTest

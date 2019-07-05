@@ -43,11 +43,6 @@ function get_typeinfo(typename, cls, silence)
     local typeinfo
     local subtypeinfo, subtypename -- for typename<T>
 
-    if cls then
-        cls.SUPERCLS = cls.SUPERCLS
-        class_map[cls.CPPCLS] = cls
-    end
-
     if string.find(typename, '<') then
         subtypename = string.match(typename, '<(.*)>')
         subtypeinfo, subtypename = get_typeinfo(subtypename, cls, silence)
@@ -462,6 +457,13 @@ function class(collection)
     cls.VARS = {}
     cls.PROTOTYPES = {}
     cls.REG_LUATYPE = true
+
+    setmetatable(cls, {__newindex = function (_, k, v)
+        rawset(cls, k, v)
+        if k == 'CPPCLS' then
+            class_map[cls.CPPCLS] = cls
+        end
+    end})
 
     if collection then
         collection[#collection + 1] = cls

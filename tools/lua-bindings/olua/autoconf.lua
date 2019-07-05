@@ -192,6 +192,12 @@ function M:writeClass()
             error("class '" .. name .. "' not found")
         end
     end
+    for _, cls in ipairs(self.classes) do
+        if cls.SUPERCLS then
+            assert(cachedClass[cls.SUPERCLS],
+                " super class not found: " .. cls.CPPCLS .. ' -> ' .. cls.SUPERCLS)
+        end
+    end
     table.sort(self.classes, function (a, b)
         return a.CONF.INDEX < b.CONF.INDEX
     end)
@@ -517,7 +523,7 @@ function M:parseType(cur, children)
     else
         if name == 'Pointer' then
             name = cur:canonical():name()
-            typename = assert(typeMap[name], name)
+            typename = typeMap[name] or name
             return typename .. ' *'
         end
         return typeMap[name] or name
@@ -635,7 +641,7 @@ end
 
 function M:injectAttr(prototype, fn, attr)
     local t = {}
-    local _, e = string.find(prototype, fn)
+    local _, e = string.find(prototype, fn .. ' *')
     t[1] = prototype:sub(1, e + 1)
     for v in string.gmatch(prototype:sub(e + 2), '[^,]+') do
         t[#t + 1] = string.gsub(v, '^ *', '')
@@ -675,6 +681,9 @@ function M:visitClass(cur)
                 cls.SUPERCLS = self:trimClassname(c:name())
             end
         elseif kind == 'FunctionDecl' then
+            if conf.EXCLUDE['*'] then
+                goto continue
+            end
             local displayName = c:displayName()
             local fn = c:name()
             local attr = conf.ATTR[fn]
@@ -696,6 +705,9 @@ function M:visitClass(cur)
                 }
             end
         elseif kind == 'CXXMethod' then
+            if conf.EXCLUDE['*'] then
+                goto continue
+            end
             local displayName = c:displayName()
             local fn = c:name()
             local attr = conf.ATTR[fn]
@@ -724,10 +736,16 @@ function M:visitClass(cur)
         elseif kind == 'EnumDecl' then
             self:visit(c)
         elseif kind == 'FieldDecl' then
+            if conf.EXCLUDE['*'] then
+                goto continue
+            end
             if not conf.EXCLUDE[c:name()] then
                 cls.VARS[#cls.VARS + 1] = self:visitFieldDecl(cls, c)
             end
         elseif kind == 'VarDecl' then
+            if conf.EXCLUDE['*'] then
+                goto continue
+            end
             local children = c:children()
             if c:access() == 'public' and #children > 0 then
                 local ck = children[1]:kind()
@@ -736,6 +754,8 @@ function M:visitClass(cur)
                 end
             end
         end
+
+        ::continue::
     end
     self:popNamespace()
 end

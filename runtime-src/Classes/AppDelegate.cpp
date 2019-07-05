@@ -31,6 +31,7 @@
 
 #include "lua-bindings/lua_dragonbones.h"
 #include "lua-bindings/lua_fairygui.h"
+#include "lua-bindings/lua_spine.h"
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
 #define BUGLY_APPID "546f1cf279" // d21353e4-26c8-4f94-b646-cf88a225f039
@@ -46,6 +47,7 @@ static int _open_plugins(lua_State *L)
 {
     xlua_call(L, luaopen_dragonbones);
     xlua_call(L, luaopen_fairygui);
+    xlua_call(L, luaopen_spine);
     
     xlua_call(L, luaopen_swf);
     

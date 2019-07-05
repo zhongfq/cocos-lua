@@ -37,6 +37,8 @@
 #include "spine/SpineString.h"
 #include "spine/HasRendererObject.h"
 
+#include <functional>
+
 namespace spine {
     enum EventType {
         EventType_Start,

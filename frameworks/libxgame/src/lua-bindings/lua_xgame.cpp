@@ -9,10 +9,61 @@
 #include "xgame/xpreferences.h"
 #include "xgame/xdownloader.h"
 #include "xgame/xruntime.h"
+#include "xgame/xrootscene.h"
 #include "xgame/xtimer.h"
 #include "olua/olua.hpp"
 
 
+
+static int _xgame_SceneNoCamera_create(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static SceneNoCamera *create()
+    xgame::SceneNoCamera *ret = (xgame::SceneNoCamera *)xgame::SceneNoCamera::create();
+    int num_ret = olua_push_cppobj<xgame::SceneNoCamera>(L, ret, "kernel.SceneNoCamera");
+
+    return num_ret;
+}
+
+static int _xgame_SceneNoCamera_createWithPhysics(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static SceneNoCamera *createWithPhysics()
+    xgame::SceneNoCamera *ret = (xgame::SceneNoCamera *)xgame::SceneNoCamera::createWithPhysics();
+    int num_ret = olua_push_cppobj<xgame::SceneNoCamera>(L, ret, "kernel.SceneNoCamera");
+
+    return num_ret;
+}
+
+static int _xgame_SceneNoCamera_createWithSize(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Size arg1;       /** size */
+
+    auto_luacv_check_cocos2d_Size(L, 1, &arg1);
+
+    // static SceneNoCamera *createWithSize(const cocos2d::Size& size)
+    xgame::SceneNoCamera *ret = (xgame::SceneNoCamera *)xgame::SceneNoCamera::createWithSize(arg1);
+    int num_ret = olua_push_cppobj<xgame::SceneNoCamera>(L, ret, "kernel.SceneNoCamera");
+
+    return num_ret;
+}
+
+static int luaopen_xgame_SceneNoCamera(lua_State *L)
+{
+    oluacls_class(L, "kernel.SceneNoCamera", "cc.Scene");
+    oluacls_func(L, "create", _xgame_SceneNoCamera_create);
+    oluacls_func(L, "createWithPhysics", _xgame_SceneNoCamera_createWithPhysics);
+    oluacls_func(L, "createWithSize", _xgame_SceneNoCamera_createWithSize);
+
+    olua_registerluatype<xgame::SceneNoCamera>(L, "kernel.SceneNoCamera");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
 
 static int _xgame_runtime_canOpenURL(lua_State *L)
 {
@@ -1111,6 +1162,7 @@ static int luaopen_xgame_downloader(lua_State *L)
 
 int luaopen_xgame(lua_State *L)
 {
+    olua_require(L, "kernel.SceneNoCamera", luaopen_xgame_SceneNoCamera);
     olua_require(L, "kernel.runtime", luaopen_xgame_runtime);
     olua_require(L, "kernel.filesystem", luaopen_xgame_filesystem);
     olua_require(L, "kernel.preferences", luaopen_xgame_preferences);

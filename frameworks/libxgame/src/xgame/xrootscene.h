@@ -29,6 +29,19 @@ private:
     bool _executed;
 };
 
+class SceneNoCamera : public cocos2d::Scene
+{
+public:
+    static SceneNoCamera *create();
+    static SceneNoCamera *createWithSize(const cocos2d::Size& size);
+    static SceneNoCamera *createWithPhysics();
+    
+    SceneNoCamera();
+    virtual ~SceneNoCamera();
+    
+    virtual void removeAllChildren() override;
+};
+
 NS_XGAME_END
 
 #endif

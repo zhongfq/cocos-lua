@@ -1,4 +1,10 @@
 REG_TYPE {
+    TYPENAME = 'xgame::SceneNoCamera *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'kernel.SceneNoCamera',
+}
+
+REG_TYPE {
     TYPENAME = 'xgame::downloader *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'kernel.downloader',

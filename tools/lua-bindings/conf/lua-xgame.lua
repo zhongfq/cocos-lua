@@ -7,6 +7,7 @@ M.PARSER = {
         'xgame/xruntime.h',
         'xgame/xpreferences.h',
         'xgame/xdownloader.h',
+        'xgame/xrootscene.h',
         'xgame/xtimer.h',
     },
     ARGS = {
@@ -29,6 +30,7 @@ M.INCLUDES = [[
 #include "xgame/xpreferences.h"
 #include "xgame/xdownloader.h"
 #include "xgame/xruntime.h"
+#include "xgame/xrootscene.h"
 #include "xgame/xtimer.h"
 #include "olua/olua.hpp"
 ]]
@@ -46,6 +48,8 @@ M.EXCLUDE_TYPE = require "conf.exclude-type"
 M.EXCLUDE_PATTERN = function (cppcls, fn, decl)
     return string.find(fn, '^_') or string.find(decl, 'std::map')
 end
+
+typeconf 'xgame::SceneNoCamera'
 
 local runtime = typeconf 'xgame::runtime'
 runtime.EXCLUDE 'dispatchEvent'

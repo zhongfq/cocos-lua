@@ -14,6 +14,7 @@ M.INCLUDES = [[
 #include "xgame/xpreferences.h"
 #include "xgame/xdownloader.h"
 #include "xgame/xruntime.h"
+#include "xgame/xrootscene.h"
 #include "xgame/xtimer.h"
 #include "olua/olua.hpp"
 ]]
@@ -21,6 +22,15 @@ M.CHUNK = [[
 ]]
 
 M.CLASSES = {}
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "xgame::SceneNoCamera"
+cls.SUPERCLS = "cocos2d::Scene"
+cls.funcs [[
+    static SceneNoCamera *create()
+    static SceneNoCamera *createWithSize(const cocos2d::Size& size)
+    static SceneNoCamera *createWithPhysics()
+]]
 
 cls = class(M.CLASSES)
 cls.CPPCLS = "xgame::runtime"

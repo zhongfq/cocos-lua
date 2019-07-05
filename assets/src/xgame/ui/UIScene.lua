@@ -1,7 +1,7 @@
 local class     = require "xgame.class"
 local Event     = require "xgame.event.Event"
 local UILayer   = require "xgame.ui.UILayer"
-local Scene     = require "cc.Scene"
+local Scene     = require "kernel.SceneNoCamera"
 
 local UIScene = class("UIScene", UILayer)
 

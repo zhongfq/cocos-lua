@@ -42,4 +42,44 @@ void RootScene::execute()
     lua_settop(L, top);
 }
 
+SceneNoCamera* SceneNoCamera::create()
+{
+    SceneNoCamera *ret = new (std::nothrow) SceneNoCamera();
+    ret->autorelease();
+    ret->init();
+    return ret;
+}
+
+SceneNoCamera* SceneNoCamera::createWithSize(const Size& size)
+{
+    SceneNoCamera *ret = new (std::nothrow) SceneNoCamera();
+    ret->autorelease();
+    ret->initWithSize(size);
+    return ret;
+}
+
+SceneNoCamera* SceneNoCamera::createWithPhysics()
+{
+    SceneNoCamera *ret = new (std::nothrow) SceneNoCamera();
+    ret->autorelease();
+    ret->initWithPhysics();
+    return ret;
+}
+
+SceneNoCamera::SceneNoCamera()
+{
+    _defaultCamera->retain();
+    removeAllChildren();
+}
+
+SceneNoCamera::~SceneNoCamera()
+{
+    _defaultCamera->release();
+}
+
+void SceneNoCamera::removeAllChildren()
+{
+    Node::removeAllChildren();
+}
+
 NS_XGAME_END

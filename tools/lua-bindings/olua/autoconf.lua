@@ -3,6 +3,13 @@ local clang = require "clang"
 local cachedClass = {}
 local M = {}
 
+local logfile = io.open('autobuild/autoconf.log', 'w')
+
+local function log(fmt, ...)
+    logfile:write(string.format(fmt, ...))
+    logfile:write('\n')
+end
+
 function M:parse(path)
     self.module = dofile(path)
     self.namespace = {}
@@ -12,6 +19,8 @@ function M:parse(path)
 
     self._fileLines = {}
     self._file = io.open('autobuild/' .. self:toPath(self.module.NAME) .. '.lua', 'w')
+
+    log('[autoconf] %s', self.module.NAME)
 
     local headerPath = 'autobuild/autoconf.h'
     local header = io.open(headerPath, 'w')
@@ -786,8 +795,11 @@ function M:visit(cur)
     elseif kind == 'ClassDecl' then
         if self:shouldExport(name) and #children > 0 then
             self:visitClass(cur)
-        -- elseif #children > 0 then
-            -- print('ignore', self:toClass(name))
+        elseif #children > 0 then
+            local cls = self:toClass(name)
+            if not self.module.EXCLUDE_TYPE[cls] then
+                log('[class ignore] %s', cls)
+            end
         end
     elseif kind == 'EnumDecl' then
         if self:shouldExport(name) and #children > 0 then

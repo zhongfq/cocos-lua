@@ -28,32 +28,70 @@ M.INCLUDES = [[
 #include "spine/spine-cocos2dx.h"
 ]]
 M.CHUNK = [[
-int manual_luacv_push_spine_String(lua_State *L, const spine::String *str)
+bool manual_luacv_is_spine_String(lua_State *L, int idx)
 {
-    if (str->buffer()) {
-        lua_pushlstring(L, str->buffer(), str->length());
+    return olua_isstring(L, idx);
+}
+
+int manual_luacv_push_spine_String(lua_State *L, const spine::String *value)
+{
+    if (value && value->buffer()) {
+        lua_pushlstring(L, value->buffer(), value->length());
     } else {
         lua_pushnil(L);
     }
     return 1;
 }
 
-void manual_luacv_check_spine_String(lua_State *L, int idx, spine::String *str)
+void manual_luacv_check_spine_String(lua_State *L, int idx, spine::String *value)
 {
-    *str = olua_checkstring(L, idx);
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    *value = olua_checkstring(L, idx);
 }
 
-int manual_luacv_push_spine_EventData(lua_State *L, const spine::EventData *data)
+bool manual_luacv_is_spine_Color(lua_State *L, int idx)
+{
+    return olua_isinteger(L, idx);
+}
+
+void manual_luacv_check_spine_Color(lua_State *L, int idx, spine::Color *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    uint32_t color = (uint32_t)olua_checkinteger(L, idx);
+    value->r = ((uint8_t)(color >> 24 & 0xFF)) / 255.0f;
+    value->g = ((uint8_t)(color >> 16 & 0xFF)) / 255.0f;
+    value->b = ((uint8_t)(color >> 8 & 0xFF)) / 255.0f;
+    value->a = ((uint8_t)(color & 0xFF)) / 255.0f;
+}
+
+int manual_luacv_push_spine_Color(lua_State *L, const spine::Color *value)
+{
+    uint32_t color = 0;
+    if (value) {
+        color |= (uint32_t)((uint8_t)(value->r * 255)) << 24;
+        color |= (uint32_t)((uint8_t)(value->g * 255)) << 16;
+        color |= (uint32_t)((uint8_t)(value->b * 255)) << 8;
+        color |= (uint32_t)((uint8_t)(value->a * 255));
+    }
+    lua_pushinteger(L, color);
+    return 1;
+}
+
+int manual_luacv_push_spine_EventData(lua_State *L, const spine::EventData *value)
 {
     lua_createtable(L, 0, 8);
-    olua_setfieldinteger(L, -1, "intValue", const_cast<spine::EventData *>(data)->getIntValue());
-    olua_setfieldnumber(L, -1, "getVolume", const_cast<spine::EventData *>(data)->getVolume());
-    olua_setfieldnumber(L, -1, "getBalance", const_cast<spine::EventData *>(data)->getBalance());
-    manual_luacv_push_spine_String(L, &data->getName());
+    olua_setfieldinteger(L, -1, "intValue", const_cast<spine::EventData *>(value)->getIntValue());
+    olua_setfieldnumber(L, -1, "getVolume", const_cast<spine::EventData *>(value)->getVolume());
+    olua_setfieldnumber(L, -1, "getBalance", const_cast<spine::EventData *>(value)->getBalance());
+    manual_luacv_push_spine_String(L, &value->getName());
     olua_rawset(L, -2, "name");
-    manual_luacv_push_spine_String(L, &const_cast<spine::EventData *>(data)->getStringValue());
+    manual_luacv_push_spine_String(L, &const_cast<spine::EventData *>(value)->getStringValue());
     olua_rawset(L, -2, "stringValue");
-    manual_luacv_push_spine_String(L, &const_cast<spine::EventData *>(data)->getAudioPath());
+    manual_luacv_push_spine_String(L, &const_cast<spine::EventData *>(value)->getAudioPath());
     olua_rawset(L, -2, "audioPath");
     return 1;
 }]]
@@ -70,6 +108,12 @@ typedef {
     INIT_VALUE = false,
 }
 
+typedef {
+    TYPENAME = 'spine::Color',
+    CONV_FUNC = 'manual_luacv_$$_spine_Color',
+    INIT_VALUE = false,
+}
+
 M.MAKE_LUACLS = function (cppname)
     cppname = string.gsub(cppname, "^spine::", "sp.")
     cppname = string.gsub(cppname, "::", ".")
@@ -79,11 +123,16 @@ end
 
 M.EXCLUDE_TYPE = require "conf.exclude-type"
 M.EXCLUDE_TYPE 'Unexposed *'
+M.EXCLUDE_TYPE 'spine::Bone'
+M.EXCLUDE_TYPE 'spine::BoneData'
+M.EXCLUDE_TYPE 'spine::Skeleton'
+M.EXCLUDE_TYPE 'spine::SkeletonBounds'
+M.EXCLUDE_TYPE 'spine::SlotData'
 M.EXCLUDE_TYPE 'spine::Vector'
 
 M.EXCLUDE_PATTERN = function (cppcls, fn, decl)
     return string.find(fn, '^initWith')
-        or string.find(decl, 'Vector<')
+        or string.find(decl, 'Vector *<')
 end
 
 local function typeconfOnly(name)
@@ -94,6 +143,12 @@ end
 
 typeconf 'spine::EventType'
 typeconf 'spine::AttachmentType'
+typeconf 'spine::TransformMode'
+typeconf 'spine::BlendMode'
+typeconf 'spine::PositionMode'
+typeconf 'spine::SpacingMode'
+typeconf 'spine::RotateMode'
+typeconf 'spine::MixBlend'
 
 local SpineObject = typeconf 'spine::SpineObject'
 SpineObject.EXCLUDE 'operator new'
@@ -103,45 +158,68 @@ SpineObject.EXCLUDE 'getRTTI'
 typeconf 'spine::Event'
 typeconf 'spine::EventData'
 
-typeconfOnly 'spine::AnimationState'
-typeconfOnly 'spine::AnimationStateData'
-typeconfOnly 'spine::Animation'
-typeconfOnly 'spine::IkConstraintData'
-typeconfOnly 'spine::BoneData'
-typeconfOnly 'spine::SlotData'
-typeconfOnly 'spine::TransformConstraintData'
-typeconfOnly 'spine::PathConstraintData'
-typeconfOnly 'spine::SkeletonBounds'
+local AnimationState = typeconf 'spine::AnimationState'
+AnimationState.CALLBACK('setListener', {
+    FUNCS = {'void setListener(std::function<void (AnimationState* state, EventType type, TrackEntry* entry, Event* event)> listener)'},
+    TAG_MAKER = 'olua_makecallbacktag("listener")',
+    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+})
+
+typeconf 'spine::AnimationStateData'
+typeconf 'spine::Animation'
+
+typeconf 'spine::IkConstraintData'
+typeconf 'spine::BoneData'
+typeconf 'spine::SlotData'
+typeconf 'spine::TransformConstraintData'
+typeconf 'spine::PathConstraintData'
+typeconf 'spine::SkeletonBounds'
 typeconfOnly 'spine::SkeletonClipping'
 
 local Timeline = typeconf 'spine::Timeline'
 Timeline.EXCLUDE 'apply'
 
-typeconfOnly 'spine::CurveTimeline'
-typeconfOnly 'spine::AttachmentTimeline'
-typeconfOnly 'spine::ColorTimeline'
-typeconfOnly 'spine::DeformTimeline'
-typeconfOnly 'spine::DrawOrderTimeline'
-typeconfOnly 'spine::EventTimeline'
-typeconfOnly 'spine::IkConstraintTimeline'
-typeconfOnly 'spine::PathConstraintMixTimeline'
-typeconfOnly 'spine::PathConstraintPositionTimeline'
-typeconfOnly 'spine::PathConstraintSpacingTimeline'
-typeconfOnly 'spine::TranslateTimeline'
-typeconfOnly 'spine::ShearTimeline'
-typeconfOnly 'spine::TransformConstraintTimeline'
-typeconfOnly 'spine::ScaleTimeline'
-typeconfOnly 'spine::TwoColorTimeline'
+typeconf 'spine::CurveTimeline'
+typeconf 'spine::AttachmentTimeline'
+typeconf 'spine::ColorTimeline'
+typeconf 'spine::DeformTimeline'
+typeconf 'spine::DrawOrderTimeline'
+typeconf 'spine::EventTimeline'
+typeconf 'spine::IkConstraintTimeline'
+typeconf 'spine::PathConstraintMixTimeline'
+typeconf 'spine::PathConstraintPositionTimeline'
+typeconf 'spine::PathConstraintSpacingTimeline'
+typeconf 'spine::TranslateTimeline'
+typeconf 'spine::ShearTimeline'
+typeconf 'spine::TransformConstraintTimeline'
+typeconf 'spine::ScaleTimeline'
+typeconf 'spine::TwoColorTimeline'
 
 typeconfOnly 'spine::VertexEffect'
 
-typeconfOnly 'spine::Updatable'
-typeconfOnly 'spine::Skin'
+typeconfOnly 'spine::Polygon'
+typeconf 'spine::Updatable'
+
+local Skin = typeconf 'spine::Skin'
+Skin.EXCLUDE 'getAttachments'
+
 typeconfOnly 'spine::Atlas'
-typeconfOnly 'spine::Bone'
-typeconfOnly 'spine::Slot'
-typeconfOnly 'spine::Attachment'
-typeconfOnly 'spine::TrackEntry'
+
+local Bone = typeconf 'spine::Bone'
+Bone.EXCLUDE 'localToWorld'
+Bone.EXCLUDE 'worldToLocal'
+
+typeconf 'spine::Slot'
+typeconf 'spine::Attachment'
+typeconf 'spine::VertexAttachment'
+typeconf 'spine::BoundingBoxAttachment'
+
+local TrackEntry = typeconf 'spine::TrackEntry'
+TrackEntry.CALLBACK('setListener', {
+    FUNCS = {'void setListener(std::function<void (AnimationState* state, EventType type, TrackEntry* entry, Event* event)> listener)'},
+    TAG_MAKER = 'olua_makecallbacktag("listener")',
+    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+})
 
 local SkeletonData = typeconf 'spine::SkeletonData'
 SkeletonData.FUNC("__gc", [[
@@ -236,6 +314,12 @@ SkeletonRenderer.ATTR('createWithData', {ARG1 = '@ref(single skeletonData)'})
 
 local SkeletonAnimation = typeconf 'spine::SkeletonAnimation'
 SkeletonAnimation.ATTR('createWithData', {ARG1 = '@ref(single skeletonData)'})
+SkeletonAnimation.ATTR('getState', {RET = '@ref(single state)'})
+SkeletonAnimation.ATTR('setAnimation', {RET = '@ref(map trackEntries)'})
+SkeletonAnimation.ATTR('addAnimation', {RET = '@ref(map trackEntries)'})
+SkeletonAnimation.ATTR('setEmptyAnimation', {RET = '@ref(map trackEntries)'})
+SkeletonAnimation.ATTR('addEmptyAnimation', {RET = '@ref(map trackEntries)'})
+SkeletonAnimation.ATTR('getCurrent', {RET = '@ref(map trackEntries)'})
 SkeletonAnimation.CALLBACK('setStartListener', {
     FUNCS = {'void setStartListener(@nullable const std::function<void(TrackEntry* entry)>& listener)'},
     TAG_MAKER = 'olua_makecallbacktag("startListener")',

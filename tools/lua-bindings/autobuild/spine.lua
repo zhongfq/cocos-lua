@@ -15,32 +15,70 @@ M.INCLUDES = [[
 #include "spine/spine-cocos2dx.h"
 ]]
 M.CHUNK = [[
-int manual_luacv_push_spine_String(lua_State *L, const spine::String *str)
+bool manual_luacv_is_spine_String(lua_State *L, int idx)
 {
-    if (str->buffer()) {
-        lua_pushlstring(L, str->buffer(), str->length());
+    return olua_isstring(L, idx);
+}
+
+int manual_luacv_push_spine_String(lua_State *L, const spine::String *value)
+{
+    if (value && value->buffer()) {
+        lua_pushlstring(L, value->buffer(), value->length());
     } else {
         lua_pushnil(L);
     }
     return 1;
 }
 
-void manual_luacv_check_spine_String(lua_State *L, int idx, spine::String *str)
+void manual_luacv_check_spine_String(lua_State *L, int idx, spine::String *value)
 {
-    *str = olua_checkstring(L, idx);
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    *value = olua_checkstring(L, idx);
 }
 
-int manual_luacv_push_spine_EventData(lua_State *L, const spine::EventData *data)
+bool manual_luacv_is_spine_Color(lua_State *L, int idx)
+{
+    return olua_isinteger(L, idx);
+}
+
+void manual_luacv_check_spine_Color(lua_State *L, int idx, spine::Color *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    uint32_t color = (uint32_t)olua_checkinteger(L, idx);
+    value->r = ((uint8_t)(color >> 24 & 0xFF)) / 255.0f;
+    value->g = ((uint8_t)(color >> 16 & 0xFF)) / 255.0f;
+    value->b = ((uint8_t)(color >> 8 & 0xFF)) / 255.0f;
+    value->a = ((uint8_t)(color & 0xFF)) / 255.0f;
+}
+
+int manual_luacv_push_spine_Color(lua_State *L, const spine::Color *value)
+{
+    uint32_t color = 0;
+    if (value) {
+        color |= (uint32_t)((uint8_t)(value->r * 255)) << 24;
+        color |= (uint32_t)((uint8_t)(value->g * 255)) << 16;
+        color |= (uint32_t)((uint8_t)(value->b * 255)) << 8;
+        color |= (uint32_t)((uint8_t)(value->a * 255));
+    }
+    lua_pushinteger(L, color);
+    return 1;
+}
+
+int manual_luacv_push_spine_EventData(lua_State *L, const spine::EventData *value)
 {
     lua_createtable(L, 0, 8);
-    olua_setfieldinteger(L, -1, "intValue", const_cast<spine::EventData *>(data)->getIntValue());
-    olua_setfieldnumber(L, -1, "getVolume", const_cast<spine::EventData *>(data)->getVolume());
-    olua_setfieldnumber(L, -1, "getBalance", const_cast<spine::EventData *>(data)->getBalance());
-    manual_luacv_push_spine_String(L, &data->getName());
+    olua_setfieldinteger(L, -1, "intValue", const_cast<spine::EventData *>(value)->getIntValue());
+    olua_setfieldnumber(L, -1, "getVolume", const_cast<spine::EventData *>(value)->getVolume());
+    olua_setfieldnumber(L, -1, "getBalance", const_cast<spine::EventData *>(value)->getBalance());
+    manual_luacv_push_spine_String(L, &value->getName());
     olua_rawset(L, -2, "name");
-    manual_luacv_push_spine_String(L, &const_cast<spine::EventData *>(data)->getStringValue());
+    manual_luacv_push_spine_String(L, &const_cast<spine::EventData *>(value)->getStringValue());
     olua_rawset(L, -2, "stringValue");
-    manual_luacv_push_spine_String(L, &const_cast<spine::EventData *>(data)->getAudioPath());
+    manual_luacv_push_spine_String(L, &const_cast<spine::EventData *>(value)->getAudioPath());
     olua_rawset(L, -2, "audioPath");
     return 1;
 }]]
@@ -68,6 +106,57 @@ cls.enums [[
     AttachmentType_Path
     AttachmentType_Point
     AttachmentType_Clipping
+]]
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "spine::TransformMode"
+cls.enums [[
+    TransformMode_Normal
+    TransformMode_OnlyTranslation
+    TransformMode_NoRotationOrReflection
+    TransformMode_NoScale
+    TransformMode_NoScaleOrReflection
+]]
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "spine::BlendMode"
+cls.enums [[
+    BlendMode_Normal
+    BlendMode_Additive
+    BlendMode_Multiply
+    BlendMode_Screen
+]]
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "spine::PositionMode"
+cls.enums [[
+    PositionMode_Fixed
+    PositionMode_Percent
+]]
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "spine::SpacingMode"
+cls.enums [[
+    SpacingMode_Length
+    SpacingMode_Fixed
+    SpacingMode_Percent
+]]
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "spine::RotateMode"
+cls.enums [[
+    RotateMode_Tangent
+    RotateMode_Chain
+    RotateMode_ChainScale
+]]
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "spine::MixBlend"
+cls.enums [[
+    MixBlend_Setup
+    MixBlend_First
+    MixBlend_Replace
+    MixBlend_Add
 ]]
 
 cls = class(M.CLASSES)
@@ -134,54 +223,257 @@ cls = class(M.CLASSES)
 cls.CPPCLS = "spine::AnimationState"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
+    void update(float delta)
+    void clearTracks()
+    void clearTrack(size_t trackIndex)
+    TrackEntry* setAnimation(size_t trackIndex, const String& animationName, bool loop)
+    TrackEntry* setAnimation(size_t trackIndex, Animation* animation, bool loop)
+    TrackEntry* addAnimation(size_t trackIndex, const String& animationName, bool loop, float delay)
+    TrackEntry* addAnimation(size_t trackIndex, Animation* animation, bool loop, float delay)
+    TrackEntry* setEmptyAnimation(size_t trackIndex, float mixDuration)
+    TrackEntry* addEmptyAnimation(size_t trackIndex, float mixDuration, float delay)
+    void setEmptyAnimations(float mixDuration)
+    TrackEntry* getCurrent(size_t trackIndex)
+    AnimationStateData* getData()
+    float getTimeScale()
+    void setTimeScale(float inValue)
+    void disableQueue()
+    void enableQueue()
+]]
+cls.callback {
+    FUNCS =  {
+        'void setListener(std::function<void (AnimationState* state, EventType type, TrackEntry* entry, Event* event)> listener)',
+    },
+    TAG_MAKER = 'olua_makecallbacktag("listener")',
+    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    CALLONCE = false,
+    REMOVE = false,
+}
+cls.props [[
+    data
+    timeScale
 ]]
 
 cls = class(M.CLASSES)
 cls.CPPCLS = "spine::AnimationStateData"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
+    SkeletonData* getSkeletonData()
+    float getDefaultMix()
+    void setDefaultMix(float inValue)
+    void setMix(const String& fromName, const String& toName, float duration)
+    void setMix(Animation* from, Animation* to, float duration)
+    float getMix(Animation* from, Animation* to)
+]]
+cls.props [[
+    skeletonData
+    defaultMix
 ]]
 
 cls = class(M.CLASSES)
 cls.CPPCLS = "spine::Animation"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
+    const String &getName()
+    float getDuration()
+    void setDuration(float inValue)
+]]
+cls.props [[
+    name
+    duration
 ]]
 
 cls = class(M.CLASSES)
 cls.CPPCLS = "spine::IkConstraintData"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
+    const String& getName()
+    size_t getOrder()
+    void setOrder(size_t inValue)
+    BoneData* getTarget()
+    void setTarget(BoneData* inValue)
+    int getBendDirection()
+    void setBendDirection(int inValue)
+    bool getCompress()
+    void setCompress(bool inValue)
+    bool getStretch()
+    void setStretch(bool inValue)
+    bool getUniform()
+    void setUniform(bool inValue)
+    float getMix()
+    void setMix(float inValue)
+]]
+cls.props [[
+    name
+    order
+    target
+    bendDirection
+    compress
+    stretch
+    uniform
+    mix
 ]]
 
 cls = class(M.CLASSES)
 cls.CPPCLS = "spine::BoneData"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
+    int getIndex()
+    const String &getName()
+    BoneData *getParent()
+    float getLength()
+    void setLength(float inValue)
+    float getX()
+    void setX(float inValue)
+    float getY()
+    void setY(float inValue)
+    float getRotation()
+    void setRotation(float inValue)
+    float getScaleX()
+    void setScaleX(float inValue)
+    float getScaleY()
+    void setScaleY(float inValue)
+    float getShearX()
+    void setShearX(float inValue)
+    float getShearY()
+    void setShearY(float inValue)
+    TransformMode getTransformMode()
+    void setTransformMode(TransformMode inValue)
+]]
+cls.props [[
+    index
+    name
+    parent
+    length
+    x
+    y
+    rotation
+    scaleX
+    scaleY
+    shearX
+    shearY
+    transformMode
 ]]
 
 cls = class(M.CLASSES)
 cls.CPPCLS = "spine::SlotData"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
+    int getIndex()
+    const String &getName()
+    Color &getColor()
+    Color &getDarkColor()
+    bool hasDarkColor()
+    void setHasDarkColor(bool inValue)
+    const String &getAttachmentName()
+    void setAttachmentName(const String &inValue)
+    BlendMode getBlendMode()
+    void setBlendMode(BlendMode inValue)
+]]
+cls.props [[
+    index
+    name
+    color
+    darkColor
+    attachmentName
+    blendMode
 ]]
 
 cls = class(M.CLASSES)
 cls.CPPCLS = "spine::TransformConstraintData"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
+    const String& getName()
+    int getOrder()
+    BoneData* getTarget()
+    float getRotateMix()
+    float getTranslateMix()
+    float getScaleMix()
+    float getShearMix()
+    float getOffsetRotation()
+    float getOffsetX()
+    float getOffsetY()
+    float getOffsetScaleX()
+    float getOffsetScaleY()
+    float getOffsetShearY()
+    bool isRelative()
+    bool isLocal()
+]]
+cls.props [[
+    name
+    order
+    target
+    rotateMix
+    translateMix
+    scaleMix
+    shearMix
+    offsetRotation
+    offsetX
+    offsetY
+    offsetScaleX
+    offsetScaleY
+    offsetShearY
+    relative
+    local
 ]]
 
 cls = class(M.CLASSES)
 cls.CPPCLS = "spine::PathConstraintData"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
+    const String& getName()
+    int getOrder()
+    void setOrder(int inValue)
+    SlotData* getTarget()
+    void setTarget(SlotData* inValue)
+    PositionMode getPositionMode()
+    void setPositionMode(PositionMode inValue)
+    SpacingMode getSpacingMode()
+    void setSpacingMode(SpacingMode inValue)
+    RotateMode getRotateMode()
+    void setRotateMode(RotateMode inValue)
+    float getOffsetRotation()
+    void setOffsetRotation(float inValue)
+    float getPosition()
+    void setPosition(float inValue)
+    float getSpacing()
+    void setSpacing(float inValue)
+    float getRotateMix()
+    void setRotateMix(float inValue)
+    float getTranslateMix()
+    void setTranslateMix(float inValue)
+]]
+cls.props [[
+    name
+    order
+    target
+    positionMode
+    spacingMode
+    rotateMode
+    offsetRotation
+    position
+    spacing
+    rotateMix
+    translateMix
 ]]
 
 cls = class(M.CLASSES)
 cls.CPPCLS = "spine::SkeletonBounds"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
+    bool aabbcontainsPoint(float x, float y)
+    bool aabbintersectsSegment(float x1, float y1, float x2, float y2)
+    bool containsPoint(Polygon* polygon, float x, float y)
+    BoundingBoxAttachment* containsPoint(float x, float y)
+    BoundingBoxAttachment* intersectsSegment(float x1, float y1, float x2, float y2)
+    bool intersectsSegment(Polygon* polygon, float x1, float y1, float x2, float y2)
+    Polygon* getPolygon(BoundingBoxAttachment* attachment)
+    float getWidth()
+    float getHeight()
+]]
+cls.props [[
+    width
+    height
 ]]
 
 cls = class(M.CLASSES)
@@ -204,42 +496,83 @@ cls = class(M.CLASSES)
 cls.CPPCLS = "spine::CurveTimeline"
 cls.SUPERCLS = "spine::Timeline"
 cls.funcs [[
+    size_t getFrameCount()
+    void setLinear(size_t frameIndex)
+    void setStepped(size_t frameIndex)
+    void setCurve(size_t frameIndex, float cx1, float cy1, float cx2, float cy2)
+    float getCurvePercent(size_t frameIndex, float percent)
+    float getCurveType(size_t frameIndex)
+]]
+cls.props [[
+    frameCount
 ]]
 
 cls = class(M.CLASSES)
 cls.CPPCLS = "spine::AttachmentTimeline"
 cls.SUPERCLS = "spine::Timeline"
 cls.funcs [[
+    void setFrame(int frameIndex, float time, const String& attachmentName)
+    size_t getSlotIndex()
+    void setSlotIndex(size_t inValue)
+    size_t getFrameCount()
+]]
+cls.props [[
+    slotIndex
+    frameCount
 ]]
 
 cls = class(M.CLASSES)
 cls.CPPCLS = "spine::ColorTimeline"
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.funcs [[
+    void setFrame(int frameIndex, float time, float r, float g, float b, float a)
+    int getSlotIndex()
+    void setSlotIndex(int inValue)
+]]
+cls.props [[
+    slotIndex
 ]]
 
 cls = class(M.CLASSES)
 cls.CPPCLS = "spine::DeformTimeline"
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.funcs [[
+    int getSlotIndex()
+    void setSlotIndex(int inValue)
+    VertexAttachment* getAttachment()
+    void setAttachment(VertexAttachment* inValue)
+]]
+cls.props [[
+    slotIndex
+    attachment
 ]]
 
 cls = class(M.CLASSES)
 cls.CPPCLS = "spine::DrawOrderTimeline"
 cls.SUPERCLS = "spine::Timeline"
 cls.funcs [[
+    size_t getFrameCount()
+]]
+cls.props [[
+    frameCount
 ]]
 
 cls = class(M.CLASSES)
 cls.CPPCLS = "spine::EventTimeline"
 cls.SUPERCLS = "spine::Timeline"
 cls.funcs [[
+    void setFrame(size_t frameIndex, Event* event)
+    size_t getFrameCount()
+]]
+cls.props [[
+    frameCount
 ]]
 
 cls = class(M.CLASSES)
 cls.CPPCLS = "spine::IkConstraintTimeline"
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.funcs [[
+    void setFrame (int frameIndex, float time, float mix, int bendDirection, bool compress, bool stretch)
 ]]
 
 cls = class(M.CLASSES)
@@ -252,6 +585,7 @@ cls = class(M.CLASSES)
 cls.CPPCLS = "spine::PathConstraintPositionTimeline"
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.funcs [[
+    void setFrame(int frameIndex, float time, float value)
 ]]
 
 cls = class(M.CLASSES)
@@ -264,6 +598,7 @@ cls = class(M.CLASSES)
 cls.CPPCLS = "spine::TranslateTimeline"
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.funcs [[
+    void setFrame(int frameIndex, float time, float x, float y)
 ]]
 
 cls = class(M.CLASSES)
@@ -276,6 +611,7 @@ cls = class(M.CLASSES)
 cls.CPPCLS = "spine::TransformConstraintTimeline"
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.funcs [[
+    void setFrame(size_t frameIndex, float time, float rotateMix, float translateMix, float scaleMix, float shearMix)
 ]]
 
 cls = class(M.CLASSES)
@@ -288,6 +624,12 @@ cls = class(M.CLASSES)
 cls.CPPCLS = "spine::TwoColorTimeline"
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.funcs [[
+    void setFrame(int frameIndex, float time, float r, float g, float b, float a, float r2, float g2, float b2)
+    int getSlotIndex()
+    void setSlotIndex(int inValue)
+]]
+cls.props [[
+    slotIndex
 ]]
 
 cls = class(M.CLASSES)
@@ -297,15 +639,28 @@ cls.funcs [[
 ]]
 
 cls = class(M.CLASSES)
+cls.CPPCLS = "spine::Polygon"
+cls.SUPERCLS = "spine::SpineObject"
+cls.funcs [[
+]]
+
+cls = class(M.CLASSES)
 cls.CPPCLS = "spine::Updatable"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
+    void update()
 ]]
 
 cls = class(M.CLASSES)
 cls.CPPCLS = "spine::Skin"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
+    void addAttachment(size_t slotIndex, const String &name, Attachment *attachment)
+    Attachment *getAttachment(size_t slotIndex, const String &name)
+    const String &getName()
+]]
+cls.props [[
+    name
 ]]
 
 cls = class(M.CLASSES)
@@ -318,17 +673,143 @@ cls = class(M.CLASSES)
 cls.CPPCLS = "spine::Bone"
 cls.SUPERCLS = "spine::Updatable"
 cls.funcs [[
+    static void setYDown(bool inValue)
+    static bool isYDown()
+    void updateWorldTransform()
+    void updateWorldTransform(float x, float y, float rotation, float scaleX, float scaleY, float shearX, float shearY)
+    void setToSetupPose()
+    float worldToLocalRotation(float worldRotation)
+    float localToWorldRotation(float localRotation)
+    void rotateWorld(float degrees)
+    float getWorldToLocalRotationX()
+    float getWorldToLocalRotationY()
+    Bone *getParent()
+    float getX()
+    void setX(float inValue)
+    float getY()
+    void setY(float inValue)
+    float getRotation()
+    void setRotation(float inValue)
+    float getScaleX()
+    void setScaleX(float inValue)
+    float getScaleY()
+    void setScaleY(float inValue)
+    float getShearX()
+    void setShearX(float inValue)
+    float getShearY()
+    void setShearY(float inValue)
+    float getAppliedRotation()
+    void setAppliedRotation(float inValue)
+    float getAX()
+    void setAX(float inValue)
+    float getAY()
+    void setAY(float inValue)
+    float getAScaleX()
+    void setAScaleX(float inValue)
+    float getAScaleY()
+    void setAScaleY(float inValue)
+    float getAShearX()
+    void setAShearX(float inValue)
+    float getAShearY()
+    void setAShearY(float inValue)
+    float getA()
+    void setA(float inValue)
+    float getB()
+    void setB(float inValue)
+    float getC()
+    void setC(float inValue)
+    float getD()
+    void setD(float inValue)
+    float getWorldX()
+    void setWorldX(float inValue)
+    float getWorldY()
+    void setWorldY(float inValue)
+    float getWorldRotationX()
+    float getWorldRotationY()
+    float getWorldScaleX()
+    float getWorldScaleY()
+    bool isAppliedValid()
+    void setAppliedValid(bool valid)
+]]
+cls.props [[
+    yDown
+    worldToLocalRotationX
+    worldToLocalRotationY
+    parent
+    x
+    y
+    rotation
+    scaleX
+    scaleY
+    shearX
+    shearY
+    appliedRotation
+    ax
+    ay
+    aScaleX
+    aScaleY
+    aShearX
+    aShearY
+    a
+    b
+    c
+    d
+    worldX
+    worldY
+    worldRotationX
+    worldRotationY
+    worldScaleX
+    worldScaleY
+    appliedValid
 ]]
 
 cls = class(M.CLASSES)
 cls.CPPCLS = "spine::Slot"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
+    void setToSetupPose()
+    Color &getColor()
+    Color &getDarkColor()
+    bool hasDarkColor()
+    Attachment *getAttachment()
+    void setAttachment(Attachment *inValue)
+    float getAttachmentTime()
+    void setAttachmentTime(float inValue)
+]]
+cls.props [[
+    color
+    darkColor
+    attachment
+    attachmentTime
 ]]
 
 cls = class(M.CLASSES)
 cls.CPPCLS = "spine::Attachment"
 cls.SUPERCLS = "spine::SpineObject"
+cls.funcs [[
+    const String &getName()
+]]
+cls.props [[
+    name
+]]
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "spine::VertexAttachment"
+cls.SUPERCLS = "spine::Attachment"
+cls.funcs [[
+    bool applyDeform(VertexAttachment* sourceAttachment)
+    int getId()
+    size_t getWorldVerticesLength()
+    void setWorldVerticesLength(size_t inValue)
+]]
+cls.props [[
+    id
+    worldVerticesLength
+]]
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "spine::BoundingBoxAttachment"
+cls.SUPERCLS = "spine::VertexAttachment"
 cls.funcs [[
 ]]
 
@@ -336,6 +817,80 @@ cls = class(M.CLASSES)
 cls.CPPCLS = "spine::TrackEntry"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
+    int getTrackIndex()
+    Animation* getAnimation()
+    bool getLoop()
+    void setLoop(bool inValue)
+    bool getHoldPrevious()
+    void setHoldPrevious(bool inValue)
+    float getDelay()
+    void setDelay(float inValue)
+    float getTrackTime()
+    void setTrackTime(float inValue)
+    float getTrackEnd()
+    void setTrackEnd(float inValue)
+    float getAnimationStart()
+    void setAnimationStart(float inValue)
+    float getAnimationEnd()
+    void setAnimationEnd(float inValue)
+    float getAnimationLast()
+    void setAnimationLast(float inValue)
+    float getAnimationTime()
+    float getTimeScale()
+    void setTimeScale(float inValue)
+    float getAlpha()
+    void setAlpha(float inValue)
+    float getEventThreshold()
+    void setEventThreshold(float inValue)
+    float getAttachmentThreshold()
+    void setAttachmentThreshold(float inValue)
+    float getDrawOrderThreshold()
+    void setDrawOrderThreshold(float inValue)
+    TrackEntry* getNext()
+    bool isComplete()
+    float getMixTime()
+    void setMixTime(float inValue)
+    float getMixDuration()
+    void setMixDuration(float inValue)
+    MixBlend getMixBlend()
+    void setMixBlend(MixBlend blend)
+    TrackEntry* getMixingFrom()
+    TrackEntry* getMixingTo()
+    void resetRotationDirections()
+]]
+cls.callback {
+    FUNCS =  {
+        'void setListener(std::function<void (AnimationState* state, EventType type, TrackEntry* entry, Event* event)> listener)',
+    },
+    TAG_MAKER = 'olua_makecallbacktag("listener")',
+    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    CALLONCE = false,
+    REMOVE = false,
+}
+cls.props [[
+    trackIndex
+    animation
+    loop
+    holdPrevious
+    delay
+    trackTime
+    trackEnd
+    animationStart
+    animationEnd
+    animationLast
+    animationTime
+    timeScale
+    alpha
+    eventThreshold
+    attachmentThreshold
+    drawOrderThreshold
+    next
+    complete
+    mixTime
+    mixDuration
+    mixBlend
+    mixingFrom
+    mixingTo
 ]]
 
 cls = class(M.CLASSES)
@@ -533,18 +1088,18 @@ cls.funcs [[
     static SkeletonAnimation* createWithBinaryFile (const std::string& skeletonBinaryFile, const std::string& atlasFile, float scale = 1)
     void setAnimationStateData (AnimationStateData* stateData)
     void setMix (const std::string& fromAnimation, const std::string& toAnimation, float duration)
-    TrackEntry* setAnimation (int trackIndex, const std::string& name, bool loop)
-    TrackEntry* addAnimation (int trackIndex, const std::string& name, bool loop, float delay = 0)
-    TrackEntry* setEmptyAnimation (int trackIndex, float mixDuration)
+    @ref(map trackEntries) TrackEntry* setAnimation (int trackIndex, const std::string& name, bool loop)
+    @ref(map trackEntries) TrackEntry* addAnimation (int trackIndex, const std::string& name, bool loop, float delay = 0)
+    @ref(map trackEntries) TrackEntry* setEmptyAnimation (int trackIndex, float mixDuration)
     void setEmptyAnimations (float mixDuration)
-    TrackEntry* addEmptyAnimation (int trackIndex, float mixDuration, float delay = 0)
+    @ref(map trackEntries) TrackEntry* addEmptyAnimation (int trackIndex, float mixDuration, float delay = 0)
     Animation* findAnimation(const std::string& name)
-    TrackEntry* getCurrent (int trackIndex = 0)
+    @ref(map trackEntries) TrackEntry* getCurrent (int trackIndex = 0)
     void clearTracks ()
     void clearTrack (int trackIndex = 0)
     void onAnimationStateEvent (TrackEntry* entry, EventType type, Event* event)
     void onTrackEntryEvent (TrackEntry* entry, EventType type, Event* event)
-    AnimationState* getState()
+    @ref(single state) AnimationState* getState()
 ]]
 cls.callback {
     FUNCS =  {

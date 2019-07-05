@@ -11,6 +11,12 @@ REG_TYPE {
 }
 
 REG_TYPE {
+    CONV_FUNC = 'manual_luacv_$$_spine_Color',
+    INIT_VALUE = false,
+    TYPENAME = 'spine::Color',
+}
+
+REG_TYPE {
     TYPENAME = 'spine::AttachmentType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
@@ -19,11 +25,59 @@ REG_TYPE {
 }
 
 REG_TYPE {
+    TYPENAME = 'spine::BlendMode',
+    DECL_TYPE = 'lua_Unsigned',
+    CONV_FUNC = 'olua_$$_uint',
+    VALUE_TYPE = true,
+    LUACLS = 'sp.BlendMode',
+}
+
+REG_TYPE {
     TYPENAME = 'spine::EventType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     VALUE_TYPE = true,
     LUACLS = 'sp.EventType',
+}
+
+REG_TYPE {
+    TYPENAME = 'spine::MixBlend',
+    DECL_TYPE = 'lua_Unsigned',
+    CONV_FUNC = 'olua_$$_uint',
+    VALUE_TYPE = true,
+    LUACLS = 'sp.MixBlend',
+}
+
+REG_TYPE {
+    TYPENAME = 'spine::PositionMode',
+    DECL_TYPE = 'lua_Unsigned',
+    CONV_FUNC = 'olua_$$_uint',
+    VALUE_TYPE = true,
+    LUACLS = 'sp.PositionMode',
+}
+
+REG_TYPE {
+    TYPENAME = 'spine::RotateMode',
+    DECL_TYPE = 'lua_Unsigned',
+    CONV_FUNC = 'olua_$$_uint',
+    VALUE_TYPE = true,
+    LUACLS = 'sp.RotateMode',
+}
+
+REG_TYPE {
+    TYPENAME = 'spine::SpacingMode',
+    DECL_TYPE = 'lua_Unsigned',
+    CONV_FUNC = 'olua_$$_uint',
+    VALUE_TYPE = true,
+    LUACLS = 'sp.SpacingMode',
+}
+
+REG_TYPE {
+    TYPENAME = 'spine::TransformMode',
+    DECL_TYPE = 'lua_Unsigned',
+    CONV_FUNC = 'olua_$$_uint',
+    VALUE_TYPE = true,
+    LUACLS = 'sp.TransformMode',
 }
 
 REG_TYPE {
@@ -72,6 +126,12 @@ REG_TYPE {
     TYPENAME = 'spine::BoneData *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.BoneData',
+}
+
+REG_TYPE {
+    TYPENAME = 'spine::BoundingBoxAttachment *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'sp.BoundingBoxAttachment',
 }
 
 REG_TYPE {
@@ -150,6 +210,12 @@ REG_TYPE {
     TYPENAME = 'spine::PathConstraintSpacingTimeline *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.PathConstraintSpacingTimeline',
+}
+
+REG_TYPE {
+    TYPENAME = 'spine::Polygon *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'sp.Polygon',
 }
 
 REG_TYPE {
@@ -264,6 +330,12 @@ REG_TYPE {
     TYPENAME = 'spine::Updatable *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.Updatable',
+}
+
+REG_TYPE {
+    TYPENAME = 'spine::VertexAttachment *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'sp.VertexAttachment',
 }
 
 REG_TYPE {

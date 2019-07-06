@@ -48,14 +48,14 @@ local function gen_func_args(cls, fi)
         local IDX = idx + 1
         idx = IDX
 
-        if ai.TYPE.TYPENAME == 'std::function' then
+        if ai.TYPE.CPPCLS == 'std::function' then
             assert(fi.CALLBACK_OPT, fi.FUNC_DECL)
         end
 
-        if ai.TYPE.DECL_TYPE ~= ai.TYPE.TYPENAME and not ai.CALLBACK.ARGS then
-            local TYPENAME = ai.TYPE.TYPENAME
+        if ai.TYPE.DECL_TYPE ~= ai.TYPE.CPPCLS and not ai.CALLBACK.ARGS then
+            local CPPCLS = ai.TYPE.CPPCLS
             CALLER_ARGS[#CALLER_ARGS + 1] = format([[
-                (${TYPENAME})${ARG_N}
+                (${CPPCLS})${ARG_N}
             ]])
         else
             CALLER_ARGS[#CALLER_ARGS + 1] = format([[
@@ -108,16 +108,16 @@ local function gen_func_args(cls, fi)
                 ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
                     ${FUNC_CHECK_VALUE}(L, ${IDX}, ${ARG_N}, "${SUB_LUACLS}");
                 ]])
-            elseif ai.TYPE.TYPENAME == 'std::vector' then
+            elseif ai.TYPE.CPPCLS == 'std::vector' then
                 local CAST = ""
                 local SUBTYPE_CHECK_FUNC = SUBTYPE.FUNC_CHECK_VALUE
                 local SUBTYPE_DECL_TYPE = SUBTYPE.DECL_TYPE
-                if SUBTYPE.DECL_TYPE ~= SUBTYPE.TYPENAME then
+                if SUBTYPE.DECL_TYPE ~= SUBTYPE.CPPCLS then
                     if not SUBTYPE.VALUE_TYPE then
-                        print(SUBTYPE.DECL_TYPE, SUBTYPE.TYPENAME)
-                        error(SUBTYPE.TYPENAME)
+                        print(SUBTYPE.DECL_TYPE, SUBTYPE.CPPCLS)
+                        error(SUBTYPE.CPPCLS)
                     end
-                    CAST = string.format("(%s)", SUBTYPE.TYPENAME)
+                    CAST = string.format("(%s)", SUBTYPE.CPPCLS)
                 end
                 ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
                     luaL_checktype(L, ${IDX}, LUA_TTABLE);
@@ -131,14 +131,14 @@ local function gen_func_args(cls, fi)
                         lua_pop(L, 1);
                     }
                 ]])
-            elseif ai.TYPE.TYPENAME == 'std::set' then
+            elseif ai.TYPE.CPPCLS == 'std::set' then
                 local CAST = ""
                 local SUBTYPE_CHECK_FUNC = SUBTYPE.FUNC_CHECK_VALUE
                 local SUBTYPE_DECL_TYPE = SUBTYPE.DECL_TYPE
-                if SUBTYPE.DECL_TYPE ~= SUBTYPE.TYPENAME then
+                if SUBTYPE.DECL_TYPE ~= SUBTYPE.CPPCLS then
                     if not SUBTYPE.VALUE_TYPE then
-                        print(SUBTYPE.DECL_TYPE, SUBTYPE.TYPENAME)
-                        error(SUBTYPE.TYPENAME)
+                        print(SUBTYPE.DECL_TYPE, SUBTYPE.CPPCLS)
+                        error(SUBTYPE.CPPCLS)
                     end
                     CAST = string.format("(%s)", SUBTYPE.DECL_TYPE)
                 end
@@ -154,7 +154,7 @@ local function gen_func_args(cls, fi)
                     }
                 ]])
             else
-                error(ai.TYPE.TYPENAME)
+                error(ai.TYPE.CPPCLS)
             end
         elseif not ai.CALLBACK.ARGS then
             if ai.ATTR.PACK then
@@ -222,11 +222,11 @@ local function gen_func_ret(cls, fi)
         if fi.RET.TYPE.LUACLS and fi.RET.TYPE.DECL_TYPE ~= 'lua_Unsigned' then
             local LUACLS = fi.RET.TYPE.LUACLS
             if FUNC_PUSH_VALUE == "olua_push_cppobj" then
-                local TYPENAME = string.gsub(fi.RET.TYPE.TYPENAME, '[ *]*$', '')
+                local CPPCLS = string.gsub(fi.RET.TYPE.CPPCLS, '[ *]*$', '')
                 if string.find(DECL_TYPE, '^const') then
-                    RET_PUSH = format('int num_ret = ${FUNC_PUSH_VALUE}<${TYPENAME}>(L, (${TYPENAME} *)ret, "${LUACLS}");')
+                    RET_PUSH = format('int num_ret = ${FUNC_PUSH_VALUE}<${CPPCLS}>(L, (${CPPCLS} *)ret, "${LUACLS}");')
                 else
-                    RET_PUSH = format('int num_ret = ${FUNC_PUSH_VALUE}<${TYPENAME}>(L, ret, "${LUACLS}");')
+                    RET_PUSH = format('int num_ret = ${FUNC_PUSH_VALUE}<${CPPCLS}>(L, ret, "${LUACLS}");')
                 end
             else
                 RET_PUSH = format('int num_ret = ${FUNC_PUSH_VALUE}(L, ret, "${LUACLS}");')
@@ -239,16 +239,16 @@ local function gen_func_ret(cls, fi)
             else
                 local CAST = ""
                 local SUBTYPE_PUSH_FUNC = SUBTYPE.FUNC_PUSH_VALUE
-                if SUBTYPE.DECL_TYPE ~= SUBTYPE.TYPENAME then
+                if SUBTYPE.DECL_TYPE ~= SUBTYPE.CPPCLS then
                     if not SUBTYPE.VALUE_TYPE then
-                        print(SUBTYPE.DECL_TYPE, SUBTYPE.TYPENAME)
-                        error(SUBTYPE.TYPENAME)
+                        print(SUBTYPE.DECL_TYPE, SUBTYPE.CPPCLS)
+                        error(SUBTYPE.CPPCLS)
                     end
                     CAST = string.format("(%s)", SUBTYPE.DECL_TYPE)
                 end
                 if SUBTYPE.DECL_TYPE == 'lua_Unsigned'
                     or SUBTYPE.DECL_TYPE == 'lua_Number'
-                    or SUBTYPE.TYPENAME == 'bool'
+                    or SUBTYPE.CPPCLS == 'bool'
                     or SUBTYPE.DECL_TYPE == 'lua_Integer' then
                     RET_PUSH = format([[
                         int num_ret = 1;
@@ -276,10 +276,10 @@ local function gen_func_ret(cls, fi)
                 FUNC_PUSH_VALUE = fi.RET.TYPE.FUNC_UNPACK_VALUE
             end
             local CAST = ""
-            if fi.RET.TYPE.DECL_TYPE ~= fi.RET.TYPE.TYPENAME then
+            if fi.RET.TYPE.DECL_TYPE ~= fi.RET.TYPE.CPPCLS then
                 if not fi.RET.TYPE.VALUE_TYPE then
-                    print(fi.RET.TYPE.DECL_TYPE, fi.RET.TYPE.TYPENAME)
-                    error(fi.RET.TYPE.TYPENAME)
+                    print(fi.RET.TYPE.DECL_TYPE, fi.RET.TYPE.CPPCLS)
+                    error(fi.RET.TYPE.CPPCLS)
                 end
                 CAST = string.format("(%s)", fi.RET.TYPE.DECL_TYPE)
             elseif not fi.RET.TYPE.VALUE_TYPE then
@@ -370,7 +370,7 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
         local WHICH_OBJ = fi.RET.ATTR.REF[3] or (fi.STATIC and -1 or 1)
         local IDX = -1
 
-        if fi.RET.TYPE.TYPENAME == 'void' then
+        if fi.RET.TYPE.CPPCLS == 'void' then
             assert(not fi.STATIC, 'no ref object')
             IDX = 1
             WHICH_OBJ = assert(fi.RET.ATTR.REF[3], 'no store obj')
@@ -508,7 +508,7 @@ local function gen_test_and_call(cls, fns)
                 MAX_VARS = math.max(ai.TYPE.VARS or 1, MAX_VARS)
 
                 if ai.ATTR.PACK then
-                    FUNC_IS_VALUE = assert(ai.TYPE.FUNC_ISPACK_VALUE, ai.TYPE.TYPENAME)
+                    FUNC_IS_VALUE = assert(ai.TYPE.FUNC_ISPACK_VALUE, ai.TYPE.CPPCLS)
                 end
 
                 if ai.DEFAULT or ai.ATTR.NULLABLE then

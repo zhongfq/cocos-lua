@@ -90,7 +90,7 @@ function gen_callback(cls, fi, write)
         return gen_remove_callback(cls, fi, write)
     end
 
-    if fi.RET.TYPE.TYPENAME == "std::function" then
+    if fi.RET.TYPE.CPPCLS == "std::function" then
         return gen_ret_callback(cls, fi, write)
     end
 
@@ -142,9 +142,9 @@ function gen_callback(cls, fi, write)
         if v.TYPE.LUACLS and v.TYPE.DECL_TYPE ~= 'lua_Unsigned' then
             local LUACLS = v.TYPE.LUACLS
             if PUSH_FUNC == "olua_push_cppobj" then
-                local TYPENAME = string.gsub(v.TYPE.TYPENAME, '[ *]*$', '')
+                local CPPCLS = string.gsub(v.TYPE.CPPCLS, '[ *]*$', '')
                 PUSH_ARGS[#PUSH_ARGS + 1] = format([[
-                    ${PUSH_FUNC}<${TYPENAME}>(L, ${ARG_N}, "${LUACLS}");
+                    ${PUSH_FUNC}<${CPPCLS}>(L, ${ARG_N}, "${LUACLS}");
                 ]])
             else
                 PUSH_ARGS[#PUSH_ARGS + 1] = format([[
@@ -158,7 +158,7 @@ function gen_callback(cls, fi, write)
             ]])
         else
             local CAST = ""
-            if v.TYPE.DECL_TYPE ~= v.TYPE.TYPENAME then
+            if v.TYPE.DECL_TYPE ~= v.TYPE.CPPCLS then
                 assert(not string.find(PUSH_FUNC, '^auto_luacv'))
                 CAST = string.format("(%s)", v.TYPE.DECL_TYPE)
             end
@@ -192,7 +192,7 @@ function gen_callback(cls, fi, write)
         OLUA_CALLBACK_TAG = "OLUA_CALLBACK_TAG_REPLACE"
     end
 
-    if ai.CALLBACK.RET.TYPENAME ~= "void" then
+    if ai.CALLBACK.RET.CPPCLS ~= "void" then
         local DECL_TYPE = ai.CALLBACK.RET.DECL_TYPE
         local INIT_VALUE = ai.CALLBACK.RET.INIT_VALUE
         local FUNC_CHECK_VALUE = ai.CALLBACK.RET.FUNC_CHECK_VALUE
@@ -221,7 +221,7 @@ function gen_callback(cls, fi, write)
     TAG_STORE = get_callback_store(fi) + 1
     if TAG_STORE == 1 then
         CALLBACK_STORE_OBJ = 'self'
-        if fi.STATIC and fi.RET.TYPE.TYPENAME == 'void' then
+        if fi.STATIC and fi.RET.TYPE.CPPCLS == 'void' then
             local LUACLS = cls.LUACLS
             CALLBACK_STORE_OBJ = format('olua_getstoreobj(L, "${LUACLS}")')
         end

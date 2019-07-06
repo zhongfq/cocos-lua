@@ -1,12 +1,12 @@
 require "olua.olua-cls"
 
-REG_TYPE {
-    TYPENAME = 'void',
+typedef {
+    CPPCLS = 'void',
     CONV_FUNC = '<NONE>',
 }
 
-REG_TYPE {
-    TYPENAME = [[
+typedef {
+    CPPCLS = [[
         void *
         GLvoid *
     ]],
@@ -14,20 +14,20 @@ REG_TYPE {
     CONV_FUNC = 'olua_$$_obj',
 }
 
-REG_TYPE {
-    TYPENAME = 'bool',
+typedef {
+    CPPCLS = 'bool',
     CONV_FUNC = 'olua_$$_bool',
     VALUE_TYPE = true,
 }
 
-REG_TYPE {
-    TYPENAME = 'const char *',
+typedef {
+    CPPCLS = 'const char *',
     CONV_FUNC = 'olua_$$_string',
     VALUE_TYPE = true,
 }
 
-REG_TYPE {
-    TYPENAME = [[
+typedef {
+    CPPCLS = [[
         unsigned char *
         const unsigned char *
         const GLchar *
@@ -37,36 +37,36 @@ REG_TYPE {
     VALUE_TYPE = true,
 }
 
-REG_TYPE {
-    TYPENAME = 'std::string',
+typedef {
+    CPPCLS = 'std::string',
     INIT_VALUE = false,
     CONV_FUNC = 'olua_$$_std_string',
     VALUE_TYPE = true,
 }
 
-REG_TYPE {
-    TYPENAME = 'std::function',
+typedef {
+    CPPCLS = 'std::function',
     INIT_VALUE = 'nullptr',
     CONV_FUNC = 'olua_$$_std_function',
     VALUE_TYPE = true,
 }
 
-REG_TYPE {
-    TYPENAME = 'std::set',
+typedef {
+    CPPCLS = 'std::set',
     INIT_VALUE = false,
     IS_ARRAY = true,
     CONV_FUNC = 'olua_$$_std_set',
 }
 
-REG_TYPE {
-    TYPENAME = 'std::vector',
+typedef {
+    CPPCLS = 'std::vector',
     INIT_VALUE = false,
     IS_ARRAY = true,
     CONV_FUNC = 'olua_$$_std_vector',
 }
 
-REG_TYPE {
-    TYPENAME = [[
+typedef {
+    CPPCLS = [[
         float
         double
         GLfloat
@@ -76,8 +76,8 @@ REG_TYPE {
     VALUE_TYPE = true,
 }
 
-REG_TYPE {
-    TYPENAME = [[
+typedef {
+    CPPCLS = [[
         char
         GLint
         GLshort
@@ -95,8 +95,8 @@ REG_TYPE {
     VALUE_TYPE = true,
 }
 
-REG_TYPE {
-    TYPENAME = [[
+typedef {
+    CPPCLS = [[
         GLboolean
         GLenum
         GLubyte

@@ -15,14 +15,14 @@ M.INCLUDES = [[
 ]]
 
 M.CONVS = {
-    REG_CONV {
+    typeconv {
         CPPCLS = 'cocos2d::Vec2',
         DEF = [[
             float x;
             float y;
         ]],
     },
-    REG_CONV {
+    typeconv {
         CPPCLS = 'cocos2d::Vec3',
         DEF = [[
             float x;
@@ -30,7 +30,7 @@ M.CONVS = {
             float z;
         ]],
     },
-    REG_CONV {
+    typeconv {
         CPPCLS = 'cocos2d::Vec4',
         DEF = [[
             float x;
@@ -39,14 +39,14 @@ M.CONVS = {
             float w;
         ]],
     },
-    REG_CONV {
+    typeconv {
         CPPCLS = 'cocos2d::Size',
         DEF = [[
             float width;
             float height;
         ]],
     },
-    REG_CONV {
+    typeconv {
         CPPCLS = 'cocos2d::Texture2D::TexParams',
         DEF = [[
             GLuint minFilter;
@@ -55,7 +55,7 @@ M.CONVS = {
             GLuint wrapT;
         ]],
     },
-    REG_CONV {
+    typeconv {
         CPPCLS = 'cocos2d::Uniform',
         DEF = [[
             GLint location;
@@ -64,7 +64,7 @@ M.CONVS = {
             std::string name;
         ]],
     },
-    REG_CONV {
+    typeconv {
         CPPCLS = 'cocos2d::VertexAttrib',
         DEF = [[
             GLuint index;
@@ -73,7 +73,7 @@ M.CONVS = {
             std::string name;
         ]]
     },
-    REG_CONV {
+    typeconv {
         CPPCLS = 'cocos2d::experimental::Viewport',
         DEF = [[
             float _left;
@@ -82,7 +82,7 @@ M.CONVS = {
             float _height;
         ]],
     },
-    REG_CONV {
+    typeconv {
         CPPCLS = 'cocos2d::Quaternion',
         DEF = [[
             float x;
@@ -91,7 +91,7 @@ M.CONVS = {
             float w;
         ]],
     },
-    REG_CONV {
+    typeconv {
         CPPCLS = 'cocos2d::AffineTransform',
         DEF = [[
             float a;
@@ -102,7 +102,7 @@ M.CONVS = {
             float ty;
         ]],
     },
-    REG_CONV {
+    typeconv {
         CPPCLS = 'GLContextAttrs',
         DEF = [[
             int redBits;
@@ -114,14 +114,14 @@ M.CONVS = {
             int multisamplingCount;
         ]],
     },
-    REG_CONV {
+    typeconv {
         CPPCLS = 'cocos2d::Tex2F',
         DEF = [[
             GLfloat u;
             GLfloat v;
         ]],
     },
-    REG_CONV {
+    typeconv {
         CPPCLS = 'cocos2d::T2F_Quad',
         DEF = [[
             cocos2d::Tex2F bl;
@@ -131,7 +131,7 @@ M.CONVS = {
         ]],
         FUNC = 'push|check|is',
     },
-    REG_CONV {
+    typeconv {
         CPPCLS = 'cocos2d::TTFConfig',
         DEF = [[
             std::string fontFilePath;
@@ -147,14 +147,14 @@ M.CONVS = {
         ]],
         FUNC = 'push|check|is'
     },
-    REG_CONV {
+    typeconv {
         CPPCLS = 'cocos2d::BlendFunc',
         DEF = [[
             GLenum src;
             GLenum dst;
         ]]
     },
-    REG_CONV {
+    typeconv {
         CPPCLS = 'cocos2d::ui::Margin',
         DEF = [[
             float left;
@@ -163,7 +163,7 @@ M.CONVS = {
             float bottom;
         ]]
     },
-    REG_CONV {
+    typeconv {
         CPPCLS = 'cocos2d::ResourceData',
         DEF = [[
             int         type;
@@ -171,7 +171,7 @@ M.CONVS = {
             std::string plist;
         ]]
     },
-    REG_CONV {
+    typeconv {
         CPPCLS = 'cocos2d::Quad3',
         DEF = [[
             cocos2d::Vec3 bl;

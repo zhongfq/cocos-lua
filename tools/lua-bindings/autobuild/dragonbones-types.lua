@@ -1,177 +1,177 @@
-REG_TYPE {
-    TYPENAME = 'dragonBones::ActionType',
+typedef {
+    CPPCLS = 'dragonBones::ActionType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     VALUE_TYPE = true,
     LUACLS = 'db.ActionType',
 }
 
-REG_TYPE {
-    TYPENAME = 'dragonBones::AnimationFadeOutMode',
+typedef {
+    CPPCLS = 'dragonBones::AnimationFadeOutMode',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     VALUE_TYPE = true,
     LUACLS = 'db.AnimationFadeOutMode',
 }
 
-REG_TYPE {
-    TYPENAME = 'dragonBones::ArmatureType',
+typedef {
+    CPPCLS = 'dragonBones::ArmatureType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     VALUE_TYPE = true,
     LUACLS = 'db.ArmatureType',
 }
 
-REG_TYPE {
-    TYPENAME = 'dragonBones::DisplayType',
+typedef {
+    CPPCLS = 'dragonBones::DisplayType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     VALUE_TYPE = true,
     LUACLS = 'db.DisplayType',
 }
 
-REG_TYPE {
-    TYPENAME = 'dragonBones::OffsetMode',
+typedef {
+    CPPCLS = 'dragonBones::OffsetMode',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     VALUE_TYPE = true,
     LUACLS = 'db.OffsetMode',
 }
 
-REG_TYPE {
-    TYPENAME = 'dragonBones::ActionData *',
+typedef {
+    CPPCLS = 'dragonBones::ActionData *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'db.ActionData',
 }
 
-REG_TYPE {
-    TYPENAME = 'dragonBones::Animation *',
+typedef {
+    CPPCLS = 'dragonBones::Animation *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'db.Animation',
 }
 
-REG_TYPE {
-    TYPENAME = 'dragonBones::AnimationConfig *',
+typedef {
+    CPPCLS = 'dragonBones::AnimationConfig *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'db.AnimationConfig',
 }
 
-REG_TYPE {
-    TYPENAME = 'dragonBones::AnimationData *',
+typedef {
+    CPPCLS = 'dragonBones::AnimationData *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'db.AnimationData',
 }
 
-REG_TYPE {
-    TYPENAME = 'dragonBones::AnimationState *',
+typedef {
+    CPPCLS = 'dragonBones::AnimationState *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'db.AnimationState',
 }
 
-REG_TYPE {
-    TYPENAME = 'dragonBones::Armature *',
+typedef {
+    CPPCLS = 'dragonBones::Armature *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'db.Armature',
 }
 
-REG_TYPE {
-    TYPENAME = 'dragonBones::ArmatureData *',
+typedef {
+    CPPCLS = 'dragonBones::ArmatureData *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'db.ArmatureData',
 }
 
-REG_TYPE {
-    TYPENAME = 'dragonBones::BaseFactory *',
+typedef {
+    CPPCLS = 'dragonBones::BaseFactory *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'db.BaseFactory',
 }
 
-REG_TYPE {
-    TYPENAME = 'dragonBones::BaseObject *',
+typedef {
+    CPPCLS = 'dragonBones::BaseObject *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'db.BaseObject',
 }
 
-REG_TYPE {
-    TYPENAME = 'dragonBones::Bone *',
+typedef {
+    CPPCLS = 'dragonBones::Bone *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'db.Bone',
 }
 
-REG_TYPE {
-    TYPENAME = 'dragonBones::BoneData *',
+typedef {
+    CPPCLS = 'dragonBones::BoneData *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'db.BoneData',
 }
 
-REG_TYPE {
-    TYPENAME = 'dragonBones::CCArmatureDisplay *',
+typedef {
+    CPPCLS = 'dragonBones::CCArmatureDisplay *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'db.ArmatureDisplay',
 }
 
-REG_TYPE {
-    TYPENAME = 'dragonBones::CCFactory *',
+typedef {
+    CPPCLS = 'dragonBones::CCFactory *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'db.Factory',
 }
 
-REG_TYPE {
-    TYPENAME = 'dragonBones::DisplayData *',
+typedef {
+    CPPCLS = 'dragonBones::DisplayData *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'db.DisplayData',
 }
 
-REG_TYPE {
-    TYPENAME = 'dragonBones::DragonBonesData *',
+typedef {
+    CPPCLS = 'dragonBones::DragonBonesData *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'db.DragonBonesData',
 }
 
-REG_TYPE {
-    TYPENAME = 'dragonBones::EventObject *',
+typedef {
+    CPPCLS = 'dragonBones::EventObject *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'db.EventObject',
 }
 
-REG_TYPE {
-    TYPENAME = 'dragonBones::Point *',
+typedef {
+    CPPCLS = 'dragonBones::Point *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'db.Point',
 }
 
-REG_TYPE {
-    TYPENAME = 'dragonBones::SkinData *',
+typedef {
+    CPPCLS = 'dragonBones::SkinData *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'db.SkinData',
 }
 
-REG_TYPE {
-    TYPENAME = 'dragonBones::Slot *',
+typedef {
+    CPPCLS = 'dragonBones::Slot *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'db.Slot',
 }
 
-REG_TYPE {
-    TYPENAME = 'dragonBones::SlotData *',
+typedef {
+    CPPCLS = 'dragonBones::SlotData *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'db.SlotData',
 }
 
-REG_TYPE {
-    TYPENAME = 'dragonBones::TextureAtlasData *',
+typedef {
+    CPPCLS = 'dragonBones::TextureAtlasData *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'db.TextureAtlasData',
 }
 
-REG_TYPE {
-    TYPENAME = 'dragonBones::TextureData *',
+typedef {
+    CPPCLS = 'dragonBones::TextureData *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'db.TextureData',
 }
 
-REG_TYPE {
-    TYPENAME = 'dragonBones::TransformObject *',
+typedef {
+    CPPCLS = 'dragonBones::TransformObject *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'db.TransformObject',
 }

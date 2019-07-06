@@ -248,11 +248,11 @@ function parse_args(cls, args_str)
                 args_str = string.gsub(args_str, '^[^)]*%),? *', '')
                 local deft = string.match(default, '[^(]+')
                 local defti = get_typeinfo(deft, cls, true) or get_typeinfo(deft .. ' *', cls)
-                default = string.gsub(defti.TYPENAME, ' *%**', '') .. string.match(default, '(%([^()]*%))')
+                default = string.gsub(defti.CPPCLS, ' *%**', '') .. string.match(default, '(%([^()]*%))')
             elseif string.find(default, '::') then
                 local deft, def = string.match(default, '(.*)::([^:]+)$')
                 local defti = get_typeinfo(deft, cls, true) or  get_typeinfo(deft .. ' *', cls)
-                default = string.gsub(defti.TYPENAME, ' *%**', '') .. '::' .. def
+                default = string.gsub(defti.CPPCLS, ' *%**', '') .. '::' .. def
             end
         end
 
@@ -280,7 +280,7 @@ function parse_args(cls, args_str)
         end
 
         if attr.PACK then
-            max_args = max_args + assert(args[#args].TYPE.VARS, args[#args].TYPE.TYPENAME)
+            max_args = max_args + assert(args[#args].TYPE.VARS, args[#args].TYPE.CPPCLS)
         else
             max_args = max_args + 1
         end
@@ -328,7 +328,7 @@ local function parse_func(cls, name, ...)
                 }
             else
                 fi.RET.TYPE = get_typeinfo(typename, cls)
-                fi.RET.NUM = fi.RET.TYPE.TYPENAME == "void" and 0 or 1
+                fi.RET.NUM = fi.RET.TYPE.CPPCLS == "void" and 0 or 1
                 fi.RET.DECL_TYPE = to_decl_type(cls, typename, false, true)
                 fi.RET.ATTR = attr
             end
@@ -336,11 +336,11 @@ local function parse_func(cls, name, ...)
 
             do
                 local ARGS_DECL = {}
-                local RET_DECL = fi.RET.SUBTYPE and fi.RET.DECL_TYPE or fi.RET.TYPE.TYPENAME
+                local RET_DECL = fi.RET.SUBTYPE and fi.RET.DECL_TYPE or fi.RET.TYPE.CPPCLS
                 local CPPFUNC = fi.CPPFUNC
                 local STATIC = fi.STATIC and "static " or ""
                 for _, v in ipairs(fi.ARGS) do
-                    ARGS_DECL[#ARGS_DECL + 1] = (v.TYPE.SUBTYPE or next(v.CALLBACK)) and v.DECL_TYPE or v.TYPE.TYPENAME
+                    ARGS_DECL[#ARGS_DECL + 1] = (v.TYPE.SUBTYPE or next(v.CALLBACK)) and v.DECL_TYPE or v.TYPE.CPPCLS
                 end
                 ARGS_DECL = table.concat(ARGS_DECL, ", ")
 
@@ -369,7 +369,7 @@ local function parse_func(cls, name, ...)
                     end
                 end
                 assert(packarg, func_decl)
-                if packarg.TYPE.TYPENAME == fi.RET.TYPE.TYPENAME then
+                if packarg.TYPE.CPPCLS == fi.RET.TYPE.CPPCLS then
                     fi2.RET.ATTR.UNPACK = fi.RET.ATTR.UNPACK or false
                     fi.RET.ATTR.UNPACK = true
                 end
@@ -747,11 +747,11 @@ function stringfy(value)
     end
 end
 
-function REG_TYPE(typeinfo)
-    for n in string.gmatch(typeinfo.TYPENAME, '[^\n\r]+') do
+function typedef(typeinfo)
+    for n in string.gmatch(typeinfo.CPPCLS, '[^\n\r]+') do
         local typename = to_pretty_typename(n)
         local info = setmetatable({}, {__index = typeinfo})
-        info.TYPENAME = typename
+        info.CPPCLS = typename
         info.DECL_TYPE = info.DECL_TYPE or typename
         typeinfo_map[typename] = info
         typeinfo_map['const ' .. typename] = info
@@ -795,7 +795,7 @@ function REG_TYPE(typeinfo)
     end
 end
 
-function REG_CONV(ci)
+function typeconv(ci)
     local func = ci.FUNC or "push|check|pack|unpack|opt|is"
     ci.PROPS = {}
     for line in string.gmatch(assert(ci.DEF, 'no DEF'), '[^\n\r]+') do

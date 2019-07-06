@@ -1,417 +1,417 @@
-REG_TYPE {
+typedef {
     CONV_FUNC = 'manual_luacv_$$_spine_String',
     INIT_VALUE = false,
-    TYPENAME = 'spine::String',
+    CPPCLS = 'spine::String',
 }
 
-REG_TYPE {
+typedef {
     CONV_FUNC = 'manual_luacv_$$_spine_EventData',
     INIT_VALUE = false,
-    TYPENAME = 'spine::EventData',
+    CPPCLS = 'spine::EventData',
 }
 
-REG_TYPE {
+typedef {
     CONV_FUNC = 'manual_luacv_$$_spine_Color',
     INIT_VALUE = false,
-    TYPENAME = 'spine::Color',
+    CPPCLS = 'spine::Color',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::AttachmentType',
+typedef {
+    CPPCLS = 'spine::AttachmentType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     VALUE_TYPE = true,
     LUACLS = 'sp.AttachmentType',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::BlendMode',
+typedef {
+    CPPCLS = 'spine::BlendMode',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     VALUE_TYPE = true,
     LUACLS = 'sp.BlendMode',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::EventType',
+typedef {
+    CPPCLS = 'spine::EventType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     VALUE_TYPE = true,
     LUACLS = 'sp.EventType',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::MixBlend',
+typedef {
+    CPPCLS = 'spine::MixBlend',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     VALUE_TYPE = true,
     LUACLS = 'sp.MixBlend',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::PositionMode',
+typedef {
+    CPPCLS = 'spine::PositionMode',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     VALUE_TYPE = true,
     LUACLS = 'sp.PositionMode',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::RotateMode',
+typedef {
+    CPPCLS = 'spine::RotateMode',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     VALUE_TYPE = true,
     LUACLS = 'sp.RotateMode',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::SpacingMode',
+typedef {
+    CPPCLS = 'spine::SpacingMode',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     VALUE_TYPE = true,
     LUACLS = 'sp.SpacingMode',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::TransformMode',
+typedef {
+    CPPCLS = 'spine::TransformMode',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     VALUE_TYPE = true,
     LUACLS = 'sp.TransformMode',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::Animation *',
+typedef {
+    CPPCLS = 'spine::Animation *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.Animation',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::AnimationState *',
+typedef {
+    CPPCLS = 'spine::AnimationState *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.AnimationState',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::AnimationStateData *',
+typedef {
+    CPPCLS = 'spine::AnimationStateData *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.AnimationStateData',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::Atlas *',
+typedef {
+    CPPCLS = 'spine::Atlas *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.Atlas',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::Attachment *',
+typedef {
+    CPPCLS = 'spine::Attachment *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.Attachment',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::AttachmentTimeline *',
+typedef {
+    CPPCLS = 'spine::AttachmentTimeline *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.AttachmentTimeline',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::Bone *',
+typedef {
+    CPPCLS = 'spine::Bone *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.Bone',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::BoneData *',
+typedef {
+    CPPCLS = 'spine::BoneData *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.BoneData',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::BoundingBoxAttachment *',
+typedef {
+    CPPCLS = 'spine::BoundingBoxAttachment *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.BoundingBoxAttachment',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::ClippingAttachment *',
+typedef {
+    CPPCLS = 'spine::ClippingAttachment *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.ClippingAttachment',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::ColorTimeline *',
+typedef {
+    CPPCLS = 'spine::ColorTimeline *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.ColorTimeline',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::Constraint *',
+typedef {
+    CPPCLS = 'spine::Constraint *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.Constraint',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::CurveTimeline *',
+typedef {
+    CPPCLS = 'spine::CurveTimeline *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.CurveTimeline',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::DeformTimeline *',
+typedef {
+    CPPCLS = 'spine::DeformTimeline *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.DeformTimeline',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::DrawOrderTimeline *',
+typedef {
+    CPPCLS = 'spine::DrawOrderTimeline *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.DrawOrderTimeline',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::Event *',
+typedef {
+    CPPCLS = 'spine::Event *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.Event',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::EventData *',
+typedef {
+    CPPCLS = 'spine::EventData *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.EventData',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::EventTimeline *',
+typedef {
+    CPPCLS = 'spine::EventTimeline *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.EventTimeline',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::IkConstraint *',
+typedef {
+    CPPCLS = 'spine::IkConstraint *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.IkConstraint',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::IkConstraintData *',
+typedef {
+    CPPCLS = 'spine::IkConstraintData *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.IkConstraintData',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::IkConstraintTimeline *',
+typedef {
+    CPPCLS = 'spine::IkConstraintTimeline *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.IkConstraintTimeline',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::JitterVertexEffect *',
+typedef {
+    CPPCLS = 'spine::JitterVertexEffect *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.JitterVertexEffect',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::MeshAttachment *',
+typedef {
+    CPPCLS = 'spine::MeshAttachment *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.MeshAttachment',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::PathAttachment *',
+typedef {
+    CPPCLS = 'spine::PathAttachment *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.PathAttachment',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::PathConstraint *',
+typedef {
+    CPPCLS = 'spine::PathConstraint *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.PathConstraint',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::PathConstraintData *',
+typedef {
+    CPPCLS = 'spine::PathConstraintData *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.PathConstraintData',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::PathConstraintMixTimeline *',
+typedef {
+    CPPCLS = 'spine::PathConstraintMixTimeline *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.PathConstraintMixTimeline',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::PathConstraintPositionTimeline *',
+typedef {
+    CPPCLS = 'spine::PathConstraintPositionTimeline *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.PathConstraintPositionTimeline',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::PathConstraintSpacingTimeline *',
+typedef {
+    CPPCLS = 'spine::PathConstraintSpacingTimeline *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.PathConstraintSpacingTimeline',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::PointAttachment *',
+typedef {
+    CPPCLS = 'spine::PointAttachment *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.PointAttachment',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::Polygon *',
+typedef {
+    CPPCLS = 'spine::Polygon *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.Polygon',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::RegionAttachment *',
+typedef {
+    CPPCLS = 'spine::RegionAttachment *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.RegionAttachment',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::RotateTimeline *',
+typedef {
+    CPPCLS = 'spine::RotateTimeline *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.RotateTimeline',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::ScaleTimeline *',
+typedef {
+    CPPCLS = 'spine::ScaleTimeline *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.ScaleTimeline',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::ShearTimeline *',
+typedef {
+    CPPCLS = 'spine::ShearTimeline *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.ShearTimeline',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::Skeleton *',
+typedef {
+    CPPCLS = 'spine::Skeleton *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.Skeleton',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::SkeletonAnimation *',
+typedef {
+    CPPCLS = 'spine::SkeletonAnimation *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.SkeletonAnimation',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::SkeletonBounds *',
+typedef {
+    CPPCLS = 'spine::SkeletonBounds *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.SkeletonBounds',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::SkeletonClipping *',
+typedef {
+    CPPCLS = 'spine::SkeletonClipping *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.SkeletonClipping',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::SkeletonData *',
+typedef {
+    CPPCLS = 'spine::SkeletonData *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.SkeletonData',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::SkeletonRenderer *',
+typedef {
+    CPPCLS = 'spine::SkeletonRenderer *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.SkeletonRenderer',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::Skin *',
+typedef {
+    CPPCLS = 'spine::Skin *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.Skin',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::Slot *',
+typedef {
+    CPPCLS = 'spine::Slot *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.Slot',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::SlotData *',
+typedef {
+    CPPCLS = 'spine::SlotData *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.SlotData',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::SpineObject *',
+typedef {
+    CPPCLS = 'spine::SpineObject *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.SpineObject',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::SwirlVertexEffect *',
+typedef {
+    CPPCLS = 'spine::SwirlVertexEffect *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.SwirlVertexEffect',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::Timeline *',
+typedef {
+    CPPCLS = 'spine::Timeline *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.Timeline',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::TrackEntry *',
+typedef {
+    CPPCLS = 'spine::TrackEntry *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.TrackEntry',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::TransformConstraint *',
+typedef {
+    CPPCLS = 'spine::TransformConstraint *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.TransformConstraint',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::TransformConstraintData *',
+typedef {
+    CPPCLS = 'spine::TransformConstraintData *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.TransformConstraintData',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::TransformConstraintTimeline *',
+typedef {
+    CPPCLS = 'spine::TransformConstraintTimeline *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.TransformConstraintTimeline',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::TranslateTimeline *',
+typedef {
+    CPPCLS = 'spine::TranslateTimeline *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.TranslateTimeline',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::TwoColorTimeline *',
+typedef {
+    CPPCLS = 'spine::TwoColorTimeline *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.TwoColorTimeline',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::Updatable *',
+typedef {
+    CPPCLS = 'spine::Updatable *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.Updatable',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::VertexAttachment *',
+typedef {
+    CPPCLS = 'spine::VertexAttachment *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.VertexAttachment',
 }
 
-REG_TYPE {
-    TYPENAME = 'spine::VertexEffect *',
+typedef {
+    CPPCLS = 'spine::VertexEffect *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'sp.VertexEffect',
 }

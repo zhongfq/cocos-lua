@@ -1,455 +1,455 @@
-REG_TYPE {
+typedef {
     CONV_FUNC = 'manual_luacv_$$_fairygui_EventTag',
     INIT_VALUE = false,
-    TYPENAME = 'fairygui::EventTag',
+    CPPCLS = 'fairygui::EventTag',
 }
 
-REG_TYPE {
+typedef {
     CONV_FUNC = 'auto_luacv_$$_fairygui_Margin',
     INIT_VALUE = false,
-    TYPENAME = 'fairygui::Margin',
+    CPPCLS = 'fairygui::Margin',
 }
 
-REG_TYPE {
+typedef {
     CONV_FUNC = 'auto_luacv_$$_fairygui_TweenValue',
     INIT_VALUE = false,
-    TYPENAME = 'fairygui::TweenValue',
+    CPPCLS = 'fairygui::TweenValue',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::AutoSizeType',
+typedef {
+    CPPCLS = 'fairygui::AutoSizeType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     VALUE_TYPE = true,
     LUACLS = 'fui.AutoSizeType',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::ButtonMode',
+typedef {
+    CPPCLS = 'fairygui::ButtonMode',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     VALUE_TYPE = true,
     LUACLS = 'fui.ButtonMode',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::ChildrenRenderOrder',
+typedef {
+    CPPCLS = 'fairygui::ChildrenRenderOrder',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     VALUE_TYPE = true,
     LUACLS = 'fui.ChildrenRenderOrder',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::EaseType',
+typedef {
+    CPPCLS = 'fairygui::EaseType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     VALUE_TYPE = true,
     LUACLS = 'fui.EaseType',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::FillMethod',
+typedef {
+    CPPCLS = 'fairygui::FillMethod',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     VALUE_TYPE = true,
     LUACLS = 'fui.FillMethod',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::FillOrigin',
+typedef {
+    CPPCLS = 'fairygui::FillOrigin',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     VALUE_TYPE = true,
     LUACLS = 'fui.FillOrigin',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::FlipType',
+typedef {
+    CPPCLS = 'fairygui::FlipType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     VALUE_TYPE = true,
     LUACLS = 'fui.FlipType',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::GroupLayoutType',
+typedef {
+    CPPCLS = 'fairygui::GroupLayoutType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     VALUE_TYPE = true,
     LUACLS = 'fui.GroupLayoutType',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::ListLayoutType',
+typedef {
+    CPPCLS = 'fairygui::ListLayoutType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     VALUE_TYPE = true,
     LUACLS = 'fui.ListLayoutType',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::ListSelectionMode',
+typedef {
+    CPPCLS = 'fairygui::ListSelectionMode',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     VALUE_TYPE = true,
     LUACLS = 'fui.ListSelectionMode',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::LoaderFillType',
+typedef {
+    CPPCLS = 'fairygui::LoaderFillType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     VALUE_TYPE = true,
     LUACLS = 'fui.LoaderFillType',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::ObjectType',
+typedef {
+    CPPCLS = 'fairygui::ObjectType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     VALUE_TYPE = true,
     LUACLS = 'fui.ObjectType',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::OverflowType',
+typedef {
+    CPPCLS = 'fairygui::OverflowType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     VALUE_TYPE = true,
     LUACLS = 'fui.OverflowType',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::PackageItemType',
+typedef {
+    CPPCLS = 'fairygui::PackageItemType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     VALUE_TYPE = true,
     LUACLS = 'fui.PackageItemType',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::PopupDirection',
+typedef {
+    CPPCLS = 'fairygui::PopupDirection',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     VALUE_TYPE = true,
     LUACLS = 'fui.PopupDirection',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::ProgressTitleType',
+typedef {
+    CPPCLS = 'fairygui::ProgressTitleType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     VALUE_TYPE = true,
     LUACLS = 'fui.ProgressTitleType',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::RelationType',
+typedef {
+    CPPCLS = 'fairygui::RelationType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     VALUE_TYPE = true,
     LUACLS = 'fui.RelationType',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::ScrollBarDisplayType',
+typedef {
+    CPPCLS = 'fairygui::ScrollBarDisplayType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     VALUE_TYPE = true,
     LUACLS = 'fui.ScrollBarDisplayType',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::ScrollType',
+typedef {
+    CPPCLS = 'fairygui::ScrollType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     VALUE_TYPE = true,
     LUACLS = 'fui.ScrollType',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::TransitionActionType',
+typedef {
+    CPPCLS = 'fairygui::TransitionActionType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     VALUE_TYPE = true,
     LUACLS = 'fui.TransitionActionType',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::TweenPropType',
+typedef {
+    CPPCLS = 'fairygui::TweenPropType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     VALUE_TYPE = true,
     LUACLS = 'fui.TweenPropType',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::DragDropManager *',
+typedef {
+    CPPCLS = 'fairygui::DragDropManager *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.DragDropManager',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::EaseManager *',
+typedef {
+    CPPCLS = 'fairygui::EaseManager *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.EaseManager',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::EventContext *',
+typedef {
+    CPPCLS = 'fairygui::EventContext *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.EventContext',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::GButton *',
+typedef {
+    CPPCLS = 'fairygui::GButton *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.GButton',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::GComboBox *',
+typedef {
+    CPPCLS = 'fairygui::GComboBox *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.GComboBox',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::GComponent *',
+typedef {
+    CPPCLS = 'fairygui::GComponent *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.GComponent',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::GController *',
+typedef {
+    CPPCLS = 'fairygui::GController *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.GController',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::GGraph *',
+typedef {
+    CPPCLS = 'fairygui::GGraph *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.GGraph',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::GGroup *',
+typedef {
+    CPPCLS = 'fairygui::GGroup *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.GGroup',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::GImage *',
+typedef {
+    CPPCLS = 'fairygui::GImage *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.GImage',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::GLabel *',
+typedef {
+    CPPCLS = 'fairygui::GLabel *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.GLabel',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::GList *',
+typedef {
+    CPPCLS = 'fairygui::GList *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.GList',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::GLoader *',
+typedef {
+    CPPCLS = 'fairygui::GLoader *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.GLoader',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::GMovieClip *',
+typedef {
+    CPPCLS = 'fairygui::GMovieClip *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.GMovieClip',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::GObject *',
+typedef {
+    CPPCLS = 'fairygui::GObject *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.GObject',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::GProgressBar *',
+typedef {
+    CPPCLS = 'fairygui::GProgressBar *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.GProgressBar',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::GRichTextField *',
+typedef {
+    CPPCLS = 'fairygui::GRichTextField *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.GRichTextField',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::GRoot *',
+typedef {
+    CPPCLS = 'fairygui::GRoot *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.GRoot',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::GScrollBar *',
+typedef {
+    CPPCLS = 'fairygui::GScrollBar *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.GScrollBar',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::GSlider *',
+typedef {
+    CPPCLS = 'fairygui::GSlider *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.GSlider',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::GTextField *',
+typedef {
+    CPPCLS = 'fairygui::GTextField *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.GTextField',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::GTextInput *',
+typedef {
+    CPPCLS = 'fairygui::GTextInput *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.GTextInput',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::GTween *',
+typedef {
+    CPPCLS = 'fairygui::GTween *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.GTween',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::GTweener *',
+typedef {
+    CPPCLS = 'fairygui::GTweener *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.GTweener',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::GearBase *',
+typedef {
+    CPPCLS = 'fairygui::GearBase *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.GearBase',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::IHitTest *',
+typedef {
+    CPPCLS = 'fairygui::IHitTest *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.IHitTest',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::IUISource *',
+typedef {
+    CPPCLS = 'fairygui::IUISource *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.IUISource',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::InputEvent *',
+typedef {
+    CPPCLS = 'fairygui::InputEvent *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.InputEvent',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::InputProcessor *',
+typedef {
+    CPPCLS = 'fairygui::InputProcessor *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.InputProcessor',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::PackageItem *',
+typedef {
+    CPPCLS = 'fairygui::PackageItem *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.PackageItem',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::PopupMenu *',
+typedef {
+    CPPCLS = 'fairygui::PopupMenu *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.PopupMenu',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::RelationItem *',
+typedef {
+    CPPCLS = 'fairygui::RelationItem *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.RelationItem',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::Relations *',
+typedef {
+    CPPCLS = 'fairygui::Relations *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.Relations',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::ScrollPane *',
+typedef {
+    CPPCLS = 'fairygui::ScrollPane *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.ScrollPane',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::TextFormat *',
+typedef {
+    CPPCLS = 'fairygui::TextFormat *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.TextFormat',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::Transition *',
+typedef {
+    CPPCLS = 'fairygui::Transition *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.Transition',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::TreeNode *',
+typedef {
+    CPPCLS = 'fairygui::TreeNode *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.TreeNode',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::TreeView *',
+typedef {
+    CPPCLS = 'fairygui::TreeView *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.TreeView',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::UIConfig *',
+typedef {
+    CPPCLS = 'fairygui::UIConfig *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.UIConfig',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::UIEventDispatcher *',
+typedef {
+    CPPCLS = 'fairygui::UIEventDispatcher *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.UIEventDispatcher',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::UIEventType *',
+typedef {
+    CPPCLS = 'fairygui::UIEventType *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.UIEventType',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::UIObjectFactory *',
+typedef {
+    CPPCLS = 'fairygui::UIObjectFactory *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.UIObjectFactory',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::UIPackage *',
+typedef {
+    CPPCLS = 'fairygui::UIPackage *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.UIPackage',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::UISource *',
+typedef {
+    CPPCLS = 'fairygui::UISource *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.UISource',
 }
 
-REG_TYPE {
-    TYPENAME = 'fairygui::Window *',
+typedef {
+    CPPCLS = 'fairygui::Window *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'fui.Window',
 }

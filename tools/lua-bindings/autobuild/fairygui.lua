@@ -32,7 +32,7 @@ void manual_luacv_check_fairygui_EventTag(lua_State *L, int idx, fairygui::Event
 }]]
 
 M.CONVS = {
-    REG_CONV {
+    typeconv {
         CPPCLS = 'fairygui::Margin',
         DEF = [[
             float left;
@@ -41,7 +41,7 @@ M.CONVS = {
             float bottom;
         ]]
     },
-    REG_CONV {
+    typeconv {
         CPPCLS = 'fairygui::TweenValue',
         DEF = [[
             float x = 0;

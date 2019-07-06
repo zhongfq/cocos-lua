@@ -97,19 +97,19 @@ int manual_luacv_push_spine_EventData(lua_State *L, const spine::EventData *valu
 }]]
 
 typedef {
-    TYPENAME = 'spine::String',
+    CPPCLS = 'spine::String',
     CONV_FUNC = 'manual_luacv_$$_spine_String',
     INIT_VALUE = false,
 }
 
 typedef {
-    TYPENAME = 'spine::EventData',
+    CPPCLS = 'spine::EventData',
     CONV_FUNC = 'manual_luacv_$$_spine_EventData',
     INIT_VALUE = false,
 }
 
 typedef {
-    TYPENAME = 'spine::Color',
+    CPPCLS = 'spine::Color',
     CONV_FUNC = 'manual_luacv_$$_spine_Color',
     INIT_VALUE = false,
 }

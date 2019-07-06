@@ -64,19 +64,19 @@ M.MAKE_LUACLS = function (cppname)
 end
 
 typedef {
-    TYPENAME = 'fairygui::EventTag',
+    CPPCLS = 'fairygui::EventTag',
     CONV_FUNC = 'manual_luacv_$$_fairygui_EventTag',
     INIT_VALUE = false,
 }
 
 typedef {
-    TYPENAME = 'fairygui::Margin',
+    CPPCLS = 'fairygui::Margin',
     CONV_FUNC = 'auto_luacv_$$_fairygui_Margin',
     INIT_VALUE = false,
 }
 
 typedef {
-    TYPENAME = 'fairygui::TweenValue',
+    CPPCLS = 'fairygui::TweenValue',
     CONV_FUNC = 'auto_luacv_$$_fairygui_TweenValue',
     INIT_VALUE = false,
 }

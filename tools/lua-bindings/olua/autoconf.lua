@@ -107,7 +107,7 @@ function M:writeHeader()
             local CPPCLS = v.CPPCLS
             local DEF = v.DEF
             self:writeLine(format([=[
-                REG_CONV {
+                typeconv {
                     CPPCLS = '${CPPCLS}',
                     DEF = [[
                         ${DEF}
@@ -134,7 +134,7 @@ function M:writeTypedef()
             arr[#arr + 1] = {k, v}
         end
         table.sort(arr, function (a, b) return a[1] < b[1] end)
-        writeLine("REG_TYPE {")
+        writeLine("typedef {")
         for _, p in ipairs(arr) do
             if type(p[2]) == 'string' then
                 writeLine("    %s = '%s',", p[1], p[2])
@@ -155,11 +155,11 @@ function M:writeTypedef()
     table.sort(classes)
     table.sort(enums)
     for _, v in ipairs(enums) do
-        local TYPENAME = v
+        local CPPCLS = v
         local LUACLS = self.module.MAKE_LUACLS(v)
         file:write(format([[
-            REG_TYPE {
-                TYPENAME = '${TYPENAME}',
+            typedef {
+                CPPCLS = '${CPPCLS}',
                 DECL_TYPE = 'lua_Unsigned',
                 CONV_FUNC = 'olua_$$_uint',
                 VALUE_TYPE = true,
@@ -169,11 +169,11 @@ function M:writeTypedef()
         file:write('\n\n')
     end
     for _, v in ipairs(classes) do
-        local TYPENAME = v
+        local CPPCLS = v
         local LUACLS = self.module.MAKE_LUACLS(v)
         file:write(format([[
-            REG_TYPE {
-                TYPENAME = '${TYPENAME} *',
+            typedef {
+                CPPCLS = '${CPPCLS} *',
                 CONV_FUNC = 'olua_$$_cppobj',
                 LUACLS = '${LUACLS}',
             }

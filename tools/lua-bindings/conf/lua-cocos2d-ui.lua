@@ -36,7 +36,7 @@ M.INCLUDES = [[
 M.CHUNK = [[]]
 
 typedef {
-    TYPENAME = 'cocos2d::ui::Margin',
+    CPPCLS = 'cocos2d::ui::Margin',
     CONV_FUNC = 'auto_luacv_$$_cocos2d_ui_Margin',
     INIT_VALUE = false,
 }

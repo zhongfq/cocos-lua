@@ -1,41 +1,41 @@
-REG_TYPE {
-    TYPENAME = 'xgame::SceneNoCamera *',
+typedef {
+    CPPCLS = 'xgame::SceneNoCamera *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'kernel.SceneNoCamera',
 }
 
-REG_TYPE {
-    TYPENAME = 'xgame::downloader *',
+typedef {
+    CPPCLS = 'xgame::downloader *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'kernel.downloader',
 }
 
-REG_TYPE {
-    TYPENAME = 'xgame::filesystem *',
+typedef {
+    CPPCLS = 'xgame::filesystem *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'kernel.filesystem',
 }
 
-REG_TYPE {
-    TYPENAME = 'xgame::preferences *',
+typedef {
+    CPPCLS = 'xgame::preferences *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'kernel.preferences',
 }
 
-REG_TYPE {
-    TYPENAME = 'xgame::runtime *',
+typedef {
+    CPPCLS = 'xgame::runtime *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'kernel.runtime',
 }
 
-REG_TYPE {
-    TYPENAME = 'xgame::timer *',
+typedef {
+    CPPCLS = 'xgame::timer *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'kernel.timer',
 }
 
-REG_TYPE {
-    TYPENAME = 'xgame::window *',
+typedef {
+    CPPCLS = 'xgame::window *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'kernel.window',
 }

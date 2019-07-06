@@ -63,10 +63,6 @@ local function lookup(level, key)
     end
 end
 
-function trimlastlf(expr)
-    return string.gsub(expr, '[ \n]*$', '')
-end
-
 function format(expr, indent)
     expr = string.gsub(expr, '[\n\r]', '\n')
     expr = string.gsub(expr, '^[\n]*', '') -- trim head '\n'

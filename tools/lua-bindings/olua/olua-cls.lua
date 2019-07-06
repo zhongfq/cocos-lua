@@ -717,23 +717,6 @@ function class(collection)
     return cls
 end
 
-function include(file)
-    local value = dofile(file)
-    assert(type(value) == "table", file)
-    return value
-end
-
-function merge(t, file)
-    local ret = include(file)
-    if #ret > 0 then
-        for _, v in ipairs(include(file)) do
-            t[#t + 1] = v
-        end
-    else
-        t[#t + 1] = ret
-    end
-end
-
 function class_path(cls)
     local classname = cls.RAWCPPCLS or cls.CPPCLS
     return string.gsub(classname, '[.:]+', '_')

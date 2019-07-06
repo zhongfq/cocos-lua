@@ -1,5 +1,5 @@
 local function gen_include(module, write)
-    local INCLUDES = trimlastlf(module.INCLUDES)
+    local INCLUDES = module.INCLUDES
     local CHUNK= module.CHUNK
     write(format([[
         //

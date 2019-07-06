@@ -14,6 +14,7 @@
 
 
 
+
 static int luaopen_cocos2d_ui_Widget_FocusDirection(lua_State *L)
 {
     oluacls_class(L, "ccui.Widget.FocusDirection", nullptr);

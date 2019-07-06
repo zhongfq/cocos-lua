@@ -15,6 +15,7 @@
 
 
 
+
 static int _xgame_SceneNoCamera_create(lua_State *L)
 {
     lua_settop(L, 0);

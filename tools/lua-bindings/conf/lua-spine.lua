@@ -16,8 +16,8 @@ M.PARSER = {
 }
 
 M.NAMESPACES = {"spine"}
-M.HEADER_PATH = "frameworks/libxgame/src/lua-bindings/lua_spine.h"
-M.SOURCE_PATH = "frameworks/libxgame/src/lua-bindings/lua_spine.cpp"
+M.HEADER_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_spine.h"
+M.SOURCE_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_spine.cpp"
 M.INCLUDES = [[
 #include "lua-bindings/lua_cocos2d_ui.h"
 #include "lua-bindings/lua_conv.h"

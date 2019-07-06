@@ -16,8 +16,8 @@ M.PARSER = {
 }
 
 M.NAMESPACES = {"dragonBones"}
-M.HEADER_PATH = "frameworks/libxgame/src/lua-bindings/lua_dragonbones.h"
-M.SOURCE_PATH = "frameworks/libxgame/src/lua-bindings/lua_dragonbones.cpp"
+M.HEADER_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_dragonbones.h"
+M.SOURCE_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_dragonbones.cpp"
 M.INCLUDES = [[
 #include "lua-bindings/lua_dragonbones.h"
 #include "lua-bindings/lua_conv.h"

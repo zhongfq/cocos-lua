@@ -18,8 +18,8 @@ M.PARSER = {
 }
 
 M.NAMESPACES = {"fairygui"}
-M.HEADER_PATH = "frameworks/libxgame/src/lua-bindings/lua_fairygui.h"
-M.SOURCE_PATH = "frameworks/libxgame/src/lua-bindings/lua_fairygui.cpp"
+M.HEADER_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_fairygui.h"
+M.SOURCE_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_fairygui.cpp"
 
 M.INCLUDES = [[
 #include "lua-bindings/lua_fairygui.h"

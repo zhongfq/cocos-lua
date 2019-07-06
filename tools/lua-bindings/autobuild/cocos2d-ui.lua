@@ -3,8 +3,8 @@ require "autobuild.cocos2d-ui-types"
 local cls
 local M = {}
 M.NAME = "cocos2d_ui"
-M.HEADER_PATH = "frameworks/libxgame/src/lua-bindings/lua_cocos2d_ui.h"
-M.SOURCE_PATH = "frameworks/libxgame/src/lua-bindings/lua_cocos2d_ui.cpp"
+M.HEADER_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_cocos2d_ui.h"
+M.SOURCE_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_cocos2d_ui.cpp"
 M.INCLUDES = [[
 #include "lua-bindings/lua_cocos2d_ui.h"
 #include "lua-bindings/lua_conv.h"

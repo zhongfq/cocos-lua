@@ -1,19 +1,19 @@
 typedef {
     CONV_FUNC = 'manual_luacv_$$_fairygui_EventTag',
-    INIT_VALUE = false,
     CPPCLS = 'fairygui::EventTag',
+    INIT_VALUE = false,
 }
 
 typedef {
     CONV_FUNC = 'auto_luacv_$$_fairygui_Margin',
-    INIT_VALUE = false,
     CPPCLS = 'fairygui::Margin',
+    INIT_VALUE = false,
 }
 
 typedef {
     CONV_FUNC = 'auto_luacv_$$_fairygui_TweenValue',
-    INIT_VALUE = false,
     CPPCLS = 'fairygui::TweenValue',
+    INIT_VALUE = false,
 }
 
 typedef {

@@ -1,8 +1,8 @@
 local M = {}
 
 M.NAME = "CONV"
-M.HEADER_PATH = "frameworks/libxgame/src/lua-bindings/lua_conv.h"
-M.SOURCE_PATH = "frameworks/libxgame/src/lua-bindings/lua_conv.cpp"
+M.HEADER_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_conv.h"
+M.SOURCE_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_conv.cpp"
 
 M.HEADER_INCLUDES = [[
 #include "xgame/xlua.h"

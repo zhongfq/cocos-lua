@@ -1,7 +1,7 @@
 typedef {
     CONV_FUNC = 'auto_luacv_$$_cocos2d_ui_Margin',
-    INIT_VALUE = false,
     CPPCLS = 'cocos2d::ui::Margin',
+    INIT_VALUE = false,
 }
 
 typedef {

@@ -3,8 +3,8 @@ require "autobuild.xgame-types"
 local cls
 local M = {}
 M.NAME = "xgame"
-M.HEADER_PATH = "frameworks/libxgame/src/lua-bindings/lua_xgame.h"
-M.SOURCE_PATH = "frameworks/libxgame/src/lua-bindings/lua_xgame.cpp"
+M.HEADER_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_xgame.h"
+M.SOURCE_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_xgame.cpp"
 M.INCLUDES = [[
 #include "lua-bindings/lua_xgame.h"
 #include "lua-bindings/lua_conv.h"

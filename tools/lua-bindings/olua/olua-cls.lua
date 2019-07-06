@@ -718,8 +718,7 @@ function class(collection)
 end
 
 function class_path(cls)
-    local classname = cls.RAWCPPCLS or cls.CPPCLS
-    return string.gsub(classname, '[.:]+', '_')
+    return string.gsub(cls.CPPCLS, '[.:]+', '_')
 end
 
 function stringfy(value)

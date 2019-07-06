@@ -1,4 +1,4 @@
-require "olua.olua-aux"
+require "olua"
 require "olua.autoconf"
 require "olua.typemod"
 

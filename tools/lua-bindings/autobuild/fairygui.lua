@@ -3,8 +3,8 @@ require "autobuild.fairygui-types"
 local cls
 local M = {}
 M.NAME = "fairygui"
-M.HEADER_PATH = "frameworks/libxgame/src/lua-bindings/lua_fairygui.h"
-M.SOURCE_PATH = "frameworks/libxgame/src/lua-bindings/lua_fairygui.cpp"
+M.HEADER_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_fairygui.h"
+M.SOURCE_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_fairygui.cpp"
 M.INCLUDES = [[
 #include "lua-bindings/lua_fairygui.h"
 #include "lua-bindings/lua_conv.h"

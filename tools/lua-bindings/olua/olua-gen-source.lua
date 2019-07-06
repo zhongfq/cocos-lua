@@ -94,5 +94,5 @@ function gen_source(module)
     gen_include(module, append)
     gen_classes(module, append)
     gen_luaopen(module, append)
-    write(PROJECT_ROOT .. module.SOURCE_PATH, table.concat(arr, "\n"))
+    write(module.SOURCE_PATH, table.concat(arr, "\n"))
 end

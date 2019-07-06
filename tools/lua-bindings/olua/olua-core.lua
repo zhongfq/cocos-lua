@@ -1,13 +1,4 @@
-local OS = io.popen('uname'):read("*l")
-OS = (OS == 'Darwin') and 'osx' or (OS == 'Linux' and 'linux' or 'win32')
 
-if OS == 'osx' then
-    package.cpath = "../usr/osx/lib/lua/?.so;" .. package.cpath
-elseif OS == 'linux' then
-    package.cpath = "../usr/linux/lib/lua/?.so;" .. package.cpath
-else
-    error('TODO')
-end
 
 function write(path, content)
     local file = io.open(path, 'r')
@@ -22,19 +13,14 @@ function write(path, content)
 
     print("write:", path)
 
-    local file = io.open(path, "w")
+    file = io.open(path, "w")
     assert(file, path)
     file:write(content)
     file:flush()
     file:close()
 end
 
-function exist(path)
-    local f = io.open(path, 'r')
-    if f then
-        f:close()
-    end
-    return f ~= nil
+function avoid()
 end
 
 local function lookup(level, key)

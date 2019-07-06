@@ -344,7 +344,7 @@ local function parse_func(cls, name, ...)
                 end
                 ARGS_DECL = table.concat(ARGS_DECL, ", ")
 
-                fi.PROTOTYPE = format_snippet([[
+                fi.PROTOTYPE = format([[
                     ${STATIC}${RET_DECL} ${CPPFUNC}(${ARGS_DECL})
                 ]])
                 cls.PROTOTYPES[fi.PROTOTYPE] = true
@@ -508,16 +508,16 @@ function class(collection)
             local CALLBACK_AFTERS = {}
             for _, v in ipairs({...}) do
                 if v.BEFORE then
-                    BEFORES[#BEFORES + 1] = format_snippet(v.BEFORE)
+                    BEFORES[#BEFORES + 1] = format(v.BEFORE)
                 end
                 if v.AFTER then
-                    AFTERS[#AFTERS + 1] = format_snippet(v.AFTER)
+                    AFTERS[#AFTERS + 1] = format(v.AFTER)
                 end
                 if v.CALLBACK_BEFORE then
-                    CALLBACK_BEFORES[#CALLBACK_BEFORES + 1] = format_snippet(v.CALLBACK_BEFORE)
+                    CALLBACK_BEFORES[#CALLBACK_BEFORES + 1] = format(v.CALLBACK_BEFORE)
                 end
                 if v.CALLBACK_AFTER then
-                    CALLBACK_AFTERS[#CALLBACK_AFTERS + 1] = format_snippet(v.CALLBACK_AFTER)
+                    CALLBACK_AFTERS[#CALLBACK_AFTERS + 1] = format(v.CALLBACK_AFTER)
                 end
             end
             return {
@@ -844,7 +844,7 @@ end
 function newcppobj(cls)
     local CPPCLS = cls.CPPCLS
     local LUACLS = cls.LUACLS
-    local new = format_snippet([[
+    local new = format([[
         {
             ${CPPCLS} *obj = new ${CPPCLS}();
             olua_push_cppobj<${CPPCLS}>(L, obj, "${LUACLS}");
@@ -860,7 +860,7 @@ end
 function gccppobj(cls)
     local CPPCLS = cls.CPPCLS
     local LUACLS = cls.LUACLS
-    local gc = format_snippet([[
+    local gc = format([[
         {
             if (olua_isa(L, 1, "${LUACLS}")) {
                 lua_pushstring(L, ".ownership");

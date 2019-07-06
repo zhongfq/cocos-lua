@@ -34,13 +34,13 @@ local function gen_remove_callback(cls, fi, write)
         CALLBACK_STORE_OBJ = 'self'
         if fi.STATIC then
             local LUACLS = cls.LUACLS
-            CALLBACK_STORE_OBJ = format_snippet('olua_getstoreobj(L, "${LUACLS}")')
+            CALLBACK_STORE_OBJ = format('olua_getstoreobj(L, "${LUACLS}")')
         end
     else
         CALLBACK_STORE_OBJ = 'arg' .. TAG_STORE
     end
 
-    local block = format_snippet([[
+    local block = format([[
         std::string tag = ${TAG_MAKER};
         void *callback_store_obj = (void *)${CALLBACK_STORE_OBJ};
         olua_removecallback(L, callback_store_obj, tag.c_str(), ${TAG_MODE});
@@ -60,7 +60,7 @@ function gen_ret_callback(cls, fi, write)
         CALLBACK_STORE_OBJ = 'arg' .. TAG_STORE
     end
 
-    local block = format_snippet([[
+    local block = format([[
         void *callback_store_obj = (void *)${CALLBACK_STORE_OBJ};
         std::string tag = ${TAG_MAKER};
         olua_getcallback(L, callback_store_obj, tag.c_str(), ${TAG_MODE});
@@ -117,7 +117,7 @@ function gen_callback(cls, fi, write)
     for _, v in ipairs(ai.CALLBACK.ARGS) do
         if v.ATTR.STACK then
             PUSH_ARGS[#PUSH_ARGS + 1] = "size_t last = olua_push_objpool(L);"
-            POP_STACKPOOL = format_snippet([[
+            POP_STACKPOOL = format([[
                 //pop stack value
                 olua_pop_objpool(L, last);
             ]])
@@ -143,17 +143,17 @@ function gen_callback(cls, fi, write)
             local LUACLS = v.TYPE.LUACLS
             if PUSH_FUNC == "olua_push_cppobj" then
                 local TYPENAME = string.gsub(v.TYPE.TYPENAME, '[ *]*$', '')
-                PUSH_ARGS[#PUSH_ARGS + 1] = format_snippet([[
+                PUSH_ARGS[#PUSH_ARGS + 1] = format([[
                     ${PUSH_FUNC}<${TYPENAME}>(L, ${ARG_N}, "${LUACLS}");
                 ]])
             else
-                PUSH_ARGS[#PUSH_ARGS + 1] = format_snippet([[
+                PUSH_ARGS[#PUSH_ARGS + 1] = format([[
                     ${PUSH_FUNC}(L, ${ARG_N}, "${LUACLS}");
                 ]])
             end
         elseif v.TYPE.SUBTYPE then
             local SUBTYPE = assert(v.TYPE.SUBTYPE.LUACLS, v.TYPE.DECL_TYPE)
-            PUSH_ARGS[#PUSH_ARGS + 1] = format_snippet([[
+            PUSH_ARGS[#PUSH_ARGS + 1] = format([[
                 ${PUSH_FUNC}(L, ${ARG_N}, "${SUBTYPE}");
             ]])
         else
@@ -162,14 +162,14 @@ function gen_callback(cls, fi, write)
                 assert(not string.find(PUSH_FUNC, '^auto_luacv'))
                 CAST = string.format("(%s)", v.TYPE.DECL_TYPE)
             end
-            PUSH_ARGS[#PUSH_ARGS + 1] = format_snippet([[
+            PUSH_ARGS[#PUSH_ARGS + 1] = format([[
                 ${PUSH_FUNC}(L, ${CAST}${ARG_N});
             ]])
         end
 
         local DECL_TYPE = v.FUNC_ARG_DECL_TYPE
         local SPACE = string.find(DECL_TYPE, '[*&]$') and '' or ' '
-        ARGS[#ARGS + 1] = format_snippet([[
+        ARGS[#ARGS + 1] = format([[
             ${DECL_TYPE}${SPACE}${ARG_N}
         ]])
     end
@@ -183,7 +183,7 @@ function gen_callback(cls, fi, write)
     PUSH_ARGS = table.concat(PUSH_ARGS, "\n")
 
     if fi.CALLBACK_OPT.CALLONCE then
-        REMOVE_CALLBACK = format_snippet([[
+        REMOVE_CALLBACK = format([[
             olua_removecallback(L, callback_store_obj, func.c_str(), OLUA_CALLBACK_TAG_EQUAL);
         ]])
     end
@@ -197,21 +197,21 @@ function gen_callback(cls, fi, write)
         local INIT_VALUE = ai.CALLBACK.RET.INIT_VALUE
         local FUNC_CHECK_VALUE = ai.CALLBACK.RET.FUNC_CHECK_VALUE
         if INIT_VALUE then
-            RESULT_DECL = format_snippet([[
+            RESULT_DECL = format([[
                 ${DECL_TYPE} ret = ${INIT_VALUE};
             ]])
         else
-             RESULT_DECL = format_snippet([[
+             RESULT_DECL = format([[
                 ${DECL_TYPE} ret;
             ]])
         end
         if ai.CALLBACK.RET.LUACLS then
             local LUACLS = ai.CALLBACK.RET.LUACLS
-            RESULT_GET = format_snippet([[
+            RESULT_GET = format([[
                 ${FUNC_CHECK_VALUE}(L, -1, (void **)&ret, "${LUACLS}");
             ]])
         else
-            RESULT_GET = format_snippet([[
+            RESULT_GET = format([[
                 ${FUNC_CHECK_VALUE}(L, -1, &ret);
             ]])
         end
@@ -223,21 +223,21 @@ function gen_callback(cls, fi, write)
         CALLBACK_STORE_OBJ = 'self'
         if fi.STATIC and fi.RET.TYPE.TYPENAME == 'void' then
             local LUACLS = cls.LUACLS
-            CALLBACK_STORE_OBJ = format_snippet('olua_getstoreobj(L, "${LUACLS}")')
+            CALLBACK_STORE_OBJ = format('olua_getstoreobj(L, "${LUACLS}")')
         end
     else
         CALLBACK_STORE_OBJ = 'arg' .. (TAG_STORE - 1)
     end
 
     if #INJECT_CALLBACK_BEFORE > 0 then
-        INJECT_CALLBACK_BEFORE = format_snippet [[
+        INJECT_CALLBACK_BEFORE = format [[
             // inject code before call
             ${INJECT_CALLBACK_BEFORE}
         ]]
     end
 
     if #INJECT_CALLBACK_AFTER > 0 then
-        INJECT_CALLBACK_AFTER = format_snippet [[
+        INJECT_CALLBACK_AFTER = format [[
             // inject code after call
             ${INJECT_CALLBACK_AFTER}
         ]]
@@ -246,7 +246,7 @@ function gen_callback(cls, fi, write)
     assert(OLUA_CALLBACK_TAG == 'OLUA_CALLBACK_TAG_REPLACE' or
         OLUA_CALLBACK_TAG == 'OLUA_CALLBACK_TAG_NEW', OLUA_CALLBACK_TAG)
 
-    local CALLBACK_CHUNK = format_snippet([[
+    local CALLBACK_CHUNK = format([[
         void *callback_store_obj = (void *)${CALLBACK_STORE_OBJ};
         std::string tag = ${TAG_MAKER};
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), ${IDX}, ${OLUA_CALLBACK_TAG});
@@ -274,7 +274,7 @@ function gen_callback(cls, fi, write)
     if ai.CALLBACK.DEFAULT or ai.ATTR.NULLABLE then
         local DEFAULT = ai.CALLBACK.DEFAULT or "nullptr"
         local FUNC_IS_VALUE = ai.TYPE.FUNC_IS_VALUE
-        CALLBACK_CHUNK = format_snippet([[
+        CALLBACK_CHUNK = format([[
             if (${FUNC_IS_VALUE}(L, ${IDX})) {
                 ${CALLBACK_CHUNK}
             } else {

@@ -106,7 +106,7 @@ function M:writeHeader()
         for _, v in ipairs(self.module.CONVS) do
             local CPPCLS = v.CPPCLS
             local DEF = v.DEF
-            self:writeLine(format_snippet([=[
+            self:writeLine(format([=[
                 REG_CONV {
                     CPPCLS = '${CPPCLS}',
                     DEF = [[
@@ -157,7 +157,7 @@ function M:writeTypedef()
     for _, v in ipairs(enums) do
         local TYPENAME = v
         local LUACLS = self.module.MAKE_LUACLS(v)
-        file:write(format_snippet([[
+        file:write(format([[
             REG_TYPE {
                 TYPENAME = '${TYPENAME}',
                 DECL_TYPE = 'lua_Unsigned',
@@ -171,7 +171,7 @@ function M:writeTypedef()
     for _, v in ipairs(classes) do
         local TYPENAME = v
         local LUACLS = self.module.MAKE_LUACLS(v)
-        file:write(format_snippet([[
+        file:write(format([[
             REG_TYPE {
                 TYPENAME = '${TYPENAME} *',
                 CONV_FUNC = 'olua_$$_cppobj',

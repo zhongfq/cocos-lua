@@ -67,32 +67,31 @@ function trimlastlf(expr)
     return string.gsub(expr, '[ \n]*$', '')
 end
 
-function format(expr, trim, drop_last_lf, indent)
+function format(expr, indent)
     expr = string.gsub(expr, '[\n\r]', '\n')
-    expr = string.gsub(expr, '^[\n\r]*', '')
-    if trim then
-        local space = string.match(expr, '^[ ]*')
-        indent = string.rep(' ', indent or 0)
-        expr = string.gsub(expr, '^[ ]*', '')
-        expr = string.gsub(expr, '\n' .. space, '\n' .. indent)
-        expr = indent .. expr
-    end
-    if drop_last_lf then
-        expr = trimlastlf(expr)
-    end
+    expr = string.gsub(expr, '^[\n]*', '') -- trim head '\n'
+    expr = string.gsub(expr, '[ \n]*$', '') -- trim tail '\n' or ' '
+
+    local space = string.match(expr, '^[ ]*')
+    indent = string.rep(' ', indent or 0)
+    expr = string.gsub(expr, '^[ ]*', '')  -- trim head space
+    expr = string.gsub(expr, '\n' .. space, '\n' .. indent)
+    expr = indent .. expr
+    
     local function eval(expr)
         return string.gsub(expr, "([ ]*)(${[%w_]+})", function (indent, str)
             local key = string.match(str, "[%w_]+")
             local level = 1
-            local last_source
+            local filePath
+            -- search caller file path
             while true do
                 local info = debug.getinfo(level, 'S')
                 if info then
                     if info.source == "=[C]" then
                         level = level + 1
                     else
-                        last_source = last_source or info.source
-                        if last_source ~= info.source then
+                        filePath = filePath or info.source
+                        if filePath ~= info.source then
                             break
                         else
                             level = level + 1
@@ -102,16 +101,18 @@ function format(expr, trim, drop_last_lf, indent)
                     break
                 end
             end
+            -- search in the functin local value
             local value = lookup(level + 1, key) or _G[key]
             if value == nil then
                 error("value not found for " .. key)
             else
+                -- indent the value if value has multiline
                 return indent .. string.gsub(tostring(value), '\n', '\n' .. indent)
             end
         end)
     end
 
-    local expr = eval(expr)
+    expr = eval(expr)
     while true do
         local s, n = string.gsub(expr, '\n[ ]+\n', '\n\n')
         expr = s
@@ -132,8 +133,4 @@ function format(expr, trim, drop_last_lf, indent)
     expr = string.gsub(expr, '\n\n}', '\n}')
     
     return expr
-end
-
-function format_snippet(expr, indent)
-    return format(expr, true, true, indent)
 end

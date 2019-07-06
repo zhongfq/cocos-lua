@@ -4,7 +4,7 @@ local function gen_snippet_func(cls, fi, write)
     local CPPFUNC_SNIPPET = fi.CPPFUNC_SNIPPET
     local INJECT_AFTER = fi.INJECT.AFTER or ""
     local INJECT_BEFORE = fi.INJECT.BEFORE or ""
-    write(format_snippet(format_snippet([[
+    write(format(format([[
         static int _${CPPCLS_PATH}_${CPPFUNC}(lua_State *L)
         ${CPPFUNC_SNIPPET}
     ]])))
@@ -27,10 +27,10 @@ local function gen_func_args(cls, fi)
         local LUACLS = ti.LUACLS
         local FUNC_CHECK_VALUE = ti.FUNC_CHECK_VALUE
         local FUNC_TO_VALUE = ti.FUNC_TO_VALUE
-        DECL_CHUNK[#DECL_CHUNK + 1] = format_snippet([[
+        DECL_CHUNK[#DECL_CHUNK + 1] = format([[
             ${DECL_TYPE} *self = nullptr;
         ]])
-        ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
+        ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
             ${FUNC_TO_VALUE}(L, 1, (void **)&self, "${LUACLS}");
         ]])
     elseif fi.ISVAR then
@@ -54,11 +54,11 @@ local function gen_func_args(cls, fi)
 
         if ai.TYPE.DECL_TYPE ~= ai.TYPE.TYPENAME and not ai.CALLBACK.ARGS then
             local TYPENAME = ai.TYPE.TYPENAME
-            CALLER_ARGS[#CALLER_ARGS + 1] = format_snippet([[
+            CALLER_ARGS[#CALLER_ARGS + 1] = format([[
                 (${TYPENAME})${ARG_N}
             ]])
         else
-            CALLER_ARGS[#CALLER_ARGS + 1] = format_snippet([[
+            CALLER_ARGS[#CALLER_ARGS + 1] = format([[
                 ${ARG_N}
             ]])
         end
@@ -68,16 +68,16 @@ local function gen_func_args(cls, fi)
         end
 
         if INIT_VALUE then
-            DECL_CHUNK[#DECL_CHUNK + 1] = format_snippet([[
+            DECL_CHUNK[#DECL_CHUNK + 1] = format([[
                 ${DECL_TYPE}${SPACE}${ARG_N} = ${INIT_VALUE};   /** ${VARNAME} */
             ]])
         elseif ai.TYPE.SUBTYPE then
             DECL_TYPE = ai.DECL_TYPE
-            DECL_CHUNK[#DECL_CHUNK + 1] = format_snippet([[
+            DECL_CHUNK[#DECL_CHUNK + 1] = format([[
                 ${DECL_TYPE}${SPACE}${ARG_N};       /** ${VARNAME} */
             ]])
         else
-            DECL_CHUNK[#DECL_CHUNK + 1] = format_snippet([[
+            DECL_CHUNK[#DECL_CHUNK + 1] = format([[
                 ${DECL_TYPE}${SPACE}${ARG_N};       /** ${VARNAME} */
             ]])
         end
@@ -88,24 +88,24 @@ local function gen_func_args(cls, fi)
             if ai.TYPE.LUACLS and ai.TYPE.DECL_TYPE ~= 'lua_Unsigned' then
                 local LUACLS = ai.TYPE.LUACLS
                 local FUNC_OPT_VALUE = ai.TYPE.FUNC_OPT_VALUE
-                ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
+                ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
                     ${FUNC_OPT_VALUE}(L, ${IDX}, (void **)&${ARG_N}, "${LUACLS}", nullptr);
                 ]])
             else
-                ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
+                ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
                     ${FUNC_OPT_VALUE}(L, ${IDX}, &${ARG_N}, (${DECL_TYPE})${DEFAULT});
                 ]])
             end
         elseif ai.TYPE.LUACLS and ai.TYPE.DECL_TYPE ~= 'lua_Unsigned' then
             local LUACLS = ai.TYPE.LUACLS
-            ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
+            ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
                 ${FUNC_CHECK_VALUE}(L, ${IDX}, (void **)&${ARG_N}, "${LUACLS}");
             ]])
         elseif ai.TYPE.SUBTYPE then
             local SUBTYPE = ai.TYPE.SUBTYPE
             if SUBTYPE.LUACLS then
                 local SUB_LUACLS = SUBTYPE.LUACLS
-                ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
+                ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
                     ${FUNC_CHECK_VALUE}(L, ${IDX}, ${ARG_N}, "${SUB_LUACLS}");
                 ]])
             elseif ai.TYPE.TYPENAME == 'std::vector' then
@@ -119,7 +119,7 @@ local function gen_func_args(cls, fi)
                     end
                     CAST = string.format("(%s)", SUBTYPE.TYPENAME)
                 end
-                ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
+                ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
                     luaL_checktype(L, ${IDX}, LUA_TTABLE);
                     size_t ${ARG_N}_total = lua_rawlen(L, ${IDX});
                     ${ARG_N}.reserve(${ARG_N}_total);
@@ -142,7 +142,7 @@ local function gen_func_args(cls, fi)
                     end
                     CAST = string.format("(%s)", SUBTYPE.DECL_TYPE)
                 end
-                ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
+                ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
                     luaL_checktype(L, ${IDX}, LUA_TTABLE);
                     size_t ${ARG_N}_total = lua_rawlen(L, ${IDX});
                     for (int i = 1; i <= ${ARG_N}_total; i++) {
@@ -162,7 +162,7 @@ local function gen_func_args(cls, fi)
                 TOTAL_ARGS = ai.TYPE.VARS + TOTAL_ARGS - 1
                 idx = idx + ai.TYPE.VARS - 1
             end
-            ARGS_CHUNK[#ARGS_CHUNK + 1] = format_snippet([[
+            ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
                 ${FUNC_CHECK_VALUE}(L, ${IDX}, &${ARG_N});
             ]])
         end
@@ -173,11 +173,11 @@ local function gen_func_args(cls, fi)
             local REFNAME = assert(ai.ATTR.REF[2], fi.CPPFUNC .. ' no refname')
             local WHICH_OBJ = ai.ATTR.REF[3] or (fi.STATIC and -1 or 1)
             if REF == 'map' then
-                REF_CHUNK[#REF_CHUNK + 1] = format_snippet([[
+                REF_CHUNK[#REF_CHUNK + 1] = format([[
                     olua_mapref(L, ${WHICH_OBJ}, "${REFNAME}", ${IDX});
                 ]])
             elseif REF == "single" then
-                REF_CHUNK[#REF_CHUNK + 1] = format_snippet([[
+                REF_CHUNK[#REF_CHUNK + 1] = format([[
                     olua_singleref(L, ${WHICH_OBJ}, "${REFNAME}", ${IDX});
                 ]])
             else
@@ -190,7 +190,7 @@ local function gen_func_args(cls, fi)
             local REFNAME = assert(ai.ATTR.UNREF[2], fi.CPPFUNC .. ' no refname')
             local WHICH_OBJ = ai.ATTR.UNREF[3] or (fi.STATIC and -1 or 1)
             if REF == 'map' then
-                REF_CHUNK[#REF_CHUNK + 1] = format_snippet([[
+                REF_CHUNK[#REF_CHUNK + 1] = format([[
                     olua_mapunref(L, ${WHICH_OBJ}, "${REFNAME}", ${IDX});
                 ]])
             else
@@ -218,24 +218,24 @@ local function gen_func_ret(cls, fi)
         if string.find(DECL_TYPE, '[ *&]$') then
             SPACE = ""
         end
-        RET_EXP = format_snippet('${DECL_TYPE}${SPACE}ret = (${DECL_TYPE})')
+        RET_EXP = format('${DECL_TYPE}${SPACE}ret = (${DECL_TYPE})')
         if fi.RET.TYPE.LUACLS and fi.RET.TYPE.DECL_TYPE ~= 'lua_Unsigned' then
             local LUACLS = fi.RET.TYPE.LUACLS
             if FUNC_PUSH_VALUE == "olua_push_cppobj" then
                 local TYPENAME = string.gsub(fi.RET.TYPE.TYPENAME, '[ *]*$', '')
                 if string.find(DECL_TYPE, '^const') then
-                    RET_PUSH = format_snippet('int num_ret = ${FUNC_PUSH_VALUE}<${TYPENAME}>(L, (${TYPENAME} *)ret, "${LUACLS}");')
+                    RET_PUSH = format('int num_ret = ${FUNC_PUSH_VALUE}<${TYPENAME}>(L, (${TYPENAME} *)ret, "${LUACLS}");')
                 else
-                    RET_PUSH = format_snippet('int num_ret = ${FUNC_PUSH_VALUE}<${TYPENAME}>(L, ret, "${LUACLS}");')
+                    RET_PUSH = format('int num_ret = ${FUNC_PUSH_VALUE}<${TYPENAME}>(L, ret, "${LUACLS}");')
                 end
             else
-                RET_PUSH = format_snippet('int num_ret = ${FUNC_PUSH_VALUE}(L, ret, "${LUACLS}");')
+                RET_PUSH = format('int num_ret = ${FUNC_PUSH_VALUE}(L, ret, "${LUACLS}");')
             end
         elseif fi.RET.TYPE.SUBTYPE then
             local SUBTYPE = fi.RET.TYPE.SUBTYPE
             if SUBTYPE.LUACLS then
                 local SUB_LUACLS = SUBTYPE.LUACLS
-                RET_PUSH = format_snippet('int num_ret = ${FUNC_PUSH_VALUE}(L, ret, "${SUB_LUACLS}");')
+                RET_PUSH = format('int num_ret = ${FUNC_PUSH_VALUE}(L, ret, "${SUB_LUACLS}");')
             else
                 local CAST = ""
                 local SUBTYPE_PUSH_FUNC = SUBTYPE.FUNC_PUSH_VALUE
@@ -250,7 +250,7 @@ local function gen_func_ret(cls, fi)
                     or SUBTYPE.DECL_TYPE == 'lua_Number'
                     or SUBTYPE.TYPENAME == 'bool'
                     or SUBTYPE.DECL_TYPE == 'lua_Integer' then
-                    RET_PUSH = format_snippet([[
+                    RET_PUSH = format([[
                         int num_ret = 1;
                         int num_eles = 1;
                         lua_createtable(L, (int)ret.size(), 0);
@@ -260,7 +260,7 @@ local function gen_func_ret(cls, fi)
                         }
                     ]])
                 else
-                    RET_PUSH = format_snippet([[
+                    RET_PUSH = format([[
                         int num_ret = 1;
                         int num_eles = 1;
                         lua_createtable(L, (int)ret.size(), 0);
@@ -287,7 +287,7 @@ local function gen_func_ret(cls, fi)
                     CAST = '&'
                 end
             end
-            RET_PUSH = format_snippet('int num_ret = ${FUNC_PUSH_VALUE}(L, ${CAST}ret);')
+            RET_PUSH = format('int num_ret = ${FUNC_PUSH_VALUE}(L, ${CAST}ret);')
         end
 
         if #RET_PUSH > 0 then
@@ -310,7 +310,7 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
     local INJECT_BEFORE = fi.INJECT.BEFORE and {fi.INJECT.BEFORE} or {}
     local INJECT_AFTER = fi.INJECT.AFTER and {fi.INJECT.AFTER} or {}
 
-    local funcname = format_snippet([[
+    local funcname = format([[
         _${CPPCLS_PATH}_${CPPFUNC}${FUNC_INDEX}
     ]])
 
@@ -337,7 +337,7 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
         if fi.STATIC and not fi.CALLBACK_OPT.TAG_STORE and fi.RET.TYPE.LUACLS then
             local DECL_TYPE = string.gsub(fi.RET.DECL_TYPE, ' *%*$', '')
             local LUACLS = fi.RET.TYPE.LUACLS
-            local snippet = format_snippet([[
+            local snippet = format([[
                 ${DECL_TYPE} *self = new ${DECL_TYPE}();
                 ${DECL_TYPE} *ret = self;
                 self->autorelease();
@@ -383,24 +383,24 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
         assert(not fi.STATIC, fi.CPPFUNC .. ' only support instance func')
 
         if REF == 'single' then
-            INJECT_AFTER[#INJECT_AFTER + 1] = format_snippet([[
+            INJECT_AFTER[#INJECT_AFTER + 1] = format([[
                 olua_singleref(L, ${WHICH_OBJ}, "${REFNAME}", ${IDX});
             ]])
         elseif REF == 'map' then
             if fi.RET.TYPE.IS_ARRAY then
-                INJECT_AFTER[#INJECT_AFTER + 1] = format_snippet([[
+                INJECT_AFTER[#INJECT_AFTER + 1] = format([[
                     olua_maprefarray(L, ${WHICH_OBJ}, "${REFNAME}", ${IDX});
                 ]])
             else
-                INJECT_AFTER[#INJECT_AFTER + 1] = format_snippet([[
+                INJECT_AFTER[#INJECT_AFTER + 1] = format([[
                     olua_mapref(L, ${WHICH_OBJ}, "${REFNAME}", ${IDX});
                 ]])
             end
         elseif REF == 'cmpunref' then
-            INJECT_BEFORE[#INJECT_BEFORE + 1] = format_snippet([[
+            INJECT_BEFORE[#INJECT_BEFORE + 1] = format([[
                 olua_startcmpunref(L, ${WHICH_OBJ}, "${REFNAME}");
             ]])
-            INJECT_AFTER[#INJECT_AFTER + 1] = format_snippet([[
+            INJECT_AFTER[#INJECT_AFTER + 1] = format([[
                 olua_endcmpunref(L, ${WHICH_OBJ}, "${REFNAME}");
             ]])
         else
@@ -423,18 +423,18 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
         end
 
         if REF == 'cmp' then
-            INJECT_BEFORE[#INJECT_BEFORE + 1] = format_snippet([[
+            INJECT_BEFORE[#INJECT_BEFORE + 1] = format([[
                 olua_startcmpunref(L, ${WHICH_OBJ}, "${REFNAME}");
             ]])
-            INJECT_AFTER[#INJECT_AFTER + 1] = format_snippet([[
+            INJECT_AFTER[#INJECT_AFTER + 1] = format([[
                 olua_endcmpunref(L, ${WHICH_OBJ}, "${REFNAME}");
             ]])
         elseif REF == 'all' then
-            INJECT_AFTER[#INJECT_AFTER + 1] = format_snippet([[
+            INJECT_AFTER[#INJECT_AFTER + 1] = format([[
                 olua_unrefall(L, ${WHICH_OBJ}, "${REFNAME}");
             ]])
         elseif REF == 'map' then
-            INJECT_AFTER[#INJECT_AFTER + 1] = format_snippet([[
+            INJECT_AFTER[#INJECT_AFTER + 1] = format([[
             olua_mapunref(L, ${WHICH_OBJ}, "${REFNAME}", ${IDX});
             ]])
         else
@@ -453,7 +453,7 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
     INJECT_AFTER = table.concat(INJECT_AFTER, '\n')
     INJECT_BEFORE = table.concat(INJECT_BEFORE, '\n')
 
-    write(format_snippet([[
+    write(format([[
         static int _${CPPCLS_PATH}_${CPPFUNC}${FUNC_INDEX}(lua_State *L)
         {
             lua_settop(L, ${TOTAL_ARGS});
@@ -513,16 +513,16 @@ local function gen_test_and_call(cls, fns)
 
                 if ai.DEFAULT or ai.ATTR.NULLABLE then
                     NULLABLE_BEGIN = '('
-                    NULLABLE_END = ' ' .. format_snippet('|| olua_isnil(L, ${IDX}))')
+                    NULLABLE_END = ' ' .. format('|| olua_isnil(L, ${IDX}))')
                 end
 
                 if ai.TYPE.LUACLS and ai.TYPE.DECL_TYPE ~= 'lua_Unsigned' then
                     local LUACLS = ai.TYPE.LUACLS
-                    TEST_ARGS[#TEST_ARGS + 1] = format_snippet([[
+                    TEST_ARGS[#TEST_ARGS + 1] = format([[
                         ${NULLABLE_BEGIN}${FUNC_IS_VALUE}(L, ${IDX}, "${LUACLS}")${NULLABLE_END}
                     ]])
                 else
-                    TEST_ARGS[#TEST_ARGS + 1] = format_snippet([[
+                    TEST_ARGS[#TEST_ARGS + 1] = format([[
                         ${NULLABLE_BEGIN}${FUNC_IS_VALUE}(L, ${IDX})${NULLABLE_END}
                     ]])
                 end
@@ -532,12 +532,12 @@ local function gen_test_and_call(cls, fns)
 
             CALL_CHUNK[#CALL_CHUNK + 1] = {
                 MAX_VARS = MAX_VARS,
-                EXP1 = format_snippet([[
+                EXP1 = format([[
                     // if (${TEST_ARGS}) {
                         return _${CPPCLS_PATH}_${CPPFUNC}${FUNC_INDEX}(L);
                     // }
                 ]]),
-                EXP2 = format_snippet([[
+                EXP2 = format([[
                     if (${TEST_ARGS}) {
                         return _${CPPCLS_PATH}_${CPPFUNC}${FUNC_INDEX}(L);
                     }
@@ -552,7 +552,7 @@ local function gen_test_and_call(cls, fns)
             assert(#fns == 1, fi.CPPFUNC)
             CALL_CHUNK[#CALL_CHUNK + 1] = {
                 MAX_VARS = 1,
-                EXP1 = format_snippet([[
+                EXP1 = format([[
                     return _${CPPCLS_PATH}_${CPPFUNC}${FUNC_INDEX}(L);
                 ]])
             }
@@ -590,7 +590,7 @@ function gen_multi_func(cls, fis, write, func_filter)
         gen_one_func(cls, fi, write, fi.INDEX, func_filter)
     end
 
-    local funcname = format_snippet([[
+    local funcname = format([[
         _${CPPCLS_PATH}_${CPPFUNC}
     ]])
     assert(not func_filter[funcname], cls.CPPCLS .. ' ' .. CPPFUNC)
@@ -601,7 +601,7 @@ function gen_multi_func(cls, fis, write, func_filter)
         if #fns > 0 then
             local CUR_ARGS = i
             local TEST_AND_CALL = gen_test_and_call(cls, fns)
-            IF_CHUNK[#IF_CHUNK + 1] = format_snippet([[
+            IF_CHUNK[#IF_CHUNK + 1] = format([[
                 if (num_args == ${CUR_ARGS}) {
                     ${TEST_AND_CALL}
                 }
@@ -610,7 +610,7 @@ function gen_multi_func(cls, fis, write, func_filter)
     end
 
     IF_CHUNK = table.concat(IF_CHUNK, "\n\n")
-    write(format_snippet([[
+    write(format([[
         static int _${CPPCLS_PATH}_${CPPFUNC}(lua_State *L)
         {
             int num_args = lua_gettop(L)${HAS_OBJ};

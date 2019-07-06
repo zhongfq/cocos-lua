@@ -72,7 +72,7 @@ function typemod(name)
     function module.typeconv(info)
         module.CONVS[#module.CONVS + 1] = {
             CPPCLS = assert(info.CPPCLS),
-            DEF = format_snippet(assert(info.DEF)),
+            DEF = format(assert(info.DEF)),
         }
     end
 

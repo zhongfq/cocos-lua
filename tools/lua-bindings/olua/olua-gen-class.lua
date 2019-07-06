@@ -70,7 +70,7 @@ local function gen_class_open(cls, write)
     for i, fis in ipairs(cls.FUNCS) do
         local CPPFUNC = fis[1].CPPFUNC
         local LUAFUNC = fis[1].LUAFUNC
-        FUNCS[#FUNCS + 1] = format_snippet([[
+        FUNCS[#FUNCS + 1] = format([[
             oluacls_func(L, "${LUAFUNC}", _${CPPCLS_PATH}_${CPPFUNC});
         ]])
     end
@@ -85,7 +85,7 @@ local function gen_class_open(cls, write)
         if pi.SET then
             FUNC_SET = string.format("_%s_%s", CPPCLS_PATH, pi.SET.CPPFUNC)
         end
-        FUNCS[#FUNCS + 1] = format_snippet([[
+        FUNCS[#FUNCS + 1] = format([[
             oluacls_prop(L, "${PROP_NAME}", ${FUNC_GET}, ${FUNC_SET});
         ]])
     end
@@ -97,7 +97,7 @@ local function gen_class_open(cls, write)
         if vi.SET and vi.SET.CPPFUNC then
            FUNC_SET = string.format("_%s_%s", CPPCLS_PATH, vi.SET.CPPFUNC)
         end
-        FUNCS[#FUNCS + 1] = format_snippet([[
+        FUNCS[#FUNCS + 1] = format([[
             oluacls_prop(L, "${VARNAME}", ${FUNC_GET}, ${FUNC_SET});
         ]])
     end
@@ -119,7 +119,7 @@ local function gen_class_open(cls, write)
             CONST_FUNC = "oluacls_const_string"
             CONST_VALUE = stringfy(CONST_VALUE)
         end
-        FUNCS[#FUNCS + 1] = format_snippet([[
+        FUNCS[#FUNCS + 1] = format([[
             ${CONST_FUNC}(L, "${CONST_NAME}", ${CONST_VALUE});
         ]])
     end
@@ -130,7 +130,7 @@ local function gen_class_open(cls, write)
     for i, ei in ipairs(cls.ENUMS) do
         local ENUM_NAME = ei.ENUM_NAME
         local ENUM_VALUE = assert(ei.ENUM_VALUE, cls.CPPCLS)
-        FUNCS[#FUNCS + 1] = format_snippet([[
+        FUNCS[#FUNCS + 1] = format([[
             oluacls_const_integer(L, "${ENUM_NAME}", (lua_Integer)${ENUM_VALUE});
         ]])
     end
@@ -140,18 +140,18 @@ local function gen_class_open(cls, write)
     if cls.REG_LUATYPE then
         if cls.RAWCPPCLS then
             local RAWCPPCLS = cls.RAWCPPCLS
-            REG_LUATYPE = format_snippet([[
+            REG_LUATYPE = format([[
                 olua_registerluatype<${CPPCLS}>(L, "${LUACLS}");
                 olua_registerluatype<${RAWCPPCLS}>(L, "${LUACLS}");
             ]])
         else
-            REG_LUATYPE = format_snippet([[
+            REG_LUATYPE = format([[
                 olua_registerluatype<${CPPCLS}>(L, "${LUACLS}");
             ]])
         end
     end
 
-    write(format_snippet([[
+    write(format([[
         static int luaopen_${CPPCLS_PATH}(lua_State *L)
         {
             oluacls_class(L, "${LUACLS}", ${SUPRECLS});
@@ -167,7 +167,7 @@ end
 
 local function gen_class_decl_val(cls, write)
     if cls.CHUNK then
-        write(format_snippet(cls.CHUNK))
+        write(format(cls.CHUNK))
         write('')
     end
 end

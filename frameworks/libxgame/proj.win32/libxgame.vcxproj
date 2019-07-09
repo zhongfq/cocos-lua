@@ -1,0 +1,338 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\cocos2d-x\cocos\2d\libcocos2d.vcxproj">
+      <Project>{98a51ba8-fc3a-415b-ac8f-8c7bd464e93e}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\cjson\cJSON.c" />
+    <ClCompile Include="..\src\cjson\fpconv.c" />
+    <ClCompile Include="..\src\cjson\lua_cjson.c" />
+    <ClCompile Include="..\src\cjson\strbuf.c" />
+    <ClCompile Include="..\src\crypto\md5.c" />
+    <ClCompile Include="..\src\crypto\md5util.c" />
+    <ClCompile Include="..\src\crypto\xxtea.cpp" />
+    <ClCompile Include="..\src\lpeg\lpcap.c" />
+    <ClCompile Include="..\src\lpeg\lpcode.c" />
+    <ClCompile Include="..\src\lpeg\lpprint.c" />
+    <ClCompile Include="..\src\lpeg\lptree.c" />
+    <ClCompile Include="..\src\lpeg\lpvm.c" />
+    <ClCompile Include="..\src\lua-bindings\LuaCocosAdapter.cpp" />
+    <ClCompile Include="..\src\lua-bindings\lua_bindings.cpp" />
+    <ClCompile Include="..\src\lua-bindings\lua_cocos2d.cpp" />
+    <ClCompile Include="..\src\lua-bindings\lua_cocos2d_ui.cpp" />
+    <ClCompile Include="..\src\lua-bindings\lua_conv.cpp" />
+    <ClCompile Include="..\src\lua-bindings\lua_conv_manual.cpp" />
+    <ClCompile Include="..\src\lua-bindings\lua_crypto.cpp" />
+    <ClCompile Include="..\src\lua-bindings\lua_dragonbones.cpp" />
+    <ClCompile Include="..\src\lua-bindings\lua_fairygui.cpp" />
+    <ClCompile Include="..\src\lua-bindings\lua_javabridge.cpp" />
+    <ClCompile Include="..\src\lua-bindings\lua_spine.cpp" />
+    <ClCompile Include="..\src\lua-bindings\lua_xgame.cpp" />
+    <ClCompile Include="..\src\lua-bindings\lua_xml_http_request.cpp" />
+    <ClCompile Include="..\src\lua\src\lapi.c" />
+    <ClCompile Include="..\src\lua\src\lauxlib.c" />
+    <ClCompile Include="..\src\lua\src\lbaselib.c" />
+    <ClCompile Include="..\src\lua\src\lbitlib.c" />
+    <ClCompile Include="..\src\lua\src\lcode.c" />
+    <ClCompile Include="..\src\lua\src\lcorolib.c" />
+    <ClCompile Include="..\src\lua\src\lctype.c" />
+    <ClCompile Include="..\src\lua\src\ldblib.c" />
+    <ClCompile Include="..\src\lua\src\ldebug.c" />
+    <ClCompile Include="..\src\lua\src\ldo.c" />
+    <ClCompile Include="..\src\lua\src\ldump.c" />
+    <ClCompile Include="..\src\lua\src\lfunc.c" />
+    <ClCompile Include="..\src\lua\src\lgc.c" />
+    <ClCompile Include="..\src\lua\src\linit.c" />
+    <ClCompile Include="..\src\lua\src\liolib.c" />
+    <ClCompile Include="..\src\lua\src\llex.c" />
+    <ClCompile Include="..\src\lua\src\lmathlib.c" />
+    <ClCompile Include="..\src\lua\src\lmem.c" />
+    <ClCompile Include="..\src\lua\src\loadlib.c" />
+    <ClCompile Include="..\src\lua\src\lobject.c" />
+    <ClCompile Include="..\src\lua\src\lopcodes.c" />
+    <ClCompile Include="..\src\lua\src\loslib.c" />
+    <ClCompile Include="..\src\lua\src\lparser.c" />
+    <ClCompile Include="..\src\lua\src\lstate.c" />
+    <ClCompile Include="..\src\lua\src\lstring.c" />
+    <ClCompile Include="..\src\lua\src\lstrlib.c" />
+    <ClCompile Include="..\src\lua\src\ltable.c" />
+    <ClCompile Include="..\src\lua\src\ltablib.c" />
+    <ClCompile Include="..\src\lua\src\ltm.c" />
+    <ClCompile Include="..\src\lua\src\lundump.c" />
+    <ClCompile Include="..\src\lua\src\lutf8lib.c" />
+    <ClCompile Include="..\src\lua\src\lvm.c" />
+    <ClCompile Include="..\src\lua\src\lzio.c" />
+    <ClCompile Include="..\src\olua\olua.c" />
+    <ClCompile Include="..\src\pbc\alloc.c" />
+    <ClCompile Include="..\src\pbc\array.c" />
+    <ClCompile Include="..\src\pbc\bootstrap.c" />
+    <ClCompile Include="..\src\pbc\context.c" />
+    <ClCompile Include="..\src\pbc\decode.c" />
+    <ClCompile Include="..\src\pbc\map.c" />
+    <ClCompile Include="..\src\pbc\packet.c" />
+    <ClCompile Include="..\src\pbc\pattern.c" />
+    <ClCompile Include="..\src\pbc\pbc-lua53.c" />
+    <ClCompile Include="..\src\pbc\proto.c" />
+    <ClCompile Include="..\src\pbc\register.c" />
+    <ClCompile Include="..\src\pbc\rmessage.c" />
+    <ClCompile Include="..\src\pbc\stringpool.c" />
+    <ClCompile Include="..\src\pbc\varint.c" />
+    <ClCompile Include="..\src\pbc\wmessage.c" />
+    <ClCompile Include="..\src\qrencode\bitstream.c" />
+    <ClCompile Include="..\src\qrencode\lua_qrcode.cpp" />
+    <ClCompile Include="..\src\qrencode\mask.c" />
+    <ClCompile Include="..\src\qrencode\qrencode.c" />
+    <ClCompile Include="..\src\qrencode\qrinput.c" />
+    <ClCompile Include="..\src\qrencode\qrspec.c" />
+    <ClCompile Include="..\src\qrencode\QRSprite.cpp" />
+    <ClCompile Include="..\src\qrencode\rscode.c" />
+    <ClCompile Include="..\src\qrencode\split.c" />
+    <ClCompile Include="..\src\sproto\lsproto.c" />
+    <ClCompile Include="..\src\sproto\sproto.c" />
+    <ClCompile Include="..\src\xgame\xdownloader.cpp" />
+    <ClCompile Include="..\src\xgame\xfilefinder.cpp" />
+    <ClCompile Include="..\src\xgame\xfilesystem-private.cpp" />
+    <ClCompile Include="..\src\xgame\xfilesystem.cpp" />
+    <ClCompile Include="..\src\xgame\xlua.cpp" />
+    <ClCompile Include="..\src\xgame\XMLHttpRequest.cpp" />
+    <ClCompile Include="..\src\xgame\xpreferences.cpp" />
+    <ClCompile Include="..\src\xgame\xrootscene.cpp" />
+    <ClCompile Include="..\src\xgame\xruntime-private.cpp" />
+    <ClCompile Include="..\src\xgame\xruntime.cpp" />
+    <ClCompile Include="..\src\xgame\xsocket.cpp" />
+    <ClCompile Include="..\src\xgame\xtimer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\bugly\lua_bugly.h" />
+    <ClInclude Include="..\src\cjson\cJSON.h" />
+    <ClInclude Include="..\src\cjson\fpconv.h" />
+    <ClInclude Include="..\src\cjson\lua_cjson.h" />
+    <ClInclude Include="..\src\cjson\strbuf.h" />
+    <ClInclude Include="..\src\crypto\md5.h" />
+    <ClInclude Include="..\src\crypto\md5util.h" />
+    <ClInclude Include="..\src\crypto\xxtea.h" />
+    <ClInclude Include="..\src\lame\lua_lame.h" />
+    <ClInclude Include="..\src\lpeg\lpcap.h" />
+    <ClInclude Include="..\src\lpeg\lpcode.h" />
+    <ClInclude Include="..\src\lpeg\lpprint.h" />
+    <ClInclude Include="..\src\lpeg\lptree.h" />
+    <ClInclude Include="..\src\lpeg\lptypes.h" />
+    <ClInclude Include="..\src\lpeg\lpvm.h" />
+    <ClInclude Include="..\src\lua-bindings\LuaCocosAdapter.h" />
+    <ClInclude Include="..\src\lua-bindings\lua_bindings.h" />
+    <ClInclude Include="..\src\lua-bindings\lua_cocos2d.h" />
+    <ClInclude Include="..\src\lua-bindings\lua_cocos2d_ui.h" />
+    <ClInclude Include="..\src\lua-bindings\lua_conv.h" />
+    <ClInclude Include="..\src\lua-bindings\lua_conv_manual.h" />
+    <ClInclude Include="..\src\lua-bindings\lua_crypto.h" />
+    <ClInclude Include="..\src\lua-bindings\lua_dragonbones.h" />
+    <ClInclude Include="..\src\lua-bindings\lua_fairygui.h" />
+    <ClInclude Include="..\src\lua-bindings\lua_iap.h" />
+    <ClInclude Include="..\src\lua-bindings\lua_javabridge.h" />
+    <ClInclude Include="..\src\lua-bindings\lua_keychain.h" />
+    <ClInclude Include="..\src\lua-bindings\lua_photo.h" />
+    <ClInclude Include="..\src\lua-bindings\lua_recorder.h" />
+    <ClInclude Include="..\src\lua-bindings\lua_spine.h" />
+    <ClInclude Include="..\src\lua-bindings\lua_xgame.h" />
+    <ClInclude Include="..\src\lua-bindings\lua_xml_http_request.h" />
+    <ClInclude Include="..\src\lua\src\lapi.h" />
+    <ClInclude Include="..\src\lua\src\lauxlib.h" />
+    <ClInclude Include="..\src\lua\src\lcode.h" />
+    <ClInclude Include="..\src\lua\src\lctype.h" />
+    <ClInclude Include="..\src\lua\src\ldebug.h" />
+    <ClInclude Include="..\src\lua\src\ldo.h" />
+    <ClInclude Include="..\src\lua\src\lfunc.h" />
+    <ClInclude Include="..\src\lua\src\lgc.h" />
+    <ClInclude Include="..\src\lua\src\llex.h" />
+    <ClInclude Include="..\src\lua\src\llimits.h" />
+    <ClInclude Include="..\src\lua\src\lmem.h" />
+    <ClInclude Include="..\src\lua\src\lobject.h" />
+    <ClInclude Include="..\src\lua\src\lopcodes.h" />
+    <ClInclude Include="..\src\lua\src\lparser.h" />
+    <ClInclude Include="..\src\lua\src\lprefix.h" />
+    <ClInclude Include="..\src\lua\src\lstate.h" />
+    <ClInclude Include="..\src\lua\src\lstring.h" />
+    <ClInclude Include="..\src\lua\src\ltable.h" />
+    <ClInclude Include="..\src\lua\src\ltm.h" />
+    <ClInclude Include="..\src\lua\src\lua.h" />
+    <ClInclude Include="..\src\lua\src\lua.hpp" />
+    <ClInclude Include="..\src\lua\src\luaconf.h" />
+    <ClInclude Include="..\src\lua\src\lualib.h" />
+    <ClInclude Include="..\src\lua\src\lundump.h" />
+    <ClInclude Include="..\src\lua\src\lvm.h" />
+    <ClInclude Include="..\src\lua\src\lzio.h" />
+    <ClInclude Include="..\src\olua\olua.h" />
+    <ClInclude Include="..\src\olua\olua.hpp" />
+    <ClInclude Include="..\src\pbc\alloc.h" />
+    <ClInclude Include="..\src\pbc\array.h" />
+    <ClInclude Include="..\src\pbc\bootstrap.h" />
+    <ClInclude Include="..\src\pbc\context.h" />
+    <ClInclude Include="..\src\pbc\descriptor.pbc.h" />
+    <ClInclude Include="..\src\pbc\map.h" />
+    <ClInclude Include="..\src\pbc\packet.h" />
+    <ClInclude Include="..\src\pbc\pattern.h" />
+    <ClInclude Include="..\src\pbc\pbc.h" />
+    <ClInclude Include="..\src\pbc\proto.h" />
+    <ClInclude Include="..\src\pbc\stringpool.h" />
+    <ClInclude Include="..\src\pbc\varint.h" />
+    <ClInclude Include="..\src\qrencode\bitstream.h" />
+    <ClInclude Include="..\src\qrencode\lua_qrcode.h" />
+    <ClInclude Include="..\src\qrencode\mask.h" />
+    <ClInclude Include="..\src\qrencode\qrencode.h" />
+    <ClInclude Include="..\src\qrencode\qrinput.h" />
+    <ClInclude Include="..\src\qrencode\qrspec.h" />
+    <ClInclude Include="..\src\qrencode\QRSprite.h" />
+    <ClInclude Include="..\src\qrencode\rscode.h" />
+    <ClInclude Include="..\src\qrencode\split.h" />
+    <ClInclude Include="..\src\sproto\lsproto.h" />
+    <ClInclude Include="..\src\sproto\msvcint.h" />
+    <ClInclude Include="..\src\sproto\sproto.h" />
+    <ClInclude Include="..\src\xgame\xdef.h" />
+    <ClInclude Include="..\src\xgame\xdownloader.h" />
+    <ClInclude Include="..\src\xgame\xfilefinder.h" />
+    <ClInclude Include="..\src\xgame\xfilesystem-private.h" />
+    <ClInclude Include="..\src\xgame\xfilesystem.h" />
+    <ClInclude Include="..\src\xgame\xlua.h" />
+    <ClInclude Include="..\src\xgame\XMLHttpRequest.h" />
+    <ClInclude Include="..\src\xgame\xpreferences.h" />
+    <ClInclude Include="..\src\xgame\xrootscene.h" />
+    <ClInclude Include="..\src\xgame\xruntime-private.h" />
+    <ClInclude Include="..\src\xgame\xruntime.h" />
+    <ClInclude Include="..\src\xgame\xsocket.h" />
+    <ClInclude Include="..\src\xgame\xtimer.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{9F2D6CE6-C893-4400-B50C-6DB70CC2562F}</ProjectGuid>
+    <RootNamespace>libxgame</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '12.0'">v120</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '12.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v120_xp</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '14.0'">v140</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '14.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v140_xp</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '15.0'">v141</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '15.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v141_xp</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '12.0'">v120</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '12.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v120_xp</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '14.0'">v140</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '14.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v140_xp</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '15.0'">v141</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '15.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v141_xp</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\cocos2d-x\cocos\2d\cocos2d_headers.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\cocos2d-x\cocos\2d\cocos2d_headers.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>12.0.21005.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Configuration).win32\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration).win32\$(ProjectName)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration).win32\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration).win32\$(ProjectName)\</IntDir>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LibraryPath>$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LibraryPath>$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(EngineRoot);$(EngineRoot)external;$(EngineRoot)external\libwebsockets\win32\include;$(EngineRoot)extensions;$(EngineRoot)external\bullet\include;$(EngineRoot)external\bullet\include\bullet;$(EngineRoot)external\openssl\include\win32;$(EngineRoot)external\win32-specific\zlib\include;..\src;..\src\lua\src;..\..\libfairygui\Classes;..\..\libdragonbones\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_USRLUASTATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>
+      </PrecompiledHeaderOutputFile>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
+      <DisableSpecificWarnings>4800;4267;4251;4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Lib>
+      <AdditionalLibraryDirectories>$(EngineRoot)external\openssl\prebuilt\win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libssl.lib;libcrypto.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <PreLinkEvent>
+      <Command>
+      </Command>
+    </PreLinkEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MinSpace</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>$(EngineRoot);$(EngineRoot)cocos;$(EngineRoot)external\lua\tolua;$(EngineRoot)external\lua\luajit\include;$(EngineRoot)external\lua;$(EngineRoot)extensions;$(EngineRoot)external\libwebsockets\win32\include;$(EngineRoot)external;$(EngineRoot)external\bullet\include;$(EngineRoot)external\bullet\include\bullet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;LIBLUA_EXPORTS;_CRT_SECURE_NO_WARNINGS;_USRLUASTATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>
+      </PrecompiledHeaderOutputFile>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <DisableSpecificWarnings>4800;4267;4251;4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+    </ClCompile>
+    <Lib>
+      <AdditionalLibraryDirectories>libcocos2d.lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+    <PreLinkEvent>
+      <Command>
+      </Command>
+    </PreLinkEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

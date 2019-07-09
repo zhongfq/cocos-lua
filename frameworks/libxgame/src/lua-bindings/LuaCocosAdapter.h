@@ -8,7 +8,7 @@
 
 NS_CC_BEGIN
 
-class CC_DLL LuaComponent : public Component
+class LuaComponent : public Component
 {
 public:
     static LuaComponent* create();

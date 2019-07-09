@@ -27,11 +27,12 @@
 #include "xgame/xlua.h"
 #include "wechat/lua_wechat.h"
 
-#include "lua_swf.h"
+//#include "lua_swf.h"
 
 #include "lua-bindings/lua_dragonbones.h"
 #include "lua-bindings/lua_fairygui.h"
 #include "lua-bindings/lua_spine.h"
+
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
 #define BUGLY_APPID "546f1cf279" // d21353e4-26c8-4f94-b646-cf88a225f039
@@ -49,7 +50,7 @@ static int _open_plugins(lua_State *L)
     xlua_call(L, luaopen_fairygui);
     xlua_call(L, luaopen_spine);
     
-    xlua_call(L, luaopen_swf);
+    //xlua_call(L, luaopen_swf);
     
     olua_require(L, "kernel.plugins.wechat", luaopen_wechat);
     return 0;

@@ -2,6 +2,15 @@
 #include "xgame/xruntime-private.h"
 #include "cocos2d.h"
 
+void __runtime_setAudioSessionCatalog(const std::string &catalog)
+{
+}
+
+const std::string __runtime_getAudioSessionCatalog()
+{
+	return "";
+}
+
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 
 USING_NS_CC;
@@ -84,5 +93,44 @@ void __runtime_pullAllFeatures()
 {
     JniHelper::callStaticVoidMethod(JAVA_RUNTIME_CLASS, "pullAllFeatures");
 }
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+const std::string __runtime_getPackageName()
+{
+	return "org.cocos2dx.hellolua";
+}
 
+const std::string __runtime_getVersion()
+{
+	return "1.0.0";
+}
+
+const std::string __runtime_getVersionBuild()
+{
+	return "100";
+}
+
+const std::string __runtime_getChannel()
+{
+	return "win";
+}
+
+const std::string __runtime_getDeviceInfo()
+{
+	return "win32";
+}
+
+const std::string __runtime_getLanguage()
+{
+	return "zh-CN";
+}
+
+void __runtime_openURL(const std::string &uri, const std::function<void(bool)> callback)
+{
+	callback(false);
+}
+
+bool __runtime_canOpenURL(const std::string &uri)
+{
+	return false;
+}
 #endif

@@ -38,6 +38,6 @@ function main()
             or string.find(path, '.data', 1, true)
     end
 
-    inst:start()
+    inst.onComplete(false)
 end
 

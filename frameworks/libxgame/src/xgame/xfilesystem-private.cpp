@@ -1,16 +1,8 @@
 #include "xgame/xfilesystem-private.h"
+#include "xgame/xfilesystem.h"
 #include "xgame/xruntime.h"
 
 #include "cocos2d.h"
-
-void __runtime_setAudioSessionCatalog(const std::string &catalog)
-{
-}
-
-const std::string __runtime_getAudioSessionCatalog()
-{
-    return "";
-}
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 
@@ -115,22 +107,22 @@ const std::string __filesystem_getAppDataDirectory()
 
 const std::string __filesystem_getDocumentDirectory()
 {
-    return filesystem::getWritablePath() + "/Documents";
+    return xgame::filesystem::getWritablePath() + "/Documents";
 }
 
 const std::string __filesystem_getCacheDirectory()
 {
-    return filesystem::getWritablePath() + "/Cache";
+    return xgame::filesystem::getWritablePath() + "/Cache";
 }
 
 const std::string __filesystem_getTmpDirectory()
 {
-    return filesystem::getWritablePath() + "/Tmp";
+    return xgame::filesystem::getWritablePath() + "/Tmp";
 }
 
 const std::string __filesystem_getSDCardDirectory()
 {
-    runtime::log("filesystem::getSDCardDirectory only support android");
+	xgame::runtime::log("filesystem::getSDCardDirectory only support android");
     return "/";
 }
 

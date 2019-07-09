@@ -6,7 +6,7 @@ NS_XGAME_BEGIN
 FileFinder::FileFinder()
 {
     init();
-#if CC_TARGET_PLATFORM == CC_PLATFORM_MAC || CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+#if CC_TARGET_PLATFORM == CC_PLATFORM_MAC
     std::string path = filesystem::getAppDataDirectory();
     setWritablePath(path + "/");
 #endif

@@ -11437,7 +11437,7 @@ static int _fairygui_GList_set_itemRenderer(lua_State *L)
 
         // inject code before call
         if (arg2->getParent()) {
-            olua_push_cppobj<fairygui::GComponent>(L, arg2->getParent(), "fui.GComponent");
+            olua_push_cppobj<fairygui::GComponent>(L, arg2->getParent());
             olua_mapref(L, -1, "children", -2);
             lua_pop(L, 1);
         }
@@ -12721,7 +12721,7 @@ static int _fairygui_PopupMenu_addItemAt(lua_State *L)
         int top = lua_gettop(L);
         size_t last = olua_push_objpool(L);
         olua_enable_objpool(L);
-        olua_push_cppobj<fairygui::EventContext>(L, event, "fui.EventContext");
+        olua_push_cppobj<fairygui::EventContext>(L, event);
         olua_disable_objpool(L);
         olua_callback(L, callback_store_obj, func.c_str(), 1);
 
@@ -12733,8 +12733,8 @@ static int _fairygui_PopupMenu_addItemAt(lua_State *L)
 
     ret->addEventListener(fairygui::UIEventType::ClickMenu, callback);
 
-    olua_push_cppobj<fairygui::GButton>(L, ret, "fui.GButton");
-    olua_push_cppobj<fairygui::GComponent>(L, ret->getParent(), "fui.GComponent");
+    olua_push_cppobj<fairygui::GButton>(L, ret);
+    olua_push_cppobj<fairygui::GComponent>(L, ret->getParent());
     olua_mapref(L, -1, "children", -2);
     lua_pop(L, 1);
 
@@ -12764,7 +12764,7 @@ static int _fairygui_PopupMenu_clearItems(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.PopupMenu");
 
     // inject code before call
-    olua_push_cppobj<fairygui::GList>(L, self->getList(), "fui.GList");
+    olua_push_cppobj<fairygui::GList>(L, self->getList());
     int parent = lua_gettop(L);
     olua_startcmpunref(L, parent, "children");
 
@@ -12918,7 +12918,7 @@ static int _fairygui_PopupMenu_removeItem(lua_State *L)
     olua_check_std_string(L, 2, &arg1);
 
     // inject code before call
-    olua_push_cppobj<fairygui::GList>(L, self->getList(), "fui.GList");
+    olua_push_cppobj<fairygui::GList>(L, self->getList());
     int parent = lua_gettop(L);
     olua_startcmpunref(L, parent, "children");
 
@@ -13039,7 +13039,7 @@ static int _fairygui_PopupMenu_show1(lua_State *L)
     if (!root) {
         luaL_error(L, "no root to add 'PopupMenu'");
     }
-    olua_push_cppobj<fairygui::GRoot>(L, root, "fui.GRoot");
+    olua_push_cppobj<fairygui::GRoot>(L, root);
     int parent = lua_gettop(L);
     olua_startcmpunref(L, parent, "children");
 
@@ -13074,7 +13074,7 @@ static int _fairygui_PopupMenu_show2(lua_State *L)
     if (!root) {
         luaL_error(L, "no root to add 'PopupMenu'");
     }
-    olua_push_cppobj<fairygui::GRoot>(L, root, "fui.GRoot");
+    olua_push_cppobj<fairygui::GRoot>(L, root);
     int parent = lua_gettop(L);
     olua_startcmpunref(L, parent, "children");
 
@@ -16144,7 +16144,7 @@ static int _fairygui_Window_hide(lua_State *L)
     if (!root) {
         return 0;
     }
-    olua_push_cppobj<fairygui::GComponent>(L, root, "fui.GComponent");
+    olua_push_cppobj<fairygui::GComponent>(L, root);
     int parent = lua_gettop(L);
     olua_startcmpunref(L, parent, "children");
 
@@ -16170,7 +16170,7 @@ static int _fairygui_Window_hideImmediately(lua_State *L)
     if (!root) {
         return 0;
     }
-    olua_push_cppobj<fairygui::GComponent>(L, root, "fui.GComponent");
+    olua_push_cppobj<fairygui::GComponent>(L, root);
     int parent = lua_gettop(L);
     olua_startcmpunref(L, parent, "children");
 
@@ -16378,7 +16378,7 @@ static int _fairygui_Window_show(lua_State *L)
     if (!root) {
         luaL_error(L, "no root to add 'Window'");
     }
-    olua_push_cppobj<fairygui::GComponent>(L, root, "fui.GComponent");
+    olua_push_cppobj<fairygui::GComponent>(L, root);
     int parent = lua_gettop(L);
     olua_startcmpunref(L, parent, "children");
 
@@ -17323,7 +17323,7 @@ static int _fairygui_TreeView_create(lua_State *L)
     int num_ret = olua_push_cppobj<fairygui::TreeView>(L, ret, "fui.TreeView");
 
     // inject code after call
-    olua_push_cppobj<fairygui::TreeNode>(L, ret->getRootNode(), "fui.TreeNode");
+    olua_push_cppobj<fairygui::TreeNode>(L, ret->getRootNode());
     olua_singleref(L, -2, "rootNode", -1);
     lua_pop(L, 1);
     olua_singleref(L, -1, "list", 1);
@@ -17505,7 +17505,7 @@ static int _fairygui_TreeView_set_treeNodeCreateCell(lua_State *L)
         olua_check_cppobj(L, -1, (void **)&ret, "fui.GComponent");
 
         // inject code after call
-        olua_push_cppobj<fairygui::TreeNode>(L, arg1, "fui.TreeNode");
+        olua_push_cppobj<fairygui::TreeNode>(L, arg1);
         olua_singleref(L, -1, "cell", -2);
         lua_pop(L, 1);
 

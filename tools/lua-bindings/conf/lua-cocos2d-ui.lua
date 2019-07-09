@@ -6,7 +6,6 @@ M.PARSER = {
     PATH = {
         'cocos2d.h',
         'ui/CocosGUI.h',
-        'ui/UIPageViewIndicator.h',
         'ui/UIScrollViewBar.h',
         'lua-bindings/LuaCocosAdapter.h'
     },
@@ -30,7 +29,6 @@ M.INCLUDES = [[
 #include "xgame/xruntime.h"
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
-#include "ui/UIPageViewIndicator.h"
 #include "ui/UIScrollViewBar.h"
 ]]
 M.CHUNK = [[]]
@@ -49,7 +47,8 @@ M.MAKE_LUACLS = function (cppname)
     return cppname
 end
 
-M.EXCLUDE_TYPE = require "conf.exclude-type"
+M.EXCLUDE_TYPE = require 'conf.exclude-type'
+M.EXCLUDE_TYPE 'cocos2d::ui::PageViewIndicator'
 
 typeconf 'cocos2d::ui::Widget::FocusDirection'
 typeconf 'cocos2d::ui::Widget::PositionType'
@@ -235,7 +234,6 @@ PageView.CALLBACK('addEventListener', {
 })
 PageView.ALIAS('addEventListener', 'addPageViewEventListener')
 
-typeconf 'cocos2d::ui::PageViewIndicator'
 typeconf 'cocos2d::ui::RichElement::Type'
 typeconf 'cocos2d::ui::RichElement'
 typeconf 'cocos2d::ui::RichElementText'

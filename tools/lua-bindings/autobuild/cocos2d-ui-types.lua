@@ -449,12 +449,6 @@ typedef {
 }
 
 typedef {
-    CPPCLS = 'cocos2d::ui::PageViewIndicator *',
-    CONV_FUNC = 'olua_$$_cppobj',
-    LUACLS = 'ccui.PageViewIndicator',
-}
-
-typedef {
     CPPCLS = 'cocos2d::ui::RadioButton *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'ccui.RadioButton',

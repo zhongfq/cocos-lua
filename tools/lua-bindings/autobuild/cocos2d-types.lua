@@ -1091,12 +1091,6 @@ typedef {
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Grabber *',
-    CONV_FUNC = 'olua_$$_cppobj',
-    LUACLS = 'cc.Grabber',
-}
-
-typedef {
     CPPCLS = 'cocos2d::Grid3D *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'cc.Grid3D',

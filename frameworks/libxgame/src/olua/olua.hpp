@@ -79,6 +79,11 @@ template <typename T> const char *olua_getluatype(lua_State *L, T *obj, const ch
     return cls;
 }
 
+template <typename T> const char *olua_getluatype(lua_State *L)
+{
+    return olua_getluatype<T>(L, nullptr, nullptr);
+}
+
 static inline const char *olua_getluatype(lua_State *L, void *obj, const char *cls)
 {
     return cls;

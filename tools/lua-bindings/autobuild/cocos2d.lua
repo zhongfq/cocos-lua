@@ -219,21 +219,15 @@ cls = class(M.CLASSES)
 cls.CPPCLS = "cocos2d::Scheduler"
 cls.SUPERCLS = "cocos2d::Ref"
 cls.CHUNK = [[
-template <typename T> bool doScheduleUpdate(lua_State *L, const char *cls)
+template <typename T> bool doScheduleUpdate(lua_State *L)
 {
+    const char *cls = olua_getluatype<T>(L);
     if (olua_is_cppobj(L, 2, cls)) {
-        cocos2d::Scheduler *self = nullptr;
-        lua_Integer arg2 = 0;
-        bool arg3 = false;
-        
-        olua_to_cppobj(L, 1, (void **)&self, "cc.Scheduler");
-        olua_check_int(L, 3, &arg2);
-        olua_check_bool(L, 4, &arg3);
-        
-        T* arg1 = nullptr;
-        olua_to_cppobj(L, 2, (void **)&arg1, cls);
-        self->scheduleUpdate(arg1, (int)arg2, arg3);
-        
+        auto self = olua_checkobj<cocos2d::Scheduler>(L, 1);
+        auto target = olua_checkobj<T>(L, 2);
+        lua_Integer priority = olua_checkinteger(L, 3);
+        bool paused = olua_checkboolean(L, 4);
+        self->scheduleUpdate(target, (int)priority, paused);
         return true;
     }
     
@@ -265,12 +259,12 @@ cls.func('new', [[{
 cls.func('scheduleUpdate', [[{
     lua_settop(L, 4);
     
-    if (doScheduleUpdate<cocos2d::Scheduler>(L, "cc.Scheduler") ||
-        doScheduleUpdate<cocos2d::ActionManager>(L, "cc.ActionManager") ||
-        doScheduleUpdate<cocos2d::Node>(L, "cc.Node") ||
-        doScheduleUpdate<cocos2d::Action>(L, "cc.Action") ||
-        doScheduleUpdate<cocos2d::Component>(L, "cc.Component") ||
-        doScheduleUpdate<cocos2d::ActionManager>(L, "cc.ActionManager")) {
+    if (doScheduleUpdate<cocos2d::Scheduler>(L) ||
+        doScheduleUpdate<cocos2d::ActionManager>(L) ||
+        doScheduleUpdate<cocos2d::Node>(L) ||
+        doScheduleUpdate<cocos2d::Action>(L) ||
+        doScheduleUpdate<cocos2d::Component>(L) ||
+        doScheduleUpdate<cocos2d::ActionManager>(L)) {
         return 0;
     }
     
@@ -360,14 +354,10 @@ cls.funcs [[
 cls.func('addCustomEventListener', [[{
     lua_settop(L, 3);
 
-    cocos2d::EventDispatcher *self = nullptr;
-    std::string eventName;
     void *callback_store_obj = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.EventDispatcher");
-    olua_check_std_string(L, 2, &eventName);
-    
-    cocos2d::EventListenerCustom *listener = new cocos2d::EventListenerCustom();
+    auto self = olua_checkobj<cocos2d::EventDispatcher>(L, 1);
+    std::string eventName = olua_checkstring(L, 2);
+    auto listener = new cocos2d::EventListenerCustom();
     listener->autorelease();
     olua_push_cppobj<cocos2d::EventListenerCustom>(L, listener);
     callback_store_obj = listener;
@@ -408,7 +398,7 @@ cls.inject('addCustomEventListener', {
 cls.inject('removeEventListenersForTarget', {
     BEFORE = [[
         bool recursive = false;
-        cocos2d::Node *node = (cocos2d::Node *)olua_checkobj(L, 2, "cc.Node");
+        auto node = olua_checkobj<cocos2d::Node>(L, 2);
         if (lua_gettop(L) >= 3) {
             recursive = olua_toboolean(L, 3);
         }
@@ -1023,7 +1013,8 @@ cls.inject('uncache', {
     BEFORE = [[
         std::string path = olua_checkstring(L, 1);
         std::list<int> ids = cocos2d::LuaAudioEngine::getAudioIDs(path);
-        void *callback_store_obj = (void *)olua_getstoreobj(L, "cc.AudioEngine");
+        const char *cls = olua_getluatype<cocos2d::experimental::AudioEngine>(L);
+        void *callback_store_obj = (void *)olua_getstoreobj(L, cls);
         for (auto id : ids) {
             std::string tag = makeAudioEngineFinishCallbackTag((lua_Integer)id);
             olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
@@ -1209,7 +1200,7 @@ cls.funcs [[
 cls.func('getFileDataFromZip', [[{
     lua_settop(L, 3);
     ssize_t size;
-    cocos2d::FileUtils *self = (cocos2d::FileUtils *)olua_toobj(L, 1, "cc.FileUtils");
+    auto self = olua_toobj<cocos2d::FileUtils>(L, 1);
     std::string filePath = olua_checkstring(L, 2);
     std::string filename = olua_checkstring(L, 3);
     const unsigned char * data= self->getFileDataFromZip(filePath, filename, &size);
@@ -1225,7 +1216,7 @@ cls.func('getFileDataFromZip', [[{
 }]])
 cls.func('listFilesRecursively', [[{
     lua_settop(L, 2);
-    cocos2d::FileUtils *self = (cocos2d::FileUtils *)olua_toobj(L, 1, "cc.FileUtils");
+    auto self = olua_toobj<cocos2d::FileUtils>(L, 1);
     std::vector<std::string> files;
     std::string dirPath = olua_checkstring(L, 2);
     self->listFilesRecursively(dirPath, &files);
@@ -1239,7 +1230,7 @@ cls.func('listFilesRecursively', [[{
 }]])
 cls.func('getFullPathCache', [[{
     lua_settop(L, 1);
-    cocos2d::FileUtils *self = (cocos2d::FileUtils *)olua_toobj(L, 1, "cc.FileUtils");
+    auto self = olua_toobj<cocos2d::FileUtils>(L, 1);
     const std::unordered_map<std::string, std::string> paths  = self->getFullPathCache();
     lua_createtable(L, 0, 4);
     for (const auto &it : paths) {
@@ -1955,8 +1946,7 @@ cls.func('create', [[{
     olua_push_cppobj<cocos2d::Sequence>(L, ret);
 
     for (int i = 1; i <= n; i++) {
-        cocos2d::FiniteTimeAction *obj;
-        olua_check_cppobj(L, i, (void **)&obj, "cc.FiniteTimeAction");
+        auto obj = olua_checkobj<cocos2d::FiniteTimeAction>(L, i);
         actions.pushBack(obj);
         olua_mapref(L, -1, ".autoref", i);
     }
@@ -2006,8 +1996,7 @@ cls.func('create', [[{
     olua_push_cppobj<cocos2d::Spawn>(L, ret);
 
     for (int i = 1; i <= n; i++) {
-        cocos2d::FiniteTimeAction *obj;
-        olua_check_cppobj(L, i, (void **)&obj, "cc.FiniteTimeAction");
+        auto obj = olua_checkobj<cocos2d::FiniteTimeAction>(L, i);
         actions.pushBack(obj);
         olua_mapref(L, -1, ".autoref", i);
     }
@@ -2892,14 +2881,14 @@ cls.prop('z', 'float getPositionZ()', 'void setPositionZ(float z)')
 cls.prop('anchorX', [[
 {
     lua_settop(L, 1);
-    cocos2d::Node *self = (cocos2d::Node *)olua_toobj(L, 1, "cc.Node");
+    auto self = olua_toobj<cocos2d::Node>(L, 1);
     lua_pushnumber(L, self->getAnchorPoint().x);
     return 1;
 }
 ]], [[
 {
     lua_settop(L, 2);
-    cocos2d::Node *self = (cocos2d::Node *)olua_toobj(L, 1, "cc.Node");
+    auto self = olua_toobj<cocos2d::Node>(L, 1);
     cocos2d::Vec2 anchor = self->getAnchorPoint();
     anchor.x = olua_checknumber(L, 2);
     self->setAnchorPoint(anchor);
@@ -2908,14 +2897,14 @@ cls.prop('anchorX', [[
 cls.prop('anchorY', [[
 {
     lua_settop(L, 1);
-    cocos2d::Node *self = (cocos2d::Node *)olua_toobj(L, 1, "cc.Node");
+    auto self = olua_toobj<cocos2d::Node>(L, 1);
     lua_pushnumber(L, self->getAnchorPoint().y);
     return 1;
 }
 ]], [[
 {
     lua_settop(L, 2);
-    cocos2d::Node *self = (cocos2d::Node *)olua_toobj(L, 1, "cc.Node");
+    auto self = olua_toobj<cocos2d::Node>(L, 1);
     cocos2d::Vec2 anchor = self->getAnchorPoint();
     anchor.y = olua_checknumber(L, 2);
     self->setAnchorPoint(anchor);
@@ -2924,14 +2913,14 @@ cls.prop('anchorY', [[
 cls.prop('width', [[
 {
     lua_settop(L, 1);
-    cocos2d::Node *self = (cocos2d::Node *)olua_toobj(L, 1, "cc.Node");
+    auto self = olua_toobj<cocos2d::Node>(L, 1);
     lua_pushnumber(L, self->getContentSize().width);
     return 1;
 }
 ]], [[
 {
     lua_settop(L, 2);
-    cocos2d::Node *self = (cocos2d::Node *)olua_toobj(L, 1, "cc.Node");
+    auto self = olua_toobj<cocos2d::Node>(L, 1);
     cocos2d::Size size = self->getContentSize();
     size.width = olua_checknumber(L, 2);
     self->setContentSize(size);
@@ -2940,14 +2929,14 @@ cls.prop('width', [[
 cls.prop('height', [[
 {
     lua_settop(L, 1);
-    cocos2d::Node *self = (cocos2d::Node *)olua_toobj(L, 1, "cc.Node");
+    auto self = olua_toobj<cocos2d::Node>(L, 1);
     lua_pushnumber(L, self->getContentSize().height);
     return 1;
 }
 ]], [[
 {
     lua_settop(L, 2);
-    cocos2d::Node *self = (cocos2d::Node *)olua_toobj(L, 1, "cc.Node");
+    auto self = olua_toobj<cocos2d::Node>(L, 1);
     cocos2d::Size size = self->getContentSize();
     size.height = olua_checknumber(L, 2);
     self->setContentSize(size);
@@ -2956,14 +2945,14 @@ cls.prop('height', [[
 cls.prop('alpha', [[
 {
     lua_settop(L, 1);
-    cocos2d::Node *self = (cocos2d::Node *)olua_toobj(L, 1, "cc.Node");
+    auto self = olua_toobj<cocos2d::Node>(L, 1);
     lua_pushnumber(L, self->getOpacity() / 255.0f);
     return 1;
 }
 ]], [[
 {
     lua_settop(L, 2);
-    cocos2d::Node *self = (cocos2d::Node *)olua_toobj(L, 1, "cc.Node");
+    auto self = olua_toobj<cocos2d::Node>(L, 1);
     self->setOpacity(olua_checknumber(L, 2) * 255.0f);
     return 0;
 }]])
@@ -4619,15 +4608,6 @@ cls.funcs [[
     Quad3 getTile(const Vec2& pos)
     Quad3 getOriginalTile(const Vec2& pos)
     void setTile(const Vec2& pos, const Quad3& coords)
-]]
-
-cls = class(M.CLASSES)
-cls.CPPCLS = "cocos2d::Grabber"
-cls.SUPERCLS = "cocos2d::Ref"
-cls.funcs [[
-    void grab(Texture2D *texture)
-    void beforeRender(Texture2D *texture)
-    void afterRender(Texture2D *texture)
 ]]
 
 cls = class(M.CLASSES)

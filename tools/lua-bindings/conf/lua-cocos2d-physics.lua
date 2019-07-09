@@ -33,6 +33,99 @@ typeconv {
     ]]
 }
 
+typedef {
+    CPPCLS = 'cocos2d::PhysicsWorld',
+    CONV_FUNC = 'manual_luacv_$$_cocos2d_PhysicsWorld',
+    INIT_VALUE = false,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::PhysicsShape',
+    CONV_FUNC = 'manual_luacv_$$_cocos2d_PhysicsShape',
+    INIT_VALUE = false,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::PhysicsContact',
+    CONV_FUNC = 'manual_luacv_$$_cocos2d_PhysicsContact',
+    INIT_VALUE = false,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::PhysicsContactPreSolve',
+    CONV_FUNC = 'manual_luacv_$$_cocos2d_PhysicsContactPreSolve',
+    INIT_VALUE = false,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::PhysicsContactPostSolve',
+    CONV_FUNC = 'manual_luacv_$$_cocos2d_PhysicsContactPostSolve',
+    INIT_VALUE = false,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::PhysicsRayCastInfo',
+    CONV_FUNC = 'manual_luacv_$$_cocos2d_PhysicsRayCastInfo',
+    INIT_VALUE = false,
+}
+
+M.CHUNK = M.CHUNK .. [[
+static int manual_luacv_push_cocos2d_PhysicsWorld(lua_State *L, cocos2d::PhysicsWorld *value)
+{
+    if (!olua_getobj(L, value)) {
+        olua_push_cppobj<cocos2d::PhysicsWorld>(L, value);
+    }
+    return 1;
+}
+
+static int manual_luacv_push_cocos2d_PhysicsShape(lua_State *L, cocos2d::PhysicsShape *value)
+{
+    if (!olua_getobj(L, value)) {
+        olua_push_cppobj<cocos2d::PhysicsShape>(L, value);
+    }
+    return 1;
+}
+
+static int manual_luacv_push_cocos2d_PhysicsContact(lua_State *L, cocos2d::PhysicsContact *value)
+{
+    if (!olua_getobj(L, value)) {
+        olua_push_cppobj<cocos2d::PhysicsContact>(L, value);
+    }
+    return 1;
+}
+
+static int manual_luacv_push_cocos2d_PhysicsContactPreSolve(lua_State *L, const cocos2d::PhysicsContactPreSolve *value)
+{
+    if (!olua_getobj(L, (cocos2d::PhysicsContactPreSolve *)value)) {
+        olua_push_cppobj<cocos2d::PhysicsContactPreSolve>(L, (cocos2d::PhysicsContactPreSolve *)value);
+    }
+    return 1;
+}
+
+static int manual_luacv_push_cocos2d_PhysicsContactPostSolve(lua_State *L, const cocos2d::PhysicsContactPostSolve *value)
+{
+    if (!olua_getobj(L, (cocos2d::PhysicsContactPreSolve *)value)) {
+        olua_push_cppobj<cocos2d::PhysicsContactPostSolve>(L, (cocos2d::PhysicsContactPostSolve *)value);
+    }
+    return 1;
+}
+
+static int manual_luacv_push_cocos2d_PhysicsRayCastInfo(lua_State *L, const cocos2d::PhysicsRayCastInfo *value)
+{
+    olua_push_cppobj<cocos2d::PhysicsRayCastInfo>(L, (cocos2d::PhysicsRayCastInfo *)value);
+    return 1;
+}
+]]
+
+local EventListenerPhysicsContact = typeconf 'cocos2d::EventListenerPhysicsContact'
+EventListenerPhysicsContact.VAR('onContactBegin', 'std::function<bool(PhysicsContact& contact)> onContactBegin = nullptr')
+EventListenerPhysicsContact.VAR('onContactPreSolve', 'std::function<bool(PhysicsContact& contact, PhysicsContactPreSolve& solve)> onContactPreSolve = nullptr')
+EventListenerPhysicsContact.VAR('onContactPostSolve', 'std::function<void(PhysicsContact& contact, const PhysicsContactPostSolve& solve)> onContactPostSolve = nullptr')
+EventListenerPhysicsContact.VAR('onContactSeparate', 'std::function<void(PhysicsContact& contact)> onContactSeparate = nullptr')
+
+typeconf 'cocos2d::EventListenerPhysicsContactWithGroup'
+typeconf 'cocos2d::EventListenerPhysicsContactWithBodies'
+typeconf 'cocos2d::EventListenerPhysicsContactWithShapes'
 typeconf 'cocos2d::PhysicsBody'
 typeconf 'cocos2d::PhysicsContact::EventCode'
 typeconf 'cocos2d::PhysicsContact'
@@ -60,25 +153,6 @@ typeconf 'cocos2d::PhysicsShapeEdgeBox'
 typeconf 'cocos2d::PhysicsShapeEdgeChain'
 typeconf 'cocos2d::PhysicsShapeEdgeSegment'
 
-
-typedef {
-    CPPCLS = 'cocos2d::PhysicsWorld',
-    CONV_FUNC = 'manual_luacv_$$_cocos2d_PhysicsWorld',
-    INIT_VALUE = false,
-}
-
-typedef {
-    CPPCLS = 'cocos2d::PhysicsShape',
-    CONV_FUNC = 'manual_luacv_$$_cocos2d_PhysicsShape',
-    INIT_VALUE = false,
-}
-
-typedef {
-    CPPCLS = 'cocos2d::PhysicsRayCastInfo',
-    CONV_FUNC = 'manual_luacv_$$_cocos2d_PhysicsRayCastInfo',
-    INIT_VALUE = false,
-}
-
 local PhysicsRayCastInfo = typeconf 'cocos2d::PhysicsRayCastInfo'
 PhysicsRayCastInfo.CPPCLS = 'cocos2d::PhysicsRayCastInfo'
 PhysicsRayCastInfo.VAR('shape', 'PhysicsShape* shape') -- TODO: autoconf
@@ -98,29 +172,6 @@ PhysicsWorld.FUNC('getScene', [[
     return 1;
 }]])
 PhysicsWorld.PROP('scene')
-PhysicsWorld.CHUNK = [[
-static int manual_luacv_push_cocos2d_PhysicsWorld(lua_State *L, cocos2d::PhysicsWorld *value)
-{
-    if (!olua_getobj(L, value)) {
-        olua_push_cppobj<cocos2d::PhysicsWorld>(L, value);
-    }
-    return 1;
-}
-
-static int manual_luacv_push_cocos2d_PhysicsShape(lua_State *L, cocos2d::PhysicsShape *value)
-{
-    if (!olua_getobj(L, value)) {
-        olua_push_cppobj<cocos2d::PhysicsShape>(L, value);
-    }
-    return 1;
-}
-
-static int manual_luacv_push_cocos2d_PhysicsRayCastInfo(lua_State *L, const cocos2d::PhysicsRayCastInfo *value)
-{
-    olua_push_cppobj<cocos2d::PhysicsRayCastInfo>(L, (cocos2d::PhysicsRayCastInfo *)value);
-    return 1;
-}
-]]
 PhysicsWorld.CALLBACK('rayCast', {
     FUNCS = {'void rayCast(std::function<bool(@stack PhysicsWorld& world, @stack const PhysicsRayCastInfo& info, void* data)> func, const Vec2& start, const Vec2& end, void* data)'},
     TAG_MAKER = 'olua_makecallbacktag("rayCast")',

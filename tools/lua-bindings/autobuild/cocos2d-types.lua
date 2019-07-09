@@ -213,6 +213,24 @@ typedef {
 }
 
 typedef {
+    CONV_FUNC = 'manual_luacv_$$_cocos2d_PhysicsContact',
+    CPPCLS = 'cocos2d::PhysicsContact',
+    INIT_VALUE = false,
+}
+
+typedef {
+    CONV_FUNC = 'manual_luacv_$$_cocos2d_PhysicsContactPreSolve',
+    CPPCLS = 'cocos2d::PhysicsContactPreSolve',
+    INIT_VALUE = false,
+}
+
+typedef {
+    CONV_FUNC = 'manual_luacv_$$_cocos2d_PhysicsContactPostSolve',
+    CPPCLS = 'cocos2d::PhysicsContactPostSolve',
+    INIT_VALUE = false,
+}
+
+typedef {
     CONV_FUNC = 'manual_luacv_$$_cocos2d_PhysicsRayCastInfo',
     CPPCLS = 'cocos2d::PhysicsRayCastInfo',
     INIT_VALUE = false,
@@ -990,6 +1008,30 @@ typedef {
     CPPCLS = 'cocos2d::EventListenerMouse *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'cc.EventListenerMouse',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EventListenerPhysicsContact *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'cc.EventListenerPhysicsContact',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EventListenerPhysicsContactWithBodies *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'cc.EventListenerPhysicsContactWithBodies',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EventListenerPhysicsContactWithGroup *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'cc.EventListenerPhysicsContactWithGroup',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EventListenerPhysicsContactWithShapes *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'cc.EventListenerPhysicsContactWithShapes',
 }
 
 typedef {

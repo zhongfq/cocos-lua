@@ -23,7 +23,52 @@ M.CHUNK = [[
 static const std::string makeScheduleCallbackTag(const std::string &key)
 {
     return "schedule." + key;
-}]]
+}static int manual_luacv_push_cocos2d_PhysicsWorld(lua_State *L, cocos2d::PhysicsWorld *value)
+{
+    if (!olua_getobj(L, value)) {
+        olua_push_cppobj<cocos2d::PhysicsWorld>(L, value);
+    }
+    return 1;
+}
+
+static int manual_luacv_push_cocos2d_PhysicsShape(lua_State *L, cocos2d::PhysicsShape *value)
+{
+    if (!olua_getobj(L, value)) {
+        olua_push_cppobj<cocos2d::PhysicsShape>(L, value);
+    }
+    return 1;
+}
+
+static int manual_luacv_push_cocos2d_PhysicsContact(lua_State *L, cocos2d::PhysicsContact *value)
+{
+    if (!olua_getobj(L, value)) {
+        olua_push_cppobj<cocos2d::PhysicsContact>(L, value);
+    }
+    return 1;
+}
+
+static int manual_luacv_push_cocos2d_PhysicsContactPreSolve(lua_State *L, const cocos2d::PhysicsContactPreSolve *value)
+{
+    if (!olua_getobj(L, (cocos2d::PhysicsContactPreSolve *)value)) {
+        olua_push_cppobj<cocos2d::PhysicsContactPreSolve>(L, (cocos2d::PhysicsContactPreSolve *)value);
+    }
+    return 1;
+}
+
+static int manual_luacv_push_cocos2d_PhysicsContactPostSolve(lua_State *L, const cocos2d::PhysicsContactPostSolve *value)
+{
+    if (!olua_getobj(L, (cocos2d::PhysicsContactPreSolve *)value)) {
+        olua_push_cppobj<cocos2d::PhysicsContactPostSolve>(L, (cocos2d::PhysicsContactPostSolve *)value);
+    }
+    return 1;
+}
+
+static int manual_luacv_push_cocos2d_PhysicsRayCastInfo(lua_State *L, const cocos2d::PhysicsRayCastInfo *value)
+{
+    olua_push_cppobj<cocos2d::PhysicsRayCastInfo>(L, (cocos2d::PhysicsRayCastInfo *)value);
+    return 1;
+}
+]]
 
 M.CONVS = {
     typeconv {
@@ -4952,6 +4997,34 @@ cls.funcs [[
 ]]
 
 cls = class(M.CLASSES)
+cls.CPPCLS = "cocos2d::EventListenerPhysicsContact"
+cls.SUPERCLS = "cocos2d::EventListenerCustom"
+cls.funcs [[
+]]
+cls.var('onContactBegin', [[std::function<bool(PhysicsContact& contact)> onContactBegin = nullptr]])
+cls.var('onContactPreSolve', [[std::function<bool(PhysicsContact& contact, PhysicsContactPreSolve& solve)> onContactPreSolve = nullptr]])
+cls.var('onContactPostSolve', [[std::function<void(PhysicsContact& contact, const PhysicsContactPostSolve& solve)> onContactPostSolve = nullptr]])
+cls.var('onContactSeparate', [[std::function<void(PhysicsContact& contact)> onContactSeparate = nullptr]])
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "cocos2d::EventListenerPhysicsContactWithGroup"
+cls.SUPERCLS = "cocos2d::EventListenerPhysicsContact"
+cls.funcs [[
+]]
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "cocos2d::EventListenerPhysicsContactWithBodies"
+cls.SUPERCLS = "cocos2d::EventListenerPhysicsContact"
+cls.funcs [[
+]]
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "cocos2d::EventListenerPhysicsContactWithShapes"
+cls.SUPERCLS = "cocos2d::EventListenerPhysicsContact"
+cls.funcs [[
+]]
+
+cls = class(M.CLASSES)
 cls.CPPCLS = "cocos2d::PhysicsBody"
 cls.SUPERCLS = "cocos2d::Component"
 cls.funcs [[
@@ -5466,29 +5539,6 @@ cls.var('data', [[void* data]])
 
 cls = class(M.CLASSES)
 cls.CPPCLS = "cocos2d::PhysicsWorld"
-cls.CHUNK = [[
-static int manual_luacv_push_cocos2d_PhysicsWorld(lua_State *L, cocos2d::PhysicsWorld *value)
-{
-    if (!olua_getobj(L, value)) {
-        olua_push_cppobj<cocos2d::PhysicsWorld>(L, value);
-    }
-    return 1;
-}
-
-static int manual_luacv_push_cocos2d_PhysicsShape(lua_State *L, cocos2d::PhysicsShape *value)
-{
-    if (!olua_getobj(L, value)) {
-        olua_push_cppobj<cocos2d::PhysicsShape>(L, value);
-    }
-    return 1;
-}
-
-static int manual_luacv_push_cocos2d_PhysicsRayCastInfo(lua_State *L, const cocos2d::PhysicsRayCastInfo *value)
-{
-    olua_push_cppobj<cocos2d::PhysicsRayCastInfo>(L, (cocos2d::PhysicsRayCastInfo *)value);
-    return 1;
-}
-]]
 cls.funcs [[
     void addJoint(PhysicsJoint* joint)
     void removeJoint(PhysicsJoint* joint, bool destroy = true)

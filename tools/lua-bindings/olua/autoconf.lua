@@ -705,8 +705,8 @@ function M:visitClass(cur)
                 if attr then
                     func = self:injectAttr(func, fn, attr)
                 end
-                if conf.TRIM then
-                    func = conf.TRIM(fn, func)
+                if conf.GSUB then
+                    func = conf.GSUB(fn, func)
                 end
                 cls.FUNCS[#cls.FUNCS + 1] = {
                     FUNC = func,
@@ -733,8 +733,8 @@ function M:visitClass(cur)
                     if attr then
                         func = self:injectAttr(func, fn, attr)
                     end
-                    if conf.TRIM then
-                        func = conf.TRIM(fn, func)
+                    if conf.GSUB then
+                        func = conf.GSUB(fn, func)
                     end
                     cls.FUNCS[#cls.FUNCS + 1] = {
                         FUNC = func,

@@ -7,8 +7,6 @@ M.EXCLUDE_TYPE 'cocos2d::FontLetterDefinition'
 M.EXCLUDE_TYPE 'cocos2d::GroupCommandManager *'
 M.EXCLUDE_TYPE 'cocos2d::Mat4 *'
 M.EXCLUDE_TYPE 'cocos2d::MipmapInfo *'
-M.EXCLUDE_TYPE 'cocos2d::PhysicsBody *'     -- TODO
-M.EXCLUDE_TYPE 'cocos2d::PhysicsWorld *'    -- TDDO
 M.EXCLUDE_TYPE 'cocos2d::Physics3DWorld *'  -- TDDO
 M.EXCLUDE_TYPE 'cocos2d::NavMesh *'         -- TDDO
 M.EXCLUDE_TYPE 'cocos2d::PolygonInfo'
@@ -29,5 +27,8 @@ M.EXCLUDE_TYPE 'GLint *'
 M.EXCLUDE_TYPE 'int *'
 M.EXCLUDE_TYPE 'int16_t *'
 M.EXCLUDE_TYPE 'uint16_t *'
+
+M.EXCLUDE_TYPE 'cpBody *'
+M.EXCLUDE_TYPE 'cocos2d::PhysicsContactData *'
 
 return M.EXCLUDE_TYPE

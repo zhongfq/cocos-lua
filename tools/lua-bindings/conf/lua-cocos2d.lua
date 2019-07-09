@@ -608,7 +608,7 @@ typeconf 'cocos2d::Follow'
 
 local tweenfunc = typeconf 'cocos2d::tweenfunc'
 tweenfunc.REG_LUATYPE = false
-tweenfunc.TRIM = function (fn, decl)
+tweenfunc.GSUB = function (fn, decl)
     return string.gsub(decl, 'CC_DLL *', '')
 end
 
@@ -716,7 +716,7 @@ TargetedAction.ATTR('create', {ARG2 = '@ref(map autoref)'})
 
 local ActionFloat = typeconf 'cocos2d::ActionFloat'
 ActionFloat.CALLBACK('create', {
-    FUNCS = {'static ActionFloat* create(float duration, float from, float to, std::function<void(float value)> callback)'}, 
+    FUNCS = {'static ActionFloat* create(float duration, float from, float to, std::function<void(float value)> callback)'},
     TAG_MAKER = 'olua_makecallbacktag("ActionFloat")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_NEW',
     INIT_FUNC = 'initWithDuration'
@@ -848,6 +848,8 @@ Node.ATTR('getComponent', {RET = '@ref(map components)'})
 Node.ATTR('addComponent', {ARG1 = '@ref(map components)'})
 Node.ATTR('removeComponent', {RET = '@unref(cmp components)'})
 Node.ATTR('removeAllComponents', {RET = '@unref(all components)'})
+Node.ATTR('setPhysicsBody', {ARG1 = '@ref(single physicsBody)'})
+Node.ATTR('getPhysicsBody', {RET = '@ref(single physicsBody)'})
 Node.CHUNK = [[
 static cocos2d::Node *_find_ancestor(cocos2d::Node *node1, cocos2d::Node *node2)
 {
@@ -1075,7 +1077,7 @@ ProtectedNode.ATTR('removeAllProtectedChildren', {RET= '@unref(all protectedChil
 ProtectedNode.ATTR('removeAllProtectedChildrenWithCleanup', {RET = '@unref(all protectedChildren)'})
 
 local DrawNode = typeconf 'cocos2d::DrawNode'
-DrawNode.TRIM = function (fn, decl)
+DrawNode.GSUB = function (fn, decl)
     return string.gsub(decl, 'DEFAULT_LINE_WIDTH', '2')
 end
 
@@ -1113,14 +1115,17 @@ typeconf 'cocos2d::SpriteFrame'
 typeconf 'cocos2d::Sprite'
 
 local SpriteBatchNode = typeconf 'cocos2d::SpriteBatchNode'
-SpriteBatchNode.TRIM = function (fn, decl)
+SpriteBatchNode.GSUB = function (fn, decl)
     return string.gsub(decl, 'DEFAULT_CAPACITY', '29')
 end
 
 typeconf 'cocos2d::SpriteFrameCache'
 typeconf 'cocos2d::AnimationCache'
 
-typeconf 'cocos2d::Scene'
+local Scene = typeconf 'cocos2d::Scene'
+Scene.ATTR('getPhysicsWorld', {RET = '@ref(single physicsWorld)'})
+Scene.ATTR('getPhysics3DWorld', {RET = '@ref(single physics3DWorld)'})
+
 typeconf 'cocos2d::Layer'
 typeconf 'cocos2d::LayerColor'
 typeconf 'cocos2d::LayerGradient'
@@ -1132,7 +1137,7 @@ local function typeconfTransition(name)
     local cls = typeconf(name)
     cls.ATTR('create', {ARG2 = '@ref(map autoref)'})
     cls.ATTR('easeActionWithAction', {ARG1 = '@ref(single action)'})
-    cls.TRIM = function (fn, decl)
+    cls.GSUB = function (fn, decl)
         return string.gsub(decl, 'Orientation ', 'TransitionScene::Orientation ')
     end
     return cls
@@ -1249,5 +1254,7 @@ typeconf 'cocos2d::WavesTiles3D'
 typeconf 'cocos2d::JumpTiles3D'
 typeconf 'cocos2d::SplitRows'
 typeconf 'cocos2d::SplitCols'
+
+include('conf/lua-cocos2d-physics.lua')
 
 return M

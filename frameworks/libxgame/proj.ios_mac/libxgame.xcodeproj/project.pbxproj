@@ -81,7 +81,6 @@
 		0E4C8C42225CAF490095CF59 /* bitstream.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C00225CAF490095CF59 /* bitstream.c */; settings = {COMPILER_FLAGS = "-Wno-unused-variable"; }; };
 		0E4C8C43225CAF490095CF59 /* tables.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C04225CAF490095CF59 /* tables.c */; };
 		0E4C8C44225CAF490095CF59 /* tables.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C04225CAF490095CF59 /* tables.c */; };
-		0E4C8C45225CAF490095CF59 /* lua_lame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C05225CAF490095CF59 /* lua_lame.cpp */; };
 		0E4C8C46225CAF490095CF59 /* lua_lame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C05225CAF490095CF59 /* lua_lame.cpp */; };
 		0E4C8C47225CAF490095CF59 /* vbrquantize.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C08225CAF490095CF59 /* vbrquantize.c */; settings = {COMPILER_FLAGS = "-Wno-unused-variable"; }; };
 		0E4C8C48225CAF490095CF59 /* vbrquantize.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C08225CAF490095CF59 /* vbrquantize.c */; settings = {COMPILER_FLAGS = "-Wno-unused-variable"; }; };
@@ -1097,7 +1096,6 @@
 				0ECC4BD321E79E3E00E3BBF9 /* lauxlib.c in Sources */,
 				0ECC4C8521EB8D4600E3BBF9 /* lua_cjson.c in Sources */,
 				0E4C8C49225CAF490095CF59 /* util.c in Sources */,
-				0E4C8C45225CAF490095CF59 /* lua_lame.cpp in Sources */,
 				0ECC4BB321E79E3E00E3BBF9 /* lapi.c in Sources */,
 				0ECC4BA121E79E3E00E3BBF9 /* ldebug.c in Sources */,
 				0ECC4BD921E79E3E00E3BBF9 /* lstate.c in Sources */,

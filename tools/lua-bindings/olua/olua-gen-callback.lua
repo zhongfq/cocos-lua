@@ -159,8 +159,15 @@ function gen_callback(cls, fi, write)
         else
             local CAST = ""
             if v.TYPE.DECL_TYPE ~= v.TYPE.CPPCLS then
-                assert(not string.find(PUSH_FUNC, '^auto_luacv'))
+                if not v.TYPE.VALUE_TYPE then
+                    print(v.TYPE.DECL_TYPE, v.TYPE.CPPCLS)
+                    error(v.TYPE.CPPCLS)
+                end
                 CAST = string.format("(%s)", v.TYPE.DECL_TYPE)
+            elseif not v.TYPE.VALUE_TYPE then
+                if not string.find(v.TYPE.DECL_TYPE, '*$') then
+                    CAST = '&'
+                end
             end
             PUSH_ARGS[#PUSH_ARGS + 1] = format([[
                 ${PUSH_FUNC}(L, ${CAST}${ARG_N});

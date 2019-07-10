@@ -186,16 +186,7 @@ typeconf 'cocos2d::PhysicsShapeCircle'
 typeconf 'cocos2d::PhysicsShapeEdgeBox'
 typeconf 'cocos2d::PhysicsShapeEdgeChain'
 typeconf 'cocos2d::PhysicsShapeEdgeSegment'
-
-local PhysicsRayCastInfo = typeconf 'cocos2d::PhysicsRayCastInfo'
-PhysicsRayCastInfo.CPPCLS = 'cocos2d::PhysicsRayCastInfo'
-PhysicsRayCastInfo.VAR('shape', 'PhysicsShape* shape') -- TODO: autoconf
-PhysicsRayCastInfo.VAR('start', 'Vec2 start')
-PhysicsRayCastInfo.VAR('end', 'Vec2 end')
-PhysicsRayCastInfo.VAR('contact', 'Vec2 contact')
-PhysicsRayCastInfo.VAR('normal', 'Vec2 normal')
-PhysicsRayCastInfo.VAR('fraction', 'float fraction')
-PhysicsRayCastInfo.VAR('data', 'void* data')
+typeconf 'cocos2d::PhysicsRayCastInfo'
 
 local PhysicsWorld = typeconf 'cocos2d::PhysicsWorld'
 PhysicsWorld.FUNC('getScene', [[

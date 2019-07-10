@@ -792,7 +792,7 @@ function M:visit(cur)
             end
             self:popNamespace()
         end
-    elseif kind == 'ClassDecl' then
+    elseif kind == 'ClassDecl' or kind == 'StructDecl' then
         if self:shouldExport(name) and #children > 0 then
             self:visitClass(cur)
         elseif #children > 0 then

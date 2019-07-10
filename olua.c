@@ -264,14 +264,16 @@ LUALIB_API int olua_pushobj(lua_State *L, void *obj, const char *cls)
         luaL_error(L, "class is null");
     }
     
-    if (isusingpool(L)) {
-        return olua_objpool_push(L, obj, cls);
-    }
-    
     auxgetobjtable(L);
     
     if (lua_rawgetp(L, -1, obj) == LUA_TNIL) {      // L: mapping obj?
         lua_pop(L, 1);                              // L: mapping
+        
+        if (isusingpool(L)) {
+            lua_pop(L, 1);
+            return olua_objpool_push(L, obj, cls);
+        }
+        
         olua_newuserdata(L, obj, void *);           // L: mapping obj
         luaL_setmetatable(L, cls);                  // L: mapping obj
         lua_pushvalue(L, -1);                       // L: mapping obj obj

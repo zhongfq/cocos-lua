@@ -221,7 +221,7 @@ static int _fairygui_UIEventDispatcher_addEventListener1(lua_State *L)
         lua_settop(L, top);
     };
 
-    // void addEventListener(int eventType, const std::function<void(@stack EventContext* context)>& callback)
+    // void addEventListener(int eventType, const std::function<void(@temp EventContext* context)>& callback)
     self->addEventListener((int)arg1, arg2);
 
     return 0;
@@ -260,7 +260,7 @@ static int _fairygui_UIEventDispatcher_addEventListener2(lua_State *L)
         lua_settop(L, top);
     };
 
-    // void addEventListener(int eventType, const std::function<void(@stack EventContext* context)>& callback, const EventTag& tag)
+    // void addEventListener(int eventType, const std::function<void(@temp EventContext* context)>& callback, const EventTag& tag)
     self->addEventListener((int)arg1, arg2, arg3);
 
     return 0;
@@ -4627,7 +4627,7 @@ static int _fairygui_GObject_addClickListener1(lua_State *L)
         lua_settop(L, top);
     };
 
-    // void addClickListener(const std::function<void(@stack EventContext* context)>& callback)
+    // void addClickListener(const std::function<void(@temp EventContext* context)>& callback)
     self->addClickListener(arg1);
 
     return 0;
@@ -4664,7 +4664,7 @@ static int _fairygui_GObject_addClickListener2(lua_State *L)
         lua_settop(L, top);
     };
 
-    // void addClickListener(const std::function<void(@stack EventContext* context)>& callback, const EventTag& tag)
+    // void addClickListener(const std::function<void(@temp EventContext* context)>& callback, const EventTag& tag)
     self->addClickListener(arg1, arg2);
 
     return 0;

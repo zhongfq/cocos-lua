@@ -107,10 +107,10 @@ typedef {
 }
 
 local EventListenerPhysicsContact = typeconf 'cocos2d::EventListenerPhysicsContact'
-EventListenerPhysicsContact.VAR('onContactBegin', 'std::function<bool(PhysicsContact& contact)> onContactBegin = nullptr')
-EventListenerPhysicsContact.VAR('onContactPreSolve', 'std::function<bool(PhysicsContact& contact, PhysicsContactPreSolve& solve)> onContactPreSolve = nullptr')
-EventListenerPhysicsContact.VAR('onContactPostSolve', 'std::function<void(PhysicsContact& contact, const PhysicsContactPostSolve& solve)> onContactPostSolve = nullptr')
-EventListenerPhysicsContact.VAR('onContactSeparate', 'std::function<void(PhysicsContact& contact)> onContactSeparate = nullptr')
+EventListenerPhysicsContact.VAR('onContactBegin', 'std::function<bool(@temp PhysicsContact& contact)> onContactBegin = nullptr')
+EventListenerPhysicsContact.VAR('onContactPreSolve', 'std::function<bool(@temp PhysicsContact& contact, @temp PhysicsContactPreSolve& solve)> onContactPreSolve = nullptr')
+EventListenerPhysicsContact.VAR('onContactPostSolve', 'std::function<void(@temp PhysicsContact& contact, @temp const PhysicsContactPostSolve& solve)> onContactPostSolve = nullptr')
+EventListenerPhysicsContact.VAR('onContactSeparate', 'std::function<void(@temp PhysicsContact& contact)> onContactSeparate = nullptr')
 
 typeconf 'cocos2d::EventListenerPhysicsContactWithGroup'
 typeconf 'cocos2d::EventListenerPhysicsContactWithBodies'
@@ -153,17 +153,17 @@ PhysicsWorld.FUNC('getScene', [[
 }]])
 PhysicsWorld.PROP('scene')
 PhysicsWorld.CALLBACK('rayCast', {
-    FUNCS = {'void rayCast(std::function<bool(@stack PhysicsWorld& world, @stack const PhysicsRayCastInfo& info, void* data)> func, const Vec2& start, const Vec2& end, void* data)'},
+    FUNCS = {'void rayCast(std::function<bool(@temp PhysicsWorld& world, @temp const PhysicsRayCastInfo& info, void* data)> func, const Vec2& start, const Vec2& end, void* data)'},
     TAG_MAKER = 'olua_makecallbacktag("rayCast")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
 })
 PhysicsWorld.CALLBACK('queryRect', {
-    FUNCS = {'void queryRect(std::function<bool(@stack PhysicsWorld&, @stack PhysicsShape&, void*)> func, const Rect& rect, void* data)'},
+    FUNCS = {'void queryRect(std::function<bool(@temp PhysicsWorld&, @temp PhysicsShape&, void*)> func, const Rect& rect, void* data)'},
     TAG_MAKER = 'olua_makecallbacktag("queryRect")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
 })
 PhysicsWorld.CALLBACK('queryPoint', {
-    FUNCS = {'void queryPoint(std::function<bool(@stack PhysicsWorld&, @stack PhysicsShape&, void*)> func, const Vec2& point, void* data)'},
+    FUNCS = {'void queryPoint(std::function<bool(@temp PhysicsWorld&, @temp PhysicsShape&, void*)> func, const Vec2& point, void* data)'},
     TAG_MAKER = 'olua_makecallbacktag("queryPoint")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
 })

@@ -656,7 +656,7 @@ cls.funcs [[
 cls.var('debugDraw', [[bool debugDraw]])
 cls.callback {
     FUNCS =  {
-        'void addDBEventListener(const std::string& type, const std::function<void(@stack EventObject*)>& listener)',
+        'void addDBEventListener(const std::string& type, const std::function<void(@temp EventObject*)>& listener)',
     },
     TAG_MAKER = 'olua_makecallbacktag(#1)',
     TAG_MODE = 'OLUA_CALLBACK_TAG_NEW',

@@ -104,7 +104,7 @@ function gen_callback(cls, fi, write)
     local NUM_ARGS = #ai.CALLBACK.ARGS
     local ARGS = {}
     local PUSH_ARGS = {}
-    local POP_STACKPOOL = ""
+    local POP_OBJPOOL = ""
     local CALLBACK_STORE_OBJ
     local TAG_STORE
     local RESULT_DECL = ""
@@ -115,9 +115,9 @@ function gen_callback(cls, fi, write)
     local HAS_STACK_BEGIN = false
 
     for _, v in ipairs(ai.CALLBACK.ARGS) do
-        if v.ATTR.STACK then
+        if v.ATTR.TEMP then
             PUSH_ARGS[#PUSH_ARGS + 1] = "size_t last = olua_push_objpool(L);"
-            POP_STACKPOOL = format([[
+            POP_OBJPOOL = format([[
                 //pop stack value
                 olua_pop_objpool(L, last);
             ]])
@@ -129,7 +129,7 @@ function gen_callback(cls, fi, write)
         local ARG_N = 'arg' .. i
         local PUSH_FUNC = v.TYPE.FUNC_PUSH_VALUE
 
-        if v.ATTR.STACK then
+        if v.ATTR.TEMP then
             if not HAS_STACK_BEGIN then
                 HAS_STACK_BEGIN = true
                 PUSH_ARGS[#PUSH_ARGS + 1] = "olua_enable_objpool(L);"
@@ -272,7 +272,7 @@ function gen_callback(cls, fi, write)
 
             ${REMOVE_CALLBACK}
             
-            ${POP_STACKPOOL}
+            ${POP_OBJPOOL}
 
             lua_settop(L, top);
             ${RESULT_RET}

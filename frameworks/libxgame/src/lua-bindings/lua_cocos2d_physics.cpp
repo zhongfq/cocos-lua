@@ -95,10 +95,16 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactBegin(lua_State *L)
             lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
             bool ret = false;
+            size_t last = olua_push_objpool(L);
+            olua_enable_objpool(L);
             olua_push_cppobj(L, &arg1);
+            olua_disable_objpool(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 1);
             olua_check_bool(L, -1, &ret);
+
+            //pop stack value
+            olua_pop_objpool(L, last);
 
             lua_settop(L, top);
             return ret;
@@ -152,10 +158,16 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactPostSolve(lua_State
             lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
+            size_t last = olua_push_objpool(L);
+            olua_enable_objpool(L);
             olua_push_cppobj(L, &arg1);
             olua_push_cppobj(L, &arg2);
+            olua_disable_objpool(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 2);
+
+            //pop stack value
+            olua_pop_objpool(L, last);
 
             lua_settop(L, top);
         };
@@ -208,11 +220,17 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactPreSolve(lua_State 
             lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
             bool ret = false;
+            size_t last = olua_push_objpool(L);
+            olua_enable_objpool(L);
             olua_push_cppobj(L, &arg1);
             olua_push_cppobj(L, &arg2);
+            olua_disable_objpool(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 2);
             olua_check_bool(L, -1, &ret);
+
+            //pop stack value
+            olua_pop_objpool(L, last);
 
             lua_settop(L, top);
             return ret;
@@ -266,9 +284,15 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactSeparate(lua_State 
             lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
+            size_t last = olua_push_objpool(L);
+            olua_enable_objpool(L);
             olua_push_cppobj(L, &arg1);
+            olua_disable_objpool(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 1);
+
+            //pop stack value
+            olua_pop_objpool(L, last);
 
             lua_settop(L, top);
         };
@@ -4715,7 +4739,7 @@ static int _cocos2d_PhysicsWorld_queryPoint(lua_State *L)
         return ret;
     };
 
-    // void queryPoint(std::function<bool(@stack PhysicsWorld&, @stack PhysicsShape&, void*)> func, const Vec2& point, void* data)
+    // void queryPoint(std::function<bool(@temp PhysicsWorld&, @temp PhysicsShape&, void*)> func, const Vec2& point, void* data)
     self->queryPoint(arg1, arg2, arg3);
 
     return 0;
@@ -4758,7 +4782,7 @@ static int _cocos2d_PhysicsWorld_queryRect(lua_State *L)
         return ret;
     };
 
-    // void queryRect(std::function<bool(@stack PhysicsWorld&, @stack PhysicsShape&, void*)> func, const Rect& rect, void* data)
+    // void queryRect(std::function<bool(@temp PhysicsWorld&, @temp PhysicsShape&, void*)> func, const Rect& rect, void* data)
     self->queryRect(arg1, arg2, arg3);
 
     return 0;
@@ -4803,7 +4827,7 @@ static int _cocos2d_PhysicsWorld_rayCast(lua_State *L)
         return ret;
     };
 
-    // void rayCast(std::function<bool(@stack PhysicsWorld& world, @stack const PhysicsRayCastInfo& info, void* data)> func, const Vec2& start, const Vec2& end, void* data)
+    // void rayCast(std::function<bool(@temp PhysicsWorld& world, @temp const PhysicsRayCastInfo& info, void* data)> func, const Vec2& start, const Vec2& end, void* data)
     self->rayCast(arg1, arg2, arg3, arg4);
 
     return 0;

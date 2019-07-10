@@ -3776,7 +3776,7 @@ static int _cocos2d_EventListenerCustom_create(lua_State *L)
         lua_settop(L, top);
     };
 
-    // static EventListenerCustom* create(const std::string& eventName, const std::function<void(@stack EventCustom*)>& callback)
+    // static EventListenerCustom* create(const std::string& eventName, const std::function<void(@temp EventCustom*)>& callback)
     self->init(arg1, arg2);
     int num_ret = olua_push_cppobj<cocos2d::EventListenerCustom>(L, ret, "cc.EventListenerCustom");
 
@@ -3974,7 +3974,7 @@ static int _cocos2d_EventListenerAcceleration_create(lua_State *L)
         lua_settop(L, top);
     };
 
-    // static EventListenerAcceleration* create(const std::function<void(@stack Acceleration*, @stack Event*)>& callback)
+    // static EventListenerAcceleration* create(const std::function<void(@temp Acceleration*, @temp Event*)>& callback)
     self->init(arg1);
     int num_ret = olua_push_cppobj<cocos2d::EventListenerAcceleration>(L, ret, "cc.EventListenerAcceleration");
 

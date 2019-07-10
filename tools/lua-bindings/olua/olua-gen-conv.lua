@@ -8,37 +8,37 @@ local function gen_conv_header(module)
         local CPPCLS_PATH = class_path(cv)
         if cv.FUNC.PUSH then
             DECL_FUNCS[#DECL_FUNCS + 1] = format([[
-                int auto_luacv_push_${CPPCLS_PATH}(lua_State *L, const ${CPPCLS} *value);
+                int auto_olua_push_${CPPCLS_PATH}(lua_State *L, const ${CPPCLS} *value);
             ]])
         end
         if cv.FUNC.CHECK then
             DECL_FUNCS[#DECL_FUNCS + 1] = format([[
-                void auto_luacv_check_${CPPCLS_PATH}(lua_State *L, int idx, ${CPPCLS} *value);
+                void auto_olua_check_${CPPCLS_PATH}(lua_State *L, int idx, ${CPPCLS} *value);
             ]])
         end
         if cv.FUNC.OPT then
             DECL_FUNCS[#DECL_FUNCS + 1] = format([[
-                void auto_luacv_opt_${CPPCLS_PATH}(lua_State *L, int idx, ${CPPCLS} *value, const ${CPPCLS} &def);
+                void auto_olua_opt_${CPPCLS_PATH}(lua_State *L, int idx, ${CPPCLS} *value, const ${CPPCLS} &def);
             ]])
         end
         if cv.FUNC.PACK then
             DECL_FUNCS[#DECL_FUNCS + 1] = format([[
-                void auto_luacv_pack_${CPPCLS_PATH}(lua_State *L, int idx, ${CPPCLS} *value);
+                void auto_olua_pack_${CPPCLS_PATH}(lua_State *L, int idx, ${CPPCLS} *value);
             ]])
         end
         if cv.FUNC.UNPACK then
             DECL_FUNCS[#DECL_FUNCS + 1] = format([[
-                int auto_luacv_unpack_${CPPCLS_PATH}(lua_State *L, const ${CPPCLS} *value);
+                int auto_olua_unpack_${CPPCLS_PATH}(lua_State *L, const ${CPPCLS} *value);
             ]])
         end
         if cv.FUNC.IS then
             DECL_FUNCS[#DECL_FUNCS + 1] = format([[
-                bool auto_luacv_is_${CPPCLS_PATH}(lua_State *L, int idx);
+                bool auto_olua_is_${CPPCLS_PATH}(lua_State *L, int idx);
             ]])
         end
         if cv.FUNC.ISPACK then
             DECL_FUNCS[#DECL_FUNCS + 1] = format([[
-                bool auto_luacv_ispack_${CPPCLS_PATH}(lua_State *L, int idx);
+                bool auto_olua_ispack_${CPPCLS_PATH}(lua_State *L, int idx);
             ]])
         end
         DECL_FUNCS[#DECL_FUNCS + 1] = ""
@@ -106,7 +106,7 @@ local function gen_push_func(cv, write)
 
     ARGS_CHUNK = table.concat(ARGS_CHUNK, "\n")
     write(format([[
-        int auto_luacv_push_${CPPCLS_PATH}(lua_State *L, const ${CPPCLS} *value)
+        int auto_olua_push_${CPPCLS_PATH}(lua_State *L, const ${CPPCLS} *value)
         {
             if (value) {
                 lua_createtable(L, 0, ${NUM_ARGS});
@@ -181,7 +181,7 @@ local function gen_check_func(cv, write)
 
     ARGS_CHUNK = table.concat(ARGS_CHUNK, "\n")
     write(format([[
-        void auto_luacv_check_${CPPCLS_PATH}(lua_State *L, int idx, ${CPPCLS} *value)
+        void auto_olua_check_${CPPCLS_PATH}(lua_State *L, int idx, ${CPPCLS} *value)
         {
             if (!value) {
                 luaL_error(L, "value is NULL");
@@ -239,7 +239,7 @@ local function gen_opt_func(cv, write)
 
     ARGS_CHUNK = table.concat(ARGS_CHUNK, "\n")
     write(format([[
-        void auto_luacv_opt_${CPPCLS_PATH}(lua_State *L, int idx, ${CPPCLS} *value, const ${CPPCLS} &def)
+        void auto_olua_opt_${CPPCLS_PATH}(lua_State *L, int idx, ${CPPCLS} *value, const ${CPPCLS} &def)
         {
             if (!value) {
                 luaL_error(L, "value is NULL");
@@ -289,7 +289,7 @@ local function gen_pack_func(cv, write)
 
     ARGS_CHUNK = table.concat(ARGS_CHUNK, "\n")
     write(format([[
-        void auto_luacv_pack_${CPPCLS_PATH}(lua_State *L, int idx, ${CPPCLS} *value)
+        void auto_olua_pack_${CPPCLS_PATH}(lua_State *L, int idx, ${CPPCLS} *value)
         {
             if (!value) {
                 luaL_error(L, "value is NULL");
@@ -335,7 +335,7 @@ local function gen_unpack_func(cv, write)
 
     ARGS_CHUNK = table.concat(ARGS_CHUNK, "\n")
     write(format([[
-        int auto_luacv_unpack_${CPPCLS_PATH}(lua_State *L, const ${CPPCLS} *value)
+        int auto_olua_unpack_${CPPCLS_PATH}(lua_State *L, const ${CPPCLS} *value)
         {
             if (value) {
                 ${ARGS_CHUNK}
@@ -363,7 +363,7 @@ local function gen_is_func(cv, write)
     end
     TEST_HAS = table.concat(TEST_HAS, " && ")
     write(format([[
-        bool auto_luacv_is_${CPPCLS_PATH}(lua_State *L, int idx)
+        bool auto_olua_is_${CPPCLS_PATH}(lua_State *L, int idx)
         {
             return ${TEST_HAS};
         }
@@ -384,7 +384,7 @@ local function gen_ispack_func(cv, write)
     end
     TEST_TYPE = table.concat(TEST_TYPE, " && ")
     write(format([[
-        bool auto_luacv_ispack_${CPPCLS_PATH}(lua_State *L, int idx)
+        bool auto_olua_ispack_${CPPCLS_PATH}(lua_State *L, int idx)
         {
             return ${TEST_TYPE};
         }

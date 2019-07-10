@@ -57,7 +57,7 @@ typedef {
 
 typedef {
     CPPCLS = 'cocos2d::PhysicsMaterial',
-    CONV_FUNC = 'auto_luacv_$$_cocos2d_PhysicsMaterial',
+    CONV_FUNC = 'auto_olua_$$_cocos2d_PhysicsMaterial',
     INIT_VALUE = false,
 }
 

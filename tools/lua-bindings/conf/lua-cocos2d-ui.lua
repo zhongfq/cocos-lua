@@ -35,7 +35,7 @@ M.CHUNK = [[]]
 
 typedef {
     CPPCLS = 'cocos2d::ui::Margin',
-    CONV_FUNC = 'auto_luacv_$$_cocos2d_ui_Margin',
+    CONV_FUNC = 'auto_olua_$$_cocos2d_ui_Margin',
     INIT_VALUE = false,
 }
 

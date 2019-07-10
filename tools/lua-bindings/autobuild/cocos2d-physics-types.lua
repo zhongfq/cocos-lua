@@ -5,7 +5,7 @@ typedef {
 }
 
 typedef {
-    CONV_FUNC = 'auto_luacv_$$_cocos2d_PhysicsMaterial',
+    CONV_FUNC = 'auto_olua_$$_cocos2d_PhysicsMaterial',
     CPPCLS = 'cocos2d::PhysicsMaterial',
     INIT_VALUE = false,
 }

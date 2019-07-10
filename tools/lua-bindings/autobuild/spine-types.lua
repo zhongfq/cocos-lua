@@ -1,17 +1,17 @@
 typedef {
-    CONV_FUNC = 'manual_luacv_$$_spine_String',
+    CONV_FUNC = 'manual_olua_$$_spine_String',
     CPPCLS = 'spine::String',
     INIT_VALUE = false,
 }
 
 typedef {
-    CONV_FUNC = 'manual_luacv_$$_spine_EventData',
+    CONV_FUNC = 'manual_olua_$$_spine_EventData',
     CPPCLS = 'spine::EventData',
     INIT_VALUE = false,
 }
 
 typedef {
-    CONV_FUNC = 'manual_luacv_$$_spine_Color',
+    CONV_FUNC = 'manual_olua_$$_spine_Color',
     CPPCLS = 'spine::Color',
     INIT_VALUE = false,
 }

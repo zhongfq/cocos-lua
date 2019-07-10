@@ -28,12 +28,12 @@ M.INCLUDES = [[
 #include "spine/spine-cocos2dx.h"
 ]]
 M.CHUNK = [[
-bool manual_luacv_is_spine_String(lua_State *L, int idx)
+bool manual_olua_is_spine_String(lua_State *L, int idx)
 {
     return olua_isstring(L, idx);
 }
 
-int manual_luacv_push_spine_String(lua_State *L, const spine::String *value)
+int manual_olua_push_spine_String(lua_State *L, const spine::String *value)
 {
     if (value && value->buffer()) {
         lua_pushlstring(L, value->buffer(), value->length());
@@ -43,7 +43,7 @@ int manual_luacv_push_spine_String(lua_State *L, const spine::String *value)
     return 1;
 }
 
-void manual_luacv_check_spine_String(lua_State *L, int idx, spine::String *value)
+void manual_olua_check_spine_String(lua_State *L, int idx, spine::String *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -51,12 +51,12 @@ void manual_luacv_check_spine_String(lua_State *L, int idx, spine::String *value
     *value = olua_checkstring(L, idx);
 }
 
-bool manual_luacv_is_spine_Color(lua_State *L, int idx)
+bool manual_olua_is_spine_Color(lua_State *L, int idx)
 {
     return olua_isinteger(L, idx);
 }
 
-void manual_luacv_check_spine_Color(lua_State *L, int idx, spine::Color *value)
+void manual_olua_check_spine_Color(lua_State *L, int idx, spine::Color *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -68,7 +68,7 @@ void manual_luacv_check_spine_Color(lua_State *L, int idx, spine::Color *value)
     value->a = ((uint8_t)(color & 0xFF)) / 255.0f;
 }
 
-int manual_luacv_push_spine_Color(lua_State *L, const spine::Color *value)
+int manual_olua_push_spine_Color(lua_State *L, const spine::Color *value)
 {
     uint32_t color = 0;
     if (value) {
@@ -81,36 +81,36 @@ int manual_luacv_push_spine_Color(lua_State *L, const spine::Color *value)
     return 1;
 }
 
-int manual_luacv_push_spine_EventData(lua_State *L, const spine::EventData *value)
+int manual_olua_push_spine_EventData(lua_State *L, const spine::EventData *value)
 {
     lua_createtable(L, 0, 8);
     olua_setfieldinteger(L, -1, "intValue", const_cast<spine::EventData *>(value)->getIntValue());
     olua_setfieldnumber(L, -1, "getVolume", const_cast<spine::EventData *>(value)->getVolume());
     olua_setfieldnumber(L, -1, "getBalance", const_cast<spine::EventData *>(value)->getBalance());
-    manual_luacv_push_spine_String(L, &value->getName());
+    manual_olua_push_spine_String(L, &value->getName());
     olua_rawset(L, -2, "name");
-    manual_luacv_push_spine_String(L, &const_cast<spine::EventData *>(value)->getStringValue());
+    manual_olua_push_spine_String(L, &const_cast<spine::EventData *>(value)->getStringValue());
     olua_rawset(L, -2, "stringValue");
-    manual_luacv_push_spine_String(L, &const_cast<spine::EventData *>(value)->getAudioPath());
+    manual_olua_push_spine_String(L, &const_cast<spine::EventData *>(value)->getAudioPath());
     olua_rawset(L, -2, "audioPath");
     return 1;
 }]]
 
 typedef {
     CPPCLS = 'spine::String',
-    CONV_FUNC = 'manual_luacv_$$_spine_String',
+    CONV_FUNC = 'manual_olua_$$_spine_String',
     INIT_VALUE = false,
 }
 
 typedef {
     CPPCLS = 'spine::EventData',
-    CONV_FUNC = 'manual_luacv_$$_spine_EventData',
+    CONV_FUNC = 'manual_olua_$$_spine_EventData',
     INIT_VALUE = false,
 }
 
 typedef {
     CPPCLS = 'spine::Color',
-    CONV_FUNC = 'manual_luacv_$$_spine_Color',
+    CONV_FUNC = 'manual_olua_$$_spine_Color',
     INIT_VALUE = false,
 }
 

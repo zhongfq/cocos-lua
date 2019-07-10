@@ -9,12 +9,12 @@
 #include "tween/EaseManager.h"
 
 
-bool manual_luacv_is_fairygui_EventTag(lua_State *L, int idx)
+bool manual_olua_is_fairygui_EventTag(lua_State *L, int idx)
 {
     return olua_isinteger(L, idx) || olua_isa(L, idx, OLUA_VOIDCLS);
 }
 
-void manual_luacv_check_fairygui_EventTag(lua_State *L, int idx, fairygui::EventTag *value)
+void manual_olua_check_fairygui_EventTag(lua_State *L, int idx, fairygui::EventTag *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -26,7 +26,7 @@ void manual_luacv_check_fairygui_EventTag(lua_State *L, int idx, fairygui::Event
     }
 }
 
-int auto_luacv_push_fairygui_Margin(lua_State *L, const fairygui::Margin *value)
+int auto_olua_push_fairygui_Margin(lua_State *L, const fairygui::Margin *value)
 {
     if (value) {
         lua_createtable(L, 0, 4);
@@ -41,7 +41,7 @@ int auto_luacv_push_fairygui_Margin(lua_State *L, const fairygui::Margin *value)
     return 1;
 }
 
-void auto_luacv_check_fairygui_Margin(lua_State *L, int idx, fairygui::Margin *value)
+void auto_olua_check_fairygui_Margin(lua_State *L, int idx, fairygui::Margin *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -54,7 +54,7 @@ void auto_luacv_check_fairygui_Margin(lua_State *L, int idx, fairygui::Margin *v
     value->bottom = (float)olua_checkfieldnumber(L, idx, "bottom");
 }
 
-void auto_luacv_opt_fairygui_Margin(lua_State *L, int idx, fairygui::Margin *value, const fairygui::Margin &def)
+void auto_olua_opt_fairygui_Margin(lua_State *L, int idx, fairygui::Margin *value, const fairygui::Margin &def)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -71,12 +71,12 @@ void auto_luacv_opt_fairygui_Margin(lua_State *L, int idx, fairygui::Margin *val
     }
 }
 
-bool auto_luacv_is_fairygui_Margin(lua_State *L, int idx)
+bool auto_olua_is_fairygui_Margin(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "bottom") && olua_hasfield(L, idx, "right") && olua_hasfield(L, idx, "top") && olua_hasfield(L, idx, "left");
 }
 
-int auto_luacv_push_fairygui_TweenValue(lua_State *L, const fairygui::TweenValue *value)
+int auto_olua_push_fairygui_TweenValue(lua_State *L, const fairygui::TweenValue *value)
 {
     if (value) {
         lua_createtable(L, 0, 5);
@@ -92,7 +92,7 @@ int auto_luacv_push_fairygui_TweenValue(lua_State *L, const fairygui::TweenValue
     return 1;
 }
 
-void auto_luacv_check_fairygui_TweenValue(lua_State *L, int idx, fairygui::TweenValue *value)
+void auto_olua_check_fairygui_TweenValue(lua_State *L, int idx, fairygui::TweenValue *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -106,7 +106,7 @@ void auto_luacv_check_fairygui_TweenValue(lua_State *L, int idx, fairygui::Tween
     value->d = (double)olua_optfieldnumber(L, idx, "d", 0);
 }
 
-void auto_luacv_opt_fairygui_TweenValue(lua_State *L, int idx, fairygui::TweenValue *value, const fairygui::TweenValue &def)
+void auto_olua_opt_fairygui_TweenValue(lua_State *L, int idx, fairygui::TweenValue *value, const fairygui::TweenValue &def)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -124,7 +124,7 @@ void auto_luacv_opt_fairygui_TweenValue(lua_State *L, int idx, fairygui::TweenVa
     }
 }
 
-bool auto_luacv_is_fairygui_TweenValue(lua_State *L, int idx)
+bool auto_olua_is_fairygui_TweenValue(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "d") && olua_hasfield(L, idx, "w") && olua_hasfield(L, idx, "z") && olua_hasfield(L, idx, "y") && olua_hasfield(L, idx, "x");
 }
@@ -238,7 +238,7 @@ static int _fairygui_UIEventDispatcher_addEventListener2(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.UIEventDispatcher");
     olua_check_int(L, 2, &arg1);
-    manual_luacv_check_fairygui_EventTag(L, 4, &arg3);
+    manual_olua_check_fairygui_EventTag(L, 4, &arg3);
 
     void *callback_store_obj = (void *)self;
     std::string tag = makeListenerTag(L, arg1, 4);
@@ -277,7 +277,7 @@ static int _fairygui_UIEventDispatcher_addEventListener(lua_State *L)
     }
 
     if (num_args == 3) {
-        // if (olua_is_int(L, 2) && olua_is_std_function(L, 3) && manual_luacv_is_fairygui_EventTag(L, 4)) {
+        // if (olua_is_int(L, 2) && olua_is_std_function(L, 3) && manual_olua_is_fairygui_EventTag(L, 4)) {
             return _fairygui_UIEventDispatcher_addEventListener2(L);
         // }
     }
@@ -299,7 +299,7 @@ static int _fairygui_UIEventDispatcher_bubbleEvent(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.UIEventDispatcher");
     olua_check_int(L, 2, &arg1);
     olua_opt_obj(L, 3, (void **)&arg2, "void *", nullptr);
-    manual_luacv_opt_cocos2d_Value(L, 4, &arg3, (cocos2d::Value)cocos2d::Value::Null);
+    manual_olua_opt_cocos2d_Value(L, 4, &arg3, (cocos2d::Value)cocos2d::Value::Null);
 
     // bool bubbleEvent(int eventType, void* data = nullptr, const cocos2d::Value& dataValue = cocos2d::Value::Null)
     bool ret = (bool)self->bubbleEvent((int)arg1, arg2, arg3);
@@ -320,7 +320,7 @@ static int _fairygui_UIEventDispatcher_dispatchEvent(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.UIEventDispatcher");
     olua_check_int(L, 2, &arg1);
     olua_opt_obj(L, 3, (void **)&arg2, "void *", nullptr);
-    manual_luacv_opt_cocos2d_Value(L, 4, &arg3, (cocos2d::Value)cocos2d::Value::Null);
+    manual_olua_opt_cocos2d_Value(L, 4, &arg3, (cocos2d::Value)cocos2d::Value::Null);
 
     // bool dispatchEvent(int eventType, void* data = nullptr, const cocos2d::Value& dataValue = cocos2d::Value::Null)
     bool ret = (bool)self->dispatchEvent((int)arg1, arg2, arg3);
@@ -356,7 +356,7 @@ static int _fairygui_UIEventDispatcher_hasEventListener2(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.UIEventDispatcher");
     olua_check_int(L, 2, &arg1);
-    manual_luacv_check_fairygui_EventTag(L, 3, &arg2);
+    manual_olua_check_fairygui_EventTag(L, 3, &arg2);
 
     // bool hasEventListener(int eventType, const EventTag& tag)
     bool ret = (bool)self->hasEventListener((int)arg1, arg2);
@@ -376,7 +376,7 @@ static int _fairygui_UIEventDispatcher_hasEventListener(lua_State *L)
     }
 
     if (num_args == 2) {
-        // if (olua_is_int(L, 2) && manual_luacv_is_fairygui_EventTag(L, 3)) {
+        // if (olua_is_int(L, 2) && manual_olua_is_fairygui_EventTag(L, 3)) {
             return _fairygui_UIEventDispatcher_hasEventListener2(L);
         // }
     }
@@ -433,7 +433,7 @@ static int _fairygui_UIEventDispatcher_removeEventListener2(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.UIEventDispatcher");
     olua_check_int(L, 2, &arg1);
-    manual_luacv_check_fairygui_EventTag(L, 3, &arg2);
+    manual_olua_check_fairygui_EventTag(L, 3, &arg2);
 
     std::string tag = makeListenerTag(L, arg1, 3);
     void *callback_store_obj = (void *)self;
@@ -456,7 +456,7 @@ static int _fairygui_UIEventDispatcher_removeEventListener(lua_State *L)
     }
 
     if (num_args == 2) {
-        // if (olua_is_int(L, 2) && manual_luacv_is_fairygui_EventTag(L, 3)) {
+        // if (olua_is_int(L, 2) && manual_olua_is_fairygui_EventTag(L, 3)) {
             return _fairygui_UIEventDispatcher_removeEventListener2(L);
         // }
     }
@@ -540,7 +540,7 @@ static int _fairygui_EventContext_getDataValue(lua_State *L)
 
     // const cocos2d::Value& getDataValue()
     const cocos2d::Value &ret = (const cocos2d::Value &)self->getDataValue();
-    int num_ret = manual_luacv_push_cocos2d_Value(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Value(L, &ret);
 
     return num_ret;
 }
@@ -683,7 +683,7 @@ static int _fairygui_IHitTest_hitTest(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.IHitTest");
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.GComponent");
-    auto_luacv_check_cocos2d_Vec2(L, 3, &arg2);
+    auto_olua_check_cocos2d_Vec2(L, 3, &arg2);
 
     // bool hitTest(GComponent* obj, const cocos2d::Vec2& localPoint)
     bool ret = (bool)self->hitTest(arg1, arg2);
@@ -764,7 +764,7 @@ static int _fairygui_InputProcessor_getTouchPosition(lua_State *L)
 
     // cocos2d::Vec2 getTouchPosition(int touchId)
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getTouchPosition((int)arg1);
-    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -925,7 +925,7 @@ static int _fairygui_InputEvent_getPosition(lua_State *L)
 
     // const cocos2d::Vec2& getPosition()
     const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getPosition();
-    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -1248,7 +1248,7 @@ static int _fairygui_TextFormat_get_color(lua_State *L)
 
     // <function var>
     cocos2d::Color3B ret = (cocos2d::Color3B)self->color;
-    int num_ret = manual_luacv_push_cocos2d_Color3B(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     return num_ret;
 }
@@ -1261,7 +1261,7 @@ static int _fairygui_TextFormat_set_color(lua_State *L)
     cocos2d::Color3B arg1;       /** color */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.TextFormat");
-    manual_luacv_check_cocos2d_Color3B(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg1);
 
     // <function var>
     self->color = arg1;
@@ -1372,7 +1372,7 @@ static int _fairygui_TextFormat_get_glowColor(lua_State *L)
 
     // <function var>
     cocos2d::Color3B ret = (cocos2d::Color3B)self->glowColor;
-    int num_ret = manual_luacv_push_cocos2d_Color3B(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     return num_ret;
 }
@@ -1385,7 +1385,7 @@ static int _fairygui_TextFormat_set_glowColor(lua_State *L)
     cocos2d::Color3B arg1;       /** glowColor */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.TextFormat");
-    manual_luacv_check_cocos2d_Color3B(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg1);
 
     // <function var>
     self->glowColor = arg1;
@@ -1496,7 +1496,7 @@ static int _fairygui_TextFormat_get_outlineColor(lua_State *L)
 
     // <function var>
     cocos2d::Color3B ret = (cocos2d::Color3B)self->outlineColor;
-    int num_ret = manual_luacv_push_cocos2d_Color3B(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     return num_ret;
 }
@@ -1509,7 +1509,7 @@ static int _fairygui_TextFormat_set_outlineColor(lua_State *L)
     cocos2d::Color3B arg1;       /** outlineColor */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.TextFormat");
-    manual_luacv_check_cocos2d_Color3B(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg1);
 
     // <function var>
     self->outlineColor = arg1;
@@ -1589,7 +1589,7 @@ static int _fairygui_TextFormat_get_shadowColor(lua_State *L)
 
     // <function var>
     cocos2d::Color3B ret = (cocos2d::Color3B)self->shadowColor;
-    int num_ret = manual_luacv_push_cocos2d_Color3B(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     return num_ret;
 }
@@ -1602,7 +1602,7 @@ static int _fairygui_TextFormat_set_shadowColor(lua_State *L)
     cocos2d::Color3B arg1;       /** shadowColor */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.TextFormat");
-    manual_luacv_check_cocos2d_Color3B(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg1);
 
     // <function var>
     self->shadowColor = arg1;
@@ -1620,7 +1620,7 @@ static int _fairygui_TextFormat_get_shadowOffset(lua_State *L)
 
     // <function var>
     cocos2d::Size ret = (cocos2d::Size)self->shadowOffset;
-    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
@@ -1633,7 +1633,7 @@ static int _fairygui_TextFormat_set_shadowOffset(lua_State *L)
     cocos2d::Size arg1;       /** shadowOffset */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.TextFormat");
-    auto_luacv_check_cocos2d_Size(L, 2, &arg1);
+    auto_olua_check_cocos2d_Size(L, 2, &arg1);
 
     // <function var>
     self->shadowOffset = arg1;
@@ -1936,7 +1936,7 @@ static int _fairygui_GTweener_getUserData(lua_State *L)
 
     // const cocos2d::Value& getUserData()
     const cocos2d::Value &ret = (const cocos2d::Value &)self->getUserData();
-    int num_ret = manual_luacv_push_cocos2d_Value(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Value(L, &ret);
 
     return num_ret;
 }
@@ -2360,7 +2360,7 @@ static int _fairygui_GTweener_setUserData(lua_State *L)
     cocos2d::Value arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GTweener");
-    manual_luacv_check_cocos2d_Value(L, 2, &arg1);
+    manual_olua_check_cocos2d_Value(L, 2, &arg1);
 
     // GTweener* setUserData(const cocos2d::Value& value)
     fairygui::GTweener *ret = (fairygui::GTweener *)self->setUserData(arg1);
@@ -2379,7 +2379,7 @@ static int _fairygui_GTweener_get_deltaValue(lua_State *L)
 
     // <function var>
     fairygui::TweenValue ret = (fairygui::TweenValue)self->deltaValue;
-    int num_ret = auto_luacv_push_fairygui_TweenValue(L, &ret);
+    int num_ret = auto_olua_push_fairygui_TweenValue(L, &ret);
 
     return num_ret;
 }
@@ -2392,7 +2392,7 @@ static int _fairygui_GTweener_set_deltaValue(lua_State *L)
     fairygui::TweenValue arg1;       /** deltaValue */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GTweener");
-    auto_luacv_check_fairygui_TweenValue(L, 2, &arg1);
+    auto_olua_check_fairygui_TweenValue(L, 2, &arg1);
 
     // <function var>
     self->deltaValue = arg1;
@@ -2410,7 +2410,7 @@ static int _fairygui_GTweener_get_endValue(lua_State *L)
 
     // <function var>
     fairygui::TweenValue ret = (fairygui::TweenValue)self->endValue;
-    int num_ret = auto_luacv_push_fairygui_TweenValue(L, &ret);
+    int num_ret = auto_olua_push_fairygui_TweenValue(L, &ret);
 
     return num_ret;
 }
@@ -2423,7 +2423,7 @@ static int _fairygui_GTweener_set_endValue(lua_State *L)
     fairygui::TweenValue arg1;       /** endValue */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GTweener");
-    auto_luacv_check_fairygui_TweenValue(L, 2, &arg1);
+    auto_olua_check_fairygui_TweenValue(L, 2, &arg1);
 
     // <function var>
     self->endValue = arg1;
@@ -2441,7 +2441,7 @@ static int _fairygui_GTweener_get_startValue(lua_State *L)
 
     // <function var>
     fairygui::TweenValue ret = (fairygui::TweenValue)self->startValue;
-    int num_ret = auto_luacv_push_fairygui_TweenValue(L, &ret);
+    int num_ret = auto_olua_push_fairygui_TweenValue(L, &ret);
 
     return num_ret;
 }
@@ -2454,7 +2454,7 @@ static int _fairygui_GTweener_set_startValue(lua_State *L)
     fairygui::TweenValue arg1;       /** startValue */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GTweener");
-    auto_luacv_check_fairygui_TweenValue(L, 2, &arg1);
+    auto_olua_check_fairygui_TweenValue(L, 2, &arg1);
 
     // <function var>
     self->startValue = arg1;
@@ -2472,7 +2472,7 @@ static int _fairygui_GTweener_get_value(lua_State *L)
 
     // <function var>
     fairygui::TweenValue ret = (fairygui::TweenValue)self->value;
-    int num_ret = auto_luacv_push_fairygui_TweenValue(L, &ret);
+    int num_ret = auto_olua_push_fairygui_TweenValue(L, &ret);
 
     return num_ret;
 }
@@ -2485,7 +2485,7 @@ static int _fairygui_GTweener_set_value(lua_State *L)
     fairygui::TweenValue arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GTweener");
-    auto_luacv_check_fairygui_TweenValue(L, 2, &arg1);
+    auto_olua_check_fairygui_TweenValue(L, 2, &arg1);
 
     // <function var>
     self->value = arg1;
@@ -2790,7 +2790,7 @@ static int _fairygui_GTween_shake(lua_State *L)
     lua_Number arg2 = 0;   /** amplitude */
     lua_Number arg3 = 0;   /** duration */
 
-    auto_luacv_check_cocos2d_Vec2(L, 1, &arg1);
+    auto_olua_check_cocos2d_Vec2(L, 1, &arg1);
     olua_check_number(L, 2, &arg2);
     olua_check_number(L, 3, &arg3);
 
@@ -2840,8 +2840,8 @@ static int _fairygui_GTween_to2(lua_State *L)
     cocos2d::Vec2 arg2;       /** endValue */
     lua_Number arg3 = 0;   /** duration */
 
-    auto_luacv_check_cocos2d_Vec2(L, 1, &arg1);
-    auto_luacv_check_cocos2d_Vec2(L, 2, &arg2);
+    auto_olua_check_cocos2d_Vec2(L, 1, &arg1);
+    auto_olua_check_cocos2d_Vec2(L, 2, &arg2);
     olua_check_number(L, 3, &arg3);
 
     // static GTweener* to(const cocos2d::Vec2& startValue, const cocos2d::Vec2& endValue, float duration)
@@ -2865,8 +2865,8 @@ static int _fairygui_GTween_to3(lua_State *L)
     cocos2d::Vec3 arg2;       /** endValue */
     lua_Number arg3 = 0;   /** duration */
 
-    auto_luacv_check_cocos2d_Vec3(L, 1, &arg1);
-    auto_luacv_check_cocos2d_Vec3(L, 2, &arg2);
+    auto_olua_check_cocos2d_Vec3(L, 1, &arg1);
+    auto_olua_check_cocos2d_Vec3(L, 2, &arg2);
     olua_check_number(L, 3, &arg3);
 
     // static GTweener* to(const cocos2d::Vec3& startValue, const cocos2d::Vec3& endValue, float duration)
@@ -2890,8 +2890,8 @@ static int _fairygui_GTween_to4(lua_State *L)
     cocos2d::Vec4 arg2;       /** endValue */
     lua_Number arg3 = 0;   /** duration */
 
-    auto_luacv_check_cocos2d_Vec4(L, 1, &arg1);
-    auto_luacv_check_cocos2d_Vec4(L, 2, &arg2);
+    auto_olua_check_cocos2d_Vec4(L, 1, &arg1);
+    auto_olua_check_cocos2d_Vec4(L, 2, &arg2);
     olua_check_number(L, 3, &arg3);
 
     // static GTweener* to(const cocos2d::Vec4& startValue, const cocos2d::Vec4& endValue, float duration)
@@ -2915,8 +2915,8 @@ static int _fairygui_GTween_to5(lua_State *L)
     cocos2d::Color4B arg2;       /** endValue */
     lua_Number arg3 = 0;   /** duration */
 
-    manual_luacv_check_cocos2d_Color4B(L, 1, &arg1);
-    manual_luacv_check_cocos2d_Color4B(L, 2, &arg2);
+    manual_olua_check_cocos2d_Color4B(L, 1, &arg1);
+    manual_olua_check_cocos2d_Color4B(L, 2, &arg2);
     olua_check_number(L, 3, &arg3);
 
     // static GTweener* to(const cocos2d::Color4B& startValue, const cocos2d::Color4B& endValue, float duration)
@@ -2937,15 +2937,15 @@ static int _fairygui_GTween_to(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 3) {
-        if (auto_luacv_is_cocos2d_Vec4(L, 1) && auto_luacv_is_cocos2d_Vec4(L, 2) && olua_is_number(L, 3)) {
+        if (auto_olua_is_cocos2d_Vec4(L, 1) && auto_olua_is_cocos2d_Vec4(L, 2) && olua_is_number(L, 3)) {
             return _fairygui_GTween_to4(L);
         }
 
-        if (auto_luacv_is_cocos2d_Vec3(L, 1) && auto_luacv_is_cocos2d_Vec3(L, 2) && olua_is_number(L, 3)) {
+        if (auto_olua_is_cocos2d_Vec3(L, 1) && auto_olua_is_cocos2d_Vec3(L, 2) && olua_is_number(L, 3)) {
             return _fairygui_GTween_to3(L);
         }
 
-        if (auto_luacv_is_cocos2d_Vec2(L, 1) && auto_luacv_is_cocos2d_Vec2(L, 2) && olua_is_number(L, 3)) {
+        if (auto_olua_is_cocos2d_Vec2(L, 1) && auto_olua_is_cocos2d_Vec2(L, 2) && olua_is_number(L, 3)) {
             return _fairygui_GTween_to2(L);
         }
 
@@ -2953,7 +2953,7 @@ static int _fairygui_GTween_to(lua_State *L)
             return _fairygui_GTween_to1(L);
         }
 
-        // if (manual_luacv_is_cocos2d_Color4B(L, 1) && manual_luacv_is_cocos2d_Color4B(L, 2) && olua_is_number(L, 3)) {
+        // if (manual_olua_is_cocos2d_Color4B(L, 1) && manual_olua_is_cocos2d_Color4B(L, 2) && olua_is_number(L, 3)) {
             return _fairygui_GTween_to5(L);
         // }
     }
@@ -4642,7 +4642,7 @@ static int _fairygui_GObject_addClickListener2(lua_State *L)
     fairygui::EventTag arg2;       /** tag */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GObject");
-    manual_luacv_check_fairygui_EventTag(L, 3, &arg2);
+    manual_olua_check_fairygui_EventTag(L, 3, &arg2);
 
     void *callback_store_obj = (void *)self;
     std::string tag = makeListenerTag(L, fairygui::UIEventType::Click, 3);
@@ -4681,7 +4681,7 @@ static int _fairygui_GObject_addClickListener(lua_State *L)
     }
 
     if (num_args == 2) {
-        // if (olua_is_std_function(L, 2) && manual_luacv_is_fairygui_EventTag(L, 3)) {
+        // if (olua_is_std_function(L, 2) && manual_olua_is_fairygui_EventTag(L, 3)) {
             return _fairygui_GObject_addClickListener2(L);
         // }
     }
@@ -4835,7 +4835,7 @@ static int _fairygui_GObject_getCustomData(lua_State *L)
 
     // const cocos2d::Value& getCustomData()
     const cocos2d::Value &ret = (const cocos2d::Value &)self->getCustomData();
-    int num_ret = manual_luacv_push_cocos2d_Value(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Value(L, &ret);
 
     return num_ret;
 }
@@ -4860,7 +4860,7 @@ static int _fairygui_GObject_getDragBounds(lua_State *L)
     lua_settop(L, 1);
     fairygui::GObject *self = (fairygui::GObject *)olua_toobj(L, 1, "fui.GObject");
     cocos2d::Rect *rect = self->getDragBounds();
-    manual_luacv_push_cocos2d_Rect(L, rect);
+    manual_olua_push_cocos2d_Rect(L, rect);
     return 1;
 }
 
@@ -4980,7 +4980,7 @@ static int _fairygui_GObject_getPivot(lua_State *L)
 
     // const cocos2d::Vec2& getPivot()
     const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getPivot();
-    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -4995,7 +4995,7 @@ static int _fairygui_GObject_getPosition(lua_State *L)
 
     // const cocos2d::Vec2& getPosition()
     const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getPosition();
-    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -5055,7 +5055,7 @@ static int _fairygui_GObject_getScale(lua_State *L)
 
     // const cocos2d::Vec2& getScale()
     const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getScale();
-    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -5100,7 +5100,7 @@ static int _fairygui_GObject_getSize(lua_State *L)
 
     // const cocos2d::Size& getSize()
     const cocos2d::Size &ret = (const cocos2d::Size &)self->getSize();
-    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
@@ -5263,11 +5263,11 @@ static int _fairygui_GObject_globalToLocal1(lua_State *L)
     cocos2d::Vec2 arg1;       /** pt */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GObject");
-    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
     // cocos2d::Vec2 globalToLocal(const cocos2d::Vec2& pt)
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->globalToLocal(arg1);
-    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -5280,11 +5280,11 @@ static int _fairygui_GObject_globalToLocal2(lua_State *L)
     cocos2d::Vec2 arg1;       /** pt */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GObject");
-    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+    auto_olua_pack_cocos2d_Vec2(L, 2, &arg1);
 
     // cocos2d::Vec2 globalToLocal(@pack const cocos2d::Vec2& pt)
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->globalToLocal(arg1);
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_olua_unpack_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -5297,11 +5297,11 @@ static int _fairygui_GObject_globalToLocal3(lua_State *L)
     cocos2d::Rect arg1;       /** rect */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GObject");
-    manual_luacv_check_cocos2d_Rect(L, 2, &arg1);
+    manual_olua_check_cocos2d_Rect(L, 2, &arg1);
 
     // cocos2d::Rect globalToLocal(const cocos2d::Rect& rect)
     cocos2d::Rect ret = (cocos2d::Rect)self->globalToLocal(arg1);
-    int num_ret = manual_luacv_push_cocos2d_Rect(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Rect(L, &ret);
 
     return num_ret;
 }
@@ -5314,11 +5314,11 @@ static int _fairygui_GObject_globalToLocal4(lua_State *L)
     cocos2d::Rect arg1;       /** rect */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GObject");
-    manual_luacv_pack_cocos2d_Rect(L, 2, &arg1);
+    manual_olua_pack_cocos2d_Rect(L, 2, &arg1);
 
     // cocos2d::Rect globalToLocal(@pack const cocos2d::Rect& rect)
     cocos2d::Rect ret = (cocos2d::Rect)self->globalToLocal(arg1);
-    int num_ret = manual_luacv_unpack_cocos2d_Rect(L, &ret);
+    int num_ret = manual_olua_unpack_cocos2d_Rect(L, &ret);
 
     return num_ret;
 }
@@ -5328,23 +5328,23 @@ static int _fairygui_GObject_globalToLocal(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        if (manual_luacv_is_cocos2d_Rect(L, 2)) {
+        if (manual_olua_is_cocos2d_Rect(L, 2)) {
             return _fairygui_GObject_globalToLocal3(L);
         }
 
-        // if (auto_luacv_is_cocos2d_Vec2(L, 2)) {
+        // if (auto_olua_is_cocos2d_Vec2(L, 2)) {
             return _fairygui_GObject_globalToLocal1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (auto_luacv_ispack_cocos2d_Vec2(L, 2)) {
+        // if (auto_olua_ispack_cocos2d_Vec2(L, 2)) {
             return _fairygui_GObject_globalToLocal2(L);
         // }
     }
 
     if (num_args == 4) {
-        // if (manual_luacv_ispack_cocos2d_Rect(L, 2)) {
+        // if (manual_olua_ispack_cocos2d_Rect(L, 2)) {
             return _fairygui_GObject_globalToLocal4(L);
         // }
     }
@@ -5363,7 +5363,7 @@ static int _fairygui_GObject_hitTest(lua_State *L)
     cocos2d::Camera *arg2 = nullptr;   /** camera */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GObject");
-    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
     olua_check_cppobj(L, 3, (void **)&arg2, "cc.Camera");
 
     // GObject* hitTest(const cocos2d::Vec2 & worldPoint, const cocos2d::Camera * camera)
@@ -5471,11 +5471,11 @@ static int _fairygui_GObject_localToGlobal1(lua_State *L)
     cocos2d::Vec2 arg1;       /** pt */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GObject");
-    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
     // cocos2d::Vec2 localToGlobal(const cocos2d::Vec2& pt)
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->localToGlobal(arg1);
-    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -5488,11 +5488,11 @@ static int _fairygui_GObject_localToGlobal2(lua_State *L)
     cocos2d::Vec2 arg1;       /** pt */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GObject");
-    auto_luacv_pack_cocos2d_Vec2(L, 2, &arg1);
+    auto_olua_pack_cocos2d_Vec2(L, 2, &arg1);
 
     // cocos2d::Vec2 localToGlobal(@pack const cocos2d::Vec2& pt)
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->localToGlobal(arg1);
-    int num_ret = auto_luacv_unpack_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_olua_unpack_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -5505,11 +5505,11 @@ static int _fairygui_GObject_localToGlobal3(lua_State *L)
     cocos2d::Rect arg1;       /** rect */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GObject");
-    manual_luacv_check_cocos2d_Rect(L, 2, &arg1);
+    manual_olua_check_cocos2d_Rect(L, 2, &arg1);
 
     // cocos2d::Rect localToGlobal(const cocos2d::Rect& rect)
     cocos2d::Rect ret = (cocos2d::Rect)self->localToGlobal(arg1);
-    int num_ret = manual_luacv_push_cocos2d_Rect(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Rect(L, &ret);
 
     return num_ret;
 }
@@ -5522,11 +5522,11 @@ static int _fairygui_GObject_localToGlobal4(lua_State *L)
     cocos2d::Rect arg1;       /** rect */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GObject");
-    manual_luacv_pack_cocos2d_Rect(L, 2, &arg1);
+    manual_olua_pack_cocos2d_Rect(L, 2, &arg1);
 
     // cocos2d::Rect localToGlobal(@pack const cocos2d::Rect& rect)
     cocos2d::Rect ret = (cocos2d::Rect)self->localToGlobal(arg1);
-    int num_ret = manual_luacv_unpack_cocos2d_Rect(L, &ret);
+    int num_ret = manual_olua_unpack_cocos2d_Rect(L, &ret);
 
     return num_ret;
 }
@@ -5536,23 +5536,23 @@ static int _fairygui_GObject_localToGlobal(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        if (manual_luacv_is_cocos2d_Rect(L, 2)) {
+        if (manual_olua_is_cocos2d_Rect(L, 2)) {
             return _fairygui_GObject_localToGlobal3(L);
         }
 
-        // if (auto_luacv_is_cocos2d_Vec2(L, 2)) {
+        // if (auto_olua_is_cocos2d_Vec2(L, 2)) {
             return _fairygui_GObject_localToGlobal1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (auto_luacv_ispack_cocos2d_Vec2(L, 2)) {
+        // if (auto_olua_ispack_cocos2d_Vec2(L, 2)) {
             return _fairygui_GObject_localToGlobal2(L);
         // }
     }
 
     if (num_args == 4) {
-        // if (manual_luacv_ispack_cocos2d_Rect(L, 2)) {
+        // if (manual_olua_ispack_cocos2d_Rect(L, 2)) {
             return _fairygui_GObject_localToGlobal4(L);
         // }
     }
@@ -5635,7 +5635,7 @@ static int _fairygui_GObject_removeClickListener(lua_State *L)
     fairygui::EventTag arg1;       /** tag */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GObject");
-    manual_luacv_check_fairygui_EventTag(L, 2, &arg1);
+    manual_olua_check_fairygui_EventTag(L, 2, &arg1);
 
     std::string tag = makeListenerTag(L, fairygui::UIEventType::Click, 2);
     void *callback_store_obj = (void *)self;
@@ -5703,7 +5703,7 @@ static int _fairygui_GObject_setCustomData(lua_State *L)
     cocos2d::Value arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GObject");
-    manual_luacv_check_cocos2d_Value(L, 2, &arg1);
+    manual_olua_check_cocos2d_Value(L, 2, &arg1);
 
     // void setCustomData(const cocos2d::Value& value)
     self->setCustomData(arg1);
@@ -5735,7 +5735,7 @@ static int _fairygui_GObject_setDragBounds(lua_State *L)
     cocos2d::Rect arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GObject");
-    manual_luacv_check_cocos2d_Rect(L, 2, &arg1);
+    manual_olua_check_cocos2d_Rect(L, 2, &arg1);
 
     // void setDragBounds(const cocos2d::Rect& value)
     self->setDragBounds(arg1);
@@ -6197,12 +6197,12 @@ static int _fairygui_GObject_transformRect1(lua_State *L)
     fairygui::GObject *arg2 = nullptr;   /** targetSpace */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GObject");
-    manual_luacv_check_cocos2d_Rect(L, 2, &arg1);
+    manual_olua_check_cocos2d_Rect(L, 2, &arg1);
     olua_check_cppobj(L, 3, (void **)&arg2, "fui.GObject");
 
     // cocos2d::Rect transformRect(const cocos2d::Rect& rect, GObject* targetSpace)
     cocos2d::Rect ret = (cocos2d::Rect)self->transformRect(arg1, arg2);
-    int num_ret = manual_luacv_push_cocos2d_Rect(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Rect(L, &ret);
 
     return num_ret;
 }
@@ -6216,12 +6216,12 @@ static int _fairygui_GObject_transformRect2(lua_State *L)
     fairygui::GObject *arg2 = nullptr;   /** targetSpace */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GObject");
-    manual_luacv_pack_cocos2d_Rect(L, 2, &arg1);
+    manual_olua_pack_cocos2d_Rect(L, 2, &arg1);
     olua_check_cppobj(L, 6, (void **)&arg2, "fui.GObject");
 
     // cocos2d::Rect transformRect(@pack const cocos2d::Rect& rect, GObject* targetSpace)
     cocos2d::Rect ret = (cocos2d::Rect)self->transformRect(arg1, arg2);
-    int num_ret = manual_luacv_unpack_cocos2d_Rect(L, &ret);
+    int num_ret = manual_olua_unpack_cocos2d_Rect(L, &ret);
 
     return num_ret;
 }
@@ -6231,13 +6231,13 @@ static int _fairygui_GObject_transformRect(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 2) {
-        // if (manual_luacv_is_cocos2d_Rect(L, 2) && olua_is_cppobj(L, 3, "fui.GObject")) {
+        // if (manual_olua_is_cocos2d_Rect(L, 2) && olua_is_cppobj(L, 3, "fui.GObject")) {
             return _fairygui_GObject_transformRect1(L);
         // }
     }
 
     if (num_args == 5) {
-        // if (manual_luacv_ispack_cocos2d_Rect(L, 2) && olua_is_cppobj(L, 3, "fui.GObject")) {
+        // if (manual_olua_ispack_cocos2d_Rect(L, 2) && olua_is_cppobj(L, 3, "fui.GObject")) {
             return _fairygui_GObject_transformRect2(L);
         // }
     }
@@ -6288,7 +6288,7 @@ static int _fairygui_GObject_get_initSize(lua_State *L)
 
     // <function var>
     cocos2d::Size ret = (cocos2d::Size)self->initSize;
-    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
@@ -6301,7 +6301,7 @@ static int _fairygui_GObject_set_initSize(lua_State *L)
     cocos2d::Size arg1;       /** initSize */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GObject");
-    auto_luacv_check_cocos2d_Size(L, 2, &arg1);
+    auto_olua_check_cocos2d_Size(L, 2, &arg1);
 
     // <function var>
     self->initSize = arg1;
@@ -6319,7 +6319,7 @@ static int _fairygui_GObject_get_maxSize(lua_State *L)
 
     // <function var>
     cocos2d::Size ret = (cocos2d::Size)self->maxSize;
-    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
@@ -6332,7 +6332,7 @@ static int _fairygui_GObject_set_maxSize(lua_State *L)
     cocos2d::Size arg1;       /** maxSize */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GObject");
-    auto_luacv_check_cocos2d_Size(L, 2, &arg1);
+    auto_olua_check_cocos2d_Size(L, 2, &arg1);
 
     // <function var>
     self->maxSize = arg1;
@@ -6350,7 +6350,7 @@ static int _fairygui_GObject_get_minSize(lua_State *L)
 
     // <function var>
     cocos2d::Size ret = (cocos2d::Size)self->minSize;
-    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
@@ -6363,7 +6363,7 @@ static int _fairygui_GObject_set_minSize(lua_State *L)
     cocos2d::Size arg1;       /** minSize */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GObject");
-    auto_luacv_check_cocos2d_Size(L, 2, &arg1);
+    auto_olua_check_cocos2d_Size(L, 2, &arg1);
 
     // <function var>
     self->minSize = arg1;
@@ -6412,7 +6412,7 @@ static int _fairygui_GObject_get_sourceSize(lua_State *L)
 
     // <function var>
     cocos2d::Size ret = (cocos2d::Size)self->sourceSize;
-    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
@@ -6425,7 +6425,7 @@ static int _fairygui_GObject_set_sourceSize(lua_State *L)
     cocos2d::Size arg1;       /** sourceSize */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GObject");
-    auto_luacv_check_cocos2d_Size(L, 2, &arg1);
+    auto_olua_check_cocos2d_Size(L, 2, &arg1);
 
     // <function var>
     self->sourceSize = arg1;
@@ -6875,7 +6875,7 @@ static int _fairygui_GComponent_getChildren(lua_State *L)
 
     // @ref(map children) const cocos2d::Vector<GObject*>& getChildren()
     const cocos2d::Vector<fairygui::GObject *> &ret = (const cocos2d::Vector<fairygui::GObject *> &)self->getChildren();
-    int num_ret = manual_luacv_push_cocos2d_Vector(L, ret, "fui.GObject");
+    int num_ret = manual_olua_push_cocos2d_Vector(L, ret, "fui.GObject");
 
     // inject code after call
     olua_maprefarray(L, 1, "children", -1);
@@ -6953,7 +6953,7 @@ static int _fairygui_GComponent_getControllers(lua_State *L)
 
     // @ref(map controllers) const cocos2d::Vector<GController*>& getControllers()
     const cocos2d::Vector<fairygui::GController *> &ret = (const cocos2d::Vector<fairygui::GController *> &)self->getControllers();
-    int num_ret = manual_luacv_push_cocos2d_Vector(L, ret, "fui.GController");
+    int num_ret = manual_olua_push_cocos2d_Vector(L, ret, "fui.GController");
 
     // inject code after call
     olua_maprefarray(L, 1, "controllers", -1);
@@ -7001,7 +7001,7 @@ static int _fairygui_GComponent_getMargin(lua_State *L)
 
     // const Margin& getMargin()
     const fairygui::Margin &ret = (const fairygui::Margin &)self->getMargin();
-    int num_ret = auto_luacv_push_fairygui_Margin(L, &ret);
+    int num_ret = auto_olua_push_fairygui_Margin(L, &ret);
 
     return num_ret;
 }
@@ -7062,11 +7062,11 @@ static int _fairygui_GComponent_getSnappingPosition(lua_State *L)
     cocos2d::Vec2 arg1;       /** pt */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GComponent");
-    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
     // cocos2d::Vec2 getSnappingPosition(const cocos2d::Vec2& pt)
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getSnappingPosition(arg1);
-    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -7126,7 +7126,7 @@ static int _fairygui_GComponent_getTransitions(lua_State *L)
 
     // @ref(map transitions) const cocos2d::Vector<Transition*>& getTransitions()
     const cocos2d::Vector<fairygui::Transition *> &ret = (const cocos2d::Vector<fairygui::Transition *> &)self->getTransitions();
-    int num_ret = manual_luacv_push_cocos2d_Vector(L, ret, "fui.Transition");
+    int num_ret = manual_olua_push_cocos2d_Vector(L, ret, "fui.Transition");
 
     // inject code after call
     olua_maprefarray(L, 1, "transitions", -1);
@@ -7466,7 +7466,7 @@ static int _fairygui_GComponent_setMargin(lua_State *L)
     fairygui::Margin arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GComponent");
-    auto_luacv_check_fairygui_Margin(L, 2, &arg1);
+    auto_olua_check_fairygui_Margin(L, 2, &arg1);
 
     // void setMargin(const Margin& value)
     self->setMargin(arg1);
@@ -7815,7 +7815,7 @@ static int _fairygui_GRoot_getPoupPosition(lua_State *L)
 
     // cocos2d::Vec2 getPoupPosition(GObject* popup, GObject* target, PopupDirection dir)
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getPoupPosition(arg1, arg2, (fairygui::PopupDirection)arg3);
-    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -7865,7 +7865,7 @@ static int _fairygui_GRoot_getTouchPosition(lua_State *L)
 
     // cocos2d::Vec2 getTouchPosition(int touchId)
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getTouchPosition((int)arg1);
-    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -8724,7 +8724,7 @@ static int _fairygui_GLoader_getColor(lua_State *L)
 
     // cocos2d::Color3B getColor()
     cocos2d::Color3B ret = (cocos2d::Color3B)self->getColor();
-    int num_ret = manual_luacv_push_cocos2d_Color3B(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     return num_ret;
 }
@@ -8757,7 +8757,7 @@ static int _fairygui_GLoader_getContentSize(lua_State *L)
 
     // const cocos2d::Size& getContentSize()
     const cocos2d::Size &ret = (const cocos2d::Size &)self->getContentSize();
-    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
@@ -8967,7 +8967,7 @@ static int _fairygui_GLoader_setColor(lua_State *L)
     cocos2d::Color3B arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GLoader");
-    manual_luacv_check_cocos2d_Color3B(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg1);
 
     // void setColor(const cocos2d::Color3B& value)
     self->setColor(arg1);
@@ -9262,7 +9262,7 @@ static int _fairygui_GTextField_getColor(lua_State *L)
 
     // cocos2d::Color3B getColor()
     cocos2d::Color3B ret = (cocos2d::Color3B)self->getColor();
-    int num_ret = manual_luacv_push_cocos2d_Color3B(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     return num_ret;
 }
@@ -9292,7 +9292,7 @@ static int _fairygui_GTextField_getOutlineColor(lua_State *L)
 
     // cocos2d::Color3B getOutlineColor()
     cocos2d::Color3B ret = (cocos2d::Color3B)self->getOutlineColor();
-    int num_ret = manual_luacv_push_cocos2d_Color3B(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     return num_ret;
 }
@@ -9301,7 +9301,7 @@ static int _fairygui_GTextField_getTemplateVars(lua_State *L)
 {
     lua_settop(L, 1);
     fairygui::GTextField *self = (fairygui::GTextField *)olua_toobj(L, 1, "fui.GTextField");
-    manual_luacv_push_cocos2d_ValueMap(L, self->getTemplateVars());
+    manual_olua_push_cocos2d_ValueMap(L, self->getTemplateVars());
     return 1;
 }
 
@@ -9330,7 +9330,7 @@ static int _fairygui_GTextField_getTextSize(lua_State *L)
 
     // const cocos2d::Size& getTextSize()
     const cocos2d::Size &ret = (const cocos2d::Size &)self->getTextSize();
-    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
@@ -9389,7 +9389,7 @@ static int _fairygui_GTextField_setColor(lua_State *L)
     cocos2d::Color3B arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GTextField");
-    manual_luacv_check_cocos2d_Color3B(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg1);
 
     // void setColor(const cocos2d::Color3B& value)
     self->setColor(arg1);
@@ -9421,7 +9421,7 @@ static int _fairygui_GTextField_setOutlineColor(lua_State *L)
     cocos2d::Color3B arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GTextField");
-    manual_luacv_check_cocos2d_Color3B(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg1);
 
     // void setOutlineColor(const cocos2d::Color3B& value)
     self->setOutlineColor(arg1);
@@ -9450,7 +9450,7 @@ static int _fairygui_GTextField_setTemplateVars(lua_State *L)
     lua_settop(L, 2);
     cocos2d::ValueMap arg;
     fairygui::GTextField *self = (fairygui::GTextField *)olua_toobj(L, 1, "fui.GTextField");
-    manual_luacv_check_cocos2d_ValueMap(L, 2, &arg);
+    manual_olua_check_cocos2d_ValueMap(L, 2, &arg);
     self->setTemplateVars(&arg);
     return 1;
 }
@@ -9481,7 +9481,7 @@ static int _fairygui_GTextField_setVar(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GTextField");
     olua_check_std_string(L, 2, &arg1);
-    manual_luacv_check_cocos2d_Value(L, 3, &arg2);
+    manual_olua_check_cocos2d_Value(L, 3, &arg2);
 
     // GTextField* setVar(const std::string& name, const cocos2d::Value& value)
     fairygui::GTextField *ret = (fairygui::GTextField *)self->setVar(arg1, arg2);
@@ -9554,8 +9554,8 @@ static int _fairygui_GGraph_drawEllipse(lua_State *L)
     olua_check_number(L, 2, &arg1);
     olua_check_number(L, 3, &arg2);
     olua_check_int(L, 4, &arg3);
-    manual_luacv_check_cocos2d_Color4F(L, 5, &arg4);
-    manual_luacv_check_cocos2d_Color4F(L, 6, &arg5);
+    manual_olua_check_cocos2d_Color4F(L, 5, &arg4);
+    manual_olua_check_cocos2d_Color4F(L, 6, &arg5);
 
     // void drawEllipse(float aWidth, float aHeight, int lineSize, const cocos2d::Color4F& lineColor, const cocos2d::Color4F& fillColor)
     self->drawEllipse((float)arg1, (float)arg2, (int)arg3, arg4, arg5);
@@ -9578,8 +9578,8 @@ static int _fairygui_GGraph_drawRect(lua_State *L)
     olua_check_number(L, 2, &arg1);
     olua_check_number(L, 3, &arg2);
     olua_check_int(L, 4, &arg3);
-    manual_luacv_check_cocos2d_Color4F(L, 5, &arg4);
-    manual_luacv_check_cocos2d_Color4F(L, 6, &arg5);
+    manual_olua_check_cocos2d_Color4F(L, 5, &arg4);
+    manual_olua_check_cocos2d_Color4F(L, 6, &arg5);
 
     // void drawRect(float aWidth, float aHeight, int lineSize, const cocos2d::Color4F& lineColor, const cocos2d::Color4F& fillColor)
     self->drawRect((float)arg1, (float)arg2, (int)arg3, arg4, arg5);
@@ -9597,7 +9597,7 @@ static int _fairygui_GGraph_getColor(lua_State *L)
 
     // cocos2d::Color3B getColor()
     cocos2d::Color3B ret = (cocos2d::Color3B)self->getColor();
-    int num_ret = manual_luacv_push_cocos2d_Color3B(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     return num_ret;
 }
@@ -9625,7 +9625,7 @@ static int _fairygui_GGraph_setColor(lua_State *L)
     cocos2d::Color3B arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GGraph");
-    manual_luacv_check_cocos2d_Color3B(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg1);
 
     // void setColor(const cocos2d::Color3B& value)
     self->setColor(arg1);
@@ -9753,7 +9753,7 @@ static int _fairygui_GButton_getTitleColor(lua_State *L)
 
     // cocos2d::Color3B getTitleColor()
     cocos2d::Color3B ret = (cocos2d::Color3B)self->getTitleColor();
-    int num_ret = manual_luacv_push_cocos2d_Color3B(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     return num_ret;
 }
@@ -9910,7 +9910,7 @@ static int _fairygui_GButton_setTitleColor(lua_State *L)
     cocos2d::Color3B arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GButton");
-    manual_luacv_check_cocos2d_Color3B(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg1);
 
     // void setTitleColor(const cocos2d::Color3B& value)
     self->setTitleColor(arg1);
@@ -9992,7 +9992,7 @@ static int _fairygui_GImage_getColor(lua_State *L)
 
     // cocos2d::Color3B getColor()
     cocos2d::Color3B ret = (cocos2d::Color3B)self->getColor();
-    int num_ret = manual_luacv_push_cocos2d_Color3B(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     return num_ret;
 }
@@ -10080,7 +10080,7 @@ static int _fairygui_GImage_setColor(lua_State *L)
     cocos2d::Color3B arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GImage");
-    manual_luacv_check_cocos2d_Color3B(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg1);
 
     // void setColor(const cocos2d::Color3B& value)
     self->setColor(arg1);
@@ -10251,7 +10251,7 @@ static int _fairygui_GLabel_getTitleColor(lua_State *L)
 
     // cocos2d::Color3B getTitleColor()
     cocos2d::Color3B ret = (cocos2d::Color3B)self->getTitleColor();
-    int num_ret = manual_luacv_push_cocos2d_Color3B(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     return num_ret;
 }
@@ -10295,7 +10295,7 @@ static int _fairygui_GLabel_setTitleColor(lua_State *L)
     cocos2d::Color3B arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GLabel");
-    manual_luacv_check_cocos2d_Color3B(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg1);
 
     // void setTitleColor(const cocos2d::Color3B& value)
     self->setTitleColor(arg1);
@@ -11597,7 +11597,7 @@ static int _fairygui_GMovieClip_getColor(lua_State *L)
 
     // cocos2d::Color3B getColor()
     cocos2d::Color3B ret = (cocos2d::Color3B)self->getColor();
-    int num_ret = manual_luacv_push_cocos2d_Color3B(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     return num_ret;
 }
@@ -11670,7 +11670,7 @@ static int _fairygui_GMovieClip_setColor(lua_State *L)
     cocos2d::Color3B arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GMovieClip");
-    manual_luacv_check_cocos2d_Color3B(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg1);
 
     // void setColor(const cocos2d::Color3B& value)
     self->setColor(arg1);
@@ -12102,7 +12102,7 @@ static int _fairygui_GComboBox_getTitleColor(lua_State *L)
 
     // const cocos2d::Color3B getTitleColor()
     const cocos2d::Color3B ret = (const cocos2d::Color3B)self->getTitleColor();
-    int num_ret = manual_luacv_push_cocos2d_Color3B(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     return num_ret;
 }
@@ -12231,7 +12231,7 @@ static int _fairygui_GComboBox_setTitleColor(lua_State *L)
     cocos2d::Color3B arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GComboBox");
-    manual_luacv_check_cocos2d_Color3B(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg1);
 
     // void setTitleColor(const cocos2d::Color3B& value)
     self->setTitleColor(arg1);
@@ -13574,7 +13574,7 @@ static int _fairygui_ScrollPane_getContentSize(lua_State *L)
 
     // const cocos2d::Size& getContentSize()
     const cocos2d::Size &ret = (const cocos2d::Size &)self->getContentSize();
-    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
@@ -13840,7 +13840,7 @@ static int _fairygui_ScrollPane_getViewSize(lua_State *L)
 
     // const cocos2d::Size& getViewSize()
     const cocos2d::Size &ret = (const cocos2d::Size &)self->getViewSize();
-    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
@@ -14132,7 +14132,7 @@ static int _fairygui_ScrollPane_scrollToView2(lua_State *L)
     bool arg3 = false;   /** setFirst */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.ScrollPane");
-    manual_luacv_check_cocos2d_Rect(L, 2, &arg1);
+    manual_olua_check_cocos2d_Rect(L, 2, &arg1);
     olua_opt_bool(L, 3, &arg2, (bool)false);
     olua_opt_bool(L, 4, &arg3, (bool)false);
 
@@ -14147,7 +14147,7 @@ static int _fairygui_ScrollPane_scrollToView(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 3) {
-        if (manual_luacv_is_cocos2d_Rect(L, 2) && (olua_is_bool(L, 3) || olua_isnil(L, 3)) && (olua_is_bool(L, 4) || olua_isnil(L, 4))) {
+        if (manual_olua_is_cocos2d_Rect(L, 2) && (olua_is_bool(L, 3) || olua_isnil(L, 3)) && (olua_is_bool(L, 4) || olua_isnil(L, 4))) {
             return _fairygui_ScrollPane_scrollToView2(L);
         }
 
@@ -15035,7 +15035,7 @@ static int _fairygui_Transition_setValue(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.Transition");
     olua_check_std_string(L, 2, &arg1);
-    manual_luacv_check_cocos2d_ValueVector(L, 3, &arg2);
+    manual_olua_check_cocos2d_ValueVector(L, 3, &arg2);
 
     // void setValue(const std::string& label, const cocos2d::ValueVector& values)
     self->setValue(arg1, arg2);
@@ -15536,7 +15536,7 @@ static int _fairygui_UIConfig_get_modalLayerColor(lua_State *L)
 
     // <function var>
     cocos2d::Color4F ret = (cocos2d::Color4F)fairygui::UIConfig::modalLayerColor;
-    int num_ret = manual_luacv_push_cocos2d_Color4F(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Color4F(L, &ret);
 
     return num_ret;
 }
@@ -15547,7 +15547,7 @@ static int _fairygui_UIConfig_set_modalLayerColor(lua_State *L)
 
     cocos2d::Color4F arg1;       /** modalLayerColor */
 
-    manual_luacv_check_cocos2d_Color4F(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color4F(L, 2, &arg1);
 
     // <function var>
     fairygui::UIConfig::modalLayerColor = arg1;
@@ -16567,7 +16567,7 @@ static int _fairygui_DragDropManager_startDrag(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.DragDropManager");
     olua_check_std_string(L, 2, &arg1);
-    manual_luacv_opt_cocos2d_Value(L, 3, &arg2, (cocos2d::Value)cocos2d::Value::Null);
+    manual_olua_opt_cocos2d_Value(L, 3, &arg2, (cocos2d::Value)cocos2d::Value::Null);
     olua_opt_int(L, 4, &arg3, (lua_Integer)-1);
 
     // void startDrag(const std::string& icon, const cocos2d::Value& sourceData = cocos2d::Value::Null, int touchPointID = -1)
@@ -16855,7 +16855,7 @@ static int _fairygui_TreeNode_getData(lua_State *L)
 
     // const cocos2d::Value& getData()
     const cocos2d::Value &ret = (const cocos2d::Value &)self->getData();
-    int num_ret = manual_luacv_push_cocos2d_Value(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Value(L, &ret);
 
     return num_ret;
 }
@@ -17158,7 +17158,7 @@ static int _fairygui_TreeNode_setData(lua_State *L)
     cocos2d::Value arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.TreeNode");
-    manual_luacv_check_cocos2d_Value(L, 2, &arg1);
+    manual_olua_check_cocos2d_Value(L, 2, &arg1);
 
     // void setData(const cocos2d::Value& value)
     self->setData(arg1);

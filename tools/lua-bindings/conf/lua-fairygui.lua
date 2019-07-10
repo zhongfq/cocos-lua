@@ -31,12 +31,12 @@ M.INCLUDES = [[
 ]]
 
 M.CHUNK = [[
-bool manual_luacv_is_fairygui_EventTag(lua_State *L, int idx)
+bool manual_olua_is_fairygui_EventTag(lua_State *L, int idx)
 {
     return olua_isinteger(L, idx) || olua_isa(L, idx, OLUA_VOIDCLS);
 }
 
-void manual_luacv_check_fairygui_EventTag(lua_State *L, int idx, fairygui::EventTag *value)
+void manual_olua_check_fairygui_EventTag(lua_State *L, int idx, fairygui::EventTag *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -65,19 +65,19 @@ end
 
 typedef {
     CPPCLS = 'fairygui::EventTag',
-    CONV_FUNC = 'manual_luacv_$$_fairygui_EventTag',
+    CONV_FUNC = 'manual_olua_$$_fairygui_EventTag',
     INIT_VALUE = false,
 }
 
 typedef {
     CPPCLS = 'fairygui::Margin',
-    CONV_FUNC = 'auto_luacv_$$_fairygui_Margin',
+    CONV_FUNC = 'auto_olua_$$_fairygui_Margin',
     INIT_VALUE = false,
 }
 
 typedef {
     CPPCLS = 'fairygui::TweenValue',
-    CONV_FUNC = 'auto_luacv_$$_fairygui_TweenValue',
+    CONV_FUNC = 'auto_olua_$$_fairygui_TweenValue',
     INIT_VALUE = false,
 }
 
@@ -281,7 +281,7 @@ GObject.FUNC('getDragBounds', [[
     lua_settop(L, 1);
     fairygui::GObject *self = (fairygui::GObject *)olua_toobj(L, 1, "fui.GObject");
     cocos2d::Rect *rect = self->getDragBounds();
-    manual_luacv_push_cocos2d_Rect(L, rect);
+    manual_olua_push_cocos2d_Rect(L, rect);
     return 1;
 }]])
 GObject.CALLBACK('addClickListener', {
@@ -424,7 +424,7 @@ GTextField.FUNC('getTemplateVars', [[
 {
     lua_settop(L, 1);
     fairygui::GTextField *self = (fairygui::GTextField *)olua_toobj(L, 1, "fui.GTextField");
-    manual_luacv_push_cocos2d_ValueMap(L, self->getTemplateVars());
+    manual_olua_push_cocos2d_ValueMap(L, self->getTemplateVars());
     return 1;
 }]])
 GTextField.FUNC('setTemplateVars', [[
@@ -432,7 +432,7 @@ GTextField.FUNC('setTemplateVars', [[
     lua_settop(L, 2);
     cocos2d::ValueMap arg;
     fairygui::GTextField *self = (fairygui::GTextField *)olua_toobj(L, 1, "fui.GTextField");
-    manual_luacv_check_cocos2d_ValueMap(L, 2, &arg);
+    manual_olua_check_cocos2d_ValueMap(L, 2, &arg);
     self->setTemplateVars(&arg);
     return 1;
 }]])

@@ -10,12 +10,12 @@
 #include "spine/spine-cocos2dx.h"
 
 
-bool manual_luacv_is_spine_String(lua_State *L, int idx)
+bool manual_olua_is_spine_String(lua_State *L, int idx)
 {
     return olua_isstring(L, idx);
 }
 
-int manual_luacv_push_spine_String(lua_State *L, const spine::String *value)
+int manual_olua_push_spine_String(lua_State *L, const spine::String *value)
 {
     if (value && value->buffer()) {
         lua_pushlstring(L, value->buffer(), value->length());
@@ -25,7 +25,7 @@ int manual_luacv_push_spine_String(lua_State *L, const spine::String *value)
     return 1;
 }
 
-void manual_luacv_check_spine_String(lua_State *L, int idx, spine::String *value)
+void manual_olua_check_spine_String(lua_State *L, int idx, spine::String *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -33,12 +33,12 @@ void manual_luacv_check_spine_String(lua_State *L, int idx, spine::String *value
     *value = olua_checkstring(L, idx);
 }
 
-bool manual_luacv_is_spine_Color(lua_State *L, int idx)
+bool manual_olua_is_spine_Color(lua_State *L, int idx)
 {
     return olua_isinteger(L, idx);
 }
 
-void manual_luacv_check_spine_Color(lua_State *L, int idx, spine::Color *value)
+void manual_olua_check_spine_Color(lua_State *L, int idx, spine::Color *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
@@ -50,7 +50,7 @@ void manual_luacv_check_spine_Color(lua_State *L, int idx, spine::Color *value)
     value->a = ((uint8_t)(color & 0xFF)) / 255.0f;
 }
 
-int manual_luacv_push_spine_Color(lua_State *L, const spine::Color *value)
+int manual_olua_push_spine_Color(lua_State *L, const spine::Color *value)
 {
     uint32_t color = 0;
     if (value) {
@@ -63,17 +63,17 @@ int manual_luacv_push_spine_Color(lua_State *L, const spine::Color *value)
     return 1;
 }
 
-int manual_luacv_push_spine_EventData(lua_State *L, const spine::EventData *value)
+int manual_olua_push_spine_EventData(lua_State *L, const spine::EventData *value)
 {
     lua_createtable(L, 0, 8);
     olua_setfieldinteger(L, -1, "intValue", const_cast<spine::EventData *>(value)->getIntValue());
     olua_setfieldnumber(L, -1, "getVolume", const_cast<spine::EventData *>(value)->getVolume());
     olua_setfieldnumber(L, -1, "getBalance", const_cast<spine::EventData *>(value)->getBalance());
-    manual_luacv_push_spine_String(L, &value->getName());
+    manual_olua_push_spine_String(L, &value->getName());
     olua_rawset(L, -2, "name");
-    manual_luacv_push_spine_String(L, &const_cast<spine::EventData *>(value)->getStringValue());
+    manual_olua_push_spine_String(L, &const_cast<spine::EventData *>(value)->getStringValue());
     olua_rawset(L, -2, "stringValue");
-    manual_luacv_push_spine_String(L, &const_cast<spine::EventData *>(value)->getAudioPath());
+    manual_olua_push_spine_String(L, &const_cast<spine::EventData *>(value)->getAudioPath());
     olua_rawset(L, -2, "audioPath");
     return 1;
 }
@@ -227,7 +227,7 @@ static int _spine_Event_getData(lua_State *L)
 
     // const EventData &getData()
     const spine::EventData &ret = (const spine::EventData &)self->getData();
-    int num_ret = manual_luacv_push_spine_EventData(L, &ret);
+    int num_ret = manual_olua_push_spine_EventData(L, &ret);
 
     return num_ret;
 }
@@ -272,7 +272,7 @@ static int _spine_Event_getStringValue(lua_State *L)
 
     // const String &getStringValue()
     const spine::String &ret = (const spine::String &)self->getStringValue();
-    int num_ret = manual_luacv_push_spine_String(L, &ret);
+    int num_ret = manual_olua_push_spine_String(L, &ret);
 
     return num_ret;
 }
@@ -363,7 +363,7 @@ static int _spine_Event_setStringValue(lua_State *L)
     spine::String arg1;       /** inValue */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.Event");
-    manual_luacv_check_spine_String(L, 2, &arg1);
+    manual_olua_check_spine_String(L, 2, &arg1);
 
     // void setStringValue(const String &inValue)
     self->setStringValue(arg1);
@@ -426,7 +426,7 @@ static int _spine_EventData_getAudioPath(lua_State *L)
 
     // const String &getAudioPath()
     const spine::String &ret = (const spine::String &)self->getAudioPath();
-    int num_ret = manual_luacv_push_spine_String(L, &ret);
+    int num_ret = manual_olua_push_spine_String(L, &ret);
 
     return num_ret;
 }
@@ -486,7 +486,7 @@ static int _spine_EventData_getName(lua_State *L)
 
     // const String &getName()
     const spine::String &ret = (const spine::String &)self->getName();
-    int num_ret = manual_luacv_push_spine_String(L, &ret);
+    int num_ret = manual_olua_push_spine_String(L, &ret);
 
     return num_ret;
 }
@@ -501,7 +501,7 @@ static int _spine_EventData_getStringValue(lua_State *L)
 
     // const String &getStringValue()
     const spine::String &ret = (const spine::String &)self->getStringValue();
-    int num_ret = manual_luacv_push_spine_String(L, &ret);
+    int num_ret = manual_olua_push_spine_String(L, &ret);
 
     return num_ret;
 }
@@ -529,7 +529,7 @@ static int _spine_EventData_setAudioPath(lua_State *L)
     spine::String arg1;       /** inValue */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.EventData");
-    manual_luacv_check_spine_String(L, 2, &arg1);
+    manual_olua_check_spine_String(L, 2, &arg1);
 
     // void setAudioPath(const String &inValue)
     self->setAudioPath(arg1);
@@ -593,7 +593,7 @@ static int _spine_EventData_setStringValue(lua_State *L)
     spine::String arg1;       /** inValue */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.EventData");
-    manual_luacv_check_spine_String(L, 2, &arg1);
+    manual_olua_check_spine_String(L, 2, &arg1);
 
     // void setStringValue(const String &inValue)
     self->setStringValue(arg1);
@@ -684,7 +684,7 @@ static int _spine_AnimationState_addAnimation1(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.AnimationState");
     olua_check_uint(L, 2, &arg1);
-    manual_luacv_check_spine_String(L, 3, &arg2);
+    manual_olua_check_spine_String(L, 3, &arg2);
     olua_check_bool(L, 4, &arg3);
     olua_check_number(L, 5, &arg4);
 
@@ -723,7 +723,7 @@ static int _spine_AnimationState_addAnimation(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 4) {
-        if (olua_is_uint(L, 2) && manual_luacv_is_spine_String(L, 3) && olua_is_bool(L, 4) && olua_is_number(L, 5)) {
+        if (olua_is_uint(L, 2) && manual_olua_is_spine_String(L, 3) && olua_is_bool(L, 4) && olua_is_number(L, 5)) {
             return _spine_AnimationState_addAnimation1(L);
         }
 
@@ -874,7 +874,7 @@ static int _spine_AnimationState_setAnimation1(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.AnimationState");
     olua_check_uint(L, 2, &arg1);
-    manual_luacv_check_spine_String(L, 3, &arg2);
+    manual_olua_check_spine_String(L, 3, &arg2);
     olua_check_bool(L, 4, &arg3);
 
     // TrackEntry* setAnimation(size_t trackIndex, const String& animationName, bool loop)
@@ -910,7 +910,7 @@ static int _spine_AnimationState_setAnimation(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 3) {
-        if (olua_is_uint(L, 2) && manual_luacv_is_spine_String(L, 3) && olua_is_bool(L, 4)) {
+        if (olua_is_uint(L, 2) && manual_olua_is_spine_String(L, 3) && olua_is_bool(L, 4)) {
             return _spine_AnimationState_setAnimation1(L);
         }
 
@@ -1125,8 +1125,8 @@ static int _spine_AnimationStateData_setMix1(lua_State *L)
     lua_Number arg3 = 0;   /** duration */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.AnimationStateData");
-    manual_luacv_check_spine_String(L, 2, &arg1);
-    manual_luacv_check_spine_String(L, 3, &arg2);
+    manual_olua_check_spine_String(L, 2, &arg1);
+    manual_olua_check_spine_String(L, 3, &arg2);
     olua_check_number(L, 4, &arg3);
 
     // void setMix(const String& fromName, const String& toName, float duration)
@@ -1160,7 +1160,7 @@ static int _spine_AnimationStateData_setMix(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 3) {
-        if (manual_luacv_is_spine_String(L, 2) && manual_luacv_is_spine_String(L, 3) && olua_is_number(L, 4)) {
+        if (manual_olua_is_spine_String(L, 2) && manual_olua_is_spine_String(L, 3) && olua_is_number(L, 4)) {
             return _spine_AnimationStateData_setMix1(L);
         }
 
@@ -1216,7 +1216,7 @@ static int _spine_Animation_getName(lua_State *L)
 
     // const String &getName()
     const spine::String &ret = (const spine::String &)self->getName();
-    int num_ret = manual_luacv_push_spine_String(L, &ret);
+    int num_ret = manual_olua_push_spine_String(L, &ret);
 
     return num_ret;
 }
@@ -1307,7 +1307,7 @@ static int _spine_IkConstraintData_getName(lua_State *L)
 
     // const String& getName()
     const spine::String &ret = (const spine::String &)self->getName();
-    int num_ret = manual_luacv_push_spine_String(L, &ret);
+    int num_ret = manual_olua_push_spine_String(L, &ret);
 
     return num_ret;
 }
@@ -1557,7 +1557,7 @@ static int _spine_BoneData_getName(lua_State *L)
 
     // const String &getName()
     const spine::String &ret = (const spine::String &)self->getName();
-    int num_ret = manual_luacv_push_spine_String(L, &ret);
+    int num_ret = manual_olua_push_spine_String(L, &ret);
 
     return num_ret;
 }
@@ -1894,7 +1894,7 @@ static int _spine_SlotData_getAttachmentName(lua_State *L)
 
     // const String &getAttachmentName()
     const spine::String &ret = (const spine::String &)self->getAttachmentName();
-    int num_ret = manual_luacv_push_spine_String(L, &ret);
+    int num_ret = manual_olua_push_spine_String(L, &ret);
 
     return num_ret;
 }
@@ -1924,7 +1924,7 @@ static int _spine_SlotData_getColor(lua_State *L)
 
     // Color &getColor()
     spine::Color &ret = (spine::Color &)self->getColor();
-    int num_ret = manual_luacv_push_spine_Color(L, &ret);
+    int num_ret = manual_olua_push_spine_Color(L, &ret);
 
     return num_ret;
 }
@@ -1939,7 +1939,7 @@ static int _spine_SlotData_getDarkColor(lua_State *L)
 
     // Color &getDarkColor()
     spine::Color &ret = (spine::Color &)self->getDarkColor();
-    int num_ret = manual_luacv_push_spine_Color(L, &ret);
+    int num_ret = manual_olua_push_spine_Color(L, &ret);
 
     return num_ret;
 }
@@ -1969,7 +1969,7 @@ static int _spine_SlotData_getName(lua_State *L)
 
     // const String &getName()
     const spine::String &ret = (const spine::String &)self->getName();
-    int num_ret = manual_luacv_push_spine_String(L, &ret);
+    int num_ret = manual_olua_push_spine_String(L, &ret);
 
     return num_ret;
 }
@@ -1997,7 +1997,7 @@ static int _spine_SlotData_setAttachmentName(lua_State *L)
     spine::String arg1;       /** inValue */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.SlotData");
-    manual_luacv_check_spine_String(L, 2, &arg1);
+    manual_olua_check_spine_String(L, 2, &arg1);
 
     // void setAttachmentName(const String &inValue)
     self->setAttachmentName(arg1);
@@ -2490,7 +2490,7 @@ static int _spine_TransformConstraintData_getName(lua_State *L)
 
     // const String& getName()
     const spine::String &ret = (const spine::String &)self->getName();
-    int num_ret = manual_luacv_push_spine_String(L, &ret);
+    int num_ret = manual_olua_push_spine_String(L, &ret);
 
     return num_ret;
 }
@@ -2755,7 +2755,7 @@ static int _spine_PathConstraintData_getName(lua_State *L)
 
     // const String& getName()
     const spine::String &ret = (const spine::String &)self->getName();
-    int num_ret = manual_luacv_push_spine_String(L, &ret);
+    int num_ret = manual_olua_push_spine_String(L, &ret);
 
     return num_ret;
 }
@@ -3553,7 +3553,7 @@ static int _spine_AttachmentTimeline_setFrame(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "sp.AttachmentTimeline");
     olua_check_int(L, 2, &arg1);
     olua_check_number(L, 3, &arg2);
-    manual_luacv_check_spine_String(L, 4, &arg3);
+    manual_olua_check_spine_String(L, 4, &arg3);
 
     // void setFrame(int frameIndex, float time, const String& attachmentName)
     self->setFrame((int)arg1, (float)arg2, arg3);
@@ -4187,7 +4187,7 @@ static int _spine_Skin_addAttachment(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.Skin");
     olua_check_uint(L, 2, &arg1);
-    manual_luacv_check_spine_String(L, 3, &arg2);
+    manual_olua_check_spine_String(L, 3, &arg2);
     olua_check_cppobj(L, 4, (void **)&arg3, "sp.Attachment");
 
     // void addAttachment(size_t slotIndex, const String &name, Attachment *attachment)
@@ -4206,7 +4206,7 @@ static int _spine_Skin_getAttachment(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.Skin");
     olua_check_uint(L, 2, &arg1);
-    manual_luacv_check_spine_String(L, 3, &arg2);
+    manual_olua_check_spine_String(L, 3, &arg2);
 
     // Attachment *getAttachment(size_t slotIndex, const String &name)
     spine::Attachment *ret = (spine::Attachment *)self->getAttachment((size_t)arg1, arg2);
@@ -4225,7 +4225,7 @@ static int _spine_Skin_getName(lua_State *L)
 
     // const String &getName()
     const spine::String &ret = (const spine::String &)self->getName();
-    int num_ret = manual_luacv_push_spine_String(L, &ret);
+    int num_ret = manual_olua_push_spine_String(L, &ret);
 
     return num_ret;
 }
@@ -5295,7 +5295,7 @@ static int _spine_Slot_getColor(lua_State *L)
 
     // Color &getColor()
     spine::Color &ret = (spine::Color &)self->getColor();
-    int num_ret = manual_luacv_push_spine_Color(L, &ret);
+    int num_ret = manual_olua_push_spine_Color(L, &ret);
 
     return num_ret;
 }
@@ -5310,7 +5310,7 @@ static int _spine_Slot_getDarkColor(lua_State *L)
 
     // Color &getDarkColor()
     spine::Color &ret = (spine::Color &)self->getDarkColor();
-    int num_ret = manual_luacv_push_spine_Color(L, &ret);
+    int num_ret = manual_olua_push_spine_Color(L, &ret);
 
     return num_ret;
 }
@@ -5408,7 +5408,7 @@ static int _spine_Attachment_getName(lua_State *L)
 
     // const String &getName()
     const spine::String &ret = (const spine::String &)self->getName();
-    int num_ret = manual_luacv_push_spine_String(L, &ret);
+    int num_ret = manual_olua_push_spine_String(L, &ret);
 
     return num_ret;
 }
@@ -5568,7 +5568,7 @@ static int _spine_MeshAttachment_getColor(lua_State *L)
 
     // Color& getColor()
     spine::Color &ret = (spine::Color &)self->getColor();
-    int num_ret = manual_luacv_push_spine_Color(L, &ret);
+    int num_ret = manual_olua_push_spine_Color(L, &ret);
 
     return num_ret;
 }
@@ -5643,7 +5643,7 @@ static int _spine_MeshAttachment_getPath(lua_State *L)
 
     // const String& getPath()
     const spine::String &ret = (const spine::String &)self->getPath();
-    int num_ret = manual_luacv_push_spine_String(L, &ret);
+    int num_ret = manual_olua_push_spine_String(L, &ret);
 
     return num_ret;
 }
@@ -5900,7 +5900,7 @@ static int _spine_MeshAttachment_setPath(lua_State *L)
     spine::String arg1;       /** inValue */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
-    manual_luacv_check_spine_String(L, 2, &arg1);
+    manual_olua_check_spine_String(L, 2, &arg1);
 
     // void setPath(const String& inValue)
     self->setPath(arg1);
@@ -6573,7 +6573,7 @@ static int _spine_RegionAttachment_getColor(lua_State *L)
 
     // Color& getColor()
     spine::Color &ret = (spine::Color &)self->getColor();
-    int num_ret = manual_luacv_push_spine_Color(L, &ret);
+    int num_ret = manual_olua_push_spine_Color(L, &ret);
 
     return num_ret;
 }
@@ -6603,7 +6603,7 @@ static int _spine_RegionAttachment_getPath(lua_State *L)
 
     // const String& getPath()
     const spine::String &ret = (const spine::String &)self->getPath();
-    int num_ret = manual_luacv_push_spine_String(L, &ret);
+    int num_ret = manual_olua_push_spine_String(L, &ret);
 
     return num_ret;
 }
@@ -6812,7 +6812,7 @@ static int _spine_RegionAttachment_setPath(lua_State *L)
     spine::String arg1;       /** inValue */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.RegionAttachment");
-    manual_luacv_check_spine_String(L, 2, &arg1);
+    manual_olua_check_spine_String(L, 2, &arg1);
 
     // void setPath(const String& inValue)
     self->setPath(arg1);
@@ -7865,7 +7865,7 @@ static int _spine_SkeletonData_findAnimation(lua_State *L)
     spine::String arg1;       /** animationName */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
-    manual_luacv_check_spine_String(L, 2, &arg1);
+    manual_olua_check_spine_String(L, 2, &arg1);
 
     // Animation *findAnimation(const String &animationName)
     spine::Animation *ret = (spine::Animation *)self->findAnimation(arg1);
@@ -7882,7 +7882,7 @@ static int _spine_SkeletonData_findBone(lua_State *L)
     spine::String arg1;       /** boneName */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
-    manual_luacv_check_spine_String(L, 2, &arg1);
+    manual_olua_check_spine_String(L, 2, &arg1);
 
     // BoneData *findBone(const String &boneName)
     spine::BoneData *ret = (spine::BoneData *)self->findBone(arg1);
@@ -7899,7 +7899,7 @@ static int _spine_SkeletonData_findBoneIndex(lua_State *L)
     spine::String arg1;       /** boneName */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
-    manual_luacv_check_spine_String(L, 2, &arg1);
+    manual_olua_check_spine_String(L, 2, &arg1);
 
     // int findBoneIndex(const String &boneName)
     int ret = (int)self->findBoneIndex(arg1);
@@ -7916,7 +7916,7 @@ static int _spine_SkeletonData_findEvent(lua_State *L)
     spine::String arg1;       /** eventDataName */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
-    manual_luacv_check_spine_String(L, 2, &arg1);
+    manual_olua_check_spine_String(L, 2, &arg1);
 
     // spine::EventData *findEvent(const String &eventDataName)
     spine::EventData *ret = (spine::EventData *)self->findEvent(arg1);
@@ -7933,7 +7933,7 @@ static int _spine_SkeletonData_findIkConstraint(lua_State *L)
     spine::String arg1;       /** constraintName */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
-    manual_luacv_check_spine_String(L, 2, &arg1);
+    manual_olua_check_spine_String(L, 2, &arg1);
 
     // IkConstraintData *findIkConstraint(const String &constraintName)
     spine::IkConstraintData *ret = (spine::IkConstraintData *)self->findIkConstraint(arg1);
@@ -7950,7 +7950,7 @@ static int _spine_SkeletonData_findPathConstraint(lua_State *L)
     spine::String arg1;       /** constraintName */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
-    manual_luacv_check_spine_String(L, 2, &arg1);
+    manual_olua_check_spine_String(L, 2, &arg1);
 
     // PathConstraintData *findPathConstraint(const String &constraintName)
     spine::PathConstraintData *ret = (spine::PathConstraintData *)self->findPathConstraint(arg1);
@@ -7967,7 +7967,7 @@ static int _spine_SkeletonData_findPathConstraintIndex(lua_State *L)
     spine::String arg1;       /** pathConstraintName */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
-    manual_luacv_check_spine_String(L, 2, &arg1);
+    manual_olua_check_spine_String(L, 2, &arg1);
 
     // int findPathConstraintIndex(const String &pathConstraintName)
     int ret = (int)self->findPathConstraintIndex(arg1);
@@ -7984,7 +7984,7 @@ static int _spine_SkeletonData_findSkin(lua_State *L)
     spine::String arg1;       /** skinName */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
-    manual_luacv_check_spine_String(L, 2, &arg1);
+    manual_olua_check_spine_String(L, 2, &arg1);
 
     // Skin *findSkin(const String &skinName)
     spine::Skin *ret = (spine::Skin *)self->findSkin(arg1);
@@ -8001,7 +8001,7 @@ static int _spine_SkeletonData_findSlot(lua_State *L)
     spine::String arg1;       /** slotName */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
-    manual_luacv_check_spine_String(L, 2, &arg1);
+    manual_olua_check_spine_String(L, 2, &arg1);
 
     // SlotData *findSlot(const String &slotName)
     spine::SlotData *ret = (spine::SlotData *)self->findSlot(arg1);
@@ -8018,7 +8018,7 @@ static int _spine_SkeletonData_findSlotIndex(lua_State *L)
     spine::String arg1;       /** slotName */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
-    manual_luacv_check_spine_String(L, 2, &arg1);
+    manual_olua_check_spine_String(L, 2, &arg1);
 
     // int findSlotIndex(const String &slotName)
     int ret = (int)self->findSlotIndex(arg1);
@@ -8035,7 +8035,7 @@ static int _spine_SkeletonData_findTransformConstraint(lua_State *L)
     spine::String arg1;       /** constraintName */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
-    manual_luacv_check_spine_String(L, 2, &arg1);
+    manual_olua_check_spine_String(L, 2, &arg1);
 
     // TransformConstraintData *findTransformConstraint(const String &constraintName)
     spine::TransformConstraintData *ret = (spine::TransformConstraintData *)self->findTransformConstraint(arg1);
@@ -8054,7 +8054,7 @@ static int _spine_SkeletonData_getAudioPath(lua_State *L)
 
     // const String &getAudioPath()
     const spine::String &ret = (const spine::String &)self->getAudioPath();
-    int num_ret = manual_luacv_push_spine_String(L, &ret);
+    int num_ret = manual_olua_push_spine_String(L, &ret);
 
     return num_ret;
 }
@@ -8099,7 +8099,7 @@ static int _spine_SkeletonData_getHash(lua_State *L)
 
     // const String &getHash()
     const spine::String &ret = (const spine::String &)self->getHash();
-    int num_ret = manual_luacv_push_spine_String(L, &ret);
+    int num_ret = manual_olua_push_spine_String(L, &ret);
 
     return num_ret;
 }
@@ -8129,7 +8129,7 @@ static int _spine_SkeletonData_getImagesPath(lua_State *L)
 
     // const String &getImagesPath()
     const spine::String &ret = (const spine::String &)self->getImagesPath();
-    int num_ret = manual_luacv_push_spine_String(L, &ret);
+    int num_ret = manual_olua_push_spine_String(L, &ret);
 
     return num_ret;
 }
@@ -8144,7 +8144,7 @@ static int _spine_SkeletonData_getName(lua_State *L)
 
     // const String &getName()
     const spine::String &ret = (const spine::String &)self->getName();
-    int num_ret = manual_luacv_push_spine_String(L, &ret);
+    int num_ret = manual_olua_push_spine_String(L, &ret);
 
     return num_ret;
 }
@@ -8159,7 +8159,7 @@ static int _spine_SkeletonData_getVersion(lua_State *L)
 
     // const String &getVersion()
     const spine::String &ret = (const spine::String &)self->getVersion();
-    int num_ret = manual_luacv_push_spine_String(L, &ret);
+    int num_ret = manual_olua_push_spine_String(L, &ret);
 
     return num_ret;
 }
@@ -8242,7 +8242,7 @@ static int _spine_SkeletonData_setAudioPath(lua_State *L)
     spine::String arg1;       /** inValue */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
-    manual_luacv_check_spine_String(L, 2, &arg1);
+    manual_olua_check_spine_String(L, 2, &arg1);
 
     // void setAudioPath(const String &inValue)
     self->setAudioPath(arg1);
@@ -8290,7 +8290,7 @@ static int _spine_SkeletonData_setHash(lua_State *L)
     spine::String arg1;       /** inValue */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
-    manual_luacv_check_spine_String(L, 2, &arg1);
+    manual_olua_check_spine_String(L, 2, &arg1);
 
     // void setHash(const String &inValue)
     self->setHash(arg1);
@@ -8322,7 +8322,7 @@ static int _spine_SkeletonData_setImagesPath(lua_State *L)
     spine::String arg1;       /** inValue */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
-    manual_luacv_check_spine_String(L, 2, &arg1);
+    manual_olua_check_spine_String(L, 2, &arg1);
 
     // void setImagesPath(const String &inValue)
     self->setImagesPath(arg1);
@@ -8338,7 +8338,7 @@ static int _spine_SkeletonData_setName(lua_State *L)
     spine::String arg1;       /** inValue */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
-    manual_luacv_check_spine_String(L, 2, &arg1);
+    manual_olua_check_spine_String(L, 2, &arg1);
 
     // void setName(const String &inValue)
     self->setName(arg1);
@@ -8354,7 +8354,7 @@ static int _spine_SkeletonData_setVersion(lua_State *L)
     spine::String arg1;       /** inValue */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonData");
-    manual_luacv_check_spine_String(L, 2, &arg1);
+    manual_olua_check_spine_String(L, 2, &arg1);
 
     // void setVersion(const String &inValue)
     self->setVersion(arg1);
@@ -8567,7 +8567,7 @@ static int _spine_SkeletonRenderer_drawDebug(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Renderer");
-    manual_luacv_check_cocos2d_Mat4(L, 3, &arg2);
+    manual_olua_check_cocos2d_Mat4(L, 3, &arg2);
     olua_check_uint(L, 4, &arg3);
 
     // void drawDebug (cocos2d::Renderer* renderer, const cocos2d::Mat4& transform, uint32_t transformFlags)
@@ -8639,7 +8639,7 @@ static int _spine_SkeletonRenderer_getBlendFunc(lua_State *L)
 
     // const cocos2d::BlendFunc& getBlendFunc ()
     const cocos2d::BlendFunc &ret = (const cocos2d::BlendFunc &)self->getBlendFunc();
-    int num_ret = auto_luacv_push_cocos2d_BlendFunc(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_BlendFunc(L, &ret);
 
     return num_ret;
 }
@@ -8813,7 +8813,7 @@ static int _spine_SkeletonRenderer_setBlendFunc(lua_State *L)
     cocos2d::BlendFunc arg1;       /** blendFunc */
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
-    auto_luacv_check_cocos2d_BlendFunc(L, 2, &arg1);
+    auto_olua_check_cocos2d_BlendFunc(L, 2, &arg1);
 
     // void setBlendFunc (const cocos2d::BlendFunc& blendFunc)
     self->setBlendFunc(arg1);

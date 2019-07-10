@@ -44,7 +44,7 @@ static int _xgame_SceneNoCamera_createWithSize(lua_State *L)
 
     cocos2d::Size arg1;       /** size */
 
-    auto_luacv_check_cocos2d_Size(L, 1, &arg1);
+    auto_olua_check_cocos2d_Size(L, 1, &arg1);
 
     // static SceneNoCamera *createWithSize(const cocos2d::Size& size)
     xgame::SceneNoCamera *ret = (xgame::SceneNoCamera *)xgame::SceneNoCamera::createWithSize(arg1);
@@ -621,7 +621,7 @@ static int _xgame_filesystem_read(lua_State *L)
 
     // static cocos2d::Data read(const std::string &path)
     cocos2d::Data ret = (cocos2d::Data)xgame::filesystem::read(arg1);
-    int num_ret = manual_luacv_push_cocos2d_Data(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Data(L, &ret);
 
     return num_ret;
 }

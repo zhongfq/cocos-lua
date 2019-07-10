@@ -359,7 +359,7 @@ static int _cocos2d_ui_Widget_getCustomSize(lua_State *L)
 
     // const Size& getCustomSize()
     const cocos2d::Size &ret = (const cocos2d::Size &)self->getCustomSize();
-    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
@@ -389,7 +389,7 @@ static int _cocos2d_ui_Widget_getLayoutSize(lua_State *L)
 
     // const Size& getLayoutSize()
     const cocos2d::Size &ret = (const cocos2d::Size &)self->getLayoutSize();
-    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
@@ -419,7 +419,7 @@ static int _cocos2d_ui_Widget_getPositionPercent(lua_State *L)
 
     // const Vec2& getPositionPercent()
     const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getPositionPercent();
-    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -464,7 +464,7 @@ static int _cocos2d_ui_Widget_getSizePercent(lua_State *L)
 
     // const Vec2& getSizePercent()
     const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getSizePercent();
-    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -509,7 +509,7 @@ static int _cocos2d_ui_Widget_getTouchBeganPosition(lua_State *L)
 
     // const Vec2& getTouchBeganPosition()
     const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getTouchBeganPosition();
-    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -524,7 +524,7 @@ static int _cocos2d_ui_Widget_getTouchEndPosition(lua_State *L)
 
     // const Vec2& getTouchEndPosition()
     const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getTouchEndPosition();
-    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -539,7 +539,7 @@ static int _cocos2d_ui_Widget_getTouchMovePosition(lua_State *L)
 
     // const Vec2& getTouchMovePosition()
     const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getTouchMovePosition();
-    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -572,7 +572,7 @@ static int _cocos2d_ui_Widget_getVirtualRendererSize(lua_State *L)
 
     // Size getVirtualRendererSize()
     cocos2d::Size ret = (cocos2d::Size)self->getVirtualRendererSize();
-    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
@@ -587,7 +587,7 @@ static int _cocos2d_ui_Widget_getWorldPosition(lua_State *L)
 
     // Vec2 getWorldPosition()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getWorldPosition();
-    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -651,7 +651,7 @@ static int _cocos2d_ui_Widget_isClippingParentContainsPoint(lua_State *L)
     cocos2d::Vec2 arg1;       /** pt */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
-    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
     // bool isClippingParentContainsPoint(const Vec2& pt)
     bool ret = (bool)self->isClippingParentContainsPoint(arg1);
@@ -1181,7 +1181,7 @@ static int _cocos2d_ui_Widget_setPositionPercent(lua_State *L)
     cocos2d::Vec2 arg1;       /** percent */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
-    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
     // void setPositionPercent(const Vec2 &percent)
     self->setPositionPercent(arg1);
@@ -1229,7 +1229,7 @@ static int _cocos2d_ui_Widget_setSizePercent(lua_State *L)
     cocos2d::Vec2 arg1;       /** percent */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
-    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
     // void setSizePercent(const Vec2 &percent)
     self->setSizePercent(arg1);
@@ -1323,7 +1323,7 @@ static int _cocos2d_ui_Widget_updateSizeAndPosition2(lua_State *L)
     cocos2d::Size arg1;       /** parentSize */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
-    auto_luacv_check_cocos2d_Size(L, 2, &arg1);
+    auto_olua_check_cocos2d_Size(L, 2, &arg1);
 
     // void updateSizeAndPosition(const Size& parentSize)
     self->updateSizeAndPosition(arg1);
@@ -1340,7 +1340,7 @@ static int _cocos2d_ui_Widget_updateSizeAndPosition(lua_State *L)
     }
 
     if (num_args == 1) {
-        // if (auto_luacv_is_cocos2d_Size(L, 2)) {
+        // if (auto_olua_is_cocos2d_Size(L, 2)) {
             return _cocos2d_ui_Widget_updateSizeAndPosition2(L);
         // }
     }
@@ -1607,7 +1607,7 @@ static int _cocos2d_ui_Helper_convertBoundingBoxToScreen(lua_State *L)
 
     // static Rect convertBoundingBoxToScreen(Node* node)
     cocos2d::Rect ret = (cocos2d::Rect)cocos2d::ui::Helper::convertBoundingBoxToScreen(arg1);
-    int num_ret = manual_luacv_push_cocos2d_Rect(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Rect(L, &ret);
 
     return num_ret;
 }
@@ -1652,12 +1652,12 @@ static int _cocos2d_ui_Helper_restrictCapInsetRect(lua_State *L)
     cocos2d::Rect arg1;       /** capInsets */
     cocos2d::Size arg2;       /** textureSize */
 
-    manual_luacv_check_cocos2d_Rect(L, 1, &arg1);
-    auto_luacv_check_cocos2d_Size(L, 2, &arg2);
+    manual_olua_check_cocos2d_Rect(L, 1, &arg1);
+    auto_olua_check_cocos2d_Size(L, 2, &arg2);
 
     // static Rect restrictCapInsetRect(const Rect& capInsets, const Size& textureSize)
     cocos2d::Rect ret = (cocos2d::Rect)cocos2d::ui::Helper::restrictCapInsetRect(arg1, arg2);
-    int num_ret = manual_luacv_push_cocos2d_Rect(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Rect(L, &ret);
 
     return num_ret;
 }
@@ -1791,8 +1791,8 @@ static int _cocos2d_ui_Scale9Sprite_create2(lua_State *L)
     cocos2d::Rect arg3;       /** capInsets */
 
     olua_check_std_string(L, 1, &arg1);
-    manual_luacv_check_cocos2d_Rect(L, 2, &arg2);
-    manual_luacv_check_cocos2d_Rect(L, 3, &arg3);
+    manual_olua_check_cocos2d_Rect(L, 2, &arg2);
+    manual_olua_check_cocos2d_Rect(L, 3, &arg3);
 
     // static Scale9Sprite* create(const std::string& file, const Rect& rect, const Rect& capInsets)
     cocos2d::ui::Scale9Sprite *ret = (cocos2d::ui::Scale9Sprite *)cocos2d::ui::Scale9Sprite::create(arg1, arg2, arg3);
@@ -1808,7 +1808,7 @@ static int _cocos2d_ui_Scale9Sprite_create3(lua_State *L)
     cocos2d::Rect arg1;       /** capInsets */
     std::string arg2;       /** file */
 
-    manual_luacv_check_cocos2d_Rect(L, 1, &arg1);
+    manual_olua_check_cocos2d_Rect(L, 1, &arg1);
     olua_check_std_string(L, 2, &arg2);
 
     // static Scale9Sprite* create(const Rect& capInsets, const std::string& file)
@@ -1826,7 +1826,7 @@ static int _cocos2d_ui_Scale9Sprite_create4(lua_State *L)
     cocos2d::Rect arg2;       /** rect */
 
     olua_check_std_string(L, 1, &arg1);
-    manual_luacv_check_cocos2d_Rect(L, 2, &arg2);
+    manual_olua_check_cocos2d_Rect(L, 2, &arg2);
 
     // static Scale9Sprite* create(const std::string& file, const Rect& rect)
     cocos2d::ui::Scale9Sprite *ret = (cocos2d::ui::Scale9Sprite *)cocos2d::ui::Scale9Sprite::create(arg1, arg2);
@@ -1865,17 +1865,17 @@ static int _cocos2d_ui_Scale9Sprite_create(lua_State *L)
     }
 
     if (num_args == 2) {
-        if (manual_luacv_is_cocos2d_Rect(L, 1) && olua_is_std_string(L, 2)) {
+        if (manual_olua_is_cocos2d_Rect(L, 1) && olua_is_std_string(L, 2)) {
             return _cocos2d_ui_Scale9Sprite_create3(L);
         }
 
-        // if (olua_is_std_string(L, 1) && manual_luacv_is_cocos2d_Rect(L, 2)) {
+        // if (olua_is_std_string(L, 1) && manual_olua_is_cocos2d_Rect(L, 2)) {
             return _cocos2d_ui_Scale9Sprite_create4(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (olua_is_std_string(L, 1) && manual_luacv_is_cocos2d_Rect(L, 2) && manual_luacv_is_cocos2d_Rect(L, 3)) {
+        // if (olua_is_std_string(L, 1) && manual_olua_is_cocos2d_Rect(L, 2) && manual_olua_is_cocos2d_Rect(L, 3)) {
             return _cocos2d_ui_Scale9Sprite_create2(L);
         // }
     }
@@ -1908,7 +1908,7 @@ static int _cocos2d_ui_Scale9Sprite_createWithSpriteFrame2(lua_State *L)
     cocos2d::Rect arg2;       /** capInsets */
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.SpriteFrame");
-    manual_luacv_check_cocos2d_Rect(L, 2, &arg2);
+    manual_olua_check_cocos2d_Rect(L, 2, &arg2);
 
     // static Scale9Sprite* createWithSpriteFrame(SpriteFrame* spriteFrame, const Rect& capInsets)
     cocos2d::ui::Scale9Sprite *ret = (cocos2d::ui::Scale9Sprite *)cocos2d::ui::Scale9Sprite::createWithSpriteFrame(arg1, arg2);
@@ -1928,7 +1928,7 @@ static int _cocos2d_ui_Scale9Sprite_createWithSpriteFrame(lua_State *L)
     }
 
     if (num_args == 2) {
-        // if (olua_is_cppobj(L, 1, "cc.SpriteFrame") && manual_luacv_is_cocos2d_Rect(L, 2)) {
+        // if (olua_is_cppobj(L, 1, "cc.SpriteFrame") && manual_olua_is_cocos2d_Rect(L, 2)) {
             return _cocos2d_ui_Scale9Sprite_createWithSpriteFrame2(L);
         // }
     }
@@ -1961,7 +1961,7 @@ static int _cocos2d_ui_Scale9Sprite_createWithSpriteFrameName2(lua_State *L)
     cocos2d::Rect arg2;       /** capInsets */
 
     olua_check_std_string(L, 1, &arg1);
-    manual_luacv_check_cocos2d_Rect(L, 2, &arg2);
+    manual_olua_check_cocos2d_Rect(L, 2, &arg2);
 
     // static Scale9Sprite* createWithSpriteFrameName(const std::string& spriteFrameName, const Rect& capInsets)
     cocos2d::ui::Scale9Sprite *ret = (cocos2d::ui::Scale9Sprite *)cocos2d::ui::Scale9Sprite::createWithSpriteFrameName(arg1, arg2);
@@ -1981,7 +1981,7 @@ static int _cocos2d_ui_Scale9Sprite_createWithSpriteFrameName(lua_State *L)
     }
 
     if (num_args == 2) {
-        // if (olua_is_std_string(L, 1) && manual_luacv_is_cocos2d_Rect(L, 2)) {
+        // if (olua_is_std_string(L, 1) && manual_olua_is_cocos2d_Rect(L, 2)) {
             return _cocos2d_ui_Scale9Sprite_createWithSpriteFrameName2(L);
         // }
     }
@@ -2001,7 +2001,7 @@ static int _cocos2d_ui_Scale9Sprite_getCapInsets(lua_State *L)
 
     // Rect getCapInsets()
     cocos2d::Rect ret = (cocos2d::Rect)self->getCapInsets();
-    int num_ret = manual_luacv_push_cocos2d_Rect(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Rect(L, &ret);
 
     return num_ret;
 }
@@ -2076,7 +2076,7 @@ static int _cocos2d_ui_Scale9Sprite_getOriginalSize(lua_State *L)
 
     // Size getOriginalSize()
     cocos2d::Size ret = (cocos2d::Size)self->getOriginalSize();
-    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
@@ -2091,7 +2091,7 @@ static int _cocos2d_ui_Scale9Sprite_getPreferredSize(lua_State *L)
 
     // Size getPreferredSize()
     cocos2d::Size ret = (cocos2d::Size)self->getPreferredSize();
-    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
@@ -2153,9 +2153,9 @@ static int _cocos2d_ui_Scale9Sprite_init1(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Scale9Sprite");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Sprite");
-    manual_luacv_check_cocos2d_Rect(L, 3, &arg2);
+    manual_olua_check_cocos2d_Rect(L, 3, &arg2);
     olua_check_bool(L, 4, &arg3);
-    manual_luacv_check_cocos2d_Rect(L, 5, &arg4);
+    manual_olua_check_cocos2d_Rect(L, 5, &arg4);
 
     // bool init(Sprite* sprite, const Rect& rect, bool rotated, const Rect& capInsets)
     bool ret = (bool)self->init(arg1, arg2, arg3, arg4);
@@ -2175,8 +2175,8 @@ static int _cocos2d_ui_Scale9Sprite_init2(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Scale9Sprite");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Sprite");
-    manual_luacv_check_cocos2d_Rect(L, 3, &arg2);
-    manual_luacv_check_cocos2d_Rect(L, 4, &arg3);
+    manual_olua_check_cocos2d_Rect(L, 3, &arg2);
+    manual_olua_check_cocos2d_Rect(L, 4, &arg3);
 
     // bool init(Sprite* sprite, const Rect& rect, const Rect& capInsets)
     bool ret = (bool)self->init(arg1, arg2, arg3);
@@ -2199,11 +2199,11 @@ static int _cocos2d_ui_Scale9Sprite_init3(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Scale9Sprite");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Sprite");
-    manual_luacv_check_cocos2d_Rect(L, 3, &arg2);
+    manual_olua_check_cocos2d_Rect(L, 3, &arg2);
     olua_check_bool(L, 4, &arg3);
-    auto_luacv_check_cocos2d_Vec2(L, 5, &arg4);
-    auto_luacv_check_cocos2d_Size(L, 6, &arg5);
-    manual_luacv_check_cocos2d_Rect(L, 7, &arg6);
+    auto_olua_check_cocos2d_Vec2(L, 5, &arg4);
+    auto_olua_check_cocos2d_Size(L, 6, &arg5);
+    manual_olua_check_cocos2d_Rect(L, 7, &arg6);
 
     // bool init(Sprite* sprite, const Rect& rect, bool rotated, const Vec2 &offset, const Size &originalSize, const Rect& capInsets)
     bool ret = (bool)self->init(arg1, arg2, arg3, arg4, arg5, arg6);
@@ -2217,19 +2217,19 @@ static int _cocos2d_ui_Scale9Sprite_init(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 3) {
-        // if (olua_is_cppobj(L, 2, "cc.Sprite") && manual_luacv_is_cocos2d_Rect(L, 3) && manual_luacv_is_cocos2d_Rect(L, 4)) {
+        // if (olua_is_cppobj(L, 2, "cc.Sprite") && manual_olua_is_cocos2d_Rect(L, 3) && manual_olua_is_cocos2d_Rect(L, 4)) {
             return _cocos2d_ui_Scale9Sprite_init2(L);
         // }
     }
 
     if (num_args == 4) {
-        // if (olua_is_cppobj(L, 2, "cc.Sprite") && manual_luacv_is_cocos2d_Rect(L, 3) && olua_is_bool(L, 4) && manual_luacv_is_cocos2d_Rect(L, 5)) {
+        // if (olua_is_cppobj(L, 2, "cc.Sprite") && manual_olua_is_cocos2d_Rect(L, 3) && olua_is_bool(L, 4) && manual_olua_is_cocos2d_Rect(L, 5)) {
             return _cocos2d_ui_Scale9Sprite_init1(L);
         // }
     }
 
     if (num_args == 6) {
-        // if (olua_is_cppobj(L, 2, "cc.Sprite") && manual_luacv_is_cocos2d_Rect(L, 3) && olua_is_bool(L, 4) && auto_luacv_is_cocos2d_Vec2(L, 5) && auto_luacv_is_cocos2d_Size(L, 6) && manual_luacv_is_cocos2d_Rect(L, 7)) {
+        // if (olua_is_cppobj(L, 2, "cc.Sprite") && manual_olua_is_cocos2d_Rect(L, 3) && olua_is_bool(L, 4) && auto_olua_is_cocos2d_Vec2(L, 5) && auto_olua_is_cocos2d_Size(L, 6) && manual_olua_is_cocos2d_Rect(L, 7)) {
             return _cocos2d_ui_Scale9Sprite_init3(L);
         // }
     }
@@ -2250,8 +2250,8 @@ static int _cocos2d_ui_Scale9Sprite_initWithFile1(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Scale9Sprite");
     olua_check_std_string(L, 2, &arg1);
-    manual_luacv_check_cocos2d_Rect(L, 3, &arg2);
-    manual_luacv_check_cocos2d_Rect(L, 4, &arg3);
+    manual_olua_check_cocos2d_Rect(L, 3, &arg2);
+    manual_olua_check_cocos2d_Rect(L, 4, &arg3);
 
     // bool initWithFile(const std::string& file, const Rect& rect, const Rect& capInsets)
     bool ret = (bool)self->initWithFile(arg1, arg2, arg3);
@@ -2269,7 +2269,7 @@ static int _cocos2d_ui_Scale9Sprite_initWithFile2(lua_State *L)
     std::string arg2;       /** file */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Scale9Sprite");
-    manual_luacv_check_cocos2d_Rect(L, 2, &arg1);
+    manual_olua_check_cocos2d_Rect(L, 2, &arg1);
     olua_check_std_string(L, 3, &arg2);
 
     // bool initWithFile(const Rect& capInsets, const std::string& file)
@@ -2284,13 +2284,13 @@ static int _cocos2d_ui_Scale9Sprite_initWithFile(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 2) {
-        // if (manual_luacv_is_cocos2d_Rect(L, 2) && olua_is_std_string(L, 3)) {
+        // if (manual_olua_is_cocos2d_Rect(L, 2) && olua_is_std_string(L, 3)) {
             return _cocos2d_ui_Scale9Sprite_initWithFile2(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (olua_is_std_string(L, 2) && manual_luacv_is_cocos2d_Rect(L, 3) && manual_luacv_is_cocos2d_Rect(L, 4)) {
+        // if (olua_is_std_string(L, 2) && manual_olua_is_cocos2d_Rect(L, 3) && manual_olua_is_cocos2d_Rect(L, 4)) {
             return _cocos2d_ui_Scale9Sprite_initWithFile1(L);
         // }
     }
@@ -2310,7 +2310,7 @@ static int _cocos2d_ui_Scale9Sprite_initWithSpriteFrame(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Scale9Sprite");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.SpriteFrame");
-    manual_luacv_check_cocos2d_Rect(L, 3, &arg2);
+    manual_olua_check_cocos2d_Rect(L, 3, &arg2);
 
     // bool initWithSpriteFrame(SpriteFrame* spriteFrame, const Rect& capInsets)
     bool ret = (bool)self->initWithSpriteFrame(arg1, arg2);
@@ -2329,7 +2329,7 @@ static int _cocos2d_ui_Scale9Sprite_initWithSpriteFrameName(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Scale9Sprite");
     olua_check_std_string(L, 2, &arg1);
-    manual_luacv_check_cocos2d_Rect(L, 3, &arg2);
+    manual_olua_check_cocos2d_Rect(L, 3, &arg2);
 
     // bool initWithSpriteFrameName(const std::string& spriteFrameName, const Rect& capInsets)
     bool ret = (bool)self->initWithSpriteFrameName(arg1, arg2);
@@ -2375,7 +2375,7 @@ static int _cocos2d_ui_Scale9Sprite_resizableSpriteWithCapInsets(lua_State *L)
     cocos2d::Rect arg1;       /** capInsets */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Scale9Sprite");
-    manual_luacv_check_cocos2d_Rect(L, 2, &arg1);
+    manual_olua_check_cocos2d_Rect(L, 2, &arg1);
 
     // Scale9Sprite* resizableSpriteWithCapInsets(const Rect& capInsets)
     cocos2d::ui::Scale9Sprite *ret = (cocos2d::ui::Scale9Sprite *)self->resizableSpriteWithCapInsets(arg1);
@@ -2392,7 +2392,7 @@ static int _cocos2d_ui_Scale9Sprite_setCapInsets(lua_State *L)
     cocos2d::Rect arg1;       /** insets */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Scale9Sprite");
-    manual_luacv_check_cocos2d_Rect(L, 2, &arg1);
+    manual_olua_check_cocos2d_Rect(L, 2, &arg1);
 
     // void setCapInsets(const Rect& insets)
     self->setCapInsets(arg1);
@@ -2472,7 +2472,7 @@ static int _cocos2d_ui_Scale9Sprite_setPreferredSize(lua_State *L)
     cocos2d::Size arg1;       /** size */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Scale9Sprite");
-    auto_luacv_check_cocos2d_Size(L, 2, &arg1);
+    auto_olua_check_cocos2d_Size(L, 2, &arg1);
 
     // void setPreferredSize(const Size& size)
     self->setPreferredSize(arg1);
@@ -2522,7 +2522,7 @@ static int _cocos2d_ui_Scale9Sprite_setSpriteFrame(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Scale9Sprite");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.SpriteFrame");
-    manual_luacv_check_cocos2d_Rect(L, 3, &arg2);
+    manual_olua_check_cocos2d_Rect(L, 3, &arg2);
 
     // void setSpriteFrame(SpriteFrame * spriteFrame, const Rect& capInsets)
     self->setSpriteFrame(arg1, arg2);
@@ -2558,9 +2558,9 @@ static int _cocos2d_ui_Scale9Sprite_updateWithSprite1(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Scale9Sprite");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Sprite");
-    manual_luacv_check_cocos2d_Rect(L, 3, &arg2);
+    manual_olua_check_cocos2d_Rect(L, 3, &arg2);
     olua_check_bool(L, 4, &arg3);
-    manual_luacv_check_cocos2d_Rect(L, 5, &arg4);
+    manual_olua_check_cocos2d_Rect(L, 5, &arg4);
 
     // bool updateWithSprite(Sprite* sprite, const Rect& rect, bool rotated, const Rect& capInsets)
     bool ret = (bool)self->updateWithSprite(arg1, arg2, arg3, arg4);
@@ -2583,11 +2583,11 @@ static int _cocos2d_ui_Scale9Sprite_updateWithSprite2(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Scale9Sprite");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Sprite");
-    manual_luacv_check_cocos2d_Rect(L, 3, &arg2);
+    manual_olua_check_cocos2d_Rect(L, 3, &arg2);
     olua_check_bool(L, 4, &arg3);
-    auto_luacv_check_cocos2d_Vec2(L, 5, &arg4);
-    auto_luacv_check_cocos2d_Size(L, 6, &arg5);
-    manual_luacv_check_cocos2d_Rect(L, 7, &arg6);
+    auto_olua_check_cocos2d_Vec2(L, 5, &arg4);
+    auto_olua_check_cocos2d_Size(L, 6, &arg5);
+    manual_olua_check_cocos2d_Rect(L, 7, &arg6);
 
     // bool updateWithSprite(Sprite* sprite, const Rect& rect, bool rotated, const Vec2 &offset, const Size &originalSize, const Rect& capInsets)
     bool ret = (bool)self->updateWithSprite(arg1, arg2, arg3, arg4, arg5, arg6);
@@ -2601,13 +2601,13 @@ static int _cocos2d_ui_Scale9Sprite_updateWithSprite(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 4) {
-        // if (olua_is_cppobj(L, 2, "cc.Sprite") && manual_luacv_is_cocos2d_Rect(L, 3) && olua_is_bool(L, 4) && manual_luacv_is_cocos2d_Rect(L, 5)) {
+        // if (olua_is_cppobj(L, 2, "cc.Sprite") && manual_olua_is_cocos2d_Rect(L, 3) && olua_is_bool(L, 4) && manual_olua_is_cocos2d_Rect(L, 5)) {
             return _cocos2d_ui_Scale9Sprite_updateWithSprite1(L);
         // }
     }
 
     if (num_args == 6) {
-        // if (olua_is_cppobj(L, 2, "cc.Sprite") && manual_luacv_is_cocos2d_Rect(L, 3) && olua_is_bool(L, 4) && auto_luacv_is_cocos2d_Vec2(L, 5) && auto_luacv_is_cocos2d_Size(L, 6) && manual_luacv_is_cocos2d_Rect(L, 7)) {
+        // if (olua_is_cppobj(L, 2, "cc.Sprite") && manual_olua_is_cocos2d_Rect(L, 3) && olua_is_bool(L, 4) && auto_olua_is_cocos2d_Vec2(L, 5) && auto_olua_is_cocos2d_Size(L, 6) && manual_olua_is_cocos2d_Rect(L, 7)) {
             return _cocos2d_ui_Scale9Sprite_updateWithSprite2(L);
         // }
     }
@@ -2734,7 +2734,7 @@ static int _cocos2d_ui_LayoutComponent_getAnchorPosition(lua_State *L)
 
     // const Point& getAnchorPosition()
     const cocos2d::Point &ret = (const cocos2d::Point &)self->getAnchorPosition();
-    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -2794,7 +2794,7 @@ static int _cocos2d_ui_LayoutComponent_getPercentContentSize(lua_State *L)
 
     // Vec2 getPercentContentSize()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getPercentContentSize();
-    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -2839,7 +2839,7 @@ static int _cocos2d_ui_LayoutComponent_getPosition(lua_State *L)
 
     // const Point& getPosition()
     const cocos2d::Point &ret = (const cocos2d::Point &)self->getPosition();
-    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -2899,7 +2899,7 @@ static int _cocos2d_ui_LayoutComponent_getSize(lua_State *L)
 
     // const Size& getSize()
     const cocos2d::Size &ret = (const cocos2d::Size &)self->getSize();
-    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
@@ -3107,7 +3107,7 @@ static int _cocos2d_ui_LayoutComponent_setAnchorPosition(lua_State *L)
     cocos2d::Point arg1;       /** point */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutComponent");
-    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
     // void setAnchorPosition(const Point& point)
     self->setAnchorPosition(arg1);
@@ -3171,7 +3171,7 @@ static int _cocos2d_ui_LayoutComponent_setPercentContentSize(lua_State *L)
     cocos2d::Vec2 arg1;       /** percent */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutComponent");
-    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
     // void setPercentContentSize(const Vec2 &percent)
     self->setPercentContentSize(arg1);
@@ -3267,7 +3267,7 @@ static int _cocos2d_ui_LayoutComponent_setPosition(lua_State *L)
     cocos2d::Point arg1;       /** position */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutComponent");
-    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
     // void setPosition(const Point& position)
     self->setPosition(arg1);
@@ -3363,7 +3363,7 @@ static int _cocos2d_ui_LayoutComponent_setSize(lua_State *L)
     cocos2d::Size arg1;       /** size */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutComponent");
-    auto_luacv_check_cocos2d_Size(L, 2, &arg1);
+    auto_olua_check_cocos2d_Size(L, 2, &arg1);
 
     // void setSize(const Size& size)
     self->setSize(arg1);
@@ -3662,7 +3662,7 @@ static int _cocos2d_ui_LayoutParameter_getMargin(lua_State *L)
 
     // const Margin& getMargin()
     const cocos2d::ui::Margin &ret = (const cocos2d::ui::Margin &)self->getMargin();
-    int num_ret = auto_luacv_push_cocos2d_ui_Margin(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_ui_Margin(L, &ret);
 
     return num_ret;
 }
@@ -3675,7 +3675,7 @@ static int _cocos2d_ui_LayoutParameter_setMargin(lua_State *L)
     cocos2d::ui::Margin arg1;       /** margin */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutParameter");
-    auto_luacv_check_cocos2d_ui_Margin(L, 2, &arg1);
+    auto_olua_check_cocos2d_ui_Margin(L, 2, &arg1);
 
     // void setMargin(const Margin& margin)
     self->setMargin(arg1);
@@ -4005,7 +4005,7 @@ static int _cocos2d_ui_Layout_getBackGroundColor(lua_State *L)
 
     // const Color3B& getBackGroundColor()
     const cocos2d::Color3B &ret = (const cocos2d::Color3B &)self->getBackGroundColor();
-    int num_ret = manual_luacv_push_cocos2d_Color3B(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     return num_ret;
 }
@@ -4050,7 +4050,7 @@ static int _cocos2d_ui_Layout_getBackGroundColorVector(lua_State *L)
 
     // const Vec2& getBackGroundColorVector()
     const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getBackGroundColorVector();
-    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -4065,7 +4065,7 @@ static int _cocos2d_ui_Layout_getBackGroundEndColor(lua_State *L)
 
     // const Color3B& getBackGroundEndColor()
     const cocos2d::Color3B &ret = (const cocos2d::Color3B &)self->getBackGroundEndColor();
-    int num_ret = manual_luacv_push_cocos2d_Color3B(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     return num_ret;
 }
@@ -4080,7 +4080,7 @@ static int _cocos2d_ui_Layout_getBackGroundImageCapInsets(lua_State *L)
 
     // const Rect& getBackGroundImageCapInsets()
     const cocos2d::Rect &ret = (const cocos2d::Rect &)self->getBackGroundImageCapInsets();
-    int num_ret = manual_luacv_push_cocos2d_Rect(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Rect(L, &ret);
 
     return num_ret;
 }
@@ -4095,7 +4095,7 @@ static int _cocos2d_ui_Layout_getBackGroundImageColor(lua_State *L)
 
     // const Color3B& getBackGroundImageColor()
     const cocos2d::Color3B &ret = (const cocos2d::Color3B &)self->getBackGroundImageColor();
-    int num_ret = manual_luacv_push_cocos2d_Color3B(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     return num_ret;
 }
@@ -4125,7 +4125,7 @@ static int _cocos2d_ui_Layout_getBackGroundImageTextureSize(lua_State *L)
 
     // const Size& getBackGroundImageTextureSize()
     const cocos2d::Size &ret = (const cocos2d::Size &)self->getBackGroundImageTextureSize();
-    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
@@ -4140,7 +4140,7 @@ static int _cocos2d_ui_Layout_getBackGroundStartColor(lua_State *L)
 
     // const Color3B& getBackGroundStartColor()
     const cocos2d::Color3B &ret = (const cocos2d::Color3B &)self->getBackGroundStartColor();
-    int num_ret = manual_luacv_push_cocos2d_Color3B(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     return num_ret;
 }
@@ -4200,7 +4200,7 @@ static int _cocos2d_ui_Layout_getRenderFile(lua_State *L)
 
     // ResourceData getRenderFile()
     cocos2d::ResourceData ret = (cocos2d::ResourceData)self->getRenderFile();
-    int num_ret = auto_luacv_push_cocos2d_ResourceData(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_ResourceData(L, &ret);
 
     return num_ret;
 }
@@ -4301,7 +4301,7 @@ static int _cocos2d_ui_Layout_setBackGroundColor1(lua_State *L)
     cocos2d::Color3B arg1;       /** color */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
-    manual_luacv_check_cocos2d_Color3B(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg1);
 
     // void setBackGroundColor(const Color3B &color)
     self->setBackGroundColor(arg1);
@@ -4318,8 +4318,8 @@ static int _cocos2d_ui_Layout_setBackGroundColor2(lua_State *L)
     cocos2d::Color3B arg2;       /** endColor */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
-    manual_luacv_check_cocos2d_Color3B(L, 2, &arg1);
-    manual_luacv_check_cocos2d_Color3B(L, 3, &arg2);
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 3, &arg2);
 
     // void setBackGroundColor(const Color3B &startColor, const Color3B &endColor)
     self->setBackGroundColor(arg1, arg2);
@@ -4332,13 +4332,13 @@ static int _cocos2d_ui_Layout_setBackGroundColor(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if (manual_luacv_is_cocos2d_Color3B(L, 2)) {
+        // if (manual_olua_is_cocos2d_Color3B(L, 2)) {
             return _cocos2d_ui_Layout_setBackGroundColor1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (manual_luacv_is_cocos2d_Color3B(L, 2) && manual_luacv_is_cocos2d_Color3B(L, 3)) {
+        // if (manual_olua_is_cocos2d_Color3B(L, 2) && manual_olua_is_cocos2d_Color3B(L, 3)) {
             return _cocos2d_ui_Layout_setBackGroundColor2(L);
         // }
     }
@@ -4388,7 +4388,7 @@ static int _cocos2d_ui_Layout_setBackGroundColorVector(lua_State *L)
     cocos2d::Vec2 arg1;       /** vector */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
-    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
     // void setBackGroundColorVector(const Vec2 &vector)
     self->setBackGroundColorVector(arg1);
@@ -4422,7 +4422,7 @@ static int _cocos2d_ui_Layout_setBackGroundImageCapInsets(lua_State *L)
     cocos2d::Rect arg1;       /** capInsets */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
-    manual_luacv_check_cocos2d_Rect(L, 2, &arg1);
+    manual_olua_check_cocos2d_Rect(L, 2, &arg1);
 
     // void setBackGroundImageCapInsets(const Rect& capInsets)
     self->setBackGroundImageCapInsets(arg1);
@@ -4438,7 +4438,7 @@ static int _cocos2d_ui_Layout_setBackGroundImageColor(lua_State *L)
     cocos2d::Color3B arg1;       /** color */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
-    manual_luacv_check_cocos2d_Color3B(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg1);
 
     // void setBackGroundImageColor(const Color3B& color)
     self->setBackGroundImageColor(arg1);
@@ -4698,7 +4698,7 @@ static int _cocos2d_ui_HBox_create2(lua_State *L)
 
     cocos2d::Size arg1;       /** size */
 
-    auto_luacv_check_cocos2d_Size(L, 1, &arg1);
+    auto_olua_check_cocos2d_Size(L, 1, &arg1);
 
     // static HBox* create(const Size& size)
     cocos2d::ui::HBox *ret = (cocos2d::ui::HBox *)cocos2d::ui::HBox::create(arg1);
@@ -4716,7 +4716,7 @@ static int _cocos2d_ui_HBox_create(lua_State *L)
     }
 
     if (num_args == 1) {
-        // if (auto_luacv_is_cocos2d_Size(L, 1)) {
+        // if (auto_olua_is_cocos2d_Size(L, 1)) {
             return _cocos2d_ui_HBox_create2(L);
         // }
     }
@@ -4734,7 +4734,7 @@ static int _cocos2d_ui_HBox_initWithSize(lua_State *L)
     cocos2d::Size arg1;       /** size */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.HBox");
-    auto_luacv_check_cocos2d_Size(L, 2, &arg1);
+    auto_olua_check_cocos2d_Size(L, 2, &arg1);
 
     // bool initWithSize(const Size& size)
     bool ret = (bool)self->initWithSize(arg1);
@@ -4772,7 +4772,7 @@ static int _cocos2d_ui_VBox_create2(lua_State *L)
 
     cocos2d::Size arg1;       /** size */
 
-    auto_luacv_check_cocos2d_Size(L, 1, &arg1);
+    auto_olua_check_cocos2d_Size(L, 1, &arg1);
 
     // static VBox* create(const Size& size)
     cocos2d::ui::VBox *ret = (cocos2d::ui::VBox *)cocos2d::ui::VBox::create(arg1);
@@ -4790,7 +4790,7 @@ static int _cocos2d_ui_VBox_create(lua_State *L)
     }
 
     if (num_args == 1) {
-        // if (auto_luacv_is_cocos2d_Size(L, 1)) {
+        // if (auto_olua_is_cocos2d_Size(L, 1)) {
             return _cocos2d_ui_VBox_create2(L);
         // }
     }
@@ -4808,7 +4808,7 @@ static int _cocos2d_ui_VBox_initWithSize(lua_State *L)
     cocos2d::Size arg1;       /** size */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.VBox");
-    auto_luacv_check_cocos2d_Size(L, 2, &arg1);
+    auto_olua_check_cocos2d_Size(L, 2, &arg1);
 
     // bool initWithSize(const Size& size)
     bool ret = (bool)self->initWithSize(arg1);
@@ -4846,7 +4846,7 @@ static int _cocos2d_ui_RelativeBox_create2(lua_State *L)
 
     cocos2d::Size arg1;       /** size */
 
-    auto_luacv_check_cocos2d_Size(L, 1, &arg1);
+    auto_olua_check_cocos2d_Size(L, 1, &arg1);
 
     // static RelativeBox* create(const Size& size)
     cocos2d::ui::RelativeBox *ret = (cocos2d::ui::RelativeBox *)cocos2d::ui::RelativeBox::create(arg1);
@@ -4864,7 +4864,7 @@ static int _cocos2d_ui_RelativeBox_create(lua_State *L)
     }
 
     if (num_args == 1) {
-        // if (auto_luacv_is_cocos2d_Size(L, 1)) {
+        // if (auto_olua_is_cocos2d_Size(L, 1)) {
             return _cocos2d_ui_RelativeBox_create2(L);
         // }
     }
@@ -4882,7 +4882,7 @@ static int _cocos2d_ui_RelativeBox_initWithSize(lua_State *L)
     cocos2d::Size arg1;       /** size */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RelativeBox");
-    auto_luacv_check_cocos2d_Size(L, 2, &arg1);
+    auto_olua_check_cocos2d_Size(L, 2, &arg1);
 
     // bool initWithSize(const Size& size)
     bool ret = (bool)self->initWithSize(arg1);
@@ -5091,7 +5091,7 @@ static int _cocos2d_experimental_ui_WebView_loadData(lua_State *L)
     std::string arg4;       /** baseURL */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
-    manual_luacv_check_cocos2d_Data(L, 2, &arg1);
+    manual_olua_check_cocos2d_Data(L, 2, &arg1);
     olua_check_std_string(L, 3, &arg2);
     olua_check_std_string(L, 4, &arg3);
     olua_check_std_string(L, 5, &arg4);
@@ -5894,7 +5894,7 @@ static int _cocos2d_ui_AbstractCheckButton_getBackDisabledFile(lua_State *L)
 
     // ResourceData getBackDisabledFile()
     cocos2d::ResourceData ret = (cocos2d::ResourceData)self->getBackDisabledFile();
-    int num_ret = auto_luacv_push_cocos2d_ResourceData(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_ResourceData(L, &ret);
 
     return num_ret;
 }
@@ -5909,7 +5909,7 @@ static int _cocos2d_ui_AbstractCheckButton_getBackNormalFile(lua_State *L)
 
     // ResourceData getBackNormalFile()
     cocos2d::ResourceData ret = (cocos2d::ResourceData)self->getBackNormalFile();
-    int num_ret = auto_luacv_push_cocos2d_ResourceData(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_ResourceData(L, &ret);
 
     return num_ret;
 }
@@ -5924,7 +5924,7 @@ static int _cocos2d_ui_AbstractCheckButton_getBackPressedFile(lua_State *L)
 
     // ResourceData getBackPressedFile()
     cocos2d::ResourceData ret = (cocos2d::ResourceData)self->getBackPressedFile();
-    int num_ret = auto_luacv_push_cocos2d_ResourceData(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_ResourceData(L, &ret);
 
     return num_ret;
 }
@@ -5939,7 +5939,7 @@ static int _cocos2d_ui_AbstractCheckButton_getCrossDisabledFile(lua_State *L)
 
     // ResourceData getCrossDisabledFile()
     cocos2d::ResourceData ret = (cocos2d::ResourceData)self->getCrossDisabledFile();
-    int num_ret = auto_luacv_push_cocos2d_ResourceData(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_ResourceData(L, &ret);
 
     return num_ret;
 }
@@ -5954,7 +5954,7 @@ static int _cocos2d_ui_AbstractCheckButton_getCrossNormalFile(lua_State *L)
 
     // ResourceData getCrossNormalFile()
     cocos2d::ResourceData ret = (cocos2d::ResourceData)self->getCrossNormalFile();
-    int num_ret = auto_luacv_push_cocos2d_ResourceData(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_ResourceData(L, &ret);
 
     return num_ret;
 }
@@ -6418,7 +6418,7 @@ static int _cocos2d_ui_TabHeader_getTitleColor(lua_State *L)
 
     // const Color4B& getTitleColor()
     const cocos2d::Color4B &ret = (const cocos2d::Color4B &)self->getTitleColor();
-    int num_ret = manual_luacv_push_cocos2d_Color4B(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Color4B(L, &ret);
 
     return num_ret;
 }
@@ -6494,7 +6494,7 @@ static int _cocos2d_ui_TabHeader_setTitleColor(lua_State *L)
     cocos2d::Color4B arg1;       /** color */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TabHeader");
-    manual_luacv_check_cocos2d_Color4B(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color4B(L, 2, &arg1);
 
     // void setTitleColor(const Color4B& color)
     self->setTitleColor(arg1);
@@ -7154,7 +7154,7 @@ static int _cocos2d_ui_ScrollView_getInnerContainerPosition(lua_State *L)
 
     // const Vec2& getInnerContainerPosition()
     const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getInnerContainerPosition();
-    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -7169,7 +7169,7 @@ static int _cocos2d_ui_ScrollView_getInnerContainerSize(lua_State *L)
 
     // const Size& getInnerContainerSize()
     const cocos2d::Size &ret = (const cocos2d::Size &)self->getInnerContainerSize();
-    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
@@ -7199,7 +7199,7 @@ static int _cocos2d_ui_ScrollView_getScrollBarColor(lua_State *L)
 
     // const Color3B& getScrollBarColor()
     const cocos2d::Color3B &ret = (const cocos2d::Color3B &)self->getScrollBarColor();
-    int num_ret = manual_luacv_push_cocos2d_Color3B(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     return num_ret;
 }
@@ -7229,7 +7229,7 @@ static int _cocos2d_ui_ScrollView_getScrollBarPositionFromCornerForHorizontal(lu
 
     // Vec2 getScrollBarPositionFromCornerForHorizontal()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getScrollBarPositionFromCornerForHorizontal();
-    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -7244,7 +7244,7 @@ static int _cocos2d_ui_ScrollView_getScrollBarPositionFromCornerForVertical(lua_
 
     // Vec2 getScrollBarPositionFromCornerForVertical()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getScrollBarPositionFromCornerForVertical();
-    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -7274,7 +7274,7 @@ static int _cocos2d_ui_ScrollView_getScrolledPercentBothDirection(lua_State *L)
 
     // Vec2 getScrolledPercentBothDirection()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getScrolledPercentBothDirection();
-    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -7478,7 +7478,7 @@ static int _cocos2d_ui_ScrollView_jumpToPercentBothDirection(lua_State *L)
     cocos2d::Vec2 arg1;       /** percent */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
-    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
     // void jumpToPercentBothDirection(const Vec2& percent)
     self->jumpToPercentBothDirection(arg1);
@@ -7656,7 +7656,7 @@ static int _cocos2d_ui_ScrollView_scrollToPercentBothDirection(lua_State *L)
     bool arg3 = false;   /** attenuated */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
-    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
     olua_check_number(L, 3, &arg2);
     olua_check_bool(L, 4, &arg3);
 
@@ -7834,7 +7834,7 @@ static int _cocos2d_ui_ScrollView_setInnerContainerPosition(lua_State *L)
     cocos2d::Vec2 arg1;       /** pos */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
-    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
     // void setInnerContainerPosition(const Vec2 &pos)
     self->setInnerContainerPosition(arg1);
@@ -7850,7 +7850,7 @@ static int _cocos2d_ui_ScrollView_setInnerContainerSize(lua_State *L)
     cocos2d::Size arg1;       /** size */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
-    auto_luacv_check_cocos2d_Size(L, 2, &arg1);
+    auto_olua_check_cocos2d_Size(L, 2, &arg1);
 
     // void setInnerContainerSize(const Size &size)
     self->setInnerContainerSize(arg1);
@@ -7898,7 +7898,7 @@ static int _cocos2d_ui_ScrollView_setScrollBarColor(lua_State *L)
     cocos2d::Color3B arg1;       /** color */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
-    manual_luacv_check_cocos2d_Color3B(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg1);
 
     // void setScrollBarColor(const Color3B& color)
     self->setScrollBarColor(arg1);
@@ -7946,7 +7946,7 @@ static int _cocos2d_ui_ScrollView_setScrollBarPositionFromCorner(lua_State *L)
     cocos2d::Vec2 arg1;       /** positionFromCorner */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
-    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
     // void setScrollBarPositionFromCorner(const Vec2& positionFromCorner)
     self->setScrollBarPositionFromCorner(arg1);
@@ -7962,7 +7962,7 @@ static int _cocos2d_ui_ScrollView_setScrollBarPositionFromCornerForHorizontal(lu
     cocos2d::Vec2 arg1;       /** positionFromCorner */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
-    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
     // void setScrollBarPositionFromCornerForHorizontal(const Vec2& positionFromCorner)
     self->setScrollBarPositionFromCornerForHorizontal(arg1);
@@ -7978,7 +7978,7 @@ static int _cocos2d_ui_ScrollView_setScrollBarPositionFromCornerForVertical(lua_
     cocos2d::Vec2 arg1;       /** positionFromCorner */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
-    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
     // void setScrollBarPositionFromCornerForVertical(const Vec2& positionFromCorner)
     self->setScrollBarPositionFromCornerForVertical(arg1);
@@ -8300,8 +8300,8 @@ static int _cocos2d_ui_ListView_getClosestItemToPosition(lua_State *L)
     cocos2d::Vec2 arg2;       /** itemAnchorPoint */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
-    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
-    auto_luacv_check_cocos2d_Vec2(L, 3, &arg2);
+    auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
+    auto_olua_check_cocos2d_Vec2(L, 3, &arg2);
 
     // Widget* getClosestItemToPosition(const Vec2& targetPosition, const Vec2& itemAnchorPoint)
     cocos2d::ui::Widget *ret = (cocos2d::ui::Widget *)self->getClosestItemToPosition(arg1, arg2);
@@ -8319,8 +8319,8 @@ static int _cocos2d_ui_ListView_getClosestItemToPositionInCurrentView(lua_State 
     cocos2d::Vec2 arg2;       /** itemAnchorPoint */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
-    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
-    auto_luacv_check_cocos2d_Vec2(L, 3, &arg2);
+    auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
+    auto_olua_check_cocos2d_Vec2(L, 3, &arg2);
 
     // Widget* getClosestItemToPositionInCurrentView(const Vec2& positionRatioInView, const Vec2& itemAnchorPoint)
     cocos2d::ui::Widget *ret = (cocos2d::ui::Widget *)self->getClosestItemToPositionInCurrentView(arg1, arg2);
@@ -8391,7 +8391,7 @@ static int _cocos2d_ui_ListView_getItems(lua_State *L)
 
     // @ref(map children) Vector<Widget*>& getItems()
     cocos2d::Vector<cocos2d::ui::Widget *> &ret = (cocos2d::Vector<cocos2d::ui::Widget *> &)self->getItems();
-    int num_ret = manual_luacv_push_cocos2d_Vector(L, ret, "ccui.Widget");
+    int num_ret = manual_olua_push_cocos2d_Vector(L, ret, "ccui.Widget");
 
     // inject code after call
     olua_maprefarray(L, 1, "children", -1);
@@ -8597,8 +8597,8 @@ static int _cocos2d_ui_ListView_jumpToItem(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
     olua_check_int(L, 2, &arg1);
-    auto_luacv_check_cocos2d_Vec2(L, 3, &arg2);
-    auto_luacv_check_cocos2d_Vec2(L, 4, &arg3);
+    auto_olua_check_cocos2d_Vec2(L, 3, &arg2);
+    auto_olua_check_cocos2d_Vec2(L, 4, &arg3);
 
     // void jumpToItem(ssize_t itemIndex, const Vec2& positionRatioInView, const Vec2& itemAnchorPoint)
     self->jumpToItem((ssize_t)arg1, arg2, arg3);
@@ -8712,8 +8712,8 @@ static int _cocos2d_ui_ListView_scrollToItem1(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
     olua_check_int(L, 2, &arg1);
-    auto_luacv_check_cocos2d_Vec2(L, 3, &arg2);
-    auto_luacv_check_cocos2d_Vec2(L, 4, &arg3);
+    auto_olua_check_cocos2d_Vec2(L, 3, &arg2);
+    auto_olua_check_cocos2d_Vec2(L, 4, &arg3);
 
     // void scrollToItem(ssize_t itemIndex, const Vec2& positionRatioInView, const Vec2& itemAnchorPoint)
     self->scrollToItem((ssize_t)arg1, arg2, arg3);
@@ -8733,8 +8733,8 @@ static int _cocos2d_ui_ListView_scrollToItem2(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
     olua_check_int(L, 2, &arg1);
-    auto_luacv_check_cocos2d_Vec2(L, 3, &arg2);
-    auto_luacv_check_cocos2d_Vec2(L, 4, &arg3);
+    auto_olua_check_cocos2d_Vec2(L, 3, &arg2);
+    auto_olua_check_cocos2d_Vec2(L, 4, &arg3);
     olua_check_number(L, 5, &arg4);
 
     // void scrollToItem(ssize_t itemIndex, const Vec2& positionRatioInView, const Vec2& itemAnchorPoint, float timeInSec)
@@ -8748,13 +8748,13 @@ static int _cocos2d_ui_ListView_scrollToItem(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 3) {
-        // if (olua_is_int(L, 2) && auto_luacv_is_cocos2d_Vec2(L, 3) && auto_luacv_is_cocos2d_Vec2(L, 4)) {
+        // if (olua_is_int(L, 2) && auto_olua_is_cocos2d_Vec2(L, 3) && auto_olua_is_cocos2d_Vec2(L, 4)) {
             return _cocos2d_ui_ListView_scrollToItem1(L);
         // }
     }
 
     if (num_args == 4) {
-        // if (olua_is_int(L, 2) && auto_luacv_is_cocos2d_Vec2(L, 3) && auto_luacv_is_cocos2d_Vec2(L, 4) && olua_is_number(L, 5)) {
+        // if (olua_is_int(L, 2) && auto_olua_is_cocos2d_Vec2(L, 3) && auto_olua_is_cocos2d_Vec2(L, 4) && olua_is_number(L, 5)) {
             return _cocos2d_ui_ListView_scrollToItem2(L);
         // }
     }
@@ -9124,7 +9124,7 @@ static int _cocos2d_ui_LoadingBar_getCapInsets(lua_State *L)
 
     // const Rect& getCapInsets()
     const cocos2d::Rect &ret = (const cocos2d::Rect &)self->getCapInsets();
-    int num_ret = manual_luacv_push_cocos2d_Rect(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Rect(L, &ret);
 
     return num_ret;
 }
@@ -9169,7 +9169,7 @@ static int _cocos2d_ui_LoadingBar_getRenderFile(lua_State *L)
 
     // ResourceData getRenderFile()
     cocos2d::ResourceData ret = (cocos2d::ResourceData)self->getRenderFile();
-    int num_ret = auto_luacv_push_cocos2d_ResourceData(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_ResourceData(L, &ret);
 
     return num_ret;
 }
@@ -9215,7 +9215,7 @@ static int _cocos2d_ui_LoadingBar_setCapInsets(lua_State *L)
     cocos2d::Rect arg1;       /** capInsets */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LoadingBar");
-    manual_luacv_check_cocos2d_Rect(L, 2, &arg1);
+    manual_olua_check_cocos2d_Rect(L, 2, &arg1);
 
     // void setCapInsets(const Rect &capInsets)
     self->setCapInsets(arg1);
@@ -9429,7 +9429,7 @@ static int _cocos2d_ui_PageView_getIndicatorIndexNodesColor(lua_State *L)
 
     // const Color3B& getIndicatorIndexNodesColor()
     const cocos2d::Color3B &ret = (const cocos2d::Color3B &)self->getIndicatorIndexNodesColor();
-    int num_ret = manual_luacv_push_cocos2d_Color3B(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     return num_ret;
 }
@@ -9474,7 +9474,7 @@ static int _cocos2d_ui_PageView_getIndicatorPosition(lua_State *L)
 
     // const Vec2& getIndicatorPosition()
     const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getIndicatorPosition();
-    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -9489,7 +9489,7 @@ static int _cocos2d_ui_PageView_getIndicatorPositionAsAnchorPoint(lua_State *L)
 
     // const Vec2& getIndicatorPositionAsAnchorPoint()
     const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getIndicatorPositionAsAnchorPoint();
-    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -9504,7 +9504,7 @@ static int _cocos2d_ui_PageView_getIndicatorSelectedIndexColor(lua_State *L)
 
     // const Color3B& getIndicatorSelectedIndexColor()
     const cocos2d::Color3B &ret = (const cocos2d::Color3B &)self->getIndicatorSelectedIndexColor();
-    int num_ret = manual_luacv_push_cocos2d_Color3B(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     return num_ret;
 }
@@ -9784,7 +9784,7 @@ static int _cocos2d_ui_PageView_setIndicatorIndexNodesColor(lua_State *L)
     cocos2d::Color3B arg1;       /** color */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.PageView");
-    manual_luacv_check_cocos2d_Color3B(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg1);
 
     // void setIndicatorIndexNodesColor(const Color3B& color)
     self->setIndicatorIndexNodesColor(arg1);
@@ -9850,7 +9850,7 @@ static int _cocos2d_ui_PageView_setIndicatorPosition(lua_State *L)
     cocos2d::Vec2 arg1;       /** position */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.PageView");
-    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
     // void setIndicatorPosition(const Vec2& position)
     self->setIndicatorPosition(arg1);
@@ -9866,7 +9866,7 @@ static int _cocos2d_ui_PageView_setIndicatorPositionAsAnchorPoint(lua_State *L)
     cocos2d::Vec2 arg1;       /** positionAsAnchorPoint */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.PageView");
-    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
     // void setIndicatorPositionAsAnchorPoint(const Vec2& positionAsAnchorPoint)
     self->setIndicatorPositionAsAnchorPoint(arg1);
@@ -9882,7 +9882,7 @@ static int _cocos2d_ui_PageView_setIndicatorSelectedIndexColor(lua_State *L)
     cocos2d::Color3B arg1;       /** color */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.PageView");
-    manual_luacv_check_cocos2d_Color3B(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg1);
 
     // void setIndicatorSelectedIndexColor(const Color3B& color)
     self->setIndicatorSelectedIndexColor(arg1);
@@ -10016,7 +10016,7 @@ static int _cocos2d_ui_RichElement_init(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RichElement");
     olua_check_int(L, 2, &arg1);
-    manual_luacv_check_cocos2d_Color3B(L, 3, &arg2);
+    manual_olua_check_cocos2d_Color3B(L, 3, &arg2);
     olua_check_uint(L, 4, &arg3);
 
     // bool init(int tag, const Color3B& color, GLubyte opacity)
@@ -10034,7 +10034,7 @@ static int _cocos2d_ui_RichElement_setColor(lua_State *L)
     cocos2d::Color3B arg1;       /** color */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RichElement");
-    manual_luacv_check_cocos2d_Color3B(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg1);
 
     // void setColor(const Color3B& color)
     self->setColor(arg1);
@@ -10075,19 +10075,19 @@ static int _cocos2d_ui_RichElementText_create(lua_State *L)
     cocos2d::Color3B arg14;       /** glowColor */
 
     olua_check_int(L, 1, &arg1);
-    manual_luacv_check_cocos2d_Color3B(L, 2, &arg2);
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg2);
     olua_check_uint(L, 3, &arg3);
     olua_check_std_string(L, 4, &arg4);
     olua_check_std_string(L, 5, &arg5);
     olua_check_number(L, 6, &arg6);
     olua_opt_uint(L, 7, &arg7, (lua_Unsigned)0);
     olua_opt_std_string(L, 8, &arg8, (std::string)"");
-    manual_luacv_opt_cocos2d_Color3B(L, 9, &arg9, (cocos2d::Color3B)cocos2d::Color3B::WHITE);
+    manual_olua_opt_cocos2d_Color3B(L, 9, &arg9, (cocos2d::Color3B)cocos2d::Color3B::WHITE);
     olua_opt_int(L, 10, &arg10, (lua_Integer)-1);
-    manual_luacv_opt_cocos2d_Color3B(L, 11, &arg11, (cocos2d::Color3B)cocos2d::Color3B::BLACK);
-    auto_luacv_opt_cocos2d_Size(L, 12, &arg12, (cocos2d::Size)cocos2d::Size(2.0, -2.0));
+    manual_olua_opt_cocos2d_Color3B(L, 11, &arg11, (cocos2d::Color3B)cocos2d::Color3B::BLACK);
+    auto_olua_opt_cocos2d_Size(L, 12, &arg12, (cocos2d::Size)cocos2d::Size(2.0, -2.0));
     olua_opt_int(L, 13, &arg13, (lua_Integer)0);
-    manual_luacv_opt_cocos2d_Color3B(L, 14, &arg14, (cocos2d::Color3B)cocos2d::Color3B::WHITE);
+    manual_olua_opt_cocos2d_Color3B(L, 14, &arg14, (cocos2d::Color3B)cocos2d::Color3B::WHITE);
 
     // static RichElementText* create(int tag, const Color3B& color, GLubyte opacity, const std::string& text, const std::string& fontName, float fontSize, uint32_t flags=0, const std::string& url="", const Color3B& outlineColor = Color3B::WHITE, int outlineSize = -1, const Color3B& shadowColor = Color3B::BLACK, const cocos2d::Size& shadowOffset = Size(2.0, -2.0), int shadowBlurRadius = 0, const Color3B& glowColor = Color3B::WHITE)
     cocos2d::ui::RichElementText *ret = (cocos2d::ui::RichElementText *)cocos2d::ui::RichElementText::create((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8, arg9, (int)arg10, arg11, arg12, (int)arg13, arg14);
@@ -10118,19 +10118,19 @@ static int _cocos2d_ui_RichElementText_init(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RichElementText");
     olua_check_int(L, 2, &arg1);
-    manual_luacv_check_cocos2d_Color3B(L, 3, &arg2);
+    manual_olua_check_cocos2d_Color3B(L, 3, &arg2);
     olua_check_uint(L, 4, &arg3);
     olua_check_std_string(L, 5, &arg4);
     olua_check_std_string(L, 6, &arg5);
     olua_check_number(L, 7, &arg6);
     olua_check_uint(L, 8, &arg7);
     olua_check_std_string(L, 9, &arg8);
-    manual_luacv_opt_cocos2d_Color3B(L, 10, &arg9, (cocos2d::Color3B)cocos2d::Color3B::WHITE);
+    manual_olua_opt_cocos2d_Color3B(L, 10, &arg9, (cocos2d::Color3B)cocos2d::Color3B::WHITE);
     olua_opt_int(L, 11, &arg10, (lua_Integer)-1);
-    manual_luacv_opt_cocos2d_Color3B(L, 12, &arg11, (cocos2d::Color3B)cocos2d::Color3B::BLACK);
-    auto_luacv_opt_cocos2d_Size(L, 13, &arg12, (cocos2d::Size)cocos2d::Size(2.0, -2.0));
+    manual_olua_opt_cocos2d_Color3B(L, 12, &arg11, (cocos2d::Color3B)cocos2d::Color3B::BLACK);
+    auto_olua_opt_cocos2d_Size(L, 13, &arg12, (cocos2d::Size)cocos2d::Size(2.0, -2.0));
     olua_opt_int(L, 14, &arg13, (lua_Integer)0);
-    manual_luacv_opt_cocos2d_Color3B(L, 15, &arg14, (cocos2d::Color3B)cocos2d::Color3B::WHITE);
+    manual_olua_opt_cocos2d_Color3B(L, 15, &arg14, (cocos2d::Color3B)cocos2d::Color3B::WHITE);
 
     // bool init(int tag, const Color3B& color, GLubyte opacity, const std::string& text, const std::string& fontName, float fontSize, uint32_t flags, const std::string& url, const Color3B& outlineColor = Color3B::WHITE, int outlineSize = -1, const Color3B& shadowColor = Color3B::BLACK, const cocos2d::Size& shadowOffset = Size(2.0, -2.0), int shadowBlurRadius = 0, const Color3B& glowColor = Color3B::WHITE)
     bool ret = (bool)self->init((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8, arg9, (int)arg10, arg11, arg12, (int)arg13, arg14);
@@ -10163,7 +10163,7 @@ static int _cocos2d_ui_RichElementImage_create(lua_State *L)
     lua_Unsigned arg6 = 0;   /** texType */
 
     olua_check_int(L, 1, &arg1);
-    manual_luacv_check_cocos2d_Color3B(L, 2, &arg2);
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg2);
     olua_check_uint(L, 3, &arg3);
     olua_check_std_string(L, 4, &arg4);
     olua_opt_std_string(L, 5, &arg5, (std::string)"");
@@ -10190,7 +10190,7 @@ static int _cocos2d_ui_RichElementImage_init(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RichElementImage");
     olua_check_int(L, 2, &arg1);
-    manual_luacv_check_cocos2d_Color3B(L, 3, &arg2);
+    manual_olua_check_cocos2d_Color3B(L, 3, &arg2);
     olua_check_uint(L, 4, &arg3);
     olua_check_std_string(L, 5, &arg4);
     olua_opt_std_string(L, 6, &arg5, (std::string)"");
@@ -10276,7 +10276,7 @@ static int _cocos2d_ui_RichElementCustomNode_create(lua_State *L)
     cocos2d::Node *arg4 = nullptr;   /** customNode */
 
     olua_check_int(L, 1, &arg1);
-    manual_luacv_check_cocos2d_Color3B(L, 2, &arg2);
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg2);
     olua_check_uint(L, 3, &arg3);
     olua_check_cppobj(L, 4, (void **)&arg4, "cc.Node");
 
@@ -10299,7 +10299,7 @@ static int _cocos2d_ui_RichElementCustomNode_init(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RichElementCustomNode");
     olua_check_int(L, 2, &arg1);
-    manual_luacv_check_cocos2d_Color3B(L, 3, &arg2);
+    manual_olua_check_cocos2d_Color3B(L, 3, &arg2);
     olua_check_uint(L, 4, &arg3);
     olua_check_cppobj(L, 5, (void **)&arg4, "cc.Node");
 
@@ -10331,7 +10331,7 @@ static int _cocos2d_ui_RichElementNewLine_create(lua_State *L)
     lua_Unsigned arg3 = 0;   /** opacity */
 
     olua_check_int(L, 1, &arg1);
-    manual_luacv_check_cocos2d_Color3B(L, 2, &arg2);
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg2);
     olua_check_uint(L, 3, &arg3);
 
     // static RichElementNewLine* create(int tag, const Color3B& color, GLubyte opacity)
@@ -10389,7 +10389,7 @@ static int _cocos2d_ui_RichText_color3BWithString(lua_State *L)
 
     // cocos2d::Color3B color3BWithString(const std::string& color)
     cocos2d::Color3B ret = (cocos2d::Color3B)self->color3BWithString(arg1);
-    int num_ret = manual_luacv_push_cocos2d_Color3B(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     return num_ret;
 }
@@ -10433,7 +10433,7 @@ static int _cocos2d_ui_RichText_createWithXML2(lua_State *L)
     cocos2d::ValueMap arg2;       /** defaults */
 
     olua_check_std_string(L, 1, &arg1);
-    manual_luacv_check_cocos2d_ValueMap(L, 2, &arg2);
+    manual_olua_check_cocos2d_ValueMap(L, 2, &arg2);
 
     cocos2d::ui::RichText *self = new cocos2d::ui::RichText();
     cocos2d::ui::RichText *ret = self;
@@ -10456,7 +10456,7 @@ static int _cocos2d_ui_RichText_createWithXML3(lua_State *L)
     std::function<void(const std::string &)> arg3 = nullptr;   /** handleOpenUrl */
 
     olua_check_std_string(L, 1, &arg1);
-    manual_luacv_check_cocos2d_ValueMap(L, 2, &arg2);
+    manual_olua_check_cocos2d_ValueMap(L, 2, &arg2);
 
     cocos2d::ui::RichText *self = new cocos2d::ui::RichText();
     cocos2d::ui::RichText *ret = self;
@@ -10495,13 +10495,13 @@ static int _cocos2d_ui_RichText_createWithXML(lua_State *L)
     }
 
     if (num_args == 2) {
-        // if (olua_is_std_string(L, 1) && manual_luacv_is_cocos2d_ValueMap(L, 2)) {
+        // if (olua_is_std_string(L, 1) && manual_olua_is_cocos2d_ValueMap(L, 2)) {
             return _cocos2d_ui_RichText_createWithXML2(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (olua_is_std_string(L, 1) && manual_luacv_is_cocos2d_ValueMap(L, 2) && olua_is_std_function(L, 3)) {
+        // if (olua_is_std_string(L, 1) && manual_olua_is_cocos2d_ValueMap(L, 2) && olua_is_std_function(L, 3)) {
             return _cocos2d_ui_RichText_createWithXML3(L);
         // }
     }
@@ -10550,7 +10550,7 @@ static int _cocos2d_ui_RichText_getAnchorFontColor3B(lua_State *L)
 
     // cocos2d::Color3B getAnchorFontColor3B()
     cocos2d::Color3B ret = (cocos2d::Color3B)self->getAnchorFontColor3B();
-    int num_ret = manual_luacv_push_cocos2d_Color3B(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     return num_ret;
 }
@@ -10565,7 +10565,7 @@ static int _cocos2d_ui_RichText_getAnchorTextGlowColor3B(lua_State *L)
 
     // Color3B getAnchorTextGlowColor3B()
     cocos2d::Color3B ret = (cocos2d::Color3B)self->getAnchorTextGlowColor3B();
-    int num_ret = manual_luacv_push_cocos2d_Color3B(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     return num_ret;
 }
@@ -10580,7 +10580,7 @@ static int _cocos2d_ui_RichText_getAnchorTextOutlineColor3B(lua_State *L)
 
     // Color3B getAnchorTextOutlineColor3B()
     cocos2d::Color3B ret = (cocos2d::Color3B)self->getAnchorTextOutlineColor3B();
-    int num_ret = manual_luacv_push_cocos2d_Color3B(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     return num_ret;
 }
@@ -10625,7 +10625,7 @@ static int _cocos2d_ui_RichText_getAnchorTextShadowColor3B(lua_State *L)
 
     // Color3B getAnchorTextShadowColor3B()
     cocos2d::Color3B ret = (cocos2d::Color3B)self->getAnchorTextShadowColor3B();
-    int num_ret = manual_luacv_push_cocos2d_Color3B(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     return num_ret;
 }
@@ -10640,7 +10640,7 @@ static int _cocos2d_ui_RichText_getAnchorTextShadowOffset(lua_State *L)
 
     // Size getAnchorTextShadowOffset()
     cocos2d::Size ret = (cocos2d::Size)self->getAnchorTextShadowOffset();
-    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
@@ -10655,7 +10655,7 @@ static int _cocos2d_ui_RichText_getDefaults(lua_State *L)
 
     // ValueMap getDefaults()
     cocos2d::ValueMap ret = (cocos2d::ValueMap)self->getDefaults();
-    int num_ret = manual_luacv_push_cocos2d_ValueMap(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_ValueMap(L, &ret);
 
     return num_ret;
 }
@@ -10685,7 +10685,7 @@ static int _cocos2d_ui_RichText_getFontColor3B(lua_State *L)
 
     // Color3B getFontColor3B()
     cocos2d::Color3B ret = (cocos2d::Color3B)self->getFontColor3B();
-    int num_ret = manual_luacv_push_cocos2d_Color3B(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     return num_ret;
 }
@@ -11028,7 +11028,7 @@ static int _cocos2d_ui_RichText_setAnchorTextGlow(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RichText");
     olua_check_bool(L, 2, &arg1);
-    manual_luacv_opt_cocos2d_Color3B(L, 3, &arg2, (cocos2d::Color3B)cocos2d::Color3B::WHITE);
+    manual_olua_opt_cocos2d_Color3B(L, 3, &arg2, (cocos2d::Color3B)cocos2d::Color3B::WHITE);
 
     // void setAnchorTextGlow(bool enable, const Color3B& glowColor = Color3B::WHITE)
     self->setAnchorTextGlow(arg1, arg2);
@@ -11063,7 +11063,7 @@ static int _cocos2d_ui_RichText_setAnchorTextOutline(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RichText");
     olua_check_bool(L, 2, &arg1);
-    manual_luacv_opt_cocos2d_Color3B(L, 3, &arg2, (cocos2d::Color3B)cocos2d::Color3B::WHITE);
+    manual_olua_opt_cocos2d_Color3B(L, 3, &arg2, (cocos2d::Color3B)cocos2d::Color3B::WHITE);
     olua_opt_int(L, 4, &arg3, (lua_Integer)-1);
 
     // void setAnchorTextOutline(bool enable, const Color3B& outlineColor = Color3B::WHITE, int outlineSize = -1)
@@ -11084,8 +11084,8 @@ static int _cocos2d_ui_RichText_setAnchorTextShadow(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RichText");
     olua_check_bool(L, 2, &arg1);
-    manual_luacv_opt_cocos2d_Color3B(L, 3, &arg2, (cocos2d::Color3B)cocos2d::Color3B::BLACK);
-    auto_luacv_opt_cocos2d_Size(L, 4, &arg3, (cocos2d::Size)cocos2d::Size(2.0, -2.0));
+    manual_olua_opt_cocos2d_Color3B(L, 3, &arg2, (cocos2d::Color3B)cocos2d::Color3B::BLACK);
+    auto_olua_opt_cocos2d_Size(L, 4, &arg3, (cocos2d::Size)cocos2d::Size(2.0, -2.0));
     olua_opt_int(L, 5, &arg4, (lua_Integer)0);
 
     // void setAnchorTextShadow(bool enable, const Color3B& shadowColor = Color3B::BLACK, const Size& offset = Size(2.0, -2.0), int blurRadius = 0)
@@ -11118,7 +11118,7 @@ static int _cocos2d_ui_RichText_setDefaults(lua_State *L)
     cocos2d::ValueMap arg1;       /** defaults */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RichText");
-    manual_luacv_check_cocos2d_ValueMap(L, 2, &arg1);
+    manual_olua_check_cocos2d_ValueMap(L, 2, &arg1);
 
     // void setDefaults(const ValueMap& defaults)
     self->setDefaults(arg1);
@@ -11259,7 +11259,7 @@ static int _cocos2d_ui_RichText_stringWithColor3B(lua_State *L)
     cocos2d::Color3B arg1;       /** color3b */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RichText");
-    manual_luacv_check_cocos2d_Color3B(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg1);
 
     // std::string stringWithColor3B(const cocos2d::Color3B& color3b)
     std::string ret = (std::string)self->stringWithColor3B(arg1);
@@ -11276,7 +11276,7 @@ static int _cocos2d_ui_RichText_stringWithColor4B(lua_State *L)
     cocos2d::Color4B arg1;       /** color4b */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RichText");
-    manual_luacv_check_cocos2d_Color4B(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color4B(L, 2, &arg1);
 
     // std::string stringWithColor4B(const cocos2d::Color4B& color4b)
     std::string ret = (std::string)self->stringWithColor4B(arg1);
@@ -11408,7 +11408,7 @@ static int _cocos2d_ui_ScrollViewBar_getPositionFromCorner(lua_State *L)
 
     // Vec2 getPositionFromCorner()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getPositionFromCorner();
-    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     return num_ret;
 }
@@ -11451,7 +11451,7 @@ static int _cocos2d_ui_ScrollViewBar_onScrolled(lua_State *L)
     cocos2d::Vec2 arg1;       /** outOfBoundary */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollViewBar");
-    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
     // void onScrolled(const Vec2& outOfBoundary)
     self->onScrolled(arg1);
@@ -11527,7 +11527,7 @@ static int _cocos2d_ui_ScrollViewBar_setPositionFromCorner(lua_State *L)
     cocos2d::Vec2 arg1;       /** positionFromCorner */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollViewBar");
-    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
     // void setPositionFromCorner(const Vec2& positionFromCorner)
     self->setPositionFromCorner(arg1);
@@ -11687,7 +11687,7 @@ static int _cocos2d_ui_Slider_getBackFile(lua_State *L)
 
     // ResourceData getBackFile()
     cocos2d::ResourceData ret = (cocos2d::ResourceData)self->getBackFile();
-    int num_ret = auto_luacv_push_cocos2d_ResourceData(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_ResourceData(L, &ret);
 
     return num_ret;
 }
@@ -11702,7 +11702,7 @@ static int _cocos2d_ui_Slider_getBallDisabledFile(lua_State *L)
 
     // ResourceData getBallDisabledFile()
     cocos2d::ResourceData ret = (cocos2d::ResourceData)self->getBallDisabledFile();
-    int num_ret = auto_luacv_push_cocos2d_ResourceData(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_ResourceData(L, &ret);
 
     return num_ret;
 }
@@ -11717,7 +11717,7 @@ static int _cocos2d_ui_Slider_getBallNormalFile(lua_State *L)
 
     // ResourceData getBallNormalFile()
     cocos2d::ResourceData ret = (cocos2d::ResourceData)self->getBallNormalFile();
-    int num_ret = auto_luacv_push_cocos2d_ResourceData(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_ResourceData(L, &ret);
 
     return num_ret;
 }
@@ -11732,7 +11732,7 @@ static int _cocos2d_ui_Slider_getBallPressedFile(lua_State *L)
 
     // ResourceData getBallPressedFile()
     cocos2d::ResourceData ret = (cocos2d::ResourceData)self->getBallPressedFile();
-    int num_ret = auto_luacv_push_cocos2d_ResourceData(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_ResourceData(L, &ret);
 
     return num_ret;
 }
@@ -11747,7 +11747,7 @@ static int _cocos2d_ui_Slider_getCapInsetsBarRenderer(lua_State *L)
 
     // const Rect& getCapInsetsBarRenderer()
     const cocos2d::Rect &ret = (const cocos2d::Rect &)self->getCapInsetsBarRenderer();
-    int num_ret = manual_luacv_push_cocos2d_Rect(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Rect(L, &ret);
 
     return num_ret;
 }
@@ -11762,7 +11762,7 @@ static int _cocos2d_ui_Slider_getCapInsetsProgressBarRenderer(lua_State *L)
 
     // const Rect& getCapInsetsProgressBarRenderer()
     const cocos2d::Rect &ret = (const cocos2d::Rect &)self->getCapInsetsProgressBarRenderer();
-    int num_ret = manual_luacv_push_cocos2d_Rect(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Rect(L, &ret);
 
     return num_ret;
 }
@@ -11807,7 +11807,7 @@ static int _cocos2d_ui_Slider_getProgressBarFile(lua_State *L)
 
     // ResourceData getProgressBarFile()
     cocos2d::ResourceData ret = (cocos2d::ResourceData)self->getProgressBarFile();
-    int num_ret = auto_luacv_push_cocos2d_ResourceData(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_ResourceData(L, &ret);
 
     return num_ret;
 }
@@ -12034,7 +12034,7 @@ static int _cocos2d_ui_Slider_setCapInsetProgressBarRenderer(lua_State *L)
     cocos2d::Rect arg1;       /** capInsets */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Slider");
-    manual_luacv_check_cocos2d_Rect(L, 2, &arg1);
+    manual_olua_check_cocos2d_Rect(L, 2, &arg1);
 
     // void setCapInsetProgressBarRenderer(const Rect &capInsets)
     self->setCapInsetProgressBarRenderer(arg1);
@@ -12050,7 +12050,7 @@ static int _cocos2d_ui_Slider_setCapInsets(lua_State *L)
     cocos2d::Rect arg1;       /** capInsets */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Slider");
-    manual_luacv_check_cocos2d_Rect(L, 2, &arg1);
+    manual_olua_check_cocos2d_Rect(L, 2, &arg1);
 
     // void setCapInsets(const Rect &capInsets)
     self->setCapInsets(arg1);
@@ -12066,7 +12066,7 @@ static int _cocos2d_ui_Slider_setCapInsetsBarRenderer(lua_State *L)
     cocos2d::Rect arg1;       /** capInsets */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Slider");
-    manual_luacv_check_cocos2d_Rect(L, 2, &arg1);
+    manual_olua_check_cocos2d_Rect(L, 2, &arg1);
 
     // void setCapInsetsBarRenderer(const Rect &capInsets)
     self->setCapInsetsBarRenderer(arg1);
@@ -12326,7 +12326,7 @@ static int _cocos2d_ui_Text_enableGlow(lua_State *L)
     cocos2d::Color4B arg1;       /** glowColor */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Text");
-    manual_luacv_check_cocos2d_Color4B(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color4B(L, 2, &arg1);
 
     // void enableGlow(const Color4B& glowColor)
     self->enableGlow(arg1);
@@ -12343,7 +12343,7 @@ static int _cocos2d_ui_Text_enableOutline(lua_State *L)
     lua_Integer arg2 = 0;   /** outlineSize */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Text");
-    manual_luacv_check_cocos2d_Color4B(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color4B(L, 2, &arg1);
     olua_opt_int(L, 3, &arg2, (lua_Integer)1);
 
     // void enableOutline(const Color4B& outlineColor,int outlineSize = 1)
@@ -12362,8 +12362,8 @@ static int _cocos2d_ui_Text_enableShadow(lua_State *L)
     lua_Integer arg3 = 0;   /** blurRadius */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Text");
-    manual_luacv_opt_cocos2d_Color4B(L, 2, &arg1, (cocos2d::Color4B)cocos2d::Color4B::BLACK);
-    auto_luacv_opt_cocos2d_Size(L, 3, &arg2, (cocos2d::Size)cocos2d::Size(2, -2));
+    manual_olua_opt_cocos2d_Color4B(L, 2, &arg1, (cocos2d::Color4B)cocos2d::Color4B::BLACK);
+    auto_olua_opt_cocos2d_Size(L, 3, &arg2, (cocos2d::Size)cocos2d::Size(2, -2));
     olua_opt_int(L, 4, &arg3, (lua_Integer)0);
 
     // void enableShadow(const Color4B& shadowColor = Color4B::BLACK, const Size &offset = Size(2,-2), int blurRadius = 0)
@@ -12382,7 +12382,7 @@ static int _cocos2d_ui_Text_getAutoRenderSize(lua_State *L)
 
     // Size getAutoRenderSize()
     cocos2d::Size ret = (cocos2d::Size)self->getAutoRenderSize();
-    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
@@ -12397,7 +12397,7 @@ static int _cocos2d_ui_Text_getBlendFunc(lua_State *L)
 
     // const BlendFunc &getBlendFunc()
     const cocos2d::BlendFunc &ret = (const cocos2d::BlendFunc &)self->getBlendFunc();
-    int num_ret = auto_luacv_push_cocos2d_BlendFunc(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_BlendFunc(L, &ret);
 
     return num_ret;
 }
@@ -12412,7 +12412,7 @@ static int _cocos2d_ui_Text_getEffectColor(lua_State *L)
 
     // Color4B getEffectColor()
     cocos2d::Color4B ret = (cocos2d::Color4B)self->getEffectColor();
-    int num_ret = manual_luacv_push_cocos2d_Color4B(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Color4B(L, &ret);
 
     return num_ret;
 }
@@ -12519,7 +12519,7 @@ static int _cocos2d_ui_Text_getShadowColor(lua_State *L)
 
     // Color4B getShadowColor()
     cocos2d::Color4B ret = (cocos2d::Color4B)self->getShadowColor();
-    int num_ret = manual_luacv_push_cocos2d_Color4B(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Color4B(L, &ret);
 
     return num_ret;
 }
@@ -12534,7 +12534,7 @@ static int _cocos2d_ui_Text_getShadowOffset(lua_State *L)
 
     // Size getShadowOffset()
     cocos2d::Size ret = (cocos2d::Size)self->getShadowOffset();
-    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
@@ -12579,7 +12579,7 @@ static int _cocos2d_ui_Text_getTextAreaSize(lua_State *L)
 
     // const Size& getTextAreaSize()
     const cocos2d::Size &ret = (const cocos2d::Size &)self->getTextAreaSize();
-    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
@@ -12594,7 +12594,7 @@ static int _cocos2d_ui_Text_getTextColor(lua_State *L)
 
     // const Color4B& getTextColor()
     const cocos2d::Color4B &ret = (const cocos2d::Color4B &)self->getTextColor();
-    int num_ret = manual_luacv_push_cocos2d_Color4B(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Color4B(L, &ret);
 
     return num_ret;
 }
@@ -12703,7 +12703,7 @@ static int _cocos2d_ui_Text_setBlendFunc(lua_State *L)
     cocos2d::BlendFunc arg1;       /** blendFunc */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Text");
-    auto_luacv_check_cocos2d_BlendFunc(L, 2, &arg1);
+    auto_olua_check_cocos2d_BlendFunc(L, 2, &arg1);
 
     // void setBlendFunc(const BlendFunc &blendFunc)
     self->setBlendFunc(arg1);
@@ -12767,7 +12767,7 @@ static int _cocos2d_ui_Text_setTextAreaSize(lua_State *L)
     cocos2d::Size arg1;       /** size */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Text");
-    auto_luacv_check_cocos2d_Size(L, 2, &arg1);
+    auto_olua_check_cocos2d_Size(L, 2, &arg1);
 
     // void setTextAreaSize(const Size &size)
     self->setTextAreaSize(arg1);
@@ -12783,7 +12783,7 @@ static int _cocos2d_ui_Text_setTextColor(lua_State *L)
     cocos2d::Color4B arg1;       /** color */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Text");
-    manual_luacv_check_cocos2d_Color4B(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color4B(L, 2, &arg1);
 
     // void setTextColor(const Color4B color)
     self->setTextColor(arg1);
@@ -12966,7 +12966,7 @@ static int _cocos2d_ui_TextAtlas_getRenderFile(lua_State *L)
 
     // ResourceData getRenderFile()
     cocos2d::ResourceData ret = (cocos2d::ResourceData)self->getRenderFile();
-    int num_ret = auto_luacv_push_cocos2d_ResourceData(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_ResourceData(L, &ret);
 
     return num_ret;
 }
@@ -13117,7 +13117,7 @@ static int _cocos2d_ui_TextBMFont_getRenderFile(lua_State *L)
 
     // ResourceData getRenderFile()
     cocos2d::ResourceData ret = (cocos2d::ResourceData)self->getRenderFile();
-    int num_ret = auto_luacv_push_cocos2d_ResourceData(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_ResourceData(L, &ret);
 
     return num_ret;
 }
@@ -13796,7 +13796,7 @@ static int _cocos2d_ui_TextField_getAutoRenderSize(lua_State *L)
 
     // Size getAutoRenderSize()
     cocos2d::Size ret = (cocos2d::Size)self->getAutoRenderSize();
-    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
@@ -13931,7 +13931,7 @@ static int _cocos2d_ui_TextField_getPlaceHolderColor(lua_State *L)
 
     // const Color4B& getPlaceHolderColor()
     const cocos2d::Color4B &ret = (const cocos2d::Color4B &)self->getPlaceHolderColor();
-    int num_ret = manual_luacv_push_cocos2d_Color4B(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Color4B(L, &ret);
 
     return num_ret;
 }
@@ -13976,7 +13976,7 @@ static int _cocos2d_ui_TextField_getTextColor(lua_State *L)
 
     // const Color4B& getTextColor()
     const cocos2d::Color4B &ret = (const cocos2d::Color4B &)self->getTextColor();
-    int num_ret = manual_luacv_push_cocos2d_Color4B(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Color4B(L, &ret);
 
     return num_ret;
 }
@@ -14021,7 +14021,7 @@ static int _cocos2d_ui_TextField_getTouchSize(lua_State *L)
 
     // Size getTouchSize()
     cocos2d::Size ret = (cocos2d::Size)self->getTouchSize();
-    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
@@ -14113,7 +14113,7 @@ static int _cocos2d_ui_TextField_setCursorFromPoint(lua_State *L)
     cocos2d::Camera *arg2 = nullptr;   /** camera */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TextField");
-    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+    auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
     olua_check_cppobj(L, 3, (void **)&arg2, "cc.Camera");
 
     // void setCursorFromPoint(const Vec2 &point, const Camera* camera)
@@ -14306,7 +14306,7 @@ static int _cocos2d_ui_TextField_setPlaceHolderColor1(lua_State *L)
     cocos2d::Color3B arg1;       /** color */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TextField");
-    manual_luacv_check_cocos2d_Color3B(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg1);
 
     // void setPlaceHolderColor(const Color3B& color)
     self->setPlaceHolderColor(arg1);
@@ -14322,7 +14322,7 @@ static int _cocos2d_ui_TextField_setPlaceHolderColor2(lua_State *L)
     cocos2d::Color4B arg1;       /** color */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TextField");
-    manual_luacv_check_cocos2d_Color4B(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color4B(L, 2, &arg1);
 
     // void setPlaceHolderColor(const Color4B& color)
     self->setPlaceHolderColor(arg1);
@@ -14335,11 +14335,11 @@ static int _cocos2d_ui_TextField_setPlaceHolderColor(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        if (manual_luacv_is_cocos2d_Color3B(L, 2)) {
+        if (manual_olua_is_cocos2d_Color3B(L, 2)) {
             return _cocos2d_ui_TextField_setPlaceHolderColor1(L);
         }
 
-        // if (manual_luacv_is_cocos2d_Color4B(L, 2)) {
+        // if (manual_olua_is_cocos2d_Color4B(L, 2)) {
             return _cocos2d_ui_TextField_setPlaceHolderColor2(L);
         // }
     }
@@ -14373,7 +14373,7 @@ static int _cocos2d_ui_TextField_setTextAreaSize(lua_State *L)
     cocos2d::Size arg1;       /** size */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TextField");
-    auto_luacv_check_cocos2d_Size(L, 2, &arg1);
+    auto_olua_check_cocos2d_Size(L, 2, &arg1);
 
     // void setTextAreaSize(const Size &size)
     self->setTextAreaSize(arg1);
@@ -14389,7 +14389,7 @@ static int _cocos2d_ui_TextField_setTextColor(lua_State *L)
     cocos2d::Color4B arg1;       /** textColor */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TextField");
-    manual_luacv_check_cocos2d_Color4B(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color4B(L, 2, &arg1);
 
     // void setTextColor(const Color4B& textColor)
     self->setTextColor(arg1);
@@ -14453,7 +14453,7 @@ static int _cocos2d_ui_TextField_setTouchSize(lua_State *L)
     cocos2d::Size arg1;       /** size */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TextField");
-    auto_luacv_check_cocos2d_Size(L, 2, &arg1);
+    auto_olua_check_cocos2d_Size(L, 2, &arg1);
 
     // void setTouchSize(const Size &size)
     self->setTouchSize(arg1);
@@ -14597,7 +14597,7 @@ static int _cocos2d_ui_Button_getCapInsetsDisabledRenderer(lua_State *L)
 
     // const Rect& getCapInsetsDisabledRenderer()
     const cocos2d::Rect &ret = (const cocos2d::Rect &)self->getCapInsetsDisabledRenderer();
-    int num_ret = manual_luacv_push_cocos2d_Rect(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Rect(L, &ret);
 
     return num_ret;
 }
@@ -14612,7 +14612,7 @@ static int _cocos2d_ui_Button_getCapInsetsNormalRenderer(lua_State *L)
 
     // const Rect& getCapInsetsNormalRenderer()
     const cocos2d::Rect &ret = (const cocos2d::Rect &)self->getCapInsetsNormalRenderer();
-    int num_ret = manual_luacv_push_cocos2d_Rect(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Rect(L, &ret);
 
     return num_ret;
 }
@@ -14627,7 +14627,7 @@ static int _cocos2d_ui_Button_getCapInsetsPressedRenderer(lua_State *L)
 
     // const Rect& getCapInsetsPressedRenderer()
     const cocos2d::Rect &ret = (const cocos2d::Rect &)self->getCapInsetsPressedRenderer();
-    int num_ret = manual_luacv_push_cocos2d_Rect(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Rect(L, &ret);
 
     return num_ret;
 }
@@ -14642,7 +14642,7 @@ static int _cocos2d_ui_Button_getDisabledFile(lua_State *L)
 
     // ResourceData getDisabledFile()
     cocos2d::ResourceData ret = (cocos2d::ResourceData)self->getDisabledFile();
-    int num_ret = auto_luacv_push_cocos2d_ResourceData(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_ResourceData(L, &ret);
 
     return num_ret;
 }
@@ -14657,7 +14657,7 @@ static int _cocos2d_ui_Button_getNormalFile(lua_State *L)
 
     // ResourceData getNormalFile()
     cocos2d::ResourceData ret = (cocos2d::ResourceData)self->getNormalFile();
-    int num_ret = auto_luacv_push_cocos2d_ResourceData(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_ResourceData(L, &ret);
 
     return num_ret;
 }
@@ -14672,7 +14672,7 @@ static int _cocos2d_ui_Button_getNormalTextureSize(lua_State *L)
 
     // Size getNormalTextureSize()
     cocos2d::Size ret = (cocos2d::Size)self->getNormalTextureSize();
-    int num_ret = auto_luacv_push_cocos2d_Size(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Size(L, &ret);
 
     return num_ret;
 }
@@ -14687,7 +14687,7 @@ static int _cocos2d_ui_Button_getPressedFile(lua_State *L)
 
     // ResourceData getPressedFile()
     cocos2d::ResourceData ret = (cocos2d::ResourceData)self->getPressedFile();
-    int num_ret = auto_luacv_push_cocos2d_ResourceData(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_ResourceData(L, &ret);
 
     return num_ret;
 }
@@ -14756,7 +14756,7 @@ static int _cocos2d_ui_Button_getTitleColor(lua_State *L)
 
     // Color3B getTitleColor()
     cocos2d::Color3B ret = (cocos2d::Color3B)self->getTitleColor();
-    int num_ret = manual_luacv_push_cocos2d_Color3B(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Color3B(L, &ret);
 
     return num_ret;
 }
@@ -15021,7 +15021,7 @@ static int _cocos2d_ui_Button_setCapInsets(lua_State *L)
     cocos2d::Rect arg1;       /** capInsets */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Button");
-    manual_luacv_check_cocos2d_Rect(L, 2, &arg1);
+    manual_olua_check_cocos2d_Rect(L, 2, &arg1);
 
     // void setCapInsets(const Rect &capInsets)
     self->setCapInsets(arg1);
@@ -15037,7 +15037,7 @@ static int _cocos2d_ui_Button_setCapInsetsDisabledRenderer(lua_State *L)
     cocos2d::Rect arg1;       /** capInsets */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Button");
-    manual_luacv_check_cocos2d_Rect(L, 2, &arg1);
+    manual_olua_check_cocos2d_Rect(L, 2, &arg1);
 
     // void setCapInsetsDisabledRenderer(const Rect &capInsets)
     self->setCapInsetsDisabledRenderer(arg1);
@@ -15053,7 +15053,7 @@ static int _cocos2d_ui_Button_setCapInsetsNormalRenderer(lua_State *L)
     cocos2d::Rect arg1;       /** capInsets */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Button");
-    manual_luacv_check_cocos2d_Rect(L, 2, &arg1);
+    manual_olua_check_cocos2d_Rect(L, 2, &arg1);
 
     // void setCapInsetsNormalRenderer(const Rect &capInsets)
     self->setCapInsetsNormalRenderer(arg1);
@@ -15069,7 +15069,7 @@ static int _cocos2d_ui_Button_setCapInsetsPressedRenderer(lua_State *L)
     cocos2d::Rect arg1;       /** capInsets */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Button");
-    manual_luacv_check_cocos2d_Rect(L, 2, &arg1);
+    manual_olua_check_cocos2d_Rect(L, 2, &arg1);
 
     // void setCapInsetsPressedRenderer(const Rect &capInsets)
     self->setCapInsetsPressedRenderer(arg1);
@@ -15172,7 +15172,7 @@ static int _cocos2d_ui_Button_setTitleColor(lua_State *L)
     cocos2d::Color3B arg1;       /** color */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Button");
-    manual_luacv_check_cocos2d_Color3B(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg1);
 
     // void setTitleColor(const Color3B& color)
     self->setTitleColor(arg1);
@@ -15981,7 +15981,7 @@ static int _cocos2d_ui_ImageView_getBlendFunc(lua_State *L)
 
     // const BlendFunc &getBlendFunc()
     const cocos2d::BlendFunc &ret = (const cocos2d::BlendFunc &)self->getBlendFunc();
-    int num_ret = auto_luacv_push_cocos2d_BlendFunc(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_BlendFunc(L, &ret);
 
     return num_ret;
 }
@@ -15996,7 +15996,7 @@ static int _cocos2d_ui_ImageView_getCapInsets(lua_State *L)
 
     // const Rect& getCapInsets()
     const cocos2d::Rect &ret = (const cocos2d::Rect &)self->getCapInsets();
-    int num_ret = manual_luacv_push_cocos2d_Rect(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Rect(L, &ret);
 
     return num_ret;
 }
@@ -16011,7 +16011,7 @@ static int _cocos2d_ui_ImageView_getRenderFile(lua_State *L)
 
     // ResourceData getRenderFile()
     cocos2d::ResourceData ret = (cocos2d::ResourceData)self->getRenderFile();
-    int num_ret = auto_luacv_push_cocos2d_ResourceData(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_ResourceData(L, &ret);
 
     return num_ret;
 }
@@ -16076,7 +16076,7 @@ static int _cocos2d_ui_ImageView_setBlendFunc(lua_State *L)
     cocos2d::BlendFunc arg1;       /** blendFunc */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ImageView");
-    auto_luacv_check_cocos2d_BlendFunc(L, 2, &arg1);
+    auto_olua_check_cocos2d_BlendFunc(L, 2, &arg1);
 
     // void setBlendFunc(const BlendFunc &blendFunc)
     self->setBlendFunc(arg1);
@@ -16092,7 +16092,7 @@ static int _cocos2d_ui_ImageView_setCapInsets(lua_State *L)
     cocos2d::Rect arg1;       /** capInsets */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ImageView");
-    manual_luacv_check_cocos2d_Rect(L, 2, &arg1);
+    manual_olua_check_cocos2d_Rect(L, 2, &arg1);
 
     // void setCapInsets(const Rect &capInsets)
     self->setCapInsets(arg1);
@@ -16124,7 +16124,7 @@ static int _cocos2d_ui_ImageView_setTextureRect(lua_State *L)
     cocos2d::Rect arg1;       /** rect */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ImageView");
-    manual_luacv_check_cocos2d_Rect(L, 2, &arg1);
+    manual_olua_check_cocos2d_Rect(L, 2, &arg1);
 
     // void setTextureRect(const Rect& rect)
     self->setTextureRect(arg1);
@@ -16559,7 +16559,7 @@ static int _cocos2d_ui_EditBox_create1(lua_State *L)
     cocos2d::ui::Scale9Sprite *arg3 = nullptr;   /** pressedSprite */
     cocos2d::ui::Scale9Sprite *arg4 = nullptr;   /** disabledSprite */
 
-    auto_luacv_check_cocos2d_Size(L, 1, &arg1);
+    auto_olua_check_cocos2d_Size(L, 1, &arg1);
     olua_check_cppobj(L, 2, (void **)&arg2, "ccui.Scale9Sprite");
     olua_opt_cppobj(L, 3, (void **)&arg3, "ccui.Scale9Sprite", nullptr);
     olua_opt_cppobj(L, 4, (void **)&arg4, "ccui.Scale9Sprite", nullptr);
@@ -16579,7 +16579,7 @@ static int _cocos2d_ui_EditBox_create2(lua_State *L)
     std::string arg2;       /** normalImage */
     lua_Unsigned arg3 = 0;   /** texType */
 
-    auto_luacv_check_cocos2d_Size(L, 1, &arg1);
+    auto_olua_check_cocos2d_Size(L, 1, &arg1);
     olua_check_std_string(L, 2, &arg2);
     olua_check_uint(L, 3, &arg3);
 
@@ -16600,7 +16600,7 @@ static int _cocos2d_ui_EditBox_create3(lua_State *L)
     std::string arg4;       /** disabledImage */
     lua_Unsigned arg5 = 0;   /** texType */
 
-    auto_luacv_check_cocos2d_Size(L, 1, &arg1);
+    auto_olua_check_cocos2d_Size(L, 1, &arg1);
     olua_check_std_string(L, 2, &arg2);
     olua_opt_std_string(L, 3, &arg3, (std::string)"");
     olua_opt_std_string(L, 4, &arg4, (std::string)"");
@@ -16618,19 +16618,19 @@ static int _cocos2d_ui_EditBox_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 3) {
-        // if (auto_luacv_is_cocos2d_Size(L, 1) && olua_is_std_string(L, 2) && olua_is_uint(L, 3)) {
+        // if (auto_olua_is_cocos2d_Size(L, 1) && olua_is_std_string(L, 2) && olua_is_uint(L, 3)) {
             return _cocos2d_ui_EditBox_create2(L);
         // }
     }
 
     if (num_args == 4) {
-        // if (auto_luacv_is_cocos2d_Size(L, 1) && olua_is_cppobj(L, 2, "ccui.Scale9Sprite") && (olua_is_cppobj(L, 3, "ccui.Scale9Sprite") || olua_isnil(L, 3)) && (olua_is_cppobj(L, 4, "ccui.Scale9Sprite") || olua_isnil(L, 4))) {
+        // if (auto_olua_is_cocos2d_Size(L, 1) && olua_is_cppobj(L, 2, "ccui.Scale9Sprite") && (olua_is_cppobj(L, 3, "ccui.Scale9Sprite") || olua_isnil(L, 3)) && (olua_is_cppobj(L, 4, "ccui.Scale9Sprite") || olua_isnil(L, 4))) {
             return _cocos2d_ui_EditBox_create1(L);
         // }
     }
 
     if (num_args == 5) {
-        // if (auto_luacv_is_cocos2d_Size(L, 1) && olua_is_std_string(L, 2) && (olua_is_std_string(L, 3) || olua_isnil(L, 3)) && (olua_is_std_string(L, 4) || olua_isnil(L, 4)) && (olua_is_uint(L, 5) || olua_isnil(L, 5))) {
+        // if (auto_olua_is_cocos2d_Size(L, 1) && olua_is_std_string(L, 2) && (olua_is_std_string(L, 3) || olua_isnil(L, 3)) && (olua_is_std_string(L, 4) || olua_isnil(L, 4)) && (olua_is_uint(L, 5) || olua_isnil(L, 5))) {
             return _cocos2d_ui_EditBox_create3(L);
         // }
     }
@@ -16650,7 +16650,7 @@ static int _cocos2d_ui_EditBox_getCapInsetsDisabledRenderer(lua_State *L)
 
     // const Rect& getCapInsetsDisabledRenderer()
     const cocos2d::Rect &ret = (const cocos2d::Rect &)self->getCapInsetsDisabledRenderer();
-    int num_ret = manual_luacv_push_cocos2d_Rect(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Rect(L, &ret);
 
     return num_ret;
 }
@@ -16665,7 +16665,7 @@ static int _cocos2d_ui_EditBox_getCapInsetsNormalRenderer(lua_State *L)
 
     // const Rect& getCapInsetsNormalRenderer()
     const cocos2d::Rect &ret = (const cocos2d::Rect &)self->getCapInsetsNormalRenderer();
-    int num_ret = manual_luacv_push_cocos2d_Rect(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Rect(L, &ret);
 
     return num_ret;
 }
@@ -16680,7 +16680,7 @@ static int _cocos2d_ui_EditBox_getCapInsetsPressedRenderer(lua_State *L)
 
     // const Rect& getCapInsetsPressedRenderer()
     const cocos2d::Rect &ret = (const cocos2d::Rect &)self->getCapInsetsPressedRenderer();
-    int num_ret = manual_luacv_push_cocos2d_Rect(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Rect(L, &ret);
 
     return num_ret;
 }
@@ -16713,7 +16713,7 @@ static int _cocos2d_ui_EditBox_getFontColor(lua_State *L)
 
     // const Color4B& getFontColor()
     const cocos2d::Color4B &ret = (const cocos2d::Color4B &)self->getFontColor();
-    int num_ret = manual_luacv_push_cocos2d_Color4B(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Color4B(L, &ret);
 
     return num_ret;
 }
@@ -16818,7 +16818,7 @@ static int _cocos2d_ui_EditBox_getPlaceholderFontColor(lua_State *L)
 
     // const Color4B& getPlaceholderFontColor()
     const cocos2d::Color4B &ret = (const cocos2d::Color4B &)self->getPlaceholderFontColor();
-    int num_ret = manual_luacv_push_cocos2d_Color4B(L, &ret);
+    int num_ret = manual_olua_push_cocos2d_Color4B(L, &ret);
 
     return num_ret;
 }
@@ -16908,7 +16908,7 @@ static int _cocos2d_ui_EditBox_initWithSizeAndBackgroundSprite1(lua_State *L)
     lua_Unsigned arg3 = 0;   /** texType */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
-    auto_luacv_check_cocos2d_Size(L, 2, &arg1);
+    auto_olua_check_cocos2d_Size(L, 2, &arg1);
     olua_check_std_string(L, 3, &arg2);
     olua_opt_uint(L, 4, &arg3, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
 
@@ -16928,7 +16928,7 @@ static int _cocos2d_ui_EditBox_initWithSizeAndBackgroundSprite2(lua_State *L)
     cocos2d::ui::Scale9Sprite *arg2 = nullptr;   /** normal9SpriteBg */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
-    auto_luacv_check_cocos2d_Size(L, 2, &arg1);
+    auto_olua_check_cocos2d_Size(L, 2, &arg1);
     olua_check_cppobj(L, 3, (void **)&arg2, "ccui.Scale9Sprite");
 
     // bool initWithSizeAndBackgroundSprite(const Size& size, Scale9Sprite* normal9SpriteBg)
@@ -16949,7 +16949,7 @@ static int _cocos2d_ui_EditBox_initWithSizeAndBackgroundSprite3(lua_State *L)
     cocos2d::ui::Scale9Sprite *arg4 = nullptr;   /** disabledSprite */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
-    auto_luacv_check_cocos2d_Size(L, 2, &arg1);
+    auto_olua_check_cocos2d_Size(L, 2, &arg1);
     olua_check_cppobj(L, 3, (void **)&arg2, "ccui.Scale9Sprite");
     olua_check_cppobj(L, 4, (void **)&arg3, "ccui.Scale9Sprite");
     olua_check_cppobj(L, 5, (void **)&arg4, "ccui.Scale9Sprite");
@@ -16966,19 +16966,19 @@ static int _cocos2d_ui_EditBox_initWithSizeAndBackgroundSprite(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 2) {
-        // if (auto_luacv_is_cocos2d_Size(L, 2) && olua_is_cppobj(L, 3, "ccui.Scale9Sprite")) {
+        // if (auto_olua_is_cocos2d_Size(L, 2) && olua_is_cppobj(L, 3, "ccui.Scale9Sprite")) {
             return _cocos2d_ui_EditBox_initWithSizeAndBackgroundSprite2(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (auto_luacv_is_cocos2d_Size(L, 2) && olua_is_std_string(L, 3) && (olua_is_uint(L, 4) || olua_isnil(L, 4))) {
+        // if (auto_olua_is_cocos2d_Size(L, 2) && olua_is_std_string(L, 3) && (olua_is_uint(L, 4) || olua_isnil(L, 4))) {
             return _cocos2d_ui_EditBox_initWithSizeAndBackgroundSprite1(L);
         // }
     }
 
     if (num_args == 4) {
-        // if (auto_luacv_is_cocos2d_Size(L, 2) && olua_is_cppobj(L, 3, "ccui.Scale9Sprite") && olua_is_cppobj(L, 4, "ccui.Scale9Sprite") && olua_is_cppobj(L, 5, "ccui.Scale9Sprite")) {
+        // if (auto_olua_is_cocos2d_Size(L, 2) && olua_is_cppobj(L, 3, "ccui.Scale9Sprite") && olua_is_cppobj(L, 4, "ccui.Scale9Sprite") && olua_is_cppobj(L, 5, "ccui.Scale9Sprite")) {
             return _cocos2d_ui_EditBox_initWithSizeAndBackgroundSprite3(L);
         // }
     }
@@ -17000,7 +17000,7 @@ static int _cocos2d_ui_EditBox_initWithSizeAndTexture(lua_State *L)
     lua_Unsigned arg5 = 0;   /** texType */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
-    auto_luacv_check_cocos2d_Size(L, 2, &arg1);
+    auto_olua_check_cocos2d_Size(L, 2, &arg1);
     olua_check_std_string(L, 3, &arg2);
     olua_opt_std_string(L, 4, &arg3, (std::string)"");
     olua_opt_std_string(L, 5, &arg4, (std::string)"");
@@ -17111,7 +17111,7 @@ static int _cocos2d_ui_EditBox_setCapInsets(lua_State *L)
     cocos2d::Rect arg1;       /** capInsets */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
-    manual_luacv_check_cocos2d_Rect(L, 2, &arg1);
+    manual_olua_check_cocos2d_Rect(L, 2, &arg1);
 
     // void setCapInsets(const Rect &capInsets)
     self->setCapInsets(arg1);
@@ -17127,7 +17127,7 @@ static int _cocos2d_ui_EditBox_setCapInsetsDisabledRenderer(lua_State *L)
     cocos2d::Rect arg1;       /** capInsets */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
-    manual_luacv_check_cocos2d_Rect(L, 2, &arg1);
+    manual_olua_check_cocos2d_Rect(L, 2, &arg1);
 
     // void setCapInsetsDisabledRenderer(const Rect &capInsets)
     self->setCapInsetsDisabledRenderer(arg1);
@@ -17143,7 +17143,7 @@ static int _cocos2d_ui_EditBox_setCapInsetsNormalRenderer(lua_State *L)
     cocos2d::Rect arg1;       /** capInsets */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
-    manual_luacv_check_cocos2d_Rect(L, 2, &arg1);
+    manual_olua_check_cocos2d_Rect(L, 2, &arg1);
 
     // void setCapInsetsNormalRenderer(const Rect &capInsets)
     self->setCapInsetsNormalRenderer(arg1);
@@ -17159,7 +17159,7 @@ static int _cocos2d_ui_EditBox_setCapInsetsPressedRenderer(lua_State *L)
     cocos2d::Rect arg1;       /** capInsets */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
-    manual_luacv_check_cocos2d_Rect(L, 2, &arg1);
+    manual_olua_check_cocos2d_Rect(L, 2, &arg1);
 
     // void setCapInsetsPressedRenderer(const Rect &capInsets)
     self->setCapInsetsPressedRenderer(arg1);
@@ -17212,7 +17212,7 @@ static int _cocos2d_ui_EditBox_setFontColor1(lua_State *L)
     cocos2d::Color3B arg1;       /** color */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
-    manual_luacv_check_cocos2d_Color3B(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg1);
 
     // void setFontColor(const Color3B& color)
     self->setFontColor(arg1);
@@ -17228,7 +17228,7 @@ static int _cocos2d_ui_EditBox_setFontColor2(lua_State *L)
     cocos2d::Color4B arg1;       /** color */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
-    manual_luacv_check_cocos2d_Color4B(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color4B(L, 2, &arg1);
 
     // void setFontColor(const Color4B& color)
     self->setFontColor(arg1);
@@ -17241,11 +17241,11 @@ static int _cocos2d_ui_EditBox_setFontColor(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        if (manual_luacv_is_cocos2d_Color3B(L, 2)) {
+        if (manual_olua_is_cocos2d_Color3B(L, 2)) {
             return _cocos2d_ui_EditBox_setFontColor1(L);
         }
 
-        // if (manual_luacv_is_cocos2d_Color4B(L, 2)) {
+        // if (manual_olua_is_cocos2d_Color4B(L, 2)) {
             return _cocos2d_ui_EditBox_setFontColor2(L);
         // }
     }
@@ -17377,7 +17377,7 @@ static int _cocos2d_ui_EditBox_setPlaceholderFontColor1(lua_State *L)
     cocos2d::Color3B arg1;       /** color */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
-    manual_luacv_check_cocos2d_Color3B(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg1);
 
     // void setPlaceholderFontColor(const Color3B& color)
     self->setPlaceholderFontColor(arg1);
@@ -17393,7 +17393,7 @@ static int _cocos2d_ui_EditBox_setPlaceholderFontColor2(lua_State *L)
     cocos2d::Color4B arg1;       /** color */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
-    manual_luacv_check_cocos2d_Color4B(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color4B(L, 2, &arg1);
 
     // void setPlaceholderFontColor(const Color4B& color)
     self->setPlaceholderFontColor(arg1);
@@ -17406,11 +17406,11 @@ static int _cocos2d_ui_EditBox_setPlaceholderFontColor(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        if (manual_luacv_is_cocos2d_Color3B(L, 2)) {
+        if (manual_olua_is_cocos2d_Color3B(L, 2)) {
             return _cocos2d_ui_EditBox_setPlaceholderFontColor1(L);
         }
 
-        // if (manual_luacv_is_cocos2d_Color4B(L, 2)) {
+        // if (manual_olua_is_cocos2d_Color4B(L, 2)) {
             return _cocos2d_ui_EditBox_setPlaceholderFontColor2(L);
         // }
     }

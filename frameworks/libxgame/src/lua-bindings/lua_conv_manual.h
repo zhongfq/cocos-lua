@@ -6,33 +6,33 @@
 
 #include "cocos2d.h"
 
-int manual_luacv_push_cocos2d_Data(lua_State *L, const cocos2d::Data *value);
-int manual_luacv_check_cocos2d_Data(lua_State *L, int idx, cocos2d::Data *value);
+int manual_olua_push_cocos2d_Data(lua_State *L, const cocos2d::Data *value);
+int manual_olua_check_cocos2d_Data(lua_State *L, int idx, cocos2d::Data *value);
 
-int manual_luacv_push_cocos2d_Mat4(lua_State *L, const cocos2d::Mat4 &value);
-void manual_luacv_check_cocos2d_Mat4(lua_State *L, int idx, cocos2d::Mat4 *value);
-bool manual_luacv_is_cocos2d_Mat4(lua_State *L, int idx);
+int manual_olua_push_cocos2d_Mat4(lua_State *L, const cocos2d::Mat4 &value);
+void manual_olua_check_cocos2d_Mat4(lua_State *L, int idx, cocos2d::Mat4 *value);
+bool manual_olua_is_cocos2d_Mat4(lua_State *L, int idx);
 
 // cocos2d::Color3B
-int manual_luacv_push_cocos2d_Color3B(lua_State *L, const cocos2d::Color3B *value);
-void manual_luacv_check_cocos2d_Color3B(lua_State *L, int idx, cocos2d::Color3B *value);
-void manual_luacv_opt_cocos2d_Color3B(lua_State *L, int idx, cocos2d::Color3B *value, const cocos2d::Color3B &def);
-bool manual_luacv_is_cocos2d_Color3B(lua_State *L, int idx);
+int manual_olua_push_cocos2d_Color3B(lua_State *L, const cocos2d::Color3B *value);
+void manual_olua_check_cocos2d_Color3B(lua_State *L, int idx, cocos2d::Color3B *value);
+void manual_olua_opt_cocos2d_Color3B(lua_State *L, int idx, cocos2d::Color3B *value, const cocos2d::Color3B &def);
+bool manual_olua_is_cocos2d_Color3B(lua_State *L, int idx);
 
 // cocos2d::Color4B
-int manual_luacv_push_cocos2d_Color4B(lua_State *L, const cocos2d::Color4B *value);
-void manual_luacv_check_cocos2d_Color4B(lua_State *L, int idx, cocos2d::Color4B *value);
-void manual_luacv_opt_cocos2d_Color4B(lua_State *L, int idx, cocos2d::Color4B *value, const cocos2d::Color4B &def);
-bool manual_luacv_is_cocos2d_Color4B(lua_State *L, int idx);
+int manual_olua_push_cocos2d_Color4B(lua_State *L, const cocos2d::Color4B *value);
+void manual_olua_check_cocos2d_Color4B(lua_State *L, int idx, cocos2d::Color4B *value);
+void manual_olua_opt_cocos2d_Color4B(lua_State *L, int idx, cocos2d::Color4B *value, const cocos2d::Color4B &def);
+bool manual_olua_is_cocos2d_Color4B(lua_State *L, int idx);
 
 // cocos2d::Color4F
-int manual_luacv_push_cocos2d_Color4F(lua_State *L, const cocos2d::Color4F *value);
-void manual_luacv_check_cocos2d_Color4F(lua_State *L, int idx, cocos2d::Color4F *value);
-void manual_luacv_opt_cocos2d_Color4F(lua_State *L, int idx, cocos2d::Color4F *value, const cocos2d::Color4F &def);
-bool manual_luacv_is_cocos2d_Color4F(lua_State *L, int idx);
+int manual_olua_push_cocos2d_Color4F(lua_State *L, const cocos2d::Color4F *value);
+void manual_olua_check_cocos2d_Color4F(lua_State *L, int idx, cocos2d::Color4F *value);
+void manual_olua_opt_cocos2d_Color4F(lua_State *L, int idx, cocos2d::Color4F *value, const cocos2d::Color4F &def);
+bool manual_olua_is_cocos2d_Color4F(lua_State *L, int idx);
 
 // Vector
-template <typename T> int manual_luacv_push_cocos2d_Vector(lua_State *L, const cocos2d::Vector<T*> &v, const char *cls)
+template <typename T> int manual_olua_push_cocos2d_Vector(lua_State *L, const cocos2d::Vector<T*> &v, const char *cls)
 {
     lua_newtable(L);
     int i = 1;
@@ -47,7 +47,7 @@ template <typename T> int manual_luacv_push_cocos2d_Vector(lua_State *L, const c
     return 1;
 }
 
-template <typename T> void manual_luacv_check_cocos2d_Vector(lua_State *L, int idx, cocos2d::Vector<T*> &v, const char *cls)
+template <typename T> void manual_olua_check_cocos2d_Vector(lua_State *L, int idx, cocos2d::Vector<T*> &v, const char *cls)
 {
     luaL_checktype(L, idx, LUA_TTABLE);
     size_t total = lua_rawlen(L, idx);
@@ -61,25 +61,25 @@ template <typename T> void manual_luacv_check_cocos2d_Vector(lua_State *L, int i
     }
 }
 
-int manual_luacv_push_cocos2d_Rect(lua_State *L, const cocos2d::Rect *value);
-void manual_luacv_check_cocos2d_Rect(lua_State *L, int idx, cocos2d::Rect *value);
-void manual_luacv_opt_cocos2d_Rect(lua_State *L, int idx, cocos2d::Rect *value, const cocos2d::Rect &def);
-void manual_luacv_pack_cocos2d_Rect(lua_State *L, int idx, cocos2d::Rect *value);
-int manual_luacv_unpack_cocos2d_Rect(lua_State *L, const cocos2d::Rect *value);
-bool manual_luacv_is_cocos2d_Rect(lua_State *L, int idx);
-void manual_luacv_pack_cocos2d_ccBezierConfig(lua_State *L, int idx, cocos2d::ccBezierConfig *value);
-void manual_luacv_check_cocos2d_ccBezierConfig(lua_State *L, int idx, cocos2d::ccBezierConfig *value);
-bool manual_luacv_is_cocos2d_Value(lua_State *L, int idx);
-void manual_luacv_opt_cocos2d_Value(lua_State *L, int idx, cocos2d::Value *value, const cocos2d::Value &def);
-void manual_luacv_check_cocos2d_Value(lua_State *L, int idx, cocos2d::Value *value);
-int manual_luacv_push_cocos2d_Value(lua_State *L, const cocos2d::Value *value);
-int manual_luacv_is_cocos2d_ValueVector(lua_State *L, int idx);
-int manual_luacv_push_cocos2d_ValueVector(lua_State *L, const cocos2d::ValueVector *value);
-void manual_luacv_check_cocos2d_ValueVector(lua_State *L, int idx, cocos2d::ValueVector *value);
-int manual_luacv_push_cocos2d_ValueMapIntKey(lua_State *L, const cocos2d::ValueMapIntKey *value);
-void manual_luacv_check_cocos2d_ValueMapIntKey(lua_State *L, int idx, cocos2d::ValueMapIntKey *value);
-int manual_luacv_is_cocos2d_ValueMapIntKey(lua_State *L, int idx);
-int manual_luacv_push_cocos2d_ValueMap(lua_State *L, const cocos2d::ValueMap *value);
-void manual_luacv_check_cocos2d_ValueMap(lua_State *L, int idx, cocos2d::ValueMap *value);
+int manual_olua_push_cocos2d_Rect(lua_State *L, const cocos2d::Rect *value);
+void manual_olua_check_cocos2d_Rect(lua_State *L, int idx, cocos2d::Rect *value);
+void manual_olua_opt_cocos2d_Rect(lua_State *L, int idx, cocos2d::Rect *value, const cocos2d::Rect &def);
+void manual_olua_pack_cocos2d_Rect(lua_State *L, int idx, cocos2d::Rect *value);
+int manual_olua_unpack_cocos2d_Rect(lua_State *L, const cocos2d::Rect *value);
+bool manual_olua_is_cocos2d_Rect(lua_State *L, int idx);
+void manual_olua_pack_cocos2d_ccBezierConfig(lua_State *L, int idx, cocos2d::ccBezierConfig *value);
+void manual_olua_check_cocos2d_ccBezierConfig(lua_State *L, int idx, cocos2d::ccBezierConfig *value);
+bool manual_olua_is_cocos2d_Value(lua_State *L, int idx);
+void manual_olua_opt_cocos2d_Value(lua_State *L, int idx, cocos2d::Value *value, const cocos2d::Value &def);
+void manual_olua_check_cocos2d_Value(lua_State *L, int idx, cocos2d::Value *value);
+int manual_olua_push_cocos2d_Value(lua_State *L, const cocos2d::Value *value);
+int manual_olua_is_cocos2d_ValueVector(lua_State *L, int idx);
+int manual_olua_push_cocos2d_ValueVector(lua_State *L, const cocos2d::ValueVector *value);
+void manual_olua_check_cocos2d_ValueVector(lua_State *L, int idx, cocos2d::ValueVector *value);
+int manual_olua_push_cocos2d_ValueMapIntKey(lua_State *L, const cocos2d::ValueMapIntKey *value);
+void manual_olua_check_cocos2d_ValueMapIntKey(lua_State *L, int idx, cocos2d::ValueMapIntKey *value);
+int manual_olua_is_cocos2d_ValueMapIntKey(lua_State *L, int idx);
+int manual_olua_push_cocos2d_ValueMap(lua_State *L, const cocos2d::ValueMap *value);
+void manual_olua_check_cocos2d_ValueMap(lua_State *L, int idx, cocos2d::ValueMap *value);
 
 #endif

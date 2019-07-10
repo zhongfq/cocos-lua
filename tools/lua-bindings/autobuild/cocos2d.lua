@@ -5048,4 +5048,312 @@ cls.funcs [[
     static SplitCols* create(float duration, unsigned int cols)
 ]]
 
+cls = class(M.CLASSES)
+cls.CPPCLS = "cocos2d::ParticleBatchNode"
+cls.SUPERCLS = "cocos2d::Node"
+cls.funcs [[
+    static ParticleBatchNode* createWithTexture(Texture2D *tex, int capacity = kParticleDefaultCapacity)
+    static ParticleBatchNode* create(const std::string& fileImage, int capacity = kParticleDefaultCapacity)
+    void insertChild(ParticleSystem* system, int index)
+    void removeChildAtIndex(int index, bool doCleanup)
+    void disableParticle(int particleIndex)
+    TextureAtlas* getTextureAtlas()
+    void setTextureAtlas(TextureAtlas* atlas)
+    Texture2D* getTexture(void)
+    void setTexture(Texture2D *texture)
+    void setBlendFunc(const BlendFunc &blendFunc)
+    const BlendFunc& getBlendFunc(void)
+    bool initWithTexture(Texture2D *tex, int capacity)
+    bool initWithFile(const std::string& fileImage, int capacity)
+]]
+cls.props [[
+    textureAtlas
+    texture
+    blendFunc
+]]
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "cocos2d::ParticleSystem::Mode"
+cls.enums [[
+    GRAVITY
+    RADIUS
+]]
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "cocos2d::ParticleSystem::PositionType"
+cls.enums [[
+    FREE
+    RELATIVE
+    GROUPED
+]]
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "cocos2d::ParticleSystem"
+cls.SUPERCLS = "cocos2d::Node"
+cls.funcs [[
+    static ParticleSystem * create(const std::string& plistFile)
+    static ParticleSystem* createWithTotalParticles(int numberOfParticles)
+    static Vector<ParticleSystem*>& getAllParticleSystems()
+    void addParticles(int count)
+    void stopSystem()
+    void resetSystem()
+    bool isFull()
+    void updateParticleQuads()
+    void postStep()
+    void updateWithNoTime()
+    bool isAutoRemoveOnFinish()
+    void setAutoRemoveOnFinish(bool var)
+    const Vec2& getGravity()
+    void setGravity(const Vec2& g)
+    float getSpeed()
+    void setSpeed(float speed)
+    float getSpeedVar()
+    void setSpeedVar(float speed)
+    float getTangentialAccel()
+    void setTangentialAccel(float t)
+    float getTangentialAccelVar()
+    void setTangentialAccelVar(float t)
+    float getRadialAccel()
+    void setRadialAccel(float t)
+    float getRadialAccelVar()
+    void setRadialAccelVar(float t)
+    bool getRotationIsDir()
+    void setRotationIsDir(bool t)
+    float getStartRadius()
+    void setStartRadius(float startRadius)
+    float getStartRadiusVar()
+    void setStartRadiusVar(float startRadiusVar)
+    float getEndRadius()
+    void setEndRadius(float endRadius)
+    float getEndRadiusVar()
+    void setEndRadiusVar(float endRadiusVar)
+    float getRotatePerSecond()
+    void setRotatePerSecond(float degrees)
+    float getRotatePerSecondVar()
+    void setRotatePerSecondVar(float degrees)
+    bool isActive()
+    bool isBlendAdditive()
+    void setBlendAdditive(bool value)
+    ParticleBatchNode* getBatchNode()
+    void setBatchNode(ParticleBatchNode* batchNode)
+    int getAtlasIndex()
+    void setAtlasIndex(int index)
+    unsigned int getParticleCount()
+    float getDuration()
+    void setDuration(float duration)
+    const Vec2& getSourcePosition()
+    void setSourcePosition(const Vec2& pos)
+    const Vec2& getPosVar()
+    void setPosVar(const Vec2& pos)
+    float getLife()
+    void setLife(float life)
+    float getLifeVar()
+    void setLifeVar(float lifeVar)
+    float getAngle()
+    void setAngle(float angle)
+    float getAngleVar()
+    void setAngleVar(float angleVar)
+    Mode getEmitterMode()
+    void setEmitterMode(Mode mode)
+    float getStartSize()
+    void setStartSize(float startSize)
+    float getStartSizeVar()
+    void setStartSizeVar(float sizeVar)
+    float getEndSize()
+    void setEndSize(float endSize)
+    float getEndSizeVar()
+    void setEndSizeVar(float sizeVar)
+    const Color4F& getStartColor()
+    void setStartColor(const Color4F& color)
+    const Color4F& getStartColorVar()
+    void setStartColorVar(const Color4F& color)
+    const Color4F& getEndColor()
+    void setEndColor(const Color4F& color)
+    const Color4F& getEndColorVar()
+    void setEndColorVar(const Color4F& color)
+    float getStartSpin()
+    void setStartSpin(float spin)
+    float getStartSpinVar()
+    void setStartSpinVar(float pinVar)
+    float getEndSpin()
+    void setEndSpin(float endSpin)
+    float getEndSpinVar()
+    void setEndSpinVar(float endSpinVar)
+    float getEmissionRate()
+    void setEmissionRate(float rate)
+    int getTotalParticles()
+    void setTotalParticles(int totalParticles)
+    PositionType getPositionType()
+    void setPositionType(PositionType type)
+    Texture2D* getTexture()
+    void setTexture(Texture2D *texture)
+    void setBlendFunc(const BlendFunc &blendFunc)
+    const BlendFunc &getBlendFunc()
+    const std::string& getResourceFile()
+    void start()
+    void stop()
+    void setSourcePositionCompatible(bool sourcePositionCompatible)
+    bool isSourcePositionCompatible()
+    bool initWithFile(const std::string& plistFile)
+    bool initWithDictionary(ValueMap& dictionary)
+    bool initWithDictionary(ValueMap& dictionary, const std::string& dirname)
+    bool initWithTotalParticles(int numberOfParticles)
+    bool isPaused()
+    void pauseEmissions()
+    void resumeEmissions()
+]]
+cls.props [[
+    allParticleSystems
+    full
+    autoRemoveOnFinish
+    gravity
+    speed
+    speedVar
+    tangentialAccel
+    tangentialAccelVar
+    radialAccel
+    radialAccelVar
+    rotationIsDir
+    startRadius
+    startRadiusVar
+    endRadius
+    endRadiusVar
+    rotatePerSecond
+    rotatePerSecondVar
+    active
+    blendAdditive
+    batchNode
+    atlasIndex
+    particleCount
+    duration
+    sourcePosition
+    posVar
+    life
+    lifeVar
+    angle
+    angleVar
+    emitterMode
+    startSize
+    startSizeVar
+    endSize
+    endSizeVar
+    startColor
+    startColorVar
+    endColor
+    endColorVar
+    startSpin
+    startSpinVar
+    endSpin
+    endSpinVar
+    emissionRate
+    totalParticles
+    positionType
+    texture
+    blendFunc
+    resourceFile
+    sourcePositionCompatible
+    paused
+]]
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "cocos2d::ParticleSystemQuad"
+cls.SUPERCLS = "cocos2d::ParticleSystem"
+cls.funcs [[
+    static ParticleSystemQuad * create()
+    static ParticleSystemQuad * createWithTotalParticles(int numberOfParticles)
+    static ParticleSystemQuad * create(const std::string& filename)
+    static ParticleSystemQuad * create(ValueMap &dictionary)
+    void setDisplayFrame(SpriteFrame *spriteFrame)
+    void setTextureWithRect(Texture2D *texture, const Rect& rect)
+    void listenRendererRecreated(EventCustom* event)
+]]
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "cocos2d::ParticleExplosion"
+cls.SUPERCLS = "cocos2d::ParticleSystemQuad"
+cls.funcs [[
+    static ParticleExplosion* create()
+    static ParticleExplosion* createWithTotalParticles(int numberOfParticles)
+]]
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "cocos2d::ParticleFire"
+cls.SUPERCLS = "cocos2d::ParticleSystemQuad"
+cls.funcs [[
+    static ParticleFire* create()
+    static ParticleFire* createWithTotalParticles(int numberOfParticles)
+]]
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "cocos2d::ParticleFireworks"
+cls.SUPERCLS = "cocos2d::ParticleSystemQuad"
+cls.funcs [[
+    static ParticleFireworks* create()
+    static ParticleFireworks* createWithTotalParticles(int numberOfParticles)
+]]
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "cocos2d::ParticleFlower"
+cls.SUPERCLS = "cocos2d::ParticleSystemQuad"
+cls.funcs [[
+    static ParticleFlower* create()
+    static ParticleFlower* createWithTotalParticles(int numberOfParticles)
+]]
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "cocos2d::ParticleGalaxy"
+cls.SUPERCLS = "cocos2d::ParticleSystemQuad"
+cls.funcs [[
+    static ParticleGalaxy* create()
+    static ParticleGalaxy* createWithTotalParticles(int numberOfParticles)
+]]
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "cocos2d::ParticleMeteor"
+cls.SUPERCLS = "cocos2d::ParticleSystemQuad"
+cls.funcs [[
+    static ParticleMeteor * create()
+    static ParticleMeteor* createWithTotalParticles(int numberOfParticles)
+]]
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "cocos2d::ParticleRain"
+cls.SUPERCLS = "cocos2d::ParticleSystemQuad"
+cls.funcs [[
+    static ParticleRain* create()
+    static ParticleRain* createWithTotalParticles(int numberOfParticles)
+]]
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "cocos2d::ParticleSmoke"
+cls.SUPERCLS = "cocos2d::ParticleSystemQuad"
+cls.funcs [[
+    static ParticleSmoke* create()
+    static ParticleSmoke* createWithTotalParticles(int numberOfParticles)
+]]
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "cocos2d::ParticleSnow"
+cls.SUPERCLS = "cocos2d::ParticleSystemQuad"
+cls.funcs [[
+    static ParticleSnow* create()
+    static ParticleSnow* createWithTotalParticles(int numberOfParticles)
+]]
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "cocos2d::ParticleSpiral"
+cls.SUPERCLS = "cocos2d::ParticleSystemQuad"
+cls.funcs [[
+    static ParticleSpiral* create()
+    static ParticleSpiral* createWithTotalParticles(int numberOfParticles)
+]]
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "cocos2d::ParticleSun"
+cls.SUPERCLS = "cocos2d::ParticleSystemQuad"
+cls.funcs [[
+    static ParticleSun* create()
+    static ParticleSun* createWithTotalParticles(int numberOfParticles)
+]]
+
 return M

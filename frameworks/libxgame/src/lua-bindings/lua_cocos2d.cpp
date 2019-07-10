@@ -38854,6 +38854,2718 @@ static int luaopen_cocos2d_SplitCols(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_ParticleBatchNode_create(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    std::string arg1;       /** fileImage */
+    lua_Integer arg2 = 0;   /** capacity */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_opt_int(L, 2, &arg2, (lua_Integer)kParticleDefaultCapacity);
+
+    // static ParticleBatchNode* create(const std::string& fileImage, int capacity = kParticleDefaultCapacity)
+    cocos2d::ParticleBatchNode *ret = (cocos2d::ParticleBatchNode *)cocos2d::ParticleBatchNode::create(arg1, (int)arg2);
+    int num_ret = olua_push_cppobj<cocos2d::ParticleBatchNode>(L, ret, "cc.ParticleBatchNode");
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleBatchNode_createWithTexture(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Texture2D *arg1 = nullptr;   /** tex */
+    lua_Integer arg2 = 0;   /** capacity */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "cc.Texture2D");
+    olua_opt_int(L, 2, &arg2, (lua_Integer)kParticleDefaultCapacity);
+
+    // static ParticleBatchNode* createWithTexture(Texture2D *tex, int capacity = kParticleDefaultCapacity)
+    cocos2d::ParticleBatchNode *ret = (cocos2d::ParticleBatchNode *)cocos2d::ParticleBatchNode::createWithTexture(arg1, (int)arg2);
+    int num_ret = olua_push_cppobj<cocos2d::ParticleBatchNode>(L, ret, "cc.ParticleBatchNode");
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleBatchNode_disableParticle(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleBatchNode *self = nullptr;
+    lua_Integer arg1 = 0;   /** particleIndex */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleBatchNode");
+    olua_check_int(L, 2, &arg1);
+
+    // void disableParticle(int particleIndex)
+    self->disableParticle((int)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleBatchNode_getBlendFunc(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleBatchNode *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleBatchNode");
+
+    // const BlendFunc& getBlendFunc(void)
+    const cocos2d::BlendFunc &ret = (const cocos2d::BlendFunc &)self->getBlendFunc();
+    int num_ret = auto_luacv_push_cocos2d_BlendFunc(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleBatchNode_getTexture(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleBatchNode *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleBatchNode");
+
+    // Texture2D* getTexture(void)
+    cocos2d::Texture2D *ret = (cocos2d::Texture2D *)self->getTexture();
+    int num_ret = olua_push_cppobj<cocos2d::Texture2D>(L, ret, "cc.Texture2D");
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleBatchNode_getTextureAtlas(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleBatchNode *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleBatchNode");
+
+    // TextureAtlas* getTextureAtlas()
+    cocos2d::TextureAtlas *ret = (cocos2d::TextureAtlas *)self->getTextureAtlas();
+    int num_ret = olua_push_cppobj<cocos2d::TextureAtlas>(L, ret, "cc.TextureAtlas");
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleBatchNode_initWithFile(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ParticleBatchNode *self = nullptr;
+    std::string arg1;       /** fileImage */
+    lua_Integer arg2 = 0;   /** capacity */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleBatchNode");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_int(L, 3, &arg2);
+
+    // bool initWithFile(const std::string& fileImage, int capacity)
+    bool ret = (bool)self->initWithFile(arg1, (int)arg2);
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleBatchNode_initWithTexture(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ParticleBatchNode *self = nullptr;
+    cocos2d::Texture2D *arg1 = nullptr;   /** tex */
+    lua_Integer arg2 = 0;   /** capacity */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleBatchNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Texture2D");
+    olua_check_int(L, 3, &arg2);
+
+    // bool initWithTexture(Texture2D *tex, int capacity)
+    bool ret = (bool)self->initWithTexture(arg1, (int)arg2);
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleBatchNode_insertChild(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ParticleBatchNode *self = nullptr;
+    cocos2d::ParticleSystem *arg1 = nullptr;   /** system */
+    lua_Integer arg2 = 0;   /** index */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleBatchNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.ParticleSystem");
+    olua_check_int(L, 3, &arg2);
+
+    // void insertChild(ParticleSystem* system, int index)
+    self->insertChild(arg1, (int)arg2);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleBatchNode_removeChildAtIndex(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ParticleBatchNode *self = nullptr;
+    lua_Integer arg1 = 0;   /** index */
+    bool arg2 = false;   /** doCleanup */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleBatchNode");
+    olua_check_int(L, 2, &arg1);
+    olua_check_bool(L, 3, &arg2);
+
+    // void removeChildAtIndex(int index, bool doCleanup)
+    self->removeChildAtIndex((int)arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleBatchNode_setBlendFunc(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleBatchNode *self = nullptr;
+    cocos2d::BlendFunc arg1;       /** blendFunc */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleBatchNode");
+    auto_luacv_check_cocos2d_BlendFunc(L, 2, &arg1);
+
+    // void setBlendFunc(const BlendFunc &blendFunc)
+    self->setBlendFunc(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleBatchNode_setTexture(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleBatchNode *self = nullptr;
+    cocos2d::Texture2D *arg1 = nullptr;   /** texture */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleBatchNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Texture2D");
+
+    // void setTexture(Texture2D *texture)
+    self->setTexture(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleBatchNode_setTextureAtlas(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleBatchNode *self = nullptr;
+    cocos2d::TextureAtlas *arg1 = nullptr;   /** atlas */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleBatchNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.TextureAtlas");
+
+    // void setTextureAtlas(TextureAtlas* atlas)
+    self->setTextureAtlas(arg1);
+
+    return 0;
+}
+
+static int luaopen_cocos2d_ParticleBatchNode(lua_State *L)
+{
+    oluacls_class(L, "cc.ParticleBatchNode", "cc.Node");
+    oluacls_func(L, "create", _cocos2d_ParticleBatchNode_create);
+    oluacls_func(L, "createWithTexture", _cocos2d_ParticleBatchNode_createWithTexture);
+    oluacls_func(L, "disableParticle", _cocos2d_ParticleBatchNode_disableParticle);
+    oluacls_func(L, "getBlendFunc", _cocos2d_ParticleBatchNode_getBlendFunc);
+    oluacls_func(L, "getTexture", _cocos2d_ParticleBatchNode_getTexture);
+    oluacls_func(L, "getTextureAtlas", _cocos2d_ParticleBatchNode_getTextureAtlas);
+    oluacls_func(L, "initWithFile", _cocos2d_ParticleBatchNode_initWithFile);
+    oluacls_func(L, "initWithTexture", _cocos2d_ParticleBatchNode_initWithTexture);
+    oluacls_func(L, "insertChild", _cocos2d_ParticleBatchNode_insertChild);
+    oluacls_func(L, "removeChildAtIndex", _cocos2d_ParticleBatchNode_removeChildAtIndex);
+    oluacls_func(L, "setBlendFunc", _cocos2d_ParticleBatchNode_setBlendFunc);
+    oluacls_func(L, "setTexture", _cocos2d_ParticleBatchNode_setTexture);
+    oluacls_func(L, "setTextureAtlas", _cocos2d_ParticleBatchNode_setTextureAtlas);
+    oluacls_prop(L, "blendFunc", _cocos2d_ParticleBatchNode_getBlendFunc, _cocos2d_ParticleBatchNode_setBlendFunc);
+    oluacls_prop(L, "texture", _cocos2d_ParticleBatchNode_getTexture, _cocos2d_ParticleBatchNode_setTexture);
+    oluacls_prop(L, "textureAtlas", _cocos2d_ParticleBatchNode_getTextureAtlas, _cocos2d_ParticleBatchNode_setTextureAtlas);
+
+    olua_registerluatype<cocos2d::ParticleBatchNode>(L, "cc.ParticleBatchNode");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_ParticleSystem_Mode(lua_State *L)
+{
+    oluacls_class(L, "cc.ParticleSystem.Mode", nullptr);
+    oluacls_const_integer(L, "GRAVITY", (lua_Integer)cocos2d::ParticleSystem::Mode::GRAVITY);
+    oluacls_const_integer(L, "RADIUS", (lua_Integer)cocos2d::ParticleSystem::Mode::RADIUS);
+
+    olua_registerluatype<cocos2d::ParticleSystem::Mode>(L, "cc.ParticleSystem.Mode");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_ParticleSystem_PositionType(lua_State *L)
+{
+    oluacls_class(L, "cc.ParticleSystem.PositionType", nullptr);
+    oluacls_const_integer(L, "FREE", (lua_Integer)cocos2d::ParticleSystem::PositionType::FREE);
+    oluacls_const_integer(L, "RELATIVE", (lua_Integer)cocos2d::ParticleSystem::PositionType::RELATIVE);
+    oluacls_const_integer(L, "GROUPED", (lua_Integer)cocos2d::ParticleSystem::PositionType::GROUPED);
+
+    olua_registerluatype<cocos2d::ParticleSystem::PositionType>(L, "cc.ParticleSystem.PositionType");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_ParticleSystem_addParticles(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    lua_Integer arg1 = 0;   /** count */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    olua_check_int(L, 2, &arg1);
+
+    // void addParticles(int count)
+    self->addParticles((int)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_create(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    std::string arg1;       /** plistFile */
+
+    olua_check_std_string(L, 1, &arg1);
+
+    // static ParticleSystem * create(const std::string& plistFile)
+    cocos2d::ParticleSystem *ret = (cocos2d::ParticleSystem *)cocos2d::ParticleSystem::create(arg1);
+    int num_ret = olua_push_cppobj<cocos2d::ParticleSystem>(L, ret, "cc.ParticleSystem");
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_createWithTotalParticles(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    lua_Integer arg1 = 0;   /** numberOfParticles */
+
+    olua_check_int(L, 1, &arg1);
+
+    // static ParticleSystem* createWithTotalParticles(int numberOfParticles)
+    cocos2d::ParticleSystem *ret = (cocos2d::ParticleSystem *)cocos2d::ParticleSystem::createWithTotalParticles((int)arg1);
+    int num_ret = olua_push_cppobj<cocos2d::ParticleSystem>(L, ret, "cc.ParticleSystem");
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getAllParticleSystems(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static Vector<ParticleSystem*>& getAllParticleSystems()
+    cocos2d::Vector<cocos2d::ParticleSystem *> &ret = (cocos2d::Vector<cocos2d::ParticleSystem *> &)cocos2d::ParticleSystem::getAllParticleSystems();
+    int num_ret = manual_luacv_push_cocos2d_Vector(L, ret, "cc.ParticleSystem");
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getAngle(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // float getAngle()
+    float ret = (float)self->getAngle();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getAngleVar(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // float getAngleVar()
+    float ret = (float)self->getAngleVar();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getAtlasIndex(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // int getAtlasIndex()
+    int ret = (int)self->getAtlasIndex();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getBatchNode(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // ParticleBatchNode* getBatchNode()
+    cocos2d::ParticleBatchNode *ret = (cocos2d::ParticleBatchNode *)self->getBatchNode();
+    int num_ret = olua_push_cppobj<cocos2d::ParticleBatchNode>(L, ret, "cc.ParticleBatchNode");
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getBlendFunc(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // const BlendFunc &getBlendFunc()
+    const cocos2d::BlendFunc &ret = (const cocos2d::BlendFunc &)self->getBlendFunc();
+    int num_ret = auto_luacv_push_cocos2d_BlendFunc(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getDuration(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // float getDuration()
+    float ret = (float)self->getDuration();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getEmissionRate(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // float getEmissionRate()
+    float ret = (float)self->getEmissionRate();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getEmitterMode(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // Mode getEmitterMode()
+    cocos2d::ParticleSystem::Mode ret = (cocos2d::ParticleSystem::Mode)self->getEmitterMode();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getEndColor(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // const Color4F& getEndColor()
+    const cocos2d::Color4F &ret = (const cocos2d::Color4F &)self->getEndColor();
+    int num_ret = manual_luacv_push_cocos2d_Color4F(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getEndColorVar(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // const Color4F& getEndColorVar()
+    const cocos2d::Color4F &ret = (const cocos2d::Color4F &)self->getEndColorVar();
+    int num_ret = manual_luacv_push_cocos2d_Color4F(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getEndRadius(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // float getEndRadius()
+    float ret = (float)self->getEndRadius();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getEndRadiusVar(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // float getEndRadiusVar()
+    float ret = (float)self->getEndRadiusVar();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getEndSize(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // float getEndSize()
+    float ret = (float)self->getEndSize();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getEndSizeVar(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // float getEndSizeVar()
+    float ret = (float)self->getEndSizeVar();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getEndSpin(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // float getEndSpin()
+    float ret = (float)self->getEndSpin();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getEndSpinVar(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // float getEndSpinVar()
+    float ret = (float)self->getEndSpinVar();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getGravity(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // const Vec2& getGravity()
+    const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getGravity();
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getLife(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // float getLife()
+    float ret = (float)self->getLife();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getLifeVar(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // float getLifeVar()
+    float ret = (float)self->getLifeVar();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getParticleCount(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // unsigned int getParticleCount()
+    unsigned int ret = (unsigned int)self->getParticleCount();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getPosVar(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // const Vec2& getPosVar()
+    const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getPosVar();
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getPositionType(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // PositionType getPositionType()
+    cocos2d::ParticleSystem::PositionType ret = (cocos2d::ParticleSystem::PositionType)self->getPositionType();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getRadialAccel(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // float getRadialAccel()
+    float ret = (float)self->getRadialAccel();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getRadialAccelVar(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // float getRadialAccelVar()
+    float ret = (float)self->getRadialAccelVar();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getResourceFile(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // const std::string& getResourceFile()
+    const std::string &ret = (const std::string &)self->getResourceFile();
+    int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getRotatePerSecond(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // float getRotatePerSecond()
+    float ret = (float)self->getRotatePerSecond();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getRotatePerSecondVar(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // float getRotatePerSecondVar()
+    float ret = (float)self->getRotatePerSecondVar();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getRotationIsDir(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // bool getRotationIsDir()
+    bool ret = (bool)self->getRotationIsDir();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getSourcePosition(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // const Vec2& getSourcePosition()
+    const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getSourcePosition();
+    int num_ret = auto_luacv_push_cocos2d_Vec2(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getSpeed(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // float getSpeed()
+    float ret = (float)self->getSpeed();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getSpeedVar(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // float getSpeedVar()
+    float ret = (float)self->getSpeedVar();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getStartColor(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // const Color4F& getStartColor()
+    const cocos2d::Color4F &ret = (const cocos2d::Color4F &)self->getStartColor();
+    int num_ret = manual_luacv_push_cocos2d_Color4F(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getStartColorVar(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // const Color4F& getStartColorVar()
+    const cocos2d::Color4F &ret = (const cocos2d::Color4F &)self->getStartColorVar();
+    int num_ret = manual_luacv_push_cocos2d_Color4F(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getStartRadius(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // float getStartRadius()
+    float ret = (float)self->getStartRadius();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getStartRadiusVar(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // float getStartRadiusVar()
+    float ret = (float)self->getStartRadiusVar();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getStartSize(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // float getStartSize()
+    float ret = (float)self->getStartSize();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getStartSizeVar(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // float getStartSizeVar()
+    float ret = (float)self->getStartSizeVar();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getStartSpin(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // float getStartSpin()
+    float ret = (float)self->getStartSpin();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getStartSpinVar(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // float getStartSpinVar()
+    float ret = (float)self->getStartSpinVar();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getTangentialAccel(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // float getTangentialAccel()
+    float ret = (float)self->getTangentialAccel();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getTangentialAccelVar(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // float getTangentialAccelVar()
+    float ret = (float)self->getTangentialAccelVar();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getTexture(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // Texture2D* getTexture()
+    cocos2d::Texture2D *ret = (cocos2d::Texture2D *)self->getTexture();
+    int num_ret = olua_push_cppobj<cocos2d::Texture2D>(L, ret, "cc.Texture2D");
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_getTotalParticles(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // int getTotalParticles()
+    int ret = (int)self->getTotalParticles();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_initWithDictionary1(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    cocos2d::ValueMap arg1;       /** dictionary */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    manual_luacv_check_cocos2d_ValueMap(L, 2, &arg1);
+
+    // bool initWithDictionary(ValueMap& dictionary)
+    bool ret = (bool)self->initWithDictionary(arg1);
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_initWithDictionary2(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    cocos2d::ValueMap arg1;       /** dictionary */
+    std::string arg2;       /** dirname */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    manual_luacv_check_cocos2d_ValueMap(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+
+    // bool initWithDictionary(ValueMap& dictionary, const std::string& dirname)
+    bool ret = (bool)self->initWithDictionary(arg1, arg2);
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_initWithDictionary(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if (manual_luacv_is_cocos2d_ValueMap(L, 2)) {
+            return _cocos2d_ParticleSystem_initWithDictionary1(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if (manual_luacv_is_cocos2d_ValueMap(L, 2) && olua_is_std_string(L, 3)) {
+            return _cocos2d_ParticleSystem_initWithDictionary2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ParticleSystem::initWithDictionary' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_initWithFile(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    std::string arg1;       /** plistFile */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    olua_check_std_string(L, 2, &arg1);
+
+    // bool initWithFile(const std::string& plistFile)
+    bool ret = (bool)self->initWithFile(arg1);
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_initWithTotalParticles(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    lua_Integer arg1 = 0;   /** numberOfParticles */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    olua_check_int(L, 2, &arg1);
+
+    // bool initWithTotalParticles(int numberOfParticles)
+    bool ret = (bool)self->initWithTotalParticles((int)arg1);
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_isActive(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // bool isActive()
+    bool ret = (bool)self->isActive();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_isAutoRemoveOnFinish(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // bool isAutoRemoveOnFinish()
+    bool ret = (bool)self->isAutoRemoveOnFinish();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_isBlendAdditive(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // bool isBlendAdditive()
+    bool ret = (bool)self->isBlendAdditive();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_isFull(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // bool isFull()
+    bool ret = (bool)self->isFull();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_isPaused(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // bool isPaused()
+    bool ret = (bool)self->isPaused();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_isSourcePositionCompatible(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // bool isSourcePositionCompatible()
+    bool ret = (bool)self->isSourcePositionCompatible();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystem_pauseEmissions(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // void pauseEmissions()
+    self->pauseEmissions();
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_postStep(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // void postStep()
+    self->postStep();
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_resetSystem(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // void resetSystem()
+    self->resetSystem();
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_resumeEmissions(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // void resumeEmissions()
+    self->resumeEmissions();
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setAngle(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    lua_Number arg1 = 0;   /** angle */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    olua_check_number(L, 2, &arg1);
+
+    // void setAngle(float angle)
+    self->setAngle((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setAngleVar(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    lua_Number arg1 = 0;   /** angleVar */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    olua_check_number(L, 2, &arg1);
+
+    // void setAngleVar(float angleVar)
+    self->setAngleVar((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setAtlasIndex(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    lua_Integer arg1 = 0;   /** index */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    olua_check_int(L, 2, &arg1);
+
+    // void setAtlasIndex(int index)
+    self->setAtlasIndex((int)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setAutoRemoveOnFinish(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    bool arg1 = false;   /** var */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setAutoRemoveOnFinish(bool var)
+    self->setAutoRemoveOnFinish(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setBatchNode(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    cocos2d::ParticleBatchNode *arg1 = nullptr;   /** batchNode */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.ParticleBatchNode");
+
+    // void setBatchNode(ParticleBatchNode* batchNode)
+    self->setBatchNode(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setBlendAdditive(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    bool arg1 = false;   /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setBlendAdditive(bool value)
+    self->setBlendAdditive(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setBlendFunc(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    cocos2d::BlendFunc arg1;       /** blendFunc */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    auto_luacv_check_cocos2d_BlendFunc(L, 2, &arg1);
+
+    // void setBlendFunc(const BlendFunc &blendFunc)
+    self->setBlendFunc(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setDuration(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    lua_Number arg1 = 0;   /** duration */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    olua_check_number(L, 2, &arg1);
+
+    // void setDuration(float duration)
+    self->setDuration((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setEmissionRate(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    lua_Number arg1 = 0;   /** rate */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    olua_check_number(L, 2, &arg1);
+
+    // void setEmissionRate(float rate)
+    self->setEmissionRate((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setEmitterMode(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** mode */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    olua_check_uint(L, 2, &arg1);
+
+    // void setEmitterMode(Mode mode)
+    self->setEmitterMode((cocos2d::ParticleSystem::Mode)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setEndColor(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    cocos2d::Color4F arg1;       /** color */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    manual_luacv_check_cocos2d_Color4F(L, 2, &arg1);
+
+    // void setEndColor(const Color4F& color)
+    self->setEndColor(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setEndColorVar(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    cocos2d::Color4F arg1;       /** color */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    manual_luacv_check_cocos2d_Color4F(L, 2, &arg1);
+
+    // void setEndColorVar(const Color4F& color)
+    self->setEndColorVar(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setEndRadius(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    lua_Number arg1 = 0;   /** endRadius */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    olua_check_number(L, 2, &arg1);
+
+    // void setEndRadius(float endRadius)
+    self->setEndRadius((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setEndRadiusVar(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    lua_Number arg1 = 0;   /** endRadiusVar */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    olua_check_number(L, 2, &arg1);
+
+    // void setEndRadiusVar(float endRadiusVar)
+    self->setEndRadiusVar((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setEndSize(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    lua_Number arg1 = 0;   /** endSize */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    olua_check_number(L, 2, &arg1);
+
+    // void setEndSize(float endSize)
+    self->setEndSize((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setEndSizeVar(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    lua_Number arg1 = 0;   /** sizeVar */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    olua_check_number(L, 2, &arg1);
+
+    // void setEndSizeVar(float sizeVar)
+    self->setEndSizeVar((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setEndSpin(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    lua_Number arg1 = 0;   /** endSpin */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    olua_check_number(L, 2, &arg1);
+
+    // void setEndSpin(float endSpin)
+    self->setEndSpin((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setEndSpinVar(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    lua_Number arg1 = 0;   /** endSpinVar */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    olua_check_number(L, 2, &arg1);
+
+    // void setEndSpinVar(float endSpinVar)
+    self->setEndSpinVar((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setGravity(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    cocos2d::Vec2 arg1;       /** g */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+
+    // void setGravity(const Vec2& g)
+    self->setGravity(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setLife(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    lua_Number arg1 = 0;   /** life */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    olua_check_number(L, 2, &arg1);
+
+    // void setLife(float life)
+    self->setLife((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setLifeVar(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    lua_Number arg1 = 0;   /** lifeVar */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    olua_check_number(L, 2, &arg1);
+
+    // void setLifeVar(float lifeVar)
+    self->setLifeVar((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setPosVar(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    cocos2d::Vec2 arg1;       /** pos */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+
+    // void setPosVar(const Vec2& pos)
+    self->setPosVar(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setPositionType(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    lua_Unsigned arg1 = 0;   /** type */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    olua_check_uint(L, 2, &arg1);
+
+    // void setPositionType(PositionType type)
+    self->setPositionType((cocos2d::ParticleSystem::PositionType)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setRadialAccel(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    lua_Number arg1 = 0;   /** t */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    olua_check_number(L, 2, &arg1);
+
+    // void setRadialAccel(float t)
+    self->setRadialAccel((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setRadialAccelVar(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    lua_Number arg1 = 0;   /** t */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    olua_check_number(L, 2, &arg1);
+
+    // void setRadialAccelVar(float t)
+    self->setRadialAccelVar((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setRotatePerSecond(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    lua_Number arg1 = 0;   /** degrees */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    olua_check_number(L, 2, &arg1);
+
+    // void setRotatePerSecond(float degrees)
+    self->setRotatePerSecond((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setRotatePerSecondVar(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    lua_Number arg1 = 0;   /** degrees */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    olua_check_number(L, 2, &arg1);
+
+    // void setRotatePerSecondVar(float degrees)
+    self->setRotatePerSecondVar((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setRotationIsDir(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    bool arg1 = false;   /** t */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setRotationIsDir(bool t)
+    self->setRotationIsDir(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setSourcePosition(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    cocos2d::Vec2 arg1;       /** pos */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    auto_luacv_check_cocos2d_Vec2(L, 2, &arg1);
+
+    // void setSourcePosition(const Vec2& pos)
+    self->setSourcePosition(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setSourcePositionCompatible(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    bool arg1 = false;   /** sourcePositionCompatible */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setSourcePositionCompatible(bool sourcePositionCompatible)
+    self->setSourcePositionCompatible(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setSpeed(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    lua_Number arg1 = 0;   /** speed */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    olua_check_number(L, 2, &arg1);
+
+    // void setSpeed(float speed)
+    self->setSpeed((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setSpeedVar(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    lua_Number arg1 = 0;   /** speed */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    olua_check_number(L, 2, &arg1);
+
+    // void setSpeedVar(float speed)
+    self->setSpeedVar((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setStartColor(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    cocos2d::Color4F arg1;       /** color */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    manual_luacv_check_cocos2d_Color4F(L, 2, &arg1);
+
+    // void setStartColor(const Color4F& color)
+    self->setStartColor(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setStartColorVar(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    cocos2d::Color4F arg1;       /** color */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    manual_luacv_check_cocos2d_Color4F(L, 2, &arg1);
+
+    // void setStartColorVar(const Color4F& color)
+    self->setStartColorVar(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setStartRadius(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    lua_Number arg1 = 0;   /** startRadius */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    olua_check_number(L, 2, &arg1);
+
+    // void setStartRadius(float startRadius)
+    self->setStartRadius((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setStartRadiusVar(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    lua_Number arg1 = 0;   /** startRadiusVar */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    olua_check_number(L, 2, &arg1);
+
+    // void setStartRadiusVar(float startRadiusVar)
+    self->setStartRadiusVar((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setStartSize(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    lua_Number arg1 = 0;   /** startSize */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    olua_check_number(L, 2, &arg1);
+
+    // void setStartSize(float startSize)
+    self->setStartSize((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setStartSizeVar(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    lua_Number arg1 = 0;   /** sizeVar */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    olua_check_number(L, 2, &arg1);
+
+    // void setStartSizeVar(float sizeVar)
+    self->setStartSizeVar((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setStartSpin(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    lua_Number arg1 = 0;   /** spin */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    olua_check_number(L, 2, &arg1);
+
+    // void setStartSpin(float spin)
+    self->setStartSpin((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setStartSpinVar(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    lua_Number arg1 = 0;   /** pinVar */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    olua_check_number(L, 2, &arg1);
+
+    // void setStartSpinVar(float pinVar)
+    self->setStartSpinVar((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setTangentialAccel(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    lua_Number arg1 = 0;   /** t */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    olua_check_number(L, 2, &arg1);
+
+    // void setTangentialAccel(float t)
+    self->setTangentialAccel((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setTangentialAccelVar(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    lua_Number arg1 = 0;   /** t */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    olua_check_number(L, 2, &arg1);
+
+    // void setTangentialAccelVar(float t)
+    self->setTangentialAccelVar((float)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setTexture(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    cocos2d::Texture2D *arg1 = nullptr;   /** texture */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Texture2D");
+
+    // void setTexture(Texture2D *texture)
+    self->setTexture(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_setTotalParticles(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystem *self = nullptr;
+    lua_Integer arg1 = 0;   /** totalParticles */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+    olua_check_int(L, 2, &arg1);
+
+    // void setTotalParticles(int totalParticles)
+    self->setTotalParticles((int)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_start(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // void start()
+    self->start();
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_stop(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // void stop()
+    self->stop();
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_stopSystem(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // void stopSystem()
+    self->stopSystem();
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_updateParticleQuads(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // void updateParticleQuads()
+    self->updateParticleQuads();
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystem_updateWithNoTime(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ParticleSystem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystem");
+
+    // void updateWithNoTime()
+    self->updateWithNoTime();
+
+    return 0;
+}
+
+static int luaopen_cocos2d_ParticleSystem(lua_State *L)
+{
+    oluacls_class(L, "cc.ParticleSystem", "cc.Node");
+    oluacls_func(L, "addParticles", _cocos2d_ParticleSystem_addParticles);
+    oluacls_func(L, "create", _cocos2d_ParticleSystem_create);
+    oluacls_func(L, "createWithTotalParticles", _cocos2d_ParticleSystem_createWithTotalParticles);
+    oluacls_func(L, "getAllParticleSystems", _cocos2d_ParticleSystem_getAllParticleSystems);
+    oluacls_func(L, "getAngle", _cocos2d_ParticleSystem_getAngle);
+    oluacls_func(L, "getAngleVar", _cocos2d_ParticleSystem_getAngleVar);
+    oluacls_func(L, "getAtlasIndex", _cocos2d_ParticleSystem_getAtlasIndex);
+    oluacls_func(L, "getBatchNode", _cocos2d_ParticleSystem_getBatchNode);
+    oluacls_func(L, "getBlendFunc", _cocos2d_ParticleSystem_getBlendFunc);
+    oluacls_func(L, "getDuration", _cocos2d_ParticleSystem_getDuration);
+    oluacls_func(L, "getEmissionRate", _cocos2d_ParticleSystem_getEmissionRate);
+    oluacls_func(L, "getEmitterMode", _cocos2d_ParticleSystem_getEmitterMode);
+    oluacls_func(L, "getEndColor", _cocos2d_ParticleSystem_getEndColor);
+    oluacls_func(L, "getEndColorVar", _cocos2d_ParticleSystem_getEndColorVar);
+    oluacls_func(L, "getEndRadius", _cocos2d_ParticleSystem_getEndRadius);
+    oluacls_func(L, "getEndRadiusVar", _cocos2d_ParticleSystem_getEndRadiusVar);
+    oluacls_func(L, "getEndSize", _cocos2d_ParticleSystem_getEndSize);
+    oluacls_func(L, "getEndSizeVar", _cocos2d_ParticleSystem_getEndSizeVar);
+    oluacls_func(L, "getEndSpin", _cocos2d_ParticleSystem_getEndSpin);
+    oluacls_func(L, "getEndSpinVar", _cocos2d_ParticleSystem_getEndSpinVar);
+    oluacls_func(L, "getGravity", _cocos2d_ParticleSystem_getGravity);
+    oluacls_func(L, "getLife", _cocos2d_ParticleSystem_getLife);
+    oluacls_func(L, "getLifeVar", _cocos2d_ParticleSystem_getLifeVar);
+    oluacls_func(L, "getParticleCount", _cocos2d_ParticleSystem_getParticleCount);
+    oluacls_func(L, "getPosVar", _cocos2d_ParticleSystem_getPosVar);
+    oluacls_func(L, "getPositionType", _cocos2d_ParticleSystem_getPositionType);
+    oluacls_func(L, "getRadialAccel", _cocos2d_ParticleSystem_getRadialAccel);
+    oluacls_func(L, "getRadialAccelVar", _cocos2d_ParticleSystem_getRadialAccelVar);
+    oluacls_func(L, "getResourceFile", _cocos2d_ParticleSystem_getResourceFile);
+    oluacls_func(L, "getRotatePerSecond", _cocos2d_ParticleSystem_getRotatePerSecond);
+    oluacls_func(L, "getRotatePerSecondVar", _cocos2d_ParticleSystem_getRotatePerSecondVar);
+    oluacls_func(L, "getRotationIsDir", _cocos2d_ParticleSystem_getRotationIsDir);
+    oluacls_func(L, "getSourcePosition", _cocos2d_ParticleSystem_getSourcePosition);
+    oluacls_func(L, "getSpeed", _cocos2d_ParticleSystem_getSpeed);
+    oluacls_func(L, "getSpeedVar", _cocos2d_ParticleSystem_getSpeedVar);
+    oluacls_func(L, "getStartColor", _cocos2d_ParticleSystem_getStartColor);
+    oluacls_func(L, "getStartColorVar", _cocos2d_ParticleSystem_getStartColorVar);
+    oluacls_func(L, "getStartRadius", _cocos2d_ParticleSystem_getStartRadius);
+    oluacls_func(L, "getStartRadiusVar", _cocos2d_ParticleSystem_getStartRadiusVar);
+    oluacls_func(L, "getStartSize", _cocos2d_ParticleSystem_getStartSize);
+    oluacls_func(L, "getStartSizeVar", _cocos2d_ParticleSystem_getStartSizeVar);
+    oluacls_func(L, "getStartSpin", _cocos2d_ParticleSystem_getStartSpin);
+    oluacls_func(L, "getStartSpinVar", _cocos2d_ParticleSystem_getStartSpinVar);
+    oluacls_func(L, "getTangentialAccel", _cocos2d_ParticleSystem_getTangentialAccel);
+    oluacls_func(L, "getTangentialAccelVar", _cocos2d_ParticleSystem_getTangentialAccelVar);
+    oluacls_func(L, "getTexture", _cocos2d_ParticleSystem_getTexture);
+    oluacls_func(L, "getTotalParticles", _cocos2d_ParticleSystem_getTotalParticles);
+    oluacls_func(L, "initWithDictionary", _cocos2d_ParticleSystem_initWithDictionary);
+    oluacls_func(L, "initWithFile", _cocos2d_ParticleSystem_initWithFile);
+    oluacls_func(L, "initWithTotalParticles", _cocos2d_ParticleSystem_initWithTotalParticles);
+    oluacls_func(L, "isActive", _cocos2d_ParticleSystem_isActive);
+    oluacls_func(L, "isAutoRemoveOnFinish", _cocos2d_ParticleSystem_isAutoRemoveOnFinish);
+    oluacls_func(L, "isBlendAdditive", _cocos2d_ParticleSystem_isBlendAdditive);
+    oluacls_func(L, "isFull", _cocos2d_ParticleSystem_isFull);
+    oluacls_func(L, "isPaused", _cocos2d_ParticleSystem_isPaused);
+    oluacls_func(L, "isSourcePositionCompatible", _cocos2d_ParticleSystem_isSourcePositionCompatible);
+    oluacls_func(L, "pauseEmissions", _cocos2d_ParticleSystem_pauseEmissions);
+    oluacls_func(L, "postStep", _cocos2d_ParticleSystem_postStep);
+    oluacls_func(L, "resetSystem", _cocos2d_ParticleSystem_resetSystem);
+    oluacls_func(L, "resumeEmissions", _cocos2d_ParticleSystem_resumeEmissions);
+    oluacls_func(L, "setAngle", _cocos2d_ParticleSystem_setAngle);
+    oluacls_func(L, "setAngleVar", _cocos2d_ParticleSystem_setAngleVar);
+    oluacls_func(L, "setAtlasIndex", _cocos2d_ParticleSystem_setAtlasIndex);
+    oluacls_func(L, "setAutoRemoveOnFinish", _cocos2d_ParticleSystem_setAutoRemoveOnFinish);
+    oluacls_func(L, "setBatchNode", _cocos2d_ParticleSystem_setBatchNode);
+    oluacls_func(L, "setBlendAdditive", _cocos2d_ParticleSystem_setBlendAdditive);
+    oluacls_func(L, "setBlendFunc", _cocos2d_ParticleSystem_setBlendFunc);
+    oluacls_func(L, "setDuration", _cocos2d_ParticleSystem_setDuration);
+    oluacls_func(L, "setEmissionRate", _cocos2d_ParticleSystem_setEmissionRate);
+    oluacls_func(L, "setEmitterMode", _cocos2d_ParticleSystem_setEmitterMode);
+    oluacls_func(L, "setEndColor", _cocos2d_ParticleSystem_setEndColor);
+    oluacls_func(L, "setEndColorVar", _cocos2d_ParticleSystem_setEndColorVar);
+    oluacls_func(L, "setEndRadius", _cocos2d_ParticleSystem_setEndRadius);
+    oluacls_func(L, "setEndRadiusVar", _cocos2d_ParticleSystem_setEndRadiusVar);
+    oluacls_func(L, "setEndSize", _cocos2d_ParticleSystem_setEndSize);
+    oluacls_func(L, "setEndSizeVar", _cocos2d_ParticleSystem_setEndSizeVar);
+    oluacls_func(L, "setEndSpin", _cocos2d_ParticleSystem_setEndSpin);
+    oluacls_func(L, "setEndSpinVar", _cocos2d_ParticleSystem_setEndSpinVar);
+    oluacls_func(L, "setGravity", _cocos2d_ParticleSystem_setGravity);
+    oluacls_func(L, "setLife", _cocos2d_ParticleSystem_setLife);
+    oluacls_func(L, "setLifeVar", _cocos2d_ParticleSystem_setLifeVar);
+    oluacls_func(L, "setPosVar", _cocos2d_ParticleSystem_setPosVar);
+    oluacls_func(L, "setPositionType", _cocos2d_ParticleSystem_setPositionType);
+    oluacls_func(L, "setRadialAccel", _cocos2d_ParticleSystem_setRadialAccel);
+    oluacls_func(L, "setRadialAccelVar", _cocos2d_ParticleSystem_setRadialAccelVar);
+    oluacls_func(L, "setRotatePerSecond", _cocos2d_ParticleSystem_setRotatePerSecond);
+    oluacls_func(L, "setRotatePerSecondVar", _cocos2d_ParticleSystem_setRotatePerSecondVar);
+    oluacls_func(L, "setRotationIsDir", _cocos2d_ParticleSystem_setRotationIsDir);
+    oluacls_func(L, "setSourcePosition", _cocos2d_ParticleSystem_setSourcePosition);
+    oluacls_func(L, "setSourcePositionCompatible", _cocos2d_ParticleSystem_setSourcePositionCompatible);
+    oluacls_func(L, "setSpeed", _cocos2d_ParticleSystem_setSpeed);
+    oluacls_func(L, "setSpeedVar", _cocos2d_ParticleSystem_setSpeedVar);
+    oluacls_func(L, "setStartColor", _cocos2d_ParticleSystem_setStartColor);
+    oluacls_func(L, "setStartColorVar", _cocos2d_ParticleSystem_setStartColorVar);
+    oluacls_func(L, "setStartRadius", _cocos2d_ParticleSystem_setStartRadius);
+    oluacls_func(L, "setStartRadiusVar", _cocos2d_ParticleSystem_setStartRadiusVar);
+    oluacls_func(L, "setStartSize", _cocos2d_ParticleSystem_setStartSize);
+    oluacls_func(L, "setStartSizeVar", _cocos2d_ParticleSystem_setStartSizeVar);
+    oluacls_func(L, "setStartSpin", _cocos2d_ParticleSystem_setStartSpin);
+    oluacls_func(L, "setStartSpinVar", _cocos2d_ParticleSystem_setStartSpinVar);
+    oluacls_func(L, "setTangentialAccel", _cocos2d_ParticleSystem_setTangentialAccel);
+    oluacls_func(L, "setTangentialAccelVar", _cocos2d_ParticleSystem_setTangentialAccelVar);
+    oluacls_func(L, "setTexture", _cocos2d_ParticleSystem_setTexture);
+    oluacls_func(L, "setTotalParticles", _cocos2d_ParticleSystem_setTotalParticles);
+    oluacls_func(L, "start", _cocos2d_ParticleSystem_start);
+    oluacls_func(L, "stop", _cocos2d_ParticleSystem_stop);
+    oluacls_func(L, "stopSystem", _cocos2d_ParticleSystem_stopSystem);
+    oluacls_func(L, "updateParticleQuads", _cocos2d_ParticleSystem_updateParticleQuads);
+    oluacls_func(L, "updateWithNoTime", _cocos2d_ParticleSystem_updateWithNoTime);
+    oluacls_prop(L, "active", _cocos2d_ParticleSystem_isActive, nullptr);
+    oluacls_prop(L, "allParticleSystems", _cocos2d_ParticleSystem_getAllParticleSystems, nullptr);
+    oluacls_prop(L, "angle", _cocos2d_ParticleSystem_getAngle, _cocos2d_ParticleSystem_setAngle);
+    oluacls_prop(L, "angleVar", _cocos2d_ParticleSystem_getAngleVar, _cocos2d_ParticleSystem_setAngleVar);
+    oluacls_prop(L, "atlasIndex", _cocos2d_ParticleSystem_getAtlasIndex, _cocos2d_ParticleSystem_setAtlasIndex);
+    oluacls_prop(L, "autoRemoveOnFinish", _cocos2d_ParticleSystem_isAutoRemoveOnFinish, _cocos2d_ParticleSystem_setAutoRemoveOnFinish);
+    oluacls_prop(L, "batchNode", _cocos2d_ParticleSystem_getBatchNode, _cocos2d_ParticleSystem_setBatchNode);
+    oluacls_prop(L, "blendAdditive", _cocos2d_ParticleSystem_isBlendAdditive, _cocos2d_ParticleSystem_setBlendAdditive);
+    oluacls_prop(L, "blendFunc", _cocos2d_ParticleSystem_getBlendFunc, _cocos2d_ParticleSystem_setBlendFunc);
+    oluacls_prop(L, "duration", _cocos2d_ParticleSystem_getDuration, _cocos2d_ParticleSystem_setDuration);
+    oluacls_prop(L, "emissionRate", _cocos2d_ParticleSystem_getEmissionRate, _cocos2d_ParticleSystem_setEmissionRate);
+    oluacls_prop(L, "emitterMode", _cocos2d_ParticleSystem_getEmitterMode, _cocos2d_ParticleSystem_setEmitterMode);
+    oluacls_prop(L, "endColor", _cocos2d_ParticleSystem_getEndColor, _cocos2d_ParticleSystem_setEndColor);
+    oluacls_prop(L, "endColorVar", _cocos2d_ParticleSystem_getEndColorVar, _cocos2d_ParticleSystem_setEndColorVar);
+    oluacls_prop(L, "endRadius", _cocos2d_ParticleSystem_getEndRadius, _cocos2d_ParticleSystem_setEndRadius);
+    oluacls_prop(L, "endRadiusVar", _cocos2d_ParticleSystem_getEndRadiusVar, _cocos2d_ParticleSystem_setEndRadiusVar);
+    oluacls_prop(L, "endSize", _cocos2d_ParticleSystem_getEndSize, _cocos2d_ParticleSystem_setEndSize);
+    oluacls_prop(L, "endSizeVar", _cocos2d_ParticleSystem_getEndSizeVar, _cocos2d_ParticleSystem_setEndSizeVar);
+    oluacls_prop(L, "endSpin", _cocos2d_ParticleSystem_getEndSpin, _cocos2d_ParticleSystem_setEndSpin);
+    oluacls_prop(L, "endSpinVar", _cocos2d_ParticleSystem_getEndSpinVar, _cocos2d_ParticleSystem_setEndSpinVar);
+    oluacls_prop(L, "full", _cocos2d_ParticleSystem_isFull, nullptr);
+    oluacls_prop(L, "gravity", _cocos2d_ParticleSystem_getGravity, _cocos2d_ParticleSystem_setGravity);
+    oluacls_prop(L, "life", _cocos2d_ParticleSystem_getLife, _cocos2d_ParticleSystem_setLife);
+    oluacls_prop(L, "lifeVar", _cocos2d_ParticleSystem_getLifeVar, _cocos2d_ParticleSystem_setLifeVar);
+    oluacls_prop(L, "particleCount", _cocos2d_ParticleSystem_getParticleCount, nullptr);
+    oluacls_prop(L, "paused", _cocos2d_ParticleSystem_isPaused, nullptr);
+    oluacls_prop(L, "posVar", _cocos2d_ParticleSystem_getPosVar, _cocos2d_ParticleSystem_setPosVar);
+    oluacls_prop(L, "positionType", _cocos2d_ParticleSystem_getPositionType, _cocos2d_ParticleSystem_setPositionType);
+    oluacls_prop(L, "radialAccel", _cocos2d_ParticleSystem_getRadialAccel, _cocos2d_ParticleSystem_setRadialAccel);
+    oluacls_prop(L, "radialAccelVar", _cocos2d_ParticleSystem_getRadialAccelVar, _cocos2d_ParticleSystem_setRadialAccelVar);
+    oluacls_prop(L, "resourceFile", _cocos2d_ParticleSystem_getResourceFile, nullptr);
+    oluacls_prop(L, "rotatePerSecond", _cocos2d_ParticleSystem_getRotatePerSecond, _cocos2d_ParticleSystem_setRotatePerSecond);
+    oluacls_prop(L, "rotatePerSecondVar", _cocos2d_ParticleSystem_getRotatePerSecondVar, _cocos2d_ParticleSystem_setRotatePerSecondVar);
+    oluacls_prop(L, "rotationIsDir", _cocos2d_ParticleSystem_getRotationIsDir, _cocos2d_ParticleSystem_setRotationIsDir);
+    oluacls_prop(L, "sourcePosition", _cocos2d_ParticleSystem_getSourcePosition, _cocos2d_ParticleSystem_setSourcePosition);
+    oluacls_prop(L, "sourcePositionCompatible", _cocos2d_ParticleSystem_isSourcePositionCompatible, _cocos2d_ParticleSystem_setSourcePositionCompatible);
+    oluacls_prop(L, "speed", _cocos2d_ParticleSystem_getSpeed, _cocos2d_ParticleSystem_setSpeed);
+    oluacls_prop(L, "speedVar", _cocos2d_ParticleSystem_getSpeedVar, _cocos2d_ParticleSystem_setSpeedVar);
+    oluacls_prop(L, "startColor", _cocos2d_ParticleSystem_getStartColor, _cocos2d_ParticleSystem_setStartColor);
+    oluacls_prop(L, "startColorVar", _cocos2d_ParticleSystem_getStartColorVar, _cocos2d_ParticleSystem_setStartColorVar);
+    oluacls_prop(L, "startRadius", _cocos2d_ParticleSystem_getStartRadius, _cocos2d_ParticleSystem_setStartRadius);
+    oluacls_prop(L, "startRadiusVar", _cocos2d_ParticleSystem_getStartRadiusVar, _cocos2d_ParticleSystem_setStartRadiusVar);
+    oluacls_prop(L, "startSize", _cocos2d_ParticleSystem_getStartSize, _cocos2d_ParticleSystem_setStartSize);
+    oluacls_prop(L, "startSizeVar", _cocos2d_ParticleSystem_getStartSizeVar, _cocos2d_ParticleSystem_setStartSizeVar);
+    oluacls_prop(L, "startSpin", _cocos2d_ParticleSystem_getStartSpin, _cocos2d_ParticleSystem_setStartSpin);
+    oluacls_prop(L, "startSpinVar", _cocos2d_ParticleSystem_getStartSpinVar, _cocos2d_ParticleSystem_setStartSpinVar);
+    oluacls_prop(L, "tangentialAccel", _cocos2d_ParticleSystem_getTangentialAccel, _cocos2d_ParticleSystem_setTangentialAccel);
+    oluacls_prop(L, "tangentialAccelVar", _cocos2d_ParticleSystem_getTangentialAccelVar, _cocos2d_ParticleSystem_setTangentialAccelVar);
+    oluacls_prop(L, "texture", _cocos2d_ParticleSystem_getTexture, _cocos2d_ParticleSystem_setTexture);
+    oluacls_prop(L, "totalParticles", _cocos2d_ParticleSystem_getTotalParticles, _cocos2d_ParticleSystem_setTotalParticles);
+
+    olua_registerluatype<cocos2d::ParticleSystem>(L, "cc.ParticleSystem");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_ParticleSystemQuad_create1(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static ParticleSystemQuad * create()
+    cocos2d::ParticleSystemQuad *ret = (cocos2d::ParticleSystemQuad *)cocos2d::ParticleSystemQuad::create();
+    int num_ret = olua_push_cppobj<cocos2d::ParticleSystemQuad>(L, ret, "cc.ParticleSystemQuad");
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystemQuad_create2(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    std::string arg1;       /** filename */
+
+    olua_check_std_string(L, 1, &arg1);
+
+    // static ParticleSystemQuad * create(const std::string& filename)
+    cocos2d::ParticleSystemQuad *ret = (cocos2d::ParticleSystemQuad *)cocos2d::ParticleSystemQuad::create(arg1);
+    int num_ret = olua_push_cppobj<cocos2d::ParticleSystemQuad>(L, ret, "cc.ParticleSystemQuad");
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystemQuad_create3(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::ValueMap arg1;       /** dictionary */
+
+    manual_luacv_check_cocos2d_ValueMap(L, 1, &arg1);
+
+    // static ParticleSystemQuad * create(ValueMap &dictionary)
+    cocos2d::ParticleSystemQuad *ret = (cocos2d::ParticleSystemQuad *)cocos2d::ParticleSystemQuad::create(arg1);
+    int num_ret = olua_push_cppobj<cocos2d::ParticleSystemQuad>(L, ret, "cc.ParticleSystemQuad");
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystemQuad_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        return _cocos2d_ParticleSystemQuad_create1(L);
+    }
+
+    if (num_args == 1) {
+        if (olua_is_std_string(L, 1)) {
+            return _cocos2d_ParticleSystemQuad_create2(L);
+        }
+
+        // if (manual_luacv_is_cocos2d_ValueMap(L, 1)) {
+            return _cocos2d_ParticleSystemQuad_create3(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ParticleSystemQuad::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystemQuad_createWithTotalParticles(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    lua_Integer arg1 = 0;   /** numberOfParticles */
+
+    olua_check_int(L, 1, &arg1);
+
+    // static ParticleSystemQuad * createWithTotalParticles(int numberOfParticles)
+    cocos2d::ParticleSystemQuad *ret = (cocos2d::ParticleSystemQuad *)cocos2d::ParticleSystemQuad::createWithTotalParticles((int)arg1);
+    int num_ret = olua_push_cppobj<cocos2d::ParticleSystemQuad>(L, ret, "cc.ParticleSystemQuad");
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSystemQuad_listenRendererRecreated(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystemQuad *self = nullptr;
+    cocos2d::EventCustom *arg1 = nullptr;   /** event */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystemQuad");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.EventCustom");
+
+    // void listenRendererRecreated(EventCustom* event)
+    self->listenRendererRecreated(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystemQuad_setDisplayFrame(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::ParticleSystemQuad *self = nullptr;
+    cocos2d::SpriteFrame *arg1 = nullptr;   /** spriteFrame */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystemQuad");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.SpriteFrame");
+
+    // void setDisplayFrame(SpriteFrame *spriteFrame)
+    self->setDisplayFrame(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleSystemQuad_setTextureWithRect(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::ParticleSystemQuad *self = nullptr;
+    cocos2d::Texture2D *arg1 = nullptr;   /** texture */
+    cocos2d::Rect arg2;       /** rect */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ParticleSystemQuad");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Texture2D");
+    manual_luacv_check_cocos2d_Rect(L, 3, &arg2);
+
+    // void setTextureWithRect(Texture2D *texture, const Rect& rect)
+    self->setTextureWithRect(arg1, arg2);
+
+    return 0;
+}
+
+static int luaopen_cocos2d_ParticleSystemQuad(lua_State *L)
+{
+    oluacls_class(L, "cc.ParticleSystemQuad", "cc.ParticleSystem");
+    oluacls_func(L, "create", _cocos2d_ParticleSystemQuad_create);
+    oluacls_func(L, "createWithTotalParticles", _cocos2d_ParticleSystemQuad_createWithTotalParticles);
+    oluacls_func(L, "listenRendererRecreated", _cocos2d_ParticleSystemQuad_listenRendererRecreated);
+    oluacls_func(L, "setDisplayFrame", _cocos2d_ParticleSystemQuad_setDisplayFrame);
+    oluacls_func(L, "setTextureWithRect", _cocos2d_ParticleSystemQuad_setTextureWithRect);
+
+    olua_registerluatype<cocos2d::ParticleSystemQuad>(L, "cc.ParticleSystemQuad");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_ParticleExplosion_create(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static ParticleExplosion* create()
+    cocos2d::ParticleExplosion *ret = (cocos2d::ParticleExplosion *)cocos2d::ParticleExplosion::create();
+    int num_ret = olua_push_cppobj<cocos2d::ParticleExplosion>(L, ret, "cc.ParticleExplosion");
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleExplosion_createWithTotalParticles(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    lua_Integer arg1 = 0;   /** numberOfParticles */
+
+    olua_check_int(L, 1, &arg1);
+
+    // static ParticleExplosion* createWithTotalParticles(int numberOfParticles)
+    cocos2d::ParticleExplosion *ret = (cocos2d::ParticleExplosion *)cocos2d::ParticleExplosion::createWithTotalParticles((int)arg1);
+    int num_ret = olua_push_cppobj<cocos2d::ParticleExplosion>(L, ret, "cc.ParticleExplosion");
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_ParticleExplosion(lua_State *L)
+{
+    oluacls_class(L, "cc.ParticleExplosion", "cc.ParticleSystemQuad");
+    oluacls_func(L, "create", _cocos2d_ParticleExplosion_create);
+    oluacls_func(L, "createWithTotalParticles", _cocos2d_ParticleExplosion_createWithTotalParticles);
+
+    olua_registerluatype<cocos2d::ParticleExplosion>(L, "cc.ParticleExplosion");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_ParticleFire_create(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static ParticleFire* create()
+    cocos2d::ParticleFire *ret = (cocos2d::ParticleFire *)cocos2d::ParticleFire::create();
+    int num_ret = olua_push_cppobj<cocos2d::ParticleFire>(L, ret, "cc.ParticleFire");
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleFire_createWithTotalParticles(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    lua_Integer arg1 = 0;   /** numberOfParticles */
+
+    olua_check_int(L, 1, &arg1);
+
+    // static ParticleFire* createWithTotalParticles(int numberOfParticles)
+    cocos2d::ParticleFire *ret = (cocos2d::ParticleFire *)cocos2d::ParticleFire::createWithTotalParticles((int)arg1);
+    int num_ret = olua_push_cppobj<cocos2d::ParticleFire>(L, ret, "cc.ParticleFire");
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_ParticleFire(lua_State *L)
+{
+    oluacls_class(L, "cc.ParticleFire", "cc.ParticleSystemQuad");
+    oluacls_func(L, "create", _cocos2d_ParticleFire_create);
+    oluacls_func(L, "createWithTotalParticles", _cocos2d_ParticleFire_createWithTotalParticles);
+
+    olua_registerluatype<cocos2d::ParticleFire>(L, "cc.ParticleFire");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_ParticleFireworks_create(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static ParticleFireworks* create()
+    cocos2d::ParticleFireworks *ret = (cocos2d::ParticleFireworks *)cocos2d::ParticleFireworks::create();
+    int num_ret = olua_push_cppobj<cocos2d::ParticleFireworks>(L, ret, "cc.ParticleFireworks");
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleFireworks_createWithTotalParticles(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    lua_Integer arg1 = 0;   /** numberOfParticles */
+
+    olua_check_int(L, 1, &arg1);
+
+    // static ParticleFireworks* createWithTotalParticles(int numberOfParticles)
+    cocos2d::ParticleFireworks *ret = (cocos2d::ParticleFireworks *)cocos2d::ParticleFireworks::createWithTotalParticles((int)arg1);
+    int num_ret = olua_push_cppobj<cocos2d::ParticleFireworks>(L, ret, "cc.ParticleFireworks");
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_ParticleFireworks(lua_State *L)
+{
+    oluacls_class(L, "cc.ParticleFireworks", "cc.ParticleSystemQuad");
+    oluacls_func(L, "create", _cocos2d_ParticleFireworks_create);
+    oluacls_func(L, "createWithTotalParticles", _cocos2d_ParticleFireworks_createWithTotalParticles);
+
+    olua_registerluatype<cocos2d::ParticleFireworks>(L, "cc.ParticleFireworks");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_ParticleFlower_create(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static ParticleFlower* create()
+    cocos2d::ParticleFlower *ret = (cocos2d::ParticleFlower *)cocos2d::ParticleFlower::create();
+    int num_ret = olua_push_cppobj<cocos2d::ParticleFlower>(L, ret, "cc.ParticleFlower");
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleFlower_createWithTotalParticles(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    lua_Integer arg1 = 0;   /** numberOfParticles */
+
+    olua_check_int(L, 1, &arg1);
+
+    // static ParticleFlower* createWithTotalParticles(int numberOfParticles)
+    cocos2d::ParticleFlower *ret = (cocos2d::ParticleFlower *)cocos2d::ParticleFlower::createWithTotalParticles((int)arg1);
+    int num_ret = olua_push_cppobj<cocos2d::ParticleFlower>(L, ret, "cc.ParticleFlower");
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_ParticleFlower(lua_State *L)
+{
+    oluacls_class(L, "cc.ParticleFlower", "cc.ParticleSystemQuad");
+    oluacls_func(L, "create", _cocos2d_ParticleFlower_create);
+    oluacls_func(L, "createWithTotalParticles", _cocos2d_ParticleFlower_createWithTotalParticles);
+
+    olua_registerluatype<cocos2d::ParticleFlower>(L, "cc.ParticleFlower");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_ParticleGalaxy_create(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static ParticleGalaxy* create()
+    cocos2d::ParticleGalaxy *ret = (cocos2d::ParticleGalaxy *)cocos2d::ParticleGalaxy::create();
+    int num_ret = olua_push_cppobj<cocos2d::ParticleGalaxy>(L, ret, "cc.ParticleGalaxy");
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleGalaxy_createWithTotalParticles(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    lua_Integer arg1 = 0;   /** numberOfParticles */
+
+    olua_check_int(L, 1, &arg1);
+
+    // static ParticleGalaxy* createWithTotalParticles(int numberOfParticles)
+    cocos2d::ParticleGalaxy *ret = (cocos2d::ParticleGalaxy *)cocos2d::ParticleGalaxy::createWithTotalParticles((int)arg1);
+    int num_ret = olua_push_cppobj<cocos2d::ParticleGalaxy>(L, ret, "cc.ParticleGalaxy");
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_ParticleGalaxy(lua_State *L)
+{
+    oluacls_class(L, "cc.ParticleGalaxy", "cc.ParticleSystemQuad");
+    oluacls_func(L, "create", _cocos2d_ParticleGalaxy_create);
+    oluacls_func(L, "createWithTotalParticles", _cocos2d_ParticleGalaxy_createWithTotalParticles);
+
+    olua_registerluatype<cocos2d::ParticleGalaxy>(L, "cc.ParticleGalaxy");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_ParticleMeteor_create(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static ParticleMeteor * create()
+    cocos2d::ParticleMeteor *ret = (cocos2d::ParticleMeteor *)cocos2d::ParticleMeteor::create();
+    int num_ret = olua_push_cppobj<cocos2d::ParticleMeteor>(L, ret, "cc.ParticleMeteor");
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleMeteor_createWithTotalParticles(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    lua_Integer arg1 = 0;   /** numberOfParticles */
+
+    olua_check_int(L, 1, &arg1);
+
+    // static ParticleMeteor* createWithTotalParticles(int numberOfParticles)
+    cocos2d::ParticleMeteor *ret = (cocos2d::ParticleMeteor *)cocos2d::ParticleMeteor::createWithTotalParticles((int)arg1);
+    int num_ret = olua_push_cppobj<cocos2d::ParticleMeteor>(L, ret, "cc.ParticleMeteor");
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_ParticleMeteor(lua_State *L)
+{
+    oluacls_class(L, "cc.ParticleMeteor", "cc.ParticleSystemQuad");
+    oluacls_func(L, "create", _cocos2d_ParticleMeteor_create);
+    oluacls_func(L, "createWithTotalParticles", _cocos2d_ParticleMeteor_createWithTotalParticles);
+
+    olua_registerluatype<cocos2d::ParticleMeteor>(L, "cc.ParticleMeteor");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_ParticleRain_create(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static ParticleRain* create()
+    cocos2d::ParticleRain *ret = (cocos2d::ParticleRain *)cocos2d::ParticleRain::create();
+    int num_ret = olua_push_cppobj<cocos2d::ParticleRain>(L, ret, "cc.ParticleRain");
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleRain_createWithTotalParticles(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    lua_Integer arg1 = 0;   /** numberOfParticles */
+
+    olua_check_int(L, 1, &arg1);
+
+    // static ParticleRain* createWithTotalParticles(int numberOfParticles)
+    cocos2d::ParticleRain *ret = (cocos2d::ParticleRain *)cocos2d::ParticleRain::createWithTotalParticles((int)arg1);
+    int num_ret = olua_push_cppobj<cocos2d::ParticleRain>(L, ret, "cc.ParticleRain");
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_ParticleRain(lua_State *L)
+{
+    oluacls_class(L, "cc.ParticleRain", "cc.ParticleSystemQuad");
+    oluacls_func(L, "create", _cocos2d_ParticleRain_create);
+    oluacls_func(L, "createWithTotalParticles", _cocos2d_ParticleRain_createWithTotalParticles);
+
+    olua_registerluatype<cocos2d::ParticleRain>(L, "cc.ParticleRain");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_ParticleSmoke_create(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static ParticleSmoke* create()
+    cocos2d::ParticleSmoke *ret = (cocos2d::ParticleSmoke *)cocos2d::ParticleSmoke::create();
+    int num_ret = olua_push_cppobj<cocos2d::ParticleSmoke>(L, ret, "cc.ParticleSmoke");
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSmoke_createWithTotalParticles(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    lua_Integer arg1 = 0;   /** numberOfParticles */
+
+    olua_check_int(L, 1, &arg1);
+
+    // static ParticleSmoke* createWithTotalParticles(int numberOfParticles)
+    cocos2d::ParticleSmoke *ret = (cocos2d::ParticleSmoke *)cocos2d::ParticleSmoke::createWithTotalParticles((int)arg1);
+    int num_ret = olua_push_cppobj<cocos2d::ParticleSmoke>(L, ret, "cc.ParticleSmoke");
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_ParticleSmoke(lua_State *L)
+{
+    oluacls_class(L, "cc.ParticleSmoke", "cc.ParticleSystemQuad");
+    oluacls_func(L, "create", _cocos2d_ParticleSmoke_create);
+    oluacls_func(L, "createWithTotalParticles", _cocos2d_ParticleSmoke_createWithTotalParticles);
+
+    olua_registerluatype<cocos2d::ParticleSmoke>(L, "cc.ParticleSmoke");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_ParticleSnow_create(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static ParticleSnow* create()
+    cocos2d::ParticleSnow *ret = (cocos2d::ParticleSnow *)cocos2d::ParticleSnow::create();
+    int num_ret = olua_push_cppobj<cocos2d::ParticleSnow>(L, ret, "cc.ParticleSnow");
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSnow_createWithTotalParticles(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    lua_Integer arg1 = 0;   /** numberOfParticles */
+
+    olua_check_int(L, 1, &arg1);
+
+    // static ParticleSnow* createWithTotalParticles(int numberOfParticles)
+    cocos2d::ParticleSnow *ret = (cocos2d::ParticleSnow *)cocos2d::ParticleSnow::createWithTotalParticles((int)arg1);
+    int num_ret = olua_push_cppobj<cocos2d::ParticleSnow>(L, ret, "cc.ParticleSnow");
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_ParticleSnow(lua_State *L)
+{
+    oluacls_class(L, "cc.ParticleSnow", "cc.ParticleSystemQuad");
+    oluacls_func(L, "create", _cocos2d_ParticleSnow_create);
+    oluacls_func(L, "createWithTotalParticles", _cocos2d_ParticleSnow_createWithTotalParticles);
+
+    olua_registerluatype<cocos2d::ParticleSnow>(L, "cc.ParticleSnow");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_ParticleSpiral_create(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static ParticleSpiral* create()
+    cocos2d::ParticleSpiral *ret = (cocos2d::ParticleSpiral *)cocos2d::ParticleSpiral::create();
+    int num_ret = olua_push_cppobj<cocos2d::ParticleSpiral>(L, ret, "cc.ParticleSpiral");
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSpiral_createWithTotalParticles(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    lua_Integer arg1 = 0;   /** numberOfParticles */
+
+    olua_check_int(L, 1, &arg1);
+
+    // static ParticleSpiral* createWithTotalParticles(int numberOfParticles)
+    cocos2d::ParticleSpiral *ret = (cocos2d::ParticleSpiral *)cocos2d::ParticleSpiral::createWithTotalParticles((int)arg1);
+    int num_ret = olua_push_cppobj<cocos2d::ParticleSpiral>(L, ret, "cc.ParticleSpiral");
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_ParticleSpiral(lua_State *L)
+{
+    oluacls_class(L, "cc.ParticleSpiral", "cc.ParticleSystemQuad");
+    oluacls_func(L, "create", _cocos2d_ParticleSpiral_create);
+    oluacls_func(L, "createWithTotalParticles", _cocos2d_ParticleSpiral_createWithTotalParticles);
+
+    olua_registerluatype<cocos2d::ParticleSpiral>(L, "cc.ParticleSpiral");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_ParticleSun_create(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static ParticleSun* create()
+    cocos2d::ParticleSun *ret = (cocos2d::ParticleSun *)cocos2d::ParticleSun::create();
+    int num_ret = olua_push_cppobj<cocos2d::ParticleSun>(L, ret, "cc.ParticleSun");
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleSun_createWithTotalParticles(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    lua_Integer arg1 = 0;   /** numberOfParticles */
+
+    olua_check_int(L, 1, &arg1);
+
+    // static ParticleSun* createWithTotalParticles(int numberOfParticles)
+    cocos2d::ParticleSun *ret = (cocos2d::ParticleSun *)cocos2d::ParticleSun::createWithTotalParticles((int)arg1);
+    int num_ret = olua_push_cppobj<cocos2d::ParticleSun>(L, ret, "cc.ParticleSun");
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_ParticleSun(lua_State *L)
+{
+    oluacls_class(L, "cc.ParticleSun", "cc.ParticleSystemQuad");
+    oluacls_func(L, "create", _cocos2d_ParticleSun_create);
+    oluacls_func(L, "createWithTotalParticles", _cocos2d_ParticleSun_createWithTotalParticles);
+
+    olua_registerluatype<cocos2d::ParticleSun>(L, "cc.ParticleSun");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
 int luaopen_cocos2d(lua_State *L)
 {
     olua_require(L, "cc.UserDefault", luaopen_cocos2d_UserDefault);
@@ -39130,5 +41842,21 @@ int luaopen_cocos2d(lua_State *L)
     olua_require(L, "cc.JumpTiles3D", luaopen_cocos2d_JumpTiles3D);
     olua_require(L, "cc.SplitRows", luaopen_cocos2d_SplitRows);
     olua_require(L, "cc.SplitCols", luaopen_cocos2d_SplitCols);
+    olua_require(L, "cc.ParticleBatchNode", luaopen_cocos2d_ParticleBatchNode);
+    olua_require(L, "cc.ParticleSystem.Mode", luaopen_cocos2d_ParticleSystem_Mode);
+    olua_require(L, "cc.ParticleSystem.PositionType", luaopen_cocos2d_ParticleSystem_PositionType);
+    olua_require(L, "cc.ParticleSystem", luaopen_cocos2d_ParticleSystem);
+    olua_require(L, "cc.ParticleSystemQuad", luaopen_cocos2d_ParticleSystemQuad);
+    olua_require(L, "cc.ParticleExplosion", luaopen_cocos2d_ParticleExplosion);
+    olua_require(L, "cc.ParticleFire", luaopen_cocos2d_ParticleFire);
+    olua_require(L, "cc.ParticleFireworks", luaopen_cocos2d_ParticleFireworks);
+    olua_require(L, "cc.ParticleFlower", luaopen_cocos2d_ParticleFlower);
+    olua_require(L, "cc.ParticleGalaxy", luaopen_cocos2d_ParticleGalaxy);
+    olua_require(L, "cc.ParticleMeteor", luaopen_cocos2d_ParticleMeteor);
+    olua_require(L, "cc.ParticleRain", luaopen_cocos2d_ParticleRain);
+    olua_require(L, "cc.ParticleSmoke", luaopen_cocos2d_ParticleSmoke);
+    olua_require(L, "cc.ParticleSnow", luaopen_cocos2d_ParticleSnow);
+    olua_require(L, "cc.ParticleSpiral", luaopen_cocos2d_ParticleSpiral);
+    olua_require(L, "cc.ParticleSun", luaopen_cocos2d_ParticleSun);
     return 0;
 }

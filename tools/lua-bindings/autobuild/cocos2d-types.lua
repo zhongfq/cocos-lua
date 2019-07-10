@@ -379,6 +379,22 @@ typedef {
 }
 
 typedef {
+    CPPCLS = 'cocos2d::ParticleSystem::Mode',
+    DECL_TYPE = 'lua_Unsigned',
+    CONV_FUNC = 'olua_$$_uint',
+    VALUE_TYPE = true,
+    LUACLS = 'cc.ParticleSystem.Mode',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ParticleSystem::PositionType',
+    DECL_TYPE = 'lua_Unsigned',
+    CONV_FUNC = 'olua_$$_uint',
+    VALUE_TYPE = true,
+    LUACLS = 'cc.ParticleSystem.PositionType',
+}
+
+typedef {
     CPPCLS = 'cocos2d::ProgressTimer::Type',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
@@ -1272,6 +1288,90 @@ typedef {
     CPPCLS = 'cocos2d::PageTurn3D *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'cc.PageTurn3D',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ParticleBatchNode *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'cc.ParticleBatchNode',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ParticleExplosion *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'cc.ParticleExplosion',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ParticleFire *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'cc.ParticleFire',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ParticleFireworks *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'cc.ParticleFireworks',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ParticleFlower *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'cc.ParticleFlower',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ParticleGalaxy *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'cc.ParticleGalaxy',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ParticleMeteor *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'cc.ParticleMeteor',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ParticleRain *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'cc.ParticleRain',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ParticleSmoke *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'cc.ParticleSmoke',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ParticleSnow *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'cc.ParticleSnow',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ParticleSpiral *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'cc.ParticleSpiral',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ParticleSun *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'cc.ParticleSun',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ParticleSystem *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'cc.ParticleSystem',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ParticleSystemQuad *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'cc.ParticleSystemQuad',
 }
 
 typedef {

@@ -1270,4 +1270,22 @@ typeconf 'cocos2d::JumpTiles3D'
 typeconf 'cocos2d::SplitRows'
 typeconf 'cocos2d::SplitCols'
 
+typeconf 'cocos2d::ParticleBatchNode'
+typeconf 'cocos2d::ParticleSystem::Mode'
+typeconf 'cocos2d::ParticleSystem::PositionType'
+typeconf 'cocos2d::ParticleSystem'
+typeconf 'cocos2d::ParticleSystemQuad'
+typeconf 'cocos2d::ParticleExplosion'
+typeconf 'cocos2d::ParticleFire'
+typeconf 'cocos2d::ParticleFireworks'
+typeconf 'cocos2d::ParticleFlower'
+typeconf 'cocos2d::ParticleGalaxy'
+typeconf 'cocos2d::ParticleMeteor'
+typeconf 'cocos2d::ParticleRain'
+typeconf 'cocos2d::ParticleSmoke'
+typeconf 'cocos2d::ParticleSnow'
+typeconf 'cocos2d::ParticleSpiral'
+typeconf 'cocos2d::ParticleSun'
+
+
 return M

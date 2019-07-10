@@ -195,6 +195,9 @@
     <ClCompile Include="..\src\lua-bindings\lua_cocos2d.cpp">
       <Filter>src\lua-bindings</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\lua-bindings\lua_cocos2d_physics.cpp">
+      <Filter>src\lua-bindings</Filter>
+    </ClCompile>
     <ClCompile Include="..\src\lua-bindings\lua_cocos2d_ui.cpp">
       <Filter>src\lua-bindings</Filter>
     </ClCompile>
@@ -471,6 +474,9 @@
       <Filter>src\crypto</Filter>
     </ClInclude>
     <ClInclude Include="..\src\lua-bindings\lua_cocos2d.h">
+      <Filter>src\lua-bindings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\lua-bindings\lua_cocos2d_physics.h">
       <Filter>src\lua-bindings</Filter>
     </ClInclude>
     <ClInclude Include="..\src\lua-bindings\lua_cocos2d_ui.h">

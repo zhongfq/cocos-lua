@@ -31,6 +31,7 @@
     <ClCompile Include="..\src\lua-bindings\LuaCocosAdapter.cpp" />
     <ClCompile Include="..\src\lua-bindings\lua_bindings.cpp" />
     <ClCompile Include="..\src\lua-bindings\lua_cocos2d.cpp" />
+    <ClCompile Include="..\src\lua-bindings\lua_cocos2d_physics.cpp" />
     <ClCompile Include="..\src\lua-bindings\lua_cocos2d_ui.cpp" />
     <ClCompile Include="..\src\lua-bindings\lua_conv.cpp" />
     <ClCompile Include="..\src\lua-bindings\lua_conv_manual.cpp" />
@@ -133,6 +134,7 @@
     <ClInclude Include="..\src\lua-bindings\LuaCocosAdapter.h" />
     <ClInclude Include="..\src\lua-bindings\lua_bindings.h" />
     <ClInclude Include="..\src\lua-bindings\lua_cocos2d.h" />
+    <ClInclude Include="..\src\lua-bindings\lua_cocos2d_physics.h" />
     <ClInclude Include="..\src\lua-bindings\lua_cocos2d_ui.h" />
     <ClInclude Include="..\src\lua-bindings\lua_conv.h" />
     <ClInclude Include="..\src\lua-bindings\lua_conv_manual.h" />

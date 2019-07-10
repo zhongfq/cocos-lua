@@ -3,6 +3,7 @@
 #include "lua_javabridge.h"
 #include "lua_xgame.h"
 #include "lua_cocos2d.h"
+#include "lua_cocos2d_physics.h"
 #include "lua_cocos2d_ui.h"
 #include "lua_xml_http_request.h"
 #include "lua_photo.h"
@@ -23,6 +24,7 @@
 int luaopen_bindings(lua_State *L)
 {
     xlua_call(L, luaopen_cocos2d);
+    xlua_call(L, luaopen_cocos2d_physics);
     xlua_call(L, luaopen_cocos2d_ui);
     xlua_call(L, luaopen_xgame);
     xlua_call(L, luaopen_xml_http_request);

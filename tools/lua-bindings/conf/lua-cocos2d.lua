@@ -1255,6 +1255,4 @@ typeconf 'cocos2d::JumpTiles3D'
 typeconf 'cocos2d::SplitRows'
 typeconf 'cocos2d::SplitCols'
 
-include('conf/lua-cocos2d-physics.lua')
-
 return M

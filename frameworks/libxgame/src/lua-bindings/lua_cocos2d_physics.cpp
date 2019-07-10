@@ -10,7 +10,7 @@
 #include "cocos2d.h"
 
 
-
+using namespace cocos2d;
 
 int auto_olua_push_cocos2d_PhysicsMaterial(lua_State *L, const cocos2d::PhysicsMaterial *value)
 {
@@ -533,10 +533,10 @@ static int _cocos2d_PhysicsBody_createBox(lua_State *L)
     cocos2d::Vec2 arg3;       /** offset */
 
     auto_olua_check_cocos2d_Size(L, 1, &arg1);
-    auto_olua_opt_cocos2d_PhysicsMaterial(L, 2, &arg2, (cocos2d::PhysicsMaterial)cocos2d::PHYSICSBODY_MATERIAL_DEFAULT);
+    auto_olua_opt_cocos2d_PhysicsMaterial(L, 2, &arg2, (cocos2d::PhysicsMaterial)PHYSICSBODY_MATERIAL_DEFAULT);
     auto_olua_opt_cocos2d_Vec2(L, 3, &arg3, (cocos2d::Vec2)cocos2d::Vec2::ZERO);
 
-    // static PhysicsBody* createBox(const Size& size, const PhysicsMaterial& material = cocos2d::PHYSICSBODY_MATERIAL_DEFAULT, const Vec2& offset = Vec2::ZERO)
+    // static PhysicsBody* createBox(const Size& size, const PhysicsMaterial& material = PHYSICSBODY_MATERIAL_DEFAULT, const Vec2& offset = Vec2::ZERO)
     cocos2d::PhysicsBody *ret = (cocos2d::PhysicsBody *)cocos2d::PhysicsBody::createBox(arg1, arg2, arg3);
     int num_ret = olua_push_cppobj<cocos2d::PhysicsBody>(L, ret, "cc.PhysicsBody");
 
@@ -552,10 +552,10 @@ static int _cocos2d_PhysicsBody_createCircle(lua_State *L)
     cocos2d::Vec2 arg3;       /** offset */
 
     olua_check_number(L, 1, &arg1);
-    auto_olua_opt_cocos2d_PhysicsMaterial(L, 2, &arg2, (cocos2d::PhysicsMaterial)cocos2d::PHYSICSBODY_MATERIAL_DEFAULT);
+    auto_olua_opt_cocos2d_PhysicsMaterial(L, 2, &arg2, (cocos2d::PhysicsMaterial)PHYSICSBODY_MATERIAL_DEFAULT);
     auto_olua_opt_cocos2d_Vec2(L, 3, &arg3, (cocos2d::Vec2)cocos2d::Vec2::ZERO);
 
-    // static PhysicsBody* createCircle(float radius, const PhysicsMaterial& material = cocos2d::PHYSICSBODY_MATERIAL_DEFAULT, const Vec2& offset = Vec2::ZERO)
+    // static PhysicsBody* createCircle(float radius, const PhysicsMaterial& material = PHYSICSBODY_MATERIAL_DEFAULT, const Vec2& offset = Vec2::ZERO)
     cocos2d::PhysicsBody *ret = (cocos2d::PhysicsBody *)cocos2d::PhysicsBody::createCircle((float)arg1, arg2, arg3);
     int num_ret = olua_push_cppobj<cocos2d::PhysicsBody>(L, ret, "cc.PhysicsBody");
 
@@ -572,11 +572,11 @@ static int _cocos2d_PhysicsBody_createEdgeBox(lua_State *L)
     cocos2d::Vec2 arg4;       /** offset */
 
     auto_olua_check_cocos2d_Size(L, 1, &arg1);
-    auto_olua_opt_cocos2d_PhysicsMaterial(L, 2, &arg2, (cocos2d::PhysicsMaterial)cocos2d::PHYSICSBODY_MATERIAL_DEFAULT);
+    auto_olua_opt_cocos2d_PhysicsMaterial(L, 2, &arg2, (cocos2d::PhysicsMaterial)PHYSICSBODY_MATERIAL_DEFAULT);
     olua_opt_number(L, 3, &arg3, (lua_Number)1);
     auto_olua_opt_cocos2d_Vec2(L, 4, &arg4, (cocos2d::Vec2)cocos2d::Vec2::ZERO);
 
-    // static PhysicsBody* createEdgeBox(const Size& size, const PhysicsMaterial& material = cocos2d::PHYSICSBODY_MATERIAL_DEFAULT, float border = 1, const Vec2& offset = Vec2::ZERO)
+    // static PhysicsBody* createEdgeBox(const Size& size, const PhysicsMaterial& material = PHYSICSBODY_MATERIAL_DEFAULT, float border = 1, const Vec2& offset = Vec2::ZERO)
     cocos2d::PhysicsBody *ret = (cocos2d::PhysicsBody *)cocos2d::PhysicsBody::createEdgeBox(arg1, arg2, (float)arg3, arg4);
     int num_ret = olua_push_cppobj<cocos2d::PhysicsBody>(L, ret, "cc.PhysicsBody");
 
@@ -594,10 +594,10 @@ static int _cocos2d_PhysicsBody_createEdgeSegment(lua_State *L)
 
     auto_olua_check_cocos2d_Vec2(L, 1, &arg1);
     auto_olua_check_cocos2d_Vec2(L, 2, &arg2);
-    auto_olua_opt_cocos2d_PhysicsMaterial(L, 3, &arg3, (cocos2d::PhysicsMaterial)cocos2d::PHYSICSBODY_MATERIAL_DEFAULT);
+    auto_olua_opt_cocos2d_PhysicsMaterial(L, 3, &arg3, (cocos2d::PhysicsMaterial)PHYSICSBODY_MATERIAL_DEFAULT);
     olua_opt_number(L, 4, &arg4, (lua_Number)1);
 
-    // static PhysicsBody* createEdgeSegment(const Vec2& a, const Vec2& b, const PhysicsMaterial& material = cocos2d::PHYSICSBODY_MATERIAL_DEFAULT, float border = 1)
+    // static PhysicsBody* createEdgeSegment(const Vec2& a, const Vec2& b, const PhysicsMaterial& material = PHYSICSBODY_MATERIAL_DEFAULT, float border = 1)
     cocos2d::PhysicsBody *ret = (cocos2d::PhysicsBody *)cocos2d::PhysicsBody::createEdgeSegment(arg1, arg2, arg3, (float)arg4);
     int num_ret = olua_push_cppobj<cocos2d::PhysicsBody>(L, ret, "cc.PhysicsBody");
 
@@ -4026,11 +4026,11 @@ static int _cocos2d_PhysicsShapeBox_create(lua_State *L)
     lua_Number arg4 = 0;   /** radius */
 
     auto_olua_check_cocos2d_Size(L, 1, &arg1);
-    auto_olua_opt_cocos2d_PhysicsMaterial(L, 2, &arg2, (cocos2d::PhysicsMaterial)cocos2d::PHYSICSSHAPE_MATERIAL_DEFAULT);
+    auto_olua_opt_cocos2d_PhysicsMaterial(L, 2, &arg2, (cocos2d::PhysicsMaterial)PHYSICSSHAPE_MATERIAL_DEFAULT);
     auto_olua_opt_cocos2d_Vec2(L, 3, &arg3, (cocos2d::Vec2)cocos2d::Vec2::ZERO);
     olua_opt_number(L, 4, &arg4, (lua_Number)0.0f);
 
-    // static PhysicsShapeBox* create(const Size& size, const PhysicsMaterial& material = cocos2d::PHYSICSSHAPE_MATERIAL_DEFAULT, const Vec2& offset = Vec2::ZERO, float radius = 0.0f)
+    // static PhysicsShapeBox* create(const Size& size, const PhysicsMaterial& material = PHYSICSSHAPE_MATERIAL_DEFAULT, const Vec2& offset = Vec2::ZERO, float radius = 0.0f)
     cocos2d::PhysicsShapeBox *ret = (cocos2d::PhysicsShapeBox *)cocos2d::PhysicsShapeBox::create(arg1, arg2, arg3, (float)arg4);
     int num_ret = olua_push_cppobj<cocos2d::PhysicsShapeBox>(L, ret, "cc.PhysicsShapeBox");
 
@@ -4108,10 +4108,10 @@ static int _cocos2d_PhysicsShapeCircle_create(lua_State *L)
     cocos2d::Vec2 arg3;       /** offset */
 
     olua_check_number(L, 1, &arg1);
-    auto_olua_opt_cocos2d_PhysicsMaterial(L, 2, &arg2, (cocos2d::PhysicsMaterial)cocos2d::PHYSICSSHAPE_MATERIAL_DEFAULT);
+    auto_olua_opt_cocos2d_PhysicsMaterial(L, 2, &arg2, (cocos2d::PhysicsMaterial)PHYSICSSHAPE_MATERIAL_DEFAULT);
     auto_olua_opt_cocos2d_Vec2(L, 3, &arg3, (cocos2d::Vec2)cocos2d::Vec2(0, 0));
 
-    // static PhysicsShapeCircle* create(float radius, const PhysicsMaterial& material = cocos2d::PHYSICSSHAPE_MATERIAL_DEFAULT, const Vec2& offset = Vec2(0, 0))
+    // static PhysicsShapeCircle* create(float radius, const PhysicsMaterial& material = PHYSICSSHAPE_MATERIAL_DEFAULT, const Vec2& offset = Vec2(0, 0))
     cocos2d::PhysicsShapeCircle *ret = (cocos2d::PhysicsShapeCircle *)cocos2d::PhysicsShapeCircle::create((float)arg1, arg2, arg3);
     int num_ret = olua_push_cppobj<cocos2d::PhysicsShapeCircle>(L, ret, "cc.PhysicsShapeCircle");
 
@@ -4158,11 +4158,11 @@ static int _cocos2d_PhysicsShapeEdgeBox_create(lua_State *L)
     cocos2d::Vec2 arg4;       /** offset */
 
     auto_olua_check_cocos2d_Size(L, 1, &arg1);
-    auto_olua_opt_cocos2d_PhysicsMaterial(L, 2, &arg2, (cocos2d::PhysicsMaterial)cocos2d::PHYSICSSHAPE_MATERIAL_DEFAULT);
+    auto_olua_opt_cocos2d_PhysicsMaterial(L, 2, &arg2, (cocos2d::PhysicsMaterial)PHYSICSSHAPE_MATERIAL_DEFAULT);
     olua_opt_number(L, 3, &arg3, (lua_Number)0);
     auto_olua_opt_cocos2d_Vec2(L, 4, &arg4, (cocos2d::Vec2)cocos2d::Vec2::ZERO);
 
-    // static PhysicsShapeEdgeBox* create(const Size& size, const PhysicsMaterial& material = cocos2d::PHYSICSSHAPE_MATERIAL_DEFAULT, float border = 0, const Vec2& offset = Vec2::ZERO)
+    // static PhysicsShapeEdgeBox* create(const Size& size, const PhysicsMaterial& material = PHYSICSSHAPE_MATERIAL_DEFAULT, float border = 0, const Vec2& offset = Vec2::ZERO)
     cocos2d::PhysicsShapeEdgeBox *ret = (cocos2d::PhysicsShapeEdgeBox *)cocos2d::PhysicsShapeEdgeBox::create(arg1, arg2, (float)arg3, arg4);
     int num_ret = olua_push_cppobj<cocos2d::PhysicsShapeEdgeBox>(L, ret, "cc.PhysicsShapeEdgeBox");
 
@@ -4218,10 +4218,10 @@ static int _cocos2d_PhysicsShapeEdgeSegment_create(lua_State *L)
 
     auto_olua_check_cocos2d_Vec2(L, 1, &arg1);
     auto_olua_check_cocos2d_Vec2(L, 2, &arg2);
-    auto_olua_opt_cocos2d_PhysicsMaterial(L, 3, &arg3, (cocos2d::PhysicsMaterial)cocos2d::PHYSICSSHAPE_MATERIAL_DEFAULT);
+    auto_olua_opt_cocos2d_PhysicsMaterial(L, 3, &arg3, (cocos2d::PhysicsMaterial)PHYSICSSHAPE_MATERIAL_DEFAULT);
     olua_opt_number(L, 4, &arg4, (lua_Number)1);
 
-    // static PhysicsShapeEdgeSegment* create(const Vec2& a, const Vec2& b, const PhysicsMaterial& material = cocos2d::PHYSICSSHAPE_MATERIAL_DEFAULT, float border = 1)
+    // static PhysicsShapeEdgeSegment* create(const Vec2& a, const Vec2& b, const PhysicsMaterial& material = PHYSICSSHAPE_MATERIAL_DEFAULT, float border = 1)
     cocos2d::PhysicsShapeEdgeSegment *ret = (cocos2d::PhysicsShapeEdgeSegment *)cocos2d::PhysicsShapeEdgeSegment::create(arg1, arg2, arg3, (float)arg4);
     int num_ret = olua_push_cppobj<cocos2d::PhysicsShapeEdgeSegment>(L, ret, "cc.PhysicsShapeEdgeSegment");
 

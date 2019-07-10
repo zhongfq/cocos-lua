@@ -1,5 +1,6 @@
 local M = typemod 'cocos2d_physics'
 local typedef = M.typedef
+local typeconf = M.typeconf
 local typeconv = M.typeconv
 
 M.PARSER = {
@@ -27,7 +28,9 @@ M.INCLUDES = [[
 #include "xgame/xruntime.h"
 #include "cocos2d.h"
 ]]
-M.CHUNK = [[]]
+M.CHUNK = [[
+using namespace cocos2d;
+]]
 
 M.MAKE_LUACLS = function (cppname)
     cppname = string.gsub(cppname, "^cocos2d::", "cc.")
@@ -37,17 +40,6 @@ M.MAKE_LUACLS = function (cppname)
 end
 
 M.EXCLUDE_TYPE = require "conf.exclude-type"
-
-
-local function typeconf(name)
-    local cls = M.typeconf(name)
-    cls.GSUB = function (fn, decl)
-        decl = string.gsub(decl, 'PHYSICSBODY_MATERIAL_DEFAULT', 'cocos2d::PHYSICSBODY_MATERIAL_DEFAULT')
-        decl = string.gsub(decl, 'PHYSICSSHAPE_MATERIAL_DEFAULT', 'cocos2d::PHYSICSSHAPE_MATERIAL_DEFAULT')
-        return decl
-    end
-    return cls
-end
 
 typedef {
     CPPCLS = 'cocos2d *',

@@ -15,6 +15,7 @@ M.INCLUDES = [[
 #include "cocos2d.h"
 ]]
 M.CHUNK = [[
+using namespace cocos2d;
 ]]
 
 M.CONVS = {
@@ -65,10 +66,10 @@ cls.funcs [[
     static PhysicsBody* create()
     static PhysicsBody* create(float mass)
     static PhysicsBody* create(float mass, float moment)
-    static PhysicsBody* createCircle(float radius, const PhysicsMaterial& material = cocos2d::PHYSICSBODY_MATERIAL_DEFAULT, const Vec2& offset = Vec2::ZERO)
-    static PhysicsBody* createBox(const Size& size, const PhysicsMaterial& material = cocos2d::PHYSICSBODY_MATERIAL_DEFAULT, const Vec2& offset = Vec2::ZERO)
-    static PhysicsBody* createEdgeSegment(const Vec2& a, const Vec2& b, const PhysicsMaterial& material = cocos2d::PHYSICSBODY_MATERIAL_DEFAULT, float border = 1)
-    static PhysicsBody* createEdgeBox(const Size& size, const PhysicsMaterial& material = cocos2d::PHYSICSBODY_MATERIAL_DEFAULT, float border = 1, const Vec2& offset = Vec2::ZERO)
+    static PhysicsBody* createCircle(float radius, const PhysicsMaterial& material = PHYSICSBODY_MATERIAL_DEFAULT, const Vec2& offset = Vec2::ZERO)
+    static PhysicsBody* createBox(const Size& size, const PhysicsMaterial& material = PHYSICSBODY_MATERIAL_DEFAULT, const Vec2& offset = Vec2::ZERO)
+    static PhysicsBody* createEdgeSegment(const Vec2& a, const Vec2& b, const PhysicsMaterial& material = PHYSICSBODY_MATERIAL_DEFAULT, float border = 1)
+    static PhysicsBody* createEdgeBox(const Size& size, const PhysicsMaterial& material = PHYSICSBODY_MATERIAL_DEFAULT, float border = 1, const Vec2& offset = Vec2::ZERO)
     PhysicsShape* addShape(PhysicsShape* shape, bool addMassAndMoment = true)
     void removeShape(PhysicsShape* shape, bool reduceMassAndMoment = true)
     void removeShape(int tag, bool reduceMassAndMoment = true)
@@ -509,7 +510,7 @@ cls = class(M.CLASSES)
 cls.CPPCLS = "cocos2d::PhysicsShapeBox"
 cls.SUPERCLS = "cocos2d::PhysicsShapePolygon"
 cls.funcs [[
-    static PhysicsShapeBox* create(const Size& size, const PhysicsMaterial& material = cocos2d::PHYSICSSHAPE_MATERIAL_DEFAULT, const Vec2& offset = Vec2::ZERO, float radius = 0.0f)
+    static PhysicsShapeBox* create(const Size& size, const PhysicsMaterial& material = PHYSICSSHAPE_MATERIAL_DEFAULT, const Vec2& offset = Vec2::ZERO, float radius = 0.0f)
     Size getSize()
 ]]
 cls.props [[
@@ -520,7 +521,7 @@ cls = class(M.CLASSES)
 cls.CPPCLS = "cocos2d::PhysicsShapeCircle"
 cls.SUPERCLS = "cocos2d::PhysicsShape"
 cls.funcs [[
-    static PhysicsShapeCircle* create(float radius, const PhysicsMaterial& material = cocos2d::PHYSICSSHAPE_MATERIAL_DEFAULT, const Vec2& offset = Vec2(0, 0))
+    static PhysicsShapeCircle* create(float radius, const PhysicsMaterial& material = PHYSICSSHAPE_MATERIAL_DEFAULT, const Vec2& offset = Vec2(0, 0))
     static float calculateArea(float radius)
     static float calculateMoment(float mass, float radius, const Vec2& offset = Vec2::ZERO)
     float getRadius()
@@ -533,7 +534,7 @@ cls = class(M.CLASSES)
 cls.CPPCLS = "cocos2d::PhysicsShapeEdgeBox"
 cls.SUPERCLS = "cocos2d::PhysicsShapeEdgePolygon"
 cls.funcs [[
-    static PhysicsShapeEdgeBox* create(const Size& size, const PhysicsMaterial& material = cocos2d::PHYSICSSHAPE_MATERIAL_DEFAULT, float border = 0, const Vec2& offset = Vec2::ZERO)
+    static PhysicsShapeEdgeBox* create(const Size& size, const PhysicsMaterial& material = PHYSICSSHAPE_MATERIAL_DEFAULT, float border = 0, const Vec2& offset = Vec2::ZERO)
 ]]
 
 cls = class(M.CLASSES)
@@ -550,7 +551,7 @@ cls = class(M.CLASSES)
 cls.CPPCLS = "cocos2d::PhysicsShapeEdgeSegment"
 cls.SUPERCLS = "cocos2d::PhysicsShape"
 cls.funcs [[
-    static PhysicsShapeEdgeSegment* create(const Vec2& a, const Vec2& b, const PhysicsMaterial& material = cocos2d::PHYSICSSHAPE_MATERIAL_DEFAULT, float border = 1)
+    static PhysicsShapeEdgeSegment* create(const Vec2& a, const Vec2& b, const PhysicsMaterial& material = PHYSICSSHAPE_MATERIAL_DEFAULT, float border = 1)
     Vec2 getPointA()
     Vec2 getPointB()
 ]]

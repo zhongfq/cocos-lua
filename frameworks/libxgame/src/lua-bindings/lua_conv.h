@@ -125,4 +125,10 @@ int auto_luacv_push_cocos2d_Quad3(lua_State *L, const cocos2d::Quad3 *value);
 void auto_luacv_check_cocos2d_Quad3(lua_State *L, int idx, cocos2d::Quad3 *value);
 bool auto_luacv_is_cocos2d_Quad3(lua_State *L, int idx);
 
+// cocos2d::Controller::KeyStatus
+int auto_luacv_push_cocos2d_Controller_KeyStatus(lua_State *L, const cocos2d::Controller::KeyStatus *value);
+void auto_luacv_check_cocos2d_Controller_KeyStatus(lua_State *L, int idx, cocos2d::Controller::KeyStatus *value);
+void auto_luacv_opt_cocos2d_Controller_KeyStatus(lua_State *L, int idx, cocos2d::Controller::KeyStatus *value, const cocos2d::Controller::KeyStatus &def);
+bool auto_luacv_is_cocos2d_Controller_KeyStatus(lua_State *L, int idx);
+
 #endif

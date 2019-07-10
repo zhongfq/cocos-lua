@@ -189,3 +189,9 @@ typedef {
     CONV_FUNC = 'manual_luacv_$$_cocos2d_ValueVector',
     INIT_VALUE = false,
 }
+
+typedef {
+    CPPCLS = 'cocos2d::Controller::KeyStatus',
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_Controller_KeyStatus',
+    INIT_VALUE = false,
+}

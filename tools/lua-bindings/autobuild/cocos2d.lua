@@ -572,6 +572,19 @@ cls.props [[
 ]]
 
 cls = class(M.CLASSES)
+cls.CPPCLS = "cocos2d::EventListenerController"
+cls.SUPERCLS = "cocos2d::EventListener"
+cls.funcs [[
+    static EventListenerController* create()
+]]
+cls.var('onConnected', [[std::function<void(@stack Controller*, @stack Event*)> onConnected = nullptr]])
+cls.var('onDisconnected', [[std::function<void(@stack Controller*, @stack Event*)> onDisconnected = nullptr]])
+cls.var('onKeyDown', [[std::function<void(@stack Controller*, int, @stack Event*)> onKeyDown = nullptr]])
+cls.var('onKeyUp', [[std::function<void(@stack Controller*, int, @stack Event*)> onKeyUp = nullptr]])
+cls.var('onKeyRepeat', [[std::function<void(@stack Controller*, int, @stack Event*)> onKeyRepeat = nullptr]])
+cls.var('onAxisEvent', [[std::function<void(@stack Controller*, int, @stack Event*)> onAxisEvent = nullptr]])
+
+cls = class(M.CLASSES)
 cls.CPPCLS = "cocos2d::EventTouch::EventCode"
 cls.enums [[
     BEGAN
@@ -857,6 +870,32 @@ cls.enums [[
 ]]
 
 cls = class(M.CLASSES)
+cls.CPPCLS = "cocos2d::EventController::ControllerEventType"
+cls.enums [[
+    CONNECTION
+    BUTTON_STATUS_CHANGED
+    AXIS_STATUS_CHANGED
+]]
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "cocos2d::EventController"
+cls.SUPERCLS = "cocos2d::Event"
+cls.funcs [[
+    ControllerEventType getControllerEventType()
+    Controller* getController()
+    int getKeyCode()
+    void setKeyCode(int keyCode)
+    void setConnectStatus(bool isConnected)
+    bool isConnected()
+]]
+cls.props [[
+    controllerEventType
+    controller
+    keyCode
+    connected
+]]
+
+cls = class(M.CLASSES)
 cls.CPPCLS = "cocos2d::Touch"
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
@@ -889,6 +928,61 @@ cls.props [[
     id
     currentForce
     maxForce
+]]
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "cocos2d::Controller::Key"
+cls.enums [[
+    KEY_NONE
+    JOYSTICK_LEFT_X
+    JOYSTICK_LEFT_Y
+    JOYSTICK_RIGHT_X
+    JOYSTICK_RIGHT_Y
+    BUTTON_A
+    BUTTON_B
+    BUTTON_C
+    BUTTON_X
+    BUTTON_Y
+    BUTTON_Z
+    BUTTON_DPAD_UP
+    BUTTON_DPAD_DOWN
+    BUTTON_DPAD_LEFT
+    BUTTON_DPAD_RIGHT
+    BUTTON_DPAD_CENTER
+    BUTTON_LEFT_SHOULDER
+    BUTTON_RIGHT_SHOULDER
+    AXIS_LEFT_TRIGGER
+    AXIS_RIGHT_TRIGGER
+    BUTTON_LEFT_THUMBSTICK
+    BUTTON_RIGHT_THUMBSTICK
+    BUTTON_START
+    BUTTON_SELECT
+    BUTTON_PAUSE
+    KEY_MAX
+]]
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "cocos2d::Controller"
+cls.funcs [[
+    static const std::vector<Controller*>& getAllController()
+    static Controller* getControllerByTag(int tag)
+    static Controller* getControllerByDeviceId(int deviceId)
+    static void startDiscoveryController()
+    static void stopDiscoveryController()
+    const std::string& getDeviceName()
+    int getDeviceId()
+    bool isConnected()
+    const KeyStatus& getKeyStatus(int keyCode)
+    void receiveExternalKeyEvent(int externalKeyCode,bool receive)
+    void setTag(int tag)
+    int getTag()
+]]
+cls.props [[
+    allController
+    deviceName
+    deviceId
+    connected
+    tag
 ]]
 
 cls = class(M.CLASSES)
@@ -2213,6 +2307,20 @@ cls.callback {
     CALLONCE = false,
     REMOVE = false,
 }
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "cocos2d::ProgressTo"
+cls.SUPERCLS = "cocos2d::ActionInterval"
+cls.funcs [[
+    static ProgressTo* create(float duration, float percent)
+]]
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "cocos2d::ProgressFromTo"
+cls.SUPERCLS = "cocos2d::ActionInterval"
+cls.funcs [[
+    static ProgressFromTo* create(float duration, float fromPercentage, float toPercentage)
+]]
 
 cls = class(M.CLASSES)
 cls.CPPCLS = "cocos2d::ActionEase"

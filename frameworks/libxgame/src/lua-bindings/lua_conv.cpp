@@ -994,3 +994,50 @@ bool auto_luacv_is_cocos2d_Quad3(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "tr") && olua_hasfield(L, idx, "tl") && olua_hasfield(L, idx, "br") && olua_hasfield(L, idx, "bl");
 }
+
+int auto_luacv_push_cocos2d_Controller_KeyStatus(lua_State *L, const cocos2d::Controller::KeyStatus *value)
+{
+    if (value) {
+        lua_createtable(L, 0, 3);
+        olua_setfieldboolean(L, -1, "isPressed", value->isPressed);
+        olua_setfieldnumber(L, -1, "value", value->value);
+        olua_setfieldboolean(L, -1, "isAnalog", value->isAnalog);
+    } else {
+        lua_pushnil(L);
+    }
+
+    return 1;
+}
+
+void auto_luacv_check_cocos2d_Controller_KeyStatus(lua_State *L, int idx, cocos2d::Controller::KeyStatus *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    idx = lua_absindex(L, idx);
+    luaL_checktype(L, idx, LUA_TTABLE);
+    value->isPressed = (bool)olua_checkfieldboolean(L, idx, "isPressed");
+    value->value = (float)olua_checkfieldnumber(L, idx, "value");
+    value->isAnalog = (bool)olua_checkfieldboolean(L, idx, "isAnalog");
+}
+
+void auto_luacv_opt_cocos2d_Controller_KeyStatus(lua_State *L, int idx, cocos2d::Controller::KeyStatus *value, const cocos2d::Controller::KeyStatus &def)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    if (olua_isnil(L, idx)) {
+        *value = def;
+    } else {
+        idx = lua_absindex(L, idx);
+        luaL_checktype(L, idx, LUA_TTABLE);
+        value->isPressed = (bool)olua_optfieldboolean(L, idx, "isPressed", false);
+        value->value = (float)olua_optfieldnumber(L, idx, "value", 0);
+        value->isAnalog = (bool)olua_optfieldboolean(L, idx, "isAnalog", false);
+    }
+}
+
+bool auto_luacv_is_cocos2d_Controller_KeyStatus(lua_State *L, int idx)
+{
+    return olua_istable(L, idx) && olua_hasfield(L, idx, "isAnalog") && olua_hasfield(L, idx, "value") && olua_hasfield(L, idx, "isPressed");
+}

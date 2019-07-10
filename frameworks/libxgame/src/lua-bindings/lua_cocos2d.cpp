@@ -4505,6 +4505,418 @@ static int luaopen_cocos2d_EventCustom(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_EventListenerController_create(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static EventListenerController* create()
+    cocos2d::EventListenerController *ret = (cocos2d::EventListenerController *)cocos2d::EventListenerController::create();
+    int num_ret = olua_push_cppobj<cocos2d::EventListenerController>(L, ret, "cc.EventListenerController");
+
+    return num_ret;
+}
+
+static int _cocos2d_EventListenerController_get_onAxisEvent(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::EventListenerController *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerController");
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onAxisEvent");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+
+    // <function var>
+    std::function<void(cocos2d::Controller *, int, cocos2d::Event *)> ret = (std::function<void(cocos2d::Controller *, int, cocos2d::Event *)>)self->onAxisEvent;
+    int num_ret = olua_push_std_function(L, (std::function<void(cocos2d::Controller *, int, cocos2d::Event *)>)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_EventListenerController_set_onAxisEvent(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::EventListenerController *self = nullptr;
+    std::function<void(cocos2d::Controller *, int, cocos2d::Event *)> arg1 = nullptr;   /** onAxisEvent */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerController");
+
+    if (olua_is_std_function(L, 2)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onAxisEvent");
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+        arg1 = [callback_store_obj, func, tag](cocos2d::Controller *arg1, int arg2, cocos2d::Event *arg3) {
+            lua_State *L = olua_mainthread();
+            int top = lua_gettop(L);
+
+            size_t last = olua_push_objpool(L);
+            olua_enable_objpool(L);
+            olua_push_cppobj<cocos2d::Controller>(L, arg1, "cc.Controller");
+            olua_disable_objpool(L);
+            olua_push_int(L, (lua_Integer)arg2);
+            olua_enable_objpool(L);
+            olua_push_cppobj<cocos2d::Event>(L, arg3, "cc.Event");
+            olua_disable_objpool(L);
+
+            olua_callback(L, callback_store_obj, func.c_str(), 3);
+
+            //pop stack value
+            olua_pop_objpool(L, last);
+
+            lua_settop(L, top);
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onAxisEvent");
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+        arg1 = nullptr;
+    }
+
+    // <function var>
+    self->onAxisEvent = arg1;
+
+    return 0;
+}
+
+static int _cocos2d_EventListenerController_get_onConnected(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::EventListenerController *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerController");
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onConnected");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+
+    // <function var>
+    std::function<void(cocos2d::Controller *, cocos2d::Event *)> ret = (std::function<void(cocos2d::Controller *, cocos2d::Event *)>)self->onConnected;
+    int num_ret = olua_push_std_function(L, (std::function<void(cocos2d::Controller *, cocos2d::Event *)>)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_EventListenerController_set_onConnected(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::EventListenerController *self = nullptr;
+    std::function<void(cocos2d::Controller *, cocos2d::Event *)> arg1 = nullptr;   /** onConnected */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerController");
+
+    if (olua_is_std_function(L, 2)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onConnected");
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+        arg1 = [callback_store_obj, func, tag](cocos2d::Controller *arg1, cocos2d::Event *arg2) {
+            lua_State *L = olua_mainthread();
+            int top = lua_gettop(L);
+
+            size_t last = olua_push_objpool(L);
+            olua_enable_objpool(L);
+            olua_push_cppobj<cocos2d::Controller>(L, arg1, "cc.Controller");
+            olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
+            olua_disable_objpool(L);
+
+            olua_callback(L, callback_store_obj, func.c_str(), 2);
+
+            //pop stack value
+            olua_pop_objpool(L, last);
+
+            lua_settop(L, top);
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onConnected");
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+        arg1 = nullptr;
+    }
+
+    // <function var>
+    self->onConnected = arg1;
+
+    return 0;
+}
+
+static int _cocos2d_EventListenerController_get_onDisconnected(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::EventListenerController *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerController");
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onDisconnected");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+
+    // <function var>
+    std::function<void(cocos2d::Controller *, cocos2d::Event *)> ret = (std::function<void(cocos2d::Controller *, cocos2d::Event *)>)self->onDisconnected;
+    int num_ret = olua_push_std_function(L, (std::function<void(cocos2d::Controller *, cocos2d::Event *)>)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_EventListenerController_set_onDisconnected(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::EventListenerController *self = nullptr;
+    std::function<void(cocos2d::Controller *, cocos2d::Event *)> arg1 = nullptr;   /** onDisconnected */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerController");
+
+    if (olua_is_std_function(L, 2)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onDisconnected");
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+        arg1 = [callback_store_obj, func, tag](cocos2d::Controller *arg1, cocos2d::Event *arg2) {
+            lua_State *L = olua_mainthread();
+            int top = lua_gettop(L);
+
+            size_t last = olua_push_objpool(L);
+            olua_enable_objpool(L);
+            olua_push_cppobj<cocos2d::Controller>(L, arg1, "cc.Controller");
+            olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
+            olua_disable_objpool(L);
+
+            olua_callback(L, callback_store_obj, func.c_str(), 2);
+
+            //pop stack value
+            olua_pop_objpool(L, last);
+
+            lua_settop(L, top);
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onDisconnected");
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+        arg1 = nullptr;
+    }
+
+    // <function var>
+    self->onDisconnected = arg1;
+
+    return 0;
+}
+
+static int _cocos2d_EventListenerController_get_onKeyDown(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::EventListenerController *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerController");
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onKeyDown");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+
+    // <function var>
+    std::function<void(cocos2d::Controller *, int, cocos2d::Event *)> ret = (std::function<void(cocos2d::Controller *, int, cocos2d::Event *)>)self->onKeyDown;
+    int num_ret = olua_push_std_function(L, (std::function<void(cocos2d::Controller *, int, cocos2d::Event *)>)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_EventListenerController_set_onKeyDown(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::EventListenerController *self = nullptr;
+    std::function<void(cocos2d::Controller *, int, cocos2d::Event *)> arg1 = nullptr;   /** onKeyDown */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerController");
+
+    if (olua_is_std_function(L, 2)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onKeyDown");
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+        arg1 = [callback_store_obj, func, tag](cocos2d::Controller *arg1, int arg2, cocos2d::Event *arg3) {
+            lua_State *L = olua_mainthread();
+            int top = lua_gettop(L);
+
+            size_t last = olua_push_objpool(L);
+            olua_enable_objpool(L);
+            olua_push_cppobj<cocos2d::Controller>(L, arg1, "cc.Controller");
+            olua_disable_objpool(L);
+            olua_push_int(L, (lua_Integer)arg2);
+            olua_enable_objpool(L);
+            olua_push_cppobj<cocos2d::Event>(L, arg3, "cc.Event");
+            olua_disable_objpool(L);
+
+            olua_callback(L, callback_store_obj, func.c_str(), 3);
+
+            //pop stack value
+            olua_pop_objpool(L, last);
+
+            lua_settop(L, top);
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onKeyDown");
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+        arg1 = nullptr;
+    }
+
+    // <function var>
+    self->onKeyDown = arg1;
+
+    return 0;
+}
+
+static int _cocos2d_EventListenerController_get_onKeyRepeat(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::EventListenerController *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerController");
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onKeyRepeat");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+
+    // <function var>
+    std::function<void(cocos2d::Controller *, int, cocos2d::Event *)> ret = (std::function<void(cocos2d::Controller *, int, cocos2d::Event *)>)self->onKeyRepeat;
+    int num_ret = olua_push_std_function(L, (std::function<void(cocos2d::Controller *, int, cocos2d::Event *)>)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_EventListenerController_set_onKeyRepeat(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::EventListenerController *self = nullptr;
+    std::function<void(cocos2d::Controller *, int, cocos2d::Event *)> arg1 = nullptr;   /** onKeyRepeat */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerController");
+
+    if (olua_is_std_function(L, 2)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onKeyRepeat");
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+        arg1 = [callback_store_obj, func, tag](cocos2d::Controller *arg1, int arg2, cocos2d::Event *arg3) {
+            lua_State *L = olua_mainthread();
+            int top = lua_gettop(L);
+
+            size_t last = olua_push_objpool(L);
+            olua_enable_objpool(L);
+            olua_push_cppobj<cocos2d::Controller>(L, arg1, "cc.Controller");
+            olua_disable_objpool(L);
+            olua_push_int(L, (lua_Integer)arg2);
+            olua_enable_objpool(L);
+            olua_push_cppobj<cocos2d::Event>(L, arg3, "cc.Event");
+            olua_disable_objpool(L);
+
+            olua_callback(L, callback_store_obj, func.c_str(), 3);
+
+            //pop stack value
+            olua_pop_objpool(L, last);
+
+            lua_settop(L, top);
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onKeyRepeat");
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+        arg1 = nullptr;
+    }
+
+    // <function var>
+    self->onKeyRepeat = arg1;
+
+    return 0;
+}
+
+static int _cocos2d_EventListenerController_get_onKeyUp(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::EventListenerController *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerController");
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onKeyUp");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+
+    // <function var>
+    std::function<void(cocos2d::Controller *, int, cocos2d::Event *)> ret = (std::function<void(cocos2d::Controller *, int, cocos2d::Event *)>)self->onKeyUp;
+    int num_ret = olua_push_std_function(L, (std::function<void(cocos2d::Controller *, int, cocos2d::Event *)>)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_EventListenerController_set_onKeyUp(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::EventListenerController *self = nullptr;
+    std::function<void(cocos2d::Controller *, int, cocos2d::Event *)> arg1 = nullptr;   /** onKeyUp */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerController");
+
+    if (olua_is_std_function(L, 2)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onKeyUp");
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+        arg1 = [callback_store_obj, func, tag](cocos2d::Controller *arg1, int arg2, cocos2d::Event *arg3) {
+            lua_State *L = olua_mainthread();
+            int top = lua_gettop(L);
+
+            size_t last = olua_push_objpool(L);
+            olua_enable_objpool(L);
+            olua_push_cppobj<cocos2d::Controller>(L, arg1, "cc.Controller");
+            olua_disable_objpool(L);
+            olua_push_int(L, (lua_Integer)arg2);
+            olua_enable_objpool(L);
+            olua_push_cppobj<cocos2d::Event>(L, arg3, "cc.Event");
+            olua_disable_objpool(L);
+
+            olua_callback(L, callback_store_obj, func.c_str(), 3);
+
+            //pop stack value
+            olua_pop_objpool(L, last);
+
+            lua_settop(L, top);
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onKeyUp");
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+        arg1 = nullptr;
+    }
+
+    // <function var>
+    self->onKeyUp = arg1;
+
+    return 0;
+}
+
+static int luaopen_cocos2d_EventListenerController(lua_State *L)
+{
+    oluacls_class(L, "cc.EventListenerController", "cc.EventListener");
+    oluacls_func(L, "create", _cocos2d_EventListenerController_create);
+    oluacls_prop(L, "onAxisEvent", _cocos2d_EventListenerController_get_onAxisEvent, _cocos2d_EventListenerController_set_onAxisEvent);
+    oluacls_prop(L, "onConnected", _cocos2d_EventListenerController_get_onConnected, _cocos2d_EventListenerController_set_onConnected);
+    oluacls_prop(L, "onDisconnected", _cocos2d_EventListenerController_get_onDisconnected, _cocos2d_EventListenerController_set_onDisconnected);
+    oluacls_prop(L, "onKeyDown", _cocos2d_EventListenerController_get_onKeyDown, _cocos2d_EventListenerController_set_onKeyDown);
+    oluacls_prop(L, "onKeyRepeat", _cocos2d_EventListenerController_get_onKeyRepeat, _cocos2d_EventListenerController_set_onKeyRepeat);
+    oluacls_prop(L, "onKeyUp", _cocos2d_EventListenerController_get_onKeyUp, _cocos2d_EventListenerController_set_onKeyUp);
+
+    olua_registerluatype<cocos2d::EventListenerController>(L, "cc.EventListenerController");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
 static int luaopen_cocos2d_EventTouch_EventCode(lua_State *L)
 {
     oluacls_class(L, "cc.EventTouch.EventCode", nullptr);
@@ -5123,6 +5535,131 @@ static int luaopen_cocos2d_Touch_DispatchMode(lua_State *L)
     return 1;
 }
 
+static int luaopen_cocos2d_EventController_ControllerEventType(lua_State *L)
+{
+    oluacls_class(L, "cc.EventController.ControllerEventType", nullptr);
+    oluacls_const_integer(L, "CONNECTION", (lua_Integer)cocos2d::EventController::ControllerEventType::CONNECTION);
+    oluacls_const_integer(L, "BUTTON_STATUS_CHANGED", (lua_Integer)cocos2d::EventController::ControllerEventType::BUTTON_STATUS_CHANGED);
+    oluacls_const_integer(L, "AXIS_STATUS_CHANGED", (lua_Integer)cocos2d::EventController::ControllerEventType::AXIS_STATUS_CHANGED);
+
+    olua_registerluatype<cocos2d::EventController::ControllerEventType>(L, "cc.EventController.ControllerEventType");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_EventController_getController(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::EventController *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventController");
+
+    // Controller* getController()
+    cocos2d::Controller *ret = (cocos2d::Controller *)self->getController();
+    int num_ret = olua_push_cppobj<cocos2d::Controller>(L, ret, "cc.Controller");
+
+    return num_ret;
+}
+
+static int _cocos2d_EventController_getControllerEventType(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::EventController *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventController");
+
+    // ControllerEventType getControllerEventType()
+    cocos2d::EventController::ControllerEventType ret = (cocos2d::EventController::ControllerEventType)self->getControllerEventType();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_EventController_getKeyCode(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::EventController *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventController");
+
+    // int getKeyCode()
+    int ret = (int)self->getKeyCode();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_EventController_isConnected(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::EventController *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventController");
+
+    // bool isConnected()
+    bool ret = (bool)self->isConnected();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_EventController_setConnectStatus(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::EventController *self = nullptr;
+    bool arg1 = false;   /** isConnected */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventController");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setConnectStatus(bool isConnected)
+    self->setConnectStatus(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_EventController_setKeyCode(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::EventController *self = nullptr;
+    lua_Integer arg1 = 0;   /** keyCode */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventController");
+    olua_check_int(L, 2, &arg1);
+
+    // void setKeyCode(int keyCode)
+    self->setKeyCode((int)arg1);
+
+    return 0;
+}
+
+static int luaopen_cocos2d_EventController(lua_State *L)
+{
+    oluacls_class(L, "cc.EventController", "cc.Event");
+    oluacls_func(L, "getController", _cocos2d_EventController_getController);
+    oluacls_func(L, "getControllerEventType", _cocos2d_EventController_getControllerEventType);
+    oluacls_func(L, "getKeyCode", _cocos2d_EventController_getKeyCode);
+    oluacls_func(L, "isConnected", _cocos2d_EventController_isConnected);
+    oluacls_func(L, "setConnectStatus", _cocos2d_EventController_setConnectStatus);
+    oluacls_func(L, "setKeyCode", _cocos2d_EventController_setKeyCode);
+    oluacls_prop(L, "connected", _cocos2d_EventController_isConnected, nullptr);
+    oluacls_prop(L, "controller", _cocos2d_EventController_getController, nullptr);
+    oluacls_prop(L, "controllerEventType", _cocos2d_EventController_getControllerEventType, nullptr);
+    oluacls_prop(L, "keyCode", _cocos2d_EventController_getKeyCode, _cocos2d_EventController_setKeyCode);
+
+    olua_registerluatype<cocos2d::EventController>(L, "cc.EventController");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
 static int _cocos2d_Touch_getCurrentForce(lua_State *L)
 {
     lua_settop(L, 1);
@@ -5372,6 +5909,241 @@ static int luaopen_cocos2d_Touch(lua_State *L)
     oluacls_prop(L, "startLocationInView", _cocos2d_Touch_getStartLocationInView, nullptr);
 
     olua_registerluatype<cocos2d::Touch>(L, "cc.Touch");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_Controller_Key(lua_State *L)
+{
+    oluacls_class(L, "cc.Controller.Key", nullptr);
+    oluacls_const_integer(L, "KEY_NONE", (lua_Integer)cocos2d::Controller::Key::KEY_NONE);
+    oluacls_const_integer(L, "JOYSTICK_LEFT_X", (lua_Integer)cocos2d::Controller::Key::JOYSTICK_LEFT_X);
+    oluacls_const_integer(L, "JOYSTICK_LEFT_Y", (lua_Integer)cocos2d::Controller::Key::JOYSTICK_LEFT_Y);
+    oluacls_const_integer(L, "JOYSTICK_RIGHT_X", (lua_Integer)cocos2d::Controller::Key::JOYSTICK_RIGHT_X);
+    oluacls_const_integer(L, "JOYSTICK_RIGHT_Y", (lua_Integer)cocos2d::Controller::Key::JOYSTICK_RIGHT_Y);
+    oluacls_const_integer(L, "BUTTON_A", (lua_Integer)cocos2d::Controller::Key::BUTTON_A);
+    oluacls_const_integer(L, "BUTTON_B", (lua_Integer)cocos2d::Controller::Key::BUTTON_B);
+    oluacls_const_integer(L, "BUTTON_C", (lua_Integer)cocos2d::Controller::Key::BUTTON_C);
+    oluacls_const_integer(L, "BUTTON_X", (lua_Integer)cocos2d::Controller::Key::BUTTON_X);
+    oluacls_const_integer(L, "BUTTON_Y", (lua_Integer)cocos2d::Controller::Key::BUTTON_Y);
+    oluacls_const_integer(L, "BUTTON_Z", (lua_Integer)cocos2d::Controller::Key::BUTTON_Z);
+    oluacls_const_integer(L, "BUTTON_DPAD_UP", (lua_Integer)cocos2d::Controller::Key::BUTTON_DPAD_UP);
+    oluacls_const_integer(L, "BUTTON_DPAD_DOWN", (lua_Integer)cocos2d::Controller::Key::BUTTON_DPAD_DOWN);
+    oluacls_const_integer(L, "BUTTON_DPAD_LEFT", (lua_Integer)cocos2d::Controller::Key::BUTTON_DPAD_LEFT);
+    oluacls_const_integer(L, "BUTTON_DPAD_RIGHT", (lua_Integer)cocos2d::Controller::Key::BUTTON_DPAD_RIGHT);
+    oluacls_const_integer(L, "BUTTON_DPAD_CENTER", (lua_Integer)cocos2d::Controller::Key::BUTTON_DPAD_CENTER);
+    oluacls_const_integer(L, "BUTTON_LEFT_SHOULDER", (lua_Integer)cocos2d::Controller::Key::BUTTON_LEFT_SHOULDER);
+    oluacls_const_integer(L, "BUTTON_RIGHT_SHOULDER", (lua_Integer)cocos2d::Controller::Key::BUTTON_RIGHT_SHOULDER);
+    oluacls_const_integer(L, "AXIS_LEFT_TRIGGER", (lua_Integer)cocos2d::Controller::Key::AXIS_LEFT_TRIGGER);
+    oluacls_const_integer(L, "AXIS_RIGHT_TRIGGER", (lua_Integer)cocos2d::Controller::Key::AXIS_RIGHT_TRIGGER);
+    oluacls_const_integer(L, "BUTTON_LEFT_THUMBSTICK", (lua_Integer)cocos2d::Controller::Key::BUTTON_LEFT_THUMBSTICK);
+    oluacls_const_integer(L, "BUTTON_RIGHT_THUMBSTICK", (lua_Integer)cocos2d::Controller::Key::BUTTON_RIGHT_THUMBSTICK);
+    oluacls_const_integer(L, "BUTTON_START", (lua_Integer)cocos2d::Controller::Key::BUTTON_START);
+    oluacls_const_integer(L, "BUTTON_SELECT", (lua_Integer)cocos2d::Controller::Key::BUTTON_SELECT);
+    oluacls_const_integer(L, "BUTTON_PAUSE", (lua_Integer)cocos2d::Controller::Key::BUTTON_PAUSE);
+    oluacls_const_integer(L, "KEY_MAX", (lua_Integer)cocos2d::Controller::Key::KEY_MAX);
+
+    olua_registerluatype<cocos2d::Controller::Key>(L, "cc.Controller.Key");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_Controller_getAllController(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static const std::vector<Controller*>& getAllController()
+    const std::vector<cocos2d::Controller *> &ret = (const std::vector<cocos2d::Controller *> &)cocos2d::Controller::getAllController();
+    int num_ret = olua_push_std_vector(L, ret, "cc.Controller");
+
+    return num_ret;
+}
+
+static int _cocos2d_Controller_getControllerByDeviceId(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    lua_Integer arg1 = 0;   /** deviceId */
+
+    olua_check_int(L, 1, &arg1);
+
+    // static Controller* getControllerByDeviceId(int deviceId)
+    cocos2d::Controller *ret = (cocos2d::Controller *)cocos2d::Controller::getControllerByDeviceId((int)arg1);
+    int num_ret = olua_push_cppobj<cocos2d::Controller>(L, ret, "cc.Controller");
+
+    return num_ret;
+}
+
+static int _cocos2d_Controller_getControllerByTag(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    lua_Integer arg1 = 0;   /** tag */
+
+    olua_check_int(L, 1, &arg1);
+
+    // static Controller* getControllerByTag(int tag)
+    cocos2d::Controller *ret = (cocos2d::Controller *)cocos2d::Controller::getControllerByTag((int)arg1);
+    int num_ret = olua_push_cppobj<cocos2d::Controller>(L, ret, "cc.Controller");
+
+    return num_ret;
+}
+
+static int _cocos2d_Controller_getDeviceId(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Controller *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Controller");
+
+    // int getDeviceId()
+    int ret = (int)self->getDeviceId();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Controller_getDeviceName(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Controller *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Controller");
+
+    // const std::string& getDeviceName()
+    const std::string &ret = (const std::string &)self->getDeviceName();
+    int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Controller_getKeyStatus(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Controller *self = nullptr;
+    lua_Integer arg1 = 0;   /** keyCode */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Controller");
+    olua_check_int(L, 2, &arg1);
+
+    // const KeyStatus& getKeyStatus(int keyCode)
+    const cocos2d::Controller::KeyStatus &ret = (const cocos2d::Controller::KeyStatus &)self->getKeyStatus((int)arg1);
+    int num_ret = auto_luacv_push_cocos2d_Controller_KeyStatus(L, &ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Controller_getTag(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Controller *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Controller");
+
+    // int getTag()
+    int ret = (int)self->getTag();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Controller_isConnected(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::Controller *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Controller");
+
+    // bool isConnected()
+    bool ret = (bool)self->isConnected();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_Controller_receiveExternalKeyEvent(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::Controller *self = nullptr;
+    lua_Integer arg1 = 0;   /** externalKeyCode */
+    bool arg2 = false;   /** receive */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Controller");
+    olua_check_int(L, 2, &arg1);
+    olua_check_bool(L, 3, &arg2);
+
+    // void receiveExternalKeyEvent(int externalKeyCode,bool receive)
+    self->receiveExternalKeyEvent((int)arg1, arg2);
+
+    return 0;
+}
+
+static int _cocos2d_Controller_setTag(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::Controller *self = nullptr;
+    lua_Integer arg1 = 0;   /** tag */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Controller");
+    olua_check_int(L, 2, &arg1);
+
+    // void setTag(int tag)
+    self->setTag((int)arg1);
+
+    return 0;
+}
+
+static int _cocos2d_Controller_startDiscoveryController(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static void startDiscoveryController()
+    cocos2d::Controller::startDiscoveryController();
+
+    return 0;
+}
+
+static int _cocos2d_Controller_stopDiscoveryController(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static void stopDiscoveryController()
+    cocos2d::Controller::stopDiscoveryController();
+
+    return 0;
+}
+
+static int luaopen_cocos2d_Controller(lua_State *L)
+{
+    oluacls_class(L, "cc.Controller", nullptr);
+    oluacls_func(L, "getAllController", _cocos2d_Controller_getAllController);
+    oluacls_func(L, "getControllerByDeviceId", _cocos2d_Controller_getControllerByDeviceId);
+    oluacls_func(L, "getControllerByTag", _cocos2d_Controller_getControllerByTag);
+    oluacls_func(L, "getDeviceId", _cocos2d_Controller_getDeviceId);
+    oluacls_func(L, "getDeviceName", _cocos2d_Controller_getDeviceName);
+    oluacls_func(L, "getKeyStatus", _cocos2d_Controller_getKeyStatus);
+    oluacls_func(L, "getTag", _cocos2d_Controller_getTag);
+    oluacls_func(L, "isConnected", _cocos2d_Controller_isConnected);
+    oluacls_func(L, "receiveExternalKeyEvent", _cocos2d_Controller_receiveExternalKeyEvent);
+    oluacls_func(L, "setTag", _cocos2d_Controller_setTag);
+    oluacls_func(L, "startDiscoveryController", _cocos2d_Controller_startDiscoveryController);
+    oluacls_func(L, "stopDiscoveryController", _cocos2d_Controller_stopDiscoveryController);
+    oluacls_prop(L, "allController", _cocos2d_Controller_getAllController, nullptr);
+    oluacls_prop(L, "connected", _cocos2d_Controller_isConnected, nullptr);
+    oluacls_prop(L, "deviceId", _cocos2d_Controller_getDeviceId, nullptr);
+    oluacls_prop(L, "deviceName", _cocos2d_Controller_getDeviceName, nullptr);
+    oluacls_prop(L, "tag", _cocos2d_Controller_getTag, _cocos2d_Controller_setTag);
+
+    olua_registerluatype<cocos2d::Controller>(L, "cc.Controller");
     oluacls_createclassproxy(L);
 
     return 1;
@@ -15975,6 +16747,64 @@ static int luaopen_cocos2d_ActionFloat(lua_State *L)
     oluacls_func(L, "create", _cocos2d_ActionFloat_create);
 
     olua_registerluatype<cocos2d::ActionFloat>(L, "cc.ActionFloat");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_ProgressTo_create(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    lua_Number arg1 = 0;   /** duration */
+    lua_Number arg2 = 0;   /** percent */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_number(L, 2, &arg2);
+
+    // static ProgressTo* create(float duration, float percent)
+    cocos2d::ProgressTo *ret = (cocos2d::ProgressTo *)cocos2d::ProgressTo::create((float)arg1, (float)arg2);
+    int num_ret = olua_push_cppobj<cocos2d::ProgressTo>(L, ret, "cc.ProgressTo");
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_ProgressTo(lua_State *L)
+{
+    oluacls_class(L, "cc.ProgressTo", "cc.ActionInterval");
+    oluacls_func(L, "create", _cocos2d_ProgressTo_create);
+
+    olua_registerluatype<cocos2d::ProgressTo>(L, "cc.ProgressTo");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_ProgressFromTo_create(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    lua_Number arg1 = 0;   /** duration */
+    lua_Number arg2 = 0;   /** fromPercentage */
+    lua_Number arg3 = 0;   /** toPercentage */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_number(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+
+    // static ProgressFromTo* create(float duration, float fromPercentage, float toPercentage)
+    cocos2d::ProgressFromTo *ret = (cocos2d::ProgressFromTo *)cocos2d::ProgressFromTo::create((float)arg1, (float)arg2, (float)arg3);
+    int num_ret = olua_push_cppobj<cocos2d::ProgressFromTo>(L, ret, "cc.ProgressFromTo");
+
+    return num_ret;
+}
+
+static int luaopen_cocos2d_ProgressFromTo(lua_State *L)
+{
+    oluacls_class(L, "cc.ProgressFromTo", "cc.ActionInterval");
+    oluacls_func(L, "create", _cocos2d_ProgressFromTo_create);
+
+    olua_registerluatype<cocos2d::ProgressFromTo>(L, "cc.ProgressFromTo");
     oluacls_createclassproxy(L);
 
     return 1;
@@ -38046,6 +38876,7 @@ int luaopen_cocos2d(lua_State *L)
     olua_require(L, "cc.Event.Type", luaopen_cocos2d_Event_Type);
     olua_require(L, "cc.Event", luaopen_cocos2d_Event);
     olua_require(L, "cc.EventCustom", luaopen_cocos2d_EventCustom);
+    olua_require(L, "cc.EventListenerController", luaopen_cocos2d_EventListenerController);
     olua_require(L, "cc.EventTouch.EventCode", luaopen_cocos2d_EventTouch_EventCode);
     olua_require(L, "cc.EventTouch", luaopen_cocos2d_EventTouch);
     olua_require(L, "cc.EventKeyboard", luaopen_cocos2d_EventKeyboard);
@@ -38056,7 +38887,11 @@ int luaopen_cocos2d(lua_State *L)
     olua_require(L, "cc.EventMouse", luaopen_cocos2d_EventMouse);
     olua_require(L, "cc.EventKeyboard.KeyCode", luaopen_cocos2d_EventKeyboard_KeyCode);
     olua_require(L, "cc.Touch.DispatchMode", luaopen_cocos2d_Touch_DispatchMode);
+    olua_require(L, "cc.EventController.ControllerEventType", luaopen_cocos2d_EventController_ControllerEventType);
+    olua_require(L, "cc.EventController", luaopen_cocos2d_EventController);
     olua_require(L, "cc.Touch", luaopen_cocos2d_Touch);
+    olua_require(L, "cc.Controller.Key", luaopen_cocos2d_Controller_Key);
+    olua_require(L, "cc.Controller", luaopen_cocos2d_Controller);
     olua_require(L, "cc.AudioProfile", luaopen_cocos2d_experimental_AudioProfile);
     olua_require(L, "cc.AudioEngine.AudioState", luaopen_cocos2d_experimental_AudioEngine_AudioState);
     olua_require(L, "cc.AudioEngine", luaopen_cocos2d_experimental_AudioEngine);
@@ -38121,6 +38956,8 @@ int luaopen_cocos2d(lua_State *L)
     olua_require(L, "cc.Animate", luaopen_cocos2d_Animate);
     olua_require(L, "cc.TargetedAction", luaopen_cocos2d_TargetedAction);
     olua_require(L, "cc.ActionFloat", luaopen_cocos2d_ActionFloat);
+    olua_require(L, "cc.ProgressTo", luaopen_cocos2d_ProgressTo);
+    olua_require(L, "cc.ProgressFromTo", luaopen_cocos2d_ProgressFromTo);
     olua_require(L, "cc.ActionEase", luaopen_cocos2d_ActionEase);
     olua_require(L, "cc.EaseRateAction", luaopen_cocos2d_EaseRateAction);
     olua_require(L, "cc.EaseExponentialIn", luaopen_cocos2d_EaseExponentialIn);

@@ -181,6 +181,14 @@ M.CONVS = {
         ]],
         FUNC = 'push|check|is',
     },
+    typeconv {
+        CPPCLS = 'cocos2d::Controller::KeyStatus',
+        DEF = [[
+            bool isPressed;
+            float value;
+            bool isAnalog;
+        ]]
+    }
 }
 
 return M

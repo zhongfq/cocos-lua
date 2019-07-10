@@ -322,6 +322,14 @@ EventCustom.FUNC('new', [[
     return olua_push_cppobj<cocos2d::EventCustom>(L, obj);
 }]])
 
+local EventListenerController = typeconf 'cocos2d::EventListenerController'
+EventListenerController.VAR('onConnected', 'std::function<void(@stack Controller*, @stack Event*)> onConnected = nullptr')
+EventListenerController.VAR('onDisconnected', 'std::function<void(@stack Controller*, @stack Event*)> onDisconnected = nullptr')
+EventListenerController.VAR('onKeyDown', 'std::function<void(@stack Controller*, int, @stack Event*)> onKeyDown = nullptr')
+EventListenerController.VAR('onKeyUp', 'std::function<void(@stack Controller*, int, @stack Event*)> onKeyUp = nullptr')
+EventListenerController.VAR('onKeyRepeat', 'std::function<void(@stack Controller*, int, @stack Event*)> onKeyRepeat = nullptr')
+EventListenerController.VAR('onAxisEvent', 'std::function<void(@stack Controller*, int, @stack Event*)> onAxisEvent = nullptr')
+
 typeconf 'cocos2d::EventTouch::EventCode'
 typeconf 'cocos2d::EventTouch'
 typeconf 'cocos2d::EventKeyboard'
@@ -332,6 +340,8 @@ typeconf 'cocos2d::EventMouse::MouseButton'
 typeconf 'cocos2d::EventMouse'
 typeconf 'cocos2d::EventKeyboard::KeyCode'
 typeconf 'cocos2d::Touch::DispatchMode'
+typeconf 'cocos2d::EventController::ControllerEventType'
+typeconf 'cocos2d::EventController'
 
 local Touch = typeconf 'cocos2d::Touch'
 Touch.FUNC('new', [[
@@ -340,6 +350,9 @@ Touch.FUNC('new', [[
     obj->autorelease();
     return olua_push_cppobj<cocos2d::Touch>(L, obj);
 }]])
+
+typeconf 'cocos2d::Controller::Key'
+typeconf 'cocos2d::Controller'
 
 typeconf 'cocos2d::experimental::AudioProfile'
 typeconf 'cocos2d::experimental::AudioEngine::AudioState'
@@ -724,6 +737,8 @@ ActionFloat.CALLBACK('create', {
 
 typeconf 'cocos2d::ActionCamera'
 typeconf 'cocos2d::OrbitCamera'
+typeconf 'cocos2d::ProgressTo'
+typeconf 'cocos2d::ProgressFromTo'
 
 local ActionEase = typeconf 'cocos2d::ActionEase'
 ActionEase.ATTR('getInnerAction', {RET = '@ref(single innerAction)'})

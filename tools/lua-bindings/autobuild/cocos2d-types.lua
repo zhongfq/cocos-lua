@@ -189,6 +189,12 @@ typedef {
 }
 
 typedef {
+    CONV_FUNC = 'auto_luacv_$$_cocos2d_Controller_KeyStatus',
+    CPPCLS = 'cocos2d::Controller::KeyStatus',
+    INIT_VALUE = false,
+}
+
+typedef {
     CPPCLS = 'ResolutionPolicy',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
@@ -229,6 +235,14 @@ typedef {
 }
 
 typedef {
+    CPPCLS = 'cocos2d::Controller::Key',
+    DECL_TYPE = 'lua_Unsigned',
+    CONV_FUNC = 'olua_$$_uint',
+    VALUE_TYPE = true,
+    LUACLS = 'cc.Controller.Key',
+}
+
+typedef {
     CPPCLS = 'cocos2d::Director::Projection',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
@@ -242,6 +256,14 @@ typedef {
     CONV_FUNC = 'olua_$$_uint',
     VALUE_TYPE = true,
     LUACLS = 'cc.Event.Type',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EventController::ControllerEventType',
+    DECL_TYPE = 'lua_Unsigned',
+    CONV_FUNC = 'olua_$$_uint',
+    VALUE_TYPE = true,
+    LUACLS = 'cc.EventController.ControllerEventType',
 }
 
 typedef {
@@ -623,6 +645,12 @@ typedef {
 }
 
 typedef {
+    CPPCLS = 'cocos2d::Controller *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'cc.Controller',
+}
+
+typedef {
     CPPCLS = 'cocos2d::DeccelAmplitude *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'cc.DeccelAmplitude',
@@ -887,6 +915,12 @@ typedef {
 }
 
 typedef {
+    CPPCLS = 'cocos2d::EventController *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'cc.EventController',
+}
+
+typedef {
     CPPCLS = 'cocos2d::EventCustom *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'cc.EventCustom',
@@ -920,6 +954,12 @@ typedef {
     CPPCLS = 'cocos2d::EventListenerAcceleration *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'cc.EventListenerAcceleration',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EventListenerController *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'cc.EventListenerController',
 }
 
 typedef {
@@ -1253,9 +1293,21 @@ typedef {
 }
 
 typedef {
+    CPPCLS = 'cocos2d::ProgressFromTo *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'cc.ProgressFromTo',
+}
+
+typedef {
     CPPCLS = 'cocos2d::ProgressTimer *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'cc.ProgressTimer',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ProgressTo *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'cc.ProgressTo',
 }
 
 typedef {

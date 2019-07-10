@@ -10,51 +10,7 @@
 #include "cocos2d.h"
 
 
-static int manual_luacv_push_cocos2d_PhysicsWorld(lua_State *L, cocos2d::PhysicsWorld *value)
-{
-    if (!olua_getobj(L, value)) {
-        olua_push_cppobj<cocos2d::PhysicsWorld>(L, value);
-    }
-    return 1;
-}
 
-static int manual_luacv_push_cocos2d_PhysicsShape(lua_State *L, cocos2d::PhysicsShape *value)
-{
-    if (!olua_getobj(L, value)) {
-        olua_push_cppobj<cocos2d::PhysicsShape>(L, value);
-    }
-    return 1;
-}
-
-static int manual_luacv_push_cocos2d_PhysicsContact(lua_State *L, cocos2d::PhysicsContact *value)
-{
-    if (!olua_getobj(L, value)) {
-        olua_push_cppobj<cocos2d::PhysicsContact>(L, value);
-    }
-    return 1;
-}
-
-static int manual_luacv_push_cocos2d_PhysicsContactPreSolve(lua_State *L, const cocos2d::PhysicsContactPreSolve *value)
-{
-    if (!olua_getobj(L, (cocos2d::PhysicsContactPreSolve *)value)) {
-        olua_push_cppobj<cocos2d::PhysicsContactPreSolve>(L, (cocos2d::PhysicsContactPreSolve *)value);
-    }
-    return 1;
-}
-
-static int manual_luacv_push_cocos2d_PhysicsContactPostSolve(lua_State *L, const cocos2d::PhysicsContactPostSolve *value)
-{
-    if (!olua_getobj(L, (cocos2d::PhysicsContactPreSolve *)value)) {
-        olua_push_cppobj<cocos2d::PhysicsContactPostSolve>(L, (cocos2d::PhysicsContactPostSolve *)value);
-    }
-    return 1;
-}
-
-static int manual_luacv_push_cocos2d_PhysicsRayCastInfo(lua_State *L, const cocos2d::PhysicsRayCastInfo *value)
-{
-    olua_push_cppobj<cocos2d::PhysicsRayCastInfo>(L, (cocos2d::PhysicsRayCastInfo *)value);
-    return 1;
-}
 
 int auto_luacv_push_cocos2d_PhysicsMaterial(lua_State *L, const cocos2d::PhysicsMaterial *value)
 {
@@ -139,7 +95,7 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactBegin(lua_State *L)
             lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
             bool ret = false;
-            manual_luacv_push_cocos2d_PhysicsContact(L, &arg1);
+            olua_push_cppobj(L, &arg1);
 
             olua_callback(L, callback_store_obj, func.c_str(), 1);
             olua_check_bool(L, -1, &ret);
@@ -196,8 +152,8 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactPostSolve(lua_State
             lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
-            manual_luacv_push_cocos2d_PhysicsContact(L, &arg1);
-            manual_luacv_push_cocos2d_PhysicsContactPostSolve(L, &arg2);
+            olua_push_cppobj(L, &arg1);
+            olua_push_cppobj(L, &arg2);
 
             olua_callback(L, callback_store_obj, func.c_str(), 2);
 
@@ -252,8 +208,8 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactPreSolve(lua_State 
             lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
             bool ret = false;
-            manual_luacv_push_cocos2d_PhysicsContact(L, &arg1);
-            manual_luacv_push_cocos2d_PhysicsContactPreSolve(L, &arg2);
+            olua_push_cppobj(L, &arg1);
+            olua_push_cppobj(L, &arg2);
 
             olua_callback(L, callback_store_obj, func.c_str(), 2);
             olua_check_bool(L, -1, &ret);
@@ -310,7 +266,7 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactSeparate(lua_State 
             lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
-            manual_luacv_push_cocos2d_PhysicsContact(L, &arg1);
+            olua_push_cppobj(L, &arg1);
 
             olua_callback(L, callback_store_obj, func.c_str(), 1);
 
@@ -4744,8 +4700,8 @@ static int _cocos2d_PhysicsWorld_queryPoint(lua_State *L)
         bool ret = false;
         size_t last = olua_push_objpool(L);
         olua_enable_objpool(L);
-        manual_luacv_push_cocos2d_PhysicsWorld(L, &arg1);
-        manual_luacv_push_cocos2d_PhysicsShape(L, &arg2);
+        olua_push_cppobj(L, &arg1);
+        olua_push_cppobj(L, &arg2);
         olua_disable_objpool(L);
         olua_push_obj(L, arg3, "void *");
 
@@ -4787,8 +4743,8 @@ static int _cocos2d_PhysicsWorld_queryRect(lua_State *L)
         bool ret = false;
         size_t last = olua_push_objpool(L);
         olua_enable_objpool(L);
-        manual_luacv_push_cocos2d_PhysicsWorld(L, &arg1);
-        manual_luacv_push_cocos2d_PhysicsShape(L, &arg2);
+        olua_push_cppobj(L, &arg1);
+        olua_push_cppobj(L, &arg2);
         olua_disable_objpool(L);
         olua_push_obj(L, arg3, "void *");
 
@@ -4832,8 +4788,8 @@ static int _cocos2d_PhysicsWorld_rayCast(lua_State *L)
         bool ret = false;
         size_t last = olua_push_objpool(L);
         olua_enable_objpool(L);
-        manual_luacv_push_cocos2d_PhysicsWorld(L, &arg1);
-        manual_luacv_push_cocos2d_PhysicsRayCastInfo(L, &arg2);
+        olua_push_cppobj(L, &arg1);
+        olua_push_cppobj(L, &arg2);
         olua_disable_objpool(L);
         olua_push_obj(L, arg3, "void *");
 

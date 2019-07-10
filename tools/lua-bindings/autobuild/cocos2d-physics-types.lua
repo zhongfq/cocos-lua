@@ -11,37 +11,37 @@ typedef {
 }
 
 typedef {
-    CONV_FUNC = 'manual_luacv_$$_cocos2d_PhysicsWorld',
+    CONV_FUNC = 'olua_$$_cppobj',
     CPPCLS = 'cocos2d::PhysicsWorld',
     INIT_VALUE = false,
 }
 
 typedef {
-    CONV_FUNC = 'manual_luacv_$$_cocos2d_PhysicsShape',
+    CONV_FUNC = 'olua_$$_cppobj',
     CPPCLS = 'cocos2d::PhysicsShape',
     INIT_VALUE = false,
 }
 
 typedef {
-    CONV_FUNC = 'manual_luacv_$$_cocos2d_PhysicsContact',
+    CONV_FUNC = 'olua_$$_cppobj',
     CPPCLS = 'cocos2d::PhysicsContact',
     INIT_VALUE = false,
 }
 
 typedef {
-    CONV_FUNC = 'manual_luacv_$$_cocos2d_PhysicsContactPreSolve',
+    CONV_FUNC = 'olua_$$_cppobj',
     CPPCLS = 'cocos2d::PhysicsContactPreSolve',
     INIT_VALUE = false,
 }
 
 typedef {
-    CONV_FUNC = 'manual_luacv_$$_cocos2d_PhysicsContactPostSolve',
+    CONV_FUNC = 'olua_$$_cppobj',
     CPPCLS = 'cocos2d::PhysicsContactPostSolve',
     INIT_VALUE = false,
 }
 
 typedef {
-    CONV_FUNC = 'manual_luacv_$$_cocos2d_PhysicsRayCastInfo',
+    CONV_FUNC = 'olua_$$_cppobj',
     CPPCLS = 'cocos2d::PhysicsRayCastInfo',
     INIT_VALUE = false,
 }

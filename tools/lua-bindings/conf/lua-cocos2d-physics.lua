@@ -27,52 +27,7 @@ M.INCLUDES = [[
 #include "xgame/xruntime.h"
 #include "cocos2d.h"
 ]]
-M.CHUNK = [[
-static int manual_luacv_push_cocos2d_PhysicsWorld(lua_State *L, cocos2d::PhysicsWorld *value)
-{
-    if (!olua_getobj(L, value)) {
-        olua_push_cppobj<cocos2d::PhysicsWorld>(L, value);
-    }
-    return 1;
-}
-
-static int manual_luacv_push_cocos2d_PhysicsShape(lua_State *L, cocos2d::PhysicsShape *value)
-{
-    if (!olua_getobj(L, value)) {
-        olua_push_cppobj<cocos2d::PhysicsShape>(L, value);
-    }
-    return 1;
-}
-
-static int manual_luacv_push_cocos2d_PhysicsContact(lua_State *L, cocos2d::PhysicsContact *value)
-{
-    if (!olua_getobj(L, value)) {
-        olua_push_cppobj<cocos2d::PhysicsContact>(L, value);
-    }
-    return 1;
-}
-
-static int manual_luacv_push_cocos2d_PhysicsContactPreSolve(lua_State *L, const cocos2d::PhysicsContactPreSolve *value)
-{
-    if (!olua_getobj(L, (cocos2d::PhysicsContactPreSolve *)value)) {
-        olua_push_cppobj<cocos2d::PhysicsContactPreSolve>(L, (cocos2d::PhysicsContactPreSolve *)value);
-    }
-    return 1;
-}
-
-static int manual_luacv_push_cocos2d_PhysicsContactPostSolve(lua_State *L, const cocos2d::PhysicsContactPostSolve *value)
-{
-    if (!olua_getobj(L, (cocos2d::PhysicsContactPreSolve *)value)) {
-        olua_push_cppobj<cocos2d::PhysicsContactPostSolve>(L, (cocos2d::PhysicsContactPostSolve *)value);
-    }
-    return 1;
-}
-
-static int manual_luacv_push_cocos2d_PhysicsRayCastInfo(lua_State *L, const cocos2d::PhysicsRayCastInfo *value)
-{
-    olua_push_cppobj<cocos2d::PhysicsRayCastInfo>(L, (cocos2d::PhysicsRayCastInfo *)value);
-    return 1;
-}]]
+M.CHUNK = [[]]
 
 M.MAKE_LUACLS = function (cppname)
     cppname = string.gsub(cppname, "^cocos2d::", "cc.")
@@ -117,37 +72,37 @@ typeconv {
 
 typedef {
     CPPCLS = 'cocos2d::PhysicsWorld',
-    CONV_FUNC = 'manual_luacv_$$_cocos2d_PhysicsWorld',
+    CONV_FUNC = 'olua_$$_cppobj',
     INIT_VALUE = false,
 }
 
 typedef {
     CPPCLS = 'cocos2d::PhysicsShape',
-    CONV_FUNC = 'manual_luacv_$$_cocos2d_PhysicsShape',
+    CONV_FUNC = 'olua_$$_cppobj',
     INIT_VALUE = false,
 }
 
 typedef {
     CPPCLS = 'cocos2d::PhysicsContact',
-    CONV_FUNC = 'manual_luacv_$$_cocos2d_PhysicsContact',
+    CONV_FUNC = 'olua_$$_cppobj',
     INIT_VALUE = false,
 }
 
 typedef {
     CPPCLS = 'cocos2d::PhysicsContactPreSolve',
-    CONV_FUNC = 'manual_luacv_$$_cocos2d_PhysicsContactPreSolve',
+    CONV_FUNC = 'olua_$$_cppobj',
     INIT_VALUE = false,
 }
 
 typedef {
     CPPCLS = 'cocos2d::PhysicsContactPostSolve',
-    CONV_FUNC = 'manual_luacv_$$_cocos2d_PhysicsContactPostSolve',
+    CONV_FUNC = 'olua_$$_cppobj',
     INIT_VALUE = false,
 }
 
 typedef {
     CPPCLS = 'cocos2d::PhysicsRayCastInfo',
-    CONV_FUNC = 'manual_luacv_$$_cocos2d_PhysicsRayCastInfo',
+    CONV_FUNC = 'olua_$$_cppobj',
     INIT_VALUE = false,
 }
 

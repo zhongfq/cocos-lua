@@ -120,7 +120,7 @@ template <typename T> int olua_push_cppobj(lua_State *L, T* value)
 
 template <typename T> int olua_push_cppobj(lua_State *L, const T* value)
 {
-    return olua_push_cppobj<T>(L, (T *)value);
+    return olua_push_cppobj<T>(L, (T *)value, nullptr);
 }
 
 static inline void olua_to_cppobj(lua_State *L, int idx, void **value, const char *cls)

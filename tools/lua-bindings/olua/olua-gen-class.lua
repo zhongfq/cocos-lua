@@ -1,3 +1,6 @@
+local olua = require "olua.core"
+
+local format = olua.format
 local class_map = {}
 
 local function check_gen_class_func(cls, fi, write, func_filter)
@@ -62,7 +65,7 @@ local function gen_class_open(cls, write)
     if cls.SUPERCLS then
         local ti = test_typename(cls.SUPERCLS .. ' *') or test_typename(cls.SUPERCLS)
         assert(ti, cls.SUPERCLS)
-        SUPRECLS = stringfy(ti.LUACLS)
+        SUPRECLS = olua.stringfy(ti.LUACLS)
     end
     local FUNCS = {}
     local REG_LUATYPE = ''
@@ -117,7 +120,7 @@ local function gen_class_open(cls, write)
             CONST_FUNC = "oluacls_const_number"
         elseif ci.TYPE == "string" then
             CONST_FUNC = "oluacls_const_string"
-            CONST_VALUE = stringfy(CONST_VALUE)
+            CONST_VALUE = olua.stringfy(CONST_VALUE)
         end
         FUNCS[#FUNCS + 1] = format([[
             ${CONST_FUNC}(L, "${CONST_NAME}", ${CONST_VALUE});

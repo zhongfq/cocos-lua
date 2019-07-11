@@ -1,3 +1,4 @@
+local typemod = require "olua.typemod"
 local M = typemod 'cocos2d_ui'
 local typeconf = M.typeconf
 local typedef = M.typedef

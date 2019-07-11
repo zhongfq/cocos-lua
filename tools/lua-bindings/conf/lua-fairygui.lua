@@ -1,3 +1,4 @@
+local typemod = require "olua.typemod"
 local M = typemod 'fairygui'
 local typeconf = M.typeconf
 local typeconv = M.typeconv

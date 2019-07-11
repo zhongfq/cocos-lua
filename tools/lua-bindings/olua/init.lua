@@ -9,9 +9,10 @@ else
     error('TODO')
 end
 
-require "olua.olua-core"
-require "olua.olua-cls"
-require "olua.olua-arg-type"
+local olua = require "olua.core"
+
+require "olua.typecls"
+require "olua.basictype"
 require "olua.olua-gen-header"
 require "olua.olua-gen-source"
 require "olua.olua-gen-class"
@@ -19,4 +20,14 @@ require "olua.olua-gen-class-func"
 require "olua.olua-gen-callback"
 require "olua.olua-gen-conv"
 
-return
+function olua.export(path)
+    local module = dofile(path)
+    if #module.CLASSES > 0 then
+        gen_header(module)
+        gen_source(module)
+    elseif #module.CONVS > 0 then
+        gen_conv(module)
+    end
+end
+
+return olua

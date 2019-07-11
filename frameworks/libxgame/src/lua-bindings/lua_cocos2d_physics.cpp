@@ -9,7 +9,6 @@
 #include "xgame/xruntime.h"
 #include "cocos2d.h"
 
-
 using namespace cocos2d;
 
 int auto_olua_push_cocos2d_PhysicsMaterial(lua_State *L, const cocos2d::PhysicsMaterial *value)

@@ -1,6 +1,6 @@
+local olua = {}
 
-
-function write(path, content)
+function olua.write(path, content)
     local file = io.open(path, 'r')
     if file then
         local flag = file:read("*a") == content
@@ -20,7 +20,16 @@ function write(path, content)
     file:close()
 end
 
-function avoid()
+function olua.stringfy(value)
+    if value then
+        return '"' .. tostring(value) .. '"'
+    else
+        return nil
+    end
+end
+
+-- suppress lua check warning
+function olua.nowarning()
 end
 
 local function lookup(level, key)
@@ -49,7 +58,7 @@ local function lookup(level, key)
     end
 end
 
-function format(expr, indent)
+function olua.format(expr, indent)
     expr = string.gsub(expr, '[\n\r]', '\n')
     expr = string.gsub(expr, '^[\n]*', '') -- trim head '\n'
     expr = string.gsub(expr, '[ \n]*$', '') -- trim tail '\n' or ' '
@@ -89,6 +98,7 @@ function format(expr, indent)
                 error("value not found for " .. key)
             else
                 -- indent the value if value has multiline
+                value = string.gsub(value, '[\n]*$', '')
                 return indent .. string.gsub(tostring(value), '\n', '\n' .. indent)
             end
         end)
@@ -116,3 +126,5 @@ function format(expr, indent)
     
     return expr
 end
+
+return olua

@@ -1,3 +1,6 @@
+local olua = require "olua.typecls"
+local typedef = olua.typedef
+
 typedef {
     CONV_FUNC = 'olua_$$_obj',
     CPPCLS = 'cocos2d *',

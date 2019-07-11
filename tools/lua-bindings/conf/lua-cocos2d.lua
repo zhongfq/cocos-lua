@@ -1,3 +1,4 @@
+local typemod = require "olua.typemod"
 local M = typemod 'cocos2d'
 local typeconf = M.typeconf
 local include = M.include
@@ -242,15 +243,10 @@ EventDispatcher.FUNC('addCustomEventListener', [[
     self->addEventListenerWithFixedPriority(listener, 1);
     lua_pushvalue(L, 4);
 
-    ${INJECT_AFTER}
+    olua_mapref(L, 1, "listeners", -1);
 
     return 1;
 }]])
-EventDispatcher.INJECT('addCustomEventListener', {
-    AFTER = [[
-        olua_mapref(L, 1, "listeners", -1);
-    ]]
-})
 EventDispatcher.INJECT('removeEventListenersForTarget', {
     BEFORE = [[
         bool recursive = false;

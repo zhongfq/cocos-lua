@@ -1,19 +1,15 @@
-require "olua"
+local olua = require "olua"
+local export = olua.export
 
 require 'autobuild.cocos2d-types'
 require 'autobuild.cocos2d-physics-types'
 require 'autobuild.cocos2d-ui-types'
 
-function gen_module(module)
-    gen_header(module)
-    gen_source(module)
-end
-
-gen_conv(require("conf.lua-conv"))
-gen_module(require("autobuild.cocos2d"))
-gen_module(require("autobuild.cocos2d-physics"))
-gen_module(require("autobuild.cocos2d-ui"))
-gen_module(require("autobuild.fairygui"))
-gen_module(require("autobuild.dragonbones"))
-gen_module(require("autobuild.spine"))
-gen_module(require("autobuild.xgame"))
+export 'autobuild/conv.lua'
+export 'autobuild/cocos2d.lua'
+export 'autobuild/cocos2d-physics.lua'
+export 'autobuild/cocos2d-ui.lua'
+export 'autobuild/fairygui.lua'
+export 'autobuild/dragonbones.lua'
+export 'autobuild/spine.lua'
+export 'autobuild/xgame.lua'

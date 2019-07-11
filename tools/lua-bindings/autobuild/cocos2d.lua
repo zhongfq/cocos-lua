@@ -386,15 +386,10 @@ cls.func('addCustomEventListener', [[{
     self->addEventListenerWithFixedPriority(listener, 1);
     lua_pushvalue(L, 4);
 
-    ${INJECT_AFTER}
+    olua_mapref(L, 1, "listeners", -1);
 
     return 1;
 }]])
-cls.inject('addCustomEventListener', {
-    AFTER = [[
-        olua_mapref(L, 1, "listeners", -1);
-    ]],
-})
 cls.inject('removeEventListenersForTarget', {
     BEFORE = [[
         bool recursive = false;

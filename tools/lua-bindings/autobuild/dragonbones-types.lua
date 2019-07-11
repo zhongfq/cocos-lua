@@ -1,3 +1,6 @@
+local olua = require "olua.typecls"
+local typedef = olua.typedef
+
 typedef {
     CPPCLS = 'dragonBones::ActionType',
     DECL_TYPE = 'lua_Unsigned',

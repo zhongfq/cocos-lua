@@ -25,7 +25,8 @@ M.CONVS = {
             float density;
             float restitution;
             float friction;
-        ]]
+        ]],
+        FUNC = nil,
     },
 }
 

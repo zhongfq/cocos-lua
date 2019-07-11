@@ -1,3 +1,6 @@
+local olua = require "olua.typecls"
+local typedef = olua.typedef
+
 typedef {
     CONV_FUNC = 'auto_olua_$$_cocos2d_ui_Margin',
     CPPCLS = 'cocos2d::ui::Margin',

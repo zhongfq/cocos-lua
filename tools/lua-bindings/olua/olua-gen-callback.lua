@@ -1,3 +1,7 @@
+local olua = require "olua.core"
+
+local format = olua.format
+
 local function get_callback_store(fi, idx)
     local idx = idx or fi.CALLBACK_OPT.TAG_STORE or 0
     if idx < 0 then

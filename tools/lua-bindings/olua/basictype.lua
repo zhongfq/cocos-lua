@@ -1,4 +1,5 @@
-require "olua.olua-cls"
+local olua = require "olua.typecls"
+local typedef = olua.typedef
 
 typedef {
     CPPCLS = 'void',

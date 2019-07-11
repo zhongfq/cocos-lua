@@ -1,5 +1,9 @@
+local olua = require "olua.core"
+
 local typeinfo_map = {}
 local class_map = {}
+
+local format = olua.format
 
 local function to_pretty_typename(typename)
     -- t = '   const   type   *   &  '
@@ -721,15 +725,7 @@ function class_path(cls)
     return string.gsub(cls.CPPCLS, '[.:]+', '_')
 end
 
-function stringfy(value)
-    if value then
-        return '"' .. tostring(value) .. '"'
-    else
-        return nil
-    end
-end
-
-function typedef(typeinfo)
+function olua.typedef(typeinfo)
     for n in string.gmatch(typeinfo.CPPCLS, '[^\n\r]+') do
         local typename = to_pretty_typename(n)
         local info = setmetatable({}, {__index = typeinfo})
@@ -822,3 +818,5 @@ function typeconv(ci)
     ci.FUNC.IS = true
     return ci
 end
+
+return olua

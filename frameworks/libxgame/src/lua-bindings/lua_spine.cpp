@@ -9,7 +9,6 @@
 #include "cocos2d.h"
 #include "spine/spine-cocos2dx.h"
 
-
 bool manual_olua_is_spine_String(lua_State *L, int idx)
 {
     return olua_isstring(L, idx);

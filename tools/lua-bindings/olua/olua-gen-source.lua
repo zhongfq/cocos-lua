@@ -1,3 +1,7 @@
+local olua = require "olua.core"
+
+local format = olua.format
+
 local function gen_include(module, write)
     local INCLUDES = module.INCLUDES
     local CHUNK= module.CHUNK
@@ -94,5 +98,5 @@ function gen_source(module)
     gen_include(module, append)
     gen_classes(module, append)
     gen_luaopen(module, append)
-    write(module.SOURCE_PATH, table.concat(arr, "\n"))
+    olua.write(module.SOURCE_PATH, table.concat(arr, "\n"))
 end

@@ -1,3 +1,5 @@
+local olua = require "olua.core"
+
 local function command(func)
     return setmetatable({}, {__call = func})
 end
@@ -38,7 +40,8 @@ local function addcmd(cls)
     return cls
 end
 
-function typemod(name)
+-- function typemod
+return function (name)
     local module = {
         CLASSES = {},
         CONVS = {},
@@ -47,6 +50,14 @@ function typemod(name)
         NAME = name,
         EXCLUDE_PATTERN = function () end
     }
+
+    module.EXCLUDE_TYPE = command(function (_, tn)
+        module.EXCLUDE_TYPE[tn] = true
+    end)
+
+    function module.include(path)
+        loadfile(path)(module)
+    end
 
     function module.typeconf(name)
         local cls = {
@@ -60,18 +71,11 @@ function typemod(name)
         module.TYPEDEFS[#module.TYPEDEFS + 1] = info
     end
 
-    function module.include(path)
-        loadfile(path)(module)
-    end
-
-    module.EXCLUDE_TYPE = command(function (_, tn)
-        module.EXCLUDE_TYPE[tn] = true
-    end)
-
     function module.typeconv(info)
         module.CONVS[#module.CONVS + 1] = {
             CPPCLS = assert(info.CPPCLS),
-            DEF = format(assert(info.DEF)),
+            DEF = olua.format(assert(info.DEF)),
+            FUNC = info.FUNC,
         }
     end
 

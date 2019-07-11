@@ -1,3 +1,6 @@
+local olua = require "olua.typecls"
+local typedef = olua.typedef
+
 typedef {
     CONV_FUNC = 'manual_olua_$$_fairygui_EventTag',
     CPPCLS = 'fairygui::EventTag',

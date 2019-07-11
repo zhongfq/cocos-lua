@@ -1,3 +1,4 @@
+local typemod = require "olua.typemod"
 local M = typemod 'exclude-type'
 
 M.EXCLUDE_TYPE 'cocos2d::Console *'

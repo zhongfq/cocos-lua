@@ -1,4 +1,7 @@
+local olua = require "olua"
 local clang = require "clang"
+
+local format = olua.format
 
 local cachedClass = {}
 local M = {}
@@ -92,6 +95,11 @@ function M:writeHeader()
     self:writeLine('M.NAME = "' .. self.module.NAME .. '"')
     self:writeLine('M.HEADER_PATH = "' .. self.module.HEADER_PATH .. '"')
     self:writeLine('M.SOURCE_PATH = "' .. self.module.SOURCE_PATH .. '"')
+    if self.module.HEADER_INCLUDES then
+        self:writeLine('M.HEADER_INCLUDES = [[')
+        self:write(self.module.HEADER_INCLUDES)
+        self:writeLine(']]')
+    end
     self:writeLine('M.INCLUDES = [[')
     self:write(self.module.INCLUDES)
     self:writeLine(']]')
@@ -106,12 +114,15 @@ function M:writeHeader()
         for _, v in ipairs(self.module.CONVS) do
             local CPPCLS = v.CPPCLS
             local DEF = v.DEF
+            local FUNC = v.FUNC and olua.stringfy(v.FUNC) or 'nil'
+            olua.nowarning(CPPCLS, DEF, FUNC)
             self:writeLine(format([=[
                 typeconv {
                     CPPCLS = '${CPPCLS}',
                     DEF = [[
                         ${DEF}
-                    ]]
+                    ]],
+                    FUNC = ${FUNC},
                 },
             ]=], 4))
         end
@@ -128,9 +139,12 @@ function M:writeTypedef()
         file:write(string.format(fmt, ...))
         file:write('\n')
     end
-    for _, v in ipairs(self.module.TYPEDEFS) do
+    writeLine('local olua = require "olua.typecls"')
+    writeLine('local typedef = olua.typedef')
+    writeLine('')
+    for _, td in ipairs(self.module.TYPEDEFS) do
         local arr = {}
-        for k, v in pairs(v) do
+        for k, v in pairs(td) do
             arr[#arr + 1] = {k, v}
         end
         table.sort(arr, function (a, b) return a[1] < b[1] end)
@@ -157,6 +171,7 @@ function M:writeTypedef()
     for _, v in ipairs(enums) do
         local CPPCLS = v
         local LUACLS = self.module.MAKE_LUACLS(v)
+        olua.nowarning(CPPCLS, LUACLS)
         file:write(format([[
             typedef {
                 CPPCLS = '${CPPCLS}',
@@ -171,6 +186,7 @@ function M:writeTypedef()
     for _, v in ipairs(classes) do
         local CPPCLS = v
         local LUACLS = self.module.MAKE_LUACLS(v)
+        olua.nowarning(CPPCLS, LUACLS)
         file:write(format([[
             typedef {
                 CPPCLS = '${CPPCLS} *',
@@ -814,7 +830,7 @@ function M:visit(cur)
     end
 end
 
-function autoconf(path)
+return function (path)
     local inst = setmetatable({}, {__index = M})
     inst:parse(path)
 end

@@ -8,7 +8,6 @@
 #include "FairyGUI.h"
 #include "tween/EaseManager.h"
 
-
 bool manual_olua_is_fairygui_EventTag(lua_State *L, int idx)
 {
     return olua_isinteger(L, idx) || olua_isa(L, idx, OLUA_VOIDCLS);

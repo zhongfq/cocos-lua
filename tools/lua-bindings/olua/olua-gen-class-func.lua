@@ -1,13 +1,17 @@
+local olua = require "olua.core"
+
+local format = olua.format
+
 local function gen_snippet_func(cls, fi, write)
     local CPPCLS_PATH = class_path(cls)
     local CPPFUNC = fi.CPPFUNC
     local CPPFUNC_SNIPPET = fi.CPPFUNC_SNIPPET
     local INJECT_AFTER = fi.INJECT.AFTER or ""
     local INJECT_BEFORE = fi.INJECT.BEFORE or ""
-    write(format(format([[
+    write(format([[
         static int _${CPPCLS_PATH}_${CPPFUNC}(lua_State *L)
         ${CPPFUNC_SNIPPET}
-    ]])))
+    ]]))
     write('')
 end
 

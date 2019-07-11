@@ -1,3 +1,6 @@
+local olua = require "olua.typecls"
+local typedef = olua.typedef
+
 typedef {
     CPPCLS = 'xgame::SceneNoCamera *',
     CONV_FUNC = 'olua_$$_cppobj',

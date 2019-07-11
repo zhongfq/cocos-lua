@@ -14,7 +14,6 @@
 #include "vr/CCVRGenericRenderer.h"
 #include "vr/CCVRGenericHeadTracker.h"
 
-
 static const std::string makeScheduleCallbackTag(const std::string &key)
 {
     return "schedule." + key;

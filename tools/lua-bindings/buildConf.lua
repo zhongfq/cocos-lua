@@ -1,7 +1,9 @@
 require "olua"
-require "olua.autoconf"
 require "olua.typemod"
 
+local autoconf = require "olua.autoconf"
+
+autoconf 'conf/lua-conv.lua'
 autoconf 'conf/lua-cocos2d.lua'
 autoconf 'conf/lua-cocos2d-physics.lua'
 autoconf 'conf/lua-cocos2d-ui.lua'

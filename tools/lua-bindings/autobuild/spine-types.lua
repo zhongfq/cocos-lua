@@ -1,3 +1,6 @@
+local olua = require "olua.typecls"
+local typedef = olua.typedef
+
 typedef {
     CONV_FUNC = 'manual_olua_$$_spine_String',
     CPPCLS = 'spine::String',

@@ -2,7 +2,7 @@
 #define __XRUNTIME_H__
 
 #include "xgame/xdef.h"
-#include "lua.hpp"
+#include "xgame/xlua.h"
 
 #include "cocos2d.h"
 

@@ -70,11 +70,11 @@ int manual_olua_push_spine_EventData(lua_State *L, const spine::EventData *value
     olua_setfieldnumber(L, -1, "getVolume", const_cast<spine::EventData *>(value)->getVolume());
     olua_setfieldnumber(L, -1, "getBalance", const_cast<spine::EventData *>(value)->getBalance());
     manual_olua_push_spine_String(L, &value->getName());
-    olua_rawset(L, -2, "name");
+    olua_rawsetf(L, -2, "name");
     manual_olua_push_spine_String(L, &const_cast<spine::EventData *>(value)->getStringValue());
-    olua_rawset(L, -2, "stringValue");
+    olua_rawsetf(L, -2, "stringValue");
     manual_olua_push_spine_String(L, &const_cast<spine::EventData *>(value)->getAudioPath());
-    olua_rawset(L, -2, "audioPath");
+    olua_rawsetf(L, -2, "audioPath");
     return 1;
 }
 

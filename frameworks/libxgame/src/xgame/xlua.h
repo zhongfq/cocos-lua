@@ -7,7 +7,6 @@
 #define olua_handlestatus(L, v, s)  xlua_handlestatus(L, v, s)
 
 #include "xgame/xdef.h"
-#include "lua.hpp"
 #include "olua/olua.hpp"
 
 #include "cocos2d.h"

@@ -2,8 +2,6 @@
 #define __LUA_CONV_MANUAL_H__
 
 #include "xgame/xlua.h"
-#include "lua.hpp"
-
 #include "cocos2d.h"
 
 int manual_olua_push_cocos2d_Data(lua_State *L, const cocos2d::Data *value);

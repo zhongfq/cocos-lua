@@ -276,9 +276,9 @@ void manual_olua_check_cocos2d_ccBezierConfig(lua_State *L, int idx, cocos2d::cc
         luaL_error(L, "value is NULL");
     }
     idx = lua_absindex(L, idx);
-    olua_rawget(L, idx, "controlPoint_1");
-    olua_rawget(L, idx, "controlPoint_2");
-    olua_rawget(L, idx, "endPosition");
+    olua_rawgetf(L, idx, "controlPoint_1");
+    olua_rawgetf(L, idx, "controlPoint_2");
+    olua_rawgetf(L, idx, "endPosition");
     manual_olua_pack_cocos2d_ccBezierConfig(L, idx + 1, value);
     lua_pop(L, 3);
 }
@@ -488,7 +488,7 @@ int manual_olua_push_cocos2d_ValueMap(lua_State *L, const cocos2d::ValueMap *val
         lua_createtable(L, 0, (int)value->size());
         for (auto it = value->begin(); it != value->end(); ++it) {
             if (manual_olua_push_cocos2d_Value(L, &it->second)) {
-                olua_rawset(L, -2, it->first.c_str());
+                olua_rawsetf(L, -2, it->first.c_str());
             }
         }
     } else {

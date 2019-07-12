@@ -6067,24 +6067,6 @@ static int _cocos2d_Controller_isConnected(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_Controller_receiveExternalKeyEvent(lua_State *L)
-{
-    lua_settop(L, 3);
-
-    cocos2d::Controller *self = nullptr;
-    lua_Integer arg1 = 0;   /** externalKeyCode */
-    bool arg2 = false;   /** receive */
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.Controller");
-    olua_check_int(L, 2, &arg1);
-    olua_check_bool(L, 3, &arg2);
-
-    // void receiveExternalKeyEvent(int externalKeyCode,bool receive)
-    self->receiveExternalKeyEvent((int)arg1, arg2);
-
-    return 0;
-}
-
 static int _cocos2d_Controller_setTag(lua_State *L)
 {
     lua_settop(L, 2);
@@ -6132,7 +6114,6 @@ static int luaopen_cocos2d_Controller(lua_State *L)
     oluacls_func(L, "getKeyStatus", _cocos2d_Controller_getKeyStatus);
     oluacls_func(L, "getTag", _cocos2d_Controller_getTag);
     oluacls_func(L, "isConnected", _cocos2d_Controller_isConnected);
-    oluacls_func(L, "receiveExternalKeyEvent", _cocos2d_Controller_receiveExternalKeyEvent);
     oluacls_func(L, "setTag", _cocos2d_Controller_setTag);
     oluacls_func(L, "startDiscoveryController", _cocos2d_Controller_startDiscoveryController);
     oluacls_func(L, "stopDiscoveryController", _cocos2d_Controller_stopDiscoveryController);

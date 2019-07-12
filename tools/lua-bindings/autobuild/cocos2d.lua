@@ -968,7 +968,6 @@ cls.funcs [[
     int getDeviceId()
     bool isConnected()
     const KeyStatus& getKeyStatus(int keyCode)
-    void receiveExternalKeyEvent(int externalKeyCode,bool receive)
     void setTag(int tag)
     int getTag()
 ]]

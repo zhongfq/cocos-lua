@@ -348,7 +348,9 @@ Touch.FUNC('new', [[
 }]])
 
 typeconf 'cocos2d::Controller::Key'
-typeconf 'cocos2d::Controller'
+
+local Controller = typeconf 'cocos2d::Controller'
+Controller.EXCLUDE 'receiveExternalKeyEvent'
 
 typeconf 'cocos2d::experimental::AudioProfile'
 typeconf 'cocos2d::experimental::AudioEngine::AudioState'

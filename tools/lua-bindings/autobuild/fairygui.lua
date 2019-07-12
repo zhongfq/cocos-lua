@@ -1,7 +1,13 @@
 require "autobuild.fairygui-types"
 
-local cls
+local olua = require "olua"
+local typeconv = olua.typeconv
+local typecls = olua.typecls
+local cls = nil
 local M = {}
+
+olua.nowarning(typeconv, typecls, cls)
+
 M.NAME = "fairygui"
 M.HEADER_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_fairygui.h"
 M.SOURCE_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_fairygui.cpp"
@@ -57,7 +63,7 @@ M.CONVS = {
 
 M.CLASSES = {}
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::UIEventType"
 cls.enums [[
     Enter
@@ -94,7 +100,7 @@ cls.enums [[
 cls.funcs [[
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::UIEventDispatcher"
 cls.SUPERCLS = "cocos2d::Ref"
 cls.CHUNK = [[
@@ -155,7 +161,7 @@ cls.callback {
     REMOVE = true,
 }
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::EventContext"
 cls.funcs [[
     int getType()
@@ -178,13 +184,13 @@ cls.props [[
     data
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::IHitTest"
 cls.funcs [[
     bool hitTest(GComponent* obj, const cocos2d::Vec2& localPoint)
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::InputProcessor"
 cls.funcs [[
     InputEvent* getRecentInput()
@@ -209,7 +215,7 @@ cls.props [[
     touchOnUI
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::InputEvent"
 cls.funcs [[
     GObject* getTarget()
@@ -244,7 +250,7 @@ cls.props [[
     processor
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::TextFormat"
 cls.enums [[
     OUTLINE
@@ -281,7 +287,7 @@ cls.func('setFormat', [[{
     return 0;
 }]])
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::EaseType"
 cls.enums [[
     Linear
@@ -318,13 +324,13 @@ cls.enums [[
     Custom
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::EaseManager"
 cls.funcs [[
     static float evaluate(EaseType easeType, float time, float duration, float overshootOrAmplitude, float period)
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::TweenPropType"
 cls.enums [[
     None
@@ -342,7 +348,7 @@ cls.enums [[
     Progress
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::GTweener"
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
@@ -421,7 +427,7 @@ cls.props [[
     completed
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::GTween"
 cls.CHUNK = [[
 static int should_unref_tween(lua_State *L)
@@ -497,7 +503,7 @@ cls.inject('clean', {
     ]],
 })
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::UIPackage"
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
@@ -526,7 +532,7 @@ cls.props [[
     name
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::PackageItem"
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
@@ -550,7 +556,7 @@ cls.var('repeatDelay', [[float repeatDelay]])
 cls.var('swing', [[bool swing]])
 cls.var('translated', [[bool translated]])
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::PackageItemType"
 cls.enums [[
     IMAGE
@@ -564,7 +570,7 @@ cls.enums [[
     UNKNOWN
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::ObjectType"
 cls.enums [[
     IMAGE
@@ -586,7 +592,7 @@ cls.enums [[
     SCROLLBAR
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::ButtonMode"
 cls.enums [[
     COMMON
@@ -594,7 +600,7 @@ cls.enums [[
     RADIO
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::ChildrenRenderOrder"
 cls.enums [[
     ASCENT
@@ -602,7 +608,7 @@ cls.enums [[
     ARCH
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::OverflowType"
 cls.enums [[
     VISIBLE
@@ -610,7 +616,7 @@ cls.enums [[
     SCROLL
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::ScrollType"
 cls.enums [[
     HORIZONTAL
@@ -618,7 +624,7 @@ cls.enums [[
     BOTH
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::ScrollBarDisplayType"
 cls.enums [[
     DEFAULT
@@ -627,7 +633,7 @@ cls.enums [[
     HIDDEN
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::LoaderFillType"
 cls.enums [[
     NONE
@@ -638,7 +644,7 @@ cls.enums [[
     SCALE_NO_BORDER
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::ProgressTitleType"
 cls.enums [[
     PERCENT
@@ -647,7 +653,7 @@ cls.enums [[
     MAX
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::ListLayoutType"
 cls.enums [[
     SINGLE_COLUMN
@@ -657,7 +663,7 @@ cls.enums [[
     PAGINATION
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::ListSelectionMode"
 cls.enums [[
     SINGLE
@@ -666,7 +672,7 @@ cls.enums [[
     NONE
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::GroupLayoutType"
 cls.enums [[
     NONE
@@ -674,7 +680,7 @@ cls.enums [[
     VERTICAL
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::PopupDirection"
 cls.enums [[
     AUTO
@@ -682,7 +688,7 @@ cls.enums [[
     DOWN
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::AutoSizeType"
 cls.enums [[
     NONE
@@ -691,7 +697,7 @@ cls.enums [[
     SHRINK
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::FlipType"
 cls.enums [[
     NONE
@@ -700,7 +706,7 @@ cls.enums [[
     BOTH
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::TransitionActionType"
 cls.enums [[
     XY
@@ -722,7 +728,7 @@ cls.enums [[
     Unknown
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::FillMethod"
 cls.enums [[
     None
@@ -733,7 +739,7 @@ cls.enums [[
     Radial360
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::FillOrigin"
 cls.enums [[
     Top
@@ -742,7 +748,7 @@ cls.enums [[
     Right
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::GController"
 cls.SUPERCLS = "fairygui::UIEventDispatcher"
 cls.funcs [[
@@ -779,7 +785,7 @@ cls.props [[
     pageCount
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::GObject"
 cls.SUPERCLS = "fairygui::UIEventDispatcher"
 cls.funcs [[
@@ -954,7 +960,7 @@ cls.props [[
     root
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::GComponent"
 cls.SUPERCLS = "fairygui::GObject"
 cls.funcs [[
@@ -1072,7 +1078,7 @@ cls.props [[
     viewHeight
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::GRoot"
 cls.SUPERCLS = "fairygui::GComponent"
 cls.funcs [[
@@ -1141,7 +1147,7 @@ cls.props [[
     soundVolumeScale
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::GGroup"
 cls.SUPERCLS = "fairygui::GObject"
 cls.funcs [[
@@ -1162,7 +1168,7 @@ cls.props [[
     lineGap
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::GScrollBar"
 cls.SUPERCLS = "fairygui::GComponent"
 cls.funcs [[
@@ -1176,7 +1182,7 @@ cls.props [[
     minSize
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::GLoader"
 cls.SUPERCLS = "fairygui::GObject"
 cls.funcs [[
@@ -1232,7 +1238,7 @@ cls.props [[
     component
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::GTextField"
 cls.SUPERCLS = "fairygui::GObject"
 cls.funcs [[
@@ -1280,7 +1286,7 @@ cls.props [[
     outlineColor
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::GGraph"
 cls.SUPERCLS = "fairygui::GObject"
 cls.funcs [[
@@ -1296,7 +1302,7 @@ cls.props [[
     color
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::GButton"
 cls.SUPERCLS = "fairygui::GComponent"
 cls.funcs [[
@@ -1331,7 +1337,7 @@ cls.props [[
     textField
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::GImage"
 cls.SUPERCLS = "fairygui::GObject"
 cls.funcs [[
@@ -1358,7 +1364,7 @@ cls.props [[
     fillAmount
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::GLabel"
 cls.SUPERCLS = "fairygui::GComponent"
 cls.funcs [[
@@ -1378,7 +1384,7 @@ cls.props [[
     textField
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::GList"
 cls.SUPERCLS = "fairygui::GComponent"
 cls.funcs [[
@@ -1486,7 +1492,7 @@ cls.props [[
     numItems
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::GMovieClip"
 cls.SUPERCLS = "fairygui::GObject"
 cls.funcs [[
@@ -1520,7 +1526,7 @@ cls.props [[
     color
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::GProgressBar"
 cls.SUPERCLS = "fairygui::GComponent"
 cls.funcs [[
@@ -1539,7 +1545,7 @@ cls.props [[
     value
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::GComboBox"
 cls.SUPERCLS = "fairygui::GComponent"
 cls.funcs [[
@@ -1579,14 +1585,14 @@ cls.props [[
     textField
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::GRichTextField"
 cls.SUPERCLS = "fairygui::GTextField"
 cls.funcs [[
     static fairygui::GRichTextField * create()
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::GSlider"
 cls.SUPERCLS = "fairygui::GComponent"
 cls.funcs [[
@@ -1606,7 +1612,7 @@ cls.props [[
     value
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::GTextInput"
 cls.SUPERCLS = "fairygui::GTextField"
 cls.funcs [[
@@ -1618,7 +1624,7 @@ cls.funcs [[
     void setRestrict(const std::string& value)
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::PopupMenu"
 cls.SUPERCLS = "cocos2d::Ref"
 cls.CHUNK = [[
@@ -1712,7 +1718,7 @@ cls.props [[
     list
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::Relations"
 cls.funcs [[
     void add(GObject* target, RelationType relationType)
@@ -1739,7 +1745,7 @@ cls.props [[
     empty
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::RelationType"
 cls.enums [[
     Left_Left
@@ -1769,7 +1775,7 @@ cls.enums [[
     Size
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::RelationItem"
 cls.funcs [[
     @ref(single target) GObject* getTarget()
@@ -1795,7 +1801,7 @@ cls.props [[
     empty
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::ScrollPane"
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
@@ -1884,7 +1890,7 @@ cls.props [[
     draggingPane
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::Transition"
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
@@ -1951,7 +1957,7 @@ cls.props [[
     timeScale
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::UIConfig"
 cls.funcs [[
     static void registerFont(const std::string& aliasName, const std::string& realName)
@@ -1987,7 +1993,7 @@ cls.var('windowModalWaiting', [[static std::string windowModalWaiting]])
 cls.var('popupMenu', [[static std::string popupMenu]])
 cls.var('popupMenu_seperator', [[static std::string popupMenu_seperator]])
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::IUISource"
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
@@ -2009,7 +2015,7 @@ cls.props [[
     loaded
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::UISource"
 cls.SUPERCLS = "fairygui::IUISource"
 cls.CHUNK = [[
@@ -2053,7 +2059,7 @@ cls.funcs [[
 cls.func('create', [[static UISource *create()]])
 cls.func('loadComplete', [[void loadComplete()]])
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::Window"
 cls.SUPERCLS = "fairygui::GComponent"
 cls.funcs [[
@@ -2119,7 +2125,7 @@ cls.props [[
     modalWaitingPane
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::DragDropManager"
 cls.funcs [[
     static DragDropManager* getInstance()
@@ -2134,7 +2140,7 @@ cls.props [[
     dragging
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::UIObjectFactory"
 cls.funcs [[
     static GObject* newObject(PackageItem* pi)
@@ -2159,12 +2165,12 @@ cls.callback {
     REMOVE = false,
 }
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::GearBase"
 cls.funcs [[
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::TreeNode"
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
@@ -2235,7 +2241,7 @@ cls.props [[
     nextSibling
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "fairygui::TreeView"
 cls.SUPERCLS = "fairygui::UIEventDispatcher"
 cls.funcs [[

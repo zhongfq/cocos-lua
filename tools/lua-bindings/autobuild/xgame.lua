@@ -1,7 +1,13 @@
 require "autobuild.xgame-types"
 
-local cls
+local olua = require "olua"
+local typeconv = olua.typeconv
+local typecls = olua.typecls
+local cls = nil
 local M = {}
+
+olua.nowarning(typeconv, typecls, cls)
+
 M.NAME = "xgame"
 M.HEADER_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_xgame.h"
 M.SOURCE_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_xgame.cpp"
@@ -23,7 +29,7 @@ M.CHUNK = [[
 
 M.CLASSES = {}
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "xgame::SceneNoCamera"
 cls.SUPERCLS = "cocos2d::Scene"
 cls.funcs [[
@@ -32,7 +38,7 @@ cls.funcs [[
     static SceneNoCamera *createWithPhysics()
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "xgame::runtime"
 cls.funcs [[
     static void clearStorage()
@@ -122,7 +128,7 @@ cls.props [[
     numSamples
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "xgame::filesystem"
 cls.funcs [[
     static const std::string getWritablePath()
@@ -160,7 +166,7 @@ cls.props [[
     sdCardDirectory
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "xgame::preferences"
 cls.funcs [[
     static bool getBoolean(const char *key, bool defaultValue = false)
@@ -177,7 +183,7 @@ cls.funcs [[
     static void flush()
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "xgame::timer"
 cls.funcs [[
     static std::string createTag()
@@ -255,7 +261,7 @@ cls.func('unschedule', [[{
     return 0;
 }]])
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "xgame::window"
 cls.REG_LUATYPE = false
 cls.funcs [[
@@ -303,7 +309,7 @@ cls.func('convertToCameraSpace', [[{
     return 2;
 }]])
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "xgame::downloader"
 cls.funcs [[
 ]]

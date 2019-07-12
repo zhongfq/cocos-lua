@@ -1,7 +1,13 @@
 require "autobuild.conv-types"
 
-local cls
+local olua = require "olua"
+local typeconv = olua.typeconv
+local typecls = olua.typecls
+local cls = nil
 local M = {}
+
+olua.nowarning(typeconv, typecls, cls)
+
 M.NAME = "conv"
 M.HEADER_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_conv.h"
 M.SOURCE_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_conv.cpp"

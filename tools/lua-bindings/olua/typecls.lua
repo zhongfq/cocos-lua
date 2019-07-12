@@ -452,7 +452,7 @@ local function parse_prop(cls, name, func_get, func_set)
     return pi
 end
 
-function class(collection)
+function olua.typecls(collection)
     local cls = {}
     cls.FUNCS = {}
     cls.CONSTS = {}
@@ -773,7 +773,7 @@ function olua.typedef(typeinfo)
     end
 end
 
-function typeconv(ci)
+function olua.typeconv(ci)
     local func = ci.FUNC or "push|check|pack|unpack|opt|is"
     ci.PROPS = {}
     for line in string.gmatch(assert(ci.DEF, 'no DEF'), '[^\n\r]+') do

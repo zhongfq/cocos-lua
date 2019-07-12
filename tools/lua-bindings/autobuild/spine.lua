@@ -1,7 +1,13 @@
 require "autobuild.spine-types"
 
-local cls
+local olua = require "olua"
+local typeconv = olua.typeconv
+local typecls = olua.typecls
+local cls = nil
 local M = {}
+
+olua.nowarning(typeconv, typecls, cls)
+
 M.NAME = "spine"
 M.HEADER_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_spine.h"
 M.SOURCE_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_spine.cpp"
@@ -85,7 +91,7 @@ int manual_olua_push_spine_EventData(lua_State *L, const spine::EventData *value
 
 M.CLASSES = {}
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::EventType"
 cls.enums [[
     EventType_Start
@@ -96,7 +102,7 @@ cls.enums [[
     EventType_Event
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::AttachmentType"
 cls.enums [[
     AttachmentType_Region
@@ -108,7 +114,7 @@ cls.enums [[
     AttachmentType_Clipping
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::TransformMode"
 cls.enums [[
     TransformMode_Normal
@@ -118,7 +124,7 @@ cls.enums [[
     TransformMode_NoScaleOrReflection
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::BlendMode"
 cls.enums [[
     BlendMode_Normal
@@ -127,14 +133,14 @@ cls.enums [[
     BlendMode_Screen
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::PositionMode"
 cls.enums [[
     PositionMode_Fixed
     PositionMode_Percent
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::SpacingMode"
 cls.enums [[
     SpacingMode_Length
@@ -142,7 +148,7 @@ cls.enums [[
     SpacingMode_Percent
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::RotateMode"
 cls.enums [[
     RotateMode_Tangent
@@ -150,7 +156,7 @@ cls.enums [[
     RotateMode_ChainScale
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::MixBlend"
 cls.enums [[
     MixBlend_Setup
@@ -159,12 +165,12 @@ cls.enums [[
     MixBlend_Add
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::SpineObject"
 cls.funcs [[
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::Event"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
@@ -191,7 +197,7 @@ cls.props [[
     balance
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::EventData"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
@@ -219,7 +225,7 @@ cls.props [[
     balance
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::Updatable"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
@@ -231,7 +237,7 @@ cls.props [[
     active
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::AnimationState"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
@@ -266,7 +272,7 @@ cls.props [[
     timeScale
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::AnimationStateData"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
@@ -282,7 +288,7 @@ cls.props [[
     defaultMix
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::Animation"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
@@ -295,7 +301,7 @@ cls.props [[
     duration
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::ConstraintData"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
@@ -311,7 +317,7 @@ cls.props [[
     skinRequired
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::IkConstraintData"
 cls.SUPERCLS = "spine::ConstraintData"
 cls.funcs [[
@@ -340,7 +346,7 @@ cls.props [[
     softness
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::BoneData"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
@@ -384,7 +390,7 @@ cls.props [[
     skinRequired
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::SlotData"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
@@ -408,7 +414,7 @@ cls.props [[
     blendMode
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::IkConstraint"
 cls.SUPERCLS = "spine::Updatable"
 cls.funcs [[
@@ -437,7 +443,7 @@ cls.props [[
     softness
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::TransformConstraint"
 cls.SUPERCLS = "spine::Updatable"
 cls.funcs [[
@@ -463,7 +469,7 @@ cls.props [[
     shearMix
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::TransformConstraintData"
 cls.SUPERCLS = "spine::ConstraintData"
 cls.funcs [[
@@ -497,7 +503,7 @@ cls.props [[
     local
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::PathConstraintData"
 cls.SUPERCLS = "spine::ConstraintData"
 cls.funcs [[
@@ -532,7 +538,7 @@ cls.props [[
     translateMix
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::SkeletonBounds"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
@@ -551,13 +557,13 @@ cls.props [[
     height
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::SkeletonClipping"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::Timeline"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
@@ -567,7 +573,7 @@ cls.props [[
     propertyId
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::CurveTimeline"
 cls.SUPERCLS = "spine::Timeline"
 cls.funcs [[
@@ -582,7 +588,7 @@ cls.props [[
     frameCount
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::AttachmentTimeline"
 cls.SUPERCLS = "spine::Timeline"
 cls.funcs [[
@@ -596,7 +602,7 @@ cls.props [[
     frameCount
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::ColorTimeline"
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.funcs [[
@@ -608,7 +614,7 @@ cls.props [[
     slotIndex
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::DeformTimeline"
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.funcs [[
@@ -622,7 +628,7 @@ cls.props [[
     attachment
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::DrawOrderTimeline"
 cls.SUPERCLS = "spine::Timeline"
 cls.funcs [[
@@ -632,7 +638,7 @@ cls.props [[
     frameCount
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::EventTimeline"
 cls.SUPERCLS = "spine::Timeline"
 cls.funcs [[
@@ -643,59 +649,59 @@ cls.props [[
     frameCount
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::IkConstraintTimeline"
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.funcs [[
     void setFrame (int frameIndex, float time, float mix, float softness, int bendDirection, bool compress, bool stretch)
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::PathConstraintMixTimeline"
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.funcs [[
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::PathConstraintPositionTimeline"
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.funcs [[
     void setFrame(int frameIndex, float time, float value)
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::PathConstraintSpacingTimeline"
 cls.SUPERCLS = "spine::PathConstraintPositionTimeline"
 cls.funcs [[
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::TranslateTimeline"
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.funcs [[
     void setFrame(int frameIndex, float time, float x, float y)
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::ShearTimeline"
 cls.SUPERCLS = "spine::TranslateTimeline"
 cls.funcs [[
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::TransformConstraintTimeline"
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.funcs [[
     void setFrame(size_t frameIndex, float time, float rotateMix, float translateMix, float scaleMix, float shearMix)
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::ScaleTimeline"
 cls.SUPERCLS = "spine::TranslateTimeline"
 cls.funcs [[
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::RotateTimeline"
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.enums [[
@@ -710,7 +716,7 @@ cls.props [[
     boneIndex
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::TwoColorTimeline"
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.funcs [[
@@ -722,31 +728,31 @@ cls.props [[
     slotIndex
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::VertexEffect"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::SwirlVertexEffect"
 cls.SUPERCLS = "spine::VertexEffect"
 cls.funcs [[
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::JitterVertexEffect"
 cls.SUPERCLS = "spine::VertexEffect"
 cls.funcs [[
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::Polygon"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::Skin"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
@@ -760,13 +766,13 @@ cls.props [[
     name
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::Atlas"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::Bone"
 cls.SUPERCLS = "spine::Updatable"
 cls.funcs [[
@@ -860,7 +866,7 @@ cls.props [[
     appliedValid
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::Slot"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
@@ -880,7 +886,7 @@ cls.props [[
     attachmentTime
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::Attachment"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
@@ -895,7 +901,7 @@ cls.props [[
     refCount
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::VertexAttachment"
 cls.SUPERCLS = "spine::Attachment"
 cls.funcs [[
@@ -912,7 +918,7 @@ cls.props [[
     deformAttachment
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::ClippingAttachment"
 cls.SUPERCLS = "spine::VertexAttachment"
 cls.funcs [[
@@ -923,13 +929,13 @@ cls.props [[
     endSlot
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::BoundingBoxAttachment"
 cls.SUPERCLS = "spine::VertexAttachment"
 cls.funcs [[
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::MeshAttachment"
 cls.SUPERCLS = "spine::VertexAttachment"
 cls.funcs [[
@@ -989,7 +995,7 @@ cls.props [[
     height
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::PathAttachment"
 cls.SUPERCLS = "spine::VertexAttachment"
 cls.funcs [[
@@ -1003,7 +1009,7 @@ cls.props [[
     constantSpeed
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::PathConstraint"
 cls.SUPERCLS = "spine::Updatable"
 cls.funcs [[
@@ -1029,7 +1035,7 @@ cls.props [[
     target
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::PointAttachment"
 cls.SUPERCLS = "spine::Attachment"
 cls.funcs [[
@@ -1046,7 +1052,7 @@ cls.props [[
     rotation
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::RegionAttachment"
 cls.SUPERCLS = "spine::Attachment"
 cls.funcs [[
@@ -1100,7 +1106,7 @@ cls.props [[
     regionOriginalHeight
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::TrackEntry"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
@@ -1180,7 +1186,7 @@ cls.props [[
     mixingTo
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::SkeletonData"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
@@ -1308,13 +1314,13 @@ cls.props [[
     fps
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::Skeleton"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::SkeletonRenderer"
 cls.SUPERCLS = "cocos2d::Node"
 cls.funcs [[
@@ -1363,7 +1369,7 @@ cls.props [[
     blendFunc
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::SkeletonAnimation"
 cls.SUPERCLS = "spine::SkeletonRenderer"
 cls.funcs [[

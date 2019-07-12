@@ -1,7 +1,13 @@
 require "autobuild.dragonbones-types"
 
-local cls
+local olua = require "olua"
+local typeconv = olua.typeconv
+local typecls = olua.typecls
+local cls = nil
 local M = {}
+
+olua.nowarning(typeconv, typecls, cls)
+
 M.NAME = "dragonbones"
 M.HEADER_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_dragonbones.h"
 M.SOURCE_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_dragonbones.cpp"
@@ -19,7 +25,7 @@ M.CHUNK = [[
 
 M.CLASSES = {}
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "dragonBones::ArmatureType"
 cls.enums [[
     Armature
@@ -27,7 +33,7 @@ cls.enums [[
     Stage
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "dragonBones::ActionType"
 cls.enums [[
     Play
@@ -35,7 +41,7 @@ cls.enums [[
     Sound
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "dragonBones::BaseObject"
 cls.funcs [[
     static void setMaxCount(std::size_t classTypeIndex, unsigned maxCount)
@@ -47,7 +53,7 @@ cls.props [[
     classTypeIndex
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "dragonBones::EventObject"
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
@@ -72,7 +78,7 @@ cls.props [[
     animationState
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "dragonBones::TransformObject"
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
@@ -84,7 +90,7 @@ cls.props [[
     armature
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "dragonBones::DisplayType"
 cls.enums [[
     Image
@@ -94,7 +100,7 @@ cls.enums [[
     Path
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "dragonBones::Point"
 cls.funcs [[
     inline void clear()
@@ -112,7 +118,7 @@ cls.props [[
     helpPointD
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "dragonBones::Slot"
 cls.SUPERCLS = "dragonBones::TransformObject"
 cls.funcs [[
@@ -150,7 +156,7 @@ cls.props [[
     parent
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "dragonBones::OffsetMode"
 cls.enums [[
     None
@@ -158,7 +164,7 @@ cls.enums [[
     Override
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "dragonBones::Bone"
 cls.SUPERCLS = "dragonBones::TransformObject"
 cls.funcs [[
@@ -186,7 +192,7 @@ cls.props [[
     offsetMode
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "dragonBones::DisplayData"
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
@@ -204,7 +210,7 @@ cls.props [[
     parent
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "dragonBones::ActionData"
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
@@ -225,7 +231,7 @@ cls.props [[
     slot
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "dragonBones::TextureAtlasData"
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
@@ -240,7 +246,7 @@ cls.var('scale', [[float scale]])
 cls.var('name', [[std::string name]])
 cls.var('imagePath', [[std::string imagePath]])
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "dragonBones::TextureData"
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
@@ -254,7 +260,7 @@ cls.props [[
     parent
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "dragonBones::ArmatureData"
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
@@ -309,7 +315,7 @@ cls.props [[
     parent
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "dragonBones::SkinData"
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
@@ -323,7 +329,7 @@ cls.props [[
     typeIndex
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "dragonBones::BoneData"
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
@@ -343,7 +349,7 @@ cls.props [[
     parent
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "dragonBones::SlotData"
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
@@ -363,7 +369,7 @@ cls.props [[
     parent
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "dragonBones::AnimationState"
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
@@ -415,7 +421,7 @@ cls.props [[
     animationData
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "dragonBones::AnimationData"
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
@@ -441,7 +447,7 @@ cls.props [[
     parent
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "dragonBones::AnimationConfig"
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
@@ -485,7 +491,7 @@ cls.props [[
     fadeInTweenType
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "dragonBones::DragonBonesData"
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
@@ -505,7 +511,7 @@ cls.props [[
     armatureNames
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "dragonBones::BaseFactory"
 cls.funcs [[
     DragonBonesData* parseDragonBonesData(const char* rawData, const std::string& name = "", float scale = 1.0f)
@@ -525,7 +531,7 @@ cls.funcs [[
 ]]
 cls.var('autoSearch', [[bool autoSearch]])
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "dragonBones::Armature"
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
@@ -572,7 +578,7 @@ cls.props [[
     parent
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "dragonBones::AnimationFadeOutMode"
 cls.enums [[
     None
@@ -583,7 +589,7 @@ cls.enums [[
     Single
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "dragonBones::Animation"
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
@@ -623,7 +629,7 @@ cls.props [[
     lastAnimationState
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "dragonBones::CCFactory"
 cls.SUPERCLS = "dragonBones::BaseFactory"
 cls.funcs [[
@@ -639,7 +645,7 @@ cls.props [[
     soundEventManager
 ]]
 
-cls = class(M.CLASSES)
+cls = typecls(M.CLASSES)
 cls.CPPCLS = "dragonBones::CCArmatureDisplay"
 cls.SUPERCLS = "cocos2d::Node"
 cls.funcs [[

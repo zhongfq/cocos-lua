@@ -224,6 +224,11 @@ cls.CPPCLS = "spine::Updatable"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
     void update()
+    bool isActive()
+    void setActive(bool inValue)
+]]
+cls.props [[
+    active
 ]]
 
 cls = class(M.CLASSES)
@@ -291,12 +296,25 @@ cls.props [[
 ]]
 
 cls = class(M.CLASSES)
-cls.CPPCLS = "spine::IkConstraintData"
+cls.CPPCLS = "spine::ConstraintData"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
     const String& getName()
     size_t getOrder()
     void setOrder(size_t inValue)
+    bool isSkinRequired()
+    void setSkinRequired(bool inValue)
+]]
+cls.props [[
+    name
+    order
+    skinRequired
+]]
+
+cls = class(M.CLASSES)
+cls.CPPCLS = "spine::IkConstraintData"
+cls.SUPERCLS = "spine::ConstraintData"
+cls.funcs [[
     BoneData* getTarget()
     void setTarget(BoneData* inValue)
     int getBendDirection()
@@ -309,16 +327,17 @@ cls.funcs [[
     void setUniform(bool inValue)
     float getMix()
     void setMix(float inValue)
+    float getSoftness()
+    void setSoftness(float inValue)
 ]]
 cls.props [[
-    name
-    order
     target
     bendDirection
     compress
     stretch
     uniform
     mix
+    softness
 ]]
 
 cls = class(M.CLASSES)
@@ -346,6 +365,8 @@ cls.funcs [[
     void setShearY(float inValue)
     TransformMode getTransformMode()
     void setTransformMode(TransformMode inValue)
+    bool isSkinRequired()
+    void setSkinRequired(bool inValue)
 ]]
 cls.props [[
     index
@@ -360,6 +381,7 @@ cls.props [[
     shearX
     shearY
     transformMode
+    skinRequired
 ]]
 
 cls = class(M.CLASSES)
@@ -387,20 +409,11 @@ cls.props [[
 ]]
 
 cls = class(M.CLASSES)
-cls.CPPCLS = "spine::Constraint"
+cls.CPPCLS = "spine::IkConstraint"
 cls.SUPERCLS = "spine::Updatable"
 cls.funcs [[
-    int getOrder()
-]]
-cls.props [[
-    order
-]]
-
-cls = class(M.CLASSES)
-cls.CPPCLS = "spine::IkConstraint"
-cls.SUPERCLS = "spine::Constraint"
-cls.funcs [[
     void apply()
+    int getOrder()
     Bone *getTarget()
     void setTarget(Bone *inValue)
     int getBendDirection()
@@ -411,20 +424,25 @@ cls.funcs [[
     void setStretch(bool inValue)
     float getMix()
     void setMix(float inValue)
+    float getSoftness()
+    void setSoftness(float inValue)
 ]]
 cls.props [[
+    order
     target
     bendDirection
     compress
     stretch
     mix
+    softness
 ]]
 
 cls = class(M.CLASSES)
 cls.CPPCLS = "spine::TransformConstraint"
-cls.SUPERCLS = "spine::Constraint"
+cls.SUPERCLS = "spine::Updatable"
 cls.funcs [[
     void apply()
+    int getOrder()
     Bone* getTarget()
     void setTarget(Bone* inValue)
     float getRotateMix()
@@ -437,6 +455,7 @@ cls.funcs [[
     void setShearMix(float inValue)
 ]]
 cls.props [[
+    order
     target
     rotateMix
     translateMix
@@ -446,10 +465,8 @@ cls.props [[
 
 cls = class(M.CLASSES)
 cls.CPPCLS = "spine::TransformConstraintData"
-cls.SUPERCLS = "spine::SpineObject"
+cls.SUPERCLS = "spine::ConstraintData"
 cls.funcs [[
-    const String& getName()
-    int getOrder()
     BoneData* getTarget()
     float getRotateMix()
     float getTranslateMix()
@@ -465,8 +482,6 @@ cls.funcs [[
     bool isLocal()
 ]]
 cls.props [[
-    name
-    order
     target
     rotateMix
     translateMix
@@ -484,11 +499,8 @@ cls.props [[
 
 cls = class(M.CLASSES)
 cls.CPPCLS = "spine::PathConstraintData"
-cls.SUPERCLS = "spine::SpineObject"
+cls.SUPERCLS = "spine::ConstraintData"
 cls.funcs [[
-    const String& getName()
-    int getOrder()
-    void setOrder(int inValue)
     SlotData* getTarget()
     void setTarget(SlotData* inValue)
     PositionMode getPositionMode()
@@ -509,8 +521,6 @@ cls.funcs [[
     void setTranslateMix(float inValue)
 ]]
 cls.props [[
-    name
-    order
     target
     positionMode
     spacingMode
@@ -637,7 +647,7 @@ cls = class(M.CLASSES)
 cls.CPPCLS = "spine::IkConstraintTimeline"
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.funcs [[
-    void setFrame (int frameIndex, float time, float mix, int bendDirection, bool compress, bool stretch)
+    void setFrame (int frameIndex, float time, float mix, float softness, int bendDirection, bool compress, bool stretch)
 ]]
 
 cls = class(M.CLASSES)
@@ -740,9 +750,11 @@ cls = class(M.CLASSES)
 cls.CPPCLS = "spine::Skin"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
-    void addAttachment(size_t slotIndex, const String &name, Attachment *attachment)
+    void setAttachment(size_t slotIndex, const String &name, Attachment *attachment)
     Attachment *getAttachment(size_t slotIndex, const String &name)
     const String &getName()
+    void addSkin(Skin* other)
+    void copySkin(Skin* other)
 ]]
 cls.props [[
     name
@@ -873,23 +885,31 @@ cls.CPPCLS = "spine::Attachment"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
     const String &getName()
+    Attachment* copy()
+    int getRefCount()
+    void reference()
+    void dereference()
 ]]
 cls.props [[
     name
+    refCount
 ]]
 
 cls = class(M.CLASSES)
 cls.CPPCLS = "spine::VertexAttachment"
 cls.SUPERCLS = "spine::Attachment"
 cls.funcs [[
-    bool applyDeform(VertexAttachment* sourceAttachment)
     int getId()
     size_t getWorldVerticesLength()
     void setWorldVerticesLength(size_t inValue)
+    VertexAttachment* getDeformAttachment()
+    void setDeformAttachment(VertexAttachment* attachment)
+    void copyTo(VertexAttachment* other)
 ]]
 cls.props [[
     id
     worldVerticesLength
+    deformAttachment
 ]]
 
 cls = class(M.CLASSES)
@@ -941,14 +961,13 @@ cls.funcs [[
     void setRegionOriginalWidth(float inValue)
     float getRegionOriginalHeight()
     void setRegionOriginalHeight(float inValue)
-    bool getInheritDeform()
-    void setInheritDeform(bool inValue)
     MeshAttachment* getParentMesh()
     void setParentMesh(MeshAttachment* inValue)
     float getWidth()
     void setWidth(float inValue)
     float getHeight()
     void setHeight(float inValue)
+    MeshAttachment* newLinkedMesh()
 ]]
 cls.props [[
     hullLength
@@ -965,7 +984,6 @@ cls.props [[
     regionHeight
     regionOriginalWidth
     regionOriginalHeight
-    inheritDeform
     parentMesh
     width
     height
@@ -987,9 +1005,10 @@ cls.props [[
 
 cls = class(M.CLASSES)
 cls.CPPCLS = "spine::PathConstraint"
-cls.SUPERCLS = "spine::Constraint"
+cls.SUPERCLS = "spine::Updatable"
 cls.funcs [[
     void apply()
+    int getOrder()
     float getPosition()
     void setPosition(float inValue)
     float getSpacing()
@@ -1002,6 +1021,7 @@ cls.funcs [[
     void setTarget(Slot* inValue)
 ]]
 cls.props [[
+    order
     position
     spacing
     rotateMix

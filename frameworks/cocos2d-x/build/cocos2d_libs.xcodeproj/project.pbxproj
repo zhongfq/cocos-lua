@@ -11,6 +11,10 @@
 		0C261F291BE7528900707478 /* Light3DReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C261F261BE7528900707478 /* Light3DReader.cpp */; };
 		0C261F2A1BE7528900707478 /* Light3DReader.h in Headers */ = {isa = PBXBuildFile; fileRef = 0C261F271BE7528900707478 /* Light3DReader.h */; };
 		0C261F2B1BE7528900707478 /* Light3DReader.h in Headers */ = {isa = PBXBuildFile; fileRef = 0C261F271BE7528900707478 /* Light3DReader.h */; };
+		0E66E68122D81ABC0085EF57 /* ConstraintData.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E66E67F22D81AB70085EF57 /* ConstraintData.h */; };
+		0E66E68222D81ABC0085EF57 /* ConstraintData.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E66E67F22D81AB70085EF57 /* ConstraintData.h */; };
+		0E66E68322D81ABC0085EF57 /* ConstraintData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E66E68022D81AB80085EF57 /* ConstraintData.cpp */; };
+		0E66E68422D81ABC0085EF57 /* ConstraintData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E66E68022D81AB80085EF57 /* ConstraintData.cpp */; };
 		0ED0357622CEDB71004EE5FF /* IkConstraintTimeline.h in Headers */ = {isa = PBXBuildFile; fileRef = 0ED034DC22CEDB41004EE5FF /* IkConstraintTimeline.h */; };
 		0ED0357722CEDB71004EE5FF /* IkConstraintTimeline.h in Headers */ = {isa = PBXBuildFile; fileRef = 0ED034DC22CEDB41004EE5FF /* IkConstraintTimeline.h */; };
 		0ED0357822CEDB71004EE5FF /* EventTimeline.h in Headers */ = {isa = PBXBuildFile; fileRef = 0ED034DD22CEDB41004EE5FF /* EventTimeline.h */; };
@@ -183,8 +187,6 @@
 		0ED0361F22CEDB72004EE5FF /* Json.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0353022CEDB5B004EE5FF /* Json.cpp */; };
 		0ED0362022CEDB72004EE5FF /* PathConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0353122CEDB5C004EE5FF /* PathConstraint.cpp */; };
 		0ED0362122CEDB72004EE5FF /* PathConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0353122CEDB5C004EE5FF /* PathConstraint.cpp */; };
-		0ED0362222CEDB72004EE5FF /* Constraint.h in Headers */ = {isa = PBXBuildFile; fileRef = 0ED0353222CEDB5C004EE5FF /* Constraint.h */; };
-		0ED0362322CEDB72004EE5FF /* Constraint.h in Headers */ = {isa = PBXBuildFile; fileRef = 0ED0353222CEDB5C004EE5FF /* Constraint.h */; };
 		0ED0362422CEDB72004EE5FF /* TransformConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0353322CEDB5C004EE5FF /* TransformConstraint.cpp */; };
 		0ED0362522CEDB72004EE5FF /* TransformConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0353322CEDB5C004EE5FF /* TransformConstraint.cpp */; };
 		0ED0362622CEDB72004EE5FF /* ColorTimeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0353422CEDB5C004EE5FF /* ColorTimeline.cpp */; };
@@ -317,8 +319,6 @@
 		0ED036A522CEDB72004EE5FF /* TranslateTimeline.h in Headers */ = {isa = PBXBuildFile; fileRef = 0ED0357322CEDB71004EE5FF /* TranslateTimeline.h */; };
 		0ED036A622CEDB72004EE5FF /* ScaleTimeline.h in Headers */ = {isa = PBXBuildFile; fileRef = 0ED0357422CEDB71004EE5FF /* ScaleTimeline.h */; };
 		0ED036A722CEDB72004EE5FF /* ScaleTimeline.h in Headers */ = {isa = PBXBuildFile; fileRef = 0ED0357422CEDB71004EE5FF /* ScaleTimeline.h */; };
-		0ED036A822CEDB72004EE5FF /* Constraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0357522CEDB71004EE5FF /* Constraint.cpp */; };
-		0ED036A922CEDB72004EE5FF /* Constraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0357522CEDB71004EE5FF /* Constraint.cpp */; };
 		15AE180819AAD2F700C27E9E /* CCAABB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 15AE17E419AAD2F700C27E9E /* CCAABB.cpp */; };
 		15AE180919AAD2F700C27E9E /* CCAABB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 15AE17E419AAD2F700C27E9E /* CCAABB.cpp */; };
 		15AE180A19AAD2F700C27E9E /* CCAABB.h in Headers */ = {isa = PBXBuildFile; fileRef = 15AE17E519AAD2F700C27E9E /* CCAABB.h */; };
@@ -3124,6 +3124,8 @@
 		06CAAAC1186AD63B0012A414 /* TriggerObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TriggerObj.h; sourceTree = "<group>"; };
 		0C261F261BE7528900707478 /* Light3DReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Light3DReader.cpp; sourceTree = "<group>"; };
 		0C261F271BE7528900707478 /* Light3DReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Light3DReader.h; sourceTree = "<group>"; };
+		0E66E67F22D81AB70085EF57 /* ConstraintData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConstraintData.h; sourceTree = "<group>"; };
+		0E66E68022D81AB80085EF57 /* ConstraintData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConstraintData.cpp; sourceTree = "<group>"; };
 		0ED034DC22CEDB41004EE5FF /* IkConstraintTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IkConstraintTimeline.h; sourceTree = "<group>"; };
 		0ED034DD22CEDB41004EE5FF /* EventTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventTimeline.h; sourceTree = "<group>"; };
 		0ED034DE22CEDB42004EE5FF /* AttachmentLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AttachmentLoader.cpp; sourceTree = "<group>"; };
@@ -3210,7 +3212,6 @@
 		0ED0352F22CEDB5B004EE5FF /* SpacingMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpacingMode.h; sourceTree = "<group>"; };
 		0ED0353022CEDB5B004EE5FF /* Json.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Json.cpp; sourceTree = "<group>"; };
 		0ED0353122CEDB5C004EE5FF /* PathConstraint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PathConstraint.cpp; sourceTree = "<group>"; };
-		0ED0353222CEDB5C004EE5FF /* Constraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constraint.h; sourceTree = "<group>"; };
 		0ED0353322CEDB5C004EE5FF /* TransformConstraint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TransformConstraint.cpp; sourceTree = "<group>"; };
 		0ED0353422CEDB5C004EE5FF /* ColorTimeline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ColorTimeline.cpp; sourceTree = "<group>"; };
 		0ED0353522CEDB5D004EE5FF /* ClippingAttachment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ClippingAttachment.cpp; sourceTree = "<group>"; };
@@ -3277,7 +3278,6 @@
 		0ED0357222CEDB70004EE5FF /* TimelineType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimelineType.h; sourceTree = "<group>"; };
 		0ED0357322CEDB71004EE5FF /* TranslateTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TranslateTimeline.h; sourceTree = "<group>"; };
 		0ED0357422CEDB71004EE5FF /* ScaleTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScaleTimeline.h; sourceTree = "<group>"; };
-		0ED0357522CEDB71004EE5FF /* Constraint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Constraint.cpp; sourceTree = "<group>"; };
 		1551A33F158F2AB200E66CFE /* libcocos2d Mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libcocos2d Mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1551A342158F2AB200E66CFE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		15AE17E419AAD2F700C27E9E /* CCAABB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCAABB.cpp; sourceTree = "<group>"; };
@@ -6002,8 +6002,8 @@
 				0ED0354A22CEDB65004EE5FF /* Color.h */,
 				0ED0353422CEDB5C004EE5FF /* ColorTimeline.cpp */,
 				0ED0352722CEDB59004EE5FF /* ColorTimeline.h */,
-				0ED0357522CEDB71004EE5FF /* Constraint.cpp */,
-				0ED0353222CEDB5C004EE5FF /* Constraint.h */,
+				0E66E68022D81AB80085EF57 /* ConstraintData.cpp */,
+				0E66E67F22D81AB70085EF57 /* ConstraintData.h */,
 				0ED0354C22CEDB65004EE5FF /* ContainerUtil.h */,
 				0ED0353822CEDB5E004EE5FF /* CurveTimeline.cpp */,
 				0ED0357022CEDB70004EE5FF /* CurveTimeline.h */,
@@ -7963,6 +7963,7 @@
 				B677B0DB1B18492D006762CB /* CCNavMeshUtils.h in Headers */,
 				1A40D1121E8E56C7002E363A /* encodedstream.h in Headers */,
 				B6CAAFE41AF9A9E100B9B856 /* CCPhysics3D.h in Headers */,
+				0E66E68122D81ABC0085EF57 /* ConstraintData.h in Headers */,
 				B665E3301AA80A6500DDB1C5 /* CCPUOnCountObserverTranslator.h in Headers */,
 				15AE188719AAD33D00C27E9E /* CCBSequenceProperty.h in Headers */,
 				B665E2D01AA80A6500DDB1C5 /* CCPUInterParticleCollider.h in Headers */,
@@ -8189,7 +8190,6 @@
 				50ABBD891925AB4100A911A9 /* CCCustomCommand.h in Headers */,
 				5034CA43191D591100CE6051 /* ccShader_Label.vert in Headers */,
 				15AE189719AAD33D00C27E9E /* CCMenuItemImageLoader.h in Headers */,
-				0ED0362222CEDB72004EE5FF /* Constraint.h in Headers */,
 				B665E2001AA80A6500DDB1C5 /* CCPUAlignAffector.h in Headers */,
 				15AE189319AAD33D00C27E9E /* CCLayerGradientLoader.h in Headers */,
 				15AE18EF19AAD35000C27E9E /* CCArmature.h in Headers */,
@@ -8814,6 +8814,7 @@
 				1A570070180BC5A10088DEC7 /* CCActionEase.h in Headers */,
 				1A40D1521E8E56C7002E363A /* memorystream.h in Headers */,
 				1A570074180BC5A10088DEC7 /* CCActionGrid.h in Headers */,
+				0E66E68222D81ABC0085EF57 /* ConstraintData.h in Headers */,
 				15AE194A19AAD35100C27E9E /* CCComController.h in Headers */,
 				382384161A259092002C4610 /* NodeReaderProtocol.h in Headers */,
 				5034CA46191D591100CE6051 /* ccShader_Label_outline.frag in Headers */,
@@ -9040,7 +9041,6 @@
 				501216911AC47380009A4BEA /* CCRenderState.h in Headers */,
 				1A40D1191E8E56C7002E363A /* en.h in Headers */,
 				1A5701E1180BCB8C0088DEC7 /* CCLayer.h in Headers */,
-				0ED0362322CEDB72004EE5FF /* Constraint.h in Headers */,
 				B665E3691AA80A6500DDB1C5 /* CCPUOnTimeObserverTranslator.h in Headers */,
 				15AE1BEE19AAE01E00C27E9E /* CCControlExtensions.h in Headers */,
 				1A5701E5180BCB8C0088DEC7 /* CCScene.h in Headers */,
@@ -9832,6 +9832,7 @@
 				3823843D1A259140002C4610 /* SingleNodeReader.cpp in Sources */,
 				1A5701C1180BCB5A0088DEC7 /* CCLabelBMFont.cpp in Sources */,
 				B665E30A1AA80A6500DDB1C5 /* CCPUNoise.cpp in Sources */,
+				0E66E68322D81ABC0085EF57 /* ConstraintData.cpp in Sources */,
 				15AE182C19AAD2F700C27E9E /* CCMeshVertexIndexData.cpp in Sources */,
 				50ABBD4C1925AB0000A911A9 /* MathUtil.cpp in Sources */,
 				B6DD2FAB1B04825B00E47F5F /* DetourDebugDraw.cpp in Sources */,
@@ -9946,7 +9947,6 @@
 				15AE189219AAD33D00C27E9E /* CCLayerGradientLoader.cpp in Sources */,
 				15AE1B6A19AADA9900C27E9E /* UIDeprecated.cpp in Sources */,
 				15AE183C19AAD2F700C27E9E /* CCSkeleton3D.cpp in Sources */,
-				0ED036A822CEDB72004EE5FF /* Constraint.cpp in Sources */,
 				382384211A2590DA002C4610 /* GameMapReader.cpp in Sources */,
 				B6DD2FA71B04825B00E47F5F /* DebugDraw.cpp in Sources */,
 				B665E31A1AA80A6500DDB1C5 /* CCPUOnClearObserver.cpp in Sources */,
@@ -10491,7 +10491,6 @@
 				1A57010F180BC8EE0088DEC7 /* CCDrawingPrimitives.cpp in Sources */,
 				B665E3F31AA80A6600DDB1C5 /* CCPUSlaveEmitter.cpp in Sources */,
 				1A570113180BC8EE0088DEC7 /* CCDrawNode.cpp in Sources */,
-				0ED036A922CEDB72004EE5FF /* Constraint.cpp in Sources */,
 				1A57011C180BC90D0088DEC7 /* CCGrabber.cpp in Sources */,
 				382384301A259112002C4610 /* ParticleReader.cpp in Sources */,
 				1A570120180BC90D0088DEC7 /* CCGrid.cpp in Sources */,
@@ -10920,6 +10919,7 @@
 				50ABC0001926664800A911A9 /* CCFileUtils-apple.mm in Sources */,
 				50ABBEB81925AB6F00A911A9 /* ccUTF8.cpp in Sources */,
 				15AE194F19AAD35100C27E9E /* CCDatas.cpp in Sources */,
+				0E66E68422D81ABC0085EF57 /* ConstraintData.cpp in Sources */,
 				50ABBE841925AB6F00A911A9 /* ccFPSImages.c in Sources */,
 				50ABBE4A1925AB6F00A911A9 /* CCEventAcceleration.cpp in Sources */,
 				B665E3A31AA80A6500DDB1C5 /* CCPUPositionEmitterTranslator.cpp in Sources */,
@@ -10996,6 +10996,7 @@
 					"CC_ENABLE_SCRIPT_BINDING=0",
 					"CC_FILEUTILS_APPLE_ENABLE_OBJC=0",
 					"CC_CONSTRUCTOR_ACCESS=public",
+					SPINE_USE_STD_FUNCTION,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
@@ -11081,6 +11082,7 @@
 					"CC_ENABLE_SCRIPT_BINDING=0",
 					"CC_FILEUTILS_APPLE_ENABLE_OBJC=0",
 					"CC_CONSTRUCTOR_ACCESS=public",
+					SPINE_USE_STD_FUNCTION,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;

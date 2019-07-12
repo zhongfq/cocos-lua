@@ -18,7 +18,7 @@ set(COCOS_SPINE_HEADER
     editor-support/spine/ClippingAttachment.h
     editor-support/spine/Color.h
     editor-support/spine/ColorTimeline.h
-    editor-support/spine/Constraint.h
+    editor-support/spine/ConstraintData.h
     editor-support/spine/ContainerUtil.h
     editor-support/spine/CurveTimeline.h
     editor-support/spine/Debug.h
@@ -105,7 +105,7 @@ set(COCOS_SPINE_SRC
     editor-support/spine/BoundingBoxAttachment.cpp
     editor-support/spine/ClippingAttachment.cpp
     editor-support/spine/ColorTimeline.cpp
-    editor-support/spine/Constraint.cpp
+    editor-support/spine/ConstraintData.cpp
     editor-support/spine/CurveTimeline.cpp
     editor-support/spine/DeformTimeline.cpp
     editor-support/spine/DrawOrderTimeline.cpp

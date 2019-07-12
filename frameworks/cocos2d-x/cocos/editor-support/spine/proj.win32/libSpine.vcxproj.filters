@@ -58,10 +58,10 @@
     <ClInclude Include="..\ColorTimeline.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Constraint.h">
+    <ClInclude Include="..\ContainerUtil.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\ContainerUtil.h">
+    <ClInclude Include="..\ConstraintData.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\CurveTimeline.h">
@@ -312,10 +312,10 @@
     <ClCompile Include="..\ColorTimeline.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Constraint.cpp">
+    <ClCompile Include="..\CurveTimeline.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\CurveTimeline.cpp">
+    <ClCompile Include="..\ConstraintData.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\DeformTimeline.cpp">

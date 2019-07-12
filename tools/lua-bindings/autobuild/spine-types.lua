@@ -150,9 +150,9 @@ typedef {
 }
 
 typedef {
-    CPPCLS = 'spine::Constraint *',
+    CPPCLS = 'spine::ConstraintData *',
     CONV_FUNC = 'olua_$$_cppobj',
-    LUACLS = 'sp.Constraint',
+    LUACLS = 'sp.ConstraintData',
 }
 
 typedef {

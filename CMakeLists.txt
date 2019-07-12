@@ -36,6 +36,7 @@ set(CMAKE_MODULE_PATH ${COCOS2DX_ROOT_PATH}/cmake/Modules/)
 
 add_definitions(-DCC_ENABLE_SCRIPT_BINDING=0)
 add_definitions(-DCC_CONSTRUCTOR_ACCESS=public)
+add_definitions(-DSPINE_USE_STD_FUNCTION)
 
 add_definitions(-DOLUA_DEBUG) # TODO: RM
 

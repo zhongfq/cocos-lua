@@ -28,7 +28,7 @@
     <ClInclude Include="..\ClippingAttachment.h" />
     <ClInclude Include="..\Color.h" />
     <ClInclude Include="..\ColorTimeline.h" />
-    <ClInclude Include="..\Constraint.h" />
+    <ClInclude Include="..\ConstraintData.h" />
     <ClInclude Include="..\ContainerUtil.h" />
     <ClInclude Include="..\CurveTimeline.h" />
     <ClInclude Include="..\Debug.h" />
@@ -114,7 +114,7 @@
     <ClCompile Include="..\BoundingBoxAttachment.cpp" />
     <ClCompile Include="..\ClippingAttachment.cpp" />
     <ClCompile Include="..\ColorTimeline.cpp" />
-    <ClCompile Include="..\Constraint.cpp" />
+    <ClCompile Include="..\ConstraintData.cpp" />
     <ClCompile Include="..\CurveTimeline.cpp" />
     <ClCompile Include="..\DeformTimeline.cpp" />
     <ClCompile Include="..\DrawOrderTimeline.cpp" />
@@ -224,7 +224,7 @@
       <SDLCheck>
       </SDLCheck>
       <AdditionalIncludeDirectories>$(EngineRoot);$(EngineRoot)cocos\editor-support;$(EngineRoot)extensions;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_LIB;COCOS2DXWIN32_EXPORTS;GL_GLEXT_PROTOTYPES;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;SPINE_USE_STD_FUNCTION;_DEBUG;_WINDOWS;_LIB;COCOS2DXWIN32_EXPORTS;GL_GLEXT_PROTOTYPES;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <DisableSpecificWarnings>4267;4251;4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <MinimalRebuild>false</MinimalRebuild>
@@ -241,7 +241,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>
       </SDLCheck>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_LIB;COCOS2DXWIN32_EXPORTS;GL_GLEXT_PROTOTYPES;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;SPINE_USE_STD_FUNCTION;_WINDOWS;_LIB;COCOS2DXWIN32_EXPORTS;GL_GLEXT_PROTOTYPES;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(EngineRoot);$(EngineRoot)cocos\editor-support;$(EngineRoot)extensions;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>None</DebugInformationFormat>
       <WholeProgramOptimization>false</WholeProgramOptimization>

@@ -278,7 +278,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>$(EngineRoot);$(EngineRoot)external;$(EngineRoot)external\libwebsockets\win32\include;$(EngineRoot)extensions;$(EngineRoot)external\bullet\include;$(EngineRoot)external\bullet\include\bullet;$(EngineRoot)external\openssl\include\win32;$(EngineRoot)external\win32-specific\zlib\include;..\src;..\src\lua\src;..\..\libfairygui\Classes;..\..\libdragonbones\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_USRLUASTATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;SPINE_USE_STD_FUNCTION;_WINDOWS;_DEBUG;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_USRLUASTATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -309,7 +309,7 @@
       <Optimization>MinSpace</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <AdditionalIncludeDirectories>$(EngineRoot);$(EngineRoot)cocos;$(EngineRoot)external\lua\tolua;$(EngineRoot)external\lua\luajit\include;$(EngineRoot)external\lua;$(EngineRoot)extensions;$(EngineRoot)external\libwebsockets\win32\include;$(EngineRoot)external;$(EngineRoot)external\bullet\include;$(EngineRoot)external\bullet\include\bullet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;LIBLUA_EXPORTS;_CRT_SECURE_NO_WARNINGS;_USRLUASTATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;SPINE_USE_STD_FUNCTION;NDEBUG;_WINDOWS;LIBLUA_EXPORTS;_CRT_SECURE_NO_WARNINGS;_USRLUASTATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeader>

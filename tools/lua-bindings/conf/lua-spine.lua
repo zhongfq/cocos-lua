@@ -12,6 +12,7 @@ M.PARSER = {
         '-I../../frameworks/cocos2d-x/cocos/editor-support',
         '-I../../frameworks/libxgame/src',
         '-DCC_DLL=',
+        '-DSP_API=',
         '-DEXPORT_DLL=',
     },
 }
@@ -133,6 +134,7 @@ M.EXCLUDE_TYPE 'spine::IkConstraintData'
 M.EXCLUDE_TYPE 'spine::TransformConstraintData'
 M.EXCLUDE_TYPE 'spine::PathConstraintData'
 M.EXCLUDE_TYPE 'spine::Vector'
+M.EXCLUDE_TYPE 'spine::AnimationStateListenerObject'
 
 M.EXCLUDE_PATTERN = function (cppcls, fn, decl)
     return string.find(fn, '^initWith')
@@ -173,10 +175,10 @@ AnimationState.CALLBACK('setListener', {
 typeconf 'spine::AnimationStateData'
 typeconf 'spine::Animation'
 
+typeconf 'spine::ConstraintData'
 typeconf 'spine::IkConstraintData'
 typeconf 'spine::BoneData'
 typeconf 'spine::SlotData'
-typeconf 'spine::Constraint'
 typeconf 'spine::IkConstraint'
 typeconf 'spine::TransformConstraint'
 typeconf 'spine::TransformConstraintData'

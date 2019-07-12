@@ -25,7 +25,6 @@ BoneData.cpp \
 BoundingBoxAttachment.cpp \
 ClippingAttachment.cpp \
 ColorTimeline.cpp \
-Constraint.cpp \
 CurveTimeline.cpp \
 DeformTimeline.cpp \
 DrawOrderTimeline.cpp \

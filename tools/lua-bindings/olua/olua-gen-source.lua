@@ -54,7 +54,7 @@ local function gen_luaopen(module, write)
 
     local function do_gen_open(cls)
         local LUACLS = cls.LUACLS
-        local CPPCLS_PATH = class_path(cls)
+        local CPPCLS_PATH = olua.topath(cls)
         if cls.DEFIF then
             REQUIRES[#REQUIRES + 1] = cls.DEFIF
         end

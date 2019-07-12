@@ -1,6 +1,3 @@
-require "olua"
-require "olua.typemod"
-
 local autoconf = require "olua.autoconf"
 
 autoconf 'conf/lua-conv.lua'

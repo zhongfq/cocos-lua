@@ -721,7 +721,7 @@ function class(collection)
     return cls
 end
 
-function class_path(cls)
+function olua.topath(cls)
     return string.gsub(cls.CPPCLS, '[.:]+', '_')
 end
 

@@ -3,11 +3,10 @@ local olua = require "olua.core"
 local format = olua.format
 
 local function gen_snippet_func(cls, fi, write)
-    local CPPCLS_PATH = class_path(cls)
+    local CPPCLS_PATH = olua.topath(cls)
     local CPPFUNC = fi.CPPFUNC
     local CPPFUNC_SNIPPET = fi.CPPFUNC_SNIPPET
-    local INJECT_AFTER = fi.INJECT.AFTER or ""
-    local INJECT_BEFORE = fi.INJECT.BEFORE or ""
+    olua.nowarning(CPPCLS_PATH, CPPFUNC, CPPFUNC_SNIPPET)
     write(format([[
         static int _${CPPCLS_PATH}_${CPPFUNC}(lua_State *L)
         ${CPPFUNC_SNIPPET}
@@ -303,7 +302,7 @@ local function gen_func_ret(cls, fi)
 end
 
 local function gen_one_func(cls, fi, write, funcidx, func_filter)
-    local CPPCLS_PATH = class_path(cls)
+    local CPPCLS_PATH = olua.topath(cls)
     local CPPFUNC = fi.CPPFUNC
     local CALLFUNC = CPPFUNC
     local FUNC_DECL = fi.FUNC_DECL
@@ -498,7 +497,7 @@ local function gen_test_and_call(cls, fns)
     for fn, fi in ipairs(fns) do
         local FUNC_INDEX = fi.INDEX
         local CPPFUNC = fi.CPPFUNC
-        local CPPCLS_PATH = class_path(cls)
+        local CPPCLS_PATH = olua.topath(cls)
 
         if #fi.ARGS > 0 then
             local TEST_ARGS = {}
@@ -585,7 +584,7 @@ end
 function gen_multi_func(cls, fis, write, func_filter)
     local NUM_ARGS = fis.MAX_ARGS
     local CPPCLS = cls.CPPCLS
-    local CPPCLS_PATH = class_path(cls)
+    local CPPCLS_PATH = olua.topath(cls)
     local CPPFUNC = fis[1].CPPFUNC
     local HAS_OBJ = fis[1].STATIC and "" or " - 1"
     local IF_CHUNK = {}

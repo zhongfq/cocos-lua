@@ -60,7 +60,7 @@ end
 local function gen_class_open(cls, write)
     local LUACLS = cls.LUACLS
     local CPPCLS = cls.CPPCLS
-    local CPPCLS_PATH = class_path(cls)
+    local CPPCLS_PATH = olua.topath(cls)
     local SUPRECLS = "nullptr"
     if cls.SUPERCLS then
         local ti = test_typename(cls.SUPERCLS .. ' *') or test_typename(cls.SUPERCLS)

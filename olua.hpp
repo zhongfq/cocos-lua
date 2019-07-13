@@ -43,7 +43,7 @@ template <typename T> void olua_registerluatype(lua_State *L, const char *cls)
     lua_pushstring(L, type);                            // L: type
     lua_pushstring(L, cls);                             // L: type cls
     lua_pushvalue(L, -2);                               // L: type cls type
-    if (lua_rawget(L, LUA_REGISTRYINDEX) == LUA_TNIL) { // L: type cls value
+    if (olua_rawget(L, LUA_REGISTRYINDEX) == LUA_TNIL) {// L: type cls value
         lua_pop(L, 1);                                  // L: type cls
         lua_rawset(L, LUA_REGISTRYINDEX);               // L:                 REGISTRY[type] = cls
     } else {                                            // L: type cls value
@@ -59,14 +59,14 @@ template <typename T> const char *olua_getluatype(lua_State *L, T *obj, const ch
     const char *preferred = nullptr;
     if (obj) {
         lua_pushstring(L, typeid(*obj).name());
-        if (lua_rawget(L, LUA_REGISTRYINDEX) == LUA_TSTRING) {
+        if (olua_rawget(L, LUA_REGISTRYINDEX) == LUA_TSTRING) {
             preferred = olua_tostring(L, -1);
         }
         lua_pop(L, 1);
     }
     if (!preferred) {
         lua_pushstring(L, typeid(T).name());
-        if (lua_rawget(L, LUA_REGISTRYINDEX) == LUA_TSTRING) {
+        if (olua_rawget(L, LUA_REGISTRYINDEX) == LUA_TSTRING) {
             preferred = olua_tostring(L, -1);
         }
         lua_pop(L, 1);
@@ -120,7 +120,7 @@ template <typename T> int olua_push_cppobj(lua_State *L, T* value)
 
 template <typename T> int olua_push_cppobj(lua_State *L, const T* value)
 {
-    return olua_push_cppobj<T>(L, (T *)value);
+    return olua_push_cppobj<T>(L, (T *)value, nullptr);
 }
 
 static inline void olua_to_cppobj(lua_State *L, int idx, void **value, const char *cls)

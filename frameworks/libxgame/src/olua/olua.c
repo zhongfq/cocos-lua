@@ -82,7 +82,7 @@ LUALIB_API lua_State *olua_newstate(olua_metadata_t *mt)
     
     olua_newuserdata(L, mt, olua_metadata_t *);
     lua_pushvalue(L, 1);
-    lua_rawsetp(L, LUA_REGISTRYINDEX, (void *)mt);
+    olua_rawsetp(L, LUA_REGISTRYINDEX, (void *)mt);
     lua_createtable(L, 0, 1);
     lua_pushcfunction(L, _metadata_gc);
     olua_rawsetf(L, -2, "__gc");
@@ -121,7 +121,7 @@ LUALIB_API int olua_rawgetf(lua_State *L, int idx, const char *field)
 {
     idx = lua_absindex(L, idx);
     lua_pushstring(L, field);
-    return lua_rawget(L, idx);
+    return olua_rawget(L, idx);
 }
 
 LUALIB_API void olua_rawsetf(lua_State *L, int idx, const char *field)
@@ -149,7 +149,7 @@ LUALIB_API void olua_preload(lua_State *L, const char *name, lua_CFunction func)
 
 LUALIB_API int olua_geterrorfunc(lua_State *L)
 {
-    if (lua_getglobal(L, "__TRACEBACK__") != LUA_TFUNCTION) {
+    if (olua_getglobal(L, "__TRACEBACK__") != LUA_TFUNCTION) {
         lua_pop(L, 1);
         lua_pushcfunction(L, errfunc);
     }
@@ -200,7 +200,7 @@ LUALIB_API bool olua_isa(lua_State *L, int idx, const char *cls)
 
 static void auxgetobjtable(lua_State *L)
 {
-    if (lua_rawgetp(L, LUA_REGISTRYINDEX, OBJ_REF_TABLE) != LUA_TTABLE) {
+    if (olua_rawgetp(L, LUA_REGISTRYINDEX, OBJ_REF_TABLE) != LUA_TTABLE) {
         lua_pop(L, 1); // pop nil
         lua_newtable(L);
         lua_pushvalue(L, -1);
@@ -208,7 +208,7 @@ static void auxgetobjtable(lua_State *L)
         lua_setfield(L, -2, "__mode");  // mt.__mode = 'kv'
         lua_setmetatable(L, -2);        // mt.metatable = mt
         lua_pushvalue(L, -1);
-        lua_rawsetp(L, LUA_REGISTRYINDEX, OBJ_REF_TABLE);
+        olua_rawsetp(L, LUA_REGISTRYINDEX, OBJ_REF_TABLE);
     }
 }
 
@@ -221,24 +221,24 @@ static inline bool isusingpool(lua_State *L)
 static int olua_objpool_push(lua_State *L, void *obj, const char *cls)
 {
     olua_metadata_t *mt = olua_getmetadata(L, olua_metadata_t *);
-    if (lua_rawgetp(L, LUA_REGISTRYINDEX, STACKPOOL_TABLE) != LUA_TTABLE) {
+    if (olua_rawgetp(L, LUA_REGISTRYINDEX, STACKPOOL_TABLE) != LUA_TTABLE) {
         lua_pop(L, 1);
         lua_createtable(L, 16, 0);
         lua_pushvalue(L, -1);
-        lua_rawsetp(L, LUA_REGISTRYINDEX, STACKPOOL_TABLE);
+        olua_rawsetp(L, LUA_REGISTRYINDEX, STACKPOOL_TABLE);
     }
     
     mt->objpoolcount++;
     
-    if (lua_rawgeti(L, -1, mt->objpoolcount) != LUA_TUSERDATA) {
+    if (olua_rawgeti(L, -1, mt->objpoolcount) != LUA_TUSERDATA) {
         lua_pop(L, 1);
         lua_newuserdata(L, sizeof(void *));
         lua_pushvalue(L, -1);
-        lua_rawseti(L, -3, mt->objpoolcount);
+        olua_rawseti(L, -3, mt->objpoolcount);
     }
     
     *(void **)lua_touserdata(L, -1) = obj;
-    luaL_setmetatable(L, cls);
+    olua_setmetatable(L, cls);
     
     if (!lua_getmetatable(L, -1)) {
         luaL_error(L, "metatable not found: %s", cls);
@@ -266,7 +266,7 @@ LUALIB_API int olua_pushobj(lua_State *L, void *obj, const char *cls)
     
     auxgetobjtable(L);
     
-    if (lua_rawgetp(L, -1, obj) == LUA_TNIL) {      // L: mapping obj?
+    if (olua_rawgetp(L, -1, obj) == LUA_TNIL) {      // L: mapping obj?
         lua_pop(L, 1);                              // L: mapping
         
         if (isusingpool(L)) {
@@ -275,9 +275,9 @@ LUALIB_API int olua_pushobj(lua_State *L, void *obj, const char *cls)
         }
         
         olua_newuserdata(L, obj, void *);           // L: mapping obj
-        luaL_setmetatable(L, cls);                  // L: mapping obj
+        olua_setmetatable(L, cls);                 // L: mapping obj
         lua_pushvalue(L, -1);                       // L: mapping obj obj
-        lua_rawsetp(L, -3, obj);                    // L: mapping obj
+        olua_rawsetp(L, -3, obj);                    // L: mapping obj
         status = OLUA_OBJ_NEW;
         
         if (!lua_getmetatable(L, -1)) {
@@ -290,7 +290,7 @@ LUALIB_API int olua_pushobj(lua_State *L, void *obj, const char *cls)
     lua_remove(L, -2);                              // L: obj
     
     if (!strequal(cls, OLUA_VOIDCLS) && luaL_testudata(L, -1, OLUA_VOIDCLS)) {
-        luaL_setmetatable(L, cls);
+        olua_setmetatable(L, cls);
         status = OLUA_OBJ_UPDATE;
     }
     
@@ -305,7 +305,7 @@ LUALIB_API bool olua_getobj(lua_State *L, void *obj)
         return false;
     }
     auxgetobjtable(L);                              // L: objt
-    if (lua_rawgetp(L, -1, obj) == LUA_TUSERDATA) { // L: objt obj
+    if (olua_rawgetp(L, -1, obj) == LUA_TUSERDATA) { // L: objt obj
         lua_remove(L, -2);                          // L: obj
         return true;
     } else {
@@ -362,12 +362,12 @@ LUALIB_API size_t olua_push_objpool(lua_State *L)
 
 LUALIB_API void olua_pop_objpool(lua_State *L, size_t level)
 {
-    if (lua_rawgetp(L, LUA_REGISTRYINDEX, STACKPOOL_TABLE) == LUA_TTABLE) {
+    if (olua_rawgetp(L, LUA_REGISTRYINDEX, STACKPOOL_TABLE) == LUA_TTABLE) {
         olua_metadata_t *mt = olua_getmetadata(L, olua_metadata_t *);
         size_t len = lua_rawlen(L, -1);
         olua_assert(level < len);
         for (size_t i = level + 1; i <= len; i++) {
-            lua_rawgeti(L, -1, (lua_Integer)i);
+            olua_rawgeti(L, -1, (lua_Integer)i);
             void **ud = (void **)lua_touserdata(L, -1);
             lua_pop(L, 1);
             if (*ud != NULL) {
@@ -554,7 +554,7 @@ LUALIB_API int olua_getvariable(lua_State *L, int idx)
     olua_assert(olua_isuserdata(L, idx));
     if (lua_getuservalue(L, idx) == LUA_TTABLE) {   // L: k uv
         lua_insert(L, -2);                          // L: uv k
-        type = lua_rawget(L, -2);                   // L: uv v
+        type = olua_rawget(L, -2);                   // L: uv v
         lua_remove(L, -2);                          // L: v
     } else {
         lua_pop(L, 2);                              // L:
@@ -574,11 +574,11 @@ LUALIB_API void olua_setvariable(lua_State *L, int idx)
 
 static void auxgetmappingtable(lua_State *L)
 {
-    if (lua_rawgetp(L, LUA_REGISTRYINDEX, (void *)auxgetmappingtable) == LUA_TNIL) {
+    if (olua_rawgetp(L, LUA_REGISTRYINDEX, (void *)auxgetmappingtable) == LUA_TNIL) {
         lua_pop(L, 1); // pop nil
         lua_newtable(L);
         lua_pushvalue(L, -1);
-        lua_rawsetp(L, LUA_REGISTRYINDEX, (void *)auxgetmappingtable);
+        olua_rawsetp(L, LUA_REGISTRYINDEX, (void *)auxgetmappingtable);
     }
     luaL_checktype(L, -1, LUA_TTABLE);
 }
@@ -609,7 +609,7 @@ LUALIB_API void olua_unref(lua_State *L, int ref)
 {
     int top = lua_gettop(L);
     auxgetmappingtable(L);
-    if (lua_rawgeti(L, top + 1, ref) != LUA_TNIL) {
+    if (olua_rawgeti(L, top + 1, ref) != LUA_TNIL) {
         lua_pushnil(L);
         lua_rawseti(L, top + 1, ref);
     }
@@ -770,11 +770,11 @@ static int trycacheget(lua_State *L, int t, int kidx)
     int type;
     olua_assert(t <= LUA_REGISTRYINDEX && kidx > 0);
     lua_pushvalue(L, kidx);                     // L: k
-    type = lua_rawget(L, t);                    // L: v
+    type = olua_rawget(L, t);                    // L: v
     if (type == LUA_TNIL) {
         lua_pop(L, 1);                          // L:
         lua_pushvalue(L, kidx);                 // L: k
-        type = lua_gettable(L, t);              // L: v
+        type = olua_gettable(L, t);              // L: v
         lua_pushvalue(L, kidx);                 // L: v k
         if (type == LUA_TNIL) {
             lua_pushlightuserdata(L, NILVALUE); // L: v k v
@@ -932,7 +932,7 @@ static void copysupermetafunc(lua_State *L, int idx, const char *supercls)
 LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *super)
 {
     if (super != NULL) {
-        if (luaL_getmetatable(L, super) == LUA_TNIL) {
+        if (olua_getmetatable(L, super) == LUA_TNIL) {
             luaL_error(L, "'%s' super class '%s' is not found", cls, super);
         }
         lua_pop(L, 1);
@@ -942,7 +942,7 @@ LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *super)
         super = OLUA_VOIDCLS;
     }
     
-    if (luaL_getmetatable(L, cls) == LUA_TNIL) {
+    if (olua_getmetatable(L, cls) == LUA_TNIL) {
         static const luaL_Reg lib[] = {
             {"__index", cls_index},
             {"__newindex", cls_newindex},
@@ -983,7 +983,7 @@ LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *super)
         lua_newuserdata(L, sizeof(void *));             // L: mt objs store
         lua_pushvalue(L, -1);                           // L: mt objs store store
         olua_rawsetf(L, -4, CLS_STORE);                 // L: mt objs store     mt[.store] = store
-        lua_rawsetp(L, -2, lua_topointer(L, -1));       // L: mt objs           objs[store_ptr] = store
+        olua_rawsetp(L, -2, lua_topointer(L, -1));       // L: mt objs           objs[store_ptr] = store
         lua_pop(L, 1);                                  // L: mt
     }
 }
@@ -1163,7 +1163,7 @@ LUALIB_API bool olua_optfieldboolean(lua_State *L, int idx, const char *field, b
 
 LUALIB_API bool olua_hasfield(lua_State *L, int idx, const char *field)
 {
-    int type = lua_getfield(L, idx, field);
+    int type = olua_getfield(L, idx, field);
     lua_pop(L, 1);
     return type != LUA_TNIL;
 }
@@ -1178,7 +1178,7 @@ static int _lwith(lua_State *L)
         lua_pushnil(L);                 // L: obj cls func nil
     }
     
-    if (luaL_getmetatable(L, cls) == LUA_TTABLE) {
+    if (olua_getmetatable(L, cls) == LUA_TTABLE) {
         lua_setmetatable(L, 1);
     } else {
         lua_pop(L, 1);
@@ -1214,3 +1214,145 @@ LUALIB_API int luaopen_olua(lua_State *L)
     
     return 1;
 }
+
+#if LUA_VERSION_NUM == 501
+LUALIB_API void *lua_getextraspace(lua_State *L)
+{
+    void *p;
+    if (olua_rawgetp(L, LUA_REGISTRYINDEX, (void *)lua_getextraspace) == LUA_TNIL)
+    {
+        lua_pop(L, 1);
+        lua_newuserdata(L, sizeof(olua_metadata_t *));
+        lua_pushvalue(L, -1);
+        olua_rawsetp(L, LUA_REGISTRYINDEX, (void *)lua_getextraspace);
+    }
+    p = lua_touserdata(L, -1);
+    lua_pop(L, 1);
+    return p;
+}
+
+LUALIB_API void lua_setuservalue(lua_State *L, int idx)
+{
+    if (lua_type(L, -1) != LUA_TNIL) {
+        luaL_checktype(L, -1, LUA_TTABLE);
+    }
+    lua_setfenv(L, idx);
+}
+
+LUALIB_API int lua_getuservalue(lua_State *L, int idx)
+{
+    lua_getfenv(L, idx);
+    return lua_type(L, -1);
+}
+
+LUALIB_API int lua_absindex(lua_State *L, int idx)
+{
+    return (idx > 0 || idx <= LUA_REGISTRYINDEX) ?
+        idx : (idx + 1 + lua_gettop(L));
+}
+
+LUALIB_API int lua_isinteger(lua_State *L, int idx)
+{
+    if (olua_isnumber(L, idx)) {
+        lua_Number n = lua_tonumber(L, idx);
+        return n == (lua_Number)(floor(n));
+    }
+    return false;
+}
+
+LUALIB_API void luaL_setfuncs (lua_State *L, const luaL_Reg *l, int nup)
+{
+    luaL_checkstack(L, nup, "too many upvalues");
+    for (; l->name != NULL; l++)
+    {
+        for (int i = 0; i < nup; i++) {
+            lua_pushvalue(L, -nup);
+        }
+        lua_pushcclosure(L, l->func, nup);
+        lua_setfield(L, -(nup + 2), l->name);
+    }
+    lua_pop(L, nup);
+}
+
+LUALIB_API int luaL_getsubtable (lua_State *L, int idx, const char *fname) {
+    if (olua_getfield(L, idx, fname) == LUA_TTABLE) {
+        return 1;
+    } else {
+        lua_pop(L, 1);
+        idx = lua_absindex(L, idx);
+        lua_newtable(L);
+        lua_pushvalue(L, -1);
+        lua_setfield(L, idx, fname);
+        return 0;
+    }
+}
+
+LUALIB_API void luaL_requiref (lua_State *L, const char *modname, lua_CFunction openf, int glb) {
+    luaL_getsubtable(L, LUA_REGISTRYINDEX, LUA_LOADED_TABLE);
+    lua_getfield(L, -1, modname);
+    if (!lua_toboolean(L, -1)) {
+        lua_pop(L, 1);
+        lua_pushcfunction(L, openf);
+        lua_pushstring(L, modname);
+        lua_call(L, 1, 1);
+        lua_pushvalue(L, -1);
+        lua_setfield(L, -3, modname);
+    }
+    lua_remove(L, -2);
+    if (glb) {
+        lua_pushvalue(L, -1);
+        lua_setglobal(L, modname);
+    }
+}
+
+LUALIB_API void *luaL_testudata (lua_State *L, int ud, const char *tname) {
+    void *p = lua_touserdata(L, ud);
+    if (p != NULL) {
+        if (lua_getmetatable(L, ud)) {
+            luaL_getmetatable(L, tname);
+            if (!lua_rawequal(L, -1, -2)) {
+                p = NULL;
+            }
+            lua_pop(L, 2);
+            return p;
+        }
+    }
+    return NULL;
+}
+
+LUALIB_API void luaL_traceback (lua_State *L, lua_State *L1, const char *msg, int level)
+{
+    lua_getglobal(L, "debug");
+    lua_getfield(L, -1, "traceback");
+    lua_remove(L, -2);
+    if (L != L1) {
+        lua_pushthread(L1);
+        lua_xmove(L1, L, 1);
+    }
+    lua_pushstring(L, msg ? msg : "");
+    lua_pushinteger(L, L != L1 ? level : (level + 1));
+    lua_pcall(L, L != L1 ? 3 : 2, 1, 0);
+    if (msg == NULL) {
+        msg = lua_tostring(L, -1);
+        if (msg[0] == '\n') {
+            lua_pushstring(L, msg + 1);
+            lua_remove(L, -2);
+        }
+    }
+}
+                                 
+LUALIB_API void olua_rawsetp(lua_State *L, int idx, const void *p)
+{
+    idx = lua_absindex(L, idx);
+    lua_pushlightuserdata(L, (void *)p);
+    lua_insert(L, -2);
+    olua_rawset(L, idx);
+}
+
+LUALIB_API int olua_rawgetp(lua_State *L, int idx, const void *p)
+{
+    idx = lua_absindex(L, idx);
+    lua_pushlightuserdata(L, (void *)p);
+    return olua_rawget(L, idx);
+}
+#endif

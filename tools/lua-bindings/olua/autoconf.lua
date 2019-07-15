@@ -280,7 +280,12 @@ function M:writeClass()
                     local name = string.gsub(fn.NAME, '^%l+', '')
                     name = string.gsub(name, '^%u+', function (str)
                         if #str > 1 and #str ~= #name then
-                            return str:sub(1, #str - 1):lower() .. str:sub(#str)
+                            if #str == #name - 1 then
+                                -- maybe XXXXXs
+                                return str:lower()
+                            else
+                                return str:sub(1, #str - 1):lower() .. str:sub(#str)
+                            end
                         else
                             return str:lower()
                         end

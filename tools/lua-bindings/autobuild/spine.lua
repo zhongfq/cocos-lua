@@ -1028,7 +1028,7 @@ cls.funcs [[
 cls.props [[
     hullLength
     regionUVs
-    uVs
+    uvs
     triangles
     color
     path
@@ -1165,7 +1165,7 @@ cls.props [[
     regionOriginalWidth
     regionOriginalHeight
     offset
-    uVs
+    uvs
 ]]
 
 cls = typecls(M.CLASSES)

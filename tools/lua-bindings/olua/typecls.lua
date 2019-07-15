@@ -406,7 +406,13 @@ local function parse_prop(cls, name, func_get, func_set)
 
     local function test(f, name, op)
         name = to_prop_func_name(name, op)
-        return name == f.CPPFUNC or name == f.LUAFUNC
+        if name == f.CPPFUNC or name == f.LUAFUNC then
+            return true
+        else
+            -- getXXXXS => getXXXXs?
+            name = name:sub(1, #name - 1) .. name:sub(#name):lower()
+            return name == f.CPPFUNC or name == f.LUAFUNC
+        end
     end
 
     if func_get then

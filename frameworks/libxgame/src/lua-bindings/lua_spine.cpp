@@ -8778,36 +8778,6 @@ static int _spine_SkeletonRenderer_createWithSkeleton(lua_State *L)
     return num_ret;
 }
 
-static int _spine_SkeletonRenderer_destroyScratchBuffers(lua_State *L)
-{
-    lua_settop(L, 0);
-
-    // static void destroyScratchBuffers()
-    spine::SkeletonRenderer::destroyScratchBuffers();
-
-    return 0;
-}
-
-static int _spine_SkeletonRenderer_drawDebug(lua_State *L)
-{
-    lua_settop(L, 4);
-
-    spine::SkeletonRenderer *self = nullptr;
-    cocos2d::Renderer *arg1 = nullptr;   /** renderer */
-    cocos2d::Mat4 arg2;       /** transform */
-    lua_Unsigned arg3 = 0;   /** transformFlags */
-
-    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
-    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Renderer");
-    manual_olua_check_cocos2d_Mat4(L, 3, &arg2);
-    olua_check_uint(L, 4, &arg3);
-
-    // void drawDebug (cocos2d::Renderer* renderer, const cocos2d::Mat4& transform, uint32_t transformFlags)
-    self->drawDebug(arg1, arg2, (uint32_t)arg3);
-
-    return 0;
-}
-
 static int _spine_SkeletonRenderer_findBone(lua_State *L)
 {
     lua_settop(L, 2);
@@ -8886,6 +8856,21 @@ static int _spine_SkeletonRenderer_getDebugBonesEnabled(lua_State *L)
 
     // bool getDebugBonesEnabled()
     bool ret = (bool)self->getDebugBonesEnabled();
+    int num_ret = olua_push_bool(L, ret);
+
+    return num_ret;
+}
+
+static int _spine_SkeletonRenderer_getDebugBoundingRectEnabled(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    spine::SkeletonRenderer *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+
+    // bool getDebugBoundingRectEnabled()
+    bool ret = (bool)self->getDebugBoundingRectEnabled();
     int num_ret = olua_push_bool(L, ret);
 
     return num_ret;
@@ -9079,6 +9064,22 @@ static int _spine_SkeletonRenderer_setDebugBonesEnabled(lua_State *L)
 
     // void setDebugBonesEnabled(bool enabled)
     self->setDebugBonesEnabled(arg1);
+
+    return 0;
+}
+
+static int _spine_SkeletonRenderer_setDebugBoundingRectEnabled(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    spine::SkeletonRenderer *self = nullptr;
+    bool arg1 = false;   /** enabled */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setDebugBoundingRectEnabled(bool enabled)
+    self->setDebugBoundingRectEnabled(arg1);
 
     return 0;
 }
@@ -9281,13 +9282,12 @@ static int luaopen_spine_SkeletonRenderer(lua_State *L)
     oluacls_func(L, "createWithData", _spine_SkeletonRenderer_createWithData);
     oluacls_func(L, "createWithFile", _spine_SkeletonRenderer_createWithFile);
     oluacls_func(L, "createWithSkeleton", _spine_SkeletonRenderer_createWithSkeleton);
-    oluacls_func(L, "destroyScratchBuffers", _spine_SkeletonRenderer_destroyScratchBuffers);
-    oluacls_func(L, "drawDebug", _spine_SkeletonRenderer_drawDebug);
     oluacls_func(L, "findBone", _spine_SkeletonRenderer_findBone);
     oluacls_func(L, "findSlot", _spine_SkeletonRenderer_findSlot);
     oluacls_func(L, "getAttachment", _spine_SkeletonRenderer_getAttachment);
     oluacls_func(L, "getBlendFunc", _spine_SkeletonRenderer_getBlendFunc);
     oluacls_func(L, "getDebugBonesEnabled", _spine_SkeletonRenderer_getDebugBonesEnabled);
+    oluacls_func(L, "getDebugBoundingRectEnabled", _spine_SkeletonRenderer_getDebugBoundingRectEnabled);
     oluacls_func(L, "getDebugMeshesEnabled", _spine_SkeletonRenderer_getDebugMeshesEnabled);
     oluacls_func(L, "getDebugSlotsEnabled", _spine_SkeletonRenderer_getDebugSlotsEnabled);
     oluacls_func(L, "getSkeleton", _spine_SkeletonRenderer_getSkeleton);
@@ -9298,6 +9298,7 @@ static int luaopen_spine_SkeletonRenderer(lua_State *L)
     oluacls_func(L, "setBlendFunc", _spine_SkeletonRenderer_setBlendFunc);
     oluacls_func(L, "setBonesToSetupPose", _spine_SkeletonRenderer_setBonesToSetupPose);
     oluacls_func(L, "setDebugBonesEnabled", _spine_SkeletonRenderer_setDebugBonesEnabled);
+    oluacls_func(L, "setDebugBoundingRectEnabled", _spine_SkeletonRenderer_setDebugBoundingRectEnabled);
     oluacls_func(L, "setDebugMeshesEnabled", _spine_SkeletonRenderer_setDebugMeshesEnabled);
     oluacls_func(L, "setDebugSlotsEnabled", _spine_SkeletonRenderer_setDebugSlotsEnabled);
     oluacls_func(L, "setSkin", _spine_SkeletonRenderer_setSkin);
@@ -9310,6 +9311,7 @@ static int luaopen_spine_SkeletonRenderer(lua_State *L)
     oluacls_func(L, "updateWorldTransform", _spine_SkeletonRenderer_updateWorldTransform);
     oluacls_prop(L, "blendFunc", _spine_SkeletonRenderer_getBlendFunc, _spine_SkeletonRenderer_setBlendFunc);
     oluacls_prop(L, "debugBonesEnabled", _spine_SkeletonRenderer_getDebugBonesEnabled, _spine_SkeletonRenderer_setDebugBonesEnabled);
+    oluacls_prop(L, "debugBoundingRectEnabled", _spine_SkeletonRenderer_getDebugBoundingRectEnabled, _spine_SkeletonRenderer_setDebugBoundingRectEnabled);
     oluacls_prop(L, "debugMeshesEnabled", _spine_SkeletonRenderer_getDebugMeshesEnabled, _spine_SkeletonRenderer_setDebugMeshesEnabled);
     oluacls_prop(L, "debugSlotsEnabled", _spine_SkeletonRenderer_getDebugSlotsEnabled, _spine_SkeletonRenderer_setDebugSlotsEnabled);
     oluacls_prop(L, "skeleton", _spine_SkeletonRenderer_getSkeleton, nullptr);
@@ -10186,6 +10188,22 @@ static int _spine_SkeletonAnimation_setTrackStartListener(lua_State *L)
     return 0;
 }
 
+static int _spine_SkeletonAnimation_setUpdateOnlyIfVisible(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    spine::SkeletonAnimation *self = nullptr;
+    bool arg1 = false;   /** status */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setUpdateOnlyIfVisible(bool status)
+    self->setUpdateOnlyIfVisible(arg1);
+
+    return 0;
+}
+
 static int luaopen_spine_SkeletonAnimation(lua_State *L)
 {
     oluacls_class(L, "sp.SkeletonAnimation", "sp.SkeletonRenderer");
@@ -10219,6 +10237,7 @@ static int luaopen_spine_SkeletonAnimation(lua_State *L)
     oluacls_func(L, "setTrackEventListener", _spine_SkeletonAnimation_setTrackEventListener);
     oluacls_func(L, "setTrackInterruptListener", _spine_SkeletonAnimation_setTrackInterruptListener);
     oluacls_func(L, "setTrackStartListener", _spine_SkeletonAnimation_setTrackStartListener);
+    oluacls_func(L, "setUpdateOnlyIfVisible", _spine_SkeletonAnimation_setUpdateOnlyIfVisible);
     oluacls_prop(L, "state", _spine_SkeletonAnimation_getState, nullptr);
 
     olua_registerluatype<spine::SkeletonAnimation>(L, "sp.SkeletonAnimation");

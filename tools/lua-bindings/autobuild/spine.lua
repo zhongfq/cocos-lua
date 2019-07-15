@@ -1329,7 +1329,6 @@ cls.funcs [[
     static SkeletonRenderer* createWithData (@ref(single skeletonData) SkeletonData* skeletonData, bool ownsSkeletonData = false)
     static SkeletonRenderer* createWithFile (const std::string& skeletonDataFile, Atlas* atlas, float scale = 1)
     static SkeletonRenderer* createWithFile (const std::string& skeletonDataFile, const std::string& atlasFile, float scale = 1)
-    void drawDebug (cocos2d::Renderer* renderer, const cocos2d::Mat4& transform, uint32_t transformFlags)
     Skeleton* getSkeleton()
     void setTimeScale(float scale)
     float getTimeScale()
@@ -1339,6 +1338,8 @@ cls.funcs [[
     bool getDebugBonesEnabled()
     void setDebugMeshesEnabled(bool enabled)
     bool getDebugMeshesEnabled()
+    void setDebugBoundingRectEnabled(bool enabled)
+    bool getDebugBoundingRectEnabled()
     void updateWorldTransform ()
     void setToSetupPose ()
     void setBonesToSetupPose ()
@@ -1356,7 +1357,6 @@ cls.funcs [[
     void setSlotsRange(int startSlotIndex, int endSlotIndex)
     void setBlendFunc (const cocos2d::BlendFunc& blendFunc)
     const cocos2d::BlendFunc& getBlendFunc ()
-    static void destroyScratchBuffers()
     void initialize ()
 ]]
 cls.props [[
@@ -1365,6 +1365,7 @@ cls.props [[
     debugSlotsEnabled
     debugBonesEnabled
     debugMeshesEnabled
+    debugBoundingRectEnabled
     twoColorTint
     blendFunc
 ]]
@@ -1393,6 +1394,7 @@ cls.funcs [[
     void onAnimationStateEvent (TrackEntry* entry, EventType type, Event* event)
     void onTrackEntryEvent (TrackEntry* entry, EventType type, Event* event)
     @ref(single state) AnimationState* getState()
+    void setUpdateOnlyIfVisible(bool status)
 ]]
 cls.callback {
     FUNCS =  {

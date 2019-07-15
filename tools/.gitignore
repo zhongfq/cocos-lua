@@ -1,3 +1,4 @@
 build/
 autoconf.h
 autoconf.log
+update-spine.lua

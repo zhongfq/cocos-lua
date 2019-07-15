@@ -317,21 +317,19 @@ void IkConstraint::setCompress(bool inValue) {
 	_compress = inValue;
 }
 
-float IkConstraint::getSoftness()
-{
-    return _softness;
-}
-
-void IkConstraint::setSoftness(float inValue)
-{
-    _softness = inValue;
-}
-
 bool IkConstraint::isActive() {
 	return _active;
 }
 
 void IkConstraint::setActive(bool inValue) {
 	_active = inValue;
+}
+
+float IkConstraint::getSoftness() {
+    return _softness;
+}
+
+void IkConstraint::setSoftness(float inValue) {
+    _softness = inValue;
 }
 

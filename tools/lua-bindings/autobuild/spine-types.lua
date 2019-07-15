@@ -20,6 +20,13 @@ typedef {
 }
 
 typedef {
+    CONV_FUNC = 'manual_olua_$$_spine_Vector',
+    CPPCLS = 'spine::Vector',
+    INIT_VALUE = false,
+    IS_ARRAY = true,
+}
+
+typedef {
     CPPCLS = 'spine::AttachmentType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',

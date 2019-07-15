@@ -105,16 +105,19 @@ local function gen_func_args(cls, fi)
                 ${FUNC_CHECK_VALUE}(L, ${IDX}, (void **)&${ARG_N}, "${LUACLS}");
             ]])
         elseif ai.TYPE.SUBTYPE then
+            assert(ai.TYPE.IS_ARRAY)
             local SUBTYPE = ai.TYPE.SUBTYPE
             if SUBTYPE.LUACLS then
                 local SUB_LUACLS = SUBTYPE.LUACLS
                 ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
                     ${FUNC_CHECK_VALUE}(L, ${IDX}, ${ARG_N}, "${SUB_LUACLS}");
                 ]])
-            elseif ai.TYPE.CPPCLS == 'std::vector' then
+            else
                 local CAST = ""
                 local SUBTYPE_CHECK_FUNC = SUBTYPE.FUNC_CHECK_VALUE
                 local SUBTYPE_DECL_TYPE = SUBTYPE.DECL_TYPE
+                local RESERVE_CHUNK = ''
+                local FN_PUSH_BACK = ai.TYPE.FN_PUSH_BACK
                 if SUBTYPE.DECL_TYPE ~= SUBTYPE.CPPCLS then
                     if not SUBTYPE.VALUE_TYPE then
                         print(SUBTYPE.DECL_TYPE, SUBTYPE.CPPCLS)
@@ -122,42 +125,24 @@ local function gen_func_args(cls, fi)
                     end
                     CAST = string.format("(%s)", SUBTYPE.CPPCLS)
                 end
-                ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
-                    luaL_checktype(L, ${IDX}, LUA_TTABLE);
-                    size_t ${ARG_N}_total = lua_rawlen(L, ${IDX});
-                    ${ARG_N}.reserve(${ARG_N}_total);
-                    for (int i = 1; i <= ${ARG_N}_total; i++) {
-                        ${SUBTYPE_DECL_TYPE} obj;
-                        lua_rawgeti(L, ${IDX}, i);
-                        ${SUBTYPE_CHECK_FUNC}(L, -1, &obj);
-                        ${ARG_N}.push_back(${CAST}obj);
-                        lua_pop(L, 1);
-                    }
-                ]])
-            elseif ai.TYPE.CPPCLS == 'std::set' then
-                local CAST = ""
-                local SUBTYPE_CHECK_FUNC = SUBTYPE.FUNC_CHECK_VALUE
-                local SUBTYPE_DECL_TYPE = SUBTYPE.DECL_TYPE
-                if SUBTYPE.DECL_TYPE ~= SUBTYPE.CPPCLS then
-                    if not SUBTYPE.VALUE_TYPE then
-                        print(SUBTYPE.DECL_TYPE, SUBTYPE.CPPCLS)
-                        error(SUBTYPE.CPPCLS)
-                    end
-                    CAST = string.format("(%s)", SUBTYPE.DECL_TYPE)
+                if ai.TYPE.FN_RESERVE then
+                    local FN_RESERVE = ai.TYPE.FN_RESERVE
+                    RESERVE_CHUNK = format [[
+                        ${ARG_N}.${FN_RESERVE}(${ARG_N}_total);
+                    ]]
                 end
                 ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
                     luaL_checktype(L, ${IDX}, LUA_TTABLE);
                     size_t ${ARG_N}_total = lua_rawlen(L, ${IDX});
+                    ${RESERVE_CHUNK}
                     for (int i = 1; i <= ${ARG_N}_total; i++) {
                         ${SUBTYPE_DECL_TYPE} obj;
                         lua_rawgeti(L, ${IDX}, i);
                         ${SUBTYPE_CHECK_FUNC}(L, -1, &obj);
-                        ${ARG_N}.insert(${CAST}obj);
+                        ${ARG_N}.${FN_PUSH_BACK}(${CAST}obj);
                         lua_pop(L, 1);
                     }
                 ]])
-            else
-                error(ai.TYPE.CPPCLS)
             end
         elseif not ai.CALLBACK.ARGS then
             if ai.ATTR.PACK then
@@ -249,29 +234,55 @@ local function gen_func_ret(cls, fi)
                     end
                     CAST = string.format("(%s)", SUBTYPE.DECL_TYPE)
                 end
+                local DECL_TYPE_NO_CONST = string.gsub(DECL_TYPE, '^const _*', '')
+                local POINT = fi.RET.TYPE.SUBTYPE.VALUE_TYPE and '' or '&'
                 if SUBTYPE.DECL_TYPE == 'lua_Unsigned'
                     or SUBTYPE.DECL_TYPE == 'lua_Number'
                     or SUBTYPE.CPPCLS == 'bool'
                     or SUBTYPE.DECL_TYPE == 'lua_Integer' then
-                    RET_PUSH = format([[
-                        int num_ret = 1;
-                        int num_eles = 1;
-                        lua_createtable(L, (int)ret.size(), 0);
-                        for (auto it : ret) {
-                            ${SUBTYPE_PUSH_FUNC}(L, ${CAST}it);
-                            lua_rawseti(L, -2, num_eles++);
-                        }
-                    ]])
+                    if fi.RET.TYPE.FN_ITERATOR then
+                        RET_PUSH = format([[
+                            int num_ret = 1;
+                            int num_eles = 1;
+                            lua_createtable(L, (int)ret.size(), 0);
+                            for (auto it : ret) {
+                                ${SUBTYPE_PUSH_FUNC}(L, ${POINT}${CAST}it);
+                                lua_rawseti(L, -2, num_eles++);
+                            }
+                        ]])
+                    else
+                        RET_PUSH = format([[
+                            int num_ret = 1;
+                            int num_eles = 1;
+                            lua_createtable(L, (int)ret.size(), 0);
+                            for (int i = 0, n = (int)ret.size(); i < n; i++) {
+                                ${SUBTYPE_PUSH_FUNC}(L, ${POINT}${CAST}((${DECL_TYPE_NO_CONST})ret)[i]);
+                                lua_rawseti(L, -2, num_eles++);
+                            }
+                        ]])
+                    end
                 else
-                    RET_PUSH = format([[
-                        int num_ret = 1;
-                        int num_eles = 1;
-                        lua_createtable(L, (int)ret.size(), 0);
-                        for (const auto &it : ret) {
-                            ${SUBTYPE_PUSH_FUNC}(L, ${CAST}it);
-                            lua_rawseti(L, -2, num_eles++);
-                        }
-                    ]])
+                    if fi.RET.TYPE.FN_ITERATOR then
+                        RET_PUSH = format([[
+                            int num_ret = 1;
+                            int num_eles = 1;
+                            lua_createtable(L, (int)ret.size(), 0);
+                            for (const auto &it : ret) {
+                                ${SUBTYPE_PUSH_FUNC}(L, ${POINT}${CAST}it);
+                                lua_rawseti(L, -2, num_eles++);
+                            }
+                        ]])
+                    else
+                        RET_PUSH = format([[
+                            int num_ret = 1;
+                            int num_eles = 1;
+                            lua_createtable(L, (int)ret.size(), 0);
+                            for (int i = 0, n = (int)ret.size(); i < n; i++) {
+                                ${SUBTYPE_PUSH_FUNC}(L, ${POINT}${CAST}((${DECL_TYPE_NO_CONST})ret)[i]);
+                                lua_rawseti(L, -2, num_eles++);
+                            }
+                        ]])
+                    end
                 end
             end
         else

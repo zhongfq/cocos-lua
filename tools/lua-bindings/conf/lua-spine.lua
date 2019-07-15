@@ -96,6 +96,21 @@ int manual_olua_push_spine_EventData(lua_State *L, const spine::EventData *value
     manual_olua_push_spine_String(L, &const_cast<spine::EventData *>(value)->getAudioPath());
     olua_rawsetf(L, -2, "audioPath");
     return 1;
+}
+
+template <typename T> int manual_olua_push_spine_Vector(lua_State *L, const spine::Vector<T*> &v, const char *cls)
+{
+    lua_newtable(L);
+    for (int i = 0; i < v.size(); i++) {
+        auto obj = ((spine::Vector<T*> &)v)[i];
+        if (obj == nullptr) {
+            continue;
+        }
+        olua_push_cppobj(L, obj, cls);
+        lua_rawseti(L, -2, i + 1);
+        i++;
+    }
+    return 1;
 }]]
 
 typedef {
@@ -116,6 +131,13 @@ typedef {
     INIT_VALUE = false,
 }
 
+typedef {
+    CPPCLS = 'spine::Vector',
+    IS_ARRAY = true,
+    CONV_FUNC = 'manual_olua_$$_spine_Vector',
+    INIT_VALUE = false,
+}
+
 M.MAKE_LUACLS = function (cppname)
     cppname = string.gsub(cppname, "^spine::", "sp.")
     cppname = string.gsub(cppname, "::", ".")
@@ -126,6 +148,7 @@ end
 M.EXCLUDE_TYPE = require "conf.exclude-type"
 M.EXCLUDE_TYPE 'Unexposed *'
 M.EXCLUDE_TYPE 'spine::Bone'
+M.EXCLUDE_TYPE 'spine::Slot'
 M.EXCLUDE_TYPE 'spine::BoneData'
 M.EXCLUDE_TYPE 'spine::Skeleton'
 M.EXCLUDE_TYPE 'spine::SkeletonBounds'
@@ -133,12 +156,11 @@ M.EXCLUDE_TYPE 'spine::SlotData'
 M.EXCLUDE_TYPE 'spine::IkConstraintData'
 M.EXCLUDE_TYPE 'spine::TransformConstraintData'
 M.EXCLUDE_TYPE 'spine::PathConstraintData'
-M.EXCLUDE_TYPE 'spine::Vector'
 M.EXCLUDE_TYPE 'spine::AnimationStateListenerObject'
 
 M.EXCLUDE_PATTERN = function (cppcls, fn, decl)
     return string.find(fn, '^initWith')
-        or string.find(decl, 'Vector *<')
+        -- or string.find(decl, 'Vector *<')
 end
 
 local function typeconfOnly(name)
@@ -188,6 +210,10 @@ typeconfOnly 'spine::SkeletonClipping'
 
 local Timeline = typeconf 'spine::Timeline'
 Timeline.EXCLUDE 'apply'
+Timeline.EXCLUDE 'setFrame'
+Timeline.EXCLUDE 'getVertices'
+Timeline.EXCLUDE 'getDrawOrders'
+Timeline.EXCLUDE 'getEvents'
 
 typeconf 'spine::CurveTimeline'
 typeconf 'spine::AttachmentTimeline'
@@ -214,6 +240,8 @@ typeconfOnly 'spine::Polygon'
 
 local Skin = typeconf 'spine::Skin'
 Skin.EXCLUDE 'getAttachments'
+Skin.EXCLUDE 'findNamesForSlot'
+Skin.EXCLUDE 'findAttachmentsForSlot'
 
 typeconfOnly 'spine::Atlas'
 

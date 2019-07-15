@@ -87,6 +87,21 @@ int manual_olua_push_spine_EventData(lua_State *L, const spine::EventData *value
     manual_olua_push_spine_String(L, &const_cast<spine::EventData *>(value)->getAudioPath());
     olua_rawsetf(L, -2, "audioPath");
     return 1;
+}
+
+template <typename T> int manual_olua_push_spine_Vector(lua_State *L, const spine::Vector<T*> &v, const char *cls)
+{
+    lua_newtable(L);
+    for (int i = 0; i < v.size(); i++) {
+        auto obj = ((spine::Vector<T*> &)v)[i];
+        if (obj == nullptr) {
+            continue;
+        }
+        olua_push_cppobj(L, obj, cls);
+        lua_rawseti(L, -2, i + 1);
+        i++;
+    }
+    return 1;
 }]]
 
 M.CLASSES = {}
@@ -253,6 +268,7 @@ cls.funcs [[
     void setEmptyAnimations(float mixDuration)
     TrackEntry* getCurrent(size_t trackIndex)
     AnimationStateData* getData()
+    Vector<TrackEntry*> &getTracks()
     float getTimeScale()
     void setTimeScale(float inValue)
     void disableQueue()
@@ -269,6 +285,7 @@ cls.callback {
 }
 cls.props [[
     data
+    tracks
     timeScale
 ]]
 
@@ -293,11 +310,13 @@ cls.CPPCLS = "spine::Animation"
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
     const String &getName()
+    Vector<Timeline *> &getTimelines()
     float getDuration()
     void setDuration(float inValue)
 ]]
 cls.props [[
     name
+    timelines
     duration
 ]]
 
@@ -321,6 +340,7 @@ cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::IkConstraintData"
 cls.SUPERCLS = "spine::ConstraintData"
 cls.funcs [[
+    Vector<BoneData*>& getBones()
     BoneData* getTarget()
     void setTarget(BoneData* inValue)
     int getBendDirection()
@@ -337,6 +357,7 @@ cls.funcs [[
     void setSoftness(float inValue)
 ]]
 cls.props [[
+    bones
     target
     bendDirection
     compress
@@ -420,6 +441,7 @@ cls.SUPERCLS = "spine::Updatable"
 cls.funcs [[
     void apply()
     int getOrder()
+    Vector<Bone *> &getBones()
     Bone *getTarget()
     void setTarget(Bone *inValue)
     int getBendDirection()
@@ -435,6 +457,7 @@ cls.funcs [[
 ]]
 cls.props [[
     order
+    bones
     target
     bendDirection
     compress
@@ -449,6 +472,7 @@ cls.SUPERCLS = "spine::Updatable"
 cls.funcs [[
     void apply()
     int getOrder()
+    Vector<Bone*>& getBones()
     Bone* getTarget()
     void setTarget(Bone* inValue)
     float getRotateMix()
@@ -462,6 +486,7 @@ cls.funcs [[
 ]]
 cls.props [[
     order
+    bones
     target
     rotateMix
     translateMix
@@ -473,6 +498,7 @@ cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::TransformConstraintData"
 cls.SUPERCLS = "spine::ConstraintData"
 cls.funcs [[
+    Vector<BoneData*>& getBones()
     BoneData* getTarget()
     float getRotateMix()
     float getTranslateMix()
@@ -488,6 +514,7 @@ cls.funcs [[
     bool isLocal()
 ]]
 cls.props [[
+    bones
     target
     rotateMix
     translateMix
@@ -507,6 +534,7 @@ cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::PathConstraintData"
 cls.SUPERCLS = "spine::ConstraintData"
 cls.funcs [[
+    Vector<BoneData*>& getBones()
     SlotData* getTarget()
     void setTarget(SlotData* inValue)
     PositionMode getPositionMode()
@@ -527,6 +555,7 @@ cls.funcs [[
     void setTranslateMix(float inValue)
 ]]
 cls.props [[
+    bones
     target
     positionMode
     spacingMode
@@ -592,13 +621,16 @@ cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::AttachmentTimeline"
 cls.SUPERCLS = "spine::Timeline"
 cls.funcs [[
-    void setFrame(int frameIndex, float time, const String& attachmentName)
     size_t getSlotIndex()
     void setSlotIndex(size_t inValue)
+    const Vector<float>& getFrames()
+    const Vector<String>& getAttachmentNames()
     size_t getFrameCount()
 ]]
 cls.props [[
     slotIndex
+    frames
+    attachmentNames
     frameCount
 ]]
 
@@ -606,12 +638,13 @@ cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::ColorTimeline"
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.funcs [[
-    void setFrame(int frameIndex, float time, float r, float g, float b, float a)
     int getSlotIndex()
     void setSlotIndex(int inValue)
+    Vector<float> &getFrames()
 ]]
 cls.props [[
     slotIndex
+    frames
 ]]
 
 cls = typecls(M.CLASSES)
@@ -620,11 +653,13 @@ cls.SUPERCLS = "spine::CurveTimeline"
 cls.funcs [[
     int getSlotIndex()
     void setSlotIndex(int inValue)
+    Vector<float>& getFrames()
     VertexAttachment* getAttachment()
     void setAttachment(VertexAttachment* inValue)
 ]]
 cls.props [[
     slotIndex
+    frames
     attachment
 ]]
 
@@ -632,9 +667,11 @@ cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::DrawOrderTimeline"
 cls.SUPERCLS = "spine::Timeline"
 cls.funcs [[
+    Vector<float>& getFrames()
     size_t getFrameCount()
 ]]
 cls.props [[
+    frames
     frameCount
 ]]
 
@@ -642,10 +679,11 @@ cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::EventTimeline"
 cls.SUPERCLS = "spine::Timeline"
 cls.funcs [[
-    void setFrame(size_t frameIndex, Event* event)
+    Vector<float> getFrames()
     size_t getFrameCount()
 ]]
 cls.props [[
+    frames
     frameCount
 ]]
 
@@ -653,7 +691,6 @@ cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::IkConstraintTimeline"
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.funcs [[
-    void setFrame (int frameIndex, float time, float mix, float softness, int bendDirection, bool compress, bool stretch)
 ]]
 
 cls = typecls(M.CLASSES)
@@ -666,7 +703,6 @@ cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::PathConstraintPositionTimeline"
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.funcs [[
-    void setFrame(int frameIndex, float time, float value)
 ]]
 
 cls = typecls(M.CLASSES)
@@ -679,7 +715,6 @@ cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::TranslateTimeline"
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.funcs [[
-    void setFrame(int frameIndex, float time, float x, float y)
 ]]
 
 cls = typecls(M.CLASSES)
@@ -692,7 +727,6 @@ cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::TransformConstraintTimeline"
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.funcs [[
-    void setFrame(size_t frameIndex, float time, float rotateMix, float translateMix, float scaleMix, float shearMix)
 ]]
 
 cls = typecls(M.CLASSES)
@@ -708,19 +742,19 @@ cls.enums [[
     ENTRIES
 ]]
 cls.funcs [[
-    void setFrame(int frameIndex, float time, float degrees)
     int getBoneIndex()
     void setBoneIndex(int inValue)
+    Vector<float>& getFrames()
 ]]
 cls.props [[
     boneIndex
+    frames
 ]]
 
 cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::TwoColorTimeline"
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.funcs [[
-    void setFrame(int frameIndex, float time, float r, float g, float b, float a, float r2, float g2, float b2)
     int getSlotIndex()
     void setSlotIndex(int inValue)
 ]]
@@ -761,9 +795,13 @@ cls.funcs [[
     const String &getName()
     void addSkin(Skin* other)
     void copySkin(Skin* other)
+    Vector<BoneData*>& getBones()
+    Vector<ConstraintData*>& getConstraints()
 ]]
 cls.props [[
     name
+    bones
+    constraints
 ]]
 
 cls = typecls(M.CLASSES)
@@ -787,6 +825,7 @@ cls.funcs [[
     float getWorldToLocalRotationX()
     float getWorldToLocalRotationY()
     Bone *getParent()
+    Vector<Bone *> &getChildren()
     float getX()
     void setX(float inValue)
     float getY()
@@ -839,6 +878,7 @@ cls.props [[
     worldToLocalRotationX
     worldToLocalRotationY
     parent
+    children
     x
     y
     rotation
@@ -878,12 +918,14 @@ cls.funcs [[
     void setAttachment(Attachment *inValue)
     float getAttachmentTime()
     void setAttachmentTime(float inValue)
+    Vector<float> &getDeform()
 ]]
 cls.props [[
     color
     darkColor
     attachment
     attachmentTime
+    deform
 ]]
 
 cls = typecls(M.CLASSES)
@@ -906,6 +948,8 @@ cls.CPPCLS = "spine::VertexAttachment"
 cls.SUPERCLS = "spine::Attachment"
 cls.funcs [[
     int getId()
+    Vector<size_t>& getBones()
+    Vector<float>& getVertices()
     size_t getWorldVerticesLength()
     void setWorldVerticesLength(size_t inValue)
     VertexAttachment* getDeformAttachment()
@@ -914,6 +958,8 @@ cls.funcs [[
 ]]
 cls.props [[
     id
+    bones
+    vertices
     worldVerticesLength
     deformAttachment
 ]]
@@ -942,6 +988,9 @@ cls.funcs [[
     void updateUVs()
     int getHullLength()
     void setHullLength(int inValue)
+    Vector<float>& getRegionUVs()
+    Vector<float>& getUVs()
+    Vector<unsigned short>& getTriangles()
     Color& getColor()
     const String& getPath()
     void setPath(const String& inValue)
@@ -969,6 +1018,7 @@ cls.funcs [[
     void setRegionOriginalHeight(float inValue)
     MeshAttachment* getParentMesh()
     void setParentMesh(MeshAttachment* inValue)
+    Vector<unsigned short>& getEdges()
     float getWidth()
     void setWidth(float inValue)
     float getHeight()
@@ -977,6 +1027,9 @@ cls.funcs [[
 ]]
 cls.props [[
     hullLength
+    regionUVs
+    uVs
+    triangles
     color
     path
     regionU
@@ -991,6 +1044,7 @@ cls.props [[
     regionOriginalWidth
     regionOriginalHeight
     parentMesh
+    edges
     width
     height
 ]]
@@ -999,12 +1053,14 @@ cls = typecls(M.CLASSES)
 cls.CPPCLS = "spine::PathAttachment"
 cls.SUPERCLS = "spine::VertexAttachment"
 cls.funcs [[
+    Vector<float>& getLengths()
     bool isClosed()
     void setClosed(bool inValue)
     bool isConstantSpeed()
     void setConstantSpeed(bool inValue)
 ]]
 cls.props [[
+    lengths
     closed
     constantSpeed
 ]]
@@ -1023,6 +1079,7 @@ cls.funcs [[
     void setRotateMix(float inValue)
     float getTranslateMix()
     void setTranslateMix(float inValue)
+    Vector<Bone*>& getBones()
     Slot* getTarget()
     void setTarget(Slot* inValue)
 ]]
@@ -1032,6 +1089,7 @@ cls.props [[
     spacing
     rotateMix
     translateMix
+    bones
     target
 ]]
 
@@ -1087,6 +1145,8 @@ cls.funcs [[
     void setRegionOriginalWidth(float inValue)
     float getRegionOriginalHeight()
     void setRegionOriginalHeight(float inValue)
+    Vector<float>& getOffset()
+    Vector<float>& getUVs()
 ]]
 cls.props [[
     x
@@ -1104,6 +1164,8 @@ cls.props [[
     regionHeight
     regionOriginalWidth
     regionOriginalHeight
+    offset
+    uVs
 ]]
 
 cls = typecls(M.CLASSES)
@@ -1203,8 +1265,16 @@ cls.funcs [[
     int findPathConstraintIndex(const String &pathConstraintName)
     const String &getName()
     void setName(const String &inValue)
+    Vector<BoneData *> &getBones()
+    Vector<SlotData *> &getSlots()
+    Vector<Skin *> &getSkins()
     Skin *getDefaultSkin()
     void setDefaultSkin(Skin *inValue)
+    Vector<spine::EventData *> &getEvents()
+    Vector<Animation *> &getAnimations()
+    Vector<IkConstraintData *> &getIkConstraints()
+    Vector<TransformConstraintData *> &getTransformConstraints()
+    Vector<PathConstraintData *> &getPathConstraints()
     float getWidth()
     void setWidth(float inValue)
     float getHeight()
@@ -1304,7 +1374,15 @@ cls.func('new', [[{
 cls.alias('__gc', 'dispose')
 cls.props [[
     name
+    bones
+    slots
+    skins
     defaultSkin
+    events
+    animations
+    ikConstraints
+    transformConstraints
+    pathConstraints
     width
     height
     version

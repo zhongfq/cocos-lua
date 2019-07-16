@@ -70,7 +70,7 @@ function olua.format(expr, indent)
     expr = indent .. expr
     
     local function eval(expr)
-        return string.gsub(expr, "([ ]*)(${[%w_]+})", function (indent, str)
+        return string.gsub(expr, "([ ]*)(${[%w_.]+})", function (indent, str)
             local key = string.match(str, "[%w_]+")
             local level = 1
             local filePath
@@ -94,8 +94,16 @@ function olua.format(expr, indent)
             end
             -- search in the functin local value
             local value = lookup(level + 1, key) or _G[key]
+            for field in string.gmatch(string.match(str, "[%w_.]+"), '[^.]+') do
+                if not value then
+                    break
+                end
+                if field ~= key then
+                    value = value[field]
+                end
+            end
             if value == nil then
-                error("value not found for " .. key)
+                error("value not found for '" .. str .. "'")
             else
                 -- indent the value if value has multiline
                 value = string.gsub(value, '[\n]*$', '')

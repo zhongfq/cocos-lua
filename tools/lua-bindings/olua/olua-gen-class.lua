@@ -60,12 +60,10 @@ end
 local function gen_class_open(cls, write)
     local LUACLS = cls.LUACLS
     local CPPCLS = cls.CPPCLS
-    local CPPCLS_PATH = olua.topath(cls)
+    local CPPCLS_PATH = olua.topath(cls.CPPCLS)
     local SUPRECLS = "nullptr"
     if cls.SUPERCLS then
-        local ti = test_typename(cls.SUPERCLS .. ' *') or test_typename(cls.SUPERCLS)
-        assert(ti, cls.SUPERCLS)
-        SUPRECLS = olua.stringfy(ti.LUACLS)
+        SUPRECLS = olua.stringfy(olua.toluacls(cls.SUPERCLS))
     end
     local FUNCS = {}
     local REG_LUATYPE = ''

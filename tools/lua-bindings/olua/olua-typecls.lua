@@ -5,198 +5,202 @@ local class_map = {}
 
 local format = olua.format
 
-local function to_pretty_typename(typename)
-    -- t = '   const   type   *   &  '
-    -- typename = string.gsub(typename, '&', '')   -- t = '   const  type   *    '
-    typename = string.gsub(typename, '^ *', '') -- t = 'const  type   *    '
-    typename = string.gsub(typename, ' *$', '') -- t = 'const  type   *'
-    typename = string.gsub(typename, ' +', ' ') -- t = 'const type *'
+local errorMessage = ""
+
+local function throwError(fmt, ...)
+    print("parse => " .. errorMessage)
+    error(string.format(fmt, ...))
+end
+
+local function testCond(cond, fmt, ...)
+    if not cond then
+        throwError(fmt, ...)
+    end
+end
+
+local function formatTypename(tn)
+    tn = string.gsub(tn, '^ *', '') -- trim head space
+    tn = string.gsub(tn, ' *$', '') -- trim tail space
+    tn = string.gsub(tn, ' +', ' ') -- remove needless space
 
     -- const type * * => const type **
-    typename = string.gsub(typename, ' %*', '*')
-    typename = string.gsub(typename, '%*+', function (str) return " " .. str end)
+    tn = string.gsub(tn, ' *%*', '*')
+    tn = string.gsub(tn, '%*+', function (str) return " " .. str end)
 
-    typename = string.gsub(typename, ' %&', '&')
-    typename = string.gsub(typename, '%&+', function (str) return " " .. str end)
+    tn = string.gsub(tn, ' *&', '&')
+    tn = string.gsub(tn, '%&+', function (str) return " " .. str end)
 
-    return typename
+    return tn
 end
 
-local function to_real_typename(typename)
-    typename = string.gsub(typename, '&', '')
-    typename = string.gsub(typename, ' *$', '')
+local function rawTypename(tn)
+    tn = string.gsub(tn, ' *&+', '')
 
-    if typeinfo_map[typename] then
-        return typename, true
+    if typeinfo_map[tn] then
+        return tn
     end
 
-    local noconst = string.gsub(typename, 'const *', '')
+    local noconst = string.gsub(tn, 'const *', '')
     if typeinfo_map[noconst] then
-        return noconst, true
+        return noconst
     end
     
-    return typename, false
+    return tn
 end
 
-function test_typename(typename)
-    return typeinfo_map[typename]
+local function tryNamespace(ns, tn)
+    -- const Object * => const ns::Object *
+    tn = string.gsub(tn, '[%w:_]+ *%**$', function (s)
+        return ns .. '::' .. s
+    end)
+    tn = rawTypename(tn)
+    return typeinfo_map[tn], tn
 end
 
-function get_typeinfo(typename, cls, silence)
-    local typename = to_pretty_typename(typename)
-    local typeinfo
-    local subtypeinfo, subtypename -- for typename<T>
+function olua.typeinfo(tn, cls, silence)
+    local ti, subti, subtn -- for tn<T>
 
-    if string.find(typename, '<') then
-        subtypename = string.match(typename, '<(.*)>')
-        subtypeinfo, subtypename = get_typeinfo(subtypename, cls, silence)
-        typename = string.gsub(typename, '<.*>', '')
+    tn = formatTypename(tn)
+
+    if string.find(tn, '<') then
+        subtn = string.match(tn, '<(.*)>')
+        subti, subtn = olua.typeinfo(subtn, cls, silence)
+        tn = formatTypename(string.gsub(tn, '<.*>', ''))
     end
 
-    typename = to_real_typename(typename)
-    typeinfo = typeinfo_map[typename]
+    tn = rawTypename(tn)
+    ti = typeinfo_map[tn]
 
-    if typeinfo then
-        typeinfo = setmetatable({SUBTYPE = subtypeinfo}, {__index = typeinfo})
-        return typeinfo, typename, subtypename
+    if ti then
+        ti = setmetatable({SUBTYPE = subti}, {__index = ti})
+        return ti, tn, subtn
     end
 
+    -- search in class namespace
     if cls and cls.CPPCLS then
-        local function try_namespace(ns, typename)
-            local tn = string.gsub(typename, '[%w:_]+ *%**$', function (s)
-                return ns .. '::' .. s
-            end)
-            tn = to_real_typename(tn)
-            return typeinfo_map[tn], tn
-        end
-
-        local ti, tn
         local nsarr = {}
         for n in string.gmatch(cls.CPPCLS, '[^:]+') do
             nsarr[#nsarr + 1] = n
         end
-
         while #nsarr > 0 do
             local ns = table.concat(nsarr, "::")
-            ti, tn = try_namespace(ns, typename)
-            if not ti then
+            local ti1, tn1 = tryNamespace(ns, tn)
+            if not ti1 then
                 nsarr[#nsarr] = nil
             else
-                break
-            end
-        end
-
-        if ti then
-            typeinfo = ti
-            typename = tn
-        end
-
-        if typeinfo then
-            typeinfo = setmetatable({SUBTYPE = subtypeinfo}, {__index = typeinfo})
-            return typeinfo, typename, subtypename
-        end
-    end
-
-    if cls and string.find(typename, '::') then
-        local ns, t = string.match(typename, '(.*)::([^:]+)$')
-        if class_map[ns] then
-            return get_typeinfo(t, class_map[ns], silence)
-        end
-        local ns2, _ = string.match(cls.CPPCLS, '(.*)::([^:]+)$')
-        if ns2 then
-            ns = ns2 .. '::' .. ns
-            if class_map[ns] then
-                return get_typeinfo(t, class_map[ns], silence)
+                ti = ti1
+                tn = tn1
+                ti = setmetatable({SUBTYPE = subti}, {__index = ti})
+                return ti, tn, subtn
             end
         end
     end
 
+    -- search in super class namespace
     if cls and cls.SUPERCLS then
-        cls = assert(class_map[cls.SUPERCLS], cls.SUPERCLS)
-        return get_typeinfo(typename, cls, silence)
+        local super = class_map[cls.SUPERCLS]
+        testCond(super, "the super class '%s' of '%s' is not found", cls.SUPERCLS, cls.CPPCLS)
+        return olua.typeinfo(tn, super, silence)
     end
 
-    if not typeinfo and not silence then
-        error(string.format("type info not found: %s", typename))
+    if not ti and not silence then
+        throwError("type info not found: %s", tn)
     end
 end
 
-local function to_decl_type(cls, typename, remove_const, keep_ref)
-    local ref = string.match(typename, '&+')
-    local typeinfo, typename, subtypename = get_typeinfo(typename, cls)
+--
+-- function arg variable must declared with no const type
+--
+-- eg: Object::call(const std::vector<A *> arg1)
+--
+-- Object *self = nullptr;
+-- std::vector<int> arg1;
+-- olua_to_cppobj(L, 1, (void **)&self, "Object");
+-- olua_check_std_vector(L, 2, arg1, "A");
+-- self->call(arg1);
+--
+local function toDecltype(cls, typename, isvariable)
+    local reference = string.match(typename, '&+')
+    local _, tn, subtn = olua.typeinfo(typename, cls)
 
-    if subtypename then
-        typename = string.format('%s<%s>', typename, subtypename)
-        if remove_const then
-            typename = string.gsub(typename, 'const *', '')
+    if subtn then
+        tn = string.format('%s<%s>', tn, subtn)
+        if isvariable then
+            tn = string.gsub(tn, 'const *', '')
         end
     end
 
-    if keep_ref and ref then
-        typename = typename .. ' ' .. ref
+    if not isvariable and reference then
+        tn = tn .. ' ' .. reference
     end
 
-    return typename
+    return tn
 end
 
-local function parse_attr(arg)
+--
+-- parse type attribute and return the rest of string
+-- eg: @unref(cmp children) void removeChild(@ref(map children) child)
+--
+local function parseAttr(str)
     local attr = {}
-    arg = string.gsub(arg, '^ *', '')
+    local static
+    str = string.gsub(str, '^ *', '')
     while true do
-        local opt, value = string.match(arg, '^@(%w+)%(([%w ]*)%)')
-        if opt then
+        local name, value = string.match(str, '^@(%w+)%(([%w ]*)%)')
+        if name then
             local arr = {}
             for v in string.gmatch(value, '[^ ]+') do
                 arr[#arr + 1] = v
             end
-            attr[string.upper(opt)] = arr
-            arg = string.gsub(arg, '^@%w+%([%w ]*%)', '')
+            attr[string.upper(name)] = arr
+            str = string.gsub(str, '^@%w+%([%w ]*%)', '')
         else
-            opt = string.match(arg, '^@(%w+)')
-            if opt then
-                attr[string.upper(opt)] = {}
-                arg = string.gsub(arg, '^@%w+', '')
+            name = string.match(str, '^@(%w+)')
+            if name then
+                attr[string.upper(name)] = {}
+                str = string.gsub(str, '^@%w+', '')
             else
                 break
             end
         end
     end
-    local arg, static = string.gsub(arg, '^ *static *', '')
+    str, static = string.gsub(str, '^ *static *', '')
     attr.STATIC = static > 0
-    return attr, arg
+    return attr, str
 end
 
-local function parse_def(str)
-    local KEYWORD = {const = true, signed = true, unsigned = true}
-    local attr, str = parse_attr(str)
-    local typename = string.match(str, '^[^<>(),]*%b<>[ &*]*')
-    if not typename then
+local function parseType(str)
+    local attr, tn
+    attr, str = parseAttr(str)
+    -- str = std::function <void (float int)> &arg, ...
+    tn = string.match(str, '^[%w_: ]+%b<>[ &*]*') -- parse template type
+    if not tn then
         local from, to
         while true do
-            from, to = string.find(str, ' *[^&* (),]+[ &*]*', to)
+            from, to = string.find(str, ' *[%w_:]+[ &*]*', to)
             if not from then
                 break
             end
-            typename = string.sub(str, from, to)
-            local tt = string.gsub(typename, ' ', '')
-            if tt == 'signed' or tt == 'unsigned' then
+            tn = formatTypename(string.sub(str, from, to))
+            if tn == 'signed' or tn == 'unsigned' then
                 local substr = string.sub(str, to + 1)
+                -- str = unsigned count = 1, ... ?
                 if not (substr:find('^ *int *')
                     or substr:find('^ *short *')
                     or substr:find('^ *char *')) then
+                    tn = string.sub(str, 1, to) .. ' int'
                     str = string.sub(str, to + 1)
-                    typename = typename .. ' int'
-                    return to_pretty_typename(typename), attr, str
+                    return formatTypename(tn), attr, str
                 end
             end
-            if not KEYWORD[string.match(typename, '%w+')] then
-                typename = string.sub(str, 1, to)
+            if tn ~= 'const' and tn ~= 'signed' and tn ~= 'unsigned' then
+                tn = string.sub(str, 1, to)
                 break
             end
         end
     end
-    str = string.sub(str, #typename + 1)
-    return to_pretty_typename(typename), attr, str
+    str = string.sub(str, #tn + 1)
+    return formatTypename(tn), attr, str
 end
 
 local parse_args
@@ -204,7 +208,7 @@ local parse_args
 local function parse_callback(cls, typename, default)
     local rt, rt_attr, cb_args_str
     local cb_args_str = string.match(typename, '<(.*)>')
-    rt, rt_attr, cb_args_str = parse_def(cb_args_str)
+    rt, rt_attr, cb_args_str = parseType(cb_args_str)
     cb_args_str = string.gsub(cb_args_str, '^[^(]+', '')
     local cb_args = parse_args(cls, cb_args_str)
     local cb_args_decl = {}
@@ -213,11 +217,11 @@ local function parse_callback(cls, typename, default)
     end
     cb_args_decl = table.concat(cb_args_decl, ", ")
     cb_args_decl = string.format('std::function<%s(%s)>',
-        to_decl_type(cls, rt, false, true), cb_args_decl)
+        toDecltype(cls, rt, false), cb_args_decl)
     return {
         DEFAULT = default,
         ARGS = cb_args,
-        RET = get_typeinfo(rt, cls),
+        RET = olua.typeinfo(rt, cls),
         RET_ATTR = rt_attr,
         ARGS_DECL = cb_args_decl,
     }
@@ -230,7 +234,7 @@ function parse_args(cls, args_str)
 
     while #args_str > 0 do
         local typename, attr, varname, default
-        typename, attr, args_str = parse_def(args_str)
+        typename, attr, args_str = parseType(args_str)
         if typename == 'void' then
             return args, max_args
         end
@@ -251,11 +255,11 @@ function parse_args(cls, args_str)
                 end
                 args_str = string.gsub(args_str, '^[^)]*%),? *', '')
                 local deft = string.match(default, '[^(]+')
-                local defti = get_typeinfo(deft, cls, true) or get_typeinfo(deft .. ' *', cls)
+                local defti = olua.typeinfo(deft, cls, true) or olua.typeinfo(deft .. ' *', cls)
                 default = string.gsub(defti.CPPCLS, ' *%**', '') .. string.match(default, '(%([^()]*%))')
             elseif string.find(default, '::') then
                 local deft, def = string.match(default, '(.*)::([^:]+)$')
-                local defti = get_typeinfo(deft, cls, true) or  get_typeinfo(deft .. ' *', cls)
+                local defti = olua.typeinfo(deft, cls, true) or  olua.typeinfo(deft .. ' *', cls)
                 default = string.gsub(defti.CPPCLS, ' *%**', '') .. '::' .. def
             end
         end
@@ -265,7 +269,7 @@ function parse_args(cls, args_str)
             args[#args + 1] = {
                 TYPE = setmetatable({
                     DECL_TYPE = callback.ARGS_DECL,
-                }, {__index = get_typeinfo('std::function', cls)}),
+                }, {__index = olua.typeinfo('std::function', cls)}),
                 DECL_TYPE = callback.ARGS_DECL,
                 VARNAME = varname,
                 ATTR = attr,
@@ -273,9 +277,9 @@ function parse_args(cls, args_str)
             }
         else
             args[#args + 1] = {
-                TYPE = get_typeinfo(typename, cls),
-                DECL_TYPE = to_decl_type(cls, typename, true),
-                FUNC_ARG_DECL_TYPE = to_decl_type(cls, typename, false, true),
+                TYPE = olua.typeinfo(typename, cls),
+                DECL_TYPE = toDecltype(cls, typename, true),
+                FUNC_ARG_DECL_TYPE = toDecltype(cls, typename, false),
                 DEFAULT = default,
                 VARNAME = varname,
                 ATTR = attr,
@@ -300,20 +304,21 @@ local function parse_func(cls, name, ...)
     local arr = {MAX_ARGS = 0}
     for i, func_decl in ipairs({...}) do
         local fi = {RET = {}}
+        errorMessage = func_decl
         if string.find(func_decl, '{') then
             fi.LUAFUNC = assert(name)
             fi.CPPFUNC = name
             fi.CPPFUNC_SNIPPET = func_decl
             fi.FUNC_DECL = '<function snippet>'
             fi.RET.NUM = 0
-            fi.RET.TYPE = get_typeinfo('void', cls)
+            fi.RET.TYPE = olua.typeinfo('void', cls)
             fi.RET.ATTR = {}
             fi.ARGS = {}
             fi.INJECT = {}
             fi.PROTOTYPE = false
             fi.MAX_ARGS = #fi.ARGS
         else
-            local typename, attr, str = parse_def(func_decl)
+            local typename, attr, str = parseType(func_decl)
             fi.CPPFUNC = string.match(str, '[^ ()]+')
             fi.LUAFUNC = name or fi.CPPFUNC
             fi.STATIC = attr.STATIC
@@ -324,16 +329,16 @@ local function parse_func(cls, name, ...)
                 fi.RET = {
                     TYPE = setmetatable({
                         DECL_TYPE = callback.ARGS_DECL,
-                    }, {__index = get_typeinfo('std::function', cls)}),
+                    }, {__index = olua.typeinfo('std::function', cls)}),
                     DECL_TYPE = callback.ARGS_DECL,
                     ATTR = attr,
                     NUM = 1,
                     CALLBACK = callback,
                 }
             else
-                fi.RET.TYPE = get_typeinfo(typename, cls)
+                fi.RET.TYPE = olua.typeinfo(typename, cls)
                 fi.RET.NUM = fi.RET.TYPE.CPPCLS == "void" and 0 or 1
-                fi.RET.DECL_TYPE = to_decl_type(cls, typename, false, true)
+                fi.RET.DECL_TYPE = toDecltype(cls, typename, false)
                 fi.RET.ATTR = attr
             end
             fi.ARGS, fi.MAX_ARGS = parse_args(cls, string.sub(str, #fi.CPPFUNC + 1))
@@ -481,7 +486,7 @@ function olua.typecls(cppcls)
             func_decl = string.gsub(func_decl, ' *inline ', '')
             if #func_decl > 0 then
                 if not string.find(func_decl, '^ *//') then
-                    local _, str = parse_attr(func_decl)
+                    local _, str = parseAttr(func_decl)
                     local fn = string.match(str, '([^ ()]+) *%(')
                     local t = dict[fn]
                     assert(fn, func_decl)
@@ -643,7 +648,7 @@ function olua.typecls(cppcls)
                 FUNC_DECL = '<function var>',
                 RET = {
                     NUM = 0,
-                    TYPE = get_typeinfo('void', cls),
+                    TYPE = olua.typeinfo('void', cls),
                     ATTR = {},
                 },
                 ISVAR = true,
@@ -717,13 +722,19 @@ function olua.typecls(cppcls)
     return cls
 end
 
-function olua.topath(cls)
-    return string.gsub(cls.CPPCLS, '[.:]+', '_')
+function olua.toluacls(cppcls)
+    local ti = typeinfo_map[cppcls .. ' *'] or typeinfo_map[cppcls]
+    assert(ti, 'type not found: ' .. cppcls)
+    return ti.LUACLS
+end
+
+function olua.topath(cppcls)
+    return string.gsub(cppcls, '[.:]+', '_')
 end
 
 function olua.typedef(typeinfo)
     for n in string.gmatch(typeinfo.CPPCLS, '[^\n\r]+') do
-        local typename = to_pretty_typename(n)
+        local typename = formatTypename(n)
         local info = setmetatable({}, {__index = typeinfo})
         info.CPPCLS = typename
         info.DECL_TYPE = info.DECL_TYPE or typename
@@ -773,20 +784,20 @@ function olua.typeconv(ci)
     local func = ci.FUNC or "push|check|pack|unpack|opt|is"
     ci.PROPS = {}
     for line in string.gmatch(assert(ci.DEF, 'no DEF'), '[^\n\r]+') do
-        local attr, line = parse_attr(line)
+        local attr, line = parseAttr(line)
 
         local typename, attr, varname, default
         if line and #line > 0 then
-            typename, attr, line = parse_def(line)
+            typename, attr, line = parseType(line)
             varname, default = string.match(line, '^([^ ]+) *= *([^ ,;]*)')
             if not varname then
                 varname = string.match(line, '^ *[^ ,;]+')
             end
         end
         if typename then
-            typename = to_pretty_typename(typename)
-            varname = to_pretty_typename(varname)
-            local typeinfo, typename = get_typeinfo(typename)
+            typename = formatTypename(typename)
+            varname = formatTypename(varname)
+            local typeinfo, typename = olua.typeinfo(typename)
             ci.PROPS[#ci.PROPS + 1] = {
                 TYPE = typeinfo,
                 VARNAME = varname,

@@ -24,9 +24,7 @@ end
 
 local function gen_classes(module, write)
     local function do_gen_class(cls)
-        local ti = test_typename(cls.CPPCLS .. ' *') or test_typename(cls.CPPCLS)
-        assert(ti, cls.CPPCLS)
-        cls.LUACLS = assert(ti.LUACLS, cls.CPPCLS)
+        cls.LUACLS = olua.toluacls(cls.CPPCLS)
         if cls.DEFIF then
             write(cls.DEFIF)
         end
@@ -37,7 +35,7 @@ local function gen_classes(module, write)
         write('')
     end
 
-    for i, cls in ipairs(module.CLASSES) do
+    for _, cls in ipairs(module.CLASSES) do
         if #cls > 0 then
             for _, v in ipairs(cls) do
                 do_gen_class(v)
@@ -54,7 +52,7 @@ local function gen_luaopen(module, write)
 
     local function do_gen_open(cls)
         local LUACLS = cls.LUACLS
-        local CPPCLS_PATH = olua.topath(cls)
+        local CPPCLS_PATH = olua.topath(cls.CPPCLS)
         if cls.DEFIF then
             REQUIRES[#REQUIRES + 1] = cls.DEFIF
         end

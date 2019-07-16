@@ -38,8 +38,7 @@ M.CONVS = {
 
 M.CLASSES = {}
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::EventListenerPhysicsContact"
+cls = typecls 'cocos2d::EventListenerPhysicsContact'
 cls.SUPERCLS = "cocos2d::EventListenerCustom"
 cls.funcs [[
 ]]
@@ -47,27 +46,27 @@ cls.var('onContactBegin', [[std::function<bool(@temp PhysicsContact& contact)> o
 cls.var('onContactPreSolve', [[std::function<bool(@temp PhysicsContact& contact, @temp PhysicsContactPreSolve& solve)> onContactPreSolve = nullptr]])
 cls.var('onContactPostSolve', [[std::function<void(@temp PhysicsContact& contact, @temp const PhysicsContactPostSolve& solve)> onContactPostSolve = nullptr]])
 cls.var('onContactSeparate', [[std::function<void(@temp PhysicsContact& contact)> onContactSeparate = nullptr]])
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::EventListenerPhysicsContactWithGroup"
+cls = typecls 'cocos2d::EventListenerPhysicsContactWithGroup'
 cls.SUPERCLS = "cocos2d::EventListenerPhysicsContact"
 cls.funcs [[
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::EventListenerPhysicsContactWithBodies"
+cls = typecls 'cocos2d::EventListenerPhysicsContactWithBodies'
 cls.SUPERCLS = "cocos2d::EventListenerPhysicsContact"
 cls.funcs [[
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::EventListenerPhysicsContactWithShapes"
+cls = typecls 'cocos2d::EventListenerPhysicsContactWithShapes'
 cls.SUPERCLS = "cocos2d::EventListenerPhysicsContact"
 cls.funcs [[
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::PhysicsBody"
+cls = typecls 'cocos2d::PhysicsBody'
 cls.SUPERCLS = "cocos2d::Component"
 cls.funcs [[
     static PhysicsBody* create()
@@ -167,9 +166,9 @@ cls.props [[
     gravityEnabled
     tag
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::PhysicsContact::EventCode"
+cls = typecls 'cocos2d::PhysicsContact::EventCode'
 cls.enums [[
     NONE
     BEGIN
@@ -177,9 +176,9 @@ cls.enums [[
     POSTSOLVE
     SEPARATE
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::PhysicsContact"
+cls = typecls 'cocos2d::PhysicsContact'
 cls.SUPERCLS = "cocos2d::EventCustom"
 cls.funcs [[
     PhysicsShape* getShapeA()
@@ -194,9 +193,9 @@ cls.props [[
     data
     eventCode
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::PhysicsContactPostSolve"
+cls = typecls 'cocos2d::PhysicsContactPostSolve'
 cls.funcs [[
     float getRestitution()
     float getFriction()
@@ -207,9 +206,9 @@ cls.props [[
     friction
     surfaceVelocity
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::PhysicsContactPreSolve"
+cls = typecls 'cocos2d::PhysicsContactPreSolve'
 cls.funcs [[
     float getRestitution()
     float getFriction()
@@ -224,9 +223,9 @@ cls.props [[
     friction
     surfaceVelocity
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::PhysicsJoint"
+cls = typecls 'cocos2d::PhysicsJoint'
 cls.funcs [[
     PhysicsBody* getBodyA()
     PhysicsBody* getBodyB()
@@ -250,9 +249,9 @@ cls.props [[
     collisionEnabled
     maxForce
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::PhysicsJointDistance"
+cls = typecls 'cocos2d::PhysicsJointDistance'
 cls.SUPERCLS = "cocos2d::PhysicsJoint"
 cls.funcs [[
     static PhysicsJointDistance* construct(PhysicsBody* a, PhysicsBody* b, const Vec2& anchr1, const Vec2& anchr2)
@@ -262,16 +261,16 @@ cls.funcs [[
 cls.props [[
     distance
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::PhysicsJointFixed"
+cls = typecls 'cocos2d::PhysicsJointFixed'
 cls.SUPERCLS = "cocos2d::PhysicsJoint"
 cls.funcs [[
     static PhysicsJointFixed* construct(PhysicsBody* a, PhysicsBody* b, const Vec2& anchr)
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::PhysicsJointGear"
+cls = typecls 'cocos2d::PhysicsJointGear'
 cls.SUPERCLS = "cocos2d::PhysicsJoint"
 cls.funcs [[
     static PhysicsJointGear* construct(PhysicsBody* a, PhysicsBody* b, float phase, float ratio)
@@ -284,9 +283,9 @@ cls.props [[
     phase
     ratio
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::PhysicsJointGroove"
+cls = typecls 'cocos2d::PhysicsJointGroove'
 cls.SUPERCLS = "cocos2d::PhysicsJoint"
 cls.funcs [[
     static PhysicsJointGroove* construct(PhysicsBody* a, PhysicsBody* b, const Vec2& grooveA, const Vec2& grooveB, const Vec2& anchr2)
@@ -302,9 +301,9 @@ cls.props [[
     grooveB
     anchr2
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::PhysicsJointLimit"
+cls = typecls 'cocos2d::PhysicsJointLimit'
 cls.SUPERCLS = "cocos2d::PhysicsJoint"
 cls.funcs [[
     static PhysicsJointLimit* construct(PhysicsBody* a, PhysicsBody* b, const Vec2& anchr1, const Vec2& anchr2)
@@ -324,9 +323,9 @@ cls.props [[
     min
     max
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::PhysicsJointMotor"
+cls = typecls 'cocos2d::PhysicsJointMotor'
 cls.SUPERCLS = "cocos2d::PhysicsJoint"
 cls.funcs [[
     static PhysicsJointMotor* construct(PhysicsBody* a, PhysicsBody* b, float rate)
@@ -336,17 +335,17 @@ cls.funcs [[
 cls.props [[
     rate
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::PhysicsJointPin"
+cls = typecls 'cocos2d::PhysicsJointPin'
 cls.SUPERCLS = "cocos2d::PhysicsJoint"
 cls.funcs [[
     static PhysicsJointPin* construct(PhysicsBody* a, PhysicsBody* b, const Vec2& pivot)
     static PhysicsJointPin* construct(PhysicsBody* a, PhysicsBody* b, const Vec2& anchr1, const Vec2& anchr2)
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::PhysicsJointRatchet"
+cls = typecls 'cocos2d::PhysicsJointRatchet'
 cls.SUPERCLS = "cocos2d::PhysicsJoint"
 cls.funcs [[
     static PhysicsJointRatchet* construct(PhysicsBody* a, PhysicsBody* b, float phase, float ratchet)
@@ -362,9 +361,9 @@ cls.props [[
     phase
     ratchet
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::PhysicsJointRotaryLimit"
+cls = typecls 'cocos2d::PhysicsJointRotaryLimit'
 cls.SUPERCLS = "cocos2d::PhysicsJoint"
 cls.funcs [[
     static PhysicsJointRotaryLimit* construct(PhysicsBody* a, PhysicsBody* b, float min, float max)
@@ -378,9 +377,9 @@ cls.props [[
     min
     max
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::PhysicsJointRotarySpring"
+cls = typecls 'cocos2d::PhysicsJointRotarySpring'
 cls.SUPERCLS = "cocos2d::PhysicsJoint"
 cls.funcs [[
     static PhysicsJointRotarySpring* construct(PhysicsBody* a, PhysicsBody* b, float stiffness, float damping)
@@ -396,9 +395,9 @@ cls.props [[
     stiffness
     damping
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::PhysicsJointSpring"
+cls = typecls 'cocos2d::PhysicsJointSpring'
 cls.SUPERCLS = "cocos2d::PhysicsJoint"
 cls.funcs [[
     static PhysicsJointSpring* construct(PhysicsBody* a, PhysicsBody* b, const Vec2& anchr1, const Vec2& anchr2, float stiffness, float damping)
@@ -420,9 +419,9 @@ cls.props [[
     stiffness
     damping
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::PhysicsShape::Type"
+cls = typecls 'cocos2d::PhysicsShape::Type'
 cls.enums [[
     UNKNOWN
     CIRCLE
@@ -435,9 +434,9 @@ cls.enums [[
     POLYGEN
     EDGEPOLYGEN
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::PhysicsShape"
+cls = typecls 'cocos2d::PhysicsShape'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
     PhysicsBody* getBody()
@@ -491,9 +490,9 @@ cls.props [[
     collisionBitmask
     group
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::PhysicsShapePolygon"
+cls = typecls 'cocos2d::PhysicsShapePolygon'
 cls.SUPERCLS = "cocos2d::PhysicsShape"
 cls.funcs [[
     Vec2 getPoint(int i)
@@ -502,9 +501,9 @@ cls.funcs [[
 cls.props [[
     pointsCount
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::PhysicsShapeEdgePolygon"
+cls = typecls 'cocos2d::PhysicsShapeEdgePolygon'
 cls.SUPERCLS = "cocos2d::PhysicsShape"
 cls.funcs [[
     int getPointsCount()
@@ -512,9 +511,9 @@ cls.funcs [[
 cls.props [[
     pointsCount
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::PhysicsShapeBox"
+cls = typecls 'cocos2d::PhysicsShapeBox'
 cls.SUPERCLS = "cocos2d::PhysicsShapePolygon"
 cls.funcs [[
     static PhysicsShapeBox* create(const Size& size, const PhysicsMaterial& material = PHYSICSSHAPE_MATERIAL_DEFAULT, const Vec2& offset = Vec2::ZERO, float radius = 0.0f)
@@ -523,9 +522,9 @@ cls.funcs [[
 cls.props [[
     size
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::PhysicsShapeCircle"
+cls = typecls 'cocos2d::PhysicsShapeCircle'
 cls.SUPERCLS = "cocos2d::PhysicsShape"
 cls.funcs [[
     static PhysicsShapeCircle* create(float radius, const PhysicsMaterial& material = PHYSICSSHAPE_MATERIAL_DEFAULT, const Vec2& offset = Vec2(0, 0))
@@ -536,16 +535,16 @@ cls.funcs [[
 cls.props [[
     radius
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::PhysicsShapeEdgeBox"
+cls = typecls 'cocos2d::PhysicsShapeEdgeBox'
 cls.SUPERCLS = "cocos2d::PhysicsShapeEdgePolygon"
 cls.funcs [[
     static PhysicsShapeEdgeBox* create(const Size& size, const PhysicsMaterial& material = PHYSICSSHAPE_MATERIAL_DEFAULT, float border = 0, const Vec2& offset = Vec2::ZERO)
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::PhysicsShapeEdgeChain"
+cls = typecls 'cocos2d::PhysicsShapeEdgeChain'
 cls.SUPERCLS = "cocos2d::PhysicsShape"
 cls.funcs [[
     int getPointsCount()
@@ -553,9 +552,9 @@ cls.funcs [[
 cls.props [[
     pointsCount
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::PhysicsShapeEdgeSegment"
+cls = typecls 'cocos2d::PhysicsShapeEdgeSegment'
 cls.SUPERCLS = "cocos2d::PhysicsShape"
 cls.funcs [[
     static PhysicsShapeEdgeSegment* create(const Vec2& a, const Vec2& b, const PhysicsMaterial& material = PHYSICSSHAPE_MATERIAL_DEFAULT, float border = 1)
@@ -566,9 +565,9 @@ cls.props [[
     pointA
     pointB
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::PhysicsRayCastInfo"
+cls = typecls 'cocos2d::PhysicsRayCastInfo'
 cls.funcs [[
 ]]
 cls.var('shape', [[PhysicsShape* shape]])
@@ -578,9 +577,9 @@ cls.var('contact', [[Vec2 contact]])
 cls.var('normal', [[Vec2 normal]])
 cls.var('fraction', [[float fraction]])
 cls.var('data', [[void* data]])
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::PhysicsWorld"
+cls = typecls 'cocos2d::PhysicsWorld'
 cls.funcs [[
     void addJoint(PhysicsJoint* joint)
     void removeJoint(PhysicsJoint* joint, bool destroy = true)
@@ -670,5 +669,6 @@ cls.props [[
     debugDrawMask
     autoStep
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
 return M

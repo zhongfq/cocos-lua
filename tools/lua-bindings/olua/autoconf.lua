@@ -252,8 +252,7 @@ function M:writeClass()
     self:writeLine('M.CLASSES = {}')
     self:writeLine('')
     for _, cls in ipairs(self.classes) do
-        self:writeLine('cls = typecls(M.CLASSES)')
-        self:writeLine('cls.CPPCLS = "' .. cls.CPPCLS .. '"')
+        self:writeLine("cls = typecls '%s'", cls.CPPCLS)
         if cls.SUPERCLS then
             self:writeLine('cls.SUPERCLS = "' .. cls.SUPERCLS .. '"')
         end
@@ -351,6 +350,7 @@ function M:writeClass()
                 self:writeLine(']]')
             end
         end
+        self:writeLine('M.CLASSES[#M.CLASSES + 1] = cls')
         self:writeLine('')
     end
 end

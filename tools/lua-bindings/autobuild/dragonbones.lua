@@ -25,24 +25,23 @@ M.CHUNK = [[
 
 M.CLASSES = {}
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "dragonBones::ArmatureType"
+cls = typecls 'dragonBones::ArmatureType'
 cls.enums [[
     Armature
     MovieClip
     Stage
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "dragonBones::ActionType"
+cls = typecls 'dragonBones::ActionType'
 cls.enums [[
     Play
     Frame
     Sound
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "dragonBones::BaseObject"
+cls = typecls 'dragonBones::BaseObject'
 cls.funcs [[
     static void setMaxCount(std::size_t classTypeIndex, unsigned maxCount)
     static void clearPool(std::size_t classTypeIndex = 0)
@@ -52,9 +51,9 @@ cls.funcs [[
 cls.props [[
     classTypeIndex
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "dragonBones::EventObject"
+cls = typecls 'dragonBones::EventObject'
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
     static std::size_t getTypeIndex()
@@ -77,9 +76,9 @@ cls.props [[
     slot
     animationState
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "dragonBones::TransformObject"
+cls = typecls 'dragonBones::TransformObject'
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
     void updateGlobalTransform()
@@ -89,9 +88,9 @@ cls.var('userData', [[void* userData]])
 cls.props [[
     armature
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "dragonBones::DisplayType"
+cls = typecls 'dragonBones::DisplayType'
 cls.enums [[
     Image
     Armature
@@ -99,9 +98,9 @@ cls.enums [[
     BoundingBox
     Path
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "dragonBones::Point"
+cls = typecls 'dragonBones::Point'
 cls.funcs [[
     inline void clear()
     static Point* getHelpPointA()
@@ -117,9 +116,9 @@ cls.props [[
     helpPointC
     helpPointD
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "dragonBones::Slot"
+cls = typecls 'dragonBones::Slot'
 cls.SUPERCLS = "dragonBones::TransformObject"
 cls.funcs [[
     void init(const SlotData* slotData, Armature* armatureValue, void* rawDisplay, void* meshDisplay)
@@ -155,17 +154,17 @@ cls.props [[
     childArmature
     parent
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "dragonBones::OffsetMode"
+cls = typecls 'dragonBones::OffsetMode'
 cls.enums [[
     None
     Additive
     Override
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "dragonBones::Bone"
+cls = typecls 'dragonBones::Bone'
 cls.SUPERCLS = "dragonBones::TransformObject"
 cls.funcs [[
     static std::size_t getTypeIndex()
@@ -191,9 +190,9 @@ cls.props [[
     parent
     offsetMode
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "dragonBones::DisplayData"
+cls = typecls 'dragonBones::DisplayData'
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
     int getType()
@@ -209,9 +208,9 @@ cls.props [[
     type
     parent
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "dragonBones::ActionData"
+cls = typecls 'dragonBones::ActionData'
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
     static std::size_t getTypeIndex()
@@ -230,9 +229,9 @@ cls.props [[
     bone
     slot
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "dragonBones::TextureAtlasData"
+cls = typecls 'dragonBones::TextureAtlasData'
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
     TextureData* createTexture()
@@ -245,9 +244,9 @@ cls.var('height', [[unsigned height]])
 cls.var('scale', [[float scale]])
 cls.var('name', [[std::string name]])
 cls.var('imagePath', [[std::string imagePath]])
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "dragonBones::TextureData"
+cls = typecls 'dragonBones::TextureData'
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
     const TextureAtlasData* getParent()
@@ -259,9 +258,9 @@ cls.var('parent', [[TextureAtlasData* parent]])
 cls.props [[
     parent
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "dragonBones::ArmatureData"
+cls = typecls 'dragonBones::ArmatureData'
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
     static std::size_t getTypeIndex()
@@ -314,9 +313,9 @@ cls.props [[
     defaultAnimation
     parent
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "dragonBones::SkinData"
+cls = typecls 'dragonBones::SkinData'
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
     static std::size_t getTypeIndex()
@@ -328,9 +327,9 @@ cls.var('parent', [[ArmatureData* parent]])
 cls.props [[
     typeIndex
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "dragonBones::BoneData"
+cls = typecls 'dragonBones::BoneData'
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
     static std::size_t getTypeIndex()
@@ -348,9 +347,9 @@ cls.props [[
     typeIndex
     parent
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "dragonBones::SlotData"
+cls = typecls 'dragonBones::SlotData'
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
     static std::size_t getTypeIndex()
@@ -368,9 +367,9 @@ cls.props [[
     blendMode
     parent
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "dragonBones::AnimationState"
+cls = typecls 'dragonBones::AnimationState'
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
     static std::size_t getTypeIndex()
@@ -420,9 +419,9 @@ cls.props [[
     name
     animationData
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "dragonBones::AnimationData"
+cls = typecls 'dragonBones::AnimationData'
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
     static std::size_t getTypeIndex()
@@ -446,9 +445,9 @@ cls.props [[
     typeIndex
     parent
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "dragonBones::AnimationConfig"
+cls = typecls 'dragonBones::AnimationConfig'
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
     static std::size_t getTypeIndex()
@@ -490,9 +489,9 @@ cls.props [[
     fadeOutTweenType
     fadeInTweenType
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "dragonBones::DragonBonesData"
+cls = typecls 'dragonBones::DragonBonesData'
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
     static std::size_t getTypeIndex()
@@ -510,9 +509,9 @@ cls.props [[
     typeIndex
     armatureNames
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "dragonBones::BaseFactory"
+cls = typecls 'dragonBones::BaseFactory'
 cls.funcs [[
     DragonBonesData* parseDragonBonesData(const char* rawData, const std::string& name = "", float scale = 1.0f)
     TextureAtlasData* parseTextureAtlasData(const char* rawData, void* textureAtlas, const std::string& name = "", float scale = 1.0f)
@@ -530,9 +529,9 @@ cls.funcs [[
     bool replaceAnimation(Armature* armature, ArmatureData* armatureData, bool isReplaceAll = true)
 ]]
 cls.var('autoSearch', [[bool autoSearch]])
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "dragonBones::Armature"
+cls = typecls 'dragonBones::Armature'
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
     static std::size_t getTypeIndex()
@@ -577,9 +576,9 @@ cls.props [[
     replacedTexture
     parent
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "dragonBones::AnimationFadeOutMode"
+cls = typecls 'dragonBones::AnimationFadeOutMode'
 cls.enums [[
     None
     SameLayer
@@ -588,9 +587,9 @@ cls.enums [[
     All
     Single
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "dragonBones::Animation"
+cls = typecls 'dragonBones::Animation'
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
     static std::size_t getTypeIndex()
@@ -628,9 +627,9 @@ cls.props [[
     animationConfig
     lastAnimationState
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "dragonBones::CCFactory"
+cls = typecls 'dragonBones::CCFactory'
 cls.SUPERCLS = "dragonBones::BaseFactory"
 cls.funcs [[
     static CCFactory* getFactory()
@@ -644,9 +643,9 @@ cls.props [[
     factory
     soundEventManager
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "dragonBones::CCArmatureDisplay"
+cls = typecls 'dragonBones::CCArmatureDisplay'
 cls.SUPERCLS = "cocos2d::Node"
 cls.funcs [[
     static CCArmatureDisplay* create()
@@ -682,5 +681,6 @@ cls.props [[
     armature
     animation
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
 return M

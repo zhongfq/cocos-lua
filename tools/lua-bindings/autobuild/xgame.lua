@@ -29,17 +29,16 @@ M.CHUNK = [[
 
 M.CLASSES = {}
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "xgame::SceneNoCamera"
+cls = typecls 'xgame::SceneNoCamera'
 cls.SUPERCLS = "cocos2d::Scene"
 cls.funcs [[
     static SceneNoCamera *create()
     static SceneNoCamera *createWithSize(const cocos2d::Size& size)
     static SceneNoCamera *createWithPhysics()
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "xgame::runtime"
+cls = typecls 'xgame::runtime'
 cls.funcs [[
     static void clearStorage()
     static bool launch(const std::string &scriptPath)
@@ -127,9 +126,9 @@ cls.props [[
     antialias
     numSamples
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "xgame::filesystem"
+cls = typecls 'xgame::filesystem'
 cls.funcs [[
     static const std::string getWritablePath()
     static const std::string getCacheDirectory()
@@ -165,9 +164,9 @@ cls.props [[
     tmpDirectory
     sdCardDirectory
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "xgame::preferences"
+cls = typecls 'xgame::preferences'
 cls.funcs [[
     static bool getBoolean(const char *key, bool defaultValue = false)
     static void setBoolean(const char *key, bool value)
@@ -182,9 +181,9 @@ cls.funcs [[
     static void deleteKey(const char *key)
     static void flush()
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "xgame::timer"
+cls = typecls 'xgame::timer'
 cls.funcs [[
     static std::string createTag()
 ]]
@@ -260,9 +259,9 @@ cls.func('unschedule', [[{
     xgame::timer::unschedule(id);
     return 0;
 }]])
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "xgame::window"
+cls = typecls 'xgame::window'
 cls.REG_LUATYPE = false
 cls.funcs [[
 ]]
@@ -308,9 +307,9 @@ cls.func('convertToCameraSpace', [[{
     lua_pushnumber(L, out.y);
     return 2;
 }]])
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "xgame::downloader"
+cls = typecls 'xgame::downloader'
 cls.funcs [[
 ]]
 cls.func('load', [[{
@@ -339,5 +338,6 @@ cls.func('setDispatcher', [[{
     });
     return 0;
 }]])
+M.CLASSES[#M.CLASSES + 1] = cls
 
 return M

@@ -27,55 +27,54 @@ M.CHUNK = [[
 
 M.CLASSES = {}
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::Widget::FocusDirection"
+cls = typecls 'cocos2d::ui::Widget::FocusDirection'
 cls.enums [[
     LEFT
     RIGHT
     UP
     DOWN
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::Widget::PositionType"
+cls = typecls 'cocos2d::ui::Widget::PositionType'
 cls.enums [[
     ABSOLUTE
     PERCENT
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::Widget::SizeType"
+cls = typecls 'cocos2d::ui::Widget::SizeType'
 cls.enums [[
     ABSOLUTE
     PERCENT
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::Widget::TouchEventType"
+cls = typecls 'cocos2d::ui::Widget::TouchEventType'
 cls.enums [[
     BEGAN
     MOVED
     ENDED
     CANCELED
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::Widget::TextureResType"
+cls = typecls 'cocos2d::ui::Widget::TextureResType'
 cls.enums [[
     LOCAL
     PLIST
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::Widget::BrightStyle"
+cls = typecls 'cocos2d::ui::Widget::BrightStyle'
 cls.enums [[
     NONE
     NORMAL
     HIGHLIGHT
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::Widget"
+cls = typecls 'cocos2d::ui::Widget'
 cls.SUPERCLS = "cocos2d::ProtectedNode"
 cls.funcs [[
     static Widget* create()
@@ -216,9 +215,9 @@ cls.props [[
     callbackType
     layoutComponentEnabled
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::Helper"
+cls = typecls 'cocos2d::ui::Helper'
 cls.funcs [[
     static Widget* seekWidgetByTag(Widget* root, int tag)
     static Widget* seekWidgetByName(Widget* root, const std::string& name)
@@ -229,23 +228,23 @@ cls.funcs [[
     static Rect restrictCapInsetRect(const Rect& capInsets, const Size& textureSize)
     static Rect convertBoundingBoxToScreen(Node* node)
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::Scale9Sprite::State"
+cls = typecls 'cocos2d::ui::Scale9Sprite::State'
 cls.enums [[
     NORMAL
     GRAY
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::Scale9Sprite::RenderingType"
+cls = typecls 'cocos2d::ui::Scale9Sprite::RenderingType'
 cls.enums [[
     SIMPLE
     SLICE
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::Scale9Sprite"
+cls = typecls 'cocos2d::ui::Scale9Sprite'
 cls.SUPERCLS = "cocos2d::Sprite"
 cls.funcs [[
     static Scale9Sprite* create()
@@ -304,27 +303,27 @@ cls.props [[
     renderingType
     capInsets
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::LayoutComponent::HorizontalEdge"
+cls = typecls 'cocos2d::ui::LayoutComponent::HorizontalEdge'
 cls.enums [[
     None
     Left
     Right
     Center
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::LayoutComponent::VerticalEdge"
+cls = typecls 'cocos2d::ui::LayoutComponent::VerticalEdge'
 cls.enums [[
     None
     Bottom
     Top
     Center
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::LayoutComponent"
+cls = typecls 'cocos2d::ui::LayoutComponent'
 cls.SUPERCLS = "cocos2d::Component"
 cls.funcs [[
     static cocos2d::ui::LayoutComponent * create()
@@ -404,17 +403,17 @@ cls.props [[
     stretchWidthEnabled
     stretchHeightEnabled
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::LayoutParameter::Type"
+cls = typecls 'cocos2d::ui::LayoutParameter::Type'
 cls.enums [[
     NONE
     LINEAR
     RELATIVE
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::LayoutParameter"
+cls = typecls 'cocos2d::ui::LayoutParameter'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
     static LayoutParameter* create()
@@ -429,9 +428,9 @@ cls.props [[
     margin
     layoutType
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::LinearLayoutParameter::LinearGravity"
+cls = typecls 'cocos2d::ui::LinearLayoutParameter::LinearGravity'
 cls.enums [[
     NONE
     LEFT
@@ -441,9 +440,9 @@ cls.enums [[
     CENTER_VERTICAL
     CENTER_HORIZONTAL
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::LinearLayoutParameter"
+cls = typecls 'cocos2d::ui::LinearLayoutParameter'
 cls.SUPERCLS = "cocos2d::ui::LayoutParameter"
 cls.funcs [[
     static LinearLayoutParameter* create()
@@ -453,9 +452,9 @@ cls.funcs [[
 cls.props [[
     gravity
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::RelativeLayoutParameter::RelativeAlign"
+cls = typecls 'cocos2d::ui::RelativeLayoutParameter::RelativeAlign'
 cls.enums [[
     NONE
     PARENT_TOP_LEFT
@@ -480,9 +479,9 @@ cls.enums [[
     LOCATION_BELOW_CENTER
     LOCATION_BELOW_RIGHTALIGN
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::RelativeLayoutParameter"
+cls = typecls 'cocos2d::ui::RelativeLayoutParameter'
 cls.SUPERCLS = "cocos2d::ui::LayoutParameter"
 cls.funcs [[
     static RelativeLayoutParameter* create()
@@ -498,33 +497,33 @@ cls.props [[
     relativeToWidgetName
     relativeName
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::Layout::Type"
+cls = typecls 'cocos2d::ui::Layout::Type'
 cls.enums [[
     ABSOLUTE
     VERTICAL
     HORIZONTAL
     RELATIVE
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::Layout::ClippingType"
+cls = typecls 'cocos2d::ui::Layout::ClippingType'
 cls.enums [[
     STENCIL
     SCISSOR
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::Layout::BackGroundColorType"
+cls = typecls 'cocos2d::ui::Layout::BackGroundColorType'
 cls.enums [[
     NONE
     SOLID
     GRADIENT
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::Layout"
+cls = typecls 'cocos2d::ui::Layout'
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.funcs [[
     static Layout* create()
@@ -586,36 +585,36 @@ cls.props [[
     renderFile
     clippingNode
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::HBox"
+cls = typecls 'cocos2d::ui::HBox'
 cls.SUPERCLS = "cocos2d::ui::Layout"
 cls.funcs [[
     static HBox* create()
     static HBox* create(const Size& size)
     bool initWithSize(const Size& size)
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::VBox"
+cls = typecls 'cocos2d::ui::VBox'
 cls.SUPERCLS = "cocos2d::ui::Layout"
 cls.funcs [[
     static VBox* create()
     static VBox* create(const Size& size)
     bool initWithSize(const Size& size)
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::RelativeBox"
+cls = typecls 'cocos2d::ui::RelativeBox'
 cls.SUPERCLS = "cocos2d::ui::Layout"
 cls.funcs [[
     static RelativeBox* create()
     static RelativeBox* create(const Size& size)
     bool initWithSize(const Size& size)
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::experimental::ui::WebView"
+cls = typecls 'cocos2d::experimental::ui::WebView'
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.DEFIF = "#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN)"
 cls.funcs [[
@@ -718,9 +717,9 @@ cls.props [[
     onDidFailLoading
     onJSCallback
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::experimental::ui::VideoPlayer::EventType"
+cls = typecls 'cocos2d::experimental::ui::VideoPlayer::EventType'
 cls.DEFIF = "#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN)"
 cls.enums [[
     PLAYING
@@ -729,17 +728,17 @@ cls.enums [[
     COMPLETED
     ERROR
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::experimental::ui::VideoPlayer::StyleType"
+cls = typecls 'cocos2d::experimental::ui::VideoPlayer::StyleType'
 cls.DEFIF = "#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN)"
 cls.enums [[
     DEFAULT
     NONE
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::experimental::ui::VideoPlayer"
+cls = typecls 'cocos2d::experimental::ui::VideoPlayer'
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.DEFIF = "#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN)"
 cls.funcs [[
@@ -781,9 +780,9 @@ cls.props [[
     keepAspectRatioEnabled
     fullScreenEnabled
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::AbstractCheckButton"
+cls = typecls 'cocos2d::ui::AbstractCheckButton'
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.funcs [[
     void loadTextures(const std::string& background, const std::string& backgroundSelected, const std::string& cross, const std::string& backgroundDisabled, const std::string& frontCrossDisabled, TextureResType texType = TextureResType::LOCAL)
@@ -822,16 +821,16 @@ cls.props [[
     crossNormalFile
     crossDisabledFile
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::TabHeader::EventType"
+cls = typecls 'cocos2d::ui::TabHeader::EventType'
 cls.enums [[
     SELECTED
     UNSELECTED
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::TabHeader"
+cls = typecls 'cocos2d::ui::TabHeader'
 cls.SUPERCLS = "cocos2d::ui::AbstractCheckButton"
 cls.funcs [[
     static TabHeader* create()
@@ -856,24 +855,24 @@ cls.props [[
     titleFontName
     indexInTabControl
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::TabControl::Dock"
+cls = typecls 'cocos2d::ui::TabControl::Dock'
 cls.enums [[
     TOP
     LEFT
     BOTTOM
     RIGHT
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::TabControl::EventType"
+cls = typecls 'cocos2d::ui::TabControl::EventType'
 cls.enums [[
     SELECT_CHANGED
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::TabControl"
+cls = typecls 'cocos2d::ui::TabControl'
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.funcs [[
     static TabControl* create()
@@ -915,18 +914,18 @@ cls.props [[
     headerSelectedZoom
     headerDockPlace
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::ScrollView::Direction"
+cls = typecls 'cocos2d::ui::ScrollView::Direction'
 cls.enums [[
     NONE
     VERTICAL
     HORIZONTAL
     BOTH
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::ScrollView::EventType"
+cls = typecls 'cocos2d::ui::ScrollView::EventType'
 cls.enums [[
     SCROLL_TO_TOP
     SCROLL_TO_BOTTOM
@@ -942,9 +941,9 @@ cls.enums [[
     SCROLLING_ENDED
     AUTOSCROLL_ENDED
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::ScrollView"
+cls = typecls 'cocos2d::ui::ScrollView'
 cls.SUPERCLS = "cocos2d::ui::Layout"
 cls.funcs [[
     static ScrollView* create()
@@ -1041,9 +1040,9 @@ cls.props [[
     scrolling
     autoScrolling
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::ListView::Gravity"
+cls = typecls 'cocos2d::ui::ListView::Gravity'
 cls.enums [[
     LEFT
     RIGHT
@@ -1052,16 +1051,16 @@ cls.enums [[
     BOTTOM
     CENTER_VERTICAL
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::ListView::EventType"
+cls = typecls 'cocos2d::ui::ListView::EventType'
 cls.enums [[
     ON_SELECTED_ITEM_START
     ON_SELECTED_ITEM_END
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::ListView::MagneticType"
+cls = typecls 'cocos2d::ui::ListView::MagneticType'
 cls.enums [[
     NONE
     CENTER
@@ -1071,9 +1070,9 @@ cls.enums [[
     TOP
     BOTTOM
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::ListView"
+cls = typecls 'cocos2d::ui::ListView'
 cls.SUPERCLS = "cocos2d::ui::ScrollView"
 cls.funcs [[
     static ListView* create()
@@ -1146,16 +1145,16 @@ cls.props [[
     bottommostItemInCurrentView
     curSelectedIndex
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::LoadingBar::Direction"
+cls = typecls 'cocos2d::ui::LoadingBar::Direction'
 cls.enums [[
     LEFT
     RIGHT
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::LoadingBar"
+cls = typecls 'cocos2d::ui::LoadingBar'
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.funcs [[
     static LoadingBar* create()
@@ -1179,24 +1178,24 @@ cls.props [[
     capInsets
     renderFile
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::PageView::EventType"
+cls = typecls 'cocos2d::ui::PageView::EventType'
 cls.enums [[
     TURNING
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::PageView::TouchDirection"
+cls = typecls 'cocos2d::ui::PageView::TouchDirection'
 cls.enums [[
     LEFT
     RIGHT
     UP
     DOWN
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::PageView"
+cls = typecls 'cocos2d::ui::PageView'
 cls.SUPERCLS = "cocos2d::ui::ListView"
 cls.funcs [[
     static PageView* create()
@@ -1254,35 +1253,35 @@ cls.props [[
     indicatorIndexNodesOpacity
     indicatorIndexNodesScale
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::RichElement::Type"
+cls = typecls 'cocos2d::ui::RichElement::Type'
 cls.enums [[
     TEXT
     IMAGE
     CUSTOM
     NEWLINE
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::RichElement"
+cls = typecls 'cocos2d::ui::RichElement'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
     bool init(int tag, const Color3B& color, GLubyte opacity)
     bool equalType(Type type)
     void setColor(const Color3B& color)
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::RichElementText"
+cls = typecls 'cocos2d::ui::RichElementText'
 cls.SUPERCLS = "cocos2d::ui::RichElement"
 cls.funcs [[
     bool init(int tag, const Color3B& color, GLubyte opacity, const std::string& text, const std::string& fontName, float fontSize, uint32_t flags, const std::string& url, const Color3B& outlineColor = Color3B::WHITE, int outlineSize = -1, const Color3B& shadowColor = Color3B::BLACK, const cocos2d::Size& shadowOffset = Size(2.0, -2.0), int shadowBlurRadius = 0, const Color3B& glowColor = Color3B::WHITE)
     static RichElementText* create(int tag, const Color3B& color, GLubyte opacity, const std::string& text, const std::string& fontName, float fontSize, uint32_t flags=0, const std::string& url="", const Color3B& outlineColor = Color3B::WHITE, int outlineSize = -1, const Color3B& shadowColor = Color3B::BLACK, const cocos2d::Size& shadowOffset = Size(2.0, -2.0), int shadowBlurRadius = 0, const Color3B& glowColor = Color3B::WHITE)
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::RichElementImage"
+cls = typecls 'cocos2d::ui::RichElementImage'
 cls.SUPERCLS = "cocos2d::ui::RichElement"
 cls.funcs [[
     bool init(int tag, const Color3B& color, GLubyte opacity, const std::string& filePath, const std::string& url = "", Widget::TextureResType texType = Widget::TextureResType::LOCAL)
@@ -1291,39 +1290,39 @@ cls.funcs [[
     void setHeight(int height)
     void setUrl(const std::string& url)
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::RichElementCustomNode"
+cls = typecls 'cocos2d::ui::RichElementCustomNode'
 cls.SUPERCLS = "cocos2d::ui::RichElement"
 cls.funcs [[
     bool init(int tag, const Color3B& color, GLubyte opacity, Node* customNode)
     static RichElementCustomNode* create(int tag, const Color3B& color, GLubyte opacity, Node* customNode)
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::RichElementNewLine"
+cls = typecls 'cocos2d::ui::RichElementNewLine'
 cls.SUPERCLS = "cocos2d::ui::RichElement"
 cls.funcs [[
     static RichElementNewLine* create(int tag, const Color3B& color, GLubyte opacity)
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::RichText::WrapMode"
+cls = typecls 'cocos2d::ui::RichText::WrapMode'
 cls.enums [[
     WRAP_PER_WORD
     WRAP_PER_CHAR
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::RichText::HorizontalAlignment"
+cls = typecls 'cocos2d::ui::RichText::HorizontalAlignment'
 cls.enums [[
     LEFT
     CENTER
     RIGHT
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::RichText"
+cls = typecls 'cocos2d::ui::RichText'
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.funcs [[
     static RichText* create()
@@ -1420,9 +1419,9 @@ cls.props [[
     anchorTextGlowColor3B
     defaults
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::ScrollViewBar"
+cls = typecls 'cocos2d::ui::ScrollViewBar'
 cls.SUPERCLS = "cocos2d::ProtectedNode"
 cls.funcs [[
     static ScrollViewBar* create(ScrollView* parent, ScrollView::Direction direction)
@@ -1444,18 +1443,18 @@ cls.props [[
     autoHideEnabled
     autoHideTime
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::Slider::EventType"
+cls = typecls 'cocos2d::ui::Slider::EventType'
 cls.enums [[
     ON_PERCENTAGE_CHANGED
     ON_SLIDEBALL_DOWN
     ON_SLIDEBALL_UP
     ON_SLIDEBALL_CANCEL
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::Slider"
+cls = typecls 'cocos2d::ui::Slider'
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.funcs [[
     static Slider* create()
@@ -1516,16 +1515,16 @@ cls.props [[
     ballPressedFile
     ballDisabledFile
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::Text::Type"
+cls = typecls 'cocos2d::ui::Text::Type'
 cls.enums [[
     SYSTEM
     TTF
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::Text"
+cls = typecls 'cocos2d::ui::Text'
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.funcs [[
     static Text* create()
@@ -1587,9 +1586,9 @@ cls.props [[
     effectColor
     blendFunc
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::TextAtlas"
+cls = typecls 'cocos2d::ui::TextAtlas'
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.funcs [[
     static TextAtlas* create()
@@ -1605,9 +1604,9 @@ cls.props [[
     stringLength
     renderFile
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::TextBMFont"
+cls = typecls 'cocos2d::ui::TextBMFont'
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.funcs [[
     static TextBMFont* create()
@@ -1624,9 +1623,9 @@ cls.props [[
     stringLength
     renderFile
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::UICCTextField"
+cls = typecls 'cocos2d::ui::UICCTextField'
 cls.SUPERCLS = "cocos2d::TextFieldTTF"
 cls.funcs [[
     static UICCTextField* create()
@@ -1662,18 +1661,18 @@ cls.props [[
     insertText
     deleteBackward
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::TextField::EventType"
+cls = typecls 'cocos2d::ui::TextField::EventType'
 cls.enums [[
     ATTACH_WITH_IME
     DETACH_WITH_IME
     INSERT_TEXT
     DELETE_BACKWARD
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::TextField"
+cls = typecls 'cocos2d::ui::TextField'
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.funcs [[
     static TextField* create()
@@ -1754,9 +1753,9 @@ cls.props [[
     textHorizontalAlignment
     textVerticalAlignment
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::Button"
+cls = typecls 'cocos2d::ui::Button'
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.funcs [[
     static Button* create()
@@ -1822,16 +1821,16 @@ cls.props [[
     disabledFile
     normalTextureSize
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::CheckBox::EventType"
+cls = typecls 'cocos2d::ui::CheckBox::EventType'
 cls.enums [[
     SELECTED
     UNSELECTED
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::CheckBox"
+cls = typecls 'cocos2d::ui::CheckBox'
 cls.SUPERCLS = "cocos2d::ui::AbstractCheckButton"
 cls.funcs [[
     static CheckBox* create()
@@ -1847,16 +1846,16 @@ cls.callback {
     CALLONCE = false,
     REMOVE = false,
 }
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::RadioButton::EventType"
+cls = typecls 'cocos2d::ui::RadioButton::EventType'
 cls.enums [[
     SELECTED
     UNSELECTED
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::RadioButton"
+cls = typecls 'cocos2d::ui::RadioButton'
 cls.SUPERCLS = "cocos2d::ui::AbstractCheckButton"
 cls.funcs [[
     static RadioButton* create()
@@ -1872,15 +1871,15 @@ cls.callback {
     CALLONCE = false,
     REMOVE = false,
 }
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::RadioButtonGroup::EventType"
+cls = typecls 'cocos2d::ui::RadioButtonGroup::EventType'
 cls.enums [[
     SELECT_CHANGED
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::RadioButtonGroup"
+cls = typecls 'cocos2d::ui::RadioButtonGroup'
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.funcs [[
     static RadioButtonGroup* create()
@@ -1911,9 +1910,9 @@ cls.props [[
     numberOfRadioButtons
     allowedNoSelection
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::ImageView"
+cls = typecls 'cocos2d::ui::ImageView'
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.funcs [[
     static ImageView* create()
@@ -1935,27 +1934,27 @@ cls.props [[
     blendFunc
     renderFile
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::EditBoxDelegate::EditBoxEndAction"
+cls = typecls 'cocos2d::ui::EditBoxDelegate::EditBoxEndAction'
 cls.enums [[
     UNKNOWN
     TAB_TO_NEXT
     TAB_TO_PREVIOUS
     RETURN
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::EditBoxDelegate"
+cls = typecls 'cocos2d::ui::EditBoxDelegate'
 cls.funcs [[
     void editBoxEditingDidBegin(EditBox* )
     void editBoxTextChanged(EditBox* , const std::string& )
     void editBoxReturn(EditBox* editBox)
     void editBoxEditingDidEndWithAction(EditBox* , EditBoxEndAction )
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::LuaEditBoxDelegate"
+cls = typecls 'cocos2d::ui::LuaEditBoxDelegate'
 cls.SUPERCLS = "cocos2d::ui::EditBoxDelegate"
 cls.funcs [[
     static LuaEditBoxDelegate *create()
@@ -1964,9 +1963,9 @@ cls.var('onEditingDidBegin', [[@nullable std::function<void(EditBox *)> onEditin
 cls.var('onTextChanged', [[@nullable std::function<void(EditBox *, const std::string &)> onTextChanged]])
 cls.var('onReturn', [[@nullable std::function<void(EditBox *)> onReturn]])
 cls.var('onEditingDidEndWithAction', [[@nullable std::function<void(EditBox *, EditBoxDelegate::EditBoxEndAction)> onEditingDidEndWithAction]])
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::EditBox::KeyboardReturnType"
+cls = typecls 'cocos2d::ui::EditBox::KeyboardReturnType'
 cls.enums [[
     DEFAULT
     DONE
@@ -1975,9 +1974,9 @@ cls.enums [[
     GO
     NEXT
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::EditBox::InputMode"
+cls = typecls 'cocos2d::ui::EditBox::InputMode'
 cls.enums [[
     ANY
     EMAIL_ADDRESS
@@ -1987,9 +1986,9 @@ cls.enums [[
     DECIMAL
     SINGLE_LINE
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::EditBox::InputFlag"
+cls = typecls 'cocos2d::ui::EditBox::InputFlag'
 cls.enums [[
     PASSWORD
     SENSITIVE
@@ -1998,9 +1997,9 @@ cls.enums [[
     INITIAL_CAPS_ALL_CHARACTERS
     LOWERCASE_ALL_CHARACTERS
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls(M.CLASSES)
-cls.CPPCLS = "cocos2d::ui::EditBox"
+cls = typecls 'cocos2d::ui::EditBox'
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.funcs [[
     static EditBox* create(const Size& size, Scale9Sprite* normalSprite, Scale9Sprite* pressedSprite = nullptr, Scale9Sprite* disabledSprite = nullptr)
@@ -2074,5 +2073,6 @@ cls.props [[
     returnType
     textHorizontalAlignment
 ]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
 return M

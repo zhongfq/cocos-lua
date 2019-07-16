@@ -458,8 +458,8 @@ local function parse_prop(cls, name, func_get, func_set)
     return pi
 end
 
-function olua.typecls(collection)
-    local cls = {}
+function olua.typecls(cppcls)
+    local cls = {CPPCLS = cppcls}
     cls.FUNCS = {}
     cls.CONSTS = {}
     cls.ENUMS = {}
@@ -467,17 +467,7 @@ function olua.typecls(collection)
     cls.VARS = {}
     cls.PROTOTYPES = {}
     cls.REG_LUATYPE = true
-
-    setmetatable(cls, {__newindex = function (_, k, v)
-        rawset(cls, k, v)
-        if k == 'CPPCLS' then
-            class_map[cls.CPPCLS] = cls
-        end
-    end})
-
-    if collection then
-        collection[#collection + 1] = cls
-    end
+    class_map[cls.CPPCLS] = cls
 
     function cls.func(name, ...)
         cls.FUNCS[#cls.FUNCS + 1] = parse_func(cls, name, ...)

@@ -25,7 +25,6 @@ typedef {
     CPPCLS = 'fairygui::AutoSizeType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
-    VALUE_TYPE = true,
     LUACLS = 'fui.AutoSizeType',
 }
 
@@ -33,7 +32,6 @@ typedef {
     CPPCLS = 'fairygui::ButtonMode',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
-    VALUE_TYPE = true,
     LUACLS = 'fui.ButtonMode',
 }
 
@@ -41,7 +39,6 @@ typedef {
     CPPCLS = 'fairygui::ChildrenRenderOrder',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
-    VALUE_TYPE = true,
     LUACLS = 'fui.ChildrenRenderOrder',
 }
 
@@ -49,7 +46,6 @@ typedef {
     CPPCLS = 'fairygui::EaseType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
-    VALUE_TYPE = true,
     LUACLS = 'fui.EaseType',
 }
 
@@ -57,7 +53,6 @@ typedef {
     CPPCLS = 'fairygui::FillMethod',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
-    VALUE_TYPE = true,
     LUACLS = 'fui.FillMethod',
 }
 
@@ -65,7 +60,6 @@ typedef {
     CPPCLS = 'fairygui::FillOrigin',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
-    VALUE_TYPE = true,
     LUACLS = 'fui.FillOrigin',
 }
 
@@ -73,7 +67,6 @@ typedef {
     CPPCLS = 'fairygui::FlipType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
-    VALUE_TYPE = true,
     LUACLS = 'fui.FlipType',
 }
 
@@ -81,7 +74,6 @@ typedef {
     CPPCLS = 'fairygui::GroupLayoutType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
-    VALUE_TYPE = true,
     LUACLS = 'fui.GroupLayoutType',
 }
 
@@ -89,7 +81,6 @@ typedef {
     CPPCLS = 'fairygui::ListLayoutType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
-    VALUE_TYPE = true,
     LUACLS = 'fui.ListLayoutType',
 }
 
@@ -97,7 +88,6 @@ typedef {
     CPPCLS = 'fairygui::ListSelectionMode',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
-    VALUE_TYPE = true,
     LUACLS = 'fui.ListSelectionMode',
 }
 
@@ -105,7 +95,6 @@ typedef {
     CPPCLS = 'fairygui::LoaderFillType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
-    VALUE_TYPE = true,
     LUACLS = 'fui.LoaderFillType',
 }
 
@@ -113,7 +102,6 @@ typedef {
     CPPCLS = 'fairygui::ObjectType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
-    VALUE_TYPE = true,
     LUACLS = 'fui.ObjectType',
 }
 
@@ -121,7 +109,6 @@ typedef {
     CPPCLS = 'fairygui::OverflowType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
-    VALUE_TYPE = true,
     LUACLS = 'fui.OverflowType',
 }
 
@@ -129,7 +116,6 @@ typedef {
     CPPCLS = 'fairygui::PackageItemType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
-    VALUE_TYPE = true,
     LUACLS = 'fui.PackageItemType',
 }
 
@@ -137,7 +123,6 @@ typedef {
     CPPCLS = 'fairygui::PopupDirection',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
-    VALUE_TYPE = true,
     LUACLS = 'fui.PopupDirection',
 }
 
@@ -145,7 +130,6 @@ typedef {
     CPPCLS = 'fairygui::ProgressTitleType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
-    VALUE_TYPE = true,
     LUACLS = 'fui.ProgressTitleType',
 }
 
@@ -153,7 +137,6 @@ typedef {
     CPPCLS = 'fairygui::RelationType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
-    VALUE_TYPE = true,
     LUACLS = 'fui.RelationType',
 }
 
@@ -161,7 +144,6 @@ typedef {
     CPPCLS = 'fairygui::ScrollBarDisplayType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
-    VALUE_TYPE = true,
     LUACLS = 'fui.ScrollBarDisplayType',
 }
 
@@ -169,7 +151,6 @@ typedef {
     CPPCLS = 'fairygui::ScrollType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
-    VALUE_TYPE = true,
     LUACLS = 'fui.ScrollType',
 }
 
@@ -177,7 +158,6 @@ typedef {
     CPPCLS = 'fairygui::TransitionActionType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
-    VALUE_TYPE = true,
     LUACLS = 'fui.TransitionActionType',
 }
 
@@ -185,7 +165,6 @@ typedef {
     CPPCLS = 'fairygui::TweenPropType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
-    VALUE_TYPE = true,
     LUACLS = 'fui.TweenPropType',
 }
 

@@ -186,7 +186,6 @@ function M:writeTypedef()
                 CPPCLS = '${CPPCLS}',
                 DECL_TYPE = 'lua_Unsigned',
                 CONV_FUNC = 'olua_$$_uint',
-                VALUE_TYPE = true,
                 LUACLS = '${LUACLS}',
             }
         ]]))

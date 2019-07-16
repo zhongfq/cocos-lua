@@ -24,11 +24,14 @@ int manual_olua_check_cocos2d_Data(lua_State *L, int idx, cocos2d::Data *value)
     return 0;
 }
 
-int manual_olua_push_cocos2d_Mat4(lua_State *L, const cocos2d::Mat4 &value)
+int manual_olua_push_cocos2d_Mat4(lua_State *L, const cocos2d::Mat4 *value)
 {
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
     lua_createtable(L, 16, 0);
     for (int i = 0; i < 16; i++) {
-        lua_pushnumber(L, value.m[i]);
+        lua_pushnumber(L, value->m[i]);
         lua_rawseti(L, -2, i + 1);
     }
     return 1;

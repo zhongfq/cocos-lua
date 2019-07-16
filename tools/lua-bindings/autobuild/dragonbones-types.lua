@@ -7,7 +7,6 @@ typedef {
     CPPCLS = 'dragonBones::ActionType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
-    VALUE_TYPE = true,
     LUACLS = 'db.ActionType',
 }
 
@@ -15,7 +14,6 @@ typedef {
     CPPCLS = 'dragonBones::AnimationFadeOutMode',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
-    VALUE_TYPE = true,
     LUACLS = 'db.AnimationFadeOutMode',
 }
 
@@ -23,7 +21,6 @@ typedef {
     CPPCLS = 'dragonBones::ArmatureType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
-    VALUE_TYPE = true,
     LUACLS = 'db.ArmatureType',
 }
 
@@ -31,7 +28,6 @@ typedef {
     CPPCLS = 'dragonBones::DisplayType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
-    VALUE_TYPE = true,
     LUACLS = 'db.DisplayType',
 }
 
@@ -39,7 +35,6 @@ typedef {
     CPPCLS = 'dragonBones::OffsetMode',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
-    VALUE_TYPE = true,
     LUACLS = 'db.OffsetMode',
 }
 

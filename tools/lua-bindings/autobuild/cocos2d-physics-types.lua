@@ -55,7 +55,6 @@ typedef {
     CPPCLS = 'cocos2d::PhysicsContact::EventCode',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
-    VALUE_TYPE = true,
     LUACLS = 'cc.PhysicsContact.EventCode',
 }
 
@@ -63,7 +62,6 @@ typedef {
     CPPCLS = 'cocos2d::PhysicsShape::Type',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
-    VALUE_TYPE = true,
     LUACLS = 'cc.PhysicsShape.Type',
 }
 

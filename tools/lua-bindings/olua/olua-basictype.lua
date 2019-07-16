@@ -18,13 +18,11 @@ typedef {
 typedef {
     CPPCLS = 'bool',
     CONV_FUNC = 'olua_$$_bool',
-    VALUE_TYPE = true,
 }
 
 typedef {
     CPPCLS = 'const char *',
     CONV_FUNC = 'olua_$$_string',
-    VALUE_TYPE = true,
 }
 
 typedef {
@@ -35,21 +33,18 @@ typedef {
     ]],
     DECL_TYPE = 'const char *',
     CONV_FUNC = 'olua_$$_string',
-    VALUE_TYPE = true,
 }
 
 typedef {
     CPPCLS = 'std::string',
     INIT_VALUE = false,
     CONV_FUNC = 'olua_$$_std_string',
-    VALUE_TYPE = true,
 }
 
 typedef {
     CPPCLS = 'std::function',
     INIT_VALUE = 'nullptr',
     CONV_FUNC = 'olua_$$_std_function',
-    VALUE_TYPE = true,
 }
 
 typedef {
@@ -79,7 +74,6 @@ typedef {
     ]],
     DECL_TYPE = 'lua_Number',
     CONV_FUNC = 'olua_$$_number',
-    VALUE_TYPE = true,
 }
 
 typedef {
@@ -98,7 +92,6 @@ typedef {
     ]],
     DECL_TYPE = 'lua_Integer',
     CONV_FUNC = 'olua_$$_int',
-    VALUE_TYPE = true,
 }
 
 typedef {
@@ -118,5 +111,4 @@ typedef {
     ]],
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
-    VALUE_TYPE = true,
 }

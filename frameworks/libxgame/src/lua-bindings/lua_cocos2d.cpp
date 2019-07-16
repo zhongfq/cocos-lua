@@ -1043,7 +1043,7 @@ static int _cocos2d_Director_getMatrix(lua_State *L)
 
     // const Mat4& getMatrix(MATRIX_STACK_TYPE type)
     const cocos2d::Mat4 &ret = (const cocos2d::Mat4 &)self->getMatrix((cocos2d::MATRIX_STACK_TYPE)arg1);
-    int num_ret = manual_olua_push_cocos2d_Mat4(L, ret);
+    int num_ret = manual_olua_push_cocos2d_Mat4(L, &ret);
 
     return num_ret;
 }
@@ -1111,7 +1111,7 @@ static int _cocos2d_Director_getProjectionMatrix(lua_State *L)
 
     // const Mat4& getProjectionMatrix(size_t index)
     const cocos2d::Mat4 &ret = (const cocos2d::Mat4 &)self->getProjectionMatrix((size_t)arg1);
-    int num_ret = manual_olua_push_cocos2d_Mat4(L, ret);
+    int num_ret = manual_olua_push_cocos2d_Mat4(L, &ret);
 
     return num_ret;
 }
@@ -13316,7 +13316,7 @@ static int _cocos2d_VRIHeadTracker_getLocalRotation(lua_State *L)
 
     // Mat4 getLocalRotation()
     cocos2d::Mat4 ret = (cocos2d::Mat4)self->getLocalRotation();
-    int num_ret = manual_olua_push_cocos2d_Mat4(L, ret);
+    int num_ret = manual_olua_push_cocos2d_Mat4(L, &ret);
 
     return num_ret;
 }
@@ -20083,7 +20083,7 @@ static int _cocos2d_Node_getNodeToParentTransform1(lua_State *L)
 
     // const Mat4& getNodeToParentTransform()
     const cocos2d::Mat4 &ret = (const cocos2d::Mat4 &)self->getNodeToParentTransform();
-    int num_ret = manual_olua_push_cocos2d_Mat4(L, ret);
+    int num_ret = manual_olua_push_cocos2d_Mat4(L, &ret);
 
     return num_ret;
 }
@@ -20100,7 +20100,7 @@ static int _cocos2d_Node_getNodeToParentTransform2(lua_State *L)
 
     // Mat4 getNodeToParentTransform(Node* ancestor)
     cocos2d::Mat4 ret = (cocos2d::Mat4)self->getNodeToParentTransform(arg1);
-    int num_ret = manual_olua_push_cocos2d_Mat4(L, ret);
+    int num_ret = manual_olua_push_cocos2d_Mat4(L, &ret);
 
     return num_ret;
 }
@@ -20149,7 +20149,7 @@ static int _cocos2d_Node_getNodeToWorldTransform(lua_State *L)
 
     // Mat4 getNodeToWorldTransform()
     cocos2d::Mat4 ret = (cocos2d::Mat4)self->getNodeToWorldTransform();
-    int num_ret = manual_olua_push_cocos2d_Mat4(L, ret);
+    int num_ret = manual_olua_push_cocos2d_Mat4(L, &ret);
 
     return num_ret;
 }
@@ -20332,7 +20332,7 @@ static int _cocos2d_Node_getParentToNodeTransform(lua_State *L)
 
     // const Mat4& getParentToNodeTransform()
     const cocos2d::Mat4 &ret = (const cocos2d::Mat4 &)self->getParentToNodeTransform();
-    int num_ret = manual_olua_push_cocos2d_Mat4(L, ret);
+    int num_ret = manual_olua_push_cocos2d_Mat4(L, &ret);
 
     return num_ret;
 }
@@ -20713,7 +20713,7 @@ static int _cocos2d_Node_getWorldToNodeTransform(lua_State *L)
 
     // Mat4 getWorldToNodeTransform()
     cocos2d::Mat4 ret = (cocos2d::Mat4)self->getWorldToNodeTransform();
-    int num_ret = manual_olua_push_cocos2d_Mat4(L, ret);
+    int num_ret = manual_olua_push_cocos2d_Mat4(L, &ret);
 
     return num_ret;
 }
@@ -35066,7 +35066,7 @@ static int _cocos2d_Camera_getProjectionMatrix(lua_State *L)
 
     // const Mat4& getProjectionMatrix()
     const cocos2d::Mat4 &ret = (const cocos2d::Mat4 &)self->getProjectionMatrix();
-    int num_ret = manual_olua_push_cocos2d_Mat4(L, ret);
+    int num_ret = manual_olua_push_cocos2d_Mat4(L, &ret);
 
     return num_ret;
 }
@@ -35111,7 +35111,7 @@ static int _cocos2d_Camera_getViewMatrix(lua_State *L)
 
     // const Mat4& getViewMatrix()
     const cocos2d::Mat4 &ret = (const cocos2d::Mat4 &)self->getViewMatrix();
-    int num_ret = manual_olua_push_cocos2d_Mat4(L, ret);
+    int num_ret = manual_olua_push_cocos2d_Mat4(L, &ret);
 
     return num_ret;
 }
@@ -35126,7 +35126,7 @@ static int _cocos2d_Camera_getViewProjectionMatrix(lua_State *L)
 
     // const Mat4& getViewProjectionMatrix()
     const cocos2d::Mat4 &ret = (const cocos2d::Mat4 &)self->getViewProjectionMatrix();
-    int num_ret = manual_olua_push_cocos2d_Mat4(L, ret);
+    int num_ret = manual_olua_push_cocos2d_Mat4(L, &ret);
 
     return num_ret;
 }

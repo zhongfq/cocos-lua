@@ -119,10 +119,6 @@ local function gen_func_args(cls, fi)
                 local RESERVE_CHUNK = ''
                 local FN_PUSH_BACK = ai.TYPE.FN_PUSH_BACK
                 if SUBTYPE.DECL_TYPE ~= SUBTYPE.CPPCLS then
-                    if not SUBTYPE.VALUE_TYPE then
-                        print(SUBTYPE.DECL_TYPE, SUBTYPE.CPPCLS)
-                        error(SUBTYPE.CPPCLS)
-                    end
                     CAST = string.format("(%s)", SUBTYPE.CPPCLS)
                 end
                 if ai.TYPE.FN_RESERVE then
@@ -228,14 +224,10 @@ local function gen_func_ret(cls, fi)
                 local CAST = ""
                 local SUBTYPE_PUSH_FUNC = SUBTYPE.FUNC_PUSH_VALUE
                 if SUBTYPE.DECL_TYPE ~= SUBTYPE.CPPCLS then
-                    if not SUBTYPE.VALUE_TYPE then
-                        print(SUBTYPE.DECL_TYPE, SUBTYPE.CPPCLS)
-                        error(SUBTYPE.CPPCLS)
-                    end
                     CAST = string.format("(%s)", SUBTYPE.DECL_TYPE)
                 end
                 local DECL_TYPE_NO_CONST = string.gsub(DECL_TYPE, '^const _*', '')
-                local POINT = fi.RET.TYPE.SUBTYPE.VALUE_TYPE and '' or '&'
+                local POINT = olua.isvaluetype(fi.RET.TYPE.SUBTYPE) and '' or '&'
                 if SUBTYPE.DECL_TYPE == 'lua_Unsigned'
                     or SUBTYPE.DECL_TYPE == 'lua_Number'
                     or SUBTYPE.CPPCLS == 'bool'
@@ -291,12 +283,8 @@ local function gen_func_ret(cls, fi)
             end
             local CAST = ""
             if fi.RET.TYPE.DECL_TYPE ~= fi.RET.TYPE.CPPCLS then
-                if not fi.RET.TYPE.VALUE_TYPE then
-                    print(fi.RET.TYPE.DECL_TYPE, fi.RET.TYPE.CPPCLS)
-                    error(fi.RET.TYPE.CPPCLS)
-                end
                 CAST = string.format("(%s)", fi.RET.TYPE.DECL_TYPE)
-            elseif not fi.RET.TYPE.VALUE_TYPE then
+            elseif not olua.isvaluetype(fi.RET.TYPE) then
                 if not string.find(DECL_TYPE, '*$') then
                     CAST = '&'
                 end

@@ -12,13 +12,13 @@ local function throwError(fmt, ...)
     error(string.format(fmt, ...))
 end
 
-local function testCond(cond, fmt, ...)
+local function assertCond(cond, fmt, ...)
     if not cond then
-        throwError(fmt, ...)
+        throwError(fmt or '', ...)
     end
 end
 
-local function formatTypename(tn)
+local function prettyTypename(tn)
     tn = string.gsub(tn, '^ *', '') -- trim head space
     tn = string.gsub(tn, ' *$', '') -- trim tail space
     tn = string.gsub(tn, ' +', ' ') -- remove needless space
@@ -60,12 +60,12 @@ end
 function olua.typeinfo(tn, cls, silence)
     local ti, subti, subtn -- for tn<T>
 
-    tn = formatTypename(tn)
+    tn = prettyTypename(tn)
 
     if string.find(tn, '<') then
         subtn = string.match(tn, '<(.*)>')
         subti, subtn = olua.typeinfo(subtn, cls, silence)
-        tn = formatTypename(string.gsub(tn, '<.*>', ''))
+        tn = prettyTypename(string.gsub(tn, '<.*>', ''))
     end
 
     tn = rawTypename(tn)
@@ -99,7 +99,7 @@ function olua.typeinfo(tn, cls, silence)
     -- search in super class namespace
     if cls and cls.SUPERCLS then
         local super = class_map[cls.SUPERCLS]
-        testCond(super, "the super class '%s' of '%s' is not found", cls.SUPERCLS, cls.CPPCLS)
+        assertCond(super, "the super class '%s' of '%s' is not found", cls.SUPERCLS, cls.CPPCLS)
         return olua.typeinfo(tn, super, silence)
     end
 
@@ -181,7 +181,7 @@ local function parseType(str)
             if not from then
                 break
             end
-            tn = formatTypename(string.sub(str, from, to))
+            tn = prettyTypename(string.sub(str, from, to))
             if tn == 'signed' or tn == 'unsigned' then
                 local substr = string.sub(str, to + 1)
                 -- str = unsigned count = 1, ... ?
@@ -190,7 +190,7 @@ local function parseType(str)
                     or substr:find('^ *char *')) then
                     tn = string.sub(str, 1, to) .. ' int'
                     str = string.sub(str, to + 1)
-                    return formatTypename(tn), attr, str
+                    return prettyTypename(tn), attr, str
                 end
             end
             if tn ~= 'const' and tn ~= 'signed' and tn ~= 'unsigned' then
@@ -200,17 +200,17 @@ local function parseType(str)
         end
     end
     str = string.sub(str, #tn + 1)
-    return formatTypename(tn), attr, str
+    return prettyTypename(tn), attr, str
 end
 
-local parse_args
+local parseArgs
 
-local function parse_callback(cls, typename, default)
+local function parseCallback(cls, typename, default)
     local rt, rt_attr, cb_args_str
     local cb_args_str = string.match(typename, '<(.*)>')
     rt, rt_attr, cb_args_str = parseType(cb_args_str)
     cb_args_str = string.gsub(cb_args_str, '^[^(]+', '')
-    local cb_args = parse_args(cls, cb_args_str)
+    local cb_args = parseArgs(cls, cb_args_str)
     local cb_args_decl = {}
     for _, ai in ipairs(cb_args) do
         cb_args_decl[#cb_args_decl + 1] = ai.FUNC_ARG_DECL_TYPE
@@ -227,10 +227,11 @@ local function parse_callback(cls, typename, default)
     }
 end
 
-function parse_args(cls, args_str)
+function parseArgs(cls, args_str)
     local args = {}
     local max_args = 0
-    args_str = assert(string.match(args_str, '%((.*)%)'), args_str)
+    args_str = string.match(args_str, '%((.*)%)')
+    assertCond(args_str)
 
     while #args_str > 0 do
         local typename, attr, varname, default
@@ -265,7 +266,7 @@ function parse_args(cls, args_str)
         end
 
         if string.find(typename, 'std::function<') then
-            local callback = parse_callback(cls, typename, default)
+            local callback = parseCallback(cls, typename, default)
             args[#args + 1] = {
                 TYPE = setmetatable({
                     DECL_TYPE = callback.ARGS_DECL,
@@ -325,7 +326,7 @@ local function parse_func(cls, name, ...)
             fi.FUNC_DECL = func_decl
             fi.INJECT = {}
             if string.find(typename, 'std::function<') then
-                local callback = parse_callback(cls, typename, default)
+                local callback = parseCallback(cls, typename, default)
                 fi.RET = {
                     TYPE = setmetatable({
                         DECL_TYPE = callback.ARGS_DECL,
@@ -341,7 +342,7 @@ local function parse_func(cls, name, ...)
                 fi.RET.DECL_TYPE = toDecltype(cls, typename, false)
                 fi.RET.ATTR = attr
             end
-            fi.ARGS, fi.MAX_ARGS = parse_args(cls, string.sub(str, #fi.CPPFUNC + 1))
+            fi.ARGS, fi.MAX_ARGS = parseArgs(cls, string.sub(str, #fi.CPPFUNC + 1))
 
             do
                 local ARGS_DECL = {}
@@ -605,7 +606,7 @@ function olua.typecls(cppcls)
         local var_decl, readonly = string.gsub(var_decl, '@readonly', '')
         var_decl = string.gsub(var_decl, ';*$', '')
         local var_decl, static = string.gsub(var_decl, '^ *static *', '')
-        local ARGS = parse_args(cls, '(' .. var_decl .. ')')
+        local ARGS = parseArgs(cls, '(' .. var_decl .. ')')
         local CALLBACK_OPT_GET
         local CALLBACK_OPT_SET
         name = name or ARGS[1].VARNAME
@@ -732,50 +733,49 @@ function olua.topath(cppcls)
     return string.gsub(cppcls, '[.:]+', '_')
 end
 
+local valuetype = {
+    ['bool'] = true,
+    ['const char *'] = true,
+    ['std::string'] = true,
+    ['std::function'] = true,
+    ['lua_Number'] = true,
+    ['lua_Integer'] = true,
+    ['lua_Unsigned'] = true,
+}
+function olua.isvaluetype(ti)
+    return valuetype[ti.DECL_TYPE]
+end
+
 function olua.typedef(typeinfo)
-    for n in string.gmatch(typeinfo.CPPCLS, '[^\n\r]+') do
-        local typename = formatTypename(n)
-        local info = setmetatable({}, {__index = typeinfo})
-        info.CPPCLS = typename
-        info.DECL_TYPE = info.DECL_TYPE or typename
-        typeinfo_map[typename] = info
-        typeinfo_map['const ' .. typename] = info
+    for tn in string.gmatch(typeinfo.CPPCLS, '[^\n\r]+') do
+        local ti = setmetatable({}, {__index = typeinfo})
+        tn = prettyTypename(tn)
+        ti.CPPCLS = tn
+        ti.DECL_TYPE = ti.DECL_TYPE or tn
+        typeinfo_map[tn] = ti
+        typeinfo_map['const ' .. tn] = ti
 
-        if info.INIT_VALUE ~= false then
-            if not info.INIT_VALUE then
-                if typename == 'bool' then
-                    info.INIT_VALUE = 'false'
-                elseif string.find(typename, '%*$') then
-                    info.INIT_VALUE = 'nullptr'
-                else
-                    info.INIT_VALUE = '0'
-                end
+        if ti.INIT_VALUE == nil then
+            if tn == 'bool' then
+                ti.INIT_VALUE = 'false'
+            elseif string.find(tn, '%*$') then
+                ti.INIT_VALUE = 'nullptr'
+            else
+                ti.INIT_VALUE = '0'
             end
         end
 
-        if type(info.CONV_FUNC) == "function" then
-            info.CONV_FUNC = info.CONV_FUNC(typename)
-        end
-
-        info.FUNC_PUSH_VALUE = string.gsub(info.CONV_FUNC, '[$]+', "push")
-        info.FUNC_TO_VALUE = string.gsub(info.CONV_FUNC, '[$]+', "to")
-        info.FUNC_CHECK_VALUE = string.gsub(info.CONV_FUNC, '[$]+', "check")
-        info.FUNC_OPT_VALUE = string.gsub(info.CONV_FUNC, '[$]+', "opt")
-        info.FUNC_IS_VALUE = string.gsub(info.CONV_FUNC, '[$]+', "is")
+        ti.FUNC_PUSH_VALUE = string.gsub(ti.CONV_FUNC, '[$]+', "push")
+        ti.FUNC_TO_VALUE = string.gsub(ti.CONV_FUNC, '[$]+', "to")
+        ti.FUNC_CHECK_VALUE = string.gsub(ti.CONV_FUNC, '[$]+', "check")
+        ti.FUNC_OPT_VALUE = string.gsub(ti.CONV_FUNC, '[$]+', "opt")
+        ti.FUNC_IS_VALUE = string.gsub(ti.CONV_FUNC, '[$]+', "is")
         -- multi ret
-        info.FUNC_PACK_VALUE = string.gsub(info.CONV_FUNC, '[$]+', "pack")
-        info.FUNC_UNPACK_VALUE = string.gsub(info.CONV_FUNC, '[$]+', "unpack")
+        ti.FUNC_PACK_VALUE = string.gsub(ti.CONV_FUNC, '[$]+', "pack")
+        ti.FUNC_UNPACK_VALUE = string.gsub(ti.CONV_FUNC, '[$]+', "unpack")
 
-        if info.VARS and info.VARS > 1 then
-            info.FUNC_ISPACK_VALUE = string.gsub(info.CONV_FUNC, '[$]+', "ispack")
-        end
-
-        if info.LUACLS then
-            if type(info.LUACLS) == "function" then
-                info.LUACLS = info.LUACLS(typename)
-            elseif type(info.LUACLS) ~= "string" then
-                error("not support: " .. type(info.LUACLS))
-            end
+        if ti.VARS and ti.VARS > 1 then
+            ti.FUNC_ISPACK_VALUE = string.gsub(ti.CONV_FUNC, '[$]+', "ispack")
         end
     end
 end
@@ -783,23 +783,23 @@ end
 function olua.typeconv(ci)
     local func = ci.FUNC or "push|check|pack|unpack|opt|is"
     ci.PROPS = {}
-    for line in string.gmatch(assert(ci.DEF, 'no DEF'), '[^\n\r]+') do
-        local attr, line = parseAttr(line)
+    for str in string.gmatch(assert(ci.DEF, 'no DEF'), '[^\n\r]+') do
+        errorMessage = str
 
-        local typename, attr, varname, default
-        if line and #line > 0 then
-            typename, attr, line = parseType(line)
-            varname, default = string.match(line, '^([^ ]+) *= *([^ ,;]*)')
+        local tn, attr, varname, default
+        attr, str = parseAttr(str)
+        
+        if str and #str > 0 then
+            tn, attr, str = parseType(str)
+            varname, default = string.match(str, '^([^ ]+) *= *([^ ,;]*)')
             if not varname then
-                varname = string.match(line, '^ *[^ ,;]+')
+                varname = string.match(str, '^ *[^ ,;]+')
             end
         end
-        if typename then
-            typename = formatTypename(typename)
-            varname = formatTypename(varname)
-            local typeinfo, typename = olua.typeinfo(typename)
+        if tn then
+            varname = prettyTypename(varname)
             ci.PROPS[#ci.PROPS + 1] = {
-                TYPE = typeinfo,
+                TYPE = olua.typeinfo(tn),
                 VARNAME = varname,
                 LUANAME = string.gsub(varname, '^_*', ''),
                 DEFAULT = default,
@@ -808,21 +808,20 @@ function olua.typeconv(ci)
         end
     end
 
-    ci.FUNC = {}
+    ci.FUNC = {IS = true}
     for f in string.gmatch(func, '[^|]+') do
         ci.FUNC[string.upper(f)] = true
     end
 
     local ti = typeinfo_map[ci.CPPCLS] or typeinfo_map[ci.CPPCLS .. ' *']
-    assert(ti, ci.CPPCLS)
+    assertCond(ti, "class not found: %s", ci.CPPCLS)
     if ti.VARS and ti.VARS > 1 then
         ci.FUNC['ISPACK'] = true
     else
         ci.FUNC['UNPACK'] = nil
         ci.FUNC['PACK'] = nil
     end
-
-    ci.FUNC.IS = true
+    
     return ci
 end
 

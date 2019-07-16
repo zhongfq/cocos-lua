@@ -32,7 +32,6 @@ typedef {
     CPPCLS = 'spine::AttachmentType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
-    VALUE_TYPE = true,
     LUACLS = 'sp.AttachmentType',
 }
 
@@ -40,7 +39,6 @@ typedef {
     CPPCLS = 'spine::BlendMode',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
-    VALUE_TYPE = true,
     LUACLS = 'sp.BlendMode',
 }
 
@@ -48,7 +46,6 @@ typedef {
     CPPCLS = 'spine::EventType',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
-    VALUE_TYPE = true,
     LUACLS = 'sp.EventType',
 }
 
@@ -56,7 +53,6 @@ typedef {
     CPPCLS = 'spine::MixBlend',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
-    VALUE_TYPE = true,
     LUACLS = 'sp.MixBlend',
 }
 
@@ -64,7 +60,6 @@ typedef {
     CPPCLS = 'spine::PositionMode',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
-    VALUE_TYPE = true,
     LUACLS = 'sp.PositionMode',
 }
 
@@ -72,7 +67,6 @@ typedef {
     CPPCLS = 'spine::RotateMode',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
-    VALUE_TYPE = true,
     LUACLS = 'sp.RotateMode',
 }
 
@@ -80,7 +74,6 @@ typedef {
     CPPCLS = 'spine::SpacingMode',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
-    VALUE_TYPE = true,
     LUACLS = 'sp.SpacingMode',
 }
 
@@ -88,7 +81,6 @@ typedef {
     CPPCLS = 'spine::TransformMode',
     DECL_TYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
-    VALUE_TYPE = true,
     LUACLS = 'sp.TransformMode',
 }
 

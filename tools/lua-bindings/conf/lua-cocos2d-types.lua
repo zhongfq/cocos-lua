@@ -59,7 +59,6 @@ typedef {
     CPPCLS = 'cocos2d::Mat4',
     CONV_FUNC = 'manual_olua_$$_cocos2d_Mat4',
     INIT_VALUE = false,
-    VALUE_TYPE = true,
 }
 
 typedef {

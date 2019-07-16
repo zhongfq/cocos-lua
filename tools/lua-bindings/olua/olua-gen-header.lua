@@ -1,4 +1,4 @@
-local olua = require "olua.core"
+local olua = require "olua.olua-io"
 
 function gen_header(module)
     local HEADER = string.upper(module.NAME)

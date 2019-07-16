@@ -1,5 +1,7 @@
-local olua = require "olua.typecls"
+local olua = require "olua"
 local typedef = olua.typedef
+
+olua.nowarning(typedef)
 
 typedef {
     CONV_FUNC = 'manual_olua_$$_spine_String',

@@ -1,5 +1,7 @@
-local olua = require "olua.typecls"
+local olua = require "olua"
 local typedef = olua.typedef
+
+olua.nowarning(typedef)
 
 typedef {
     CONV_FUNC = 'olua_$$_obj',

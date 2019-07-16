@@ -1,4 +1,4 @@
-local olua = require "olua.typecls"
+local olua = require "olua.olua-typecls"
 local typedef = olua.typedef
 
 typedef {

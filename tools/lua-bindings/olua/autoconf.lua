@@ -146,8 +146,10 @@ function M:writeTypedef()
         file:write(string.format(fmt, ...))
         file:write('\n')
     end
-    writeLine('local olua = require "olua.typecls"')
+    writeLine('local olua = require "olua"')
     writeLine('local typedef = olua.typedef')
+    writeLine('')
+    writeLine('olua.nowarning(typedef)')
     writeLine('')
     for _, td in ipairs(self.module.TYPEDEFS) do
         local arr = {}

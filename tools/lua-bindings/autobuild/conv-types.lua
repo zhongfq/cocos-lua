@@ -1,3 +1,5 @@
-local olua = require "olua.typecls"
+local olua = require "olua"
 local typedef = olua.typedef
+
+olua.nowarning(typedef)
 

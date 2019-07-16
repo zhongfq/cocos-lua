@@ -127,4 +127,14 @@ function olua.format(expr, indent)
     return expr
 end
 
+function olua.export(path)
+    local module = dofile(path)
+    if #module.CLASSES > 0 then
+        gen_header(module)
+        gen_source(module)
+    elseif #module.CONVS > 0 then
+        gen_conv(module)
+    end
+end
+
 return olua

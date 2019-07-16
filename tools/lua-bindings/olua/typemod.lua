@@ -1,4 +1,4 @@
-local olua = require "olua.core"
+local olua = require "olua"
 
 local function command(func)
     return setmetatable({}, {__call = func})

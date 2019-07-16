@@ -1,4 +1,4 @@
-local olua = require "olua.core"
+local olua = require "olua.olua-io"
 
 local format = olua.format
 

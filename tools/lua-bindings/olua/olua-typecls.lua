@@ -298,7 +298,7 @@ function parseArgs(cls, declstr)
                     DECLTYPE = callback.DECLTYPE,
                 }, {__index = olua.typeinfo('std::function', cls)}),
                 DECLTYPE = callback.DECLTYPE,
-                VARNAME = varname,
+                VARNAME = varname or '',
                 ATTR = attr,
                 CALLBACK = callback,
             }
@@ -308,7 +308,7 @@ function parseArgs(cls, declstr)
                 DECLTYPE = toDecltype(cls, tn, true),
                 RAW_DECLTYPE = toDecltype(cls, tn, false),
                 DEFAULT = default,
-                VARNAME = varname,
+                VARNAME = varname or '',
                 ATTR = attr,
                 CALLBACK = {},
             }

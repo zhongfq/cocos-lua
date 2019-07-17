@@ -21,7 +21,7 @@ static int _xgame_SceneNoCamera_create(lua_State *L)
 
     // static SceneNoCamera *create()
     xgame::SceneNoCamera *ret = (xgame::SceneNoCamera *)xgame::SceneNoCamera::create();
-    int num_ret = olua_push_cppobj<xgame::SceneNoCamera>(L, ret, "kernel.SceneNoCamera");
+    int num_ret = olua_push_cppobj(L, ret, "kernel.SceneNoCamera");
 
     return num_ret;
 }
@@ -32,7 +32,7 @@ static int _xgame_SceneNoCamera_createWithPhysics(lua_State *L)
 
     // static SceneNoCamera *createWithPhysics()
     xgame::SceneNoCamera *ret = (xgame::SceneNoCamera *)xgame::SceneNoCamera::createWithPhysics();
-    int num_ret = olua_push_cppobj<xgame::SceneNoCamera>(L, ret, "kernel.SceneNoCamera");
+    int num_ret = olua_push_cppobj(L, ret, "kernel.SceneNoCamera");
 
     return num_ret;
 }
@@ -47,7 +47,7 @@ static int _xgame_SceneNoCamera_createWithSize(lua_State *L)
 
     // static SceneNoCamera *createWithSize(const cocos2d::Size& size)
     xgame::SceneNoCamera *ret = (xgame::SceneNoCamera *)xgame::SceneNoCamera::createWithSize(arg1);
-    int num_ret = olua_push_cppobj<xgame::SceneNoCamera>(L, ret, "kernel.SceneNoCamera");
+    int num_ret = olua_push_cppobj(L, ret, "kernel.SceneNoCamera");
 
     return num_ret;
 }

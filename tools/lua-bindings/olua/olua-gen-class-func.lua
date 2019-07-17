@@ -41,26 +41,20 @@ local function gen_func_args(cls, fi)
     for i, ai in ipairs(fi.ARGS) do
         local DECLTYPE = ai.TYPE.DECLTYPE
         local INIT_VALUE = ai.TYPE.INIT_VALUE
-        local VARNAME = ai.VARNAME or ""
-        local ARG_N = "arg" .. i
+        local ARG_NAME = "arg" .. i
         local SPACE = " "
         local FUNC_CHECK_VALUE = ai.TYPE.FUNC_CHECK_VALUE
-        local IDX = idx + 1
-        idx = IDX
+        local ARGN = idx + 1
+        idx = ARGN
 
         if ai.TYPE.CPPCLS == 'std::function' then
             assert(fi.CALLBACK_OPT, fi.DECLFUNC)
         end
 
         if ai.TYPE.DECLTYPE ~= ai.TYPE.CPPCLS and not ai.CALLBACK.ARGS then
-            local CPPCLS = ai.TYPE.CPPCLS
-            CALLER_ARGS[#CALLER_ARGS + 1] = format([[
-                (${CPPCLS})${ARG_N}
-            ]])
+            CALLER_ARGS[#CALLER_ARGS + 1] = format([[(${ai.TYPE.CPPCLS})${ARG_NAME}]])
         else
-            CALLER_ARGS[#CALLER_ARGS + 1] = format([[
-                ${ARG_N}
-            ]])
+            CALLER_ARGS[#CALLER_ARGS + 1] = format([[${ARG_NAME}]])
         end
 
         if string.find(DECLTYPE, '[ *&]$') then
@@ -69,16 +63,16 @@ local function gen_func_args(cls, fi)
 
         if INIT_VALUE then
             DECL_CHUNK[#DECL_CHUNK + 1] = format([[
-                ${DECLTYPE}${SPACE}${ARG_N} = ${INIT_VALUE};   /** ${VARNAME} */
+                ${DECLTYPE}${SPACE}${ARG_NAME} = ${INIT_VALUE};   /** ${ai.VARNAME} */
             ]])
         elseif ai.TYPE.SUBTYPE then
             DECLTYPE = ai.DECLTYPE
             DECL_CHUNK[#DECL_CHUNK + 1] = format([[
-                ${DECLTYPE}${SPACE}${ARG_N};       /** ${VARNAME} */
+                ${DECLTYPE}${SPACE}${ARG_NAME};       /** ${ai.VARNAME} */
             ]])
         else
             DECL_CHUNK[#DECL_CHUNK + 1] = format([[
-                ${DECLTYPE}${SPACE}${ARG_N};       /** ${VARNAME} */
+                ${DECLTYPE}${SPACE}${ARG_NAME};       /** ${ai.VARNAME} */
             ]])
         end
 
@@ -86,20 +80,18 @@ local function gen_func_args(cls, fi)
             local FUNC_OPT_VALUE = ai.TYPE.FUNC_OPT_VALUE
             local DEFAULT = ai.DEFAULT or "nullptr"
             if ai.TYPE.LUACLS and ai.TYPE.DECLTYPE ~= 'lua_Unsigned' then
-                local LUACLS = ai.TYPE.LUACLS
                 local FUNC_OPT_VALUE = ai.TYPE.FUNC_OPT_VALUE
                 ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
-                    ${FUNC_OPT_VALUE}(L, ${IDX}, (void **)&${ARG_N}, "${LUACLS}", nullptr);
+                    ${FUNC_OPT_VALUE}(L, ${ARGN}, (void **)&${ARG_NAME}, "${ai.TYPE.LUACLS}", nullptr);
                 ]])
             else
                 ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
-                    ${FUNC_OPT_VALUE}(L, ${IDX}, &${ARG_N}, (${DECLTYPE})${DEFAULT});
+                    ${FUNC_OPT_VALUE}(L, ${ARGN}, &${ARG_NAME}, (${DECLTYPE})${DEFAULT});
                 ]])
             end
         elseif ai.TYPE.LUACLS and ai.TYPE.DECLTYPE ~= 'lua_Unsigned' then
-            local LUACLS = ai.TYPE.LUACLS
             ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
-                ${FUNC_CHECK_VALUE}(L, ${IDX}, (void **)&${ARG_N}, "${LUACLS}");
+                ${FUNC_CHECK_VALUE}(L, ${ARGN}, (void **)&${ARG_NAME}, "${ai.TYPE.LUACLS}");
             ]])
         elseif ai.TYPE.SUBTYPE then
             assert(ai.TYPE.IS_ARRAY)
@@ -107,7 +99,7 @@ local function gen_func_args(cls, fi)
             if SUBTYPE.LUACLS then
                 local SUB_LUACLS = SUBTYPE.LUACLS
                 ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
-                    ${FUNC_CHECK_VALUE}(L, ${IDX}, ${ARG_N}, "${SUB_LUACLS}");
+                    ${FUNC_CHECK_VALUE}(L, ${ARGN}, ${ARG_NAME}, "${SUB_LUACLS}");
                 ]])
             else
                 local CAST = ""
@@ -121,18 +113,18 @@ local function gen_func_args(cls, fi)
                 if ai.TYPE.FN_RESERVE then
                     local FN_RESERVE = ai.TYPE.FN_RESERVE
                     RESERVE_CHUNK = format [[
-                        ${ARG_N}.${FN_RESERVE}(${ARG_N}_total);
+                        ${ARG_NAME}.${FN_RESERVE}(${ARG_NAME}_total);
                     ]]
                 end
                 ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
-                    luaL_checktype(L, ${IDX}, LUA_TTABLE);
-                    size_t ${ARG_N}_total = lua_rawlen(L, ${IDX});
+                    luaL_checktype(L, ${ARGN}, LUA_TTABLE);
+                    size_t ${ARG_NAME}_total = lua_rawlen(L, ${ARGN});
                     ${RESERVE_CHUNK}
-                    for (int i = 1; i <= ${ARG_N}_total; i++) {
+                    for (int i = 1; i <= ${ARG_NAME}_total; i++) {
                         ${SUBTYPE_DECLTYPE} obj;
-                        lua_rawgeti(L, ${IDX}, i);
+                        lua_rawgeti(L, ${ARGN}, i);
                         ${SUBTYPE_CHECK_FUNC}(L, -1, &obj);
-                        ${ARG_N}.${FN_PUSH_BACK}(${CAST}obj);
+                        ${ARG_NAME}.${FN_PUSH_BACK}(${CAST}obj);
                         lua_pop(L, 1);
                     }
                 ]])
@@ -144,7 +136,7 @@ local function gen_func_args(cls, fi)
                 idx = idx + ai.TYPE.VARS - 1
             end
             ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
-                ${FUNC_CHECK_VALUE}(L, ${IDX}, &${ARG_N});
+                ${FUNC_CHECK_VALUE}(L, ${ARGN}, &${ARG_NAME});
             ]])
         end
 
@@ -155,11 +147,11 @@ local function gen_func_args(cls, fi)
             local WHICH_OBJ = ai.ATTR.REF[3] or (fi.STATIC and -1 or 1)
             if REF == 'map' then
                 REF_CHUNK[#REF_CHUNK + 1] = format([[
-                    olua_mapref(L, ${WHICH_OBJ}, "${REFNAME}", ${IDX});
+                    olua_mapref(L, ${WHICH_OBJ}, "${REFNAME}", ${ARGN});
                 ]])
             elseif REF == "single" then
                 REF_CHUNK[#REF_CHUNK + 1] = format([[
-                    olua_singleref(L, ${WHICH_OBJ}, "${REFNAME}", ${IDX});
+                    olua_singleref(L, ${WHICH_OBJ}, "${REFNAME}", ${ARGN});
                 ]])
             else
                 error('no support ref action: ' .. REF)
@@ -172,7 +164,7 @@ local function gen_func_args(cls, fi)
             local WHICH_OBJ = ai.ATTR.UNREF[3] or (fi.STATIC and -1 or 1)
             if REF == 'map' then
                 REF_CHUNK[#REF_CHUNK + 1] = format([[
-                    olua_mapunref(L, ${WHICH_OBJ}, "${REFNAME}", ${IDX});
+                    olua_mapunref(L, ${WHICH_OBJ}, "${REFNAME}", ${ARGN});
                 ]])
             else
                 error('no support ref action: ' .. REF)
@@ -200,23 +192,12 @@ local function gen_func_ret(cls, fi)
             SPACE = ""
         end
         RET_EXP = format('${DECLTYPE}${SPACE}ret = (${DECLTYPE})')
-        if fi.RET.TYPE.LUACLS and fi.RET.TYPE.DECLTYPE ~= 'lua_Unsigned' then
-            local LUACLS = fi.RET.TYPE.LUACLS
-            if FUNC_PUSH_VALUE == "olua_push_cppobj" then
-                local CPPCLS = string.gsub(fi.RET.TYPE.CPPCLS, '[ *]*$', '')
-                if string.find(DECLTYPE, '^const') then
-                    RET_PUSH = format('int num_ret = ${FUNC_PUSH_VALUE}<${CPPCLS}>(L, (${CPPCLS} *)ret, "${LUACLS}");')
-                else
-                    RET_PUSH = format('int num_ret = ${FUNC_PUSH_VALUE}<${CPPCLS}>(L, ret, "${LUACLS}");')
-                end
-            else
-                RET_PUSH = format('int num_ret = ${FUNC_PUSH_VALUE}(L, ret, "${LUACLS}");')
-            end
+        if fi.RET.TYPE.LUACLS and not olua.isvaluetype(fi.RET.TYPE) then
+            RET_PUSH = format('int num_ret = ${FUNC_PUSH_VALUE}(L, ret, "${fi.RET.TYPE.LUACLS}");')
         elseif fi.RET.TYPE.SUBTYPE then
             local SUBTYPE = fi.RET.TYPE.SUBTYPE
             if SUBTYPE.LUACLS then
-                local SUB_LUACLS = SUBTYPE.LUACLS
-                RET_PUSH = format('int num_ret = ${FUNC_PUSH_VALUE}(L, ret, "${SUB_LUACLS}");')
+                RET_PUSH = format('int num_ret = ${FUNC_PUSH_VALUE}(L, ret, "${SUBTYPE.LUACLS}");')
             else
                 local CAST = ""
                 local SUBTYPE_PUSH_FUNC = SUBTYPE.FUNC_PUSH_VALUE
@@ -490,7 +471,7 @@ local function genTestAndCall(cls, fns)
             local TEST_ARGS = {}
             local MAX_VARS = 1
             for i, ai in ipairs(fi.ARGS) do
-                local ARGN = (fi.STATIC and 0 or 1) + i
+                local ARG_NAME = (fi.STATIC and 0 or 1) + i
                 local FUNC_IS_VALUE = ai.TYPE.FUNC_IS_VALUE
                 local TEST_NULL = ""
 
@@ -501,17 +482,17 @@ local function genTestAndCall(cls, fns)
                 end
 
                 if ai.DEFAULT or ai.ATTR.NULLABLE then
-                    TEST_NULL = ' ' .. format('|| olua_isnil(L, ${ARGN})')
+                    TEST_NULL = ' ' .. format('|| olua_isnil(L, ${ARG_NAME})')
                 end
 
-                olua.nowarning(ARGN, TEST_NULL, FUNC_IS_VALUE)
+                olua.nowarning(ARG_NAME, TEST_NULL, FUNC_IS_VALUE)
                 if ai.TYPE.LUACLS and ai.TYPE.DECLTYPE ~= 'lua_Unsigned' then
                     TEST_ARGS[#TEST_ARGS + 1] = format([[
-                        (${FUNC_IS_VALUE}(L, ${ARGN}, "${ai.TYPE.LUACLS}")${TEST_NULL})
+                        (${FUNC_IS_VALUE}(L, ${ARG_NAME}, "${ai.TYPE.LUACLS}")${TEST_NULL})
                     ]])
                 else
                     TEST_ARGS[#TEST_ARGS + 1] = format([[
-                        (${FUNC_IS_VALUE}(L, ${ARGN})${TEST_NULL})
+                        (${FUNC_IS_VALUE}(L, ${ARG_NAME})${TEST_NULL})
                     ]])
                 end
             end

@@ -210,7 +210,7 @@ static int _cocos2d_ui_Widget_clone(lua_State *L)
 
     // Widget* clone()
     cocos2d::ui::Widget *ret = (cocos2d::ui::Widget *)self->clone();
-    int num_ret = olua_push_cppobj<cocos2d::ui::Widget>(L, ret, "ccui.Widget");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Widget");
 
     return num_ret;
 }
@@ -221,7 +221,7 @@ static int _cocos2d_ui_Widget_create(lua_State *L)
 
     // static Widget* create()
     cocos2d::ui::Widget *ret = (cocos2d::ui::Widget *)cocos2d::ui::Widget::create();
-    int num_ret = olua_push_cppobj<cocos2d::ui::Widget>(L, ret, "ccui.Widget");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Widget");
 
     return num_ret;
 }
@@ -272,7 +272,7 @@ static int _cocos2d_ui_Widget_findNextFocusedWidget(lua_State *L)
 
     // Widget* findNextFocusedWidget(FocusDirection direction, Widget* current)
     cocos2d::ui::Widget *ret = (cocos2d::ui::Widget *)self->findNextFocusedWidget((cocos2d::ui::Widget::FocusDirection)arg1, arg2);
-    int num_ret = olua_push_cppobj<cocos2d::ui::Widget>(L, ret, "ccui.Widget");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Widget");
 
     return num_ret;
 }
@@ -343,7 +343,7 @@ static int _cocos2d_ui_Widget_getCurrentFocusedWidget(lua_State *L)
 
     // static Widget* getCurrentFocusedWidget()
     cocos2d::ui::Widget *ret = (cocos2d::ui::Widget *)cocos2d::ui::Widget::getCurrentFocusedWidget();
-    int num_ret = olua_push_cppobj<cocos2d::ui::Widget>(L, ret, "ccui.Widget");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Widget");
 
     return num_ret;
 }
@@ -373,7 +373,7 @@ static int _cocos2d_ui_Widget_getLayoutParameter(lua_State *L)
 
     // LayoutParameter* getLayoutParameter()
     cocos2d::ui::LayoutParameter *ret = (cocos2d::ui::LayoutParameter *)self->getLayoutParameter();
-    int num_ret = olua_push_cppobj<cocos2d::ui::LayoutParameter>(L, ret, "ccui.LayoutParameter");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.LayoutParameter");
 
     return num_ret;
 }
@@ -553,7 +553,7 @@ static int _cocos2d_ui_Widget_getVirtualRenderer(lua_State *L)
 
     // @ref(map protectedChildren) Node* getVirtualRenderer()
     cocos2d::Node *ret = (cocos2d::Node *)self->getVirtualRenderer();
-    int num_ret = olua_push_cppobj<cocos2d::Node>(L, ret, "cc.Node");
+    int num_ret = olua_push_cppobj(L, ret, "cc.Node");
 
     // inject code after call
     olua_mapref(L, 1, "protectedChildren", -1);
@@ -1673,7 +1673,7 @@ static int _cocos2d_ui_Helper_seekActionWidgetByActionTag(lua_State *L)
 
     // static Widget* seekActionWidgetByActionTag(Widget* root, int tag)
     cocos2d::ui::Widget *ret = (cocos2d::ui::Widget *)cocos2d::ui::Helper::seekActionWidgetByActionTag(arg1, (int)arg2);
-    int num_ret = olua_push_cppobj<cocos2d::ui::Widget>(L, ret, "ccui.Widget");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Widget");
 
     return num_ret;
 }
@@ -1690,7 +1690,7 @@ static int _cocos2d_ui_Helper_seekWidgetByName(lua_State *L)
 
     // static Widget* seekWidgetByName(Widget* root, const std::string& name)
     cocos2d::ui::Widget *ret = (cocos2d::ui::Widget *)cocos2d::ui::Helper::seekWidgetByName(arg1, arg2);
-    int num_ret = olua_push_cppobj<cocos2d::ui::Widget>(L, ret, "ccui.Widget");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Widget");
 
     return num_ret;
 }
@@ -1707,7 +1707,7 @@ static int _cocos2d_ui_Helper_seekWidgetByTag(lua_State *L)
 
     // static Widget* seekWidgetByTag(Widget* root, int tag)
     cocos2d::ui::Widget *ret = (cocos2d::ui::Widget *)cocos2d::ui::Helper::seekWidgetByTag(arg1, (int)arg2);
-    int num_ret = olua_push_cppobj<cocos2d::ui::Widget>(L, ret, "ccui.Widget");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Widget");
 
     return num_ret;
 }
@@ -1776,7 +1776,7 @@ static int _cocos2d_ui_Scale9Sprite_create1(lua_State *L)
 
     // static Scale9Sprite* create()
     cocos2d::ui::Scale9Sprite *ret = (cocos2d::ui::Scale9Sprite *)cocos2d::ui::Scale9Sprite::create();
-    int num_ret = olua_push_cppobj<cocos2d::ui::Scale9Sprite>(L, ret, "ccui.Scale9Sprite");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Scale9Sprite");
 
     return num_ret;
 }
@@ -1795,7 +1795,7 @@ static int _cocos2d_ui_Scale9Sprite_create2(lua_State *L)
 
     // static Scale9Sprite* create(const std::string& file, const Rect& rect, const Rect& capInsets)
     cocos2d::ui::Scale9Sprite *ret = (cocos2d::ui::Scale9Sprite *)cocos2d::ui::Scale9Sprite::create(arg1, arg2, arg3);
-    int num_ret = olua_push_cppobj<cocos2d::ui::Scale9Sprite>(L, ret, "ccui.Scale9Sprite");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Scale9Sprite");
 
     return num_ret;
 }
@@ -1812,7 +1812,7 @@ static int _cocos2d_ui_Scale9Sprite_create3(lua_State *L)
 
     // static Scale9Sprite* create(const Rect& capInsets, const std::string& file)
     cocos2d::ui::Scale9Sprite *ret = (cocos2d::ui::Scale9Sprite *)cocos2d::ui::Scale9Sprite::create(arg1, arg2);
-    int num_ret = olua_push_cppobj<cocos2d::ui::Scale9Sprite>(L, ret, "ccui.Scale9Sprite");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Scale9Sprite");
 
     return num_ret;
 }
@@ -1829,7 +1829,7 @@ static int _cocos2d_ui_Scale9Sprite_create4(lua_State *L)
 
     // static Scale9Sprite* create(const std::string& file, const Rect& rect)
     cocos2d::ui::Scale9Sprite *ret = (cocos2d::ui::Scale9Sprite *)cocos2d::ui::Scale9Sprite::create(arg1, arg2);
-    int num_ret = olua_push_cppobj<cocos2d::ui::Scale9Sprite>(L, ret, "ccui.Scale9Sprite");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Scale9Sprite");
 
     return num_ret;
 }
@@ -1844,7 +1844,7 @@ static int _cocos2d_ui_Scale9Sprite_create5(lua_State *L)
 
     // static Scale9Sprite* create(const std::string& file)
     cocos2d::ui::Scale9Sprite *ret = (cocos2d::ui::Scale9Sprite *)cocos2d::ui::Scale9Sprite::create(arg1);
-    int num_ret = olua_push_cppobj<cocos2d::ui::Scale9Sprite>(L, ret, "ccui.Scale9Sprite");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Scale9Sprite");
 
     return num_ret;
 }
@@ -1894,7 +1894,7 @@ static int _cocos2d_ui_Scale9Sprite_createWithSpriteFrame1(lua_State *L)
 
     // static Scale9Sprite* createWithSpriteFrame(SpriteFrame* spriteFrame)
     cocos2d::ui::Scale9Sprite *ret = (cocos2d::ui::Scale9Sprite *)cocos2d::ui::Scale9Sprite::createWithSpriteFrame(arg1);
-    int num_ret = olua_push_cppobj<cocos2d::ui::Scale9Sprite>(L, ret, "ccui.Scale9Sprite");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Scale9Sprite");
 
     return num_ret;
 }
@@ -1911,7 +1911,7 @@ static int _cocos2d_ui_Scale9Sprite_createWithSpriteFrame2(lua_State *L)
 
     // static Scale9Sprite* createWithSpriteFrame(SpriteFrame* spriteFrame, const Rect& capInsets)
     cocos2d::ui::Scale9Sprite *ret = (cocos2d::ui::Scale9Sprite *)cocos2d::ui::Scale9Sprite::createWithSpriteFrame(arg1, arg2);
-    int num_ret = olua_push_cppobj<cocos2d::ui::Scale9Sprite>(L, ret, "ccui.Scale9Sprite");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Scale9Sprite");
 
     return num_ret;
 }
@@ -1947,7 +1947,7 @@ static int _cocos2d_ui_Scale9Sprite_createWithSpriteFrameName1(lua_State *L)
 
     // static Scale9Sprite* createWithSpriteFrameName(const std::string& spriteFrameName)
     cocos2d::ui::Scale9Sprite *ret = (cocos2d::ui::Scale9Sprite *)cocos2d::ui::Scale9Sprite::createWithSpriteFrameName(arg1);
-    int num_ret = olua_push_cppobj<cocos2d::ui::Scale9Sprite>(L, ret, "ccui.Scale9Sprite");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Scale9Sprite");
 
     return num_ret;
 }
@@ -1964,7 +1964,7 @@ static int _cocos2d_ui_Scale9Sprite_createWithSpriteFrameName2(lua_State *L)
 
     // static Scale9Sprite* createWithSpriteFrameName(const std::string& spriteFrameName, const Rect& capInsets)
     cocos2d::ui::Scale9Sprite *ret = (cocos2d::ui::Scale9Sprite *)cocos2d::ui::Scale9Sprite::createWithSpriteFrameName(arg1, arg2);
-    int num_ret = olua_push_cppobj<cocos2d::ui::Scale9Sprite>(L, ret, "ccui.Scale9Sprite");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Scale9Sprite");
 
     return num_ret;
 }
@@ -2120,7 +2120,7 @@ static int _cocos2d_ui_Scale9Sprite_getSprite(lua_State *L)
 
     // Sprite* getSprite()
     cocos2d::Sprite *ret = (cocos2d::Sprite *)self->getSprite();
-    int num_ret = olua_push_cppobj<cocos2d::Sprite>(L, ret, "cc.Sprite");
+    int num_ret = olua_push_cppobj(L, ret, "cc.Sprite");
 
     return num_ret;
 }
@@ -2378,7 +2378,7 @@ static int _cocos2d_ui_Scale9Sprite_resizableSpriteWithCapInsets(lua_State *L)
 
     // Scale9Sprite* resizableSpriteWithCapInsets(const Rect& capInsets)
     cocos2d::ui::Scale9Sprite *ret = (cocos2d::ui::Scale9Sprite *)self->resizableSpriteWithCapInsets(arg1);
-    int num_ret = olua_push_cppobj<cocos2d::ui::Scale9Sprite>(L, ret, "ccui.Scale9Sprite");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Scale9Sprite");
 
     return num_ret;
 }
@@ -2707,7 +2707,7 @@ static int _cocos2d_ui_LayoutComponent_bindLayoutComponent(lua_State *L)
 
     // static LayoutComponent* bindLayoutComponent(Node* node)
     cocos2d::ui::LayoutComponent *ret = (cocos2d::ui::LayoutComponent *)cocos2d::ui::LayoutComponent::bindLayoutComponent(arg1);
-    int num_ret = olua_push_cppobj<cocos2d::ui::LayoutComponent>(L, ret, "ccui.LayoutComponent");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.LayoutComponent");
 
     return num_ret;
 }
@@ -2718,7 +2718,7 @@ static int _cocos2d_ui_LayoutComponent_create(lua_State *L)
 
     // static cocos2d::ui::LayoutComponent * create()
     cocos2d::ui::LayoutComponent *ret = (cocos2d::ui::LayoutComponent *)cocos2d::ui::LayoutComponent::create();
-    int num_ret = olua_push_cppobj<cocos2d::ui::LayoutComponent>(L, ret, "ccui.LayoutComponent");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.LayoutComponent");
 
     return num_ret;
 }
@@ -3589,7 +3589,7 @@ static int _cocos2d_ui_LayoutParameter_clone(lua_State *L)
 
     // LayoutParameter* clone()
     cocos2d::ui::LayoutParameter *ret = (cocos2d::ui::LayoutParameter *)self->clone();
-    int num_ret = olua_push_cppobj<cocos2d::ui::LayoutParameter>(L, ret, "ccui.LayoutParameter");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.LayoutParameter");
 
     return num_ret;
 }
@@ -3616,7 +3616,7 @@ static int _cocos2d_ui_LayoutParameter_create(lua_State *L)
 
     // static LayoutParameter* create()
     cocos2d::ui::LayoutParameter *ret = (cocos2d::ui::LayoutParameter *)cocos2d::ui::LayoutParameter::create();
-    int num_ret = olua_push_cppobj<cocos2d::ui::LayoutParameter>(L, ret, "ccui.LayoutParameter");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.LayoutParameter");
 
     return num_ret;
 }
@@ -3631,7 +3631,7 @@ static int _cocos2d_ui_LayoutParameter_createCloneInstance(lua_State *L)
 
     // LayoutParameter* createCloneInstance()
     cocos2d::ui::LayoutParameter *ret = (cocos2d::ui::LayoutParameter *)self->createCloneInstance();
-    int num_ret = olua_push_cppobj<cocos2d::ui::LayoutParameter>(L, ret, "ccui.LayoutParameter");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.LayoutParameter");
 
     return num_ret;
 }
@@ -3724,7 +3724,7 @@ static int _cocos2d_ui_LinearLayoutParameter_create(lua_State *L)
 
     // static LinearLayoutParameter* create()
     cocos2d::ui::LinearLayoutParameter *ret = (cocos2d::ui::LinearLayoutParameter *)cocos2d::ui::LinearLayoutParameter::create();
-    int num_ret = olua_push_cppobj<cocos2d::ui::LinearLayoutParameter>(L, ret, "ccui.LinearLayoutParameter");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.LinearLayoutParameter");
 
     return num_ret;
 }
@@ -3812,7 +3812,7 @@ static int _cocos2d_ui_RelativeLayoutParameter_create(lua_State *L)
 
     // static RelativeLayoutParameter* create()
     cocos2d::ui::RelativeLayoutParameter *ret = (cocos2d::ui::RelativeLayoutParameter *)cocos2d::ui::RelativeLayoutParameter::create();
-    int num_ret = olua_push_cppobj<cocos2d::ui::RelativeLayoutParameter>(L, ret, "ccui.RelativeLayoutParameter");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.RelativeLayoutParameter");
 
     return num_ret;
 }
@@ -3975,7 +3975,7 @@ static int _cocos2d_ui_Layout_create(lua_State *L)
 
     // static Layout* create()
     cocos2d::ui::Layout *ret = (cocos2d::ui::Layout *)cocos2d::ui::Layout::create();
-    int num_ret = olua_push_cppobj<cocos2d::ui::Layout>(L, ret, "ccui.Layout");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Layout");
 
     return num_ret;
 }
@@ -4154,7 +4154,7 @@ static int _cocos2d_ui_Layout_getClippingNode(lua_State *L)
 
     // DrawNode *getClippingNode()
     cocos2d::DrawNode *ret = (cocos2d::DrawNode *)self->getClippingNode();
-    int num_ret = olua_push_cppobj<cocos2d::DrawNode>(L, ret, "cc.DrawNode");
+    int num_ret = olua_push_cppobj(L, ret, "cc.DrawNode");
 
     return num_ret;
 }
@@ -4686,7 +4686,7 @@ static int _cocos2d_ui_HBox_create1(lua_State *L)
 
     // static HBox* create()
     cocos2d::ui::HBox *ret = (cocos2d::ui::HBox *)cocos2d::ui::HBox::create();
-    int num_ret = olua_push_cppobj<cocos2d::ui::HBox>(L, ret, "ccui.HBox");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.HBox");
 
     return num_ret;
 }
@@ -4701,7 +4701,7 @@ static int _cocos2d_ui_HBox_create2(lua_State *L)
 
     // static HBox* create(const Size& size)
     cocos2d::ui::HBox *ret = (cocos2d::ui::HBox *)cocos2d::ui::HBox::create(arg1);
-    int num_ret = olua_push_cppobj<cocos2d::ui::HBox>(L, ret, "ccui.HBox");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.HBox");
 
     return num_ret;
 }
@@ -4760,7 +4760,7 @@ static int _cocos2d_ui_VBox_create1(lua_State *L)
 
     // static VBox* create()
     cocos2d::ui::VBox *ret = (cocos2d::ui::VBox *)cocos2d::ui::VBox::create();
-    int num_ret = olua_push_cppobj<cocos2d::ui::VBox>(L, ret, "ccui.VBox");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.VBox");
 
     return num_ret;
 }
@@ -4775,7 +4775,7 @@ static int _cocos2d_ui_VBox_create2(lua_State *L)
 
     // static VBox* create(const Size& size)
     cocos2d::ui::VBox *ret = (cocos2d::ui::VBox *)cocos2d::ui::VBox::create(arg1);
-    int num_ret = olua_push_cppobj<cocos2d::ui::VBox>(L, ret, "ccui.VBox");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.VBox");
 
     return num_ret;
 }
@@ -4834,7 +4834,7 @@ static int _cocos2d_ui_RelativeBox_create1(lua_State *L)
 
     // static RelativeBox* create()
     cocos2d::ui::RelativeBox *ret = (cocos2d::ui::RelativeBox *)cocos2d::ui::RelativeBox::create();
-    int num_ret = olua_push_cppobj<cocos2d::ui::RelativeBox>(L, ret, "ccui.RelativeBox");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.RelativeBox");
 
     return num_ret;
 }
@@ -4849,7 +4849,7 @@ static int _cocos2d_ui_RelativeBox_create2(lua_State *L)
 
     // static RelativeBox* create(const Size& size)
     cocos2d::ui::RelativeBox *ret = (cocos2d::ui::RelativeBox *)cocos2d::ui::RelativeBox::create(arg1);
-    int num_ret = olua_push_cppobj<cocos2d::ui::RelativeBox>(L, ret, "ccui.RelativeBox");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.RelativeBox");
 
     return num_ret;
 }
@@ -4939,7 +4939,7 @@ static int _cocos2d_experimental_ui_WebView_create(lua_State *L)
 
     // static WebView *create()
     cocos2d::experimental::ui::WebView *ret = (cocos2d::experimental::ui::WebView *)cocos2d::experimental::ui::WebView::create();
-    int num_ret = olua_push_cppobj<cocos2d::experimental::ui::WebView>(L, ret, "ccui.WebView");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.WebView");
 
     return num_ret;
 }
@@ -5563,7 +5563,7 @@ static int _cocos2d_experimental_ui_VideoPlayer_create(lua_State *L)
 
     // static cocos2d::experimental::ui::VideoPlayer * create()
     cocos2d::experimental::ui::VideoPlayer *ret = (cocos2d::experimental::ui::VideoPlayer *)cocos2d::experimental::ui::VideoPlayer::create();
-    int num_ret = olua_push_cppobj<cocos2d::experimental::ui::VideoPlayer>(L, ret, "ccui.VideoPlayer");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.VideoPlayer");
 
     return num_ret;
 }
@@ -5968,7 +5968,7 @@ static int _cocos2d_ui_AbstractCheckButton_getRendererBackground(lua_State *L)
 
     // @ref(map protectedChildren) Sprite* getRendererBackground()
     cocos2d::Sprite *ret = (cocos2d::Sprite *)self->getRendererBackground();
-    int num_ret = olua_push_cppobj<cocos2d::Sprite>(L, ret, "cc.Sprite");
+    int num_ret = olua_push_cppobj(L, ret, "cc.Sprite");
 
     // inject code after call
     olua_mapref(L, 1, "protectedChildren", -1);
@@ -5986,7 +5986,7 @@ static int _cocos2d_ui_AbstractCheckButton_getRendererBackgroundDisabled(lua_Sta
 
     // @ref(map protectedChildren) Sprite* getRendererBackgroundDisabled()
     cocos2d::Sprite *ret = (cocos2d::Sprite *)self->getRendererBackgroundDisabled();
-    int num_ret = olua_push_cppobj<cocos2d::Sprite>(L, ret, "cc.Sprite");
+    int num_ret = olua_push_cppobj(L, ret, "cc.Sprite");
 
     // inject code after call
     olua_mapref(L, 1, "protectedChildren", -1);
@@ -6004,7 +6004,7 @@ static int _cocos2d_ui_AbstractCheckButton_getRendererBackgroundSelected(lua_Sta
 
     // @ref(map protectedChildren) Sprite* getRendererBackgroundSelected()
     cocos2d::Sprite *ret = (cocos2d::Sprite *)self->getRendererBackgroundSelected();
-    int num_ret = olua_push_cppobj<cocos2d::Sprite>(L, ret, "cc.Sprite");
+    int num_ret = olua_push_cppobj(L, ret, "cc.Sprite");
 
     // inject code after call
     olua_mapref(L, 1, "protectedChildren", -1);
@@ -6022,7 +6022,7 @@ static int _cocos2d_ui_AbstractCheckButton_getRendererFrontCross(lua_State *L)
 
     // @ref(map protectedChildren) Sprite* getRendererFrontCross()
     cocos2d::Sprite *ret = (cocos2d::Sprite *)self->getRendererFrontCross();
-    int num_ret = olua_push_cppobj<cocos2d::Sprite>(L, ret, "cc.Sprite");
+    int num_ret = olua_push_cppobj(L, ret, "cc.Sprite");
 
     // inject code after call
     olua_mapref(L, 1, "protectedChildren", -1);
@@ -6040,7 +6040,7 @@ static int _cocos2d_ui_AbstractCheckButton_getRendererFrontCrossDisabled(lua_Sta
 
     // @ref(map protectedChildren) Sprite* getRendererFrontCrossDisabled()
     cocos2d::Sprite *ret = (cocos2d::Sprite *)self->getRendererFrontCrossDisabled();
-    int num_ret = olua_push_cppobj<cocos2d::Sprite>(L, ret, "cc.Sprite");
+    int num_ret = olua_push_cppobj(L, ret, "cc.Sprite");
 
     // inject code after call
     olua_mapref(L, 1, "protectedChildren", -1);
@@ -6314,7 +6314,7 @@ static int _cocos2d_ui_TabHeader_create1(lua_State *L)
 
     // static TabHeader* create()
     cocos2d::ui::TabHeader *ret = (cocos2d::ui::TabHeader *)cocos2d::ui::TabHeader::create();
-    int num_ret = olua_push_cppobj<cocos2d::ui::TabHeader>(L, ret, "ccui.TabHeader");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.TabHeader");
 
     return num_ret;
 }
@@ -6335,7 +6335,7 @@ static int _cocos2d_ui_TabHeader_create2(lua_State *L)
 
     // static TabHeader* create(const std::string& titleStr, const std::string& backGround, const std::string& cross, TextureResType texType = TextureResType::LOCAL)
     cocos2d::ui::TabHeader *ret = (cocos2d::ui::TabHeader *)cocos2d::ui::TabHeader::create(arg1, arg2, arg3, (cocos2d::ui::Widget::TextureResType)arg4);
-    int num_ret = olua_push_cppobj<cocos2d::ui::TabHeader>(L, ret, "ccui.TabHeader");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.TabHeader");
 
     return num_ret;
 }
@@ -6362,7 +6362,7 @@ static int _cocos2d_ui_TabHeader_create3(lua_State *L)
 
     // static TabHeader* create(const std::string& titleStr, const std::string& backGround, const std::string& backGroundSelected, const std::string& cross, const std::string& backGroundDisabled, const std::string& frontCrossDisabled, TextureResType texType = TextureResType::LOCAL)
     cocos2d::ui::TabHeader *ret = (cocos2d::ui::TabHeader *)cocos2d::ui::TabHeader::create(arg1, arg2, arg3, arg4, arg5, arg6, (cocos2d::ui::Widget::TextureResType)arg7);
-    int num_ret = olua_push_cppobj<cocos2d::ui::TabHeader>(L, ret, "ccui.TabHeader");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.TabHeader");
 
     return num_ret;
 }
@@ -6462,7 +6462,7 @@ static int _cocos2d_ui_TabHeader_getTitleRenderer(lua_State *L)
 
     // @ref(map protectedChildren) Label* getTitleRenderer()
     cocos2d::Label *ret = (cocos2d::Label *)self->getTitleRenderer();
-    int num_ret = olua_push_cppobj<cocos2d::Label>(L, ret, "cc.Label");
+    int num_ret = olua_push_cppobj(L, ret, "cc.Label");
 
     // inject code after call
     olua_mapref(L, 1, "protectedChildren", -1);
@@ -6607,7 +6607,7 @@ static int _cocos2d_ui_TabControl_create(lua_State *L)
 
     // static TabControl* create()
     cocos2d::ui::TabControl *ret = (cocos2d::ui::TabControl *)cocos2d::ui::TabControl::create();
-    int num_ret = olua_push_cppobj<cocos2d::ui::TabControl>(L, ret, "ccui.TabControl");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.TabControl");
 
     return num_ret;
 }
@@ -6699,7 +6699,7 @@ static int _cocos2d_ui_TabControl_getTabContainer(lua_State *L)
 
     // @ref(map protectedChildren) Layout* getTabContainer(int index)
     cocos2d::ui::Layout *ret = (cocos2d::ui::Layout *)self->getTabContainer((int)arg1);
-    int num_ret = olua_push_cppobj<cocos2d::ui::Layout>(L, ret, "ccui.Layout");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Layout");
 
     // inject code after call
     olua_mapref(L, 1, "protectedChildren", -1);
@@ -6734,7 +6734,7 @@ static int _cocos2d_ui_TabControl_getTabHeader(lua_State *L)
 
     // @ref(map protectedChildren) TabHeader* getTabHeader(int index)
     cocos2d::ui::TabHeader *ret = (cocos2d::ui::TabHeader *)self->getTabHeader((int)arg1);
-    int num_ret = olua_push_cppobj<cocos2d::ui::TabHeader>(L, ret, "ccui.TabHeader");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.TabHeader");
 
     // inject code after call
     olua_mapref(L, 1, "protectedChildren", -1);
@@ -7105,7 +7105,7 @@ static int _cocos2d_ui_ScrollView_create(lua_State *L)
 
     // static ScrollView* create()
     cocos2d::ui::ScrollView *ret = (cocos2d::ui::ScrollView *)cocos2d::ui::ScrollView::create();
-    int num_ret = olua_push_cppobj<cocos2d::ui::ScrollView>(L, ret, "ccui.ScrollView");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.ScrollView");
 
     return num_ret;
 }
@@ -7135,7 +7135,7 @@ static int _cocos2d_ui_ScrollView_getInnerContainer(lua_State *L)
 
     // @ref(map protectedChildren) Layout* getInnerContainer()
     cocos2d::ui::Layout *ret = (cocos2d::ui::Layout *)self->getInnerContainer();
-    int num_ret = olua_push_cppobj<cocos2d::ui::Layout>(L, ret, "ccui.Layout");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Layout");
 
     // inject code after call
     olua_mapref(L, 1, "protectedChildren", -1);
@@ -8240,7 +8240,7 @@ static int _cocos2d_ui_ListView_create(lua_State *L)
 
     // static ListView* create()
     cocos2d::ui::ListView *ret = (cocos2d::ui::ListView *)cocos2d::ui::ListView::create();
-    int num_ret = olua_push_cppobj<cocos2d::ui::ListView>(L, ret, "ccui.ListView");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.ListView");
 
     return num_ret;
 }
@@ -8270,7 +8270,7 @@ static int _cocos2d_ui_ListView_getBottommostItemInCurrentView(lua_State *L)
 
     // Widget* getBottommostItemInCurrentView()
     cocos2d::ui::Widget *ret = (cocos2d::ui::Widget *)self->getBottommostItemInCurrentView();
-    int num_ret = olua_push_cppobj<cocos2d::ui::Widget>(L, ret, "ccui.Widget");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Widget");
 
     return num_ret;
 }
@@ -8285,7 +8285,7 @@ static int _cocos2d_ui_ListView_getCenterItemInCurrentView(lua_State *L)
 
     // Widget* getCenterItemInCurrentView()
     cocos2d::ui::Widget *ret = (cocos2d::ui::Widget *)self->getCenterItemInCurrentView();
-    int num_ret = olua_push_cppobj<cocos2d::ui::Widget>(L, ret, "ccui.Widget");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Widget");
 
     return num_ret;
 }
@@ -8304,7 +8304,7 @@ static int _cocos2d_ui_ListView_getClosestItemToPosition(lua_State *L)
 
     // Widget* getClosestItemToPosition(const Vec2& targetPosition, const Vec2& itemAnchorPoint)
     cocos2d::ui::Widget *ret = (cocos2d::ui::Widget *)self->getClosestItemToPosition(arg1, arg2);
-    int num_ret = olua_push_cppobj<cocos2d::ui::Widget>(L, ret, "ccui.Widget");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Widget");
 
     return num_ret;
 }
@@ -8323,7 +8323,7 @@ static int _cocos2d_ui_ListView_getClosestItemToPositionInCurrentView(lua_State 
 
     // Widget* getClosestItemToPositionInCurrentView(const Vec2& positionRatioInView, const Vec2& itemAnchorPoint)
     cocos2d::ui::Widget *ret = (cocos2d::ui::Widget *)self->getClosestItemToPositionInCurrentView(arg1, arg2);
-    int num_ret = olua_push_cppobj<cocos2d::ui::Widget>(L, ret, "ccui.Widget");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Widget");
 
     return num_ret;
 }
@@ -8372,7 +8372,7 @@ static int _cocos2d_ui_ListView_getItem(lua_State *L)
 
     // @ref(map children) Widget* getItem(ssize_t index)
     cocos2d::ui::Widget *ret = (cocos2d::ui::Widget *)self->getItem((ssize_t)arg1);
-    int num_ret = olua_push_cppobj<cocos2d::ui::Widget>(L, ret, "ccui.Widget");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Widget");
 
     // inject code after call
     olua_mapref(L, 1, "children", -1);
@@ -8438,7 +8438,7 @@ static int _cocos2d_ui_ListView_getLeftmostItemInCurrentView(lua_State *L)
 
     // Widget* getLeftmostItemInCurrentView()
     cocos2d::ui::Widget *ret = (cocos2d::ui::Widget *)self->getLeftmostItemInCurrentView();
-    int num_ret = olua_push_cppobj<cocos2d::ui::Widget>(L, ret, "ccui.Widget");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Widget");
 
     return num_ret;
 }
@@ -8498,7 +8498,7 @@ static int _cocos2d_ui_ListView_getRightmostItemInCurrentView(lua_State *L)
 
     // Widget* getRightmostItemInCurrentView()
     cocos2d::ui::Widget *ret = (cocos2d::ui::Widget *)self->getRightmostItemInCurrentView();
-    int num_ret = olua_push_cppobj<cocos2d::ui::Widget>(L, ret, "ccui.Widget");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Widget");
 
     return num_ret;
 }
@@ -8543,7 +8543,7 @@ static int _cocos2d_ui_ListView_getTopmostItemInCurrentView(lua_State *L)
 
     // Widget* getTopmostItemInCurrentView()
     cocos2d::ui::Widget *ret = (cocos2d::ui::Widget *)self->getTopmostItemInCurrentView();
-    int num_ret = olua_push_cppobj<cocos2d::ui::Widget>(L, ret, "ccui.Widget");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Widget");
 
     return num_ret;
 }
@@ -9047,7 +9047,7 @@ static int _cocos2d_ui_LoadingBar_create1(lua_State *L)
 
     // static LoadingBar* create()
     cocos2d::ui::LoadingBar *ret = (cocos2d::ui::LoadingBar *)cocos2d::ui::LoadingBar::create();
-    int num_ret = olua_push_cppobj<cocos2d::ui::LoadingBar>(L, ret, "ccui.LoadingBar");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.LoadingBar");
 
     return num_ret;
 }
@@ -9064,7 +9064,7 @@ static int _cocos2d_ui_LoadingBar_create2(lua_State *L)
 
     // static LoadingBar* create(const std::string& textureName, float percentage = 0)
     cocos2d::ui::LoadingBar *ret = (cocos2d::ui::LoadingBar *)cocos2d::ui::LoadingBar::create(arg1, (float)arg2);
-    int num_ret = olua_push_cppobj<cocos2d::ui::LoadingBar>(L, ret, "ccui.LoadingBar");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.LoadingBar");
 
     return num_ret;
 }
@@ -9083,7 +9083,7 @@ static int _cocos2d_ui_LoadingBar_create3(lua_State *L)
 
     // static LoadingBar* create(const std::string& textureName, TextureResType texType, float percentage = 0)
     cocos2d::ui::LoadingBar *ret = (cocos2d::ui::LoadingBar *)cocos2d::ui::LoadingBar::create(arg1, (cocos2d::ui::Widget::TextureResType)arg2, (float)arg3);
-    int num_ret = olua_push_cppobj<cocos2d::ui::LoadingBar>(L, ret, "ccui.LoadingBar");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.LoadingBar");
 
     return num_ret;
 }
@@ -9383,7 +9383,7 @@ static int _cocos2d_ui_PageView_create(lua_State *L)
 
     // static PageView* create()
     cocos2d::ui::PageView *ret = (cocos2d::ui::PageView *)cocos2d::ui::PageView::create();
-    int num_ret = olua_push_cppobj<cocos2d::ui::PageView>(L, ret, "ccui.PageView");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.PageView");
 
     return num_ret;
 }
@@ -10090,7 +10090,7 @@ static int _cocos2d_ui_RichElementText_create(lua_State *L)
 
     // static RichElementText* create(int tag, const Color3B& color, GLubyte opacity, const std::string& text, const std::string& fontName, float fontSize, uint32_t flags=0, const std::string& url="", const Color3B& outlineColor = Color3B::WHITE, int outlineSize = -1, const Color3B& shadowColor = Color3B::BLACK, const cocos2d::Size& shadowOffset = Size(2.0, -2.0), int shadowBlurRadius = 0, const Color3B& glowColor = Color3B::WHITE)
     cocos2d::ui::RichElementText *ret = (cocos2d::ui::RichElementText *)cocos2d::ui::RichElementText::create((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8, arg9, (int)arg10, arg11, arg12, (int)arg13, arg14);
-    int num_ret = olua_push_cppobj<cocos2d::ui::RichElementText>(L, ret, "ccui.RichElementText");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.RichElementText");
 
     return num_ret;
 }
@@ -10170,7 +10170,7 @@ static int _cocos2d_ui_RichElementImage_create(lua_State *L)
 
     // static RichElementImage* create(int tag, const Color3B& color, GLubyte opacity, const std::string& filePath, const std::string& url = "", Widget::TextureResType texType = Widget::TextureResType::LOCAL)
     cocos2d::ui::RichElementImage *ret = (cocos2d::ui::RichElementImage *)cocos2d::ui::RichElementImage::create((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (cocos2d::ui::Widget::TextureResType)arg6);
-    int num_ret = olua_push_cppobj<cocos2d::ui::RichElementImage>(L, ret, "ccui.RichElementImage");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.RichElementImage");
 
     return num_ret;
 }
@@ -10281,7 +10281,7 @@ static int _cocos2d_ui_RichElementCustomNode_create(lua_State *L)
 
     // static RichElementCustomNode* create(int tag, const Color3B& color, GLubyte opacity, Node* customNode)
     cocos2d::ui::RichElementCustomNode *ret = (cocos2d::ui::RichElementCustomNode *)cocos2d::ui::RichElementCustomNode::create((int)arg1, arg2, (GLubyte)arg3, arg4);
-    int num_ret = olua_push_cppobj<cocos2d::ui::RichElementCustomNode>(L, ret, "ccui.RichElementCustomNode");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.RichElementCustomNode");
 
     return num_ret;
 }
@@ -10335,7 +10335,7 @@ static int _cocos2d_ui_RichElementNewLine_create(lua_State *L)
 
     // static RichElementNewLine* create(int tag, const Color3B& color, GLubyte opacity)
     cocos2d::ui::RichElementNewLine *ret = (cocos2d::ui::RichElementNewLine *)cocos2d::ui::RichElementNewLine::create((int)arg1, arg2, (GLubyte)arg3);
-    int num_ret = olua_push_cppobj<cocos2d::ui::RichElementNewLine>(L, ret, "ccui.RichElementNewLine");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.RichElementNewLine");
 
     return num_ret;
 }
@@ -10399,7 +10399,7 @@ static int _cocos2d_ui_RichText_create(lua_State *L)
 
     // static RichText* create()
     cocos2d::ui::RichText *ret = (cocos2d::ui::RichText *)cocos2d::ui::RichText::create();
-    int num_ret = olua_push_cppobj<cocos2d::ui::RichText>(L, ret, "ccui.RichText");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.RichText");
 
     return num_ret;
 }
@@ -10419,7 +10419,7 @@ static int _cocos2d_ui_RichText_createWithXML1(lua_State *L)
 
     // static RichText* createWithXML(const std::string& xml)
     self->initWithXML(arg1);
-    int num_ret = olua_push_cppobj<cocos2d::ui::RichText>(L, ret, "ccui.RichText");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.RichText");
 
     return num_ret;
 }
@@ -10441,7 +10441,7 @@ static int _cocos2d_ui_RichText_createWithXML2(lua_State *L)
 
     // static RichText* createWithXML(const std::string& xml, const ValueMap& defaults)
     self->initWithXML(arg1, arg2);
-    int num_ret = olua_push_cppobj<cocos2d::ui::RichText>(L, ret, "ccui.RichText");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.RichText");
 
     return num_ret;
 }
@@ -10478,7 +10478,7 @@ static int _cocos2d_ui_RichText_createWithXML3(lua_State *L)
 
     // static RichText* createWithXML(const std::string& xml, const ValueMap& defaults, const std::function<void(const std::string& url)>& handleOpenUrl)
     self->initWithXML(arg1, arg2, arg3);
-    int num_ret = olua_push_cppobj<cocos2d::ui::RichText>(L, ret, "ccui.RichText");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.RichText");
 
     return num_ret;
 }
@@ -11377,7 +11377,7 @@ static int _cocos2d_ui_ScrollViewBar_create(lua_State *L)
 
     // static ScrollViewBar* create(ScrollView* parent, ScrollView::Direction direction)
     cocos2d::ui::ScrollViewBar *ret = (cocos2d::ui::ScrollViewBar *)cocos2d::ui::ScrollViewBar::create(arg1, (cocos2d::ui::ScrollView::Direction)arg2);
-    int num_ret = olua_push_cppobj<cocos2d::ui::ScrollViewBar>(L, ret, "ccui.ScrollViewBar");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.ScrollViewBar");
 
     return num_ret;
 }
@@ -11633,7 +11633,7 @@ static int _cocos2d_ui_Slider_create1(lua_State *L)
 
     // static Slider* create()
     cocos2d::ui::Slider *ret = (cocos2d::ui::Slider *)cocos2d::ui::Slider::create();
-    int num_ret = olua_push_cppobj<cocos2d::ui::Slider>(L, ret, "ccui.Slider");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Slider");
 
     return num_ret;
 }
@@ -11652,7 +11652,7 @@ static int _cocos2d_ui_Slider_create2(lua_State *L)
 
     // static Slider* create(const std::string& barTextureName, const std::string& normalBallTextureName, TextureResType resType = TextureResType::LOCAL)
     cocos2d::ui::Slider *ret = (cocos2d::ui::Slider *)cocos2d::ui::Slider::create(arg1, arg2, (cocos2d::ui::Widget::TextureResType)arg3);
-    int num_ret = olua_push_cppobj<cocos2d::ui::Slider>(L, ret, "ccui.Slider");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Slider");
 
     return num_ret;
 }
@@ -11821,7 +11821,7 @@ static int _cocos2d_ui_Slider_getSlidBallDisabledRenderer(lua_State *L)
 
     // @ref(map protectedChildren) Sprite* getSlidBallDisabledRenderer()
     cocos2d::Sprite *ret = (cocos2d::Sprite *)self->getSlidBallDisabledRenderer();
-    int num_ret = olua_push_cppobj<cocos2d::Sprite>(L, ret, "cc.Sprite");
+    int num_ret = olua_push_cppobj(L, ret, "cc.Sprite");
 
     // inject code after call
     olua_mapref(L, 1, "protectedChildren", -1);
@@ -11839,7 +11839,7 @@ static int _cocos2d_ui_Slider_getSlidBallNormalRenderer(lua_State *L)
 
     // @ref(map protectedChildren) Sprite* getSlidBallNormalRenderer()
     cocos2d::Sprite *ret = (cocos2d::Sprite *)self->getSlidBallNormalRenderer();
-    int num_ret = olua_push_cppobj<cocos2d::Sprite>(L, ret, "cc.Sprite");
+    int num_ret = olua_push_cppobj(L, ret, "cc.Sprite");
 
     // inject code after call
     olua_mapref(L, 1, "protectedChildren", -1);
@@ -11857,7 +11857,7 @@ static int _cocos2d_ui_Slider_getSlidBallPressedRenderer(lua_State *L)
 
     // @ref(map protectedChildren) Sprite* getSlidBallPressedRenderer()
     cocos2d::Sprite *ret = (cocos2d::Sprite *)self->getSlidBallPressedRenderer();
-    int num_ret = olua_push_cppobj<cocos2d::Sprite>(L, ret, "cc.Sprite");
+    int num_ret = olua_push_cppobj(L, ret, "cc.Sprite");
 
     // inject code after call
     olua_mapref(L, 1, "protectedChildren", -1);
@@ -11875,7 +11875,7 @@ static int _cocos2d_ui_Slider_getSlidBallRenderer(lua_State *L)
 
     // @ref(map protectedChildren) Node* getSlidBallRenderer()
     cocos2d::Node *ret = (cocos2d::Node *)self->getSlidBallRenderer();
-    int num_ret = olua_push_cppobj<cocos2d::Node>(L, ret, "cc.Node");
+    int num_ret = olua_push_cppobj(L, ret, "cc.Node");
 
     // inject code after call
     olua_mapref(L, 1, "protectedChildren", -1);
@@ -12225,7 +12225,7 @@ static int _cocos2d_ui_Text_create1(lua_State *L)
 
     // static Text* create()
     cocos2d::ui::Text *ret = (cocos2d::ui::Text *)cocos2d::ui::Text::create();
-    int num_ret = olua_push_cppobj<cocos2d::ui::Text>(L, ret, "ccui.Text");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Text");
 
     return num_ret;
 }
@@ -12244,7 +12244,7 @@ static int _cocos2d_ui_Text_create2(lua_State *L)
 
     // static Text* create(const std::string& textContent, const std::string& fontName, float fontSize)
     cocos2d::ui::Text *ret = (cocos2d::ui::Text *)cocos2d::ui::Text::create(arg1, arg2, (float)arg3);
-    int num_ret = olua_push_cppobj<cocos2d::ui::Text>(L, ret, "ccui.Text");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Text");
 
     return num_ret;
 }
@@ -12473,7 +12473,7 @@ static int _cocos2d_ui_Text_getLetter(lua_State *L)
 
     // Sprite * getLetter(int lettetIndex)
     cocos2d::Sprite *ret = (cocos2d::Sprite *)self->getLetter((int)arg1);
-    int num_ret = olua_push_cppobj<cocos2d::Sprite>(L, ret, "cc.Sprite");
+    int num_ret = olua_push_cppobj(L, ret, "cc.Sprite");
 
     return num_ret;
 }
@@ -12908,7 +12908,7 @@ static int _cocos2d_ui_TextAtlas_create1(lua_State *L)
 
     // static TextAtlas* create()
     cocos2d::ui::TextAtlas *ret = (cocos2d::ui::TextAtlas *)cocos2d::ui::TextAtlas::create();
-    int num_ret = olua_push_cppobj<cocos2d::ui::TextAtlas>(L, ret, "ccui.TextAtlas");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.TextAtlas");
 
     return num_ret;
 }
@@ -12931,7 +12931,7 @@ static int _cocos2d_ui_TextAtlas_create2(lua_State *L)
 
     // static TextAtlas* create(const std::string& stringValue, const std::string& charMapFile, int itemWidth, int itemHeight, const std::string& startCharMap)
     cocos2d::ui::TextAtlas *ret = (cocos2d::ui::TextAtlas *)cocos2d::ui::TextAtlas::create(arg1, arg2, (int)arg3, (int)arg4, arg5);
-    int num_ret = olua_push_cppobj<cocos2d::ui::TextAtlas>(L, ret, "ccui.TextAtlas");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.TextAtlas");
 
     return num_ret;
 }
@@ -13065,7 +13065,7 @@ static int _cocos2d_ui_TextBMFont_create1(lua_State *L)
 
     // static TextBMFont* create()
     cocos2d::ui::TextBMFont *ret = (cocos2d::ui::TextBMFont *)cocos2d::ui::TextBMFont::create();
-    int num_ret = olua_push_cppobj<cocos2d::ui::TextBMFont>(L, ret, "ccui.TextBMFont");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.TextBMFont");
 
     return num_ret;
 }
@@ -13082,7 +13082,7 @@ static int _cocos2d_ui_TextBMFont_create2(lua_State *L)
 
     // static TextBMFont* create(const std::string& text, const std::string& filename)
     cocos2d::ui::TextBMFont *ret = (cocos2d::ui::TextBMFont *)cocos2d::ui::TextBMFont::create(arg1, arg2);
-    int num_ret = olua_push_cppobj<cocos2d::ui::TextBMFont>(L, ret, "ccui.TextBMFont");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.TextBMFont");
 
     return num_ret;
 }
@@ -13237,7 +13237,7 @@ static int _cocos2d_ui_UICCTextField_create1(lua_State *L)
 
     // static UICCTextField* create()
     cocos2d::ui::UICCTextField *ret = (cocos2d::ui::UICCTextField *)cocos2d::ui::UICCTextField::create();
-    int num_ret = olua_push_cppobj<cocos2d::ui::UICCTextField>(L, ret, "ccui.UICCTextField");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.UICCTextField");
 
     return num_ret;
 }
@@ -13256,7 +13256,7 @@ static int _cocos2d_ui_UICCTextField_create2(lua_State *L)
 
     // static UICCTextField* create(const std::string& placeholder, const std::string& fontName, float fontSize)
     cocos2d::ui::UICCTextField *ret = (cocos2d::ui::UICCTextField *)cocos2d::ui::UICCTextField::create(arg1, arg2, (float)arg3);
-    int num_ret = olua_push_cppobj<cocos2d::ui::UICCTextField>(L, ret, "ccui.UICCTextField");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.UICCTextField");
 
     return num_ret;
 }
@@ -13713,7 +13713,7 @@ static int _cocos2d_ui_TextField_create1(lua_State *L)
 
     // static TextField* create()
     cocos2d::ui::TextField *ret = (cocos2d::ui::TextField *)cocos2d::ui::TextField::create();
-    int num_ret = olua_push_cppobj<cocos2d::ui::TextField>(L, ret, "ccui.TextField");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.TextField");
 
     return num_ret;
 }
@@ -13732,7 +13732,7 @@ static int _cocos2d_ui_TextField_create2(lua_State *L)
 
     // static TextField* create(const std::string& placeholder, const std::string& fontName, int fontSize)
     cocos2d::ui::TextField *ret = (cocos2d::ui::TextField *)cocos2d::ui::TextField::create(arg1, arg2, (int)arg3);
-    int num_ret = olua_push_cppobj<cocos2d::ui::TextField>(L, ret, "ccui.TextField");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.TextField");
 
     return num_ret;
 }
@@ -14541,7 +14541,7 @@ static int _cocos2d_ui_Button_create1(lua_State *L)
 
     // static Button* create()
     cocos2d::ui::Button *ret = (cocos2d::ui::Button *)cocos2d::ui::Button::create();
-    int num_ret = olua_push_cppobj<cocos2d::ui::Button>(L, ret, "ccui.Button");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Button");
 
     return num_ret;
 }
@@ -14562,7 +14562,7 @@ static int _cocos2d_ui_Button_create2(lua_State *L)
 
     // static Button* create(const std::string& normalImage, const std::string& selectedImage = "", const std::string& disableImage = "", TextureResType texType = TextureResType::LOCAL)
     cocos2d::ui::Button *ret = (cocos2d::ui::Button *)cocos2d::ui::Button::create(arg1, arg2, arg3, (cocos2d::ui::Widget::TextureResType)arg4);
-    int num_ret = olua_push_cppobj<cocos2d::ui::Button>(L, ret, "ccui.Button");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Button");
 
     return num_ret;
 }
@@ -14701,7 +14701,7 @@ static int _cocos2d_ui_Button_getRendererClicked(lua_State *L)
 
     // @ref(map protectedChildren) Scale9Sprite* getRendererClicked()
     cocos2d::ui::Scale9Sprite *ret = (cocos2d::ui::Scale9Sprite *)self->getRendererClicked();
-    int num_ret = olua_push_cppobj<cocos2d::ui::Scale9Sprite>(L, ret, "ccui.Scale9Sprite");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Scale9Sprite");
 
     // inject code after call
     olua_mapref(L, 1, "protectedChildren", -1);
@@ -14719,7 +14719,7 @@ static int _cocos2d_ui_Button_getRendererDisabled(lua_State *L)
 
     // @ref(map protectedChildren) Scale9Sprite* getRendererDisabled()
     cocos2d::ui::Scale9Sprite *ret = (cocos2d::ui::Scale9Sprite *)self->getRendererDisabled();
-    int num_ret = olua_push_cppobj<cocos2d::ui::Scale9Sprite>(L, ret, "ccui.Scale9Sprite");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Scale9Sprite");
 
     // inject code after call
     olua_mapref(L, 1, "protectedChildren", -1);
@@ -14737,7 +14737,7 @@ static int _cocos2d_ui_Button_getRendererNormal(lua_State *L)
 
     // @ref(map protectedChildren) Scale9Sprite* getRendererNormal()
     cocos2d::ui::Scale9Sprite *ret = (cocos2d::ui::Scale9Sprite *)self->getRendererNormal();
-    int num_ret = olua_push_cppobj<cocos2d::ui::Scale9Sprite>(L, ret, "ccui.Scale9Sprite");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Scale9Sprite");
 
     // inject code after call
     olua_mapref(L, 1, "protectedChildren", -1);
@@ -14800,7 +14800,7 @@ static int _cocos2d_ui_Button_getTitleLabel(lua_State *L)
 
     // @ref(map protectedChildren) Label* getTitleLabel()
     cocos2d::Label *ret = (cocos2d::Label *)self->getTitleLabel();
-    int num_ret = olua_push_cppobj<cocos2d::Label>(L, ret, "cc.Label");
+    int num_ret = olua_push_cppobj(L, ret, "cc.Label");
 
     // inject code after call
     olua_mapref(L, 1, "protectedChildren", -1);
@@ -14818,7 +14818,7 @@ static int _cocos2d_ui_Button_getTitleRenderer(lua_State *L)
 
     // @ref(map protectedChildren) Label* getTitleRenderer()
     cocos2d::Label *ret = (cocos2d::Label *)self->getTitleRenderer();
-    int num_ret = olua_push_cppobj<cocos2d::Label>(L, ret, "cc.Label");
+    int num_ret = olua_push_cppobj(L, ret, "cc.Label");
 
     // inject code after call
     olua_mapref(L, 1, "protectedChildren", -1);
@@ -15385,7 +15385,7 @@ static int _cocos2d_ui_CheckBox_create1(lua_State *L)
 
     // static CheckBox* create()
     cocos2d::ui::CheckBox *ret = (cocos2d::ui::CheckBox *)cocos2d::ui::CheckBox::create();
-    int num_ret = olua_push_cppobj<cocos2d::ui::CheckBox>(L, ret, "ccui.CheckBox");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.CheckBox");
 
     return num_ret;
 }
@@ -15410,7 +15410,7 @@ static int _cocos2d_ui_CheckBox_create2(lua_State *L)
 
     // static CheckBox* create(const std::string& backGround, const std::string& backGroundSelected, const std::string& cross, const std::string& backGroundDisabled, const std::string& frontCrossDisabled, TextureResType texType = TextureResType::LOCAL)
     cocos2d::ui::CheckBox *ret = (cocos2d::ui::CheckBox *)cocos2d::ui::CheckBox::create(arg1, arg2, arg3, arg4, arg5, (cocos2d::ui::Widget::TextureResType)arg6);
-    int num_ret = olua_push_cppobj<cocos2d::ui::CheckBox>(L, ret, "ccui.CheckBox");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.CheckBox");
 
     return num_ret;
 }
@@ -15429,7 +15429,7 @@ static int _cocos2d_ui_CheckBox_create3(lua_State *L)
 
     // static CheckBox* create(const std::string& backGround, const std::string& cross, TextureResType texType = TextureResType::LOCAL)
     cocos2d::ui::CheckBox *ret = (cocos2d::ui::CheckBox *)cocos2d::ui::CheckBox::create(arg1, arg2, (cocos2d::ui::Widget::TextureResType)arg3);
-    int num_ret = olua_push_cppobj<cocos2d::ui::CheckBox>(L, ret, "ccui.CheckBox");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.CheckBox");
 
     return num_ret;
 }
@@ -15526,7 +15526,7 @@ static int _cocos2d_ui_RadioButton_create1(lua_State *L)
 
     // static RadioButton* create()
     cocos2d::ui::RadioButton *ret = (cocos2d::ui::RadioButton *)cocos2d::ui::RadioButton::create();
-    int num_ret = olua_push_cppobj<cocos2d::ui::RadioButton>(L, ret, "ccui.RadioButton");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.RadioButton");
 
     return num_ret;
 }
@@ -15551,7 +15551,7 @@ static int _cocos2d_ui_RadioButton_create2(lua_State *L)
 
     // static RadioButton* create(const std::string& backGround, const std::string& backGroundSelected, const std::string& cross, const std::string& backGroundDisabled, const std::string& frontCrossDisabled, TextureResType texType = TextureResType::LOCAL)
     cocos2d::ui::RadioButton *ret = (cocos2d::ui::RadioButton *)cocos2d::ui::RadioButton::create(arg1, arg2, arg3, arg4, arg5, (cocos2d::ui::Widget::TextureResType)arg6);
-    int num_ret = olua_push_cppobj<cocos2d::ui::RadioButton>(L, ret, "ccui.RadioButton");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.RadioButton");
 
     return num_ret;
 }
@@ -15570,7 +15570,7 @@ static int _cocos2d_ui_RadioButton_create3(lua_State *L)
 
     // static RadioButton* create(const std::string& backGround, const std::string& cross, TextureResType texType = TextureResType::LOCAL)
     cocos2d::ui::RadioButton *ret = (cocos2d::ui::RadioButton *)cocos2d::ui::RadioButton::create(arg1, arg2, (cocos2d::ui::Widget::TextureResType)arg3);
-    int num_ret = olua_push_cppobj<cocos2d::ui::RadioButton>(L, ret, "ccui.RadioButton");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.RadioButton");
 
     return num_ret;
 }
@@ -15683,7 +15683,7 @@ static int _cocos2d_ui_RadioButtonGroup_create(lua_State *L)
 
     // static RadioButtonGroup* create()
     cocos2d::ui::RadioButtonGroup *ret = (cocos2d::ui::RadioButtonGroup *)cocos2d::ui::RadioButtonGroup::create();
-    int num_ret = olua_push_cppobj<cocos2d::ui::RadioButtonGroup>(L, ret, "ccui.RadioButtonGroup");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.RadioButtonGroup");
 
     return num_ret;
 }
@@ -15715,7 +15715,7 @@ static int _cocos2d_ui_RadioButtonGroup_getRadioButtonByIndex(lua_State *L)
 
     // RadioButton* getRadioButtonByIndex(int index)
     cocos2d::ui::RadioButton *ret = (cocos2d::ui::RadioButton *)self->getRadioButtonByIndex((int)arg1);
-    int num_ret = olua_push_cppobj<cocos2d::ui::RadioButton>(L, ret, "ccui.RadioButton");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.RadioButton");
 
     return num_ret;
 }
@@ -15929,7 +15929,7 @@ static int _cocos2d_ui_ImageView_create1(lua_State *L)
 
     // static ImageView* create()
     cocos2d::ui::ImageView *ret = (cocos2d::ui::ImageView *)cocos2d::ui::ImageView::create();
-    int num_ret = olua_push_cppobj<cocos2d::ui::ImageView>(L, ret, "ccui.ImageView");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.ImageView");
 
     return num_ret;
 }
@@ -15946,7 +15946,7 @@ static int _cocos2d_ui_ImageView_create2(lua_State *L)
 
     // static ImageView* create(const std::string& imageFileName, TextureResType texType = TextureResType::LOCAL)
     cocos2d::ui::ImageView *ret = (cocos2d::ui::ImageView *)cocos2d::ui::ImageView::create(arg1, (cocos2d::ui::Widget::TextureResType)arg2);
-    int num_ret = olua_push_cppobj<cocos2d::ui::ImageView>(L, ret, "ccui.ImageView");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.ImageView");
 
     return num_ret;
 }
@@ -16258,7 +16258,7 @@ static int _cocos2d_ui_LuaEditBoxDelegate_create(lua_State *L)
 
     // static LuaEditBoxDelegate *create()
     cocos2d::ui::LuaEditBoxDelegate *ret = (cocos2d::ui::LuaEditBoxDelegate *)cocos2d::ui::LuaEditBoxDelegate::create();
-    int num_ret = olua_push_cppobj<cocos2d::ui::LuaEditBoxDelegate>(L, ret, "ccui.LuaEditBoxDelegate");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.LuaEditBoxDelegate");
 
     return num_ret;
 }
@@ -16565,7 +16565,7 @@ static int _cocos2d_ui_EditBox_create1(lua_State *L)
 
     // static EditBox* create(const Size& size, Scale9Sprite* normalSprite, Scale9Sprite* pressedSprite = nullptr, Scale9Sprite* disabledSprite = nullptr)
     cocos2d::ui::EditBox *ret = (cocos2d::ui::EditBox *)cocos2d::ui::EditBox::create(arg1, arg2, arg3, arg4);
-    int num_ret = olua_push_cppobj<cocos2d::ui::EditBox>(L, ret, "ccui.EditBox");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.EditBox");
 
     return num_ret;
 }
@@ -16584,7 +16584,7 @@ static int _cocos2d_ui_EditBox_create2(lua_State *L)
 
     // static EditBox* create(const Size& size, const std::string& normalImage, TextureResType texType)
     cocos2d::ui::EditBox *ret = (cocos2d::ui::EditBox *)cocos2d::ui::EditBox::create(arg1, arg2, (cocos2d::ui::Widget::TextureResType)arg3);
-    int num_ret = olua_push_cppobj<cocos2d::ui::EditBox>(L, ret, "ccui.EditBox");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.EditBox");
 
     return num_ret;
 }
@@ -16607,7 +16607,7 @@ static int _cocos2d_ui_EditBox_create3(lua_State *L)
 
     // static EditBox* create(const Size& size, const std::string& normalImage, const std::string& pressedImage = "", const std::string& disabledImage = "", TextureResType texType = TextureResType::LOCAL)
     cocos2d::ui::EditBox *ret = (cocos2d::ui::EditBox *)cocos2d::ui::EditBox::create(arg1, arg2, arg3, arg4, (cocos2d::ui::Widget::TextureResType)arg5);
-    int num_ret = olua_push_cppobj<cocos2d::ui::EditBox>(L, ret, "ccui.EditBox");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.EditBox");
 
     return num_ret;
 }
@@ -16694,7 +16694,7 @@ static int _cocos2d_ui_EditBox_getDelegate(lua_State *L)
 
     // @ref(single delegate) EditBoxDelegate* getDelegate()
     cocos2d::ui::EditBoxDelegate *ret = (cocos2d::ui::EditBoxDelegate *)self->getDelegate();
-    int num_ret = olua_push_cppobj<cocos2d::ui::EditBoxDelegate>(L, ret, "ccui.EditBoxDelegate");
+    int num_ret = olua_push_cppobj(L, ret, "ccui.EditBoxDelegate");
 
     // inject code after call
     olua_singleref(L, 1, "delegate", -1);

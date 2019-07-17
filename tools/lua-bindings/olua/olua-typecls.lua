@@ -310,7 +310,7 @@ local function parse_func(cls, name, ...)
             fi.LUAFUNC = assert(name)
             fi.CPPFUNC = name
             fi.CPPFUNC_SNIPPET = func_decl
-            fi.FUNC_DECL = '<function snippet>'
+            fi.DECLFUNC = '<function snippet>'
             fi.RET.NUM = 0
             fi.RET.TYPE = olua.typeinfo('void', cls)
             fi.RET.ATTR = {}
@@ -323,7 +323,7 @@ local function parse_func(cls, name, ...)
             fi.CPPFUNC = string.match(str, '[^ ()]+')
             fi.LUAFUNC = name or fi.CPPFUNC
             fi.STATIC = attr.STATIC
-            fi.FUNC_DECL = func_decl
+            fi.DECLFUNC = func_decl
             fi.INJECT = {}
             if string.find(typename, 'std::function<') then
                 local callback = parseCallback(cls, typename, default)
@@ -367,7 +367,7 @@ local function parse_func(cls, name, ...)
                 fi2.RET = copy(fi.RET)
                 fi2.RET.ATTR = copy(fi.RET.ATTR)
                 fi2.ARGS = {}
-                fi2.FUNC_DECL = string.gsub(fi.FUNC_DECL, '@pack *', '')
+                fi2.DECLFUNC = string.gsub(fi.DECLFUNC, '@pack *', '')
                 for i in ipairs(fi.ARGS) do
                     fi2.ARGS[i] = copy(fi.ARGS[i])
                     fi2.ARGS[i].ATTR = copy(fi.ARGS[i].ATTR)
@@ -402,7 +402,7 @@ local function to_prop_func_name(cppfunc, prefix)
     end)
 end
 
-local function parse_prop(cls, name, func_get, func_set)
+local function parseProp(cls, name, func_get, func_set)
     local pi = {}
     pi.PROP_NAME = assert(name)
 
@@ -505,47 +505,23 @@ function olua.typecls(cppcls)
         end
     end
 
-    function cls.inject(cppfunc, ...)
+    function cls.inject(cppfunc, codes)
         local funcs = type(cppfunc) == "string" and {cppfunc} or cppfunc
-        local function join(...)
-            local BEFORES = {}
-            local AFTERS = {}
-            local CALLBACK_BEFORES = {}
-            local CALLBACK_AFTERS = {}
-            for _, v in ipairs({...}) do
-                if v.BEFORE then
-                    BEFORES[#BEFORES + 1] = format(v.BEFORE)
-                end
-                if v.AFTER then
-                    AFTERS[#AFTERS + 1] = format(v.AFTER)
-                end
-                if v.CALLBACK_BEFORE then
-                    CALLBACK_BEFORES[#CALLBACK_BEFORES + 1] = format(v.CALLBACK_BEFORE)
-                end
-                if v.CALLBACK_AFTER then
-                    CALLBACK_AFTERS[#CALLBACK_AFTERS + 1] = format(v.CALLBACK_AFTER)
-                end
-            end
-            return {
-                BEFORE = #BEFORES > 0 and table.concat(BEFORES, '\n') or nil,
-                AFTER = #AFTERS > 0 and table.concat(AFTERS, '\n') or nil,
-                CALLBACK_BEFORE = #CALLBACK_BEFORES > 0 and table.concat(CALLBACK_BEFORES, '\n') or nil,
-                CALLBACK_AFTER = #CALLBACK_AFTERS > 0 and table.concat(CALLBACK_AFTERS, '\n') or nil,
-            }
-        end
-        local codes = join(...)
         local found
-        local function doinject(fi, testname)
+        local function formatCode(code)
+            return code and format(code) or nil
+        end
+        local function applyInject(fi, testname)
             if fi and (fi.CPPFUNC == cppfunc or (testname and fi.LUAFUNC == cppfunc))then
                 found = true
-                assert(not fi.INJECT.BEFORE or fi.INJECT.BEFORE == codes.BEFORE, 'already has inject before')
-                assert(not fi.INJECT.AFTER or fi.INJECT.AFTER == codes.AFTER, 'already has inject after')
-                assert(not fi.INJECT.CALLBACK_BEFORE or fi.INJECT.CALLBACK_BEFORE == codes.CALLBACK_BEFORE, 'already has inject callback before')
-                assert(not fi.INJECT.CALLBACK_AFTER or fi.INJECT.CALLBACK_AFTER == codes.CALLBACK_AFTER, 'already has inject callback after')
-                fi.INJECT.BEFORE = codes.BEFORE
-                fi.INJECT.AFTER = codes.AFTER
-                fi.INJECT.CALLBACK_BEFORE = codes.CALLBACK_BEFORE
-                fi.INJECT.CALLBACK_AFTER = codes.CALLBACK_AFTER
+                assertCond(not fi.INJECT.BEFORE, '%s::%s already has before injection', cls.CPPCLS, cppfunc)
+                assertCond(not fi.INJECT.AFTER, '%s::%s already has after injection', cls.CPPCLS, cppfunc)
+                assertCond(not fi.INJECT.CALLBACK_BEFORE, '%s::%s already has callback before injection', cls.CPPCLS, cppfunc)
+                assertCond(not fi.INJECT.CALLBACK_AFTER, '%s::%s already has callback after injection', cls.CPPCLS, cppfunc)
+                fi.INJECT.BEFORE = formatCode(codes.BEFORE)
+                fi.INJECT.AFTER = formatCode(codes.AFTER)
+                fi.INJECT.CALLBACK_BEFORE = formatCode(codes.CALLBACK_BEFORE)
+                fi.INJECT.CALLBACK_AFTER = formatCode(codes.CALLBACK_AFTER)
             end
         end
 
@@ -553,22 +529,20 @@ function olua.typecls(cppcls)
             cppfunc = v
             for _, arr in ipairs(cls.FUNCS) do
                 for _, fi in ipairs(arr) do
-                    doinject(fi)
+                    applyInject(fi)
                 end
             end
-
             for _, pi in ipairs(cls.PROPS) do
-                doinject(pi.GET)
-                doinject(pi.SET)
+                applyInject(pi.GET)
+                applyInject(pi.SET)
             end
-
             for _, vi in ipairs(cls.VARS) do
-                doinject(vi.GET, true)
-                doinject(vi.SET, true)
+                applyInject(vi.GET, true)
+                applyInject(vi.SET, true)
             end
         end
 
-        assert(found, 'func not found: ' .. cppfunc)
+        assertCond(found, 'function not found: %s::%s', cls.CPPCLS, cppfunc)
     end
 
     function cls.alias(func, aliasname)
@@ -602,14 +576,19 @@ function olua.typecls(cppcls)
         end
     end
 
-    function cls.var(name, var_decl)
-        local var_decl, readonly = string.gsub(var_decl, '@readonly', '')
-        var_decl = string.gsub(var_decl, ';*$', '')
-        local var_decl, static = string.gsub(var_decl, '^ *static *', '')
-        local ARGS = parseArgs(cls, '(' .. var_decl .. ')')
+    function cls.var(name, declstr)
+        local readonly, static
+        local rawstr = declstr
+        declstr, readonly = string.gsub(declstr, '@readonly *', '')
+        declstr = string.gsub(declstr, '[; ]*$', '')
+        declstr, static = string.gsub(declstr, '^ *static *', '')
+
+        local ARGS = parseArgs(cls, '(' .. declstr .. ')')
+        name = name or ARGS[1].VARNAME
+
+        -- variable is callback?
         local CALLBACK_OPT_GET
         local CALLBACK_OPT_SET
-        name = name or ARGS[1].VARNAME
         if ARGS[1].CALLBACK.ARGS then
             CALLBACK_OPT_SET = {
                 TAG_MAKER = 'olua_makecallbacktag("' .. name .. '")',
@@ -620,6 +599,8 @@ function olua.typecls(cppcls)
                 TAG_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
             }
         end
+
+        -- make getter/setter function
         cls.VARS[#cls.VARS + 1] = {
             VARNAME = assert(name),
             GET = {
@@ -627,7 +608,7 @@ function olua.typecls(cppcls)
                 CPPFUNC = 'get_' .. ARGS[1].VARNAME,
                 VARNAME = ARGS[1].VARNAME,
                 INJECT = {},
-                FUNC_DECL = '<function var>',
+                DECLFUNC = rawstr,
                 RET = {
                     NUM = 1,
                     TYPE = ARGS[1].TYPE,
@@ -646,7 +627,7 @@ function olua.typecls(cppcls)
                 VARNAME = ARGS[1].VARNAME,
                 INJECT = {},
                 STATIC = static > 0,
-                FUNC_DECL = '<function var>',
+                DECLFUNC = rawstr,
                 RET = {
                     NUM = 0,
                     TYPE = olua.typeinfo('void', cls),
@@ -664,32 +645,32 @@ function olua.typecls(cppcls)
         end
     end
 
-    function cls.vars(vars_str)
-        for line in string.gmatch(vars_str, '[^\n\r]+') do
-            line = string.gsub(line, '^ *', '')
-            if #line > 0 and not string.find(line, '^ *//') then
-                cls.var(nil, line)
+    function cls.vars(vars)
+        for str in string.gmatch(vars, '[^\n\r]+') do
+            str = string.gsub(str, '^ *', '')
+            if #str > 0 and not string.find(str, '^ *//') then
+                cls.var(nil, str)
             end
         end
     end
 
-    function cls.prop(name, func_get, func_set)
-        assert(not string.find(name, '[^_%w]+'), '"' .. name .. '"')
-        cls.PROPS[#cls.PROPS + 1] = parse_prop(cls, name, func_get, func_set)
+    function cls.prop(name, get, set)
+        assert(not string.find(name, '[^_%w]+'), name)
+        cls.PROPS[#cls.PROPS + 1] = parseProp(cls, name, get, set)
     end
 
-    function cls.props(props_str)
-        for line in string.gmatch(props_str, '[^\n\r]+') do
-            local name = string.match(line, '%w+')
-            if name then
-                cls.prop(name)
+    function cls.props(props)
+        for str in string.gmatch(props, '[^\n\r]+') do
+            str = string.gsub(str, '^ *', '')
+            if #str > 0 and not string.find(str, '^ *//') then
+                cls.prop(string.match(str, '[%w_]+'))
             end
         end
     end
 
     function cls.const(name, value)
         local tv = type(value)
-        assert(not string.find(name, '[^_%w]+'), '"' .. name .. '"')
+        assert(not string.find(name, '[^_%w]+'), name)
         assert(tv == "boolean" or tv == "number" or tv == "string", tv)
         cls.CONSTS[#cls.CONSTS + 1] = {
             CONST_NAME = assert(name),
@@ -706,11 +687,11 @@ function olua.typecls(cppcls)
         }
     end
 
-    function cls.enums(enums_str)
-        for line in string.gmatch(enums_str, '[^\n\r]+') do
-            local name, value = string.match(line, '([^ ]+) *= *([^ ]+)')
+    function cls.enums(enums)
+        for str in string.gmatch(enums, '[^\n\r]+') do
+            local name, value = string.match(str, '([^ ]+) *= *([^ ]+)')
             if not name then
-                name = string.match(line, '[%w:_]+')
+                name = string.match(str, '[%w:_]+')
             elseif not string.find(value, cls.CPPCLS) then
                 value = cls.CPPCLS .. '::' .. value
             end

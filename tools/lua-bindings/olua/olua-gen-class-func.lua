@@ -26,15 +26,12 @@ local function gen_func_args(cls, fi)
         TOTAL_ARGS = TOTAL_ARGS + 1
         idx = idx + 1
         local ti = olua.typeinfo(cls.CPPCLS .. "*")
-        local DECLTYPE = cls.CPPCLS
-        local LUACLS = ti.LUACLS
-        local FUNC_CHECK_VALUE = ti.FUNC_CHECK_VALUE
-        local FUNC_TO_VALUE = ti.FUNC_TO_VALUE
+        olua.nowarning(ti)
         DECL_CHUNK[#DECL_CHUNK + 1] = format([[
-            ${DECLTYPE} *self = nullptr;
+            ${cls.CPPCLS} *self = nullptr;
         ]])
         ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
-            ${FUNC_TO_VALUE}(L, 1, (void **)&self, "${LUACLS}");
+            ${ti.FUNC_TO_VALUE}(L, 1, (void **)&self, "${ti.LUACLS}");
         ]])
     elseif fi.ISVAR then
         TOTAL_ARGS = TOTAL_ARGS + 1
@@ -52,7 +49,7 @@ local function gen_func_args(cls, fi)
         idx = IDX
 
         if ai.TYPE.CPPCLS == 'std::function' then
-            assert(fi.CALLBACK_OPT, fi.FUNC_DECL)
+            assert(fi.CALLBACK_OPT, fi.DECLFUNC)
         end
 
         if ai.TYPE.DECLTYPE ~= ai.TYPE.CPPCLS and not ai.CALLBACK.ARGS then
@@ -304,7 +301,7 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
     local CPPCLS_PATH = olua.topath(cls.CPPCLS)
     local CPPFUNC = fi.CPPFUNC
     local CALLFUNC = CPPFUNC
-    local FUNC_DECL = fi.FUNC_DECL
+    local DECLFUNC = fi.DECLFUNC
     local FUNC_INDEX = funcidx or ""
     local CALLER = "self->"
     local ARGS_BEGIN = "("
@@ -468,7 +465,7 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
 
             ${CALLBACK}
 
-            // ${FUNC_DECL}
+            // ${DECLFUNC}
             ${RET_EXP}${CALLER}${CALLFUNC}${ARGS_BEGIN}${CALLER_ARGS}${ARGS_END};
             ${RET_PUSH}
 

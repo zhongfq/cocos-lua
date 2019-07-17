@@ -70,7 +70,7 @@ static int _cocos2d_EventListenerPhysicsContact_get_onContactBegin(lua_State *L)
     std::string tag = olua_makecallbacktag("onContactBegin");
     olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
 
-    // <function var>
+    // std::function<bool(@temp PhysicsContact& contact)> onContactBegin = nullptr
     std::function<bool(cocos2d::PhysicsContact &)> ret = (std::function<bool(cocos2d::PhysicsContact &)>)self->onContactBegin;
     int num_ret = olua_push_std_function(L, (std::function<bool(cocos2d::PhysicsContact &)>)ret);
 
@@ -115,7 +115,7 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactBegin(lua_State *L)
         arg1 = nullptr;
     }
 
-    // <function var>
+    // std::function<bool(@temp PhysicsContact& contact)> onContactBegin = nullptr
     self->onContactBegin = arg1;
 
     return 0;
@@ -133,7 +133,7 @@ static int _cocos2d_EventListenerPhysicsContact_get_onContactPostSolve(lua_State
     std::string tag = olua_makecallbacktag("onContactPostSolve");
     olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
 
-    // <function var>
+    // std::function<void(@temp PhysicsContact& contact, @temp const PhysicsContactPostSolve& solve)> onContactPostSolve = nullptr
     std::function<void(cocos2d::PhysicsContact &, const cocos2d::PhysicsContactPostSolve &)> ret = (std::function<void(cocos2d::PhysicsContact &, const cocos2d::PhysicsContactPostSolve &)>)self->onContactPostSolve;
     int num_ret = olua_push_std_function(L, (std::function<void(cocos2d::PhysicsContact &, const cocos2d::PhysicsContactPostSolve &)>)ret);
 
@@ -177,7 +177,7 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactPostSolve(lua_State
         arg1 = nullptr;
     }
 
-    // <function var>
+    // std::function<void(@temp PhysicsContact& contact, @temp const PhysicsContactPostSolve& solve)> onContactPostSolve = nullptr
     self->onContactPostSolve = arg1;
 
     return 0;
@@ -195,7 +195,7 @@ static int _cocos2d_EventListenerPhysicsContact_get_onContactPreSolve(lua_State 
     std::string tag = olua_makecallbacktag("onContactPreSolve");
     olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
 
-    // <function var>
+    // std::function<bool(@temp PhysicsContact& contact, @temp PhysicsContactPreSolve& solve)> onContactPreSolve = nullptr
     std::function<bool(cocos2d::PhysicsContact &, cocos2d::PhysicsContactPreSolve &)> ret = (std::function<bool(cocos2d::PhysicsContact &, cocos2d::PhysicsContactPreSolve &)>)self->onContactPreSolve;
     int num_ret = olua_push_std_function(L, (std::function<bool(cocos2d::PhysicsContact &, cocos2d::PhysicsContactPreSolve &)>)ret);
 
@@ -241,7 +241,7 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactPreSolve(lua_State 
         arg1 = nullptr;
     }
 
-    // <function var>
+    // std::function<bool(@temp PhysicsContact& contact, @temp PhysicsContactPreSolve& solve)> onContactPreSolve = nullptr
     self->onContactPreSolve = arg1;
 
     return 0;
@@ -259,7 +259,7 @@ static int _cocos2d_EventListenerPhysicsContact_get_onContactSeparate(lua_State 
     std::string tag = olua_makecallbacktag("onContactSeparate");
     olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
 
-    // <function var>
+    // std::function<void(@temp PhysicsContact& contact)> onContactSeparate = nullptr
     std::function<void(cocos2d::PhysicsContact &)> ret = (std::function<void(cocos2d::PhysicsContact &)>)self->onContactSeparate;
     int num_ret = olua_push_std_function(L, (std::function<void(cocos2d::PhysicsContact &)>)ret);
 
@@ -302,7 +302,7 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactSeparate(lua_State 
         arg1 = nullptr;
     }
 
-    // <function var>
+    // std::function<void(@temp PhysicsContact& contact)> onContactSeparate = nullptr
     self->onContactSeparate = arg1;
 
     return 0;
@@ -4280,7 +4280,7 @@ static int _cocos2d_PhysicsRayCastInfo_get_contact(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsRayCastInfo");
 
-    // <function var>
+    // Vec2 contact
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->contact;
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
@@ -4297,7 +4297,7 @@ static int _cocos2d_PhysicsRayCastInfo_set_contact(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsRayCastInfo");
     auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // <function var>
+    // Vec2 contact
     self->contact = arg1;
 
     return 0;
@@ -4311,7 +4311,7 @@ static int _cocos2d_PhysicsRayCastInfo_get_data(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsRayCastInfo");
 
-    // <function var>
+    // void* data
     void *ret = (void *)self->data;
     int num_ret = olua_push_obj(L, ret, "void *");
 
@@ -4328,7 +4328,7 @@ static int _cocos2d_PhysicsRayCastInfo_set_data(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsRayCastInfo");
     olua_check_obj(L, 2, (void **)&arg1, "void *");
 
-    // <function var>
+    // void* data
     self->data = arg1;
 
     return 0;
@@ -4342,7 +4342,7 @@ static int _cocos2d_PhysicsRayCastInfo_get_end(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsRayCastInfo");
 
-    // <function var>
+    // Vec2 end
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->end;
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
@@ -4359,7 +4359,7 @@ static int _cocos2d_PhysicsRayCastInfo_set_end(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsRayCastInfo");
     auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // <function var>
+    // Vec2 end
     self->end = arg1;
 
     return 0;
@@ -4373,7 +4373,7 @@ static int _cocos2d_PhysicsRayCastInfo_get_fraction(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsRayCastInfo");
 
-    // <function var>
+    // float fraction
     float ret = (float)self->fraction;
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
@@ -4390,7 +4390,7 @@ static int _cocos2d_PhysicsRayCastInfo_set_fraction(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsRayCastInfo");
     olua_check_number(L, 2, &arg1);
 
-    // <function var>
+    // float fraction
     self->fraction = (float)arg1;
 
     return 0;
@@ -4404,7 +4404,7 @@ static int _cocos2d_PhysicsRayCastInfo_get_normal(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsRayCastInfo");
 
-    // <function var>
+    // Vec2 normal
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->normal;
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
@@ -4421,7 +4421,7 @@ static int _cocos2d_PhysicsRayCastInfo_set_normal(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsRayCastInfo");
     auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // <function var>
+    // Vec2 normal
     self->normal = arg1;
 
     return 0;
@@ -4435,7 +4435,7 @@ static int _cocos2d_PhysicsRayCastInfo_get_shape(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsRayCastInfo");
 
-    // <function var>
+    // PhysicsShape* shape
     cocos2d::PhysicsShape *ret = (cocos2d::PhysicsShape *)self->shape;
     int num_ret = olua_push_cppobj<cocos2d::PhysicsShape>(L, ret, "cc.PhysicsShape");
 
@@ -4452,7 +4452,7 @@ static int _cocos2d_PhysicsRayCastInfo_set_shape(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsRayCastInfo");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.PhysicsShape");
 
-    // <function var>
+    // PhysicsShape* shape
     self->shape = arg1;
 
     return 0;
@@ -4466,7 +4466,7 @@ static int _cocos2d_PhysicsRayCastInfo_get_start(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsRayCastInfo");
 
-    // <function var>
+    // Vec2 start
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->start;
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
@@ -4483,7 +4483,7 @@ static int _cocos2d_PhysicsRayCastInfo_set_start(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsRayCastInfo");
     auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // <function var>
+    // Vec2 start
     self->start = arg1;
 
     return 0;

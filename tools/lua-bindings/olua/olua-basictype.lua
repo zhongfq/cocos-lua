@@ -31,7 +31,7 @@ typedef {
         const unsigned char *
         const GLchar *
     ]],
-    DECL_TYPE = 'const char *',
+    DECLTYPE = 'const char *',
     CONV_FUNC = 'olua_$$_string',
 }
 
@@ -72,7 +72,7 @@ typedef {
         double
         GLfloat
     ]],
-    DECL_TYPE = 'lua_Number',
+    DECLTYPE = 'lua_Number',
     CONV_FUNC = 'olua_$$_number',
 }
 
@@ -90,7 +90,7 @@ typedef {
         std::int32_t
         unsigned short
     ]],
-    DECL_TYPE = 'lua_Integer',
+    DECLTYPE = 'lua_Integer',
     CONV_FUNC = 'olua_$$_int',
 }
 
@@ -109,6 +109,6 @@ typedef {
         unsigned int
         unsigned short
     ]],
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
 }

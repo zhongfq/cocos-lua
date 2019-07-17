@@ -213,7 +213,7 @@ local function parseCallback(cls, typename, default)
     local cb_args = parseArgs(cls, cb_args_str)
     local cb_args_decl = {}
     for _, ai in ipairs(cb_args) do
-        cb_args_decl[#cb_args_decl + 1] = ai.FUNC_ARG_DECL_TYPE
+        cb_args_decl[#cb_args_decl + 1] = ai.FUNC_ARG_DECLTYPE
     end
     cb_args_decl = table.concat(cb_args_decl, ", ")
     cb_args_decl = string.format('std::function<%s(%s)>',
@@ -269,9 +269,9 @@ function parseArgs(cls, args_str)
             local callback = parseCallback(cls, typename, default)
             args[#args + 1] = {
                 TYPE = setmetatable({
-                    DECL_TYPE = callback.ARGS_DECL,
+                    DECLTYPE = callback.ARGS_DECL,
                 }, {__index = olua.typeinfo('std::function', cls)}),
-                DECL_TYPE = callback.ARGS_DECL,
+                DECLTYPE = callback.ARGS_DECL,
                 VARNAME = varname,
                 ATTR = attr,
                 CALLBACK = callback,
@@ -279,8 +279,8 @@ function parseArgs(cls, args_str)
         else
             args[#args + 1] = {
                 TYPE = olua.typeinfo(typename, cls),
-                DECL_TYPE = toDecltype(cls, typename, true),
-                FUNC_ARG_DECL_TYPE = toDecltype(cls, typename, false),
+                DECLTYPE = toDecltype(cls, typename, true),
+                FUNC_ARG_DECLTYPE = toDecltype(cls, typename, false),
                 DEFAULT = default,
                 VARNAME = varname,
                 ATTR = attr,
@@ -329,9 +329,9 @@ local function parse_func(cls, name, ...)
                 local callback = parseCallback(cls, typename, default)
                 fi.RET = {
                     TYPE = setmetatable({
-                        DECL_TYPE = callback.ARGS_DECL,
+                        DECLTYPE = callback.ARGS_DECL,
                     }, {__index = olua.typeinfo('std::function', cls)}),
-                    DECL_TYPE = callback.ARGS_DECL,
+                    DECLTYPE = callback.ARGS_DECL,
                     ATTR = attr,
                     NUM = 1,
                     CALLBACK = callback,
@@ -339,18 +339,18 @@ local function parse_func(cls, name, ...)
             else
                 fi.RET.TYPE = olua.typeinfo(typename, cls)
                 fi.RET.NUM = fi.RET.TYPE.CPPCLS == "void" and 0 or 1
-                fi.RET.DECL_TYPE = toDecltype(cls, typename, false)
+                fi.RET.DECLTYPE = toDecltype(cls, typename, false)
                 fi.RET.ATTR = attr
             end
             fi.ARGS, fi.MAX_ARGS = parseArgs(cls, string.sub(str, #fi.CPPFUNC + 1))
 
             do
                 local ARGS_DECL = {}
-                local RET_DECL = fi.RET.SUBTYPE and fi.RET.DECL_TYPE or fi.RET.TYPE.CPPCLS
+                local RET_DECL = fi.RET.SUBTYPE and fi.RET.DECLTYPE or fi.RET.TYPE.CPPCLS
                 local CPPFUNC = fi.CPPFUNC
                 local STATIC = fi.STATIC and "static " or ""
                 for _, v in ipairs(fi.ARGS) do
-                    ARGS_DECL[#ARGS_DECL + 1] = (v.TYPE.SUBTYPE or next(v.CALLBACK)) and v.DECL_TYPE or v.TYPE.CPPCLS
+                    ARGS_DECL[#ARGS_DECL + 1] = (v.TYPE.SUBTYPE or next(v.CALLBACK)) and v.DECLTYPE or v.TYPE.CPPCLS
                 end
                 ARGS_DECL = table.concat(ARGS_DECL, ", ")
 
@@ -631,7 +631,7 @@ function olua.typecls(cppcls)
                 RET = {
                     NUM = 1,
                     TYPE = ARGS[1].TYPE,
-                    DECL_TYPE = ARGS[1].DECL_TYPE,
+                    DECLTYPE = ARGS[1].DECLTYPE,
                     ATTR = {},
                 },
                 STATIC = static > 0,
@@ -743,7 +743,7 @@ local valuetype = {
     ['lua_Unsigned'] = true,
 }
 function olua.isvaluetype(ti)
-    return valuetype[ti.DECL_TYPE]
+    return valuetype[ti.DECLTYPE]
 end
 
 function olua.typedef(typeinfo)
@@ -751,7 +751,7 @@ function olua.typedef(typeinfo)
         local ti = setmetatable({}, {__index = typeinfo})
         tn = prettyTypename(tn)
         ti.CPPCLS = tn
-        ti.DECL_TYPE = ti.DECL_TYPE or tn
+        ti.DECLTYPE = ti.DECLTYPE or tn
         typeinfo_map[tn] = ti
         typeinfo_map['const ' .. tn] = ti
 

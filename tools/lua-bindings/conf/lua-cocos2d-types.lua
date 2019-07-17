@@ -71,7 +71,7 @@ typedef {
 typedef {
     CPPCLS = 'cocos2d::EventListener::ListenerID',
     INIT_VALUE = false,
-    DECL_TYPE = 'std::string',
+    DECLTYPE = 'std::string',
     CONV_FUNC = 'olua_$$_std_string',
 }
 

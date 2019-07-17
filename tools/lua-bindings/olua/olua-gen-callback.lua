@@ -143,7 +143,7 @@ function gen_callback(cls, fi, write)
             PUSH_ARGS[#PUSH_ARGS + 1] = "olua_disable_objpool(L);"
         end
     
-        if v.TYPE.LUACLS and v.TYPE.DECL_TYPE ~= 'lua_Unsigned' then
+        if v.TYPE.LUACLS and v.TYPE.DECLTYPE ~= 'lua_Unsigned' then
             local LUACLS = v.TYPE.LUACLS
             if PUSH_FUNC == "olua_push_cppobj" then
                 local CPPCLS = string.gsub(v.TYPE.CPPCLS, '[ *]*$', '')
@@ -156,16 +156,16 @@ function gen_callback(cls, fi, write)
                 ]])
             end
         elseif v.TYPE.SUBTYPE then
-            local SUBTYPE = assert(v.TYPE.SUBTYPE.LUACLS, v.TYPE.DECL_TYPE)
+            local SUBTYPE = assert(v.TYPE.SUBTYPE.LUACLS, v.TYPE.DECLTYPE)
             PUSH_ARGS[#PUSH_ARGS + 1] = format([[
                 ${PUSH_FUNC}(L, ${ARG_N}, "${SUBTYPE}");
             ]])
         else
             local CAST = ""
-            if v.TYPE.DECL_TYPE ~= v.TYPE.CPPCLS then
-                CAST = string.format("(%s)", v.TYPE.DECL_TYPE)
+            if v.TYPE.DECLTYPE ~= v.TYPE.CPPCLS then
+                CAST = string.format("(%s)", v.TYPE.DECLTYPE)
             elseif not olua.isvaluetype(v.TYPE) then
-                if not string.find(v.TYPE.DECL_TYPE, '*$') then
+                if not string.find(v.TYPE.DECLTYPE, '*$') then
                     CAST = '&'
                 end
             end
@@ -174,10 +174,10 @@ function gen_callback(cls, fi, write)
             ]])
         end
 
-        local DECL_TYPE = v.FUNC_ARG_DECL_TYPE
-        local SPACE = string.find(DECL_TYPE, '[*&]$') and '' or ' '
+        local DECLTYPE = v.FUNC_ARG_DECLTYPE
+        local SPACE = string.find(DECLTYPE, '[*&]$') and '' or ' '
         ARGS[#ARGS + 1] = format([[
-            ${DECL_TYPE}${SPACE}${ARG_N}
+            ${DECLTYPE}${SPACE}${ARG_N}
         ]])
     end
 
@@ -200,16 +200,16 @@ function gen_callback(cls, fi, write)
     end
 
     if ai.CALLBACK.RET.CPPCLS ~= "void" then
-        local DECL_TYPE = ai.CALLBACK.RET.DECL_TYPE
+        local DECLTYPE = ai.CALLBACK.RET.DECLTYPE
         local INIT_VALUE = ai.CALLBACK.RET.INIT_VALUE
         local FUNC_CHECK_VALUE = ai.CALLBACK.RET.FUNC_CHECK_VALUE
         if INIT_VALUE then
             RESULT_DECL = format([[
-                ${DECL_TYPE} ret = ${INIT_VALUE};
+                ${DECLTYPE} ret = ${INIT_VALUE};
             ]])
         else
              RESULT_DECL = format([[
-                ${DECL_TYPE} ret;
+                ${DECLTYPE} ret;
             ]])
         end
         if ai.CALLBACK.RET.LUACLS then

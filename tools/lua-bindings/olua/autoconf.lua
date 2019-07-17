@@ -184,7 +184,7 @@ function M:writeTypedef()
         file:write(format([[
             typedef {
                 CPPCLS = '${CPPCLS}',
-                DECL_TYPE = 'lua_Unsigned',
+                DECLTYPE = 'lua_Unsigned',
                 CONV_FUNC = 'olua_$$_uint',
                 LUACLS = '${LUACLS}',
             }

@@ -23,147 +23,147 @@ typedef {
 
 typedef {
     CPPCLS = 'fairygui::AutoSizeType',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'fui.AutoSizeType',
 }
 
 typedef {
     CPPCLS = 'fairygui::ButtonMode',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'fui.ButtonMode',
 }
 
 typedef {
     CPPCLS = 'fairygui::ChildrenRenderOrder',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'fui.ChildrenRenderOrder',
 }
 
 typedef {
     CPPCLS = 'fairygui::EaseType',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'fui.EaseType',
 }
 
 typedef {
     CPPCLS = 'fairygui::FillMethod',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'fui.FillMethod',
 }
 
 typedef {
     CPPCLS = 'fairygui::FillOrigin',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'fui.FillOrigin',
 }
 
 typedef {
     CPPCLS = 'fairygui::FlipType',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'fui.FlipType',
 }
 
 typedef {
     CPPCLS = 'fairygui::GroupLayoutType',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'fui.GroupLayoutType',
 }
 
 typedef {
     CPPCLS = 'fairygui::ListLayoutType',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'fui.ListLayoutType',
 }
 
 typedef {
     CPPCLS = 'fairygui::ListSelectionMode',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'fui.ListSelectionMode',
 }
 
 typedef {
     CPPCLS = 'fairygui::LoaderFillType',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'fui.LoaderFillType',
 }
 
 typedef {
     CPPCLS = 'fairygui::ObjectType',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'fui.ObjectType',
 }
 
 typedef {
     CPPCLS = 'fairygui::OverflowType',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'fui.OverflowType',
 }
 
 typedef {
     CPPCLS = 'fairygui::PackageItemType',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'fui.PackageItemType',
 }
 
 typedef {
     CPPCLS = 'fairygui::PopupDirection',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'fui.PopupDirection',
 }
 
 typedef {
     CPPCLS = 'fairygui::ProgressTitleType',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'fui.ProgressTitleType',
 }
 
 typedef {
     CPPCLS = 'fairygui::RelationType',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'fui.RelationType',
 }
 
 typedef {
     CPPCLS = 'fairygui::ScrollBarDisplayType',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'fui.ScrollBarDisplayType',
 }
 
 typedef {
     CPPCLS = 'fairygui::ScrollType',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'fui.ScrollType',
 }
 
 typedef {
     CPPCLS = 'fairygui::TransitionActionType',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'fui.TransitionActionType',
 }
 
 typedef {
     CPPCLS = 'fairygui::TweenPropType',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'fui.TweenPropType',
 }

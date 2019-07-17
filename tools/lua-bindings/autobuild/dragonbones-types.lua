@@ -5,35 +5,35 @@ olua.nowarning(typedef)
 
 typedef {
     CPPCLS = 'dragonBones::ActionType',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'db.ActionType',
 }
 
 typedef {
     CPPCLS = 'dragonBones::AnimationFadeOutMode',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'db.AnimationFadeOutMode',
 }
 
 typedef {
     CPPCLS = 'dragonBones::ArmatureType',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'db.ArmatureType',
 }
 
 typedef {
     CPPCLS = 'dragonBones::DisplayType',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'db.DisplayType',
 }
 
 typedef {
     CPPCLS = 'dragonBones::OffsetMode',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'db.OffsetMode',
 }

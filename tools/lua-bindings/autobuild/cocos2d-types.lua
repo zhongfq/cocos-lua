@@ -74,7 +74,7 @@ typedef {
 typedef {
     CONV_FUNC = 'olua_$$_std_string',
     CPPCLS = 'cocos2d::EventListener::ListenerID',
-    DECL_TYPE = 'std::string',
+    DECLTYPE = 'std::string',
     INIT_VALUE = false,
 }
 
@@ -200,224 +200,224 @@ typedef {
 
 typedef {
     CPPCLS = 'ResolutionPolicy',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'cc.ResolutionPolicy',
 }
 
 typedef {
     CPPCLS = 'cocos2d::ApplicationProtocol::Platform',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'cc.ApplicationProtocol.Platform',
 }
 
 typedef {
     CPPCLS = 'cocos2d::Camera::Type',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'cc.Camera.Type',
 }
 
 typedef {
     CPPCLS = 'cocos2d::CameraBackgroundBrush::BrushType',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'cc.CameraBackgroundBrush.BrushType',
 }
 
 typedef {
     CPPCLS = 'cocos2d::CameraFlag',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'cc.CameraFlag',
 }
 
 typedef {
     CPPCLS = 'cocos2d::Controller::Key',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'cc.Controller.Key',
 }
 
 typedef {
     CPPCLS = 'cocos2d::Director::Projection',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'cc.Director.Projection',
 }
 
 typedef {
     CPPCLS = 'cocos2d::Event::Type',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'cc.Event.Type',
 }
 
 typedef {
     CPPCLS = 'cocos2d::EventController::ControllerEventType',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'cc.EventController.ControllerEventType',
 }
 
 typedef {
     CPPCLS = 'cocos2d::EventKeyboard::KeyCode',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'cc.EventKeyboard.KeyCode',
 }
 
 typedef {
     CPPCLS = 'cocos2d::EventListener::Type',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'cc.EventListener.Type',
 }
 
 typedef {
     CPPCLS = 'cocos2d::EventMouse::MouseButton',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'cc.EventMouse.MouseButton',
 }
 
 typedef {
     CPPCLS = 'cocos2d::EventMouse::MouseEventType',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'cc.EventMouse.MouseEventType',
 }
 
 typedef {
     CPPCLS = 'cocos2d::EventTouch::EventCode',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'cc.EventTouch.EventCode',
 }
 
 typedef {
     CPPCLS = 'cocos2d::GlyphCollection',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'cc.GlyphCollection',
 }
 
 typedef {
     CPPCLS = 'cocos2d::Image::Format',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'cc.Image.Format',
 }
 
 typedef {
     CPPCLS = 'cocos2d::Label::LabelType',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'cc.Label.LabelType',
 }
 
 typedef {
     CPPCLS = 'cocos2d::Label::Overflow',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'cc.Label.Overflow',
 }
 
 typedef {
     CPPCLS = 'cocos2d::LabelEffect',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'cc.LabelEffect',
 }
 
 typedef {
     CPPCLS = 'cocos2d::LanguageType',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'cc.LanguageType',
 }
 
 typedef {
     CPPCLS = 'cocos2d::LightFlag',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'cc.LightFlag',
 }
 
 typedef {
     CPPCLS = 'cocos2d::LightType',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'cc.LightType',
 }
 
 typedef {
     CPPCLS = 'cocos2d::MATRIX_STACK_TYPE',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'cc.MATRIX_STACK_TYPE',
 }
 
 typedef {
     CPPCLS = 'cocos2d::ParticleSystem::Mode',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'cc.ParticleSystem.Mode',
 }
 
 typedef {
     CPPCLS = 'cocos2d::ParticleSystem::PositionType',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'cc.ParticleSystem.PositionType',
 }
 
 typedef {
     CPPCLS = 'cocos2d::ProgressTimer::Type',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'cc.ProgressTimer.Type',
 }
 
 typedef {
     CPPCLS = 'cocos2d::TextHAlignment',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'cc.TextHAlignment',
 }
 
 typedef {
     CPPCLS = 'cocos2d::TextVAlignment',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'cc.TextVAlignment',
 }
 
 typedef {
     CPPCLS = 'cocos2d::Texture2D::PixelFormat',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'cc.Texture2D.PixelFormat',
 }
 
 typedef {
     CPPCLS = 'cocos2d::Touch::DispatchMode',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'cc.Touch.DispatchMode',
 }
 
 typedef {
     CPPCLS = 'cocos2d::TransitionScene::Orientation',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'cc.TransitionScene.Orientation',
 }
 
 typedef {
     CPPCLS = 'cocos2d::experimental::AudioEngine::AudioState',
-    DECL_TYPE = 'lua_Unsigned',
+    DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'cc.AudioEngine.AudioState',
 }

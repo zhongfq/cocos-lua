@@ -77,13 +77,13 @@ local function gen_push_func(cv, write)
         local VARNAME = pi.VARNAME
         local PUSH_FUNC
         local isbase = true
-        local DECL_TYPE = ""
-        if pi.TYPE.DECL_TYPE == 'lua_Number' then
+        local DECLTYPE = ""
+        if pi.TYPE.DECLTYPE == 'lua_Number' then
             PUSH_FUNC = 'olua_setfieldnumber'
-        elseif pi.TYPE.DECL_TYPE == 'lua_Integer'
-            or pi.TYPE.DECL_TYPE == 'lua_Unsigned' then
+        elseif pi.TYPE.DECLTYPE == 'lua_Integer'
+            or pi.TYPE.DECLTYPE == 'lua_Unsigned' then
             PUSH_FUNC = 'olua_setfieldinteger'
-            DECL_TYPE = '(' .. pi.TYPE.DECL_TYPE .. ')'
+            DECLTYPE = '(' .. pi.TYPE.DECLTYPE .. ')'
         elseif pi.TYPE.CPPCLS == 'std::string' then
             PUSH_FUNC = 'olua_setfieldstring'
             VARNAME = VARNAME .. '.c_str()'
@@ -98,7 +98,7 @@ local function gen_push_func(cv, write)
         end
         if isbase then
             ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
-                ${PUSH_FUNC}(L, -1, "${LUANAME}", ${DECL_TYPE}value->${VARNAME});
+                ${PUSH_FUNC}(L, -1, "${LUANAME}", ${DECLTYPE}value->${VARNAME});
             ]])
         else
             ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
@@ -138,10 +138,10 @@ local function gen_check_func(cv, write)
         local CHECK_FUNC
         local isbase = true
         local INIT_VALUE = pi.TYPE.INIT_VALUE
-        if pi.TYPE.DECL_TYPE == 'lua_Number' then
+        if pi.TYPE.DECLTYPE == 'lua_Number' then
             CHECK_FUNC = 'olua_checkfieldnumber'
-        elseif pi.TYPE.DECL_TYPE == 'lua_Integer'
-            or pi.TYPE.DECL_TYPE == 'lua_Unsigned' then
+        elseif pi.TYPE.DECLTYPE == 'lua_Integer'
+            or pi.TYPE.DECLTYPE == 'lua_Unsigned' then
             CHECK_FUNC = 'olua_checkfieldinteger'
         elseif pi.TYPE.CPPCLS == 'std::string' then
             CHECK_FUNC = 'olua_checkfieldstring'
@@ -211,10 +211,10 @@ local function gen_opt_func(cv, write)
         local CHECK_FUNC
         local isbase = true
         local INIT_VALUE = pi.TYPE.INIT_VALUE
-        if pi.TYPE.DECL_TYPE == 'lua_Number' then
+        if pi.TYPE.DECLTYPE == 'lua_Number' then
             CHECK_FUNC = 'olua_optfieldnumber'
-        elseif pi.TYPE.DECL_TYPE == 'lua_Integer'
-            or pi.TYPE.DECL_TYPE == 'lua_Unsigned' then
+        elseif pi.TYPE.DECLTYPE == 'lua_Integer'
+            or pi.TYPE.DECLTYPE == 'lua_Unsigned' then
             CHECK_FUNC = 'olua_optfieldinteger'
         elseif pi.TYPE.CPPCLS == 'std::string' then
             CHECK_FUNC = 'olua_optfieldstring'
@@ -272,10 +272,10 @@ local function gen_pack_func(cv, write)
         local CPPCLS = pi.TYPE.CPPCLS
         local ARG_N = i - 1
         local CHECK_FUNC
-        if pi.TYPE.DECL_TYPE == 'lua_Number' then
+        if pi.TYPE.DECLTYPE == 'lua_Number' then
             CHECK_FUNC = 'olua_checknumber'
-        elseif pi.TYPE.DECL_TYPE == 'lua_Integer'
-            or pi.TYPE.DECL_TYPE == 'lua_Unsigned' then
+        elseif pi.TYPE.DECLTYPE == 'lua_Integer'
+            or pi.TYPE.DECLTYPE == 'lua_Unsigned' then
             CHECK_FUNC = 'olua_checkinteger'
         elseif pi.TYPE.CPPCLS == 'std::string' then
             CHECK_FUNC = 'olua_checkstring'
@@ -317,10 +317,10 @@ local function gen_unpack_func(cv, write)
         local CPPCLS = pi.TYPE.CPPCLS
         local ARG_N = i - 1
         local PUSH_FUNC
-        if pi.TYPE.DECL_TYPE == 'lua_Number' then
+        if pi.TYPE.DECLTYPE == 'lua_Number' then
             PUSH_FUNC = 'lua_pushnumber'
-        elseif pi.TYPE.DECL_TYPE == 'lua_Integer'
-            or pi.TYPE.DECL_TYPE == 'lua_Unsigned' then
+        elseif pi.TYPE.DECLTYPE == 'lua_Integer'
+            or pi.TYPE.DECLTYPE == 'lua_Unsigned' then
             PUSH_FUNC = 'lua_pushinteger'
         elseif pi.TYPE.CPPCLS == 'std::string' then
             PUSH_FUNC = 'lua_pushstring'

@@ -160,7 +160,11 @@ function M:writeTypedef()
         writeLine("typedef {")
         for _, p in ipairs(arr) do
             if type(p[2]) == 'string' then
-                writeLine("    %s = '%s',", p[1], p[2])
+                if string.find(p[2], '[\n\r]') then
+                    writeLine("    %s = [[\n%s]],", p[1], p[2])
+                else
+                    writeLine("    %s = '%s',", p[1], p[2])
+                end
             else
                 writeLine("    %s = %s,", p[1], p[2])
             end

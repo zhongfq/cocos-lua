@@ -179,6 +179,18 @@ local function gen_func_args(cls, fi)
     return DECL_CHUNK, ARGS_CHUNK, CALLER_ARGS, TOTAL_ARGS, REF_CHUNK
 end
 
+local function getTypeCast(type)
+    if type.DECLTYPE ~= type.CPPCLS then
+        return string.format("(%s)", type.DECLTYPE)
+    else
+        return ""
+    end
+end
+
+local function getPointerCast(type)
+    return olua.isvaluetype(type) and '' or '&'
+end
+
 local function gen_func_ret(cls, fi)
     local RET_EXP = ""
     local RET_NUM = "0"
@@ -199,75 +211,29 @@ local function gen_func_ret(cls, fi)
             if SUBTYPE.LUACLS then
                 RET_PUSH = format('int num_ret = ${FUNC_PUSH_VALUE}(L, ret, "${SUBTYPE.LUACLS}");')
             else
-                local CAST = ""
+                local ARG_NAME = "ret"
+                local SUBTYPE_CAST = getPointerCast(SUBTYPE) .. getTypeCast(SUBTYPE)
                 local SUBTYPE_PUSH_FUNC = SUBTYPE.FUNC_PUSH_VALUE
-                if SUBTYPE.DECLTYPE ~= SUBTYPE.CPPCLS then
-                    CAST = string.format("(%s)", SUBTYPE.DECLTYPE)
-                end
-                local DECLTYPE_NO_CONST = string.gsub(DECLTYPE, '^const _*', '')
-                local POINT = olua.isvaluetype(fi.RET.TYPE.SUBTYPE) and '' or '&'
-                if SUBTYPE.DECLTYPE == 'lua_Unsigned'
-                    or SUBTYPE.DECLTYPE == 'lua_Number'
-                    or SUBTYPE.CPPCLS == 'bool'
-                    or SUBTYPE.DECLTYPE == 'lua_Integer' then
-                    if fi.RET.TYPE.FN_ITERATOR then
-                        RET_PUSH = format([[
-                            int num_ret = 1;
-                            int num_eles = 1;
-                            lua_createtable(L, (int)ret.size(), 0);
-                            for (auto it : ret) {
-                                ${SUBTYPE_PUSH_FUNC}(L, ${POINT}${CAST}it);
-                                lua_rawseti(L, -2, num_eles++);
-                            }
-                        ]])
-                    else
-                        RET_PUSH = format([[
-                            int num_ret = 1;
-                            int num_eles = 1;
-                            lua_createtable(L, (int)ret.size(), 0);
-                            for (int i = 0, n = (int)ret.size(); i < n; i++) {
-                                ${SUBTYPE_PUSH_FUNC}(L, ${POINT}${CAST}((${DECLTYPE_NO_CONST})ret)[i]);
-                                lua_rawseti(L, -2, num_eles++);
-                            }
-                        ]])
-                    end
-                else
-                    if fi.RET.TYPE.FN_ITERATOR then
-                        RET_PUSH = format([[
-                            int num_ret = 1;
-                            int num_eles = 1;
-                            lua_createtable(L, (int)ret.size(), 0);
-                            for (const auto &it : ret) {
-                                ${SUBTYPE_PUSH_FUNC}(L, ${POINT}${CAST}it);
-                                lua_rawseti(L, -2, num_eles++);
-                            }
-                        ]])
-                    else
-                        RET_PUSH = format([[
-                            int num_ret = 1;
-                            int num_eles = 1;
-                            lua_createtable(L, (int)ret.size(), 0);
-                            for (int i = 0, n = (int)ret.size(); i < n; i++) {
-                                ${SUBTYPE_PUSH_FUNC}(L, ${POINT}${CAST}((${DECLTYPE_NO_CONST})ret)[i]);
-                                lua_rawseti(L, -2, num_eles++);
-                            }
-                        ]])
-                    end
-                end
+                local TYPE_CAST = string.gsub(DECLTYPE, '^const _*', '')
+                local PUSH_VALUETYPE = format(fi.RET.TYPE.PUSH_VALUETYPE)
+                RET_PUSH = format [[
+                    int num_ret = 1;
+                    ${PUSH_VALUETYPE}
+                ]]
             end
         else
             if fi.RET.ATTR.UNPACK then
                 FUNC_PUSH_VALUE = fi.RET.TYPE.FUNC_UNPACK_VALUE
             end
-            local CAST = ""
+            local TYPE_CAST = ""
             if fi.RET.TYPE.DECLTYPE ~= fi.RET.TYPE.CPPCLS then
-                CAST = string.format("(%s)", fi.RET.TYPE.DECLTYPE)
+                TYPE_CAST = string.format("(%s)", fi.RET.TYPE.DECLTYPE)
             elseif not olua.isvaluetype(fi.RET.TYPE) then
                 if not string.find(DECLTYPE, '*$') then
-                    CAST = '&'
+                    TYPE_CAST = '&'
                 end
             end
-            RET_PUSH = format('int num_ret = ${FUNC_PUSH_VALUE}(L, ${CAST}ret);')
+            RET_PUSH = format('int num_ret = ${FUNC_PUSH_VALUE}(L, ${TYPE_CAST}ret);')
         end
 
         if #RET_PUSH > 0 then

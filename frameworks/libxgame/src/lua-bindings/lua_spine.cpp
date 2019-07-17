@@ -3757,11 +3757,11 @@ static int _spine_AttachmentTimeline_getAttachmentNames(lua_State *L)
     // const Vector<String>& getAttachmentNames()
     const spine::Vector<spine::String> &ret = (const spine::Vector<spine::String> &)self->getAttachmentNames();
     int num_ret = 1;
-    int num_eles = 1;
-    lua_createtable(L, (int)ret.size(), 0);
-    for (int i = 0, n = (int)ret.size(); i < n; i++) {
+    int ret_size = (int)ret.size();
+    lua_createtable(L, ret_size, 0);
+    for (int i = 0; i < ret_size; i++) {
         manual_olua_push_spine_String(L, &((spine::Vector<spine::String> &)ret)[i]);
-        lua_rawseti(L, -2, num_eles++);
+        lua_rawseti(L, -2, i + 1);
     }
 
     return num_ret;
@@ -3793,11 +3793,11 @@ static int _spine_AttachmentTimeline_getFrames(lua_State *L)
     // const Vector<float>& getFrames()
     const spine::Vector<float> &ret = (const spine::Vector<float> &)self->getFrames();
     int num_ret = 1;
-    int num_eles = 1;
-    lua_createtable(L, (int)ret.size(), 0);
-    for (int i = 0, n = (int)ret.size(); i < n; i++) {
+    int ret_size = (int)ret.size();
+    lua_createtable(L, ret_size, 0);
+    for (int i = 0; i < ret_size; i++) {
         olua_push_number(L, (lua_Number)((spine::Vector<float> &)ret)[i]);
-        lua_rawseti(L, -2, num_eles++);
+        lua_rawseti(L, -2, i + 1);
     }
 
     return num_ret;
@@ -3864,11 +3864,11 @@ static int _spine_ColorTimeline_getFrames(lua_State *L)
     // Vector<float> &getFrames()
     spine::Vector<float> &ret = (spine::Vector<float> &)self->getFrames();
     int num_ret = 1;
-    int num_eles = 1;
-    lua_createtable(L, (int)ret.size(), 0);
-    for (int i = 0, n = (int)ret.size(); i < n; i++) {
+    int ret_size = (int)ret.size();
+    lua_createtable(L, ret_size, 0);
+    for (int i = 0; i < ret_size; i++) {
         olua_push_number(L, (lua_Number)((spine::Vector<float> &)ret)[i]);
-        lua_rawseti(L, -2, num_eles++);
+        lua_rawseti(L, -2, i + 1);
     }
 
     return num_ret;
@@ -3946,11 +3946,11 @@ static int _spine_DeformTimeline_getFrames(lua_State *L)
     // Vector<float>& getFrames()
     spine::Vector<float> &ret = (spine::Vector<float> &)self->getFrames();
     int num_ret = 1;
-    int num_eles = 1;
-    lua_createtable(L, (int)ret.size(), 0);
-    for (int i = 0, n = (int)ret.size(); i < n; i++) {
+    int ret_size = (int)ret.size();
+    lua_createtable(L, ret_size, 0);
+    for (int i = 0; i < ret_size; i++) {
         olua_push_number(L, (lua_Number)((spine::Vector<float> &)ret)[i]);
-        lua_rawseti(L, -2, num_eles++);
+        lua_rawseti(L, -2, i + 1);
     }
 
     return num_ret;
@@ -4047,11 +4047,11 @@ static int _spine_DrawOrderTimeline_getFrames(lua_State *L)
     // Vector<float>& getFrames()
     spine::Vector<float> &ret = (spine::Vector<float> &)self->getFrames();
     int num_ret = 1;
-    int num_eles = 1;
-    lua_createtable(L, (int)ret.size(), 0);
-    for (int i = 0, n = (int)ret.size(); i < n; i++) {
+    int ret_size = (int)ret.size();
+    lua_createtable(L, ret_size, 0);
+    for (int i = 0; i < ret_size; i++) {
         olua_push_number(L, (lua_Number)((spine::Vector<float> &)ret)[i]);
-        lua_rawseti(L, -2, num_eles++);
+        lua_rawseti(L, -2, i + 1);
     }
 
     return num_ret;
@@ -4097,11 +4097,11 @@ static int _spine_EventTimeline_getFrames(lua_State *L)
     // Vector<float> getFrames()
     spine::Vector<float> ret = (spine::Vector<float>)self->getFrames();
     int num_ret = 1;
-    int num_eles = 1;
-    lua_createtable(L, (int)ret.size(), 0);
-    for (int i = 0, n = (int)ret.size(); i < n; i++) {
+    int ret_size = (int)ret.size();
+    lua_createtable(L, ret_size, 0);
+    for (int i = 0; i < ret_size; i++) {
         olua_push_number(L, (lua_Number)((spine::Vector<float>)ret)[i]);
-        lua_rawseti(L, -2, num_eles++);
+        lua_rawseti(L, -2, i + 1);
     }
 
     return num_ret;
@@ -4227,11 +4227,11 @@ static int _spine_RotateTimeline_getFrames(lua_State *L)
     // Vector<float>& getFrames()
     spine::Vector<float> &ret = (spine::Vector<float> &)self->getFrames();
     int num_ret = 1;
-    int num_eles = 1;
-    lua_createtable(L, (int)ret.size(), 0);
-    for (int i = 0, n = (int)ret.size(); i < n; i++) {
+    int ret_size = (int)ret.size();
+    lua_createtable(L, ret_size, 0);
+    for (int i = 0; i < ret_size; i++) {
         olua_push_number(L, (lua_Number)((spine::Vector<float> &)ret)[i]);
-        lua_rawseti(L, -2, num_eles++);
+        lua_rawseti(L, -2, i + 1);
     }
 
     return num_ret;
@@ -5588,11 +5588,11 @@ static int _spine_Slot_getDeform(lua_State *L)
     // Vector<float> &getDeform()
     spine::Vector<float> &ret = (spine::Vector<float> &)self->getDeform();
     int num_ret = 1;
-    int num_eles = 1;
-    lua_createtable(L, (int)ret.size(), 0);
-    for (int i = 0, n = (int)ret.size(); i < n; i++) {
+    int ret_size = (int)ret.size();
+    lua_createtable(L, ret_size, 0);
+    for (int i = 0; i < ret_size; i++) {
         olua_push_number(L, (lua_Number)((spine::Vector<float> &)ret)[i]);
-        lua_rawseti(L, -2, num_eles++);
+        lua_rawseti(L, -2, i + 1);
     }
 
     return num_ret;
@@ -5800,11 +5800,11 @@ static int _spine_VertexAttachment_getBones(lua_State *L)
     // Vector<size_t>& getBones()
     spine::Vector<size_t> &ret = (spine::Vector<size_t> &)self->getBones();
     int num_ret = 1;
-    int num_eles = 1;
-    lua_createtable(L, (int)ret.size(), 0);
-    for (int i = 0, n = (int)ret.size(); i < n; i++) {
+    int ret_size = (int)ret.size();
+    lua_createtable(L, ret_size, 0);
+    for (int i = 0; i < ret_size; i++) {
         olua_push_uint(L, (lua_Unsigned)((spine::Vector<size_t> &)ret)[i]);
-        lua_rawseti(L, -2, num_eles++);
+        lua_rawseti(L, -2, i + 1);
     }
 
     return num_ret;
@@ -5851,11 +5851,11 @@ static int _spine_VertexAttachment_getVertices(lua_State *L)
     // Vector<float>& getVertices()
     spine::Vector<float> &ret = (spine::Vector<float> &)self->getVertices();
     int num_ret = 1;
-    int num_eles = 1;
-    lua_createtable(L, (int)ret.size(), 0);
-    for (int i = 0, n = (int)ret.size(); i < n; i++) {
+    int ret_size = (int)ret.size();
+    lua_createtable(L, ret_size, 0);
+    for (int i = 0; i < ret_size; i++) {
         olua_push_number(L, (lua_Number)((spine::Vector<float> &)ret)[i]);
-        lua_rawseti(L, -2, num_eles++);
+        lua_rawseti(L, -2, i + 1);
     }
 
     return num_ret;
@@ -6011,11 +6011,11 @@ static int _spine_MeshAttachment_getEdges(lua_State *L)
     // Vector<unsigned short>& getEdges()
     spine::Vector<unsigned short> &ret = (spine::Vector<unsigned short> &)self->getEdges();
     int num_ret = 1;
-    int num_eles = 1;
-    lua_createtable(L, (int)ret.size(), 0);
-    for (int i = 0, n = (int)ret.size(); i < n; i++) {
+    int ret_size = (int)ret.size();
+    lua_createtable(L, ret_size, 0);
+    for (int i = 0; i < ret_size; i++) {
         olua_push_uint(L, (lua_Unsigned)((spine::Vector<unsigned short> &)ret)[i]);
-        lua_rawseti(L, -2, num_eles++);
+        lua_rawseti(L, -2, i + 1);
     }
 
     return num_ret;
@@ -6212,11 +6212,11 @@ static int _spine_MeshAttachment_getRegionUVs(lua_State *L)
     // Vector<float>& getRegionUVs()
     spine::Vector<float> &ret = (spine::Vector<float> &)self->getRegionUVs();
     int num_ret = 1;
-    int num_eles = 1;
-    lua_createtable(L, (int)ret.size(), 0);
-    for (int i = 0, n = (int)ret.size(); i < n; i++) {
+    int ret_size = (int)ret.size();
+    lua_createtable(L, ret_size, 0);
+    for (int i = 0; i < ret_size; i++) {
         olua_push_number(L, (lua_Number)((spine::Vector<float> &)ret)[i]);
-        lua_rawseti(L, -2, num_eles++);
+        lua_rawseti(L, -2, i + 1);
     }
 
     return num_ret;
@@ -6278,11 +6278,11 @@ static int _spine_MeshAttachment_getTriangles(lua_State *L)
     // Vector<unsigned short>& getTriangles()
     spine::Vector<unsigned short> &ret = (spine::Vector<unsigned short> &)self->getTriangles();
     int num_ret = 1;
-    int num_eles = 1;
-    lua_createtable(L, (int)ret.size(), 0);
-    for (int i = 0, n = (int)ret.size(); i < n; i++) {
+    int ret_size = (int)ret.size();
+    lua_createtable(L, ret_size, 0);
+    for (int i = 0; i < ret_size; i++) {
         olua_push_uint(L, (lua_Unsigned)((spine::Vector<unsigned short> &)ret)[i]);
-        lua_rawseti(L, -2, num_eles++);
+        lua_rawseti(L, -2, i + 1);
     }
 
     return num_ret;
@@ -6299,11 +6299,11 @@ static int _spine_MeshAttachment_getUVs(lua_State *L)
     // Vector<float>& getUVs()
     spine::Vector<float> &ret = (spine::Vector<float> &)self->getUVs();
     int num_ret = 1;
-    int num_eles = 1;
-    lua_createtable(L, (int)ret.size(), 0);
-    for (int i = 0, n = (int)ret.size(); i < n; i++) {
+    int ret_size = (int)ret.size();
+    lua_createtable(L, ret_size, 0);
+    for (int i = 0; i < ret_size; i++) {
         olua_push_number(L, (lua_Number)((spine::Vector<float> &)ret)[i]);
-        lua_rawseti(L, -2, num_eles++);
+        lua_rawseti(L, -2, i + 1);
     }
 
     return num_ret;
@@ -6690,11 +6690,11 @@ static int _spine_PathAttachment_getLengths(lua_State *L)
     // Vector<float>& getLengths()
     spine::Vector<float> &ret = (spine::Vector<float> &)self->getLengths();
     int num_ret = 1;
-    int num_eles = 1;
-    lua_createtable(L, (int)ret.size(), 0);
-    for (int i = 0, n = (int)ret.size(); i < n; i++) {
+    int ret_size = (int)ret.size();
+    lua_createtable(L, ret_size, 0);
+    for (int i = 0; i < ret_size; i++) {
         olua_push_number(L, (lua_Number)((spine::Vector<float> &)ret)[i]);
-        lua_rawseti(L, -2, num_eles++);
+        lua_rawseti(L, -2, i + 1);
     }
 
     return num_ret;
@@ -7162,11 +7162,11 @@ static int _spine_RegionAttachment_getOffset(lua_State *L)
     // Vector<float>& getOffset()
     spine::Vector<float> &ret = (spine::Vector<float> &)self->getOffset();
     int num_ret = 1;
-    int num_eles = 1;
-    lua_createtable(L, (int)ret.size(), 0);
-    for (int i = 0, n = (int)ret.size(); i < n; i++) {
+    int ret_size = (int)ret.size();
+    lua_createtable(L, ret_size, 0);
+    for (int i = 0; i < ret_size; i++) {
         olua_push_number(L, (lua_Number)((spine::Vector<float> &)ret)[i]);
-        lua_rawseti(L, -2, num_eles++);
+        lua_rawseti(L, -2, i + 1);
     }
 
     return num_ret;
@@ -7333,11 +7333,11 @@ static int _spine_RegionAttachment_getUVs(lua_State *L)
     // Vector<float>& getUVs()
     spine::Vector<float> &ret = (spine::Vector<float> &)self->getUVs();
     int num_ret = 1;
-    int num_eles = 1;
-    lua_createtable(L, (int)ret.size(), 0);
-    for (int i = 0, n = (int)ret.size(); i < n; i++) {
+    int ret_size = (int)ret.size();
+    lua_createtable(L, ret_size, 0);
+    for (int i = 0; i < ret_size; i++) {
         olua_push_number(L, (lua_Number)((spine::Vector<float> &)ret)[i]);
-        lua_rawseti(L, -2, num_eles++);
+        lua_rawseti(L, -2, i + 1);
     }
 
     return num_ret;

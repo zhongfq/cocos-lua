@@ -11994,11 +11994,11 @@ static int _fairygui_GComboBox_getIcons(lua_State *L)
     // std::vector<std::string>& getIcons()
     std::vector<std::string> &ret = (std::vector<std::string> &)self->getIcons();
     int num_ret = 1;
-    int num_eles = 1;
-    lua_createtable(L, (int)ret.size(), 0);
-    for (const auto &it : ret) {
-        olua_push_std_string(L, it);
-        lua_rawseti(L, -2, num_eles++);
+    int ret_size = (int)ret.size();
+    lua_createtable(L, ret_size, 0);
+    for (int i = 0; i < ret_size; i++) {
+        olua_push_std_string(L, ((std::vector<std::string> &)ret)[i]);
+        lua_rawseti(L, -2, i + 1);
     }
 
     return num_ret;
@@ -12015,11 +12015,11 @@ static int _fairygui_GComboBox_getItems(lua_State *L)
     // std::vector<std::string>& getItems()
     std::vector<std::string> &ret = (std::vector<std::string> &)self->getItems();
     int num_ret = 1;
-    int num_eles = 1;
-    lua_createtable(L, (int)ret.size(), 0);
-    for (const auto &it : ret) {
-        olua_push_std_string(L, it);
-        lua_rawseti(L, -2, num_eles++);
+    int ret_size = (int)ret.size();
+    lua_createtable(L, ret_size, 0);
+    for (int i = 0; i < ret_size; i++) {
+        olua_push_std_string(L, ((std::vector<std::string> &)ret)[i]);
+        lua_rawseti(L, -2, i + 1);
     }
 
     return num_ret;
@@ -12147,11 +12147,11 @@ static int _fairygui_GComboBox_getValues(lua_State *L)
     // std::vector<std::string>& getValues()
     std::vector<std::string> &ret = (std::vector<std::string> &)self->getValues();
     int num_ret = 1;
-    int num_eles = 1;
-    lua_createtable(L, (int)ret.size(), 0);
-    for (const auto &it : ret) {
-        olua_push_std_string(L, it);
-        lua_rawseti(L, -2, num_eles++);
+    int ret_size = (int)ret.size();
+    lua_createtable(L, ret_size, 0);
+    for (int i = 0; i < ret_size; i++) {
+        olua_push_std_string(L, ((std::vector<std::string> &)ret)[i]);
+        lua_rawseti(L, -2, i + 1);
     }
 
     return num_ret;

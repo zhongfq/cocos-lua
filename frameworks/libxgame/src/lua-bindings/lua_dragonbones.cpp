@@ -2242,11 +2242,11 @@ static int _dragonBones_ArmatureData_getAnimationNames(lua_State *L)
     // const std::vector<std::string>& getAnimationNames()
     const std::vector<std::string> &ret = (const std::vector<std::string> &)self->getAnimationNames();
     int num_ret = 1;
-    int num_eles = 1;
-    lua_createtable(L, (int)ret.size(), 0);
-    for (const auto &it : ret) {
-        olua_push_std_string(L, it);
-        lua_rawseti(L, -2, num_eles++);
+    int ret_size = (int)ret.size();
+    lua_createtable(L, ret_size, 0);
+    for (int i = 0; i < ret_size; i++) {
+        olua_push_std_string(L, ((std::vector<std::string> &)ret)[i]);
+        lua_rawseti(L, -2, i + 1);
     }
 
     return num_ret;
@@ -2539,11 +2539,11 @@ static int _dragonBones_ArmatureData_get_animationNames(lua_State *L)
     // std::vector<std::string> animationNames
     std::vector<std::string> ret = (std::vector<std::string>)self->animationNames;
     int num_ret = 1;
-    int num_eles = 1;
-    lua_createtable(L, (int)ret.size(), 0);
-    for (const auto &it : ret) {
-        olua_push_std_string(L, it);
-        lua_rawseti(L, -2, num_eles++);
+    int ret_size = (int)ret.size();
+    lua_createtable(L, ret_size, 0);
+    for (int i = 0; i < ret_size; i++) {
+        olua_push_std_string(L, ((std::vector<std::string>)ret)[i]);
+        lua_rawseti(L, -2, i + 1);
     }
 
     return num_ret;
@@ -4452,11 +4452,11 @@ static int _dragonBones_AnimationData_get_cachedFrames(lua_State *L)
     // std::vector<bool> cachedFrames
     std::vector<bool> ret = (std::vector<bool>)self->cachedFrames;
     int num_ret = 1;
-    int num_eles = 1;
-    lua_createtable(L, (int)ret.size(), 0);
-    for (auto it : ret) {
-        olua_push_bool(L, it);
-        lua_rawseti(L, -2, num_eles++);
+    int ret_size = (int)ret.size();
+    lua_createtable(L, ret_size, 0);
+    for (int i = 0; i < ret_size; i++) {
+        olua_push_bool(L, ((std::vector<bool>)ret)[i]);
+        lua_rawseti(L, -2, i + 1);
     }
 
     return num_ret;
@@ -5151,11 +5151,11 @@ static int _dragonBones_AnimationConfig_get_boneMask(lua_State *L)
     // std::vector<std::string> boneMask
     std::vector<std::string> ret = (std::vector<std::string>)self->boneMask;
     int num_ret = 1;
-    int num_eles = 1;
-    lua_createtable(L, (int)ret.size(), 0);
-    for (const auto &it : ret) {
-        olua_push_std_string(L, it);
-        lua_rawseti(L, -2, num_eles++);
+    int ret_size = (int)ret.size();
+    lua_createtable(L, ret_size, 0);
+    for (int i = 0; i < ret_size; i++) {
+        olua_push_std_string(L, ((std::vector<std::string>)ret)[i]);
+        lua_rawseti(L, -2, i + 1);
     }
 
     return num_ret;
@@ -5741,11 +5741,11 @@ static int _dragonBones_DragonBonesData_getArmatureNames(lua_State *L)
     // const std::vector<std::string>& getArmatureNames()
     const std::vector<std::string> &ret = (const std::vector<std::string> &)self->getArmatureNames();
     int num_ret = 1;
-    int num_eles = 1;
-    lua_createtable(L, (int)ret.size(), 0);
-    for (const auto &it : ret) {
-        olua_push_std_string(L, it);
-        lua_rawseti(L, -2, num_eles++);
+    int ret_size = (int)ret.size();
+    lua_createtable(L, ret_size, 0);
+    for (int i = 0; i < ret_size; i++) {
+        olua_push_std_string(L, ((std::vector<std::string> &)ret)[i]);
+        lua_rawseti(L, -2, i + 1);
     }
 
     return num_ret;
@@ -5773,11 +5773,11 @@ static int _dragonBones_DragonBonesData_get_armatureNames(lua_State *L)
     // std::vector<std::string> armatureNames
     std::vector<std::string> ret = (std::vector<std::string>)self->armatureNames;
     int num_ret = 1;
-    int num_eles = 1;
-    lua_createtable(L, (int)ret.size(), 0);
-    for (const auto &it : ret) {
-        olua_push_std_string(L, it);
-        lua_rawseti(L, -2, num_eles++);
+    int ret_size = (int)ret.size();
+    lua_createtable(L, ret_size, 0);
+    for (int i = 0; i < ret_size; i++) {
+        olua_push_std_string(L, ((std::vector<std::string>)ret)[i]);
+        lua_rawseti(L, -2, i + 1);
     }
 
     return num_ret;
@@ -5850,11 +5850,11 @@ static int _dragonBones_DragonBonesData_get_cachedFrames(lua_State *L)
     // std::vector<float> cachedFrames
     std::vector<float> ret = (std::vector<float>)self->cachedFrames;
     int num_ret = 1;
-    int num_eles = 1;
-    lua_createtable(L, (int)ret.size(), 0);
-    for (auto it : ret) {
-        olua_push_number(L, (lua_Number)it);
-        lua_rawseti(L, -2, num_eles++);
+    int ret_size = (int)ret.size();
+    lua_createtable(L, ret_size, 0);
+    for (int i = 0; i < ret_size; i++) {
+        olua_push_number(L, (lua_Number)((std::vector<float>)ret)[i]);
+        lua_rawseti(L, -2, i + 1);
     }
 
     return num_ret;
@@ -6938,11 +6938,11 @@ static int _dragonBones_Animation_getAnimationNames(lua_State *L)
     // const std::vector<std::string>& getAnimationNames()
     const std::vector<std::string> &ret = (const std::vector<std::string> &)self->getAnimationNames();
     int num_ret = 1;
-    int num_eles = 1;
-    lua_createtable(L, (int)ret.size(), 0);
-    for (const auto &it : ret) {
-        olua_push_std_string(L, it);
-        lua_rawseti(L, -2, num_eles++);
+    int ret_size = (int)ret.size();
+    lua_createtable(L, ret_size, 0);
+    for (int i = 0; i < ret_size; i++) {
+        olua_push_std_string(L, ((std::vector<std::string> &)ret)[i]);
+        lua_rawseti(L, -2, i + 1);
     }
 
     return num_ret;

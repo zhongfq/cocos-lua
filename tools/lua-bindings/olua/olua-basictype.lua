@@ -54,6 +54,14 @@ typedef {
     CONV_FUNC = 'olua_$$_std_set',
     FN_PUSH_BACK = 'insert',
     FN_ITERATOR = true,
+    PUSH_VALUETYPE = [[
+        int ${ARG_NAME}_i = 1;
+        lua_createtable(L, (int)${ARG_NAME}.size(), 0);
+        for (auto it = ${ARG_NAME}.begin(); it != ${ARG_NAME}.end(); ++it) {
+            ${SUBTYPE_PUSH_FUNC}(L, ${SUBTYPE_CAST}(*it));
+            lua_rawseti(L, -2, ${ARG_NAME}_i++);
+        }
+    ]]
 }
 
 typedef {
@@ -64,6 +72,14 @@ typedef {
     FN_RESERVE = 'reserve',
     FN_PUSH_BACK = 'push_back',
     FN_ITERATOR = true,
+    PUSH_VALUETYPE = [[
+        int ${ARG_NAME}_size = (int)${ARG_NAME}.size();
+        lua_createtable(L, ${ARG_NAME}_size, 0);
+        for (int i = 0; i < ${ARG_NAME}_size; i++) {
+            ${SUBTYPE_PUSH_FUNC}(L, ${SUBTYPE_CAST}((${TYPE_CAST})${ARG_NAME})[i]);
+            lua_rawseti(L, -2, i + 1);
+        }
+    ]]
 }
 
 typedef {

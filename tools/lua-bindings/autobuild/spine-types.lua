@@ -26,6 +26,14 @@ typedef {
     CPPCLS = 'spine::Vector',
     INIT_VALUE = false,
     IS_ARRAY = true,
+    PUSH_VALUETYPE = [[
+        int ${ARG_NAME}_size = (int)${ARG_NAME}.size();
+        lua_createtable(L, ${ARG_NAME}_size, 0);
+        for (int i = 0; i < ${ARG_NAME}_size; i++) {
+            ${SUBTYPE_PUSH_FUNC}(L, ${SUBTYPE_CAST}((${TYPE_CAST})${ARG_NAME})[i]);
+            lua_rawseti(L, -2, i + 1);
+        }
+    ]],
 }
 
 typedef {

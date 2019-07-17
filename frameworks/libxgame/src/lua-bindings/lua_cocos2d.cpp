@@ -7803,11 +7803,11 @@ static int _cocos2d_FileUtils_getOriginalSearchPaths(lua_State *L)
     // const std::vector<std::string> getOriginalSearchPaths()
     const std::vector<std::string> ret = (const std::vector<std::string>)self->getOriginalSearchPaths();
     int num_ret = 1;
-    int num_eles = 1;
-    lua_createtable(L, (int)ret.size(), 0);
-    for (const auto &it : ret) {
-        olua_push_std_string(L, it);
-        lua_rawseti(L, -2, num_eles++);
+    int ret_size = (int)ret.size();
+    lua_createtable(L, ret_size, 0);
+    for (int i = 0; i < ret_size; i++) {
+        olua_push_std_string(L, ((std::vector<std::string>)ret)[i]);
+        lua_rawseti(L, -2, i + 1);
     }
 
     return num_ret;
@@ -7824,11 +7824,11 @@ static int _cocos2d_FileUtils_getSearchPaths(lua_State *L)
     // const std::vector<std::string> getSearchPaths()
     const std::vector<std::string> ret = (const std::vector<std::string>)self->getSearchPaths();
     int num_ret = 1;
-    int num_eles = 1;
-    lua_createtable(L, (int)ret.size(), 0);
-    for (const auto &it : ret) {
-        olua_push_std_string(L, it);
-        lua_rawseti(L, -2, num_eles++);
+    int ret_size = (int)ret.size();
+    lua_createtable(L, ret_size, 0);
+    for (int i = 0; i < ret_size; i++) {
+        olua_push_std_string(L, ((std::vector<std::string>)ret)[i]);
+        lua_rawseti(L, -2, i + 1);
     }
 
     return num_ret;
@@ -7845,11 +7845,11 @@ static int _cocos2d_FileUtils_getSearchResolutionsOrder(lua_State *L)
     // const std::vector<std::string> getSearchResolutionsOrder()
     const std::vector<std::string> ret = (const std::vector<std::string>)self->getSearchResolutionsOrder();
     int num_ret = 1;
-    int num_eles = 1;
-    lua_createtable(L, (int)ret.size(), 0);
-    for (const auto &it : ret) {
-        olua_push_std_string(L, it);
-        lua_rawseti(L, -2, num_eles++);
+    int ret_size = (int)ret.size();
+    lua_createtable(L, ret_size, 0);
+    for (int i = 0; i < ret_size; i++) {
+        olua_push_std_string(L, ((std::vector<std::string>)ret)[i]);
+        lua_rawseti(L, -2, i + 1);
     }
 
     return num_ret;
@@ -8036,11 +8036,11 @@ static int _cocos2d_FileUtils_listFiles(lua_State *L)
     // std::vector<std::string> listFiles(const std::string& dirPath)
     std::vector<std::string> ret = (std::vector<std::string>)self->listFiles(arg1);
     int num_ret = 1;
-    int num_eles = 1;
-    lua_createtable(L, (int)ret.size(), 0);
-    for (const auto &it : ret) {
-        olua_push_std_string(L, it);
-        lua_rawseti(L, -2, num_eles++);
+    int ret_size = (int)ret.size();
+    lua_createtable(L, ret_size, 0);
+    for (int i = 0; i < ret_size; i++) {
+        olua_push_std_string(L, ((std::vector<std::string>)ret)[i]);
+        lua_rawseti(L, -2, i + 1);
     }
 
     return num_ret;

@@ -14,6 +14,18 @@ local function gen_snippet_func(cls, fi, write)
     write('')
 end
 
+local function getTypeCast(type, rawtype)
+    if type.DECLTYPE ~= type.CPPCLS then
+        return string.format("(%s)", rawtype and type.CPPCLS or type.DECLTYPE)
+    else
+        return ""
+    end
+end
+
+local function getPointerCast(type)
+    return olua.isvaluetype(type) and '' or '&'
+end
+
 local function gen_func_args(cls, fi)
     local idx = 0
     local DECL_CHUNK = {}
@@ -102,31 +114,12 @@ local function gen_func_args(cls, fi)
                     ${FUNC_CHECK_VALUE}(L, ${ARGN}, ${ARG_NAME}, "${SUB_LUACLS}");
                 ]])
             else
-                local CAST = ""
                 local SUBTYPE_CHECK_FUNC = SUBTYPE.FUNC_CHECK_VALUE
-                local SUBTYPE_DECLTYPE = SUBTYPE.DECLTYPE
-                local RESERVE_CHUNK = ''
-                local FN_PUSH_BACK = ai.TYPE.FN_PUSH_BACK
-                if SUBTYPE.DECLTYPE ~= SUBTYPE.CPPCLS then
-                    CAST = string.format("(%s)", SUBTYPE.CPPCLS)
-                end
-                if ai.TYPE.FN_RESERVE then
-                    local FN_RESERVE = ai.TYPE.FN_RESERVE
-                    RESERVE_CHUNK = format [[
-                        ${ARG_NAME}.${FN_RESERVE}(${ARG_NAME}_total);
-                    ]]
-                end
+                local SUBTYPE_CAST = getTypeCast(SUBTYPE, true)
+                local CHECK_VALUETYPE = format(ai.TYPE.CHECK_VALUETYPE)
                 ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
                     luaL_checktype(L, ${ARGN}, LUA_TTABLE);
-                    size_t ${ARG_NAME}_total = lua_rawlen(L, ${ARGN});
-                    ${RESERVE_CHUNK}
-                    for (int i = 1; i <= ${ARG_NAME}_total; i++) {
-                        ${SUBTYPE_DECLTYPE} obj;
-                        lua_rawgeti(L, ${ARGN}, i);
-                        ${SUBTYPE_CHECK_FUNC}(L, -1, &obj);
-                        ${ARG_NAME}.${FN_PUSH_BACK}(${CAST}obj);
-                        lua_pop(L, 1);
-                    }
+                    ${CHECK_VALUETYPE}
                 ]])
             end
         elseif not ai.CALLBACK.ARGS then
@@ -177,18 +170,6 @@ local function gen_func_args(cls, fi)
     CALLER_ARGS = table.concat(CALLER_ARGS, ", ")
 
     return DECL_CHUNK, ARGS_CHUNK, CALLER_ARGS, TOTAL_ARGS, REF_CHUNK
-end
-
-local function getTypeCast(type)
-    if type.DECLTYPE ~= type.CPPCLS then
-        return string.format("(%s)", type.DECLTYPE)
-    else
-        return ""
-    end
-end
-
-local function getPointerCast(type)
-    return olua.isvaluetype(type) and '' or '&'
 end
 
 local function gen_func_ret(cls, fi)

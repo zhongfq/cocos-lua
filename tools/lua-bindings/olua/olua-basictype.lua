@@ -61,7 +61,17 @@ typedef {
             ${SUBTYPE_PUSH_FUNC}(L, ${SUBTYPE_CAST}(*it));
             lua_rawseti(L, -2, ${ARG_NAME}_i++);
         }
-    ]]
+    ]],
+    CHECK_VALUETYPE = [[
+        size_t ${ARG_NAME}_total = lua_rawlen(L, ${ARGN});
+        for (int i = 1; i <= ${ARG_NAME}_total; i++) {
+            ${SUBTYPE.DECLTYPE} obj;
+            lua_rawgeti(L, ${ARGN}, i);
+            ${SUBTYPE_CHECK_FUNC}(L, -1, &obj);
+            ${ARG_NAME}.insert(${SUBTYPE_CAST}obj);
+            lua_pop(L, 1);
+        }
+    ]],
 }
 
 typedef {
@@ -79,7 +89,18 @@ typedef {
             ${SUBTYPE_PUSH_FUNC}(L, ${SUBTYPE_CAST}((${TYPE_CAST})${ARG_NAME})[i]);
             lua_rawseti(L, -2, i + 1);
         }
-    ]]
+    ]],
+    CHECK_VALUETYPE = [[
+        size_t ${ARG_NAME}_total = lua_rawlen(L, ${ARGN});
+        ${ARG_NAME}.reserve(${ARG_NAME}_total);
+        for (int i = 1; i <= ${ARG_NAME}_total; i++) {
+            ${SUBTYPE.DECLTYPE} obj;
+            lua_rawgeti(L, ${ARGN}, i);
+            ${SUBTYPE_CHECK_FUNC}(L, -1, &obj);
+            ${ARG_NAME}.push_back(${SUBTYPE_CAST}obj);
+            lua_pop(L, 1);
+        }
+    ]],
 }
 
 typedef {

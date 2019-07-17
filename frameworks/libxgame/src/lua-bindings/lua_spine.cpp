@@ -771,11 +771,11 @@ static int _spine_AnimationState_addAnimation(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 4) {
-        if (olua_is_uint(L, 2) && manual_olua_is_spine_String(L, 3) && olua_is_bool(L, 4) && olua_is_number(L, 5)) {
+        if ((olua_is_uint(L, 2)) && (manual_olua_is_spine_String(L, 3)) && (olua_is_bool(L, 4)) && (olua_is_number(L, 5))) {
             return _spine_AnimationState_addAnimation1(L);
         }
 
-        // if (olua_is_uint(L, 2) && olua_is_cppobj(L, 3, "sp.Animation") && olua_is_bool(L, 4) && olua_is_number(L, 5)) {
+        // if ((olua_is_uint(L, 2)) && (olua_is_cppobj(L, 3, "sp.Animation")) && (olua_is_bool(L, 4)) && (olua_is_number(L, 5))) {
             return _spine_AnimationState_addAnimation2(L);
         // }
     }
@@ -973,11 +973,11 @@ static int _spine_AnimationState_setAnimation(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 3) {
-        if (olua_is_uint(L, 2) && manual_olua_is_spine_String(L, 3) && olua_is_bool(L, 4)) {
+        if ((olua_is_uint(L, 2)) && (manual_olua_is_spine_String(L, 3)) && (olua_is_bool(L, 4))) {
             return _spine_AnimationState_setAnimation1(L);
         }
 
-        // if (olua_is_uint(L, 2) && olua_is_cppobj(L, 3, "sp.Animation") && olua_is_bool(L, 4)) {
+        // if ((olua_is_uint(L, 2)) && (olua_is_cppobj(L, 3, "sp.Animation")) && (olua_is_bool(L, 4))) {
             return _spine_AnimationState_setAnimation2(L);
         // }
     }
@@ -1225,11 +1225,11 @@ static int _spine_AnimationStateData_setMix(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 3) {
-        if (manual_olua_is_spine_String(L, 2) && manual_olua_is_spine_String(L, 3) && olua_is_number(L, 4)) {
+        if ((manual_olua_is_spine_String(L, 2)) && (manual_olua_is_spine_String(L, 3)) && (olua_is_number(L, 4))) {
             return _spine_AnimationStateData_setMix1(L);
         }
 
-        // if (olua_is_cppobj(L, 2, "sp.Animation") && olua_is_cppobj(L, 3, "sp.Animation") && olua_is_number(L, 4)) {
+        // if ((olua_is_cppobj(L, 2, "sp.Animation")) && (olua_is_cppobj(L, 3, "sp.Animation")) && (olua_is_number(L, 4))) {
             return _spine_AnimationStateData_setMix2(L);
         // }
     }
@@ -3434,13 +3434,13 @@ static int _spine_SkeletonBounds_containsPoint(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 2) {
-        // if (olua_is_number(L, 2) && olua_is_number(L, 3)) {
+        // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3))) {
             return _spine_SkeletonBounds_containsPoint2(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (olua_is_cppobj(L, 2, "sp.Polygon") && olua_is_number(L, 3) && olua_is_number(L, 4)) {
+        // if ((olua_is_cppobj(L, 2, "sp.Polygon")) && (olua_is_number(L, 3)) && (olua_is_number(L, 4))) {
             return _spine_SkeletonBounds_containsPoint1(L);
         // }
     }
@@ -3550,13 +3550,13 @@ static int _spine_SkeletonBounds_intersectsSegment(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 4) {
-        // if (olua_is_number(L, 2) && olua_is_number(L, 3) && olua_is_number(L, 4) && olua_is_number(L, 5)) {
+        // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_number(L, 5))) {
             return _spine_SkeletonBounds_intersectsSegment1(L);
         // }
     }
 
     if (num_args == 5) {
-        // if (olua_is_cppobj(L, 2, "sp.Polygon") && olua_is_number(L, 3) && olua_is_number(L, 4) && olua_is_number(L, 5) && olua_is_number(L, 6)) {
+        // if ((olua_is_cppobj(L, 2, "sp.Polygon")) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_number(L, 5)) && (olua_is_number(L, 6))) {
             return _spine_SkeletonBounds_intersectsSegment2(L);
         // }
     }
@@ -5393,7 +5393,7 @@ static int _spine_Bone_updateWorldTransform(lua_State *L)
     }
 
     if (num_args == 7) {
-        // if (olua_is_number(L, 2) && olua_is_number(L, 3) && olua_is_number(L, 4) && olua_is_number(L, 5) && olua_is_number(L, 6) && olua_is_number(L, 7) && olua_is_number(L, 8)) {
+        // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_number(L, 5)) && (olua_is_number(L, 6)) && (olua_is_number(L, 7)) && (olua_is_number(L, 8))) {
             return _spine_Bone_updateWorldTransform2(L);
         // }
     }
@@ -9253,11 +9253,11 @@ static int _spine_SkeletonRenderer_createWithFile(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 3) {
-        if (olua_is_std_string(L, 1) && olua_is_cppobj(L, 2, "sp.Atlas") && (olua_is_number(L, 3) || olua_isnil(L, 3))) {
+        if ((olua_is_std_string(L, 1)) && (olua_is_cppobj(L, 2, "sp.Atlas")) && (olua_is_number(L, 3) || olua_isnil(L, 3))) {
             return _spine_SkeletonRenderer_createWithFile1(L);
         }
 
-        // if (olua_is_std_string(L, 1) && olua_is_std_string(L, 2) && (olua_is_number(L, 3) || olua_isnil(L, 3))) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3) || olua_isnil(L, 3))) {
             return _spine_SkeletonRenderer_createWithFile2(L);
         // }
     }
@@ -9516,11 +9516,11 @@ static int _spine_SkeletonRenderer_setAttachment(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 2) {
-        if (olua_is_std_string(L, 2) && olua_is_std_string(L, 3)) {
+        if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3))) {
             return _spine_SkeletonRenderer_setAttachment1(L);
         }
 
-        // if (olua_is_std_string(L, 2) && olua_is_string(L, 3)) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_string(L, 3))) {
             return _spine_SkeletonRenderer_setAttachment2(L);
         // }
     }
@@ -9661,11 +9661,11 @@ static int _spine_SkeletonRenderer_setSkin(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        if (olua_is_std_string(L, 2)) {
+        if ((olua_is_std_string(L, 2))) {
             return _spine_SkeletonRenderer_setSkin1(L);
         }
 
-        // if (olua_is_string(L, 2)) {
+        // if ((olua_is_string(L, 2))) {
             return _spine_SkeletonRenderer_setSkin2(L);
         // }
     }
@@ -9966,11 +9966,11 @@ static int _spine_SkeletonAnimation_createWithBinaryFile(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 3) {
-        if (olua_is_std_string(L, 1) && olua_is_cppobj(L, 2, "sp.Atlas") && (olua_is_number(L, 3) || olua_isnil(L, 3))) {
+        if ((olua_is_std_string(L, 1)) && (olua_is_cppobj(L, 2, "sp.Atlas")) && (olua_is_number(L, 3) || olua_isnil(L, 3))) {
             return _spine_SkeletonAnimation_createWithBinaryFile1(L);
         }
 
-        // if (olua_is_std_string(L, 1) && olua_is_std_string(L, 2) && (olua_is_number(L, 3) || olua_isnil(L, 3))) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3) || olua_isnil(L, 3))) {
             return _spine_SkeletonAnimation_createWithBinaryFile2(L);
         // }
     }
@@ -10043,11 +10043,11 @@ static int _spine_SkeletonAnimation_createWithJsonFile(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 3) {
-        if (olua_is_std_string(L, 1) && olua_is_cppobj(L, 2, "sp.Atlas") && (olua_is_number(L, 3) || olua_isnil(L, 3))) {
+        if ((olua_is_std_string(L, 1)) && (olua_is_cppobj(L, 2, "sp.Atlas")) && (olua_is_number(L, 3) || olua_isnil(L, 3))) {
             return _spine_SkeletonAnimation_createWithJsonFile1(L);
         }
 
-        // if (olua_is_std_string(L, 1) && olua_is_std_string(L, 2) && (olua_is_number(L, 3) || olua_isnil(L, 3))) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3) || olua_isnil(L, 3))) {
             return _spine_SkeletonAnimation_createWithJsonFile2(L);
         // }
     }

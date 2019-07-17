@@ -1339,7 +1339,7 @@ static int _cocos2d_ui_Widget_updateSizeAndPosition(lua_State *L)
     }
 
     if (num_args == 1) {
-        // if (auto_olua_is_cocos2d_Size(L, 2)) {
+        // if ((auto_olua_is_cocos2d_Size(L, 2))) {
             return _cocos2d_ui_Widget_updateSizeAndPosition2(L);
         // }
     }
@@ -1858,23 +1858,23 @@ static int _cocos2d_ui_Scale9Sprite_create(lua_State *L)
     }
 
     if (num_args == 1) {
-        // if (olua_is_std_string(L, 1)) {
+        // if ((olua_is_std_string(L, 1))) {
             return _cocos2d_ui_Scale9Sprite_create5(L);
         // }
     }
 
     if (num_args == 2) {
-        if (manual_olua_is_cocos2d_Rect(L, 1) && olua_is_std_string(L, 2)) {
+        if ((manual_olua_is_cocos2d_Rect(L, 1)) && (olua_is_std_string(L, 2))) {
             return _cocos2d_ui_Scale9Sprite_create3(L);
         }
 
-        // if (olua_is_std_string(L, 1) && manual_olua_is_cocos2d_Rect(L, 2)) {
+        // if ((olua_is_std_string(L, 1)) && (manual_olua_is_cocos2d_Rect(L, 2))) {
             return _cocos2d_ui_Scale9Sprite_create4(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (olua_is_std_string(L, 1) && manual_olua_is_cocos2d_Rect(L, 2) && manual_olua_is_cocos2d_Rect(L, 3)) {
+        // if ((olua_is_std_string(L, 1)) && (manual_olua_is_cocos2d_Rect(L, 2)) && (manual_olua_is_cocos2d_Rect(L, 3))) {
             return _cocos2d_ui_Scale9Sprite_create2(L);
         // }
     }
@@ -1921,13 +1921,13 @@ static int _cocos2d_ui_Scale9Sprite_createWithSpriteFrame(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
-        // if (olua_is_cppobj(L, 1, "cc.SpriteFrame")) {
+        // if ((olua_is_cppobj(L, 1, "cc.SpriteFrame"))) {
             return _cocos2d_ui_Scale9Sprite_createWithSpriteFrame1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (olua_is_cppobj(L, 1, "cc.SpriteFrame") && manual_olua_is_cocos2d_Rect(L, 2)) {
+        // if ((olua_is_cppobj(L, 1, "cc.SpriteFrame")) && (manual_olua_is_cocos2d_Rect(L, 2))) {
             return _cocos2d_ui_Scale9Sprite_createWithSpriteFrame2(L);
         // }
     }
@@ -1974,13 +1974,13 @@ static int _cocos2d_ui_Scale9Sprite_createWithSpriteFrameName(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
-        // if (olua_is_std_string(L, 1)) {
+        // if ((olua_is_std_string(L, 1))) {
             return _cocos2d_ui_Scale9Sprite_createWithSpriteFrameName1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (olua_is_std_string(L, 1) && manual_olua_is_cocos2d_Rect(L, 2)) {
+        // if ((olua_is_std_string(L, 1)) && (manual_olua_is_cocos2d_Rect(L, 2))) {
             return _cocos2d_ui_Scale9Sprite_createWithSpriteFrameName2(L);
         // }
     }
@@ -2216,19 +2216,19 @@ static int _cocos2d_ui_Scale9Sprite_init(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 3) {
-        // if (olua_is_cppobj(L, 2, "cc.Sprite") && manual_olua_is_cocos2d_Rect(L, 3) && manual_olua_is_cocos2d_Rect(L, 4)) {
+        // if ((olua_is_cppobj(L, 2, "cc.Sprite")) && (manual_olua_is_cocos2d_Rect(L, 3)) && (manual_olua_is_cocos2d_Rect(L, 4))) {
             return _cocos2d_ui_Scale9Sprite_init2(L);
         // }
     }
 
     if (num_args == 4) {
-        // if (olua_is_cppobj(L, 2, "cc.Sprite") && manual_olua_is_cocos2d_Rect(L, 3) && olua_is_bool(L, 4) && manual_olua_is_cocos2d_Rect(L, 5)) {
+        // if ((olua_is_cppobj(L, 2, "cc.Sprite")) && (manual_olua_is_cocos2d_Rect(L, 3)) && (olua_is_bool(L, 4)) && (manual_olua_is_cocos2d_Rect(L, 5))) {
             return _cocos2d_ui_Scale9Sprite_init1(L);
         // }
     }
 
     if (num_args == 6) {
-        // if (olua_is_cppobj(L, 2, "cc.Sprite") && manual_olua_is_cocos2d_Rect(L, 3) && olua_is_bool(L, 4) && auto_olua_is_cocos2d_Vec2(L, 5) && auto_olua_is_cocos2d_Size(L, 6) && manual_olua_is_cocos2d_Rect(L, 7)) {
+        // if ((olua_is_cppobj(L, 2, "cc.Sprite")) && (manual_olua_is_cocos2d_Rect(L, 3)) && (olua_is_bool(L, 4)) && (auto_olua_is_cocos2d_Vec2(L, 5)) && (auto_olua_is_cocos2d_Size(L, 6)) && (manual_olua_is_cocos2d_Rect(L, 7))) {
             return _cocos2d_ui_Scale9Sprite_init3(L);
         // }
     }
@@ -2283,13 +2283,13 @@ static int _cocos2d_ui_Scale9Sprite_initWithFile(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 2) {
-        // if (manual_olua_is_cocos2d_Rect(L, 2) && olua_is_std_string(L, 3)) {
+        // if ((manual_olua_is_cocos2d_Rect(L, 2)) && (olua_is_std_string(L, 3))) {
             return _cocos2d_ui_Scale9Sprite_initWithFile2(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (olua_is_std_string(L, 2) && manual_olua_is_cocos2d_Rect(L, 3) && manual_olua_is_cocos2d_Rect(L, 4)) {
+        // if ((olua_is_std_string(L, 2)) && (manual_olua_is_cocos2d_Rect(L, 3)) && (manual_olua_is_cocos2d_Rect(L, 4))) {
             return _cocos2d_ui_Scale9Sprite_initWithFile1(L);
         // }
     }
@@ -2600,13 +2600,13 @@ static int _cocos2d_ui_Scale9Sprite_updateWithSprite(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 4) {
-        // if (olua_is_cppobj(L, 2, "cc.Sprite") && manual_olua_is_cocos2d_Rect(L, 3) && olua_is_bool(L, 4) && manual_olua_is_cocos2d_Rect(L, 5)) {
+        // if ((olua_is_cppobj(L, 2, "cc.Sprite")) && (manual_olua_is_cocos2d_Rect(L, 3)) && (olua_is_bool(L, 4)) && (manual_olua_is_cocos2d_Rect(L, 5))) {
             return _cocos2d_ui_Scale9Sprite_updateWithSprite1(L);
         // }
     }
 
     if (num_args == 6) {
-        // if (olua_is_cppobj(L, 2, "cc.Sprite") && manual_olua_is_cocos2d_Rect(L, 3) && olua_is_bool(L, 4) && auto_olua_is_cocos2d_Vec2(L, 5) && auto_olua_is_cocos2d_Size(L, 6) && manual_olua_is_cocos2d_Rect(L, 7)) {
+        // if ((olua_is_cppobj(L, 2, "cc.Sprite")) && (manual_olua_is_cocos2d_Rect(L, 3)) && (olua_is_bool(L, 4)) && (auto_olua_is_cocos2d_Vec2(L, 5)) && (auto_olua_is_cocos2d_Size(L, 6)) && (manual_olua_is_cocos2d_Rect(L, 7))) {
             return _cocos2d_ui_Scale9Sprite_updateWithSprite2(L);
         // }
     }
@@ -4331,13 +4331,13 @@ static int _cocos2d_ui_Layout_setBackGroundColor(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if (manual_olua_is_cocos2d_Color3B(L, 2)) {
+        // if ((manual_olua_is_cocos2d_Color3B(L, 2))) {
             return _cocos2d_ui_Layout_setBackGroundColor1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (manual_olua_is_cocos2d_Color3B(L, 2) && manual_olua_is_cocos2d_Color3B(L, 3)) {
+        // if ((manual_olua_is_cocos2d_Color3B(L, 2)) && (manual_olua_is_cocos2d_Color3B(L, 3))) {
             return _cocos2d_ui_Layout_setBackGroundColor2(L);
         // }
     }
@@ -4715,7 +4715,7 @@ static int _cocos2d_ui_HBox_create(lua_State *L)
     }
 
     if (num_args == 1) {
-        // if (auto_olua_is_cocos2d_Size(L, 1)) {
+        // if ((auto_olua_is_cocos2d_Size(L, 1))) {
             return _cocos2d_ui_HBox_create2(L);
         // }
     }
@@ -4789,7 +4789,7 @@ static int _cocos2d_ui_VBox_create(lua_State *L)
     }
 
     if (num_args == 1) {
-        // if (auto_olua_is_cocos2d_Size(L, 1)) {
+        // if ((auto_olua_is_cocos2d_Size(L, 1))) {
             return _cocos2d_ui_VBox_create2(L);
         // }
     }
@@ -4863,7 +4863,7 @@ static int _cocos2d_ui_RelativeBox_create(lua_State *L)
     }
 
     if (num_args == 1) {
-        // if (auto_olua_is_cocos2d_Size(L, 1)) {
+        // if ((auto_olua_is_cocos2d_Size(L, 1))) {
             return _cocos2d_ui_RelativeBox_create2(L);
         // }
     }
@@ -5174,13 +5174,13 @@ static int _cocos2d_experimental_ui_WebView_loadURL(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if (olua_is_std_string(L, 2)) {
+        // if ((olua_is_std_string(L, 2))) {
             return _cocos2d_experimental_ui_WebView_loadURL1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (olua_is_std_string(L, 2) && olua_is_bool(L, 3)) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3))) {
             return _cocos2d_experimental_ui_WebView_loadURL2(L);
         // }
     }
@@ -6376,13 +6376,13 @@ static int _cocos2d_ui_TabHeader_create(lua_State *L)
     }
 
     if (num_args == 4) {
-        // if (olua_is_std_string(L, 1) && olua_is_std_string(L, 2) && olua_is_std_string(L, 3) && (olua_is_uint(L, 4) || olua_isnil(L, 4))) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_uint(L, 4) || olua_isnil(L, 4))) {
             return _cocos2d_ui_TabHeader_create2(L);
         // }
     }
 
     if (num_args == 7) {
-        // if (olua_is_std_string(L, 1) && olua_is_std_string(L, 2) && olua_is_std_string(L, 3) && olua_is_std_string(L, 4) && olua_is_std_string(L, 5) && olua_is_std_string(L, 6) && (olua_is_uint(L, 7) || olua_isnil(L, 7))) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_std_string(L, 6)) && (olua_is_uint(L, 7) || olua_isnil(L, 7))) {
             return _cocos2d_ui_TabHeader_create3(L);
         // }
     }
@@ -6937,11 +6937,11 @@ static int _cocos2d_ui_TabControl_setSelectTab(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        if (olua_is_int(L, 2)) {
+        if ((olua_is_int(L, 2))) {
             return _cocos2d_ui_TabControl_setSelectTab1(L);
         }
 
-        // if (olua_is_cppobj(L, 2, "ccui.TabHeader")) {
+        // if ((olua_is_cppobj(L, 2, "ccui.TabHeader"))) {
             return _cocos2d_ui_TabControl_setSelectTab2(L);
         // }
     }
@@ -8747,13 +8747,13 @@ static int _cocos2d_ui_ListView_scrollToItem(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 3) {
-        // if (olua_is_int(L, 2) && auto_olua_is_cocos2d_Vec2(L, 3) && auto_olua_is_cocos2d_Vec2(L, 4)) {
+        // if ((olua_is_int(L, 2)) && (auto_olua_is_cocos2d_Vec2(L, 3)) && (auto_olua_is_cocos2d_Vec2(L, 4))) {
             return _cocos2d_ui_ListView_scrollToItem1(L);
         // }
     }
 
     if (num_args == 4) {
-        // if (olua_is_int(L, 2) && auto_olua_is_cocos2d_Vec2(L, 3) && auto_olua_is_cocos2d_Vec2(L, 4) && olua_is_number(L, 5)) {
+        // if ((olua_is_int(L, 2)) && (auto_olua_is_cocos2d_Vec2(L, 3)) && (auto_olua_is_cocos2d_Vec2(L, 4)) && (olua_is_number(L, 5))) {
             return _cocos2d_ui_ListView_scrollToItem2(L);
         // }
     }
@@ -9097,13 +9097,13 @@ static int _cocos2d_ui_LoadingBar_create(lua_State *L)
     }
 
     if (num_args == 2) {
-        // if (olua_is_std_string(L, 1) && (olua_is_number(L, 2) || olua_isnil(L, 2))) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_number(L, 2) || olua_isnil(L, 2))) {
             return _cocos2d_ui_LoadingBar_create2(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (olua_is_std_string(L, 1) && olua_is_uint(L, 2) && (olua_is_number(L, 3) || olua_isnil(L, 3))) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_uint(L, 2)) && (olua_is_number(L, 3) || olua_isnil(L, 3))) {
             return _cocos2d_ui_LoadingBar_create3(L);
         // }
     }
@@ -9656,13 +9656,13 @@ static int _cocos2d_ui_PageView_scrollToItem(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if (olua_is_int(L, 2)) {
+        // if ((olua_is_int(L, 2))) {
             return _cocos2d_ui_PageView_scrollToItem1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (olua_is_int(L, 2) && olua_is_number(L, 3)) {
+        // if ((olua_is_int(L, 2)) && (olua_is_number(L, 3))) {
             return _cocos2d_ui_PageView_scrollToItem2(L);
         // }
     }
@@ -9711,13 +9711,13 @@ static int _cocos2d_ui_PageView_scrollToPage(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if (olua_is_int(L, 2)) {
+        // if ((olua_is_int(L, 2))) {
             return _cocos2d_ui_PageView_scrollToPage1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (olua_is_int(L, 2) && olua_is_number(L, 3)) {
+        // if ((olua_is_int(L, 2)) && (olua_is_number(L, 3))) {
             return _cocos2d_ui_PageView_scrollToPage2(L);
         // }
     }
@@ -10488,19 +10488,19 @@ static int _cocos2d_ui_RichText_createWithXML(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
-        // if (olua_is_std_string(L, 1)) {
+        // if ((olua_is_std_string(L, 1))) {
             return _cocos2d_ui_RichText_createWithXML1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (olua_is_std_string(L, 1) && manual_olua_is_cocos2d_ValueMap(L, 2)) {
+        // if ((olua_is_std_string(L, 1)) && (manual_olua_is_cocos2d_ValueMap(L, 2))) {
             return _cocos2d_ui_RichText_createWithXML2(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (olua_is_std_string(L, 1) && manual_olua_is_cocos2d_ValueMap(L, 2) && olua_is_std_function(L, 3)) {
+        // if ((olua_is_std_string(L, 1)) && (manual_olua_is_cocos2d_ValueMap(L, 2)) && (olua_is_std_function(L, 3))) {
             return _cocos2d_ui_RichText_createWithXML3(L);
         // }
     }
@@ -10941,11 +10941,11 @@ static int _cocos2d_ui_RichText_removeElement(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        if (olua_is_int(L, 2)) {
+        if ((olua_is_int(L, 2))) {
             return _cocos2d_ui_RichText_removeElement1(L);
         }
 
-        // if (olua_is_cppobj(L, 2, "ccui.RichElement")) {
+        // if ((olua_is_cppobj(L, 2, "ccui.RichElement"))) {
             return _cocos2d_ui_RichText_removeElement2(L);
         // }
     }
@@ -11666,7 +11666,7 @@ static int _cocos2d_ui_Slider_create(lua_State *L)
     }
 
     if (num_args == 3) {
-        // if (olua_is_std_string(L, 1) && olua_is_std_string(L, 2) && (olua_is_uint(L, 3) || olua_isnil(L, 3))) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3) || olua_isnil(L, 3))) {
             return _cocos2d_ui_Slider_create2(L);
         // }
     }
@@ -12258,7 +12258,7 @@ static int _cocos2d_ui_Text_create(lua_State *L)
     }
 
     if (num_args == 3) {
-        // if (olua_is_std_string(L, 1) && olua_is_std_string(L, 2) && olua_is_number(L, 3)) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3))) {
             return _cocos2d_ui_Text_create2(L);
         // }
     }
@@ -12307,7 +12307,7 @@ static int _cocos2d_ui_Text_disableEffect(lua_State *L)
     }
 
     if (num_args == 1) {
-        // if (olua_is_uint(L, 2)) {
+        // if ((olua_is_uint(L, 2))) {
             return _cocos2d_ui_Text_disableEffect2(L);
         // }
     }
@@ -12945,7 +12945,7 @@ static int _cocos2d_ui_TextAtlas_create(lua_State *L)
     }
 
     if (num_args == 5) {
-        // if (olua_is_std_string(L, 1) && olua_is_std_string(L, 2) && olua_is_int(L, 3) && olua_is_int(L, 4) && olua_is_std_string(L, 5)) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_int(L, 3)) && (olua_is_int(L, 4)) && (olua_is_std_string(L, 5))) {
             return _cocos2d_ui_TextAtlas_create2(L);
         // }
     }
@@ -13096,7 +13096,7 @@ static int _cocos2d_ui_TextBMFont_create(lua_State *L)
     }
 
     if (num_args == 2) {
-        // if (olua_is_std_string(L, 1) && olua_is_std_string(L, 2)) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2))) {
             return _cocos2d_ui_TextBMFont_create2(L);
         // }
     }
@@ -13270,7 +13270,7 @@ static int _cocos2d_ui_UICCTextField_create(lua_State *L)
     }
 
     if (num_args == 3) {
-        // if (olua_is_std_string(L, 1) && olua_is_std_string(L, 2) && olua_is_number(L, 3)) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3))) {
             return _cocos2d_ui_UICCTextField_create2(L);
         // }
     }
@@ -13746,7 +13746,7 @@ static int _cocos2d_ui_TextField_create(lua_State *L)
     }
 
     if (num_args == 3) {
-        // if (olua_is_std_string(L, 1) && olua_is_std_string(L, 2) && olua_is_int(L, 3)) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_int(L, 3))) {
             return _cocos2d_ui_TextField_create2(L);
         // }
     }
@@ -14334,11 +14334,11 @@ static int _cocos2d_ui_TextField_setPlaceHolderColor(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        if (manual_olua_is_cocos2d_Color3B(L, 2)) {
+        if ((manual_olua_is_cocos2d_Color3B(L, 2))) {
             return _cocos2d_ui_TextField_setPlaceHolderColor1(L);
         }
 
-        // if (manual_olua_is_cocos2d_Color4B(L, 2)) {
+        // if ((manual_olua_is_cocos2d_Color4B(L, 2))) {
             return _cocos2d_ui_TextField_setPlaceHolderColor2(L);
         // }
     }
@@ -14576,7 +14576,7 @@ static int _cocos2d_ui_Button_create(lua_State *L)
     }
 
     if (num_args == 4) {
-        // if (olua_is_std_string(L, 1) && (olua_is_std_string(L, 2) || olua_isnil(L, 2)) && (olua_is_std_string(L, 3) || olua_isnil(L, 3)) && (olua_is_uint(L, 4) || olua_isnil(L, 4))) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2) || olua_isnil(L, 2)) && (olua_is_std_string(L, 3) || olua_isnil(L, 3)) && (olua_is_uint(L, 4) || olua_isnil(L, 4))) {
             return _cocos2d_ui_Button_create2(L);
         // }
     }
@@ -15147,13 +15147,13 @@ static int _cocos2d_ui_Button_setTitleAlignment(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if (olua_is_uint(L, 2)) {
+        // if ((olua_is_uint(L, 2))) {
             return _cocos2d_ui_Button_setTitleAlignment1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (olua_is_uint(L, 2) && olua_is_uint(L, 3)) {
+        // if ((olua_is_uint(L, 2)) && (olua_is_uint(L, 3))) {
             return _cocos2d_ui_Button_setTitleAlignment2(L);
         // }
     }
@@ -15443,13 +15443,13 @@ static int _cocos2d_ui_CheckBox_create(lua_State *L)
     }
 
     if (num_args == 3) {
-        // if (olua_is_std_string(L, 1) && olua_is_std_string(L, 2) && (olua_is_uint(L, 3) || olua_isnil(L, 3))) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3) || olua_isnil(L, 3))) {
             return _cocos2d_ui_CheckBox_create3(L);
         // }
     }
 
     if (num_args == 6) {
-        // if (olua_is_std_string(L, 1) && olua_is_std_string(L, 2) && olua_is_std_string(L, 3) && olua_is_std_string(L, 4) && olua_is_std_string(L, 5) && (olua_is_uint(L, 6) || olua_isnil(L, 6))) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_uint(L, 6) || olua_isnil(L, 6))) {
             return _cocos2d_ui_CheckBox_create2(L);
         // }
     }
@@ -15584,13 +15584,13 @@ static int _cocos2d_ui_RadioButton_create(lua_State *L)
     }
 
     if (num_args == 3) {
-        // if (olua_is_std_string(L, 1) && olua_is_std_string(L, 2) && (olua_is_uint(L, 3) || olua_isnil(L, 3))) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3) || olua_isnil(L, 3))) {
             return _cocos2d_ui_RadioButton_create3(L);
         // }
     }
 
     if (num_args == 6) {
-        // if (olua_is_std_string(L, 1) && olua_is_std_string(L, 2) && olua_is_std_string(L, 3) && olua_is_std_string(L, 4) && olua_is_std_string(L, 5) && (olua_is_uint(L, 6) || olua_isnil(L, 6))) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_uint(L, 6) || olua_isnil(L, 6))) {
             return _cocos2d_ui_RadioButton_create2(L);
         // }
     }
@@ -15833,11 +15833,11 @@ static int _cocos2d_ui_RadioButtonGroup_setSelectedButton(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        if (olua_is_int(L, 2)) {
+        if ((olua_is_int(L, 2))) {
             return _cocos2d_ui_RadioButtonGroup_setSelectedButton1(L);
         }
 
-        // if (olua_is_cppobj(L, 2, "ccui.RadioButton")) {
+        // if ((olua_is_cppobj(L, 2, "ccui.RadioButton"))) {
             return _cocos2d_ui_RadioButtonGroup_setSelectedButton2(L);
         // }
     }
@@ -15884,11 +15884,11 @@ static int _cocos2d_ui_RadioButtonGroup_setSelectedButtonWithoutEvent(lua_State 
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        if (olua_is_int(L, 2)) {
+        if ((olua_is_int(L, 2))) {
             return _cocos2d_ui_RadioButtonGroup_setSelectedButtonWithoutEvent1(L);
         }
 
-        // if (olua_is_cppobj(L, 2, "ccui.RadioButton")) {
+        // if ((olua_is_cppobj(L, 2, "ccui.RadioButton"))) {
             return _cocos2d_ui_RadioButtonGroup_setSelectedButtonWithoutEvent2(L);
         // }
     }
@@ -15960,7 +15960,7 @@ static int _cocos2d_ui_ImageView_create(lua_State *L)
     }
 
     if (num_args == 2) {
-        // if (olua_is_std_string(L, 1) && (olua_is_uint(L, 2) || olua_isnil(L, 2))) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_uint(L, 2) || olua_isnil(L, 2))) {
             return _cocos2d_ui_ImageView_create2(L);
         // }
     }
@@ -16617,19 +16617,19 @@ static int _cocos2d_ui_EditBox_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 3) {
-        // if (auto_olua_is_cocos2d_Size(L, 1) && olua_is_std_string(L, 2) && olua_is_uint(L, 3)) {
+        // if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
             return _cocos2d_ui_EditBox_create2(L);
         // }
     }
 
     if (num_args == 4) {
-        // if (auto_olua_is_cocos2d_Size(L, 1) && olua_is_cppobj(L, 2, "ccui.Scale9Sprite") && (olua_is_cppobj(L, 3, "ccui.Scale9Sprite") || olua_isnil(L, 3)) && (olua_is_cppobj(L, 4, "ccui.Scale9Sprite") || olua_isnil(L, 4))) {
+        // if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_cppobj(L, 2, "ccui.Scale9Sprite")) && (olua_is_cppobj(L, 3, "ccui.Scale9Sprite") || olua_isnil(L, 3)) && (olua_is_cppobj(L, 4, "ccui.Scale9Sprite") || olua_isnil(L, 4))) {
             return _cocos2d_ui_EditBox_create1(L);
         // }
     }
 
     if (num_args == 5) {
-        // if (auto_olua_is_cocos2d_Size(L, 1) && olua_is_std_string(L, 2) && (olua_is_std_string(L, 3) || olua_isnil(L, 3)) && (olua_is_std_string(L, 4) || olua_isnil(L, 4)) && (olua_is_uint(L, 5) || olua_isnil(L, 5))) {
+        // if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3) || olua_isnil(L, 3)) && (olua_is_std_string(L, 4) || olua_isnil(L, 4)) && (olua_is_uint(L, 5) || olua_isnil(L, 5))) {
             return _cocos2d_ui_EditBox_create3(L);
         // }
     }
@@ -16965,19 +16965,19 @@ static int _cocos2d_ui_EditBox_initWithSizeAndBackgroundSprite(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 2) {
-        // if (auto_olua_is_cocos2d_Size(L, 2) && olua_is_cppobj(L, 3, "ccui.Scale9Sprite")) {
+        // if ((auto_olua_is_cocos2d_Size(L, 2)) && (olua_is_cppobj(L, 3, "ccui.Scale9Sprite"))) {
             return _cocos2d_ui_EditBox_initWithSizeAndBackgroundSprite2(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (auto_olua_is_cocos2d_Size(L, 2) && olua_is_std_string(L, 3) && (olua_is_uint(L, 4) || olua_isnil(L, 4))) {
+        // if ((auto_olua_is_cocos2d_Size(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_uint(L, 4) || olua_isnil(L, 4))) {
             return _cocos2d_ui_EditBox_initWithSizeAndBackgroundSprite1(L);
         // }
     }
 
     if (num_args == 4) {
-        // if (auto_olua_is_cocos2d_Size(L, 2) && olua_is_cppobj(L, 3, "ccui.Scale9Sprite") && olua_is_cppobj(L, 4, "ccui.Scale9Sprite") && olua_is_cppobj(L, 5, "ccui.Scale9Sprite")) {
+        // if ((auto_olua_is_cocos2d_Size(L, 2)) && (olua_is_cppobj(L, 3, "ccui.Scale9Sprite")) && (olua_is_cppobj(L, 4, "ccui.Scale9Sprite")) && (olua_is_cppobj(L, 5, "ccui.Scale9Sprite"))) {
             return _cocos2d_ui_EditBox_initWithSizeAndBackgroundSprite3(L);
         // }
     }
@@ -17240,11 +17240,11 @@ static int _cocos2d_ui_EditBox_setFontColor(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        if (manual_olua_is_cocos2d_Color3B(L, 2)) {
+        if ((manual_olua_is_cocos2d_Color3B(L, 2))) {
             return _cocos2d_ui_EditBox_setFontColor1(L);
         }
 
-        // if (manual_olua_is_cocos2d_Color4B(L, 2)) {
+        // if ((manual_olua_is_cocos2d_Color4B(L, 2))) {
             return _cocos2d_ui_EditBox_setFontColor2(L);
         // }
     }
@@ -17405,11 +17405,11 @@ static int _cocos2d_ui_EditBox_setPlaceholderFontColor(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        if (manual_olua_is_cocos2d_Color3B(L, 2)) {
+        if ((manual_olua_is_cocos2d_Color3B(L, 2))) {
             return _cocos2d_ui_EditBox_setPlaceholderFontColor1(L);
         }
 
-        // if (manual_olua_is_cocos2d_Color4B(L, 2)) {
+        // if ((manual_olua_is_cocos2d_Color4B(L, 2))) {
             return _cocos2d_ui_EditBox_setPlaceholderFontColor2(L);
         // }
     }

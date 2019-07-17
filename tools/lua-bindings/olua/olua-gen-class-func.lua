@@ -297,11 +297,9 @@ local function gen_func_ret(cls, fi)
     return RET_EXP, RET_PUSH, RET_NUM
 end
 
-local function gen_one_func(cls, fi, write, funcidx, func_filter)
+local function genOneFunc(cls, fi, write, funcidx, func_filter)
     local CPPCLS_PATH = olua.topath(cls.CPPCLS)
-    local CPPFUNC = fi.CPPFUNC
-    local CALLFUNC = CPPFUNC
-    local DECLFUNC = fi.DECLFUNC
+    local CALLFUNC = fi.CPPFUNC
     local FUNC_INDEX = funcidx or ""
     local CALLER = "self->"
     local ARGS_BEGIN = "("
@@ -309,10 +307,7 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
     local INJECT_BEFORE = fi.INJECT.BEFORE and {fi.INJECT.BEFORE} or {}
     local INJECT_AFTER = fi.INJECT.AFTER and {fi.INJECT.AFTER} or {}
 
-    local funcname = format([[
-        _${CPPCLS_PATH}_${CPPFUNC}${FUNC_INDEX}
-    ]])
-
+    local funcname = format([[_${CPPCLS_PATH}_${fi.CPPFUNC}${FUNC_INDEX}]])
     if func_filter[funcname] then
         return
     end
@@ -453,7 +448,7 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
     INJECT_BEFORE = table.concat(INJECT_BEFORE, '\n')
 
     write(format([[
-        static int _${CPPCLS_PATH}_${CPPFUNC}${FUNC_INDEX}(lua_State *L)
+        static int _${CPPCLS_PATH}_${fi.CPPFUNC}${FUNC_INDEX}(lua_State *L)
         {
             lua_settop(L, ${TOTAL_ARGS});
 
@@ -465,7 +460,7 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
 
             ${CALLBACK}
 
-            // ${DECLFUNC}
+            // ${fi.DECLFUNC}
             ${RET_EXP}${CALLER}${CALLFUNC}${ARGS_BEGIN}${CALLER_ARGS}${ARGS_END};
             ${RET_PUSH}
 
@@ -477,7 +472,7 @@ local function gen_one_func(cls, fi, write, funcidx, func_filter)
     write('')
 end
 
-local function get_func_n(fis, n)
+local function getFuncNArgs(fis, n)
     local arr = {}
     for _, v in ipairs(fis) do
         if v.MAX_ARGS == n then
@@ -487,22 +482,17 @@ local function get_func_n(fis, n)
     return arr
 end
 
-local function gen_test_and_call(cls, fns)
+local function genTestAndCall(cls, fns)
     local CALL_CHUNK = {}
-
-    for fn, fi in ipairs(fns) do
-        local FUNC_INDEX = fi.INDEX
-        local CPPFUNC = fi.CPPFUNC
+    for _, fi in ipairs(fns) do
         local CPPCLS_PATH = olua.topath(cls.CPPCLS)
-
         if #fi.ARGS > 0 then
             local TEST_ARGS = {}
             local MAX_VARS = 1
             for i, ai in ipairs(fi.ARGS) do
-                local IDX = (fi.STATIC and 0 or 1) + i
+                local ARGN = (fi.STATIC and 0 or 1) + i
                 local FUNC_IS_VALUE = ai.TYPE.FUNC_IS_VALUE
-                local NULLABLE_BEGIN = ""
-                local NULLABLE_END = ""
+                local TEST_NULL = ""
 
                 MAX_VARS = math.max(ai.TYPE.VARS or 1, MAX_VARS)
 
@@ -511,48 +501,47 @@ local function gen_test_and_call(cls, fns)
                 end
 
                 if ai.DEFAULT or ai.ATTR.NULLABLE then
-                    NULLABLE_BEGIN = '('
-                    NULLABLE_END = ' ' .. format('|| olua_isnil(L, ${IDX}))')
+                    TEST_NULL = ' ' .. format('|| olua_isnil(L, ${ARGN})')
                 end
 
+                olua.nowarning(ARGN, TEST_NULL, FUNC_IS_VALUE)
                 if ai.TYPE.LUACLS and ai.TYPE.DECLTYPE ~= 'lua_Unsigned' then
-                    local LUACLS = ai.TYPE.LUACLS
                     TEST_ARGS[#TEST_ARGS + 1] = format([[
-                        ${NULLABLE_BEGIN}${FUNC_IS_VALUE}(L, ${IDX}, "${LUACLS}")${NULLABLE_END}
+                        (${FUNC_IS_VALUE}(L, ${ARGN}, "${ai.TYPE.LUACLS}")${TEST_NULL})
                     ]])
                 else
                     TEST_ARGS[#TEST_ARGS + 1] = format([[
-                        ${NULLABLE_BEGIN}${FUNC_IS_VALUE}(L, ${IDX})${NULLABLE_END}
+                        (${FUNC_IS_VALUE}(L, ${ARGN})${TEST_NULL})
                     ]])
                 end
             end
 
+            olua.nowarning(CPPCLS_PATH)
             TEST_ARGS = table.concat(TEST_ARGS, " && ")
-
             CALL_CHUNK[#CALL_CHUNK + 1] = {
                 MAX_VARS = MAX_VARS,
                 EXP1 = format([[
                     // if (${TEST_ARGS}) {
-                        return _${CPPCLS_PATH}_${CPPFUNC}${FUNC_INDEX}(L);
+                        return _${CPPCLS_PATH}_${fi.CPPFUNC}${fi.INDEX}(L);
                     // }
                 ]]),
                 EXP2 = format([[
                     if (${TEST_ARGS}) {
-                        return _${CPPCLS_PATH}_${CPPFUNC}${FUNC_INDEX}(L);
+                        return _${CPPCLS_PATH}_${fi.CPPFUNC}${fi.INDEX}(L);
                     }
                 ]]),
             }
         else
             if #fns > 1 then
-                for fn, fi in ipairs(fns) do
-                    print("same func", fi, fi.CPPFUNC)
+                for _, v in ipairs(fns) do
+                    print("same func", v, v.CPPFUNC)
                 end
             end
             assert(#fns == 1, fi.CPPFUNC)
             CALL_CHUNK[#CALL_CHUNK + 1] = {
                 MAX_VARS = 1,
                 EXP1 = format([[
-                    return _${CPPCLS_PATH}_${CPPFUNC}${FUNC_INDEX}(L);
+                    return _${CPPCLS_PATH}_${fi.CPPFUNC}${fi.INDEX}(L);
                 ]])
             }
         end
@@ -564,11 +553,7 @@ local function gen_test_and_call(cls, fns)
 
     if #CALL_CHUNK > 1 then
         for i, v in ipairs(CALL_CHUNK) do
-            if i == #CALL_CHUNK then
-                CALL_CHUNK[i] = v.EXP1
-            else
-                CALL_CHUNK[i] = v.EXP2
-            end
+            CALL_CHUNK[i] = i == #CALL_CHUNK and v.EXP1 or v.EXP2
         end
     else
         CALL_CHUNK[1] = CALL_CHUNK[1].EXP1
@@ -577,31 +562,27 @@ local function gen_test_and_call(cls, fns)
     return table.concat(CALL_CHUNK, "\n\n")
 end
 
-local function gen_multi_func(cls, fis, write, func_filter)
-    local NUM_ARGS = fis.MAX_ARGS
-    local CPPCLS = cls.CPPCLS
+local function genMultiFunc(cls, fis, write, func_filter)
     local CPPCLS_PATH = olua.topath(cls.CPPCLS)
     local CPPFUNC = fis[1].CPPFUNC
-    local HAS_OBJ = fis[1].STATIC and "" or " - 1"
+    local SUBONE = fis[1].STATIC and "" or " - 1"
     local IF_CHUNK = {}
 
     for _, fi in ipairs(fis) do
-        gen_one_func(cls, fi, write, fi.INDEX, func_filter)
+        genOneFunc(cls, fi, write, fi.INDEX, func_filter)
     end
 
-    local funcname = format([[
-        _${CPPCLS_PATH}_${CPPFUNC}
-    ]])
+    local funcname = format([[_${CPPCLS_PATH}_${CPPFUNC}]])
     assert(not func_filter[funcname], cls.CPPCLS .. ' ' .. CPPFUNC)
     func_filter[funcname] = true
 
-    for i = 0, NUM_ARGS do
-        local fns = get_func_n(fis, i)
+    for i = 0, fis.MAX_ARGS do
+        local fns = getFuncNArgs(fis, i)
         if #fns > 0 then
-            local CUR_ARGS = i
-            local TEST_AND_CALL = gen_test_and_call(cls, fns)
+            local TEST_AND_CALL = genTestAndCall(cls, fns)
+            olua.nowarning(TEST_AND_CALL)
             IF_CHUNK[#IF_CHUNK + 1] = format([[
-                if (num_args == ${CUR_ARGS}) {
+                if (num_args == ${i}) {
                     ${TEST_AND_CALL}
                 }
             ]])
@@ -609,14 +590,15 @@ local function gen_multi_func(cls, fis, write, func_filter)
     end
 
     IF_CHUNK = table.concat(IF_CHUNK, "\n\n")
+    olua.nowarning(CPPCLS_PATH, SUBONE)
     write(format([[
         static int _${CPPCLS_PATH}_${CPPFUNC}(lua_State *L)
         {
-            int num_args = lua_gettop(L)${HAS_OBJ};
+            int num_args = lua_gettop(L)${SUBONE};
 
             ${IF_CHUNK}
 
-            luaL_error(L, "method '${CPPCLS}::${CPPFUNC}' not support '%d' arguments", num_args);
+            luaL_error(L, "method '${cls.CPPCLS}::${CPPFUNC}' not support '%d' arguments", num_args);
 
             return 0;
         }
@@ -626,8 +608,8 @@ end
 
 function olua.genclassfunc(cls, fis, write, func_filter)
     if #fis == 1 then
-        gen_one_func(cls, fis[1], write, nil, func_filter)
+        genOneFunc(cls, fis[1], write, nil, func_filter)
     else
-        gen_multi_func(cls, fis, write, func_filter)
+        genMultiFunc(cls, fis, write, func_filter)
     end
 end

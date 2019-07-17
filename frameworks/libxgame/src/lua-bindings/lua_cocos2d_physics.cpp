@@ -507,13 +507,13 @@ static int _cocos2d_PhysicsBody_create(lua_State *L)
     }
 
     if (num_args == 1) {
-        // if (olua_is_number(L, 1)) {
+        // if ((olua_is_number(L, 1))) {
             return _cocos2d_PhysicsBody_create2(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (olua_is_number(L, 1) && olua_is_number(L, 2)) {
+        // if ((olua_is_number(L, 1)) && (olua_is_number(L, 2))) {
             return _cocos2d_PhysicsBody_create3(L);
         // }
     }
@@ -1132,11 +1132,11 @@ static int _cocos2d_PhysicsBody_removeShape(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 2) {
-        if (olua_is_cppobj(L, 2, "cc.PhysicsShape") && (olua_is_bool(L, 3) || olua_isnil(L, 3))) {
+        if ((olua_is_cppobj(L, 2, "cc.PhysicsShape")) && (olua_is_bool(L, 3) || olua_isnil(L, 3))) {
             return _cocos2d_PhysicsBody_removeShape1(L);
         }
 
-        // if (olua_is_int(L, 2) && (olua_is_bool(L, 3) || olua_isnil(L, 3))) {
+        // if ((olua_is_int(L, 2)) && (olua_is_bool(L, 3) || olua_isnil(L, 3))) {
             return _cocos2d_PhysicsBody_removeShape2(L);
         // }
     }
@@ -2475,13 +2475,13 @@ static int _cocos2d_PhysicsJointLimit_construct(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 4) {
-        // if (olua_is_cppobj(L, 1, "cc.PhysicsBody") && olua_is_cppobj(L, 2, "cc.PhysicsBody") && auto_olua_is_cocos2d_Vec2(L, 3) && auto_olua_is_cocos2d_Vec2(L, 4)) {
+        // if ((olua_is_cppobj(L, 1, "cc.PhysicsBody")) && (olua_is_cppobj(L, 2, "cc.PhysicsBody")) && (auto_olua_is_cocos2d_Vec2(L, 3)) && (auto_olua_is_cocos2d_Vec2(L, 4))) {
             return _cocos2d_PhysicsJointLimit_construct1(L);
         // }
     }
 
     if (num_args == 6) {
-        // if (olua_is_cppobj(L, 1, "cc.PhysicsBody") && olua_is_cppobj(L, 2, "cc.PhysicsBody") && auto_olua_is_cocos2d_Vec2(L, 3) && auto_olua_is_cocos2d_Vec2(L, 4) && olua_is_number(L, 5) && olua_is_number(L, 6)) {
+        // if ((olua_is_cppobj(L, 1, "cc.PhysicsBody")) && (olua_is_cppobj(L, 2, "cc.PhysicsBody")) && (auto_olua_is_cocos2d_Vec2(L, 3)) && (auto_olua_is_cocos2d_Vec2(L, 4)) && (olua_is_number(L, 5)) && (olua_is_number(L, 6))) {
             return _cocos2d_PhysicsJointLimit_construct2(L);
         // }
     }
@@ -2747,13 +2747,13 @@ static int _cocos2d_PhysicsJointPin_construct(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 3) {
-        // if (olua_is_cppobj(L, 1, "cc.PhysicsBody") && olua_is_cppobj(L, 2, "cc.PhysicsBody") && auto_olua_is_cocos2d_Vec2(L, 3)) {
+        // if ((olua_is_cppobj(L, 1, "cc.PhysicsBody")) && (olua_is_cppobj(L, 2, "cc.PhysicsBody")) && (auto_olua_is_cocos2d_Vec2(L, 3))) {
             return _cocos2d_PhysicsJointPin_construct1(L);
         // }
     }
 
     if (num_args == 4) {
-        // if (olua_is_cppobj(L, 1, "cc.PhysicsBody") && olua_is_cppobj(L, 2, "cc.PhysicsBody") && auto_olua_is_cocos2d_Vec2(L, 3) && auto_olua_is_cocos2d_Vec2(L, 4)) {
+        // if ((olua_is_cppobj(L, 1, "cc.PhysicsBody")) && (olua_is_cppobj(L, 2, "cc.PhysicsBody")) && (auto_olua_is_cocos2d_Vec2(L, 3)) && (auto_olua_is_cocos2d_Vec2(L, 4))) {
             return _cocos2d_PhysicsJointPin_construct2(L);
         // }
     }
@@ -2951,13 +2951,13 @@ static int _cocos2d_PhysicsJointRotaryLimit_construct(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
-        // if (olua_is_cppobj(L, 1, "cc.PhysicsBody") && olua_is_cppobj(L, 2, "cc.PhysicsBody")) {
+        // if ((olua_is_cppobj(L, 1, "cc.PhysicsBody")) && (olua_is_cppobj(L, 2, "cc.PhysicsBody"))) {
             return _cocos2d_PhysicsJointRotaryLimit_construct2(L);
         // }
     }
 
     if (num_args == 4) {
-        // if (olua_is_cppobj(L, 1, "cc.PhysicsBody") && olua_is_cppobj(L, 2, "cc.PhysicsBody") && olua_is_number(L, 3) && olua_is_number(L, 4)) {
+        // if ((olua_is_cppobj(L, 1, "cc.PhysicsBody")) && (olua_is_cppobj(L, 2, "cc.PhysicsBody")) && (olua_is_number(L, 3)) && (olua_is_number(L, 4))) {
             return _cocos2d_PhysicsJointRotaryLimit_construct1(L);
         // }
     }
@@ -4899,11 +4899,11 @@ static int _cocos2d_PhysicsWorld_removeBody(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        if (olua_is_cppobj(L, 2, "cc.PhysicsBody")) {
+        if ((olua_is_cppobj(L, 2, "cc.PhysicsBody"))) {
             return _cocos2d_PhysicsWorld_removeBody1(L);
         }
 
-        // if (olua_is_int(L, 2)) {
+        // if ((olua_is_int(L, 2))) {
             return _cocos2d_PhysicsWorld_removeBody2(L);
         // }
     }

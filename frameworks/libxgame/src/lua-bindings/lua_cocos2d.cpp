@@ -100,13 +100,13 @@ static int _cocos2d_UserDefault_getBoolForKey(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if (olua_is_string(L, 2)) {
+        // if ((olua_is_string(L, 2))) {
             return _cocos2d_UserDefault_getBoolForKey1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (olua_is_string(L, 2) && olua_is_bool(L, 3)) {
+        // if ((olua_is_string(L, 2)) && (olua_is_bool(L, 3))) {
             return _cocos2d_UserDefault_getBoolForKey2(L);
         // }
     }
@@ -157,13 +157,13 @@ static int _cocos2d_UserDefault_getDataForKey(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if (olua_is_string(L, 2)) {
+        // if ((olua_is_string(L, 2))) {
             return _cocos2d_UserDefault_getDataForKey1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (olua_is_string(L, 2) && manual_olua_is_cocos2d_Data(L, 3)) {
+        // if ((olua_is_string(L, 2)) && (manual_olua_is_cocos2d_Data(L, 3))) {
             return _cocos2d_UserDefault_getDataForKey2(L);
         // }
     }
@@ -214,13 +214,13 @@ static int _cocos2d_UserDefault_getDoubleForKey(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if (olua_is_string(L, 2)) {
+        // if ((olua_is_string(L, 2))) {
             return _cocos2d_UserDefault_getDoubleForKey1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (olua_is_string(L, 2) && olua_is_number(L, 3)) {
+        // if ((olua_is_string(L, 2)) && (olua_is_number(L, 3))) {
             return _cocos2d_UserDefault_getDoubleForKey2(L);
         // }
     }
@@ -271,13 +271,13 @@ static int _cocos2d_UserDefault_getFloatForKey(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if (olua_is_string(L, 2)) {
+        // if ((olua_is_string(L, 2))) {
             return _cocos2d_UserDefault_getFloatForKey1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (olua_is_string(L, 2) && olua_is_number(L, 3)) {
+        // if ((olua_is_string(L, 2)) && (olua_is_number(L, 3))) {
             return _cocos2d_UserDefault_getFloatForKey2(L);
         // }
     }
@@ -339,13 +339,13 @@ static int _cocos2d_UserDefault_getIntegerForKey(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if (olua_is_string(L, 2)) {
+        // if ((olua_is_string(L, 2))) {
             return _cocos2d_UserDefault_getIntegerForKey1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (olua_is_string(L, 2) && olua_is_int(L, 3)) {
+        // if ((olua_is_string(L, 2)) && (olua_is_int(L, 3))) {
             return _cocos2d_UserDefault_getIntegerForKey2(L);
         // }
     }
@@ -396,13 +396,13 @@ static int _cocos2d_UserDefault_getStringForKey(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if (olua_is_string(L, 2)) {
+        // if ((olua_is_string(L, 2))) {
             return _cocos2d_UserDefault_getStringForKey1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (olua_is_string(L, 2) && olua_is_std_string(L, 3)) {
+        // if ((olua_is_string(L, 2)) && (olua_is_std_string(L, 3))) {
             return _cocos2d_UserDefault_getStringForKey2(L);
         // }
     }
@@ -810,13 +810,13 @@ static int _cocos2d_Director_convertToGL(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if (auto_olua_is_cocos2d_Vec2(L, 2)) {
+        // if ((auto_olua_is_cocos2d_Vec2(L, 2))) {
             return _cocos2d_Director_convertToGL1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (auto_olua_ispack_cocos2d_Vec2(L, 2)) {
+        // if ((auto_olua_ispack_cocos2d_Vec2(L, 2))) {
             return _cocos2d_Director_convertToGL2(L);
         // }
     }
@@ -865,13 +865,13 @@ static int _cocos2d_Director_convertToUI(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if (auto_olua_is_cocos2d_Vec2(L, 2)) {
+        // if ((auto_olua_is_cocos2d_Vec2(L, 2))) {
             return _cocos2d_Director_convertToUI1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (auto_olua_ispack_cocos2d_Vec2(L, 2)) {
+        // if ((auto_olua_ispack_cocos2d_Vec2(L, 2))) {
             return _cocos2d_Director_convertToUI2(L);
         // }
     }
@@ -1536,7 +1536,7 @@ static int _cocos2d_Director_mainLoop(lua_State *L)
     }
 
     if (num_args == 1) {
-        // if (olua_is_number(L, 2)) {
+        // if ((olua_is_number(L, 2))) {
             return _cocos2d_Director_mainLoop2(L);
         // }
     }
@@ -2498,13 +2498,13 @@ static int _cocos2d_Scheduler_schedule(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 5) {
-        // if (olua_is_std_function(L, 2) && olua_is_obj(L, 3, "void *") && olua_is_number(L, 4) && olua_is_bool(L, 5) && olua_is_std_string(L, 6)) {
+        // if ((olua_is_std_function(L, 2)) && (olua_is_obj(L, 3, "void *")) && (olua_is_number(L, 4)) && (olua_is_bool(L, 5)) && (olua_is_std_string(L, 6))) {
             return _cocos2d_Scheduler_schedule1(L);
         // }
     }
 
     if (num_args == 7) {
-        // if (olua_is_std_function(L, 2) && olua_is_obj(L, 3, "void *") && olua_is_number(L, 4) && olua_is_uint(L, 5) && olua_is_number(L, 6) && olua_is_bool(L, 7) && olua_is_std_string(L, 8)) {
+        // if ((olua_is_std_function(L, 2)) && (olua_is_obj(L, 3, "void *")) && (olua_is_number(L, 4)) && (olua_is_uint(L, 5)) && (olua_is_number(L, 6)) && (olua_is_bool(L, 7)) && (olua_is_std_string(L, 8))) {
             return _cocos2d_Scheduler_schedule2(L);
         // }
     }
@@ -5865,13 +5865,13 @@ static int _cocos2d_Touch_setTouchInfo(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 3) {
-        // if (olua_is_int(L, 2) && olua_is_number(L, 3) && olua_is_number(L, 4)) {
+        // if ((olua_is_int(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4))) {
             return _cocos2d_Touch_setTouchInfo1(L);
         // }
     }
 
     if (num_args == 5) {
-        // if (olua_is_int(L, 2) && olua_is_number(L, 3) && olua_is_number(L, 4) && olua_is_number(L, 5) && olua_is_number(L, 6)) {
+        // if ((olua_is_int(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_number(L, 5)) && (olua_is_number(L, 6))) {
             return _cocos2d_Touch_setTouchInfo2(L);
         // }
     }
@@ -6384,11 +6384,11 @@ static int _cocos2d_experimental_AudioEngine_getProfile(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
-        if (olua_is_int(L, 1)) {
+        if ((olua_is_int(L, 1))) {
             return _cocos2d_experimental_AudioEngine_getProfile1(L);
         }
 
-        // if (olua_is_std_string(L, 1)) {
+        // if ((olua_is_std_string(L, 1))) {
             return _cocos2d_experimental_AudioEngine_getProfile2(L);
         // }
     }
@@ -6560,13 +6560,13 @@ static int _cocos2d_experimental_AudioEngine_preload(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
-        // if (olua_is_std_string(L, 1)) {
+        // if ((olua_is_std_string(L, 1))) {
             return _cocos2d_experimental_AudioEngine_preload1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (olua_is_std_string(L, 1) && olua_is_std_function(L, 2)) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_function(L, 2))) {
             return _cocos2d_experimental_AudioEngine_preload2(L);
         // }
     }
@@ -8171,13 +8171,13 @@ static int _cocos2d_FileUtils_renameFile(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 2) {
-        // if (olua_is_std_string(L, 2) && olua_is_std_string(L, 3)) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3))) {
             return _cocos2d_FileUtils_renameFile2(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (olua_is_std_string(L, 2) && olua_is_std_string(L, 3) && olua_is_std_string(L, 4)) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4))) {
             return _cocos2d_FileUtils_renameFile1(L);
         // }
     }
@@ -9058,11 +9058,11 @@ static int _cocos2d_GLView_setIcon(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        if (olua_is_std_string(L, 2)) {
+        if ((olua_is_std_string(L, 2))) {
             return _cocos2d_GLView_setIcon1(L);
         }
 
-        // if (olua_is_std_vector(L, 2)) {
+        // if ((olua_is_std_vector(L, 2))) {
             return _cocos2d_GLView_setIcon2(L);
         // }
     }
@@ -9981,19 +9981,19 @@ static int _cocos2d_GLProgram_createWithByteArrays(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
-        // if (olua_is_string(L, 1) && olua_is_string(L, 2)) {
+        // if ((olua_is_string(L, 1)) && (olua_is_string(L, 2))) {
             return _cocos2d_GLProgram_createWithByteArrays1(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (olua_is_string(L, 1) && olua_is_string(L, 2) && olua_is_std_string(L, 3)) {
+        // if ((olua_is_string(L, 1)) && (olua_is_string(L, 2)) && (olua_is_std_string(L, 3))) {
             return _cocos2d_GLProgram_createWithByteArrays2(L);
         // }
     }
 
     if (num_args == 4) {
-        // if (olua_is_string(L, 1) && olua_is_string(L, 2) && olua_is_std_string(L, 3) && olua_is_std_string(L, 4)) {
+        // if ((olua_is_string(L, 1)) && (olua_is_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4))) {
             return _cocos2d_GLProgram_createWithByteArrays3(L);
         // }
     }
@@ -10065,19 +10065,19 @@ static int _cocos2d_GLProgram_createWithFilenames(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
-        // if (olua_is_std_string(L, 1) && olua_is_std_string(L, 2)) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2))) {
             return _cocos2d_GLProgram_createWithFilenames1(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (olua_is_std_string(L, 1) && olua_is_std_string(L, 2) && olua_is_std_string(L, 3)) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3))) {
             return _cocos2d_GLProgram_createWithFilenames2(L);
         // }
     }
 
     if (num_args == 4) {
-        // if (olua_is_std_string(L, 1) && olua_is_std_string(L, 2) && olua_is_std_string(L, 3) && olua_is_std_string(L, 4)) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4))) {
             return _cocos2d_GLProgram_createWithFilenames3(L);
         // }
     }
@@ -10300,19 +10300,19 @@ static int _cocos2d_GLProgram_initWithByteArrays(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 2) {
-        // if (olua_is_string(L, 2) && olua_is_string(L, 3)) {
+        // if ((olua_is_string(L, 2)) && (olua_is_string(L, 3))) {
             return _cocos2d_GLProgram_initWithByteArrays1(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (olua_is_string(L, 2) && olua_is_string(L, 3) && olua_is_std_string(L, 4)) {
+        // if ((olua_is_string(L, 2)) && (olua_is_string(L, 3)) && (olua_is_std_string(L, 4))) {
             return _cocos2d_GLProgram_initWithByteArrays2(L);
         // }
     }
 
     if (num_args == 4) {
-        // if (olua_is_string(L, 2) && olua_is_string(L, 3) && olua_is_std_string(L, 4) && olua_is_std_string(L, 5)) {
+        // if ((olua_is_string(L, 2)) && (olua_is_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5))) {
             return _cocos2d_GLProgram_initWithByteArrays3(L);
         // }
     }
@@ -10390,19 +10390,19 @@ static int _cocos2d_GLProgram_initWithFilenames(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 2) {
-        // if (olua_is_std_string(L, 2) && olua_is_std_string(L, 3)) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3))) {
             return _cocos2d_GLProgram_initWithFilenames1(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (olua_is_std_string(L, 2) && olua_is_std_string(L, 3) && olua_is_std_string(L, 4)) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4))) {
             return _cocos2d_GLProgram_initWithFilenames2(L);
         // }
     }
 
     if (num_args == 4) {
-        // if (olua_is_std_string(L, 2) && olua_is_std_string(L, 3) && olua_is_std_string(L, 4) && olua_is_std_string(L, 5)) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5))) {
             return _cocos2d_GLProgram_initWithFilenames3(L);
         // }
     }
@@ -10648,7 +10648,7 @@ static int _cocos2d_GLProgram_setUniformsForBuiltins(lua_State *L)
     }
 
     if (num_args == 1) {
-        // if (manual_olua_is_cocos2d_Mat4(L, 2)) {
+        // if ((manual_olua_is_cocos2d_Mat4(L, 2))) {
             return _cocos2d_GLProgram_setUniformsForBuiltins1(L);
         // }
     }
@@ -11041,13 +11041,13 @@ static int _cocos2d_GLProgramState_getOrCreateWithGLProgramName(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
-        // if (olua_is_std_string(L, 1)) {
+        // if ((olua_is_std_string(L, 1))) {
             return _cocos2d_GLProgramState_getOrCreateWithGLProgramName1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (olua_is_std_string(L, 1) && olua_is_cppobj(L, 2, "cc.Texture2D")) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_cppobj(L, 2, "cc.Texture2D"))) {
             return _cocos2d_GLProgramState_getOrCreateWithGLProgramName2(L);
         // }
     }
@@ -11218,11 +11218,11 @@ static int _cocos2d_GLProgramState_setUniformFloat(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 2) {
-        if (olua_is_std_string(L, 2) && olua_is_number(L, 3)) {
+        if ((olua_is_std_string(L, 2)) && (olua_is_number(L, 3))) {
             return _cocos2d_GLProgramState_setUniformFloat1(L);
         }
 
-        // if (olua_is_int(L, 2) && olua_is_number(L, 3)) {
+        // if ((olua_is_int(L, 2)) && (olua_is_number(L, 3))) {
             return _cocos2d_GLProgramState_setUniformFloat2(L);
         // }
     }
@@ -11273,11 +11273,11 @@ static int _cocos2d_GLProgramState_setUniformInt(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 2) {
-        if (olua_is_std_string(L, 2) && olua_is_int(L, 3)) {
+        if ((olua_is_std_string(L, 2)) && (olua_is_int(L, 3))) {
             return _cocos2d_GLProgramState_setUniformInt1(L);
         }
 
-        // if (olua_is_int(L, 2) && olua_is_int(L, 3)) {
+        // if ((olua_is_int(L, 2)) && (olua_is_int(L, 3))) {
             return _cocos2d_GLProgramState_setUniformInt2(L);
         // }
     }
@@ -11328,11 +11328,11 @@ static int _cocos2d_GLProgramState_setUniformMat4(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 2) {
-        if (olua_is_std_string(L, 2) && manual_olua_is_cocos2d_Mat4(L, 3)) {
+        if ((olua_is_std_string(L, 2)) && (manual_olua_is_cocos2d_Mat4(L, 3))) {
             return _cocos2d_GLProgramState_setUniformMat41(L);
         }
 
-        // if (olua_is_int(L, 2) && manual_olua_is_cocos2d_Mat4(L, 3)) {
+        // if ((olua_is_int(L, 2)) && (manual_olua_is_cocos2d_Mat4(L, 3))) {
             return _cocos2d_GLProgramState_setUniformMat42(L);
         // }
     }
@@ -11383,11 +11383,11 @@ static int _cocos2d_GLProgramState_setUniformTexture(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 2) {
-        if (olua_is_std_string(L, 2) && olua_is_cppobj(L, 3, "cc.Texture2D")) {
+        if ((olua_is_std_string(L, 2)) && (olua_is_cppobj(L, 3, "cc.Texture2D"))) {
             return _cocos2d_GLProgramState_setUniformTexture1(L);
         }
 
-        // if (olua_is_int(L, 2) && olua_is_cppobj(L, 3, "cc.Texture2D")) {
+        // if ((olua_is_int(L, 2)) && (olua_is_cppobj(L, 3, "cc.Texture2D"))) {
             return _cocos2d_GLProgramState_setUniformTexture2(L);
         // }
     }
@@ -11438,11 +11438,11 @@ static int _cocos2d_GLProgramState_setUniformVec2(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 2) {
-        if (olua_is_std_string(L, 2) && auto_olua_is_cocos2d_Vec2(L, 3)) {
+        if ((olua_is_std_string(L, 2)) && (auto_olua_is_cocos2d_Vec2(L, 3))) {
             return _cocos2d_GLProgramState_setUniformVec21(L);
         }
 
-        // if (olua_is_int(L, 2) && auto_olua_is_cocos2d_Vec2(L, 3)) {
+        // if ((olua_is_int(L, 2)) && (auto_olua_is_cocos2d_Vec2(L, 3))) {
             return _cocos2d_GLProgramState_setUniformVec22(L);
         // }
     }
@@ -11493,11 +11493,11 @@ static int _cocos2d_GLProgramState_setUniformVec3(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 2) {
-        if (olua_is_std_string(L, 2) && auto_olua_is_cocos2d_Vec3(L, 3)) {
+        if ((olua_is_std_string(L, 2)) && (auto_olua_is_cocos2d_Vec3(L, 3))) {
             return _cocos2d_GLProgramState_setUniformVec31(L);
         }
 
-        // if (olua_is_int(L, 2) && auto_olua_is_cocos2d_Vec3(L, 3)) {
+        // if ((olua_is_int(L, 2)) && (auto_olua_is_cocos2d_Vec3(L, 3))) {
             return _cocos2d_GLProgramState_setUniformVec32(L);
         // }
     }
@@ -11548,11 +11548,11 @@ static int _cocos2d_GLProgramState_setUniformVec4(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 2) {
-        if (olua_is_std_string(L, 2) && auto_olua_is_cocos2d_Vec4(L, 3)) {
+        if ((olua_is_std_string(L, 2)) && (auto_olua_is_cocos2d_Vec4(L, 3))) {
             return _cocos2d_GLProgramState_setUniformVec41(L);
         }
 
-        // if (olua_is_int(L, 2) && auto_olua_is_cocos2d_Vec4(L, 3)) {
+        // if ((olua_is_int(L, 2)) && (auto_olua_is_cocos2d_Vec4(L, 3))) {
             return _cocos2d_GLProgramState_setUniformVec42(L);
         // }
     }
@@ -11675,13 +11675,13 @@ static int _cocos2d_TextureCache_addImage(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if (olua_is_std_string(L, 2)) {
+        // if ((olua_is_std_string(L, 2))) {
             return _cocos2d_TextureCache_addImage1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (olua_is_cppobj(L, 2, "cc.Image") && olua_is_std_string(L, 3)) {
+        // if ((olua_is_cppobj(L, 2, "cc.Image")) && (olua_is_std_string(L, 3))) {
             return _cocos2d_TextureCache_addImage2(L);
         // }
     }
@@ -11764,13 +11764,13 @@ static int _cocos2d_TextureCache_addImageAsync(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 2) {
-        // if (olua_is_std_string(L, 2) && olua_is_std_function(L, 3)) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_function(L, 3))) {
             return _cocos2d_TextureCache_addImageAsync1(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (olua_is_std_string(L, 2) && olua_is_std_function(L, 3) && olua_is_std_string(L, 4)) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_function(L, 3)) && (olua_is_std_string(L, 4))) {
             return _cocos2d_TextureCache_addImageAsync2(L);
         // }
     }
@@ -12196,7 +12196,7 @@ static int _cocos2d_Texture2D_getBitsPerPixelForFormat(lua_State *L)
     }
 
     if (num_args == 1) {
-        // if (olua_is_uint(L, 2)) {
+        // if ((olua_is_uint(L, 2))) {
             return _cocos2d_Texture2D_getBitsPerPixelForFormat2(L);
         // }
     }
@@ -12495,13 +12495,13 @@ static int _cocos2d_Texture2D_initWithImage(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if (olua_is_cppobj(L, 2, "cc.Image")) {
+        // if ((olua_is_cppobj(L, 2, "cc.Image"))) {
             return _cocos2d_Texture2D_initWithImage1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (olua_is_cppobj(L, 2, "cc.Image") && olua_is_uint(L, 3)) {
+        // if ((olua_is_cppobj(L, 2, "cc.Image")) && (olua_is_uint(L, 3))) {
             return _cocos2d_Texture2D_initWithImage2(L);
         // }
     }
@@ -12887,13 +12887,13 @@ static int _cocos2d_TextureAtlas_drawNumberOfQuads(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if (olua_is_int(L, 2)) {
+        // if ((olua_is_int(L, 2))) {
             return _cocos2d_TextureAtlas_drawNumberOfQuads1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (olua_is_int(L, 2) && olua_is_int(L, 3)) {
+        // if ((olua_is_int(L, 2)) && (olua_is_int(L, 3))) {
             return _cocos2d_TextureAtlas_drawNumberOfQuads2(L);
         // }
     }
@@ -13141,13 +13141,13 @@ static int _cocos2d_TextureAtlas_moveQuadsFromIndex(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 2) {
-        // if (olua_is_int(L, 2) && olua_is_int(L, 3)) {
+        // if ((olua_is_int(L, 2)) && (olua_is_int(L, 3))) {
             return _cocos2d_TextureAtlas_moveQuadsFromIndex2(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (olua_is_int(L, 2) && olua_is_int(L, 3) && olua_is_int(L, 4)) {
+        // if ((olua_is_int(L, 2)) && (olua_is_int(L, 3)) && (olua_is_int(L, 4))) {
             return _cocos2d_TextureAtlas_moveQuadsFromIndex1(L);
         // }
     }
@@ -14751,11 +14751,11 @@ static int _cocos2d_tweenfunc_quadraticInOut(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
-        if (olua_is_number(L, 1)) {
+        if ((olua_is_number(L, 1))) {
             return _cocos2d_tweenfunc_quadraticInOut1(L);
         }
 
-        // if (olua_is_number(L, 1)) {
+        // if ((olua_is_number(L, 1))) {
             return _cocos2d_tweenfunc_quadraticInOut2(L);
         // }
     }
@@ -15329,17 +15329,17 @@ static int _cocos2d_RotateTo_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
-        if (olua_is_number(L, 1) && auto_olua_is_cocos2d_Vec3(L, 2)) {
+        if ((olua_is_number(L, 1)) && (auto_olua_is_cocos2d_Vec3(L, 2))) {
             return _cocos2d_RotateTo_create3(L);
         }
 
-        // if (olua_is_number(L, 1) && olua_is_number(L, 2)) {
+        // if ((olua_is_number(L, 1)) && (olua_is_number(L, 2))) {
             return _cocos2d_RotateTo_create2(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (olua_is_number(L, 1) && olua_is_number(L, 2) && olua_is_number(L, 3)) {
+        // if ((olua_is_number(L, 1)) && (olua_is_number(L, 2)) && (olua_is_number(L, 3))) {
             return _cocos2d_RotateTo_create1(L);
         // }
     }
@@ -15418,17 +15418,17 @@ static int _cocos2d_RotateBy_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
-        if (olua_is_number(L, 1) && auto_olua_is_cocos2d_Vec3(L, 2)) {
+        if ((olua_is_number(L, 1)) && (auto_olua_is_cocos2d_Vec3(L, 2))) {
             return _cocos2d_RotateBy_create3(L);
         }
 
-        // if (olua_is_number(L, 1) && olua_is_number(L, 2)) {
+        // if ((olua_is_number(L, 1)) && (olua_is_number(L, 2))) {
             return _cocos2d_RotateBy_create1(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (olua_is_number(L, 1) && olua_is_number(L, 2) && olua_is_number(L, 3)) {
+        // if ((olua_is_number(L, 1)) && (olua_is_number(L, 2)) && (olua_is_number(L, 3))) {
             return _cocos2d_RotateBy_create2(L);
         // }
     }
@@ -15522,23 +15522,23 @@ static int _cocos2d_MoveBy_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
-        if (olua_is_number(L, 1) && auto_olua_is_cocos2d_Vec3(L, 2)) {
+        if ((olua_is_number(L, 1)) && (auto_olua_is_cocos2d_Vec3(L, 2))) {
             return _cocos2d_MoveBy_create3(L);
         }
 
-        // if (olua_is_number(L, 1) && auto_olua_is_cocos2d_Vec2(L, 2)) {
+        // if ((olua_is_number(L, 1)) && (auto_olua_is_cocos2d_Vec2(L, 2))) {
             return _cocos2d_MoveBy_create1(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (olua_is_number(L, 1) && auto_olua_ispack_cocos2d_Vec2(L, 2)) {
+        // if ((olua_is_number(L, 1)) && (auto_olua_ispack_cocos2d_Vec2(L, 2))) {
             return _cocos2d_MoveBy_create2(L);
         // }
     }
 
     if (num_args == 4) {
-        // if (olua_is_number(L, 1) && auto_olua_ispack_cocos2d_Vec3(L, 2)) {
+        // if ((olua_is_number(L, 1)) && (auto_olua_ispack_cocos2d_Vec3(L, 2))) {
             return _cocos2d_MoveBy_create4(L);
         // }
     }
@@ -15632,23 +15632,23 @@ static int _cocos2d_MoveTo_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
-        if (olua_is_number(L, 1) && auto_olua_is_cocos2d_Vec3(L, 2)) {
+        if ((olua_is_number(L, 1)) && (auto_olua_is_cocos2d_Vec3(L, 2))) {
             return _cocos2d_MoveTo_create3(L);
         }
 
-        // if (olua_is_number(L, 1) && auto_olua_is_cocos2d_Vec2(L, 2)) {
+        // if ((olua_is_number(L, 1)) && (auto_olua_is_cocos2d_Vec2(L, 2))) {
             return _cocos2d_MoveTo_create1(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (olua_is_number(L, 1) && auto_olua_ispack_cocos2d_Vec2(L, 2)) {
+        // if ((olua_is_number(L, 1)) && (auto_olua_ispack_cocos2d_Vec2(L, 2))) {
             return _cocos2d_MoveTo_create2(L);
         // }
     }
 
     if (num_args == 4) {
-        // if (olua_is_number(L, 1) && auto_olua_ispack_cocos2d_Vec3(L, 2)) {
+        // if ((olua_is_number(L, 1)) && (auto_olua_ispack_cocos2d_Vec3(L, 2))) {
             return _cocos2d_MoveTo_create4(L);
         // }
     }
@@ -15824,13 +15824,13 @@ static int _cocos2d_BezierBy_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
-        // if (olua_is_number(L, 1) && manual_olua_is_cocos2d_ccBezierConfig(L, 2)) {
+        // if ((olua_is_number(L, 1)) && (manual_olua_is_cocos2d_ccBezierConfig(L, 2))) {
             return _cocos2d_BezierBy_create1(L);
         // }
     }
 
     if (num_args == 4) {
-        // if (olua_is_number(L, 1) && manual_olua_ispack_cocos2d_ccBezierConfig(L, 2)) {
+        // if ((olua_is_number(L, 1)) && (manual_olua_ispack_cocos2d_ccBezierConfig(L, 2))) {
             return _cocos2d_BezierBy_create2(L);
         // }
     }
@@ -15890,13 +15890,13 @@ static int _cocos2d_BezierTo_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
-        // if (olua_is_number(L, 1) && manual_olua_is_cocos2d_ccBezierConfig(L, 2)) {
+        // if ((olua_is_number(L, 1)) && (manual_olua_is_cocos2d_ccBezierConfig(L, 2))) {
             return _cocos2d_BezierTo_create1(L);
         // }
     }
 
     if (num_args == 4) {
-        // if (olua_is_number(L, 1) && manual_olua_ispack_cocos2d_ccBezierConfig(L, 2)) {
+        // if ((olua_is_number(L, 1)) && (manual_olua_ispack_cocos2d_ccBezierConfig(L, 2))) {
             return _cocos2d_BezierTo_create2(L);
         // }
     }
@@ -15964,13 +15964,13 @@ static int _cocos2d_JumpBy_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 4) {
-        // if (olua_is_number(L, 1) && auto_olua_is_cocos2d_Vec2(L, 2) && olua_is_number(L, 3) && olua_is_int(L, 4)) {
+        // if ((olua_is_number(L, 1)) && (auto_olua_is_cocos2d_Vec2(L, 2)) && (olua_is_number(L, 3)) && (olua_is_int(L, 4))) {
             return _cocos2d_JumpBy_create1(L);
         // }
     }
 
     if (num_args == 5) {
-        // if (olua_is_number(L, 1) && auto_olua_ispack_cocos2d_Vec2(L, 2) && olua_is_number(L, 3) && olua_is_int(L, 4)) {
+        // if ((olua_is_number(L, 1)) && (auto_olua_ispack_cocos2d_Vec2(L, 2)) && (olua_is_number(L, 3)) && (olua_is_int(L, 4))) {
             return _cocos2d_JumpBy_create2(L);
         // }
     }
@@ -16038,13 +16038,13 @@ static int _cocos2d_JumpTo_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 4) {
-        // if (olua_is_number(L, 1) && auto_olua_is_cocos2d_Vec2(L, 2) && olua_is_number(L, 3) && olua_is_int(L, 4)) {
+        // if ((olua_is_number(L, 1)) && (auto_olua_is_cocos2d_Vec2(L, 2)) && (olua_is_number(L, 3)) && (olua_is_int(L, 4))) {
             return _cocos2d_JumpTo_create1(L);
         // }
     }
 
     if (num_args == 5) {
-        // if (olua_is_number(L, 1) && auto_olua_ispack_cocos2d_Vec2(L, 2) && olua_is_number(L, 3) && olua_is_int(L, 4)) {
+        // if ((olua_is_number(L, 1)) && (auto_olua_ispack_cocos2d_Vec2(L, 2)) && (olua_is_number(L, 3)) && (olua_is_int(L, 4))) {
             return _cocos2d_JumpTo_create2(L);
         // }
     }
@@ -16127,19 +16127,19 @@ static int _cocos2d_ScaleTo_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
-        // if (olua_is_number(L, 1) && olua_is_number(L, 2)) {
+        // if ((olua_is_number(L, 1)) && (olua_is_number(L, 2))) {
             return _cocos2d_ScaleTo_create1(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (olua_is_number(L, 1) && olua_is_number(L, 2) && olua_is_number(L, 3)) {
+        // if ((olua_is_number(L, 1)) && (olua_is_number(L, 2)) && (olua_is_number(L, 3))) {
             return _cocos2d_ScaleTo_create2(L);
         // }
     }
 
     if (num_args == 4) {
-        // if (olua_is_number(L, 1) && olua_is_number(L, 2) && olua_is_number(L, 3) && olua_is_number(L, 4)) {
+        // if ((olua_is_number(L, 1)) && (olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4))) {
             return _cocos2d_ScaleTo_create3(L);
         // }
     }
@@ -16222,19 +16222,19 @@ static int _cocos2d_ScaleBy_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
-        // if (olua_is_number(L, 1) && olua_is_number(L, 2)) {
+        // if ((olua_is_number(L, 1)) && (olua_is_number(L, 2))) {
             return _cocos2d_ScaleBy_create1(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (olua_is_number(L, 1) && olua_is_number(L, 2) && olua_is_number(L, 3)) {
+        // if ((olua_is_number(L, 1)) && (olua_is_number(L, 2)) && (olua_is_number(L, 3))) {
             return _cocos2d_ScaleBy_create2(L);
         // }
     }
 
     if (num_args == 4) {
-        // if (olua_is_number(L, 1) && olua_is_number(L, 2) && olua_is_number(L, 3) && olua_is_number(L, 4)) {
+        // if ((olua_is_number(L, 1)) && (olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4))) {
             return _cocos2d_ScaleBy_create3(L);
         // }
     }
@@ -16406,13 +16406,13 @@ static int _cocos2d_TintTo_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
-        // if (olua_is_number(L, 1) && manual_olua_is_cocos2d_Color3B(L, 2)) {
+        // if ((olua_is_number(L, 1)) && (manual_olua_is_cocos2d_Color3B(L, 2))) {
             return _cocos2d_TintTo_create2(L);
         // }
     }
 
     if (num_args == 4) {
-        // if (olua_is_number(L, 1) && olua_is_uint(L, 2) && olua_is_uint(L, 3) && olua_is_uint(L, 4)) {
+        // if ((olua_is_number(L, 1)) && (olua_is_uint(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4))) {
             return _cocos2d_TintTo_create1(L);
         // }
     }
@@ -19222,23 +19222,23 @@ static int _cocos2d_Node_addChild(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if (olua_is_cppobj(L, 2, "cc.Node")) {
+        // if ((olua_is_cppobj(L, 2, "cc.Node"))) {
             return _cocos2d_Node_addChild1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (olua_is_cppobj(L, 2, "cc.Node") && olua_is_int(L, 3)) {
+        // if ((olua_is_cppobj(L, 2, "cc.Node")) && (olua_is_int(L, 3))) {
             return _cocos2d_Node_addChild2(L);
         // }
     }
 
     if (num_args == 3) {
-        if (olua_is_cppobj(L, 2, "cc.Node") && olua_is_int(L, 3) && olua_is_int(L, 4)) {
+        if ((olua_is_cppobj(L, 2, "cc.Node")) && (olua_is_int(L, 3)) && (olua_is_int(L, 4))) {
             return _cocos2d_Node_addChild3(L);
         }
 
-        // if (olua_is_cppobj(L, 2, "cc.Node") && olua_is_int(L, 3) && olua_is_std_string(L, 4)) {
+        // if ((olua_is_cppobj(L, 2, "cc.Node")) && (olua_is_int(L, 3)) && (olua_is_std_string(L, 4))) {
             return _cocos2d_Node_addChild4(L);
         // }
     }
@@ -19321,13 +19321,13 @@ static int _cocos2d_Node_convertToNodeSpace(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if (auto_olua_is_cocos2d_Vec2(L, 2)) {
+        // if ((auto_olua_is_cocos2d_Vec2(L, 2))) {
             return _cocos2d_Node_convertToNodeSpace1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (auto_olua_ispack_cocos2d_Vec2(L, 2)) {
+        // if ((auto_olua_ispack_cocos2d_Vec2(L, 2))) {
             return _cocos2d_Node_convertToNodeSpace2(L);
         // }
     }
@@ -19376,13 +19376,13 @@ static int _cocos2d_Node_convertToNodeSpaceAR(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if (auto_olua_is_cocos2d_Vec2(L, 2)) {
+        // if ((auto_olua_is_cocos2d_Vec2(L, 2))) {
             return _cocos2d_Node_convertToNodeSpaceAR1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (auto_olua_ispack_cocos2d_Vec2(L, 2)) {
+        // if ((auto_olua_ispack_cocos2d_Vec2(L, 2))) {
             return _cocos2d_Node_convertToNodeSpaceAR2(L);
         // }
     }
@@ -19431,13 +19431,13 @@ static int _cocos2d_Node_convertToWorldSpace(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if (auto_olua_is_cocos2d_Vec2(L, 2)) {
+        // if ((auto_olua_is_cocos2d_Vec2(L, 2))) {
             return _cocos2d_Node_convertToWorldSpace1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (auto_olua_ispack_cocos2d_Vec2(L, 2)) {
+        // if ((auto_olua_ispack_cocos2d_Vec2(L, 2))) {
             return _cocos2d_Node_convertToWorldSpace2(L);
         // }
     }
@@ -19486,13 +19486,13 @@ static int _cocos2d_Node_convertToWorldSpaceAR(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if (auto_olua_is_cocos2d_Vec2(L, 2)) {
+        // if ((auto_olua_is_cocos2d_Vec2(L, 2))) {
             return _cocos2d_Node_convertToWorldSpaceAR1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (auto_olua_ispack_cocos2d_Vec2(L, 2)) {
+        // if ((auto_olua_ispack_cocos2d_Vec2(L, 2))) {
             return _cocos2d_Node_convertToWorldSpaceAR2(L);
         // }
     }
@@ -19590,7 +19590,7 @@ static int _cocos2d_Node_draw(lua_State *L)
     }
 
     if (num_args == 3) {
-        // if (olua_is_cppobj(L, 2, "cc.Renderer") && manual_olua_is_cocos2d_Mat4(L, 3) && olua_is_uint(L, 4)) {
+        // if ((olua_is_cppobj(L, 2, "cc.Renderer")) && (manual_olua_is_cocos2d_Mat4(L, 3)) && (olua_is_uint(L, 4))) {
             return _cocos2d_Node_draw1(L);
         // }
     }
@@ -20063,7 +20063,7 @@ static int _cocos2d_Node_getNodeToParentAffineTransform(lua_State *L)
     }
 
     if (num_args == 1) {
-        // if (olua_is_cppobj(L, 2, "cc.Node")) {
+        // if ((olua_is_cppobj(L, 2, "cc.Node"))) {
             return _cocos2d_Node_getNodeToParentAffineTransform2(L);
         // }
     }
@@ -20114,7 +20114,7 @@ static int _cocos2d_Node_getNodeToParentTransform(lua_State *L)
     }
 
     if (num_args == 1) {
-        // if (olua_is_cppobj(L, 2, "cc.Node")) {
+        // if ((olua_is_cppobj(L, 2, "cc.Node"))) {
             return _cocos2d_Node_getNodeToParentTransform2(L);
         // }
     }
@@ -21083,11 +21083,11 @@ static int _cocos2d_Node_removeComponent(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        if (olua_is_std_string(L, 2)) {
+        if ((olua_is_std_string(L, 2))) {
             return _cocos2d_Node_removeComponent1(L);
         }
 
-        // if (olua_is_cppobj(L, 2, "cc.Component")) {
+        // if ((olua_is_cppobj(L, 2, "cc.Component"))) {
             return _cocos2d_Node_removeComponent2(L);
         // }
     }
@@ -21309,19 +21309,19 @@ static int _cocos2d_Node_schedule(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 2) {
-        // if (olua_is_std_function(L, 2) && olua_is_std_string(L, 3)) {
+        // if ((olua_is_std_function(L, 2)) && (olua_is_std_string(L, 3))) {
             return _cocos2d_Node_schedule1(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (olua_is_std_function(L, 2) && olua_is_number(L, 3) && olua_is_std_string(L, 4)) {
+        // if ((olua_is_std_function(L, 2)) && (olua_is_number(L, 3)) && (olua_is_std_string(L, 4))) {
             return _cocos2d_Node_schedule2(L);
         // }
     }
 
     if (num_args == 5) {
-        // if (olua_is_std_function(L, 2) && olua_is_number(L, 3) && olua_is_uint(L, 4) && olua_is_number(L, 5) && olua_is_std_string(L, 6)) {
+        // if ((olua_is_std_function(L, 2)) && (olua_is_number(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_number(L, 5)) && (olua_is_std_string(L, 6))) {
             return _cocos2d_Node_schedule3(L);
         // }
     }
@@ -21452,11 +21452,11 @@ static int _cocos2d_Node_setAdditionalTransform(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        if (manual_olua_is_cocos2d_Mat4(L, 2)) {
+        if ((manual_olua_is_cocos2d_Mat4(L, 2))) {
             return _cocos2d_Node_setAdditionalTransform1(L);
         }
 
-        // if (auto_olua_is_cocos2d_AffineTransform(L, 2)) {
+        // if ((auto_olua_is_cocos2d_AffineTransform(L, 2))) {
             return _cocos2d_Node_setAdditionalTransform2(L);
         // }
     }
@@ -21959,13 +21959,13 @@ static int _cocos2d_Node_setPosition(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if (auto_olua_is_cocos2d_Vec2(L, 2)) {
+        // if ((auto_olua_is_cocos2d_Vec2(L, 2))) {
             return _cocos2d_Node_setPosition1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (olua_is_number(L, 2) && olua_is_number(L, 3)) {
+        // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3))) {
             return _cocos2d_Node_setPosition2(L);
         // }
     }
@@ -22174,13 +22174,13 @@ static int _cocos2d_Node_setScale(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if (olua_is_number(L, 2)) {
+        // if ((olua_is_number(L, 2))) {
             return _cocos2d_Node_setScale1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (olua_is_number(L, 2) && olua_is_number(L, 3)) {
+        // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3))) {
             return _cocos2d_Node_setScale2(L);
         // }
     }
@@ -22646,7 +22646,7 @@ static int _cocos2d_Node_visit(lua_State *L)
     }
 
     if (num_args == 3) {
-        // if (olua_is_cppobj(L, 2, "cc.Renderer") && manual_olua_is_cocos2d_Mat4(L, 3) && olua_is_uint(L, 4)) {
+        // if ((olua_is_cppobj(L, 2, "cc.Renderer")) && (manual_olua_is_cocos2d_Mat4(L, 3)) && (olua_is_uint(L, 4))) {
             return _cocos2d_Node_visit1(L);
         // }
     }
@@ -23289,19 +23289,19 @@ static int _cocos2d_ProtectedNode_addProtectedChild(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if (olua_is_cppobj(L, 2, "cc.Node")) {
+        // if ((olua_is_cppobj(L, 2, "cc.Node"))) {
             return _cocos2d_ProtectedNode_addProtectedChild1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (olua_is_cppobj(L, 2, "cc.Node") && olua_is_int(L, 3)) {
+        // if ((olua_is_cppobj(L, 2, "cc.Node")) && (olua_is_int(L, 3))) {
             return _cocos2d_ProtectedNode_addProtectedChild2(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (olua_is_cppobj(L, 2, "cc.Node") && olua_is_int(L, 3) && olua_is_int(L, 4)) {
+        // if ((olua_is_cppobj(L, 2, "cc.Node")) && (olua_is_int(L, 3)) && (olua_is_int(L, 4))) {
             return _cocos2d_ProtectedNode_addProtectedChild3(L);
         // }
     }
@@ -23606,13 +23606,13 @@ static int _cocos2d_DrawNode_drawCircle(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 6) {
-        // if (auto_olua_is_cocos2d_Vec2(L, 2) && olua_is_number(L, 3) && olua_is_number(L, 4) && olua_is_uint(L, 5) && olua_is_bool(L, 6) && manual_olua_is_cocos2d_Color4F(L, 7)) {
+        // if ((auto_olua_is_cocos2d_Vec2(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_uint(L, 5)) && (olua_is_bool(L, 6)) && (manual_olua_is_cocos2d_Color4F(L, 7))) {
             return _cocos2d_DrawNode_drawCircle2(L);
         // }
     }
 
     if (num_args == 8) {
-        // if (auto_olua_is_cocos2d_Vec2(L, 2) && olua_is_number(L, 3) && olua_is_number(L, 4) && olua_is_uint(L, 5) && olua_is_bool(L, 6) && olua_is_number(L, 7) && olua_is_number(L, 8) && manual_olua_is_cocos2d_Color4F(L, 9)) {
+        // if ((auto_olua_is_cocos2d_Vec2(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_uint(L, 5)) && (olua_is_bool(L, 6)) && (olua_is_number(L, 7)) && (olua_is_number(L, 8)) && (manual_olua_is_cocos2d_Color4F(L, 9))) {
             return _cocos2d_DrawNode_drawCircle1(L);
         // }
     }
@@ -23781,13 +23781,13 @@ static int _cocos2d_DrawNode_drawRect(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 3) {
-        // if (auto_olua_is_cocos2d_Vec2(L, 2) && auto_olua_is_cocos2d_Vec2(L, 3) && manual_olua_is_cocos2d_Color4F(L, 4)) {
+        // if ((auto_olua_is_cocos2d_Vec2(L, 2)) && (auto_olua_is_cocos2d_Vec2(L, 3)) && (manual_olua_is_cocos2d_Color4F(L, 4))) {
             return _cocos2d_DrawNode_drawRect1(L);
         // }
     }
 
     if (num_args == 5) {
-        // if (auto_olua_is_cocos2d_Vec2(L, 2) && auto_olua_is_cocos2d_Vec2(L, 3) && auto_olua_is_cocos2d_Vec2(L, 4) && auto_olua_is_cocos2d_Vec2(L, 5) && manual_olua_is_cocos2d_Color4F(L, 6)) {
+        // if ((auto_olua_is_cocos2d_Vec2(L, 2)) && (auto_olua_is_cocos2d_Vec2(L, 3)) && (auto_olua_is_cocos2d_Vec2(L, 4)) && (auto_olua_is_cocos2d_Vec2(L, 5)) && (manual_olua_is_cocos2d_Color4F(L, 6))) {
             return _cocos2d_DrawNode_drawRect2(L);
         // }
     }
@@ -23876,13 +23876,13 @@ static int _cocos2d_DrawNode_drawSolidCircle(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 5) {
-        // if (auto_olua_is_cocos2d_Vec2(L, 2) && olua_is_number(L, 3) && olua_is_number(L, 4) && olua_is_uint(L, 5) && manual_olua_is_cocos2d_Color4F(L, 6)) {
+        // if ((auto_olua_is_cocos2d_Vec2(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_uint(L, 5)) && (manual_olua_is_cocos2d_Color4F(L, 6))) {
             return _cocos2d_DrawNode_drawSolidCircle2(L);
         // }
     }
 
     if (num_args == 7) {
-        // if (auto_olua_is_cocos2d_Vec2(L, 2) && olua_is_number(L, 3) && olua_is_number(L, 4) && olua_is_uint(L, 5) && olua_is_number(L, 6) && olua_is_number(L, 7) && manual_olua_is_cocos2d_Color4F(L, 8)) {
+        // if ((auto_olua_is_cocos2d_Vec2(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_uint(L, 5)) && (olua_is_number(L, 6)) && (olua_is_number(L, 7)) && (manual_olua_is_cocos2d_Color4F(L, 8))) {
             return _cocos2d_DrawNode_drawSolidCircle1(L);
         // }
     }
@@ -24301,17 +24301,17 @@ static int _cocos2d_Label_createWithCharMap(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
-        // if (olua_is_std_string(L, 1)) {
+        // if ((olua_is_std_string(L, 1))) {
             return _cocos2d_Label_createWithCharMap3(L);
         // }
     }
 
     if (num_args == 4) {
-        if (olua_is_std_string(L, 1) && olua_is_int(L, 2) && olua_is_int(L, 3) && olua_is_int(L, 4)) {
+        if ((olua_is_std_string(L, 1)) && (olua_is_int(L, 2)) && (olua_is_int(L, 3)) && (olua_is_int(L, 4))) {
             return _cocos2d_Label_createWithCharMap1(L);
         }
 
-        // if (olua_is_cppobj(L, 1, "cc.Texture2D") && olua_is_int(L, 2) && olua_is_int(L, 3) && olua_is_int(L, 4)) {
+        // if ((olua_is_cppobj(L, 1, "cc.Texture2D")) && (olua_is_int(L, 2)) && (olua_is_int(L, 3)) && (olua_is_int(L, 4))) {
             return _cocos2d_Label_createWithCharMap2(L);
         // }
     }
@@ -24397,13 +24397,13 @@ static int _cocos2d_Label_createWithTTF(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 4) {
-        // if (auto_olua_is_cocos2d_TTFConfig(L, 1) && olua_is_std_string(L, 2) && (olua_is_uint(L, 3) || olua_isnil(L, 3)) && (olua_is_int(L, 4) || olua_isnil(L, 4))) {
+        // if ((auto_olua_is_cocos2d_TTFConfig(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3) || olua_isnil(L, 3)) && (olua_is_int(L, 4) || olua_isnil(L, 4))) {
             return _cocos2d_Label_createWithTTF2(L);
         // }
     }
 
     if (num_args == 6) {
-        // if (olua_is_std_string(L, 1) && olua_is_std_string(L, 2) && olua_is_number(L, 3) && (auto_olua_is_cocos2d_Size(L, 4) || olua_isnil(L, 4)) && (olua_is_uint(L, 5) || olua_isnil(L, 5)) && (olua_is_uint(L, 6) || olua_isnil(L, 6))) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3)) && (auto_olua_is_cocos2d_Size(L, 4) || olua_isnil(L, 4)) && (olua_is_uint(L, 5) || olua_isnil(L, 5)) && (olua_is_uint(L, 6) || olua_isnil(L, 6))) {
             return _cocos2d_Label_createWithTTF1(L);
         // }
     }
@@ -24452,7 +24452,7 @@ static int _cocos2d_Label_disableEffect(lua_State *L)
     }
 
     if (num_args == 1) {
-        // if (olua_is_uint(L, 2)) {
+        // if ((olua_is_uint(L, 2))) {
             return _cocos2d_Label_disableEffect2(L);
         // }
     }
@@ -25110,13 +25110,13 @@ static int _cocos2d_Label_initWithTTF(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 4) {
-        // if (auto_olua_is_cocos2d_TTFConfig(L, 2) && olua_is_std_string(L, 3) && (olua_is_uint(L, 4) || olua_isnil(L, 4)) && (olua_is_int(L, 5) || olua_isnil(L, 5))) {
+        // if ((auto_olua_is_cocos2d_TTFConfig(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_uint(L, 4) || olua_isnil(L, 4)) && (olua_is_int(L, 5) || olua_isnil(L, 5))) {
             return _cocos2d_Label_initWithTTF2(L);
         // }
     }
 
     if (num_args == 6) {
-        // if (olua_is_std_string(L, 2) && olua_is_std_string(L, 3) && olua_is_number(L, 4) && (auto_olua_is_cocos2d_Size(L, 5) || olua_isnil(L, 5)) && (olua_is_uint(L, 6) || olua_isnil(L, 6)) && (olua_is_uint(L, 7) || olua_isnil(L, 7))) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4)) && (auto_olua_is_cocos2d_Size(L, 5) || olua_isnil(L, 5)) && (olua_is_uint(L, 6) || olua_isnil(L, 6)) && (olua_is_uint(L, 7) || olua_isnil(L, 7))) {
             return _cocos2d_Label_initWithTTF1(L);
         // }
     }
@@ -25240,13 +25240,13 @@ static int _cocos2d_Label_setAlignment(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if (olua_is_uint(L, 2)) {
+        // if ((olua_is_uint(L, 2))) {
             return _cocos2d_Label_setAlignment1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (olua_is_uint(L, 2) && olua_is_uint(L, 3)) {
+        // if ((olua_is_uint(L, 2)) && (olua_is_uint(L, 3))) {
             return _cocos2d_Label_setAlignment2(L);
         // }
     }
@@ -25377,17 +25377,17 @@ static int _cocos2d_Label_setCharMap(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if (olua_is_std_string(L, 2)) {
+        // if ((olua_is_std_string(L, 2))) {
             return _cocos2d_Label_setCharMap3(L);
         // }
     }
 
     if (num_args == 4) {
-        if (olua_is_std_string(L, 2) && olua_is_int(L, 3) && olua_is_int(L, 4) && olua_is_int(L, 5)) {
+        if ((olua_is_std_string(L, 2)) && (olua_is_int(L, 3)) && (olua_is_int(L, 4)) && (olua_is_int(L, 5))) {
             return _cocos2d_Label_setCharMap1(L);
         }
 
-        // if (olua_is_cppobj(L, 2, "cc.Texture2D") && olua_is_int(L, 3) && olua_is_int(L, 4) && olua_is_int(L, 5)) {
+        // if ((olua_is_cppobj(L, 2, "cc.Texture2D")) && (olua_is_int(L, 3)) && (olua_is_int(L, 4)) && (olua_is_int(L, 5))) {
             return _cocos2d_Label_setCharMap2(L);
         // }
     }
@@ -25846,13 +25846,13 @@ static int _cocos2d_LabelAtlas_create(lua_State *L)
     }
 
     if (num_args == 2) {
-        // if (olua_is_std_string(L, 1) && olua_is_std_string(L, 2)) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2))) {
             return _cocos2d_LabelAtlas_create3(L);
         // }
     }
 
     if (num_args == 5) {
-        // if (olua_is_std_string(L, 1) && olua_is_std_string(L, 2) && olua_is_int(L, 3) && olua_is_int(L, 4) && olua_is_int(L, 5)) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_int(L, 3)) && (olua_is_int(L, 4)) && (olua_is_int(L, 5))) {
             return _cocos2d_LabelAtlas_create2(L);
         // }
     }
@@ -25951,17 +25951,17 @@ static int _cocos2d_LabelAtlas_initWithString(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 2) {
-        // if (olua_is_std_string(L, 2) && olua_is_std_string(L, 3)) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3))) {
             return _cocos2d_LabelAtlas_initWithString2(L);
         // }
     }
 
     if (num_args == 5) {
-        if (olua_is_std_string(L, 2) && olua_is_std_string(L, 3) && olua_is_int(L, 4) && olua_is_int(L, 5) && olua_is_int(L, 6)) {
+        if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_int(L, 4)) && (olua_is_int(L, 5)) && (olua_is_int(L, 6))) {
             return _cocos2d_LabelAtlas_initWithString1(L);
         }
 
-        // if (olua_is_std_string(L, 2) && olua_is_cppobj(L, 3, "cc.Texture2D") && olua_is_int(L, 4) && olua_is_int(L, 5) && olua_is_int(L, 6)) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_cppobj(L, 3, "cc.Texture2D")) && (olua_is_int(L, 4)) && (olua_is_int(L, 5)) && (olua_is_int(L, 6))) {
             return _cocos2d_LabelAtlas_initWithString3(L);
         // }
     }
@@ -26197,7 +26197,7 @@ static int _cocos2d_ClippingRectangleNode_create(lua_State *L)
     }
 
     if (num_args == 1) {
-        // if (manual_olua_is_cocos2d_Rect(L, 1)) {
+        // if ((manual_olua_is_cocos2d_Rect(L, 1))) {
             return _cocos2d_ClippingRectangleNode_create1(L);
         // }
     }
@@ -26377,19 +26377,19 @@ static int _cocos2d_RenderTexture_beginWithClear(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 4) {
-        // if (olua_is_number(L, 2) && olua_is_number(L, 3) && olua_is_number(L, 4) && olua_is_number(L, 5)) {
+        // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_number(L, 5))) {
             return _cocos2d_RenderTexture_beginWithClear1(L);
         // }
     }
 
     if (num_args == 5) {
-        // if (olua_is_number(L, 2) && olua_is_number(L, 3) && olua_is_number(L, 4) && olua_is_number(L, 5) && olua_is_number(L, 6)) {
+        // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_number(L, 5)) && (olua_is_number(L, 6))) {
             return _cocos2d_RenderTexture_beginWithClear2(L);
         // }
     }
 
     if (num_args == 6) {
-        // if (olua_is_number(L, 2) && olua_is_number(L, 3) && olua_is_number(L, 4) && olua_is_number(L, 5) && olua_is_number(L, 6) && olua_is_int(L, 7)) {
+        // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_number(L, 5)) && (olua_is_number(L, 6)) && (olua_is_int(L, 7))) {
             return _cocos2d_RenderTexture_beginWithClear3(L);
         // }
     }
@@ -26515,19 +26515,19 @@ static int _cocos2d_RenderTexture_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
-        // if (olua_is_int(L, 1) && olua_is_int(L, 2)) {
+        // if ((olua_is_int(L, 1)) && (olua_is_int(L, 2))) {
             return _cocos2d_RenderTexture_create3(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (olua_is_int(L, 1) && olua_is_int(L, 2) && olua_is_uint(L, 3)) {
+        // if ((olua_is_int(L, 1)) && (olua_is_int(L, 2)) && (olua_is_uint(L, 3))) {
             return _cocos2d_RenderTexture_create2(L);
         // }
     }
 
     if (num_args == 4) {
-        // if (olua_is_int(L, 1) && olua_is_int(L, 2) && olua_is_uint(L, 3) && olua_is_uint(L, 4)) {
+        // if ((olua_is_int(L, 1)) && (olua_is_int(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4))) {
             return _cocos2d_RenderTexture_create1(L);
         // }
     }
@@ -26675,13 +26675,13 @@ static int _cocos2d_RenderTexture_initWithWidthAndHeight(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 3) {
-        // if (olua_is_int(L, 2) && olua_is_int(L, 3) && olua_is_uint(L, 4)) {
+        // if ((olua_is_int(L, 2)) && (olua_is_int(L, 3)) && (olua_is_uint(L, 4))) {
             return _cocos2d_RenderTexture_initWithWidthAndHeight1(L);
         // }
     }
 
     if (num_args == 4) {
-        // if (olua_is_int(L, 2) && olua_is_int(L, 3) && olua_is_uint(L, 4) && olua_is_uint(L, 5)) {
+        // if ((olua_is_int(L, 2)) && (olua_is_int(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_uint(L, 5))) {
             return _cocos2d_RenderTexture_initWithWidthAndHeight2(L);
         // }
     }
@@ -26850,13 +26850,13 @@ static int _cocos2d_RenderTexture_saveToFile(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 3) {
-        // if (olua_is_std_string(L, 2) && (olua_is_bool(L, 3) || olua_isnil(L, 3)) && olua_is_std_function(L, 4)) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3) || olua_isnil(L, 3)) && (olua_is_std_function(L, 4))) {
             return _cocos2d_RenderTexture_saveToFile1(L);
         // }
     }
 
     if (num_args == 4) {
-        // if (olua_is_std_string(L, 2) && olua_is_uint(L, 3) && (olua_is_bool(L, 4) || olua_isnil(L, 4)) && olua_is_std_function(L, 5)) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_bool(L, 4) || olua_isnil(L, 4)) && (olua_is_std_function(L, 5))) {
             return _cocos2d_RenderTexture_saveToFile2(L);
         // }
     }
@@ -27574,7 +27574,7 @@ static int _cocos2d_Animation_create(lua_State *L)
     }
 
     if (num_args == 3) {
-        // if (manual_olua_is_cocos2d_Vector(L, 1) && olua_is_number(L, 2) && (olua_is_uint(L, 3) || olua_isnil(L, 3))) {
+        // if ((manual_olua_is_cocos2d_Vector(L, 1)) && (olua_is_number(L, 2)) && (olua_is_uint(L, 3) || olua_isnil(L, 3))) {
             return _cocos2d_Animation_create2(L);
         // }
     }
@@ -27909,13 +27909,13 @@ static int _cocos2d_SpriteFrame_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
-        // if (olua_is_std_string(L, 1) && manual_olua_is_cocos2d_Rect(L, 2)) {
+        // if ((olua_is_std_string(L, 1)) && (manual_olua_is_cocos2d_Rect(L, 2))) {
             return _cocos2d_SpriteFrame_create1(L);
         // }
     }
 
     if (num_args == 5) {
-        // if (olua_is_std_string(L, 1) && manual_olua_is_cocos2d_Rect(L, 2) && olua_is_bool(L, 3) && auto_olua_is_cocos2d_Vec2(L, 4) && auto_olua_is_cocos2d_Size(L, 5)) {
+        // if ((olua_is_std_string(L, 1)) && (manual_olua_is_cocos2d_Rect(L, 2)) && (olua_is_bool(L, 3)) && (auto_olua_is_cocos2d_Vec2(L, 4)) && (auto_olua_is_cocos2d_Size(L, 5))) {
             return _cocos2d_SpriteFrame_create2(L);
         // }
     }
@@ -27970,13 +27970,13 @@ static int _cocos2d_SpriteFrame_createWithTexture(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
-        // if (olua_is_cppobj(L, 1, "cc.Texture2D") && manual_olua_is_cocos2d_Rect(L, 2)) {
+        // if ((olua_is_cppobj(L, 1, "cc.Texture2D")) && (manual_olua_is_cocos2d_Rect(L, 2))) {
             return _cocos2d_SpriteFrame_createWithTexture1(L);
         // }
     }
 
     if (num_args == 5) {
-        // if (olua_is_cppobj(L, 1, "cc.Texture2D") && manual_olua_is_cocos2d_Rect(L, 2) && olua_is_bool(L, 3) && auto_olua_is_cocos2d_Vec2(L, 4) && auto_olua_is_cocos2d_Size(L, 5)) {
+        // if ((olua_is_cppobj(L, 1, "cc.Texture2D")) && (manual_olua_is_cocos2d_Rect(L, 2)) && (olua_is_bool(L, 3)) && (auto_olua_is_cocos2d_Vec2(L, 4)) && (auto_olua_is_cocos2d_Size(L, 5))) {
             return _cocos2d_SpriteFrame_createWithTexture2(L);
         // }
     }
@@ -28215,13 +28215,13 @@ static int _cocos2d_SpriteFrame_initWithTexture(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 2) {
-        // if (olua_is_cppobj(L, 2, "cc.Texture2D") && manual_olua_is_cocos2d_Rect(L, 3)) {
+        // if ((olua_is_cppobj(L, 2, "cc.Texture2D")) && (manual_olua_is_cocos2d_Rect(L, 3))) {
             return _cocos2d_SpriteFrame_initWithTexture1(L);
         // }
     }
 
     if (num_args == 5) {
-        // if (olua_is_cppobj(L, 2, "cc.Texture2D") && manual_olua_is_cocos2d_Rect(L, 3) && olua_is_bool(L, 4) && auto_olua_is_cocos2d_Vec2(L, 5) && auto_olua_is_cocos2d_Size(L, 6)) {
+        // if ((olua_is_cppobj(L, 2, "cc.Texture2D")) && (manual_olua_is_cocos2d_Rect(L, 3)) && (olua_is_bool(L, 4)) && (auto_olua_is_cocos2d_Vec2(L, 5)) && (auto_olua_is_cocos2d_Size(L, 6))) {
             return _cocos2d_SpriteFrame_initWithTexture2(L);
         // }
     }
@@ -28280,13 +28280,13 @@ static int _cocos2d_SpriteFrame_initWithTextureFilename(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 2) {
-        // if (olua_is_std_string(L, 2) && manual_olua_is_cocos2d_Rect(L, 3)) {
+        // if ((olua_is_std_string(L, 2)) && (manual_olua_is_cocos2d_Rect(L, 3))) {
             return _cocos2d_SpriteFrame_initWithTextureFilename1(L);
         // }
     }
 
     if (num_args == 5) {
-        // if (olua_is_std_string(L, 2) && manual_olua_is_cocos2d_Rect(L, 3) && olua_is_bool(L, 4) && auto_olua_is_cocos2d_Vec2(L, 5) && auto_olua_is_cocos2d_Size(L, 6)) {
+        // if ((olua_is_std_string(L, 2)) && (manual_olua_is_cocos2d_Rect(L, 3)) && (olua_is_bool(L, 4)) && (auto_olua_is_cocos2d_Vec2(L, 5)) && (auto_olua_is_cocos2d_Size(L, 6))) {
             return _cocos2d_SpriteFrame_initWithTextureFilename2(L);
         // }
     }
@@ -28571,13 +28571,13 @@ static int _cocos2d_Sprite_create(lua_State *L)
     }
 
     if (num_args == 1) {
-        // if (olua_is_std_string(L, 1)) {
+        // if ((olua_is_std_string(L, 1))) {
             return _cocos2d_Sprite_create2(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (olua_is_std_string(L, 1) && manual_olua_is_cocos2d_Rect(L, 2)) {
+        // if ((olua_is_std_string(L, 1)) && (manual_olua_is_cocos2d_Rect(L, 2))) {
             return _cocos2d_Sprite_create3(L);
         // }
     }
@@ -28656,13 +28656,13 @@ static int _cocos2d_Sprite_createWithTexture(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
-        // if (olua_is_cppobj(L, 1, "cc.Texture2D")) {
+        // if ((olua_is_cppobj(L, 1, "cc.Texture2D"))) {
             return _cocos2d_Sprite_createWithTexture1(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (olua_is_cppobj(L, 1, "cc.Texture2D") && manual_olua_is_cocos2d_Rect(L, 2) && (olua_is_bool(L, 3) || olua_isnil(L, 3))) {
+        // if ((olua_is_cppobj(L, 1, "cc.Texture2D")) && (manual_olua_is_cocos2d_Rect(L, 2)) && (olua_is_bool(L, 3) || olua_isnil(L, 3))) {
             return _cocos2d_Sprite_createWithTexture2(L);
         // }
     }
@@ -28893,13 +28893,13 @@ static int _cocos2d_Sprite_initWithFile(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if (olua_is_std_string(L, 2)) {
+        // if ((olua_is_std_string(L, 2))) {
             return _cocos2d_Sprite_initWithFile1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (olua_is_std_string(L, 2) && manual_olua_is_cocos2d_Rect(L, 3)) {
+        // if ((olua_is_std_string(L, 2)) && (manual_olua_is_cocos2d_Rect(L, 3))) {
             return _cocos2d_Sprite_initWithFile2(L);
         // }
     }
@@ -29005,19 +29005,19 @@ static int _cocos2d_Sprite_initWithTexture(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if (olua_is_cppobj(L, 2, "cc.Texture2D")) {
+        // if ((olua_is_cppobj(L, 2, "cc.Texture2D"))) {
             return _cocos2d_Sprite_initWithTexture1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (olua_is_cppobj(L, 2, "cc.Texture2D") && manual_olua_is_cocos2d_Rect(L, 3)) {
+        // if ((olua_is_cppobj(L, 2, "cc.Texture2D")) && (manual_olua_is_cocos2d_Rect(L, 3))) {
             return _cocos2d_Sprite_initWithTexture2(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (olua_is_cppobj(L, 2, "cc.Texture2D") && manual_olua_is_cocos2d_Rect(L, 3) && olua_is_bool(L, 4)) {
+        // if ((olua_is_cppobj(L, 2, "cc.Texture2D")) && (manual_olua_is_cocos2d_Rect(L, 3)) && (olua_is_bool(L, 4))) {
             return _cocos2d_Sprite_initWithTexture3(L);
         // }
     }
@@ -29302,11 +29302,11 @@ static int _cocos2d_Sprite_setSpriteFrame(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        if (olua_is_std_string(L, 2)) {
+        if ((olua_is_std_string(L, 2))) {
             return _cocos2d_Sprite_setSpriteFrame1(L);
         }
 
-        // if (olua_is_cppobj(L, 2, "cc.SpriteFrame")) {
+        // if ((olua_is_cppobj(L, 2, "cc.SpriteFrame"))) {
             return _cocos2d_Sprite_setSpriteFrame2(L);
         // }
     }
@@ -29369,11 +29369,11 @@ static int _cocos2d_Sprite_setTexture(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        if (olua_is_std_string(L, 2)) {
+        if ((olua_is_std_string(L, 2))) {
             return _cocos2d_Sprite_setTexture1(L);
         }
 
-        // if (olua_is_cppobj(L, 2, "cc.Texture2D")) {
+        // if ((olua_is_cppobj(L, 2, "cc.Texture2D"))) {
             return _cocos2d_Sprite_setTexture2(L);
         // }
     }
@@ -29440,13 +29440,13 @@ static int _cocos2d_Sprite_setTextureRect(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if (manual_olua_is_cocos2d_Rect(L, 2)) {
+        // if ((manual_olua_is_cocos2d_Rect(L, 2))) {
             return _cocos2d_Sprite_setTextureRect1(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (manual_olua_is_cocos2d_Rect(L, 2) && olua_is_bool(L, 3) && auto_olua_is_cocos2d_Size(L, 4)) {
+        // if ((manual_olua_is_cocos2d_Rect(L, 2)) && (olua_is_bool(L, 3)) && (auto_olua_is_cocos2d_Size(L, 4))) {
             return _cocos2d_Sprite_setTextureRect2(L);
         // }
     }
@@ -30039,17 +30039,17 @@ static int _cocos2d_SpriteFrameCache_addSpriteFramesWithFile(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if (olua_is_std_string(L, 2)) {
+        // if ((olua_is_std_string(L, 2))) {
             return _cocos2d_SpriteFrameCache_addSpriteFramesWithFile1(L);
         // }
     }
 
     if (num_args == 2) {
-        if (olua_is_std_string(L, 2) && olua_is_std_string(L, 3)) {
+        if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3))) {
             return _cocos2d_SpriteFrameCache_addSpriteFramesWithFile2(L);
         }
 
-        // if (olua_is_std_string(L, 2) && olua_is_cppobj(L, 3, "cc.Texture2D")) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_cppobj(L, 3, "cc.Texture2D"))) {
             return _cocos2d_SpriteFrameCache_addSpriteFramesWithFile3(L);
         // }
     }
@@ -30996,13 +30996,13 @@ static int _cocos2d_LayerColor_create(lua_State *L)
     }
 
     if (num_args == 1) {
-        // if (manual_olua_is_cocos2d_Color4B(L, 1)) {
+        // if ((manual_olua_is_cocos2d_Color4B(L, 1))) {
             return _cocos2d_LayerColor_create3(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (manual_olua_is_cocos2d_Color4B(L, 1) && olua_is_number(L, 2) && olua_is_number(L, 3)) {
+        // if ((manual_olua_is_cocos2d_Color4B(L, 1)) && (olua_is_number(L, 2)) && (olua_is_number(L, 3))) {
             return _cocos2d_LayerColor_create2(L);
         // }
     }
@@ -31070,13 +31070,13 @@ static int _cocos2d_LayerColor_initWithColor(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if (manual_olua_is_cocos2d_Color4B(L, 2)) {
+        // if ((manual_olua_is_cocos2d_Color4B(L, 2))) {
             return _cocos2d_LayerColor_initWithColor2(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (manual_olua_is_cocos2d_Color4B(L, 2) && olua_is_number(L, 3) && olua_is_number(L, 4)) {
+        // if ((manual_olua_is_cocos2d_Color4B(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4))) {
             return _cocos2d_LayerColor_initWithColor1(L);
         // }
     }
@@ -31176,13 +31176,13 @@ static int _cocos2d_LayerGradient_create(lua_State *L)
     }
 
     if (num_args == 2) {
-        // if (manual_olua_is_cocos2d_Color4B(L, 1) && manual_olua_is_cocos2d_Color4B(L, 2)) {
+        // if ((manual_olua_is_cocos2d_Color4B(L, 1)) && (manual_olua_is_cocos2d_Color4B(L, 2))) {
             return _cocos2d_LayerGradient_create2(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (manual_olua_is_cocos2d_Color4B(L, 1) && manual_olua_is_cocos2d_Color4B(L, 2) && auto_olua_is_cocos2d_Vec2(L, 3)) {
+        // if ((manual_olua_is_cocos2d_Color4B(L, 1)) && (manual_olua_is_cocos2d_Color4B(L, 2)) && (auto_olua_is_cocos2d_Vec2(L, 3))) {
             return _cocos2d_LayerGradient_create3(L);
         // }
     }
@@ -31312,13 +31312,13 @@ static int _cocos2d_LayerGradient_initWithColor(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 2) {
-        // if (manual_olua_is_cocos2d_Color4B(L, 2) && manual_olua_is_cocos2d_Color4B(L, 3)) {
+        // if ((manual_olua_is_cocos2d_Color4B(L, 2)) && (manual_olua_is_cocos2d_Color4B(L, 3))) {
             return _cocos2d_LayerGradient_initWithColor1(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (manual_olua_is_cocos2d_Color4B(L, 2) && manual_olua_is_cocos2d_Color4B(L, 3) && auto_olua_is_cocos2d_Vec2(L, 4)) {
+        // if ((manual_olua_is_cocos2d_Color4B(L, 2)) && (manual_olua_is_cocos2d_Color4B(L, 3)) && (auto_olua_is_cocos2d_Vec2(L, 4))) {
             return _cocos2d_LayerGradient_initWithColor2(L);
         // }
     }
@@ -31512,7 +31512,7 @@ static int _cocos2d_LayerRadialGradient_create(lua_State *L)
     }
 
     if (num_args == 5) {
-        // if (manual_olua_is_cocos2d_Color4B(L, 1) && manual_olua_is_cocos2d_Color4B(L, 2) && olua_is_number(L, 3) && auto_olua_is_cocos2d_Vec2(L, 4) && olua_is_number(L, 5)) {
+        // if ((manual_olua_is_cocos2d_Color4B(L, 1)) && (manual_olua_is_cocos2d_Color4B(L, 2)) && (olua_is_number(L, 3)) && (auto_olua_is_cocos2d_Vec2(L, 4)) && (olua_is_number(L, 5))) {
             return _cocos2d_LayerRadialGradient_create1(L);
         // }
     }
@@ -31766,11 +31766,11 @@ static int _cocos2d_LayerRadialGradient_setEndColor(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        if (manual_olua_is_cocos2d_Color3B(L, 2)) {
+        if ((manual_olua_is_cocos2d_Color3B(L, 2))) {
             return _cocos2d_LayerRadialGradient_setEndColor1(L);
         }
 
-        // if (manual_olua_is_cocos2d_Color4B(L, 2)) {
+        // if ((manual_olua_is_cocos2d_Color4B(L, 2))) {
             return _cocos2d_LayerRadialGradient_setEndColor2(L);
         // }
     }
@@ -31865,11 +31865,11 @@ static int _cocos2d_LayerRadialGradient_setStartColor(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        if (manual_olua_is_cocos2d_Color3B(L, 2)) {
+        if ((manual_olua_is_cocos2d_Color3B(L, 2))) {
             return _cocos2d_LayerRadialGradient_setStartColor1(L);
         }
 
-        // if (manual_olua_is_cocos2d_Color4B(L, 2)) {
+        // if ((manual_olua_is_cocos2d_Color4B(L, 2))) {
             return _cocos2d_LayerRadialGradient_setStartColor2(L);
         // }
     }
@@ -32560,13 +32560,13 @@ static int _cocos2d_TransitionFlipX_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
-        // if (olua_is_number(L, 1) && olua_is_cppobj(L, 2, "cc.Scene")) {
+        // if ((olua_is_number(L, 1)) && (olua_is_cppobj(L, 2, "cc.Scene"))) {
             return _cocos2d_TransitionFlipX_create2(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (olua_is_number(L, 1) && olua_is_cppobj(L, 2, "cc.Scene") && olua_is_uint(L, 3)) {
+        // if ((olua_is_number(L, 1)) && (olua_is_cppobj(L, 2, "cc.Scene")) && (olua_is_uint(L, 3))) {
             return _cocos2d_TransitionFlipX_create1(L);
         // }
     }
@@ -32634,13 +32634,13 @@ static int _cocos2d_TransitionFlipY_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
-        // if (olua_is_number(L, 1) && olua_is_cppobj(L, 2, "cc.Scene")) {
+        // if ((olua_is_number(L, 1)) && (olua_is_cppobj(L, 2, "cc.Scene"))) {
             return _cocos2d_TransitionFlipY_create2(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (olua_is_number(L, 1) && olua_is_cppobj(L, 2, "cc.Scene") && olua_is_uint(L, 3)) {
+        // if ((olua_is_number(L, 1)) && (olua_is_cppobj(L, 2, "cc.Scene")) && (olua_is_uint(L, 3))) {
             return _cocos2d_TransitionFlipY_create1(L);
         // }
     }
@@ -32708,13 +32708,13 @@ static int _cocos2d_TransitionFlipAngular_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
-        // if (olua_is_number(L, 1) && olua_is_cppobj(L, 2, "cc.Scene")) {
+        // if ((olua_is_number(L, 1)) && (olua_is_cppobj(L, 2, "cc.Scene"))) {
             return _cocos2d_TransitionFlipAngular_create2(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (olua_is_number(L, 1) && olua_is_cppobj(L, 2, "cc.Scene") && olua_is_uint(L, 3)) {
+        // if ((olua_is_number(L, 1)) && (olua_is_cppobj(L, 2, "cc.Scene")) && (olua_is_uint(L, 3))) {
             return _cocos2d_TransitionFlipAngular_create1(L);
         // }
     }
@@ -32782,13 +32782,13 @@ static int _cocos2d_TransitionZoomFlipX_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
-        // if (olua_is_number(L, 1) && olua_is_cppobj(L, 2, "cc.Scene")) {
+        // if ((olua_is_number(L, 1)) && (olua_is_cppobj(L, 2, "cc.Scene"))) {
             return _cocos2d_TransitionZoomFlipX_create2(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (olua_is_number(L, 1) && olua_is_cppobj(L, 2, "cc.Scene") && olua_is_uint(L, 3)) {
+        // if ((olua_is_number(L, 1)) && (olua_is_cppobj(L, 2, "cc.Scene")) && (olua_is_uint(L, 3))) {
             return _cocos2d_TransitionZoomFlipX_create1(L);
         // }
     }
@@ -32856,13 +32856,13 @@ static int _cocos2d_TransitionZoomFlipY_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
-        // if (olua_is_number(L, 1) && olua_is_cppobj(L, 2, "cc.Scene")) {
+        // if ((olua_is_number(L, 1)) && (olua_is_cppobj(L, 2, "cc.Scene"))) {
             return _cocos2d_TransitionZoomFlipY_create2(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (olua_is_number(L, 1) && olua_is_cppobj(L, 2, "cc.Scene") && olua_is_uint(L, 3)) {
+        // if ((olua_is_number(L, 1)) && (olua_is_cppobj(L, 2, "cc.Scene")) && (olua_is_uint(L, 3))) {
             return _cocos2d_TransitionZoomFlipY_create1(L);
         // }
     }
@@ -32930,13 +32930,13 @@ static int _cocos2d_TransitionZoomFlipAngular_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
-        // if (olua_is_number(L, 1) && olua_is_cppobj(L, 2, "cc.Scene")) {
+        // if ((olua_is_number(L, 1)) && (olua_is_cppobj(L, 2, "cc.Scene"))) {
             return _cocos2d_TransitionZoomFlipAngular_create2(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (olua_is_number(L, 1) && olua_is_cppobj(L, 2, "cc.Scene") && olua_is_uint(L, 3)) {
+        // if ((olua_is_number(L, 1)) && (olua_is_cppobj(L, 2, "cc.Scene")) && (olua_is_uint(L, 3))) {
             return _cocos2d_TransitionZoomFlipAngular_create1(L);
         // }
     }
@@ -33004,13 +33004,13 @@ static int _cocos2d_TransitionFade_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
-        // if (olua_is_number(L, 1) && olua_is_cppobj(L, 2, "cc.Scene")) {
+        // if ((olua_is_number(L, 1)) && (olua_is_cppobj(L, 2, "cc.Scene"))) {
             return _cocos2d_TransitionFade_create2(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (olua_is_number(L, 1) && olua_is_cppobj(L, 2, "cc.Scene") && manual_olua_is_cocos2d_Color3B(L, 3)) {
+        // if ((olua_is_number(L, 1)) && (olua_is_cppobj(L, 2, "cc.Scene")) && (manual_olua_is_cocos2d_Color3B(L, 3))) {
             return _cocos2d_TransitionFade_create1(L);
         // }
     }
@@ -33930,13 +33930,13 @@ static int _cocos2d_TextFieldTTF_initWithPlaceHolder(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 3) {
-        // if (olua_is_std_string(L, 2) && olua_is_std_string(L, 3) && olua_is_number(L, 4)) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4))) {
             return _cocos2d_TextFieldTTF_initWithPlaceHolder2(L);
         // }
     }
 
     if (num_args == 5) {
-        // if (olua_is_std_string(L, 2) && auto_olua_is_cocos2d_Size(L, 3) && olua_is_uint(L, 4) && olua_is_std_string(L, 5) && olua_is_number(L, 6)) {
+        // if ((olua_is_std_string(L, 2)) && (auto_olua_is_cocos2d_Size(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_number(L, 6))) {
             return _cocos2d_TextFieldTTF_initWithPlaceHolder1(L);
         // }
     }
@@ -33998,11 +33998,11 @@ static int _cocos2d_TextFieldTTF_setColorSpaceHolder(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        if (manual_olua_is_cocos2d_Color3B(L, 2)) {
+        if ((manual_olua_is_cocos2d_Color3B(L, 2))) {
             return _cocos2d_TextFieldTTF_setColorSpaceHolder1(L);
         }
 
-        // if (manual_olua_is_cocos2d_Color4B(L, 2)) {
+        // if ((manual_olua_is_cocos2d_Color4B(L, 2))) {
             return _cocos2d_TextFieldTTF_setColorSpaceHolder2(L);
         // }
     }
@@ -34189,13 +34189,13 @@ static int _cocos2d_TextFieldTTF_textFieldWithPlaceHolder(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 3) {
-        // if (olua_is_std_string(L, 1) && olua_is_std_string(L, 2) && olua_is_number(L, 3)) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3))) {
             return _cocos2d_TextFieldTTF_textFieldWithPlaceHolder2(L);
         // }
     }
 
     if (num_args == 5) {
-        // if (olua_is_std_string(L, 1) && auto_olua_is_cocos2d_Size(L, 2) && olua_is_uint(L, 3) && olua_is_std_string(L, 4) && olua_is_number(L, 5)) {
+        // if ((olua_is_std_string(L, 1)) && (auto_olua_is_cocos2d_Size(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_number(L, 5))) {
             return _cocos2d_TextFieldTTF_textFieldWithPlaceHolder1(L);
         // }
     }
@@ -35833,7 +35833,7 @@ static int _cocos2d_CameraBackgroundSkyBoxBrush_create(lua_State *L)
     }
 
     if (num_args == 6) {
-        // if (olua_is_std_string(L, 1) && olua_is_std_string(L, 2) && olua_is_std_string(L, 3) && olua_is_std_string(L, 4) && olua_is_std_string(L, 5) && olua_is_std_string(L, 6)) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_std_string(L, 6))) {
             return _cocos2d_CameraBackgroundSkyBoxBrush_create1(L);
         // }
     }
@@ -36024,13 +36024,13 @@ static int _cocos2d_ActionCamera_setEye(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if (auto_olua_is_cocos2d_Vec3(L, 2)) {
+        // if ((auto_olua_is_cocos2d_Vec3(L, 2))) {
             return _cocos2d_ActionCamera_setEye1(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (olua_is_number(L, 2) && olua_is_number(L, 3) && olua_is_number(L, 4)) {
+        // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4))) {
             return _cocos2d_ActionCamera_setEye2(L);
         // }
     }
@@ -36238,13 +36238,13 @@ static int _cocos2d_GridBase_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
-        // if (auto_olua_is_cocos2d_Size(L, 1)) {
+        // if ((auto_olua_is_cocos2d_Size(L, 1))) {
             return _cocos2d_GridBase_create2(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (auto_olua_is_cocos2d_Size(L, 1) && olua_is_cppobj(L, 2, "cc.Texture2D") && olua_is_bool(L, 3)) {
+        // if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_cppobj(L, 2, "cc.Texture2D")) && (olua_is_bool(L, 3))) {
             return _cocos2d_GridBase_create1(L);
         // }
     }
@@ -36399,25 +36399,25 @@ static int _cocos2d_GridBase_initWithSize(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if (auto_olua_is_cocos2d_Size(L, 2)) {
+        // if ((auto_olua_is_cocos2d_Size(L, 2))) {
             return _cocos2d_GridBase_initWithSize1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (auto_olua_is_cocos2d_Size(L, 2) && manual_olua_is_cocos2d_Rect(L, 3)) {
+        // if ((auto_olua_is_cocos2d_Size(L, 2)) && (manual_olua_is_cocos2d_Rect(L, 3))) {
             return _cocos2d_GridBase_initWithSize2(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (auto_olua_is_cocos2d_Size(L, 2) && olua_is_cppobj(L, 3, "cc.Texture2D") && olua_is_bool(L, 4)) {
+        // if ((auto_olua_is_cocos2d_Size(L, 2)) && (olua_is_cppobj(L, 3, "cc.Texture2D")) && (olua_is_bool(L, 4))) {
             return _cocos2d_GridBase_initWithSize3(L);
         // }
     }
 
     if (num_args == 4) {
-        // if (auto_olua_is_cocos2d_Size(L, 2) && olua_is_cppobj(L, 3, "cc.Texture2D") && olua_is_bool(L, 4) && manual_olua_is_cocos2d_Rect(L, 5)) {
+        // if ((auto_olua_is_cocos2d_Size(L, 2)) && (olua_is_cppobj(L, 3, "cc.Texture2D")) && (olua_is_bool(L, 4)) && (manual_olua_is_cocos2d_Rect(L, 5))) {
             return _cocos2d_GridBase_initWithSize4(L);
         // }
     }
@@ -36696,25 +36696,25 @@ static int _cocos2d_Grid3D_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
-        // if (auto_olua_is_cocos2d_Size(L, 1)) {
+        // if ((auto_olua_is_cocos2d_Size(L, 1))) {
             return _cocos2d_Grid3D_create1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (auto_olua_is_cocos2d_Size(L, 1) && manual_olua_is_cocos2d_Rect(L, 2)) {
+        // if ((auto_olua_is_cocos2d_Size(L, 1)) && (manual_olua_is_cocos2d_Rect(L, 2))) {
             return _cocos2d_Grid3D_create2(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (auto_olua_is_cocos2d_Size(L, 1) && olua_is_cppobj(L, 2, "cc.Texture2D") && olua_is_bool(L, 3)) {
+        // if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_cppobj(L, 2, "cc.Texture2D")) && (olua_is_bool(L, 3))) {
             return _cocos2d_Grid3D_create3(L);
         // }
     }
 
     if (num_args == 4) {
-        // if (auto_olua_is_cocos2d_Size(L, 1) && olua_is_cppobj(L, 2, "cc.Texture2D") && olua_is_bool(L, 3) && manual_olua_is_cocos2d_Rect(L, 4)) {
+        // if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_cppobj(L, 2, "cc.Texture2D")) && (olua_is_bool(L, 3)) && (manual_olua_is_cocos2d_Rect(L, 4))) {
             return _cocos2d_Grid3D_create4(L);
         // }
     }
@@ -36901,25 +36901,25 @@ static int _cocos2d_TiledGrid3D_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 1) {
-        // if (auto_olua_is_cocos2d_Size(L, 1)) {
+        // if ((auto_olua_is_cocos2d_Size(L, 1))) {
             return _cocos2d_TiledGrid3D_create1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (auto_olua_is_cocos2d_Size(L, 1) && manual_olua_is_cocos2d_Rect(L, 2)) {
+        // if ((auto_olua_is_cocos2d_Size(L, 1)) && (manual_olua_is_cocos2d_Rect(L, 2))) {
             return _cocos2d_TiledGrid3D_create2(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (auto_olua_is_cocos2d_Size(L, 1) && olua_is_cppobj(L, 2, "cc.Texture2D") && olua_is_bool(L, 3)) {
+        // if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_cppobj(L, 2, "cc.Texture2D")) && (olua_is_bool(L, 3))) {
             return _cocos2d_TiledGrid3D_create3(L);
         // }
     }
 
     if (num_args == 4) {
-        // if (auto_olua_is_cocos2d_Size(L, 1) && olua_is_cppobj(L, 2, "cc.Texture2D") && olua_is_bool(L, 3) && manual_olua_is_cocos2d_Rect(L, 4)) {
+        // if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_cppobj(L, 2, "cc.Texture2D")) && (olua_is_bool(L, 3)) && (manual_olua_is_cocos2d_Rect(L, 4))) {
             return _cocos2d_TiledGrid3D_create4(L);
         // }
     }
@@ -37030,7 +37030,7 @@ static int _cocos2d_NodeGrid_create(lua_State *L)
     }
 
     if (num_args == 1) {
-        // if (manual_olua_is_cocos2d_Rect(L, 1)) {
+        // if ((manual_olua_is_cocos2d_Rect(L, 1))) {
             return _cocos2d_NodeGrid_create2(L);
         // }
     }
@@ -38585,13 +38585,13 @@ static int _cocos2d_TurnOffTiles_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
-        // if (olua_is_number(L, 1) && auto_olua_is_cocos2d_Size(L, 2)) {
+        // if ((olua_is_number(L, 1)) && (auto_olua_is_cocos2d_Size(L, 2))) {
             return _cocos2d_TurnOffTiles_create1(L);
         // }
     }
 
     if (num_args == 3) {
-        // if (olua_is_number(L, 1) && auto_olua_is_cocos2d_Size(L, 2) && olua_is_uint(L, 3)) {
+        // if ((olua_is_number(L, 1)) && (auto_olua_is_cocos2d_Size(L, 2)) && (olua_is_uint(L, 3))) {
             return _cocos2d_TurnOffTiles_create2(L);
         // }
     }
@@ -39845,13 +39845,13 @@ static int _cocos2d_ParticleSystem_initWithDictionary(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if (manual_olua_is_cocos2d_ValueMap(L, 2)) {
+        // if ((manual_olua_is_cocos2d_ValueMap(L, 2))) {
             return _cocos2d_ParticleSystem_initWithDictionary1(L);
         // }
     }
 
     if (num_args == 2) {
-        // if (manual_olua_is_cocos2d_ValueMap(L, 2) && olua_is_std_string(L, 3)) {
+        // if ((manual_olua_is_cocos2d_ValueMap(L, 2)) && (olua_is_std_string(L, 3))) {
             return _cocos2d_ParticleSystem_initWithDictionary2(L);
         // }
     }
@@ -41034,11 +41034,11 @@ static int _cocos2d_ParticleSystemQuad_create(lua_State *L)
     }
 
     if (num_args == 1) {
-        if (olua_is_std_string(L, 1)) {
+        if ((olua_is_std_string(L, 1))) {
             return _cocos2d_ParticleSystemQuad_create2(L);
         }
 
-        // if (manual_olua_is_cocos2d_ValueMap(L, 1)) {
+        // if ((manual_olua_is_cocos2d_ValueMap(L, 1))) {
             return _cocos2d_ParticleSystemQuad_create3(L);
         // }
     }

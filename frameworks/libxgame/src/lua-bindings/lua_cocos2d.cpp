@@ -24535,7 +24535,7 @@ static int _cocos2d_Label_enableShadow(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Label");
     manual_olua_opt_cocos2d_Color4B(L, 2, &arg1, (cocos2d::Color4B)cocos2d::Color4B::BLACK);
-    auto_olua_opt_cocos2d_Size(L, 3, &arg2, (cocos2d::Size)cocos2d::Size(2, -2));
+    auto_olua_opt_cocos2d_Size(L, 3, &arg2, (cocos2d::Size)cocos2d::Size(2,-2));
     olua_opt_int(L, 4, &arg3, (lua_Integer)0);
 
     // void enableShadow(const Color4B& shadowColor = Color4B::BLACK,const Size &offset = Size(2,-2), int blurRadius = 0)

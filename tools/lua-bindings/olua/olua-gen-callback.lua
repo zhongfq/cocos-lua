@@ -174,7 +174,7 @@ function gen_callback(cls, fi, write)
             ]])
         end
 
-        local DECLTYPE = v.FUNC_ARG_DECLTYPE
+        local DECLTYPE = v.RAW_DECLTYPE
         local SPACE = string.find(DECLTYPE, '[*&]$') and '' or ' '
         ARGS[#ARGS + 1] = format([[
             ${DECLTYPE}${SPACE}${ARG_N}

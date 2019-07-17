@@ -200,87 +200,95 @@ local function parseType(str)
         end
     end
     str = string.sub(str, #tn + 1)
+    str = string.gsub(str, '^ *', '')
     return prettyTypename(tn), attr, str
 end
 
 local parseArgs
 
-local function parseCallback(cls, typename, default)
-    local rt, rt_attr, cb_args_str
-    local cb_args_str = string.match(typename, '<(.*)>')
-    rt, rt_attr, cb_args_str = parseType(cb_args_str)
-    cb_args_str = string.gsub(cb_args_str, '^[^(]+', '')
-    local cb_args = parseArgs(cls, cb_args_str)
-    local cb_args_decl = {}
-    for _, ai in ipairs(cb_args) do
-        cb_args_decl[#cb_args_decl + 1] = ai.FUNC_ARG_DECLTYPE
+local function parseCallbackType(cls, tn, default)
+    local rtn, _
+    local declstr = string.match(tn, '<(.*)>') -- match callback function prototype
+    rtn, _, declstr = parseType(declstr)
+    declstr = string.gsub(declstr, '^[^(]+', '') -- match callback args
+
+    local args = parseArgs(cls, declstr)
+    local decltype = {}
+    for _, ai in ipairs(args) do
+        decltype[#decltype + 1] = ai.RAW_DECLTYPE
     end
-    cb_args_decl = table.concat(cb_args_decl, ", ")
-    cb_args_decl = string.format('std::function<%s(%s)>',
-        toDecltype(cls, rt, false), cb_args_decl)
+    decltype = table.concat(decltype, ", ")
+    decltype = string.format('std::function<%s(%s)>', toDecltype(cls, rtn, false), decltype)
+
     return {
         DEFAULT = default,
-        ARGS = cb_args,
-        RET = olua.typeinfo(rt, cls),
-        RET_ATTR = rt_attr,
-        ARGS_DECL = cb_args_decl,
+        ARGS = args,
+        RET = olua.typeinfo(rtn, cls),
+        DECLTYPE = decltype,
     }
 end
 
-function parseArgs(cls, args_str)
+function parseArgs(cls, declstr)
     local args = {}
-    local max_args = 0
-    args_str = string.match(args_str, '%((.*)%)')
-    assertCond(args_str)
+    local count = 0
+    declstr = string.match(declstr, '%((.*)%)')
+    assertCond(declstr, 'malformed args string')
 
-    while #args_str > 0 do
-        local typename, attr, varname, default
-        typename, attr, args_str = parseType(args_str)
-        if typename == 'void' then
-            return args, max_args
+    while #declstr > 0 do
+        local tn, attr, varname, default, _, to
+        tn, attr, declstr = parseType(declstr)
+        if tn == 'void' then
+            return args, count
         end
 
-        varname, default = string.match(args_str, '^([^ ]+) *= *([^ ,]*)')
+        -- match: x = Point(0, 0), bool b, ...)
+        _, to, varname, default = string.find(declstr, '^([^ ]+) *= *([%w_:]+%b())')
+
+        -- match: x = 3, bool b, ...)
         if not varname then
-            varname = string.match(args_str, '^ *[^ ,]+')
+            _, to, varname, default = string.find(declstr, '^([^ ]+) *= *([^ ,]*)')
         end
 
-        args_str = string.gsub(args_str, '^[^,]*,? *', '')
+        -- match: x, bool b, ...)
+        if not varname then
+            _, to, varname = string.find(declstr, '^([^ ,]+)')
+        end
 
-        if default then
-            if string.find(default, '%(') then
-                if not string.find(default, '%)') then
-                    local other = string.match(args_str, '[^)]+%)')
-                    assert(other, default .. ' ' .. args_str)
-                    default = default .. ', ' .. other
-                end
-                args_str = string.gsub(args_str, '^[^)]*%),? *', '')
-                local deft = string.match(default, '[^(]+')
-                local defti = olua.typeinfo(deft, cls, true) or olua.typeinfo(deft .. ' *', cls)
-                default = string.gsub(defti.CPPCLS, ' *%**', '') .. string.match(default, '(%([^()]*%))')
-            elseif string.find(default, '::') then
-                local deft, def = string.match(default, '(.*)::([^:]+)$')
-                local defti = olua.typeinfo(deft, cls, true) or  olua.typeinfo(deft .. ' *', cls)
-                default = string.gsub(defti.CPPCLS, ' *%**', '') .. '::' .. def
+        if varname then
+            declstr = string.sub(declstr, to + 1)
+        end
+
+        declstr = string.gsub(declstr, '^[^,]*,? *', '') -- skip ','
+
+        if default and not string.find(default, '^"') and string.find(default, '[():]') then
+            -- match: Point(0, 2) => Point
+            local dtn = string.match(default, '^([^(]+)%(')
+            if not dtn then
+                -- match: Point::Zero => Point
+                dtn = string.match(default, '^(.*)::[%w_]+')
             end
+            assertCond(dtn, 'unknown default value format: %s', default)
+            local dti = olua.typeinfo(dtn, cls, true) or olua.typeinfo(dtn .. ' *', cls)
+            default = string.gsub(default, dtn, dti.CPPCLS)
         end
 
-        if string.find(typename, 'std::function<') then
-            local callback = parseCallback(cls, typename, default)
+        -- is callback
+        if string.find(tn, 'std::function<') then
+            local callback = parseCallbackType(cls, tn, default)
             args[#args + 1] = {
                 TYPE = setmetatable({
-                    DECLTYPE = callback.ARGS_DECL,
+                    DECLTYPE = callback.DECLTYPE,
                 }, {__index = olua.typeinfo('std::function', cls)}),
-                DECLTYPE = callback.ARGS_DECL,
+                DECLTYPE = callback.DECLTYPE,
                 VARNAME = varname,
                 ATTR = attr,
                 CALLBACK = callback,
             }
         else
             args[#args + 1] = {
-                TYPE = olua.typeinfo(typename, cls),
-                DECLTYPE = toDecltype(cls, typename, true),
-                FUNC_ARG_DECLTYPE = toDecltype(cls, typename, false),
+                TYPE = olua.typeinfo(tn, cls),
+                DECLTYPE = toDecltype(cls, tn, true),
+                RAW_DECLTYPE = toDecltype(cls, tn, false),
                 DEFAULT = default,
                 VARNAME = varname,
                 ATTR = attr,
@@ -289,27 +297,27 @@ function parseArgs(cls, args_str)
         end
 
         if attr.PACK then
-            max_args = max_args + assert(args[#args].TYPE.VARS, args[#args].TYPE.CPPCLS)
+            count = count + assert(args[#args].TYPE.VARS, args[#args].TYPE.CPPCLS)
         else
-            max_args = max_args + 1
+            count = count + 1
         end
     end
 
-    return args, max_args
+    return args, count
 end
 
-local function parse_func(cls, name, ...)
+local function parseFunc(cls, name, ...)
     local function copy(t)
         return setmetatable({}, {__index = t})
     end
     local arr = {MAX_ARGS = 0}
-    for i, func_decl in ipairs({...}) do
+    for _, declfunc in ipairs({...}) do
         local fi = {RET = {}}
-        errorMessage = func_decl
-        if string.find(func_decl, '{') then
+        errorMessage = declfunc
+        if string.find(declfunc, '{') then
             fi.LUAFUNC = assert(name)
             fi.CPPFUNC = name
-            fi.CPPFUNC_SNIPPET = func_decl
+            fi.CPPFUNC_SNIPPET = declfunc
             fi.DECLFUNC = '<function snippet>'
             fi.RET.NUM = 0
             fi.RET.TYPE = olua.typeinfo('void', cls)
@@ -319,19 +327,19 @@ local function parse_func(cls, name, ...)
             fi.PROTOTYPE = false
             fi.MAX_ARGS = #fi.ARGS
         else
-            local typename, attr, str = parseType(func_decl)
+            local typename, attr, str = parseType(declfunc)
             fi.CPPFUNC = string.match(str, '[^ ()]+')
             fi.LUAFUNC = name or fi.CPPFUNC
             fi.STATIC = attr.STATIC
-            fi.DECLFUNC = func_decl
+            fi.DECLFUNC = declfunc
             fi.INJECT = {}
             if string.find(typename, 'std::function<') then
-                local callback = parseCallback(cls, typename, default)
+                local callback = parseCallbackType(cls, typename, nil)
                 fi.RET = {
                     TYPE = setmetatable({
-                        DECLTYPE = callback.ARGS_DECL,
+                        DECLTYPE = callback.DECLTYPE,
                     }, {__index = olua.typeinfo('std::function', cls)}),
-                    DECLTYPE = callback.ARGS_DECL,
+                    DECLTYPE = callback.DECLTYPE,
                     ATTR = attr,
                     NUM = 1,
                     CALLBACK = callback,
@@ -344,7 +352,7 @@ local function parse_func(cls, name, ...)
             end
             fi.ARGS, fi.MAX_ARGS = parseArgs(cls, string.sub(str, #fi.CPPFUNC + 1))
 
-            do
+            do -- generate function prototype: void func(int, A *, B *)
                 local ARGS_DECL = {}
                 local RET_DECL = fi.RET.SUBTYPE and fi.RET.DECLTYPE or fi.RET.TYPE.CPPCLS
                 local CPPFUNC = fi.CPPFUNC
@@ -353,7 +361,7 @@ local function parse_func(cls, name, ...)
                     ARGS_DECL[#ARGS_DECL + 1] = (v.TYPE.SUBTYPE or next(v.CALLBACK)) and v.DECLTYPE or v.TYPE.CPPCLS
                 end
                 ARGS_DECL = table.concat(ARGS_DECL, ", ")
-
+                olua.nowarning(RET_DECL, CPPFUNC, STATIC)
                 fi.PROTOTYPE = format([[
                     ${STATIC}${RET_DECL} ${CPPFUNC}(${ARGS_DECL})
                 ]])
@@ -378,7 +386,7 @@ local function parse_func(cls, name, ...)
                         fi2.MAX_ARGS = fi2.MAX_ARGS + 1 - packarg.TYPE.VARS
                     end
                 end
-                assert(packarg, func_decl)
+                assert(packarg, declfunc)
                 if packarg.TYPE.CPPCLS == fi.RET.TYPE.CPPCLS then
                     fi2.RET.ATTR.UNPACK = fi.RET.ATTR.UNPACK or false
                     fi.RET.ATTR.UNPACK = true
@@ -396,22 +404,25 @@ local function parse_func(cls, name, ...)
     return arr
 end
 
-local function to_prop_func_name(cppfunc, prefix)
+local function toPropFuncName(cppfunc, prefix)
     return prefix .. string.gsub(cppfunc, '^%w', function (s)
         return string.upper(s)
     end)
 end
 
-local function parseProp(cls, name, func_get, func_set)
+local function parseProp(cls, name, declget, declset)
     local pi = {}
-    pi.PROP_NAME = assert(name)
+    pi.PROP_NAME = assert(name, 'no prop name')
 
+    -- eg: name = url
+    -- try getUrl and getURL
+    -- try setUrl and setURL
     local name2 = string.gsub(name, '^%l+', function (s)
         return string.upper(s)
     end)
 
     local function test(f, name, op)
-        name = to_prop_func_name(name, op)
+        name = toPropFuncName(name, op)
         if name == f.CPPFUNC or name == f.LUAFUNC then
             return true
         else
@@ -421,16 +432,15 @@ local function parseProp(cls, name, func_get, func_set)
         end
     end
 
-    if func_get then
-        pi.GET = func_get and parse_func(cls, name, func_get)[1] or nil
+    if declget then
+        pi.GET = declget and parseFunc(cls, name, declget)[1] or nil
     else
         for _, v in ipairs(cls.FUNCS) do
             for _, f in ipairs(v) do
-                if test(f, name, 'get') or
-                    test(f, name, 'is') or
-                    test(f, name2, 'get') or
-                    test(f, name2, 'is') then
-                    assert(#f.ARGS == 0, f.CPPFUNC)
+                if test(f, name, 'get') or test(f, name, 'is') or
+                    test(f, name2, 'get') or test(f, name2, 'is') then
+                    errorMessage = f.DECLFUNC
+                    assertCond(#f.ARGS == 0, "function '%s::%s' has arguments", cls.CPPCLS, f.CPPFUNC)
                     pi.GET = f
                 end
             end
@@ -438,13 +448,12 @@ local function parseProp(cls, name, func_get, func_set)
         assert(pi.GET, name)
     end
 
-    if func_set then
-        pi.SET = func_set and parse_func(cls, name, func_set)[1] or nil
+    if declset then
+        pi.SET = declset and parseFunc(cls, name, declset)[1] or nil
     else
         for _, v in ipairs(cls.FUNCS) do
             for _, f in ipairs(v) do
-                if test(f, name, 'set') or
-                    test(f, name2, 'set') then
+                if test(f, name, 'set') or test(f, name2, 'set') then
                     pi.SET = f
                 end
             end
@@ -452,12 +461,12 @@ local function parseProp(cls, name, func_get, func_set)
     end
 
     if not pi.GET.CPPFUNC_SNIPPET then
-        assert(pi.GET.RET.NUM > 0, func_get)
-    elseif func_get then
+        assert(pi.GET.RET.NUM > 0, declget)
+    elseif declget then
         pi.GET.CPPFUNC = 'get_' .. pi.GET.CPPFUNC
     end
 
-    if pi.SET and pi.SET.CPPFUNC_SNIPPET and func_set then
+    if pi.SET and pi.SET.CPPFUNC_SNIPPET and declset then
         pi.SET.CPPFUNC = 'set_' .. pi.SET.CPPFUNC
     end
 
@@ -476,27 +485,28 @@ function olua.typecls(cppcls)
     class_map[cls.CPPCLS] = cls
 
     function cls.func(name, ...)
-        cls.FUNCS[#cls.FUNCS + 1] = parse_func(cls, name, ...)
+        cls.FUNCS[#cls.FUNCS + 1] = parseFunc(cls, name, ...)
     end
 
-    function cls.funcs(funcs_str)
+    function cls.funcs(funcs)
         local arr = {}
         local dict = {}
-        for func_decl in string.gmatch(funcs_str, '[^\n\r]+') do
-            func_decl = string.gsub(func_decl, '^ *', '')
-            func_decl = string.gsub(func_decl, ' *inline ', '')
-            if #func_decl > 0 then
-                if not string.find(func_decl, '^ *//') then
-                    local _, str = parseAttr(func_decl)
+        for declfunc in string.gmatch(funcs, '[^\n\r]+') do
+            declfunc = string.gsub(declfunc, '^ *', '')
+            declfunc = string.gsub(declfunc, ' *inline ', '')
+            if #declfunc > 0 then
+                if not string.find(declfunc, '^ *//') then
+                    local _, str = parseAttr(declfunc)
+                    _, _, str = parseType(str)        -- skip return type
                     local fn = string.match(str, '([^ ()]+) *%(')
-                    local t = dict[fn]
-                    assert(fn, func_decl)
-                    if not t then
-                        t = {}
-                        arr[#arr + 1] = t
-                        dict[fn] = t
+                    local fns = dict[fn]
+                    assert(fn, declfunc)
+                    if not fns then
+                        fns = {}
+                        arr[#arr + 1] = fns
+                        dict[fn] = fns
                     end
-                    t[#t + 1] = string.gsub(func_decl, '^ *', '')
+                    fns[#fns + 1] = string.gsub(declfunc, '^ *', '')
                 end
             end
         end
@@ -563,7 +573,7 @@ function olua.typecls(cppcls)
     end
 
     function cls.callback(opt)
-        cls.FUNCS[#cls.FUNCS + 1] = parse_func(cls, nil, table.unpack(opt.FUNCS))
+        cls.FUNCS[#cls.FUNCS + 1] = parseFunc(cls, nil, table.unpack(opt.FUNCS))
         for i, v in ipairs(cls.FUNCS[#cls.FUNCS]) do
             v.CALLBACK_OPT = opt
             v.CALLBACK_OPT = setmetatable({}, {__index = opt})
@@ -582,6 +592,8 @@ function olua.typecls(cppcls)
         declstr, readonly = string.gsub(declstr, '@readonly *', '')
         declstr = string.gsub(declstr, '[; ]*$', '')
         declstr, static = string.gsub(declstr, '^ *static *', '')
+
+        errorMessage = declstr
 
         local ARGS = parseArgs(cls, '(' .. declstr .. ')')
         name = name or ARGS[1].VARNAME
@@ -646,10 +658,10 @@ function olua.typecls(cppcls)
     end
 
     function cls.vars(vars)
-        for str in string.gmatch(vars, '[^\n\r]+') do
-            str = string.gsub(str, '^ *', '')
-            if #str > 0 and not string.find(str, '^ *//') then
-                cls.var(nil, str)
+        for declvar in string.gmatch(vars, '[^\n\r]+') do
+            declvar = string.gsub(declvar, '^ *', '')
+            if #declvar > 0 and not string.find(declvar, '^ *//') then
+                cls.var(nil, declvar)
             end
         end
     end
@@ -660,10 +672,10 @@ function olua.typecls(cppcls)
     end
 
     function cls.props(props)
-        for str in string.gmatch(props, '[^\n\r]+') do
-            str = string.gsub(str, '^ *', '')
-            if #str > 0 and not string.find(str, '^ *//') then
-                cls.prop(string.match(str, '[%w_]+'))
+        for declprop in string.gmatch(props, '[^\n\r]+') do
+            declprop = string.gsub(declprop, '^ *', '')
+            if #declprop > 0 and not string.find(declprop, '^ *//') then
+                cls.prop(string.match(declprop, '[%w_]+'))
             end
         end
     end
@@ -688,10 +700,10 @@ function olua.typecls(cppcls)
     end
 
     function cls.enums(enums)
-        for str in string.gmatch(enums, '[^\n\r]+') do
-            local name, value = string.match(str, '([^ ]+) *= *([^ ]+)')
+        for declenum in string.gmatch(enums, '[^\n\r]+') do
+            local name, value = string.match(declenum, '([^ ]+) *= *([^ ]+)')
             if not name then
-                name = string.match(str, '[%w:_]+')
+                name = string.match(declenum, '[%w:_]+')
             elseif not string.find(value, cls.CPPCLS) then
                 value = cls.CPPCLS .. '::' .. value
             end

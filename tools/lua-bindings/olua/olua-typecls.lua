@@ -108,17 +108,17 @@ function olua.typeinfo(tn, cls, silence)
     end
 end
 
---
--- function arg variable must declared with no const type
---
--- eg: Object::call(const std::vector<A *> arg1)
---
--- Object *self = nullptr;
--- std::vector<int> arg1;
--- olua_to_cppobj(L, 1, (void **)&self, "Object");
--- olua_check_std_vector(L, 2, arg1, "A");
--- self->call(arg1);
---
+--[[
+    function arg variable must declared with no const type
+
+    eg: Object::call(const std::vector<A *> arg1)
+
+    Object *self = nullptr;
+    std::vector<int> arg1;
+    olua_to_cppobj(L, 1, (void **)&self, "Object");
+    olua_check_std_vector(L, 2, arg1, "A");
+    self->call(arg1);
+]]
 local function toDecltype(cls, typename, isvariable)
     local reference = string.match(typename, '&+')
     local _, tn, subtn = olua.typeinfo(typename, cls)
@@ -140,6 +140,7 @@ end
 --
 -- parse type attribute and return the rest of string
 -- eg: @unref(cmp children) void removeChild(@ref(map children) child)
+-- reutrn: {UNREF={cmp, children}}, void removeChild(@ref(map children) child)
 --
 local function parseAttr(str)
     local attr = {}
@@ -228,6 +229,23 @@ local function parseCallbackType(cls, tn, default)
     }
 end
 
+--[[
+    arg struct: void func(@pack const std::vector<int> &points = value)
+    {
+        TYPE             -- type info
+        DECLTYPE         -- decltype: std::vector<int>
+        RAW_DECLTYPE     -- raw decltype: const std::vector<int> &
+        DEFAULT          -- default value: value
+        VARNAME          -- var name: points
+        ATTR             -- attr: {PACK = true}
+        CALLBACK = {     -- eg: std::function<void (float, const A *a)>
+            DEFAULT      -- default value: nullptr or none
+            ARGS         -- callback functions args: float, A *a
+            RET          -- return type info: void type info
+            DECLTYPE     -- std::function<void (float, const A *)>
+        }
+    }
+]]
 function parseArgs(cls, declstr)
     local args = {}
     local count = 0
@@ -515,6 +533,23 @@ function olua.typecls(cppcls)
         end
     end
 
+    --[[
+        {
+            ...
+            std::function<void (float)> argN = [storeobj, func](float v) {
+                ...
+                ${CALLBACK_BEFORE}
+                olua_callback(L, ...)
+                ${CALLBACK_AFTER}
+            };
+            ...
+            ${BEFORE}
+            self->callfunc(arg1, arg2, ....);
+            ${AFTER}
+            ...
+        return 1;
+        }
+    ]]
     function cls.inject(cppfunc, codes)
         local funcs = type(cppfunc) == "string" and {cppfunc} or cppfunc
         local found
@@ -572,6 +607,35 @@ function olua.typecls(cppcls)
         error('func not found: ' .. func)
     end
 
+    --[[
+        {
+            TAG_MAKER    -- make callback key
+            TAG_MODE     -- how to store or remove function
+            TAG_STORE    -- where to store or remove function
+            CALLONCE     -- remove function after called
+            REMOVE       -- remove function
+        }
+
+        TAG: .callback#[id++]@tag
+
+        userdata.uservalue {
+            .callback#0@click = clickfunc1,
+            .callback#1@click = clickfunc2,
+            .callback#2@remove = removefunc,
+        }
+
+        remove all callback:
+            {TAG_MAKER = "", TAG_MODE = "OLUA_CALLBACK_TAG_WILDCARD", REMOVE = true}
+
+        remove click callback:
+            {TAG_MAKER = "click", TAG_MODE = "OLUA_CALLBACK_TAG_ENDWITH", REMOVE = true}
+
+        add new callback:
+            {TAG_MAKER = 'click', TAG_MODE = "OLUA_CALLBACK_TAG_NEW"}
+
+        replace previous callback:
+            {TAG_MAKER = 'click', TAG_MODE = "OLUA_CALLBACK_TAG_REPLACE"}
+    ]]
     function cls.callback(opt)
         cls.FUNCS[#cls.FUNCS + 1] = parseFunc(cls, nil, table.unpack(opt.FUNCS))
         for i, v in ipairs(cls.FUNCS[#cls.FUNCS]) do

@@ -396,7 +396,7 @@ static void auxgetusertable(lua_State *L, int idx)
 
 LUALIB_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag, int func, olua_callback_tag_t mode)
 {
-    static int ref = 0;
+    static unsigned int ref = 0;
     
     func = lua_absindex(L, func);
     luaL_checktype(L, func, LUA_TFUNCTION);

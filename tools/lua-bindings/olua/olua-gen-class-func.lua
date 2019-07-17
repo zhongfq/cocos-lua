@@ -577,7 +577,7 @@ local function gen_test_and_call(cls, fns)
     return table.concat(CALL_CHUNK, "\n\n")
 end
 
-function gen_multi_func(cls, fis, write, func_filter)
+local function gen_multi_func(cls, fis, write, func_filter)
     local NUM_ARGS = fis.MAX_ARGS
     local CPPCLS = cls.CPPCLS
     local CPPCLS_PATH = olua.topath(cls.CPPCLS)
@@ -624,7 +624,7 @@ function gen_multi_func(cls, fis, write, func_filter)
     write('')
 end
 
-function gen_class_func(cls, fis, write, func_filter)
+function olua.genclassfunc(cls, fis, write, func_filter)
     if #fis == 1 then
         gen_one_func(cls, fis[1], write, nil, func_filter)
     else

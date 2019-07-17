@@ -443,7 +443,7 @@ local function gen_conv_source(module)
     olua.write(module.SOURCE_PATH, table.concat(arr, "\n"))
 end
 
-function gen_conv(module, write)
+function olua.genconv(module, write)
     if write then
         for _, cv in ipairs(module.CONVS) do
             gen_funcs(cv, write)

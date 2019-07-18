@@ -32,7 +32,6 @@ M.CONVS = {
             float restitution;
             float friction;
         ]],
-        FUNC = nil,
     },
 }
 

@@ -6,195 +6,164 @@ olua.nowarning(typedef)
 typedef {
     CONV_FUNC = 'manual_olua_$$_cocos2d_Data',
     CPPCLS = 'cocos2d::Data',
-    INIT_VALUE = false,
 }
 
 typedef {
     CONV_FUNC = 'auto_olua_$$_cocos2d_Vec2',
     CPPCLS = 'cocos2d::Vec2',
-    INIT_VALUE = false,
     VARS = 2,
 }
 
 typedef {
     CONV_FUNC = 'auto_olua_$$_cocos2d_Vec2',
     CPPCLS = 'cocos2d::Point',
-    INIT_VALUE = false,
     VARS = 2,
 }
 
 typedef {
     CONV_FUNC = 'auto_olua_$$_cocos2d_Vec3',
     CPPCLS = 'cocos2d::Vec3',
-    INIT_VALUE = false,
     VARS = 3,
 }
 
 typedef {
     CONV_FUNC = 'auto_olua_$$_cocos2d_Vec4',
     CPPCLS = 'cocos2d::Vec4',
-    INIT_VALUE = false,
     VARS = 4,
 }
 
 typedef {
     CONV_FUNC = 'auto_olua_$$_cocos2d_Size',
     CPPCLS = 'cocos2d::Size',
-    INIT_VALUE = false,
     VARS = 2,
 }
 
 typedef {
     CONV_FUNC = 'manual_olua_$$_cocos2d_Rect',
     CPPCLS = 'cocos2d::Rect',
-    INIT_VALUE = false,
     VARS = 4,
 }
 
 typedef {
     CONV_FUNC = 'manual_olua_$$_cocos2d_ccBezierConfig',
     CPPCLS = 'cocos2d::ccBezierConfig',
-    INIT_VALUE = false,
     VARS = 3,
 }
 
 typedef {
     CONV_FUNC = 'manual_olua_$$_cocos2d_Mat4',
     CPPCLS = 'cocos2d::Mat4',
-    INIT_VALUE = false,
 }
 
 typedef {
     CONV_FUNC = 'manual_olua_$$_cocos2d_Vector',
     CPPCLS = 'cocos2d::Vector',
-    INIT_VALUE = false,
 }
 
 typedef {
     CONV_FUNC = 'olua_$$_std_string',
     CPPCLS = 'cocos2d::EventListener::ListenerID',
     DECLTYPE = 'std::string',
-    INIT_VALUE = false,
 }
 
 typedef {
     CONV_FUNC = 'auto_olua_$$_cocos2d_AffineTransform',
     CPPCLS = 'cocos2d::AffineTransform',
-    INIT_VALUE = false,
 }
 
 typedef {
     CONV_FUNC = 'auto_olua_$$_cocos2d_BlendFunc',
     CPPCLS = 'cocos2d::BlendFunc',
-    INIT_VALUE = false,
 }
 
 typedef {
     CONV_FUNC = 'auto_olua_$$_cocos2d_experimental_Viewport',
     CPPCLS = 'cocos2d::experimental::Viewport',
-    INIT_VALUE = false,
 }
 
 typedef {
     CONV_FUNC = 'auto_olua_$$_cocos2d_Quaternion',
     CPPCLS = 'cocos2d::Quaternion',
-    INIT_VALUE = false,
 }
 
 typedef {
     CONV_FUNC = 'auto_olua_$$_cocos2d_ResourceData',
     CPPCLS = 'cocos2d::ResourceData',
-    INIT_VALUE = false,
 }
 
 typedef {
     CONV_FUNC = 'auto_olua_$$_cocos2d_T2F_Quad',
     CPPCLS = 'cocos2d::T2F_Quad',
-    INIT_VALUE = false,
 }
 
 typedef {
     CONV_FUNC = 'auto_olua_$$_cocos2d_Tex2F',
     CPPCLS = 'cocos2d::Tex2F',
-    INIT_VALUE = false,
 }
 
 typedef {
     CONV_FUNC = 'auto_olua_$$_cocos2d_Texture2D_TexParams',
     CPPCLS = 'cocos2d::Texture2D::TexParams',
-    INIT_VALUE = false,
 }
 
 typedef {
     CONV_FUNC = 'auto_olua_$$_cocos2d_TTFConfig',
     CPPCLS = 'cocos2d::TTFConfig',
-    INIT_VALUE = false,
 }
 
 typedef {
     CONV_FUNC = 'auto_olua_$$_cocos2d_Uniform',
     CPPCLS = 'cocos2d::Uniform *',
-    INIT_VALUE = false,
 }
 
 typedef {
     CONV_FUNC = 'auto_olua_$$_cocos2d_VertexAttrib',
     CPPCLS = 'cocos2d::VertexAttrib *',
-    INIT_VALUE = false,
 }
 
 typedef {
     CONV_FUNC = 'auto_olua_$$_GLContextAttrs',
     CPPCLS = 'GLContextAttrs',
-    INIT_VALUE = false,
 }
 
 typedef {
     CONV_FUNC = 'auto_olua_$$_cocos2d_Quad3',
     CPPCLS = 'cocos2d::Quad3',
-    INIT_VALUE = false,
 }
 
 typedef {
     CONV_FUNC = 'manual_olua_$$_cocos2d_Color3B',
     CPPCLS = 'cocos2d::Color3B',
-    INIT_VALUE = false,
 }
 
 typedef {
     CONV_FUNC = 'manual_olua_$$_cocos2d_Color4B',
     CPPCLS = 'cocos2d::Color4B',
-    INIT_VALUE = false,
 }
 
 typedef {
     CONV_FUNC = 'manual_olua_$$_cocos2d_Color4F',
     CPPCLS = 'cocos2d::Color4F',
-    INIT_VALUE = false,
 }
 
 typedef {
     CONV_FUNC = 'manual_olua_$$_cocos2d_Value',
     CPPCLS = 'cocos2d::Value',
-    INIT_VALUE = false,
 }
 
 typedef {
     CONV_FUNC = 'manual_olua_$$_cocos2d_ValueMap',
     CPPCLS = 'cocos2d::ValueMap',
-    INIT_VALUE = false,
 }
 
 typedef {
     CONV_FUNC = 'manual_olua_$$_cocos2d_ValueVector',
     CPPCLS = 'cocos2d::ValueVector',
-    INIT_VALUE = false,
 }
 
 typedef {
     CONV_FUNC = 'auto_olua_$$_cocos2d_Controller_KeyStatus',
     CPPCLS = 'cocos2d::Controller::KeyStatus',
-    INIT_VALUE = false,
 }
 
 typedef {

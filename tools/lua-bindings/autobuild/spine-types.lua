@@ -6,25 +6,21 @@ olua.nowarning(typedef)
 typedef {
     CONV_FUNC = 'manual_olua_$$_spine_String',
     CPPCLS = 'spine::String',
-    INIT_VALUE = false,
 }
 
 typedef {
     CONV_FUNC = 'manual_olua_$$_spine_EventData',
     CPPCLS = 'spine::EventData',
-    INIT_VALUE = false,
 }
 
 typedef {
     CONV_FUNC = 'manual_olua_$$_spine_Color',
     CPPCLS = 'spine::Color',
-    INIT_VALUE = false,
 }
 
 typedef {
     CONV_FUNC = 'manual_olua_$$_spine_Vector',
     CPPCLS = 'spine::Vector',
-    INIT_VALUE = false,
     PUSH_VALUETYPE = [[
         int ${ARG_NAME}_size = (int)${ARG_NAME}.size();
         lua_createtable(L, ${ARG_NAME}_size, 0);

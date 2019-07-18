@@ -12,43 +12,36 @@ typedef {
 typedef {
     CONV_FUNC = 'auto_olua_$$_cocos2d_PhysicsMaterial',
     CPPCLS = 'cocos2d::PhysicsMaterial',
-    INIT_VALUE = false,
 }
 
 typedef {
     CONV_FUNC = 'olua_$$_cppobj',
     CPPCLS = 'cocos2d::PhysicsWorld',
-    INIT_VALUE = false,
 }
 
 typedef {
     CONV_FUNC = 'olua_$$_cppobj',
     CPPCLS = 'cocos2d::PhysicsShape',
-    INIT_VALUE = false,
 }
 
 typedef {
     CONV_FUNC = 'olua_$$_cppobj',
     CPPCLS = 'cocos2d::PhysicsContact',
-    INIT_VALUE = false,
 }
 
 typedef {
     CONV_FUNC = 'olua_$$_cppobj',
     CPPCLS = 'cocos2d::PhysicsContactPreSolve',
-    INIT_VALUE = false,
 }
 
 typedef {
     CONV_FUNC = 'olua_$$_cppobj',
     CPPCLS = 'cocos2d::PhysicsContactPostSolve',
-    INIT_VALUE = false,
 }
 
 typedef {
     CONV_FUNC = 'olua_$$_cppobj',
     CPPCLS = 'cocos2d::PhysicsRayCastInfo',
-    INIT_VALUE = false,
 }
 
 typedef {

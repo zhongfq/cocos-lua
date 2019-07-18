@@ -840,16 +840,6 @@ function olua.typedef(typeinfo)
         ti.DECLTYPE = ti.DECLTYPE or tn
         typeinfo_map[tn] = ti
         typeinfo_map['const ' .. tn] = ti
-
-        if ti.INIT_VALUE == nil then
-            if tn == 'bool' then
-                ti.INIT_VALUE = 'false'
-            elseif string.find(tn, '%*$') then
-                ti.INIT_VALUE = 'nullptr'
-            else
-                ti.INIT_VALUE = '0'
-            end
-        end
     end
 end
 

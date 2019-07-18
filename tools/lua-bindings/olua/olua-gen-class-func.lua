@@ -25,7 +25,7 @@ local function genFuncArgs(cls, fi, func)
         local OLUA_TO_TYPE = olua.convfunc(ti, 'to')
         olua.nowarning(OLUA_TO_TYPE)
         func.DECL_ARGS:push(format([[
-            ${cls.CPPCLS} *self = nullptr;
+            ${cls.CPPCLS} *self;
         ]]))
         func.CHECK_ARGS:push(format([[
             ${OLUA_TO_TYPE}(L, 1, (void **)&self, "${ti.LUACLS}");
@@ -51,12 +51,7 @@ local function genFuncArgs(cls, fi, func)
             func.CALLER_ARGS:push(format([[${ARG_NAME}]]))
         end
 
-        -- args declare
-        if ai.TYPE.INIT_VALUE then
-            func.DECL_ARGS:push(format([[
-                ${ai.TYPE.DECLTYPE}${SPACE}${ARG_NAME} = ${ai.TYPE.INIT_VALUE};   /** ${ai.VARNAME} */
-            ]]))
-        elseif ai.TYPE.SUBTYPE then
+        if ai.TYPE.SUBTYPE then
             -- ai.DECLTYPE = std::vector<std::string>
             -- ai.TYPE.DECLTYPE = std::vector
             func.DECL_ARGS:push(format([[

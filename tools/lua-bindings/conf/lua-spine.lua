@@ -116,25 +116,21 @@ template <typename T> int manual_olua_push_spine_Vector(lua_State *L, const spin
 typedef {
     CPPCLS = 'spine::String',
     CONV_FUNC = 'manual_olua_$$_spine_String',
-    INIT_VALUE = false,
 }
 
 typedef {
     CPPCLS = 'spine::EventData',
     CONV_FUNC = 'manual_olua_$$_spine_EventData',
-    INIT_VALUE = false,
 }
 
 typedef {
     CPPCLS = 'spine::Color',
     CONV_FUNC = 'manual_olua_$$_spine_Color',
-    INIT_VALUE = false,
 }
 
 typedef {
     CPPCLS = 'spine::Vector',
     CONV_FUNC = 'manual_olua_$$_spine_Vector',
-    INIT_VALUE = false,
     PUSH_VALUETYPE = [[
         int ${ARG_NAME}_size = (int)${ARG_NAME}.size();
         lua_createtable(L, ${ARG_NAME}_size, 0);

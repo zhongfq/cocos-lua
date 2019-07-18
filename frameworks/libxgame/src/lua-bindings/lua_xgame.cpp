@@ -328,8 +328,8 @@ static int _xgame_runtime_setAntialias(lua_State *L)
 {
     lua_settop(L, 2);
 
-    bool arg1 = false;   /** enabled */
-    lua_Unsigned arg2 = 0;   /** numSamples */
+    bool arg1;       /** enabled */
+    lua_Unsigned arg2;       /** numSamples */
 
     olua_check_bool(L, 1, &arg1);
     olua_check_uint(L, 2, &arg2);
@@ -483,7 +483,7 @@ static int _xgame_filesystem_createDirectory(lua_State *L)
     lua_settop(L, 2);
 
     std::string arg1;       /** path */
-    bool arg2 = false;   /** isFilePath */
+    bool arg2;       /** isFilePath */
 
     olua_check_std_string(L, 1, &arg1);
     olua_opt_bool(L, 2, &arg2, (bool)false);
@@ -662,7 +662,7 @@ static int _xgame_filesystem_shortPath(lua_State *L)
     lua_settop(L, 2);
 
     std::string arg1;       /** path */
-    lua_Unsigned arg2 = 0;   /** limit */
+    lua_Unsigned arg2;       /** limit */
 
     olua_check_std_string(L, 1, &arg1);
     olua_opt_uint(L, 2, &arg2, (lua_Unsigned)60);
@@ -738,7 +738,7 @@ static int _xgame_preferences_deleteKey(lua_State *L)
 {
     lua_settop(L, 1);
 
-    const char *arg1 = nullptr;   /** key */
+    const char *arg1;       /** key */
 
     olua_check_string(L, 1, &arg1);
 
@@ -762,8 +762,8 @@ static int _xgame_preferences_getBoolean(lua_State *L)
 {
     lua_settop(L, 2);
 
-    const char *arg1 = nullptr;   /** key */
-    bool arg2 = false;   /** defaultValue */
+    const char *arg1;       /** key */
+    bool arg2;       /** defaultValue */
 
     olua_check_string(L, 1, &arg1);
     olua_opt_bool(L, 2, &arg2, (bool)false);
@@ -779,8 +779,8 @@ static int _xgame_preferences_getDouble(lua_State *L)
 {
     lua_settop(L, 2);
 
-    const char *arg1 = nullptr;   /** key */
-    lua_Number arg2 = 0;   /** defaultValue */
+    const char *arg1;       /** key */
+    lua_Number arg2;       /** defaultValue */
 
     olua_check_string(L, 1, &arg1);
     olua_opt_number(L, 2, &arg2, (lua_Number)0);
@@ -796,8 +796,8 @@ static int _xgame_preferences_getFloat(lua_State *L)
 {
     lua_settop(L, 2);
 
-    const char *arg1 = nullptr;   /** key */
-    lua_Number arg2 = 0;   /** defaultValue */
+    const char *arg1;       /** key */
+    lua_Number arg2;       /** defaultValue */
 
     olua_check_string(L, 1, &arg1);
     olua_opt_number(L, 2, &arg2, (lua_Number)0);
@@ -813,8 +813,8 @@ static int _xgame_preferences_getInteger(lua_State *L)
 {
     lua_settop(L, 2);
 
-    const char *arg1 = nullptr;   /** key */
-    lua_Integer arg2 = 0;   /** defaultValue */
+    const char *arg1;       /** key */
+    lua_Integer arg2;       /** defaultValue */
 
     olua_check_string(L, 1, &arg1);
     olua_opt_int(L, 2, &arg2, (lua_Integer)0);
@@ -830,8 +830,8 @@ static int _xgame_preferences_getString(lua_State *L)
 {
     lua_settop(L, 2);
 
-    const char *arg1 = nullptr;   /** key */
-    const char *arg2 = nullptr;   /** defaultValue */
+    const char *arg1;       /** key */
+    const char *arg2;       /** defaultValue */
 
     olua_check_string(L, 1, &arg1);
     olua_opt_string(L, 2, &arg2, (const char *)"");
@@ -847,8 +847,8 @@ static int _xgame_preferences_setBoolean(lua_State *L)
 {
     lua_settop(L, 2);
 
-    const char *arg1 = nullptr;   /** key */
-    bool arg2 = false;   /** value */
+    const char *arg1;       /** key */
+    bool arg2;       /** value */
 
     olua_check_string(L, 1, &arg1);
     olua_check_bool(L, 2, &arg2);
@@ -863,8 +863,8 @@ static int _xgame_preferences_setDouble(lua_State *L)
 {
     lua_settop(L, 2);
 
-    const char *arg1 = nullptr;   /** key */
-    lua_Number arg2 = 0;   /** value */
+    const char *arg1;       /** key */
+    lua_Number arg2;       /** value */
 
     olua_check_string(L, 1, &arg1);
     olua_check_number(L, 2, &arg2);
@@ -879,8 +879,8 @@ static int _xgame_preferences_setFloat(lua_State *L)
 {
     lua_settop(L, 2);
 
-    const char *arg1 = nullptr;   /** key */
-    lua_Number arg2 = 0;   /** value */
+    const char *arg1;       /** key */
+    lua_Number arg2;       /** value */
 
     olua_check_string(L, 1, &arg1);
     olua_check_number(L, 2, &arg2);
@@ -895,8 +895,8 @@ static int _xgame_preferences_setInteger(lua_State *L)
 {
     lua_settop(L, 2);
 
-    const char *arg1 = nullptr;   /** key */
-    lua_Integer arg2 = 0;   /** value */
+    const char *arg1;       /** key */
+    lua_Integer arg2;       /** value */
 
     olua_check_string(L, 1, &arg1);
     olua_check_int(L, 2, &arg2);
@@ -911,8 +911,8 @@ static int _xgame_preferences_setString(lua_State *L)
 {
     lua_settop(L, 2);
 
-    const char *arg1 = nullptr;   /** key */
-    const char *arg2 = nullptr;   /** value */
+    const char *arg1;       /** key */
+    const char *arg2;       /** value */
 
     olua_check_string(L, 1, &arg1);
     olua_check_string(L, 2, &arg2);

@@ -37,7 +37,6 @@ M.CHUNK = [[]]
 typedef {
     CPPCLS = 'cocos2d::ui::Margin',
     CONV_FUNC = 'auto_olua_$$_cocos2d_ui_Margin',
-    INIT_VALUE = false,
 }
 
 M.MAKE_LUACLS = function (cppname)

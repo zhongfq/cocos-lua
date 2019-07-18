@@ -73,6 +73,26 @@ local function convfunc(ti, fn)
     return func
 end
 
+local function getinitvalue(ti)
+    if olua.isvaluetype(ti) then
+        if ti.DECLTYPE == 'lua_Number'
+            or ti.DECLTYPE == 'lua_Integer'
+            or ti.DECLTYPE == 'lua_Unsigned' then
+            return '0'
+        elseif ti.DECLTYPE == 'std::string' then
+            return '""'
+        elseif ti.DECLTYPE == 'bool' then
+            return 'false'
+        elseif ti.DECLTYPE == 'const char *' then
+            return 'nullptr'
+        else
+            error('unknown type:' .. ti.TYPE.CPPCLS)
+        end
+    else
+        return 'nullptr'
+    end
+end
+
 local function genPushFunc(cv, write)
     local CPPCLS_PATH = olua.topath(cv.CPPCLS)
     local NUM_ARGS = #cv.PROPS
@@ -174,7 +194,7 @@ local function gen_opt_func(cv, write)
     local CPPCLS_PATH = olua.topath(cv.CPPCLS)
     local ARGS_CHUNK = {}
     for _, pi in ipairs(cv.PROPS) do
-        local INIT_VALUE = pi.TYPE.INIT_VALUE or '""'
+        local INIT_VALUE = getinitvalue(pi.TYPE)
         local OLUA_OPT_VALUE = convfunc(pi.TYPE, 'opt')
         if olua.isvaluetype(pi.TYPE) then
             ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[

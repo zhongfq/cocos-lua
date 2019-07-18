@@ -46,7 +46,6 @@ M.CONVS = {
             float right;
             float bottom;
         ]],
-        FUNC = nil,
     },
     typeconv {
         CPPCLS = 'fairygui::TweenValue',
@@ -57,7 +56,6 @@ M.CONVS = {
             float w = 0;
             double d = 0;
         ]],
-        FUNC = nil,
     },
 }
 

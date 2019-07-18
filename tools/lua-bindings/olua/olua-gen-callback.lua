@@ -207,15 +207,9 @@ function olua.gencallback(cls, fi, write)
     local RET = ai.CALLBACK.RET
     if RET.TYPE.CPPCLS ~= "void" then
         local FUNC_CHECK_VALUE = olua.convfunc(RET.TYPE, 'check')
-        if RET.TYPE.INIT_VALUE then
-            CALLBACK.DECL_RESULT = format([[
-                ${RET.TYPE.DECLTYPE} ret = ${RET.TYPE.INIT_VALUE};
-            ]])
-        else
-            CALLBACK.DECL_RESULT = format([[
-                ${RET.TYPE.DECLTYPE} ret;
-            ]])
-        end
+        CALLBACK.DECL_RESULT = format([[
+            ${RET.TYPE.DECLTYPE} ret;
+        ]])
         if RET.TYPE.LUACLS and not olua.isvaluetype(RET.TYPE) then
             CALLBACK.CHECK_RESULT = format([[
                 ${FUNC_CHECK_VALUE}(L, -1, (void **)&ret, "${RET.TYPE.LUACLS}");

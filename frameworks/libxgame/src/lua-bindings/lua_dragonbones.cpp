@@ -41,7 +41,7 @@ static int _dragonBones_BaseObject_clearPool(lua_State *L)
 {
     lua_settop(L, 1);
 
-    lua_Unsigned arg1 = 0;   /** classTypeIndex */
+    lua_Unsigned arg1;       /** classTypeIndex */
 
     olua_opt_uint(L, 1, &arg1, (lua_Unsigned)0);
 
@@ -55,7 +55,7 @@ static int _dragonBones_BaseObject_getClassTypeIndex(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::BaseObject *self = nullptr;
+    dragonBones::BaseObject *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.BaseObject");
 
@@ -70,7 +70,7 @@ static int _dragonBones_BaseObject_returnToPool(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::BaseObject *self = nullptr;
+    dragonBones::BaseObject *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.BaseObject");
 
@@ -84,8 +84,8 @@ static int _dragonBones_BaseObject_setMaxCount(lua_State *L)
 {
     lua_settop(L, 2);
 
-    lua_Unsigned arg1 = 0;   /** classTypeIndex */
-    lua_Unsigned arg2 = 0;   /** maxCount */
+    lua_Unsigned arg1;       /** classTypeIndex */
+    lua_Unsigned arg2;       /** maxCount */
 
     olua_check_uint(L, 1, &arg1);
     olua_check_uint(L, 2, &arg2);
@@ -115,7 +115,7 @@ static int _dragonBones_EventObject_getAnimationState(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::EventObject *self = nullptr;
+    dragonBones::EventObject *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.EventObject");
 
@@ -130,7 +130,7 @@ static int _dragonBones_EventObject_getArmature(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::EventObject *self = nullptr;
+    dragonBones::EventObject *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.EventObject");
 
@@ -145,7 +145,7 @@ static int _dragonBones_EventObject_getBone(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::EventObject *self = nullptr;
+    dragonBones::EventObject *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.EventObject");
 
@@ -160,7 +160,7 @@ static int _dragonBones_EventObject_getSlot(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::EventObject *self = nullptr;
+    dragonBones::EventObject *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.EventObject");
 
@@ -186,7 +186,7 @@ static int _dragonBones_EventObject_get_animationState(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::EventObject *self = nullptr;
+    dragonBones::EventObject *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.EventObject");
 
@@ -201,8 +201,8 @@ static int _dragonBones_EventObject_set_animationState(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::EventObject *self = nullptr;
-    dragonBones::AnimationState *arg1 = nullptr;   /** animationState */
+    dragonBones::EventObject *self;
+    dragonBones::AnimationState *arg1;       /** animationState */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.EventObject");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.AnimationState");
@@ -217,7 +217,7 @@ static int _dragonBones_EventObject_get_armature(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::EventObject *self = nullptr;
+    dragonBones::EventObject *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.EventObject");
 
@@ -232,8 +232,8 @@ static int _dragonBones_EventObject_set_armature(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::EventObject *self = nullptr;
-    dragonBones::Armature *arg1 = nullptr;   /** armature */
+    dragonBones::EventObject *self;
+    dragonBones::Armature *arg1;       /** armature */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.EventObject");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.Armature");
@@ -248,7 +248,7 @@ static int _dragonBones_EventObject_get_bone(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::EventObject *self = nullptr;
+    dragonBones::EventObject *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.EventObject");
 
@@ -263,8 +263,8 @@ static int _dragonBones_EventObject_set_bone(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::EventObject *self = nullptr;
-    dragonBones::Bone *arg1 = nullptr;   /** bone */
+    dragonBones::EventObject *self;
+    dragonBones::Bone *arg1;       /** bone */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.EventObject");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.Bone");
@@ -279,7 +279,7 @@ static int _dragonBones_EventObject_get_name(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::EventObject *self = nullptr;
+    dragonBones::EventObject *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.EventObject");
 
@@ -294,7 +294,7 @@ static int _dragonBones_EventObject_set_name(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::EventObject *self = nullptr;
+    dragonBones::EventObject *self;
     std::string arg1;       /** name */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.EventObject");
@@ -310,7 +310,7 @@ static int _dragonBones_EventObject_get_slot(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::EventObject *self = nullptr;
+    dragonBones::EventObject *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.EventObject");
 
@@ -325,8 +325,8 @@ static int _dragonBones_EventObject_set_slot(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::EventObject *self = nullptr;
-    dragonBones::Slot *arg1 = nullptr;   /** slot */
+    dragonBones::EventObject *self;
+    dragonBones::Slot *arg1;       /** slot */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.EventObject");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.Slot");
@@ -341,7 +341,7 @@ static int _dragonBones_EventObject_get_time(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::EventObject *self = nullptr;
+    dragonBones::EventObject *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.EventObject");
 
@@ -356,8 +356,8 @@ static int _dragonBones_EventObject_set_time(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::EventObject *self = nullptr;
-    lua_Number arg1 = 0;   /** time */
+    dragonBones::EventObject *self;
+    lua_Number arg1;       /** time */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.EventObject");
     olua_check_number(L, 2, &arg1);
@@ -372,7 +372,7 @@ static int _dragonBones_EventObject_get_type(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::EventObject *self = nullptr;
+    dragonBones::EventObject *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.EventObject");
 
@@ -387,7 +387,7 @@ static int _dragonBones_EventObject_set_type(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::EventObject *self = nullptr;
+    dragonBones::EventObject *self;
     std::string arg1;       /** type */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.EventObject");
@@ -430,7 +430,7 @@ static int _dragonBones_TransformObject_getArmature(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::TransformObject *self = nullptr;
+    dragonBones::TransformObject *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.TransformObject");
 
@@ -445,7 +445,7 @@ static int _dragonBones_TransformObject_updateGlobalTransform(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::TransformObject *self = nullptr;
+    dragonBones::TransformObject *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.TransformObject");
 
@@ -459,7 +459,7 @@ static int _dragonBones_TransformObject_get_userData(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::TransformObject *self = nullptr;
+    dragonBones::TransformObject *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.TransformObject");
 
@@ -474,8 +474,8 @@ static int _dragonBones_TransformObject_set_userData(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::TransformObject *self = nullptr;
-    void *arg1 = nullptr;   /** userData */
+    dragonBones::TransformObject *self;
+    void *arg1;       /** userData */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.TransformObject");
     olua_check_obj(L, 2, (void **)&arg1, "void *");
@@ -519,7 +519,7 @@ static int _dragonBones_Point_clear(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Point *self = nullptr;
+    dragonBones::Point *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Point");
 
@@ -577,7 +577,7 @@ static int _dragonBones_Point_get_x(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Point *self = nullptr;
+    dragonBones::Point *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Point");
 
@@ -592,8 +592,8 @@ static int _dragonBones_Point_set_x(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::Point *self = nullptr;
-    lua_Number arg1 = 0;   /** x */
+    dragonBones::Point *self;
+    lua_Number arg1;       /** x */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Point");
     olua_check_number(L, 2, &arg1);
@@ -608,7 +608,7 @@ static int _dragonBones_Point_get_y(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Point *self = nullptr;
+    dragonBones::Point *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Point");
 
@@ -623,8 +623,8 @@ static int _dragonBones_Point_set_y(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::Point *self = nullptr;
-    lua_Number arg1 = 0;   /** y */
+    dragonBones::Point *self;
+    lua_Number arg1;       /** y */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Point");
     olua_check_number(L, 2, &arg1);
@@ -660,9 +660,9 @@ static int _dragonBones_Slot_containsPoint(lua_State *L)
 {
     lua_settop(L, 3);
 
-    dragonBones::Slot *self = nullptr;
-    lua_Number arg1 = 0;   /** x */
-    lua_Number arg2 = 0;   /** y */
+    dragonBones::Slot *self;
+    lua_Number arg1;       /** x */
+    lua_Number arg2;       /** y */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Slot");
     olua_check_number(L, 2, &arg1);
@@ -679,7 +679,7 @@ static int _dragonBones_Slot_getChildArmature(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Slot *self = nullptr;
+    dragonBones::Slot *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Slot");
 
@@ -694,7 +694,7 @@ static int _dragonBones_Slot_getDisplay(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Slot *self = nullptr;
+    dragonBones::Slot *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Slot");
 
@@ -709,7 +709,7 @@ static int _dragonBones_Slot_getDisplayIndex(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Slot *self = nullptr;
+    dragonBones::Slot *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Slot");
 
@@ -724,7 +724,7 @@ static int _dragonBones_Slot_getMeshDisplay(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Slot *self = nullptr;
+    dragonBones::Slot *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Slot");
 
@@ -739,7 +739,7 @@ static int _dragonBones_Slot_getName(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Slot *self = nullptr;
+    dragonBones::Slot *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Slot");
 
@@ -754,7 +754,7 @@ static int _dragonBones_Slot_getParent(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Slot *self = nullptr;
+    dragonBones::Slot *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Slot");
 
@@ -769,7 +769,7 @@ static int _dragonBones_Slot_getRawDisplay(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Slot *self = nullptr;
+    dragonBones::Slot *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Slot");
 
@@ -784,7 +784,7 @@ static int _dragonBones_Slot_getSlotData(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Slot *self = nullptr;
+    dragonBones::Slot *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Slot");
 
@@ -799,7 +799,7 @@ static int _dragonBones_Slot_getVisible(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Slot *self = nullptr;
+    dragonBones::Slot *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Slot");
 
@@ -814,11 +814,11 @@ static int _dragonBones_Slot_init(lua_State *L)
 {
     lua_settop(L, 5);
 
-    dragonBones::Slot *self = nullptr;
-    dragonBones::SlotData *arg1 = nullptr;   /** slotData */
-    dragonBones::Armature *arg2 = nullptr;   /** armatureValue */
-    void *arg3 = nullptr;   /** rawDisplay */
-    void *arg4 = nullptr;   /** meshDisplay */
+    dragonBones::Slot *self;
+    dragonBones::SlotData *arg1;       /** slotData */
+    dragonBones::Armature *arg2;       /** armatureValue */
+    void *arg3;       /** rawDisplay */
+    void *arg4;       /** meshDisplay */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Slot");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.SlotData");
@@ -836,14 +836,14 @@ static int _dragonBones_Slot_intersectsSegment(lua_State *L)
 {
     lua_settop(L, 8);
 
-    dragonBones::Slot *self = nullptr;
-    lua_Number arg1 = 0;   /** xA */
-    lua_Number arg2 = 0;   /** yA */
-    lua_Number arg3 = 0;   /** xB */
-    lua_Number arg4 = 0;   /** yB */
-    dragonBones::Point *arg5 = nullptr;   /** intersectionPointA */
-    dragonBones::Point *arg6 = nullptr;   /** intersectionPointB */
-    dragonBones::Point *arg7 = nullptr;   /** normalRadians */
+    dragonBones::Slot *self;
+    lua_Number arg1;       /** xA */
+    lua_Number arg2;       /** yA */
+    lua_Number arg3;       /** xB */
+    lua_Number arg4;       /** yB */
+    dragonBones::Point *arg5;       /** intersectionPointA */
+    dragonBones::Point *arg6;       /** intersectionPointB */
+    dragonBones::Point *arg7;       /** normalRadians */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Slot");
     olua_check_number(L, 2, &arg1);
@@ -865,7 +865,7 @@ static int _dragonBones_Slot_invalidUpdate(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Slot *self = nullptr;
+    dragonBones::Slot *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Slot");
 
@@ -879,9 +879,9 @@ static int _dragonBones_Slot_replaceDisplayData(lua_State *L)
 {
     lua_settop(L, 3);
 
-    dragonBones::Slot *self = nullptr;
-    dragonBones::DisplayData *arg1 = nullptr;   /** displayData */
-    lua_Integer arg2 = 0;   /** displayIndex */
+    dragonBones::Slot *self;
+    dragonBones::DisplayData *arg1;       /** displayData */
+    lua_Integer arg2;       /** displayIndex */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Slot");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.DisplayData");
@@ -897,8 +897,8 @@ static int _dragonBones_Slot_setChildArmature(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::Slot *self = nullptr;
-    dragonBones::Armature *arg1 = nullptr;   /** value */
+    dragonBones::Slot *self;
+    dragonBones::Armature *arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Slot");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.Armature");
@@ -913,9 +913,9 @@ static int _dragonBones_Slot_setDisplay(lua_State *L)
 {
     lua_settop(L, 3);
 
-    dragonBones::Slot *self = nullptr;
-    void *arg1 = nullptr;   /** value */
-    lua_Unsigned arg2 = 0;   /** displayType */
+    dragonBones::Slot *self;
+    void *arg1;       /** value */
+    lua_Unsigned arg2;       /** displayType */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Slot");
     olua_check_obj(L, 2, (void **)&arg1, "void *");
@@ -931,8 +931,8 @@ static int _dragonBones_Slot_setDisplayIndex(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::Slot *self = nullptr;
-    lua_Integer arg1 = 0;   /** value */
+    dragonBones::Slot *self;
+    lua_Integer arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Slot");
     olua_check_int(L, 2, &arg1);
@@ -947,8 +947,8 @@ static int _dragonBones_Slot_setVisible(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::Slot *self = nullptr;
-    bool arg1 = false;   /** value */
+    dragonBones::Slot *self;
+    bool arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Slot");
     olua_check_bool(L, 2, &arg1);
@@ -963,8 +963,8 @@ static int _dragonBones_Slot_update(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::Slot *self = nullptr;
-    lua_Integer arg1 = 0;   /** cacheFrameIndex */
+    dragonBones::Slot *self;
+    lua_Integer arg1;       /** cacheFrameIndex */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Slot");
     olua_check_int(L, 2, &arg1);
@@ -979,7 +979,7 @@ static int _dragonBones_Slot_updateTransformAndMatrix(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Slot *self = nullptr;
+    dragonBones::Slot *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Slot");
 
@@ -993,7 +993,7 @@ static int _dragonBones_Slot_get_displayController(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Slot *self = nullptr;
+    dragonBones::Slot *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Slot");
 
@@ -1008,7 +1008,7 @@ static int _dragonBones_Slot_set_displayController(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::Slot *self = nullptr;
+    dragonBones::Slot *self;
     std::string arg1;       /** displayController */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Slot");
@@ -1077,8 +1077,8 @@ static int _dragonBones_Bone_contains(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::Bone *self = nullptr;
-    dragonBones::Bone *arg1 = nullptr;   /** value */
+    dragonBones::Bone *self;
+    dragonBones::Bone *arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Bone");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.Bone");
@@ -1094,7 +1094,7 @@ static int _dragonBones_Bone_getBoneData(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Bone *self = nullptr;
+    dragonBones::Bone *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Bone");
 
@@ -1109,7 +1109,7 @@ static int _dragonBones_Bone_getName(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Bone *self = nullptr;
+    dragonBones::Bone *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Bone");
 
@@ -1124,7 +1124,7 @@ static int _dragonBones_Bone_getOffsetMode(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Bone *self = nullptr;
+    dragonBones::Bone *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Bone");
 
@@ -1139,7 +1139,7 @@ static int _dragonBones_Bone_getParent(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Bone *self = nullptr;
+    dragonBones::Bone *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Bone");
 
@@ -1165,7 +1165,7 @@ static int _dragonBones_Bone_getVisible(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Bone *self = nullptr;
+    dragonBones::Bone *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Bone");
 
@@ -1180,9 +1180,9 @@ static int _dragonBones_Bone_init(lua_State *L)
 {
     lua_settop(L, 3);
 
-    dragonBones::Bone *self = nullptr;
-    dragonBones::BoneData *arg1 = nullptr;   /** boneData */
-    dragonBones::Armature *arg2 = nullptr;   /** armatureValue */
+    dragonBones::Bone *self;
+    dragonBones::BoneData *arg1;       /** boneData */
+    dragonBones::Armature *arg2;       /** armatureValue */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Bone");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.BoneData");
@@ -1198,7 +1198,7 @@ static int _dragonBones_Bone_invalidUpdate(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Bone *self = nullptr;
+    dragonBones::Bone *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Bone");
 
@@ -1212,8 +1212,8 @@ static int _dragonBones_Bone_setOffsetMode(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::Bone *self = nullptr;
-    lua_Integer arg1 = 0;   /** value */
+    dragonBones::Bone *self;
+    lua_Integer arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Bone");
     olua_check_int(L, 2, &arg1);
@@ -1228,8 +1228,8 @@ static int _dragonBones_Bone_setVisible(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::Bone *self = nullptr;
-    bool arg1 = false;   /** value */
+    dragonBones::Bone *self;
+    bool arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Bone");
     olua_check_bool(L, 2, &arg1);
@@ -1244,8 +1244,8 @@ static int _dragonBones_Bone_update(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::Bone *self = nullptr;
-    lua_Integer arg1 = 0;   /** cacheFrameIndex */
+    dragonBones::Bone *self;
+    lua_Integer arg1;       /** cacheFrameIndex */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Bone");
     olua_check_int(L, 2, &arg1);
@@ -1260,7 +1260,7 @@ static int _dragonBones_Bone_updateByConstraint(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Bone *self = nullptr;
+    dragonBones::Bone *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Bone");
 
@@ -1274,7 +1274,7 @@ static int _dragonBones_Bone_get_offsetMode(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Bone *self = nullptr;
+    dragonBones::Bone *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Bone");
 
@@ -1289,8 +1289,8 @@ static int _dragonBones_Bone_set_offsetMode(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::Bone *self = nullptr;
-    lua_Unsigned arg1 = 0;   /** offsetMode */
+    dragonBones::Bone *self;
+    lua_Unsigned arg1;       /** offsetMode */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Bone");
     olua_check_uint(L, 2, &arg1);
@@ -1335,7 +1335,7 @@ static int _dragonBones_DisplayData_getParent(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::DisplayData *self = nullptr;
+    dragonBones::DisplayData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.DisplayData");
 
@@ -1350,7 +1350,7 @@ static int _dragonBones_DisplayData_getType(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::DisplayData *self = nullptr;
+    dragonBones::DisplayData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.DisplayData");
 
@@ -1365,8 +1365,8 @@ static int _dragonBones_DisplayData_setParent(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::DisplayData *self = nullptr;
-    dragonBones::SkinData *arg1 = nullptr;   /** value */
+    dragonBones::DisplayData *self;
+    dragonBones::SkinData *arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.DisplayData");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.SkinData");
@@ -1381,8 +1381,8 @@ static int _dragonBones_DisplayData_setType(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::DisplayData *self = nullptr;
-    lua_Integer arg1 = 0;   /** value */
+    dragonBones::DisplayData *self;
+    lua_Integer arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.DisplayData");
     olua_check_int(L, 2, &arg1);
@@ -1397,7 +1397,7 @@ static int _dragonBones_DisplayData_get_name(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::DisplayData *self = nullptr;
+    dragonBones::DisplayData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.DisplayData");
 
@@ -1412,7 +1412,7 @@ static int _dragonBones_DisplayData_set_name(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::DisplayData *self = nullptr;
+    dragonBones::DisplayData *self;
     std::string arg1;       /** name */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.DisplayData");
@@ -1428,7 +1428,7 @@ static int _dragonBones_DisplayData_get_parent(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::DisplayData *self = nullptr;
+    dragonBones::DisplayData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.DisplayData");
 
@@ -1443,8 +1443,8 @@ static int _dragonBones_DisplayData_set_parent(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::DisplayData *self = nullptr;
-    dragonBones::SkinData *arg1 = nullptr;   /** parent */
+    dragonBones::DisplayData *self;
+    dragonBones::SkinData *arg1;       /** parent */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.DisplayData");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.SkinData");
@@ -1459,7 +1459,7 @@ static int _dragonBones_DisplayData_get_path(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::DisplayData *self = nullptr;
+    dragonBones::DisplayData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.DisplayData");
 
@@ -1474,7 +1474,7 @@ static int _dragonBones_DisplayData_set_path(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::DisplayData *self = nullptr;
+    dragonBones::DisplayData *self;
     std::string arg1;       /** path */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.DisplayData");
@@ -1490,7 +1490,7 @@ static int _dragonBones_DisplayData_get_type(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::DisplayData *self = nullptr;
+    dragonBones::DisplayData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.DisplayData");
 
@@ -1505,8 +1505,8 @@ static int _dragonBones_DisplayData_set_type(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::DisplayData *self = nullptr;
-    lua_Unsigned arg1 = 0;   /** type */
+    dragonBones::DisplayData *self;
+    lua_Unsigned arg1;       /** type */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.DisplayData");
     olua_check_uint(L, 2, &arg1);
@@ -1541,7 +1541,7 @@ static int _dragonBones_ActionData_getBone(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::ActionData *self = nullptr;
+    dragonBones::ActionData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ActionData");
 
@@ -1556,7 +1556,7 @@ static int _dragonBones_ActionData_getSlot(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::ActionData *self = nullptr;
+    dragonBones::ActionData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ActionData");
 
@@ -1571,7 +1571,7 @@ static int _dragonBones_ActionData_getType(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::ActionData *self = nullptr;
+    dragonBones::ActionData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ActionData");
 
@@ -1597,8 +1597,8 @@ static int _dragonBones_ActionData_setBone(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::ActionData *self = nullptr;
-    dragonBones::BoneData *arg1 = nullptr;   /** value */
+    dragonBones::ActionData *self;
+    dragonBones::BoneData *arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ActionData");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.BoneData");
@@ -1613,8 +1613,8 @@ static int _dragonBones_ActionData_setSlot(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::ActionData *self = nullptr;
-    dragonBones::SlotData *arg1 = nullptr;   /** value */
+    dragonBones::ActionData *self;
+    dragonBones::SlotData *arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ActionData");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.SlotData");
@@ -1629,8 +1629,8 @@ static int _dragonBones_ActionData_setType(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::ActionData *self = nullptr;
-    lua_Integer arg1 = 0;   /** value */
+    dragonBones::ActionData *self;
+    lua_Integer arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ActionData");
     olua_check_int(L, 2, &arg1);
@@ -1645,7 +1645,7 @@ static int _dragonBones_ActionData_get_name(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::ActionData *self = nullptr;
+    dragonBones::ActionData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ActionData");
 
@@ -1660,7 +1660,7 @@ static int _dragonBones_ActionData_set_name(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::ActionData *self = nullptr;
+    dragonBones::ActionData *self;
     std::string arg1;       /** name */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ActionData");
@@ -1676,7 +1676,7 @@ static int _dragonBones_ActionData_get_type(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::ActionData *self = nullptr;
+    dragonBones::ActionData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ActionData");
 
@@ -1691,8 +1691,8 @@ static int _dragonBones_ActionData_set_type(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::ActionData *self = nullptr;
-    lua_Unsigned arg1 = 0;   /** type */
+    dragonBones::ActionData *self;
+    lua_Unsigned arg1;       /** type */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ActionData");
     olua_check_uint(L, 2, &arg1);
@@ -1730,8 +1730,8 @@ static int _dragonBones_TextureAtlasData_addTexture(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::TextureAtlasData *self = nullptr;
-    dragonBones::TextureData *arg1 = nullptr;   /** value */
+    dragonBones::TextureAtlasData *self;
+    dragonBones::TextureData *arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.TextureAtlasData");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.TextureData");
@@ -1746,7 +1746,7 @@ static int _dragonBones_TextureAtlasData_createTexture(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::TextureAtlasData *self = nullptr;
+    dragonBones::TextureAtlasData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.TextureAtlasData");
 
@@ -1761,7 +1761,7 @@ static int _dragonBones_TextureAtlasData_getTexture(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::TextureAtlasData *self = nullptr;
+    dragonBones::TextureAtlasData *self;
     std::string arg1;       /** textureName */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.TextureAtlasData");
@@ -1778,7 +1778,7 @@ static int _dragonBones_TextureAtlasData_get_autoSearch(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::TextureAtlasData *self = nullptr;
+    dragonBones::TextureAtlasData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.TextureAtlasData");
 
@@ -1793,8 +1793,8 @@ static int _dragonBones_TextureAtlasData_set_autoSearch(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::TextureAtlasData *self = nullptr;
-    bool arg1 = false;   /** autoSearch */
+    dragonBones::TextureAtlasData *self;
+    bool arg1;       /** autoSearch */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.TextureAtlasData");
     olua_check_bool(L, 2, &arg1);
@@ -1809,7 +1809,7 @@ static int _dragonBones_TextureAtlasData_get_height(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::TextureAtlasData *self = nullptr;
+    dragonBones::TextureAtlasData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.TextureAtlasData");
 
@@ -1824,8 +1824,8 @@ static int _dragonBones_TextureAtlasData_set_height(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::TextureAtlasData *self = nullptr;
-    lua_Unsigned arg1 = 0;   /** height */
+    dragonBones::TextureAtlasData *self;
+    lua_Unsigned arg1;       /** height */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.TextureAtlasData");
     olua_check_uint(L, 2, &arg1);
@@ -1840,7 +1840,7 @@ static int _dragonBones_TextureAtlasData_get_imagePath(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::TextureAtlasData *self = nullptr;
+    dragonBones::TextureAtlasData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.TextureAtlasData");
 
@@ -1855,7 +1855,7 @@ static int _dragonBones_TextureAtlasData_set_imagePath(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::TextureAtlasData *self = nullptr;
+    dragonBones::TextureAtlasData *self;
     std::string arg1;       /** imagePath */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.TextureAtlasData");
@@ -1871,7 +1871,7 @@ static int _dragonBones_TextureAtlasData_get_name(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::TextureAtlasData *self = nullptr;
+    dragonBones::TextureAtlasData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.TextureAtlasData");
 
@@ -1886,7 +1886,7 @@ static int _dragonBones_TextureAtlasData_set_name(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::TextureAtlasData *self = nullptr;
+    dragonBones::TextureAtlasData *self;
     std::string arg1;       /** name */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.TextureAtlasData");
@@ -1902,7 +1902,7 @@ static int _dragonBones_TextureAtlasData_get_scale(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::TextureAtlasData *self = nullptr;
+    dragonBones::TextureAtlasData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.TextureAtlasData");
 
@@ -1917,8 +1917,8 @@ static int _dragonBones_TextureAtlasData_set_scale(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::TextureAtlasData *self = nullptr;
-    lua_Number arg1 = 0;   /** scale */
+    dragonBones::TextureAtlasData *self;
+    lua_Number arg1;       /** scale */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.TextureAtlasData");
     olua_check_number(L, 2, &arg1);
@@ -1933,7 +1933,7 @@ static int _dragonBones_TextureAtlasData_get_width(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::TextureAtlasData *self = nullptr;
+    dragonBones::TextureAtlasData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.TextureAtlasData");
 
@@ -1948,8 +1948,8 @@ static int _dragonBones_TextureAtlasData_set_width(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::TextureAtlasData *self = nullptr;
-    lua_Unsigned arg1 = 0;   /** width */
+    dragonBones::TextureAtlasData *self;
+    lua_Unsigned arg1;       /** width */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.TextureAtlasData");
     olua_check_uint(L, 2, &arg1);
@@ -1983,7 +1983,7 @@ static int _dragonBones_TextureData_getParent(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::TextureData *self = nullptr;
+    dragonBones::TextureData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.TextureData");
 
@@ -1998,8 +1998,8 @@ static int _dragonBones_TextureData_setParent(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::TextureData *self = nullptr;
-    dragonBones::TextureAtlasData *arg1 = nullptr;   /** value */
+    dragonBones::TextureData *self;
+    dragonBones::TextureAtlasData *arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.TextureData");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.TextureAtlasData");
@@ -2014,7 +2014,7 @@ static int _dragonBones_TextureData_get_name(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::TextureData *self = nullptr;
+    dragonBones::TextureData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.TextureData");
 
@@ -2029,7 +2029,7 @@ static int _dragonBones_TextureData_set_name(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::TextureData *self = nullptr;
+    dragonBones::TextureData *self;
     std::string arg1;       /** name */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.TextureData");
@@ -2045,7 +2045,7 @@ static int _dragonBones_TextureData_get_parent(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::TextureData *self = nullptr;
+    dragonBones::TextureData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.TextureData");
 
@@ -2060,8 +2060,8 @@ static int _dragonBones_TextureData_set_parent(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::TextureData *self = nullptr;
-    dragonBones::TextureAtlasData *arg1 = nullptr;   /** parent */
+    dragonBones::TextureData *self;
+    dragonBones::TextureAtlasData *arg1;       /** parent */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.TextureData");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.TextureAtlasData");
@@ -2076,7 +2076,7 @@ static int _dragonBones_TextureData_get_rotated(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::TextureData *self = nullptr;
+    dragonBones::TextureData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.TextureData");
 
@@ -2091,8 +2091,8 @@ static int _dragonBones_TextureData_set_rotated(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::TextureData *self = nullptr;
-    bool arg1 = false;   /** rotated */
+    dragonBones::TextureData *self;
+    bool arg1;       /** rotated */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.TextureData");
     olua_check_bool(L, 2, &arg1);
@@ -2123,8 +2123,8 @@ static int _dragonBones_ArmatureData_addAnimation(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::ArmatureData *self = nullptr;
-    dragonBones::AnimationData *arg1 = nullptr;   /** value */
+    dragonBones::ArmatureData *self;
+    dragonBones::AnimationData *arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.AnimationData");
@@ -2139,8 +2139,8 @@ static int _dragonBones_ArmatureData_addBone(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::ArmatureData *self = nullptr;
-    dragonBones::BoneData *arg1 = nullptr;   /** value */
+    dragonBones::ArmatureData *self;
+    dragonBones::BoneData *arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.BoneData");
@@ -2155,8 +2155,8 @@ static int _dragonBones_ArmatureData_addSkin(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::ArmatureData *self = nullptr;
-    dragonBones::SkinData *arg1 = nullptr;   /** value */
+    dragonBones::ArmatureData *self;
+    dragonBones::SkinData *arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.SkinData");
@@ -2171,8 +2171,8 @@ static int _dragonBones_ArmatureData_addSlot(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::ArmatureData *self = nullptr;
-    dragonBones::SlotData *arg1 = nullptr;   /** value */
+    dragonBones::ArmatureData *self;
+    dragonBones::SlotData *arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.SlotData");
@@ -2187,8 +2187,8 @@ static int _dragonBones_ArmatureData_cacheFrames(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::ArmatureData *self = nullptr;
-    lua_Unsigned arg1 = 0;   /** frameRate */
+    dragonBones::ArmatureData *self;
+    lua_Unsigned arg1;       /** frameRate */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
     olua_check_uint(L, 2, &arg1);
@@ -2203,7 +2203,7 @@ static int _dragonBones_ArmatureData_getActions(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::ArmatureData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
 
@@ -2218,7 +2218,7 @@ static int _dragonBones_ArmatureData_getAnimation(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::ArmatureData *self;
     std::string arg1;       /** animationName */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
@@ -2235,7 +2235,7 @@ static int _dragonBones_ArmatureData_getAnimationNames(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::ArmatureData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
 
@@ -2256,7 +2256,7 @@ static int _dragonBones_ArmatureData_getBone(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::ArmatureData *self;
     std::string arg1;       /** boneName */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
@@ -2273,7 +2273,7 @@ static int _dragonBones_ArmatureData_getDefaultActions(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::ArmatureData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
 
@@ -2288,7 +2288,7 @@ static int _dragonBones_ArmatureData_getDefaultAnimation(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::ArmatureData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
 
@@ -2303,7 +2303,7 @@ static int _dragonBones_ArmatureData_getDefaultSkin(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::ArmatureData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
 
@@ -2318,7 +2318,7 @@ static int _dragonBones_ArmatureData_getParent(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::ArmatureData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
 
@@ -2333,7 +2333,7 @@ static int _dragonBones_ArmatureData_getSkin(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::ArmatureData *self;
     std::string arg1;       /** skinName */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
@@ -2350,7 +2350,7 @@ static int _dragonBones_ArmatureData_getSlot(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::ArmatureData *self;
     std::string arg1;       /** slotName */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
@@ -2367,7 +2367,7 @@ static int _dragonBones_ArmatureData_getSortedBones(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::ArmatureData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
 
@@ -2382,7 +2382,7 @@ static int _dragonBones_ArmatureData_getSortedSlots(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::ArmatureData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
 
@@ -2397,7 +2397,7 @@ static int _dragonBones_ArmatureData_getType(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::ArmatureData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
 
@@ -2423,8 +2423,8 @@ static int _dragonBones_ArmatureData_setDefaultAnimation(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::ArmatureData *self = nullptr;
-    dragonBones::AnimationData *arg1 = nullptr;   /** value */
+    dragonBones::ArmatureData *self;
+    dragonBones::AnimationData *arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.AnimationData");
@@ -2439,8 +2439,8 @@ static int _dragonBones_ArmatureData_setDefaultSkin(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::ArmatureData *self = nullptr;
-    dragonBones::SkinData *arg1 = nullptr;   /** value */
+    dragonBones::ArmatureData *self;
+    dragonBones::SkinData *arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.SkinData");
@@ -2455,8 +2455,8 @@ static int _dragonBones_ArmatureData_setParent(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::ArmatureData *self = nullptr;
-    dragonBones::DragonBonesData *arg1 = nullptr;   /** value */
+    dragonBones::ArmatureData *self;
+    dragonBones::DragonBonesData *arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.DragonBonesData");
@@ -2471,8 +2471,8 @@ static int _dragonBones_ArmatureData_setType(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::ArmatureData *self = nullptr;
-    lua_Integer arg1 = 0;   /** value */
+    dragonBones::ArmatureData *self;
+    lua_Integer arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
     olua_check_int(L, 2, &arg1);
@@ -2487,7 +2487,7 @@ static int _dragonBones_ArmatureData_sortBones(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::ArmatureData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
 
@@ -2501,7 +2501,7 @@ static int _dragonBones_ArmatureData_get_actions(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::ArmatureData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
 
@@ -2516,7 +2516,7 @@ static int _dragonBones_ArmatureData_set_actions(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::ArmatureData *self;
     std::vector<dragonBones::ActionData *> arg1;       /** actions */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
@@ -2532,7 +2532,7 @@ static int _dragonBones_ArmatureData_get_animationNames(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::ArmatureData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
 
@@ -2553,7 +2553,7 @@ static int _dragonBones_ArmatureData_set_animationNames(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::ArmatureData *self;
     std::vector<std::string> arg1;       /** animationNames */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
@@ -2578,7 +2578,7 @@ static int _dragonBones_ArmatureData_get_cacheFrameRate(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::ArmatureData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
 
@@ -2593,8 +2593,8 @@ static int _dragonBones_ArmatureData_set_cacheFrameRate(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::ArmatureData *self = nullptr;
-    lua_Unsigned arg1 = 0;   /** cacheFrameRate */
+    dragonBones::ArmatureData *self;
+    lua_Unsigned arg1;       /** cacheFrameRate */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
     olua_check_uint(L, 2, &arg1);
@@ -2609,7 +2609,7 @@ static int _dragonBones_ArmatureData_get_defaultActions(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::ArmatureData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
 
@@ -2624,7 +2624,7 @@ static int _dragonBones_ArmatureData_set_defaultActions(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::ArmatureData *self;
     std::vector<dragonBones::ActionData *> arg1;       /** defaultActions */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
@@ -2640,7 +2640,7 @@ static int _dragonBones_ArmatureData_get_defaultAnimation(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::ArmatureData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
 
@@ -2655,8 +2655,8 @@ static int _dragonBones_ArmatureData_set_defaultAnimation(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::ArmatureData *self = nullptr;
-    dragonBones::AnimationData *arg1 = nullptr;   /** defaultAnimation */
+    dragonBones::ArmatureData *self;
+    dragonBones::AnimationData *arg1;       /** defaultAnimation */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.AnimationData");
@@ -2671,7 +2671,7 @@ static int _dragonBones_ArmatureData_get_defaultSkin(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::ArmatureData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
 
@@ -2686,8 +2686,8 @@ static int _dragonBones_ArmatureData_set_defaultSkin(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::ArmatureData *self = nullptr;
-    dragonBones::SkinData *arg1 = nullptr;   /** defaultSkin */
+    dragonBones::ArmatureData *self;
+    dragonBones::SkinData *arg1;       /** defaultSkin */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.SkinData");
@@ -2702,7 +2702,7 @@ static int _dragonBones_ArmatureData_get_frameRate(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::ArmatureData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
 
@@ -2717,8 +2717,8 @@ static int _dragonBones_ArmatureData_set_frameRate(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::ArmatureData *self = nullptr;
-    lua_Unsigned arg1 = 0;   /** frameRate */
+    dragonBones::ArmatureData *self;
+    lua_Unsigned arg1;       /** frameRate */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
     olua_check_uint(L, 2, &arg1);
@@ -2733,7 +2733,7 @@ static int _dragonBones_ArmatureData_get_name(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::ArmatureData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
 
@@ -2748,7 +2748,7 @@ static int _dragonBones_ArmatureData_set_name(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::ArmatureData *self;
     std::string arg1;       /** name */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
@@ -2764,7 +2764,7 @@ static int _dragonBones_ArmatureData_get_parent(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::ArmatureData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
 
@@ -2779,8 +2779,8 @@ static int _dragonBones_ArmatureData_set_parent(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::ArmatureData *self = nullptr;
-    dragonBones::DragonBonesData *arg1 = nullptr;   /** parent */
+    dragonBones::ArmatureData *self;
+    dragonBones::DragonBonesData *arg1;       /** parent */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.DragonBonesData");
@@ -2795,7 +2795,7 @@ static int _dragonBones_ArmatureData_get_scale(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::ArmatureData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
 
@@ -2810,8 +2810,8 @@ static int _dragonBones_ArmatureData_set_scale(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::ArmatureData *self = nullptr;
-    lua_Number arg1 = 0;   /** scale */
+    dragonBones::ArmatureData *self;
+    lua_Number arg1;       /** scale */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
     olua_check_number(L, 2, &arg1);
@@ -2826,7 +2826,7 @@ static int _dragonBones_ArmatureData_get_sortedBones(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::ArmatureData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
 
@@ -2841,7 +2841,7 @@ static int _dragonBones_ArmatureData_set_sortedBones(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::ArmatureData *self;
     std::vector<dragonBones::BoneData *> arg1;       /** sortedBones */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
@@ -2857,7 +2857,7 @@ static int _dragonBones_ArmatureData_get_sortedSlots(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::ArmatureData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
 
@@ -2872,7 +2872,7 @@ static int _dragonBones_ArmatureData_set_sortedSlots(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::ArmatureData *self;
     std::vector<dragonBones::SlotData *> arg1;       /** sortedSlots */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
@@ -2888,7 +2888,7 @@ static int _dragonBones_ArmatureData_get_type(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::ArmatureData *self = nullptr;
+    dragonBones::ArmatureData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
 
@@ -2903,8 +2903,8 @@ static int _dragonBones_ArmatureData_set_type(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::ArmatureData *self = nullptr;
-    lua_Unsigned arg1 = 0;   /** type */
+    dragonBones::ArmatureData *self;
+    lua_Unsigned arg1;       /** type */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureData");
     olua_check_uint(L, 2, &arg1);
@@ -2976,9 +2976,9 @@ static int _dragonBones_SkinData_addDisplay(lua_State *L)
 {
     lua_settop(L, 3);
 
-    dragonBones::SkinData *self = nullptr;
+    dragonBones::SkinData *self;
     std::string arg1;       /** slotName */
-    dragonBones::DisplayData *arg2 = nullptr;   /** value */
+    dragonBones::DisplayData *arg2;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.SkinData");
     olua_check_std_string(L, 2, &arg1);
@@ -2994,7 +2994,7 @@ static int _dragonBones_SkinData_getDisplay(lua_State *L)
 {
     lua_settop(L, 3);
 
-    dragonBones::SkinData *self = nullptr;
+    dragonBones::SkinData *self;
     std::string arg1;       /** slotName */
     std::string arg2;       /** displayName */
 
@@ -3024,7 +3024,7 @@ static int _dragonBones_SkinData_get_name(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::SkinData *self = nullptr;
+    dragonBones::SkinData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.SkinData");
 
@@ -3039,7 +3039,7 @@ static int _dragonBones_SkinData_set_name(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::SkinData *self = nullptr;
+    dragonBones::SkinData *self;
     std::string arg1;       /** name */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.SkinData");
@@ -3055,7 +3055,7 @@ static int _dragonBones_SkinData_get_parent(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::SkinData *self = nullptr;
+    dragonBones::SkinData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.SkinData");
 
@@ -3070,8 +3070,8 @@ static int _dragonBones_SkinData_set_parent(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::SkinData *self = nullptr;
-    dragonBones::ArmatureData *arg1 = nullptr;   /** parent */
+    dragonBones::SkinData *self;
+    dragonBones::ArmatureData *arg1;       /** parent */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.SkinData");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.ArmatureData");
@@ -3102,7 +3102,7 @@ static int _dragonBones_BoneData_getParent(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::BoneData *self = nullptr;
+    dragonBones::BoneData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.BoneData");
 
@@ -3128,8 +3128,8 @@ static int _dragonBones_BoneData_setParent(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::BoneData *self = nullptr;
-    dragonBones::BoneData *arg1 = nullptr;   /** value */
+    dragonBones::BoneData *self;
+    dragonBones::BoneData *arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.BoneData");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.BoneData");
@@ -3144,7 +3144,7 @@ static int _dragonBones_BoneData_get_inheritReflection(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::BoneData *self = nullptr;
+    dragonBones::BoneData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.BoneData");
 
@@ -3159,8 +3159,8 @@ static int _dragonBones_BoneData_set_inheritReflection(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::BoneData *self = nullptr;
-    bool arg1 = false;   /** inheritReflection */
+    dragonBones::BoneData *self;
+    bool arg1;       /** inheritReflection */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.BoneData");
     olua_check_bool(L, 2, &arg1);
@@ -3175,7 +3175,7 @@ static int _dragonBones_BoneData_get_inheritRotation(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::BoneData *self = nullptr;
+    dragonBones::BoneData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.BoneData");
 
@@ -3190,8 +3190,8 @@ static int _dragonBones_BoneData_set_inheritRotation(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::BoneData *self = nullptr;
-    bool arg1 = false;   /** inheritRotation */
+    dragonBones::BoneData *self;
+    bool arg1;       /** inheritRotation */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.BoneData");
     olua_check_bool(L, 2, &arg1);
@@ -3206,7 +3206,7 @@ static int _dragonBones_BoneData_get_inheritScale(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::BoneData *self = nullptr;
+    dragonBones::BoneData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.BoneData");
 
@@ -3221,8 +3221,8 @@ static int _dragonBones_BoneData_set_inheritScale(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::BoneData *self = nullptr;
-    bool arg1 = false;   /** inheritScale */
+    dragonBones::BoneData *self;
+    bool arg1;       /** inheritScale */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.BoneData");
     olua_check_bool(L, 2, &arg1);
@@ -3237,7 +3237,7 @@ static int _dragonBones_BoneData_get_inheritTranslation(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::BoneData *self = nullptr;
+    dragonBones::BoneData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.BoneData");
 
@@ -3252,8 +3252,8 @@ static int _dragonBones_BoneData_set_inheritTranslation(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::BoneData *self = nullptr;
-    bool arg1 = false;   /** inheritTranslation */
+    dragonBones::BoneData *self;
+    bool arg1;       /** inheritTranslation */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.BoneData");
     olua_check_bool(L, 2, &arg1);
@@ -3268,7 +3268,7 @@ static int _dragonBones_BoneData_get_length(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::BoneData *self = nullptr;
+    dragonBones::BoneData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.BoneData");
 
@@ -3283,8 +3283,8 @@ static int _dragonBones_BoneData_set_length(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::BoneData *self = nullptr;
-    lua_Number arg1 = 0;   /** length */
+    dragonBones::BoneData *self;
+    lua_Number arg1;       /** length */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.BoneData");
     olua_check_number(L, 2, &arg1);
@@ -3299,7 +3299,7 @@ static int _dragonBones_BoneData_get_name(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::BoneData *self = nullptr;
+    dragonBones::BoneData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.BoneData");
 
@@ -3314,7 +3314,7 @@ static int _dragonBones_BoneData_set_name(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::BoneData *self = nullptr;
+    dragonBones::BoneData *self;
     std::string arg1;       /** name */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.BoneData");
@@ -3330,7 +3330,7 @@ static int _dragonBones_BoneData_get_parent(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::BoneData *self = nullptr;
+    dragonBones::BoneData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.BoneData");
 
@@ -3345,8 +3345,8 @@ static int _dragonBones_BoneData_set_parent(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::BoneData *self = nullptr;
-    dragonBones::BoneData *arg1 = nullptr;   /** parent */
+    dragonBones::BoneData *self;
+    dragonBones::BoneData *arg1;       /** parent */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.BoneData");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.BoneData");
@@ -3383,7 +3383,7 @@ static int _dragonBones_SlotData_getBlendMode(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::SlotData *self = nullptr;
+    dragonBones::SlotData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.SlotData");
 
@@ -3398,7 +3398,7 @@ static int _dragonBones_SlotData_getParent(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::SlotData *self = nullptr;
+    dragonBones::SlotData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.SlotData");
 
@@ -3424,8 +3424,8 @@ static int _dragonBones_SlotData_setBlendMode(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::SlotData *self = nullptr;
-    lua_Integer arg1 = 0;   /** value */
+    dragonBones::SlotData *self;
+    lua_Integer arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.SlotData");
     olua_check_int(L, 2, &arg1);
@@ -3440,8 +3440,8 @@ static int _dragonBones_SlotData_setParent(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::SlotData *self = nullptr;
-    dragonBones::BoneData *arg1 = nullptr;   /** value */
+    dragonBones::SlotData *self;
+    dragonBones::BoneData *arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.SlotData");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.BoneData");
@@ -3456,7 +3456,7 @@ static int _dragonBones_SlotData_get_displayIndex(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::SlotData *self = nullptr;
+    dragonBones::SlotData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.SlotData");
 
@@ -3471,8 +3471,8 @@ static int _dragonBones_SlotData_set_displayIndex(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::SlotData *self = nullptr;
-    lua_Integer arg1 = 0;   /** displayIndex */
+    dragonBones::SlotData *self;
+    lua_Integer arg1;       /** displayIndex */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.SlotData");
     olua_check_int(L, 2, &arg1);
@@ -3487,7 +3487,7 @@ static int _dragonBones_SlotData_get_name(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::SlotData *self = nullptr;
+    dragonBones::SlotData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.SlotData");
 
@@ -3502,7 +3502,7 @@ static int _dragonBones_SlotData_set_name(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::SlotData *self = nullptr;
+    dragonBones::SlotData *self;
     std::string arg1;       /** name */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.SlotData");
@@ -3518,7 +3518,7 @@ static int _dragonBones_SlotData_get_parent(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::SlotData *self = nullptr;
+    dragonBones::SlotData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.SlotData");
 
@@ -3533,8 +3533,8 @@ static int _dragonBones_SlotData_set_parent(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::SlotData *self = nullptr;
-    dragonBones::BoneData *arg1 = nullptr;   /** parent */
+    dragonBones::SlotData *self;
+    dragonBones::BoneData *arg1;       /** parent */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.SlotData");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.BoneData");
@@ -3549,7 +3549,7 @@ static int _dragonBones_SlotData_get_zOrder(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::SlotData *self = nullptr;
+    dragonBones::SlotData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.SlotData");
 
@@ -3564,8 +3564,8 @@ static int _dragonBones_SlotData_set_zOrder(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::SlotData *self = nullptr;
-    lua_Integer arg1 = 0;   /** zOrder */
+    dragonBones::SlotData *self;
+    lua_Integer arg1;       /** zOrder */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.SlotData");
     olua_check_int(L, 2, &arg1);
@@ -3602,9 +3602,9 @@ static int _dragonBones_AnimationState_addBoneMask(lua_State *L)
 {
     lua_settop(L, 3);
 
-    dragonBones::AnimationState *self = nullptr;
+    dragonBones::AnimationState *self;
     std::string arg1;       /** boneName */
-    bool arg2 = false;   /** recursive */
+    bool arg2;       /** recursive */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
     olua_check_std_string(L, 2, &arg1);
@@ -3620,9 +3620,9 @@ static int _dragonBones_AnimationState_advanceTime(lua_State *L)
 {
     lua_settop(L, 3);
 
-    dragonBones::AnimationState *self = nullptr;
-    lua_Number arg1 = 0;   /** passedTime */
-    lua_Number arg2 = 0;   /** cacheFrameRate */
+    dragonBones::AnimationState *self;
+    lua_Number arg1;       /** passedTime */
+    lua_Number arg2;       /** cacheFrameRate */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
     olua_check_number(L, 2, &arg1);
@@ -3638,7 +3638,7 @@ static int _dragonBones_AnimationState_containsBoneMask(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationState *self = nullptr;
+    dragonBones::AnimationState *self;
     std::string arg1;       /** boneName */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
@@ -3655,9 +3655,9 @@ static int _dragonBones_AnimationState_fadeOut(lua_State *L)
 {
     lua_settop(L, 3);
 
-    dragonBones::AnimationState *self = nullptr;
-    lua_Number arg1 = 0;   /** fadeOutTime */
-    bool arg2 = false;   /** pausePlayhead */
+    dragonBones::AnimationState *self;
+    lua_Number arg1;       /** fadeOutTime */
+    bool arg2;       /** pausePlayhead */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
     olua_check_number(L, 2, &arg1);
@@ -3673,7 +3673,7 @@ static int _dragonBones_AnimationState_getAnimationData(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationState *self = nullptr;
+    dragonBones::AnimationState *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
 
@@ -3688,7 +3688,7 @@ static int _dragonBones_AnimationState_getCurrentPlayTimes(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationState *self = nullptr;
+    dragonBones::AnimationState *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
 
@@ -3703,7 +3703,7 @@ static int _dragonBones_AnimationState_getCurrentTime(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationState *self = nullptr;
+    dragonBones::AnimationState *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
 
@@ -3718,7 +3718,7 @@ static int _dragonBones_AnimationState_getName(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationState *self = nullptr;
+    dragonBones::AnimationState *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
 
@@ -3733,7 +3733,7 @@ static int _dragonBones_AnimationState_getTotalTime(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationState *self = nullptr;
+    dragonBones::AnimationState *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
 
@@ -3759,10 +3759,10 @@ static int _dragonBones_AnimationState_init(lua_State *L)
 {
     lua_settop(L, 4);
 
-    dragonBones::AnimationState *self = nullptr;
-    dragonBones::Armature *arg1 = nullptr;   /** armature */
-    dragonBones::AnimationData *arg2 = nullptr;   /** animationData */
-    dragonBones::AnimationConfig *arg3 = nullptr;   /** animationConfig */
+    dragonBones::AnimationState *self;
+    dragonBones::Armature *arg1;       /** armature */
+    dragonBones::AnimationData *arg2;       /** animationData */
+    dragonBones::AnimationConfig *arg3;       /** animationConfig */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.Armature");
@@ -3779,7 +3779,7 @@ static int _dragonBones_AnimationState_isCompleted(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationState *self = nullptr;
+    dragonBones::AnimationState *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
 
@@ -3794,7 +3794,7 @@ static int _dragonBones_AnimationState_isFadeComplete(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationState *self = nullptr;
+    dragonBones::AnimationState *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
 
@@ -3809,7 +3809,7 @@ static int _dragonBones_AnimationState_isFadeIn(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationState *self = nullptr;
+    dragonBones::AnimationState *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
 
@@ -3824,7 +3824,7 @@ static int _dragonBones_AnimationState_isFadeOut(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationState *self = nullptr;
+    dragonBones::AnimationState *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
 
@@ -3839,7 +3839,7 @@ static int _dragonBones_AnimationState_isPlaying(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationState *self = nullptr;
+    dragonBones::AnimationState *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
 
@@ -3854,7 +3854,7 @@ static int _dragonBones_AnimationState_play(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationState *self = nullptr;
+    dragonBones::AnimationState *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
 
@@ -3868,7 +3868,7 @@ static int _dragonBones_AnimationState_removeAllBoneMask(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationState *self = nullptr;
+    dragonBones::AnimationState *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
 
@@ -3882,9 +3882,9 @@ static int _dragonBones_AnimationState_removeBoneMask(lua_State *L)
 {
     lua_settop(L, 3);
 
-    dragonBones::AnimationState *self = nullptr;
+    dragonBones::AnimationState *self;
     std::string arg1;       /** boneName */
-    bool arg2 = false;   /** recursive */
+    bool arg2;       /** recursive */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
     olua_check_std_string(L, 2, &arg1);
@@ -3900,8 +3900,8 @@ static int _dragonBones_AnimationState_setCurrentTime(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationState *self = nullptr;
-    lua_Number arg1 = 0;   /** value */
+    dragonBones::AnimationState *self;
+    lua_Number arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
     olua_check_number(L, 2, &arg1);
@@ -3916,7 +3916,7 @@ static int _dragonBones_AnimationState_stop(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationState *self = nullptr;
+    dragonBones::AnimationState *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
 
@@ -3930,7 +3930,7 @@ static int _dragonBones_AnimationState_get_actionEnabled(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationState *self = nullptr;
+    dragonBones::AnimationState *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
 
@@ -3945,8 +3945,8 @@ static int _dragonBones_AnimationState_set_actionEnabled(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationState *self = nullptr;
-    bool arg1 = false;   /** actionEnabled */
+    dragonBones::AnimationState *self;
+    bool arg1;       /** actionEnabled */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
     olua_check_bool(L, 2, &arg1);
@@ -3961,7 +3961,7 @@ static int _dragonBones_AnimationState_get_additiveBlending(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationState *self = nullptr;
+    dragonBones::AnimationState *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
 
@@ -3976,8 +3976,8 @@ static int _dragonBones_AnimationState_set_additiveBlending(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationState *self = nullptr;
-    bool arg1 = false;   /** additiveBlending */
+    dragonBones::AnimationState *self;
+    bool arg1;       /** additiveBlending */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
     olua_check_bool(L, 2, &arg1);
@@ -3992,7 +3992,7 @@ static int _dragonBones_AnimationState_get_autoFadeOutTime(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationState *self = nullptr;
+    dragonBones::AnimationState *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
 
@@ -4007,8 +4007,8 @@ static int _dragonBones_AnimationState_set_autoFadeOutTime(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationState *self = nullptr;
-    lua_Number arg1 = 0;   /** autoFadeOutTime */
+    dragonBones::AnimationState *self;
+    lua_Number arg1;       /** autoFadeOutTime */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
     olua_check_number(L, 2, &arg1);
@@ -4023,7 +4023,7 @@ static int _dragonBones_AnimationState_get_displayControl(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationState *self = nullptr;
+    dragonBones::AnimationState *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
 
@@ -4038,8 +4038,8 @@ static int _dragonBones_AnimationState_set_displayControl(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationState *self = nullptr;
-    bool arg1 = false;   /** displayControl */
+    dragonBones::AnimationState *self;
+    bool arg1;       /** displayControl */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
     olua_check_bool(L, 2, &arg1);
@@ -4054,7 +4054,7 @@ static int _dragonBones_AnimationState_get_fadeTotalTime(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationState *self = nullptr;
+    dragonBones::AnimationState *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
 
@@ -4069,8 +4069,8 @@ static int _dragonBones_AnimationState_set_fadeTotalTime(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationState *self = nullptr;
-    lua_Number arg1 = 0;   /** fadeTotalTime */
+    dragonBones::AnimationState *self;
+    lua_Number arg1;       /** fadeTotalTime */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
     olua_check_number(L, 2, &arg1);
@@ -4085,7 +4085,7 @@ static int _dragonBones_AnimationState_get_group(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationState *self = nullptr;
+    dragonBones::AnimationState *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
 
@@ -4100,7 +4100,7 @@ static int _dragonBones_AnimationState_set_group(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationState *self = nullptr;
+    dragonBones::AnimationState *self;
     std::string arg1;       /** group */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
@@ -4116,7 +4116,7 @@ static int _dragonBones_AnimationState_get_layer(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationState *self = nullptr;
+    dragonBones::AnimationState *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
 
@@ -4131,8 +4131,8 @@ static int _dragonBones_AnimationState_set_layer(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationState *self = nullptr;
-    lua_Unsigned arg1 = 0;   /** layer */
+    dragonBones::AnimationState *self;
+    lua_Unsigned arg1;       /** layer */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
     olua_check_uint(L, 2, &arg1);
@@ -4147,7 +4147,7 @@ static int _dragonBones_AnimationState_get_name(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationState *self = nullptr;
+    dragonBones::AnimationState *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
 
@@ -4162,7 +4162,7 @@ static int _dragonBones_AnimationState_set_name(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationState *self = nullptr;
+    dragonBones::AnimationState *self;
     std::string arg1;       /** name */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
@@ -4178,7 +4178,7 @@ static int _dragonBones_AnimationState_get_playTimes(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationState *self = nullptr;
+    dragonBones::AnimationState *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
 
@@ -4193,8 +4193,8 @@ static int _dragonBones_AnimationState_set_playTimes(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationState *self = nullptr;
-    lua_Unsigned arg1 = 0;   /** playTimes */
+    dragonBones::AnimationState *self;
+    lua_Unsigned arg1;       /** playTimes */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
     olua_check_uint(L, 2, &arg1);
@@ -4209,7 +4209,7 @@ static int _dragonBones_AnimationState_get_resetToPose(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationState *self = nullptr;
+    dragonBones::AnimationState *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
 
@@ -4224,8 +4224,8 @@ static int _dragonBones_AnimationState_set_resetToPose(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationState *self = nullptr;
-    bool arg1 = false;   /** resetToPose */
+    dragonBones::AnimationState *self;
+    bool arg1;       /** resetToPose */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
     olua_check_bool(L, 2, &arg1);
@@ -4240,7 +4240,7 @@ static int _dragonBones_AnimationState_get_timeScale(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationState *self = nullptr;
+    dragonBones::AnimationState *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
 
@@ -4255,8 +4255,8 @@ static int _dragonBones_AnimationState_set_timeScale(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationState *self = nullptr;
-    lua_Number arg1 = 0;   /** timeScale */
+    dragonBones::AnimationState *self;
+    lua_Number arg1;       /** timeScale */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
     olua_check_number(L, 2, &arg1);
@@ -4271,7 +4271,7 @@ static int _dragonBones_AnimationState_get_weight(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationState *self = nullptr;
+    dragonBones::AnimationState *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
 
@@ -4286,8 +4286,8 @@ static int _dragonBones_AnimationState_set_weight(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationState *self = nullptr;
-    lua_Number arg1 = 0;   /** weight */
+    dragonBones::AnimationState *self;
+    lua_Number arg1;       /** weight */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationState");
     olua_check_number(L, 2, &arg1);
@@ -4356,8 +4356,8 @@ static int _dragonBones_AnimationData_cacheFrames(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationData *self = nullptr;
-    lua_Unsigned arg1 = 0;   /** frameRate */
+    dragonBones::AnimationData *self;
+    lua_Unsigned arg1;       /** frameRate */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
     olua_check_uint(L, 2, &arg1);
@@ -4372,7 +4372,7 @@ static int _dragonBones_AnimationData_getParent(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationData *self = nullptr;
+    dragonBones::AnimationData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
 
@@ -4398,8 +4398,8 @@ static int _dragonBones_AnimationData_setParent(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationData *self = nullptr;
-    dragonBones::ArmatureData *arg1 = nullptr;   /** value */
+    dragonBones::AnimationData *self;
+    dragonBones::ArmatureData *arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.ArmatureData");
@@ -4414,7 +4414,7 @@ static int _dragonBones_AnimationData_get_cacheFrameRate(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationData *self = nullptr;
+    dragonBones::AnimationData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
 
@@ -4429,8 +4429,8 @@ static int _dragonBones_AnimationData_set_cacheFrameRate(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationData *self = nullptr;
-    lua_Number arg1 = 0;   /** cacheFrameRate */
+    dragonBones::AnimationData *self;
+    lua_Number arg1;       /** cacheFrameRate */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
     olua_check_number(L, 2, &arg1);
@@ -4445,7 +4445,7 @@ static int _dragonBones_AnimationData_get_cachedFrames(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationData *self = nullptr;
+    dragonBones::AnimationData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
 
@@ -4466,7 +4466,7 @@ static int _dragonBones_AnimationData_set_cachedFrames(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationData *self = nullptr;
+    dragonBones::AnimationData *self;
     std::vector<bool> arg1;       /** cachedFrames */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
@@ -4491,7 +4491,7 @@ static int _dragonBones_AnimationData_get_duration(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationData *self = nullptr;
+    dragonBones::AnimationData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
 
@@ -4506,8 +4506,8 @@ static int _dragonBones_AnimationData_set_duration(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationData *self = nullptr;
-    lua_Number arg1 = 0;   /** duration */
+    dragonBones::AnimationData *self;
+    lua_Number arg1;       /** duration */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
     olua_check_number(L, 2, &arg1);
@@ -4522,7 +4522,7 @@ static int _dragonBones_AnimationData_get_fadeInTime(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationData *self = nullptr;
+    dragonBones::AnimationData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
 
@@ -4537,8 +4537,8 @@ static int _dragonBones_AnimationData_set_fadeInTime(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationData *self = nullptr;
-    lua_Number arg1 = 0;   /** fadeInTime */
+    dragonBones::AnimationData *self;
+    lua_Number arg1;       /** fadeInTime */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
     olua_check_number(L, 2, &arg1);
@@ -4553,7 +4553,7 @@ static int _dragonBones_AnimationData_get_frameCount(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationData *self = nullptr;
+    dragonBones::AnimationData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
 
@@ -4568,8 +4568,8 @@ static int _dragonBones_AnimationData_set_frameCount(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationData *self = nullptr;
-    lua_Unsigned arg1 = 0;   /** frameCount */
+    dragonBones::AnimationData *self;
+    lua_Unsigned arg1;       /** frameCount */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
     olua_check_uint(L, 2, &arg1);
@@ -4584,7 +4584,7 @@ static int _dragonBones_AnimationData_get_frameFloatOffset(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationData *self = nullptr;
+    dragonBones::AnimationData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
 
@@ -4599,8 +4599,8 @@ static int _dragonBones_AnimationData_set_frameFloatOffset(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationData *self = nullptr;
-    lua_Unsigned arg1 = 0;   /** frameFloatOffset */
+    dragonBones::AnimationData *self;
+    lua_Unsigned arg1;       /** frameFloatOffset */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
     olua_check_uint(L, 2, &arg1);
@@ -4615,7 +4615,7 @@ static int _dragonBones_AnimationData_get_frameIntOffset(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationData *self = nullptr;
+    dragonBones::AnimationData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
 
@@ -4630,8 +4630,8 @@ static int _dragonBones_AnimationData_set_frameIntOffset(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationData *self = nullptr;
-    lua_Unsigned arg1 = 0;   /** frameIntOffset */
+    dragonBones::AnimationData *self;
+    lua_Unsigned arg1;       /** frameIntOffset */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
     olua_check_uint(L, 2, &arg1);
@@ -4646,7 +4646,7 @@ static int _dragonBones_AnimationData_get_frameOffset(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationData *self = nullptr;
+    dragonBones::AnimationData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
 
@@ -4661,8 +4661,8 @@ static int _dragonBones_AnimationData_set_frameOffset(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationData *self = nullptr;
-    lua_Unsigned arg1 = 0;   /** frameOffset */
+    dragonBones::AnimationData *self;
+    lua_Unsigned arg1;       /** frameOffset */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
     olua_check_uint(L, 2, &arg1);
@@ -4677,7 +4677,7 @@ static int _dragonBones_AnimationData_get_name(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationData *self = nullptr;
+    dragonBones::AnimationData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
 
@@ -4692,7 +4692,7 @@ static int _dragonBones_AnimationData_set_name(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationData *self = nullptr;
+    dragonBones::AnimationData *self;
     std::string arg1;       /** name */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
@@ -4708,7 +4708,7 @@ static int _dragonBones_AnimationData_get_parent(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationData *self = nullptr;
+    dragonBones::AnimationData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
 
@@ -4723,8 +4723,8 @@ static int _dragonBones_AnimationData_set_parent(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationData *self = nullptr;
-    dragonBones::ArmatureData *arg1 = nullptr;   /** parent */
+    dragonBones::AnimationData *self;
+    dragonBones::ArmatureData *arg1;       /** parent */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.ArmatureData");
@@ -4739,7 +4739,7 @@ static int _dragonBones_AnimationData_get_playTimes(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationData *self = nullptr;
+    dragonBones::AnimationData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
 
@@ -4754,8 +4754,8 @@ static int _dragonBones_AnimationData_set_playTimes(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationData *self = nullptr;
-    lua_Unsigned arg1 = 0;   /** playTimes */
+    dragonBones::AnimationData *self;
+    lua_Unsigned arg1;       /** playTimes */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
     olua_check_uint(L, 2, &arg1);
@@ -4770,7 +4770,7 @@ static int _dragonBones_AnimationData_get_scale(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationData *self = nullptr;
+    dragonBones::AnimationData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
 
@@ -4785,8 +4785,8 @@ static int _dragonBones_AnimationData_set_scale(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationData *self = nullptr;
-    lua_Number arg1 = 0;   /** scale */
+    dragonBones::AnimationData *self;
+    lua_Number arg1;       /** scale */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationData");
     olua_check_number(L, 2, &arg1);
@@ -4829,10 +4829,10 @@ static int _dragonBones_AnimationConfig_addBoneMask(lua_State *L)
 {
     lua_settop(L, 4);
 
-    dragonBones::AnimationConfig *self = nullptr;
-    dragonBones::Armature *arg1 = nullptr;   /** armature */
+    dragonBones::AnimationConfig *self;
+    dragonBones::Armature *arg1;       /** armature */
     std::string arg2;       /** boneName */
-    bool arg3 = false;   /** recursive */
+    bool arg3;       /** recursive */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.Armature");
@@ -4849,7 +4849,7 @@ static int _dragonBones_AnimationConfig_clear(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationConfig *self = nullptr;
+    dragonBones::AnimationConfig *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
 
@@ -4863,7 +4863,7 @@ static int _dragonBones_AnimationConfig_containsBoneMask(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationConfig *self = nullptr;
+    dragonBones::AnimationConfig *self;
     std::string arg1;       /** boneName */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
@@ -4880,8 +4880,8 @@ static int _dragonBones_AnimationConfig_copyFrom(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationConfig *self = nullptr;
-    dragonBones::AnimationConfig *arg1 = nullptr;   /** value */
+    dragonBones::AnimationConfig *self;
+    dragonBones::AnimationConfig *arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.AnimationConfig");
@@ -4896,7 +4896,7 @@ static int _dragonBones_AnimationConfig_getFadeInTweenType(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationConfig *self = nullptr;
+    dragonBones::AnimationConfig *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
 
@@ -4911,7 +4911,7 @@ static int _dragonBones_AnimationConfig_getFadeOutMode(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationConfig *self = nullptr;
+    dragonBones::AnimationConfig *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
 
@@ -4926,7 +4926,7 @@ static int _dragonBones_AnimationConfig_getFadeOutTweenType(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationConfig *self = nullptr;
+    dragonBones::AnimationConfig *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
 
@@ -4952,10 +4952,10 @@ static int _dragonBones_AnimationConfig_removeBoneMask(lua_State *L)
 {
     lua_settop(L, 4);
 
-    dragonBones::AnimationConfig *self = nullptr;
-    dragonBones::Armature *arg1 = nullptr;   /** armature */
+    dragonBones::AnimationConfig *self;
+    dragonBones::Armature *arg1;       /** armature */
     std::string arg2;       /** boneName */
-    bool arg3 = false;   /** recursive */
+    bool arg3;       /** recursive */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.Armature");
@@ -4972,8 +4972,8 @@ static int _dragonBones_AnimationConfig_setFadeInTweenType(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationConfig *self = nullptr;
-    lua_Integer arg1 = 0;   /** value */
+    dragonBones::AnimationConfig *self;
+    lua_Integer arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
     olua_check_int(L, 2, &arg1);
@@ -4988,8 +4988,8 @@ static int _dragonBones_AnimationConfig_setFadeOutMode(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationConfig *self = nullptr;
-    lua_Integer arg1 = 0;   /** value */
+    dragonBones::AnimationConfig *self;
+    lua_Integer arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
     olua_check_int(L, 2, &arg1);
@@ -5004,8 +5004,8 @@ static int _dragonBones_AnimationConfig_setFadeOutTweenType(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationConfig *self = nullptr;
-    lua_Integer arg1 = 0;   /** value */
+    dragonBones::AnimationConfig *self;
+    lua_Integer arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
     olua_check_int(L, 2, &arg1);
@@ -5020,7 +5020,7 @@ static int _dragonBones_AnimationConfig_get_actionEnabled(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationConfig *self = nullptr;
+    dragonBones::AnimationConfig *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
 
@@ -5035,8 +5035,8 @@ static int _dragonBones_AnimationConfig_set_actionEnabled(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationConfig *self = nullptr;
-    bool arg1 = false;   /** actionEnabled */
+    dragonBones::AnimationConfig *self;
+    bool arg1;       /** actionEnabled */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
     olua_check_bool(L, 2, &arg1);
@@ -5051,7 +5051,7 @@ static int _dragonBones_AnimationConfig_get_additiveBlending(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationConfig *self = nullptr;
+    dragonBones::AnimationConfig *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
 
@@ -5066,8 +5066,8 @@ static int _dragonBones_AnimationConfig_set_additiveBlending(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationConfig *self = nullptr;
-    bool arg1 = false;   /** additiveBlending */
+    dragonBones::AnimationConfig *self;
+    bool arg1;       /** additiveBlending */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
     olua_check_bool(L, 2, &arg1);
@@ -5082,7 +5082,7 @@ static int _dragonBones_AnimationConfig_get_animation(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationConfig *self = nullptr;
+    dragonBones::AnimationConfig *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
 
@@ -5097,7 +5097,7 @@ static int _dragonBones_AnimationConfig_set_animation(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationConfig *self = nullptr;
+    dragonBones::AnimationConfig *self;
     std::string arg1;       /** animation */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
@@ -5113,7 +5113,7 @@ static int _dragonBones_AnimationConfig_get_autoFadeOutTime(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationConfig *self = nullptr;
+    dragonBones::AnimationConfig *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
 
@@ -5128,8 +5128,8 @@ static int _dragonBones_AnimationConfig_set_autoFadeOutTime(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationConfig *self = nullptr;
-    lua_Number arg1 = 0;   /** autoFadeOutTime */
+    dragonBones::AnimationConfig *self;
+    lua_Number arg1;       /** autoFadeOutTime */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
     olua_check_number(L, 2, &arg1);
@@ -5144,7 +5144,7 @@ static int _dragonBones_AnimationConfig_get_boneMask(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationConfig *self = nullptr;
+    dragonBones::AnimationConfig *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
 
@@ -5165,7 +5165,7 @@ static int _dragonBones_AnimationConfig_set_boneMask(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationConfig *self = nullptr;
+    dragonBones::AnimationConfig *self;
     std::vector<std::string> arg1;       /** boneMask */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
@@ -5190,7 +5190,7 @@ static int _dragonBones_AnimationConfig_get_displayControl(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationConfig *self = nullptr;
+    dragonBones::AnimationConfig *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
 
@@ -5205,8 +5205,8 @@ static int _dragonBones_AnimationConfig_set_displayControl(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationConfig *self = nullptr;
-    bool arg1 = false;   /** displayControl */
+    dragonBones::AnimationConfig *self;
+    bool arg1;       /** displayControl */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
     olua_check_bool(L, 2, &arg1);
@@ -5221,7 +5221,7 @@ static int _dragonBones_AnimationConfig_get_duration(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationConfig *self = nullptr;
+    dragonBones::AnimationConfig *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
 
@@ -5236,8 +5236,8 @@ static int _dragonBones_AnimationConfig_set_duration(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationConfig *self = nullptr;
-    lua_Number arg1 = 0;   /** duration */
+    dragonBones::AnimationConfig *self;
+    lua_Number arg1;       /** duration */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
     olua_check_number(L, 2, &arg1);
@@ -5252,7 +5252,7 @@ static int _dragonBones_AnimationConfig_get_fadeInTime(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationConfig *self = nullptr;
+    dragonBones::AnimationConfig *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
 
@@ -5267,8 +5267,8 @@ static int _dragonBones_AnimationConfig_set_fadeInTime(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationConfig *self = nullptr;
-    lua_Number arg1 = 0;   /** fadeInTime */
+    dragonBones::AnimationConfig *self;
+    lua_Number arg1;       /** fadeInTime */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
     olua_check_number(L, 2, &arg1);
@@ -5283,7 +5283,7 @@ static int _dragonBones_AnimationConfig_get_fadeOutMode(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationConfig *self = nullptr;
+    dragonBones::AnimationConfig *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
 
@@ -5298,8 +5298,8 @@ static int _dragonBones_AnimationConfig_set_fadeOutMode(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationConfig *self = nullptr;
-    lua_Unsigned arg1 = 0;   /** fadeOutMode */
+    dragonBones::AnimationConfig *self;
+    lua_Unsigned arg1;       /** fadeOutMode */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
     olua_check_uint(L, 2, &arg1);
@@ -5314,7 +5314,7 @@ static int _dragonBones_AnimationConfig_get_fadeOutTime(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationConfig *self = nullptr;
+    dragonBones::AnimationConfig *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
 
@@ -5329,8 +5329,8 @@ static int _dragonBones_AnimationConfig_set_fadeOutTime(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationConfig *self = nullptr;
-    lua_Number arg1 = 0;   /** fadeOutTime */
+    dragonBones::AnimationConfig *self;
+    lua_Number arg1;       /** fadeOutTime */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
     olua_check_number(L, 2, &arg1);
@@ -5345,7 +5345,7 @@ static int _dragonBones_AnimationConfig_get_group(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationConfig *self = nullptr;
+    dragonBones::AnimationConfig *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
 
@@ -5360,7 +5360,7 @@ static int _dragonBones_AnimationConfig_set_group(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationConfig *self = nullptr;
+    dragonBones::AnimationConfig *self;
     std::string arg1;       /** group */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
@@ -5376,7 +5376,7 @@ static int _dragonBones_AnimationConfig_get_layer(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationConfig *self = nullptr;
+    dragonBones::AnimationConfig *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
 
@@ -5391,8 +5391,8 @@ static int _dragonBones_AnimationConfig_set_layer(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationConfig *self = nullptr;
-    lua_Integer arg1 = 0;   /** layer */
+    dragonBones::AnimationConfig *self;
+    lua_Integer arg1;       /** layer */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
     olua_check_int(L, 2, &arg1);
@@ -5407,7 +5407,7 @@ static int _dragonBones_AnimationConfig_get_name(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationConfig *self = nullptr;
+    dragonBones::AnimationConfig *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
 
@@ -5422,7 +5422,7 @@ static int _dragonBones_AnimationConfig_set_name(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationConfig *self = nullptr;
+    dragonBones::AnimationConfig *self;
     std::string arg1;       /** name */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
@@ -5438,7 +5438,7 @@ static int _dragonBones_AnimationConfig_get_pauseFadeIn(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationConfig *self = nullptr;
+    dragonBones::AnimationConfig *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
 
@@ -5453,8 +5453,8 @@ static int _dragonBones_AnimationConfig_set_pauseFadeIn(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationConfig *self = nullptr;
-    bool arg1 = false;   /** pauseFadeIn */
+    dragonBones::AnimationConfig *self;
+    bool arg1;       /** pauseFadeIn */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
     olua_check_bool(L, 2, &arg1);
@@ -5469,7 +5469,7 @@ static int _dragonBones_AnimationConfig_get_pauseFadeOut(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationConfig *self = nullptr;
+    dragonBones::AnimationConfig *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
 
@@ -5484,8 +5484,8 @@ static int _dragonBones_AnimationConfig_set_pauseFadeOut(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationConfig *self = nullptr;
-    bool arg1 = false;   /** pauseFadeOut */
+    dragonBones::AnimationConfig *self;
+    bool arg1;       /** pauseFadeOut */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
     olua_check_bool(L, 2, &arg1);
@@ -5500,7 +5500,7 @@ static int _dragonBones_AnimationConfig_get_playTimes(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationConfig *self = nullptr;
+    dragonBones::AnimationConfig *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
 
@@ -5515,8 +5515,8 @@ static int _dragonBones_AnimationConfig_set_playTimes(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationConfig *self = nullptr;
-    lua_Integer arg1 = 0;   /** playTimes */
+    dragonBones::AnimationConfig *self;
+    lua_Integer arg1;       /** playTimes */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
     olua_check_int(L, 2, &arg1);
@@ -5531,7 +5531,7 @@ static int _dragonBones_AnimationConfig_get_position(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationConfig *self = nullptr;
+    dragonBones::AnimationConfig *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
 
@@ -5546,8 +5546,8 @@ static int _dragonBones_AnimationConfig_set_position(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationConfig *self = nullptr;
-    lua_Number arg1 = 0;   /** position */
+    dragonBones::AnimationConfig *self;
+    lua_Number arg1;       /** position */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
     olua_check_number(L, 2, &arg1);
@@ -5562,7 +5562,7 @@ static int _dragonBones_AnimationConfig_get_resetToPose(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationConfig *self = nullptr;
+    dragonBones::AnimationConfig *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
 
@@ -5577,8 +5577,8 @@ static int _dragonBones_AnimationConfig_set_resetToPose(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationConfig *self = nullptr;
-    bool arg1 = false;   /** resetToPose */
+    dragonBones::AnimationConfig *self;
+    bool arg1;       /** resetToPose */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
     olua_check_bool(L, 2, &arg1);
@@ -5593,7 +5593,7 @@ static int _dragonBones_AnimationConfig_get_timeScale(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationConfig *self = nullptr;
+    dragonBones::AnimationConfig *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
 
@@ -5608,8 +5608,8 @@ static int _dragonBones_AnimationConfig_set_timeScale(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationConfig *self = nullptr;
-    lua_Number arg1 = 0;   /** timeScale */
+    dragonBones::AnimationConfig *self;
+    lua_Number arg1;       /** timeScale */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
     olua_check_number(L, 2, &arg1);
@@ -5624,7 +5624,7 @@ static int _dragonBones_AnimationConfig_get_weight(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::AnimationConfig *self = nullptr;
+    dragonBones::AnimationConfig *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
 
@@ -5639,8 +5639,8 @@ static int _dragonBones_AnimationConfig_set_weight(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::AnimationConfig *self = nullptr;
-    lua_Number arg1 = 0;   /** weight */
+    dragonBones::AnimationConfig *self;
+    lua_Number arg1;       /** weight */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.AnimationConfig");
     olua_check_number(L, 2, &arg1);
@@ -5701,8 +5701,8 @@ static int _dragonBones_DragonBonesData_addArmature(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::DragonBonesData *self = nullptr;
-    dragonBones::ArmatureData *arg1 = nullptr;   /** value */
+    dragonBones::DragonBonesData *self;
+    dragonBones::ArmatureData *arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.DragonBonesData");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.ArmatureData");
@@ -5717,7 +5717,7 @@ static int _dragonBones_DragonBonesData_getArmature(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::DragonBonesData *self = nullptr;
+    dragonBones::DragonBonesData *self;
     std::string arg1;       /** armatureName */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.DragonBonesData");
@@ -5734,7 +5734,7 @@ static int _dragonBones_DragonBonesData_getArmatureNames(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::DragonBonesData *self = nullptr;
+    dragonBones::DragonBonesData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.DragonBonesData");
 
@@ -5766,7 +5766,7 @@ static int _dragonBones_DragonBonesData_get_armatureNames(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::DragonBonesData *self = nullptr;
+    dragonBones::DragonBonesData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.DragonBonesData");
 
@@ -5787,7 +5787,7 @@ static int _dragonBones_DragonBonesData_set_armatureNames(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::DragonBonesData *self = nullptr;
+    dragonBones::DragonBonesData *self;
     std::vector<std::string> arg1;       /** armatureNames */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.DragonBonesData");
@@ -5812,7 +5812,7 @@ static int _dragonBones_DragonBonesData_get_autoSearch(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::DragonBonesData *self = nullptr;
+    dragonBones::DragonBonesData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.DragonBonesData");
 
@@ -5827,8 +5827,8 @@ static int _dragonBones_DragonBonesData_set_autoSearch(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::DragonBonesData *self = nullptr;
-    bool arg1 = false;   /** autoSearch */
+    dragonBones::DragonBonesData *self;
+    bool arg1;       /** autoSearch */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.DragonBonesData");
     olua_check_bool(L, 2, &arg1);
@@ -5843,7 +5843,7 @@ static int _dragonBones_DragonBonesData_get_cachedFrames(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::DragonBonesData *self = nullptr;
+    dragonBones::DragonBonesData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.DragonBonesData");
 
@@ -5864,7 +5864,7 @@ static int _dragonBones_DragonBonesData_set_cachedFrames(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::DragonBonesData *self = nullptr;
+    dragonBones::DragonBonesData *self;
     std::vector<float> arg1;       /** cachedFrames */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.DragonBonesData");
@@ -5889,7 +5889,7 @@ static int _dragonBones_DragonBonesData_get_frameRate(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::DragonBonesData *self = nullptr;
+    dragonBones::DragonBonesData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.DragonBonesData");
 
@@ -5904,8 +5904,8 @@ static int _dragonBones_DragonBonesData_set_frameRate(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::DragonBonesData *self = nullptr;
-    lua_Unsigned arg1 = 0;   /** frameRate */
+    dragonBones::DragonBonesData *self;
+    lua_Unsigned arg1;       /** frameRate */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.DragonBonesData");
     olua_check_uint(L, 2, &arg1);
@@ -5920,7 +5920,7 @@ static int _dragonBones_DragonBonesData_get_name(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::DragonBonesData *self = nullptr;
+    dragonBones::DragonBonesData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.DragonBonesData");
 
@@ -5935,7 +5935,7 @@ static int _dragonBones_DragonBonesData_set_name(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::DragonBonesData *self = nullptr;
+    dragonBones::DragonBonesData *self;
     std::string arg1;       /** name */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.DragonBonesData");
@@ -5951,7 +5951,7 @@ static int _dragonBones_DragonBonesData_get_version(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::DragonBonesData *self = nullptr;
+    dragonBones::DragonBonesData *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.DragonBonesData");
 
@@ -5966,7 +5966,7 @@ static int _dragonBones_DragonBonesData_set_version(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::DragonBonesData *self = nullptr;
+    dragonBones::DragonBonesData *self;
     std::string arg1;       /** version */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.DragonBonesData");
@@ -6004,8 +6004,8 @@ static int _dragonBones_BaseFactory_addDragonBonesData(lua_State *L)
 {
     lua_settop(L, 3);
 
-    dragonBones::BaseFactory *self = nullptr;
-    dragonBones::DragonBonesData *arg1 = nullptr;   /** data */
+    dragonBones::BaseFactory *self;
+    dragonBones::DragonBonesData *arg1;       /** data */
     std::string arg2;       /** name */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.BaseFactory");
@@ -6022,8 +6022,8 @@ static int _dragonBones_BaseFactory_addTextureAtlasData(lua_State *L)
 {
     lua_settop(L, 3);
 
-    dragonBones::BaseFactory *self = nullptr;
-    dragonBones::TextureAtlasData *arg1 = nullptr;   /** data */
+    dragonBones::BaseFactory *self;
+    dragonBones::TextureAtlasData *arg1;       /** data */
     std::string arg2;       /** name */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.BaseFactory");
@@ -6040,7 +6040,7 @@ static int _dragonBones_BaseFactory_buildArmature(lua_State *L)
 {
     lua_settop(L, 5);
 
-    dragonBones::BaseFactory *self = nullptr;
+    dragonBones::BaseFactory *self;
     std::string arg1;       /** armatureName */
     std::string arg2;       /** dragonBonesName */
     std::string arg3;       /** skinName */
@@ -6063,8 +6063,8 @@ static int _dragonBones_BaseFactory_clear(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::BaseFactory *self = nullptr;
-    bool arg1 = false;   /** disposeData */
+    dragonBones::BaseFactory *self;
+    bool arg1;       /** disposeData */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.BaseFactory");
     olua_opt_bool(L, 2, &arg1, (bool)true);
@@ -6079,7 +6079,7 @@ static int _dragonBones_BaseFactory_getArmatureData(lua_State *L)
 {
     lua_settop(L, 3);
 
-    dragonBones::BaseFactory *self = nullptr;
+    dragonBones::BaseFactory *self;
     std::string arg1;       /** name */
     std::string arg2;       /** dragonBonesName */
 
@@ -6098,7 +6098,7 @@ static int _dragonBones_BaseFactory_getDragonBonesData(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::BaseFactory *self = nullptr;
+    dragonBones::BaseFactory *self;
     std::string arg1;       /** name */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.BaseFactory");
@@ -6115,10 +6115,10 @@ static int _dragonBones_BaseFactory_parseDragonBonesData(lua_State *L)
 {
     lua_settop(L, 4);
 
-    dragonBones::BaseFactory *self = nullptr;
-    const char *arg1 = nullptr;   /** rawData */
+    dragonBones::BaseFactory *self;
+    const char *arg1;       /** rawData */
     std::string arg2;       /** name */
-    lua_Number arg3 = 0;   /** scale */
+    lua_Number arg3;       /** scale */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.BaseFactory");
     olua_check_string(L, 2, &arg1);
@@ -6136,11 +6136,11 @@ static int _dragonBones_BaseFactory_parseTextureAtlasData(lua_State *L)
 {
     lua_settop(L, 5);
 
-    dragonBones::BaseFactory *self = nullptr;
-    const char *arg1 = nullptr;   /** rawData */
-    void *arg2 = nullptr;   /** textureAtlas */
+    dragonBones::BaseFactory *self;
+    const char *arg1;       /** rawData */
+    void *arg2;       /** textureAtlas */
     std::string arg3;       /** name */
-    lua_Number arg4 = 0;   /** scale */
+    lua_Number arg4;       /** scale */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.BaseFactory");
     olua_check_string(L, 2, &arg1);
@@ -6159,9 +6159,9 @@ static int _dragonBones_BaseFactory_removeDragonBonesData(lua_State *L)
 {
     lua_settop(L, 3);
 
-    dragonBones::BaseFactory *self = nullptr;
+    dragonBones::BaseFactory *self;
     std::string arg1;       /** name */
-    bool arg2 = false;   /** disposeData */
+    bool arg2;       /** disposeData */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.BaseFactory");
     olua_check_std_string(L, 2, &arg1);
@@ -6177,9 +6177,9 @@ static int _dragonBones_BaseFactory_removeTextureAtlasData(lua_State *L)
 {
     lua_settop(L, 3);
 
-    dragonBones::BaseFactory *self = nullptr;
+    dragonBones::BaseFactory *self;
     std::string arg1;       /** name */
-    bool arg2 = false;   /** disposeData */
+    bool arg2;       /** disposeData */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.BaseFactory");
     olua_check_std_string(L, 2, &arg1);
@@ -6195,10 +6195,10 @@ static int _dragonBones_BaseFactory_replaceAnimation(lua_State *L)
 {
     lua_settop(L, 4);
 
-    dragonBones::BaseFactory *self = nullptr;
-    dragonBones::Armature *arg1 = nullptr;   /** armature */
-    dragonBones::ArmatureData *arg2 = nullptr;   /** armatureData */
-    bool arg3 = false;   /** isReplaceAll */
+    dragonBones::BaseFactory *self;
+    dragonBones::Armature *arg1;       /** armature */
+    dragonBones::ArmatureData *arg2;       /** armatureData */
+    bool arg3;       /** isReplaceAll */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.BaseFactory");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.Armature");
@@ -6216,10 +6216,10 @@ static int _dragonBones_BaseFactory_replaceDisplay(lua_State *L)
 {
     lua_settop(L, 4);
 
-    dragonBones::BaseFactory *self = nullptr;
-    dragonBones::Slot *arg1 = nullptr;   /** slot */
-    dragonBones::DisplayData *arg2 = nullptr;   /** displayData */
-    lua_Integer arg3 = 0;   /** displayIndex */
+    dragonBones::BaseFactory *self;
+    dragonBones::Slot *arg1;       /** slot */
+    dragonBones::DisplayData *arg2;       /** displayData */
+    lua_Integer arg3;       /** displayIndex */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.BaseFactory");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.Slot");
@@ -6236,13 +6236,13 @@ static int _dragonBones_BaseFactory_replaceSlotDisplay(lua_State *L)
 {
     lua_settop(L, 7);
 
-    dragonBones::BaseFactory *self = nullptr;
+    dragonBones::BaseFactory *self;
     std::string arg1;       /** dragonBonesName */
     std::string arg2;       /** armatureName */
     std::string arg3;       /** slotName */
     std::string arg4;       /** displayName */
-    dragonBones::Slot *arg5 = nullptr;   /** slot */
-    lua_Integer arg6 = 0;   /** displayIndex */
+    dragonBones::Slot *arg5;       /** slot */
+    lua_Integer arg6;       /** displayIndex */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.BaseFactory");
     olua_check_std_string(L, 2, &arg1);
@@ -6263,11 +6263,11 @@ static int _dragonBones_BaseFactory_replaceSlotDisplayList(lua_State *L)
 {
     lua_settop(L, 5);
 
-    dragonBones::BaseFactory *self = nullptr;
+    dragonBones::BaseFactory *self;
     std::string arg1;       /** dragonBonesName */
     std::string arg2;       /** armatureName */
     std::string arg3;       /** slotName */
-    dragonBones::Slot *arg4 = nullptr;   /** slot */
+    dragonBones::Slot *arg4;       /** slot */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.BaseFactory");
     olua_check_std_string(L, 2, &arg1);
@@ -6286,7 +6286,7 @@ static int _dragonBones_BaseFactory_get_autoSearch(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::BaseFactory *self = nullptr;
+    dragonBones::BaseFactory *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.BaseFactory");
 
@@ -6301,8 +6301,8 @@ static int _dragonBones_BaseFactory_set_autoSearch(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::BaseFactory *self = nullptr;
-    bool arg1 = false;   /** autoSearch */
+    dragonBones::BaseFactory *self;
+    bool arg1;       /** autoSearch */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.BaseFactory");
     olua_check_bool(L, 2, &arg1);
@@ -6342,8 +6342,8 @@ static int _dragonBones_Armature_advanceTime(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::Armature *self = nullptr;
-    lua_Number arg1 = 0;   /** passedTime */
+    dragonBones::Armature *self;
+    lua_Number arg1;       /** passedTime */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Armature");
     olua_check_number(L, 2, &arg1);
@@ -6358,9 +6358,9 @@ static int _dragonBones_Armature_containsPoint(lua_State *L)
 {
     lua_settop(L, 3);
 
-    dragonBones::Armature *self = nullptr;
-    lua_Number arg1 = 0;   /** x */
-    lua_Number arg2 = 0;   /** y */
+    dragonBones::Armature *self;
+    lua_Number arg1;       /** x */
+    lua_Number arg2;       /** y */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Armature");
     olua_check_number(L, 2, &arg1);
@@ -6377,7 +6377,7 @@ static int _dragonBones_Armature_dispose(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Armature *self = nullptr;
+    dragonBones::Armature *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Armature");
 
@@ -6391,7 +6391,7 @@ static int _dragonBones_Armature_getAnimation(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Armature *self = nullptr;
+    dragonBones::Armature *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Armature");
 
@@ -6406,7 +6406,7 @@ static int _dragonBones_Armature_getArmatureData(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Armature *self = nullptr;
+    dragonBones::Armature *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Armature");
 
@@ -6421,7 +6421,7 @@ static int _dragonBones_Armature_getBone(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::Armature *self = nullptr;
+    dragonBones::Armature *self;
     std::string arg1;       /** name */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Armature");
@@ -6438,8 +6438,8 @@ static int _dragonBones_Armature_getBoneByDisplay(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::Armature *self = nullptr;
-    void *arg1 = nullptr;   /** display */
+    dragonBones::Armature *self;
+    void *arg1;       /** display */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Armature");
     olua_check_obj(L, 2, (void **)&arg1, "void *");
@@ -6455,7 +6455,7 @@ static int _dragonBones_Armature_getBones(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Armature *self = nullptr;
+    dragonBones::Armature *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Armature");
 
@@ -6470,7 +6470,7 @@ static int _dragonBones_Armature_getCacheFrameRate(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Armature *self = nullptr;
+    dragonBones::Armature *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Armature");
 
@@ -6485,7 +6485,7 @@ static int _dragonBones_Armature_getDisplay(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Armature *self = nullptr;
+    dragonBones::Armature *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Armature");
 
@@ -6500,7 +6500,7 @@ static int _dragonBones_Armature_getFlipX(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Armature *self = nullptr;
+    dragonBones::Armature *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Armature");
 
@@ -6515,7 +6515,7 @@ static int _dragonBones_Armature_getFlipY(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Armature *self = nullptr;
+    dragonBones::Armature *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Armature");
 
@@ -6530,7 +6530,7 @@ static int _dragonBones_Armature_getName(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Armature *self = nullptr;
+    dragonBones::Armature *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Armature");
 
@@ -6545,7 +6545,7 @@ static int _dragonBones_Armature_getParent(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Armature *self = nullptr;
+    dragonBones::Armature *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Armature");
 
@@ -6560,7 +6560,7 @@ static int _dragonBones_Armature_getReplacedTexture(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Armature *self = nullptr;
+    dragonBones::Armature *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Armature");
 
@@ -6575,7 +6575,7 @@ static int _dragonBones_Armature_getSlot(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::Armature *self = nullptr;
+    dragonBones::Armature *self;
     std::string arg1;       /** name */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Armature");
@@ -6592,8 +6592,8 @@ static int _dragonBones_Armature_getSlotByDisplay(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::Armature *self = nullptr;
-    void *arg1 = nullptr;   /** display */
+    dragonBones::Armature *self;
+    void *arg1;       /** display */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Armature");
     olua_check_obj(L, 2, (void **)&arg1, "void *");
@@ -6609,7 +6609,7 @@ static int _dragonBones_Armature_getSlots(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Armature *self = nullptr;
+    dragonBones::Armature *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Armature");
 
@@ -6635,14 +6635,14 @@ static int _dragonBones_Armature_intersectsSegment(lua_State *L)
 {
     lua_settop(L, 8);
 
-    dragonBones::Armature *self = nullptr;
-    lua_Number arg1 = 0;   /** xA */
-    lua_Number arg2 = 0;   /** yA */
-    lua_Number arg3 = 0;   /** xB */
-    lua_Number arg4 = 0;   /** yB */
-    dragonBones::Point *arg5 = nullptr;   /** intersectionPointA */
-    dragonBones::Point *arg6 = nullptr;   /** intersectionPointB */
-    dragonBones::Point *arg7 = nullptr;   /** normalRadians */
+    dragonBones::Armature *self;
+    lua_Number arg1;       /** xA */
+    lua_Number arg2;       /** yA */
+    lua_Number arg3;       /** xB */
+    lua_Number arg4;       /** yB */
+    dragonBones::Point *arg5;       /** intersectionPointA */
+    dragonBones::Point *arg6;       /** intersectionPointB */
+    dragonBones::Point *arg7;       /** normalRadians */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Armature");
     olua_check_number(L, 2, &arg1);
@@ -6664,9 +6664,9 @@ static int _dragonBones_Armature_invalidUpdate(lua_State *L)
 {
     lua_settop(L, 3);
 
-    dragonBones::Armature *self = nullptr;
+    dragonBones::Armature *self;
     std::string arg1;       /** boneName */
-    bool arg2 = false;   /** updateSlot */
+    bool arg2;       /** updateSlot */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Armature");
     olua_opt_std_string(L, 2, &arg1, (std::string)"");
@@ -6682,8 +6682,8 @@ static int _dragonBones_Armature_setCacheFrameRate(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::Armature *self = nullptr;
-    lua_Unsigned arg1 = 0;   /** value */
+    dragonBones::Armature *self;
+    lua_Unsigned arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Armature");
     olua_check_uint(L, 2, &arg1);
@@ -6698,8 +6698,8 @@ static int _dragonBones_Armature_setFlipX(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::Armature *self = nullptr;
-    bool arg1 = false;   /** value */
+    dragonBones::Armature *self;
+    bool arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Armature");
     olua_check_bool(L, 2, &arg1);
@@ -6714,8 +6714,8 @@ static int _dragonBones_Armature_setFlipY(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::Armature *self = nullptr;
-    bool arg1 = false;   /** value */
+    dragonBones::Armature *self;
+    bool arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Armature");
     olua_check_bool(L, 2, &arg1);
@@ -6730,8 +6730,8 @@ static int _dragonBones_Armature_setReplacedTexture(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::Armature *self = nullptr;
-    void *arg1 = nullptr;   /** value */
+    dragonBones::Armature *self;
+    void *arg1;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Armature");
     olua_check_obj(L, 2, (void **)&arg1, "void *");
@@ -6746,7 +6746,7 @@ static int _dragonBones_Armature_get_inheritAnimation(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Armature *self = nullptr;
+    dragonBones::Armature *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Armature");
 
@@ -6761,8 +6761,8 @@ static int _dragonBones_Armature_set_inheritAnimation(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::Armature *self = nullptr;
-    bool arg1 = false;   /** inheritAnimation */
+    dragonBones::Armature *self;
+    bool arg1;       /** inheritAnimation */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Armature");
     olua_check_bool(L, 2, &arg1);
@@ -6777,7 +6777,7 @@ static int _dragonBones_Armature_get_userData(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Armature *self = nullptr;
+    dragonBones::Armature *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Armature");
 
@@ -6792,8 +6792,8 @@ static int _dragonBones_Armature_set_userData(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::Armature *self = nullptr;
-    void *arg1 = nullptr;   /** userData */
+    dragonBones::Armature *self;
+    void *arg1;       /** userData */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Armature");
     olua_check_obj(L, 2, (void **)&arg1, "void *");
@@ -6873,8 +6873,8 @@ static int _dragonBones_Animation_advanceTime(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::Animation *self = nullptr;
-    lua_Number arg1 = 0;   /** passedTime */
+    dragonBones::Animation *self;
+    lua_Number arg1;       /** passedTime */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Animation");
     olua_check_number(L, 2, &arg1);
@@ -6889,13 +6889,13 @@ static int _dragonBones_Animation_fadeIn(lua_State *L)
 {
     lua_settop(L, 7);
 
-    dragonBones::Animation *self = nullptr;
+    dragonBones::Animation *self;
     std::string arg1;       /** animationName */
-    lua_Number arg2 = 0;   /** fadeInTime */
-    lua_Integer arg3 = 0;   /** playTimes */
-    lua_Integer arg4 = 0;   /** layer */
+    lua_Number arg2;       /** fadeInTime */
+    lua_Integer arg3;       /** playTimes */
+    lua_Integer arg4;       /** layer */
     std::string arg5;       /** group */
-    lua_Unsigned arg6 = 0;   /** fadeOutMode */
+    lua_Unsigned arg6;       /** fadeOutMode */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Animation");
     olua_check_std_string(L, 2, &arg1);
@@ -6916,7 +6916,7 @@ static int _dragonBones_Animation_getAnimationConfig(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Animation *self = nullptr;
+    dragonBones::Animation *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Animation");
 
@@ -6931,7 +6931,7 @@ static int _dragonBones_Animation_getAnimationNames(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Animation *self = nullptr;
+    dragonBones::Animation *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Animation");
 
@@ -6952,7 +6952,7 @@ static int _dragonBones_Animation_getLastAnimationName(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Animation *self = nullptr;
+    dragonBones::Animation *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Animation");
 
@@ -6967,7 +6967,7 @@ static int _dragonBones_Animation_getLastAnimationState(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Animation *self = nullptr;
+    dragonBones::Animation *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Animation");
 
@@ -6982,7 +6982,7 @@ static int _dragonBones_Animation_getState(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::Animation *self = nullptr;
+    dragonBones::Animation *self;
     std::string arg1;       /** animationName */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Animation");
@@ -6999,7 +6999,7 @@ static int _dragonBones_Animation_getStates(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Animation *self = nullptr;
+    dragonBones::Animation *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Animation");
 
@@ -7025,10 +7025,10 @@ static int _dragonBones_Animation_gotoAndPlayByFrame(lua_State *L)
 {
     lua_settop(L, 4);
 
-    dragonBones::Animation *self = nullptr;
+    dragonBones::Animation *self;
     std::string arg1;       /** animationName */
-    lua_Unsigned arg2 = 0;   /** frame */
-    lua_Integer arg3 = 0;   /** playTimes */
+    lua_Unsigned arg2;       /** frame */
+    lua_Integer arg3;       /** playTimes */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Animation");
     olua_check_std_string(L, 2, &arg1);
@@ -7046,10 +7046,10 @@ static int _dragonBones_Animation_gotoAndPlayByProgress(lua_State *L)
 {
     lua_settop(L, 4);
 
-    dragonBones::Animation *self = nullptr;
+    dragonBones::Animation *self;
     std::string arg1;       /** animationName */
-    lua_Number arg2 = 0;   /** progress */
-    lua_Integer arg3 = 0;   /** playTimes */
+    lua_Number arg2;       /** progress */
+    lua_Integer arg3;       /** playTimes */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Animation");
     olua_check_std_string(L, 2, &arg1);
@@ -7067,10 +7067,10 @@ static int _dragonBones_Animation_gotoAndPlayByTime(lua_State *L)
 {
     lua_settop(L, 4);
 
-    dragonBones::Animation *self = nullptr;
+    dragonBones::Animation *self;
     std::string arg1;       /** animationName */
-    lua_Number arg2 = 0;   /** time */
-    lua_Integer arg3 = 0;   /** playTimes */
+    lua_Number arg2;       /** time */
+    lua_Integer arg3;       /** playTimes */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Animation");
     olua_check_std_string(L, 2, &arg1);
@@ -7088,9 +7088,9 @@ static int _dragonBones_Animation_gotoAndStopByFrame(lua_State *L)
 {
     lua_settop(L, 3);
 
-    dragonBones::Animation *self = nullptr;
+    dragonBones::Animation *self;
     std::string arg1;       /** animationName */
-    lua_Unsigned arg2 = 0;   /** frame */
+    lua_Unsigned arg2;       /** frame */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Animation");
     olua_check_std_string(L, 2, &arg1);
@@ -7107,9 +7107,9 @@ static int _dragonBones_Animation_gotoAndStopByProgress(lua_State *L)
 {
     lua_settop(L, 3);
 
-    dragonBones::Animation *self = nullptr;
+    dragonBones::Animation *self;
     std::string arg1;       /** animationName */
-    lua_Number arg2 = 0;   /** progress */
+    lua_Number arg2;       /** progress */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Animation");
     olua_check_std_string(L, 2, &arg1);
@@ -7126,9 +7126,9 @@ static int _dragonBones_Animation_gotoAndStopByTime(lua_State *L)
 {
     lua_settop(L, 3);
 
-    dragonBones::Animation *self = nullptr;
+    dragonBones::Animation *self;
     std::string arg1;       /** animationName */
-    lua_Number arg2 = 0;   /** time */
+    lua_Number arg2;       /** time */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Animation");
     olua_check_std_string(L, 2, &arg1);
@@ -7145,7 +7145,7 @@ static int _dragonBones_Animation_hasAnimation(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::Animation *self = nullptr;
+    dragonBones::Animation *self;
     std::string arg1;       /** animationName */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Animation");
@@ -7162,8 +7162,8 @@ static int _dragonBones_Animation_init(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::Animation *self = nullptr;
-    dragonBones::Armature *arg1 = nullptr;   /** armature */
+    dragonBones::Animation *self;
+    dragonBones::Armature *arg1;       /** armature */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Animation");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.Armature");
@@ -7178,7 +7178,7 @@ static int _dragonBones_Animation_isCompleted(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Animation *self = nullptr;
+    dragonBones::Animation *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Animation");
 
@@ -7193,7 +7193,7 @@ static int _dragonBones_Animation_isPlaying(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Animation *self = nullptr;
+    dragonBones::Animation *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Animation");
 
@@ -7208,9 +7208,9 @@ static int _dragonBones_Animation_play(lua_State *L)
 {
     lua_settop(L, 3);
 
-    dragonBones::Animation *self = nullptr;
+    dragonBones::Animation *self;
     std::string arg1;       /** animationName */
-    lua_Integer arg2 = 0;   /** playTimes */
+    lua_Integer arg2;       /** playTimes */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Animation");
     olua_opt_std_string(L, 2, &arg1, (std::string)"");
@@ -7227,8 +7227,8 @@ static int _dragonBones_Animation_playConfig(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::Animation *self = nullptr;
-    dragonBones::AnimationConfig *arg1 = nullptr;   /** animationConfig */
+    dragonBones::Animation *self;
+    dragonBones::AnimationConfig *arg1;       /** animationConfig */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Animation");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.AnimationConfig");
@@ -7244,7 +7244,7 @@ static int _dragonBones_Animation_reset(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Animation *self = nullptr;
+    dragonBones::Animation *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Animation");
 
@@ -7258,7 +7258,7 @@ static int _dragonBones_Animation_stop(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::Animation *self = nullptr;
+    dragonBones::Animation *self;
     std::string arg1;       /** animationName */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Animation");
@@ -7274,7 +7274,7 @@ static int _dragonBones_Animation_get_timeScale(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::Animation *self = nullptr;
+    dragonBones::Animation *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Animation");
 
@@ -7289,8 +7289,8 @@ static int _dragonBones_Animation_set_timeScale(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::Animation *self = nullptr;
-    lua_Number arg1 = 0;   /** timeScale */
+    dragonBones::Animation *self;
+    lua_Number arg1;       /** timeScale */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Animation");
     olua_check_number(L, 2, &arg1);
@@ -7347,7 +7347,7 @@ static int _dragonBones_CCFactory_buildArmatureDisplay(lua_State *L)
 {
     lua_settop(L, 5);
 
-    dragonBones::CCFactory *self = nullptr;
+    dragonBones::CCFactory *self;
     std::string arg1;       /** armatureName */
     std::string arg2;       /** dragonBonesName */
     std::string arg3;       /** skinName */
@@ -7381,7 +7381,7 @@ static int _dragonBones_CCFactory_getSoundEventManager(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::CCFactory *self = nullptr;
+    dragonBones::CCFactory *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Factory");
 
@@ -7396,7 +7396,7 @@ static int _dragonBones_CCFactory_getTextureDisplay(lua_State *L)
 {
     lua_settop(L, 3);
 
-    dragonBones::CCFactory *self = nullptr;
+    dragonBones::CCFactory *self;
     std::string arg1;       /** textureName */
     std::string arg2;       /** dragonBonesName */
 
@@ -7415,10 +7415,10 @@ static int _dragonBones_CCFactory_loadDragonBonesData(lua_State *L)
 {
     lua_settop(L, 4);
 
-    dragonBones::CCFactory *self = nullptr;
+    dragonBones::CCFactory *self;
     std::string arg1;       /** filePath */
     std::string arg2;       /** name */
-    lua_Number arg3 = 0;   /** scale */
+    lua_Number arg3;       /** scale */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Factory");
     olua_check_std_string(L, 2, &arg1);
@@ -7436,10 +7436,10 @@ static int _dragonBones_CCFactory_loadTextureAtlasData(lua_State *L)
 {
     lua_settop(L, 4);
 
-    dragonBones::CCFactory *self = nullptr;
+    dragonBones::CCFactory *self;
     std::string arg1;       /** filePath */
     std::string arg2;       /** name */
-    lua_Number arg3 = 0;   /** scale */
+    lua_Number arg3;       /** scale */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.Factory");
     olua_check_std_string(L, 2, &arg1);
@@ -7475,9 +7475,9 @@ static int _dragonBones_CCArmatureDisplay_addDBEventListener(lua_State *L)
 {
     lua_settop(L, 3);
 
-    dragonBones::CCArmatureDisplay *self = nullptr;
+    dragonBones::CCArmatureDisplay *self;
     std::string arg1;       /** type */
-    std::function<void(dragonBones::EventObject *)> arg2 = nullptr;   /** listener */
+    std::function<void(dragonBones::EventObject *)> arg2;       /** listener */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureDisplay");
     olua_check_std_string(L, 2, &arg1);
@@ -7523,7 +7523,7 @@ static int _dragonBones_CCArmatureDisplay_dbClear(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::CCArmatureDisplay *self = nullptr;
+    dragonBones::CCArmatureDisplay *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureDisplay");
 
@@ -7537,8 +7537,8 @@ static int _dragonBones_CCArmatureDisplay_dbInit(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::CCArmatureDisplay *self = nullptr;
-    dragonBones::Armature *arg1 = nullptr;   /** armature */
+    dragonBones::CCArmatureDisplay *self;
+    dragonBones::Armature *arg1;       /** armature */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureDisplay");
     olua_check_cppobj(L, 2, (void **)&arg1, "db.Armature");
@@ -7553,7 +7553,7 @@ static int _dragonBones_CCArmatureDisplay_dbUpdate(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::CCArmatureDisplay *self = nullptr;
+    dragonBones::CCArmatureDisplay *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureDisplay");
 
@@ -7567,9 +7567,9 @@ static int _dragonBones_CCArmatureDisplay_dispatchDBEvent(lua_State *L)
 {
     lua_settop(L, 3);
 
-    dragonBones::CCArmatureDisplay *self = nullptr;
+    dragonBones::CCArmatureDisplay *self;
     std::string arg1;       /** type */
-    dragonBones::EventObject *arg2 = nullptr;   /** value */
+    dragonBones::EventObject *arg2;       /** value */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureDisplay");
     olua_check_std_string(L, 2, &arg1);
@@ -7585,8 +7585,8 @@ static int _dragonBones_CCArmatureDisplay_dispose(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::CCArmatureDisplay *self = nullptr;
-    bool arg1 = false;   /** disposeProxy */
+    dragonBones::CCArmatureDisplay *self;
+    bool arg1;       /** disposeProxy */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureDisplay");
     olua_opt_bool(L, 2, &arg1, (bool)true);
@@ -7601,7 +7601,7 @@ static int _dragonBones_CCArmatureDisplay_getAnimation(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::CCArmatureDisplay *self = nullptr;
+    dragonBones::CCArmatureDisplay *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureDisplay");
 
@@ -7616,7 +7616,7 @@ static int _dragonBones_CCArmatureDisplay_getArmature(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::CCArmatureDisplay *self = nullptr;
+    dragonBones::CCArmatureDisplay *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureDisplay");
 
@@ -7631,7 +7631,7 @@ static int _dragonBones_CCArmatureDisplay_hasDBEventListener(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::CCArmatureDisplay *self = nullptr;
+    dragonBones::CCArmatureDisplay *self;
     std::string arg1;       /** type */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureDisplay");
@@ -7648,9 +7648,9 @@ static int _dragonBones_CCArmatureDisplay_removeDBEventListener(lua_State *L)
 {
     lua_settop(L, 3);
 
-    dragonBones::CCArmatureDisplay *self = nullptr;
+    dragonBones::CCArmatureDisplay *self;
     std::string arg1;       /** type */
-    std::function<void(dragonBones::EventObject *)> arg2 = nullptr;   /** listener */
+    std::function<void(dragonBones::EventObject *)> arg2;       /** listener */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureDisplay");
     olua_check_std_string(L, 2, &arg1);
@@ -7669,7 +7669,7 @@ static int _dragonBones_CCArmatureDisplay_get_debugDraw(lua_State *L)
 {
     lua_settop(L, 1);
 
-    dragonBones::CCArmatureDisplay *self = nullptr;
+    dragonBones::CCArmatureDisplay *self;
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureDisplay");
 
@@ -7684,8 +7684,8 @@ static int _dragonBones_CCArmatureDisplay_set_debugDraw(lua_State *L)
 {
     lua_settop(L, 2);
 
-    dragonBones::CCArmatureDisplay *self = nullptr;
-    bool arg1 = false;   /** debugDraw */
+    dragonBones::CCArmatureDisplay *self;
+    bool arg1;       /** debugDraw */
 
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureDisplay");
     olua_check_bool(L, 2, &arg1);

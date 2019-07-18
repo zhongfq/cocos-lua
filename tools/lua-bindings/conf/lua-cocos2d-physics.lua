@@ -51,7 +51,6 @@ typedef {
 typedef {
     CPPCLS = 'cocos2d::PhysicsMaterial',
     CONV_FUNC = 'auto_olua_$$_cocos2d_PhysicsMaterial',
-    INIT_VALUE = false,
 }
 
 typeconv {
@@ -66,37 +65,31 @@ typeconv {
 typedef {
     CPPCLS = 'cocos2d::PhysicsWorld',
     CONV_FUNC = 'olua_$$_cppobj',
-    INIT_VALUE = false,
 }
 
 typedef {
     CPPCLS = 'cocos2d::PhysicsShape',
     CONV_FUNC = 'olua_$$_cppobj',
-    INIT_VALUE = false,
 }
 
 typedef {
     CPPCLS = 'cocos2d::PhysicsContact',
     CONV_FUNC = 'olua_$$_cppobj',
-    INIT_VALUE = false,
 }
 
 typedef {
     CPPCLS = 'cocos2d::PhysicsContactPreSolve',
     CONV_FUNC = 'olua_$$_cppobj',
-    INIT_VALUE = false,
 }
 
 typedef {
     CPPCLS = 'cocos2d::PhysicsContactPostSolve',
     CONV_FUNC = 'olua_$$_cppobj',
-    INIT_VALUE = false,
 }
 
 typedef {
     CPPCLS = 'cocos2d::PhysicsRayCastInfo',
     CONV_FUNC = 'olua_$$_cppobj',
-    INIT_VALUE = false,
 }
 
 local EventListenerPhysicsContact = typeconf 'cocos2d::EventListenerPhysicsContact'

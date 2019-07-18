@@ -29,14 +29,18 @@ int auto_olua_push_fairygui_Margin(lua_State *L, const fairygui::Margin *value)
 {
     if (value) {
         lua_createtable(L, 0, 4);
+
         olua_push_number(L, (lua_Number)value->left);
-        lua_setfield(L, -2, "left");
+        olua_setfield(L, -2, "left");
+
         olua_push_number(L, (lua_Number)value->top);
-        lua_setfield(L, -2, "top");
+        olua_setfield(L, -2, "top");
+
         olua_push_number(L, (lua_Number)value->right);
-        lua_setfield(L, -2, "right");
+        olua_setfield(L, -2, "right");
+
         olua_push_number(L, (lua_Number)value->bottom);
-        lua_setfield(L, -2, "bottom");
+        olua_setfield(L, -2, "bottom");
     } else {
         lua_pushnil(L);
     }
@@ -51,10 +55,31 @@ void auto_olua_check_fairygui_Margin(lua_State *L, int idx, fairygui::Margin *va
     }
     idx = lua_absindex(L, idx);
     luaL_checktype(L, idx, LUA_TTABLE);
-    value->left = (float)olua_checkfieldnumber(L, idx, "left");
-    value->top = (float)olua_checkfieldnumber(L, idx, "top");
-    value->right = (float)olua_checkfieldnumber(L, idx, "right");
-    value->bottom = (float)olua_checkfieldnumber(L, idx, "bottom");
+
+    lua_Number arg1;       /** left */
+    lua_Number arg2;       /** top */
+    lua_Number arg3;       /** right */
+    lua_Number arg4;       /** bottom */
+
+    olua_getfield(L, idx, "left");
+    olua_check_number(L, -1, &arg1);
+    value->left = (float)arg1;
+    lua_pop(L, 1);
+
+    olua_getfield(L, idx, "top");
+    olua_check_number(L, -1, &arg2);
+    value->top = (float)arg2;
+    lua_pop(L, 1);
+
+    olua_getfield(L, idx, "right");
+    olua_check_number(L, -1, &arg3);
+    value->right = (float)arg3;
+    lua_pop(L, 1);
+
+    olua_getfield(L, idx, "bottom");
+    olua_check_number(L, -1, &arg4);
+    value->bottom = (float)arg4;
+    lua_pop(L, 1);
 }
 
 void auto_olua_opt_fairygui_Margin(lua_State *L, int idx, fairygui::Margin *value, const fairygui::Margin &def)
@@ -67,10 +92,31 @@ void auto_olua_opt_fairygui_Margin(lua_State *L, int idx, fairygui::Margin *valu
     } else {
         idx = lua_absindex(L, idx);
         luaL_checktype(L, idx, LUA_TTABLE);
-        value->left = (float)olua_optfieldnumber(L, idx, "left", 0);
-        value->top = (float)olua_optfieldnumber(L, idx, "top", 0);
-        value->right = (float)olua_optfieldnumber(L, idx, "right", 0);
-        value->bottom = (float)olua_optfieldnumber(L, idx, "bottom", 0);
+
+        lua_Number arg1;       /** left */
+        lua_Number arg2;       /** top */
+        lua_Number arg3;       /** right */
+        lua_Number arg4;       /** bottom */
+
+        olua_getfield(L, idx, "left");
+        olua_opt_number(L, -1, &arg1, (lua_Number)0);
+        value->left = (float)arg1;
+        lua_pop(L, 1);
+
+        olua_getfield(L, idx, "top");
+        olua_opt_number(L, -1, &arg2, (lua_Number)0);
+        value->top = (float)arg2;
+        lua_pop(L, 1);
+
+        olua_getfield(L, idx, "right");
+        olua_opt_number(L, -1, &arg3, (lua_Number)0);
+        value->right = (float)arg3;
+        lua_pop(L, 1);
+
+        olua_getfield(L, idx, "bottom");
+        olua_opt_number(L, -1, &arg4, (lua_Number)0);
+        value->bottom = (float)arg4;
+        lua_pop(L, 1);
     }
 }
 
@@ -83,16 +129,21 @@ int auto_olua_push_fairygui_TweenValue(lua_State *L, const fairygui::TweenValue 
 {
     if (value) {
         lua_createtable(L, 0, 5);
+
         olua_push_number(L, (lua_Number)value->x);
-        lua_setfield(L, -2, "x");
+        olua_setfield(L, -2, "x");
+
         olua_push_number(L, (lua_Number)value->y);
-        lua_setfield(L, -2, "y");
+        olua_setfield(L, -2, "y");
+
         olua_push_number(L, (lua_Number)value->z);
-        lua_setfield(L, -2, "z");
+        olua_setfield(L, -2, "z");
+
         olua_push_number(L, (lua_Number)value->w);
-        lua_setfield(L, -2, "w");
+        olua_setfield(L, -2, "w");
+
         olua_push_number(L, (lua_Number)value->d);
-        lua_setfield(L, -2, "d");
+        olua_setfield(L, -2, "d");
     } else {
         lua_pushnil(L);
     }
@@ -107,11 +158,37 @@ void auto_olua_check_fairygui_TweenValue(lua_State *L, int idx, fairygui::TweenV
     }
     idx = lua_absindex(L, idx);
     luaL_checktype(L, idx, LUA_TTABLE);
-    value->x = (float)olua_optfieldnumber(L, idx, "x", 0);
-    value->y = (float)olua_optfieldnumber(L, idx, "y", 0);
-    value->z = (float)olua_optfieldnumber(L, idx, "z", 0);
-    value->w = (float)olua_optfieldnumber(L, idx, "w", 0);
-    value->d = (double)olua_optfieldnumber(L, idx, "d", 0);
+
+    lua_Number arg1;       /** x */
+    lua_Number arg2;       /** y */
+    lua_Number arg3;       /** z */
+    lua_Number arg4;       /** w */
+    lua_Number arg5;       /** d */
+
+    olua_getfield(L, idx, "x");
+    olua_opt_number(L, -1, &arg1, (lua_Number)0);
+    value->x = (float)arg1;
+    lua_pop(L, 1);
+
+    olua_getfield(L, idx, "y");
+    olua_opt_number(L, -1, &arg2, (lua_Number)0);
+    value->y = (float)arg2;
+    lua_pop(L, 1);
+
+    olua_getfield(L, idx, "z");
+    olua_opt_number(L, -1, &arg3, (lua_Number)0);
+    value->z = (float)arg3;
+    lua_pop(L, 1);
+
+    olua_getfield(L, idx, "w");
+    olua_opt_number(L, -1, &arg4, (lua_Number)0);
+    value->w = (float)arg4;
+    lua_pop(L, 1);
+
+    olua_getfield(L, idx, "d");
+    olua_opt_number(L, -1, &arg5, (lua_Number)0);
+    value->d = (double)arg5;
+    lua_pop(L, 1);
 }
 
 void auto_olua_opt_fairygui_TweenValue(lua_State *L, int idx, fairygui::TweenValue *value, const fairygui::TweenValue &def)
@@ -124,11 +201,37 @@ void auto_olua_opt_fairygui_TweenValue(lua_State *L, int idx, fairygui::TweenVal
     } else {
         idx = lua_absindex(L, idx);
         luaL_checktype(L, idx, LUA_TTABLE);
-        value->x = (float)olua_optfieldnumber(L, idx, "x", 0);
-        value->y = (float)olua_optfieldnumber(L, idx, "y", 0);
-        value->z = (float)olua_optfieldnumber(L, idx, "z", 0);
-        value->w = (float)olua_optfieldnumber(L, idx, "w", 0);
-        value->d = (double)olua_optfieldnumber(L, idx, "d", 0);
+
+        lua_Number arg1;       /** x */
+        lua_Number arg2;       /** y */
+        lua_Number arg3;       /** z */
+        lua_Number arg4;       /** w */
+        lua_Number arg5;       /** d */
+
+        olua_getfield(L, idx, "x");
+        olua_opt_number(L, -1, &arg1, (lua_Number)0);
+        value->x = (float)arg1;
+        lua_pop(L, 1);
+
+        olua_getfield(L, idx, "y");
+        olua_opt_number(L, -1, &arg2, (lua_Number)0);
+        value->y = (float)arg2;
+        lua_pop(L, 1);
+
+        olua_getfield(L, idx, "z");
+        olua_opt_number(L, -1, &arg3, (lua_Number)0);
+        value->z = (float)arg3;
+        lua_pop(L, 1);
+
+        olua_getfield(L, idx, "w");
+        olua_opt_number(L, -1, &arg4, (lua_Number)0);
+        value->w = (float)arg4;
+        lua_pop(L, 1);
+
+        olua_getfield(L, idx, "d");
+        olua_opt_number(L, -1, &arg5, (lua_Number)0);
+        value->d = (double)arg5;
+        lua_pop(L, 1);
     }
 }
 

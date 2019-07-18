@@ -15,12 +15,15 @@ int auto_olua_push_cocos2d_PhysicsMaterial(lua_State *L, const cocos2d::PhysicsM
 {
     if (value) {
         lua_createtable(L, 0, 3);
+
         olua_push_number(L, (lua_Number)value->density);
-        lua_setfield(L, -2, "density");
+        olua_setfield(L, -2, "density");
+
         olua_push_number(L, (lua_Number)value->restitution);
-        lua_setfield(L, -2, "restitution");
+        olua_setfield(L, -2, "restitution");
+
         olua_push_number(L, (lua_Number)value->friction);
-        lua_setfield(L, -2, "friction");
+        olua_setfield(L, -2, "friction");
     } else {
         lua_pushnil(L);
     }
@@ -35,9 +38,25 @@ void auto_olua_check_cocos2d_PhysicsMaterial(lua_State *L, int idx, cocos2d::Phy
     }
     idx = lua_absindex(L, idx);
     luaL_checktype(L, idx, LUA_TTABLE);
-    value->density = (float)olua_checkfieldnumber(L, idx, "density");
-    value->restitution = (float)olua_checkfieldnumber(L, idx, "restitution");
-    value->friction = (float)olua_checkfieldnumber(L, idx, "friction");
+
+    lua_Number arg1;       /** density */
+    lua_Number arg2;       /** restitution */
+    lua_Number arg3;       /** friction */
+
+    olua_getfield(L, idx, "density");
+    olua_check_number(L, -1, &arg1);
+    value->density = (float)arg1;
+    lua_pop(L, 1);
+
+    olua_getfield(L, idx, "restitution");
+    olua_check_number(L, -1, &arg2);
+    value->restitution = (float)arg2;
+    lua_pop(L, 1);
+
+    olua_getfield(L, idx, "friction");
+    olua_check_number(L, -1, &arg3);
+    value->friction = (float)arg3;
+    lua_pop(L, 1);
 }
 
 void auto_olua_opt_cocos2d_PhysicsMaterial(lua_State *L, int idx, cocos2d::PhysicsMaterial *value, const cocos2d::PhysicsMaterial &def)
@@ -50,9 +69,25 @@ void auto_olua_opt_cocos2d_PhysicsMaterial(lua_State *L, int idx, cocos2d::Physi
     } else {
         idx = lua_absindex(L, idx);
         luaL_checktype(L, idx, LUA_TTABLE);
-        value->density = (float)olua_optfieldnumber(L, idx, "density", 0);
-        value->restitution = (float)olua_optfieldnumber(L, idx, "restitution", 0);
-        value->friction = (float)olua_optfieldnumber(L, idx, "friction", 0);
+
+        lua_Number arg1;       /** density */
+        lua_Number arg2;       /** restitution */
+        lua_Number arg3;       /** friction */
+
+        olua_getfield(L, idx, "density");
+        olua_opt_number(L, -1, &arg1, (lua_Number)0);
+        value->density = (float)arg1;
+        lua_pop(L, 1);
+
+        olua_getfield(L, idx, "restitution");
+        olua_opt_number(L, -1, &arg2, (lua_Number)0);
+        value->restitution = (float)arg2;
+        lua_pop(L, 1);
+
+        olua_getfield(L, idx, "friction");
+        olua_opt_number(L, -1, &arg3, (lua_Number)0);
+        value->friction = (float)arg3;
+        lua_pop(L, 1);
     }
 }
 

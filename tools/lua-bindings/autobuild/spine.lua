@@ -1324,10 +1324,6 @@ cls.func('new', [[{
     
     auto texture_loader = new spine::Cocos2dTextureLoader();
     auto atlas = new spine::Atlas(atlas_path, texture_loader);
-    if (!atlas) {
-        luaL_error(L, "error reading altas file: %s", atlas_path);
-    }
-
     spine::SkeletonData *skel_data = nullptr;
     auto attachment_loader = new spine::Cocos2dAtlasAttachmentLoader(atlas);
 

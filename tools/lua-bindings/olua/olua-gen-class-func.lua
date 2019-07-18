@@ -35,7 +35,7 @@ local function genFuncArgs(cls, fi, func)
     for i, ai in ipairs(fi.ARGS) do
         local ARG_NAME = "arg" .. i
         local SPACE = string.find(ai.TYPE.DECLTYPE, '[ *&]$') and '' or ' '
-        local FUNC_CHECK_VALUE = olua.convfunc(ai.TYPE, 'check')
+        local OLUA_CHECK_VALUE = olua.convfunc(ai.TYPE, 'check')
         local ARGN = idx + 1
         idx = ARGN
 
@@ -79,13 +79,13 @@ local function genFuncArgs(cls, fi, func)
             end
         elseif ai.TYPE.LUACLS and not olua.isvaluetype(ai.TYPE) then
             func.CHECK_ARGS:push(format([[
-                ${FUNC_CHECK_VALUE}(L, ${ARGN}, (void **)&${ARG_NAME}, "${ai.TYPE.LUACLS}");
+                ${OLUA_CHECK_VALUE}(L, ${ARGN}, (void **)&${ARG_NAME}, "${ai.TYPE.LUACLS}");
             ]]))
         elseif ai.TYPE.SUBTYPE then
             local SUBTYPE = ai.TYPE.SUBTYPE
             if SUBTYPE.LUACLS and not olua.isvaluetype(ai.TYPE) then
                 func.CHECK_ARGS:push(format([[
-                    ${FUNC_CHECK_VALUE}(L, ${ARGN}, ${ARG_NAME}, "${SUBTYPE.LUACLS}");
+                    ${OLUA_CHECK_VALUE}(L, ${ARGN}, ${ARG_NAME}, "${SUBTYPE.LUACLS}");
                 ]]))
             else
                 local SUBTYPE_CHECK_FUNC = olua.convfunc(SUBTYPE, 'check')
@@ -99,16 +99,16 @@ local function genFuncArgs(cls, fi, func)
             end
         elseif not ai.CALLBACK.ARGS then
             if ai.ATTR.PACK then
-                FUNC_CHECK_VALUE = olua.convfunc(ai.TYPE, 'pack')
+                OLUA_CHECK_VALUE = olua.convfunc(ai.TYPE, 'pack')
                 func.TOTAL_ARGS = ai.TYPE.VARS + func.TOTAL_ARGS - 1
                 idx = idx + ai.TYPE.VARS - 1
             end
             func.CHECK_ARGS:push(format([[
-                ${FUNC_CHECK_VALUE}(L, ${ARGN}, &${ARG_NAME});
+                ${OLUA_CHECK_VALUE}(L, ${ARGN}, &${ARG_NAME});
             ]]))
         end
 
-        olua.nowarning(ARG_NAME, SPACE, FUNC_CHECK_VALUE)
+        olua.nowarning(ARG_NAME, SPACE, OLUA_CHECK_VALUE)
 
         -- ref or unref
         if ai.ATTR.REF then

@@ -48,8 +48,6 @@ typedef {
 typedef {
     CPPCLS = 'std::set',
     CONV_FUNC = 'olua_$$_std_set',
-    FN_PUSH_BACK = 'insert',
-    FN_ITERATOR = true,
     PUSH_VALUETYPE = [[
         int ${ARG_NAME}_i = 1;
         lua_createtable(L, (int)${ARG_NAME}.size(), 0);
@@ -73,9 +71,6 @@ typedef {
 typedef {
     CPPCLS = 'std::vector',
     CONV_FUNC = 'olua_$$_std_vector',
-    FN_RESERVE = 'reserve',
-    FN_PUSH_BACK = 'push_back',
-    FN_ITERATOR = true,
     PUSH_VALUETYPE = [[
         int ${ARG_NAME}_size = (int)${ARG_NAME}.size();
         lua_createtable(L, ${ARG_NAME}_size, 0);

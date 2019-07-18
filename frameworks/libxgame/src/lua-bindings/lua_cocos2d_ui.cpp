@@ -4600,7 +4600,7 @@ static int _cocos2d_ui_Layout_set_onPassFocusToChild(lua_State *L)
             olua_check_int(L, -1, &ret);
 
             lua_settop(L, top);
-            return ret;
+            return (int)ret;
         };
     } else {
         void *callback_store_obj = (void *)self;

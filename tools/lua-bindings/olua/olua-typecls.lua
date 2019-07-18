@@ -213,9 +213,9 @@ end
 local parseArgs
 
 local function parseCallbackType(cls, tn, default)
-    local rtn, _
+    local rtn, rtattr
     local declstr = string.match(tn, '<(.*)>') -- match callback function prototype
-    rtn, _, declstr = parseType(declstr)
+    rtn, rtattr, declstr = parseType(declstr)
     declstr = string.gsub(declstr, '^[^(]+', '') -- match callback args
 
     local args = parseArgs(cls, declstr)
@@ -226,10 +226,16 @@ local function parseCallbackType(cls, tn, default)
     decltype = table.concat(decltype, ", ")
     decltype = string.format('std::function<%s(%s)>', toDecltype(cls, rtn, false), decltype)
 
+    local RET = {}
+    RET.TYPE = olua.typeinfo(rtn, cls)
+    RET.NUM = RET.TYPE.CPPCLS == "void" and 0 or 1
+    RET.DECLTYPE = toDecltype(cls, rtn, false)
+    RET.ATTR = rtattr
+
     return {
         DEFAULT = default,
         ARGS = args,
-        RET = olua.typeinfo(rtn, cls),
+        RET = RET,
         DECLTYPE = decltype,
     }
 end

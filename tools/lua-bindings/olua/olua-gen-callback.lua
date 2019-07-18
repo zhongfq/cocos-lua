@@ -204,27 +204,49 @@ function olua.gencallback(cls, fi, write)
         OLUA_CALLBACK_TAG = "OLUA_CALLBACK_TAG_REPLACE"
     end
 
-    if ai.CALLBACK.RET.CPPCLS ~= "void" then
-        local FUNC_CHECK_VALUE = olua.convfunc(ai.CALLBACK.RET, 'check')
-        if ai.CALLBACK.RET.INIT_VALUE then
+    local RET = ai.CALLBACK.RET
+    if RET.TYPE.CPPCLS ~= "void" then
+        local FUNC_CHECK_VALUE = olua.convfunc(RET.TYPE, 'check')
+        if RET.TYPE.INIT_VALUE then
             CALLBACK.DECL_RESULT = format([[
-                ${ai.CALLBACK.RET.DECLTYPE} ret = ${ai.CALLBACK.RET.INIT_VALUE};
+                ${RET.TYPE.DECLTYPE} ret = ${RET.TYPE.INIT_VALUE};
             ]])
         else
             CALLBACK.DECL_RESULT = format([[
-                ${ai.CALLBACK.RET.DECLTYPE} ret;
+                ${RET.TYPE.DECLTYPE} ret;
             ]])
         end
-        if ai.CALLBACK.RET.LUACLS then
+        if RET.TYPE.LUACLS and not olua.isvaluetype(RET.TYPE) then
             CALLBACK.CHECK_RESULT = format([[
-                ${FUNC_CHECK_VALUE}(L, -1, (void **)&ret, "${ai.CALLBACK.RET.LUACLS}");
+                ${FUNC_CHECK_VALUE}(L, -1, (void **)&ret, "${RET.TYPE.LUACLS}");
             ]])
+        elseif RET.TYPE.SUBTYPE then
+            local SUBTYPE = RET.TYPE.SUBTYPE
+            if SUBTYPE.LUACLS and not olua.isvaluetype(RET.TYPE) then
+                CALLBACK.CHECK_RESULT = format([[
+                    ${FUNC_CHECK_VALUE}(L, -1, ret, "${SUBTYPE.LUACLS}");
+                ]])
+            else
+                local ARG_NAME = "ret"
+                local SUBTYPE_CHECK_FUNC = olua.convfunc(SUBTYPE, 'check')
+                local SUBTYPE_CAST = olua.typecast(SUBTYPE, true)
+                local CHECK_VALUETYPE = format(RET.TYPE.CHECK_VALUETYPE)
+                olua.nowarning(ARG_NAME, SUBTYPE_CHECK_FUNC, SUBTYPE_CAST, CHECK_VALUETYPE)
+                CALLBACK.CHECK_RESULT = format([[
+                    luaL_checktype(L, -1, LUA_TTABLE);
+                    ${CHECK_VALUETYPE}
+                ]])
+            end
         else
             CALLBACK.CHECK_RESULT = format([[
                 ${FUNC_CHECK_VALUE}(L, -1, &ret);
             ]])
         end
-        CALLBACK.RETURN_RESULT = "return ret;"
+        if RET.TYPE.DECLTYPE ~= RET.TYPE.CPPCLS then
+            CALLBACK.RETURN_RESULT = format([[return (${RET.TYPE.CPPCLS})ret;]])
+        else
+            CALLBACK.RETURN_RESULT = "return ret;"
+        end
         olua.nowarning(FUNC_CHECK_VALUE)
     end
 

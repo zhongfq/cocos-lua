@@ -28,12 +28,12 @@ function olua.stringfy(value)
     end
 end
 
-function olua.newarray()
+function olua.newarray(...)
     local mt = {}
     function mt:push(v)
         self[#self + 1] = v
     end
-    return setmetatable({}, {__index = mt})
+    return setmetatable({...}, {__index = mt})
 end
 
 -- suppress lua check warning

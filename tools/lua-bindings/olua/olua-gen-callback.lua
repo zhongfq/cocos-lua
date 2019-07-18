@@ -2,46 +2,49 @@ local olua = require "olua.olua-io"
 
 local format = olua.format
 
-local function get_callback_store(fi, idx)
-    local idx = idx or fi.CALLBACK_OPT.TAG_STORE or 0
+local function getCallbackStore(fi, idx)
+    idx = idx or fi.CALLBACK_OPT.TAG_STORE or 0
     if idx < 0 then
         idx = idx + #fi.ARGS + 1
-        assert(idx >= 0, fi.CALLBACK_OPT.TAG_MAKER)
     end
-    assert(idx <= #fi.ARGS)
+    olua.assert(idx <= #fi.ARGS and idx >= 0, "store index '%d' out of range", idx)
+
     return idx
 end
 
-local function gen_maker(cls, fi, write)
+local function genCallbackTag(cls, fi, write)
     if not fi.CALLBACK_OPT.TAG_MAKER then
-        error(string.format("no tag maker: %s.%s", cls.CPPCLS, fi.LUAFUNC))
+        olua.error("no tag maker: %s.%s", cls.CPPCLS, fi.LUAFUNC)
     end
 
-    local maker = string.gsub(fi.CALLBACK_OPT.TAG_MAKER, '#(%-?%d+)', function (n)
-        local idx = get_callback_store(fi, tonumber(n))
-        if idx == 0 then
-            return "self"
-        else
-            return "arg" .. idx
-        end
+    return string.gsub(fi.CALLBACK_OPT.TAG_MAKER, '#(%-?%d+)', function (n)
+        local idx = getCallbackStore(fi, tonumber(n))
+        return idx == 0 and 'self' or ('arg' .. idx)
     end)
-    return string.gsub(maker, '%(%)', '("")')
 end
 
-local function gen_remove_callback(cls, fi, write)
+local function checkCallbackStore(fi, idx)
+    if idx > 0 then
+        local ai = fi.ARGS[idx]
+        olua.assert(ai.TYPE.LUACLS and not olua.isvaluetype(ai.TYPE),
+            'arg #%d is not a userdata', idx)
+    end
+end
+
+local function genRemoveCallback(cls, fi, write)
     local TAG_MODE = fi.CALLBACK_OPT.TAG_MODE
-    local TAG_MAKER = gen_maker(cls, fi, write)
+    local TAG_MAKER = genCallbackTag(cls, fi, write)
     local CALLBACK_STORE_OBJ
-    local TAG_STORE = get_callback_store(fi)
+    local TAG_STORE = getCallbackStore(fi)
 
     if TAG_STORE == 0 then
         CALLBACK_STORE_OBJ = 'self'
         if fi.STATIC then
-            local LUACLS = cls.LUACLS
-            CALLBACK_STORE_OBJ = format('olua_getstoreobj(L, "${LUACLS}")')
+            CALLBACK_STORE_OBJ = format('olua_getstoreobj(L, "${cls.LUACLS}")')
         end
     else
         CALLBACK_STORE_OBJ = 'arg' .. TAG_STORE
+        checkCallbackStore(fi, TAG_STORE)
     end
 
     local block = format([[
@@ -49,19 +52,21 @@ local function gen_remove_callback(cls, fi, write)
         void *callback_store_obj = (void *)${CALLBACK_STORE_OBJ};
         olua_removecallback(L, callback_store_obj, tag.c_str(), ${TAG_MODE});
     ]])
+    olua.nowarning(TAG_MODE, TAG_MAKER, CALLBACK_STORE_OBJ)
     return block
 end
 
-function gen_ret_callback(cls, fi, write)
+local function genRetCallback(cls, fi, write)
     local TAG_MODE = fi.CALLBACK_OPT.TAG_MODE
-    local TAG_MAKER = gen_maker(cls, fi, write)
+    local TAG_MAKER = genCallbackTag(cls, fi, write)
     local CALLBACK_STORE_OBJ
-    local TAG_STORE = get_callback_store(fi)
+    local TAG_STORE = getCallbackStore(fi)
 
     if TAG_STORE == 0 then
         CALLBACK_STORE_OBJ = 'self'
     else
         CALLBACK_STORE_OBJ = 'arg' .. TAG_STORE
+        checkCallbackStore(TAG_STORE)
     end
 
     local block = format([[
@@ -69,59 +74,60 @@ function gen_ret_callback(cls, fi, write)
         std::string tag = ${TAG_MAKER};
         olua_getcallback(L, callback_store_obj, tag.c_str(), ${TAG_MODE});
     ]])
+    olua.nowarning(TAG_MODE, TAG_MAKER, CALLBACK_STORE_OBJ)
     return block
 end
 
-function gen_callback(cls, fi, write)
-    local ai
-    local IDX = 0
-    local ARG_N = ""
-
-    if not fi.STATIC then
-        IDX = IDX + 1
+function olua.gencallback(cls, fi, write)
+    if fi.CALLBACK_OPT.REMOVE then
+        return genRemoveCallback(cls, fi, write)
     end
+
+    if fi.RET.TYPE.CPPCLS == "std::function" then
+        return genRetCallback(cls, fi, write)
+    end
+
+    local ai
+    local IDX = not fi.STATIC and 1 or 0
+    local CALLBACK_ARG_NAME = ""
 
     for i, v in ipairs(fi.ARGS) do
         IDX = IDX + 1
         if v.CALLBACK.ARGS then
-            ARG_N = 'arg' .. i
+            CALLBACK_ARG_NAME = 'arg' .. i
             ai = v
             break
         end
-    end
-
-    if fi.CALLBACK_OPT.REMOVE then
-        return gen_remove_callback(cls, fi, write)
-    end
-
-    if fi.RET.TYPE.CPPCLS == "std::function" then
-        return gen_ret_callback(cls, fi, write)
     end
 
     if not ai then
         return ''
     end
 
-    local TAG_MAKER = gen_maker(cls, fi, write)
-    local REMOVE_CALLBACK = ""
     local OLUA_CALLBACK_TAG = assert(fi.CALLBACK_OPT.TAG_MODE, 'no tag mode')
-    local NUM_ARGS = #ai.CALLBACK.ARGS
-    local ARGS = {}
-    local PUSH_ARGS = {}
-    local POP_OBJPOOL = ""
+    local TAG_MAKER = genCallbackTag(cls, fi, write)
     local CALLBACK_STORE_OBJ
     local TAG_STORE
-    local RESULT_DECL = ""
-    local RESULT_RET = ""
-    local RESULT_GET = ""
-    local INJECT_CALLBACK_AFTER = fi.INJECT.CALLBACK_AFTER or ''
-    local INJECT_CALLBACK_BEFORE = fi.INJECT.CALLBACK_BEFORE or ''
-    local HAS_STACK_BEGIN = false
+   
+    local enablepool = false
+
+    local CALLBACK = {
+        ARGS = olua.newarray(),
+        NUM_ARGS = #ai.CALLBACK.ARGS,
+        PUSH_ARGS = olua.newarray(),
+        REMOVE_CALLBACK = "",
+        POP_OBJPOOL = "",
+        DECL_RESULT = "",
+        RETURN_RESULT = "",
+        CHECK_RESULT = "",
+        INJECT_BEFORE = olua.newarray(fi.INJECT.CALLBACK_BEFORE),
+        INJECT_AFTER = olua.newarray(fi.INJECT.CALLBACK_AFTER),
+    }
 
     for _, v in ipairs(ai.CALLBACK.ARGS) do
         if v.ATTR.TEMP then
-            PUSH_ARGS[#PUSH_ARGS + 1] = "size_t last = olua_push_objpool(L);"
-            POP_OBJPOOL = format([[
+            CALLBACK.PUSH_ARGS:push( "size_t last = olua_push_objpool(L);")
+            CALLBACK.POP_OBJPOOL = format([[
                 //pop stack value
                 olua_pop_objpool(L, last);
             ]])
@@ -130,67 +136,66 @@ function gen_callback(cls, fi, write)
     end
 
     for i, v in ipairs(ai.CALLBACK.ARGS) do
-        local ARG_N = 'arg' .. i
-        local PUSH_FUNC = v.TYPE.FUNC_PUSH_VALUE
+        local ARG_NAME = 'arg' .. i
+        local OLUA_PUSH_VALUE = olua.convfunc(v.TYPE, 'push')
 
         if v.ATTR.TEMP then
-            if not HAS_STACK_BEGIN then
-                HAS_STACK_BEGIN = true
-                PUSH_ARGS[#PUSH_ARGS + 1] = "olua_enable_objpool(L);"
+            if not enablepool then
+                enablepool = true
+                CALLBACK.PUSH_ARGS:push("olua_enable_objpool(L);")
             end
-        elseif HAS_STACK_BEGIN then
-            HAS_STACK_BEGIN = false
-            PUSH_ARGS[#PUSH_ARGS + 1] = "olua_disable_objpool(L);"
+        elseif enablepool then
+            enablepool = false
+            CALLBACK.PUSH_ARGS:push("olua_disable_objpool(L);")
         end
     
-        if v.TYPE.LUACLS and v.TYPE.DECLTYPE ~= 'lua_Unsigned' then
-            local LUACLS = v.TYPE.LUACLS
-            if PUSH_FUNC == "olua_push_cppobj" then
-                local CPPCLS = string.gsub(v.TYPE.CPPCLS, '[ *]*$', '')
-                PUSH_ARGS[#PUSH_ARGS + 1] = format([[
-                    ${PUSH_FUNC}<${CPPCLS}>(L, ${ARG_N}, "${LUACLS}");
-                ]])
-            else
-                PUSH_ARGS[#PUSH_ARGS + 1] = format([[
-                    ${PUSH_FUNC}(L, ${ARG_N}, "${LUACLS}");
-                ]])
-            end
+        if v.TYPE.LUACLS and not olua.isvaluetype(v.TYPE) then
+            CALLBACK.PUSH_ARGS:push(format([[
+                ${OLUA_PUSH_VALUE}(L, ${ARG_NAME}, "${v.TYPE.LUACLS}");
+            ]]))
         elseif v.TYPE.SUBTYPE then
-            local SUBTYPE = assert(v.TYPE.SUBTYPE.LUACLS, v.TYPE.DECLTYPE)
-            PUSH_ARGS[#PUSH_ARGS + 1] = format([[
-                ${PUSH_FUNC}(L, ${ARG_N}, "${SUBTYPE}");
-            ]])
+            local SUBTYPE = v.TYPE.SUBTYPE
+            if SUBTYPE.LUACLS and not olua.isvaluetype(SUBTYPE) then
+                CALLBACK.PUSH_ARGS:push(format([[
+                    ${OLUA_PUSH_VALUE}(L, ${ARG_NAME}, "${SUBTYPE.LUACLS}");
+                ]]))
+            else
+                local SUBTYPE_CAST = olua.pointercast(SUBTYPE) .. olua.typecast(SUBTYPE)
+                local SUBTYPE_PUSH_FUNC = olua.convfunc(SUBTYPE, 'push')
+                local TYPE_CAST = string.gsub(v.DECLTYPE, '^const _*', '')
+                local PUSH_VALUETYPE = format(fi.RET.TYPE.PUSH_VALUETYPE)
+                CALLBACK.PUSH_ARGS:push(format(fi.RET.TYPE.PUSH_VALUETYPE))
+                olua.nowarning(ARG_NAME, SUBTYPE_CAST, SUBTYPE_PUSH_FUNC, TYPE_CAST, PUSH_VALUETYPE)
+            end
         else
-            local CAST = ""
+            local TYPE_CAST = ""
             if v.TYPE.DECLTYPE ~= v.TYPE.CPPCLS then
-                CAST = string.format("(%s)", v.TYPE.DECLTYPE)
+                TYPE_CAST = string.format("(%s)", v.TYPE.DECLTYPE)
             elseif not olua.isvaluetype(v.TYPE) then
                 if not string.find(v.TYPE.DECLTYPE, '*$') then
-                    CAST = '&'
+                    TYPE_CAST = '&'
                 end
             end
-            PUSH_ARGS[#PUSH_ARGS + 1] = format([[
-                ${PUSH_FUNC}(L, ${CAST}${ARG_N});
-            ]])
+            CALLBACK.PUSH_ARGS:push(format([[
+                ${OLUA_PUSH_VALUE}(L, ${TYPE_CAST}${ARG_NAME});
+            ]]))
+            olua.nowarning(TYPE_CAST)
         end
 
-        local DECLTYPE = v.RAW_DECLTYPE
-        local SPACE = string.find(DECLTYPE, '[*&]$') and '' or ' '
-        ARGS[#ARGS + 1] = format([[
-            ${DECLTYPE}${SPACE}${ARG_N}
-        ]])
+        local SPACE = string.find(v.RAW_DECLTYPE, '[*&]$') and '' or ' '
+        CALLBACK.ARGS:push(format([[
+            ${v.RAW_DECLTYPE}${SPACE}${ARG_NAME}
+        ]]))
+        olua.nowarning(SPACE, OLUA_PUSH_VALUE)
     end
 
-    if HAS_STACK_BEGIN then
-        PUSH_ARGS[#PUSH_ARGS + 1] = "olua_disable_objpool(L);"
-        HAS_STACK_BEGIN = false
+    if enablepool then
+        CALLBACK.PUSH_ARGS:push("olua_disable_objpool(L);")
+        enablepool = false
     end
-
-    ARGS = table.concat(ARGS, ", ")
-    PUSH_ARGS = table.concat(PUSH_ARGS, "\n")
 
     if fi.CALLBACK_OPT.CALLONCE then
-        REMOVE_CALLBACK = format([[
+        CALLBACK.REMOVE_CALLBACK = format([[
             olua_removecallback(L, callback_store_obj, func.c_str(), OLUA_CALLBACK_TAG_EQUAL);
         ]])
     end
@@ -200,98 +205,108 @@ function gen_callback(cls, fi, write)
     end
 
     if ai.CALLBACK.RET.CPPCLS ~= "void" then
-        local DECLTYPE = ai.CALLBACK.RET.DECLTYPE
-        local INIT_VALUE = ai.CALLBACK.RET.INIT_VALUE
-        local FUNC_CHECK_VALUE = ai.CALLBACK.RET.FUNC_CHECK_VALUE
-        if INIT_VALUE then
-            RESULT_DECL = format([[
-                ${DECLTYPE} ret = ${INIT_VALUE};
+        local FUNC_CHECK_VALUE = olua.convfunc(ai.CALLBACK.RET, 'check')
+        if ai.CALLBACK.RET.INIT_VALUE then
+            CALLBACK.DECL_RESULT = format([[
+                ${ai.CALLBACK.RET.DECLTYPE} ret = ${ai.CALLBACK.RET.INIT_VALUE};
             ]])
         else
-             RESULT_DECL = format([[
-                ${DECLTYPE} ret;
+            CALLBACK.DECL_RESULT = format([[
+                ${ai.CALLBACK.RET.DECLTYPE} ret;
             ]])
         end
         if ai.CALLBACK.RET.LUACLS then
-            local LUACLS = ai.CALLBACK.RET.LUACLS
-            RESULT_GET = format([[
-                ${FUNC_CHECK_VALUE}(L, -1, (void **)&ret, "${LUACLS}");
+            CALLBACK.CHECK_RESULT = format([[
+                ${FUNC_CHECK_VALUE}(L, -1, (void **)&ret, "${ai.CALLBACK.RET.LUACLS}");
             ]])
         else
-            RESULT_GET = format([[
+            CALLBACK.CHECK_RESULT = format([[
                 ${FUNC_CHECK_VALUE}(L, -1, &ret);
             ]])
         end
-        RESULT_RET = "return ret;"
+        CALLBACK.RETURN_RESULT = "return ret;"
+        olua.nowarning(FUNC_CHECK_VALUE)
     end
 
-    TAG_STORE = get_callback_store(fi) + 1
+    TAG_STORE = getCallbackStore(fi) + 1
     if TAG_STORE == 1 then
         CALLBACK_STORE_OBJ = 'self'
         if fi.STATIC and fi.RET.TYPE.CPPCLS == 'void' then
-            local LUACLS = cls.LUACLS
-            CALLBACK_STORE_OBJ = format('olua_getstoreobj(L, "${LUACLS}")')
+            CALLBACK_STORE_OBJ = format('olua_getstoreobj(L, "${cls.LUACLS}")')
         end
     else
         CALLBACK_STORE_OBJ = 'arg' .. (TAG_STORE - 1)
     end
 
-    if #INJECT_CALLBACK_BEFORE > 0 then
-        INJECT_CALLBACK_BEFORE = format [[
+    CALLBACK.ARGS = table.concat(CALLBACK.ARGS, ", ")
+    CALLBACK.PUSH_ARGS = table.concat(CALLBACK.PUSH_ARGS, "\n")
+    CALLBACK.INJECT_BEFORE = table.concat(CALLBACK.INJECT_BEFORE, '\n')
+    CALLBACK.INJECT_AFTER = table.concat(CALLBACK.INJECT_AFTER, '\n')
+
+    if #CALLBACK.INJECT_BEFORE > 0 then
+        CALLBACK.INJECT_BEFORE = format [[
             // inject code before call
-            ${INJECT_CALLBACK_BEFORE}
+            ${CALLBACK.INJECT_BEFORE}
         ]]
     end
 
-    if #INJECT_CALLBACK_AFTER > 0 then
-        INJECT_CALLBACK_AFTER = format [[
+    if #CALLBACK.INJECT_AFTER > 0 then
+        CALLBACK.INJECT_AFTER = format [[
             // inject code after call
-            ${INJECT_CALLBACK_AFTER}
+            ${CALLBACK.INJECT_AFTER}
         ]]
     end
 
-    assert(OLUA_CALLBACK_TAG == 'OLUA_CALLBACK_TAG_REPLACE' or
-        OLUA_CALLBACK_TAG == 'OLUA_CALLBACK_TAG_NEW', OLUA_CALLBACK_TAG)
+    olua.assert(OLUA_CALLBACK_TAG == 'OLUA_CALLBACK_TAG_REPLACE' or
+        OLUA_CALLBACK_TAG == 'OLUA_CALLBACK_TAG_NEW',
+        "expect '%s' or '%s', got '%s'",
+        'OLUA_CALLBACK_TAG_REPLACE', 'OLUA_CALLBACK_TAG_NEW',
+        OLUA_CALLBACK_TAG
+    )
 
     local CALLBACK_CHUNK = format([[
         void *callback_store_obj = (void *)${CALLBACK_STORE_OBJ};
         std::string tag = ${TAG_MAKER};
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), ${IDX}, ${OLUA_CALLBACK_TAG});
-        ${ARG_N} = [callback_store_obj, func, tag](${ARGS}) {
+        ${CALLBACK_ARG_NAME} = [callback_store_obj, func, tag](${CALLBACK.ARGS}) {
             lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
-            ${RESULT_DECL}
-            ${PUSH_ARGS}
+            ${CALLBACK.DECL_RESULT}
+            ${CALLBACK.PUSH_ARGS}
 
-            ${INJECT_CALLBACK_BEFORE}
+            ${CALLBACK.INJECT_BEFORE}
 
-            olua_callback(L, callback_store_obj, func.c_str(), ${NUM_ARGS});
-            ${RESULT_GET}
+            olua_callback(L, callback_store_obj, func.c_str(), ${CALLBACK.NUM_ARGS});
+            ${CALLBACK.CHECK_RESULT}
 
-            ${INJECT_CALLBACK_AFTER}
+            ${CALLBACK.INJECT_AFTER}
 
-            ${REMOVE_CALLBACK}
+            ${CALLBACK.REMOVE_CALLBACK}
             
-            ${POP_OBJPOOL}
+            ${CALLBACK.POP_OBJPOOL}
 
             lua_settop(L, top);
-            ${RESULT_RET}
+            ${CALLBACK.RETURN_RESULT}
         };
     ]])
+
     if ai.CALLBACK.DEFAULT or ai.ATTR.NULLABLE then
         local DEFAULT = ai.CALLBACK.DEFAULT or "nullptr"
-        local FUNC_IS_VALUE = ai.TYPE.FUNC_IS_VALUE
+        local OLUA_IS_VALUE = olua.convfunc(ai.TYPE, 'is')
         CALLBACK_CHUNK = format([[
-            if (${FUNC_IS_VALUE}(L, ${IDX})) {
+            if (${OLUA_IS_VALUE}(L, ${IDX})) {
                 ${CALLBACK_CHUNK}
             } else {
                 void *callback_store_obj = (void *)${CALLBACK_STORE_OBJ};
                 std::string tag = ${TAG_MAKER};
                 olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
-                ${ARG_N} = ${DEFAULT};
+                ${CALLBACK_ARG_NAME} = ${DEFAULT};
             }
         ]])
+        olua.nowarning(DEFAULT, OLUA_IS_VALUE)
     end
+
+    olua.nowarning(CALLBACK_ARG_NAME, TAG_MAKER, CALLBACK_STORE_OBJ)
 
     return CALLBACK_CHUNK
 end

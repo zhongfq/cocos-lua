@@ -209,7 +209,7 @@ static int _fairygui_UIEventDispatcher_addEventListener1(lua_State *L)
 
         size_t last = olua_push_objpool(L);
         olua_enable_objpool(L);
-        olua_push_cppobj<fairygui::EventContext>(L, arg1, "fui.EventContext");
+        olua_push_cppobj(L, arg1, "fui.EventContext");
         olua_disable_objpool(L);
 
         olua_callback(L, callback_store_obj, func.c_str(), 1);
@@ -248,7 +248,7 @@ static int _fairygui_UIEventDispatcher_addEventListener2(lua_State *L)
 
         size_t last = olua_push_objpool(L);
         olua_enable_objpool(L);
-        olua_push_cppobj<fairygui::EventContext>(L, arg1, "fui.EventContext");
+        olua_push_cppobj(L, arg1, "fui.EventContext");
         olua_disable_objpool(L);
 
         olua_callback(L, callback_store_obj, func.c_str(), 1);
@@ -2015,7 +2015,7 @@ static int _fairygui_GTweener_onComplete1(lua_State *L)
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
 
-        olua_push_cppobj<fairygui::GTweener>(L, arg1, "fui.GTweener");
+        olua_push_cppobj(L, arg1, "fui.GTweener");
 
         olua_callback(L, callback_store_obj, func.c_str(), 1);
 
@@ -2045,7 +2045,7 @@ static int _fairygui_GTweener_onStart(lua_State *L)
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
 
-        olua_push_cppobj<fairygui::GTweener>(L, arg1, "fui.GTweener");
+        olua_push_cppobj(L, arg1, "fui.GTweener");
 
         olua_callback(L, callback_store_obj, func.c_str(), 1);
 
@@ -2075,7 +2075,7 @@ static int _fairygui_GTweener_onUpdate(lua_State *L)
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
 
-        olua_push_cppobj<fairygui::GTweener>(L, arg1, "fui.GTweener");
+        olua_push_cppobj(L, arg1, "fui.GTweener");
 
         olua_callback(L, callback_store_obj, func.c_str(), 1);
 
@@ -4615,7 +4615,7 @@ static int _fairygui_GObject_addClickListener1(lua_State *L)
 
         size_t last = olua_push_objpool(L);
         olua_enable_objpool(L);
-        olua_push_cppobj<fairygui::EventContext>(L, arg1, "fui.EventContext");
+        olua_push_cppobj(L, arg1, "fui.EventContext");
         olua_disable_objpool(L);
 
         olua_callback(L, callback_store_obj, func.c_str(), 1);
@@ -4652,7 +4652,7 @@ static int _fairygui_GObject_addClickListener2(lua_State *L)
 
         size_t last = olua_push_objpool(L);
         olua_enable_objpool(L);
-        olua_push_cppobj<fairygui::EventContext>(L, arg1, "fui.EventContext");
+        olua_push_cppobj(L, arg1, "fui.EventContext");
         olua_disable_objpool(L);
 
         olua_callback(L, callback_store_obj, func.c_str(), 1);
@@ -11432,7 +11432,7 @@ static int _fairygui_GList_set_itemRenderer(lua_State *L)
         int top = lua_gettop(L);
 
         olua_push_int(L, (lua_Integer)arg1);
-        olua_push_cppobj<fairygui::GObject>(L, arg2, "fui.GObject");
+        olua_push_cppobj(L, arg2, "fui.GObject");
 
         // inject code before call
         if (arg2->getParent()) {
@@ -17498,7 +17498,7 @@ static int _fairygui_TreeView_set_treeNodeCreateCell(lua_State *L)
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
         fairygui::GComponent * ret = nullptr;
-        olua_push_cppobj<fairygui::TreeNode>(L, arg1, "fui.TreeNode");
+        olua_push_cppobj(L, arg1, "fui.TreeNode");
 
         olua_callback(L, callback_store_obj, func.c_str(), 1);
         olua_check_cppobj(L, -1, (void **)&ret, "fui.GComponent");
@@ -17553,7 +17553,7 @@ static int _fairygui_TreeView_set_treeNodeRender(lua_State *L)
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
 
-        olua_push_cppobj<fairygui::TreeNode>(L, arg1, "fui.TreeNode");
+        olua_push_cppobj(L, arg1, "fui.TreeNode");
 
         olua_callback(L, callback_store_obj, func.c_str(), 1);
 
@@ -17601,7 +17601,7 @@ static int _fairygui_TreeView_set_treeNodeWillExpand(lua_State *L)
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
 
-        olua_push_cppobj<fairygui::TreeNode>(L, arg1, "fui.TreeNode");
+        olua_push_cppobj(L, arg1, "fui.TreeNode");
         olua_push_bool(L, arg2);
 
         olua_callback(L, callback_store_obj, func.c_str(), 2);

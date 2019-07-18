@@ -3237,8 +3237,8 @@ static int _cocos2d_EventListenerTouchOneByOne_set_onTouchBegan(lua_State *L)
             bool ret = false;
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
-            olua_push_cppobj<cocos2d::Touch>(L, arg1, "cc.Touch");
-            olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
+            olua_push_cppobj(L, arg1, "cc.Touch");
+            olua_push_cppobj(L, arg2, "cc.Event");
             olua_disable_objpool(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 2);
@@ -3301,8 +3301,8 @@ static int _cocos2d_EventListenerTouchOneByOne_set_onTouchCancelled(lua_State *L
 
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
-            olua_push_cppobj<cocos2d::Touch>(L, arg1, "cc.Touch");
-            olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
+            olua_push_cppobj(L, arg1, "cc.Touch");
+            olua_push_cppobj(L, arg2, "cc.Event");
             olua_disable_objpool(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 2);
@@ -3363,8 +3363,8 @@ static int _cocos2d_EventListenerTouchOneByOne_set_onTouchEnded(lua_State *L)
 
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
-            olua_push_cppobj<cocos2d::Touch>(L, arg1, "cc.Touch");
-            olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
+            olua_push_cppobj(L, arg1, "cc.Touch");
+            olua_push_cppobj(L, arg2, "cc.Event");
             olua_disable_objpool(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 2);
@@ -3425,8 +3425,8 @@ static int _cocos2d_EventListenerTouchOneByOne_set_onTouchMoved(lua_State *L)
 
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
-            olua_push_cppobj<cocos2d::Touch>(L, arg1, "cc.Touch");
-            olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
+            olua_push_cppobj(L, arg1, "cc.Touch");
+            olua_push_cppobj(L, arg2, "cc.Event");
             olua_disable_objpool(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 2);
@@ -3517,7 +3517,7 @@ static int _cocos2d_EventListenerTouchAllAtOnce_set_onTouchesBegan(lua_State *L)
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
             olua_push_std_vector(L, arg1, "cc.Touch");
-            olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
+            olua_push_cppobj(L, arg2, "cc.Event");
             olua_disable_objpool(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 2);
@@ -3579,7 +3579,7 @@ static int _cocos2d_EventListenerTouchAllAtOnce_set_onTouchesCancelled(lua_State
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
             olua_push_std_vector(L, arg1, "cc.Touch");
-            olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
+            olua_push_cppobj(L, arg2, "cc.Event");
             olua_disable_objpool(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 2);
@@ -3641,7 +3641,7 @@ static int _cocos2d_EventListenerTouchAllAtOnce_set_onTouchesEnded(lua_State *L)
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
             olua_push_std_vector(L, arg1, "cc.Touch");
-            olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
+            olua_push_cppobj(L, arg2, "cc.Event");
             olua_disable_objpool(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 2);
@@ -3703,7 +3703,7 @@ static int _cocos2d_EventListenerTouchAllAtOnce_set_onTouchesMoved(lua_State *L)
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
             olua_push_std_vector(L, arg1, "cc.Touch");
-            olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
+            olua_push_cppobj(L, arg2, "cc.Event");
             olua_disable_objpool(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 2);
@@ -3764,7 +3764,7 @@ static int _cocos2d_EventListenerCustom_create(lua_State *L)
 
         size_t last = olua_push_objpool(L);
         olua_enable_objpool(L);
-        olua_push_cppobj<cocos2d::EventCustom>(L, arg1, "cc.EventCustom");
+        olua_push_cppobj(L, arg1, "cc.EventCustom");
         olua_disable_objpool(L);
 
         olua_callback(L, callback_store_obj, func.c_str(), 1);
@@ -3843,7 +3843,7 @@ static int _cocos2d_EventListenerKeyboard_set_onKeyPressed(lua_State *L)
             size_t last = olua_push_objpool(L);
             olua_push_uint(L, (lua_Unsigned)arg1);
             olua_enable_objpool(L);
-            olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
+            olua_push_cppobj(L, arg2, "cc.Event");
             olua_disable_objpool(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 2);
@@ -3905,7 +3905,7 @@ static int _cocos2d_EventListenerKeyboard_set_onKeyReleased(lua_State *L)
             size_t last = olua_push_objpool(L);
             olua_push_uint(L, (lua_Unsigned)arg1);
             olua_enable_objpool(L);
-            olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
+            olua_push_cppobj(L, arg2, "cc.Event");
             olua_disable_objpool(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 2);
@@ -3961,8 +3961,8 @@ static int _cocos2d_EventListenerAcceleration_create(lua_State *L)
 
         size_t last = olua_push_objpool(L);
         olua_enable_objpool(L);
-        olua_push_cppobj<cocos2d::Acceleration>(L, arg1, "cc.Acceleration");
-        olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
+        olua_push_cppobj(L, arg1, "cc.Acceleration");
+        olua_push_cppobj(L, arg2, "cc.Event");
         olua_disable_objpool(L);
 
         olua_callback(L, callback_store_obj, func.c_str(), 2);
@@ -4038,8 +4038,8 @@ static int _cocos2d_EventListenerFocus_set_onFocusChanged(lua_State *L)
             lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
-            olua_push_cppobj<cocos2d::ui::Widget>(L, arg1, "ccui.Widget");
-            olua_push_cppobj<cocos2d::ui::Widget>(L, arg2, "ccui.Widget");
+            olua_push_cppobj(L, arg1, "ccui.Widget");
+            olua_push_cppobj(L, arg2, "ccui.Widget");
 
             olua_callback(L, callback_store_obj, func.c_str(), 2);
 
@@ -4119,7 +4119,7 @@ static int _cocos2d_EventListenerMouse_set_onMouseDown(lua_State *L)
 
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
-            olua_push_cppobj<cocos2d::EventMouse>(L, arg1, "cc.EventMouse");
+            olua_push_cppobj(L, arg1, "cc.EventMouse");
             olua_disable_objpool(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 1);
@@ -4180,7 +4180,7 @@ static int _cocos2d_EventListenerMouse_set_onMouseMove(lua_State *L)
 
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
-            olua_push_cppobj<cocos2d::EventMouse>(L, arg1, "cc.EventMouse");
+            olua_push_cppobj(L, arg1, "cc.EventMouse");
             olua_disable_objpool(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 1);
@@ -4241,7 +4241,7 @@ static int _cocos2d_EventListenerMouse_set_onMouseScroll(lua_State *L)
 
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
-            olua_push_cppobj<cocos2d::EventMouse>(L, arg1, "cc.EventMouse");
+            olua_push_cppobj(L, arg1, "cc.EventMouse");
             olua_disable_objpool(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 1);
@@ -4302,7 +4302,7 @@ static int _cocos2d_EventListenerMouse_set_onMouseUp(lua_State *L)
 
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
-            olua_push_cppobj<cocos2d::EventMouse>(L, arg1, "cc.EventMouse");
+            olua_push_cppobj(L, arg1, "cc.EventMouse");
             olua_disable_objpool(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 1);
@@ -4553,11 +4553,11 @@ static int _cocos2d_EventListenerController_set_onAxisEvent(lua_State *L)
 
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
-            olua_push_cppobj<cocos2d::Controller>(L, arg1, "cc.Controller");
+            olua_push_cppobj(L, arg1, "cc.Controller");
             olua_disable_objpool(L);
             olua_push_int(L, (lua_Integer)arg2);
             olua_enable_objpool(L);
-            olua_push_cppobj<cocos2d::Event>(L, arg3, "cc.Event");
+            olua_push_cppobj(L, arg3, "cc.Event");
             olua_disable_objpool(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 3);
@@ -4618,8 +4618,8 @@ static int _cocos2d_EventListenerController_set_onConnected(lua_State *L)
 
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
-            olua_push_cppobj<cocos2d::Controller>(L, arg1, "cc.Controller");
-            olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
+            olua_push_cppobj(L, arg1, "cc.Controller");
+            olua_push_cppobj(L, arg2, "cc.Event");
             olua_disable_objpool(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 2);
@@ -4680,8 +4680,8 @@ static int _cocos2d_EventListenerController_set_onDisconnected(lua_State *L)
 
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
-            olua_push_cppobj<cocos2d::Controller>(L, arg1, "cc.Controller");
-            olua_push_cppobj<cocos2d::Event>(L, arg2, "cc.Event");
+            olua_push_cppobj(L, arg1, "cc.Controller");
+            olua_push_cppobj(L, arg2, "cc.Event");
             olua_disable_objpool(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 2);
@@ -4742,11 +4742,11 @@ static int _cocos2d_EventListenerController_set_onKeyDown(lua_State *L)
 
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
-            olua_push_cppobj<cocos2d::Controller>(L, arg1, "cc.Controller");
+            olua_push_cppobj(L, arg1, "cc.Controller");
             olua_disable_objpool(L);
             olua_push_int(L, (lua_Integer)arg2);
             olua_enable_objpool(L);
-            olua_push_cppobj<cocos2d::Event>(L, arg3, "cc.Event");
+            olua_push_cppobj(L, arg3, "cc.Event");
             olua_disable_objpool(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 3);
@@ -4807,11 +4807,11 @@ static int _cocos2d_EventListenerController_set_onKeyRepeat(lua_State *L)
 
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
-            olua_push_cppobj<cocos2d::Controller>(L, arg1, "cc.Controller");
+            olua_push_cppobj(L, arg1, "cc.Controller");
             olua_disable_objpool(L);
             olua_push_int(L, (lua_Integer)arg2);
             olua_enable_objpool(L);
-            olua_push_cppobj<cocos2d::Event>(L, arg3, "cc.Event");
+            olua_push_cppobj(L, arg3, "cc.Event");
             olua_disable_objpool(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 3);
@@ -4872,11 +4872,11 @@ static int _cocos2d_EventListenerController_set_onKeyUp(lua_State *L)
 
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
-            olua_push_cppobj<cocos2d::Controller>(L, arg1, "cc.Controller");
+            olua_push_cppobj(L, arg1, "cc.Controller");
             olua_disable_objpool(L);
             olua_push_int(L, (lua_Integer)arg2);
             olua_enable_objpool(L);
-            olua_push_cppobj<cocos2d::Event>(L, arg3, "cc.Event");
+            olua_push_cppobj(L, arg3, "cc.Event");
             olua_disable_objpool(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 3);
@@ -11709,7 +11709,7 @@ static int _cocos2d_TextureCache_addImageAsync1(lua_State *L)
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
 
-        olua_push_cppobj<cocos2d::Texture2D>(L, arg1, "cc.Texture2D");
+        olua_push_cppobj(L, arg1, "cc.Texture2D");
 
         olua_callback(L, callback_store_obj, func.c_str(), 1);
 
@@ -11744,7 +11744,7 @@ static int _cocos2d_TextureCache_addImageAsync2(lua_State *L)
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
 
-        olua_push_cppobj<cocos2d::Texture2D>(L, arg1, "cc.Texture2D");
+        olua_push_cppobj(L, arg1, "cc.Texture2D");
 
         olua_callback(L, callback_store_obj, func.c_str(), 1);
 
@@ -26776,7 +26776,7 @@ static int _cocos2d_RenderTexture_saveToFile1(lua_State *L)
             lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
-            olua_push_cppobj<cocos2d::RenderTexture>(L, arg1, "cc.RenderTexture");
+            olua_push_cppobj(L, arg1, "cc.RenderTexture");
             olua_push_std_string(L, arg2);
 
             olua_callback(L, callback_store_obj, func.c_str(), 2);
@@ -26822,7 +26822,7 @@ static int _cocos2d_RenderTexture_saveToFile2(lua_State *L)
             lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
-            olua_push_cppobj<cocos2d::RenderTexture>(L, arg1, "cc.RenderTexture");
+            olua_push_cppobj(L, arg1, "cc.RenderTexture");
             olua_push_std_string(L, arg2);
 
             olua_callback(L, callback_store_obj, func.c_str(), 2);

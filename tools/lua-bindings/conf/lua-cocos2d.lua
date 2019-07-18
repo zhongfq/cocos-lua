@@ -410,7 +410,7 @@ AudioEngine.INJECT('uncache', {
 AudioEngine.CALLBACK('stop', {
     FUNCS = {'static void stop(int audioID)'},
     TAG_MAKER = 'makeAudioEngineFinishCallbackTag(#1)',
-    TAG_MODE = "OLUA_CALLBACK_TAG_ENDWITH",
+    TAG_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
     REMOVE = true,
 })
 AudioEngine.CALLBACK('stopAll', {
@@ -579,7 +579,7 @@ TextureCache.CALLBACK('unbindImageAsync', {
 })
 TextureCache.CALLBACK('unbindAllImageAsync', {
     FUNCS = {'void unbindAllImageAsync()'},
-    TAG_MAKER = 'makeTextureCacheCallbackTag()',
+    TAG_MAKER = 'makeTextureCacheCallbackTag("")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_WILDCARD',
     REMOVE = true,
 })
@@ -1084,12 +1084,12 @@ Node.CALLBACK('schedule', {
 Node.CALLBACK('unschedule', {
     FUNCS = {'void unschedule(const std::string &key)'},
     TAG_MAKER = "makeScheduleCallbackTag(#1)",
-    TAG_MODE = "OLUA_CALLBACK_TAG_ENDWITH",
+    TAG_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
     REMOVE = true,
 })
 Node.CALLBACK('unscheduleAllCallbacks', {
     FUNCS = {'void unscheduleAllCallbacks()'},
-    TAG_MAKER = "makeScheduleCallbackTag()",
+    TAG_MAKER = 'makeScheduleCallbackTag("")',
     TAG_MODE = "OLUA_CALLBACK_TAG_WILDCARD",
     REMOVE = true,
 })

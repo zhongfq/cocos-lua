@@ -5,17 +5,22 @@ local class_map = {}
 
 local format = olua.format
 
-local errorMessage = ""
+local message = ""
 
-local function throwError(fmt, ...)
-    print("parse => " .. errorMessage)
+function olua.message(msg)
+    message = msg
+end
+
+function olua.error(fmt, ...)
+    print("parse => " .. message)
     error(string.format(fmt, ...))
 end
 
-local function assertCond(cond, fmt, ...)
+function olua.assert(cond, fmt, ...)
     if not cond then
-        throwError(fmt or '', ...)
+        olua.error(fmt or '', ...)
     end
+    return cond
 end
 
 local function prettyTypename(tn)
@@ -99,12 +104,12 @@ function olua.typeinfo(tn, cls, silence)
     -- search in super class namespace
     if cls and cls.SUPERCLS then
         local super = class_map[cls.SUPERCLS]
-        assertCond(super, "the super class '%s' of '%s' is not found", cls.SUPERCLS, cls.CPPCLS)
+        olua.assert(super, "the super class '%s' of '%s' is not found", cls.SUPERCLS, cls.CPPCLS)
         return olua.typeinfo(tn, super, silence)
     end
 
     if not ti and not silence then
-        throwError("type info not found: %s", tn)
+        olua.error("type info not found: %s", tn)
     end
 end
 
@@ -250,7 +255,7 @@ function parseArgs(cls, declstr)
     local args = {}
     local count = 0
     declstr = string.match(declstr, '%((.*)%)')
-    assertCond(declstr, 'malformed args string')
+    olua.assert(declstr, 'malformed args string')
 
     while #declstr > 0 do
         local tn, attr, varname, default, _, to
@@ -285,7 +290,7 @@ function parseArgs(cls, declstr)
                 -- match: Point::Zero => Point
                 dtn = string.match(default, '^(.*)::[%w_]+')
             end
-            assertCond(dtn, 'unknown default value format: %s', default)
+            olua.assert(dtn, 'unknown default value format: %s', default)
             local dti = olua.typeinfo(dtn, cls, true) or olua.typeinfo(dtn .. ' *', cls)
             default = string.gsub(default, dtn, dti.CPPCLS)
         end
@@ -331,7 +336,7 @@ local function parseFunc(cls, name, ...)
     local arr = {MAX_ARGS = 0}
     for _, declfunc in ipairs({...}) do
         local fi = {RET = {}}
-        errorMessage = declfunc
+        olua.message(declfunc)
         if string.find(declfunc, '{') then
             fi.LUAFUNC = assert(name)
             fi.CPPFUNC = name
@@ -457,8 +462,8 @@ local function parseProp(cls, name, declget, declset)
             for _, f in ipairs(v) do
                 if test(f, name, 'get') or test(f, name, 'is') or
                     test(f, name2, 'get') or test(f, name2, 'is') then
-                    errorMessage = f.DECLFUNC
-                    assertCond(#f.ARGS == 0, "function '%s::%s' has arguments", cls.CPPCLS, f.CPPFUNC)
+                    olua.message(f.DECLFUNC)
+                    olua.assert(#f.ARGS == 0, "function '%s::%s' has arguments", cls.CPPCLS, f.CPPFUNC)
                     pi.GET = f
                 end
             end
@@ -559,10 +564,10 @@ function olua.typecls(cppcls)
         local function applyInject(fi, testname)
             if fi and (fi.CPPFUNC == cppfunc or (testname and fi.LUAFUNC == cppfunc))then
                 found = true
-                assertCond(not fi.INJECT.BEFORE, '%s::%s already has before injection', cls.CPPCLS, cppfunc)
-                assertCond(not fi.INJECT.AFTER, '%s::%s already has after injection', cls.CPPCLS, cppfunc)
-                assertCond(not fi.INJECT.CALLBACK_BEFORE, '%s::%s already has callback before injection', cls.CPPCLS, cppfunc)
-                assertCond(not fi.INJECT.CALLBACK_AFTER, '%s::%s already has callback after injection', cls.CPPCLS, cppfunc)
+                olua.assert(not fi.INJECT.BEFORE, '%s::%s already has before injection', cls.CPPCLS, cppfunc)
+                olua.assert(not fi.INJECT.AFTER, '%s::%s already has after injection', cls.CPPCLS, cppfunc)
+                olua.assert(not fi.INJECT.CALLBACK_BEFORE, '%s::%s already has callback before injection', cls.CPPCLS, cppfunc)
+                olua.assert(not fi.INJECT.CALLBACK_AFTER, '%s::%s already has callback after injection', cls.CPPCLS, cppfunc)
                 fi.INJECT.BEFORE = formatCode(codes.BEFORE)
                 fi.INJECT.AFTER = formatCode(codes.AFTER)
                 fi.INJECT.CALLBACK_BEFORE = formatCode(codes.CALLBACK_BEFORE)
@@ -587,7 +592,7 @@ function olua.typecls(cppcls)
             end
         end
 
-        assertCond(found, 'function not found: %s::%s', cls.CPPCLS, cppfunc)
+        olua.assert(found, 'function not found: %s::%s', cls.CPPCLS, cppfunc)
     end
 
     function cls.alias(func, aliasname)
@@ -657,7 +662,7 @@ function olua.typecls(cppcls)
         declstr = string.gsub(declstr, '[; ]*$', '')
         declstr, static = string.gsub(declstr, '^ *static *', '')
 
-        errorMessage = declstr
+        olua.message(declstr)
 
         local ARGS = parseArgs(cls, '(' .. declstr .. ')')
         name = name or ARGS[1].VARNAME
@@ -780,6 +785,18 @@ function olua.typecls(cppcls)
     return cls
 end
 
+function olua.typecast(type, rawtype)
+    if type.DECLTYPE ~= type.CPPCLS then
+        return string.format("(%s)", rawtype and type.CPPCLS or type.DECLTYPE)
+    else
+        return ""
+    end
+end
+
+function olua.pointercast(type)
+    return olua.isvaluetype(type) and '' or '&'
+end
+
 function olua.toluacls(cppcls)
     local ti = typeinfo_map[cppcls .. ' *'] or typeinfo_map[cppcls]
     assert(ti, 'type not found: ' .. cppcls)
@@ -799,6 +816,8 @@ local valuetype = {
     ['lua_Integer'] = true,
     ['lua_Unsigned'] = true,
 }
+
+-- enum has cpp cls, but declared as lua_Unsigned
 function olua.isvaluetype(ti)
     return valuetype[ti.DECLTYPE]
 end
@@ -825,19 +844,6 @@ function olua.typedef(typeinfo)
                 ti.INIT_VALUE = '0'
             end
         end
-
-        ti.FUNC_PUSH_VALUE = string.gsub(ti.CONV_FUNC, '[$]+', "push")
-        ti.FUNC_TO_VALUE = string.gsub(ti.CONV_FUNC, '[$]+', "to")
-        ti.FUNC_CHECK_VALUE = string.gsub(ti.CONV_FUNC, '[$]+', "check")
-        ti.FUNC_OPT_VALUE = string.gsub(ti.CONV_FUNC, '[$]+', "opt")
-        ti.FUNC_IS_VALUE = string.gsub(ti.CONV_FUNC, '[$]+', "is")
-        -- multi ret
-        ti.FUNC_PACK_VALUE = string.gsub(ti.CONV_FUNC, '[$]+', "pack")
-        ti.FUNC_UNPACK_VALUE = string.gsub(ti.CONV_FUNC, '[$]+', "unpack")
-
-        if ti.VARS and ti.VARS > 1 then
-            ti.FUNC_ISPACK_VALUE = string.gsub(ti.CONV_FUNC, '[$]+', "ispack")
-        end
     end
 end
 
@@ -845,7 +851,7 @@ function olua.typeconv(ci)
     local func = ci.FUNC or "push|check|pack|unpack|opt|is"
     ci.PROPS = {}
     for str in string.gmatch(assert(ci.DEF, 'no DEF'), '[^\n\r]+') do
-        errorMessage = str
+        olua.message(str)
 
         local tn, attr, varname, default
         attr, str = parseAttr(str)
@@ -875,7 +881,7 @@ function olua.typeconv(ci)
     end
 
     local ti = typeinfo_map[ci.CPPCLS] or typeinfo_map[ci.CPPCLS .. ' *']
-    assertCond(ti, "class not found: %s", ci.CPPCLS)
+    olua.assert(ti, "class not found: %s", ci.CPPCLS)
     if ti.VARS and ti.VARS > 1 then
         ci.FUNC['ISPACK'] = true
     else

@@ -1698,7 +1698,7 @@ cls.callback {
     FUNCS =  {
         'void unbindAllImageAsync()',
     },
-    TAG_MAKER = 'makeTextureCacheCallbackTag()',
+    TAG_MAKER = 'makeTextureCacheCallbackTag("")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_WILDCARD',
     CALLONCE = false,
     REMOVE = true,
@@ -3194,7 +3194,7 @@ cls.callback {
     FUNCS =  {
         'void unscheduleAllCallbacks()',
     },
-    TAG_MAKER = 'makeScheduleCallbackTag()',
+    TAG_MAKER = 'makeScheduleCallbackTag("")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_WILDCARD',
     CALLONCE = false,
     REMOVE = true,

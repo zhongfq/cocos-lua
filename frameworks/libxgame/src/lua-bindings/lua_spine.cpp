@@ -1038,10 +1038,10 @@ static int _spine_AnimationState_setListener(lua_State *L)
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
 
-        olua_push_cppobj<spine::AnimationState>(L, arg1, "sp.AnimationState");
+        olua_push_cppobj(L, arg1, "sp.AnimationState");
         olua_push_uint(L, (lua_Unsigned)arg2);
-        olua_push_cppobj<spine::TrackEntry>(L, arg3, "sp.TrackEntry");
-        olua_push_cppobj<spine::Event>(L, arg4, "sp.Event");
+        olua_push_cppobj(L, arg3, "sp.TrackEntry");
+        olua_push_cppobj(L, arg4, "sp.Event");
 
         olua_callback(L, callback_store_obj, func.c_str(), 4);
 
@@ -8229,10 +8229,10 @@ static int _spine_TrackEntry_setListener(lua_State *L)
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
 
-        olua_push_cppobj<spine::AnimationState>(L, arg1, "sp.AnimationState");
+        olua_push_cppobj(L, arg1, "sp.AnimationState");
         olua_push_uint(L, (lua_Unsigned)arg2);
-        olua_push_cppobj<spine::TrackEntry>(L, arg3, "sp.TrackEntry");
-        olua_push_cppobj<spine::Event>(L, arg4, "sp.Event");
+        olua_push_cppobj(L, arg3, "sp.TrackEntry");
+        olua_push_cppobj(L, arg4, "sp.Event");
 
         olua_callback(L, callback_store_obj, func.c_str(), 4);
 
@@ -10209,7 +10209,7 @@ static int _spine_SkeletonAnimation_setCompleteListener(lua_State *L)
             lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
-            olua_push_cppobj<spine::TrackEntry>(L, arg1, "sp.TrackEntry");
+            olua_push_cppobj(L, arg1, "sp.TrackEntry");
 
             olua_callback(L, callback_store_obj, func.c_str(), 1);
 
@@ -10245,7 +10245,7 @@ static int _spine_SkeletonAnimation_setDisposeListener(lua_State *L)
             lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
-            olua_push_cppobj<spine::TrackEntry>(L, arg1, "sp.TrackEntry");
+            olua_push_cppobj(L, arg1, "sp.TrackEntry");
 
             olua_callback(L, callback_store_obj, func.c_str(), 1);
 
@@ -10319,7 +10319,7 @@ static int _spine_SkeletonAnimation_setEndListener(lua_State *L)
             lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
-            olua_push_cppobj<spine::TrackEntry>(L, arg1, "sp.TrackEntry");
+            olua_push_cppobj(L, arg1, "sp.TrackEntry");
 
             olua_callback(L, callback_store_obj, func.c_str(), 1);
 
@@ -10355,8 +10355,8 @@ static int _spine_SkeletonAnimation_setEventListener(lua_State *L)
             lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
-            olua_push_cppobj<spine::TrackEntry>(L, arg1, "sp.TrackEntry");
-            olua_push_cppobj<spine::Event>(L, arg2, "sp.Event");
+            olua_push_cppobj(L, arg1, "sp.TrackEntry");
+            olua_push_cppobj(L, arg2, "sp.Event");
 
             olua_callback(L, callback_store_obj, func.c_str(), 2);
 
@@ -10392,7 +10392,7 @@ static int _spine_SkeletonAnimation_setInterruptListener(lua_State *L)
             lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
-            olua_push_cppobj<spine::TrackEntry>(L, arg1, "sp.TrackEntry");
+            olua_push_cppobj(L, arg1, "sp.TrackEntry");
 
             olua_callback(L, callback_store_obj, func.c_str(), 1);
 
@@ -10448,7 +10448,7 @@ static int _spine_SkeletonAnimation_setStartListener(lua_State *L)
             lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
-            olua_push_cppobj<spine::TrackEntry>(L, arg1, "sp.TrackEntry");
+            olua_push_cppobj(L, arg1, "sp.TrackEntry");
 
             olua_callback(L, callback_store_obj, func.c_str(), 1);
 
@@ -10486,7 +10486,7 @@ static int _spine_SkeletonAnimation_setTrackCompleteListener(lua_State *L)
             lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
-            olua_push_cppobj<spine::TrackEntry>(L, arg1, "sp.TrackEntry");
+            olua_push_cppobj(L, arg1, "sp.TrackEntry");
 
             olua_callback(L, callback_store_obj, func.c_str(), 1);
 
@@ -10524,7 +10524,7 @@ static int _spine_SkeletonAnimation_setTrackDisposeListener(lua_State *L)
             lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
-            olua_push_cppobj<spine::TrackEntry>(L, arg1, "sp.TrackEntry");
+            olua_push_cppobj(L, arg1, "sp.TrackEntry");
 
             olua_callback(L, callback_store_obj, func.c_str(), 1);
 
@@ -10562,7 +10562,7 @@ static int _spine_SkeletonAnimation_setTrackEndListener(lua_State *L)
             lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
-            olua_push_cppobj<spine::TrackEntry>(L, arg1, "sp.TrackEntry");
+            olua_push_cppobj(L, arg1, "sp.TrackEntry");
 
             olua_callback(L, callback_store_obj, func.c_str(), 1);
 
@@ -10600,8 +10600,8 @@ static int _spine_SkeletonAnimation_setTrackEventListener(lua_State *L)
             lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
-            olua_push_cppobj<spine::TrackEntry>(L, arg1, "sp.TrackEntry");
-            olua_push_cppobj<spine::Event>(L, arg2, "sp.Event");
+            olua_push_cppobj(L, arg1, "sp.TrackEntry");
+            olua_push_cppobj(L, arg2, "sp.Event");
 
             olua_callback(L, callback_store_obj, func.c_str(), 2);
 
@@ -10639,7 +10639,7 @@ static int _spine_SkeletonAnimation_setTrackInterruptListener(lua_State *L)
             lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
-            olua_push_cppobj<spine::TrackEntry>(L, arg1, "sp.TrackEntry");
+            olua_push_cppobj(L, arg1, "sp.TrackEntry");
 
             olua_callback(L, callback_store_obj, func.c_str(), 1);
 
@@ -10677,7 +10677,7 @@ static int _spine_SkeletonAnimation_setTrackStartListener(lua_State *L)
             lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
-            olua_push_cppobj<spine::TrackEntry>(L, arg1, "sp.TrackEntry");
+            olua_push_cppobj(L, arg1, "sp.TrackEntry");
 
             olua_callback(L, callback_store_obj, func.c_str(), 1);
 

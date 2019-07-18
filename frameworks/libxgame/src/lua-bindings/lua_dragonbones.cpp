@@ -7491,7 +7491,7 @@ static int _dragonBones_CCArmatureDisplay_addDBEventListener(lua_State *L)
 
         size_t last = olua_push_objpool(L);
         olua_enable_objpool(L);
-        olua_push_cppobj<dragonBones::EventObject>(L, arg1, "db.EventObject");
+        olua_push_cppobj(L, arg1, "db.EventObject");
         olua_disable_objpool(L);
 
         olua_callback(L, callback_store_obj, func.c_str(), 1);

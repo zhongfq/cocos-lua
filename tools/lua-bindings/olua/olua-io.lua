@@ -28,6 +28,14 @@ function olua.stringfy(value)
     end
 end
 
+function olua.newarray()
+    local mt = {}
+    function mt:push(v)
+        self[#self + 1] = v
+    end
+    return setmetatable({}, {__index = mt})
+end
+
 -- suppress lua check warning
 function olua.nowarning()
 end

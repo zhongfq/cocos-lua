@@ -46,9 +46,6 @@ local function gen_func_args(cls, fi)
         ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
             ${OLUA_TO_TYPE}(L, 1, (void **)&self, "${ti.LUACLS}");
         ]])
-    elseif fi.ISVAR then
-        TOTAL_ARGS = TOTAL_ARGS + 1
-        idx = idx + 1
     end
 
     for i, ai in ipairs(fi.ARGS) do
@@ -268,7 +265,7 @@ local function genOneFunc(cls, fi, write, funcidx, func_filter)
         end
     end
 
-    if fi.ISVAR then
+    if fi.VARIABLE then
         ARGS_END = ""
         CPPFUNC = fi.VARNAME
         if fi.RET.NUM > 0 then

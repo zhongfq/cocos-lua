@@ -29,10 +29,14 @@ int auto_olua_push_fairygui_Margin(lua_State *L, const fairygui::Margin *value)
 {
     if (value) {
         lua_createtable(L, 0, 4);
-        olua_setfieldnumber(L, -1, "left", value->left);
-        olua_setfieldnumber(L, -1, "top", value->top);
-        olua_setfieldnumber(L, -1, "right", value->right);
-        olua_setfieldnumber(L, -1, "bottom", value->bottom);
+        olua_push_number(L, (lua_Number)value->left);
+        lua_setfield(L, -2, "left");
+        olua_push_number(L, (lua_Number)value->top);
+        lua_setfield(L, -2, "top");
+        olua_push_number(L, (lua_Number)value->right);
+        lua_setfield(L, -2, "right");
+        olua_push_number(L, (lua_Number)value->bottom);
+        lua_setfield(L, -2, "bottom");
     } else {
         lua_pushnil(L);
     }
@@ -79,11 +83,16 @@ int auto_olua_push_fairygui_TweenValue(lua_State *L, const fairygui::TweenValue 
 {
     if (value) {
         lua_createtable(L, 0, 5);
-        olua_setfieldnumber(L, -1, "x", value->x);
-        olua_setfieldnumber(L, -1, "y", value->y);
-        olua_setfieldnumber(L, -1, "z", value->z);
-        olua_setfieldnumber(L, -1, "w", value->w);
-        olua_setfieldnumber(L, -1, "d", value->d);
+        olua_push_number(L, (lua_Number)value->x);
+        lua_setfield(L, -2, "x");
+        olua_push_number(L, (lua_Number)value->y);
+        lua_setfield(L, -2, "y");
+        olua_push_number(L, (lua_Number)value->z);
+        lua_setfield(L, -2, "z");
+        olua_push_number(L, (lua_Number)value->w);
+        lua_setfield(L, -2, "w");
+        olua_push_number(L, (lua_Number)value->d);
+        lua_setfield(L, -2, "d");
     } else {
         lua_pushnil(L);
     }
@@ -125,7 +134,7 @@ void auto_olua_opt_fairygui_TweenValue(lua_State *L, int idx, fairygui::TweenVal
 
 bool auto_olua_is_fairygui_TweenValue(lua_State *L, int idx)
 {
-    return olua_istable(L, idx) && olua_hasfield(L, idx, "d") && olua_hasfield(L, idx, "w") && olua_hasfield(L, idx, "z") && olua_hasfield(L, idx, "y") && olua_hasfield(L, idx, "x");
+    return olua_istable(L, idx);
 }
 
 static int luaopen_fairygui_UIEventType(lua_State *L)

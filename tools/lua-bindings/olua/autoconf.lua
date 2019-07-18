@@ -121,7 +121,6 @@ function M:writeHeader()
         for _, v in ipairs(self.module.CONVS) do
             local CPPCLS = v.CPPCLS
             local DEF = v.DEF
-            local FUNC = v.FUNC and olua.stringfy(v.FUNC) or 'nil'
             olua.nowarning(CPPCLS, DEF, FUNC)
             self:writeLine(format([=[
                 typeconv {
@@ -129,7 +128,6 @@ function M:writeHeader()
                     DEF = [[
                         ${DEF}
                     ]],
-                    FUNC = ${FUNC},
                 },
             ]=], 4))
         end

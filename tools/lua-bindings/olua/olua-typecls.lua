@@ -854,7 +854,7 @@ function olua.typedef(typeinfo)
 end
 
 function olua.typeconv(ci)
-    local func = ci.FUNC or "push|check|pack|unpack|opt|is"
+    local func = "push|check|pack|unpack|opt|is"
     ci.PROPS = {}
     for str in string.gmatch(assert(ci.DEF, 'no DEF'), '[^\n\r]+') do
         olua.message(str)

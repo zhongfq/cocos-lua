@@ -141,7 +141,6 @@ typeconv {
         cocos2d::Tex2F tl;
         cocos2d::Tex2F tr;
     ]],
-    FUNC = 'push|check|is',
 }
 typeconv {
     CPPCLS = 'cocos2d::TTFConfig',
@@ -157,7 +156,6 @@ typeconv {
         bool underline = false;
         bool strikethrough = false;
     ]],
-    FUNC = 'push|check|is'
 }
 typeconv {
     CPPCLS = 'cocos2d::BlendFunc',
@@ -191,7 +189,6 @@ typeconv {
         cocos2d::Vec3 tl;
         cocos2d::Vec3 tr;
     ]],
-    FUNC = 'push|check|is',
 }
 typeconv {
     CPPCLS = 'cocos2d::Controller::KeyStatus',

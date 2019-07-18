@@ -27,7 +27,6 @@ M.CONVS = {
             float x;
             float y;
         ]],
-        FUNC = nil,
     },
     typeconv {
         CPPCLS = 'cocos2d::Vec3',
@@ -36,7 +35,6 @@ M.CONVS = {
             float y;
             float z;
         ]],
-        FUNC = nil,
     },
     typeconv {
         CPPCLS = 'cocos2d::Vec4',
@@ -46,7 +44,6 @@ M.CONVS = {
             float z;
             float w;
         ]],
-        FUNC = nil,
     },
     typeconv {
         CPPCLS = 'cocos2d::Size',
@@ -54,7 +51,6 @@ M.CONVS = {
             float width;
             float height;
         ]],
-        FUNC = nil,
     },
     typeconv {
         CPPCLS = 'cocos2d::Texture2D::TexParams',
@@ -64,7 +60,6 @@ M.CONVS = {
             GLuint wrapS;
             GLuint wrapT;
         ]],
-        FUNC = nil,
     },
     typeconv {
         CPPCLS = 'cocos2d::Uniform',
@@ -74,7 +69,6 @@ M.CONVS = {
             GLenum type;
             std::string name;
         ]],
-        FUNC = nil,
     },
     typeconv {
         CPPCLS = 'cocos2d::VertexAttrib',
@@ -84,7 +78,6 @@ M.CONVS = {
             GLenum type;
             std::string name;
         ]],
-        FUNC = nil,
     },
     typeconv {
         CPPCLS = 'cocos2d::experimental::Viewport',
@@ -94,7 +87,6 @@ M.CONVS = {
             float _width;
             float _height;
         ]],
-        FUNC = nil,
     },
     typeconv {
         CPPCLS = 'cocos2d::Quaternion',
@@ -104,7 +96,6 @@ M.CONVS = {
             float z;
             float w;
         ]],
-        FUNC = nil,
     },
     typeconv {
         CPPCLS = 'cocos2d::AffineTransform',
@@ -116,7 +107,6 @@ M.CONVS = {
             float tx;
             float ty;
         ]],
-        FUNC = nil,
     },
     typeconv {
         CPPCLS = 'GLContextAttrs',
@@ -129,7 +119,6 @@ M.CONVS = {
             int stencilBits;
             int multisamplingCount;
         ]],
-        FUNC = nil,
     },
     typeconv {
         CPPCLS = 'cocos2d::Tex2F',
@@ -137,7 +126,6 @@ M.CONVS = {
             GLfloat u;
             GLfloat v;
         ]],
-        FUNC = nil,
     },
     typeconv {
         CPPCLS = 'cocos2d::T2F_Quad',
@@ -147,7 +135,6 @@ M.CONVS = {
             cocos2d::Tex2F tl;
             cocos2d::Tex2F tr;
         ]],
-        FUNC = "push|check|is",
     },
     typeconv {
         CPPCLS = 'cocos2d::TTFConfig',
@@ -163,7 +150,6 @@ M.CONVS = {
             bool underline = false;
             bool strikethrough = false;
         ]],
-        FUNC = "push|check|is",
     },
     typeconv {
         CPPCLS = 'cocos2d::BlendFunc',
@@ -171,7 +157,6 @@ M.CONVS = {
             GLenum src;
             GLenum dst;
         ]],
-        FUNC = nil,
     },
     typeconv {
         CPPCLS = 'cocos2d::ui::Margin',
@@ -181,7 +166,6 @@ M.CONVS = {
             float right;
             float bottom;
         ]],
-        FUNC = nil,
     },
     typeconv {
         CPPCLS = 'cocos2d::ResourceData',
@@ -190,7 +174,6 @@ M.CONVS = {
             std::string file;
             std::string plist;
         ]],
-        FUNC = nil,
     },
     typeconv {
         CPPCLS = 'cocos2d::Quad3',
@@ -200,7 +183,6 @@ M.CONVS = {
             cocos2d::Vec3 tl;
             cocos2d::Vec3 tr;
         ]],
-        FUNC = "push|check|is",
     },
     typeconv {
         CPPCLS = 'cocos2d::Controller::KeyStatus',
@@ -209,7 +191,6 @@ M.CONVS = {
             float value;
             bool isAnalog;
         ]],
-        FUNC = nil,
     },
 }
 

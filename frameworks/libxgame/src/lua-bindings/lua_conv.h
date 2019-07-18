@@ -12,36 +12,36 @@
 int auto_olua_push_cocos2d_Vec2(lua_State *L, const cocos2d::Vec2 *value);
 void auto_olua_check_cocos2d_Vec2(lua_State *L, int idx, cocos2d::Vec2 *value);
 void auto_olua_opt_cocos2d_Vec2(lua_State *L, int idx, cocos2d::Vec2 *value, const cocos2d::Vec2 &def);
+bool auto_olua_is_cocos2d_Vec2(lua_State *L, int idx);
 void auto_olua_pack_cocos2d_Vec2(lua_State *L, int idx, cocos2d::Vec2 *value);
 int auto_olua_unpack_cocos2d_Vec2(lua_State *L, const cocos2d::Vec2 *value);
-bool auto_olua_is_cocos2d_Vec2(lua_State *L, int idx);
 bool auto_olua_ispack_cocos2d_Vec2(lua_State *L, int idx);
 
 // cocos2d::Vec3
 int auto_olua_push_cocos2d_Vec3(lua_State *L, const cocos2d::Vec3 *value);
 void auto_olua_check_cocos2d_Vec3(lua_State *L, int idx, cocos2d::Vec3 *value);
 void auto_olua_opt_cocos2d_Vec3(lua_State *L, int idx, cocos2d::Vec3 *value, const cocos2d::Vec3 &def);
+bool auto_olua_is_cocos2d_Vec3(lua_State *L, int idx);
 void auto_olua_pack_cocos2d_Vec3(lua_State *L, int idx, cocos2d::Vec3 *value);
 int auto_olua_unpack_cocos2d_Vec3(lua_State *L, const cocos2d::Vec3 *value);
-bool auto_olua_is_cocos2d_Vec3(lua_State *L, int idx);
 bool auto_olua_ispack_cocos2d_Vec3(lua_State *L, int idx);
 
 // cocos2d::Vec4
 int auto_olua_push_cocos2d_Vec4(lua_State *L, const cocos2d::Vec4 *value);
 void auto_olua_check_cocos2d_Vec4(lua_State *L, int idx, cocos2d::Vec4 *value);
 void auto_olua_opt_cocos2d_Vec4(lua_State *L, int idx, cocos2d::Vec4 *value, const cocos2d::Vec4 &def);
+bool auto_olua_is_cocos2d_Vec4(lua_State *L, int idx);
 void auto_olua_pack_cocos2d_Vec4(lua_State *L, int idx, cocos2d::Vec4 *value);
 int auto_olua_unpack_cocos2d_Vec4(lua_State *L, const cocos2d::Vec4 *value);
-bool auto_olua_is_cocos2d_Vec4(lua_State *L, int idx);
 bool auto_olua_ispack_cocos2d_Vec4(lua_State *L, int idx);
 
 // cocos2d::Size
 int auto_olua_push_cocos2d_Size(lua_State *L, const cocos2d::Size *value);
 void auto_olua_check_cocos2d_Size(lua_State *L, int idx, cocos2d::Size *value);
 void auto_olua_opt_cocos2d_Size(lua_State *L, int idx, cocos2d::Size *value, const cocos2d::Size &def);
+bool auto_olua_is_cocos2d_Size(lua_State *L, int idx);
 void auto_olua_pack_cocos2d_Size(lua_State *L, int idx, cocos2d::Size *value);
 int auto_olua_unpack_cocos2d_Size(lua_State *L, const cocos2d::Size *value);
-bool auto_olua_is_cocos2d_Size(lua_State *L, int idx);
 bool auto_olua_ispack_cocos2d_Size(lua_State *L, int idx);
 
 // cocos2d::Texture2D::TexParams
@@ -95,11 +95,13 @@ bool auto_olua_is_cocos2d_Tex2F(lua_State *L, int idx);
 // cocos2d::T2F_Quad
 int auto_olua_push_cocos2d_T2F_Quad(lua_State *L, const cocos2d::T2F_Quad *value);
 void auto_olua_check_cocos2d_T2F_Quad(lua_State *L, int idx, cocos2d::T2F_Quad *value);
+void auto_olua_opt_cocos2d_T2F_Quad(lua_State *L, int idx, cocos2d::T2F_Quad *value, const cocos2d::T2F_Quad &def);
 bool auto_olua_is_cocos2d_T2F_Quad(lua_State *L, int idx);
 
 // cocos2d::TTFConfig
 int auto_olua_push_cocos2d_TTFConfig(lua_State *L, const cocos2d::TTFConfig *value);
 void auto_olua_check_cocos2d_TTFConfig(lua_State *L, int idx, cocos2d::TTFConfig *value);
+void auto_olua_opt_cocos2d_TTFConfig(lua_State *L, int idx, cocos2d::TTFConfig *value, const cocos2d::TTFConfig &def);
 bool auto_olua_is_cocos2d_TTFConfig(lua_State *L, int idx);
 
 // cocos2d::BlendFunc
@@ -123,6 +125,7 @@ bool auto_olua_is_cocos2d_ResourceData(lua_State *L, int idx);
 // cocos2d::Quad3
 int auto_olua_push_cocos2d_Quad3(lua_State *L, const cocos2d::Quad3 *value);
 void auto_olua_check_cocos2d_Quad3(lua_State *L, int idx, cocos2d::Quad3 *value);
+void auto_olua_opt_cocos2d_Quad3(lua_State *L, int idx, cocos2d::Quad3 *value, const cocos2d::Quad3 &def);
 bool auto_olua_is_cocos2d_Quad3(lua_State *L, int idx);
 
 // cocos2d::Controller::KeyStatus

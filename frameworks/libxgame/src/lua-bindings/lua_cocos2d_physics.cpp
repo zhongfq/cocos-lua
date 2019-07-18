@@ -15,9 +15,12 @@ int auto_olua_push_cocos2d_PhysicsMaterial(lua_State *L, const cocos2d::PhysicsM
 {
     if (value) {
         lua_createtable(L, 0, 3);
-        olua_setfieldnumber(L, -1, "density", value->density);
-        olua_setfieldnumber(L, -1, "restitution", value->restitution);
-        olua_setfieldnumber(L, -1, "friction", value->friction);
+        olua_push_number(L, (lua_Number)value->density);
+        lua_setfield(L, -2, "density");
+        olua_push_number(L, (lua_Number)value->restitution);
+        lua_setfield(L, -2, "restitution");
+        olua_push_number(L, (lua_Number)value->friction);
+        lua_setfield(L, -2, "friction");
     } else {
         lua_pushnil(L);
     }

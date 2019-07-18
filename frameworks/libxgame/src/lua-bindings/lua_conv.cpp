@@ -7,8 +7,10 @@ int auto_olua_push_cocos2d_Vec2(lua_State *L, const cocos2d::Vec2 *value)
 {
     if (value) {
         lua_createtable(L, 0, 2);
-        olua_setfieldnumber(L, -1, "x", value->x);
-        olua_setfieldnumber(L, -1, "y", value->y);
+        olua_push_number(L, (lua_Number)value->x);
+        lua_setfield(L, -2, "x");
+        olua_push_number(L, (lua_Number)value->y);
+        lua_setfield(L, -2, "y");
     } else {
         lua_pushnil(L);
     }
@@ -42,6 +44,11 @@ void auto_olua_opt_cocos2d_Vec2(lua_State *L, int idx, cocos2d::Vec2 *value, con
     }
 }
 
+bool auto_olua_is_cocos2d_Vec2(lua_State *L, int idx)
+{
+    return olua_istable(L, idx) && olua_hasfield(L, idx, "y") && olua_hasfield(L, idx, "x");
+}
+
 void auto_olua_pack_cocos2d_Vec2(lua_State *L, int idx, cocos2d::Vec2 *value)
 {
     if (!value) {
@@ -55,8 +62,8 @@ void auto_olua_pack_cocos2d_Vec2(lua_State *L, int idx, cocos2d::Vec2 *value)
 int auto_olua_unpack_cocos2d_Vec2(lua_State *L, const cocos2d::Vec2 *value)
 {
     if (value) {
-        lua_pushnumber(L, value->x);
-        lua_pushnumber(L, value->y);
+        olua_push_number(L, value->x);
+        olua_push_number(L, value->y);
     } else {
         for (int i = 0; i < 2; i++) {
             lua_pushnil(L);
@@ -64,11 +71,6 @@ int auto_olua_unpack_cocos2d_Vec2(lua_State *L, const cocos2d::Vec2 *value)
     }
 
     return 2;
-}
-
-bool auto_olua_is_cocos2d_Vec2(lua_State *L, int idx)
-{
-    return olua_istable(L, idx) && olua_hasfield(L, idx, "y") && olua_hasfield(L, idx, "x");
 }
 
 bool auto_olua_ispack_cocos2d_Vec2(lua_State *L, int idx)
@@ -80,9 +82,12 @@ int auto_olua_push_cocos2d_Vec3(lua_State *L, const cocos2d::Vec3 *value)
 {
     if (value) {
         lua_createtable(L, 0, 3);
-        olua_setfieldnumber(L, -1, "x", value->x);
-        olua_setfieldnumber(L, -1, "y", value->y);
-        olua_setfieldnumber(L, -1, "z", value->z);
+        olua_push_number(L, (lua_Number)value->x);
+        lua_setfield(L, -2, "x");
+        olua_push_number(L, (lua_Number)value->y);
+        lua_setfield(L, -2, "y");
+        olua_push_number(L, (lua_Number)value->z);
+        lua_setfield(L, -2, "z");
     } else {
         lua_pushnil(L);
     }
@@ -118,6 +123,11 @@ void auto_olua_opt_cocos2d_Vec3(lua_State *L, int idx, cocos2d::Vec3 *value, con
     }
 }
 
+bool auto_olua_is_cocos2d_Vec3(lua_State *L, int idx)
+{
+    return olua_istable(L, idx) && olua_hasfield(L, idx, "z") && olua_hasfield(L, idx, "y") && olua_hasfield(L, idx, "x");
+}
+
 void auto_olua_pack_cocos2d_Vec3(lua_State *L, int idx, cocos2d::Vec3 *value)
 {
     if (!value) {
@@ -132,9 +142,9 @@ void auto_olua_pack_cocos2d_Vec3(lua_State *L, int idx, cocos2d::Vec3 *value)
 int auto_olua_unpack_cocos2d_Vec3(lua_State *L, const cocos2d::Vec3 *value)
 {
     if (value) {
-        lua_pushnumber(L, value->x);
-        lua_pushnumber(L, value->y);
-        lua_pushnumber(L, value->z);
+        olua_push_number(L, value->x);
+        olua_push_number(L, value->y);
+        olua_push_number(L, value->z);
     } else {
         for (int i = 0; i < 3; i++) {
             lua_pushnil(L);
@@ -142,11 +152,6 @@ int auto_olua_unpack_cocos2d_Vec3(lua_State *L, const cocos2d::Vec3 *value)
     }
 
     return 3;
-}
-
-bool auto_olua_is_cocos2d_Vec3(lua_State *L, int idx)
-{
-    return olua_istable(L, idx) && olua_hasfield(L, idx, "z") && olua_hasfield(L, idx, "y") && olua_hasfield(L, idx, "x");
 }
 
 bool auto_olua_ispack_cocos2d_Vec3(lua_State *L, int idx)
@@ -158,10 +163,14 @@ int auto_olua_push_cocos2d_Vec4(lua_State *L, const cocos2d::Vec4 *value)
 {
     if (value) {
         lua_createtable(L, 0, 4);
-        olua_setfieldnumber(L, -1, "x", value->x);
-        olua_setfieldnumber(L, -1, "y", value->y);
-        olua_setfieldnumber(L, -1, "z", value->z);
-        olua_setfieldnumber(L, -1, "w", value->w);
+        olua_push_number(L, (lua_Number)value->x);
+        lua_setfield(L, -2, "x");
+        olua_push_number(L, (lua_Number)value->y);
+        lua_setfield(L, -2, "y");
+        olua_push_number(L, (lua_Number)value->z);
+        lua_setfield(L, -2, "z");
+        olua_push_number(L, (lua_Number)value->w);
+        lua_setfield(L, -2, "w");
     } else {
         lua_pushnil(L);
     }
@@ -199,6 +208,11 @@ void auto_olua_opt_cocos2d_Vec4(lua_State *L, int idx, cocos2d::Vec4 *value, con
     }
 }
 
+bool auto_olua_is_cocos2d_Vec4(lua_State *L, int idx)
+{
+    return olua_istable(L, idx) && olua_hasfield(L, idx, "w") && olua_hasfield(L, idx, "z") && olua_hasfield(L, idx, "y") && olua_hasfield(L, idx, "x");
+}
+
 void auto_olua_pack_cocos2d_Vec4(lua_State *L, int idx, cocos2d::Vec4 *value)
 {
     if (!value) {
@@ -214,10 +228,10 @@ void auto_olua_pack_cocos2d_Vec4(lua_State *L, int idx, cocos2d::Vec4 *value)
 int auto_olua_unpack_cocos2d_Vec4(lua_State *L, const cocos2d::Vec4 *value)
 {
     if (value) {
-        lua_pushnumber(L, value->x);
-        lua_pushnumber(L, value->y);
-        lua_pushnumber(L, value->z);
-        lua_pushnumber(L, value->w);
+        olua_push_number(L, value->x);
+        olua_push_number(L, value->y);
+        olua_push_number(L, value->z);
+        olua_push_number(L, value->w);
     } else {
         for (int i = 0; i < 4; i++) {
             lua_pushnil(L);
@@ -225,11 +239,6 @@ int auto_olua_unpack_cocos2d_Vec4(lua_State *L, const cocos2d::Vec4 *value)
     }
 
     return 4;
-}
-
-bool auto_olua_is_cocos2d_Vec4(lua_State *L, int idx)
-{
-    return olua_istable(L, idx) && olua_hasfield(L, idx, "w") && olua_hasfield(L, idx, "z") && olua_hasfield(L, idx, "y") && olua_hasfield(L, idx, "x");
 }
 
 bool auto_olua_ispack_cocos2d_Vec4(lua_State *L, int idx)
@@ -241,8 +250,10 @@ int auto_olua_push_cocos2d_Size(lua_State *L, const cocos2d::Size *value)
 {
     if (value) {
         lua_createtable(L, 0, 2);
-        olua_setfieldnumber(L, -1, "width", value->width);
-        olua_setfieldnumber(L, -1, "height", value->height);
+        olua_push_number(L, (lua_Number)value->width);
+        lua_setfield(L, -2, "width");
+        olua_push_number(L, (lua_Number)value->height);
+        lua_setfield(L, -2, "height");
     } else {
         lua_pushnil(L);
     }
@@ -276,6 +287,11 @@ void auto_olua_opt_cocos2d_Size(lua_State *L, int idx, cocos2d::Size *value, con
     }
 }
 
+bool auto_olua_is_cocos2d_Size(lua_State *L, int idx)
+{
+    return olua_istable(L, idx) && olua_hasfield(L, idx, "height") && olua_hasfield(L, idx, "width");
+}
+
 void auto_olua_pack_cocos2d_Size(lua_State *L, int idx, cocos2d::Size *value)
 {
     if (!value) {
@@ -289,8 +305,8 @@ void auto_olua_pack_cocos2d_Size(lua_State *L, int idx, cocos2d::Size *value)
 int auto_olua_unpack_cocos2d_Size(lua_State *L, const cocos2d::Size *value)
 {
     if (value) {
-        lua_pushnumber(L, value->width);
-        lua_pushnumber(L, value->height);
+        olua_push_number(L, value->width);
+        olua_push_number(L, value->height);
     } else {
         for (int i = 0; i < 2; i++) {
             lua_pushnil(L);
@@ -298,11 +314,6 @@ int auto_olua_unpack_cocos2d_Size(lua_State *L, const cocos2d::Size *value)
     }
 
     return 2;
-}
-
-bool auto_olua_is_cocos2d_Size(lua_State *L, int idx)
-{
-    return olua_istable(L, idx) && olua_hasfield(L, idx, "height") && olua_hasfield(L, idx, "width");
 }
 
 bool auto_olua_ispack_cocos2d_Size(lua_State *L, int idx)
@@ -314,10 +325,14 @@ int auto_olua_push_cocos2d_Texture2D_TexParams(lua_State *L, const cocos2d::Text
 {
     if (value) {
         lua_createtable(L, 0, 4);
-        olua_setfieldinteger(L, -1, "minFilter", (lua_Unsigned)value->minFilter);
-        olua_setfieldinteger(L, -1, "magFilter", (lua_Unsigned)value->magFilter);
-        olua_setfieldinteger(L, -1, "wrapS", (lua_Unsigned)value->wrapS);
-        olua_setfieldinteger(L, -1, "wrapT", (lua_Unsigned)value->wrapT);
+        olua_push_uint(L, (lua_Unsigned)value->minFilter);
+        lua_setfield(L, -2, "minFilter");
+        olua_push_uint(L, (lua_Unsigned)value->magFilter);
+        lua_setfield(L, -2, "magFilter");
+        olua_push_uint(L, (lua_Unsigned)value->wrapS);
+        lua_setfield(L, -2, "wrapS");
+        olua_push_uint(L, (lua_Unsigned)value->wrapT);
+        lua_setfield(L, -2, "wrapT");
     } else {
         lua_pushnil(L);
     }
@@ -364,10 +379,14 @@ int auto_olua_push_cocos2d_Uniform(lua_State *L, const cocos2d::Uniform *value)
 {
     if (value) {
         lua_createtable(L, 0, 4);
-        olua_setfieldinteger(L, -1, "location", (lua_Integer)value->location);
-        olua_setfieldinteger(L, -1, "size", (lua_Integer)value->size);
-        olua_setfieldinteger(L, -1, "type", (lua_Unsigned)value->type);
-        olua_setfieldstring(L, -1, "name", value->name.c_str());
+        olua_push_int(L, (lua_Integer)value->location);
+        lua_setfield(L, -2, "location");
+        olua_push_int(L, (lua_Integer)value->size);
+        lua_setfield(L, -2, "size");
+        olua_push_uint(L, (lua_Unsigned)value->type);
+        lua_setfield(L, -2, "type");
+        olua_push_std_string(L, (std::string)value->name);
+        lua_setfield(L, -2, "name");
     } else {
         lua_pushnil(L);
     }
@@ -414,10 +433,14 @@ int auto_olua_push_cocos2d_VertexAttrib(lua_State *L, const cocos2d::VertexAttri
 {
     if (value) {
         lua_createtable(L, 0, 4);
-        olua_setfieldinteger(L, -1, "index", (lua_Unsigned)value->index);
-        olua_setfieldinteger(L, -1, "size", (lua_Integer)value->size);
-        olua_setfieldinteger(L, -1, "type", (lua_Unsigned)value->type);
-        olua_setfieldstring(L, -1, "name", value->name.c_str());
+        olua_push_uint(L, (lua_Unsigned)value->index);
+        lua_setfield(L, -2, "index");
+        olua_push_int(L, (lua_Integer)value->size);
+        lua_setfield(L, -2, "size");
+        olua_push_uint(L, (lua_Unsigned)value->type);
+        lua_setfield(L, -2, "type");
+        olua_push_std_string(L, (std::string)value->name);
+        lua_setfield(L, -2, "name");
     } else {
         lua_pushnil(L);
     }
@@ -464,10 +487,14 @@ int auto_olua_push_cocos2d_experimental_Viewport(lua_State *L, const cocos2d::ex
 {
     if (value) {
         lua_createtable(L, 0, 4);
-        olua_setfieldnumber(L, -1, "left", value->_left);
-        olua_setfieldnumber(L, -1, "bottom", value->_bottom);
-        olua_setfieldnumber(L, -1, "width", value->_width);
-        olua_setfieldnumber(L, -1, "height", value->_height);
+        olua_push_number(L, (lua_Number)value->_left);
+        lua_setfield(L, -2, "left");
+        olua_push_number(L, (lua_Number)value->_bottom);
+        lua_setfield(L, -2, "bottom");
+        olua_push_number(L, (lua_Number)value->_width);
+        lua_setfield(L, -2, "width");
+        olua_push_number(L, (lua_Number)value->_height);
+        lua_setfield(L, -2, "height");
     } else {
         lua_pushnil(L);
     }
@@ -514,10 +541,14 @@ int auto_olua_push_cocos2d_Quaternion(lua_State *L, const cocos2d::Quaternion *v
 {
     if (value) {
         lua_createtable(L, 0, 4);
-        olua_setfieldnumber(L, -1, "x", value->x);
-        olua_setfieldnumber(L, -1, "y", value->y);
-        olua_setfieldnumber(L, -1, "z", value->z);
-        olua_setfieldnumber(L, -1, "w", value->w);
+        olua_push_number(L, (lua_Number)value->x);
+        lua_setfield(L, -2, "x");
+        olua_push_number(L, (lua_Number)value->y);
+        lua_setfield(L, -2, "y");
+        olua_push_number(L, (lua_Number)value->z);
+        lua_setfield(L, -2, "z");
+        olua_push_number(L, (lua_Number)value->w);
+        lua_setfield(L, -2, "w");
     } else {
         lua_pushnil(L);
     }
@@ -564,12 +595,18 @@ int auto_olua_push_cocos2d_AffineTransform(lua_State *L, const cocos2d::AffineTr
 {
     if (value) {
         lua_createtable(L, 0, 6);
-        olua_setfieldnumber(L, -1, "a", value->a);
-        olua_setfieldnumber(L, -1, "b", value->b);
-        olua_setfieldnumber(L, -1, "c", value->c);
-        olua_setfieldnumber(L, -1, "d", value->d);
-        olua_setfieldnumber(L, -1, "tx", value->tx);
-        olua_setfieldnumber(L, -1, "ty", value->ty);
+        olua_push_number(L, (lua_Number)value->a);
+        lua_setfield(L, -2, "a");
+        olua_push_number(L, (lua_Number)value->b);
+        lua_setfield(L, -2, "b");
+        olua_push_number(L, (lua_Number)value->c);
+        lua_setfield(L, -2, "c");
+        olua_push_number(L, (lua_Number)value->d);
+        lua_setfield(L, -2, "d");
+        olua_push_number(L, (lua_Number)value->tx);
+        lua_setfield(L, -2, "tx");
+        olua_push_number(L, (lua_Number)value->ty);
+        lua_setfield(L, -2, "ty");
     } else {
         lua_pushnil(L);
     }
@@ -620,13 +657,20 @@ int auto_olua_push_GLContextAttrs(lua_State *L, const GLContextAttrs *value)
 {
     if (value) {
         lua_createtable(L, 0, 7);
-        olua_setfieldinteger(L, -1, "redBits", (lua_Integer)value->redBits);
-        olua_setfieldinteger(L, -1, "greenBits", (lua_Integer)value->greenBits);
-        olua_setfieldinteger(L, -1, "blueBits", (lua_Integer)value->blueBits);
-        olua_setfieldinteger(L, -1, "alphaBits", (lua_Integer)value->alphaBits);
-        olua_setfieldinteger(L, -1, "depthBits", (lua_Integer)value->depthBits);
-        olua_setfieldinteger(L, -1, "stencilBits", (lua_Integer)value->stencilBits);
-        olua_setfieldinteger(L, -1, "multisamplingCount", (lua_Integer)value->multisamplingCount);
+        olua_push_int(L, (lua_Integer)value->redBits);
+        lua_setfield(L, -2, "redBits");
+        olua_push_int(L, (lua_Integer)value->greenBits);
+        lua_setfield(L, -2, "greenBits");
+        olua_push_int(L, (lua_Integer)value->blueBits);
+        lua_setfield(L, -2, "blueBits");
+        olua_push_int(L, (lua_Integer)value->alphaBits);
+        lua_setfield(L, -2, "alphaBits");
+        olua_push_int(L, (lua_Integer)value->depthBits);
+        lua_setfield(L, -2, "depthBits");
+        olua_push_int(L, (lua_Integer)value->stencilBits);
+        lua_setfield(L, -2, "stencilBits");
+        olua_push_int(L, (lua_Integer)value->multisamplingCount);
+        lua_setfield(L, -2, "multisamplingCount");
     } else {
         lua_pushnil(L);
     }
@@ -679,8 +723,10 @@ int auto_olua_push_cocos2d_Tex2F(lua_State *L, const cocos2d::Tex2F *value)
 {
     if (value) {
         lua_createtable(L, 0, 2);
-        olua_setfieldnumber(L, -1, "u", value->u);
-        olua_setfieldnumber(L, -1, "v", value->v);
+        olua_push_number(L, (lua_Number)value->u);
+        lua_setfield(L, -2, "u");
+        olua_push_number(L, (lua_Number)value->v);
+        lua_setfield(L, -2, "v");
     } else {
         lua_pushnil(L);
     }
@@ -759,6 +805,31 @@ void auto_olua_check_cocos2d_T2F_Quad(lua_State *L, int idx, cocos2d::T2F_Quad *
     lua_pop(L, 1);
 }
 
+void auto_olua_opt_cocos2d_T2F_Quad(lua_State *L, int idx, cocos2d::T2F_Quad *value, const cocos2d::T2F_Quad &def)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    if (olua_isnil(L, idx)) {
+        *value = def;
+    } else {
+        idx = lua_absindex(L, idx);
+        luaL_checktype(L, idx, LUA_TTABLE);
+        lua_getfield(L, -1, "bl");
+        auto_olua_check_cocos2d_Tex2F(L, idx, &value->bl);
+        lua_pop(L, 1);
+        lua_getfield(L, -1, "br");
+        auto_olua_check_cocos2d_Tex2F(L, idx, &value->br);
+        lua_pop(L, 1);
+        lua_getfield(L, -1, "tl");
+        auto_olua_check_cocos2d_Tex2F(L, idx, &value->tl);
+        lua_pop(L, 1);
+        lua_getfield(L, -1, "tr");
+        auto_olua_check_cocos2d_Tex2F(L, idx, &value->tr);
+        lua_pop(L, 1);
+    }
+}
+
 bool auto_olua_is_cocos2d_T2F_Quad(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "tr") && olua_hasfield(L, idx, "tl") && olua_hasfield(L, idx, "br") && olua_hasfield(L, idx, "bl");
@@ -768,16 +839,26 @@ int auto_olua_push_cocos2d_TTFConfig(lua_State *L, const cocos2d::TTFConfig *val
 {
     if (value) {
         lua_createtable(L, 0, 10);
-        olua_setfieldstring(L, -1, "fontFilePath", value->fontFilePath.c_str());
-        olua_setfieldnumber(L, -1, "fontSize", value->fontSize);
-        olua_setfieldinteger(L, -1, "glyphs", (lua_Unsigned)value->glyphs);
-        olua_setfieldstring(L, -1, "customGlyphs", value->customGlyphs);
-        olua_setfieldboolean(L, -1, "distanceFieldEnabled", value->distanceFieldEnabled);
-        olua_setfieldinteger(L, -1, "outlineSize", (lua_Integer)value->outlineSize);
-        olua_setfieldboolean(L, -1, "italics", value->italics);
-        olua_setfieldboolean(L, -1, "bold", value->bold);
-        olua_setfieldboolean(L, -1, "underline", value->underline);
-        olua_setfieldboolean(L, -1, "strikethrough", value->strikethrough);
+        olua_push_std_string(L, (std::string)value->fontFilePath);
+        lua_setfield(L, -2, "fontFilePath");
+        olua_push_number(L, (lua_Number)value->fontSize);
+        lua_setfield(L, -2, "fontSize");
+        olua_push_uint(L, (lua_Unsigned)value->glyphs);
+        lua_setfield(L, -2, "glyphs");
+        olua_push_string(L, (const char *)value->customGlyphs);
+        lua_setfield(L, -2, "customGlyphs");
+        olua_push_bool(L, (bool)value->distanceFieldEnabled);
+        lua_setfield(L, -2, "distanceFieldEnabled");
+        olua_push_int(L, (lua_Integer)value->outlineSize);
+        lua_setfield(L, -2, "outlineSize");
+        olua_push_bool(L, (bool)value->italics);
+        lua_setfield(L, -2, "italics");
+        olua_push_bool(L, (bool)value->bold);
+        lua_setfield(L, -2, "bold");
+        olua_push_bool(L, (bool)value->underline);
+        lua_setfield(L, -2, "underline");
+        olua_push_bool(L, (bool)value->strikethrough);
+        lua_setfield(L, -2, "strikethrough");
     } else {
         lua_pushnil(L);
     }
@@ -804,17 +885,42 @@ void auto_olua_check_cocos2d_TTFConfig(lua_State *L, int idx, cocos2d::TTFConfig
     value->strikethrough = (bool)olua_optfieldboolean(L, idx, "strikethrough", false);
 }
 
+void auto_olua_opt_cocos2d_TTFConfig(lua_State *L, int idx, cocos2d::TTFConfig *value, const cocos2d::TTFConfig &def)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    if (olua_isnil(L, idx)) {
+        *value = def;
+    } else {
+        idx = lua_absindex(L, idx);
+        luaL_checktype(L, idx, LUA_TTABLE);
+        value->fontFilePath = (std::string)olua_optfieldstring(L, idx, "fontFilePath", "");
+        value->fontSize = (float)olua_optfieldnumber(L, idx, "fontSize", 0);
+        value->glyphs = (cocos2d::GlyphCollection)olua_optfieldinteger(L, idx, "glyphs", 0);
+        value->customGlyphs = (const char *)olua_optfieldstring(L, idx, "customGlyphs", nullptr);
+        value->distanceFieldEnabled = (bool)olua_optfieldboolean(L, idx, "distanceFieldEnabled", false);
+        value->outlineSize = (int)olua_optfieldinteger(L, idx, "outlineSize", 0);
+        value->italics = (bool)olua_optfieldboolean(L, idx, "italics", false);
+        value->bold = (bool)olua_optfieldboolean(L, idx, "bold", false);
+        value->underline = (bool)olua_optfieldboolean(L, idx, "underline", false);
+        value->strikethrough = (bool)olua_optfieldboolean(L, idx, "strikethrough", false);
+    }
+}
+
 bool auto_olua_is_cocos2d_TTFConfig(lua_State *L, int idx)
 {
-    return olua_istable(L, idx) && olua_hasfield(L, idx, "strikethrough") && olua_hasfield(L, idx, "underline") && olua_hasfield(L, idx, "bold") && olua_hasfield(L, idx, "italics") && olua_hasfield(L, idx, "outlineSize") && olua_hasfield(L, idx, "distanceFieldEnabled") && olua_hasfield(L, idx, "customGlyphs") && olua_hasfield(L, idx, "glyphs") && olua_hasfield(L, idx, "fontSize") && olua_hasfield(L, idx, "fontFilePath");
+    return olua_istable(L, idx) && olua_hasfield(L, idx, "fontFilePath");
 }
 
 int auto_olua_push_cocos2d_BlendFunc(lua_State *L, const cocos2d::BlendFunc *value)
 {
     if (value) {
         lua_createtable(L, 0, 2);
-        olua_setfieldinteger(L, -1, "src", (lua_Unsigned)value->src);
-        olua_setfieldinteger(L, -1, "dst", (lua_Unsigned)value->dst);
+        olua_push_uint(L, (lua_Unsigned)value->src);
+        lua_setfield(L, -2, "src");
+        olua_push_uint(L, (lua_Unsigned)value->dst);
+        lua_setfield(L, -2, "dst");
     } else {
         lua_pushnil(L);
     }
@@ -857,10 +963,14 @@ int auto_olua_push_cocos2d_ui_Margin(lua_State *L, const cocos2d::ui::Margin *va
 {
     if (value) {
         lua_createtable(L, 0, 4);
-        olua_setfieldnumber(L, -1, "left", value->left);
-        olua_setfieldnumber(L, -1, "top", value->top);
-        olua_setfieldnumber(L, -1, "right", value->right);
-        olua_setfieldnumber(L, -1, "bottom", value->bottom);
+        olua_push_number(L, (lua_Number)value->left);
+        lua_setfield(L, -2, "left");
+        olua_push_number(L, (lua_Number)value->top);
+        lua_setfield(L, -2, "top");
+        olua_push_number(L, (lua_Number)value->right);
+        lua_setfield(L, -2, "right");
+        olua_push_number(L, (lua_Number)value->bottom);
+        lua_setfield(L, -2, "bottom");
     } else {
         lua_pushnil(L);
     }
@@ -907,9 +1017,12 @@ int auto_olua_push_cocos2d_ResourceData(lua_State *L, const cocos2d::ResourceDat
 {
     if (value) {
         lua_createtable(L, 0, 3);
-        olua_setfieldinteger(L, -1, "type", (lua_Integer)value->type);
-        olua_setfieldstring(L, -1, "file", value->file.c_str());
-        olua_setfieldstring(L, -1, "plist", value->plist.c_str());
+        olua_push_int(L, (lua_Integer)value->type);
+        lua_setfield(L, -2, "type");
+        olua_push_std_string(L, (std::string)value->file);
+        lua_setfield(L, -2, "file");
+        olua_push_std_string(L, (std::string)value->plist);
+        lua_setfield(L, -2, "plist");
     } else {
         lua_pushnil(L);
     }
@@ -990,6 +1103,31 @@ void auto_olua_check_cocos2d_Quad3(lua_State *L, int idx, cocos2d::Quad3 *value)
     lua_pop(L, 1);
 }
 
+void auto_olua_opt_cocos2d_Quad3(lua_State *L, int idx, cocos2d::Quad3 *value, const cocos2d::Quad3 &def)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    if (olua_isnil(L, idx)) {
+        *value = def;
+    } else {
+        idx = lua_absindex(L, idx);
+        luaL_checktype(L, idx, LUA_TTABLE);
+        lua_getfield(L, -1, "bl");
+        auto_olua_check_cocos2d_Vec3(L, idx, &value->bl);
+        lua_pop(L, 1);
+        lua_getfield(L, -1, "br");
+        auto_olua_check_cocos2d_Vec3(L, idx, &value->br);
+        lua_pop(L, 1);
+        lua_getfield(L, -1, "tl");
+        auto_olua_check_cocos2d_Vec3(L, idx, &value->tl);
+        lua_pop(L, 1);
+        lua_getfield(L, -1, "tr");
+        auto_olua_check_cocos2d_Vec3(L, idx, &value->tr);
+        lua_pop(L, 1);
+    }
+}
+
 bool auto_olua_is_cocos2d_Quad3(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "tr") && olua_hasfield(L, idx, "tl") && olua_hasfield(L, idx, "br") && olua_hasfield(L, idx, "bl");
@@ -999,9 +1137,12 @@ int auto_olua_push_cocos2d_Controller_KeyStatus(lua_State *L, const cocos2d::Con
 {
     if (value) {
         lua_createtable(L, 0, 3);
-        olua_setfieldboolean(L, -1, "isPressed", value->isPressed);
-        olua_setfieldnumber(L, -1, "value", value->value);
-        olua_setfieldboolean(L, -1, "isAnalog", value->isAnalog);
+        olua_push_bool(L, (bool)value->isPressed);
+        lua_setfield(L, -2, "isPressed");
+        olua_push_number(L, (lua_Number)value->value);
+        lua_setfield(L, -2, "value");
+        olua_push_bool(L, (bool)value->isAnalog);
+        lua_setfield(L, -2, "isAnalog");
     } else {
         lua_pushnil(L);
     }

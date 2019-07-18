@@ -2,42 +2,23 @@ local olua = require "olua.olua-io"
 
 local format = olua.format
 
-local function gen_conv_header(module)
+local function genConvHeader(module)
     local HEADER = string.upper(module.NAME)
     local DECL_FUNCS = {}
 
     for _, cv in ipairs(module.CONVS) do
         DECL_FUNCS[#DECL_FUNCS + 1] = "// " .. cv.CPPCLS
-        local CPPCLS = cv.CPPCLS
         local CPPCLS_PATH = olua.topath(cv.CPPCLS)
-        if cv.FUNC.PUSH then
-            DECL_FUNCS[#DECL_FUNCS + 1] = format([[
-                int auto_olua_push_${CPPCLS_PATH}(lua_State *L, const ${CPPCLS} *value);
-            ]])
-        end
-        if cv.FUNC.CHECK then
-            DECL_FUNCS[#DECL_FUNCS + 1] = format([[
-                void auto_olua_check_${CPPCLS_PATH}(lua_State *L, int idx, ${CPPCLS} *value);
-            ]])
-        end
-        if cv.FUNC.OPT then
-            DECL_FUNCS[#DECL_FUNCS + 1] = format([[
-                void auto_olua_opt_${CPPCLS_PATH}(lua_State *L, int idx, ${CPPCLS} *value, const ${CPPCLS} &def);
-            ]])
-        end
+        DECL_FUNCS[#DECL_FUNCS + 1] = format([[
+            int auto_olua_push_${CPPCLS_PATH}(lua_State *L, const ${cv.CPPCLS} *value);
+            void auto_olua_check_${CPPCLS_PATH}(lua_State *L, int idx, ${cv.CPPCLS} *value);
+            void auto_olua_opt_${CPPCLS_PATH}(lua_State *L, int idx, ${cv.CPPCLS} *value, const ${cv.CPPCLS} &def);
+            bool auto_olua_is_${CPPCLS_PATH}(lua_State *L, int idx);
+        ]])
         if cv.FUNC.PACK then
             DECL_FUNCS[#DECL_FUNCS + 1] = format([[
-                void auto_olua_pack_${CPPCLS_PATH}(lua_State *L, int idx, ${CPPCLS} *value);
-            ]])
-        end
-        if cv.FUNC.UNPACK then
-            DECL_FUNCS[#DECL_FUNCS + 1] = format([[
-                int auto_olua_unpack_${CPPCLS_PATH}(lua_State *L, const ${CPPCLS} *value);
-            ]])
-        end
-        if cv.FUNC.IS then
-            DECL_FUNCS[#DECL_FUNCS + 1] = format([[
-                bool auto_olua_is_${CPPCLS_PATH}(lua_State *L, int idx);
+                void auto_olua_pack_${CPPCLS_PATH}(lua_State *L, int idx, ${cv.CPPCLS} *value);
+                int auto_olua_unpack_${CPPCLS_PATH}(lua_State *L, const ${cv.CPPCLS} *value);
             ]])
         end
         if cv.FUNC.ISPACK then
@@ -46,6 +27,7 @@ local function gen_conv_header(module)
             ]])
         end
         DECL_FUNCS[#DECL_FUNCS + 1] = ""
+        olua.nowarning(CPPCLS_PATH)
     end
 
     DECL_FUNCS = table.concat(DECL_FUNCS, "\n")
@@ -64,53 +46,62 @@ local function gen_conv_header(module)
 
         #endif
     ]]))
+    olua.nowarning(HEADER, HEADER_INCLUDES)
 end
 
-local function gen_push_func(cv, write)
-    local CPPCLS = cv.CPPCLS
+local function convfunc(ti, fn)
+    local func
+    if olua.isvaluetype(ti) then
+        if ti.DECLTYPE == 'lua_Number' then
+            func = 'olua_$$fieldnumber'
+        elseif ti.DECLTYPE == 'lua_Integer'
+            or ti.DECLTYPE == 'lua_Unsigned' then
+            func = 'olua_$$fieldinteger'
+        elseif ti.DECLTYPE == 'std::string' then
+            func = 'olua_$$fieldstring'
+        elseif ti.DECLTYPE == 'bool' then
+            func = 'olua_$$fieldboolean'
+        elseif ti.DECLTYPE == 'const char *' then
+            func = 'olua_$$fieldstring'
+        else
+            error('unknown type:' .. ti.TYPE.CPPCLS)
+        end
+        func = string.gsub(func, '[$$]+', fn)
+    else
+        func = olua.convfunc(ti, fn)
+    end
+    return func
+end
+
+local function genPushFunc(cv, write)
     local CPPCLS_PATH = olua.topath(cv.CPPCLS)
     local NUM_ARGS = #cv.PROPS
     local ARGS_CHUNK = {}
 
     for _, pi in ipairs(cv.PROPS) do
-        local LUANAME = pi.LUANAME
-        local VARNAME = pi.VARNAME
-        local OLUA_PUSH_VALUE
-        local isbase = true
-        local DECLTYPE = ""
-        if pi.TYPE.DECLTYPE == 'lua_Number' then
-            OLUA_PUSH_VALUE = 'olua_setfieldnumber'
-        elseif pi.TYPE.DECLTYPE == 'lua_Integer'
-            or pi.TYPE.DECLTYPE == 'lua_Unsigned' then
-            OLUA_PUSH_VALUE = 'olua_setfieldinteger'
-            DECLTYPE = '(' .. pi.TYPE.DECLTYPE .. ')'
-        elseif pi.TYPE.CPPCLS == 'std::string' then
-            OLUA_PUSH_VALUE = 'olua_setfieldstring'
-            VARNAME = VARNAME .. '.c_str()'
-        elseif pi.TYPE.CPPCLS == 'bool' then
-            OLUA_PUSH_VALUE = 'olua_setfieldboolean'
-        elseif pi.TYPE.CPPCLS == 'const char *' then
-            OLUA_PUSH_VALUE = 'olua_setfieldstring'
-        else
-            isbase = false
-            OLUA_PUSH_VALUE = olua.convfunc(pi.TYPE, 'push')
-            -- error(string.format("%s %s %s", cv.VARNAME, cv.LUANAME, cv.TYPE.CPPCLS))
-        end
-        if isbase then
+        local OLUA_PUSH_VALUE = olua.convfunc(pi.TYPE, 'push')
+        if olua.isvaluetype(pi.TYPE) then
             ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
-                ${OLUA_PUSH_VALUE}(L, -1, "${LUANAME}", ${DECLTYPE}value->${VARNAME});
+                ${OLUA_PUSH_VALUE}(L, (${pi.TYPE.DECLTYPE})value->${pi.VARNAME});
+                lua_setfield(L, -2, "${pi.LUANAME}");
+            ]])
+        elseif pi.TYPE.LUACLS then
+            ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
+                ${OLUA_PUSH_VALUE}(L, value->${pi.VARNAME}, "${pi.TYPE.LUACLS}"");
+                lua_setfield(L, -2, "${pi.LUANAME}");
             ]])
         else
             ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
-                ${OLUA_PUSH_VALUE}(L, &value->${VARNAME});
-                lua_setfield(L, -2, "${LUANAME}");
+                ${OLUA_PUSH_VALUE}(L, &value->${pi.VARNAME});
+                lua_setfield(L, -2, "${pi.LUANAME}");
             ]])
         end
+        olua.nowarning(OLUA_PUSH_VALUE)
     end
 
     ARGS_CHUNK = table.concat(ARGS_CHUNK, "\n")
     write(format([[
-        int auto_olua_push_${CPPCLS_PATH}(lua_State *L, const ${CPPCLS} *value)
+        int auto_olua_push_${CPPCLS_PATH}(lua_State *L, const ${cv.CPPCLS} *value)
         {
             if (value) {
                 lua_createtable(L, 0, ${NUM_ARGS});
@@ -123,60 +114,40 @@ local function gen_push_func(cv, write)
         }
     ]]))
     write('')
+    olua.nowarning(CPPCLS_PATH, NUM_ARGS)
 end
 
 local function gen_check_func(cv, write)
-    local CPPCLS = cv.CPPCLS
     local CPPCLS_PATH = olua.topath(cv.CPPCLS)
-    local NUM_ARGS = #cv.PROPS
     local ARGS_CHUNK = {}
-
+    local DECL_ARGS = {}
+    local CHECK_ARGS = {}
     for _, pi in ipairs(cv.PROPS) do
-        local LUANAME = pi.LUANAME
-        local VARNAME = pi.VARNAME
-        local CPPCLS = pi.TYPE.CPPCLS
-        local OLUA_CHECK_VALUE
-        local isbase = true
-        local INIT_VALUE = pi.TYPE.INIT_VALUE
-        if pi.TYPE.DECLTYPE == 'lua_Number' then
-            OLUA_CHECK_VALUE = 'olua_checkfieldnumber'
-        elseif pi.TYPE.DECLTYPE == 'lua_Integer'
-            or pi.TYPE.DECLTYPE == 'lua_Unsigned' then
-            OLUA_CHECK_VALUE = 'olua_checkfieldinteger'
-        elseif pi.TYPE.CPPCLS == 'std::string' then
-            OLUA_CHECK_VALUE = 'olua_checkfieldstring'
-        elseif pi.TYPE.CPPCLS == 'bool' then
-            OLUA_CHECK_VALUE = 'olua_checkfieldboolean'
-        elseif pi.TYPE.CPPCLS == 'const char *' then
-            OLUA_CHECK_VALUE = 'olua_checkfieldstring'
-        else
-            OLUA_CHECK_VALUE = olua.convfunc(pi.TYPE, 'check')
-            isbase = false
-            -- error(string.format("%s %s %s", cv.VARNAME, cv.LUANAME, cv.TYPE.CPPCLS))
-        end
+        local OLUA_CHECK_VALUE = convfunc(pi.TYPE, 'check')
         if pi.DEFAULT then
             local DEFAULT = pi.DEFAULT
             OLUA_CHECK_VALUE = string.gsub(OLUA_CHECK_VALUE, '_check', '_opt')
-            if isbase then
+            if olua.isvaluetype(pi.TYPE) then
                 ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
-                    value->${VARNAME} = (${CPPCLS})${OLUA_CHECK_VALUE}(L, idx, "${LUANAME}", ${DEFAULT});
+                    value->${pi.VARNAME} = (${pi.TYPE.CPPCLS})${OLUA_CHECK_VALUE}(L, idx, "${pi.LUANAME}", ${DEFAULT});
                 ]])
             else
                 ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
-                    lua_getfield(L, -1, "${LUANAME}");
-                    ${OLUA_CHECK_VALUE}(L, idx, &value->${VARNAME});
+                    lua_getfield(L, -1, "${pi.LUANAME}");
+                    ${OLUA_CHECK_VALUE}(L, idx, &value->${pi.VARNAME});
                     lua_pop(L, 1);
                 ]])
             end
+            olua.nowarning(DEFAULT)
         else
-            if isbase then
+            if olua.isvaluetype(pi.TYPE) then
                 ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
-                    value->${VARNAME} = (${CPPCLS})${OLUA_CHECK_VALUE}(L, idx, "${LUANAME}");
+                    value->${pi.VARNAME} = (${pi.TYPE.CPPCLS})${OLUA_CHECK_VALUE}(L, idx, "${pi.LUANAME}");
                 ]])
             else
                 ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
-                    lua_getfield(L, -1, "${LUANAME}");
-                    ${OLUA_CHECK_VALUE}(L, idx, &value->${VARNAME});
+                    lua_getfield(L, -1, "${pi.LUANAME}");
+                    ${OLUA_CHECK_VALUE}(L, idx, &value->${pi.VARNAME});
                     lua_pop(L, 1);
                 ]])
             end
@@ -185,7 +156,7 @@ local function gen_check_func(cv, write)
 
     ARGS_CHUNK = table.concat(ARGS_CHUNK, "\n")
     write(format([[
-        void auto_olua_check_${CPPCLS_PATH}(lua_State *L, int idx, ${CPPCLS} *value)
+        void auto_olua_check_${CPPCLS_PATH}(lua_State *L, int idx, ${cv.CPPCLS} *value)
         {
             if (!value) {
                 luaL_error(L, "value is NULL");
@@ -196,54 +167,33 @@ local function gen_check_func(cv, write)
         }
     ]]))
     write('')
+    olua.nowarning(CPPCLS_PATH)
 end
 
 local function gen_opt_func(cv, write)
-    local CPPCLS = cv.CPPCLS
     local CPPCLS_PATH = olua.topath(cv.CPPCLS)
-    local NUM_ARGS = #cv.PROPS
     local ARGS_CHUNK = {}
-
     for _, pi in ipairs(cv.PROPS) do
-        local LUANAME = pi.LUANAME
-        local VARNAME = pi.VARNAME
-        local CPPCLS = pi.TYPE.CPPCLS
-        local OLUA_OPT_VALUE
-        local isbase = true
-        local INIT_VALUE = pi.TYPE.INIT_VALUE
-        if pi.TYPE.DECLTYPE == 'lua_Number' then
-            OLUA_OPT_VALUE = 'olua_optfieldnumber'
-        elseif pi.TYPE.DECLTYPE == 'lua_Integer'
-            or pi.TYPE.DECLTYPE == 'lua_Unsigned' then
-            OLUA_OPT_VALUE = 'olua_optfieldinteger'
-        elseif pi.TYPE.CPPCLS == 'std::string' then
-            OLUA_OPT_VALUE = 'olua_optfieldstring'
-            INIT_VALUE = '""'
-        elseif pi.TYPE.CPPCLS == 'bool' then
-            OLUA_OPT_VALUE = 'olua_optfieldboolean'
-        elseif pi.TYPE.CPPCLS == 'const char *' then
-            OLUA_OPT_VALUE = 'olua_optfieldstring'
-        else
-            OLUA_OPT_VALUE = olua.convfunc(pi.TYPE, 'check')
-            isbase = false
-            -- error(string.format("%s %s %s", cv.VARNAME, cv.LUANAME, cv.TYPE.CPPCLS))
-        end
-        if isbase then
+        local INIT_VALUE = pi.TYPE.INIT_VALUE or '""'
+        local OLUA_OPT_VALUE = convfunc(pi.TYPE, 'opt')
+        if olua.isvaluetype(pi.TYPE) then
             ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
-                value->${VARNAME} = (${CPPCLS})${OLUA_OPT_VALUE}(L, idx, "${LUANAME}", ${INIT_VALUE});
+                value->${pi.VARNAME} = (${pi.TYPE.CPPCLS})${OLUA_OPT_VALUE}(L, idx, "${pi.LUANAME}", ${INIT_VALUE});
             ]])
         else
+            OLUA_OPT_VALUE = string.gsub(OLUA_OPT_VALUE, '_opt', '_check')
             ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
-                lua_getfield(L, -1, "${LUANAME}");
-                ${OLUA_OPT_VALUE}(L, idx, &value->${VARNAME});
+                lua_getfield(L, -1, "${pi.LUANAME}");
+                ${OLUA_OPT_VALUE}(L, idx, &value->${pi.VARNAME});
                 lua_pop(L, 1);
             ]])
         end
+        olua.nowarning(INIT_VALUE, OLUA_OPT_VALUE)
     end
 
     ARGS_CHUNK = table.concat(ARGS_CHUNK, "\n")
     write(format([[
-        void auto_olua_opt_${CPPCLS_PATH}(lua_State *L, int idx, ${CPPCLS} *value, const ${CPPCLS} &def)
+        void auto_olua_opt_${CPPCLS_PATH}(lua_State *L, int idx, ${cv.CPPCLS} *value, const ${cv.CPPCLS} &def)
         {
             if (!value) {
                 luaL_error(L, "value is NULL");
@@ -258,42 +208,26 @@ local function gen_opt_func(cv, write)
         }
     ]]))
     write('')
+    olua.nowarning(CPPCLS_PATH)
 end
 
 local function gen_pack_func(cv, write)
-    local CPPCLS = cv.CPPCLS
     local CPPCLS_PATH = olua.topath(cv.CPPCLS)
-    local NUM_ARGS = #cv.PROPS
     local ARGS_CHUNK = {}
 
     for i, pi in ipairs(cv.PROPS) do
-        local LUANAME = pi.LUANAME
-        local VARNAME = pi.VARNAME
-        local CPPCLS = pi.TYPE.CPPCLS
         local ARG_N = i - 1
-        local OLUA_PACK_VALUE
-        if pi.TYPE.DECLTYPE == 'lua_Number' then
-            OLUA_PACK_VALUE = 'olua_checknumber'
-        elseif pi.TYPE.DECLTYPE == 'lua_Integer'
-            or pi.TYPE.DECLTYPE == 'lua_Unsigned' then
-            OLUA_PACK_VALUE = 'olua_checkinteger'
-        elseif pi.TYPE.CPPCLS == 'std::string' then
-            OLUA_PACK_VALUE = 'olua_checkstring'
-        elseif pi.TYPE.CPPCLS == 'bool' then
-            OLUA_PACK_VALUE = 'olua_checktoboolean'
-        elseif pi.TYPE.CPPCLS == 'const char *' then
-            OLUA_PACK_VALUE = 'olua_checkstring'
-        else
-            error(string.format("%s %s %s", cv.VARNAME, cv.LUANAME, cv.TYPE.CPPCLS))
-        end
+        local OLUA_PACK_VALUE = olua.convfunc(pi.TYPE, 'check')
+        OLUA_PACK_VALUE = string.gsub(OLUA_PACK_VALUE, '_check_', '_check')
         ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
-            value->${VARNAME} = (${CPPCLS})${OLUA_PACK_VALUE}(L, idx + ${ARG_N});
+            value->${pi.VARNAME} = (${pi.TYPE.CPPCLS})${OLUA_PACK_VALUE}(L, idx + ${ARG_N});
         ]])
+        olua.nowarning(ARG_N)
     end
 
     ARGS_CHUNK = table.concat(ARGS_CHUNK, "\n")
     write(format([[
-        void auto_olua_pack_${CPPCLS_PATH}(lua_State *L, int idx, ${CPPCLS} *value)
+        void auto_olua_pack_${CPPCLS_PATH}(lua_State *L, int idx, ${cv.CPPCLS} *value)
         {
             if (!value) {
                 luaL_error(L, "value is NULL");
@@ -303,43 +237,25 @@ local function gen_pack_func(cv, write)
         }
     ]]))
     write('')
+    olua.nowarning(CPPCLS_PATH)
 end
 
-local function gen_unpack_func(cv, write)
-    local CPPCLS = cv.CPPCLS
+local function genUnpackFunc(cv, write)
     local CPPCLS_PATH = olua.topath(cv.CPPCLS)
     local NUM_ARGS = #cv.PROPS
     local ARGS_CHUNK = {}
 
-    for i, pi in ipairs(cv.PROPS) do
-        local LUANAME = pi.LUANAME
-        local VARNAME = pi.VARNAME
-        local CPPCLS = pi.TYPE.CPPCLS
-        local ARG_N = i - 1
-        local OLUA_UNPACK_VALUE
-        if pi.TYPE.DECLTYPE == 'lua_Number' then
-            OLUA_UNPACK_VALUE = 'lua_pushnumber'
-        elseif pi.TYPE.DECLTYPE == 'lua_Integer'
-            or pi.TYPE.DECLTYPE == 'lua_Unsigned' then
-            OLUA_UNPACK_VALUE = 'lua_pushinteger'
-        elseif pi.TYPE.CPPCLS == 'std::string' then
-            OLUA_UNPACK_VALUE = 'lua_pushstring'
-            VARNAME = VARNAME .. '.c_str()'
-        elseif pi.TYPE.CPPCLS == 'bool' then
-            OLUA_UNPACK_VALUE = 'lua_pushboolean'
-        elseif pi.TYPE.CPPCLS == 'const char *' then
-            OLUA_UNPACK_VALUE = 'lua_pushstring'
-        else
-            error(string.format("%s %s %s", cv.VARNAME, cv.LUANAME, cv.TYPE.CPPCLS))
-        end
+    for _, pi in ipairs(cv.PROPS) do
+        local OLUA_UNPACK_VALUE = olua.convfunc(pi.TYPE, 'push')
         ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
-            ${OLUA_UNPACK_VALUE}(L, value->${VARNAME});
+            ${OLUA_UNPACK_VALUE}(L, value->${pi.VARNAME});
         ]])
+        olua.nowarning(OLUA_UNPACK_VALUE)
     end
 
     ARGS_CHUNK = table.concat(ARGS_CHUNK, "\n")
     write(format([[
-        int auto_olua_unpack_${CPPCLS_PATH}(lua_State *L, const ${CPPCLS} *value)
+        int auto_olua_unpack_${CPPCLS_PATH}(lua_State *L, const ${cv.CPPCLS} *value)
         {
             if (value) {
                 ${ARGS_CHUNK}
@@ -353,17 +269,18 @@ local function gen_unpack_func(cv, write)
         }
     ]]))
     write('')
+    olua.nowarning(CPPCLS_PATH, NUM_ARGS)
 end
 
-local function gen_is_func(cv, write)
-    local CPPCLS = cv.CPPCLS
+local function genIsFunc(cv, write)
     local CPPCLS_PATH = olua.topath(cv.CPPCLS)
     local TEST_HAS = {'olua_istable(L, idx)'}
-    for i, pi in ipairs(cv.PROPS) do
-        local LUANAME = pi.LUANAME
-        table.insert(TEST_HAS, 2, format([[
-            olua_hasfield(L, idx, "${LUANAME}")
-        ]]))
+    for _, pi in ipairs(cv.PROPS) do
+        if not pi.DEFAULT then
+            table.insert(TEST_HAS, 2, format([[
+                olua_hasfield(L, idx, "${pi.LUANAME}")
+            ]]))
+        end
     end
     TEST_HAS = table.concat(TEST_HAS, " && ")
     write(format([[
@@ -373,10 +290,10 @@ local function gen_is_func(cv, write)
         }
     ]]))
     write('')
+    olua.nowarning(CPPCLS_PATH)
 end
 
-local function gen_ispack_func(cv, write)
-    local CPPCLS = cv.CPPCLS
+local function genIsPackFunc(cv, write)
     local CPPCLS_PATH = olua.topath(cv.CPPCLS)
     local TEST_TYPE = {}
     for i, pi in ipairs(cv.PROPS) do
@@ -385,6 +302,7 @@ local function gen_ispack_func(cv, write)
         TEST_TYPE[#TEST_TYPE + 1] = format([[
             ${OLUA_IS_VALUE}(L, idx + ${VIDX})
         ]])
+        olua.nowarning(OLUA_IS_VALUE, VIDX)
     end
     TEST_TYPE = table.concat(TEST_TYPE, " && ")
     write(format([[
@@ -394,50 +312,42 @@ local function gen_ispack_func(cv, write)
         }
     ]]))
     write('')
+    olua.nowarning(CPPCLS_PATH)
 end
 
-local function gen_funcs(cv, write)
-    if cv.FUNC.PUSH then
-        gen_push_func(cv, write)
-    end
-    if cv.FUNC.CHECK then
-        gen_check_func(cv, write)
-    end
-    if cv.FUNC.OPT then
-        gen_opt_func(cv, write)
-    end
+local function genFuncs(cv, write)
+    genPushFunc(cv, write)
+    gen_check_func(cv, write)
+    gen_opt_func(cv, write)
+    genIsFunc(cv, write)
+
     if cv.FUNC.PACK then
         gen_pack_func(cv, write)
     end
     if cv.FUNC.UNPACK then
-        gen_unpack_func(cv, write)
-    end
-    if cv.FUNC.IS then
-        gen_is_func(cv, write)
+        genUnpackFunc(cv, write)
     end
     if cv.FUNC.ISPACK then
-        gen_ispack_func(cv, write)
+        genIsPackFunc(cv, write)
     end
 end
 
-local function gen_conv_source(module)
+local function genConvSource(module)
     local arr = {}
     local function append(value)
         arr[#arr + 1] = value
     end
 
-    local HEADER = string.upper(module.NAME)
-    local INCLUDES = module.INCLUDES
     append(format([[
         //
         // generated by olua
         //
-        ${INCLUDES}
+        ${module.INCLUDES}
     ]]))
     append('')
 
     for _, cv in ipairs(module.CONVS) do
-        gen_funcs(cv, append)
+        genFuncs(cv, append)
     end
 
     olua.write(module.SOURCE_PATH, table.concat(arr, "\n"))
@@ -446,10 +356,10 @@ end
 function olua.genconv(module, write)
     if write then
         for _, cv in ipairs(module.CONVS) do
-            gen_funcs(cv, write)
+            genFuncs(cv, write)
         end
     else
-        gen_conv_header(module)
-        gen_conv_source(module)
+        genConvHeader(module)
+        genConvSource(module)
     end
 end

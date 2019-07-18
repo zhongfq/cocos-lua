@@ -50,7 +50,6 @@ typedef {
 typedef {
     CPPCLS = 'std::set',
     INIT_VALUE = false,
-    IS_ARRAY = true,
     CONV_FUNC = 'olua_$$_std_set',
     FN_PUSH_BACK = 'insert',
     FN_ITERATOR = true,
@@ -77,7 +76,6 @@ typedef {
 typedef {
     CPPCLS = 'std::vector',
     INIT_VALUE = false,
-    IS_ARRAY = true,
     CONV_FUNC = 'olua_$$_std_vector',
     FN_RESERVE = 'reserve',
     FN_PUSH_BACK = 'push_back',

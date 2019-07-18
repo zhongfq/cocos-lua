@@ -2,7 +2,7 @@ local olua = require "olua.olua-io"
 
 local format = olua.format
 
-local function gen_snippet_func(cls, fi, write)
+local function genSnippetFunc(cls, fi, write)
     local CPPCLS_PATH = olua.topath(cls.CPPCLS)
     local CPPFUNC = fi.CPPFUNC
     local CPPFUNC_SNIPPET = fi.CPPFUNC_SNIPPET
@@ -38,12 +38,13 @@ local function gen_func_args(cls, fi)
         TOTAL_ARGS = TOTAL_ARGS + 1
         idx = idx + 1
         local ti = olua.typeinfo(cls.CPPCLS .. "*")
-        olua.nowarning(ti)
+        local OLUA_TO_TYPE = olua.convfunc(ti, 'to')
+        olua.nowarning(OLUA_TO_TYPE)
         DECL_CHUNK[#DECL_CHUNK + 1] = format([[
             ${cls.CPPCLS} *self = nullptr;
         ]])
         ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
-            ${ti.FUNC_TO_VALUE}(L, 1, (void **)&self, "${ti.LUACLS}");
+            ${OLUA_TO_TYPE}(L, 1, (void **)&self, "${ti.LUACLS}");
         ]])
     elseif fi.ISVAR then
         TOTAL_ARGS = TOTAL_ARGS + 1
@@ -94,7 +95,7 @@ local function gen_func_args(cls, fi)
             if ai.TYPE.LUACLS and ai.TYPE.DECLTYPE ~= 'lua_Unsigned' then
                 local FUNC_OPT_VALUE = ai.TYPE.FUNC_OPT_VALUE
                 ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
-                    ${FUNC_OPT_VALUE}(L, ${ARGN}, (void **)&${ARG_NAME}, "${ai.TYPE.LUACLS}", nullptr);
+                    ${FUNC_OPT_VALUE}(L, ${ARGN}, (void **)&${ARG_NAME}, "${ai.TYPE.LUACLS}", ${DEFAULT});
                 ]])
             else
                 ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
@@ -106,7 +107,7 @@ local function gen_func_args(cls, fi)
                 ${FUNC_CHECK_VALUE}(L, ${ARGN}, (void **)&${ARG_NAME}, "${ai.TYPE.LUACLS}");
             ]])
         elseif ai.TYPE.SUBTYPE then
-            assert(ai.TYPE.IS_ARRAY)
+            assert(ai.TYPE.SUBTYPE)
             local SUBTYPE = ai.TYPE.SUBTYPE
             if SUBTYPE.LUACLS then
                 local SUB_LUACLS = SUBTYPE.LUACLS
@@ -227,7 +228,7 @@ end
 
 local function genOneFunc(cls, fi, write, funcidx, func_filter)
     local CPPCLS_PATH = olua.topath(cls.CPPCLS)
-    local CALLFUNC = fi.CPPFUNC
+    local CPPFUNC = fi.CPPFUNC
     local FUNC_INDEX = funcidx or ""
     local CALLER = "self->"
     local ARGS_BEGIN = "("
@@ -242,7 +243,7 @@ local function genOneFunc(cls, fi, write, funcidx, func_filter)
     func_filter[funcname] = true
 
     if fi.CPPFUNC_SNIPPET then
-        gen_snippet_func(cls, fi, write)
+        genSnippetFunc(cls, fi, write)
         return
     end
 
@@ -259,22 +260,17 @@ local function genOneFunc(cls, fi, write, funcidx, func_filter)
         if fi.STATIC and not fi.CALLBACK_OPT.TAG_STORE and fi.RET.TYPE.LUACLS then
             local DECLTYPE = string.gsub(fi.RET.DECLTYPE, ' *%*$', '')
             local LUACLS = fi.RET.TYPE.LUACLS
-            local snippet = format([[
-                ${DECLTYPE} *self = new ${DECLTYPE}();
-                ${DECLTYPE} *ret = self;
-                self->autorelease();
-                olua_push_cppobj<${DECLTYPE}>(L, self, "${LUACLS}");
-            ]])
+            local snippet = format(fi.CALLBACK_OPT.NEW)
             CALLBACK = snippet .. '\n\n' .. CALLBACK
             RET_EXP = ''
             CALLER = 'self->'
-            CALLFUNC = assert(fi.CALLBACK_OPT.INIT_FUNC, 'no init func')
+            CPPFUNC = assert(fi.CALLBACK_OPT.CPPFUNC, 'no cpp func')
         end
     end
 
     if fi.ISVAR then
         ARGS_END = ""
-        CALLFUNC = fi.VARNAME
+        CPPFUNC = fi.VARNAME
         if fi.RET.NUM > 0 then
             ARGS_BEGIN = ""
         else
@@ -296,7 +292,7 @@ local function genOneFunc(cls, fi, write, funcidx, func_filter)
             assert(not fi.STATIC, 'no ref object')
             IDX = 1
             WHICH_OBJ = assert(fi.RET.ATTR.REF[3], 'no store obj')
-        elseif fi.RET.TYPE.IS_ARRAY then
+        elseif fi.RET.TYPE.SUBTYPE then
             assert(REF == 'map')
             assert(fi.RET.TYPE.SUBTYPE.LUACLS, fi.CPPFUNC .. ' sub ref object must be a userdata')
         else
@@ -309,7 +305,7 @@ local function genOneFunc(cls, fi, write, funcidx, func_filter)
                 olua_singleref(L, ${WHICH_OBJ}, "${REFNAME}", ${IDX});
             ]])
         elseif REF == 'map' then
-            if fi.RET.TYPE.IS_ARRAY then
+            if fi.RET.TYPE.SUBTYPE then
                 INJECT_AFTER[#INJECT_AFTER + 1] = format([[
                     olua_maprefarray(L, ${WHICH_OBJ}, "${REFNAME}", ${IDX});
                 ]])
@@ -389,7 +385,7 @@ local function genOneFunc(cls, fi, write, funcidx, func_filter)
             ${CALLBACK}
 
             // ${fi.DECLFUNC}
-            ${RET_EXP}${CALLER}${CALLFUNC}${ARGS_BEGIN}${CALLER_ARGS}${ARGS_END};
+            ${RET_EXP}${CALLER}${CPPFUNC}${ARGS_BEGIN}${CALLER_ARGS}${ARGS_END};
             ${RET_PUSH}
 
             ${INJECT_AFTER}
@@ -419,27 +415,27 @@ local function genTestAndCall(cls, fns)
             local MAX_VARS = 1
             for i, ai in ipairs(fi.ARGS) do
                 local ARG_NAME = (fi.STATIC and 0 or 1) + i
-                local FUNC_IS_VALUE = ai.TYPE.FUNC_IS_VALUE
+                local OLUA_IS_VALUE = olua.convfunc(ai.TYPE, 'is')
                 local TEST_NULL = ""
 
                 MAX_VARS = math.max(ai.TYPE.VARS or 1, MAX_VARS)
 
                 if ai.ATTR.PACK then
-                    FUNC_IS_VALUE = assert(ai.TYPE.FUNC_ISPACK_VALUE, ai.TYPE.CPPCLS)
+                    OLUA_IS_VALUE = olua.convfunc(ai.TYPE, 'ispack')
                 end
 
                 if ai.DEFAULT or ai.ATTR.NULLABLE then
                     TEST_NULL = ' ' .. format('|| olua_isnil(L, ${ARG_NAME})')
                 end
 
-                olua.nowarning(ARG_NAME, TEST_NULL, FUNC_IS_VALUE)
+                olua.nowarning(ARG_NAME, TEST_NULL, OLUA_IS_VALUE)
                 if ai.TYPE.LUACLS and ai.TYPE.DECLTYPE ~= 'lua_Unsigned' then
                     TEST_ARGS[#TEST_ARGS + 1] = format([[
-                        (${FUNC_IS_VALUE}(L, ${ARG_NAME}, "${ai.TYPE.LUACLS}")${TEST_NULL})
+                        (${OLUA_IS_VALUE}(L, ${ARG_NAME}, "${ai.TYPE.LUACLS}")${TEST_NULL})
                     ]])
                 else
                     TEST_ARGS[#TEST_ARGS + 1] = format([[
-                        (${FUNC_IS_VALUE}(L, ${ARG_NAME})${TEST_NULL})
+                        (${OLUA_IS_VALUE}(L, ${ARG_NAME})${TEST_NULL})
                     ]])
                 end
             end

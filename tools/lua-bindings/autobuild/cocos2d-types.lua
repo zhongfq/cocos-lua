@@ -68,7 +68,6 @@ typedef {
     CONV_FUNC = 'manual_olua_$$_cocos2d_Vector',
     CPPCLS = 'cocos2d::Vector',
     INIT_VALUE = false,
-    IS_ARRAY = true,
 }
 
 typedef {

@@ -281,7 +281,13 @@ EventListenerCustom.CALLBACK('create', {
     FUNCS = {'static EventListenerCustom* create(const std::string& eventName, const std::function<void(@temp EventCustom*)>& callback)'},
     TAG_MAKER = 'olua_makecallbacktag("listener")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_NEW',
-    INIT_FUNC = 'init',
+    CPPFUNC = 'init',
+    NEW = [[
+        auto *self = new ${DECLTYPE}();
+        auto *ret = self;
+        self->autorelease();
+        olua_push_cppobj<${DECLTYPE}>(L, self);
+    ]],
 })
 
 local EventListenerKeyboard = typeconf 'cocos2d::EventListenerKeyboard'
@@ -293,7 +299,13 @@ EventListenerAcceleration.CALLBACK('create', {
     FUNCS = {'static EventListenerAcceleration* create(const std::function<void(@temp Acceleration*, @temp Event*)>& callback)'},
     TAG_MAKER = 'olua_makecallbacktag("listener")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_NEW',
-    INIT_FUNC = 'init',
+    CPPFUNC = 'init',
+    NEW = [[
+        auto *self = new ${DECLTYPE}();
+        auto *ret = self;
+        self->autorelease();
+        olua_push_cppobj<${DECLTYPE}>(L, self);
+    ]],
 })
 
 local EventListenerFocus = typeconf 'cocos2d::EventListenerFocus'
@@ -730,7 +742,13 @@ ActionFloat.CALLBACK('create', {
     FUNCS = {'static ActionFloat* create(float duration, float from, float to, std::function<void(float value)> callback)'},
     TAG_MAKER = 'olua_makecallbacktag("ActionFloat")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_NEW',
-    INIT_FUNC = 'initWithDuration'
+    CPPFUNC = 'initWithDuration',
+    NEW = [[
+        auto *self = new ${DECLTYPE}();
+        auto *ret = self;
+        self->autorelease();
+        olua_push_cppobj<${DECLTYPE}>(L, self);
+    ]],
 })
 
 typeconf 'cocos2d::ActionCamera'
@@ -806,7 +824,13 @@ CallFunc.CALLBACK('create', {
     FUNCS = {'static CallFunc * create(const std::function<void()>& func)'},
     TAG_MAKER = 'olua_makecallbacktag("CallFunc")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_NEW',
-    INIT_FUNC = 'initWithFunction'
+    CPPFUNC = 'initWithFunction',
+    NEW = [[
+        auto *self = new ${DECLTYPE}();
+        auto *ret = self;
+        self->autorelease();
+        olua_push_cppobj<${DECLTYPE}>(L, self);
+    ]],
 })
 
 local Component = typeconf 'cocos2d::Component'

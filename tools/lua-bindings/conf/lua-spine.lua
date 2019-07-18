@@ -133,7 +133,6 @@ typedef {
 
 typedef {
     CPPCLS = 'spine::Vector',
-    IS_ARRAY = true,
     CONV_FUNC = 'manual_olua_$$_spine_Vector',
     INIT_VALUE = false,
     PUSH_VALUETYPE = [[

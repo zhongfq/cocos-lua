@@ -255,7 +255,13 @@ RichText.CALLBACK('createWithXML', {
     },
     TAG_MAKER = 'olua_makecallbacktag("openUrlHandler")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
-    INIT_FUNC = 'initWithXML',
+    CPPFUNC = 'initWithXML',
+    NEW = [[
+        auto *self = new ${DECLTYPE}();
+        auto *ret = self;
+        self->autorelease();
+        olua_push_cppobj<${DECLTYPE}>(L, self);
+    ]],
 })
 RichText.CALLBACK('setOpenUrlHandler', {
     FUNCS = {'void setOpenUrlHandler(const std::function<void(const std::string& url)>& handleOpenUrl)'},

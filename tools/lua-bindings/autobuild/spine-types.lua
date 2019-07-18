@@ -25,7 +25,6 @@ typedef {
     CONV_FUNC = 'manual_olua_$$_spine_Vector',
     CPPCLS = 'spine::Vector',
     INIT_VALUE = false,
-    IS_ARRAY = true,
     PUSH_VALUETYPE = [[
         int ${ARG_NAME}_size = (int)${ARG_NAME}.size();
         lua_createtable(L, ${ARG_NAME}_size, 0);

@@ -419,8 +419,10 @@ function M:writeConfCallback(cls)
         if v.TAG_STORE then
             self:writeLine('    TAG_STORE = %s,', v.TAG_STORE)
         end
-        if v.INIT_FUNC then
-            self:writeLine("    INIT_FUNC = '%s',", v.INIT_FUNC)
+        if v.CPPFUNC then
+            self:writeLine("    CPPFUNC = '%s',", v.CPPFUNC)
+            assert(v.NEW, 'no new object block')
+            self:writeLine("    NEW = [[\n%s]],", v.NEW)
         end
         self:writeLine("    CALLONCE = %s,", v.CALLONCE == true)
         self:writeLine("    REMOVE = %s,", v.REMOVE == true)

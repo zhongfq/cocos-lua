@@ -803,6 +803,10 @@ function olua.isvaluetype(ti)
     return valuetype[ti.DECLTYPE]
 end
 
+function olua.convfunc(ti, fn)
+    return string.gsub(ti.CONV_FUNC, '[$]+', fn)
+end
+
 function olua.typedef(typeinfo)
     for tn in string.gmatch(typeinfo.CPPCLS, '[^\n\r]+') do
         local ti = setmetatable({}, {__index = typeinfo})

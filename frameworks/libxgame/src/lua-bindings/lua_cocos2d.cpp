@@ -3750,10 +3750,10 @@ static int _cocos2d_EventListenerCustom_create(lua_State *L)
 
     olua_check_std_string(L, 1, &arg1);
 
-    cocos2d::EventListenerCustom *self = new cocos2d::EventListenerCustom();
-    cocos2d::EventListenerCustom *ret = self;
+    auto *self = new cocos2d::EventListenerCustom();
+    auto *ret = self;
     self->autorelease();
-    olua_push_cppobj<cocos2d::EventListenerCustom>(L, self, "cc.EventListenerCustom");
+    olua_push_cppobj<cocos2d::EventListenerCustom>(L, self);
 
     void *callback_store_obj = (void *)self;
     std::string tag = olua_makecallbacktag("listener");
@@ -3947,10 +3947,10 @@ static int _cocos2d_EventListenerAcceleration_create(lua_State *L)
 
     std::function<void(cocos2d::Acceleration *, cocos2d::Event *)> arg1 = nullptr;   /** callback */
 
-    cocos2d::EventListenerAcceleration *self = new cocos2d::EventListenerAcceleration();
-    cocos2d::EventListenerAcceleration *ret = self;
+    auto *self = new cocos2d::EventListenerAcceleration();
+    auto *ret = self;
     self->autorelease();
-    olua_push_cppobj<cocos2d::EventListenerAcceleration>(L, self, "cc.EventListenerAcceleration");
+    olua_push_cppobj<cocos2d::EventListenerAcceleration>(L, self);
 
     void *callback_store_obj = (void *)self;
     std::string tag = olua_makecallbacktag("listener");
@@ -16695,10 +16695,10 @@ static int _cocos2d_ActionFloat_create(lua_State *L)
     olua_check_number(L, 2, &arg2);
     olua_check_number(L, 3, &arg3);
 
-    cocos2d::ActionFloat *self = new cocos2d::ActionFloat();
-    cocos2d::ActionFloat *ret = self;
+    auto *self = new cocos2d::ActionFloat();
+    auto *ret = self;
     self->autorelease();
-    olua_push_cppobj<cocos2d::ActionFloat>(L, self, "cc.ActionFloat");
+    olua_push_cppobj<cocos2d::ActionFloat>(L, self);
 
     void *callback_store_obj = (void *)self;
     std::string tag = olua_makecallbacktag("ActionFloat");
@@ -18500,10 +18500,10 @@ static int _cocos2d_CallFunc_create(lua_State *L)
 
     std::function<void()> arg1 = nullptr;   /** func */
 
-    cocos2d::CallFunc *self = new cocos2d::CallFunc();
-    cocos2d::CallFunc *ret = self;
+    auto *self = new cocos2d::CallFunc();
+    auto *ret = self;
     self->autorelease();
-    olua_push_cppobj<cocos2d::CallFunc>(L, self, "cc.CallFunc");
+    olua_push_cppobj<cocos2d::CallFunc>(L, self);
 
     void *callback_store_obj = (void *)self;
     std::string tag = olua_makecallbacktag("CallFunc");

@@ -475,7 +475,13 @@ cls.callback {
     },
     TAG_MAKER = 'olua_makecallbacktag("listener")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_NEW',
-    INIT_FUNC = 'init',
+    CPPFUNC = 'init',
+    NEW = [[
+        auto *self = new ${DECLTYPE}();
+        auto *ret = self;
+        self->autorelease();
+        olua_push_cppobj<${DECLTYPE}>(L, self);
+    ]],
     CALLONCE = false,
     REMOVE = false,
 }
@@ -500,7 +506,13 @@ cls.callback {
     },
     TAG_MAKER = 'olua_makecallbacktag("listener")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_NEW',
-    INIT_FUNC = 'init',
+    CPPFUNC = 'init',
+    NEW = [[
+        auto *self = new ${DECLTYPE}();
+        auto *ret = self;
+        self->autorelease();
+        olua_push_cppobj<${DECLTYPE}>(L, self);
+    ]],
     CALLONCE = false,
     REMOVE = false,
 }
@@ -2302,7 +2314,13 @@ cls.callback {
     },
     TAG_MAKER = 'olua_makecallbacktag("ActionFloat")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_NEW',
-    INIT_FUNC = 'initWithDuration',
+    CPPFUNC = 'initWithDuration',
+    NEW = [[
+        auto *self = new ${DECLTYPE}();
+        auto *ret = self;
+        self->autorelease();
+        olua_push_cppobj<${DECLTYPE}>(L, self);
+    ]],
     CALLONCE = false,
     REMOVE = false,
 }
@@ -2713,7 +2731,13 @@ cls.callback {
     },
     TAG_MAKER = 'olua_makecallbacktag("CallFunc")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_NEW',
-    INIT_FUNC = 'initWithFunction',
+    CPPFUNC = 'initWithFunction',
+    NEW = [[
+        auto *self = new ${DECLTYPE}();
+        auto *ret = self;
+        self->autorelease();
+        olua_push_cppobj<${DECLTYPE}>(L, self);
+    ]],
     CALLONCE = false,
     REMOVE = false,
 }

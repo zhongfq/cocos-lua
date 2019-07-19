@@ -7485,7 +7485,7 @@ static int _dragonBones_CCArmatureDisplay_addDBEventListener(lua_State *L)
     void *callback_store_obj = (void *)self;
     std::string tag = olua_makecallbacktag(arg1);
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_CALLBACK_TAG_NEW);
-    arg2 = [callback_store_obj, func, tag](dragonBones::EventObject *arg1) {
+    arg2 = [callback_store_obj, func](dragonBones::EventObject *arg1) {
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
 

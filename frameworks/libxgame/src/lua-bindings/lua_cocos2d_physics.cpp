@@ -128,10 +128,10 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactBegin(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = olua_makecallbacktag("onContactBegin");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
-        arg1 = [callback_store_obj, func, tag](cocos2d::PhysicsContact &arg1) {
+        arg1 = [callback_store_obj, func](cocos2d::PhysicsContact &arg1) {
             lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
-            bool ret;
+            bool ret;       
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
             olua_push_cppobj(L, &arg1);
@@ -191,7 +191,7 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactPostSolve(lua_State
         void *callback_store_obj = (void *)self;
         std::string tag = olua_makecallbacktag("onContactPostSolve");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
-        arg1 = [callback_store_obj, func, tag](cocos2d::PhysicsContact &arg1, const cocos2d::PhysicsContactPostSolve &arg2) {
+        arg1 = [callback_store_obj, func](cocos2d::PhysicsContact &arg1, const cocos2d::PhysicsContactPostSolve &arg2) {
             lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
@@ -253,10 +253,10 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactPreSolve(lua_State 
         void *callback_store_obj = (void *)self;
         std::string tag = olua_makecallbacktag("onContactPreSolve");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
-        arg1 = [callback_store_obj, func, tag](cocos2d::PhysicsContact &arg1, cocos2d::PhysicsContactPreSolve &arg2) {
+        arg1 = [callback_store_obj, func](cocos2d::PhysicsContact &arg1, cocos2d::PhysicsContactPreSolve &arg2) {
             lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
-            bool ret;
+            bool ret;       
             size_t last = olua_push_objpool(L);
             olua_enable_objpool(L);
             olua_push_cppobj(L, &arg1);
@@ -317,7 +317,7 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactSeparate(lua_State 
         void *callback_store_obj = (void *)self;
         std::string tag = olua_makecallbacktag("onContactSeparate");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
-        arg1 = [callback_store_obj, func, tag](cocos2d::PhysicsContact &arg1) {
+        arg1 = [callback_store_obj, func](cocos2d::PhysicsContact &arg1) {
             lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
@@ -4755,10 +4755,10 @@ static int _cocos2d_PhysicsWorld_queryPoint(lua_State *L)
     void *callback_store_obj = (void *)self;
     std::string tag = olua_makecallbacktag("queryPoint");
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
-    arg1 = [callback_store_obj, func, tag](cocos2d::PhysicsWorld &arg1, cocos2d::PhysicsShape &arg2, void *arg3) {
+    arg1 = [callback_store_obj, func](cocos2d::PhysicsWorld &arg1, cocos2d::PhysicsShape &arg2, void *arg3) {
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
-        bool ret;
+        bool ret;       
         size_t last = olua_push_objpool(L);
         olua_enable_objpool(L);
         olua_push_cppobj(L, &arg1);
@@ -4798,10 +4798,10 @@ static int _cocos2d_PhysicsWorld_queryRect(lua_State *L)
     void *callback_store_obj = (void *)self;
     std::string tag = olua_makecallbacktag("queryRect");
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
-    arg1 = [callback_store_obj, func, tag](cocos2d::PhysicsWorld &arg1, cocos2d::PhysicsShape &arg2, void *arg3) {
+    arg1 = [callback_store_obj, func](cocos2d::PhysicsWorld &arg1, cocos2d::PhysicsShape &arg2, void *arg3) {
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
-        bool ret;
+        bool ret;       
         size_t last = olua_push_objpool(L);
         olua_enable_objpool(L);
         olua_push_cppobj(L, &arg1);
@@ -4843,10 +4843,10 @@ static int _cocos2d_PhysicsWorld_rayCast(lua_State *L)
     void *callback_store_obj = (void *)self;
     std::string tag = olua_makecallbacktag("rayCast");
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
-    arg1 = [callback_store_obj, func, tag](cocos2d::PhysicsWorld &arg1, const cocos2d::PhysicsRayCastInfo &arg2, void *arg3) {
+    arg1 = [callback_store_obj, func](cocos2d::PhysicsWorld &arg1, const cocos2d::PhysicsRayCastInfo &arg2, void *arg3) {
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
-        bool ret;
+        bool ret;       
         size_t last = olua_push_objpool(L);
         olua_enable_objpool(L);
         olua_push_cppobj(L, &arg1);
@@ -5046,7 +5046,7 @@ static int _cocos2d_PhysicsWorld_setPostUpdateCallback(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = olua_makecallbacktag("postUpdateCallback");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
-        arg1 = [callback_store_obj, func, tag]() {
+        arg1 = [callback_store_obj, func]() {
             lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 
@@ -5080,7 +5080,7 @@ static int _cocos2d_PhysicsWorld_setPreUpdateCallback(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = olua_makecallbacktag("preUpdateCallback");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
-        arg1 = [callback_store_obj, func, tag]() {
+        arg1 = [callback_store_obj, func]() {
             lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
 

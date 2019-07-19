@@ -863,6 +863,7 @@ function olua.typeconv(ci)
             varname = prettyTypename(varname)
             ci.PROPS[#ci.PROPS + 1] = {
                 TYPE = olua.typeinfo(tn),
+                DECLTYPE = toDecltype(nil, tn, true),
                 VARNAME = varname,
                 LUANAME = string.gsub(varname, '^_*', ''),
                 DEFAULT = default,

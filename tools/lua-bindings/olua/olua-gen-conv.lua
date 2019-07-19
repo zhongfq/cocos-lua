@@ -74,37 +74,21 @@ end
 local function genPushFunc(cv, write)
     local CPPCLS_PATH = olua.topath(cv.CPPCLS)
     local NUM_ARGS = #cv.PROPS
-    local ARGS_CHUNK = {""}
+    local OUT = {PUSH_ARGS = olua.newarray('')}
 
     for _, pi in ipairs(cv.PROPS) do
-        local OLUA_PUSH_VALUE = olua.convfunc(pi.TYPE, 'push')
-        if olua.isvaluetype(pi.TYPE) then
-            ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
-                ${OLUA_PUSH_VALUE}(L, (${pi.TYPE.DECLTYPE})value->${pi.VARNAME});
-                olua_setfield(L, -2, "${pi.LUANAME}");
-            ]])
-        elseif pi.TYPE.LUACLS then
-            ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
-                ${OLUA_PUSH_VALUE}(L, value->${pi.VARNAME}, "${pi.TYPE.LUACLS}"");
-                olua_setfield(L, -2, "${pi.LUANAME}");
-            ]])
-        else
-            ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
-                ${OLUA_PUSH_VALUE}(L, &value->${pi.VARNAME});
-                olua_setfield(L, -2, "${pi.LUANAME}");
-            ]])
-        end
-        ARGS_CHUNK[#ARGS_CHUNK + 1] = ""
-        olua.nowarning(OLUA_PUSH_VALUE)
+        local ARG_NAME = format('value->${pi.VARNAME}')
+        olua.genpushexp(pi, ARG_NAME, OUT)
+        OUT.PUSH_ARGS:push(format([[olua_setfield(L, -2, "${pi.LUANAME}");]]))
+        OUT.PUSH_ARGS:push('')
     end
 
-    ARGS_CHUNK = table.concat(ARGS_CHUNK, "\n")
     write(format([[
         int auto_olua_push_${CPPCLS_PATH}(lua_State *L, const ${cv.CPPCLS} *value)
         {
             if (value) {
                 lua_createtable(L, 0, ${NUM_ARGS});
-                ${ARGS_CHUNK}
+                ${OUT.PUSH_ARGS}
             } else {
                 lua_pushnil(L);
             }
@@ -118,62 +102,22 @@ end
 
 local function gen_check_func(cv, write)
     local CPPCLS_PATH = olua.topath(cv.CPPCLS)
-    local DECL_ARGS = olua.newarray()
-    local CHECK_ARGS = olua.newarray()
+    local OUT = {
+        DECL_ARGS = olua.newarray(),
+        CHECK_ARGS = olua.newarray(),
+    }
     for i, pi in ipairs(cv.PROPS) do
-        local OLUA_CHECK_VALUE = olua.convfunc(pi.TYPE, 'check')
         local ARG_NAME = 'arg' .. i
-
-        if pi.TYPE.SUBTYPE then
-            -- ai.DECLTYPE = std::vector<std::string>
-            -- ai.TYPE.DECLTYPE = std::vector
-            DECL_ARGS:push(format([[
-                ${pi.DECLTYPE} ${ARG_NAME};       /** ${pi.VARNAME} */
-            ]]))
-        else
-            DECL_ARGS:push(format([[
-                ${pi.TYPE.DECLTYPE} ${ARG_NAME};       /** ${pi.VARNAME} */
-            ]]))
-        end
-
-        CHECK_ARGS:push(format([[
-            olua_getfield(L, idx, "${pi.LUANAME}");
-        ]]))
-
-        if pi.DEFAULT then
-            local OLUA_OPT_VALUE = olua.convfunc(pi.TYPE, 'opt')
-            local DEFAULT = pi.DEFAULT
-            olua.nowarning(OLUA_OPT_VALUE, DEFAULT)
-            if pi.TYPE.LUACLS and not olua.isvaluetype(pi.TYPE) then
-                pi.CHECK_ARGS:push(format([[
-                    ${OLUA_OPT_VALUE}(L, -1, (void **)&${ARG_NAME}, "${pi.TYPE.LUACLS}", ${pi.DEFAULT});
-                ]]))
-            else
-                CHECK_ARGS:push(format([[
-                    ${OLUA_OPT_VALUE}(L, -1, &${ARG_NAME}, (${pi.TYPE.DECLTYPE})${DEFAULT});
-                ]]))
-            end
-        else
-            if pi.TYPE.LUACLS and not olua.isvaluetype(pi.TYPE) then
-                CHECK_ARGS:push(format([[
-                    ${OLUA_CHECK_VALUE}(L, -1, (void **)&${ARG_NAME}, "${pi.TYPE.LUACLS}");
-                ]]))
-            else
-                CHECK_ARGS:push(format([[
-                    ${OLUA_CHECK_VALUE}(L, -1, &${ARG_NAME});
-                ]]))
-            end
-        end
-        CHECK_ARGS:push(format([[
+        olua.gendeclexp(pi, ARG_NAME, OUT)
+        OUT.CHECK_ARGS:push(format([[olua_getfield(L, idx, "${pi.LUANAME}");]]))
+        olua.gencheckexp(pi, ARG_NAME, -1, OUT)
+        OUT.CHECK_ARGS:push(format([[
             value->${pi.VARNAME} = (${pi.TYPE.CPPCLS})${ARG_NAME};
             lua_pop(L, 1);
         ]]))
-        CHECK_ARGS:push('')
-        olua.nowarning(ARG_NAME, OLUA_CHECK_VALUE)
+        OUT.CHECK_ARGS:push('')
     end
 
-    DECL_ARGS = table.concat(DECL_ARGS, "\n")
-    CHECK_ARGS = table.concat(CHECK_ARGS, "\n")
     write(format([[
         void auto_olua_check_${CPPCLS_PATH}(lua_State *L, int idx, ${cv.CPPCLS} *value)
         {
@@ -183,9 +127,9 @@ local function gen_check_func(cv, write)
             idx = lua_absindex(L, idx);
             luaL_checktype(L, idx, LUA_TTABLE);
 
-            ${DECL_ARGS}
+            ${OUT.DECL_ARGS}
 
-            ${CHECK_ARGS}
+            ${OUT.CHECK_ARGS}
         }
     ]]))
     write('')
@@ -194,50 +138,24 @@ end
 
 local function gen_opt_func(cv, write)
     local CPPCLS_PATH = olua.topath(cv.CPPCLS)
-    local DECL_ARGS = olua.newarray()
-    local CHECK_ARGS = olua.newarray()
+    local OUT = {
+        DECL_ARGS = olua.newarray(),
+        CHECK_ARGS = olua.newarray(),
+    }
     for i, pi in ipairs(cv.PROPS) do
         local ARG_NAME = 'arg' .. i
         local INIT_VALUE = pi.DEFAULT or getinitvalue(pi.TYPE)
-        local OLUA_OPT_VALUE = olua.convfunc(pi.TYPE, 'opt')
-
-        if pi.TYPE.SUBTYPE then
-            -- ai.DECLTYPE = std::vector<std::string>
-            -- ai.TYPE.DECLTYPE = std::vector
-            DECL_ARGS:push(format([[
-                ${pi.DECLTYPE} ${ARG_NAME};       /** ${pi.VARNAME} */
-            ]]))
-        else
-            DECL_ARGS:push(format([[
-                ${pi.TYPE.DECLTYPE} ${ARG_NAME};       /** ${pi.VARNAME} */
-            ]]))
-        end
-
-        CHECK_ARGS:push(format([[
-            olua_getfield(L, idx, "${pi.LUANAME}");
-        ]]))
-
-        if pi.TYPE.LUACLS and not olua.isvaluetype(pi.TYPE) then
-            pi.CHECK_ARGS:push(format([[
-                ${OLUA_OPT_VALUE}(L, -1, (void **)&${ARG_NAME}, "${pi.TYPE.LUACLS}", ${INIT_VALUE});
-            ]]))
-        else
-            CHECK_ARGS:push(format([[
-                ${OLUA_OPT_VALUE}(L, -1, &${ARG_NAME}, (${pi.TYPE.DECLTYPE})${INIT_VALUE});
-            ]]))
-        end
-
-        CHECK_ARGS:push(format([[
+        pi = setmetatable({DEFAULT = INIT_VALUE}, {__index = pi})
+        olua.gendeclexp(pi, ARG_NAME, OUT)
+        OUT.CHECK_ARGS:push(format([[olua_getfield(L, idx, "${pi.LUANAME}");]]))
+        olua.gencheckexp(pi, ARG_NAME, -1, OUT)
+        OUT.CHECK_ARGS:push(format([[
             value->${pi.VARNAME} = (${pi.TYPE.CPPCLS})${ARG_NAME};
             lua_pop(L, 1);
         ]]))
-        CHECK_ARGS:push('')
-
-        olua.nowarning(ARG_NAME, INIT_VALUE, OLUA_OPT_VALUE)
+        OUT.CHECK_ARGS:push('')
     end
 
-    DECL_ARGS = table.concat(DECL_ARGS, "\n")
-    CHECK_ARGS = table.concat(CHECK_ARGS, "\n")
     write(format([[
         void auto_olua_opt_${CPPCLS_PATH}(lua_State *L, int idx, ${cv.CPPCLS} *value, const ${cv.CPPCLS} &def)
         {
@@ -250,9 +168,9 @@ local function gen_opt_func(cv, write)
                 idx = lua_absindex(L, idx);
                 luaL_checktype(L, idx, LUA_TTABLE);
 
-                ${DECL_ARGS}
+                ${OUT.DECL_ARGS}
 
-                ${CHECK_ARGS}
+                ${OUT.CHECK_ARGS}
             }
         }
     ]]))

@@ -113,6 +113,9 @@ typedef {
         short
         ssize_t
         int8_t
+        int16_t
+        int32_t
+        int64_t
         std::int32_t
         unsigned short
     ]],
@@ -129,6 +132,8 @@ typedef {
         size_t
         std::size_t
         std::string::size_type
+        uint8_t
+        uint16_t
         uint32_t
         uint64_t
         unsigned char

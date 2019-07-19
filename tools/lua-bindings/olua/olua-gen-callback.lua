@@ -137,7 +137,6 @@ function olua.gencallback(cls, fi, write)
 
     for i, v in ipairs(ai.CALLBACK.ARGS) do
         local ARG_NAME = 'arg' .. i
-        local OLUA_PUSH_VALUE = olua.convfunc(v.TYPE, 'push')
 
         if v.ATTR.TEMP then
             if not enablepool then
@@ -148,45 +147,14 @@ function olua.gencallback(cls, fi, write)
             enablepool = false
             CALLBACK.PUSH_ARGS:push("olua_disable_objpool(L);")
         end
-    
-        if v.TYPE.LUACLS and not olua.isvaluetype(v.TYPE) then
-            CALLBACK.PUSH_ARGS:push(format([[
-                ${OLUA_PUSH_VALUE}(L, ${ARG_NAME}, "${v.TYPE.LUACLS}");
-            ]]))
-        elseif v.TYPE.SUBTYPE then
-            local SUBTYPE = v.TYPE.SUBTYPE
-            if SUBTYPE.LUACLS and not olua.isvaluetype(SUBTYPE) then
-                CALLBACK.PUSH_ARGS:push(format([[
-                    ${OLUA_PUSH_VALUE}(L, ${ARG_NAME}, "${SUBTYPE.LUACLS}");
-                ]]))
-            else
-                local SUBTYPE_CAST = olua.pointercast(SUBTYPE) .. olua.typecast(SUBTYPE)
-                local SUBTYPE_PUSH_FUNC = olua.convfunc(SUBTYPE, 'push')
-                local TYPE_CAST = string.gsub(v.DECLTYPE, '^const _*', '')
-                local PUSH_VALUETYPE = format(fi.RET.TYPE.PUSH_VALUETYPE)
-                CALLBACK.PUSH_ARGS:push(format(fi.RET.TYPE.PUSH_VALUETYPE))
-                olua.nowarning(ARG_NAME, SUBTYPE_CAST, SUBTYPE_PUSH_FUNC, TYPE_CAST, PUSH_VALUETYPE)
-            end
-        else
-            local TYPE_CAST = ""
-            if v.TYPE.DECLTYPE ~= v.TYPE.CPPCLS then
-                TYPE_CAST = string.format("(%s)", v.TYPE.DECLTYPE)
-            elseif not olua.isvaluetype(v.TYPE) then
-                if not string.find(v.TYPE.DECLTYPE, '*$') then
-                    TYPE_CAST = '&'
-                end
-            end
-            CALLBACK.PUSH_ARGS:push(format([[
-                ${OLUA_PUSH_VALUE}(L, ${TYPE_CAST}${ARG_NAME});
-            ]]))
-            olua.nowarning(TYPE_CAST)
-        end
+
+        olua.genpushexp(v, ARG_NAME, CALLBACK)
 
         local SPACE = string.find(v.RAW_DECLTYPE, '[*&]$') and '' or ' '
         CALLBACK.ARGS:push(format([[
             ${v.RAW_DECLTYPE}${SPACE}${ARG_NAME}
         ]]))
-        olua.nowarning(SPACE, OLUA_PUSH_VALUE)
+        olua.nowarning(SPACE)
     end
 
     if enablepool then
@@ -200,48 +168,23 @@ function olua.gencallback(cls, fi, write)
         ]])
     end
 
-    if fi.CALLBACK_OPT.CALLBACK_REPLACE then
-        OLUA_CALLBACK_TAG = "OLUA_CALLBACK_TAG_REPLACE"
-    end
-
     local RET = ai.CALLBACK.RET
     if RET.TYPE.CPPCLS ~= "void" then
-        local FUNC_CHECK_VALUE = olua.convfunc(RET.TYPE, 'check')
-        CALLBACK.DECL_RESULT = format([[
-            ${RET.TYPE.DECLTYPE} ret;
-        ]])
-        if RET.TYPE.LUACLS and not olua.isvaluetype(RET.TYPE) then
-            CALLBACK.CHECK_RESULT = format([[
-                ${FUNC_CHECK_VALUE}(L, -1, (void **)&ret, "${RET.TYPE.LUACLS}");
-            ]])
-        elseif RET.TYPE.SUBTYPE then
-            local SUBTYPE = RET.TYPE.SUBTYPE
-            if SUBTYPE.LUACLS and not olua.isvaluetype(RET.TYPE) then
-                CALLBACK.CHECK_RESULT = format([[
-                    ${FUNC_CHECK_VALUE}(L, -1, ret, "${SUBTYPE.LUACLS}");
-                ]])
-            else
-                local ARG_NAME = "ret"
-                local SUBTYPE_CHECK_FUNC = olua.convfunc(SUBTYPE, 'check')
-                local SUBTYPE_CAST = olua.typecast(SUBTYPE, true)
-                local CHECK_VALUETYPE = format(RET.TYPE.CHECK_VALUETYPE)
-                olua.nowarning(ARG_NAME, SUBTYPE_CHECK_FUNC, SUBTYPE_CAST, CHECK_VALUETYPE)
-                CALLBACK.CHECK_RESULT = format([[
-                    luaL_checktype(L, -1, LUA_TTABLE);
-                    ${CHECK_VALUETYPE}
-                ]])
-            end
-        else
-            CALLBACK.CHECK_RESULT = format([[
-                ${FUNC_CHECK_VALUE}(L, -1, &ret);
-            ]])
-        end
+        local OUT = {
+            DECL_ARGS = olua.newarray(),
+            CHECK_ARGS = olua.newarray(),
+            PUSH_ARGS = olua.newarray(),
+        }
+        olua.gendeclexp(RET, 'ret', OUT)
+        olua.gencheckexp(RET, 'ret', -1, OUT)
+        CALLBACK.DECL_RESULT = OUT.DECL_ARGS
+        CALLBACK.CHECK_RESULT = OUT.CHECK_ARGS
+
         if RET.TYPE.DECLTYPE ~= RET.TYPE.CPPCLS then
             CALLBACK.RETURN_RESULT = format([[return (${RET.TYPE.CPPCLS})ret;]])
         else
             CALLBACK.RETURN_RESULT = "return ret;"
         end
-        olua.nowarning(FUNC_CHECK_VALUE)
     end
 
     TAG_STORE = getCallbackStore(fi) + 1
@@ -255,9 +198,6 @@ function olua.gencallback(cls, fi, write)
     end
 
     CALLBACK.ARGS = table.concat(CALLBACK.ARGS, ", ")
-    CALLBACK.PUSH_ARGS = table.concat(CALLBACK.PUSH_ARGS, "\n")
-    CALLBACK.INJECT_BEFORE = table.concat(CALLBACK.INJECT_BEFORE, '\n')
-    CALLBACK.INJECT_AFTER = table.concat(CALLBACK.INJECT_AFTER, '\n')
 
     if #CALLBACK.INJECT_BEFORE > 0 then
         CALLBACK.INJECT_BEFORE = format [[
@@ -284,7 +224,7 @@ function olua.gencallback(cls, fi, write)
         void *callback_store_obj = (void *)${CALLBACK_STORE_OBJ};
         std::string tag = ${TAG_MAKER};
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), ${IDX}, ${OLUA_CALLBACK_TAG});
-        ${CALLBACK_ARG_NAME} = [callback_store_obj, func, tag](${CALLBACK.ARGS}) {
+        ${CALLBACK_ARG_NAME} = [callback_store_obj, func](${CALLBACK.ARGS}) {
             lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
             ${CALLBACK.DECL_RESULT}

@@ -564,7 +564,7 @@ int auto_olua_push_cocos2d_Uniform(lua_State *L, const cocos2d::Uniform *value)
         olua_push_uint(L, (lua_Unsigned)value->type);
         olua_setfield(L, -2, "type");
 
-        olua_push_std_string(L, (std::string)value->name);
+        olua_push_std_string(L, value->name);
         olua_setfield(L, -2, "name");
     } else {
         lua_pushnil(L);
@@ -664,7 +664,7 @@ int auto_olua_push_cocos2d_VertexAttrib(lua_State *L, const cocos2d::VertexAttri
         olua_push_uint(L, (lua_Unsigned)value->type);
         olua_setfield(L, -2, "type");
 
-        olua_push_std_string(L, (std::string)value->name);
+        olua_push_std_string(L, value->name);
         olua_setfield(L, -2, "name");
     } else {
         lua_pushnil(L);
@@ -1400,7 +1400,7 @@ int auto_olua_push_cocos2d_TTFConfig(lua_State *L, const cocos2d::TTFConfig *val
     if (value) {
         lua_createtable(L, 0, 10);
 
-        olua_push_std_string(L, (std::string)value->fontFilePath);
+        olua_push_std_string(L, value->fontFilePath);
         olua_setfield(L, -2, "fontFilePath");
 
         olua_push_number(L, (lua_Number)value->fontSize);
@@ -1409,25 +1409,25 @@ int auto_olua_push_cocos2d_TTFConfig(lua_State *L, const cocos2d::TTFConfig *val
         olua_push_uint(L, (lua_Unsigned)value->glyphs);
         olua_setfield(L, -2, "glyphs");
 
-        olua_push_string(L, (const char *)value->customGlyphs);
+        olua_push_string(L, value->customGlyphs);
         olua_setfield(L, -2, "customGlyphs");
 
-        olua_push_bool(L, (bool)value->distanceFieldEnabled);
+        olua_push_bool(L, value->distanceFieldEnabled);
         olua_setfield(L, -2, "distanceFieldEnabled");
 
         olua_push_int(L, (lua_Integer)value->outlineSize);
         olua_setfield(L, -2, "outlineSize");
 
-        olua_push_bool(L, (bool)value->italics);
+        olua_push_bool(L, value->italics);
         olua_setfield(L, -2, "italics");
 
-        olua_push_bool(L, (bool)value->bold);
+        olua_push_bool(L, value->bold);
         olua_setfield(L, -2, "bold");
 
-        olua_push_bool(L, (bool)value->underline);
+        olua_push_bool(L, value->underline);
         olua_setfield(L, -2, "underline");
 
-        olua_push_bool(L, (bool)value->strikethrough);
+        olua_push_bool(L, value->strikethrough);
         olua_setfield(L, -2, "strikethrough");
     } else {
         lua_pushnil(L);
@@ -1447,7 +1447,7 @@ void auto_olua_check_cocos2d_TTFConfig(lua_State *L, int idx, cocos2d::TTFConfig
     std::string arg1;       /** fontFilePath */
     lua_Number arg2;       /** fontSize */
     lua_Unsigned arg3;       /** glyphs */
-    const char * arg4;       /** customGlyphs */
+    const char *arg4;       /** customGlyphs */
     bool arg5;       /** distanceFieldEnabled */
     lua_Integer arg6;       /** outlineSize */
     bool arg7;       /** italics */
@@ -1520,7 +1520,7 @@ void auto_olua_opt_cocos2d_TTFConfig(lua_State *L, int idx, cocos2d::TTFConfig *
         std::string arg1;       /** fontFilePath */
         lua_Number arg2;       /** fontSize */
         lua_Unsigned arg3;       /** glyphs */
-        const char * arg4;       /** customGlyphs */
+        const char *arg4;       /** customGlyphs */
         bool arg5;       /** distanceFieldEnabled */
         lua_Integer arg6;       /** outlineSize */
         bool arg7;       /** italics */
@@ -1763,10 +1763,10 @@ int auto_olua_push_cocos2d_ResourceData(lua_State *L, const cocos2d::ResourceDat
         olua_push_int(L, (lua_Integer)value->type);
         olua_setfield(L, -2, "type");
 
-        olua_push_std_string(L, (std::string)value->file);
+        olua_push_std_string(L, value->file);
         olua_setfield(L, -2, "file");
 
-        olua_push_std_string(L, (std::string)value->plist);
+        olua_push_std_string(L, value->plist);
         olua_setfield(L, -2, "plist");
     } else {
         lua_pushnil(L);
@@ -1945,13 +1945,13 @@ int auto_olua_push_cocos2d_Controller_KeyStatus(lua_State *L, const cocos2d::Con
     if (value) {
         lua_createtable(L, 0, 3);
 
-        olua_push_bool(L, (bool)value->isPressed);
+        olua_push_bool(L, value->isPressed);
         olua_setfield(L, -2, "isPressed");
 
         olua_push_number(L, (lua_Number)value->value);
         olua_setfield(L, -2, "value");
 
-        olua_push_bool(L, (bool)value->isAnalog);
+        olua_push_bool(L, value->isAnalog);
         olua_setfield(L, -2, "isAnalog");
     } else {
         lua_pushnil(L);

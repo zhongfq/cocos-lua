@@ -33,6 +33,9 @@ function olua.newarray(...)
     function mt:push(v)
         self[#self + 1] = v
     end
+    function mt:tostring(sep)
+        return table.concat(self, sep or '\n')
+    end
     return setmetatable({...}, {__index = mt})
 end
 
@@ -114,6 +117,9 @@ function olua.format(expr, indent)
                 error("value not found for '" .. str .. "'")
             else
                 -- indent the value if value has multiline
+                if type(value) == 'table' and value.tostring then
+                    value = value:tostring()
+                end
                 value = string.gsub(value, '[\n]*$', '')
                 return indent .. string.gsub(tostring(value), '\n', '\n' .. indent)
             end

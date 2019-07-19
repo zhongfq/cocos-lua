@@ -14,13 +14,84 @@ local function genSnippetFunc(cls, fi, write)
     write('')
 end
 
-local function genFuncArgs(cls, fi, func)
-    local idx = 0
+function olua.gendeclexp(value, name, out)
+    local SPACE = string.find(value.TYPE.DECLTYPE, '[ *&]$') and '' or ' '
+    local ARG_NAME = name
+    local VARNAME = ""
+    if value.VARNAME then
+        VARNAME = format([[/** ${value.VARNAME} */]])
+    end
+    if value.TYPE.SUBTYPE then
+        -- value.DECLTYPE = std::vector<std::string>
+        -- value.TYPE.DECLTYPE = std::vector
+        out.DECL_ARGS:push(format([[
+            ${value.DECLTYPE}${SPACE}${ARG_NAME};       ${VARNAME}
+        ]]))
+    else
+        out.DECL_ARGS:push(format([[
+            ${value.TYPE.DECLTYPE}${SPACE}${ARG_NAME};       ${VARNAME}
+        ]]))
+    end
+    olua.nowarning(SPACE, ARG_NAME, VARNAME)
+end
 
+function olua.gencheckexp(value, name, i, out)
+    -- lua value to cpp value
+    local ARGN = i
+    local ARG_NAME = name
+    local OLUA_CHECK_VALUE = olua.convfunc(value.TYPE, 'check')
+    if (value.DEFAULT or value.ATTR.NULLABLE) and not next(value.CALLBACK or {}) then
+        local OLUA_OPT_VALUE = olua.convfunc(value.TYPE, 'opt')
+        local DEFAULT = value.DEFAULT or "nullptr"
+        olua.nowarning(OLUA_OPT_VALUE, DEFAULT)
+        if value.TYPE.LUACLS and not olua.isvaluetype(value.TYPE) then
+            out.CHECK_ARGS:push(format([[
+                ${OLUA_OPT_VALUE}(L, ${ARGN}, (void **)&${ARG_NAME}, "${value.TYPE.LUACLS}", ${DEFAULT});
+            ]]))
+        else
+            out.CHECK_ARGS:push(format([[
+                ${OLUA_OPT_VALUE}(L, ${ARGN}, &${ARG_NAME}, (${value.TYPE.DECLTYPE})${DEFAULT});
+            ]]))
+        end
+    elseif value.TYPE.LUACLS and not olua.isvaluetype(value.TYPE) then
+        out.CHECK_ARGS:push(format([[
+            ${OLUA_CHECK_VALUE}(L, ${ARGN}, (void **)&${ARG_NAME}, "${value.TYPE.LUACLS}");
+        ]]))
+    elseif value.TYPE.SUBTYPE then
+        local SUBTYPE = value.TYPE.SUBTYPE
+        if SUBTYPE.LUACLS and not olua.isvaluetype(value.TYPE) then
+            out.CHECK_ARGS:push(format([[
+                ${OLUA_CHECK_VALUE}(L, ${ARGN}, ${ARG_NAME}, "${SUBTYPE.LUACLS}");
+            ]]))
+        else
+            local SUBTYPE_CHECK_FUNC = olua.convfunc(SUBTYPE, 'check')
+            local SUBTYPE_CAST = olua.typecast(SUBTYPE, true)
+            local CHECK_VALUETYPE = format(value.TYPE.CHECK_VALUETYPE)
+            olua.nowarning(SUBTYPE_CHECK_FUNC, SUBTYPE_CAST, CHECK_VALUETYPE)
+            out.CHECK_ARGS:push(format([[
+                luaL_checktype(L, ${ARGN}, LUA_TTABLE);
+                ${CHECK_VALUETYPE}
+            ]]))
+        end
+    elseif not value.CALLBACK or not value.CALLBACK.ARGS then
+        if value.ATTR.PACK then
+            OLUA_CHECK_VALUE = olua.convfunc(value.TYPE, 'pack')
+            out.TOTAL_ARGS = value.TYPE.VARS + out.TOTAL_ARGS - 1
+            out.IDX = out.IDX + value.TYPE.VARS - 1
+        end
+        out.CHECK_ARGS:push(format([[
+            ${OLUA_CHECK_VALUE}(L, ${ARGN}, &${ARG_NAME});
+        ]]))
+    end
+
+    olua.nowarning(ARG_NAME, ARGN, OLUA_CHECK_VALUE)
+end
+
+local function genFuncArgs(cls, fi, func)
     if not fi.STATIC then
         -- first argument is cpp userdata object
         func.TOTAL_ARGS = func.TOTAL_ARGS + 1
-        idx = idx + 1
+        func.IDX = func.IDX + 1
         local ti = olua.typeinfo(cls.CPPCLS .. "*")
         local OLUA_TO_TYPE = olua.convfunc(ti, 'to')
         olua.nowarning(OLUA_TO_TYPE)
@@ -34,10 +105,8 @@ local function genFuncArgs(cls, fi, func)
 
     for i, ai in ipairs(fi.ARGS) do
         local ARG_NAME = "arg" .. i
-        local SPACE = string.find(ai.TYPE.DECLTYPE, '[ *&]$') and '' or ' '
-        local OLUA_CHECK_VALUE = olua.convfunc(ai.TYPE, 'check')
-        local ARGN = idx + 1
-        idx = ARGN
+        local ARGN = func.IDX + 1
+        func.IDX = ARGN
 
         if ai.TYPE.CPPCLS == 'std::function' then
             olua.assert(fi.CALLBACK_OPT, 'no callback option')
@@ -51,64 +120,8 @@ local function genFuncArgs(cls, fi, func)
             func.CALLER_ARGS:push(format([[${ARG_NAME}]]))
         end
 
-        if ai.TYPE.SUBTYPE then
-            -- ai.DECLTYPE = std::vector<std::string>
-            -- ai.TYPE.DECLTYPE = std::vector
-            func.DECL_ARGS:push(format([[
-                ${ai.DECLTYPE}${SPACE}${ARG_NAME};       /** ${ai.VARNAME} */
-            ]]))
-        else
-            func.DECL_ARGS:push(format([[
-                ${ai.TYPE.DECLTYPE}${SPACE}${ARG_NAME};       /** ${ai.VARNAME} */
-            ]]))
-        end
-
-        -- lua value to cpp value
-        if (ai.DEFAULT or ai.ATTR.NULLABLE) and not fi.CALLBACK_OPT then
-            local OLUA_OPT_VALUE = olua.convfunc(ai.TYPE, 'opt')
-            local DEFAULT = ai.DEFAULT or "nullptr"
-            olua.nowarning(OLUA_OPT_VALUE, DEFAULT)
-            if ai.TYPE.LUACLS and not olua.isvaluetype(ai.TYPE) then
-                func.CHECK_ARGS:push(format([[
-                    ${OLUA_OPT_VALUE}(L, ${ARGN}, (void **)&${ARG_NAME}, "${ai.TYPE.LUACLS}", ${DEFAULT});
-                ]]))
-            else
-                func.CHECK_ARGS:push(format([[
-                    ${OLUA_OPT_VALUE}(L, ${ARGN}, &${ARG_NAME}, (${ai.TYPE.DECLTYPE})${DEFAULT});
-                ]]))
-            end
-        elseif ai.TYPE.LUACLS and not olua.isvaluetype(ai.TYPE) then
-            func.CHECK_ARGS:push(format([[
-                ${OLUA_CHECK_VALUE}(L, ${ARGN}, (void **)&${ARG_NAME}, "${ai.TYPE.LUACLS}");
-            ]]))
-        elseif ai.TYPE.SUBTYPE then
-            local SUBTYPE = ai.TYPE.SUBTYPE
-            if SUBTYPE.LUACLS and not olua.isvaluetype(ai.TYPE) then
-                func.CHECK_ARGS:push(format([[
-                    ${OLUA_CHECK_VALUE}(L, ${ARGN}, ${ARG_NAME}, "${SUBTYPE.LUACLS}");
-                ]]))
-            else
-                local SUBTYPE_CHECK_FUNC = olua.convfunc(SUBTYPE, 'check')
-                local SUBTYPE_CAST = olua.typecast(SUBTYPE, true)
-                local CHECK_VALUETYPE = format(ai.TYPE.CHECK_VALUETYPE)
-                olua.nowarning(SUBTYPE_CHECK_FUNC, SUBTYPE_CAST, CHECK_VALUETYPE)
-                func.CHECK_ARGS:push(format([[
-                    luaL_checktype(L, ${ARGN}, LUA_TTABLE);
-                    ${CHECK_VALUETYPE}
-                ]]))
-            end
-        elseif not ai.CALLBACK.ARGS then
-            if ai.ATTR.PACK then
-                OLUA_CHECK_VALUE = olua.convfunc(ai.TYPE, 'pack')
-                func.TOTAL_ARGS = ai.TYPE.VARS + func.TOTAL_ARGS - 1
-                idx = idx + ai.TYPE.VARS - 1
-            end
-            func.CHECK_ARGS:push(format([[
-                ${OLUA_CHECK_VALUE}(L, ${ARGN}, &${ARG_NAME});
-            ]]))
-        end
-
-        olua.nowarning(ARG_NAME, SPACE, OLUA_CHECK_VALUE)
+        olua.gendeclexp(ai, ARG_NAME, func)
+        olua.gencheckexp(ai, ARG_NAME, ARGN, func)
 
         -- ref or unref
         if ai.ATTR.REF then
@@ -150,51 +163,62 @@ local function genFuncArgs(cls, fi, func)
     end
 end
 
+function olua.genpushexp(value, name, out)
+    local ARG_NAME = name
+    local OLUA_PUSH_VALUE = olua.convfunc(value.TYPE, 'push')
+    if value.TYPE.LUACLS and not olua.isvaluetype(value.TYPE) then
+        out.PUSH_ARGS:push(format('${OLUA_PUSH_VALUE}(L, ${ARG_NAME}, "${value.TYPE.LUACLS}");'))
+    elseif value.TYPE.SUBTYPE then
+        local SUBTYPE = value.TYPE.SUBTYPE
+        if SUBTYPE.LUACLS and not olua.isvaluetype(SUBTYPE) then
+            out.PUSH_ARGS:push(format('${OLUA_PUSH_VALUE}(L, ${ARG_NAME}, "${SUBTYPE.LUACLS}");'))
+        else
+            local SUBTYPE_CAST = olua.pointercast(SUBTYPE) .. olua.typecast(SUBTYPE)
+            local SUBTYPE_PUSH_FUNC = olua.convfunc(SUBTYPE, 'push')
+            local TYPE_CAST = string.gsub(value.DECLTYPE, '^const _*', '')
+            out.PUSH_ARGS:push(format(value.TYPE.PUSH_VALUETYPE))
+            olua.nowarning(ARG_NAME, SUBTYPE_CAST, SUBTYPE_PUSH_FUNC, TYPE_CAST)
+        end
+    else
+        if value.ATTR.UNPACK then
+            OLUA_PUSH_VALUE = olua.convfunc(value.TYPE, 'unpack')
+        end
+        local TYPE_CAST = ""
+        if value.TYPE.DECLTYPE ~= value.TYPE.CPPCLS then
+            TYPE_CAST = string.format("(%s)", value.TYPE.DECLTYPE)
+        elseif not olua.isvaluetype(value.TYPE) then
+            if not string.find(value.DECLTYPE, '*$') then
+                TYPE_CAST = '&'
+            end
+        end
+        olua.nowarning(OLUA_PUSH_VALUE, TYPE_CAST)
+        out.PUSH_ARGS:push(format('${OLUA_PUSH_VALUE}(L, ${TYPE_CAST}${ARG_NAME});'))
+    end
+end
+
 local function genFuncRet(cls, fi, func)
     if fi.RET.NUM > 0 then
-        local DECLTYPE = fi.RET.DECLTYPE
-        local OLUA_PUSH_VALUE = olua.convfunc(fi.RET.TYPE, 'push')
-        local SPACE = string.find(DECLTYPE, '[ *&]$') and '' or ' '
+        local SPACE = string.find(fi.RET.DECLTYPE, '[ *&]$') and '' or ' '
+        func.RET_EXP = format('${fi.RET.DECLTYPE}${SPACE}ret = (${fi.RET.DECLTYPE})')
 
-        func.RET_EXP = format('${DECLTYPE}${SPACE}ret = (${DECLTYPE})')
+        local OUT = {PUSH_ARGS = olua.newarray()}
+        olua.genpushexp(fi.RET, 'ret', OUT)
 
-        if fi.RET.TYPE.LUACLS and not olua.isvaluetype(fi.RET.TYPE) then
-            func.PUSH_RET = format('int num_ret = ${OLUA_PUSH_VALUE}(L, ret, "${fi.RET.TYPE.LUACLS}");')
-        elseif fi.RET.TYPE.SUBTYPE then
-            local SUBTYPE = fi.RET.TYPE.SUBTYPE
-            if SUBTYPE.LUACLS and not olua.isvaluetype(SUBTYPE) then
-                func.PUSH_RET = format('int num_ret = ${OLUA_PUSH_VALUE}(L, ret, "${SUBTYPE.LUACLS}");')
-            else
-                local ARG_NAME = "ret"
-                local SUBTYPE_CAST = olua.pointercast(SUBTYPE) .. olua.typecast(SUBTYPE)
-                local SUBTYPE_PUSH_FUNC = olua.convfunc(SUBTYPE, 'push')
-                local TYPE_CAST = string.gsub(DECLTYPE, '^const _*', '')
-                local PUSH_VALUETYPE = format(fi.RET.TYPE.PUSH_VALUETYPE)
-                olua.nowarning(ARG_NAME, SUBTYPE_CAST, SUBTYPE_PUSH_FUNC, TYPE_CAST, PUSH_VALUETYPE)
-                func.PUSH_RET = format [[
-                    int num_ret = 1;
-                    ${PUSH_VALUETYPE}
-                ]]
-            end
+        local SUBTYPE = fi.RET.TYPE.SUBTYPE
+        if SUBTYPE and (not SUBTYPE.LUACLS or olua.isvaluetype(SUBTYPE)) then
+            func.PUSH_RET = format([[
+                int num_ret = 1;
+                ${OUT.PUSH_ARGS}
+            ]])
         else
-            if fi.RET.ATTR.UNPACK then
-                OLUA_PUSH_VALUE = olua.convfunc(fi.RET.TYPE, 'unpack')
-            end
-            local TYPE_CAST = ""
-            if fi.RET.TYPE.DECLTYPE ~= fi.RET.TYPE.CPPCLS then
-                TYPE_CAST = string.format("(%s)", fi.RET.TYPE.DECLTYPE)
-            elseif not olua.isvaluetype(fi.RET.TYPE) then
-                if not string.find(DECLTYPE, '*$') then
-                    TYPE_CAST = '&'
-                end
-            end
-            olua.nowarning(OLUA_PUSH_VALUE, SPACE, TYPE_CAST)
-            func.PUSH_RET = format('int num_ret = ${OLUA_PUSH_VALUE}(L, ${TYPE_CAST}ret);')
+            func.PUSH_RET = format('int num_ret = ${OUT.PUSH_ARGS}')
         end
 
         if #func.PUSH_RET > 0 then
             func.NUM_RET = "num_ret"
         end
+
+        olua.nowarning(SPACE)
     end
 
     if fi.RET.ATTR.REF then
@@ -292,6 +316,7 @@ local function genOneFunc(cls, fi, write, funcidx, exported)
         RET_EXP = "",
         NUM_RET = "0",
         CALLBACK = "",
+        IDX = 0,
     }
 
     olua.message(fi.DECLFUNC)
@@ -345,11 +370,7 @@ local function genOneFunc(cls, fi, write, funcidx, exported)
         table.insert(FUNC.INJECT_AFTER, 1, '// inject code after call')
     end
 
-    FUNC.INJECT_AFTER = table.concat(FUNC.INJECT_AFTER, '\n')
-    FUNC.INJECT_BEFORE = table.concat(FUNC.INJECT_BEFORE, '\n')
-    FUNC.DECL_ARGS = table.concat(FUNC.DECL_ARGS, '\n')
-    FUNC.CHECK_ARGS = table.concat(FUNC.CHECK_ARGS, '\n')
-    FUNC.CALLER_ARGS = table.concat(FUNC.CALLER_ARGS, ', ')
+    FUNC.CALLER_ARGS = FUNC.CALLER_ARGS:tostring(', ')
 
     olua.nowarning(CPPCLS_PATH, FUNC_INDEX, CPPFUNC, CALLER, ARGS_BEGIN, ARGS_END)
     write(format([[

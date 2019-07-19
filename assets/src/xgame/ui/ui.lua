@@ -16,6 +16,7 @@ local ui = {}
 local viewCreators = {}
 local viewClasses = {}
 local newStatck = {}
+local lazyIntCreator
 local lastNew
 
 local todoBindings = setmetatable({}, {__mode = "k"})
@@ -137,8 +138,8 @@ local function createChildren(data, parent, namespace, root)
         end
 
         if subdata.children then
-            local namespace = subdata.standalone and child or namespace
-            local root = subdata.classname == "UIFile" and child or root
+            local subnamespace = subdata.standalone and child or namespace
+            local subroot = subdata.classname == "UIFile" and child or root
             if subdata.lazy_init then
                 local cls = getmetatable(child)
                 local proxy = {}
@@ -147,12 +148,12 @@ local function createChildren(data, parent, namespace, root)
                 function proxy.__newindex(self, key, value)
                     if key == "visible" and value then
                         setmetatable(child, cls)
-                        createChildren(subdata, child, namespace, root)
+                        createChildren(subdata, child, subnamespace, subroot)
                     end
                     return cls.__newindex(self, key, value)
                 end
             else
-                createChildren(subdata, child, namespace, root)
+                createChildren(subdata, child, subnamespace, subroot)
             end
         end
 
@@ -163,6 +164,11 @@ end
 
 function ui.inflate(data, parent, fillParent)
     assert(data, "no data")
+
+    if lazyIntCreator then
+        lazyIntCreator()
+        lazyIntCreator = false
+    end
 
     if not parent then
         parent = createChild(data)
@@ -245,25 +251,27 @@ local function bindBaseCreator(classname)
     bindCreator(classname, newCreator(class))
 end
 
-bindCreator("UIFile", function (data, parent)
-    return ui.new(data.symbol, createChild(data, parent, data.custom_class))
-end)
-bindBaseCreator("UIButton")
-bindBaseCreator("UICheckBox")
-bindBaseCreator("UIGrid")
-bindBaseCreator("UIHLayer")
-bindBaseCreator("UIImage")
-bindBaseCreator("UILayer")
-bindBaseCreator("UIList")
-bindBaseCreator("UILoadingBar")
-bindBaseCreator("UIRadioButton")
-bindBaseCreator("UIRichText")
-bindBaseCreator("UIScroller")
-bindBaseCreator("UISlider")
-bindBaseCreator("UITextBMFont")
-bindBaseCreator("UITextField")
-bindBaseCreator("UITextInput")
-bindBaseCreator("UIVLayer")
+function lazyIntCreator()
+    bindCreator("UIFile", function (data, parent)
+        return ui.new(data.symbol, createChild(data, parent, data.custom_class))
+    end)
+    bindBaseCreator("UIButton")
+    bindBaseCreator("UICheckBox")
+    bindBaseCreator("UIGrid")
+    bindBaseCreator("UIHLayer")
+    bindBaseCreator("UIImage")
+    bindBaseCreator("UILayer")
+    bindBaseCreator("UIList")
+    bindBaseCreator("UILoadingBar")
+    bindBaseCreator("UIRadioButton")
+    bindBaseCreator("UIRichText")
+    bindBaseCreator("UIScroller")
+    bindBaseCreator("UISlider")
+    bindBaseCreator("UITextBMFont")
+    bindBaseCreator("UITextField")
+    bindBaseCreator("UITextInput")
+    bindBaseCreator("UIVLayer")
+end
 
 function ui.bindCreator(classname, class_type)
     bindCreator(classname, newCreator(class_type))

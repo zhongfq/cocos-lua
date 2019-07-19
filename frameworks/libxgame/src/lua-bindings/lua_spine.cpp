@@ -80,14 +80,14 @@ int manual_olua_push_spine_EventData(lua_State *L, const spine::EventData *value
 template <typename T> int manual_olua_push_spine_Vector(lua_State *L, const spine::Vector<T*> &v, const char *cls)
 {
     lua_newtable(L);
+    int count = 1;
     for (int i = 0; i < v.size(); i++) {
         auto obj = ((spine::Vector<T*> &)v)[i];
         if (obj == nullptr) {
             continue;
         }
         olua_push_cppobj(L, obj, cls);
-        lua_rawseti(L, -2, i + 1);
-        i++;
+        lua_rawseti(L, -2, count++);
     }
     return 1;
 }

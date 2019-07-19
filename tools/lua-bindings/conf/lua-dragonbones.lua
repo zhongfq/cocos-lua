@@ -127,7 +127,7 @@ typeconf 'dragonBones::CCFactory'
 
 local ArmatureDisplay = typeconf 'dragonBones::CCArmatureDisplay'
 ArmatureDisplay.CALLBACK('addDBEventListener', {
-    FUNCS = {'void addDBEventListener(const std::string& type, const std::function<void(@temp EventObject*)>& listener)'},
+    FUNCS = {'void addDBEventListener(const std::string& type, const std::function<void(@local EventObject*)>& listener)'},
     TAG_MAKER = 'olua_makecallbacktag(#1)',
     TAG_MODE = 'OLUA_CALLBACK_TAG_NEW',
 })

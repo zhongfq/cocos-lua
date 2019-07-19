@@ -125,7 +125,7 @@ function olua.gencallback(cls, fi, write)
     }
 
     for _, v in ipairs(ai.CALLBACK.ARGS) do
-        if v.ATTR.TEMP then
+        if v.ATTR.LOCAL then
             CALLBACK.PUSH_ARGS:push( "size_t last = olua_push_objpool(L);")
             CALLBACK.POP_OBJPOOL = format([[
                 //pop stack value
@@ -138,7 +138,7 @@ function olua.gencallback(cls, fi, write)
     for i, v in ipairs(ai.CALLBACK.ARGS) do
         local ARG_NAME = 'arg' .. i
 
-        if v.ATTR.TEMP then
+        if v.ATTR.LOCAL then
             if not enablepool then
                 enablepool = true
                 CALLBACK.PUSH_ARGS:push("olua_enable_objpool(L);")

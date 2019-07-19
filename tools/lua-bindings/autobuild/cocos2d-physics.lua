@@ -41,10 +41,10 @@ cls = typecls 'cocos2d::EventListenerPhysicsContact'
 cls.SUPERCLS = "cocos2d::EventListenerCustom"
 cls.funcs [[
 ]]
-cls.var('onContactBegin', [[std::function<bool(@temp PhysicsContact& contact)> onContactBegin = nullptr]])
-cls.var('onContactPreSolve', [[std::function<bool(@temp PhysicsContact& contact, @temp PhysicsContactPreSolve& solve)> onContactPreSolve = nullptr]])
-cls.var('onContactPostSolve', [[std::function<void(@temp PhysicsContact& contact, @temp const PhysicsContactPostSolve& solve)> onContactPostSolve = nullptr]])
-cls.var('onContactSeparate', [[std::function<void(@temp PhysicsContact& contact)> onContactSeparate = nullptr]])
+cls.var('onContactBegin', [[std::function<bool(@local PhysicsContact& contact)> onContactBegin = nullptr]])
+cls.var('onContactPreSolve', [[std::function<bool(@local PhysicsContact& contact, @local PhysicsContactPreSolve& solve)> onContactPreSolve = nullptr]])
+cls.var('onContactPostSolve', [[std::function<void(@local PhysicsContact& contact, @local const PhysicsContactPostSolve& solve)> onContactPostSolve = nullptr]])
+cls.var('onContactSeparate', [[std::function<void(@local PhysicsContact& contact)> onContactSeparate = nullptr]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventListenerPhysicsContactWithGroup'
@@ -615,7 +615,7 @@ cls.func('getScene', [[{
 cls.prop('scene')
 cls.callback {
     FUNCS =  {
-        'void rayCast(std::function<bool(@temp PhysicsWorld& world, @temp const PhysicsRayCastInfo& info, void* data)> func, const Vec2& start, const Vec2& end, void* data)',
+        'void rayCast(std::function<bool(@local PhysicsWorld& world, @local const PhysicsRayCastInfo& info, void* data)> func, const Vec2& start, const Vec2& end, void* data)',
     },
     TAG_MAKER = 'olua_makecallbacktag("rayCast")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
@@ -624,7 +624,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void queryRect(std::function<bool(@temp PhysicsWorld&, @temp PhysicsShape&, void*)> func, const Rect& rect, void* data)',
+        'void queryRect(std::function<bool(@local PhysicsWorld&, @local PhysicsShape&, void*)> func, const Rect& rect, void* data)',
     },
     TAG_MAKER = 'olua_makecallbacktag("queryRect")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
@@ -633,7 +633,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void queryPoint(std::function<bool(@temp PhysicsWorld&, @temp PhysicsShape&, void*)> func, const Vec2& point, void* data)',
+        'void queryPoint(std::function<bool(@local PhysicsWorld&, @local PhysicsShape&, void*)> func, const Vec2& point, void* data)',
     },
     TAG_MAKER = 'olua_makecallbacktag("queryPoint")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',

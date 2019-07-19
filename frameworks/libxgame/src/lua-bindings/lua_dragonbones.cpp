@@ -7502,7 +7502,7 @@ static int _dragonBones_CCArmatureDisplay_addDBEventListener(lua_State *L)
         lua_settop(L, top);
     };
 
-    // void addDBEventListener(const std::string& type, const std::function<void(@temp EventObject*)>& listener)
+    // void addDBEventListener(const std::string& type, const std::function<void(@local EventObject*)>& listener)
     self->addDBEventListener(arg1, arg2);
 
     return 0;

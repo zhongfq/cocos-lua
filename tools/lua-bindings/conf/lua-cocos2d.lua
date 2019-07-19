@@ -265,20 +265,20 @@ EventListener.EXCLUDE 'init'
 EventListener.PROP('available', 'bool checkAvailable()')
 
 local EventListenerTouchOneByOne = typeconf 'cocos2d::EventListenerTouchOneByOne'
-EventListenerTouchOneByOne.VAR('onTouchBegan', 'std::function<bool(@temp Touch*, @temp Event*)> onTouchBegan = nullptr')
-EventListenerTouchOneByOne.VAR('onTouchMoved', 'std::function<void(@temp Touch*, @temp Event*)> onTouchMoved = nullptr')
-EventListenerTouchOneByOne.VAR('onTouchEnded', 'std::function<void(@temp Touch*, @temp Event*)> onTouchEnded = nullptr')
-EventListenerTouchOneByOne.VAR('onTouchCancelled', 'std::function<void(@temp Touch*, @temp Event*)> onTouchCancelled = nullptr')
+EventListenerTouchOneByOne.VAR('onTouchBegan', 'std::function<bool(@local Touch*, @local Event*)> onTouchBegan = nullptr')
+EventListenerTouchOneByOne.VAR('onTouchMoved', 'std::function<void(@local Touch*, @local Event*)> onTouchMoved = nullptr')
+EventListenerTouchOneByOne.VAR('onTouchEnded', 'std::function<void(@local Touch*, @local Event*)> onTouchEnded = nullptr')
+EventListenerTouchOneByOne.VAR('onTouchCancelled', 'std::function<void(@local Touch*, @local Event*)> onTouchCancelled = nullptr')
 
 local EventListenerTouchAllAtOnce = typeconf 'cocos2d::EventListenerTouchAllAtOnce'
-EventListenerTouchAllAtOnce.VAR('onTouchesBegan', 'std::function<void(@temp const std::vector<Touch*>&, @temp Event*)> onTouchesBegan = nullptr')
-EventListenerTouchAllAtOnce.VAR('onTouchesMoved', 'std::function<void(@temp const std::vector<Touch*>&, @temp Event*)> onTouchesMoved = nullptr')
-EventListenerTouchAllAtOnce.VAR('onTouchesEnded', 'std::function<void(@temp const std::vector<Touch*>&, @temp Event*)> onTouchesEnded = nullptr')
-EventListenerTouchAllAtOnce.VAR('onTouchesCancelled', 'std::function<void(@temp const std::vector<Touch*>&, @temp Event*)> onTouchesCancelled = nullptr')
+EventListenerTouchAllAtOnce.VAR('onTouchesBegan', 'std::function<void(@local const std::vector<Touch*>&, @local Event*)> onTouchesBegan = nullptr')
+EventListenerTouchAllAtOnce.VAR('onTouchesMoved', 'std::function<void(@local const std::vector<Touch*>&, @local Event*)> onTouchesMoved = nullptr')
+EventListenerTouchAllAtOnce.VAR('onTouchesEnded', 'std::function<void(@local const std::vector<Touch*>&, @local Event*)> onTouchesEnded = nullptr')
+EventListenerTouchAllAtOnce.VAR('onTouchesCancelled', 'std::function<void(@local const std::vector<Touch*>&, @local Event*)> onTouchesCancelled = nullptr')
 
 local EventListenerCustom = typeconf 'cocos2d::EventListenerCustom'
 EventListenerCustom.CALLBACK('create', {
-    FUNCS = {'static EventListenerCustom* create(const std::string& eventName, const std::function<void(@temp EventCustom*)>& callback)'},
+    FUNCS = {'static EventListenerCustom* create(const std::string& eventName, const std::function<void(@local EventCustom*)>& callback)'},
     TAG_MAKER = 'olua_makecallbacktag("listener")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_NEW',
     CPPFUNC = 'init',
@@ -291,12 +291,12 @@ EventListenerCustom.CALLBACK('create', {
 })
 
 local EventListenerKeyboard = typeconf 'cocos2d::EventListenerKeyboard'
-EventListenerKeyboard.VAR('onKeyPressed', 'std::function<void(EventKeyboard::KeyCode, @temp Event*)> onKeyPressed = nullptr')
-EventListenerKeyboard.VAR('onKeyReleased', 'std::function<void(EventKeyboard::KeyCode, @temp Event*)> onKeyReleased = nullptr')
+EventListenerKeyboard.VAR('onKeyPressed', 'std::function<void(EventKeyboard::KeyCode, @local Event*)> onKeyPressed = nullptr')
+EventListenerKeyboard.VAR('onKeyReleased', 'std::function<void(EventKeyboard::KeyCode, @local Event*)> onKeyReleased = nullptr')
 
 local EventListenerAcceleration = typeconf 'cocos2d::EventListenerAcceleration'
 EventListenerAcceleration.CALLBACK('create', {
-    FUNCS = {'static EventListenerAcceleration* create(const std::function<void(@temp Acceleration*, @temp Event*)>& callback)'},
+    FUNCS = {'static EventListenerAcceleration* create(const std::function<void(@local Acceleration*, @local Event*)>& callback)'},
     TAG_MAKER = 'olua_makecallbacktag("listener")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_NEW',
     CPPFUNC = 'init',
@@ -312,10 +312,10 @@ local EventListenerFocus = typeconf 'cocos2d::EventListenerFocus'
 EventListenerFocus.VAR('onFocusChanged', 'std::function<void(ui::Widget*, ui::Widget*)> onFocusChanged = nullptr')
 
 local EventListenerMouse = typeconf 'cocos2d::EventListenerMouse'
-EventListenerMouse.VAR('onMouseDown', 'std::function<void(@temp EventMouse* event)> onMouseDown = nullptr')
-EventListenerMouse.VAR('onMouseUp', 'std::function<void(@temp EventMouse* event)> onMouseUp = nullptr')
-EventListenerMouse.VAR('onMouseMove', 'std::function<void(@temp EventMouse* event)> onMouseMove = nullptr')
-EventListenerMouse.VAR('onMouseScroll', 'std::function<void(@temp EventMouse* event)> onMouseScroll = nullptr')
+EventListenerMouse.VAR('onMouseDown', 'std::function<void(@local EventMouse* event)> onMouseDown = nullptr')
+EventListenerMouse.VAR('onMouseUp', 'std::function<void(@local EventMouse* event)> onMouseUp = nullptr')
+EventListenerMouse.VAR('onMouseMove', 'std::function<void(@local EventMouse* event)> onMouseMove = nullptr')
+EventListenerMouse.VAR('onMouseScroll', 'std::function<void(@local EventMouse* event)> onMouseScroll = nullptr')
 
 typeconf 'cocos2d::Event::Type'
 typeconf 'cocos2d::Event'
@@ -331,12 +331,12 @@ EventCustom.FUNC('new', [[
 }]])
 
 local EventListenerController = typeconf 'cocos2d::EventListenerController'
-EventListenerController.VAR('onConnected', 'std::function<void(@temp Controller*, @temp Event*)> onConnected = nullptr')
-EventListenerController.VAR('onDisconnected', 'std::function<void(@temp Controller*, @temp Event*)> onDisconnected = nullptr')
-EventListenerController.VAR('onKeyDown', 'std::function<void(@temp Controller*, int, @temp Event*)> onKeyDown = nullptr')
-EventListenerController.VAR('onKeyUp', 'std::function<void(@temp Controller*, int, @temp Event*)> onKeyUp = nullptr')
-EventListenerController.VAR('onKeyRepeat', 'std::function<void(@temp Controller*, int, @temp Event*)> onKeyRepeat = nullptr')
-EventListenerController.VAR('onAxisEvent', 'std::function<void(@temp Controller*, int, @temp Event*)> onAxisEvent = nullptr')
+EventListenerController.VAR('onConnected', 'std::function<void(@local Controller*, @local Event*)> onConnected = nullptr')
+EventListenerController.VAR('onDisconnected', 'std::function<void(@local Controller*, @local Event*)> onDisconnected = nullptr')
+EventListenerController.VAR('onKeyDown', 'std::function<void(@local Controller*, int, @local Event*)> onKeyDown = nullptr')
+EventListenerController.VAR('onKeyUp', 'std::function<void(@local Controller*, int, @local Event*)> onKeyUp = nullptr')
+EventListenerController.VAR('onKeyRepeat', 'std::function<void(@local Controller*, int, @local Event*)> onKeyRepeat = nullptr')
+EventListenerController.VAR('onAxisEvent', 'std::function<void(@local Controller*, int, @local Event*)> onAxisEvent = nullptr')
 
 typeconf 'cocos2d::EventTouch::EventCode'
 typeconf 'cocos2d::EventTouch'

@@ -126,8 +126,8 @@ static std::string makeListenerTag(lua_State *L, lua_Integer type, int tagidx)
 }]]
 UIEventDispatcher.CALLBACK('addEventListener', {
     FUNCS = {
-        'void addEventListener(int eventType, const std::function<void(@temp EventContext* context)>& callback)',
-        'void addEventListener(int eventType, const std::function<void(@temp EventContext* context)>& callback, const EventTag& tag)'
+        'void addEventListener(int eventType, const std::function<void(@local EventContext* context)>& callback)',
+        'void addEventListener(int eventType, const std::function<void(@local EventContext* context)>& callback, const EventTag& tag)'
     },
     TAG_MAKER = {'makeListenerTag(L, #1, 0)', 'makeListenerTag(L, #1, 4)'},
     TAG_MODE = 'OLUA_CALLBACK_TAG_NEW',
@@ -284,8 +284,8 @@ GObject.FUNC('getDragBounds', [[
 }]])
 GObject.CALLBACK('addClickListener', {
     FUNCS = {
-        'void addClickListener(const std::function<void(@temp EventContext* context)>& callback)',
-        'void addClickListener(const std::function<void(@temp EventContext* context)>& callback, const EventTag& tag)',
+        'void addClickListener(const std::function<void(@local EventContext* context)>& callback)',
+        'void addClickListener(const std::function<void(@local EventContext* context)>& callback, const EventTag& tag)',
     },
     TAG_MAKER = {
         'makeListenerTag(L, fairygui::UIEventType::Click, 0)', -- no tag

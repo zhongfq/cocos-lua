@@ -445,10 +445,10 @@ cls.funcs [[
     void setSwallowTouches(bool needSwallow)
     bool isSwallowTouches()
 ]]
-cls.var('onTouchBegan', [[std::function<bool(@temp Touch*, @temp Event*)> onTouchBegan = nullptr]])
-cls.var('onTouchMoved', [[std::function<void(@temp Touch*, @temp Event*)> onTouchMoved = nullptr]])
-cls.var('onTouchEnded', [[std::function<void(@temp Touch*, @temp Event*)> onTouchEnded = nullptr]])
-cls.var('onTouchCancelled', [[std::function<void(@temp Touch*, @temp Event*)> onTouchCancelled = nullptr]])
+cls.var('onTouchBegan', [[std::function<bool(@local Touch*, @local Event*)> onTouchBegan = nullptr]])
+cls.var('onTouchMoved', [[std::function<void(@local Touch*, @local Event*)> onTouchMoved = nullptr]])
+cls.var('onTouchEnded', [[std::function<void(@local Touch*, @local Event*)> onTouchEnded = nullptr]])
+cls.var('onTouchCancelled', [[std::function<void(@local Touch*, @local Event*)> onTouchCancelled = nullptr]])
 cls.props [[
     swallowTouches
 ]]
@@ -459,10 +459,10 @@ cls.SUPERCLS = "cocos2d::EventListener"
 cls.funcs [[
     static EventListenerTouchAllAtOnce* create()
 ]]
-cls.var('onTouchesBegan', [[std::function<void(@temp const std::vector<Touch*>&, @temp Event*)> onTouchesBegan = nullptr]])
-cls.var('onTouchesMoved', [[std::function<void(@temp const std::vector<Touch*>&, @temp Event*)> onTouchesMoved = nullptr]])
-cls.var('onTouchesEnded', [[std::function<void(@temp const std::vector<Touch*>&, @temp Event*)> onTouchesEnded = nullptr]])
-cls.var('onTouchesCancelled', [[std::function<void(@temp const std::vector<Touch*>&, @temp Event*)> onTouchesCancelled = nullptr]])
+cls.var('onTouchesBegan', [[std::function<void(@local const std::vector<Touch*>&, @local Event*)> onTouchesBegan = nullptr]])
+cls.var('onTouchesMoved', [[std::function<void(@local const std::vector<Touch*>&, @local Event*)> onTouchesMoved = nullptr]])
+cls.var('onTouchesEnded', [[std::function<void(@local const std::vector<Touch*>&, @local Event*)> onTouchesEnded = nullptr]])
+cls.var('onTouchesCancelled', [[std::function<void(@local const std::vector<Touch*>&, @local Event*)> onTouchesCancelled = nullptr]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventListenerCustom'
@@ -471,7 +471,7 @@ cls.funcs [[
 ]]
 cls.callback {
     FUNCS =  {
-        'static EventListenerCustom* create(const std::string& eventName, const std::function<void(@temp EventCustom*)>& callback)',
+        'static EventListenerCustom* create(const std::string& eventName, const std::function<void(@local EventCustom*)>& callback)',
     },
     TAG_MAKER = 'olua_makecallbacktag("listener")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_NEW',
@@ -492,8 +492,8 @@ cls.SUPERCLS = "cocos2d::EventListener"
 cls.funcs [[
     static EventListenerKeyboard* create()
 ]]
-cls.var('onKeyPressed', [[std::function<void(EventKeyboard::KeyCode, @temp Event*)> onKeyPressed = nullptr]])
-cls.var('onKeyReleased', [[std::function<void(EventKeyboard::KeyCode, @temp Event*)> onKeyReleased = nullptr]])
+cls.var('onKeyPressed', [[std::function<void(EventKeyboard::KeyCode, @local Event*)> onKeyPressed = nullptr]])
+cls.var('onKeyReleased', [[std::function<void(EventKeyboard::KeyCode, @local Event*)> onKeyReleased = nullptr]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventListenerAcceleration'
@@ -502,7 +502,7 @@ cls.funcs [[
 ]]
 cls.callback {
     FUNCS =  {
-        'static EventListenerAcceleration* create(const std::function<void(@temp Acceleration*, @temp Event*)>& callback)',
+        'static EventListenerAcceleration* create(const std::function<void(@local Acceleration*, @local Event*)>& callback)',
     },
     TAG_MAKER = 'olua_makecallbacktag("listener")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_NEW',
@@ -531,10 +531,10 @@ cls.SUPERCLS = "cocos2d::EventListener"
 cls.funcs [[
     static EventListenerMouse* create()
 ]]
-cls.var('onMouseDown', [[std::function<void(@temp EventMouse* event)> onMouseDown = nullptr]])
-cls.var('onMouseUp', [[std::function<void(@temp EventMouse* event)> onMouseUp = nullptr]])
-cls.var('onMouseMove', [[std::function<void(@temp EventMouse* event)> onMouseMove = nullptr]])
-cls.var('onMouseScroll', [[std::function<void(@temp EventMouse* event)> onMouseScroll = nullptr]])
+cls.var('onMouseDown', [[std::function<void(@local EventMouse* event)> onMouseDown = nullptr]])
+cls.var('onMouseUp', [[std::function<void(@local EventMouse* event)> onMouseUp = nullptr]])
+cls.var('onMouseMove', [[std::function<void(@local EventMouse* event)> onMouseMove = nullptr]])
+cls.var('onMouseScroll', [[std::function<void(@local EventMouse* event)> onMouseScroll = nullptr]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Event::Type'
@@ -589,12 +589,12 @@ cls.SUPERCLS = "cocos2d::EventListener"
 cls.funcs [[
     static EventListenerController* create()
 ]]
-cls.var('onConnected', [[std::function<void(@temp Controller*, @temp Event*)> onConnected = nullptr]])
-cls.var('onDisconnected', [[std::function<void(@temp Controller*, @temp Event*)> onDisconnected = nullptr]])
-cls.var('onKeyDown', [[std::function<void(@temp Controller*, int, @temp Event*)> onKeyDown = nullptr]])
-cls.var('onKeyUp', [[std::function<void(@temp Controller*, int, @temp Event*)> onKeyUp = nullptr]])
-cls.var('onKeyRepeat', [[std::function<void(@temp Controller*, int, @temp Event*)> onKeyRepeat = nullptr]])
-cls.var('onAxisEvent', [[std::function<void(@temp Controller*, int, @temp Event*)> onAxisEvent = nullptr]])
+cls.var('onConnected', [[std::function<void(@local Controller*, @local Event*)> onConnected = nullptr]])
+cls.var('onDisconnected', [[std::function<void(@local Controller*, @local Event*)> onDisconnected = nullptr]])
+cls.var('onKeyDown', [[std::function<void(@local Controller*, int, @local Event*)> onKeyDown = nullptr]])
+cls.var('onKeyUp', [[std::function<void(@local Controller*, int, @local Event*)> onKeyUp = nullptr]])
+cls.var('onKeyRepeat', [[std::function<void(@local Controller*, int, @local Event*)> onKeyRepeat = nullptr]])
+cls.var('onAxisEvent', [[std::function<void(@local Controller*, int, @local Event*)> onAxisEvent = nullptr]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventTouch::EventCode'

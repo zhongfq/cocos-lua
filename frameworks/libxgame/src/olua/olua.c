@@ -1235,8 +1235,8 @@ LUALIB_API void lua_setuservalue(lua_State *L, int idx)
 {
     if (lua_type(L, -1) != LUA_TNIL) {
         luaL_checktype(L, -1, LUA_TTABLE);
+        lua_setfenv(L, idx);
     }
-    lua_setfenv(L, idx);
 }
 
 LUALIB_API int lua_getuservalue(lua_State *L, int idx)

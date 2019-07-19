@@ -771,12 +771,40 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'spine::SwirlVertexEffect'
 cls.SUPERCLS = "spine::VertexEffect"
 cls.funcs [[
+    void setCenterX(float centerX)
+    float getCenterX()
+    void setCenterY(float centerY)
+    float getCenterY()
+    void setRadius(float radius)
+    float getRadius()
+    void setAngle(float angle)
+    float getAngle()
+    void setWorldX(float worldX)
+    float getWorldX()
+    void setWorldY(float worldY)
+    float getWorldY()
+]]
+cls.props [[
+    centerX
+    centerY
+    radius
+    angle
+    worldX
+    worldY
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::JitterVertexEffect'
 cls.SUPERCLS = "spine::VertexEffect"
 cls.funcs [[
+    void setJitterX(float jitterX)
+    float getJitterX()
+    void setJitterY(float jitterY)
+    float getJitterY()
+]]
+cls.props [[
+    jitterX
+    jitterY
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -1391,6 +1419,65 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'spine::Skeleton'
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
+    void updateCache()
+    void printUpdateCache()
+    void updateWorldTransform()
+    void setToSetupPose()
+    void setBonesToSetupPose()
+    void setSlotsToSetupPose()
+    Bone *findBone(const String &boneName)
+    int findBoneIndex(const String &boneName)
+    Slot *findSlot(const String &slotName)
+    int findSlotIndex(const String &slotName)
+    void setSkin(const String &skinName)
+    void setSkin(Skin *newSkin)
+    Attachment *getAttachment(const String &slotName, const String &attachmentName)
+    Attachment *getAttachment(int slotIndex, const String &attachmentName)
+    void setAttachment(const String &slotName, const String &attachmentName)
+    IkConstraint *findIkConstraint(const String &constraintName)
+    TransformConstraint *findTransformConstraint(const String &constraintName)
+    PathConstraint *findPathConstraint(const String &constraintName)
+    void update(float delta)
+    Bone *getRootBone()
+    SkeletonData *getData()
+    Vector<Bone *> &getBones()
+    Vector<Updatable *> &getUpdateCacheList()
+    Vector<Slot *> &getSlots()
+    Vector<Slot *> &getDrawOrder()
+    Vector<IkConstraint *> &getIkConstraints()
+    Vector<PathConstraint *> &getPathConstraints()
+    Vector<TransformConstraint *> &getTransformConstraints()
+    Skin *getSkin()
+    Color &getColor()
+    float getTime()
+    void setTime(float inValue)
+    void setPosition(float x, float y)
+    float getX()
+    void setX(float inValue)
+    float getY()
+    void setY(float inValue)
+    float getScaleX()
+    void setScaleX(float inValue)
+    float getScaleY()
+    void setScaleY(float inValue)
+]]
+cls.props [[
+    rootBone
+    data
+    bones
+    updateCacheList
+    slots
+    drawOrder
+    ikConstraints
+    pathConstraints
+    transformConstraints
+    skin
+    color
+    time
+    x
+    y
+    scaleX
+    scaleY
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 

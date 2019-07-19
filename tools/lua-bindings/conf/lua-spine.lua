@@ -235,9 +235,12 @@ typeconf 'spine::ScaleTimeline'
 typeconf 'spine::RotateTimeline'
 typeconf 'spine::TwoColorTimeline'
 
-typeconfOnly 'spine::VertexEffect'
-typeconfOnly 'spine::SwirlVertexEffect'
-typeconfOnly 'spine::JitterVertexEffect'
+local VertexEffect = typeconf 'spine::VertexEffect'
+VertexEffect.EXCLUDE 'begin'
+VertexEffect.EXCLUDE 'end'
+VertexEffect.EXCLUDE 'transform'
+typeconf 'spine::SwirlVertexEffect'
+typeconf 'spine::JitterVertexEffect'
 
 typeconfOnly 'spine::Polygon'
 
@@ -352,7 +355,8 @@ SkeletonData.FUNC("new", [[
     return 1;
 }]])
 
-typeconfOnly 'spine::Skeleton'
+local Skeleton = typeconf 'spine::Skeleton'
+Skeleton.EXCLUDE 'getBounds'
 
 local SkeletonRenderer = typeconf 'spine::SkeletonRenderer'
 SkeletonRenderer.ATTR('createWithData', {ARG1 = '@ref(single skeletonData)'})

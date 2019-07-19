@@ -191,11 +191,11 @@ typeconf 'spine::EventData'
 typeconf 'spine::Updatable'
 
 local AnimationState = typeconf 'spine::AnimationState'
-AnimationState.CALLBACK('setListener', {
+AnimationState.CALLBACK {
     FUNCS = {'void setListener(std::function<void (AnimationState* state, EventType type, TrackEntry* entry, Event* event)> listener)'},
     TAG_MAKER = 'olua_makecallbacktag("listener")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
-})
+}
 
 typeconf 'spine::AnimationStateData'
 typeconf 'spine::Animation'
@@ -267,11 +267,11 @@ typeconf 'spine::PointAttachment'
 typeconf 'spine::RegionAttachment'
 
 local TrackEntry = typeconf 'spine::TrackEntry'
-TrackEntry.CALLBACK('setListener', {
+TrackEntry.CALLBACK {
     FUNCS = {'void setListener(std::function<void (AnimationState* state, EventType type, TrackEntry* entry, Event* event)> listener)'},
     TAG_MAKER = 'olua_makecallbacktag("listener")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
-})
+}
 
 local SkeletonData = typeconf 'spine::SkeletonData'
 SkeletonData.FUNC("__gc", [[
@@ -369,65 +369,65 @@ SkeletonAnimation.ATTR('addAnimation', {RET = '@ref(map trackEntries)'})
 SkeletonAnimation.ATTR('setEmptyAnimation', {RET = '@ref(map trackEntries)'})
 SkeletonAnimation.ATTR('addEmptyAnimation', {RET = '@ref(map trackEntries)'})
 SkeletonAnimation.ATTR('getCurrent', {RET = '@ref(map trackEntries)'})
-SkeletonAnimation.CALLBACK('setStartListener', {
+SkeletonAnimation.CALLBACK {
     FUNCS = {'void setStartListener(@nullable const std::function<void(TrackEntry* entry)>& listener)'},
     TAG_MAKER = 'olua_makecallbacktag("startListener")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
-})
-SkeletonAnimation.CALLBACK('setInterruptListener', {
+}
+SkeletonAnimation.CALLBACK {
     FUNCS = {'void setInterruptListener(@nullable const std::function<void(TrackEntry* entry)>& listener)'},
     TAG_MAKER = 'olua_makecallbacktag("interruptListener")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
-})
-SkeletonAnimation.CALLBACK('setEndListener', {
+}
+SkeletonAnimation.CALLBACK {
     FUNCS = {'void setEndListener(@nullable const std::function<void(TrackEntry* entry)>& listener)'},
     TAG_MAKER = 'olua_makecallbacktag("endListener")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
-})
-SkeletonAnimation.CALLBACK('setDisposeListener', {
+}
+SkeletonAnimation.CALLBACK {
     FUNCS = {'void setDisposeListener(@nullable const std::function<void(TrackEntry* entry)>& listener)'},
     TAG_MAKER = 'olua_makecallbacktag("disposeListener")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
-})
-SkeletonAnimation.CALLBACK('setCompleteListener', {
+}
+SkeletonAnimation.CALLBACK {
     FUNCS = {'void setCompleteListener(@nullable const std::function<void(TrackEntry* entry)>& listener)'},
     TAG_MAKER = 'olua_makecallbacktag("completeListener")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
-})
-SkeletonAnimation.CALLBACK('setEventListener', {
+}
+SkeletonAnimation.CALLBACK {
     FUNCS = {'void setEventListener(@nullable const std::function<void(TrackEntry* entry, Event* event)>& listener)'},
     TAG_MAKER = 'olua_makecallbacktag("eventListener")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
-})
-SkeletonAnimation.CALLBACK('setTrackStartListener', {
+}
+SkeletonAnimation.CALLBACK {
     FUNCS = {'void setTrackStartListener(TrackEntry* entry, @nullable const std::function<void(TrackEntry* entry)>& listener)'},
     TAG_MAKER = 'olua_makecallbacktag("trackStartListener")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
-})
-SkeletonAnimation.CALLBACK('setTrackInterruptListener', {
+}
+SkeletonAnimation.CALLBACK {
     FUNCS = {'void setTrackInterruptListener(TrackEntry* entry, @nullable const std::function<void(TrackEntry* entry)>& listener)'},
     TAG_MAKER = 'olua_makecallbacktag("trackInterruptListener")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
-})
-SkeletonAnimation.CALLBACK('setTrackEndListener', {
+}
+SkeletonAnimation.CALLBACK {
     FUNCS = {'void setTrackEndListener(TrackEntry* entry, @nullable const std::function<void(TrackEntry* entry)>& listener)'},
     TAG_MAKER = 'olua_makecallbacktag("trackEndListener")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
-})
-SkeletonAnimation.CALLBACK('setTrackDisposeListener', {
+}
+SkeletonAnimation.CALLBACK {
     FUNCS = {'void setTrackDisposeListener(TrackEntry* entry, @nullable const std::function<void(TrackEntry* entry)>& listener)'},
     TAG_MAKER = 'olua_makecallbacktag("trackDisposeListener")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
-})
-SkeletonAnimation.CALLBACK('setTrackCompleteListener', {
+}
+SkeletonAnimation.CALLBACK {
     FUNCS = {'void setTrackCompleteListener(TrackEntry* entry, @nullable const std::function<void(TrackEntry* entry)>& listener)'},
     TAG_MAKER = 'olua_makecallbacktag("trackCompleteListener")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
-})
-SkeletonAnimation.CALLBACK('setTrackEventListener', {
+}
+SkeletonAnimation.CALLBACK {
     FUNCS = {'void setTrackEventListener(TrackEntry* entry, @nullable const std::function<void(TrackEntry* entry, Event* event)>& listener)'},
     TAG_MAKER = 'olua_makecallbacktag("trackEventListener")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
-})
+}
 
 return M

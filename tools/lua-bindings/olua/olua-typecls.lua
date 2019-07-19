@@ -335,6 +335,11 @@ function parseArgs(cls, declstr)
     return args, count
 end
 
+function olua.funcname(declfunc)
+    local _, _, str = parseType(declfunc)
+    return string.match(str, '[^ ()]+')
+end
+
 local function parseFunc(cls, name, ...)
     local function copy(t)
         return setmetatable({}, {__index = t})

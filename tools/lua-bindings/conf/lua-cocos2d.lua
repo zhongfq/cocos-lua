@@ -135,7 +135,7 @@ Scheduler.FUNC('new', [[
     return olua_push_cppobj<cocos2d::Scheduler>(L, obj);
 }
 ]])
-Scheduler.CALLBACK('schedule', {
+Scheduler.CALLBACK {
     FUNCS = {
         'void schedule(const std::function<void(float)>& callback, void *target, float interval, bool paused, const std::string& key)',
         'void schedule(const std::function<void(float)>& callback, void *target, float interval, unsigned int repeat, float delay, bool paused, const std::string& key)',
@@ -143,27 +143,27 @@ Scheduler.CALLBACK('schedule', {
     TAG_MAKER = 'makeScheduleCallbackTag(#-1)',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
     TAG_STORE = 2, -- 2th void *target
-})
-Scheduler.CALLBACK('unschedule', {
+}
+Scheduler.CALLBACK {
     FUNCS = {'void unschedule(const std::string& key, void *target)'},
     TAG_MAKER = 'makeScheduleCallbackTag(#1)',
     TAG_STORE = 2, -- 2th void *target
     TAG_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
     REMOVE = true,
-})
-Scheduler.CALLBACK('unscheduleAllForTarget', {
+}
+Scheduler.CALLBACK {
     FUNCS = {'void unscheduleAllForTarget(void *target)'},
     TAG_MAKER = 'makeScheduleCallbackTag("")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_WILDCARD',
     TAG_STORE = 1, -- 1th void *target
     REMOVE = true,
-})
-Scheduler.CALLBACK('unscheduleAll', {
+}
+Scheduler.CALLBACK {
     FUNCS = {'void unscheduleAll()'},
     TAG_MAKER = 'makeScheduleCallbackTag("")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_WILDCARD',
     REMOVE = true,
-})
+}
 Scheduler.FUNC('scheduleUpdate', [[
 {
     lua_settop(L, 4);
@@ -277,7 +277,7 @@ EventListenerTouchAllAtOnce.VAR('onTouchesEnded', 'std::function<void(@local con
 EventListenerTouchAllAtOnce.VAR('onTouchesCancelled', 'std::function<void(@local const std::vector<Touch*>&, @local Event*)> onTouchesCancelled = nullptr')
 
 local EventListenerCustom = typeconf 'cocos2d::EventListenerCustom'
-EventListenerCustom.CALLBACK('create', {
+EventListenerCustom.CALLBACK {
     FUNCS = {'static EventListenerCustom* create(const std::string& eventName, const std::function<void(@local EventCustom*)>& callback)'},
     TAG_MAKER = 'olua_makecallbacktag("listener")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_NEW',
@@ -288,14 +288,14 @@ EventListenerCustom.CALLBACK('create', {
         self->autorelease();
         olua_push_cppobj<${DECLTYPE}>(L, self);
     ]],
-})
+}
 
 local EventListenerKeyboard = typeconf 'cocos2d::EventListenerKeyboard'
 EventListenerKeyboard.VAR('onKeyPressed', 'std::function<void(EventKeyboard::KeyCode, @local Event*)> onKeyPressed = nullptr')
 EventListenerKeyboard.VAR('onKeyReleased', 'std::function<void(EventKeyboard::KeyCode, @local Event*)> onKeyReleased = nullptr')
 
 local EventListenerAcceleration = typeconf 'cocos2d::EventListenerAcceleration'
-EventListenerAcceleration.CALLBACK('create', {
+EventListenerAcceleration.CALLBACK {
     FUNCS = {'static EventListenerAcceleration* create(const std::function<void(@local Acceleration*, @local Event*)>& callback)'},
     TAG_MAKER = 'olua_makecallbacktag("listener")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_NEW',
@@ -306,7 +306,7 @@ EventListenerAcceleration.CALLBACK('create', {
         self->autorelease();
         olua_push_cppobj<${DECLTYPE}>(L, self);
     ]],
-})
+}
 
 local EventListenerFocus = typeconf 'cocos2d::EventListenerFocus'
 EventListenerFocus.VAR('onFocusChanged', 'std::function<void(ui::Widget*, ui::Widget*)> onFocusChanged = nullptr')
@@ -407,31 +407,31 @@ AudioEngine.INJECT('uncache', {
         }
     ]]
 })
-AudioEngine.CALLBACK('stop', {
+AudioEngine.CALLBACK {
     FUNCS = {'static void stop(int audioID)'},
     TAG_MAKER = 'makeAudioEngineFinishCallbackTag(#1)',
     TAG_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
     REMOVE = true,
-})
-AudioEngine.CALLBACK('stopAll', {
+}
+AudioEngine.CALLBACK {
     FUNCS = {'static void stopAll()'},
     TAG_MAKER = 'makeAudioEngineFinishCallbackTag(-1)',
     TAG_MODE = "OLUA_CALLBACK_TAG_WILDCARD",
     REMOVE = true,
-})
-AudioEngine.CALLBACK('uncacheAll', {
+}
+AudioEngine.CALLBACK {
     FUNCS = {'static void uncacheAll()'},
     TAG_MAKER = 'makeAudioEngineFinishCallbackTag(-1)',
     TAG_MODE = "OLUA_CALLBACK_TAG_WILDCARD",
     REMOVE = true,
-})
-AudioEngine.CALLBACK('setFinishCallback', {
+}
+AudioEngine.CALLBACK {
     FUNCS = {'static void setFinishCallback(int audioID, @nullable const std::function<void(int,const std::string&)>& callback)'},
     TAG_MAKER = 'makeAudioEngineFinishCallbackTag(#1)',
     TAG_MODE = "OLUA_CALLBACK_TAG_REPLACE",
     CALLONCE = true,
-})
-AudioEngine.CALLBACK('preload', {
+}
+AudioEngine.CALLBACK {
     FUNCS = {
         'static void preload(const std::string& filePath)',
         'static void preload(const std::string& filePath, std::function<void(bool isSuccess)> callback)',
@@ -439,7 +439,7 @@ AudioEngine.CALLBACK('preload', {
     TAG_MAKER = 'olua_makecallbacktag("preload")',
     TAG_MODE = "OLUA_CALLBACK_TAG_REPLACE",
     CALLONCE = true,
-})
+}
 
 typeconf 'CocosDenshion::SimpleAudioEngine'
 
@@ -562,7 +562,7 @@ static const std::string makeTextureCacheCallbackTag(const std::string &key)
 {
     return "addImageAsync." + key;
 }]]
-TextureCache.CALLBACK('addImageAsync', {
+TextureCache.CALLBACK {
     FUNCS = {
         'void addImageAsync(const std::string &filepath, const std::function<void(Texture2D*)>& callback)',
         'void addImageAsync(const std::string &path, const std::function<void(Texture2D*)>& callback, const std::string& callbackKey)',
@@ -570,19 +570,19 @@ TextureCache.CALLBACK('addImageAsync', {
     TAG_MAKER = {'makeTextureCacheCallbackTag(#1)', 'makeTextureCacheCallbackTag(#-1)'},
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
     CALLONCE = true,
-})
-TextureCache.CALLBACK('unbindImageAsync', {
+}
+TextureCache.CALLBACK {
     FUNCS = {'void unbindImageAsync(const std::string &filename)'},
     TAG_MAKER = 'makeTextureCacheCallbackTag(#1)',
     TAG_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
     REMOVE = true,
-})
-TextureCache.CALLBACK('unbindAllImageAsync', {
+}
+TextureCache.CALLBACK {
     FUNCS = {'void unbindAllImageAsync()'},
     TAG_MAKER = 'makeTextureCacheCallbackTag("")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_WILDCARD',
     REMOVE = true,
-})
+}
 
 typeconf 'cocos2d::Texture2D::PixelFormat'
 local Texture2D = typeconf 'cocos2d::Texture2D'
@@ -738,7 +738,7 @@ local TargetedAction = typeconf 'cocos2d::TargetedAction'
 TargetedAction.ATTR('create', {ARG2 = '@ref(map autoref)'})
 
 local ActionFloat = typeconf 'cocos2d::ActionFloat'
-ActionFloat.CALLBACK('create', {
+ActionFloat.CALLBACK {
     FUNCS = {'static ActionFloat* create(float duration, float from, float to, std::function<void(float value)> callback)'},
     TAG_MAKER = 'olua_makecallbacktag("ActionFloat")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_NEW',
@@ -749,7 +749,7 @@ ActionFloat.CALLBACK('create', {
         self->autorelease();
         olua_push_cppobj<${DECLTYPE}>(L, self);
     ]],
-})
+}
 
 typeconf 'cocos2d::ActionCamera'
 typeconf 'cocos2d::OrbitCamera'
@@ -820,7 +820,7 @@ typeconf "cocos2d::FlipY"
 typeconf "cocos2d::Place"
 
 local CallFunc = typeconf "cocos2d::CallFunc"
-CallFunc.CALLBACK('create', {
+CallFunc.CALLBACK {
     FUNCS = {'static CallFunc * create(const std::function<void()>& func)'},
     TAG_MAKER = 'olua_makecallbacktag("CallFunc")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_NEW',
@@ -831,7 +831,7 @@ CallFunc.CALLBACK('create', {
         self->autorelease();
         olua_push_cppobj<${DECLTYPE}>(L, self);
     ]],
-})
+}
 
 local Component = typeconf 'cocos2d::Component'
 Component.ATTR('getOwner', {RET = '@ref(single owner)'})
@@ -1026,53 +1026,53 @@ Node.PROP('alpha', [[
     self->setOpacity(olua_checknumber(L, 2) * 255.0f);
     return 0;
 }]])
-Node.CALLBACK('setOnEnterCallback', {
+Node.CALLBACK {
     FUNCS = {'void setOnEnterCallback(@nullable const std::function<void()>& callback)'},
     TAG_MAKER = 'olua_makecallbacktag("onEnterCallback")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
-})
-Node.CALLBACK('getOnEnterCallback', {
+}
+Node.CALLBACK {
     FUNCS = {'const std::function<void()>& getOnEnterCallback()'},
     TAG_MAKER = 'olua_makecallbacktag("onEnterCallback")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
-})
-Node.CALLBACK('setOnExitCallback', {
+}
+Node.CALLBACK {
     FUNCS = {'void setOnExitCallback(@nullable const std::function<void()>& callback)'},
     TAG_MAKER = 'olua_makecallbacktag("onExitCallback")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
-})
-Node.CALLBACK('getOnExitCallback', {
+}
+Node.CALLBACK {
     FUNCS = {'const std::function<void()>& getOnExitCallback()'},
     TAG_MAKER = 'olua_makecallbacktag("onExitCallback")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
-})
-Node.CALLBACK('setOnEnterTransitionDidFinishCallback', {
+}
+Node.CALLBACK {
     FUNCS = {'void setOnEnterTransitionDidFinishCallback(@nullable const std::function<void()>& callback)'},
     TAG_MAKER = 'olua_makecallbacktag("onEnterTransitionDidFinishCallback")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
-})
-Node.CALLBACK('getOnEnterTransitionDidFinishCallback', {
+}
+Node.CALLBACK {
     FUNCS = {'const std::function<void()>& getOnEnterTransitionDidFinishCallback()'},
     TAG_MAKER = 'olua_makecallbacktag("onEnterTransitionDidFinishCallback")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
-})
-Node.CALLBACK('setOnExitTransitionDidStartCallback', {
+}
+Node.CALLBACK {
     FUNCS = {'void setOnExitTransitionDidStartCallback(@nullable const std::function<void()>& callback)'},
     TAG_MAKER = 'olua_makecallbacktag("onExitTransitionDidStartCallback")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
-})
-Node.CALLBACK('getOnExitTransitionDidStartCallback', {
+}
+Node.CALLBACK {
     FUNCS = {'const std::function<void()>& getOnExitTransitionDidStartCallback()'},
     TAG_MAKER = 'olua_makecallbacktag("onExitTransitionDidStartCallback")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
-})
-Node.CALLBACK('scheduleOnce', {
+}
+Node.CALLBACK {
     FUNCS = {'void scheduleOnce(const std::function<void(float)>& callback, float delay, const std::string &key)'},
     TAG_MAKER = 'makeScheduleCallbackTag(#-1)',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
     CALLONCE = true,
-})
-Node.CALLBACK('schedule', {
+}
+Node.CALLBACK {
     FUNCS = {
         'void schedule(const std::function<void(float)>& callback, const std::string &key)',
         'void schedule(const std::function<void(float)>& callback, float interval, const std::string &key)',
@@ -1080,19 +1080,19 @@ Node.CALLBACK('schedule', {
     },
     TAG_MAKER = "makeScheduleCallbackTag(#-1)",
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
-})
-Node.CALLBACK('unschedule', {
+}
+Node.CALLBACK {
     FUNCS = {'void unschedule(const std::string &key)'},
     TAG_MAKER = "makeScheduleCallbackTag(#1)",
     TAG_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
     REMOVE = true,
-})
-Node.CALLBACK('unscheduleAllCallbacks', {
+}
+Node.CALLBACK {
     FUNCS = {'void unscheduleAllCallbacks()'},
     TAG_MAKER = 'makeScheduleCallbackTag("")',
     TAG_MODE = "OLUA_CALLBACK_TAG_WILDCARD",
     REMOVE = true,
-})
+}
 Node.INJECT({'removeFromParent', 'removeFromParentAndCleanup'}, {
     BEFORE = [[
         if (!self->getParent()) {
@@ -1134,7 +1134,7 @@ FontAtlas.EXCLUDE 'prepareLetterDefinitions'
 typeconf 'cocos2d::ClippingRectangleNode'
 
 local RenderTexture = typeconf 'cocos2d::RenderTexture'
-RenderTexture.CALLBACK('saveToFile', {
+RenderTexture.CALLBACK {
     FUNCS = {
         'bool saveToFile(const std::string& filename, bool isRGBA = true, std::function<void (RenderTexture*, const std::string&)> callback = nullptr)',
         'bool saveToFile(const std::string& filename, Image::Format format, bool isRGBA = true, std::function<void (RenderTexture*, const std::string&)> callback = nullptr)',
@@ -1142,7 +1142,7 @@ RenderTexture.CALLBACK('saveToFile', {
     TAG_MAKER = 'olua_makecallbacktag("saveToFile")',
     TAG_MODE = "OLUA_CALLBACK_TAG_REPLACE",
     CALLONCE = true,
-})
+}
 
 typeconf 'cocos2d::ProgressTimer::Type'
 typeconf 'cocos2d::ProgressTimer'

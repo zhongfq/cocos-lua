@@ -62,21 +62,21 @@ Widget.EXCLUDE 'createInstance'
 Widget.ATTR('getVirtualRenderer', {RET = '@ref(map protectedChildren)'})
 Widget.VAR('onFocusChanged', '@nullable std::function<void(Widget*,Widget*)> onFocusChanged')
 Widget.VAR('onNextFocusedWidget', '@nullable std::function<Widget*(FocusDirection)> onNextFocusedWidget')
-Widget.CALLBACK('addTouchEventListener', {
+Widget.CALLBACK {
     FUNCS = {'void addTouchEventListener(@nullable const std::function<void(Ref*,Widget::TouchEventType)>& callback)'},
     TAG_MAKER = 'olua_makecallbacktag("touchEventListener")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
-})
-Widget.CALLBACK('addClickEventListener', {
+}
+Widget.CALLBACK {
     FUNCS = {'void addClickEventListener(@nullable std::function<void(Ref*)>& callback)'},
     TAG_MAKER = 'olua_makecallbacktag("clickEventListener")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
-})
-Widget.CALLBACK('addCCSEventListener', {
+}
+Widget.CALLBACK {
     FUNCS = {'void addCCSEventListener(@nullable const std::function<void(Ref*, int)>& callback)'},
     TAG_MAKER = 'olua_makecallbacktag("ccsEventListener")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
-})
+}
 
 typeconf 'cocos2d::ui::Helper'
 typeconf 'cocos2d::ui::Scale9Sprite::State'
@@ -104,46 +104,46 @@ typeconf 'cocos2d::ui::RelativeBox'
 
 local WebView = typeconf 'cocos2d::experimental::ui::WebView'
 WebView.DEFIF = '#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN)'
-WebView.CALLBACK('setOnShouldStartLoading', {
+WebView.CALLBACK {
     FUNCS = {'void setOnShouldStartLoading(@nullable const std::function<bool(WebView *sender, const std::string &url)>& callback)'},
     TAG_MAKER = 'olua_makecallbacktag("onShouldStartLoading")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
-})
-WebView.CALLBACK('getOnShouldStartLoading', {
+}
+WebView.CALLBACK {
     FUNCS = {'std::function<bool(WebView *sender, const std::string &url)> getOnShouldStartLoading()'},
     TAG_MAKER = 'olua_makecallbacktag("onShouldStartLoading")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
-})
-WebView.CALLBACK('setOnDidFinishLoading', {
+}
+WebView.CALLBACK {
     FUNCS = {'void setOnDidFinishLoading(@nullable const std::function<void(WebView *sender, const std::string &url)>& callback)'},
     TAG_MAKER = 'olua_makecallbacktag("onDidFinishLoading")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
-})
-WebView.CALLBACK('getOnDidFinishLoading', {
+}
+WebView.CALLBACK {
     FUNCS = {'std::function<void(WebView *sender, const std::string &url)> getOnDidFinishLoading()'},
     TAG_MAKER = 'olua_makecallbacktag("onDidFinishLoading")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
-})
-WebView.CALLBACK('setOnDidFailLoading', {
+}
+WebView.CALLBACK {
     FUNCS = {'void setOnDidFailLoading(@nullable const std::function<void(WebView *sender, const std::string &url)>& callback)'},
     TAG_MAKER = 'olua_makecallbacktag("onDidFailLoading")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
-})
-WebView.CALLBACK('getOnDidFailLoading', {
+}
+WebView.CALLBACK {
     FUNCS = {'std::function<void(WebView *sender, const std::string &url)> getOnDidFailLoading()'},
     TAG_MAKER = 'olua_makecallbacktag("onDidFailLoading")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
-})
-WebView.CALLBACK('setOnJSCallback', {
+}
+WebView.CALLBACK {
     FUNCS = {'void setOnJSCallback(@nullable const std::function<void(WebView *sender, const std::string &url)>& callback)'},
     TAG_MAKER = 'olua_makecallbacktag("onJSCallback")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
-})
-WebView.CALLBACK('getOnJSCallback', {
+}
+WebView.CALLBACK {
     FUNCS = {'std::function<void(WebView *sender, const std::string &url)> getOnJSCallback()'},
     TAG_MAKER = 'olua_makecallbacktag("onJSCallback")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
-})
+}
 
 local EventType = typeconf 'cocos2d::experimental::ui::VideoPlayer::EventType'
 EventType.DEFIF = '#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN)'
@@ -153,11 +153,11 @@ StyleType.DEFIF = '#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_P
 
 local VideoPlayer = typeconf 'cocos2d::experimental::ui::VideoPlayer'
 VideoPlayer.DEFIF = '#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN)'
-VideoPlayer.CALLBACK('addEventListener', {
+VideoPlayer.CALLBACK {
     FUNCS = {'void addEventListener(@nullable const std::function<void(Ref*,VideoPlayer::EventType)>& callback)'},
     TAG_MAKER = 'olua_makecallbacktag("videoPlayerCallback")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
-})
+}
 
 local AbstractCheckButton = typeconf 'cocos2d::ui::AbstractCheckButton'
 AbstractCheckButton.ATTR('getRendererBackground', {RET = '@ref(map protectedChildren)'})
@@ -179,22 +179,22 @@ TabControl.ATTR('removeTab', {RET = '@unref(cmp protectedChildren)'})
 TabControl.ATTR('getTabHeader', {RET = '@ref(map protectedChildren)'})
 TabControl.ATTR('getTabContainer', {RET = '@ref(map protectedChildren)'})
 TabControl.ATTR('insertTab', {ARG2 = '@ref(map protectedChildren)', ARG3 = '@ref(map protectedChildren)'})
-TabControl.CALLBACK('setTabChangedEventListener', {
+TabControl.CALLBACK {
     FUNCS = {'void setTabChangedEventListener(@nullable const std::function<void(int tabIndex, EventType)>& callback)'},
     TAG_MAKER = 'olua_makecallbacktag("tabChangedEventListener")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
-})
+}
 
 typeconf 'cocos2d::ui::ScrollView::Direction'
 typeconf 'cocos2d::ui::ScrollView::EventType'
 
 local ScrollView = typeconf 'cocos2d::ui::ScrollView'
 ScrollView.ATTR('getInnerContainer', {RET = '@ref(map protectedChildren)'})
-ScrollView.CALLBACK('addEventListener',{
+ScrollView.CALLBACK {
     FUNCS = {'void addEventListener(@nullable const std::function<void(Ref*, EventType)>& callback)'},
     TAG_MAKER = 'olua_makecallbacktag("scrollViewCallback")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE'
-})
+}
 ScrollView.ALIAS('addEventListener', 'addScrollEventListener')
 
 typeconf 'cocos2d::ui::ListView::Gravity'
@@ -209,11 +209,11 @@ ListView.ATTR('removeItem', {RET = '@unref(cmp children)'})
 ListView.ATTR('removeAllItems', {RET = '@unref(cmp children)'})
 ListView.ATTR('getItem', {RET = '@ref(map children)'})
 ListView.ATTR('getItems', {RET = '@ref(map children)'})
-ListView.CALLBACK('addEventListener', {
+ListView.CALLBACK {
     FUNCS = {'void addEventListener(@nullable const std::function<void(Ref*, EventType)>& callback)'},
     TAG_MAKER = 'olua_makecallbacktag("ListViewCallback")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
-})
+}
 ListView.ALIAS('addEventListener', 'addListViewEventListener')
 
 typeconf 'cocos2d::ui::LoadingBar::Direction'
@@ -227,11 +227,11 @@ PageView.ATTR('insertPage', {ARG1 = '@ref(map children)'})
 PageView.ATTR('removePage', {ARG1 = '@unref(map children)'})
 PageView.ATTR('removePageAtIndex', {RET = '@unref(cmp children)'})
 PageView.ATTR('removeAllPages', {RET = '@unref(all children)'})
-PageView.CALLBACK('addEventListener', {
+PageView.CALLBACK {
     FUNCS = {'void addEventListener(@nullable const std::function<void(Ref*, PageView::EventType)>& callback)'},
     TAG_MAKER = 'olua_makecallbacktag("PageViewCallback")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
-})
+}
 PageView.ALIAS('addEventListener', 'addPageViewEventListener')
 
 typeconf 'cocos2d::ui::RichElement::Type'
@@ -246,7 +246,7 @@ typeconf 'cocos2d::ui::RichText::HorizontalAlignment'
 local RichText = typeconf 'cocos2d::ui::RichText'
 RichText.EXCLUDE 'setTagDescription'
 RichText.EXCLUDE 'initWithXML'
-RichText.CALLBACK('createWithXML', {
+RichText.CALLBACK {
     FUNCS = {
         'static RichText* createWithXML(const std::string& xml)',
         'static RichText* createWithXML(const std::string& xml, const ValueMap& defaults)',
@@ -261,12 +261,12 @@ RichText.CALLBACK('createWithXML', {
         self->autorelease();
         olua_push_cppobj<${DECLTYPE}>(L, self);
     ]],
-})
-RichText.CALLBACK('setOpenUrlHandler', {
+}
+RichText.CALLBACK {
     FUNCS = {'void setOpenUrlHandler(const std::function<void(const std::string& url)>& handleOpenUrl)'},
     TAG_MAKER = 'olua_makecallbacktag("openUrlHandler")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
-})
+}
 
 typeconf 'cocos2d::ui::ScrollViewBar'
 typeconf 'cocos2d::ui::Slider::EventType'
@@ -276,11 +276,11 @@ Slider.ATTR('getSlidBallNormalRenderer', {RET = '@ref(map protectedChildren)'})
 Slider.ATTR('getSlidBallPressedRenderer', {RET = '@ref(map protectedChildren)'})
 Slider.ATTR('getSlidBallDisabledRenderer', {RET = '@ref(map protectedChildren)'})
 Slider.ATTR('getSlidBallRenderer', {RET = '@ref(map protectedChildren)'})
-Slider.CALLBACK('addEventListener', {
+Slider.CALLBACK {
     FUNCS = {'void addEventListener(@nullable const std::function<void(Ref*,EventType)>& callback)'},
     TAG_MAKER = 'olua_makecallbacktag("sliderCallback")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
-})
+}
 
 typeconf 'cocos2d::ui::Text::Type'
 typeconf 'cocos2d::ui::Text'
@@ -290,11 +290,11 @@ typeconf 'cocos2d::ui::UICCTextField'
 typeconf 'cocos2d::ui::TextField::EventType'
 
 local TextField = typeconf 'cocos2d::ui::TextField'
-TextField.CALLBACK('addEventListener', {
+TextField.CALLBACK {
     FUNCS = {'void addEventListener(@nullable const std::function<void(Ref*, EventType)>& callback)'},
     TAG_MAKER = 'olua_makecallbacktag("textFieldCallback")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
-})
+}
 
 local Button = typeconf 'cocos2d::ui::Button'
 Button.ATTR('setTitleLabel', {ARG1 = '@ref(map protectedChildren)'})
@@ -307,29 +307,29 @@ Button.ATTR('getRendererDisabled', {RET = '@ref(map protectedChildren)'})
 typeconf 'cocos2d::ui::CheckBox::EventType'
 
 local CheckBox = typeconf 'cocos2d::ui::CheckBox'
-CheckBox.CALLBACK('addEventListener', {
+CheckBox.CALLBACK {
     FUNCS = {'void addEventListener(@nullable const std::function<void(Ref*,CheckBox::EventType)>& callback)'},
     TAG_MAKER = 'olua_makecallbacktag("checkBoxCallback")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
-})
+}
 
 typeconf 'cocos2d::ui::RadioButton::EventType'
 
 local RadioButton = typeconf 'cocos2d::ui::RadioButton'
-RadioButton.CALLBACK('addEventListener', {
+RadioButton.CALLBACK {
     FUNCS = {'void addEventListener(@nullable const std::function<void(RadioButton* radioButton, EventType)>& callback)'},
     TAG_MAKER = 'olua_makecallbacktag("radioButtonCallback")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
-})
+}
 
 typeconf 'cocos2d::ui::RadioButtonGroup::EventType'
 
 local RadioButtonGroup = typeconf 'cocos2d::ui::RadioButtonGroup'
-RadioButtonGroup.CALLBACK('addEventListener', {
+RadioButtonGroup.CALLBACK {
     FUNCS = {'void addEventListener(@nullable const std::function<void(RadioButton* radioButton, int index, EventType)>& callback)'},
     TAG_MAKER = 'olua_makecallbacktag("radioButtonCallback")',
     TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
-})
+}
 
 typeconf 'cocos2d::ui::ImageView'
 

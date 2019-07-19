@@ -18,7 +18,8 @@ local function addcmd(cls)
         cls.EXCLUDE[func] = true
         cls.FUNC[#cls.FUNC + 1] = {FUNC = func, SNIPPET = snippet}
     end)
-    cls.CALLBACK = command(function (_, func, opt)
+    cls.CALLBACK = command(function (_, opt)
+        local func = olua.funcname(opt.FUNCS[1])
         assert(#func > 0, 'no callback function name')
         cls.EXCLUDE[func] = true
         opt.NAME = func

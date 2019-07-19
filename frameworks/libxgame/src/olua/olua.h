@@ -68,7 +68,7 @@ extern "C" {
 #define olua_isboolean(L,n)         (lua_type(L, (n)) == LUA_TBOOLEAN)
 #define olua_isstring(L,n)          (lua_type(L, (n)) == LUA_TSTRING)
 #define olua_isnumber(L,n)          (lua_type(L, (n)) == LUA_TNUMBER)
-#define olua_isinteger(L,n)         (lua_isinteger(L, n))
+#define olua_isinteger(L,n)         (lua_isinteger(L, (n)))
 #define olua_isthread(L,n)          (lua_type(L, (n)) == LUA_TTHREAD)
     
 // check or get the raw value
@@ -223,7 +223,7 @@ LUALIB_API void oluacls_const(lua_State *L, const char *field);
 #define olua_opt_bool(L, i, v, d)   (*(v) = olua_optboolean(L, (i), (d)))
 #define olua_is_bool(L, i)          (olua_isboolean(L, (i)))
 
-#define olua_push_string(L, v)      (lua_pushstring(L, v), 1)
+#define olua_push_string(L, v)      (lua_pushstring(L, (v)), 1)
 #define olua_check_string(L, i, v)  (*(v) = olua_checkstring(L, (i)))
 #define olua_opt_string(L, i, v, d) (*(v) = olua_optstring(L, (i), (d)))
 #define olua_is_string(L, i)        (olua_isstring(L, (i)))
@@ -238,7 +238,7 @@ LUALIB_API void oluacls_const(lua_State *L, const char *field);
 #define olua_opt_int(L, i, v, d)    (*(v) = olua_optinteger(L, (i), (d)))
 #define olua_is_int(L, i)           (olua_isinteger(L, (i)))
 
-#define olua_push_uint(L, v)        (lua_pushinteger(L, (lua_Integer)v), 1)
+#define olua_push_uint(L, v)        (lua_pushinteger(L, (lua_Integer)(v)), 1)
 #define olua_check_uint(L, i, v)    (*(v) = (lua_Unsigned)olua_checkinteger(L, (i)))
 #define olua_opt_uint(L, i, v, d)   (*(v) = (lua_Unsigned)olua_optinteger(L, (i), (lua_Integer)(d)))
 #define olua_is_uint(L, i)          (olua_isinteger(L, (i)))
@@ -274,7 +274,7 @@ typedef lua_Integer lua_Unsigned;
 #define lua_rawlen(L, i) lua_objlen(L, (i))
 #define luaL_newlib(L,l) {                              \
     lua_createtable(L, 0, sizeof(l)/sizeof((l)[0]) - 1);\
-    luaL_setfuncs(L,l,0);                               \
+    luaL_setfuncs(L,(l),0);                             \
 }
 LUALIB_API void *lua_getextraspace(lua_State *L);
 LUALIB_API void lua_setuservalue(lua_State *L, int idx);
@@ -293,8 +293,8 @@ LUALIB_API int olua_rawgetp(lua_State *L, int idx, const void *p);
 #define olua_setmetatable(L, k) (luaL_getmetatable(L, (k)), lua_setmetatable(L, -2))
 #define olua_rawset(L, i)       (lua_rawset(L, (i)))
 #define olua_rawget(L, i)       (lua_rawget(L, (i)), lua_type(L, -1))
-#define olua_rawgeti(L, i, n)   (lua_rawgeti(L, (i), (int)n), lua_type(L, -1))
-#define olua_rawseti(L, i, n)   (lua_rawseti(L, (i), (int)n))
+#define olua_rawgeti(L, i, n)   (lua_rawgeti(L, (i), (int)(n)), lua_type(L, -1))
+#define olua_rawseti(L, i, n)   (lua_rawseti(L, (i), (int)(n)))
 #define olua_setfield(L, i, k)  (lua_setfield(L, (i), (k)))
 #define olua_getfield(L, i, k)  (lua_getfield(L, (i), (k)), lua_type(L, -1))
 #define olua_settable(L, i)     (lua_settable(L, (i)))

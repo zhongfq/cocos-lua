@@ -23,7 +23,47 @@ M.INCLUDES = [[
 M.CHUNK = [[
 ]]
 
+M.CONVS = {
+    typeconv {
+        CPPCLS = 'dragonBones::Rectangle',
+        DEF = [[
+            float x;
+            float y;
+            float width;
+            float height;
+        ]],
+    },
+}
+
 M.CLASSES = {}
+
+cls = typecls 'dragonBones::BinaryOffset'
+cls.enums [[
+    WeigthBoneCount
+    WeigthFloatOffset
+    WeigthBoneIndices
+    MeshVertexCount
+    MeshTriangleCount
+    MeshFloatOffset
+    MeshWeightOffset
+    MeshVertexIndices
+    TimelineScale
+    TimelineOffset
+    TimelineKeyFrameCount
+    TimelineFrameValueCount
+    TimelineFrameValueOffset
+    TimelineFrameOffset
+    FramePosition
+    FrameTweenType
+    FrameTweenEasingOrCurveSampleCount
+    FrameCurveSamples
+    DeformVertexOffset
+    DeformCount
+    DeformValueCount
+    DeformValueOffset
+    DeformFloatOffset
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::ArmatureType'
 cls.enums [[
@@ -33,11 +73,78 @@ cls.enums [[
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'dragonBones::BoundingBoxType'
+cls.enums [[
+    Rectangle
+    Ellipse
+    Polygon
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'dragonBones::ActionType'
 cls.enums [[
     Play
     Frame
     Sound
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'dragonBones::BlendMode'
+cls.enums [[
+    Normal
+    Add
+    Alpha
+    Darken
+    Difference
+    Erase
+    HardLight
+    Invert
+    Layer
+    Lighten
+    Multiply
+    Overlay
+    Screen
+    Subtract
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'dragonBones::TweenType'
+cls.enums [[
+    None
+    Line
+    Curve
+    QuadIn
+    QuadOut
+    QuadInOut
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'dragonBones::TimelineType'
+cls.enums [[
+    Action
+    ZOrder
+    BoneAll
+    BoneTranslate
+    BoneRotate
+    BoneScale
+    SlotDisplay
+    SlotColor
+    SlotDeform
+    IKConstraint
+    AnimationTime
+    AnimationWeight
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'dragonBones::TextureFormat'
+cls.enums [[
+    DEFAULT
+    RGBA8888
+    BGRA8888
+    RGBA4444
+    RGB888
+    RGB565
+    RGBA5551
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -57,10 +164,12 @@ cls = typecls 'dragonBones::EventObject'
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
     static std::size_t getTypeIndex()
+    static void actionDataToInstance(const ActionData* data, EventObject* instance, Armature* armature)
     Armature* getArmature()
     Bone* getBone()
     Slot* getSlot()
     AnimationState* getAnimationState()
+    UserData* getData()
 ]]
 cls.var('time', [[float time]])
 cls.var('type', [[std::string type]])
@@ -69,12 +178,14 @@ cls.var('armature', [[Armature* armature]])
 cls.var('bone', [[Bone* bone]])
 cls.var('slot', [[Slot* slot]])
 cls.var('animationState', [[AnimationState* animationState]])
+cls.var('data', [[UserData* data]])
 cls.props [[
     typeIndex
     armature
     bone
     slot
     animationState
+    data
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -118,6 +229,81 @@ cls.props [[
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'dragonBones::ConstraintData'
+cls.SUPERCLS = "dragonBones::BaseObject"
+cls.funcs [[
+    const BoneData* getTarget()
+    void setTarget(const BoneData* value)
+    const BoneData* getBone()
+    void setBone(const BoneData* value)
+    const BoneData* getRoot()
+    void setRoot(const BoneData* value)
+]]
+cls.var('order', [[int order]])
+cls.var('name', [[std::string name]])
+cls.props [[
+    target
+    bone
+    root
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'dragonBones::IKConstraintData'
+cls.SUPERCLS = "dragonBones::ConstraintData"
+cls.funcs [[
+    static std::size_t getTypeIndex()
+]]
+cls.var('scaleEnabled', [[bool scaleEnabled]])
+cls.var('bendPositive', [[bool bendPositive]])
+cls.var('weight', [[float weight]])
+cls.props [[
+    typeIndex
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'dragonBones::TimelineData'
+cls.SUPERCLS = "dragonBones::BaseObject"
+cls.funcs [[
+    static std::size_t getTypeIndex()
+    int getType()
+    void setType(int value)
+]]
+cls.var('type', [[TimelineType type]])
+cls.var('offset', [[unsigned offset]])
+cls.var('frameIndicesOffset', [[int frameIndicesOffset]])
+cls.props [[
+    typeIndex
+    type
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'dragonBones::IAnimatable'
+cls.funcs [[
+    void advanceTime(float passedTime)
+    WorldClock* getClock()
+    void setClock(WorldClock* value)
+]]
+cls.props [[
+    clock
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'dragonBones::WorldClock'
+cls.SUPERCLS = "dragonBones::IAnimatable"
+cls.funcs [[
+    bool contains(const IAnimatable* value)
+    void add(IAnimatable* value)
+    void remove(IAnimatable* value)
+    void clear()
+    static WorldClock* getStaticClock()
+]]
+cls.var('time', [[float time]])
+cls.var('timeScale', [[float timeScale]])
+cls.props [[
+    staticClock
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'dragonBones::Slot'
 cls.SUPERCLS = "dragonBones::TransformObject"
 cls.funcs [[
@@ -134,6 +320,7 @@ cls.funcs [[
     void setDisplayIndex(int value)
     inline const std::string& getName()
     const SlotData* getSlotData()
+    inline BoundingBoxData* getBoundingBoxData()
     inline void* getRawDisplay()
     inline void* getMeshDisplay()
     inline void* getDisplay()
@@ -148,6 +335,7 @@ cls.props [[
     displayIndex
     name
     slotData
+    boundingBoxData
     rawDisplay
     meshDisplay
     display
@@ -220,14 +408,87 @@ cls.funcs [[
     void setBone(const BoneData* value)
     const SlotData* getSlot()
     void setSlot(const SlotData* value)
+    const UserData* getData()
+    void setData(UserData* value)
 ]]
 cls.var('type', [[ActionType type]])
 cls.var('name', [[std::string name]])
+cls.var('data', [[UserData* data]])
 cls.props [[
     typeIndex
     type
     bone
     slot
+    data
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'dragonBones::UserData'
+cls.SUPERCLS = "dragonBones::BaseObject"
+cls.funcs [[
+    static std::size_t getTypeIndex()
+    void addInt(int value)
+    void addFloat(float value)
+    void addString(std::string value)
+    int getInt(unsigned index)
+    float getFloat(unsigned index)
+    std::string getString(unsigned index)
+    const std::vector<int>& getInts()
+    const std::vector<float>& getFloats()
+    const std::vector<std::string>& getStrings()
+]]
+cls.var('ints', [[std::vector<int> ints]])
+cls.var('floats', [[std::vector<float> floats]])
+cls.var('strings', [[std::vector<std::string> strings]])
+cls.props [[
+    typeIndex
+    ints
+    floats
+    strings
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'dragonBones::BoundingBoxData'
+cls.SUPERCLS = "dragonBones::BaseObject"
+cls.funcs [[
+    bool containsPoint(float pX, float pY)
+    int intersectsSegment( float xA, float yA, float xB, float yB, Point* intersectionPointA = nullptr, Point* intersectionPointB = nullptr, Point* normalRadians = nullptr )
+    int getType()
+    void setType(int value)
+]]
+cls.var('type', [[BoundingBoxType type]])
+cls.var('color', [[unsigned color]])
+cls.var('width', [[float width]])
+cls.var('height', [[float height]])
+cls.props [[
+    type
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'dragonBones::BoundingBoxDisplayData'
+cls.SUPERCLS = "dragonBones::DisplayData"
+cls.funcs [[
+    static std::size_t getTypeIndex()
+    const BoundingBoxData* getBoundingBox()
+    void setBoundingBox(BoundingBoxData* value)
+]]
+cls.var('boundingBox', [[BoundingBoxData* boundingBox]])
+cls.props [[
+    typeIndex
+    boundingBox
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'dragonBones::CanvasData'
+cls.SUPERCLS = "dragonBones::BaseObject"
+cls.funcs [[
+    static std::size_t getTypeIndex()
+]]
+cls.var('hasBackground', [[bool hasBackground]])
+cls.var('color', [[unsigned color]])
+cls.var('aabb', [[Rectangle aabb]])
+cls.props [[
+    typeIndex
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -239,6 +500,7 @@ cls.funcs [[
     inline TextureData* getTexture(const std::string& textureName)
 ]]
 cls.var('autoSearch', [[bool autoSearch]])
+cls.var('format', [[TextureFormat format]])
 cls.var('width', [[unsigned width]])
 cls.var('height', [[unsigned height]])
 cls.var('scale', [[float scale]])
@@ -254,6 +516,7 @@ cls.funcs [[
 ]]
 cls.var('rotated', [[bool rotated]])
 cls.var('name', [[std::string name]])
+cls.var('region', [[Rectangle region]])
 cls.var('parent', [[TextureAtlasData* parent]])
 cls.props [[
     parent
@@ -268,10 +531,13 @@ cls.funcs [[
     void cacheFrames(unsigned frameRate)
     void addBone(BoneData* value)
     void addSlot(SlotData* value)
+    void addConstraint(ConstraintData* value)
     void addSkin(SkinData* value)
     void addAnimation(AnimationData* value)
+    void addAction(ActionData* value, bool isDefault)
     inline BoneData* getBone(const std::string& boneName)
     inline SlotData* getSlot(const std::string& slotName)
+    inline ConstraintData* getConstraint(const std::string& constraintName)
     inline SkinData* getSkin(const std::string& skinName)
     inline AnimationData* getAnimation(const std::string& animationName)
     int getType()
@@ -285,6 +551,8 @@ cls.funcs [[
     void setDefaultSkin(SkinData* value)
     AnimationData* getDefaultAnimation()
     void setDefaultAnimation(AnimationData* value)
+    const UserData* getUserData()
+    void setUserData(UserData* value)
     const DragonBonesData* getParent()
     void setParent(DragonBonesData* value)
 ]]
@@ -293,6 +561,7 @@ cls.var('frameRate', [[unsigned frameRate]])
 cls.var('cacheFrameRate', [[unsigned cacheFrameRate]])
 cls.var('scale', [[float scale]])
 cls.var('name', [[std::string name]])
+cls.var('aabb', [[Rectangle aabb]])
 cls.var('animationNames', [[std::vector<std::string> animationNames]])
 cls.var('sortedBones', [[std::vector<BoneData*> sortedBones]])
 cls.var('sortedSlots', [[std::vector<SlotData*> sortedSlots]])
@@ -300,6 +569,7 @@ cls.var('defaultActions', [[std::vector<ActionData*> defaultActions]])
 cls.var('actions', [[std::vector<ActionData*> actions]])
 cls.var('defaultSkin', [[SkinData* defaultSkin]])
 cls.var('defaultAnimation', [[AnimationData* defaultAnimation]])
+cls.var('userData', [[UserData* userData]])
 cls.var('parent', [[DragonBonesData* parent]])
 cls.props [[
     typeIndex
@@ -311,6 +581,7 @@ cls.props [[
     actions
     defaultSkin
     defaultAnimation
+    userData
     parent
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -333,6 +604,8 @@ cls = typecls 'dragonBones::BoneData'
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
     static std::size_t getTypeIndex()
+    const UserData* getUserData()
+    void setUserData(UserData* value)
     const BoneData* getParent()
     void setParent(BoneData* value)
 ]]
@@ -342,9 +615,11 @@ cls.var('inheritScale', [[bool inheritScale]])
 cls.var('inheritReflection', [[bool inheritReflection]])
 cls.var('length', [[float length]])
 cls.var('name', [[std::string name]])
+cls.var('userData', [[UserData* userData]])
 cls.var('parent', [[BoneData* parent]])
 cls.props [[
     typeIndex
+    userData
     parent
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -357,15 +632,20 @@ cls.funcs [[
     void setBlendMode(int value)
     const BoneData* getParent()
     void setParent(BoneData* value)
+    const UserData* getUserData()
+    void setUserData(UserData* value)
 ]]
+cls.var('blendMode', [[BlendMode blendMode]])
 cls.var('displayIndex', [[int displayIndex]])
 cls.var('zOrder', [[int zOrder]])
 cls.var('name', [[std::string name]])
+cls.var('userData', [[UserData* userData]])
 cls.var('parent', [[BoneData* parent]])
 cls.props [[
     typeIndex
     blendMode
     parent
+    userData
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -426,6 +706,13 @@ cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
     static std::size_t getTypeIndex()
     void cacheFrames(unsigned frameRate)
+    void addBoneTimeline(BoneData* bone, TimelineData* value)
+    void addSlotTimeline(SlotData* slot, TimelineData* value)
+    void addConstraintTimeline(ConstraintData* constraint, TimelineData* value)
+    TimelineData* getActionTimeline()
+    void setActionTimeline(TimelineData* pactionTimeline)
+    TimelineData* getZOrderTimeline()
+    void setZOrderTimeline(TimelineData* value)
     ArmatureData* getParent()
     void setParent(ArmatureData* value)
 ]]
@@ -440,9 +727,13 @@ cls.var('fadeInTime', [[float fadeInTime]])
 cls.var('cacheFrameRate', [[float cacheFrameRate]])
 cls.var('name', [[std::string name]])
 cls.var('cachedFrames', [[std::vector<bool> cachedFrames]])
+cls.var('actionTimeline', [[TimelineData* actionTimeline]])
+cls.var('zOrderTimeline', [[TimelineData* zOrderTimeline]])
 cls.var('parent', [[ArmatureData* parent]])
 cls.props [[
     typeIndex
+    actionTimeline
+    zOrderTimeline
     parent
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -465,12 +756,14 @@ cls.funcs [[
 ]]
 cls.var('pauseFadeOut', [[bool pauseFadeOut]])
 cls.var('fadeOutMode', [[AnimationFadeOutMode fadeOutMode]])
+cls.var('fadeOutTweenType', [[TweenType fadeOutTweenType]])
 cls.var('fadeOutTime', [[float fadeOutTime]])
 cls.var('actionEnabled', [[bool actionEnabled]])
 cls.var('additiveBlending', [[bool additiveBlending]])
 cls.var('displayControl', [[bool displayControl]])
 cls.var('pauseFadeIn', [[bool pauseFadeIn]])
 cls.var('resetToPose', [[bool resetToPose]])
+cls.var('fadeInTweenType', [[TweenType fadeInTweenType]])
 cls.var('playTimes', [[int playTimes]])
 cls.var('layer', [[int layer]])
 cls.var('position', [[float position]])
@@ -498,6 +791,8 @@ cls.funcs [[
     void addArmature(ArmatureData* value)
     inline ArmatureData* getArmature(const std::string& armatureName)
     const std::vector<std::string>& getArmatureNames()
+    const UserData* getUserData()
+    void setUserData(UserData* value)
 ]]
 cls.var('autoSearch', [[bool autoSearch]])
 cls.var('frameRate', [[unsigned frameRate]])
@@ -505,9 +800,11 @@ cls.var('version', [[std::string version]])
 cls.var('name', [[std::string name]])
 cls.var('cachedFrames', [[std::vector<float> cachedFrames]])
 cls.var('armatureNames', [[std::vector<std::string> armatureNames]])
+cls.var('userData', [[UserData* userData]])
 cls.props [[
     typeIndex
     armatureNames
+    userData
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -527,8 +824,12 @@ cls.funcs [[
     bool replaceSlotDisplay( const std::string& dragonBonesName, const std::string& armatureName, const std::string& slotName, const std::string& displayName, Slot* slot, int displayIndex = -1 )
     bool replaceSlotDisplayList( const std::string& dragonBonesName, const std::string& armatureName, const std::string& slotName, Slot* slot )
     bool replaceAnimation(Armature* armature, ArmatureData* armatureData, bool isReplaceAll = true)
+    inline WorldClock* getClock()
 ]]
 cls.var('autoSearch', [[bool autoSearch]])
+cls.props [[
+    clock
+]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::Armature'
@@ -558,7 +859,10 @@ cls.funcs [[
     inline void* getDisplay()
     inline void* getReplacedTexture()
     void setReplacedTexture(void* value)
+    inline WorldClock* getClock()
+    void setClock(WorldClock* value)
     inline Slot* getParent()
+    IAnimatable* getAnimatable()
 ]]
 cls.var('inheritAnimation', [[bool inheritAnimation]])
 cls.var('userData', [[void* userData]])
@@ -574,7 +878,9 @@ cls.props [[
     animation
     display
     replacedTexture
+    clock
     parent
+    animatable
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 

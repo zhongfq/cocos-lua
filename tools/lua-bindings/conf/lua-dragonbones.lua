@@ -1,6 +1,8 @@
 local typemod = require "olua.typemod"
 local M = typemod 'dragonbones'
 local typeconf = M.typeconf
+local typedef = M.typedef
+local typeconv = M.typeconv
 
 M.PARSER = {
     PATH = {
@@ -30,6 +32,21 @@ M.INCLUDES = [[
 ]]
 M.CHUNK = [[]]
 
+typedef {
+    CPPCLS = "dragonBones::Rectangle",
+    CONV_FUNC = 'auto_olua_$$_dragonBones_Rectangle',
+}
+
+typeconv {
+    CPPCLS = "dragonBones::Rectangle",
+    DEF = [[
+        float x;
+        float y;
+        float width;
+        float height;
+    ]],
+}
+
 M.MAKE_LUACLS = function (cppname)
     cppname = string.gsub(cppname, "^dragonBones::CC", "db.")
     cppname = string.gsub(cppname, "^dragonBones::", "db.")
@@ -39,8 +56,6 @@ M.MAKE_LUACLS = function (cppname)
 end
 
 M.EXCLUDE_TYPE = require "conf.exclude-type"
-M.EXCLUDE_TYPE 'dragonBones::ActionData *'
-M.EXCLUDE_TYPE 'dragonBones::UserData *'
 M.EXCLUDE_TYPE 'dragonBones::Matrix *'
 M.EXCLUDE_TYPE 'dragonBones::Matrix'
 M.EXCLUDE_TYPE 'dragonBones::Transform *'
@@ -48,33 +63,40 @@ M.EXCLUDE_TYPE 'dragonBones::Transform'
 M.EXCLUDE_TYPE 'dragonBones::Point'
 M.EXCLUDE_TYPE 'dragonBones::ColorTransform'
 M.EXCLUDE_TYPE 'dragonBones::ColorTransform *'
-M.EXCLUDE_TYPE 'dragonBones::BoundingBoxData *'
-M.EXCLUDE_TYPE 'dragonBones::TextureFormat'
 M.EXCLUDE_TYPE 'dragonBones::Rectangle *'
-M.EXCLUDE_TYPE 'dragonBones::Rectangle'
-M.EXCLUDE_TYPE 'dragonBones::ConstraintData *'
 M.EXCLUDE_TYPE 'dragonBones::MeshDisplayData *'
 M.EXCLUDE_TYPE 'dragonBones::CanvasData *'
-M.EXCLUDE_TYPE 'dragonBones::BlendMode'
-M.EXCLUDE_TYPE 'dragonBones::TimelineData *'
-M.EXCLUDE_TYPE 'dragonBones::TweenType'
-M.EXCLUDE_TYPE 'dragonBones::WorldClock *'
 M.EXCLUDE_TYPE 'dragonBones::IArmatureProxy *'
 M.EXCLUDE_TYPE 'dragonBones::IEventDispatcher *'
-M.EXCLUDE_TYPE 'dragonBones::IAnimatable *'
 
 M.EXCLUDE_PATTERN = function (cppcls, fn, decl)
     return string.find(fn, '^_') or string.find(decl, 'std::map')
 end
 
+
+typeconf 'dragonBones::BinaryOffset'
 typeconf 'dragonBones::ArmatureType'
+typeconf 'dragonBones::OffsetMode'
+typeconf 'dragonBones::DisplayType'
+typeconf 'dragonBones::BoundingBoxType'
 typeconf 'dragonBones::ActionType'
+typeconf 'dragonBones::BlendMode'
+typeconf 'dragonBones::TweenType'
+typeconf 'dragonBones::TimelineType'
+typeconf 'dragonBones::AnimationFadeOutMode'
+typeconf 'dragonBones::TextureFormat'
 
 typeconf 'dragonBones::BaseObject'
 typeconf 'dragonBones::EventObject'
 typeconf 'dragonBones::TransformObject'
 typeconf 'dragonBones::DisplayType'
 typeconf 'dragonBones::Point'
+typeconf 'dragonBones::ConstraintData'
+typeconf 'dragonBones::IKConstraintData'
+typeconf 'dragonBones::TimelineData'
+
+typeconf 'dragonBones::IAnimatable'
+typeconf 'dragonBones::WorldClock'
 
 local Slot =typeconf 'dragonBones::Slot'
 Slot.EXCLUDE 'getDisplayList'
@@ -84,6 +106,10 @@ typeconf 'dragonBones::OffsetMode'
 typeconf 'dragonBones::Bone'
 typeconf 'dragonBones::DisplayData'
 typeconf 'dragonBones::ActionData'
+typeconf 'dragonBones::UserData'
+typeconf 'dragonBones::BoundingBoxData'
+typeconf 'dragonBones::BoundingBoxDisplayData'
+typeconf 'dragonBones::CanvasData'
 
 local TextureAtlasData = typeconf 'dragonBones::TextureAtlasData'
 TextureAtlasData.EXCLUDE 'copyFrom'

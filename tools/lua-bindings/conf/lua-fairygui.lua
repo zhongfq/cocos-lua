@@ -410,8 +410,7 @@ GRoot.INJECT({'hideWindow', 'hideWindowImmediately'}, {
     ]]
 })
 
-local GGroup =  typeconf 'fairygui::GGroup'
-
+typeconf 'fairygui::GGroup'
 typeconf 'fairygui::GScrollBar'
 
 local GLoader = typeconf 'fairygui::GLoader'

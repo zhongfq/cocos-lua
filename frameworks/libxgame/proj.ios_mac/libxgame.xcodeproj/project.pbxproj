@@ -679,14 +679,12 @@
 		0E4B934B226E9E8B00B22B9F /* lua-bindings */ = {
 			isa = PBXGroup;
 			children = (
-				FA2993802293E15300FE9EC6 /* lua_dragonbones.cpp */,
-				FA29937F2293E15200FE9EC6 /* lua_dragonbones.h */,
 				0E4B934E226E9E8B00B22B9F /* lua_bindings.cpp */,
 				0E4B9363226E9E8B00B22B9F /* lua_bindings.h */,
-				0E4B9351226E9E8B00B22B9F /* lua_cocos2d_ui.cpp */,
-				0E4B9360226E9E8B00B22B9F /* lua_cocos2d_ui.h */,
 				0ED036E522D57BCE004EE5FF /* lua_cocos2d_physics.cpp */,
 				0ED036E422D57BCE004EE5FF /* lua_cocos2d_physics.h */,
+				0E4B9351226E9E8B00B22B9F /* lua_cocos2d_ui.cpp */,
+				0E4B9360226E9E8B00B22B9F /* lua_cocos2d_ui.h */,
 				0E4B935C226E9E8B00B22B9F /* lua_cocos2d.cpp */,
 				0E4B9355226E9E8B00B22B9F /* lua_cocos2d.h */,
 				0E4B9353226E9E8B00B22B9F /* lua_conv_manual.cpp */,
@@ -695,6 +693,8 @@
 				0E4B935B226E9E8B00B22B9F /* lua_conv.h */,
 				0E4B9358226E9E8B00B22B9F /* lua_crypto.cpp */,
 				0E4B9352226E9E8B00B22B9F /* lua_crypto.h */,
+				FA2993802293E15300FE9EC6 /* lua_dragonbones.cpp */,
+				FA29937F2293E15200FE9EC6 /* lua_dragonbones.h */,
 				0E4B9361226E9E8B00B22B9F /* lua_fairygui.cpp */,
 				0E4B9362226E9E8B00B22B9F /* lua_fairygui.h */,
 				0ED5D19A2282B8420072F3DB /* lua_iap.h */,

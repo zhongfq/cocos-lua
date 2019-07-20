@@ -334,7 +334,17 @@ RadioButtonGroup.CALLBACK {
 typeconf 'cocos2d::ui::ImageView'
 
 typeconf 'cocos2d::ui::EditBoxDelegate::EditBoxEndAction'
-typeconf 'cocos2d::ui::EditBoxDelegate'
+
+local EditBoxDelegate = typeconf 'cocos2d::ui::EditBoxDelegate'
+EditBoxDelegate.FUNC('__gc', [[
+{
+    auto self = olua_touserdata(L, 1, cocos2d::ui::EditBoxDelegate *);
+    if (self) {
+        *(void **)lua_touserdata(L, 1) = nullptr;
+        delete self;
+    }
+    return 0;
+}]])
 
 local LuaEditBoxDelegate = typeconf 'cocos2d::ui::LuaEditBoxDelegate'
 LuaEditBoxDelegate.VAR('onEditingDidBegin', '@nullable std::function<void(EditBox *)> onEditingDidBegin')

@@ -652,6 +652,7 @@ function M:visitFieldDecl(cls, cur)
     end
 
     if self:shouldExcludeType(cur:type(), cur:children()) then
+        log('[field ignore] %s::%s', cls.CPPCLS, cur:displayName())
         return
     end
 
@@ -674,7 +675,7 @@ function M:visitFieldDecl(cls, cur)
         return
     end
 
-    if string.find(prototype, ' *const ') then
+    if string.find(prototype, '^ *const ') then
         return
     end
 

@@ -1958,6 +1958,14 @@ cls.funcs [[
     void editBoxReturn(EditBox* editBox)
     void editBoxEditingDidEndWithAction(EditBox* , EditBoxEndAction )
 ]]
+cls.func('__gc', [[{
+    auto self = olua_touserdata(L, 1, cocos2d::ui::EditBoxDelegate *);
+    if (self) {
+        *(void **)lua_touserdata(L, 1) = nullptr;
+        delete self;
+    }
+    return 0;
+}]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::LuaEditBoxDelegate'

@@ -458,32 +458,32 @@ cls.funcs [[
 cls.inject('to', {
     AFTER = [[
         olua_getstore(L, "fui.GTween");
-        olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
         olua_mapref(L, -1, "tweeners", -2);
+        olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
         lua_pop(L, 1);
     ]],
 })
 cls.inject('toDouble', {
     AFTER = [[
         olua_getstore(L, "fui.GTween");
-        olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
         olua_mapref(L, -1, "tweeners", -2);
+        olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
         lua_pop(L, 1);
     ]],
 })
 cls.inject('delayedCall', {
     AFTER = [[
         olua_getstore(L, "fui.GTween");
-        olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
         olua_mapref(L, -1, "tweeners", -2);
+        olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
         lua_pop(L, 1);
     ]],
 })
 cls.inject('shake', {
     AFTER = [[
         olua_getstore(L, "fui.GTween");
-        olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
         olua_mapref(L, -1, "tweeners", -2);
+        olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
         lua_pop(L, 1);
     ]],
 })
@@ -496,6 +496,7 @@ cls.inject('kill', {
 })
 cls.inject('clean', {
     AFTER = [[
+        olua_getstore(L, "fui.GTween");
         olua_unrefall(L, 1, "tweeners");
     ]],
 })

@@ -2671,6 +2671,7 @@ static int _fairygui_GTween_clean(lua_State *L)
     fairygui::GTween::clean();
 
     // inject code after call
+    olua_getstore(L, "fui.GTween");
     olua_unrefall(L, 1, "tweeners");
 
     return 0;
@@ -2690,8 +2691,8 @@ static int _fairygui_GTween_delayedCall(lua_State *L)
 
     // inject code after call
     olua_getstore(L, "fui.GTween");
-    olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
     olua_mapref(L, -1, "tweeners", -2);
+    olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
     lua_pop(L, 1);
 
     return num_ret;
@@ -2911,8 +2912,8 @@ static int _fairygui_GTween_shake(lua_State *L)
 
     // inject code after call
     olua_getstore(L, "fui.GTween");
-    olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
     olua_mapref(L, -1, "tweeners", -2);
+    olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
     lua_pop(L, 1);
 
     return num_ret;
@@ -2936,8 +2937,8 @@ static int _fairygui_GTween_to1(lua_State *L)
 
     // inject code after call
     olua_getstore(L, "fui.GTween");
-    olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
     olua_mapref(L, -1, "tweeners", -2);
+    olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
     lua_pop(L, 1);
 
     return num_ret;
@@ -2961,8 +2962,8 @@ static int _fairygui_GTween_to2(lua_State *L)
 
     // inject code after call
     olua_getstore(L, "fui.GTween");
-    olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
     olua_mapref(L, -1, "tweeners", -2);
+    olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
     lua_pop(L, 1);
 
     return num_ret;
@@ -2986,8 +2987,8 @@ static int _fairygui_GTween_to3(lua_State *L)
 
     // inject code after call
     olua_getstore(L, "fui.GTween");
-    olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
     olua_mapref(L, -1, "tweeners", -2);
+    olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
     lua_pop(L, 1);
 
     return num_ret;
@@ -3011,8 +3012,8 @@ static int _fairygui_GTween_to4(lua_State *L)
 
     // inject code after call
     olua_getstore(L, "fui.GTween");
-    olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
     olua_mapref(L, -1, "tweeners", -2);
+    olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
     lua_pop(L, 1);
 
     return num_ret;
@@ -3036,8 +3037,8 @@ static int _fairygui_GTween_to5(lua_State *L)
 
     // inject code after call
     olua_getstore(L, "fui.GTween");
-    olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
     olua_mapref(L, -1, "tweeners", -2);
+    olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
     lua_pop(L, 1);
 
     return num_ret;
@@ -3092,8 +3093,8 @@ static int _fairygui_GTween_toDouble(lua_State *L)
 
     // inject code after call
     olua_getstore(L, "fui.GTween");
-    olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
     olua_mapref(L, -1, "tweeners", -2);
+    olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
     lua_pop(L, 1);
 
     return num_ret;

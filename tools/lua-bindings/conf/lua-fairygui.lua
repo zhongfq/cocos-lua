@@ -218,8 +218,8 @@ local UNREF_TWEEN = {
 local REF_TEWEENER = {
     AFTER = [[
         olua_getstore(L, "fui.GTween");
-        olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
         olua_mapref(L, -1, "tweeners", -2);
+        olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
         lua_pop(L, 1);
     ]]
 }
@@ -230,6 +230,7 @@ GTween.INJECT('shake', REF_TEWEENER)
 GTween.INJECT('kill', UNREF_TWEEN)
 GTween.INJECT('clean', {
     AFTER = [[
+        olua_getstore(L, "fui.GTween");
         olua_unrefall(L, 1, "tweeners");
     ]]
 })

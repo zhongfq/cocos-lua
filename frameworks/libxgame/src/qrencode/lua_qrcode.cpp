@@ -112,7 +112,7 @@ static const luaL_Reg lib[] = {
 
 int luaopen_qrcode(lua_State *L)
 {
-    luaL_newlib(L, lib);
+    olua_newlib(L, lib);
     
     return 1;
 }

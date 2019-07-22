@@ -51,7 +51,7 @@ static int _print(lua_State *L)
         lua_pcall(L, 1, 1, 0);
         s = lua_tolstring(L, -1, &l);
         
-        if (luaL_testudata(L, -2, "LUABOX")) {
+        if (olua_testudata(L, -2, "LUABOX")) {
             lua_insert(L, -2);
         }
         
@@ -65,7 +65,7 @@ static int _print(lua_State *L)
         
         luaL_addlstring(&buffer, s, l);
         
-        if (luaL_testudata(L, -1, "LUABOX")) {
+        if (olua_testudata(L, -1, "LUABOX")) {
             lua_remove(L, -2);
         } else {
             lua_pop(L, 1);  /* pop str */
@@ -211,13 +211,13 @@ static int _errorfunc(lua_State *L)
     
     if (olua_isthread(L, 1)) {
         errmsg = luaL_optstring(L, 2, "");
-        luaL_traceback(L, lua_tothread(L, 1), NULL, 0);
+        olua_traceback(L, lua_tothread(L, 1), NULL, 0);
         errstack = lua_tostring(L, -1);
     } else {
         errmsg = lua_tostring(L, 1);
     }
     
-    luaL_traceback(L, L, errstack, 1);
+    olua_traceback(L, L, errstack, 1);
     errstack = simplify_traceback(lua_tostring(L, -1));
     
     if (errmsg == NULL) {

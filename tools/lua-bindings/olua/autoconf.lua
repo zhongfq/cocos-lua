@@ -4,6 +4,8 @@ local clang = require "clang"
 local format = olua.format
 
 local cachedClass = {}
+local ignoredClass = {}
+
 local M = {}
 
 local logfile = io.open('autobuild/autoconf.log', 'w')
@@ -12,6 +14,14 @@ local function log(fmt, ...)
     logfile:write(string.format(fmt, ...))
     logfile:write('\n')
 end
+
+setmetatable(ignoredClass, {__gc = function ()
+    for cls, flag in pairs(ignoredClass) do
+        if flag then
+            log("[ignore class] %s", cls)
+        end
+    end
+end})
 
 function M:parse(path)
     self.module = dofile(path)
@@ -22,8 +32,6 @@ function M:parse(path)
 
     self._fileLines = {}
     self._file = io.open('autobuild/' .. self:toPath(self.module.NAME) .. '.lua', 'w')
-
-    log('[autoconf] %s', self.module.NAME)
 
     local headerPath = 'autobuild/autoconf.h'
     local header = io.open(headerPath, 'w')
@@ -119,14 +127,12 @@ function M:writeHeader()
     if #self.module.CONVS > 0 then
         self:writeLine('M.CONVS = {')
         for _, v in ipairs(self.module.CONVS) do
-            local CPPCLS = v.CPPCLS
-            local DEF = v.DEF
-            olua.nowarning(CPPCLS, DEF, FUNC)
+            olua.nowarning(v)
             self:writeLine(format([=[
                 typeconv {
-                    CPPCLS = '${CPPCLS}',
+                    CPPCLS = '${v.CPPCLS}',
                     DEF = [[
-                        ${DEF}
+                        ${v.DEF}
                     ]],
                 },
             ]=], 4))
@@ -652,7 +658,6 @@ function M:visitFieldDecl(cls, cur)
     end
 
     if self:shouldExcludeType(cur:type(), cur:children()) then
-        log('[field ignore] %s::%s', cls.CPPCLS, cur:displayName())
         return
     end
 
@@ -717,6 +722,8 @@ function M:visitClass(cur)
     cls.ENUMS = {}
     cls.KIND = 'Class'
     cls.INST_FUNCS = {}
+
+    ignoredClass[cppcls] = false
 
     self:pushNamespace(name)
     for _, c in ipairs(cur:children()) do
@@ -832,7 +839,9 @@ function M:visit(cur)
         elseif #children > 0 then
             local cls = self:toClass(name)
             if not self.module.EXCLUDE_TYPE[cls] then
-                log('[class ignore] %s', cls)
+                if ignoredClass[cls] == nil then
+                    ignoredClass[cls] = true
+                end
             end
         end
     elseif kind == 'EnumDecl' then

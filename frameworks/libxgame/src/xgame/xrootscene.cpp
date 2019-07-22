@@ -29,7 +29,7 @@ void RootScene::execute()
     int top = lua_gettop(L);
     
     if (xlua_dofile(L, _scriptPath.c_str()) == LUA_OK &&
-        lua_getglobal(L, "main") == LUA_TFUNCTION) {
+        olua_getglobal(L, "main") == LUA_TFUNCTION) {
         xlua_pcall(L, 0, 0);
     } else {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)

@@ -75,7 +75,7 @@ void manual_olua_opt_cocos2d_Color3B(lua_State *L, int idx, cocos2d::Color3B *va
 
 bool manual_olua_is_cocos2d_Color3B(lua_State *L, int idx)
 {
-    return olua_isinteger(L, idx);
+    return olua_isinteger(L, idx) && ((lua_Unsigned)olua_tointeger(L, idx)) <= 0xFFFFFF;
 }
 
 int manual_olua_push_cocos2d_Color4B(lua_State *L, const cocos2d::Color4B *value)

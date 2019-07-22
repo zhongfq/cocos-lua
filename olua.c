@@ -58,10 +58,10 @@ static inline bool strendwith(const char *src, const char *suffix)
 static int errfunc(lua_State *L)
 {
     if (olua_isthread(L, 1)) {
-        luaL_traceback(L, lua_tothread(L, 1), lua_tostring(L, 2), 0);
+        olua_traceback(L, lua_tothread(L, 1), lua_tostring(L, 2), 0);
         lua_insert(L, 1);
     }
-    luaL_traceback(L, L, lua_tostring(L, 1), 1);
+    olua_traceback(L, L, lua_tostring(L, 1), 1);
     printf("%s\n", lua_tostring(L, -1));
     return 0;
 }
@@ -143,7 +143,7 @@ LUALIB_API size_t olua_changeobjcount(lua_State *L, int add)
 
 LUALIB_API void olua_preload(lua_State *L, const char *name, lua_CFunction func)
 {
-    luaL_getsubtable(L, LUA_REGISTRYINDEX, LUA_PRELOAD_TABLE);  // L: preload
+    olua_getsubtable(L, LUA_REGISTRYINDEX, LUA_PRELOAD_TABLE);  // L: preload
     lua_pushcfunction(L, func);                                 // L: preload func
     lua_setfield(L, -2, name);                                  // L: preload
     lua_pop(L, 1);                                              // L:
@@ -161,7 +161,7 @@ LUALIB_API int olua_geterrorfunc(lua_State *L)
 LUALIB_API void olua_require(lua_State *L, const char *name, lua_CFunction func)
 {
     int top = lua_gettop(L);
-    luaL_requiref(L, name, func, false);
+    olua_requiref(L, name, func, false);
     lua_settop(L, top);
 }
 
@@ -290,7 +290,7 @@ LUALIB_API int olua_pushobj(lua_State *L, void *obj, const char *cls)
     
     lua_remove(L, -2);                              // L: obj
     
-    if (!strequal(cls, OLUA_VOIDCLS) && luaL_testudata(L, -1, OLUA_VOIDCLS)) {
+    if (!strequal(cls, OLUA_VOIDCLS) && olua_testudata(L, -1, OLUA_VOIDCLS)) {
         olua_setmetatable(L, cls);
         status = OLUA_OBJ_UPDATE;
     }
@@ -345,26 +345,23 @@ LUALIB_API void *olua_toobj(lua_State *L, int idx, const char *cls)
 
 LUALIB_API void olua_enable_objpool(lua_State *L)
 {
-    olua_metadata_t *mt = olua_getmetadata(L, olua_metadata_t *);
-    mt->usingpool = true;
+    olua_getmetadata(L, olua_metadata_t *)->usingpool = true;
 }
 
 LUALIB_API void olua_disable_objpool(lua_State *L)
 {
-    olua_metadata_t *mt = olua_getmetadata(L, olua_metadata_t *);
-    mt->usingpool = false;
+    olua_getmetadata(L, olua_metadata_t *)->usingpool = false;
 }
 
 LUALIB_API size_t olua_push_objpool(lua_State *L)
 {
-    olua_metadata_t *mt = olua_getmetadata(L, olua_metadata_t *);
-    return mt->sizepool;
+    return olua_getmetadata(L, olua_metadata_t *)->sizepool;
 }
 
 LUALIB_API void olua_pop_objpool(lua_State *L, size_t level)
 {
     if (olua_rawgetp(L, LUA_REGISTRYINDEX, OLUA_POOL_TABLE) == LUA_TTABLE) {
-        olua_metadata_t *mt = olua_getmetadata(L, olua_metadata_t *);
+        olua_getmetadata(L, olua_metadata_t *)->sizepool = level;
         size_t len = lua_rawlen(L, -1);
         olua_assert(level < len);
         for (size_t i = level + 1; i <= len; i++) {
@@ -377,7 +374,6 @@ LUALIB_API void olua_pop_objpool(lua_State *L, size_t level)
                 break;
             }
         }
-        mt->sizepool = level;
     }
     lua_pop(L, 1);
 }
@@ -498,14 +494,14 @@ LUALIB_API void olua_removecallback(lua_State *L, void *obj, const char *tag, ol
     lua_pop(L, 2);                                      // L:
 }
 
-LUALIB_API int olua_callback(lua_State *L, void *obj, const char *field, int n)
+LUALIB_API int olua_callback(lua_State *L, void *obj, const char *func, int n)
 {
     int top = lua_gettop(L) - n;
     int status = OLUA_CALLBACK_MISS;
     
     if (olua_getobj(L, obj)) {                              // L: arg...n obj
         auxgetusertable(L, -1);                             // L: arg...n obj uv
-        if (olua_rawgetf(L, -1, field) == LUA_TFUNCTION) {  // L: arg...n obj uv callback
+        if (olua_rawgetf(L, -1, func) == LUA_TFUNCTION) {   // L: arg...n obj uv callback
             lua_insert(L, top + 1);                         // L: callback arg...n obj uv
             lua_pop(L, 2);                                  // L: callback arg...n
             olua_geterrorfunc(L);                           // L: callback arg...n errfunc
@@ -522,7 +518,7 @@ LUALIB_API int olua_callback(lua_State *L, void *obj, const char *field, int n)
     if (status != OLUA_CALLBACK_OK) {
         if (status == OLUA_CALLBACK_MISS) {
             olua_geterrorfunc(L);
-            lua_pushfstring(L, "callback missed: %s", field);
+            lua_pushfstring(L, "callback missed: %s", func);
             lua_pcall(L, 1, 0, 0);
         }
         lua_settop(L, top);
@@ -534,7 +530,7 @@ LUALIB_API int olua_callback(lua_State *L, void *obj, const char *field, int n)
 
 LUALIB_API void olua_getstore(lua_State *L, const char *cls)
 {
-    luaL_getmetatable(L, cls);                  // L: cls
+    olua_getmetatable(L, cls);                  // L: cls
     olua_rawgetf(L, -1, CLS_STORE);             // L: cls store
     lua_remove(L, -2);                          // L: store
     olua_assert(olua_isuserdata(L, -1));
@@ -633,7 +629,7 @@ LUALIB_API void olua_getreftable(lua_State *L, int obj, const char *field)
     olua_assert(olua_isuserdata(L, obj));
     auxgetusertable(L, obj);                // L: uv
     field = auxpushrefkey(L, field);        // L: uv refkey
-    luaL_getsubtable(L, -2, field);         // L: uv refkey reftable
+    olua_getsubtable(L, -2, field);         // L: uv refkey reftable
     lua_insert(L, -3);                      // L: reftable uv refkey
     lua_pop(L, 2);                          // L: reftable
 }
@@ -886,7 +882,7 @@ static void create_table(lua_State *L, int idx, const char *field, const char *s
     
     lua_newtable(L);                        // L: t
     if (supercls) {
-        luaL_getmetatable(L, supercls);     // L: t super
+        olua_getmetatable(L, supercls);     // L: t super
         olua_rawgetf(L, -1, field);         // L: t super fv
         lua_createtable(L, 0, 1);           // L: t super fv mt
         lua_pushvalue(L, -2);               // L: t super fv mt fv
@@ -916,7 +912,7 @@ static void copysupermetafunc(lua_State *L, int idx, const char *supercls)
     }
     
     idx = lua_absindex(L, idx);             // L: mt
-    luaL_getmetatable(L, supercls);         // L: mt super
+    olua_getmetatable(L, supercls);         // L: mt super
     lua_pushnil(L);                         // L: mt super k
     while (lua_next(L, -2)) {               // L: mt super k v
         if (ismetafunc(L, -2, NULL)) {
@@ -960,7 +956,7 @@ LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *super)
         create_table(L, idx, CLS_FUNC, super, false);   // L: mt mt .isa .func
         create_table(L, idx, CLS_GET, super, false);    // L: mt mt .isa .func .get
         create_table(L, idx, CLS_SET, super, false);    // L: mt mt .isa .func .get .set
-        luaL_setfuncs(L, lib,  5);                      // L: mt
+        olua_setfuncs(L, lib,  5);                      // L: mt
         
         lua_pushvalue(L, -1);
         oluacls_const(L, "class");                      // mt.class = mt
@@ -968,7 +964,7 @@ LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *super)
         oluacls_const(L, "classname");                  // mt.classname = cls
         
         if (super) {
-            luaL_getmetatable(L, super);
+            olua_getmetatable(L, super);
             oluacls_const(L, "super");                  // mt.super = supermt
         }
         
@@ -1210,7 +1206,7 @@ LUALIB_API int luaopen_olua(lua_State *L)
         {NULL, NULL}
     };
     
-    luaL_newlib(L,lib);
+    olua_newlib(L,lib);
     
     return 1;
 }
@@ -1260,7 +1256,7 @@ LUALIB_API int lua_isinteger(lua_State *L, int idx)
     return false;
 }
 
-LUALIB_API void luaL_setfuncs (lua_State *L, const luaL_Reg *l, int nup)
+LUALIB_API void olua_setfuncs(lua_State *L, const luaL_Reg *l, int nup)
 {
     luaL_checkstack(L, nup, "too many upvalues");
     for (; l->name != NULL; l++)
@@ -1274,7 +1270,7 @@ LUALIB_API void luaL_setfuncs (lua_State *L, const luaL_Reg *l, int nup)
     lua_pop(L, nup);
 }
 
-LUALIB_API int luaL_getsubtable (lua_State *L, int idx, const char *fname) {
+LUALIB_API int olua_getsubtable(lua_State *L, int idx, const char *fname) {
     if (olua_getfield(L, idx, fname) == LUA_TTABLE) {
         return 1;
     } else {
@@ -1287,8 +1283,8 @@ LUALIB_API int luaL_getsubtable (lua_State *L, int idx, const char *fname) {
     }
 }
 
-LUALIB_API void luaL_requiref (lua_State *L, const char *modname, lua_CFunction openf, int glb) {
-    luaL_getsubtable(L, LUA_REGISTRYINDEX, LUA_LOADED_TABLE);
+LUALIB_API void olua_requiref(lua_State *L, const char *modname, lua_CFunction openf, int glb) {
+    olua_getsubtable(L, LUA_REGISTRYINDEX, LUA_LOADED_TABLE);
     lua_getfield(L, -1, modname);
     if (!lua_toboolean(L, -1)) {
         lua_pop(L, 1);
@@ -1305,11 +1301,11 @@ LUALIB_API void luaL_requiref (lua_State *L, const char *modname, lua_CFunction 
     }
 }
 
-LUALIB_API void *luaL_testudata (lua_State *L, int ud, const char *tname) {
+LUALIB_API void *olua_testudata(lua_State *L, int ud, const char *tname) {
     void *p = lua_touserdata(L, ud);
     if (p != NULL) {
         if (lua_getmetatable(L, ud)) {
-            luaL_getmetatable(L, tname);
+            olua_getmetatable(L, tname);
             if (!lua_rawequal(L, -1, -2)) {
                 p = NULL;
             }
@@ -1320,7 +1316,7 @@ LUALIB_API void *luaL_testudata (lua_State *L, int ud, const char *tname) {
     return NULL;
 }
 
-LUALIB_API void luaL_traceback (lua_State *L, lua_State *L1, const char *msg, int level)
+LUALIB_API void olua_traceback(lua_State *L, lua_State *L1, const char *msg, int level)
 {
     lua_getglobal(L, "debug");
     lua_getfield(L, -1, "traceback");

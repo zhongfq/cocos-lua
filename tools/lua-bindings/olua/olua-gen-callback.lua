@@ -26,8 +26,7 @@ end
 local function checkCallbackStore(fi, idx)
     if idx > 0 then
         local ai = fi.ARGS[idx]
-        olua.assert(ai.TYPE.LUACLS and not olua.isvaluetype(ai.TYPE),
-            'arg #%d is not a userdata', idx)
+        olua.assert(olua.ispointee(ai.TYPE), 'arg #%d is not a userdata', idx)
     end
 end
 

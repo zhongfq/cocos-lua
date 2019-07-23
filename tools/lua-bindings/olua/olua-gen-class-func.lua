@@ -35,49 +35,49 @@ function olua.gendeclexp(value, name, out)
     olua.nowarning(SPACE, ARG_NAME, VARNAME)
 end
 
-function olua.gencheckexp(value, name, i, out)
+function olua.gencheckexp(arg, name, i, out)
     -- lua value to cpp value
     local ARGN = i
     local ARG_NAME = name
-    local OLUA_CHECK_VALUE = olua.convfunc(value.TYPE, 'check')
-    if (value.DEFAULT or value.ATTR.NULLABLE) and not next(value.CALLBACK or {}) then
-        local OLUA_OPT_VALUE = olua.convfunc(value.TYPE, 'opt')
-        local DEFAULT = value.DEFAULT or "nullptr"
+    local OLUA_CHECK_VALUE = olua.convfunc(arg.TYPE, 'check')
+    if (arg.DEFAULT or arg.ATTR.NULLABLE) and not next(arg.CALLBACK or {}) then
+        local OLUA_OPT_VALUE = olua.convfunc(arg.TYPE, 'opt')
+        local DEFAULT = arg.DEFAULT or "nullptr"
         olua.nowarning(OLUA_OPT_VALUE, DEFAULT)
-        if value.TYPE.LUACLS and not olua.isvaluetype(value.TYPE) then
+        if olua.ispointee(arg.TYPE) then
             out.CHECK_ARGS:push(format([[
-                ${OLUA_OPT_VALUE}(L, ${ARGN}, (void **)&${ARG_NAME}, "${value.TYPE.LUACLS}", ${DEFAULT});
+                ${OLUA_OPT_VALUE}(L, ${ARGN}, (void **)&${ARG_NAME}, "${arg.TYPE.LUACLS}", ${DEFAULT});
             ]]))
         else
             out.CHECK_ARGS:push(format([[
-                ${OLUA_OPT_VALUE}(L, ${ARGN}, &${ARG_NAME}, (${value.TYPE.DECLTYPE})${DEFAULT});
+                ${OLUA_OPT_VALUE}(L, ${ARGN}, &${ARG_NAME}, (${arg.TYPE.DECLTYPE})${DEFAULT});
             ]]))
         end
-    elseif value.TYPE.LUACLS and not olua.isvaluetype(value.TYPE) then
+    elseif olua.ispointee(arg.TYPE) then
         out.CHECK_ARGS:push(format([[
-            ${OLUA_CHECK_VALUE}(L, ${ARGN}, (void **)&${ARG_NAME}, "${value.TYPE.LUACLS}");
+            ${OLUA_CHECK_VALUE}(L, ${ARGN}, (void **)&${ARG_NAME}, "${arg.TYPE.LUACLS}");
         ]]))
-    elseif value.TYPE.SUBTYPE then
-        local SUBTYPE = value.TYPE.SUBTYPE
-        if SUBTYPE.LUACLS and not olua.isvaluetype(value.TYPE) then
+    elseif arg.TYPE.SUBTYPE then
+        local SUBTYPE = arg.TYPE.SUBTYPE
+        if olua.ispointee(SUBTYPE) then
             out.CHECK_ARGS:push(format([[
                 ${OLUA_CHECK_VALUE}(L, ${ARGN}, ${ARG_NAME}, "${SUBTYPE.LUACLS}");
             ]]))
         else
             local SUBTYPE_CHECK_FUNC = olua.convfunc(SUBTYPE, 'check')
             local SUBTYPE_CAST = olua.typecast(SUBTYPE, true)
-            local CHECK_VALUETYPE = format(value.TYPE.CHECK_VALUETYPE)
+            local CHECK_VALUETYPE = format(arg.TYPE.CHECK_VALUETYPE)
             olua.nowarning(SUBTYPE_CHECK_FUNC, SUBTYPE_CAST, CHECK_VALUETYPE)
             out.CHECK_ARGS:push(format([[
                 luaL_checktype(L, ${ARGN}, LUA_TTABLE);
                 ${CHECK_VALUETYPE}
             ]]))
         end
-    elseif not value.CALLBACK or not value.CALLBACK.ARGS then
-        if value.ATTR.PACK then
-            OLUA_CHECK_VALUE = olua.convfunc(value.TYPE, 'pack')
-            out.TOTAL_ARGS = value.TYPE.VARS + out.TOTAL_ARGS - 1
-            out.IDX = out.IDX + value.TYPE.VARS - 1
+    elseif not arg.CALLBACK or not arg.CALLBACK.ARGS then
+        if arg.ATTR.PACK then
+            OLUA_CHECK_VALUE = olua.convfunc(arg.TYPE, 'pack')
+            out.TOTAL_ARGS = arg.TYPE.VARS + out.TOTAL_ARGS - 1
+            out.IDX = out.IDX + arg.TYPE.VARS - 1
         end
         out.CHECK_ARGS:push(format([[
             ${OLUA_CHECK_VALUE}(L, ${ARGN}, &${ARG_NAME});
@@ -85,6 +85,102 @@ function olua.gencheckexp(value, name, i, out)
     end
 
     olua.nowarning(ARG_NAME, ARGN, OLUA_CHECK_VALUE)
+end
+
+function olua.genrefexp(fi, arg, i, out)
+    if not arg.ATTR.REF then
+        return
+    end
+
+    olua.assert(not fi.STATIC or fi.RET.TYPE.LUACLS)
+
+    local ARGN = i
+    local SUBTYPE = arg.TYPE.SUBTYPE
+    local REF = assert(arg.ATTR.REF[1], fi.CPPFUNC .. ' no ref action')
+    local REFNAME = assert(arg.ATTR.REF[2], fi.CPPFUNC .. ' no refname')
+    local WHERE = arg.ATTR.REF[3] or (fi.STATIC and -1 or 1)
+
+    if arg.TYPE.CPPCLS == 'void' then
+        olua.assert(fi.RET == arg)
+        olua.assert(not fi.STATIC, 'no ref object')
+        olua.assert(arg.ATTR.REF[3], 'must supply where to hold ref')
+        if arg.ATTR.REF[3] then
+            ARGN = 1
+        end
+    elseif SUBTYPE then
+        olua.assert(REF == 'map', 'expect use map ref')
+        olua.assert(olua.ispointee(SUBTYPE), "'%s' not a pointer type", SUBTYPE.CPPCLS)
+    else
+        olua.assert(olua.ispointee(arg.TYPE), "'%s' not a pointer type", arg.TYPE.CPPCLS)
+    end
+
+    if REF == 'map' then
+        if arg.TYPE.SUBTYPE then
+            out.INJECT_AFTER:push(format([[
+                olua_maprefarray(L, ${WHERE}, "${REFNAME}", ${ARGN});
+            ]]))
+        else
+            out.INJECT_AFTER:push(format([[
+                olua_mapref(L, ${WHERE}, "${REFNAME}", ${ARGN});
+            ]]))
+        end
+    elseif REF == "single" then
+        out.INJECT_AFTER:push(format([[
+            olua_singleref(L, ${WHERE}, "${REFNAME}", ${ARGN});
+        ]]))
+    else
+        error('no support ref action: ' .. REF)
+    end
+
+    olua.nowarning(ARGN, REFNAME, WHERE)
+end
+
+function olua.genunrefexp(fi, arg, i, out)
+    if not arg.ATTR.UNREF then
+        return
+    end
+
+    olua.assert(not fi.STATIC or arg.TYPE.LUACLS)
+
+    local ARGN = i
+    local UNREF = assert(arg.ATTR.UNREF[1], fi.CPPFUNC .. ' no ref action')
+    local REFNAME = assert(arg.ATTR.UNREF[2], fi.CPPFUNC .. ' no refname')
+    local WHERE = arg.ATTR.UNREF[3] or (fi.STATIC and -1 or 1)
+
+    if UNREF == 'map' or UNREF == 'single' then
+        if arg.TYPE.CPPCLS  == 'void' then
+            olua.assert(not fi.STATIC, 'no ref object')
+            olua.assert(arg.ATTR.UNREF[3], 'must supply where to hold ref')
+            ARGN = 1
+        else
+            olua.assert(olua.ispointee(arg.TYPE), "'%s' not a pointer type", arg.TYPE.CPPCLS)
+        end
+    end
+
+    if UNREF == 'cmp' then
+        out.INJECT_BEFORE:push(format([[
+            olua_startcmpunref(L, ${WHERE}, "${REFNAME}");
+        ]]))
+        out.INJECT_AFTER:push(format([[
+            olua_endcmpunref(L, ${WHERE}, "${REFNAME}");
+        ]]))
+    elseif UNREF == 'all' then
+        out.INJECT_AFTER:push(format([[
+            olua_unrefall(L, ${WHERE}, "${REFNAME}");
+        ]]))
+    elseif UNREF == 'map' then
+        out.INJECT_AFTER:push(format([[
+            olua_mapunref(L, ${WHERE}, "${REFNAME}", ${ARGN});
+        ]]))
+    elseif UNREF == "single" then
+        out.INJECT_AFTER:push(format([[
+            olua_singleunref(L, ${WHERE}, "${REFNAME}", ${ARGN});
+        ]]))
+    else
+        error('no support ref action: ' .. UNREF)
+    end
+
+    olua.nowarning(ARGN, REFNAME, WHERE)
 end
 
 local function genFuncArgs(cls, fi, func)
@@ -122,72 +218,36 @@ local function genFuncArgs(cls, fi, func)
 
         olua.gendeclexp(ai, ARG_NAME, func)
         olua.gencheckexp(ai, ARG_NAME, ARGN, func)
-
-        -- ref or unref
-        if ai.ATTR.REF then
-            olua.assert(not fi.STATIC or (fi.RET.NUM > 0 and fi.RET.TYPE.LUACLS))
-            local REF = assert(ai.ATTR.REF[1], fi.CPPFUNC .. ' no ref action')
-            local REFNAME = assert(ai.ATTR.REF[2], fi.CPPFUNC .. ' no refname')
-            local WHERE = ai.ATTR.REF[3] or (fi.STATIC and -1 or 1)
-            olua.nowarning(REFNAME, WHERE)
-            if REF == 'map' then
-                func.INJECT_AFTER:push(format([[
-                    olua_mapref(L, ${WHERE}, "${REFNAME}", ${ARGN});
-                ]]))
-            elseif REF == "single" then
-                func.INJECT_AFTER:push(format([[
-                    olua_singleref(L, ${WHERE}, "${REFNAME}", ${ARGN});
-                ]]))
-            else
-                error('no support ref action: ' .. REF)
-            end
-        end
-        if ai.ATTR.UNREF then
-            olua.assert(not fi.STATIC or (fi.RET.NUM > 0 and fi.RET.TYPE.LUACLS))
-            local REF = assert(ai.ATTR.UNREF[1], fi.CPPFUNC .. ' no ref action')
-            local REFNAME = assert(ai.ATTR.UNREF[2], fi.CPPFUNC .. ' no refname')
-            local WHERE = ai.ATTR.UNREF[3] or (fi.STATIC and -1 or 1)
-            olua.nowarning(REFNAME, WHERE)
-            if REF == 'map' then
-                func.INJECT_AFTER:push(format([[
-                    olua_mapunref(L, ${WHERE}, "${REFNAME}", ${ARGN});
-                ]]))
-            elseif REF == "single" then
-                func.INJECT_AFTER:push(format([[
-                    olua_singleunref(L, ${WHERE}, "${REFNAME}", ${ARGN});
-                ]]))
-            else
-                error('no support ref action: ' .. REF)
-            end
-        end
+        olua.genrefexp(fi, ai, ARGN, func)
+        olua.genunrefexp(fi, ai, ARGN, func)
     end
 end
 
-function olua.genpushexp(value, name, out)
+function olua.genpushexp(arg, name, out)
     local ARG_NAME = name
-    local OLUA_PUSH_VALUE = olua.convfunc(value.TYPE, 'push')
-    if value.TYPE.LUACLS and not olua.isvaluetype(value.TYPE) then
-        out.PUSH_ARGS:push(format('${OLUA_PUSH_VALUE}(L, ${ARG_NAME}, "${value.TYPE.LUACLS}");'))
-    elseif value.TYPE.SUBTYPE then
-        local SUBTYPE = value.TYPE.SUBTYPE
-        if SUBTYPE.LUACLS and not olua.isvaluetype(SUBTYPE) then
+    local OLUA_PUSH_VALUE = olua.convfunc(arg.TYPE, 'push')
+    if olua.ispointee(arg.TYPE) then
+        out.PUSH_ARGS:push(format('${OLUA_PUSH_VALUE}(L, ${ARG_NAME}, "${arg.TYPE.LUACLS}");'))
+    elseif arg.TYPE.SUBTYPE then
+        local SUBTYPE = arg.TYPE.SUBTYPE
+        if olua.ispointee(SUBTYPE) then
             out.PUSH_ARGS:push(format('${OLUA_PUSH_VALUE}(L, ${ARG_NAME}, "${SUBTYPE.LUACLS}");'))
         else
             local SUBTYPE_CAST = olua.pointercast(SUBTYPE) .. olua.typecast(SUBTYPE)
             local SUBTYPE_PUSH_FUNC = olua.convfunc(SUBTYPE, 'push')
-            local TYPE_CAST = string.gsub(value.DECLTYPE, '^const _*', '')
-            out.PUSH_ARGS:push(format(value.TYPE.PUSH_VALUETYPE))
+            local TYPE_CAST = string.gsub(arg.DECLTYPE, '^const _*', '')
+            out.PUSH_ARGS:push(format(arg.TYPE.PUSH_VALUETYPE))
             olua.nowarning(ARG_NAME, SUBTYPE_CAST, SUBTYPE_PUSH_FUNC, TYPE_CAST)
         end
     else
-        if value.ATTR.UNPACK then
-            OLUA_PUSH_VALUE = olua.convfunc(value.TYPE, 'unpack')
+        if arg.ATTR.UNPACK then
+            OLUA_PUSH_VALUE = olua.convfunc(arg.TYPE, 'unpack')
         end
         local TYPE_CAST = ""
-        if value.TYPE.DECLTYPE ~= value.TYPE.CPPCLS then
-            TYPE_CAST = string.format("(%s)", value.TYPE.DECLTYPE)
-        elseif not olua.isvaluetype(value.TYPE) then
-            if not string.find(value.DECLTYPE, '*$') then
+        if arg.TYPE.DECLTYPE ~= arg.TYPE.CPPCLS then
+            TYPE_CAST = string.format("(%s)", arg.TYPE.DECLTYPE)
+        elseif not olua.isvaluetype(arg.TYPE) then
+            if not string.find(arg.DECLTYPE, '*$') then
                 TYPE_CAST = '&'
             end
         end
@@ -205,7 +265,7 @@ local function genFuncRet(cls, fi, func)
         olua.genpushexp(fi.RET, 'ret', OUT)
 
         local SUBTYPE = fi.RET.TYPE.SUBTYPE
-        if SUBTYPE and (not SUBTYPE.LUACLS or olua.isvaluetype(SUBTYPE)) then
+        if SUBTYPE and not olua.ispointee(SUBTYPE) then
             func.PUSH_RET = format([[
                 int num_ret = 1;
                 ${OUT.PUSH_ARGS}
@@ -221,80 +281,8 @@ local function genFuncRet(cls, fi, func)
         olua.nowarning(SPACE)
     end
 
-    if fi.RET.ATTR.REF then
-        local REF = olua.assert(fi.RET.ATTR.REF[1], fi.CPPFUNC .. ' no ref name')
-        local REFNAME = olua.assert(fi.RET.ATTR.REF[2], fi.CPPFUNC .. ' no ref name')
-        local WHERE = fi.RET.ATTR.REF[3] or (fi.STATIC and -1 or 1)
-        local IDX = -1
-
-        if fi.RET.TYPE.CPPCLS == 'void' then
-            olua.assert(not fi.STATIC, 'no ref object')
-            IDX = 1
-            WHERE = olua.assert(fi.RET.ATTR.REF[3], 'no store obj')
-        elseif fi.RET.TYPE.SUBTYPE then
-            olua.assert(REF == 'map', 'map ref only support the type with subtype')
-            olua.assert(fi.RET.TYPE.SUBTYPE.LUACLS, fi.CPPFUNC .. ' sub ref object must be a userdata')
-        else
-            olua.assert(fi.RET.TYPE.LUACLS, fi.CPPFUNC .. ' ref object must be a userdata')
-        end
-
-        olua.assert(not fi.STATIC, fi.CPPFUNC .. ' only support instance func')
-        olua.nowarning(REFNAME, WHERE, IDX)
-
-        if REF == 'single' then
-            func.INJECT_AFTER:push(format([[
-                olua_singleref(L, ${WHERE}, "${REFNAME}", ${IDX});
-            ]]))
-        elseif REF == 'map' then
-            if fi.RET.TYPE.SUBTYPE then
-                func.INJECT_AFTER:push(format([[
-                    olua_maprefarray(L, ${WHERE}, "${REFNAME}", ${IDX});
-                ]]))
-            else
-                func.INJECT_AFTER:push(format([[
-                    olua_mapref(L, ${WHERE}, "${REFNAME}", ${IDX});
-                ]]))
-            end
-        else
-            error('no support ref action: ' .. REF)
-        end
-    end
-
-    if fi.RET.ATTR.UNREF then
-        local REF = olua.assert(fi.RET.ATTR.UNREF[1], fi.CPPFUNC .. ' no ref name')
-        local REFNAME = olua.assert(fi.RET.ATTR.UNREF[2], fi.CPPFUNC .. ' no ref name')
-        local WHERE = fi.RET.ATTR.UNREF[3] or (fi.STATIC and -1 or 1)
-        local IDX = -1
-
-        if REF == 'map' then
-            WHERE = olua.assert(fi.RET.ATTR.UNREF[3], 'no obj')
-            IDX = 1
-        else
-            olua.assert(REF == 'cmp' or REF == 'all', fi.CPPFUNC .. ' void type only support cmpunref')
-            olua.assert(not fi.STATIC, fi.CPPFUNC .. ' only support instance func')
-        end
-
-        olua.nowarning(REFNAME, WHERE, IDX)
-
-        if REF == 'cmp' then
-            func.INJECT_BEFORE:push(format([[
-                olua_startcmpunref(L, ${WHERE}, "${REFNAME}");
-            ]]))
-            func.INJECT_AFTER:push(format([[
-                olua_endcmpunref(L, ${WHERE}, "${REFNAME}");
-            ]]))
-        elseif REF == 'all' then
-            func.INJECT_AFTER:push(format([[
-                olua_unrefall(L, ${WHERE}, "${REFNAME}");
-            ]]))
-        elseif REF == 'map' then
-            func.INJECT_AFTER:push(format([[
-                olua_mapunref(L, ${WHERE}, "${REFNAME}", ${IDX});
-            ]]))
-        else
-            error('no support ref action: ' .. REF)
-        end
-    end
+    olua.genrefexp(fi, fi.RET, -1, func)
+    olua.genunrefexp(fi, fi.RET, -1, func)
 end
 
 local function genOneFunc(cls, fi, write, funcidx, exported)
@@ -351,7 +339,7 @@ local function genOneFunc(cls, fi, write, funcidx, exported)
                 ]],
             }
         ]=]
-        if fi.STATIC and fi.CALLBACK_OPT.CPPFUNC and fi.RET.TYPE.LUACLS then
+        if fi.CALLBACK_OPT.NEW then
             local DECLTYPE = string.gsub(fi.RET.TYPE.DECLTYPE, ' *%*$', '')
             local LUACLS = fi.RET.TYPE.LUACLS
             olua.nowarning(DECLTYPE, LUACLS)
@@ -416,7 +404,7 @@ local function genTestAndCall(cls, fns)
             local TEST_ARGS = {}
             local MAX_VARS = 1
             for i, ai in ipairs(fi.ARGS) do
-                local ARG_NAME = (fi.STATIC and 0 or 1) + i
+                local ARGN = (fi.STATIC and 0 or 1) + i
                 local OLUA_IS_VALUE = olua.convfunc(ai.TYPE, 'is')
                 local TEST_NULL = ""
 
@@ -427,17 +415,17 @@ local function genTestAndCall(cls, fns)
                 end
 
                 if ai.DEFAULT or ai.ATTR.NULLABLE then
-                    TEST_NULL = ' ' .. format('|| olua_isnil(L, ${ARG_NAME})')
+                    TEST_NULL = ' ' .. format('|| olua_isnil(L, ${ARGN})')
                 end
 
-                olua.nowarning(ARG_NAME, TEST_NULL, OLUA_IS_VALUE)
-                if ai.TYPE.LUACLS and not olua.isvaluetype(ai.TYPE) then
+                olua.nowarning(ARGN, TEST_NULL, OLUA_IS_VALUE)
+                if olua.ispointee(ai.TYPE) then
                     TEST_ARGS[#TEST_ARGS + 1] = format([[
-                        (${OLUA_IS_VALUE}(L, ${ARG_NAME}, "${ai.TYPE.LUACLS}")${TEST_NULL})
+                        (${OLUA_IS_VALUE}(L, ${ARGN}, "${ai.TYPE.LUACLS}")${TEST_NULL})
                     ]])
                 else
                     TEST_ARGS[#TEST_ARGS + 1] = format([[
-                        (${OLUA_IS_VALUE}(L, ${ARG_NAME})${TEST_NULL})
+                        (${OLUA_IS_VALUE}(L, ${ARGN})${TEST_NULL})
                     ]])
                 end
             end

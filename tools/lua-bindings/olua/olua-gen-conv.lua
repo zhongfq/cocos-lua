@@ -214,7 +214,7 @@ local function genUnpackFunc(cv, write)
 
     for _, pi in ipairs(cv.PROPS) do
         local OLUA_UNPACK_VALUE = olua.convfunc(pi.TYPE, 'push')
-        if pi.TYPE.LUACLS and not olua.isvaluetype(pi.TYPE) then
+        if olua.ispointee(pi.TYPE) then
             ARGS_CHUNK[#ARGS_CHUNK + 1] = format([[
                 ${OLUA_UNPACK_VALUE}(L, value->${pi.VARNAME}, "${pi.TYPE.LUACLS}");
             ]])

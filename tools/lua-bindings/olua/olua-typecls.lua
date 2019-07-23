@@ -818,6 +818,10 @@ function olua.topath(cppcls)
     return string.gsub(cppcls, '[.:]+', '_')
 end
 
+function olua.ispointee(ti)
+    return ti.LUACLS and not olua.isvaluetype(ti)
+end
+
 local valuetype = {
     ['bool'] = true,
     ['const char *'] = true,

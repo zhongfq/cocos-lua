@@ -58,7 +58,7 @@ function M:parse(path)
     for i, c in ipairs(self.module.CLASSES) do
         assert(not c.INDEX)
         c.INDEX = i
-        self.classConf[c.NAME] = c
+        self.classConf[c.CPPCLS] = c
     end
 
     local tu = index:parse(headerPath, args)
@@ -219,7 +219,7 @@ function M:writeClass()
         cachedClass[cls.CPPCLS] = cls
     end
     for name, cls in pairs(self.classConf) do
-        if cls.CPPCLS then
+        if cls.NOTCONF then
             cachedClass[cls.CPPCLS] = {
                 KIND = 'Class',
                 CPPCLS = cls.CPPCLS,

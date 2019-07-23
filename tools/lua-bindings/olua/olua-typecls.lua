@@ -804,7 +804,7 @@ end
 function olua.gcfunc(cls)
     local gc = olua.format([[
         {
-            auto self = olua_touserdata(L, 1, ${cls.NAME} *);
+            auto self = olua_touserdata(L, 1, ${cls.CPPCLS} *);
             if (self) {
                 *(void **)lua_touserdata(L, 1) = nullptr;
                 delete self;

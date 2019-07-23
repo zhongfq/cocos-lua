@@ -705,7 +705,7 @@ IUISource.CALLBACK {
 }
 
 local UISource = typeconf 'fairygui::UISource'
-UISource.CPPCLS = 'fairygui::UISource'
+UISource.NOTCONF = true
 UISource.SUPERCLS = 'fairygui::IUISource'
 UISource.CHUNK = [[
 NS_FGUI_BEGIN

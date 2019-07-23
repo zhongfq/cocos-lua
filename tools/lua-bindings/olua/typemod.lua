@@ -64,7 +64,7 @@ return function (name)
 
     function module.typeconf(name)
         local cls = {
-            NAME = name,
+            CPPCLS = name,
         }
         module.CLASSES[#module.CLASSES + 1] = cls
         return addcmd(cls)

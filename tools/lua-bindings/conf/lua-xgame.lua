@@ -211,7 +211,7 @@ timer.FUNC('unschedule', [[
 }]])
 
 local window = typeconf 'xgame::window'
-window.CPPCLS = "xgame::window"
+window.NOTCONF = true
 window.REG_LUATYPE = false
 window.FUNC("getVisibleBounds", [[
 {

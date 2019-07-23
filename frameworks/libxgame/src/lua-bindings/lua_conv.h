@@ -7,6 +7,7 @@
 #include "xgame/xlua.h"
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
+#include "network/WebSocket.h"
 
 // cocos2d::Vec2
 int auto_olua_push_cocos2d_Vec2(lua_State *L, const cocos2d::Vec2 *value);
@@ -133,5 +134,11 @@ int auto_olua_push_cocos2d_Controller_KeyStatus(lua_State *L, const cocos2d::Con
 void auto_olua_check_cocos2d_Controller_KeyStatus(lua_State *L, int idx, cocos2d::Controller::KeyStatus *value);
 void auto_olua_opt_cocos2d_Controller_KeyStatus(lua_State *L, int idx, cocos2d::Controller::KeyStatus *value, const cocos2d::Controller::KeyStatus &def);
 bool auto_olua_is_cocos2d_Controller_KeyStatus(lua_State *L, int idx);
+
+// cocos2d::network::WebSocket::Data
+int auto_olua_push_cocos2d_network_WebSocket_Data(lua_State *L, const cocos2d::network::WebSocket::Data *value);
+void auto_olua_check_cocos2d_network_WebSocket_Data(lua_State *L, int idx, cocos2d::network::WebSocket::Data *value);
+void auto_olua_opt_cocos2d_network_WebSocket_Data(lua_State *L, int idx, cocos2d::network::WebSocket::Data *value, const cocos2d::network::WebSocket::Data &def);
+bool auto_olua_is_cocos2d_network_WebSocket_Data(lua_State *L, int idx);
 
 #endif

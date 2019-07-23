@@ -1,3 +1,4 @@
+local olua = require "olua"
 local typemod = require "olua.typemod"
 local M = typemod 'cocos2d'
 local typeconf = M.typeconf
@@ -20,7 +21,7 @@ M.PARSER = {
     },
 }
 
-M.NAMESPACES = {"cocos2d", "cocos2d::experimental", "CocosDenshion"}
+M.NAMESPACES = {"cocos2d", "cocos2d::network", "cocos2d::experimental", "CocosDenshion"}
 M.HEADER_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_cocos2d.h"
 M.SOURCE_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_cocos2d.cpp"
 M.INCLUDES = [[
@@ -596,6 +597,51 @@ typeconf 'cocos2d::VRIRenderer'
 typeconf 'cocos2d::VRGenericRenderer'
 typeconf 'cocos2d::VRGenericHeadTracker'
 
+typeconf 'cocos2d::network::WebSocket::ErrorCode'
+typeconf 'cocos2d::network::WebSocket::State'
+
+local WebSocketDelegate = typeconf 'cocos2d::network::WebSocket::Delegate'
+WebSocketDelegate.EXCLUDE 'onOpen'
+WebSocketDelegate.EXCLUDE 'onMessage'
+WebSocketDelegate.EXCLUDE 'onClose'
+WebSocketDelegate.EXCLUDE 'onError'
+WebSocketDelegate.FUNC('__gc', olua.gcfunc(WebSocketDelegate))
+
+local WebSocket = typeconf 'cocos2d::network::WebSocket'
+WebSocket.FUNC('__gc', olua.gcfunc(WebSocket))
+WebSocket.FUNC('create', [[
+{
+    lua_settop(L, 4);
+    std::vector<std::string> protocols;
+    auto self = new cocos2d::network::WebSocket();
+    auto delegate = olua_checkobj<cocos2d::network::WebSocket::Delegate>(L, 1);
+    std::string url = olua_tostring(L, 2);
+    std::string cafile = olua_optstring(L, 4, "");
+    
+    if (not lua_isnil(L, 3)) {
+        luaL_checktype(L, 3, LUA_TTABLE);
+        int len = (int)lua_rawlen(L, 3);
+        protocols.reserve(len);
+        for (int i = 1; i <= len; i++) {
+            lua_rawgeti(L, 3, i);
+            protocols.push_back(olua_checkstring(L, -1));
+            lua_pop(L, 1);
+        }
+    }
+    
+    self->init(*delegate, url, protocols.size() > 0 ? &protocols : nullptr, cafile);
+    olua_push_cppobj<cocos2d::network::WebSocket>(L, self);
+    olua_singleref(L, -1, "delegate", 1);
+
+    return 1;
+}]])
+
+local LuaWebSocketDelegate = typeconf 'cocos2d::LuaWebSocketDelegate'
+LuaWebSocketDelegate.VAR('onOpen', '@nullable std::function<void (network::WebSocket *)> onOpenCallback')
+LuaWebSocketDelegate.VAR('onMessage', '@nullable std::function<void (network::WebSocket *, const network::WebSocket::Data &)> onMessageCallback')
+LuaWebSocketDelegate.VAR('onClose', '@nullable std::function<void (network::WebSocket *)> onCloseCallback')
+LuaWebSocketDelegate.VAR('onError', '@nullable std::function<void (network::WebSocket *, const network::WebSocket::ErrorCode &)> onErrorCallback')
+
 local ActionManager = typeconf 'cocos2d::ActionManager'
 ActionManager.FUNC('new', [[
 {
@@ -834,15 +880,19 @@ CallFunc.CALLBACK {
 }
 
 local Component = typeconf 'cocos2d::Component'
+Component.EXCLUDE 'onEnter'
+Component.EXCLUDE 'onExit'
+Component.EXCLUDE 'onAdd'
+Component.EXCLUDE 'onRemove'
 Component.ATTR('getOwner', {RET = '@ref(single owner)'})
 Component.ATTR('setOwner', {ARG1 = '@ref(single owner)'})
 
 local LuaComponent = typeconf 'cocos2d::LuaComponent'
-LuaComponent.VAR('onUpdateCallback', '@nullable std::function<void(float)> onUpdateCallback')
-LuaComponent.VAR('onEnterCallback', '@nullable std::function<void()> onEnterCallback')
-LuaComponent.VAR('onExitCallback', '@nullable std::function<void()> onExitCallback')
-LuaComponent.VAR('onAddCallback', '@nullable std::function<void()> onAddCallback')
-LuaComponent.VAR('onRemoveCallback', '@nullable std::function<void()> onRemoveCallback')
+LuaComponent.VAR('onUpdate', '@nullable std::function<void(float)> onUpdateCallback')
+LuaComponent.VAR('onEnter', '@nullable std::function<void()> onEnterCallback')
+LuaComponent.VAR('onExit', '@nullable std::function<void()> onExitCallback')
+LuaComponent.VAR('onAdd', '@nullable std::function<void()> onAddCallback')
+LuaComponent.VAR('onRemove', '@nullable std::function<void()> onRemoveCallback')
 
 -- node
 local Node = typeconf 'cocos2d::Node'

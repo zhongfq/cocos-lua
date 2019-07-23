@@ -13433,6 +13433,499 @@ static int luaopen_cocos2d_VRGenericHeadTracker(lua_State *L)
     return 1;
 }
 
+static int luaopen_cocos2d_network_WebSocket_ErrorCode(lua_State *L)
+{
+    oluacls_class(L, "cc.network.WebSocket.ErrorCode", nullptr);
+    oluacls_const_integer(L, "TIME_OUT", (lua_Integer)cocos2d::network::WebSocket::ErrorCode::TIME_OUT);
+    oluacls_const_integer(L, "CONNECTION_FAILURE", (lua_Integer)cocos2d::network::WebSocket::ErrorCode::CONNECTION_FAILURE);
+    oluacls_const_integer(L, "UNKNOWN", (lua_Integer)cocos2d::network::WebSocket::ErrorCode::UNKNOWN);
+
+    olua_registerluatype<cocos2d::network::WebSocket::ErrorCode>(L, "cc.network.WebSocket.ErrorCode");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_cocos2d_network_WebSocket_State(lua_State *L)
+{
+    oluacls_class(L, "cc.network.WebSocket.State", nullptr);
+    oluacls_const_integer(L, "CONNECTING", (lua_Integer)cocos2d::network::WebSocket::State::CONNECTING);
+    oluacls_const_integer(L, "OPEN", (lua_Integer)cocos2d::network::WebSocket::State::OPEN);
+    oluacls_const_integer(L, "CLOSING", (lua_Integer)cocos2d::network::WebSocket::State::CLOSING);
+    oluacls_const_integer(L, "CLOSED", (lua_Integer)cocos2d::network::WebSocket::State::CLOSED);
+
+    olua_registerluatype<cocos2d::network::WebSocket::State>(L, "cc.network.WebSocket.State");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_network_WebSocket_Delegate___gc(lua_State *L)
+{
+    auto self = olua_touserdata(L, 1, cocos2d::network::WebSocket::Delegate *);
+    if (self) {
+        *(void **)lua_touserdata(L, 1) = nullptr;
+        delete self;
+    }
+    return 0;
+}
+
+static int luaopen_cocos2d_network_WebSocket_Delegate(lua_State *L)
+{
+    oluacls_class(L, "cc.network.WebSocket.Delegate", nullptr);
+    oluacls_func(L, "__gc", _cocos2d_network_WebSocket_Delegate___gc);
+
+    olua_registerluatype<cocos2d::network::WebSocket::Delegate>(L, "cc.network.WebSocket.Delegate");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_network_WebSocket___gc(lua_State *L)
+{
+    auto self = olua_touserdata(L, 1, cocos2d::network::WebSocket *);
+    if (self) {
+        *(void **)lua_touserdata(L, 1) = nullptr;
+        delete self;
+    }
+    return 0;
+}
+
+static int _cocos2d_network_WebSocket_close(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::network::WebSocket *self;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.network.WebSocket");
+
+    // void close()
+    self->close();
+
+    return 0;
+}
+
+static int _cocos2d_network_WebSocket_closeAllConnections(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static void closeAllConnections()
+    cocos2d::network::WebSocket::closeAllConnections();
+
+    return 0;
+}
+
+static int _cocos2d_network_WebSocket_closeAsync(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::network::WebSocket *self;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.network.WebSocket");
+
+    // void closeAsync()
+    self->closeAsync();
+
+    return 0;
+}
+
+static int _cocos2d_network_WebSocket_create(lua_State *L)
+{
+    lua_settop(L, 4);
+    std::vector<std::string> protocols;
+    auto self = new cocos2d::network::WebSocket();
+    auto delegate = olua_checkobj<cocos2d::network::WebSocket::Delegate>(L, 1);
+    std::string url = olua_tostring(L, 2);
+    std::string cafile = olua_optstring(L, 4, "");
+
+    if (not lua_isnil(L, 3)) {
+        luaL_checktype(L, 3, LUA_TTABLE);
+        int len = (int)lua_rawlen(L, 3);
+        protocols.reserve(len);
+        for (int i = 1; i <= len; i++) {
+            lua_rawgeti(L, 3, i);
+            protocols.push_back(olua_checkstring(L, -1));
+            lua_pop(L, 1);
+        }
+    }
+
+    self->init(*delegate, url, protocols.size() > 0 ? &protocols : nullptr, cafile);
+    olua_push_cppobj<cocos2d::network::WebSocket>(L, self);
+    olua_singleref(L, -1, "delegate", 1);
+
+    return 1;
+}
+
+static int _cocos2d_network_WebSocket_getProtocol(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::network::WebSocket *self;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.network.WebSocket");
+
+    // const std::string& getProtocol()
+    const std::string &ret = (const std::string &)self->getProtocol();
+    int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_network_WebSocket_getReadyState(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::network::WebSocket *self;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.network.WebSocket");
+
+    // State getReadyState()
+    cocos2d::network::WebSocket::State ret = (cocos2d::network::WebSocket::State)self->getReadyState();
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_network_WebSocket_getUrl(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::network::WebSocket *self;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.network.WebSocket");
+
+    // const std::string& getUrl()
+    const std::string &ret = (const std::string &)self->getUrl();
+    int num_ret = olua_push_std_string(L, ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_network_WebSocket_send1(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::network::WebSocket *self;
+    std::string arg1;       /** message */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.network.WebSocket");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void send(const std::string& message)
+    self->send(arg1);
+
+    return 0;
+}
+
+static int _cocos2d_network_WebSocket_send2(lua_State *L)
+{
+    lua_settop(L, 3);
+
+    cocos2d::network::WebSocket *self;
+    const char *arg1;       /** binaryMsg */
+    lua_Unsigned arg2;       /** len */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.network.WebSocket");
+    olua_check_string(L, 2, &arg1);
+    olua_check_uint(L, 3, &arg2);
+
+    // void send(const unsigned char* binaryMsg, unsigned int len)
+    self->send((const unsigned char *)arg1, (unsigned int)arg2);
+
+    return 0;
+}
+
+static int _cocos2d_network_WebSocket_send(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            return _cocos2d_network_WebSocket_send1(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_string(L, 2)) && (olua_is_uint(L, 3))) {
+            return _cocos2d_network_WebSocket_send2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::network::WebSocket::send' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int luaopen_cocos2d_network_WebSocket(lua_State *L)
+{
+    oluacls_class(L, "cc.network.WebSocket", nullptr);
+    oluacls_func(L, "__gc", _cocos2d_network_WebSocket___gc);
+    oluacls_func(L, "close", _cocos2d_network_WebSocket_close);
+    oluacls_func(L, "closeAllConnections", _cocos2d_network_WebSocket_closeAllConnections);
+    oluacls_func(L, "closeAsync", _cocos2d_network_WebSocket_closeAsync);
+    oluacls_func(L, "create", _cocos2d_network_WebSocket_create);
+    oluacls_func(L, "getProtocol", _cocos2d_network_WebSocket_getProtocol);
+    oluacls_func(L, "getReadyState", _cocos2d_network_WebSocket_getReadyState);
+    oluacls_func(L, "getUrl", _cocos2d_network_WebSocket_getUrl);
+    oluacls_func(L, "send", _cocos2d_network_WebSocket_send);
+    oluacls_prop(L, "protocol", _cocos2d_network_WebSocket_getProtocol, nullptr);
+    oluacls_prop(L, "readyState", _cocos2d_network_WebSocket_getReadyState, nullptr);
+    oluacls_prop(L, "url", _cocos2d_network_WebSocket_getUrl, nullptr);
+
+    olua_registerluatype<cocos2d::network::WebSocket>(L, "cc.network.WebSocket");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_LuaWebSocketDelegate_create(lua_State *L)
+{
+    lua_settop(L, 0);
+
+    // static LuaWebSocketDelegate *create()
+    cocos2d::LuaWebSocketDelegate *ret = (cocos2d::LuaWebSocketDelegate *)cocos2d::LuaWebSocketDelegate::create();
+    int num_ret = olua_push_cppobj(L, ret, "cc.LuaWebSocketDelegate");
+
+    return num_ret;
+}
+
+static int _cocos2d_LuaWebSocketDelegate_get_onCloseCallback(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::LuaWebSocketDelegate *self;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LuaWebSocketDelegate");
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onClose");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+
+    // @nullable std::function<void (network::WebSocket *)> onCloseCallback
+    std::function<void(cocos2d::network::WebSocket *)> ret = (std::function<void(cocos2d::network::WebSocket *)>)self->onCloseCallback;
+    int num_ret = olua_push_std_function(L, (std::function<void(cocos2d::network::WebSocket *)>)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_LuaWebSocketDelegate_set_onCloseCallback(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::LuaWebSocketDelegate *self;
+    std::function<void(cocos2d::network::WebSocket *)> arg1;       /** onCloseCallback */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LuaWebSocketDelegate");
+
+    if (olua_is_std_function(L, 2)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onClose");
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+        arg1 = [callback_store_obj, func](cocos2d::network::WebSocket *arg1) {
+            lua_State *L = olua_mainthread();
+            int top = lua_gettop(L);
+
+            olua_push_cppobj(L, arg1, "cc.network.WebSocket");
+
+            olua_callback(L, callback_store_obj, func.c_str(), 1);
+
+            lua_settop(L, top);
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onClose");
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+        arg1 = nullptr;
+    }
+
+    // @nullable std::function<void (network::WebSocket *)> onCloseCallback
+    self->onCloseCallback = arg1;
+
+    return 0;
+}
+
+static int _cocos2d_LuaWebSocketDelegate_get_onErrorCallback(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::LuaWebSocketDelegate *self;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LuaWebSocketDelegate");
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onError");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+
+    // @nullable std::function<void (network::WebSocket *, const network::WebSocket::ErrorCode &)> onErrorCallback
+    std::function<void(cocos2d::network::WebSocket *, const cocos2d::network::WebSocket::ErrorCode &)> ret = (std::function<void(cocos2d::network::WebSocket *, const cocos2d::network::WebSocket::ErrorCode &)>)self->onErrorCallback;
+    int num_ret = olua_push_std_function(L, (std::function<void(cocos2d::network::WebSocket *, const cocos2d::network::WebSocket::ErrorCode &)>)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_LuaWebSocketDelegate_set_onErrorCallback(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::LuaWebSocketDelegate *self;
+    std::function<void(cocos2d::network::WebSocket *, const cocos2d::network::WebSocket::ErrorCode &)> arg1;       /** onErrorCallback */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LuaWebSocketDelegate");
+
+    if (olua_is_std_function(L, 2)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onError");
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+        arg1 = [callback_store_obj, func](cocos2d::network::WebSocket *arg1, const cocos2d::network::WebSocket::ErrorCode &arg2) {
+            lua_State *L = olua_mainthread();
+            int top = lua_gettop(L);
+
+            olua_push_cppobj(L, arg1, "cc.network.WebSocket");
+            olua_push_uint(L, (lua_Unsigned)arg2);
+
+            olua_callback(L, callback_store_obj, func.c_str(), 2);
+
+            lua_settop(L, top);
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onError");
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+        arg1 = nullptr;
+    }
+
+    // @nullable std::function<void (network::WebSocket *, const network::WebSocket::ErrorCode &)> onErrorCallback
+    self->onErrorCallback = arg1;
+
+    return 0;
+}
+
+static int _cocos2d_LuaWebSocketDelegate_get_onMessageCallback(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::LuaWebSocketDelegate *self;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LuaWebSocketDelegate");
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onMessage");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+
+    // @nullable std::function<void (network::WebSocket *, const network::WebSocket::Data &)> onMessageCallback
+    std::function<void(cocos2d::network::WebSocket *, const cocos2d::network::WebSocket::Data &)> ret = (std::function<void(cocos2d::network::WebSocket *, const cocos2d::network::WebSocket::Data &)>)self->onMessageCallback;
+    int num_ret = olua_push_std_function(L, (std::function<void(cocos2d::network::WebSocket *, const cocos2d::network::WebSocket::Data &)>)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_LuaWebSocketDelegate_set_onMessageCallback(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::LuaWebSocketDelegate *self;
+    std::function<void(cocos2d::network::WebSocket *, const cocos2d::network::WebSocket::Data &)> arg1;       /** onMessageCallback */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LuaWebSocketDelegate");
+
+    if (olua_is_std_function(L, 2)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onMessage");
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+        arg1 = [callback_store_obj, func](cocos2d::network::WebSocket *arg1, const cocos2d::network::WebSocket::Data &arg2) {
+            lua_State *L = olua_mainthread();
+            int top = lua_gettop(L);
+
+            olua_push_cppobj(L, arg1, "cc.network.WebSocket");
+            auto_olua_push_cocos2d_network_WebSocket_Data(L, &arg2);
+
+            olua_callback(L, callback_store_obj, func.c_str(), 2);
+
+            lua_settop(L, top);
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onMessage");
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+        arg1 = nullptr;
+    }
+
+    // @nullable std::function<void (network::WebSocket *, const network::WebSocket::Data &)> onMessageCallback
+    self->onMessageCallback = arg1;
+
+    return 0;
+}
+
+static int _cocos2d_LuaWebSocketDelegate_get_onOpenCallback(lua_State *L)
+{
+    lua_settop(L, 1);
+
+    cocos2d::LuaWebSocketDelegate *self;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LuaWebSocketDelegate");
+
+    void *callback_store_obj = (void *)self;
+    std::string tag = olua_makecallbacktag("onOpen");
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+
+    // @nullable std::function<void (network::WebSocket *)> onOpenCallback
+    std::function<void(cocos2d::network::WebSocket *)> ret = (std::function<void(cocos2d::network::WebSocket *)>)self->onOpenCallback;
+    int num_ret = olua_push_std_function(L, (std::function<void(cocos2d::network::WebSocket *)>)ret);
+
+    return num_ret;
+}
+
+static int _cocos2d_LuaWebSocketDelegate_set_onOpenCallback(lua_State *L)
+{
+    lua_settop(L, 2);
+
+    cocos2d::LuaWebSocketDelegate *self;
+    std::function<void(cocos2d::network::WebSocket *)> arg1;       /** onOpenCallback */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.LuaWebSocketDelegate");
+
+    if (olua_is_std_function(L, 2)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onOpen");
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
+        arg1 = [callback_store_obj, func](cocos2d::network::WebSocket *arg1) {
+            lua_State *L = olua_mainthread();
+            int top = lua_gettop(L);
+
+            olua_push_cppobj(L, arg1, "cc.network.WebSocket");
+
+            olua_callback(L, callback_store_obj, func.c_str(), 1);
+
+            lua_settop(L, top);
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = olua_makecallbacktag("onOpen");
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+        arg1 = nullptr;
+    }
+
+    // @nullable std::function<void (network::WebSocket *)> onOpenCallback
+    self->onOpenCallback = arg1;
+
+    return 0;
+}
+
+static int luaopen_cocos2d_LuaWebSocketDelegate(lua_State *L)
+{
+    oluacls_class(L, "cc.LuaWebSocketDelegate", "cc.network.WebSocket.Delegate");
+    oluacls_func(L, "create", _cocos2d_LuaWebSocketDelegate_create);
+    oluacls_prop(L, "onClose", _cocos2d_LuaWebSocketDelegate_get_onCloseCallback, _cocos2d_LuaWebSocketDelegate_set_onCloseCallback);
+    oluacls_prop(L, "onError", _cocos2d_LuaWebSocketDelegate_get_onErrorCallback, _cocos2d_LuaWebSocketDelegate_set_onErrorCallback);
+    oluacls_prop(L, "onMessage", _cocos2d_LuaWebSocketDelegate_get_onMessageCallback, _cocos2d_LuaWebSocketDelegate_set_onMessageCallback);
+    oluacls_prop(L, "onOpen", _cocos2d_LuaWebSocketDelegate_get_onOpenCallback, _cocos2d_LuaWebSocketDelegate_set_onOpenCallback);
+
+    olua_registerluatype<cocos2d::LuaWebSocketDelegate>(L, "cc.LuaWebSocketDelegate");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
 static int _cocos2d_ActionManager_addAction(lua_State *L)
 {
     lua_settop(L, 4);
@@ -18658,62 +19151,6 @@ static int _cocos2d_Component_isEnabled(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_Component_onAdd(lua_State *L)
-{
-    lua_settop(L, 1);
-
-    cocos2d::Component *self;
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.Component");
-
-    // void onAdd()
-    self->onAdd();
-
-    return 0;
-}
-
-static int _cocos2d_Component_onEnter(lua_State *L)
-{
-    lua_settop(L, 1);
-
-    cocos2d::Component *self;
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.Component");
-
-    // void onEnter()
-    self->onEnter();
-
-    return 0;
-}
-
-static int _cocos2d_Component_onExit(lua_State *L)
-{
-    lua_settop(L, 1);
-
-    cocos2d::Component *self;
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.Component");
-
-    // void onExit()
-    self->onExit();
-
-    return 0;
-}
-
-static int _cocos2d_Component_onRemove(lua_State *L)
-{
-    lua_settop(L, 1);
-
-    cocos2d::Component *self;
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.Component");
-
-    // void onRemove()
-    self->onRemove();
-
-    return 0;
-}
-
 static int _cocos2d_Component_serialize(lua_State *L)
 {
     lua_settop(L, 2);
@@ -18806,10 +19243,6 @@ static int luaopen_cocos2d_Component(lua_State *L)
     oluacls_func(L, "getOwner", _cocos2d_Component_getOwner);
     oluacls_func(L, "init", _cocos2d_Component_init);
     oluacls_func(L, "isEnabled", _cocos2d_Component_isEnabled);
-    oluacls_func(L, "onAdd", _cocos2d_Component_onAdd);
-    oluacls_func(L, "onEnter", _cocos2d_Component_onEnter);
-    oluacls_func(L, "onExit", _cocos2d_Component_onExit);
-    oluacls_func(L, "onRemove", _cocos2d_Component_onRemove);
     oluacls_func(L, "serialize", _cocos2d_Component_serialize);
     oluacls_func(L, "setEnabled", _cocos2d_Component_setEnabled);
     oluacls_func(L, "setName", _cocos2d_Component_setName);
@@ -18845,7 +19278,7 @@ static int _cocos2d_LuaComponent_get_onAddCallback(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.LuaComponent");
 
     void *callback_store_obj = (void *)self;
-    std::string tag = olua_makecallbacktag("onAddCallback");
+    std::string tag = olua_makecallbacktag("onAdd");
     olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
 
     // @nullable std::function<void()> onAddCallback
@@ -18866,7 +19299,7 @@ static int _cocos2d_LuaComponent_set_onAddCallback(lua_State *L)
 
     if (olua_is_std_function(L, 2)) {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onAddCallback");
+        std::string tag = olua_makecallbacktag("onAdd");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
         arg1 = [callback_store_obj, func]() {
             lua_State *L = olua_mainthread();
@@ -18878,7 +19311,7 @@ static int _cocos2d_LuaComponent_set_onAddCallback(lua_State *L)
         };
     } else {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onAddCallback");
+        std::string tag = olua_makecallbacktag("onAdd");
         olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
         arg1 = nullptr;
     }
@@ -18898,7 +19331,7 @@ static int _cocos2d_LuaComponent_get_onEnterCallback(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.LuaComponent");
 
     void *callback_store_obj = (void *)self;
-    std::string tag = olua_makecallbacktag("onEnterCallback");
+    std::string tag = olua_makecallbacktag("onEnter");
     olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
 
     // @nullable std::function<void()> onEnterCallback
@@ -18919,7 +19352,7 @@ static int _cocos2d_LuaComponent_set_onEnterCallback(lua_State *L)
 
     if (olua_is_std_function(L, 2)) {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onEnterCallback");
+        std::string tag = olua_makecallbacktag("onEnter");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
         arg1 = [callback_store_obj, func]() {
             lua_State *L = olua_mainthread();
@@ -18931,7 +19364,7 @@ static int _cocos2d_LuaComponent_set_onEnterCallback(lua_State *L)
         };
     } else {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onEnterCallback");
+        std::string tag = olua_makecallbacktag("onEnter");
         olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
         arg1 = nullptr;
     }
@@ -18951,7 +19384,7 @@ static int _cocos2d_LuaComponent_get_onExitCallback(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.LuaComponent");
 
     void *callback_store_obj = (void *)self;
-    std::string tag = olua_makecallbacktag("onExitCallback");
+    std::string tag = olua_makecallbacktag("onExit");
     olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
 
     // @nullable std::function<void()> onExitCallback
@@ -18972,7 +19405,7 @@ static int _cocos2d_LuaComponent_set_onExitCallback(lua_State *L)
 
     if (olua_is_std_function(L, 2)) {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onExitCallback");
+        std::string tag = olua_makecallbacktag("onExit");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
         arg1 = [callback_store_obj, func]() {
             lua_State *L = olua_mainthread();
@@ -18984,7 +19417,7 @@ static int _cocos2d_LuaComponent_set_onExitCallback(lua_State *L)
         };
     } else {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onExitCallback");
+        std::string tag = olua_makecallbacktag("onExit");
         olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
         arg1 = nullptr;
     }
@@ -19004,7 +19437,7 @@ static int _cocos2d_LuaComponent_get_onRemoveCallback(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.LuaComponent");
 
     void *callback_store_obj = (void *)self;
-    std::string tag = olua_makecallbacktag("onRemoveCallback");
+    std::string tag = olua_makecallbacktag("onRemove");
     olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
 
     // @nullable std::function<void()> onRemoveCallback
@@ -19025,7 +19458,7 @@ static int _cocos2d_LuaComponent_set_onRemoveCallback(lua_State *L)
 
     if (olua_is_std_function(L, 2)) {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onRemoveCallback");
+        std::string tag = olua_makecallbacktag("onRemove");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
         arg1 = [callback_store_obj, func]() {
             lua_State *L = olua_mainthread();
@@ -19037,7 +19470,7 @@ static int _cocos2d_LuaComponent_set_onRemoveCallback(lua_State *L)
         };
     } else {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onRemoveCallback");
+        std::string tag = olua_makecallbacktag("onRemove");
         olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
         arg1 = nullptr;
     }
@@ -19057,7 +19490,7 @@ static int _cocos2d_LuaComponent_get_onUpdateCallback(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.LuaComponent");
 
     void *callback_store_obj = (void *)self;
-    std::string tag = olua_makecallbacktag("onUpdateCallback");
+    std::string tag = olua_makecallbacktag("onUpdate");
     olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
 
     // @nullable std::function<void(float)> onUpdateCallback
@@ -19078,7 +19511,7 @@ static int _cocos2d_LuaComponent_set_onUpdateCallback(lua_State *L)
 
     if (olua_is_std_function(L, 2)) {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onUpdateCallback");
+        std::string tag = olua_makecallbacktag("onUpdate");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_CALLBACK_TAG_REPLACE);
         arg1 = [callback_store_obj, func](float arg1) {
             lua_State *L = olua_mainthread();
@@ -19092,7 +19525,7 @@ static int _cocos2d_LuaComponent_set_onUpdateCallback(lua_State *L)
         };
     } else {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onUpdateCallback");
+        std::string tag = olua_makecallbacktag("onUpdate");
         olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
         arg1 = nullptr;
     }
@@ -19107,11 +19540,11 @@ static int luaopen_cocos2d_LuaComponent(lua_State *L)
 {
     oluacls_class(L, "cc.LuaComponent", "cc.Component");
     oluacls_func(L, "create", _cocos2d_LuaComponent_create);
-    oluacls_prop(L, "onAddCallback", _cocos2d_LuaComponent_get_onAddCallback, _cocos2d_LuaComponent_set_onAddCallback);
-    oluacls_prop(L, "onEnterCallback", _cocos2d_LuaComponent_get_onEnterCallback, _cocos2d_LuaComponent_set_onEnterCallback);
-    oluacls_prop(L, "onExitCallback", _cocos2d_LuaComponent_get_onExitCallback, _cocos2d_LuaComponent_set_onExitCallback);
-    oluacls_prop(L, "onRemoveCallback", _cocos2d_LuaComponent_get_onRemoveCallback, _cocos2d_LuaComponent_set_onRemoveCallback);
-    oluacls_prop(L, "onUpdateCallback", _cocos2d_LuaComponent_get_onUpdateCallback, _cocos2d_LuaComponent_set_onUpdateCallback);
+    oluacls_prop(L, "onAdd", _cocos2d_LuaComponent_get_onAddCallback, _cocos2d_LuaComponent_set_onAddCallback);
+    oluacls_prop(L, "onEnter", _cocos2d_LuaComponent_get_onEnterCallback, _cocos2d_LuaComponent_set_onEnterCallback);
+    oluacls_prop(L, "onExit", _cocos2d_LuaComponent_get_onExitCallback, _cocos2d_LuaComponent_set_onExitCallback);
+    oluacls_prop(L, "onRemove", _cocos2d_LuaComponent_get_onRemoveCallback, _cocos2d_LuaComponent_set_onRemoveCallback);
+    oluacls_prop(L, "onUpdate", _cocos2d_LuaComponent_get_onUpdateCallback, _cocos2d_LuaComponent_set_onUpdateCallback);
 
     olua_registerluatype<cocos2d::LuaComponent>(L, "cc.LuaComponent");
     oluacls_createclassproxy(L);
@@ -41612,6 +42045,11 @@ int luaopen_cocos2d(lua_State *L)
     olua_require(L, "cc.VRIRenderer", luaopen_cocos2d_VRIRenderer);
     olua_require(L, "cc.VRGenericRenderer", luaopen_cocos2d_VRGenericRenderer);
     olua_require(L, "cc.VRGenericHeadTracker", luaopen_cocos2d_VRGenericHeadTracker);
+    olua_require(L, "cc.network.WebSocket.ErrorCode", luaopen_cocos2d_network_WebSocket_ErrorCode);
+    olua_require(L, "cc.network.WebSocket.State", luaopen_cocos2d_network_WebSocket_State);
+    olua_require(L, "cc.network.WebSocket.Delegate", luaopen_cocos2d_network_WebSocket_Delegate);
+    olua_require(L, "cc.network.WebSocket", luaopen_cocos2d_network_WebSocket);
+    olua_require(L, "cc.LuaWebSocketDelegate", luaopen_cocos2d_LuaWebSocketDelegate);
     olua_require(L, "cc.ActionManager", luaopen_cocos2d_ActionManager);
     olua_require(L, "cc.Action", luaopen_cocos2d_Action);
     olua_require(L, "cc.FiniteTimeAction", luaopen_cocos2d_FiniteTimeAction);

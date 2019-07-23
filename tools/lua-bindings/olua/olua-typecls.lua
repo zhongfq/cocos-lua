@@ -340,6 +340,11 @@ function olua.funcname(declfunc)
     return string.match(str, '[^ ()]+')
 end
 
+function olua.varname(declfunc)
+    local _, _, str = parseType(declfunc)
+    return string.match(str, '[%w_]+')
+end
+
 local function parseFunc(cls, name, ...)
     local function copy(t)
         return setmetatable({}, {__index = t})
@@ -794,6 +799,20 @@ function olua.typecls(cppcls)
     end
 
     return cls
+end
+
+function olua.gcfunc(cls)
+    local gc = olua.format([[
+        {
+            auto self = olua_touserdata(L, 1, ${cls.NAME} *);
+            if (self) {
+                *(void **)lua_touserdata(L, 1) = nullptr;
+                delete self;
+            }
+            return 0;
+        }
+    ]])
+    return gc
 end
 
 function olua.typecast(type, rawtype)

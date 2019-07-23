@@ -15,6 +15,7 @@ M.HEADER_INCLUDES = [[
 #include "xgame/xlua.h"
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
+#include "network/WebSocket.h"
 ]]
 M.INCLUDES = [[
 #include "lua-bindings/lua_conv.h"
@@ -190,6 +191,16 @@ M.CONVS = {
             bool isPressed;
             float value;
             bool isAnalog;
+        ]],
+    },
+    typeconv {
+        CPPCLS = 'cocos2d::network::WebSocket::Data',
+        DEF = [[
+            char* bytes;
+            ssize_t len;
+            ssize_t issued;
+            bool isBinary;
+            void* ext;
         ]],
     },
 }

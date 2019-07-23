@@ -514,9 +514,9 @@ function M:createClass()
 end
 
 function M:trimClassname(name)
-    name = string.gsub(name, '^class *', '')
-    name = string.gsub(name, '^struct *', '')
-    name = string.gsub(name, '^enum *', '')
+    name = string.gsub(name, 'class +', '')
+    name = string.gsub(name, 'struct +', '')
+    name = string.gsub(name, 'enum +', '')
     return name
 end
 
@@ -647,6 +647,7 @@ function M:visitCXXMethod(cls, cur)
 
     prototype = string.gsub(prototype, ' +', ' ')
     prototype = string.gsub(prototype, 'virtual *', '')
+    prototype = string.gsub(prototype, 'inline *', '')
     prototype = string.gsub(prototype, '[^)]*$', '')
     prototype = string.gsub(prototype, '/%*[^/]*%*/', '')
     return prototype
@@ -805,6 +806,8 @@ function M:visitClass(cur)
                     cls.ENUMS[#cls.ENUMS + 1] = c:name()
                 end
             end
+        elseif kind == 'ClassDecl' or kind == 'StructDecl' then
+            self:visit(c)
         end
 
         ::continue::

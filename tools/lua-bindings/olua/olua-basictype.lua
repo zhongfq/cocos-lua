@@ -21,12 +21,9 @@ typedef {
 }
 
 typedef {
-    CPPCLS = 'const char *',
-    CONV_FUNC = 'olua_$$_string',
-}
-
-typedef {
     CPPCLS = [[
+        char *
+        const char *
         unsigned char *
         const unsigned char *
         const GLchar *

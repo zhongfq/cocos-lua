@@ -1,3 +1,4 @@
+local olua = require "olua"
 local typemod = require "olua.typemod"
 local M = typemod 'cocos2d_ui'
 local typeconf = M.typeconf
@@ -336,15 +337,7 @@ typeconf 'cocos2d::ui::ImageView'
 typeconf 'cocos2d::ui::EditBoxDelegate::EditBoxEndAction'
 
 local EditBoxDelegate = typeconf 'cocos2d::ui::EditBoxDelegate'
-EditBoxDelegate.FUNC('__gc', [[
-{
-    auto self = olua_touserdata(L, 1, cocos2d::ui::EditBoxDelegate *);
-    if (self) {
-        *(void **)lua_touserdata(L, 1) = nullptr;
-        delete self;
-    }
-    return 0;
-}]])
+EditBoxDelegate.FUNC('__gc', olua.gcfunc(EditBoxDelegate))
 
 local LuaEditBoxDelegate = typeconf 'cocos2d::ui::LuaEditBoxDelegate'
 LuaEditBoxDelegate.VAR('onEditingDidBegin', '@nullable std::function<void(EditBox *)> onEditingDidBegin')

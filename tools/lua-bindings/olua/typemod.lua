@@ -29,7 +29,9 @@ local function addcmd(cls)
         cls.PROP[#cls.PROP + 1] = {NAME = name, GET = get, SET = set}
     end)
     cls.VAR = command(function (_, name, snippet)
-        cls.EXCLUDE[name] = true
+        local varname = olua.funcname(snippet)
+        assert(#varname > 0, 'no variable name')
+        cls.EXCLUDE[varname] = true
         cls.VAR[#cls.VAR + 1] = {NAME = name, SNIPPET = snippet}
     end)
     cls.ENUM = command(function (_, name, value)

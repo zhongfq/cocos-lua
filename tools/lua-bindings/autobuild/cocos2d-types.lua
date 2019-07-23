@@ -167,6 +167,11 @@ typedef {
 }
 
 typedef {
+    CONV_FUNC = 'auto_olua_$$_cocos2d_network_WebSocket_Data',
+    CPPCLS = 'cocos2d::network::WebSocket::Data',
+}
+
+typedef {
     CPPCLS = 'ResolutionPolicy',
     DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
@@ -388,6 +393,20 @@ typedef {
     DECLTYPE = 'lua_Unsigned',
     CONV_FUNC = 'olua_$$_uint',
     LUACLS = 'cc.AudioEngine.AudioState',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::network::WebSocket::ErrorCode',
+    DECLTYPE = 'lua_Unsigned',
+    CONV_FUNC = 'olua_$$_uint',
+    LUACLS = 'cc.network.WebSocket.ErrorCode',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::network::WebSocket::State',
+    DECLTYPE = 'lua_Unsigned',
+    CONV_FUNC = 'olua_$$_uint',
+    LUACLS = 'cc.network.WebSocket.State',
 }
 
 typedef {
@@ -1195,6 +1214,12 @@ typedef {
 }
 
 typedef {
+    CPPCLS = 'cocos2d::LuaWebSocketDelegate *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'cc.LuaWebSocketDelegate',
+}
+
+typedef {
     CPPCLS = 'cocos2d::MoveBy *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'cc.MoveBy',
@@ -1930,6 +1955,18 @@ typedef {
     CPPCLS = 'cocos2d::experimental::AudioProfile *',
     CONV_FUNC = 'olua_$$_cppobj',
     LUACLS = 'cc.AudioProfile',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::network::WebSocket *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'cc.network.WebSocket',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::network::WebSocket::Delegate *',
+    CONV_FUNC = 'olua_$$_cppobj',
+    LUACLS = 'cc.network.WebSocket.Delegate',
 }
 
 typedef {

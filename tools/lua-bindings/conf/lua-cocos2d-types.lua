@@ -162,3 +162,8 @@ typedef {
     CPPCLS = 'cocos2d::Controller::KeyStatus',
     CONV_FUNC = 'auto_olua_$$_cocos2d_Controller_KeyStatus',
 }
+
+typedef {
+    CPPCLS = 'cocos2d::network::WebSocket::Data',
+    CONV_FUNC = 'auto_olua_$$_cocos2d_network_WebSocket_Data',
+}

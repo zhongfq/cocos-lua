@@ -1877,6 +1877,98 @@ cls.funcs [[
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'cocos2d::network::WebSocket::ErrorCode'
+cls.enums [[
+    TIME_OUT
+    CONNECTION_FAILURE
+    UNKNOWN
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::network::WebSocket::State'
+cls.enums [[
+    CONNECTING
+    OPEN
+    CLOSING
+    CLOSED
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::network::WebSocket::Delegate'
+cls.funcs [[
+]]
+cls.func('__gc', [[{
+    auto self = olua_touserdata(L, 1, cocos2d::network::WebSocket::Delegate *);
+    if (self) {
+        *(void **)lua_touserdata(L, 1) = nullptr;
+        delete self;
+    }
+    return 0;
+}]])
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::network::WebSocket'
+cls.funcs [[
+    static void closeAllConnections()
+    void send(const std::string& message)
+    void send(const unsigned char* binaryMsg, unsigned int len)
+    void close()
+    void closeAsync()
+    State getReadyState()
+    const std::string& getUrl()
+    const std::string& getProtocol()
+]]
+cls.func('__gc', [[{
+    auto self = olua_touserdata(L, 1, cocos2d::network::WebSocket *);
+    if (self) {
+        *(void **)lua_touserdata(L, 1) = nullptr;
+        delete self;
+    }
+    return 0;
+}]])
+cls.func('create', [[{
+    lua_settop(L, 4);
+    std::vector<std::string> protocols;
+    auto self = new cocos2d::network::WebSocket();
+    auto delegate = olua_checkobj<cocos2d::network::WebSocket::Delegate>(L, 1);
+    std::string url = olua_tostring(L, 2);
+    std::string cafile = olua_optstring(L, 4, "");
+    
+    if (not lua_isnil(L, 3)) {
+        luaL_checktype(L, 3, LUA_TTABLE);
+        int len = (int)lua_rawlen(L, 3);
+        protocols.reserve(len);
+        for (int i = 1; i <= len; i++) {
+            lua_rawgeti(L, 3, i);
+            protocols.push_back(olua_checkstring(L, -1));
+            lua_pop(L, 1);
+        }
+    }
+    
+    self->init(*delegate, url, protocols.size() > 0 ? &protocols : nullptr, cafile);
+    olua_push_cppobj<cocos2d::network::WebSocket>(L, self);
+    olua_singleref(L, -1, "delegate", 1);
+
+    return 1;
+}]])
+cls.props [[
+    readyState
+    url
+    protocol
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::LuaWebSocketDelegate'
+cls.SUPERCLS = "cocos2d::network::WebSocket::Delegate"
+cls.funcs [[
+    static LuaWebSocketDelegate *create()
+]]
+cls.var('onOpen', [[@nullable std::function<void (network::WebSocket *)> onOpenCallback]])
+cls.var('onMessage', [[@nullable std::function<void (network::WebSocket *, const network::WebSocket::Data &)> onMessageCallback]])
+cls.var('onClose', [[@nullable std::function<void (network::WebSocket *)> onCloseCallback]])
+cls.var('onError', [[@nullable std::function<void (network::WebSocket *, const network::WebSocket::ErrorCode &)> onErrorCallback]])
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'cocos2d::ActionManager'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
@@ -2759,10 +2851,6 @@ cls.funcs [[
     void setOwner(@ref(single owner) Node *owner)
     void update(float delta)
     bool serialize(void* r)
-    void onEnter()
-    void onExit()
-    void onAdd()
-    void onRemove()
 ]]
 cls.props [[
     enabled
@@ -2776,11 +2864,11 @@ cls.SUPERCLS = "cocos2d::Component"
 cls.funcs [[
     static LuaComponent* create()
 ]]
-cls.var('onUpdateCallback', [[@nullable std::function<void(float)> onUpdateCallback]])
-cls.var('onEnterCallback', [[@nullable std::function<void()> onEnterCallback]])
-cls.var('onExitCallback', [[@nullable std::function<void()> onExitCallback]])
-cls.var('onAddCallback', [[@nullable std::function<void()> onAddCallback]])
-cls.var('onRemoveCallback', [[@nullable std::function<void()> onRemoveCallback]])
+cls.var('onUpdate', [[@nullable std::function<void(float)> onUpdateCallback]])
+cls.var('onEnter', [[@nullable std::function<void()> onEnterCallback]])
+cls.var('onExit', [[@nullable std::function<void()> onExitCallback]])
+cls.var('onAdd', [[@nullable std::function<void()> onAddCallback]])
+cls.var('onRemove', [[@nullable std::function<void()> onRemoveCallback]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Node'

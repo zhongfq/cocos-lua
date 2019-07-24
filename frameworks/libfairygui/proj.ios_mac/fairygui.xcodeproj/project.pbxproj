@@ -665,11 +665,11 @@
 			};
 			buildConfigurationList = 4454021B1FB3E8D500869375 /* Build configuration list for PBXProject "fairygui" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
+				Base,
 			);
 			mainGroup = 445402171FB3E8D500869375;
 			productRefGroup = 445402211FB3E8D500869375 /* Products */;

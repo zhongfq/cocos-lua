@@ -13,6 +13,11 @@
 #pragma mark -
 #pragma mark Application lifecycle
 
+- (AppRootViewController *) createRootViewController
+{
+    return [[AppRootViewController alloc]init];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     cocos2d::Application *app = cocos2d::Application::getInstance();
@@ -21,7 +26,7 @@
 
     window = [[UIWindow alloc] initWithFrame: [[UIScreen mainScreen] bounds]];
 
-    _viewController = [[AppRootViewController alloc]init];
+    _viewController = [self createRootViewController];
     [window setRootViewController:_viewController];
     [window makeKeyAndVisible];
     [window setMultipleTouchEnabled:YES];

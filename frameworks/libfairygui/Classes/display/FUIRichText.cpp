@@ -403,6 +403,7 @@ int FUIXMLVisitor::attributeInt(const ValueMap& valueMap, const std::string& key
 
 FUIRichText::FUIRichText() :
     _formatTextDirty(true),
+    _textChanged(false),
     _leftSpaceWidth(0.0f),
     _textRectWidth(0.0f),
     _numLines(0),
@@ -437,21 +438,13 @@ void FUIRichText::setDimensions(float width, float height)
 void FUIRichText::setText(const std::string & value)
 {
     _formatTextDirty = true;
-    _richElements.clear();
-    _numLines = 0;
-
-    if (value.empty())
-        return;
-
-    string xmlText = "<dummy>" + value + "</dummy>";
-    FUIXMLVisitor visitor(this);
-    SAXParser parser;
-    parser.setDelegator(&visitor);
-    parser.parseIntrusive(&xmlText.front(), xmlText.length());
+    _textChanged = true;
+    _text = value;
 }
 
 void FUIRichText::applyTextFormat()
 {
+    _textChanged = true;
     _formatTextDirty = true;
 }
 
@@ -515,6 +508,22 @@ void FUIRichText::formatText()
 {
     if (!_formatTextDirty)
         return;
+
+    if (_textChanged)
+    {
+        _textChanged = false;
+        _richElements.clear();
+        _numLines = 0;
+
+        if (!_text.empty())
+        {
+            string xmlText = "<dummy>" + _text + "</dummy>";
+            FUIXMLVisitor visitor(this);
+            SAXParser parser;
+            parser.setDelegator(&visitor);
+            parser.parseIntrusive(&xmlText.front(), xmlText.length());
+        }
+    }
 
     removeAllChildrenWithCleanup(true);
     _elementRenders.clear();
@@ -737,6 +746,10 @@ void FUIRichText::formarRenderers()
     else if (_overflow == Label::Overflow::RESIZE_HEIGHT)
         _dimensions.height = _contentSize.height;
     float delta = _contentSize.height - oldDimensionsHeight;
+    if (_defaultTextFormat->verticalAlign == TextVAlignment::CENTER)
+        delta -= floor((_dimensions.height - textHeight) * 0.5f);
+    else if (_defaultTextFormat->verticalAlign == TextVAlignment::BOTTOM)
+        delta -= _dimensions.height - textHeight;
     if (delta != 0)
     {
         Vec2 offset(0, delta);

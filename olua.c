@@ -83,12 +83,11 @@ LUALIB_API lua_State *olua_newstate(olua_metadata_t *mt)
     *(olua_metadata_t **)lua_getextraspace(L) = mt;
     
     olua_newuserdata(L, mt, olua_metadata_t *);
-    lua_pushvalue(L, 1);
-    olua_rawsetp(L, LUA_REGISTRYINDEX, (void *)mt);
     lua_createtable(L, 0, 1);
     lua_pushcfunction(L, _metadata_gc);
     olua_rawsetf(L, -2, "__gc");
     lua_setmetatable(L, -2);
+    olua_rawsetp(L, LUA_REGISTRYINDEX, (void *)mt);
     
     return L;
 }
@@ -214,12 +213,7 @@ static void auxgetobjtable(lua_State *L)
     }
 }
 
-static inline bool isusingpool(lua_State *L)
-{
-    return olua_getmetadata(L, olua_metadata_t *)->usingpool;
-}
-
-static int olua_objpool_push(lua_State *L, void *obj, const char *cls)
+static void olua_objpool_push(lua_State *L, void *obj, const char *cls)
 {
     olua_metadata_t *mt = olua_getmetadata(L, olua_metadata_t *);
     if (olua_rawgetp(L, LUA_REGISTRYINDEX, OLUA_POOL_TABLE) != LUA_TTABLE) {
@@ -238,18 +232,8 @@ static int olua_objpool_push(lua_State *L, void *obj, const char *cls)
         olua_rawseti(L, -3, mt->sizepool);
     }
     
-    *(void **)lua_touserdata(L, -1) = obj;
-    olua_setmetatable(L, cls);
-    
-    if (!lua_getmetatable(L, -1)) {
-        luaL_error(L, "metatable not found: %s", cls);
-    } else {
-        lua_pop(L, 1);
-    }
-    
     lua_remove(L, -2);
-    
-    return OLUA_OBJ_EXIST;
+    *(void **)lua_touserdata(L, -1) = obj;
 }
 
 LUALIB_API int olua_pushobj(lua_State *L, void *obj, const char *cls)
@@ -270,16 +254,17 @@ LUALIB_API int olua_pushobj(lua_State *L, void *obj, const char *cls)
     if (olua_rawgetp(L, -1, obj) == LUA_TNIL) {     // L: mapping obj?
         lua_pop(L, 1);                              // L: mapping
         
-        if (isusingpool(L)) {
-            lua_pop(L, 1);
-            return olua_objpool_push(L, obj, cls);
+        if (olua_getmetadata(L, olua_metadata_t *)->usingpool) {
+            olua_objpool_push(L, obj, cls);
+            status = OLUA_OBJ_EXIST;
+        } else {
+            olua_newuserdata(L, obj, void *);           // L: mapping obj
+            lua_pushvalue(L, -1);                       // L: mapping obj obj
+            olua_rawsetp(L, -3, obj);                   // L: mapping obj
+            status = OLUA_OBJ_NEW;
         }
         
-        olua_newuserdata(L, obj, void *);           // L: mapping obj
-        olua_setmetatable(L, cls);                  // L: mapping obj
-        lua_pushvalue(L, -1);                       // L: mapping obj obj
-        olua_rawsetp(L, -3, obj);                   // L: mapping obj
-        status = OLUA_OBJ_NEW;
+        olua_setmetatable(L, cls);
         
         if (!lua_getmetatable(L, -1)) {
             luaL_error(L, "metatable not found: %s", cls);

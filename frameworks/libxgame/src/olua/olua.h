@@ -94,7 +94,7 @@ typedef struct {
 
 // metadata point must treat olua_metadata_t as first member
 LUALIB_API lua_State *olua_newstate(olua_metadata_t *mt);
-#define olua_getmetadata(L, t) (*(t*)lua_getextraspace(L))
+#define olua_getmetadata(L, T) (*(T*)lua_getextraspace(L))
     
 #define olua_addobjcount(L)  olua_changeobjcount(L, 1)
 #define olua_subobjcount(L)  olua_changeobjcount(L, -1)
@@ -143,7 +143,7 @@ typedef enum {
 LUALIB_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag, int func, olua_callback_tag_t mode);
 LUALIB_API void olua_getcallback(lua_State *L, void *obj, const char *tag, olua_callback_tag_t mode);
 LUALIB_API void olua_removecallback(lua_State *L, void *obj, const char *tag, olua_callback_tag_t mode);
-LUALIB_API int olua_callback(lua_State *L, void *obj, const char *func, int num_args);
+LUALIB_API int olua_callback(lua_State *L, void *obj, const char *func, int argc);
 #define olua_makecallbacktag(tag) (tag)
     
 // class store, store static callback or other
@@ -161,14 +161,14 @@ LUALIB_API void olua_unref(lua_State *L, int ref);
 LUALIB_API void olua_getref(lua_State *L, int ref);
     
 // for ref chain, if callback store in userdata, it will keep callback available
-LUALIB_API void olua_getreftable(lua_State *L, int obj, const char *field);
-LUALIB_API void olua_singleref(lua_State *L, int obj, const char *field, int vidx);
-LUALIB_API void olua_singleunref(lua_State *L, int obj, const char *field);
-LUALIB_API void olua_mapref(lua_State *L, int obj, const char *t, int vidx);
-LUALIB_API void olua_maprefarray(lua_State *L, int obj, const char *t, int vidx);
-LUALIB_API void olua_mapunref(lua_State *L, int obj, const char *t, int vidx);
-LUALIB_API void olua_mapwalkunref(lua_State *L, int obj, const char *t, lua_CFunction walk);
-LUALIB_API void olua_unrefall(lua_State *L, int obj, const char *t);
+LUALIB_API void olua_getreftable(lua_State *L, int idx, const char *name);
+LUALIB_API void olua_singleref(lua_State *L, int idx, const char *name, int obj);
+LUALIB_API void olua_singleunref(lua_State *L, int idx, const char *name);
+LUALIB_API void olua_mapref(lua_State *L, int idx, const char *name, int obj);
+LUALIB_API void olua_maprefarray(lua_State *L, int idx, const char *name, int obj);
+LUALIB_API void olua_mapunref(lua_State *L, int idx, const char *name, int obj);
+LUALIB_API void olua_mapwalkunref(lua_State *L, int idx, const char *name, lua_CFunction walk);
+LUALIB_API void olua_unrefall(lua_State *L, int idx, const char *name);
 
 //
 // lua class model
@@ -198,9 +198,9 @@ LUALIB_API void olua_unrefall(lua_State *L, int obj, const char *t);
 //
 LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *supercls);
 LUALIB_API void oluacls_createclassproxy(lua_State *L);
-LUALIB_API void oluacls_prop(lua_State *L, const char *field, lua_CFunction getter, lua_CFunction setter);
-LUALIB_API void oluacls_func(lua_State *L, const char *funcname, lua_CFunction func);
-LUALIB_API void oluacls_const(lua_State *L, const char *field);
+LUALIB_API void oluacls_prop(lua_State *L, const char *name, lua_CFunction getter, lua_CFunction setter);
+LUALIB_API void oluacls_func(lua_State *L, const char *name, lua_CFunction func);
+LUALIB_API void oluacls_const(lua_State *L, const char *name);
 #define oluacls_const_bool(L, f, v) {       \
     lua_pushboolean(L, (v));                \
     oluacls_const(L, (f));                  \

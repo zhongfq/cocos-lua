@@ -693,12 +693,13 @@ LUALIB_API void olua_mapwalkunref(lua_State *L, int idx, const char *name, lua_C
     olua_getreftable(L, idx, name);         // L: t
     lua_pushnil(L);                         // L: t k
     while (lua_next(L, -2)) {               // L: t k v
+        int top = lua_gettop(L);
         if (walk(L)) { // remove?
             lua_pushvalue(L, -2);           // L: t k v k
             lua_pushnil(L);                 // L: t k v k nil
             lua_rawset(L, -5);              // L: t k v
         }
-        lua_pop(L, 1);                      // L: t k
+        lua_settop(L, top - 1);             // L: t k
     }
     lua_pop(L, 1);
 }
@@ -715,33 +716,10 @@ LUALIB_API void olua_unrefall(lua_State *L, int idx, const char *name)
 
 static bool ismetafunc(lua_State *L, int idx, const char *func)
 {
-    static const char *const tm[] = {
-        "__index", "__newindex",
-        "__gc", "__mode", "__len", "__eq",
-        "__add", "__sub", "__mul", "__mod", "__pow",
-        "__div", "__idiv",
-        "__band", "__bor", "__bxor", "__shl", "__shr",
-        "__unm", "__bnot", "__lt", "__le",
-        "__concat", "__call",
-        NULL
-    };
-    
     if (!func && olua_isstring(L, idx)) {
         func = olua_tostring(L, idx);
     }
-    
-    if (func) {
-        for (int i = 0;; ++i) {
-            const char *name = tm[i];
-            if (!name) {
-                break;
-            } else if (strequal(name, func)) {
-                return true;
-            }
-        }
-    }
-    
-    return false;
+    return func && strstr(func, "__") == func;
 }
 
 
@@ -839,18 +817,15 @@ static int cls_newindex(lua_State *L)
         luaL_error(L, "readonly property: %s", olua_tostring(L, 2));
     }
     
-    olua_assert(olua_isuserdata(L, 1));
-    if (olua_isuserdata(L, 1)) {
-        if (olua_isstring(L, 2)) {
-            size_t len;
-            const char *key = olua_tolstring(L, 2, &len);
-            if (len > 0 && key[0] == '.') {
-                luaL_error(L, "variable name can't start with '.' char");
-            }
+    if (olua_isstring(L, 2)) {
+        size_t len;
+        const char *key = olua_tolstring(L, 2, &len);
+        if (len > 0 && key[0] == '.') {
+            luaL_error(L, "variable name can't start with '.' char");
         }
-        lua_settop(L, 3);
-        olua_setvariable(L, 1);
     }
+    lua_settop(L, 3);
+    olua_setvariable(L, 1);
     
     return 0;
 }
@@ -980,7 +955,7 @@ LUALIB_API void oluacls_createclassproxy(lua_State *L)
     lua_setmetatable(L, -2);                // L: cls p
 }
 
-static void aux_setfunc(lua_State *L, const char *t, const char *name, lua_CFunction func)
+static void auxsetfunc(lua_State *L, const char *t, const char *name, lua_CFunction func)
 {
     if (func) {
         olua_rawgetf(L, -1, t);             // L: cls t
@@ -992,13 +967,13 @@ static void aux_setfunc(lua_State *L, const char *t, const char *name, lua_CFunc
 
 LUALIB_API void oluacls_prop(lua_State *L, const char *name, lua_CFunction getter, lua_CFunction setter)
 {
-    aux_setfunc(L, CLS_GET, name, getter);
-    aux_setfunc(L, CLS_SET, name, setter);
+    auxsetfunc(L, CLS_GET, name, getter);
+    auxsetfunc(L, CLS_SET, name, setter);
 }
 
 LUALIB_API void oluacls_func(lua_State *L, const char *name, lua_CFunction func)
 {
-    aux_setfunc(L, CLS_FUNC, name, func);
+    auxsetfunc(L, CLS_FUNC, name, func);
     if (func && ismetafunc(L, 0, name)) {
         lua_pushcfunction(L, func);
         olua_rawsetf(L, -2, name);

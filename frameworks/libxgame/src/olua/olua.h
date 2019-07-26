@@ -52,10 +52,12 @@ extern "C" {
     
 #ifndef olua_startcmpunref
 #define olua_startcmpunref(L, i, n) assert(false && "not define olua_startcmpunref")
+#define olua_endcmpunref(L, i, n) assert(false && "not define olua_endcmpunref")
 #endif
     
-#ifndef olua_endcmpunref
-#define olua_endcmpunref(L, i, n) assert(false && "not define olua_endcmpunref")
+#ifndef olua_startinvoke
+#define olua_startinvoke(L) ((void)L)
+#define olua_endinvoke(L)   ((void)L)
 #endif
     
 // compare the value raw type

@@ -7,6 +7,18 @@ local function genSnippetFunc(cls, fi, write)
     local CPPFUNC = fi.CPPFUNC
     local CPPFUNC_SNIPPET = fi.CPPFUNC_SNIPPET
     olua.nowarning(CPPCLS_PATH, CPPFUNC, CPPFUNC_SNIPPET)
+    CPPFUNC_SNIPPET = string.gsub(CPPFUNC_SNIPPET, '^[\n ]*{',
+        '{\n    olua_startinvoke(L);\n')
+    CPPFUNC_SNIPPET = string.gsub(CPPFUNC_SNIPPET, '(\n)([ ]*)(return )', function (lf, indent, ret)
+        local s = format([[
+            ${lf}
+            
+            ${indent}olua_endinvoke(L);
+
+            ${indent}${ret}
+        ]])
+        return s
+    end)
     write(format([[
         static int _${CPPCLS_PATH}_${CPPFUNC}(lua_State *L)
         ${CPPFUNC_SNIPPET}
@@ -364,6 +376,8 @@ local function genOneFunc(cls, fi, write, funcidx, exported)
     write(format([[
         static int _${CPPCLS_PATH}_${fi.CPPFUNC}${FUNC_INDEX}(lua_State *L)
         {
+            olua_startinvoke(L);
+
             lua_settop(L, ${FUNC.TOTAL_ARGS});
 
             ${FUNC.DECL_ARGS}
@@ -379,6 +393,8 @@ local function genOneFunc(cls, fi, write, funcidx, exported)
             ${FUNC.PUSH_RET}
 
             ${FUNC.INJECT_AFTER}
+
+            olua_endinvoke(L);
 
             return ${FUNC.NUM_RET};
         }

@@ -414,9 +414,8 @@ LUALIB_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag
 
 static bool test_tag_mode(lua_State *L, int idx, const char *tag, olua_callback_tag_t mode)
 {
-    const char *field = NULL;
     if (olua_isstring(L, idx)) {
-        field = olua_tostring(L, idx);
+        const char *field = olua_tostring(L, idx);
         if (mode == OLUA_CALLBACK_TAG_WILDCARD) {
             return strstr(field, tag) != NULL;
         } else if (mode == OLUA_CALLBACK_TAG_ENDWITH) {

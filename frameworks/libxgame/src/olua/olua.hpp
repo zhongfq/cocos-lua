@@ -33,8 +33,8 @@
 #include <set>
 #include <vector>
 
-#ifndef olua_handlestatus
-#define olua_handlestatus(L, i, n) assert(false && "not define olua_handlestatus")
+#ifndef olua_holdobj
+#define olua_holdobj(L, i, n) assert(false && "not define olua_holdobj")
 #endif
 
 template <typename T> void olua_registerluatype(lua_State *L, const char *cls)
@@ -104,7 +104,7 @@ template <typename T> T *olua_checkobj(lua_State *L, int idx)
 template <typename T> int olua_push_cppobj(lua_State *L, T* value, const char *cls)
 {
     cls = olua_getluatype(L, value, cls);
-    olua_handlestatus(L, value, olua_pushobj(L, value, cls));
+    olua_holdobj(L, value, olua_pushobj(L, value, cls));
     return 1;
 }
 

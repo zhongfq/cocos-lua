@@ -4,7 +4,7 @@
 #define olua_mainthread()           xlua_cocosthread()
 #define olua_startcmpunref(L, i, n) xlua_startcmpunref(L, i, n)
 #define olua_endcmpunref(L, i, n)   xlua_endcmpunref(L, i, n)
-#define olua_handlestatus(L, v, s)  xlua_handlestatus(L, v, s)
+#define olua_holdobj(L, v, s)       xlua_holdobj(L, v, s)
 
 #include "xgame/xdef.h"
 #include "olua/olua.hpp"
@@ -23,7 +23,7 @@ int xlua_nonsupport(lua_State *L);
 
 int xlua_ccobjgc(lua_State *L);
 
-template <typename T> void xlua_handlestatus(lua_State *L, T* value, int status)
+template <typename T> void xlua_holdobj(lua_State *L, T* value, int status)
 {
     if ((status == OLUA_OBJ_NEW || status == OLUA_OBJ_UPDATE) &&
         std::is_base_of<cocos2d::Ref, T>::value) {

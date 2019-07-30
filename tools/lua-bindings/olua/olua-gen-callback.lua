@@ -163,7 +163,7 @@ function olua.gencallback(cls, fi, write)
 
     if fi.CALLBACK_OPT.CALLONCE then
         CALLBACK.REMOVE_CALLBACK = format([[
-            olua_removecallback(L, callback_store_obj, func.c_str(), OLUA_CALLBACK_TAG_EQUAL);
+            olua_removecallback(L, callback_store_obj, func.c_str(), OLUA_TAG_EQUAL);
         ]])
     end
 
@@ -212,10 +212,10 @@ function olua.gencallback(cls, fi, write)
         ]]
     end
 
-    olua.assert(OLUA_CALLBACK_TAG == 'OLUA_CALLBACK_TAG_REPLACE' or
-        OLUA_CALLBACK_TAG == 'OLUA_CALLBACK_TAG_NEW',
+    olua.assert(OLUA_CALLBACK_TAG == 'OLUA_TAG_REPLACE' or
+        OLUA_CALLBACK_TAG == 'OLUA_TAG_NEW',
         "expect '%s' or '%s', got '%s'",
-        'OLUA_CALLBACK_TAG_REPLACE', 'OLUA_CALLBACK_TAG_NEW',
+        'OLUA_TAG_REPLACE', 'OLUA_TAG_NEW',
         OLUA_CALLBACK_TAG
     )
 
@@ -254,7 +254,7 @@ function olua.gencallback(cls, fi, write)
             } else {
                 void *callback_store_obj = (void *)${CALLBACK_STORE_OBJ};
                 std::string tag = ${TAG_MAKER};
-                olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+                olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
                 ${CALLBACK_ARG_NAME} = ${DEFAULT};
             }
         ]])

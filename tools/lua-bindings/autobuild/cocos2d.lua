@@ -283,7 +283,7 @@ cls.callback {
         'void schedule(const std::function<void(float)>& callback, void *target, float interval, unsigned int repeat, float delay, bool paused, const std::string& key)',
     },
     TAG_MAKER = 'makeScheduleCallbackTag(#-1)',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = 2,
     CALLONCE = false,
     REMOVE = false,
@@ -293,7 +293,7 @@ cls.callback {
         'void unschedule(const std::string& key, void *target)',
     },
     TAG_MAKER = 'makeScheduleCallbackTag(#1)',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
+    TAG_MODE = 'OLUA_TAG_ENDWITH',
     TAG_STORE = 2,
     CALLONCE = false,
     REMOVE = true,
@@ -303,7 +303,7 @@ cls.callback {
         'void unscheduleAllForTarget(void *target)',
     },
     TAG_MAKER = 'makeScheduleCallbackTag("")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_WILDCARD',
+    TAG_MODE = 'OLUA_TAG_WILDCARD',
     TAG_STORE = 1,
     CALLONCE = false,
     REMOVE = true,
@@ -313,7 +313,7 @@ cls.callback {
         'void unscheduleAll()',
     },
     TAG_MAKER = 'makeScheduleCallbackTag("")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_WILDCARD',
+    TAG_MODE = 'OLUA_TAG_WILDCARD',
     CALLONCE = false,
     REMOVE = true,
 }
@@ -366,7 +366,7 @@ cls.func('addCustomEventListener', [[{
     listener->autorelease();
     olua_push_cppobj<cocos2d::EventListenerCustom>(L, listener);
     callback_store_obj = listener;
-    std::string func = olua_setcallback(L, callback_store_obj, eventName.c_str(), 3, OLUA_CALLBACK_TAG_NEW);
+    std::string func = olua_setcallback(L, callback_store_obj, eventName.c_str(), 3, OLUA_TAG_NEW);
     listener->init(eventName, [callback_store_obj, func](cocos2d::EventCustom *event) {
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
@@ -474,7 +474,7 @@ cls.callback {
         'static EventListenerCustom* create(const std::string& eventName, const std::function<void(@local EventCustom*)>& callback)',
     },
     TAG_MAKER = 'olua_makecallbacktag("listener")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_NEW',
+    TAG_MODE = 'OLUA_TAG_NEW',
     CPPFUNC = 'init',
     NEW = [[
         auto *self = new ${DECLTYPE}();
@@ -505,7 +505,7 @@ cls.callback {
         'static EventListenerAcceleration* create(const std::function<void(@local Acceleration*, @local Event*)>& callback)',
     },
     TAG_MAKER = 'olua_makecallbacktag("listener")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_NEW',
+    TAG_MODE = 'OLUA_TAG_NEW',
     CPPFUNC = 'init',
     NEW = [[
         auto *self = new ${DECLTYPE}();
@@ -1073,7 +1073,7 @@ cls.callback {
         'static void stop(int audioID)',
     },
     TAG_MAKER = 'makeAudioEngineFinishCallbackTag(#1)',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
+    TAG_MODE = 'OLUA_TAG_ENDWITH',
     CALLONCE = false,
     REMOVE = true,
 }
@@ -1082,7 +1082,7 @@ cls.callback {
         'static void stopAll()',
     },
     TAG_MAKER = 'makeAudioEngineFinishCallbackTag(-1)',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_WILDCARD',
+    TAG_MODE = 'OLUA_TAG_WILDCARD',
     CALLONCE = false,
     REMOVE = true,
 }
@@ -1091,7 +1091,7 @@ cls.callback {
         'static void uncacheAll()',
     },
     TAG_MAKER = 'makeAudioEngineFinishCallbackTag(-1)',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_WILDCARD',
+    TAG_MODE = 'OLUA_TAG_WILDCARD',
     CALLONCE = false,
     REMOVE = true,
 }
@@ -1100,7 +1100,7 @@ cls.callback {
         'static void setFinishCallback(int audioID, @nullable const std::function<void(int,const std::string&)>& callback)',
     },
     TAG_MAKER = 'makeAudioEngineFinishCallbackTag(#1)',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = true,
     REMOVE = false,
 }
@@ -1110,7 +1110,7 @@ cls.callback {
         'static void preload(const std::string& filePath, std::function<void(bool isSuccess)> callback)',
     },
     TAG_MAKER = 'olua_makecallbacktag("preload")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = true,
     REMOVE = false,
 }
@@ -1122,7 +1122,7 @@ cls.inject('uncache', {
         void *callback_store_obj = (void *)olua_getstoreobj(L, cls);
         for (auto id : ids) {
             std::string tag = makeAudioEngineFinishCallbackTag((lua_Integer)id);
-            olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+            olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
         }
     ]],
 })
@@ -1681,7 +1681,7 @@ cls.callback {
         'void addImageAsync(const std::string &path, const std::function<void(Texture2D*)>& callback, const std::string& callbackKey)',
     },
     TAG_MAKER = {'makeTextureCacheCallbackTag(#1)', 'makeTextureCacheCallbackTag(#-1)'},
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = true,
     REMOVE = false,
 }
@@ -1690,7 +1690,7 @@ cls.callback {
         'void unbindImageAsync(const std::string &filename)',
     },
     TAG_MAKER = 'makeTextureCacheCallbackTag(#1)',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
+    TAG_MODE = 'OLUA_TAG_ENDWITH',
     CALLONCE = false,
     REMOVE = true,
 }
@@ -1699,7 +1699,7 @@ cls.callback {
         'void unbindAllImageAsync()',
     },
     TAG_MAKER = 'makeTextureCacheCallbackTag("")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_WILDCARD',
+    TAG_MODE = 'OLUA_TAG_WILDCARD',
     CALLONCE = false,
     REMOVE = true,
 }
@@ -2405,7 +2405,7 @@ cls.callback {
         'static ActionFloat* create(float duration, float from, float to, std::function<void(float value)> callback)',
     },
     TAG_MAKER = 'olua_makecallbacktag("ActionFloat")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_NEW',
+    TAG_MODE = 'OLUA_TAG_NEW',
     CPPFUNC = 'initWithDuration',
     NEW = [[
         auto *self = new ${DECLTYPE}();
@@ -2822,7 +2822,7 @@ cls.callback {
         'static CallFunc * create(const std::function<void()>& func)',
     },
     TAG_MAKER = 'olua_makecallbacktag("CallFunc")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_NEW',
+    TAG_MODE = 'OLUA_TAG_NEW',
     CPPFUNC = 'initWithFunction',
     NEW = [[
         auto *self = new ${DECLTYPE}();
@@ -3182,7 +3182,7 @@ cls.callback {
         'void setOnEnterCallback(@nullable const std::function<void()>& callback)',
     },
     TAG_MAKER = 'olua_makecallbacktag("onEnterCallback")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -3191,7 +3191,7 @@ cls.callback {
         'const std::function<void()>& getOnEnterCallback()',
     },
     TAG_MAKER = 'olua_makecallbacktag("onEnterCallback")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
+    TAG_MODE = 'OLUA_TAG_ENDWITH',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -3200,7 +3200,7 @@ cls.callback {
         'void setOnExitCallback(@nullable const std::function<void()>& callback)',
     },
     TAG_MAKER = 'olua_makecallbacktag("onExitCallback")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -3209,7 +3209,7 @@ cls.callback {
         'const std::function<void()>& getOnExitCallback()',
     },
     TAG_MAKER = 'olua_makecallbacktag("onExitCallback")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
+    TAG_MODE = 'OLUA_TAG_ENDWITH',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -3218,7 +3218,7 @@ cls.callback {
         'void setOnEnterTransitionDidFinishCallback(@nullable const std::function<void()>& callback)',
     },
     TAG_MAKER = 'olua_makecallbacktag("onEnterTransitionDidFinishCallback")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -3227,7 +3227,7 @@ cls.callback {
         'const std::function<void()>& getOnEnterTransitionDidFinishCallback()',
     },
     TAG_MAKER = 'olua_makecallbacktag("onEnterTransitionDidFinishCallback")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
+    TAG_MODE = 'OLUA_TAG_ENDWITH',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -3236,7 +3236,7 @@ cls.callback {
         'void setOnExitTransitionDidStartCallback(@nullable const std::function<void()>& callback)',
     },
     TAG_MAKER = 'olua_makecallbacktag("onExitTransitionDidStartCallback")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -3245,7 +3245,7 @@ cls.callback {
         'const std::function<void()>& getOnExitTransitionDidStartCallback()',
     },
     TAG_MAKER = 'olua_makecallbacktag("onExitTransitionDidStartCallback")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
+    TAG_MODE = 'OLUA_TAG_ENDWITH',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -3254,7 +3254,7 @@ cls.callback {
         'void scheduleOnce(const std::function<void(float)>& callback, float delay, const std::string &key)',
     },
     TAG_MAKER = 'makeScheduleCallbackTag(#-1)',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = true,
     REMOVE = false,
 }
@@ -3265,7 +3265,7 @@ cls.callback {
         'void schedule(const std::function<void(float)>& callback, float interval, unsigned int repeat, float delay, const std::string &key)',
     },
     TAG_MAKER = 'makeScheduleCallbackTag(#-1)',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -3274,7 +3274,7 @@ cls.callback {
         'void unschedule(const std::string &key)',
     },
     TAG_MAKER = 'makeScheduleCallbackTag(#1)',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
+    TAG_MODE = 'OLUA_TAG_ENDWITH',
     CALLONCE = false,
     REMOVE = true,
 }
@@ -3283,7 +3283,7 @@ cls.callback {
         'void unscheduleAllCallbacks()',
     },
     TAG_MAKER = 'makeScheduleCallbackTag("")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_WILDCARD',
+    TAG_MODE = 'OLUA_TAG_WILDCARD',
     CALLONCE = false,
     REMOVE = true,
 }
@@ -3712,7 +3712,7 @@ cls.callback {
         'bool saveToFile(const std::string& filename, Image::Format format, bool isRGBA = true, std::function<void (RenderTexture*, const std::string&)> callback = nullptr)',
     },
     TAG_MAKER = 'olua_makecallbacktag("saveToFile")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = true,
     REMOVE = false,
 }

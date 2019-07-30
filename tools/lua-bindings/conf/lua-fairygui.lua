@@ -130,7 +130,7 @@ UIEventDispatcher.CALLBACK {
         'void addEventListener(int eventType, const std::function<void(@local EventContext* context)>& callback, const EventTag& tag)'
     },
     TAG_MAKER = {'makeListenerTag(L, #1, 0)', 'makeListenerTag(L, #1, 4)'},
-    TAG_MODE = 'OLUA_CALLBACK_TAG_NEW',
+    TAG_MODE = 'OLUA_TAG_NEW',
 }
 UIEventDispatcher.CALLBACK {
     FUNCS = {
@@ -138,13 +138,13 @@ UIEventDispatcher.CALLBACK {
         'void removeEventListener(int eventType, const EventTag& tag)',
     },
     TAG_MAKER = {'makeListenerTag(L, #1, 0)', 'makeListenerTag(L, #1, 3)'},
-    TAG_MODE = {'OLUA_CALLBACK_TAG_WILDCARD', 'OLUA_CALLBACK_TAG_ENDWITH'},
+    TAG_MODE = {'OLUA_TAG_WILDCARD', 'OLUA_TAG_ENDWITH'},
     REMOVE = true,
 }
 UIEventDispatcher.CALLBACK {
     FUNCS = {'void removeEventListeners()'},
     TAG_MAKER = 'makeListenerTag(L, -1, 0)',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_WILDCARD',
+    TAG_MODE = 'OLUA_TAG_WILDCARD',
     REMOVE = true,
 }
 
@@ -155,7 +155,7 @@ local InputProcessor = typeconf 'fairygui::InputProcessor'
 InputProcessor.CALLBACK {
     FUNCS = {'void setCaptureCallback(@nullable std::function<void(int eventType)> value)'},
     TAG_MAKER = 'olua_makecallbacktag("captureCallback")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
 }
 
 typeconf 'fairygui::InputEvent'
@@ -178,22 +178,22 @@ local GTweener = typeconf 'fairygui::GTweener'
 GTweener.CALLBACK {
     FUNCS= {'GTweener* onUpdate(std::function<void(GTweener* tweener)> callback)'},
     TAG_MAKER = 'olua_makecallbacktag("onUpdate")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
 }
 GTweener.CALLBACK {
     FUNCS= {'GTweener* onStart(std::function<void(GTweener* tweener)> callback)'},
     TAG_MAKER = 'olua_makecallbacktag("onStart")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
 }
 GTweener.CALLBACK {
     FUNCS= {'GTweener* onComplete(std::function<void()> callback)'},
     TAG_MAKER = 'olua_makecallbacktag("onComplete")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
 }
 GTweener.CALLBACK {
     FUNCS= {'GTweener* onComplete1(std::function<void(GTweener* tweener)> callback)'},
     TAG_MAKER = 'olua_makecallbacktag("onComplete1")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
 }
 
 local GTween = typeconf 'fairygui::GTween'
@@ -292,12 +292,12 @@ GObject.CALLBACK {
         'makeListenerTag(L, fairygui::UIEventType::Click, 0)', -- no tag
         'makeListenerTag(L, fairygui::UIEventType::Click, 3)', -- tag stack idx
     },
-    TAG_MODE = 'OLUA_CALLBACK_TAG_NEW',
+    TAG_MODE = 'OLUA_TAG_NEW',
 }
 GObject.CALLBACK {
     FUNCS = {'void removeClickListener(const EventTag& tag)'},
     TAG_MAKER = 'makeListenerTag(L, fairygui::UIEventType::Click, 2)',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
+    TAG_MODE = 'OLUA_TAG_ENDWITH',
     REMOVE = true,
 }
 GObject.INJECT('center', {
@@ -500,7 +500,7 @@ local GMovieClip = typeconf 'fairygui::GMovieClip'
 GMovieClip.CALLBACK {
     FUNCS = {'void setPlaySettings(int start = 0, int end = -1, int times = 0, int endAt = -1, std::function<void()> completeCallback = nullptr)'},
     TAG_MAKER = 'olua_makecallbacktag("playSettings")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
 }
 
 typeconf 'fairygui::GProgressBar'
@@ -535,7 +535,7 @@ PopupMenu.FUNC('addItemAt', [[
 
     void *callback_store_obj = (void *)ret;
     std::string tag = makeListenerTag(L, fairygui::UIEventType::ClickMenu, 0);
-    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 4, OLUA_CALLBACK_TAG_NEW);
+    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 4, OLUA_TAG_NEW);
     std::function<void(fairygui::EventContext *)> callback = [callback_store_obj, func, tag](fairygui::EventContext *event) {
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
@@ -642,7 +642,7 @@ Transition.CALLBACK {
         'void play(int times, float delay, float startTime, float endTime, std::function<void()> callback = nullptr)',
     },
     TAG_MAKER = 'olua_makecallbacktag("play")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
 }
 Transition.CALLBACK {
     FUNCS = {
@@ -650,17 +650,17 @@ Transition.CALLBACK {
         'void playReverse(int times, float delay, std::function<void()> callback = nullptr)',
     },
     TAG_MAKER = 'olua_makecallbacktag("playReverse")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
 }
 Transition.CALLBACK {
     FUNCS = {'void setHook(const std::string& label, @nullable std::function<void()> callback)'},
     TAG_MAKER = 'olua_makecallbacktag("hook." + #1)',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
 }
 Transition.CALLBACK {
     FUNCS = {'void clearHooks()'},
     TAG_MAKER = 'olua_makecallbacktag("hook.")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_WILDCARD',
+    TAG_MODE = 'OLUA_TAG_WILDCARD',
     REMOVE = true,
 }
 
@@ -701,7 +701,7 @@ local IUISource = typeconf 'fairygui::IUISource'
 IUISource.CALLBACK {
     FUNCS = {'void load(@nullable std::function<void()> callback)'},
     TAG_MAKER = 'olua_makecallbacktag("load")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
 }
 
 local UISource = typeconf 'fairygui::UISource'
@@ -787,12 +787,12 @@ local UIObjectFactory = typeconf 'fairygui::UIObjectFactory'
 UIObjectFactory.CALLBACK {
     FUNCS = {'static void setPackageItemExtension(const std::string& url, std::function<GComponent*()> creator)'},
     TAG_MAKER = 'olua_makecallbacktag("packageItemExtension")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
 }
 UIObjectFactory.CALLBACK {
     FUNCS = {'static void setLoaderExtension(std::function<GLoader*()> creator)'},
     TAG_MAKER = 'olua_makecallbacktag("loaderExtension")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
 }
 
 local GearBase = typeconf 'fairygui::GearBase'

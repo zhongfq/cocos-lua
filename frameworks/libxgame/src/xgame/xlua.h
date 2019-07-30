@@ -25,8 +25,7 @@ int xlua_ccobjgc(lua_State *L);
 
 template <typename T> void xlua_holdobj(lua_State *L, T* value, int status)
 {
-    if ((status == OLUA_OBJ_NEW || status == OLUA_OBJ_UPDATE) &&
-        std::is_base_of<cocos2d::Ref, T>::value) {
+    if (status == OLUA_NEW && std::is_base_of<cocos2d::Ref, T>::value) {
         ((cocos2d::Ref *)value)->retain();
 #ifdef COCOS2D_DEBUG
         if (!olua_isa(L, -1, "cc.Ref")) {

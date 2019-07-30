@@ -646,16 +646,16 @@ function olua.typecls(cppcls)
         }
 
         remove all callback:
-            {TAG_MAKER = "", TAG_MODE = "OLUA_CALLBACK_TAG_WILDCARD", REMOVE = true}
+            {TAG_MAKER = "", TAG_MODE = "OLUA_TAG_WILDCARD", REMOVE = true}
 
         remove click callback:
-            {TAG_MAKER = "click", TAG_MODE = "OLUA_CALLBACK_TAG_ENDWITH", REMOVE = true}
+            {TAG_MAKER = "click", TAG_MODE = "OLUA_TAG_ENDWITH", REMOVE = true}
 
         add new callback:
-            {TAG_MAKER = 'click', TAG_MODE = "OLUA_CALLBACK_TAG_NEW"}
+            {TAG_MAKER = 'click', TAG_MODE = "OLUA_TAG_NEW"}
 
         replace previous callback:
-            {TAG_MAKER = 'click', TAG_MODE = "OLUA_CALLBACK_TAG_REPLACE"}
+            {TAG_MAKER = 'click', TAG_MODE = "OLUA_TAG_REPLACE"}
     ]]
     function cls.callback(opt)
         cls.FUNCS[#cls.FUNCS + 1] = parseFunc(cls, nil, table.unpack(opt.FUNCS))
@@ -689,11 +689,11 @@ function olua.typecls(cppcls)
         if ARGS[1].CALLBACK.ARGS then
             CALLBACK_OPT_SET = {
                 TAG_MAKER = 'olua_makecallbacktag("' .. name .. '")',
-                TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+                TAG_MODE = 'OLUA_TAG_REPLACE',
             }
             CALLBACK_OPT_GET = {
                 TAG_MAKER = 'olua_makecallbacktag("' .. name .. '")',
-                TAG_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
+                TAG_MODE = 'OLUA_TAG_ENDWITH',
             }
         end
 

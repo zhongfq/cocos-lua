@@ -157,7 +157,7 @@ cls.callback {
         'void addTouchEventListener(@nullable const std::function<void(Ref*,Widget::TouchEventType)>& callback)',
     },
     TAG_MAKER = 'olua_makecallbacktag("touchEventListener")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -166,7 +166,7 @@ cls.callback {
         'void addClickEventListener(@nullable std::function<void(Ref*)>& callback)',
     },
     TAG_MAKER = 'olua_makecallbacktag("clickEventListener")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -175,7 +175,7 @@ cls.callback {
         'void addCCSEventListener(@nullable const std::function<void(Ref*, int)>& callback)',
     },
     TAG_MAKER = 'olua_makecallbacktag("ccsEventListener")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -643,7 +643,7 @@ cls.callback {
         'void setOnShouldStartLoading(@nullable const std::function<bool(WebView *sender, const std::string &url)>& callback)',
     },
     TAG_MAKER = 'olua_makecallbacktag("onShouldStartLoading")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -652,7 +652,7 @@ cls.callback {
         'std::function<bool(WebView *sender, const std::string &url)> getOnShouldStartLoading()',
     },
     TAG_MAKER = 'olua_makecallbacktag("onShouldStartLoading")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
+    TAG_MODE = 'OLUA_TAG_ENDWITH',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -661,7 +661,7 @@ cls.callback {
         'void setOnDidFinishLoading(@nullable const std::function<void(WebView *sender, const std::string &url)>& callback)',
     },
     TAG_MAKER = 'olua_makecallbacktag("onDidFinishLoading")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -670,7 +670,7 @@ cls.callback {
         'std::function<void(WebView *sender, const std::string &url)> getOnDidFinishLoading()',
     },
     TAG_MAKER = 'olua_makecallbacktag("onDidFinishLoading")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
+    TAG_MODE = 'OLUA_TAG_ENDWITH',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -679,7 +679,7 @@ cls.callback {
         'void setOnDidFailLoading(@nullable const std::function<void(WebView *sender, const std::string &url)>& callback)',
     },
     TAG_MAKER = 'olua_makecallbacktag("onDidFailLoading")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -688,7 +688,7 @@ cls.callback {
         'std::function<void(WebView *sender, const std::string &url)> getOnDidFailLoading()',
     },
     TAG_MAKER = 'olua_makecallbacktag("onDidFailLoading")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
+    TAG_MODE = 'OLUA_TAG_ENDWITH',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -697,7 +697,7 @@ cls.callback {
         'void setOnJSCallback(@nullable const std::function<void(WebView *sender, const std::string &url)>& callback)',
     },
     TAG_MAKER = 'olua_makecallbacktag("onJSCallback")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -706,7 +706,7 @@ cls.callback {
         'std::function<void(WebView *sender, const std::string &url)> getOnJSCallback()',
     },
     TAG_MAKER = 'olua_makecallbacktag("onJSCallback")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
+    TAG_MODE = 'OLUA_TAG_ENDWITH',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -767,7 +767,7 @@ cls.callback {
         'void addEventListener(@nullable const std::function<void(Ref*,VideoPlayer::EventType)>& callback)',
     },
     TAG_MAKER = 'olua_makecallbacktag("videoPlayerCallback")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -901,7 +901,7 @@ cls.callback {
         'void setTabChangedEventListener(@nullable const std::function<void(int tabIndex, EventType)>& callback)',
     },
     TAG_MAKER = 'olua_makecallbacktag("tabChangedEventListener")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -1013,7 +1013,7 @@ cls.callback {
         'void addEventListener(@nullable const std::function<void(Ref*, EventType)>& callback)',
     },
     TAG_MAKER = 'olua_makecallbacktag("scrollViewCallback")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -1123,7 +1123,7 @@ cls.callback {
         'void addEventListener(@nullable const std::function<void(Ref*, EventType)>& callback)',
     },
     TAG_MAKER = 'olua_makecallbacktag("ListViewCallback")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -1236,7 +1236,7 @@ cls.callback {
         'void addEventListener(@nullable const std::function<void(Ref*, PageView::EventType)>& callback)',
     },
     TAG_MAKER = 'olua_makecallbacktag("PageViewCallback")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -1381,7 +1381,7 @@ cls.callback {
         'static RichText* createWithXML(const std::string& xml, const ValueMap& defaults, const std::function<void(const std::string& url)>& handleOpenUrl)',
     },
     TAG_MAKER = 'olua_makecallbacktag("openUrlHandler")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CPPFUNC = 'initWithXML',
     NEW = [[
         auto *self = new ${DECLTYPE}();
@@ -1397,7 +1397,7 @@ cls.callback {
         'void setOpenUrlHandler(const std::function<void(const std::string& url)>& handleOpenUrl)',
     },
     TAG_MAKER = 'olua_makecallbacktag("openUrlHandler")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -1500,7 +1500,7 @@ cls.callback {
         'void addEventListener(@nullable const std::function<void(Ref*,EventType)>& callback)',
     },
     TAG_MAKER = 'olua_makecallbacktag("sliderCallback")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -1734,7 +1734,7 @@ cls.callback {
         'void addEventListener(@nullable const std::function<void(Ref*, EventType)>& callback)',
     },
     TAG_MAKER = 'olua_makecallbacktag("textFieldCallback")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -1848,7 +1848,7 @@ cls.callback {
         'void addEventListener(@nullable const std::function<void(Ref*,CheckBox::EventType)>& callback)',
     },
     TAG_MAKER = 'olua_makecallbacktag("checkBoxCallback")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -1873,7 +1873,7 @@ cls.callback {
         'void addEventListener(@nullable const std::function<void(RadioButton* radioButton, EventType)>& callback)',
     },
     TAG_MAKER = 'olua_makecallbacktag("radioButtonCallback")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -1907,7 +1907,7 @@ cls.callback {
         'void addEventListener(@nullable const std::function<void(RadioButton* radioButton, int index, EventType)>& callback)',
     },
     TAG_MAKER = 'olua_makecallbacktag("radioButtonCallback")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }

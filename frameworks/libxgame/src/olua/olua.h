@@ -40,9 +40,14 @@ extern "C" {
 #include <assert.h>
 #include <math.h>
     
-#define OLUA_OBJ_EXIST  0
-#define OLUA_OBJ_NEW    1
-#define OLUA_OBJ_UPDATE 2
+// callback status
+#define OLUA_OK     0
+#define OLUA_MISS   1
+#define OLUA_ERR    2
+    
+// object status
+#define OLUA_EXIST  0
+#define OLUA_NEW    1
     
 #define OLUA_VOIDCLS "void *"
     
@@ -129,22 +134,18 @@ LUALIB_API void olua_pop_objpool(lua_State *L, size_t level);
     
 typedef enum {
     // for olua_setcallback
-    OLUA_CALLBACK_TAG_NEW,
-    OLUA_CALLBACK_TAG_REPLACE,
+    OLUA_TAG_NEW,
+    OLUA_TAG_REPLACE,
     // for olua_removecallback
-    OLUA_CALLBACK_TAG_EQUAL,
-    OLUA_CALLBACK_TAG_ENDWITH,
-    OLUA_CALLBACK_TAG_WILDCARD
-} olua_callback_tag_t;
-    
-#define OLUA_CALLBACK_OK    0
-#define OLUA_CALLBACK_MISS  1
-#define OLUA_CALLBACK_ERR   2
+    OLUA_TAG_EQUAL,
+    OLUA_TAG_ENDWITH,
+    OLUA_TAG_WILDCARD
+} olua_tag_mode;
 
 // callback functions
-LUALIB_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag, int func, olua_callback_tag_t mode);
-LUALIB_API void olua_getcallback(lua_State *L, void *obj, const char *tag, olua_callback_tag_t mode);
-LUALIB_API void olua_removecallback(lua_State *L, void *obj, const char *tag, olua_callback_tag_t mode);
+LUALIB_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag, int func, olua_tag_mode mode);
+LUALIB_API void olua_getcallback(lua_State *L, void *obj, const char *tag, olua_tag_mode mode);
+LUALIB_API void olua_removecallback(lua_State *L, void *obj, const char *tag, olua_tag_mode mode);
 LUALIB_API int olua_callback(lua_State *L, void *obj, const char *func, int argc);
 #define olua_makecallbacktag(tag) (tag)
     

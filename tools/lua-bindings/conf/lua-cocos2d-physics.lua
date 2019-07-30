@@ -141,27 +141,27 @@ PhysicsWorld.PROP('scene')
 PhysicsWorld.CALLBACK {
     FUNCS = {'void rayCast(std::function<bool(@local PhysicsWorld& world, @local const PhysicsRayCastInfo& info, void* data)> func, const Vec2& start, const Vec2& end, void* data)'},
     TAG_MAKER = 'olua_makecallbacktag("rayCast")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
 }
 PhysicsWorld.CALLBACK {
     FUNCS = {'void queryRect(std::function<bool(@local PhysicsWorld&, @local PhysicsShape&, void*)> func, const Rect& rect, void* data)'},
     TAG_MAKER = 'olua_makecallbacktag("queryRect")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
 }
 PhysicsWorld.CALLBACK {
     FUNCS = {'void queryPoint(std::function<bool(@local PhysicsWorld&, @local PhysicsShape&, void*)> func, const Vec2& point, void* data)'},
     TAG_MAKER = 'olua_makecallbacktag("queryPoint")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
 }
 PhysicsWorld.CALLBACK {
     FUNCS = {'void setPreUpdateCallback(@nullable const std::function<void()> &callback)'},
     TAG_MAKER = 'olua_makecallbacktag("preUpdateCallback")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
 }
 PhysicsWorld.CALLBACK {
     FUNCS = {'void setPostUpdateCallback(@nullable const std::function<void()> &callback)'},
     TAG_MAKER = 'olua_makecallbacktag("postUpdateCallback")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
 }
 
 return M

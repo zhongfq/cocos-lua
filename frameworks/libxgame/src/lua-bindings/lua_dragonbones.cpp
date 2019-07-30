@@ -12284,7 +12284,7 @@ static int _dragonBones_CCArmatureDisplay_addDBEventListener(lua_State *L)
 
     void *callback_store_obj = (void *)self;
     std::string tag = olua_makecallbacktag(arg1);
-    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_CALLBACK_TAG_NEW);
+    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_TAG_NEW);
     arg2 = [callback_store_obj, func](dragonBones::EventObject *arg1) {
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
@@ -12497,7 +12497,7 @@ static int _dragonBones_CCArmatureDisplay_removeDBEventListener(lua_State *L)
 
     std::string tag = olua_makecallbacktag(arg1);
     void *callback_store_obj = (void *)self;
-    olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_CALLBACK_TAG_ENDWITH);
+    olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
 
     // void removeDBEventListener(const std::string& type, @nullable const std::function<void(EventObject*)>& listener)
     self->removeDBEventListener(arg1, arg2);

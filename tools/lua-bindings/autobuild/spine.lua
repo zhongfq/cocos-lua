@@ -278,7 +278,7 @@ cls.callback {
         'void setListener(std::function<void (AnimationState* state, EventType type, TrackEntry* entry, Event* event)> listener)',
     },
     TAG_MAKER = 'olua_makecallbacktag("listener")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -1245,7 +1245,7 @@ cls.callback {
         'void setListener(std::function<void (AnimationState* state, EventType type, TrackEntry* entry, Event* event)> listener)',
     },
     TAG_MAKER = 'olua_makecallbacktag("listener")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -1561,7 +1561,7 @@ cls.callback {
         'void setStartListener(@nullable const std::function<void(TrackEntry* entry)>& listener)',
     },
     TAG_MAKER = 'olua_makecallbacktag("startListener")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -1570,7 +1570,7 @@ cls.callback {
         'void setInterruptListener(@nullable const std::function<void(TrackEntry* entry)>& listener)',
     },
     TAG_MAKER = 'olua_makecallbacktag("interruptListener")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -1579,7 +1579,7 @@ cls.callback {
         'void setEndListener(@nullable const std::function<void(TrackEntry* entry)>& listener)',
     },
     TAG_MAKER = 'olua_makecallbacktag("endListener")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -1588,7 +1588,7 @@ cls.callback {
         'void setDisposeListener(@nullable const std::function<void(TrackEntry* entry)>& listener)',
     },
     TAG_MAKER = 'olua_makecallbacktag("disposeListener")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -1597,7 +1597,7 @@ cls.callback {
         'void setCompleteListener(@nullable const std::function<void(TrackEntry* entry)>& listener)',
     },
     TAG_MAKER = 'olua_makecallbacktag("completeListener")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -1606,7 +1606,7 @@ cls.callback {
         'void setEventListener(@nullable const std::function<void(TrackEntry* entry, Event* event)>& listener)',
     },
     TAG_MAKER = 'olua_makecallbacktag("eventListener")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -1615,7 +1615,7 @@ cls.callback {
         'void setTrackStartListener(TrackEntry* entry, @nullable const std::function<void(TrackEntry* entry)>& listener)',
     },
     TAG_MAKER = 'olua_makecallbacktag("trackStartListener")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -1624,7 +1624,7 @@ cls.callback {
         'void setTrackInterruptListener(TrackEntry* entry, @nullable const std::function<void(TrackEntry* entry)>& listener)',
     },
     TAG_MAKER = 'olua_makecallbacktag("trackInterruptListener")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -1633,7 +1633,7 @@ cls.callback {
         'void setTrackEndListener(TrackEntry* entry, @nullable const std::function<void(TrackEntry* entry)>& listener)',
     },
     TAG_MAKER = 'olua_makecallbacktag("trackEndListener")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -1642,7 +1642,7 @@ cls.callback {
         'void setTrackDisposeListener(TrackEntry* entry, @nullable const std::function<void(TrackEntry* entry)>& listener)',
     },
     TAG_MAKER = 'olua_makecallbacktag("trackDisposeListener")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -1651,7 +1651,7 @@ cls.callback {
         'void setTrackCompleteListener(TrackEntry* entry, @nullable const std::function<void(TrackEntry* entry)>& listener)',
     },
     TAG_MAKER = 'olua_makecallbacktag("trackCompleteListener")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -1660,7 +1660,7 @@ cls.callback {
         'void setTrackEventListener(TrackEntry* entry, @nullable const std::function<void(TrackEntry* entry, Event* event)>& listener)',
     },
     TAG_MAKER = 'olua_makecallbacktag("trackEventListener")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }

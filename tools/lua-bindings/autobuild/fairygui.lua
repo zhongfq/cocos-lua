@@ -134,7 +134,7 @@ cls.callback {
         'void addEventListener(int eventType, const std::function<void(@local EventContext* context)>& callback, const EventTag& tag)',
     },
     TAG_MAKER = {'makeListenerTag(L, #1, 0)', 'makeListenerTag(L, #1, 4)'},
-    TAG_MODE = 'OLUA_CALLBACK_TAG_NEW',
+    TAG_MODE = 'OLUA_TAG_NEW',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -144,7 +144,7 @@ cls.callback {
         'void removeEventListener(int eventType, const EventTag& tag)',
     },
     TAG_MAKER = {'makeListenerTag(L, #1, 0)', 'makeListenerTag(L, #1, 3)'},
-    TAG_MODE = {'OLUA_CALLBACK_TAG_WILDCARD', 'OLUA_CALLBACK_TAG_ENDWITH'},
+    TAG_MODE = {'OLUA_TAG_WILDCARD', 'OLUA_TAG_ENDWITH'},
     CALLONCE = false,
     REMOVE = true,
 }
@@ -153,7 +153,7 @@ cls.callback {
         'void removeEventListeners()',
     },
     TAG_MAKER = 'makeListenerTag(L, -1, 0)',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_WILDCARD',
+    TAG_MODE = 'OLUA_TAG_WILDCARD',
     CALLONCE = false,
     REMOVE = true,
 }
@@ -203,7 +203,7 @@ cls.callback {
         'void setCaptureCallback(@nullable std::function<void(int eventType)> value)',
     },
     TAG_MAKER = 'olua_makecallbacktag("captureCallback")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -383,7 +383,7 @@ cls.callback {
         'GTweener* onUpdate(std::function<void(GTweener* tweener)> callback)',
     },
     TAG_MAKER = 'olua_makecallbacktag("onUpdate")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -392,7 +392,7 @@ cls.callback {
         'GTweener* onStart(std::function<void(GTweener* tweener)> callback)',
     },
     TAG_MAKER = 'olua_makecallbacktag("onStart")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -401,7 +401,7 @@ cls.callback {
         'GTweener* onComplete(std::function<void()> callback)',
     },
     TAG_MAKER = 'olua_makecallbacktag("onComplete")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -410,7 +410,7 @@ cls.callback {
         'GTweener* onComplete1(std::function<void(GTweener* tweener)> callback)',
     },
     TAG_MAKER = 'olua_makecallbacktag("onComplete1")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -894,7 +894,7 @@ cls.callback {
         'void addClickListener(const std::function<void(@local EventContext* context)>& callback, const EventTag& tag)',
     },
     TAG_MAKER = {'makeListenerTag(L, fairygui::UIEventType::Click, 0)', 'makeListenerTag(L, fairygui::UIEventType::Click, 3)'},
-    TAG_MODE = 'OLUA_CALLBACK_TAG_NEW',
+    TAG_MODE = 'OLUA_TAG_NEW',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -903,7 +903,7 @@ cls.callback {
         'void removeClickListener(const EventTag& tag)',
     },
     TAG_MAKER = 'makeListenerTag(L, fairygui::UIEventType::Click, 2)',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
+    TAG_MODE = 'OLUA_TAG_ENDWITH',
     CALLONCE = false,
     REMOVE = true,
 }
@@ -1512,7 +1512,7 @@ cls.callback {
         'void setPlaySettings(int start = 0, int end = -1, int times = 0, int endAt = -1, std::function<void()> completeCallback = nullptr)',
     },
     TAG_MAKER = 'olua_makecallbacktag("playSettings")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -1657,7 +1657,7 @@ cls.func('addItemAt', [[{
 
     void *callback_store_obj = (void *)ret;
     std::string tag = makeListenerTag(L, fairygui::UIEventType::ClickMenu, 0);
-    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 4, OLUA_CALLBACK_TAG_NEW);
+    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 4, OLUA_TAG_NEW);
     std::function<void(fairygui::EventContext *)> callback = [callback_store_obj, func, tag](fairygui::EventContext *event) {
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
@@ -1917,7 +1917,7 @@ cls.callback {
         'void play(int times, float delay, float startTime, float endTime, std::function<void()> callback = nullptr)',
     },
     TAG_MAKER = 'olua_makecallbacktag("play")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -1927,7 +1927,7 @@ cls.callback {
         'void playReverse(int times, float delay, std::function<void()> callback = nullptr)',
     },
     TAG_MAKER = 'olua_makecallbacktag("playReverse")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -1936,7 +1936,7 @@ cls.callback {
         'void setHook(const std::string& label, @nullable std::function<void()> callback)',
     },
     TAG_MAKER = 'olua_makecallbacktag("hook." + #1)',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -1945,7 +1945,7 @@ cls.callback {
         'void clearHooks()',
     },
     TAG_MAKER = 'olua_makecallbacktag("hook.")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_WILDCARD',
+    TAG_MODE = 'OLUA_TAG_WILDCARD',
     CALLONCE = false,
     REMOVE = true,
 }
@@ -2004,7 +2004,7 @@ cls.callback {
         'void load(@nullable std::function<void()> callback)',
     },
     TAG_MAKER = 'olua_makecallbacktag("load")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -2149,7 +2149,7 @@ cls.callback {
         'static void setPackageItemExtension(const std::string& url, std::function<GComponent*()> creator)',
     },
     TAG_MAKER = 'olua_makecallbacktag("packageItemExtension")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -2158,7 +2158,7 @@ cls.callback {
         'static void setLoaderExtension(std::function<GLoader*()> creator)',
     },
     TAG_MAKER = 'olua_makecallbacktag("loaderExtension")',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }

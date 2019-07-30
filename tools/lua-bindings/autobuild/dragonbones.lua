@@ -970,7 +970,7 @@ cls.callback {
         'void addDBEventListener(const std::string& type, const std::function<void(@local EventObject*)>& listener)',
     },
     TAG_MAKER = 'olua_makecallbacktag(#1)',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_NEW',
+    TAG_MODE = 'OLUA_TAG_NEW',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -979,7 +979,7 @@ cls.callback {
         'void removeDBEventListener(const std::string& type, @nullable const std::function<void(EventObject*)>& listener)',
     },
     TAG_MAKER = 'olua_makecallbacktag(#1)',
-    TAG_MODE = 'OLUA_CALLBACK_TAG_ENDWITH',
+    TAG_MODE = 'OLUA_TAG_ENDWITH',
     CALLONCE = false,
     REMOVE = true,
 }

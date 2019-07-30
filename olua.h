@@ -52,10 +52,12 @@ extern "C" {
     
 #ifndef olua_startcmpunref
 #define olua_startcmpunref(L, i, n) assert(false && "not define olua_startcmpunref")
+#define olua_endcmpunref(L, i, n) assert(false && "not define olua_endcmpunref")
 #endif
     
-#ifndef olua_endcmpunref
-#define olua_endcmpunref(L, i, n) assert(false && "not define olua_endcmpunref")
+#ifndef olua_startinvoke
+#define olua_startinvoke(L) ((void)L)
+#define olua_endinvoke(L)   ((void)L)
 #endif
     
 // compare the value raw type
@@ -201,21 +203,21 @@ LUALIB_API void oluacls_createclassproxy(lua_State *L);
 LUALIB_API void oluacls_prop(lua_State *L, const char *name, lua_CFunction getter, lua_CFunction setter);
 LUALIB_API void oluacls_func(lua_State *L, const char *name, lua_CFunction func);
 LUALIB_API void oluacls_const(lua_State *L, const char *name);
-#define oluacls_const_bool(L, f, v) {       \
+#define oluacls_const_bool(L, k, v) {       \
     lua_pushboolean(L, (v));                \
-    oluacls_const(L, (f));                  \
+    oluacls_const(L, (k));                  \
 }
-#define oluacls_const_number(L, f, v) {     \
+#define oluacls_const_number(L, k, v) {     \
     lua_pushnumber(L, (v));                 \
-    oluacls_const(L, (f));                  \
+    oluacls_const(L, (k));                  \
 }
-#define oluacls_const_integer(L, f, v) {    \
+#define oluacls_const_integer(L, k, v) {    \
     lua_pushinteger(L, (v));                \
-    oluacls_const(L, (f));                  \
+    oluacls_const(L, (k));                  \
 }
-#define oluacls_const_string(L, f, v) {     \
+#define oluacls_const_string(L, k, v) {     \
     lua_pushstring(L, (v));                 \
-    oluacls_const(L, (f));                  \
+    oluacls_const(L, (k));                  \
 }
     
 #define olua_push_bool(L, v)        (lua_pushboolean(L, (v)), 1)

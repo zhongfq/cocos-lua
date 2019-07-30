@@ -41,9 +41,6 @@
 #define OLUA_REF_TABLE  ((void *)auxgetmappingtable)
 #define OLUA_EXTRASPACE ((void *)lua_getextraspace)
 
-#define MAX(a, b) ((a) > (b) ? (a) : (b))
-#define MIN(a, b) ((a) < (b) ? (a) : (b))
-
 static inline bool strequal(const char *str1, const char *str2)
 {
     return strcmp(str1, str2) == 0;
@@ -300,21 +297,9 @@ LUALIB_API bool olua_getobj(lua_State *L, void *obj)
     }
 }
 
-LUALIB_API void *olua_checkobj(lua_State *L, int idx, const char *cls)
+static void *auxtoobj(lua_State *L, int idx, const char *cls, bool checked)
 {
-    if (olua_isa(L, idx, cls)) {
-        return olua_toobj(L, idx, cls);
-    } else {
-        luaL_error(L, "#%d argument error, expect: '%s', got '%s'", idx,
-            cls, olua_typename(L, idx));
-    }
-    return NULL;
-}
-
-LUALIB_API void *olua_toobj(lua_State *L, int idx, const char *cls)
-{
-    if (olua_isuserdata(L, idx)) {
-        olua_assert(olua_isa(L, idx, cls));
+    if (olua_isuserdata(L, idx) && (!checked || olua_isa(L, idx, cls))) {
         void *obj = olua_touserdata(L, idx, void *);
         if (obj) {
             return obj;
@@ -326,6 +311,16 @@ LUALIB_API void *olua_toobj(lua_State *L, int idx, const char *cls)
             cls, lua_typename(L, lua_type(L, idx)));
     }
     return NULL;
+}
+
+LUALIB_API void *olua_checkobj(lua_State *L, int idx, const char *cls)
+{
+    return auxtoobj(L, idx, cls, true);
+}
+
+LUALIB_API void *olua_toobj(lua_State *L, int idx, const char *cls)
+{
+    return auxtoobj(L, idx, cls, false);
 }
 
 LUALIB_API void olua_enable_objpool(lua_State *L)

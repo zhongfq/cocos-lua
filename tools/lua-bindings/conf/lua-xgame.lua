@@ -166,7 +166,7 @@ timer.FUNC("delay", [[
 {
     lua_settop(L, 2);
     float time = (float)olua_checknumber(L, 1);
-    unsigned int callback = olua_reffunc(L, 2);
+    uint32_t callback = olua_reffunc(L, 2);
     xgame::timer::delay(time, [callback]() {
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
@@ -184,8 +184,8 @@ timer.FUNC('schedule', [[
 {
     lua_settop(L, 2);
     float interval = (float)olua_checknumber(L, 1);
-    unsigned int callback = olua_reffunc(L, 2);
-    unsigned int id = xgame::timer::schedule(interval, [callback](float dt) {
+    uint32_t callback = olua_reffunc(L, 2);
+    uint32_t id = xgame::timer::schedule(interval, [callback](float dt) {
         lua_State *L = olua_mainthread();
         int top = lua_gettop(L);
         olua_geterrorfunc(L);
@@ -203,8 +203,8 @@ timer.FUNC('unschedule', [[
 {
     lua_settop(L, 1);
     uint64_t value = olua_checkinteger(L, 1);
-    unsigned int callback = value >> 32;
-    unsigned int id = value & 0xFFFFFFFF;
+    uint32_t callback = value >> 32;
+    uint32_t id = value & 0xFFFFFFFF;
     olua_unref(L, callback);
     xgame::timer::unschedule(id);
     return 0;

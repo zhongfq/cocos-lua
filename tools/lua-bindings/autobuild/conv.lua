@@ -1,3 +1,5 @@
+-- AUTO BUILD, DON'T MODIFY!
+
 require "autobuild.conv-types"
 
 local olua = require "olua"

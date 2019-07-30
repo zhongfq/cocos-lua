@@ -3,7 +3,7 @@ local typedef = olua.typedef
 
 typedef {
     CPPCLS = 'void',
-    CONV_FUNC = '<NONE>',
+    CONV = '<NONE>',
 }
 
 typedef {
@@ -12,12 +12,12 @@ typedef {
         GLvoid *
     ]],
     LUACLS = 'void *',
-    CONV_FUNC = 'olua_$$_obj',
+    CONV = 'olua_$$_obj',
 }
 
 typedef {
     CPPCLS = 'bool',
-    CONV_FUNC = 'olua_$$_bool',
+    CONV = 'olua_$$_bool',
 }
 
 typedef {
@@ -29,22 +29,22 @@ typedef {
         const GLchar *
     ]],
     DECLTYPE = 'const char *',
-    CONV_FUNC = 'olua_$$_string',
+    CONV = 'olua_$$_string',
 }
 
 typedef {
     CPPCLS = 'std::string',
-    CONV_FUNC = 'olua_$$_std_string',
+    CONV = 'olua_$$_std_string',
 }
 
 typedef {
     CPPCLS = 'std::function',
-    CONV_FUNC = 'olua_$$_std_function',
+    CONV = 'olua_$$_std_function',
 }
 
 typedef {
     CPPCLS = 'std::set',
-    CONV_FUNC = 'olua_$$_std_set',
+    CONV = 'olua_$$_std_set',
     PUSH_VALUETYPE = [[
         int ${ARG_NAME}_i = 1;
         lua_createtable(L, (int)${ARG_NAME}.size(), 0);
@@ -67,7 +67,7 @@ typedef {
 
 typedef {
     CPPCLS = 'std::vector',
-    CONV_FUNC = 'olua_$$_std_vector',
+    CONV = 'olua_$$_std_vector',
     PUSH_VALUETYPE = [[
         int ${ARG_NAME}_size = (int)${ARG_NAME}.size();
         lua_createtable(L, ${ARG_NAME}_size, 0);
@@ -96,7 +96,7 @@ typedef {
         GLfloat
     ]],
     DECLTYPE = 'lua_Number',
-    CONV_FUNC = 'olua_$$_number',
+    CONV = 'olua_$$_number',
 }
 
 typedef {
@@ -117,7 +117,7 @@ typedef {
         unsigned short
     ]],
     DECLTYPE = 'lua_Integer',
-    CONV_FUNC = 'olua_$$_int',
+    CONV = 'olua_$$_int',
 }
 
 typedef {
@@ -138,5 +138,5 @@ typedef {
         unsigned short
     ]],
     DECLTYPE = 'lua_Unsigned',
-    CONV_FUNC = 'olua_$$_uint',
+    CONV = 'olua_$$_uint',
 }

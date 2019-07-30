@@ -857,7 +857,7 @@ function olua.isvaluetype(ti)
 end
 
 function olua.convfunc(ti, fn)
-    return string.gsub(ti.CONV_FUNC, '[$]+', fn)
+    return string.gsub(ti.CONV, '[$]+', fn)
 end
 
 function olua.typedef(typeinfo)

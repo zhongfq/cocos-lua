@@ -1,3 +1,5 @@
+-- AUTO BUILD, DON'T MODIFY!
+
 require "autobuild.cocos2d-ui-types"
 
 local olua = require "olua"

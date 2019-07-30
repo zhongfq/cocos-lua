@@ -45,12 +45,12 @@ M.EXCLUDE_TYPE = require "conf.exclude-type"
 typedef {
     CPPCLS = 'cocos2d *',
     LUACLS = 'cc',
-    CONV_FUNC = 'olua_$$_obj',
+    CONV = 'olua_$$_obj',
 }
 
 typedef {
     CPPCLS = 'cocos2d::PhysicsMaterial',
-    CONV_FUNC = 'auto_olua_$$_cocos2d_PhysicsMaterial',
+    CONV = 'auto_olua_$$_cocos2d_PhysicsMaterial',
 }
 
 typeconv {
@@ -64,32 +64,32 @@ typeconv {
 
 typedef {
     CPPCLS = 'cocos2d::PhysicsWorld',
-    CONV_FUNC = 'olua_$$_cppobj',
+    CONV = 'olua_$$_cppobj',
 }
 
 typedef {
     CPPCLS = 'cocos2d::PhysicsShape',
-    CONV_FUNC = 'olua_$$_cppobj',
+    CONV = 'olua_$$_cppobj',
 }
 
 typedef {
     CPPCLS = 'cocos2d::PhysicsContact',
-    CONV_FUNC = 'olua_$$_cppobj',
+    CONV = 'olua_$$_cppobj',
 }
 
 typedef {
     CPPCLS = 'cocos2d::PhysicsContactPreSolve',
-    CONV_FUNC = 'olua_$$_cppobj',
+    CONV = 'olua_$$_cppobj',
 }
 
 typedef {
     CPPCLS = 'cocos2d::PhysicsContactPostSolve',
-    CONV_FUNC = 'olua_$$_cppobj',
+    CONV = 'olua_$$_cppobj',
 }
 
 typedef {
     CPPCLS = 'cocos2d::PhysicsRayCastInfo',
-    CONV_FUNC = 'olua_$$_cppobj',
+    CONV = 'olua_$$_cppobj',
 }
 
 local EventListenerPhysicsContact = typeconf 'cocos2d::EventListenerPhysicsContact'

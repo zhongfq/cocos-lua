@@ -63,6 +63,8 @@ function M:parse(path)
 
     local tu = index:parse(headerPath, args)
     self:visit(tu:cursor())
+    self:writeLine("-- AUTO BUILD, DON'T MODIFY!")
+    self:writeLine('')
     self:writeLine('require "autobuild.%s-types"', self:toPath(self.module.NAME))
     self:writeLine('')
     self:writeLine('local olua = require "olua"')
@@ -150,6 +152,8 @@ function M:writeTypedef()
         file:write(string.format(fmt, ...))
         file:write('\n')
     end
+    writeLine("-- AUTO BUILD, DON'T MODIFY!")
+    writeLine('')
     writeLine('local olua = require "olua"')
     writeLine('local typedef = olua.typedef')
     writeLine('')
@@ -193,7 +197,7 @@ function M:writeTypedef()
             typedef {
                 CPPCLS = '${CPPCLS}',
                 DECLTYPE = 'lua_Unsigned',
-                CONV_FUNC = 'olua_$$_uint',
+                CONV = 'olua_$$_uint',
                 LUACLS = '${LUACLS}',
             }
         ]]))
@@ -206,7 +210,7 @@ function M:writeTypedef()
         file:write(format([[
             typedef {
                 CPPCLS = '${CPPCLS} *',
-                CONV_FUNC = 'olua_$$_cppobj',
+                CONV = 'olua_$$_cppobj',
                 LUACLS = '${LUACLS}',
             }
         ]]))

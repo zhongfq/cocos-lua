@@ -34,7 +34,7 @@ M.CHUNK = [[]]
 
 typedef {
     CPPCLS = "dragonBones::Rectangle",
-    CONV_FUNC = 'auto_olua_$$_dragonBones_Rectangle',
+    CONV = 'auto_olua_$$_dragonBones_Rectangle',
 }
 
 typeconv {

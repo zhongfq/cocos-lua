@@ -144,7 +144,10 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactBegin(lua_State *L)
             olua_disable_objpool(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 1);
-            olua_check_bool(L, -1, &ret);
+
+            if (olua_is_bool(L, -1)) {
+                olua_check_bool(L, -1, &ret);
+            }
 
             //pop stack value
             olua_pop_objpool(L, last);
@@ -286,7 +289,10 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactPreSolve(lua_State 
             olua_disable_objpool(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 2);
-            olua_check_bool(L, -1, &ret);
+
+            if (olua_is_bool(L, -1)) {
+                olua_check_bool(L, -1, &ret);
+            }
 
             //pop stack value
             olua_pop_objpool(L, last);
@@ -5718,7 +5724,10 @@ static int _cocos2d_PhysicsWorld_queryPoint(lua_State *L)
         olua_push_obj(L, arg3, "void *");
 
         olua_callback(L, callback_store_obj, func.c_str(), 3);
-        olua_check_bool(L, -1, &ret);
+
+        if (olua_is_bool(L, -1)) {
+            olua_check_bool(L, -1, &ret);
+        }
 
         //pop stack value
         olua_pop_objpool(L, last);
@@ -5765,7 +5774,10 @@ static int _cocos2d_PhysicsWorld_queryRect(lua_State *L)
         olua_push_obj(L, arg3, "void *");
 
         olua_callback(L, callback_store_obj, func.c_str(), 3);
-        olua_check_bool(L, -1, &ret);
+
+        if (olua_is_bool(L, -1)) {
+            olua_check_bool(L, -1, &ret);
+        }
 
         //pop stack value
         olua_pop_objpool(L, last);
@@ -5814,7 +5826,10 @@ static int _cocos2d_PhysicsWorld_rayCast(lua_State *L)
         olua_push_obj(L, arg3, "void *");
 
         olua_callback(L, callback_store_obj, func.c_str(), 3);
-        olua_check_bool(L, -1, &ret);
+
+        if (olua_is_bool(L, -1)) {
+            olua_check_bool(L, -1, &ret);
+        }
 
         //pop stack value
         olua_pop_objpool(L, last);

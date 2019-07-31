@@ -3879,7 +3879,10 @@ static int _cocos2d_EventListenerTouchOneByOne_set_onTouchBegan(lua_State *L)
             olua_disable_objpool(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 2);
-            olua_check_bool(L, -1, &ret);
+
+            if (olua_is_bool(L, -1)) {
+                olua_check_bool(L, -1, &ret);
+            }
 
             //pop stack value
             olua_pop_objpool(L, last);

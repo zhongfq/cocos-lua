@@ -13787,7 +13787,10 @@ static int _fairygui_GList_set_itemProvider(lua_State *L)
         olua_push_int(L, (lua_Integer)arg1);
 
         olua_callback(L, callback_store_obj, func.c_str(), 1);
-        olua_check_std_string(L, -1, &ret);
+
+        if (olua_is_std_string(L, -1)) {
+            olua_check_std_string(L, -1, &ret);
+        }
 
         lua_settop(L, top);
         return ret;
@@ -20138,7 +20141,10 @@ static int _fairygui_UIObjectFactory_setLoaderExtension(lua_State *L)
         fairygui::GLoader *ret = nullptr;       
 
         olua_callback(L, callback_store_obj, func.c_str(), 0);
-        olua_check_cppobj(L, -1, (void **)&ret, "fui.GLoader");
+
+        if (olua_is_cppobj(L, -1, "fui.GLoader")) {
+            olua_check_cppobj(L, -1, (void **)&ret, "fui.GLoader");
+        }
 
         lua_settop(L, top);
         return ret;
@@ -20172,7 +20178,10 @@ static int _fairygui_UIObjectFactory_setPackageItemExtension(lua_State *L)
         fairygui::GComponent *ret = nullptr;       
 
         olua_callback(L, callback_store_obj, func.c_str(), 0);
-        olua_check_cppobj(L, -1, (void **)&ret, "fui.GComponent");
+
+        if (olua_is_cppobj(L, -1, "fui.GComponent")) {
+            olua_check_cppobj(L, -1, (void **)&ret, "fui.GComponent");
+        }
 
         lua_settop(L, top);
         return ret;
@@ -21142,7 +21151,10 @@ static int _fairygui_TreeView_set_treeNodeCreateCell(lua_State *L)
         olua_push_cppobj(L, arg1, "fui.TreeNode");
 
         olua_callback(L, callback_store_obj, func.c_str(), 1);
-        olua_check_cppobj(L, -1, (void **)&ret, "fui.GComponent");
+
+        if (olua_is_cppobj(L, -1, "fui.GComponent")) {
+            olua_check_cppobj(L, -1, (void **)&ret, "fui.GComponent");
+        }
 
         // inject code after call
         olua_push_cppobj<fairygui::TreeNode>(L, arg1);

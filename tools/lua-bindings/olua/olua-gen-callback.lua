@@ -179,6 +179,24 @@ function olua.gencallback(cls, fi, write)
         CALLBACK.DECL_RESULT = OUT.DECL_ARGS
         CALLBACK.CHECK_RESULT = OUT.CHECK_ARGS
 
+        if #CALLBACK.CHECK_RESULT > 0 then
+            local OLUA_IS_VALUE = olua.convfunc(RET.TYPE, 'is')
+            if olua.ispointee(RET.TYPE) then
+                CALLBACK.CHECK_RESULT = format([[
+                    if (${OLUA_IS_VALUE}(L, -1, "${RET.TYPE.LUACLS}")) {
+                        ${CALLBACK.CHECK_RESULT}
+                    }
+                ]])
+            else
+                CALLBACK.CHECK_RESULT = format([[
+                    if (${OLUA_IS_VALUE}(L, -1)) {
+                        ${CALLBACK.CHECK_RESULT}
+                    }
+                ]])
+            end
+            olua.nowarning(OLUA_IS_VALUE)
+        end
+
         if RET.TYPE.DECLTYPE ~= RET.TYPE.CPPCLS then
             CALLBACK.RETURN_RESULT = format([[return (${RET.TYPE.CPPCLS})ret;]])
         else
@@ -232,6 +250,7 @@ function olua.gencallback(cls, fi, write)
             ${CALLBACK.INJECT_BEFORE}
 
             olua_callback(L, callback_store_obj, func.c_str(), ${CALLBACK.NUM_ARGS});
+            
             ${CALLBACK.CHECK_RESULT}
 
             ${CALLBACK.INJECT_AFTER}

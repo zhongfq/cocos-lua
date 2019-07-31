@@ -16,7 +16,7 @@ local ui = {}
 local viewCreators = {}
 local viewClasses = {}
 local newStatck = {}
-local lazyIntCreator
+local lazyInitCreator
 local lastNew
 
 local todoBindings = setmetatable({}, {__mode = "k"})
@@ -80,12 +80,12 @@ function ui.bindEvents(view, mediator)
     local entry = todoBindings[view]
 
     for child, events in pairs(entry.mapping) do
-        for event, handle_name in pairs(events) do
-            local listener = mediator[handle_name]
+        for event, fn in pairs(events) do
+            local listener = mediator[fn]
             if listener then
                 child:addListener(event, listener, mediator)
             else
-                trace("no handle for '%s'", handle_name)
+                trace("no handle for '%s'", fn)
             end
         end
         entry.mapping[child] = nil
@@ -140,7 +140,7 @@ local function createChildren(data, parent, namespace, root)
         if subdata.children then
             local subnamespace = subdata.standalone and child or namespace
             local subroot = subdata.classname == "UIFile" and child or root
-            if subdata.lazy_init then
+            if subdata.lazyInit then
                 local cls = getmetatable(child)
                 local proxy = {}
                 setmetatable(child, proxy)
@@ -165,9 +165,9 @@ end
 function ui.inflate(data, parent, fillParent)
     assert(data, "no data")
 
-    if lazyIntCreator then
-        lazyIntCreator()
-        lazyIntCreator = false
+    if lazyInitCreator then
+        lazyInitCreator()
+        lazyInitCreator = false
     end
 
     if not parent then
@@ -225,7 +225,7 @@ local function newCreator(class)
     return function (data, parent)
         local view = class.new()
         dataloader.fill(view, data)
-        if data.lazy_init then
+        if data.lazyInit then
             view.visible = false
         end
         return view
@@ -251,7 +251,7 @@ local function bindBaseCreator(classname)
     bindCreator(classname, newCreator(class))
 end
 
-function lazyIntCreator()
+function lazyInitCreator()
     bindCreator("UIFile", function (data, parent)
         return ui.new(data.symbol, createChild(data, parent, data.custom_class))
     end)

@@ -685,13 +685,13 @@ LUALIB_API void olua_mapwalkunref(lua_State *L, int idx, const char *name, lua_C
     olua_getreftable(L, idx, name);         // L: t
     lua_pushnil(L);                         // L: t k
     while (lua_next(L, -2)) {               // L: t k v
-        int top = lua_gettop(L);
+        int kidx = lua_gettop(L) - 1;
         if (walk(L)) { // remove?
-            lua_pushvalue(L, -2);           // L: t k v k
+            lua_pushvalue(L, kidx);         // L: t k v k
             lua_pushnil(L);                 // L: t k v k nil
-            lua_rawset(L, -5);              // L: t k v
+            lua_rawset(L, kidx - 1);        // L: t k v
         }
-        lua_settop(L, top - 1);             // L: t k
+        lua_settop(L, kidx);                // L: t k
     }
     lua_pop(L, 1);
 }

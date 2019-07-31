@@ -146,7 +146,7 @@ static int _loader (lua_State *L)
 static int _addlualoader(lua_State *L)
 {
     lua_getglobal(L, LUA_LOADLIBNAME);                          // L: package
-    lua_getfield(L, -1, "searchers");                           // L: package, searchers
+    lua_getfield(L, -1, LUA_LOADER_TABLE);                      // L: package, searchers
     
     for (int i = (int)(lua_rawlen(L, - 1) + 1); i > 2; i--) {
         lua_rawgeti(L, -1, i - 1);                              // L: package, searchers func

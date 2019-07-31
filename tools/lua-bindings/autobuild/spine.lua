@@ -821,6 +821,7 @@ cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
     void setAttachment(size_t slotIndex, const String &name, Attachment *attachment)
     Attachment *getAttachment(size_t slotIndex, const String &name)
+    void removeAttachment(size_t slotIndex, const String& name)
     const String &getName()
     void addSkin(Skin* other)
     void copySkin(Skin* other)

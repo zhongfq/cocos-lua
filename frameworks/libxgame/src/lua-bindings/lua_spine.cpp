@@ -5641,6 +5641,28 @@ static int _spine_Skin_getName(lua_State *L)
     return num_ret;
 }
 
+static int _spine_Skin_removeAttachment(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    spine::Skin *self;
+    lua_Unsigned arg1;       /** slotIndex */
+    spine::String arg2;       /** name */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.Skin");
+    olua_check_uint(L, 2, &arg1);
+    manual_olua_check_spine_String(L, 3, &arg2);
+
+    // void removeAttachment(size_t slotIndex, const String& name)
+    self->removeAttachment((size_t)arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _spine_Skin_setAttachment(lua_State *L)
 {
     olua_startinvoke(L);
@@ -5674,6 +5696,7 @@ static int luaopen_spine_Skin(lua_State *L)
     oluacls_func(L, "getBones", _spine_Skin_getBones);
     oluacls_func(L, "getConstraints", _spine_Skin_getConstraints);
     oluacls_func(L, "getName", _spine_Skin_getName);
+    oluacls_func(L, "removeAttachment", _spine_Skin_removeAttachment);
     oluacls_func(L, "setAttachment", _spine_Skin_setAttachment);
     oluacls_prop(L, "bones", _spine_Skin_getBones, nullptr);
     oluacls_prop(L, "constraints", _spine_Skin_getConstraints, nullptr);

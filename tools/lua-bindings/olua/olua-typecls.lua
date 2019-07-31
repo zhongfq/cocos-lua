@@ -842,14 +842,22 @@ function olua.ispointee(ti)
 end
 
 local valuetype = {
-    ['bool'] = true,
-    ['const char *'] = true,
-    ['std::string'] = true,
-    ['std::function'] = true,
-    ['lua_Number'] = true,
-    ['lua_Integer'] = true,
-    ['lua_Unsigned'] = true,
+    ['bool'] = 'false',
+    ['const char *'] = 'nullptr',
+    ['std::string'] = '',
+    ['std::function'] = 'nullptr',
+    ['lua_Number'] = '0',
+    ['lua_Integer'] = '0',
+    ['lua_Unsigned'] = '0',
 }
+
+function olua.initialvalue(ti)
+    if olua.ispointee(ti) then
+        return 'nullptr'
+    else
+        return valuetype[ti.DECLTYPE] or ''
+    end
+end
 
 -- enum has cpp cls, but declared as lua_Unsigned
 function olua.isvaluetype(ti)

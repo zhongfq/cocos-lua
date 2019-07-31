@@ -253,8 +253,8 @@ static int _cocos2d_ui_Widget_dispatchFocusEvent(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::ui::Widget *self;
-    cocos2d::ui::Widget *arg1;       /** widgetLoseFocus */
-    cocos2d::ui::Widget *arg2;       /** widgetGetFocus */
+    cocos2d::ui::Widget *arg1 = nullptr;       /** widgetLoseFocus */
+    cocos2d::ui::Widget *arg2 = nullptr;       /** widgetGetFocus */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.Widget");
@@ -274,7 +274,7 @@ static int _cocos2d_ui_Widget_enableDpadNavigation(lua_State *L)
 
     lua_settop(L, 1);
 
-    bool arg1;       /** enable */
+    bool arg1 = false;       /** enable */
 
     olua_check_bool(L, 1, &arg1);
 
@@ -293,8 +293,8 @@ static int _cocos2d_ui_Widget_findNextFocusedWidget(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::ui::Widget *self;
-    lua_Unsigned arg1;       /** direction */
-    cocos2d::ui::Widget *arg2;       /** current */
+    lua_Unsigned arg1 = 0;       /** direction */
+    cocos2d::ui::Widget *arg2 = nullptr;       /** current */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
     olua_check_uint(L, 2, &arg1);
@@ -714,7 +714,7 @@ static int _cocos2d_ui_Widget_ignoreContentAdaptWithSize(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Widget *self;
-    bool arg1;       /** ignore */
+    bool arg1 = false;       /** ignore */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
     olua_check_bool(L, 2, &arg1);
@@ -734,9 +734,9 @@ static int _cocos2d_ui_Widget_interceptTouchEvent(lua_State *L)
     lua_settop(L, 4);
 
     cocos2d::ui::Widget *self;
-    lua_Unsigned arg1;       /** event */
-    cocos2d::ui::Widget *arg2;       /** sender */
-    cocos2d::Touch *arg3;       /** touch */
+    lua_Unsigned arg1 = 0;       /** event */
+    cocos2d::ui::Widget *arg2 = nullptr;       /** sender */
+    cocos2d::Touch *arg3 = nullptr;       /** touch */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
     olua_check_uint(L, 2, &arg1);
@@ -1026,8 +1026,8 @@ static int _cocos2d_ui_Widget_onFocusChange(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::ui::Widget *self;
-    cocos2d::ui::Widget *arg1;       /** widgetLostFocus */
-    cocos2d::ui::Widget *arg2;       /** widgetGetFocus */
+    cocos2d::ui::Widget *arg1 = nullptr;       /** widgetLostFocus */
+    cocos2d::ui::Widget *arg2 = nullptr;       /** widgetGetFocus */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.Widget");
@@ -1048,8 +1048,8 @@ static int _cocos2d_ui_Widget_onTouchBegan(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::ui::Widget *self;
-    cocos2d::Touch *arg1;       /** touch */
-    cocos2d::Event *arg2;       /** unusedEvent */
+    cocos2d::Touch *arg1 = nullptr;       /** touch */
+    cocos2d::Event *arg2 = nullptr;       /** unusedEvent */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Touch");
@@ -1071,8 +1071,8 @@ static int _cocos2d_ui_Widget_onTouchCancelled(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::ui::Widget *self;
-    cocos2d::Touch *arg1;       /** touch */
-    cocos2d::Event *arg2;       /** unusedEvent */
+    cocos2d::Touch *arg1 = nullptr;       /** touch */
+    cocos2d::Event *arg2 = nullptr;       /** unusedEvent */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Touch");
@@ -1093,8 +1093,8 @@ static int _cocos2d_ui_Widget_onTouchEnded(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::ui::Widget *self;
-    cocos2d::Touch *arg1;       /** touch */
-    cocos2d::Event *arg2;       /** unusedEvent */
+    cocos2d::Touch *arg1 = nullptr;       /** touch */
+    cocos2d::Event *arg2 = nullptr;       /** unusedEvent */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Touch");
@@ -1115,8 +1115,8 @@ static int _cocos2d_ui_Widget_onTouchMoved(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::ui::Widget *self;
-    cocos2d::Touch *arg1;       /** touch */
-    cocos2d::Event *arg2;       /** unusedEvent */
+    cocos2d::Touch *arg1 = nullptr;       /** touch */
+    cocos2d::Event *arg2 = nullptr;       /** unusedEvent */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Touch");
@@ -1137,9 +1137,9 @@ static int _cocos2d_ui_Widget_propagateTouchEvent(lua_State *L)
     lua_settop(L, 4);
 
     cocos2d::ui::Widget *self;
-    lua_Unsigned arg1;       /** event */
-    cocos2d::ui::Widget *arg2;       /** sender */
-    cocos2d::Touch *arg3;       /** touch */
+    lua_Unsigned arg1 = 0;       /** event */
+    cocos2d::ui::Widget *arg2 = nullptr;       /** sender */
+    cocos2d::Touch *arg3 = nullptr;       /** touch */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
     olua_check_uint(L, 2, &arg1);
@@ -1179,7 +1179,7 @@ static int _cocos2d_ui_Widget_setActionTag(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Widget *self;
-    lua_Integer arg1;       /** tag */
+    lua_Integer arg1 = 0;       /** tag */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
     olua_check_int(L, 2, &arg1);
@@ -1199,7 +1199,7 @@ static int _cocos2d_ui_Widget_setBright(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Widget *self;
-    bool arg1;       /** bright */
+    bool arg1 = false;       /** bright */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
     olua_check_bool(L, 2, &arg1);
@@ -1219,7 +1219,7 @@ static int _cocos2d_ui_Widget_setBrightStyle(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Widget *self;
-    lua_Unsigned arg1;       /** style */
+    lua_Unsigned arg1 = 0;       /** style */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
     olua_check_uint(L, 2, &arg1);
@@ -1279,7 +1279,7 @@ static int _cocos2d_ui_Widget_setEnabled(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Widget *self;
-    bool arg1;       /** enabled */
+    bool arg1 = false;       /** enabled */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
     olua_check_bool(L, 2, &arg1);
@@ -1299,7 +1299,7 @@ static int _cocos2d_ui_Widget_setFlippedX(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Widget *self;
-    bool arg1;       /** flippedX */
+    bool arg1 = false;       /** flippedX */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
     olua_check_bool(L, 2, &arg1);
@@ -1319,7 +1319,7 @@ static int _cocos2d_ui_Widget_setFlippedY(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Widget *self;
-    bool arg1;       /** flippedY */
+    bool arg1 = false;       /** flippedY */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
     olua_check_bool(L, 2, &arg1);
@@ -1339,7 +1339,7 @@ static int _cocos2d_ui_Widget_setFocusEnabled(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Widget *self;
-    bool arg1;       /** enable */
+    bool arg1 = false;       /** enable */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
     olua_check_bool(L, 2, &arg1);
@@ -1359,7 +1359,7 @@ static int _cocos2d_ui_Widget_setFocused(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Widget *self;
-    bool arg1;       /** focus */
+    bool arg1 = false;       /** focus */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
     olua_check_bool(L, 2, &arg1);
@@ -1379,7 +1379,7 @@ static int _cocos2d_ui_Widget_setHighlighted(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Widget *self;
-    bool arg1;       /** highlight */
+    bool arg1 = false;       /** highlight */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
     olua_check_bool(L, 2, &arg1);
@@ -1399,7 +1399,7 @@ static int _cocos2d_ui_Widget_setLayoutComponentEnabled(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Widget *self;
-    bool arg1;       /** enable */
+    bool arg1 = false;       /** enable */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
     olua_check_bool(L, 2, &arg1);
@@ -1419,7 +1419,7 @@ static int _cocos2d_ui_Widget_setLayoutParameter(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Widget *self;
-    cocos2d::ui::LayoutParameter *arg1;       /** parameter */
+    cocos2d::ui::LayoutParameter *arg1 = nullptr;       /** parameter */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.LayoutParameter");
@@ -1459,7 +1459,7 @@ static int _cocos2d_ui_Widget_setPositionType(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Widget *self;
-    lua_Unsigned arg1;       /** type */
+    lua_Unsigned arg1 = 0;       /** type */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
     olua_check_uint(L, 2, &arg1);
@@ -1479,7 +1479,7 @@ static int _cocos2d_ui_Widget_setPropagateTouchEvents(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Widget *self;
-    bool arg1;       /** isPropagate */
+    bool arg1 = false;       /** isPropagate */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
     olua_check_bool(L, 2, &arg1);
@@ -1519,7 +1519,7 @@ static int _cocos2d_ui_Widget_setSizeType(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Widget *self;
-    lua_Unsigned arg1;       /** type */
+    lua_Unsigned arg1 = 0;       /** type */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
     olua_check_uint(L, 2, &arg1);
@@ -1539,7 +1539,7 @@ static int _cocos2d_ui_Widget_setSwallowTouches(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Widget *self;
-    bool arg1;       /** swallow */
+    bool arg1 = false;       /** swallow */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
     olua_check_bool(L, 2, &arg1);
@@ -1559,7 +1559,7 @@ static int _cocos2d_ui_Widget_setTouchEnabled(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Widget *self;
-    bool arg1;       /** enabled */
+    bool arg1 = false;       /** enabled */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
     olua_check_bool(L, 2, &arg1);
@@ -1579,7 +1579,7 @@ static int _cocos2d_ui_Widget_setUnifySizeEnabled(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Widget *self;
-    bool arg1;       /** enable */
+    bool arg1 = false;       /** enable */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Widget");
     olua_check_bool(L, 2, &arg1);
@@ -1754,7 +1754,7 @@ static int _cocos2d_ui_Widget_set_onNextFocusedWidget(lua_State *L)
         arg1 = [callback_store_obj, func](cocos2d::ui::Widget::FocusDirection arg1) {
             lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
-            cocos2d::ui::Widget *ret;       
+            cocos2d::ui::Widget *ret = nullptr;       
             olua_push_uint(L, (lua_Unsigned)arg1);
 
             olua_callback(L, callback_store_obj, func.c_str(), 1);
@@ -1904,7 +1904,7 @@ static int _cocos2d_ui_Helper_changeLayoutSystemActiveState(lua_State *L)
 
     lua_settop(L, 1);
 
-    bool arg1;       /** active */
+    bool arg1 = false;       /** active */
 
     olua_check_bool(L, 1, &arg1);
 
@@ -1922,7 +1922,7 @@ static int _cocos2d_ui_Helper_convertBoundingBoxToScreen(lua_State *L)
 
     lua_settop(L, 1);
 
-    cocos2d::Node *arg1;       /** node */
+    cocos2d::Node *arg1 = nullptr;       /** node */
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.Node");
 
@@ -1941,7 +1941,7 @@ static int _cocos2d_ui_Helper_doLayout(lua_State *L)
 
     lua_settop(L, 1);
 
-    cocos2d::Node *arg1;       /** rootNode */
+    cocos2d::Node *arg1 = nullptr;       /** rootNode */
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.Node");
 
@@ -1960,8 +1960,8 @@ static int _cocos2d_ui_Helper_getSubStringOfUTF8String(lua_State *L)
     lua_settop(L, 3);
 
     std::string arg1;       /** str */
-    lua_Unsigned arg2;       /** start */
-    lua_Unsigned arg3;       /** length */
+    lua_Unsigned arg2 = 0;       /** start */
+    lua_Unsigned arg3 = 0;       /** length */
 
     olua_check_std_string(L, 1, &arg1);
     olua_check_uint(L, 2, &arg2);
@@ -2003,8 +2003,8 @@ static int _cocos2d_ui_Helper_seekActionWidgetByActionTag(lua_State *L)
 
     lua_settop(L, 2);
 
-    cocos2d::ui::Widget *arg1;       /** root */
-    lua_Integer arg2;       /** tag */
+    cocos2d::ui::Widget *arg1 = nullptr;       /** root */
+    lua_Integer arg2 = 0;       /** tag */
 
     olua_check_cppobj(L, 1, (void **)&arg1, "ccui.Widget");
     olua_check_int(L, 2, &arg2);
@@ -2024,7 +2024,7 @@ static int _cocos2d_ui_Helper_seekWidgetByName(lua_State *L)
 
     lua_settop(L, 2);
 
-    cocos2d::ui::Widget *arg1;       /** root */
+    cocos2d::ui::Widget *arg1 = nullptr;       /** root */
     std::string arg2;       /** name */
 
     olua_check_cppobj(L, 1, (void **)&arg1, "ccui.Widget");
@@ -2045,8 +2045,8 @@ static int _cocos2d_ui_Helper_seekWidgetByTag(lua_State *L)
 
     lua_settop(L, 2);
 
-    cocos2d::ui::Widget *arg1;       /** root */
-    lua_Integer arg2;       /** tag */
+    cocos2d::ui::Widget *arg1 = nullptr;       /** root */
+    lua_Integer arg2 = 0;       /** tag */
 
     olua_check_cppobj(L, 1, (void **)&arg1, "ccui.Widget");
     olua_check_int(L, 2, &arg2);
@@ -2109,7 +2109,7 @@ static int _cocos2d_ui_Scale9Sprite_copyTo(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Scale9Sprite *self;
-    cocos2d::ui::Scale9Sprite *arg1;       /** copy */
+    cocos2d::ui::Scale9Sprite *arg1 = nullptr;       /** copy */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Scale9Sprite");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.Scale9Sprite");
@@ -2262,7 +2262,7 @@ static int _cocos2d_ui_Scale9Sprite_createWithSpriteFrame1(lua_State *L)
 
     lua_settop(L, 1);
 
-    cocos2d::SpriteFrame *arg1;       /** spriteFrame */
+    cocos2d::SpriteFrame *arg1 = nullptr;       /** spriteFrame */
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.SpriteFrame");
 
@@ -2281,7 +2281,7 @@ static int _cocos2d_ui_Scale9Sprite_createWithSpriteFrame2(lua_State *L)
 
     lua_settop(L, 2);
 
-    cocos2d::SpriteFrame *arg1;       /** spriteFrame */
+    cocos2d::SpriteFrame *arg1 = nullptr;       /** spriteFrame */
     cocos2d::Rect arg2;       /** capInsets */
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.SpriteFrame");
@@ -2575,9 +2575,9 @@ static int _cocos2d_ui_Scale9Sprite_init1(lua_State *L)
     lua_settop(L, 5);
 
     cocos2d::ui::Scale9Sprite *self;
-    cocos2d::Sprite *arg1;       /** sprite */
+    cocos2d::Sprite *arg1 = nullptr;       /** sprite */
     cocos2d::Rect arg2;       /** rect */
-    bool arg3;       /** rotated */
+    bool arg3 = false;       /** rotated */
     cocos2d::Rect arg4;       /** capInsets */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Scale9Sprite");
@@ -2602,7 +2602,7 @@ static int _cocos2d_ui_Scale9Sprite_init2(lua_State *L)
     lua_settop(L, 4);
 
     cocos2d::ui::Scale9Sprite *self;
-    cocos2d::Sprite *arg1;       /** sprite */
+    cocos2d::Sprite *arg1 = nullptr;       /** sprite */
     cocos2d::Rect arg2;       /** rect */
     cocos2d::Rect arg3;       /** capInsets */
 
@@ -2627,9 +2627,9 @@ static int _cocos2d_ui_Scale9Sprite_init3(lua_State *L)
     lua_settop(L, 7);
 
     cocos2d::ui::Scale9Sprite *self;
-    cocos2d::Sprite *arg1;       /** sprite */
+    cocos2d::Sprite *arg1 = nullptr;       /** sprite */
     cocos2d::Rect arg2;       /** rect */
-    bool arg3;       /** rotated */
+    bool arg3 = false;       /** rotated */
     cocos2d::Vec2 arg4;       /** offset */
     cocos2d::Size arg5;       /** originalSize */
     cocos2d::Rect arg6;       /** capInsets */
@@ -2754,7 +2754,7 @@ static int _cocos2d_ui_Scale9Sprite_initWithSpriteFrame(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::ui::Scale9Sprite *self;
-    cocos2d::SpriteFrame *arg1;       /** spriteFrame */
+    cocos2d::SpriteFrame *arg1 = nullptr;       /** spriteFrame */
     cocos2d::Rect arg2;       /** capInsets */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Scale9Sprite");
@@ -2878,7 +2878,7 @@ static int _cocos2d_ui_Scale9Sprite_setInsetBottom(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Scale9Sprite *self;
-    lua_Number arg1;       /** bottomInset */
+    lua_Number arg1 = 0;       /** bottomInset */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Scale9Sprite");
     olua_check_number(L, 2, &arg1);
@@ -2898,7 +2898,7 @@ static int _cocos2d_ui_Scale9Sprite_setInsetLeft(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Scale9Sprite *self;
-    lua_Number arg1;       /** leftInset */
+    lua_Number arg1 = 0;       /** leftInset */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Scale9Sprite");
     olua_check_number(L, 2, &arg1);
@@ -2918,7 +2918,7 @@ static int _cocos2d_ui_Scale9Sprite_setInsetRight(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Scale9Sprite *self;
-    lua_Number arg1;       /** rightInset */
+    lua_Number arg1 = 0;       /** rightInset */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Scale9Sprite");
     olua_check_number(L, 2, &arg1);
@@ -2938,7 +2938,7 @@ static int _cocos2d_ui_Scale9Sprite_setInsetTop(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Scale9Sprite *self;
-    lua_Number arg1;       /** topInset */
+    lua_Number arg1 = 0;       /** topInset */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Scale9Sprite");
     olua_check_number(L, 2, &arg1);
@@ -2978,7 +2978,7 @@ static int _cocos2d_ui_Scale9Sprite_setRenderingType(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Scale9Sprite *self;
-    lua_Unsigned arg1;       /** type */
+    lua_Unsigned arg1 = 0;       /** type */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Scale9Sprite");
     olua_check_uint(L, 2, &arg1);
@@ -2998,7 +2998,7 @@ static int _cocos2d_ui_Scale9Sprite_setScale9Enabled(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Scale9Sprite *self;
-    bool arg1;       /** enabled */
+    bool arg1 = false;       /** enabled */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Scale9Sprite");
     olua_check_bool(L, 2, &arg1);
@@ -3018,7 +3018,7 @@ static int _cocos2d_ui_Scale9Sprite_setSpriteFrame(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::ui::Scale9Sprite *self;
-    cocos2d::SpriteFrame *arg1;       /** spriteFrame */
+    cocos2d::SpriteFrame *arg1 = nullptr;       /** spriteFrame */
     cocos2d::Rect arg2;       /** capInsets */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Scale9Sprite");
@@ -3040,7 +3040,7 @@ static int _cocos2d_ui_Scale9Sprite_setState(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Scale9Sprite *self;
-    lua_Unsigned arg1;       /** state */
+    lua_Unsigned arg1 = 0;       /** state */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Scale9Sprite");
     olua_check_uint(L, 2, &arg1);
@@ -3060,9 +3060,9 @@ static int _cocos2d_ui_Scale9Sprite_updateWithSprite1(lua_State *L)
     lua_settop(L, 5);
 
     cocos2d::ui::Scale9Sprite *self;
-    cocos2d::Sprite *arg1;       /** sprite */
+    cocos2d::Sprite *arg1 = nullptr;       /** sprite */
     cocos2d::Rect arg2;       /** rect */
-    bool arg3;       /** rotated */
+    bool arg3 = false;       /** rotated */
     cocos2d::Rect arg4;       /** capInsets */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Scale9Sprite");
@@ -3087,9 +3087,9 @@ static int _cocos2d_ui_Scale9Sprite_updateWithSprite2(lua_State *L)
     lua_settop(L, 7);
 
     cocos2d::ui::Scale9Sprite *self;
-    cocos2d::Sprite *arg1;       /** sprite */
+    cocos2d::Sprite *arg1 = nullptr;       /** sprite */
     cocos2d::Rect arg2;       /** rect */
-    bool arg3;       /** rotated */
+    bool arg3 = false;       /** rotated */
     cocos2d::Vec2 arg4;       /** offset */
     cocos2d::Size arg5;       /** originalSize */
     cocos2d::Rect arg6;       /** capInsets */
@@ -3219,7 +3219,7 @@ static int _cocos2d_ui_LayoutComponent_bindLayoutComponent(lua_State *L)
 
     lua_settop(L, 1);
 
-    cocos2d::Node *arg1;       /** node */
+    cocos2d::Node *arg1 = nullptr;       /** node */
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.Node");
 
@@ -3709,7 +3709,7 @@ static int _cocos2d_ui_LayoutComponent_setActiveEnabled(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::LayoutComponent *self;
-    bool arg1;       /** enable */
+    bool arg1 = false;       /** enable */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutComponent");
     olua_check_bool(L, 2, &arg1);
@@ -3749,7 +3749,7 @@ static int _cocos2d_ui_LayoutComponent_setBottomMargin(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::LayoutComponent *self;
-    lua_Number arg1;       /** margin */
+    lua_Number arg1 = 0;       /** margin */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutComponent");
     olua_check_number(L, 2, &arg1);
@@ -3769,7 +3769,7 @@ static int _cocos2d_ui_LayoutComponent_setHorizontalEdge(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::LayoutComponent *self;
-    lua_Unsigned arg1;       /** hEage */
+    lua_Unsigned arg1 = 0;       /** hEage */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutComponent");
     olua_check_uint(L, 2, &arg1);
@@ -3789,7 +3789,7 @@ static int _cocos2d_ui_LayoutComponent_setLeftMargin(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::LayoutComponent *self;
-    lua_Number arg1;       /** margin */
+    lua_Number arg1 = 0;       /** margin */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutComponent");
     olua_check_number(L, 2, &arg1);
@@ -3829,7 +3829,7 @@ static int _cocos2d_ui_LayoutComponent_setPercentHeight(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::LayoutComponent *self;
-    lua_Number arg1;       /** percentHeight */
+    lua_Number arg1 = 0;       /** percentHeight */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutComponent");
     olua_check_number(L, 2, &arg1);
@@ -3849,7 +3849,7 @@ static int _cocos2d_ui_LayoutComponent_setPercentHeightEnabled(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::LayoutComponent *self;
-    bool arg1;       /** isUsed */
+    bool arg1 = false;       /** isUsed */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutComponent");
     olua_check_bool(L, 2, &arg1);
@@ -3869,7 +3869,7 @@ static int _cocos2d_ui_LayoutComponent_setPercentOnlyEnabled(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::LayoutComponent *self;
-    bool arg1;       /** enable */
+    bool arg1 = false;       /** enable */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutComponent");
     olua_check_bool(L, 2, &arg1);
@@ -3889,7 +3889,7 @@ static int _cocos2d_ui_LayoutComponent_setPercentWidth(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::LayoutComponent *self;
-    lua_Number arg1;       /** percentWidth */
+    lua_Number arg1 = 0;       /** percentWidth */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutComponent");
     olua_check_number(L, 2, &arg1);
@@ -3909,7 +3909,7 @@ static int _cocos2d_ui_LayoutComponent_setPercentWidthEnabled(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::LayoutComponent *self;
-    bool arg1;       /** isUsed */
+    bool arg1 = false;       /** isUsed */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutComponent");
     olua_check_bool(L, 2, &arg1);
@@ -3949,7 +3949,7 @@ static int _cocos2d_ui_LayoutComponent_setPositionPercentX(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::LayoutComponent *self;
-    lua_Number arg1;       /** percentMargin */
+    lua_Number arg1 = 0;       /** percentMargin */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutComponent");
     olua_check_number(L, 2, &arg1);
@@ -3969,7 +3969,7 @@ static int _cocos2d_ui_LayoutComponent_setPositionPercentXEnabled(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::LayoutComponent *self;
-    bool arg1;       /** isUsed */
+    bool arg1 = false;       /** isUsed */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutComponent");
     olua_check_bool(L, 2, &arg1);
@@ -3989,7 +3989,7 @@ static int _cocos2d_ui_LayoutComponent_setPositionPercentY(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::LayoutComponent *self;
-    lua_Number arg1;       /** percentMargin */
+    lua_Number arg1 = 0;       /** percentMargin */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutComponent");
     olua_check_number(L, 2, &arg1);
@@ -4009,7 +4009,7 @@ static int _cocos2d_ui_LayoutComponent_setPositionPercentYEnabled(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::LayoutComponent *self;
-    bool arg1;       /** isUsed */
+    bool arg1 = false;       /** isUsed */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutComponent");
     olua_check_bool(L, 2, &arg1);
@@ -4029,7 +4029,7 @@ static int _cocos2d_ui_LayoutComponent_setRightMargin(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::LayoutComponent *self;
-    lua_Number arg1;       /** margin */
+    lua_Number arg1 = 0;       /** margin */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutComponent");
     olua_check_number(L, 2, &arg1);
@@ -4069,7 +4069,7 @@ static int _cocos2d_ui_LayoutComponent_setSizeHeight(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::LayoutComponent *self;
-    lua_Number arg1;       /** height */
+    lua_Number arg1 = 0;       /** height */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutComponent");
     olua_check_number(L, 2, &arg1);
@@ -4089,7 +4089,7 @@ static int _cocos2d_ui_LayoutComponent_setSizeWidth(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::LayoutComponent *self;
-    lua_Number arg1;       /** width */
+    lua_Number arg1 = 0;       /** width */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutComponent");
     olua_check_number(L, 2, &arg1);
@@ -4109,7 +4109,7 @@ static int _cocos2d_ui_LayoutComponent_setStretchHeightEnabled(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::LayoutComponent *self;
-    bool arg1;       /** isUsed */
+    bool arg1 = false;       /** isUsed */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutComponent");
     olua_check_bool(L, 2, &arg1);
@@ -4129,7 +4129,7 @@ static int _cocos2d_ui_LayoutComponent_setStretchWidthEnabled(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::LayoutComponent *self;
-    bool arg1;       /** isUsed */
+    bool arg1 = false;       /** isUsed */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutComponent");
     olua_check_bool(L, 2, &arg1);
@@ -4149,7 +4149,7 @@ static int _cocos2d_ui_LayoutComponent_setTopMargin(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::LayoutComponent *self;
-    lua_Number arg1;       /** margin */
+    lua_Number arg1 = 0;       /** margin */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutComponent");
     olua_check_number(L, 2, &arg1);
@@ -4169,7 +4169,7 @@ static int _cocos2d_ui_LayoutComponent_setUsingPercentContentSize(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::LayoutComponent *self;
-    bool arg1;       /** isUsed */
+    bool arg1 = false;       /** isUsed */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutComponent");
     olua_check_bool(L, 2, &arg1);
@@ -4189,7 +4189,7 @@ static int _cocos2d_ui_LayoutComponent_setVerticalEdge(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::LayoutComponent *self;
-    lua_Unsigned arg1;       /** vEage */
+    lua_Unsigned arg1 = 0;       /** vEage */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutComponent");
     olua_check_uint(L, 2, &arg1);
@@ -4325,7 +4325,7 @@ static int _cocos2d_ui_LayoutParameter_copyProperties(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::LayoutParameter *self;
-    cocos2d::ui::LayoutParameter *arg1;       /** model */
+    cocos2d::ui::LayoutParameter *arg1 = nullptr;       /** model */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutParameter");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.LayoutParameter");
@@ -4507,7 +4507,7 @@ static int _cocos2d_ui_LinearLayoutParameter_setGravity(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::LinearLayoutParameter *self;
-    lua_Unsigned arg1;       /** gravity */
+    lua_Unsigned arg1 = 0;       /** gravity */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LinearLayoutParameter");
     olua_check_uint(L, 2, &arg1);
@@ -4645,7 +4645,7 @@ static int _cocos2d_ui_RelativeLayoutParameter_setAlign(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::RelativeLayoutParameter *self;
-    lua_Unsigned arg1;       /** align */
+    lua_Unsigned arg1 = 0;       /** align */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RelativeLayoutParameter");
     olua_check_uint(L, 2, &arg1);
@@ -5238,7 +5238,7 @@ static int _cocos2d_ui_Layout_setBackGroundColorOpacity(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Layout *self;
-    lua_Unsigned arg1;       /** opacity */
+    lua_Unsigned arg1 = 0;       /** opacity */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
     olua_check_uint(L, 2, &arg1);
@@ -5258,7 +5258,7 @@ static int _cocos2d_ui_Layout_setBackGroundColorType(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Layout *self;
-    lua_Unsigned arg1;       /** type */
+    lua_Unsigned arg1 = 0;       /** type */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
     olua_check_uint(L, 2, &arg1);
@@ -5299,7 +5299,7 @@ static int _cocos2d_ui_Layout_setBackGroundImage(lua_State *L)
 
     cocos2d::ui::Layout *self;
     std::string arg1;       /** fileName */
-    lua_Unsigned arg2;       /** texType */
+    lua_Unsigned arg2 = 0;       /** texType */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
     olua_check_std_string(L, 2, &arg1);
@@ -5360,7 +5360,7 @@ static int _cocos2d_ui_Layout_setBackGroundImageOpacity(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Layout *self;
-    lua_Unsigned arg1;       /** opacity */
+    lua_Unsigned arg1 = 0;       /** opacity */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
     olua_check_uint(L, 2, &arg1);
@@ -5380,7 +5380,7 @@ static int _cocos2d_ui_Layout_setBackGroundImageScale9Enabled(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Layout *self;
-    bool arg1;       /** enabled */
+    bool arg1 = false;       /** enabled */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
     olua_check_bool(L, 2, &arg1);
@@ -5400,7 +5400,7 @@ static int _cocos2d_ui_Layout_setClippingEnabled(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Layout *self;
-    bool arg1;       /** enabled */
+    bool arg1 = false;       /** enabled */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
     olua_check_bool(L, 2, &arg1);
@@ -5420,7 +5420,7 @@ static int _cocos2d_ui_Layout_setClippingType(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Layout *self;
-    lua_Unsigned arg1;       /** type */
+    lua_Unsigned arg1 = 0;       /** type */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
     olua_check_uint(L, 2, &arg1);
@@ -5440,7 +5440,7 @@ static int _cocos2d_ui_Layout_setLayoutType(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Layout *self;
-    lua_Unsigned arg1;       /** type */
+    lua_Unsigned arg1 = 0;       /** type */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
     olua_check_uint(L, 2, &arg1);
@@ -5460,7 +5460,7 @@ static int _cocos2d_ui_Layout_setLoopFocus(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Layout *self;
-    bool arg1;       /** loop */
+    bool arg1 = false;       /** loop */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
     olua_check_bool(L, 2, &arg1);
@@ -5480,7 +5480,7 @@ static int _cocos2d_ui_Layout_setPassFocusToChild(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Layout *self;
-    bool arg1;       /** pass */
+    bool arg1 = false;       /** pass */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
     olua_check_bool(L, 2, &arg1);
@@ -5534,7 +5534,7 @@ static int _cocos2d_ui_Layout_set_onPassFocusToChild(lua_State *L)
         arg1 = [callback_store_obj, func](cocos2d::ui::Widget::FocusDirection arg1, cocos2d::ui::Widget *arg2) {
             lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
-            lua_Integer ret;       
+            lua_Integer ret = 0;       
             olua_push_uint(L, (lua_Unsigned)arg1);
             olua_push_cppobj(L, arg2, "ccui.Widget");
 
@@ -6199,7 +6199,7 @@ static int _cocos2d_experimental_ui_WebView_loadURL2(lua_State *L)
 
     cocos2d::experimental::ui::WebView *self;
     std::string arg1;       /** url */
-    bool arg2;       /** cleanCachedData */
+    bool arg2 = false;       /** cleanCachedData */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
     olua_check_std_string(L, 2, &arg1);
@@ -6277,7 +6277,7 @@ static int _cocos2d_experimental_ui_WebView_setBounces(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::experimental::ui::WebView *self;
-    bool arg1;       /** bounce */
+    bool arg1 = false;       /** bounce */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
     olua_check_bool(L, 2, &arg1);
@@ -6451,7 +6451,7 @@ static int _cocos2d_experimental_ui_WebView_setOnShouldStartLoading(lua_State *L
         arg1 = [callback_store_obj, func](cocos2d::experimental::ui::WebView *arg1, const std::string &arg2) {
             lua_State *L = olua_mainthread();
             int top = lua_gettop(L);
-            bool ret;       
+            bool ret = false;       
             olua_push_cppobj(L, arg1, "ccui.WebView");
             olua_push_std_string(L, arg2);
 
@@ -6483,7 +6483,7 @@ static int _cocos2d_experimental_ui_WebView_setOpacityWebView(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::experimental::ui::WebView *self;
-    lua_Number arg1;       /** opacity */
+    lua_Number arg1 = 0;       /** opacity */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
     olua_check_number(L, 2, &arg1);
@@ -6503,7 +6503,7 @@ static int _cocos2d_experimental_ui_WebView_setScalesPageToFit(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::experimental::ui::WebView *self;
-    bool arg1;       /** scalesPageToFit */
+    bool arg1 = false;       /** scalesPageToFit */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
     olua_check_bool(L, 2, &arg1);
@@ -6804,7 +6804,7 @@ static int _cocos2d_experimental_ui_VideoPlayer_onPlayEvent(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::experimental::ui::VideoPlayer *self;
-    lua_Integer arg1;       /** event */
+    lua_Integer arg1 = 0;       /** event */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.VideoPlayer");
     olua_check_int(L, 2, &arg1);
@@ -6842,7 +6842,7 @@ static int _cocos2d_experimental_ui_VideoPlayer_seekTo(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::experimental::ui::VideoPlayer *self;
-    lua_Number arg1;       /** sec */
+    lua_Number arg1 = 0;       /** sec */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.VideoPlayer");
     olua_check_number(L, 2, &arg1);
@@ -6882,7 +6882,7 @@ static int _cocos2d_experimental_ui_VideoPlayer_setFullScreenEnabled(lua_State *
     lua_settop(L, 2);
 
     cocos2d::experimental::ui::VideoPlayer *self;
-    bool arg1;       /** fullscreen */
+    bool arg1 = false;       /** fullscreen */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.VideoPlayer");
     olua_check_bool(L, 2, &arg1);
@@ -6902,7 +6902,7 @@ static int _cocos2d_experimental_ui_VideoPlayer_setKeepAspectRatioEnabled(lua_St
     lua_settop(L, 2);
 
     cocos2d::experimental::ui::VideoPlayer *self;
-    bool arg1;       /** enable */
+    bool arg1 = false;       /** enable */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.VideoPlayer");
     olua_check_bool(L, 2, &arg1);
@@ -6922,7 +6922,7 @@ static int _cocos2d_experimental_ui_VideoPlayer_setLooping(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::experimental::ui::VideoPlayer *self;
-    bool arg1;       /** looping */
+    bool arg1 = false;       /** looping */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.VideoPlayer");
     olua_check_bool(L, 2, &arg1);
@@ -6942,7 +6942,7 @@ static int _cocos2d_experimental_ui_VideoPlayer_setStyle(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::experimental::ui::VideoPlayer *self;
-    lua_Unsigned arg1;       /** style */
+    lua_Unsigned arg1 = 0;       /** style */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.VideoPlayer");
     olua_check_uint(L, 2, &arg1);
@@ -6982,7 +6982,7 @@ static int _cocos2d_experimental_ui_VideoPlayer_setUserInputEnabled(lua_State *L
     lua_settop(L, 2);
 
     cocos2d::experimental::ui::VideoPlayer *self;
-    bool arg1;       /** enableInput */
+    bool arg1 = false;       /** enableInput */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.VideoPlayer");
     olua_check_bool(L, 2, &arg1);
@@ -7287,7 +7287,7 @@ static int _cocos2d_ui_AbstractCheckButton_init(lua_State *L)
     std::string arg3;       /** cross */
     std::string arg4;       /** backGroundDisabled */
     std::string arg5;       /** frontCrossDisabled */
-    lua_Unsigned arg6;       /** texType */
+    lua_Unsigned arg6 = 0;       /** texType */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
     olua_check_std_string(L, 2, &arg1);
@@ -7333,7 +7333,7 @@ static int _cocos2d_ui_AbstractCheckButton_loadTextureBackGround(lua_State *L)
 
     cocos2d::ui::AbstractCheckButton *self;
     std::string arg1;       /** backGround */
-    lua_Unsigned arg2;       /** type */
+    lua_Unsigned arg2 = 0;       /** type */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
     olua_check_std_string(L, 2, &arg1);
@@ -7355,7 +7355,7 @@ static int _cocos2d_ui_AbstractCheckButton_loadTextureBackGroundDisabled(lua_Sta
 
     cocos2d::ui::AbstractCheckButton *self;
     std::string arg1;       /** backGroundDisabled */
-    lua_Unsigned arg2;       /** texType */
+    lua_Unsigned arg2 = 0;       /** texType */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
     olua_check_std_string(L, 2, &arg1);
@@ -7377,7 +7377,7 @@ static int _cocos2d_ui_AbstractCheckButton_loadTextureBackGroundSelected(lua_Sta
 
     cocos2d::ui::AbstractCheckButton *self;
     std::string arg1;       /** backGroundSelected */
-    lua_Unsigned arg2;       /** texType */
+    lua_Unsigned arg2 = 0;       /** texType */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
     olua_check_std_string(L, 2, &arg1);
@@ -7399,7 +7399,7 @@ static int _cocos2d_ui_AbstractCheckButton_loadTextureFrontCross(lua_State *L)
 
     cocos2d::ui::AbstractCheckButton *self;
     std::string arg1;       /** crossTextureName */
-    lua_Unsigned arg2;       /** texType */
+    lua_Unsigned arg2 = 0;       /** texType */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
     olua_check_std_string(L, 2, &arg1);
@@ -7421,7 +7421,7 @@ static int _cocos2d_ui_AbstractCheckButton_loadTextureFrontCrossDisabled(lua_Sta
 
     cocos2d::ui::AbstractCheckButton *self;
     std::string arg1;       /** frontCrossDisabled */
-    lua_Unsigned arg2;       /** texType */
+    lua_Unsigned arg2 = 0;       /** texType */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
     olua_check_std_string(L, 2, &arg1);
@@ -7447,7 +7447,7 @@ static int _cocos2d_ui_AbstractCheckButton_loadTextures(lua_State *L)
     std::string arg3;       /** cross */
     std::string arg4;       /** backgroundDisabled */
     std::string arg5;       /** frontCrossDisabled */
-    lua_Unsigned arg6;       /** texType */
+    lua_Unsigned arg6 = 0;       /** texType */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
     olua_check_std_string(L, 2, &arg1);
@@ -7472,7 +7472,7 @@ static int _cocos2d_ui_AbstractCheckButton_setSelected(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::AbstractCheckButton *self;
-    bool arg1;       /** selected */
+    bool arg1 = false;       /** selected */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
     olua_check_bool(L, 2, &arg1);
@@ -7492,7 +7492,7 @@ static int _cocos2d_ui_AbstractCheckButton_setZoomScale(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::AbstractCheckButton *self;
-    lua_Number arg1;       /** scale */
+    lua_Number arg1 = 0;       /** scale */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
     olua_check_number(L, 2, &arg1);
@@ -7584,7 +7584,7 @@ static int _cocos2d_ui_TabHeader_create2(lua_State *L)
     std::string arg1;       /** titleStr */
     std::string arg2;       /** backGround */
     std::string arg3;       /** cross */
-    lua_Unsigned arg4;       /** texType */
+    lua_Unsigned arg4 = 0;       /** texType */
 
     olua_check_std_string(L, 1, &arg1);
     olua_check_std_string(L, 2, &arg2);
@@ -7612,7 +7612,7 @@ static int _cocos2d_ui_TabHeader_create3(lua_State *L)
     std::string arg4;       /** cross */
     std::string arg5;       /** backGroundDisabled */
     std::string arg6;       /** frontCrossDisabled */
-    lua_Unsigned arg7;       /** texType */
+    lua_Unsigned arg7 = 0;       /** texType */
 
     olua_check_std_string(L, 1, &arg1);
     olua_check_std_string(L, 2, &arg2);
@@ -7820,7 +7820,7 @@ static int _cocos2d_ui_TabHeader_setTitleFontSize(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::TabHeader *self;
-    lua_Number arg1;       /** size */
+    lua_Number arg1 = 0;       /** size */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TabHeader");
     olua_check_number(L, 2, &arg1);
@@ -8022,7 +8022,7 @@ static int _cocos2d_ui_TabControl_getTabContainer(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::TabControl *self;
-    lua_Integer arg1;       /** index */
+    lua_Integer arg1 = 0;       /** index */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TabControl");
     olua_check_int(L, 2, &arg1);
@@ -8065,7 +8065,7 @@ static int _cocos2d_ui_TabControl_getTabHeader(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::TabControl *self;
-    lua_Integer arg1;       /** index */
+    lua_Integer arg1 = 0;       /** index */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TabControl");
     olua_check_int(L, 2, &arg1);
@@ -8089,7 +8089,7 @@ static int _cocos2d_ui_TabControl_ignoreHeadersTextureSize(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::TabControl *self;
-    bool arg1;       /** ignore */
+    bool arg1 = false;       /** ignore */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TabControl");
     olua_check_bool(L, 2, &arg1);
@@ -8109,7 +8109,7 @@ static int _cocos2d_ui_TabControl_indexOfTabHeader(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::TabControl *self;
-    cocos2d::ui::TabHeader *arg1;       /** tabCell */
+    cocos2d::ui::TabHeader *arg1 = nullptr;       /** tabCell */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TabControl");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.TabHeader");
@@ -8130,9 +8130,9 @@ static int _cocos2d_ui_TabControl_insertTab(lua_State *L)
     lua_settop(L, 4);
 
     cocos2d::ui::TabControl *self;
-    lua_Integer arg1;       /** index */
-    cocos2d::ui::TabHeader *arg2;       /** header */
-    cocos2d::ui::Layout *arg3;       /** container */
+    lua_Integer arg1 = 0;       /** index */
+    cocos2d::ui::TabHeader *arg2 = nullptr;       /** header */
+    cocos2d::ui::Layout *arg3 = nullptr;       /** container */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TabControl");
     olua_check_int(L, 2, &arg1);
@@ -8177,7 +8177,7 @@ static int _cocos2d_ui_TabControl_removeTab(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::TabControl *self;
-    lua_Integer arg1;       /** index */
+    lua_Integer arg1 = 0;       /** index */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TabControl");
     olua_check_int(L, 2, &arg1);
@@ -8203,7 +8203,7 @@ static int _cocos2d_ui_TabControl_setHeaderDockPlace(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::TabControl *self;
-    lua_Unsigned arg1;       /** dockPlace */
+    lua_Unsigned arg1 = 0;       /** dockPlace */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TabControl");
     olua_check_uint(L, 2, &arg1);
@@ -8223,7 +8223,7 @@ static int _cocos2d_ui_TabControl_setHeaderHeight(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::TabControl *self;
-    lua_Number arg1;       /** headerHeight */
+    lua_Number arg1 = 0;       /** headerHeight */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TabControl");
     olua_check_number(L, 2, &arg1);
@@ -8243,7 +8243,7 @@ static int _cocos2d_ui_TabControl_setHeaderSelectedZoom(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::TabControl *self;
-    lua_Number arg1;       /** zoom */
+    lua_Number arg1 = 0;       /** zoom */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TabControl");
     olua_check_number(L, 2, &arg1);
@@ -8263,7 +8263,7 @@ static int _cocos2d_ui_TabControl_setHeaderWidth(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::TabControl *self;
-    lua_Number arg1;       /** headerWidth */
+    lua_Number arg1 = 0;       /** headerWidth */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TabControl");
     olua_check_number(L, 2, &arg1);
@@ -8283,7 +8283,7 @@ static int _cocos2d_ui_TabControl_setSelectTab1(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::TabControl *self;
-    lua_Integer arg1;       /** index */
+    lua_Integer arg1 = 0;       /** index */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TabControl");
     olua_check_int(L, 2, &arg1);
@@ -8303,7 +8303,7 @@ static int _cocos2d_ui_TabControl_setSelectTab2(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::TabControl *self;
-    cocos2d::ui::TabHeader *arg1;       /** tabHeader */
+    cocos2d::ui::TabHeader *arg1 = nullptr;       /** tabHeader */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TabControl");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.TabHeader");
@@ -8988,7 +8988,7 @@ static int _cocos2d_ui_ScrollView_jumpToPercentHorizontal(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::ScrollView *self;
-    lua_Number arg1;       /** percent */
+    lua_Number arg1 = 0;       /** percent */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
     olua_check_number(L, 2, &arg1);
@@ -9008,7 +9008,7 @@ static int _cocos2d_ui_ScrollView_jumpToPercentVertical(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::ScrollView *self;
-    lua_Number arg1;       /** percent */
+    lua_Number arg1 = 0;       /** percent */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
     olua_check_number(L, 2, &arg1);
@@ -9100,8 +9100,8 @@ static int _cocos2d_ui_ScrollView_scrollToBottom(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::ui::ScrollView *self;
-    lua_Number arg1;       /** timeInSec */
-    bool arg2;       /** attenuated */
+    lua_Number arg1 = 0;       /** timeInSec */
+    bool arg2 = false;       /** attenuated */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
     olua_check_number(L, 2, &arg1);
@@ -9122,8 +9122,8 @@ static int _cocos2d_ui_ScrollView_scrollToBottomLeft(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::ui::ScrollView *self;
-    lua_Number arg1;       /** timeInSec */
-    bool arg2;       /** attenuated */
+    lua_Number arg1 = 0;       /** timeInSec */
+    bool arg2 = false;       /** attenuated */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
     olua_check_number(L, 2, &arg1);
@@ -9144,8 +9144,8 @@ static int _cocos2d_ui_ScrollView_scrollToBottomRight(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::ui::ScrollView *self;
-    lua_Number arg1;       /** timeInSec */
-    bool arg2;       /** attenuated */
+    lua_Number arg1 = 0;       /** timeInSec */
+    bool arg2 = false;       /** attenuated */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
     olua_check_number(L, 2, &arg1);
@@ -9166,8 +9166,8 @@ static int _cocos2d_ui_ScrollView_scrollToLeft(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::ui::ScrollView *self;
-    lua_Number arg1;       /** timeInSec */
-    bool arg2;       /** attenuated */
+    lua_Number arg1 = 0;       /** timeInSec */
+    bool arg2 = false;       /** attenuated */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
     olua_check_number(L, 2, &arg1);
@@ -9189,8 +9189,8 @@ static int _cocos2d_ui_ScrollView_scrollToPercentBothDirection(lua_State *L)
 
     cocos2d::ui::ScrollView *self;
     cocos2d::Vec2 arg1;       /** percent */
-    lua_Number arg2;       /** timeInSec */
-    bool arg3;       /** attenuated */
+    lua_Number arg2 = 0;       /** timeInSec */
+    bool arg3 = false;       /** attenuated */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
     auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
@@ -9212,9 +9212,9 @@ static int _cocos2d_ui_ScrollView_scrollToPercentHorizontal(lua_State *L)
     lua_settop(L, 4);
 
     cocos2d::ui::ScrollView *self;
-    lua_Number arg1;       /** percent */
-    lua_Number arg2;       /** timeInSec */
-    bool arg3;       /** attenuated */
+    lua_Number arg1 = 0;       /** percent */
+    lua_Number arg2 = 0;       /** timeInSec */
+    bool arg3 = false;       /** attenuated */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
     olua_check_number(L, 2, &arg1);
@@ -9236,9 +9236,9 @@ static int _cocos2d_ui_ScrollView_scrollToPercentVertical(lua_State *L)
     lua_settop(L, 4);
 
     cocos2d::ui::ScrollView *self;
-    lua_Number arg1;       /** percent */
-    lua_Number arg2;       /** timeInSec */
-    bool arg3;       /** attenuated */
+    lua_Number arg1 = 0;       /** percent */
+    lua_Number arg2 = 0;       /** timeInSec */
+    bool arg3 = false;       /** attenuated */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
     olua_check_number(L, 2, &arg1);
@@ -9260,8 +9260,8 @@ static int _cocos2d_ui_ScrollView_scrollToRight(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::ui::ScrollView *self;
-    lua_Number arg1;       /** timeInSec */
-    bool arg2;       /** attenuated */
+    lua_Number arg1 = 0;       /** timeInSec */
+    bool arg2 = false;       /** attenuated */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
     olua_check_number(L, 2, &arg1);
@@ -9282,8 +9282,8 @@ static int _cocos2d_ui_ScrollView_scrollToTop(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::ui::ScrollView *self;
-    lua_Number arg1;       /** timeInSec */
-    bool arg2;       /** attenuated */
+    lua_Number arg1 = 0;       /** timeInSec */
+    bool arg2 = false;       /** attenuated */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
     olua_check_number(L, 2, &arg1);
@@ -9304,8 +9304,8 @@ static int _cocos2d_ui_ScrollView_scrollToTopLeft(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::ui::ScrollView *self;
-    lua_Number arg1;       /** timeInSec */
-    bool arg2;       /** attenuated */
+    lua_Number arg1 = 0;       /** timeInSec */
+    bool arg2 = false;       /** attenuated */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
     olua_check_number(L, 2, &arg1);
@@ -9326,8 +9326,8 @@ static int _cocos2d_ui_ScrollView_scrollToTopRight(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::ui::ScrollView *self;
-    lua_Number arg1;       /** timeInSec */
-    bool arg2;       /** attenuated */
+    lua_Number arg1 = 0;       /** timeInSec */
+    bool arg2 = false;       /** attenuated */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
     olua_check_number(L, 2, &arg1);
@@ -9348,7 +9348,7 @@ static int _cocos2d_ui_ScrollView_setBounceEnabled(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::ScrollView *self;
-    bool arg1;       /** enabled */
+    bool arg1 = false;       /** enabled */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
     olua_check_bool(L, 2, &arg1);
@@ -9368,7 +9368,7 @@ static int _cocos2d_ui_ScrollView_setDirection(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::ScrollView *self;
-    lua_Unsigned arg1;       /** dir */
+    lua_Unsigned arg1 = 0;       /** dir */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
     olua_check_uint(L, 2, &arg1);
@@ -9388,7 +9388,7 @@ static int _cocos2d_ui_ScrollView_setInertiaScrollEnabled(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::ScrollView *self;
-    bool arg1;       /** enabled */
+    bool arg1 = false;       /** enabled */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
     olua_check_bool(L, 2, &arg1);
@@ -9448,7 +9448,7 @@ static int _cocos2d_ui_ScrollView_setScrollBarAutoHideEnabled(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::ScrollView *self;
-    bool arg1;       /** autoHideEnabled */
+    bool arg1 = false;       /** autoHideEnabled */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
     olua_check_bool(L, 2, &arg1);
@@ -9468,7 +9468,7 @@ static int _cocos2d_ui_ScrollView_setScrollBarAutoHideTime(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::ScrollView *self;
-    lua_Number arg1;       /** autoHideTime */
+    lua_Number arg1 = 0;       /** autoHideTime */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
     olua_check_number(L, 2, &arg1);
@@ -9508,7 +9508,7 @@ static int _cocos2d_ui_ScrollView_setScrollBarEnabled(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::ScrollView *self;
-    bool arg1;       /** enabled */
+    bool arg1 = false;       /** enabled */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
     olua_check_bool(L, 2, &arg1);
@@ -9528,7 +9528,7 @@ static int _cocos2d_ui_ScrollView_setScrollBarOpacity(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::ScrollView *self;
-    lua_Unsigned arg1;       /** opacity */
+    lua_Unsigned arg1 = 0;       /** opacity */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
     olua_check_uint(L, 2, &arg1);
@@ -9608,7 +9608,7 @@ static int _cocos2d_ui_ScrollView_setScrollBarWidth(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::ScrollView *self;
-    lua_Number arg1;       /** width */
+    lua_Number arg1 = 0;       /** width */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
     olua_check_number(L, 2, &arg1);
@@ -9628,7 +9628,7 @@ static int _cocos2d_ui_ScrollView_setTouchTotalTimeThreshold(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::ScrollView *self;
-    lua_Number arg1;       /** touchTotalTimeThreshold */
+    lua_Number arg1 = 0;       /** touchTotalTimeThreshold */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
     olua_check_number(L, 2, &arg1);
@@ -10018,7 +10018,7 @@ static int _cocos2d_ui_ListView_getIndex(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::ListView *self;
-    cocos2d::ui::Widget *arg1;       /** item */
+    cocos2d::ui::Widget *arg1 = nullptr;       /** item */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.Widget");
@@ -10039,7 +10039,7 @@ static int _cocos2d_ui_ListView_getItem(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::ListView *self;
-    lua_Integer arg1;       /** index */
+    lua_Integer arg1 = 0;       /** index */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
     olua_check_int(L, 2, &arg1);
@@ -10275,8 +10275,8 @@ static int _cocos2d_ui_ListView_insertCustomItem(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::ui::ListView *self;
-    cocos2d::ui::Widget *arg1;       /** item */
-    lua_Integer arg2;       /** index */
+    cocos2d::ui::Widget *arg1 = nullptr;       /** item */
+    lua_Integer arg2 = 0;       /** index */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.Widget");
@@ -10300,7 +10300,7 @@ static int _cocos2d_ui_ListView_insertDefaultItem(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::ListView *self;
-    lua_Integer arg1;       /** index */
+    lua_Integer arg1 = 0;       /** index */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
     olua_check_int(L, 2, &arg1);
@@ -10320,7 +10320,7 @@ static int _cocos2d_ui_ListView_jumpToItem(lua_State *L)
     lua_settop(L, 4);
 
     cocos2d::ui::ListView *self;
-    lua_Integer arg1;       /** itemIndex */
+    lua_Integer arg1 = 0;       /** itemIndex */
     cocos2d::Vec2 arg2;       /** positionRatioInView */
     cocos2d::Vec2 arg3;       /** itemAnchorPoint */
 
@@ -10344,7 +10344,7 @@ static int _cocos2d_ui_ListView_pushBackCustomItem(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::ListView *self;
-    cocos2d::ui::Widget *arg1;       /** item */
+    cocos2d::ui::Widget *arg1 = nullptr;       /** item */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.Widget");
@@ -10409,7 +10409,7 @@ static int _cocos2d_ui_ListView_removeItem(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::ListView *self;
-    lua_Integer arg1;       /** index */
+    lua_Integer arg1 = 0;       /** index */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
     olua_check_int(L, 2, &arg1);
@@ -10459,7 +10459,7 @@ static int _cocos2d_ui_ListView_scrollToItem1(lua_State *L)
     lua_settop(L, 4);
 
     cocos2d::ui::ListView *self;
-    lua_Integer arg1;       /** itemIndex */
+    lua_Integer arg1 = 0;       /** itemIndex */
     cocos2d::Vec2 arg2;       /** positionRatioInView */
     cocos2d::Vec2 arg3;       /** itemAnchorPoint */
 
@@ -10483,10 +10483,10 @@ static int _cocos2d_ui_ListView_scrollToItem2(lua_State *L)
     lua_settop(L, 5);
 
     cocos2d::ui::ListView *self;
-    lua_Integer arg1;       /** itemIndex */
+    lua_Integer arg1 = 0;       /** itemIndex */
     cocos2d::Vec2 arg2;       /** positionRatioInView */
     cocos2d::Vec2 arg3;       /** itemAnchorPoint */
-    lua_Number arg4;       /** timeInSec */
+    lua_Number arg4 = 0;       /** timeInSec */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
     olua_check_int(L, 2, &arg1);
@@ -10530,7 +10530,7 @@ static int _cocos2d_ui_ListView_setBottomPadding(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::ListView *self;
-    lua_Number arg1;       /** b */
+    lua_Number arg1 = 0;       /** b */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
     olua_check_number(L, 2, &arg1);
@@ -10550,7 +10550,7 @@ static int _cocos2d_ui_ListView_setCurSelectedIndex(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::ListView *self;
-    lua_Integer arg1;       /** itemIndex */
+    lua_Integer arg1 = 0;       /** itemIndex */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
     olua_check_int(L, 2, &arg1);
@@ -10570,7 +10570,7 @@ static int _cocos2d_ui_ListView_setGravity(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::ListView *self;
-    lua_Unsigned arg1;       /** gravity */
+    lua_Unsigned arg1 = 0;       /** gravity */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
     olua_check_uint(L, 2, &arg1);
@@ -10590,7 +10590,7 @@ static int _cocos2d_ui_ListView_setItemModel(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::ListView *self;
-    cocos2d::ui::Widget *arg1;       /** model */
+    cocos2d::ui::Widget *arg1 = nullptr;       /** model */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.Widget");
@@ -10610,7 +10610,7 @@ static int _cocos2d_ui_ListView_setItemsMargin(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::ListView *self;
-    lua_Number arg1;       /** margin */
+    lua_Number arg1 = 0;       /** margin */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
     olua_check_number(L, 2, &arg1);
@@ -10630,7 +10630,7 @@ static int _cocos2d_ui_ListView_setLeftPadding(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::ListView *self;
-    lua_Number arg1;       /** l */
+    lua_Number arg1 = 0;       /** l */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
     olua_check_number(L, 2, &arg1);
@@ -10650,7 +10650,7 @@ static int _cocos2d_ui_ListView_setMagneticAllowedOutOfBoundary(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::ListView *self;
-    bool arg1;       /** magneticAllowedOutOfBoundary */
+    bool arg1 = false;       /** magneticAllowedOutOfBoundary */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
     olua_check_bool(L, 2, &arg1);
@@ -10670,7 +10670,7 @@ static int _cocos2d_ui_ListView_setMagneticType(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::ListView *self;
-    lua_Unsigned arg1;       /** magneticType */
+    lua_Unsigned arg1 = 0;       /** magneticType */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
     olua_check_uint(L, 2, &arg1);
@@ -10690,10 +10690,10 @@ static int _cocos2d_ui_ListView_setPadding(lua_State *L)
     lua_settop(L, 5);
 
     cocos2d::ui::ListView *self;
-    lua_Number arg1;       /** l */
-    lua_Number arg2;       /** t */
-    lua_Number arg3;       /** r */
-    lua_Number arg4;       /** b */
+    lua_Number arg1 = 0;       /** l */
+    lua_Number arg2 = 0;       /** t */
+    lua_Number arg3 = 0;       /** r */
+    lua_Number arg4 = 0;       /** b */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
     olua_check_number(L, 2, &arg1);
@@ -10716,7 +10716,7 @@ static int _cocos2d_ui_ListView_setRightPadding(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::ListView *self;
-    lua_Number arg1;       /** r */
+    lua_Number arg1 = 0;       /** r */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
     olua_check_number(L, 2, &arg1);
@@ -10736,7 +10736,7 @@ static int _cocos2d_ui_ListView_setScrollDuration(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::ListView *self;
-    lua_Number arg1;       /** time */
+    lua_Number arg1 = 0;       /** time */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
     olua_check_number(L, 2, &arg1);
@@ -10756,7 +10756,7 @@ static int _cocos2d_ui_ListView_setTopPadding(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::ListView *self;
-    lua_Number arg1;       /** t */
+    lua_Number arg1 = 0;       /** t */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ListView");
     olua_check_number(L, 2, &arg1);
@@ -10871,7 +10871,7 @@ static int _cocos2d_ui_LoadingBar_create2(lua_State *L)
     lua_settop(L, 2);
 
     std::string arg1;       /** textureName */
-    lua_Number arg2;       /** percentage */
+    lua_Number arg2 = 0;       /** percentage */
 
     olua_check_std_string(L, 1, &arg1);
     olua_opt_number(L, 2, &arg2, (lua_Number)0);
@@ -10892,8 +10892,8 @@ static int _cocos2d_ui_LoadingBar_create3(lua_State *L)
     lua_settop(L, 3);
 
     std::string arg1;       /** textureName */
-    lua_Unsigned arg2;       /** texType */
-    lua_Number arg3;       /** percentage */
+    lua_Unsigned arg2 = 0;       /** texType */
+    lua_Number arg3 = 0;       /** percentage */
 
     olua_check_std_string(L, 1, &arg1);
     olua_check_uint(L, 2, &arg2);
@@ -11036,7 +11036,7 @@ static int _cocos2d_ui_LoadingBar_loadTexture(lua_State *L)
 
     cocos2d::ui::LoadingBar *self;
     std::string arg1;       /** texture */
-    lua_Unsigned arg2;       /** texType */
+    lua_Unsigned arg2 = 0;       /** texType */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LoadingBar");
     olua_check_std_string(L, 2, &arg1);
@@ -11077,7 +11077,7 @@ static int _cocos2d_ui_LoadingBar_setDirection(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::LoadingBar *self;
-    lua_Unsigned arg1;       /** direction */
+    lua_Unsigned arg1 = 0;       /** direction */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LoadingBar");
     olua_check_uint(L, 2, &arg1);
@@ -11097,7 +11097,7 @@ static int _cocos2d_ui_LoadingBar_setPercent(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::LoadingBar *self;
-    lua_Number arg1;       /** percent */
+    lua_Number arg1 = 0;       /** percent */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LoadingBar");
     olua_check_number(L, 2, &arg1);
@@ -11117,7 +11117,7 @@ static int _cocos2d_ui_LoadingBar_setScale9Enabled(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::LoadingBar *self;
-    bool arg1;       /** enabled */
+    bool arg1 = false;       /** enabled */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LoadingBar");
     olua_check_bool(L, 2, &arg1);
@@ -11229,7 +11229,7 @@ static int _cocos2d_ui_PageView_addPage(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::PageView *self;
-    cocos2d::ui::Widget *arg1;       /** page */
+    cocos2d::ui::Widget *arg1 = nullptr;       /** page */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.PageView");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.Widget");
@@ -11457,8 +11457,8 @@ static int _cocos2d_ui_PageView_insertPage(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::ui::PageView *self;
-    cocos2d::ui::Widget *arg1;       /** page */
-    lua_Integer arg2;       /** idx */
+    cocos2d::ui::Widget *arg1 = nullptr;       /** page */
+    lua_Integer arg2 = 0;       /** idx */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.PageView");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.Widget");
@@ -11503,7 +11503,7 @@ static int _cocos2d_ui_PageView_removePage(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::PageView *self;
-    cocos2d::ui::Widget *arg1;       /** page */
+    cocos2d::ui::Widget *arg1 = nullptr;       /** page */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.PageView");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.Widget");
@@ -11526,7 +11526,7 @@ static int _cocos2d_ui_PageView_removePageAtIndex(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::PageView *self;
-    lua_Integer arg1;       /** index */
+    lua_Integer arg1 = 0;       /** index */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.PageView");
     olua_check_int(L, 2, &arg1);
@@ -11552,7 +11552,7 @@ static int _cocos2d_ui_PageView_scrollToItem1(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::PageView *self;
-    lua_Integer arg1;       /** itemIndex */
+    lua_Integer arg1 = 0;       /** itemIndex */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.PageView");
     olua_check_int(L, 2, &arg1);
@@ -11572,8 +11572,8 @@ static int _cocos2d_ui_PageView_scrollToItem2(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::ui::PageView *self;
-    lua_Integer arg1;       /** idx */
-    lua_Number arg2;       /** time */
+    lua_Integer arg1 = 0;       /** idx */
+    lua_Number arg2 = 0;       /** time */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.PageView");
     olua_check_int(L, 2, &arg1);
@@ -11615,7 +11615,7 @@ static int _cocos2d_ui_PageView_scrollToPage1(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::PageView *self;
-    lua_Integer arg1;       /** idx */
+    lua_Integer arg1 = 0;       /** idx */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.PageView");
     olua_check_int(L, 2, &arg1);
@@ -11635,8 +11635,8 @@ static int _cocos2d_ui_PageView_scrollToPage2(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::ui::PageView *self;
-    lua_Integer arg1;       /** idx */
-    lua_Number arg2;       /** time */
+    lua_Integer arg1 = 0;       /** idx */
+    lua_Number arg2 = 0;       /** time */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.PageView");
     olua_check_int(L, 2, &arg1);
@@ -11678,7 +11678,7 @@ static int _cocos2d_ui_PageView_setAutoScrollStopEpsilon(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::PageView *self;
-    lua_Number arg1;       /** epsilon */
+    lua_Number arg1 = 0;       /** epsilon */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.PageView");
     olua_check_number(L, 2, &arg1);
@@ -11698,7 +11698,7 @@ static int _cocos2d_ui_PageView_setCurrentPageIndex(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::PageView *self;
-    lua_Integer arg1;       /** index */
+    lua_Integer arg1 = 0;       /** index */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.PageView");
     olua_check_int(L, 2, &arg1);
@@ -11718,7 +11718,7 @@ static int _cocos2d_ui_PageView_setIndicatorEnabled(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::PageView *self;
-    bool arg1;       /** enabled */
+    bool arg1 = false;       /** enabled */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.PageView");
     olua_check_bool(L, 2, &arg1);
@@ -11758,7 +11758,7 @@ static int _cocos2d_ui_PageView_setIndicatorIndexNodesOpacity(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::PageView *self;
-    lua_Unsigned arg1;       /** opacity */
+    lua_Unsigned arg1 = 0;       /** opacity */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.PageView");
     olua_check_uint(L, 2, &arg1);
@@ -11778,7 +11778,7 @@ static int _cocos2d_ui_PageView_setIndicatorIndexNodesScale(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::PageView *self;
-    lua_Number arg1;       /** indexNodesScale */
+    lua_Number arg1 = 0;       /** indexNodesScale */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.PageView");
     olua_check_number(L, 2, &arg1);
@@ -11799,7 +11799,7 @@ static int _cocos2d_ui_PageView_setIndicatorIndexNodesTexture(lua_State *L)
 
     cocos2d::ui::PageView *self;
     std::string arg1;       /** texName */
-    lua_Unsigned arg2;       /** texType */
+    lua_Unsigned arg2 = 0;       /** texType */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.PageView");
     olua_check_std_string(L, 2, &arg1);
@@ -11880,7 +11880,7 @@ static int _cocos2d_ui_PageView_setIndicatorSelectedIndexOpacity(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::PageView *self;
-    lua_Unsigned arg1;       /** opacity */
+    lua_Unsigned arg1 = 0;       /** opacity */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.PageView");
     olua_check_uint(L, 2, &arg1);
@@ -11900,7 +11900,7 @@ static int _cocos2d_ui_PageView_setIndicatorSpaceBetweenIndexNodes(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::PageView *self;
-    lua_Number arg1;       /** spaceBetweenIndexNodes */
+    lua_Number arg1 = 0;       /** spaceBetweenIndexNodes */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.PageView");
     olua_check_number(L, 2, &arg1);
@@ -11986,7 +11986,7 @@ static int _cocos2d_ui_RichElement_equalType(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::RichElement *self;
-    lua_Unsigned arg1;       /** type */
+    lua_Unsigned arg1 = 0;       /** type */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RichElement");
     olua_check_uint(L, 2, &arg1);
@@ -12007,9 +12007,9 @@ static int _cocos2d_ui_RichElement_init(lua_State *L)
     lua_settop(L, 4);
 
     cocos2d::ui::RichElement *self;
-    lua_Integer arg1;       /** tag */
+    lua_Integer arg1 = 0;       /** tag */
     cocos2d::Color3B arg2;       /** color */
-    lua_Unsigned arg3;       /** opacity */
+    lua_Unsigned arg3 = 0;       /** opacity */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RichElement");
     olua_check_int(L, 2, &arg1);
@@ -12064,19 +12064,19 @@ static int _cocos2d_ui_RichElementText_create(lua_State *L)
 
     lua_settop(L, 14);
 
-    lua_Integer arg1;       /** tag */
+    lua_Integer arg1 = 0;       /** tag */
     cocos2d::Color3B arg2;       /** color */
-    lua_Unsigned arg3;       /** opacity */
+    lua_Unsigned arg3 = 0;       /** opacity */
     std::string arg4;       /** text */
     std::string arg5;       /** fontName */
-    lua_Number arg6;       /** fontSize */
-    lua_Unsigned arg7;       /** flags */
+    lua_Number arg6 = 0;       /** fontSize */
+    lua_Unsigned arg7 = 0;       /** flags */
     std::string arg8;       /** url */
     cocos2d::Color3B arg9;       /** outlineColor */
-    lua_Integer arg10;       /** outlineSize */
+    lua_Integer arg10 = 0;       /** outlineSize */
     cocos2d::Color3B arg11;       /** shadowColor */
     cocos2d::Size arg12;       /** shadowOffset */
-    lua_Integer arg13;       /** shadowBlurRadius */
+    lua_Integer arg13 = 0;       /** shadowBlurRadius */
     cocos2d::Color3B arg14;       /** glowColor */
 
     olua_check_int(L, 1, &arg1);
@@ -12110,19 +12110,19 @@ static int _cocos2d_ui_RichElementText_init(lua_State *L)
     lua_settop(L, 15);
 
     cocos2d::ui::RichElementText *self;
-    lua_Integer arg1;       /** tag */
+    lua_Integer arg1 = 0;       /** tag */
     cocos2d::Color3B arg2;       /** color */
-    lua_Unsigned arg3;       /** opacity */
+    lua_Unsigned arg3 = 0;       /** opacity */
     std::string arg4;       /** text */
     std::string arg5;       /** fontName */
-    lua_Number arg6;       /** fontSize */
-    lua_Unsigned arg7;       /** flags */
+    lua_Number arg6 = 0;       /** fontSize */
+    lua_Unsigned arg7 = 0;       /** flags */
     std::string arg8;       /** url */
     cocos2d::Color3B arg9;       /** outlineColor */
-    lua_Integer arg10;       /** outlineSize */
+    lua_Integer arg10 = 0;       /** outlineSize */
     cocos2d::Color3B arg11;       /** shadowColor */
     cocos2d::Size arg12;       /** shadowOffset */
-    lua_Integer arg13;       /** shadowBlurRadius */
+    lua_Integer arg13 = 0;       /** shadowBlurRadius */
     cocos2d::Color3B arg14;       /** glowColor */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RichElementText");
@@ -12168,12 +12168,12 @@ static int _cocos2d_ui_RichElementImage_create(lua_State *L)
 
     lua_settop(L, 6);
 
-    lua_Integer arg1;       /** tag */
+    lua_Integer arg1 = 0;       /** tag */
     cocos2d::Color3B arg2;       /** color */
-    lua_Unsigned arg3;       /** opacity */
+    lua_Unsigned arg3 = 0;       /** opacity */
     std::string arg4;       /** filePath */
     std::string arg5;       /** url */
-    lua_Unsigned arg6;       /** texType */
+    lua_Unsigned arg6 = 0;       /** texType */
 
     olua_check_int(L, 1, &arg1);
     manual_olua_check_cocos2d_Color3B(L, 2, &arg2);
@@ -12198,12 +12198,12 @@ static int _cocos2d_ui_RichElementImage_init(lua_State *L)
     lua_settop(L, 7);
 
     cocos2d::ui::RichElementImage *self;
-    lua_Integer arg1;       /** tag */
+    lua_Integer arg1 = 0;       /** tag */
     cocos2d::Color3B arg2;       /** color */
-    lua_Unsigned arg3;       /** opacity */
+    lua_Unsigned arg3 = 0;       /** opacity */
     std::string arg4;       /** filePath */
     std::string arg5;       /** url */
-    lua_Unsigned arg6;       /** texType */
+    lua_Unsigned arg6 = 0;       /** texType */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RichElementImage");
     olua_check_int(L, 2, &arg1);
@@ -12229,7 +12229,7 @@ static int _cocos2d_ui_RichElementImage_setHeight(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::RichElementImage *self;
-    lua_Integer arg1;       /** height */
+    lua_Integer arg1 = 0;       /** height */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RichElementImage");
     olua_check_int(L, 2, &arg1);
@@ -12269,7 +12269,7 @@ static int _cocos2d_ui_RichElementImage_setWidth(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::RichElementImage *self;
-    lua_Integer arg1;       /** width */
+    lua_Integer arg1 = 0;       /** width */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RichElementImage");
     olua_check_int(L, 2, &arg1);
@@ -12303,10 +12303,10 @@ static int _cocos2d_ui_RichElementCustomNode_create(lua_State *L)
 
     lua_settop(L, 4);
 
-    lua_Integer arg1;       /** tag */
+    lua_Integer arg1 = 0;       /** tag */
     cocos2d::Color3B arg2;       /** color */
-    lua_Unsigned arg3;       /** opacity */
-    cocos2d::Node *arg4;       /** customNode */
+    lua_Unsigned arg3 = 0;       /** opacity */
+    cocos2d::Node *arg4 = nullptr;       /** customNode */
 
     olua_check_int(L, 1, &arg1);
     manual_olua_check_cocos2d_Color3B(L, 2, &arg2);
@@ -12329,10 +12329,10 @@ static int _cocos2d_ui_RichElementCustomNode_init(lua_State *L)
     lua_settop(L, 5);
 
     cocos2d::ui::RichElementCustomNode *self;
-    lua_Integer arg1;       /** tag */
+    lua_Integer arg1 = 0;       /** tag */
     cocos2d::Color3B arg2;       /** color */
-    lua_Unsigned arg3;       /** opacity */
-    cocos2d::Node *arg4;       /** customNode */
+    lua_Unsigned arg3 = 0;       /** opacity */
+    cocos2d::Node *arg4 = nullptr;       /** customNode */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RichElementCustomNode");
     olua_check_int(L, 2, &arg1);
@@ -12367,9 +12367,9 @@ static int _cocos2d_ui_RichElementNewLine_create(lua_State *L)
 
     lua_settop(L, 3);
 
-    lua_Integer arg1;       /** tag */
+    lua_Integer arg1 = 0;       /** tag */
     cocos2d::Color3B arg2;       /** color */
-    lua_Unsigned arg3;       /** opacity */
+    lua_Unsigned arg3 = 0;       /** opacity */
 
     olua_check_int(L, 1, &arg1);
     manual_olua_check_cocos2d_Color3B(L, 2, &arg2);
@@ -12884,8 +12884,8 @@ static int _cocos2d_ui_RichText_insertElement(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::ui::RichText *self;
-    cocos2d::ui::RichElement *arg1;       /** element */
-    lua_Integer arg2;       /** index */
+    cocos2d::ui::RichElement *arg1 = nullptr;       /** element */
+    lua_Integer arg2 = 0;       /** index */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RichText");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.RichElement");
@@ -13059,7 +13059,7 @@ static int _cocos2d_ui_RichText_pushBackElement(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::RichText *self;
-    cocos2d::ui::RichElement *arg1;       /** element */
+    cocos2d::ui::RichElement *arg1 = nullptr;       /** element */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RichText");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.RichElement");
@@ -13079,7 +13079,7 @@ static int _cocos2d_ui_RichText_removeElement1(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::RichText *self;
-    lua_Integer arg1;       /** index */
+    lua_Integer arg1 = 0;       /** index */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RichText");
     olua_check_int(L, 2, &arg1);
@@ -13099,7 +13099,7 @@ static int _cocos2d_ui_RichText_removeElement2(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::RichText *self;
-    cocos2d::ui::RichElement *arg1;       /** element */
+    cocos2d::ui::RichElement *arg1 = nullptr;       /** element */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RichText");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.RichElement");
@@ -13176,7 +13176,7 @@ static int _cocos2d_ui_RichText_setAnchorTextBold(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::RichText *self;
-    bool arg1;       /** enable */
+    bool arg1 = false;       /** enable */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RichText");
     olua_check_bool(L, 2, &arg1);
@@ -13196,7 +13196,7 @@ static int _cocos2d_ui_RichText_setAnchorTextDel(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::RichText *self;
-    bool arg1;       /** enable */
+    bool arg1 = false;       /** enable */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RichText");
     olua_check_bool(L, 2, &arg1);
@@ -13216,7 +13216,7 @@ static int _cocos2d_ui_RichText_setAnchorTextGlow(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::ui::RichText *self;
-    bool arg1;       /** enable */
+    bool arg1 = false;       /** enable */
     cocos2d::Color3B arg2;       /** glowColor */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RichText");
@@ -13238,7 +13238,7 @@ static int _cocos2d_ui_RichText_setAnchorTextItalic(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::RichText *self;
-    bool arg1;       /** enable */
+    bool arg1 = false;       /** enable */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RichText");
     olua_check_bool(L, 2, &arg1);
@@ -13258,9 +13258,9 @@ static int _cocos2d_ui_RichText_setAnchorTextOutline(lua_State *L)
     lua_settop(L, 4);
 
     cocos2d::ui::RichText *self;
-    bool arg1;       /** enable */
+    bool arg1 = false;       /** enable */
     cocos2d::Color3B arg2;       /** outlineColor */
-    lua_Integer arg3;       /** outlineSize */
+    lua_Integer arg3 = 0;       /** outlineSize */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RichText");
     olua_check_bool(L, 2, &arg1);
@@ -13282,10 +13282,10 @@ static int _cocos2d_ui_RichText_setAnchorTextShadow(lua_State *L)
     lua_settop(L, 5);
 
     cocos2d::ui::RichText *self;
-    bool arg1;       /** enable */
+    bool arg1 = false;       /** enable */
     cocos2d::Color3B arg2;       /** shadowColor */
     cocos2d::Size arg3;       /** offset */
-    lua_Integer arg4;       /** blurRadius */
+    lua_Integer arg4 = 0;       /** blurRadius */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RichText");
     olua_check_bool(L, 2, &arg1);
@@ -13308,7 +13308,7 @@ static int _cocos2d_ui_RichText_setAnchorTextUnderline(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::RichText *self;
-    bool arg1;       /** enable */
+    bool arg1 = false;       /** enable */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RichText");
     olua_check_bool(L, 2, &arg1);
@@ -13388,7 +13388,7 @@ static int _cocos2d_ui_RichText_setFontSize(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::RichText *self;
-    lua_Number arg1;       /** size */
+    lua_Number arg1 = 0;       /** size */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RichText");
     olua_check_number(L, 2, &arg1);
@@ -13408,7 +13408,7 @@ static int _cocos2d_ui_RichText_setHorizontalAlignment(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::RichText *self;
-    lua_Unsigned arg1;       /** a */
+    lua_Unsigned arg1 = 0;       /** a */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RichText");
     olua_check_uint(L, 2, &arg1);
@@ -13461,7 +13461,7 @@ static int _cocos2d_ui_RichText_setVerticalSpace(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::RichText *self;
-    lua_Number arg1;       /** space */
+    lua_Number arg1 = 0;       /** space */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RichText");
     olua_check_number(L, 2, &arg1);
@@ -13481,7 +13481,7 @@ static int _cocos2d_ui_RichText_setWrapMode(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::RichText *self;
-    lua_Unsigned arg1;       /** wrapMode */
+    lua_Unsigned arg1 = 0;       /** wrapMode */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RichText");
     olua_check_uint(L, 2, &arg1);
@@ -13623,8 +13623,8 @@ static int _cocos2d_ui_ScrollViewBar_create(lua_State *L)
 
     lua_settop(L, 2);
 
-    cocos2d::ui::ScrollView *arg1;       /** parent */
-    lua_Unsigned arg2;       /** direction */
+    cocos2d::ui::ScrollView *arg1 = nullptr;       /** parent */
+    lua_Unsigned arg2 = 0;       /** direction */
 
     olua_check_cppobj(L, 1, (void **)&arg1, "ccui.ScrollView");
     olua_check_uint(L, 2, &arg2);
@@ -13777,7 +13777,7 @@ static int _cocos2d_ui_ScrollViewBar_setAutoHideEnabled(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::ScrollViewBar *self;
-    bool arg1;       /** autoHideEnabled */
+    bool arg1 = false;       /** autoHideEnabled */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollViewBar");
     olua_check_bool(L, 2, &arg1);
@@ -13797,7 +13797,7 @@ static int _cocos2d_ui_ScrollViewBar_setAutoHideTime(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::ScrollViewBar *self;
-    lua_Number arg1;       /** autoHideTime */
+    lua_Number arg1 = 0;       /** autoHideTime */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollViewBar");
     olua_check_number(L, 2, &arg1);
@@ -13837,7 +13837,7 @@ static int _cocos2d_ui_ScrollViewBar_setWidth(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::ScrollViewBar *self;
-    lua_Number arg1;       /** width */
+    lua_Number arg1 = 0;       /** width */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollViewBar");
     olua_check_number(L, 2, &arg1);
@@ -13954,7 +13954,7 @@ static int _cocos2d_ui_Slider_create2(lua_State *L)
 
     std::string arg1;       /** barTextureName */
     std::string arg2;       /** normalBallTextureName */
-    lua_Unsigned arg3;       /** resType */
+    lua_Unsigned arg3 = 0;       /** resType */
 
     olua_check_std_string(L, 1, &arg1);
     olua_check_std_string(L, 2, &arg2);
@@ -14293,7 +14293,7 @@ static int _cocos2d_ui_Slider_loadBarTexture(lua_State *L)
 
     cocos2d::ui::Slider *self;
     std::string arg1;       /** fileName */
-    lua_Unsigned arg2;       /** resType */
+    lua_Unsigned arg2 = 0;       /** resType */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Slider");
     olua_check_std_string(L, 2, &arg1);
@@ -14315,7 +14315,7 @@ static int _cocos2d_ui_Slider_loadProgressBarTexture(lua_State *L)
 
     cocos2d::ui::Slider *self;
     std::string arg1;       /** fileName */
-    lua_Unsigned arg2;       /** resType */
+    lua_Unsigned arg2 = 0;       /** resType */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Slider");
     olua_check_std_string(L, 2, &arg1);
@@ -14337,7 +14337,7 @@ static int _cocos2d_ui_Slider_loadSlidBallTextureDisabled(lua_State *L)
 
     cocos2d::ui::Slider *self;
     std::string arg1;       /** disabled */
-    lua_Unsigned arg2;       /** resType */
+    lua_Unsigned arg2 = 0;       /** resType */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Slider");
     olua_check_std_string(L, 2, &arg1);
@@ -14359,7 +14359,7 @@ static int _cocos2d_ui_Slider_loadSlidBallTextureNormal(lua_State *L)
 
     cocos2d::ui::Slider *self;
     std::string arg1;       /** normal */
-    lua_Unsigned arg2;       /** resType */
+    lua_Unsigned arg2 = 0;       /** resType */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Slider");
     olua_check_std_string(L, 2, &arg1);
@@ -14381,7 +14381,7 @@ static int _cocos2d_ui_Slider_loadSlidBallTexturePressed(lua_State *L)
 
     cocos2d::ui::Slider *self;
     std::string arg1;       /** pressed */
-    lua_Unsigned arg2;       /** resType */
+    lua_Unsigned arg2 = 0;       /** resType */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Slider");
     olua_check_std_string(L, 2, &arg1);
@@ -14405,7 +14405,7 @@ static int _cocos2d_ui_Slider_loadSlidBallTextures(lua_State *L)
     std::string arg1;       /** normal */
     std::string arg2;       /** pressed */
     std::string arg3;       /** disabled */
-    lua_Unsigned arg4;       /** texType */
+    lua_Unsigned arg4 = 0;       /** texType */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Slider");
     olua_check_std_string(L, 2, &arg1);
@@ -14488,7 +14488,7 @@ static int _cocos2d_ui_Slider_setMaxPercent(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Slider *self;
-    lua_Integer arg1;       /** percent */
+    lua_Integer arg1 = 0;       /** percent */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Slider");
     olua_check_int(L, 2, &arg1);
@@ -14508,7 +14508,7 @@ static int _cocos2d_ui_Slider_setPercent(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Slider *self;
-    lua_Integer arg1;       /** percent */
+    lua_Integer arg1 = 0;       /** percent */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Slider");
     olua_check_int(L, 2, &arg1);
@@ -14528,7 +14528,7 @@ static int _cocos2d_ui_Slider_setScale9Enabled(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Slider *self;
-    bool arg1;       /** able */
+    bool arg1 = false;       /** able */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Slider");
     olua_check_bool(L, 2, &arg1);
@@ -14548,7 +14548,7 @@ static int _cocos2d_ui_Slider_setZoomScale(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Slider *self;
-    lua_Number arg1;       /** scale */
+    lua_Number arg1 = 0;       /** scale */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Slider");
     olua_check_number(L, 2, &arg1);
@@ -14670,7 +14670,7 @@ static int _cocos2d_ui_Text_create2(lua_State *L)
 
     std::string arg1;       /** textContent */
     std::string arg2;       /** fontName */
-    lua_Number arg3;       /** fontSize */
+    lua_Number arg3 = 0;       /** fontSize */
 
     olua_check_std_string(L, 1, &arg1);
     olua_check_std_string(L, 2, &arg2);
@@ -14729,7 +14729,7 @@ static int _cocos2d_ui_Text_disableEffect2(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Text *self;
-    lua_Unsigned arg1;       /** effect */
+    lua_Unsigned arg1 = 0;       /** effect */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Text");
     olua_check_uint(L, 2, &arg1);
@@ -14789,7 +14789,7 @@ static int _cocos2d_ui_Text_enableOutline(lua_State *L)
 
     cocos2d::ui::Text *self;
     cocos2d::Color4B arg1;       /** outlineColor */
-    lua_Integer arg2;       /** outlineSize */
+    lua_Integer arg2 = 0;       /** outlineSize */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Text");
     manual_olua_check_cocos2d_Color4B(L, 2, &arg1);
@@ -14812,7 +14812,7 @@ static int _cocos2d_ui_Text_enableShadow(lua_State *L)
     cocos2d::ui::Text *self;
     cocos2d::Color4B arg1;       /** shadowColor */
     cocos2d::Size arg2;       /** offset */
-    lua_Integer arg3;       /** blurRadius */
+    lua_Integer arg3 = 0;       /** blurRadius */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Text");
     manual_olua_opt_cocos2d_Color4B(L, 2, &arg1, (cocos2d::Color4B)cocos2d::Color4B::BLACK);
@@ -14948,7 +14948,7 @@ static int _cocos2d_ui_Text_getLetter(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Text *self;
-    lua_Integer arg1;       /** lettetIndex */
+    lua_Integer arg1 = 0;       /** lettetIndex */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Text");
     olua_check_int(L, 2, &arg1);
@@ -15180,7 +15180,7 @@ static int _cocos2d_ui_Text_init(lua_State *L)
     cocos2d::ui::Text *self;
     std::string arg1;       /** textContent */
     std::string arg2;       /** fontName */
-    lua_Number arg3;       /** fontSize */
+    lua_Number arg3 = 0;       /** fontSize */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Text");
     olua_check_std_string(L, 2, &arg1);
@@ -15281,7 +15281,7 @@ static int _cocos2d_ui_Text_setFontSize(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Text *self;
-    lua_Number arg1;       /** size */
+    lua_Number arg1 = 0;       /** size */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Text");
     olua_check_number(L, 2, &arg1);
@@ -15361,7 +15361,7 @@ static int _cocos2d_ui_Text_setTextHorizontalAlignment(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Text *self;
-    lua_Unsigned arg1;       /** alignment */
+    lua_Unsigned arg1 = 0;       /** alignment */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Text");
     olua_check_uint(L, 2, &arg1);
@@ -15381,7 +15381,7 @@ static int _cocos2d_ui_Text_setTextVerticalAlignment(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Text *self;
-    lua_Unsigned arg1;       /** alignment */
+    lua_Unsigned arg1 = 0;       /** alignment */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Text");
     olua_check_uint(L, 2, &arg1);
@@ -15401,7 +15401,7 @@ static int _cocos2d_ui_Text_setTouchScaleChangeEnabled(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Text *self;
-    bool arg1;       /** enabled */
+    bool arg1 = false;       /** enabled */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Text");
     olua_check_bool(L, 2, &arg1);
@@ -15501,8 +15501,8 @@ static int _cocos2d_ui_TextAtlas_create2(lua_State *L)
 
     std::string arg1;       /** stringValue */
     std::string arg2;       /** charMapFile */
-    lua_Integer arg3;       /** itemWidth */
-    lua_Integer arg4;       /** itemHeight */
+    lua_Integer arg3 = 0;       /** itemWidth */
+    lua_Integer arg4 = 0;       /** itemHeight */
     std::string arg5;       /** startCharMap */
 
     olua_check_std_string(L, 1, &arg1);
@@ -15605,8 +15605,8 @@ static int _cocos2d_ui_TextAtlas_setProperty(lua_State *L)
     cocos2d::ui::TextAtlas *self;
     std::string arg1;       /** stringValue */
     std::string arg2;       /** charMapFile */
-    lua_Integer arg3;       /** itemWidth */
-    lua_Integer arg4;       /** itemHeight */
+    lua_Integer arg3 = 0;       /** itemWidth */
+    lua_Integer arg4 = 0;       /** itemHeight */
     std::string arg5;       /** startCharMap */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TextAtlas");
@@ -15894,7 +15894,7 @@ static int _cocos2d_ui_UICCTextField_create2(lua_State *L)
 
     std::string arg1;       /** placeholder */
     std::string arg2;       /** fontName */
-    lua_Number arg3;       /** fontSize */
+    lua_Number arg3 = 0;       /** fontSize */
 
     olua_check_std_string(L, 1, &arg1);
     olua_check_std_string(L, 2, &arg2);
@@ -16068,7 +16068,7 @@ static int _cocos2d_ui_UICCTextField_onTextFieldAttachWithIME(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::UICCTextField *self;
-    cocos2d::TextFieldTTF *arg1;       /** pSender */
+    cocos2d::TextFieldTTF *arg1 = nullptr;       /** pSender */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.UICCTextField");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.TextFieldTTF");
@@ -16089,9 +16089,9 @@ static int _cocos2d_ui_UICCTextField_onTextFieldDeleteBackward(lua_State *L)
     lua_settop(L, 4);
 
     cocos2d::ui::UICCTextField *self;
-    cocos2d::TextFieldTTF *arg1;       /** pSender */
-    const char *arg2;       /** delText */
-    lua_Unsigned arg3;       /** nLen */
+    cocos2d::TextFieldTTF *arg1 = nullptr;       /** pSender */
+    const char *arg2 = nullptr;       /** delText */
+    lua_Unsigned arg3 = 0;       /** nLen */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.UICCTextField");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.TextFieldTTF");
@@ -16114,7 +16114,7 @@ static int _cocos2d_ui_UICCTextField_onTextFieldDetachWithIME(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::UICCTextField *self;
-    cocos2d::TextFieldTTF *arg1;       /** pSender */
+    cocos2d::TextFieldTTF *arg1 = nullptr;       /** pSender */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.UICCTextField");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.TextFieldTTF");
@@ -16135,9 +16135,9 @@ static int _cocos2d_ui_UICCTextField_onTextFieldInsertText(lua_State *L)
     lua_settop(L, 4);
 
     cocos2d::ui::UICCTextField *self;
-    cocos2d::TextFieldTTF *arg1;       /** pSender */
-    const char *arg2;       /** text */
-    lua_Unsigned arg3;       /** nLen */
+    cocos2d::TextFieldTTF *arg1 = nullptr;       /** pSender */
+    const char *arg2 = nullptr;       /** text */
+    lua_Unsigned arg3 = 0;       /** nLen */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.UICCTextField");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.TextFieldTTF");
@@ -16178,7 +16178,7 @@ static int _cocos2d_ui_UICCTextField_setDeleteBackward(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::UICCTextField *self;
-    bool arg1;       /** deleteBackward */
+    bool arg1 = false;       /** deleteBackward */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.UICCTextField");
     olua_check_bool(L, 2, &arg1);
@@ -16198,7 +16198,7 @@ static int _cocos2d_ui_UICCTextField_setDetachWithIME(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::UICCTextField *self;
-    bool arg1;       /** detach */
+    bool arg1 = false;       /** detach */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.UICCTextField");
     olua_check_bool(L, 2, &arg1);
@@ -16218,7 +16218,7 @@ static int _cocos2d_ui_UICCTextField_setInsertText(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::UICCTextField *self;
-    bool arg1;       /** insert */
+    bool arg1 = false;       /** insert */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.UICCTextField");
     olua_check_bool(L, 2, &arg1);
@@ -16238,7 +16238,7 @@ static int _cocos2d_ui_UICCTextField_setMaxLength(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::UICCTextField *self;
-    lua_Integer arg1;       /** length */
+    lua_Integer arg1 = 0;       /** length */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.UICCTextField");
     olua_check_int(L, 2, &arg1);
@@ -16258,7 +16258,7 @@ static int _cocos2d_ui_UICCTextField_setMaxLengthEnabled(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::UICCTextField *self;
-    bool arg1;       /** enable */
+    bool arg1 = false;       /** enable */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.UICCTextField");
     olua_check_bool(L, 2, &arg1);
@@ -16278,7 +16278,7 @@ static int _cocos2d_ui_UICCTextField_setPasswordEnabled(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::UICCTextField *self;
-    bool arg1;       /** enable */
+    bool arg1 = false;       /** enable */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.UICCTextField");
     olua_check_bool(L, 2, &arg1);
@@ -16466,7 +16466,7 @@ static int _cocos2d_ui_TextField_create2(lua_State *L)
 
     std::string arg1;       /** placeholder */
     std::string arg2;       /** fontName */
-    lua_Integer arg3;       /** fontSize */
+    lua_Integer arg3 = 0;       /** fontSize */
 
     olua_check_std_string(L, 1, &arg1);
     olua_check_std_string(L, 2, &arg2);
@@ -16886,7 +16886,7 @@ static int _cocos2d_ui_TextField_setAttachWithIME(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::TextField *self;
-    bool arg1;       /** attach */
+    bool arg1 = false;       /** attach */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TextField");
     olua_check_bool(L, 2, &arg1);
@@ -16906,7 +16906,7 @@ static int _cocos2d_ui_TextField_setCursorChar(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::TextField *self;
-    lua_Integer arg1;       /** cursor */
+    lua_Integer arg1 = 0;       /** cursor */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TextField");
     olua_check_int(L, 2, &arg1);
@@ -16926,7 +16926,7 @@ static int _cocos2d_ui_TextField_setCursorEnabled(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::TextField *self;
-    bool arg1;       /** enabled */
+    bool arg1 = false;       /** enabled */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TextField");
     olua_check_bool(L, 2, &arg1);
@@ -16947,7 +16947,7 @@ static int _cocos2d_ui_TextField_setCursorFromPoint(lua_State *L)
 
     cocos2d::ui::TextField *self;
     cocos2d::Vec2 arg1;       /** point */
-    cocos2d::Camera *arg2;       /** camera */
+    cocos2d::Camera *arg2 = nullptr;       /** camera */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TextField");
     auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
@@ -16968,7 +16968,7 @@ static int _cocos2d_ui_TextField_setCursorPosition(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::TextField *self;
-    lua_Unsigned arg1;       /** cursorPosition */
+    lua_Unsigned arg1 = 0;       /** cursorPosition */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TextField");
     olua_check_uint(L, 2, &arg1);
@@ -16988,7 +16988,7 @@ static int _cocos2d_ui_TextField_setDeleteBackward(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::TextField *self;
-    bool arg1;       /** deleteBackward */
+    bool arg1 = false;       /** deleteBackward */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TextField");
     olua_check_bool(L, 2, &arg1);
@@ -17008,7 +17008,7 @@ static int _cocos2d_ui_TextField_setDetachWithIME(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::TextField *self;
-    bool arg1;       /** detach */
+    bool arg1 = false;       /** detach */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TextField");
     olua_check_bool(L, 2, &arg1);
@@ -17048,7 +17048,7 @@ static int _cocos2d_ui_TextField_setFontSize(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::TextField *self;
-    lua_Integer arg1;       /** size */
+    lua_Integer arg1 = 0;       /** size */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TextField");
     olua_check_int(L, 2, &arg1);
@@ -17068,7 +17068,7 @@ static int _cocos2d_ui_TextField_setInsertText(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::TextField *self;
-    bool arg1;       /** insertText */
+    bool arg1 = false;       /** insertText */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TextField");
     olua_check_bool(L, 2, &arg1);
@@ -17088,7 +17088,7 @@ static int _cocos2d_ui_TextField_setMaxLength(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::TextField *self;
-    lua_Integer arg1;       /** length */
+    lua_Integer arg1 = 0;       /** length */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TextField");
     olua_check_int(L, 2, &arg1);
@@ -17108,7 +17108,7 @@ static int _cocos2d_ui_TextField_setMaxLengthEnabled(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::TextField *self;
-    bool arg1;       /** enable */
+    bool arg1 = false;       /** enable */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TextField");
     olua_check_bool(L, 2, &arg1);
@@ -17128,7 +17128,7 @@ static int _cocos2d_ui_TextField_setPasswordEnabled(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::TextField *self;
-    bool arg1;       /** enable */
+    bool arg1 = false;       /** enable */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TextField");
     olua_check_bool(L, 2, &arg1);
@@ -17148,7 +17148,7 @@ static int _cocos2d_ui_TextField_setPasswordStyleText(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::TextField *self;
-    const char *arg1;       /** styleText */
+    const char *arg1 = nullptr;       /** styleText */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TextField");
     olua_check_string(L, 2, &arg1);
@@ -17307,7 +17307,7 @@ static int _cocos2d_ui_TextField_setTextHorizontalAlignment(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::TextField *self;
-    lua_Unsigned arg1;       /** alignment */
+    lua_Unsigned arg1 = 0;       /** alignment */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TextField");
     olua_check_uint(L, 2, &arg1);
@@ -17327,7 +17327,7 @@ static int _cocos2d_ui_TextField_setTextVerticalAlignment(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::TextField *self;
-    lua_Unsigned arg1;       /** alignment */
+    lua_Unsigned arg1 = 0;       /** alignment */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TextField");
     olua_check_uint(L, 2, &arg1);
@@ -17347,7 +17347,7 @@ static int _cocos2d_ui_TextField_setTouchAreaEnabled(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::TextField *self;
-    bool arg1;       /** enable */
+    bool arg1 = false;       /** enable */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.TextField");
     olua_check_bool(L, 2, &arg1);
@@ -17479,7 +17479,7 @@ static int _cocos2d_ui_Button_create2(lua_State *L)
     std::string arg1;       /** normalImage */
     std::string arg2;       /** selectedImage */
     std::string arg3;       /** disableImage */
-    lua_Unsigned arg4;       /** texType */
+    lua_Unsigned arg4 = 0;       /** texType */
 
     olua_check_std_string(L, 1, &arg1);
     olua_opt_std_string(L, 2, &arg2, (std::string)"");
@@ -17862,7 +17862,7 @@ static int _cocos2d_ui_Button_init(lua_State *L)
     std::string arg1;       /** normalImage */
     std::string arg2;       /** selectedImage */
     std::string arg3;       /** disableImage */
-    lua_Unsigned arg4;       /** texType */
+    lua_Unsigned arg4 = 0;       /** texType */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Button");
     olua_check_std_string(L, 2, &arg1);
@@ -17906,7 +17906,7 @@ static int _cocos2d_ui_Button_loadTextureDisabled(lua_State *L)
 
     cocos2d::ui::Button *self;
     std::string arg1;       /** disabled */
-    lua_Unsigned arg2;       /** texType */
+    lua_Unsigned arg2 = 0;       /** texType */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Button");
     olua_check_std_string(L, 2, &arg1);
@@ -17928,7 +17928,7 @@ static int _cocos2d_ui_Button_loadTextureNormal(lua_State *L)
 
     cocos2d::ui::Button *self;
     std::string arg1;       /** normal */
-    lua_Unsigned arg2;       /** texType */
+    lua_Unsigned arg2 = 0;       /** texType */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Button");
     olua_check_std_string(L, 2, &arg1);
@@ -17950,7 +17950,7 @@ static int _cocos2d_ui_Button_loadTexturePressed(lua_State *L)
 
     cocos2d::ui::Button *self;
     std::string arg1;       /** selected */
-    lua_Unsigned arg2;       /** texType */
+    lua_Unsigned arg2 = 0;       /** texType */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Button");
     olua_check_std_string(L, 2, &arg1);
@@ -17974,7 +17974,7 @@ static int _cocos2d_ui_Button_loadTextures(lua_State *L)
     std::string arg1;       /** normal */
     std::string arg2;       /** selected */
     std::string arg3;       /** disabled */
-    lua_Unsigned arg4;       /** texType */
+    lua_Unsigned arg4 = 0;       /** texType */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Button");
     olua_check_std_string(L, 2, &arg1);
@@ -18131,7 +18131,7 @@ static int _cocos2d_ui_Button_setPressedActionEnabled(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Button *self;
-    bool arg1;       /** enabled */
+    bool arg1 = false;       /** enabled */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Button");
     olua_check_bool(L, 2, &arg1);
@@ -18151,7 +18151,7 @@ static int _cocos2d_ui_Button_setScale9Enabled(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Button *self;
-    bool arg1;       /** enable */
+    bool arg1 = false;       /** enable */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Button");
     olua_check_bool(L, 2, &arg1);
@@ -18171,7 +18171,7 @@ static int _cocos2d_ui_Button_setTitleAlignment1(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Button *self;
-    lua_Unsigned arg1;       /** hAlignment */
+    lua_Unsigned arg1 = 0;       /** hAlignment */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Button");
     olua_check_uint(L, 2, &arg1);
@@ -18191,8 +18191,8 @@ static int _cocos2d_ui_Button_setTitleAlignment2(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::ui::Button *self;
-    lua_Unsigned arg1;       /** hAlignment */
-    lua_Unsigned arg2;       /** vAlignment */
+    lua_Unsigned arg1 = 0;       /** hAlignment */
+    lua_Unsigned arg2 = 0;       /** vAlignment */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Button");
     olua_check_uint(L, 2, &arg1);
@@ -18274,7 +18274,7 @@ static int _cocos2d_ui_Button_setTitleFontSize(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Button *self;
-    lua_Number arg1;       /** size */
+    lua_Number arg1 = 0;       /** size */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Button");
     olua_check_number(L, 2, &arg1);
@@ -18294,7 +18294,7 @@ static int _cocos2d_ui_Button_setTitleLabel(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Button *self;
-    cocos2d::Label *arg1;       /** label */
+    cocos2d::Label *arg1 = nullptr;       /** label */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Button");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Label");
@@ -18337,7 +18337,7 @@ static int _cocos2d_ui_Button_setZoomScale(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::Button *self;
-    lua_Number arg1;       /** scale */
+    lua_Number arg1 = 0;       /** scale */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Button");
     olua_check_number(L, 2, &arg1);
@@ -18497,7 +18497,7 @@ static int _cocos2d_ui_CheckBox_create2(lua_State *L)
     std::string arg3;       /** cross */
     std::string arg4;       /** backGroundDisabled */
     std::string arg5;       /** frontCrossDisabled */
-    lua_Unsigned arg6;       /** texType */
+    lua_Unsigned arg6 = 0;       /** texType */
 
     olua_check_std_string(L, 1, &arg1);
     olua_check_std_string(L, 2, &arg2);
@@ -18523,7 +18523,7 @@ static int _cocos2d_ui_CheckBox_create3(lua_State *L)
 
     std::string arg1;       /** backGround */
     std::string arg2;       /** cross */
-    lua_Unsigned arg3;       /** texType */
+    lua_Unsigned arg3 = 0;       /** texType */
 
     olua_check_std_string(L, 1, &arg1);
     olua_check_std_string(L, 2, &arg2);
@@ -18654,7 +18654,7 @@ static int _cocos2d_ui_RadioButton_create2(lua_State *L)
     std::string arg3;       /** cross */
     std::string arg4;       /** backGroundDisabled */
     std::string arg5;       /** frontCrossDisabled */
-    lua_Unsigned arg6;       /** texType */
+    lua_Unsigned arg6 = 0;       /** texType */
 
     olua_check_std_string(L, 1, &arg1);
     olua_check_std_string(L, 2, &arg2);
@@ -18680,7 +18680,7 @@ static int _cocos2d_ui_RadioButton_create3(lua_State *L)
 
     std::string arg1;       /** backGround */
     std::string arg2;       /** cross */
-    lua_Unsigned arg3;       /** texType */
+    lua_Unsigned arg3 = 0;       /** texType */
 
     olua_check_std_string(L, 1, &arg1);
     olua_check_std_string(L, 2, &arg2);
@@ -18792,7 +18792,7 @@ static int _cocos2d_ui_RadioButtonGroup_addRadioButton(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::RadioButtonGroup *self;
-    cocos2d::ui::RadioButton *arg1;       /** radioButton */
+    cocos2d::ui::RadioButton *arg1 = nullptr;       /** radioButton */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RadioButtonGroup");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.RadioButton");
@@ -18846,7 +18846,7 @@ static int _cocos2d_ui_RadioButtonGroup_getRadioButtonByIndex(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::RadioButtonGroup *self;
-    lua_Integer arg1;       /** index */
+    lua_Integer arg1 = 0;       /** index */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RadioButtonGroup");
     olua_check_int(L, 2, &arg1);
@@ -18923,7 +18923,7 @@ static int _cocos2d_ui_RadioButtonGroup_removeRadioButton(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::RadioButtonGroup *self;
-    cocos2d::ui::RadioButton *arg1;       /** radioButton */
+    cocos2d::ui::RadioButton *arg1 = nullptr;       /** radioButton */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RadioButtonGroup");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.RadioButton");
@@ -18943,7 +18943,7 @@ static int _cocos2d_ui_RadioButtonGroup_setAllowedNoSelection(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::RadioButtonGroup *self;
-    bool arg1;       /** allowedNoSelection */
+    bool arg1 = false;       /** allowedNoSelection */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RadioButtonGroup");
     olua_check_bool(L, 2, &arg1);
@@ -18963,7 +18963,7 @@ static int _cocos2d_ui_RadioButtonGroup_setSelectedButton1(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::RadioButtonGroup *self;
-    lua_Integer arg1;       /** index */
+    lua_Integer arg1 = 0;       /** index */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RadioButtonGroup");
     olua_check_int(L, 2, &arg1);
@@ -18983,7 +18983,7 @@ static int _cocos2d_ui_RadioButtonGroup_setSelectedButton2(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::RadioButtonGroup *self;
-    cocos2d::ui::RadioButton *arg1;       /** radioButton */
+    cocos2d::ui::RadioButton *arg1 = nullptr;       /** radioButton */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RadioButtonGroup");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.RadioButton");
@@ -19022,7 +19022,7 @@ static int _cocos2d_ui_RadioButtonGroup_setSelectedButtonWithoutEvent1(lua_State
     lua_settop(L, 2);
 
     cocos2d::ui::RadioButtonGroup *self;
-    lua_Integer arg1;       /** index */
+    lua_Integer arg1 = 0;       /** index */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RadioButtonGroup");
     olua_check_int(L, 2, &arg1);
@@ -19042,7 +19042,7 @@ static int _cocos2d_ui_RadioButtonGroup_setSelectedButtonWithoutEvent2(lua_State
     lua_settop(L, 2);
 
     cocos2d::ui::RadioButtonGroup *self;
-    cocos2d::ui::RadioButton *arg1;       /** radioButton */
+    cocos2d::ui::RadioButton *arg1 = nullptr;       /** radioButton */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RadioButtonGroup");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.RadioButton");
@@ -19121,7 +19121,7 @@ static int _cocos2d_ui_ImageView_create2(lua_State *L)
     lua_settop(L, 2);
 
     std::string arg1;       /** imageFileName */
-    lua_Unsigned arg2;       /** texType */
+    lua_Unsigned arg2 = 0;       /** texType */
 
     olua_check_std_string(L, 1, &arg1);
     olua_opt_uint(L, 2, &arg2, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
@@ -19219,7 +19219,7 @@ static int _cocos2d_ui_ImageView_init(lua_State *L)
 
     cocos2d::ui::ImageView *self;
     std::string arg1;       /** imageFileName */
-    lua_Unsigned arg2;       /** texType */
+    lua_Unsigned arg2 = 0;       /** texType */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ImageView");
     olua_check_std_string(L, 2, &arg1);
@@ -19261,7 +19261,7 @@ static int _cocos2d_ui_ImageView_loadTexture(lua_State *L)
 
     cocos2d::ui::ImageView *self;
     std::string arg1;       /** fileName */
-    lua_Unsigned arg2;       /** texType */
+    lua_Unsigned arg2 = 0;       /** texType */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ImageView");
     olua_check_std_string(L, 2, &arg1);
@@ -19322,7 +19322,7 @@ static int _cocos2d_ui_ImageView_setScale9Enabled(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::ImageView *self;
-    bool arg1;       /** enabled */
+    bool arg1 = false;       /** enabled */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ImageView");
     olua_check_bool(L, 2, &arg1);
@@ -19416,7 +19416,7 @@ static int _cocos2d_ui_EditBoxDelegate_editBoxEditingDidBegin(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::EditBoxDelegate *self;
-    cocos2d::ui::EditBox *arg1;       /**  */
+    cocos2d::ui::EditBox *arg1 = nullptr;       /**  */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBoxDelegate");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.EditBox");
@@ -19436,8 +19436,8 @@ static int _cocos2d_ui_EditBoxDelegate_editBoxEditingDidEndWithAction(lua_State 
     lua_settop(L, 3);
 
     cocos2d::ui::EditBoxDelegate *self;
-    cocos2d::ui::EditBox *arg1;       /**  */
-    lua_Unsigned arg2;       /**  */
+    cocos2d::ui::EditBox *arg1 = nullptr;       /**  */
+    lua_Unsigned arg2 = 0;       /**  */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBoxDelegate");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.EditBox");
@@ -19458,7 +19458,7 @@ static int _cocos2d_ui_EditBoxDelegate_editBoxReturn(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::EditBoxDelegate *self;
-    cocos2d::ui::EditBox *arg1;       /** editBox */
+    cocos2d::ui::EditBox *arg1 = nullptr;       /** editBox */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBoxDelegate");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.EditBox");
@@ -19478,7 +19478,7 @@ static int _cocos2d_ui_EditBoxDelegate_editBoxTextChanged(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::ui::EditBoxDelegate *self;
-    cocos2d::ui::EditBox *arg1;       /**  */
+    cocos2d::ui::EditBox *arg1 = nullptr;       /**  */
     std::string arg2;       /**  */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBoxDelegate");
@@ -19848,9 +19848,9 @@ static int _cocos2d_ui_EditBox_create1(lua_State *L)
     lua_settop(L, 4);
 
     cocos2d::Size arg1;       /** size */
-    cocos2d::ui::Scale9Sprite *arg2;       /** normalSprite */
-    cocos2d::ui::Scale9Sprite *arg3;       /** pressedSprite */
-    cocos2d::ui::Scale9Sprite *arg4;       /** disabledSprite */
+    cocos2d::ui::Scale9Sprite *arg2 = nullptr;       /** normalSprite */
+    cocos2d::ui::Scale9Sprite *arg3 = nullptr;       /** pressedSprite */
+    cocos2d::ui::Scale9Sprite *arg4 = nullptr;       /** disabledSprite */
 
     auto_olua_check_cocos2d_Size(L, 1, &arg1);
     olua_check_cppobj(L, 2, (void **)&arg2, "ccui.Scale9Sprite");
@@ -19874,7 +19874,7 @@ static int _cocos2d_ui_EditBox_create2(lua_State *L)
 
     cocos2d::Size arg1;       /** size */
     std::string arg2;       /** normalImage */
-    lua_Unsigned arg3;       /** texType */
+    lua_Unsigned arg3 = 0;       /** texType */
 
     auto_olua_check_cocos2d_Size(L, 1, &arg1);
     olua_check_std_string(L, 2, &arg2);
@@ -19899,7 +19899,7 @@ static int _cocos2d_ui_EditBox_create3(lua_State *L)
     std::string arg2;       /** normalImage */
     std::string arg3;       /** pressedImage */
     std::string arg4;       /** disabledImage */
-    lua_Unsigned arg5;       /** texType */
+    lua_Unsigned arg5 = 0;       /** texType */
 
     auto_olua_check_cocos2d_Size(L, 1, &arg1);
     olua_check_std_string(L, 2, &arg2);
@@ -20278,7 +20278,7 @@ static int _cocos2d_ui_EditBox_initWithSizeAndBackgroundSprite1(lua_State *L)
     cocos2d::ui::EditBox *self;
     cocos2d::Size arg1;       /** size */
     std::string arg2;       /** normal9SpriteBg */
-    lua_Unsigned arg3;       /** texType */
+    lua_Unsigned arg3 = 0;       /** texType */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
     auto_olua_check_cocos2d_Size(L, 2, &arg1);
@@ -20302,7 +20302,7 @@ static int _cocos2d_ui_EditBox_initWithSizeAndBackgroundSprite2(lua_State *L)
 
     cocos2d::ui::EditBox *self;
     cocos2d::Size arg1;       /** size */
-    cocos2d::ui::Scale9Sprite *arg2;       /** normal9SpriteBg */
+    cocos2d::ui::Scale9Sprite *arg2 = nullptr;       /** normal9SpriteBg */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
     auto_olua_check_cocos2d_Size(L, 2, &arg1);
@@ -20325,9 +20325,9 @@ static int _cocos2d_ui_EditBox_initWithSizeAndBackgroundSprite3(lua_State *L)
 
     cocos2d::ui::EditBox *self;
     cocos2d::Size arg1;       /** size */
-    cocos2d::ui::Scale9Sprite *arg2;       /** normalSprite */
-    cocos2d::ui::Scale9Sprite *arg3;       /** pressedSprite */
-    cocos2d::ui::Scale9Sprite *arg4;       /** disabledSprite */
+    cocos2d::ui::Scale9Sprite *arg2 = nullptr;       /** normalSprite */
+    cocos2d::ui::Scale9Sprite *arg3 = nullptr;       /** pressedSprite */
+    cocos2d::ui::Scale9Sprite *arg4 = nullptr;       /** disabledSprite */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
     auto_olua_check_cocos2d_Size(L, 2, &arg1);
@@ -20382,7 +20382,7 @@ static int _cocos2d_ui_EditBox_initWithSizeAndTexture(lua_State *L)
     std::string arg2;       /** normalImage */
     std::string arg3;       /** pressedImage */
     std::string arg4;       /** disabledImage */
-    lua_Unsigned arg5;       /** texType */
+    lua_Unsigned arg5 = 0;       /** texType */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
     auto_olua_check_cocos2d_Size(L, 2, &arg1);
@@ -20408,7 +20408,7 @@ static int _cocos2d_ui_EditBox_loadTextureDisabled(lua_State *L)
 
     cocos2d::ui::EditBox *self;
     std::string arg1;       /** disabled */
-    lua_Unsigned arg2;       /** texType */
+    lua_Unsigned arg2 = 0;       /** texType */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
     olua_check_std_string(L, 2, &arg1);
@@ -20430,7 +20430,7 @@ static int _cocos2d_ui_EditBox_loadTextureNormal(lua_State *L)
 
     cocos2d::ui::EditBox *self;
     std::string arg1;       /** normal */
-    lua_Unsigned arg2;       /** texType */
+    lua_Unsigned arg2 = 0;       /** texType */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
     olua_check_std_string(L, 2, &arg1);
@@ -20452,7 +20452,7 @@ static int _cocos2d_ui_EditBox_loadTexturePressed(lua_State *L)
 
     cocos2d::ui::EditBox *self;
     std::string arg1;       /** pressed */
-    lua_Unsigned arg2;       /** texType */
+    lua_Unsigned arg2 = 0;       /** texType */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
     olua_check_std_string(L, 2, &arg1);
@@ -20476,7 +20476,7 @@ static int _cocos2d_ui_EditBox_loadTextures(lua_State *L)
     std::string arg1;       /** normal */
     std::string arg2;       /** pressed */
     std::string arg3;       /** disabled */
-    lua_Unsigned arg4;       /** texType */
+    lua_Unsigned arg4 = 0;       /** texType */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
     olua_check_std_string(L, 2, &arg1);
@@ -20597,7 +20597,7 @@ static int _cocos2d_ui_EditBox_setDelegate(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::EditBox *self;
-    cocos2d::ui::EditBoxDelegate *arg1;       /** delegate */
+    cocos2d::ui::EditBoxDelegate *arg1 = nullptr;       /** delegate */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
     olua_check_cppobj(L, 2, (void **)&arg1, "ccui.EditBoxDelegate");
@@ -20620,8 +20620,8 @@ static int _cocos2d_ui_EditBox_setFont(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::ui::EditBox *self;
-    const char *arg1;       /** pFontName */
-    lua_Integer arg2;       /** fontSize */
+    const char *arg1 = nullptr;       /** pFontName */
+    lua_Integer arg2 = 0;       /** fontSize */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
     olua_check_string(L, 2, &arg1);
@@ -20701,7 +20701,7 @@ static int _cocos2d_ui_EditBox_setFontName(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::EditBox *self;
-    const char *arg1;       /** pFontName */
+    const char *arg1 = nullptr;       /** pFontName */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
     olua_check_string(L, 2, &arg1);
@@ -20721,7 +20721,7 @@ static int _cocos2d_ui_EditBox_setFontSize(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::EditBox *self;
-    lua_Integer arg1;       /** fontSize */
+    lua_Integer arg1 = 0;       /** fontSize */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
     olua_check_int(L, 2, &arg1);
@@ -20741,7 +20741,7 @@ static int _cocos2d_ui_EditBox_setInputFlag(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::EditBox *self;
-    lua_Unsigned arg1;       /** inputFlag */
+    lua_Unsigned arg1 = 0;       /** inputFlag */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
     olua_check_uint(L, 2, &arg1);
@@ -20761,7 +20761,7 @@ static int _cocos2d_ui_EditBox_setInputMode(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::EditBox *self;
-    lua_Unsigned arg1;       /** inputMode */
+    lua_Unsigned arg1 = 0;       /** inputMode */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
     olua_check_uint(L, 2, &arg1);
@@ -20781,7 +20781,7 @@ static int _cocos2d_ui_EditBox_setMaxLength(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::EditBox *self;
-    lua_Integer arg1;       /** maxLength */
+    lua_Integer arg1 = 0;       /** maxLength */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
     olua_check_int(L, 2, &arg1);
@@ -20801,7 +20801,7 @@ static int _cocos2d_ui_EditBox_setPlaceHolder(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::EditBox *self;
-    const char *arg1;       /** pText */
+    const char *arg1 = nullptr;       /** pText */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
     olua_check_string(L, 2, &arg1);
@@ -20821,8 +20821,8 @@ static int _cocos2d_ui_EditBox_setPlaceholderFont(lua_State *L)
     lua_settop(L, 3);
 
     cocos2d::ui::EditBox *self;
-    const char *arg1;       /** pFontName */
-    lua_Integer arg2;       /** fontSize */
+    const char *arg1 = nullptr;       /** pFontName */
+    lua_Integer arg2 = 0;       /** fontSize */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
     olua_check_string(L, 2, &arg1);
@@ -20902,7 +20902,7 @@ static int _cocos2d_ui_EditBox_setPlaceholderFontName(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::EditBox *self;
-    const char *arg1;       /** pFontName */
+    const char *arg1 = nullptr;       /** pFontName */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
     olua_check_string(L, 2, &arg1);
@@ -20922,7 +20922,7 @@ static int _cocos2d_ui_EditBox_setPlaceholderFontSize(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::EditBox *self;
-    lua_Integer arg1;       /** fontSize */
+    lua_Integer arg1 = 0;       /** fontSize */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
     olua_check_int(L, 2, &arg1);
@@ -20942,7 +20942,7 @@ static int _cocos2d_ui_EditBox_setReturnType(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::EditBox *self;
-    lua_Unsigned arg1;       /** returnType */
+    lua_Unsigned arg1 = 0;       /** returnType */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
     olua_check_uint(L, 2, &arg1);
@@ -20962,7 +20962,7 @@ static int _cocos2d_ui_EditBox_setText(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::EditBox *self;
-    const char *arg1;       /** pText */
+    const char *arg1 = nullptr;       /** pText */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
     olua_check_string(L, 2, &arg1);
@@ -20982,7 +20982,7 @@ static int _cocos2d_ui_EditBox_setTextHorizontalAlignment(lua_State *L)
     lua_settop(L, 2);
 
     cocos2d::ui::EditBox *self;
-    lua_Unsigned arg1;       /** alignment */
+    lua_Unsigned arg1 = 0;       /** alignment */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
     olua_check_uint(L, 2, &arg1);

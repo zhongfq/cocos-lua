@@ -26,22 +26,27 @@ local function genSnippetFunc(cls, fi, write)
     write('')
 end
 
-function olua.gendeclexp(value, name, out)
-    local SPACE = string.find(value.TYPE.DECLTYPE, '[ *&]$') and '' or ' '
+function olua.gendeclexp(arg, name, out)
+    local SPACE = string.find(arg.TYPE.DECLTYPE, '[ *&]$') and '' or ' '
     local ARG_NAME = name
     local VARNAME = ""
-    if value.VARNAME then
-        VARNAME = format([[/** ${value.VARNAME} */]])
+    local INITIALVALUE = ''
+    if arg.VARNAME then
+        VARNAME = format([[/** ${arg.VARNAME} */]])
     end
-    if value.TYPE.SUBTYPE then
-        -- value.DECLTYPE = std::vector<std::string>
-        -- value.TYPE.DECLTYPE = std::vector
+    if arg.TYPE.SUBTYPE then
+        -- arg.DECLTYPE = std::vector<std::string>
+        -- arg.TYPE.DECLTYPE = std::vector
         out.DECL_ARGS:push(format([[
-            ${value.DECLTYPE}${SPACE}${ARG_NAME};       ${VARNAME}
+            ${arg.DECLTYPE}${SPACE}${ARG_NAME};       ${VARNAME}
         ]]))
     else
+        INITIALVALUE = olua.initialvalue(arg.TYPE)
+        if INITIALVALUE and #INITIALVALUE > 0 then
+            INITIALVALUE = ' = ' .. INITIALVALUE
+        end
         out.DECL_ARGS:push(format([[
-            ${value.TYPE.DECLTYPE}${SPACE}${ARG_NAME};       ${VARNAME}
+            ${arg.TYPE.DECLTYPE}${SPACE}${ARG_NAME}${INITIALVALUE};       ${VARNAME}
         ]]))
     end
     olua.nowarning(SPACE, ARG_NAME, VARNAME)

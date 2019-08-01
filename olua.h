@@ -125,6 +125,7 @@ LUALIB_API int olua_pushobj(lua_State *L, void *obj, const char *cls);
 LUALIB_API bool olua_getobj(lua_State *L, void *obj);
 LUALIB_API void *olua_checkobj(lua_State *L, int idx, const char *cls);
 LUALIB_API void *olua_toobj(lua_State *L, int idx, const char *cls);
+LUALIB_API const char *olua_objstring(lua_State *L, int idx);
     
 // optimize temporary userdata
 LUALIB_API void olua_enable_objpool(lua_State *L);
@@ -274,6 +275,7 @@ typedef lua_Integer lua_Unsigned;
 #define LUA_OK 0
 #define LUA_PRELOAD_TABLE "_PRELOAD"
 #define LUA_LOADED_TABLE "_LOADED"
+#define LUA_LOADER_TABLE "loaders"
 #define lua_rawlen(L, i) lua_objlen(L, (i))
 #define olua_newlib(L,l) {                              \
     lua_createtable(L, 0, sizeof(l)/sizeof((l)[0]) - 1);\
@@ -303,6 +305,7 @@ LUALIB_API int olua_rawgetp(lua_State *L, int idx, const void *p);
 #define olua_settable(L, i)         (lua_settable(L, (i)))
 #define olua_gettable(L, i)         (lua_gettable(L, (i)), lua_type(L, -1))
 #else
+#define LUA_LOADER_TABLE "searchers"
 #define olua_newlib(L, l)           (luaL_newlib(L, (l)))
 #define olua_requiref(L, mn, f, g)  (luaL_requiref(L, (mn), (f), (g)))
 #define olua_setfuncs(L, l, nup)    (luaL_setfuncs(L, (l), (nup)))

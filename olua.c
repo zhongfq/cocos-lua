@@ -164,7 +164,6 @@ LUALIB_API void olua_require(lua_State *L, const char *name, lua_CFunction func)
 LUALIB_API const char *olua_typename(lua_State *L, int idx)
 {
     const char *tn = NULL;
-    intptr_t p;
     if (lua_getmetatable(L, idx)) {
         if (olua_rawgetf(L, -1, "classname") == LUA_TSTRING) {
             tn = olua_tostring(L, -1);
@@ -174,12 +173,7 @@ LUALIB_API const char *olua_typename(lua_State *L, int idx)
     if (!tn) {
         tn = lua_typename(L, lua_type(L, idx));
     }
-    if (olua_isuserdata(L, idx)) {
-        p = (intptr_t)olua_touserdata(L, idx, void *);
-    } else {
-        p = (intptr_t)lua_topointer(L, idx);
-    }
-    return lua_pushfstring(L, "%s: %p", tn, p);
+    return tn;
 }
 
 LUALIB_API bool olua_isa(lua_State *L, int idx, const char *cls)
@@ -308,7 +302,7 @@ static void *auxtoobj(lua_State *L, int idx, const char *cls, bool checked)
         }
     } else {
         luaL_error(L, "#%d argument error, expect: '%s', got '%s'", idx,
-            cls, lua_typename(L, lua_type(L, idx)));
+            cls, olua_typename(L, idx));
     }
     return NULL;
 }
@@ -321,6 +315,18 @@ LUALIB_API void *olua_checkobj(lua_State *L, int idx, const char *cls)
 LUALIB_API void *olua_toobj(lua_State *L, int idx, const char *cls)
 {
     return auxtoobj(L, idx, cls, false);
+}
+
+LUALIB_API const char *olua_objstring(lua_State *L, int idx)
+{
+    intptr_t p;
+    const char *tn = olua_typename(L, idx);
+    if (olua_isuserdata(L, idx)) {
+        p = (intptr_t)olua_touserdata(L, idx, void *);
+    } else {
+        p = (intptr_t)lua_topointer(L, idx);
+    }
+    return lua_pushfstring(L, "%s: %p", tn, p);
 }
 
 LUALIB_API void olua_enable_objpool(lua_State *L)
@@ -685,13 +691,13 @@ LUALIB_API void olua_mapwalkunref(lua_State *L, int idx, const char *name, lua_C
     olua_getreftable(L, idx, name);         // L: t
     lua_pushnil(L);                         // L: t k
     while (lua_next(L, -2)) {               // L: t k v
-        int top = lua_gettop(L);
+        int kidx = lua_gettop(L) - 1;
         if (walk(L)) { // remove?
-            lua_pushvalue(L, -2);           // L: t k v k
+            lua_pushvalue(L, kidx);         // L: t k v k
             lua_pushnil(L);                 // L: t k v k nil
-            lua_rawset(L, -5);              // L: t k v
+            lua_rawset(L, kidx - 1);        // L: t k v
         }
-        lua_settop(L, top - 1);             // L: t k
+        lua_settop(L, kidx);                // L: t k
     }
     lua_pop(L, 1);
 }
@@ -824,7 +830,7 @@ static int cls_newindex(lua_State *L)
 
 static int cls_tostring(lua_State *L)
 {
-    olua_typename(L, 1);
+    olua_objstring(L, 1);
     return 1;
 }
 

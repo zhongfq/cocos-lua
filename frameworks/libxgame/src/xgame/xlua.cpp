@@ -364,7 +364,7 @@ int xlua_ccobjgc(lua_State *L)
         if (obj) {
 #ifdef COCOS2D_DEBUG
             int top = lua_gettop(L);
-            const char *str = olua_typename(L, 1);
+            const char *str = olua_objstring(L, 1);
             xgame::runtime::log("lua gc: obj=%s obj_ref_count=%d total_obj_count=%d",
                 str, obj->getReferenceCount() - 1, olua_objcount(L) - 1);
             
@@ -384,7 +384,7 @@ int xlua_ccobjgc(lua_State *L)
             olua_subobjcount(L);
         } else {
 #ifdef COCOS2D_DEBUG
-            const char *str = olua_typename(L, 1);
+            const char *str = olua_objstring(L, 1);
             xgame::runtime::log("previous call gc manually: %s", str);
 #endif
         }

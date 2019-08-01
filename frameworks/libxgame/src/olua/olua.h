@@ -125,6 +125,7 @@ LUALIB_API int olua_pushobj(lua_State *L, void *obj, const char *cls);
 LUALIB_API bool olua_getobj(lua_State *L, void *obj);
 LUALIB_API void *olua_checkobj(lua_State *L, int idx, const char *cls);
 LUALIB_API void *olua_toobj(lua_State *L, int idx, const char *cls);
+LUALIB_API const char *olua_objstring(lua_State *L, int idx);
     
 // optimize temporary userdata
 LUALIB_API void olua_enable_objpool(lua_State *L);

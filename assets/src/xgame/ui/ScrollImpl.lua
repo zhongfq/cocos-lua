@@ -103,16 +103,18 @@ function ScrollImpl:_tryFocus(id, x, y)
         [id] = {x = x, y = y, id = id}})
     if hit then
         self._focuses[id] = hit
-        self._focuses[id]:touch_down(capturePoints)
+        self._focuses[id]:touchDown(capturePoints)
     end
 end
 
 function ScrollImpl:_abortFocus(id)
     local focus = self._focuses[id]
     if focus then
-        if focus.cobj then
-            focus:touch_cancel(focus.touches)
+        for _, p in pairs(focus.touches) do
+            p.x = math.maxinteger
+            p.y = math.maxinteger
         end
+        focus:touchUp(focus.touches)
         self._focuses[id] = nil
     end
 end
@@ -126,8 +128,8 @@ end
 function ScrollImpl:tap(id, x, y)
     -- assert(self._focuses[id]) ?
     local focus = self._focuses[id]
-    if focus and focus.cobj then
-        focus:touch_up(focus.touches)
+    if focus then
+        focus:touchUp(focus.touches)
         self._focuses[id] = nil
         self._touchCount = self._touchCount - 1
         self:_checkScrollEnd()
@@ -223,8 +225,9 @@ function ScrollImpl:fling(velX, velY)
     end
 
     self._container:schedule(function (delta)
-        local x, y = self._container:get_position()
-        local last_x, last_y = x, y
+        local x = self._container.x
+        local y = self._container.y
+        local lastX, lastY = x, y
 
         tx = tx + delta * fx
         ty = ty + delta * fy
@@ -256,7 +259,7 @@ function ScrollImpl:fling(velX, velY)
             self:validate()
         end
 
-        if equal(x, last_x) and equal(y, last_y) then
+        if equal(x, lastX) and equal(y, lastY) then
             self._container:unschedule(UPDATE_KEY)
             self:_checkScrollEnd()
         else
@@ -326,13 +329,11 @@ function ScrollImpl:_validateY(value, force)
         if bottom > 0 or height < target.height then
             value = self.validateThreshold("B", value, y + (0 - bottom))
         elseif top < target.height then
-            value = self.validateThreshold("T", value,
-                y + (target.height - top))
+            value = self.validateThreshold("T", value, y + (target.height - top))
         end
     else
         if top < target.height or height < target.height then
-            value = self.validateThreshold("T", value,
-                y + (target.height - top))
+            value = self.validateThreshold("T", value, y + (target.height - top))
         elseif bottom > 0 then
             value = self.validateThreshold("B", value, y + (0 - bottom))
         end

@@ -3,6 +3,7 @@ local util          = require "xgame.util"
 local timer         = require "xgame.timer"
 local MixScene      = require "xgame.ui.MixScene"
 local font          = require "xgame.font"
+local Array         = require "xgame.Array"
 
 local ui = require "xgame.ui.ui"
 
@@ -18,27 +19,41 @@ font.register {
 local UITest = class("UITest", MixScene)
 
 function UITest:ctor()
-    ui.new("login", self, self)
+    ui.new("console", self, self)
 end
 
 function UITest:onCreate()
-    self.start_page.btn_account.parent:reszieToChildren(true)
-    -- print('###', self.width, self.height, self.x, self.y)
-    -- self.x = 500
-    -- print('###', self.stage.x, self.stage.cobj.x)
-    print('xxxx')
-    -- xGame:delay(1, function ()
-    --     self.cobj:setPosition(500, 0)
-    --     print('helllo')
-    -- end)
+    local arr = Array.new()
+    arr:pushBack({name = "hello1"})
+    arr:pushBack({name = "hello2"})
+    arr:pushBack({name = "hello3"})
+    arr:pushBack({name = "hello4"})
+    arr:pushBack({name = "hello5"})
+    arr:pushBack({name = "hello6"})
+    self.shortcut_list.data = arr
+
+    local data = Array.new()
+    for i = 1, 100 do
+        data:pushBack({name = 'list test hello ' .. i})
+    end
+    self.list.data = data
 end
 
-function UITest:open_login_page()
-    print('open_login_page')
-    self.start_page.visible = false
-    self.login_page.visible = true
+function UITest:open_shortcut()
+    self.list.visible = not self.list.visible
+    self.shortcut_list.visible = not self.shortcut_list.visible
+end
 
-    print(self.login_page.account.children[2].horizontalAlign)
+local UIItemRenderer = require "xgame.ui.UIItemRenderer"
+local ConsoleShortcut = ui.class('ConsoleShortcut', UIItemRenderer)
+
+function ConsoleShortcut:update(data)
+    self.label.text = data.name
+end
+
+local ConsoleFileListRenderer = ui.class("ConsoleFileListRenderer", UIItemRenderer)
+
+function ConsoleFileListRenderer:update(data)
 end
 
 return UITest

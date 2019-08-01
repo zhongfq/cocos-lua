@@ -217,6 +217,7 @@ function MovieClip:addChildAt(child, index)
         assert(old_index > 0)
         child.parent:_internalRemoveChild(old_index, true)
 
+        index = math.min(index, #self.children + 1)
         self.cobj:addChildAt(child.cobj, index - 1)
 
         index = self.cobj:getChildIndex(child.cobj) + 1

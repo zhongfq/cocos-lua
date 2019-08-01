@@ -209,7 +209,7 @@ local function genFuncArgs(cls, fi, func)
         local OLUA_TO_TYPE = olua.convfunc(ti, 'to')
         olua.nowarning(OLUA_TO_TYPE)
         func.DECL_ARGS:push(format([[
-            ${cls.CPPCLS} *self;
+            ${cls.CPPCLS} *self = nullptr;
         ]]))
         func.CHECK_ARGS:push(format([[
             ${OLUA_TO_TYPE}(L, 1, (void **)&self, "${ti.LUACLS}");

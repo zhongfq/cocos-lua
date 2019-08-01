@@ -2,34 +2,32 @@ local class         = require "xgame.class"
 local Align       = require "xgame.ui.Align"
 local ListBase      = require "xgame.ui.ListBase"
 
-local UIGridLayout
-
 local UIGrid = class("UIGrid", ListBase)
 
 function UIGrid:ctor()
 end
 
-function UIGrid.Get:wrap_count() return self._layout.wrap_count end
-function UIGrid.Set:wrap_count(value)
+function UIGrid.Get:wrapCount() return self._layout.wrapCount end
+function UIGrid.Set:wrapCount(value)
     value = math.max(1, value)
-    if self._layout.wrap_count ~= value then
-        self._layout.wrap_count = value
+    if self._layout.wrapCount ~= value then
+        self._layout.wrapCount = value
         self._layout:notify("UPDATE")
     end
 end
 
-function UIGrid.Get:horizontal_gap() return self._layout.horizontal_gap end
-function UIGrid.Set:horizontal_gap(value)
-    if self._layout.horizontal_gap ~= value then
-        self._layout.horizontal_gap = value
+function UIGrid.Get:horizontalGap() return self._layout.horizontalGap end
+function UIGrid.Set:horizontalGap(value)
+    if self._layout.horizontalGap ~= value then
+        self._layout.horizontalGap = value
         self._layout:notify("UPDATE")
     end
 end
 
-function UIGrid.Get:vertical_gap() return self._layout.vertical_gap end
-function UIGrid.Set:vertical_gap(value)
-    if self._layout.vertical_gap ~= value then
-        self._layout.vertical_gap = value
+function UIGrid.Get:verticalGap() return self._layout.verticalGap end
+function UIGrid.Set:verticalGap(value)
+    if self._layout.verticalGap ~= value then
+        self._layout.verticalGap = value
         self._layout:notify("UPDATE")
     end
 end
@@ -39,8 +37,8 @@ function UIGrid.Set:orientation(value)
     if self._layout.orientation ~= value then
         self._layout.orientation = value
         self._layout:notify("UPDATE")
-        self._scroll_impl.horizontal_enabled = value ~= Align.VERTICAL
-        self._scroll_impl.vertical_enabled = value == Align.VERTICAL
+        self._scrollImpl.scrollHEnabled = value ~= Align.VERTICAL
+        self._scrollImpl.scrollVEnabled = value == Align.VERTICAL
     end
 end
 

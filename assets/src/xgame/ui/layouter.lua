@@ -15,7 +15,7 @@ local function update()
         if times > 0 and next(layouts) then
             local units = reset()
             for layout in pairs(units) do
-                layout:doLayout()
+                layout:update()
             end
             doUpdate(times - 1)
         end

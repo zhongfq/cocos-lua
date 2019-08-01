@@ -106,7 +106,7 @@ local function UITextField(self, data)
     end
 
     if data.textHAlign then
-        self.textHAalign = data.textHAlign
+        self.textHAlign = data.textHAlign
     end
 
     if data.textVAlign then
@@ -272,28 +272,28 @@ end
 
 local function UIScroller(self, data)
     ScrollBase(self, data)
-    self.horizontal_scroll_enabled = data.horizontal_enabled ~= false
-    self.horizontal_scroll_align = data.horizontal_scroll_align or Align.LEFT
-    self.vertical_scroll_enabled = data.vertical_enabled ~= false
-    self.vertical_scroll_align = data.vertical_scroll_align or Align.BOTTOM
+    self.scrollHEnabled = data.scrollHEnabled ~= false
+    self.scrollHAlign = data.scrollHAlign or Align.LEFT
+    self.scrollVEnabled = data.scrollVEnabled ~= false
+    self.scrollVAlign = data.scrollVAlign or Align.BOTTOM
 end
 
 local function ListBase(self, data)
     ScrollBase(self, data)
-    self.item_renderer = data.item_renderer
+    self.itemRenderer = data.itemRenderer
 end
 
 local function UIGrid(self, data)
     ListBase(self, data)
-    self.wrap_count = data.wrap_count or 1
+    self.wrapCount = data.wrapCount or 1
     self.orientation = data.orientation or Align.VERTICAL
-    self.horizontal_gap = data.horizontal_gap or 6
-    self.vertical_gap = data.vertical_gap or 6
+    self.horizontalGap = data.horizontalGap or 6
+    self.verticalGap = data.verticalGap or 6
 end
 
 local function UIList(self, data)
     ListBase(self, data)
-    self.layout.horizontal_gap = data.gap or 0
+    self.layout.horizontalGap = data.gap or 0
 end
 
 baseLoaders["UIView"] = UIView

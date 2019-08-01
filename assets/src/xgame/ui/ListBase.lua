@@ -6,22 +6,24 @@ local TouchEvent    = require "xgame.event.TouchEvent"
 local ScrollImpl    = require "xgame.ui.ScrollImpl"
 local ScrollBase    = require "xgame.ui.ScrollBase"
 local LayoutBase    = require "xgame.ui.LayoutBase"
+local ui            = require "xgame.ui.ui"
 
 local Layout
 
 local ListBase = class("ListBase", ScrollBase)
 
 function ListBase:ctor()
-    self.item_renderer = false
-    self.inner_padding = 50
+    self.itemRenderer = false
+    self.innerPadding = 50
     self.recyclable = true
+    self._data = Array.new()
     self._cursor = {from = 1, to = 0}
     self.dequeue = Array.new()
     self._scrollImpl = ScrollImpl.new(self, self._container)
     self._scrollImpl.orientation = Align.VERTICAL
-    self._scrollImpl.scrollVenabled = true
-    self._scrollImpl.scrollVAlgin = Align.TOP
-    self._scrollImpl.scrollHenabled = false
+    self._scrollImpl.scrollVEnabled = true
+    self._scrollImpl.scrollVAlign = Align.TOP
+    self._scrollImpl.scrollHEnabled = false
     self._scrollImpl.scrollHAlgin = Align.LEFT
     self._scrollImpl.maxVel = 6000
     self._scrollImpl.elapseTime = 1.5
@@ -62,38 +64,38 @@ function ListBase:refresh()
     end
 end
 
-function ListBase:_internal_add_child(child, data)
+function ListBase:_internalAddChild(child, data)
     if not child then
-        if type(self.item_renderer) == "string" then
-            child = ui.new(self.item_renderer)
+        if type(self.itemRenderer) == "string" then
+            child = ui.new(self.itemRenderer)
         else
-            child = self.item_renderer.new()
+            child = self.itemRenderer.new()
         end
         child:addListener(TouchEvent.CLICK, self._on_select_item, self)
-        self:add_child(child)
+        self:addChild(child)
     end
 
     child.visible = true
     child.data = data
-    self:dispatch_event(Event.CREATE, child)
+    self:dispatch(Event.CREATE, child)
 
     return child
 end
 
 function ListBase:_on_select_item(item, ...)
-    self:dispatch_event(Event.CHANGE, item, ...)
+    self:dispatch(Event.CHANGE, item, ...)
 end
 
-function ListBase:_on_data_change(_, action, index, data)
+function ListBase:_onDataChange(_, action, index, data)
     local from, to = self._cursor.from, self._cursor.to
     if action == "ADD" then
         if index < from then
             self._cursor.from = from - 1
             self._cursor.to = to - 1
         elseif index <= to then
-            local child = self:_internal_add_child(nil, data)
+            local child = self:_internalAddChild(nil, data)
             self._cursor.to = to + 1
-            self.dequeue:add_item_at(child, index - from + 1)
+            self.dequeue:addAt(child, index - from + 1)
             self:_createIfneed()
         else
             self:_createIfneed()
@@ -103,16 +105,16 @@ function ListBase:_on_data_change(_, action, index, data)
             self._cursor.from = from - 1
             self._cursor.to = to - 1
         elseif index <= to then
-            local child = self.dequeue:remove_item_at(index - from + 1)
+            local child = self.dequeue:removeAt(index - from + 1)
             self._cursor.to = to - 1
-            self:remove_child(child)
+            self:removeChild(child)
             self:_createIfneed()
         end
     elseif action == "CLEAR" then
-        self:remove_children()
+        self:removeChildren()
         self.dequeue:clear()
         self._cursor = {from = 1, to = 0}
-        self:validate_display()
+        self:validateDisplay()
     elseif action == "REFRESH" then
         for i = self._cursor.from, self._cursor.to do
             local idx = i - self._cursor.from + 1
@@ -123,21 +125,21 @@ function ListBase:_on_data_change(_, action, index, data)
     end
 end
 
-function ListBase:_child_is_recyclable(child)
+function ListBase:_childIsRecyclable(child)
     if not child then
         return false
     elseif not child.visible then
         return true
     end
 
-    local left, right, top, bottom = child:get_bounds(self)
-    return right < -self.inner_padding 
-        or left > self.width + self.inner_padding
-        or bottom > self.height + self.inner_padding
-        or top < -self.inner_padding
+    local left, right, top, bottom = child:getBounds(self)
+    return right < -self.innerPadding
+        or left > self.width + self.innerPadding
+        or bottom > self.height + self.innerPadding
+        or top < -self.innerPadding
 end
 
-function ListBase:_obtain_recyclable_children()
+function ListBase:_obtainRecyclableChildren()
     local arr = Array.new()
     while true and self.recyclable do
         local len = #self.dequeue
@@ -145,20 +147,20 @@ function ListBase:_obtain_recyclable_children()
             -- 如果只判断一个，有可能会出现临界条件
             -- 在头补尾，尾补头之间循环
             local child1 = self.dequeue[1]
-            local child2 = self.dequeue[1 + self.layout.wrap_count]
-            if self:_child_is_recyclable(child1) 
-                and self:_child_is_recyclable(child2) then
+            local child2 = self.dequeue[1 + self.layout.wrapCount]
+            if self:_childIsRecyclable(child1)
+                and self:_childIsRecyclable(child2) then
                 self._cursor.from = self._cursor.from + 1
-                arr:push_back(self.dequeue:shift())
+                arr:pushBack(self.dequeue:shift())
                 goto continue
             end
 
             local child1 = self.dequeue[len]
-            local child2 = self.dequeue[len - self.layout.wrap_count]
-            if self:_child_is_recyclable(child1) 
-                and self:_child_is_recyclable(child2) then
+            local child2 = self.dequeue[len - self.layout.wrapCount]
+            if self:_childIsRecyclable(child1)
+                and self:_childIsRecyclable(child2) then
                 self._cursor.to = self._cursor.to - 1
-                arr:push_back(self.dequeue:pop())
+                arr:pushBack(self.dequeue:pop())
                 goto continue
             end
 
@@ -184,42 +186,42 @@ function ListBase:_createIfneed(try_times)
         return
     end
 
-    local left, right, top, bottom = self:get_scroll_bounds()
+    local left, right, top, bottom = self:getScrollBounds()
     local has_created = false
     local arr, index, child, data
-    local wrap_count = self.layout.wrap_count
+    local wrapCount = self.layout.wrapCount
 
     local vertical = self.layout.orientation == Align.VERTICAL
 
-    if (not vertical and right < self.width + self.inner_padding) or 
-        (vertical and bottom > -self.inner_padding) then
-        for i = 1, wrap_count do
+    if (not vertical and right < self.width + self.innerPadding) or
+        (vertical and bottom > -self.innerPadding) then
+        for i = 1, wrapCount do
             index = self._cursor.to + 1
             if index <= #self.data then
                 if not arr then
-                    arr = self:_obtain_recyclable_children()
+                    arr = self:_obtainRecyclableChildren()
                 end
                 has_created = true
                 data = self.data[index]
                 child = #arr > 0 and arr:shift() or nil
-                child = self:_internal_add_child(child, data)
-                self.dequeue:push_back(child)
+                child = self:_internalAddChild(child, data)
+                self.dequeue:pushBack(child)
                 self._cursor.to = index
             end
         end
-    elseif (not vertical and left > -self.inner_padding) or
-        (vertical and top < self.height + self.inner_padding) then
-        for i = 1, wrap_count do
+    elseif (not vertical and left > -self.innerPadding) or
+        (vertical and top < self.height + self.innerPadding) then
+        for i = 1, wrapCount do
             index = self._cursor.from - 1
             if index > 0 then
                 if not arr then
-                    arr = self:_obtain_recyclable_children()
+                    arr = self:_obtainRecyclableChildren()
                 end
                 has_created = true
                 data = self.data[index]
                 child = #arr > 0 and arr:shift() or nil
-                child = self:_internal_add_child(child, data)
-                self.dequeue:push_front(child)
+                child = self:_internalAddChild(child, data)
+                self.dequeue:pushFront(child)
                 self._cursor.from = index
             end
         end
@@ -227,9 +229,9 @@ function ListBase:_createIfneed(try_times)
 
     if has_created then
         for _, v in ipairs(arr) do
-            v:remove_self()
+            v:removeSelf()
         end
-        self.layout:do_layout()
+        self.layout:doLayout()
         self._scrollImpl:validate()
         self:_createIfneed(try_times)
     end
@@ -242,9 +244,8 @@ function ListBase.Set:data(value)
     end
 
     if self._data then
-        self:_on_data_change(self, "CLEAR")
-        self._data:remove_event_listener(Event.CHANGE, 
-            self._on_data_change, self)
+        self:_onDataChange(self, "CLEAR")
+        self._data:removeListener(Event.CHANGE, self._onDataChange, self)
     end
 
     self._data = value
@@ -253,7 +254,7 @@ function ListBase.Set:data(value)
         return
     end
 
-    value:addListener(Event.CHANGE, self._on_data_change, self)
+    value:addListener(Event.CHANGE, self._onDataChange, self)
 
     self:_createIfneed()
 end
@@ -275,20 +276,20 @@ end
 Layout = class("Layout", LayoutBase)
 
 function Layout:ctor()
-    self.wrap_count = 1
-    self.horizontal_gap = 6
-    self.vertical_gap = 6
+    self.wrapCount = 1
+    self.horizontalGap = 6
+    self.verticalGap = 6
     self.orientation = Align.VERTICAL
 end
 
-function Layout:get_bounds(target)
+function Layout:getBounds(target)
     local left, right, top, bottom
     for _, child in ipairs(self.target.dequeue) do
         if not child.visible then
             goto continue
         end
 
-        local cl, cr, ct, cb = child:get_bounds(target)
+        local cl, cr, ct, cb = child:getBounds(target)
 
         if not left then
             left = cl
@@ -303,7 +304,7 @@ function Layout:get_bounds(target)
         end
 
         if not left then
-            left, right, top, bottom = child:get_bounds(target)
+            left, right, top, bottom = child:getBounds(target)
         end
 
         ::continue::
@@ -316,16 +317,16 @@ function Layout:get_bounds(target)
     end
 end
 
-function Layout:do_layout()
+function Layout:doLayout()
     if not self.target.stage then
         return
     end
 
-    local wrap_count = self.wrap_count
+    local wrapCount = self.wrapCount
     local count = 0
     local i, j
     local width, height
-    local hgap, vgap = self.horizontal_gap, self.vertical_gap
+    local hgap, vgap = self.horizontalGap, self.verticalGap
 
     for _, child in ipairs(self.target.dequeue) do
         if not child.visible then
@@ -333,26 +334,25 @@ function Layout:do_layout()
         end
 
         if not width then
-            local left, right, top, bottom = child:get_bounds(self.target)
+            local left, right, top, bottom = child:getBounds(self.target)
             width = right - left
             height = top - bottom
-            count = self.target.data:get_item_index(
-                child.data) - 1
+            count = self.target.data:indexOf(child.data) - 1
         end
 
         if self.orientation == Align.VERTICAL then
-            i = count % wrap_count
-            j = count // wrap_count
+            i = count % wrapCount
+            j = count // wrapCount
         else
-            i = count // wrap_count
-            j = count % wrap_count
+            i = count // wrapCount
+            j = count % wrapCount
         end
 
-        child:set_position((width + hgap) * i,
-        -(height + vgap) * j - height)
+        child.x = (width + hgap) * i
+        child.y = -(height + vgap) * j - height
 
         if not child.initialized then
-            self:update_child_display(child)
+            self:updateChildDisplay(child)
         end
 
         count = count + 1
@@ -360,7 +360,7 @@ function Layout:do_layout()
         ::continue::
     end
 
-    self.target:validate_display()
+    self.target:validateDisplay()
 end
 
 return ListBase

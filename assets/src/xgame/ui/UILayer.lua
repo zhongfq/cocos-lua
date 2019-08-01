@@ -144,6 +144,7 @@ function UILayer:addChildAt(child, index)
         local oldIndex = child.parent:getChildIndex(child)
         assert(oldIndex > 0)
         child.parent:_internalRemoveChild(oldIndex, true)
+        index = math.min(index, self.numChildren + 1)
         self:_internalAddChild(child, index, true)
     else
         self:_internalAddChild(child, index)

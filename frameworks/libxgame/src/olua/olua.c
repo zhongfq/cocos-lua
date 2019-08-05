@@ -79,12 +79,12 @@ LUALIB_API lua_State *olua_newstate(olua_metadata_t *mt)
     mt->usingpool = false;
     *(olua_metadata_t **)lua_getextraspace(L) = mt;
     
-    olua_newuserdata(L, mt, olua_metadata_t *);
-    lua_createtable(L, 0, 1);
-    lua_pushcfunction(L, _metadata_gc);
-    olua_rawsetf(L, -2, "__gc");
-    lua_setmetatable(L, -2);
-    olua_rawsetp(L, LUA_REGISTRYINDEX, (void *)mt);
+    olua_newuserdata(L, mt, olua_metadata_t *);     // L: md
+    lua_createtable(L, 0, 1);                       // L: md  mt
+    lua_pushcfunction(L, _metadata_gc);             // L: md  mt  gcfunc
+    olua_rawsetf(L, -2, "__gc");                    // L: md  mt         mt.__gc = gcfunc
+    lua_setmetatable(L, -2);                        // L: md             md.metatable = mt
+    olua_rawsetp(L, LUA_REGISTRYINDEX, (void *)mt); // L:
     
     return L;
 }
@@ -195,9 +195,8 @@ static void auxgetobjtable(lua_State *L)
     if (olua_rawgetp(L, LUA_REGISTRYINDEX, OLUA_OBJ_TABLE) != LUA_TTABLE) {
         lua_pop(L, 1); // pop nil
         lua_newtable(L);
+        olua_setfieldstring(L, -1, "__mode", "v");  // mt.__mode = 'v'
         lua_pushvalue(L, -1);
-        lua_pushstring(L, "kv");
-        lua_setfield(L, -2, "__mode");  // mt.__mode = 'kv'
         lua_setmetatable(L, -2);        // mt.metatable = mt
         lua_pushvalue(L, -1);
         olua_rawsetp(L, LUA_REGISTRYINDEX, OLUA_OBJ_TABLE);
@@ -353,6 +352,8 @@ LUALIB_API void olua_pop_objpool(lua_State *L, size_t level)
         for (size_t i = level + 1; i <= len; i++) {
             olua_rawgeti(L, -1, (lua_Integer)i);
             void **ud = (void **)lua_touserdata(L, -1);
+            lua_pushnil(L);
+            lua_setmetatable(L, -2);
             lua_pop(L, 1);
             if (*ud != NULL) {
                 *ud = NULL;
@@ -926,9 +927,7 @@ LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *super)
         }
         
         olua_rawgetf(L, idx, CLS_ISA);
-        lua_pushstring(L, cls);
-        lua_pushboolean(L, true);
-        lua_rawset(L, -3);                              // mt[.isa][cls] = true
+        olua_setfieldboolean(L, -1, cls, true);         // mt[.isa][cls] = true
         lua_pop(L, 1);
         
         // for sotre static function callback

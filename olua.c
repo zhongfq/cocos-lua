@@ -685,7 +685,7 @@ LUALIB_API void olua_mapunref(lua_State *L, int idx, const char *name, int obj)
     }
 }
 
-LUALIB_API void olua_mapwalkunref(lua_State *L, int idx, const char *name, lua_CFunction walk)
+LUALIB_API void olua_mapwalkunref(lua_State *L, int idx, const char *name, olua_WalkFunction walk)
 {
     olua_assert(olua_isuserdata(L, idx));
     idx = lua_absindex(L, idx);
@@ -693,7 +693,7 @@ LUALIB_API void olua_mapwalkunref(lua_State *L, int idx, const char *name, lua_C
     lua_pushnil(L);                         // L: t k
     while (lua_next(L, -2)) {               // L: t k v
         int kidx = lua_gettop(L) - 1;
-        if (walk(L)) { // remove?
+        if (walk(L, -2)) { // remove?
             lua_pushvalue(L, kidx);         // L: t k v k
             lua_pushnil(L);                 // L: t k v k nil
             lua_rawset(L, kidx - 1);        // L: t k v

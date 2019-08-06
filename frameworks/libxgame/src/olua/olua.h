@@ -165,13 +165,14 @@ LUALIB_API void olua_unref(lua_State *L, int ref);
 LUALIB_API void olua_getref(lua_State *L, int ref);
     
 // for ref chain, if callback store in userdata, it will keep callback available
+typedef bool (*olua_WalkFunction)(lua_State *L, int idx);
 LUALIB_API void olua_getreftable(lua_State *L, int idx, const char *name);
 LUALIB_API void olua_singleref(lua_State *L, int idx, const char *name, int obj);
 LUALIB_API void olua_singleunref(lua_State *L, int idx, const char *name);
 LUALIB_API void olua_mapref(lua_State *L, int idx, const char *name, int obj);
 LUALIB_API void olua_maprefarray(lua_State *L, int idx, const char *name, int obj);
 LUALIB_API void olua_mapunref(lua_State *L, int idx, const char *name, int obj);
-LUALIB_API void olua_mapwalkunref(lua_State *L, int idx, const char *name, lua_CFunction walk);
+LUALIB_API void olua_mapwalkunref(lua_State *L, int idx, const char *name, olua_WalkFunction walk);
 LUALIB_API void olua_unrefall(lua_State *L, int idx, const char *name);
 
 //

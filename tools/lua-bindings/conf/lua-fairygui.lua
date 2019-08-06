@@ -198,20 +198,20 @@ GTweener.CALLBACK {
 
 local GTween = typeconf 'fairygui::GTween'
 GTween.CHUNK = [[
-static int should_unref_tween(lua_State *L)
+static bool should_unref_tweener(lua_State *L, int idx)
 {
-    if (olua_isa(L, -2, "fui.GTweener")) {
-        fairygui::GTweener *obj = (fairygui::GTweener *)olua_toobj(L, -2, "fui.GTweener");
+    if (olua_isa(L, idx, "fui.GTweener")) {
+        fairygui::GTweener *obj = (fairygui::GTweener *)olua_toobj(L, idx, "fui.GTweener");
         if (obj->getReferenceCount() == 1 || obj->allCompleted()) {
-            return 1;
+            return true;
         }
     }
-    return 0;
+    return false;
 }]]
 local UNREF_TWEEN = {
     AFTER = [[
         olua_getstore(L, "fui.GTween");
-        olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
+        olua_mapwalkunref(L, -1, "tweeners", should_unref_tweener);
         lua_pop(L, 1);
     ]]
 }
@@ -219,7 +219,7 @@ local REF_TEWEENER = {
     AFTER = [[
         olua_getstore(L, "fui.GTween");
         olua_mapref(L, -1, "tweeners", -2);
-        olua_mapwalkunref(L, -1, "tweeners", should_unref_tween);
+        olua_mapwalkunref(L, -1, "tweeners", should_unref_tweener);
         lua_pop(L, 1);
     ]]
 }

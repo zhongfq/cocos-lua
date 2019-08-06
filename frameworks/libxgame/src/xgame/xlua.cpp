@@ -410,32 +410,32 @@ void xlua_startcmpunref(lua_State *L, int idx, const char *refname)
     lua_pop(L, 1);
 }
 
-static int should_unref_obj(lua_State *L)
+static bool should_unref_obj(lua_State *L, int idx)
 {
-    if (olua_isa(L, -2, "cc.Action")) {
-        auto obj = olua_touserdata(L, -2, cocos2d::Action *);
+    if (olua_isa(L, idx, "cc.Action")) {
+        auto obj = olua_touserdata(L, idx, cocos2d::Action *);
         if (obj) {
             unsigned int curr = obj->getReferenceCount();
             if (!obj->getTarget() || obj->isDone() || curr == 1) {
-                return 1;
+                return true;
             } else if (olua_isinteger(L, -1)) {
                 unsigned int last = (unsigned int)olua_tointeger(L, -1);
                 if (curr < last) {
-                    return 1;
+                    return true;
                 }
             }
         }
-    } else if (olua_isa(L, -2, "cc.Ref")) {
-        auto obj = olua_touserdata(L, -2, cocos2d::Ref *);
+    } else if (olua_isa(L, idx, "cc.Ref")) {
+        auto obj = olua_touserdata(L, idx, cocos2d::Ref *);
         if (obj && olua_isinteger(L, -1)) {
             unsigned int last = (unsigned int)olua_tointeger(L, -1);
             unsigned int curr = obj->getReferenceCount();
             if (curr < last || curr == 1) {
-                return 1;
+                return true;
             }
         }
     }
-    return 0;
+    return false;
 }
 
 void xlua_endcmpunref(lua_State *L, int idx, const char *refname)

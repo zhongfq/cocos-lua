@@ -193,11 +193,11 @@ LUALIB_API bool olua_isa(lua_State *L, int idx, const char *cls)
 static void auxgetobjtable(lua_State *L)
 {
     if (olua_rawgetp(L, LUA_REGISTRYINDEX, OLUA_OBJ_TABLE) != LUA_TTABLE) {
-        lua_pop(L, 1); // pop nil
+        lua_pop(L, 1);                              // pop nil
         lua_newtable(L);
         olua_setfieldstring(L, -1, "__mode", "v");  // mt.__mode = 'v'
         lua_pushvalue(L, -1);
-        lua_setmetatable(L, -2);        // mt.metatable = mt
+        lua_setmetatable(L, -2);                    // mt.metatable = mt
         lua_pushvalue(L, -1);
         olua_rawsetp(L, LUA_REGISTRYINDEX, OLUA_OBJ_TABLE);
     }
@@ -685,7 +685,7 @@ LUALIB_API void olua_mapunref(lua_State *L, int idx, const char *name, int obj)
     }
 }
 
-LUALIB_API void olua_mapwalkunref(lua_State *L, int idx, const char *name, lua_CFunction walk)
+LUALIB_API void olua_mapwalkunref(lua_State *L, int idx, const char *name, olua_WalkFunction walk)
 {
     olua_assert(olua_isuserdata(L, idx));
     idx = lua_absindex(L, idx);
@@ -693,7 +693,7 @@ LUALIB_API void olua_mapwalkunref(lua_State *L, int idx, const char *name, lua_C
     lua_pushnil(L);                         // L: t k
     while (lua_next(L, -2)) {               // L: t k v
         int kidx = lua_gettop(L) - 1;
-        if (walk(L)) { // remove?
+        if (walk(L, -2)) { // remove?
             lua_pushvalue(L, kidx);         // L: t k v k
             lua_pushnil(L);                 // L: t k v k nil
             lua_rawset(L, kidx - 1);        // L: t k v

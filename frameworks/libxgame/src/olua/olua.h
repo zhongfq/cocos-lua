@@ -97,11 +97,11 @@ typedef struct {
     size_t objcount;
     size_t sizepool;
     bool usingpool;
-} olua_metadata_t;
+} olua_vmstatus_t;
 
-// metadata point must treat olua_metadata_t as first member
-LUALIB_API lua_State *olua_newstate(olua_metadata_t *mt);
-#define olua_getmetadata(L, T) (*(T*)lua_getextraspace(L))
+// must treat olua_vmstatus_t as first member
+LUALIB_API lua_State *olua_newstate(olua_vmstatus_t *mt);
+#define olua_vmstatus(L) (*(olua_vmstatus_t **)lua_getextraspace(L))
     
 #define olua_addobjcount(L)  olua_changeobjcount(L, 1)
 #define olua_subobjcount(L)  olua_changeobjcount(L, -1)

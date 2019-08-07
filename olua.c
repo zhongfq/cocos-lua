@@ -65,21 +65,21 @@ static int errfunc(lua_State *L)
 
 static int _metadata_gc(lua_State *L)
 {
-    olua_metadata_t *mt = olua_touserdata(L, 1, olua_metadata_t *);
+    olua_vmstatus_t *mt = olua_touserdata(L, 1, olua_vmstatus_t *);
     free(mt);
     return 0;
 }
 
-LUALIB_API lua_State *olua_newstate(olua_metadata_t *mt)
+LUALIB_API lua_State *olua_newstate(olua_vmstatus_t *mt)
 {
     lua_State *L = luaL_newstate();
-    mt = mt != NULL ? mt : ((olua_metadata_t *)malloc(sizeof(*mt)));
+    mt = mt != NULL ? mt : ((olua_vmstatus_t *)malloc(sizeof(*mt)));
     mt->objcount = 0;
     mt->sizepool = 0;
     mt->usingpool = false;
-    *(olua_metadata_t **)lua_getextraspace(L) = mt;
+    *(olua_vmstatus_t **)lua_getextraspace(L) = mt;
     
-    olua_newuserdata(L, mt, olua_metadata_t *);     // L: md
+    olua_newuserdata(L, mt, olua_vmstatus_t *);     // L: md
     lua_createtable(L, 0, 1);                       // L: md  mt
     lua_pushcfunction(L, _metadata_gc);             // L: md  mt  gcfunc
     olua_rawsetf(L, -2, "__gc");                    // L: md  mt         mt.__gc = gcfunc
@@ -132,7 +132,7 @@ LUALIB_API void olua_rawsetf(lua_State *L, int idx, const char *field)
 
 LUALIB_API size_t olua_changeobjcount(lua_State *L, int add)
 {
-    olua_metadata_t *mt = olua_getmetadata(L, olua_metadata_t *);
+    olua_vmstatus_t *mt = olua_vmstatus(L);
     mt->objcount += add;
     return mt->objcount;
 }
@@ -205,7 +205,7 @@ static void auxgetobjtable(lua_State *L)
 
 static void olua_objpool_push(lua_State *L, void *obj, const char *cls)
 {
-    olua_metadata_t *mt = olua_getmetadata(L, olua_metadata_t *);
+    olua_vmstatus_t *mt = olua_vmstatus(L);
     if (olua_rawgetp(L, LUA_REGISTRYINDEX, OLUA_POOL_TABLE) != LUA_TTABLE) {
         lua_pop(L, 1);
         lua_createtable(L, 16, 0);
@@ -244,7 +244,7 @@ LUALIB_API int olua_pushobj(lua_State *L, void *obj, const char *cls)
     if (olua_rawgetp(L, -1, obj) == LUA_TNIL) {     // L: mapping obj?
         lua_pop(L, 1);                              // L: mapping
         
-        if (olua_getmetadata(L, olua_metadata_t *)->usingpool) {
+        if (olua_vmstatus(L)->usingpool) {
             olua_objpool_push(L, obj, cls);
             status = OLUA_EXIST;
         } else {
@@ -330,23 +330,23 @@ LUALIB_API const char *olua_objstring(lua_State *L, int idx)
 
 LUALIB_API void olua_enable_objpool(lua_State *L)
 {
-    olua_getmetadata(L, olua_metadata_t *)->usingpool = true;
+    olua_vmstatus(L)->usingpool = true;
 }
 
 LUALIB_API void olua_disable_objpool(lua_State *L)
 {
-    olua_getmetadata(L, olua_metadata_t *)->usingpool = false;
+    olua_vmstatus(L)->usingpool = false;
 }
 
 LUALIB_API size_t olua_push_objpool(lua_State *L)
 {
-    return olua_getmetadata(L, olua_metadata_t *)->sizepool;
+    return olua_vmstatus(L)->sizepool;
 }
 
 LUALIB_API void olua_pop_objpool(lua_State *L, size_t level)
 {
     if (olua_rawgetp(L, LUA_REGISTRYINDEX, OLUA_POOL_TABLE) == LUA_TTABLE) {
-        olua_getmetadata(L, olua_metadata_t *)->sizepool = level;
+        olua_vmstatus(L)->sizepool = level;
         size_t len = lua_rawlen(L, -1);
         olua_assert(level < len);
         for (size_t i = level + 1; i <= len; i++) {
@@ -1174,7 +1174,7 @@ LUALIB_API void *lua_getextraspace(lua_State *L)
     if (olua_rawgetp(L, LUA_REGISTRYINDEX, OLUA_EXTRASPACE) == LUA_TNIL)
     {
         lua_pop(L, 1);
-        lua_newuserdata(L, sizeof(olua_metadata_t *));
+        lua_newuserdata(L, sizeof(olua_vmstatus_t *));
         lua_pushvalue(L, -1);
         olua_rawsetp(L, LUA_REGISTRYINDEX, OLUA_EXTRASPACE);
     }

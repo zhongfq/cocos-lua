@@ -78,6 +78,33 @@ function DisplayObject:globalToLocal(x, y)
     return self.cobj:globalToLocal(x, y)
 end
 
+function DisplayObject:scheduleOnce(callback, delay, key)
+    return self.cobj.proxyNode:scheduleOnce(callback, delay, key)
+end
+
+function DisplayObject:scheduleUpdate()
+    self.cobj.proxyNode:scheduleUpdate()
+end
+
+function DisplayObject:unscheduleUpdate()
+    self.cobj.proxyNode:unscheduleUpdate()
+end
+
+-- schedule(callback, key)
+-- schedule(callback, interval, key)
+-- schedule(callback, interval, repeat, delay, key)
+function DisplayObject:schedule(callback, ...)
+    self.cobj.proxyNode:schedule(callback, ...)
+end
+
+function DisplayObject:unschedule(key)
+    self.cobj.proxyNode:unschedule(key)
+end
+
+function DisplayObject:unscheduleAllCallbacks()
+    self.cobj.proxyNode:unscheduleAllCallbacks()
+end
+
 function DisplayObject:getBounds(target, ...)
     return self.cobj:getBounds(target.cobj, ...)
 end

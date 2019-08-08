@@ -15,7 +15,7 @@ end
 function QRCode:ctor(cobj)
 end
 
-function QRCode:set_string(value)
+function QRCode:setString(value)
     local _, width, data = qrcode.encode(value, 0,
         "ECLEVEL_H", "MODE_8", true)
     local bitmapData = BitmapData.new(width, width, false)

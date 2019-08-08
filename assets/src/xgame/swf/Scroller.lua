@@ -1,8 +1,5 @@
-local Event         = require "xgame.event.Event"
-local TouchEvent    = require "xgame.event.TouchEvent"
 local ScrollImpl    = require "xgame.ui.ScrollImpl"
 local Align         = require "xgame.ui.Align"
-local A             = require "xgame.ui.action"
 local MovieClip     = require "xgame.swf.FLMovieClip"
 local swf           = require "xgame.swf.swf"
 
@@ -25,51 +22,21 @@ function Scroller:ctor()
     rawset(container, 'height', bounds.height)
 
     self._scrollImpl = ScrollImpl.new(self, container)
-    self._scrollImpl.horizontal_enabled = self.metadata.horizontal_enabled
-    self._scrollImpl.vertical_enabled = self.metadata.vertical_enabled
+    self._scrollImpl.scrollHEnabled = self.metadata.scrollHEnabled
+    self._scrollImpl.scrollVEnabled = self.metadata.scrollVEnabled
 
     if bounds ~= container then
         bounds.visible = false
     end
-
-    local TAG = 0xffff
-    function container:unschedule_update()
-        container:stop_action_by_tag(TAG)
-    end
-
-    function container:schedule_update(callback)
-        local action = A.enter_frame(function (dt)
-            callback(dt)
-        end)
-        action:set_tag(TAG)
-        container:stop_action_by_tag(TAG)
-        container:run_action(action)
-    end
-
-    function container:set_position(x, y)
-        container.x = x
-        container.y = y
-    end
-
-    function container:get_position()
-        return container.x, container.y
-    end
 end
 
-function Scroller:get_bounds(target)
-    return self.cobj:get_bounds(target.cobj, 0, self.width, 0, self.height)
+function Scroller:getBounds(target)
+    return self.cobj:getBounds(target.cobj, 0, self.width, 0, self.height)
 end
 
-function Scroller:set_viewport(width, height)
-    assert(width > 0)
-    assert(height > 0)
-    rawset(self, 'width', width)
-    rawset(self, 'height', height)
-end
-
-function Scroller:get_scroll_bounds()
+function Scroller:getScrollBounds()
     local container = self._container
-    local bounds = self._children_bounds
+    local bounds = self._childrenBounds
     if not bounds then
         bounds = {
             left = 0,
@@ -77,18 +44,24 @@ function Scroller:get_scroll_bounds()
             bottom = 0,
             top = container.height,
         }
-        self._children_bounds = bounds
+        self._childrenBounds = bounds
     end
     local l, r, t, b = bounds.left, bounds.right, bounds.top, bounds.bottom
-    local x, y = container:get_position()
-    local sx, sy = container.scale_x, container.scale_y
+    local x = self._container.x
+    local y = self._container.y
+    local sx, sy = self._container.scaleX, self._container.scaleY
 
     return l * sx + x, r * sx + x, t * sy + y, b * sy + y
 end
 
+
+function Scroller:_invalidate()
+    self._childrenBounds = false
+    self._scrollImpl:validateLater()
+end
+
 function Scroller:validateDisplay()
-    self._children_bounds = false
-    self._scrollImpl:validate_later()
+    self:_invalidate()
 end
 
 function Scroller.Get:clipable() return self._clipalbe end
@@ -101,101 +74,107 @@ function Scroller.Set:clipable(value)
     end
 end
 
-function Scroller.Get:scroll_x() return self._container.x end
-function Scroller.Set:scroll_x(value)
+function Scroller.Get:scrollX() return self._container.x end
+function Scroller.Set:scrollX(value)
     self._container.x = value
 end
 
-function Scroller.Get:scroll_y() return self._container.y end
-function Scroller.Set:scroll_y(value)
+function Scroller.Get:scrollY() return self._container.y end
+function Scroller.Set:scrollY(value)
     self._container.y = value
 end
 
-function Scroller.Get:scroll_width()
+function Scroller.Get:scrollScaleX() return self._container.scaleX end
+function Scroller.Set:scrollScaleX(value)
+    self._container.scaleX = value
+end
+
+function Scroller.Get:scrollScaleY() return self._container.scaleY end
+function Scroller.Set:scrollScaleY(value)
+    self._container.scaleY = value
+end
+
+function Scroller.Get:scrollWidth()
     return self._container.width
 end
 
-function Scroller.Get:scroll_heigh()
+function Scroller.Get:scrollHeigh()
     return self._container.height
 end
 
-function Scroller:set_scroll_option(key, value)
-    self._scrollImpl[key] = value
+function Scroller.Get:bounceEnabled()
+    return self._scrollImpl.bounceEnabled
+end
+function Scroller.Set:bounceEnabled(value)
+    self._scrollImpl.bounceEnabled = value
 end
 
-function Scroller.Get:rebound_enabled()
-    return self._scrollImpl.rebound_enabled
+function Scroller.Get:scaleEnabled()
+    return self._scrollImpl.scaleEnabled
 end
-function Scroller.Set:rebound_enabled(value)
-    self._scrollImpl.rebound_enabled = value
-end
-
-function Scroller.Get:scale_enabled()
-    return self._scrollImpl.scale_enabled
-end
-function Scroller.Set:scale_enabled(value)
-    self._scrollImpl.scale_enabled = value
+function Scroller.Set:scaleEnabled(value)
+    self._scrollImpl.scaleEnabled = value
 end
 
-function Scroller.Get:max_scale()
-    return self._scrollImpl.max_scale
+function Scroller.Get:maxScale()
+    return self._scrollImpl.maxScale
 end
-function Scroller.Set:max_scale(value)
-    self._scrollImpl.max_scale = value
-end
-
-function Scroller.Get:min_scale()
-    return self._scrollImpl.min_scale
-end
-function Scroller.Set:min_scale(value)
-    self._scrollImpl.min_scale = value
+function Scroller.Set:maxScale(value)
+    self._scrollImpl.maxScale = value
 end
 
-function Scroller:validate_now()
+function Scroller.Get:minScale()
+    return self._scrollImpl.minScale
+end
+function Scroller.Set:minScale(value)
+    self._scrollImpl.minScale = value
+end
+
+function Scroller:validateNow()
     self._scrollImpl:validate()
 end
 
-function Scroller:scroll_to(h, v)
-    self:get_scroll_bounds()
+function Scroller:scrollTo(h, v)
+    self:getScrollBounds()
     if h == Align.LEFT then
-        self.scroll_x = self._container.width * 2
+        self.scrollX = self._container.width * 2
     elseif h == Align.RIGHT then
-        self.scroll_x = -self._container.width * 2
+        self.scrollX = -self._container.width * 2
     end
     if v == Align.TOP then
-        self.scroll_y = -self._container.height * 2
+        self.scrollY = -self._container.height * 2
     elseif v == Align.RIGHT then
-        self.scroll_y = self._container.height * 2
+        self.scrollY = self._container.height * 2
     end
-    self:validate_now()
+    self:validateNow()
 end
 
-function Scroller.Get:horizontal_scroll_enabled()
-    return self._scrollImpl.horizontal_enabled
+function Scroller.Get:scrollHEnabled()
+    return self._scrollImpl.horizontalEnabled
 end
-function Scroller.Set:horizontal_scroll_enabled(value)
-    self._scrollImpl.horizontal_enabled = value
-end
-
-function Scroller.Get:vertical_scroll_enabled()
-    return self._scrollImpl.vertical_enabled
-end
-function Scroller.Set:vertical_scroll_enabled(value)
-    self._scrollImpl.vertical_enabled = value
+function Scroller.Set:scrollHEnabled(value)
+    self._scrollImpl.horizontalEnabled = value
 end
 
-function Scroller.Get:horizontal_scroll_align()
-    return self._scrollImpl.horizontal_align
+function Scroller.Get:scrollVEnabled()
+    return self._scrollImpl.verticalEnabled
 end
-function Scroller.Set:horizontal_scroll_align(value)
-    self._scrollImpl.horizontal_align = value
+function Scroller.Set:scrollVEnabled(value)
+    self._scrollImpl.verticalEnabled = value
 end
 
-function Scroller.Get:vertical_scroll_align()
-    return self._scrollImpl.vertical_align
+function Scroller.Get:scrollHAlign()
+    return self._scrollImpl.horizontalAlign
 end
-function Scroller.Set:vertical_scroll_align(value)
-    self._scrollImpl.vertical_align = value
+function Scroller.Set:scrollHAlign(value)
+    self._scrollImpl.horizontalAlign = value
+end
+
+function Scroller.Get:scrollVAlign()
+    return self._scrollImpl.verticalAlign
+end
+function Scroller.Set:scrollVAlign(value)
+    self._scrollImpl.verticalAlign = value
 end
 
 return Scroller

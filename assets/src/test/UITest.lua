@@ -24,19 +24,24 @@ end
 
 function UITest:onCreate()
     local arr = Array.new()
-    arr:pushBack({name = "hello1"})
-    arr:pushBack({name = "hello2"})
-    arr:pushBack({name = "hello3"})
-    arr:pushBack({name = "hello4"})
-    arr:pushBack({name = "hello5"})
-    arr:pushBack({name = "hello6"})
+    for i = 1, 100 do
+        arr:pushBack({name = 'hello ' .. i, index = math.random(1, 100)})
+    end
     self.shortcut_list.data = arr
 
     local data = Array.new()
     for i = 1, 100 do
-        data:pushBack({name = 'list test hello ' .. i})
+        data:pushBack({name = 'list test hello ' .. i, index = math.random(1, 100)})
     end
     self.list.data = data
+end
+
+local ii = 1000
+
+function UITest:do_send()
+    -- self.list.data:addAt({name = 'insert ' .. ii}, 15)
+    -- ii = ii + 1
+    self.shortcut_list.wrapCount = 4
 end
 
 function UITest:open_shortcut()
@@ -45,6 +50,7 @@ function UITest:open_shortcut()
 end
 
 local UIItemRenderer = require "xgame.ui.UIItemRenderer"
+
 local ConsoleShortcut = ui.class('ConsoleShortcut', UIItemRenderer)
 
 function ConsoleShortcut:update(data)
@@ -54,6 +60,7 @@ end
 local ConsoleFileListRenderer = ui.class("ConsoleFileListRenderer", UIItemRenderer)
 
 function ConsoleFileListRenderer:update(data)
+    self.label.text = data.name
 end
 
 return UITest

@@ -111,7 +111,7 @@ function UILayer:_buildChildren()
         self.cobj:sortAllChildren()
         self._children = Array.new()
         for i, rawChild in ipairs(self.cobj.children) do
-            rawChild:setLocalZOrder(i)
+            rawChild.localZOrder = i
 
             local child = self._rawChildren[rawChild]
             if not child then
@@ -119,7 +119,7 @@ function UILayer:_buildChildren()
                 child.cobj = rawChild
                 self._rawChildren[rawChild] = child
             end
-            self._children:add(child)
+            self.children:add(child)
         end
     end
 end
@@ -136,14 +136,15 @@ function UILayer:_internalAddChild(child, index, silence)
     if self.stage and not silence then
         child:_setStage(self.stage)
     end
+    for i = index + 1, #self.children do
+        local c = self.children[i]
+        c.localZOrder = i
+    end
 end
 
 function UILayer:addChildAt(child, index)
-    self:_buildChildren()
     if child.parent then
-        local oldIndex = child.parent:getChildIndex(child)
-        assert(oldIndex > 0)
-        child.parent:_internalRemoveChild(oldIndex, true)
+        child:removeSelf()
         index = math.min(index, self.numChildren + 1)
         self:_internalAddChild(child, index, true)
     else
@@ -156,27 +157,27 @@ function UILayer:addChildAt(child, index)
 end
 
 function UILayer:getChildAt(index)
-    if self._children then
-        return self._children:at(index)
+    if self.children then
+        return self.children:at(index)
     end
 end
 
 function UILayer:getChildIndex(child)
-    for index, child2 in ipairs(self.children) do
-        if child.cobj == child2.cobj then
-            return index
-        end
-    end
-    return 0
+    return self.children:indexOf(child)
 end
 
 function UILayer:_internalRemoveChild(index, silence)
     local child = self.children:removeAt(index)
     self._rawChildren[child.cobj] = nil
     self.cobj:removeChild(child.cobj)
+    child.cobj:removeFromParent()
     child._parent = false
     if child.stage and not silence then
         child:_setStage(false)
+    end
+    for i = index + 1, #self.children do
+        local c = self.children[i]
+        c.localZOrder = i
     end
     return child
 end

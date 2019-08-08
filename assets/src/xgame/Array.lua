@@ -36,6 +36,7 @@ function Array:indexOf(item)
             return i, v
         end
     end
+    return 0
 end
 
 function Array:shift()

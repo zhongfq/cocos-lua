@@ -6,7 +6,7 @@ local GestureDetector   = require "xgame.ui.GestureDetector"
 
 local math = math
 local PI_2 = math.pi / 2
-local UPDATE_KEY = "__SCROLLIMPL_UPDATE__"
+local TAG_UPDATE = "__SCROLLIMPL_UPDATE__"
 
 local ScrollImpl = class("ScrollImpl")
 
@@ -25,9 +25,6 @@ function ScrollImpl:ctor(target, container)
     self.maxVel = 4500
     self.minVel = 400
     self.elapseTime = 1
-    self.validateThreshold = function (which, rawvalue, newvalue)
-        return newvalue
-    end
 
     self.scaleEnabled = false
     self.maxScale = 2
@@ -72,7 +69,7 @@ function ScrollImpl:scaleTo(scale, x, y)
 end
 
 function ScrollImpl:press(id, x, y)
-    self._container:unschedule(UPDATE_KEY)
+    self._container:unschedule(TAG_UPDATE)
     self:_tryFocus(id, x, y)
 
     self:_checkScrollEnd()
@@ -136,6 +133,30 @@ function ScrollImpl:tap(id, x, y)
     end
 end
 
+local function mathEqual(x1, x2)
+    local diff = x1 - x2
+    return diff < 0.1 and diff > -0.1
+end
+
+function ScrollImpl:dispatchScrolling(lastX, lastY, x, y)
+    local horizontal, vertical
+    if mathEqual(lastX, x) then
+        horizontal = Align.NONE
+    elseif lastX < x then
+        horizontal = Align.RIGHT
+    else
+        horizontal = Align.LEFT
+    end
+    if mathEqual(lastY, y) then
+        vertical = Align.NONE
+    elseif lastY < y then
+        vertical = Align.TOP
+    else
+        vertical = Align.BOTTOM
+    end
+    self._target:dispatch(TouchEvent.SCROLLING, horizontal, vertical)
+end
+
 function ScrollImpl:pan(deltaX, deltaY)
     self:_abortAllFocuses()
 
@@ -143,6 +164,8 @@ function ScrollImpl:pan(deltaX, deltaY)
     local left, right, top, bottom = target:getScrollBounds()
     local x = self._container.x
     local y = self._container.y
+    local lastX = x
+    local lastY = y
 
     if self._scrollHEnabled then
         -- 如果左边界或右边界在可视范围，拖动距离应缩减
@@ -183,7 +206,7 @@ function ScrollImpl:pan(deltaX, deltaY)
     self._container.x = x
     self._container.y = y
     self._scrolling = true
-    self._target:dispatch(TouchEvent.SCROLLING)
+    self:dispatchScrolling(lastX, lastY, x, y)
 end
 
 function ScrollImpl:fling(velX, velY)
@@ -219,11 +242,6 @@ function ScrollImpl:fling(velX, velY)
         velY = 0
     end
 
-    local function equal(x1, x2)
-        local diff = x1 - x2
-        return diff < 0.1 and diff > -0.1
-    end
-
     self._container:schedule(function (delta)
         local x = self._container.x
         local y = self._container.y
@@ -245,8 +263,8 @@ function ScrollImpl:fling(velX, velY)
 
         -- 如果有效目标与计算目标不一致，表明有一边已经在可视范围内
         -- 这种情况，加速衰减
-        fx = equal(tox, x) and fx or 5
-        fy = equal(toy, y) and fy or 5
+        fx = mathEqual(tox, x) and fx or 5
+        fy = mathEqual(toy, y) and fy or 5
 
         -- 回弹
         x = math.abs(vx) < 20 and (x + (tox - x) * delta * 10) or x
@@ -259,13 +277,13 @@ function ScrollImpl:fling(velX, velY)
             self:validate()
         end
 
-        if equal(x, lastX) and equal(y, lastY) then
-            self._container:unschedule(UPDATE_KEY)
+        if mathEqual(x, lastX) and mathEqual(y, lastY) then
+            self._container:unschedule(TAG_UPDATE)
             self:_checkScrollEnd()
         else
-            self._target:dispatch(TouchEvent.SCROLLING)
+            self:dispatchScrolling(lastX, lastY, x, y)
         end
-    end, UPDATE_KEY)
+    end, TAG_UPDATE)
 end
 
 function ScrollImpl:validate()
@@ -298,17 +316,15 @@ function ScrollImpl:_validateX(value, force)
 
     if self._scrollHAlign == Align.LEFT then
         if left > 0 or width < target.width then
-            value = self.validateThreshold("L", value, x + (0 - left))
+            value = x + (0 - left)
         elseif right < target.width then
-            value = self.validateThreshold("R", value,
-                x + (target.width - right))
+            value = x + (target.width - right)
         end
     else
         if right < target.width or width < target.width then
-            value = self.validateThreshold("R", value,
-                x + (target.width - right))
+            value = x + (target.width - right)
         elseif left > 0 then
-            value = self.validateThreshold("L", value, x + (0 - left))
+            value = x + (0 - left)
         end
     end
 
@@ -327,15 +343,15 @@ function ScrollImpl:_validateY(value, force)
 
     if self._scrollVAlign == Align.BOTTOM then
         if bottom > 0 or height < target.height then
-            value = self.validateThreshold("B", value, y + (0 - bottom))
+            value = y + (0 - bottom)
         elseif top < target.height then
-            value = self.validateThreshold("T", value, y + (target.height - top))
+            value = y + (target.height - top)
         end
     else
         if top < target.height or height < target.height then
-            value = self.validateThreshold("T", value, y + (target.height - top))
+            value = y + (target.height - top)
         elseif bottom > 0 then
-            value = self.validateThreshold("B", value, y + (0 - bottom))
+            value = y + (0 - bottom)
         end
     end
 

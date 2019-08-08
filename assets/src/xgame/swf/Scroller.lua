@@ -1,6 +1,6 @@
 local ScrollImpl    = require "xgame.ui.ScrollImpl"
 local Align         = require "xgame.ui.Align"
-local MovieClip     = require "xgame.swf.FLMovieClip"
+local MovieClip     = require "xgame.swf.MovieClip"
 local swf           = require "xgame.swf.swf"
 
 local Scroller = swf.class("Scroller", MovieClip)

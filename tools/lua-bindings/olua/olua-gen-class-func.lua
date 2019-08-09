@@ -76,19 +76,23 @@ function olua.gencheckexp(arg, name, i, out)
         ]]))
     elseif arg.TYPE.SUBTYPE then
         local SUBTYPE = arg.TYPE.SUBTYPE
-        if olua.ispointee(SUBTYPE) then
-            out.CHECK_ARGS:push(format([[
-                ${OLUA_CHECK_VALUE}(L, ${ARGN}, ${ARG_NAME}, "${SUBTYPE.LUACLS}");
-            ]]))
+        if #arg.TYPE.SUBTYPES > 1 then
+            out.CHECK_ARGS:push(arg.TYPE.CHECK_VALUE(arg, name, i))
         else
-            local SUBTYPE_CHECK_FUNC = olua.convfunc(SUBTYPE, 'check')
-            local SUBTYPE_CAST = olua.typecast(SUBTYPE, true)
-            local CHECK_VALUETYPE = format(arg.TYPE.CHECK_VALUETYPE)
-            olua.nowarning(SUBTYPE_CHECK_FUNC, SUBTYPE_CAST, CHECK_VALUETYPE)
-            out.CHECK_ARGS:push(format([[
-                luaL_checktype(L, ${ARGN}, LUA_TTABLE);
-                ${CHECK_VALUETYPE}
-            ]]))
+            if olua.ispointee(SUBTYPE) then
+                out.CHECK_ARGS:push(format([[
+                    ${OLUA_CHECK_VALUE}(L, ${ARGN}, ${ARG_NAME}, "${SUBTYPE.LUACLS}");
+                ]]))
+            else
+                local SUBTYPE_CHECK_FUNC = olua.convfunc(SUBTYPE, 'check')
+                local SUBTYPE_CAST = olua.typecast(SUBTYPE, true)
+                local CHECK_VALUE = format(arg.TYPE.CHECK_VALUE)
+                olua.nowarning(SUBTYPE_CHECK_FUNC, SUBTYPE_CAST, CHECK_VALUE)
+                out.CHECK_ARGS:push(format([[
+                    luaL_checktype(L, ${ARGN}, LUA_TTABLE);
+                    ${CHECK_VALUE}
+                ]]))
+            end
         end
     elseif not arg.CALLBACK or not arg.CALLBACK.ARGS then
         if arg.ATTR.PACK then
@@ -246,15 +250,19 @@ function olua.genpushexp(arg, name, out)
     if olua.ispointee(arg.TYPE) then
         out.PUSH_ARGS:push(format('${OLUA_PUSH_VALUE}(L, ${ARG_NAME}, "${arg.TYPE.LUACLS}");'))
     elseif arg.TYPE.SUBTYPE then
-        local SUBTYPE = arg.TYPE.SUBTYPE
-        if olua.ispointee(SUBTYPE) then
-            out.PUSH_ARGS:push(format('${OLUA_PUSH_VALUE}(L, ${ARG_NAME}, "${SUBTYPE.LUACLS}");'))
+        if #arg.TYPE.SUBTYPES > 1 then
+            out.PUSH_ARGS:push(arg.TYPE.PUSH_VALUE(arg, name))
         else
-            local SUBTYPE_CAST = olua.pointercast(SUBTYPE) .. olua.typecast(SUBTYPE)
-            local SUBTYPE_PUSH_FUNC = olua.convfunc(SUBTYPE, 'push')
-            local TYPE_CAST = string.gsub(arg.DECLTYPE, '^const _*', '')
-            out.PUSH_ARGS:push(format(arg.TYPE.PUSH_VALUETYPE))
-            olua.nowarning(ARG_NAME, SUBTYPE_CAST, SUBTYPE_PUSH_FUNC, TYPE_CAST)
+            local SUBTYPE = arg.TYPE.SUBTYPE
+            if olua.ispointee(SUBTYPE) then
+                out.PUSH_ARGS:push(format('${OLUA_PUSH_VALUE}(L, ${ARG_NAME}, "${SUBTYPE.LUACLS}");'))
+            else
+                local SUBTYPE_CAST = olua.pointercast(SUBTYPE) .. olua.typecast(SUBTYPE)
+                local SUBTYPE_PUSH_FUNC = olua.convfunc(SUBTYPE, 'push')
+                local TYPE_CAST = string.gsub(arg.DECLTYPE, '^const _*', '')
+                out.PUSH_ARGS:push(format(arg.TYPE.PUSH_VALUE))
+                olua.nowarning(ARG_NAME, SUBTYPE_CAST, SUBTYPE_PUSH_FUNC, TYPE_CAST)
+            end
         end
     else
         if arg.ATTR.UNPACK then

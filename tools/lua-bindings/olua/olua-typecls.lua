@@ -63,13 +63,16 @@ local function tryNamespace(ns, tn)
 end
 
 function olua.typeinfo(tn, cls, silence)
-    local ti, subti, subtn -- for tn<T>
+    local ti, subti -- for tn<T>
+    local subtypes = {}
 
     tn = prettyTypename(tn)
 
     if string.find(tn, '<') then
-        subtn = string.match(tn, '<(.*)>')
-        subti, subtn = olua.typeinfo(subtn, cls, silence)
+        for subtn in string.gmatch(string.match(tn, '<(.*)>'), '[^,]+') do
+            subtypes[#subtypes + 1] = olua.typeinfo(subtn, cls, silence)
+        end
+        subti = subtypes[1]
         tn = prettyTypename(string.gsub(tn, '<.*>', ''))
     end
 
@@ -77,8 +80,8 @@ function olua.typeinfo(tn, cls, silence)
     ti = typeinfo_map[tn]
 
     if ti then
-        ti = setmetatable({SUBTYPE = subti}, {__index = ti})
-        return ti, tn, subtn
+        ti = setmetatable({SUBTYPE = subti, SUBTYPES = subtypes}, {__index = ti})
+        return ti, tn
     end
 
     -- search in class namespace
@@ -95,8 +98,8 @@ function olua.typeinfo(tn, cls, silence)
             else
                 ti = ti1
                 tn = tn1
-                ti = setmetatable({SUBTYPE = subti}, {__index = ti})
-                return ti, tn, subtn
+                ti = setmetatable({SUBTYPE = subti, SUBTYPES = subtypes}, {__index = ti})
+                return ti, tn
             end
         end
     end
@@ -126,10 +129,14 @@ end
 ]]
 local function toDecltype(cls, typename, isvariable)
     local reference = string.match(typename, '&+')
-    local _, tn, subtn = olua.typeinfo(typename, cls)
+    local ti, tn = olua.typeinfo(typename, cls)
 
-    if subtn then
-        tn = string.format('%s<%s>', tn, subtn)
+    if #ti.SUBTYPES > 0 then
+        local arr = {}
+        for i, v in ipairs(ti.SUBTYPES) do
+            arr[i] = v.CPPCLS
+        end
+        tn = string.format('%s<%s>', tn, table.concat(arr, ', '))
         if isvariable then
             tn = string.gsub(tn, 'const *', '')
         end

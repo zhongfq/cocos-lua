@@ -63,16 +63,16 @@ local function tryNamespace(ns, tn)
 end
 
 function olua.typeinfo(tn, cls, silence)
-    local ti, subti -- for tn<T>
-    local subtypes = {}
+    local ti, subtis -- for tn<T, ...>
 
     tn = prettyTypename(tn)
 
     if string.find(tn, '<') then
+        subtis = {}
         for subtn in string.gmatch(string.match(tn, '<(.*)>'), '[^,]+') do
-            subtypes[#subtypes + 1] = olua.typeinfo(subtn, cls, silence)
+            subtis[#subtis + 1] = olua.typeinfo(subtn, cls, silence)
         end
-        subti = subtypes[1]
+        olua.assert(next(subtis), 'not found subtype')
         tn = prettyTypename(string.gsub(tn, '<.*>', ''))
     end
 
@@ -80,7 +80,7 @@ function olua.typeinfo(tn, cls, silence)
     ti = typeinfo_map[tn]
 
     if ti then
-        ti = setmetatable({SUBTYPE = subti, SUBTYPES = subtypes}, {__index = ti})
+        ti = setmetatable({SUBTYPES = subtis}, {__index = ti})
         return ti, tn
     end
 
@@ -98,7 +98,7 @@ function olua.typeinfo(tn, cls, silence)
             else
                 ti = ti1
                 tn = tn1
-                ti = setmetatable({SUBTYPE = subti, SUBTYPES = subtypes}, {__index = ti})
+                ti = setmetatable({SUBTYPES = subtis}, {__index = ti})
                 return ti, tn
             end
         end
@@ -131,7 +131,7 @@ local function toDecltype(cls, typename, isvariable)
     local reference = string.match(typename, '&+')
     local ti, tn = olua.typeinfo(typename, cls)
 
-    if #ti.SUBTYPES > 0 then
+    if ti.SUBTYPES then
         local arr = {}
         for i, v in ipairs(ti.SUBTYPES) do
             arr[i] = v.CPPCLS
@@ -400,11 +400,11 @@ local function parseFunc(cls, name, ...)
 
             do -- generate function prototype: void func(int, A *, B *)
                 local ARGS_DECL = {}
-                local RET_DECL = fi.RET.SUBTYPE and fi.RET.DECLTYPE or fi.RET.TYPE.CPPCLS
+                local RET_DECL = fi.RET.SUBTYPES and fi.RET.DECLTYPE or fi.RET.TYPE.CPPCLS
                 local CPPFUNC = fi.CPPFUNC
                 local STATIC = fi.STATIC and "static " or ""
                 for _, v in ipairs(fi.ARGS) do
-                    ARGS_DECL[#ARGS_DECL + 1] = (v.TYPE.SUBTYPE or next(v.CALLBACK)) and v.DECLTYPE or v.TYPE.CPPCLS
+                    ARGS_DECL[#ARGS_DECL + 1] = (v.TYPE.SUBTYPES or next(v.CALLBACK)) and v.DECLTYPE or v.TYPE.CPPCLS
                 end
                 ARGS_DECL = table.concat(ARGS_DECL, ", ")
                 olua.nowarning(RET_DECL, CPPFUNC, STATIC)

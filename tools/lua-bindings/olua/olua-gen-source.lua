@@ -2,7 +2,7 @@ local olua = require "olua.olua-io"
 
 local format = olua.format
 
-local function gen_include(module, write)
+local function genInclude(module, write)
     local CHUNK= module.CHUNK
     write(format([[
         //
@@ -21,8 +21,8 @@ local function gen_include(module, write)
     end
 end
 
-local function gen_classes(module, write)
-    local function do_gen_class(cls)
+local function genClasses(module, write)
+    local function doGenClass(cls)
         cls.LUACLS = olua.toluacls(cls.CPPCLS)
         if cls.DEFIF then
             write(cls.DEFIF)
@@ -37,18 +37,18 @@ local function gen_classes(module, write)
     for _, cls in ipairs(module.CLASSES) do
         if #cls > 0 then
             for _, v in ipairs(cls) do
-                do_gen_class(v)
+                doGenClass(v)
             end
         else
-            do_gen_class(cls)
+            doGenClass(cls)
         end
     end
 end
 
-local function gen_luaopen(module, write)
+local function genLuaopen(module, write)
     local REQUIRES = {}
 
-    local function do_gen_open(cls)
+    local function doGenOpen(cls)
         local CPPCLS_PATH = olua.topath(cls.CPPCLS)
         if cls.DEFIF then
             REQUIRES[#REQUIRES + 1] = cls.DEFIF
@@ -65,10 +65,10 @@ local function gen_luaopen(module, write)
     for _, cls in ipairs(module.CLASSES) do
         if #cls > 0 then
             for _, v in ipairs(cls) do
-                do_gen_open(v)
+                doGenOpen(v)
             end
         else
-            do_gen_open(cls)
+            doGenOpen(cls)
         end
     end
 
@@ -91,8 +91,8 @@ function olua.gensource(module)
         arr[#arr + 1] = value
     end
 
-    gen_include(module, append)
-    gen_classes(module, append)
-    gen_luaopen(module, append)
+    genInclude(module, append)
+    genClasses(module, append)
+    genLuaopen(module, append)
     olua.write(module.SOURCE_PATH, table.concat(arr, "\n"))
 end

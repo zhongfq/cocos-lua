@@ -34,7 +34,7 @@ function olua.gendeclexp(arg, name, out)
     if arg.VARNAME then
         VARNAME = format([[/** ${arg.VARNAME} */]])
     end
-    if arg.TYPE.SUBTYPE then
+    if arg.TYPE.SUBTYPES then
         -- arg.DECLTYPE = std::vector<std::string>
         -- arg.TYPE.DECLTYPE = std::vector
         out.DECL_ARGS:push(format([[
@@ -74,11 +74,11 @@ function olua.gencheckexp(arg, name, i, out)
         out.CHECK_ARGS:push(format([[
             ${OLUA_CHECK_VALUE}(L, ${ARGN}, (void **)&${ARG_NAME}, "${arg.TYPE.LUACLS}");
         ]]))
-    elseif arg.TYPE.SUBTYPE then
-        local SUBTYPE = arg.TYPE.SUBTYPE
+    elseif arg.TYPE.SUBTYPES then
         if #arg.TYPE.SUBTYPES > 1 then
             out.CHECK_ARGS:push(arg.TYPE.CHECK_VALUE(arg, name, i))
         else
+            local SUBTYPE = arg.TYPE.SUBTYPES[1]
             if olua.ispointee(SUBTYPE) then
                 out.CHECK_ARGS:push(format([[
                     ${OLUA_CHECK_VALUE}(L, ${ARGN}, ${ARG_NAME}, "${SUBTYPE.LUACLS}");
@@ -116,7 +116,6 @@ function olua.genrefexp(fi, arg, i, out)
     olua.assert(not fi.STATIC or fi.RET.TYPE.LUACLS)
 
     local ARGN = i
-    local SUBTYPE = arg.TYPE.SUBTYPE
     local REF = assert(arg.ATTR.REF[1], fi.CPPFUNC .. ' no ref action')
     local REFNAME = assert(arg.ATTR.REF[2], fi.CPPFUNC .. ' no refname')
     local WHERE = arg.ATTR.REF[3] or (fi.STATIC and -1 or 1)
@@ -128,7 +127,8 @@ function olua.genrefexp(fi, arg, i, out)
         if arg.ATTR.REF[3] then
             ARGN = 1
         end
-    elseif SUBTYPE then
+    elseif arg.TYPE.SUBTYPES then
+        local SUBTYPE = arg.TYPE.SUBTYPES[1]
         olua.assert(REF == 'map', 'expect use map ref')
         olua.assert(olua.ispointee(SUBTYPE), "'%s' not a pointer type", SUBTYPE.CPPCLS)
     else
@@ -136,7 +136,7 @@ function olua.genrefexp(fi, arg, i, out)
     end
 
     if REF == 'map' then
-        if arg.TYPE.SUBTYPE then
+        if arg.TYPE.SUBTYPES then
             out.INJECT_AFTER:push(format([[
                 olua_maprefarray(L, ${WHERE}, "${REFNAME}", ${ARGN});
             ]]))
@@ -249,11 +249,11 @@ function olua.genpushexp(arg, name, out)
     local OLUA_PUSH_VALUE = olua.convfunc(arg.TYPE, 'push')
     if olua.ispointee(arg.TYPE) then
         out.PUSH_ARGS:push(format('${OLUA_PUSH_VALUE}(L, ${ARG_NAME}, "${arg.TYPE.LUACLS}");'))
-    elseif arg.TYPE.SUBTYPE then
+    elseif arg.TYPE.SUBTYPES then
         if #arg.TYPE.SUBTYPES > 1 then
             out.PUSH_ARGS:push(arg.TYPE.PUSH_VALUE(arg, name))
         else
-            local SUBTYPE = arg.TYPE.SUBTYPE
+            local SUBTYPE = arg.TYPE.SUBTYPES[1]
             if olua.ispointee(SUBTYPE) then
                 out.PUSH_ARGS:push(format('${OLUA_PUSH_VALUE}(L, ${ARG_NAME}, "${SUBTYPE.LUACLS}");'))
             else
@@ -289,8 +289,7 @@ local function genFuncRet(cls, fi, func)
         local OUT = {PUSH_ARGS = olua.newarray()}
         olua.genpushexp(fi.RET, 'ret', OUT)
 
-        local SUBTYPE = fi.RET.TYPE.SUBTYPE
-        if SUBTYPE and not olua.ispointee(SUBTYPE) then
+        if fi.RET.TYPE.SUBTYPES and not olua.ispointee(fi.RET.TYPE.SUBTYPES[1]) then
             func.PUSH_RET = format([[
                 int num_ret = 1;
                 ${OUT.PUSH_ARGS}

@@ -50,25 +50,17 @@ local function genConvHeader(module)
 end
 
 local function getinitvalue(ti)
-    if olua.isvaluetype(ti) then
-        if ti.DECLTYPE == 'lua_Number'
-            or ti.DECLTYPE == 'lua_Integer'
-            or ti.DECLTYPE == 'lua_Unsigned' then
-            return '0'
-        elseif ti.DECLTYPE == 'std::string' then
-            return '""'
-        elseif ti.DECLTYPE == 'bool' then
-            return 'false'
-        elseif ti.DECLTYPE == 'const char *' then
-            return 'nullptr'
+    local v = olua.initialvalue(ti)
+    if v == '' then
+        if ti.DECLTYPE == 'std::string' then
+            v = '""'
+        elseif ti.CPPCLS then
+            v = ti.CPPCLS .. '()'
         else
             error('unknown type:' .. ti.TYPE.CPPCLS)
         end
-    elseif string.find(ti.CPPCLS, '[*]') then
-        return 'nullptr'
-    else
-        return ti.CPPCLS .. '()'
     end
+    return v
 end
 
 local function genPushFunc(cv, write)

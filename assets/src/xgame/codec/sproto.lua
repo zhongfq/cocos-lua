@@ -1,6 +1,6 @@
 -- https://github.com/cloudwu/sproto
 
-local core = require "kernel.sproto.core"
+local core = require "sproto.core"
 local assert = assert
 
 local sproto = {}

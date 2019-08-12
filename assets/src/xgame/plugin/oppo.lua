@@ -3,7 +3,7 @@ local util          = require "xgame.util"
 local runtime       = require "xgame.runtime"
 local PluginEvent   = require "xgame.event.PluginEvent"
 local Dispatcher    = require "xgame.event.Dispatcher"
-local cjson         = require "kernel.cjson.safe"
+local cjson         = require "cjson.safe"
 
 local trace = util.trace("[oppo]")
 local impl
@@ -32,12 +32,12 @@ end
 
 function Oppo:pay(order)
     impl:pay(
-        assert(order.orderno),
-        assert(order.attach),
-        assert(order.price),
-        assert(order.name),
-        assert(order.desc),
-        assert(order.url)
+        tostring(assert(order.order_no, 'no order number')),
+        tostring(assert(order.attach, 'no attach')),
+        tostring(assert(order.price, 'no price')),
+        tostring(assert(order.name, 'no name')),
+        tostring(assert(order.desc, 'no desc')),
+        tostring(assert(order.notify_url, 'no notify url'))
     )
 end
 

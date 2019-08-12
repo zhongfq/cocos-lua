@@ -7,8 +7,8 @@ local timer         = require "xgame.timer"
 local runtime       = require "xgame.runtime"
 local impl          = require "kernel.plugins.wechat"
 local Dispatcher    = require "xgame.event.Dispatcher"
-local openssl       = require "kernel.openssl"
-local cjson         = require "kernel.cjson.safe"
+local openssl       = require "openssl"
+local cjson         = require "cjson.safe"
 local Director      = require "cc.Director"
 
 local trace = util.trace("[wechat]")

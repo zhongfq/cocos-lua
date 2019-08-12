@@ -3,7 +3,7 @@ local util          = require "xgame.util"
 local runtime       = require "xgame.runtime"
 local PluginEvent   = require "xgame.event.PluginEvent"
 local Dispatcher    = require "xgame.event.Dispatcher"
-local cjson         = require "kernel.cjson.safe"
+local cjson         = require "cjson.safe"
 
 local trace = util.trace("[huawei]")
 local impl
@@ -21,9 +21,9 @@ function Huawei:pay(order)
         tostring(assert(order.appid, "no appid")),
         tostring(assert(order.cpid, "no cpid")),
         tostring(assert(order.cp, "no cp name")),
-        tostring(assert(order.orderno, "no orderno")),
-        tostring(assert(order.pid, "no pid")),
-        tostring(assert(order.url, "no url")),
+        tostring(assert(order.order_no, "no orderno")),
+        tostring(assert(order.product_id, "no product id")),
+        tostring(assert(order.notify_url, "no url")),
         tostring(assert(order.catalog, "no catalog")),
         tostring(assert(order.ext or '')),
         tostring(assert(order.sign, "no sign"))

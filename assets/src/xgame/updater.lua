@@ -6,7 +6,7 @@ local preferences   = require "xgame.preferences"
 local Manifest      = require "xgame.loader.Manifest"
 local runtime       = require "xgame.runtime"
 local timer         = require "xgame.timer"
-local cjson         = require "kernel.cjson.safe"
+local cjson         = require "cjson.safe"
 
 local _traceback = __TRACEBACK__
 

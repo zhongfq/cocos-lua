@@ -1,6 +1,6 @@
 -- https://github.com/cloudwu/sproto
 
-local lpeg = require "kernel.lpeg"
+local lpeg = require "lpeg"
 local table = require "table"
 
 local packbytes

@@ -1,6 +1,6 @@
 -- https://github.com/cloudwu/pbc
 
-local c = require "kernel.protobuf.c"
+local c = require "protobuf.c"
 
 local setmetatable = setmetatable
 local type = type

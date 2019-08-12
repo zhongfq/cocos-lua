@@ -3,7 +3,7 @@ local util          = require "xgame.util"
 local runtime       = require "xgame.runtime"
 local PluginEvent   = require "xgame.event.PluginEvent"
 local Dispatcher    = require "xgame.event.Dispatcher"
-local cjson         = require "kernel.cjson.safe"
+local cjson         = require "cjson.safe"
 
 local trace = util.trace("[vivo]")
 local impl
@@ -30,13 +30,13 @@ end
 
 function Vivo:pay(order)
     impl:pay(
-        assert(order.appid),
-        assert(order.orderno),
-        assert(order.url),
-        assert(order.price),
-        assert(order.name),
-        assert(order.desc),
-        assert(order.sign)
+        tostring(assert(order.appid, 'no app id')),
+        tostring(assert(order.order_no, 'no order number')),
+        tostring(assert(order.notify_url, 'no notify url')),
+        tostring(assert(order.price, 'no price')),
+        tostring(assert(order.name, 'no name')),
+        tostring(assert(order.desc, 'no desc')),
+        tostring(assert(order.sign, 'no sign'))
     )
 end
 

@@ -1,0 +1,45 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion PROP_COMPILE_SDK_VERSION.toInteger()
+    buildToolsVersion PROP_BUILD_TOOLS_VERSION
+
+    defaultConfig {
+        minSdkVersion PROP_MIN_SDK_VERSION
+        targetSdkVersion PROP_TARGET_SDK_VERSION
+        versionCode 1
+        versionName "1.0"
+    }
+
+    sourceSets.main {
+        java.srcDir "src"
+        res.srcDir "res"
+        jniLibs.srcDir "libs"
+        manifest.srcFile "AndroidManifest.xml"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':libcocos2dx')
+    implementation project(':libxgame')
+    //noinspection GradleDependency
+    implementation 'com.android.support:support-v4:24.0.0'
+    //noinspection GradleDependency
+
+    String HMSSDKVer ='2.6.3.301'
+    implementation 'com.huawei.android.hms:iap:'+HMSSDKVer
+    implementation 'com.huawei.android.hms:game:'+HMSSDKVer
+    implementation 'com.huawei.android.hms:sns:'+HMSSDKVer
+    implementation 'com.huawei.android.hms:hwid:'+HMSSDKVer
+    implementation 'com.huawei.android.hms:push:'+HMSSDKVer
+    implementation 'com.huawei.android.hms:opendevice:'+HMSSDKVer
+}

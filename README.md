@@ -30,7 +30,7 @@ static int luaopen_Base(lua_State *L)
 static int luaopen_Derived(lua_State *L)
 {
     oluacls_class(L, "Derived", "Base");
-  	oluacls_func(L, "new", _derived_new)
+    oluacls_func(L, "new", _derived_new)
     oluacls_func(L, "doSomething", _derived_doSomething);
     oluacls_prop(L, "onEnter", _derived_getOnEnter, _derived_setOnEnter);
     olua_registerluatype<Derived>(L, "Derived");
@@ -45,7 +45,7 @@ use in lua
 local Derived = require "Derived"
 local obj = Derived.new()
 obj.onEnter = function ()
-  	print('hello world!')
+    print('hello world!')
 end
 obj:doSomething()
 obj:print()

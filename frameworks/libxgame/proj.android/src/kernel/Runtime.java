@@ -254,6 +254,9 @@ public class Runtime {
             AppContext context = (AppContext) AppContext.getContext();
             Uri uri = Uri.parse(url);
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            if (uri.getQueryParameter("packageName") != null) {
+                intent.setPackage(uri.getQueryParameter("packageName"));
+            }
             context.startActivity(intent);
             return true;
         } else {

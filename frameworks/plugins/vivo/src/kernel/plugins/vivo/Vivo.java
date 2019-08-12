@@ -23,7 +23,7 @@ public class Vivo {
     }
 
     public static void onCreate(){
-        
+
     }
 
     public static void pay(String appid, String orderNo, String url, String price, String name,

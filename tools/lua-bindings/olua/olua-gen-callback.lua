@@ -179,22 +179,19 @@ function olua.gencallback(cls, fi, write)
         CALLBACK.DECL_RESULT = OUT.DECL_ARGS
         CALLBACK.CHECK_RESULT = OUT.CHECK_ARGS
 
-        if #CALLBACK.CHECK_RESULT > 0 then
-            local OLUA_IS_VALUE = olua.convfunc(RET.TYPE, 'is')
-            if olua.ispointee(RET.TYPE) then
-                CALLBACK.CHECK_RESULT = format([[
-                    if (${OLUA_IS_VALUE}(L, -1, "${RET.TYPE.LUACLS}")) {
-                        ${CALLBACK.CHECK_RESULT}
-                    }
-                ]])
-            else
-                CALLBACK.CHECK_RESULT = format([[
-                    if (${OLUA_IS_VALUE}(L, -1)) {
-                        ${CALLBACK.CHECK_RESULT}
-                    }
-                ]])
-            end
-            olua.nowarning(OLUA_IS_VALUE)
+        local OLUA_IS_VALUE = olua.convfunc(RET.TYPE, 'is')
+        if olua.ispointee(RET.TYPE) then
+            CALLBACK.CHECK_RESULT = format([[
+                if (${OLUA_IS_VALUE}(L, -1, "${RET.TYPE.LUACLS}")) {
+                    ${CALLBACK.CHECK_RESULT}
+                }
+            ]])
+        else
+            CALLBACK.CHECK_RESULT = format([[
+                if (${OLUA_IS_VALUE}(L, -1)) {
+                    ${CALLBACK.CHECK_RESULT}
+                }
+            ]])
         end
 
         if RET.TYPE.DECLTYPE ~= RET.TYPE.CPPCLS then
@@ -202,6 +199,8 @@ function olua.gencallback(cls, fi, write)
         else
             CALLBACK.RETURN_RESULT = "return ret;"
         end
+
+        olua.nowarning(OLUA_IS_VALUE)
     end
 
     TAG_STORE = getCallbackStore(fi) + 1

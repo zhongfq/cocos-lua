@@ -4,5 +4,9 @@ include ':libxgame'
 project(':libxgame').projectDir = new File(settingsDir, '../../frameworks/libxgame/proj.android')
 include(':libhuawei')
 project(':libhuawei').projectDir = new File(settingsDir, '../../frameworks/plugins/huawei')
+include(':liboppo')
+project(':liboppo').projectDir = new File(settingsDir, '../../frameworks/plugins/oppo')
+include(':libvivo')
+project(':libvivo').projectDir = new File(settingsDir, '../../frameworks/plugins/vivo')
 include ':cocos-lua'
 project(':cocos-lua').projectDir = new File(settingsDir, 'app')

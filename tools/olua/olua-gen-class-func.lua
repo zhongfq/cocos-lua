@@ -26,7 +26,7 @@ local function genSnippetFunc(cls, fi, write)
     write('')
 end
 
-function olua.gendeclexp(arg, name, out)
+function olua.genDeclExp(arg, name, out)
     local SPACE = string.find(arg.TYPE.DECLTYPE, '[ *&]$') and '' or ' '
     local ARG_NAME = name
     local VARNAME = ""
@@ -52,7 +52,7 @@ function olua.gendeclexp(arg, name, out)
     olua.nowarning(SPACE, ARG_NAME, VARNAME)
 end
 
-function olua.gencheckexp(arg, name, i, out)
+function olua.genCheckExp(arg, name, i, out)
     -- lua value to cpp value
     local ARGN = i
     local ARG_NAME = name
@@ -108,7 +108,7 @@ function olua.gencheckexp(arg, name, i, out)
     olua.nowarning(ARG_NAME, ARGN, OLUA_CHECK_VALUE)
 end
 
-function olua.genrefexp(fi, arg, i, out)
+function olua.genRefExp(fi, arg, i, out)
     if not arg.ATTR.REF then
         return
     end
@@ -156,7 +156,7 @@ function olua.genrefexp(fi, arg, i, out)
     olua.nowarning(ARGN, REFNAME, WHERE)
 end
 
-function olua.genunrefexp(fi, arg, i, out)
+function olua.genUnrefExp(fi, arg, i, out)
     if not arg.ATTR.UNREF then
         return
     end
@@ -237,14 +237,14 @@ local function genFuncArgs(cls, fi, func)
             func.CALLER_ARGS:push(format([[${ARG_NAME}]]))
         end
 
-        olua.gendeclexp(ai, ARG_NAME, func)
-        olua.gencheckexp(ai, ARG_NAME, ARGN, func)
-        olua.genrefexp(fi, ai, ARGN, func)
-        olua.genunrefexp(fi, ai, ARGN, func)
+        olua.genDeclExp(ai, ARG_NAME, func)
+        olua.genCheckExp(ai, ARG_NAME, ARGN, func)
+        olua.genRefExp(fi, ai, ARGN, func)
+        olua.genUnrefExp(fi, ai, ARGN, func)
     end
 end
 
-function olua.genpushexp(arg, name, out)
+function olua.genPushExp(arg, name, out)
     local ARG_NAME = name
     local OLUA_PUSH_VALUE = olua.convfunc(arg.TYPE, 'push')
     if olua.ispointee(arg.TYPE) then
@@ -287,7 +287,7 @@ local function genFuncRet(cls, fi, func)
         func.RET_EXP = format('${fi.RET.DECLTYPE}${SPACE}ret = (${fi.RET.DECLTYPE})')
 
         local OUT = {PUSH_ARGS = olua.newarray()}
-        olua.genpushexp(fi.RET, 'ret', OUT)
+        olua.genPushExp(fi.RET, 'ret', OUT)
 
         if fi.RET.TYPE.SUBTYPES and not olua.ispointee(fi.RET.TYPE.SUBTYPES[1]) then
             func.PUSH_RET = format([[
@@ -305,8 +305,8 @@ local function genFuncRet(cls, fi, func)
         olua.nowarning(SPACE)
     end
 
-    olua.genrefexp(fi, fi.RET, -1, func)
-    olua.genunrefexp(fi, fi.RET, -1, func)
+    olua.genRefExp(fi, fi.RET, -1, func)
+    olua.genUnrefExp(fi, fi.RET, -1, func)
 end
 
 local function genOneFunc(cls, fi, write, funcidx, exported)
@@ -348,7 +348,7 @@ local function genOneFunc(cls, fi, write, funcidx, exported)
     genFuncRet(cls, fi, FUNC)
 
     if fi.CALLBACK_OPT then
-        FUNC.CALLBACK = olua.gencallback(cls, fi, write)
+        FUNC.CALLBACK = olua.genCallback(cls, fi, write)
 
         -- user-defined the new block
         --[=[
@@ -548,7 +548,7 @@ local function genMultiFunc(cls, fis, write, exported)
     write('')
 end
 
-function olua.genclassfunc(cls, fis, write, exported)
+function olua.genClassFunc(cls, fis, write, exported)
     if #fis == 1 then
         genOneFunc(cls, fis[1], write, nil, exported)
     else

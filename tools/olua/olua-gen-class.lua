@@ -13,7 +13,7 @@ local function checkGenClassFunc(cls, fi, write, func_filter)
             end
         end
     end
-    olua.genclassfunc(cls, fi, write, func_filter)
+    olua.genClassFunc(cls, fi, write, func_filter)
 end
 
 local function genClassFuncs(cls, write)
@@ -164,7 +164,7 @@ local function genClassChunk(cls, write)
     end
 end
 
-function olua.genclass(module, cls, write)
+function olua.genClass(module, cls, write)
     genClassChunk(cls, write)
     genClassFuncs(cls, write)
     genClassOpen(cls, write)

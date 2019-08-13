@@ -1,6 +1,6 @@
 local olua = require "olua.olua-io"
 
-function olua.genheader(module)
+function olua.genHeader(module)
     local HEADER = string.upper(module.NAME)
     olua.nowarning(HEADER)
     olua.write(module.HEADER_PATH, olua.format([[

@@ -35,7 +35,6 @@ dependencies {
     //noinspection GradleDependency
     api 'com.tencent.bugly:nativecrashreport:latest.release'
     api 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:1.4.0'
-    api 'com.hjq:xxpermissions:5.5'
 
     //noinspection GradleDependency
     api 'com.tencent.bugly:crashreport:latest.release'

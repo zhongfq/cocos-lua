@@ -2,27 +2,25 @@
 #include "xgame/xruntime-private.h"
 #include "cocos2d.h"
 
+#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+
+USING_NS_CC;
+
 void __runtime_setAudioSessionCatalog(const std::string &catalog)
 {
 }
 
 const std::string __runtime_getAudioSessionCatalog()
 {
-	return "";
+    return "";
 }
-
-#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
-
-USING_NS_CC;
-
-#define JAVA_RUNTIME_CLASS "kernel/Runtime"
 
 const std::string __runtime_getPackageName()
 {
     static std::string value;
 
     if (value.size() == 0) {
-        value = JniHelper::callStaticStringMethod(JAVA_RUNTIME_CLASS, "getPackageName");
+        value = JniHelper::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getPackage");
     }
 
     return value;
@@ -33,7 +31,7 @@ const std::string __runtime_getVersion()
     static std::string value;
 
     if (value.size() == 0) {
-        value = JniHelper::callStaticStringMethod(JAVA_RUNTIME_CLASS, "getVersion");
+        value = JniHelper::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getVersion");
     }
 
     return value;
@@ -44,7 +42,7 @@ const std::string __runtime_getVersionBuild()
     static std::string value;
 
     if (value.size() == 0) {
-        value = JniHelper::callStaticStringMethod(JAVA_RUNTIME_CLASS, "getVersionCode");
+        value = JniHelper::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getVersionCode");
     }
 
     return value;
@@ -55,7 +53,7 @@ const std::string __runtime_getChannel()
     static std::string value;
 
     if (value.size() == 0) {
-        value = JniHelper::callStaticStringMethod(JAVA_RUNTIME_CLASS, "getChannel");
+        value = JniHelper::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getChannel");
     }
 
     return value;
@@ -66,7 +64,7 @@ const std::string __runtime_getDeviceInfo()
     static std::string value;
 
     if (value.size() == 0) {
-        value = JniHelper::callStaticStringMethod(JAVA_RUNTIME_CLASS, "getDeviceInfo");
+        value = JniHelper::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getDeviceInfo");
     }
 
     return value;
@@ -74,13 +72,13 @@ const std::string __runtime_getDeviceInfo()
 
 void __runtime_openURL(const std::string &uri, const std::function<void (bool)> callback)
 {
-    bool ret = JniHelper::callStaticBooleanMethod(JAVA_RUNTIME_CLASS, "openURL", uri);
+    bool ret = JniHelper::callStaticBooleanMethod(JAVA_APPCONTEXT_CLASS, "openURL", uri);
     callback(ret);
 }
 
 bool __runtime_canOpenURL(const std::string &uri)
 {
-    return JniHelper::callStaticBooleanMethod(JAVA_RUNTIME_CLASS, "canOpenURL", uri);
+    return JniHelper::callStaticBooleanMethod(JAVA_APPCONTEXT_CLASS, "canOpenURL", uri);
 }
 
 const std::string __runtime_getLanguage()
@@ -91,9 +89,18 @@ const std::string __runtime_getLanguage()
 
 void __runtime_pullAllFeatures()
 {
-    JniHelper::callStaticVoidMethod(JAVA_RUNTIME_CLASS, "pullAllFeatures");
+    JniHelper::callStaticVoidMethod(JAVA_APPCONTEXT_CLASS, "pullAllFeatures");
 }
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+void __runtime_setAudioSessionCatalog(const std::string &catalog)
+{
+}
+
+const std::string __runtime_getAudioSessionCatalog()
+{
+    return "";
+}
+
 const std::string __runtime_getPackageName()
 {
 	return "org.cocos2dx.hellolua";

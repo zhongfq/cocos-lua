@@ -12,14 +12,14 @@ import org.json.JSONObject;
 
 import kernel.AppContext;
 import kernel.LuaJ;
-import kernel.Runtime;
 
+@SuppressWarnings("unused")
 public class Vivo {
     public static void init(Application app, String appid) {
         VivoConfigInfo configInfo = new VivoConfigInfo();
         configInfo.setShowAssit(false);
         VivoUnionSDK.initSdk(app, appid, false, configInfo);
-        Runtime.registerFeature("vivo", true);
+        AppContext.registerFeature("vivo", true);
     }
 
     public static void onCreate(){

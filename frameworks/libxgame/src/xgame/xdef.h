@@ -31,6 +31,8 @@
 #define CONF_VERSION_RUNTIME    "conf.version.runtime"
 #define CONF_VERSION_BUILD      "conf.version.build"
 
+#define JAVA_APPCONTEXT_CLASS   "kernel/AppContext"
+
 inline uint64_t strtov(const char *version)
 {
     uint64_t v1, v2, v3;

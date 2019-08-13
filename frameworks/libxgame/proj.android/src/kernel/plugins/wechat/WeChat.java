@@ -34,7 +34,6 @@ import java.util.Date;
 
 import kernel.AppContext;
 import kernel.LuaJ;
-import kernel.Runtime;
 
 public class WeChat {
     private static final String TAG = WeChat.class.getName();
@@ -105,6 +104,7 @@ public class WeChat {
         api.sendReq(req);
     }
 
+    @SuppressWarnings("unused")
     public static void authQRCode(String appid, String scope, String noncestr, String timestamp, String signature, final int handler) {
         IDiffDevOAuth oauth = DiffDevOAuthFactory.getDiffDevOAuth();
         oauth.removeAllListeners();
@@ -113,7 +113,7 @@ public class WeChat {
             @Override
             public void onAuthGotQrcode(String s, byte[] bytes) {
                 try {
-                    String path = Runtime.getDirectory("external.tmp") + "/wechat_auth_qrcode.jpg";
+                    String path = AppContext.getDirectory("external.tmp") + "/wechat_auth_qrcode.jpg";
 
                     if (bytes != null) {
                         try {

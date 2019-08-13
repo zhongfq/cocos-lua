@@ -18,14 +18,14 @@ import org.json.JSONObject;
 
 import kernel.AppContext;
 import kernel.LuaJ;
-import kernel.Runtime;
 
+@SuppressWarnings("unused")
 public class Oppo {
     private static final String TAG = Oppo.class.getSimpleName();
 
     public static void init(Application app, String appid) {
         GameCenterSDK.init(appid, app);
-        Runtime.registerFeature("oppo", true);
+        AppContext.registerFeature("oppo", true);
     }
 
     public static void onCreate()

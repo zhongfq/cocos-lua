@@ -1,6 +1,7 @@
 local class         = require "xgame.class"
 local util          = require "xgame.util"
 local timer         = require "xgame.timer"
+local runtime       = require "xgame.runtime"
 local MixScene      = require "xgame.ui.MixScene"
 local font          = require "xgame.font"
 local Array         = require "xgame.Array"
@@ -20,6 +21,8 @@ local UITest = class("UITest", MixScene)
 
 function UITest:ctor()
     ui.new("console", self, self)
+    self.scaleX = 0.9
+    self.scaleY = 0.9
 end
 
 function UITest:onCreate()
@@ -41,7 +44,8 @@ local ii = 1000
 function UITest:do_send()
     -- self.list.data:addAt({name = 'insert ' .. ii}, 15)
     -- ii = ii + 1
-    self.shortcut_list.wrapCount = 4
+    -- self.shortcut_list.wrapCount = 4
+    runtime.openURL('app-settings')
 end
 
 function UITest:open_shortcut()

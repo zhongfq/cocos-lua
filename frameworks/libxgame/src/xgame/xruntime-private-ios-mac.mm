@@ -67,14 +67,20 @@ const std::string __runtime_getDeviceInfo()
 void __runtime_openURL(const std::string &uri, const std::function<void (bool)> callback)
 {
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+    NSURL *url;
+    if (strstartwith(uri.c_str(), "app-settings")) {
+        url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+    } else {
+        url = [NSURL URLWithString:[NSString stringWithUTF8String:uri.c_str()]];
+    }
     if (@available(iOS 10_0, *)) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithUTF8String:uri.c_str()]] options:@{} completionHandler: ^(BOOL success){
+        [[UIApplication sharedApplication] openURL:url options:@{} completionHandler: ^(BOOL success){
             runtime::runOnCocosThread([callback, success](){
                 callback(success);
             });
         }];
     } else {
-        bool success = [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithUTF8String:uri.c_str()]]];
+        bool success = [[UIApplication sharedApplication] openURL:url];
         callback(success);
     }
 #else

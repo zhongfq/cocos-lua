@@ -28,14 +28,14 @@ import org.json.JSONObject;
 
 import kernel.AppContext;
 import kernel.LuaJ;
-import kernel.Runtime;
 
+@SuppressWarnings("unused")
 public class Huawei {
     private static final String TAG = Huawei.class.getSimpleName();
 
     public static void init(Application app) {
         HMSAgent.init(app);
-        Runtime.registerFeature("huawei", true);
+        AppContext.registerFeature("huawei", true);
     }
 
     public static void onCreate() {
@@ -43,19 +43,18 @@ public class Huawei {
         HMSAgent.connect(context, new ConnectHandler() {
             @Override
             public void onConnect(int rst) {
-                Log.i(TAG,"HMS connect end:" + rst);
+                Log.i(TAG, "HMS connect end:" + rst);
                 HMSAgent.checkUpdate(context, new CheckUpdateHandler() {
                     @Override
                     public void onResult(int rst) {
-                        Log.i(TAG,"check app update rst:" + rst);
+                        Log.i(TAG, "check app update rst:" + rst);
                     }
                 });
             }
         });
     }
 
-    public static void signIn(final int handler)
-    {
+    public static void signIn(final int handler) {
         HMSAgent.Hwid.signIn(true, new SignInHandler() {
             @Override
             public void onResult(int rst, SignInHuaweiId result) {
@@ -81,8 +80,7 @@ public class Huawei {
         });
     }
 
-    public static void signOut(final int handler)
-    {
+    public static void signOut(final int handler) {
         HMSAgent.Hwid.signOut(new SignOutHandler() {
             @Override
             public void onResult(int rst, SignOutResult result) {
@@ -99,8 +97,7 @@ public class Huawei {
     }
 
     public static void productPay(String appid, String cpid, String cp, String orderNo, String pid, String url,
-                                  String serviceCatalog, String extReserved, String sign, final int handler)
-    {
+                                  String serviceCatalog, String extReserved, String sign, final int handler) {
         ProductPayRequest request = new ProductPayRequest();
         request.applicationID = appid;
         request.merchantId = cpid;
@@ -131,8 +128,7 @@ public class Huawei {
     }
 
     public static void getPurchaseInfo(String appid, String cpid, String pid, long ts, long pageNo,
-                                       String sign, final int handler)
-    {
+                                       String sign, final int handler) {
         final PurchaseInfoRequest request = new PurchaseInfoRequest();
         request.appId = appid;
         request.merchantId = cpid;
@@ -173,8 +169,7 @@ public class Huawei {
         });
     }
 
-    public static void getOrderDetail(String cpid, String orderNo, String time, String sign, final int handler)
-    {
+    public static void getOrderDetail(String cpid, String orderNo, String time, String sign, final int handler) {
         final OrderRequest request = new OrderRequest();
         request.keyType = "1";
         request.merchantId = cpid;

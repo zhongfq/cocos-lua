@@ -70,7 +70,7 @@ local function genPushFunc(cv, write)
 
     for _, pi in ipairs(cv.PROPS) do
         local ARG_NAME = format('value->${pi.VARNAME}')
-        olua.genpushexp(pi, ARG_NAME, OUT)
+        olua.genPushExp(pi, ARG_NAME, OUT)
         OUT.PUSH_ARGS:push(format([[olua_setfield(L, -2, "${pi.LUANAME}");]]))
         OUT.PUSH_ARGS:push('')
     end
@@ -100,9 +100,9 @@ local function gen_check_func(cv, write)
     }
     for i, pi in ipairs(cv.PROPS) do
         local ARG_NAME = 'arg' .. i
-        olua.gendeclexp(pi, ARG_NAME, OUT)
+        olua.genDeclExp(pi, ARG_NAME, OUT)
         OUT.CHECK_ARGS:push(format([[olua_getfield(L, idx, "${pi.LUANAME}");]]))
-        olua.gencheckexp(pi, ARG_NAME, -1, OUT)
+        olua.genCheckExp(pi, ARG_NAME, -1, OUT)
         OUT.CHECK_ARGS:push(format([[
             value->${pi.VARNAME} = (${pi.TYPE.CPPCLS})${ARG_NAME};
             lua_pop(L, 1);
@@ -138,9 +138,9 @@ local function gen_opt_func(cv, write)
         local ARG_NAME = 'arg' .. i
         local INIT_VALUE = pi.DEFAULT or getinitvalue(pi.TYPE)
         pi = setmetatable({DEFAULT = INIT_VALUE}, {__index = pi})
-        olua.gendeclexp(pi, ARG_NAME, OUT)
+        olua.genDeclExp(pi, ARG_NAME, OUT)
         OUT.CHECK_ARGS:push(format([[olua_getfield(L, idx, "${pi.LUANAME}");]]))
-        olua.gencheckexp(pi, ARG_NAME, -1, OUT)
+        olua.genCheckExp(pi, ARG_NAME, -1, OUT)
         OUT.CHECK_ARGS:push(format([[
             value->${pi.VARNAME} = (${pi.TYPE.CPPCLS})${ARG_NAME};
             lua_pop(L, 1);
@@ -318,7 +318,7 @@ local function genConvSource(module)
     olua.write(module.SOURCE_PATH, table.concat(arr, "\n"))
 end
 
-function olua.genconv(module, write)
+function olua.genConv(module, write)
     if write then
         for _, cv in ipairs(module.CONVS) do
             genFuncs(cv, write)

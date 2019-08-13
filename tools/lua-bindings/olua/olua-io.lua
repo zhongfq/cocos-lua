@@ -152,10 +152,10 @@ end
 function olua.export(path)
     local module = dofile(path)
     if #module.CLASSES > 0 then
-        olua.genheader(module)
-        olua.gensource(module)
+        olua.genHeader(module)
+        olua.genSource(module)
     elseif #module.CONVS > 0 then
-        olua.genconv(module)
+        olua.genConv(module)
     end
 end
 

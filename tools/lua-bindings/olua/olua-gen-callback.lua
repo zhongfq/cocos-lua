@@ -77,7 +77,7 @@ local function genRetCallback(cls, fi, write)
     return block
 end
 
-function olua.gencallback(cls, fi, write)
+function olua.genCallback(cls, fi, write)
     if fi.CALLBACK_OPT.REMOVE then
         return genRemoveCallback(cls, fi, write)
     end
@@ -147,7 +147,7 @@ function olua.gencallback(cls, fi, write)
             CALLBACK.PUSH_ARGS:push("olua_disable_objpool(L);")
         end
 
-        olua.genpushexp(v, ARG_NAME, CALLBACK)
+        olua.genPushExp(v, ARG_NAME, CALLBACK)
 
         local SPACE = string.find(v.RAW_DECLTYPE, '[*&]$') and '' or ' '
         CALLBACK.ARGS:push(format([[
@@ -174,8 +174,8 @@ function olua.gencallback(cls, fi, write)
             CHECK_ARGS = olua.newarray(),
             PUSH_ARGS = olua.newarray(),
         }
-        olua.gendeclexp(RET, 'ret', OUT)
-        olua.gencheckexp(RET, 'ret', -1, OUT)
+        olua.genDeclExp(RET, 'ret', OUT)
+        olua.genCheckExp(RET, 'ret', -1, OUT)
         CALLBACK.DECL_RESULT = OUT.DECL_ARGS
         CALLBACK.CHECK_RESULT = OUT.CHECK_ARGS
 

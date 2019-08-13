@@ -53,8 +53,8 @@ typedef {
         local key = {TYPE = SUBTYPES[1], DECLTYPE = SUBTYPES[1].DECLTYPE, ATTR = {}}
         local value = {TYPE = SUBTYPES[2], DECLTYPE = SUBTYPES[2].DECLTYPE, ATTR = {}}
         local OUT = {PUSH_ARGS = olua.newarray()}
-        olua.genpushexp(key, "entry.first", OUT)
-        olua.genpushexp(value, "entry.second", OUT)
+        olua.genPushExp(key, "entry.first", OUT)
+        olua.genPushExp(value, "entry.second", OUT)
         local str = olua.format([[
             lua_createtable(L, 0, (int)${name}.size());
             for (auto &entry : ${name}) {
@@ -69,10 +69,10 @@ typedef {
         local key = {TYPE = SUBTYPES[1], DECLTYPE = SUBTYPES[1].DECLTYPE, ATTR = {}}
         local value = {TYPE = SUBTYPES[2], DECLTYPE = SUBTYPES[2].DECLTYPE, ATTR = {}}
         local OUT = {CHECK_ARGS = olua.newarray(), DECL_ARGS = olua.newarray()}
-        olua.gendeclexp(key, "key", OUT)
-        olua.gendeclexp(value, "value", OUT)
-        olua.gencheckexp(key, 'key', -2, OUT)
-        olua.gencheckexp(value, 'value', -1, OUT)
+        olua.genDeclExp(key, "key", OUT)
+        olua.genDeclExp(value, "value", OUT)
+        olua.genCheckExp(key, 'key', -2, OUT)
+        olua.genCheckExp(value, 'value', -1, OUT)
         local str = olua.format([[
             lua_pushnil(L);
             while (lua_next(L, ${i})) {

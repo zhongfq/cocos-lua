@@ -127,7 +127,7 @@ end
     olua_check_std_vector(L, 2, arg1, "A");
     self->call(arg1);
 ]]
-local function toDecltype(cls, typename, isvariable)
+local function todecltype(cls, typename, isvariable)
     local reference = string.match(typename, '&+')
     local ti, tn = olua.typeinfo(typename, cls)
 
@@ -231,12 +231,12 @@ local function parseCallbackType(cls, tn, default)
         decltype[#decltype + 1] = ai.RAW_DECLTYPE
     end
     decltype = table.concat(decltype, ", ")
-    decltype = string.format('std::function<%s(%s)>', toDecltype(cls, rtn, false), decltype)
+    decltype = string.format('std::function<%s(%s)>', todecltype(cls, rtn, false), decltype)
 
     local RET = {}
     RET.TYPE = olua.typeinfo(rtn, cls)
     RET.NUM = RET.TYPE.CPPCLS == "void" and 0 or 1
-    RET.DECLTYPE = toDecltype(cls, rtn, false)
+    RET.DECLTYPE = todecltype(cls, rtn, false)
     RET.ATTR = rtattr
 
     return {
@@ -323,8 +323,8 @@ function parseArgs(cls, declstr)
         else
             args[#args + 1] = {
                 TYPE = olua.typeinfo(tn, cls),
-                DECLTYPE = toDecltype(cls, tn, true),
-                RAW_DECLTYPE = toDecltype(cls, tn, false),
+                DECLTYPE = todecltype(cls, tn, true),
+                RAW_DECLTYPE = todecltype(cls, tn, false),
                 DEFAULT = default,
                 VARNAME = varname or '',
                 ATTR = attr,
@@ -393,7 +393,7 @@ local function parseFunc(cls, name, ...)
             else
                 fi.RET.TYPE = olua.typeinfo(typename, cls)
                 fi.RET.NUM = fi.RET.TYPE.CPPCLS == "void" and 0 or 1
-                fi.RET.DECLTYPE = toDecltype(cls, typename, false)
+                fi.RET.DECLTYPE = todecltype(cls, typename, false)
                 fi.RET.ATTR = attr
             end
             fi.ARGS, fi.MAX_ARGS = parseArgs(cls, string.sub(str, #fi.CPPFUNC + 1))
@@ -450,7 +450,7 @@ local function parseFunc(cls, name, ...)
     return arr
 end
 
-local function toPropFuncName(cppfunc, prefix)
+local function topropfn(cppfunc, prefix)
     return prefix .. string.gsub(cppfunc, '^%w', function (s)
         return string.upper(s)
     end)
@@ -468,7 +468,7 @@ local function parseProp(cls, name, declget, declset)
     end)
 
     local function test(f, name, op)
-        name = toPropFuncName(name, op)
+        name = topropfn(name, op)
         if name == f.CPPFUNC or name == f.LUAFUNC then
             return true
         else
@@ -906,7 +906,7 @@ function olua.typeconv(ci)
             varname = prettyTypename(varname)
             ci.PROPS[#ci.PROPS + 1] = {
                 TYPE = olua.typeinfo(tn),
-                DECLTYPE = toDecltype(nil, tn, true),
+                DECLTYPE = todecltype(nil, tn, true),
                 VARNAME = varname,
                 LUANAME = string.gsub(varname, '^_*', ''),
                 DEFAULT = default,

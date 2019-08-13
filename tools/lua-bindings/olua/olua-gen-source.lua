@@ -17,7 +17,7 @@ local function genInclude(module, write)
     end
 
     if module.CONVS then
-        olua.genconv(module, write)
+        olua.genConv(module, write)
     end
 end
 
@@ -27,7 +27,7 @@ local function genClasses(module, write)
         if cls.DEFIF then
             write(cls.DEFIF)
         end
-        olua.genclass(module, cls, write)
+        olua.genClass(module, cls, write)
         if cls.DEFIF then
             write('#endif')
         end
@@ -83,7 +83,7 @@ local function genLuaopen(module, write)
     write('')
 end
 
-function olua.gensource(module)
+function olua.genSource(module)
     local arr = {}
     local function append(value)
         value = string.gsub(value, ' *#if', '#if')

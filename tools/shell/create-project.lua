@@ -10,7 +10,7 @@ local function printhelp()
     print('    -n    project name')
     print('    -p    package name')
     print('')
-    print('    create-porject -n codetypes -d ~ -p com.codetypes.cocoslua')
+    print('    create-project -n codetypes -d ~ -p com.codetypes.cocoslua')
 end
 
 if #args == 0 then

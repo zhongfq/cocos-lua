@@ -2,6 +2,14 @@
 
 cocos-lua以cocos2d-x 3.17.2的c++项目为基础，采用基于lua gc来管理c++对象的生命周期，提供更丰富cocos2d-x lua api，包括几乎除模版以外的所有lambda（schedule、scheduleOnce...）函数回调，能够极大减少在lua层使用c++对象的负担。
 
+## 优势
+
+1. lua gc管理生命周期，更符合lua开发者，规避c++现有生命周期问题。避免到处使用tolua.isnull判断，以及不知名的crash。
+2. 导出代码相对tolua更精炼、高效率以及更友善错误检测机制。
+3. lambda函数自动化的导出，tolua是手动导出，
+4. 更优秀的第三方框架支持，如fairygui、spine、dragonbone之类的。
+5. 更加轻量和高效的lua绑定层。
+
 ## 如何使用
 
 仓库本身就是一个项目，方便以后统一升级至最新的cocos2dx源码，也可以使用脚本创建项目：

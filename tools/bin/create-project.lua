@@ -1,3 +1,5 @@
+local bash = require "bash"
+
 -- parse cmd line args
 local PROJECT_NAME = "hello"
 local PROJECT_DIR = '~'
@@ -34,19 +36,15 @@ end
 
 PROJECT_DIR = PROJECT_DIR .. '/' .. PROJECT_NAME
 
-local function execute(fmt, ...)
-    os.execute(string.format(fmt, ...))
-end
-
 print('create project:', PROJECT_DIR)
-execute('cp -a ../../ %s', PROJECT_DIR)
-execute('rm -rf %s/.git', PROJECT_DIR)
+bash.execute('cp -a ../../ ${PROJECT_DIR}')
+bash.execute('rm -rf ${PROJECT_DIR}/.git')
 
 do -- replace project name
     local function replace(path)
         path = PROJECT_DIR .. '/' .. path
-        execute("cat %s | sed 's/cocos-lua/%s/g' > %s.bak", path, PROJECT_NAME, path)
-        execute("mv %s.bak %s", path, path)
+        bash.execute("cat ${path} | sed 's/cocos-lua/${PROJECT_NAME}/g' > ${path}.bak")
+        bash.execute("mv ${path}.bak ${path}")
     end
 
     replace('CMakeLists.txt')
@@ -64,8 +62,8 @@ end
 do -- replace package name
     local function replace(path)
         path = PROJECT_DIR .. '/' .. path
-        execute("cat %s | sed 's/org.cocos2dx.hellolua/%s/g' > %s.bak", path, PACKAGE_NAME, path)
-        execute("mv %s.bak %s", path, path)
+        bash.execute("cat ${path} | sed 's/org.cocos2dx.hellolua/${PACKAGE_NAME}/g' > ${path}.bak")
+        bash.execute("mv ${path}.bak ${path}")
     end
     replace('frameworks/libxgame/src/xgame/xruntime-private.cpp')
     replace('runtime-src/proj.android/app/AndroidManifest.xml')
@@ -79,11 +77,11 @@ end
 
 do -- android files
     local PACKAGE_NAME_PATH = string.gsub(PACKAGE_NAME, '%.', '/')
-    execute('cp -rf %s/runtime-src/proj.android/app/src/org/cocos2dx/hellolua %s/tmp', PROJECT_DIR, PROJECT_DIR)
-    execute('rm -rf %s/runtime-src/proj.android/app/src/org', PROJECT_DIR)
-    execute('mkdir -p %s/runtime-src/proj.android/app/src/%s', PROJECT_DIR, PACKAGE_NAME_PATH)
-    execute('cp -rf %s/tmp/* %s/runtime-src/proj.android/app/src/%s', PROJECT_DIR, PROJECT_DIR, PACKAGE_NAME_PATH)
-    execute('rm -rf %s/tmp', PROJECT_DIR)
+    bash.execute('cp -rf ${PROJECT_DIR}/runtime-src/proj.android/app/src/org/cocos2dx/hellolua ${PROJECT_DIR}/tmp')
+    bash.execute('rm -rf ${PROJECT_DIR}/runtime-src/proj.android/app/src/org')
+    bash.execute('mkdir -p ${PROJECT_DIR}/runtime-src/proj.android/app/src/${PACKAGE_NAME_PATH}')
+    bash.execute('cp -rf ${PROJECT_DIR}/tmp/* ${PROJECT_DIR}/runtime-src/proj.android/app/src/${PACKAGE_NAME_PATH}')
+    bash.execute('rm -rf ${PROJECT_DIR}/tmp')
 end
 
 do
@@ -95,7 +93,7 @@ do
         newname = string.gsub(name, 'cocos%-lua', PROJECT_NAME)
         path = PROJECT_DIR .. '/' .. dir .. name
         newpath = PROJECT_DIR .. '/' .. dir .. newname
-        execute('mv %s %s', path, newpath)
+        bash.execute('mv ${path} ${newpath}')
     end
 
     rename('runtime-src/proj.ios_mac/cocos-lua.xcodeproj/xcshareddata/xcschemes/cocos-lua-mobile.xcscheme')

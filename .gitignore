@@ -1,5 +1,4 @@
 build/xcode
-cocos-lua.sublime-workspace
 wwwroot/current/*.manifest
 assets/res/font
 .vs/

@@ -34,7 +34,9 @@ function Meizu:pay(order)
     local luaj = require "xgame.luaj"
     local AppContext = luaj.new("kernel/AppContext")
     AppContext.requestPermission('android.permission.READ_PHONE_STATE', function (granted)
-        if granted == "nil" then
+        if granted == "GRANTED" then
+            impl:pay(order)
+        else
             local msg = "魅族支付需要获取此项权限！"
             local function alertCallback(status)
                 if status == "true" then
@@ -44,10 +46,6 @@ function Meizu:pay(order)
                 end
             end
             AppContext.alert("", msg, "设置", "关闭", alertCallback)
-        elseif granted == "true" then
-            impl:pay(order)
-        else
-            self:dispatch(PluginEvent.PAY_FAILURE)
         end
     end)
 end

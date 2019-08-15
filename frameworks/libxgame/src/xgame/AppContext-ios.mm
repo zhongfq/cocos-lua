@@ -98,7 +98,7 @@
 
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application
 {
-    xgame::runtime::dispatchEventImmediately("memoryWarning", "");
+    xgame::runtime::dispatchEvent("memoryWarning", "");
 }
 
 #if __has_feature(objc_arc)

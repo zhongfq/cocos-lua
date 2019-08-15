@@ -16,6 +16,7 @@
 
 #include <time.h>
 #include <stdarg.h>
+#include <thread>
 
 USING_NS_CC;
 USING_NS_CC_EXP;
@@ -85,10 +86,10 @@ void runtime::init()
     // cocos event
     auto dispatcher = Director::getInstance()->getEventDispatcher();
     dispatcher->addCustomEventListener("director_after_update", [](EventCustom *e) {
-        runtime::dispatchEventImmediately("runtimeUpdate", "");
+        runtime::dispatchEvent("runtimeUpdate", "");
     });
     dispatcher->addCustomEventListener("director_projection_changed", [](EventCustom *e) {
-        runtime::dispatchEventImmediately("runtimeResize", "");
+        runtime::dispatchEvent("runtimeResize", "");
     });
 }
 
@@ -102,7 +103,7 @@ void runtime::gc()
     lua_State *L = runtime::luaVM();
     lua_gc(L, LUA_GCCOLLECT, 0);
     runtime::log("lua mem: %.3fM", lua_gc(L, LUA_GCCOUNT, 0) / 1024.0f);
-    runtime::dispatchEventImmediately("runtimeGC", "");
+    runtime::dispatchEvent("runtimeGC", "");
 }
 
 void runtime::clearStorage()
@@ -281,17 +282,16 @@ void runtime::setDispatcher(const EventDispatcher &dispatcher)
 
 void runtime::dispatchEvent(const std::string &event, const std::string &args)
 {
-    runtime::runOnCocosThread([event, args]() {
-        runtime::dispatchEventImmediately(event, args);
-    });
-}
-
-void runtime::dispatchEventImmediately(const std::string &event, const std::string &args)
-{
-    if (_dispatcher) {
-        _dispatcher(event, args);
+    if (Director::getInstance()->getCocos2dThreadId() == std::this_thread::get_id()) {
+        if (_dispatcher) {
+            _dispatcher(event, args);
+        } else {
+            _suspendedEvents.push_back(std::make_pair(event, args));
+        }
     } else {
-        _suspendedEvents.push_back(std::make_pair(event, args));
+        runtime::runOnCocosThread([event, args]() {
+            runtime::dispatchEvent(event, args);
+        });
     }
 }
 
@@ -308,7 +308,7 @@ void runtime::openURL(const std::string &uri, const std::function<void (bool)> c
 void runtime::handleOpenURL(const std::string &uri)
 {
     _openURI = uri;
-    runtime::dispatchEventImmediately("openURL", uri);
+    runtime::dispatchEvent("openURL", uri);
 }
 
 bool runtime::canOpenURL(const std::string &uri)
@@ -516,13 +516,13 @@ bool RuntimeContext::applicationDidFinishLaunching()
 void RuntimeContext::applicationDidEnterBackground()
 {
     Director::getInstance()->stopAnimation();
-    runtime::dispatchEventImmediately("runtimePause", "");
+    runtime::dispatchEvent("runtimePause", "");
 }
 
 void RuntimeContext::applicationWillEnterForeground()
 {
     Director::getInstance()->startAnimation();
-    runtime::dispatchEventImmediately("runtimeResume", "");
+    runtime::dispatchEvent("runtimeResume", "");
 }
 
 void RuntimeContext::applicationWillTerminate()

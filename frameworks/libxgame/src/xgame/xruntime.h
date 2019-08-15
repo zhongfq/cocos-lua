@@ -41,7 +41,6 @@ public:
     typedef std::function<void (const std::string &event, const std::string &args)> EventDispatcher;
     static void setDispatcher(const EventDispatcher &dispatcher);
     static void dispatchEvent(const std::string &event, const std::string &args);
-    static void dispatchEventImmediately(const std::string &event, const std::string &args);
     static void runOnCocosThread(const std::function<void ()> &callback);
     static void openURL(const std::string &uri, const std::function<void (bool)> callback);
     static void handleOpenURL(const std::string &uri);

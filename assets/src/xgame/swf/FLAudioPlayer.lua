@@ -1,30 +1,30 @@
 local class         = require "xgame.class"
-local LinkedList    = require "xgame.swf.LinkedList"
-local Audio         = require "xgame.swf.Audio"
+local FLLinkedList  = require "xgame.swf.FLLinkedList"
+local FLAudio       = require "xgame.swf.FLAudio"
 
-local STATE_READY = Audio.STATE_READY
-local STATE_PLAYING = Audio.STATE_PLAYING
-local STATE_DONE = Audio.STATE_DONE
+local STATE_READY = FLAudio.STATE_READY
+local STATE_PLAYING = FLAudio.STATE_PLAYING
+local STATE_DONE = FLAudio.STATE_DONE
 
-local AudioPlayer = class("AudioPlayer")
+local FLAudioPlayer = class("FLAudioPlayer")
 
-function AudioPlayer:ctor()
+function FLAudioPlayer:ctor()
     self._running = true
-    self._list = LinkedList.new()
+    self._list = FLLinkedList.new()
 end
 
-function AudioPlayer:clear()
+function FLAudioPlayer:clear()
     self:stopAll()
 end
 
-function AudioPlayer:play(filePath, loop, volume, delay, tag)
-    local audio = Audio.new(filePath, loop, volume, delay, tag)
+function FLAudioPlayer:play(filePath, loop, volume, delay, tag)
+    local audio = FLAudio.new(filePath, loop, volume, delay, tag)
     self._list:append(audio)
     audio:play()
     return audio
 end
 
-function AudioPlayer:pause()
+function FLAudioPlayer:pause()
     if self._running then
         self._running = false
         for _, audio in pairs(self._list) do
@@ -33,7 +33,7 @@ function AudioPlayer:pause()
     end
 end
 
-function AudioPlayer:resume()
+function FLAudioPlayer:resume()
     if not self._running then
         self._running = true
         for _, audio in pairs(self._list) do
@@ -42,7 +42,7 @@ function AudioPlayer:resume()
     end
 end
 
-function AudioPlayer:pauseByPath(filePath)
+function FLAudioPlayer:pauseByPath(filePath)
     for _, audio in pairs(self._list) do
         if audio.filePath == filePath then
             audio:pause()
@@ -50,7 +50,7 @@ function AudioPlayer:pauseByPath(filePath)
     end
 end
 
-function AudioPlayer:resumeByPath(filePath)
+function FLAudioPlayer:resumeByPath(filePath)
     for _, audio in pairs(self._list) do
         if audio.filePath == filePath then
             audio:resume()
@@ -58,7 +58,7 @@ function AudioPlayer:resumeByPath(filePath)
     end
 end
 
-function AudioPlayer:stopByPath(filePath)
+function FLAudioPlayer:stopByPath(filePath)
     for node, audio in pairs(self._list) do
         if audio.filePath == filePath then
             audio:stop()
@@ -67,7 +67,7 @@ function AudioPlayer:stopByPath(filePath)
     end
 end
 
-function AudioPlayer:stopByTag(tag)
+function FLAudioPlayer:stopByTag(tag)
     if tag then
         for node, audio in pairs(self._list) do
             if audio.tag == tag then
@@ -78,14 +78,14 @@ function AudioPlayer:stopByTag(tag)
     end
 end
 
-function AudioPlayer:stopAll(filePath)
+function FLAudioPlayer:stopAll(filePath)
     for _, audio in pairs(self._list) do
         audio:stop()
     end
     self._list:clear()
 end
 
-function AudioPlayer:update(delta)
+function FLAudioPlayer:update(delta)
     if not self._running then
         return
     end
@@ -109,4 +109,4 @@ function AudioPlayer:update(delta)
     end
 end
 
-return AudioPlayer
+return FLAudioPlayer

@@ -1,43 +1,43 @@
 local class         = require "xgame.class"
-local LinkedList    = require "xgame.swf.LinkedList"
-local Anim          = require "xgame.swf.Anim"
+local FLLinkedList  = require "xgame.swf.FLLinkedList"
+local FLAnim        = require "xgame.swf.FLAnim"
 
 local assert = assert
 local string = string
 
-local STATE_DONE = Anim.STATE_DONE
-local STATE_READY = Anim.STATE_READY
+local STATE_DONE = FLAnim.STATE_DONE
+local STATE_READY = FLAnim.STATE_READY
 
-local AnimPlayer = class("AnimPlayer")
+local FLAnimPlayer = class("FLAnimPlayer")
 
-function AnimPlayer:ctor()
-    self._list = LinkedList.new()
+function FLAnimPlayer:ctor()
+    self._list = FLLinkedList.new()
     self._session = 0
     self._running = true
 end
 
-function AnimPlayer:clear()
+function FLAnimPlayer:clear()
     for _, anim in pairs(self._list) do
         anim:stopChain()
     end
     self._list:clear()
 end
 
-function AnimPlayer:_obtainSession()
+function FLAnimPlayer:_obtainSession()
     self._session = self._session + 1
     return self._session
 end
 
-function AnimPlayer:play(target, label, playOnce, times)
+function FLAnimPlayer:play(target, label, playOnce, times)
     assert(target, 'no target')
     assert(label, 'no label')
-    local anim = Anim.new(self:_obtainSession(), target, label,
+    local anim = FLAnim.new(self:_obtainSession(), target, label,
         playOnce, times)
     self._list:append(anim)
     return anim
 end
 
-function AnimPlayer:pause()
+function FLAnimPlayer:pause()
     if self._running then
         self._running = false
         for _, anim in pairs(self._list) do
@@ -46,7 +46,7 @@ function AnimPlayer:pause()
     end
 end
 
-function AnimPlayer:resume()
+function FLAnimPlayer:resume()
     if not self._running then
         self._running = true
         for _, anim in pairs(self._list) do
@@ -55,7 +55,7 @@ function AnimPlayer:resume()
     end
 end
 
-function AnimPlayer:update()
+function FLAnimPlayer:update()
     local list = self._list
 
     if not self._running or list.empty then
@@ -106,4 +106,4 @@ function AnimPlayer:update()
     end
 end
 
-return AnimPlayer
+return FLAnimPlayer

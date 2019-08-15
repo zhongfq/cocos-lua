@@ -1,23 +1,23 @@
 local class         = require "xgame.class"
 local util          = require "xgame.util"
 local Dispatcher    = require "xgame.event.Dispatcher"
-local AudioEvent    = require "xgame.swf.AudioEvent"
+local FLAudioEvent  = require "xgame.swf.FLAudioEvent"
 local swf           = require "xgame.swf.swf"
 
 local T = swf.ObjectType
 local assert = assert
 local ipairs, pairs = ipairs, pairs
 local next = next
-local trace = util.trace("[AudioScanner]")
+local trace = util.trace("[FLAudioScanner]")
 
-local AudioScanner = class("AudioScanner", Dispatcher)
+local FLAudioScanner = class("FLAudioScanner", Dispatcher)
 
-function AudioScanner:ctor()
+function FLAudioScanner:ctor()
     self._tag = 0
     self:clear()
 end
 
-function AudioScanner:_createAutoTable()
+function FLAudioScanner:_createAutoTable()
     return setmetatable({}, {__mode = "k", __index = function (t, k)
         local v = {}
         rawset(t, k, v)
@@ -25,33 +25,33 @@ function AudioScanner:_createAutoTable()
     end})
 end
 
-function AudioScanner:_clearAudios(force)
+function FLAudioScanner:_clearAudios(force)
     local playingAudios = self._playingAudios
     if playingAudios then
         for mc, label2tag in pairs(playingAudios) do
             if force or not mc.stage or not mc.cobj.alive then
                 playingAudios[mc] = nil
                 for _, tag in pairs(label2tag) do
-                    self:dispatch(AudioEvent.STOP_AUDIO, nil, tag)
+                    self:dispatch(FLAudioEvent.STOP_AUDIO, nil, tag)
                 end
             end
         end
     end
 end
 
-function AudioScanner:clear()
+function FLAudioScanner:clear()
     self:_clearAudios(true)
     self._watchedTargets = setmetatable({}, {__mode = "k"})
     self._playingAudios = self:_createAutoTable()
     self._playingStates = self:_createAutoTable()
 end
 
-function AudioScanner:_obtainTag()
+function FLAudioScanner:_obtainTag()
     self._tag = self._tag + 1
     return self._tag
 end
 
-function AudioScanner:addWatch(target)
+function FLAudioScanner:addWatch(target)
     assert(target)
     self._watchedTargets[target] = true
 end
@@ -76,11 +76,11 @@ local function doScan(self, target, found)
     return found
 end
 
-function AudioScanner:scan(target)
+function FLAudioScanner:scan(target)
     return doScan(self, target, {})
 end
 
-function AudioScanner:update()
+function FLAudioScanner:update()
     local playingAudios = self._playingAudios
     local playingStates = self._playingStates
     local watchedTargets = self._watchedTargets
@@ -121,12 +121,12 @@ function AudioScanner:update()
                     local tag = label2tag[label]
 
                     if tag then
-                        self:dispatch(AudioEvent.STOP_AUDIO, nil, tag)
+                        self:dispatch(FLAudioEvent.STOP_AUDIO, nil, tag)
                     end
 
                     tag = self:_obtainTag()
                     label2tag[label] = tag
-                    self:dispatch(AudioEvent.PLAY_AUDIO, option, tag)
+                    self:dispatch(FLAudioEvent.PLAY_AUDIO, option, tag)
 
                     ::loopNextLabel::
                 end
@@ -143,4 +143,4 @@ function AudioScanner:update()
     self:_clearAudios()
 end
 
-return AudioScanner
+return FLAudioScanner

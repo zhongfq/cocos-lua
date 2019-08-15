@@ -1,24 +1,24 @@
 local qrcode        = require "qrcode"
 local class         = require "xgame.class"
-local Graphics      = require "xgame.swf.Graphics"
-local BitmapData    = require "xgame.swf.BitmapData"
+local FLGraphics    = require "xgame.swf.FLGraphics"
+local FLBitmapData  = require "xgame.swf.FLBitmapData"
 local swf           = require "xgame.swf.swf"
 
-local QRCode = class("QRCode", Graphics)
+local FLQRCode = class("FLQRCode", FLGraphics)
 
-local _new = QRCode.new
+local _new = FLQRCode.new
 
-function QRCode.new(cobj)
+function FLQRCode.new(cobj)
     return _new(cobj or swf.Graphics.new())
 end
 
-function QRCode:ctor(cobj)
+function FLQRCode:ctor(cobj)
 end
 
-function QRCode:setString(value)
+function FLQRCode:setString(value)
     local _, width, data = qrcode.encode(value, 0,
         "ECLEVEL_H", "MODE_8", true)
-    local bitmapData = BitmapData.new(width, width, false)
+    local bitmapData = FLBitmapData.new(width, width, false)
     bitmapData:set(data)
     self:beginFill(bitmapData)
     self:drawTriangles({
@@ -37,4 +37,4 @@ function QRCode:setString(value)
     self:endFill()
 end
 
-return QRCode
+return FLQRCode

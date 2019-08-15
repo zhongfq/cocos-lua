@@ -2,7 +2,7 @@ local class     = require "xgame.class"
 local util      = require "xgame.util"
 local MixSWF    = require "xgame.swf.MixSWF"
 local swf       = require "xgame.swf.swf"
-local Image     = require "xgame.swf.Image"
+local FLImage   = require "xgame.swf.FLImage"
 local A         = require "xgame.ui.action"
 
 local SWFTest = class('SWFTest', MixSWF)
@@ -60,7 +60,7 @@ function SWFTest:onCreate()
             mc.ns['btn_ttsz']:relative('right', 'bottom')
             mc.ns['btn_bbmath']:relative('right', 'bottom')
 
-            local img = Image.new()
+            local img = FLImage.new()
             img:load('http://127.0.0.1/cocoslua/current/assets/res/HelloWorld.png')
             img.x = 500
             img.y = 300

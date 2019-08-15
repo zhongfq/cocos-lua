@@ -2,7 +2,7 @@ local class         = require "xgame.class"
 local timer         = require "xgame.timer"
 local EventAgent    = require "xgame.event.EventAgent"
 local SWFUI         = require "xgame.swf.SWFUI"
-local MixPlayer     = require "xgame.swf.MixPlayer"
+local FLMixPlayer   = require "xgame.swf.FLMixPlayer"
 
 local string = string
 
@@ -12,7 +12,7 @@ function MixSWF:ctor()
     self.mediatorClass = self.class
     self._eventAgent = EventAgent.new()
     self._timer = timer.new()
-    self._mixPlayer = MixPlayer.new('res/sound/auto/%s.mp3')
+    self._mixPlayer = FLMixPlayer.new('res/sound/auto/%s.mp3')
     self:_doUpdate()
 end
 

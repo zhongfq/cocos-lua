@@ -1,24 +1,24 @@
-local class         = require "xgame.class"
-local Event         = require "xgame.event.Event"
-local assetloader   = require "xgame.assetloader"
-local LoadTask      = require "xgame.loader.LoadTask"
-local DisplayObject = require "xgame.swf.DisplayObject"
-local swf           = require "xgame.swf.swf"
+local class             = require "xgame.class"
+local Event             = require "xgame.event.Event"
+local assetloader       = require "xgame.assetloader"
+local LoadTask          = require "xgame.loader.LoadTask"
+local swf               = require "xgame.swf.swf"
+local FLDisplayObject   = require "xgame.swf.FLDisplayObject"
 
-local Image = class("Image", DisplayObject)
+local FLImage = class("FLImage", FLDisplayObject)
 
-local _new = Image.new
+local _new = FLImage.new
 
-function Image.new(cobj)
+function FLImage.new(cobj)
     return _new(cobj or swf.Image.new())
 end
 
-function Image:ctor(cobj)
+function FLImage:ctor(cobj)
     self._preferredWidth = 0
     self._preferredHeight = 0
 end
 
-function Image:_doLoad(url, callback)
+function FLImage:_doLoad(url, callback)
     local loader = LoadTask.new(url)
     loader:addListener(Event.COMPLETE, function ()
         callback(loader.path)
@@ -26,11 +26,11 @@ function Image:_doLoad(url, callback)
     loader:start()
 end
 
-function Image:loadTexture(cocosTexture)
+function FLImage:loadTexture(cocosTexture)
     self.cobj:loadTexture(cocosTexture)
 end
 
-function Image:load(filePath)
+function FLImage:load(filePath)
     self:_doLoad(filePath, function (path)
         assetloader.load(self, {[path] = true})
         self.cobj:load(path)
@@ -39,7 +39,7 @@ function Image:load(filePath)
     end)
 end
 
-function Image:loadAsync(filePath)
+function FLImage:loadAsync(filePath)
     self:_doLoad(filePath, function (path)
         assetloader.load(self, {[path] = true})
         self.cobj:loadAsync(path, function (success)
@@ -49,12 +49,12 @@ function Image:loadAsync(filePath)
     end)
 end
 
-function Image.Get:filePath()
+function FLImage.Get:filePath()
     return self.cobj.filePath
 end
 
-function Image.Get:preferredWidth() return self._preferredWidth end
-function Image.Set:preferredWidth(value)
+function FLImage.Get:preferredWidth() return self._preferredWidth end
+function FLImage.Set:preferredWidth(value)
     self._preferredWidth = value
     if value > 0 and self.width > 0 then
         self.scaleX = 1 -- reset width
@@ -62,8 +62,8 @@ function Image.Set:preferredWidth(value)
     end
 end
 
-function Image.Get:preferredHeight() return self._preferredHeight end
-function Image.Set:preferredHeight(value)
+function FLImage.Get:preferredHeight() return self._preferredHeight end
+function FLImage.Set:preferredHeight(value)
     self._preferredHeight = value
     if value > 0 and self.height > 0 then
         self.scaleY = 1 -- reset height
@@ -71,4 +71,4 @@ function Image.Set:preferredHeight(value)
     end
 end
 
-return Image
+return FLImage

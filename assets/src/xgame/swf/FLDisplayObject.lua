@@ -3,9 +3,9 @@ local Event     = require "xgame.event.Event"
 local Align     = require "xgame.ui.Align"
 local UIObject  = require "xgame.ui.UIObject"
 
-local DisplayObject = class("DisplayObject", UIObject)
+local FLDisplayObject = class("FLDisplayObject", UIObject)
 
-function DisplayObject:ctor(cobj)
+function FLDisplayObject:ctor(cobj)
     self._stage = false
     self._rootNode = false
     self.name = cobj.name or ""
@@ -17,51 +17,51 @@ function DisplayObject:ctor(cobj)
     self.cobj = cobj
 end
 
-function DisplayObject.Get:initialized()
+function FLDisplayObject.Get:initialized()
     return true
 end
 
-function DisplayObject:validateDisplay()
+function FLDisplayObject:validateDisplay()
 end
 
-function DisplayObject.Get:rootNode()
+function FLDisplayObject.Get:rootNode()
     if not self._rootNode then
         self._rootNode = self.parent.rootNode
     end
     return self._rootNode
 end
 
-function DisplayObject:removeSelf()
+function FLDisplayObject:removeSelf()
     if self.parent then
         self.parent:removeChild(self)
     end
 end
 
-function DisplayObject:setScale(sx, sy)
+function FLDisplayObject:setScale(sx, sy)
     self.cobj:setScale(sx, sy)
 end
 
-function DisplayObject:getScale()
+function FLDisplayObject:getScale()
     return self.cobj:getScale()
 end
 
-function DisplayObject:setPosition(x, y)
+function FLDisplayObject:setPosition(x, y)
     self.cobj:setPosition(x, y)
 end
 
-function DisplayObject:getPosition()
+function FLDisplayObject:getPosition()
     return self.cobj:getPosition()
 end
 
-function DisplayObject:setShader(shaderType, shader)
+function FLDisplayObject:setShader(shaderType, shader)
     self.cobj:setShader(shaderType, shader)
 end
 
-function DisplayObject:getShader(shaderType)
+function FLDisplayObject:getShader(shaderType)
     return self.cobj:getShader(shaderType)
 end
 
-function DisplayObject:localToGlobal(x, y)
+function FLDisplayObject:localToGlobal(x, y)
     x, y = self.cobj:localToGlobal(x, y)
     local rootNode = self.rootNode
     if rootNode then
@@ -70,7 +70,7 @@ function DisplayObject:localToGlobal(x, y)
     return x, y
 end
 
-function DisplayObject:globalToLocal(x, y)
+function FLDisplayObject:globalToLocal(x, y)
     local rootNode = self.rootNode
     if rootNode then
         x, y = rootNode.cobj:worldToSWFSpace(x, y)
@@ -78,104 +78,104 @@ function DisplayObject:globalToLocal(x, y)
     return self.cobj:globalToLocal(x, y)
 end
 
-function DisplayObject:scheduleOnce(callback, delay, key)
+function FLDisplayObject:scheduleOnce(callback, delay, key)
     return self.cobj.proxyNode:scheduleOnce(callback, delay, key)
 end
 
-function DisplayObject:scheduleUpdate()
+function FLDisplayObject:scheduleUpdate()
     self.cobj.proxyNode:scheduleUpdate()
 end
 
-function DisplayObject:unscheduleUpdate()
+function FLDisplayObject:unscheduleUpdate()
     self.cobj.proxyNode:unscheduleUpdate()
 end
 
 -- schedule(callback, key)
 -- schedule(callback, interval, key)
 -- schedule(callback, interval, repeat, delay, key)
-function DisplayObject:schedule(callback, ...)
+function FLDisplayObject:schedule(callback, ...)
     self.cobj.proxyNode:schedule(callback, ...)
 end
 
-function DisplayObject:unschedule(key)
+function FLDisplayObject:unschedule(key)
     self.cobj.proxyNode:unschedule(key)
 end
 
-function DisplayObject:unscheduleAllCallbacks()
+function FLDisplayObject:unscheduleAllCallbacks()
     self.cobj.proxyNode:unscheduleAllCallbacks()
 end
 
-function DisplayObject:getBounds(target, ...)
+function FLDisplayObject:getBounds(target, ...)
     return self.cobj:getBounds(target.cobj, ...)
 end
 
-function DisplayObject:runAction(action)
+function FLDisplayObject:runAction(action)
     self.cobj:runAction(action)
 end
 
-function DisplayObject:stopAction(action)
+function FLDisplayObject:stopAction(action)
     self.cobj:stopAction(action)
 end
 
-function DisplayObject:stopActionByTag(tag)
+function FLDisplayObject:stopActionByTag(tag)
     self.cobj:stopActionByTag(tag)
 end
 
-function DisplayObject:stopAllActionsByTag(tag)
+function FLDisplayObject:stopAllActionsByTag(tag)
     self.cobj:stopAllActionsByTag(tag)
 end
 
-function DisplayObject:stopAllActions()
+function FLDisplayObject:stopAllActions()
     self.cobj:stopAllActions()
 end
 
-function DisplayObject:stopActionsByFlags(flags)
+function FLDisplayObject:stopActionsByFlags(flags)
     self.cobj:stopActionsByFlags(flags)
 end
 
-function DisplayObject.Get:scaleX() return self.cobj.scaleX end
-function DisplayObject.Set:scaleX(value)
+function FLDisplayObject.Get:scaleX() return self.cobj.scaleX end
+function FLDisplayObject.Set:scaleX(value)
     self.cobj.scaleX = value
 end
 
-function DisplayObject.Get:scaleY() return self.cobj.scaleY end
-function DisplayObject.Set:scaleY(value)
+function FLDisplayObject.Get:scaleY() return self.cobj.scaleY end
+function FLDisplayObject.Set:scaleY(value)
     self.cobj.scaleY = value
 end
 
-function DisplayObject.Get:x() return self.cobj.x end
-function DisplayObject.Set:x(value)
+function FLDisplayObject.Get:x() return self.cobj.x end
+function FLDisplayObject.Set:x(value)
     self.cobj.x = value
 end
 
-function DisplayObject.Get:y() return self.cobj.y end
-function DisplayObject.Set:y(value)
+function FLDisplayObject.Get:y() return self.cobj.y end
+function FLDisplayObject.Set:y(value)
     self.cobj.y = value
 end
 
-function DisplayObject.Get:rotation() return self.cobj.rotation end
-function DisplayObject.Set:rotation(value)
+function FLDisplayObject.Get:rotation() return self.cobj.rotation end
+function FLDisplayObject.Set:rotation(value)
     self.cobj.rotation = value
 end
 
-function DisplayObject.Get:alpha() return self.cobj.alpha end
-function DisplayObject.Set:alpha(value)
+function FLDisplayObject.Get:alpha() return self.cobj.alpha end
+function FLDisplayObject.Set:alpha(value)
     self.cobj.alpha = value
 end
 
-function DisplayObject.Get:visible() return self.cobj.visible end
-function DisplayObject.Set:visible(value)
+function FLDisplayObject.Get:visible() return self.cobj.visible end
+function FLDisplayObject.Set:visible(value)
     self.cobj.visible = value
 end
 
-function DisplayObject.Get:parent() return self._parent end
+function FLDisplayObject.Get:parent() return self._parent end
 
-function DisplayObject.Get:width() return self.cobj.width end
+function FLDisplayObject.Get:width() return self.cobj.width end
 
-function DisplayObject.Get:height() return self.cobj.height end
+function FLDisplayObject.Get:height() return self.cobj.height end
 
-function DisplayObject.Get:stage() return self._stage end
-function DisplayObject:_setStage(value)
+function FLDisplayObject.Get:stage() return self._stage end
+function FLDisplayObject:_setStage(value)
     -- remove form stage
     if not value and self._stage then
         local stage = self._stage
@@ -195,4 +195,4 @@ function DisplayObject:_setStage(value)
     end
 end
 
-return DisplayObject
+return FLDisplayObject

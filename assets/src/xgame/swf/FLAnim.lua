@@ -3,22 +3,22 @@ local util  = require "xgame.util"
 
 local assert = assert
 local type = type
-local trace = util.trace("[Anim]")
+local trace = util.trace("[FLAnim]")
 --local DLOG = trace
 local DLOG = function () end
 
 -- animation format:
--- |animation(audio object, scaned by AudioScanner)
+-- |animation(audio object, scaned by FLAudioScanner)
 --    |-@idle|ok|no,etc
 --        |-@audio label=@audio{name|loop|volume|catalog|}(JSON format)
 --    |-@xxx
 --    ...
 --
-local Anim = class("Anim")
+local FLAnim = class("FLAnim")
 
-Anim.STATE_READY = 1
-Anim.STATE_RUNNING = 2
-Anim.STATE_DONE = 3
+FLAnim.STATE_READY = 1
+FLAnim.STATE_RUNNING = 2
+FLAnim.STATE_DONE = 3
 
 local function check(arg, field, typeName)
     local name = type(arg)
@@ -27,14 +27,14 @@ local function check(arg, field, typeName)
     end
 end
 
-function Anim:ctor(session, target, label, playOnce, times)
+function FLAnim:ctor(session, target, label, playOnce, times)
     check(playOnce, "playOnce", "boolean")
     check(times, "times", "number")
     self.name = target.name or "<no name>"
     self.label = label
     self.session = session
     self.nextAnim = false
-    self.state = Anim.STATE_READY
+    self.state = FLAnim.STATE_READY
     self._target = target
     self._playOnce = playOnce and true or false
     self._times = math.max(times and times or 1, 1)
@@ -49,30 +49,30 @@ function Anim:ctor(session, target, label, playOnce, times)
     target:dispatch("interruption", session, label)
 end
 
-function Anim:dispose()
+function FLAnim:dispose()
     if self._target then
         self._target:removeListener("interruption", self.interruptionHandler, self)
         self._target = nil
-        self.state = Anim.STATE_DONE
+        self.state = FLAnim.STATE_DONE
         self._labelMovie = nil
         self._onStartCallback = nil
         self._onEndCallback = nil
     end
 end
 
-function Anim:pause()
+function FLAnim:pause()
     if self._target then
         self._target:pause()
     end
 end
 
-function Anim:resume()
+function FLAnim:resume()
     if self._target then
         self._target:resume()
     end
 end
 
-function Anim:interruptionHandler(_, session, label)
+function FLAnim:interruptionHandler(_, session, label)
     if self.session ~= session then
         DLOG("'%s:%s:%d': interrupt by %d", self.name, self.label,
             self.session, session)
@@ -80,7 +80,7 @@ function Anim:interruptionHandler(_, session, label)
     end
 end
 
-function Anim:stopChain()
+function FLAnim:stopChain()
     local currAnim = self
     local tmp
     while currAnim do
@@ -92,7 +92,7 @@ function Anim:stopChain()
     DLOG("'%s:%s:%d': stop chain", self.name, self.label, self.session)
 end
 
-function Anim:update()
+function FLAnim:update()
     local target = self._target
     local labelMovie = self._labelMovie
 
@@ -101,14 +101,14 @@ function Anim:update()
         self:stopChain()
     end
 
-    if self.state ~= Anim.STATE_DONE and (not labelMovie or
+    if self.state ~= FLAnim.STATE_DONE and (not labelMovie or
         labelMovie.currentFrame == labelMovie.totalFrames) then
         self._times = self._times - 1
         -- DLOG("'%s:%s:%d': times = %d", self.name, self.label,
         --     self.session, self._times)
         if self._times <= 0 then
             DLOG("'%s:%s:%d': complete", self.name, self.label, self.session)
-            self.state = Anim.STATE_DONE
+            self.state = FLAnim.STATE_DONE
             if labelMovie and not self._playOnce then
                labelMovie:gotoAndPlay(1)
             end
@@ -123,8 +123,8 @@ function Anim:update()
     end
 end
 
-function Anim:play()
-    self.state = Anim.STATE_RUNNING
+function FLAnim:play()
+    self.state = FLAnim.STATE_RUNNING
     self._target:gotoAndStop(self.label)
     self._labelMovie = self._target.topMC
 
@@ -142,10 +142,10 @@ function Anim:play()
         self.session, self._labelMovie)
 end
 
-function Anim:next(target, label, playOnce, times)
+function FLAnim:next(target, label, playOnce, times)
     assert(target)
     assert(label)
-    self.nextAnim = Anim.new(self.session, target, label,
+    self.nextAnim = FLAnim.new(self.session, target, label,
         playOnce, times)
     return self.nextAnim
 end
@@ -157,18 +157,18 @@ local function createCallback(callback, ...)
     end
 end
 
-function Anim:onStart(callback, ...)
+function FLAnim:onStart(callback, ...)
     assert(not self._onStartCallback)
     assert(type(callback) == "function")
     self._onStartCallback = createCallback(callback, ...)
     return self
 end
 
-function Anim:onEnd(callback, ...)
+function FLAnim:onEnd(callback, ...)
     assert(not self._onEndCallback)
     assert(type(callback) == "function")
     self._onEndCallback = createCallback(callback, ...)
     return self
 end
 
-return Anim
+return FLAnim

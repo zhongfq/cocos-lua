@@ -2,7 +2,7 @@ local class         = require "xgame.class"
 local Event         = require "xgame.event.Event"
 local TouchEvent    = require "xgame.event.TouchEvent"
 local UIView        = require "xgame.ui.UIView"
-local MovieClip     = require "xgame.swf.MovieClip"
+local FLMovieClip   = require "xgame.swf.FLMovieClip"
 local swf           = require "xgame.swf.swf"
 local EditBox       = require "ccui.EditBox"
 local InputFlag     = require "ccui.EditBox.InputFlag"
@@ -10,9 +10,9 @@ local InputMode     = require "ccui.EditBox.InputMode"
 
 local CocosInput
 
-local TextInput = swf.class("TextInput", MovieClip)
+local FLTextInput = swf.class("FLTextInput", FLMovieClip)
 
-function TextInput:ctor()
+function FLTextInput:ctor()
     self._restrict = false
     self._cocosobj = false
     self.label = self.ns['label']
@@ -25,17 +25,17 @@ function TextInput:ctor()
     self:addListener(TouchEvent.CLICK, self._focusIn, self)
 end
 
-function TextInput:_onRemoved()
+function FLTextInput:_onRemoved()
     if self._cocosobj then
         self._cocosobj:removeSelf()
     end
 end
 
-function TextInput.Get:mode()
+function FLTextInput.Get:mode()
     return self._mode
 end
 
-function TextInput.Set:mode(value)
+function FLTextInput.Set:mode(value)
     self._mode = value
     if value == 'PASSWORD' then
         self.label.displayAsPassword = true
@@ -52,7 +52,7 @@ function TextInput.Set:mode(value)
     end
 end
 
-function TextInput:_createCocosobj()
+function FLTextInput:_createCocosobj()
     local cocosobj = self._cocosobj
     if not cocosobj then
         cocosobj = CocosInput.new()
@@ -76,7 +76,7 @@ function TextInput:_createCocosobj()
     end
 end
 
-function TextInput:_focusOut()
+function FLTextInput:_focusOut()
     if self._cocosobj then
         self._cocosobj.visible = false
         self.label.text = self._cocosobj.text
@@ -84,7 +84,7 @@ function TextInput:_focusOut()
     self.label.visible = true
 end
 
-function TextInput:_focusIn()
+function FLTextInput:_focusIn()
     self.label.visible = false
 
     self:_createCocosobj()
@@ -104,19 +104,19 @@ function TextInput:_focusIn()
     cocosobj:openKeyboard()
 end
 
-function TextInput.Get:restrict() return self._restrict end
-function TextInput.Set:restrict(value)
+function FLTextInput.Get:restrict() return self._restrict end
+function FLTextInput.Set:restrict(value)
     self._restrict = value
 end
 
-function TextInput.Get:text()
+function FLTextInput.Get:text()
     if self._cocosobj and self._cocosobj.visible then
         self.label.text = self._cocosobj.text
     end
 
     return self.label.plainText or ""
 end
-function TextInput.Set:text(value)
+function FLTextInput.Set:text(value)
     value = value or ""
     if self._cocosobj then
         self._cocosobj.text = value
@@ -124,10 +124,10 @@ function TextInput.Set:text(value)
     self.label.text = value
 end
 
-function TextInput.Get:placeholder()
+function FLTextInput.Get:placeholder()
     return self._placeholder
 end
-function TextInput.Set:placeholder(value)
+function FLTextInput.Set:placeholder(value)
     value = value or ""
     if self._cocosobj then
         self._cocosobj.placeholder = value
@@ -135,11 +135,11 @@ function TextInput.Set:placeholder(value)
     self._placeholder = value
 end
 
-function TextInput.Get:multiline()
+function FLTextInput.Get:multiline()
     return self.label.multiline
 end
 
-function TextInput.Set:multiline(value)
+function FLTextInput.Set:multiline(value)
     self.label.multiline = value
     if self._cocosobj then
         if not value then
@@ -249,4 +249,4 @@ function CocosInput.Set:text(value)
     self.cobj.text = value or ""
 end
 
-return TextInput
+return FLTextInput

@@ -2,14 +2,14 @@ local class = require "xgame.class"
 
 local assert = assert
 
-local LinkedList = class("LinkedList")
+local FLLinkedList = class("FLLinkedList")
 
-function LinkedList:ctor()
+function FLLinkedList:ctor()
     self._header = {target = '<linked list header>'}
     self:clear()
 end
 
-function LinkedList:clear()
+function FLLinkedList:clear()
     self._tail = self._header
     self._header.next = self._tail
     self._tail.prev = self._header
@@ -21,15 +21,15 @@ local function itor(self, current)
     end
 end
 
-function LinkedList:__pairs()
+function FLLinkedList:__pairs()
     return itor, self, self._header
 end
 
-function LinkedList.Get:empty()
+function FLLinkedList.Get:empty()
     return self._header == self._tail
 end
 
-function LinkedList:append(target)
+function FLLinkedList:append(target)
     local node = {target = target}
     node.prev = self._tail
     node.next = self._tail.next
@@ -39,7 +39,7 @@ function LinkedList:append(target)
     return node
 end
 
-function LinkedList:remove(node)
+function FLLinkedList:remove(node)
     if self.empty then
         return
     end
@@ -52,4 +52,4 @@ function LinkedList:remove(node)
     end
 end
 
-return LinkedList
+return FLLinkedList

@@ -11,7 +11,6 @@ local trace = util.trace("[swf]")
 
 local M = setmetatable({}, {__index = require("swf.core")})
 
-M.Image = require "swf.Image"
 M.ObjectType = require("swf.ObjectType")
 M.loader = require("swf.loader")
 M.Image = require("swf.Image")
@@ -53,9 +52,9 @@ local function toGlobalID(cobj)
 end
 
 local function lazyRequire()
-    require "xgame.swf.TextInput"
-    -- require "xgame.swf.Scroller"
-    require "xgame.swf.RadioButton"
+    require "xgame.swf.FLTextInput"
+    require "xgame.swf.FLScroller"
+    require "xgame.swf.FLRadioButton"
 
     lazyRequire = function () end
 end
@@ -131,13 +130,13 @@ function M.wrapper(cobj)
     end
     assert(cobj)
     if cobj.type == T.SHAPE then
-        return doWrapper('xgame.swf.Shape', cobj)
+        return doWrapper('xgame.swf.FLShape', cobj)
     elseif cobj.type == T.IMAGE then
-        return doWrapper('xgame.swf.Image', cobj)
+        return doWrapper('xgame.swf.FLImage', cobj)
     elseif cobj.type == T.TEXTFIELD then
-        return doWrapper('xgame.swf.TextField', cobj)
+        return doWrapper('xgame.swf.FLTextField', cobj)
     elseif cobj.type == T.GRAPHICS then
-        return doWrapper('xgame.swf.Graphics', cobj)
+        return doWrapper('xgame.swf.FLGraphics', cobj)
     elseif cobj.type == T.MOVIE_CLIP then
         local def = M.metadata(cobj)
         local classname = def.classname
@@ -145,7 +144,7 @@ function M.wrapper(cobj)
             assert(userClasses[classname], classname)
             return userClasses[classname].new(cobj)
         else
-            return doWrapper('xgame.swf.MovieClip', cobj)
+            return doWrapper('xgame.swf.FLMovieClip', cobj)
         end
     else
         error(string.format("unknown type %s", cobj.type))

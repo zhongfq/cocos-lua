@@ -1,25 +1,25 @@
-local class         = require "xgame.class"
-local Point         = require "xgame.Point"
-local DisplayObject = require "xgame.swf.DisplayObject"
-local swf           = require "xgame.swf.swf"
+local class             = require "xgame.class"
+local Point             = require "xgame.Point"
+local swf               = require "xgame.swf.swf"
+local FLDisplayObject   = require "xgame.swf.FLDisplayObject"
 
-local Graphics = class("Graphics", DisplayObject)
+local FLGraphics = class("FLGraphics", FLDisplayObject)
 
-local _new = Graphics.new
+local _new = FLGraphics.new
 
-function Graphics.new(cobj)
+function FLGraphics.new(cobj)
     return _new(cobj or swf.Graphics.new())
 end
 
-function Graphics:ctor(cobj)
+function FLGraphics:ctor(cobj)
     self._currentFill = false
 end
 
-function Graphics:clear()
+function FLGraphics:clear()
     self.cobj:clear()
 end
 
-function Graphics:beginFill(fillData, mat, repeatMode)
+function FLGraphics:beginFill(fillData, mat, repeatMode)
     if type(fillData) == "number" then
         self.cobj:beginFill(fillData)
     else
@@ -28,12 +28,12 @@ function Graphics:beginFill(fillData, mat, repeatMode)
     self._currentFill = fillData
 end
 
-function Graphics:endFill()
+function FLGraphics:endFill()
     self._currentFill = false
     self.cobj:endFill()
 end
 
-function Graphics:drawRect(x, y, width, height)
+function FLGraphics:drawRect(x, y, width, height)
     self.cobj:drawTriangles({
         x, y,
         x, y + height,
@@ -138,13 +138,13 @@ local function convertLineToMesh(coords, lineWidth)
     return vertices, indices
 end
 
-function Graphics:drawLine(coords, lineWidth)
+function FLGraphics:drawLine(coords, lineWidth)
     local vertices, indices = convertLineToMesh(coords, lineWidth)
     self.cobj:drawTriangles(vertices, indices, {})
 end
 
-function Graphics:drawTriangles(vertices, indices, uvs)
+function FLGraphics:drawTriangles(vertices, indices, uvs)
     self.cobj:drawTriangles(vertices, indices, uvs)
 end
 
-return Graphics
+return FLGraphics

@@ -1,5 +1,8 @@
 package kernel.plugins.talkingdata;
 
+import android.app.Activity;
+import android.app.Application;
+
 import com.tendcloud.tenddata.Order;
 import com.tendcloud.tenddata.TCAgent;
 import com.tendcloud.tenddata.TDAccount;
@@ -13,9 +16,27 @@ import java.util.Map;
 
 import kernel.AppContext;
 import kernel.LuaJ;
+import kernel.PluginManager;
 
+@SuppressWarnings("unused")
 public class TalkingData {
     private static final String TAG = TalkingData.class.getName();
+
+    static {
+        PluginManager.registerPlugin(new PluginManager.Handler() {
+            @Override
+            public void onInit(Application app) {
+                TCAgent.LOG_ON = true;
+                TCAgent.init(app);
+                TCAgent.setReportUncaughtExceptions(false);
+            }
+
+            @Override
+            public void onStart(Activity context) {
+            }
+        });
+    }
+
     private static int _print = -1;
 
     private static Map<Integer, Order> _orderMap = new HashMap<>();
@@ -132,7 +153,7 @@ public class TalkingData {
         return TDAccount.AccountType.ANONYMOUS;
     }
 
-    public static final void onRegister(final String accountID, final int type, final String name) {
+    public static void onRegister(final String accountID, final int type, final String name) {
         final AppContext context = (AppContext) AppContext.getContext();
         context.runOnUiThread(new Runnable() {
             @Override
@@ -143,7 +164,7 @@ public class TalkingData {
         });
     }
 
-    public static final void onLogin(final String accountID, final int type, final String name) {
+    public static void onLogin(final String accountID, final int type, final String name) {
         final AppContext context = (AppContext) AppContext.getContext();
         context.runOnUiThread(new Runnable() {
             @Override
@@ -271,9 +292,7 @@ public class TalkingData {
     }
 
     public static void removeOrder(int id) {
-        if (_orderMap.containsKey(id)) {
-            _orderMap.remove(id);
-        }
+        _orderMap.remove(id);
     }
 
     public static void orderAddItem(int id, String itemID, String catalog, String name, int unitPrice, int amount) {

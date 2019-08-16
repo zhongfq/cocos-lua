@@ -1,7 +1,5 @@
 package org.cocos2dx.hellolua;
 
-// import com.tendcloud.tenddata.TCAgent;
-
 import android.util.Log;
 
 import kernel.PluginManager;
@@ -15,12 +13,10 @@ public class Application extends android.app.Application {
         super.onCreate();
 
         loadPlugin("kernel.plugins.huawei.Huawei");
+        loadPlugin("kernel.plugins.vivo.Vivo");
+        loadPlugin("kernel.plugins.oppo.Oppo");
 
         PluginManager.init(this);
-
-        // TCAgent.LOG_ON = true;
-        // TCAgent.init(this);
-        // TCAgent.setReportUncaughtExceptions(false);
     }
 
     public void loadPlugin(String classname) {

@@ -10,6 +10,8 @@ import com.tencent.mm.opensdk.diffdev.IDiffDevOAuth;
 import com.tencent.mm.opensdk.diffdev.OAuthErrCode;
 import com.tencent.mm.opensdk.diffdev.OAuthListener;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
+import com.tencent.mm.opensdk.modelbiz.JumpToBizProfile;
+import com.tencent.mm.opensdk.modelbiz.JumpToBizWebview;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXImageObject;
@@ -35,6 +37,7 @@ import java.util.Date;
 import kernel.AppContext;
 import kernel.LuaJ;
 
+@SuppressWarnings("unused")
 public class WeChat {
     private static final String TAG = WeChat.class.getName();
     static String APP_ID = "";
@@ -69,7 +72,6 @@ public class WeChat {
         wx.registerApp(appid);
     }
 
-    @SuppressWarnings("unused")
     public static void auth(String scope, String state, final int handler) {
         AppContext context = (AppContext)Cocos2dxActivity.getContext();
         final SendAuth.Req req = new SendAuth.Req();
@@ -104,7 +106,6 @@ public class WeChat {
         api.sendReq(req);
     }
 
-    @SuppressWarnings("unused")
     public static void authQRCode(String appid, String scope, String noncestr, String timestamp, String signature, final int handler) {
         IDiffDevOAuth oauth = DiffDevOAuthFactory.getDiffDevOAuth();
         oauth.removeAllListeners();
@@ -159,7 +160,6 @@ public class WeChat {
         });
     }
 
-    @SuppressWarnings("unused")
     public static void pay(String partnerId, String prepayId, String nonceStr, String timeStamp,
                            String packageValue, String sign, final int handler) {
         AppContext context = (AppContext)Cocos2dxActivity.getContext();
@@ -322,5 +322,22 @@ public class WeChat {
             e.printStackTrace();
             LuaJ.invokeOnce(callback, "{\"errcode\":-1}");
         }
+    }
+
+    public static void jumpToProfile(String username, String extMsg, int profileType) {
+        JumpToBizProfile.Req req = new JumpToBizProfile.Req();
+        req.toUserName = username;
+        req.extMsg = extMsg;
+        req.profileType = profileType;
+        AppContext context = (AppContext)Cocos2dxActivity.getContext();
+        IWXAPI api = WXAPIFactory.createWXAPI(context, WeChat.APP_ID);
+        api.sendReq(req);
+    }
+
+    public static void jumpToWebview(String username, String extMsg, int webType) {
+        JumpToBizWebview.Req req = new JumpToBizWebview.Req();
+        req.toUserName = username;
+        req.extMsg = extMsg;
+        req.webType = webType;
     }
 }

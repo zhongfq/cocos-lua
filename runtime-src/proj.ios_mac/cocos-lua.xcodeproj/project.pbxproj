@@ -27,8 +27,8 @@
 		0E730C7C2272B4810067866B /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E730C752272B4810067866B /* libWeChatSDK.a */; };
 		0E730C7D2272B4810067866B /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0E730C7A2272B4810067866B /* README.txt */; };
 		0E730C7E2272B4810067866B /* libWXSpeech.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E730C7B2272B4810067866B /* libWXSpeech.a */; };
-		0E730C842272B4910067866B /* lua_wechat-ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E730C812272B4900067866B /* lua_wechat-ios.mm */; };
-		0E730C852272B4910067866B /* lua_wechat-ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E730C812272B4900067866B /* lua_wechat-ios.mm */; };
+		0E730C842272B4910067866B /* lua_wechat_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E730C812272B4900067866B /* lua_wechat_ios.mm */; };
+		0E730C852272B4910067866B /* lua_wechat_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E730C812272B4900067866B /* lua_wechat_ios.mm */; };
 		0ED5D1AB2282D80E0072F3DB /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED5D1A92282D80D0072F3DB /* Photos.framework */; };
 		0ED5D1B02283CA640072F3DB /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED5D1AF2283CA630072F3DB /* StoreKit.framework */; };
 		1A88B2641FC3D9C9005C14AE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A88B2631FC3D9C9005C14AE /* Images.xcassets */; };
@@ -206,7 +206,7 @@
 		0E730C7A2272B4810067866B /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.txt; path = ../../frameworks/plugins/wechat/ios/README.txt; sourceTree = "<group>"; };
 		0E730C7B2272B4810067866B /* libWXSpeech.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWXSpeech.a; path = ../../frameworks/plugins/wechat/ios/libWXSpeech.a; sourceTree = "<group>"; };
 		0E730C802272B4900067866B /* lua_wechat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lua_wechat.h; path = ../../frameworks/plugins/wechat/lua_wechat.h; sourceTree = "<group>"; };
-		0E730C812272B4900067866B /* lua_wechat-ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "lua_wechat-ios.mm"; path = "../../frameworks/plugins/wechat/lua_wechat-ios.mm"; sourceTree = "<group>"; };
+		0E730C812272B4900067866B /* lua_wechat_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = lua_wechat_ios.mm; path = ../../frameworks/plugins/wechat/lua_wechat_ios.mm; sourceTree = "<group>"; };
 		0ED5D1A92282D80D0072F3DB /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Photos.framework; sourceTree = DEVELOPER_DIR; };
 		0ED5D1AA2282D80E0072F3DB /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/PhotosUI.framework; sourceTree = DEVELOPER_DIR; };
 		0ED5D1AF2283CA630072F3DB /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -357,7 +357,7 @@
 			isa = PBXGroup;
 			children = (
 				0E730C712272B46A0067866B /* ios */,
-				0E730C812272B4900067866B /* lua_wechat-ios.mm */,
+				0E730C812272B4900067866B /* lua_wechat_ios.mm */,
 				0E730C802272B4900067866B /* lua_wechat.h */,
 			);
 			name = wechat;
@@ -713,7 +713,7 @@
 				1AF87B781F6F77F7007BE51C /* AppController.mm in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				1AF87B8A1F6F7822007BE51C /* main.m in Sources */,
-				0E730C842272B4910067866B /* lua_wechat-ios.mm in Sources */,
+				0E730C842272B4910067866B /* lua_wechat_ios.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -723,7 +723,7 @@
 			files = (
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
-				0E730C852272B4910067866B /* lua_wechat-ios.mm in Sources */,
+				0E730C852272B4910067866B /* lua_wechat_ios.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -21,4 +21,11 @@
         }
     });
 }
+
+- (NSString *)objectToString:(NSObject *)obj
+{
+    NSData *data = [NSJSONSerialization dataWithJSONObject:obj options:0 error:nil];
+    return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+}
+
 @end

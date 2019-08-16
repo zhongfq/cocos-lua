@@ -25,12 +25,6 @@
 
 @end
 
-static NSString *objectToString(NSObject *obj)
-{
-    NSData *data = [NSJSONSerialization dataWithJSONObject:obj options:0 error:nil];
-    return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-}
-
 @implementation WeChatConnector
 
 - (instancetype)init
@@ -57,13 +51,13 @@ static NSString *objectToString(NSObject *obj)
             [dict setValue:authResp.state forKey:@"state"];
             [dict setValue:authResp.lang forKey:@"lang"];
             [dict setValue:authResp.country forKey:@"country"];
-            message = objectToString(dict);
+            message = [self objectToString:dict];
             event = @"auth";
         } else if ([resp isKindOfClass:[SendMessageToWXResp class]]) {
             event = @"share";
             NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
             [dict setValue:[NSNumber numberWithInt:resp.errCode] forKey:@"errcode"];
-            message = objectToString(dict);
+            message = [self objectToString:dict];
         }
         
         if (event != nil) {
@@ -83,7 +77,7 @@ static NSString *objectToString(NSObject *obj)
         [dict setValue:[NSNumber numberWithInt:0] forKey:@"errcode"];
         [dict setValue:[NSString stringWithUTF8String:path.c_str()] forKey:@"path"];
         
-        [self dispatch:@"auth_qrcode" withMessage:objectToString(dict)];
+        [self dispatch:@"authQrcode" withMessage:[self objectToString:dict]];
     }
 }
 
@@ -99,7 +93,7 @@ static NSString *objectToString(NSObject *obj)
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         [dict setValue:[NSNumber numberWithInt:errCode] forKey:@"errcode"];
         [dict setValue:authCode forKey:@"code"];
-        [self dispatch:@"auth_qrcode" withMessage:objectToString(dict)];
+        [self dispatch:@"authQrcode" withMessage:[self objectToString:dict]];
     }
 }
 
@@ -309,23 +303,27 @@ static int l_share(lua_State *L)
 
 static int l_jumpToProfile(lua_State *L)
 {
-    lua_settop(L, 1);
-    JumpToBizProfileReq *req = [[JumpToBizProfileReq alloc] init];
-    req.username = NSStringMake(olua_checkfieldstring(L, 1, "username"));
-    req.extMsg = NSStringMake(olua_optfieldstring(L, 1, "extMsg", nullptr));
-    req.profileType = (int)olua_checkfieldinteger(L, 1, "profileType");
-    [WXApi sendReq:req];
+    @autoreleasepool {
+        lua_settop(L, 1);
+        JumpToBizProfileReq *req = [[JumpToBizProfileReq alloc] init];
+        req.username = NSStringMake(olua_checkfieldstring(L, 1, "username"));
+        req.extMsg = NSStringMake(olua_optfieldstring(L, 1, "extMsg", nullptr));
+        req.profileType = (int)olua_checkfieldinteger(L, 1, "profileType");
+        [WXApi sendReq:req];
+    }
     return 0;
 }
 
 static int l_jumpToWebview(lua_State *L)
 {
-    lua_settop(L, 1);
-    JumpToBizWebviewReq *req = [[JumpToBizWebviewReq alloc] init];
-    req.tousrname = NSStringMake(olua_checkfieldstring(L, 1, "tousername"));
-    req.webType = (int)olua_checkfieldinteger(L, 1, "webType");
-    req.extMsg = NSStringMake(olua_optfieldstring(L, 1, "extMsg", nullptr));
-    [WXApi sendReq:req];
+    @autoreleasepool {
+        lua_settop(L, 1);
+        JumpToBizWebviewReq *req = [[JumpToBizWebviewReq alloc] init];
+        req.tousrname = NSStringMake(olua_checkfieldstring(L, 1, "tousername"));
+        req.webType = (int)olua_checkfieldinteger(L, 1, "webType");
+        req.extMsg = NSStringMake(olua_optfieldstring(L, 1, "extMsg", nullptr));
+        [WXApi sendReq:req];
+    }
     return 0;
 }
 

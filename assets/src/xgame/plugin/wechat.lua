@@ -171,7 +171,7 @@ function WeChat:_didResponse(action, message)
         else
             self:dispatch(PluginEvent.AUTH_FAILURE)
         end
-    elseif action == "auth_qrcode" then
+    elseif action == "authQrcode" then
         if data.path then
             local textureCache = Director.instance.textureCache
             textureCache:reloadTexture(data.path)
@@ -269,7 +269,7 @@ elseif runtime.os == "android" then
 
     function impl:authQRCode(appid, noncestr, timestamp, scope, sign)
         inst.authQRCode(appid, scope, noncestr, timestamp, sign, function (...)
-            impl.callback("auth_qrcode", ...)
+            impl.callback("authQrcode", ...)
         end)
     end
 

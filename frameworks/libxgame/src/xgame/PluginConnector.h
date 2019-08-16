@@ -9,4 +9,6 @@
 - (instancetype)init;
 - (void)dispatch:(NSString *)event withMessage:(NSString *)message;
 
+- (NSString *)objectToString:(NSObject *)obj;
+
 @end

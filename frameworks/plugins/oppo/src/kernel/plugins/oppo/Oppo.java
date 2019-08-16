@@ -1,5 +1,6 @@
 package kernel.plugins.oppo;
 
+import android.app.Activity;
 import android.app.Application;
 import android.util.Log;
 import android.widget.Toast;
@@ -18,19 +19,25 @@ import org.json.JSONObject;
 
 import kernel.AppContext;
 import kernel.LuaJ;
+import kernel.PluginManager;
 
 @SuppressWarnings("unused")
 public class Oppo {
     private static final String TAG = Oppo.class.getSimpleName();
 
-    public static void init(Application app, String appid) {
-        GameCenterSDK.init(appid, app);
-        AppContext.registerFeature("oppo", true);
-    }
+    static {
+        PluginManager.registerPlugin(new PluginManager.Handler() {
+            @Override
+            public void onInit(Application app) {
+                Log.i(TAG, "init oppo sdk");
+                GameCenterSDK.init(AppContext.getMetaData("OPPO_APPID"), app);
+                AppContext.registerFeature("oppo", true);
+            }
 
-    public static void onCreate()
-    {
-
+            @Override
+            public void onStart(Activity context) {
+            }
+        });
     }
 
     public static void pay(final String orderNo, final String attach, final int price, final String name, final String desc, final String url, final int handler) {

@@ -1,5 +1,6 @@
 package kernel.plugins.huawei;
 
+import android.app.Activity;
 import android.app.Application;
 import android.util.Log;
 
@@ -28,26 +29,33 @@ import org.json.JSONObject;
 
 import kernel.AppContext;
 import kernel.LuaJ;
+import kernel.PluginManager;
 
 @SuppressWarnings("unused")
 public class Huawei {
     private static final String TAG = Huawei.class.getSimpleName();
 
-    public static void init(Application app) {
-        HMSAgent.init(app);
-        AppContext.registerFeature("huawei", true);
-    }
-
-    public static void onCreate() {
-        final AppContext context = (AppContext) AppContext.getContext();
-        HMSAgent.connect(context, new ConnectHandler() {
+    static {
+        PluginManager.registerPlugin(new PluginManager.Handler() {
             @Override
-            public void onConnect(int rst) {
-                Log.i(TAG, "HMS connect end:" + rst);
-                HMSAgent.checkUpdate(context, new CheckUpdateHandler() {
+            public void onInit(Application app) {
+                Log.i(TAG, "init huawei sdk");
+                HMSAgent.init(app);
+                AppContext.registerFeature("huawei", true);
+            }
+
+            @Override
+            public void onStart(final Activity context) {
+                HMSAgent.connect(context, new ConnectHandler() {
                     @Override
-                    public void onResult(int rst) {
-                        Log.i(TAG, "check app update rst:" + rst);
+                    public void onConnect(int rst) {
+                        Log.i(TAG, "HMS connect end:" + rst);
+                        HMSAgent.checkUpdate(context, new CheckUpdateHandler() {
+                            @Override
+                            public void onResult(int rst) {
+                                Log.i(TAG, "check app update rst:" + rst);
+                            }
+                        });
                     }
                 });
             }

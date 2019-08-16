@@ -1,6 +1,8 @@
 package kernel.plugins.vivo;
 
+import android.app.Activity;
 import android.app.Application;
+import android.util.Log;
 
 import com.vivo.unionsdk.open.VivoConfigInfo;
 import com.vivo.unionsdk.open.VivoPayCallback;
@@ -12,18 +14,27 @@ import org.json.JSONObject;
 
 import kernel.AppContext;
 import kernel.LuaJ;
+import kernel.PluginManager;
 
 @SuppressWarnings("unused")
 public class Vivo {
-    public static void init(Application app, String appid) {
-        VivoConfigInfo configInfo = new VivoConfigInfo();
-        configInfo.setShowAssit(false);
-        VivoUnionSDK.initSdk(app, appid, false, configInfo);
-        AppContext.registerFeature("vivo", true);
-    }
+    private static final String TAG = Vivo.class.getSimpleName();
 
-    public static void onCreate(){
+    static {
+        PluginManager.registerPlugin(new PluginManager.Handler() {
+            @Override
+            public void onInit(Application app) {
+                Log.i(TAG, "init vivo sdk");
+                VivoConfigInfo configInfo = new VivoConfigInfo();
+                configInfo.setShowAssit(false);
+                VivoUnionSDK.initSdk(app, AppContext.getMetaData("VIVO_APPID"), false, configInfo);
+                AppContext.registerFeature("vivo", true);
+            }
 
+            @Override
+            public void onStart(Activity context) {
+            }
+        });
     }
 
     public static void pay(String appid, String orderNo, String url, String price, String name,

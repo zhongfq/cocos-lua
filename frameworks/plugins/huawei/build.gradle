@@ -36,10 +36,10 @@ dependencies {
     //noinspection GradleDependency
 
     String HMSSDKVer ='2.6.3.301'
-    implementation 'com.huawei.android.hms:iap:'+HMSSDKVer
-    implementation 'com.huawei.android.hms:game:'+HMSSDKVer
-    implementation 'com.huawei.android.hms:sns:'+HMSSDKVer
-    implementation 'com.huawei.android.hms:hwid:'+HMSSDKVer
-    implementation 'com.huawei.android.hms:push:'+HMSSDKVer
-    implementation 'com.huawei.android.hms:opendevice:'+HMSSDKVer
+    api 'com.huawei.android.hms:iap:'+HMSSDKVer
+    api 'com.huawei.android.hms:game:'+HMSSDKVer
+    api 'com.huawei.android.hms:sns:'+HMSSDKVer
+    api 'com.huawei.android.hms:hwid:'+HMSSDKVer
+    api 'com.huawei.android.hms:push:'+HMSSDKVer
+    api 'com.huawei.android.hms:opendevice:'+HMSSDKVer
 }

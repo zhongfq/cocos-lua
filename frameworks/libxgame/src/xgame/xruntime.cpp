@@ -52,6 +52,7 @@ void runtime::init()
     runtime::setLogPath(filesystem::getDirectory("external.cache") + "/console.log");
     runtime::getPackageName();
     runtime::getDeviceInfo();
+    runtime::getLanguage();
     filesystem::getDocumentDirectory();
     filesystem::getCacheDirectory();
     filesystem::getTmpDirectory();
@@ -257,12 +258,45 @@ const std::string runtime::getLanguage()
 
 void runtime::setAudioSessionCatalog(const std::string &catalog)
 {
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
     __runtime_setAudioSessionCatalog(catalog);
+#endif
 }
 
 const std::string runtime::getAudioSessionCatalog()
 {
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
     return __runtime_getAudioSessionCatalog();
+#else
+    return "";
+#endif
+}
+
+const PermissionStatus runtime::getPermissionStatus(Permission permission)
+{
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+    return __runtime_getPermissionStatus(permission);
+#else
+    return PermissionStatus::NOT_DETERMINED;
+#endif
+}
+
+void runtime::requestPermission(Permission permission, const std::function<void (PermissionStatus)> callback)
+{
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+    __runtime_requestPermission(permission, callback);
+#else
+    callback(PermissionStatus::DENIED);
+#endif
+}
+
+void runtime::alert(const std::string &title, const std::string &message, const std::string &ok, const std::string &no, const std::function<void (bool)> callback)
+{
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+    __runtime_alert(title, message, ok, no, callback);
+#else
+    callback(false);
+#endif
 }
 
 //

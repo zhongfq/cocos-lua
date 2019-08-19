@@ -51,6 +51,8 @@ M.EXCLUDE_PATTERN = function (cppcls, fn, decl)
 end
 
 typeconf 'xgame::SceneNoCamera'
+typeconf 'xgame::Permission'
+typeconf 'xgame::PermissionStatus'
 
 local runtime = typeconf 'xgame::runtime'
 runtime.EXCLUDE 'dispatchEvent'
@@ -114,6 +116,18 @@ runtime.FUNC("openURL", [[
     });
     return 0;
 }]])
+runtime.CALLBACK {
+    FUNCS = {'static void requestPermission(Permission permission, const std::function<void (PermissionStatus)> callback)'},
+    TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_MAKER = 'olua_makecallbacktag("requestPermission")',
+    CALLONCE = true,
+}
+runtime.CALLBACK {
+    FUNCS = {'static void alert(const std::string &title, const std::string &message, const std::string &ok, const std::string &no, const std::function<void (bool)> &callback)'},
+    TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_MAKER = 'olua_makecallbacktag("alert")',
+    CALLONCE = true,
+}
 
 local filesystem = typeconf 'xgame::filesystem'
 filesystem.EXCLUDE 'getDirectory'

@@ -40,6 +40,23 @@ cls.funcs [[
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'xgame::Permission'
+cls.enums [[
+    AUDIO
+    CAMERA
+    PHOTO
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'xgame::PermissionStatus'
+cls.enums [[
+    NOT_DETERMINED
+    RESTRICTED
+    DENIED
+    AUTHORIZED
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'xgame::runtime'
 cls.funcs [[
     static void clearStorage()
@@ -56,6 +73,7 @@ cls.funcs [[
     static const std::string getOS()
     static const std::string getDeviceInfo()
     static const std::string getLanguage()
+    static const PermissionStatus getPermissionStatus(Permission permission)
     static void setAudioSessionCatalog(const std::string &catalog)
     static const std::string getAudioSessionCatalog()
     static bool canOpenURL(const std::string &uri)
@@ -112,6 +130,24 @@ cls.func('openURL', [[{
     });
     return 0;
 }]])
+cls.callback {
+    FUNCS =  {
+        'static void requestPermission(Permission permission, const std::function<void (PermissionStatus)> callback)',
+    },
+    TAG_MAKER = 'olua_makecallbacktag("requestPermission")',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
+    CALLONCE = true,
+    REMOVE = false,
+}
+cls.callback {
+    FUNCS =  {
+        'static void alert(const std::string &title, const std::string &message, const std::string &ok, const std::string &no, const std::function<void (bool)> &callback)',
+    },
+    TAG_MAKER = 'olua_makecallbacktag("alert")',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
+    CALLONCE = true,
+    REMOVE = false,
+}
 cls.props [[
     restarting
     debug

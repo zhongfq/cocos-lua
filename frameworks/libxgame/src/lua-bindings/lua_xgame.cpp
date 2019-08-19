@@ -77,6 +77,74 @@ static int luaopen_xgame_SceneNoCamera(lua_State *L)
     return 1;
 }
 
+static int luaopen_xgame_Permission(lua_State *L)
+{
+    oluacls_class(L, "kernel.Permission", nullptr);
+    oluacls_const_integer(L, "AUDIO", (lua_Integer)xgame::Permission::AUDIO);
+    oluacls_const_integer(L, "CAMERA", (lua_Integer)xgame::Permission::CAMERA);
+    oluacls_const_integer(L, "PHOTO", (lua_Integer)xgame::Permission::PHOTO);
+
+    olua_registerluatype<xgame::Permission>(L, "kernel.Permission");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_xgame_PermissionStatus(lua_State *L)
+{
+    oluacls_class(L, "kernel.PermissionStatus", nullptr);
+    oluacls_const_integer(L, "NOT_DETERMINED", (lua_Integer)xgame::PermissionStatus::NOT_DETERMINED);
+    oluacls_const_integer(L, "RESTRICTED", (lua_Integer)xgame::PermissionStatus::RESTRICTED);
+    oluacls_const_integer(L, "DENIED", (lua_Integer)xgame::PermissionStatus::DENIED);
+    oluacls_const_integer(L, "AUTHORIZED", (lua_Integer)xgame::PermissionStatus::AUTHORIZED);
+
+    olua_registerluatype<xgame::PermissionStatus>(L, "kernel.PermissionStatus");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _xgame_runtime_alert(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 5);
+
+    std::string arg1;       /** title */
+    std::string arg2;       /** message */
+    std::string arg3;       /** ok */
+    std::string arg4;       /** no */
+    std::function<void(bool)> arg5;       /** callback */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+    olua_check_std_string(L, 3, &arg3);
+    olua_check_std_string(L, 4, &arg4);
+
+    void *callback_store_obj = (void *)olua_getstoreobj(L, "kernel.runtime");
+    std::string tag = olua_makecallbacktag("alert");
+    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 5, OLUA_TAG_REPLACE);
+    arg5 = [callback_store_obj, func](bool arg1) {
+        lua_State *L = olua_mainthread();
+        int top = lua_gettop(L);
+
+        olua_push_bool(L, arg1);
+
+        olua_callback(L, callback_store_obj, func.c_str(), 1);
+
+        olua_removecallback(L, callback_store_obj, func.c_str(), OLUA_TAG_EQUAL);
+
+        lua_settop(L, top);
+    };
+
+    // static void alert(const std::string &title, const std::string &message, const std::string &ok, const std::string &no, const std::function<void (bool)> &callback)
+    xgame::runtime::alert(arg1, arg2, arg3, arg4, arg5);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _xgame_runtime_canOpenURL(lua_State *L)
 {
     olua_startinvoke(L);
@@ -258,6 +326,25 @@ static int _xgame_runtime_getPackageName(lua_State *L)
     return num_ret;
 }
 
+static int _xgame_runtime_getPermissionStatus(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    lua_Unsigned arg1 = 0;       /** permission */
+
+    olua_check_uint(L, 1, &arg1);
+
+    // static const PermissionStatus getPermissionStatus(Permission permission)
+    const xgame::PermissionStatus ret = (const xgame::PermissionStatus)xgame::runtime::getPermissionStatus((xgame::Permission)arg1);
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _xgame_runtime_getTime(lua_State *L)
 {
     olua_startinvoke(L);
@@ -410,6 +497,41 @@ static int _xgame_runtime_printSupport(lua_State *L)
     return 0;
 }
 
+static int _xgame_runtime_requestPermission(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    lua_Unsigned arg1 = 0;       /** permission */
+    std::function<void(xgame::PermissionStatus)> arg2;       /** callback */
+
+    olua_check_uint(L, 1, &arg1);
+
+    void *callback_store_obj = (void *)olua_getstoreobj(L, "kernel.runtime");
+    std::string tag = olua_makecallbacktag("requestPermission");
+    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
+    arg2 = [callback_store_obj, func](xgame::PermissionStatus arg1) {
+        lua_State *L = olua_mainthread();
+        int top = lua_gettop(L);
+
+        olua_push_uint(L, (lua_Unsigned)arg1);
+
+        olua_callback(L, callback_store_obj, func.c_str(), 1);
+
+        olua_removecallback(L, callback_store_obj, func.c_str(), OLUA_TAG_EQUAL);
+
+        lua_settop(L, top);
+    };
+
+    // static void requestPermission(Permission permission, const std::function<void (PermissionStatus)> callback)
+    xgame::runtime::requestPermission((xgame::Permission)arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _xgame_runtime_restart(lua_State *L)
 {
     olua_startinvoke(L);
@@ -539,6 +661,7 @@ static int _xgame_runtime_testCrash(lua_State *L)
 static int luaopen_xgame_runtime(lua_State *L)
 {
     oluacls_class(L, "kernel.runtime", nullptr);
+    oluacls_func(L, "alert", _xgame_runtime_alert);
     oluacls_func(L, "canOpenURL", _xgame_runtime_canOpenURL);
     oluacls_func(L, "clearStorage", _xgame_runtime_clearStorage);
     oluacls_func(L, "disableReport", _xgame_runtime_disableReport);
@@ -551,6 +674,7 @@ static int luaopen_xgame_runtime(lua_State *L)
     oluacls_func(L, "getNumSamples", _xgame_runtime_getNumSamples);
     oluacls_func(L, "getOS", _xgame_runtime_getOS);
     oluacls_func(L, "getPackageName", _xgame_runtime_getPackageName);
+    oluacls_func(L, "getPermissionStatus", _xgame_runtime_getPermissionStatus);
     oluacls_func(L, "getTime", _xgame_runtime_getTime);
     oluacls_func(L, "getVersion", _xgame_runtime_getVersion);
     oluacls_func(L, "getVersionBuild", _xgame_runtime_getVersionBuild);
@@ -560,6 +684,7 @@ static int luaopen_xgame_runtime(lua_State *L)
     oluacls_func(L, "launch", _xgame_runtime_launch);
     oluacls_func(L, "openURL", _xgame_runtime_openURL);
     oluacls_func(L, "printSupport", _xgame_runtime_printSupport);
+    oluacls_func(L, "requestPermission", _xgame_runtime_requestPermission);
     oluacls_func(L, "restart", _xgame_runtime_restart);
     oluacls_func(L, "setAntialias", _xgame_runtime_setAntialias);
     oluacls_func(L, "setAudioSessionCatalog", _xgame_runtime_setAudioSessionCatalog);
@@ -1471,6 +1596,8 @@ static int luaopen_xgame_downloader(lua_State *L)
 int luaopen_xgame(lua_State *L)
 {
     olua_require(L, "kernel.SceneNoCamera", luaopen_xgame_SceneNoCamera);
+    olua_require(L, "kernel.Permission", luaopen_xgame_Permission);
+    olua_require(L, "kernel.PermissionStatus", luaopen_xgame_PermissionStatus);
     olua_require(L, "kernel.runtime", luaopen_xgame_runtime);
     olua_require(L, "kernel.filesystem", luaopen_xgame_filesystem);
     olua_require(L, "kernel.preferences", luaopen_xgame_preferences);

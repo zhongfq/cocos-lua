@@ -9,6 +9,9 @@ local dispatching = false
 local suspended = {}
 local listeners = {}
 
+runtime.Permission = require "kernel.Permission"
+runtime.PermissionStatus = require "kernel.PermissionStatus"
+
 function runtime.on(event, callback, caller)
     assert(event, 'no event')
     assert(type(callback) == 'function', 'no callback')
@@ -65,5 +68,51 @@ runtime.setDispatcher(function (event, args)
     end
 end)
 runtime.setDispatcher = false -- avoid used by others
+
+if runtime.os == 'android' then
+    local luaj = require "xgame.luaj"
+    local AppContext = luaj.new("kernel/AppContext")
+    function runtime.alert(title, message, ok, no, callback)
+        AppContext.alert(title, message, ok, no, function (status)
+            callback(status == 'true')
+        end)
+    end
+
+    local function toAndroidPermission(permission)
+        if permission == runtime.Permission.AUDIO then
+            return 'android.permission.RECORD_AUDIO'
+        elseif permission == runtime.Permission.CAMERA then
+            return 'android.permission.CAMERA'
+        elseif permission == runtime.Permission.PHOTO then
+            return 'android.permission.CAMERA'
+        else
+            error('unsupport permission: ' .. permission)
+        end
+    end
+
+    local function toPermissionStatus(status)
+        if status == 'NOT_DETERMINED' then
+            return runtime.PermissionStatus.NOT_DETERMINED
+        elseif status == 'RESTRICTED' then
+            return runtime.PermissionStatus.RESTRICTED
+        elseif status == 'DENIED' then
+            return runtime.PermissionStatus.DENIED
+        else
+            return runtime.PermissionStatus.AUTHORIZED
+        end
+    end
+
+    function runtime.getPermissionStatus(permission)
+        permission = toAndroidPermission(permission)
+        return toPermissionStatus(AppContext.getPermissionStatus(permission))
+    end
+
+    function runtime.requestPermission(permission, callback)
+        permission = toAndroidPermission(permission)
+        AppContext.requestPermission(permission, function (status)
+            callback(toPermissionStatus(status))
+        end)
+    end
+end
 
 return runtime

@@ -6,6 +6,20 @@ local typedef = olua.typedef
 olua.nowarning(typedef)
 
 typedef {
+    CPPCLS = 'xgame::Permission',
+    DECLTYPE = 'lua_Unsigned',
+    CONV = 'olua_$$_uint',
+    LUACLS = 'kernel.Permission',
+}
+
+typedef {
+    CPPCLS = 'xgame::PermissionStatus',
+    DECLTYPE = 'lua_Unsigned',
+    CONV = 'olua_$$_uint',
+    LUACLS = 'kernel.PermissionStatus',
+}
+
+typedef {
     CPPCLS = 'xgame::SceneNoCamera *',
     CONV = 'olua_$$_cppobj',
     LUACLS = 'kernel.SceneNoCamera',

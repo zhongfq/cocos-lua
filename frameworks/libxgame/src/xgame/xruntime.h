@@ -8,6 +8,19 @@
 
 NS_XGAME_BEGIN
 
+enum class PermissionStatus {
+    NOT_DETERMINED,
+    RESTRICTED,
+    DENIED,
+    AUTHORIZED
+};
+
+enum class Permission {
+    AUDIO,
+    CAMERA,
+    PHOTO,
+};
+
 class runtime
 {
 public:
@@ -30,12 +43,14 @@ public:
     static const std::string getChannel();
     static const std::string getOS();
     static const std::string getDeviceInfo();
-    static const std::string getNativeStackTrace();
     static const std::string getLanguage();
     
     // ios only
+    static const PermissionStatus getPermissionStatus(Permission permission);
+    static void requestPermission(Permission permission, const std::function<void (PermissionStatus)> callback);
     static void setAudioSessionCatalog(const std::string &catalog);
     static const std::string getAudioSessionCatalog();
+    static void alert(const std::string &title, const std::string &message, const std::string &ok, const std::string &no, const std::function<void (bool)> callback);
     
     // event dispatch
     typedef std::function<void (const std::string &event, const std::string &args)> EventDispatcher;

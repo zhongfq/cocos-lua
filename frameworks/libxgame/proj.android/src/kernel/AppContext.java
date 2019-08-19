@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.LocaleList;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -26,6 +27,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class AppContext extends Cocos2dxActivity {
@@ -181,7 +183,7 @@ public class AppContext extends Cocos2dxActivity {
         }
     }
 
-
+    @SuppressWarnings("unused")
     public static String getChannel() {
         return getMetaData("CHANNEL");
     }
@@ -233,6 +235,18 @@ public class AppContext extends Cocos2dxActivity {
     public static String getPackage() {
         AppContext context = (AppContext) AppContext.getContext();
         return context.getPackageName();
+    }
+
+    @SuppressWarnings("unused")
+    public static String getLanguage() {
+        Locale locale;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            locale = LocaleList.getDefault().get(0);
+        } else {
+            locale = Locale.getDefault();
+        }
+
+        return locale.getLanguage() + "-" + locale.getCountry();
     }
 
     private static boolean canOpenApp(String packageName) {
@@ -330,6 +344,7 @@ public class AppContext extends Cocos2dxActivity {
     //
     private enum PermissionStatus {
         NOT_DETERMINED,
+        RESTRICTED,
         DENIED,
         AUTHORIZED,
     }

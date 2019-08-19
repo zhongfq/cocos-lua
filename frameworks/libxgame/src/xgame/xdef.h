@@ -33,23 +33,6 @@
 
 #define JAVA_APPCONTEXT_CLASS   "kernel/AppContext"
 
-inline uint64_t strtov(const char *version)
-{
-    uint64_t v1, v2, v3;
-    if (sscanf(version, "%lld.%lld.%lld", &v1, &v2, &v3) == 3) {
-        return v1 * 1000000 + v2 * 1000 + v3;
-    } else {
-        return 0;
-    }
-}
-
-inline int versioncmp(const char *vstr1, const char *vstr2)
-{
-    uint64_t v1 = strtov(vstr1);
-    uint64_t v2 = strtov(vstr2);
-    return v1 == v2 ? 0 : (v1 < v2 ? -1 : 1);
-}
-
 inline bool strstartwith(const char *src, const char *prefix)
 {
     const char *pos = strstr(src, prefix);

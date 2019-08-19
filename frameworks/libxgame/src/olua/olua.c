@@ -935,6 +935,35 @@ LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *super)
     }
 }
 
+static int clsenum_index(lua_State *L)
+{
+    lua_settop(L, 2);
+    luaL_checktype(L, 1, LUA_TTABLE);
+    if (lookupfunc(L, CLS_GETIDX, 2) != LUA_TNIL) {
+        lua_pushvalue(L, 1);
+        lua_call(L, 1, 1);
+        return 1;
+    }
+    luaL_error(L, "index unknown field '%s'", olua_checkstring(L, 2));
+    return 0;
+}
+
+LUALIB_API void oluacls_asenum(lua_State *L)
+{
+    int n = 0;
+    int top = lua_gettop(L);
+    olua_rawgetf(L, -1, "__index");
+    while (true) {
+        if (lua_getupvalue(L, top + 1, ++n) == NULL) {
+            n--;
+            break;
+        }
+    }
+    lua_pushcclosure(L, clsenum_index, n);
+    olua_rawsetf(L, top, "__index");
+    lua_settop(L, top);
+}
+
 LUALIB_API void oluacls_createclassproxy(lua_State *L)
 {
     lua_newtable(L);                        // L: cls p

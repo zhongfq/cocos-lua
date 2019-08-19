@@ -85,7 +85,7 @@ local function UITextField(self, data)
     self.fontSize = data.fontSize or 20
     
     if data.fontName then
-        self.fontName = font.lookup(data.fontName).path
+        self.fontName = font.resolve(data.fontName).path
     end
 
     if data.leading then

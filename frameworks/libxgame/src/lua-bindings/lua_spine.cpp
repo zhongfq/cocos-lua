@@ -103,6 +103,7 @@ static int luaopen_spine_EventType(lua_State *L)
     oluacls_const_integer(L, "EventType_Event", (lua_Integer)spine::EventType::EventType_Event);
 
     olua_registerluatype<spine::EventType>(L, "sp.EventType");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -120,6 +121,7 @@ static int luaopen_spine_AttachmentType(lua_State *L)
     oluacls_const_integer(L, "AttachmentType_Clipping", (lua_Integer)spine::AttachmentType::AttachmentType_Clipping);
 
     olua_registerluatype<spine::AttachmentType>(L, "sp.AttachmentType");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -135,6 +137,7 @@ static int luaopen_spine_TransformMode(lua_State *L)
     oluacls_const_integer(L, "TransformMode_NoScaleOrReflection", (lua_Integer)spine::TransformMode::TransformMode_NoScaleOrReflection);
 
     olua_registerluatype<spine::TransformMode>(L, "sp.TransformMode");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -149,6 +152,7 @@ static int luaopen_spine_BlendMode(lua_State *L)
     oluacls_const_integer(L, "BlendMode_Screen", (lua_Integer)spine::BlendMode::BlendMode_Screen);
 
     olua_registerluatype<spine::BlendMode>(L, "sp.BlendMode");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -161,6 +165,7 @@ static int luaopen_spine_PositionMode(lua_State *L)
     oluacls_const_integer(L, "PositionMode_Percent", (lua_Integer)spine::PositionMode::PositionMode_Percent);
 
     olua_registerluatype<spine::PositionMode>(L, "sp.PositionMode");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -174,6 +179,7 @@ static int luaopen_spine_SpacingMode(lua_State *L)
     oluacls_const_integer(L, "SpacingMode_Percent", (lua_Integer)spine::SpacingMode::SpacingMode_Percent);
 
     olua_registerluatype<spine::SpacingMode>(L, "sp.SpacingMode");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -187,6 +193,7 @@ static int luaopen_spine_RotateMode(lua_State *L)
     oluacls_const_integer(L, "RotateMode_ChainScale", (lua_Integer)spine::RotateMode::RotateMode_ChainScale);
 
     olua_registerluatype<spine::RotateMode>(L, "sp.RotateMode");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -201,6 +208,7 @@ static int luaopen_spine_MixBlend(lua_State *L)
     oluacls_const_integer(L, "MixBlend_Add", (lua_Integer)spine::MixBlend::MixBlend_Add);
 
     olua_registerluatype<spine::MixBlend>(L, "sp.MixBlend");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;

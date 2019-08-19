@@ -888,6 +888,7 @@ static int luaopen_cocos2d_MATRIX_STACK_TYPE(lua_State *L)
     oluacls_const_integer(L, "MATRIX_STACK_TEXTURE", (lua_Integer)cocos2d::MATRIX_STACK_TYPE::MATRIX_STACK_TEXTURE);
 
     olua_registerluatype<cocos2d::MATRIX_STACK_TYPE>(L, "cc.MATRIX_STACK_TYPE");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -902,6 +903,7 @@ static int luaopen_cocos2d_Director_Projection(lua_State *L)
     oluacls_const_integer(L, "DEFAULT", (lua_Integer)cocos2d::Director::Projection::DEFAULT);
 
     olua_registerluatype<cocos2d::Director::Projection>(L, "cc.Director.Projection");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -3678,6 +3680,7 @@ static int luaopen_cocos2d_EventListener_Type(lua_State *L)
     oluacls_const_integer(L, "CUSTOM", (lua_Integer)cocos2d::EventListener::Type::CUSTOM);
 
     olua_registerluatype<cocos2d::EventListener::Type>(L, "cc.EventListener.Type");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -5130,6 +5133,7 @@ static int luaopen_cocos2d_Event_Type(lua_State *L)
     oluacls_const_integer(L, "CUSTOM", (lua_Integer)cocos2d::Event::Type::CUSTOM);
 
     olua_registerluatype<cocos2d::Event::Type>(L, "cc.Event.Type");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -5788,6 +5792,7 @@ static int luaopen_cocos2d_EventTouch_EventCode(lua_State *L)
     oluacls_const_integer(L, "CANCELLED", (lua_Integer)cocos2d::EventTouch::EventCode::CANCELLED);
 
     olua_registerluatype<cocos2d::EventTouch::EventCode>(L, "cc.EventTouch.EventCode");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -5928,6 +5933,7 @@ static int luaopen_cocos2d_EventMouse_MouseEventType(lua_State *L)
     oluacls_const_integer(L, "MOUSE_SCROLL", (lua_Integer)cocos2d::EventMouse::MouseEventType::MOUSE_SCROLL);
 
     olua_registerluatype<cocos2d::EventMouse::MouseEventType>(L, "cc.EventMouse.MouseEventType");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -5947,6 +5953,7 @@ static int luaopen_cocos2d_EventMouse_MouseButton(lua_State *L)
     oluacls_const_integer(L, "BUTTON_8", (lua_Integer)cocos2d::EventMouse::MouseButton::BUTTON_8);
 
     olua_registerluatype<cocos2d::EventMouse::MouseButton>(L, "cc.EventMouse.MouseButton");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -6456,6 +6463,7 @@ static int luaopen_cocos2d_EventKeyboard_KeyCode(lua_State *L)
     oluacls_const_integer(L, "KEY_PLAY", (lua_Integer)cocos2d::EventKeyboard::KeyCode::KEY_PLAY);
 
     olua_registerluatype<cocos2d::EventKeyboard::KeyCode>(L, "cc.EventKeyboard.KeyCode");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -6468,6 +6476,7 @@ static int luaopen_cocos2d_Touch_DispatchMode(lua_State *L)
     oluacls_const_integer(L, "ONE_BY_ONE", (lua_Integer)cocos2d::Touch::DispatchMode::ONE_BY_ONE);
 
     olua_registerluatype<cocos2d::Touch::DispatchMode>(L, "cc.Touch.DispatchMode");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -6481,6 +6490,7 @@ static int luaopen_cocos2d_EventController_ControllerEventType(lua_State *L)
     oluacls_const_integer(L, "AXIS_STATUS_CHANGED", (lua_Integer)cocos2d::EventController::ControllerEventType::AXIS_STATUS_CHANGED);
 
     olua_registerluatype<cocos2d::EventController::ControllerEventType>(L, "cc.EventController.ControllerEventType");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -6960,6 +6970,7 @@ static int luaopen_cocos2d_Controller_Key(lua_State *L)
     oluacls_const_integer(L, "KEY_MAX", (lua_Integer)cocos2d::Controller::Key::KEY_MAX);
 
     olua_registerluatype<cocos2d::Controller::Key>(L, "cc.Controller.Key");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -7328,6 +7339,7 @@ static int luaopen_cocos2d_experimental_AudioEngine_AudioState(lua_State *L)
     oluacls_const_integer(L, "PAUSED", (lua_Integer)cocos2d::experimental::AudioEngine::AudioState::PAUSED);
 
     olua_registerluatype<cocos2d::experimental::AudioEngine::AudioState>(L, "cc.AudioEngine.AudioState");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -8531,6 +8543,7 @@ static int luaopen_cocos2d_ApplicationProtocol_Platform(lua_State *L)
     oluacls_const_integer(L, "OS_WP8", (lua_Integer)cocos2d::ApplicationProtocol::Platform::OS_WP8);
 
     olua_registerluatype<cocos2d::ApplicationProtocol::Platform>(L, "cc.ApplicationProtocol.Platform");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -8561,6 +8574,7 @@ static int luaopen_cocos2d_LanguageType(lua_State *L)
     oluacls_const_integer(L, "BELARUSIAN", (lua_Integer)cocos2d::LanguageType::BELARUSIAN);
 
     olua_registerluatype<cocos2d::LanguageType>(L, "cc.LanguageType");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -10042,6 +10056,7 @@ static int luaopen_ResolutionPolicy(lua_State *L)
     oluacls_const_integer(L, "UNKNOWN", (lua_Integer)ResolutionPolicy::UNKNOWN);
 
     olua_registerluatype<ResolutionPolicy>(L, "cc.ResolutionPolicy");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -11004,6 +11019,7 @@ static int luaopen_cocos2d_Image_Format(lua_State *L)
     oluacls_const_integer(L, "UNKNOWN", (lua_Integer)cocos2d::Image::Format::UNKNOWN);
 
     olua_registerluatype<cocos2d::Image::Format>(L, "cc.Image.Format");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -14325,6 +14341,7 @@ static int luaopen_cocos2d_Texture2D_PixelFormat(lua_State *L)
     oluacls_const_integer(L, "NONE", (lua_Integer)cocos2d::Texture2D::PixelFormat::NONE);
 
     olua_registerluatype<cocos2d::Texture2D::PixelFormat>(L, "cc.Texture2D.PixelFormat");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -15964,6 +15981,7 @@ static int luaopen_cocos2d_network_WebSocket_ErrorCode(lua_State *L)
     oluacls_const_integer(L, "UNKNOWN", (lua_Integer)cocos2d::network::WebSocket::ErrorCode::UNKNOWN);
 
     olua_registerluatype<cocos2d::network::WebSocket::ErrorCode>(L, "cc.network.WebSocket.ErrorCode");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -15978,6 +15996,7 @@ static int luaopen_cocos2d_network_WebSocket_State(lua_State *L)
     oluacls_const_integer(L, "CLOSED", (lua_Integer)cocos2d::network::WebSocket::State::CLOSED);
 
     olua_registerluatype<cocos2d::network::WebSocket::State>(L, "cc.network.WebSocket.State");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -29111,6 +29130,7 @@ static int luaopen_cocos2d_TextHAlignment(lua_State *L)
     oluacls_const_integer(L, "RIGHT", (lua_Integer)cocos2d::TextHAlignment::RIGHT);
 
     olua_registerluatype<cocos2d::TextHAlignment>(L, "cc.TextHAlignment");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -29124,6 +29144,7 @@ static int luaopen_cocos2d_TextVAlignment(lua_State *L)
     oluacls_const_integer(L, "BOTTOM", (lua_Integer)cocos2d::TextVAlignment::BOTTOM);
 
     olua_registerluatype<cocos2d::TextVAlignment>(L, "cc.TextVAlignment");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -29138,6 +29159,7 @@ static int luaopen_cocos2d_GlyphCollection(lua_State *L)
     oluacls_const_integer(L, "CUSTOM", (lua_Integer)cocos2d::GlyphCollection::CUSTOM);
 
     olua_registerluatype<cocos2d::GlyphCollection>(L, "cc.GlyphCollection");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -29157,6 +29179,7 @@ static int luaopen_cocos2d_LabelEffect(lua_State *L)
     oluacls_const_integer(L, "ALL", (lua_Integer)cocos2d::LabelEffect::ALL);
 
     olua_registerluatype<cocos2d::LabelEffect>(L, "cc.LabelEffect");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -29171,6 +29194,7 @@ static int luaopen_cocos2d_Label_LabelType(lua_State *L)
     oluacls_const_integer(L, "STRING_TEXTURE", (lua_Integer)cocos2d::Label::LabelType::STRING_TEXTURE);
 
     olua_registerluatype<cocos2d::Label::LabelType>(L, "cc.Label.LabelType");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -29185,6 +29209,7 @@ static int luaopen_cocos2d_Label_Overflow(lua_State *L)
     oluacls_const_integer(L, "RESIZE_HEIGHT", (lua_Integer)cocos2d::Label::Overflow::RESIZE_HEIGHT);
 
     olua_registerluatype<cocos2d::Label::Overflow>(L, "cc.Label.Overflow");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -32576,6 +32601,7 @@ static int luaopen_cocos2d_ProgressTimer_Type(lua_State *L)
     oluacls_const_integer(L, "BAR", (lua_Integer)cocos2d::ProgressTimer::Type::BAR);
 
     olua_registerluatype<cocos2d::ProgressTimer::Type>(L, "cc.ProgressTimer.Type");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -38469,6 +38495,7 @@ static int luaopen_cocos2d_TransitionScene_Orientation(lua_State *L)
     oluacls_const_integer(L, "DOWN_OVER", (lua_Integer)cocos2d::TransitionScene::Orientation::DOWN_OVER);
 
     olua_registerluatype<cocos2d::TransitionScene::Orientation>(L, "cc.TransitionScene.Orientation");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -41119,6 +41146,7 @@ static int luaopen_cocos2d_LightType(lua_State *L)
     oluacls_const_integer(L, "AMBIENT", (lua_Integer)cocos2d::LightType::AMBIENT);
 
     olua_registerluatype<cocos2d::LightType>(L, "cc.LightType");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -41145,6 +41173,7 @@ static int luaopen_cocos2d_LightFlag(lua_State *L)
     oluacls_const_integer(L, "LIGHT15", (lua_Integer)cocos2d::LightFlag::LIGHT15);
 
     olua_registerluatype<cocos2d::LightFlag>(L, "cc.LightFlag");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -41793,6 +41822,7 @@ static int luaopen_cocos2d_CameraFlag(lua_State *L)
     oluacls_const_integer(L, "USER8", (lua_Integer)cocos2d::CameraFlag::USER8);
 
     olua_registerluatype<cocos2d::CameraFlag>(L, "cc.CameraFlag");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -41805,6 +41835,7 @@ static int luaopen_cocos2d_Camera_Type(lua_State *L)
     oluacls_const_integer(L, "ORTHOGRAPHIC", (lua_Integer)cocos2d::Camera::Type::ORTHOGRAPHIC);
 
     olua_registerluatype<cocos2d::Camera::Type>(L, "cc.Camera.Type");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -42687,6 +42718,7 @@ static int luaopen_cocos2d_CameraBackgroundBrush_BrushType(lua_State *L)
     oluacls_const_integer(L, "SKYBOX", (lua_Integer)cocos2d::CameraBackgroundBrush::BrushType::SKYBOX);
 
     olua_registerluatype<cocos2d::CameraBackgroundBrush::BrushType>(L, "cc.CameraBackgroundBrush.BrushType");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -46877,6 +46909,7 @@ static int luaopen_cocos2d_ParticleSystem_Mode(lua_State *L)
     oluacls_const_integer(L, "RADIUS", (lua_Integer)cocos2d::ParticleSystem::Mode::RADIUS);
 
     olua_registerluatype<cocos2d::ParticleSystem::Mode>(L, "cc.ParticleSystem.Mode");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -46890,6 +46923,7 @@ static int luaopen_cocos2d_ParticleSystem_PositionType(lua_State *L)
     oluacls_const_integer(L, "GROUPED", (lua_Integer)cocos2d::ParticleSystem::PositionType::GROUPED);
 
     olua_registerluatype<cocos2d::ParticleSystem::PositionType>(L, "cc.ParticleSystem.PositionType");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;

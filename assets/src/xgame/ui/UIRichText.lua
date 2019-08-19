@@ -181,7 +181,7 @@ function UIRichText.Set:htmlText(value)
                     text = text,
                     size = size,
                     color = color,
-                    face = face and font.lookup(face),
+                    face = face and font.resolve(face),
                 }
 
                 local outlineColor, outlineSize = string.match(style,

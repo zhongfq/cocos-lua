@@ -202,6 +202,7 @@ LUALIB_API void olua_unrefall(lua_State *L, int idx, const char *name);
 //  }
 //
 LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *supercls);
+LUALIB_API void oluacls_asenum(lua_State *L);
 LUALIB_API void oluacls_createclassproxy(lua_State *L);
 LUALIB_API void oluacls_prop(lua_State *L, const char *name, lua_CFunction getter, lua_CFunction setter);
 LUALIB_API void oluacls_func(lua_State *L, const char *name, lua_CFunction func);

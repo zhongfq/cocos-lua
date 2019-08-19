@@ -1940,6 +1940,7 @@ static int luaopen_cocos2d_PhysicsContact_EventCode(lua_State *L)
     oluacls_const_integer(L, "SEPARATE", (lua_Integer)cocos2d::PhysicsContact::EventCode::SEPARATE);
 
     olua_registerluatype<cocos2d::PhysicsContact::EventCode>(L, "cc.PhysicsContact.EventCode");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -4105,6 +4106,7 @@ static int luaopen_cocos2d_PhysicsShape_Type(lua_State *L)
     oluacls_const_integer(L, "EDGEPOLYGEN", (lua_Integer)cocos2d::PhysicsShape::Type::EDGEPOLYGEN);
 
     olua_registerluatype<cocos2d::PhysicsShape::Type>(L, "cc.PhysicsShape.Type");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;

@@ -85,6 +85,7 @@ static int luaopen_xgame_Permission(lua_State *L)
     oluacls_const_integer(L, "PHOTO", (lua_Integer)xgame::Permission::PHOTO);
 
     olua_registerluatype<xgame::Permission>(L, "kernel.Permission");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -99,6 +100,7 @@ static int luaopen_xgame_PermissionStatus(lua_State *L)
     oluacls_const_integer(L, "AUTHORIZED", (lua_Integer)xgame::PermissionStatus::AUTHORIZED);
 
     olua_registerluatype<xgame::PermissionStatus>(L, "kernel.PermissionStatus");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;

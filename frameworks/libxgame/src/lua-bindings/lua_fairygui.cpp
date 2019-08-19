@@ -2210,6 +2210,7 @@ static int luaopen_fairygui_EaseType(lua_State *L)
     oluacls_const_integer(L, "Custom", (lua_Integer)fairygui::EaseType::Custom);
 
     olua_registerluatype<fairygui::EaseType>(L, "fui.EaseType");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -2271,6 +2272,7 @@ static int luaopen_fairygui_TweenPropType(lua_State *L)
     oluacls_const_integer(L, "Progress", (lua_Integer)fairygui::TweenPropType::Progress);
 
     olua_registerluatype<fairygui::TweenPropType>(L, "fui.TweenPropType");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -4777,6 +4779,7 @@ static int luaopen_fairygui_PackageItemType(lua_State *L)
     oluacls_const_integer(L, "UNKNOWN", (lua_Integer)fairygui::PackageItemType::UNKNOWN);
 
     olua_registerluatype<fairygui::PackageItemType>(L, "fui.PackageItemType");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -4804,6 +4807,7 @@ static int luaopen_fairygui_ObjectType(lua_State *L)
     oluacls_const_integer(L, "SCROLLBAR", (lua_Integer)fairygui::ObjectType::SCROLLBAR);
 
     olua_registerluatype<fairygui::ObjectType>(L, "fui.ObjectType");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -4817,6 +4821,7 @@ static int luaopen_fairygui_ButtonMode(lua_State *L)
     oluacls_const_integer(L, "RADIO", (lua_Integer)fairygui::ButtonMode::RADIO);
 
     olua_registerluatype<fairygui::ButtonMode>(L, "fui.ButtonMode");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -4830,6 +4835,7 @@ static int luaopen_fairygui_ChildrenRenderOrder(lua_State *L)
     oluacls_const_integer(L, "ARCH", (lua_Integer)fairygui::ChildrenRenderOrder::ARCH);
 
     olua_registerluatype<fairygui::ChildrenRenderOrder>(L, "fui.ChildrenRenderOrder");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -4843,6 +4849,7 @@ static int luaopen_fairygui_OverflowType(lua_State *L)
     oluacls_const_integer(L, "SCROLL", (lua_Integer)fairygui::OverflowType::SCROLL);
 
     olua_registerluatype<fairygui::OverflowType>(L, "fui.OverflowType");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -4856,6 +4863,7 @@ static int luaopen_fairygui_ScrollType(lua_State *L)
     oluacls_const_integer(L, "BOTH", (lua_Integer)fairygui::ScrollType::BOTH);
 
     olua_registerluatype<fairygui::ScrollType>(L, "fui.ScrollType");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -4870,6 +4878,7 @@ static int luaopen_fairygui_ScrollBarDisplayType(lua_State *L)
     oluacls_const_integer(L, "HIDDEN", (lua_Integer)fairygui::ScrollBarDisplayType::HIDDEN);
 
     olua_registerluatype<fairygui::ScrollBarDisplayType>(L, "fui.ScrollBarDisplayType");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -4886,6 +4895,7 @@ static int luaopen_fairygui_LoaderFillType(lua_State *L)
     oluacls_const_integer(L, "SCALE_NO_BORDER", (lua_Integer)fairygui::LoaderFillType::SCALE_NO_BORDER);
 
     olua_registerluatype<fairygui::LoaderFillType>(L, "fui.LoaderFillType");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -4900,6 +4910,7 @@ static int luaopen_fairygui_ProgressTitleType(lua_State *L)
     oluacls_const_integer(L, "MAX", (lua_Integer)fairygui::ProgressTitleType::MAX);
 
     olua_registerluatype<fairygui::ProgressTitleType>(L, "fui.ProgressTitleType");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -4915,6 +4926,7 @@ static int luaopen_fairygui_ListLayoutType(lua_State *L)
     oluacls_const_integer(L, "PAGINATION", (lua_Integer)fairygui::ListLayoutType::PAGINATION);
 
     olua_registerluatype<fairygui::ListLayoutType>(L, "fui.ListLayoutType");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -4929,6 +4941,7 @@ static int luaopen_fairygui_ListSelectionMode(lua_State *L)
     oluacls_const_integer(L, "NONE", (lua_Integer)fairygui::ListSelectionMode::NONE);
 
     olua_registerluatype<fairygui::ListSelectionMode>(L, "fui.ListSelectionMode");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -4942,6 +4955,7 @@ static int luaopen_fairygui_GroupLayoutType(lua_State *L)
     oluacls_const_integer(L, "VERTICAL", (lua_Integer)fairygui::GroupLayoutType::VERTICAL);
 
     olua_registerluatype<fairygui::GroupLayoutType>(L, "fui.GroupLayoutType");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -4955,6 +4969,7 @@ static int luaopen_fairygui_PopupDirection(lua_State *L)
     oluacls_const_integer(L, "DOWN", (lua_Integer)fairygui::PopupDirection::DOWN);
 
     olua_registerluatype<fairygui::PopupDirection>(L, "fui.PopupDirection");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -4969,6 +4984,7 @@ static int luaopen_fairygui_AutoSizeType(lua_State *L)
     oluacls_const_integer(L, "SHRINK", (lua_Integer)fairygui::AutoSizeType::SHRINK);
 
     olua_registerluatype<fairygui::AutoSizeType>(L, "fui.AutoSizeType");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -4983,6 +4999,7 @@ static int luaopen_fairygui_FlipType(lua_State *L)
     oluacls_const_integer(L, "BOTH", (lua_Integer)fairygui::FlipType::BOTH);
 
     olua_registerluatype<fairygui::FlipType>(L, "fui.FlipType");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -5010,6 +5027,7 @@ static int luaopen_fairygui_TransitionActionType(lua_State *L)
     oluacls_const_integer(L, "Unknown", (lua_Integer)fairygui::TransitionActionType::Unknown);
 
     olua_registerluatype<fairygui::TransitionActionType>(L, "fui.TransitionActionType");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -5026,6 +5044,7 @@ static int luaopen_fairygui_FillMethod(lua_State *L)
     oluacls_const_integer(L, "Radial360", (lua_Integer)fairygui::FillMethod::Radial360);
 
     olua_registerluatype<fairygui::FillMethod>(L, "fui.FillMethod");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -5040,6 +5059,7 @@ static int luaopen_fairygui_FillOrigin(lua_State *L)
     oluacls_const_integer(L, "Right", (lua_Integer)fairygui::FillOrigin::Right);
 
     olua_registerluatype<fairygui::FillOrigin>(L, "fui.FillOrigin");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -16181,6 +16201,7 @@ static int luaopen_fairygui_RelationType(lua_State *L)
     oluacls_const_integer(L, "Size", (lua_Integer)fairygui::RelationType::Size);
 
     olua_registerluatype<fairygui::RelationType>(L, "fui.RelationType");
+    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;

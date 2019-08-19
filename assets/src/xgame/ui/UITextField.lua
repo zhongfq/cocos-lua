@@ -16,7 +16,7 @@ local UITextField = class("UITextField", UIView)
 
 function UITextField:ctor()
     self._ttfConfig = {
-        fontFilePath = font.lookup(nil).path,
+        fontFilePath = font.resolve(nil).path,
         fontSize = 20,
         glyphs = 0,
     }
@@ -82,7 +82,7 @@ end
 
 function UITextField.Get:fontName() return self._ttfConfig.fontFilePath end
 function UITextField.Set:fontName(value)
-    self._ttfConfig.fontFilePath = font.lookup(value).path
+    self._ttfConfig.fontFilePath = font.resolve(value).path
     self.cobj:setTTFConfig(self._ttfConfig)
 end
 

@@ -137,9 +137,19 @@ local function genClassOpen(cls, write)
     FUNCS = table.concat(FUNCS, "\n")
 
     if cls.REG_LUATYPE then
-        REG_LUATYPE = format([[
-            olua_registerluatype<${cls.CPPCLS}>(L, "${cls.LUACLS}");
-        ]])
+        local ti = olua.typeinfo(cls.CPPCLS, nil, true) or olua.typeinfo(cls.CPPCLS .. ' *')
+        if olua.isvaluetype(ti) then
+            olua.assert(#cls.FUNCS == 0, cls.CPPCLS .. ' not a enum class')
+            olua.assert(#cls.PROPS == 0, cls.CPPCLS .. ' not a enum class')
+            REG_LUATYPE = format([[
+                olua_registerluatype<${cls.CPPCLS}>(L, "${cls.LUACLS}");
+                oluacls_asenum(L);
+            ]])
+        else
+            REG_LUATYPE = format([[
+                olua_registerluatype<${cls.CPPCLS}>(L, "${cls.LUACLS}");
+            ]])
+        end
     end
 
     olua.nowarning(REG_LUATYPE, SUPRECLS)

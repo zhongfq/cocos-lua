@@ -7,7 +7,7 @@ function M.register(font)
     lib[#lib + 1] = font
 end
 
-function M.lookup(name)
+function M.resolve(name)
     if not name then
         return assert(lib[1], 'no default font')
     else

@@ -1211,14 +1211,24 @@ LUALIB_API void lua_setuservalue(lua_State *L, int idx)
 {
     if (lua_type(L, -1) != LUA_TNIL) {
         luaL_checktype(L, -1, LUA_TTABLE);
+        lua_pushboolean(L, true);
+        olua_rawsetp(L, -2, (void *)lua_getuservalue);
         lua_setfenv(L, idx);
+    } else {
+        lua_pop(L, 1);
     }
 }
 
 LUALIB_API int lua_getuservalue(lua_State *L, int idx)
 {
     lua_getfenv(L, idx);
-    return lua_type(L, -1);
+    if (olua_rawgetp(L, -1, (void *)lua_getuservalue) == LUA_TNIL) {
+        lua_pop(L, 1);
+        return LUA_TNIL;
+    } else {
+        lua_pop(L, 1);
+        return lua_type(L, -1);
+    }
 }
 
 LUALIB_API int lua_absindex(lua_State *L, int idx)

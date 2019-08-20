@@ -55,8 +55,6 @@ local function lazyRequire()
     require "xgame.swf.FLTextInput"
     require "xgame.swf.FLScroller"
     require "xgame.swf.FLRadioButton"
-
-    lazyRequire = function () end
 end
 
 -- test only
@@ -88,7 +86,10 @@ function M.class(classname, super)
 end
 
 function M.new(filePath, autowatch, cls) -- autowatch default true
-    lazyRequire()
+    if lazyRequire then
+        lazyRequire()
+        lazyRequire = false
+    end
     assert(string.match(filePath, "%.swf$"), filePath)
     local movie = M.loader.load(filePath)
     if movie then

@@ -432,15 +432,19 @@ void runtime::log(const char *fmt, ...)
 //
 // msaa antialias
 //
-void runtime::setAntialias(bool enabled, unsigned int numSamples)
+void runtime::setAntialias(bool enabled)
 {
     preferences::setBoolean(CONF_ANTIALIAS_ENABLED, enabled);
-    preferences::setInteger(CONF_ANTIALIAS_SAMPLES, numSamples);
 }
 
 bool runtime::isAntialias()
 {
     return preferences::getBoolean(CONF_ANTIALIAS_ENABLED, false);
+}
+
+void runtime::setNumSamples(unsigned int samples)
+{
+    preferences::setInteger(CONF_ANTIALIAS_SAMPLES, samples);
 }
 
 unsigned int runtime::getNumSamples()

@@ -142,7 +142,6 @@ function AudioObject:init(id)
     self.id = id
     self.state = STATE_PLAYING
     self.playing = true
-    self.is_completed = false
     self.interrupted = false
     AudioEngine.setFinishCallback(id, function ()
         if self.loop and not self.state ~= STATE_STOPPED then

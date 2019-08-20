@@ -69,8 +69,9 @@ public:
     static void log(const char *format, ...);
     
     // msaa antialias for vector graphics
-    static void setAntialias(bool enabled, unsigned int numSamples);
+    static void setAntialias(bool enabled);
     static bool isAntialias();
+    static void setNumSamples(unsigned int samples);
     static unsigned int getNumSamples();
     
     // feature

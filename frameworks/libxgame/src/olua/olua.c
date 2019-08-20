@@ -904,7 +904,7 @@ LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *super)
         lua_pop(L, 1);
         luaL_newmetatable(L, cls);                      // L: mt
         copysupermetafunc(L, -1, super);
-
+        
         lua_pushvalue(L, -1);                           // L: mt mt
         create_table(L, idx, CLS_ISA, super, true);     // L: mt mt .isa
         create_table(L, idx, CLS_FUNC, super, false);   // L: mt mt .isa .func
@@ -1216,6 +1216,8 @@ LUALIB_API void lua_setuservalue(lua_State *L, int idx)
         lua_setfenv(L, idx);
     } else {
         lua_pop(L, 1);
+        lua_pushvalue(L, LUA_GLOBALSINDEX);
+        lua_setfenv(L, idx);
     }
 }
 
@@ -1326,7 +1328,7 @@ LUALIB_API void olua_traceback(lua_State *L, lua_State *L1, const char *msg, int
         }
     }
 }
-                                 
+
 LUALIB_API void olua_rawsetp(lua_State *L, int idx, const void *p)
 {
     idx = lua_absindex(L, idx);

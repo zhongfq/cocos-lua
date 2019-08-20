@@ -354,6 +354,8 @@ LUALIB_API void olua_pop_objpool(lua_State *L, size_t level)
             void **ud = (void **)lua_touserdata(L, -1);
             lua_pushnil(L);
             lua_setmetatable(L, -2);
+            lua_pushnil(L);
+            lua_setuservalue(L, -2);
             lua_pop(L, 1);
             if (*ud != NULL) {
                 *ud = NULL;

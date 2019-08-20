@@ -14,26 +14,31 @@ function M:fromPath(path)
     return self
 end
 
-function M:fromSWF(swfPath)
-    swfPath = string.gsub(swfPath, "/", ".")
-    swfPath = string.gsub(swfPath, "%.swf$", "")
-    local data = require(swfPath)
-    for _, path in ipairs(data.files) do
-        self.assets[path] = true
+function M:fromSWF(path)
+    path = string.gsub(path, "/", ".")
+    path = string.gsub(path, "%.swf$", "")
+    local data = require(path)
+    for _, v in ipairs(data.files) do
+        self.assets[v] = true
     end
     return self
 end
 
 function M:fromLayout(symbol)
-    error('TODO')
-    -- for _, path in ipairs(ui.get_data(symbol).files) do
-    --     assets[path] = true
-    -- end
-    -- return self
+    local ui = require "xgame.ui.ui"
+    for _, path in ipairs(ui.getData(symbol).files) do
+        self.assets[path] = true
+    end
+    return self
 end
 
-function M:fromFUI(fuiPackage)
-    error('TODO')
+function M:fromFUI(path)
+    path = string.gsub(path, "/", ".")
+    local data = require(path)
+    for _, v in ipairs(data.files) do
+        self.assets[v] = true
+    end
+    return self
 end
 
 function M:fromDB(dbPath)

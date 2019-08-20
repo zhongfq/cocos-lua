@@ -354,6 +354,8 @@ LUALIB_API void olua_pop_objpool(lua_State *L, size_t level)
             void **ud = (void **)lua_touserdata(L, -1);
             lua_pushnil(L);
             lua_setmetatable(L, -2);
+            lua_pushnil(L);
+            lua_setuservalue(L, -2);
             lua_pop(L, 1);
             if (*ud != NULL) {
                 *ud = NULL;
@@ -746,8 +748,9 @@ static int lookupfunc(lua_State *L, int t, int kidx)
 
 static int cls_index(lua_State *L)
 {
-    // try getter
     lua_settop(L, 2);
+    
+    // try getter
     if (lookupfunc(L, CLS_GETIDX, 2) != LUA_TNIL) {
         lua_pushvalue(L, 1);                        // L: t k getter t
         lua_call(L, 1, 1);                          // L: t k ret
@@ -755,14 +758,12 @@ static int cls_index(lua_State *L)
     }
     
     // try func
-    lua_settop(L, 2);
     if (lookupfunc(L, CLS_FUNCIDX, 2) != LUA_TNIL) {
         return 1;
     }
     
     // try variable
     if (olua_isuserdata(L, 1)) {
-        lua_settop(L, 2);
         lua_pushvalue(L, 2);
         if (olua_getvariable(L, 1) != LUA_TNIL) {
             return 1;
@@ -776,8 +777,9 @@ static int cls_index(lua_State *L)
 
 static int cls_newindex(lua_State *L)
 {
-    // try setter
     lua_settop(L, 3);
+    
+    // try setter
     if (lookupfunc(L, CLS_SETIDX, 2) != LUA_TNIL) {
         if (olua_isuserdata(L, 1)) {
             lua_pushvalue(L, 1);                // L: t k v setter t
@@ -792,7 +794,6 @@ static int cls_newindex(lua_State *L)
     }
     
     if (olua_istable(L, 1)) {
-        lua_settop(L, 3);                       // L: t k v
         lua_pushvalue(L, 2);                    // L: t k v k
         lua_pushvalue(L, 3);                    // L: t k v k v
         lua_rawset(L, CLS_FUNCIDX);             // L: t k v
@@ -802,11 +803,9 @@ static int cls_newindex(lua_State *L)
             lua_pushvalue(L, 3);                // L: t k v k v
             lua_rawset(L, CLS_CLSIDX);          // L: t k v
         }
-        
         return 0;
     }
     
-    lua_settop(L, 3);
     if (lookupfunc(L, CLS_GETIDX, 2) != LUA_TNIL) {
         luaL_error(L, "readonly property: %s", olua_tostring(L, 2));
     }
@@ -815,9 +814,10 @@ static int cls_newindex(lua_State *L)
         size_t len;
         const char *key = olua_tolstring(L, 2, &len);
         if (len > 0 && key[0] == '.') {
-            luaL_error(L, "variable name can't start with '.' char");
+            luaL_error(L, "variable name '%s' start with '.' char", key);
         }
     }
+    
     lua_settop(L, 3);
     olua_setvariable(L, 1);
     
@@ -833,7 +833,6 @@ static int cls_tostring(lua_State *L)
 static void create_table(lua_State *L, int idx, const char *field, const char *supercls, bool copy)
 {
     idx = lua_absindex(L, idx);
-    
     lua_newtable(L);                        // L: t
     if (supercls) {
         olua_getmetatable(L, supercls);     // L: t super
@@ -1195,8 +1194,7 @@ LUALIB_API int luaopen_olua(lua_State *L)
 LUALIB_API void *lua_getextraspace(lua_State *L)
 {
     void *p;
-    if (olua_rawgetp(L, LUA_REGISTRYINDEX, OLUA_EXTRASPACE) == LUA_TNIL)
-    {
+    if (olua_rawgetp(L, LUA_REGISTRYINDEX, OLUA_EXTRASPACE) == LUA_TNIL) {
         lua_pop(L, 1);
         lua_newuserdata(L, sizeof(olua_vmstatus_t *));
         lua_pushvalue(L, -1);
@@ -1250,8 +1248,7 @@ LUALIB_API int lua_isinteger(lua_State *L, int idx)
 LUALIB_API void olua_setfuncs(lua_State *L, const luaL_Reg *l, int nup)
 {
     luaL_checkstack(L, nup, "too many upvalues");
-    for (; l->name != NULL; l++)
-    {
+    for (; l->name != NULL; l++) {
         for (int i = 0; i < nup; i++) {
             lua_pushvalue(L, -nup);
         }

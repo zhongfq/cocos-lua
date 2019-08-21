@@ -1,8 +1,8 @@
-local qrcode        = require "qrcode"
 local class         = require "xgame.class"
 local FLGraphics    = require "xgame.swf.FLGraphics"
 local FLBitmapData  = require "xgame.swf.FLBitmapData"
 local swf           = require "xgame.swf.swf"
+local qrcode        = require "kernel.qrcode"
 
 local FLQRCode = class("FLQRCode", FLGraphics)
 
@@ -17,7 +17,7 @@ end
 
 function FLQRCode:setString(value)
     local _, width, data = qrcode.encode(value, 0,
-        "ECLEVEL_H", "MODE_8", true)
+        "ECLEVEL_H", "MODE_8", true, 'RGBA')
     local bitmapData = FLBitmapData.new(width, width, false)
     bitmapData:set(data)
     self:beginFill(bitmapData)

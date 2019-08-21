@@ -1,6 +1,6 @@
 local class             = require "xgame.class"
-local Point             = require "xgame.Point"
 local swf               = require "xgame.swf.swf"
+local FLPoint           = require "xgame.swf.FLPoint"
 local FLDisplayObject   = require "xgame.swf.FLDisplayObject"
 
 local FLGraphics = class("FLGraphics", FLDisplayObject)
@@ -103,7 +103,7 @@ local function convertLineToMesh(coords, lineWidth)
         mat:translate(x1, y1)
         mat:rotate(math.deg(math.atan(y2 - y1, x2 - x1)))
 
-        local len = Point.new(x2 - x1, y2 - y1).length
+        local len = FLPoint.new(x2 - x1, y2 - y1).length
         if i == 1 then
             addLeftJoin(mat, numSegments, half, vertices, 0)
         end

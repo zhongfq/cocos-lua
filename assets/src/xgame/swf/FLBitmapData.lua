@@ -26,13 +26,11 @@ function FLBitmapData:smooth(value)
 end
 
 function FLBitmapData:set(data)
-    local mode = self.cobj:mode()
-    assert(mode == "DATA", mode)
+    if type(data) == 'string' then
+        local mode = self.cobj:mode()
+        assert(mode == "DATA", mode)
+    end
     self.cobj:set(data)
-end
-
-function FLBitmapData:setCocosTexture(texture)
-    self.cobj:setCocosTexture(texture)
 end
 
 function FLBitmapData:setPixel(x, y, color)

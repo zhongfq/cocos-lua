@@ -13,13 +13,15 @@ function FLQRCode.new(cobj)
 end
 
 function FLQRCode:ctor(cobj)
+    self._text = ''
 end
 
-function FLQRCode:setString(value)
+function FLQRCode.Set:text(value)
     local _, width, data = qrcode.encode(value, 0,
         "ECLEVEL_H", "MODE_8", true, 'RGBA')
     local bitmapData = FLBitmapData.new(width, width, false)
     bitmapData:set(data)
+    self._text = value
     self:beginFill(bitmapData)
     self:drawTriangles({
         0, 0,
@@ -35,6 +37,10 @@ function FLQRCode:setString(value)
         1, 1
     })
     self:endFill()
+end
+
+function FLQRCode.Get:text()
+    return self._text
 end
 
 return FLQRCode

@@ -3,6 +3,7 @@ local util      = require "xgame.util"
 local MixSWF    = require "xgame.swf.MixSWF"
 local swf       = require "xgame.swf.swf"
 local FLImage   = require "xgame.swf.FLImage"
+local FLQRCode  = require "xgame.swf.FLQRCode"
 local A         = require "xgame.ui.action"
 
 local SWFTest = class('SWFTest', MixSWF)
@@ -65,6 +66,14 @@ function SWFTest:onCreate()
             img.x = 500
             img.y = 300
             rootswf:addChild(img)
+
+            local code = FLQRCode.new()
+            code.text = 'text'
+            code.scaleX = 5
+            code.scaleY = 5
+            code.x = 500
+            code.y = 200
+            rootswf:addChild(code)
         end)
 end
 

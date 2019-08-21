@@ -23,6 +23,7 @@ QRSprite::~QRSprite()
 
 bool QRSprite::initWithString(const std::string& code)
 {
+    Sprite::init();
     QRcode* _qrcode = QRcode_encodeString(code.c_str(), 0, QR_ECLEVEL_H, QR_MODE_8, 1);
     if (_qrcode != nullptr) {
         Texture2D *texture = new Texture2D();
@@ -48,9 +49,13 @@ bool QRSprite::initWithString(const std::string& code)
                                _qrcode->width, _qrcode->width, Size(_qrcode->width, _qrcode->width));
         texture->setAliasTexParameters();
         setTexture(texture);
+        Rect rect = Rect::ZERO;
+        rect.size = texture->getContentSize();
+        setTextureRect(rect);
         setIgnoreAnchorPointForPosition(true);
         QRcode_free(_qrcode);
         free(img);
+        texture->autorelease();
         return true;
     }
     return false;

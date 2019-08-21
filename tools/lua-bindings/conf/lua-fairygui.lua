@@ -138,13 +138,13 @@ UIEventDispatcher.CALLBACK {
         'void removeEventListener(int eventType, const EventTag& tag)',
     },
     TAG_MAKER = {'makeListenerTag(L, #1, 0)', 'makeListenerTag(L, #1, 3)'},
-    TAG_MODE = {'OLUA_TAG_WILDCARD', 'OLUA_TAG_ENDWITH'},
+    TAG_MODE = {'OLUA_TAG_STARTWITH', 'OLUA_TAG_EQUAL'},
     REMOVE = true,
 }
 UIEventDispatcher.CALLBACK {
     FUNCS = {'void removeEventListeners()'},
     TAG_MAKER = 'makeListenerTag(L, -1, 0)',
-    TAG_MODE = 'OLUA_TAG_WILDCARD',
+    TAG_MODE = 'OLUA_TAG_STARTWITH',
     REMOVE = true,
 }
 
@@ -297,7 +297,7 @@ GObject.CALLBACK {
 GObject.CALLBACK {
     FUNCS = {'void removeClickListener(const EventTag& tag)'},
     TAG_MAKER = 'makeListenerTag(L, fairygui::UIEventType::Click, 2)',
-    TAG_MODE = 'OLUA_TAG_ENDWITH',
+    TAG_MODE = 'OLUA_TAG_EQUAL',
     REMOVE = true,
 }
 GObject.INJECT('center', {
@@ -660,7 +660,7 @@ Transition.CALLBACK {
 Transition.CALLBACK {
     FUNCS = {'void clearHooks()'},
     TAG_MAKER = 'olua_makecallbacktag("hook.")',
-    TAG_MODE = 'OLUA_TAG_WILDCARD',
+    TAG_MODE = 'OLUA_TAG_STARTWITH',
     REMOVE = true,
 }
 

@@ -295,7 +295,7 @@ cls.callback {
         'void unschedule(const std::string& key, void *target)',
     },
     TAG_MAKER = 'makeScheduleCallbackTag(#1)',
-    TAG_MODE = 'OLUA_TAG_ENDWITH',
+    TAG_MODE = 'OLUA_TAG_EQUAL',
     TAG_STORE = 2,
     CALLONCE = false,
     REMOVE = true,
@@ -305,7 +305,7 @@ cls.callback {
         'void unscheduleAllForTarget(void *target)',
     },
     TAG_MAKER = 'makeScheduleCallbackTag("")',
-    TAG_MODE = 'OLUA_TAG_WILDCARD',
+    TAG_MODE = 'OLUA_TAG_STARTWITH',
     TAG_STORE = 1,
     CALLONCE = false,
     REMOVE = true,
@@ -315,7 +315,7 @@ cls.callback {
         'void unscheduleAll()',
     },
     TAG_MAKER = 'makeScheduleCallbackTag("")',
-    TAG_MODE = 'OLUA_TAG_WILDCARD',
+    TAG_MODE = 'OLUA_TAG_STARTWITH',
     CALLONCE = false,
     REMOVE = true,
 }
@@ -1075,7 +1075,7 @@ cls.callback {
         'static void stop(int audioID)',
     },
     TAG_MAKER = 'makeAudioEngineFinishCallbackTag(#1)',
-    TAG_MODE = 'OLUA_TAG_ENDWITH',
+    TAG_MODE = 'OLUA_TAG_EQUAL',
     CALLONCE = false,
     REMOVE = true,
 }
@@ -1084,7 +1084,7 @@ cls.callback {
         'static void stopAll()',
     },
     TAG_MAKER = 'makeAudioEngineFinishCallbackTag(-1)',
-    TAG_MODE = 'OLUA_TAG_WILDCARD',
+    TAG_MODE = 'OLUA_TAG_STARTWITH',
     CALLONCE = false,
     REMOVE = true,
 }
@@ -1093,7 +1093,7 @@ cls.callback {
         'static void uncacheAll()',
     },
     TAG_MAKER = 'makeAudioEngineFinishCallbackTag(-1)',
-    TAG_MODE = 'OLUA_TAG_WILDCARD',
+    TAG_MODE = 'OLUA_TAG_STARTWITH',
     CALLONCE = false,
     REMOVE = true,
 }
@@ -1124,7 +1124,7 @@ cls.inject('uncache', {
         void *callback_store_obj = (void *)olua_getstoreobj(L, cls);
         for (auto id : ids) {
             std::string tag = makeAudioEngineFinishCallbackTag((lua_Integer)id);
-            olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
+            olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
         }
     ]],
 })
@@ -1692,7 +1692,7 @@ cls.callback {
         'void unbindImageAsync(const std::string &filename)',
     },
     TAG_MAKER = 'makeTextureCacheCallbackTag(#1)',
-    TAG_MODE = 'OLUA_TAG_ENDWITH',
+    TAG_MODE = 'OLUA_TAG_EQUAL',
     CALLONCE = false,
     REMOVE = true,
 }
@@ -1701,7 +1701,7 @@ cls.callback {
         'void unbindAllImageAsync()',
     },
     TAG_MAKER = 'makeTextureCacheCallbackTag("")',
-    TAG_MODE = 'OLUA_TAG_WILDCARD',
+    TAG_MODE = 'OLUA_TAG_STARTWITH',
     CALLONCE = false,
     REMOVE = true,
 }
@@ -3193,7 +3193,7 @@ cls.callback {
         'const std::function<void()>& getOnEnterCallback()',
     },
     TAG_MAKER = 'olua_makecallbacktag("onEnterCallback")',
-    TAG_MODE = 'OLUA_TAG_ENDWITH',
+    TAG_MODE = 'OLUA_TAG_EQUAL',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -3211,7 +3211,7 @@ cls.callback {
         'const std::function<void()>& getOnExitCallback()',
     },
     TAG_MAKER = 'olua_makecallbacktag("onExitCallback")',
-    TAG_MODE = 'OLUA_TAG_ENDWITH',
+    TAG_MODE = 'OLUA_TAG_EQUAL',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -3229,7 +3229,7 @@ cls.callback {
         'const std::function<void()>& getOnEnterTransitionDidFinishCallback()',
     },
     TAG_MAKER = 'olua_makecallbacktag("onEnterTransitionDidFinishCallback")',
-    TAG_MODE = 'OLUA_TAG_ENDWITH',
+    TAG_MODE = 'OLUA_TAG_EQUAL',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -3247,7 +3247,7 @@ cls.callback {
         'const std::function<void()>& getOnExitTransitionDidStartCallback()',
     },
     TAG_MAKER = 'olua_makecallbacktag("onExitTransitionDidStartCallback")',
-    TAG_MODE = 'OLUA_TAG_ENDWITH',
+    TAG_MODE = 'OLUA_TAG_EQUAL',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -3276,7 +3276,7 @@ cls.callback {
         'void unschedule(const std::string &key)',
     },
     TAG_MAKER = 'makeScheduleCallbackTag(#1)',
-    TAG_MODE = 'OLUA_TAG_ENDWITH',
+    TAG_MODE = 'OLUA_TAG_EQUAL',
     CALLONCE = false,
     REMOVE = true,
 }
@@ -3285,7 +3285,7 @@ cls.callback {
         'void unscheduleAllCallbacks()',
     },
     TAG_MAKER = 'makeScheduleCallbackTag("")',
-    TAG_MODE = 'OLUA_TAG_WILDCARD',
+    TAG_MODE = 'OLUA_TAG_STARTWITH',
     CALLONCE = false,
     REMOVE = true,
 }

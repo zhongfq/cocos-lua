@@ -125,7 +125,7 @@ static int _cocos2d_ui_Widget_addCCSEventListener(lua_State *L)
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = olua_makecallbacktag("ccsEventListener");
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
@@ -165,7 +165,7 @@ static int _cocos2d_ui_Widget_addClickEventListener(lua_State *L)
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = olua_makecallbacktag("clickEventListener");
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
@@ -206,7 +206,7 @@ static int _cocos2d_ui_Widget_addTouchEventListener(lua_State *L)
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = olua_makecallbacktag("touchEventListener");
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
@@ -1667,7 +1667,7 @@ static int _cocos2d_ui_Widget_get_onFocusChanged(lua_State *L)
 
     void *callback_store_obj = (void *)self;
     std::string tag = olua_makecallbacktag("onFocusChanged");
-    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
 
     // @nullable std::function<void(Widget*,Widget*)> onFocusChanged
     std::function<void(cocos2d::ui::Widget *, cocos2d::ui::Widget *)> ret = (std::function<void(cocos2d::ui::Widget *, cocos2d::ui::Widget *)>)self->onFocusChanged;
@@ -1707,7 +1707,7 @@ static int _cocos2d_ui_Widget_set_onFocusChanged(lua_State *L)
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = olua_makecallbacktag("onFocusChanged");
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
@@ -1731,7 +1731,7 @@ static int _cocos2d_ui_Widget_get_onNextFocusedWidget(lua_State *L)
 
     void *callback_store_obj = (void *)self;
     std::string tag = olua_makecallbacktag("onNextFocusedWidget");
-    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
 
     // @nullable std::function<Widget*(FocusDirection)> onNextFocusedWidget
     std::function<cocos2d::ui::Widget *(cocos2d::ui::Widget::FocusDirection)> ret = (std::function<cocos2d::ui::Widget *(cocos2d::ui::Widget::FocusDirection)>)self->onNextFocusedWidget;
@@ -1775,7 +1775,7 @@ static int _cocos2d_ui_Widget_set_onNextFocusedWidget(lua_State *L)
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = olua_makecallbacktag("onNextFocusedWidget");
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
@@ -5524,7 +5524,7 @@ static int _cocos2d_ui_Layout_get_onPassFocusToChild(lua_State *L)
 
     void *callback_store_obj = (void *)self;
     std::string tag = olua_makecallbacktag("onPassFocusToChild");
-    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
 
     // @nullable std::function<int(Widget::FocusDirection, Widget*)> onPassFocusToChild
     std::function<int(cocos2d::ui::Widget::FocusDirection, cocos2d::ui::Widget *)> ret = (std::function<int(cocos2d::ui::Widget::FocusDirection, cocos2d::ui::Widget *)>)self->onPassFocusToChild;
@@ -5569,7 +5569,7 @@ static int _cocos2d_ui_Layout_set_onPassFocusToChild(lua_State *L)
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = olua_makecallbacktag("onPassFocusToChild");
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
@@ -5990,7 +5990,7 @@ static int _cocos2d_experimental_ui_WebView_getOnDidFailLoading(lua_State *L)
 
     void *callback_store_obj = (void *)self;
     std::string tag = olua_makecallbacktag("onDidFailLoading");
-    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
 
     // std::function<void(WebView *sender, const std::string &url)> getOnDidFailLoading()
     std::function<void(cocos2d::experimental::ui::WebView *, const std::string &)> ret = (std::function<void(cocos2d::experimental::ui::WebView *, const std::string &)>)self->getOnDidFailLoading();
@@ -6013,7 +6013,7 @@ static int _cocos2d_experimental_ui_WebView_getOnDidFinishLoading(lua_State *L)
 
     void *callback_store_obj = (void *)self;
     std::string tag = olua_makecallbacktag("onDidFinishLoading");
-    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
 
     // std::function<void(WebView *sender, const std::string &url)> getOnDidFinishLoading()
     std::function<void(cocos2d::experimental::ui::WebView *, const std::string &)> ret = (std::function<void(cocos2d::experimental::ui::WebView *, const std::string &)>)self->getOnDidFinishLoading();
@@ -6036,7 +6036,7 @@ static int _cocos2d_experimental_ui_WebView_getOnJSCallback(lua_State *L)
 
     void *callback_store_obj = (void *)self;
     std::string tag = olua_makecallbacktag("onJSCallback");
-    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
 
     // std::function<void(WebView *sender, const std::string &url)> getOnJSCallback()
     std::function<void(cocos2d::experimental::ui::WebView *, const std::string &)> ret = (std::function<void(cocos2d::experimental::ui::WebView *, const std::string &)>)self->getOnJSCallback();
@@ -6059,7 +6059,7 @@ static int _cocos2d_experimental_ui_WebView_getOnShouldStartLoading(lua_State *L
 
     void *callback_store_obj = (void *)self;
     std::string tag = olua_makecallbacktag("onShouldStartLoading");
-    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
 
     // std::function<bool(WebView *sender, const std::string &url)> getOnShouldStartLoading()
     std::function<bool(cocos2d::experimental::ui::WebView *, const std::string &)> ret = (std::function<bool(cocos2d::experimental::ui::WebView *, const std::string &)>)self->getOnShouldStartLoading();
@@ -6361,7 +6361,7 @@ static int _cocos2d_experimental_ui_WebView_setOnDidFailLoading(lua_State *L)
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = olua_makecallbacktag("onDidFailLoading");
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
@@ -6402,7 +6402,7 @@ static int _cocos2d_experimental_ui_WebView_setOnDidFinishLoading(lua_State *L)
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = olua_makecallbacktag("onDidFinishLoading");
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
@@ -6443,7 +6443,7 @@ static int _cocos2d_experimental_ui_WebView_setOnJSCallback(lua_State *L)
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = olua_makecallbacktag("onJSCallback");
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
@@ -6489,7 +6489,7 @@ static int _cocos2d_experimental_ui_WebView_setOnShouldStartLoading(lua_State *L
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = olua_makecallbacktag("onShouldStartLoading");
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
@@ -6664,7 +6664,7 @@ static int _cocos2d_experimental_ui_VideoPlayer_addEventListener(lua_State *L)
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = olua_makecallbacktag("videoPlayerCallback");
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
@@ -8394,7 +8394,7 @@ static int _cocos2d_ui_TabControl_setTabChangedEventListener(lua_State *L)
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = olua_makecallbacktag("tabChangedEventListener");
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
@@ -8511,7 +8511,7 @@ static int _cocos2d_ui_ScrollView_addEventListener(lua_State *L)
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = olua_makecallbacktag("scrollViewCallback");
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
@@ -9897,7 +9897,7 @@ static int _cocos2d_ui_ListView_addEventListener(lua_State *L)
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = olua_makecallbacktag("ListViewCallback");
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
@@ -11248,7 +11248,7 @@ static int _cocos2d_ui_PageView_addEventListener(lua_State *L)
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = olua_makecallbacktag("PageViewCallback");
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
@@ -13961,7 +13961,7 @@ static int _cocos2d_ui_Slider_addEventListener(lua_State *L)
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = olua_makecallbacktag("sliderCallback");
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
@@ -16457,7 +16457,7 @@ static int _cocos2d_ui_TextField_addEventListener(lua_State *L)
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = olua_makecallbacktag("textFieldCallback");
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
@@ -18504,7 +18504,7 @@ static int _cocos2d_ui_CheckBox_addEventListener(lua_State *L)
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = olua_makecallbacktag("checkBoxCallback");
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
@@ -18662,7 +18662,7 @@ static int _cocos2d_ui_RadioButton_addEventListener(lua_State *L)
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = olua_makecallbacktag("radioButtonCallback");
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
@@ -18820,7 +18820,7 @@ static int _cocos2d_ui_RadioButtonGroup_addEventListener(lua_State *L)
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = olua_makecallbacktag("radioButtonCallback");
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
@@ -19583,7 +19583,7 @@ static int _cocos2d_ui_LuaEditBoxDelegate_get_onEditingDidBegin(lua_State *L)
 
     void *callback_store_obj = (void *)self;
     std::string tag = olua_makecallbacktag("onEditingDidBegin");
-    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
 
     // @nullable std::function<void(EditBox *)> onEditingDidBegin
     std::function<void(cocos2d::ui::EditBox *)> ret = (std::function<void(cocos2d::ui::EditBox *)>)self->onEditingDidBegin;
@@ -19622,7 +19622,7 @@ static int _cocos2d_ui_LuaEditBoxDelegate_set_onEditingDidBegin(lua_State *L)
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = olua_makecallbacktag("onEditingDidBegin");
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
@@ -19646,7 +19646,7 @@ static int _cocos2d_ui_LuaEditBoxDelegate_get_onEditingDidEndWithAction(lua_Stat
 
     void *callback_store_obj = (void *)self;
     std::string tag = olua_makecallbacktag("onEditingDidEndWithAction");
-    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
 
     // @nullable std::function<void(EditBox *, EditBoxDelegate::EditBoxEndAction)> onEditingDidEndWithAction
     std::function<void(cocos2d::ui::EditBox *, cocos2d::ui::EditBoxDelegate::EditBoxEndAction)> ret = (std::function<void(cocos2d::ui::EditBox *, cocos2d::ui::EditBoxDelegate::EditBoxEndAction)>)self->onEditingDidEndWithAction;
@@ -19686,7 +19686,7 @@ static int _cocos2d_ui_LuaEditBoxDelegate_set_onEditingDidEndWithAction(lua_Stat
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = olua_makecallbacktag("onEditingDidEndWithAction");
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
@@ -19710,7 +19710,7 @@ static int _cocos2d_ui_LuaEditBoxDelegate_get_onReturn(lua_State *L)
 
     void *callback_store_obj = (void *)self;
     std::string tag = olua_makecallbacktag("onReturn");
-    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
 
     // @nullable std::function<void(EditBox *)> onReturn
     std::function<void(cocos2d::ui::EditBox *)> ret = (std::function<void(cocos2d::ui::EditBox *)>)self->onReturn;
@@ -19749,7 +19749,7 @@ static int _cocos2d_ui_LuaEditBoxDelegate_set_onReturn(lua_State *L)
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = olua_makecallbacktag("onReturn");
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
@@ -19773,7 +19773,7 @@ static int _cocos2d_ui_LuaEditBoxDelegate_get_onTextChanged(lua_State *L)
 
     void *callback_store_obj = (void *)self;
     std::string tag = olua_makecallbacktag("onTextChanged");
-    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
 
     // @nullable std::function<void(EditBox *, const std::string &)> onTextChanged
     std::function<void(cocos2d::ui::EditBox *, const std::string &)> ret = (std::function<void(cocos2d::ui::EditBox *, const std::string &)>)self->onTextChanged;
@@ -19813,7 +19813,7 @@ static int _cocos2d_ui_LuaEditBoxDelegate_set_onTextChanged(lua_State *L)
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = olua_makecallbacktag("onTextChanged");
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 

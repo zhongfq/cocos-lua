@@ -113,7 +113,7 @@ WebView.CALLBACK {
 WebView.CALLBACK {
     FUNCS = {'std::function<bool(WebView *sender, const std::string &url)> getOnShouldStartLoading()'},
     TAG_MAKER = 'olua_makecallbacktag("onShouldStartLoading")',
-    TAG_MODE = 'OLUA_TAG_ENDWITH',
+    TAG_MODE = 'OLUA_TAG_EQUAL',
 }
 WebView.CALLBACK {
     FUNCS = {'void setOnDidFinishLoading(@nullable const std::function<void(WebView *sender, const std::string &url)>& callback)'},
@@ -123,7 +123,7 @@ WebView.CALLBACK {
 WebView.CALLBACK {
     FUNCS = {'std::function<void(WebView *sender, const std::string &url)> getOnDidFinishLoading()'},
     TAG_MAKER = 'olua_makecallbacktag("onDidFinishLoading")',
-    TAG_MODE = 'OLUA_TAG_ENDWITH',
+    TAG_MODE = 'OLUA_TAG_EQUAL',
 }
 WebView.CALLBACK {
     FUNCS = {'void setOnDidFailLoading(@nullable const std::function<void(WebView *sender, const std::string &url)>& callback)'},
@@ -133,7 +133,7 @@ WebView.CALLBACK {
 WebView.CALLBACK {
     FUNCS = {'std::function<void(WebView *sender, const std::string &url)> getOnDidFailLoading()'},
     TAG_MAKER = 'olua_makecallbacktag("onDidFailLoading")',
-    TAG_MODE = 'OLUA_TAG_ENDWITH',
+    TAG_MODE = 'OLUA_TAG_EQUAL',
 }
 WebView.CALLBACK {
     FUNCS = {'void setOnJSCallback(@nullable const std::function<void(WebView *sender, const std::string &url)>& callback)'},
@@ -143,7 +143,7 @@ WebView.CALLBACK {
 WebView.CALLBACK {
     FUNCS = {'std::function<void(WebView *sender, const std::string &url)> getOnJSCallback()'},
     TAG_MAKER = 'olua_makecallbacktag("onJSCallback")',
-    TAG_MODE = 'OLUA_TAG_ENDWITH',
+    TAG_MODE = 'OLUA_TAG_EQUAL',
 }
 
 local EventType = typeconf 'cocos2d::experimental::ui::VideoPlayer::EventType'

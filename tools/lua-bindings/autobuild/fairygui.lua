@@ -146,7 +146,7 @@ cls.callback {
         'void removeEventListener(int eventType, const EventTag& tag)',
     },
     TAG_MAKER = {'makeListenerTag(L, #1, 0)', 'makeListenerTag(L, #1, 3)'},
-    TAG_MODE = {'OLUA_TAG_WILDCARD', 'OLUA_TAG_ENDWITH'},
+    TAG_MODE = {'OLUA_TAG_STARTWITH', 'OLUA_TAG_EQUAL'},
     CALLONCE = false,
     REMOVE = true,
 }
@@ -155,7 +155,7 @@ cls.callback {
         'void removeEventListeners()',
     },
     TAG_MAKER = 'makeListenerTag(L, -1, 0)',
-    TAG_MODE = 'OLUA_TAG_WILDCARD',
+    TAG_MODE = 'OLUA_TAG_STARTWITH',
     CALLONCE = false,
     REMOVE = true,
 }
@@ -905,7 +905,7 @@ cls.callback {
         'void removeClickListener(const EventTag& tag)',
     },
     TAG_MAKER = 'makeListenerTag(L, fairygui::UIEventType::Click, 2)',
-    TAG_MODE = 'OLUA_TAG_ENDWITH',
+    TAG_MODE = 'OLUA_TAG_EQUAL',
     CALLONCE = false,
     REMOVE = true,
 }
@@ -1947,7 +1947,7 @@ cls.callback {
         'void clearHooks()',
     },
     TAG_MAKER = 'olua_makecallbacktag("hook.")',
-    TAG_MODE = 'OLUA_TAG_WILDCARD',
+    TAG_MODE = 'OLUA_TAG_STARTWITH',
     CALLONCE = false,
     REMOVE = true,
 }

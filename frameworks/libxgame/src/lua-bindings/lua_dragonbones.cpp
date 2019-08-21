@@ -12508,7 +12508,7 @@ static int _dragonBones_CCArmatureDisplay_removeDBEventListener(lua_State *L)
 
     std::string tag = olua_makecallbacktag(arg1);
     void *callback_store_obj = (void *)self;
-    olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
+    olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
 
     // void removeDBEventListener(const std::string& type, @nullable const std::function<void(EventObject*)>& listener)
     self->removeDBEventListener(arg1, arg2);

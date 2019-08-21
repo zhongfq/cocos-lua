@@ -138,9 +138,9 @@ typedef enum {
     OLUA_TAG_NEW,
     OLUA_TAG_REPLACE,
     // for olua_removecallback
+    OLUA_TAG_NONE,
     OLUA_TAG_EQUAL,
-    OLUA_TAG_ENDWITH,
-    OLUA_TAG_WILDCARD
+    OLUA_TAG_STARTWITH,
 } olua_tag_mode;
 
 // callback functions

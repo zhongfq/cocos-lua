@@ -653,10 +653,10 @@ function olua.typecls(cppcls)
         }
 
         remove all callback:
-            {TAG_MAKER = "", TAG_MODE = "OLUA_TAG_WILDCARD", REMOVE = true}
+            {TAG_MAKER = "", TAG_MODE = "OLUA_TAG_STARTWITH", REMOVE = true}
 
         remove click callback:
-            {TAG_MAKER = "click", TAG_MODE = "OLUA_TAG_ENDWITH", REMOVE = true}
+            {TAG_MAKER = "click", TAG_MODE = "OLUA_TAG_EQUAL", REMOVE = true}
 
         add new callback:
             {TAG_MAKER = 'click', TAG_MODE = "OLUA_TAG_NEW"}
@@ -700,7 +700,7 @@ function olua.typecls(cppcls)
             }
             CALLBACK_OPT_GET = {
                 TAG_MAKER = 'olua_makecallbacktag("' .. name .. '")',
-                TAG_MODE = 'OLUA_TAG_ENDWITH',
+                TAG_MODE = 'OLUA_TAG_EQUAL',
             }
         end
 

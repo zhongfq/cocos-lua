@@ -654,7 +654,7 @@ cls.callback {
         'std::function<bool(WebView *sender, const std::string &url)> getOnShouldStartLoading()',
     },
     TAG_MAKER = 'olua_makecallbacktag("onShouldStartLoading")',
-    TAG_MODE = 'OLUA_TAG_ENDWITH',
+    TAG_MODE = 'OLUA_TAG_EQUAL',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -672,7 +672,7 @@ cls.callback {
         'std::function<void(WebView *sender, const std::string &url)> getOnDidFinishLoading()',
     },
     TAG_MAKER = 'olua_makecallbacktag("onDidFinishLoading")',
-    TAG_MODE = 'OLUA_TAG_ENDWITH',
+    TAG_MODE = 'OLUA_TAG_EQUAL',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -690,7 +690,7 @@ cls.callback {
         'std::function<void(WebView *sender, const std::string &url)> getOnDidFailLoading()',
     },
     TAG_MAKER = 'olua_makecallbacktag("onDidFailLoading")',
-    TAG_MODE = 'OLUA_TAG_ENDWITH',
+    TAG_MODE = 'OLUA_TAG_EQUAL',
     CALLONCE = false,
     REMOVE = false,
 }
@@ -708,7 +708,7 @@ cls.callback {
         'std::function<void(WebView *sender, const std::string &url)> getOnJSCallback()',
     },
     TAG_MAKER = 'olua_makecallbacktag("onJSCallback")',
-    TAG_MODE = 'OLUA_TAG_ENDWITH',
+    TAG_MODE = 'OLUA_TAG_EQUAL',
     CALLONCE = false,
     REMOVE = false,
 }

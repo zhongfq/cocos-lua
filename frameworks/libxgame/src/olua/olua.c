@@ -41,16 +41,8 @@
 #define OLUA_REF_TABLE  ((void *)auxgetmappingtable)
 #define OLUA_EXTRASPACE ((void *)lua_getextraspace)
 
-static inline bool strequal(const char *str1, const char *str2)
-{
-    return strcmp(str1, str2) == 0;
-}
-
-static inline bool strendwith(const char *src, const char *suffix)
-{
-    const char *pos = strstr(src, suffix);
-    return !pos ? false : (src + strlen(src) == pos + strlen(suffix));
-}
+#define strequal(s1, s2)        (strcmp((s1), (s2)) == 0)
+#define strstartwith(s1, s2)    (strstr((s1), (s2)) == s1)
 
 static int errfunc(lua_State *L)
 {
@@ -381,12 +373,18 @@ static void auxgetusertable(lua_State *L, int idx)
 
 static bool test_tag_mode(lua_State *L, int idx, const char *tag, olua_tag_mode mode)
 {
+    static const char *const names[] = {"new", "replace", "none", "equal", "startwith"};
     if (olua_isstring(L, idx)) {
         const char *field = olua_tostring(L, idx);
-        if (mode == OLUA_TAG_WILDCARD) {
-            return strstr(field, tag) != NULL;
-        } else if (mode == OLUA_TAG_ENDWITH || mode == OLUA_TAG_REPLACE) {
-            return strendwith(field, tag);
+        if ((field = strchr(field, '@')) != NULL) {
+            ++field; // skip '@'
+            if (mode == OLUA_TAG_STARTWITH) {
+                return strstartwith(field, tag);
+            } else if (mode == OLUA_TAG_EQUAL || mode == OLUA_TAG_REPLACE) {
+                return strequal(field, tag);
+            } else {
+                luaL_error(L, "unexpected tag mode '%s'", names[mode]);
+            }
         }
     }
     return false;
@@ -437,7 +435,7 @@ LUALIB_API void olua_getcallback(lua_State *L, void *obj, const char *tag, olua_
     auxgetusertable(L, -1);
     lua_remove(L, -2);
     
-    if (mode == OLUA_TAG_EQUAL) {
+    if (mode == OLUA_TAG_NONE) {
         olua_rawgetf(L, -1, tag);                       // L: ct v
         lua_insert(L, -2);                              // L: v ct
         lua_pop(L, 1);                                  // L: v
@@ -463,7 +461,7 @@ LUALIB_API void olua_removecallback(lua_State *L, void *obj, const char *tag, ol
     }
     
     auxgetusertable(L, -1);                             // L: obj ct
-    if (mode == OLUA_TAG_EQUAL) {
+    if (mode == OLUA_TAG_NONE) {
         lua_pushnil(L);                                 // L: obj ct nil
         olua_rawsetf(L, -2, tag);                       // L: obj ct
     } else {

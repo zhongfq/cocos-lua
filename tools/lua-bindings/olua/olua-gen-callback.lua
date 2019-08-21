@@ -163,7 +163,7 @@ function olua.genCallback(cls, fi, write)
 
     if fi.CALLBACK_OPT.CALLONCE then
         CALLBACK.REMOVE_CALLBACK = format([[
-            olua_removecallback(L, callback_store_obj, func.c_str(), OLUA_TAG_EQUAL);
+            olua_removecallback(L, callback_store_obj, func.c_str(), OLUA_TAG_NONE);
         ]])
     end
 
@@ -272,7 +272,7 @@ function olua.genCallback(cls, fi, write)
             } else {
                 void *callback_store_obj = (void *)${CALLBACK_STORE_OBJ};
                 std::string tag = ${TAG_MAKER};
-                olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
+                olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
                 ${CALLBACK_ARG_NAME} = ${DEFAULT};
             }
         ]])

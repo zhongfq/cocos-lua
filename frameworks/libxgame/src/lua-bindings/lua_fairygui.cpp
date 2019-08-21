@@ -296,7 +296,7 @@ static std::string makeListenerTag(lua_State *L, lua_Integer type, int tagidx)
     } else if (tag > 0) {
         sprintf(buf, "listeners.%d.%p", (int)type, (void *)tag);
     } else {
-        sprintf(buf, "listeners.%d", (int)type);
+        sprintf(buf, "listeners.%d.", (int)type);
     }
     return std::string(buf);
 }

@@ -25,7 +25,7 @@ public:
         auto scheduler = cocos2d::Director::getInstance()->getScheduler();
         if (!scheduler->isScheduled(UPDATE_KEY, engine)) {
             scheduler->schedule([](float dt){}, engine, FLT_MAX, false, UPDATE_KEY);
-            cocos2d::Director::getInstance()->getScheduler()->scheduleUpdate(engine, INT_MIN + 10, false);
+            scheduler->scheduleUpdate(engine, INT_MIN + 10, false);
         }
     }
 };

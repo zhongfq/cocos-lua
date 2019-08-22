@@ -618,7 +618,7 @@ WebSocket.FUNC('create', [[
     std::string url = olua_tostring(L, 2);
     std::string cafile = olua_optstring(L, 4, "");
     
-    if (not lua_isnil(L, 3)) {
+    if (!lua_isnil(L, 3)) {
         luaL_checktype(L, 3, LUA_TTABLE);
         int len = (int)lua_rawlen(L, 3);
         protocols.reserve(len);

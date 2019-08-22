@@ -253,7 +253,6 @@ protected:
     virtual void deleteBackward() override;
     virtual const std::string& getContentText() override;
     virtual void controlKey(EventKeyboard::KeyCode keyCode) override;
-    virtual void keyboardDidHide(IMEKeyboardNotificationInfo& info) override { detachWithIME(); };
 
     TextFieldDelegate * _delegate;
     std::size_t _charCount;

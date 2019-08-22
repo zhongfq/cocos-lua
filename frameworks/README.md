@@ -13,10 +13,7 @@
             - void updateBMFontScale();
             + virtual void updateBMFontScale();
     
-    3. CCTextFieldTTF.h
-            + virtual void keyboardDidHide(IMEKeyboardNotificationInfo& info) override { detachWithIME(); };
-    
-    4. CCNode.h
+    3. CCNode.h
             - setonEnterTransitionDidFinishCallback
             + setOnEnterTransitionDidFinishCallback
     
@@ -29,11 +26,11 @@
             - getonExitTransitionDidStartCallback
             + getOnExitTransitionDidStartCallback
     
-    5. CCLayout.h
+    4. CCLayout.h
             + getClippingNode
     
-    6. UIWebViewImpl-android.cpp (fix load html error on android)
+    5. UIWebViewImpl-android.cpp (fix load html error on android)
             * getUrlStringByFileName
     
-    7. update spine-c to spine-cpp
+    6. update spine-c to spine-cpp
 ```

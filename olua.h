@@ -137,7 +137,7 @@ typedef enum {
     // for olua_setcallback
     OLUA_TAG_NEW,
     OLUA_TAG_REPLACE,
-    // for olua_removecallback
+    // for olua_removecallback, tag format: .callback#%d@%s
     OLUA_TAG_NONE,      // compare whole tag string
     OLUA_TAG_EQUAL,     // compare substring after '@'
     OLUA_TAG_STARTWITH, // compare substring after '@'
@@ -164,7 +164,7 @@ LUALIB_API int olua_reffunc(lua_State *L, int idx);
 LUALIB_API void olua_unref(lua_State *L, int ref);
 LUALIB_API void olua_getref(lua_State *L, int ref);
     
-// for ref chain, if callback store in userdata, it will keep callback available
+// for ref chain, callback store in the uservalue of userdata
 typedef bool (*olua_WalkFunction)(lua_State *L, int idx);
 LUALIB_API void olua_getreftable(lua_State *L, int idx, const char *name);
 LUALIB_API void olua_singleref(lua_State *L, int idx, const char *name, int obj);
@@ -182,22 +182,23 @@ LUALIB_API void olua_unrefall(lua_State *L, int idx, const char *name);
 //      super = B
 //      .isa = {
 //          copy(B['.isa'])
-//          A.classname = true
+//          A = true
 //      }
 //      .func = {
-//          copy(B['.func'])
-//          dosomething = func,
+//          __index = B['.func']    -- cache after access
+//          dosomething = func
 //      }
 //      .get = {
-//          copy(B['.get'])
-//          classname = const_get(obj, "classname")
-//          super = const_get(obj, "super")
+//          __index = B['.get']     -- cache after access
+//          classname = const_get(obj, "A")
+//          super = const_get(obj, B)
 //          name = get_name(obj, name)
 //      }
 //      .set = {
-//          copy(['B.set'])
+//          __index = B['.set']     -- cache after access
 //          name = set_name(obj, name, value)
 //      }
+//      copy(B.__metafunc)
 //      __metafunc
 //  }
 //

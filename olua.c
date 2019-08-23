@@ -37,7 +37,7 @@
 #define CLS_STORE   ".store" // static store for cls
 
 #define OLUA_OBJ_TABLE  ((void *)olua_pushobj)
-#define OLUA_POOL_TABLE ((void *)olua_objpool_push)
+#define OLUA_POOL_TABLE ((void *)objpool_push)
 #define OLUA_REF_TABLE  ((void *)auxgetmappingtable)
 #define OLUA_EXTRASPACE ((void *)lua_getextraspace)
 
@@ -55,7 +55,7 @@ static int errfunc(lua_State *L)
     return 0;
 }
 
-static int _metadata_gc(lua_State *L)
+static int l_vmstatus_gc(lua_State *L)
 {
     olua_vmstatus_t *mt = olua_touserdata(L, 1, olua_vmstatus_t *);
     free(mt);
@@ -73,7 +73,7 @@ LUALIB_API lua_State *olua_newstate(olua_vmstatus_t *mt)
     
     olua_newuserdata(L, mt, olua_vmstatus_t *);     // L: md
     lua_createtable(L, 0, 1);                       // L: md  mt
-    lua_pushcfunction(L, _metadata_gc);             // L: md  mt  gcfunc
+    lua_pushcfunction(L, l_vmstatus_gc);            // L: md  mt  gcfunc
     olua_rawsetf(L, -2, "__gc");                    // L: md  mt         mt.__gc = gcfunc
     lua_setmetatable(L, -2);                        // L: md             md.metatable = mt
     olua_rawsetp(L, LUA_REGISTRYINDEX, (void *)mt); // L:
@@ -195,7 +195,7 @@ static void auxgetobjtable(lua_State *L)
     }
 }
 
-static void olua_objpool_push(lua_State *L, void *obj, const char *cls)
+static void objpool_push(lua_State *L, void *obj)
 {
     olua_vmstatus_t *mt = olua_vmstatus(L);
     if (olua_rawgetp(L, LUA_REGISTRYINDEX, OLUA_POOL_TABLE) != LUA_TTABLE) {
@@ -205,9 +205,7 @@ static void olua_objpool_push(lua_State *L, void *obj, const char *cls)
         olua_rawsetp(L, LUA_REGISTRYINDEX, OLUA_POOL_TABLE);
     }
     
-    mt->sizepool++;
-    
-    if (olua_rawgeti(L, -1, mt->sizepool) != LUA_TUSERDATA) {
+    if (olua_rawgeti(L, -1, ++mt->sizepool) != LUA_TUSERDATA) {
         lua_pop(L, 1);
         lua_newuserdata(L, sizeof(void *));
         lua_pushvalue(L, -1);
@@ -227,41 +225,35 @@ LUALIB_API int olua_pushobj(lua_State *L, void *obj, const char *cls)
         return status;
     }
     
-    if (!cls) {
-        luaL_error(L, "class is null");
+    if (!cls || olua_getmetatable(L, cls) != LUA_TTABLE) {
+        luaL_error(L, "class '%s' not found", cls ? cls : "NULL");
     }
     
-    auxgetobjtable(L);
+    auxgetobjtable(L);                              // L: mt objtable
     
-    if (olua_rawgetp(L, -1, obj) == LUA_TNIL) {     // L: mapping obj?
-        lua_pop(L, 1);                              // L: mapping
-        
+    if (olua_rawgetp(L, -1, obj) == LUA_TNIL) {     // L: mt objtable ud?
+        lua_pop(L, 1);                              // L: mt objtable
         if (olua_vmstatus(L)->usingpool) {
-            olua_objpool_push(L, obj, cls);
+            objpool_push(L, obj);
             status = OLUA_EXIST;
         } else {
-            olua_newuserdata(L, obj, void *);       // L: mapping obj
-            lua_pushvalue(L, -1);                   // L: mapping obj obj
-            olua_rawsetp(L, -3, obj);               // L: mapping obj
+            olua_newuserdata(L, obj, void *);       // L: mt objtable ud
+            lua_pushvalue(L, -1);                   // L: mt objtable ud ud
+            olua_rawsetp(L, -3, obj);               // L: mt objtable ud     objtable[obj] = ud
             status = OLUA_NEW;
         }
-        
-        olua_setmetatable(L, cls);
-        
-        if (!lua_getmetatable(L, -1)) {
-            luaL_error(L, "metatable not found: %s", cls);
-        } else {
-            lua_pop(L, 1);
-        }
+        lua_pushvalue(L, -3);                       // L: mt objtable ud mt
+        lua_setmetatable(L, -2);                    // L: mt objtable ud     ud.metatable = mt
     }
     
-    lua_remove(L, -2);                              // L: obj
-    
     if (!strequal(cls, OLUA_VOIDCLS) && olua_testudata(L, -1, OLUA_VOIDCLS)) {
-        olua_setmetatable(L, cls);
+        lua_pushvalue(L, -3);                       // L: mt objtable ud mt
+        lua_setmetatable(L, -2);                    // L: mt objtable ud     ud.metatable = mt
         status = OLUA_NEW;
     }
     
+    lua_insert(L, -3);
+    lua_pop(L, 2);
     olua_assert(olua_isa(L, -1, cls));
     
     return status;
@@ -338,9 +330,9 @@ LUALIB_API size_t olua_push_objpool(lua_State *L)
 LUALIB_API void olua_pop_objpool(lua_State *L, size_t level)
 {
     if (olua_rawgetp(L, LUA_REGISTRYINDEX, OLUA_POOL_TABLE) == LUA_TTABLE) {
-        olua_vmstatus(L)->sizepool = level;
         size_t len = lua_rawlen(L, -1);
         olua_assert(level < len);
+        olua_vmstatus(L)->sizepool = level;
         for (size_t i = level + 1; i <= len; i++) {
             olua_rawgeti(L, -1, (lua_Integer)i);
             void **ud = (void **)lua_touserdata(L, -1);
@@ -1141,7 +1133,7 @@ LUALIB_API bool olua_hasfield(lua_State *L, int idx, const char *field)
     return type != LUA_TNIL;
 }
 
-static int _lwith(lua_State *L)
+static int l_with(lua_State *L)
 {
     lua_settop(L, 3);
     luaL_checktype(L, 1, LUA_TUSERDATA);
@@ -1168,7 +1160,7 @@ static int _lwith(lua_State *L)
     return 0;
 }
 
-static int _lisa(lua_State *L)
+static int l_isa(lua_State *L)
 {
     lua_settop(L, 2);
     olua_isa(L, 1, olua_checkstring(L, 2));
@@ -1178,8 +1170,8 @@ static int _lisa(lua_State *L)
 LUALIB_API int luaopen_olua(lua_State *L)
 {
     static const luaL_Reg lib[] = {
-        {"with", _lwith},
-        {"isa", _lisa},
+        {"with", l_with},
+        {"isa", l_isa},
         {NULL, NULL}
     };
     

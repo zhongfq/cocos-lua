@@ -31,7 +31,4 @@ dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':libcocos2dx')
     implementation project(':libxgame')
-    //noinspection GradleDependency
-    implementation 'com.android.support:support-v4:24.0.0'
-    //noinspection GradleDependency
 }

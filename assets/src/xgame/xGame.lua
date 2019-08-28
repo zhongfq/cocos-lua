@@ -60,7 +60,6 @@ end
 
 function xGame:showWindow(cls, ...)
     self:_loadAssets(self._sceneStack.showWindow, cls, ...)
-    self._sceneStack:showWindow(cls)
 end
 
 function xGame:startScene(cls, ...)
@@ -73,14 +72,10 @@ end
 
 function xGame:popScene()
     self._sceneStack:popScene()
-    self:delay(0.001, function ()
-    end)
 end
 
 function xGame:popAll()
     self._sceneStack:popAll()
-    self:delay(0.001, function ()
-    end)
 end
 
 function xGame:topScene()

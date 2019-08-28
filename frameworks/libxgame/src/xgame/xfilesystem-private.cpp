@@ -118,10 +118,4 @@ const std::string __filesystem_getTmpDirectory()
     return xgame::filesystem::getWritablePath() + "/Tmp";
 }
 
-const std::string __filesystem_getSDCardDirectory()
-{
-	xgame::runtime::log("filesystem::getSDCardDirectory only support android");
-    return "/";
-}
-
 #endif

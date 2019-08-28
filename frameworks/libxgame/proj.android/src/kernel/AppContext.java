@@ -373,7 +373,7 @@ public class AppContext extends Cocos2dxActivity {
         if (ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED) {
             editor.putString(permission, PermissionStatus.AUTHORIZED.name());
             editor.apply();
-            LuaJ.invokeOnce(callback, "GRANTED");
+            LuaJ.invokeOnce(callback, PermissionStatus.AUTHORIZED.name());
         } else {
             context.mPermissionsResultCallback = new PermissionsResultCallback() {
                 @Override
@@ -381,11 +381,11 @@ public class AppContext extends Cocos2dxActivity {
                     if (result == PackageManager.PERMISSION_GRANTED) {
                         editor.putString(permission, PermissionStatus.AUTHORIZED.name());
                         editor.apply();
-                        LuaJ.invokeOnce(callback, "GRANTED");
+                        LuaJ.invokeOnce(callback, PermissionStatus.AUTHORIZED.name());
                     } else {
                         editor.putString(permission, PermissionStatus.DENIED.name());
                         editor.apply();
-                        LuaJ.invokeOnce(callback, "DENIED");
+                        LuaJ.invokeOnce(callback, PermissionStatus.DENIED.name());
                     }
                 }
             };

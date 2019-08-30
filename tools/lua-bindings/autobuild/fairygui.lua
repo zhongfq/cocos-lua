@@ -1469,7 +1469,7 @@ cls.inject('removeChildrenToPool', {
 cls.inject('itemRenderer', {
     CALLBACK_BEFORE = [[
         if (arg2->getParent()) {
-            olua_push_cppobj<fairygui::GComponent>(L, arg2->getParent());
+            olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)callback_store_obj);
             olua_mapref(L, -1, "children", -2);
             lua_pop(L, 1);
         }

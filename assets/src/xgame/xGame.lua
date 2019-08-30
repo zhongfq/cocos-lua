@@ -38,6 +38,9 @@ end
 
 -- scene api
 function xGame:_loadAssets(func, cls, ...)
+    if type(cls) == 'string' then
+        cls = require(cls)
+    end
     local queue = LoadQueue.new(cls.assets(...))
     if queue.totalCount > 0 then
         local args = {...}

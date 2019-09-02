@@ -1193,6 +1193,8 @@ RenderTexture.CALLBACK {
     TAG_MODE = "OLUA_TAG_REPLACE",
     CALLONCE = true,
 }
+RenderTexture.ALIAS('begin', 'beginVisit')
+RenderTexture.ALIAS('end', 'endVisit')
 
 typeconf 'cocos2d::ProgressTimer::Type'
 typeconf 'cocos2d::ProgressTimer'

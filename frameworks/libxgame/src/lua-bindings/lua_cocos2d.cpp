@@ -32556,12 +32556,14 @@ static int luaopen_cocos2d_RenderTexture(lua_State *L)
 {
     oluacls_class(L, "cc.RenderTexture", "cc.Node");
     oluacls_func(L, "begin", _cocos2d_RenderTexture_begin);
+    oluacls_func(L, "beginVisit", _cocos2d_RenderTexture_begin);
     oluacls_func(L, "beginWithClear", _cocos2d_RenderTexture_beginWithClear);
     oluacls_func(L, "clear", _cocos2d_RenderTexture_clear);
     oluacls_func(L, "clearDepth", _cocos2d_RenderTexture_clearDepth);
     oluacls_func(L, "clearStencil", _cocos2d_RenderTexture_clearStencil);
     oluacls_func(L, "create", _cocos2d_RenderTexture_create);
     oluacls_func(L, "end", _cocos2d_RenderTexture_end);
+    oluacls_func(L, "endVisit", _cocos2d_RenderTexture_end);
     oluacls_func(L, "getClearColor", _cocos2d_RenderTexture_getClearColor);
     oluacls_func(L, "getClearDepth", _cocos2d_RenderTexture_getClearDepth);
     oluacls_func(L, "getClearFlags", _cocos2d_RenderTexture_getClearFlags);

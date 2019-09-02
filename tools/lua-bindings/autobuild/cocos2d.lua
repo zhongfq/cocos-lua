@@ -3718,6 +3718,8 @@ cls.callback {
     CALLONCE = true,
     REMOVE = false,
 }
+cls.alias('begin', 'beginVisit')
+cls.alias('end', 'endVisit')
 cls.props [[
     clearFlags
     clearColor

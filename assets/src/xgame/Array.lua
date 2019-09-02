@@ -22,12 +22,20 @@ function Array.Set:length(value)
     end
 end
 
-function Array:toArray()
-    local arr = {}
+function Array:toMap()
+    local map = {}
     for _, v in ipairs(self) do
-        arr[#arr + 1] = v
+        map[v] = true
     end
-    return arr
+    return map
+end
+
+function Array:back()
+    return self[#self]
+end
+
+function Array:front()
+    return self[1]
 end
 
 function Array:indexOf(item)

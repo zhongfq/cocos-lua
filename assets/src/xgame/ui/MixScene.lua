@@ -29,8 +29,10 @@ end
 
 function MixScene:didInactive()
     UIScene.didInactive(self)
-    timer.unschedule(self._updateHandler)
-    self._updateHandler = false
+    if self._updateHandler then
+        timer.unschedule(self._updateHandler)
+        self._updateHandler = false
+    end
 end
 
 function MixScene:onCreate()

@@ -112,4 +112,16 @@ function M.execute(cmd)
     os.execute(cmd)
 end
 
+function M.list(dir, pattern)
+    local f = io.popen(string.format('cd %s && find -L . -name "%s"', dir, pattern or "*.*"))
+    local arr = {}
+    for path in string.gmatch(f:read("*a"), '[^\n\r]+') do
+        path = string.gsub(path, '%./', '')
+        if string.find(path, '[^./\\]+%.[^.]+$') then
+            arr[#arr + 1] = path
+        end
+    end
+    return arr
+end
+
 return M

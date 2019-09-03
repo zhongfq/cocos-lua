@@ -25,9 +25,8 @@
 #include "AppDelegate.h"
 
 #include "xgame/xlua.h"
+#include "xgame/xpreferences.h"
 #include "wechat/lua_wechat.h"
-
-//#include "lua_swf.h"
 
 #include "lua-bindings/lua_dragonbones.h"
 #include "lua-bindings/lua_fairygui.h"
@@ -50,10 +49,18 @@ static int _open_plugins(lua_State *L)
     xlua_call(L, luaopen_fairygui);
     xlua_call(L, luaopen_spine);
     
-    //xlua_call(L, luaopen_swf);
-    
     olua_require(L, "kernel.plugins.wechat", luaopen_wechat);
     return 0;
+}
+
+void AppDelegate::initGLContextAttrs()
+{
+    if (xgame::preferences::getBoolean(CONF_ANTIALIAS_ENABLED, true) &&
+        !xgame::preferences::getBoolean(CONF_ANTIALIAS_ENABLED, false)) {
+        // enable msaa?
+        // xgame::runtime::setAntialias(true);
+    }
+    RuntimeContext::initGLContextAttrs();
 }
 
 bool AppDelegate::applicationDidFinishLaunching()

@@ -35,6 +35,7 @@ Private inheritance here hides part of interface from Director.
 class  AppDelegate : public xgame::RuntimeContext
 {
 public:
+    virtual void initGLContextAttrs();
     virtual bool applicationDidFinishLaunching();
 };
 

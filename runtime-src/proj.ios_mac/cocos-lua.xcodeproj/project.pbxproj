@@ -7,18 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E1BFDF5231E440C004205A8 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 0E1BFDF2231E440C004205A8 /* res */; };
+		0E1BFDF6231E440C004205A8 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 0E1BFDF2231E440C004205A8 /* res */; };
+		0E1BFDF7231E440C004205A8 /* src in Resources */ = {isa = PBXBuildFile; fileRef = 0E1BFDF3231E440C004205A8 /* src */; };
+		0E1BFDF8231E440C004205A8 /* src in Resources */ = {isa = PBXBuildFile; fileRef = 0E1BFDF3231E440C004205A8 /* src */; };
+		0E1BFDF9231E440C004205A8 /* builtin.manifest in Resources */ = {isa = PBXBuildFile; fileRef = 0E1BFDF4231E440C004205A8 /* builtin.manifest */; };
+		0E1BFDFA231E440C004205A8 /* builtin.manifest in Resources */ = {isa = PBXBuildFile; fileRef = 0E1BFDF4231E440C004205A8 /* builtin.manifest */; };
+		0E1BFDFC231E4747004205A8 /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E1BFDFB231E4747004205A8 /* GameController.framework */; };
 		0E24B3E422701692000054C9 /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E24B3E322701692000054C9 /* Bugly.framework */; };
 		0E24B3FC22703EC0000054C9 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E24B3FB22703EC0000054C9 /* CoreTelephony.framework */; };
 		0E24B3FE22703ECC000054C9 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E24B3FD22703ECC000054C9 /* libsqlite3.tbd */; };
-		0E2EC2E522895B4100CA3701 /* builtin.manifest in Resources */ = {isa = PBXBuildFile; fileRef = 0E2EC2E422895B4100CA3701 /* builtin.manifest */; };
-		0E2EC2E622895B4100CA3701 /* builtin.manifest in Resources */ = {isa = PBXBuildFile; fileRef = 0E2EC2E422895B4100CA3701 /* builtin.manifest */; };
 		0E33593C229D089200F6FF15 /* libdragonbones Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E335937229D079100F6FF15 /* libdragonbones Mac.a */; };
 		0E335945229D13FE00F6FF15 /* libdragonbones iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E335939229D079100F6FF15 /* libdragonbones iOS.a */; };
 		0E4B9340226DE2DC00B22B9F /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E4B933F226DE2DC00B22B9F /* GameController.framework */; };
-		0E4C8BA0225C76500095CF59 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 0E4C8B9B225C76500095CF59 /* res */; };
-		0E4C8BA1225C76500095CF59 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 0E4C8B9B225C76500095CF59 /* res */; };
-		0E4C8BBD225C83690095CF59 /* src in Resources */ = {isa = PBXBuildFile; fileRef = 0E4C8BBC225C83690095CF59 /* src */; };
-		0E4C8BBE225C83690095CF59 /* src in Resources */ = {isa = PBXBuildFile; fileRef = 0E4C8BBC225C83690095CF59 /* src */; };
 		0E4C8BC3225C84B10095CF59 /* libfairygui Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E4C8BBB225C82B50095CF59 /* libfairygui Mac.a */; };
 		0E4C8BC4225C84B60095CF59 /* libxgame Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E4C8BB0225C82AC0095CF59 /* libxgame Mac.a */; };
 		0E4C8BDD225C8BEF0095CF59 /* libfairygui iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E4C8BB9225C82B50095CF59 /* libfairygui iOS.a */; };
@@ -183,16 +184,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0E1BFDF2231E440C004205A8 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../../assets/res; sourceTree = "<group>"; };
+		0E1BFDF3231E440C004205A8 /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; name = src; path = ../../assets/src; sourceTree = "<group>"; };
+		0E1BFDF4231E440C004205A8 /* builtin.manifest */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = builtin.manifest; path = ../../assets/builtin.manifest; sourceTree = "<group>"; };
+		0E1BFDFB231E4747004205A8 /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = System/Library/Frameworks/GameController.framework; sourceTree = SDKROOT; };
 		0E24B3E322701692000054C9 /* Bugly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bugly.framework; path = ../../libxgame/src/bugly/ios/Bugly.framework; sourceTree = "<group>"; };
 		0E24B3FB22703EC0000054C9 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/CoreTelephony.framework; sourceTree = DEVELOPER_DIR; };
 		0E24B3FD22703ECC000054C9 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/usr/lib/libsqlite3.tbd; sourceTree = DEVELOPER_DIR; };
-		0E2EC2E422895B4100CA3701 /* builtin.manifest */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = builtin.manifest; path = ../../../assets/builtin.manifest; sourceTree = "<group>"; };
 		0E335931229D079100F6FF15 /* libdragonbones.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libdragonbones.xcodeproj; path = ../../frameworks/libdragonbones/proj.ios_mac/libdragonbones.xcodeproj; sourceTree = "<group>"; };
 		0E4B933F226DE2DC00B22B9F /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/GameController.framework; sourceTree = DEVELOPER_DIR; };
-		0E4C8B9B225C76500095CF59 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../../../assets/res; sourceTree = "<group>"; };
 		0E4C8BAA225C82AC0095CF59 /* libxgame.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libxgame.xcodeproj; path = ../../frameworks/libxgame/proj.ios_mac/libxgame.xcodeproj; sourceTree = "<group>"; };
 		0E4C8BB3225C82B50095CF59 /* fairygui.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = fairygui.xcodeproj; path = ../../frameworks/libfairygui/proj.ios_mac/fairygui.xcodeproj; sourceTree = "<group>"; };
-		0E4C8BBC225C83690095CF59 /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; name = src; path = ../../../assets/src; sourceTree = "<group>"; };
 		0E4C8BDF225C8FCA0095CF59 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = DEVELOPER_DIR; };
 		0E730C722272B4810067866B /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WXApiObject.h; path = ../../frameworks/plugins/wechat/ios/WXApiObject.h; sourceTree = "<group>"; };
 		0E730C732272B4810067866B /* WXVoiceSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WXVoiceSDK.h; path = ../../frameworks/plugins/wechat/ios/WXVoiceSDK.h; sourceTree = "<group>"; };
@@ -295,6 +297,7 @@
 				5087E76B17EB910900C73F5D /* AudioToolbox.framework in Frameworks */,
 				5087E76A17EB910900C73F5D /* AVFoundation.framework in Frameworks */,
 				5087E76317EB910900C73F5D /* Foundation.framework in Frameworks */,
+				0E1BFDFC231E4747004205A8 /* GameController.framework in Frameworks */,
 				503AE11B17EB9C5A00D1A890 /* IOKit.framework in Frameworks */,
 				5087E78B17EB975400C73F5D /* OpenGL.framework in Frameworks */,
 				5087E76917EB910900C73F5D /* OpenAL.framework in Frameworks */,
@@ -306,6 +309,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E1BFDF1231E43EF004205A8 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0E1BFDF4231E440C004205A8 /* builtin.manifest */,
+				0E1BFDF2231E440C004205A8 /* res */,
+				0E1BFDF3231E440C004205A8 /* src */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		0E335932229D079100F6FF15 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -313,16 +326,6 @@
 				0E335939229D079100F6FF15 /* libdragonbones iOS.a */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		0E4C8B9A225C762D0095CF59 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				0E2EC2E422895B4100CA3701 /* builtin.manifest */,
-				0E4C8B9B225C76500095CF59 /* res */,
-				0E4C8BBC225C83690095CF59 /* src */,
-			);
-			path = Resources;
 			sourceTree = "<group>";
 		};
 		0E4C8BAB225C82AC0095CF59 /* Products */ = {
@@ -417,13 +420,13 @@
 				0E4C8BB3225C82B50095CF59 /* fairygui.xcodeproj */,
 				0E335931229D079100F6FF15 /* libdragonbones.xcodeproj */,
 				0E4C8BAA225C82AC0095CF59 /* libxgame.xcodeproj */,
-				0E4C8B9A225C762D0095CF59 /* Resources */,
 				46880B8319C43A87006E1F66 /* Classes */,
 				0E730C6F2272B44A0067866B /* Plugins */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				1AF87B461F6F77D6007BE51C /* ios */,
 				503AE10617EB990700D1A890 /* mac */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				0E1BFDF1231E43EF004205A8 /* Resources */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -431,6 +434,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0E1BFDFB231E4747004205A8 /* GameController.framework */,
 				0ED5D1AF2283CA630072F3DB /* StoreKit.framework */,
 				0ED5D1A92282D80D0072F3DB /* Photos.framework */,
 				0ED5D1AA2282D80E0072F3DB /* PhotosUI.framework */,
@@ -548,10 +552,10 @@
 				LastUpgradeCheck = 1020;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = 2GKUK57LGJ;
+						DevelopmentTeam = 2566X92242;
 					};
 					5087E73D17EB910900C73F5D = {
-						DevelopmentTeam = 2GKUK57LGJ;
+						DevelopmentTeam = 2566X92242;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -660,11 +664,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A88B2641FC3D9C9005C14AE /* Images.xcassets in Resources */,
-				0E4C8BA0225C76500095CF59 /* res in Resources */,
+				0E1BFDF5231E440C004205A8 /* res in Resources */,
+				0E1BFDF9231E440C004205A8 /* builtin.manifest in Resources */,
 				1AF87B891F6F781D007BE51C /* LaunchScreenBackground.jpg in Resources */,
 				1AF87B881F6F781D007BE51C /* LaunchScreen.storyboard in Resources */,
-				0E2EC2E522895B4100CA3701 /* builtin.manifest in Resources */,
-				0E4C8BBD225C83690095CF59 /* src in Resources */,
+				0E1BFDF7231E440C004205A8 /* src in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -672,10 +676,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E2EC2E622895B4100CA3701 /* builtin.manifest in Resources */,
-				0E4C8BBE225C83690095CF59 /* src in Resources */,
+				0E1BFDFA231E440C004205A8 /* builtin.manifest in Resources */,
+				0E1BFDF8231E440C004205A8 /* src in Resources */,
 				503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */,
-				0E4C8BA1225C76500095CF59 /* res in Resources */,
+				0E1BFDF6231E440C004205A8 /* res in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -776,7 +780,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
-				DEVELOPMENT_TEAM = 2GKUK57LGJ;
+				DEVELOPMENT_TEAM = 2566X92242;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../../frameworks/libxgame/src/bugly/ios";
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -804,7 +808,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
-				DEVELOPMENT_TEAM = 2GKUK57LGJ;
+				DEVELOPMENT_TEAM = 2566X92242;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../../frameworks/libxgame/src/bugly/ios";
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
@@ -832,7 +836,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2GKUK57LGJ;
+				DEVELOPMENT_TEAM = 2566X92242;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -861,7 +865,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2GKUK57LGJ;
+				DEVELOPMENT_TEAM = 2566X92242;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = mac/Prefix.pch;

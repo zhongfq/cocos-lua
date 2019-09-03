@@ -25,7 +25,6 @@
 		0E4C8BDE225C8BF60095CF59 /* libxgame iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E4C8BB2225C82AC0095CF59 /* libxgame iOS.a */; };
 		0E4C8BE0225C8FCA0095CF59 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E4C8BDF225C8FCA0095CF59 /* MediaPlayer.framework */; };
 		0E730C7C2272B4810067866B /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E730C752272B4810067866B /* libWeChatSDK.a */; };
-		0E730C7D2272B4810067866B /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0E730C7A2272B4810067866B /* README.txt */; };
 		0E730C7E2272B4810067866B /* libWXSpeech.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E730C7B2272B4810067866B /* libWXSpeech.a */; };
 		0E730C842272B4910067866B /* lua_wechat_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E730C812272B4900067866B /* lua_wechat_ios.mm */; };
 		0E730C852272B4910067866B /* lua_wechat_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E730C812272B4900067866B /* lua_wechat_ios.mm */; };
@@ -203,7 +202,6 @@
 		0E730C772272B4810067866B /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WechatAuthSDK.h; path = ../../frameworks/plugins/wechat/ios/WechatAuthSDK.h; sourceTree = "<group>"; };
 		0E730C782272B4810067866B /* WXVoiceTTS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WXVoiceTTS.h; path = ../../frameworks/plugins/wechat/ios/WXVoiceTTS.h; sourceTree = "<group>"; };
 		0E730C792272B4810067866B /* WXSpeechSynthesizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WXSpeechSynthesizer.h; path = ../../frameworks/plugins/wechat/ios/WXSpeechSynthesizer.h; sourceTree = "<group>"; };
-		0E730C7A2272B4810067866B /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.txt; path = ../../frameworks/plugins/wechat/ios/README.txt; sourceTree = "<group>"; };
 		0E730C7B2272B4810067866B /* libWXSpeech.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWXSpeech.a; path = ../../frameworks/plugins/wechat/ios/libWXSpeech.a; sourceTree = "<group>"; };
 		0E730C802272B4900067866B /* lua_wechat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lua_wechat.h; path = ../../frameworks/plugins/wechat/lua_wechat.h; sourceTree = "<group>"; };
 		0E730C812272B4900067866B /* lua_wechat_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = lua_wechat_ios.mm; path = ../../frameworks/plugins/wechat/lua_wechat_ios.mm; sourceTree = "<group>"; };
@@ -368,7 +366,6 @@
 			children = (
 				0E730C752272B4810067866B /* libWeChatSDK.a */,
 				0E730C7B2272B4810067866B /* libWXSpeech.a */,
-				0E730C7A2272B4810067866B /* README.txt */,
 				0E730C772272B4810067866B /* WechatAuthSDK.h */,
 				0E730C762272B4810067866B /* WXApi.h */,
 				0E730C722272B4810067866B /* WXApiObject.h */,
@@ -667,7 +664,6 @@
 				1AF87B891F6F781D007BE51C /* LaunchScreenBackground.jpg in Resources */,
 				1AF87B881F6F781D007BE51C /* LaunchScreen.storyboard in Resources */,
 				0E2EC2E522895B4100CA3701 /* builtin.manifest in Resources */,
-				0E730C7D2272B4810067866B /* README.txt in Resources */,
 				0E4C8BBD225C83690095CF59 /* src in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

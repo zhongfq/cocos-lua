@@ -8925,6 +8925,38 @@ static int _fairygui_GComponent_removeController(lua_State *L)
     return 0;
 }
 
+static int _fairygui_GComponent_resolve(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+    auto self = olua_toobj<fairygui::GComponent>(L, 1);
+    const char *name = olua_checkstring(L, 2);
+    while (true) {
+        const char *dot = strchr(name, '.');
+        if (dot) {
+            auto child = self->getChild(std::string(name, dot - name));
+            self = child ? child->as<fairygui::GComponent>() : nullptr;
+            if (!self) {
+                olua_endinvoke(L);
+
+                return 0;
+            }
+            name = dot + 1;
+        } else {
+            olua_push_cppobj<fairygui::GObject>(L, self->getChild(name));
+
+            olua_endinvoke(L);
+
+            return 1;
+        }
+    }
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _fairygui_GComponent_setApexIndex(lua_State *L)
 {
     olua_startinvoke(L);
@@ -9240,6 +9272,7 @@ static int luaopen_fairygui_GComponent(lua_State *L)
     oluacls_func(L, "removeChildAt", _fairygui_GComponent_removeChildAt);
     oluacls_func(L, "removeChildren", _fairygui_GComponent_removeChildren);
     oluacls_func(L, "removeController", _fairygui_GComponent_removeController);
+    oluacls_func(L, "resolve", _fairygui_GComponent_resolve);
     oluacls_func(L, "setApexIndex", _fairygui_GComponent_setApexIndex);
     oluacls_func(L, "setBoundsChangedFlag", _fairygui_GComponent_setBoundsChangedFlag);
     oluacls_func(L, "setChildIndex", _fairygui_GComponent_setChildIndex);

@@ -338,6 +338,27 @@ GComponent.ATTR('getTransitions', {RET = '@ref(map transitions)'})
 GComponent.ATTR('getMask', {RET = '@ref(single mask)'})
 GComponent.ATTR('setMask', {ARG1 = '@ref(single mask)'})
 GComponent.PROP('numChildren', 'int numChildren()')
+GComponent.FUNC('resolve', [[
+{
+    lua_settop(L, 2);
+    auto self = olua_toobj<fairygui::GComponent>(L, 1);
+    const char *name = olua_checkstring(L, 2);
+    while (true) {
+        const char *dot = strchr(name, '.');
+        if (dot) {
+            auto child = self->getChild(std::string(name, dot - name));
+            self = child ? child->as<fairygui::GComponent>() : nullptr;
+            if (!self) {
+                return 0;
+            }
+            name = dot + 1;
+        } else {
+            olua_push_cppobj<fairygui::GObject>(L, self->getChild(name));
+            return 1;
+        }
+    }
+    return 0;
+}]])
 GComponent.INJECT('addChildAt', {
     BEFORE = [[
         if (!(arg2 >= 0 && arg2 <= self->numChildren())) {

@@ -1040,48 +1040,6 @@ cls.func('resolve', [[{
     return 0;
 }]])
 cls.prop('numChildren', 'int numChildren()')
-cls.inject('addChildAt', {
-    BEFORE = [[
-        if (!(arg2 >= 0 && arg2 <= self->numChildren())) {
-            luaL_error(L, "index out of range");
-        }
-    ]],
-})
-cls.inject('removeChildren', {
-    BEFORE = [[
-        if (lua_gettop(L) == 3) {
-            int arg1 = (int)olua_checkinteger(L, 2);
-            int arg2 = (int)olua_checkinteger(L, 3);
-            if (!(arg1 >= 0 && arg1 < self->numChildren())) {
-                luaL_error(L, "beginIndex index out of range");
-            }
-            if (!(arg2 == -1 || (arg2 >= 0 && arg2 < self->numChildren()))) {
-                luaL_error(L, "endIndex index out of range");
-            }
-        }
-    ]],
-})
-cls.inject({'getChildAt', 'removeChildAt'}, {
-    BEFORE = [[
-        if (!(arg1 >= 0 && arg1 < self->numChildren())) {
-            luaL_error(L, "index out of range");
-        }
-    ]],
-})
-cls.inject('getTransitionAt', {
-    BEFORE = [[
-        if (!(arg1 >= 0 && arg1 < self->getTransitions().size())) {
-            luaL_error(L, "index out of range");
-        }
-    ]],
-})
-cls.inject('getControllerAt', {
-    BEFORE = [[
-        if (!(arg1 >= 0 && arg1 < self->getControllers().size())) {
-            luaL_error(L, "index out of range");
-        }
-    ]],
-})
 cls.props [[
     children
     firstChildInView
@@ -1465,27 +1423,6 @@ cls.var('scrollItemToViewOnClick', [[bool scrollItemToViewOnClick]])
 cls.var('foldInvisibleItems', [[bool foldInvisibleItems]])
 cls.var('itemRenderer', [[std::function<void(int, GObject*)> itemRenderer]])
 cls.var('itemProvider', [[std::function<std::string(int)> itemProvider]])
-cls.inject('removeChildToPoolAt', {
-    BEFORE = [[
-        if (!(arg1 >= 0 && arg1 < self->numChildren())) {
-            luaL_error(L, "index out of range");
-        }
-    ]],
-})
-cls.inject('removeChildrenToPool', {
-    BEFORE = [[
-        if (lua_gettop(L) == 3) {
-            int arg1 = (int)olua_checkinteger(L, 2);
-            int arg2 = (int)olua_checkinteger(L, 3);
-            if (!(arg1 >= 0 && arg1 < self->numChildren())) {
-                luaL_error(L, "beginIndex index out of range");
-            }
-            if (!(arg2 == -1 || (arg2 >= 0 && arg2 < self->numChildren()))) {
-                luaL_error(L, "endIndex index out of range");
-            }
-        }
-    ]],
-})
 cls.inject('itemRenderer', {
     CALLBACK_BEFORE = [[
         if (arg2->getParent()) {
@@ -2221,34 +2158,6 @@ cls.funcs [[
     int numChildren()
 ]]
 cls.prop('numChildren', 'int numChildren()')
-cls.inject('addChildAt', {
-    BEFORE = [[
-        if (!(arg2 >= 0 && arg2 <= self->numChildren())) {
-            luaL_error(L, "index out of range");
-        }
-    ]],
-})
-cls.inject({'getChildAt', 'removeChildAt'}, {
-    BEFORE = [[
-        if (!(arg1 >= 0 && arg1 < self->numChildren())) {
-            luaL_error(L, "index out of range");
-        }
-    ]],
-})
-cls.inject('removeChildren', {
-    BEFORE = [[
-        if (lua_gettop(L) == 3) {
-            int arg1 = (int)olua_checkinteger(L, 2);
-            int arg2 = (int)olua_checkinteger(L, 3);
-            if (!(arg1 >= 0 && arg1 < self->numChildren())) {
-                luaL_error(L, "beginIndex index out of range");
-            }
-            if (!(arg2 == -1 || (arg2 >= 0 && arg2 < self->numChildren()))) {
-                luaL_error(L, "endIndex index out of range");
-            }
-        }
-    ]],
-})
 cls.props [[
     parent
     root

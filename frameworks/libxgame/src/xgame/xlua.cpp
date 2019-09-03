@@ -8,6 +8,18 @@
 USING_NS_CC;
 USING_NS_XGAME;
 
+static lua_State *_currentState = NULL;
+
+extern bool cc_assert_script_compatible(const char *msg)
+{
+    if (_currentState) {
+        lua_State *L = _currentState;
+        _currentState = NULL;
+        luaL_error(L, msg);
+    }
+    return false;
+}
+
 static int _coroutine_resume(lua_State *L)
 {
     lua_pushvalue(L, 1);
@@ -390,6 +402,16 @@ int xlua_ccobjgc(lua_State *L)
         }
     }
     return 0;
+}
+
+void xlua_startinvoke(lua_State *L)
+{
+    _currentState = L;
+}
+
+void xlua_endinvoke(lua_State *L)
+{
+    _currentState = NULL;
 }
 
 void xlua_startcmpunref(lua_State *L, int idx, const char *refname)

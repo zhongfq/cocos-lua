@@ -8011,11 +8011,6 @@ static int _fairygui_GComponent_addChildAt(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.GObject");
     olua_check_int(L, 3, &arg2);
 
-    // inject code before call
-    if (!(arg2 >= 0 && arg2 <= self->numChildren())) {
-        luaL_error(L, "index out of range");
-    }
-
     // GObject* addChildAt(@ref(map children) GObject* child, int index)
     fairygui::GObject *ret = (fairygui::GObject *)self->addChildAt(arg1, (int)arg2);
     int num_ret = olua_push_cppobj(L, ret, "fui.GObject");
@@ -8243,11 +8238,6 @@ static int _fairygui_GComponent_getChildAt(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.GComponent");
     olua_check_int(L, 2, &arg1);
 
-    // inject code before call
-    if (!(arg1 >= 0 && arg1 < self->numChildren())) {
-        luaL_error(L, "index out of range");
-    }
-
     // @ref(map children) GObject * getChildAt(int index)
     fairygui::GObject *ret = (fairygui::GObject *)self->getChildAt((int)arg1);
     int num_ret = olua_push_cppobj(L, ret, "fui.GObject");
@@ -8407,11 +8397,6 @@ static int _fairygui_GComponent_getControllerAt(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.GComponent");
     olua_check_int(L, 2, &arg1);
-
-    // inject code before call
-    if (!(arg1 >= 0 && arg1 < self->getControllers().size())) {
-        luaL_error(L, "index out of range");
-    }
 
     // @ref(map controllers) GController* getControllerAt(int index)
     fairygui::GController *ret = (fairygui::GController *)self->getControllerAt((int)arg1);
@@ -8621,11 +8606,6 @@ static int _fairygui_GComponent_getTransitionAt(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.GComponent");
     olua_check_int(L, 2, &arg1);
 
-    // inject code before call
-    if (!(arg1 >= 0 && arg1 < self->getTransitions().size())) {
-        luaL_error(L, "index out of range");
-    }
-
     // @ref(map transitions) Transition* getTransitionAt(int index)
     fairygui::Transition *ret = (fairygui::Transition *)self->getTransitionAt((int)arg1);
     int num_ret = olua_push_cppobj(L, ret, "fui.Transition");
@@ -8795,9 +8775,6 @@ static int _fairygui_GComponent_removeChildAt(lua_State *L)
     olua_check_int(L, 2, &arg1);
 
     // inject code before call
-    if (!(arg1 >= 0 && arg1 < self->numChildren())) {
-        luaL_error(L, "index out of range");
-    }
     olua_startcmpunref(L, 1, "children");
 
     // @unref(cmp children) void removeChildAt(int index)
@@ -8822,16 +8799,6 @@ static int _fairygui_GComponent_removeChildren1(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.GComponent");
 
     // inject code before call
-    if (lua_gettop(L) == 3) {
-        int arg1 = (int)olua_checkinteger(L, 2);
-        int arg2 = (int)olua_checkinteger(L, 3);
-        if (!(arg1 >= 0 && arg1 < self->numChildren())) {
-            luaL_error(L, "beginIndex index out of range");
-        }
-        if (!(arg2 == -1 || (arg2 >= 0 && arg2 < self->numChildren()))) {
-            luaL_error(L, "endIndex index out of range");
-        }
-    }
     olua_startcmpunref(L, 1, "children");
 
     // @unref(cmp children) void removeChildren()
@@ -8860,16 +8827,6 @@ static int _fairygui_GComponent_removeChildren2(lua_State *L)
     olua_check_int(L, 3, &arg2);
 
     // inject code before call
-    if (lua_gettop(L) == 3) {
-        int arg1 = (int)olua_checkinteger(L, 2);
-        int arg2 = (int)olua_checkinteger(L, 3);
-        if (!(arg1 >= 0 && arg1 < self->numChildren())) {
-            luaL_error(L, "beginIndex index out of range");
-        }
-        if (!(arg2 == -1 || (arg2 >= 0 && arg2 < self->numChildren()))) {
-            luaL_error(L, "endIndex index out of range");
-        }
-    }
     olua_startcmpunref(L, 1, "children");
 
     // @unref(cmp children) void removeChildren(int beginIndex, int endIndex)
@@ -13167,9 +13124,6 @@ static int _fairygui_GList_removeChildToPoolAt(lua_State *L)
     olua_check_int(L, 2, &arg1);
 
     // inject code before call
-    if (!(arg1 >= 0 && arg1 < self->numChildren())) {
-        luaL_error(L, "index out of range");
-    }
     olua_startcmpunref(L, 1, "children");
 
     // @unref(cmp children) void removeChildToPoolAt(int index)
@@ -13194,16 +13148,6 @@ static int _fairygui_GList_removeChildrenToPool1(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.GList");
 
     // inject code before call
-    if (lua_gettop(L) == 3) {
-        int arg1 = (int)olua_checkinteger(L, 2);
-        int arg2 = (int)olua_checkinteger(L, 3);
-        if (!(arg1 >= 0 && arg1 < self->numChildren())) {
-            luaL_error(L, "beginIndex index out of range");
-        }
-        if (!(arg2 == -1 || (arg2 >= 0 && arg2 < self->numChildren()))) {
-            luaL_error(L, "endIndex index out of range");
-        }
-    }
     olua_startcmpunref(L, 1, "children");
 
     // @unref(cmp children) void removeChildrenToPool()
@@ -13232,16 +13176,6 @@ static int _fairygui_GList_removeChildrenToPool2(lua_State *L)
     olua_check_int(L, 3, &arg2);
 
     // inject code before call
-    if (lua_gettop(L) == 3) {
-        int arg1 = (int)olua_checkinteger(L, 2);
-        int arg2 = (int)olua_checkinteger(L, 3);
-        if (!(arg1 >= 0 && arg1 < self->numChildren())) {
-            luaL_error(L, "beginIndex index out of range");
-        }
-        if (!(arg2 == -1 || (arg2 >= 0 && arg2 < self->numChildren()))) {
-            luaL_error(L, "endIndex index out of range");
-        }
-    }
     olua_startcmpunref(L, 1, "children");
 
     // @unref(cmp children) void removeChildrenToPool(int beginIndex, int endIndex)
@@ -20310,11 +20244,6 @@ static int _fairygui_TreeNode_addChildAt(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "fui.TreeNode");
     olua_check_int(L, 3, &arg2);
 
-    // inject code before call
-    if (!(arg2 >= 0 && arg2 <= self->numChildren())) {
-        luaL_error(L, "index out of range");
-    }
-
     // TreeNode* addChildAt(@ref(map children) TreeNode* child, int index)
     fairygui::TreeNode *ret = (fairygui::TreeNode *)self->addChildAt(arg1, (int)arg2);
     int num_ret = olua_push_cppobj(L, ret, "fui.TreeNode");
@@ -20379,11 +20308,6 @@ static int _fairygui_TreeNode_getChildAt(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fui.TreeNode");
     olua_check_int(L, 2, &arg1);
-
-    // inject code before call
-    if (!(arg1 >= 0 && arg1 < self->numChildren())) {
-        luaL_error(L, "index out of range");
-    }
 
     // @ref(map children) TreeNode* getChildAt(int index)
     fairygui::TreeNode *ret = (fairygui::TreeNode *)self->getChildAt((int)arg1);
@@ -20631,9 +20555,6 @@ static int _fairygui_TreeNode_removeChildAt(lua_State *L)
     olua_check_int(L, 2, &arg1);
 
     // inject code before call
-    if (!(arg1 >= 0 && arg1 < self->numChildren())) {
-        luaL_error(L, "index out of range");
-    }
     olua_startcmpunref(L, 1, "children");
 
     // @unref(cmp children) void removeChildAt(int index)
@@ -20658,16 +20579,6 @@ static int _fairygui_TreeNode_removeChildren1(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fui.TreeNode");
 
     // inject code before call
-    if (lua_gettop(L) == 3) {
-        int arg1 = (int)olua_checkinteger(L, 2);
-        int arg2 = (int)olua_checkinteger(L, 3);
-        if (!(arg1 >= 0 && arg1 < self->numChildren())) {
-            luaL_error(L, "beginIndex index out of range");
-        }
-        if (!(arg2 == -1 || (arg2 >= 0 && arg2 < self->numChildren()))) {
-            luaL_error(L, "endIndex index out of range");
-        }
-    }
     olua_startcmpunref(L, 1, "children");
 
     // @unref(cmp children) void removeChildren()
@@ -20696,16 +20607,6 @@ static int _fairygui_TreeNode_removeChildren2(lua_State *L)
     olua_check_int(L, 3, &arg2);
 
     // inject code before call
-    if (lua_gettop(L) == 3) {
-        int arg1 = (int)olua_checkinteger(L, 2);
-        int arg2 = (int)olua_checkinteger(L, 3);
-        if (!(arg1 >= 0 && arg1 < self->numChildren())) {
-            luaL_error(L, "beginIndex index out of range");
-        }
-        if (!(arg2 == -1 || (arg2 >= 0 && arg2 < self->numChildren()))) {
-            luaL_error(L, "endIndex index out of range");
-        }
-    }
     olua_startcmpunref(L, 1, "children");
 
     // @unref(cmp children) void removeChildren(int beginIndex, int endIndex)

@@ -359,48 +359,6 @@ GComponent.FUNC('resolve', [[
     }
     return 0;
 }]])
-GComponent.INJECT('addChildAt', {
-    BEFORE = [[
-        if (!(arg2 >= 0 && arg2 <= self->numChildren())) {
-            luaL_error(L, "index out of range");
-        }
-    ]]
-})
-GComponent.INJECT('removeChildren', {
-    BEFORE = [[
-        if (lua_gettop(L) == 3) {
-            int arg1 = (int)olua_checkinteger(L, 2);
-            int arg2 = (int)olua_checkinteger(L, 3);
-            if (!(arg1 >= 0 && arg1 < self->numChildren())) {
-                luaL_error(L, "beginIndex index out of range");
-            }
-            if (!(arg2 == -1 || (arg2 >= 0 && arg2 < self->numChildren()))) {
-                luaL_error(L, "endIndex index out of range");
-            }
-        }
-    ]]
-})
-GComponent.INJECT({'getChildAt', 'removeChildAt'}, {
-    BEFORE = [[
-        if (!(arg1 >= 0 && arg1 < self->numChildren())) {
-            luaL_error(L, "index out of range");
-        }
-    ]]
-})
-GComponent.INJECT('getTransitionAt', {
-    BEFORE = [[
-        if (!(arg1 >= 0 && arg1 < self->getTransitions().size())) {
-            luaL_error(L, "index out of range");
-        }
-    ]]
-})
-GComponent.INJECT('getControllerAt', {
-     BEFORE = [[
-        if (!(arg1 >= 0 && arg1 < self->getControllers().size())) {
-            luaL_error(L, "index out of range");
-        }
-    ]]
-})
 
 local GRoot = typeconf 'fairygui::GRoot'
 GRoot.ATTR('showWindow', {RET = '@unref(cmp children)', ARG1 = '@ref(map children)'})
@@ -482,30 +440,6 @@ GList.ATTR('setVirtualAndLoop', {RET = '@unref(cmp children)'})
 GList.ATTR('setNumItems', {RET = '@unref(cmp children)'})
 GList.VAR('itemRenderer', 'std::function<void(int, GObject*)> itemRenderer')
 GList.VAR('itemProvider', 'std::function<std::string(int)> itemProvider')
--- void removeChildToPoolAt(int index);
-GList.INJECT('removeChildToPoolAt', {
-    BEFORE = [[
-        if (!(arg1 >= 0 && arg1 < self->numChildren())) {
-            luaL_error(L, "index out of range");
-        }
-    ]]
-})
--- void removeChildrenToPool()
--- void removeChildrenToPool(int beginIndex, int endIndex)
-GList.INJECT('removeChildrenToPool', {
-    BEFORE = [[
-        if (lua_gettop(L) == 3) {
-            int arg1 = (int)olua_checkinteger(L, 2);
-            int arg2 = (int)olua_checkinteger(L, 3);
-            if (!(arg1 >= 0 && arg1 < self->numChildren())) {
-                luaL_error(L, "beginIndex index out of range");
-            }
-            if (!(arg2 == -1 || (arg2 >= 0 && arg2 < self->numChildren()))) {
-                luaL_error(L, "endIndex index out of range");
-            }
-        }
-    ]]
-})
 -- std::function<void(int, GObject*)> itemRenderer;
 GList.INJECT('itemRenderer', {
     CALLBACK_BEFORE = [[
@@ -836,34 +770,6 @@ TreeNode.ATTR('getChildAt', {RET = '@ref(map children)'})
 TreeNode.ATTR('getPrevSibling', {RET = '@ref(map children)'})
 TreeNode.ATTR('getNextSibling', {RET = '@ref(map children)'})
 TreeNode.PROP('numChildren', 'int numChildren()')
-TreeNode.INJECT('addChildAt', {
-    BEFORE = [[
-        if (!(arg2 >= 0 && arg2 <= self->numChildren())) {
-            luaL_error(L, "index out of range");
-        }
-    ]]
-})
-TreeNode.INJECT({'getChildAt', 'removeChildAt'}, {
-    BEFORE = [[
-        if (!(arg1 >= 0 && arg1 < self->numChildren())) {
-            luaL_error(L, "index out of range");
-        }
-    ]]
-})
-TreeNode.INJECT('removeChildren', {
-    BEFORE = [[
-        if (lua_gettop(L) == 3) {
-            int arg1 = (int)olua_checkinteger(L, 2);
-            int arg2 = (int)olua_checkinteger(L, 3);
-            if (!(arg1 >= 0 && arg1 < self->numChildren())) {
-                luaL_error(L, "beginIndex index out of range");
-            }
-            if (!(arg2 == -1 || (arg2 >= 0 && arg2 < self->numChildren()))) {
-                luaL_error(L, "endIndex index out of range");
-            }
-        }
-    ]]
-})
 
 local TreeView = typeconf 'fairygui::TreeView'
 TreeView.ATTR('create', {ARG1 = '@ref(single list)'})

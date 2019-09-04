@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="800,45" extention="Label" bgColor="#666666">
+  <displayList>
+    <text id="n0_rv5y" name="title" xy="8,8" size="485,28" fontSize="24" autoSize="none" text="scene.swf">
+      <relation target="" sidePair="middle-middle,width-width"/>
+    </text>
+    <text id="n1_wvdh" name="date" xy="494,8" size="221,28" fontSize="24" autoSize="none" text="30-Aug-2019 17:05">
+      <relation target="" sidePair="right-right"/>
+    </text>
+    <text id="n2_wvdh" name="size" xy="716,8" size="71,28" fontSize="24" align="right" autoSize="none" text="345K">
+      <relation target="" sidePair="middle-middle,right-right"/>
+    </text>
+  </displayList>
+</component>

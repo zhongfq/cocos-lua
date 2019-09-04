@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1000,700">
+  <controller name="tab" exported="true" pages="0,LOG,1,SWF" selected="0"/>
+  <displayList>
+    <graph id="n2_rv5y" name="" xy="0,0" size="1000,700" type="rect" lineSize="0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+    <graph id="n4_rv5y" name="n4" xy="0,660" size="1000,40" group="n6_rv5y" type="rect" lineSize="0" fillColor="#ff000000">
+      <relation target="" sidePair="width-width"/>
+    </graph>
+    <text id="n5_rv5y" name="status" xy="30,670" size="575,24" group="n6_rv5y" fontSize="20" color="#ffffff" text="server: www=kid.codetypes.com:9100  version: 1.0.0(100), 4.0.0"/>
+    <group id="n6_rv5y" name="" xy="0,660" size="1000,40" advanced="true">
+      <relation target="" sidePair="bottom-bottom"/>
+    </group>
+    <graph id="n11_rv5y" name="n11" xy="0,0" size="120,660" type="rect" lineSize="0" fillColor="#ffcccccc">
+      <relation target="" sidePair="height-height"/>
+    </graph>
+    <component id="n0_rv5y" name="btnLog" src="rv5y2" fileName="TabButton.xml" xy="0,0" group="n10_rv5y">
+      <Button title="日志" controller="tab" page="0"/>
+    </component>
+    <component id="n8_rv5y" name="btnSWF" src="rv5y2" fileName="TabButton.xml" xy="0,57" size="120,50" group="n10_rv5y">
+      <Button title="SWF" controller="tab" page="1"/>
+    </component>
+    <component id="n7_rv5y" name="btnServer" src="rv5y2" fileName="TabButton.xml" xy="0,114" group="n10_rv5y">
+      <Button title="服务器"/>
+    </component>
+    <component id="n9_rv5y" name="btnShortcut" src="rv5y2" fileName="TabButton.xml" xy="0,171" size="120,50" group="n10_rv5y">
+      <Button title="快捷键"/>
+    </component>
+    <group id="n10_rv5y" name="btns" xy="0,0" size="120,221" advanced="true" collapsed="true" layout="vt" lineGap="7"/>
+    <list id="n12_rv5y" name="fileList" xy="127,8" size="866,646" overflow="scroll" defaultItem="ui://xx7p1729rv5y3" autoClearItems="true">
+      <gearDisplay controller="tab" pages="1"/>
+      <relation target="" sidePair="width-width,height-height"/>
+      <item title="http://codetypes.com/testswf/anim.swf"/>
+      <item title="http://codetypes.com/testswf/anim.swf"/>
+      <item title="http://codetypes.com/testswf/anim.swf"/>
+      <item title="http://codetypes.com/testswf/anim.swf"/>
+      <item title="http://codetypes.com/testswf/anim.swf"/>
+      <item title="http://codetypes.com/testswf/anim.swf"/>
+      <item title="http://codetypes.com/testswf/anim.swf"/>
+      <item title="http://codetypes.com/testswf/anim.swf"/>
+      <item title="http://codetypes.com/testswf/anim.swf"/>
+      <item title="http://codetypes.com/testswf/anim.swf"/>
+    </list>
+    <list id="n14_u327" name="logList" xy="127,57" size="866,597" group="n19_u327" overflow="scroll" defaultItem="ui://xx7p1729u3274" autoClearItems="true">
+      <relation target="" sidePair="width-width,height-height"/>
+      <item title="[2019-09-02 10:39:24] [runtime] init system"/>
+      <item title="[2019-09-02 10:39:24] [runtime] init system"/>
+    </list>
+    <component id="n17_u327" name="btnSend" src="rv5y2" fileName="TabButton.xml" xy="757,0" size="120,50" group="n19_u327">
+      <relation target="" sidePair="right-right"/>
+      <Button title="发送"/>
+    </component>
+    <graph id="n16_u327" name="n16" xy="127,0" size="627,50" group="n18_u327" type="rect" lineSize="0" fillColor="#ff999999">
+      <relation target="" sidePair="width-width"/>
+    </graph>
+    <text id="n15_u327" name="cmd" xy="134,11" size="612,28" group="n18_u327" input="true" prompt="请输入GM指令" keyboardType="6" fontSize="24" autoSize="none" singleLine="true" autoClearText="true" text="请输入GM指令">
+      <relation target="" sidePair="width-width"/>
+    </text>
+    <group id="n18_u327" name="n18" xy="127,0" size="627,50" group="n19_u327" collapsed="true"/>
+    <component id="n20_m9ks" name="btnClear" src="rv5y2" fileName="TabButton.xml" xy="880,0" size="120,50" group="n19_u327">
+      <relation target="" sidePair="right-right"/>
+      <Button title="清空"/>
+    </component>
+    <group id="n19_u327" name="log" xy="127,0" size="873,654" advanced="true">
+      <gearDisplay controller="tab" pages="0"/>
+    </group>
+  </displayList>
+</component>

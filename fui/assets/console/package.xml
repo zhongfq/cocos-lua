@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="xx7p1729" jpegQuality="80" compressPNG="true">
+  <resources>
+    <component id="ufrq0" name="main.xml" path="/" exported="true"/>
+    <component id="rv5y1" name="content.xml" path="/" exported="true"/>
+    <component id="rv5y2" name="TabButton.xml" path="/"/>
+    <component id="rv5y3" name="FileItemRenderer.xml" path="/"/>
+    <component id="u3274" name="LogItemRenderer.xml" path="/"/>
+  </resources>
+  <publish name="console"/>
+</packageDescription>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="800,26" extention="Label" bgColor="#666666">
+  <displayList>
+    <text id="n0_rv5y" name="title" xy="8,0" size="784,26" fontSize="20" vAlign="middle" autoSize="none" singleLine="true" text="scene.swf">
+      <relation target="" sidePair="height-height,width-width"/>
+    </text>
+  </displayList>
+</component>

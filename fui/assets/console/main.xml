@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1334,750">
+  <displayList>
+    <component id="n9_rv5y" name="panel" src="rv5y1" fileName="content.xml" xy="27,25" size="1280,700" controller="tab,0">
+      <relation target="" sidePair="center-center,width-width"/>
+      <relation target="" sidePair="height-height"/>
+    </component>
+  </displayList>
+</component>

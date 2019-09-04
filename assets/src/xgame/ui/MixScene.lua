@@ -2,6 +2,7 @@ local class         = require "xgame.class"
 local timer         = require "xgame.timer"
 local EventAgent    = require "xgame.event.EventAgent"
 local UIScene       = require "xgame.ui.UIScene"
+local LuaComponent  = require "cc.LuaComponent"
 
 local MixScene = class("MixScene", UIScene)
 
@@ -9,30 +10,30 @@ function MixScene:ctor()
     self.mediatorClass = self.class
     self._eventAgent = EventAgent.new()
     self._timer = timer.new()
-    self._updateHandler = timer.schedule(0, function (delta)
-        self._timer:update(delta)
-    end)
+    self:_initMonitor()
 end
 
 function MixScene:__call(target, priority)
     return self._eventAgent:wrap(target, priority)
 end
 
-function MixScene:didActive()
-    UIScene.didActive(self)
-    if not self._updateHandler then
-        self._updateHandler = timer.schedule(0, function (delta)
-            self._timer:update(delta)
-        end)
+function MixScene:_initMonitor()
+    local monitor = LuaComponent.create()
+    monitor.name = '__MixScene_monitor__'
+    monitor.onEnter = function ()
+        if self.onDestroy ~= true and not self._updateHandler then
+            self._updateHandler = timer.schedule(0, function (delta)
+                self._timer:update(delta)
+            end)
+        end
     end
-end
-
-function MixScene:didInactive()
-    UIScene.didInactive(self)
-    if self._updateHandler then
-        timer.unschedule(self._updateHandler)
-        self._updateHandler = false
+    monitor.onExit = function ()
+        if self.onDestroy ~= true and self._updateHandler then
+            timer.unschedule(self._updateHandler)
+            self._updateHandler = false
+        end
     end
+    self.cobj:addComponent(monitor)
 end
 
 function MixScene:onCreate()
@@ -42,7 +43,6 @@ function MixScene:onDestroy()
     self.onDestroy = true
     self._timer:clear()
     self._eventAgent:clear()
-    timer.unschedule(self._updateHandler)
 end
 
 function MixScene:delay(time, func, ...)

@@ -1,5 +1,4 @@
 local class     = require "xgame.class"
-local Event     = require "xgame.event.Event"
 local Align     = require "xgame.ui.Align"
 local UILayer   = require "xgame.ui.UILayer"
 local SWFNode   = require "xgame.swf.SWFNode"
@@ -34,18 +33,6 @@ end
 
 function SWFUI.Get:rootswfPath()
     error("sub class must implement!!!")
-end
-
-function SWFUI:didActive()
-    self._loader:scheduleUpdate()
-    self:_setChildrenActive(self, true)
-    self:dispatch(Event.ACTIVE)
-end
-
-function SWFUI:didInactive()
-    self._loader:unscheduleUpdate()
-    self:_setChildrenActive(self, false)
-    self:dispatch(Event.INACTIVE)
 end
 
 function SWFUI:scheduleUpdate()

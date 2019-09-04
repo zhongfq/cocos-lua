@@ -29,8 +29,8 @@ end
 function SceneStack:startScene(cls, ...)
     local entry = self:_getSceneEntry(-1)
     if entry then
-        entry.scene:didInactive()
         entry.sceneWrapper.visible = false
+        entry.sceneWrapper.cobj:onExit()
     end
     self:_doStartScene(cls, ...)
 end
@@ -90,12 +90,12 @@ function SceneStack:_doPopScene(onlypop)
     end
 
     if not onlypop and numScenes > 1 then
-        entry = self._scene_stack[numScenes - 1]
+        entry = self._sceneStack[numScenes - 1]
         entry.scene.visible = true
-        entry.sceneWrapper.visible = true
         entry.snapshot = false
         assetloader.loadSceneAssets(entry.scene)
-        entry.scene:didActive()
+        entry.sceneWrapper.visible = true
+        entry.sceneWrapper.cobj:onEnter()
     end
 end
 

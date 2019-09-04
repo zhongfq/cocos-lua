@@ -15,8 +15,6 @@ return {
     REMOVED             = "removed",
     FOCUS_IN            = "focusIn",
     FOCUS_OUT           = "focusOut",
-    ACTIVE              = "active",
-    INACTIVE            = "inactive",
 
     -- runtime event
     OPEN_URL            = "openURL",

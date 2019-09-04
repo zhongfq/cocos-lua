@@ -1,14 +1,14 @@
 local class             = require "xgame.class"
 local util              = require "xgame.util"
-local Align             = require "xgame.ui.Align"
+local Array             = require "xgame.Array"
 local window            = require "xgame.window"
+local Align             = require "xgame.ui.Align"
 local swf               = require "xgame.swf.swf"
 local FLDisplayObject   = require "xgame.swf.FLDisplayObject"
 
 local T = swf.ObjectType
 
 local table = table
-local next = next
 local ipairs = ipairs
 local assert = assert
 local setmetatable = setmetatable
@@ -19,7 +19,7 @@ function FLMovieClip:ctor(cobj)
     self.metadata = swf.metadata(cobj)
     self.touchChildren = true
     self.touchable = false
-    self.children = self:_createAccessProxy()
+    self._children = Array.new()
     self.ns = self:_createAccessProxy({__mode = "v"})  -- 索引有名字的字节点
     self._building = false
     self._rawChildren = setmetatable({}, {__mode = 'k'})
@@ -31,7 +31,7 @@ function FLMovieClip:_buildChildren()
         self._building = true
 
         for i = self.numChildren, 1, -1 do
-            local child = self.children[i]
+            local child = self._children[i]
             if not self.cobj:contains(child.cobj) then
                 self:_internalRemoveChild(i)
             end
@@ -49,7 +49,7 @@ function FLMovieClip:_buildChildren()
 end
 
 function FLMovieClip:_checkChildren()
-    if not next(self.children) and not self._building then
+    if #self._children == 0 and not self._building then
         self:_buildChildren()
     end
 end
@@ -66,8 +66,8 @@ end
 
 function FLMovieClip:_setStage(value)
     if self._stage ~= value then
-        if self.children then
-            for _, child in pairs(self.children) do
+        if #self._children > 0 then
+            for _, child in ipairs(self._children) do
                 child:_setStage(value)
             end
         end
@@ -80,7 +80,7 @@ function FLMovieClip:hook(method, callback)
 end
 
 function FLMovieClip:hitChildren(points)
-    local children = self.children
+    local children = self._children
     for i = #children, 1, -1 do
         local child = children[i]
         if child.visible and (child.touchable or child.touchChildren) then
@@ -174,12 +174,10 @@ function FLMovieClip:getChildByName(name)
 end
 
 function FLMovieClip:getChildAt(index)
-    self:_checkChildren()
     return self.children[index]
 end
 
 function FLMovieClip:getChildIndex(child)
-    self:_checkChildren()
     for index, child2 in ipairs(self.children) do
         if child.cobj == child2.cobj then
             return index
@@ -205,13 +203,10 @@ function FLMovieClip:_internalAddChild(child, index, silence)
 end
 
 function FLMovieClip:addChild(child)
-    self:_checkChildren()
     return self:addChildAt(child, #self.children + 1)
 end
 
 function FLMovieClip:addChildAt(child, index)
-    self:_checkChildren()
-
     if child.parent then
         local old_index = child.parent:getChildIndex(child)
         assert(old_index > 0)
@@ -256,8 +251,6 @@ function FLMovieClip:_internalRemoveChild(index, silence)
 end
 
 function FLMovieClip:removeChild(child)
-    self:_checkChildren()
-
     local index = self:getChildIndex(child)
     if index > 0 then
         return self:removeChildAt(index)
@@ -265,14 +258,11 @@ function FLMovieClip:removeChild(child)
 end
 
 function FLMovieClip:removeChildAt(index)
-    self:_checkChildren()
     self.cobj:removeChildAt(index - 1)
     return self:_internalRemoveChild(index)
 end
 
 function FLMovieClip:removeChildren(from, to)
-    self:_checkChildren()
-
     local numChildren = self.numChildren
 
     from = from or 1
@@ -330,7 +320,6 @@ function FLMovieClip:prevFrame()
 end
 
 function FLMovieClip.Get:topMC()
-    self:_checkChildren()
     for i = #self.children, 1, -1 do
         local child = self.children[i]
         if child.cobj.type == T.MOVIE_CLIP then
@@ -340,14 +329,13 @@ function FLMovieClip.Get:topMC()
 end
 
 function FLMovieClip:setChildTouchable(touchable, touchChildren)
-    for _, child in pairs(self.children) do
+    for _, child in ipairs(self.children) do
         child.touchable = touchable and true or false
         child.touchChildren = touchChildren and true or false
     end
 end
 
 function FLMovieClip.Get:mask()
-    self:_checkChildren()
     local mask = self.cobj.mask
     for _, child in ipairs(self.children) do
         if child.cobj == mask then
@@ -382,8 +370,12 @@ function FLMovieClip.Set:frameRate(value)
 end
 
 function FLMovieClip.Get:numChildren()
-    self:_checkChildren()
     return #self.children
+end
+
+function FLMovieClip.Get:children()
+    self:_checkChildren()
+    return self._children
 end
 
 function FLMovieClip.Get:currentFrame()

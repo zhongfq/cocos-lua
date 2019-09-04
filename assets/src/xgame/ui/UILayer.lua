@@ -65,22 +65,6 @@ function UILayer:reszieToChildren(resizeWidth, resizeHeight)
     self:_validateNow()
 end
 
-function UILayer:_setChildrenActive(target, active)
-    if target.children then
-        for _, child in ipairs(target.children) do
-            if child.didActive or child.didInactive then
-                if active then
-                    child:didActive()
-                else
-                    child.didInactive()
-                end
-            else
-                self:_setChildrenActive(child, active)
-            end
-        end
-    end
-end
-
 function UILayer:hit(points)
     -- test children
     if self.touchChildren then

@@ -1,32 +1,36 @@
 local class         = require "xgame.class"
-local Event         = require "xgame.Event"
 local timer         = require "xgame.timer"
-local EventAgent    = require "xgame.EventAgent"
+local EventAgent    = require "xgame.event.EventAgent"
+local LuaComponent  = require "cc.LuaComponent"
 
 local Mediator = class("Mediator")
 
 function Mediator:ctor(view)
     self.view = view
     self._eventAgent = EventAgent.new()
-    self._scheduler = timer.new()
-    self._updateHandler = timer.schedule(0, function (delta)
-        self._scheduler:update(delta)
-    end)
+    self._timer = timer.new()
+    self:_initMonitor()
+end
 
-    self(view):on(Event.ACTIVE, function ()
-        if not self._updateHandler and self.onDestroy ~= true then
+function Mediator:_initMonitor()
+    local monitor = LuaComponent.create()
+    monitor.name = '__Mediator_monitor__'
+    monitor.onEnter = function ()
+        if self.onDestroy ~= true and not self._updateHandler then
             self._updateHandler = timer.schedule(0, function (delta)
-                self._scheduler:update(delta)
+                self._timer:update(delta)
             end)
         end
-    end)
-    
-    self(view):on(Event.INACTIVE, function ()
-        if self._updateHandler then
+    end
+    monitor.onExit = function ()
+        if self.onDestroy ~= true and self._updateHandler then
             timer.unschedule(self._updateHandler)
             self._updateHandler = false
         end
-    end)
+    end
+    assert(self.view.cobj.running)
+    monitor.onEnter()
+    self.view.cobj:addComponent(monitor)
 end
 
 function Mediator:__call(target, priority)
@@ -38,30 +42,29 @@ end
 
 function Mediator:onDestroy()
     self.onDestroy = true
-    self._scheduler:clear()
+    self._timer:clear()
     self._eventAgent:clear()
     self.view = false
-    timer.unschedule(self._updateHandler)
 end
 
 function Mediator:delay(time, func, ...)
-    self._scheduler:delay(time, func, ...)
+    self._timer:delay(time, func, ...)
 end
 
 function Mediator:delayWithTag(time, tag, func, ...)
-    self._scheduler:delayWithTag(time, tag, func, ...)
+    self._timer:delayWithTag(time, tag, func, ...)
 end
 
 function Mediator:killDelay(tag)
-    self._scheduler:killDelay(tag)
+    self._timer:killDelay(tag)
 end
 
 function Mediator:schedule(interval, func)
-    return self._scheduler:schedule(interval, func)
+    return self._timer:schedule(interval, func)
 end
 
 function Mediator:unschedule(id)
-    return self._scheduler:unschedule(id)
+    return self._timer:unschedule(id)
 end
 
 return Mediator

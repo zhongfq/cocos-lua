@@ -3,6 +3,7 @@ local timer         = require "xgame.timer"
 local EventAgent    = require "xgame.event.EventAgent"
 local SWFUI         = require "xgame.swf.SWFUI"
 local FLMixPlayer   = require "xgame.swf.FLMixPlayer"
+local LuaComponent  = require "cc.LuaComponent"
 
 local string = string
 
@@ -13,7 +14,7 @@ function MixSWF:ctor()
     self._eventAgent = EventAgent.new()
     self._timer = timer.new()
     self._mixPlayer = FLMixPlayer.new('res/sound/auto/%s.mp3')
-    self:_doUpdate()
+    self:_initMonitor()
 end
 
 function MixSWF:assets()
@@ -24,38 +25,41 @@ function MixSWF:__call(target, priority)
     return self._eventAgent:wrap(target, priority)
 end
 
-function MixSWF:didActive()
-    self._mixPlayer:resume()
-    self:_doUpdate()
-    SWFUI.didActive(self)
-end
-
-function MixSWF:_doUpdate()
-    if not self._updateHandler and self.onDestroy ~= true then
-        self._updateHandler = timer.schedule(0, function (delta)
-            self._timer:update(delta)
-            self._mixPlayer:update(delta)
-        end)
+function MixSWF:_initMonitor()
+    local monitor = LuaComponent.create()
+    monitor.name = '__MixSWF_monitor__'
+    monitor.onEnter = function ()
+        if self.onDestroy ~= true then
+            self._mixPlayer:resume()
+            if not self._updateHandler then
+                self._updateHandler = timer.schedule(0, function (delta)
+                    self._timer:update(delta)
+                    self._mixPlayer:update(delta)
+                end)
+            end
+        end
     end
-end
-
-function MixSWF:didInactive()
-    self._mixPlayer:pause()
-    timer.unschedule(self._updateHandler)
-    self._updateHandler = false
-    SWFUI.didInactive(self)
+    monitor.onExit = function ()
+        if self.onDestroy ~= true then
+            self._mixPlayer:pause()
+            if self._updateHandler then
+                timer.unschedule(self._updateHandler)
+                self._updateHandler = false
+            end
+        end
+    end
+    self.cobj:addComponent(monitor)
 end
 
 function MixSWF:onCreate()
 end
 
 function MixSWF:onDestroy()
+    self.onDestroy = true
     self._eventAgent:clear()
     self._mixPlayer:clear()
     self._timer:clear()
     self:removeChildren()
-    timer.unschedule(self._updateHandler)
-    self.onDestroy = true
 end
 
 function MixSWF:delay(time, func, ...)

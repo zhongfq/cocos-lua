@@ -497,13 +497,13 @@ void GRoot::handlePositionChanged()
 void GRoot::onEnter()
 {
     GComponent::onEnter();
-     _inst = this;
+    _inst = this;
 }
 
 void GRoot::onExit()
 {
     GComponent::onExit();
-     if (_inst == this)
+    if (_inst == this)
         _inst = nullptr;
 }
 

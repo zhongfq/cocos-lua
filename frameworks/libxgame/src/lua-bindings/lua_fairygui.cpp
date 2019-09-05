@@ -8889,19 +8889,34 @@ static int _fairygui_GComponent_resolve(lua_State *L)
     lua_settop(L, 2);
     auto self = olua_toobj<fairygui::GComponent>(L, 1);
     const char *name = olua_checkstring(L, 2);
+    char type = '.';
     while (true) {
-        const char *dot = strchr(name, '.');
-        if (dot) {
-            auto child = self->getChild(std::string(name, dot - name));
+        const char *pos = strchr(name, '.');
+        if (!pos) {
+            pos = strchr(name, '#');
+            type = pos ? '#' : type;
+        }
+        if (!pos) {
+            pos = strchr(name, '~');
+            type = pos ? '~' : type;
+        }
+        if (pos) {
+            auto child = self->getChild(std::string(name, pos - name));
             self = child ? child->as<fairygui::GComponent>() : nullptr;
             if (!self) {
                 olua_endinvoke(L);
 
                 return 0;
             }
-            name = dot + 1;
+            name = pos + 1;
         } else {
-            olua_push_cppobj<fairygui::GObject>(L, self->getChild(name));
+            if (type == '#') {
+                olua_push_cppobj<fairygui::GController>(L, self->getController(name));
+            } else if (type == '~') {
+                olua_push_cppobj<fairygui::Transition>(L, self->getTransition(name));
+            } else {
+                olua_push_cppobj<fairygui::GObject>(L, self->getChild(name));
+            }
 
             olua_endinvoke(L);
 

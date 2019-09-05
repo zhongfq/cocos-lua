@@ -22,7 +22,7 @@ function Console:onCreate()
     self.rootfui:addChild(self.view)
     self.rootfui:setSize(self.width, self.height)
 
-    local tabController = self.view:getChild('panel'):getController('tab')
+    local tabController = self.view:resolve('panel#tab')
     tabController:addEventListener(UIEventType.Changed, function ()
         local prev = self.tab[tabController.previousPage]
         local curr = self.tab[tabController.selectedPage]

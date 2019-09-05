@@ -237,6 +237,13 @@ window.FUNC("getVisibleBounds", [[
     return 4;
 }
 ]])
+window.FUNC('getVisibleSize', [[
+{
+    auto rect = cocos2d::Director::getInstance()->getOpenGLView()->getVisibleRect();
+    lua_pushinteger(L, rect.size.width);
+    lua_pushinteger(L, rect.size.height);
+    return 2;
+}]])
 window.FUNC('getFrameSize', [[
 {
     auto size = cocos2d::Director::getInstance()->getOpenGLView()->getFrameSize();

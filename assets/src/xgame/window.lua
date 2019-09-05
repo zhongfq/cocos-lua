@@ -1,4 +1,5 @@
 -- window.getVisibleBounds
+-- window.getVisibleSize
 -- window.getFrameSize
 -- window.getDesignSize
 -- window.setDesignSize

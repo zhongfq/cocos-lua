@@ -313,6 +313,12 @@ cls.func('getVisibleBounds', [[{
     return 4;
 }
 ]])
+cls.func('getVisibleSize', [[{
+    auto rect = cocos2d::Director::getInstance()->getOpenGLView()->getVisibleRect();
+    lua_pushinteger(L, rect.size.width);
+    lua_pushinteger(L, rect.size.height);
+    return 2;
+}]])
 cls.func('getFrameSize', [[{
     auto size = cocos2d::Director::getInstance()->getOpenGLView()->getFrameSize();
     lua_pushnumber(L, size.width);

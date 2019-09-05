@@ -154,7 +154,6 @@ function UILayer:_internalRemoveChild(index, silence)
     local child = self.children:removeAt(index)
     self._rawChildren[child.cobj] = nil
     self.cobj:removeChild(child.cobj)
-    child.cobj:removeFromParent()
     child._parent = false
     if child.stage and not silence then
         child:_setStage(false)

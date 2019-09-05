@@ -34,6 +34,9 @@
     
     6. update spine-c to spine-cpp
 
-    7. ccMacros.h
+    7. ccMacros.h (always throw lua error)
             * CCASSERT
+
+    8. UIEditBoxImpl-mac.mm (fix native input control position error)
+            * updateNativeFrame
 ```

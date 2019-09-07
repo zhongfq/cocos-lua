@@ -2,5 +2,6 @@ build/xcode
 wwwroot/current/*.manifest
 assets/res/font
 .vs/
+runtime/
 Debug/
 Debug.win32/

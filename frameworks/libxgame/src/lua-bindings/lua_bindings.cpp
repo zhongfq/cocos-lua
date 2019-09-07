@@ -10,6 +10,9 @@
 #include "lua_iap.h"
 #include "lua_recorder.h"
 #include "lua_keychain.h"
+#include "luasocket/luasocket.h"
+#include "luasocket/luasocket_scripts.h"
+#include "luasocket/mime.h"
 #include "xgame/xruntime.h"
 #include "xgame/xlua.h"
 #include "cjson/lua_cjson.h"
@@ -28,6 +31,20 @@ int luaopen_bindings(lua_State *L)
     xlua_call(L, luaopen_cocos2d_ui);
     xlua_call(L, luaopen_xgame);
     xlua_call(L, luaopen_xml_http_request);
+    
+    // luasocket
+    olua_require(L, "socket.core", luaopen_socket_core);
+    olua_require(L, "mime.core", luaopen_mime_core);
+    olua_require(L, "ltn12", luaopen_lua_m_ltn12);
+    olua_require(L, "mime", luaopen_lua_m_mime);
+    olua_require(L, "socket.ftp", luaopen_lua_m_socket_ftp);
+    olua_require(L, "socket.headers", luaopen_lua_m_socket_headers);
+    olua_require(L, "socket.http", luaopen_lua_m_socket_http);
+    olua_require(L, "socket.mbox", luaopen_lua_m_socket_mbox);
+    olua_require(L, "socket.smtp", luaopen_lua_m_socket_smtp);
+    olua_require(L, "socket.tp", luaopen_lua_m_socket_tp);
+    olua_require(L, "socket.url", luaopen_lua_m_socket_url);
+    olua_require(L, "socket", luaopen_lua_m_socket);
     
     olua_require(L, "olua", luaopen_olua);
     olua_require(L, "sproto.core", luaopen_sproto_core);

@@ -24,6 +24,7 @@ public:
     static const std::string getSDCardDirectory();
     static const std::string getDirectory(const std::string &type);
 
+    static void addSearchPath(const std::string &path, bool front = false);
     static const std::string shortPath(const std::string &path, size_t limit = 60); // for log
     static const std::string fullPath(const std::string &path);
     static bool createDirectory(const std::string &path, bool isFilePath = false);

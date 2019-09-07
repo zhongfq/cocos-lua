@@ -65,6 +65,13 @@ const std::string filesystem::getWritablePath()
     }
 }
 
+void filesystem::addSearchPath(const std::string &path, bool front)
+{
+    if (path.size() > 0) {
+        FileUtils::getInstance()->addSearchPath(path, front);
+    }
+}
+
 const std::string filesystem::shortPath(const std::string &path, size_t limit)
 {
     size_t len = path.size();

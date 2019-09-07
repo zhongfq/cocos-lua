@@ -56,7 +56,7 @@ typeconf 'xgame::PermissionStatus'
 
 local runtime = typeconf 'xgame::runtime'
 runtime.EXCLUDE 'dispatchEvent'
-runtime.EXCLUDE 'dispatchEventImmediately'
+runtime.EXCLUDE 'parseLaunchArgs'
 runtime.EXCLUDE 'getNativeStackTrace'
 runtime.EXCLUDE 'getTimestamp'
 runtime.EXCLUDE 'handleOpenURL'

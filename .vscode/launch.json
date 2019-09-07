@@ -1,0 +1,26 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "cocos-lua",
+            "type": "lua",
+            "request": "launch",
+            "runtimeType": "Cocos2",
+            "localRoot": "${workspaceFolder}/assets/src",
+            "commandLine": "-workdir ${workspaceFolder}/assets",
+            "port": 7003,
+            "exePath": "${workspaceFolder}/runtime/mac/cocos-lua-desktop.app/Contents/MacOS/cocos-lua-desktop",
+            "fileExtNames": [
+                ".lua",
+                ".txt",
+                ".lua.txt",
+                ".bytes"
+            ],
+            "isFoxGloryProject": false,
+            "printType": 1
+        }
+    ]
+}

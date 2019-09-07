@@ -174,6 +174,7 @@ cls.funcs [[
     static const std::string getDocumentDirectory()
     static const std::string getTmpDirectory()
     static const std::string getSDCardDirectory()
+    static void addSearchPath(const std::string &path, bool front = false)
     static const std::string shortPath(const std::string &path, size_t limit = 60)
     static const std::string fullPath(const std::string &path)
     static bool createDirectory(const std::string &path, bool isFilePath = false)

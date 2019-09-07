@@ -732,6 +732,26 @@ static int luaopen_xgame_runtime(lua_State *L)
     return 1;
 }
 
+static int _xgame_filesystem_addSearchPath(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    std::string arg1;       /** path */
+    bool arg2 = false;       /** front */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_opt_bool(L, 2, &arg2, (bool)false);
+
+    // static void addSearchPath(const std::string &path, bool front = false)
+    xgame::filesystem::addSearchPath(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _xgame_filesystem_copy(lua_State *L)
 {
     olua_startinvoke(L);
@@ -1045,6 +1065,7 @@ static int _xgame_filesystem_write(lua_State *L)
 static int luaopen_xgame_filesystem(lua_State *L)
 {
     oluacls_class(L, "kernel.filesystem", nullptr);
+    oluacls_func(L, "addSearchPath", _xgame_filesystem_addSearchPath);
     oluacls_func(L, "copy", _xgame_filesystem_copy);
     oluacls_func(L, "createDirectory", _xgame_filesystem_createDirectory);
     oluacls_func(L, "exist", _xgame_filesystem_exist);

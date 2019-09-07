@@ -37,13 +37,27 @@ static FILE *_logFile = NULL;
 static std::mutex _logMutex;
 static std::string _logPath;
 static std::string _logCache;
+static std::string _workdir;
 
 static bool _reportError = true;
+
+void runtime::parseLaunchArgs(int argc, char *argv[])
+{
+    for (int i = 0; i < argc; i++) {
+        runtime::log("launch args: %s", argv[i]);
+    }
+    for (int i = 0; i < argc; i++) {
+        if (strequal(argv[i], "-workdir") && i < argc - 1) {
+            _workdir = argv[++i];
+        }
+    }
+}
 
 void runtime::init()
 {
     FileFinder::setDelegate(new FileFinder());
-    FileUtils::getInstance()->addSearchPath(filesystem::getDocumentDirectory() + "/assets", true);
+    filesystem::addSearchPath(filesystem::getDocumentDirectory() + "/assets", true);
+    filesystem::addSearchPath(_workdir, true);
     Director::getInstance()->setAnimationInterval(1.0f / 60);
     Director::getInstance()->setDisplayStats(runtime::isDebug());
     

@@ -24,6 +24,9 @@ enum class Permission {
 class runtime
 {
 public:
+    // parse launch args(for lua debug)
+    static void parseLaunchArgs(int argc, char *argv[]);
+    
     // lua vm & init
     static void init();
     static void clearStorage();

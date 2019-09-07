@@ -1,3 +1,7 @@
+if DEBUG then
+    require "xgame.debug"
+end
+
 require "init"
 require "xgame.xGame"
 

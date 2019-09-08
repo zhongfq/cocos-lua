@@ -3,10 +3,10 @@ local util          = require "xgame.util"
 local timer         = require "xgame.timer"
 local UIScene       = require "xgame.ui.UIScene"
 local Scene         = require "cc.Scene"
-local UIPackage     = require "fui.UIPackage"
-local GRoot         = require "fui.GRoot"
-local Window        = require "fui.Window"
-local GTween        = require "fui.GTween"
+local UIPackage     = require "fgui.UIPackage"
+local GRoot         = require "fgui.GRoot"
+local Window        = require "fgui.Window"
+local GTween        = require "fgui.GTween"
 
 local FGUITest = class("GUITest", UIScene)
 

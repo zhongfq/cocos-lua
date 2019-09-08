@@ -24,416 +24,416 @@ typedef {
     CPPCLS = 'fairygui::AutoSizeType',
     DECLTYPE = 'lua_Unsigned',
     CONV = 'olua_$$_uint',
-    LUACLS = 'fui.AutoSizeType',
+    LUACLS = 'fgui.AutoSizeType',
 }
 
 typedef {
     CPPCLS = 'fairygui::ButtonMode',
     DECLTYPE = 'lua_Unsigned',
     CONV = 'olua_$$_uint',
-    LUACLS = 'fui.ButtonMode',
+    LUACLS = 'fgui.ButtonMode',
 }
 
 typedef {
     CPPCLS = 'fairygui::ChildrenRenderOrder',
     DECLTYPE = 'lua_Unsigned',
     CONV = 'olua_$$_uint',
-    LUACLS = 'fui.ChildrenRenderOrder',
+    LUACLS = 'fgui.ChildrenRenderOrder',
 }
 
 typedef {
     CPPCLS = 'fairygui::EaseType',
     DECLTYPE = 'lua_Unsigned',
     CONV = 'olua_$$_uint',
-    LUACLS = 'fui.EaseType',
+    LUACLS = 'fgui.EaseType',
 }
 
 typedef {
     CPPCLS = 'fairygui::FillMethod',
     DECLTYPE = 'lua_Unsigned',
     CONV = 'olua_$$_uint',
-    LUACLS = 'fui.FillMethod',
+    LUACLS = 'fgui.FillMethod',
 }
 
 typedef {
     CPPCLS = 'fairygui::FillOrigin',
     DECLTYPE = 'lua_Unsigned',
     CONV = 'olua_$$_uint',
-    LUACLS = 'fui.FillOrigin',
+    LUACLS = 'fgui.FillOrigin',
 }
 
 typedef {
     CPPCLS = 'fairygui::FlipType',
     DECLTYPE = 'lua_Unsigned',
     CONV = 'olua_$$_uint',
-    LUACLS = 'fui.FlipType',
+    LUACLS = 'fgui.FlipType',
 }
 
 typedef {
     CPPCLS = 'fairygui::GroupLayoutType',
     DECLTYPE = 'lua_Unsigned',
     CONV = 'olua_$$_uint',
-    LUACLS = 'fui.GroupLayoutType',
+    LUACLS = 'fgui.GroupLayoutType',
 }
 
 typedef {
     CPPCLS = 'fairygui::ListLayoutType',
     DECLTYPE = 'lua_Unsigned',
     CONV = 'olua_$$_uint',
-    LUACLS = 'fui.ListLayoutType',
+    LUACLS = 'fgui.ListLayoutType',
 }
 
 typedef {
     CPPCLS = 'fairygui::ListSelectionMode',
     DECLTYPE = 'lua_Unsigned',
     CONV = 'olua_$$_uint',
-    LUACLS = 'fui.ListSelectionMode',
+    LUACLS = 'fgui.ListSelectionMode',
 }
 
 typedef {
     CPPCLS = 'fairygui::LoaderFillType',
     DECLTYPE = 'lua_Unsigned',
     CONV = 'olua_$$_uint',
-    LUACLS = 'fui.LoaderFillType',
+    LUACLS = 'fgui.LoaderFillType',
 }
 
 typedef {
     CPPCLS = 'fairygui::ObjectType',
     DECLTYPE = 'lua_Unsigned',
     CONV = 'olua_$$_uint',
-    LUACLS = 'fui.ObjectType',
+    LUACLS = 'fgui.ObjectType',
 }
 
 typedef {
     CPPCLS = 'fairygui::OverflowType',
     DECLTYPE = 'lua_Unsigned',
     CONV = 'olua_$$_uint',
-    LUACLS = 'fui.OverflowType',
+    LUACLS = 'fgui.OverflowType',
 }
 
 typedef {
     CPPCLS = 'fairygui::PackageItemType',
     DECLTYPE = 'lua_Unsigned',
     CONV = 'olua_$$_uint',
-    LUACLS = 'fui.PackageItemType',
+    LUACLS = 'fgui.PackageItemType',
 }
 
 typedef {
     CPPCLS = 'fairygui::PopupDirection',
     DECLTYPE = 'lua_Unsigned',
     CONV = 'olua_$$_uint',
-    LUACLS = 'fui.PopupDirection',
+    LUACLS = 'fgui.PopupDirection',
 }
 
 typedef {
     CPPCLS = 'fairygui::ProgressTitleType',
     DECLTYPE = 'lua_Unsigned',
     CONV = 'olua_$$_uint',
-    LUACLS = 'fui.ProgressTitleType',
+    LUACLS = 'fgui.ProgressTitleType',
 }
 
 typedef {
     CPPCLS = 'fairygui::RelationType',
     DECLTYPE = 'lua_Unsigned',
     CONV = 'olua_$$_uint',
-    LUACLS = 'fui.RelationType',
+    LUACLS = 'fgui.RelationType',
 }
 
 typedef {
     CPPCLS = 'fairygui::ScrollBarDisplayType',
     DECLTYPE = 'lua_Unsigned',
     CONV = 'olua_$$_uint',
-    LUACLS = 'fui.ScrollBarDisplayType',
+    LUACLS = 'fgui.ScrollBarDisplayType',
 }
 
 typedef {
     CPPCLS = 'fairygui::ScrollType',
     DECLTYPE = 'lua_Unsigned',
     CONV = 'olua_$$_uint',
-    LUACLS = 'fui.ScrollType',
+    LUACLS = 'fgui.ScrollType',
 }
 
 typedef {
     CPPCLS = 'fairygui::TransitionActionType',
     DECLTYPE = 'lua_Unsigned',
     CONV = 'olua_$$_uint',
-    LUACLS = 'fui.TransitionActionType',
+    LUACLS = 'fgui.TransitionActionType',
 }
 
 typedef {
     CPPCLS = 'fairygui::TweenPropType',
     DECLTYPE = 'lua_Unsigned',
     CONV = 'olua_$$_uint',
-    LUACLS = 'fui.TweenPropType',
+    LUACLS = 'fgui.TweenPropType',
 }
 
 typedef {
     CPPCLS = 'fairygui::DragDropManager *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.DragDropManager',
+    LUACLS = 'fgui.DragDropManager',
 }
 
 typedef {
     CPPCLS = 'fairygui::EaseManager *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.EaseManager',
+    LUACLS = 'fgui.EaseManager',
 }
 
 typedef {
     CPPCLS = 'fairygui::EventContext *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.EventContext',
+    LUACLS = 'fgui.EventContext',
 }
 
 typedef {
     CPPCLS = 'fairygui::GButton *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.GButton',
+    LUACLS = 'fgui.GButton',
 }
 
 typedef {
     CPPCLS = 'fairygui::GComboBox *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.GComboBox',
+    LUACLS = 'fgui.GComboBox',
 }
 
 typedef {
     CPPCLS = 'fairygui::GComponent *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.GComponent',
+    LUACLS = 'fgui.GComponent',
 }
 
 typedef {
     CPPCLS = 'fairygui::GController *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.GController',
+    LUACLS = 'fgui.GController',
 }
 
 typedef {
     CPPCLS = 'fairygui::GGraph *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.GGraph',
+    LUACLS = 'fgui.GGraph',
 }
 
 typedef {
     CPPCLS = 'fairygui::GGroup *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.GGroup',
+    LUACLS = 'fgui.GGroup',
 }
 
 typedef {
     CPPCLS = 'fairygui::GImage *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.GImage',
+    LUACLS = 'fgui.GImage',
 }
 
 typedef {
     CPPCLS = 'fairygui::GLabel *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.GLabel',
+    LUACLS = 'fgui.GLabel',
 }
 
 typedef {
     CPPCLS = 'fairygui::GList *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.GList',
+    LUACLS = 'fgui.GList',
 }
 
 typedef {
     CPPCLS = 'fairygui::GLoader *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.GLoader',
+    LUACLS = 'fgui.GLoader',
 }
 
 typedef {
     CPPCLS = 'fairygui::GMovieClip *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.GMovieClip',
+    LUACLS = 'fgui.GMovieClip',
 }
 
 typedef {
     CPPCLS = 'fairygui::GObject *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.GObject',
+    LUACLS = 'fgui.GObject',
 }
 
 typedef {
     CPPCLS = 'fairygui::GProgressBar *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.GProgressBar',
+    LUACLS = 'fgui.GProgressBar',
 }
 
 typedef {
     CPPCLS = 'fairygui::GRichTextField *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.GRichTextField',
+    LUACLS = 'fgui.GRichTextField',
 }
 
 typedef {
     CPPCLS = 'fairygui::GRoot *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.GRoot',
+    LUACLS = 'fgui.GRoot',
 }
 
 typedef {
     CPPCLS = 'fairygui::GScrollBar *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.GScrollBar',
+    LUACLS = 'fgui.GScrollBar',
 }
 
 typedef {
     CPPCLS = 'fairygui::GSlider *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.GSlider',
+    LUACLS = 'fgui.GSlider',
 }
 
 typedef {
     CPPCLS = 'fairygui::GTextField *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.GTextField',
+    LUACLS = 'fgui.GTextField',
 }
 
 typedef {
     CPPCLS = 'fairygui::GTextInput *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.GTextInput',
+    LUACLS = 'fgui.GTextInput',
 }
 
 typedef {
     CPPCLS = 'fairygui::GTween *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.GTween',
+    LUACLS = 'fgui.GTween',
 }
 
 typedef {
     CPPCLS = 'fairygui::GTweener *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.GTweener',
+    LUACLS = 'fgui.GTweener',
 }
 
 typedef {
     CPPCLS = 'fairygui::GearBase *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.GearBase',
+    LUACLS = 'fgui.GearBase',
 }
 
 typedef {
     CPPCLS = 'fairygui::IHitTest *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.IHitTest',
+    LUACLS = 'fgui.IHitTest',
 }
 
 typedef {
     CPPCLS = 'fairygui::IUISource *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.IUISource',
+    LUACLS = 'fgui.IUISource',
 }
 
 typedef {
     CPPCLS = 'fairygui::InputEvent *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.InputEvent',
+    LUACLS = 'fgui.InputEvent',
 }
 
 typedef {
     CPPCLS = 'fairygui::InputProcessor *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.InputProcessor',
+    LUACLS = 'fgui.InputProcessor',
 }
 
 typedef {
     CPPCLS = 'fairygui::PackageItem *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.PackageItem',
+    LUACLS = 'fgui.PackageItem',
 }
 
 typedef {
     CPPCLS = 'fairygui::PopupMenu *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.PopupMenu',
+    LUACLS = 'fgui.PopupMenu',
 }
 
 typedef {
     CPPCLS = 'fairygui::RelationItem *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.RelationItem',
+    LUACLS = 'fgui.RelationItem',
 }
 
 typedef {
     CPPCLS = 'fairygui::Relations *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.Relations',
+    LUACLS = 'fgui.Relations',
 }
 
 typedef {
     CPPCLS = 'fairygui::ScrollPane *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.ScrollPane',
+    LUACLS = 'fgui.ScrollPane',
 }
 
 typedef {
     CPPCLS = 'fairygui::TextFormat *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.TextFormat',
+    LUACLS = 'fgui.TextFormat',
 }
 
 typedef {
     CPPCLS = 'fairygui::Transition *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.Transition',
+    LUACLS = 'fgui.Transition',
 }
 
 typedef {
     CPPCLS = 'fairygui::TreeNode *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.TreeNode',
+    LUACLS = 'fgui.TreeNode',
 }
 
 typedef {
     CPPCLS = 'fairygui::TreeView *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.TreeView',
+    LUACLS = 'fgui.TreeView',
 }
 
 typedef {
     CPPCLS = 'fairygui::UIConfig *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.UIConfig',
+    LUACLS = 'fgui.UIConfig',
 }
 
 typedef {
     CPPCLS = 'fairygui::UIEventDispatcher *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.UIEventDispatcher',
+    LUACLS = 'fgui.UIEventDispatcher',
 }
 
 typedef {
     CPPCLS = 'fairygui::UIEventType *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.UIEventType',
+    LUACLS = 'fgui.UIEventType',
 }
 
 typedef {
     CPPCLS = 'fairygui::UIObjectFactory *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.UIObjectFactory',
+    LUACLS = 'fgui.UIObjectFactory',
 }
 
 typedef {
     CPPCLS = 'fairygui::UIPackage *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.UIPackage',
+    LUACLS = 'fgui.UIPackage',
 }
 
 typedef {
     CPPCLS = 'fairygui::UISource *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.UISource',
+    LUACLS = 'fgui.UISource',
 }
 
 typedef {
     CPPCLS = 'fairygui::Window *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'fui.Window',
+    LUACLS = 'fgui.Window',
 }
 

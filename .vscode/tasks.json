@@ -4,6 +4,15 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "run-mac-app",
+            "type": "shell",
+            "options": {
+                "cwd": "assets"
+            },
+            "args": ["-workdir", "${workspaceFolder}/assets"],
+            "command": "${workspaceFolder}/runtime/mac/cocos-lua-desktop.app/Contents/MacOS/cocos-lua-desktop",
+        },
+        {
             "label": "build-builtin-manifest",
             "type": "shell",
             "options": {

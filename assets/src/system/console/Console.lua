@@ -2,6 +2,7 @@ local class         = require "xgame.class"
 local Event         = require "xgame.event.Event"
 local MixFGUI       = require "xgame.ui.MixFGUI"
 local ui            = require "xgame.ui.ui"
+local runtime       = require "xgame.runtime"
 local UIPackage     = require "fgui.UIPackage"
 local UIEventType   = require "fgui.UIEventType"
 local FileBrowser   = require "system.console.FileBrowser"
@@ -31,6 +32,7 @@ function Console:onCreate()
         if curr then
             curr:start()
         end
+        runtime.gc()
     end)
 
     local logcat = LogCat.new(self)

@@ -8901,9 +8901,14 @@ static int _fairygui_GComponent_resolve(lua_State *L)
             type = pos ? '~' : type;
         }
         if (pos) {
-            auto child = self->getChild(std::string(name, pos - name));
-            self = child ? child->as<fairygui::GComponent>() : nullptr;
-            if (!self) {
+            lua_pushcfunction(L, _fairygui_GComponent_getChild);
+            olua_push_cppobj<fairygui::GComponent>(L, self);
+            lua_pushlstring(L, name, pos - name);
+            lua_call(L, 2, 1);
+
+            if (olua_isa(L, -1, "fgui.GComponent")) {
+                self = olua_toobj<fairygui::GComponent>(L, -1);
+            } else {
                 olua_endinvoke(L);
 
                 return 0;
@@ -8911,12 +8916,16 @@ static int _fairygui_GComponent_resolve(lua_State *L)
             name = pos + 1;
         } else {
             if (type == '#') {
-                olua_push_cppobj<fairygui::GController>(L, self->getController(name));
+                lua_pushcfunction(L, _fairygui_GComponent_getController);
             } else if (type == '~') {
-                olua_push_cppobj<fairygui::Transition>(L, self->getTransition(name));
+                lua_pushcfunction(L, _fairygui_GComponent_getTransition);
             } else {
-                olua_push_cppobj<fairygui::GObject>(L, self->getChild(name));
+                lua_pushcfunction(L, _fairygui_GComponent_getChild);
             }
+
+            olua_push_cppobj<fairygui::GComponent>(L, self);
+            lua_pushstring(L, name);
+            lua_call(L, 2, 1);
 
             olua_endinvoke(L);
 

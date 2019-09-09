@@ -57,6 +57,8 @@ do -- replace project name
     replace('runtime-src/proj.ios_mac/cocos-lua.xcodeproj/xcshareddata/xcschemes/cocos-lua-desktop.xcscheme')
     replace('runtime-src/proj.ios_mac/cocos-lua.xcodeproj/xcshareddata/xcschemes/cocos-lua-mobile.xcscheme')
     replace('runtime-src/proj.win32/cocos-lua.sln')
+    replace('.vscode/launch.json')
+    replace('.vscode/tasks.json')
 end
 
 do -- replace package name

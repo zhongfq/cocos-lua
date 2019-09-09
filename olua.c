@@ -62,23 +62,36 @@ static int l_vmstatus_gc(lua_State *L)
     return 0;
 }
 
-LUALIB_API lua_State *olua_newstate(olua_vmstatus_t *mt)
+static olua_vmstatus_t *init_vmstatus(lua_State *L, olua_vmstatus_t *vms)
 {
-    lua_State *L = luaL_newstate();
-    mt = mt != NULL ? mt : ((olua_vmstatus_t *)malloc(sizeof(*mt)));
-    mt->objcount = 0;
-    mt->sizepool = 0;
-    mt->usingpool = false;
-    *(olua_vmstatus_t **)lua_getextraspace(L) = mt;
-    
-    olua_newuserdata(L, mt, olua_vmstatus_t *);     // L: md
+    vms = vms != NULL ? vms : ((olua_vmstatus_t *)malloc(sizeof(*vms)));
+    vms->objcount = 0;
+    vms->sizepool = 0;
+    vms->usingpool = false;
+    *(olua_vmstatus_t **)lua_getextraspace(L) = vms;
+    olua_newuserdata(L, vms, olua_vmstatus_t *);    // L: md
     lua_createtable(L, 0, 1);                       // L: md  mt
     lua_pushcfunction(L, l_vmstatus_gc);            // L: md  mt  gcfunc
     olua_rawsetf(L, -2, "__gc");                    // L: md  mt         mt.__gc = gcfunc
     lua_setmetatable(L, -2);                        // L: md             md.metatable = mt
-    olua_rawsetp(L, LUA_REGISTRYINDEX, (void *)mt); // L:
-    
+    olua_rawsetp(L, LUA_REGISTRYINDEX, (void *)vms);// L:
+    return vms;
+}
+
+LUALIB_API lua_State *olua_newstate(olua_vmstatus_t *vms)
+{
+    lua_State *L = luaL_newstate();
+    init_vmstatus(L, vms);
     return L;
+}
+
+LUALIB_API olua_vmstatus_t *olua_vmstatus(lua_State *L)
+{
+    olua_vmstatus_t *vms = *(olua_vmstatus_t **)lua_getextraspace(L);
+    if (vms == NULL) {
+        vms = init_vmstatus(L, NULL);
+    }
+    return vms;
 }
 
 LUALIB_API lua_Integer olua_checkinteger(lua_State *L, int idx)

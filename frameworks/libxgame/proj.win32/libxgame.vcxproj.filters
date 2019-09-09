@@ -40,6 +40,9 @@
     <Filter Include="src\lame">
       <UniqueIdentifier>{5809b51f-30f0-42de-94d7-4f95ada7184e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\luasocket">
+      <UniqueIdentifier>{c6ab294b-9bf1-46dd-91c4-79fadc1f9a8e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\lua\src\lapi.c">
@@ -336,6 +339,48 @@
     <ClCompile Include="..\src\lua-bindings\lua_dragonbones.cpp">
       <Filter>src\lua-bindings</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\luasocket\auxiliar.c">
+      <Filter>src\luasocket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\luasocket\buffer.c">
+      <Filter>src\luasocket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\luasocket\except.c">
+      <Filter>src\luasocket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\luasocket\inet.c">
+      <Filter>src\luasocket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\luasocket\io.c">
+      <Filter>src\luasocket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\luasocket\luasocket.c">
+      <Filter>src\luasocket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\luasocket\luasocket_scripts.c">
+      <Filter>src\luasocket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\luasocket\mime.c">
+      <Filter>src\luasocket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\luasocket\options.c">
+      <Filter>src\luasocket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\luasocket\select.c">
+      <Filter>src\luasocket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\luasocket\tcp.c">
+      <Filter>src\luasocket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\luasocket\timeout.c">
+      <Filter>src\luasocket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\luasocket\udp.c">
+      <Filter>src\luasocket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\luasocket\wsocket.c">
+      <Filter>src\luasocket</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\lua\src\lapi.h">
@@ -631,6 +676,51 @@
     </ClInclude>
     <ClInclude Include="..\src\lua-bindings\lua_dragonbones.h">
       <Filter>src\lua-bindings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\luasocket\auxiliar.h">
+      <Filter>src\luasocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\luasocket\buffer.h">
+      <Filter>src\luasocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\luasocket\except.h">
+      <Filter>src\luasocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\luasocket\inet.h">
+      <Filter>src\luasocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\luasocket\io.h">
+      <Filter>src\luasocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\luasocket\luasocket.h">
+      <Filter>src\luasocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\luasocket\luasocket_scripts.h">
+      <Filter>src\luasocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\luasocket\mime.h">
+      <Filter>src\luasocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\luasocket\options.h">
+      <Filter>src\luasocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\luasocket\select.h">
+      <Filter>src\luasocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\luasocket\socket.h">
+      <Filter>src\luasocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\luasocket\tcp.h">
+      <Filter>src\luasocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\luasocket\timeout.h">
+      <Filter>src\luasocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\luasocket\udp.h">
+      <Filter>src\luasocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\luasocket\wsocket.h">
+      <Filter>src\luasocket</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

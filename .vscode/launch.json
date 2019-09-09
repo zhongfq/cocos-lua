@@ -5,6 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
+            "program": "${workspaceFolder}/runtime-src/proj.win32/Debug.win32/cocos-lua.exe"
+        },
+        {
             "name": "cocos-lua",
             "type": "lua",
             "request": "launch",
@@ -12,13 +18,18 @@
             "localRoot": "${workspaceFolder}/assets/src",
             "commandLine": "-workdir ${workspaceFolder}/assets",
             "port": 7003,
-            "exePath": "${workspaceFolder}/runtime/mac/cocos-lua-desktop.app/Contents/MacOS/cocos-lua-desktop",
             "fileExtNames": [
                 ".lua",
                 ".txt",
                 ".lua.txt",
                 ".bytes"
             ],
+            "windows": {
+                "exePath": "${workspaceFolder}/runtime-src/proj.win32/Debug.win32/cocos-lua.exe",
+            },
+            "osx": {
+                "exePath": "${workspaceFolder}/runtime/mac/cocos-lua-desktop.app/Contents/MacOS/cocos-lua-desktop",
+            },
             "isFoxGloryProject": false,
             "printType": 1
         }

@@ -25,8 +25,31 @@
 #include "main.h"
 #include "AppDelegate.h"
 #include "cocos2d.h"
+#include "xgame/xruntime.h"
+
+#include <shellapi.h>
 
 USING_NS_CC;
+
+static char *StringWideCharToUtf8(LPWSTR wstr)
+{
+	if (wstr) 
+	{
+		int nNum = WideCharToMultiByte(CP_UTF8, 0, wstr, -1, nullptr, 0, nullptr, FALSE);
+		if (nNum) {
+			char* utf8String = new char[nNum + 1];
+			utf8String[0] = 0;
+			nNum = WideCharToMultiByte(CP_UTF8, 0, wstr, -1, utf8String, nNum + 1, nullptr, FALSE);
+			return utf8String;
+		}
+		else 
+		{
+			CCLOG("Wrong convert to Utf8 code:0x%x", GetLastError());
+		}
+	}
+
+	return NULL;
+}
 
 int WINAPI _tWinMain(HINSTANCE hInstance,
                        HINSTANCE hPrevInstance,
@@ -38,5 +61,20 @@ int WINAPI _tWinMain(HINSTANCE hInstance,
 
     // create the application instance
     AppDelegate app;
+
+	// launch args
+	LPWSTR *wargv;
+	int argc;
+	wargv = CommandLineToArgvW(GetCommandLineW(), &argc);
+	char **argv = (char **)malloc(sizeof(char *) * argc);
+	for (int i = 0; i < argc; i++) {
+		argv[i] = StringWideCharToUtf8(wargv[i]);
+	}
+	xgame::runtime::parseLaunchArgs(argc, argv);
+	for (int i = 0; i < argc; i++) {
+		free(argv[i]);
+	}
+	free(argv);
+
     return Application::getInstance()->run();
 }

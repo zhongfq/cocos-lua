@@ -65,7 +65,7 @@ do -- replace package name
         bash.execute("cat ${path} | sed 's/org.cocos2dx.hellolua/${PACKAGE_NAME}/g' > ${path}.bak")
         bash.execute("mv ${path}.bak ${path}")
     end
-    replace('frameworks/libxgame/src/xgame/xruntime-private.cpp')
+    replace('runtime-src/proj.win32/main.cpp')
     replace('runtime-src/proj.android/app/AndroidManifest.xml')
     replace('runtime-src/proj.android/app/build.gradle')
     replace('runtime-src/proj.android/app/src/org/cocos2dx/hellolua/wxapi/WXEntryActivity.java')
@@ -103,5 +103,6 @@ do
     rename('runtime-src/proj.win32/cocos-lua.sln')
     rename('runtime-src/proj.win32/cocos-lua.vcxproj.filters')
     rename('runtime-src/proj.win32/cocos-lua.vcxproj')
+    rename('fgui/cocos-lua.fairy')
     rename('cocos-lua.code-workspace')
 end

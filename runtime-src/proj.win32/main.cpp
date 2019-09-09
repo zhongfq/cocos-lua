@@ -26,6 +26,7 @@
 #include "AppDelegate.h"
 #include "cocos2d.h"
 #include "xgame/xruntime.h"
+#include "xgame/xruntime-private.h"
 
 #include <shellapi.h>
 
@@ -58,6 +59,9 @@ int WINAPI _tWinMain(HINSTANCE hInstance,
 {
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
+
+	// set packageName
+	__runtime_setPackageName("org.cocos2dx.hellolua");
 
     // create the application instance
     AppDelegate app;

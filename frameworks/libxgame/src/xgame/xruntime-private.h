@@ -29,4 +29,8 @@ void __runtime_requestPermission(xgame::Permission permission, const std::functi
 void __runtime_pullAllFeatures();
 #endif
 
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+void __runtime_setPackageName(const std::string &packageName);
+#endif
+
 #endif

@@ -77,10 +77,18 @@ void __runtime_pullAllFeatures()
 }
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 
+static std::string _packageName;
+
 const std::string __runtime_getPackageName()
 {
-	return "org.cocos2dx.hellolua";
+	return _packageName;
 }
+
+void __runtime_setPackageName(const std::string &packageName)
+{
+	_packageName = packageName;
+}
+
 
 const std::string __runtime_getVersion()
 {

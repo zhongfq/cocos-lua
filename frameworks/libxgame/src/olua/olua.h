@@ -100,8 +100,8 @@ typedef struct {
 } olua_vmstatus_t;
 
 // must treat olua_vmstatus_t as first member
-LUALIB_API lua_State *olua_newstate(olua_vmstatus_t *mt);
-#define olua_vmstatus(L) (*(olua_vmstatus_t **)lua_getextraspace(L))
+LUALIB_API lua_State *olua_newstate(olua_vmstatus_t *vms);
+LUALIB_API olua_vmstatus_t *olua_vmstatus(lua_State *L);
     
 #define olua_addobjcount(L)  olua_changeobjcount(L, 1)
 #define olua_subobjcount(L)  olua_changeobjcount(L, -1)

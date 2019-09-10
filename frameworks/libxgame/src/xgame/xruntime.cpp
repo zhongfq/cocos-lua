@@ -579,6 +579,15 @@ void RuntimeContext::applicationWillEnterForeground()
 
 void RuntimeContext::applicationWillTerminate()
 {
+#if CC_TARGET_PLATFORM != CC_PLATFORM_MAC
+    auto director = Director::getInstance();
+    director->popToRootScene();
+    director->mainLoop();
+    if (director->getRunningScene()) {
+        director->getRunningScene()->removeAllChildren();
+    }
+#endif
+    _scheduler->unscheduleAll();
     lua_close(_luaVM);
     _luaVM = nullptr;
     
@@ -586,8 +595,8 @@ void RuntimeContext::applicationWillTerminate()
     AudioEngine::uncacheAll();
     AudioEngine::end();
 #if CC_TARGET_PLATFORM != CC_PLATFORM_MAC
-    Director::getInstance()->end();
-    Director::getInstance()->mainLoop();
+    director->end();
+    director->mainLoop();
 #endif
     PoolManager::destroyInstance();
     CC_SAFE_RELEASE(_scheduler);

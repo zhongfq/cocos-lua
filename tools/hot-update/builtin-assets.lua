@@ -49,10 +49,9 @@ return function (assetsPath)
         end
     end
 
-    addFolder('', '*.lua')
-
-    addFolder('res/dragonbones/mecha_1002_101d_show')
-    -- addClass(require('test.DragonBonesTest'))
+    -- addFolder('', '*.lua')
+    addFolder('res', '*')
+    addFolder('src', '*')
 
     return assets
 end

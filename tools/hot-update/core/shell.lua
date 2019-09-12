@@ -156,23 +156,31 @@ local function lookup(level, key)
     end
 end
 
-function M.bash(expr, ...)
-    if select('#', ...) > 0 then
-        expr = string.format(expr, ...)
-    end
+function M.format(expr, indent)
+    expr = string.gsub(expr, '[\n\r]', '\n')
+    expr = string.gsub(expr, '^[\n]*', '') -- trim head '\n'
+    expr = string.gsub(expr, '[ \n]*$', '') -- trim tail '\n' or ' '
+
+    local space = string.match(expr, '^[ ]*')
+    indent = string.rep(' ', indent or 0)
+    expr = string.gsub(expr, '^[ ]*', '')  -- trim head space
+    expr = string.gsub(expr, '\n' .. space, '\n' .. indent)
+    expr = indent .. expr
+    
     local function eval(expr)
-        return string.gsub(expr, "([ ]*)(${?[%w_]+}?)", function (indent, str)
+        return string.gsub(expr, "([ ]*)(${[%w_.]+})", function (indent, str)
             local key = string.match(str, "[%w_]+")
             local level = 1
-            local last_source
+            local filePath
+            -- search caller file path
             while true do
                 local info = debug.getinfo(level, 'S')
                 if info then
                     if info.source == "=[C]" then
                         level = level + 1
                     else
-                        last_source = last_source or info.source
-                        if last_source ~= info.source then
+                        filePath = filePath or info.source
+                        if filePath ~= info.source then
                             break
                         else
                             level = level + 1
@@ -182,18 +190,58 @@ function M.bash(expr, ...)
                     break
                 end
             end
+            -- search in the functin local value
             local value = lookup(level + 1, key) or _G[key]
+            for field in string.gmatch(string.match(str, "[%w_.]+"), '[^.]+') do
+                if not value then
+                    break
+                end
+                if field ~= key then
+                    value = value[field]
+                end
+            end
             if value == nil then
-                error("value not found for " .. key)
+                error("value not found for '" .. str .. "'")
             else
+                -- indent the value if value has multiline
+                if type(value) == 'table' and value.tostring then
+                    value = value:tostring()
+                end
+                value = string.gsub(value, '[\n]*$', '')
                 return indent .. string.gsub(tostring(value), '\n', '\n' .. indent)
             end
         end)
     end
+
+    expr = eval(expr)
+    while true do
+        local s, n = string.gsub(expr, '\n[ ]+\n', '\n\n')
+        expr = s
+        if n == 0 then
+            break
+        end
+    end
+
+    while true do
+        local s, n = string.gsub(expr, '\n\n\n', '\n\n')
+        expr = s
+        if n == 0 then
+            break
+        end
+    end
+
+    expr = string.gsub(expr, '{\n\n', '{\n')
+    expr = string.gsub(expr, '\n\n}', '\n}')
     
-    local cmd = eval(expr)
-    print("bash: " .. cmd)
-    os.execute(cmd)
+    return expr
+end
+
+function M.bash(expr)
+    expr = M.format(expr)
+    for cmd in string.gmatch(expr, '[^\n\r]+') do
+        print("bash: " .. cmd)
+    end
+    os.execute(expr)
 end
 
 return M

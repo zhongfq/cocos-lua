@@ -33,6 +33,7 @@ end
 
 -- read latest manifest
 local latestManifestPath
+local needBuildLink = not shell.exist(ARG_PUBLISH_PATH .. '/current')
 if ARG_NAME == 'BUILTIN' then
     latestManifestPath = setting[ARG_NAME].BUILD_PATH .. '/assets/builtin.manifest'
 else
@@ -41,7 +42,7 @@ end
 local latestManifest = shell.readJson(latestManifestPath, {assets = {}, version = '0.0.0'})
 
 -- calc current version
-ARG_VERSION = shell.nextversion(ARG_VERSION or latestManifest.version)
+ARG_VERSION = ARG_VERSION or shell.nextversion(latestManifest.version)
 
 -- create build conf
 local OUTPUT_PATH
@@ -54,6 +55,7 @@ local conf = {
     BUILD_PATH = setting[ARG_NAME].BUILD_PATH,
     COMPILE = setting[ARG_NAME].COMPILE,
     URL = setting[ARG_NAME].URL .. '/' ..  ARG_VERSION,
+    BUILD_LINK = setting[ARG_NAME].BUILD_LINK,
 }
 
 if not conf.BUILD_PATH or conf.COMPILE then
@@ -96,6 +98,20 @@ if hasUpdate then
         shell.bash 'mkdir -p ${OUTPUT_PATH}'
         shell.bash 'cp -rf ${BUILD_PATH}/* ${OUTPUT_PATH}'
     end
+
+    needBuildLink = needBuildLink or ARG_DEBUG
+end
+
+if conf.BUILD_LINK and needBuildLink then
+    shell.bash [[
+        cd ${ARG_PUBLISH_PATH}
+        ln -sfn ${ARG_VERSION} current
+        ln -sfn ${ARG_VERSION} current.ios
+        ln -sfn ${ARG_VERSION} current.android
+        ln -sfn current/version.manifest version
+        ln -sfn current.ios/version.manifest version.ios
+        ln -sfn current.android/version.manifest version.android
+    ]]
 end
 
 if conf.NAME == 'BUILTIN' then

@@ -18,8 +18,6 @@ local function writeManifest(conf, name, shard)
     writeline('{')
     writeline('  "package_url":"%s",', shard.package_url)
     writeline('  "manifest_url":"%s",', shard.manifest_url)
-    writeline('  "date":"%s",', os.date("!%Y-%m-%d %H:%M:%S", os.time() + 8 * 60 * 60))
-    writeline('  "version":"%s",', shard.version)
 
     local assets = {}
     for _, entry in ipairs(shard.assets) do
@@ -36,16 +34,22 @@ local function writeManifest(conf, name, shard)
         assets[#assets + 1] = string.format('    "%s":{%s}', entry.path, table.concat(t, ', '))
         latestManifest.assets[entry.path] = nil
     end
+
+    if hasUpdate or next(latestManifest.assets) then
+        writeline('  "date":"%s",', os.date("!%Y-%m-%d %H:%M:%S", os.time() + 8 * 60 * 60))
+        writeline('  "version":"%s",', shard.version)
+    else
+        writeline('  "date":"%s",', latestManifest.date)
+        writeline('  "version":"%s",', latestManifest.version)
+        print("update-to-date: " .. manifestPath)
+    end
+
     writeline('  "assets": {')
     writeline(table.concat(assets, ',\n'))
     writeline('  }')
     writeline('}')
 
-    if hasUpdate or next(latestManifest.assets) then
-        shell.write(manifestPath, table.concat(data, ''))
-    else
-        print("update-to-date: " .. manifestPath)
-    end
+    shell.write(manifestPath, table.concat(data, ''))
 end
 
 local function writeVersions(conf)

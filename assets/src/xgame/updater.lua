@@ -35,6 +35,7 @@ M.LOCAL_MANIFEST_PATH = LOCAL_MANIFEST_PATH
 
 function M:ctor(url)
     self.filter = function () return true end
+    self._shouldRestart = false
     self._url = url
     self._attemptTimes = 0
     self._manifests = {}
@@ -54,6 +55,7 @@ end
 
 function M:_removeFileIfExist(path)
     if filesystem.exist(path) then
+        self._shouldRestart = true
         filesystem.remove(path)
     end
 end
@@ -148,7 +150,7 @@ function M:_downloadAssets(localManifest, assets)
                 if not next(assets) then
                     localManifest:flush()
                     self:_saveRemoteManifestVersion()
-                    self:_didComplete(true)
+                    self:_didComplete(self._shouldRestart)
                 end
             else
                 self:_didError('asset', asset)
@@ -232,11 +234,12 @@ function M:_verifyAssets()
     end
 
     if next(assets) then
+        self._shouldRestart = true
         self:_downloadAssets(localManifest, assets)
     else
         print("all assets is up-to-date")
         self:_saveRemoteManifestVersion()
-        self:_didComplete(false)
+        self:_didComplete(self._shouldRestart)
     end
 end
 

@@ -11048,7 +11048,6 @@
 					"-Wno-unreachable-code",
 					"-Wno-unused-function",
 					"-Wno-unused-variable",
-					"-Wno-argument-outside-range",
 				);
 			};
 			name = Debug;
@@ -11136,7 +11135,6 @@
 					"-Wno-unreachable-code",
 					"-Wno-unused-function",
 					"-Wno-unused-variable",
-					"-Wno-argument-outside-range",
 				);
 			};
 			name = Release;

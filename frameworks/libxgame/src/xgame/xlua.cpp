@@ -278,11 +278,7 @@ lua_State *xlua_new()
     lua_pushcfunction(L, _errorfunc);
     lua_setglobal(L, "__TRACEBACK__");
     
-#ifdef COCOS2D_DEBUG
-    lua_pushboolean(L, true);
-#else
-    lua_pushboolean(L, false);
-#endif
+    lua_pushboolean(L, runtime::isDebug());
     lua_setglobal(L, "DEBUG");
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
@@ -401,30 +397,26 @@ int xlua_ccobjgc(lua_State *L)
         auto obj = olua_touserdata(L, 1, cocos2d::Ref *);
         if (obj) {
 #ifdef COCOS2D_DEBUG
-            int top = lua_gettop(L);
-            const char *str = olua_objstring(L, 1);
-            xgame::runtime::log("lua gc: obj=%s obj_ref_count=%d total_obj_count=%d",
-                str, obj->getReferenceCount() - 1, olua_objcount(L) - 1);
-            
             if (obj->getReferenceCount() > 0xFFFF) {
                 int errfuc = olua_geterrorfunc(L);
                 lua_pushcfunction(L, report_gc_error);
-                lua_pushvalue(L, -3);
+                lua_pushvalue(L, 1);
                 lua_pcall(L, 1, 0, errfuc);
             }
-            
-            lua_settop(L, top);
 #endif
+            if (olua_vmstatus(L)->debug) {
+                int top = lua_gettop(L);
+                const char *str = olua_objstring(L, 1);
+                xgame::runtime::log("lua gc: obj=%s obj_ref_count=%d total_obj_count=%d",
+                                    str, obj->getReferenceCount() - 1, olua_objcount(L) - 1);
+                lua_settop(L, top);
+            }
+            
             obj->release();
             *(void **)lua_touserdata(L, 1) = nullptr;
             lua_pushnil(L);
             lua_setuservalue(L, 1);
             olua_subobjcount(L);
-        } else {
-#ifdef COCOS2D_DEBUG
-            const char *str = olua_objstring(L, 1);
-            xgame::runtime::log("previous call gc manually: %s", str);
-#endif
         }
     }
     return 0;

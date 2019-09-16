@@ -95,8 +95,9 @@ extern "C" {
 
 typedef struct {
     size_t objcount;
-    size_t sizepool;
-    bool usingpool;
+    size_t poolsize;
+    bool poolenabled;
+    bool debug;
 } olua_vmstatus_t;
 
 // must treat olua_vmstatus_t as first member

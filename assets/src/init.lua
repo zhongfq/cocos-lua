@@ -1,6 +1,9 @@
 local window        = require "kernel.window"
 local runtime       = require "kernel.runtime"
 local Director      = require "cc.Director"
+local olua          = require "olua"
+
+olua.debug(DEBUG)
 
 -- enable lua debug
 if DEBUG then

@@ -439,6 +439,8 @@ GTextField.FUNC('setTemplateVars', [[
 }]])
 GTextField.PROP('templateVars')
 
+typeconf 'fairygui::GBasicTextField'
+
 typeconf 'fairygui::GGraph'
 
 local GButton = typeconf 'fairygui::GButton'

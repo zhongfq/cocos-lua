@@ -186,6 +186,12 @@ typedef {
 }
 
 typedef {
+    CPPCLS = 'fairygui::GBasicTextField *',
+    CONV = 'olua_$$_cppobj',
+    LUACLS = 'fgui.GBasicTextField',
+}
+
+typedef {
     CPPCLS = 'fairygui::GButton *',
     CONV = 'olua_$$_cppobj',
     LUACLS = 'fgui.GButton',

@@ -1289,6 +1289,13 @@ cls.props [[
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'fairygui::GBasicTextField'
+cls.SUPERCLS = "fairygui::GTextField"
+cls.funcs [[
+    static fairygui::GBasicTextField * create()
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'fairygui::GGraph'
 cls.SUPERCLS = "fairygui::GObject"
 cls.funcs [[

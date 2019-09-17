@@ -11562,6 +11562,32 @@ static int luaopen_fairygui_GTextField(lua_State *L)
     return 1;
 }
 
+static int _fairygui_GBasicTextField_create(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // static fairygui::GBasicTextField * create()
+    fairygui::GBasicTextField *ret = (fairygui::GBasicTextField *)fairygui::GBasicTextField::create();
+    int num_ret = olua_push_cppobj(L, ret, "fgui.GBasicTextField");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int luaopen_fairygui_GBasicTextField(lua_State *L)
+{
+    oluacls_class(L, "fgui.GBasicTextField", "fgui.GTextField");
+    oluacls_func(L, "create", _fairygui_GBasicTextField_create);
+
+    olua_registerluatype<fairygui::GBasicTextField>(L, "fgui.GBasicTextField");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
 static int _fairygui_GGraph_create(lua_State *L)
 {
     olua_startinvoke(L);
@@ -21335,6 +21361,7 @@ int luaopen_fairygui(lua_State *L)
     olua_require(L, "fgui.GScrollBar", luaopen_fairygui_GScrollBar);
     olua_require(L, "fgui.GLoader", luaopen_fairygui_GLoader);
     olua_require(L, "fgui.GTextField", luaopen_fairygui_GTextField);
+    olua_require(L, "fgui.GBasicTextField", luaopen_fairygui_GBasicTextField);
     olua_require(L, "fgui.GGraph", luaopen_fairygui_GGraph);
     olua_require(L, "fgui.GButton", luaopen_fairygui_GButton);
     olua_require(L, "fgui.GImage", luaopen_fairygui_GImage);

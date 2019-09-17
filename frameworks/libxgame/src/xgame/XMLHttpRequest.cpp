@@ -85,14 +85,20 @@ void XMLHttpRequest::send(const char *data, size_t len)
         _httpRequest->setHeaders(headers);
     }
     
+    retain();
+    
     doSendRequest();
     
     if (_timeout > 0) {
         auto scheduler = cocos2d::Director::getInstance()->getScheduler();
-        retain();
         scheduler->schedule([this, scheduler](float dt) {
+            scheduler->unscheduleAllForTarget(this);
+            _httpRequest->setResponseCallback(nullptr);
             _aborted = true;
-            scheduler->unschedule("timeout", this);
+            _status = 408; // timeout
+            if (_callback) {
+                _callback(this);
+            }
             release();
         }, this, _timeout, false, "timeout");
     }
@@ -121,6 +127,9 @@ const std::string XMLHttpRequest::getResponseHeader(const std::string &name) con
 void XMLHttpRequest::doSendRequest()
 {
     _httpRequest->setResponseCallback([this](cocos2d::network::HttpClient* sender, cocos2d::network::HttpResponse* response) {
+        auto scheduler = cocos2d::Director::getInstance()->getScheduler();
+        scheduler->unscheduleAllForTarget(this);
+        
         if (_aborted) {
             if (_callback) {
                 _callback(this);
@@ -173,7 +182,6 @@ void XMLHttpRequest::doSendRequest()
         release();
     });
     network::HttpClient::getInstance()->sendImmediate(_httpRequest);
-    retain();
 }
 
 void XMLHttpRequest::parseResponseHeader(const std::string& header)

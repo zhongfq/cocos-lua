@@ -2396,8 +2396,7 @@ local function start()
     local fullName, dirName, fileName = debugger_getFilePathInfo(getinfo(1).source)
     LuaDebugger.DebugLuaFie = fileName
     local socket = createSocket()
-    print(controller_host)
-    print(controller_port)
+    print('lua debugger listen: ' .. controller_host .. ':' .. controller_port)
 
     local server = socket.connect(controller_host, controller_port)
     debug_server = server

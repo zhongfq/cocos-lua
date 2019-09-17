@@ -4,9 +4,9 @@ cocos-lua以cocos2d-x 3.17.2的c++项目为基础，采用基于lua gc来管理c
 
 ## 优势
 
-1. lua gc管理生命周期，更符合lua开发者，规避c++现有生命周期问题。避免到处使用tolua.isnull判断，以及不知名的crash。
+1. 基于lua gc管理c++对象生命周期，更符合lua开发者，规避使用tolua.isnull判断。
 2. 导出代码相对tolua更精炼、高效率以及更友善错误检测机制。
-3. lambda函数自动化的导出，tolua是手动导出，
+3. lambda函数自动化的导出，tolua是手动导出。
 4. 更优秀的第三方框架支持，如fairygui、spine、dragonbone之类的。
 5. 更加轻量和高效的lua绑定层。
 
@@ -23,11 +23,7 @@ runtime-src目录包括了mac、win和android平台的项目，具体使用方�
 
 cocos-lua在lua层提供热更的检测和下载，并提供按需下载的支持，具体实现参见assets/src/bootstrap.lua。生成热更新版本文件参见tools/hot-update/build-update.lua脚本，后续将提供更为详细的使用方法。
 
-## 支持的库
-
-cocos-lua目前导出的spine-c++、fairygui和dragonbones 90%以上的接口，由于cocos2dx目前不支持cocos creator的布局文件，所以推荐各位使用fairygui编辑器。
-
-## lua脚本
+## 启动流程
 
 cocos-lua启动后会在c++层执行assets/src/bootstrap.lua文件，也就是说，你可以完全不使用cocos-lua提供的lua脚本，更换为自己所熟悉的方案，比如quick-x。
 
@@ -159,12 +155,11 @@ static int _cocos2d_Director_popScene(lua_State *L)
 1. assets/src/swf目录下的lua代码不宜使用，因为swf c++解析渲染库目前暂时无法开源。
 2. assets/src/ui目录下的布局代码不建议使用，它的存在只是用来做兼容层（为swf添加触摸支持等），推荐使用fairygui进行布局。
 3. 如果你需要使用的一些类没有导出，可以提个需求，我尽快导出。
-4. 建议使用vscode打开项目。
+4. 建议使用vscode打开项目，可以使用luaide插件进行调试。
 
 ## 待完成
 
 + 导出工具自动检查指定类型的ref和unref情况
 + cocos2dx v4版本绑定支持
 + 导出工具的linux和win平台支持
-+ 解析加载cocos creator文件
 + 更完善的单元测试

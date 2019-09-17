@@ -6,6 +6,7 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <AVFoundation/AVFoundation.h>
 #import <Photos/Photos.h>
+#import <UIKit/UIKit.h>
 
 static UIImage *image_resize_to(UIImage *image, int width, int height)
 {

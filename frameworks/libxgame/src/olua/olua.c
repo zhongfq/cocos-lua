@@ -142,10 +142,12 @@ LUALIB_API size_t olua_changeobjcount(lua_State *L, int add)
 
 LUALIB_API void olua_preload(lua_State *L, const char *name, lua_CFunction func)
 {
-    olua_getsubtable(L, LUA_REGISTRYINDEX, LUA_PRELOAD_TABLE);  // L: preload
-    lua_pushcfunction(L, func);                                 // L: preload func
-    lua_setfield(L, -2, name);                                  // L: preload
-    lua_pop(L, 1);                                              // L:
+    int top = lua_gettop(L);
+    lua_getglobal(L, "package");
+    lua_getfield(L, -1, "preload");
+    func(L);
+    lua_setfield(L, -2, name);
+    lua_settop(L, top);
 }
 
 LUALIB_API int olua_geterrorfunc(lua_State *L)

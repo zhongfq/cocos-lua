@@ -7,18 +7,7 @@ olua.debug(DEBUG)
 
 -- enable lua debug
 if DEBUG then
-    local timer = require "xgame.timer"
-    local LuaDebug = require "xgame.LuaDebug"
-
-    local breakSocketHandle, debugXpcall = LuaDebug("localhost", 7003)
-    timer.schedule(0.3, breakSocketHandle)
-
-    -- TODO: fix call debugXpcall error
-    -- local _traceback = __TRACEBACK__
-    -- function __TRACEBACK__(...)
-    --     debugXpcall()
-    --     _traceback(...)
-    -- end
+    require("LuaPanda").start("127.0.0.1", 8818)
 end
 
 -- print runtime info

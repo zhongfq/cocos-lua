@@ -5,27 +5,19 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "cocos-lua",
             "type": "lua",
             "request": "launch",
-            "runtimeType": "Cocos2",
-            "localRoot": "${workspaceFolder}/assets/src",
-            "commandLine": "-workdir ${workspaceFolder}/assets",
-            "port": 7003,
-            "fileExtNames": [
-                ".lua",
-                ".txt",
-                ".lua.txt",
-                ".bytes"
-            ],
-            "windows": {
-                "exePath": "${workspaceFolder}/runtime-src/proj.win32/Debug.win32/cocos-lua.exe",
-            },
-            "osx": {
-                "exePath": "${workspaceFolder}/runtime/mac/cocos-lua-desktop.app/Contents/MacOS/cocos-lua-desktop",
-            },
-            "isFoxGloryProject": false,
-            "printType": 1
+            "internalConsoleOptions": "neverOpen",
+            "name": "LuaPanda-DebugFile",//单文件调试，请不要修改
+            "program": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}/assets",
+            "pathCaseSensitivity": true,
+            "luaPath": "${workspaceFolder}/runtime/mac/cocos-lua-desktop.app/Contents/MacOS/cocos-lua-desktop -workdir ${workspaceFolder}/assets",
+            "postDebugTask": "kill-app",
+            "connectionPort": 8818,
+            "stopOnEntry": false,
+            "useCHook": true,
+            "logLevel": 1
         }
     ]
 }

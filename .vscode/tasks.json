@@ -18,6 +18,11 @@
             }
         },
         {
+            "label": "kill-app",
+            "type": "shell",
+            "command":"killall cocos-lua-desktop",
+        },
+        {
             "label": "build-builtin-manifest",
             "type": "shell",
             "options": {

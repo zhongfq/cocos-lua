@@ -24,6 +24,9 @@
 #include "sproto/lsproto.h"
 #include "lpeg/lptree.h"
 
+#include "libpdebug.h"
+#include "lua_panda.h"
+
 int luaopen_bindings(lua_State *L)
 {
     xlua_call(L, luaopen_cocos2d);
@@ -32,19 +35,23 @@ int luaopen_bindings(lua_State *L)
     xlua_call(L, luaopen_xgame);
     xlua_call(L, luaopen_xml_http_request);
     
+    olua_require(L, "libpdebug", luaopen_libpdebug);
+    olua_preload(L, "DebugTools", luaopen_DebugTools);
+    olua_preload(L, "LuaPanda", luaopen_LuaPanda);
+    
     // luasocket
     olua_require(L, "socket.core", luaopen_socket_core);
     olua_require(L, "mime.core", luaopen_mime_core);
-    olua_require(L, "ltn12", luaopen_lua_m_ltn12);
-    olua_require(L, "mime", luaopen_lua_m_mime);
-    olua_require(L, "socket.ftp", luaopen_lua_m_socket_ftp);
-    olua_require(L, "socket.headers", luaopen_lua_m_socket_headers);
-    olua_require(L, "socket.http", luaopen_lua_m_socket_http);
-    olua_require(L, "socket.mbox", luaopen_lua_m_socket_mbox);
-    olua_require(L, "socket.smtp", luaopen_lua_m_socket_smtp);
-    olua_require(L, "socket.tp", luaopen_lua_m_socket_tp);
-    olua_require(L, "socket.url", luaopen_lua_m_socket_url);
-    olua_require(L, "socket", luaopen_lua_m_socket);
+    olua_preload(L, "ltn12", luaopen_lua_m_ltn12);
+    olua_preload(L, "mime", luaopen_lua_m_mime);
+    olua_preload(L, "socket.ftp", luaopen_lua_m_socket_ftp);
+    olua_preload(L, "socket.headers", luaopen_lua_m_socket_headers);
+    olua_preload(L, "socket.http", luaopen_lua_m_socket_http);
+    olua_preload(L, "socket.mbox", luaopen_lua_m_socket_mbox);
+    olua_preload(L, "socket.smtp", luaopen_lua_m_socket_smtp);
+    olua_preload(L, "socket.tp", luaopen_lua_m_socket_tp);
+    olua_preload(L, "socket.url", luaopen_lua_m_socket_url);
+    olua_preload(L, "socket", luaopen_lua_m_socket);
     
     olua_require(L, "olua", luaopen_olua);
     olua_require(L, "sproto.core", luaopen_sproto_core);

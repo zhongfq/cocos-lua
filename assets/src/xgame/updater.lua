@@ -293,6 +293,7 @@ function M:start()
     assert(self.onError, 'no error handler')
     assert(self.onComplete, 'no complete handler')
     assert(self.onUpdate, 'no update handler')
+    self._attemptTimes = 0
     self:_checkVersion()
 end
 

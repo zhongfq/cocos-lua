@@ -24,7 +24,7 @@ const std::string __runtime_getVersion()
     return value;
 }
 
-const std::string __runtime_getVersionBuild()
+const std::string __runtime_getBuild()
 {
     static std::string value;
     if (value.size() == 0) {
@@ -95,7 +95,7 @@ const std::string __runtime_getVersion()
 	return "1.0.0";
 }
 
-const std::string __runtime_getVersionBuild()
+const std::string __runtime_getBuild()
 {
 	return "100";
 }

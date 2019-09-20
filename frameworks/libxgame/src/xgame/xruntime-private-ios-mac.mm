@@ -28,7 +28,7 @@ const std::string __runtime_getVersion()
     return [[infoDictionary objectForKey:@"CFBundleShortVersionString"] UTF8String];
 }
 
-const std::string __runtime_getVersionBuild()
+const std::string __runtime_getBuild()
 {
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     return [[infoDictionary objectForKey:@"CFBundleVersion"] UTF8String];

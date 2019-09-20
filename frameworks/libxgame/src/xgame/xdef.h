@@ -30,6 +30,7 @@
 #define CONF_ANTIALIAS_SAMPLES  "conf.antialias.samples"
 #define CONF_VERSION_RUNTIME    "conf.version.runtime"
 #define CONF_VERSION_BUILD      "conf.version.build"
+#define CONF_VERSION_MANIFEST   "conf.version.manifest"
 
 #define JAVA_APPCONTEXT_CLASS   "kernel/AppContext"
 

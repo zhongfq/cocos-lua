@@ -83,13 +83,13 @@ void runtime::init()
     // clean cache if version changed
     std::string versionRuntime = preferences::getString(CONF_VERSION_RUNTIME);
     std::string versionBuild = preferences::getString(CONF_VERSION_BUILD);
-    if (versionBuild != runtime::getVersionBuild() ||
+    if (versionBuild != runtime::getBuild() ||
         versionRuntime != runtime::getVersion()) {
         runtime::clearStorage();
-        runtime::log("app update to version: %s(%s)", runtime::getVersion().c_str(), runtime::getVersionBuild().c_str());
+        runtime::log("app update to version: %s(%s)", runtime::getVersion().c_str(), runtime::getBuild().c_str());
     }
     preferences::setString(CONF_VERSION_RUNTIME, runtime::getVersion().c_str());
-    preferences::setString(CONF_VERSION_BUILD, runtime::getVersionBuild().c_str());
+    preferences::setString(CONF_VERSION_BUILD, runtime::getBuild().c_str());
     preferences::flush();
     
     timer::schedule(1, [](float dt){ updateTimestamp(); });
@@ -125,7 +125,7 @@ void runtime::clearStorage()
 {
     filesystem::remove(filesystem::getDocumentDirectory() + "/assets");
     filesystem::createDirectory(filesystem::getDocumentDirectory() + "/assets");
-    runtime::log("app clean version: %s(%s)", runtime::getVersion().c_str(), runtime::getVersionBuild().c_str());
+    runtime::log("app clean version: %s(%s)", runtime::getVersion().c_str(), runtime::getBuild().c_str());
     
     preferences::deleteKey(CONF_VERSION_RUNTIME);
     preferences::deleteKey(CONF_VERSION_BUILD);
@@ -242,9 +242,9 @@ const std::string runtime::getVersion()
     return __runtime_getVersion();
 }
 
-const std::string runtime::getVersionBuild()
+const std::string runtime::getBuild()
 {
-    return __runtime_getVersionBuild();
+    return __runtime_getBuild();
 }
 
 const std::string runtime::getChannel()
@@ -268,6 +268,16 @@ const std::string runtime::getDeviceInfo()
 const std::string runtime::getLanguage()
 {
     return __runtime_getLanguage();
+}
+
+const std::string runtime::getManifestVersion()
+{
+    return preferences::getString(CONF_VERSION_MANIFEST, "0.0.0");
+}
+
+void runtime::setManifestVersion(const std::string &version)
+{
+    preferences::setString(CONF_VERSION_MANIFEST, version.c_str());
 }
 
 void runtime::setAudioSessionCatalog(const std::string &catalog)

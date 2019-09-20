@@ -68,11 +68,13 @@ cls.funcs [[
     static void gc()
     static const std::string getPackageName()
     static const std::string getVersion()
-    static const std::string getVersionBuild()
+    static const std::string getBuild()
     static const std::string getChannel()
     static const std::string getOS()
     static const std::string getDeviceInfo()
     static const std::string getLanguage()
+    static const std::string getManifestVersion()
+    static void setManifestVersion(const std::string &version)
     static const PermissionStatus getPermissionStatus(Permission permission)
     static void setAudioSessionCatalog(const std::string &catalog)
     static const std::string getAudioSessionCatalog()
@@ -155,11 +157,12 @@ cls.props [[
     time
     packageName
     version
-    versionBuild
+    build
     channel
     os
     deviceInfo
     language
+    manifestVersion
     audioSessionCatalog
     logPath
     antialias

@@ -2,7 +2,6 @@ local class         = require "xgame.class"
 local downloader    = require "xgame.downloader"
 local http          = require "xgame.http"
 local filesystem    = require "xgame.filesystem"
-local preferences   = require "xgame.preferences"
 local Manifest      = require "xgame.loader.Manifest"
 local runtime       = require "xgame.runtime"
 local timer         = require "xgame.timer"
@@ -133,7 +132,7 @@ end
 
 function M:_saveRemoteManifestVersion()
     local m = self:_loadManifest(REMOTE_MANIFEST_PATH)
-    preferences.setString('version.manifest', m.version)
+    runtime.manifestVersion = m.version
 end
 
 function M:_downloadAssets(localManifest, assets)

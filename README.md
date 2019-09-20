@@ -155,7 +155,7 @@ static int _cocos2d_Director_popScene(lua_State *L)
 1. assets/src/swf目录下的lua代码不宜使用，因为swf c++解析渲染库目前暂时无法开源。
 2. assets/src/ui目录下的布局代码不建议使用，它的存在只是用来做兼容层（为swf添加触摸支持等），推荐使用fairygui进行布局。
 3. 如果你需要使用的一些类没有导出，可以提个需求，我尽快导出。
-4. 建议使用vscode打开项目，可以使用luaide插件进行调试。
+4. 建议使用vscode打开项目，可以使用LuaPanda插件进行调试。
 
 ## 待完成
 

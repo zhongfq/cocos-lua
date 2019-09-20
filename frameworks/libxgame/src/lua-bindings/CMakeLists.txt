@@ -10,7 +10,6 @@ set(LUA_BINDINGS_HEADER
     src/lua-bindings/lua_dragonbones.h
     src/lua-bindings/lua_fairygui.h
     src/lua-bindings/lua_javabridge.h
-    src/lua-bindings/lua_panda.h
     src/lua-bindings/lua_socket.h
     src/lua-bindings/lua_spine.h
     src/lua-bindings/lua_xgame.h
@@ -30,7 +29,6 @@ set(LUA_BINDINGS_SRC
     src/lua-bindings/lua_dragonbones.cpp
     src/lua-bindings/lua_fairygui.cpp
     src/lua-bindings/lua_javabridge.cpp
-    src/lua-bindings/lua_panda.cpp
     src/lua-bindings/lua_socket.cpp
     src/lua-bindings/lua_spine.cpp
     src/lua-bindings/lua_xgame.cpp

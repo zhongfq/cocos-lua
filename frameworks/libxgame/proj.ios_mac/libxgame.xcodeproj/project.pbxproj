@@ -138,8 +138,6 @@
 		0E4C8C7C225CAF490095CF59 /* rscode.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C8C3E225CAF490095CF59 /* rscode.c */; };
 		0E6A1CFF2333806E004E6461 /* libpdebug.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E6A1CFE2333806E004E6461 /* libpdebug.cpp */; };
 		0E6A1D002333806E004E6461 /* libpdebug.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E6A1CFE2333806E004E6461 /* libpdebug.cpp */; };
-		0E6A1D032333851C004E6461 /* lua_panda.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E6A1D012333851C004E6461 /* lua_panda.cpp */; };
-		0E6A1D042333851C004E6461 /* lua_panda.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E6A1D012333851C004E6461 /* lua_panda.cpp */; };
 		0E6C9796222ADD1300B2C17F /* olua.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E6C9795222ADD1300B2C17F /* olua.c */; };
 		0E6C9797222ADD1300B2C17F /* olua.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E6C9795222ADD1300B2C17F /* olua.c */; };
 		0E71F09B22B742BA004BEE5D /* lua_bugly.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E71F09022B742BA004BEE5D /* lua_bugly.cpp */; };
@@ -451,8 +449,6 @@
 		0E4C8C3E225CAF490095CF59 /* rscode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = rscode.c; sourceTree = "<group>"; };
 		0E6A1CFD2333806E004E6461 /* libpdebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libpdebug.h; sourceTree = "<group>"; };
 		0E6A1CFE2333806E004E6461 /* libpdebug.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = libpdebug.cpp; sourceTree = "<group>"; };
-		0E6A1D012333851C004E6461 /* lua_panda.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = lua_panda.cpp; sourceTree = "<group>"; };
-		0E6A1D022333851C004E6461 /* lua_panda.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lua_panda.h; sourceTree = "<group>"; };
 		0E6C9794222ADD1300B2C17F /* olua.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = olua.h; sourceTree = "<group>"; };
 		0E6C9795222ADD1300B2C17F /* olua.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = olua.c; sourceTree = "<group>"; };
 		0E6C979B222AF37300B2C17F /* olua.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = olua.hpp; sourceTree = "<group>"; };
@@ -785,8 +781,6 @@
 				0E4B935A226E9E8B00B22B9F /* lua_javabridge.h */,
 				0ED5D1972282B8420072F3DB /* lua_keychain.h */,
 				0ED5D1982282B8420072F3DB /* lua_keychain.mm */,
-				0E6A1D012333851C004E6461 /* lua_panda.cpp */,
-				0E6A1D022333851C004E6461 /* lua_panda.h */,
 				0ED5D19C2282B8420072F3DB /* lua_photo.h */,
 				0ED5D1942282B8410072F3DB /* lua_photo.mm */,
 				0ED5D1962282B8420072F3DB /* lua_recorder.h */,
@@ -1248,7 +1242,6 @@
 				0E2EC31622924EE900CA3701 /* lptree.c in Sources */,
 				0ECC4BAF21E79E3E00E3BBF9 /* lundump.c in Sources */,
 				0E24B40122706001000054C9 /* XMLHttpRequest.cpp in Sources */,
-				0E6A1D032333851C004E6461 /* lua_panda.cpp in Sources */,
 				0EB6C2992323DEBC000F4D81 /* except.c in Sources */,
 				0EB6C2912323DEBC000F4D81 /* inet.c in Sources */,
 				0ED036E622D57BCE004EE5FF /* lua_cocos2d_physics.cpp in Sources */,
@@ -1445,7 +1438,6 @@
 				0ECC4BE021E79E3E00E3BBF9 /* ltable.c in Sources */,
 				0ECC4BAE21E79E3E00E3BBF9 /* lstring.c in Sources */,
 				0E4C8C70225CAF490095CF59 /* lua_qrcode.cpp in Sources */,
-				0E6A1D042333851C004E6461 /* lua_panda.cpp in Sources */,
 				0E4C8C6A225CAF490095CF59 /* gain_analysis.c in Sources */,
 				0E2EC31122924EE900CA3701 /* lpprint.c in Sources */,
 				0ECC4BB621E79E3E00E3BBF9 /* lvm.c in Sources */,

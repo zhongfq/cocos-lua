@@ -25,7 +25,6 @@
 #include "lpeg/lptree.h"
 
 #include "libpdebug.h"
-#include "lua_panda.h"
 
 int luaopen_bindings(lua_State *L)
 {
@@ -35,9 +34,7 @@ int luaopen_bindings(lua_State *L)
     xlua_call(L, luaopen_xgame);
     xlua_call(L, luaopen_xml_http_request);
     
-    olua_require(L, "libpdebug", luaopen_libpdebug);
-    olua_preload(L, "DebugTools", luaopen_DebugTools);
-    olua_preload(L, "LuaPanda", luaopen_LuaPanda);
+    pdebug_init(L);
     
     // luasocket
     olua_require(L, "socket.core", luaopen_socket_core);

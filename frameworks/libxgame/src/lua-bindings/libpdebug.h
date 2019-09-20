@@ -1,6 +1,8 @@
 #ifndef LIBPDEBUG_H
 #define LIBPDEBUG_H
 
+#define USE_SOURCE_CODE
+
 //1.使用源码编译，要打开宏USE_SOURCE_CODE.  win下要设置LUA_INTEGER和lua版本号
 #define LUA_DEBUGGER_NAME     "LuaPanda"    //debugger's name in LuaDebug.lua
 #define HOOK_LIB_VERSION      "2.2.0"       //lib version

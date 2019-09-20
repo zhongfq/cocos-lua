@@ -7,7 +7,10 @@ olua.debug(DEBUG)
 
 -- enable lua debug
 if DEBUG then
+    local path = package.path
+    package.path = "src/xgame/debugger/?.lua;" .. path
     require("LuaPanda").start("127.0.0.1", 8818)
+    package.path = path
 end
 
 -- print runtime info

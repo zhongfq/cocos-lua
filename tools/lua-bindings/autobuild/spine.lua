@@ -1034,6 +1034,8 @@ cls.funcs [[
     void setRegionV2(float inValue)
     bool getRegionRotate()
     void setRegionRotate(bool inValue)
+    int getRegionDegrees()
+    void setRegionDegrees(int inValue)
     float getRegionOffsetX()
     void setRegionOffsetX(float inValue)
     float getRegionOffsetY()
@@ -1067,6 +1069,7 @@ cls.props [[
     regionU2
     regionV2
     regionRotate
+    regionDegrees
     regionOffsetX
     regionOffsetY
     regionWidth

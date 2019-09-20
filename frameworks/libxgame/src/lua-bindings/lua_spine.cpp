@@ -7660,6 +7660,25 @@ static int _spine_MeshAttachment_getPath(lua_State *L)
     return num_ret;
 }
 
+static int _spine_MeshAttachment_getRegionDegrees(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    spine::MeshAttachment *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
+
+    // int getRegionDegrees()
+    int ret = (int)self->getRegionDegrees();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _spine_MeshAttachment_getRegionHeight(lua_State *L)
 {
     olua_startinvoke(L);
@@ -8062,6 +8081,26 @@ static int _spine_MeshAttachment_setPath(lua_State *L)
     return 0;
 }
 
+static int _spine_MeshAttachment_setRegionDegrees(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    spine::MeshAttachment *self = nullptr;
+    lua_Integer arg1 = 0;       /** inValue */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.MeshAttachment");
+    olua_check_int(L, 2, &arg1);
+
+    // void setRegionDegrees(int inValue)
+    self->setRegionDegrees((int)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _spine_MeshAttachment_setRegionHeight(lua_State *L)
 {
     olua_startinvoke(L);
@@ -8329,6 +8368,7 @@ static int luaopen_spine_MeshAttachment(lua_State *L)
     oluacls_func(L, "getHullLength", _spine_MeshAttachment_getHullLength);
     oluacls_func(L, "getParentMesh", _spine_MeshAttachment_getParentMesh);
     oluacls_func(L, "getPath", _spine_MeshAttachment_getPath);
+    oluacls_func(L, "getRegionDegrees", _spine_MeshAttachment_getRegionDegrees);
     oluacls_func(L, "getRegionHeight", _spine_MeshAttachment_getRegionHeight);
     oluacls_func(L, "getRegionOffsetX", _spine_MeshAttachment_getRegionOffsetX);
     oluacls_func(L, "getRegionOffsetY", _spine_MeshAttachment_getRegionOffsetY);
@@ -8349,6 +8389,7 @@ static int luaopen_spine_MeshAttachment(lua_State *L)
     oluacls_func(L, "setHullLength", _spine_MeshAttachment_setHullLength);
     oluacls_func(L, "setParentMesh", _spine_MeshAttachment_setParentMesh);
     oluacls_func(L, "setPath", _spine_MeshAttachment_setPath);
+    oluacls_func(L, "setRegionDegrees", _spine_MeshAttachment_setRegionDegrees);
     oluacls_func(L, "setRegionHeight", _spine_MeshAttachment_setRegionHeight);
     oluacls_func(L, "setRegionOffsetX", _spine_MeshAttachment_setRegionOffsetX);
     oluacls_func(L, "setRegionOffsetY", _spine_MeshAttachment_setRegionOffsetY);
@@ -8368,6 +8409,7 @@ static int luaopen_spine_MeshAttachment(lua_State *L)
     oluacls_prop(L, "hullLength", _spine_MeshAttachment_getHullLength, _spine_MeshAttachment_setHullLength);
     oluacls_prop(L, "parentMesh", _spine_MeshAttachment_getParentMesh, _spine_MeshAttachment_setParentMesh);
     oluacls_prop(L, "path", _spine_MeshAttachment_getPath, _spine_MeshAttachment_setPath);
+    oluacls_prop(L, "regionDegrees", _spine_MeshAttachment_getRegionDegrees, _spine_MeshAttachment_setRegionDegrees);
     oluacls_prop(L, "regionHeight", _spine_MeshAttachment_getRegionHeight, _spine_MeshAttachment_setRegionHeight);
     oluacls_prop(L, "regionOffsetX", _spine_MeshAttachment_getRegionOffsetX, _spine_MeshAttachment_setRegionOffsetX);
     oluacls_prop(L, "regionOffsetY", _spine_MeshAttachment_getRegionOffsetY, _spine_MeshAttachment_setRegionOffsetY);

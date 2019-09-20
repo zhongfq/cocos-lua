@@ -20,7 +20,13 @@
         {
             "label": "kill-app",
             "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
             "command":"killall cocos-lua-desktop",
+            "windows": {
+                "command": ""
+            }
         },
         {
             "label": "build-builtin-manifest",

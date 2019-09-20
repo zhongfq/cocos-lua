@@ -24,7 +24,9 @@
 #include "sproto/lsproto.h"
 #include "lpeg/lptree.h"
 
+#ifndef _WIN32
 #include "libpdebug.h"
+#endif
 
 int luaopen_bindings(lua_State *L)
 {
@@ -34,7 +36,9 @@ int luaopen_bindings(lua_State *L)
     xlua_call(L, luaopen_xgame);
     xlua_call(L, luaopen_xml_http_request);
     
+#ifndef _WIN32
     pdebug_init(L);
+#endif
     
     // luasocket
     olua_require(L, "socket.core", luaopen_socket_core);

@@ -12,6 +12,9 @@
             "program": "${workspaceFolder}",
             "cwd": "${workspaceFolder}/assets",
             "pathCaseSensitivity": true,
+            "windows": {
+                "luaPath": "$(wslpath -u '${workspaceFolder}')/runtime-src/proj.win32/Debug.win32/cocos-lua.exe -workdir $(wslpath -m '${workspaceFolder}')/assets"
+            },
             "luaPath": "${workspaceFolder}/runtime/mac/cocos-lua-desktop.app/Contents/MacOS/cocos-lua-desktop -workdir ${workspaceFolder}/assets",
             "postDebugTask": "kill-app",
             "connectionPort": 8818,

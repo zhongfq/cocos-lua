@@ -1,3 +1,4 @@
+local http       = require "xgame.http"
 local filesystem = require "kernel.filesystem"
 
 assert(not filesystem.dir)
@@ -15,10 +16,8 @@ filesystem.dir = {
 local cacheDirectory = filesystem.dir.cache
 
 local function encodeURI(s)
-    s = string.gsub(s, "([^%w%.%-])", function(c)
-        return string.format("%%%02X", string.byte(c))
-    end)
-    return string.gsub(s, " ", "+")
+    s = http.decodeURI(s)
+    return string.gsub(s, '[?/*:<>|\\]', '+')
 end
 
 function filesystem.localCachePath(url)

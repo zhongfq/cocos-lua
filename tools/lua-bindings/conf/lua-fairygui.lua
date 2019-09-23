@@ -354,6 +354,10 @@ GComponent.FUNC('resolve', [[
             pos = strchr(name, '~');
             type = pos ? '~' : type;
         }
+        if (pos == name) {
+            pos = nullptr;
+            ++name;
+        }
         if (pos) {
             lua_pushcfunction(L, _fairygui_GComponent_getChild);
             olua_push_cppobj<fairygui::GComponent>(L, self);

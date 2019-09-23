@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<packageDescription id="xx7p1729" jpegQuality="80" compressPNG="true">
+<packageDescription id="xx7p1729">
   <resources>
     <component id="ufrq0" name="main.xml" path="/" exported="true"/>
     <component id="rv5y1" name="content.xml" path="/" exported="true"/>

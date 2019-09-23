@@ -6,6 +6,7 @@ local MixFGUI = class("MixFGUI", MixScene)
 
 function MixFGUI:ctor()
     self.rootfgui = GRoot.create(self.cobj)
+    self.rootfgui:setSize(self.cobj.width, self.cobj.height)
 end
 
 return MixFGUI

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="wihuv2kf">
+  <resources>
+    <component id="i04b6" name="Button.xml" path="/"/>
+    <component id="i04b5" name="test-scene1.xml" path="/" exported="true"/>
+    <component id="i04b7" name="test-scene2.xml" path="/" exported="true"/>
+  </resources>
+  <publish name="test"/>
+</packageDescription>

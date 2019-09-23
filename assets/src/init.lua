@@ -1,5 +1,6 @@
 local window        = require "kernel.window"
 local runtime       = require "kernel.runtime"
+local timer         = require "kernel.timer"
 local Director      = require "cc.Director"
 local olua          = require "olua"
 
@@ -9,8 +10,19 @@ olua.debug(DEBUG)
 if DEBUG then
     local path = package.path
     package.path = "src/xgame/debugger/?.lua;" .. path
-    require("LuaPanda").start("127.0.0.1", 8818)
+    local LuaPanda = require("LuaPanda")
+    LuaPanda.start("127.0.0.1", 8818)
     package.path = path
+
+    if runtime.os == 'win32' then
+        local log = io.open(runtime.logPath, "r")
+        timer.schedule(0.1, function ()
+            local str = log:read('*a')
+            if str and #str > 0 then
+                LuaPanda.printToVSCode(str, 1, 0)
+            end
+        end)
+    end
 end
 
 -- print runtime info

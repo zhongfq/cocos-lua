@@ -78,6 +78,10 @@ if runtime.os == 'android' then
         end)
     end
 
+    function runtime.installAPK(path)
+        AppContext.installAPK(path)
+    end
+
     local function toAndroidPermission(permission)
         if permission == runtime.Permission.AUDIO then
             return 'android.permission.RECORD_AUDIO'
@@ -86,7 +90,8 @@ if runtime.os == 'android' then
         elseif permission == runtime.Permission.PHOTO then
             return 'android.permission.CAMERA'
         else
-            error('unsupport permission: ' .. permission)
+            assert(string.find(permission, 'android.permission'))
+            return permission
         end
     end
 

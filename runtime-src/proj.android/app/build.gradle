@@ -133,6 +133,8 @@ dependencies {
     implementation project(':libcocos2dx')
     implementation project(':libxgame')
 
+    implementation 'com.android.support:support-v4:28.0.0'
+
     // implementation project(':libhuawei')
     // implementation project(':libvivo')
     // implementation project(':liboppo')

@@ -13,6 +13,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 
     <application
         android:name=".Application"
@@ -25,6 +26,17 @@
         <!-- Tell Cocos2dxActivity the name of our .so -->
 		<meta-data android:name="android.app.lib_name"
 				   android:value="cocoslua" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="org.cocos2dx.hellolua.fileprovider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths" />
+        </provider>
+
 
         <uses-library
             android:name="org.apache.http.legacy"

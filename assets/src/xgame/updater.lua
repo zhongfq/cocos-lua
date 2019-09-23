@@ -8,11 +8,12 @@ local timer         = require "xgame.timer"
 local cjson         = require "cjson.safe"
 
 local _traceback = __TRACEBACK__
+local done = false
 
 function __TRACEBACK__(...)
-    _traceback(...)
     __TRACEBACK__ = _traceback
-    if not DEBUG then
+    _traceback(...)
+    if not DEBUG and not done then
         print(string.rep("*", 80))
         print('* update error, clear all and restart!!!!')
         print(string.rep("*", 80))
@@ -276,7 +277,7 @@ function M:_checkVersion()
 end
 
 function M:_didComplete(...)
-    __TRACEBACK__ = _traceback
+    done = true
     self.onComplete(...)
 end
 

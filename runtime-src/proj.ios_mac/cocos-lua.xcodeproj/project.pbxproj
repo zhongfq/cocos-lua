@@ -709,7 +709,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "UPLOAD_SIMULATOR_SYMBOLS=0\nUPLOAD_DEBUG_SYMBOLS=0\nBUGLY_APP_ID=\"546f1cf279\"\nBUGLY_APP_KEY=\"d21353e4-26c8-4f94-b646-cf88a225f039\"\nBUNDLE_IDENTIFIER=\"org.cocos2dx.hellolua\"\n. ../../frameworks/libxgame/src/bugly/dsymtool/dSYMUpload.sh\n";
+			shellScript = "UPLOAD_SIMULATOR_SYMBOLS=0\nUPLOAD_DEBUG_SYMBOLS=0\nUPLOAD_ARCHIVE_ONLY=1\nBUGLY_APP_ID=\"546f1cf279\"\nBUGLY_APP_KEY=\"d21353e4-26c8-4f94-b646-cf88a225f039\"\nBUNDLE_IDENTIFIER=\"org.cocos2dx.hellolua\"\n. ../../frameworks/libxgame/src/bugly/dsymtool/dSYMUpload.sh\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

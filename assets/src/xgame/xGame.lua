@@ -39,11 +39,13 @@ function xGame:gc()
 end
 
 -- services
-function xGame:newService(name, serviceClass)
+function xGame:newService(name, cls)
     assert(not self[name], 'name conflict: ' .. name)
+    local serviceClass = require(cls)
     local svr = serviceClass.new(name)
     self[name] = svr
     self._services[name] = svr
+    trace('create service: %s(%s)', name, cls)
 end
 
 function xGame:restart(cls, ...)

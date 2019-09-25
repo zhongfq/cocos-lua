@@ -161,6 +161,7 @@ function timer.new()
     local delay = createDelay()
     local handlers = {}
 
+    local id = false
     local inst = {}
 
     function inst:update(delta)
@@ -226,6 +227,21 @@ function timer.new()
         handlers = {}
         delay:clear()
         scheduler:clear()
+    end
+
+    function inst:start()
+        if not id then
+            id = timer.schedule(0, function (dt)
+                inst:update(dt)
+            end)
+        end
+    end
+
+    function inst:stop()
+        if id then
+            timer.unschedule(id)
+            id = false
+        end
     end
 
     return inst

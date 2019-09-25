@@ -1,4 +1,4 @@
-local M = {}
+local M = {debug = false}
 
 local function lookup(level, key)
     assert(key and #key > 0, key)
@@ -108,7 +108,9 @@ end
 
 function M.execute(cmd)
     cmd = M.format(cmd)
-    -- print('execute: ' .. cmd)
+    if M.debug then
+        print('execute: ' .. cmd)
+    end
     os.execute(cmd)
 end
 
@@ -122,6 +124,25 @@ function M.list(dir, pattern)
         end
     end
     return arr
+end
+
+function M.read(path)
+    local f = assert(io.open(path, 'r'), path)
+    local data = f:read('*a')
+    if M.debug then
+        print('read:', path)
+    end
+    f:close()
+    return data
+end
+
+function M.write(path, data)
+    local f = assert(io.open(path, 'w'), path)
+    if M.debug then
+        print('write:', path)
+    end
+    f:write(data)
+    f:close()
 end
 
 return M

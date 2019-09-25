@@ -10,6 +10,7 @@
 #include "lua_iap.h"
 #include "lua_recorder.h"
 #include "lua_keychain.h"
+#include "lua_socket.h"
 #include "luasocket/luasocket.h"
 #include "luasocket/luasocket_scripts.h"
 #include "luasocket/mime.h"
@@ -66,6 +67,7 @@ int luaopen_bindings(lua_State *L)
     olua_require(L, "md5" , luaopen_md5);
     olua_require(L, "kernel.qrcode", luaopen_qrcode);
     olua_require(L, "kernel.QRSprite", luaopen_qrsprite);
+    olua_require(L, "kernel.Socket", luaopen_socket);
     olua_require(L, "kernel.luaj", luaopen_javabridge);
     olua_require(L, "kernel.lame", luaopen_lame);
     olua_require(L, "kernel.keychain", luaopen_keychain);

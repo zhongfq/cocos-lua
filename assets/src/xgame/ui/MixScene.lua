@@ -21,17 +21,12 @@ function MixScene:_initMonitor()
     local monitor = LuaComponent.create()
     monitor.name = '__MixScene_monitor__'
     monitor.onEnter = function ()
-        if self.onDestroy ~= true and not self._updateHandler then
-            self._updateHandler = timer.schedule(0, function (delta)
-                self._timer:update(delta)
-            end)
+        if self.onDestroy ~= true then
+            self._timer:start()
         end
     end
     monitor.onExit = function ()
-        if self.onDestroy ~= true and self._updateHandler then
-            timer.unschedule(self._updateHandler)
-            self._updateHandler = false
-        end
+        self._timer:stop()
     end
     self.cobj:addComponent(monitor)
 end

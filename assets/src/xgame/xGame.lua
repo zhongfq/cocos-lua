@@ -22,6 +22,8 @@ function xGame:ctor()
     self.stage = Stage.new()
     self._mediatorMap = MediatorMap.new(self.stage)
     self._sceneStack = SceneStack.new(self.stage)
+    self._services = {}
+    self._timer = false
     self:_initTimer()
     self:_initRuntimeEvents()
 
@@ -34,6 +36,40 @@ end
 
 function xGame:gc()
     runtime.gc()
+end
+
+-- services
+function xGame:newService(name, serviceClass)
+    assert(not self[name], 'name conflict: ' .. name)
+    local svr = serviceClass.new(name)
+    self[name] = svr
+    self._services[name] = svr
+end
+
+function xGame:restart(cls, ...)
+    self._timer:clear()
+    self:popAll()
+
+    local defs = {}
+    for name, svr in pairs(self._services) do
+        assert(self[name] == svr, name)
+        svr:dispose()
+        assert(svr.dispose == true, name)
+        defs[name] = svr.class
+        self._services[name] = nil
+        self[name] = nil
+    end
+
+    for name, serviceClass in pairs(defs) do
+        self:newService(name, serviceClass)
+    end
+
+    trace('restart xGame: %s', cls.classname)
+
+    self:startScene(cls, ...)
+    self:later(function ()
+        self:gc()
+    end)
 end
 
 -- scene api
@@ -94,6 +130,10 @@ function xGame:_initTimer()
     timer.schedule(0, function (dt)
         inst:update(dt)
     end)
+end
+
+function xGame:later(func)
+    runtime.once('runtimeUpdate', func)
 end
 
 function xGame:delay(time, func, ...)

@@ -31,22 +31,12 @@ function MixSWF:_initMonitor()
     monitor.onEnter = function ()
         if self.onDestroy ~= true then
             self._mixPlayer:resume()
-            if not self._updateHandler then
-                self._updateHandler = timer.schedule(0, function (delta)
-                    self._timer:update(delta)
-                    self._mixPlayer:update(delta)
-                end)
-            end
+            self._timer:start()
         end
     end
     monitor.onExit = function ()
-        if self.onDestroy ~= true then
-            self._mixPlayer:pause()
-            if self._updateHandler then
-                timer.unschedule(self._updateHandler)
-                self._updateHandler = false
-            end
-        end
+        self._mixPlayer:pause()
+        self._timer:stop()
     end
     self.cobj:addComponent(monitor)
 end

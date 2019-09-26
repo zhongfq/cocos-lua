@@ -197,8 +197,8 @@ void Socket::start_conntect()
             
             int on = 1;
             socket_setsockopt(_fd, IPPROTO_TCP, TCP_NODELAY, (void *)&on, sizeof(on));
-            
-            if (socket_connect(_fd, current->ai_addr, current->ai_addrlen) == 0) {
+            ok = socket_connect(_fd, current->ai_addr, current->ai_addrlen) == 0;
+            if (ok) {
                 runtime::log("connect success: %s:%d", _host.c_str(), _port);
                 break;
             }

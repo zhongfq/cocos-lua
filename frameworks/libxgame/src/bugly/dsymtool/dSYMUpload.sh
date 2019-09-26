@@ -207,9 +207,6 @@ function run() {
         	if [ -e $DSYM_SYMBOL_ZIP_FILE ]; then
         		rm -f $DSYM_SYMBOL_ZIP_FILE
         	fi
-            # 未知原因，dsym文件未存在硬盘上，所以稍等一下
-            sleep 1
-            find $dsymFile
             # 如果只上传dSYM，直接压缩dSYM目录
             zip -r -j $DSYM_SYMBOL_ZIP_FILE $dsymFile -x *.plist
         else
@@ -231,8 +228,11 @@ function runInXcode(){
     echo "Uploading dSYM to Bugly in Xcode ..."
 
     # xcode 11 更改了版本变量
+    # 未知原因，dsym文件未存在硬盘上，所以稍等一下
+    sleep 1
     for dsymFile in $(find "$DWARF_DSYM_FOLDER_PATH" -name '*.dSYM'); do
         INFOPLIST_FILE="$dsymFile/Contents/Info.plist"
+        find $dsymFile
     done
 
     echo "Info.Plist : ${INFOPLIST_FILE}"

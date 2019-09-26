@@ -1395,6 +1395,16 @@ static int _cocos2d_PhysicsBody_removeShape(lua_State *L)
 {
     int num_args = lua_gettop(L) - 1;
 
+    if (num_args == 1) {
+        if ((olua_is_cppobj(L, 2, "cc.PhysicsShape")) && (olua_is_bool(L, 3) || olua_isnil(L, 3))) {
+            return _cocos2d_PhysicsBody_removeShape1(L);
+        }
+
+        // if ((olua_is_int(L, 2)) && (olua_is_bool(L, 3) || olua_isnil(L, 3))) {
+            return _cocos2d_PhysicsBody_removeShape2(L);
+        // }
+    }
+
     if (num_args == 2) {
         if ((olua_is_cppobj(L, 2, "cc.PhysicsShape")) && (olua_is_bool(L, 3) || olua_isnil(L, 3))) {
             return _cocos2d_PhysicsBody_removeShape1(L);

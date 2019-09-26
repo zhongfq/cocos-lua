@@ -7667,9 +7667,21 @@ static int _cocos2d_ui_TabHeader_create(lua_State *L)
         return _cocos2d_ui_TabHeader_create1(L);
     }
 
+    if (num_args == 3) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_uint(L, 4) || olua_isnil(L, 4))) {
+            return _cocos2d_ui_TabHeader_create2(L);
+        // }
+    }
+
     if (num_args == 4) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_uint(L, 4) || olua_isnil(L, 4))) {
             return _cocos2d_ui_TabHeader_create2(L);
+        // }
+    }
+
+    if (num_args == 6) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_std_string(L, 6)) && (olua_is_uint(L, 7) || olua_isnil(L, 7))) {
+            return _cocos2d_ui_TabHeader_create3(L);
         // }
     }
 
@@ -10952,9 +10964,19 @@ static int _cocos2d_ui_LoadingBar_create(lua_State *L)
         return _cocos2d_ui_LoadingBar_create1(L);
     }
 
-    if (num_args == 2) {
+    if (num_args == 1) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_number(L, 2) || olua_isnil(L, 2))) {
             return _cocos2d_ui_LoadingBar_create2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        if ((olua_is_std_string(L, 1)) && (olua_is_number(L, 2) || olua_isnil(L, 2))) {
+            return _cocos2d_ui_LoadingBar_create2(L);
+        }
+
+        // if ((olua_is_std_string(L, 1)) && (olua_is_uint(L, 2)) && (olua_is_number(L, 3) || olua_isnil(L, 3))) {
+            return _cocos2d_ui_LoadingBar_create3(L);
         // }
     }
 
@@ -14017,6 +14039,12 @@ static int _cocos2d_ui_Slider_create(lua_State *L)
 
     if (num_args == 0) {
         return _cocos2d_ui_Slider_create1(L);
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3) || olua_isnil(L, 3))) {
+            return _cocos2d_ui_Slider_create2(L);
+        // }
     }
 
     if (num_args == 3) {
@@ -17547,6 +17575,12 @@ static int _cocos2d_ui_Button_create(lua_State *L)
         return _cocos2d_ui_Button_create1(L);
     }
 
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2) || olua_isnil(L, 2)) && (olua_is_std_string(L, 3) || olua_isnil(L, 3)) && (olua_is_uint(L, 4) || olua_isnil(L, 4))) {
+            return _cocos2d_ui_Button_create2(L);
+        // }
+    }
+
     if (num_args == 4) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2) || olua_isnil(L, 2)) && (olua_is_std_string(L, 3) || olua_isnil(L, 3)) && (olua_is_uint(L, 4) || olua_isnil(L, 4))) {
             return _cocos2d_ui_Button_create2(L);
@@ -18591,9 +18625,21 @@ static int _cocos2d_ui_CheckBox_create(lua_State *L)
         return _cocos2d_ui_CheckBox_create1(L);
     }
 
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3) || olua_isnil(L, 3))) {
+            return _cocos2d_ui_CheckBox_create3(L);
+        // }
+    }
+
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3) || olua_isnil(L, 3))) {
             return _cocos2d_ui_CheckBox_create3(L);
+        // }
+    }
+
+    if (num_args == 5) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_uint(L, 6) || olua_isnil(L, 6))) {
+            return _cocos2d_ui_CheckBox_create2(L);
         // }
     }
 
@@ -18749,9 +18795,21 @@ static int _cocos2d_ui_RadioButton_create(lua_State *L)
         return _cocos2d_ui_RadioButton_create1(L);
     }
 
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3) || olua_isnil(L, 3))) {
+            return _cocos2d_ui_RadioButton_create3(L);
+        // }
+    }
+
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3) || olua_isnil(L, 3))) {
             return _cocos2d_ui_RadioButton_create3(L);
+        // }
+    }
+
+    if (num_args == 5) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_uint(L, 6) || olua_isnil(L, 6))) {
+            return _cocos2d_ui_RadioButton_create2(L);
         // }
     }
 
@@ -19188,6 +19246,12 @@ static int _cocos2d_ui_ImageView_create(lua_State *L)
 
     if (num_args == 0) {
         return _cocos2d_ui_ImageView_create1(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_uint(L, 2) || olua_isnil(L, 2))) {
+            return _cocos2d_ui_ImageView_create2(L);
+        // }
     }
 
     if (num_args == 2) {
@@ -19971,6 +20035,16 @@ static int _cocos2d_ui_EditBox_create(lua_State *L)
 {
     int num_args = lua_gettop(L);
 
+    if (num_args == 2) {
+        if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_cppobj(L, 2, "ccui.Scale9Sprite")) && (olua_is_cppobj(L, 3, "ccui.Scale9Sprite") || olua_isnil(L, 3)) && (olua_is_cppobj(L, 4, "ccui.Scale9Sprite") || olua_isnil(L, 4))) {
+            return _cocos2d_ui_EditBox_create1(L);
+        }
+
+        // if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3) || olua_isnil(L, 3)) && (olua_is_std_string(L, 4) || olua_isnil(L, 4)) && (olua_is_uint(L, 5) || olua_isnil(L, 5))) {
+            return _cocos2d_ui_EditBox_create3(L);
+        // }
+    }
+
     if (num_args == 3) {
         // if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
             return _cocos2d_ui_EditBox_create2(L);
@@ -20400,6 +20474,10 @@ static int _cocos2d_ui_EditBox_initWithSizeAndBackgroundSprite(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 2) {
+        if ((auto_olua_is_cocos2d_Size(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_uint(L, 4) || olua_isnil(L, 4))) {
+            return _cocos2d_ui_EditBox_initWithSizeAndBackgroundSprite1(L);
+        }
+
         // if ((auto_olua_is_cocos2d_Size(L, 2)) && (olua_is_cppobj(L, 3, "ccui.Scale9Sprite"))) {
             return _cocos2d_ui_EditBox_initWithSizeAndBackgroundSprite2(L);
         // }

@@ -17,5 +17,6 @@ require "olua.olua-gen-class"
 require "olua.olua-gen-class-func"
 require "olua.olua-gen-callback"
 require "olua.olua-gen-conv"
+require "olua.olua-checkref"
 
 return require "olua.olua-io"

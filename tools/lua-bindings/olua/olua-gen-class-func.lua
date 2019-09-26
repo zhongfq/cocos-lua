@@ -414,10 +414,21 @@ local function genOneFunc(cls, fi, write, funcidx, exported)
     write('')
 end
 
-local function getFuncNArgs(fis, n)
+local function getFuncNArgs(cls, fis, n)
     local arr = {}
     for _, v in ipairs(fis) do
-        if v.MAX_ARGS == n then
+        local min = 0
+        for _, arg in ipairs(v.ARGS) do
+            if arg.ATTR.PACK or arg.ATTR.UNPACK then
+                min = nil
+                break
+            elseif not arg.ATTR.NULLABLE and
+                not arg.CALLBACK.DEFAULT and
+                arg.DEFAULT == nil then
+                min = (min or 0) + 1
+            end
+        end
+        if v.MAX_ARGS == n or min == n then
             arr[#arr + 1] = v
         end
     end
@@ -519,7 +530,7 @@ local function genMultiFunc(cls, fis, write, exported)
     exported[funcname] = true
 
     for i = 0, fis.MAX_ARGS do
-        local fns = getFuncNArgs(fis, i)
+        local fns = getFuncNArgs(cls, fis, i)
         if #fns > 0 then
             local TEST_AND_CALL = genTestAndCall(cls, fns)
             olua.nowarning(TEST_AND_CALL)

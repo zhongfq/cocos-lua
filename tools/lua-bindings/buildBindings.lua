@@ -13,3 +13,8 @@ export 'autobuild/fairygui.lua'
 export 'autobuild/dragonbones.lua'
 export 'autobuild/spine.lua'
 export 'autobuild/xgame.lua'
+
+-- local checkref = olua.checkref
+-- checkref {
+--     REF = {'cocos2d::Node *', 'cocos2d::Action *'}
+-- }

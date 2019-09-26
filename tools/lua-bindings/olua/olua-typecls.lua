@@ -7,6 +7,10 @@ local format = olua.format
 
 local message = ""
 
+function olua.classmap()
+    return class_map
+end
+
 function olua.message(msg)
     message = msg
 end

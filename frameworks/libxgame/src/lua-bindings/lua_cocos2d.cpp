@@ -29438,6 +29438,18 @@ static int _cocos2d_Label_createWithTTF(lua_State *L)
 {
     int num_args = lua_gettop(L);
 
+    if (num_args == 2) {
+        // if ((auto_olua_is_cocos2d_TTFConfig(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3) || olua_isnil(L, 3)) && (olua_is_int(L, 4) || olua_isnil(L, 4))) {
+            return _cocos2d_Label_createWithTTF2(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3)) && (auto_olua_is_cocos2d_Size(L, 4) || olua_isnil(L, 4)) && (olua_is_uint(L, 5) || olua_isnil(L, 5)) && (olua_is_uint(L, 6) || olua_isnil(L, 6))) {
+            return _cocos2d_Label_createWithTTF1(L);
+        // }
+    }
+
     if (num_args == 4) {
         // if ((auto_olua_is_cocos2d_TTFConfig(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3) || olua_isnil(L, 3)) && (olua_is_int(L, 4) || olua_isnil(L, 4))) {
             return _cocos2d_Label_createWithTTF2(L);
@@ -30322,6 +30334,18 @@ static int _cocos2d_Label_initWithTTF2(lua_State *L)
 static int _cocos2d_Label_initWithTTF(lua_State *L)
 {
     int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 2) {
+        // if ((auto_olua_is_cocos2d_TTFConfig(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_uint(L, 4) || olua_isnil(L, 4)) && (olua_is_int(L, 5) || olua_isnil(L, 5))) {
+            return _cocos2d_Label_initWithTTF2(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4)) && (auto_olua_is_cocos2d_Size(L, 5) || olua_isnil(L, 5)) && (olua_is_uint(L, 6) || olua_isnil(L, 6)) && (olua_is_uint(L, 7) || olua_isnil(L, 7))) {
+            return _cocos2d_Label_initWithTTF1(L);
+        // }
+    }
 
     if (num_args == 4) {
         // if ((auto_olua_is_cocos2d_TTFConfig(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_uint(L, 4) || olua_isnil(L, 4)) && (olua_is_int(L, 5) || olua_isnil(L, 5))) {
@@ -32371,6 +32395,18 @@ static int _cocos2d_RenderTexture_saveToFile(lua_State *L)
 {
     int num_args = lua_gettop(L) - 1;
 
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3) || olua_isnil(L, 3)) && (olua_is_std_function(L, 4))) {
+            return _cocos2d_RenderTexture_saveToFile1(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_bool(L, 4) || olua_isnil(L, 4)) && (olua_is_std_function(L, 5))) {
+            return _cocos2d_RenderTexture_saveToFile2(L);
+        // }
+    }
+
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3) || olua_isnil(L, 3)) && (olua_is_std_function(L, 4))) {
             return _cocos2d_RenderTexture_saveToFile1(L);
@@ -33244,6 +33280,12 @@ static int _cocos2d_Animation_create(lua_State *L)
 
     if (num_args == 0) {
         return _cocos2d_Animation_create1(L);
+    }
+
+    if (num_args == 2) {
+        // if ((manual_olua_is_cocos2d_Vector(L, 1)) && (olua_is_number(L, 2)) && (olua_is_uint(L, 3) || olua_isnil(L, 3))) {
+            return _cocos2d_Animation_create2(L);
+        // }
     }
 
     if (num_args == 3) {
@@ -34543,6 +34585,12 @@ static int _cocos2d_Sprite_createWithTexture(lua_State *L)
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 1, "cc.Texture2D"))) {
             return _cocos2d_Sprite_createWithTexture1(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_cppobj(L, 1, "cc.Texture2D")) && (manual_olua_is_cocos2d_Rect(L, 2)) && (olua_is_bool(L, 3) || olua_isnil(L, 3))) {
+            return _cocos2d_Sprite_createWithTexture2(L);
         // }
     }
 

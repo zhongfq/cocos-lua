@@ -12468,6 +12468,16 @@ static int _spine_SkeletonRenderer_createWithFile(lua_State *L)
 {
     int num_args = lua_gettop(L);
 
+    if (num_args == 2) {
+        if ((olua_is_std_string(L, 1)) && (olua_is_cppobj(L, 2, "sp.Atlas")) && (olua_is_number(L, 3) || olua_isnil(L, 3))) {
+            return _spine_SkeletonRenderer_createWithFile1(L);
+        }
+
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3) || olua_isnil(L, 3))) {
+            return _spine_SkeletonRenderer_createWithFile2(L);
+        // }
+    }
+
     if (num_args == 3) {
         if ((olua_is_std_string(L, 1)) && (olua_is_cppobj(L, 2, "sp.Atlas")) && (olua_is_number(L, 3) || olua_isnil(L, 3))) {
             return _spine_SkeletonRenderer_createWithFile1(L);
@@ -13329,6 +13339,16 @@ static int _spine_SkeletonAnimation_createWithBinaryFile(lua_State *L)
 {
     int num_args = lua_gettop(L);
 
+    if (num_args == 2) {
+        if ((olua_is_std_string(L, 1)) && (olua_is_cppobj(L, 2, "sp.Atlas")) && (olua_is_number(L, 3) || olua_isnil(L, 3))) {
+            return _spine_SkeletonAnimation_createWithBinaryFile1(L);
+        }
+
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3) || olua_isnil(L, 3))) {
+            return _spine_SkeletonAnimation_createWithBinaryFile2(L);
+        // }
+    }
+
     if (num_args == 3) {
         if ((olua_is_std_string(L, 1)) && (olua_is_cppobj(L, 2, "sp.Atlas")) && (olua_is_number(L, 3) || olua_isnil(L, 3))) {
             return _spine_SkeletonAnimation_createWithBinaryFile1(L);
@@ -13417,6 +13437,16 @@ static int _spine_SkeletonAnimation_createWithJsonFile2(lua_State *L)
 static int _spine_SkeletonAnimation_createWithJsonFile(lua_State *L)
 {
     int num_args = lua_gettop(L);
+
+    if (num_args == 2) {
+        if ((olua_is_std_string(L, 1)) && (olua_is_cppobj(L, 2, "sp.Atlas")) && (olua_is_number(L, 3) || olua_isnil(L, 3))) {
+            return _spine_SkeletonAnimation_createWithJsonFile1(L);
+        }
+
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3) || olua_isnil(L, 3))) {
+            return _spine_SkeletonAnimation_createWithJsonFile2(L);
+        // }
+    }
 
     if (num_args == 3) {
         if ((olua_is_std_string(L, 1)) && (olua_is_cppobj(L, 2, "sp.Atlas")) && (olua_is_number(L, 3) || olua_isnil(L, 3))) {

@@ -66,6 +66,7 @@ cls.funcs [[
     static bool isDebug()
     static float getTime()
     static void gc()
+    static const std::string getVersion()
     static const std::string getPackageName()
     static const std::string getAppVersion()
     static const std::string getAppBuild()
@@ -155,6 +156,7 @@ cls.props [[
     restarting
     debug
     time
+    version
     packageName
     appVersion
     appBuild

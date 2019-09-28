@@ -407,6 +407,21 @@ static int _xgame_runtime_getTime(lua_State *L)
     return num_ret;
 }
 
+static int _xgame_runtime_getVersion(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // static const std::string getVersion()
+    const std::string ret = (const std::string)xgame::runtime::getVersion();
+    int num_ret = olua_push_std_string(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _xgame_runtime_isAntialias(lua_State *L)
 {
     olua_startinvoke(L);
@@ -730,6 +745,7 @@ static int luaopen_xgame_runtime(lua_State *L)
     oluacls_func(L, "getPackageName", _xgame_runtime_getPackageName);
     oluacls_func(L, "getPermissionStatus", _xgame_runtime_getPermissionStatus);
     oluacls_func(L, "getTime", _xgame_runtime_getTime);
+    oluacls_func(L, "getVersion", _xgame_runtime_getVersion);
     oluacls_func(L, "isAntialias", _xgame_runtime_isAntialias);
     oluacls_func(L, "isDebug", _xgame_runtime_isDebug);
     oluacls_func(L, "isRestarting", _xgame_runtime_isRestarting);
@@ -761,6 +777,7 @@ static int luaopen_xgame_runtime(lua_State *L)
     oluacls_prop(L, "packageName", _xgame_runtime_getPackageName, nullptr);
     oluacls_prop(L, "restarting", _xgame_runtime_isRestarting, nullptr);
     oluacls_prop(L, "time", _xgame_runtime_getTime, nullptr);
+    oluacls_prop(L, "version", _xgame_runtime_getVersion, nullptr);
 
     olua_registerluatype<xgame::runtime>(L, "kernel.runtime");
     oluacls_createclassproxy(L);

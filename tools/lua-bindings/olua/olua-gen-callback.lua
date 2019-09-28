@@ -240,25 +240,27 @@ function olua.genCallback(cls, fi, write)
         void *callback_store_obj = (void *)${CALLBACK_STORE_OBJ};
         std::string tag = ${TAG_MAKER};
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), ${IDX}, ${OLUA_CALLBACK_TAG});
-        ${CALLBACK_ARG_NAME} = [callback_store_obj, func](${CALLBACK.ARGS}) {
+        lua_State *MT = olua_mainthread();
+        ${CALLBACK_ARG_NAME} = [callback_store_obj, func, MT](${CALLBACK.ARGS}) {
             lua_State *L = olua_mainthread();
-            int top = lua_gettop(L);
             ${CALLBACK.DECL_RESULT}
-            ${CALLBACK.PUSH_ARGS}
+            if (MT == L) {
+                int top = lua_gettop(L);
+                ${CALLBACK.PUSH_ARGS}
 
-            ${CALLBACK.INJECT_BEFORE}
+                ${CALLBACK.INJECT_BEFORE}
 
-            olua_callback(L, callback_store_obj, func.c_str(), ${CALLBACK.NUM_ARGS});
-            
-            ${CALLBACK.CHECK_RESULT}
+                olua_callback(L, callback_store_obj, func.c_str(), ${CALLBACK.NUM_ARGS});
+                
+                ${CALLBACK.CHECK_RESULT}
 
-            ${CALLBACK.INJECT_AFTER}
+                ${CALLBACK.INJECT_AFTER}
 
-            ${CALLBACK.REMOVE_CALLBACK}
-            
-            ${CALLBACK.POP_OBJPOOL}
-
-            lua_settop(L, top);
+                ${CALLBACK.REMOVE_CALLBACK}
+                
+                ${CALLBACK.POP_OBJPOOL}
+                lua_settop(L, top);
+            }
             ${CALLBACK.RETURN_RESULT}
         };
     ]])

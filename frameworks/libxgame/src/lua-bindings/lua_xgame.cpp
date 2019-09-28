@@ -126,17 +126,20 @@ static int _xgame_runtime_alert(lua_State *L)
     void *callback_store_obj = (void *)olua_getstoreobj(L, "kernel.runtime");
     std::string tag = olua_makecallbacktag("alert");
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 5, OLUA_TAG_REPLACE);
-    arg5 = [callback_store_obj, func](bool arg1) {
+    lua_State *MT = olua_mainthread();
+    arg5 = [callback_store_obj, func, MT](bool arg1) {
         lua_State *L = olua_mainthread();
-        int top = lua_gettop(L);
 
-        olua_push_bool(L, arg1);
+        if (MT == L) {
+            int top = lua_gettop(L);
+            olua_push_bool(L, arg1);
 
-        olua_callback(L, callback_store_obj, func.c_str(), 1);
+            olua_callback(L, callback_store_obj, func.c_str(), 1);
 
-        olua_removecallback(L, callback_store_obj, func.c_str(), OLUA_TAG_NONE);
+            olua_removecallback(L, callback_store_obj, func.c_str(), OLUA_TAG_NONE);
 
-        lua_settop(L, top);
+            lua_settop(L, top);
+        }
     };
 
     // static void alert(const std::string &title, const std::string &message, const std::string &ok, const std::string &no, const std::function<void (bool)> &callback)
@@ -543,17 +546,20 @@ static int _xgame_runtime_requestPermission(lua_State *L)
     void *callback_store_obj = (void *)olua_getstoreobj(L, "kernel.runtime");
     std::string tag = olua_makecallbacktag("requestPermission");
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-    arg2 = [callback_store_obj, func](xgame::PermissionStatus arg1) {
+    lua_State *MT = olua_mainthread();
+    arg2 = [callback_store_obj, func, MT](xgame::PermissionStatus arg1) {
         lua_State *L = olua_mainthread();
-        int top = lua_gettop(L);
 
-        olua_push_uint(L, (lua_Unsigned)arg1);
+        if (MT == L) {
+            int top = lua_gettop(L);
+            olua_push_uint(L, (lua_Unsigned)arg1);
 
-        olua_callback(L, callback_store_obj, func.c_str(), 1);
+            olua_callback(L, callback_store_obj, func.c_str(), 1);
 
-        olua_removecallback(L, callback_store_obj, func.c_str(), OLUA_TAG_NONE);
+            olua_removecallback(L, callback_store_obj, func.c_str(), OLUA_TAG_NONE);
 
-        lua_settop(L, top);
+            lua_settop(L, top);
+        }
     };
 
     // static void requestPermission(Permission permission, const std::function<void (PermissionStatus)> callback)

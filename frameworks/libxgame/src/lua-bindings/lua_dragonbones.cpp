@@ -12296,21 +12296,23 @@ static int _dragonBones_CCArmatureDisplay_addDBEventListener(lua_State *L)
     void *callback_store_obj = (void *)self;
     std::string tag = olua_makecallbacktag(arg1);
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_TAG_NEW);
-    arg2 = [callback_store_obj, func](dragonBones::EventObject *arg1) {
+    lua_State *MT = olua_mainthread();
+    arg2 = [callback_store_obj, func, MT](dragonBones::EventObject *arg1) {
         lua_State *L = olua_mainthread();
-        int top = lua_gettop(L);
 
-        size_t last = olua_push_objpool(L);
-        olua_enable_objpool(L);
-        olua_push_cppobj(L, arg1, "db.EventObject");
-        olua_disable_objpool(L);
+        if (MT == L) {
+            int top = lua_gettop(L);
+            size_t last = olua_push_objpool(L);
+            olua_enable_objpool(L);
+            olua_push_cppobj(L, arg1, "db.EventObject");
+            olua_disable_objpool(L);
 
-        olua_callback(L, callback_store_obj, func.c_str(), 1);
+            olua_callback(L, callback_store_obj, func.c_str(), 1);
 
-        //pop stack value
-        olua_pop_objpool(L, last);
-
-        lua_settop(L, top);
+            //pop stack value
+            olua_pop_objpool(L, last);
+            lua_settop(L, top);
+        }
     };
 
     // void addDBEventListener(const std::string& type, const std::function<void(@local EventObject*)>& listener)

@@ -317,21 +317,23 @@ static int _fairygui_UIEventDispatcher_addEventListener1(lua_State *L)
     void *callback_store_obj = (void *)self;
     std::string tag = makeListenerTag(L, arg1, 0);
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_TAG_NEW);
-    arg2 = [callback_store_obj, func](fairygui::EventContext *arg1) {
+    lua_State *MT = olua_mainthread();
+    arg2 = [callback_store_obj, func, MT](fairygui::EventContext *arg1) {
         lua_State *L = olua_mainthread();
-        int top = lua_gettop(L);
 
-        size_t last = olua_push_objpool(L);
-        olua_enable_objpool(L);
-        olua_push_cppobj(L, arg1, "fgui.EventContext");
-        olua_disable_objpool(L);
+        if (MT == L) {
+            int top = lua_gettop(L);
+            size_t last = olua_push_objpool(L);
+            olua_enable_objpool(L);
+            olua_push_cppobj(L, arg1, "fgui.EventContext");
+            olua_disable_objpool(L);
 
-        olua_callback(L, callback_store_obj, func.c_str(), 1);
+            olua_callback(L, callback_store_obj, func.c_str(), 1);
 
-        //pop stack value
-        olua_pop_objpool(L, last);
-
-        lua_settop(L, top);
+            //pop stack value
+            olua_pop_objpool(L, last);
+            lua_settop(L, top);
+        }
     };
 
     // void addEventListener(int eventType, const std::function<void(@local EventContext* context)>& callback)
@@ -360,21 +362,23 @@ static int _fairygui_UIEventDispatcher_addEventListener2(lua_State *L)
     void *callback_store_obj = (void *)self;
     std::string tag = makeListenerTag(L, arg1, 4);
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_TAG_NEW);
-    arg2 = [callback_store_obj, func](fairygui::EventContext *arg1) {
+    lua_State *MT = olua_mainthread();
+    arg2 = [callback_store_obj, func, MT](fairygui::EventContext *arg1) {
         lua_State *L = olua_mainthread();
-        int top = lua_gettop(L);
 
-        size_t last = olua_push_objpool(L);
-        olua_enable_objpool(L);
-        olua_push_cppobj(L, arg1, "fgui.EventContext");
-        olua_disable_objpool(L);
+        if (MT == L) {
+            int top = lua_gettop(L);
+            size_t last = olua_push_objpool(L);
+            olua_enable_objpool(L);
+            olua_push_cppobj(L, arg1, "fgui.EventContext");
+            olua_disable_objpool(L);
 
-        olua_callback(L, callback_store_obj, func.c_str(), 1);
+            olua_callback(L, callback_store_obj, func.c_str(), 1);
 
-        //pop stack value
-        olua_pop_objpool(L, last);
-
-        lua_settop(L, top);
+            //pop stack value
+            olua_pop_objpool(L, last);
+            lua_settop(L, top);
+        }
     };
 
     // void addEventListener(int eventType, const std::function<void(@local EventContext* context)>& callback, const EventTag& tag)
@@ -1048,15 +1052,18 @@ static int _fairygui_InputProcessor_setCaptureCallback(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = olua_makecallbacktag("captureCallback");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        arg1 = [callback_store_obj, func](int arg1) {
+        lua_State *MT = olua_mainthread();
+        arg1 = [callback_store_obj, func, MT](int arg1) {
             lua_State *L = olua_mainthread();
-            int top = lua_gettop(L);
 
-            olua_push_int(L, (lua_Integer)arg1);
+            if (MT == L) {
+                int top = lua_gettop(L);
+                olua_push_int(L, (lua_Integer)arg1);
 
-            olua_callback(L, callback_store_obj, func.c_str(), 1);
+                olua_callback(L, callback_store_obj, func.c_str(), 1);
 
-            lua_settop(L, top);
+                lua_settop(L, top);
+            }
         };
     } else {
         void *callback_store_obj = (void *)self;
@@ -2553,13 +2560,17 @@ static int _fairygui_GTweener_onComplete(lua_State *L)
     void *callback_store_obj = (void *)self;
     std::string tag = olua_makecallbacktag("onComplete");
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-    arg1 = [callback_store_obj, func]() {
+    lua_State *MT = olua_mainthread();
+    arg1 = [callback_store_obj, func, MT]() {
         lua_State *L = olua_mainthread();
-        int top = lua_gettop(L);
 
-        olua_callback(L, callback_store_obj, func.c_str(), 0);
+        if (MT == L) {
+            int top = lua_gettop(L);
 
-        lua_settop(L, top);
+            olua_callback(L, callback_store_obj, func.c_str(), 0);
+
+            lua_settop(L, top);
+        }
     };
 
     // GTweener* onComplete(std::function<void()> callback)
@@ -2585,15 +2596,18 @@ static int _fairygui_GTweener_onComplete1(lua_State *L)
     void *callback_store_obj = (void *)self;
     std::string tag = olua_makecallbacktag("onComplete1");
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-    arg1 = [callback_store_obj, func](fairygui::GTweener *arg1) {
+    lua_State *MT = olua_mainthread();
+    arg1 = [callback_store_obj, func, MT](fairygui::GTweener *arg1) {
         lua_State *L = olua_mainthread();
-        int top = lua_gettop(L);
 
-        olua_push_cppobj(L, arg1, "fgui.GTweener");
+        if (MT == L) {
+            int top = lua_gettop(L);
+            olua_push_cppobj(L, arg1, "fgui.GTweener");
 
-        olua_callback(L, callback_store_obj, func.c_str(), 1);
+            olua_callback(L, callback_store_obj, func.c_str(), 1);
 
-        lua_settop(L, top);
+            lua_settop(L, top);
+        }
     };
 
     // GTweener* onComplete1(std::function<void(GTweener* tweener)> callback)
@@ -2619,15 +2633,18 @@ static int _fairygui_GTweener_onStart(lua_State *L)
     void *callback_store_obj = (void *)self;
     std::string tag = olua_makecallbacktag("onStart");
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-    arg1 = [callback_store_obj, func](fairygui::GTweener *arg1) {
+    lua_State *MT = olua_mainthread();
+    arg1 = [callback_store_obj, func, MT](fairygui::GTweener *arg1) {
         lua_State *L = olua_mainthread();
-        int top = lua_gettop(L);
 
-        olua_push_cppobj(L, arg1, "fgui.GTweener");
+        if (MT == L) {
+            int top = lua_gettop(L);
+            olua_push_cppobj(L, arg1, "fgui.GTweener");
 
-        olua_callback(L, callback_store_obj, func.c_str(), 1);
+            olua_callback(L, callback_store_obj, func.c_str(), 1);
 
-        lua_settop(L, top);
+            lua_settop(L, top);
+        }
     };
 
     // GTweener* onStart(std::function<void(GTweener* tweener)> callback)
@@ -2653,15 +2670,18 @@ static int _fairygui_GTweener_onUpdate(lua_State *L)
     void *callback_store_obj = (void *)self;
     std::string tag = olua_makecallbacktag("onUpdate");
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-    arg1 = [callback_store_obj, func](fairygui::GTweener *arg1) {
+    lua_State *MT = olua_mainthread();
+    arg1 = [callback_store_obj, func, MT](fairygui::GTweener *arg1) {
         lua_State *L = olua_mainthread();
-        int top = lua_gettop(L);
 
-        olua_push_cppobj(L, arg1, "fgui.GTweener");
+        if (MT == L) {
+            int top = lua_gettop(L);
+            olua_push_cppobj(L, arg1, "fgui.GTweener");
 
-        olua_callback(L, callback_store_obj, func.c_str(), 1);
+            olua_callback(L, callback_store_obj, func.c_str(), 1);
 
-        lua_settop(L, top);
+            lua_settop(L, top);
+        }
     };
 
     // GTweener* onUpdate(std::function<void(GTweener* tweener)> callback)
@@ -5684,21 +5704,23 @@ static int _fairygui_GObject_addClickListener1(lua_State *L)
     void *callback_store_obj = (void *)self;
     std::string tag = makeListenerTag(L, fairygui::UIEventType::Click, 0);
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_NEW);
-    arg1 = [callback_store_obj, func](fairygui::EventContext *arg1) {
+    lua_State *MT = olua_mainthread();
+    arg1 = [callback_store_obj, func, MT](fairygui::EventContext *arg1) {
         lua_State *L = olua_mainthread();
-        int top = lua_gettop(L);
 
-        size_t last = olua_push_objpool(L);
-        olua_enable_objpool(L);
-        olua_push_cppobj(L, arg1, "fgui.EventContext");
-        olua_disable_objpool(L);
+        if (MT == L) {
+            int top = lua_gettop(L);
+            size_t last = olua_push_objpool(L);
+            olua_enable_objpool(L);
+            olua_push_cppobj(L, arg1, "fgui.EventContext");
+            olua_disable_objpool(L);
 
-        olua_callback(L, callback_store_obj, func.c_str(), 1);
+            olua_callback(L, callback_store_obj, func.c_str(), 1);
 
-        //pop stack value
-        olua_pop_objpool(L, last);
-
-        lua_settop(L, top);
+            //pop stack value
+            olua_pop_objpool(L, last);
+            lua_settop(L, top);
+        }
     };
 
     // void addClickListener(const std::function<void(@local EventContext* context)>& callback)
@@ -5725,21 +5747,23 @@ static int _fairygui_GObject_addClickListener2(lua_State *L)
     void *callback_store_obj = (void *)self;
     std::string tag = makeListenerTag(L, fairygui::UIEventType::Click, 3);
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_NEW);
-    arg1 = [callback_store_obj, func](fairygui::EventContext *arg1) {
+    lua_State *MT = olua_mainthread();
+    arg1 = [callback_store_obj, func, MT](fairygui::EventContext *arg1) {
         lua_State *L = olua_mainthread();
-        int top = lua_gettop(L);
 
-        size_t last = olua_push_objpool(L);
-        olua_enable_objpool(L);
-        olua_push_cppobj(L, arg1, "fgui.EventContext");
-        olua_disable_objpool(L);
+        if (MT == L) {
+            int top = lua_gettop(L);
+            size_t last = olua_push_objpool(L);
+            olua_enable_objpool(L);
+            olua_push_cppobj(L, arg1, "fgui.EventContext");
+            olua_disable_objpool(L);
 
-        olua_callback(L, callback_store_obj, func.c_str(), 1);
+            olua_callback(L, callback_store_obj, func.c_str(), 1);
 
-        //pop stack value
-        olua_pop_objpool(L, last);
-
-        lua_settop(L, top);
+            //pop stack value
+            olua_pop_objpool(L, last);
+            lua_settop(L, top);
+        }
     };
 
     // void addClickListener(const std::function<void(@local EventContext* context)>& callback, const EventTag& tag)
@@ -13919,19 +13943,22 @@ static int _fairygui_GList_set_itemProvider(lua_State *L)
     void *callback_store_obj = (void *)self;
     std::string tag = olua_makecallbacktag("itemProvider");
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-    arg1 = [callback_store_obj, func](int arg1) {
+    lua_State *MT = olua_mainthread();
+    arg1 = [callback_store_obj, func, MT](int arg1) {
         lua_State *L = olua_mainthread();
-        int top = lua_gettop(L);
         std::string ret;       
-        olua_push_int(L, (lua_Integer)arg1);
+        if (MT == L) {
+            int top = lua_gettop(L);
+            olua_push_int(L, (lua_Integer)arg1);
 
-        olua_callback(L, callback_store_obj, func.c_str(), 1);
+            olua_callback(L, callback_store_obj, func.c_str(), 1);
 
-        if (olua_is_std_string(L, -1)) {
-            olua_check_std_string(L, -1, &ret);
+            if (olua_is_std_string(L, -1)) {
+                olua_check_std_string(L, -1, &ret);
+            }
+
+            lua_settop(L, top);
         }
-
-        lua_settop(L, top);
         return ret;
     };
 
@@ -13980,23 +14007,26 @@ static int _fairygui_GList_set_itemRenderer(lua_State *L)
     void *callback_store_obj = (void *)self;
     std::string tag = olua_makecallbacktag("itemRenderer");
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-    arg1 = [callback_store_obj, func](int arg1, fairygui::GObject *arg2) {
+    lua_State *MT = olua_mainthread();
+    arg1 = [callback_store_obj, func, MT](int arg1, fairygui::GObject *arg2) {
         lua_State *L = olua_mainthread();
-        int top = lua_gettop(L);
 
-        olua_push_int(L, (lua_Integer)arg1);
-        olua_push_cppobj(L, arg2, "fgui.GObject");
+        if (MT == L) {
+            int top = lua_gettop(L);
+            olua_push_int(L, (lua_Integer)arg1);
+            olua_push_cppobj(L, arg2, "fgui.GObject");
 
-        // inject code before call
-        if (arg2->getParent()) {
-            olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)callback_store_obj);
-            olua_mapref(L, -1, "children", -2);
-            lua_pop(L, 1);
+            // inject code before call
+            if (arg2->getParent()) {
+                olua_push_cppobj<fairygui::GComponent>(L, (fairygui::GComponent *)callback_store_obj);
+                olua_mapref(L, -1, "children", -2);
+                lua_pop(L, 1);
+            }
+
+            olua_callback(L, callback_store_obj, func.c_str(), 2);
+
+            lua_settop(L, top);
         }
-
-        olua_callback(L, callback_store_obj, func.c_str(), 2);
-
-        lua_settop(L, top);
     };
 
     // std::function<void(int, GObject*)> itemRenderer
@@ -14335,13 +14365,17 @@ static int _fairygui_GMovieClip_setPlaySettings(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = olua_makecallbacktag("playSettings");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 6, OLUA_TAG_REPLACE);
-        arg5 = [callback_store_obj, func]() {
+        lua_State *MT = olua_mainthread();
+        arg5 = [callback_store_obj, func, MT]() {
             lua_State *L = olua_mainthread();
-            int top = lua_gettop(L);
 
-            olua_callback(L, callback_store_obj, func.c_str(), 0);
+            if (MT == L) {
+                int top = lua_gettop(L);
 
-            lua_settop(L, top);
+                olua_callback(L, callback_store_obj, func.c_str(), 0);
+
+                lua_settop(L, top);
+            }
         };
     } else {
         void *callback_store_obj = (void *)self;
@@ -17904,13 +17938,17 @@ static int _fairygui_Transition_play1(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = olua_makecallbacktag("play");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        arg1 = [callback_store_obj, func]() {
+        lua_State *MT = olua_mainthread();
+        arg1 = [callback_store_obj, func, MT]() {
             lua_State *L = olua_mainthread();
-            int top = lua_gettop(L);
 
-            olua_callback(L, callback_store_obj, func.c_str(), 0);
+            if (MT == L) {
+                int top = lua_gettop(L);
 
-            lua_settop(L, top);
+                olua_callback(L, callback_store_obj, func.c_str(), 0);
+
+                lua_settop(L, top);
+            }
         };
     } else {
         void *callback_store_obj = (void *)self;
@@ -17946,13 +17984,17 @@ static int _fairygui_Transition_play2(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = olua_makecallbacktag("play");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 4, OLUA_TAG_REPLACE);
-        arg3 = [callback_store_obj, func]() {
+        lua_State *MT = olua_mainthread();
+        arg3 = [callback_store_obj, func, MT]() {
             lua_State *L = olua_mainthread();
-            int top = lua_gettop(L);
 
-            olua_callback(L, callback_store_obj, func.c_str(), 0);
+            if (MT == L) {
+                int top = lua_gettop(L);
 
-            lua_settop(L, top);
+                olua_callback(L, callback_store_obj, func.c_str(), 0);
+
+                lua_settop(L, top);
+            }
         };
     } else {
         void *callback_store_obj = (void *)self;
@@ -17992,13 +18034,17 @@ static int _fairygui_Transition_play3(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = olua_makecallbacktag("play");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 6, OLUA_TAG_REPLACE);
-        arg5 = [callback_store_obj, func]() {
+        lua_State *MT = olua_mainthread();
+        arg5 = [callback_store_obj, func, MT]() {
             lua_State *L = olua_mainthread();
-            int top = lua_gettop(L);
 
-            olua_callback(L, callback_store_obj, func.c_str(), 0);
+            if (MT == L) {
+                int top = lua_gettop(L);
 
-            lua_settop(L, top);
+                olua_callback(L, callback_store_obj, func.c_str(), 0);
+
+                lua_settop(L, top);
+            }
         };
     } else {
         void *callback_store_obj = (void *)self;
@@ -18075,13 +18121,17 @@ static int _fairygui_Transition_playReverse1(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = olua_makecallbacktag("playReverse");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        arg1 = [callback_store_obj, func]() {
+        lua_State *MT = olua_mainthread();
+        arg1 = [callback_store_obj, func, MT]() {
             lua_State *L = olua_mainthread();
-            int top = lua_gettop(L);
 
-            olua_callback(L, callback_store_obj, func.c_str(), 0);
+            if (MT == L) {
+                int top = lua_gettop(L);
 
-            lua_settop(L, top);
+                olua_callback(L, callback_store_obj, func.c_str(), 0);
+
+                lua_settop(L, top);
+            }
         };
     } else {
         void *callback_store_obj = (void *)self;
@@ -18117,13 +18167,17 @@ static int _fairygui_Transition_playReverse2(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = olua_makecallbacktag("playReverse");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 4, OLUA_TAG_REPLACE);
-        arg3 = [callback_store_obj, func]() {
+        lua_State *MT = olua_mainthread();
+        arg3 = [callback_store_obj, func, MT]() {
             lua_State *L = olua_mainthread();
-            int top = lua_gettop(L);
 
-            olua_callback(L, callback_store_obj, func.c_str(), 0);
+            if (MT == L) {
+                int top = lua_gettop(L);
 
-            lua_settop(L, top);
+                olua_callback(L, callback_store_obj, func.c_str(), 0);
+
+                lua_settop(L, top);
+            }
         };
     } else {
         void *callback_store_obj = (void *)self;
@@ -18236,13 +18290,17 @@ static int _fairygui_Transition_setHook(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = olua_makecallbacktag("hook." + arg1);
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_TAG_REPLACE);
-        arg2 = [callback_store_obj, func]() {
+        lua_State *MT = olua_mainthread();
+        arg2 = [callback_store_obj, func, MT]() {
             lua_State *L = olua_mainthread();
-            int top = lua_gettop(L);
 
-            olua_callback(L, callback_store_obj, func.c_str(), 0);
+            if (MT == L) {
+                int top = lua_gettop(L);
 
-            lua_settop(L, top);
+                olua_callback(L, callback_store_obj, func.c_str(), 0);
+
+                lua_settop(L, top);
+            }
         };
     } else {
         void *callback_store_obj = (void *)self;
@@ -19313,13 +19371,17 @@ static int _fairygui_IUISource_load(lua_State *L)
         void *callback_store_obj = (void *)self;
         std::string tag = olua_makecallbacktag("load");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        arg1 = [callback_store_obj, func]() {
+        lua_State *MT = olua_mainthread();
+        arg1 = [callback_store_obj, func, MT]() {
             lua_State *L = olua_mainthread();
-            int top = lua_gettop(L);
 
-            olua_callback(L, callback_store_obj, func.c_str(), 0);
+            if (MT == L) {
+                int top = lua_gettop(L);
 
-            lua_settop(L, top);
+                olua_callback(L, callback_store_obj, func.c_str(), 0);
+
+                lua_settop(L, top);
+            }
         };
     } else {
         void *callback_store_obj = (void *)self;
@@ -20315,18 +20377,21 @@ static int _fairygui_UIObjectFactory_setLoaderExtension(lua_State *L)
     void *callback_store_obj = (void *)olua_getstoreobj(L, "fgui.UIObjectFactory");
     std::string tag = olua_makecallbacktag("loaderExtension");
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 1, OLUA_TAG_REPLACE);
-    arg1 = [callback_store_obj, func]() {
+    lua_State *MT = olua_mainthread();
+    arg1 = [callback_store_obj, func, MT]() {
         lua_State *L = olua_mainthread();
-        int top = lua_gettop(L);
         fairygui::GLoader *ret = nullptr;       
+        if (MT == L) {
+            int top = lua_gettop(L);
 
-        olua_callback(L, callback_store_obj, func.c_str(), 0);
+            olua_callback(L, callback_store_obj, func.c_str(), 0);
 
-        if (olua_is_cppobj(L, -1, "fgui.GLoader")) {
-            olua_check_cppobj(L, -1, (void **)&ret, "fgui.GLoader");
+            if (olua_is_cppobj(L, -1, "fgui.GLoader")) {
+                olua_check_cppobj(L, -1, (void **)&ret, "fgui.GLoader");
+            }
+
+            lua_settop(L, top);
         }
-
-        lua_settop(L, top);
         return ret;
     };
 
@@ -20352,18 +20417,21 @@ static int _fairygui_UIObjectFactory_setPackageItemExtension(lua_State *L)
     void *callback_store_obj = (void *)olua_getstoreobj(L, "fgui.UIObjectFactory");
     std::string tag = olua_makecallbacktag("packageItemExtension");
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-    arg2 = [callback_store_obj, func]() {
+    lua_State *MT = olua_mainthread();
+    arg2 = [callback_store_obj, func, MT]() {
         lua_State *L = olua_mainthread();
-        int top = lua_gettop(L);
         fairygui::GComponent *ret = nullptr;       
+        if (MT == L) {
+            int top = lua_gettop(L);
 
-        olua_callback(L, callback_store_obj, func.c_str(), 0);
+            olua_callback(L, callback_store_obj, func.c_str(), 0);
 
-        if (olua_is_cppobj(L, -1, "fgui.GComponent")) {
-            olua_check_cppobj(L, -1, (void **)&ret, "fgui.GComponent");
+            if (olua_is_cppobj(L, -1, "fgui.GComponent")) {
+                olua_check_cppobj(L, -1, (void **)&ret, "fgui.GComponent");
+            }
+
+            lua_settop(L, top);
         }
-
-        lua_settop(L, top);
         return ret;
     };
 
@@ -21291,24 +21359,27 @@ static int _fairygui_TreeView_set_treeNodeCreateCell(lua_State *L)
     void *callback_store_obj = (void *)self;
     std::string tag = olua_makecallbacktag("treeNodeCreateCell");
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-    arg1 = [callback_store_obj, func](fairygui::TreeNode *arg1) {
+    lua_State *MT = olua_mainthread();
+    arg1 = [callback_store_obj, func, MT](fairygui::TreeNode *arg1) {
         lua_State *L = olua_mainthread();
-        int top = lua_gettop(L);
         fairygui::GComponent *ret = nullptr;       
-        olua_push_cppobj(L, arg1, "fgui.TreeNode");
+        if (MT == L) {
+            int top = lua_gettop(L);
+            olua_push_cppobj(L, arg1, "fgui.TreeNode");
 
-        olua_callback(L, callback_store_obj, func.c_str(), 1);
+            olua_callback(L, callback_store_obj, func.c_str(), 1);
 
-        if (olua_is_cppobj(L, -1, "fgui.GComponent")) {
-            olua_check_cppobj(L, -1, (void **)&ret, "fgui.GComponent");
+            if (olua_is_cppobj(L, -1, "fgui.GComponent")) {
+                olua_check_cppobj(L, -1, (void **)&ret, "fgui.GComponent");
+            }
+
+            // inject code after call
+            olua_push_cppobj<fairygui::TreeNode>(L, arg1);
+            olua_singleref(L, -1, "cell", -2);
+            lua_pop(L, 1);
+
+            lua_settop(L, top);
         }
-
-        // inject code after call
-        olua_push_cppobj<fairygui::TreeNode>(L, arg1);
-        olua_singleref(L, -1, "cell", -2);
-        lua_pop(L, 1);
-
-        lua_settop(L, top);
         return ret;
     };
 
@@ -21357,15 +21428,18 @@ static int _fairygui_TreeView_set_treeNodeRender(lua_State *L)
     void *callback_store_obj = (void *)self;
     std::string tag = olua_makecallbacktag("treeNodeRender");
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-    arg1 = [callback_store_obj, func](fairygui::TreeNode *arg1) {
+    lua_State *MT = olua_mainthread();
+    arg1 = [callback_store_obj, func, MT](fairygui::TreeNode *arg1) {
         lua_State *L = olua_mainthread();
-        int top = lua_gettop(L);
 
-        olua_push_cppobj(L, arg1, "fgui.TreeNode");
+        if (MT == L) {
+            int top = lua_gettop(L);
+            olua_push_cppobj(L, arg1, "fgui.TreeNode");
 
-        olua_callback(L, callback_store_obj, func.c_str(), 1);
+            olua_callback(L, callback_store_obj, func.c_str(), 1);
 
-        lua_settop(L, top);
+            lua_settop(L, top);
+        }
     };
 
     // std::function<void(TreeNode* node)> treeNodeRender
@@ -21413,16 +21487,19 @@ static int _fairygui_TreeView_set_treeNodeWillExpand(lua_State *L)
     void *callback_store_obj = (void *)self;
     std::string tag = olua_makecallbacktag("treeNodeWillExpand");
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-    arg1 = [callback_store_obj, func](fairygui::TreeNode *arg1, bool arg2) {
+    lua_State *MT = olua_mainthread();
+    arg1 = [callback_store_obj, func, MT](fairygui::TreeNode *arg1, bool arg2) {
         lua_State *L = olua_mainthread();
-        int top = lua_gettop(L);
 
-        olua_push_cppobj(L, arg1, "fgui.TreeNode");
-        olua_push_bool(L, arg2);
+        if (MT == L) {
+            int top = lua_gettop(L);
+            olua_push_cppobj(L, arg1, "fgui.TreeNode");
+            olua_push_bool(L, arg2);
 
-        olua_callback(L, callback_store_obj, func.c_str(), 2);
+            olua_callback(L, callback_store_obj, func.c_str(), 2);
 
-        lua_settop(L, top);
+            lua_settop(L, top);
+        }
     };
 
     // std::function<void(TreeNode* node, bool expand)> treeNodeWillExpand

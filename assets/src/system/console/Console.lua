@@ -42,12 +42,10 @@ function Console:onCreate()
     fileBrowser:addListener(Event.SELECT, function (_, data)
         if string.find(data.url, '%.swf$') then
             self.visible = false
-            self.rootfgui.visible = false
-            self.cobj:onExit()
+            self.contentLoader.visible = false
             xGame:startScene('system.console.TestSWF', data.url, function ()
                 self.visible = true
-                self.rootfgui.visible = true
-                self.cobj:onEnter()
+                self.contentLoader.visible = true
             end)
         end
     end)
@@ -70,13 +68,10 @@ function Console:onCreate()
         -- color = 0x999999,
     })
     local function click ()
-        if self.rootfgui.visible then
-            self.rootfgui.visible = false
-            self.cobj:onExit()
-            btnOpen.cobj:onEnter()
+        if self.contentLoader.visible then
+            self.contentLoader.visible = false
         else
-            self.rootfgui.visible = true
-            self.cobj:onEnter()
+            self.contentLoader.visible = true
         end
     end
     btnOpen.cobj.touchEnabled = true

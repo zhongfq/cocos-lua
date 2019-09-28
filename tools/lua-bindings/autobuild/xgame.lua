@@ -67,8 +67,8 @@ cls.funcs [[
     static float getTime()
     static void gc()
     static const std::string getPackageName()
-    static const std::string getVersion()
-    static const std::string getBuild()
+    static const std::string getAppVersion()
+    static const std::string getAppBuild()
     static const std::string getChannel()
     static const std::string getOS()
     static const std::string getDeviceInfo()
@@ -156,8 +156,8 @@ cls.props [[
     debug
     time
     packageName
-    version
-    build
+    appVersion
+    appBuild
     channel
     os
     deviceInfo

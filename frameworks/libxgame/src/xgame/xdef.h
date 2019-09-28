@@ -28,9 +28,9 @@
 
 #define CONF_ANTIALIAS_ENABLED  "conf.antialias.enabled"
 #define CONF_ANTIALIAS_SAMPLES  "conf.antialias.samples"
-#define CONF_VERSION_RUNTIME    "conf.version.runtime"
-#define CONF_VERSION_BUILD      "conf.version.build"
-#define CONF_VERSION_MANIFEST   "conf.version.manifest"
+#define CONF_APP_VERSION        "conf.version.app"
+#define CONF_APP_BUILD          "conf.version.build"
+#define CONF_MANIFEST_VERSION   "conf.version.manifest"
 
 #define JAVA_APPCONTEXT_CLASS   "kernel/AppContext"
 

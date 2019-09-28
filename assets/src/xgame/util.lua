@@ -21,6 +21,10 @@ function M.getUpValues(func)
     return u
 end
 
+function M.createTag(name)
+    return setmetatable({}, {__tostring = function () return name end})
+end
+
 function M.callee()
     return debug.getinfo(2, "f").func
 end

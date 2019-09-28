@@ -22,13 +22,13 @@ const std::string __runtime_getPackageName()
     return [[[NSBundle mainBundle] bundleIdentifier] UTF8String];
 }
 
-const std::string __runtime_getVersion()
+const std::string __runtime_getAppVersion()
 {
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     return [[infoDictionary objectForKey:@"CFBundleShortVersionString"] UTF8String];
 }
 
-const std::string __runtime_getBuild()
+const std::string __runtime_getAppBuild()
 {
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     return [[infoDictionary objectForKey:@"CFBundleVersion"] UTF8String];

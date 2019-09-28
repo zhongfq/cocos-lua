@@ -248,7 +248,7 @@ function M:_checkVersion()
     http.block(function ()
         local version = self:_readManifestVersion(REMOTE_MANIFEST_PATH)
         local url = string.format('%s?os=%s&runtime=%s&version=%s&channel=%s',
-            self._url, runtime.os, runtime.version, version, runtime.channel)
+            self._url, runtime.os, runtime.appVersion, version, runtime.channel)
         local status, list = http({url = url, responseType = 'JSON'})
         if status ~= 200 then
             self:_deferTry()

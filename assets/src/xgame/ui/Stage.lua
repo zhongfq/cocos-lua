@@ -36,7 +36,7 @@ function Stage:_initTouchListener()
     local EventListenerTouchAllAtOnce = require "cc.EventListenerTouchAllAtOnce"
     local EventListenerKeyboard = require "cc.EventListenerKeyboard"
 
-    local function convert(rawpoints)
+    local function convert(rawpoints, event)
         local points = {}
         for _, touch in ipairs(rawpoints) do
             local id = touch.id
@@ -45,6 +45,8 @@ function Stage:_initTouchListener()
             p.x = x
             p.y = y
             p.id = id
+            p.touch = touch
+            p.event = event
             points[id] = p
         end
         return points
@@ -58,16 +60,16 @@ function Stage:_initTouchListener()
     -- add touch listener
     local touchListener = EventListenerTouchAllAtOnce.create()
     touchListener.onTouchesBegan = function (touches, event)
-        return self:touchDown(convert(touches))
+        return self:touchDown(convert(touches, event))
     end
     touchListener.onTouchesMoved = function (touches, event)
-        return self:touchMove(convert(touches))
+        return self:touchMove(convert(touches, event))
     end
     touchListener.onTouchesEnded = function (touches, event)
-        return self:touchUp(convert(touches))
+        return self:touchUp(convert(touches, event))
     end
     touchListener.onTouchesCancelled = function (touches, event)
-        return self:touchCancel(convert(touches))
+        return self:touchCancel(convert(touches, event))
     end
     addEventListenerWithSceneGraphPriority(touchListener)
 

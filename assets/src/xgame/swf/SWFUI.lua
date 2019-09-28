@@ -10,7 +10,7 @@ function SWFUI:ctor()
     self.percentWidth = 100
     self.percentHeight = 100
     self.horizontalAlign = Align.CENTER
-    self._loader = self:addChild(SWFNode.new())
+    self.contentLoader = self:addChild(SWFNode.new())
     self:_loadRootSWF()
 end
 
@@ -18,9 +18,9 @@ function SWFUI:assets()
     error(string.format("'%s' need supply assets list", self.classname))
 end
 
-function SWFUI.Get:rootswf() return self._loader.rootswf end
+function SWFUI.Get:rootswf() return self.contentLoader.rootswf end
 function SWFUI.Set:rootswf(value)
-    self._loader.rootswf = value
+    self.contentLoader.rootswf = value
 end
 
 function SWFUI:_loadRootSWF()
@@ -36,11 +36,11 @@ function SWFUI.Get:rootswfPath()
 end
 
 function SWFUI:scheduleUpdate()
-    self._loader:scheduleUpdate()
+    self.contentLoader:scheduleUpdate()
 end
 
 function SWFUI:unscheduleUpdate()
-    self._loader:unscheduleUpdate()
+    self.contentLoader:unscheduleUpdate()
 end
 
 function SWFUI:checkLabels(target, ...)

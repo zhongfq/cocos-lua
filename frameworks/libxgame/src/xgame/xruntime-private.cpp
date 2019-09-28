@@ -15,7 +15,7 @@ const std::string __runtime_getPackageName()
     return value;
 }
 
-const std::string __runtime_getVersion()
+const std::string __runtime_getAppVersion()
 {
     static std::string value;
     if (value.size() == 0) {
@@ -24,7 +24,7 @@ const std::string __runtime_getVersion()
     return value;
 }
 
-const std::string __runtime_getBuild()
+const std::string __runtime_getAppBuild()
 {
     static std::string value;
     if (value.size() == 0) {
@@ -90,12 +90,12 @@ void __runtime_setPackageName(const std::string &packageName)
 }
 
 
-const std::string __runtime_getVersion()
+const std::string __runtime_getAppVersion()
 {
 	return "1.0.0";
 }
 
-const std::string __runtime_getBuild()
+const std::string __runtime_getAppBuild()
 {
 	return "100";
 }

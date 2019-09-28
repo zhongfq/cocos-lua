@@ -386,7 +386,7 @@ int xlua_nonsupport(lua_State *L)
 
 static int report_gc_error(lua_State *L)
 {
-    luaL_error(L, "'referenceCount > 0xFFFF' maybe a error, check this obj: %s", lua_tostring(L, 1));
+    luaL_error(L, "'referenceCount > 0xFFFF' maybe a error, check this obj: %s", olua_objstring(L, 1));
     return 0;
 }
 

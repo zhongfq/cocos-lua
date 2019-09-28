@@ -79,7 +79,7 @@ function xGame:_loadAssets(func, cls, ...)
     if type(cls) == 'string' then
         cls = require(cls)
     end
-    local queue = LoadQueue.new(cls.assets(...))
+    local queue = LoadQueue.new(cls:assets(...))
     if queue.totalCount > 0 then
         local args = {...}
         queue:addListener(Event.IOERROR, function ()
@@ -189,54 +189,9 @@ function xGame:_initRuntimeEvents()
     listen('runtimeResume')
 end
 
---
--- runtime api
---
-function xGame.Get:time()
-    return runtime.time
-end
-
-function xGame.Get:os()
-    return runtime.os
-end
-
-function xGame.Get:channel()
-    return runtime.channel
-end
-
-function xGame.Get:version()
-    return runtime.version
-end
-
-function xGame.Get:versionBuild()
-    return runtime.versionBuild
-end
-
-function xGame:support(api)
-    return runtime.support(api)
-end
-
-function xGame:openURL(url, ...)
-    runtime.openURL(url, ...)
-end
-
-function xGame:canOpenURL(url)
-    return runtime.canOpenURL(url)
-end
-
---
--- window api
---
-function xGame:getDesignSize()
-    return window.getDesignSize()
-end
-
-function xGame:getVisibleBounds()
-    return window.getVisibleBounds()
-end
-
-function xGame:getFrameSize()
-    return window.getFrameSize()
+function xGame:isPad()
+    local vw, vh = window.getFrameSize()
+    return vw / vh < (960 / 640)
 end
 
 xGame = xGame.new()

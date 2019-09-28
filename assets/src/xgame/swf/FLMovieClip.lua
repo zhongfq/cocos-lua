@@ -135,6 +135,20 @@ function FLMovieClip:relative(horizontal, vertical)
     end
 end
 
+function FLMovieClip:resolve(name)
+    local found = self
+    if found then
+        for k in string.gmatch(name, "[^.]+") do
+            if found then
+                found = found.ns[k]
+            end
+        end
+        if found then
+            return found
+        end
+    end
+end
+
 -- 只能复制swf导出时的对象
 function FLMovieClip:clone(name)
     local obj = swf.wrapper(self.cobj:clone(name))

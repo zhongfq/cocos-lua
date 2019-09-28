@@ -9,8 +9,8 @@
 #include <functional>
 
 const std::string __runtime_getPackageName();
-const std::string __runtime_getVersion();
-const std::string __runtime_getBuild();
+const std::string __runtime_getAppVersion();
+const std::string __runtime_getAppBuild();
 const std::string __runtime_getChannel();
 const std::string __runtime_getDeviceInfo();
 const std::string __runtime_getLanguage();

@@ -190,23 +190,8 @@ function M.checkTarget(target, namepath, ...)
     return target
 end
 
-function M.lookup(target, namefmt, ...)
-    local found = target
-    local namePath = string.format(namefmt, ...)
-    if found then
-        for k in string.gmatch(namePath, "[^.]+") do
-            if found then
-                found = found.ns[k]
-            end
-        end
-        if found then
-            return found
-        end
-    end
-end
-
 function M.checkName(target, namefmt, ...)
-    target = M.lookup(target, namefmt, ...)
+    target = target:resolve(string.format(namefmt, ...))
     if target then
         return target
     else

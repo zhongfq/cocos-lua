@@ -10,6 +10,7 @@ return function (conf)
     print("  publish path: " .. (conf.PUBLISH_PATH))
     print("           url: " .. conf.URL)
     print("       version: " .. conf.VERSION)
+    print("       runtime: " .. conf.RUNTIME)
     print("         debug: " .. tostring(conf.DEBUG))
 
     local ASSETS_PATH = conf.BUILD_PATH .. '/assets'
@@ -97,12 +98,14 @@ return function (conf)
         shell.write(conf.ASSETS_MANIFEST_PATH, table.concat(data, ''))
 
         if conf.VERSION_MANIFEST_PATH then
-            data = {}
-            writeline('{')
-            writeline('  "main": {"url":"%s", "version":"%s"}',
-                conf.URL .. '/assets.manifest', conf.VERSION)
-            writeline('}')
-            shell.write(conf.VERSION_MANIFEST_PATH, table.concat(data, ''))
+            shell.write(conf.VERSION_MANIFEST_PATH, shell.format [[
+                {
+                    "runtime": "${conf.RUNTIME}",
+                    "assets": [
+                        {"name": "main", "url":"${conf.URL}/assets.manifest", "version":"${conf.VERSION}"}
+                    ]
+                }
+            ]])
         end
     end
 

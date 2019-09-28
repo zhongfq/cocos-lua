@@ -15,6 +15,33 @@ function main()
         print("## onUpdate", event, current, total)
     end
 
+    inst.onAppUpdate = function ()
+        if runtime.os == 'ios' then
+            runtime.openURL("itms-apps://itunes.apple.com/app/${apple id}")
+        elseif runtime.os == 'android' then
+            runtime.openURL('market://details?id=' .. runtime.packageName)
+            --[[
+                local status, data = http {
+                    url = 'http://www.codetypes.com/app/version',
+                    responseType = 'JSON',
+                }
+                if status ~= 200 then
+                    return
+                end
+                local task = LoadTask.new(data.url)
+                function task:loadSuccess()
+                    local path = filesystem.localCachePath(task.url)
+                    local apk = filesystem.dir.cache .. '/app.apk'
+                    filesystem.copy(path, apk)
+                    runtime.installAPK(apk)
+                end
+                task:start()
+            ]]
+        else
+            error('no support update app')
+        end
+    end
+
     inst.onComplete = function (shouldRestart)
         if shouldRestart then
             runtime.launch("main.lua")

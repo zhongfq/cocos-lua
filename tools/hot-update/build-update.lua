@@ -7,6 +7,7 @@ local builtinAssets = require "builtin-assets"
 local ARG_DEBUG = false
 local ARG_NAME = 'LOCAL'
 local ARG_VERSION = nil
+local ARG_RUNTIME = nil
 local ARG_PUBLISH_PATH = nil
 
 -- parse cmd line args
@@ -20,6 +21,8 @@ while #args > 0 do
         assert(setting[ARG_NAME], 'setting not found: ' .. ARG_NAME)
     elseif c == '--publish-path' then
         ARG_PUBLISH_PATH = assert(table.remove(args, 1), 'no publish path')
+    elseif c == '--runtime' then
+        ARG_RUNTIME = assert(table.remove(args, 1), 'no runtime version')
     elseif c == '--version' then
         ARG_VERSION = assert(table.remove(args, 1), 'no version')
     end
@@ -50,6 +53,7 @@ local conf = {
     DEBUG = ARG_DEBUG,
     NAME = ARG_NAME,
     VERSION = ARG_VERSION,
+    RUNTIME = ARG_RUNTIME or setting[ARG_NAME].RUNTIME,
     LATEST_MANIFEST = latestManifest,
     SHARDS = setting[ARG_NAME].SHARDS,
     BUILD_PATH = setting[ARG_NAME].BUILD_PATH,

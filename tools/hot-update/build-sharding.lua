@@ -59,17 +59,23 @@ local function writeVersions(conf)
         data[#data + 1] = '\n'
     end
 
-    local t = {}
+    local assets = {}
     for _, m in ipairs(conf.SHARDS) do
         local manifest = shell.readJson(conf.BUILD_PATH .. '/' .. m.NAME .. '.manifest')
-        t[#t + 1] = string.format('  "%s":{"url":"%s", "version":"%s"}',
-            m.NAME, manifest.manifest_url, manifest.version)
+        assets[#assets + 1] = shell.format [[
+            {"name":"${m.NAME}", "url":"${manifest.manifest_url}", "version":"${manifest.version}"}
+        ]]
     end
 
-    writeline('{')
-    writeline('%s', table.concat(t, ',\n'))
-    writeline('}')
-    shell.write(conf.BUILD_PATH .. '/version.manifest', table.concat(data, ''))
+    assets = table.concat(assets, ',\n')
+    shell.write(conf.BUILD_PATH .. '/version.manifest', shell.format [[
+        {
+            "runtime": "${conf.RUNTIME}",
+            "assets": [
+                ${assets}
+            ]
+        }
+    ]])
 end
 
 return function (conf)

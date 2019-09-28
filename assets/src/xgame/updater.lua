@@ -115,11 +115,11 @@ function M:_checkAndDownloadManifest(name, info)
     end
 end
 
-function M:_mergeManifests(list)
+function M:_mergeManifests(versionData)
     local data = {assets = {}, version = "0.0.0"}
-    for name, info in pairs(list) do
+    for _, info in pairs(versionData.assets) do
         data.version = self:_maxVersion(data.version, info.version)
-        local m = self:_loadManifest(self:_resolveManifestPath(name))
+        local m = self:_loadManifest(self:_resolveManifestPath(info.name))
         for path, asset in pairs(m.assets) do
             asset.url = m.packageURL .. '/' .. path
             data.assets[path] = asset
@@ -249,21 +249,27 @@ function M:_checkVersion()
         local version = self:_readManifestVersion(REMOTE_MANIFEST_PATH)
         local url = string.format('%s?os=%s&runtime=%s&version=%s&channel=%s',
             self._url, runtime.os, runtime.appVersion, version, runtime.channel)
-        local status, list = http({url = url, responseType = 'JSON'})
+        local status, data = http({url = url, responseType = 'JSON'})
         if status ~= 200 then
             self:_deferTry()
+            return
+        end
+
+        if self:_cmpVersion(runtime.version, data.runtime) < 0 then
+            print(string.format("runtime require '%s', got '%s'", data.runtime, runtime.version))
+            self:_didAppUpdate()
             return
         end
 
         local newVersion = "0.0.0"
 
         self:_didUpdate('updateManifest')
-        for name, info in pairs(list) do
+        for _, info in pairs(data.assets) do
             newVersion = self:_maxVersion(newVersion, info.version)
-            self:_checkAndDownloadManifest(name, info)
+            self:_checkAndDownloadManifest(info.name, info)
         end
 
-        self:_mergeManifests(list)
+        self:_mergeManifests(data)
 
         -- rollback?
         if newVersion < version then
@@ -289,10 +295,15 @@ function M:_didUpdate(...)
     self.onUpdate(...)
 end
 
+function M:_didAppUpdate()
+    self.onAppUpdate()
+end
+
 function M:start()
     assert(self.onError, 'no error handler')
     assert(self.onComplete, 'no complete handler')
     assert(self.onUpdate, 'no update handler')
+    assert(self.onAppUpdate, 'no app update handler')
     self._attemptTimes = 0
     self:_checkVersion()
 end

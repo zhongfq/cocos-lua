@@ -199,6 +199,10 @@ cls.funcs [[
     void removeTouchMonitor(GObject* target)
     void cancelClick(int touchId)
     void simulateClick(GObject* target, int touchId = -1)
+    void disableDefaultTouchEvent()
+    bool touchDown(cocos2d::Touch *touch, cocos2d::Event *event)
+    void touchMove(cocos2d::Touch *touch, cocos2d::Event *event)
+    void touchUp(cocos2d::Touch *touch, cocos2d::Event *event)
 ]]
 cls.callback {
     FUNCS =  {
@@ -1103,7 +1107,7 @@ cls.funcs [[
     @ref(map children) GGraph* getModalLayer()
     bool hasModalWindow()
     bool isModalWaiting()
-    InputProcessor* getInputProcessor()
+    @ref(single inputProcessor) InputProcessor* getInputProcessor()
     cocos2d::Vec2 getTouchPosition(int touchId)
     GObject* getTouchTarget()
     @unref(cmp children) void showPopup(@ref(map children) GObject* popup)

@@ -310,6 +310,29 @@ bool InputProcessor::isTouchOnUI()
     return _touchOnUI;
 }
 
+void InputProcessor::disableDefaultTouchEvent()
+{
+    _owner->displayObject()->getEventDispatcher()->removeEventListener(_touchListener);
+}
+
+bool InputProcessor::touchDown(cocos2d::Touch *touch, cocos2d::Event *event)
+{
+    CCASSERT(UIRoot != nullptr, "UIRoot is nullptr");
+    return onTouchBegan(touch, event);
+}
+
+void InputProcessor::touchMove(cocos2d::Touch *touch, cocos2d::Event *event)
+{
+    CCASSERT(UIRoot != nullptr, "UIRoot is nullptr");
+    onTouchMoved(touch, event);
+}
+
+void InputProcessor::touchUp(cocos2d::Touch *touch, cocos2d::Event *event)
+{
+    CCASSERT(UIRoot != nullptr, "UIRoot is nullptr");
+    onTouchEnded(touch, event);
+}
+
 bool InputProcessor::onTouchBegan(Touch *touch, Event* /*unusedEvent*/)
 {
     if (!(_owner->isTouchable() && _owner->isVisible())) {

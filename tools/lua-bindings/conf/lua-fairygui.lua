@@ -398,6 +398,7 @@ GRoot.ATTR('getModalLayer', {RET = '@ref(map children)'})
 GRoot.ATTR('showPopup', {RET = '@unref(cmp children)', ARG1 = '@ref(map children)'})
 GRoot.ATTR('togglePopup', {RET = '@unref(cmp children)', ARG1 = '@ref(map children)'})
 GRoot.ATTR('hidePopup', {RET = '@unref(cmp children)'})
+GRoot.ATTR('getInputProcessor', {RET = '@ref(single inputProcessor)'})
 GRoot.PROP('UIRoot', 'static GRoot* getInstance()')
 GRoot.INJECT('create', {
     AFTER = [[

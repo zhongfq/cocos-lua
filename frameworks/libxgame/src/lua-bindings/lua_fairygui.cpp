@@ -940,6 +940,24 @@ static int _fairygui_InputProcessor_cancelClick(lua_State *L)
     return 0;
 }
 
+static int _fairygui_InputProcessor_disableDefaultTouchEvent(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    fairygui::InputProcessor *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.InputProcessor");
+
+    // void disableDefaultTouchEvent()
+    self->disableDefaultTouchEvent();
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _fairygui_InputProcessor_getRecentInput(lua_State *L)
 {
     olua_startinvoke(L);
@@ -1077,17 +1095,88 @@ static int _fairygui_InputProcessor_simulateClick(lua_State *L)
     return 0;
 }
 
+static int _fairygui_InputProcessor_touchDown(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    fairygui::InputProcessor *self = nullptr;
+    cocos2d::Touch *arg1 = nullptr;       /** touch */
+    cocos2d::Event *arg2 = nullptr;       /** event */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.InputProcessor");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Touch");
+    olua_check_cppobj(L, 3, (void **)&arg2, "cc.Event");
+
+    // bool touchDown(cocos2d::Touch *touch, cocos2d::Event *event)
+    bool ret = (bool)self->touchDown(arg1, arg2);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_InputProcessor_touchMove(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    fairygui::InputProcessor *self = nullptr;
+    cocos2d::Touch *arg1 = nullptr;       /** touch */
+    cocos2d::Event *arg2 = nullptr;       /** event */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.InputProcessor");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Touch");
+    olua_check_cppobj(L, 3, (void **)&arg2, "cc.Event");
+
+    // void touchMove(cocos2d::Touch *touch, cocos2d::Event *event)
+    self->touchMove(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_InputProcessor_touchUp(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    fairygui::InputProcessor *self = nullptr;
+    cocos2d::Touch *arg1 = nullptr;       /** touch */
+    cocos2d::Event *arg2 = nullptr;       /** event */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.InputProcessor");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Touch");
+    olua_check_cppobj(L, 3, (void **)&arg2, "cc.Event");
+
+    // void touchUp(cocos2d::Touch *touch, cocos2d::Event *event)
+    self->touchUp(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_fairygui_InputProcessor(lua_State *L)
 {
     oluacls_class(L, "fgui.InputProcessor", nullptr);
     oluacls_func(L, "addTouchMonitor", _fairygui_InputProcessor_addTouchMonitor);
     oluacls_func(L, "cancelClick", _fairygui_InputProcessor_cancelClick);
+    oluacls_func(L, "disableDefaultTouchEvent", _fairygui_InputProcessor_disableDefaultTouchEvent);
     oluacls_func(L, "getRecentInput", _fairygui_InputProcessor_getRecentInput);
     oluacls_func(L, "getTouchPosition", _fairygui_InputProcessor_getTouchPosition);
     oluacls_func(L, "isTouchOnUI", _fairygui_InputProcessor_isTouchOnUI);
     oluacls_func(L, "removeTouchMonitor", _fairygui_InputProcessor_removeTouchMonitor);
     oluacls_func(L, "setCaptureCallback", _fairygui_InputProcessor_setCaptureCallback);
     oluacls_func(L, "simulateClick", _fairygui_InputProcessor_simulateClick);
+    oluacls_func(L, "touchDown", _fairygui_InputProcessor_touchDown);
+    oluacls_func(L, "touchMove", _fairygui_InputProcessor_touchMove);
+    oluacls_func(L, "touchUp", _fairygui_InputProcessor_touchUp);
     oluacls_prop(L, "recentInput", _fairygui_InputProcessor_getRecentInput, nullptr);
     oluacls_prop(L, "touchOnUI", _fairygui_InputProcessor_isTouchOnUI, nullptr);
 
@@ -9409,9 +9498,12 @@ static int _fairygui_GRoot_getInputProcessor(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GRoot");
 
-    // InputProcessor* getInputProcessor()
+    // @ref(single inputProcessor) InputProcessor* getInputProcessor()
     fairygui::InputProcessor *ret = (fairygui::InputProcessor *)self->getInputProcessor();
     int num_ret = olua_push_cppobj(L, ret, "fgui.InputProcessor");
+
+    // inject code after call
+    olua_singleref(L, 1, "inputProcessor", -1);
 
     olua_endinvoke(L);
 

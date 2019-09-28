@@ -1,12 +1,15 @@
 local class     = require "xgame.class"
 local MixScene  = require "xgame.ui.MixScene"
-local GRoot     = require "fgui.GRoot"
+local FGUINode  = require "xgame.ui.FGUINode"
 
 local MixFGUI = class("MixFGUI", MixScene)
 
 function MixFGUI:ctor()
-    self.rootfgui = GRoot.create(self.cobj)
-    self.rootfgui:setSize(self.cobj.width, self.cobj.height)
+    self.contentLoader = self:addChild(FGUINode.new())
+end
+
+function MixFGUI.Get:rootfgui()
+    return self.contentLoader.root
 end
 
 return MixFGUI

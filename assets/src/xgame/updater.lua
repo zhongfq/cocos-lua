@@ -7,21 +7,6 @@ local runtime       = require "xgame.runtime"
 local timer         = require "xgame.timer"
 local cjson         = require "cjson.safe"
 
-local _traceback = __TRACEBACK__
-local done = false
-
-function __TRACEBACK__(...)
-    __TRACEBACK__ = _traceback
-    _traceback(...)
-    if not DEBUG and not done then
-        print(string.rep("*", 80))
-        print('* update error, clear all and restart!!!!')
-        print(string.rep("*", 80))
-        runtime:clearStorage()
-        runtime:restart()
-    end
-end
-
 local REMOTE_MANIFEST_PATH = filesystem.dir.assets .. '/remote.manifest'
 local LOCAL_MANIFEST_PATH = filesystem.dir.assets .. '/local.manifest'
 local BUILTIN_MANIFEST_PATH = "builtin.manifest"
@@ -104,8 +89,7 @@ function M:_checkAndDownloadManifest(name, info)
     if m.version ~= info.version then
         local status, data = http({url = info.url})
         if status ~= 200 then
-            self:_deferTry()
-            return
+            return false
         else
             filesystem.write(path, data)
             m.data = cjson.decode(data)
@@ -113,6 +97,7 @@ function M:_checkAndDownloadManifest(name, info)
     else
         print(string.format("manifest '%s' is up-to-date", name))
     end
+    return true
 end
 
 function M:_mergeManifests(versionData)
@@ -256,7 +241,7 @@ function M:_checkVersion()
         end
 
         if self:_cmpVersion(runtime.version, data.runtime) < 0 then
-            print(string.format("runtime require '%s', got '%s'", data.runtime, runtime.version))
+            print(string.format("runtime require '%s', got '%s'", data.runtime, runtime.vers))
             self:_didAppUpdate()
             return
         end
@@ -266,7 +251,10 @@ function M:_checkVersion()
         self:_didUpdate('updateManifest')
         for _, info in pairs(data.assets) do
             newVersion = self:_maxVersion(newVersion, info.version)
-            self:_checkAndDownloadManifest(info.name, info)
+            if not self:_checkAndDownloadManifest(info.name, info) then
+                self:_deferTry()
+                return
+            end
         end
 
         self:_mergeManifests(data)
@@ -283,7 +271,6 @@ function M:_checkVersion()
 end
 
 function M:_didComplete(...)
-    done = true
     self.onComplete(...)
 end
 

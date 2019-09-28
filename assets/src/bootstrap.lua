@@ -1,3 +1,18 @@
+local _traceback = __TRACEBACK__
+
+function __TRACEBACK__(...)
+    __TRACEBACK__ = _traceback
+    _traceback(...)
+    if not DEBUG then
+        local runtime = require "kernel.runtime"
+        print(string.rep("*", 80))
+        print('* update error, clear all and restart!!!!')
+        print(string.rep("*", 80))
+        runtime:clearStorage()
+        runtime:restart()
+    end
+end
+
 require "init"
 
 local updater   = require "xgame.updater"
@@ -43,6 +58,7 @@ function main()
     end
 
     inst.onComplete = function (shouldRestart)
+        __TRACEBACK__ = _traceback
         if shouldRestart then
             runtime.launch("main.lua")
         else

@@ -7,6 +7,7 @@ local builtinAssets = require "builtin-assets"
 local ARG_DEBUG = false
 local ARG_NAME = 'LOCAL'
 local ARG_VERSION = nil
+local ARG_URL = nil
 local ARG_RUNTIME = nil
 local ARG_PUBLISH_PATH = nil
 
@@ -23,6 +24,8 @@ while #args > 0 do
         ARG_PUBLISH_PATH = assert(table.remove(args, 1), 'no publish path')
     elseif c == '--runtime' then
         ARG_RUNTIME = assert(table.remove(args, 1), 'no runtime version')
+    elseif c == '--url' then
+        ARG_URL = assert(table.remove(args, 1), 'no url')
     elseif c == '--version' then
         ARG_VERSION = assert(table.remove(args, 1), 'no version')
     end
@@ -58,7 +61,7 @@ local conf = {
     SHARDS = setting[ARG_NAME].SHARDS,
     BUILD_PATH = setting[ARG_NAME].BUILD_PATH,
     COMPILE = setting[ARG_NAME].COMPILE,
-    URL = setting[ARG_NAME].URL .. '/' ..  ARG_VERSION,
+    URL = (ARG_URL or setting[ARG_NAME].URL) .. '/' ..  ARG_VERSION,
     BUILD_LINK = setting[ARG_NAME].BUILD_LINK,
 }
 

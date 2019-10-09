@@ -2,35 +2,28 @@ local class             = require "xgame.class"
 local Array             = require "xgame.Array"
 local UIView            = require "xgame.ui.UIView"
 local AbsoluteLayout    = require "xgame.ui.AbsoluteLayout"
-local Layout            = require "ccui.Layout"
-local Node              = require "cc.Node"
+local MaskLayout        = require "kernel.MaskLayout"
 
-local assert = assert
 local ipairs = ipairs
 
-local UnknownNode
-local dummyNode = Node.create()
+local InnerContainer
 
 local UILayer = class("UILayer", UIView)
 
 function UILayer:ctor()
     self.musicOption = {} -- path|keep
     self.renderOption = {}
-    self._rawChildren = {}
-    self._children = false
-    self._realParent = self
+    self.children = Array.new()
     self.touchChildren = true
-
-    if self.cobj.setClippingEnabled then
-        self.cobj.cascadeOpacityEnabled = true
-        self.cobj.cascadeColorEnabled = false
-        self.cobj.touchEnabled = false
-        self.cobj.clippingEnabled = false
-    end
+    self._innerContainer = InnerContainer.new()
+    self.cobj:addChild(self._innerContainer.cobj)
 end
 
 function UILayer.Get:cobj()
-    local cobj = Layout.create()
+    local cobj = MaskLayout.create()
+    cobj.cascadeOpacityEnabled = true
+    cobj.cascadeColorEnabled = false
+    cobj.touchEnabled = false
     rawset(self, "cobj", cobj)
     return cobj
 end
@@ -90,39 +83,16 @@ function UILayer:_notifyUpdate(child)
     self.layout:notify("UPDATE", child)
 end
 
-function UILayer:_buildChildren()
-    if not self._children then
-        self.cobj:sortAllChildren()
-        self._children = Array.new()
-        for i, rawChild in ipairs(self.cobj.children) do
-            rawChild.localZOrder = i
-
-            local child = self._rawChildren[rawChild]
-            if not child then
-                child = UnknownNode.new()
-                child.cobj = rawChild
-                self._rawChildren[rawChild] = child
-            end
-            self.children:add(child)
-        end
-    end
-end
-
 function UILayer:addChild(child)
     return self:addChildAt(child, self.numChildren + 1)
 end
 
 function UILayer:_internalAddChild(child, index, silence)
-    self._rawChildren[child.cobj] = child
-    self.cobj:addChild(child.cobj, index)
+    self._innerContainer.cobj:addChild(child.cobj, index)
     self.children:addAt(child, index)
-    child._parent = self._realParent
+    child._parent = self
     if self.stage and not silence then
         child:_setStage(self.stage)
-    end
-    for i = index + 1, #self.children do
-        local c = self.children[i]
-        c.localZOrder = i
     end
 end
 
@@ -152,15 +122,10 @@ end
 
 function UILayer:_internalRemoveChild(index, silence)
     local child = self.children:removeAt(index)
-    self._rawChildren[child.cobj] = nil
-    self.cobj:removeChild(child.cobj)
+    self._innerContainer.cobj:removeChild(child.cobj)
     child._parent = false
     if child.stage and not silence then
         child:_setStage(false)
-    end
-    for i = index + 1, #self.children do
-        local c = self.children[i]
-        c.localZOrder = i
     end
     return child
 end
@@ -185,18 +150,8 @@ function UILayer:removeChildren(from, to)
     end
 end
 
-function UILayer:reorderChild(child, order)
-    self.cobj:reorderChild(child.cobj, order)
-    self._children = false
-end
-
 function UILayer.Get:numChildren()
     return #self.children
-end
-
-function UILayer.Get:children()
-    self:_buildChildren()
-    return self._children
 end
 
 function UILayer.Get:layout()
@@ -227,16 +182,15 @@ function UILayer:_setStage(value)
     end
 end
 
-UnknownNode = class("UnknownNode", UIView)
+InnerContainer = class('InnerContainer', UIView)
 
-function UnknownNode:ctor()
-    self.touchChildren = false
-    self.touchable = false
-end
-
-function UnknownNode.Get:cobj()
-    rawset(self, 'cobj', dummyNode)
-    return dummyNode
+function InnerContainer.Get:cobj()
+    local cobj = MaskLayout.create()
+    cobj.cascadeOpacityEnabled = true
+    cobj.cascadeColorEnabled = false
+    cobj.touchEnabled = false
+    rawset(self, "cobj", cobj)
+    return cobj
 end
 
 return UILayer

@@ -1706,6 +1706,53 @@ static int luaopen_xgame_downloader(lua_State *L)
     return 1;
 }
 
+static int _xgame_MaskLayout_create(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // static xgame::MaskLayout * create()
+    xgame::MaskLayout *ret = (xgame::MaskLayout *)xgame::MaskLayout::create();
+    int num_ret = olua_push_cppobj(L, ret, "kernel.MaskLayout");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _xgame_MaskLayout_getClippingNode(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    xgame::MaskLayout *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "kernel.MaskLayout");
+
+    // cocos2d::DrawNode *getClippingNode()
+    cocos2d::DrawNode *ret = (cocos2d::DrawNode *)self->getClippingNode();
+    int num_ret = olua_push_cppobj(L, ret, "cc.DrawNode");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int luaopen_xgame_MaskLayout(lua_State *L)
+{
+    oluacls_class(L, "kernel.MaskLayout", "ccui.Layout");
+    oluacls_func(L, "create", _xgame_MaskLayout_create);
+    oluacls_func(L, "getClippingNode", _xgame_MaskLayout_getClippingNode);
+    oluacls_prop(L, "clippingNode", _xgame_MaskLayout_getClippingNode, nullptr);
+
+    olua_registerluatype<xgame::MaskLayout>(L, "kernel.MaskLayout");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
 int luaopen_xgame(lua_State *L)
 {
     olua_require(L, "kernel.SceneNoCamera", luaopen_xgame_SceneNoCamera);
@@ -1717,5 +1764,6 @@ int luaopen_xgame(lua_State *L)
     olua_require(L, "kernel.timer", luaopen_xgame_timer);
     olua_require(L, "kernel.window", luaopen_xgame_window);
     olua_require(L, "kernel.downloader", luaopen_xgame_downloader);
+    olua_require(L, "kernel.MaskLayout", luaopen_xgame_MaskLayout);
     return 0;
 }

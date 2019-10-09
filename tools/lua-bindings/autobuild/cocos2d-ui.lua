@@ -564,7 +564,6 @@ cls.funcs [[
     void setPassFocusToChild(bool pass)
     bool isPassFocusToChild()
     ResourceData getRenderFile()
-    DrawNode *getClippingNode()
 ]]
 cls.var('onPassFocusToChild', [[@nullable std::function<int(Widget::FocusDirection, Widget*)> onPassFocusToChild]])
 cls.props [[
@@ -585,7 +584,6 @@ cls.props [[
     loopFocus
     passFocusToChild
     renderFile
-    clippingNode
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 

@@ -391,4 +391,15 @@ cls.func('setDispatcher', [[{
 }]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'xgame::MaskLayout'
+cls.SUPERCLS = "cocos2d::ui::Layout"
+cls.funcs [[
+    static xgame::MaskLayout * create()
+    cocos2d::DrawNode *getClippingNode()
+]]
+cls.props [[
+    clippingNode
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
 return M

@@ -337,7 +337,7 @@ function parseArgs(cls, declstr)
         end
 
         if attr.PACK then
-            count = count + assert(args[#args].TYPE.VARS, args[#args].TYPE.CPPCLS)
+            count = count + olua.assert(args[#args].TYPE.VARS, args[#args].TYPE.CPPCLS)
         else
             count = count + 1
         end

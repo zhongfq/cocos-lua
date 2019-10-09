@@ -15,7 +15,7 @@ local ListBase = class("ListBase", ScrollBase)
 function ListBase:ctor()
     self.itemRenderer = false
     self._data = Array.new()
-    self._scrollImpl = ScrollImpl.new(self, self._container)
+    self._scrollImpl = ScrollImpl.new(self, self._innerContainer)
     self._scrollImpl.orientation = Align.VERTICAL
     self._scrollImpl.scrollVEnabled = true
     self._scrollImpl.scrollHEnabled = false

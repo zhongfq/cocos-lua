@@ -8,7 +8,7 @@ local UIScroller = class("UIScroller", ScrollBase)
 function UIScroller:ctor()
     self.touchChildren = false
     self.touchable = true
-    self._scrollImpl = ScrollImpl.new(self, self._container)
+    self._scrollImpl = ScrollImpl.new(self, self._innerContainer)
 end
 
 function UIScroller.Get:bounceEnabled()
@@ -46,14 +46,14 @@ end
 function UIScroller:scrollTo(h, v)
     self:getScrollBounds()
     if h == Align.LEFT then
-        self.scrollX = self._container.width * 2
+        self.scrollX = self._innerContainer.width * 2
     elseif h == Align.RIGHT then
-        self.scrollX = -self._container.width * 2
+        self.scrollX = -self._innerContainer.width * 2
     end
     if v == Align.TOP then
-        self.scrollY = -self._container.height * 2
+        self.scrollY = -self._innerContainer.height * 2
     elseif v == Align.RIGHT then
-        self.scrollY = self._container.height * 2
+        self.scrollY = self._innerContainer.height * 2
     end
     self:validateNow()
 end

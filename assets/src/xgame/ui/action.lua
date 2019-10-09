@@ -170,16 +170,16 @@ function M.EaseSineInOut(...)
     return EaseSineInOut.create(...)
 end
 
-function M.EaseElasticIn(...)
-    return EaseElasticIn.create(...)
+function M.EaseElasticIn(action, period)
+    return EaseElasticIn.create(action, period or  0.3)
 end
 
-function M.EaseElasticOut(...)
-    return EaseElasticOut.create(...)
+function M.EaseElasticOut(action, period)
+    return EaseElasticOut.create(action, period or  0.3)
 end
 
-function M.EaseElasticInOut(...)
-    return EaseElasticInOut.create(...)
+function M.EaseElasticInOut(action, period)
+    return EaseElasticInOut.create(action, period or  0.3)
 end
 
 function M.EaseBounceIn(...)

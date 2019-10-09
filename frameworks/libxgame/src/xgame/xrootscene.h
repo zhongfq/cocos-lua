@@ -4,6 +4,7 @@
 #include "xgame/xdef.h"
 
 #include "cocos/2d/CCScene.h"
+#include "ui/UILayout.h"
 
 #include <vector>
 #include <string>
@@ -41,6 +42,14 @@ public:
     
     virtual void removeAllChildren() override;
 };
+
+class MaskLayout : public cocos2d::ui::Layout {
+public:
+    CREATE_FUNC(MaskLayout);
+    
+    cocos2d::DrawNode *getClippingNode() { return _clippingStencil; }
+};
+
 
 NS_XGAME_END
 

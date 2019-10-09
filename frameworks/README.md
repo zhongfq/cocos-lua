@@ -1,7 +1,7 @@
 ## Source Changed
 
 ```
-    1. AudioEngine.cpp (maybe crash on android)
+    ● AudioEngine.cpp (maybe crash on android)
         AudioEngine::AudioInfo::~AudioInfo()
             + delete filePath;
     
@@ -9,11 +9,11 @@
             - audioRef.filePath = &it->first.c_str();
             + audioRef.filePath = new std::string(it->first.c_str());
     
-    2. CCLabel.h (for fairygui)
+    ● CCLabel.h (for fairygui)
             - void updateBMFontScale();
             + virtual void updateBMFontScale();
     
-    3. CCNode.h
+    ● CCNode.h
             - setonEnterTransitionDidFinishCallback
             + setOnEnterTransitionDidFinishCallback
     
@@ -26,17 +26,14 @@
             - getonExitTransitionDidStartCallback
             + getOnExitTransitionDidStartCallback
     
-    4. CCLayout.h
-            + getClippingNode
-    
-    5. UIWebViewImpl-android.cpp (fix load html error on android)
+    ● UIWebViewImpl-android.cpp (fix load html error on android)
             * getUrlStringByFileName
     
-    6. update spine-c to spine-cpp
+    ● update spine-c to spine-cpp
 
-    7. ccMacros.h (always throw lua error)
+    ● ccMacros.h (always throw lua error)
             * CCASSERT
 
-    8. UIEditBoxImpl-mac.mm (fix native input control position error)
+    ● UIEditBoxImpl-mac.mm (fix native input control position error)
             * updateNativeFrame
 ```

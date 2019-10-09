@@ -315,4 +315,6 @@ downloader.FUNC('setDispatcher', [[
     return 0;
 }]])
 
+typeconf "xgame::MaskLayout"
+
 return M

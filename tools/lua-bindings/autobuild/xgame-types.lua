@@ -20,6 +20,12 @@ typedef {
 }
 
 typedef {
+    CPPCLS = 'xgame::MaskLayout *',
+    CONV = 'olua_$$_cppobj',
+    LUACLS = 'kernel.MaskLayout',
+}
+
+typedef {
     CPPCLS = 'xgame::SceneNoCamera *',
     CONV = 'olua_$$_cppobj',
     LUACLS = 'kernel.SceneNoCamera',

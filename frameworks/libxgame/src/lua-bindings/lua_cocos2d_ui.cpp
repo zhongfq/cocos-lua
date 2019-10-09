@@ -5014,25 +5014,6 @@ static int _cocos2d_ui_Layout_getBackGroundStartColor(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_ui_Layout_getClippingNode(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    lua_settop(L, 1);
-
-    cocos2d::ui::Layout *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
-
-    // DrawNode *getClippingNode()
-    cocos2d::DrawNode *ret = (cocos2d::DrawNode *)self->getClippingNode();
-    int num_ret = olua_push_cppobj(L, ret, "cc.DrawNode");
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
 static int _cocos2d_ui_Layout_getClippingType(lua_State *L)
 {
     olua_startinvoke(L);
@@ -5614,7 +5595,6 @@ static int luaopen_cocos2d_ui_Layout(lua_State *L)
     oluacls_func(L, "getBackGroundImageOpacity", _cocos2d_ui_Layout_getBackGroundImageOpacity);
     oluacls_func(L, "getBackGroundImageTextureSize", _cocos2d_ui_Layout_getBackGroundImageTextureSize);
     oluacls_func(L, "getBackGroundStartColor", _cocos2d_ui_Layout_getBackGroundStartColor);
-    oluacls_func(L, "getClippingNode", _cocos2d_ui_Layout_getClippingNode);
     oluacls_func(L, "getClippingType", _cocos2d_ui_Layout_getClippingType);
     oluacls_func(L, "getLayoutType", _cocos2d_ui_Layout_getLayoutType);
     oluacls_func(L, "getRenderFile", _cocos2d_ui_Layout_getRenderFile);
@@ -5650,7 +5630,6 @@ static int luaopen_cocos2d_ui_Layout(lua_State *L)
     oluacls_prop(L, "backGroundImageTextureSize", _cocos2d_ui_Layout_getBackGroundImageTextureSize, nullptr);
     oluacls_prop(L, "backGroundStartColor", _cocos2d_ui_Layout_getBackGroundStartColor, nullptr);
     oluacls_prop(L, "clippingEnabled", _cocos2d_ui_Layout_isClippingEnabled, _cocos2d_ui_Layout_setClippingEnabled);
-    oluacls_prop(L, "clippingNode", _cocos2d_ui_Layout_getClippingNode, nullptr);
     oluacls_prop(L, "clippingType", _cocos2d_ui_Layout_getClippingType, _cocos2d_ui_Layout_setClippingType);
     oluacls_prop(L, "layoutType", _cocos2d_ui_Layout_getLayoutType, _cocos2d_ui_Layout_setLayoutType);
     oluacls_prop(L, "loopFocus", _cocos2d_ui_Layout_isLoopFocus, _cocos2d_ui_Layout_setLoopFocus);

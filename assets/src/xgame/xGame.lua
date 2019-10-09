@@ -189,9 +189,4 @@ function xGame:_initRuntimeEvents()
     listen('runtimeResume')
 end
 
-function xGame:isPad()
-    local vw, vh = window.getFrameSize()
-    return vw / vh < (960 / 640)
-end
-
 xGame = xGame.new()

@@ -1,5 +1,6 @@
 local util      = require "xgame.util"
 local runtime   = require "kernel.runtime"
+local window    = require "kernel.window"
 
 assert(not runtime.on)
 assert(not runtime.off)
@@ -46,6 +47,16 @@ function runtime.off(event, callback)
             map[callback] = nil
         end
     end
+end
+
+
+function runtime.isPad()
+    local vw, vh = window.getFrameSize()
+    return vw / vh < (960 / 640)
+end
+
+function runtime.isMobile()
+    return runtime.os == 'ios' or runtime.os == 'android'
 end
 
 runtime.setDispatcher(function (event, args)

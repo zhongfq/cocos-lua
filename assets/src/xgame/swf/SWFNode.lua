@@ -1,8 +1,9 @@
 local class     = require "xgame.class"
 local UIView    = require "xgame.ui.UIView"
--- local ui        = require "xgame.ui.ui"
 local window    = require "xgame.window"
 local swf       = require "xgame.swf.swf"
+
+local NO_CHILDREN = {}
 
 local SWFNode = class("SWFNode", UIView)
 
@@ -17,7 +18,7 @@ function SWFNode.Get:children()
     if self.rootswf then
         return self.rootswf.children
     else
-        return {}
+        return NO_CHILDREN
     end
 end
 

@@ -32,7 +32,7 @@ function M:fromLayout(symbol)
     return self
 end
 
-function M:fromFUI(path)
+function M:fromFGUI(path)
     path = string.gsub(path, "/", ".")
     local data = require(path)
     for _, v in ipairs(data.files) do

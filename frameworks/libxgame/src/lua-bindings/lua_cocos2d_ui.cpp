@@ -17617,6 +17617,18 @@ static int _cocos2d_ui_Button_create(lua_State *L)
         // }
     }
 
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2) || olua_isnil(L, 2)) && (olua_is_std_string(L, 3) || olua_isnil(L, 3)) && (olua_is_uint(L, 4) || olua_isnil(L, 4))) {
+            return _cocos2d_ui_Button_create2(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2) || olua_isnil(L, 2)) && (olua_is_std_string(L, 3) || olua_isnil(L, 3)) && (olua_is_uint(L, 4) || olua_isnil(L, 4))) {
+            return _cocos2d_ui_Button_create2(L);
+        // }
+    }
+
     if (num_args == 4) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2) || olua_isnil(L, 2)) && (olua_is_std_string(L, 3) || olua_isnil(L, 3)) && (olua_is_uint(L, 4) || olua_isnil(L, 4))) {
             return _cocos2d_ui_Button_create2(L);
@@ -20103,14 +20115,26 @@ static int _cocos2d_ui_EditBox_create(lua_State *L)
     }
 
     if (num_args == 3) {
-        // if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
+        if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_cppobj(L, 2, "ccui.Scale9Sprite")) && (olua_is_cppobj(L, 3, "ccui.Scale9Sprite") || olua_isnil(L, 3)) && (olua_is_cppobj(L, 4, "ccui.Scale9Sprite") || olua_isnil(L, 4))) {
+            return _cocos2d_ui_EditBox_create1(L);
+        }
+
+        if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
             return _cocos2d_ui_EditBox_create2(L);
+        }
+
+        // if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3) || olua_isnil(L, 3)) && (olua_is_std_string(L, 4) || olua_isnil(L, 4)) && (olua_is_uint(L, 5) || olua_isnil(L, 5))) {
+            return _cocos2d_ui_EditBox_create3(L);
         // }
     }
 
     if (num_args == 4) {
-        // if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_cppobj(L, 2, "ccui.Scale9Sprite")) && (olua_is_cppobj(L, 3, "ccui.Scale9Sprite") || olua_isnil(L, 3)) && (olua_is_cppobj(L, 4, "ccui.Scale9Sprite") || olua_isnil(L, 4))) {
+        if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_cppobj(L, 2, "ccui.Scale9Sprite")) && (olua_is_cppobj(L, 3, "ccui.Scale9Sprite") || olua_isnil(L, 3)) && (olua_is_cppobj(L, 4, "ccui.Scale9Sprite") || olua_isnil(L, 4))) {
             return _cocos2d_ui_EditBox_create1(L);
+        }
+
+        // if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3) || olua_isnil(L, 3)) && (olua_is_std_string(L, 4) || olua_isnil(L, 4)) && (olua_is_uint(L, 5) || olua_isnil(L, 5))) {
+            return _cocos2d_ui_EditBox_create3(L);
         // }
     }
 

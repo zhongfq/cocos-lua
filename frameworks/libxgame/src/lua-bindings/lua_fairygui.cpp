@@ -17302,6 +17302,16 @@ static int _fairygui_ScrollPane_scrollToView(lua_State *L)
         // }
     }
 
+    if (num_args == 2) {
+        if ((manual_olua_is_cocos2d_Rect(L, 2)) && (olua_is_bool(L, 3) || olua_isnil(L, 3)) && (olua_is_bool(L, 4) || olua_isnil(L, 4))) {
+            return _fairygui_ScrollPane_scrollToView2(L);
+        }
+
+        // if ((olua_is_cppobj(L, 2, "fgui.GObject")) && (olua_is_bool(L, 3) || olua_isnil(L, 3)) && (olua_is_bool(L, 4) || olua_isnil(L, 4))) {
+            return _fairygui_ScrollPane_scrollToView1(L);
+        // }
+    }
+
     if (num_args == 3) {
         if ((manual_olua_is_cocos2d_Rect(L, 2)) && (olua_is_bool(L, 3) || olua_isnil(L, 3)) && (olua_is_bool(L, 4) || olua_isnil(L, 4))) {
             return _fairygui_ScrollPane_scrollToView2(L);

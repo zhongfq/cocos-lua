@@ -1491,6 +1491,8 @@ cls.funcs [[
     bool hasAlpha()
     bool isCompressed()
     bool saveToFile(const std::string &filename, bool isToRGB = true)
+    void premultiplyAlpha()
+    void reversePremultipliedAlpha()
 ]]
 cls.func('getPNGPremultipliedAlphaEnabled', [[{
     lua_settop(L, 0);
@@ -1747,7 +1749,7 @@ cls.funcs [[
     static Texture2D::PixelFormat getDefaultAlphaPixelFormat()
     std::string getDescription()
     void releaseGLTexture()
-    bool initWithData(const void *data, ssize_t dataLen, Texture2D::PixelFormat pixelFormat, int pixelsWide, int pixelsHigh, const Size& contentSize)
+    bool initWithData(const void *data, ssize_t dataLen, Texture2D::PixelFormat pixelFormat, int pixelsWide, int pixelsHigh, const Size& contentSize, bool preMultipliedAlpha = false)
     bool updateWithData(const void *data,int offsetX,int offsetY,int width,int height)
     void drawAtPoint(const Vec2& point)
     void drawInRect(const Rect& rect)
@@ -2913,9 +2915,9 @@ cls.funcs [[
     const Vec2& getNormalizedPosition()
     void setPosition(float x, float y)
     void setPositionX(float x)
-    float getPositionX(void)
+    float getPositionX()
     void setPositionY(float y)
-    float getPositionY(void)
+    float getPositionY()
     void setPosition3D(const Vec3& position)
     Vec3 getPosition3D()
     void setPositionZ(float positionZ)
@@ -3002,11 +3004,11 @@ cls.funcs [[
     void setScheduler(@ref(single scheduler) Scheduler* scheduler)
     @ref(single scheduler) Scheduler* getScheduler()
     bool isScheduled(const std::string &key)
-    void scheduleUpdate(void)
+    void scheduleUpdate()
     void scheduleUpdateWithPriority(int priority)
-    void unscheduleUpdate(void)
-    void resume(void)
-    void pause(void)
+    void unscheduleUpdate()
+    void resume()
+    void pause()
     void update(float delta)
     void updateTransform()
     const Mat4& getNodeToParentTransform()
@@ -3391,7 +3393,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ProtectedNode'
 cls.SUPERCLS = "cocos2d::Node"
 cls.funcs [[
-    static ProtectedNode * create(void)
+    static ProtectedNode * create()
     void addProtectedChild(@ref(map protectedChildren) Node * child)
     void addProtectedChild(@ref(map protectedChildren) Node * child, int localZOrder)
     void addProtectedChild(@ref(map protectedChildren) Node* child, int localZOrder, int tag)
@@ -3632,7 +3634,7 @@ cls.funcs [[
     bool initWithString(const std::string& string, const std::string& fntFile)
     bool initWithString(const std::string& string, Texture2D* texture, int itemWidth, int itemHeight, int startCharMap)
     void setString(const std::string &label)
-    const std::string& getString(void)
+    const std::string& getString()
 ]]
 cls.props [[
     string
@@ -3718,6 +3720,16 @@ cls.callback {
     CALLONCE = true,
     REMOVE = false,
 }
+cls.callback {
+    FUNCS =  {
+        'bool saveToFileAsNonPMA(const std::string& fileName, Image::Format format, bool isRGBA, const std::function<void(RenderTexture*, const std::string&)>& callback)',
+        'bool saveToFileAsNonPMA(const std::string& filename, bool isRGBA = true, const std::function<void(RenderTexture*, const std::string&)>& callback = nullptr)',
+    },
+    TAG_MAKER = 'olua_makecallbacktag("saveToFile")',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
+    CALLONCE = true,
+    REMOVE = false,
+}
 cls.alias('begin', 'beginVisit')
 cls.alias('end', 'endVisit')
 cls.props [[
@@ -3788,7 +3800,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Animation'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
-    static Animation* create(void)
+    static Animation* create()
     static Animation* createWithSpriteFrames(const Vector<SpriteFrame*>& arrayOfSpriteFrameNames, float delay = 0.0f, unsigned int loops = 1)
     static Animation* create(const Vector<AnimationFrame*>& arrayOfAnimationFrameNames, float delayPerUnit, unsigned int loops = 1)
     void addSpriteFrame(SpriteFrame *frame)
@@ -4010,7 +4022,7 @@ cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
     static AnimationCache* getInstance()
     static void destroyInstance()
-    bool init(void)
+    bool init()
     void addAnimation(Animation *animation, const std::string& name)
     void removeAnimation(const std::string& name)
     Animation* getAnimation(const std::string& name)
@@ -4170,8 +4182,8 @@ cls = typecls 'cocos2d::TransitionScene'
 cls.SUPERCLS = "cocos2d::Scene"
 cls.funcs [[
     static TransitionScene * create(float t, @ref(map autoref) Scene *scene)
-    void finish(void)
-    void hideOutShowIn(void)
+    void finish()
+    void hideOutShowIn()
     Scene* getInScene()
     float getDuration()
 ]]
@@ -4206,7 +4218,7 @@ cls = typecls 'cocos2d::TransitionMoveInL'
 cls.SUPERCLS = "cocos2d::TransitionScene"
 cls.funcs [[
     static TransitionMoveInL* create(float t, @ref(map autoref) Scene* scene)
-    ActionInterval* action(void)
+    ActionInterval* action()
     ActionInterval* easeActionWithAction(@ref(single action) ActionInterval * action)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -4237,7 +4249,7 @@ cls.SUPERCLS = "cocos2d::TransitionScene"
 cls.funcs [[
     static TransitionSlideInL* create(float t, @ref(map autoref) Scene* scene)
     ActionInterval* easeActionWithAction(@ref(single action) ActionInterval * action)
-    ActionInterval* action(void)
+    ActionInterval* action()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4787,14 +4799,14 @@ cls.funcs [[
     void setStep(const Vec2& step)
     bool isTextureFlipped()
     void setTextureFlipped(bool flipped)
-    void beforeDraw(void)
+    void beforeDraw()
     void afterDraw(Node *target)
     void beforeBlit()
     void afterBlit()
-    void blit(void)
-    void reuse(void)
-    void calculateVertexPoints(void)
-    void set2DProjection(void)
+    void blit()
+    void reuse()
+    void calculateVertexPoints()
+    void set2DProjection()
     void setGridRect(const Rect& rect)
     const Rect& getGridRect()
 ]]
@@ -5174,10 +5186,10 @@ cls.funcs [[
     void disableParticle(int particleIndex)
     TextureAtlas* getTextureAtlas()
     void setTextureAtlas(TextureAtlas* atlas)
-    Texture2D* getTexture(void)
+    Texture2D* getTexture()
     void setTexture(Texture2D *texture)
     void setBlendFunc(const BlendFunc &blendFunc)
-    const BlendFunc& getBlendFunc(void)
+    const BlendFunc& getBlendFunc()
     bool initWithTexture(Texture2D *tex, int capacity)
     bool initWithFile(const std::string& fileImage, int capacity)
 ]]

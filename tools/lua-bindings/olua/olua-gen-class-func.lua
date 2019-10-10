@@ -428,7 +428,7 @@ local function getFuncNArgs(cls, fis, n)
                 min = (min or 0) + 1
             end
         end
-        if v.MAX_ARGS == n or min == n then
+        if v.MAX_ARGS == n or (min and (n >= min and n <= v.MAX_ARGS)) then
             arr[#arr + 1] = v
         end
     end

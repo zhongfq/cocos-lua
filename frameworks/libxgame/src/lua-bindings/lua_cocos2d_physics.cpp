@@ -6011,6 +6011,26 @@ static int _cocos2d_PhysicsWorld_setAutoStep(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_PhysicsWorld_setDebugDrawGlobalZOrder(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::PhysicsWorld *self = nullptr;
+    lua_Number arg1 = 0;       /** globalZOrder */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsWorld");
+    olua_check_number(L, 2, &arg1);
+
+    // void setDebugDrawGlobalZOrder(float globalZOrder)
+    self->setDebugDrawGlobalZOrder((float)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _cocos2d_PhysicsWorld_setDebugDrawMask(lua_State *L)
 {
     olua_startinvoke(L);
@@ -6259,6 +6279,7 @@ static int luaopen_cocos2d_PhysicsWorld(lua_State *L)
     oluacls_func(L, "removeBody", _cocos2d_PhysicsWorld_removeBody);
     oluacls_func(L, "removeJoint", _cocos2d_PhysicsWorld_removeJoint);
     oluacls_func(L, "setAutoStep", _cocos2d_PhysicsWorld_setAutoStep);
+    oluacls_func(L, "setDebugDrawGlobalZOrder", _cocos2d_PhysicsWorld_setDebugDrawGlobalZOrder);
     oluacls_func(L, "setDebugDrawMask", _cocos2d_PhysicsWorld_setDebugDrawMask);
     oluacls_func(L, "setFixedUpdateRate", _cocos2d_PhysicsWorld_setFixedUpdateRate);
     oluacls_func(L, "setGravity", _cocos2d_PhysicsWorld_setGravity);

@@ -604,6 +604,7 @@ cls.funcs [[
     int getFixedUpdateRate()
     void setDebugDrawMask(int mask)
     int getDebugDrawMask()
+    void setDebugDrawGlobalZOrder(float globalZOrder)
     void setAutoStep(bool autoStep)
     bool isAutoStep()
     void step(float delta)

@@ -1193,6 +1193,15 @@ RenderTexture.CALLBACK {
     TAG_MODE = "OLUA_TAG_REPLACE",
     CALLONCE = true,
 }
+RenderTexture.CALLBACK {
+    FUNCS = {
+        'bool saveToFileAsNonPMA(const std::string& fileName, Image::Format format, bool isRGBA, const std::function<void(RenderTexture*, const std::string&)>& callback)',
+        'bool saveToFileAsNonPMA(const std::string& filename, bool isRGBA = true, const std::function<void(RenderTexture*, const std::string&)>& callback = nullptr)'
+    },
+    TAG_MAKER = 'olua_makecallbacktag("saveToFile")',
+    TAG_MODE = "OLUA_TAG_REPLACE",
+    CALLONCE = true,
+}
 RenderTexture.ALIAS('begin', 'beginVisit')
 RenderTexture.ALIAS('end', 'endVisit')
 

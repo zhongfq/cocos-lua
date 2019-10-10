@@ -3,7 +3,7 @@ local bash = require "bash"
 -- parse cmd line args
 local PROJECT_NAME = "hello"
 local PROJECT_DIR = '~'
-local PACKAGE_NAME = 'org.cocos2dx.hello'
+local PACKAGE_NAME = 'com.codetypes.hellolua'
 local args = {...}
 
 local function printhelp()

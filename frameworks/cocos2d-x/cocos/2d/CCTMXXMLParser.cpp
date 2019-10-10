@@ -28,13 +28,14 @@ THE SOFTWARE.
 ****************************************************************************/
 
 #include "2d/CCTMXXMLParser.h"
-#include <unordered_map>
-#include <sstream>
 #include "2d/CCTMXTiledMap.h"
+#include "base/CCDirector.h"
 #include "base/ZipUtils.h"
 #include "base/base64.h"
-#include "base/CCDirector.h"
 #include "platform/CCFileUtils.h"
+#include <sstream>
+#include <unordered_map>
+#include <utility>
 
 using namespace std;
 
@@ -63,7 +64,7 @@ ValueMap& TMXLayerInfo::getProperties()
     return _properties;
 }
 
-void TMXLayerInfo::setProperties(ValueMap var)
+void TMXLayerInfo::setProperties(const ValueMap& var)
 {
     _properties = var;
 }
@@ -293,7 +294,7 @@ void TMXMapInfo::startElement(void* /*ctx*/, const char *name, const char **atts
     {
         // If this is an external tileset then start parsing that
         std::string externalTilesetFilename = attributeDict["source"].asString();
-        if (externalTilesetFilename != "")
+        if (!externalTilesetFilename.empty())
         {
             _externalTilesetFilename = externalTilesetFilename;
 
@@ -444,7 +445,7 @@ void TMXMapInfo::startElement(void* /*ctx*/, const char *name, const char **atts
         }
         else 
         {
-            tileset->_sourceImage = _resources + (_resources.size() ? "/" : "") + imagename;
+            tileset->_sourceImage = _resources + (!_resources.empty() ? "/" : "") + imagename;
         }
     } 
     else if (elementName == "data")
@@ -452,7 +453,7 @@ void TMXMapInfo::startElement(void* /*ctx*/, const char *name, const char **atts
         std::string encoding = attributeDict["encoding"].asString();
         std::string compression = attributeDict["compression"].asString();
 
-        if (encoding == "")
+        if (encoding.empty())
         {
             tmxMapInfo->setLayerAttribs(tmxMapInfo->getLayerAttribs() | TMXLayerAttribNone);
             
@@ -482,7 +483,7 @@ void TMXMapInfo::startElement(void* /*ctx*/, const char *name, const char **atts
                 layerAttribs = tmxMapInfo->getLayerAttribs();
                 tmxMapInfo->setLayerAttribs(layerAttribs | TMXLayerAttribZlib);
             }
-            CCASSERT( compression == "" || compression == "gzip" || compression == "zlib", "TMX: unsupported compression method" );
+            CCASSERT( compression.empty() || compression == "gzip" || compression == "zlib", "TMX: unsupported compression method" );
         }
         else if (encoding == "csv")
         {

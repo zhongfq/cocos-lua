@@ -256,7 +256,7 @@
 
 - (void)setReturnType:(cocos2d::ui::EditBox::KeyboardReturnType)returnType
 {
-    //CCLOG("setReturnType not implemented");
+    CCLOG("setReturnType not implemented");
 }
 
 - (void)setTextHorizontalAlignment:(cocos2d::TextHAlignment)alignment

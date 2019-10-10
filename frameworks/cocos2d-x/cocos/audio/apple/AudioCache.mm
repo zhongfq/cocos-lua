@@ -38,9 +38,6 @@
 
 #include "audio/apple/AudioDecoder.h"
 
-#undef ALOGV
-#define ALOGV(...) do{} while(false)
-
 #ifdef VERY_VERY_VERBOSE_LOGGING
 #define ALOGVV ALOGV
 #else

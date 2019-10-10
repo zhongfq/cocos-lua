@@ -238,7 +238,7 @@ void EditBoxImplCommon::refreshInactiveText()
 
     refreshLabelAlignment();
     if (!_editingMode) {
-        if (_text.size() == 0) {
+        if (_text.empty()) {
             _label->setVisible(false);
             _labelPlaceHolder->setVisible(true);
         } else {
@@ -287,7 +287,7 @@ void EditBoxImplCommon::setVisible(bool visible)
 void EditBoxImplCommon::setContentSize(const Size& size)
 {
     _contentSize = applyPadding(size);
-    //CCLOG("[Edit text] content size = (%f, %f)", _contentSize.width, _contentSize.height);
+    CCLOG("[Edit text] content size = (%f, %f)", _contentSize.width, _contentSize.height);
     placeInactiveLabels(_contentSize);
 }
 
@@ -300,7 +300,7 @@ void EditBoxImplCommon::draw(Renderer* /*renderer*/, const Mat4& /*transform*/, 
     }
 }
 
-void EditBoxImplCommon::onEnter(void)
+void EditBoxImplCommon::onEnter()
 {
     const char* pText = getText();
     if (pText) {

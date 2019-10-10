@@ -547,8 +547,7 @@ void FileUtils::destroyInstance()
 
 void FileUtils::setDelegate(FileUtils *delegate)
 {
-    if (s_sharedFileUtils)
-        delete s_sharedFileUtils;
+    delete s_sharedFileUtils;
 
     s_sharedFileUtils = delegate;
 }
@@ -616,7 +615,7 @@ bool FileUtils::init()
 {
     DECLARE_GUARD;
     _searchPathArray.push_back(_defaultResRootPath);
-    _searchResolutionsOrderArray.push_back("");
+    _searchResolutionsOrderArray.emplace_back("");
     return true;
 }
 
@@ -726,12 +725,9 @@ unsigned char* FileUtils::getFileDataFromZip(const std::string& zipFilePath, con
         file = unzOpen(FileUtils::getInstance()->getSuitableFOpen(zipFilePath).c_str());
         CC_BREAK_IF(!file);
 
-        // FIXME: Other platforms should use upstream minizip like mingw-w64
-#ifdef MINIZIP_FROM_SYSTEM
-        int ret = unzLocateFile(file, filename.c_str(), NULL);
-#else
-        int ret = unzLocateFile(file, filename.c_str(), 1);
-#endif
+        // minizip 1.2.0 is same with other platforms
+        int ret = unzLocateFile(file, filename.c_str(), nullptr);
+
         CC_BREAK_IF(UNZ_OK != ret);
 
         char filePathA[260];
@@ -814,6 +810,11 @@ std::string FileUtils::getPathForFilename(const std::string& filename, const std
     return path;
 }
 
+std::string FileUtils::getPathForDirectory(const std::string &dir, const std::string &resolutionDiretory, const std::string &searchPath) const
+{
+    return searchPath + resolutionDiretory + dir;
+}
+
 std::string FileUtils::fullPathForFilename(const std::string &filename) const
 {
     
@@ -894,14 +895,14 @@ std::string FileUtils::fullPathForDirectory(const std::string &dir) const
         longdir +="/";
     }
 
+    const std::string newdirname( getNewFilename(longdir) );
+    
     for (const auto& searchIt : _searchPathArray)
     {
         for (const auto& resolutionIt : _searchResolutionsOrderArray)
         {
-            fullpath = searchIt + longdir + resolutionIt;
-            auto exists = isDirectoryExistInternal(fullpath);
-
-            if (exists && !fullpath.empty())
+            fullpath = this->getPathForDirectory(newdirname, resolutionIt, searchIt);
+            if (!fullpath.empty() && isDirectoryExistInternal(fullpath))
             {
                 // Using the filename passed in as key.
                 _fullPathCacheDir.emplace(dir, fullpath);
@@ -941,7 +942,7 @@ void FileUtils::setSearchResolutionsOrder(const std::vector<std::string>& search
     for(const auto& iter : searchResolutionsOrder)
     {
         std::string resolutionDirectory = iter;
-        if (!existDefault && resolutionDirectory == "")
+        if (!existDefault && resolutionDirectory.empty())
         {
             existDefault = true;
         }
@@ -956,7 +957,7 @@ void FileUtils::setSearchResolutionsOrder(const std::vector<std::string>& search
 
     if (!existDefault)
     {
-        _searchResolutionsOrderArray.push_back("");
+        _searchResolutionsOrderArray.emplace_back("");
     }
 }
 
@@ -1116,7 +1117,7 @@ std::string FileUtils::getFullPathForFilenameWithinDirectory(const std::string& 
 {
     // get directory+filename, safely adding '/' as necessary
     std::string ret = directory;
-    if (directory.size() && directory[directory.size()-1] != '/'){
+    if (!directory.empty() && directory[directory.size()-1] != '/'){
         ret += '/';
     }
     ret += filename;
@@ -1165,30 +1166,10 @@ bool FileUtils::isDirectoryExist(const std::string& dirPath) const
     if (isAbsolutePath(dirPath))
     {
         return isDirectoryExistInternal(dirPath);
+    } else {
+        auto fullPath = fullPathForDirectory(dirPath);
+        return !fullPath.empty();
     }
-
-    // Already Cached ?
-    auto cacheIter = _fullPathCacheDir.find(dirPath);
-    if( cacheIter != _fullPathCacheDir.end() )
-    {
-        return isDirectoryExistInternal(cacheIter->second);
-    }
-
-    std::string fullpath;
-    for (const auto& searchIt : _searchPathArray)
-    {
-        for (const auto& resolutionIt : _searchResolutionsOrderArray)
-        {
-            // searchPath + file_path + resourceDirectory
-            fullpath = fullPathForDirectory(searchIt + dirPath + resolutionIt);
-            if (isDirectoryExistInternal(fullpath))
-            {
-                _fullPathCacheDir.emplace(dirPath, fullpath);
-                return true;
-            }
-        }
-    }
-    return false;
 }
 
 void FileUtils::isDirectoryExist(const std::string& fullPath, std::function<void(bool)> callback) const

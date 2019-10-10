@@ -1,4 +1,4 @@
-package org.cocos2dx.hellolua.wxapi;
+package com.codetypes.hellolua.wxapi;
 
 import kernel.plugins.wechat.WeChatPayEntryActivity;
 

@@ -1,4 +1,4 @@
-package org.cocos2dx.hellolua;
+package com.codetypes.hellolua;
 
 import android.os.Bundle;
 

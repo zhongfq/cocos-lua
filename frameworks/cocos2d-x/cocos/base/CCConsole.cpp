@@ -71,7 +71,7 @@
 #include "base/allocator/CCAllocatorDiagnostics.h"
 NS_CC_BEGIN
 
-extern const char* cocos2dVersion(void);
+extern const char* cocos2dVersion();
 
 #define PROMPT  "> "
 #define DEFAULT_COMMAND_SEPARATOR '|'
@@ -715,7 +715,7 @@ void Console::log(const char* buf)
 {
     if( _sendDebugStrings ) {
         _DebugStringsMutex.lock();
-        _DebugStrings.push_back(buf);
+        _DebugStrings.emplace_back(buf);
         _DebugStringsMutex.unlock();
     }
 }
@@ -1165,7 +1165,7 @@ void Console::commandDebugMsg(int fd, const std::string& /*args*/)
 
 void Console::commandDebugMsgSubCommandOnOff(int /*fd*/, const std::string& args)
 {
-    _sendDebugStrings = (args.compare("on") == 0);
+    _sendDebugStrings = (args == "on");
 }
 
 void Console::commandDirectorSubCommandPause(int /*fd*/, const std::string& /*args*/)
@@ -1233,7 +1233,7 @@ void Console::commandFps(int fd, const std::string& /*args*/)
 
 void Console::commandFpsSubCommandOnOff(int /*fd*/, const std::string& args)
 {
-    bool state = (args.compare("on") == 0);
+    bool state = (args == "on");
     Director *dir = Director::getInstance();
     Scheduler *sched = dir->getScheduler();
     sched->performFunctionInCocosThread( std::bind(&Director::setDisplayStats, dir, state));

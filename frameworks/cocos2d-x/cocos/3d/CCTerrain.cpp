@@ -700,7 +700,7 @@ void Terrain::setAlphaMap(cocos2d::Texture2D * newAlphaMapTexture)
     _alphaMap = newAlphaMapTexture;
 }
 
-void Terrain::setDetailMap(unsigned int index, DetailMap detailMap)
+void Terrain::setDetailMap(unsigned int index, const DetailMap& detailMap)
 {
     if(index>4)
     {
@@ -1583,10 +1583,10 @@ void Terrain::QuadTree::preCalculateAABB(const Mat4 & worldTransform)
 
 Terrain::QuadTree::~QuadTree()
 {
-    if(_tl) delete _tl;
-    if(_tr) delete _tr;
-    if(_bl) delete _bl;
-    if(_br) delete _br;
+    delete _tl;
+    delete _tr;
+    delete _bl;
+    delete _br;
 }
 
 Terrain::TerrainData::TerrainData(const std::string& heightMapsrc , const std::string& textureSrc, const Size & chunksize, float height, float scale)

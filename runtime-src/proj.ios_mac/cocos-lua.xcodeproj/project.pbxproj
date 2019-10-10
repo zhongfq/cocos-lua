@@ -15,24 +15,36 @@
 		0E1BFDFA231E440C004205A8 /* builtin.manifest in Resources */ = {isa = PBXBuildFile; fileRef = 0E1BFDF4231E440C004205A8 /* builtin.manifest */; };
 		0E1BFDFC231E4747004205A8 /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E1BFDFB231E4747004205A8 /* GameController.framework */; };
 		0E24B3E422701692000054C9 /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E24B3E322701692000054C9 /* Bugly.framework */; };
-		0E24B3FC22703EC0000054C9 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E24B3FB22703EC0000054C9 /* CoreTelephony.framework */; };
-		0E24B3FE22703ECC000054C9 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E24B3FD22703ECC000054C9 /* libsqlite3.tbd */; };
 		0E33593C229D089200F6FF15 /* libdragonbones Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E335937229D079100F6FF15 /* libdragonbones Mac.a */; };
 		0E335945229D13FE00F6FF15 /* libdragonbones iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E335939229D079100F6FF15 /* libdragonbones iOS.a */; };
-		0E4B9340226DE2DC00B22B9F /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E4B933F226DE2DC00B22B9F /* GameController.framework */; };
 		0E4C8BC3225C84B10095CF59 /* libfairygui Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E4C8BBB225C82B50095CF59 /* libfairygui Mac.a */; };
 		0E4C8BC4225C84B60095CF59 /* libxgame Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E4C8BB0225C82AC0095CF59 /* libxgame Mac.a */; };
 		0E4C8BDD225C8BEF0095CF59 /* libfairygui iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E4C8BB9225C82B50095CF59 /* libfairygui iOS.a */; };
 		0E4C8BDE225C8BF60095CF59 /* libxgame iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E4C8BB2225C82AC0095CF59 /* libxgame iOS.a */; };
-		0E4C8BE0225C8FCA0095CF59 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E4C8BDF225C8FCA0095CF59 /* MediaPlayer.framework */; };
 		0E730C7C2272B4810067866B /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E730C752272B4810067866B /* libWeChatSDK.a */; };
 		0E730C7E2272B4810067866B /* libWXSpeech.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E730C7B2272B4810067866B /* libWXSpeech.a */; };
 		0E730C842272B4910067866B /* lua_wechat_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E730C812272B4900067866B /* lua_wechat_ios.mm */; };
 		0E730C852272B4910067866B /* lua_wechat_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E730C812272B4900067866B /* lua_wechat_ios.mm */; };
-		0EB6C2B023252CB4000F4D81 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB6C2AF23252CB4000F4D81 /* WebKit.framework */; };
-		0EB6C2B223252D2F000F4D81 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB6C2B123252D2F000F4D81 /* AVKit.framework */; };
-		0ED5D1AB2282D80E0072F3DB /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED5D1A92282D80D0072F3DB /* Photos.framework */; };
-		0ED5D1B02283CA640072F3DB /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED5D1AF2283CA630072F3DB /* StoreKit.framework */; };
+		0EB8B3E6234EF24A004354EE /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB8B3E5234EF24A004354EE /* libiconv.tbd */; };
+		0EB8B3E8234EF250004354EE /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB8B3E7234EF250004354EE /* libsqlite3.tbd */; };
+		0EB8B3EA234EF256004354EE /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB8B3E9234EF256004354EE /* libz.tbd */; };
+		0EB8B3EC234EF275004354EE /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB8B3EB234EF275004354EE /* AVKit.framework */; };
+		0EB8B3EE234EF27B004354EE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB8B3ED234EF27B004354EE /* CoreGraphics.framework */; };
+		0EB8B3F0234EF281004354EE /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB8B3EF234EF281004354EE /* CoreMedia.framework */; };
+		0EB8B3F2234EF289004354EE /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB8B3F1234EF289004354EE /* CoreMotion.framework */; };
+		0EB8B3F3234EF292004354EE /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB8B3F1234EF289004354EE /* CoreMotion.framework */; };
+		0EB8B3F5234EF29D004354EE /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB8B3F4234EF29D004354EE /* CoreTelephony.framework */; };
+		0EB8B3F7234EF2A3004354EE /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB8B3F6234EF2A3004354EE /* CoreText.framework */; };
+		0EB8B3F9234EF2AC004354EE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB8B3F8234EF2AC004354EE /* Foundation.framework */; };
+		0EB8B3FB234EF2B2004354EE /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB8B3FA234EF2B2004354EE /* GameController.framework */; };
+		0EB8B3FD234EF2B9004354EE /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB8B3FC234EF2B9004354EE /* OpenAL.framework */; };
+		0EB8B3FF234EF2BF004354EE /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB8B3FE234EF2BF004354EE /* OpenGLES.framework */; };
+		0EB8B401234EF2C4004354EE /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB8B400234EF2C4004354EE /* Photos.framework */; };
+		0EB8B403234EF2CA004354EE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB8B402234EF2CA004354EE /* QuartzCore.framework */; };
+		0EB8B405234EF2CF004354EE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB8B404234EF2CF004354EE /* Security.framework */; };
+		0EB8B407234EF2D6004354EE /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB8B406234EF2D5004354EE /* StoreKit.framework */; };
+		0EB8B409234EF2DB004354EE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB8B408234EF2DB004354EE /* UIKit.framework */; };
+		0EB8B40B234EF2E1004354EE /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB8B40A234EF2E1004354EE /* WebKit.framework */; };
 		1A88B2641FC3D9C9005C14AE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A88B2631FC3D9C9005C14AE /* Images.xcassets */; };
 		1AC6FB21180E996B004C840B /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FAF9180E9839004C840B /* libcocos2d Mac.a */; };
 		1AC6FB30180E99EB004C840B /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB07180E9839004C840B /* libcocos2d iOS.a */; };
@@ -40,10 +52,6 @@
 		1AF87B881F6F781D007BE51C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1AF87B591F6F77D6007BE51C /* LaunchScreen.storyboard */; };
 		1AF87B891F6F781D007BE51C /* LaunchScreenBackground.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1AF87B5A1F6F77D6007BE51C /* LaunchScreenBackground.jpg */; };
 		1AF87B8A1F6F7822007BE51C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AF87B5B1F6F77D6007BE51C /* main.m */; };
-		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
-		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
-		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
-		294D0D641D0D56D500F7F5D4 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 294D0D631D0D56D500F7F5D4 /* CoreText.framework */; };
 		46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46880B8419C43A87006E1F66 /* AppDelegate.cpp */; };
 		46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46880B8419C43A87006E1F66 /* AppDelegate.cpp */; };
 		503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 503AE0F617EB97AB00D1A890 /* Icon.icns */; };
@@ -57,16 +65,9 @@
 		5087E76B17EB910900C73F5D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620F132DFF4E0009C878 /* AudioToolbox.framework */; };
 		5087E78917EB974C00C73F5D /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5087E78817EB974C00C73F5D /* AppKit.framework */; };
 		5087E78B17EB975400C73F5D /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5087E78A17EB975400C73F5D /* OpenGL.framework */; };
-		52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B47A461A53D09B004E4C60 /* Security.framework */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
-		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
-		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
-		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
-		D44C620C132DFF330009C878 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620B132DFF330009C878 /* OpenAL.framework */; };
 		D44C620E132DFF430009C878 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620D132DFF430009C878 /* AVFoundation.framework */; };
 		D44C6210132DFF4E0009C878 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620F132DFF4E0009C878 /* AudioToolbox.framework */; };
-		D6B0611B1803AB670077942B /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6B0611A1803AB670077942B /* CoreMotion.framework */; };
-		ED545A7C1B68A1F400C3958E /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ED545A7B1B68A1F400C3958E /* libiconv.dylib */; };
 		ED545A7E1B68A1FA00C3958E /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ED545A7D1B68A1FA00C3958E /* libiconv.dylib */; };
 /* End PBXBuildFile section */
 
@@ -211,6 +212,25 @@
 		0E730C812272B4900067866B /* lua_wechat_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = lua_wechat_ios.mm; path = ../../frameworks/plugins/wechat/lua_wechat_ios.mm; sourceTree = "<group>"; };
 		0EB6C2AF23252CB4000F4D81 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.4.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		0EB6C2B123252D2F000F4D81 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.4.sdk/System/Library/Frameworks/AVKit.framework; sourceTree = DEVELOPER_DIR; };
+		0EB8B3E5234EF24A004354EE /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.0.sdk/usr/lib/libiconv.tbd; sourceTree = DEVELOPER_DIR; };
+		0EB8B3E7234EF250004354EE /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.0.sdk/usr/lib/libsqlite3.tbd; sourceTree = DEVELOPER_DIR; };
+		0EB8B3E9234EF256004354EE /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.0.sdk/usr/lib/libz.tbd; sourceTree = DEVELOPER_DIR; };
+		0EB8B3EB234EF275004354EE /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.0.sdk/System/Library/Frameworks/AVKit.framework; sourceTree = DEVELOPER_DIR; };
+		0EB8B3ED234EF27B004354EE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.0.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
+		0EB8B3EF234EF281004354EE /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.0.sdk/System/Library/Frameworks/CoreMedia.framework; sourceTree = DEVELOPER_DIR; };
+		0EB8B3F1234EF289004354EE /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.0.sdk/System/Library/Frameworks/CoreMotion.framework; sourceTree = DEVELOPER_DIR; };
+		0EB8B3F4234EF29D004354EE /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.0.sdk/System/Library/Frameworks/CoreTelephony.framework; sourceTree = DEVELOPER_DIR; };
+		0EB8B3F6234EF2A3004354EE /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.0.sdk/System/Library/Frameworks/CoreText.framework; sourceTree = DEVELOPER_DIR; };
+		0EB8B3F8234EF2AC004354EE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		0EB8B3FA234EF2B2004354EE /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.0.sdk/System/Library/Frameworks/GameController.framework; sourceTree = DEVELOPER_DIR; };
+		0EB8B3FC234EF2B9004354EE /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.0.sdk/System/Library/Frameworks/OpenAL.framework; sourceTree = DEVELOPER_DIR; };
+		0EB8B3FE234EF2BF004354EE /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.0.sdk/System/Library/Frameworks/OpenGLES.framework; sourceTree = DEVELOPER_DIR; };
+		0EB8B400234EF2C4004354EE /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.0.sdk/System/Library/Frameworks/Photos.framework; sourceTree = DEVELOPER_DIR; };
+		0EB8B402234EF2CA004354EE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.0.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
+		0EB8B404234EF2CF004354EE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.0.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		0EB8B406234EF2D5004354EE /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.0.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
+		0EB8B408234EF2DB004354EE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		0EB8B40A234EF2E1004354EE /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.0.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		0ED5D1A92282D80D0072F3DB /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Photos.framework; sourceTree = DEVELOPER_DIR; };
 		0ED5D1AA2282D80E0072F3DB /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/PhotosUI.framework; sourceTree = DEVELOPER_DIR; };
 		0ED5D1AF2283CA630072F3DB /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -258,34 +278,35 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EB8B3EA234EF256004354EE /* libz.tbd in Frameworks */,
+				0EB8B3E8234EF250004354EE /* libsqlite3.tbd in Frameworks */,
+				0EB8B3E6234EF24A004354EE /* libiconv.tbd in Frameworks */,
 				0E335945229D13FE00F6FF15 /* libdragonbones iOS.a in Frameworks */,
 				0E4C8BDE225C8BF60095CF59 /* libxgame iOS.a in Frameworks */,
+				0EB8B409234EF2DB004354EE /* UIKit.framework in Frameworks */,
 				0E4C8BDD225C8BEF0095CF59 /* libfairygui iOS.a in Frameworks */,
+				0EB8B3F7234EF2A3004354EE /* CoreText.framework in Frameworks */,
+				0EB8B3F3234EF292004354EE /* CoreMotion.framework in Frameworks */,
+				0EB8B3FB234EF2B2004354EE /* GameController.framework in Frameworks */,
+				0EB8B40B234EF2E1004354EE /* WebKit.framework in Frameworks */,
 				1AC6FB30180E99EB004C840B /* libcocos2d iOS.a in Frameworks */,
-				ED545A7C1B68A1F400C3958E /* libiconv.dylib in Frameworks */,
-				BF1712471292920000B8313A /* libz.dylib in Frameworks */,
-				0E24B3FE22703ECC000054C9 /* libsqlite3.tbd in Frameworks */,
 				0E730C7C2272B4810067866B /* libWeChatSDK.a in Frameworks */,
 				0E730C7E2272B4810067866B /* libWXSpeech.a in Frameworks */,
+				0EB8B3F0234EF281004354EE /* CoreMedia.framework in Frameworks */,
+				0EB8B3FD234EF2B9004354EE /* OpenAL.framework in Frameworks */,
 				0E24B3E422701692000054C9 /* Bugly.framework in Frameworks */,
-				0EB6C2B223252D2F000F4D81 /* AVKit.framework in Frameworks */,
+				0EB8B3EE234EF27B004354EE /* CoreGraphics.framework in Frameworks */,
+				0EB8B3EC234EF275004354EE /* AVKit.framework in Frameworks */,
+				0EB8B401234EF2C4004354EE /* Photos.framework in Frameworks */,
+				0EB8B407234EF2D6004354EE /* StoreKit.framework in Frameworks */,
+				0EB8B405234EF2CF004354EE /* Security.framework in Frameworks */,
+				0EB8B3F9234EF2AC004354EE /* Foundation.framework in Frameworks */,
 				D44C6210132DFF4E0009C878 /* AudioToolbox.framework in Frameworks */,
+				0EB8B403234EF2CA004354EE /* QuartzCore.framework in Frameworks */,
 				D44C620E132DFF430009C878 /* AVFoundation.framework in Frameworks */,
-				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
-				52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */,
-				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
-				D6B0611B1803AB670077942B /* CoreMotion.framework in Frameworks */,
-				0E24B3FC22703EC0000054C9 /* CoreTelephony.framework in Frameworks */,
-				294D0D641D0D56D500F7F5D4 /* CoreText.framework in Frameworks */,
-				0E4B9340226DE2DC00B22B9F /* GameController.framework in Frameworks */,
-				0E4C8BE0225C8FCA0095CF59 /* MediaPlayer.framework in Frameworks */,
-				BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */,
-				D44C620C132DFF330009C878 /* OpenAL.framework in Frameworks */,
-				BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */,
-				0ED5D1AB2282D80E0072F3DB /* Photos.framework in Frameworks */,
-				0ED5D1B02283CA640072F3DB /* StoreKit.framework in Frameworks */,
-				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
-				0EB6C2B023252CB4000F4D81 /* WebKit.framework in Frameworks */,
+				0EB8B3F5234EF29D004354EE /* CoreTelephony.framework in Frameworks */,
+				0EB8B3F2234EF289004354EE /* CoreMotion.framework in Frameworks */,
+				0EB8B3FF234EF2BF004354EE /* OpenGLES.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,6 +461,25 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0EB8B40A234EF2E1004354EE /* WebKit.framework */,
+				0EB8B408234EF2DB004354EE /* UIKit.framework */,
+				0EB8B406234EF2D5004354EE /* StoreKit.framework */,
+				0EB8B404234EF2CF004354EE /* Security.framework */,
+				0EB8B402234EF2CA004354EE /* QuartzCore.framework */,
+				0EB8B400234EF2C4004354EE /* Photos.framework */,
+				0EB8B3FE234EF2BF004354EE /* OpenGLES.framework */,
+				0EB8B3FC234EF2B9004354EE /* OpenAL.framework */,
+				0EB8B3FA234EF2B2004354EE /* GameController.framework */,
+				0EB8B3F8234EF2AC004354EE /* Foundation.framework */,
+				0EB8B3F6234EF2A3004354EE /* CoreText.framework */,
+				0EB8B3F4234EF29D004354EE /* CoreTelephony.framework */,
+				0EB8B3F1234EF289004354EE /* CoreMotion.framework */,
+				0EB8B3EF234EF281004354EE /* CoreMedia.framework */,
+				0EB8B3ED234EF27B004354EE /* CoreGraphics.framework */,
+				0EB8B3EB234EF275004354EE /* AVKit.framework */,
+				0EB8B3E9234EF256004354EE /* libz.tbd */,
+				0EB8B3E7234EF250004354EE /* libsqlite3.tbd */,
+				0EB8B3E5234EF24A004354EE /* libiconv.tbd */,
 				0EB6C2B123252D2F000F4D81 /* AVKit.framework */,
 				0EB6C2AF23252CB4000F4D81 /* WebKit.framework */,
 				0E1BFDFB231E4747004205A8 /* GameController.framework */,
@@ -801,7 +841,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../../frameworks/plugins/wechat/ios";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = org.cocos2dx.hellolua;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codetypes.hellolua;
 				SDKROOT = iphoneos;
 				STRIP_PNG_TEXT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -828,7 +868,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../../frameworks/plugins/wechat/ios";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = org.cocos2dx.hellolua;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codetypes.hellolua;
 				SDKROOT = iphoneos;
 				STRIP_PNG_TEXT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";

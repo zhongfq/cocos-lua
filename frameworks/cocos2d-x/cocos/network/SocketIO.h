@@ -189,7 +189,7 @@ private:
 
     friend class SIOClientImpl;
 private:
-    CC_DISALLOW_COPY_AND_ASSIGN(SocketIO)
+    CC_DISALLOW_COPY_AND_ASSIGN(SocketIO);
 };
 
 //c++11 style callbacks entities will be created using CC_CALLBACK (which uses std::bind)
@@ -276,7 +276,7 @@ public:
      * @param eventName the name of event.
      * @param e the callback function.
      */
-    void on(const std::string& eventName, SIOEvent e);
+    void on(const std::string& eventName, const SIOEvent& e);
 
     /**
      * Set tag of SIOClient.

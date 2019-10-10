@@ -30,6 +30,8 @@ THE SOFTWARE.
 
 #include <stdarg.h>
 
+#include <utility>
+
 #include "2d/CCSprite.h"
 #include "2d/CCNode.h"
 #include "2d/CCSpriteFrame.h"
@@ -941,6 +943,8 @@ void RotateTo::calculateAngles(float &startAngle, float &diffAngle, float dstAng
     }
 
     diffAngle = dstAngle - startAngle;
+    //fix angle when angle is bigger than 360
+    diffAngle = diffAngle - (int)diffAngle / 360 * 360;
     if (diffAngle > 180)
     {
         diffAngle -= 360;
@@ -2425,7 +2429,6 @@ DelayTime* DelayTime::clone() const
 
 void DelayTime::update(float /*time*/)
 {
-    return;
 }
 
 DelayTime* DelayTime::reverse() const
@@ -2801,7 +2804,7 @@ void TargetedAction::setForcedTarget(Node* forcedTarget)
 
 // ActionFloat
 
-ActionFloat* ActionFloat::create(float duration, float from, float to, ActionFloatCallback callback)
+ActionFloat* ActionFloat::create(float duration, float from, float to, const ActionFloatCallback& callback)
 {
     auto ref = new (std::nothrow) ActionFloat();
     if (ref && ref->initWithDuration(duration, from, to, callback))
@@ -2814,7 +2817,7 @@ ActionFloat* ActionFloat::create(float duration, float from, float to, ActionFlo
     return nullptr;
 }
 
-bool ActionFloat::initWithDuration(float duration, float from, float to, ActionFloatCallback callback)
+bool ActionFloat::initWithDuration(float duration, float from, float to, const ActionFloatCallback& callback)
 {
     if (ActionInterval::initWithDuration(duration))
     {

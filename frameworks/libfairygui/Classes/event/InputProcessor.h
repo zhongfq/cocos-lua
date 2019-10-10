@@ -42,6 +42,8 @@ private:
     void onTouchMoved(cocos2d::Touch * touch, cocos2d::Event *);
     void onTouchEnded(cocos2d::Touch * touch, cocos2d::Event *);
     void onTouchCancelled(cocos2d::Touch * touch, cocos2d::Event *);
+    
+    cocos2d::Vec2 worldToGRoot(const cocos2d::Vec2 &pt);
 
     void onMouseDown(cocos2d::EventMouse* event);
     void onMouseUp(cocos2d::EventMouse* event);

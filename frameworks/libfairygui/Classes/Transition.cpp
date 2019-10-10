@@ -433,7 +433,7 @@ void Transition::stopItem(TransitionItem * item, bool setToComplete)
         item->tweener->kill(setToComplete);
         item->tweener = nullptr;
 
-        if (item->type == TransitionActionType::Shake && !setToComplete) //�𶯱����λ�������´ξ�Խ��ԽԶ�ˡ�
+        if (item->type == TransitionActionType::Shake && !setToComplete) //震动必须归位，否则下次就越震越远了。
         {
             item->target->_gearLocked = true;
             item->target->setPosition(item->target->getX() - ((TValue_Shake*)item->value)->lastOffset.x, item->target->getY() - ((TValue_Shake*)item->value)->lastOffset.y);
@@ -983,7 +983,7 @@ void Transition::onTweenStart(GTweener* tweener)
 {
     TransitionItem* item = (TransitionItem*)tweener->getTarget();
 
-    if (item->type == TransitionActionType::XY || item->type == TransitionActionType::Size) //λ�úʹ�СҪ��start������ȷ����ʼֵ
+    if (item->type == TransitionActionType::XY || item->type == TransitionActionType::Size) //位置和大小要到start才最终确认起始值
     {
         TValue* startValue;
         TValue* endValue;
@@ -1076,7 +1076,7 @@ void Transition::onTweenComplete(GTweener* tweener)
     item->tweener = nullptr;
     _totalTasks--;
 
-    if (tweener->allCompleted()) //�����岥�Ž���ʱ�������tween���м�ʱ��Ӧ�õ��ý�β����
+    if (tweener->allCompleted()) //当整体播放结束时间在这个tween的中间时不应该调用结尾钩子
         callHook(item, true);
 
     checkAllComplete();

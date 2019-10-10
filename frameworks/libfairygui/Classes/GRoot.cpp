@@ -507,11 +507,11 @@ void GRoot::onExit()
         _inst = nullptr;
 }
 
-class MonitorNode : public cocos2d::Node {
+class SetUIRoot : public cocos2d::Node {
 public:
-    CREATE_FUNC(MonitorNode);
+    CREATE_FUNC(SetUIRoot);
     
-    MonitorNode():onVisit(nullptr) {}
+    SetUIRoot():onVisit(nullptr) {}
     
     virtual void visit(cocos2d::Renderer *renderer, const cocos2d::Mat4& parentTransform, uint32_t parentFlags)
     {
@@ -536,10 +536,11 @@ bool GRoot::initWithScene(cocos2d::Scene * scene, int zOrder)
 
     scene->addChild(_displayObject, zOrder);
     
-    auto monitor = MonitorNode::create();
+    auto monitor = SetUIRoot::create();
     monitor->onVisit = [this]() {
         GRoot::_inst = this;
     };
+    monitor->setName("SetUIRoot");
     _displayObject->addChild(monitor);
     _inst = this;
 

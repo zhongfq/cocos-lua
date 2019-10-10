@@ -68,10 +68,13 @@ function Console:onCreate()
         -- color = 0x999999,
     })
     local function click ()
+        local curr = self.tab[tabController.selectedPage]
         if self.contentLoader.visible then
             self.contentLoader.visible = false
+            curr:stop()
         else
             self.contentLoader.visible = true
+            curr:start()
         end
     end
     btnOpen.cobj.touchEnabled = true

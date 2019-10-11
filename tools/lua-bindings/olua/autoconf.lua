@@ -558,7 +558,11 @@ function M:parseType(cur, children)
         if kind == 'NamespaceRef' then
             typename = v:name() .. '::'
         elseif kind == 'TypeRef' then
-            typename = typename .. v:name()
+            if v:name():find('::') then
+                typename = v:name()
+            else
+                typename = typename .. v:name()
+            end
             typename = self.typeref[typename] or typename
             break
         elseif kind ~= 'CXXOverrideAttr' then

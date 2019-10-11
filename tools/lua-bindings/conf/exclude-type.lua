@@ -20,6 +20,7 @@ M.EXCLUDE_TYPE 'cocos2d::Vec2 *'
 M.EXCLUDE_TYPE 'cocos2d::Vec3 *'            -- TODO
 M.EXCLUDE_TYPE 'cocos2d::Vec4 *'
 M.EXCLUDE_TYPE 'cocos2d::Tile *'
+M.EXCLUDE_TYPE 'cocos2d::Rect *'
 M.EXCLUDE_TYPE 'cocos2d::Grabber *'
 M.EXCLUDE_TYPE 'float *'
 M.EXCLUDE_TYPE 'GLfloat *'

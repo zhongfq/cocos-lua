@@ -186,6 +186,36 @@ typedef {
 }
 
 typedef {
+    CPPCLS = 'fairygui::FUIContainer *',
+    CONV = 'olua_$$_cppobj',
+    LUACLS = 'fgui.FUIContainer',
+}
+
+typedef {
+    CPPCLS = 'fairygui::FUIInput *',
+    CONV = 'olua_$$_cppobj',
+    LUACLS = 'fgui.FUIInput',
+}
+
+typedef {
+    CPPCLS = 'fairygui::FUILabel *',
+    CONV = 'olua_$$_cppobj',
+    LUACLS = 'fgui.FUILabel',
+}
+
+typedef {
+    CPPCLS = 'fairygui::FUIRichText *',
+    CONV = 'olua_$$_cppobj',
+    LUACLS = 'fgui.FUIRichText',
+}
+
+typedef {
+    CPPCLS = 'fairygui::FUISprite *',
+    CONV = 'olua_$$_cppobj',
+    LUACLS = 'fgui.FUISprite',
+}
+
+typedef {
     CPPCLS = 'fairygui::GBasicTextField *',
     CONV = 'olua_$$_cppobj',
     LUACLS = 'fgui.GBasicTextField',

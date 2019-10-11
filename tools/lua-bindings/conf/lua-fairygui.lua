@@ -8,6 +8,7 @@ M.PARSER = {
     PATH = {
         'FairyGUI.h',
         'tween/EaseManager.h',
+        'display/FUISprite.h',
     },
     ARGS = {
         '-I../../frameworks/cocos2d-x/cocos',
@@ -29,6 +30,7 @@ M.INCLUDES = [[
 #include "xgame/xlua.h"
 #include "FairyGUI.h"
 #include "tween/EaseManager.h"
+#include "display/FUISprite.h"
 ]]
 
 M.CHUNK = [[
@@ -840,5 +842,11 @@ TreeView.INJECT('treeNodeCreateCell', {
         lua_pop(L, 1);
     ]]
 })
+
+typeconf 'fairygui::FUIContainer'
+typeconf 'fairygui::FUIInput'
+typeconf 'fairygui::FUILabel'
+typeconf 'fairygui::FUIRichText'
+typeconf 'fairygui::FUISprite'
 
 return M

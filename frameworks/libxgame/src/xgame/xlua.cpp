@@ -406,9 +406,12 @@ int xlua_ccobjgc(lua_State *L)
 #endif
             if (olua_vmstatus(L)->debug) {
                 int top = lua_gettop(L);
+                lua_getfield(L, 1, "name");
+                const char *name = lua_tostring(L, -1);
                 const char *str = olua_objstring(L, 1);
-                xgame::runtime::log("lua gc: obj=%s obj_ref_count=%d total_obj_count=%d",
-                                    str, obj->getReferenceCount() - 1, olua_objcount(L) - 1);
+                xgame::runtime::log("lua gc: %s(NAME=%s, RC=%d, TC=%d)", str,
+                    name && strlen(name) > 0 ? name : "''",
+                    obj->getReferenceCount() - 1, olua_objcount(L) - 1);
                 lua_settop(L, top);
             }
             

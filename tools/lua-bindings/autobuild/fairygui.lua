@@ -20,6 +20,7 @@ M.INCLUDES = [[
 #include "xgame/xlua.h"
 #include "FairyGUI.h"
 #include "tween/EaseManager.h"
+#include "display/FUISprite.h"
 ]]
 M.CHUNK = [[
 bool manual_olua_is_fairygui_EventTag(lua_State *L, int idx)
@@ -2261,6 +2262,117 @@ cls.props [[
     list
     rootNode
     selectedNode
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'fairygui::FUIContainer'
+cls.SUPERCLS = "cocos2d::Node"
+cls.funcs [[
+    static fairygui::FUIContainer * create()
+    bool isClippingEnabled()
+    void setClippingEnabled(bool value)
+    const cocos2d::Rect& getClippingRegion()
+    void setClippingRegion(const cocos2d::Rect& clippingRegion)
+    cocos2d::Node* getStencil()
+    void setStencil(cocos2d::Node* stencil)
+    GLfloat getAlphaThreshold()
+    void setAlphaThreshold(GLfloat alphaThreshold)
+    bool isInverted()
+    void setInverted(bool inverted)
+]]
+cls.var('gOwner', [[GObject* gOwner]])
+cls.props [[
+    clippingEnabled
+    clippingRegion
+    stencil
+    alphaThreshold
+    inverted
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'fairygui::FUIInput'
+cls.SUPERCLS = "cocos2d::ui::EditBox"
+cls.funcs [[
+    static FUIInput* create()
+    void setText(const std::string& value)
+    TextFormat* getTextFormat()
+    void applyTextFormat()
+    bool isSingleLine()
+    void setSingleLine(bool value)
+    bool isPassword()
+    void setPassword(bool value)
+    int keyboardType()
+    void setKeyboardType(int value)
+]]
+cls.props [[
+    textFormat
+    singleLine
+    password
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'fairygui::FUILabel'
+cls.SUPERCLS = "cocos2d::Label"
+cls.funcs [[
+    static fairygui::FUILabel * create()
+    const std::string& getText()
+    void setText(const std::string& value)
+    TextFormat* getTextFormat()
+    void applyTextFormat()
+    void setGrayed(bool value)
+]]
+cls.props [[
+    text
+    textFormat
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'fairygui::FUIRichText'
+cls.SUPERCLS = "cocos2d::Node"
+cls.funcs [[
+    static fairygui::FUIRichText * create()
+    const cocos2d::Size& getDimensions()
+    void setDimensions(float width, float height)
+    void setText(const std::string& value)
+    TextFormat* getTextFormat()
+    void applyTextFormat()
+    cocos2d::Label::Overflow getOverflow()
+    void setOverflow(cocos2d::Label::Overflow overflow)
+    bool isAnchorTextUnderline()
+    void setAnchorTextUnderline(bool enable)
+    const cocos2d::Color3B& getAnchorFontColor()
+    void setAnchorFontColor(const cocos2d::Color3B& color)
+    const char* hitTestLink(const cocos2d::Vec2& worldPoint)
+]]
+cls.props [[
+    dimensions
+    textFormat
+    overflow
+    anchorTextUnderline
+    anchorFontColor
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'fairygui::FUISprite'
+cls.SUPERCLS = "cocos2d::Sprite"
+cls.funcs [[
+    static fairygui::FUISprite * create()
+    void clearContent()
+    void setGrayed(bool value)
+    FillMethod getFillMethod()
+    void setFillMethod(FillMethod value)
+    FillOrigin getFillOrigin()
+    void setFillOrigin(FillOrigin value)
+    bool isFillClockwise()
+    void setFillClockwise(bool value)
+    float getFillAmount()
+    void setFillAmount(float value)
+]]
+cls.props [[
+    fillMethod
+    fillOrigin
+    fillClockwise
+    fillAmount
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 

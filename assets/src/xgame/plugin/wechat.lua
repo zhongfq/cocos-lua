@@ -43,7 +43,7 @@ function WeChat:ctor()
         self:_didResponse(...)
     end)
 
-    runtime.on(Event.OPEN_URL, function (_, url)
+    runtime.on(Event.OPEN_URL, function (url)
         if string.find(url, self._scheme) == 1 then
             timer.killDelay(TAG_DEFERRED)
             if string.find(url, '://pay/?') then

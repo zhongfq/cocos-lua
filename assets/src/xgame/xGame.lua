@@ -45,6 +45,7 @@ function xGame:newService(name, cls)
     local svr = serviceClass.new(name)
     self[name] = svr
     self._services[name] = svr
+    serviceClass['fullClassName'] = cls
     trace('create service: %s(%s)', name, cls)
 end
 
@@ -57,7 +58,7 @@ function xGame:restart(cls, ...)
         assert(self[name] == svr, name)
         svr:dispose()
         assert(svr.dispose == true, name)
-        defs[name] = svr.class
+        defs[name] = svr.class['fullClassName']
         self._services[name] = nil
         self[name] = nil
     end

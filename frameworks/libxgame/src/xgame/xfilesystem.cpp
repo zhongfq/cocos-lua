@@ -184,79 +184,42 @@ Data filesystem::read(const std::string &path)
 
 static bool _doUnzip(const std::string &zipPath, const std::string &dest)
 {
-    unzFile zip = unzOpen(zipPath.c_str());
+    ZipFile zipFile(zipPath);
+    int numFiles = 0;
+    
+    Data data;
+    ResizableBufferAdapter<Data> buffer(&data);
     
     if (!filesystem::createDirectory(dest)) {
         return false;
     }
     
-    if (zip == nullptr) {
-        return false;
-    }
-    
-    unz_global_info global_info;
-    if (unzGetGlobalInfo(zip, &global_info) != UNZ_OK) {
-        unzClose(zip);
-        return false;
-    }
-    
-    for (uLong i = 0; i < global_info.number_entry; i++) {
-        char namebuff[FILENAME_MAX];
-        unz_file_info file;
-        if (unzGetCurrentFileInfo(zip, &file, namebuff, FILENAME_MAX, nullptr, 0, nullptr, 0) != UNZ_OK) {
-            unzClose(zip);
+    while (true) {
+        std::string filename;
+        std::string fullPath;
+        if (numFiles == 0) {
+            filename = zipFile.getFirstFilename();
+        } else {
+            filename = zipFile.getNextFilename();
+        }
+        if (filename.length() == 0) {
+            break;
+        } else {
+            numFiles++;
+        }
+        fullPath = dest + "/" + filename;
+        if (filename[filename.length() - 1] == '/') {
+            filesystem::createDirectory(fullPath);
+        } else if (zipFile.getFileData(filename, &buffer)) {
+            filesystem::write(fullPath, (const char *)data.getBytes(), (size_t)data.getSize());
+            runtime::log("[OK] unzip file: %s", fullPath.c_str());
+        } else {
+            runtime::log("[NO] unzip file: %s", fullPath.c_str());
             return false;
         }
-        
-        char fullPath[FILENAME_MAX];
-        snprintf(fullPath, FILENAME_MAX, "%s/%s", dest.c_str(), namebuff);
-        
-        if (!filesystem::createDirectory(fullPath, true)) {
-            unzClose(zip);
-            return false;
-        }
-        
-        if (namebuff[file.size_filename - 1] != '/') {
-            if (unzOpenCurrentFile(zip) != UNZ_OK) {
-                unzClose(zip);
-                return false;
-            }
-            
-            FILE *localFile = fopen(fullPath, "wb");
-            if (localFile == nullptr) {
-                unzClose(zip);
-                return false;
-            }
-            
-            int len = 0;
-            char contentbuff[BUFSIZ];
-            while ((len = unzReadCurrentFile(zip, contentbuff, BUFSIZ)) > 0) {
-                fwrite(contentbuff, sizeof(char), len, localFile);
-            }
-            
-            fclose(localFile);
-            
-            if (len < 0) {
-                unzClose(zip);
-                return false;
-            }
-            
-            runtime::log("[OK] unzip file: %s", fullPath);
-            
-            unzCloseCurrentFile(zip);
-        }
-        
-        if (i < global_info.number_entry - 1) {
-            if (unzGoToNextFile(zip) != UNZ_OK) {
-                unzClose(zip);
-                return false;
-            }
-        }
     }
     
-    unzClose(zip);
-    
-    return true;
+    return numFiles > 0;
 }
 
 bool filesystem::unzip(const std::string &path, const std::string &dest)

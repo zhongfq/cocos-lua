@@ -106,7 +106,11 @@ end
 function M.RemoveSelf(view)
     assert(view)
     return M.CallFunc(function()
-        view:removeSelf()
+        if view.removeSelf then
+            view:removeSelf()
+        else
+            view:removeFromParent()
+        end
     end)
 end
 

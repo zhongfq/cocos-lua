@@ -1,4 +1,5 @@
 local class     = require "xgame.class"
+local window    = require "xgame.window"
 local Align     = require "xgame.ui.Align"
 local UILayer   = require "xgame.ui.UILayer"
 local SWFNode   = require "xgame.swf.SWFNode"
@@ -24,9 +25,13 @@ function SWFUI.Set:rootswf(value)
 end
 
 function SWFUI:_loadRootSWF()
+    local l, r, t, b = window.getVisibleBounds()
     self.rootswf = swf.new(self.rootswfPath)
     self.width = self.rootswf.movieWidth
     self.height = self.rootswf.movieHeight
+    -- align center? estimate the position
+    self.x = (r - l - self.width) / 2
+    self.y = (t - b - self.height) / 2
     self.percentWidth = -1
     self.percentHeight = -1
 end

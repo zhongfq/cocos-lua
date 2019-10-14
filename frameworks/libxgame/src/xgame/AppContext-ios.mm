@@ -57,7 +57,7 @@
         } else if (status == ReachableViaWiFi) {
             xgame::runtime::dispatchEvent("networkChange", "WIFI");
         } else if (status == ReachableViaWWAN) {
-            xgame::runtime::dispatchEvent("networkChange", "WWAN");
+            xgame::runtime::dispatchEvent("networkChange", "MOBILE");
         }
     }
     else if ([notification.name isEqualToString:UIApplicationDidBecomeActiveNotification])

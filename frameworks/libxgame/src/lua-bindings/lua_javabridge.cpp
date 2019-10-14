@@ -294,5 +294,14 @@ JNIEXPORT void JNICALL Java_kernel_LuaJ_registerFeature
     std::string api = cocos2d::JniHelper::jstring2string(japi);
     xgame::runtime::registerFeature(api, (bool)enabled);
 }
+
+JNIEXPORT void JNICALL Java_kernel_LuaJ_dispatchEvent
+        (JNIEnv *env, jclass cls, jstring jevent, jstring jargs) {
+    CC_UNUSED_PARAM(env);
+    CC_UNUSED_PARAM(cls);
+    std::string event = cocos2d::JniHelper::jstring2string(jevent);
+    std::string args = cocos2d::JniHelper::jstring2string(jargs);
+    xgame::runtime::dispatchEvent(event, args);
+}
 }
 #endif

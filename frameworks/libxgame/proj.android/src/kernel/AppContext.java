@@ -9,6 +9,10 @@ import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkInfo;
+import android.net.NetworkRequest;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -50,6 +54,43 @@ public class AppContext extends Cocos2dxActivity {
         super.onCreate(savedInstanceState);
         super.setEnableVirtualButton(false);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        connectivityManager.requestNetwork(new NetworkRequest.Builder().build(),
+                new ConnectivityManager.NetworkCallback() {
+                    @Override
+                    public void onAvailable(Network network) {
+                        super.onAvailable(network);
+                        ConnectivityManager cm = (ConnectivityManager) AppContext.this.getSystemService(Context.CONNECTIVITY_SERVICE);
+                        NetworkInfo info = cm.getActiveNetworkInfo();
+                        if (info != null && info.isConnected() && info.getType() == ConnectivityManager.TYPE_WIFI) {
+                            runOnGLThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    LuaJ.dispatchEvent("networkChange", "WIFI");
+                                }
+                            });
+                        } else {
+                            runOnGLThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    LuaJ.dispatchEvent("networkChange", "MOBILE");
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onLost(Network network){
+                        super.onLost(network);
+                        runOnGLThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                LuaJ.dispatchEvent("networkChange", "NONE");
+                            }
+                        });
+                    }
+                });
     }
 
     @Override

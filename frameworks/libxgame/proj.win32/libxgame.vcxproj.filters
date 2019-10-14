@@ -381,6 +381,9 @@
     <ClCompile Include="..\src\luasocket\wsocket.c">
       <Filter>src\luasocket</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\lua-bindings\lua_socket.cpp">
+      <Filter>src\lua-bindings</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\lua\src\lapi.h">
@@ -721,6 +724,9 @@
     </ClInclude>
     <ClInclude Include="..\src\luasocket\wsocket.h">
       <Filter>src\luasocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\lua-bindings\lua_socket.h">
+      <Filter>src\lua-bindings</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

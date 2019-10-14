@@ -1,12 +1,12 @@
 #import "xruntime.h"
 #import "xruntime-private.h"
-#import "AppContext-ios.h"
 #import "cocos2d.h"
 
 #import <sys/utsname.h>
 #import <AVFoundation/AVFoundation.h>
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+#import "AppContext-ios.h"
 #import <UIKit/UIKit.h>
 #import <Photos/Photos.h>
 #endif

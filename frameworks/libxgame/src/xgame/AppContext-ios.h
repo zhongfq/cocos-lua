@@ -20,6 +20,7 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application;
 - (void)applicationWillTerminate:(UIApplication *)application;
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application;
+- (NSString *)getNetworkStatus;
 
 -(void)handleInterruption:(NSNotification*)notification;
 

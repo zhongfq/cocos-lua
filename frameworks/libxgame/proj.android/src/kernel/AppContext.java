@@ -61,28 +61,25 @@ public class AppContext extends Cocos2dxActivity {
                     @Override
                     public void onAvailable(Network network) {
                         super.onAvailable(network);
-                        ConnectivityManager cm = (ConnectivityManager) AppContext.this.getSystemService(Context.CONNECTIVITY_SERVICE);
-                        NetworkInfo info = cm.getActiveNetworkInfo();
-                        if (info != null && info.isConnected() && info.getType() == ConnectivityManager.TYPE_WIFI) {
-                            runOnGLThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    LuaJ.dispatchEvent("networkChange", "WIFI");
-                                }
-                            });
-                        } else {
-                            runOnGLThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    LuaJ.dispatchEvent("networkChange", "MOBILE");
-                                }
-                            });
-                        }
+                        runOnGLThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                final String status = AppContext.getNetworkStatus();
+                                Log.i(TAG, status + " network available");
+                                runOnGLThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        LuaJ.dispatchEvent("networkChange", status);
+                                    }
+                                });
+                            }
+                        });
                     }
 
                     @Override
                     public void onLost(Network network){
                         super.onLost(network);
+                        Log.i(TAG, "network is lost");
                         runOnGLThread(new Runnable() {
                             @Override
                             public void run() {
@@ -172,6 +169,20 @@ public class AppContext extends Cocos2dxActivity {
                 }
             }
         });
+    }
+
+    public static String getNetworkStatus() {
+        ConnectivityManager cm = (ConnectivityManager) AppContext.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo info = cm.getActiveNetworkInfo();
+        if (info != null && info.isConnected()) {
+            if (info.getType() == ConnectivityManager.TYPE_WIFI) {
+                return "WIFI";
+            } else {
+                return "MOBILE";
+            }
+        } else {
+            return "NONE";
+        }
     }
 
     @SuppressWarnings("unused")

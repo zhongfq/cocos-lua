@@ -50,6 +50,7 @@ public:
     static const std::string getLanguage();
     static const std::string getManifestVersion();
     static void setManifestVersion(const std::string &version);
+    static const std::string getNetworkStatus();
     
     // ios only
     static const PermissionStatus getPermissionStatus(Permission permission);

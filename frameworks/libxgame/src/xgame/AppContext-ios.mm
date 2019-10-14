@@ -47,6 +47,18 @@
     return YES;
 }
 
+- (NSString *)getNetworkStatus
+{
+    NetworkStatus status = [self.reachabe currentReachabilityStatus];
+    if (status == ReachableViaWiFi) {
+        return @"WIFI";
+    } else if (status == ReachableViaWWAN) {
+        return @"MOBILE";
+    } else {
+        return @"NONE";
+    }
+}
+
 -(void)handleInterruption:(NSNotification*)notification
 {
     if ([notification.name isEqualToString:kReachabilityChangedNotification])

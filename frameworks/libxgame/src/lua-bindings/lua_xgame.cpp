@@ -331,6 +331,21 @@ static int _xgame_runtime_getManifestVersion(lua_State *L)
     return num_ret;
 }
 
+static int _xgame_runtime_getNetworkStatus(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // static const std::string getNetworkStatus()
+    const std::string ret = (const std::string)xgame::runtime::getNetworkStatus();
+    int num_ret = olua_push_std_string(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _xgame_runtime_getNumSamples(lua_State *L)
 {
     olua_startinvoke(L);
@@ -746,6 +761,7 @@ static int luaopen_xgame_runtime(lua_State *L)
     oluacls_func(L, "getLanguage", _xgame_runtime_getLanguage);
     oluacls_func(L, "getLogPath", _xgame_runtime_getLogPath);
     oluacls_func(L, "getManifestVersion", _xgame_runtime_getManifestVersion);
+    oluacls_func(L, "getNetworkStatus", _xgame_runtime_getNetworkStatus);
     oluacls_func(L, "getNumSamples", _xgame_runtime_getNumSamples);
     oluacls_func(L, "getOS", _xgame_runtime_getOS);
     oluacls_func(L, "getPackageName", _xgame_runtime_getPackageName);
@@ -778,6 +794,7 @@ static int luaopen_xgame_runtime(lua_State *L)
     oluacls_prop(L, "language", _xgame_runtime_getLanguage, nullptr);
     oluacls_prop(L, "logPath", _xgame_runtime_getLogPath, _xgame_runtime_setLogPath);
     oluacls_prop(L, "manifestVersion", _xgame_runtime_getManifestVersion, _xgame_runtime_setManifestVersion);
+    oluacls_prop(L, "networkStatus", _xgame_runtime_getNetworkStatus, nullptr);
     oluacls_prop(L, "numSamples", _xgame_runtime_getNumSamples, _xgame_runtime_setNumSamples);
     oluacls_prop(L, "os", _xgame_runtime_getOS, nullptr);
     oluacls_prop(L, "packageName", _xgame_runtime_getPackageName, nullptr);

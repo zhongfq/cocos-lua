@@ -19,6 +19,7 @@ return {
     -- runtime event
     OPEN_URL            = "openURL",
     MEMORY_WARNING      = "memoryWarning",
+    NETWORK_CHANGE      = "networkChange",
     RUNTIME_GC          = "runtimeGC",
     RUNTIME_PAUSE       = "runtimePause",
     RUNTIME_RESUME      = "runtimeResume",

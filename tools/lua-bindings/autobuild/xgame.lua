@@ -76,6 +76,7 @@ cls.funcs [[
     static const std::string getLanguage()
     static const std::string getManifestVersion()
     static void setManifestVersion(const std::string &version)
+    static const std::string getNetworkStatus()
     static const PermissionStatus getPermissionStatus(Permission permission)
     static void setAudioSessionCatalog(const std::string &catalog)
     static const std::string getAudioSessionCatalog()
@@ -165,6 +166,7 @@ cls.props [[
     deviceInfo
     language
     manifestVersion
+    networkStatus
     audioSessionCatalog
     logPath
     antialias

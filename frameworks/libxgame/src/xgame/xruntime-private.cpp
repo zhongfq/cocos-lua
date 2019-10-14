@@ -71,6 +71,11 @@ const std::string __runtime_getLanguage()
     return value;
 }
 
+const std::string __runtime_getNetworkStatus()
+{
+    return JniHelper::callStaticStringMethod(JAVA_APPCONTEXT_CLASS, "getNetworkStatus");
+}
+
 void __runtime_pullAllFeatures()
 {
     JniHelper::callStaticVoidMethod(JAVA_APPCONTEXT_CLASS, "pullAllFeatures");
@@ -113,6 +118,11 @@ const std::string __runtime_getDeviceInfo()
 const std::string __runtime_getLanguage()
 {
 	return "zh-CN";
+}
+
+const std::string __runtime_getNetworkStatus()
+{
+    return "WIFI";
 }
 
 void __runtime_openURL(const std::string uri, const std::function<void(bool)> callback)

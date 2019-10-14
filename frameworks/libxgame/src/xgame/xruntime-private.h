@@ -14,6 +14,7 @@ const std::string __runtime_getAppBuild();
 const std::string __runtime_getChannel();
 const std::string __runtime_getDeviceInfo();
 const std::string __runtime_getLanguage();
+const std::string __runtime_getNetworkStatus();
 void __runtime_openURL(const std::string uri, const std::function<void (bool)> callback);
 bool __runtime_canOpenURL(const std::string uri);
 

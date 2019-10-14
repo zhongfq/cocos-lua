@@ -1,5 +1,6 @@
-#import "xgame/xruntime.h"
-#import "xgame/xruntime-private.h"
+#import "xruntime.h"
+#import "xruntime-private.h"
+#import "AppContext-ios.h"
 #import "cocos2d.h"
 
 #import <sys/utsname.h>
@@ -232,4 +233,14 @@ const std::string __runtime_getLanguage()
     NSArray *languages = [defaults objectForKey:@"AppleLanguages"];
     NSString *currentLanguage = [languages objectAtIndex:0];
     return [currentLanguage UTF8String];
+}
+
+const std::string __runtime_getNetworkStatus()
+{
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+    AppContext *context = (AppContext *)[UIApplication sharedApplication].delegate;
+    return [[context getNetworkStatus] UTF8String];
+#else
+    return "WIFI";
+#endif
 }

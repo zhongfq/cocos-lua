@@ -286,6 +286,11 @@ void runtime::setManifestVersion(const std::string &version)
     preferences::setString(CONF_MANIFEST_VERSION, version.c_str());
 }
 
+const std::string runtime::getNetworkStatus()
+{
+    return __runtime_getNetworkStatus();
+}
+
 void runtime::setAudioSessionCatalog(const std::string &catalog)
 {
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS

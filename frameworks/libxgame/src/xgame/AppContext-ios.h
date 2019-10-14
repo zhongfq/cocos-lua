@@ -1,11 +1,14 @@
 #import <UIKit/UIKit.h>
 
+#import "Reachability.h"
+
 @class AppRootViewController;
 
 @interface AppContext : NSObject<UIApplicationDelegate> {
 }
 
 @property(nonatomic, readonly) AppRootViewController* viewController;
+@property(readwrite, strong) Reachability* reachabe;
 
 - (AppRootViewController *) createRootViewController;
 

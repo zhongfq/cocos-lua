@@ -1,7 +1,6 @@
 #import "xgame/AppContext-ios.h"
 #import "xgame/AppRootViewController-ios.h"
 #import "xgame/xruntime.h"
-
 #import "cocos2d.h"
 
 #import <AVFoundation/AVFoundation.h>
@@ -39,13 +38,29 @@
     xgame::runtime::setAudioSessionCatalog([AVAudioSessionCategoryAmbient UTF8String]);
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleInterruption:) name:UIApplicationDidBecomeActiveNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleInterruption:) name:kReachabilityChangedNotification object:nil];
+    
+    self.reachabe = [Reachability reachabilityForInternetConnection];
+    [self.reachabe startNotifier];
 
     return YES;
 }
 
 -(void)handleInterruption:(NSNotification*)notification
 {
-    if ([notification.name isEqualToString:UIApplicationDidBecomeActiveNotification])
+    if ([notification.name isEqualToString:kReachabilityChangedNotification])
+    {
+        NetworkStatus status = [self.reachabe currentReachabilityStatus];
+        if (status == NotReachable) {
+            xgame::runtime::dispatchEvent("networkChange", "NONE");
+        } else if (status == ReachableViaWiFi) {
+            xgame::runtime::dispatchEvent("networkChange", "WIFI");
+        } else if (status == ReachableViaWWAN) {
+            xgame::runtime::dispatchEvent("networkChange", "WWAN");
+        }
+    }
+    else if ([notification.name isEqualToString:UIApplicationDidBecomeActiveNotification])
     {
         dispatch_async(dispatch_get_main_queue(), ^{
             std::string catalog = xgame::runtime::getAudioSessionCatalog();

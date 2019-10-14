@@ -188,6 +188,7 @@
 		0EB6C29A2323DEBC000F4D81 /* except.c in Sources */ = {isa = PBXBuildFile; fileRef = 0EB6C2752323DEBC000F4D81 /* except.c */; };
 		0EB6C29B2323DEBC000F4D81 /* options.c in Sources */ = {isa = PBXBuildFile; fileRef = 0EB6C2772323DEBC000F4D81 /* options.c */; };
 		0EB6C29C2323DEBC000F4D81 /* options.c in Sources */ = {isa = PBXBuildFile; fileRef = 0EB6C2772323DEBC000F4D81 /* options.c */; };
+		0EB8B41F2351D2F4004354EE /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EB8B41D2351D2F4004354EE /* Reachability.m */; };
 		0ECC4B9F21E79E3E00E3BBF9 /* linit.c in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC4B6521E79E3900E3BBF9 /* linit.c */; };
 		0ECC4BA021E79E3E00E3BBF9 /* linit.c in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC4B6521E79E3900E3BBF9 /* linit.c */; };
 		0ECC4BA121E79E3E00E3BBF9 /* ldebug.c in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC4B6621E79E3900E3BBF9 /* ldebug.c */; };
@@ -332,7 +333,6 @@
 		0E25A89F211D411A006B88E1 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.4.sdk/usr/lib/libz.tbd; sourceTree = DEVELOPER_DIR; };
 		0E25A8A1211D4123006B88E1 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.4.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		0E2E9A37221C37070085145E /* AppRootViewController-ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "AppRootViewController-ios.mm"; sourceTree = "<group>"; };
-		0E2E9A38221C37070085145E /* AppContext-ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppContext-ios.h"; sourceTree = "<group>"; };
 		0E2E9A39221C37070085145E /* AppContext-ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "AppContext-ios.mm"; sourceTree = "<group>"; };
 		0E2E9A3D221D17260085145E /* AppRootViewController-ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppRootViewController-ios.h"; sourceTree = "<group>"; };
 		0E2E9A59221D4A950085145E /* xfilesystem-private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "xfilesystem-private.h"; sourceTree = "<group>"; };
@@ -497,6 +497,9 @@
 		0EB6C2782323DEBC000F4D81 /* udp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = udp.h; sourceTree = "<group>"; };
 		0EB6C2792323DEBC000F4D81 /* unix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unix.h; sourceTree = "<group>"; };
 		0EB6C27A2323DEBC000F4D81 /* select.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = select.h; sourceTree = "<group>"; };
+		0EB8B41C2351D2F4004354EE /* AppContext-ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppContext-ios.h"; sourceTree = "<group>"; };
+		0EB8B41D2351D2F4004354EE /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		0EB8B41E2351D2F4004354EE /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		0EC904E7213175B300F8A09E /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.4.sdk/System/Library/Frameworks/PhotosUI.framework; sourceTree = DEVELOPER_DIR; };
 		0EC904E9213175C100F8A09E /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.4.sdk/System/Library/Frameworks/Photos.framework; sourceTree = DEVELOPER_DIR; };
 		0ECC4B6421E79E3900E3BBF9 /* lparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lparser.h; path = ../src/lua/src/lparser.h; sourceTree = "<group>"; };
@@ -636,12 +639,14 @@
 		0E0C702221F9600D00049240 /* xgame */ = {
 			isa = PBXGroup;
 			children = (
-				0E2E9A38221C37070085145E /* AppContext-ios.h */,
+				0EB8B41C2351D2F4004354EE /* AppContext-ios.h */,
 				0E2E9A39221C37070085145E /* AppContext-ios.mm */,
 				0E2E9A3D221D17260085145E /* AppRootViewController-ios.h */,
 				0E2E9A37221C37070085145E /* AppRootViewController-ios.mm */,
 				0ED5D1A32282C86C0072F3DB /* PluginConnector.h */,
 				0ED5D1A22282C86C0072F3DB /* PluginConnector.mm */,
+				0EB8B41E2351D2F4004354EE /* Reachability.h */,
+				0EB8B41D2351D2F4004354EE /* Reachability.m */,
 				0E0C702421F9600D00049240 /* xdef.h */,
 				0E0C704921F9EEBD00049240 /* xdownloader.cpp */,
 				0E0C704721F9EEBD00049240 /* xdownloader.h */,
@@ -1372,6 +1377,7 @@
 				0E4C8C68225CAF490095CF59 /* psymodel.c in Sources */,
 				0E4C8C5E225CAF490095CF59 /* presets.c in Sources */,
 				0EB6C2922323DEBC000F4D81 /* inet.c in Sources */,
+				0EB8B41F2351D2F4004354EE /* Reachability.m in Sources */,
 				0E4B936B226E9E8B00B22B9F /* LuaCocosAdapter.cpp in Sources */,
 				0ECC4C8621EB8D4600E3BBF9 /* lua_cjson.c in Sources */,
 				0E730C8D2272E6100067866B /* lua_xml_http_request.cpp in Sources */,

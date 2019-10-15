@@ -312,6 +312,7 @@ cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
     const String &getName()
     Vector<Timeline *> &getTimelines()
+    bool hasTimeline(int id)
     float getDuration()
     void setDuration(float inValue)
 ]]
@@ -1308,6 +1309,10 @@ cls.funcs [[
     Vector<IkConstraintData *> &getIkConstraints()
     Vector<TransformConstraintData *> &getTransformConstraints()
     Vector<PathConstraintData *> &getPathConstraints()
+    float getX()
+    void setX(float inValue)
+    float getY()
+    void setY(float inValue)
     float getWidth()
     void setWidth(float inValue)
     float getHeight()
@@ -1412,6 +1417,8 @@ cls.props [[
     ikConstraints
     transformConstraints
     pathConstraints
+    x
+    y
     width
     height
     version

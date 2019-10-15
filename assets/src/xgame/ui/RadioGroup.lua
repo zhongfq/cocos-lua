@@ -26,6 +26,7 @@ end
 
 function RadioGroup.Get:selectedIndex() return self._selectedIndex end
 function RadioGroup.Set:selectedIndex(value)
+    local prevSelectedItem = self.selectedItem
     if self._selectedIndex > 0 then
         self._items[self._selectedIndex].selected = false
         self._items[self._selectedIndex].touchable = true
@@ -34,7 +35,7 @@ function RadioGroup.Set:selectedIndex(value)
         self._selectedIndex = value
         self._items[self._selectedIndex].selected = true
         self._items[self._selectedIndex].touchable = false
-        self:dispatch(Event.CHANGE)
+        self:dispatch(Event.CHANGE, prevSelectedItem, self.selectedItem)
     end
 end
 

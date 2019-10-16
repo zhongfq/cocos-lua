@@ -222,7 +222,7 @@ function WeChat:_requestToken(data)
         else
             self.userInfo = {
                 avatar = result.headimgurl,
-                uid = result.unionid,
+                uid = 'wxuid:' .. result.unionid,
                 nickname = result.nickname,
                 sex = result.sex,
             }

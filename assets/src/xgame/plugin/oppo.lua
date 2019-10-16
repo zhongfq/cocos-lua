@@ -27,6 +27,16 @@ function Oppo:_didResponse(action, message)
         else
             self:dispatch(PluginEvent.PAY_FAILURE)
         end
+    elseif action == 'auth' then
+        if response.ssoid then
+            self.userInfo = {
+                uid = 'opuid:' .. response.ssoid,
+                nickname = response.userName,
+            }
+            self:dispatch(PluginEvent.AUTH_SUCCESS, self.userInfo)
+        else
+            self:dispatch(PluginEvent.AUTH_FAILURE)
+        end
     end
 end
 

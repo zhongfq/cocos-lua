@@ -54,6 +54,7 @@ function xGame:newService(name, cls)
 end
 
 function xGame:restart(cls, ...)
+    self._listeners = {}
     self._timer:clear()
     self:popAll()
 
@@ -71,7 +72,7 @@ function xGame:restart(cls, ...)
         self:newService(v.name, v.class)
     end
 
-    trace('restart xGame: %s', cls.classname)
+    trace('restart xGame: %s', cls)
 
     self:startScene(cls, ...)
     self:later(function ()

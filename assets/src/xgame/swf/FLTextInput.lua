@@ -16,6 +16,7 @@ function FLTextInput:ctor()
     self._restrict = false
     self._cocosobj = false
     self.label = self.ns['label']
+    self._labelBounds = assert(self.ns['__bounds__'], 'no __bounds__')
     self.mode = 'NONE'
     self.touchable = true
     self.touchChildren = false
@@ -56,9 +57,9 @@ function FLTextInput:_createCocosobj()
     local cocosobj = self._cocosobj
     if not cocosobj then
         cocosobj = CocosInput.new()
-        cocosobj.width = self.label.width
-        cocosobj.height = self.label.height
-        cocosobj:setFontSize(self.label.fontSize)
+        cocosobj.width = self._labelBounds.width
+        cocosobj.height = self._labelBounds.height
+        cocosobj:setFontSize(self:_getFontSize())
         cocosobj:addListener(Event.COMPLETE, function ()
             if self.stage and self.stage.focus == self then
                 self.stage.focus = false
@@ -71,7 +72,7 @@ function FLTextInput:_createCocosobj()
             self.label.text = self._cocosobj.text
             self:dispatch(Event.CHANGE)
         end)
-        self.rootNode.cobj:addChild(cocosobj.cobj, 0xFF)
+        self.rootNode.cobj:addChild(cocosobj.cobj, 0xFFFF)
         self._cocosobj = cocosobj
     end
 end
@@ -84,14 +85,20 @@ function FLTextInput:_focusOut()
     self.label.visible = true
 end
 
+function FLTextInput:_getFontSize()
+    local x1, y1 = self.label.cobj:localToGlobal(0, 0)
+    local x2, y2 = self.label.cobj:localToGlobal(10, 10)
+    local width, _ = x2 - x1, y2 - y1
+    return width / 10 * self.label.fontSize // 1
+end
+
 function FLTextInput:_focusIn()
     self.label.visible = false
 
     self:_createCocosobj()
 
     local cocosobj = self._cocosobj
-    local x, y = self.label:localToGlobal(0, self.label.fontSize +
-        (self.label.height - self.label.fontSize) / 2)
+    local x, y = self._labelBounds:localToGlobal(0, self._labelBounds.height)
     x, y = self.rootNode:globalToLocal(x, y)
     cocosobj.x = x
     cocosobj.y = y
@@ -166,7 +173,17 @@ function CocosInput.Get:cobj()
         Scale9Sprite.create(), nil, nil)
     cobj.touchEnabled = false
     cobj.inputFlag = InputFlag.SENSITIVE
+    cobj.ignoreAnchorPointForPosition = true
     rawset(self, "cobj", cobj)
+
+    -- debug
+    -- local Layout = require "ccui.Layout"
+    -- local bg = Layout.create()
+    -- bg:setBackGroundColorType(1)
+    -- bg:setBackGroundColor(0x000000)
+    -- bg.width = 10
+    -- bg.height = 10
+    -- cobj:addChild(bg)
 
     local delegate = EditBoxDelegate.create()
 

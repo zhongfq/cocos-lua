@@ -95,7 +95,7 @@ LUALIB_API olua_vmstatus_t *olua_vmstatus(lua_State *L)
 LUALIB_API lua_Integer olua_checkinteger(lua_State *L, int idx)
 {
     luaL_checktype(L, idx, LUA_TNUMBER);
-    return olua_tointeger(L, idx);
+    return luaL_checkinteger(L, idx);
 }
 
 LUALIB_API lua_Number olua_checknumber(lua_State *L, int idx)

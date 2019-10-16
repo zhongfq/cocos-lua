@@ -550,7 +550,7 @@ function olua.typecls(cppcls)
                     _, _, str = parseType(str)        -- skip return type
                     local fn = string.match(str, '([^ ()]+) *%(')
                     local fns = dict[fn]
-                    assert(fn, declfunc)
+                    olua.assert(fn, 'error decl func: ' .. declfunc)
                     if not fns then
                         fns = {}
                         arr[#arr + 1] = fns

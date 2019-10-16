@@ -2,6 +2,7 @@ local class         = require "xgame.class"
 local util          = require "xgame.util"
 local timer         = require "xgame.timer"
 local runtime       = require "xgame.runtime"
+local Array         = require "xgame.Array"
 local MediatorMap   = require "xgame.MediatorMap"
 local updater       = require "xgame.updater"
 local Stage         = require "xgame.ui.Stage"
@@ -11,7 +12,6 @@ local Event         = require "xgame.event.Event"
 local Dispatcher    = require "xgame.event.Dispatcher"
 local fileloader    = require "xgame.loader.fileloader"
 local LoadQueue     = require "xgame.loader.LoadQueue"
-local window        = require "xgame.window"
 local Director      = require "cc.Director"
 
 local director = Director.instance
@@ -24,6 +24,7 @@ function xGame:ctor()
     self._mediatorMap = MediatorMap.new(self.stage)
     self._sceneStack = SceneStack.new(self.stage)
     self._services = {}
+    self._serviceClasses = Array.new()
     self._timer = false
     self:_initTimer()
     self:_initRuntimeEvents()
@@ -48,7 +49,7 @@ function xGame:newService(name, cls)
     local svr = serviceClass.new(name)
     self[name] = svr
     self._services[name] = svr
-    serviceClass['fullClassName'] = cls
+    self._serviceClasses:pushBack({class = cls, name = name})
     trace('create service: %s(%s)', name, cls)
 end
 
@@ -56,18 +57,18 @@ function xGame:restart(cls, ...)
     self._timer:clear()
     self:popAll()
 
-    local defs = {}
     for name, svr in pairs(self._services) do
         assert(self[name] == svr, name)
         svr:dispose()
         assert(svr.dispose == true, name)
-        defs[name] = svr.class['fullClassName']
         self._services[name] = nil
         self[name] = nil
     end
 
-    for name, serviceClass in pairs(defs) do
-        self:newService(name, serviceClass)
+    local serviceClasses = self._serviceClasses:slice()
+    self._serviceClasses.length = 0
+    for _, v in ipairs(serviceClasses) do
+        self:newService(v.name, v.class)
     end
 
     trace('restart xGame: %s', cls.classname)

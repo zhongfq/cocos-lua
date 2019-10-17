@@ -1,4 +1,4 @@
-package kernel;
+package kernel.plugins.photo;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -18,23 +18,26 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 
+import kernel.AppContext;
+import kernel.LuaJ;
+
 @SuppressWarnings("unused")
-public class CameraRoll extends Activity {
-    public interface CameraRollCallback {
+public class Photo extends Activity {
+    public interface SelectCallback {
         void onResult(String message);
     }
 
-    public interface CameraRollSource {
+    public interface PhotoSource {
         int PHOTO_LIBRARY = 0;
         int CAMERA = 1;
     }
 
-    public interface CameraRollMode {
+    public interface PhotoMode {
         int AVATAR = 0;
         int IMAGE = 1;
     }
 
-    public static CameraRollCallback notifyResult = null;
+    public static SelectCallback notifyResult = null;
 
     private static int REQUEST_PICTURE = 1;
     private static int REQUEST_CROP_PICTURE = 2;
@@ -52,10 +55,10 @@ public class CameraRoll extends Activity {
         _output = new File(getIntent().getStringExtra("output"));
         _width = getIntent().getIntExtra("width", 200);
         _height = getIntent().getIntExtra("height", 200);
-        _mode = getIntent().getIntExtra("mode", CameraRollMode.AVATAR);
-        _source = getIntent().getIntExtra("source", CameraRollSource.PHOTO_LIBRARY);
+        _mode = getIntent().getIntExtra("mode", PhotoMode.AVATAR);
+        _source = getIntent().getIntExtra("source", PhotoSource.PHOTO_LIBRARY);
 
-        if (_source == CameraRollSource.PHOTO_LIBRARY) {
+        if (_source == PhotoSource.PHOTO_LIBRARY) {
             Intent intent = new Intent(Intent.ACTION_PICK,
                     MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(intent, REQUEST_PICTURE);
@@ -85,9 +88,9 @@ public class CameraRoll extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUEST_PICTURE) {
-                if (_mode == CameraRollMode.AVATAR) {
+                if (_mode == PhotoMode.AVATAR) {
                     Intent intent = new Intent("com.android.camera.action.CROP");
-                    if (_source == CameraRollSource.PHOTO_LIBRARY) {
+                    if (_source == PhotoSource.PHOTO_LIBRARY) {
                         intent.setDataAndType(data.getData(), "image/*");
                     } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                         intent.setDataAndType(getContentURI(_output), "image/*");
@@ -132,11 +135,11 @@ public class CameraRoll extends Activity {
                         finish();
                     }
                 } catch (Throwable e) {
-                    notifyResult.onResult("io_error");
+                    notifyResult.onResult("ioerror");
                     finish();
                 }
             } else {
-                notifyResult.onResult("io_error");
+                notifyResult.onResult("ioerror");
                 finish();
             }
         } else {
@@ -146,14 +149,14 @@ public class CameraRoll extends Activity {
 
     }
 
-    public static void selectImage(String cachePath, final int handler) {
+    public static void select(String cachePath, final int handler) {
         final AppContext context = (AppContext) Cocos2dxActivity.getContext();
-        Intent intent = new Intent(context, CameraRoll.class);
-        intent.putExtra("mode", CameraRoll.CameraRollMode.IMAGE);
-        intent.putExtra("source", CameraRoll.CameraRollSource.PHOTO_LIBRARY);
+        Intent intent = new Intent(context, Photo.class);
+        intent.putExtra("mode", PhotoMode.IMAGE);
+        intent.putExtra("source", PhotoSource.PHOTO_LIBRARY);
         intent.putExtra("output", cachePath);
 
-        CameraRoll.notifyResult = new CameraRoll.CameraRollCallback() {
+        Photo.notifyResult = new SelectCallback() {
             @Override
             public void onResult(final String message) {
                 LuaJ.invokeOnce(handler, message);
@@ -163,16 +166,16 @@ public class CameraRoll extends Activity {
         context.startActivity(intent);
     }
 
-    public static void selectAvatarFromCamera(String cachePath, int width, int height, final int handler) {
+    public static void takeAvatar(String cachePath, int width, int height, final int handler) {
         final AppContext context = (AppContext) Cocos2dxActivity.getContext();
-        final Intent intent = new Intent(context, CameraRoll.class);
+        final Intent intent = new Intent(context, Photo.class);
         intent.putExtra("width", width);
         intent.putExtra("height", height);
-        intent.putExtra("mode", CameraRoll.CameraRollMode.AVATAR);
-        intent.putExtra("source", CameraRoll.CameraRollSource.CAMERA);
+        intent.putExtra("mode", PhotoMode.AVATAR);
+        intent.putExtra("source", PhotoSource.CAMERA);
         intent.putExtra("output", cachePath);
 
-        CameraRoll.notifyResult = new CameraRoll.CameraRollCallback() {
+        Photo.notifyResult = new SelectCallback() {
             @Override
             public void onResult(final String message) {
                 LuaJ.invokeOnce(handler, message);
@@ -182,16 +185,16 @@ public class CameraRoll extends Activity {
         context.startActivity(intent);
     }
 
-    public static void selectAvatarFromPhotoLibrary(String cachePath, int width, int height, final int handler) {
+    public static void selectAvatar(String cachePath, int width, int height, final int handler) {
         final AppContext context = (AppContext) Cocos2dxActivity.getContext();
-        final Intent intent = new Intent(context, CameraRoll.class);
+        final Intent intent = new Intent(context, Photo.class);
         intent.putExtra("width", width);
         intent.putExtra("height", height);
-        intent.putExtra("mode", CameraRoll.CameraRollMode.AVATAR);
-        intent.putExtra("source", CameraRoll.CameraRollSource.PHOTO_LIBRARY);
+        intent.putExtra("mode", PhotoMode.AVATAR);
+        intent.putExtra("source", PhotoSource.PHOTO_LIBRARY);
         intent.putExtra("output", cachePath);
 
-        CameraRoll.notifyResult = new CameraRoll.CameraRollCallback() {
+        Photo.notifyResult = new SelectCallback() {
             @Override
             public void onResult(final String message) {
                 LuaJ.invokeOnce(handler, message);

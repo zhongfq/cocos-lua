@@ -2,6 +2,7 @@ local class             = require "xgame.class"
 local util              = require "xgame.util"
 local Array             = require "xgame.Array"
 local window            = require "xgame.window"
+local runtime           = require "xgame.runtime"
 local Align             = require "xgame.ui.Align"
 local swf               = require "xgame.swf.swf"
 local FLDisplayObject   = require "xgame.swf.FLDisplayObject"
@@ -17,6 +18,15 @@ local FLMovieClip = class("FLMovieClip", FLDisplayObject)
 
 function FLMovieClip:ctor(cobj)
     self.metadata = swf.metadata(cobj)
+
+    if self:hasLabel('iPhone') and self:hasLabel('iPad') then
+        if runtime.isPad() then
+            self.cobj:gotoAndStop('iPad')
+        else
+            self.cobj:gotoAndStop('iPhone')
+        end
+    end
+
     self.touchChildren = true
     self.touchable = false
     self._children = Array.new()
@@ -319,8 +329,12 @@ function FLMovieClip:gotoAndStop(frame)
     self:_buildChildren()
 end
 
-function FLMovieClip:frameAt(frame)
+function FLMovieClip:labelAt(frame)
     return self.frameLabels[frame] == self.currentFrame
+end
+
+function FLMovieClip:hasLabel(label)
+    return self.frameLabels[label] ~= nil
 end
 
 function FLMovieClip:nextFrame()

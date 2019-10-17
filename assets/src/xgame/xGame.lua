@@ -105,8 +105,8 @@ function xGame:_loadAssets(func, cls, ...)
     end
 end
 
-function xGame:showWindow(cls, ...)
-    self:_loadAssets(self._sceneStack.showWindow, cls, ...)
+function xGame:show(cls, ...)
+    self:_loadAssets(self._sceneStack.show, cls, ...)
 end
 
 function xGame:startScene(cls, ...)

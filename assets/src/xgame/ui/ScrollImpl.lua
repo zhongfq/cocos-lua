@@ -70,13 +70,16 @@ end
 
 function ScrollImpl:press(id, x, y)
     self._container:unschedule(TAG_UPDATE)
-    self:_tryFocus(id, x, y)
-
-    self:_checkScrollEnd()
-
-    self._touchCount = self._touchCount + 1
-    if self._touchCount == 1 then
-        self._target:dispatch(TouchEvent.SCROLL_BEGIN)
+    local hit = self:_tryFocus(id, x, y)
+    if hit and hit.touchPreemptive then
+        x, y = self._target:localToGlobal(x, y)
+        self._target.stage:preemptTouch(hit, id, x, y)
+    else
+        self:_checkScrollEnd()
+        self._touchCount = self._touchCount + 1
+        if self._touchCount == 1 then
+            self._target:dispatch(TouchEvent.SCROLL_BEGIN)
+        end
     end
 end
 
@@ -98,10 +101,11 @@ function ScrollImpl:_tryFocus(id, x, y)
     x, y = self._target:localToGlobal(x, y)
     local hit, capturePoints = self._container:hit({
         [id] = {x = x, y = y, id = id}})
-    if hit then
+    if hit and not hit.touchPreemptive then
         self._focuses[id] = hit
         self._focuses[id]:touchDown(capturePoints)
     end
+    return hit
 end
 
 function ScrollImpl:_abortFocus(id)

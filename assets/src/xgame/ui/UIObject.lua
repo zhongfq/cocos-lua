@@ -10,6 +10,7 @@ local UIObject = class("UIObject", Dispatcher)
 function UIObject:ctor()
     self.touchable = false
     self.touchChildren = false
+    self.touchPreemptive = false
     self.touches = {}
     self.multiTouch = false
     self.numTouches = 0

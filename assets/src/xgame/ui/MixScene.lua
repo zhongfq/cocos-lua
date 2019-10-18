@@ -1,5 +1,6 @@
 local class         = require "xgame.class"
 local timer         = require "xgame.timer"
+local runtime       = require "xgame.runtime"
 local EventAgent    = require "xgame.event.EventAgent"
 local UIScene       = require "xgame.ui.UIScene"
 local LuaComponent  = require "cc.LuaComponent"
@@ -8,6 +9,7 @@ local MixScene = class("MixScene", UIScene)
 
 function MixScene:ctor()
     self.mediatorClass = self.class
+    self._paused = false
     self._eventAgent = EventAgent.new()
     self._timer = timer.new()
     self:_initMonitor()
@@ -21,17 +23,35 @@ function MixScene:_initMonitor()
     local monitor = LuaComponent.create()
     monitor.name = '__MixScene_monitor__'
     monitor.onEnter = function ()
-        if self.onDestroy ~= true then
-            self._timer:start()
-        end
+        runtime.once('runtimeUpdate', function ()
+            if self.onDestroy ~= true then
+                self._timer:start()
+                if self._paused then
+                    self._paused = false
+                    self:onResume()
+                end
+            end
+        end)
     end
     monitor.onExit = function ()
-        self._timer:stop()
+        runtime.once('runtimeUpdate', function ()
+            self._timer:stop()
+            if self.onDestroy ~= true then
+                self._paused = true
+                self:onPause()
+            end
+        end)
     end
     self.cobj:addComponent(monitor)
 end
 
 function MixScene:onCreate()
+end
+
+function MixScene:onPause()
+end
+
+function MixScene:onResume()
 end
 
 function MixScene:onDestroy()

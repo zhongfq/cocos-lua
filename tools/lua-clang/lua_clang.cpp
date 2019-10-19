@@ -623,6 +623,30 @@ static int l_cursorEqual(lua_State *L) {
     return 1;
 }
 
+static int l_isConvertingConstructor(lua_State *L) {
+    CXCursor cur = toCursor(L, 1);
+    lua_pushboolean(L, clang_CXXConstructor_isConvertingConstructor(cur));
+    return 1;
+}
+
+static int l_isCopyConstructor(lua_State *L) {
+    CXCursor cur = toCursor(L, 1);
+    lua_pushboolean(L, clang_CXXConstructor_isCopyConstructor(cur));
+    return 1;
+}
+
+static int l_isDefaultConstructor(lua_State *L) {
+    CXCursor cur = toCursor(L, 1);
+    lua_pushboolean(L, clang_CXXConstructor_isDefaultConstructor(cur));
+    return 1;
+}
+
+static int l_isMoveConstructor(lua_State *L) {
+    CXCursor cur = toCursor(L, 1);
+    lua_pushboolean(L, clang_CXXConstructor_isMoveConstructor(cur));
+    return 1;
+}
+
 static luaL_Reg cursor_functions[] = {
     {"children", l_children},
     {"kind", l_kind},
@@ -644,6 +668,10 @@ static luaL_Reg cursor_functions[] = {
     {"isConst", l_isConstType},
     {"resultType", l_resultType},
     {"__eq", l_cursorEqual},
+    {"isConvertingConstructor", l_isConvertingConstructor},
+    {"isCopyConstructor", l_isCopyConstructor},
+    {"isDefaultConstructor", l_isDefaultConstructor},
+    {"isMoveConstructor", l_isMoveConstructor},
     {NULL, NULL}
 };
 

@@ -1,5 +1,3 @@
-// LICENSE: https://github.com/mkottman/luaclang-parser
-
 #include "clang-c/Index.h"
 #include "lua.hpp"
 
@@ -591,6 +589,18 @@ static int l_isVirtual(lua_State *L) {
     return 1;
 }
 
+static int l_isPureVirtual(lua_State *L) {
+    CXCursor cur = toCursor(L, 1);
+    lua_pushboolean(L, clang_CXXMethod_isPureVirtual(cur));
+    return 1;
+}
+
+static int l_isAbstract(lua_State *L) {
+    CXCursor cur = toCursor(L, 1);
+    lua_pushboolean(L, clang_CXXRecord_isAbstract(cur));
+    return 1;
+}
+
 static int l_isConstType(lua_State *L) {
     CXCursor cur = toCursor(L, 1);
     lua_pushboolean(L, clang_CXXMethod_isConst(cur));
@@ -629,6 +639,8 @@ static luaL_Reg cursor_functions[] = {
     {"definition", l_definition},
     {"isStatic", l_isStatic},
     {"isVirtual", l_isVirtual},
+    {"isPureVirtual", l_isPureVirtual},
+    {"isAbstract", l_isAbstract},
     {"isConst", l_isConstType},
     {"resultType", l_resultType},
     {"__eq", l_cursorEqual},

@@ -1,9 +1,9 @@
 /*===-- clang-c/CXString.h - C Index strings  --------------------*- C -*-===*\
 |*                                                                            *|
-|*                     The LLVM Compiler Infrastructure                       *|
-|*                                                                            *|
-|* This file is distributed under the University of Illinois Open Source      *|
-|* License. See LICENSE.TXT for details.                                      *|
+|* Part of the LLVM Project, under the Apache License v2.0 with LLVM          *|
+|* Exceptions.                                                                *|
+|* See https://llvm.org/LICENSE.txt for license information.                  *|
+|* SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception                    *|
 |*                                                                            *|
 |*===----------------------------------------------------------------------===*|
 |*                                                                            *|
@@ -28,7 +28,7 @@ extern "C" {
  */
 
 /**
- * \brief A character string.
+ * A character string.
  *
  * The \c CXString type is used to return strings from the interface when
  * the ownership of that string might differ from one call to the next.
@@ -40,15 +40,25 @@ typedef struct {
   unsigned private_flags;
 } CXString;
 
+typedef struct {
+  CXString *Strings;
+  unsigned Count;
+} CXStringSet;
+
 /**
- * \brief Retrieve the character data associated with the given string.
+ * Retrieve the character data associated with the given string.
  */
 CINDEX_LINKAGE const char *clang_getCString(CXString string);
 
 /**
- * \brief Free the given string.
+ * Free the given string.
  */
 CINDEX_LINKAGE void clang_disposeString(CXString string);
+
+/**
+ * Free the given string set.
+ */
+CINDEX_LINKAGE void clang_disposeStringSet(CXStringSet *set);
 
 /**
  * @}

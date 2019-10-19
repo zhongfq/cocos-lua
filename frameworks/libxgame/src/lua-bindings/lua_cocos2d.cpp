@@ -710,6 +710,22 @@ static int luaopen_cocos2d_Ref(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_Acceleration_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // Acceleration()
+    cocos2d::Acceleration *ret = (cocos2d::Acceleration *)new cocos2d::Acceleration();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Acceleration");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_Acceleration_get_timestamp(lua_State *L)
 {
     olua_startinvoke(L);
@@ -869,6 +885,7 @@ static int _cocos2d_Acceleration_set_z(lua_State *L)
 static int luaopen_cocos2d_Acceleration(lua_State *L)
 {
     oluacls_class(L, "cc.Acceleration", "cc.Ref");
+    oluacls_func(L, "new", _cocos2d_Acceleration_new);
     oluacls_prop(L, "timestamp", _cocos2d_Acceleration_get_timestamp, _cocos2d_Acceleration_set_timestamp);
     oluacls_prop(L, "x", _cocos2d_Acceleration_get_x, _cocos2d_Acceleration_set_x);
     oluacls_prop(L, "y", _cocos2d_Acceleration_get_y, _cocos2d_Acceleration_set_y);
@@ -1908,6 +1925,22 @@ static int _cocos2d_Director_multiplyProjectionMatrix(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_Director_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // Director()
+    cocos2d::Director *ret = (cocos2d::Director *)new cocos2d::Director();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Director");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_Director_pause(lua_State *L)
 {
     olua_startinvoke(L);
@@ -2637,6 +2670,7 @@ static int luaopen_cocos2d_Director(lua_State *L)
     oluacls_func(L, "mainLoop", _cocos2d_Director_mainLoop);
     oluacls_func(L, "multiplyMatrix", _cocos2d_Director_multiplyMatrix);
     oluacls_func(L, "multiplyProjectionMatrix", _cocos2d_Director_multiplyProjectionMatrix);
+    oluacls_func(L, "new", _cocos2d_Director_new);
     oluacls_func(L, "pause", _cocos2d_Director_pause);
     oluacls_func(L, "popMatrix", _cocos2d_Director_popMatrix);
     oluacls_func(L, "popProjectionMatrix", _cocos2d_Director_popProjectionMatrix);
@@ -2788,12 +2822,16 @@ static int _cocos2d_Scheduler_new(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto obj = new cocos2d::Scheduler();
-    obj->autorelease();
+    lua_settop(L, 0);
+
+    // Scheduler()
+    cocos2d::Scheduler *ret = (cocos2d::Scheduler *)new cocos2d::Scheduler();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Scheduler");
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
-    return olua_push_cppobj<cocos2d::Scheduler>(L, obj);
+    return num_ret;
 }
 
 static int _cocos2d_Scheduler_pauseAllTargets(lua_State *L)
@@ -3427,6 +3465,22 @@ static int _cocos2d_EventDispatcher_isEnabled(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_EventDispatcher_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // EventDispatcher()
+    cocos2d::EventDispatcher *ret = (cocos2d::EventDispatcher *)new cocos2d::EventDispatcher();
+    int num_ret = olua_push_cppobj(L, ret, "cc.EventDispatcher");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_EventDispatcher_pauseEventListenersForTarget(lua_State *L)
 {
     olua_startinvoke(L);
@@ -3655,6 +3709,7 @@ static int luaopen_cocos2d_EventDispatcher(lua_State *L)
     oluacls_func(L, "dispatchEvent", _cocos2d_EventDispatcher_dispatchEvent);
     oluacls_func(L, "hasEventListener", _cocos2d_EventDispatcher_hasEventListener);
     oluacls_func(L, "isEnabled", _cocos2d_EventDispatcher_isEnabled);
+    oluacls_func(L, "new", _cocos2d_EventDispatcher_new);
     oluacls_func(L, "pauseEventListenersForTarget", _cocos2d_EventDispatcher_pauseEventListenersForTarget);
     oluacls_func(L, "removeAllEventListeners", _cocos2d_EventDispatcher_removeAllEventListeners);
     oluacls_func(L, "removeCustomEventListeners", _cocos2d_EventDispatcher_removeCustomEventListeners);
@@ -3813,6 +3868,22 @@ static int _cocos2d_EventListenerTouchOneByOne_isSwallowTouches(lua_State *L)
     // bool isSwallowTouches()
     bool ret = (bool)self->isSwallowTouches();
     int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_EventListenerTouchOneByOne_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // EventListenerTouchOneByOne()
+    cocos2d::EventListenerTouchOneByOne *ret = (cocos2d::EventListenerTouchOneByOne *)new cocos2d::EventListenerTouchOneByOne();
+    int num_ret = olua_push_cppobj(L, ret, "cc.EventListenerTouchOneByOne");
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -4137,6 +4208,7 @@ static int luaopen_cocos2d_EventListenerTouchOneByOne(lua_State *L)
     oluacls_class(L, "cc.EventListenerTouchOneByOne", "cc.EventListener");
     oluacls_func(L, "create", _cocos2d_EventListenerTouchOneByOne_create);
     oluacls_func(L, "isSwallowTouches", _cocos2d_EventListenerTouchOneByOne_isSwallowTouches);
+    oluacls_func(L, "new", _cocos2d_EventListenerTouchOneByOne_new);
     oluacls_func(L, "setSwallowTouches", _cocos2d_EventListenerTouchOneByOne_setSwallowTouches);
     oluacls_prop(L, "swallowTouches", _cocos2d_EventListenerTouchOneByOne_isSwallowTouches, _cocos2d_EventListenerTouchOneByOne_setSwallowTouches);
     oluacls_prop(L, "onTouchBegan", _cocos2d_EventListenerTouchOneByOne_get_onTouchBegan, _cocos2d_EventListenerTouchOneByOne_set_onTouchBegan);
@@ -4159,6 +4231,22 @@ static int _cocos2d_EventListenerTouchAllAtOnce_create(lua_State *L)
     // static EventListenerTouchAllAtOnce* create()
     cocos2d::EventListenerTouchAllAtOnce *ret = (cocos2d::EventListenerTouchAllAtOnce *)cocos2d::EventListenerTouchAllAtOnce::create();
     int num_ret = olua_push_cppobj(L, ret, "cc.EventListenerTouchAllAtOnce");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_EventListenerTouchAllAtOnce_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // EventListenerTouchAllAtOnce()
+    cocos2d::EventListenerTouchAllAtOnce *ret = (cocos2d::EventListenerTouchAllAtOnce *)new cocos2d::EventListenerTouchAllAtOnce();
+    int num_ret = olua_push_cppobj(L, ret, "cc.EventListenerTouchAllAtOnce");
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -4457,6 +4545,7 @@ static int luaopen_cocos2d_EventListenerTouchAllAtOnce(lua_State *L)
 {
     oluacls_class(L, "cc.EventListenerTouchAllAtOnce", "cc.EventListener");
     oluacls_func(L, "create", _cocos2d_EventListenerTouchAllAtOnce_create);
+    oluacls_func(L, "new", _cocos2d_EventListenerTouchAllAtOnce_new);
     oluacls_prop(L, "onTouchesBegan", _cocos2d_EventListenerTouchAllAtOnce_get_onTouchesBegan, _cocos2d_EventListenerTouchAllAtOnce_set_onTouchesBegan);
     oluacls_prop(L, "onTouchesCancelled", _cocos2d_EventListenerTouchAllAtOnce_get_onTouchesCancelled, _cocos2d_EventListenerTouchAllAtOnce_set_onTouchesCancelled);
     oluacls_prop(L, "onTouchesEnded", _cocos2d_EventListenerTouchAllAtOnce_get_onTouchesEnded, _cocos2d_EventListenerTouchAllAtOnce_set_onTouchesEnded);
@@ -4515,10 +4604,27 @@ static int _cocos2d_EventListenerCustom_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_EventListenerCustom_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // EventListenerCustom()
+    cocos2d::EventListenerCustom *ret = (cocos2d::EventListenerCustom *)new cocos2d::EventListenerCustom();
+    int num_ret = olua_push_cppobj(L, ret, "cc.EventListenerCustom");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_EventListenerCustom(lua_State *L)
 {
     oluacls_class(L, "cc.EventListenerCustom", "cc.EventListener");
     oluacls_func(L, "create", _cocos2d_EventListenerCustom_create);
+    oluacls_func(L, "new", _cocos2d_EventListenerCustom_new);
 
     olua_registerluatype<cocos2d::EventListenerCustom>(L, "cc.EventListenerCustom");
     oluacls_createclassproxy(L);
@@ -4535,6 +4641,22 @@ static int _cocos2d_EventListenerKeyboard_create(lua_State *L)
     // static EventListenerKeyboard* create()
     cocos2d::EventListenerKeyboard *ret = (cocos2d::EventListenerKeyboard *)cocos2d::EventListenerKeyboard::create();
     int num_ret = olua_push_cppobj(L, ret, "cc.EventListenerKeyboard");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_EventListenerKeyboard_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // EventListenerKeyboard()
+    cocos2d::EventListenerKeyboard *ret = (cocos2d::EventListenerKeyboard *)new cocos2d::EventListenerKeyboard();
+    int num_ret = olua_push_cppobj(L, ret, "cc.EventListenerKeyboard");
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -4689,6 +4811,7 @@ static int luaopen_cocos2d_EventListenerKeyboard(lua_State *L)
 {
     oluacls_class(L, "cc.EventListenerKeyboard", "cc.EventListener");
     oluacls_func(L, "create", _cocos2d_EventListenerKeyboard_create);
+    oluacls_func(L, "new", _cocos2d_EventListenerKeyboard_new);
     oluacls_prop(L, "onKeyPressed", _cocos2d_EventListenerKeyboard_get_onKeyPressed, _cocos2d_EventListenerKeyboard_set_onKeyPressed);
     oluacls_prop(L, "onKeyReleased", _cocos2d_EventListenerKeyboard_get_onKeyReleased, _cocos2d_EventListenerKeyboard_set_onKeyReleased);
 
@@ -4743,10 +4866,27 @@ static int _cocos2d_EventListenerAcceleration_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_EventListenerAcceleration_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // EventListenerAcceleration()
+    cocos2d::EventListenerAcceleration *ret = (cocos2d::EventListenerAcceleration *)new cocos2d::EventListenerAcceleration();
+    int num_ret = olua_push_cppobj(L, ret, "cc.EventListenerAcceleration");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_EventListenerAcceleration(lua_State *L)
 {
     oluacls_class(L, "cc.EventListenerAcceleration", "cc.EventListener");
     oluacls_func(L, "create", _cocos2d_EventListenerAcceleration_create);
+    oluacls_func(L, "new", _cocos2d_EventListenerAcceleration_new);
 
     olua_registerluatype<cocos2d::EventListenerAcceleration>(L, "cc.EventListenerAcceleration");
     oluacls_createclassproxy(L);
@@ -4763,6 +4903,22 @@ static int _cocos2d_EventListenerFocus_create(lua_State *L)
     // static EventListenerFocus* create()
     cocos2d::EventListenerFocus *ret = (cocos2d::EventListenerFocus *)cocos2d::EventListenerFocus::create();
     int num_ret = olua_push_cppobj(L, ret, "cc.EventListenerFocus");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_EventListenerFocus_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // EventListenerFocus()
+    cocos2d::EventListenerFocus *ret = (cocos2d::EventListenerFocus *)new cocos2d::EventListenerFocus();
+    int num_ret = olua_push_cppobj(L, ret, "cc.EventListenerFocus");
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -4840,6 +4996,7 @@ static int luaopen_cocos2d_EventListenerFocus(lua_State *L)
 {
     oluacls_class(L, "cc.EventListenerFocus", "cc.EventListener");
     oluacls_func(L, "create", _cocos2d_EventListenerFocus_create);
+    oluacls_func(L, "new", _cocos2d_EventListenerFocus_new);
     oluacls_prop(L, "onFocusChanged", _cocos2d_EventListenerFocus_get_onFocusChanged, _cocos2d_EventListenerFocus_set_onFocusChanged);
 
     olua_registerluatype<cocos2d::EventListenerFocus>(L, "cc.EventListenerFocus");
@@ -4857,6 +5014,22 @@ static int _cocos2d_EventListenerMouse_create(lua_State *L)
     // static EventListenerMouse* create()
     cocos2d::EventListenerMouse *ret = (cocos2d::EventListenerMouse *)cocos2d::EventListenerMouse::create();
     int num_ret = olua_push_cppobj(L, ret, "cc.EventListenerMouse");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_EventListenerMouse_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // EventListenerMouse()
+    cocos2d::EventListenerMouse *ret = (cocos2d::EventListenerMouse *)new cocos2d::EventListenerMouse();
+    int num_ret = olua_push_cppobj(L, ret, "cc.EventListenerMouse");
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -5151,6 +5324,7 @@ static int luaopen_cocos2d_EventListenerMouse(lua_State *L)
 {
     oluacls_class(L, "cc.EventListenerMouse", "cc.EventListener");
     oluacls_func(L, "create", _cocos2d_EventListenerMouse_create);
+    oluacls_func(L, "new", _cocos2d_EventListenerMouse_new);
     oluacls_prop(L, "onMouseDown", _cocos2d_EventListenerMouse_get_onMouseDown, _cocos2d_EventListenerMouse_set_onMouseDown);
     oluacls_prop(L, "onMouseMove", _cocos2d_EventListenerMouse_get_onMouseMove, _cocos2d_EventListenerMouse_set_onMouseMove);
     oluacls_prop(L, "onMouseScroll", _cocos2d_EventListenerMouse_get_onMouseScroll, _cocos2d_EventListenerMouse_set_onMouseScroll);
@@ -5310,20 +5484,6 @@ static int _cocos2d_EventCustom_getUserData(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_EventCustom_new(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    lua_settop(L, 1);
-    const char *event = olua_checkstring(L, 1);
-    auto obj = new cocos2d::EventCustom(event);
-    obj->autorelease();
-
-    olua_endinvoke(L);
-
-    return olua_push_cppobj<cocos2d::EventCustom>(L, obj);
-}
-
 static int _cocos2d_EventCustom_setUserData(lua_State *L)
 {
     olua_startinvoke(L);
@@ -5349,7 +5509,6 @@ static int luaopen_cocos2d_EventCustom(lua_State *L)
     oluacls_class(L, "cc.EventCustom", "cc.Event");
     oluacls_func(L, "getEventName", _cocos2d_EventCustom_getEventName);
     oluacls_func(L, "getUserData", _cocos2d_EventCustom_getUserData);
-    oluacls_func(L, "new", _cocos2d_EventCustom_new);
     oluacls_func(L, "setUserData", _cocos2d_EventCustom_setUserData);
     oluacls_prop(L, "eventName", _cocos2d_EventCustom_getEventName, nullptr);
     oluacls_prop(L, "userData", _cocos2d_EventCustom_getUserData, _cocos2d_EventCustom_setUserData);
@@ -5889,6 +6048,22 @@ static int _cocos2d_EventTouch_getTouches(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_EventTouch_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // EventTouch()
+    cocos2d::EventTouch *ret = (cocos2d::EventTouch *)new cocos2d::EventTouch();
+    int num_ret = olua_push_cppobj(L, ret, "cc.EventTouch");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_EventTouch_setEventCode(lua_State *L)
 {
     olua_startinvoke(L);
@@ -5934,6 +6109,7 @@ static int luaopen_cocos2d_EventTouch(lua_State *L)
     oluacls_class(L, "cc.EventTouch", "cc.Event");
     oluacls_func(L, "getEventCode", _cocos2d_EventTouch_getEventCode);
     oluacls_func(L, "getTouches", _cocos2d_EventTouch_getTouches);
+    oluacls_func(L, "new", _cocos2d_EventTouch_new);
     oluacls_func(L, "setEventCode", _cocos2d_EventTouch_setEventCode);
     oluacls_func(L, "setTouches", _cocos2d_EventTouch_setTouches);
     oluacls_prop(L, "eventCode", _cocos2d_EventTouch_getEventCode, _cocos2d_EventTouch_setEventCode);
@@ -5946,9 +6122,32 @@ static int luaopen_cocos2d_EventTouch(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_EventKeyboard_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    lua_Unsigned arg1 = 0;       /** keyCode */
+    bool arg2 = false;       /** isPressed */
+
+    olua_check_uint(L, 1, &arg1);
+    olua_check_bool(L, 2, &arg2);
+
+    // EventKeyboard(KeyCode keyCode, bool isPressed)
+    cocos2d::EventKeyboard *ret = (cocos2d::EventKeyboard *)new cocos2d::EventKeyboard((cocos2d::EventKeyboard::KeyCode)arg1, arg2);
+    int num_ret = olua_push_cppobj(L, ret, "cc.EventKeyboard");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_EventKeyboard(lua_State *L)
 {
     oluacls_class(L, "cc.EventKeyboard", "cc.Event");
+    oluacls_func(L, "new", _cocos2d_EventKeyboard_new);
 
     olua_registerluatype<cocos2d::EventKeyboard>(L, "cc.EventKeyboard");
     oluacls_createclassproxy(L);
@@ -5966,9 +6165,32 @@ static int luaopen_cocos2d_EventAcceleration(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_EventFocus_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::ui::Widget *arg1 = nullptr;       /** widgetLoseFocus */
+    cocos2d::ui::Widget *arg2 = nullptr;       /** widgetGetFocus */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "ccui.Widget");
+    olua_check_cppobj(L, 2, (void **)&arg2, "ccui.Widget");
+
+    // EventFocus(ui::Widget* widgetLoseFocus, ui::Widget* widgetGetFocus)
+    cocos2d::EventFocus *ret = (cocos2d::EventFocus *)new cocos2d::EventFocus(arg1, arg2);
+    int num_ret = olua_push_cppobj(L, ret, "cc.EventFocus");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_EventFocus(lua_State *L)
 {
     oluacls_class(L, "cc.EventFocus", "cc.Event");
+    oluacls_func(L, "new", _cocos2d_EventFocus_new);
 
     olua_registerluatype<cocos2d::EventFocus>(L, "cc.EventFocus");
     oluacls_createclassproxy(L);
@@ -6625,6 +6847,73 @@ static int _cocos2d_EventController_isConnected(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_EventController_new1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    lua_Unsigned arg1 = 0;       /** type */
+    cocos2d::Controller *arg2 = nullptr;       /** controller */
+    lua_Integer arg3 = 0;       /** keyCode */
+
+    olua_check_uint(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Controller");
+    olua_check_int(L, 3, &arg3);
+
+    // EventController(ControllerEventType type, Controller* controller, int keyCode)
+    cocos2d::EventController *ret = (cocos2d::EventController *)new cocos2d::EventController((cocos2d::EventController::ControllerEventType)arg1, arg2, (int)arg3);
+    int num_ret = olua_push_cppobj(L, ret, "cc.EventController");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_EventController_new2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    lua_Unsigned arg1 = 0;       /** type */
+    cocos2d::Controller *arg2 = nullptr;       /** controller */
+    bool arg3 = false;       /** isConnected */
+
+    olua_check_uint(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.Controller");
+    olua_check_bool(L, 3, &arg3);
+
+    // EventController(ControllerEventType type, Controller* controller, bool isConnected)
+    cocos2d::EventController *ret = (cocos2d::EventController *)new cocos2d::EventController((cocos2d::EventController::ControllerEventType)arg1, arg2, arg3);
+    int num_ret = olua_push_cppobj(L, ret, "cc.EventController");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_EventController_new(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 3) {
+        if ((olua_is_uint(L, 1)) && (olua_is_cppobj(L, 2, "cc.Controller")) && (olua_is_int(L, 3))) {
+            return _cocos2d_EventController_new1(L);
+        }
+
+        // if ((olua_is_uint(L, 1)) && (olua_is_cppobj(L, 2, "cc.Controller")) && (olua_is_bool(L, 3))) {
+            return _cocos2d_EventController_new2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::EventController::new' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
 static int _cocos2d_EventController_setConnectStatus(lua_State *L)
 {
     olua_startinvoke(L);
@@ -6672,6 +6961,7 @@ static int luaopen_cocos2d_EventController(lua_State *L)
     oluacls_func(L, "getControllerEventType", _cocos2d_EventController_getControllerEventType);
     oluacls_func(L, "getKeyCode", _cocos2d_EventController_getKeyCode);
     oluacls_func(L, "isConnected", _cocos2d_EventController_isConnected);
+    oluacls_func(L, "new", _cocos2d_EventController_new);
     oluacls_func(L, "setConnectStatus", _cocos2d_EventController_setConnectStatus);
     oluacls_func(L, "setKeyCode", _cocos2d_EventController_setKeyCode);
     oluacls_prop(L, "connected", _cocos2d_EventController_isConnected, nullptr);
@@ -6879,12 +7169,16 @@ static int _cocos2d_Touch_new(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto obj = new cocos2d::Touch();
-    obj->autorelease();
+    lua_settop(L, 0);
+
+    // Touch()
+    cocos2d::Touch *ret = (cocos2d::Touch *)new cocos2d::Touch();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Touch");
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
-    return olua_push_cppobj<cocos2d::Touch>(L, obj);
+    return num_ret;
 }
 
 static int _cocos2d_Touch_setTouchInfo1(lua_State *L)
@@ -7253,6 +7547,40 @@ static int luaopen_cocos2d_Controller(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_experimental_AudioProfile___gc(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+    auto self = olua_touserdata(L, 1, cocos2d::experimental::AudioProfile *);
+    lua_pushstring(L, ".ownership");
+    olua_getvariable(L, 1);
+    if (lua_toboolean(L, -1) && self) {
+        *(void **)lua_touserdata(L, 1) = nullptr;
+        delete self;
+    }
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_experimental_AudioProfile_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // AudioProfile()
+    cocos2d::experimental::AudioProfile *ret = (cocos2d::experimental::AudioProfile *)new cocos2d::experimental::AudioProfile();
+    int num_ret = olua_push_cppobj(L, ret, "cc.AudioProfile");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_experimental_AudioProfile_get_maxInstances(lua_State *L)
 {
     olua_startinvoke(L);
@@ -7373,6 +7701,8 @@ static int _cocos2d_experimental_AudioProfile_set_name(lua_State *L)
 static int luaopen_cocos2d_experimental_AudioProfile(lua_State *L)
 {
     oluacls_class(L, "cc.AudioProfile", nullptr);
+    oluacls_func(L, "__gc", _cocos2d_experimental_AudioProfile___gc);
+    oluacls_func(L, "new", _cocos2d_experimental_AudioProfile_new);
     oluacls_prop(L, "maxInstances", _cocos2d_experimental_AudioProfile_get_maxInstances, _cocos2d_experimental_AudioProfile_set_maxInstances);
     oluacls_prop(L, "minDelay", _cocos2d_experimental_AudioProfile_get_minDelay, _cocos2d_experimental_AudioProfile_set_minDelay);
     oluacls_prop(L, "name", _cocos2d_experimental_AudioProfile_get_name, _cocos2d_experimental_AudioProfile_set_name);
@@ -11406,6 +11736,22 @@ static int _cocos2d_Image_isCompressed(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_Image_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // Image()
+    cocos2d::Image *ret = (cocos2d::Image *)new cocos2d::Image();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Image");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_Image_premultiplyAlpha(lua_State *L)
 {
     olua_startinvoke(L);
@@ -11520,6 +11866,7 @@ static int luaopen_cocos2d_Image(lua_State *L)
     oluacls_func(L, "initWithImageFile", _cocos2d_Image_initWithImageFile);
     oluacls_func(L, "initWithRawData", _cocos2d_Image_initWithRawData);
     oluacls_func(L, "isCompressed", _cocos2d_Image_isCompressed);
+    oluacls_func(L, "new", _cocos2d_Image_new);
     oluacls_func(L, "premultiplyAlpha", _cocos2d_Image_premultiplyAlpha);
     oluacls_func(L, "reversePremultipliedAlpha", _cocos2d_Image_reversePremultipliedAlpha);
     oluacls_func(L, "saveToFile", _cocos2d_Image_saveToFile);
@@ -11540,6 +11887,24 @@ static int luaopen_cocos2d_Image(lua_State *L)
     oluacls_createclassproxy(L);
 
     return 1;
+}
+
+static int _cocos2d_Renderer___gc(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+    auto self = olua_touserdata(L, 1, cocos2d::Renderer *);
+    lua_pushstring(L, ".ownership");
+    olua_getvariable(L, 1);
+    if (lua_toboolean(L, -1) && self) {
+        *(void **)lua_touserdata(L, 1) = nullptr;
+        delete self;
+    }
+
+    olua_endinvoke(L);
+
+    return 0;
 }
 
 static int _cocos2d_Renderer_addDrawnBatches(lua_State *L)
@@ -11753,6 +12118,22 @@ static int _cocos2d_Renderer_initGLView(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_Renderer_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // Renderer()
+    cocos2d::Renderer *ret = (cocos2d::Renderer *)new cocos2d::Renderer();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Renderer");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_Renderer_popGroup(lua_State *L)
 {
     olua_startinvoke(L);
@@ -11852,6 +12233,7 @@ static int _cocos2d_Renderer_setDepthTest(lua_State *L)
 static int luaopen_cocos2d_Renderer(lua_State *L)
 {
     oluacls_class(L, "cc.Renderer", nullptr);
+    oluacls_func(L, "__gc", _cocos2d_Renderer___gc);
     oluacls_func(L, "addDrawnBatches", _cocos2d_Renderer_addDrawnBatches);
     oluacls_func(L, "addDrawnVertices", _cocos2d_Renderer_addDrawnVertices);
     oluacls_func(L, "checkVisibility", _cocos2d_Renderer_checkVisibility);
@@ -11863,6 +12245,7 @@ static int luaopen_cocos2d_Renderer(lua_State *L)
     oluacls_func(L, "getDrawnBatches", _cocos2d_Renderer_getDrawnBatches);
     oluacls_func(L, "getDrawnVertices", _cocos2d_Renderer_getDrawnVertices);
     oluacls_func(L, "initGLView", _cocos2d_Renderer_initGLView);
+    oluacls_func(L, "new", _cocos2d_Renderer_new);
     oluacls_func(L, "popGroup", _cocos2d_Renderer_popGroup);
     oluacls_func(L, "pushGroup", _cocos2d_Renderer_pushGroup);
     oluacls_func(L, "render", _cocos2d_Renderer_render);
@@ -12499,6 +12882,22 @@ static int _cocos2d_GLProgram_link(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_GLProgram_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // GLProgram()
+    cocos2d::GLProgram *ret = (cocos2d::GLProgram *)new cocos2d::GLProgram();
+    int num_ret = olua_push_cppobj(L, ret, "cc.GLProgram");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_GLProgram_reset(lua_State *L)
 {
     olua_startinvoke(L);
@@ -12828,6 +13227,7 @@ static int luaopen_cocos2d_GLProgram(lua_State *L)
     oluacls_func(L, "initWithByteArrays", _cocos2d_GLProgram_initWithByteArrays);
     oluacls_func(L, "initWithFilenames", _cocos2d_GLProgram_initWithFilenames);
     oluacls_func(L, "link", _cocos2d_GLProgram_link);
+    oluacls_func(L, "new", _cocos2d_GLProgram_new);
     oluacls_func(L, "reset", _cocos2d_GLProgram_reset);
     oluacls_func(L, "setUniformLocationWith1f", _cocos2d_GLProgram_setUniformLocationWith1f);
     oluacls_func(L, "setUniformLocationWith1i", _cocos2d_GLProgram_setUniformLocationWith1i);
@@ -12941,6 +13341,22 @@ static int _cocos2d_GLProgramCache_loadDefaultGLPrograms(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_GLProgramCache_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // GLProgramCache()
+    cocos2d::GLProgramCache *ret = (cocos2d::GLProgramCache *)new cocos2d::GLProgramCache();
+    int num_ret = olua_push_cppobj(L, ret, "cc.GLProgramCache");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_GLProgramCache_reloadDefaultGLPrograms(lua_State *L)
 {
     olua_startinvoke(L);
@@ -12985,6 +13401,7 @@ static int luaopen_cocos2d_GLProgramCache(lua_State *L)
     oluacls_func(L, "getGLProgram", _cocos2d_GLProgramCache_getGLProgram);
     oluacls_func(L, "getInstance", _cocos2d_GLProgramCache_getInstance);
     oluacls_func(L, "loadDefaultGLPrograms", _cocos2d_GLProgramCache_loadDefaultGLPrograms);
+    oluacls_func(L, "new", _cocos2d_GLProgramCache_new);
     oluacls_func(L, "reloadDefaultGLPrograms", _cocos2d_GLProgramCache_reloadDefaultGLPrograms);
     oluacls_func(L, "reloadDefaultGLProgramsRelativeToLights", _cocos2d_GLProgramCache_reloadDefaultGLProgramsRelativeToLights);
     oluacls_prop(L, "instance", _cocos2d_GLProgramCache_getInstance, nullptr);
@@ -14185,6 +14602,22 @@ static int _cocos2d_TextureCache_getTextureForKey(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_TextureCache_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TextureCache()
+    cocos2d::TextureCache *ret = (cocos2d::TextureCache *)new cocos2d::TextureCache();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TextureCache");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_TextureCache_reloadTexture(lua_State *L)
 {
     olua_startinvoke(L);
@@ -14396,6 +14829,7 @@ static int luaopen_cocos2d_TextureCache(lua_State *L)
     oluacls_func(L, "getETC1AlphaFileSuffix", _cocos2d_TextureCache_getETC1AlphaFileSuffix);
     oluacls_func(L, "getTextureFilePath", _cocos2d_TextureCache_getTextureFilePath);
     oluacls_func(L, "getTextureForKey", _cocos2d_TextureCache_getTextureForKey);
+    oluacls_func(L, "new", _cocos2d_TextureCache_new);
     oluacls_func(L, "reloadTexture", _cocos2d_TextureCache_reloadTexture);
     oluacls_func(L, "removeAllTextures", _cocos2d_TextureCache_removeAllTextures);
     oluacls_func(L, "removeTexture", _cocos2d_TextureCache_removeTexture);
@@ -15019,6 +15453,22 @@ static int _cocos2d_Texture2D_initWithString(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_Texture2D_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // Texture2D()
+    cocos2d::Texture2D *ret = (cocos2d::Texture2D *)new cocos2d::Texture2D();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Texture2D");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_Texture2D_releaseGLTexture(lua_State *L)
 {
     olua_startinvoke(L);
@@ -15247,6 +15697,7 @@ static int luaopen_cocos2d_Texture2D(lua_State *L)
     oluacls_func(L, "initWithData", _cocos2d_Texture2D_initWithData);
     oluacls_func(L, "initWithImage", _cocos2d_Texture2D_initWithImage);
     oluacls_func(L, "initWithString", _cocos2d_Texture2D_initWithString);
+    oluacls_func(L, "new", _cocos2d_Texture2D_new);
     oluacls_func(L, "releaseGLTexture", _cocos2d_Texture2D_releaseGLTexture);
     oluacls_func(L, "setAliasTexParameters", _cocos2d_Texture2D_setAliasTexParameters);
     oluacls_func(L, "setAlphaTexture", _cocos2d_Texture2D_setAlphaTexture);
@@ -15308,6 +15759,22 @@ static int _cocos2d_TextureCube_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_TextureCube_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TextureCube()
+    cocos2d::TextureCube *ret = (cocos2d::TextureCube *)new cocos2d::TextureCube();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TextureCube");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_TextureCube_reloadTexture(lua_State *L)
 {
     olua_startinvoke(L);
@@ -15331,6 +15798,7 @@ static int luaopen_cocos2d_TextureCube(lua_State *L)
 {
     oluacls_class(L, "cc.TextureCube", "cc.Texture2D");
     oluacls_func(L, "create", _cocos2d_TextureCube_create);
+    oluacls_func(L, "new", _cocos2d_TextureCube_new);
     oluacls_func(L, "reloadTexture", _cocos2d_TextureCube_reloadTexture);
 
     olua_registerluatype<cocos2d::TextureCube>(L, "cc.TextureCube");
@@ -15754,6 +16222,22 @@ static int _cocos2d_TextureAtlas_moveQuadsFromIndex(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_TextureAtlas_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TextureAtlas()
+    cocos2d::TextureAtlas *ret = (cocos2d::TextureAtlas *)new cocos2d::TextureAtlas();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TextureAtlas");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_TextureAtlas_removeAllQuads(lua_State *L)
 {
     olua_startinvoke(L);
@@ -15894,6 +16378,7 @@ static int luaopen_cocos2d_TextureAtlas(lua_State *L)
     oluacls_func(L, "isDirty", _cocos2d_TextureAtlas_isDirty);
     oluacls_func(L, "listenRendererRecreated", _cocos2d_TextureAtlas_listenRendererRecreated);
     oluacls_func(L, "moveQuadsFromIndex", _cocos2d_TextureAtlas_moveQuadsFromIndex);
+    oluacls_func(L, "new", _cocos2d_TextureAtlas_new);
     oluacls_func(L, "removeAllQuads", _cocos2d_TextureAtlas_removeAllQuads);
     oluacls_func(L, "removeQuadAtIndex", _cocos2d_TextureAtlas_removeQuadAtIndex);
     oluacls_func(L, "removeQuadsAtIndex", _cocos2d_TextureAtlas_removeQuadsAtIndex);
@@ -16058,9 +16543,45 @@ static int luaopen_cocos2d_VRIRenderer(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_VRGenericRenderer___gc(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+    auto self = olua_touserdata(L, 1, cocos2d::VRGenericRenderer *);
+    lua_pushstring(L, ".ownership");
+    olua_getvariable(L, 1);
+    if (lua_toboolean(L, -1) && self) {
+        *(void **)lua_touserdata(L, 1) = nullptr;
+        delete self;
+    }
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_VRGenericRenderer_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // VRGenericRenderer()
+    cocos2d::VRGenericRenderer *ret = (cocos2d::VRGenericRenderer *)new cocos2d::VRGenericRenderer();
+    int num_ret = olua_push_cppobj(L, ret, "cc.VRGenericRenderer");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_VRGenericRenderer(lua_State *L)
 {
     oluacls_class(L, "cc.VRGenericRenderer", "cc.VRIRenderer");
+    oluacls_func(L, "__gc", _cocos2d_VRGenericRenderer___gc);
+    oluacls_func(L, "new", _cocos2d_VRGenericRenderer_new);
 
     olua_registerluatype<cocos2d::VRGenericRenderer>(L, "cc.VRGenericRenderer");
     oluacls_createclassproxy(L);
@@ -16068,9 +16589,45 @@ static int luaopen_cocos2d_VRGenericRenderer(lua_State *L)
     return 1;
 }
 
+static int _cocos2d_VRGenericHeadTracker___gc(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+    auto self = olua_touserdata(L, 1, cocos2d::VRGenericHeadTracker *);
+    lua_pushstring(L, ".ownership");
+    olua_getvariable(L, 1);
+    if (lua_toboolean(L, -1) && self) {
+        *(void **)lua_touserdata(L, 1) = nullptr;
+        delete self;
+    }
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_VRGenericHeadTracker_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // VRGenericHeadTracker()
+    cocos2d::VRGenericHeadTracker *ret = (cocos2d::VRGenericHeadTracker *)new cocos2d::VRGenericHeadTracker();
+    int num_ret = olua_push_cppobj(L, ret, "cc.VRGenericHeadTracker");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_VRGenericHeadTracker(lua_State *L)
 {
     oluacls_class(L, "cc.VRGenericHeadTracker", "cc.VRIHeadTracker");
+    oluacls_func(L, "__gc", _cocos2d_VRGenericHeadTracker___gc);
+    oluacls_func(L, "new", _cocos2d_VRGenericHeadTracker_new);
 
     olua_registerluatype<cocos2d::VRGenericHeadTracker>(L, "cc.VRGenericHeadTracker");
     oluacls_createclassproxy(L);
@@ -16286,6 +16843,22 @@ static int _cocos2d_network_WebSocket_getUrl(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_network_WebSocket_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // WebSocket()
+    cocos2d::network::WebSocket *ret = (cocos2d::network::WebSocket *)new cocos2d::network::WebSocket();
+    int num_ret = olua_push_cppobj(L, ret, "cc.network.WebSocket");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_network_WebSocket_send1(lua_State *L)
 {
     olua_startinvoke(L);
@@ -16360,6 +16933,7 @@ static int luaopen_cocos2d_network_WebSocket(lua_State *L)
     oluacls_func(L, "getProtocol", _cocos2d_network_WebSocket_getProtocol);
     oluacls_func(L, "getReadyState", _cocos2d_network_WebSocket_getReadyState);
     oluacls_func(L, "getUrl", _cocos2d_network_WebSocket_getUrl);
+    oluacls_func(L, "new", _cocos2d_network_WebSocket_new);
     oluacls_func(L, "send", _cocos2d_network_WebSocket_send);
     oluacls_prop(L, "protocol", _cocos2d_network_WebSocket_getProtocol, nullptr);
     oluacls_prop(L, "readyState", _cocos2d_network_WebSocket_getReadyState, nullptr);
@@ -16781,12 +17355,16 @@ static int _cocos2d_ActionManager_new(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto obj = new cocos2d::ActionManager();
-    obj->autorelease();
+    lua_settop(L, 0);
+
+    // ActionManager()
+    cocos2d::ActionManager *ret = (cocos2d::ActionManager *)new cocos2d::ActionManager();
+    int num_ret = olua_push_cppobj(L, ret, "cc.ActionManager");
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
-    return olua_push_cppobj<cocos2d::ActionManager>(L, obj);
+    return num_ret;
 }
 
 static int _cocos2d_ActionManager_pauseAllRunningActions(lua_State *L)
@@ -17173,6 +17751,22 @@ static int _cocos2d_Action_isDone(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_Action_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // Action()
+    cocos2d::Action *ret = (cocos2d::Action *)new cocos2d::Action();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Action");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_Action_reverse(lua_State *L)
 {
     olua_startinvoke(L);
@@ -17360,6 +17954,7 @@ static int luaopen_cocos2d_Action(lua_State *L)
     oluacls_func(L, "getTag", _cocos2d_Action_getTag);
     oluacls_func(L, "getTarget", _cocos2d_Action_getTarget);
     oluacls_func(L, "isDone", _cocos2d_Action_isDone);
+    oluacls_func(L, "new", _cocos2d_Action_new);
     oluacls_func(L, "reverse", _cocos2d_Action_reverse);
     oluacls_func(L, "setFlags", _cocos2d_Action_setFlags);
     oluacls_func(L, "setOriginalTarget", _cocos2d_Action_setOriginalTarget);
@@ -17400,6 +17995,22 @@ static int _cocos2d_FiniteTimeAction_getDuration(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_FiniteTimeAction_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // FiniteTimeAction()
+    cocos2d::FiniteTimeAction *ret = (cocos2d::FiniteTimeAction *)new cocos2d::FiniteTimeAction();
+    int num_ret = olua_push_cppobj(L, ret, "cc.FiniteTimeAction");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_FiniteTimeAction_setDuration(lua_State *L)
 {
     olua_startinvoke(L);
@@ -17424,6 +18035,7 @@ static int luaopen_cocos2d_FiniteTimeAction(lua_State *L)
 {
     oluacls_class(L, "cc.FiniteTimeAction", "cc.Action");
     oluacls_func(L, "getDuration", _cocos2d_FiniteTimeAction_getDuration);
+    oluacls_func(L, "new", _cocos2d_FiniteTimeAction_new);
     oluacls_func(L, "setDuration", _cocos2d_FiniteTimeAction_setDuration);
     oluacls_prop(L, "duration", _cocos2d_FiniteTimeAction_getDuration, _cocos2d_FiniteTimeAction_setDuration);
 
@@ -17498,6 +18110,22 @@ static int _cocos2d_Speed_getSpeed(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_Speed_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // Speed()
+    cocos2d::Speed *ret = (cocos2d::Speed *)new cocos2d::Speed();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Speed");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_Speed_setInnerAction(lua_State *L)
 {
     olua_startinvoke(L);
@@ -17547,6 +18175,7 @@ static int luaopen_cocos2d_Speed(lua_State *L)
     oluacls_func(L, "create", _cocos2d_Speed_create);
     oluacls_func(L, "getInnerAction", _cocos2d_Speed_getInnerAction);
     oluacls_func(L, "getSpeed", _cocos2d_Speed_getSpeed);
+    oluacls_func(L, "new", _cocos2d_Speed_new);
     oluacls_func(L, "setInnerAction", _cocos2d_Speed_setInnerAction);
     oluacls_func(L, "setSpeed", _cocos2d_Speed_setSpeed);
     oluacls_prop(L, "innerAction", _cocos2d_Speed_getInnerAction, _cocos2d_Speed_setInnerAction);
@@ -17673,6 +18302,22 @@ static int _cocos2d_Follow_isBoundarySet(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_Follow_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // Follow()
+    cocos2d::Follow *ret = (cocos2d::Follow *)new cocos2d::Follow();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Follow");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_Follow_setBoundarySet(lua_State *L)
 {
     olua_startinvoke(L);
@@ -17701,6 +18346,7 @@ static int luaopen_cocos2d_Follow(lua_State *L)
     oluacls_func(L, "initWithTarget", _cocos2d_Follow_initWithTarget);
     oluacls_func(L, "initWithTargetAndOffset", _cocos2d_Follow_initWithTargetAndOffset);
     oluacls_func(L, "isBoundarySet", _cocos2d_Follow_isBoundarySet);
+    oluacls_func(L, "new", _cocos2d_Follow_new);
     oluacls_func(L, "setBoundarySet", _cocos2d_Follow_setBoundarySet);
     oluacls_prop(L, "boundarySet", _cocos2d_Follow_isBoundarySet, _cocos2d_Follow_setBoundarySet);
 
@@ -18660,11 +19306,28 @@ static int _cocos2d_Sequence_createWithTwoActions(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_Sequence_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // Sequence()
+    cocos2d::Sequence *ret = (cocos2d::Sequence *)new cocos2d::Sequence();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Sequence");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_Sequence(lua_State *L)
 {
     oluacls_class(L, "cc.Sequence", "cc.ActionInterval");
     oluacls_func(L, "create", _cocos2d_Sequence_create);
     oluacls_func(L, "createWithTwoActions", _cocos2d_Sequence_createWithTwoActions);
+    oluacls_func(L, "new", _cocos2d_Sequence_new);
 
     olua_registerluatype<cocos2d::Sequence>(L, "cc.Sequence");
     oluacls_createclassproxy(L);
@@ -18718,6 +19381,22 @@ static int _cocos2d_Repeat_getInnerAction(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_Repeat_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // Repeat()
+    cocos2d::Repeat *ret = (cocos2d::Repeat *)new cocos2d::Repeat();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Repeat");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_Repeat_setInnerAction(lua_State *L)
 {
     olua_startinvoke(L);
@@ -18746,6 +19425,7 @@ static int luaopen_cocos2d_Repeat(lua_State *L)
     oluacls_class(L, "cc.Repeat", "cc.ActionInterval");
     oluacls_func(L, "create", _cocos2d_Repeat_create);
     oluacls_func(L, "getInnerAction", _cocos2d_Repeat_getInnerAction);
+    oluacls_func(L, "new", _cocos2d_Repeat_new);
     oluacls_func(L, "setInnerAction", _cocos2d_Repeat_setInnerAction);
     oluacls_prop(L, "innerAction", _cocos2d_Repeat_getInnerAction, _cocos2d_Repeat_setInnerAction);
 
@@ -18799,6 +19479,22 @@ static int _cocos2d_RepeatForever_getInnerAction(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_RepeatForever_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // RepeatForever()
+    cocos2d::RepeatForever *ret = (cocos2d::RepeatForever *)new cocos2d::RepeatForever();
+    int num_ret = olua_push_cppobj(L, ret, "cc.RepeatForever");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_RepeatForever_setInnerAction(lua_State *L)
 {
     olua_startinvoke(L);
@@ -18827,6 +19523,7 @@ static int luaopen_cocos2d_RepeatForever(lua_State *L)
     oluacls_class(L, "cc.RepeatForever", "cc.ActionInterval");
     oluacls_func(L, "create", _cocos2d_RepeatForever_create);
     oluacls_func(L, "getInnerAction", _cocos2d_RepeatForever_getInnerAction);
+    oluacls_func(L, "new", _cocos2d_RepeatForever_new);
     oluacls_func(L, "setInnerAction", _cocos2d_RepeatForever_setInnerAction);
     oluacls_prop(L, "innerAction", _cocos2d_RepeatForever_getInnerAction, _cocos2d_RepeatForever_setInnerAction);
 
@@ -18886,11 +19583,28 @@ static int _cocos2d_Spawn_createWithTwoActions(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_Spawn_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // Spawn()
+    cocos2d::Spawn *ret = (cocos2d::Spawn *)new cocos2d::Spawn();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Spawn");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_Spawn(lua_State *L)
 {
     oluacls_class(L, "cc.Spawn", "cc.ActionInterval");
     oluacls_func(L, "create", _cocos2d_Spawn_create);
     oluacls_func(L, "createWithTwoActions", _cocos2d_Spawn_createWithTwoActions);
+    oluacls_func(L, "new", _cocos2d_Spawn_new);
 
     olua_registerluatype<cocos2d::Spawn>(L, "cc.Spawn");
     oluacls_createclassproxy(L);
@@ -18988,10 +19702,27 @@ static int _cocos2d_RotateTo_create(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_RotateTo_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // RotateTo()
+    cocos2d::RotateTo *ret = (cocos2d::RotateTo *)new cocos2d::RotateTo();
+    int num_ret = olua_push_cppobj(L, ret, "cc.RotateTo");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_RotateTo(lua_State *L)
 {
     oluacls_class(L, "cc.RotateTo", "cc.ActionInterval");
     oluacls_func(L, "create", _cocos2d_RotateTo_create);
+    oluacls_func(L, "new", _cocos2d_RotateTo_new);
 
     olua_registerluatype<cocos2d::RotateTo>(L, "cc.RotateTo");
     oluacls_createclassproxy(L);
@@ -19089,10 +19820,27 @@ static int _cocos2d_RotateBy_create(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_RotateBy_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // RotateBy()
+    cocos2d::RotateBy *ret = (cocos2d::RotateBy *)new cocos2d::RotateBy();
+    int num_ret = olua_push_cppobj(L, ret, "cc.RotateBy");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_RotateBy(lua_State *L)
 {
     oluacls_class(L, "cc.RotateBy", "cc.ActionInterval");
     oluacls_func(L, "create", _cocos2d_RotateBy_create);
+    oluacls_func(L, "new", _cocos2d_RotateBy_new);
 
     olua_registerluatype<cocos2d::RotateBy>(L, "cc.RotateBy");
     oluacls_createclassproxy(L);
@@ -19215,10 +19963,27 @@ static int _cocos2d_MoveBy_create(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_MoveBy_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // MoveBy()
+    cocos2d::MoveBy *ret = (cocos2d::MoveBy *)new cocos2d::MoveBy();
+    int num_ret = olua_push_cppobj(L, ret, "cc.MoveBy");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_MoveBy(lua_State *L)
 {
     oluacls_class(L, "cc.MoveBy", "cc.ActionInterval");
     oluacls_func(L, "create", _cocos2d_MoveBy_create);
+    oluacls_func(L, "new", _cocos2d_MoveBy_new);
 
     olua_registerluatype<cocos2d::MoveBy>(L, "cc.MoveBy");
     oluacls_createclassproxy(L);
@@ -19341,10 +20106,27 @@ static int _cocos2d_MoveTo_create(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_MoveTo_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // MoveTo()
+    cocos2d::MoveTo *ret = (cocos2d::MoveTo *)new cocos2d::MoveTo();
+    int num_ret = olua_push_cppobj(L, ret, "cc.MoveTo");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_MoveTo(lua_State *L)
 {
     oluacls_class(L, "cc.MoveTo", "cc.MoveBy");
     oluacls_func(L, "create", _cocos2d_MoveTo_create);
+    oluacls_func(L, "new", _cocos2d_MoveTo_new);
 
     olua_registerluatype<cocos2d::MoveTo>(L, "cc.MoveTo");
     oluacls_createclassproxy(L);
@@ -19375,10 +20157,27 @@ static int _cocos2d_SkewTo_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_SkewTo_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // SkewTo()
+    cocos2d::SkewTo *ret = (cocos2d::SkewTo *)new cocos2d::SkewTo();
+    int num_ret = olua_push_cppobj(L, ret, "cc.SkewTo");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_SkewTo(lua_State *L)
 {
     oluacls_class(L, "cc.SkewTo", "cc.ActionInterval");
     oluacls_func(L, "create", _cocos2d_SkewTo_create);
+    oluacls_func(L, "new", _cocos2d_SkewTo_new);
 
     olua_registerluatype<cocos2d::SkewTo>(L, "cc.SkewTo");
     oluacls_createclassproxy(L);
@@ -19409,10 +20208,27 @@ static int _cocos2d_SkewBy_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_SkewBy_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // SkewBy()
+    cocos2d::SkewBy *ret = (cocos2d::SkewBy *)new cocos2d::SkewBy();
+    int num_ret = olua_push_cppobj(L, ret, "cc.SkewBy");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_SkewBy(lua_State *L)
 {
     oluacls_class(L, "cc.SkewBy", "cc.SkewTo");
     oluacls_func(L, "create", _cocos2d_SkewBy_create);
+    oluacls_func(L, "new", _cocos2d_SkewBy_new);
 
     olua_registerluatype<cocos2d::SkewBy>(L, "cc.SkewBy");
     oluacls_createclassproxy(L);
@@ -19441,10 +20257,27 @@ static int _cocos2d_ResizeTo_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_ResizeTo_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // ResizeTo()
+    cocos2d::ResizeTo *ret = (cocos2d::ResizeTo *)new cocos2d::ResizeTo();
+    int num_ret = olua_push_cppobj(L, ret, "cc.ResizeTo");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_ResizeTo(lua_State *L)
 {
     oluacls_class(L, "cc.ResizeTo", "cc.ActionInterval");
     oluacls_func(L, "create", _cocos2d_ResizeTo_create);
+    oluacls_func(L, "new", _cocos2d_ResizeTo_new);
 
     olua_registerluatype<cocos2d::ResizeTo>(L, "cc.ResizeTo");
     oluacls_createclassproxy(L);
@@ -19473,10 +20306,27 @@ static int _cocos2d_ResizeBy_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_ResizeBy_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // ResizeBy()
+    cocos2d::ResizeBy *ret = (cocos2d::ResizeBy *)new cocos2d::ResizeBy();
+    int num_ret = olua_push_cppobj(L, ret, "cc.ResizeBy");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_ResizeBy(lua_State *L)
 {
     oluacls_class(L, "cc.ResizeBy", "cc.ActionInterval");
     oluacls_func(L, "create", _cocos2d_ResizeBy_create);
+    oluacls_func(L, "new", _cocos2d_ResizeBy_new);
 
     olua_registerluatype<cocos2d::ResizeBy>(L, "cc.ResizeBy");
     oluacls_createclassproxy(L);
@@ -19547,10 +20397,27 @@ static int _cocos2d_BezierBy_create(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_BezierBy_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // BezierBy()
+    cocos2d::BezierBy *ret = (cocos2d::BezierBy *)new cocos2d::BezierBy();
+    int num_ret = olua_push_cppobj(L, ret, "cc.BezierBy");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_BezierBy(lua_State *L)
 {
     oluacls_class(L, "cc.BezierBy", "cc.ActionInterval");
     oluacls_func(L, "create", _cocos2d_BezierBy_create);
+    oluacls_func(L, "new", _cocos2d_BezierBy_new);
 
     olua_registerluatype<cocos2d::BezierBy>(L, "cc.BezierBy");
     oluacls_createclassproxy(L);
@@ -19621,10 +20488,27 @@ static int _cocos2d_BezierTo_create(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_BezierTo_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // BezierTo()
+    cocos2d::BezierTo *ret = (cocos2d::BezierTo *)new cocos2d::BezierTo();
+    int num_ret = olua_push_cppobj(L, ret, "cc.BezierTo");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_BezierTo(lua_State *L)
 {
     oluacls_class(L, "cc.BezierTo", "cc.BezierBy");
     oluacls_func(L, "create", _cocos2d_BezierTo_create);
+    oluacls_func(L, "new", _cocos2d_BezierTo_new);
 
     olua_registerluatype<cocos2d::BezierTo>(L, "cc.BezierTo");
     oluacls_createclassproxy(L);
@@ -19703,10 +20587,27 @@ static int _cocos2d_JumpBy_create(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_JumpBy_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // JumpBy()
+    cocos2d::JumpBy *ret = (cocos2d::JumpBy *)new cocos2d::JumpBy();
+    int num_ret = olua_push_cppobj(L, ret, "cc.JumpBy");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_JumpBy(lua_State *L)
 {
     oluacls_class(L, "cc.JumpBy", "cc.ActionInterval");
     oluacls_func(L, "create", _cocos2d_JumpBy_create);
+    oluacls_func(L, "new", _cocos2d_JumpBy_new);
 
     olua_registerluatype<cocos2d::JumpBy>(L, "cc.JumpBy");
     oluacls_createclassproxy(L);
@@ -19785,10 +20686,27 @@ static int _cocos2d_JumpTo_create(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_JumpTo_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // JumpTo()
+    cocos2d::JumpTo *ret = (cocos2d::JumpTo *)new cocos2d::JumpTo();
+    int num_ret = olua_push_cppobj(L, ret, "cc.JumpTo");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_JumpTo(lua_State *L)
 {
     oluacls_class(L, "cc.JumpTo", "cc.JumpBy");
     oluacls_func(L, "create", _cocos2d_JumpTo_create);
+    oluacls_func(L, "new", _cocos2d_JumpTo_new);
 
     olua_registerluatype<cocos2d::JumpTo>(L, "cc.JumpTo");
     oluacls_createclassproxy(L);
@@ -19892,10 +20810,27 @@ static int _cocos2d_ScaleTo_create(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_ScaleTo_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // ScaleTo()
+    cocos2d::ScaleTo *ret = (cocos2d::ScaleTo *)new cocos2d::ScaleTo();
+    int num_ret = olua_push_cppobj(L, ret, "cc.ScaleTo");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_ScaleTo(lua_State *L)
 {
     oluacls_class(L, "cc.ScaleTo", "cc.ActionInterval");
     oluacls_func(L, "create", _cocos2d_ScaleTo_create);
+    oluacls_func(L, "new", _cocos2d_ScaleTo_new);
 
     olua_registerluatype<cocos2d::ScaleTo>(L, "cc.ScaleTo");
     oluacls_createclassproxy(L);
@@ -19999,10 +20934,27 @@ static int _cocos2d_ScaleBy_create(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_ScaleBy_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // ScaleBy()
+    cocos2d::ScaleBy *ret = (cocos2d::ScaleBy *)new cocos2d::ScaleBy();
+    int num_ret = olua_push_cppobj(L, ret, "cc.ScaleBy");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_ScaleBy(lua_State *L)
 {
     oluacls_class(L, "cc.ScaleBy", "cc.ScaleTo");
     oluacls_func(L, "create", _cocos2d_ScaleBy_create);
+    oluacls_func(L, "new", _cocos2d_ScaleBy_new);
 
     olua_registerluatype<cocos2d::ScaleBy>(L, "cc.ScaleBy");
     oluacls_createclassproxy(L);
@@ -20031,10 +20983,27 @@ static int _cocos2d_Blink_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_Blink_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // Blink()
+    cocos2d::Blink *ret = (cocos2d::Blink *)new cocos2d::Blink();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Blink");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_Blink(lua_State *L)
 {
     oluacls_class(L, "cc.Blink", "cc.ActionInterval");
     oluacls_func(L, "create", _cocos2d_Blink_create);
+    oluacls_func(L, "new", _cocos2d_Blink_new);
 
     olua_registerluatype<cocos2d::Blink>(L, "cc.Blink");
     oluacls_createclassproxy(L);
@@ -20063,10 +21032,27 @@ static int _cocos2d_FadeTo_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_FadeTo_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // FadeTo()
+    cocos2d::FadeTo *ret = (cocos2d::FadeTo *)new cocos2d::FadeTo();
+    int num_ret = olua_push_cppobj(L, ret, "cc.FadeTo");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_FadeTo(lua_State *L)
 {
     oluacls_class(L, "cc.FadeTo", "cc.ActionInterval");
     oluacls_func(L, "create", _cocos2d_FadeTo_create);
+    oluacls_func(L, "new", _cocos2d_FadeTo_new);
 
     olua_registerluatype<cocos2d::FadeTo>(L, "cc.FadeTo");
     oluacls_createclassproxy(L);
@@ -20093,10 +21079,27 @@ static int _cocos2d_FadeIn_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_FadeIn_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // FadeIn()
+    cocos2d::FadeIn *ret = (cocos2d::FadeIn *)new cocos2d::FadeIn();
+    int num_ret = olua_push_cppobj(L, ret, "cc.FadeIn");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_FadeIn(lua_State *L)
 {
     oluacls_class(L, "cc.FadeIn", "cc.FadeTo");
     oluacls_func(L, "create", _cocos2d_FadeIn_create);
+    oluacls_func(L, "new", _cocos2d_FadeIn_new);
 
     olua_registerluatype<cocos2d::FadeIn>(L, "cc.FadeIn");
     oluacls_createclassproxy(L);
@@ -20123,10 +21126,27 @@ static int _cocos2d_FadeOut_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_FadeOut_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // FadeOut()
+    cocos2d::FadeOut *ret = (cocos2d::FadeOut *)new cocos2d::FadeOut();
+    int num_ret = olua_push_cppobj(L, ret, "cc.FadeOut");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_FadeOut(lua_State *L)
 {
     oluacls_class(L, "cc.FadeOut", "cc.FadeTo");
     oluacls_func(L, "create", _cocos2d_FadeOut_create);
+    oluacls_func(L, "new", _cocos2d_FadeOut_new);
 
     olua_registerluatype<cocos2d::FadeOut>(L, "cc.FadeOut");
     oluacls_createclassproxy(L);
@@ -20201,10 +21221,27 @@ static int _cocos2d_TintTo_create(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_TintTo_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TintTo()
+    cocos2d::TintTo *ret = (cocos2d::TintTo *)new cocos2d::TintTo();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TintTo");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_TintTo(lua_State *L)
 {
     oluacls_class(L, "cc.TintTo", "cc.ActionInterval");
     oluacls_func(L, "create", _cocos2d_TintTo_create);
+    oluacls_func(L, "new", _cocos2d_TintTo_new);
 
     olua_registerluatype<cocos2d::TintTo>(L, "cc.TintTo");
     oluacls_createclassproxy(L);
@@ -20237,10 +21274,27 @@ static int _cocos2d_TintBy_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_TintBy_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TintBy()
+    cocos2d::TintBy *ret = (cocos2d::TintBy *)new cocos2d::TintBy();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TintBy");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_TintBy(lua_State *L)
 {
     oluacls_class(L, "cc.TintBy", "cc.ActionInterval");
     oluacls_func(L, "create", _cocos2d_TintBy_create);
+    oluacls_func(L, "new", _cocos2d_TintBy_new);
 
     olua_registerluatype<cocos2d::TintBy>(L, "cc.TintBy");
     oluacls_createclassproxy(L);
@@ -20267,10 +21321,27 @@ static int _cocos2d_DelayTime_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_DelayTime_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // DelayTime()
+    cocos2d::DelayTime *ret = (cocos2d::DelayTime *)new cocos2d::DelayTime();
+    int num_ret = olua_push_cppobj(L, ret, "cc.DelayTime");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_DelayTime(lua_State *L)
 {
     oluacls_class(L, "cc.DelayTime", "cc.ActionInterval");
     oluacls_func(L, "create", _cocos2d_DelayTime_create);
+    oluacls_func(L, "new", _cocos2d_DelayTime_new);
 
     olua_registerluatype<cocos2d::DelayTime>(L, "cc.DelayTime");
     oluacls_createclassproxy(L);
@@ -20300,10 +21371,27 @@ static int _cocos2d_ReverseTime_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_ReverseTime_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // ReverseTime()
+    cocos2d::ReverseTime *ret = (cocos2d::ReverseTime *)new cocos2d::ReverseTime();
+    int num_ret = olua_push_cppobj(L, ret, "cc.ReverseTime");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_ReverseTime(lua_State *L)
 {
     oluacls_class(L, "cc.ReverseTime", "cc.ActionInterval");
     oluacls_func(L, "create", _cocos2d_ReverseTime_create);
+    oluacls_func(L, "new", _cocos2d_ReverseTime_new);
 
     olua_registerluatype<cocos2d::ReverseTime>(L, "cc.ReverseTime");
     oluacls_createclassproxy(L);
@@ -20368,6 +21456,22 @@ static int _cocos2d_Animate_getCurrentFrameIndex(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_Animate_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // Animate()
+    cocos2d::Animate *ret = (cocos2d::Animate *)new cocos2d::Animate();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Animate");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_Animate_setAnimation(lua_State *L)
 {
     olua_startinvoke(L);
@@ -20394,6 +21498,7 @@ static int luaopen_cocos2d_Animate(lua_State *L)
     oluacls_func(L, "create", _cocos2d_Animate_create);
     oluacls_func(L, "getAnimation", _cocos2d_Animate_getAnimation);
     oluacls_func(L, "getCurrentFrameIndex", _cocos2d_Animate_getCurrentFrameIndex);
+    oluacls_func(L, "new", _cocos2d_Animate_new);
     oluacls_func(L, "setAnimation", _cocos2d_Animate_setAnimation);
     oluacls_prop(L, "animation", _cocos2d_Animate_getAnimation, _cocos2d_Animate_setAnimation);
     oluacls_prop(L, "currentFrameIndex", _cocos2d_Animate_getCurrentFrameIndex, nullptr);
@@ -20470,6 +21575,22 @@ static int _cocos2d_TargetedAction_initWithTarget(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_TargetedAction_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TargetedAction()
+    cocos2d::TargetedAction *ret = (cocos2d::TargetedAction *)new cocos2d::TargetedAction();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TargetedAction");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_TargetedAction_setForcedTarget(lua_State *L)
 {
     olua_startinvoke(L);
@@ -20496,6 +21617,7 @@ static int luaopen_cocos2d_TargetedAction(lua_State *L)
     oluacls_func(L, "create", _cocos2d_TargetedAction_create);
     oluacls_func(L, "getForcedTarget", _cocos2d_TargetedAction_getForcedTarget);
     oluacls_func(L, "initWithTarget", _cocos2d_TargetedAction_initWithTarget);
+    oluacls_func(L, "new", _cocos2d_TargetedAction_new);
     oluacls_func(L, "setForcedTarget", _cocos2d_TargetedAction_setForcedTarget);
     oluacls_prop(L, "forcedTarget", _cocos2d_TargetedAction_getForcedTarget, _cocos2d_TargetedAction_setForcedTarget);
 
@@ -20551,10 +21673,27 @@ static int _cocos2d_ActionFloat_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_ActionFloat_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // ActionFloat()
+    cocos2d::ActionFloat *ret = (cocos2d::ActionFloat *)new cocos2d::ActionFloat();
+    int num_ret = olua_push_cppobj(L, ret, "cc.ActionFloat");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_ActionFloat(lua_State *L)
 {
     oluacls_class(L, "cc.ActionFloat", "cc.ActionInterval");
     oluacls_func(L, "create", _cocos2d_ActionFloat_create);
+    oluacls_func(L, "new", _cocos2d_ActionFloat_new);
 
     olua_registerluatype<cocos2d::ActionFloat>(L, "cc.ActionFloat");
     oluacls_createclassproxy(L);
@@ -20583,10 +21722,27 @@ static int _cocos2d_ProgressTo_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_ProgressTo_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // ProgressTo()
+    cocos2d::ProgressTo *ret = (cocos2d::ProgressTo *)new cocos2d::ProgressTo();
+    int num_ret = olua_push_cppobj(L, ret, "cc.ProgressTo");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_ProgressTo(lua_State *L)
 {
     oluacls_class(L, "cc.ProgressTo", "cc.ActionInterval");
     oluacls_func(L, "create", _cocos2d_ProgressTo_create);
+    oluacls_func(L, "new", _cocos2d_ProgressTo_new);
 
     olua_registerluatype<cocos2d::ProgressTo>(L, "cc.ProgressTo");
     oluacls_createclassproxy(L);
@@ -20617,10 +21773,27 @@ static int _cocos2d_ProgressFromTo_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_ProgressFromTo_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // ProgressFromTo()
+    cocos2d::ProgressFromTo *ret = (cocos2d::ProgressFromTo *)new cocos2d::ProgressFromTo();
+    int num_ret = olua_push_cppobj(L, ret, "cc.ProgressFromTo");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_ProgressFromTo(lua_State *L)
 {
     oluacls_class(L, "cc.ProgressFromTo", "cc.ActionInterval");
     oluacls_func(L, "create", _cocos2d_ProgressFromTo_create);
+    oluacls_func(L, "new", _cocos2d_ProgressFromTo_new);
 
     olua_registerluatype<cocos2d::ProgressFromTo>(L, "cc.ProgressFromTo");
     oluacls_createclassproxy(L);
@@ -20650,10 +21823,27 @@ static int _cocos2d_ActionEase_getInnerAction(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_ActionEase_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // ActionEase()
+    cocos2d::ActionEase *ret = (cocos2d::ActionEase *)new cocos2d::ActionEase();
+    int num_ret = olua_push_cppobj(L, ret, "cc.ActionEase");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_ActionEase(lua_State *L)
 {
     oluacls_class(L, "cc.ActionEase", "cc.ActionInterval");
     oluacls_func(L, "getInnerAction", _cocos2d_ActionEase_getInnerAction);
+    oluacls_func(L, "new", _cocos2d_ActionEase_new);
     oluacls_prop(L, "innerAction", _cocos2d_ActionEase_getInnerAction, nullptr);
 
     olua_registerluatype<cocos2d::ActionEase>(L, "cc.ActionEase");
@@ -20705,6 +21895,22 @@ static int _cocos2d_EaseRateAction_getRate(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_EaseRateAction_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // EaseRateAction()
+    cocos2d::EaseRateAction *ret = (cocos2d::EaseRateAction *)new cocos2d::EaseRateAction();
+    int num_ret = olua_push_cppobj(L, ret, "cc.EaseRateAction");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_EaseRateAction_setRate(lua_State *L)
 {
     olua_startinvoke(L);
@@ -20730,6 +21936,7 @@ static int luaopen_cocos2d_EaseRateAction(lua_State *L)
     oluacls_class(L, "cc.EaseRateAction", "cc.ActionEase");
     oluacls_func(L, "create", _cocos2d_EaseRateAction_create);
     oluacls_func(L, "getRate", _cocos2d_EaseRateAction_getRate);
+    oluacls_func(L, "new", _cocos2d_EaseRateAction_new);
     oluacls_func(L, "setRate", _cocos2d_EaseRateAction_setRate);
     oluacls_prop(L, "rate", _cocos2d_EaseRateAction_getRate, _cocos2d_EaseRateAction_setRate);
 
@@ -21754,6 +22961,22 @@ static int _cocos2d_EaseElastic_getPeriod(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_EaseElastic_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // EaseElastic()
+    cocos2d::EaseElastic *ret = (cocos2d::EaseElastic *)new cocos2d::EaseElastic();
+    int num_ret = olua_push_cppobj(L, ret, "cc.EaseElastic");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_EaseElastic_setPeriod(lua_State *L)
 {
     olua_startinvoke(L);
@@ -21778,6 +23001,7 @@ static int luaopen_cocos2d_EaseElastic(lua_State *L)
 {
     oluacls_class(L, "cc.EaseElastic", "cc.ActionEase");
     oluacls_func(L, "getPeriod", _cocos2d_EaseElastic_getPeriod);
+    oluacls_func(L, "new", _cocos2d_EaseElastic_new);
     oluacls_func(L, "setPeriod", _cocos2d_EaseElastic_setPeriod);
     oluacls_prop(L, "period", _cocos2d_EaseElastic_getPeriod, _cocos2d_EaseElastic_setPeriod);
 
@@ -21914,6 +23138,22 @@ static int _cocos2d_EaseBezierAction_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_EaseBezierAction_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // EaseBezierAction()
+    cocos2d::EaseBezierAction *ret = (cocos2d::EaseBezierAction *)new cocos2d::EaseBezierAction();
+    int num_ret = olua_push_cppobj(L, ret, "cc.EaseBezierAction");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_EaseBezierAction_setBezierParamer(lua_State *L)
 {
     olua_startinvoke(L);
@@ -21944,6 +23184,7 @@ static int luaopen_cocos2d_EaseBezierAction(lua_State *L)
 {
     oluacls_class(L, "cc.EaseBezierAction", "cc.ActionEase");
     oluacls_func(L, "create", _cocos2d_EaseBezierAction_create);
+    oluacls_func(L, "new", _cocos2d_EaseBezierAction_new);
     oluacls_func(L, "setBezierParamer", _cocos2d_EaseBezierAction_setBezierParamer);
 
     olua_registerluatype<cocos2d::EaseBezierAction>(L, "cc.EaseBezierAction");
@@ -22093,6 +23334,22 @@ static int _cocos2d_PointArray_insertControlPoint(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_PointArray_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // PointArray()
+    cocos2d::PointArray *ret = (cocos2d::PointArray *)new cocos2d::PointArray();
+    int num_ret = olua_push_cppobj(L, ret, "cc.PointArray");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_PointArray_removeControlPointAtIndex(lua_State *L)
 {
     olua_startinvoke(L);
@@ -22182,6 +23439,7 @@ static int luaopen_cocos2d_PointArray(lua_State *L)
     oluacls_func(L, "getControlPointAtIndex", _cocos2d_PointArray_getControlPointAtIndex);
     oluacls_func(L, "initWithCapacity", _cocos2d_PointArray_initWithCapacity);
     oluacls_func(L, "insertControlPoint", _cocos2d_PointArray_insertControlPoint);
+    oluacls_func(L, "new", _cocos2d_PointArray_new);
     oluacls_func(L, "removeControlPointAtIndex", _cocos2d_PointArray_removeControlPointAtIndex);
     oluacls_func(L, "replaceControlPoint", _cocos2d_PointArray_replaceControlPoint);
     oluacls_func(L, "reverse", _cocos2d_PointArray_reverse);
@@ -22235,6 +23493,22 @@ static int _cocos2d_CardinalSplineTo_getPoints(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_CardinalSplineTo_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // CardinalSplineTo()
+    cocos2d::CardinalSplineTo *ret = (cocos2d::CardinalSplineTo *)new cocos2d::CardinalSplineTo();
+    int num_ret = olua_push_cppobj(L, ret, "cc.CardinalSplineTo");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_CardinalSplineTo_setPoints(lua_State *L)
 {
     olua_startinvoke(L);
@@ -22280,6 +23554,7 @@ static int luaopen_cocos2d_CardinalSplineTo(lua_State *L)
     oluacls_class(L, "cc.CardinalSplineTo", "cc.ActionInterval");
     oluacls_func(L, "create", _cocos2d_CardinalSplineTo_create);
     oluacls_func(L, "getPoints", _cocos2d_CardinalSplineTo_getPoints);
+    oluacls_func(L, "new", _cocos2d_CardinalSplineTo_new);
     oluacls_func(L, "setPoints", _cocos2d_CardinalSplineTo_setPoints);
     oluacls_func(L, "updatePosition", _cocos2d_CardinalSplineTo_updatePosition);
     oluacls_prop(L, "points", _cocos2d_CardinalSplineTo_getPoints, _cocos2d_CardinalSplineTo_setPoints);
@@ -22313,10 +23588,27 @@ static int _cocos2d_CardinalSplineBy_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_CardinalSplineBy_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // CardinalSplineBy()
+    cocos2d::CardinalSplineBy *ret = (cocos2d::CardinalSplineBy *)new cocos2d::CardinalSplineBy();
+    int num_ret = olua_push_cppobj(L, ret, "cc.CardinalSplineBy");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_CardinalSplineBy(lua_State *L)
 {
     oluacls_class(L, "cc.CardinalSplineBy", "cc.CardinalSplineTo");
     oluacls_func(L, "create", _cocos2d_CardinalSplineBy_create);
+    oluacls_func(L, "new", _cocos2d_CardinalSplineBy_new);
 
     olua_registerluatype<cocos2d::CardinalSplineBy>(L, "cc.CardinalSplineBy");
     oluacls_createclassproxy(L);
@@ -22413,10 +23705,27 @@ static int _cocos2d_Show_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_Show_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // Show()
+    cocos2d::Show *ret = (cocos2d::Show *)new cocos2d::Show();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Show");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_Show(lua_State *L)
 {
     oluacls_class(L, "cc.Show", "cc.ActionInstant");
     oluacls_func(L, "create", _cocos2d_Show_create);
+    oluacls_func(L, "new", _cocos2d_Show_new);
 
     olua_registerluatype<cocos2d::Show>(L, "cc.Show");
     oluacls_createclassproxy(L);
@@ -22439,10 +23748,27 @@ static int _cocos2d_Hide_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_Hide_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // Hide()
+    cocos2d::Hide *ret = (cocos2d::Hide *)new cocos2d::Hide();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Hide");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_Hide(lua_State *L)
 {
     oluacls_class(L, "cc.Hide", "cc.ActionInstant");
     oluacls_func(L, "create", _cocos2d_Hide_create);
+    oluacls_func(L, "new", _cocos2d_Hide_new);
 
     olua_registerluatype<cocos2d::Hide>(L, "cc.Hide");
     oluacls_createclassproxy(L);
@@ -22465,10 +23791,27 @@ static int _cocos2d_ToggleVisibility_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_ToggleVisibility_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // ToggleVisibility()
+    cocos2d::ToggleVisibility *ret = (cocos2d::ToggleVisibility *)new cocos2d::ToggleVisibility();
+    int num_ret = olua_push_cppobj(L, ret, "cc.ToggleVisibility");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_ToggleVisibility(lua_State *L)
 {
     oluacls_class(L, "cc.ToggleVisibility", "cc.ActionInstant");
     oluacls_func(L, "create", _cocos2d_ToggleVisibility_create);
+    oluacls_func(L, "new", _cocos2d_ToggleVisibility_new);
 
     olua_registerluatype<cocos2d::ToggleVisibility>(L, "cc.ToggleVisibility");
     oluacls_createclassproxy(L);
@@ -22495,10 +23838,27 @@ static int _cocos2d_RemoveSelf_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_RemoveSelf_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // RemoveSelf()
+    cocos2d::RemoveSelf *ret = (cocos2d::RemoveSelf *)new cocos2d::RemoveSelf();
+    int num_ret = olua_push_cppobj(L, ret, "cc.RemoveSelf");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_RemoveSelf(lua_State *L)
 {
     oluacls_class(L, "cc.RemoveSelf", "cc.ActionInstant");
     oluacls_func(L, "create", _cocos2d_RemoveSelf_create);
+    oluacls_func(L, "new", _cocos2d_RemoveSelf_new);
 
     olua_registerluatype<cocos2d::RemoveSelf>(L, "cc.RemoveSelf");
     oluacls_createclassproxy(L);
@@ -22525,10 +23885,27 @@ static int _cocos2d_FlipX_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_FlipX_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // FlipX()
+    cocos2d::FlipX *ret = (cocos2d::FlipX *)new cocos2d::FlipX();
+    int num_ret = olua_push_cppobj(L, ret, "cc.FlipX");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_FlipX(lua_State *L)
 {
     oluacls_class(L, "cc.FlipX", "cc.ActionInstant");
     oluacls_func(L, "create", _cocos2d_FlipX_create);
+    oluacls_func(L, "new", _cocos2d_FlipX_new);
 
     olua_registerluatype<cocos2d::FlipX>(L, "cc.FlipX");
     oluacls_createclassproxy(L);
@@ -22555,10 +23932,27 @@ static int _cocos2d_FlipY_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_FlipY_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // FlipY()
+    cocos2d::FlipY *ret = (cocos2d::FlipY *)new cocos2d::FlipY();
+    int num_ret = olua_push_cppobj(L, ret, "cc.FlipY");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_FlipY(lua_State *L)
 {
     oluacls_class(L, "cc.FlipY", "cc.ActionInstant");
     oluacls_func(L, "create", _cocos2d_FlipY_create);
+    oluacls_func(L, "new", _cocos2d_FlipY_new);
 
     olua_registerluatype<cocos2d::FlipY>(L, "cc.FlipY");
     oluacls_createclassproxy(L);
@@ -22585,10 +23979,27 @@ static int _cocos2d_Place_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_Place_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // Place()
+    cocos2d::Place *ret = (cocos2d::Place *)new cocos2d::Place();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Place");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_Place(lua_State *L)
 {
     oluacls_class(L, "cc.Place", "cc.ActionInstant");
     oluacls_func(L, "create", _cocos2d_Place_create);
+    oluacls_func(L, "new", _cocos2d_Place_new);
 
     olua_registerluatype<cocos2d::Place>(L, "cc.Place");
     oluacls_createclassproxy(L);
@@ -22671,6 +24082,22 @@ static int _cocos2d_CallFunc_getTargetCallback(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_CallFunc_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // CallFunc()
+    cocos2d::CallFunc *ret = (cocos2d::CallFunc *)new cocos2d::CallFunc();
+    int num_ret = olua_push_cppobj(L, ret, "cc.CallFunc");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_CallFunc_setTargetCallback(lua_State *L)
 {
     olua_startinvoke(L);
@@ -22697,6 +24124,7 @@ static int luaopen_cocos2d_CallFunc(lua_State *L)
     oluacls_func(L, "create", _cocos2d_CallFunc_create);
     oluacls_func(L, "execute", _cocos2d_CallFunc_execute);
     oluacls_func(L, "getTargetCallback", _cocos2d_CallFunc_getTargetCallback);
+    oluacls_func(L, "new", _cocos2d_CallFunc_new);
     oluacls_func(L, "setTargetCallback", _cocos2d_CallFunc_setTargetCallback);
     oluacls_prop(L, "targetCallback", _cocos2d_CallFunc_getTargetCallback, _cocos2d_CallFunc_setTargetCallback);
 
@@ -22794,6 +24222,22 @@ static int _cocos2d_Component_isEnabled(lua_State *L)
     // bool isEnabled()
     bool ret = (bool)self->isEnabled();
     int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Component_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // Component()
+    cocos2d::Component *ret = (cocos2d::Component *)new cocos2d::Component();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Component");
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -22912,6 +24356,7 @@ static int luaopen_cocos2d_Component(lua_State *L)
     oluacls_func(L, "getOwner", _cocos2d_Component_getOwner);
     oluacls_func(L, "init", _cocos2d_Component_init);
     oluacls_func(L, "isEnabled", _cocos2d_Component_isEnabled);
+    oluacls_func(L, "new", _cocos2d_Component_new);
     oluacls_func(L, "serialize", _cocos2d_Component_serialize);
     oluacls_func(L, "setEnabled", _cocos2d_Component_setEnabled);
     oluacls_func(L, "setName", _cocos2d_Component_setName);
@@ -22936,6 +24381,22 @@ static int _cocos2d_LuaComponent_create(lua_State *L)
     // static LuaComponent* create()
     cocos2d::LuaComponent *ret = (cocos2d::LuaComponent *)cocos2d::LuaComponent::create();
     int num_ret = olua_push_cppobj(L, ret, "cc.LuaComponent");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_LuaComponent_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // LuaComponent()
+    cocos2d::LuaComponent *ret = (cocos2d::LuaComponent *)new cocos2d::LuaComponent();
+    int num_ret = olua_push_cppobj(L, ret, "cc.LuaComponent");
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -23272,6 +24733,7 @@ static int luaopen_cocos2d_LuaComponent(lua_State *L)
 {
     oluacls_class(L, "cc.LuaComponent", "cc.Component");
     oluacls_func(L, "create", _cocos2d_LuaComponent_create);
+    oluacls_func(L, "new", _cocos2d_LuaComponent_new);
     oluacls_prop(L, "onAdd", _cocos2d_LuaComponent_get_onAddCallback, _cocos2d_LuaComponent_set_onAddCallback);
     oluacls_prop(L, "onEnter", _cocos2d_LuaComponent_get_onEnterCallback, _cocos2d_LuaComponent_set_onEnterCallback);
     oluacls_prop(L, "onExit", _cocos2d_LuaComponent_get_onExitCallback, _cocos2d_LuaComponent_set_onExitCallback);
@@ -25371,6 +26833,22 @@ static int _cocos2d_Node_isVisible(lua_State *L)
     // bool isVisible()
     bool ret = (bool)self->isVisible();
     int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Node_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // Node()
+    cocos2d::Node *ret = (cocos2d::Node *)new cocos2d::Node();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Node");
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -27805,6 +29283,7 @@ static int luaopen_cocos2d_Node(lua_State *L)
     oluacls_func(L, "isRunning", _cocos2d_Node_isRunning);
     oluacls_func(L, "isScheduled", _cocos2d_Node_isScheduled);
     oluacls_func(L, "isVisible", _cocos2d_Node_isVisible);
+    oluacls_func(L, "new", _cocos2d_Node_new);
     oluacls_func(L, "onEnter", _cocos2d_Node_onEnter);
     oluacls_func(L, "onEnterTransitionDidFinish", _cocos2d_Node_onEnterTransitionDidFinish);
     oluacls_func(L, "onExit", _cocos2d_Node_onExit);
@@ -28120,6 +29599,22 @@ static int _cocos2d_AtlasNode_initWithTileFile(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_AtlasNode_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // AtlasNode()
+    cocos2d::AtlasNode *ret = (cocos2d::AtlasNode *)new cocos2d::AtlasNode();
+    int num_ret = olua_push_cppobj(L, ret, "cc.AtlasNode");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_AtlasNode_setBlendFunc(lua_State *L)
 {
     olua_startinvoke(L);
@@ -28228,6 +29723,7 @@ static int luaopen_cocos2d_AtlasNode(lua_State *L)
     oluacls_func(L, "getTextureAtlas", _cocos2d_AtlasNode_getTextureAtlas);
     oluacls_func(L, "initWithTexture", _cocos2d_AtlasNode_initWithTexture);
     oluacls_func(L, "initWithTileFile", _cocos2d_AtlasNode_initWithTileFile);
+    oluacls_func(L, "new", _cocos2d_AtlasNode_new);
     oluacls_func(L, "setBlendFunc", _cocos2d_AtlasNode_setBlendFunc);
     oluacls_func(L, "setQuadsToDraw", _cocos2d_AtlasNode_setQuadsToDraw);
     oluacls_func(L, "setTexture", _cocos2d_AtlasNode_setTexture);
@@ -28385,6 +29881,22 @@ static int _cocos2d_ProtectedNode_getProtectedChildByTag(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_ProtectedNode_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // ProtectedNode()
+    cocos2d::ProtectedNode *ret = (cocos2d::ProtectedNode *)new cocos2d::ProtectedNode();
+    int num_ret = olua_push_cppobj(L, ret, "cc.ProtectedNode");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_ProtectedNode_removeAllProtectedChildren(lua_State *L)
 {
     olua_startinvoke(L);
@@ -28528,6 +30040,7 @@ static int luaopen_cocos2d_ProtectedNode(lua_State *L)
     oluacls_func(L, "addProtectedChild", _cocos2d_ProtectedNode_addProtectedChild);
     oluacls_func(L, "create", _cocos2d_ProtectedNode_create);
     oluacls_func(L, "getProtectedChildByTag", _cocos2d_ProtectedNode_getProtectedChildByTag);
+    oluacls_func(L, "new", _cocos2d_ProtectedNode_new);
     oluacls_func(L, "removeAllProtectedChildren", _cocos2d_ProtectedNode_removeAllProtectedChildren);
     oluacls_func(L, "removeAllProtectedChildrenWithCleanup", _cocos2d_ProtectedNode_removeAllProtectedChildrenWithCleanup);
     oluacls_func(L, "removeProtectedChild", _cocos2d_ProtectedNode_removeProtectedChild);
@@ -31556,6 +33069,22 @@ static int _cocos2d_LabelAtlas_initWithString(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_LabelAtlas_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // LabelAtlas()
+    cocos2d::LabelAtlas *ret = (cocos2d::LabelAtlas *)new cocos2d::LabelAtlas();
+    int num_ret = olua_push_cppobj(L, ret, "cc.LabelAtlas");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_LabelAtlas_setString(lua_State *L)
 {
     olua_startinvoke(L);
@@ -31582,6 +33111,7 @@ static int luaopen_cocos2d_LabelAtlas(lua_State *L)
     oluacls_func(L, "create", _cocos2d_LabelAtlas_create);
     oluacls_func(L, "getString", _cocos2d_LabelAtlas_getString);
     oluacls_func(L, "initWithString", _cocos2d_LabelAtlas_initWithString);
+    oluacls_func(L, "new", _cocos2d_LabelAtlas_new);
     oluacls_func(L, "setString", _cocos2d_LabelAtlas_setString);
     oluacls_prop(L, "string", _cocos2d_LabelAtlas_getString, _cocos2d_LabelAtlas_setString);
 
@@ -32471,6 +34001,22 @@ static int _cocos2d_RenderTexture_listenToForeground(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_RenderTexture_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // RenderTexture()
+    cocos2d::RenderTexture *ret = (cocos2d::RenderTexture *)new cocos2d::RenderTexture();
+    int num_ret = olua_push_cppobj(L, ret, "cc.RenderTexture");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_RenderTexture_newImage(lua_State *L)
 {
     olua_startinvoke(L);
@@ -32952,6 +34498,7 @@ static int luaopen_cocos2d_RenderTexture(lua_State *L)
     oluacls_func(L, "isAutoDraw", _cocos2d_RenderTexture_isAutoDraw);
     oluacls_func(L, "listenToBackground", _cocos2d_RenderTexture_listenToBackground);
     oluacls_func(L, "listenToForeground", _cocos2d_RenderTexture_listenToForeground);
+    oluacls_func(L, "new", _cocos2d_RenderTexture_new);
     oluacls_func(L, "newImage", _cocos2d_RenderTexture_newImage);
     oluacls_func(L, "saveToFile", _cocos2d_RenderTexture_saveToFile);
     oluacls_func(L, "saveToFileAsNonPMA", _cocos2d_RenderTexture_saveToFileAsNonPMA);
@@ -33143,6 +34690,22 @@ static int _cocos2d_ProgressTimer_isReverseDirection(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_ProgressTimer_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // ProgressTimer()
+    cocos2d::ProgressTimer *ret = (cocos2d::ProgressTimer *)new cocos2d::ProgressTimer();
+    int num_ret = olua_push_cppobj(L, ret, "cc.ProgressTimer");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_ProgressTimer_setBarChangeRate(lua_State *L)
 {
     olua_startinvoke(L);
@@ -33274,6 +34837,7 @@ static int luaopen_cocos2d_ProgressTimer(lua_State *L)
     oluacls_func(L, "getType", _cocos2d_ProgressTimer_getType);
     oluacls_func(L, "initWithSprite", _cocos2d_ProgressTimer_initWithSprite);
     oluacls_func(L, "isReverseDirection", _cocos2d_ProgressTimer_isReverseDirection);
+    oluacls_func(L, "new", _cocos2d_ProgressTimer_new);
     oluacls_func(L, "setBarChangeRate", _cocos2d_ProgressTimer_setBarChangeRate);
     oluacls_func(L, "setMidpoint", _cocos2d_ProgressTimer_setMidpoint);
     oluacls_func(L, "setPercentage", _cocos2d_ProgressTimer_setPercentage);
@@ -33417,6 +34981,22 @@ static int _cocos2d_AnimationFrame_initWithSpriteFrame(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_AnimationFrame_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // AnimationFrame()
+    cocos2d::AnimationFrame *ret = (cocos2d::AnimationFrame *)new cocos2d::AnimationFrame();
+    int num_ret = olua_push_cppobj(L, ret, "cc.AnimationFrame");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_AnimationFrame_setDelayUnits(lua_State *L)
 {
     olua_startinvoke(L);
@@ -33486,6 +35066,7 @@ static int luaopen_cocos2d_AnimationFrame(lua_State *L)
     oluacls_func(L, "getSpriteFrame", _cocos2d_AnimationFrame_getSpriteFrame);
     oluacls_func(L, "getUserInfo", _cocos2d_AnimationFrame_getUserInfo);
     oluacls_func(L, "initWithSpriteFrame", _cocos2d_AnimationFrame_initWithSpriteFrame);
+    oluacls_func(L, "new", _cocos2d_AnimationFrame_new);
     oluacls_func(L, "setDelayUnits", _cocos2d_AnimationFrame_setDelayUnits);
     oluacls_func(L, "setSpriteFrame", _cocos2d_AnimationFrame_setSpriteFrame);
     oluacls_func(L, "setUserInfo", _cocos2d_AnimationFrame_setUserInfo);
@@ -33849,6 +35430,22 @@ static int _cocos2d_Animation_initWithSpriteFrames(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_Animation_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // Animation()
+    cocos2d::Animation *ret = (cocos2d::Animation *)new cocos2d::Animation();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Animation");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_Animation_setDelayPerUnit(lua_State *L)
 {
     olua_startinvoke(L);
@@ -33947,6 +35544,7 @@ static int luaopen_cocos2d_Animation(lua_State *L)
     oluacls_func(L, "init", _cocos2d_Animation_init);
     oluacls_func(L, "initWithAnimationFrames", _cocos2d_Animation_initWithAnimationFrames);
     oluacls_func(L, "initWithSpriteFrames", _cocos2d_Animation_initWithSpriteFrames);
+    oluacls_func(L, "new", _cocos2d_Animation_new);
     oluacls_func(L, "setDelayPerUnit", _cocos2d_Animation_setDelayPerUnit);
     oluacls_func(L, "setFrames", _cocos2d_Animation_setFrames);
     oluacls_func(L, "setLoops", _cocos2d_Animation_setLoops);
@@ -34514,6 +36112,22 @@ static int _cocos2d_SpriteFrame_isRotated(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_SpriteFrame_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // SpriteFrame()
+    cocos2d::SpriteFrame *ret = (cocos2d::SpriteFrame *)new cocos2d::SpriteFrame();
+    int num_ret = olua_push_cppobj(L, ret, "cc.SpriteFrame");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_SpriteFrame_setAnchorPoint(lua_State *L)
 {
     olua_startinvoke(L);
@@ -34735,6 +36349,7 @@ static int luaopen_cocos2d_SpriteFrame(lua_State *L)
     oluacls_func(L, "initWithTexture", _cocos2d_SpriteFrame_initWithTexture);
     oluacls_func(L, "initWithTextureFilename", _cocos2d_SpriteFrame_initWithTextureFilename);
     oluacls_func(L, "isRotated", _cocos2d_SpriteFrame_isRotated);
+    oluacls_func(L, "new", _cocos2d_SpriteFrame_new);
     oluacls_func(L, "setAnchorPoint", _cocos2d_SpriteFrame_setAnchorPoint);
     oluacls_func(L, "setCenterRectInPixels", _cocos2d_SpriteFrame_setCenterRectInPixels);
     oluacls_func(L, "setOffset", _cocos2d_SpriteFrame_setOffset);
@@ -35496,6 +37111,22 @@ static int _cocos2d_Sprite_isTextureRectRotated(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_Sprite_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // Sprite()
+    cocos2d::Sprite *ret = (cocos2d::Sprite *)new cocos2d::Sprite();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Sprite");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_Sprite_setAtlasIndex(lua_State *L)
 {
     olua_startinvoke(L);
@@ -35950,6 +37581,7 @@ static int luaopen_cocos2d_Sprite(lua_State *L)
     oluacls_func(L, "isFrameDisplayed", _cocos2d_Sprite_isFrameDisplayed);
     oluacls_func(L, "isStretchEnabled", _cocos2d_Sprite_isStretchEnabled);
     oluacls_func(L, "isTextureRectRotated", _cocos2d_Sprite_isTextureRectRotated);
+    oluacls_func(L, "new", _cocos2d_Sprite_new);
     oluacls_func(L, "setAtlasIndex", _cocos2d_Sprite_setAtlasIndex);
     oluacls_func(L, "setBatchNode", _cocos2d_Sprite_setBatchNode);
     oluacls_func(L, "setBlendFunc", _cocos2d_Sprite_setBlendFunc);
@@ -36303,6 +37935,22 @@ static int _cocos2d_SpriteBatchNode_lowestAtlasIndexInChild(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_SpriteBatchNode_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // SpriteBatchNode()
+    cocos2d::SpriteBatchNode *ret = (cocos2d::SpriteBatchNode *)new cocos2d::SpriteBatchNode();
+    int num_ret = olua_push_cppobj(L, ret, "cc.SpriteBatchNode");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_SpriteBatchNode_rebuildIndexInOrder(lua_State *L)
 {
     olua_startinvoke(L);
@@ -36486,6 +38134,7 @@ static int luaopen_cocos2d_SpriteBatchNode(lua_State *L)
     oluacls_func(L, "initWithTexture", _cocos2d_SpriteBatchNode_initWithTexture);
     oluacls_func(L, "insertQuadFromSprite", _cocos2d_SpriteBatchNode_insertQuadFromSprite);
     oluacls_func(L, "lowestAtlasIndexInChild", _cocos2d_SpriteBatchNode_lowestAtlasIndexInChild);
+    oluacls_func(L, "new", _cocos2d_SpriteBatchNode_new);
     oluacls_func(L, "rebuildIndexInOrder", _cocos2d_SpriteBatchNode_rebuildIndexInOrder);
     oluacls_func(L, "removeChildAtIndex", _cocos2d_SpriteBatchNode_removeChildAtIndex);
     oluacls_func(L, "removeSpriteFromAtlas", _cocos2d_SpriteBatchNode_removeSpriteFromAtlas);
@@ -37024,6 +38673,22 @@ static int _cocos2d_AnimationCache_init(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_AnimationCache_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // AnimationCache()
+    cocos2d::AnimationCache *ret = (cocos2d::AnimationCache *)new cocos2d::AnimationCache();
+    int num_ret = olua_push_cppobj(L, ret, "cc.AnimationCache");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_AnimationCache_removeAnimation(lua_State *L)
 {
     olua_startinvoke(L);
@@ -37054,6 +38719,7 @@ static int luaopen_cocos2d_AnimationCache(lua_State *L)
     oluacls_func(L, "getAnimation", _cocos2d_AnimationCache_getAnimation);
     oluacls_func(L, "getInstance", _cocos2d_AnimationCache_getInstance);
     oluacls_func(L, "init", _cocos2d_AnimationCache_init);
+    oluacls_func(L, "new", _cocos2d_AnimationCache_new);
     oluacls_func(L, "removeAnimation", _cocos2d_AnimationCache_removeAnimation);
     oluacls_prop(L, "instance", _cocos2d_AnimationCache_getInstance, nullptr);
 
@@ -37231,6 +38897,22 @@ static int _cocos2d_Scene_initWithSize(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_Scene_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // Scene()
+    cocos2d::Scene *ret = (cocos2d::Scene *)new cocos2d::Scene();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Scene");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_Scene_onProjectionChanged(lua_State *L)
 {
     olua_startinvoke(L);
@@ -37341,6 +39023,7 @@ static int luaopen_cocos2d_Scene(lua_State *L)
     oluacls_func(L, "getPhysicsWorld", _cocos2d_Scene_getPhysicsWorld);
     oluacls_func(L, "initWithPhysics", _cocos2d_Scene_initWithPhysics);
     oluacls_func(L, "initWithSize", _cocos2d_Scene_initWithSize);
+    oluacls_func(L, "new", _cocos2d_Scene_new);
     oluacls_func(L, "onProjectionChanged", _cocos2d_Scene_onProjectionChanged);
     oluacls_func(L, "setCameraOrderDirty", _cocos2d_Scene_setCameraOrderDirty);
     oluacls_func(L, "setNavMeshDebugCamera", _cocos2d_Scene_setNavMeshDebugCamera);
@@ -37366,6 +39049,22 @@ static int _cocos2d_Layer_create(lua_State *L)
     // static Layer *create()
     cocos2d::Layer *ret = (cocos2d::Layer *)cocos2d::Layer::create();
     int num_ret = olua_push_cppobj(L, ret, "cc.Layer");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Layer_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // Layer()
+    cocos2d::Layer *ret = (cocos2d::Layer *)new cocos2d::Layer();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Layer");
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -37619,6 +39318,7 @@ static int luaopen_cocos2d_Layer(lua_State *L)
 {
     oluacls_class(L, "cc.Layer", "cc.Node");
     oluacls_func(L, "create", _cocos2d_Layer_create);
+    oluacls_func(L, "new", _cocos2d_Layer_new);
     oluacls_func(L, "onAcceleration", _cocos2d_Layer_onAcceleration);
     oluacls_func(L, "onKeyPressed", _cocos2d_Layer_onKeyPressed);
     oluacls_func(L, "onKeyReleased", _cocos2d_Layer_onKeyReleased);
@@ -37867,6 +39567,22 @@ static int _cocos2d_LayerColor_initWithColor(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_LayerColor_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // LayerColor()
+    cocos2d::LayerColor *ret = (cocos2d::LayerColor *)new cocos2d::LayerColor();
+    int num_ret = olua_push_cppobj(L, ret, "cc.LayerColor");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_LayerColor_setBlendFunc(lua_State *L)
 {
     olua_startinvoke(L);
@@ -37896,6 +39612,7 @@ static int luaopen_cocos2d_LayerColor(lua_State *L)
     oluacls_func(L, "create", _cocos2d_LayerColor_create);
     oluacls_func(L, "getBlendFunc", _cocos2d_LayerColor_getBlendFunc);
     oluacls_func(L, "initWithColor", _cocos2d_LayerColor_initWithColor);
+    oluacls_func(L, "new", _cocos2d_LayerColor_new);
     oluacls_func(L, "setBlendFunc", _cocos2d_LayerColor_setBlendFunc);
     oluacls_prop(L, "blendFunc", _cocos2d_LayerColor_getBlendFunc, _cocos2d_LayerColor_setBlendFunc);
 
@@ -38172,6 +39889,22 @@ static int _cocos2d_LayerGradient_isCompressedInterpolation(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_LayerGradient_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // LayerGradient()
+    cocos2d::LayerGradient *ret = (cocos2d::LayerGradient *)new cocos2d::LayerGradient();
+    int num_ret = olua_push_cppobj(L, ret, "cc.LayerGradient");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_LayerGradient_setCompressedInterpolation(lua_State *L)
 {
     olua_startinvoke(L);
@@ -38303,6 +40036,7 @@ static int luaopen_cocos2d_LayerGradient(lua_State *L)
     oluacls_func(L, "getVector", _cocos2d_LayerGradient_getVector);
     oluacls_func(L, "initWithColor", _cocos2d_LayerGradient_initWithColor);
     oluacls_func(L, "isCompressedInterpolation", _cocos2d_LayerGradient_isCompressedInterpolation);
+    oluacls_func(L, "new", _cocos2d_LayerGradient_new);
     oluacls_func(L, "setCompressedInterpolation", _cocos2d_LayerGradient_setCompressedInterpolation);
     oluacls_func(L, "setEndColor", _cocos2d_LayerGradient_setEndColor);
     oluacls_func(L, "setEndOpacity", _cocos2d_LayerGradient_setEndOpacity);
@@ -38602,6 +40336,22 @@ static int _cocos2d_LayerRadialGradient_initWithColor(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_LayerRadialGradient_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // LayerRadialGradient()
+    cocos2d::LayerRadialGradient *ret = (cocos2d::LayerRadialGradient *)new cocos2d::LayerRadialGradient();
+    int num_ret = olua_push_cppobj(L, ret, "cc.LayerRadialGradient");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_LayerRadialGradient_setBlendFunc(lua_State *L)
 {
     olua_startinvoke(L);
@@ -38855,6 +40605,7 @@ static int luaopen_cocos2d_LayerRadialGradient(lua_State *L)
     oluacls_func(L, "getStartColor3B", _cocos2d_LayerRadialGradient_getStartColor3B);
     oluacls_func(L, "getStartOpacity", _cocos2d_LayerRadialGradient_getStartOpacity);
     oluacls_func(L, "initWithColor", _cocos2d_LayerRadialGradient_initWithColor);
+    oluacls_func(L, "new", _cocos2d_LayerRadialGradient_new);
     oluacls_func(L, "setBlendFunc", _cocos2d_LayerRadialGradient_setBlendFunc);
     oluacls_func(L, "setCenter", _cocos2d_LayerRadialGradient_setCenter);
     oluacls_func(L, "setEndColor", _cocos2d_LayerRadialGradient_setEndColor);
@@ -38993,6 +40744,22 @@ static int _cocos2d_TransitionScene_hideOutShowIn(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_TransitionScene_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TransitionScene()
+    cocos2d::TransitionScene *ret = (cocos2d::TransitionScene *)new cocos2d::TransitionScene();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TransitionScene");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_TransitionScene(lua_State *L)
 {
     oluacls_class(L, "cc.TransitionScene", "cc.Scene");
@@ -39001,6 +40768,7 @@ static int luaopen_cocos2d_TransitionScene(lua_State *L)
     oluacls_func(L, "getDuration", _cocos2d_TransitionScene_getDuration);
     oluacls_func(L, "getInScene", _cocos2d_TransitionScene_getInScene);
     oluacls_func(L, "hideOutShowIn", _cocos2d_TransitionScene_hideOutShowIn);
+    oluacls_func(L, "new", _cocos2d_TransitionScene_new);
     oluacls_prop(L, "duration", _cocos2d_TransitionScene_getDuration, nullptr);
     oluacls_prop(L, "inScene", _cocos2d_TransitionScene_getInScene, nullptr);
 
@@ -39036,10 +40804,27 @@ static int _cocos2d_TransitionSceneOriented_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_TransitionSceneOriented_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TransitionSceneOriented()
+    cocos2d::TransitionSceneOriented *ret = (cocos2d::TransitionSceneOriented *)new cocos2d::TransitionSceneOriented();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TransitionSceneOriented");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_TransitionSceneOriented(lua_State *L)
 {
     oluacls_class(L, "cc.TransitionSceneOriented", "cc.TransitionScene");
     oluacls_func(L, "create", _cocos2d_TransitionSceneOriented_create);
+    oluacls_func(L, "new", _cocos2d_TransitionSceneOriented_new);
 
     olua_registerluatype<cocos2d::TransitionSceneOriented>(L, "cc.TransitionSceneOriented");
     oluacls_createclassproxy(L);
@@ -39071,10 +40856,27 @@ static int _cocos2d_TransitionRotoZoom_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_TransitionRotoZoom_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TransitionRotoZoom()
+    cocos2d::TransitionRotoZoom *ret = (cocos2d::TransitionRotoZoom *)new cocos2d::TransitionRotoZoom();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TransitionRotoZoom");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_TransitionRotoZoom(lua_State *L)
 {
     oluacls_class(L, "cc.TransitionRotoZoom", "cc.TransitionScene");
     oluacls_func(L, "create", _cocos2d_TransitionRotoZoom_create);
+    oluacls_func(L, "new", _cocos2d_TransitionRotoZoom_new);
 
     olua_registerluatype<cocos2d::TransitionRotoZoom>(L, "cc.TransitionRotoZoom");
     oluacls_createclassproxy(L);
@@ -39106,10 +40908,27 @@ static int _cocos2d_TransitionJumpZoom_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_TransitionJumpZoom_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TransitionJumpZoom()
+    cocos2d::TransitionJumpZoom *ret = (cocos2d::TransitionJumpZoom *)new cocos2d::TransitionJumpZoom();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TransitionJumpZoom");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_TransitionJumpZoom(lua_State *L)
 {
     oluacls_class(L, "cc.TransitionJumpZoom", "cc.TransitionScene");
     oluacls_func(L, "create", _cocos2d_TransitionJumpZoom_create);
+    oluacls_func(L, "new", _cocos2d_TransitionJumpZoom_new);
 
     olua_registerluatype<cocos2d::TransitionJumpZoom>(L, "cc.TransitionJumpZoom");
     oluacls_createclassproxy(L);
@@ -39184,12 +41003,29 @@ static int _cocos2d_TransitionMoveInL_easeActionWithAction(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_TransitionMoveInL_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TransitionMoveInL()
+    cocos2d::TransitionMoveInL *ret = (cocos2d::TransitionMoveInL *)new cocos2d::TransitionMoveInL();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TransitionMoveInL");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_TransitionMoveInL(lua_State *L)
 {
     oluacls_class(L, "cc.TransitionMoveInL", "cc.TransitionScene");
     oluacls_func(L, "action", _cocos2d_TransitionMoveInL_action);
     oluacls_func(L, "create", _cocos2d_TransitionMoveInL_create);
     oluacls_func(L, "easeActionWithAction", _cocos2d_TransitionMoveInL_easeActionWithAction);
+    oluacls_func(L, "new", _cocos2d_TransitionMoveInL_new);
 
     olua_registerluatype<cocos2d::TransitionMoveInL>(L, "cc.TransitionMoveInL");
     oluacls_createclassproxy(L);
@@ -39221,10 +41057,27 @@ static int _cocos2d_TransitionMoveInR_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_TransitionMoveInR_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TransitionMoveInR()
+    cocos2d::TransitionMoveInR *ret = (cocos2d::TransitionMoveInR *)new cocos2d::TransitionMoveInR();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TransitionMoveInR");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_TransitionMoveInR(lua_State *L)
 {
     oluacls_class(L, "cc.TransitionMoveInR", "cc.TransitionMoveInL");
     oluacls_func(L, "create", _cocos2d_TransitionMoveInR_create);
+    oluacls_func(L, "new", _cocos2d_TransitionMoveInR_new);
 
     olua_registerluatype<cocos2d::TransitionMoveInR>(L, "cc.TransitionMoveInR");
     oluacls_createclassproxy(L);
@@ -39256,10 +41109,27 @@ static int _cocos2d_TransitionMoveInT_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_TransitionMoveInT_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TransitionMoveInT()
+    cocos2d::TransitionMoveInT *ret = (cocos2d::TransitionMoveInT *)new cocos2d::TransitionMoveInT();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TransitionMoveInT");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_TransitionMoveInT(lua_State *L)
 {
     oluacls_class(L, "cc.TransitionMoveInT", "cc.TransitionMoveInL");
     oluacls_func(L, "create", _cocos2d_TransitionMoveInT_create);
+    oluacls_func(L, "new", _cocos2d_TransitionMoveInT_new);
 
     olua_registerluatype<cocos2d::TransitionMoveInT>(L, "cc.TransitionMoveInT");
     oluacls_createclassproxy(L);
@@ -39291,10 +41161,27 @@ static int _cocos2d_TransitionMoveInB_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_TransitionMoveInB_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TransitionMoveInB()
+    cocos2d::TransitionMoveInB *ret = (cocos2d::TransitionMoveInB *)new cocos2d::TransitionMoveInB();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TransitionMoveInB");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_TransitionMoveInB(lua_State *L)
 {
     oluacls_class(L, "cc.TransitionMoveInB", "cc.TransitionMoveInL");
     oluacls_func(L, "create", _cocos2d_TransitionMoveInB_create);
+    oluacls_func(L, "new", _cocos2d_TransitionMoveInB_new);
 
     olua_registerluatype<cocos2d::TransitionMoveInB>(L, "cc.TransitionMoveInB");
     oluacls_createclassproxy(L);
@@ -39369,12 +41256,29 @@ static int _cocos2d_TransitionSlideInL_easeActionWithAction(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_TransitionSlideInL_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TransitionSlideInL()
+    cocos2d::TransitionSlideInL *ret = (cocos2d::TransitionSlideInL *)new cocos2d::TransitionSlideInL();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TransitionSlideInL");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_TransitionSlideInL(lua_State *L)
 {
     oluacls_class(L, "cc.TransitionSlideInL", "cc.TransitionScene");
     oluacls_func(L, "action", _cocos2d_TransitionSlideInL_action);
     oluacls_func(L, "create", _cocos2d_TransitionSlideInL_create);
     oluacls_func(L, "easeActionWithAction", _cocos2d_TransitionSlideInL_easeActionWithAction);
+    oluacls_func(L, "new", _cocos2d_TransitionSlideInL_new);
 
     olua_registerluatype<cocos2d::TransitionSlideInL>(L, "cc.TransitionSlideInL");
     oluacls_createclassproxy(L);
@@ -39406,10 +41310,27 @@ static int _cocos2d_TransitionSlideInR_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_TransitionSlideInR_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TransitionSlideInR()
+    cocos2d::TransitionSlideInR *ret = (cocos2d::TransitionSlideInR *)new cocos2d::TransitionSlideInR();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TransitionSlideInR");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_TransitionSlideInR(lua_State *L)
 {
     oluacls_class(L, "cc.TransitionSlideInR", "cc.TransitionSlideInL");
     oluacls_func(L, "create", _cocos2d_TransitionSlideInR_create);
+    oluacls_func(L, "new", _cocos2d_TransitionSlideInR_new);
 
     olua_registerluatype<cocos2d::TransitionSlideInR>(L, "cc.TransitionSlideInR");
     oluacls_createclassproxy(L);
@@ -39441,10 +41362,27 @@ static int _cocos2d_TransitionSlideInB_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_TransitionSlideInB_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TransitionSlideInB()
+    cocos2d::TransitionSlideInB *ret = (cocos2d::TransitionSlideInB *)new cocos2d::TransitionSlideInB();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TransitionSlideInB");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_TransitionSlideInB(lua_State *L)
 {
     oluacls_class(L, "cc.TransitionSlideInB", "cc.TransitionSlideInL");
     oluacls_func(L, "create", _cocos2d_TransitionSlideInB_create);
+    oluacls_func(L, "new", _cocos2d_TransitionSlideInB_new);
 
     olua_registerluatype<cocos2d::TransitionSlideInB>(L, "cc.TransitionSlideInB");
     oluacls_createclassproxy(L);
@@ -39476,10 +41414,27 @@ static int _cocos2d_TransitionSlideInT_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_TransitionSlideInT_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TransitionSlideInT()
+    cocos2d::TransitionSlideInT *ret = (cocos2d::TransitionSlideInT *)new cocos2d::TransitionSlideInT();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TransitionSlideInT");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_TransitionSlideInT(lua_State *L)
 {
     oluacls_class(L, "cc.TransitionSlideInT", "cc.TransitionSlideInL");
     oluacls_func(L, "create", _cocos2d_TransitionSlideInT_create);
+    oluacls_func(L, "new", _cocos2d_TransitionSlideInT_new);
 
     olua_registerluatype<cocos2d::TransitionSlideInT>(L, "cc.TransitionSlideInT");
     oluacls_createclassproxy(L);
@@ -39535,11 +41490,28 @@ static int _cocos2d_TransitionShrinkGrow_easeActionWithAction(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_TransitionShrinkGrow_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TransitionShrinkGrow()
+    cocos2d::TransitionShrinkGrow *ret = (cocos2d::TransitionShrinkGrow *)new cocos2d::TransitionShrinkGrow();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TransitionShrinkGrow");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_TransitionShrinkGrow(lua_State *L)
 {
     oluacls_class(L, "cc.TransitionShrinkGrow", "cc.TransitionScene");
     oluacls_func(L, "create", _cocos2d_TransitionShrinkGrow_create);
     oluacls_func(L, "easeActionWithAction", _cocos2d_TransitionShrinkGrow_easeActionWithAction);
+    oluacls_func(L, "new", _cocos2d_TransitionShrinkGrow_new);
 
     olua_registerluatype<cocos2d::TransitionShrinkGrow>(L, "cc.TransitionShrinkGrow");
     oluacls_createclassproxy(L);
@@ -39618,10 +41590,27 @@ static int _cocos2d_TransitionFlipX_create(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_TransitionFlipX_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TransitionFlipX()
+    cocos2d::TransitionFlipX *ret = (cocos2d::TransitionFlipX *)new cocos2d::TransitionFlipX();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TransitionFlipX");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_TransitionFlipX(lua_State *L)
 {
     oluacls_class(L, "cc.TransitionFlipX", "cc.TransitionSceneOriented");
     oluacls_func(L, "create", _cocos2d_TransitionFlipX_create);
+    oluacls_func(L, "new", _cocos2d_TransitionFlipX_new);
 
     olua_registerluatype<cocos2d::TransitionFlipX>(L, "cc.TransitionFlipX");
     oluacls_createclassproxy(L);
@@ -39700,10 +41689,27 @@ static int _cocos2d_TransitionFlipY_create(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_TransitionFlipY_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TransitionFlipY()
+    cocos2d::TransitionFlipY *ret = (cocos2d::TransitionFlipY *)new cocos2d::TransitionFlipY();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TransitionFlipY");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_TransitionFlipY(lua_State *L)
 {
     oluacls_class(L, "cc.TransitionFlipY", "cc.TransitionSceneOriented");
     oluacls_func(L, "create", _cocos2d_TransitionFlipY_create);
+    oluacls_func(L, "new", _cocos2d_TransitionFlipY_new);
 
     olua_registerluatype<cocos2d::TransitionFlipY>(L, "cc.TransitionFlipY");
     oluacls_createclassproxy(L);
@@ -39782,10 +41788,27 @@ static int _cocos2d_TransitionFlipAngular_create(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_TransitionFlipAngular_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TransitionFlipAngular()
+    cocos2d::TransitionFlipAngular *ret = (cocos2d::TransitionFlipAngular *)new cocos2d::TransitionFlipAngular();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TransitionFlipAngular");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_TransitionFlipAngular(lua_State *L)
 {
     oluacls_class(L, "cc.TransitionFlipAngular", "cc.TransitionSceneOriented");
     oluacls_func(L, "create", _cocos2d_TransitionFlipAngular_create);
+    oluacls_func(L, "new", _cocos2d_TransitionFlipAngular_new);
 
     olua_registerluatype<cocos2d::TransitionFlipAngular>(L, "cc.TransitionFlipAngular");
     oluacls_createclassproxy(L);
@@ -39864,10 +41887,27 @@ static int _cocos2d_TransitionZoomFlipX_create(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_TransitionZoomFlipX_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TransitionZoomFlipX()
+    cocos2d::TransitionZoomFlipX *ret = (cocos2d::TransitionZoomFlipX *)new cocos2d::TransitionZoomFlipX();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TransitionZoomFlipX");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_TransitionZoomFlipX(lua_State *L)
 {
     oluacls_class(L, "cc.TransitionZoomFlipX", "cc.TransitionSceneOriented");
     oluacls_func(L, "create", _cocos2d_TransitionZoomFlipX_create);
+    oluacls_func(L, "new", _cocos2d_TransitionZoomFlipX_new);
 
     olua_registerluatype<cocos2d::TransitionZoomFlipX>(L, "cc.TransitionZoomFlipX");
     oluacls_createclassproxy(L);
@@ -39946,10 +41986,27 @@ static int _cocos2d_TransitionZoomFlipY_create(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_TransitionZoomFlipY_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TransitionZoomFlipY()
+    cocos2d::TransitionZoomFlipY *ret = (cocos2d::TransitionZoomFlipY *)new cocos2d::TransitionZoomFlipY();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TransitionZoomFlipY");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_TransitionZoomFlipY(lua_State *L)
 {
     oluacls_class(L, "cc.TransitionZoomFlipY", "cc.TransitionSceneOriented");
     oluacls_func(L, "create", _cocos2d_TransitionZoomFlipY_create);
+    oluacls_func(L, "new", _cocos2d_TransitionZoomFlipY_new);
 
     olua_registerluatype<cocos2d::TransitionZoomFlipY>(L, "cc.TransitionZoomFlipY");
     oluacls_createclassproxy(L);
@@ -40028,10 +42085,27 @@ static int _cocos2d_TransitionZoomFlipAngular_create(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_TransitionZoomFlipAngular_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TransitionZoomFlipAngular()
+    cocos2d::TransitionZoomFlipAngular *ret = (cocos2d::TransitionZoomFlipAngular *)new cocos2d::TransitionZoomFlipAngular();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TransitionZoomFlipAngular");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_TransitionZoomFlipAngular(lua_State *L)
 {
     oluacls_class(L, "cc.TransitionZoomFlipAngular", "cc.TransitionSceneOriented");
     oluacls_func(L, "create", _cocos2d_TransitionZoomFlipAngular_create);
+    oluacls_func(L, "new", _cocos2d_TransitionZoomFlipAngular_new);
 
     olua_registerluatype<cocos2d::TransitionZoomFlipAngular>(L, "cc.TransitionZoomFlipAngular");
     oluacls_createclassproxy(L);
@@ -40110,10 +42184,27 @@ static int _cocos2d_TransitionFade_create(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_TransitionFade_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TransitionFade()
+    cocos2d::TransitionFade *ret = (cocos2d::TransitionFade *)new cocos2d::TransitionFade();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TransitionFade");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_TransitionFade(lua_State *L)
 {
     oluacls_class(L, "cc.TransitionFade", "cc.TransitionScene");
     oluacls_func(L, "create", _cocos2d_TransitionFade_create);
+    oluacls_func(L, "new", _cocos2d_TransitionFade_new);
 
     olua_registerluatype<cocos2d::TransitionFade>(L, "cc.TransitionFade");
     oluacls_createclassproxy(L);
@@ -40145,10 +42236,27 @@ static int _cocos2d_TransitionCrossFade_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_TransitionCrossFade_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TransitionCrossFade()
+    cocos2d::TransitionCrossFade *ret = (cocos2d::TransitionCrossFade *)new cocos2d::TransitionCrossFade();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TransitionCrossFade");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_TransitionCrossFade(lua_State *L)
 {
     oluacls_class(L, "cc.TransitionCrossFade", "cc.TransitionScene");
     oluacls_func(L, "create", _cocos2d_TransitionCrossFade_create);
+    oluacls_func(L, "new", _cocos2d_TransitionCrossFade_new);
 
     olua_registerluatype<cocos2d::TransitionCrossFade>(L, "cc.TransitionCrossFade");
     oluacls_createclassproxy(L);
@@ -40204,11 +42312,28 @@ static int _cocos2d_TransitionTurnOffTiles_easeActionWithAction(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_TransitionTurnOffTiles_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TransitionTurnOffTiles()
+    cocos2d::TransitionTurnOffTiles *ret = (cocos2d::TransitionTurnOffTiles *)new cocos2d::TransitionTurnOffTiles();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TransitionTurnOffTiles");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_TransitionTurnOffTiles(lua_State *L)
 {
     oluacls_class(L, "cc.TransitionTurnOffTiles", "cc.TransitionScene");
     oluacls_func(L, "create", _cocos2d_TransitionTurnOffTiles_create);
     oluacls_func(L, "easeActionWithAction", _cocos2d_TransitionTurnOffTiles_easeActionWithAction);
+    oluacls_func(L, "new", _cocos2d_TransitionTurnOffTiles_new);
 
     olua_registerluatype<cocos2d::TransitionTurnOffTiles>(L, "cc.TransitionTurnOffTiles");
     oluacls_createclassproxy(L);
@@ -40283,12 +42408,29 @@ static int _cocos2d_TransitionSplitCols_easeActionWithAction(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_TransitionSplitCols_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TransitionSplitCols()
+    cocos2d::TransitionSplitCols *ret = (cocos2d::TransitionSplitCols *)new cocos2d::TransitionSplitCols();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TransitionSplitCols");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_TransitionSplitCols(lua_State *L)
 {
     oluacls_class(L, "cc.TransitionSplitCols", "cc.TransitionScene");
     oluacls_func(L, "action", _cocos2d_TransitionSplitCols_action);
     oluacls_func(L, "create", _cocos2d_TransitionSplitCols_create);
     oluacls_func(L, "easeActionWithAction", _cocos2d_TransitionSplitCols_easeActionWithAction);
+    oluacls_func(L, "new", _cocos2d_TransitionSplitCols_new);
 
     olua_registerluatype<cocos2d::TransitionSplitCols>(L, "cc.TransitionSplitCols");
     oluacls_createclassproxy(L);
@@ -40320,10 +42462,27 @@ static int _cocos2d_TransitionSplitRows_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_TransitionSplitRows_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TransitionSplitRows()
+    cocos2d::TransitionSplitRows *ret = (cocos2d::TransitionSplitRows *)new cocos2d::TransitionSplitRows();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TransitionSplitRows");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_TransitionSplitRows(lua_State *L)
 {
     oluacls_class(L, "cc.TransitionSplitRows", "cc.TransitionSplitCols");
     oluacls_func(L, "create", _cocos2d_TransitionSplitRows_create);
+    oluacls_func(L, "new", _cocos2d_TransitionSplitRows_new);
 
     olua_registerluatype<cocos2d::TransitionSplitRows>(L, "cc.TransitionSplitRows");
     oluacls_createclassproxy(L);
@@ -40400,12 +42559,29 @@ static int _cocos2d_TransitionFadeTR_easeActionWithAction(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_TransitionFadeTR_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TransitionFadeTR()
+    cocos2d::TransitionFadeTR *ret = (cocos2d::TransitionFadeTR *)new cocos2d::TransitionFadeTR();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TransitionFadeTR");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_TransitionFadeTR(lua_State *L)
 {
     oluacls_class(L, "cc.TransitionFadeTR", "cc.TransitionScene");
     oluacls_func(L, "actionWithSize", _cocos2d_TransitionFadeTR_actionWithSize);
     oluacls_func(L, "create", _cocos2d_TransitionFadeTR_create);
     oluacls_func(L, "easeActionWithAction", _cocos2d_TransitionFadeTR_easeActionWithAction);
+    oluacls_func(L, "new", _cocos2d_TransitionFadeTR_new);
 
     olua_registerluatype<cocos2d::TransitionFadeTR>(L, "cc.TransitionFadeTR");
     oluacls_createclassproxy(L);
@@ -40437,10 +42613,27 @@ static int _cocos2d_TransitionFadeBL_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_TransitionFadeBL_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TransitionFadeBL()
+    cocos2d::TransitionFadeBL *ret = (cocos2d::TransitionFadeBL *)new cocos2d::TransitionFadeBL();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TransitionFadeBL");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_TransitionFadeBL(lua_State *L)
 {
     oluacls_class(L, "cc.TransitionFadeBL", "cc.TransitionFadeTR");
     oluacls_func(L, "create", _cocos2d_TransitionFadeBL_create);
+    oluacls_func(L, "new", _cocos2d_TransitionFadeBL_new);
 
     olua_registerluatype<cocos2d::TransitionFadeBL>(L, "cc.TransitionFadeBL");
     oluacls_createclassproxy(L);
@@ -40472,10 +42665,27 @@ static int _cocos2d_TransitionFadeUp_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_TransitionFadeUp_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TransitionFadeUp()
+    cocos2d::TransitionFadeUp *ret = (cocos2d::TransitionFadeUp *)new cocos2d::TransitionFadeUp();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TransitionFadeUp");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_TransitionFadeUp(lua_State *L)
 {
     oluacls_class(L, "cc.TransitionFadeUp", "cc.TransitionFadeTR");
     oluacls_func(L, "create", _cocos2d_TransitionFadeUp_create);
+    oluacls_func(L, "new", _cocos2d_TransitionFadeUp_new);
 
     olua_registerluatype<cocos2d::TransitionFadeUp>(L, "cc.TransitionFadeUp");
     oluacls_createclassproxy(L);
@@ -40507,10 +42717,27 @@ static int _cocos2d_TransitionFadeDown_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_TransitionFadeDown_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TransitionFadeDown()
+    cocos2d::TransitionFadeDown *ret = (cocos2d::TransitionFadeDown *)new cocos2d::TransitionFadeDown();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TransitionFadeDown");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_TransitionFadeDown(lua_State *L)
 {
     oluacls_class(L, "cc.TransitionFadeDown", "cc.TransitionFadeTR");
     oluacls_func(L, "create", _cocos2d_TransitionFadeDown_create);
+    oluacls_func(L, "new", _cocos2d_TransitionFadeDown_new);
 
     olua_registerluatype<cocos2d::TransitionFadeDown>(L, "cc.TransitionFadeDown");
     oluacls_createclassproxy(L);
@@ -40565,11 +42792,28 @@ static int _cocos2d_TransitionPageTurn_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_TransitionPageTurn_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TransitionPageTurn()
+    cocos2d::TransitionPageTurn *ret = (cocos2d::TransitionPageTurn *)new cocos2d::TransitionPageTurn();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TransitionPageTurn");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_TransitionPageTurn(lua_State *L)
 {
     oluacls_class(L, "cc.TransitionPageTurn", "cc.TransitionScene");
     oluacls_func(L, "actionWithSize", _cocos2d_TransitionPageTurn_actionWithSize);
     oluacls_func(L, "create", _cocos2d_TransitionPageTurn_create);
+    oluacls_func(L, "new", _cocos2d_TransitionPageTurn_new);
 
     olua_registerluatype<cocos2d::TransitionPageTurn>(L, "cc.TransitionPageTurn");
     oluacls_createclassproxy(L);
@@ -40601,10 +42845,27 @@ static int _cocos2d_TransitionProgress_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_TransitionProgress_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TransitionProgress()
+    cocos2d::TransitionProgress *ret = (cocos2d::TransitionProgress *)new cocos2d::TransitionProgress();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TransitionProgress");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_TransitionProgress(lua_State *L)
 {
     oluacls_class(L, "cc.TransitionProgress", "cc.TransitionScene");
     oluacls_func(L, "create", _cocos2d_TransitionProgress_create);
+    oluacls_func(L, "new", _cocos2d_TransitionProgress_new);
 
     olua_registerluatype<cocos2d::TransitionProgress>(L, "cc.TransitionProgress");
     oluacls_createclassproxy(L);
@@ -40636,10 +42897,27 @@ static int _cocos2d_TransitionProgressRadialCCW_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_TransitionProgressRadialCCW_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TransitionProgressRadialCCW()
+    cocos2d::TransitionProgressRadialCCW *ret = (cocos2d::TransitionProgressRadialCCW *)new cocos2d::TransitionProgressRadialCCW();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TransitionProgressRadialCCW");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_TransitionProgressRadialCCW(lua_State *L)
 {
     oluacls_class(L, "cc.TransitionProgressRadialCCW", "cc.TransitionProgress");
     oluacls_func(L, "create", _cocos2d_TransitionProgressRadialCCW_create);
+    oluacls_func(L, "new", _cocos2d_TransitionProgressRadialCCW_new);
 
     olua_registerluatype<cocos2d::TransitionProgressRadialCCW>(L, "cc.TransitionProgressRadialCCW");
     oluacls_createclassproxy(L);
@@ -40671,10 +42949,27 @@ static int _cocos2d_TransitionProgressRadialCW_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_TransitionProgressRadialCW_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TransitionProgressRadialCW()
+    cocos2d::TransitionProgressRadialCW *ret = (cocos2d::TransitionProgressRadialCW *)new cocos2d::TransitionProgressRadialCW();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TransitionProgressRadialCW");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_TransitionProgressRadialCW(lua_State *L)
 {
     oluacls_class(L, "cc.TransitionProgressRadialCW", "cc.TransitionProgress");
     oluacls_func(L, "create", _cocos2d_TransitionProgressRadialCW_create);
+    oluacls_func(L, "new", _cocos2d_TransitionProgressRadialCW_new);
 
     olua_registerluatype<cocos2d::TransitionProgressRadialCW>(L, "cc.TransitionProgressRadialCW");
     oluacls_createclassproxy(L);
@@ -40706,10 +43001,27 @@ static int _cocos2d_TransitionProgressHorizontal_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_TransitionProgressHorizontal_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TransitionProgressHorizontal()
+    cocos2d::TransitionProgressHorizontal *ret = (cocos2d::TransitionProgressHorizontal *)new cocos2d::TransitionProgressHorizontal();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TransitionProgressHorizontal");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_TransitionProgressHorizontal(lua_State *L)
 {
     oluacls_class(L, "cc.TransitionProgressHorizontal", "cc.TransitionProgress");
     oluacls_func(L, "create", _cocos2d_TransitionProgressHorizontal_create);
+    oluacls_func(L, "new", _cocos2d_TransitionProgressHorizontal_new);
 
     olua_registerluatype<cocos2d::TransitionProgressHorizontal>(L, "cc.TransitionProgressHorizontal");
     oluacls_createclassproxy(L);
@@ -40741,10 +43053,27 @@ static int _cocos2d_TransitionProgressVertical_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_TransitionProgressVertical_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TransitionProgressVertical()
+    cocos2d::TransitionProgressVertical *ret = (cocos2d::TransitionProgressVertical *)new cocos2d::TransitionProgressVertical();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TransitionProgressVertical");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_TransitionProgressVertical(lua_State *L)
 {
     oluacls_class(L, "cc.TransitionProgressVertical", "cc.TransitionProgress");
     oluacls_func(L, "create", _cocos2d_TransitionProgressVertical_create);
+    oluacls_func(L, "new", _cocos2d_TransitionProgressVertical_new);
 
     olua_registerluatype<cocos2d::TransitionProgressVertical>(L, "cc.TransitionProgressVertical");
     oluacls_createclassproxy(L);
@@ -40776,10 +43105,27 @@ static int _cocos2d_TransitionProgressInOut_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_TransitionProgressInOut_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TransitionProgressInOut()
+    cocos2d::TransitionProgressInOut *ret = (cocos2d::TransitionProgressInOut *)new cocos2d::TransitionProgressInOut();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TransitionProgressInOut");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_TransitionProgressInOut(lua_State *L)
 {
     oluacls_class(L, "cc.TransitionProgressInOut", "cc.TransitionProgress");
     oluacls_func(L, "create", _cocos2d_TransitionProgressInOut_create);
+    oluacls_func(L, "new", _cocos2d_TransitionProgressInOut_new);
 
     olua_registerluatype<cocos2d::TransitionProgressInOut>(L, "cc.TransitionProgressInOut");
     oluacls_createclassproxy(L);
@@ -40811,10 +43157,27 @@ static int _cocos2d_TransitionProgressOutIn_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_TransitionProgressOutIn_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TransitionProgressOutIn()
+    cocos2d::TransitionProgressOutIn *ret = (cocos2d::TransitionProgressOutIn *)new cocos2d::TransitionProgressOutIn();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TransitionProgressOutIn");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_TransitionProgressOutIn(lua_State *L)
 {
     oluacls_class(L, "cc.TransitionProgressOutIn", "cc.TransitionProgress");
     oluacls_func(L, "create", _cocos2d_TransitionProgressOutIn_create);
+    oluacls_func(L, "new", _cocos2d_TransitionProgressOutIn_new);
 
     olua_registerluatype<cocos2d::TransitionProgressOutIn>(L, "cc.TransitionProgressOutIn");
     oluacls_createclassproxy(L);
@@ -41203,6 +43566,22 @@ static int _cocos2d_TextFieldTTF_isSecureTextEntry(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_TextFieldTTF_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TextFieldTTF()
+    cocos2d::TextFieldTTF *ret = (cocos2d::TextFieldTTF *)new cocos2d::TextFieldTTF();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TextFieldTTF");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_TextFieldTTF_setColorSpaceHolder1(lua_State *L)
 {
     olua_startinvoke(L);
@@ -41508,6 +43887,7 @@ static int luaopen_cocos2d_TextFieldTTF(lua_State *L)
     oluacls_func(L, "getPlaceHolder", _cocos2d_TextFieldTTF_getPlaceHolder);
     oluacls_func(L, "initWithPlaceHolder", _cocos2d_TextFieldTTF_initWithPlaceHolder);
     oluacls_func(L, "isSecureTextEntry", _cocos2d_TextFieldTTF_isSecureTextEntry);
+    oluacls_func(L, "new", _cocos2d_TextFieldTTF_new);
     oluacls_func(L, "setColorSpaceHolder", _cocos2d_TextFieldTTF_setColorSpaceHolder);
     oluacls_func(L, "setCursorChar", _cocos2d_TextFieldTTF_setCursorChar);
     oluacls_func(L, "setCursorEnabled", _cocos2d_TextFieldTTF_setCursorEnabled);
@@ -41789,6 +44169,22 @@ static int _cocos2d_DirectionLight_getDirectionInWorld(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_DirectionLight_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // DirectionLight()
+    cocos2d::DirectionLight *ret = (cocos2d::DirectionLight *)new cocos2d::DirectionLight();
+    int num_ret = olua_push_cppobj(L, ret, "cc.DirectionLight");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_DirectionLight_setDirection(lua_State *L)
 {
     olua_startinvoke(L);
@@ -41815,6 +44211,7 @@ static int luaopen_cocos2d_DirectionLight(lua_State *L)
     oluacls_func(L, "create", _cocos2d_DirectionLight_create);
     oluacls_func(L, "getDirection", _cocos2d_DirectionLight_getDirection);
     oluacls_func(L, "getDirectionInWorld", _cocos2d_DirectionLight_getDirectionInWorld);
+    oluacls_func(L, "new", _cocos2d_DirectionLight_new);
     oluacls_func(L, "setDirection", _cocos2d_DirectionLight_setDirection);
     oluacls_prop(L, "direction", _cocos2d_DirectionLight_getDirection, _cocos2d_DirectionLight_setDirection);
     oluacls_prop(L, "directionInWorld", _cocos2d_DirectionLight_getDirectionInWorld, nullptr);
@@ -41867,6 +44264,22 @@ static int _cocos2d_PointLight_getRange(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_PointLight_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // PointLight()
+    cocos2d::PointLight *ret = (cocos2d::PointLight *)new cocos2d::PointLight();
+    int num_ret = olua_push_cppobj(L, ret, "cc.PointLight");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_PointLight_setRange(lua_State *L)
 {
     olua_startinvoke(L);
@@ -41892,6 +44305,7 @@ static int luaopen_cocos2d_PointLight(lua_State *L)
     oluacls_class(L, "cc.PointLight", "cc.BaseLight");
     oluacls_func(L, "create", _cocos2d_PointLight_create);
     oluacls_func(L, "getRange", _cocos2d_PointLight_getRange);
+    oluacls_func(L, "new", _cocos2d_PointLight_new);
     oluacls_func(L, "setRange", _cocos2d_PointLight_setRange);
     oluacls_prop(L, "range", _cocos2d_PointLight_getRange, _cocos2d_PointLight_setRange);
 
@@ -42063,6 +44477,22 @@ static int _cocos2d_SpotLight_getRange(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_SpotLight_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // SpotLight()
+    cocos2d::SpotLight *ret = (cocos2d::SpotLight *)new cocos2d::SpotLight();
+    int num_ret = olua_push_cppobj(L, ret, "cc.SpotLight");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_SpotLight_setDirection(lua_State *L)
 {
     olua_startinvoke(L);
@@ -42154,6 +44584,7 @@ static int luaopen_cocos2d_SpotLight(lua_State *L)
     oluacls_func(L, "getInnerAngle", _cocos2d_SpotLight_getInnerAngle);
     oluacls_func(L, "getOuterAngle", _cocos2d_SpotLight_getOuterAngle);
     oluacls_func(L, "getRange", _cocos2d_SpotLight_getRange);
+    oluacls_func(L, "new", _cocos2d_SpotLight_new);
     oluacls_func(L, "setDirection", _cocos2d_SpotLight_setDirection);
     oluacls_func(L, "setInnerAngle", _cocos2d_SpotLight_setInnerAngle);
     oluacls_func(L, "setOuterAngle", _cocos2d_SpotLight_setOuterAngle);
@@ -42191,10 +44622,27 @@ static int _cocos2d_AmbientLight_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_AmbientLight_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // AmbientLight()
+    cocos2d::AmbientLight *ret = (cocos2d::AmbientLight *)new cocos2d::AmbientLight();
+    int num_ret = olua_push_cppobj(L, ret, "cc.AmbientLight");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_AmbientLight(lua_State *L)
 {
     oluacls_class(L, "cc.AmbientLight", "cc.BaseLight");
     oluacls_func(L, "create", _cocos2d_AmbientLight_create);
+    oluacls_func(L, "new", _cocos2d_AmbientLight_new);
 
     olua_registerluatype<cocos2d::AmbientLight>(L, "cc.AmbientLight");
     oluacls_createclassproxy(L);
@@ -42761,6 +45209,22 @@ static int _cocos2d_Camera_lookAt(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_Camera_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // Camera()
+    cocos2d::Camera *ret = (cocos2d::Camera *)new cocos2d::Camera();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Camera");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_Camera_project(lua_State *L)
 {
     olua_startinvoke(L);
@@ -43067,6 +45531,7 @@ static int luaopen_cocos2d_Camera(lua_State *L)
     oluacls_func(L, "isBrushValid", _cocos2d_Camera_isBrushValid);
     oluacls_func(L, "isViewProjectionUpdated", _cocos2d_Camera_isViewProjectionUpdated);
     oluacls_func(L, "lookAt", _cocos2d_Camera_lookAt);
+    oluacls_func(L, "new", _cocos2d_Camera_new);
     oluacls_func(L, "project", _cocos2d_Camera_project);
     oluacls_func(L, "projectGL", _cocos2d_Camera_projectGL);
     oluacls_func(L, "restore", _cocos2d_Camera_restore);
@@ -43279,6 +45744,22 @@ static int _cocos2d_CameraBackgroundBrush_isValid(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_CameraBackgroundBrush_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // CameraBackgroundBrush()
+    cocos2d::CameraBackgroundBrush *ret = (cocos2d::CameraBackgroundBrush *)new cocos2d::CameraBackgroundBrush();
+    int num_ret = olua_push_cppobj(L, ret, "cc.CameraBackgroundBrush");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_CameraBackgroundBrush(lua_State *L)
 {
     oluacls_class(L, "cc.CameraBackgroundBrush", "cc.Ref");
@@ -43290,6 +45771,7 @@ static int luaopen_cocos2d_CameraBackgroundBrush(lua_State *L)
     oluacls_func(L, "getBrushType", _cocos2d_CameraBackgroundBrush_getBrushType);
     oluacls_func(L, "init", _cocos2d_CameraBackgroundBrush_init);
     oluacls_func(L, "isValid", _cocos2d_CameraBackgroundBrush_isValid);
+    oluacls_func(L, "new", _cocos2d_CameraBackgroundBrush_new);
     oluacls_prop(L, "brushType", _cocos2d_CameraBackgroundBrush_getBrushType, nullptr);
     oluacls_prop(L, "valid", _cocos2d_CameraBackgroundBrush_isValid, nullptr);
 
@@ -43312,6 +45794,22 @@ static int _cocos2d_CameraBackgroundDepthBrush_create(lua_State *L)
     // static CameraBackgroundDepthBrush* create(float depth)
     cocos2d::CameraBackgroundDepthBrush *ret = (cocos2d::CameraBackgroundDepthBrush *)cocos2d::CameraBackgroundDepthBrush::create((float)arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.CameraBackgroundDepthBrush");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_CameraBackgroundDepthBrush_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // CameraBackgroundDepthBrush()
+    cocos2d::CameraBackgroundDepthBrush *ret = (cocos2d::CameraBackgroundDepthBrush *)new cocos2d::CameraBackgroundDepthBrush();
+    int num_ret = olua_push_cppobj(L, ret, "cc.CameraBackgroundDepthBrush");
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -43342,6 +45840,7 @@ static int luaopen_cocos2d_CameraBackgroundDepthBrush(lua_State *L)
 {
     oluacls_class(L, "cc.CameraBackgroundDepthBrush", "cc.CameraBackgroundBrush");
     oluacls_func(L, "create", _cocos2d_CameraBackgroundDepthBrush_create);
+    oluacls_func(L, "new", _cocos2d_CameraBackgroundDepthBrush_new);
     oluacls_func(L, "setDepth", _cocos2d_CameraBackgroundDepthBrush_setDepth);
 
     olua_registerluatype<cocos2d::CameraBackgroundDepthBrush>(L, "cc.CameraBackgroundDepthBrush");
@@ -43365,6 +45864,22 @@ static int _cocos2d_CameraBackgroundColorBrush_create(lua_State *L)
     // static CameraBackgroundColorBrush* create(const Color4F& color, float depth)
     cocos2d::CameraBackgroundColorBrush *ret = (cocos2d::CameraBackgroundColorBrush *)cocos2d::CameraBackgroundColorBrush::create(arg1, (float)arg2);
     int num_ret = olua_push_cppobj(L, ret, "cc.CameraBackgroundColorBrush");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_CameraBackgroundColorBrush_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // CameraBackgroundColorBrush()
+    cocos2d::CameraBackgroundColorBrush *ret = (cocos2d::CameraBackgroundColorBrush *)new cocos2d::CameraBackgroundColorBrush();
+    int num_ret = olua_push_cppobj(L, ret, "cc.CameraBackgroundColorBrush");
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -43395,6 +45910,7 @@ static int luaopen_cocos2d_CameraBackgroundColorBrush(lua_State *L)
 {
     oluacls_class(L, "cc.CameraBackgroundColorBrush", "cc.CameraBackgroundDepthBrush");
     oluacls_func(L, "create", _cocos2d_CameraBackgroundColorBrush_create);
+    oluacls_func(L, "new", _cocos2d_CameraBackgroundColorBrush_new);
     oluacls_func(L, "setColor", _cocos2d_CameraBackgroundColorBrush_setColor);
 
     olua_registerluatype<cocos2d::CameraBackgroundColorBrush>(L, "cc.CameraBackgroundColorBrush");
@@ -43485,6 +46001,22 @@ static int _cocos2d_CameraBackgroundSkyBoxBrush_isActived(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_CameraBackgroundSkyBoxBrush_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // CameraBackgroundSkyBoxBrush()
+    cocos2d::CameraBackgroundSkyBoxBrush *ret = (cocos2d::CameraBackgroundSkyBoxBrush *)new cocos2d::CameraBackgroundSkyBoxBrush();
+    int num_ret = olua_push_cppobj(L, ret, "cc.CameraBackgroundSkyBoxBrush");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_CameraBackgroundSkyBoxBrush_setActived(lua_State *L)
 {
     olua_startinvoke(L);
@@ -43550,6 +46082,7 @@ static int luaopen_cocos2d_CameraBackgroundSkyBoxBrush(lua_State *L)
     oluacls_class(L, "cc.CameraBackgroundSkyBoxBrush", "cc.CameraBackgroundBrush");
     oluacls_func(L, "create", _cocos2d_CameraBackgroundSkyBoxBrush_create);
     oluacls_func(L, "isActived", _cocos2d_CameraBackgroundSkyBoxBrush_isActived);
+    oluacls_func(L, "new", _cocos2d_CameraBackgroundSkyBoxBrush_new);
     oluacls_func(L, "setActived", _cocos2d_CameraBackgroundSkyBoxBrush_setActived);
     oluacls_func(L, "setTexture", _cocos2d_CameraBackgroundSkyBoxBrush_setTexture);
     oluacls_func(L, "setTextureValid", _cocos2d_CameraBackgroundSkyBoxBrush_setTextureValid);
@@ -43612,6 +46145,22 @@ static int _cocos2d_ActionCamera_getUp(lua_State *L)
     // const Vec3& getUp()
     const cocos2d::Vec3 &ret = (const cocos2d::Vec3 &)self->getUp();
     int num_ret = auto_olua_push_cocos2d_Vec3(L, &ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ActionCamera_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // ActionCamera()
+    cocos2d::ActionCamera *ret = (cocos2d::ActionCamera *)new cocos2d::ActionCamera();
+    int num_ret = olua_push_cppobj(L, ret, "cc.ActionCamera");
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -43729,6 +46278,7 @@ static int luaopen_cocos2d_ActionCamera(lua_State *L)
     oluacls_func(L, "getCenter", _cocos2d_ActionCamera_getCenter);
     oluacls_func(L, "getEye", _cocos2d_ActionCamera_getEye);
     oluacls_func(L, "getUp", _cocos2d_ActionCamera_getUp);
+    oluacls_func(L, "new", _cocos2d_ActionCamera_new);
     oluacls_func(L, "setCenter", _cocos2d_ActionCamera_setCenter);
     oluacls_func(L, "setEye", _cocos2d_ActionCamera_setEye);
     oluacls_func(L, "setUp", _cocos2d_ActionCamera_setUp);
@@ -43773,10 +46323,27 @@ static int _cocos2d_OrbitCamera_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_OrbitCamera_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // OrbitCamera()
+    cocos2d::OrbitCamera *ret = (cocos2d::OrbitCamera *)new cocos2d::OrbitCamera();
+    int num_ret = olua_push_cppobj(L, ret, "cc.OrbitCamera");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_OrbitCamera(lua_State *L)
 {
     oluacls_class(L, "cc.OrbitCamera", "cc.ActionCamera");
     oluacls_func(L, "create", _cocos2d_OrbitCamera_create);
+    oluacls_func(L, "new", _cocos2d_OrbitCamera_new);
 
     olua_registerluatype<cocos2d::OrbitCamera>(L, "cc.OrbitCamera");
     oluacls_createclassproxy(L);
@@ -44576,6 +47143,22 @@ static int _cocos2d_Grid3D_getVertex(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_Grid3D_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // Grid3D()
+    cocos2d::Grid3D *ret = (cocos2d::Grid3D *)new cocos2d::Grid3D();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Grid3D");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_Grid3D_setNeedDepthTestForBlit(lua_State *L)
 {
     olua_startinvoke(L);
@@ -44625,6 +47208,7 @@ static int luaopen_cocos2d_Grid3D(lua_State *L)
     oluacls_func(L, "getNeedDepthTestForBlit", _cocos2d_Grid3D_getNeedDepthTestForBlit);
     oluacls_func(L, "getOriginalVertex", _cocos2d_Grid3D_getOriginalVertex);
     oluacls_func(L, "getVertex", _cocos2d_Grid3D_getVertex);
+    oluacls_func(L, "new", _cocos2d_Grid3D_new);
     oluacls_func(L, "setNeedDepthTestForBlit", _cocos2d_Grid3D_setNeedDepthTestForBlit);
     oluacls_func(L, "setVertex", _cocos2d_Grid3D_setVertex);
     oluacls_prop(L, "needDepthTestForBlit", _cocos2d_Grid3D_getNeedDepthTestForBlit, _cocos2d_Grid3D_setNeedDepthTestForBlit);
@@ -44798,6 +47382,22 @@ static int _cocos2d_TiledGrid3D_getTile(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_TiledGrid3D_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TiledGrid3D()
+    cocos2d::TiledGrid3D *ret = (cocos2d::TiledGrid3D *)new cocos2d::TiledGrid3D();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TiledGrid3D");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_TiledGrid3D_setTile(lua_State *L)
 {
     olua_startinvoke(L);
@@ -44826,6 +47426,7 @@ static int luaopen_cocos2d_TiledGrid3D(lua_State *L)
     oluacls_func(L, "create", _cocos2d_TiledGrid3D_create);
     oluacls_func(L, "getOriginalTile", _cocos2d_TiledGrid3D_getOriginalTile);
     oluacls_func(L, "getTile", _cocos2d_TiledGrid3D_getTile);
+    oluacls_func(L, "new", _cocos2d_TiledGrid3D_new);
     oluacls_func(L, "setTile", _cocos2d_TiledGrid3D_setTile);
 
     olua_registerluatype<cocos2d::TiledGrid3D>(L, "cc.TiledGrid3D");
@@ -44925,6 +47526,22 @@ static int _cocos2d_NodeGrid_getGridRect(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_NodeGrid_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // NodeGrid()
+    cocos2d::NodeGrid *ret = (cocos2d::NodeGrid *)new cocos2d::NodeGrid();
+    int num_ret = olua_push_cppobj(L, ret, "cc.NodeGrid");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_NodeGrid_setGrid(lua_State *L)
 {
     olua_startinvoke(L);
@@ -44991,6 +47608,7 @@ static int luaopen_cocos2d_NodeGrid(lua_State *L)
     oluacls_func(L, "create", _cocos2d_NodeGrid_create);
     oluacls_func(L, "getGrid", _cocos2d_NodeGrid_getGrid);
     oluacls_func(L, "getGridRect", _cocos2d_NodeGrid_getGridRect);
+    oluacls_func(L, "new", _cocos2d_NodeGrid_new);
     oluacls_func(L, "setGrid", _cocos2d_NodeGrid_setGrid);
     oluacls_func(L, "setGridRect", _cocos2d_NodeGrid_setGridRect);
     oluacls_func(L, "setTarget", _cocos2d_NodeGrid_setTarget);
@@ -45022,10 +47640,27 @@ static int _cocos2d_GridAction_getGrid(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_GridAction_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // GridAction()
+    cocos2d::GridAction *ret = (cocos2d::GridAction *)new cocos2d::GridAction();
+    int num_ret = olua_push_cppobj(L, ret, "cc.GridAction");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_GridAction(lua_State *L)
 {
     oluacls_class(L, "cc.GridAction", "cc.ActionInterval");
     oluacls_func(L, "getGrid", _cocos2d_GridAction_getGrid);
+    oluacls_func(L, "new", _cocos2d_GridAction_new);
     oluacls_prop(L, "grid", _cocos2d_GridAction_getGrid, nullptr);
 
     olua_registerluatype<cocos2d::GridAction>(L, "cc.GridAction");
@@ -45281,6 +47916,22 @@ static int _cocos2d_AccelDeccelAmplitude_getRate(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_AccelDeccelAmplitude_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // AccelDeccelAmplitude()
+    cocos2d::AccelDeccelAmplitude *ret = (cocos2d::AccelDeccelAmplitude *)new cocos2d::AccelDeccelAmplitude();
+    int num_ret = olua_push_cppobj(L, ret, "cc.AccelDeccelAmplitude");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_AccelDeccelAmplitude_setRate(lua_State *L)
 {
     olua_startinvoke(L);
@@ -45306,6 +47957,7 @@ static int luaopen_cocos2d_AccelDeccelAmplitude(lua_State *L)
     oluacls_class(L, "cc.AccelDeccelAmplitude", "cc.ActionInterval");
     oluacls_func(L, "create", _cocos2d_AccelDeccelAmplitude_create);
     oluacls_func(L, "getRate", _cocos2d_AccelDeccelAmplitude_getRate);
+    oluacls_func(L, "new", _cocos2d_AccelDeccelAmplitude_new);
     oluacls_func(L, "setRate", _cocos2d_AccelDeccelAmplitude_setRate);
     oluacls_prop(L, "rate", _cocos2d_AccelDeccelAmplitude_getRate, _cocos2d_AccelDeccelAmplitude_setRate);
 
@@ -45355,6 +48007,22 @@ static int _cocos2d_AccelAmplitude_getRate(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_AccelAmplitude_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // AccelAmplitude()
+    cocos2d::AccelAmplitude *ret = (cocos2d::AccelAmplitude *)new cocos2d::AccelAmplitude();
+    int num_ret = olua_push_cppobj(L, ret, "cc.AccelAmplitude");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_AccelAmplitude_setRate(lua_State *L)
 {
     olua_startinvoke(L);
@@ -45380,6 +48048,7 @@ static int luaopen_cocos2d_AccelAmplitude(lua_State *L)
     oluacls_class(L, "cc.AccelAmplitude", "cc.ActionInterval");
     oluacls_func(L, "create", _cocos2d_AccelAmplitude_create);
     oluacls_func(L, "getRate", _cocos2d_AccelAmplitude_getRate);
+    oluacls_func(L, "new", _cocos2d_AccelAmplitude_new);
     oluacls_func(L, "setRate", _cocos2d_AccelAmplitude_setRate);
     oluacls_prop(L, "rate", _cocos2d_AccelAmplitude_getRate, _cocos2d_AccelAmplitude_setRate);
 
@@ -45429,6 +48098,22 @@ static int _cocos2d_DeccelAmplitude_getRate(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_DeccelAmplitude_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // DeccelAmplitude()
+    cocos2d::DeccelAmplitude *ret = (cocos2d::DeccelAmplitude *)new cocos2d::DeccelAmplitude();
+    int num_ret = olua_push_cppobj(L, ret, "cc.DeccelAmplitude");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_DeccelAmplitude_setRate(lua_State *L)
 {
     olua_startinvoke(L);
@@ -45454,6 +48139,7 @@ static int luaopen_cocos2d_DeccelAmplitude(lua_State *L)
     oluacls_class(L, "cc.DeccelAmplitude", "cc.ActionInterval");
     oluacls_func(L, "create", _cocos2d_DeccelAmplitude_create);
     oluacls_func(L, "getRate", _cocos2d_DeccelAmplitude_getRate);
+    oluacls_func(L, "new", _cocos2d_DeccelAmplitude_new);
     oluacls_func(L, "setRate", _cocos2d_DeccelAmplitude_setRate);
     oluacls_prop(L, "rate", _cocos2d_DeccelAmplitude_getRate, _cocos2d_DeccelAmplitude_setRate);
 
@@ -45478,10 +48164,27 @@ static int _cocos2d_StopGrid_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_StopGrid_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // StopGrid()
+    cocos2d::StopGrid *ret = (cocos2d::StopGrid *)new cocos2d::StopGrid();
+    int num_ret = olua_push_cppobj(L, ret, "cc.StopGrid");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_StopGrid(lua_State *L)
 {
     oluacls_class(L, "cc.StopGrid", "cc.ActionInstant");
     oluacls_func(L, "create", _cocos2d_StopGrid_create);
+    oluacls_func(L, "new", _cocos2d_StopGrid_new);
 
     olua_registerluatype<cocos2d::StopGrid>(L, "cc.StopGrid");
     oluacls_createclassproxy(L);
@@ -45529,11 +48232,28 @@ static int _cocos2d_ReuseGrid_initWithTimes(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_ReuseGrid_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // ReuseGrid()
+    cocos2d::ReuseGrid *ret = (cocos2d::ReuseGrid *)new cocos2d::ReuseGrid();
+    int num_ret = olua_push_cppobj(L, ret, "cc.ReuseGrid");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_ReuseGrid(lua_State *L)
 {
     oluacls_class(L, "cc.ReuseGrid", "cc.ActionInstant");
     oluacls_func(L, "create", _cocos2d_ReuseGrid_create);
     oluacls_func(L, "initWithTimes", _cocos2d_ReuseGrid_initWithTimes);
+    oluacls_func(L, "new", _cocos2d_ReuseGrid_new);
 
     olua_registerluatype<cocos2d::ReuseGrid>(L, "cc.ReuseGrid");
     oluacls_createclassproxy(L);
@@ -45585,6 +48305,22 @@ static int _cocos2d_Waves3D_getAmplitude(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_Waves3D_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // Waves3D()
+    cocos2d::Waves3D *ret = (cocos2d::Waves3D *)new cocos2d::Waves3D();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Waves3D");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_Waves3D_setAmplitude(lua_State *L)
 {
     olua_startinvoke(L);
@@ -45610,6 +48346,7 @@ static int luaopen_cocos2d_Waves3D(lua_State *L)
     oluacls_class(L, "cc.Waves3D", "cc.Grid3DAction");
     oluacls_func(L, "create", _cocos2d_Waves3D_create);
     oluacls_func(L, "getAmplitude", _cocos2d_Waves3D_getAmplitude);
+    oluacls_func(L, "new", _cocos2d_Waves3D_new);
     oluacls_func(L, "setAmplitude", _cocos2d_Waves3D_setAmplitude);
     oluacls_prop(L, "amplitude", _cocos2d_Waves3D_getAmplitude, _cocos2d_Waves3D_setAmplitude);
 
@@ -45661,11 +48398,28 @@ static int _cocos2d_FlipX3D_initWithSize(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_FlipX3D_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // FlipX3D()
+    cocos2d::FlipX3D *ret = (cocos2d::FlipX3D *)new cocos2d::FlipX3D();
+    int num_ret = olua_push_cppobj(L, ret, "cc.FlipX3D");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_FlipX3D(lua_State *L)
 {
     oluacls_class(L, "cc.FlipX3D", "cc.Grid3DAction");
     oluacls_func(L, "create", _cocos2d_FlipX3D_create);
     oluacls_func(L, "initWithSize", _cocos2d_FlipX3D_initWithSize);
+    oluacls_func(L, "new", _cocos2d_FlipX3D_new);
 
     olua_registerluatype<cocos2d::FlipX3D>(L, "cc.FlipX3D");
     oluacls_createclassproxy(L);
@@ -45692,10 +48446,27 @@ static int _cocos2d_FlipY3D_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_FlipY3D_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // FlipY3D()
+    cocos2d::FlipY3D *ret = (cocos2d::FlipY3D *)new cocos2d::FlipY3D();
+    int num_ret = olua_push_cppobj(L, ret, "cc.FlipY3D");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_FlipY3D(lua_State *L)
 {
     oluacls_class(L, "cc.FlipY3D", "cc.FlipX3D");
     oluacls_func(L, "create", _cocos2d_FlipY3D_create);
+    oluacls_func(L, "new", _cocos2d_FlipY3D_new);
 
     olua_registerluatype<cocos2d::FlipY3D>(L, "cc.FlipY3D");
     oluacls_createclassproxy(L);
@@ -45760,6 +48531,22 @@ static int _cocos2d_Lens3D_getPosition(lua_State *L)
     // const Vec2& getPosition()
     const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getPosition();
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Lens3D_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // Lens3D()
+    cocos2d::Lens3D *ret = (cocos2d::Lens3D *)new cocos2d::Lens3D();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Lens3D");
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -45832,6 +48619,7 @@ static int luaopen_cocos2d_Lens3D(lua_State *L)
     oluacls_func(L, "create", _cocos2d_Lens3D_create);
     oluacls_func(L, "getLensEffect", _cocos2d_Lens3D_getLensEffect);
     oluacls_func(L, "getPosition", _cocos2d_Lens3D_getPosition);
+    oluacls_func(L, "new", _cocos2d_Lens3D_new);
     oluacls_func(L, "setConcave", _cocos2d_Lens3D_setConcave);
     oluacls_func(L, "setLensEffect", _cocos2d_Lens3D_setLensEffect);
     oluacls_func(L, "setPosition", _cocos2d_Lens3D_setPosition);
@@ -45911,6 +48699,22 @@ static int _cocos2d_Ripple3D_getPosition(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_Ripple3D_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // Ripple3D()
+    cocos2d::Ripple3D *ret = (cocos2d::Ripple3D *)new cocos2d::Ripple3D();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Ripple3D");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_Ripple3D_setAmplitude(lua_State *L)
 {
     olua_startinvoke(L);
@@ -45957,6 +48761,7 @@ static int luaopen_cocos2d_Ripple3D(lua_State *L)
     oluacls_func(L, "create", _cocos2d_Ripple3D_create);
     oluacls_func(L, "getAmplitude", _cocos2d_Ripple3D_getAmplitude);
     oluacls_func(L, "getPosition", _cocos2d_Ripple3D_getPosition);
+    oluacls_func(L, "new", _cocos2d_Ripple3D_new);
     oluacls_func(L, "setAmplitude", _cocos2d_Ripple3D_setAmplitude);
     oluacls_func(L, "setPosition", _cocos2d_Ripple3D_setPosition);
     oluacls_prop(L, "amplitude", _cocos2d_Ripple3D_getAmplitude, _cocos2d_Ripple3D_setAmplitude);
@@ -45993,10 +48798,27 @@ static int _cocos2d_Shaky3D_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_Shaky3D_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // Shaky3D()
+    cocos2d::Shaky3D *ret = (cocos2d::Shaky3D *)new cocos2d::Shaky3D();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Shaky3D");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_Shaky3D(lua_State *L)
 {
     oluacls_class(L, "cc.Shaky3D", "cc.Grid3DAction");
     oluacls_func(L, "create", _cocos2d_Shaky3D_create);
+    oluacls_func(L, "new", _cocos2d_Shaky3D_new);
 
     olua_registerluatype<cocos2d::Shaky3D>(L, "cc.Shaky3D");
     oluacls_createclassproxy(L);
@@ -46048,6 +48870,22 @@ static int _cocos2d_Liquid_getAmplitude(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_Liquid_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // Liquid()
+    cocos2d::Liquid *ret = (cocos2d::Liquid *)new cocos2d::Liquid();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Liquid");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_Liquid_setAmplitude(lua_State *L)
 {
     olua_startinvoke(L);
@@ -46073,6 +48911,7 @@ static int luaopen_cocos2d_Liquid(lua_State *L)
     oluacls_class(L, "cc.Liquid", "cc.Grid3DAction");
     oluacls_func(L, "create", _cocos2d_Liquid_create);
     oluacls_func(L, "getAmplitude", _cocos2d_Liquid_getAmplitude);
+    oluacls_func(L, "new", _cocos2d_Liquid_new);
     oluacls_func(L, "setAmplitude", _cocos2d_Liquid_setAmplitude);
     oluacls_prop(L, "amplitude", _cocos2d_Liquid_getAmplitude, _cocos2d_Liquid_setAmplitude);
 
@@ -46130,6 +48969,22 @@ static int _cocos2d_Waves_getAmplitude(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_Waves_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // Waves()
+    cocos2d::Waves *ret = (cocos2d::Waves *)new cocos2d::Waves();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Waves");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_Waves_setAmplitude(lua_State *L)
 {
     olua_startinvoke(L);
@@ -46155,6 +49010,7 @@ static int luaopen_cocos2d_Waves(lua_State *L)
     oluacls_class(L, "cc.Waves", "cc.Grid3DAction");
     oluacls_func(L, "create", _cocos2d_Waves_create);
     oluacls_func(L, "getAmplitude", _cocos2d_Waves_getAmplitude);
+    oluacls_func(L, "new", _cocos2d_Waves_new);
     oluacls_func(L, "setAmplitude", _cocos2d_Waves_setAmplitude);
     oluacls_prop(L, "amplitude", _cocos2d_Waves_getAmplitude, _cocos2d_Waves_setAmplitude);
 
@@ -46229,6 +49085,22 @@ static int _cocos2d_Twirl_getPosition(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_Twirl_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // Twirl()
+    cocos2d::Twirl *ret = (cocos2d::Twirl *)new cocos2d::Twirl();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Twirl");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_Twirl_setAmplitude(lua_State *L)
 {
     olua_startinvoke(L);
@@ -46275,6 +49147,7 @@ static int luaopen_cocos2d_Twirl(lua_State *L)
     oluacls_func(L, "create", _cocos2d_Twirl_create);
     oluacls_func(L, "getAmplitude", _cocos2d_Twirl_getAmplitude);
     oluacls_func(L, "getPosition", _cocos2d_Twirl_getPosition);
+    oluacls_func(L, "new", _cocos2d_Twirl_new);
     oluacls_func(L, "setAmplitude", _cocos2d_Twirl_setAmplitude);
     oluacls_func(L, "setPosition", _cocos2d_Twirl_setPosition);
     oluacls_prop(L, "amplitude", _cocos2d_Twirl_getAmplitude, _cocos2d_Twirl_setAmplitude);
@@ -46343,10 +49216,27 @@ static int _cocos2d_ShakyTiles3D_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_ShakyTiles3D_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // ShakyTiles3D()
+    cocos2d::ShakyTiles3D *ret = (cocos2d::ShakyTiles3D *)new cocos2d::ShakyTiles3D();
+    int num_ret = olua_push_cppobj(L, ret, "cc.ShakyTiles3D");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_ShakyTiles3D(lua_State *L)
 {
     oluacls_class(L, "cc.ShakyTiles3D", "cc.TiledGrid3DAction");
     oluacls_func(L, "create", _cocos2d_ShakyTiles3D_create);
+    oluacls_func(L, "new", _cocos2d_ShakyTiles3D_new);
 
     olua_registerluatype<cocos2d::ShakyTiles3D>(L, "cc.ShakyTiles3D");
     oluacls_createclassproxy(L);
@@ -46379,10 +49269,27 @@ static int _cocos2d_ShatteredTiles3D_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_ShatteredTiles3D_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // ShatteredTiles3D()
+    cocos2d::ShatteredTiles3D *ret = (cocos2d::ShatteredTiles3D *)new cocos2d::ShatteredTiles3D();
+    int num_ret = olua_push_cppobj(L, ret, "cc.ShatteredTiles3D");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_ShatteredTiles3D(lua_State *L)
 {
     oluacls_class(L, "cc.ShatteredTiles3D", "cc.TiledGrid3DAction");
     oluacls_func(L, "create", _cocos2d_ShatteredTiles3D_create);
+    oluacls_func(L, "new", _cocos2d_ShatteredTiles3D_new);
 
     olua_registerluatype<cocos2d::ShatteredTiles3D>(L, "cc.ShatteredTiles3D");
     oluacls_createclassproxy(L);
@@ -46434,11 +49341,28 @@ static int _cocos2d_ShuffleTiles_getDelta(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_ShuffleTiles_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // ShuffleTiles()
+    cocos2d::ShuffleTiles *ret = (cocos2d::ShuffleTiles *)new cocos2d::ShuffleTiles();
+    int num_ret = olua_push_cppobj(L, ret, "cc.ShuffleTiles");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_ShuffleTiles(lua_State *L)
 {
     oluacls_class(L, "cc.ShuffleTiles", "cc.TiledGrid3DAction");
     oluacls_func(L, "create", _cocos2d_ShuffleTiles_create);
     oluacls_func(L, "getDelta", _cocos2d_ShuffleTiles_getDelta);
+    oluacls_func(L, "new", _cocos2d_ShuffleTiles_new);
 
     olua_registerluatype<cocos2d::ShuffleTiles>(L, "cc.ShuffleTiles");
     oluacls_createclassproxy(L);
@@ -46461,6 +49385,22 @@ static int _cocos2d_FadeOutTRTiles_create(lua_State *L)
     // static FadeOutTRTiles* create(float duration, const Size& gridSize)
     cocos2d::FadeOutTRTiles *ret = (cocos2d::FadeOutTRTiles *)cocos2d::FadeOutTRTiles::create((float)arg1, arg2);
     int num_ret = olua_push_cppobj(L, ret, "cc.FadeOutTRTiles");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_FadeOutTRTiles_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // FadeOutTRTiles()
+    cocos2d::FadeOutTRTiles *ret = (cocos2d::FadeOutTRTiles *)new cocos2d::FadeOutTRTiles();
+    int num_ret = olua_push_cppobj(L, ret, "cc.FadeOutTRTiles");
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -46556,6 +49496,7 @@ static int luaopen_cocos2d_FadeOutTRTiles(lua_State *L)
 {
     oluacls_class(L, "cc.FadeOutTRTiles", "cc.TiledGrid3DAction");
     oluacls_func(L, "create", _cocos2d_FadeOutTRTiles_create);
+    oluacls_func(L, "new", _cocos2d_FadeOutTRTiles_new);
     oluacls_func(L, "testFunc", _cocos2d_FadeOutTRTiles_testFunc);
     oluacls_func(L, "transformTile", _cocos2d_FadeOutTRTiles_transformTile);
     oluacls_func(L, "turnOffTile", _cocos2d_FadeOutTRTiles_turnOffTile);
@@ -46588,10 +49529,27 @@ static int _cocos2d_FadeOutBLTiles_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_FadeOutBLTiles_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // FadeOutBLTiles()
+    cocos2d::FadeOutBLTiles *ret = (cocos2d::FadeOutBLTiles *)new cocos2d::FadeOutBLTiles();
+    int num_ret = olua_push_cppobj(L, ret, "cc.FadeOutBLTiles");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_FadeOutBLTiles(lua_State *L)
 {
     oluacls_class(L, "cc.FadeOutBLTiles", "cc.FadeOutTRTiles");
     oluacls_func(L, "create", _cocos2d_FadeOutBLTiles_create);
+    oluacls_func(L, "new", _cocos2d_FadeOutBLTiles_new);
 
     olua_registerluatype<cocos2d::FadeOutBLTiles>(L, "cc.FadeOutBLTiles");
     oluacls_createclassproxy(L);
@@ -46620,10 +49578,27 @@ static int _cocos2d_FadeOutUpTiles_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_FadeOutUpTiles_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // FadeOutUpTiles()
+    cocos2d::FadeOutUpTiles *ret = (cocos2d::FadeOutUpTiles *)new cocos2d::FadeOutUpTiles();
+    int num_ret = olua_push_cppobj(L, ret, "cc.FadeOutUpTiles");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_FadeOutUpTiles(lua_State *L)
 {
     oluacls_class(L, "cc.FadeOutUpTiles", "cc.FadeOutTRTiles");
     oluacls_func(L, "create", _cocos2d_FadeOutUpTiles_create);
+    oluacls_func(L, "new", _cocos2d_FadeOutUpTiles_new);
 
     olua_registerluatype<cocos2d::FadeOutUpTiles>(L, "cc.FadeOutUpTiles");
     oluacls_createclassproxy(L);
@@ -46652,10 +49627,27 @@ static int _cocos2d_FadeOutDownTiles_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_FadeOutDownTiles_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // FadeOutDownTiles()
+    cocos2d::FadeOutDownTiles *ret = (cocos2d::FadeOutDownTiles *)new cocos2d::FadeOutDownTiles();
+    int num_ret = olua_push_cppobj(L, ret, "cc.FadeOutDownTiles");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_FadeOutDownTiles(lua_State *L)
 {
     oluacls_class(L, "cc.FadeOutDownTiles", "cc.FadeOutUpTiles");
     oluacls_func(L, "create", _cocos2d_FadeOutDownTiles_create);
+    oluacls_func(L, "new", _cocos2d_FadeOutDownTiles_new);
 
     olua_registerluatype<cocos2d::FadeOutDownTiles>(L, "cc.FadeOutDownTiles");
     oluacls_createclassproxy(L);
@@ -46728,6 +49720,22 @@ static int _cocos2d_TurnOffTiles_create(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_TurnOffTiles_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // TurnOffTiles()
+    cocos2d::TurnOffTiles *ret = (cocos2d::TurnOffTiles *)new cocos2d::TurnOffTiles();
+    int num_ret = olua_push_cppobj(L, ret, "cc.TurnOffTiles");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_TurnOffTiles_turnOffTile(lua_State *L)
 {
     olua_startinvoke(L);
@@ -46772,6 +49780,7 @@ static int luaopen_cocos2d_TurnOffTiles(lua_State *L)
 {
     oluacls_class(L, "cc.TurnOffTiles", "cc.TiledGrid3DAction");
     oluacls_func(L, "create", _cocos2d_TurnOffTiles_create);
+    oluacls_func(L, "new", _cocos2d_TurnOffTiles_new);
     oluacls_func(L, "turnOffTile", _cocos2d_TurnOffTiles_turnOffTile);
     oluacls_func(L, "turnOnTile", _cocos2d_TurnOffTiles_turnOnTile);
 
@@ -46825,6 +49834,22 @@ static int _cocos2d_WavesTiles3D_getAmplitude(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_WavesTiles3D_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // WavesTiles3D()
+    cocos2d::WavesTiles3D *ret = (cocos2d::WavesTiles3D *)new cocos2d::WavesTiles3D();
+    int num_ret = olua_push_cppobj(L, ret, "cc.WavesTiles3D");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_WavesTiles3D_setAmplitude(lua_State *L)
 {
     olua_startinvoke(L);
@@ -46850,6 +49875,7 @@ static int luaopen_cocos2d_WavesTiles3D(lua_State *L)
     oluacls_class(L, "cc.WavesTiles3D", "cc.TiledGrid3DAction");
     oluacls_func(L, "create", _cocos2d_WavesTiles3D_create);
     oluacls_func(L, "getAmplitude", _cocos2d_WavesTiles3D_getAmplitude);
+    oluacls_func(L, "new", _cocos2d_WavesTiles3D_new);
     oluacls_func(L, "setAmplitude", _cocos2d_WavesTiles3D_setAmplitude);
     oluacls_prop(L, "amplitude", _cocos2d_WavesTiles3D_getAmplitude, _cocos2d_WavesTiles3D_setAmplitude);
 
@@ -46903,6 +49929,22 @@ static int _cocos2d_JumpTiles3D_getAmplitude(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_JumpTiles3D_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // JumpTiles3D()
+    cocos2d::JumpTiles3D *ret = (cocos2d::JumpTiles3D *)new cocos2d::JumpTiles3D();
+    int num_ret = olua_push_cppobj(L, ret, "cc.JumpTiles3D");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_JumpTiles3D_setAmplitude(lua_State *L)
 {
     olua_startinvoke(L);
@@ -46928,6 +49970,7 @@ static int luaopen_cocos2d_JumpTiles3D(lua_State *L)
     oluacls_class(L, "cc.JumpTiles3D", "cc.TiledGrid3DAction");
     oluacls_func(L, "create", _cocos2d_JumpTiles3D_create);
     oluacls_func(L, "getAmplitude", _cocos2d_JumpTiles3D_getAmplitude);
+    oluacls_func(L, "new", _cocos2d_JumpTiles3D_new);
     oluacls_func(L, "setAmplitude", _cocos2d_JumpTiles3D_setAmplitude);
     oluacls_prop(L, "amplitude", _cocos2d_JumpTiles3D_getAmplitude, _cocos2d_JumpTiles3D_setAmplitude);
 
@@ -46958,10 +50001,27 @@ static int _cocos2d_SplitRows_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_SplitRows_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // SplitRows()
+    cocos2d::SplitRows *ret = (cocos2d::SplitRows *)new cocos2d::SplitRows();
+    int num_ret = olua_push_cppobj(L, ret, "cc.SplitRows");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_SplitRows(lua_State *L)
 {
     oluacls_class(L, "cc.SplitRows", "cc.TiledGrid3DAction");
     oluacls_func(L, "create", _cocos2d_SplitRows_create);
+    oluacls_func(L, "new", _cocos2d_SplitRows_new);
 
     olua_registerluatype<cocos2d::SplitRows>(L, "cc.SplitRows");
     oluacls_createclassproxy(L);
@@ -46990,10 +50050,27 @@ static int _cocos2d_SplitCols_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_SplitCols_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // SplitCols()
+    cocos2d::SplitCols *ret = (cocos2d::SplitCols *)new cocos2d::SplitCols();
+    int num_ret = olua_push_cppobj(L, ret, "cc.SplitCols");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_SplitCols(lua_State *L)
 {
     oluacls_class(L, "cc.SplitCols", "cc.TiledGrid3DAction");
     oluacls_func(L, "create", _cocos2d_SplitCols_create);
+    oluacls_func(L, "new", _cocos2d_SplitCols_new);
 
     olua_registerluatype<cocos2d::SplitCols>(L, "cc.SplitCols");
     oluacls_createclassproxy(L);
@@ -47188,6 +50265,22 @@ static int _cocos2d_ParticleBatchNode_insertChild(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_ParticleBatchNode_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // ParticleBatchNode()
+    cocos2d::ParticleBatchNode *ret = (cocos2d::ParticleBatchNode *)new cocos2d::ParticleBatchNode();
+    int num_ret = olua_push_cppobj(L, ret, "cc.ParticleBatchNode");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_ParticleBatchNode_removeChildAtIndex(lua_State *L)
 {
     olua_startinvoke(L);
@@ -47282,6 +50375,7 @@ static int luaopen_cocos2d_ParticleBatchNode(lua_State *L)
     oluacls_func(L, "initWithFile", _cocos2d_ParticleBatchNode_initWithFile);
     oluacls_func(L, "initWithTexture", _cocos2d_ParticleBatchNode_initWithTexture);
     oluacls_func(L, "insertChild", _cocos2d_ParticleBatchNode_insertChild);
+    oluacls_func(L, "new", _cocos2d_ParticleBatchNode_new);
     oluacls_func(L, "removeChildAtIndex", _cocos2d_ParticleBatchNode_removeChildAtIndex);
     oluacls_func(L, "setBlendFunc", _cocos2d_ParticleBatchNode_setBlendFunc);
     oluacls_func(L, "setTexture", _cocos2d_ParticleBatchNode_setTexture);
@@ -48434,6 +51528,22 @@ static int _cocos2d_ParticleSystem_isSourcePositionCompatible(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_ParticleSystem_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // ParticleSystem()
+    cocos2d::ParticleSystem *ret = (cocos2d::ParticleSystem *)new cocos2d::ParticleSystem();
+    int num_ret = olua_push_cppobj(L, ret, "cc.ParticleSystem");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_ParticleSystem_pauseEmissions(lua_State *L)
 {
     olua_startinvoke(L);
@@ -49535,6 +52645,7 @@ static int luaopen_cocos2d_ParticleSystem(lua_State *L)
     oluacls_func(L, "isFull", _cocos2d_ParticleSystem_isFull);
     oluacls_func(L, "isPaused", _cocos2d_ParticleSystem_isPaused);
     oluacls_func(L, "isSourcePositionCompatible", _cocos2d_ParticleSystem_isSourcePositionCompatible);
+    oluacls_func(L, "new", _cocos2d_ParticleSystem_new);
     oluacls_func(L, "pauseEmissions", _cocos2d_ParticleSystem_pauseEmissions);
     oluacls_func(L, "postStep", _cocos2d_ParticleSystem_postStep);
     oluacls_func(L, "resetSystem", _cocos2d_ParticleSystem_resetSystem);
@@ -49760,6 +52871,22 @@ static int _cocos2d_ParticleSystemQuad_listenRendererRecreated(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_ParticleSystemQuad_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // ParticleSystemQuad()
+    cocos2d::ParticleSystemQuad *ret = (cocos2d::ParticleSystemQuad *)new cocos2d::ParticleSystemQuad();
+    int num_ret = olua_push_cppobj(L, ret, "cc.ParticleSystemQuad");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_ParticleSystemQuad_setDisplayFrame(lua_State *L)
 {
     olua_startinvoke(L);
@@ -49808,6 +52935,7 @@ static int luaopen_cocos2d_ParticleSystemQuad(lua_State *L)
     oluacls_func(L, "create", _cocos2d_ParticleSystemQuad_create);
     oluacls_func(L, "createWithTotalParticles", _cocos2d_ParticleSystemQuad_createWithTotalParticles);
     oluacls_func(L, "listenRendererRecreated", _cocos2d_ParticleSystemQuad_listenRendererRecreated);
+    oluacls_func(L, "new", _cocos2d_ParticleSystemQuad_new);
     oluacls_func(L, "setDisplayFrame", _cocos2d_ParticleSystemQuad_setDisplayFrame);
     oluacls_func(L, "setTextureWithRect", _cocos2d_ParticleSystemQuad_setTextureWithRect);
 
@@ -49851,11 +52979,28 @@ static int _cocos2d_ParticleExplosion_createWithTotalParticles(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_ParticleExplosion_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // ParticleExplosion()
+    cocos2d::ParticleExplosion *ret = (cocos2d::ParticleExplosion *)new cocos2d::ParticleExplosion();
+    int num_ret = olua_push_cppobj(L, ret, "cc.ParticleExplosion");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_ParticleExplosion(lua_State *L)
 {
     oluacls_class(L, "cc.ParticleExplosion", "cc.ParticleSystemQuad");
     oluacls_func(L, "create", _cocos2d_ParticleExplosion_create);
     oluacls_func(L, "createWithTotalParticles", _cocos2d_ParticleExplosion_createWithTotalParticles);
+    oluacls_func(L, "new", _cocos2d_ParticleExplosion_new);
 
     olua_registerluatype<cocos2d::ParticleExplosion>(L, "cc.ParticleExplosion");
     oluacls_createclassproxy(L);
@@ -49897,11 +53042,28 @@ static int _cocos2d_ParticleFire_createWithTotalParticles(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_ParticleFire_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // ParticleFire()
+    cocos2d::ParticleFire *ret = (cocos2d::ParticleFire *)new cocos2d::ParticleFire();
+    int num_ret = olua_push_cppobj(L, ret, "cc.ParticleFire");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_ParticleFire(lua_State *L)
 {
     oluacls_class(L, "cc.ParticleFire", "cc.ParticleSystemQuad");
     oluacls_func(L, "create", _cocos2d_ParticleFire_create);
     oluacls_func(L, "createWithTotalParticles", _cocos2d_ParticleFire_createWithTotalParticles);
+    oluacls_func(L, "new", _cocos2d_ParticleFire_new);
 
     olua_registerluatype<cocos2d::ParticleFire>(L, "cc.ParticleFire");
     oluacls_createclassproxy(L);
@@ -49943,11 +53105,28 @@ static int _cocos2d_ParticleFireworks_createWithTotalParticles(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_ParticleFireworks_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // ParticleFireworks()
+    cocos2d::ParticleFireworks *ret = (cocos2d::ParticleFireworks *)new cocos2d::ParticleFireworks();
+    int num_ret = olua_push_cppobj(L, ret, "cc.ParticleFireworks");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_ParticleFireworks(lua_State *L)
 {
     oluacls_class(L, "cc.ParticleFireworks", "cc.ParticleSystemQuad");
     oluacls_func(L, "create", _cocos2d_ParticleFireworks_create);
     oluacls_func(L, "createWithTotalParticles", _cocos2d_ParticleFireworks_createWithTotalParticles);
+    oluacls_func(L, "new", _cocos2d_ParticleFireworks_new);
 
     olua_registerluatype<cocos2d::ParticleFireworks>(L, "cc.ParticleFireworks");
     oluacls_createclassproxy(L);
@@ -49989,11 +53168,28 @@ static int _cocos2d_ParticleFlower_createWithTotalParticles(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_ParticleFlower_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // ParticleFlower()
+    cocos2d::ParticleFlower *ret = (cocos2d::ParticleFlower *)new cocos2d::ParticleFlower();
+    int num_ret = olua_push_cppobj(L, ret, "cc.ParticleFlower");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_ParticleFlower(lua_State *L)
 {
     oluacls_class(L, "cc.ParticleFlower", "cc.ParticleSystemQuad");
     oluacls_func(L, "create", _cocos2d_ParticleFlower_create);
     oluacls_func(L, "createWithTotalParticles", _cocos2d_ParticleFlower_createWithTotalParticles);
+    oluacls_func(L, "new", _cocos2d_ParticleFlower_new);
 
     olua_registerluatype<cocos2d::ParticleFlower>(L, "cc.ParticleFlower");
     oluacls_createclassproxy(L);
@@ -50035,11 +53231,28 @@ static int _cocos2d_ParticleGalaxy_createWithTotalParticles(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_ParticleGalaxy_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // ParticleGalaxy()
+    cocos2d::ParticleGalaxy *ret = (cocos2d::ParticleGalaxy *)new cocos2d::ParticleGalaxy();
+    int num_ret = olua_push_cppobj(L, ret, "cc.ParticleGalaxy");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_ParticleGalaxy(lua_State *L)
 {
     oluacls_class(L, "cc.ParticleGalaxy", "cc.ParticleSystemQuad");
     oluacls_func(L, "create", _cocos2d_ParticleGalaxy_create);
     oluacls_func(L, "createWithTotalParticles", _cocos2d_ParticleGalaxy_createWithTotalParticles);
+    oluacls_func(L, "new", _cocos2d_ParticleGalaxy_new);
 
     olua_registerluatype<cocos2d::ParticleGalaxy>(L, "cc.ParticleGalaxy");
     oluacls_createclassproxy(L);
@@ -50081,11 +53294,28 @@ static int _cocos2d_ParticleMeteor_createWithTotalParticles(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_ParticleMeteor_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // ParticleMeteor()
+    cocos2d::ParticleMeteor *ret = (cocos2d::ParticleMeteor *)new cocos2d::ParticleMeteor();
+    int num_ret = olua_push_cppobj(L, ret, "cc.ParticleMeteor");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_ParticleMeteor(lua_State *L)
 {
     oluacls_class(L, "cc.ParticleMeteor", "cc.ParticleSystemQuad");
     oluacls_func(L, "create", _cocos2d_ParticleMeteor_create);
     oluacls_func(L, "createWithTotalParticles", _cocos2d_ParticleMeteor_createWithTotalParticles);
+    oluacls_func(L, "new", _cocos2d_ParticleMeteor_new);
 
     olua_registerluatype<cocos2d::ParticleMeteor>(L, "cc.ParticleMeteor");
     oluacls_createclassproxy(L);
@@ -50127,11 +53357,28 @@ static int _cocos2d_ParticleRain_createWithTotalParticles(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_ParticleRain_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // ParticleRain()
+    cocos2d::ParticleRain *ret = (cocos2d::ParticleRain *)new cocos2d::ParticleRain();
+    int num_ret = olua_push_cppobj(L, ret, "cc.ParticleRain");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_ParticleRain(lua_State *L)
 {
     oluacls_class(L, "cc.ParticleRain", "cc.ParticleSystemQuad");
     oluacls_func(L, "create", _cocos2d_ParticleRain_create);
     oluacls_func(L, "createWithTotalParticles", _cocos2d_ParticleRain_createWithTotalParticles);
+    oluacls_func(L, "new", _cocos2d_ParticleRain_new);
 
     olua_registerluatype<cocos2d::ParticleRain>(L, "cc.ParticleRain");
     oluacls_createclassproxy(L);
@@ -50173,11 +53420,28 @@ static int _cocos2d_ParticleSmoke_createWithTotalParticles(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_ParticleSmoke_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // ParticleSmoke()
+    cocos2d::ParticleSmoke *ret = (cocos2d::ParticleSmoke *)new cocos2d::ParticleSmoke();
+    int num_ret = olua_push_cppobj(L, ret, "cc.ParticleSmoke");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_ParticleSmoke(lua_State *L)
 {
     oluacls_class(L, "cc.ParticleSmoke", "cc.ParticleSystemQuad");
     oluacls_func(L, "create", _cocos2d_ParticleSmoke_create);
     oluacls_func(L, "createWithTotalParticles", _cocos2d_ParticleSmoke_createWithTotalParticles);
+    oluacls_func(L, "new", _cocos2d_ParticleSmoke_new);
 
     olua_registerluatype<cocos2d::ParticleSmoke>(L, "cc.ParticleSmoke");
     oluacls_createclassproxy(L);
@@ -50219,11 +53483,28 @@ static int _cocos2d_ParticleSnow_createWithTotalParticles(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_ParticleSnow_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // ParticleSnow()
+    cocos2d::ParticleSnow *ret = (cocos2d::ParticleSnow *)new cocos2d::ParticleSnow();
+    int num_ret = olua_push_cppobj(L, ret, "cc.ParticleSnow");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_ParticleSnow(lua_State *L)
 {
     oluacls_class(L, "cc.ParticleSnow", "cc.ParticleSystemQuad");
     oluacls_func(L, "create", _cocos2d_ParticleSnow_create);
     oluacls_func(L, "createWithTotalParticles", _cocos2d_ParticleSnow_createWithTotalParticles);
+    oluacls_func(L, "new", _cocos2d_ParticleSnow_new);
 
     olua_registerluatype<cocos2d::ParticleSnow>(L, "cc.ParticleSnow");
     oluacls_createclassproxy(L);
@@ -50265,11 +53546,28 @@ static int _cocos2d_ParticleSpiral_createWithTotalParticles(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_ParticleSpiral_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // ParticleSpiral()
+    cocos2d::ParticleSpiral *ret = (cocos2d::ParticleSpiral *)new cocos2d::ParticleSpiral();
+    int num_ret = olua_push_cppobj(L, ret, "cc.ParticleSpiral");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_ParticleSpiral(lua_State *L)
 {
     oluacls_class(L, "cc.ParticleSpiral", "cc.ParticleSystemQuad");
     oluacls_func(L, "create", _cocos2d_ParticleSpiral_create);
     oluacls_func(L, "createWithTotalParticles", _cocos2d_ParticleSpiral_createWithTotalParticles);
+    oluacls_func(L, "new", _cocos2d_ParticleSpiral_new);
 
     olua_registerluatype<cocos2d::ParticleSpiral>(L, "cc.ParticleSpiral");
     oluacls_createclassproxy(L);
@@ -50311,11 +53609,28 @@ static int _cocos2d_ParticleSun_createWithTotalParticles(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_ParticleSun_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // ParticleSun()
+    cocos2d::ParticleSun *ret = (cocos2d::ParticleSun *)new cocos2d::ParticleSun();
+    int num_ret = olua_push_cppobj(L, ret, "cc.ParticleSun");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_ParticleSun(lua_State *L)
 {
     oluacls_class(L, "cc.ParticleSun", "cc.ParticleSystemQuad");
     oluacls_func(L, "create", _cocos2d_ParticleSun_create);
     oluacls_func(L, "createWithTotalParticles", _cocos2d_ParticleSun_createWithTotalParticles);
+    oluacls_func(L, "new", _cocos2d_ParticleSun_new);
 
     olua_registerluatype<cocos2d::ParticleSun>(L, "cc.ParticleSun");
     oluacls_createclassproxy(L);

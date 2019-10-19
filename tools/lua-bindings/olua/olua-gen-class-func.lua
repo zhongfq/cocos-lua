@@ -327,6 +327,7 @@ local function genOneFunc(cls, fi, write, funcidx, exported)
         PUSH_RET = "",
         RET_EXP = "",
         NUM_RET = "0",
+        POST_NEW = "",
         CALLBACK = "",
         IDX = 0,
     }
@@ -382,6 +383,13 @@ local function genOneFunc(cls, fi, write, funcidx, exported)
         table.insert(FUNC.INJECT_AFTER, 1, '// inject code after call')
     end
 
+    if fi.CONSTRUCTOR then
+        CALLER = 'new ' .. cls.CPPCLS
+        FUNC.POST_NEW = 'olua_postnew(L, ret);'
+    else
+        CALLER = CALLER .. CPPFUNC
+    end
+
     FUNC.CALLER_ARGS = FUNC.CALLER_ARGS:tostring(', ')
 
     olua.nowarning(CPPCLS_PATH, FUNC_INDEX, CPPFUNC, CALLER, ARGS_BEGIN, ARGS_END)
@@ -401,8 +409,9 @@ local function genOneFunc(cls, fi, write, funcidx, exported)
             ${FUNC.CALLBACK}
 
             // ${fi.DECLFUNC}
-            ${FUNC.RET_EXP}${CALLER}${CPPFUNC}${ARGS_BEGIN}${FUNC.CALLER_ARGS}${ARGS_END};
+            ${FUNC.RET_EXP}${CALLER}${ARGS_BEGIN}${FUNC.CALLER_ARGS}${ARGS_END};
             ${FUNC.PUSH_RET}
+            ${FUNC.POST_NEW}
 
             ${FUNC.INJECT_AFTER}
 

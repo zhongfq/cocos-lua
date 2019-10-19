@@ -84,6 +84,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Acceleration'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
+    Acceleration()
 ]]
 cls.var('x', [[double x]])
 cls.var('y', [[double y]])
@@ -112,6 +113,7 @@ cls = typecls 'cocos2d::Director'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
     static Director* getInstance()
+    Director()
     bool init()
     @ref(map scenes) Scene* getRunningScene()
     float getAnimationInterval()
@@ -241,6 +243,7 @@ template <typename T> bool doScheduleUpdate(lua_State *L)
     return false;
 }]]
 cls.funcs [[
+    Scheduler()
     float getTimeScale()
     void setTimeScale(float timeScale)
     void update(float dt)
@@ -257,12 +260,6 @@ cls.funcs [[
 ]]
 cls.enum('PRIORITY_SYSTEM', 'cocos2d::Scheduler::PRIORITY_SYSTEM')
 cls.enum('PRIORITY_NON_SYSTEM_MIN', 'cocos2d::Scheduler::PRIORITY_NON_SYSTEM_MIN')
-cls.func('new', [[{
-    auto obj = new cocos2d::Scheduler();
-    obj->autorelease();
-    return olua_push_cppobj<cocos2d::Scheduler>(L, obj);
-}
-]])
 cls.func('scheduleUpdate', [[{
     lua_settop(L, 4);
     
@@ -357,6 +354,7 @@ cls.funcs [[
     void dispatchEvent(Event* event)
     void dispatchCustomEvent(const std::string &eventName, void *optionalUserData = nullptr)
     bool hasEventListener(const EventListener::ListenerID& listenerID)
+    EventDispatcher()
 ]]
 cls.func('addCustomEventListener', [[{
     lua_settop(L, 3);
@@ -446,6 +444,7 @@ cls.funcs [[
     static EventListenerTouchOneByOne* create()
     void setSwallowTouches(bool needSwallow)
     bool isSwallowTouches()
+    EventListenerTouchOneByOne()
 ]]
 cls.var('onTouchBegan', [[std::function<bool(@local Touch*, @local Event*)> onTouchBegan = nullptr]])
 cls.var('onTouchMoved', [[std::function<void(@local Touch*, @local Event*)> onTouchMoved = nullptr]])
@@ -460,6 +459,7 @@ cls = typecls 'cocos2d::EventListenerTouchAllAtOnce'
 cls.SUPERCLS = "cocos2d::EventListener"
 cls.funcs [[
     static EventListenerTouchAllAtOnce* create()
+    EventListenerTouchAllAtOnce()
 ]]
 cls.var('onTouchesBegan', [[std::function<void(@local const std::vector<Touch*>&, @local Event*)> onTouchesBegan = nullptr]])
 cls.var('onTouchesMoved', [[std::function<void(@local const std::vector<Touch*>&, @local Event*)> onTouchesMoved = nullptr]])
@@ -470,6 +470,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EventListenerCustom'
 cls.SUPERCLS = "cocos2d::EventListener"
 cls.funcs [[
+    EventListenerCustom()
 ]]
 cls.callback {
     FUNCS =  {
@@ -493,6 +494,7 @@ cls = typecls 'cocos2d::EventListenerKeyboard'
 cls.SUPERCLS = "cocos2d::EventListener"
 cls.funcs [[
     static EventListenerKeyboard* create()
+    EventListenerKeyboard()
 ]]
 cls.var('onKeyPressed', [[std::function<void(EventKeyboard::KeyCode, @local Event*)> onKeyPressed = nullptr]])
 cls.var('onKeyReleased', [[std::function<void(EventKeyboard::KeyCode, @local Event*)> onKeyReleased = nullptr]])
@@ -501,6 +503,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EventListenerAcceleration'
 cls.SUPERCLS = "cocos2d::EventListener"
 cls.funcs [[
+    EventListenerAcceleration()
 ]]
 cls.callback {
     FUNCS =  {
@@ -524,6 +527,7 @@ cls = typecls 'cocos2d::EventListenerFocus'
 cls.SUPERCLS = "cocos2d::EventListener"
 cls.funcs [[
     static EventListenerFocus* create()
+    EventListenerFocus()
 ]]
 cls.var('onFocusChanged', [[std::function<void(ui::Widget*, ui::Widget*)> onFocusChanged = nullptr]])
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -532,6 +536,7 @@ cls = typecls 'cocos2d::EventListenerMouse'
 cls.SUPERCLS = "cocos2d::EventListener"
 cls.funcs [[
     static EventListenerMouse* create()
+    EventListenerMouse()
 ]]
 cls.var('onMouseDown', [[std::function<void(@local EventMouse* event)> onMouseDown = nullptr]])
 cls.var('onMouseUp', [[std::function<void(@local EventMouse* event)> onMouseUp = nullptr]])
@@ -573,13 +578,6 @@ cls.funcs [[
     void* getUserData()
     const std::string& getEventName()
 ]]
-cls.func('new', [[{
-    lua_settop(L, 1);
-    const char *event = olua_checkstring(L, 1);
-    auto obj = new cocos2d::EventCustom(event);
-    obj->autorelease();
-    return olua_push_cppobj<cocos2d::EventCustom>(L, obj);
-}]])
 cls.props [[
     userData
     eventName
@@ -614,6 +612,7 @@ cls.enums [[
     MAX_TOUCHES
 ]]
 cls.funcs [[
+    EventTouch()
     EventCode getEventCode()
     const std::vector<Touch*>& getTouches()
     void setEventCode(EventCode eventCode)
@@ -628,6 +627,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EventKeyboard'
 cls.SUPERCLS = "cocos2d::Event"
 cls.funcs [[
+    EventKeyboard(KeyCode keyCode, bool isPressed)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -640,6 +640,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EventFocus'
 cls.SUPERCLS = "cocos2d::Event"
 cls.funcs [[
+    EventFocus(ui::Widget* widgetLoseFocus, ui::Widget* widgetGetFocus)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -895,6 +896,8 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EventController'
 cls.SUPERCLS = "cocos2d::Event"
 cls.funcs [[
+    EventController(ControllerEventType type, Controller* controller, int keyCode)
+    EventController(ControllerEventType type, Controller* controller, bool isConnected)
     ControllerEventType getControllerEventType()
     Controller* getController()
     int getKeyCode()
@@ -913,6 +916,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Touch'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
+    Touch()
     Vec2 getLocation()
     Vec2 getPreviousLocation()
     Vec2 getStartLocation()
@@ -926,11 +930,6 @@ cls.funcs [[
     float getCurrentForce()
     float getMaxForce()
 ]]
-cls.func('new', [[{
-    auto obj = new cocos2d::Touch();
-    obj->autorelease();
-    return olua_push_cppobj<cocos2d::Touch>(L, obj);
-}]])
 cls.props [[
     location
     previousLocation
@@ -1001,6 +1000,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::experimental::AudioProfile'
 cls.funcs [[
+    AudioProfile()
 ]]
 cls.var('name', [[std::string name]])
 cls.var('maxInstances', [[unsigned int maxInstances]])
@@ -1473,6 +1473,7 @@ public:
 NS_CC_END
 ]]
 cls.funcs [[
+    Image()
     static void setPNGPremultipliedAlphaEnabled(bool enabled)
     static void setPVRImagesHavePremultipliedAlpha(bool haveAlphaPremultiplied)
     bool initWithImageFile(const std::string& path)
@@ -1520,6 +1521,7 @@ cls.enums [[
     MATERIAL_ID_DO_NOT_BATCH
 ]]
 cls.funcs [[
+    Renderer()
     void initGLView()
     void pushGroup(int renderQueueID)
     void popGroup()
@@ -1547,6 +1549,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::GLProgram'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
+    GLProgram()
     static GLProgram* createWithByteArrays(const GLchar* vShaderByteArray, const GLchar* fShaderByteArray)
     bool initWithByteArrays(const GLchar* vShaderByteArray, const GLchar* fShaderByteArray)
     static GLProgram* createWithByteArrays(const GLchar* vShaderByteArray, const GLchar* fShaderByteArray, const std::string& compileTimeDefines)
@@ -1595,6 +1598,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::GLProgramCache'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
+    GLProgramCache()
     static GLProgramCache* getInstance()
     static void destroyInstance()
     void loadDefaultGLPrograms()
@@ -1665,6 +1669,7 @@ static const std::string makeTextureCacheCallbackTag(const std::string &key)
 cls.funcs [[
     static void setETC1AlphaFileSuffix(const std::string& suffix)
     static std::string getETC1AlphaFileSuffix()
+    TextureCache()
     std::string getDescription()
     Texture2D* addImage(const std::string &filepath)
     Texture2D* addImage(Image *image, const std::string &key)
@@ -1747,6 +1752,7 @@ cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
     static void setDefaultAlphaPixelFormat(Texture2D::PixelFormat format)
     static Texture2D::PixelFormat getDefaultAlphaPixelFormat()
+    Texture2D()
     std::string getDescription()
     void releaseGLTexture()
     bool initWithData(const void *data, ssize_t dataLen, Texture2D::PixelFormat pixelFormat, int pixelsWide, int pixelsHigh, const Size& contentSize, bool preMultipliedAlpha = false)
@@ -1806,6 +1812,7 @@ cls.SUPERCLS = "cocos2d::Texture2D"
 cls.funcs [[
     static TextureCube* create(const std::string& positive_x, const std::string& negative_x, const std::string& positive_y, const std::string& negative_y, const std::string& positive_z, const std::string& negative_z)
     bool reloadTexture()
+    TextureCube()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -1814,6 +1821,7 @@ cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
     static TextureAtlas* create(const std::string& file , ssize_t capacity)
     static TextureAtlas* createWithTexture(Texture2D *texture, ssize_t capacity)
+    TextureAtlas()
     bool initWithFile(const std::string& file, ssize_t capacity)
     bool initWithTexture(Texture2D *texture, ssize_t capacity)
     void insertQuadFromIndex(ssize_t fromIndex, ssize_t newIndex)
@@ -1872,12 +1880,14 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::VRGenericRenderer'
 cls.SUPERCLS = "cocos2d::VRIRenderer"
 cls.funcs [[
+    VRGenericRenderer()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::VRGenericHeadTracker'
 cls.SUPERCLS = "cocos2d::VRIHeadTracker"
 cls.funcs [[
+    VRGenericHeadTracker()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -1914,6 +1924,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::network::WebSocket'
 cls.funcs [[
     static void closeAllConnections()
+    WebSocket()
     void send(const std::string& message)
     void send(const unsigned char* binaryMsg, unsigned int len)
     void close()
@@ -1976,6 +1987,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ActionManager'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
+    ActionManager()
     void addAction(Action *action, Node *target, bool paused)
     void removeAllActions()
     void removeAllActionsFromTarget(Node *target)
@@ -1993,12 +2005,6 @@ cls.funcs [[
     void resumeTargets(const Vector<Node*>& targetsToResume)
     void update(float dt)
 ]]
-cls.func('new', [[{
-    auto obj = new cocos2d::ActionManager();
-    obj->autorelease();
-    return olua_push_cppobj<cocos2d::ActionManager>(L, obj);
-}
-]])
 cls.props [[
     numberOfRunningActions
 ]]
@@ -2023,6 +2029,7 @@ cls.funcs [[
     void setTag(int tag)
     unsigned int getFlags()
     void setFlags(unsigned int flags)
+    Action()
 ]]
 cls.props [[
     done
@@ -2038,6 +2045,7 @@ cls.SUPERCLS = "cocos2d::Action"
 cls.funcs [[
     float getDuration()
     void setDuration(float duration)
+    FiniteTimeAction()
 ]]
 cls.props [[
     duration
@@ -2052,6 +2060,7 @@ cls.funcs [[
     void setSpeed(float speed)
     void setInnerAction(@ref(single innerAction) ActionInterval *action)
     @ref(single innerAction) ActionInterval* getInnerAction()
+    Speed()
 ]]
 cls.props [[
     speed
@@ -2066,6 +2075,7 @@ cls.funcs [[
     static Follow* createWithOffset(Node* followedNode,float xOffset,float yOffset,const Rect& rect = Rect::ZERO)
     bool isBoundarySet()
     void setBoundarySet(bool value)
+    Follow()
     bool initWithTarget(Node *followedNode, const Rect& rect = Rect::ZERO)
     bool initWithTargetAndOffset(Node *followedNode,float xOffset,float yOffset,const Rect& rect = Rect::ZERO)
 ]]
@@ -2136,6 +2146,7 @@ cls = typecls 'cocos2d::Sequence'
 cls.SUPERCLS = "cocos2d::ActionInterval"
 cls.funcs [[
     static Sequence* createWithTwoActions(@ref(map autoref) FiniteTimeAction *actionOne, @ref(map autoref) FiniteTimeAction *actionTwo)
+    Sequence()
 ]]
 cls.func('create', [[{
     cocos2d::Vector<cocos2d::FiniteTimeAction *> actions;
@@ -2164,6 +2175,7 @@ cls.funcs [[
     static Repeat* create(@ref(single innerAction) FiniteTimeAction *action, unsigned int times)
     void setInnerAction(@ref(single innerAction) FiniteTimeAction *action)
     @ref(single innerAction) FiniteTimeAction* getInnerAction()
+    Repeat()
 ]]
 cls.props [[
     innerAction
@@ -2176,6 +2188,7 @@ cls.funcs [[
     static RepeatForever* create(@ref(single innerAction) ActionInterval *action)
     void setInnerAction(@ref(single innerAction) ActionInterval *action)
     @ref(single innerAction) ActionInterval* getInnerAction()
+    RepeatForever()
 ]]
 cls.props [[
     innerAction
@@ -2186,6 +2199,7 @@ cls = typecls 'cocos2d::Spawn'
 cls.SUPERCLS = "cocos2d::ActionInterval"
 cls.funcs [[
     static Spawn* createWithTwoActions(@ref(map autoref) FiniteTimeAction *action1, @ref(map autoref) FiniteTimeAction *action2)
+    Spawn()
 ]]
 cls.func('create', [[{
     cocos2d::Vector<cocos2d::FiniteTimeAction *> actions;
@@ -2214,6 +2228,7 @@ cls.funcs [[
     static RotateTo* create(float duration, float dstAngleX, float dstAngleY)
     static RotateTo* create(float duration, float dstAngle)
     static RotateTo* create(float duration, const Vec3& dstAngle3D)
+    RotateTo()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2223,6 +2238,7 @@ cls.funcs [[
     static RotateBy* create(float duration, float deltaAngle)
     static RotateBy* create(float duration, float deltaAngleZ_X, float deltaAngleZ_Y)
     static RotateBy* create(float duration, const Vec3& deltaAngle3D)
+    RotateBy()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2231,6 +2247,7 @@ cls.SUPERCLS = "cocos2d::ActionInterval"
 cls.funcs [[
     static MoveBy* create(float duration, @pack const Vec2& deltaPosition)
     static MoveBy* create(float duration, @pack const Vec3& deltaPosition)
+    MoveBy()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2239,6 +2256,7 @@ cls.SUPERCLS = "cocos2d::MoveBy"
 cls.funcs [[
     static MoveTo* create(float duration, @pack const Vec2& position)
     static MoveTo* create(float duration, @pack const Vec3& position)
+    MoveTo()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2246,6 +2264,7 @@ cls = typecls 'cocos2d::SkewTo'
 cls.SUPERCLS = "cocos2d::ActionInterval"
 cls.funcs [[
     static SkewTo* create(float t, float sx, float sy)
+    SkewTo()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2253,6 +2272,7 @@ cls = typecls 'cocos2d::SkewBy'
 cls.SUPERCLS = "cocos2d::SkewTo"
 cls.funcs [[
     static SkewBy* create(float t, float deltaSkewX, float deltaSkewY)
+    SkewBy()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2260,6 +2280,7 @@ cls = typecls 'cocos2d::ResizeTo'
 cls.SUPERCLS = "cocos2d::ActionInterval"
 cls.funcs [[
     static ResizeTo* create(float duration, const cocos2d::Size& final_size)
+    ResizeTo()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2267,6 +2288,7 @@ cls = typecls 'cocos2d::ResizeBy'
 cls.SUPERCLS = "cocos2d::ActionInterval"
 cls.funcs [[
     static ResizeBy* create(float duration, const cocos2d::Size& deltaSize)
+    ResizeBy()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2274,6 +2296,7 @@ cls = typecls 'cocos2d::BezierBy'
 cls.SUPERCLS = "cocos2d::ActionInterval"
 cls.funcs [[
     static BezierBy* create(float t, @pack const ccBezierConfig& c)
+    BezierBy()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2281,6 +2304,7 @@ cls = typecls 'cocos2d::BezierTo'
 cls.SUPERCLS = "cocos2d::BezierBy"
 cls.funcs [[
     static BezierTo* create(float t, @pack const ccBezierConfig& c)
+    BezierTo()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2288,6 +2312,7 @@ cls = typecls 'cocos2d::JumpBy'
 cls.SUPERCLS = "cocos2d::ActionInterval"
 cls.funcs [[
     static JumpBy* create(float duration, @pack const Vec2& position, float height, int jumps)
+    JumpBy()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2295,6 +2320,7 @@ cls = typecls 'cocos2d::JumpTo'
 cls.SUPERCLS = "cocos2d::JumpBy"
 cls.funcs [[
     static JumpTo* create(float duration, @pack const Vec2& position, float height, int jumps)
+    JumpTo()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2304,6 +2330,7 @@ cls.funcs [[
     static ScaleTo* create(float duration, float s)
     static ScaleTo* create(float duration, float sx, float sy)
     static ScaleTo* create(float duration, float sx, float sy, float sz)
+    ScaleTo()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2313,6 +2340,7 @@ cls.funcs [[
     static ScaleBy* create(float duration, float s)
     static ScaleBy* create(float duration, float sx, float sy)
     static ScaleBy* create(float duration, float sx, float sy, float sz)
+    ScaleBy()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2320,6 +2348,7 @@ cls = typecls 'cocos2d::Blink'
 cls.SUPERCLS = "cocos2d::ActionInterval"
 cls.funcs [[
     static Blink* create(float duration, int blinks)
+    Blink()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2327,6 +2356,7 @@ cls = typecls 'cocos2d::FadeTo'
 cls.SUPERCLS = "cocos2d::ActionInterval"
 cls.funcs [[
     static FadeTo* create(float duration, GLubyte opacity)
+    FadeTo()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2334,6 +2364,7 @@ cls = typecls 'cocos2d::FadeIn'
 cls.SUPERCLS = "cocos2d::FadeTo"
 cls.funcs [[
     static FadeIn* create(float d)
+    FadeIn()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2341,6 +2372,7 @@ cls = typecls 'cocos2d::FadeOut'
 cls.SUPERCLS = "cocos2d::FadeTo"
 cls.funcs [[
     static FadeOut* create(float d)
+    FadeOut()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2349,6 +2381,7 @@ cls.SUPERCLS = "cocos2d::ActionInterval"
 cls.funcs [[
     static TintTo* create(float duration, GLubyte red, GLubyte green, GLubyte blue)
     static TintTo* create(float duration, const Color3B& color)
+    TintTo()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2356,6 +2389,7 @@ cls = typecls 'cocos2d::TintBy'
 cls.SUPERCLS = "cocos2d::ActionInterval"
 cls.funcs [[
     static TintBy* create(float duration, GLshort deltaRed, GLshort deltaGreen, GLshort deltaBlue)
+    TintBy()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2363,6 +2397,7 @@ cls = typecls 'cocos2d::DelayTime'
 cls.SUPERCLS = "cocos2d::ActionInterval"
 cls.funcs [[
     static DelayTime* create(float d)
+    DelayTime()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2370,6 +2405,7 @@ cls = typecls 'cocos2d::ReverseTime'
 cls.SUPERCLS = "cocos2d::ActionInterval"
 cls.funcs [[
     static ReverseTime* create(@ref(map autoref) FiniteTimeAction *action)
+    ReverseTime()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2380,6 +2416,7 @@ cls.funcs [[
     void setAnimation( Animation* animation )
     Animation* getAnimation()
     int getCurrentFrameIndex()
+    Animate()
 ]]
 cls.props [[
     animation
@@ -2393,6 +2430,7 @@ cls.funcs [[
     static TargetedAction* create(Node* target, @ref(map autoref) FiniteTimeAction* action)
     void setForcedTarget(Node* forcedTarget)
     Node* getForcedTarget()
+    TargetedAction()
     bool initWithTarget(Node* target, FiniteTimeAction* action)
 ]]
 cls.props [[
@@ -2403,6 +2441,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ActionFloat'
 cls.SUPERCLS = "cocos2d::ActionInterval"
 cls.funcs [[
+    ActionFloat()
 ]]
 cls.callback {
     FUNCS =  {
@@ -2426,6 +2465,7 @@ cls = typecls 'cocos2d::ProgressTo'
 cls.SUPERCLS = "cocos2d::ActionInterval"
 cls.funcs [[
     static ProgressTo* create(float duration, float percent)
+    ProgressTo()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2433,6 +2473,7 @@ cls = typecls 'cocos2d::ProgressFromTo'
 cls.SUPERCLS = "cocos2d::ActionInterval"
 cls.funcs [[
     static ProgressFromTo* create(float duration, float fromPercentage, float toPercentage)
+    ProgressFromTo()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2440,6 +2481,7 @@ cls = typecls 'cocos2d::ActionEase'
 cls.SUPERCLS = "cocos2d::ActionInterval"
 cls.funcs [[
     @ref(single innerAction) ActionInterval* getInnerAction()
+    ActionEase()
 ]]
 cls.props [[
     innerAction
@@ -2452,6 +2494,7 @@ cls.funcs [[
     static EaseRateAction* create(@ref(single innerAction) ActionInterval* action, float rate)
     void setRate(float rate)
     float getRate()
+    EaseRateAction()
 ]]
 cls.props [[
     rate
@@ -2673,6 +2716,7 @@ cls.SUPERCLS = "cocos2d::ActionEase"
 cls.funcs [[
     float getPeriod()
     void setPeriod(float fPeriod)
+    EaseElastic()
 ]]
 cls.props [[
     period
@@ -2705,6 +2749,7 @@ cls.SUPERCLS = "cocos2d::ActionEase"
 cls.funcs [[
     static EaseBezierAction* create(@ref(single innerAction) cocos2d::ActionInterval* action)
     void setBezierParamer( float p0, float p1, float p2, float p3)
+    EaseBezierAction()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2712,6 +2757,7 @@ cls = typecls 'cocos2d::PointArray'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
     static PointArray* create(ssize_t capacity)
+    PointArray()
     bool initWithCapacity(ssize_t capacity)
     void addControlPoint(const Vec2& controlPoint)
     void insertControlPoint(const Vec2& controlPoint, ssize_t index)
@@ -2729,6 +2775,7 @@ cls = typecls 'cocos2d::CardinalSplineTo'
 cls.SUPERCLS = "cocos2d::ActionInterval"
 cls.funcs [[
     static CardinalSplineTo* create(float duration, PointArray* points, float tension)
+    CardinalSplineTo()
     void updatePosition(const Vec2 &newPos)
     PointArray* getPoints()
     void setPoints(PointArray* points)
@@ -2742,6 +2789,7 @@ cls = typecls 'cocos2d::CardinalSplineBy'
 cls.SUPERCLS = "cocos2d::CardinalSplineTo"
 cls.funcs [[
     static CardinalSplineBy* create(float duration, PointArray* points, float tension)
+    CardinalSplineBy()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2769,6 +2817,7 @@ cls = typecls 'cocos2d::Show'
 cls.SUPERCLS = "cocos2d::ActionInstant"
 cls.funcs [[
     static Show * create()
+    Show()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2776,6 +2825,7 @@ cls = typecls 'cocos2d::Hide'
 cls.SUPERCLS = "cocos2d::ActionInstant"
 cls.funcs [[
     static Hide * create()
+    Hide()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2783,6 +2833,7 @@ cls = typecls 'cocos2d::ToggleVisibility'
 cls.SUPERCLS = "cocos2d::ActionInstant"
 cls.funcs [[
     static ToggleVisibility * create()
+    ToggleVisibility()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2790,6 +2841,7 @@ cls = typecls 'cocos2d::RemoveSelf'
 cls.SUPERCLS = "cocos2d::ActionInstant"
 cls.funcs [[
     static RemoveSelf * create(bool isNeedCleanUp = true)
+    RemoveSelf()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2797,6 +2849,7 @@ cls = typecls 'cocos2d::FlipX'
 cls.SUPERCLS = "cocos2d::ActionInstant"
 cls.funcs [[
     static FlipX * create(bool x)
+    FlipX()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2804,6 +2857,7 @@ cls = typecls 'cocos2d::FlipY'
 cls.SUPERCLS = "cocos2d::ActionInstant"
 cls.funcs [[
     static FlipY * create(bool y)
+    FlipY()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2811,6 +2865,7 @@ cls = typecls 'cocos2d::Place'
 cls.SUPERCLS = "cocos2d::ActionInstant"
 cls.funcs [[
     static Place * create(const Vec2& pos)
+    Place()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2820,6 +2875,7 @@ cls.funcs [[
     void execute()
     Ref* getTargetCallback()
     void setTargetCallback(Ref* sel)
+    CallFunc()
 ]]
 cls.callback {
     FUNCS =  {
@@ -2855,6 +2911,7 @@ cls.funcs [[
     void setOwner(@ref(single owner) Node *owner)
     void update(float delta)
     bool serialize(void* r)
+    Component()
 ]]
 cls.props [[
     enabled
@@ -2867,6 +2924,7 @@ cls = typecls 'cocos2d::LuaComponent'
 cls.SUPERCLS = "cocos2d::Component"
 cls.funcs [[
     static LuaComponent* create()
+    LuaComponent()
 ]]
 cls.var('onUpdate', [[@nullable std::function<void(float)> onUpdateCallback]])
 cls.var('onEnter', [[@nullable std::function<void()> onEnterCallback]])
@@ -3051,6 +3109,7 @@ cls.funcs [[
     bool isOpacityModifyRGB()
     unsigned short getCameraMask()
     void setCameraMask(unsigned short mask, bool applyChildren = true)
+    Node()
     bool init()
     void setPhysicsBody(@ref(single physicsBody) PhysicsBody* physicsBody)
     @ref(single physicsBody) PhysicsBody* getPhysicsBody()
@@ -3379,6 +3438,7 @@ cls.funcs [[
     void setTexture(Texture2D *texture)
     void setBlendFunc(const BlendFunc& blendFunc)
     const BlendFunc& getBlendFunc()
+    AtlasNode()
     bool initWithTileFile(const std::string& tile, int tileWidth, int tileHeight, int itemsToRender)
     bool initWithTexture(Texture2D* texture, int tileWidth, int tileHeight, int itemsToRender)
 ]]
@@ -3404,6 +3464,7 @@ cls.funcs [[
     @unref(all protectedChildren) void removeAllProtectedChildrenWithCleanup(bool cleanup)
     void reorderProtectedChild(Node * child, int localZOrder)
     void sortAllProtectedChildren()
+    ProtectedNode()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -3635,6 +3696,7 @@ cls.funcs [[
     bool initWithString(const std::string& string, Texture2D* texture, int itemWidth, int itemHeight, int startCharMap)
     void setString(const std::string &label)
     const std::string& getString()
+    LabelAtlas()
 ]]
 cls.props [[
     string
@@ -3707,6 +3769,7 @@ cls.funcs [[
     void setSprite(Sprite* sprite)
     void setKeepMatrix(bool keepMatrix)
     void setVirtualViewport(const Vec2& rtBegin, const Rect& fullRect, const Rect& fullViewport)
+    RenderTexture()
     bool initWithWidthAndHeight(int w, int h, Texture2D::PixelFormat format)
     bool initWithWidthAndHeight(int w, int h, Texture2D::PixelFormat format, GLuint depthStencilFormat)
 ]]
@@ -3765,6 +3828,7 @@ cls.funcs [[
     Vec2 getMidpoint()
     void setBarChangeRate(const Vec2& barChangeRate )
     Vec2 getBarChangeRate()
+    ProgressTimer()
     bool initWithSprite(Sprite* sp)
 ]]
 cls.props [[
@@ -3788,6 +3852,7 @@ cls.funcs [[
     const ValueMap& getUserInfo()
     void setUserInfo(const ValueMap& userInfo)
     AnimationFrame *clone()
+    AnimationFrame()
     bool initWithSpriteFrame(SpriteFrame* spriteFrame, float delayUnits, const ValueMap& userInfo)
 ]]
 cls.props [[
@@ -3817,6 +3882,7 @@ cls.funcs [[
     unsigned int getLoops()
     void setLoops(unsigned int loops)
     Animation *clone()
+    Animation()
     bool init()
     bool initWithSpriteFrames(const Vector<SpriteFrame*>& arrayOfSpriteFrameNames, float delay = 0.0f, unsigned int loops = 1)
     bool initWithAnimationFrames(const Vector<AnimationFrame*>& arrayOfAnimationFrameNames, float delayPerUnit, unsigned int loops)
@@ -3862,6 +3928,7 @@ cls.funcs [[
     bool hasAnchorPoint()
     SpriteFrame *clone()
     bool hasPolygonInfo()
+    SpriteFrame()
     bool initWithTexture(Texture2D* pobTexture, const Rect& rect)
     bool initWithTextureFilename(const std::string& filename, const Rect& rect)
     bool initWithTexture(Texture2D* pobTexture, const Rect& rect, bool rotated, const Vec2& offset, const Size& originalSize)
@@ -3927,6 +3994,7 @@ cls.funcs [[
     const BlendFunc& getBlendFunc()
     int getResourceType()
     const std::string& getResourceName()
+    Sprite()
     bool initWithTexture(Texture2D *texture)
     bool initWithTexture(Texture2D *texture, const Rect& rect)
     bool initWithTexture(Texture2D *texture, const Rect& rect, bool rotated)
@@ -3980,6 +4048,7 @@ cls.funcs [[
     void insertQuadFromSprite(Sprite *sprite, ssize_t index)
     SpriteBatchNode * addSpriteWithoutQuad(Sprite *child, int z, int aTag)
     void reserveCapacity(ssize_t newCapacity)
+    SpriteBatchNode()
     bool initWithTexture(Texture2D *tex, ssize_t capacity = 29)
     bool initWithFile(const std::string& fileImage, ssize_t capacity = 29)
 ]]
@@ -4020,6 +4089,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::AnimationCache'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
+    AnimationCache()
     static AnimationCache* getInstance()
     static void destroyInstance()
     bool init()
@@ -4042,6 +4112,7 @@ cls.funcs [[
     const std::vector<Camera*>& getCameras()
     Camera* getDefaultCamera()
     const std::vector<BaseLight*>& getLights()
+    Scene()
     bool initWithSize(const Size& size)
     void setCameraOrderDirty()
     void onProjectionChanged(EventCustom* event)
@@ -4075,6 +4146,7 @@ cls.funcs [[
     void onAcceleration(Acceleration* acc, Event* unused_event)
     void onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
     void onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
+    Layer()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4089,6 +4161,7 @@ cls.funcs [[
     void changeWidthAndHeight(GLfloat w ,GLfloat h)
     const BlendFunc& getBlendFunc()
     void setBlendFunc(const BlendFunc& blendFunc)
+    LayerColor()
     bool initWithColor(const Color4B& color, GLfloat width, GLfloat height)
     bool initWithColor(const Color4B& color)
 ]]
@@ -4115,6 +4188,7 @@ cls.funcs [[
     GLubyte getEndOpacity()
     void setVector(const Vec2& alongVector)
     const Vec2& getVector()
+    LayerGradient()
     bool initWithColor(const Color4B& start, const Color4B& end)
     bool initWithColor(const Color4B& start, const Color4B& end, const Vec2& v)
 ]]
@@ -4153,6 +4227,7 @@ cls.funcs [[
     Color3B getEndColor3B()
     void setBlendFunc(const BlendFunc& blendFunc)
     BlendFunc getBlendFunc()
+    LayerRadialGradient()
     bool initWithColor(const Color4B& startColor, const Color4B& endColor, float radius, const Vec2& center, float expand)
 ]]
 cls.props [[
@@ -4186,6 +4261,7 @@ cls.funcs [[
     void hideOutShowIn()
     Scene* getInScene()
     float getDuration()
+    TransitionScene()
 ]]
 cls.props [[
     inScene
@@ -4197,6 +4273,7 @@ cls = typecls 'cocos2d::TransitionSceneOriented'
 cls.SUPERCLS = "cocos2d::TransitionScene"
 cls.funcs [[
     static TransitionSceneOriented * create(float t, @ref(map autoref) Scene* scene, TransitionScene::Orientation orientation)
+    TransitionSceneOriented()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4204,6 +4281,7 @@ cls = typecls 'cocos2d::TransitionRotoZoom'
 cls.SUPERCLS = "cocos2d::TransitionScene"
 cls.funcs [[
     static TransitionRotoZoom* create(float t, @ref(map autoref) Scene* scene)
+    TransitionRotoZoom()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4211,6 +4289,7 @@ cls = typecls 'cocos2d::TransitionJumpZoom'
 cls.SUPERCLS = "cocos2d::TransitionScene"
 cls.funcs [[
     static TransitionJumpZoom* create(float t, @ref(map autoref) Scene* scene)
+    TransitionJumpZoom()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4220,6 +4299,7 @@ cls.funcs [[
     static TransitionMoveInL* create(float t, @ref(map autoref) Scene* scene)
     ActionInterval* action()
     ActionInterval* easeActionWithAction(@ref(single action) ActionInterval * action)
+    TransitionMoveInL()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4227,6 +4307,7 @@ cls = typecls 'cocos2d::TransitionMoveInR'
 cls.SUPERCLS = "cocos2d::TransitionMoveInL"
 cls.funcs [[
     static TransitionMoveInR* create(float t, @ref(map autoref) Scene* scene)
+    TransitionMoveInR()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4234,6 +4315,7 @@ cls = typecls 'cocos2d::TransitionMoveInT'
 cls.SUPERCLS = "cocos2d::TransitionMoveInL"
 cls.funcs [[
     static TransitionMoveInT* create(float t, @ref(map autoref) Scene* scene)
+    TransitionMoveInT()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4241,6 +4323,7 @@ cls = typecls 'cocos2d::TransitionMoveInB'
 cls.SUPERCLS = "cocos2d::TransitionMoveInL"
 cls.funcs [[
     static TransitionMoveInB* create(float t, @ref(map autoref) Scene* scene)
+    TransitionMoveInB()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4250,6 +4333,7 @@ cls.funcs [[
     static TransitionSlideInL* create(float t, @ref(map autoref) Scene* scene)
     ActionInterval* easeActionWithAction(@ref(single action) ActionInterval * action)
     ActionInterval* action()
+    TransitionSlideInL()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4257,6 +4341,7 @@ cls = typecls 'cocos2d::TransitionSlideInR'
 cls.SUPERCLS = "cocos2d::TransitionSlideInL"
 cls.funcs [[
     static TransitionSlideInR* create(float t, @ref(map autoref) Scene* scene)
+    TransitionSlideInR()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4264,6 +4349,7 @@ cls = typecls 'cocos2d::TransitionSlideInB'
 cls.SUPERCLS = "cocos2d::TransitionSlideInL"
 cls.funcs [[
     static TransitionSlideInB* create(float t, @ref(map autoref) Scene* scene)
+    TransitionSlideInB()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4271,6 +4357,7 @@ cls = typecls 'cocos2d::TransitionSlideInT'
 cls.SUPERCLS = "cocos2d::TransitionSlideInL"
 cls.funcs [[
     static TransitionSlideInT* create(float t, @ref(map autoref) Scene* scene)
+    TransitionSlideInT()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4279,6 +4366,7 @@ cls.SUPERCLS = "cocos2d::TransitionScene"
 cls.funcs [[
     static TransitionShrinkGrow* create(float t, @ref(map autoref) Scene* scene)
     ActionInterval* easeActionWithAction(@ref(single action) ActionInterval * action)
+    TransitionShrinkGrow()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4287,6 +4375,7 @@ cls.SUPERCLS = "cocos2d::TransitionSceneOriented"
 cls.funcs [[
     static TransitionFlipX* create(float t, @ref(map autoref) Scene* s, TransitionScene::Orientation o)
     static TransitionFlipX* create(float t, @ref(map autoref) Scene* s)
+    TransitionFlipX()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4295,6 +4384,7 @@ cls.SUPERCLS = "cocos2d::TransitionSceneOriented"
 cls.funcs [[
     static TransitionFlipY* create(float t, @ref(map autoref) Scene* s, TransitionScene::Orientation o)
     static TransitionFlipY* create(float t, @ref(map autoref) Scene* s)
+    TransitionFlipY()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4303,6 +4393,7 @@ cls.SUPERCLS = "cocos2d::TransitionSceneOriented"
 cls.funcs [[
     static TransitionFlipAngular* create(float t, @ref(map autoref) Scene* s, TransitionScene::Orientation o)
     static TransitionFlipAngular* create(float t, @ref(map autoref) Scene* s)
+    TransitionFlipAngular()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4311,6 +4402,7 @@ cls.SUPERCLS = "cocos2d::TransitionSceneOriented"
 cls.funcs [[
     static TransitionZoomFlipX* create(float t, @ref(map autoref) Scene* s, TransitionScene::Orientation o)
     static TransitionZoomFlipX* create(float t, @ref(map autoref) Scene* s)
+    TransitionZoomFlipX()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4319,6 +4411,7 @@ cls.SUPERCLS = "cocos2d::TransitionSceneOriented"
 cls.funcs [[
     static TransitionZoomFlipY* create(float t, @ref(map autoref) Scene* s, TransitionScene::Orientation o)
     static TransitionZoomFlipY* create(float t, @ref(map autoref) Scene* s)
+    TransitionZoomFlipY()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4327,6 +4420,7 @@ cls.SUPERCLS = "cocos2d::TransitionSceneOriented"
 cls.funcs [[
     static TransitionZoomFlipAngular* create(float t, @ref(map autoref) Scene* s, TransitionScene::Orientation o)
     static TransitionZoomFlipAngular* create(float t, @ref(map autoref) Scene* s)
+    TransitionZoomFlipAngular()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4335,6 +4429,7 @@ cls.SUPERCLS = "cocos2d::TransitionScene"
 cls.funcs [[
     static TransitionFade* create(float duration, @ref(map autoref) Scene* scene, const Color3B& color)
     static TransitionFade* create(float duration, @ref(map autoref) Scene* scene)
+    TransitionFade()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4342,6 +4437,7 @@ cls = typecls 'cocos2d::TransitionCrossFade'
 cls.SUPERCLS = "cocos2d::TransitionScene"
 cls.funcs [[
     static TransitionCrossFade* create(float t, @ref(map autoref) Scene* scene)
+    TransitionCrossFade()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4350,6 +4446,7 @@ cls.SUPERCLS = "cocos2d::TransitionScene"
 cls.funcs [[
     static TransitionTurnOffTiles* create(float t, @ref(map autoref) Scene* scene)
     ActionInterval * easeActionWithAction(@ref(single action) ActionInterval * action)
+    TransitionTurnOffTiles()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4359,6 +4456,7 @@ cls.funcs [[
     static TransitionSplitCols* create(float t, @ref(map autoref) Scene* scene)
     ActionInterval* action()
     ActionInterval * easeActionWithAction(@ref(single action) ActionInterval * action)
+    TransitionSplitCols()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4366,6 +4464,7 @@ cls = typecls 'cocos2d::TransitionSplitRows'
 cls.SUPERCLS = "cocos2d::TransitionSplitCols"
 cls.funcs [[
     static TransitionSplitRows* create(float t, @ref(map autoref) Scene* scene)
+    TransitionSplitRows()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4375,6 +4474,7 @@ cls.funcs [[
     static TransitionFadeTR* create(float t, @ref(map autoref) Scene* scene)
     ActionInterval* actionWithSize(const Size& size)
     ActionInterval* easeActionWithAction(@ref(single action) ActionInterval * action)
+    TransitionFadeTR()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4382,6 +4482,7 @@ cls = typecls 'cocos2d::TransitionFadeBL'
 cls.SUPERCLS = "cocos2d::TransitionFadeTR"
 cls.funcs [[
     static TransitionFadeBL* create(float t, @ref(map autoref) Scene* scene)
+    TransitionFadeBL()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4389,6 +4490,7 @@ cls = typecls 'cocos2d::TransitionFadeUp'
 cls.SUPERCLS = "cocos2d::TransitionFadeTR"
 cls.funcs [[
     static TransitionFadeUp* create(float t, @ref(map autoref) Scene* scene)
+    TransitionFadeUp()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4396,6 +4498,7 @@ cls = typecls 'cocos2d::TransitionFadeDown'
 cls.SUPERCLS = "cocos2d::TransitionFadeTR"
 cls.funcs [[
     static TransitionFadeDown* create(float t, @ref(map autoref) Scene* scene)
+    TransitionFadeDown()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4404,6 +4507,7 @@ cls.SUPERCLS = "cocos2d::TransitionScene"
 cls.funcs [[
     static TransitionPageTurn* create(float t, @ref(map autoref) Scene* scene, bool backwards)
     ActionInterval* actionWithSize(const Size& vector)
+    TransitionPageTurn()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4411,6 +4515,7 @@ cls = typecls 'cocos2d::TransitionProgress'
 cls.SUPERCLS = "cocos2d::TransitionScene"
 cls.funcs [[
     static TransitionProgress* create(float t, @ref(map autoref) Scene* scene)
+    TransitionProgress()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4418,6 +4523,7 @@ cls = typecls 'cocos2d::TransitionProgressRadialCCW'
 cls.SUPERCLS = "cocos2d::TransitionProgress"
 cls.funcs [[
     static TransitionProgressRadialCCW* create(float t, @ref(map autoref) Scene* scene)
+    TransitionProgressRadialCCW()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4425,6 +4531,7 @@ cls = typecls 'cocos2d::TransitionProgressRadialCW'
 cls.SUPERCLS = "cocos2d::TransitionProgress"
 cls.funcs [[
     static TransitionProgressRadialCW* create(float t, @ref(map autoref) Scene* scene)
+    TransitionProgressRadialCW()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4432,6 +4539,7 @@ cls = typecls 'cocos2d::TransitionProgressHorizontal'
 cls.SUPERCLS = "cocos2d::TransitionProgress"
 cls.funcs [[
     static TransitionProgressHorizontal* create(float t, @ref(map autoref) Scene* scene)
+    TransitionProgressHorizontal()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4439,6 +4547,7 @@ cls = typecls 'cocos2d::TransitionProgressVertical'
 cls.SUPERCLS = "cocos2d::TransitionProgress"
 cls.funcs [[
     static TransitionProgressVertical* create(float t, @ref(map autoref) Scene* scene)
+    TransitionProgressVertical()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4446,6 +4555,7 @@ cls = typecls 'cocos2d::TransitionProgressInOut'
 cls.SUPERCLS = "cocos2d::TransitionProgress"
 cls.funcs [[
     static TransitionProgressInOut* create(float t, @ref(map autoref) Scene* scene)
+    TransitionProgressInOut()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4453,6 +4563,7 @@ cls = typecls 'cocos2d::TransitionProgressOutIn'
 cls.SUPERCLS = "cocos2d::TransitionProgress"
 cls.funcs [[
     static TransitionProgressOutIn* create(float t, @ref(map autoref) Scene* scene)
+    TransitionProgressOutIn()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4469,6 +4580,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::TextFieldTTF'
 cls.SUPERCLS = "cocos2d::Label"
 cls.funcs [[
+    TextFieldTTF()
     static TextFieldTTF * textFieldWithPlaceHolder(const std::string& placeholder, const Size& dimensions, TextHAlignment alignment, const std::string& fontName, float fontSize)
     static TextFieldTTF * textFieldWithPlaceHolder(const std::string& placeholder, const std::string& fontName, float fontSize)
     bool initWithPlaceHolder(const std::string& placeholder, const Size& dimensions, TextHAlignment alignment, const std::string& fontName, float fontSize)
@@ -4559,6 +4671,7 @@ cls.funcs [[
     void setDirection(const Vec3 &dir)
     Vec3 getDirection()
     Vec3 getDirectionInWorld()
+    DirectionLight()
 ]]
 cls.props [[
     direction
@@ -4572,6 +4685,7 @@ cls.funcs [[
     static PointLight* create(const Vec3 &position, const Color3B &color, float range)
     float getRange()
     void setRange(float range)
+    PointLight()
 ]]
 cls.props [[
     range
@@ -4593,6 +4707,7 @@ cls.funcs [[
     void setOuterAngle(float outerAngle)
     float getOuterAngle()
     float getCosOuterAngle()
+    SpotLight()
 ]]
 cls.props [[
     direction
@@ -4609,6 +4724,7 @@ cls = typecls 'cocos2d::AmbientLight'
 cls.SUPERCLS = "cocos2d::BaseLight"
 cls.funcs [[
     static AmbientLight* create(const Color3B &color)
+    AmbientLight()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4668,6 +4784,7 @@ cls.funcs [[
     void setBackgroundBrush(CameraBackgroundBrush* clearBrush)
     CameraBackgroundBrush* getBackgroundBrush()
     bool isBrushValid()
+    Camera()
     void setScene(Scene* scene)
     void setAdditionalProjection(const Mat4& mat)
     bool initDefault()
@@ -4716,6 +4833,7 @@ cls.funcs [[
     static CameraBackgroundSkyBoxBrush* createSkyboxBrush(const std::string& positive_x, const std::string& negative_x, const std::string& positive_y, const std::string& negative_y, const std::string& positive_z, const std::string& negative_z)
     void drawBackground(Camera* )
     bool isValid()
+    CameraBackgroundBrush()
     bool init()
 ]]
 cls.props [[
@@ -4729,6 +4847,7 @@ cls.SUPERCLS = "cocos2d::CameraBackgroundBrush"
 cls.funcs [[
     static CameraBackgroundDepthBrush* create(float depth)
     void setDepth(float depth)
+    CameraBackgroundDepthBrush()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4737,6 +4856,7 @@ cls.SUPERCLS = "cocos2d::CameraBackgroundDepthBrush"
 cls.funcs [[
     static CameraBackgroundColorBrush* create(const Color4F& color, float depth)
     void setColor(const Color4F& color)
+    CameraBackgroundColorBrush()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4749,6 +4869,7 @@ cls.funcs [[
     bool isActived()
     void setActived(bool actived)
     void setTextureValid(bool valid)
+    CameraBackgroundSkyBoxBrush()
 ]]
 cls.props [[
     actived
@@ -4758,6 +4879,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ActionCamera'
 cls.SUPERCLS = "cocos2d::ActionInterval"
 cls.funcs [[
+    ActionCamera()
     void setEye(const Vec3 &eye)
     void setEye(float x, float y, float z)
     const Vec3& getEye()
@@ -4777,6 +4899,7 @@ cls = typecls 'cocos2d::OrbitCamera'
 cls.SUPERCLS = "cocos2d::ActionCamera"
 cls.funcs [[
     static OrbitCamera* create(float t, float radius, float deltaRadius, float angleZ, float deltaAngleZ, float angleX, float deltaAngleX)
+    OrbitCamera()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4827,6 +4950,7 @@ cls.funcs [[
     static Grid3D* create(const Size& gridSize, const Rect& rect)
     static Grid3D* create(const Size& gridSize, Texture2D *texture, bool flipped)
     static Grid3D* create(const Size& gridSize, Texture2D *texture, bool flipped, const Rect& rect)
+    Grid3D()
     Vec3 getVertex(const Vec2& pos)
     Vec3 getOriginalVertex(const Vec2& pos)
     void setVertex(const Vec2& pos, const Vec3& vertex)
@@ -4845,6 +4969,7 @@ cls.funcs [[
     static TiledGrid3D* create(const Size& gridSize, const Rect& rect)
     static TiledGrid3D* create(const Size& gridSize, Texture2D *texture, bool flipped)
     static TiledGrid3D* create(const Size& gridSize, Texture2D *texture, bool flipped, const Rect& rect)
+    TiledGrid3D()
     Quad3 getTile(const Vec2& pos)
     Quad3 getOriginalTile(const Vec2& pos)
     void setTile(const Vec2& pos, const Quad3& coords)
@@ -4861,6 +4986,7 @@ cls.funcs [[
     void setTarget(Node *target)
     void setGridRect(const Rect& gridRect)
     const Rect& getGridRect()
+    NodeGrid()
 ]]
 cls.props [[
     grid
@@ -4872,6 +4998,7 @@ cls = typecls 'cocos2d::GridAction'
 cls.SUPERCLS = "cocos2d::ActionInterval"
 cls.funcs [[
     GridBase* getGrid()
+    GridAction()
 ]]
 cls.props [[
     grid
@@ -4918,6 +5045,7 @@ cls.funcs [[
     static AccelDeccelAmplitude* create(Action *action, float duration)
     float getRate()
     void setRate(float rate)
+    AccelDeccelAmplitude()
 ]]
 cls.props [[
     rate
@@ -4930,6 +5058,7 @@ cls.funcs [[
     static AccelAmplitude* create(Action *action, float duration)
     float getRate()
     void setRate(float rate)
+    AccelAmplitude()
 ]]
 cls.props [[
     rate
@@ -4942,6 +5071,7 @@ cls.funcs [[
     static DeccelAmplitude* create(Action *action, float duration)
     float getRate()
     void setRate(float rate)
+    DeccelAmplitude()
 ]]
 cls.props [[
     rate
@@ -4952,6 +5082,7 @@ cls = typecls 'cocos2d::StopGrid'
 cls.SUPERCLS = "cocos2d::ActionInstant"
 cls.funcs [[
     static StopGrid* create()
+    StopGrid()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4959,6 +5090,7 @@ cls = typecls 'cocos2d::ReuseGrid'
 cls.SUPERCLS = "cocos2d::ActionInstant"
 cls.funcs [[
     static ReuseGrid* create(int times)
+    ReuseGrid()
     bool initWithTimes(int times)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -4969,6 +5101,7 @@ cls.funcs [[
     static Waves3D* create(float duration, const Size& gridSize, unsigned int waves, float amplitude)
     float getAmplitude()
     void setAmplitude(float amplitude)
+    Waves3D()
 ]]
 cls.props [[
     amplitude
@@ -4979,6 +5112,7 @@ cls = typecls 'cocos2d::FlipX3D'
 cls.SUPERCLS = "cocos2d::Grid3DAction"
 cls.funcs [[
     static FlipX3D* create(float duration)
+    FlipX3D()
     bool initWithSize(const Size& gridSize, float duration)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -4987,6 +5121,7 @@ cls = typecls 'cocos2d::FlipY3D'
 cls.SUPERCLS = "cocos2d::FlipX3D"
 cls.funcs [[
     static FlipY3D* create(float duration)
+    FlipY3D()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4999,6 +5134,7 @@ cls.funcs [[
     void setConcave(bool concave)
     const Vec2& getPosition()
     void setPosition(const Vec2& position)
+    Lens3D()
 ]]
 cls.props [[
     lensEffect
@@ -5014,6 +5150,7 @@ cls.funcs [[
     void setPosition(const Vec2& position)
     float getAmplitude()
     void setAmplitude(float fAmplitude)
+    Ripple3D()
 ]]
 cls.props [[
     position
@@ -5025,6 +5162,7 @@ cls = typecls 'cocos2d::Shaky3D'
 cls.SUPERCLS = "cocos2d::Grid3DAction"
 cls.funcs [[
     static Shaky3D* create(float initWithDuration, const Size& gridSize, int range, bool shakeZ)
+    Shaky3D()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -5034,6 +5172,7 @@ cls.funcs [[
     static Liquid* create(float duration, const Size& gridSize, unsigned int waves, float amplitude)
     float getAmplitude()
     void setAmplitude(float amplitude)
+    Liquid()
 ]]
 cls.props [[
     amplitude
@@ -5046,6 +5185,7 @@ cls.funcs [[
     static Waves* create(float duration, const Size& gridSize, unsigned int waves, float amplitude, bool horizontal, bool vertical)
     float getAmplitude()
     void setAmplitude(float amplitude)
+    Waves()
 ]]
 cls.props [[
     amplitude
@@ -5060,6 +5200,7 @@ cls.funcs [[
     void setPosition(const Vec2& position)
     float getAmplitude()
     void setAmplitude(float amplitude)
+    Twirl()
 ]]
 cls.props [[
     position
@@ -5078,6 +5219,7 @@ cls = typecls 'cocos2d::ShakyTiles3D'
 cls.SUPERCLS = "cocos2d::TiledGrid3DAction"
 cls.funcs [[
     static ShakyTiles3D* create(float duration, const Size& gridSize, int range, bool shakeZ)
+    ShakyTiles3D()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -5085,6 +5227,7 @@ cls = typecls 'cocos2d::ShatteredTiles3D'
 cls.SUPERCLS = "cocos2d::TiledGrid3DAction"
 cls.funcs [[
     static ShatteredTiles3D* create(float duration, const Size& gridSize, int range, bool shatterZ)
+    ShatteredTiles3D()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -5093,6 +5236,7 @@ cls.SUPERCLS = "cocos2d::TiledGrid3DAction"
 cls.funcs [[
     static ShuffleTiles* create(float duration, const Size& gridSize, unsigned int seed)
     Size getDelta(const Size& pos)
+    ShuffleTiles()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -5104,6 +5248,7 @@ cls.funcs [[
     void turnOnTile(const Vec2& pos)
     void turnOffTile(const Vec2& pos)
     void transformTile(const Vec2& pos, float distance)
+    FadeOutTRTiles()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -5111,6 +5256,7 @@ cls = typecls 'cocos2d::FadeOutBLTiles'
 cls.SUPERCLS = "cocos2d::FadeOutTRTiles"
 cls.funcs [[
     static FadeOutBLTiles* create(float duration, const Size& gridSize)
+    FadeOutBLTiles()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -5118,6 +5264,7 @@ cls = typecls 'cocos2d::FadeOutUpTiles'
 cls.SUPERCLS = "cocos2d::FadeOutTRTiles"
 cls.funcs [[
     static FadeOutUpTiles* create(float duration, const Size& gridSize)
+    FadeOutUpTiles()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -5125,6 +5272,7 @@ cls = typecls 'cocos2d::FadeOutDownTiles'
 cls.SUPERCLS = "cocos2d::FadeOutUpTiles"
 cls.funcs [[
     static FadeOutDownTiles* create(float duration, const Size& gridSize)
+    FadeOutDownTiles()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -5135,6 +5283,7 @@ cls.funcs [[
     static TurnOffTiles* create(float duration, const Size& gridSize, unsigned int seed)
     void turnOnTile(const Vec2& pos)
     void turnOffTile(const Vec2& pos)
+    TurnOffTiles()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -5144,6 +5293,7 @@ cls.funcs [[
     static WavesTiles3D* create(float duration, const Size& gridSize, unsigned int waves, float amplitude)
     float getAmplitude()
     void setAmplitude(float amplitude)
+    WavesTiles3D()
 ]]
 cls.props [[
     amplitude
@@ -5156,6 +5306,7 @@ cls.funcs [[
     static JumpTiles3D* create(float duration, const Size& gridSize, unsigned int numberOfJumps, float amplitude)
     float getAmplitude()
     void setAmplitude(float amplitude)
+    JumpTiles3D()
 ]]
 cls.props [[
     amplitude
@@ -5166,6 +5317,7 @@ cls = typecls 'cocos2d::SplitRows'
 cls.SUPERCLS = "cocos2d::TiledGrid3DAction"
 cls.funcs [[
     static SplitRows* create(float duration, unsigned int rows)
+    SplitRows()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -5173,6 +5325,7 @@ cls = typecls 'cocos2d::SplitCols'
 cls.SUPERCLS = "cocos2d::TiledGrid3DAction"
 cls.funcs [[
     static SplitCols* create(float duration, unsigned int cols)
+    SplitCols()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -5190,6 +5343,7 @@ cls.funcs [[
     void setTexture(Texture2D *texture)
     void setBlendFunc(const BlendFunc &blendFunc)
     const BlendFunc& getBlendFunc()
+    ParticleBatchNode()
     bool initWithTexture(Texture2D *tex, int capacity)
     bool initWithFile(const std::string& fileImage, int capacity)
 ]]
@@ -5321,6 +5475,7 @@ cls.funcs [[
     void stop()
     void setSourcePositionCompatible(bool sourcePositionCompatible)
     bool isSourcePositionCompatible()
+    ParticleSystem()
     bool initWithFile(const std::string& plistFile)
     bool initWithDictionary(ValueMap& dictionary)
     bool initWithDictionary(ValueMap& dictionary, const std::string& dirname)
@@ -5393,6 +5548,7 @@ cls.funcs [[
     void setDisplayFrame(SpriteFrame *spriteFrame)
     void setTextureWithRect(Texture2D *texture, const Rect& rect)
     void listenRendererRecreated(EventCustom* event)
+    ParticleSystemQuad()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -5401,6 +5557,7 @@ cls.SUPERCLS = "cocos2d::ParticleSystemQuad"
 cls.funcs [[
     static ParticleExplosion* create()
     static ParticleExplosion* createWithTotalParticles(int numberOfParticles)
+    ParticleExplosion()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -5409,6 +5566,7 @@ cls.SUPERCLS = "cocos2d::ParticleSystemQuad"
 cls.funcs [[
     static ParticleFire* create()
     static ParticleFire* createWithTotalParticles(int numberOfParticles)
+    ParticleFire()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -5417,6 +5575,7 @@ cls.SUPERCLS = "cocos2d::ParticleSystemQuad"
 cls.funcs [[
     static ParticleFireworks* create()
     static ParticleFireworks* createWithTotalParticles(int numberOfParticles)
+    ParticleFireworks()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -5425,6 +5584,7 @@ cls.SUPERCLS = "cocos2d::ParticleSystemQuad"
 cls.funcs [[
     static ParticleFlower* create()
     static ParticleFlower* createWithTotalParticles(int numberOfParticles)
+    ParticleFlower()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -5433,6 +5593,7 @@ cls.SUPERCLS = "cocos2d::ParticleSystemQuad"
 cls.funcs [[
     static ParticleGalaxy* create()
     static ParticleGalaxy* createWithTotalParticles(int numberOfParticles)
+    ParticleGalaxy()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -5441,6 +5602,7 @@ cls.SUPERCLS = "cocos2d::ParticleSystemQuad"
 cls.funcs [[
     static ParticleMeteor * create()
     static ParticleMeteor* createWithTotalParticles(int numberOfParticles)
+    ParticleMeteor()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -5449,6 +5611,7 @@ cls.SUPERCLS = "cocos2d::ParticleSystemQuad"
 cls.funcs [[
     static ParticleRain* create()
     static ParticleRain* createWithTotalParticles(int numberOfParticles)
+    ParticleRain()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -5457,6 +5620,7 @@ cls.SUPERCLS = "cocos2d::ParticleSystemQuad"
 cls.funcs [[
     static ParticleSmoke* create()
     static ParticleSmoke* createWithTotalParticles(int numberOfParticles)
+    ParticleSmoke()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -5465,6 +5629,7 @@ cls.SUPERCLS = "cocos2d::ParticleSystemQuad"
 cls.funcs [[
     static ParticleSnow* create()
     static ParticleSnow* createWithTotalParticles(int numberOfParticles)
+    ParticleSnow()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -5473,6 +5638,7 @@ cls.SUPERCLS = "cocos2d::ParticleSystemQuad"
 cls.funcs [[
     static ParticleSpiral* create()
     static ParticleSpiral* createWithTotalParticles(int numberOfParticles)
+    ParticleSpiral()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -5481,6 +5647,7 @@ cls.SUPERCLS = "cocos2d::ParticleSystemQuad"
 cls.funcs [[
     static ParticleSun* create()
     static ParticleSun* createWithTotalParticles(int numberOfParticles)
+    ParticleSun()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 

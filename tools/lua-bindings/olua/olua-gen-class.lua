@@ -3,6 +3,60 @@ local olua = require "olua.olua-io"
 local format = olua.format
 local classmap = {}
 
+local function hasGCMethod(cls)
+    for _, v in ipairs(cls.FUNCS) do
+        if v[1].LUAFUNC == '__gc' then
+            return true
+        end
+    end
+
+    if cls.SUPERCLS then
+        return hasGCMethod(olua.classmap()[cls.SUPERCLS])
+    end
+end
+
+local function checkGCMethod(cls)
+    local hasConstructor = false
+    for _, v in ipairs(cls.FUNCS) do
+        if v[1].CONSTRUCTOR then
+            hasConstructor = true
+            break
+        end
+    end
+    if hasConstructor then
+        if not hasGCMethod(cls) then
+            local fi = {}
+            fi.LUAFUNC = '__gc'
+            fi.CPPFUNC = '__gc'
+            fi.CPPFUNC_SNIPPET = format [[
+                {
+                    lua_settop(L, 1);
+                    auto self = olua_touserdata(L, 1, ${cls.CPPCLS} *);
+                    lua_pushstring(L, ".ownership");
+                    olua_getvariable(L, 1);
+                    if (lua_toboolean(L, -1) && self) {
+                        *(void **)lua_touserdata(L, 1) = nullptr;
+                        delete self;
+                    }
+                    return 0;
+                }
+            ]]
+            fi.DECLFUNC = '<function snippet>'
+            fi.RET = {}
+            fi.RET.NUM = 0
+            fi.RET.TYPE = olua.typeinfo('void', cls)
+            fi.RET.ATTR = {}
+            fi.ARGS = {}
+            fi.INJECT = {}
+            fi.PROTOTYPE = false
+            fi.INDEX = 1
+            fi.MAX_ARGS = #fi.ARGS
+            cls.FUNCS[#cls.FUNCS + 1] = {MAX_ARGS = fi.MAX_ARGS}
+            cls.FUNCS[#cls.FUNCS][1] = fi
+        end
+    end
+end
+
 local function checkGenClassFunc(cls, fi, write, func_filter)
     local meta = assert(classmap[cls.LUACLS], cls.LUACLS)
     if meta and getmetatable(meta) then
@@ -175,6 +229,7 @@ local function genClassChunk(cls, write)
 end
 
 function olua.genClass(module, cls, write)
+    checkGCMethod(cls)
     genClassChunk(cls, write)
     genClassFuncs(cls, write)
     genClassOpen(cls, write)

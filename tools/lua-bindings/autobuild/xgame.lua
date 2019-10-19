@@ -37,6 +37,7 @@ cls.funcs [[
     static SceneNoCamera *create()
     static SceneNoCamera *createWithSize(const cocos2d::Size& size)
     static SceneNoCamera *createWithPhysics()
+    SceneNoCamera()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 

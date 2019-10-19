@@ -64,12 +64,29 @@ static int _xgame_SceneNoCamera_createWithSize(lua_State *L)
     return num_ret;
 }
 
+static int _xgame_SceneNoCamera_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // SceneNoCamera()
+    xgame::SceneNoCamera *ret = (xgame::SceneNoCamera *)new xgame::SceneNoCamera();
+    int num_ret = olua_push_cppobj(L, ret, "kernel.SceneNoCamera");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_xgame_SceneNoCamera(lua_State *L)
 {
     oluacls_class(L, "kernel.SceneNoCamera", "cc.Scene");
     oluacls_func(L, "create", _xgame_SceneNoCamera_create);
     oluacls_func(L, "createWithPhysics", _xgame_SceneNoCamera_createWithPhysics);
     oluacls_func(L, "createWithSize", _xgame_SceneNoCamera_createWithSize);
+    oluacls_func(L, "new", _xgame_SceneNoCamera_new);
 
     olua_registerluatype<xgame::SceneNoCamera>(L, "kernel.SceneNoCamera");
     oluacls_createclassproxy(L);

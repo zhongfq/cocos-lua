@@ -215,6 +215,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'dragonBones::Point'
 cls.funcs [[
+    Point()
     void clear()
     static Point* getHelpPointA()
     static Point* getHelpPointB()
@@ -404,6 +405,7 @@ cls = typecls 'dragonBones::ActionData'
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
     static std::size_t getTypeIndex()
+    ActionData()
     int getType()
     void setType(int value)
     const BoneData* getBone()
@@ -471,6 +473,7 @@ cls = typecls 'dragonBones::BoundingBoxDisplayData'
 cls.SUPERCLS = "dragonBones::DisplayData"
 cls.funcs [[
     static std::size_t getTypeIndex()
+    BoundingBoxDisplayData()
     const BoundingBoxData* getBoundingBox()
     void setBoundingBox(BoundingBoxData* value)
 ]]
@@ -529,6 +532,7 @@ cls = typecls 'dragonBones::ArmatureData'
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
     static std::size_t getTypeIndex()
+    ArmatureData()
     void sortBones()
     void cacheFrames(unsigned frameRate)
     void addBone(BoneData* value)
@@ -606,6 +610,7 @@ cls = typecls 'dragonBones::BoneData'
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
     static std::size_t getTypeIndex()
+    BoneData()
     const UserData* getUserData()
     void setUserData(UserData* value)
     const BoneData* getParent()
@@ -630,6 +635,7 @@ cls = typecls 'dragonBones::SlotData'
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
     static std::size_t getTypeIndex()
+    SlotData()
     int getBlendMode()
     void setBlendMode(int value)
     const BoneData* getParent()
@@ -655,6 +661,7 @@ cls = typecls 'dragonBones::AnimationState'
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
     static std::size_t getTypeIndex()
+    AnimationState()
     void init(Armature* armature, AnimationData* animationData, AnimationConfig* animationConfig)
     void advanceTime(float passedTime, float cacheFrameRate)
     void play()
@@ -707,6 +714,7 @@ cls = typecls 'dragonBones::AnimationData'
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
     static std::size_t getTypeIndex()
+    AnimationData()
     void cacheFrames(unsigned frameRate)
     void addBoneTimeline(BoneData* bone, TimelineData* value)
     void addSlotTimeline(SlotData* slot, TimelineData* value)
@@ -790,6 +798,7 @@ cls = typecls 'dragonBones::DragonBonesData'
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
     static std::size_t getTypeIndex()
+    DragonBonesData()
     void addArmature(ArmatureData* value)
     ArmatureData* getArmature(const std::string& armatureName)
     const std::vector<std::string>& getArmatureNames()
@@ -838,6 +847,7 @@ cls = typecls 'dragonBones::Armature'
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
     static std::size_t getTypeIndex()
+    Armature()
     void dispose()
     void advanceTime(float passedTime)
     void invalidUpdate(const std::string& boneName = "", bool updateSlot = false)
@@ -901,6 +911,7 @@ cls = typecls 'dragonBones::Animation'
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
     static std::size_t getTypeIndex()
+    Animation()
     void init(Armature* armature)
     void advanceTime(float passedTime)
     void reset()
@@ -941,6 +952,7 @@ cls = typecls 'dragonBones::CCFactory'
 cls.SUPERCLS = "dragonBones::BaseFactory"
 cls.funcs [[
     static CCFactory* getFactory()
+    CCFactory()
     DragonBonesData* loadDragonBonesData(const std::string& filePath, const std::string& name = "", float scale = 1.0f)
     TextureAtlasData* loadTextureAtlasData(const std::string& filePath, const std::string& name = "", float scale = 1.0f)
     CCArmatureDisplay* buildArmatureDisplay(const std::string& armatureName, const std::string& dragonBonesName = "", const std::string& skinName = "", const std::string& textureAtlasName = "")
@@ -957,6 +969,7 @@ cls = typecls 'dragonBones::CCArmatureDisplay'
 cls.SUPERCLS = "cocos2d::Node"
 cls.funcs [[
     static CCArmatureDisplay* create()
+    CCArmatureDisplay()
     void dbInit(Armature* armature)
     void dbClear()
     void dbUpdate()

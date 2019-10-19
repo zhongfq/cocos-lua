@@ -52,12 +52,12 @@ extern "C" {
 #define OLUA_VOIDCLS "void *"
     
 #ifndef olua_mainthread
-#define olua_mainthread() assert(false && "not define olua_mainthread")
+#define olua_mainthread() static_assert(false, "olua_mainthread is not defined")
 #endif
     
 #ifndef olua_startcmpunref
-#define olua_startcmpunref(L, i, n) assert(false && "not define olua_startcmpunref")
-#define olua_endcmpunref(L, i, n) assert(false && "not define olua_endcmpunref")
+#define olua_startcmpunref(L, i, n) static_assert(false, "olua_startcmpunref is not defined")
+#define olua_endcmpunref(L, i, n) static_assert(false, "olua_endcmpunref is not defined")
 #endif
     
 #ifndef olua_startinvoke

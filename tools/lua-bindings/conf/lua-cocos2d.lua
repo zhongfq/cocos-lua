@@ -129,13 +129,6 @@ template <typename T> bool doScheduleUpdate(lua_State *L)
     
     return false;
 }]]
-Scheduler.FUNC('new', [[
-{
-    auto obj = new cocos2d::Scheduler();
-    obj->autorelease();
-    return olua_push_cppobj<cocos2d::Scheduler>(L, obj);
-}
-]])
 Scheduler.CALLBACK {
     FUNCS = {
         'void schedule(const std::function<void(float)>& callback, void *target, float interval, bool paused, const std::string& key)',
@@ -321,15 +314,7 @@ EventListenerMouse.VAR('onMouseScroll', 'std::function<void(@local EventMouse* e
 typeconf 'cocos2d::Event::Type'
 typeconf 'cocos2d::Event'
 
-local EventCustom = typeconf 'cocos2d::EventCustom'
-EventCustom.FUNC('new', [[
-{
-    lua_settop(L, 1);
-    const char *event = olua_checkstring(L, 1);
-    auto obj = new cocos2d::EventCustom(event);
-    obj->autorelease();
-    return olua_push_cppobj<cocos2d::EventCustom>(L, obj);
-}]])
+typeconf 'cocos2d::EventCustom'
 
 local EventListenerController = typeconf 'cocos2d::EventListenerController'
 EventListenerController.VAR('onConnected', 'std::function<void(@local Controller*, @local Event*)> onConnected = nullptr')
@@ -352,14 +337,7 @@ typeconf 'cocos2d::Touch::DispatchMode'
 typeconf 'cocos2d::EventController::ControllerEventType'
 typeconf 'cocos2d::EventController'
 
-local Touch = typeconf 'cocos2d::Touch'
-Touch.FUNC('new', [[
-{
-    auto obj = new cocos2d::Touch();
-    obj->autorelease();
-    return olua_push_cppobj<cocos2d::Touch>(L, obj);
-}]])
-
+typeconf 'cocos2d::Touch'
 typeconf 'cocos2d::Controller::Key'
 
 local Controller = typeconf 'cocos2d::Controller'
@@ -642,14 +620,7 @@ LuaWebSocketDelegate.VAR('onMessage', '@nullable std::function<void (network::We
 LuaWebSocketDelegate.VAR('onClose', '@nullable std::function<void (network::WebSocket *)> onCloseCallback')
 LuaWebSocketDelegate.VAR('onError', '@nullable std::function<void (network::WebSocket *, const network::WebSocket::ErrorCode &)> onErrorCallback')
 
-local ActionManager = typeconf 'cocos2d::ActionManager'
-ActionManager.FUNC('new', [[
-{
-    auto obj = new cocos2d::ActionManager();
-    obj->autorelease();
-    return olua_push_cppobj<cocos2d::ActionManager>(L, obj);
-}
-]])
+typeconf 'cocos2d::ActionManager'
 
 -- actions
 local Action = typeconf 'cocos2d::Action'

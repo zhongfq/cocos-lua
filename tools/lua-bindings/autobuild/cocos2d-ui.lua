@@ -79,6 +79,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::Widget'
 cls.SUPERCLS = "cocos2d::ProtectedNode"
 cls.funcs [[
+    Widget()
     static Widget* create()
     void setEnabled(bool enabled)
     bool isEnabled()
@@ -249,6 +250,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::Scale9Sprite'
 cls.SUPERCLS = "cocos2d::Sprite"
 cls.funcs [[
+    Scale9Sprite()
     static Scale9Sprite* create()
     static Scale9Sprite* create(const std::string& file, const Rect& rect, const Rect& capInsets)
     static Scale9Sprite* create(const Rect& capInsets, const std::string& file)
@@ -328,6 +330,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::LayoutComponent'
 cls.SUPERCLS = "cocos2d::Component"
 cls.funcs [[
+    LayoutComponent()
     static cocos2d::ui::LayoutComponent * create()
     static LayoutComponent* bindLayoutComponent(Node* node)
     void setUsingPercentContentSize(bool isUsed)
@@ -418,6 +421,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::LayoutParameter'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
+    LayoutParameter()
     static LayoutParameter* create()
     void setMargin(const Margin& margin)
     const Margin& getMargin()
@@ -447,6 +451,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::LinearLayoutParameter'
 cls.SUPERCLS = "cocos2d::ui::LayoutParameter"
 cls.funcs [[
+    LinearLayoutParameter()
     static LinearLayoutParameter* create()
     void setGravity(LinearGravity gravity)
     LinearGravity getGravity()
@@ -486,6 +491,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::RelativeLayoutParameter'
 cls.SUPERCLS = "cocos2d::ui::LayoutParameter"
 cls.funcs [[
+    RelativeLayoutParameter()
     static RelativeLayoutParameter* create()
     void setAlign(RelativeAlign align)
     RelativeAlign getAlign()
@@ -528,6 +534,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::Layout'
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.funcs [[
+    Layout()
     static Layout* create()
     void setBackGroundImage(const std::string& fileName,TextureResType texType = TextureResType::LOCAL)
     void setBackGroundImageCapInsets(const Rect& capInsets)
@@ -590,6 +597,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::HBox'
 cls.SUPERCLS = "cocos2d::ui::Layout"
 cls.funcs [[
+    HBox()
     static HBox* create()
     static HBox* create(const Size& size)
     bool initWithSize(const Size& size)
@@ -599,6 +607,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::VBox'
 cls.SUPERCLS = "cocos2d::ui::Layout"
 cls.funcs [[
+    VBox()
     static VBox* create()
     static VBox* create(const Size& size)
     bool initWithSize(const Size& size)
@@ -608,6 +617,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::RelativeBox'
 cls.SUPERCLS = "cocos2d::ui::Layout"
 cls.funcs [[
+    RelativeBox()
     static RelativeBox* create()
     static RelativeBox* create(const Size& size)
     bool initWithSize(const Size& size)
@@ -637,6 +647,7 @@ cls.funcs [[
     void setOpacityWebView(float opacity)
     float getOpacityWebView()
     void setBackgroundTransparent()
+    WebView()
 ]]
 cls.callback {
     FUNCS =  {
@@ -761,6 +772,7 @@ cls.funcs [[
     void setFullScreenEnabled(bool fullscreen)
     bool isFullScreenEnabled()
     void onPlayEvent(int event)
+    VideoPlayer()
 ]]
 cls.callback {
     FUNCS =  {
@@ -946,6 +958,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::ScrollView'
 cls.SUPERCLS = "cocos2d::ui::Layout"
 cls.funcs [[
+    ScrollView()
     static ScrollView* create()
     void setDirection(Direction dir)
     Direction getDirection()
@@ -1075,6 +1088,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::ListView'
 cls.SUPERCLS = "cocos2d::ui::ScrollView"
 cls.funcs [[
+    ListView()
     static ListView* create()
     void setItemModel(Widget* model)
     void pushBackDefaultItem()
@@ -1157,6 +1171,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::LoadingBar'
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.funcs [[
+    LoadingBar()
     static LoadingBar* create()
     static LoadingBar* create(const std::string& textureName, float percentage = 0)
     static LoadingBar* create(const std::string& textureName, TextureResType texType, float percentage = 0)
@@ -1198,6 +1213,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::PageView'
 cls.SUPERCLS = "cocos2d::ui::ListView"
 cls.funcs [[
+    PageView()
     static PageView* create()
     void addPage(@ref(map children) Widget* page)
     void insertPage(@ref(map children) Widget* page, int idx)
@@ -1267,6 +1283,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::RichElement'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
+    RichElement()
     bool init(int tag, const Color3B& color, GLubyte opacity)
     bool equalType(Type type)
     void setColor(const Color3B& color)
@@ -1276,6 +1293,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::RichElementText'
 cls.SUPERCLS = "cocos2d::ui::RichElement"
 cls.funcs [[
+    RichElementText()
     bool init(int tag, const Color3B& color, GLubyte opacity, const std::string& text, const std::string& fontName, float fontSize, uint32_t flags, const std::string& url, const Color3B& outlineColor = Color3B::WHITE, int outlineSize = -1, const Color3B& shadowColor = Color3B::BLACK, const cocos2d::Size& shadowOffset = Size(2.0, -2.0), int shadowBlurRadius = 0, const Color3B& glowColor = Color3B::WHITE)
     static RichElementText* create(int tag, const Color3B& color, GLubyte opacity, const std::string& text, const std::string& fontName, float fontSize, uint32_t flags=0, const std::string& url="", const Color3B& outlineColor = Color3B::WHITE, int outlineSize = -1, const Color3B& shadowColor = Color3B::BLACK, const cocos2d::Size& shadowOffset = Size(2.0, -2.0), int shadowBlurRadius = 0, const Color3B& glowColor = Color3B::WHITE)
 ]]
@@ -1284,6 +1302,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::RichElementImage'
 cls.SUPERCLS = "cocos2d::ui::RichElement"
 cls.funcs [[
+    RichElementImage()
     bool init(int tag, const Color3B& color, GLubyte opacity, const std::string& filePath, const std::string& url = "", Widget::TextureResType texType = Widget::TextureResType::LOCAL)
     static RichElementImage* create(int tag, const Color3B& color, GLubyte opacity, const std::string& filePath, const std::string& url = "", Widget::TextureResType texType = Widget::TextureResType::LOCAL)
     void setWidth(int width)
@@ -1295,6 +1314,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::RichElementCustomNode'
 cls.SUPERCLS = "cocos2d::ui::RichElement"
 cls.funcs [[
+    RichElementCustomNode()
     bool init(int tag, const Color3B& color, GLubyte opacity, Node* customNode)
     static RichElementCustomNode* create(int tag, const Color3B& color, GLubyte opacity, Node* customNode)
 ]]
@@ -1303,6 +1323,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::RichElementNewLine'
 cls.SUPERCLS = "cocos2d::ui::RichElement"
 cls.funcs [[
+    RichElementNewLine()
     static RichElementNewLine* create(int tag, const Color3B& color, GLubyte opacity)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -1325,6 +1346,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::RichText'
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.funcs [[
+    RichText()
     static RichText* create()
     void insertElement(RichElement* element, int index)
     void pushBackElement(RichElement* element)
@@ -1430,6 +1452,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::ScrollViewBar'
 cls.SUPERCLS = "cocos2d::ProtectedNode"
 cls.funcs [[
+    ScrollViewBar(ScrollView* parent, ScrollView::Direction direction)
     static ScrollViewBar* create(ScrollView* parent, ScrollView::Direction direction)
     void setPositionFromCorner(const Vec2& positionFromCorner)
     Vec2 getPositionFromCorner()
@@ -1463,6 +1486,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::Slider'
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.funcs [[
+    Slider()
     static Slider* create()
     static Slider* create(const std::string& barTextureName, const std::string& normalBallTextureName, TextureResType resType = TextureResType::LOCAL)
     void loadBarTexture(const std::string& fileName,TextureResType resType = TextureResType::LOCAL)
@@ -1533,6 +1557,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::Text'
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.funcs [[
+    Text()
     static Text* create()
     static Text* create(const std::string& textContent, const std::string& fontName, float fontSize)
     void setString(const std::string& text)
@@ -1597,6 +1622,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::TextAtlas'
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.funcs [[
+    TextAtlas()
     static TextAtlas* create()
     static TextAtlas* create(const std::string& stringValue, const std::string& charMapFile, int itemWidth, int itemHeight, const std::string& startCharMap)
     void setProperty(const std::string& stringValue, const std::string& charMapFile, int itemWidth, int itemHeight, const std::string& startCharMap)
@@ -1615,6 +1641,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::TextBMFont'
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.funcs [[
+    TextBMFont()
     static TextBMFont* create()
     static TextBMFont* create(const std::string& text, const std::string& filename)
     void setFntFile(const std::string& fileName)
@@ -1635,6 +1662,7 @@ cls = typecls 'cocos2d::ui::UICCTextField'
 cls.SUPERCLS = "cocos2d::TextFieldTTF"
 cls.funcs [[
     static UICCTextField* create()
+    UICCTextField()
     static UICCTextField* create(const std::string& placeholder, const std::string& fontName, float fontSize)
     bool onTextFieldAttachWithIME(TextFieldTTF *pSender)
     bool onTextFieldDetachWithIME(TextFieldTTF * pSender)
@@ -1681,6 +1709,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::TextField'
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.funcs [[
+    TextField()
     static TextField* create()
     static TextField* create(const std::string& placeholder, const std::string& fontName, int fontSize)
     void setTouchSize(const Size &size)
@@ -1764,6 +1793,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::Button'
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.funcs [[
+    Button()
     static Button* create()
     static Button* create(const std::string& normalImage, const std::string& selectedImage = "", const std::string& disableImage = "", TextureResType texType = TextureResType::LOCAL)
     void loadTextures(const std::string& normal, const std::string& selected, const std::string& disabled = "", TextureResType texType = TextureResType::LOCAL)
@@ -1839,6 +1869,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::CheckBox'
 cls.SUPERCLS = "cocos2d::ui::AbstractCheckButton"
 cls.funcs [[
+    CheckBox()
     static CheckBox* create()
     static CheckBox* create(const std::string& backGround, const std::string& backGroundSelected, const std::string& cross, const std::string& backGroundDisabled, const std::string& frontCrossDisabled, TextureResType texType = TextureResType::LOCAL)
     static CheckBox* create(const std::string& backGround, const std::string& cross, TextureResType texType = TextureResType::LOCAL)
@@ -1864,6 +1895,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::RadioButton'
 cls.SUPERCLS = "cocos2d::ui::AbstractCheckButton"
 cls.funcs [[
+    RadioButton()
     static RadioButton* create()
     static RadioButton* create(const std::string& backGround, const std::string& backGroundSelected, const std::string& cross, const std::string& backGroundDisabled, const std::string& frontCrossDisabled, TextureResType texType = TextureResType::LOCAL)
     static RadioButton* create(const std::string& backGround, const std::string& cross, TextureResType texType = TextureResType::LOCAL)
@@ -1888,6 +1920,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::RadioButtonGroup'
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.funcs [[
+    RadioButtonGroup()
     static RadioButtonGroup* create()
     int getSelectedButtonIndex()
     void setSelectedButton(int index)
@@ -1921,6 +1954,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::ImageView'
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.funcs [[
+    ImageView()
     static ImageView* create()
     static ImageView* create(const std::string& imageFileName, TextureResType texType = TextureResType::LOCAL)
     void loadTexture(const std::string& fileName,TextureResType texType = TextureResType::LOCAL)
@@ -2019,6 +2053,7 @@ cls.funcs [[
     static EditBox* create(const Size& size, Scale9Sprite* normalSprite, Scale9Sprite* pressedSprite = nullptr, Scale9Sprite* disabledSprite = nullptr)
     static EditBox* create(const Size& size, const std::string& normalImage, TextureResType texType)
     static EditBox* create(const Size& size, const std::string& normalImage, const std::string& pressedImage = "", const std::string& disabledImage = "", TextureResType texType = TextureResType::LOCAL)
+    EditBox()
     bool initWithSizeAndBackgroundSprite(const Size& size, const std::string& normal9SpriteBg, TextureResType texType = TextureResType::LOCAL)
     bool initWithSizeAndBackgroundSprite(const Size& size, Scale9Sprite* normal9SpriteBg)
     bool initWithSizeAndBackgroundSprite(const Size& size, Scale9Sprite* normalSprite, Scale9Sprite* pressedSprite, Scale9Sprite* disabledSprite)

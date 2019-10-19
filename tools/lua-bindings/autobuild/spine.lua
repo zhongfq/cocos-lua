@@ -257,6 +257,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'spine::AnimationState'
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
+    AnimationState(AnimationStateData* data)
     void update(float delta)
     void clearTracks()
     void clearTrack(size_t trackIndex)
@@ -294,6 +295,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'spine::AnimationStateData'
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
+    AnimationStateData(SkeletonData* skeletonData)
     SkeletonData* getSkeletonData()
     float getDefaultMix()
     void setDefaultMix(float inValue)
@@ -573,6 +575,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'spine::SkeletonBounds'
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
+    SkeletonBounds()
     bool aabbcontainsPoint(float x, float y)
     bool aabbintersectsSegment(float x1, float y1, float x2, float y2)
     bool containsPoint(Polygon* polygon, float x, float y)
@@ -623,6 +626,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'spine::AttachmentTimeline'
 cls.SUPERCLS = "spine::Timeline"
 cls.funcs [[
+    AttachmentTimeline(int frameCount)
     size_t getSlotIndex()
     void setSlotIndex(size_t inValue)
     const Vector<float>& getFrames()
@@ -640,6 +644,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'spine::ColorTimeline'
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.funcs [[
+    ColorTimeline(int frameCount)
     int getSlotIndex()
     void setSlotIndex(int inValue)
     Vector<float> &getFrames()
@@ -653,6 +658,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'spine::DeformTimeline'
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.funcs [[
+    DeformTimeline(int frameCount)
     int getSlotIndex()
     void setSlotIndex(int inValue)
     Vector<float>& getFrames()
@@ -669,6 +675,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'spine::DrawOrderTimeline'
 cls.SUPERCLS = "spine::Timeline"
 cls.funcs [[
+    DrawOrderTimeline(int frameCount)
     Vector<float>& getFrames()
     size_t getFrameCount()
 ]]
@@ -681,6 +688,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'spine::EventTimeline'
 cls.SUPERCLS = "spine::Timeline"
 cls.funcs [[
+    EventTimeline(int frameCount)
     Vector<float> getFrames()
     size_t getFrameCount()
 ]]
@@ -693,48 +701,56 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'spine::IkConstraintTimeline'
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.funcs [[
+    IkConstraintTimeline(int frameCount)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::PathConstraintMixTimeline'
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.funcs [[
+    PathConstraintMixTimeline(int frameCount)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::PathConstraintPositionTimeline'
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.funcs [[
+    PathConstraintPositionTimeline(int frameCount)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::PathConstraintSpacingTimeline'
 cls.SUPERCLS = "spine::PathConstraintPositionTimeline"
 cls.funcs [[
+    PathConstraintSpacingTimeline(int frameCount)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::TranslateTimeline'
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.funcs [[
+    TranslateTimeline(int frameCount)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::ShearTimeline'
 cls.SUPERCLS = "spine::TranslateTimeline"
 cls.funcs [[
+    ShearTimeline(int frameCount)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::TransformConstraintTimeline'
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.funcs [[
+    TransformConstraintTimeline(int frameCount)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::ScaleTimeline'
 cls.SUPERCLS = "spine::TranslateTimeline"
 cls.funcs [[
+    ScaleTimeline(int frameCount)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -744,6 +760,7 @@ cls.enums [[
     ENTRIES
 ]]
 cls.funcs [[
+    RotateTimeline(int frameCount)
     int getBoneIndex()
     void setBoneIndex(int inValue)
     Vector<float>& getFrames()
@@ -757,6 +774,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'spine::TwoColorTimeline'
 cls.SUPERCLS = "spine::CurveTimeline"
 cls.funcs [[
+    TwoColorTimeline(int frameCount)
     int getSlotIndex()
     void setSlotIndex(int inValue)
 ]]
@@ -800,6 +818,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'spine::JitterVertexEffect'
 cls.SUPERCLS = "spine::VertexEffect"
 cls.funcs [[
+    JitterVertexEffect(float jitterX, float jitterY)
     void setJitterX(float jitterX)
     float getJitterX()
     void setJitterY(float jitterY)
@@ -1206,6 +1225,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'spine::TrackEntry'
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
+    TrackEntry()
     int getTrackIndex()
     Animation* getAnimation()
     bool getLoop()
@@ -1432,6 +1452,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'spine::Skeleton'
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
+    Skeleton(SkeletonData *skeletonData)
     void updateCache()
     void printUpdateCache()
     void updateWorldTransform()
@@ -1530,6 +1551,7 @@ cls.funcs [[
     void setSlotsRange(int startSlotIndex, int endSlotIndex)
     void setBlendFunc (const cocos2d::BlendFunc& blendFunc)
     const cocos2d::BlendFunc& getBlendFunc ()
+    SkeletonRenderer ()
     void initialize ()
 ]]
 cls.props [[
@@ -1568,6 +1590,7 @@ cls.funcs [[
     void onTrackEntryEvent (TrackEntry* entry, EventType type, Event* event)
     @ref(single state) AnimationState* getState()
     void setUpdateOnlyIfVisible(bool status)
+    SkeletonAnimation ()
 ]]
 cls.callback {
     FUNCS =  {

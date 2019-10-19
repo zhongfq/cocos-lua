@@ -1199,6 +1199,16 @@ static int l_isa(lua_State *L)
     return 1;
 }
 
+static int l_take(lua_State *L)
+{
+    lua_settop(L, 1);
+    luaL_checktype(L, 1, LUA_TUSERDATA);
+    lua_pushstring(L, ".ownership");
+    lua_pushnil(L);
+    olua_setvariable(L, 1);
+    return 0;
+}
+
 static int l_debug(lua_State *L)
 {
     lua_settop(L, 1);
@@ -1211,6 +1221,7 @@ LUALIB_API int luaopen_olua(lua_State *L)
     static const luaL_Reg lib[] = {
         {"with", l_with},
         {"isa", l_isa},
+        {"take", l_take},
         {"debug", l_debug},
         {NULL, NULL}
     };

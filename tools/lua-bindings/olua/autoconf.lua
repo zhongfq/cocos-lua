@@ -593,11 +593,7 @@ function M:shouldExcludeType(cur, children)
     return self.module.EXCLUDE_TYPE[type]
 end
 
-function M:visitCXXMethod(cls, cur)
-    if cur:access() ~= 'public' and cur:kind() ~= 'FunctionDecl' then
-        return
-    end
-
+function M:extractDefine(cur)
     local prototype
     local path, startLine, startCol, endLine, endCol = cur:location()
     local lines = self:loadFile(path)
@@ -612,7 +608,15 @@ function M:visitCXXMethod(cls, cur)
             prototype = prototype .. lines[i]
         end
     end
+    return prototype
+end
 
+function M:visitCXXMethod(cls, cur)
+    if cur:access() ~= 'public' and cur:kind() ~= 'FunctionDecl' then
+        return
+    end
+
+    local prototype = self:extractDefine(cur)
     local children = cur:children()
     if #children > 0 and children[1]:kind() == 'UnexposedAttr' then
         -- print('[ignore] ' .. prototype)
@@ -670,20 +674,7 @@ function M:visitFieldDecl(cls, cur)
         return
     end
 
-    local prototype
-    local path, startLine, startCol, endLine, endCol = cur:location()
-    local lines = self:loadFile(path)
-    for i = startLine, endLine do
-        if i == startLine and i == endLine then
-            prototype = lines[i]:sub(startCol, endCol)
-        elseif i == startLine then
-            prototype = lines[i]:sub(startCol)
-        elseif i == endLine  then
-            prototype = prototype .. lines[i]:sub(1, endCol)
-        else
-            prototype = prototype .. lines[i]
-        end
-    end
+    local prototype = self:extractDefine(cur)
 
     if self.module.EXCLUDE_PATTERN(cls.CPPCLS, cur:name(), prototype) then
         return
@@ -717,6 +708,41 @@ function M:injectAttr(prototype, fn, attr)
     return t[1] .. table.concat(t, ', ', 2)
 end
 
+function M:visitConstructor(cls, cur)
+    if cur:access() ~= 'public' then
+        return
+    end
+
+    if cur:displayName():find('&') then
+        return
+    end
+
+    if cur:isConvertingConstructor() or
+        cur:isCopyConstructor() or
+        cur:isMoveConstructor() then
+        return
+    end
+
+    local prototype = self:extractDefine(cur)
+    if not string.find(prototype, cur:name() .. ' *%(') then
+        return
+    end
+
+    for _, arg in ipairs(cur:arguments()) do
+        if self:shouldExcludeType(arg:type(), arg:children()) then
+            return
+        end
+    end
+
+    prototype = string.match(prototype, '[^;{}]+')
+    prototype = string.gsub(prototype, '[\n\r]+', ' ')
+    prototype = string.gsub(prototype, ' +', ' ')
+    prototype = string.gsub(prototype, 'explicit *', '')
+    prototype = string.gsub(prototype, '[^)]*$', '')
+    prototype = string.gsub(prototype, '/%*[^/]*%*/', '')
+    return prototype
+end
+
 function M:visitClass(cur)
     local name = cur:name()
     local cls = self:createClass()
@@ -740,6 +766,31 @@ function M:visitClass(cur)
         if kind == 'CXXBaseSpecifier' then
             if not cls.SUPERCLS then
                 cls.SUPERCLS = self:trimClassname(c:name())
+            end
+        elseif kind == 'Constructor' then
+            if conf.EXCLUDE['*'] or cur:isAbstract() then
+                goto continue
+            end
+            local displayName = c:displayName()
+            local fn = c:name()
+            if not filter[displayName] and
+                not conf.EXCLUDE[fn] and not conf.EXCLUDE['new'] then
+                if not c:isStatic() then
+                    cls.INST_FUNCS[displayName] = cls.CPPCLS
+                end
+                local func = self:visitConstructor(cls, c)
+                if func then
+                    filter[displayName] = true
+                    if conf.GSUB then
+                        func = conf.GSUB(fn, func)
+                    end
+                    cls.FUNCS[#cls.FUNCS + 1] = {
+                        FUNC = func,
+                        NAME = fn,
+                        ARGS = #c:arguments(),
+                        PROTOTYPE = displayName,
+                    }
+                end
             end
         elseif kind == 'FunctionDecl' then
             if conf.EXCLUDE['*'] then

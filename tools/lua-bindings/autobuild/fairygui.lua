@@ -125,6 +125,7 @@ static std::string makeListenerTag(lua_State *L, lua_Integer type, int tagidx)
     return std::string(buf);
 }]]
 cls.funcs [[
+    UIEventDispatcher()
     bool hasEventListener(int eventType)
     bool hasEventListener(int eventType, const EventTag& tag)
     bool dispatchEvent(int eventType, void* data = nullptr, const cocos2d::Value& dataValue = cocos2d::Value::Null)
@@ -164,6 +165,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::EventContext'
 cls.funcs [[
+    EventContext()
     int getType()
     cocos2d::Ref* getSender()
     InputEvent* getInput()
@@ -222,6 +224,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::InputEvent'
 cls.funcs [[
+    InputEvent()
     GObject* getTarget()
     const int getX()
     const int getY()
@@ -262,6 +265,7 @@ cls.enums [[
     GLOW
 ]]
 cls.funcs [[
+    TextFormat()
     void enableEffect(int effectFlag)
     void disableEffect(int effectFlag)
     bool hasEffect(int effectFlag)
@@ -356,6 +360,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GTweener'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
+    GTweener()
     GTweener* setDelay(float value)
     float getDelay()
     GTweener* setDuration(float value)
@@ -512,6 +517,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::UIPackage'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
+    UIPackage()
     static UIPackage* getById(const std::string& id)
     static UIPackage* getByName(const std::string& name)
     static UIPackage* addPackage(const std::string& descFilePath)
@@ -541,6 +547,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::PackageItem'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
+    PackageItem()
     void load()
 ]]
 cls.var('owner', [[UIPackage* owner]])
@@ -757,6 +764,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GController'
 cls.SUPERCLS = "fairygui::UIEventDispatcher"
 cls.funcs [[
+    GController()
     GComponent* getParent()
     void setParent(GComponent* value)
     int getSelectedIndex()
@@ -795,6 +803,7 @@ cls = typecls 'fairygui::GObject'
 cls.SUPERCLS = "fairygui::UIEventDispatcher"
 cls.funcs [[
     static GObject* getDraggingObject()
+    GObject()
     static fairygui::GObject * create()
     float getX()
     void setX(float value)
@@ -969,6 +978,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GComponent'
 cls.SUPERCLS = "fairygui::GObject"
 cls.funcs [[
+    GComponent()
     static fairygui::GComponent * create()
     GObject* addChild(@ref(map children) GObject* child)
     GObject* addChildAt(@ref(map children) GObject* child, int index)
@@ -1093,6 +1103,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GRoot'
 cls.SUPERCLS = "fairygui::GComponent"
 cls.funcs [[
+    GRoot()
     static GRoot* create(cocos2d::Scene* scene, int zOrder = 1000)
     static GRoot* getInstance()
     @unref(cmp children) void showWindow(@ref(map children) Window* win)
@@ -1162,6 +1173,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GGroup'
 cls.SUPERCLS = "fairygui::GObject"
 cls.funcs [[
+    GGroup()
     static fairygui::GGroup * create()
     GroupLayoutType getLayout()
     void setLayout(GroupLayoutType value)
@@ -1183,6 +1195,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GScrollBar'
 cls.SUPERCLS = "fairygui::GComponent"
 cls.funcs [[
+    GScrollBar()
     static fairygui::GScrollBar * create()
     void setScrollPane(ScrollPane* target, bool vertical)
     void setDisplayPerc(float value)
@@ -1197,6 +1210,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GLoader'
 cls.SUPERCLS = "fairygui::GObject"
 cls.funcs [[
+    GLoader()
     static fairygui::GLoader * create()
     const std::string& getURL()
     void setURL(const std::string& value)
@@ -1301,6 +1315,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GBasicTextField'
 cls.SUPERCLS = "fairygui::GTextField"
 cls.funcs [[
+    GBasicTextField()
     static fairygui::GBasicTextField * create()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -1308,6 +1323,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GGraph'
 cls.SUPERCLS = "fairygui::GObject"
 cls.funcs [[
+    GGraph()
     static fairygui::GGraph * create()
     void drawRect(float aWidth, float aHeight, int lineSize, const cocos2d::Color4F& lineColor, const cocos2d::Color4F& fillColor)
     void drawEllipse(float aWidth, float aHeight, int lineSize, const cocos2d::Color4F& lineColor, const cocos2d::Color4F& fillColor)
@@ -1324,6 +1340,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GButton'
 cls.SUPERCLS = "fairygui::GComponent"
 cls.funcs [[
+    GButton()
     static fairygui::GButton * create()
     const std::string& getTitle()
     void setTitle(const std::string& value)
@@ -1359,6 +1376,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GImage'
 cls.SUPERCLS = "fairygui::GObject"
 cls.funcs [[
+    GImage()
     static fairygui::GImage * create()
     FlipType getFlip()
     void setFlip(FlipType value)
@@ -1386,6 +1404,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GLabel'
 cls.SUPERCLS = "fairygui::GComponent"
 cls.funcs [[
+    GLabel()
     static fairygui::GLabel * create()
     const std::string& getTitle()
     void setTitle(const std::string& value)
@@ -1406,6 +1425,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GList'
 cls.SUPERCLS = "fairygui::GComponent"
 cls.funcs [[
+    GList()
     static fairygui::GList * create()
     const std::string& getDefaultItem()
     void setDefaultItem(const std::string& value)
@@ -1493,6 +1513,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GMovieClip'
 cls.SUPERCLS = "fairygui::GObject"
 cls.funcs [[
+    GMovieClip()
     static fairygui::GMovieClip * create()
     bool isPlaying()
     void setPlaying(bool value)
@@ -1527,6 +1548,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GProgressBar'
 cls.SUPERCLS = "fairygui::GComponent"
 cls.funcs [[
+    GProgressBar()
     static fairygui::GProgressBar * create()
     ProgressTitleType getTitleType()
     void setTitleType(ProgressTitleType value)
@@ -1546,6 +1568,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GComboBox'
 cls.SUPERCLS = "fairygui::GComponent"
 cls.funcs [[
+    GComboBox()
     static fairygui::GComboBox * create()
     const std::string& getTitle()
     void setTitle(const std::string& value)
@@ -1586,6 +1609,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GRichTextField'
 cls.SUPERCLS = "fairygui::GTextField"
 cls.funcs [[
+    GRichTextField()
     static fairygui::GRichTextField * create()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -1593,6 +1617,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GSlider'
 cls.SUPERCLS = "fairygui::GComponent"
 cls.funcs [[
+    GSlider()
     static fairygui::GSlider * create()
     ProgressTitleType getTitleType()
     void setTitleType(ProgressTitleType value)
@@ -1613,6 +1638,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GTextInput'
 cls.SUPERCLS = "fairygui::GTextField"
 cls.funcs [[
+    GTextInput()
     static fairygui::GTextInput * create()
     void setPrompt(const std::string& value)
     void setPassword(bool value)
@@ -1630,6 +1656,7 @@ static int _fairygui_PopupMenu_addItemAt(lua_State *L);
 cls.funcs [[
     static PopupMenu* create(const std::string& resourceURL)
     static PopupMenu* create()
+    PopupMenu()
     void addSeperator()
     const std::string& getItemName(int index)
     void setItemText(const std::string& name, const std::string& caption)
@@ -2060,6 +2087,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::Window'
 cls.SUPERCLS = "fairygui::GComponent"
 cls.funcs [[
+    Window()
     static fairygui::Window * create()
     @unref(cmp children parent)@ref(map children parent) void show()
     @unref(cmp children parent) void hide()
@@ -2125,6 +2153,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::DragDropManager'
 cls.funcs [[
+    DragDropManager()
     static DragDropManager* getInstance()
     GLoader* getAgent()
     bool isDragging()
@@ -2172,6 +2201,7 @@ cls = typecls 'fairygui::TreeNode'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
     static TreeNode* create(bool isFolder = false)
+    TreeNode()
     TreeNode* getParent()
     TreeView* getRoot()
     @ref(single cell) GComponent* getCell()
@@ -2215,6 +2245,7 @@ cls = typecls 'fairygui::TreeView'
 cls.SUPERCLS = "fairygui::UIEventDispatcher"
 cls.funcs [[
     static TreeView* create(@ref(single list) GList* list)
+    TreeView()
     @ref(single list) GList* getList()
     @ref(single rootNode) TreeNode* getRootNode()
     TreeNode* getSelectedNode()
@@ -2268,6 +2299,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::FUIContainer'
 cls.SUPERCLS = "cocos2d::Node"
 cls.funcs [[
+    FUIContainer()
     static fairygui::FUIContainer * create()
     bool isClippingEnabled()
     void setClippingEnabled(bool value)
@@ -2294,6 +2326,7 @@ cls = typecls 'fairygui::FUIInput'
 cls.SUPERCLS = "cocos2d::ui::EditBox"
 cls.funcs [[
     static FUIInput* create()
+    FUIInput()
     void setText(const std::string& value)
     TextFormat* getTextFormat()
     void applyTextFormat()
@@ -2314,6 +2347,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::FUILabel'
 cls.SUPERCLS = "cocos2d::Label"
 cls.funcs [[
+    FUILabel()
     static fairygui::FUILabel * create()
     const std::string& getText()
     void setText(const std::string& value)
@@ -2330,6 +2364,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::FUIRichText'
 cls.SUPERCLS = "cocos2d::Node"
 cls.funcs [[
+    FUIRichText()
     static fairygui::FUIRichText * create()
     const cocos2d::Size& getDimensions()
     void setDimensions(float width, float height)
@@ -2356,6 +2391,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::FUISprite'
 cls.SUPERCLS = "cocos2d::Sprite"
 cls.funcs [[
+    FUISprite()
     static fairygui::FUISprite * create()
     void clearContent()
     void setGrayed(bool value)

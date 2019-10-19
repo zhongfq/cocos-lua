@@ -378,6 +378,12 @@ local function parseFunc(cls, name, ...)
             fi.MAX_ARGS = #fi.ARGS
         else
             local typename, attr, str = parseType(declfunc)
+            if typename == cls.SIMPLE_CPPCLS and string.find(str, '^%(') then
+                typename = typename .. ' *'
+                str = 'new' .. str
+                fi.CONSTRUCTOR = true
+                attr.STATIC = true
+            end
             fi.CPPFUNC = string.match(str, '[^ ()]+')
             fi.LUAFUNC = name or fi.CPPFUNC
             fi.STATIC = attr.STATIC
@@ -525,6 +531,7 @@ end
 
 function olua.typecls(cppcls)
     local cls = {CPPCLS = cppcls}
+    cls.SIMPLE_CPPCLS = string.match(cppcls, '[^:]+$')
     cls.FUNCS = {}
     cls.CONSTS = {}
     cls.ENUMS = {}
@@ -546,11 +553,18 @@ function olua.typecls(cppcls)
             declfunc = string.gsub(declfunc, ' *inline ', '')
             if #declfunc > 0 then
                 if not string.find(declfunc, '^ *//') then
+                    olua.message(declfunc)
                     local _, str = parseAttr(declfunc)
-                    _, _, str = parseType(str)        -- skip return type
-                    local fn = string.match(str, '([^ ()]+) *%(')
+                    local fn
+                    if string.find(str, '^' .. cls.SIMPLE_CPPCLS .. ' *%(') then
+                        fn = cppcls
+                    else
+                        _, _, str = parseType(str)        -- skip return type
+                        fn = string.match(str, '([^ ()]+) *%(')
+                        olua.assert(fn, 'error decl func: ' .. declfunc)
+                    end
+
                     local fns = dict[fn]
-                    olua.assert(fn, 'error decl func: ' .. declfunc)
                     if not fns then
                         fns = {}
                         arr[#arr + 1] = fns

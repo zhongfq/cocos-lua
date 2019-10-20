@@ -159,6 +159,25 @@ LUALIB_API int olua_geterrorfunc(lua_State *L)
     return lua_gettop(L);
 }
 
+LUALIB_API int olua_pcall(lua_State *L, int nargs, int nresults)
+{
+    int status;
+    int errfunc = lua_absindex(L, -(nargs + 1));
+    olua_geterrorfunc(L);
+    lua_insert(L, errfunc);
+    status = lua_pcall(L, nargs, nresults, errfunc);
+    lua_remove(L, errfunc);
+    return status;
+}
+
+LUALIB_API int olua_pcallref(lua_State *L, int funcref, int nargs, int nresults)
+{
+    olua_getref(L, funcref);
+    olua_assert(lua_isfunction(L, -1));
+    lua_insert(L, -(nargs + 1));
+    return olua_pcall(L, nargs, nresults);
+}
+
 LUALIB_API void olua_require(lua_State *L, const char *name, lua_CFunction func)
 {
     int top = lua_gettop(L);
@@ -1180,6 +1199,16 @@ static int l_isa(lua_State *L)
     return 1;
 }
 
+static int l_take(lua_State *L)
+{
+    lua_settop(L, 1);
+    luaL_checktype(L, 1, LUA_TUSERDATA);
+    lua_pushstring(L, ".ownership");
+    lua_pushnil(L);
+    olua_setvariable(L, 1);
+    return 0;
+}
+
 static int l_debug(lua_State *L)
 {
     lua_settop(L, 1);
@@ -1192,6 +1221,7 @@ LUALIB_API int luaopen_olua(lua_State *L)
     static const luaL_Reg lib[] = {
         {"with", l_with},
         {"isa", l_isa},
+        {"take", l_take},
         {"debug", l_debug},
         {NULL, NULL}
     };

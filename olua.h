@@ -52,12 +52,12 @@ extern "C" {
 #define OLUA_VOIDCLS "void *"
     
 #ifndef olua_mainthread
-#define olua_mainthread() assert(false && "not define olua_mainthread")
+#define olua_mainthread() static_assert(false, "olua_mainthread is not defined")
 #endif
     
 #ifndef olua_startcmpunref
-#define olua_startcmpunref(L, i, n) assert(false && "not define olua_startcmpunref")
-#define olua_endcmpunref(L, i, n) assert(false && "not define olua_endcmpunref")
+#define olua_startcmpunref(L, i, n) static_assert(false, "olua_startcmpunref is not defined")
+#define olua_endcmpunref(L, i, n) static_assert(false, "olua_endcmpunref is not defined")
 #endif
     
 #ifndef olua_startinvoke
@@ -118,6 +118,8 @@ LUALIB_API size_t olua_changeobjcount(lua_State *L, int add);
 LUALIB_API void olua_require(lua_State *L, const char *name, lua_CFunction func);
 LUALIB_API void olua_preload(lua_State *L, const char *name, lua_CFunction func);
 LUALIB_API int olua_geterrorfunc(lua_State *L);
+LUALIB_API int olua_pcall(lua_State *L, int nargs, int nresults);
+LUALIB_API int olua_pcallref(lua_State *L, int funcref, int nargs, int nresults);
     
 // manipulate userdata api
 LUALIB_API const char *olua_typename(lua_State *L, int idx);

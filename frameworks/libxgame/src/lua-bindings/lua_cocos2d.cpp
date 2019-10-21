@@ -3383,7 +3383,7 @@ static int _cocos2d_EventDispatcher_addEventListenerWithSceneGraphPriority(lua_S
     return 0;
 }
 
-static int _cocos2d_EventDispatcher_dispatchCustomEvent(lua_State *L)
+static int _cocos2d_EventDispatcher_dispatchCustomEvent1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3395,12 +3395,53 @@ static int _cocos2d_EventDispatcher_dispatchCustomEvent(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventDispatcher");
     olua_check_std_string(L, 2, &arg1);
-    olua_opt_obj(L, 3, (void **)&arg2, "void *", nullptr);
+    olua_check_obj(L, 3, (void **)&arg2, "void *");
 
     // void dispatchCustomEvent(const std::string &eventName, void *optionalUserData = nullptr)
     self->dispatchCustomEvent(arg1, arg2);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_EventDispatcher_dispatchCustomEvent2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::EventDispatcher *self = nullptr;
+    std::string arg1;       /** eventName */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventDispatcher");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void dispatchCustomEvent(const std::string &eventName, void *optionalUserData = nullptr)
+    self->dispatchCustomEvent(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_EventDispatcher_dispatchCustomEvent(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            return _cocos2d_EventDispatcher_dispatchCustomEvent2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_obj(L, 3, "void *"))) {
+            return _cocos2d_EventDispatcher_dispatchCustomEvent1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::EventDispatcher::dispatchCustomEvent' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -3481,7 +3522,7 @@ static int _cocos2d_EventDispatcher_new(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_EventDispatcher_pauseEventListenersForTarget(lua_State *L)
+static int _cocos2d_EventDispatcher_pauseEventListenersForTarget1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3493,12 +3534,53 @@ static int _cocos2d_EventDispatcher_pauseEventListenersForTarget(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventDispatcher");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
-    olua_opt_bool(L, 3, &arg2, (bool)false);
+    olua_check_bool(L, 3, &arg2);
 
     // void pauseEventListenersForTarget(Node* target, bool recursive = false)
     self->pauseEventListenersForTarget(arg1, arg2);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_EventDispatcher_pauseEventListenersForTarget2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::EventDispatcher *self = nullptr;
+    cocos2d::Node *arg1 = nullptr;       /** target */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventDispatcher");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
+
+    // void pauseEventListenersForTarget(Node* target, bool recursive = false)
+    self->pauseEventListenersForTarget(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_EventDispatcher_pauseEventListenersForTarget(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_cppobj(L, 2, "cc.Node"))) {
+            return _cocos2d_EventDispatcher_pauseEventListenersForTarget2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_cppobj(L, 2, "cc.Node")) && (olua_is_bool(L, 3))) {
+            return _cocos2d_EventDispatcher_pauseEventListenersForTarget1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::EventDispatcher::pauseEventListenersForTarget' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -3579,7 +3661,7 @@ static int _cocos2d_EventDispatcher_removeEventListener(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_EventDispatcher_removeEventListenersForTarget(lua_State *L)
+static int _cocos2d_EventDispatcher_removeEventListenersForTarget1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3591,7 +3673,7 @@ static int _cocos2d_EventDispatcher_removeEventListenersForTarget(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventDispatcher");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
-    olua_opt_bool(L, 3, &arg2, (bool)false);
+    olua_check_bool(L, 3, &arg2);
 
     // inject code before call
     bool recursive = false;
@@ -3605,6 +3687,55 @@ static int _cocos2d_EventDispatcher_removeEventListenersForTarget(lua_State *L)
     self->removeEventListenersForTarget(arg1, arg2);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_EventDispatcher_removeEventListenersForTarget2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::EventDispatcher *self = nullptr;
+    cocos2d::Node *arg1 = nullptr;       /** target */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventDispatcher");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
+
+    // inject code before call
+    bool recursive = false;
+    auto node = olua_checkobj<cocos2d::Node>(L, 2);
+    if (lua_gettop(L) >= 3) {
+        recursive = olua_toboolean(L, 3);
+    }
+    doRemoveEventListenersForTarget(L, node, recursive, "listeners");
+
+    // void removeEventListenersForTarget(Node* target, bool recursive = false)
+    self->removeEventListenersForTarget(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_EventDispatcher_removeEventListenersForTarget(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_cppobj(L, 2, "cc.Node"))) {
+            return _cocos2d_EventDispatcher_removeEventListenersForTarget2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_cppobj(L, 2, "cc.Node")) && (olua_is_bool(L, 3))) {
+            return _cocos2d_EventDispatcher_removeEventListenersForTarget1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::EventDispatcher::removeEventListenersForTarget' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -3635,7 +3766,7 @@ static int _cocos2d_EventDispatcher_removeEventListenersForType(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_EventDispatcher_resumeEventListenersForTarget(lua_State *L)
+static int _cocos2d_EventDispatcher_resumeEventListenersForTarget1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3647,12 +3778,53 @@ static int _cocos2d_EventDispatcher_resumeEventListenersForTarget(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventDispatcher");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
-    olua_opt_bool(L, 3, &arg2, (bool)false);
+    olua_check_bool(L, 3, &arg2);
 
     // void resumeEventListenersForTarget(Node* target, bool recursive = false)
     self->resumeEventListenersForTarget(arg1, arg2);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_EventDispatcher_resumeEventListenersForTarget2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::EventDispatcher *self = nullptr;
+    cocos2d::Node *arg1 = nullptr;       /** target */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventDispatcher");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
+
+    // void resumeEventListenersForTarget(Node* target, bool recursive = false)
+    self->resumeEventListenersForTarget(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_EventDispatcher_resumeEventListenersForTarget(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_cppobj(L, 2, "cc.Node"))) {
+            return _cocos2d_EventDispatcher_resumeEventListenersForTarget2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_cppobj(L, 2, "cc.Node")) && (olua_is_bool(L, 3))) {
+            return _cocos2d_EventDispatcher_resumeEventListenersForTarget1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::EventDispatcher::resumeEventListenersForTarget' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -8028,7 +8200,7 @@ static int _cocos2d_experimental_AudioEngine_pauseAll(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_experimental_AudioEngine_play2d(lua_State *L)
+static int _cocos2d_experimental_AudioEngine_play2d1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8040,9 +8212,9 @@ static int _cocos2d_experimental_AudioEngine_play2d(lua_State *L)
     cocos2d::experimental::AudioProfile *arg4 = nullptr;       /** profile */
 
     olua_check_std_string(L, 1, &arg1);
-    olua_opt_bool(L, 2, &arg2, (bool)false);
-    olua_opt_number(L, 3, &arg3, (lua_Number)1.0f);
-    olua_opt_cppobj(L, 4, (void **)&arg4, "cc.AudioProfile", nullptr);
+    olua_check_bool(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+    olua_check_cppobj(L, 4, (void **)&arg4, "cc.AudioProfile");
 
     // static int play2d(const std::string& filePath, bool loop = false, float volume = 1.0f, const AudioProfile *profile = nullptr)
     int ret = (int)cocos2d::experimental::AudioEngine::play2d(arg1, arg2, (float)arg3, arg4);
@@ -8051,6 +8223,102 @@ static int _cocos2d_experimental_AudioEngine_play2d(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _cocos2d_experimental_AudioEngine_play2d2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    std::string arg1;       /** filePath */
+
+    olua_check_std_string(L, 1, &arg1);
+
+    // static int play2d(const std::string& filePath, bool loop = false, float volume = 1.0f, const AudioProfile *profile = nullptr)
+    int ret = (int)cocos2d::experimental::AudioEngine::play2d(arg1);
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_experimental_AudioEngine_play2d3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    std::string arg1;       /** filePath */
+    bool arg2 = false;       /** loop */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_check_bool(L, 2, &arg2);
+
+    // static int play2d(const std::string& filePath, bool loop = false, float volume = 1.0f, const AudioProfile *profile = nullptr)
+    int ret = (int)cocos2d::experimental::AudioEngine::play2d(arg1, arg2);
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_experimental_AudioEngine_play2d4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    std::string arg1;       /** filePath */
+    bool arg2 = false;       /** loop */
+    lua_Number arg3 = 0;       /** volume */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_check_bool(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+
+    // static int play2d(const std::string& filePath, bool loop = false, float volume = 1.0f, const AudioProfile *profile = nullptr)
+    int ret = (int)cocos2d::experimental::AudioEngine::play2d(arg1, arg2, (float)arg3);
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_experimental_AudioEngine_play2d(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 1))) {
+            return _cocos2d_experimental_AudioEngine_play2d2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_bool(L, 2))) {
+            return _cocos2d_experimental_AudioEngine_play2d3(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_bool(L, 2)) && (olua_is_number(L, 3))) {
+            return _cocos2d_experimental_AudioEngine_play2d4(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_bool(L, 2)) && (olua_is_number(L, 3)) && (olua_is_cppobj(L, 4, "cc.AudioProfile"))) {
+            return _cocos2d_experimental_AudioEngine_play2d1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::experimental::AudioEngine::play2d' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _cocos2d_experimental_AudioEngine_preload1(lua_State *L)
@@ -8576,7 +8844,7 @@ static int _CocosDenshion_SimpleAudioEngine_pauseEffect(lua_State *L)
     return 0;
 }
 
-static int _CocosDenshion_SimpleAudioEngine_playBackgroundMusic(lua_State *L)
+static int _CocosDenshion_SimpleAudioEngine_playBackgroundMusic1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8588,7 +8856,7 @@ static int _CocosDenshion_SimpleAudioEngine_playBackgroundMusic(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.SimpleAudioEngine");
     olua_check_string(L, 2, &arg1);
-    olua_opt_bool(L, 3, &arg2, (bool)false);
+    olua_check_bool(L, 3, &arg2);
 
     // void playBackgroundMusic(const char* filePath, bool loop = false)
     self->playBackgroundMusic(arg1, arg2);
@@ -8598,7 +8866,48 @@ static int _CocosDenshion_SimpleAudioEngine_playBackgroundMusic(lua_State *L)
     return 0;
 }
 
-static int _CocosDenshion_SimpleAudioEngine_playEffect(lua_State *L)
+static int _CocosDenshion_SimpleAudioEngine_playBackgroundMusic2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    CocosDenshion::SimpleAudioEngine *self = nullptr;
+    const char *arg1 = nullptr;       /** filePath */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SimpleAudioEngine");
+    olua_check_string(L, 2, &arg1);
+
+    // void playBackgroundMusic(const char* filePath, bool loop = false)
+    self->playBackgroundMusic(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _CocosDenshion_SimpleAudioEngine_playBackgroundMusic(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_string(L, 2))) {
+            return _CocosDenshion_SimpleAudioEngine_playBackgroundMusic2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_string(L, 2)) && (olua_is_bool(L, 3))) {
+            return _CocosDenshion_SimpleAudioEngine_playBackgroundMusic1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'CocosDenshion::SimpleAudioEngine::playBackgroundMusic' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _CocosDenshion_SimpleAudioEngine_playEffect1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8613,10 +8922,10 @@ static int _CocosDenshion_SimpleAudioEngine_playEffect(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.SimpleAudioEngine");
     olua_check_string(L, 2, &arg1);
-    olua_opt_bool(L, 3, &arg2, (bool)false);
-    olua_opt_number(L, 4, &arg3, (lua_Number)1.0f);
-    olua_opt_number(L, 5, &arg4, (lua_Number)0.0f);
-    olua_opt_number(L, 6, &arg5, (lua_Number)1.0f);
+    olua_check_bool(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+    olua_check_number(L, 5, &arg4);
+    olua_check_number(L, 6, &arg5);
 
     // unsigned int playEffect(const char* filePath, bool loop = false, float pitch = 1.0f, float pan = 0.0f, float gain = 1.0f)
     unsigned int ret = (unsigned int)self->playEffect(arg1, arg2, (float)arg3, (float)arg4, (float)arg5);
@@ -8625,6 +8934,141 @@ static int _CocosDenshion_SimpleAudioEngine_playEffect(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _CocosDenshion_SimpleAudioEngine_playEffect2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    CocosDenshion::SimpleAudioEngine *self = nullptr;
+    const char *arg1 = nullptr;       /** filePath */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SimpleAudioEngine");
+    olua_check_string(L, 2, &arg1);
+
+    // unsigned int playEffect(const char* filePath, bool loop = false, float pitch = 1.0f, float pan = 0.0f, float gain = 1.0f)
+    unsigned int ret = (unsigned int)self->playEffect(arg1);
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _CocosDenshion_SimpleAudioEngine_playEffect3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    CocosDenshion::SimpleAudioEngine *self = nullptr;
+    const char *arg1 = nullptr;       /** filePath */
+    bool arg2 = false;       /** loop */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SimpleAudioEngine");
+    olua_check_string(L, 2, &arg1);
+    olua_check_bool(L, 3, &arg2);
+
+    // unsigned int playEffect(const char* filePath, bool loop = false, float pitch = 1.0f, float pan = 0.0f, float gain = 1.0f)
+    unsigned int ret = (unsigned int)self->playEffect(arg1, arg2);
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _CocosDenshion_SimpleAudioEngine_playEffect4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 4);
+
+    CocosDenshion::SimpleAudioEngine *self = nullptr;
+    const char *arg1 = nullptr;       /** filePath */
+    bool arg2 = false;       /** loop */
+    lua_Number arg3 = 0;       /** pitch */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SimpleAudioEngine");
+    olua_check_string(L, 2, &arg1);
+    olua_check_bool(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+
+    // unsigned int playEffect(const char* filePath, bool loop = false, float pitch = 1.0f, float pan = 0.0f, float gain = 1.0f)
+    unsigned int ret = (unsigned int)self->playEffect(arg1, arg2, (float)arg3);
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _CocosDenshion_SimpleAudioEngine_playEffect5(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 5);
+
+    CocosDenshion::SimpleAudioEngine *self = nullptr;
+    const char *arg1 = nullptr;       /** filePath */
+    bool arg2 = false;       /** loop */
+    lua_Number arg3 = 0;       /** pitch */
+    lua_Number arg4 = 0;       /** pan */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SimpleAudioEngine");
+    olua_check_string(L, 2, &arg1);
+    olua_check_bool(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+    olua_check_number(L, 5, &arg4);
+
+    // unsigned int playEffect(const char* filePath, bool loop = false, float pitch = 1.0f, float pan = 0.0f, float gain = 1.0f)
+    unsigned int ret = (unsigned int)self->playEffect(arg1, arg2, (float)arg3, (float)arg4);
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _CocosDenshion_SimpleAudioEngine_playEffect(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_string(L, 2))) {
+            return _CocosDenshion_SimpleAudioEngine_playEffect2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_string(L, 2)) && (olua_is_bool(L, 3))) {
+            return _CocosDenshion_SimpleAudioEngine_playEffect3(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_string(L, 2)) && (olua_is_bool(L, 3)) && (olua_is_number(L, 4))) {
+            return _CocosDenshion_SimpleAudioEngine_playEffect4(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if ((olua_is_string(L, 2)) && (olua_is_bool(L, 3)) && (olua_is_number(L, 4)) && (olua_is_number(L, 5))) {
+            return _CocosDenshion_SimpleAudioEngine_playEffect5(L);
+        // }
+    }
+
+    if (num_args == 5) {
+        // if ((olua_is_string(L, 2)) && (olua_is_bool(L, 3)) && (olua_is_number(L, 4)) && (olua_is_number(L, 5)) && (olua_is_number(L, 6))) {
+            return _CocosDenshion_SimpleAudioEngine_playEffect1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'CocosDenshion::SimpleAudioEngine::playEffect' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _CocosDenshion_SimpleAudioEngine_preloadBackgroundMusic(lua_State *L)
@@ -8799,7 +9243,7 @@ static int _CocosDenshion_SimpleAudioEngine_stopAllEffects(lua_State *L)
     return 0;
 }
 
-static int _CocosDenshion_SimpleAudioEngine_stopBackgroundMusic(lua_State *L)
+static int _CocosDenshion_SimpleAudioEngine_stopBackgroundMusic1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -8809,12 +9253,49 @@ static int _CocosDenshion_SimpleAudioEngine_stopBackgroundMusic(lua_State *L)
     bool arg1 = false;       /** releaseData */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.SimpleAudioEngine");
-    olua_opt_bool(L, 2, &arg1, (bool)false);
+    olua_check_bool(L, 2, &arg1);
 
     // void stopBackgroundMusic(bool releaseData = false)
     self->stopBackgroundMusic(arg1);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _CocosDenshion_SimpleAudioEngine_stopBackgroundMusic2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    CocosDenshion::SimpleAudioEngine *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SimpleAudioEngine");
+
+    // void stopBackgroundMusic(bool releaseData = false)
+    self->stopBackgroundMusic();
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _CocosDenshion_SimpleAudioEngine_stopBackgroundMusic(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 0) {
+        return _CocosDenshion_SimpleAudioEngine_stopBackgroundMusic2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_bool(L, 2))) {
+            return _CocosDenshion_SimpleAudioEngine_stopBackgroundMusic1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'CocosDenshion::SimpleAudioEngine::stopBackgroundMusic' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -9333,7 +9814,7 @@ static int luaopen_cocos2d_Device(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_FileUtils_addSearchPath(lua_State *L)
+static int _cocos2d_FileUtils_addSearchPath1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -9345,7 +9826,7 @@ static int _cocos2d_FileUtils_addSearchPath(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.FileUtils");
     olua_check_std_string(L, 2, &arg1);
-    olua_opt_bool(L, 3, &arg2, (bool)false);
+    olua_check_bool(L, 3, &arg2);
 
     // void addSearchPath(const std::string & path, const bool front=false)
     self->addSearchPath(arg1, arg2);
@@ -9355,7 +9836,48 @@ static int _cocos2d_FileUtils_addSearchPath(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_FileUtils_addSearchResolutionsOrder(lua_State *L)
+static int _cocos2d_FileUtils_addSearchPath2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::FileUtils *self = nullptr;
+    std::string arg1;       /** path */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.FileUtils");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void addSearchPath(const std::string & path, const bool front=false)
+    self->addSearchPath(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_FileUtils_addSearchPath(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            return _cocos2d_FileUtils_addSearchPath2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3))) {
+            return _cocos2d_FileUtils_addSearchPath1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::FileUtils::addSearchPath' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_FileUtils_addSearchResolutionsOrder1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -9367,12 +9889,53 @@ static int _cocos2d_FileUtils_addSearchResolutionsOrder(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.FileUtils");
     olua_check_std_string(L, 2, &arg1);
-    olua_opt_bool(L, 3, &arg2, (bool)false);
+    olua_check_bool(L, 3, &arg2);
 
     // void addSearchResolutionsOrder(const std::string &order,const bool front=false)
     self->addSearchResolutionsOrder(arg1, arg2);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_FileUtils_addSearchResolutionsOrder2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::FileUtils *self = nullptr;
+    std::string arg1;       /** order */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.FileUtils");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void addSearchResolutionsOrder(const std::string &order,const bool front=false)
+    self->addSearchResolutionsOrder(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_FileUtils_addSearchResolutionsOrder(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            return _cocos2d_FileUtils_addSearchResolutionsOrder2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3))) {
+            return _cocos2d_FileUtils_addSearchResolutionsOrder1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::FileUtils::addSearchResolutionsOrder' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -10928,7 +11491,7 @@ static int _cocos2d_GLView_setContentScaleFactor(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_GLView_setCursor(lua_State *L)
+static int _cocos2d_GLView_setCursor1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -10940,12 +11503,53 @@ static int _cocos2d_GLView_setCursor(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
     olua_check_std_string(L, 2, &arg1);
-    auto_olua_opt_cocos2d_Vec2(L, 3, &arg2, (cocos2d::Vec2)cocos2d::Vec2::ANCHOR_TOP_LEFT);
+    auto_olua_check_cocos2d_Vec2(L, 3, &arg2);
 
     // void setCursor(const std::string& filename, Vec2 hotspot = Vec2::ANCHOR_TOP_LEFT)
     self->setCursor(arg1, arg2);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_GLView_setCursor2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::GLView *self = nullptr;
+    std::string arg1;       /** filename */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLView");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void setCursor(const std::string& filename, Vec2 hotspot = Vec2::ANCHOR_TOP_LEFT)
+    self->setCursor(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_GLView_setCursor(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            return _cocos2d_GLView_setCursor2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (auto_olua_is_cocos2d_Vec2(L, 3))) {
+            return _cocos2d_GLView_setCursor1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::GLView::setCursor' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -11686,7 +12290,7 @@ static int _cocos2d_Image_initWithImageFile(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_Image_initWithRawData(lua_State *L)
+static int _cocos2d_Image_initWithRawData1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -11706,7 +12310,7 @@ static int _cocos2d_Image_initWithRawData(lua_State *L)
     olua_check_int(L, 4, &arg3);
     olua_check_int(L, 5, &arg4);
     olua_check_int(L, 6, &arg5);
-    olua_opt_bool(L, 7, &arg6, (bool)false);
+    olua_check_bool(L, 7, &arg6);
 
     // bool initWithRawData(const unsigned char * data, ssize_t dataLen, int width, int height, int bitsPerComponent, bool preMulti = false)
     bool ret = (bool)self->initWithRawData((const unsigned char *)arg1, (ssize_t)arg2, (int)arg3, (int)arg4, (int)arg5, arg6);
@@ -11715,6 +12319,56 @@ static int _cocos2d_Image_initWithRawData(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _cocos2d_Image_initWithRawData2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 6);
+
+    cocos2d::Image *self = nullptr;
+    const char *arg1 = nullptr;       /** data */
+    lua_Integer arg2 = 0;       /** dataLen */
+    lua_Integer arg3 = 0;       /** width */
+    lua_Integer arg4 = 0;       /** height */
+    lua_Integer arg5 = 0;       /** bitsPerComponent */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Image");
+    olua_check_string(L, 2, &arg1);
+    olua_check_int(L, 3, &arg2);
+    olua_check_int(L, 4, &arg3);
+    olua_check_int(L, 5, &arg4);
+    olua_check_int(L, 6, &arg5);
+
+    // bool initWithRawData(const unsigned char * data, ssize_t dataLen, int width, int height, int bitsPerComponent, bool preMulti = false)
+    bool ret = (bool)self->initWithRawData((const unsigned char *)arg1, (ssize_t)arg2, (int)arg3, (int)arg4, (int)arg5);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Image_initWithRawData(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 5) {
+        // if ((olua_is_string(L, 2)) && (olua_is_int(L, 3)) && (olua_is_int(L, 4)) && (olua_is_int(L, 5)) && (olua_is_int(L, 6))) {
+            return _cocos2d_Image_initWithRawData2(L);
+        // }
+    }
+
+    if (num_args == 6) {
+        // if ((olua_is_string(L, 2)) && (olua_is_int(L, 3)) && (olua_is_int(L, 4)) && (olua_is_int(L, 5)) && (olua_is_int(L, 6)) && (olua_is_bool(L, 7))) {
+            return _cocos2d_Image_initWithRawData1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Image::initWithRawData' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _cocos2d_Image_isCompressed(lua_State *L)
@@ -11788,7 +12442,7 @@ static int _cocos2d_Image_reversePremultipliedAlpha(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_Image_saveToFile(lua_State *L)
+static int _cocos2d_Image_saveToFile1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -11800,7 +12454,7 @@ static int _cocos2d_Image_saveToFile(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Image");
     olua_check_std_string(L, 2, &arg1);
-    olua_opt_bool(L, 3, &arg2, (bool)true);
+    olua_check_bool(L, 3, &arg2);
 
     // bool saveToFile(const std::string &filename, bool isToRGB = true)
     bool ret = (bool)self->saveToFile(arg1, arg2);
@@ -11809,6 +12463,48 @@ static int _cocos2d_Image_saveToFile(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _cocos2d_Image_saveToFile2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::Image *self = nullptr;
+    std::string arg1;       /** filename */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Image");
+    olua_check_std_string(L, 2, &arg1);
+
+    // bool saveToFile(const std::string &filename, bool isToRGB = true)
+    bool ret = (bool)self->saveToFile(arg1);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Image_saveToFile(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            return _cocos2d_Image_saveToFile2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3))) {
+            return _cocos2d_Image_saveToFile1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Image::saveToFile' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _cocos2d_Image_setPNGPremultipliedAlphaEnabled(lua_State *L)
@@ -13432,7 +14128,7 @@ static int _cocos2d_GLProgramState_apply(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_GLProgramState_applyAttributes(lua_State *L)
+static int _cocos2d_GLProgramState_applyAttributes1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -13442,12 +14138,49 @@ static int _cocos2d_GLProgramState_applyAttributes(lua_State *L)
     bool arg1 = false;       /** applyAttribFlags */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.GLProgramState");
-    olua_opt_bool(L, 2, &arg1, (bool)true);
+    olua_check_bool(L, 2, &arg1);
 
     // void applyAttributes(bool applyAttribFlags = true)
     self->applyAttributes(arg1);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_GLProgramState_applyAttributes2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    cocos2d::GLProgramState *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.GLProgramState");
+
+    // void applyAttributes(bool applyAttribFlags = true)
+    self->applyAttributes();
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_GLProgramState_applyAttributes(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 0) {
+        return _cocos2d_GLProgramState_applyAttributes2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_bool(L, 2))) {
+            return _cocos2d_GLProgramState_applyAttributes1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::GLProgramState::applyAttributes' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -15320,7 +16053,7 @@ static int _cocos2d_Texture2D_hasPremultipliedAlpha(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_Texture2D_initWithData(lua_State *L)
+static int _cocos2d_Texture2D_initWithData1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -15342,7 +16075,7 @@ static int _cocos2d_Texture2D_initWithData(lua_State *L)
     olua_check_int(L, 5, &arg4);
     olua_check_int(L, 6, &arg5);
     auto_olua_check_cocos2d_Size(L, 7, &arg6);
-    olua_opt_bool(L, 8, &arg7, (bool)false);
+    olua_check_bool(L, 8, &arg7);
 
     // bool initWithData(const void *data, ssize_t dataLen, Texture2D::PixelFormat pixelFormat, int pixelsWide, int pixelsHigh, const Size& contentSize, bool preMultipliedAlpha = false)
     bool ret = (bool)self->initWithData(arg1, (ssize_t)arg2, (cocos2d::Texture2D::PixelFormat)arg3, (int)arg4, (int)arg5, arg6, arg7);
@@ -15351,6 +16084,58 @@ static int _cocos2d_Texture2D_initWithData(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _cocos2d_Texture2D_initWithData2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 7);
+
+    cocos2d::Texture2D *self = nullptr;
+    void *arg1 = nullptr;       /** data */
+    lua_Integer arg2 = 0;       /** dataLen */
+    lua_Unsigned arg3 = 0;       /** pixelFormat */
+    lua_Integer arg4 = 0;       /** pixelsWide */
+    lua_Integer arg5 = 0;       /** pixelsHigh */
+    cocos2d::Size arg6;       /** contentSize */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Texture2D");
+    olua_check_obj(L, 2, (void **)&arg1, "void *");
+    olua_check_int(L, 3, &arg2);
+    olua_check_uint(L, 4, &arg3);
+    olua_check_int(L, 5, &arg4);
+    olua_check_int(L, 6, &arg5);
+    auto_olua_check_cocos2d_Size(L, 7, &arg6);
+
+    // bool initWithData(const void *data, ssize_t dataLen, Texture2D::PixelFormat pixelFormat, int pixelsWide, int pixelsHigh, const Size& contentSize, bool preMultipliedAlpha = false)
+    bool ret = (bool)self->initWithData(arg1, (ssize_t)arg2, (cocos2d::Texture2D::PixelFormat)arg3, (int)arg4, (int)arg5, arg6);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Texture2D_initWithData(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 6) {
+        // if ((olua_is_obj(L, 2, "void *")) && (olua_is_int(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_int(L, 5)) && (olua_is_int(L, 6)) && (auto_olua_is_cocos2d_Size(L, 7))) {
+            return _cocos2d_Texture2D_initWithData2(L);
+        // }
+    }
+
+    if (num_args == 7) {
+        // if ((olua_is_obj(L, 2, "void *")) && (olua_is_int(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_int(L, 5)) && (olua_is_int(L, 6)) && (auto_olua_is_cocos2d_Size(L, 7)) && (olua_is_bool(L, 8))) {
+            return _cocos2d_Texture2D_initWithData1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Texture2D::initWithData' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _cocos2d_Texture2D_initWithImage1(lua_State *L)
@@ -15418,7 +16203,7 @@ static int _cocos2d_Texture2D_initWithImage(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_Texture2D_initWithString(lua_State *L)
+static int _cocos2d_Texture2D_initWithString1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -15438,11 +16223,11 @@ static int _cocos2d_Texture2D_initWithString(lua_State *L)
     olua_check_string(L, 2, &arg1);
     olua_check_std_string(L, 3, &arg2);
     olua_check_number(L, 4, &arg3);
-    auto_olua_opt_cocos2d_Size(L, 5, &arg4, (cocos2d::Size)cocos2d::Size(0, 0));
-    olua_opt_uint(L, 6, &arg5, (lua_Unsigned)cocos2d::TextHAlignment::CENTER);
-    olua_opt_uint(L, 7, &arg6, (lua_Unsigned)cocos2d::TextVAlignment::TOP);
-    olua_opt_bool(L, 8, &arg7, (bool)true);
-    olua_opt_int(L, 9, &arg8, (lua_Integer)0);
+    auto_olua_check_cocos2d_Size(L, 5, &arg4);
+    olua_check_uint(L, 6, &arg5);
+    olua_check_uint(L, 7, &arg6);
+    olua_check_bool(L, 8, &arg7);
+    olua_check_int(L, 9, &arg8);
 
     // bool initWithString(const char *text, const std::string &fontName, float fontSize, const Size& dimensions = Size(0, 0), TextHAlignment hAlignment = TextHAlignment::CENTER, TextVAlignment vAlignment = TextVAlignment::TOP, bool enableWrap = true, int overflow = 0)
     bool ret = (bool)self->initWithString(arg1, arg2, (float)arg3, arg4, (cocos2d::TextHAlignment)arg5, (cocos2d::TextVAlignment)arg6, arg7, (int)arg8);
@@ -15451,6 +16236,196 @@ static int _cocos2d_Texture2D_initWithString(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _cocos2d_Texture2D_initWithString2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 4);
+
+    cocos2d::Texture2D *self = nullptr;
+    const char *arg1 = nullptr;       /** text */
+    std::string arg2;       /** fontName */
+    lua_Number arg3 = 0;       /** fontSize */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Texture2D");
+    olua_check_string(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+
+    // bool initWithString(const char *text, const std::string &fontName, float fontSize, const Size& dimensions = Size(0, 0), TextHAlignment hAlignment = TextHAlignment::CENTER, TextVAlignment vAlignment = TextVAlignment::TOP, bool enableWrap = true, int overflow = 0)
+    bool ret = (bool)self->initWithString(arg1, arg2, (float)arg3);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Texture2D_initWithString3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 5);
+
+    cocos2d::Texture2D *self = nullptr;
+    const char *arg1 = nullptr;       /** text */
+    std::string arg2;       /** fontName */
+    lua_Number arg3 = 0;       /** fontSize */
+    cocos2d::Size arg4;       /** dimensions */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Texture2D");
+    olua_check_string(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+    auto_olua_check_cocos2d_Size(L, 5, &arg4);
+
+    // bool initWithString(const char *text, const std::string &fontName, float fontSize, const Size& dimensions = Size(0, 0), TextHAlignment hAlignment = TextHAlignment::CENTER, TextVAlignment vAlignment = TextVAlignment::TOP, bool enableWrap = true, int overflow = 0)
+    bool ret = (bool)self->initWithString(arg1, arg2, (float)arg3, arg4);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Texture2D_initWithString4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 6);
+
+    cocos2d::Texture2D *self = nullptr;
+    const char *arg1 = nullptr;       /** text */
+    std::string arg2;       /** fontName */
+    lua_Number arg3 = 0;       /** fontSize */
+    cocos2d::Size arg4;       /** dimensions */
+    lua_Unsigned arg5 = 0;       /** hAlignment */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Texture2D");
+    olua_check_string(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+    auto_olua_check_cocos2d_Size(L, 5, &arg4);
+    olua_check_uint(L, 6, &arg5);
+
+    // bool initWithString(const char *text, const std::string &fontName, float fontSize, const Size& dimensions = Size(0, 0), TextHAlignment hAlignment = TextHAlignment::CENTER, TextVAlignment vAlignment = TextVAlignment::TOP, bool enableWrap = true, int overflow = 0)
+    bool ret = (bool)self->initWithString(arg1, arg2, (float)arg3, arg4, (cocos2d::TextHAlignment)arg5);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Texture2D_initWithString5(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 7);
+
+    cocos2d::Texture2D *self = nullptr;
+    const char *arg1 = nullptr;       /** text */
+    std::string arg2;       /** fontName */
+    lua_Number arg3 = 0;       /** fontSize */
+    cocos2d::Size arg4;       /** dimensions */
+    lua_Unsigned arg5 = 0;       /** hAlignment */
+    lua_Unsigned arg6 = 0;       /** vAlignment */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Texture2D");
+    olua_check_string(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+    auto_olua_check_cocos2d_Size(L, 5, &arg4);
+    olua_check_uint(L, 6, &arg5);
+    olua_check_uint(L, 7, &arg6);
+
+    // bool initWithString(const char *text, const std::string &fontName, float fontSize, const Size& dimensions = Size(0, 0), TextHAlignment hAlignment = TextHAlignment::CENTER, TextVAlignment vAlignment = TextVAlignment::TOP, bool enableWrap = true, int overflow = 0)
+    bool ret = (bool)self->initWithString(arg1, arg2, (float)arg3, arg4, (cocos2d::TextHAlignment)arg5, (cocos2d::TextVAlignment)arg6);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Texture2D_initWithString6(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 8);
+
+    cocos2d::Texture2D *self = nullptr;
+    const char *arg1 = nullptr;       /** text */
+    std::string arg2;       /** fontName */
+    lua_Number arg3 = 0;       /** fontSize */
+    cocos2d::Size arg4;       /** dimensions */
+    lua_Unsigned arg5 = 0;       /** hAlignment */
+    lua_Unsigned arg6 = 0;       /** vAlignment */
+    bool arg7 = false;       /** enableWrap */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Texture2D");
+    olua_check_string(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+    auto_olua_check_cocos2d_Size(L, 5, &arg4);
+    olua_check_uint(L, 6, &arg5);
+    olua_check_uint(L, 7, &arg6);
+    olua_check_bool(L, 8, &arg7);
+
+    // bool initWithString(const char *text, const std::string &fontName, float fontSize, const Size& dimensions = Size(0, 0), TextHAlignment hAlignment = TextHAlignment::CENTER, TextVAlignment vAlignment = TextVAlignment::TOP, bool enableWrap = true, int overflow = 0)
+    bool ret = (bool)self->initWithString(arg1, arg2, (float)arg3, arg4, (cocos2d::TextHAlignment)arg5, (cocos2d::TextVAlignment)arg6, arg7);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Texture2D_initWithString(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 3) {
+        // if ((olua_is_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4))) {
+            return _cocos2d_Texture2D_initWithString2(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if ((olua_is_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4)) && (auto_olua_is_cocos2d_Size(L, 5))) {
+            return _cocos2d_Texture2D_initWithString3(L);
+        // }
+    }
+
+    if (num_args == 5) {
+        // if ((olua_is_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4)) && (auto_olua_is_cocos2d_Size(L, 5)) && (olua_is_uint(L, 6))) {
+            return _cocos2d_Texture2D_initWithString4(L);
+        // }
+    }
+
+    if (num_args == 6) {
+        // if ((olua_is_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4)) && (auto_olua_is_cocos2d_Size(L, 5)) && (olua_is_uint(L, 6)) && (olua_is_uint(L, 7))) {
+            return _cocos2d_Texture2D_initWithString5(L);
+        // }
+    }
+
+    if (num_args == 7) {
+        // if ((olua_is_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4)) && (auto_olua_is_cocos2d_Size(L, 5)) && (olua_is_uint(L, 6)) && (olua_is_uint(L, 7)) && (olua_is_bool(L, 8))) {
+            return _cocos2d_Texture2D_initWithString6(L);
+        // }
+    }
+
+    if (num_args == 8) {
+        // if ((olua_is_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4)) && (auto_olua_is_cocos2d_Size(L, 5)) && (olua_is_uint(L, 6)) && (olua_is_uint(L, 7)) && (olua_is_bool(L, 8)) && (olua_is_int(L, 9))) {
+            return _cocos2d_Texture2D_initWithString1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Texture2D::initWithString' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _cocos2d_Texture2D_new(lua_State *L)
@@ -18187,7 +19162,7 @@ static int luaopen_cocos2d_Speed(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_Follow_create(lua_State *L)
+static int _cocos2d_Follow_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -18197,7 +19172,7 @@ static int _cocos2d_Follow_create(lua_State *L)
     cocos2d::Rect arg2;       /** rect */
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.Node");
-    manual_olua_opt_cocos2d_Rect(L, 2, &arg2, (cocos2d::Rect)cocos2d::Rect::ZERO);
+    manual_olua_check_cocos2d_Rect(L, 2, &arg2);
 
     // static Follow* create(Node *followedNode, const Rect& rect = Rect::ZERO)
     cocos2d::Follow *ret = (cocos2d::Follow *)cocos2d::Follow::create(arg1, arg2);
@@ -18208,7 +19183,47 @@ static int _cocos2d_Follow_create(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_Follow_createWithOffset(lua_State *L)
+static int _cocos2d_Follow_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    cocos2d::Node *arg1 = nullptr;       /** followedNode */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "cc.Node");
+
+    // static Follow* create(Node *followedNode, const Rect& rect = Rect::ZERO)
+    cocos2d::Follow *ret = (cocos2d::Follow *)cocos2d::Follow::create(arg1);
+    int num_ret = olua_push_cppobj(L, ret, "cc.Follow");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Follow_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 1) {
+        // if ((olua_is_cppobj(L, 1, "cc.Node"))) {
+            return _cocos2d_Follow_create2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_cppobj(L, 1, "cc.Node")) && (manual_olua_is_cocos2d_Rect(L, 2))) {
+            return _cocos2d_Follow_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Follow::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_Follow_createWithOffset1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -18222,7 +19237,7 @@ static int _cocos2d_Follow_createWithOffset(lua_State *L)
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.Node");
     olua_check_number(L, 2, &arg2);
     olua_check_number(L, 3, &arg3);
-    manual_olua_opt_cocos2d_Rect(L, 4, &arg4, (cocos2d::Rect)cocos2d::Rect::ZERO);
+    manual_olua_check_cocos2d_Rect(L, 4, &arg4);
 
     // static Follow* createWithOffset(Node* followedNode,float xOffset,float yOffset,const Rect& rect = Rect::ZERO)
     cocos2d::Follow *ret = (cocos2d::Follow *)cocos2d::Follow::createWithOffset(arg1, (float)arg2, (float)arg3, arg4);
@@ -18233,7 +19248,51 @@ static int _cocos2d_Follow_createWithOffset(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_Follow_initWithTarget(lua_State *L)
+static int _cocos2d_Follow_createWithOffset2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    cocos2d::Node *arg1 = nullptr;       /** followedNode */
+    lua_Number arg2 = 0;       /** xOffset */
+    lua_Number arg3 = 0;       /** yOffset */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "cc.Node");
+    olua_check_number(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+
+    // static Follow* createWithOffset(Node* followedNode,float xOffset,float yOffset,const Rect& rect = Rect::ZERO)
+    cocos2d::Follow *ret = (cocos2d::Follow *)cocos2d::Follow::createWithOffset(arg1, (float)arg2, (float)arg3);
+    int num_ret = olua_push_cppobj(L, ret, "cc.Follow");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Follow_createWithOffset(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 3) {
+        // if ((olua_is_cppobj(L, 1, "cc.Node")) && (olua_is_number(L, 2)) && (olua_is_number(L, 3))) {
+            return _cocos2d_Follow_createWithOffset2(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if ((olua_is_cppobj(L, 1, "cc.Node")) && (olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (manual_olua_is_cocos2d_Rect(L, 4))) {
+            return _cocos2d_Follow_createWithOffset1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Follow::createWithOffset' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_Follow_initWithTarget1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -18245,7 +19304,7 @@ static int _cocos2d_Follow_initWithTarget(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Follow");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
-    manual_olua_opt_cocos2d_Rect(L, 3, &arg2, (cocos2d::Rect)cocos2d::Rect::ZERO);
+    manual_olua_check_cocos2d_Rect(L, 3, &arg2);
 
     // bool initWithTarget(Node *followedNode, const Rect& rect = Rect::ZERO)
     bool ret = (bool)self->initWithTarget(arg1, arg2);
@@ -18256,7 +19315,49 @@ static int _cocos2d_Follow_initWithTarget(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_Follow_initWithTargetAndOffset(lua_State *L)
+static int _cocos2d_Follow_initWithTarget2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::Follow *self = nullptr;
+    cocos2d::Node *arg1 = nullptr;       /** followedNode */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Follow");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
+
+    // bool initWithTarget(Node *followedNode, const Rect& rect = Rect::ZERO)
+    bool ret = (bool)self->initWithTarget(arg1);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Follow_initWithTarget(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_cppobj(L, 2, "cc.Node"))) {
+            return _cocos2d_Follow_initWithTarget2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_cppobj(L, 2, "cc.Node")) && (manual_olua_is_cocos2d_Rect(L, 3))) {
+            return _cocos2d_Follow_initWithTarget1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Follow::initWithTarget' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_Follow_initWithTargetAndOffset1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -18272,7 +19373,7 @@ static int _cocos2d_Follow_initWithTargetAndOffset(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
     olua_check_number(L, 3, &arg2);
     olua_check_number(L, 4, &arg3);
-    manual_olua_opt_cocos2d_Rect(L, 5, &arg4, (cocos2d::Rect)cocos2d::Rect::ZERO);
+    manual_olua_check_cocos2d_Rect(L, 5, &arg4);
 
     // bool initWithTargetAndOffset(Node *followedNode,float xOffset,float yOffset,const Rect& rect = Rect::ZERO)
     bool ret = (bool)self->initWithTargetAndOffset(arg1, (float)arg2, (float)arg3, arg4);
@@ -18281,6 +19382,52 @@ static int _cocos2d_Follow_initWithTargetAndOffset(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _cocos2d_Follow_initWithTargetAndOffset2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 4);
+
+    cocos2d::Follow *self = nullptr;
+    cocos2d::Node *arg1 = nullptr;       /** followedNode */
+    lua_Number arg2 = 0;       /** xOffset */
+    lua_Number arg3 = 0;       /** yOffset */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Follow");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
+    olua_check_number(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+
+    // bool initWithTargetAndOffset(Node *followedNode,float xOffset,float yOffset,const Rect& rect = Rect::ZERO)
+    bool ret = (bool)self->initWithTargetAndOffset(arg1, (float)arg2, (float)arg3);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Follow_initWithTargetAndOffset(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 3) {
+        // if ((olua_is_cppobj(L, 2, "cc.Node")) && (olua_is_number(L, 3)) && (olua_is_number(L, 4))) {
+            return _cocos2d_Follow_initWithTargetAndOffset2(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if ((olua_is_cppobj(L, 2, "cc.Node")) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (manual_olua_is_cocos2d_Rect(L, 5))) {
+            return _cocos2d_Follow_initWithTargetAndOffset1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Follow::initWithTargetAndOffset' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _cocos2d_Follow_isBoundarySet(lua_State *L)
@@ -23819,7 +24966,7 @@ static int luaopen_cocos2d_ToggleVisibility(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_RemoveSelf_create(lua_State *L)
+static int _cocos2d_RemoveSelf_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -23827,7 +24974,7 @@ static int _cocos2d_RemoveSelf_create(lua_State *L)
 
     bool arg1 = false;       /** isNeedCleanUp */
 
-    olua_opt_bool(L, 1, &arg1, (bool)true);
+    olua_check_bool(L, 1, &arg1);
 
     // static RemoveSelf * create(bool isNeedCleanUp = true)
     cocos2d::RemoveSelf *ret = (cocos2d::RemoveSelf *)cocos2d::RemoveSelf::create(arg1);
@@ -23836,6 +24983,40 @@ static int _cocos2d_RemoveSelf_create(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _cocos2d_RemoveSelf_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // static RemoveSelf * create(bool isNeedCleanUp = true)
+    cocos2d::RemoveSelf *ret = (cocos2d::RemoveSelf *)cocos2d::RemoveSelf::create();
+    int num_ret = olua_push_cppobj(L, ret, "cc.RemoveSelf");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_RemoveSelf_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        return _cocos2d_RemoveSelf_create2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_bool(L, 1))) {
+            return _cocos2d_RemoveSelf_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::RemoveSelf::create' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _cocos2d_RemoveSelf_new(lua_State *L)
@@ -27010,7 +28191,7 @@ static int _cocos2d_Node_removeAllComponents(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_Node_removeChild(lua_State *L)
+static int _cocos2d_Node_removeChild1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -27022,7 +28203,7 @@ static int _cocos2d_Node_removeChild(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
-    olua_opt_bool(L, 3, &arg2, (bool)true);
+    olua_check_bool(L, 3, &arg2);
 
     // void removeChild(@unref(map children) Node* child, bool cleanup = true)
     self->removeChild(arg1, arg2);
@@ -27035,7 +28216,51 @@ static int _cocos2d_Node_removeChild(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_Node_removeChildByName(lua_State *L)
+static int _cocos2d_Node_removeChild2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::Node *self = nullptr;
+    cocos2d::Node *arg1 = nullptr;       /** child */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
+
+    // void removeChild(@unref(map children) Node* child, bool cleanup = true)
+    self->removeChild(arg1);
+
+    // inject code after call
+    olua_mapunref(L, 1, "children", 2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Node_removeChild(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_cppobj(L, 2, "cc.Node"))) {
+            return _cocos2d_Node_removeChild2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_cppobj(L, 2, "cc.Node")) && (olua_is_bool(L, 3))) {
+            return _cocos2d_Node_removeChild1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Node::removeChild' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_Node_removeChildByName1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -27047,7 +28272,7 @@ static int _cocos2d_Node_removeChildByName(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
     olua_check_std_string(L, 2, &arg1);
-    olua_opt_bool(L, 3, &arg2, (bool)true);
+    olua_check_bool(L, 3, &arg2);
 
     // inject code before call
     olua_startcmpunref(L, 1, "children");
@@ -27063,7 +28288,54 @@ static int _cocos2d_Node_removeChildByName(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_Node_removeChildByTag(lua_State *L)
+static int _cocos2d_Node_removeChildByName2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::Node *self = nullptr;
+    std::string arg1;       /** name */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
+    olua_check_std_string(L, 2, &arg1);
+
+    // inject code before call
+    olua_startcmpunref(L, 1, "children");
+
+    // @unref(cmp children) void removeChildByName(const std::string &name, bool cleanup = true)
+    self->removeChildByName(arg1);
+
+    // inject code after call
+    olua_endcmpunref(L, 1, "children");
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Node_removeChildByName(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            return _cocos2d_Node_removeChildByName2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3))) {
+            return _cocos2d_Node_removeChildByName1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Node::removeChildByName' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_Node_removeChildByTag1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -27075,7 +28347,7 @@ static int _cocos2d_Node_removeChildByTag(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
     olua_check_int(L, 2, &arg1);
-    olua_opt_bool(L, 3, &arg2, (bool)true);
+    olua_check_bool(L, 3, &arg2);
 
     // inject code before call
     olua_startcmpunref(L, 1, "children");
@@ -27087,6 +28359,53 @@ static int _cocos2d_Node_removeChildByTag(lua_State *L)
     olua_endcmpunref(L, 1, "children");
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Node_removeChildByTag2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::Node *self = nullptr;
+    lua_Integer arg1 = 0;       /** tag */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
+    olua_check_int(L, 2, &arg1);
+
+    // inject code before call
+    olua_startcmpunref(L, 1, "children");
+
+    // @unref(cmp children) void removeChildByTag(int tag, bool cleanup = true)
+    self->removeChildByTag((int)arg1);
+
+    // inject code after call
+    olua_endcmpunref(L, 1, "children");
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Node_removeChildByTag(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_int(L, 2))) {
+            return _cocos2d_Node_removeChildByTag2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_int(L, 2)) && (olua_is_bool(L, 3))) {
+            return _cocos2d_Node_removeChildByTag1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Node::removeChildByTag' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -27621,7 +28940,7 @@ static int _cocos2d_Node_setAnchorPoint(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_Node_setCameraMask(lua_State *L)
+static int _cocos2d_Node_setCameraMask1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -27633,12 +28952,53 @@ static int _cocos2d_Node_setCameraMask(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
     olua_check_uint(L, 2, &arg1);
-    olua_opt_bool(L, 3, &arg2, (bool)true);
+    olua_check_bool(L, 3, &arg2);
 
     // void setCameraMask(unsigned short mask, bool applyChildren = true)
     self->setCameraMask((unsigned short)arg1, arg2);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Node_setCameraMask2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::Node *self = nullptr;
+    lua_Unsigned arg1 = 0;       /** mask */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
+    olua_check_uint(L, 2, &arg1);
+
+    // void setCameraMask(unsigned short mask, bool applyChildren = true)
+    self->setCameraMask((unsigned short)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Node_setCameraMask(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_uint(L, 2))) {
+            return _cocos2d_Node_setCameraMask2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_uint(L, 2)) && (olua_is_bool(L, 3))) {
+            return _cocos2d_Node_setCameraMask1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Node::setCameraMask' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -29941,7 +31301,7 @@ static int _cocos2d_ProtectedNode_removeAllProtectedChildrenWithCleanup(lua_Stat
     return 0;
 }
 
-static int _cocos2d_ProtectedNode_removeProtectedChild(lua_State *L)
+static int _cocos2d_ProtectedNode_removeProtectedChild1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -29953,7 +31313,7 @@ static int _cocos2d_ProtectedNode_removeProtectedChild(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.ProtectedNode");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
-    olua_opt_bool(L, 3, &arg2, (bool)true);
+    olua_check_bool(L, 3, &arg2);
 
     // void removeProtectedChild(@unref(map protectedChildren) Node* child, bool cleanup = true)
     self->removeProtectedChild(arg1, arg2);
@@ -29966,7 +31326,51 @@ static int _cocos2d_ProtectedNode_removeProtectedChild(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_ProtectedNode_removeProtectedChildByTag(lua_State *L)
+static int _cocos2d_ProtectedNode_removeProtectedChild2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::ProtectedNode *self = nullptr;
+    cocos2d::Node *arg1 = nullptr;       /** child */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ProtectedNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
+
+    // void removeProtectedChild(@unref(map protectedChildren) Node* child, bool cleanup = true)
+    self->removeProtectedChild(arg1);
+
+    // inject code after call
+    olua_mapunref(L, 1, "protectedChildren", 2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ProtectedNode_removeProtectedChild(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_cppobj(L, 2, "cc.Node"))) {
+            return _cocos2d_ProtectedNode_removeProtectedChild2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_cppobj(L, 2, "cc.Node")) && (olua_is_bool(L, 3))) {
+            return _cocos2d_ProtectedNode_removeProtectedChild1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ProtectedNode::removeProtectedChild' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_ProtectedNode_removeProtectedChildByTag1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -29978,7 +31382,7 @@ static int _cocos2d_ProtectedNode_removeProtectedChildByTag(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.ProtectedNode");
     olua_check_int(L, 2, &arg1);
-    olua_opt_bool(L, 3, &arg2, (bool)true);
+    olua_check_bool(L, 3, &arg2);
 
     // inject code before call
     olua_startcmpunref(L, 1, "protectedChildren");
@@ -29990,6 +31394,53 @@ static int _cocos2d_ProtectedNode_removeProtectedChildByTag(lua_State *L)
     olua_endcmpunref(L, 1, "protectedChildren");
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ProtectedNode_removeProtectedChildByTag2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::ProtectedNode *self = nullptr;
+    lua_Integer arg1 = 0;       /** tag */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.ProtectedNode");
+    olua_check_int(L, 2, &arg1);
+
+    // inject code before call
+    olua_startcmpunref(L, 1, "protectedChildren");
+
+    // @unref(cmp protectedChildren) void removeProtectedChildByTag(int tag, bool cleanup = true)
+    self->removeProtectedChildByTag((int)arg1);
+
+    // inject code after call
+    olua_endcmpunref(L, 1, "protectedChildren");
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ProtectedNode_removeProtectedChildByTag(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_int(L, 2))) {
+            return _cocos2d_ProtectedNode_removeProtectedChildByTag2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_int(L, 2)) && (olua_is_bool(L, 3))) {
+            return _cocos2d_ProtectedNode_removeProtectedChildByTag1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ProtectedNode::removeProtectedChildByTag' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -30072,7 +31523,7 @@ static int _cocos2d_DrawNode_clear(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_DrawNode_create(lua_State *L)
+static int _cocos2d_DrawNode_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -30080,7 +31531,7 @@ static int _cocos2d_DrawNode_create(lua_State *L)
 
     lua_Number arg1 = 0;       /** defaultLineWidth */
 
-    olua_opt_number(L, 1, &arg1, (lua_Number)2);
+    olua_check_number(L, 1, &arg1);
 
     // static DrawNode* create(GLfloat defaultLineWidth = 2)
     cocos2d::DrawNode *ret = (cocos2d::DrawNode *)cocos2d::DrawNode::create((GLfloat)arg1);
@@ -30089,6 +31540,40 @@ static int _cocos2d_DrawNode_create(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _cocos2d_DrawNode_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // static DrawNode* create(GLfloat defaultLineWidth = 2)
+    cocos2d::DrawNode *ret = (cocos2d::DrawNode *)cocos2d::DrawNode::create();
+    int num_ret = olua_push_cppobj(L, ret, "cc.DrawNode");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_DrawNode_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        return _cocos2d_DrawNode_create2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_number(L, 1))) {
+            return _cocos2d_DrawNode_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::DrawNode::create' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _cocos2d_DrawNode_drawCardinalSpline(lua_State *L)
@@ -30914,7 +32399,7 @@ static int _cocos2d_Label_create(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_Label_createWithBMFont(lua_State *L)
+static int _cocos2d_Label_createWithBMFont1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -30928,9 +32413,9 @@ static int _cocos2d_Label_createWithBMFont(lua_State *L)
 
     olua_check_std_string(L, 1, &arg1);
     olua_check_std_string(L, 2, &arg2);
-    olua_opt_uint(L, 3, &arg3, (lua_Unsigned)cocos2d::TextHAlignment::LEFT);
-    olua_opt_int(L, 4, &arg4, (lua_Integer)0);
-    auto_olua_opt_cocos2d_Vec2(L, 5, &arg5, (cocos2d::Vec2)cocos2d::Vec2::ZERO);
+    olua_check_uint(L, 3, &arg3);
+    olua_check_int(L, 4, &arg4);
+    auto_olua_check_cocos2d_Vec2(L, 5, &arg5);
 
     // static Label* createWithBMFont(const std::string& bmfontPath, const std::string& text, const TextHAlignment& hAlignment = TextHAlignment::LEFT, int maxLineWidth = 0, const Vec2& imageOffset = Vec2::ZERO)
     cocos2d::Label *ret = (cocos2d::Label *)cocos2d::Label::createWithBMFont(arg1, arg2, (cocos2d::TextHAlignment)arg3, (int)arg4, arg5);
@@ -30939,6 +32424,108 @@ static int _cocos2d_Label_createWithBMFont(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _cocos2d_Label_createWithBMFont2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    std::string arg1;       /** bmfontPath */
+    std::string arg2;       /** text */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+
+    // static Label* createWithBMFont(const std::string& bmfontPath, const std::string& text, const TextHAlignment& hAlignment = TextHAlignment::LEFT, int maxLineWidth = 0, const Vec2& imageOffset = Vec2::ZERO)
+    cocos2d::Label *ret = (cocos2d::Label *)cocos2d::Label::createWithBMFont(arg1, arg2);
+    int num_ret = olua_push_cppobj(L, ret, "cc.Label");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Label_createWithBMFont3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    std::string arg1;       /** bmfontPath */
+    std::string arg2;       /** text */
+    lua_Unsigned arg3 = 0;       /** hAlignment */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+    olua_check_uint(L, 3, &arg3);
+
+    // static Label* createWithBMFont(const std::string& bmfontPath, const std::string& text, const TextHAlignment& hAlignment = TextHAlignment::LEFT, int maxLineWidth = 0, const Vec2& imageOffset = Vec2::ZERO)
+    cocos2d::Label *ret = (cocos2d::Label *)cocos2d::Label::createWithBMFont(arg1, arg2, (cocos2d::TextHAlignment)arg3);
+    int num_ret = olua_push_cppobj(L, ret, "cc.Label");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Label_createWithBMFont4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 4);
+
+    std::string arg1;       /** bmfontPath */
+    std::string arg2;       /** text */
+    lua_Unsigned arg3 = 0;       /** hAlignment */
+    lua_Integer arg4 = 0;       /** maxLineWidth */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+    olua_check_uint(L, 3, &arg3);
+    olua_check_int(L, 4, &arg4);
+
+    // static Label* createWithBMFont(const std::string& bmfontPath, const std::string& text, const TextHAlignment& hAlignment = TextHAlignment::LEFT, int maxLineWidth = 0, const Vec2& imageOffset = Vec2::ZERO)
+    cocos2d::Label *ret = (cocos2d::Label *)cocos2d::Label::createWithBMFont(arg1, arg2, (cocos2d::TextHAlignment)arg3, (int)arg4);
+    int num_ret = olua_push_cppobj(L, ret, "cc.Label");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Label_createWithBMFont(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2))) {
+            return _cocos2d_Label_createWithBMFont2(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
+            return _cocos2d_Label_createWithBMFont3(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_int(L, 4))) {
+            return _cocos2d_Label_createWithBMFont4(L);
+        // }
+    }
+
+    if (num_args == 5) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_int(L, 4)) && (auto_olua_is_cocos2d_Vec2(L, 5))) {
+            return _cocos2d_Label_createWithBMFont1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Label::createWithBMFont' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _cocos2d_Label_createWithCharMap1(lua_State *L)
@@ -31035,7 +32622,7 @@ static int _cocos2d_Label_createWithCharMap(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_Label_createWithSystemFont(lua_State *L)
+static int _cocos2d_Label_createWithSystemFont1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -31051,9 +32638,9 @@ static int _cocos2d_Label_createWithSystemFont(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
     olua_check_std_string(L, 2, &arg2);
     olua_check_number(L, 3, &arg3);
-    auto_olua_opt_cocos2d_Size(L, 4, &arg4, (cocos2d::Size)cocos2d::Size::ZERO);
-    olua_opt_uint(L, 5, &arg5, (lua_Unsigned)cocos2d::TextHAlignment::LEFT);
-    olua_opt_uint(L, 6, &arg6, (lua_Unsigned)cocos2d::TextVAlignment::TOP);
+    auto_olua_check_cocos2d_Size(L, 4, &arg4);
+    olua_check_uint(L, 5, &arg5);
+    olua_check_uint(L, 6, &arg6);
 
     // static Label* createWithSystemFont(const std::string& text, const std::string& font, float fontSize, const Size& dimensions = Size::ZERO, TextHAlignment hAlignment = TextHAlignment::LEFT, TextVAlignment vAlignment = TextVAlignment::TOP)
     cocos2d::Label *ret = (cocos2d::Label *)cocos2d::Label::createWithSystemFont(arg1, arg2, (float)arg3, arg4, (cocos2d::TextHAlignment)arg5, (cocos2d::TextVAlignment)arg6);
@@ -31062,6 +32649,114 @@ static int _cocos2d_Label_createWithSystemFont(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _cocos2d_Label_createWithSystemFont2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    std::string arg1;       /** text */
+    std::string arg2;       /** font */
+    lua_Number arg3 = 0;       /** fontSize */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+
+    // static Label* createWithSystemFont(const std::string& text, const std::string& font, float fontSize, const Size& dimensions = Size::ZERO, TextHAlignment hAlignment = TextHAlignment::LEFT, TextVAlignment vAlignment = TextVAlignment::TOP)
+    cocos2d::Label *ret = (cocos2d::Label *)cocos2d::Label::createWithSystemFont(arg1, arg2, (float)arg3);
+    int num_ret = olua_push_cppobj(L, ret, "cc.Label");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Label_createWithSystemFont3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 4);
+
+    std::string arg1;       /** text */
+    std::string arg2;       /** font */
+    lua_Number arg3 = 0;       /** fontSize */
+    cocos2d::Size arg4;       /** dimensions */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+    auto_olua_check_cocos2d_Size(L, 4, &arg4);
+
+    // static Label* createWithSystemFont(const std::string& text, const std::string& font, float fontSize, const Size& dimensions = Size::ZERO, TextHAlignment hAlignment = TextHAlignment::LEFT, TextVAlignment vAlignment = TextVAlignment::TOP)
+    cocos2d::Label *ret = (cocos2d::Label *)cocos2d::Label::createWithSystemFont(arg1, arg2, (float)arg3, arg4);
+    int num_ret = olua_push_cppobj(L, ret, "cc.Label");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Label_createWithSystemFont4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 5);
+
+    std::string arg1;       /** text */
+    std::string arg2;       /** font */
+    lua_Number arg3 = 0;       /** fontSize */
+    cocos2d::Size arg4;       /** dimensions */
+    lua_Unsigned arg5 = 0;       /** hAlignment */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+    auto_olua_check_cocos2d_Size(L, 4, &arg4);
+    olua_check_uint(L, 5, &arg5);
+
+    // static Label* createWithSystemFont(const std::string& text, const std::string& font, float fontSize, const Size& dimensions = Size::ZERO, TextHAlignment hAlignment = TextHAlignment::LEFT, TextVAlignment vAlignment = TextVAlignment::TOP)
+    cocos2d::Label *ret = (cocos2d::Label *)cocos2d::Label::createWithSystemFont(arg1, arg2, (float)arg3, arg4, (cocos2d::TextHAlignment)arg5);
+    int num_ret = olua_push_cppobj(L, ret, "cc.Label");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Label_createWithSystemFont(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 3) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3))) {
+            return _cocos2d_Label_createWithSystemFont2(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3)) && (auto_olua_is_cocos2d_Size(L, 4))) {
+            return _cocos2d_Label_createWithSystemFont3(L);
+        // }
+    }
+
+    if (num_args == 5) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3)) && (auto_olua_is_cocos2d_Size(L, 4)) && (olua_is_uint(L, 5))) {
+            return _cocos2d_Label_createWithSystemFont4(L);
+        // }
+    }
+
+    if (num_args == 6) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3)) && (auto_olua_is_cocos2d_Size(L, 4)) && (olua_is_uint(L, 5)) && (olua_is_uint(L, 6))) {
+            return _cocos2d_Label_createWithSystemFont1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Label::createWithSystemFont' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _cocos2d_Label_createWithTTF1(lua_State *L)
@@ -31080,9 +32775,9 @@ static int _cocos2d_Label_createWithTTF1(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
     olua_check_std_string(L, 2, &arg2);
     olua_check_number(L, 3, &arg3);
-    auto_olua_opt_cocos2d_Size(L, 4, &arg4, (cocos2d::Size)cocos2d::Size::ZERO);
-    olua_opt_uint(L, 5, &arg5, (lua_Unsigned)cocos2d::TextHAlignment::LEFT);
-    olua_opt_uint(L, 6, &arg6, (lua_Unsigned)cocos2d::TextVAlignment::TOP);
+    auto_olua_check_cocos2d_Size(L, 4, &arg4);
+    olua_check_uint(L, 5, &arg5);
+    olua_check_uint(L, 6, &arg6);
 
     // static Label * createWithTTF(const std::string& text, const std::string& fontFilePath, float fontSize, const Size& dimensions = Size::ZERO, TextHAlignment hAlignment = TextHAlignment::LEFT, TextVAlignment vAlignment = TextVAlignment::TOP)
     cocos2d::Label *ret = (cocos2d::Label *)cocos2d::Label::createWithTTF(arg1, arg2, (float)arg3, arg4, (cocos2d::TextHAlignment)arg5, (cocos2d::TextVAlignment)arg6);
@@ -31106,11 +32801,130 @@ static int _cocos2d_Label_createWithTTF2(lua_State *L)
 
     auto_olua_check_cocos2d_TTFConfig(L, 1, &arg1);
     olua_check_std_string(L, 2, &arg2);
-    olua_opt_uint(L, 3, &arg3, (lua_Unsigned)cocos2d::TextHAlignment::LEFT);
-    olua_opt_int(L, 4, &arg4, (lua_Integer)0);
+    olua_check_uint(L, 3, &arg3);
+    olua_check_int(L, 4, &arg4);
 
     // static Label* createWithTTF(const TTFConfig& ttfConfig, const std::string& text, TextHAlignment hAlignment = TextHAlignment::LEFT, int maxLineWidth = 0)
     cocos2d::Label *ret = (cocos2d::Label *)cocos2d::Label::createWithTTF(arg1, arg2, (cocos2d::TextHAlignment)arg3, (int)arg4);
+    int num_ret = olua_push_cppobj(L, ret, "cc.Label");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Label_createWithTTF3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    std::string arg1;       /** text */
+    std::string arg2;       /** fontFilePath */
+    lua_Number arg3 = 0;       /** fontSize */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+
+    // static Label * createWithTTF(const std::string& text, const std::string& fontFilePath, float fontSize, const Size& dimensions = Size::ZERO, TextHAlignment hAlignment = TextHAlignment::LEFT, TextVAlignment vAlignment = TextVAlignment::TOP)
+    cocos2d::Label *ret = (cocos2d::Label *)cocos2d::Label::createWithTTF(arg1, arg2, (float)arg3);
+    int num_ret = olua_push_cppobj(L, ret, "cc.Label");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Label_createWithTTF4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 4);
+
+    std::string arg1;       /** text */
+    std::string arg2;       /** fontFilePath */
+    lua_Number arg3 = 0;       /** fontSize */
+    cocos2d::Size arg4;       /** dimensions */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+    auto_olua_check_cocos2d_Size(L, 4, &arg4);
+
+    // static Label * createWithTTF(const std::string& text, const std::string& fontFilePath, float fontSize, const Size& dimensions = Size::ZERO, TextHAlignment hAlignment = TextHAlignment::LEFT, TextVAlignment vAlignment = TextVAlignment::TOP)
+    cocos2d::Label *ret = (cocos2d::Label *)cocos2d::Label::createWithTTF(arg1, arg2, (float)arg3, arg4);
+    int num_ret = olua_push_cppobj(L, ret, "cc.Label");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Label_createWithTTF5(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 5);
+
+    std::string arg1;       /** text */
+    std::string arg2;       /** fontFilePath */
+    lua_Number arg3 = 0;       /** fontSize */
+    cocos2d::Size arg4;       /** dimensions */
+    lua_Unsigned arg5 = 0;       /** hAlignment */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+    auto_olua_check_cocos2d_Size(L, 4, &arg4);
+    olua_check_uint(L, 5, &arg5);
+
+    // static Label * createWithTTF(const std::string& text, const std::string& fontFilePath, float fontSize, const Size& dimensions = Size::ZERO, TextHAlignment hAlignment = TextHAlignment::LEFT, TextVAlignment vAlignment = TextVAlignment::TOP)
+    cocos2d::Label *ret = (cocos2d::Label *)cocos2d::Label::createWithTTF(arg1, arg2, (float)arg3, arg4, (cocos2d::TextHAlignment)arg5);
+    int num_ret = olua_push_cppobj(L, ret, "cc.Label");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Label_createWithTTF6(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::TTFConfig arg1;       /** ttfConfig */
+    std::string arg2;       /** text */
+
+    auto_olua_check_cocos2d_TTFConfig(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+
+    // static Label* createWithTTF(const TTFConfig& ttfConfig, const std::string& text, TextHAlignment hAlignment = TextHAlignment::LEFT, int maxLineWidth = 0)
+    cocos2d::Label *ret = (cocos2d::Label *)cocos2d::Label::createWithTTF(arg1, arg2);
+    int num_ret = olua_push_cppobj(L, ret, "cc.Label");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Label_createWithTTF7(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    cocos2d::TTFConfig arg1;       /** ttfConfig */
+    std::string arg2;       /** text */
+    lua_Unsigned arg3 = 0;       /** hAlignment */
+
+    auto_olua_check_cocos2d_TTFConfig(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+    olua_check_uint(L, 3, &arg3);
+
+    // static Label* createWithTTF(const TTFConfig& ttfConfig, const std::string& text, TextHAlignment hAlignment = TextHAlignment::LEFT, int maxLineWidth = 0)
+    cocos2d::Label *ret = (cocos2d::Label *)cocos2d::Label::createWithTTF(arg1, arg2, (cocos2d::TextHAlignment)arg3);
     int num_ret = olua_push_cppobj(L, ret, "cc.Label");
 
     olua_endinvoke(L);
@@ -31123,39 +32937,39 @@ static int _cocos2d_Label_createWithTTF(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
-        // if ((auto_olua_is_cocos2d_TTFConfig(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3) || olua_isnil(L, 3)) && (olua_is_int(L, 4) || olua_isnil(L, 4))) {
-            return _cocos2d_Label_createWithTTF2(L);
+        // if ((auto_olua_is_cocos2d_TTFConfig(L, 1)) && (olua_is_std_string(L, 2))) {
+            return _cocos2d_Label_createWithTTF6(L);
         // }
     }
 
     if (num_args == 3) {
-        if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3)) && (auto_olua_is_cocos2d_Size(L, 4) || olua_isnil(L, 4)) && (olua_is_uint(L, 5) || olua_isnil(L, 5)) && (olua_is_uint(L, 6) || olua_isnil(L, 6))) {
-            return _cocos2d_Label_createWithTTF1(L);
+        if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3))) {
+            return _cocos2d_Label_createWithTTF3(L);
         }
 
-        // if ((auto_olua_is_cocos2d_TTFConfig(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3) || olua_isnil(L, 3)) && (olua_is_int(L, 4) || olua_isnil(L, 4))) {
-            return _cocos2d_Label_createWithTTF2(L);
+        // if ((auto_olua_is_cocos2d_TTFConfig(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
+            return _cocos2d_Label_createWithTTF7(L);
         // }
     }
 
     if (num_args == 4) {
-        if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3)) && (auto_olua_is_cocos2d_Size(L, 4) || olua_isnil(L, 4)) && (olua_is_uint(L, 5) || olua_isnil(L, 5)) && (olua_is_uint(L, 6) || olua_isnil(L, 6))) {
-            return _cocos2d_Label_createWithTTF1(L);
+        if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3)) && (auto_olua_is_cocos2d_Size(L, 4))) {
+            return _cocos2d_Label_createWithTTF4(L);
         }
 
-        // if ((auto_olua_is_cocos2d_TTFConfig(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3) || olua_isnil(L, 3)) && (olua_is_int(L, 4) || olua_isnil(L, 4))) {
+        // if ((auto_olua_is_cocos2d_TTFConfig(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_int(L, 4))) {
             return _cocos2d_Label_createWithTTF2(L);
         // }
     }
 
     if (num_args == 5) {
-        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3)) && (auto_olua_is_cocos2d_Size(L, 4) || olua_isnil(L, 4)) && (olua_is_uint(L, 5) || olua_isnil(L, 5)) && (olua_is_uint(L, 6) || olua_isnil(L, 6))) {
-            return _cocos2d_Label_createWithTTF1(L);
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3)) && (auto_olua_is_cocos2d_Size(L, 4)) && (olua_is_uint(L, 5))) {
+            return _cocos2d_Label_createWithTTF5(L);
         // }
     }
 
     if (num_args == 6) {
-        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3)) && (auto_olua_is_cocos2d_Size(L, 4) || olua_isnil(L, 4)) && (olua_is_uint(L, 5) || olua_isnil(L, 5)) && (olua_is_uint(L, 6) || olua_isnil(L, 6))) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3)) && (auto_olua_is_cocos2d_Size(L, 4)) && (olua_is_uint(L, 5)) && (olua_is_uint(L, 6))) {
             return _cocos2d_Label_createWithTTF1(L);
         // }
     }
@@ -31278,7 +33092,7 @@ static int _cocos2d_Label_enableItalics(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_Label_enableOutline(lua_State *L)
+static int _cocos2d_Label_enableOutline1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -31290,7 +33104,7 @@ static int _cocos2d_Label_enableOutline(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Label");
     manual_olua_check_cocos2d_Color4B(L, 2, &arg1);
-    olua_opt_int(L, 3, &arg2, (lua_Integer)-1);
+    olua_check_int(L, 3, &arg2);
 
     // void enableOutline(const Color4B& outlineColor,int outlineSize = -1)
     self->enableOutline(arg1, (int)arg2);
@@ -31300,7 +33114,48 @@ static int _cocos2d_Label_enableOutline(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_Label_enableShadow(lua_State *L)
+static int _cocos2d_Label_enableOutline2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::Label *self = nullptr;
+    cocos2d::Color4B arg1;       /** outlineColor */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Label");
+    manual_olua_check_cocos2d_Color4B(L, 2, &arg1);
+
+    // void enableOutline(const Color4B& outlineColor,int outlineSize = -1)
+    self->enableOutline(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Label_enableOutline(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((manual_olua_is_cocos2d_Color4B(L, 2))) {
+            return _cocos2d_Label_enableOutline2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((manual_olua_is_cocos2d_Color4B(L, 2)) && (olua_is_int(L, 3))) {
+            return _cocos2d_Label_enableOutline1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Label::enableOutline' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_Label_enableShadow1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -31312,14 +33167,105 @@ static int _cocos2d_Label_enableShadow(lua_State *L)
     lua_Integer arg3 = 0;       /** blurRadius */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Label");
-    manual_olua_opt_cocos2d_Color4B(L, 2, &arg1, (cocos2d::Color4B)cocos2d::Color4B::BLACK);
-    auto_olua_opt_cocos2d_Size(L, 3, &arg2, (cocos2d::Size)cocos2d::Size(2,-2));
-    olua_opt_int(L, 4, &arg3, (lua_Integer)0);
+    manual_olua_check_cocos2d_Color4B(L, 2, &arg1);
+    auto_olua_check_cocos2d_Size(L, 3, &arg2);
+    olua_check_int(L, 4, &arg3);
 
     // void enableShadow(const Color4B& shadowColor = Color4B::BLACK,const Size &offset = Size(2,-2), int blurRadius = 0)
     self->enableShadow(arg1, arg2, (int)arg3);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Label_enableShadow2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    cocos2d::Label *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Label");
+
+    // void enableShadow(const Color4B& shadowColor = Color4B::BLACK,const Size &offset = Size(2,-2), int blurRadius = 0)
+    self->enableShadow();
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Label_enableShadow3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::Label *self = nullptr;
+    cocos2d::Color4B arg1;       /** shadowColor */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Label");
+    manual_olua_check_cocos2d_Color4B(L, 2, &arg1);
+
+    // void enableShadow(const Color4B& shadowColor = Color4B::BLACK,const Size &offset = Size(2,-2), int blurRadius = 0)
+    self->enableShadow(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Label_enableShadow4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    cocos2d::Label *self = nullptr;
+    cocos2d::Color4B arg1;       /** shadowColor */
+    cocos2d::Size arg2;       /** offset */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Label");
+    manual_olua_check_cocos2d_Color4B(L, 2, &arg1);
+    auto_olua_check_cocos2d_Size(L, 3, &arg2);
+
+    // void enableShadow(const Color4B& shadowColor = Color4B::BLACK,const Size &offset = Size(2,-2), int blurRadius = 0)
+    self->enableShadow(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Label_enableShadow(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 0) {
+        return _cocos2d_Label_enableShadow2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((manual_olua_is_cocos2d_Color4B(L, 2))) {
+            return _cocos2d_Label_enableShadow3(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((manual_olua_is_cocos2d_Color4B(L, 2)) && (auto_olua_is_cocos2d_Size(L, 3))) {
+            return _cocos2d_Label_enableShadow4(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((manual_olua_is_cocos2d_Color4B(L, 2)) && (auto_olua_is_cocos2d_Size(L, 3)) && (olua_is_int(L, 4))) {
+            return _cocos2d_Label_enableShadow1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Label::enableShadow' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -31989,9 +33935,9 @@ static int _cocos2d_Label_initWithTTF1(lua_State *L)
     olua_check_std_string(L, 2, &arg1);
     olua_check_std_string(L, 3, &arg2);
     olua_check_number(L, 4, &arg3);
-    auto_olua_opt_cocos2d_Size(L, 5, &arg4, (cocos2d::Size)cocos2d::Size::ZERO);
-    olua_opt_uint(L, 6, &arg5, (lua_Unsigned)cocos2d::TextHAlignment::LEFT);
-    olua_opt_uint(L, 7, &arg6, (lua_Unsigned)cocos2d::TextVAlignment::TOP);
+    auto_olua_check_cocos2d_Size(L, 5, &arg4);
+    olua_check_uint(L, 6, &arg5);
+    olua_check_uint(L, 7, &arg6);
 
     // bool initWithTTF(const std::string& text, const std::string& fontFilePath, float fontSize, const Size& dimensions = Size::ZERO, TextHAlignment hAlignment = TextHAlignment::LEFT, TextVAlignment vAlignment = TextVAlignment::TOP)
     bool ret = (bool)self->initWithTTF(arg1, arg2, (float)arg3, arg4, (cocos2d::TextHAlignment)arg5, (cocos2d::TextVAlignment)arg6);
@@ -32017,11 +33963,140 @@ static int _cocos2d_Label_initWithTTF2(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Label");
     auto_olua_check_cocos2d_TTFConfig(L, 2, &arg1);
     olua_check_std_string(L, 3, &arg2);
-    olua_opt_uint(L, 4, &arg3, (lua_Unsigned)cocos2d::TextHAlignment::LEFT);
-    olua_opt_int(L, 5, &arg4, (lua_Integer)0);
+    olua_check_uint(L, 4, &arg3);
+    olua_check_int(L, 5, &arg4);
 
     // bool initWithTTF(const TTFConfig& ttfConfig, const std::string& text, TextHAlignment hAlignment = TextHAlignment::LEFT, int maxLineWidth = 0)
     bool ret = (bool)self->initWithTTF(arg1, arg2, (cocos2d::TextHAlignment)arg3, (int)arg4);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Label_initWithTTF3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 4);
+
+    cocos2d::Label *self = nullptr;
+    std::string arg1;       /** text */
+    std::string arg2;       /** fontFilePath */
+    lua_Number arg3 = 0;       /** fontSize */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Label");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+
+    // bool initWithTTF(const std::string& text, const std::string& fontFilePath, float fontSize, const Size& dimensions = Size::ZERO, TextHAlignment hAlignment = TextHAlignment::LEFT, TextVAlignment vAlignment = TextVAlignment::TOP)
+    bool ret = (bool)self->initWithTTF(arg1, arg2, (float)arg3);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Label_initWithTTF4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 5);
+
+    cocos2d::Label *self = nullptr;
+    std::string arg1;       /** text */
+    std::string arg2;       /** fontFilePath */
+    lua_Number arg3 = 0;       /** fontSize */
+    cocos2d::Size arg4;       /** dimensions */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Label");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+    auto_olua_check_cocos2d_Size(L, 5, &arg4);
+
+    // bool initWithTTF(const std::string& text, const std::string& fontFilePath, float fontSize, const Size& dimensions = Size::ZERO, TextHAlignment hAlignment = TextHAlignment::LEFT, TextVAlignment vAlignment = TextVAlignment::TOP)
+    bool ret = (bool)self->initWithTTF(arg1, arg2, (float)arg3, arg4);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Label_initWithTTF5(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 6);
+
+    cocos2d::Label *self = nullptr;
+    std::string arg1;       /** text */
+    std::string arg2;       /** fontFilePath */
+    lua_Number arg3 = 0;       /** fontSize */
+    cocos2d::Size arg4;       /** dimensions */
+    lua_Unsigned arg5 = 0;       /** hAlignment */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Label");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+    auto_olua_check_cocos2d_Size(L, 5, &arg4);
+    olua_check_uint(L, 6, &arg5);
+
+    // bool initWithTTF(const std::string& text, const std::string& fontFilePath, float fontSize, const Size& dimensions = Size::ZERO, TextHAlignment hAlignment = TextHAlignment::LEFT, TextVAlignment vAlignment = TextVAlignment::TOP)
+    bool ret = (bool)self->initWithTTF(arg1, arg2, (float)arg3, arg4, (cocos2d::TextHAlignment)arg5);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Label_initWithTTF6(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    cocos2d::Label *self = nullptr;
+    cocos2d::TTFConfig arg1;       /** ttfConfig */
+    std::string arg2;       /** text */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Label");
+    auto_olua_check_cocos2d_TTFConfig(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+
+    // bool initWithTTF(const TTFConfig& ttfConfig, const std::string& text, TextHAlignment hAlignment = TextHAlignment::LEFT, int maxLineWidth = 0)
+    bool ret = (bool)self->initWithTTF(arg1, arg2);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Label_initWithTTF7(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 4);
+
+    cocos2d::Label *self = nullptr;
+    cocos2d::TTFConfig arg1;       /** ttfConfig */
+    std::string arg2;       /** text */
+    lua_Unsigned arg3 = 0;       /** hAlignment */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Label");
+    auto_olua_check_cocos2d_TTFConfig(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+    olua_check_uint(L, 4, &arg3);
+
+    // bool initWithTTF(const TTFConfig& ttfConfig, const std::string& text, TextHAlignment hAlignment = TextHAlignment::LEFT, int maxLineWidth = 0)
+    bool ret = (bool)self->initWithTTF(arg1, arg2, (cocos2d::TextHAlignment)arg3);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -32034,39 +34109,39 @@ static int _cocos2d_Label_initWithTTF(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 2) {
-        // if ((auto_olua_is_cocos2d_TTFConfig(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_uint(L, 4) || olua_isnil(L, 4)) && (olua_is_int(L, 5) || olua_isnil(L, 5))) {
-            return _cocos2d_Label_initWithTTF2(L);
+        // if ((auto_olua_is_cocos2d_TTFConfig(L, 2)) && (olua_is_std_string(L, 3))) {
+            return _cocos2d_Label_initWithTTF6(L);
         // }
     }
 
     if (num_args == 3) {
-        if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4)) && (auto_olua_is_cocos2d_Size(L, 5) || olua_isnil(L, 5)) && (olua_is_uint(L, 6) || olua_isnil(L, 6)) && (olua_is_uint(L, 7) || olua_isnil(L, 7))) {
-            return _cocos2d_Label_initWithTTF1(L);
+        if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4))) {
+            return _cocos2d_Label_initWithTTF3(L);
         }
 
-        // if ((auto_olua_is_cocos2d_TTFConfig(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_uint(L, 4) || olua_isnil(L, 4)) && (olua_is_int(L, 5) || olua_isnil(L, 5))) {
-            return _cocos2d_Label_initWithTTF2(L);
+        // if ((auto_olua_is_cocos2d_TTFConfig(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_uint(L, 4))) {
+            return _cocos2d_Label_initWithTTF7(L);
         // }
     }
 
     if (num_args == 4) {
-        if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4)) && (auto_olua_is_cocos2d_Size(L, 5) || olua_isnil(L, 5)) && (olua_is_uint(L, 6) || olua_isnil(L, 6)) && (olua_is_uint(L, 7) || olua_isnil(L, 7))) {
-            return _cocos2d_Label_initWithTTF1(L);
+        if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4)) && (auto_olua_is_cocos2d_Size(L, 5))) {
+            return _cocos2d_Label_initWithTTF4(L);
         }
 
-        // if ((auto_olua_is_cocos2d_TTFConfig(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_uint(L, 4) || olua_isnil(L, 4)) && (olua_is_int(L, 5) || olua_isnil(L, 5))) {
+        // if ((auto_olua_is_cocos2d_TTFConfig(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_int(L, 5))) {
             return _cocos2d_Label_initWithTTF2(L);
         // }
     }
 
     if (num_args == 5) {
-        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4)) && (auto_olua_is_cocos2d_Size(L, 5) || olua_isnil(L, 5)) && (olua_is_uint(L, 6) || olua_isnil(L, 6)) && (olua_is_uint(L, 7) || olua_isnil(L, 7))) {
-            return _cocos2d_Label_initWithTTF1(L);
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4)) && (auto_olua_is_cocos2d_Size(L, 5)) && (olua_is_uint(L, 6))) {
+            return _cocos2d_Label_initWithTTF5(L);
         // }
     }
 
     if (num_args == 6) {
-        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4)) && (auto_olua_is_cocos2d_Size(L, 5) || olua_isnil(L, 5)) && (olua_is_uint(L, 6) || olua_isnil(L, 6)) && (olua_is_uint(L, 7) || olua_isnil(L, 7))) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4)) && (auto_olua_is_cocos2d_Size(L, 5)) && (olua_is_uint(L, 6)) && (olua_is_uint(L, 7))) {
             return _cocos2d_Label_initWithTTF1(L);
         // }
     }
@@ -32234,7 +34309,7 @@ static int _cocos2d_Label_setAlignment(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_Label_setBMFontFilePath(lua_State *L)
+static int _cocos2d_Label_setBMFontFilePath1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -32247,8 +34322,8 @@ static int _cocos2d_Label_setBMFontFilePath(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Label");
     olua_check_std_string(L, 2, &arg1);
-    auto_olua_opt_cocos2d_Vec2(L, 3, &arg2, (cocos2d::Vec2)cocos2d::Vec2::ZERO);
-    olua_opt_number(L, 4, &arg3, (lua_Number)0);
+    auto_olua_check_cocos2d_Vec2(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
 
     // bool setBMFontFilePath(const std::string& bmfontFilePath, const Vec2& imageOffset = Vec2::ZERO, float fontSize = 0)
     bool ret = (bool)self->setBMFontFilePath(arg1, arg2, (float)arg3);
@@ -32257,6 +34332,77 @@ static int _cocos2d_Label_setBMFontFilePath(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _cocos2d_Label_setBMFontFilePath2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::Label *self = nullptr;
+    std::string arg1;       /** bmfontFilePath */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Label");
+    olua_check_std_string(L, 2, &arg1);
+
+    // bool setBMFontFilePath(const std::string& bmfontFilePath, const Vec2& imageOffset = Vec2::ZERO, float fontSize = 0)
+    bool ret = (bool)self->setBMFontFilePath(arg1);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Label_setBMFontFilePath3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    cocos2d::Label *self = nullptr;
+    std::string arg1;       /** bmfontFilePath */
+    cocos2d::Vec2 arg2;       /** imageOffset */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Label");
+    olua_check_std_string(L, 2, &arg1);
+    auto_olua_check_cocos2d_Vec2(L, 3, &arg2);
+
+    // bool setBMFontFilePath(const std::string& bmfontFilePath, const Vec2& imageOffset = Vec2::ZERO, float fontSize = 0)
+    bool ret = (bool)self->setBMFontFilePath(arg1, arg2);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Label_setBMFontFilePath(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            return _cocos2d_Label_setBMFontFilePath2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (auto_olua_is_cocos2d_Vec2(L, 3))) {
+            return _cocos2d_Label_setBMFontFilePath3(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_std_string(L, 2)) && (auto_olua_is_cocos2d_Vec2(L, 3)) && (olua_is_number(L, 4))) {
+            return _cocos2d_Label_setBMFontFilePath1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Label::setBMFontFilePath' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _cocos2d_Label_setBMFontSize(lua_State *L)
@@ -34017,7 +36163,7 @@ static int _cocos2d_RenderTexture_new(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_RenderTexture_newImage(lua_State *L)
+static int _cocos2d_RenderTexture_newImage1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -34027,7 +36173,7 @@ static int _cocos2d_RenderTexture_newImage(lua_State *L)
     bool arg1 = false;       /** flipImage */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
-    olua_opt_bool(L, 2, &arg1, (bool)true);
+    olua_check_bool(L, 2, &arg1);
 
     // Image* newImage(bool flipImage = true)
     cocos2d::Image *ret = (cocos2d::Image *)self->newImage(arg1);
@@ -34036,6 +36182,44 @@ static int _cocos2d_RenderTexture_newImage(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _cocos2d_RenderTexture_newImage2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    cocos2d::RenderTexture *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
+
+    // Image* newImage(bool flipImage = true)
+    cocos2d::Image *ret = (cocos2d::Image *)self->newImage();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Image");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_RenderTexture_newImage(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 0) {
+        return _cocos2d_RenderTexture_newImage2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_bool(L, 2))) {
+            return _cocos2d_RenderTexture_newImage1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::RenderTexture::newImage' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _cocos2d_RenderTexture_saveToFile1(lua_State *L)
@@ -34051,7 +36235,7 @@ static int _cocos2d_RenderTexture_saveToFile1(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
     olua_check_std_string(L, 2, &arg1);
-    olua_opt_bool(L, 3, &arg2, (bool)true);
+    olua_check_bool(L, 3, &arg2);
 
     if (olua_is_std_function(L, 4)) {
         void *callback_store_obj = (void *)self;
@@ -34104,7 +36288,7 @@ static int _cocos2d_RenderTexture_saveToFile2(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
     olua_check_std_string(L, 2, &arg1);
     olua_check_uint(L, 3, &arg2);
-    olua_opt_bool(L, 4, &arg3, (bool)true);
+    olua_check_bool(L, 4, &arg3);
 
     if (olua_is_std_function(L, 5)) {
         void *callback_store_obj = (void *)self;
@@ -34142,38 +36326,130 @@ static int _cocos2d_RenderTexture_saveToFile2(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_RenderTexture_saveToFile3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::RenderTexture *self = nullptr;
+    std::string arg1;       /** filename */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
+    olua_check_std_string(L, 2, &arg1);
+
+    // bool saveToFile(const std::string& filename, bool isRGBA = true, std::function<void (RenderTexture*, const std::string&)> callback = nullptr)
+    bool ret = (bool)self->saveToFile(arg1);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_RenderTexture_saveToFile4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    cocos2d::RenderTexture *self = nullptr;
+    std::string arg1;       /** filename */
+    bool arg2 = false;       /** isRGBA */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_bool(L, 3, &arg2);
+
+    // bool saveToFile(const std::string& filename, bool isRGBA = true, std::function<void (RenderTexture*, const std::string&)> callback = nullptr)
+    bool ret = (bool)self->saveToFile(arg1, arg2);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_RenderTexture_saveToFile5(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    cocos2d::RenderTexture *self = nullptr;
+    std::string arg1;       /** filename */
+    lua_Unsigned arg2 = 0;       /** format */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_uint(L, 3, &arg2);
+
+    // bool saveToFile(const std::string& filename, Image::Format format, bool isRGBA = true, std::function<void (RenderTexture*, const std::string&)> callback = nullptr)
+    bool ret = (bool)self->saveToFile(arg1, (cocos2d::Image::Format)arg2);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_RenderTexture_saveToFile6(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 4);
+
+    cocos2d::RenderTexture *self = nullptr;
+    std::string arg1;       /** filename */
+    lua_Unsigned arg2 = 0;       /** format */
+    bool arg3 = false;       /** isRGBA */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_uint(L, 3, &arg2);
+    olua_check_bool(L, 4, &arg3);
+
+    // bool saveToFile(const std::string& filename, Image::Format format, bool isRGBA = true, std::function<void (RenderTexture*, const std::string&)> callback = nullptr)
+    bool ret = (bool)self->saveToFile(arg1, (cocos2d::Image::Format)arg2, arg3);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_RenderTexture_saveToFile(lua_State *L)
 {
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3) || olua_isnil(L, 3)) && (olua_is_std_function(L, 4))) {
-            return _cocos2d_RenderTexture_saveToFile1(L);
+        // if ((olua_is_std_string(L, 2))) {
+            return _cocos2d_RenderTexture_saveToFile3(L);
         // }
     }
 
     if (num_args == 2) {
-        if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3) || olua_isnil(L, 3)) && (olua_is_std_function(L, 4))) {
-            return _cocos2d_RenderTexture_saveToFile1(L);
+        if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3))) {
+            return _cocos2d_RenderTexture_saveToFile4(L);
         }
 
-        // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_bool(L, 4) || olua_isnil(L, 4)) && (olua_is_std_function(L, 5))) {
-            return _cocos2d_RenderTexture_saveToFile2(L);
+        // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
+            return _cocos2d_RenderTexture_saveToFile5(L);
         // }
     }
 
     if (num_args == 3) {
-        if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3) || olua_isnil(L, 3)) && (olua_is_std_function(L, 4))) {
+        if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3)) && (olua_is_std_function(L, 4))) {
             return _cocos2d_RenderTexture_saveToFile1(L);
         }
 
-        // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_bool(L, 4) || olua_isnil(L, 4)) && (olua_is_std_function(L, 5))) {
-            return _cocos2d_RenderTexture_saveToFile2(L);
+        // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_bool(L, 4))) {
+            return _cocos2d_RenderTexture_saveToFile6(L);
         // }
     }
 
     if (num_args == 4) {
-        // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_bool(L, 4) || olua_isnil(L, 4)) && (olua_is_std_function(L, 5))) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_bool(L, 4)) && (olua_is_std_function(L, 5))) {
             return _cocos2d_RenderTexture_saveToFile2(L);
         // }
     }
@@ -34242,7 +36518,7 @@ static int _cocos2d_RenderTexture_saveToFileAsNonPMA2(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
     olua_check_std_string(L, 2, &arg1);
-    olua_opt_bool(L, 3, &arg2, (bool)true);
+    olua_check_bool(L, 3, &arg2);
 
     if (olua_is_std_function(L, 4)) {
         void *callback_store_obj = (void *)self;
@@ -34280,24 +36556,68 @@ static int _cocos2d_RenderTexture_saveToFileAsNonPMA2(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_RenderTexture_saveToFileAsNonPMA3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::RenderTexture *self = nullptr;
+    std::string arg1;       /** filename */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
+    olua_check_std_string(L, 2, &arg1);
+
+    // bool saveToFileAsNonPMA(const std::string& filename, bool isRGBA = true, const std::function<void(RenderTexture*, const std::string&)>& callback = nullptr)
+    bool ret = (bool)self->saveToFileAsNonPMA(arg1);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_RenderTexture_saveToFileAsNonPMA4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    cocos2d::RenderTexture *self = nullptr;
+    std::string arg1;       /** filename */
+    bool arg2 = false;       /** isRGBA */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.RenderTexture");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_bool(L, 3, &arg2);
+
+    // bool saveToFileAsNonPMA(const std::string& filename, bool isRGBA = true, const std::function<void(RenderTexture*, const std::string&)>& callback = nullptr)
+    bool ret = (bool)self->saveToFileAsNonPMA(arg1, arg2);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_RenderTexture_saveToFileAsNonPMA(lua_State *L)
 {
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        // if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3) || olua_isnil(L, 3)) && (olua_is_std_function(L, 4))) {
-            return _cocos2d_RenderTexture_saveToFileAsNonPMA2(L);
+        // if ((olua_is_std_string(L, 2))) {
+            return _cocos2d_RenderTexture_saveToFileAsNonPMA3(L);
         // }
     }
 
     if (num_args == 2) {
-        // if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3) || olua_isnil(L, 3)) && (olua_is_std_function(L, 4))) {
-            return _cocos2d_RenderTexture_saveToFileAsNonPMA2(L);
+        // if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3))) {
+            return _cocos2d_RenderTexture_saveToFileAsNonPMA4(L);
         // }
     }
 
     if (num_args == 3) {
-        // if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3) || olua_isnil(L, 3)) && (olua_is_std_function(L, 4))) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3)) && (olua_is_std_function(L, 4))) {
             return _cocos2d_RenderTexture_saveToFileAsNonPMA2(L);
         // }
     }
@@ -35188,10 +37508,31 @@ static int _cocos2d_Animation_create2(lua_State *L)
 
     manual_olua_check_cocos2d_Vector(L, 1, arg1, "cc.AnimationFrame");
     olua_check_number(L, 2, &arg2);
-    olua_opt_uint(L, 3, &arg3, (lua_Unsigned)1);
+    olua_check_uint(L, 3, &arg3);
 
     // static Animation* create(const Vector<AnimationFrame*>& arrayOfAnimationFrameNames, float delayPerUnit, unsigned int loops = 1)
     cocos2d::Animation *ret = (cocos2d::Animation *)cocos2d::Animation::create(arg1, (float)arg2, (unsigned int)arg3);
+    int num_ret = olua_push_cppobj(L, ret, "cc.Animation");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Animation_create3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::Vector<cocos2d::AnimationFrame *> arg1;       /** arrayOfAnimationFrameNames */
+    lua_Number arg2 = 0;       /** delayPerUnit */
+
+    manual_olua_check_cocos2d_Vector(L, 1, arg1, "cc.AnimationFrame");
+    olua_check_number(L, 2, &arg2);
+
+    // static Animation* create(const Vector<AnimationFrame*>& arrayOfAnimationFrameNames, float delayPerUnit, unsigned int loops = 1)
+    cocos2d::Animation *ret = (cocos2d::Animation *)cocos2d::Animation::create(arg1, (float)arg2);
     int num_ret = olua_push_cppobj(L, ret, "cc.Animation");
 
     olua_endinvoke(L);
@@ -35208,13 +37549,13 @@ static int _cocos2d_Animation_create(lua_State *L)
     }
 
     if (num_args == 2) {
-        // if ((manual_olua_is_cocos2d_Vector(L, 1)) && (olua_is_number(L, 2)) && (olua_is_uint(L, 3) || olua_isnil(L, 3))) {
-            return _cocos2d_Animation_create2(L);
+        // if ((manual_olua_is_cocos2d_Vector(L, 1)) && (olua_is_number(L, 2))) {
+            return _cocos2d_Animation_create3(L);
         // }
     }
 
     if (num_args == 3) {
-        // if ((manual_olua_is_cocos2d_Vector(L, 1)) && (olua_is_number(L, 2)) && (olua_is_uint(L, 3) || olua_isnil(L, 3))) {
+        // if ((manual_olua_is_cocos2d_Vector(L, 1)) && (olua_is_number(L, 2)) && (olua_is_uint(L, 3))) {
             return _cocos2d_Animation_create2(L);
         // }
     }
@@ -35224,7 +37565,7 @@ static int _cocos2d_Animation_create(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_Animation_createWithSpriteFrames(lua_State *L)
+static int _cocos2d_Animation_createWithSpriteFrames1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -35235,8 +37576,8 @@ static int _cocos2d_Animation_createWithSpriteFrames(lua_State *L)
     lua_Unsigned arg3 = 0;       /** loops */
 
     manual_olua_check_cocos2d_Vector(L, 1, arg1, "cc.SpriteFrame");
-    olua_opt_number(L, 2, &arg2, (lua_Number)0.0f);
-    olua_opt_uint(L, 3, &arg3, (lua_Unsigned)1);
+    olua_check_number(L, 2, &arg2);
+    olua_check_uint(L, 3, &arg3);
 
     // static Animation* createWithSpriteFrames(const Vector<SpriteFrame*>& arrayOfSpriteFrameNames, float delay = 0.0f, unsigned int loops = 1)
     cocos2d::Animation *ret = (cocos2d::Animation *)cocos2d::Animation::createWithSpriteFrames(arg1, (float)arg2, (unsigned int)arg3);
@@ -35245,6 +37586,73 @@ static int _cocos2d_Animation_createWithSpriteFrames(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _cocos2d_Animation_createWithSpriteFrames2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    cocos2d::Vector<cocos2d::SpriteFrame *> arg1;       /** arrayOfSpriteFrameNames */
+
+    manual_olua_check_cocos2d_Vector(L, 1, arg1, "cc.SpriteFrame");
+
+    // static Animation* createWithSpriteFrames(const Vector<SpriteFrame*>& arrayOfSpriteFrameNames, float delay = 0.0f, unsigned int loops = 1)
+    cocos2d::Animation *ret = (cocos2d::Animation *)cocos2d::Animation::createWithSpriteFrames(arg1);
+    int num_ret = olua_push_cppobj(L, ret, "cc.Animation");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Animation_createWithSpriteFrames3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::Vector<cocos2d::SpriteFrame *> arg1;       /** arrayOfSpriteFrameNames */
+    lua_Number arg2 = 0;       /** delay */
+
+    manual_olua_check_cocos2d_Vector(L, 1, arg1, "cc.SpriteFrame");
+    olua_check_number(L, 2, &arg2);
+
+    // static Animation* createWithSpriteFrames(const Vector<SpriteFrame*>& arrayOfSpriteFrameNames, float delay = 0.0f, unsigned int loops = 1)
+    cocos2d::Animation *ret = (cocos2d::Animation *)cocos2d::Animation::createWithSpriteFrames(arg1, (float)arg2);
+    int num_ret = olua_push_cppobj(L, ret, "cc.Animation");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Animation_createWithSpriteFrames(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 1) {
+        // if ((manual_olua_is_cocos2d_Vector(L, 1))) {
+            return _cocos2d_Animation_createWithSpriteFrames2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((manual_olua_is_cocos2d_Vector(L, 1)) && (olua_is_number(L, 2))) {
+            return _cocos2d_Animation_createWithSpriteFrames3(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((manual_olua_is_cocos2d_Vector(L, 1)) && (olua_is_number(L, 2)) && (olua_is_uint(L, 3))) {
+            return _cocos2d_Animation_createWithSpriteFrames1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Animation::createWithSpriteFrames' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _cocos2d_Animation_getDelayPerUnit(lua_State *L)
@@ -35405,7 +37813,7 @@ static int _cocos2d_Animation_initWithAnimationFrames(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_Animation_initWithSpriteFrames(lua_State *L)
+static int _cocos2d_Animation_initWithSpriteFrames1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -35418,8 +37826,8 @@ static int _cocos2d_Animation_initWithSpriteFrames(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Animation");
     manual_olua_check_cocos2d_Vector(L, 2, arg1, "cc.SpriteFrame");
-    olua_opt_number(L, 3, &arg2, (lua_Number)0.0f);
-    olua_opt_uint(L, 4, &arg3, (lua_Unsigned)1);
+    olua_check_number(L, 3, &arg2);
+    olua_check_uint(L, 4, &arg3);
 
     // bool initWithSpriteFrames(const Vector<SpriteFrame*>& arrayOfSpriteFrameNames, float delay = 0.0f, unsigned int loops = 1)
     bool ret = (bool)self->initWithSpriteFrames(arg1, (float)arg2, (unsigned int)arg3);
@@ -35428,6 +37836,77 @@ static int _cocos2d_Animation_initWithSpriteFrames(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _cocos2d_Animation_initWithSpriteFrames2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::Animation *self = nullptr;
+    cocos2d::Vector<cocos2d::SpriteFrame *> arg1;       /** arrayOfSpriteFrameNames */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Animation");
+    manual_olua_check_cocos2d_Vector(L, 2, arg1, "cc.SpriteFrame");
+
+    // bool initWithSpriteFrames(const Vector<SpriteFrame*>& arrayOfSpriteFrameNames, float delay = 0.0f, unsigned int loops = 1)
+    bool ret = (bool)self->initWithSpriteFrames(arg1);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Animation_initWithSpriteFrames3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    cocos2d::Animation *self = nullptr;
+    cocos2d::Vector<cocos2d::SpriteFrame *> arg1;       /** arrayOfSpriteFrameNames */
+    lua_Number arg2 = 0;       /** delay */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Animation");
+    manual_olua_check_cocos2d_Vector(L, 2, arg1, "cc.SpriteFrame");
+    olua_check_number(L, 3, &arg2);
+
+    // bool initWithSpriteFrames(const Vector<SpriteFrame*>& arrayOfSpriteFrameNames, float delay = 0.0f, unsigned int loops = 1)
+    bool ret = (bool)self->initWithSpriteFrames(arg1, (float)arg2);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Animation_initWithSpriteFrames(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((manual_olua_is_cocos2d_Vector(L, 2))) {
+            return _cocos2d_Animation_initWithSpriteFrames2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((manual_olua_is_cocos2d_Vector(L, 2)) && (olua_is_number(L, 3))) {
+            return _cocos2d_Animation_initWithSpriteFrames3(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((manual_olua_is_cocos2d_Vector(L, 2)) && (olua_is_number(L, 3)) && (olua_is_uint(L, 4))) {
+            return _cocos2d_Animation_initWithSpriteFrames1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Animation::initWithSpriteFrames' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _cocos2d_Animation_new(lua_State *L)
@@ -36526,10 +39005,31 @@ static int _cocos2d_Sprite_createWithTexture2(lua_State *L)
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.Texture2D");
     manual_olua_check_cocos2d_Rect(L, 2, &arg2);
-    olua_opt_bool(L, 3, &arg3, (bool)false);
+    olua_check_bool(L, 3, &arg3);
 
     // static Sprite* createWithTexture(Texture2D *texture, const Rect& rect, bool rotated=false)
     cocos2d::Sprite *ret = (cocos2d::Sprite *)cocos2d::Sprite::createWithTexture(arg1, arg2, arg3);
+    int num_ret = olua_push_cppobj(L, ret, "cc.Sprite");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_Sprite_createWithTexture3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::Texture2D *arg1 = nullptr;       /** texture */
+    cocos2d::Rect arg2;       /** rect */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "cc.Texture2D");
+    manual_olua_check_cocos2d_Rect(L, 2, &arg2);
+
+    // static Sprite* createWithTexture(Texture2D *texture, const Rect& rect, bool rotated=false)
+    cocos2d::Sprite *ret = (cocos2d::Sprite *)cocos2d::Sprite::createWithTexture(arg1, arg2);
     int num_ret = olua_push_cppobj(L, ret, "cc.Sprite");
 
     olua_endinvoke(L);
@@ -36548,13 +39048,13 @@ static int _cocos2d_Sprite_createWithTexture(lua_State *L)
     }
 
     if (num_args == 2) {
-        // if ((olua_is_cppobj(L, 1, "cc.Texture2D")) && (manual_olua_is_cocos2d_Rect(L, 2)) && (olua_is_bool(L, 3) || olua_isnil(L, 3))) {
-            return _cocos2d_Sprite_createWithTexture2(L);
+        // if ((olua_is_cppobj(L, 1, "cc.Texture2D")) && (manual_olua_is_cocos2d_Rect(L, 2))) {
+            return _cocos2d_Sprite_createWithTexture3(L);
         // }
     }
 
     if (num_args == 3) {
-        // if ((olua_is_cppobj(L, 1, "cc.Texture2D")) && (manual_olua_is_cocos2d_Rect(L, 2)) && (olua_is_bool(L, 3) || olua_isnil(L, 3))) {
+        // if ((olua_is_cppobj(L, 1, "cc.Texture2D")) && (manual_olua_is_cocos2d_Rect(L, 2)) && (olua_is_bool(L, 3))) {
             return _cocos2d_Sprite_createWithTexture2(L);
         // }
     }
@@ -37689,7 +40189,7 @@ static int _cocos2d_SpriteBatchNode_atlasIndexForChild(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_SpriteBatchNode_create(lua_State *L)
+static int _cocos2d_SpriteBatchNode_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -37699,7 +40199,7 @@ static int _cocos2d_SpriteBatchNode_create(lua_State *L)
     lua_Integer arg2 = 0;       /** capacity */
 
     olua_check_std_string(L, 1, &arg1);
-    olua_opt_int(L, 2, &arg2, (lua_Integer)29);
+    olua_check_int(L, 2, &arg2);
 
     // static SpriteBatchNode* create(const std::string& fileImage, ssize_t capacity = 29)
     cocos2d::SpriteBatchNode *ret = (cocos2d::SpriteBatchNode *)cocos2d::SpriteBatchNode::create(arg1, (ssize_t)arg2);
@@ -37710,7 +40210,47 @@ static int _cocos2d_SpriteBatchNode_create(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_SpriteBatchNode_createWithTexture(lua_State *L)
+static int _cocos2d_SpriteBatchNode_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    std::string arg1;       /** fileImage */
+
+    olua_check_std_string(L, 1, &arg1);
+
+    // static SpriteBatchNode* create(const std::string& fileImage, ssize_t capacity = 29)
+    cocos2d::SpriteBatchNode *ret = (cocos2d::SpriteBatchNode *)cocos2d::SpriteBatchNode::create(arg1);
+    int num_ret = olua_push_cppobj(L, ret, "cc.SpriteBatchNode");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_SpriteBatchNode_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 1))) {
+            return _cocos2d_SpriteBatchNode_create2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_int(L, 2))) {
+            return _cocos2d_SpriteBatchNode_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::SpriteBatchNode::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_SpriteBatchNode_createWithTexture1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -37720,7 +40260,7 @@ static int _cocos2d_SpriteBatchNode_createWithTexture(lua_State *L)
     lua_Integer arg2 = 0;       /** capacity */
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.Texture2D");
-    olua_opt_int(L, 2, &arg2, (lua_Integer)29);
+    olua_check_int(L, 2, &arg2);
 
     // static SpriteBatchNode* createWithTexture(Texture2D* tex, ssize_t capacity = 29)
     cocos2d::SpriteBatchNode *ret = (cocos2d::SpriteBatchNode *)cocos2d::SpriteBatchNode::createWithTexture(arg1, (ssize_t)arg2);
@@ -37729,6 +40269,46 @@ static int _cocos2d_SpriteBatchNode_createWithTexture(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _cocos2d_SpriteBatchNode_createWithTexture2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    cocos2d::Texture2D *arg1 = nullptr;       /** tex */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "cc.Texture2D");
+
+    // static SpriteBatchNode* createWithTexture(Texture2D* tex, ssize_t capacity = 29)
+    cocos2d::SpriteBatchNode *ret = (cocos2d::SpriteBatchNode *)cocos2d::SpriteBatchNode::createWithTexture(arg1);
+    int num_ret = olua_push_cppobj(L, ret, "cc.SpriteBatchNode");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_SpriteBatchNode_createWithTexture(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 1) {
+        // if ((olua_is_cppobj(L, 1, "cc.Texture2D"))) {
+            return _cocos2d_SpriteBatchNode_createWithTexture2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_cppobj(L, 1, "cc.Texture2D")) && (olua_is_int(L, 2))) {
+            return _cocos2d_SpriteBatchNode_createWithTexture1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::SpriteBatchNode::createWithTexture' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _cocos2d_SpriteBatchNode_getBlendFunc(lua_State *L)
@@ -37846,7 +40426,7 @@ static int _cocos2d_SpriteBatchNode_increaseAtlasCapacity(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_SpriteBatchNode_initWithFile(lua_State *L)
+static int _cocos2d_SpriteBatchNode_initWithFile1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -37858,7 +40438,7 @@ static int _cocos2d_SpriteBatchNode_initWithFile(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteBatchNode");
     olua_check_std_string(L, 2, &arg1);
-    olua_opt_int(L, 3, &arg2, (lua_Integer)29);
+    olua_check_int(L, 3, &arg2);
 
     // bool initWithFile(const std::string& fileImage, ssize_t capacity = 29)
     bool ret = (bool)self->initWithFile(arg1, (ssize_t)arg2);
@@ -37869,7 +40449,49 @@ static int _cocos2d_SpriteBatchNode_initWithFile(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_SpriteBatchNode_initWithTexture(lua_State *L)
+static int _cocos2d_SpriteBatchNode_initWithFile2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::SpriteBatchNode *self = nullptr;
+    std::string arg1;       /** fileImage */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteBatchNode");
+    olua_check_std_string(L, 2, &arg1);
+
+    // bool initWithFile(const std::string& fileImage, ssize_t capacity = 29)
+    bool ret = (bool)self->initWithFile(arg1);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_SpriteBatchNode_initWithFile(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            return _cocos2d_SpriteBatchNode_initWithFile2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_int(L, 3))) {
+            return _cocos2d_SpriteBatchNode_initWithFile1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::SpriteBatchNode::initWithFile' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_SpriteBatchNode_initWithTexture1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -37881,7 +40503,7 @@ static int _cocos2d_SpriteBatchNode_initWithTexture(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteBatchNode");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Texture2D");
-    olua_opt_int(L, 3, &arg2, (lua_Integer)29);
+    olua_check_int(L, 3, &arg2);
 
     // bool initWithTexture(Texture2D *tex, ssize_t capacity = 29)
     bool ret = (bool)self->initWithTexture(arg1, (ssize_t)arg2);
@@ -37890,6 +40512,48 @@ static int _cocos2d_SpriteBatchNode_initWithTexture(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _cocos2d_SpriteBatchNode_initWithTexture2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::SpriteBatchNode *self = nullptr;
+    cocos2d::Texture2D *arg1 = nullptr;       /** tex */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.SpriteBatchNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Texture2D");
+
+    // bool initWithTexture(Texture2D *tex, ssize_t capacity = 29)
+    bool ret = (bool)self->initWithTexture(arg1);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_SpriteBatchNode_initWithTexture(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_cppobj(L, 2, "cc.Texture2D"))) {
+            return _cocos2d_SpriteBatchNode_initWithTexture2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_cppobj(L, 2, "cc.Texture2D")) && (olua_is_int(L, 3))) {
+            return _cocos2d_SpriteBatchNode_initWithTexture1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::SpriteBatchNode::initWithTexture' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _cocos2d_SpriteBatchNode_insertQuadFromSprite(lua_State *L)
@@ -45187,7 +47851,7 @@ static int _cocos2d_Camera_isViewProjectionUpdated(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_Camera_lookAt(lua_State *L)
+static int _cocos2d_Camera_lookAt1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -45199,12 +47863,53 @@ static int _cocos2d_Camera_lookAt(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.Camera");
     auto_olua_check_cocos2d_Vec3(L, 2, &arg1);
-    auto_olua_opt_cocos2d_Vec3(L, 3, &arg2, (cocos2d::Vec3)cocos2d::Vec3::UNIT_Y);
+    auto_olua_check_cocos2d_Vec3(L, 3, &arg2);
 
     // void lookAt(const Vec3& target, const Vec3& up = Vec3::UNIT_Y)
     self->lookAt(arg1, arg2);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Camera_lookAt2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::Camera *self = nullptr;
+    cocos2d::Vec3 arg1;       /** target */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.Camera");
+    auto_olua_check_cocos2d_Vec3(L, 2, &arg1);
+
+    // void lookAt(const Vec3& target, const Vec3& up = Vec3::UNIT_Y)
+    self->lookAt(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_Camera_lookAt(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((auto_olua_is_cocos2d_Vec3(L, 2))) {
+            return _cocos2d_Camera_lookAt2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((auto_olua_is_cocos2d_Vec3(L, 2)) && (auto_olua_is_cocos2d_Vec3(L, 3))) {
+            return _cocos2d_Camera_lookAt1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::Camera::lookAt' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -45604,7 +48309,7 @@ static int _cocos2d_CameraBackgroundBrush_createColorBrush(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_CameraBackgroundBrush_createDepthBrush(lua_State *L)
+static int _cocos2d_CameraBackgroundBrush_createDepthBrush1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -45612,7 +48317,7 @@ static int _cocos2d_CameraBackgroundBrush_createDepthBrush(lua_State *L)
 
     lua_Number arg1 = 0;       /** depth */
 
-    olua_opt_number(L, 1, &arg1, (lua_Number)1.f);
+    olua_check_number(L, 1, &arg1);
 
     // static CameraBackgroundDepthBrush* createDepthBrush(float depth = 1.f)
     cocos2d::CameraBackgroundDepthBrush *ret = (cocos2d::CameraBackgroundDepthBrush *)cocos2d::CameraBackgroundBrush::createDepthBrush((float)arg1);
@@ -45621,6 +48326,40 @@ static int _cocos2d_CameraBackgroundBrush_createDepthBrush(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _cocos2d_CameraBackgroundBrush_createDepthBrush2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // static CameraBackgroundDepthBrush* createDepthBrush(float depth = 1.f)
+    cocos2d::CameraBackgroundDepthBrush *ret = (cocos2d::CameraBackgroundDepthBrush *)cocos2d::CameraBackgroundBrush::createDepthBrush();
+    int num_ret = olua_push_cppobj(L, ret, "cc.CameraBackgroundDepthBrush");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_CameraBackgroundBrush_createDepthBrush(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        return _cocos2d_CameraBackgroundBrush_createDepthBrush2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_number(L, 1))) {
+            return _cocos2d_CameraBackgroundBrush_createDepthBrush1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::CameraBackgroundBrush::createDepthBrush' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _cocos2d_CameraBackgroundBrush_createNoneBrush(lua_State *L)
@@ -50078,7 +52817,7 @@ static int luaopen_cocos2d_SplitCols(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_ParticleBatchNode_create(lua_State *L)
+static int _cocos2d_ParticleBatchNode_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -50088,7 +52827,7 @@ static int _cocos2d_ParticleBatchNode_create(lua_State *L)
     lua_Integer arg2 = 0;       /** capacity */
 
     olua_check_std_string(L, 1, &arg1);
-    olua_opt_int(L, 2, &arg2, (lua_Integer)kParticleDefaultCapacity);
+    olua_check_int(L, 2, &arg2);
 
     // static ParticleBatchNode* create(const std::string& fileImage, int capacity = kParticleDefaultCapacity)
     cocos2d::ParticleBatchNode *ret = (cocos2d::ParticleBatchNode *)cocos2d::ParticleBatchNode::create(arg1, (int)arg2);
@@ -50099,7 +52838,47 @@ static int _cocos2d_ParticleBatchNode_create(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_ParticleBatchNode_createWithTexture(lua_State *L)
+static int _cocos2d_ParticleBatchNode_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    std::string arg1;       /** fileImage */
+
+    olua_check_std_string(L, 1, &arg1);
+
+    // static ParticleBatchNode* create(const std::string& fileImage, int capacity = kParticleDefaultCapacity)
+    cocos2d::ParticleBatchNode *ret = (cocos2d::ParticleBatchNode *)cocos2d::ParticleBatchNode::create(arg1);
+    int num_ret = olua_push_cppobj(L, ret, "cc.ParticleBatchNode");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleBatchNode_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 1))) {
+            return _cocos2d_ParticleBatchNode_create2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_int(L, 2))) {
+            return _cocos2d_ParticleBatchNode_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ParticleBatchNode::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_ParticleBatchNode_createWithTexture1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -50109,7 +52888,7 @@ static int _cocos2d_ParticleBatchNode_createWithTexture(lua_State *L)
     lua_Integer arg2 = 0;       /** capacity */
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.Texture2D");
-    olua_opt_int(L, 2, &arg2, (lua_Integer)kParticleDefaultCapacity);
+    olua_check_int(L, 2, &arg2);
 
     // static ParticleBatchNode* createWithTexture(Texture2D *tex, int capacity = kParticleDefaultCapacity)
     cocos2d::ParticleBatchNode *ret = (cocos2d::ParticleBatchNode *)cocos2d::ParticleBatchNode::createWithTexture(arg1, (int)arg2);
@@ -50118,6 +52897,46 @@ static int _cocos2d_ParticleBatchNode_createWithTexture(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _cocos2d_ParticleBatchNode_createWithTexture2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    cocos2d::Texture2D *arg1 = nullptr;       /** tex */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "cc.Texture2D");
+
+    // static ParticleBatchNode* createWithTexture(Texture2D *tex, int capacity = kParticleDefaultCapacity)
+    cocos2d::ParticleBatchNode *ret = (cocos2d::ParticleBatchNode *)cocos2d::ParticleBatchNode::createWithTexture(arg1);
+    int num_ret = olua_push_cppobj(L, ret, "cc.ParticleBatchNode");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ParticleBatchNode_createWithTexture(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 1) {
+        // if ((olua_is_cppobj(L, 1, "cc.Texture2D"))) {
+            return _cocos2d_ParticleBatchNode_createWithTexture2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_cppobj(L, 1, "cc.Texture2D")) && (olua_is_int(L, 2))) {
+            return _cocos2d_ParticleBatchNode_createWithTexture1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ParticleBatchNode::createWithTexture' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _cocos2d_ParticleBatchNode_disableParticle(lua_State *L)

@@ -320,6 +320,7 @@ function parseArgs(cls, declstr)
                     DECLTYPE = callback.DECLTYPE,
                 }, {__index = olua.typeinfo('std::function', cls)}),
                 DECLTYPE = callback.DECLTYPE,
+                DEFAULT = callback.DEFAULT,
                 VARNAME = varname or '',
                 ATTR = attr,
                 CALLBACK = callback,
@@ -356,10 +357,90 @@ function olua.varname(declfunc)
     return string.match(str, '[%w_]+')
 end
 
-local function parseFunc(cls, name, ...)
+local function genFuncPrototype(cls, fi)
+    -- generate function prototype: void func(int, A *, B *)
+    local ARGS_DECL = {}
+    local RET_DECL = fi.RET.SUBTYPES and fi.RET.DECLTYPE or fi.RET.TYPE.CPPCLS
+    local CPPFUNC = fi.CPPFUNC
+    local STATIC = fi.STATIC and "static " or ""
+    for _, v in ipairs(fi.ARGS) do
+        ARGS_DECL[#ARGS_DECL + 1] = (v.TYPE.SUBTYPES or next(v.CALLBACK)) and v.DECLTYPE or v.TYPE.CPPCLS
+    end
+    ARGS_DECL = table.concat(ARGS_DECL, ", ")
+    olua.nowarning(RET_DECL, CPPFUNC, STATIC)
+    fi.PROTOTYPE = format([[
+        ${STATIC}${RET_DECL} ${CPPFUNC}(${ARGS_DECL})
+    ]])
+    cls.PROTOTYPES[fi.PROTOTYPE] = true
+end
+
+local function genFuncPack(cls, fi, funcs)
     local function copy(t)
         return setmetatable({}, {__index = t})
     end
+    -- has @pack? gen one more func
+    if fi.MAX_ARGS ~= #fi.ARGS then
+        local packarg
+        local fi2 = copy(fi)
+        fi2.RET = copy(fi.RET)
+        fi2.RET.ATTR = copy(fi.RET.ATTR)
+        fi2.ARGS = {}
+        fi2.DECLFUNC = string.gsub(fi.DECLFUNC, '@pack *', '')
+        for i in ipairs(fi.ARGS) do
+            fi2.ARGS[i] = copy(fi.ARGS[i])
+            fi2.ARGS[i].ATTR = copy(fi.ARGS[i].ATTR)
+            if fi.ARGS[i].ATTR.PACK then
+                assert(not packarg, 'too many pack args')
+                packarg = fi.ARGS[i]
+                fi2.ARGS[i].ATTR.PACK = false
+                fi2.MAX_ARGS = fi2.MAX_ARGS + 1 - packarg.TYPE.VARS
+            end
+        end
+        olua.assert(packarg, 'pack arg not found')
+        if packarg.TYPE.CPPCLS == fi.RET.TYPE.CPPCLS then
+            fi2.RET.ATTR.UNPACK = fi.RET.ATTR.UNPACK or false
+            fi.RET.ATTR.UNPACK = true
+        end
+        genFuncPrototype(cls, fi2)
+        funcs[#funcs + 1] = fi2
+        fi2.INDEX = #funcs
+    end
+end
+
+local function genFuncOverload(cls, fi, funcs)
+    local function copy(t)
+        return setmetatable({}, {__index = t})
+    end
+    local MIN_ARGS = nil
+    for i, arg in ipairs(fi.ARGS) do
+        if arg.DEFAULT ~= nil then
+            MIN_ARGS = i - 1
+            break
+        end
+    end
+    if not MIN_ARGS then
+        return
+    end
+    for i = MIN_ARGS, #fi.ARGS do
+        if i > 0 then
+            fi.ARGS[i].DEFAULT = nil
+        end
+        if i < #fi.ARGS then
+            local newfi = copy(fi)
+            newfi.ARGS = {}
+            newfi.INJECT = {}
+            for k = 1, i do
+                newfi.ARGS[k] = copy(fi.ARGS[k])
+            end
+            genFuncPrototype(cls, newfi)
+            newfi.MAX_ARGS = i
+            funcs[#funcs + 1] = newfi
+            newfi.INDEX = #funcs
+        end
+    end
+end
+
+local function parseFunc(cls, name, ...)
     local arr = {MAX_ARGS = 0}
     for _, declfunc in ipairs({...}) do
         local fi = {RET = {}}
@@ -407,51 +488,10 @@ local function parseFunc(cls, name, ...)
                 fi.RET.ATTR = attr
             end
             fi.ARGS, fi.MAX_ARGS = parseArgs(cls, string.sub(str, #fi.CPPFUNC + 1))
-
-            do -- generate function prototype: void func(int, A *, B *)
-                local ARGS_DECL = {}
-                local RET_DECL = fi.RET.SUBTYPES and fi.RET.DECLTYPE or fi.RET.TYPE.CPPCLS
-                local CPPFUNC = fi.CPPFUNC
-                local STATIC = fi.STATIC and "static " or ""
-                for _, v in ipairs(fi.ARGS) do
-                    ARGS_DECL[#ARGS_DECL + 1] = (v.TYPE.SUBTYPES or next(v.CALLBACK)) and v.DECLTYPE or v.TYPE.CPPCLS
-                end
-                ARGS_DECL = table.concat(ARGS_DECL, ", ")
-                olua.nowarning(RET_DECL, CPPFUNC, STATIC)
-                fi.PROTOTYPE = format([[
-                    ${STATIC}${RET_DECL} ${CPPFUNC}(${ARGS_DECL})
-                ]])
-                cls.PROTOTYPES[fi.PROTOTYPE] = true
-            end
-
-            -- has @pack? gen one more func
-            if fi.MAX_ARGS ~= #fi.ARGS then
-                local packarg
-                local fi2 = copy(fi)
-                fi2.RET = copy(fi.RET)
-                fi2.RET.ATTR = copy(fi.RET.ATTR)
-                fi2.ARGS = {}
-                fi2.DECLFUNC = string.gsub(fi.DECLFUNC, '@pack *', '')
-                for i in ipairs(fi.ARGS) do
-                    fi2.ARGS[i] = copy(fi.ARGS[i])
-                    fi2.ARGS[i].ATTR = copy(fi.ARGS[i].ATTR)
-                    if fi.ARGS[i].ATTR.PACK then
-                        assert(not packarg, 'too many pack args')
-                        packarg = fi.ARGS[i]
-                        fi2.ARGS[i].ATTR.PACK = false
-                        fi2.MAX_ARGS = fi2.MAX_ARGS + 1 - packarg.TYPE.VARS
-                    end
-                end
-                assert(packarg, declfunc)
-                if packarg.TYPE.CPPCLS == fi.RET.TYPE.CPPCLS then
-                    fi2.RET.ATTR.UNPACK = fi.RET.ATTR.UNPACK or false
-                    fi.RET.ATTR.UNPACK = true
-                end
-                arr[#arr + 1] = fi2
-                fi2.INDEX = #arr
-            end
+            genFuncPrototype(cls, fi)
+            genFuncPack(cls, fi, arr)
+            -- genFuncOverload(cls, fi, arr)
         end
-        assert(not string.find(fi.LUAFUNC, '[^_%w]+'), '"' .. fi.LUAFUNC .. '"')
         arr[#arr + 1] = fi
         arr.MAX_ARGS = math.max(arr.MAX_ARGS, fi.MAX_ARGS)
         fi.INDEX = #arr
@@ -543,6 +583,11 @@ function olua.typecls(cppcls)
 
     function cls.func(name, ...)
         cls.FUNCS[#cls.FUNCS + 1] = parseFunc(cls, name, ...)
+
+        local arr = cls.FUNCS[#cls.FUNCS]
+        for idx = 1, #arr do
+            genFuncOverload(cls, arr[idx], arr)
+        end
     end
 
     function cls.funcs(funcs)
@@ -693,6 +738,11 @@ function olua.typecls(cppcls)
             if type(v.CALLBACK_OPT.TAG_MODE) == 'table' then
                 v.CALLBACK_OPT.TAG_MODE = assert(v.CALLBACK_OPT.TAG_MODE[i])
             end
+        end
+
+        local arr = cls.FUNCS[#cls.FUNCS]
+        for idx = 1, #arr do
+            genFuncOverload(cls, arr[idx], arr)
         end
     end
 

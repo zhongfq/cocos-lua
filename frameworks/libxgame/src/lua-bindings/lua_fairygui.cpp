@@ -411,7 +411,7 @@ static int _fairygui_UIEventDispatcher_addEventListener(lua_State *L)
     return 0;
 }
 
-static int _fairygui_UIEventDispatcher_bubbleEvent(lua_State *L)
+static int _fairygui_UIEventDispatcher_bubbleEvent1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -424,8 +424,8 @@ static int _fairygui_UIEventDispatcher_bubbleEvent(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.UIEventDispatcher");
     olua_check_int(L, 2, &arg1);
-    olua_opt_obj(L, 3, (void **)&arg2, "void *", nullptr);
-    manual_olua_opt_cocos2d_Value(L, 4, &arg3, (cocos2d::Value)cocos2d::Value::Null);
+    olua_check_obj(L, 3, (void **)&arg2, "void *");
+    manual_olua_check_cocos2d_Value(L, 4, &arg3);
 
     // bool bubbleEvent(int eventType, void* data = nullptr, const cocos2d::Value& dataValue = cocos2d::Value::Null)
     bool ret = (bool)self->bubbleEvent((int)arg1, arg2, arg3);
@@ -436,7 +436,78 @@ static int _fairygui_UIEventDispatcher_bubbleEvent(lua_State *L)
     return num_ret;
 }
 
-static int _fairygui_UIEventDispatcher_dispatchEvent(lua_State *L)
+static int _fairygui_UIEventDispatcher_bubbleEvent2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    fairygui::UIEventDispatcher *self = nullptr;
+    lua_Integer arg1 = 0;       /** eventType */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.UIEventDispatcher");
+    olua_check_int(L, 2, &arg1);
+
+    // bool bubbleEvent(int eventType, void* data = nullptr, const cocos2d::Value& dataValue = cocos2d::Value::Null)
+    bool ret = (bool)self->bubbleEvent((int)arg1);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_UIEventDispatcher_bubbleEvent3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    fairygui::UIEventDispatcher *self = nullptr;
+    lua_Integer arg1 = 0;       /** eventType */
+    void *arg2 = nullptr;       /** data */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.UIEventDispatcher");
+    olua_check_int(L, 2, &arg1);
+    olua_check_obj(L, 3, (void **)&arg2, "void *");
+
+    // bool bubbleEvent(int eventType, void* data = nullptr, const cocos2d::Value& dataValue = cocos2d::Value::Null)
+    bool ret = (bool)self->bubbleEvent((int)arg1, arg2);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_UIEventDispatcher_bubbleEvent(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_int(L, 2))) {
+            return _fairygui_UIEventDispatcher_bubbleEvent2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_int(L, 2)) && (olua_is_obj(L, 3, "void *"))) {
+            return _fairygui_UIEventDispatcher_bubbleEvent3(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_int(L, 2)) && (olua_is_obj(L, 3, "void *")) && (manual_olua_is_cocos2d_Value(L, 4))) {
+            return _fairygui_UIEventDispatcher_bubbleEvent1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::UIEventDispatcher::bubbleEvent' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _fairygui_UIEventDispatcher_dispatchEvent1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -449,8 +520,8 @@ static int _fairygui_UIEventDispatcher_dispatchEvent(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.UIEventDispatcher");
     olua_check_int(L, 2, &arg1);
-    olua_opt_obj(L, 3, (void **)&arg2, "void *", nullptr);
-    manual_olua_opt_cocos2d_Value(L, 4, &arg3, (cocos2d::Value)cocos2d::Value::Null);
+    olua_check_obj(L, 3, (void **)&arg2, "void *");
+    manual_olua_check_cocos2d_Value(L, 4, &arg3);
 
     // bool dispatchEvent(int eventType, void* data = nullptr, const cocos2d::Value& dataValue = cocos2d::Value::Null)
     bool ret = (bool)self->dispatchEvent((int)arg1, arg2, arg3);
@@ -459,6 +530,77 @@ static int _fairygui_UIEventDispatcher_dispatchEvent(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _fairygui_UIEventDispatcher_dispatchEvent2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    fairygui::UIEventDispatcher *self = nullptr;
+    lua_Integer arg1 = 0;       /** eventType */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.UIEventDispatcher");
+    olua_check_int(L, 2, &arg1);
+
+    // bool dispatchEvent(int eventType, void* data = nullptr, const cocos2d::Value& dataValue = cocos2d::Value::Null)
+    bool ret = (bool)self->dispatchEvent((int)arg1);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_UIEventDispatcher_dispatchEvent3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    fairygui::UIEventDispatcher *self = nullptr;
+    lua_Integer arg1 = 0;       /** eventType */
+    void *arg2 = nullptr;       /** data */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.UIEventDispatcher");
+    olua_check_int(L, 2, &arg1);
+    olua_check_obj(L, 3, (void **)&arg2, "void *");
+
+    // bool dispatchEvent(int eventType, void* data = nullptr, const cocos2d::Value& dataValue = cocos2d::Value::Null)
+    bool ret = (bool)self->dispatchEvent((int)arg1, arg2);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_UIEventDispatcher_dispatchEvent(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_int(L, 2))) {
+            return _fairygui_UIEventDispatcher_dispatchEvent2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_int(L, 2)) && (olua_is_obj(L, 3, "void *"))) {
+            return _fairygui_UIEventDispatcher_dispatchEvent3(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_int(L, 2)) && (olua_is_obj(L, 3, "void *")) && (manual_olua_is_cocos2d_Value(L, 4))) {
+            return _fairygui_UIEventDispatcher_dispatchEvent1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::UIEventDispatcher::dispatchEvent' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _fairygui_UIEventDispatcher_hasEventListener1(lua_State *L)
@@ -1134,7 +1276,7 @@ static int _fairygui_InputProcessor_setCaptureCallback(lua_State *L)
     return 0;
 }
 
-static int _fairygui_InputProcessor_simulateClick(lua_State *L)
+static int _fairygui_InputProcessor_simulateClick1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1146,12 +1288,53 @@ static int _fairygui_InputProcessor_simulateClick(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.InputProcessor");
     olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GObject");
-    olua_opt_int(L, 3, &arg2, (lua_Integer)-1);
+    olua_check_int(L, 3, &arg2);
 
     // void simulateClick(GObject* target, int touchId = -1)
     self->simulateClick(arg1, (int)arg2);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_InputProcessor_simulateClick2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    fairygui::InputProcessor *self = nullptr;
+    fairygui::GObject *arg1 = nullptr;       /** target */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.InputProcessor");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GObject");
+
+    // void simulateClick(GObject* target, int touchId = -1)
+    self->simulateClick(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_InputProcessor_simulateClick(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_cppobj(L, 2, "fgui.GObject"))) {
+            return _fairygui_InputProcessor_simulateClick2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_cppobj(L, 2, "fgui.GObject")) && (olua_is_int(L, 3))) {
+            return _fairygui_InputProcessor_simulateClick1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::InputProcessor::simulateClick' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -2652,7 +2835,7 @@ static int _fairygui_GTweener_isCompleted(lua_State *L)
     return num_ret;
 }
 
-static int _fairygui_GTweener_kill(lua_State *L)
+static int _fairygui_GTweener_kill1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -2662,12 +2845,49 @@ static int _fairygui_GTweener_kill(lua_State *L)
     bool arg1 = false;       /** complete */
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
-    olua_opt_bool(L, 2, &arg1, (bool)false);
+    olua_check_bool(L, 2, &arg1);
 
     // void kill(bool complete = false)
     self->kill(arg1);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GTweener_kill2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    fairygui::GTweener *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
+
+    // void kill(bool complete = false)
+    self->kill();
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GTweener_kill(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 0) {
+        return _fairygui_GTweener_kill2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_bool(L, 2))) {
+            return _fairygui_GTweener_kill1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::GTweener::kill' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -3002,7 +3222,7 @@ static int _fairygui_GTweener_setPaused(lua_State *L)
     return num_ret;
 }
 
-static int _fairygui_GTweener_setRepeat(lua_State *L)
+static int _fairygui_GTweener_setRepeat1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -3014,7 +3234,7 @@ static int _fairygui_GTweener_setRepeat(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
     olua_check_int(L, 2, &arg1);
-    olua_opt_bool(L, 3, &arg2, (bool)false);
+    olua_check_bool(L, 3, &arg2);
 
     // GTweener* setRepeat(int repeat, bool yoyo = false)
     fairygui::GTweener *ret = (fairygui::GTweener *)self->setRepeat((int)arg1, arg2);
@@ -3023,6 +3243,48 @@ static int _fairygui_GTweener_setRepeat(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _fairygui_GTweener_setRepeat2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    fairygui::GTweener *self = nullptr;
+    lua_Integer arg1 = 0;       /** repeat */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
+    olua_check_int(L, 2, &arg1);
+
+    // GTweener* setRepeat(int repeat, bool yoyo = false)
+    fairygui::GTweener *ret = (fairygui::GTweener *)self->setRepeat((int)arg1);
+    int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_GTweener_setRepeat(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_int(L, 2))) {
+            return _fairygui_GTweener_setRepeat2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_int(L, 2)) && (olua_is_bool(L, 3))) {
+            return _fairygui_GTweener_setRepeat1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::GTweener::setRepeat' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _fairygui_GTweener_setSnapping(lua_State *L)
@@ -4073,7 +4335,7 @@ static int _fairygui_UIPackage_getItemAsset1(lua_State *L)
 
     olua_check_std_string(L, 1, &arg1);
     olua_check_std_string(L, 2, &arg2);
-    olua_opt_uint(L, 3, &arg3, (lua_Unsigned)fairygui::PackageItemType::UNKNOWN);
+    olua_check_uint(L, 3, &arg3);
 
     // static void* getItemAsset(const std::string& pkgName, const std::string& resName, PackageItemType type = PackageItemType::UNKNOWN)
     void *ret = (void *)fairygui::UIPackage::getItemAsset(arg1, arg2, (fairygui::PackageItemType)arg3);
@@ -4105,6 +4367,27 @@ static int _fairygui_UIPackage_getItemAsset2(lua_State *L)
     return num_ret;
 }
 
+static int _fairygui_UIPackage_getItemAsset3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    std::string arg1;       /** pkgName */
+    std::string arg2;       /** resName */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+
+    // static void* getItemAsset(const std::string& pkgName, const std::string& resName, PackageItemType type = PackageItemType::UNKNOWN)
+    void *ret = (void *)fairygui::UIPackage::getItemAsset(arg1, arg2);
+    int num_ret = olua_push_obj(L, ret, "void *");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _fairygui_UIPackage_getItemAsset(lua_State *L)
 {
     int num_args = lua_gettop(L);
@@ -4116,13 +4399,13 @@ static int _fairygui_UIPackage_getItemAsset(lua_State *L)
     }
 
     if (num_args == 2) {
-        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3) || olua_isnil(L, 3))) {
-            return _fairygui_UIPackage_getItemAsset1(L);
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2))) {
+            return _fairygui_UIPackage_getItemAsset3(L);
         // }
     }
 
     if (num_args == 3) {
-        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3) || olua_isnil(L, 3))) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
             return _fairygui_UIPackage_getItemAsset1(L);
         // }
     }
@@ -4132,7 +4415,7 @@ static int _fairygui_UIPackage_getItemAsset(lua_State *L)
     return 0;
 }
 
-static int _fairygui_UIPackage_getItemAssetByURL(lua_State *L)
+static int _fairygui_UIPackage_getItemAssetByURL1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -4142,7 +4425,7 @@ static int _fairygui_UIPackage_getItemAssetByURL(lua_State *L)
     lua_Unsigned arg2 = 0;       /** type */
 
     olua_check_std_string(L, 1, &arg1);
-    olua_opt_uint(L, 2, &arg2, (lua_Unsigned)fairygui::PackageItemType::UNKNOWN);
+    olua_check_uint(L, 2, &arg2);
 
     // static void* getItemAssetByURL(const std::string& url, PackageItemType type = PackageItemType::UNKNOWN)
     void *ret = (void *)fairygui::UIPackage::getItemAssetByURL(arg1, (fairygui::PackageItemType)arg2);
@@ -4151,6 +4434,46 @@ static int _fairygui_UIPackage_getItemAssetByURL(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _fairygui_UIPackage_getItemAssetByURL2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    std::string arg1;       /** url */
+
+    olua_check_std_string(L, 1, &arg1);
+
+    // static void* getItemAssetByURL(const std::string& url, PackageItemType type = PackageItemType::UNKNOWN)
+    void *ret = (void *)fairygui::UIPackage::getItemAssetByURL(arg1);
+    int num_ret = olua_push_obj(L, ret, "void *");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_UIPackage_getItemAssetByURL(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 1))) {
+            return _fairygui_UIPackage_getItemAssetByURL2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_uint(L, 2))) {
+            return _fairygui_UIPackage_getItemAssetByURL1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::UIPackage::getItemAssetByURL' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _fairygui_UIPackage_getItemByName(lua_State *L)
@@ -6008,7 +6331,7 @@ static int _fairygui_GObject_addDisplayLock(lua_State *L)
     return num_ret;
 }
 
-static int _fairygui_GObject_addRelation(lua_State *L)
+static int _fairygui_GObject_addRelation1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -6022,7 +6345,7 @@ static int _fairygui_GObject_addRelation(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
     olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GObject");
     olua_check_uint(L, 3, &arg2);
-    olua_opt_bool(L, 4, &arg3, (bool)false);
+    olua_check_bool(L, 4, &arg3);
 
     // void addRelation(GObject* target, RelationType relationType, bool usePercent = false)
     self->addRelation(arg1, (fairygui::RelationType)arg2, arg3);
@@ -6032,7 +6355,50 @@ static int _fairygui_GObject_addRelation(lua_State *L)
     return 0;
 }
 
-static int _fairygui_GObject_center(lua_State *L)
+static int _fairygui_GObject_addRelation2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    fairygui::GObject *self = nullptr;
+    fairygui::GObject *arg1 = nullptr;       /** target */
+    lua_Unsigned arg2 = 0;       /** relationType */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GObject");
+    olua_check_uint(L, 3, &arg2);
+
+    // void addRelation(GObject* target, RelationType relationType, bool usePercent = false)
+    self->addRelation(arg1, (fairygui::RelationType)arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GObject_addRelation(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 2) {
+        // if ((olua_is_cppobj(L, 2, "fgui.GObject")) && (olua_is_uint(L, 3))) {
+            return _fairygui_GObject_addRelation2(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_cppobj(L, 2, "fgui.GObject")) && (olua_is_uint(L, 3)) && (olua_is_bool(L, 4))) {
+            return _fairygui_GObject_addRelation1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::GObject::addRelation' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _fairygui_GObject_center1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -6042,7 +6408,7 @@ static int _fairygui_GObject_center(lua_State *L)
     bool arg1 = false;       /** restraint */
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
-    olua_opt_bool(L, 2, &arg1, (bool)false);
+    olua_check_bool(L, 2, &arg1);
 
     // inject code before call
     if (!self->getParent() && !fairygui::UIRoot) {
@@ -6053,6 +6419,48 @@ static int _fairygui_GObject_center(lua_State *L)
     self->center(arg1);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GObject_center2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    fairygui::GObject *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
+
+    // inject code before call
+    if (!self->getParent() && !fairygui::UIRoot) {
+        luaL_error(L, "UIRoot and parent are both nullptr");
+    }
+
+    // void center(bool restraint = false)
+    self->center();
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GObject_center(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 0) {
+        return _fairygui_GObject_center2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_bool(L, 2))) {
+            return _fairygui_GObject_center1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::GObject::center' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -7413,7 +7821,7 @@ static int _fairygui_GObject_setIcon(lua_State *L)
     return 0;
 }
 
-static int _fairygui_GObject_setPivot(lua_State *L)
+static int _fairygui_GObject_setPivot1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -7427,12 +7835,55 @@ static int _fairygui_GObject_setPivot(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
     olua_check_number(L, 2, &arg1);
     olua_check_number(L, 3, &arg2);
-    olua_opt_bool(L, 4, &arg3, (bool)false);
+    olua_check_bool(L, 4, &arg3);
 
     // void setPivot(float xv, float yv, bool asAnchor = false)
     self->setPivot((float)arg1, (float)arg2, arg3);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GObject_setPivot2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    fairygui::GObject *self = nullptr;
+    lua_Number arg1 = 0;       /** xv */
+    lua_Number arg2 = 0;       /** yv */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
+    olua_check_number(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+
+    // void setPivot(float xv, float yv, bool asAnchor = false)
+    self->setPivot((float)arg1, (float)arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GObject_setPivot(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 2) {
+        // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3))) {
+            return _fairygui_GObject_setPivot2(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_bool(L, 4))) {
+            return _fairygui_GObject_setPivot1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::GObject::setPivot' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -7561,7 +8012,7 @@ static int _fairygui_GObject_setScaleY(lua_State *L)
     return 0;
 }
 
-static int _fairygui_GObject_setSize(lua_State *L)
+static int _fairygui_GObject_setSize1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -7575,12 +8026,55 @@ static int _fairygui_GObject_setSize(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
     olua_check_number(L, 2, &arg1);
     olua_check_number(L, 3, &arg2);
-    olua_opt_bool(L, 4, &arg3, (bool)false);
+    olua_check_bool(L, 4, &arg3);
 
     // void setSize(float wv, float hv, bool ignorePivot = false)
     self->setSize((float)arg1, (float)arg2, arg3);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GObject_setSize2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    fairygui::GObject *self = nullptr;
+    lua_Number arg1 = 0;       /** wv */
+    lua_Number arg2 = 0;       /** hv */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
+    olua_check_number(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+
+    // void setSize(float wv, float hv, bool ignorePivot = false)
+    self->setSize((float)arg1, (float)arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GObject_setSize(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 2) {
+        // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3))) {
+            return _fairygui_GObject_setSize2(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_bool(L, 4))) {
+            return _fairygui_GObject_setSize1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::GObject::setSize' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -7825,7 +8319,7 @@ static int _fairygui_GObject_setYMin(lua_State *L)
     return 0;
 }
 
-static int _fairygui_GObject_startDrag(lua_State *L)
+static int _fairygui_GObject_startDrag1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -7835,12 +8329,49 @@ static int _fairygui_GObject_startDrag(lua_State *L)
     lua_Integer arg1 = 0;       /** touchId */
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
-    olua_opt_int(L, 2, &arg1, (lua_Integer)-1);
+    olua_check_int(L, 2, &arg1);
 
     // void startDrag(int touchId = -1)
     self->startDrag((int)arg1);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GObject_startDrag2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    fairygui::GObject *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
+
+    // void startDrag(int touchId = -1)
+    self->startDrag();
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GObject_startDrag(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 0) {
+        return _fairygui_GObject_startDrag2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_int(L, 2))) {
+            return _fairygui_GObject_startDrag1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::GObject::startDrag' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -9431,7 +9962,7 @@ static int _fairygui_GComponent_setMargin(lua_State *L)
     return 0;
 }
 
-static int _fairygui_GComponent_setMask(lua_State *L)
+static int _fairygui_GComponent_setMask1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -9443,7 +9974,7 @@ static int _fairygui_GComponent_setMask(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
-    olua_opt_bool(L, 3, &arg2, (bool)false);
+    olua_check_bool(L, 3, &arg2);
 
     // void setMask(@ref(single mask) cocos2d::Node* value, bool inverted = false)
     self->setMask(arg1, arg2);
@@ -9452,6 +9983,50 @@ static int _fairygui_GComponent_setMask(lua_State *L)
     olua_singleref(L, 1, "mask", 2);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GComponent_setMask2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    fairygui::GComponent *self = nullptr;
+    cocos2d::Node *arg1 = nullptr;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Node");
+
+    // void setMask(@ref(single mask) cocos2d::Node* value, bool inverted = false)
+    self->setMask(arg1);
+
+    // inject code after call
+    olua_singleref(L, 1, "mask", 2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GComponent_setMask(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_cppobj(L, 2, "cc.Node"))) {
+            return _fairygui_GComponent_setMask2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_cppobj(L, 2, "cc.Node")) && (olua_is_bool(L, 3))) {
+            return _fairygui_GComponent_setMask1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::GComponent::setMask' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -9713,7 +10288,7 @@ static int _fairygui_GRoot_closeModalWait(lua_State *L)
     return 0;
 }
 
-static int _fairygui_GRoot_create(lua_State *L)
+static int _fairygui_GRoot_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -9723,7 +10298,7 @@ static int _fairygui_GRoot_create(lua_State *L)
     lua_Integer arg2 = 0;       /** zOrder */
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.Scene");
-    olua_opt_int(L, 2, &arg2, (lua_Integer)1000);
+    olua_check_int(L, 2, &arg2);
 
     // static GRoot* create(cocos2d::Scene* scene, int zOrder = 1000)
     fairygui::GRoot *ret = (fairygui::GRoot *)fairygui::GRoot::create(arg1, (int)arg2);
@@ -9738,6 +10313,52 @@ static int _fairygui_GRoot_create(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _fairygui_GRoot_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    cocos2d::Scene *arg1 = nullptr;       /** scene */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "cc.Scene");
+
+    // static GRoot* create(cocos2d::Scene* scene, int zOrder = 1000)
+    fairygui::GRoot *ret = (fairygui::GRoot *)fairygui::GRoot::create(arg1);
+    int num_ret = olua_push_cppobj(L, ret, "fgui.GRoot");
+
+    // inject code after call
+    olua_push_cppobj<cocos2d::Node>(L, ret->displayObject(), "cc.Node");
+    olua_singleref(L, -1, "fgui.root", -2);
+    olua_mapref(L, 1, "children", -1);
+    lua_pop(L, 1);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_GRoot_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 1) {
+        // if ((olua_is_cppobj(L, 1, "cc.Scene"))) {
+            return _fairygui_GRoot_create2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_cppobj(L, 1, "cc.Scene")) && (olua_is_int(L, 2))) {
+            return _fairygui_GRoot_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::GRoot::create' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _fairygui_GRoot_getInputProcessor(lua_State *L)
@@ -10168,7 +10789,7 @@ static int _fairygui_GRoot_new(lua_State *L)
     return num_ret;
 }
 
-static int _fairygui_GRoot_playSound(lua_State *L)
+static int _fairygui_GRoot_playSound1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -10180,12 +10801,53 @@ static int _fairygui_GRoot_playSound(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GRoot");
     olua_check_std_string(L, 2, &arg1);
-    olua_opt_number(L, 3, &arg2, (lua_Number)1);
+    olua_check_number(L, 3, &arg2);
 
     // void playSound(const std::string& url, float volumeScale = 1)
     self->playSound(arg1, (float)arg2);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GRoot_playSound2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    fairygui::GRoot *self = nullptr;
+    std::string arg1;       /** url */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GRoot");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void playSound(const std::string& url, float volumeScale = 1)
+    self->playSound(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GRoot_playSound(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            return _fairygui_GRoot_playSound2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_number(L, 3))) {
+            return _fairygui_GRoot_playSound1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::GRoot::playSound' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -10657,7 +11319,7 @@ static int _fairygui_GGroup_resizeChildren(lua_State *L)
     return 0;
 }
 
-static int _fairygui_GGroup_setBoundsChangedFlag(lua_State *L)
+static int _fairygui_GGroup_setBoundsChangedFlag1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -10667,12 +11329,49 @@ static int _fairygui_GGroup_setBoundsChangedFlag(lua_State *L)
     bool arg1 = false;       /** childSizeChanged */
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GGroup");
-    olua_opt_bool(L, 2, &arg1, (bool)false);
+    olua_check_bool(L, 2, &arg1);
 
     // void setBoundsChangedFlag(bool childSizeChanged = false)
     self->setBoundsChangedFlag(arg1);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GGroup_setBoundsChangedFlag2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    fairygui::GGroup *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GGroup");
+
+    // void setBoundsChangedFlag(bool childSizeChanged = false)
+    self->setBoundsChangedFlag();
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GGroup_setBoundsChangedFlag(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 0) {
+        return _fairygui_GGroup_setBoundsChangedFlag2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_bool(L, 2))) {
+            return _fairygui_GGroup_setBoundsChangedFlag1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::GGroup::setBoundsChangedFlag' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -13887,7 +14586,7 @@ static int _fairygui_GList_returnToPool(lua_State *L)
     return 0;
 }
 
-static int _fairygui_GList_scrollToView(lua_State *L)
+static int _fairygui_GList_scrollToView1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -13900,13 +14599,82 @@ static int _fairygui_GList_scrollToView(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GList");
     olua_check_int(L, 2, &arg1);
-    olua_opt_bool(L, 3, &arg2, (bool)false);
-    olua_opt_bool(L, 4, &arg3, (bool)false);
+    olua_check_bool(L, 3, &arg2);
+    olua_check_bool(L, 4, &arg3);
 
     // void scrollToView(int index, bool ani = false, bool setFirst = false)
     self->scrollToView((int)arg1, arg2, arg3);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GList_scrollToView2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    fairygui::GList *self = nullptr;
+    lua_Integer arg1 = 0;       /** index */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GList");
+    olua_check_int(L, 2, &arg1);
+
+    // void scrollToView(int index, bool ani = false, bool setFirst = false)
+    self->scrollToView((int)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GList_scrollToView3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    fairygui::GList *self = nullptr;
+    lua_Integer arg1 = 0;       /** index */
+    bool arg2 = false;       /** ani */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GList");
+    olua_check_int(L, 2, &arg1);
+    olua_check_bool(L, 3, &arg2);
+
+    // void scrollToView(int index, bool ani = false, bool setFirst = false)
+    self->scrollToView((int)arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GList_scrollToView(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_int(L, 2))) {
+            return _fairygui_GList_scrollToView2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_int(L, 2)) && (olua_is_bool(L, 3))) {
+            return _fairygui_GList_scrollToView3(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_int(L, 2)) && (olua_is_bool(L, 3)) && (olua_is_bool(L, 4))) {
+            return _fairygui_GList_scrollToView1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::GList::scrollToView' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -14756,7 +15524,7 @@ static int _fairygui_GMovieClip_setFrame(lua_State *L)
     return 0;
 }
 
-static int _fairygui_GMovieClip_setPlaySettings(lua_State *L)
+static int _fairygui_GMovieClip_setPlaySettings1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -14770,10 +15538,10 @@ static int _fairygui_GMovieClip_setPlaySettings(lua_State *L)
     std::function<void()> arg5;       /** completeCallback */
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GMovieClip");
-    olua_opt_int(L, 2, &arg1, (lua_Integer)0);
-    olua_opt_int(L, 3, &arg2, (lua_Integer)-1);
-    olua_opt_int(L, 4, &arg3, (lua_Integer)0);
-    olua_opt_int(L, 5, &arg4, (lua_Integer)-1);
+    olua_check_int(L, 2, &arg1);
+    olua_check_int(L, 3, &arg2);
+    olua_check_int(L, 4, &arg3);
+    olua_check_int(L, 5, &arg4);
 
     if (olua_is_std_function(L, 6)) {
         void *callback_store_obj = (void *)self;
@@ -14802,6 +15570,159 @@ static int _fairygui_GMovieClip_setPlaySettings(lua_State *L)
     self->setPlaySettings((int)arg1, (int)arg2, (int)arg3, (int)arg4, arg5);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GMovieClip_setPlaySettings2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    fairygui::GMovieClip *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GMovieClip");
+
+    // void setPlaySettings(int start = 0, int end = -1, int times = 0, int endAt = -1, std::function<void()> completeCallback = nullptr)
+    self->setPlaySettings();
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GMovieClip_setPlaySettings3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    fairygui::GMovieClip *self = nullptr;
+    lua_Integer arg1 = 0;       /** start */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GMovieClip");
+    olua_check_int(L, 2, &arg1);
+
+    // void setPlaySettings(int start = 0, int end = -1, int times = 0, int endAt = -1, std::function<void()> completeCallback = nullptr)
+    self->setPlaySettings((int)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GMovieClip_setPlaySettings4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    fairygui::GMovieClip *self = nullptr;
+    lua_Integer arg1 = 0;       /** start */
+    lua_Integer arg2 = 0;       /** end */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GMovieClip");
+    olua_check_int(L, 2, &arg1);
+    olua_check_int(L, 3, &arg2);
+
+    // void setPlaySettings(int start = 0, int end = -1, int times = 0, int endAt = -1, std::function<void()> completeCallback = nullptr)
+    self->setPlaySettings((int)arg1, (int)arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GMovieClip_setPlaySettings5(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 4);
+
+    fairygui::GMovieClip *self = nullptr;
+    lua_Integer arg1 = 0;       /** start */
+    lua_Integer arg2 = 0;       /** end */
+    lua_Integer arg3 = 0;       /** times */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GMovieClip");
+    olua_check_int(L, 2, &arg1);
+    olua_check_int(L, 3, &arg2);
+    olua_check_int(L, 4, &arg3);
+
+    // void setPlaySettings(int start = 0, int end = -1, int times = 0, int endAt = -1, std::function<void()> completeCallback = nullptr)
+    self->setPlaySettings((int)arg1, (int)arg2, (int)arg3);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GMovieClip_setPlaySettings6(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 5);
+
+    fairygui::GMovieClip *self = nullptr;
+    lua_Integer arg1 = 0;       /** start */
+    lua_Integer arg2 = 0;       /** end */
+    lua_Integer arg3 = 0;       /** times */
+    lua_Integer arg4 = 0;       /** endAt */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GMovieClip");
+    olua_check_int(L, 2, &arg1);
+    olua_check_int(L, 3, &arg2);
+    olua_check_int(L, 4, &arg3);
+    olua_check_int(L, 5, &arg4);
+
+    // void setPlaySettings(int start = 0, int end = -1, int times = 0, int endAt = -1, std::function<void()> completeCallback = nullptr)
+    self->setPlaySettings((int)arg1, (int)arg2, (int)arg3, (int)arg4);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GMovieClip_setPlaySettings(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 0) {
+        return _fairygui_GMovieClip_setPlaySettings2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_int(L, 2))) {
+            return _fairygui_GMovieClip_setPlaySettings3(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_int(L, 2)) && (olua_is_int(L, 3))) {
+            return _fairygui_GMovieClip_setPlaySettings4(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_int(L, 2)) && (olua_is_int(L, 3)) && (olua_is_int(L, 4))) {
+            return _fairygui_GMovieClip_setPlaySettings5(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if ((olua_is_int(L, 2)) && (olua_is_int(L, 3)) && (olua_is_int(L, 4)) && (olua_is_int(L, 5))) {
+            return _fairygui_GMovieClip_setPlaySettings6(L);
+        // }
+    }
+
+    if (num_args == 5) {
+        // if ((olua_is_int(L, 2)) && (olua_is_int(L, 3)) && (olua_is_int(L, 4)) && (olua_is_int(L, 5)) && (olua_is_std_function(L, 6))) {
+            return _fairygui_GMovieClip_setPlaySettings1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::GMovieClip::setPlaySettings' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -17671,7 +18592,7 @@ static int _fairygui_ScrollPane_lockHeader(lua_State *L)
     return 0;
 }
 
-static int _fairygui_ScrollPane_scrollBottom(lua_State *L)
+static int _fairygui_ScrollPane_scrollBottom1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -17681,7 +18602,7 @@ static int _fairygui_ScrollPane_scrollBottom(lua_State *L)
     bool arg1 = false;       /** ani */
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
-    olua_opt_bool(L, 2, &arg1, (bool)false);
+    olua_check_bool(L, 2, &arg1);
 
     // void scrollBottom(bool ani = false)
     self->scrollBottom(arg1);
@@ -17691,7 +18612,44 @@ static int _fairygui_ScrollPane_scrollBottom(lua_State *L)
     return 0;
 }
 
-static int _fairygui_ScrollPane_scrollDown(lua_State *L)
+static int _fairygui_ScrollPane_scrollBottom2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    fairygui::ScrollPane *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+
+    // void scrollBottom(bool ani = false)
+    self->scrollBottom();
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_scrollBottom(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 0) {
+        return _fairygui_ScrollPane_scrollBottom2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_bool(L, 2))) {
+            return _fairygui_ScrollPane_scrollBottom1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::ScrollPane::scrollBottom' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_scrollDown1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -17702,8 +18660,8 @@ static int _fairygui_ScrollPane_scrollDown(lua_State *L)
     bool arg2 = false;       /** ani */
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
-    olua_opt_number(L, 2, &arg1, (lua_Number)1);
-    olua_opt_bool(L, 3, &arg2, (bool)false);
+    olua_check_number(L, 2, &arg1);
+    olua_check_bool(L, 3, &arg2);
 
     // void scrollDown(float ratio = 1, bool ani = false)
     self->scrollDown((float)arg1, arg2);
@@ -17713,7 +18671,70 @@ static int _fairygui_ScrollPane_scrollDown(lua_State *L)
     return 0;
 }
 
-static int _fairygui_ScrollPane_scrollLeft(lua_State *L)
+static int _fairygui_ScrollPane_scrollDown2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    fairygui::ScrollPane *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+
+    // void scrollDown(float ratio = 1, bool ani = false)
+    self->scrollDown();
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_scrollDown3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    fairygui::ScrollPane *self = nullptr;
+    lua_Number arg1 = 0;       /** ratio */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    olua_check_number(L, 2, &arg1);
+
+    // void scrollDown(float ratio = 1, bool ani = false)
+    self->scrollDown((float)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_scrollDown(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 0) {
+        return _fairygui_ScrollPane_scrollDown2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_number(L, 2))) {
+            return _fairygui_ScrollPane_scrollDown3(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_number(L, 2)) && (olua_is_bool(L, 3))) {
+            return _fairygui_ScrollPane_scrollDown1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::ScrollPane::scrollDown' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_scrollLeft1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -17724,8 +18745,8 @@ static int _fairygui_ScrollPane_scrollLeft(lua_State *L)
     bool arg2 = false;       /** ani */
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
-    olua_opt_number(L, 2, &arg1, (lua_Number)1);
-    olua_opt_bool(L, 3, &arg2, (bool)false);
+    olua_check_number(L, 2, &arg1);
+    olua_check_bool(L, 3, &arg2);
 
     // void scrollLeft(float ratio = 1, bool ani = false)
     self->scrollLeft((float)arg1, arg2);
@@ -17735,7 +18756,70 @@ static int _fairygui_ScrollPane_scrollLeft(lua_State *L)
     return 0;
 }
 
-static int _fairygui_ScrollPane_scrollRight(lua_State *L)
+static int _fairygui_ScrollPane_scrollLeft2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    fairygui::ScrollPane *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+
+    // void scrollLeft(float ratio = 1, bool ani = false)
+    self->scrollLeft();
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_scrollLeft3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    fairygui::ScrollPane *self = nullptr;
+    lua_Number arg1 = 0;       /** ratio */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    olua_check_number(L, 2, &arg1);
+
+    // void scrollLeft(float ratio = 1, bool ani = false)
+    self->scrollLeft((float)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_scrollLeft(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 0) {
+        return _fairygui_ScrollPane_scrollLeft2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_number(L, 2))) {
+            return _fairygui_ScrollPane_scrollLeft3(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_number(L, 2)) && (olua_is_bool(L, 3))) {
+            return _fairygui_ScrollPane_scrollLeft1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::ScrollPane::scrollLeft' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_scrollRight1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -17746,13 +18830,76 @@ static int _fairygui_ScrollPane_scrollRight(lua_State *L)
     bool arg2 = false;       /** ani */
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
-    olua_opt_number(L, 2, &arg1, (lua_Number)1);
-    olua_opt_bool(L, 3, &arg2, (bool)false);
+    olua_check_number(L, 2, &arg1);
+    olua_check_bool(L, 3, &arg2);
 
     // void scrollRight(float ratio = 1, bool ani = false)
     self->scrollRight((float)arg1, arg2);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_scrollRight2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    fairygui::ScrollPane *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+
+    // void scrollRight(float ratio = 1, bool ani = false)
+    self->scrollRight();
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_scrollRight3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    fairygui::ScrollPane *self = nullptr;
+    lua_Number arg1 = 0;       /** ratio */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    olua_check_number(L, 2, &arg1);
+
+    // void scrollRight(float ratio = 1, bool ani = false)
+    self->scrollRight((float)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_scrollRight(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 0) {
+        return _fairygui_ScrollPane_scrollRight2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_number(L, 2))) {
+            return _fairygui_ScrollPane_scrollRight3(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_number(L, 2)) && (olua_is_bool(L, 3))) {
+            return _fairygui_ScrollPane_scrollRight1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::ScrollPane::scrollRight' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -17770,8 +18917,8 @@ static int _fairygui_ScrollPane_scrollToView1(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
     olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GObject");
-    olua_opt_bool(L, 3, &arg2, (bool)false);
-    olua_opt_bool(L, 4, &arg3, (bool)false);
+    olua_check_bool(L, 3, &arg2);
+    olua_check_bool(L, 4, &arg3);
 
     // void scrollToView(GObject* obj, bool ani = false, bool setFirst = false)
     self->scrollToView(arg1, arg2, arg3);
@@ -17794,11 +18941,95 @@ static int _fairygui_ScrollPane_scrollToView2(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
     manual_olua_check_cocos2d_Rect(L, 2, &arg1);
-    olua_opt_bool(L, 3, &arg2, (bool)false);
-    olua_opt_bool(L, 4, &arg3, (bool)false);
+    olua_check_bool(L, 3, &arg2);
+    olua_check_bool(L, 4, &arg3);
 
     // void scrollToView(const cocos2d::Rect& rect, bool ani = false, bool setFirst = false)
     self->scrollToView(arg1, arg2, arg3);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_scrollToView3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    fairygui::ScrollPane *self = nullptr;
+    fairygui::GObject *arg1 = nullptr;       /** obj */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GObject");
+
+    // void scrollToView(GObject* obj, bool ani = false, bool setFirst = false)
+    self->scrollToView(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_scrollToView4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    fairygui::ScrollPane *self = nullptr;
+    fairygui::GObject *arg1 = nullptr;       /** obj */
+    bool arg2 = false;       /** ani */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GObject");
+    olua_check_bool(L, 3, &arg2);
+
+    // void scrollToView(GObject* obj, bool ani = false, bool setFirst = false)
+    self->scrollToView(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_scrollToView5(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    fairygui::ScrollPane *self = nullptr;
+    cocos2d::Rect arg1;       /** rect */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    manual_olua_check_cocos2d_Rect(L, 2, &arg1);
+
+    // void scrollToView(const cocos2d::Rect& rect, bool ani = false, bool setFirst = false)
+    self->scrollToView(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_scrollToView6(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    fairygui::ScrollPane *self = nullptr;
+    cocos2d::Rect arg1;       /** rect */
+    bool arg2 = false;       /** ani */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    manual_olua_check_cocos2d_Rect(L, 2, &arg1);
+    olua_check_bool(L, 3, &arg2);
+
+    // void scrollToView(const cocos2d::Rect& rect, bool ani = false, bool setFirst = false)
+    self->scrollToView(arg1, arg2);
 
     olua_endinvoke(L);
 
@@ -17810,31 +19041,31 @@ static int _fairygui_ScrollPane_scrollToView(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        if ((manual_olua_is_cocos2d_Rect(L, 2)) && (olua_is_bool(L, 3) || olua_isnil(L, 3)) && (olua_is_bool(L, 4) || olua_isnil(L, 4))) {
-            return _fairygui_ScrollPane_scrollToView2(L);
+        if ((manual_olua_is_cocos2d_Rect(L, 2))) {
+            return _fairygui_ScrollPane_scrollToView5(L);
         }
 
-        // if ((olua_is_cppobj(L, 2, "fgui.GObject")) && (olua_is_bool(L, 3) || olua_isnil(L, 3)) && (olua_is_bool(L, 4) || olua_isnil(L, 4))) {
-            return _fairygui_ScrollPane_scrollToView1(L);
+        // if ((olua_is_cppobj(L, 2, "fgui.GObject"))) {
+            return _fairygui_ScrollPane_scrollToView3(L);
         // }
     }
 
     if (num_args == 2) {
-        if ((manual_olua_is_cocos2d_Rect(L, 2)) && (olua_is_bool(L, 3) || olua_isnil(L, 3)) && (olua_is_bool(L, 4) || olua_isnil(L, 4))) {
-            return _fairygui_ScrollPane_scrollToView2(L);
+        if ((manual_olua_is_cocos2d_Rect(L, 2)) && (olua_is_bool(L, 3))) {
+            return _fairygui_ScrollPane_scrollToView6(L);
         }
 
-        // if ((olua_is_cppobj(L, 2, "fgui.GObject")) && (olua_is_bool(L, 3) || olua_isnil(L, 3)) && (olua_is_bool(L, 4) || olua_isnil(L, 4))) {
-            return _fairygui_ScrollPane_scrollToView1(L);
+        // if ((olua_is_cppobj(L, 2, "fgui.GObject")) && (olua_is_bool(L, 3))) {
+            return _fairygui_ScrollPane_scrollToView4(L);
         // }
     }
 
     if (num_args == 3) {
-        if ((manual_olua_is_cocos2d_Rect(L, 2)) && (olua_is_bool(L, 3) || olua_isnil(L, 3)) && (olua_is_bool(L, 4) || olua_isnil(L, 4))) {
+        if ((manual_olua_is_cocos2d_Rect(L, 2)) && (olua_is_bool(L, 3)) && (olua_is_bool(L, 4))) {
             return _fairygui_ScrollPane_scrollToView2(L);
         }
 
-        // if ((olua_is_cppobj(L, 2, "fgui.GObject")) && (olua_is_bool(L, 3) || olua_isnil(L, 3)) && (olua_is_bool(L, 4) || olua_isnil(L, 4))) {
+        // if ((olua_is_cppobj(L, 2, "fgui.GObject")) && (olua_is_bool(L, 3)) && (olua_is_bool(L, 4))) {
             return _fairygui_ScrollPane_scrollToView1(L);
         // }
     }
@@ -17844,7 +19075,7 @@ static int _fairygui_ScrollPane_scrollToView(lua_State *L)
     return 0;
 }
 
-static int _fairygui_ScrollPane_scrollTop(lua_State *L)
+static int _fairygui_ScrollPane_scrollTop1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -17854,7 +19085,7 @@ static int _fairygui_ScrollPane_scrollTop(lua_State *L)
     bool arg1 = false;       /** ani */
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
-    olua_opt_bool(L, 2, &arg1, (bool)false);
+    olua_check_bool(L, 2, &arg1);
 
     // void scrollTop(bool ani = false)
     self->scrollTop(arg1);
@@ -17864,7 +19095,44 @@ static int _fairygui_ScrollPane_scrollTop(lua_State *L)
     return 0;
 }
 
-static int _fairygui_ScrollPane_scrollUp(lua_State *L)
+static int _fairygui_ScrollPane_scrollTop2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    fairygui::ScrollPane *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+
+    // void scrollTop(bool ani = false)
+    self->scrollTop();
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_scrollTop(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 0) {
+        return _fairygui_ScrollPane_scrollTop2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_bool(L, 2))) {
+            return _fairygui_ScrollPane_scrollTop1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::ScrollPane::scrollTop' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_scrollUp1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -17875,13 +19143,76 @@ static int _fairygui_ScrollPane_scrollUp(lua_State *L)
     bool arg2 = false;       /** ani */
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
-    olua_opt_number(L, 2, &arg1, (lua_Number)1);
-    olua_opt_bool(L, 3, &arg2, (bool)false);
+    olua_check_number(L, 2, &arg1);
+    olua_check_bool(L, 3, &arg2);
 
     // void scrollUp(float ratio = 1, bool ani = false)
     self->scrollUp((float)arg1, arg2);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_scrollUp2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    fairygui::ScrollPane *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+
+    // void scrollUp(float ratio = 1, bool ani = false)
+    self->scrollUp();
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_scrollUp3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    fairygui::ScrollPane *self = nullptr;
+    lua_Number arg1 = 0;       /** ratio */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    olua_check_number(L, 2, &arg1);
+
+    // void scrollUp(float ratio = 1, bool ani = false)
+    self->scrollUp((float)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_scrollUp(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 0) {
+        return _fairygui_ScrollPane_scrollUp2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_number(L, 2))) {
+            return _fairygui_ScrollPane_scrollUp3(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_number(L, 2)) && (olua_is_bool(L, 3))) {
+            return _fairygui_ScrollPane_scrollUp1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::ScrollPane::scrollUp' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -18009,7 +19340,7 @@ static int _fairygui_ScrollPane_setPageMode(lua_State *L)
     return 0;
 }
 
-static int _fairygui_ScrollPane_setPageX(lua_State *L)
+static int _fairygui_ScrollPane_setPageX1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -18021,7 +19352,7 @@ static int _fairygui_ScrollPane_setPageX(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
     olua_check_int(L, 2, &arg1);
-    olua_opt_bool(L, 3, &arg2, (bool)false);
+    olua_check_bool(L, 3, &arg2);
 
     // void setPageX(int value, bool ani = false)
     self->setPageX((int)arg1, arg2);
@@ -18031,7 +19362,48 @@ static int _fairygui_ScrollPane_setPageX(lua_State *L)
     return 0;
 }
 
-static int _fairygui_ScrollPane_setPageY(lua_State *L)
+static int _fairygui_ScrollPane_setPageX2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    fairygui::ScrollPane *self = nullptr;
+    lua_Integer arg1 = 0;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    olua_check_int(L, 2, &arg1);
+
+    // void setPageX(int value, bool ani = false)
+    self->setPageX((int)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_setPageX(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_int(L, 2))) {
+            return _fairygui_ScrollPane_setPageX2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_int(L, 2)) && (olua_is_bool(L, 3))) {
+            return _fairygui_ScrollPane_setPageX1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::ScrollPane::setPageX' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_setPageY1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -18043,7 +19415,7 @@ static int _fairygui_ScrollPane_setPageY(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
     olua_check_int(L, 2, &arg1);
-    olua_opt_bool(L, 3, &arg2, (bool)false);
+    olua_check_bool(L, 3, &arg2);
 
     // void setPageY(int value, bool ani = false)
     self->setPageY((int)arg1, arg2);
@@ -18053,7 +19425,48 @@ static int _fairygui_ScrollPane_setPageY(lua_State *L)
     return 0;
 }
 
-static int _fairygui_ScrollPane_setPercX(lua_State *L)
+static int _fairygui_ScrollPane_setPageY2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    fairygui::ScrollPane *self = nullptr;
+    lua_Integer arg1 = 0;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    olua_check_int(L, 2, &arg1);
+
+    // void setPageY(int value, bool ani = false)
+    self->setPageY((int)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_setPageY(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_int(L, 2))) {
+            return _fairygui_ScrollPane_setPageY2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_int(L, 2)) && (olua_is_bool(L, 3))) {
+            return _fairygui_ScrollPane_setPageY1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::ScrollPane::setPageY' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_setPercX1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -18065,7 +19478,7 @@ static int _fairygui_ScrollPane_setPercX(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
     olua_check_number(L, 2, &arg1);
-    olua_opt_bool(L, 3, &arg2, (bool)false);
+    olua_check_bool(L, 3, &arg2);
 
     // void setPercX(float value, bool ani = false)
     self->setPercX((float)arg1, arg2);
@@ -18075,7 +19488,48 @@ static int _fairygui_ScrollPane_setPercX(lua_State *L)
     return 0;
 }
 
-static int _fairygui_ScrollPane_setPercY(lua_State *L)
+static int _fairygui_ScrollPane_setPercX2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    fairygui::ScrollPane *self = nullptr;
+    lua_Number arg1 = 0;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    olua_check_number(L, 2, &arg1);
+
+    // void setPercX(float value, bool ani = false)
+    self->setPercX((float)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_setPercX(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_number(L, 2))) {
+            return _fairygui_ScrollPane_setPercX2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_number(L, 2)) && (olua_is_bool(L, 3))) {
+            return _fairygui_ScrollPane_setPercX1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::ScrollPane::setPercX' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_setPercY1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -18087,7 +19541,7 @@ static int _fairygui_ScrollPane_setPercY(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
     olua_check_number(L, 2, &arg1);
-    olua_opt_bool(L, 3, &arg2, (bool)false);
+    olua_check_bool(L, 3, &arg2);
 
     // void setPercY(float value, bool ani = false)
     self->setPercY((float)arg1, arg2);
@@ -18097,7 +19551,48 @@ static int _fairygui_ScrollPane_setPercY(lua_State *L)
     return 0;
 }
 
-static int _fairygui_ScrollPane_setPosX(lua_State *L)
+static int _fairygui_ScrollPane_setPercY2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    fairygui::ScrollPane *self = nullptr;
+    lua_Number arg1 = 0;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    olua_check_number(L, 2, &arg1);
+
+    // void setPercY(float value, bool ani = false)
+    self->setPercY((float)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_setPercY(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_number(L, 2))) {
+            return _fairygui_ScrollPane_setPercY2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_number(L, 2)) && (olua_is_bool(L, 3))) {
+            return _fairygui_ScrollPane_setPercY1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::ScrollPane::setPercY' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_setPosX1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -18109,7 +19604,7 @@ static int _fairygui_ScrollPane_setPosX(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
     olua_check_number(L, 2, &arg1);
-    olua_opt_bool(L, 3, &arg2, (bool)false);
+    olua_check_bool(L, 3, &arg2);
 
     // void setPosX(float value, bool ani = false)
     self->setPosX((float)arg1, arg2);
@@ -18119,7 +19614,48 @@ static int _fairygui_ScrollPane_setPosX(lua_State *L)
     return 0;
 }
 
-static int _fairygui_ScrollPane_setPosY(lua_State *L)
+static int _fairygui_ScrollPane_setPosX2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    fairygui::ScrollPane *self = nullptr;
+    lua_Number arg1 = 0;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    olua_check_number(L, 2, &arg1);
+
+    // void setPosX(float value, bool ani = false)
+    self->setPosX((float)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_setPosX(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_number(L, 2))) {
+            return _fairygui_ScrollPane_setPosX2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_number(L, 2)) && (olua_is_bool(L, 3))) {
+            return _fairygui_ScrollPane_setPosX1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::ScrollPane::setPosX' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_setPosY1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -18131,12 +19667,53 @@ static int _fairygui_ScrollPane_setPosY(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
     olua_check_number(L, 2, &arg1);
-    olua_opt_bool(L, 3, &arg2, (bool)false);
+    olua_check_bool(L, 3, &arg2);
 
     // void setPosY(float value, bool ani = false)
     self->setPosY((float)arg1, arg2);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_setPosY2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    fairygui::ScrollPane *self = nullptr;
+    lua_Number arg1 = 0;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.ScrollPane");
+    olua_check_number(L, 2, &arg1);
+
+    // void setPosY(float value, bool ani = false)
+    self->setPosY((float)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_ScrollPane_setPosY(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_number(L, 2))) {
+            return _fairygui_ScrollPane_setPosY2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_number(L, 2)) && (olua_is_bool(L, 3))) {
+            return _fairygui_ScrollPane_setPosY1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::ScrollPane::setPosY' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -18588,14 +20165,78 @@ static int _fairygui_Transition_play3(lua_State *L)
     return 0;
 }
 
+static int _fairygui_Transition_play4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    fairygui::Transition *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.Transition");
+
+    // void play(std::function<void()> callback = nullptr)
+    self->play();
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_Transition_play5(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    fairygui::Transition *self = nullptr;
+    lua_Integer arg1 = 0;       /** times */
+    lua_Number arg2 = 0;       /** delay */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.Transition");
+    olua_check_int(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+
+    // void play(int times, float delay, std::function<void()> callback = nullptr)
+    self->play((int)arg1, (float)arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_Transition_play6(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 5);
+
+    fairygui::Transition *self = nullptr;
+    lua_Integer arg1 = 0;       /** times */
+    lua_Number arg2 = 0;       /** delay */
+    lua_Number arg3 = 0;       /** startTime */
+    lua_Number arg4 = 0;       /** endTime */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.Transition");
+    olua_check_int(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+    olua_check_number(L, 4, &arg3);
+    olua_check_number(L, 5, &arg4);
+
+    // void play(int times, float delay, float startTime, float endTime, std::function<void()> callback = nullptr)
+    self->play((int)arg1, (float)arg2, (float)arg3, (float)arg4);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _fairygui_Transition_play(lua_State *L)
 {
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
-        // if ((olua_is_std_function(L, 2))) {
-            return _fairygui_Transition_play1(L);
-        // }
+        return _fairygui_Transition_play4(L);
     }
 
     if (num_args == 1) {
@@ -18605,8 +20246,8 @@ static int _fairygui_Transition_play(lua_State *L)
     }
 
     if (num_args == 2) {
-        // if ((olua_is_int(L, 2)) && (olua_is_number(L, 3)) && (olua_is_std_function(L, 4))) {
-            return _fairygui_Transition_play2(L);
+        // if ((olua_is_int(L, 2)) && (olua_is_number(L, 3))) {
+            return _fairygui_Transition_play5(L);
         // }
     }
 
@@ -18617,8 +20258,8 @@ static int _fairygui_Transition_play(lua_State *L)
     }
 
     if (num_args == 4) {
-        // if ((olua_is_int(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_number(L, 5)) && (olua_is_std_function(L, 6))) {
-            return _fairygui_Transition_play3(L);
+        // if ((olua_is_int(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_number(L, 5))) {
+            return _fairygui_Transition_play6(L);
         // }
     }
 
@@ -18721,14 +20362,52 @@ static int _fairygui_Transition_playReverse2(lua_State *L)
     return 0;
 }
 
+static int _fairygui_Transition_playReverse3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    fairygui::Transition *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.Transition");
+
+    // void playReverse(std::function<void()> callback = nullptr)
+    self->playReverse();
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_Transition_playReverse4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    fairygui::Transition *self = nullptr;
+    lua_Integer arg1 = 0;       /** times */
+    lua_Number arg2 = 0;       /** delay */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.Transition");
+    olua_check_int(L, 2, &arg1);
+    olua_check_number(L, 3, &arg2);
+
+    // void playReverse(int times, float delay, std::function<void()> callback = nullptr)
+    self->playReverse((int)arg1, (float)arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _fairygui_Transition_playReverse(lua_State *L)
 {
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
-        // if ((olua_is_std_function(L, 2))) {
-            return _fairygui_Transition_playReverse1(L);
-        // }
+        return _fairygui_Transition_playReverse3(L);
     }
 
     if (num_args == 1) {
@@ -18738,8 +20417,8 @@ static int _fairygui_Transition_playReverse(lua_State *L)
     }
 
     if (num_args == 2) {
-        // if ((olua_is_int(L, 2)) && (olua_is_number(L, 3)) && (olua_is_std_function(L, 4))) {
-            return _fairygui_Transition_playReverse2(L);
+        // if ((olua_is_int(L, 2)) && (olua_is_number(L, 3))) {
+            return _fairygui_Transition_playReverse4(L);
         // }
     }
 
@@ -20845,7 +22524,7 @@ static int _fairygui_DragDropManager_new(lua_State *L)
     return num_ret;
 }
 
-static int _fairygui_DragDropManager_startDrag(lua_State *L)
+static int _fairygui_DragDropManager_startDrag1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -20858,13 +22537,82 @@ static int _fairygui_DragDropManager_startDrag(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.DragDropManager");
     olua_check_std_string(L, 2, &arg1);
-    manual_olua_opt_cocos2d_Value(L, 3, &arg2, (cocos2d::Value)cocos2d::Value::Null);
-    olua_opt_int(L, 4, &arg3, (lua_Integer)-1);
+    manual_olua_check_cocos2d_Value(L, 3, &arg2);
+    olua_check_int(L, 4, &arg3);
 
     // void startDrag(const std::string& icon, const cocos2d::Value& sourceData = cocos2d::Value::Null, int touchPointID = -1)
     self->startDrag(arg1, arg2, (int)arg3);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_DragDropManager_startDrag2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    fairygui::DragDropManager *self = nullptr;
+    std::string arg1;       /** icon */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.DragDropManager");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void startDrag(const std::string& icon, const cocos2d::Value& sourceData = cocos2d::Value::Null, int touchPointID = -1)
+    self->startDrag(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_DragDropManager_startDrag3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    fairygui::DragDropManager *self = nullptr;
+    std::string arg1;       /** icon */
+    cocos2d::Value arg2;       /** sourceData */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.DragDropManager");
+    olua_check_std_string(L, 2, &arg1);
+    manual_olua_check_cocos2d_Value(L, 3, &arg2);
+
+    // void startDrag(const std::string& icon, const cocos2d::Value& sourceData = cocos2d::Value::Null, int touchPointID = -1)
+    self->startDrag(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_DragDropManager_startDrag(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            return _fairygui_DragDropManager_startDrag2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (manual_olua_is_cocos2d_Value(L, 3))) {
+            return _fairygui_DragDropManager_startDrag3(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_std_string(L, 2)) && (manual_olua_is_cocos2d_Value(L, 3)) && (olua_is_int(L, 4))) {
+            return _fairygui_DragDropManager_startDrag1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::DragDropManager::startDrag' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -21096,7 +22844,7 @@ static int _fairygui_TreeNode_addChildAt(lua_State *L)
     return num_ret;
 }
 
-static int _fairygui_TreeNode_create(lua_State *L)
+static int _fairygui_TreeNode_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -21104,7 +22852,7 @@ static int _fairygui_TreeNode_create(lua_State *L)
 
     bool arg1 = false;       /** isFolder */
 
-    olua_opt_bool(L, 1, &arg1, (bool)false);
+    olua_check_bool(L, 1, &arg1);
 
     // static TreeNode* create(bool isFolder = false)
     fairygui::TreeNode *ret = (fairygui::TreeNode *)fairygui::TreeNode::create(arg1);
@@ -21113,6 +22861,40 @@ static int _fairygui_TreeNode_create(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _fairygui_TreeNode_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 0);
+
+    // static TreeNode* create(bool isFolder = false)
+    fairygui::TreeNode *ret = (fairygui::TreeNode *)fairygui::TreeNode::create();
+    int num_ret = olua_push_cppobj(L, ret, "fgui.TreeNode");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_TreeNode_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 0) {
+        return _fairygui_TreeNode_create2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_bool(L, 1))) {
+            return _fairygui_TreeNode_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::TreeNode::create' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _fairygui_TreeNode_getCell(lua_State *L)
@@ -21669,7 +23451,7 @@ static int luaopen_fairygui_TreeNode(lua_State *L)
     return 1;
 }
 
-static int _fairygui_TreeView_addSelection(lua_State *L)
+static int _fairygui_TreeView_addSelection1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -21681,12 +23463,53 @@ static int _fairygui_TreeView_addSelection(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeView");
     olua_check_cppobj(L, 2, (void **)&arg1, "fgui.TreeNode");
-    olua_opt_bool(L, 3, &arg2, (bool)false);
+    olua_check_bool(L, 3, &arg2);
 
     // void addSelection(TreeNode* node, bool scrollItToView = false)
     self->addSelection(arg1, arg2);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_TreeView_addSelection2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    fairygui::TreeView *self = nullptr;
+    fairygui::TreeNode *arg1 = nullptr;       /** node */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeView");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.TreeNode");
+
+    // void addSelection(TreeNode* node, bool scrollItToView = false)
+    self->addSelection(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_TreeView_addSelection(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_cppobj(L, 2, "fgui.TreeNode"))) {
+            return _fairygui_TreeView_addSelection2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_cppobj(L, 2, "fgui.TreeNode")) && (olua_is_bool(L, 3))) {
+            return _fairygui_TreeView_addSelection1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::TreeView::addSelection' not support '%d' arguments", num_args);
 
     return 0;
 }

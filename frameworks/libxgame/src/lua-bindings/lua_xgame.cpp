@@ -825,7 +825,7 @@ static int luaopen_xgame_runtime(lua_State *L)
     return 1;
 }
 
-static int _xgame_filesystem_addSearchPath(lua_State *L)
+static int _xgame_filesystem_addSearchPath1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -835,12 +835,51 @@ static int _xgame_filesystem_addSearchPath(lua_State *L)
     bool arg2 = false;       /** front */
 
     olua_check_std_string(L, 1, &arg1);
-    olua_opt_bool(L, 2, &arg2, (bool)false);
+    olua_check_bool(L, 2, &arg2);
 
     // static void addSearchPath(const std::string &path, bool front = false)
     xgame::filesystem::addSearchPath(arg1, arg2);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _xgame_filesystem_addSearchPath2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    std::string arg1;       /** path */
+
+    olua_check_std_string(L, 1, &arg1);
+
+    // static void addSearchPath(const std::string &path, bool front = false)
+    xgame::filesystem::addSearchPath(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _xgame_filesystem_addSearchPath(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 1))) {
+            return _xgame_filesystem_addSearchPath2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_bool(L, 2))) {
+            return _xgame_filesystem_addSearchPath1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'xgame::filesystem::addSearchPath' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -866,7 +905,7 @@ static int _xgame_filesystem_copy(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_filesystem_createDirectory(lua_State *L)
+static int _xgame_filesystem_createDirectory1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -876,7 +915,7 @@ static int _xgame_filesystem_createDirectory(lua_State *L)
     bool arg2 = false;       /** isFilePath */
 
     olua_check_std_string(L, 1, &arg1);
-    olua_opt_bool(L, 2, &arg2, (bool)false);
+    olua_check_bool(L, 2, &arg2);
 
     // static bool createDirectory(const std::string &path, bool isFilePath = false)
     bool ret = (bool)xgame::filesystem::createDirectory(arg1, arg2);
@@ -885,6 +924,46 @@ static int _xgame_filesystem_createDirectory(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _xgame_filesystem_createDirectory2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    std::string arg1;       /** path */
+
+    olua_check_std_string(L, 1, &arg1);
+
+    // static bool createDirectory(const std::string &path, bool isFilePath = false)
+    bool ret = (bool)xgame::filesystem::createDirectory(arg1);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _xgame_filesystem_createDirectory(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 1))) {
+            return _xgame_filesystem_createDirectory2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_bool(L, 2))) {
+            return _xgame_filesystem_createDirectory1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'xgame::filesystem::createDirectory' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _xgame_filesystem_exist(lua_State *L)
@@ -1097,7 +1176,7 @@ static int _xgame_filesystem_rename(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_filesystem_shortPath(lua_State *L)
+static int _xgame_filesystem_shortPath1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1107,7 +1186,7 @@ static int _xgame_filesystem_shortPath(lua_State *L)
     lua_Unsigned arg2 = 0;       /** limit */
 
     olua_check_std_string(L, 1, &arg1);
-    olua_opt_uint(L, 2, &arg2, (lua_Unsigned)60);
+    olua_check_uint(L, 2, &arg2);
 
     // static const std::string shortPath(const std::string &path, size_t limit = 60)
     const std::string ret = (const std::string)xgame::filesystem::shortPath(arg1, (size_t)arg2);
@@ -1116,6 +1195,46 @@ static int _xgame_filesystem_shortPath(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _xgame_filesystem_shortPath2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    std::string arg1;       /** path */
+
+    olua_check_std_string(L, 1, &arg1);
+
+    // static const std::string shortPath(const std::string &path, size_t limit = 60)
+    const std::string ret = (const std::string)xgame::filesystem::shortPath(arg1);
+    int num_ret = olua_push_std_string(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _xgame_filesystem_shortPath(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 1))) {
+            return _xgame_filesystem_shortPath2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_uint(L, 2))) {
+            return _xgame_filesystem_shortPath1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'xgame::filesystem::shortPath' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _xgame_filesystem_unzip(lua_State *L)
@@ -1220,7 +1339,7 @@ static int _xgame_preferences_flush(lua_State *L)
     return 0;
 }
 
-static int _xgame_preferences_getBoolean(lua_State *L)
+static int _xgame_preferences_getBoolean1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1230,7 +1349,7 @@ static int _xgame_preferences_getBoolean(lua_State *L)
     bool arg2 = false;       /** defaultValue */
 
     olua_check_string(L, 1, &arg1);
-    olua_opt_bool(L, 2, &arg2, (bool)false);
+    olua_check_bool(L, 2, &arg2);
 
     // static bool getBoolean(const char *key, bool defaultValue = false)
     bool ret = (bool)xgame::preferences::getBoolean(arg1, arg2);
@@ -1241,7 +1360,47 @@ static int _xgame_preferences_getBoolean(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_preferences_getDouble(lua_State *L)
+static int _xgame_preferences_getBoolean2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    const char *arg1 = nullptr;       /** key */
+
+    olua_check_string(L, 1, &arg1);
+
+    // static bool getBoolean(const char *key, bool defaultValue = false)
+    bool ret = (bool)xgame::preferences::getBoolean(arg1);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _xgame_preferences_getBoolean(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 1) {
+        // if ((olua_is_string(L, 1))) {
+            return _xgame_preferences_getBoolean2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_string(L, 1)) && (olua_is_bool(L, 2))) {
+            return _xgame_preferences_getBoolean1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'xgame::preferences::getBoolean' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _xgame_preferences_getDouble1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1251,7 +1410,7 @@ static int _xgame_preferences_getDouble(lua_State *L)
     lua_Number arg2 = 0;       /** defaultValue */
 
     olua_check_string(L, 1, &arg1);
-    olua_opt_number(L, 2, &arg2, (lua_Number)0);
+    olua_check_number(L, 2, &arg2);
 
     // static double getDouble(const char *key, double defaultValue = 0)
     double ret = (double)xgame::preferences::getDouble(arg1, (double)arg2);
@@ -1262,7 +1421,47 @@ static int _xgame_preferences_getDouble(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_preferences_getFloat(lua_State *L)
+static int _xgame_preferences_getDouble2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    const char *arg1 = nullptr;       /** key */
+
+    olua_check_string(L, 1, &arg1);
+
+    // static double getDouble(const char *key, double defaultValue = 0)
+    double ret = (double)xgame::preferences::getDouble(arg1);
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _xgame_preferences_getDouble(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 1) {
+        // if ((olua_is_string(L, 1))) {
+            return _xgame_preferences_getDouble2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_string(L, 1)) && (olua_is_number(L, 2))) {
+            return _xgame_preferences_getDouble1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'xgame::preferences::getDouble' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _xgame_preferences_getFloat1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1272,7 +1471,7 @@ static int _xgame_preferences_getFloat(lua_State *L)
     lua_Number arg2 = 0;       /** defaultValue */
 
     olua_check_string(L, 1, &arg1);
-    olua_opt_number(L, 2, &arg2, (lua_Number)0);
+    olua_check_number(L, 2, &arg2);
 
     // static float getFloat(const char *key, float defaultValue = 0)
     float ret = (float)xgame::preferences::getFloat(arg1, (float)arg2);
@@ -1283,7 +1482,47 @@ static int _xgame_preferences_getFloat(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_preferences_getInteger(lua_State *L)
+static int _xgame_preferences_getFloat2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    const char *arg1 = nullptr;       /** key */
+
+    olua_check_string(L, 1, &arg1);
+
+    // static float getFloat(const char *key, float defaultValue = 0)
+    float ret = (float)xgame::preferences::getFloat(arg1);
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _xgame_preferences_getFloat(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 1) {
+        // if ((olua_is_string(L, 1))) {
+            return _xgame_preferences_getFloat2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_string(L, 1)) && (olua_is_number(L, 2))) {
+            return _xgame_preferences_getFloat1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'xgame::preferences::getFloat' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _xgame_preferences_getInteger1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1293,7 +1532,7 @@ static int _xgame_preferences_getInteger(lua_State *L)
     lua_Integer arg2 = 0;       /** defaultValue */
 
     olua_check_string(L, 1, &arg1);
-    olua_opt_int(L, 2, &arg2, (lua_Integer)0);
+    olua_check_int(L, 2, &arg2);
 
     // static int getInteger(const char *key, int defaultValue = 0)
     int ret = (int)xgame::preferences::getInteger(arg1, (int)arg2);
@@ -1304,7 +1543,47 @@ static int _xgame_preferences_getInteger(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_preferences_getString(lua_State *L)
+static int _xgame_preferences_getInteger2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    const char *arg1 = nullptr;       /** key */
+
+    olua_check_string(L, 1, &arg1);
+
+    // static int getInteger(const char *key, int defaultValue = 0)
+    int ret = (int)xgame::preferences::getInteger(arg1);
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _xgame_preferences_getInteger(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 1) {
+        // if ((olua_is_string(L, 1))) {
+            return _xgame_preferences_getInteger2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_string(L, 1)) && (olua_is_int(L, 2))) {
+            return _xgame_preferences_getInteger1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'xgame::preferences::getInteger' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _xgame_preferences_getString1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -1314,7 +1593,7 @@ static int _xgame_preferences_getString(lua_State *L)
     const char *arg2 = nullptr;       /** defaultValue */
 
     olua_check_string(L, 1, &arg1);
-    olua_opt_string(L, 2, &arg2, (const char *)"");
+    olua_check_string(L, 2, &arg2);
 
     // static std::string getString(const char *key, const char *defaultValue = "")
     std::string ret = (std::string)xgame::preferences::getString(arg1, arg2);
@@ -1323,6 +1602,46 @@ static int _xgame_preferences_getString(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _xgame_preferences_getString2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    const char *arg1 = nullptr;       /** key */
+
+    olua_check_string(L, 1, &arg1);
+
+    // static std::string getString(const char *key, const char *defaultValue = "")
+    std::string ret = (std::string)xgame::preferences::getString(arg1);
+    int num_ret = olua_push_std_string(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _xgame_preferences_getString(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 1) {
+        // if ((olua_is_string(L, 1))) {
+            return _xgame_preferences_getString2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_string(L, 1)) && (olua_is_string(L, 2))) {
+            return _xgame_preferences_getString1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'xgame::preferences::getString' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _xgame_preferences_setBoolean(lua_State *L)

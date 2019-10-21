@@ -5424,7 +5424,7 @@ static int _cocos2d_ui_Layout_setBackGroundColorVector(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_ui_Layout_setBackGroundImage(lua_State *L)
+static int _cocos2d_ui_Layout_setBackGroundImage1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -5436,12 +5436,53 @@ static int _cocos2d_ui_Layout_setBackGroundImage(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
     olua_check_std_string(L, 2, &arg1);
-    olua_opt_uint(L, 3, &arg2, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_uint(L, 3, &arg2);
 
     // void setBackGroundImage(const std::string& fileName,TextureResType texType = TextureResType::LOCAL)
     self->setBackGroundImage(arg1, (cocos2d::ui::Widget::TextureResType)arg2);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Layout_setBackGroundImage2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::ui::Layout *self = nullptr;
+    std::string arg1;       /** fileName */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void setBackGroundImage(const std::string& fileName,TextureResType texType = TextureResType::LOCAL)
+    self->setBackGroundImage(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Layout_setBackGroundImage(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            return _cocos2d_ui_Layout_setBackGroundImage2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
+            return _cocos2d_ui_Layout_setBackGroundImage1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::Layout::setBackGroundImage' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -6338,7 +6379,7 @@ static int _cocos2d_experimental_ui_WebView_loadFile(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_experimental_ui_WebView_loadHTMLString(lua_State *L)
+static int _cocos2d_experimental_ui_WebView_loadHTMLString1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -6350,12 +6391,53 @@ static int _cocos2d_experimental_ui_WebView_loadHTMLString(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
     olua_check_std_string(L, 2, &arg1);
-    olua_opt_std_string(L, 3, &arg2, (std::string)"");
+    olua_check_std_string(L, 3, &arg2);
 
     // void loadHTMLString(const std::string &string, const std::string &baseURL = "")
     self->loadHTMLString(arg1, arg2);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_experimental_ui_WebView_loadHTMLString2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::experimental::ui::WebView *self = nullptr;
+    std::string arg1;       /** string */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void loadHTMLString(const std::string &string, const std::string &baseURL = "")
+    self->loadHTMLString(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_experimental_ui_WebView_loadHTMLString(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            return _cocos2d_experimental_ui_WebView_loadHTMLString2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3))) {
+            return _cocos2d_experimental_ui_WebView_loadHTMLString1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::experimental::ui::WebView::loadHTMLString' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -7518,7 +7600,7 @@ static int _cocos2d_ui_AbstractCheckButton_getZoomScale(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_ui_AbstractCheckButton_init(lua_State *L)
+static int _cocos2d_ui_AbstractCheckButton_init1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -7538,7 +7620,7 @@ static int _cocos2d_ui_AbstractCheckButton_init(lua_State *L)
     olua_check_std_string(L, 4, &arg3);
     olua_check_std_string(L, 5, &arg4);
     olua_check_std_string(L, 6, &arg5);
-    olua_opt_uint(L, 7, &arg6, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_uint(L, 7, &arg6);
 
     // bool init(const std::string& backGround, const std::string& backGroundSelected, const std::string& cross, const std::string& backGroundDisabled, const std::string& frontCrossDisabled, TextureResType texType = TextureResType::LOCAL)
     bool ret = (bool)self->init(arg1, arg2, arg3, arg4, arg5, (cocos2d::ui::Widget::TextureResType)arg6);
@@ -7547,6 +7629,56 @@ static int _cocos2d_ui_AbstractCheckButton_init(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _cocos2d_ui_AbstractCheckButton_init2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 6);
+
+    cocos2d::ui::AbstractCheckButton *self = nullptr;
+    std::string arg1;       /** backGround */
+    std::string arg2;       /** backGroundSelected */
+    std::string arg3;       /** cross */
+    std::string arg4;       /** backGroundDisabled */
+    std::string arg5;       /** frontCrossDisabled */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+    olua_check_std_string(L, 4, &arg3);
+    olua_check_std_string(L, 5, &arg4);
+    olua_check_std_string(L, 6, &arg5);
+
+    // bool init(const std::string& backGround, const std::string& backGroundSelected, const std::string& cross, const std::string& backGroundDisabled, const std::string& frontCrossDisabled, TextureResType texType = TextureResType::LOCAL)
+    bool ret = (bool)self->init(arg1, arg2, arg3, arg4, arg5);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_AbstractCheckButton_init(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 5) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_std_string(L, 6))) {
+            return _cocos2d_ui_AbstractCheckButton_init2(L);
+        // }
+    }
+
+    if (num_args == 6) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_std_string(L, 6)) && (olua_is_uint(L, 7))) {
+            return _cocos2d_ui_AbstractCheckButton_init1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::AbstractCheckButton::init' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _cocos2d_ui_AbstractCheckButton_isSelected(lua_State *L)
@@ -7568,7 +7700,7 @@ static int _cocos2d_ui_AbstractCheckButton_isSelected(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_ui_AbstractCheckButton_loadTextureBackGround(lua_State *L)
+static int _cocos2d_ui_AbstractCheckButton_loadTextureBackGround1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -7580,7 +7712,7 @@ static int _cocos2d_ui_AbstractCheckButton_loadTextureBackGround(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
     olua_check_std_string(L, 2, &arg1);
-    olua_opt_uint(L, 3, &arg2, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_uint(L, 3, &arg2);
 
     // void loadTextureBackGround(const std::string& backGround,TextureResType type = TextureResType::LOCAL)
     self->loadTextureBackGround(arg1, (cocos2d::ui::Widget::TextureResType)arg2);
@@ -7590,7 +7722,48 @@ static int _cocos2d_ui_AbstractCheckButton_loadTextureBackGround(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_ui_AbstractCheckButton_loadTextureBackGroundDisabled(lua_State *L)
+static int _cocos2d_ui_AbstractCheckButton_loadTextureBackGround2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::ui::AbstractCheckButton *self = nullptr;
+    std::string arg1;       /** backGround */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void loadTextureBackGround(const std::string& backGround,TextureResType type = TextureResType::LOCAL)
+    self->loadTextureBackGround(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_AbstractCheckButton_loadTextureBackGround(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            return _cocos2d_ui_AbstractCheckButton_loadTextureBackGround2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
+            return _cocos2d_ui_AbstractCheckButton_loadTextureBackGround1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::AbstractCheckButton::loadTextureBackGround' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_ui_AbstractCheckButton_loadTextureBackGroundDisabled1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -7602,7 +7775,7 @@ static int _cocos2d_ui_AbstractCheckButton_loadTextureBackGroundDisabled(lua_Sta
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
     olua_check_std_string(L, 2, &arg1);
-    olua_opt_uint(L, 3, &arg2, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_uint(L, 3, &arg2);
 
     // void loadTextureBackGroundDisabled(const std::string& backGroundDisabled,TextureResType texType = TextureResType::LOCAL)
     self->loadTextureBackGroundDisabled(arg1, (cocos2d::ui::Widget::TextureResType)arg2);
@@ -7612,7 +7785,48 @@ static int _cocos2d_ui_AbstractCheckButton_loadTextureBackGroundDisabled(lua_Sta
     return 0;
 }
 
-static int _cocos2d_ui_AbstractCheckButton_loadTextureBackGroundSelected(lua_State *L)
+static int _cocos2d_ui_AbstractCheckButton_loadTextureBackGroundDisabled2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::ui::AbstractCheckButton *self = nullptr;
+    std::string arg1;       /** backGroundDisabled */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void loadTextureBackGroundDisabled(const std::string& backGroundDisabled,TextureResType texType = TextureResType::LOCAL)
+    self->loadTextureBackGroundDisabled(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_AbstractCheckButton_loadTextureBackGroundDisabled(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            return _cocos2d_ui_AbstractCheckButton_loadTextureBackGroundDisabled2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
+            return _cocos2d_ui_AbstractCheckButton_loadTextureBackGroundDisabled1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::AbstractCheckButton::loadTextureBackGroundDisabled' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_ui_AbstractCheckButton_loadTextureBackGroundSelected1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -7624,7 +7838,7 @@ static int _cocos2d_ui_AbstractCheckButton_loadTextureBackGroundSelected(lua_Sta
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
     olua_check_std_string(L, 2, &arg1);
-    olua_opt_uint(L, 3, &arg2, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_uint(L, 3, &arg2);
 
     // void loadTextureBackGroundSelected(const std::string& backGroundSelected,TextureResType texType = TextureResType::LOCAL)
     self->loadTextureBackGroundSelected(arg1, (cocos2d::ui::Widget::TextureResType)arg2);
@@ -7634,7 +7848,48 @@ static int _cocos2d_ui_AbstractCheckButton_loadTextureBackGroundSelected(lua_Sta
     return 0;
 }
 
-static int _cocos2d_ui_AbstractCheckButton_loadTextureFrontCross(lua_State *L)
+static int _cocos2d_ui_AbstractCheckButton_loadTextureBackGroundSelected2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::ui::AbstractCheckButton *self = nullptr;
+    std::string arg1;       /** backGroundSelected */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void loadTextureBackGroundSelected(const std::string& backGroundSelected,TextureResType texType = TextureResType::LOCAL)
+    self->loadTextureBackGroundSelected(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_AbstractCheckButton_loadTextureBackGroundSelected(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            return _cocos2d_ui_AbstractCheckButton_loadTextureBackGroundSelected2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
+            return _cocos2d_ui_AbstractCheckButton_loadTextureBackGroundSelected1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::AbstractCheckButton::loadTextureBackGroundSelected' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_ui_AbstractCheckButton_loadTextureFrontCross1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -7646,7 +7901,7 @@ static int _cocos2d_ui_AbstractCheckButton_loadTextureFrontCross(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
     olua_check_std_string(L, 2, &arg1);
-    olua_opt_uint(L, 3, &arg2, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_uint(L, 3, &arg2);
 
     // void loadTextureFrontCross(const std::string& crossTextureName,TextureResType texType = TextureResType::LOCAL)
     self->loadTextureFrontCross(arg1, (cocos2d::ui::Widget::TextureResType)arg2);
@@ -7656,7 +7911,48 @@ static int _cocos2d_ui_AbstractCheckButton_loadTextureFrontCross(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_ui_AbstractCheckButton_loadTextureFrontCrossDisabled(lua_State *L)
+static int _cocos2d_ui_AbstractCheckButton_loadTextureFrontCross2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::ui::AbstractCheckButton *self = nullptr;
+    std::string arg1;       /** crossTextureName */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void loadTextureFrontCross(const std::string& crossTextureName,TextureResType texType = TextureResType::LOCAL)
+    self->loadTextureFrontCross(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_AbstractCheckButton_loadTextureFrontCross(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            return _cocos2d_ui_AbstractCheckButton_loadTextureFrontCross2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
+            return _cocos2d_ui_AbstractCheckButton_loadTextureFrontCross1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::AbstractCheckButton::loadTextureFrontCross' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_ui_AbstractCheckButton_loadTextureFrontCrossDisabled1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -7668,7 +7964,7 @@ static int _cocos2d_ui_AbstractCheckButton_loadTextureFrontCrossDisabled(lua_Sta
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
     olua_check_std_string(L, 2, &arg1);
-    olua_opt_uint(L, 3, &arg2, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_uint(L, 3, &arg2);
 
     // void loadTextureFrontCrossDisabled(const std::string& frontCrossDisabled,TextureResType texType = TextureResType::LOCAL)
     self->loadTextureFrontCrossDisabled(arg1, (cocos2d::ui::Widget::TextureResType)arg2);
@@ -7678,7 +7974,48 @@ static int _cocos2d_ui_AbstractCheckButton_loadTextureFrontCrossDisabled(lua_Sta
     return 0;
 }
 
-static int _cocos2d_ui_AbstractCheckButton_loadTextures(lua_State *L)
+static int _cocos2d_ui_AbstractCheckButton_loadTextureFrontCrossDisabled2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::ui::AbstractCheckButton *self = nullptr;
+    std::string arg1;       /** frontCrossDisabled */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void loadTextureFrontCrossDisabled(const std::string& frontCrossDisabled,TextureResType texType = TextureResType::LOCAL)
+    self->loadTextureFrontCrossDisabled(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_AbstractCheckButton_loadTextureFrontCrossDisabled(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            return _cocos2d_ui_AbstractCheckButton_loadTextureFrontCrossDisabled2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
+            return _cocos2d_ui_AbstractCheckButton_loadTextureFrontCrossDisabled1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::AbstractCheckButton::loadTextureFrontCrossDisabled' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_ui_AbstractCheckButton_loadTextures1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -7698,12 +8035,61 @@ static int _cocos2d_ui_AbstractCheckButton_loadTextures(lua_State *L)
     olua_check_std_string(L, 4, &arg3);
     olua_check_std_string(L, 5, &arg4);
     olua_check_std_string(L, 6, &arg5);
-    olua_opt_uint(L, 7, &arg6, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_uint(L, 7, &arg6);
 
     // void loadTextures(const std::string& background, const std::string& backgroundSelected, const std::string& cross, const std::string& backgroundDisabled, const std::string& frontCrossDisabled, TextureResType texType = TextureResType::LOCAL)
     self->loadTextures(arg1, arg2, arg3, arg4, arg5, (cocos2d::ui::Widget::TextureResType)arg6);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_AbstractCheckButton_loadTextures2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 6);
+
+    cocos2d::ui::AbstractCheckButton *self = nullptr;
+    std::string arg1;       /** background */
+    std::string arg2;       /** backgroundSelected */
+    std::string arg3;       /** cross */
+    std::string arg4;       /** backgroundDisabled */
+    std::string arg5;       /** frontCrossDisabled */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.AbstractCheckButton");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+    olua_check_std_string(L, 4, &arg3);
+    olua_check_std_string(L, 5, &arg4);
+    olua_check_std_string(L, 6, &arg5);
+
+    // void loadTextures(const std::string& background, const std::string& backgroundSelected, const std::string& cross, const std::string& backgroundDisabled, const std::string& frontCrossDisabled, TextureResType texType = TextureResType::LOCAL)
+    self->loadTextures(arg1, arg2, arg3, arg4, arg5);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_AbstractCheckButton_loadTextures(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 5) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_std_string(L, 6))) {
+            return _cocos2d_ui_AbstractCheckButton_loadTextures2(L);
+        // }
+    }
+
+    if (num_args == 6) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_std_string(L, 6)) && (olua_is_uint(L, 7))) {
+            return _cocos2d_ui_AbstractCheckButton_loadTextures1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::AbstractCheckButton::loadTextures' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -7833,7 +8219,7 @@ static int _cocos2d_ui_TabHeader_create2(lua_State *L)
     olua_check_std_string(L, 1, &arg1);
     olua_check_std_string(L, 2, &arg2);
     olua_check_std_string(L, 3, &arg3);
-    olua_opt_uint(L, 4, &arg4, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_uint(L, 4, &arg4);
 
     // static TabHeader* create(const std::string& titleStr, const std::string& backGround, const std::string& cross, TextureResType texType = TextureResType::LOCAL)
     cocos2d::ui::TabHeader *ret = (cocos2d::ui::TabHeader *)cocos2d::ui::TabHeader::create(arg1, arg2, arg3, (cocos2d::ui::Widget::TextureResType)arg4);
@@ -7864,10 +8250,62 @@ static int _cocos2d_ui_TabHeader_create3(lua_State *L)
     olua_check_std_string(L, 4, &arg4);
     olua_check_std_string(L, 5, &arg5);
     olua_check_std_string(L, 6, &arg6);
-    olua_opt_uint(L, 7, &arg7, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_uint(L, 7, &arg7);
 
     // static TabHeader* create(const std::string& titleStr, const std::string& backGround, const std::string& backGroundSelected, const std::string& cross, const std::string& backGroundDisabled, const std::string& frontCrossDisabled, TextureResType texType = TextureResType::LOCAL)
     cocos2d::ui::TabHeader *ret = (cocos2d::ui::TabHeader *)cocos2d::ui::TabHeader::create(arg1, arg2, arg3, arg4, arg5, arg6, (cocos2d::ui::Widget::TextureResType)arg7);
+    int num_ret = olua_push_cppobj(L, ret, "ccui.TabHeader");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_TabHeader_create4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    std::string arg1;       /** titleStr */
+    std::string arg2;       /** backGround */
+    std::string arg3;       /** cross */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+    olua_check_std_string(L, 3, &arg3);
+
+    // static TabHeader* create(const std::string& titleStr, const std::string& backGround, const std::string& cross, TextureResType texType = TextureResType::LOCAL)
+    cocos2d::ui::TabHeader *ret = (cocos2d::ui::TabHeader *)cocos2d::ui::TabHeader::create(arg1, arg2, arg3);
+    int num_ret = olua_push_cppobj(L, ret, "ccui.TabHeader");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_TabHeader_create5(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 6);
+
+    std::string arg1;       /** titleStr */
+    std::string arg2;       /** backGround */
+    std::string arg3;       /** backGroundSelected */
+    std::string arg4;       /** cross */
+    std::string arg5;       /** backGroundDisabled */
+    std::string arg6;       /** frontCrossDisabled */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+    olua_check_std_string(L, 3, &arg3);
+    olua_check_std_string(L, 4, &arg4);
+    olua_check_std_string(L, 5, &arg5);
+    olua_check_std_string(L, 6, &arg6);
+
+    // static TabHeader* create(const std::string& titleStr, const std::string& backGround, const std::string& backGroundSelected, const std::string& cross, const std::string& backGroundDisabled, const std::string& frontCrossDisabled, TextureResType texType = TextureResType::LOCAL)
+    cocos2d::ui::TabHeader *ret = (cocos2d::ui::TabHeader *)cocos2d::ui::TabHeader::create(arg1, arg2, arg3, arg4, arg5, arg6);
     int num_ret = olua_push_cppobj(L, ret, "ccui.TabHeader");
 
     olua_endinvoke(L);
@@ -7884,25 +8322,25 @@ static int _cocos2d_ui_TabHeader_create(lua_State *L)
     }
 
     if (num_args == 3) {
-        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_uint(L, 4) || olua_isnil(L, 4))) {
-            return _cocos2d_ui_TabHeader_create2(L);
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3))) {
+            return _cocos2d_ui_TabHeader_create4(L);
         // }
     }
 
     if (num_args == 4) {
-        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_uint(L, 4) || olua_isnil(L, 4))) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_uint(L, 4))) {
             return _cocos2d_ui_TabHeader_create2(L);
         // }
     }
 
     if (num_args == 6) {
-        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_std_string(L, 6)) && (olua_is_uint(L, 7) || olua_isnil(L, 7))) {
-            return _cocos2d_ui_TabHeader_create3(L);
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_std_string(L, 6))) {
+            return _cocos2d_ui_TabHeader_create5(L);
         // }
     }
 
     if (num_args == 7) {
-        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_std_string(L, 6)) && (olua_is_uint(L, 7) || olua_isnil(L, 7))) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_std_string(L, 6)) && (olua_is_uint(L, 7))) {
             return _cocos2d_ui_TabHeader_create3(L);
         // }
     }
@@ -11181,7 +11619,7 @@ static int _cocos2d_ui_LoadingBar_create2(lua_State *L)
     lua_Number arg2 = 0;       /** percentage */
 
     olua_check_std_string(L, 1, &arg1);
-    olua_opt_number(L, 2, &arg2, (lua_Number)0);
+    olua_check_number(L, 2, &arg2);
 
     // static LoadingBar* create(const std::string& textureName, float percentage = 0)
     cocos2d::ui::LoadingBar *ret = (cocos2d::ui::LoadingBar *)cocos2d::ui::LoadingBar::create(arg1, (float)arg2);
@@ -11204,10 +11642,50 @@ static int _cocos2d_ui_LoadingBar_create3(lua_State *L)
 
     olua_check_std_string(L, 1, &arg1);
     olua_check_uint(L, 2, &arg2);
-    olua_opt_number(L, 3, &arg3, (lua_Number)0);
+    olua_check_number(L, 3, &arg3);
 
     // static LoadingBar* create(const std::string& textureName, TextureResType texType, float percentage = 0)
     cocos2d::ui::LoadingBar *ret = (cocos2d::ui::LoadingBar *)cocos2d::ui::LoadingBar::create(arg1, (cocos2d::ui::Widget::TextureResType)arg2, (float)arg3);
+    int num_ret = olua_push_cppobj(L, ret, "ccui.LoadingBar");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_LoadingBar_create4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    std::string arg1;       /** textureName */
+
+    olua_check_std_string(L, 1, &arg1);
+
+    // static LoadingBar* create(const std::string& textureName, float percentage = 0)
+    cocos2d::ui::LoadingBar *ret = (cocos2d::ui::LoadingBar *)cocos2d::ui::LoadingBar::create(arg1);
+    int num_ret = olua_push_cppobj(L, ret, "ccui.LoadingBar");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_LoadingBar_create5(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    std::string arg1;       /** textureName */
+    lua_Unsigned arg2 = 0;       /** texType */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_check_uint(L, 2, &arg2);
+
+    // static LoadingBar* create(const std::string& textureName, TextureResType texType, float percentage = 0)
+    cocos2d::ui::LoadingBar *ret = (cocos2d::ui::LoadingBar *)cocos2d::ui::LoadingBar::create(arg1, (cocos2d::ui::Widget::TextureResType)arg2);
     int num_ret = olua_push_cppobj(L, ret, "ccui.LoadingBar");
 
     olua_endinvoke(L);
@@ -11224,23 +11702,23 @@ static int _cocos2d_ui_LoadingBar_create(lua_State *L)
     }
 
     if (num_args == 1) {
-        // if ((olua_is_std_string(L, 1)) && (olua_is_number(L, 2) || olua_isnil(L, 2))) {
-            return _cocos2d_ui_LoadingBar_create2(L);
+        // if ((olua_is_std_string(L, 1))) {
+            return _cocos2d_ui_LoadingBar_create4(L);
         // }
     }
 
     if (num_args == 2) {
-        if ((olua_is_std_string(L, 1)) && (olua_is_number(L, 2) || olua_isnil(L, 2))) {
+        if ((olua_is_std_string(L, 1)) && (olua_is_number(L, 2))) {
             return _cocos2d_ui_LoadingBar_create2(L);
         }
 
-        // if ((olua_is_std_string(L, 1)) && (olua_is_uint(L, 2)) && (olua_is_number(L, 3) || olua_isnil(L, 3))) {
-            return _cocos2d_ui_LoadingBar_create3(L);
+        // if ((olua_is_std_string(L, 1)) && (olua_is_uint(L, 2))) {
+            return _cocos2d_ui_LoadingBar_create5(L);
         // }
     }
 
     if (num_args == 3) {
-        // if ((olua_is_std_string(L, 1)) && (olua_is_uint(L, 2)) && (olua_is_number(L, 3) || olua_isnil(L, 3))) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_uint(L, 2)) && (olua_is_number(L, 3))) {
             return _cocos2d_ui_LoadingBar_create3(L);
         // }
     }
@@ -11345,7 +11823,7 @@ static int _cocos2d_ui_LoadingBar_isScale9Enabled(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_ui_LoadingBar_loadTexture(lua_State *L)
+static int _cocos2d_ui_LoadingBar_loadTexture1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -11357,12 +11835,53 @@ static int _cocos2d_ui_LoadingBar_loadTexture(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LoadingBar");
     olua_check_std_string(L, 2, &arg1);
-    olua_opt_uint(L, 3, &arg2, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_uint(L, 3, &arg2);
 
     // void loadTexture(const std::string& texture,TextureResType texType = TextureResType::LOCAL)
     self->loadTexture(arg1, (cocos2d::ui::Widget::TextureResType)arg2);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_LoadingBar_loadTexture2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::ui::LoadingBar *self = nullptr;
+    std::string arg1;       /** texture */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.LoadingBar");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void loadTexture(const std::string& texture,TextureResType texType = TextureResType::LOCAL)
+    self->loadTexture(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_LoadingBar_loadTexture(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            return _cocos2d_ui_LoadingBar_loadTexture2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
+            return _cocos2d_ui_LoadingBar_loadTexture1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::LoadingBar::loadTexture' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -12146,7 +12665,7 @@ static int _cocos2d_ui_PageView_setIndicatorIndexNodesScale(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_ui_PageView_setIndicatorIndexNodesTexture(lua_State *L)
+static int _cocos2d_ui_PageView_setIndicatorIndexNodesTexture1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -12158,12 +12677,53 @@ static int _cocos2d_ui_PageView_setIndicatorIndexNodesTexture(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.PageView");
     olua_check_std_string(L, 2, &arg1);
-    olua_opt_uint(L, 3, &arg2, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_uint(L, 3, &arg2);
 
     // void setIndicatorIndexNodesTexture(const std::string& texName,Widget::TextureResType texType = Widget::TextureResType::LOCAL)
     self->setIndicatorIndexNodesTexture(arg1, (cocos2d::ui::Widget::TextureResType)arg2);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_PageView_setIndicatorIndexNodesTexture2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::ui::PageView *self = nullptr;
+    std::string arg1;       /** texName */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.PageView");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void setIndicatorIndexNodesTexture(const std::string& texName,Widget::TextureResType texType = Widget::TextureResType::LOCAL)
+    self->setIndicatorIndexNodesTexture(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_PageView_setIndicatorIndexNodesTexture(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            return _cocos2d_ui_PageView_setIndicatorIndexNodesTexture2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
+            return _cocos2d_ui_PageView_setIndicatorIndexNodesTexture1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::PageView::setIndicatorIndexNodesTexture' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -12432,7 +12992,7 @@ static int luaopen_cocos2d_ui_RichElement(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_ui_RichElementText_create(lua_State *L)
+static int _cocos2d_ui_RichElementText_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -12459,14 +13019,14 @@ static int _cocos2d_ui_RichElementText_create(lua_State *L)
     olua_check_std_string(L, 4, &arg4);
     olua_check_std_string(L, 5, &arg5);
     olua_check_number(L, 6, &arg6);
-    olua_opt_uint(L, 7, &arg7, (lua_Unsigned)0);
-    olua_opt_std_string(L, 8, &arg8, (std::string)"");
-    manual_olua_opt_cocos2d_Color3B(L, 9, &arg9, (cocos2d::Color3B)cocos2d::Color3B::WHITE);
-    olua_opt_int(L, 10, &arg10, (lua_Integer)-1);
-    manual_olua_opt_cocos2d_Color3B(L, 11, &arg11, (cocos2d::Color3B)cocos2d::Color3B::BLACK);
-    auto_olua_opt_cocos2d_Size(L, 12, &arg12, (cocos2d::Size)cocos2d::Size(2.0, -2.0));
-    olua_opt_int(L, 13, &arg13, (lua_Integer)0);
-    manual_olua_opt_cocos2d_Color3B(L, 14, &arg14, (cocos2d::Color3B)cocos2d::Color3B::WHITE);
+    olua_check_uint(L, 7, &arg7);
+    olua_check_std_string(L, 8, &arg8);
+    manual_olua_check_cocos2d_Color3B(L, 9, &arg9);
+    olua_check_int(L, 10, &arg10);
+    manual_olua_check_cocos2d_Color3B(L, 11, &arg11);
+    auto_olua_check_cocos2d_Size(L, 12, &arg12);
+    olua_check_int(L, 13, &arg13);
+    manual_olua_check_cocos2d_Color3B(L, 14, &arg14);
 
     // static RichElementText* create(int tag, const Color3B& color, GLubyte opacity, const std::string& text, const std::string& fontName, float fontSize, uint32_t flags=0, const std::string& url="", const Color3B& outlineColor = Color3B::WHITE, int outlineSize = -1, const Color3B& shadowColor = Color3B::BLACK, const cocos2d::Size& shadowOffset = Size(2.0, -2.0), int shadowBlurRadius = 0, const Color3B& glowColor = Color3B::WHITE)
     cocos2d::ui::RichElementText *ret = (cocos2d::ui::RichElementText *)cocos2d::ui::RichElementText::create((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8, arg9, (int)arg10, arg11, arg12, (int)arg13, arg14);
@@ -12477,7 +13037,358 @@ static int _cocos2d_ui_RichElementText_create(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_ui_RichElementText_init(lua_State *L)
+static int _cocos2d_ui_RichElementText_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 6);
+
+    lua_Integer arg1 = 0;       /** tag */
+    cocos2d::Color3B arg2;       /** color */
+    lua_Unsigned arg3 = 0;       /** opacity */
+    std::string arg4;       /** text */
+    std::string arg5;       /** fontName */
+    lua_Number arg6 = 0;       /** fontSize */
+
+    olua_check_int(L, 1, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg2);
+    olua_check_uint(L, 3, &arg3);
+    olua_check_std_string(L, 4, &arg4);
+    olua_check_std_string(L, 5, &arg5);
+    olua_check_number(L, 6, &arg6);
+
+    // static RichElementText* create(int tag, const Color3B& color, GLubyte opacity, const std::string& text, const std::string& fontName, float fontSize, uint32_t flags=0, const std::string& url="", const Color3B& outlineColor = Color3B::WHITE, int outlineSize = -1, const Color3B& shadowColor = Color3B::BLACK, const cocos2d::Size& shadowOffset = Size(2.0, -2.0), int shadowBlurRadius = 0, const Color3B& glowColor = Color3B::WHITE)
+    cocos2d::ui::RichElementText *ret = (cocos2d::ui::RichElementText *)cocos2d::ui::RichElementText::create((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (float)arg6);
+    int num_ret = olua_push_cppobj(L, ret, "ccui.RichElementText");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_RichElementText_create3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 7);
+
+    lua_Integer arg1 = 0;       /** tag */
+    cocos2d::Color3B arg2;       /** color */
+    lua_Unsigned arg3 = 0;       /** opacity */
+    std::string arg4;       /** text */
+    std::string arg5;       /** fontName */
+    lua_Number arg6 = 0;       /** fontSize */
+    lua_Unsigned arg7 = 0;       /** flags */
+
+    olua_check_int(L, 1, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg2);
+    olua_check_uint(L, 3, &arg3);
+    olua_check_std_string(L, 4, &arg4);
+    olua_check_std_string(L, 5, &arg5);
+    olua_check_number(L, 6, &arg6);
+    olua_check_uint(L, 7, &arg7);
+
+    // static RichElementText* create(int tag, const Color3B& color, GLubyte opacity, const std::string& text, const std::string& fontName, float fontSize, uint32_t flags=0, const std::string& url="", const Color3B& outlineColor = Color3B::WHITE, int outlineSize = -1, const Color3B& shadowColor = Color3B::BLACK, const cocos2d::Size& shadowOffset = Size(2.0, -2.0), int shadowBlurRadius = 0, const Color3B& glowColor = Color3B::WHITE)
+    cocos2d::ui::RichElementText *ret = (cocos2d::ui::RichElementText *)cocos2d::ui::RichElementText::create((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7);
+    int num_ret = olua_push_cppobj(L, ret, "ccui.RichElementText");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_RichElementText_create4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 8);
+
+    lua_Integer arg1 = 0;       /** tag */
+    cocos2d::Color3B arg2;       /** color */
+    lua_Unsigned arg3 = 0;       /** opacity */
+    std::string arg4;       /** text */
+    std::string arg5;       /** fontName */
+    lua_Number arg6 = 0;       /** fontSize */
+    lua_Unsigned arg7 = 0;       /** flags */
+    std::string arg8;       /** url */
+
+    olua_check_int(L, 1, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg2);
+    olua_check_uint(L, 3, &arg3);
+    olua_check_std_string(L, 4, &arg4);
+    olua_check_std_string(L, 5, &arg5);
+    olua_check_number(L, 6, &arg6);
+    olua_check_uint(L, 7, &arg7);
+    olua_check_std_string(L, 8, &arg8);
+
+    // static RichElementText* create(int tag, const Color3B& color, GLubyte opacity, const std::string& text, const std::string& fontName, float fontSize, uint32_t flags=0, const std::string& url="", const Color3B& outlineColor = Color3B::WHITE, int outlineSize = -1, const Color3B& shadowColor = Color3B::BLACK, const cocos2d::Size& shadowOffset = Size(2.0, -2.0), int shadowBlurRadius = 0, const Color3B& glowColor = Color3B::WHITE)
+    cocos2d::ui::RichElementText *ret = (cocos2d::ui::RichElementText *)cocos2d::ui::RichElementText::create((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8);
+    int num_ret = olua_push_cppobj(L, ret, "ccui.RichElementText");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_RichElementText_create5(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 9);
+
+    lua_Integer arg1 = 0;       /** tag */
+    cocos2d::Color3B arg2;       /** color */
+    lua_Unsigned arg3 = 0;       /** opacity */
+    std::string arg4;       /** text */
+    std::string arg5;       /** fontName */
+    lua_Number arg6 = 0;       /** fontSize */
+    lua_Unsigned arg7 = 0;       /** flags */
+    std::string arg8;       /** url */
+    cocos2d::Color3B arg9;       /** outlineColor */
+
+    olua_check_int(L, 1, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg2);
+    olua_check_uint(L, 3, &arg3);
+    olua_check_std_string(L, 4, &arg4);
+    olua_check_std_string(L, 5, &arg5);
+    olua_check_number(L, 6, &arg6);
+    olua_check_uint(L, 7, &arg7);
+    olua_check_std_string(L, 8, &arg8);
+    manual_olua_check_cocos2d_Color3B(L, 9, &arg9);
+
+    // static RichElementText* create(int tag, const Color3B& color, GLubyte opacity, const std::string& text, const std::string& fontName, float fontSize, uint32_t flags=0, const std::string& url="", const Color3B& outlineColor = Color3B::WHITE, int outlineSize = -1, const Color3B& shadowColor = Color3B::BLACK, const cocos2d::Size& shadowOffset = Size(2.0, -2.0), int shadowBlurRadius = 0, const Color3B& glowColor = Color3B::WHITE)
+    cocos2d::ui::RichElementText *ret = (cocos2d::ui::RichElementText *)cocos2d::ui::RichElementText::create((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8, arg9);
+    int num_ret = olua_push_cppobj(L, ret, "ccui.RichElementText");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_RichElementText_create6(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 10);
+
+    lua_Integer arg1 = 0;       /** tag */
+    cocos2d::Color3B arg2;       /** color */
+    lua_Unsigned arg3 = 0;       /** opacity */
+    std::string arg4;       /** text */
+    std::string arg5;       /** fontName */
+    lua_Number arg6 = 0;       /** fontSize */
+    lua_Unsigned arg7 = 0;       /** flags */
+    std::string arg8;       /** url */
+    cocos2d::Color3B arg9;       /** outlineColor */
+    lua_Integer arg10 = 0;       /** outlineSize */
+
+    olua_check_int(L, 1, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg2);
+    olua_check_uint(L, 3, &arg3);
+    olua_check_std_string(L, 4, &arg4);
+    olua_check_std_string(L, 5, &arg5);
+    olua_check_number(L, 6, &arg6);
+    olua_check_uint(L, 7, &arg7);
+    olua_check_std_string(L, 8, &arg8);
+    manual_olua_check_cocos2d_Color3B(L, 9, &arg9);
+    olua_check_int(L, 10, &arg10);
+
+    // static RichElementText* create(int tag, const Color3B& color, GLubyte opacity, const std::string& text, const std::string& fontName, float fontSize, uint32_t flags=0, const std::string& url="", const Color3B& outlineColor = Color3B::WHITE, int outlineSize = -1, const Color3B& shadowColor = Color3B::BLACK, const cocos2d::Size& shadowOffset = Size(2.0, -2.0), int shadowBlurRadius = 0, const Color3B& glowColor = Color3B::WHITE)
+    cocos2d::ui::RichElementText *ret = (cocos2d::ui::RichElementText *)cocos2d::ui::RichElementText::create((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8, arg9, (int)arg10);
+    int num_ret = olua_push_cppobj(L, ret, "ccui.RichElementText");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_RichElementText_create7(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 11);
+
+    lua_Integer arg1 = 0;       /** tag */
+    cocos2d::Color3B arg2;       /** color */
+    lua_Unsigned arg3 = 0;       /** opacity */
+    std::string arg4;       /** text */
+    std::string arg5;       /** fontName */
+    lua_Number arg6 = 0;       /** fontSize */
+    lua_Unsigned arg7 = 0;       /** flags */
+    std::string arg8;       /** url */
+    cocos2d::Color3B arg9;       /** outlineColor */
+    lua_Integer arg10 = 0;       /** outlineSize */
+    cocos2d::Color3B arg11;       /** shadowColor */
+
+    olua_check_int(L, 1, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg2);
+    olua_check_uint(L, 3, &arg3);
+    olua_check_std_string(L, 4, &arg4);
+    olua_check_std_string(L, 5, &arg5);
+    olua_check_number(L, 6, &arg6);
+    olua_check_uint(L, 7, &arg7);
+    olua_check_std_string(L, 8, &arg8);
+    manual_olua_check_cocos2d_Color3B(L, 9, &arg9);
+    olua_check_int(L, 10, &arg10);
+    manual_olua_check_cocos2d_Color3B(L, 11, &arg11);
+
+    // static RichElementText* create(int tag, const Color3B& color, GLubyte opacity, const std::string& text, const std::string& fontName, float fontSize, uint32_t flags=0, const std::string& url="", const Color3B& outlineColor = Color3B::WHITE, int outlineSize = -1, const Color3B& shadowColor = Color3B::BLACK, const cocos2d::Size& shadowOffset = Size(2.0, -2.0), int shadowBlurRadius = 0, const Color3B& glowColor = Color3B::WHITE)
+    cocos2d::ui::RichElementText *ret = (cocos2d::ui::RichElementText *)cocos2d::ui::RichElementText::create((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8, arg9, (int)arg10, arg11);
+    int num_ret = olua_push_cppobj(L, ret, "ccui.RichElementText");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_RichElementText_create8(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 12);
+
+    lua_Integer arg1 = 0;       /** tag */
+    cocos2d::Color3B arg2;       /** color */
+    lua_Unsigned arg3 = 0;       /** opacity */
+    std::string arg4;       /** text */
+    std::string arg5;       /** fontName */
+    lua_Number arg6 = 0;       /** fontSize */
+    lua_Unsigned arg7 = 0;       /** flags */
+    std::string arg8;       /** url */
+    cocos2d::Color3B arg9;       /** outlineColor */
+    lua_Integer arg10 = 0;       /** outlineSize */
+    cocos2d::Color3B arg11;       /** shadowColor */
+    cocos2d::Size arg12;       /** shadowOffset */
+
+    olua_check_int(L, 1, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg2);
+    olua_check_uint(L, 3, &arg3);
+    olua_check_std_string(L, 4, &arg4);
+    olua_check_std_string(L, 5, &arg5);
+    olua_check_number(L, 6, &arg6);
+    olua_check_uint(L, 7, &arg7);
+    olua_check_std_string(L, 8, &arg8);
+    manual_olua_check_cocos2d_Color3B(L, 9, &arg9);
+    olua_check_int(L, 10, &arg10);
+    manual_olua_check_cocos2d_Color3B(L, 11, &arg11);
+    auto_olua_check_cocos2d_Size(L, 12, &arg12);
+
+    // static RichElementText* create(int tag, const Color3B& color, GLubyte opacity, const std::string& text, const std::string& fontName, float fontSize, uint32_t flags=0, const std::string& url="", const Color3B& outlineColor = Color3B::WHITE, int outlineSize = -1, const Color3B& shadowColor = Color3B::BLACK, const cocos2d::Size& shadowOffset = Size(2.0, -2.0), int shadowBlurRadius = 0, const Color3B& glowColor = Color3B::WHITE)
+    cocos2d::ui::RichElementText *ret = (cocos2d::ui::RichElementText *)cocos2d::ui::RichElementText::create((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8, arg9, (int)arg10, arg11, arg12);
+    int num_ret = olua_push_cppobj(L, ret, "ccui.RichElementText");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_RichElementText_create9(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 13);
+
+    lua_Integer arg1 = 0;       /** tag */
+    cocos2d::Color3B arg2;       /** color */
+    lua_Unsigned arg3 = 0;       /** opacity */
+    std::string arg4;       /** text */
+    std::string arg5;       /** fontName */
+    lua_Number arg6 = 0;       /** fontSize */
+    lua_Unsigned arg7 = 0;       /** flags */
+    std::string arg8;       /** url */
+    cocos2d::Color3B arg9;       /** outlineColor */
+    lua_Integer arg10 = 0;       /** outlineSize */
+    cocos2d::Color3B arg11;       /** shadowColor */
+    cocos2d::Size arg12;       /** shadowOffset */
+    lua_Integer arg13 = 0;       /** shadowBlurRadius */
+
+    olua_check_int(L, 1, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg2);
+    olua_check_uint(L, 3, &arg3);
+    olua_check_std_string(L, 4, &arg4);
+    olua_check_std_string(L, 5, &arg5);
+    olua_check_number(L, 6, &arg6);
+    olua_check_uint(L, 7, &arg7);
+    olua_check_std_string(L, 8, &arg8);
+    manual_olua_check_cocos2d_Color3B(L, 9, &arg9);
+    olua_check_int(L, 10, &arg10);
+    manual_olua_check_cocos2d_Color3B(L, 11, &arg11);
+    auto_olua_check_cocos2d_Size(L, 12, &arg12);
+    olua_check_int(L, 13, &arg13);
+
+    // static RichElementText* create(int tag, const Color3B& color, GLubyte opacity, const std::string& text, const std::string& fontName, float fontSize, uint32_t flags=0, const std::string& url="", const Color3B& outlineColor = Color3B::WHITE, int outlineSize = -1, const Color3B& shadowColor = Color3B::BLACK, const cocos2d::Size& shadowOffset = Size(2.0, -2.0), int shadowBlurRadius = 0, const Color3B& glowColor = Color3B::WHITE)
+    cocos2d::ui::RichElementText *ret = (cocos2d::ui::RichElementText *)cocos2d::ui::RichElementText::create((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8, arg9, (int)arg10, arg11, arg12, (int)arg13);
+    int num_ret = olua_push_cppobj(L, ret, "ccui.RichElementText");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_RichElementText_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 6) {
+        // if ((olua_is_int(L, 1)) && (manual_olua_is_cocos2d_Color3B(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_number(L, 6))) {
+            return _cocos2d_ui_RichElementText_create2(L);
+        // }
+    }
+
+    if (num_args == 7) {
+        // if ((olua_is_int(L, 1)) && (manual_olua_is_cocos2d_Color3B(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_number(L, 6)) && (olua_is_uint(L, 7))) {
+            return _cocos2d_ui_RichElementText_create3(L);
+        // }
+    }
+
+    if (num_args == 8) {
+        // if ((olua_is_int(L, 1)) && (manual_olua_is_cocos2d_Color3B(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_number(L, 6)) && (olua_is_uint(L, 7)) && (olua_is_std_string(L, 8))) {
+            return _cocos2d_ui_RichElementText_create4(L);
+        // }
+    }
+
+    if (num_args == 9) {
+        // if ((olua_is_int(L, 1)) && (manual_olua_is_cocos2d_Color3B(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_number(L, 6)) && (olua_is_uint(L, 7)) && (olua_is_std_string(L, 8)) && (manual_olua_is_cocos2d_Color3B(L, 9))) {
+            return _cocos2d_ui_RichElementText_create5(L);
+        // }
+    }
+
+    if (num_args == 10) {
+        // if ((olua_is_int(L, 1)) && (manual_olua_is_cocos2d_Color3B(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_number(L, 6)) && (olua_is_uint(L, 7)) && (olua_is_std_string(L, 8)) && (manual_olua_is_cocos2d_Color3B(L, 9)) && (olua_is_int(L, 10))) {
+            return _cocos2d_ui_RichElementText_create6(L);
+        // }
+    }
+
+    if (num_args == 11) {
+        // if ((olua_is_int(L, 1)) && (manual_olua_is_cocos2d_Color3B(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_number(L, 6)) && (olua_is_uint(L, 7)) && (olua_is_std_string(L, 8)) && (manual_olua_is_cocos2d_Color3B(L, 9)) && (olua_is_int(L, 10)) && (manual_olua_is_cocos2d_Color3B(L, 11))) {
+            return _cocos2d_ui_RichElementText_create7(L);
+        // }
+    }
+
+    if (num_args == 12) {
+        // if ((olua_is_int(L, 1)) && (manual_olua_is_cocos2d_Color3B(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_number(L, 6)) && (olua_is_uint(L, 7)) && (olua_is_std_string(L, 8)) && (manual_olua_is_cocos2d_Color3B(L, 9)) && (olua_is_int(L, 10)) && (manual_olua_is_cocos2d_Color3B(L, 11)) && (auto_olua_is_cocos2d_Size(L, 12))) {
+            return _cocos2d_ui_RichElementText_create8(L);
+        // }
+    }
+
+    if (num_args == 13) {
+        // if ((olua_is_int(L, 1)) && (manual_olua_is_cocos2d_Color3B(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_number(L, 6)) && (olua_is_uint(L, 7)) && (olua_is_std_string(L, 8)) && (manual_olua_is_cocos2d_Color3B(L, 9)) && (olua_is_int(L, 10)) && (manual_olua_is_cocos2d_Color3B(L, 11)) && (auto_olua_is_cocos2d_Size(L, 12)) && (olua_is_int(L, 13))) {
+            return _cocos2d_ui_RichElementText_create9(L);
+        // }
+    }
+
+    if (num_args == 14) {
+        // if ((olua_is_int(L, 1)) && (manual_olua_is_cocos2d_Color3B(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_number(L, 6)) && (olua_is_uint(L, 7)) && (olua_is_std_string(L, 8)) && (manual_olua_is_cocos2d_Color3B(L, 9)) && (olua_is_int(L, 10)) && (manual_olua_is_cocos2d_Color3B(L, 11)) && (auto_olua_is_cocos2d_Size(L, 12)) && (olua_is_int(L, 13)) && (manual_olua_is_cocos2d_Color3B(L, 14))) {
+            return _cocos2d_ui_RichElementText_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::RichElementText::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_ui_RichElementText_init1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -12508,12 +13419,12 @@ static int _cocos2d_ui_RichElementText_init(lua_State *L)
     olua_check_number(L, 7, &arg6);
     olua_check_uint(L, 8, &arg7);
     olua_check_std_string(L, 9, &arg8);
-    manual_olua_opt_cocos2d_Color3B(L, 10, &arg9, (cocos2d::Color3B)cocos2d::Color3B::WHITE);
-    olua_opt_int(L, 11, &arg10, (lua_Integer)-1);
-    manual_olua_opt_cocos2d_Color3B(L, 12, &arg11, (cocos2d::Color3B)cocos2d::Color3B::BLACK);
-    auto_olua_opt_cocos2d_Size(L, 13, &arg12, (cocos2d::Size)cocos2d::Size(2.0, -2.0));
-    olua_opt_int(L, 14, &arg13, (lua_Integer)0);
-    manual_olua_opt_cocos2d_Color3B(L, 15, &arg14, (cocos2d::Color3B)cocos2d::Color3B::WHITE);
+    manual_olua_check_cocos2d_Color3B(L, 10, &arg9);
+    olua_check_int(L, 11, &arg10);
+    manual_olua_check_cocos2d_Color3B(L, 12, &arg11);
+    auto_olua_check_cocos2d_Size(L, 13, &arg12);
+    olua_check_int(L, 14, &arg13);
+    manual_olua_check_cocos2d_Color3B(L, 15, &arg14);
 
     // bool init(int tag, const Color3B& color, GLubyte opacity, const std::string& text, const std::string& fontName, float fontSize, uint32_t flags, const std::string& url, const Color3B& outlineColor = Color3B::WHITE, int outlineSize = -1, const Color3B& shadowColor = Color3B::BLACK, const cocos2d::Size& shadowOffset = Size(2.0, -2.0), int shadowBlurRadius = 0, const Color3B& glowColor = Color3B::WHITE)
     bool ret = (bool)self->init((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8, arg9, (int)arg10, arg11, arg12, (int)arg13, arg14);
@@ -12522,6 +13433,297 @@ static int _cocos2d_ui_RichElementText_init(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _cocos2d_ui_RichElementText_init2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 9);
+
+    cocos2d::ui::RichElementText *self = nullptr;
+    lua_Integer arg1 = 0;       /** tag */
+    cocos2d::Color3B arg2;       /** color */
+    lua_Unsigned arg3 = 0;       /** opacity */
+    std::string arg4;       /** text */
+    std::string arg5;       /** fontName */
+    lua_Number arg6 = 0;       /** fontSize */
+    lua_Unsigned arg7 = 0;       /** flags */
+    std::string arg8;       /** url */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.RichElementText");
+    olua_check_int(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 3, &arg2);
+    olua_check_uint(L, 4, &arg3);
+    olua_check_std_string(L, 5, &arg4);
+    olua_check_std_string(L, 6, &arg5);
+    olua_check_number(L, 7, &arg6);
+    olua_check_uint(L, 8, &arg7);
+    olua_check_std_string(L, 9, &arg8);
+
+    // bool init(int tag, const Color3B& color, GLubyte opacity, const std::string& text, const std::string& fontName, float fontSize, uint32_t flags, const std::string& url, const Color3B& outlineColor = Color3B::WHITE, int outlineSize = -1, const Color3B& shadowColor = Color3B::BLACK, const cocos2d::Size& shadowOffset = Size(2.0, -2.0), int shadowBlurRadius = 0, const Color3B& glowColor = Color3B::WHITE)
+    bool ret = (bool)self->init((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_RichElementText_init3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 10);
+
+    cocos2d::ui::RichElementText *self = nullptr;
+    lua_Integer arg1 = 0;       /** tag */
+    cocos2d::Color3B arg2;       /** color */
+    lua_Unsigned arg3 = 0;       /** opacity */
+    std::string arg4;       /** text */
+    std::string arg5;       /** fontName */
+    lua_Number arg6 = 0;       /** fontSize */
+    lua_Unsigned arg7 = 0;       /** flags */
+    std::string arg8;       /** url */
+    cocos2d::Color3B arg9;       /** outlineColor */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.RichElementText");
+    olua_check_int(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 3, &arg2);
+    olua_check_uint(L, 4, &arg3);
+    olua_check_std_string(L, 5, &arg4);
+    olua_check_std_string(L, 6, &arg5);
+    olua_check_number(L, 7, &arg6);
+    olua_check_uint(L, 8, &arg7);
+    olua_check_std_string(L, 9, &arg8);
+    manual_olua_check_cocos2d_Color3B(L, 10, &arg9);
+
+    // bool init(int tag, const Color3B& color, GLubyte opacity, const std::string& text, const std::string& fontName, float fontSize, uint32_t flags, const std::string& url, const Color3B& outlineColor = Color3B::WHITE, int outlineSize = -1, const Color3B& shadowColor = Color3B::BLACK, const cocos2d::Size& shadowOffset = Size(2.0, -2.0), int shadowBlurRadius = 0, const Color3B& glowColor = Color3B::WHITE)
+    bool ret = (bool)self->init((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8, arg9);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_RichElementText_init4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 11);
+
+    cocos2d::ui::RichElementText *self = nullptr;
+    lua_Integer arg1 = 0;       /** tag */
+    cocos2d::Color3B arg2;       /** color */
+    lua_Unsigned arg3 = 0;       /** opacity */
+    std::string arg4;       /** text */
+    std::string arg5;       /** fontName */
+    lua_Number arg6 = 0;       /** fontSize */
+    lua_Unsigned arg7 = 0;       /** flags */
+    std::string arg8;       /** url */
+    cocos2d::Color3B arg9;       /** outlineColor */
+    lua_Integer arg10 = 0;       /** outlineSize */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.RichElementText");
+    olua_check_int(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 3, &arg2);
+    olua_check_uint(L, 4, &arg3);
+    olua_check_std_string(L, 5, &arg4);
+    olua_check_std_string(L, 6, &arg5);
+    olua_check_number(L, 7, &arg6);
+    olua_check_uint(L, 8, &arg7);
+    olua_check_std_string(L, 9, &arg8);
+    manual_olua_check_cocos2d_Color3B(L, 10, &arg9);
+    olua_check_int(L, 11, &arg10);
+
+    // bool init(int tag, const Color3B& color, GLubyte opacity, const std::string& text, const std::string& fontName, float fontSize, uint32_t flags, const std::string& url, const Color3B& outlineColor = Color3B::WHITE, int outlineSize = -1, const Color3B& shadowColor = Color3B::BLACK, const cocos2d::Size& shadowOffset = Size(2.0, -2.0), int shadowBlurRadius = 0, const Color3B& glowColor = Color3B::WHITE)
+    bool ret = (bool)self->init((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8, arg9, (int)arg10);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_RichElementText_init5(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 12);
+
+    cocos2d::ui::RichElementText *self = nullptr;
+    lua_Integer arg1 = 0;       /** tag */
+    cocos2d::Color3B arg2;       /** color */
+    lua_Unsigned arg3 = 0;       /** opacity */
+    std::string arg4;       /** text */
+    std::string arg5;       /** fontName */
+    lua_Number arg6 = 0;       /** fontSize */
+    lua_Unsigned arg7 = 0;       /** flags */
+    std::string arg8;       /** url */
+    cocos2d::Color3B arg9;       /** outlineColor */
+    lua_Integer arg10 = 0;       /** outlineSize */
+    cocos2d::Color3B arg11;       /** shadowColor */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.RichElementText");
+    olua_check_int(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 3, &arg2);
+    olua_check_uint(L, 4, &arg3);
+    olua_check_std_string(L, 5, &arg4);
+    olua_check_std_string(L, 6, &arg5);
+    olua_check_number(L, 7, &arg6);
+    olua_check_uint(L, 8, &arg7);
+    olua_check_std_string(L, 9, &arg8);
+    manual_olua_check_cocos2d_Color3B(L, 10, &arg9);
+    olua_check_int(L, 11, &arg10);
+    manual_olua_check_cocos2d_Color3B(L, 12, &arg11);
+
+    // bool init(int tag, const Color3B& color, GLubyte opacity, const std::string& text, const std::string& fontName, float fontSize, uint32_t flags, const std::string& url, const Color3B& outlineColor = Color3B::WHITE, int outlineSize = -1, const Color3B& shadowColor = Color3B::BLACK, const cocos2d::Size& shadowOffset = Size(2.0, -2.0), int shadowBlurRadius = 0, const Color3B& glowColor = Color3B::WHITE)
+    bool ret = (bool)self->init((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8, arg9, (int)arg10, arg11);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_RichElementText_init6(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 13);
+
+    cocos2d::ui::RichElementText *self = nullptr;
+    lua_Integer arg1 = 0;       /** tag */
+    cocos2d::Color3B arg2;       /** color */
+    lua_Unsigned arg3 = 0;       /** opacity */
+    std::string arg4;       /** text */
+    std::string arg5;       /** fontName */
+    lua_Number arg6 = 0;       /** fontSize */
+    lua_Unsigned arg7 = 0;       /** flags */
+    std::string arg8;       /** url */
+    cocos2d::Color3B arg9;       /** outlineColor */
+    lua_Integer arg10 = 0;       /** outlineSize */
+    cocos2d::Color3B arg11;       /** shadowColor */
+    cocos2d::Size arg12;       /** shadowOffset */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.RichElementText");
+    olua_check_int(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 3, &arg2);
+    olua_check_uint(L, 4, &arg3);
+    olua_check_std_string(L, 5, &arg4);
+    olua_check_std_string(L, 6, &arg5);
+    olua_check_number(L, 7, &arg6);
+    olua_check_uint(L, 8, &arg7);
+    olua_check_std_string(L, 9, &arg8);
+    manual_olua_check_cocos2d_Color3B(L, 10, &arg9);
+    olua_check_int(L, 11, &arg10);
+    manual_olua_check_cocos2d_Color3B(L, 12, &arg11);
+    auto_olua_check_cocos2d_Size(L, 13, &arg12);
+
+    // bool init(int tag, const Color3B& color, GLubyte opacity, const std::string& text, const std::string& fontName, float fontSize, uint32_t flags, const std::string& url, const Color3B& outlineColor = Color3B::WHITE, int outlineSize = -1, const Color3B& shadowColor = Color3B::BLACK, const cocos2d::Size& shadowOffset = Size(2.0, -2.0), int shadowBlurRadius = 0, const Color3B& glowColor = Color3B::WHITE)
+    bool ret = (bool)self->init((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8, arg9, (int)arg10, arg11, arg12);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_RichElementText_init7(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 14);
+
+    cocos2d::ui::RichElementText *self = nullptr;
+    lua_Integer arg1 = 0;       /** tag */
+    cocos2d::Color3B arg2;       /** color */
+    lua_Unsigned arg3 = 0;       /** opacity */
+    std::string arg4;       /** text */
+    std::string arg5;       /** fontName */
+    lua_Number arg6 = 0;       /** fontSize */
+    lua_Unsigned arg7 = 0;       /** flags */
+    std::string arg8;       /** url */
+    cocos2d::Color3B arg9;       /** outlineColor */
+    lua_Integer arg10 = 0;       /** outlineSize */
+    cocos2d::Color3B arg11;       /** shadowColor */
+    cocos2d::Size arg12;       /** shadowOffset */
+    lua_Integer arg13 = 0;       /** shadowBlurRadius */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.RichElementText");
+    olua_check_int(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 3, &arg2);
+    olua_check_uint(L, 4, &arg3);
+    olua_check_std_string(L, 5, &arg4);
+    olua_check_std_string(L, 6, &arg5);
+    olua_check_number(L, 7, &arg6);
+    olua_check_uint(L, 8, &arg7);
+    olua_check_std_string(L, 9, &arg8);
+    manual_olua_check_cocos2d_Color3B(L, 10, &arg9);
+    olua_check_int(L, 11, &arg10);
+    manual_olua_check_cocos2d_Color3B(L, 12, &arg11);
+    auto_olua_check_cocos2d_Size(L, 13, &arg12);
+    olua_check_int(L, 14, &arg13);
+
+    // bool init(int tag, const Color3B& color, GLubyte opacity, const std::string& text, const std::string& fontName, float fontSize, uint32_t flags, const std::string& url, const Color3B& outlineColor = Color3B::WHITE, int outlineSize = -1, const Color3B& shadowColor = Color3B::BLACK, const cocos2d::Size& shadowOffset = Size(2.0, -2.0), int shadowBlurRadius = 0, const Color3B& glowColor = Color3B::WHITE)
+    bool ret = (bool)self->init((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8, arg9, (int)arg10, arg11, arg12, (int)arg13);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_RichElementText_init(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 8) {
+        // if ((olua_is_int(L, 2)) && (manual_olua_is_cocos2d_Color3B(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_std_string(L, 6)) && (olua_is_number(L, 7)) && (olua_is_uint(L, 8)) && (olua_is_std_string(L, 9))) {
+            return _cocos2d_ui_RichElementText_init2(L);
+        // }
+    }
+
+    if (num_args == 9) {
+        // if ((olua_is_int(L, 2)) && (manual_olua_is_cocos2d_Color3B(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_std_string(L, 6)) && (olua_is_number(L, 7)) && (olua_is_uint(L, 8)) && (olua_is_std_string(L, 9)) && (manual_olua_is_cocos2d_Color3B(L, 10))) {
+            return _cocos2d_ui_RichElementText_init3(L);
+        // }
+    }
+
+    if (num_args == 10) {
+        // if ((olua_is_int(L, 2)) && (manual_olua_is_cocos2d_Color3B(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_std_string(L, 6)) && (olua_is_number(L, 7)) && (olua_is_uint(L, 8)) && (olua_is_std_string(L, 9)) && (manual_olua_is_cocos2d_Color3B(L, 10)) && (olua_is_int(L, 11))) {
+            return _cocos2d_ui_RichElementText_init4(L);
+        // }
+    }
+
+    if (num_args == 11) {
+        // if ((olua_is_int(L, 2)) && (manual_olua_is_cocos2d_Color3B(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_std_string(L, 6)) && (olua_is_number(L, 7)) && (olua_is_uint(L, 8)) && (olua_is_std_string(L, 9)) && (manual_olua_is_cocos2d_Color3B(L, 10)) && (olua_is_int(L, 11)) && (manual_olua_is_cocos2d_Color3B(L, 12))) {
+            return _cocos2d_ui_RichElementText_init5(L);
+        // }
+    }
+
+    if (num_args == 12) {
+        // if ((olua_is_int(L, 2)) && (manual_olua_is_cocos2d_Color3B(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_std_string(L, 6)) && (olua_is_number(L, 7)) && (olua_is_uint(L, 8)) && (olua_is_std_string(L, 9)) && (manual_olua_is_cocos2d_Color3B(L, 10)) && (olua_is_int(L, 11)) && (manual_olua_is_cocos2d_Color3B(L, 12)) && (auto_olua_is_cocos2d_Size(L, 13))) {
+            return _cocos2d_ui_RichElementText_init6(L);
+        // }
+    }
+
+    if (num_args == 13) {
+        // if ((olua_is_int(L, 2)) && (manual_olua_is_cocos2d_Color3B(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_std_string(L, 6)) && (olua_is_number(L, 7)) && (olua_is_uint(L, 8)) && (olua_is_std_string(L, 9)) && (manual_olua_is_cocos2d_Color3B(L, 10)) && (olua_is_int(L, 11)) && (manual_olua_is_cocos2d_Color3B(L, 12)) && (auto_olua_is_cocos2d_Size(L, 13)) && (olua_is_int(L, 14))) {
+            return _cocos2d_ui_RichElementText_init7(L);
+        // }
+    }
+
+    if (num_args == 14) {
+        // if ((olua_is_int(L, 2)) && (manual_olua_is_cocos2d_Color3B(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_std_string(L, 6)) && (olua_is_number(L, 7)) && (olua_is_uint(L, 8)) && (olua_is_std_string(L, 9)) && (manual_olua_is_cocos2d_Color3B(L, 10)) && (olua_is_int(L, 11)) && (manual_olua_is_cocos2d_Color3B(L, 12)) && (auto_olua_is_cocos2d_Size(L, 13)) && (olua_is_int(L, 14)) && (manual_olua_is_cocos2d_Color3B(L, 15))) {
+            return _cocos2d_ui_RichElementText_init1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::RichElementText::init' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _cocos2d_ui_RichElementText_new(lua_State *L)
@@ -12553,7 +13755,7 @@ static int luaopen_cocos2d_ui_RichElementText(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_ui_RichElementImage_create(lua_State *L)
+static int _cocos2d_ui_RichElementImage_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -12570,8 +13772,8 @@ static int _cocos2d_ui_RichElementImage_create(lua_State *L)
     manual_olua_check_cocos2d_Color3B(L, 2, &arg2);
     olua_check_uint(L, 3, &arg3);
     olua_check_std_string(L, 4, &arg4);
-    olua_opt_std_string(L, 5, &arg5, (std::string)"");
-    olua_opt_uint(L, 6, &arg6, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_std_string(L, 5, &arg5);
+    olua_check_uint(L, 6, &arg6);
 
     // static RichElementImage* create(int tag, const Color3B& color, GLubyte opacity, const std::string& filePath, const std::string& url = "", Widget::TextureResType texType = Widget::TextureResType::LOCAL)
     cocos2d::ui::RichElementImage *ret = (cocos2d::ui::RichElementImage *)cocos2d::ui::RichElementImage::create((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (cocos2d::ui::Widget::TextureResType)arg6);
@@ -12582,7 +13784,86 @@ static int _cocos2d_ui_RichElementImage_create(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_ui_RichElementImage_init(lua_State *L)
+static int _cocos2d_ui_RichElementImage_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 4);
+
+    lua_Integer arg1 = 0;       /** tag */
+    cocos2d::Color3B arg2;       /** color */
+    lua_Unsigned arg3 = 0;       /** opacity */
+    std::string arg4;       /** filePath */
+
+    olua_check_int(L, 1, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg2);
+    olua_check_uint(L, 3, &arg3);
+    olua_check_std_string(L, 4, &arg4);
+
+    // static RichElementImage* create(int tag, const Color3B& color, GLubyte opacity, const std::string& filePath, const std::string& url = "", Widget::TextureResType texType = Widget::TextureResType::LOCAL)
+    cocos2d::ui::RichElementImage *ret = (cocos2d::ui::RichElementImage *)cocos2d::ui::RichElementImage::create((int)arg1, arg2, (GLubyte)arg3, arg4);
+    int num_ret = olua_push_cppobj(L, ret, "ccui.RichElementImage");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_RichElementImage_create3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 5);
+
+    lua_Integer arg1 = 0;       /** tag */
+    cocos2d::Color3B arg2;       /** color */
+    lua_Unsigned arg3 = 0;       /** opacity */
+    std::string arg4;       /** filePath */
+    std::string arg5;       /** url */
+
+    olua_check_int(L, 1, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 2, &arg2);
+    olua_check_uint(L, 3, &arg3);
+    olua_check_std_string(L, 4, &arg4);
+    olua_check_std_string(L, 5, &arg5);
+
+    // static RichElementImage* create(int tag, const Color3B& color, GLubyte opacity, const std::string& filePath, const std::string& url = "", Widget::TextureResType texType = Widget::TextureResType::LOCAL)
+    cocos2d::ui::RichElementImage *ret = (cocos2d::ui::RichElementImage *)cocos2d::ui::RichElementImage::create((int)arg1, arg2, (GLubyte)arg3, arg4, arg5);
+    int num_ret = olua_push_cppobj(L, ret, "ccui.RichElementImage");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_RichElementImage_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 4) {
+        // if ((olua_is_int(L, 1)) && (manual_olua_is_cocos2d_Color3B(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_std_string(L, 4))) {
+            return _cocos2d_ui_RichElementImage_create2(L);
+        // }
+    }
+
+    if (num_args == 5) {
+        // if ((olua_is_int(L, 1)) && (manual_olua_is_cocos2d_Color3B(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5))) {
+            return _cocos2d_ui_RichElementImage_create3(L);
+        // }
+    }
+
+    if (num_args == 6) {
+        // if ((olua_is_int(L, 1)) && (manual_olua_is_cocos2d_Color3B(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_uint(L, 6))) {
+            return _cocos2d_ui_RichElementImage_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::RichElementImage::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_ui_RichElementImage_init1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -12601,8 +13882,8 @@ static int _cocos2d_ui_RichElementImage_init(lua_State *L)
     manual_olua_check_cocos2d_Color3B(L, 3, &arg2);
     olua_check_uint(L, 4, &arg3);
     olua_check_std_string(L, 5, &arg4);
-    olua_opt_std_string(L, 6, &arg5, (std::string)"");
-    olua_opt_uint(L, 7, &arg6, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_std_string(L, 6, &arg5);
+    olua_check_uint(L, 7, &arg6);
 
     // bool init(int tag, const Color3B& color, GLubyte opacity, const std::string& filePath, const std::string& url = "", Widget::TextureResType texType = Widget::TextureResType::LOCAL)
     bool ret = (bool)self->init((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (cocos2d::ui::Widget::TextureResType)arg6);
@@ -12611,6 +13892,89 @@ static int _cocos2d_ui_RichElementImage_init(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _cocos2d_ui_RichElementImage_init2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 5);
+
+    cocos2d::ui::RichElementImage *self = nullptr;
+    lua_Integer arg1 = 0;       /** tag */
+    cocos2d::Color3B arg2;       /** color */
+    lua_Unsigned arg3 = 0;       /** opacity */
+    std::string arg4;       /** filePath */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.RichElementImage");
+    olua_check_int(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 3, &arg2);
+    olua_check_uint(L, 4, &arg3);
+    olua_check_std_string(L, 5, &arg4);
+
+    // bool init(int tag, const Color3B& color, GLubyte opacity, const std::string& filePath, const std::string& url = "", Widget::TextureResType texType = Widget::TextureResType::LOCAL)
+    bool ret = (bool)self->init((int)arg1, arg2, (GLubyte)arg3, arg4);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_RichElementImage_init3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 6);
+
+    cocos2d::ui::RichElementImage *self = nullptr;
+    lua_Integer arg1 = 0;       /** tag */
+    cocos2d::Color3B arg2;       /** color */
+    lua_Unsigned arg3 = 0;       /** opacity */
+    std::string arg4;       /** filePath */
+    std::string arg5;       /** url */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.RichElementImage");
+    olua_check_int(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 3, &arg2);
+    olua_check_uint(L, 4, &arg3);
+    olua_check_std_string(L, 5, &arg4);
+    olua_check_std_string(L, 6, &arg5);
+
+    // bool init(int tag, const Color3B& color, GLubyte opacity, const std::string& filePath, const std::string& url = "", Widget::TextureResType texType = Widget::TextureResType::LOCAL)
+    bool ret = (bool)self->init((int)arg1, arg2, (GLubyte)arg3, arg4, arg5);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_RichElementImage_init(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 4) {
+        // if ((olua_is_int(L, 2)) && (manual_olua_is_cocos2d_Color3B(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_std_string(L, 5))) {
+            return _cocos2d_ui_RichElementImage_init2(L);
+        // }
+    }
+
+    if (num_args == 5) {
+        // if ((olua_is_int(L, 2)) && (manual_olua_is_cocos2d_Color3B(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_std_string(L, 6))) {
+            return _cocos2d_ui_RichElementImage_init3(L);
+        // }
+    }
+
+    if (num_args == 6) {
+        // if ((olua_is_int(L, 2)) && (manual_olua_is_cocos2d_Color3B(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_std_string(L, 6)) && (olua_is_uint(L, 7))) {
+            return _cocos2d_ui_RichElementImage_init1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::RichElementImage::init' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _cocos2d_ui_RichElementImage_new(lua_State *L)
@@ -13672,7 +15036,7 @@ static int _cocos2d_ui_RichText_setAnchorTextDel(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_ui_RichText_setAnchorTextGlow(lua_State *L)
+static int _cocos2d_ui_RichText_setAnchorTextGlow1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -13684,12 +15048,53 @@ static int _cocos2d_ui_RichText_setAnchorTextGlow(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RichText");
     olua_check_bool(L, 2, &arg1);
-    manual_olua_opt_cocos2d_Color3B(L, 3, &arg2, (cocos2d::Color3B)cocos2d::Color3B::WHITE);
+    manual_olua_check_cocos2d_Color3B(L, 3, &arg2);
 
     // void setAnchorTextGlow(bool enable, const Color3B& glowColor = Color3B::WHITE)
     self->setAnchorTextGlow(arg1, arg2);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_RichText_setAnchorTextGlow2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::ui::RichText *self = nullptr;
+    bool arg1 = false;       /** enable */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.RichText");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setAnchorTextGlow(bool enable, const Color3B& glowColor = Color3B::WHITE)
+    self->setAnchorTextGlow(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_RichText_setAnchorTextGlow(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_bool(L, 2))) {
+            return _cocos2d_ui_RichText_setAnchorTextGlow2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_bool(L, 2)) && (manual_olua_is_cocos2d_Color3B(L, 3))) {
+            return _cocos2d_ui_RichText_setAnchorTextGlow1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::RichText::setAnchorTextGlow' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -13714,7 +15119,7 @@ static int _cocos2d_ui_RichText_setAnchorTextItalic(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_ui_RichText_setAnchorTextOutline(lua_State *L)
+static int _cocos2d_ui_RichText_setAnchorTextOutline1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -13727,8 +15132,8 @@ static int _cocos2d_ui_RichText_setAnchorTextOutline(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RichText");
     olua_check_bool(L, 2, &arg1);
-    manual_olua_opt_cocos2d_Color3B(L, 3, &arg2, (cocos2d::Color3B)cocos2d::Color3B::WHITE);
-    olua_opt_int(L, 4, &arg3, (lua_Integer)-1);
+    manual_olua_check_cocos2d_Color3B(L, 3, &arg2);
+    olua_check_int(L, 4, &arg3);
 
     // void setAnchorTextOutline(bool enable, const Color3B& outlineColor = Color3B::WHITE, int outlineSize = -1)
     self->setAnchorTextOutline(arg1, arg2, (int)arg3);
@@ -13738,7 +15143,76 @@ static int _cocos2d_ui_RichText_setAnchorTextOutline(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_ui_RichText_setAnchorTextShadow(lua_State *L)
+static int _cocos2d_ui_RichText_setAnchorTextOutline2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::ui::RichText *self = nullptr;
+    bool arg1 = false;       /** enable */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.RichText");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setAnchorTextOutline(bool enable, const Color3B& outlineColor = Color3B::WHITE, int outlineSize = -1)
+    self->setAnchorTextOutline(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_RichText_setAnchorTextOutline3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    cocos2d::ui::RichText *self = nullptr;
+    bool arg1 = false;       /** enable */
+    cocos2d::Color3B arg2;       /** outlineColor */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.RichText");
+    olua_check_bool(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 3, &arg2);
+
+    // void setAnchorTextOutline(bool enable, const Color3B& outlineColor = Color3B::WHITE, int outlineSize = -1)
+    self->setAnchorTextOutline(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_RichText_setAnchorTextOutline(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_bool(L, 2))) {
+            return _cocos2d_ui_RichText_setAnchorTextOutline2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_bool(L, 2)) && (manual_olua_is_cocos2d_Color3B(L, 3))) {
+            return _cocos2d_ui_RichText_setAnchorTextOutline3(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_bool(L, 2)) && (manual_olua_is_cocos2d_Color3B(L, 3)) && (olua_is_int(L, 4))) {
+            return _cocos2d_ui_RichText_setAnchorTextOutline1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::RichText::setAnchorTextOutline' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_ui_RichText_setAnchorTextShadow1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -13752,14 +15226,113 @@ static int _cocos2d_ui_RichText_setAnchorTextShadow(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.RichText");
     olua_check_bool(L, 2, &arg1);
-    manual_olua_opt_cocos2d_Color3B(L, 3, &arg2, (cocos2d::Color3B)cocos2d::Color3B::BLACK);
-    auto_olua_opt_cocos2d_Size(L, 4, &arg3, (cocos2d::Size)cocos2d::Size(2.0, -2.0));
-    olua_opt_int(L, 5, &arg4, (lua_Integer)0);
+    manual_olua_check_cocos2d_Color3B(L, 3, &arg2);
+    auto_olua_check_cocos2d_Size(L, 4, &arg3);
+    olua_check_int(L, 5, &arg4);
 
     // void setAnchorTextShadow(bool enable, const Color3B& shadowColor = Color3B::BLACK, const Size& offset = Size(2.0, -2.0), int blurRadius = 0)
     self->setAnchorTextShadow(arg1, arg2, arg3, (int)arg4);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_RichText_setAnchorTextShadow2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::ui::RichText *self = nullptr;
+    bool arg1 = false;       /** enable */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.RichText");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setAnchorTextShadow(bool enable, const Color3B& shadowColor = Color3B::BLACK, const Size& offset = Size(2.0, -2.0), int blurRadius = 0)
+    self->setAnchorTextShadow(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_RichText_setAnchorTextShadow3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    cocos2d::ui::RichText *self = nullptr;
+    bool arg1 = false;       /** enable */
+    cocos2d::Color3B arg2;       /** shadowColor */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.RichText");
+    olua_check_bool(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 3, &arg2);
+
+    // void setAnchorTextShadow(bool enable, const Color3B& shadowColor = Color3B::BLACK, const Size& offset = Size(2.0, -2.0), int blurRadius = 0)
+    self->setAnchorTextShadow(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_RichText_setAnchorTextShadow4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 4);
+
+    cocos2d::ui::RichText *self = nullptr;
+    bool arg1 = false;       /** enable */
+    cocos2d::Color3B arg2;       /** shadowColor */
+    cocos2d::Size arg3;       /** offset */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.RichText");
+    olua_check_bool(L, 2, &arg1);
+    manual_olua_check_cocos2d_Color3B(L, 3, &arg2);
+    auto_olua_check_cocos2d_Size(L, 4, &arg3);
+
+    // void setAnchorTextShadow(bool enable, const Color3B& shadowColor = Color3B::BLACK, const Size& offset = Size(2.0, -2.0), int blurRadius = 0)
+    self->setAnchorTextShadow(arg1, arg2, arg3);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_RichText_setAnchorTextShadow(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_bool(L, 2))) {
+            return _cocos2d_ui_RichText_setAnchorTextShadow2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_bool(L, 2)) && (manual_olua_is_cocos2d_Color3B(L, 3))) {
+            return _cocos2d_ui_RichText_setAnchorTextShadow3(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_bool(L, 2)) && (manual_olua_is_cocos2d_Color3B(L, 3)) && (auto_olua_is_cocos2d_Size(L, 4))) {
+            return _cocos2d_ui_RichText_setAnchorTextShadow4(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if ((olua_is_bool(L, 2)) && (manual_olua_is_cocos2d_Color3B(L, 3)) && (auto_olua_is_cocos2d_Size(L, 4)) && (olua_is_int(L, 5))) {
+            return _cocos2d_ui_RichText_setAnchorTextShadow1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::RichText::setAnchorTextShadow' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -14452,10 +16025,31 @@ static int _cocos2d_ui_Slider_create2(lua_State *L)
 
     olua_check_std_string(L, 1, &arg1);
     olua_check_std_string(L, 2, &arg2);
-    olua_opt_uint(L, 3, &arg3, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_uint(L, 3, &arg3);
 
     // static Slider* create(const std::string& barTextureName, const std::string& normalBallTextureName, TextureResType resType = TextureResType::LOCAL)
     cocos2d::ui::Slider *ret = (cocos2d::ui::Slider *)cocos2d::ui::Slider::create(arg1, arg2, (cocos2d::ui::Widget::TextureResType)arg3);
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Slider");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_Slider_create3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    std::string arg1;       /** barTextureName */
+    std::string arg2;       /** normalBallTextureName */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+
+    // static Slider* create(const std::string& barTextureName, const std::string& normalBallTextureName, TextureResType resType = TextureResType::LOCAL)
+    cocos2d::ui::Slider *ret = (cocos2d::ui::Slider *)cocos2d::ui::Slider::create(arg1, arg2);
     int num_ret = olua_push_cppobj(L, ret, "ccui.Slider");
 
     olua_endinvoke(L);
@@ -14472,13 +16066,13 @@ static int _cocos2d_ui_Slider_create(lua_State *L)
     }
 
     if (num_args == 2) {
-        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3) || olua_isnil(L, 3))) {
-            return _cocos2d_ui_Slider_create2(L);
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2))) {
+            return _cocos2d_ui_Slider_create3(L);
         // }
     }
 
     if (num_args == 3) {
-        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3) || olua_isnil(L, 3))) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
             return _cocos2d_ui_Slider_create2(L);
         // }
     }
@@ -14785,7 +16379,7 @@ static int _cocos2d_ui_Slider_isScale9Enabled(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_ui_Slider_loadBarTexture(lua_State *L)
+static int _cocos2d_ui_Slider_loadBarTexture1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -14797,7 +16391,7 @@ static int _cocos2d_ui_Slider_loadBarTexture(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Slider");
     olua_check_std_string(L, 2, &arg1);
-    olua_opt_uint(L, 3, &arg2, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_uint(L, 3, &arg2);
 
     // void loadBarTexture(const std::string& fileName,TextureResType resType = TextureResType::LOCAL)
     self->loadBarTexture(arg1, (cocos2d::ui::Widget::TextureResType)arg2);
@@ -14807,7 +16401,48 @@ static int _cocos2d_ui_Slider_loadBarTexture(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_ui_Slider_loadProgressBarTexture(lua_State *L)
+static int _cocos2d_ui_Slider_loadBarTexture2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::ui::Slider *self = nullptr;
+    std::string arg1;       /** fileName */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Slider");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void loadBarTexture(const std::string& fileName,TextureResType resType = TextureResType::LOCAL)
+    self->loadBarTexture(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Slider_loadBarTexture(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            return _cocos2d_ui_Slider_loadBarTexture2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
+            return _cocos2d_ui_Slider_loadBarTexture1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::Slider::loadBarTexture' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Slider_loadProgressBarTexture1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -14819,7 +16454,7 @@ static int _cocos2d_ui_Slider_loadProgressBarTexture(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Slider");
     olua_check_std_string(L, 2, &arg1);
-    olua_opt_uint(L, 3, &arg2, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_uint(L, 3, &arg2);
 
     // void loadProgressBarTexture(const std::string& fileName, TextureResType resType = TextureResType::LOCAL)
     self->loadProgressBarTexture(arg1, (cocos2d::ui::Widget::TextureResType)arg2);
@@ -14829,7 +16464,48 @@ static int _cocos2d_ui_Slider_loadProgressBarTexture(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_ui_Slider_loadSlidBallTextureDisabled(lua_State *L)
+static int _cocos2d_ui_Slider_loadProgressBarTexture2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::ui::Slider *self = nullptr;
+    std::string arg1;       /** fileName */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Slider");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void loadProgressBarTexture(const std::string& fileName, TextureResType resType = TextureResType::LOCAL)
+    self->loadProgressBarTexture(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Slider_loadProgressBarTexture(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            return _cocos2d_ui_Slider_loadProgressBarTexture2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
+            return _cocos2d_ui_Slider_loadProgressBarTexture1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::Slider::loadProgressBarTexture' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Slider_loadSlidBallTextureDisabled1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -14841,7 +16517,7 @@ static int _cocos2d_ui_Slider_loadSlidBallTextureDisabled(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Slider");
     olua_check_std_string(L, 2, &arg1);
-    olua_opt_uint(L, 3, &arg2, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_uint(L, 3, &arg2);
 
     // void loadSlidBallTextureDisabled(const std::string& disabled,TextureResType resType = TextureResType::LOCAL)
     self->loadSlidBallTextureDisabled(arg1, (cocos2d::ui::Widget::TextureResType)arg2);
@@ -14851,7 +16527,48 @@ static int _cocos2d_ui_Slider_loadSlidBallTextureDisabled(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_ui_Slider_loadSlidBallTextureNormal(lua_State *L)
+static int _cocos2d_ui_Slider_loadSlidBallTextureDisabled2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::ui::Slider *self = nullptr;
+    std::string arg1;       /** disabled */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Slider");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void loadSlidBallTextureDisabled(const std::string& disabled,TextureResType resType = TextureResType::LOCAL)
+    self->loadSlidBallTextureDisabled(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Slider_loadSlidBallTextureDisabled(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            return _cocos2d_ui_Slider_loadSlidBallTextureDisabled2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
+            return _cocos2d_ui_Slider_loadSlidBallTextureDisabled1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::Slider::loadSlidBallTextureDisabled' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Slider_loadSlidBallTextureNormal1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -14863,7 +16580,7 @@ static int _cocos2d_ui_Slider_loadSlidBallTextureNormal(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Slider");
     olua_check_std_string(L, 2, &arg1);
-    olua_opt_uint(L, 3, &arg2, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_uint(L, 3, &arg2);
 
     // void loadSlidBallTextureNormal(const std::string& normal,TextureResType resType = TextureResType::LOCAL)
     self->loadSlidBallTextureNormal(arg1, (cocos2d::ui::Widget::TextureResType)arg2);
@@ -14873,7 +16590,48 @@ static int _cocos2d_ui_Slider_loadSlidBallTextureNormal(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_ui_Slider_loadSlidBallTexturePressed(lua_State *L)
+static int _cocos2d_ui_Slider_loadSlidBallTextureNormal2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::ui::Slider *self = nullptr;
+    std::string arg1;       /** normal */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Slider");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void loadSlidBallTextureNormal(const std::string& normal,TextureResType resType = TextureResType::LOCAL)
+    self->loadSlidBallTextureNormal(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Slider_loadSlidBallTextureNormal(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            return _cocos2d_ui_Slider_loadSlidBallTextureNormal2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
+            return _cocos2d_ui_Slider_loadSlidBallTextureNormal1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::Slider::loadSlidBallTextureNormal' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Slider_loadSlidBallTexturePressed1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -14885,7 +16643,7 @@ static int _cocos2d_ui_Slider_loadSlidBallTexturePressed(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Slider");
     olua_check_std_string(L, 2, &arg1);
-    olua_opt_uint(L, 3, &arg2, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_uint(L, 3, &arg2);
 
     // void loadSlidBallTexturePressed(const std::string& pressed,TextureResType resType = TextureResType::LOCAL)
     self->loadSlidBallTexturePressed(arg1, (cocos2d::ui::Widget::TextureResType)arg2);
@@ -14895,7 +16653,48 @@ static int _cocos2d_ui_Slider_loadSlidBallTexturePressed(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_ui_Slider_loadSlidBallTextures(lua_State *L)
+static int _cocos2d_ui_Slider_loadSlidBallTexturePressed2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::ui::Slider *self = nullptr;
+    std::string arg1;       /** pressed */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Slider");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void loadSlidBallTexturePressed(const std::string& pressed,TextureResType resType = TextureResType::LOCAL)
+    self->loadSlidBallTexturePressed(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Slider_loadSlidBallTexturePressed(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            return _cocos2d_ui_Slider_loadSlidBallTexturePressed2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
+            return _cocos2d_ui_Slider_loadSlidBallTexturePressed1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::Slider::loadSlidBallTexturePressed' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Slider_loadSlidBallTextures1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -14909,14 +16708,113 @@ static int _cocos2d_ui_Slider_loadSlidBallTextures(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Slider");
     olua_check_std_string(L, 2, &arg1);
-    olua_opt_std_string(L, 3, &arg2, (std::string)"");
-    olua_opt_std_string(L, 4, &arg3, (std::string)"");
-    olua_opt_uint(L, 5, &arg4, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_std_string(L, 3, &arg2);
+    olua_check_std_string(L, 4, &arg3);
+    olua_check_uint(L, 5, &arg4);
 
     // void loadSlidBallTextures(const std::string& normal, const std::string& pressed = "", const std::string& disabled = "", TextureResType texType = TextureResType::LOCAL)
     self->loadSlidBallTextures(arg1, arg2, arg3, (cocos2d::ui::Widget::TextureResType)arg4);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Slider_loadSlidBallTextures2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::ui::Slider *self = nullptr;
+    std::string arg1;       /** normal */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Slider");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void loadSlidBallTextures(const std::string& normal, const std::string& pressed = "", const std::string& disabled = "", TextureResType texType = TextureResType::LOCAL)
+    self->loadSlidBallTextures(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Slider_loadSlidBallTextures3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    cocos2d::ui::Slider *self = nullptr;
+    std::string arg1;       /** normal */
+    std::string arg2;       /** pressed */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Slider");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+
+    // void loadSlidBallTextures(const std::string& normal, const std::string& pressed = "", const std::string& disabled = "", TextureResType texType = TextureResType::LOCAL)
+    self->loadSlidBallTextures(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Slider_loadSlidBallTextures4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 4);
+
+    cocos2d::ui::Slider *self = nullptr;
+    std::string arg1;       /** normal */
+    std::string arg2;       /** pressed */
+    std::string arg3;       /** disabled */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Slider");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+    olua_check_std_string(L, 4, &arg3);
+
+    // void loadSlidBallTextures(const std::string& normal, const std::string& pressed = "", const std::string& disabled = "", TextureResType texType = TextureResType::LOCAL)
+    self->loadSlidBallTextures(arg1, arg2, arg3);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Slider_loadSlidBallTextures(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            return _cocos2d_ui_Slider_loadSlidBallTextures2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3))) {
+            return _cocos2d_ui_Slider_loadSlidBallTextures3(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4))) {
+            return _cocos2d_ui_Slider_loadSlidBallTextures4(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_uint(L, 5))) {
+            return _cocos2d_ui_Slider_loadSlidBallTextures1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::Slider::loadSlidBallTextures' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -15299,7 +17197,7 @@ static int _cocos2d_ui_Text_enableGlow(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_ui_Text_enableOutline(lua_State *L)
+static int _cocos2d_ui_Text_enableOutline1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -15311,7 +17209,7 @@ static int _cocos2d_ui_Text_enableOutline(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Text");
     manual_olua_check_cocos2d_Color4B(L, 2, &arg1);
-    olua_opt_int(L, 3, &arg2, (lua_Integer)1);
+    olua_check_int(L, 3, &arg2);
 
     // void enableOutline(const Color4B& outlineColor,int outlineSize = 1)
     self->enableOutline(arg1, (int)arg2);
@@ -15321,7 +17219,48 @@ static int _cocos2d_ui_Text_enableOutline(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_ui_Text_enableShadow(lua_State *L)
+static int _cocos2d_ui_Text_enableOutline2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::ui::Text *self = nullptr;
+    cocos2d::Color4B arg1;       /** outlineColor */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Text");
+    manual_olua_check_cocos2d_Color4B(L, 2, &arg1);
+
+    // void enableOutline(const Color4B& outlineColor,int outlineSize = 1)
+    self->enableOutline(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Text_enableOutline(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((manual_olua_is_cocos2d_Color4B(L, 2))) {
+            return _cocos2d_ui_Text_enableOutline2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((manual_olua_is_cocos2d_Color4B(L, 2)) && (olua_is_int(L, 3))) {
+            return _cocos2d_ui_Text_enableOutline1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::Text::enableOutline' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Text_enableShadow1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -15333,14 +17272,105 @@ static int _cocos2d_ui_Text_enableShadow(lua_State *L)
     lua_Integer arg3 = 0;       /** blurRadius */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Text");
-    manual_olua_opt_cocos2d_Color4B(L, 2, &arg1, (cocos2d::Color4B)cocos2d::Color4B::BLACK);
-    auto_olua_opt_cocos2d_Size(L, 3, &arg2, (cocos2d::Size)cocos2d::Size(2,-2));
-    olua_opt_int(L, 4, &arg3, (lua_Integer)0);
+    manual_olua_check_cocos2d_Color4B(L, 2, &arg1);
+    auto_olua_check_cocos2d_Size(L, 3, &arg2);
+    olua_check_int(L, 4, &arg3);
 
     // void enableShadow(const Color4B& shadowColor = Color4B::BLACK, const Size &offset = Size(2,-2), int blurRadius = 0)
     self->enableShadow(arg1, arg2, (int)arg3);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Text_enableShadow2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    cocos2d::ui::Text *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Text");
+
+    // void enableShadow(const Color4B& shadowColor = Color4B::BLACK, const Size &offset = Size(2,-2), int blurRadius = 0)
+    self->enableShadow();
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Text_enableShadow3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::ui::Text *self = nullptr;
+    cocos2d::Color4B arg1;       /** shadowColor */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Text");
+    manual_olua_check_cocos2d_Color4B(L, 2, &arg1);
+
+    // void enableShadow(const Color4B& shadowColor = Color4B::BLACK, const Size &offset = Size(2,-2), int blurRadius = 0)
+    self->enableShadow(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Text_enableShadow4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    cocos2d::ui::Text *self = nullptr;
+    cocos2d::Color4B arg1;       /** shadowColor */
+    cocos2d::Size arg2;       /** offset */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Text");
+    manual_olua_check_cocos2d_Color4B(L, 2, &arg1);
+    auto_olua_check_cocos2d_Size(L, 3, &arg2);
+
+    // void enableShadow(const Color4B& shadowColor = Color4B::BLACK, const Size &offset = Size(2,-2), int blurRadius = 0)
+    self->enableShadow(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Text_enableShadow(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 0) {
+        return _cocos2d_ui_Text_enableShadow2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((manual_olua_is_cocos2d_Color4B(L, 2))) {
+            return _cocos2d_ui_Text_enableShadow3(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((manual_olua_is_cocos2d_Color4B(L, 2)) && (auto_olua_is_cocos2d_Size(L, 3))) {
+            return _cocos2d_ui_Text_enableShadow4(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((manual_olua_is_cocos2d_Color4B(L, 2)) && (auto_olua_is_cocos2d_Size(L, 3)) && (olua_is_int(L, 4))) {
+            return _cocos2d_ui_Text_enableShadow1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::Text::enableShadow' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -18089,12 +20119,75 @@ static int _cocos2d_ui_Button_create2(lua_State *L)
     lua_Unsigned arg4 = 0;       /** texType */
 
     olua_check_std_string(L, 1, &arg1);
-    olua_opt_std_string(L, 2, &arg2, (std::string)"");
-    olua_opt_std_string(L, 3, &arg3, (std::string)"");
-    olua_opt_uint(L, 4, &arg4, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_std_string(L, 2, &arg2);
+    olua_check_std_string(L, 3, &arg3);
+    olua_check_uint(L, 4, &arg4);
 
     // static Button* create(const std::string& normalImage, const std::string& selectedImage = "", const std::string& disableImage = "", TextureResType texType = TextureResType::LOCAL)
     cocos2d::ui::Button *ret = (cocos2d::ui::Button *)cocos2d::ui::Button::create(arg1, arg2, arg3, (cocos2d::ui::Widget::TextureResType)arg4);
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Button");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_Button_create3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    std::string arg1;       /** normalImage */
+
+    olua_check_std_string(L, 1, &arg1);
+
+    // static Button* create(const std::string& normalImage, const std::string& selectedImage = "", const std::string& disableImage = "", TextureResType texType = TextureResType::LOCAL)
+    cocos2d::ui::Button *ret = (cocos2d::ui::Button *)cocos2d::ui::Button::create(arg1);
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Button");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_Button_create4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    std::string arg1;       /** normalImage */
+    std::string arg2;       /** selectedImage */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+
+    // static Button* create(const std::string& normalImage, const std::string& selectedImage = "", const std::string& disableImage = "", TextureResType texType = TextureResType::LOCAL)
+    cocos2d::ui::Button *ret = (cocos2d::ui::Button *)cocos2d::ui::Button::create(arg1, arg2);
+    int num_ret = olua_push_cppobj(L, ret, "ccui.Button");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_Button_create5(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    std::string arg1;       /** normalImage */
+    std::string arg2;       /** selectedImage */
+    std::string arg3;       /** disableImage */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+    olua_check_std_string(L, 3, &arg3);
+
+    // static Button* create(const std::string& normalImage, const std::string& selectedImage = "", const std::string& disableImage = "", TextureResType texType = TextureResType::LOCAL)
+    cocos2d::ui::Button *ret = (cocos2d::ui::Button *)cocos2d::ui::Button::create(arg1, arg2, arg3);
     int num_ret = olua_push_cppobj(L, ret, "ccui.Button");
 
     olua_endinvoke(L);
@@ -18111,25 +20204,25 @@ static int _cocos2d_ui_Button_create(lua_State *L)
     }
 
     if (num_args == 1) {
-        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2) || olua_isnil(L, 2)) && (olua_is_std_string(L, 3) || olua_isnil(L, 3)) && (olua_is_uint(L, 4) || olua_isnil(L, 4))) {
-            return _cocos2d_ui_Button_create2(L);
+        // if ((olua_is_std_string(L, 1))) {
+            return _cocos2d_ui_Button_create3(L);
         // }
     }
 
     if (num_args == 2) {
-        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2) || olua_isnil(L, 2)) && (olua_is_std_string(L, 3) || olua_isnil(L, 3)) && (olua_is_uint(L, 4) || olua_isnil(L, 4))) {
-            return _cocos2d_ui_Button_create2(L);
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2))) {
+            return _cocos2d_ui_Button_create4(L);
         // }
     }
 
     if (num_args == 3) {
-        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2) || olua_isnil(L, 2)) && (olua_is_std_string(L, 3) || olua_isnil(L, 3)) && (olua_is_uint(L, 4) || olua_isnil(L, 4))) {
-            return _cocos2d_ui_Button_create2(L);
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3))) {
+            return _cocos2d_ui_Button_create5(L);
         // }
     }
 
     if (num_args == 4) {
-        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2) || olua_isnil(L, 2)) && (olua_is_std_string(L, 3) || olua_isnil(L, 3)) && (olua_is_uint(L, 4) || olua_isnil(L, 4))) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_uint(L, 4))) {
             return _cocos2d_ui_Button_create2(L);
         // }
     }
@@ -18477,7 +20570,7 @@ static int _cocos2d_ui_Button_getZoomScale(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_ui_Button_init(lua_State *L)
+static int _cocos2d_ui_Button_init1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -18491,9 +20584,9 @@ static int _cocos2d_ui_Button_init(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Button");
     olua_check_std_string(L, 2, &arg1);
-    olua_opt_std_string(L, 3, &arg2, (std::string)"");
-    olua_opt_std_string(L, 4, &arg3, (std::string)"");
-    olua_opt_uint(L, 5, &arg4, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_std_string(L, 3, &arg2);
+    olua_check_std_string(L, 4, &arg3);
+    olua_check_uint(L, 5, &arg4);
 
     // bool init(const std::string& normalImage, const std::string& selectedImage = "", const std::string& disableImage = "", TextureResType texType = TextureResType::LOCAL)
     bool ret = (bool)self->init(arg1, arg2, arg3, (cocos2d::ui::Widget::TextureResType)arg4);
@@ -18502,6 +20595,108 @@ static int _cocos2d_ui_Button_init(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _cocos2d_ui_Button_init2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::ui::Button *self = nullptr;
+    std::string arg1;       /** normalImage */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Button");
+    olua_check_std_string(L, 2, &arg1);
+
+    // bool init(const std::string& normalImage, const std::string& selectedImage = "", const std::string& disableImage = "", TextureResType texType = TextureResType::LOCAL)
+    bool ret = (bool)self->init(arg1);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_Button_init3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    cocos2d::ui::Button *self = nullptr;
+    std::string arg1;       /** normalImage */
+    std::string arg2;       /** selectedImage */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Button");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+
+    // bool init(const std::string& normalImage, const std::string& selectedImage = "", const std::string& disableImage = "", TextureResType texType = TextureResType::LOCAL)
+    bool ret = (bool)self->init(arg1, arg2);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_Button_init4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 4);
+
+    cocos2d::ui::Button *self = nullptr;
+    std::string arg1;       /** normalImage */
+    std::string arg2;       /** selectedImage */
+    std::string arg3;       /** disableImage */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Button");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+    olua_check_std_string(L, 4, &arg3);
+
+    // bool init(const std::string& normalImage, const std::string& selectedImage = "", const std::string& disableImage = "", TextureResType texType = TextureResType::LOCAL)
+    bool ret = (bool)self->init(arg1, arg2, arg3);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_Button_init(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            return _cocos2d_ui_Button_init2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3))) {
+            return _cocos2d_ui_Button_init3(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4))) {
+            return _cocos2d_ui_Button_init4(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_uint(L, 5))) {
+            return _cocos2d_ui_Button_init1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::Button::init' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _cocos2d_ui_Button_isScale9Enabled(lua_State *L)
@@ -18523,7 +20718,7 @@ static int _cocos2d_ui_Button_isScale9Enabled(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_ui_Button_loadTextureDisabled(lua_State *L)
+static int _cocos2d_ui_Button_loadTextureDisabled1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -18535,7 +20730,7 @@ static int _cocos2d_ui_Button_loadTextureDisabled(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Button");
     olua_check_std_string(L, 2, &arg1);
-    olua_opt_uint(L, 3, &arg2, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_uint(L, 3, &arg2);
 
     // void loadTextureDisabled(const std::string& disabled, TextureResType texType = TextureResType::LOCAL)
     self->loadTextureDisabled(arg1, (cocos2d::ui::Widget::TextureResType)arg2);
@@ -18545,7 +20740,48 @@ static int _cocos2d_ui_Button_loadTextureDisabled(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_ui_Button_loadTextureNormal(lua_State *L)
+static int _cocos2d_ui_Button_loadTextureDisabled2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::ui::Button *self = nullptr;
+    std::string arg1;       /** disabled */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Button");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void loadTextureDisabled(const std::string& disabled, TextureResType texType = TextureResType::LOCAL)
+    self->loadTextureDisabled(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Button_loadTextureDisabled(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            return _cocos2d_ui_Button_loadTextureDisabled2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
+            return _cocos2d_ui_Button_loadTextureDisabled1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::Button::loadTextureDisabled' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Button_loadTextureNormal1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -18557,7 +20793,7 @@ static int _cocos2d_ui_Button_loadTextureNormal(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Button");
     olua_check_std_string(L, 2, &arg1);
-    olua_opt_uint(L, 3, &arg2, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_uint(L, 3, &arg2);
 
     // void loadTextureNormal(const std::string& normal, TextureResType texType = TextureResType::LOCAL)
     self->loadTextureNormal(arg1, (cocos2d::ui::Widget::TextureResType)arg2);
@@ -18567,7 +20803,48 @@ static int _cocos2d_ui_Button_loadTextureNormal(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_ui_Button_loadTexturePressed(lua_State *L)
+static int _cocos2d_ui_Button_loadTextureNormal2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::ui::Button *self = nullptr;
+    std::string arg1;       /** normal */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Button");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void loadTextureNormal(const std::string& normal, TextureResType texType = TextureResType::LOCAL)
+    self->loadTextureNormal(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Button_loadTextureNormal(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            return _cocos2d_ui_Button_loadTextureNormal2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
+            return _cocos2d_ui_Button_loadTextureNormal1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::Button::loadTextureNormal' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Button_loadTexturePressed1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -18579,7 +20856,7 @@ static int _cocos2d_ui_Button_loadTexturePressed(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Button");
     olua_check_std_string(L, 2, &arg1);
-    olua_opt_uint(L, 3, &arg2, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_uint(L, 3, &arg2);
 
     // void loadTexturePressed(const std::string& selected, TextureResType texType = TextureResType::LOCAL)
     self->loadTexturePressed(arg1, (cocos2d::ui::Widget::TextureResType)arg2);
@@ -18589,7 +20866,48 @@ static int _cocos2d_ui_Button_loadTexturePressed(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_ui_Button_loadTextures(lua_State *L)
+static int _cocos2d_ui_Button_loadTexturePressed2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::ui::Button *self = nullptr;
+    std::string arg1;       /** selected */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Button");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void loadTexturePressed(const std::string& selected, TextureResType texType = TextureResType::LOCAL)
+    self->loadTexturePressed(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Button_loadTexturePressed(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            return _cocos2d_ui_Button_loadTexturePressed2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
+            return _cocos2d_ui_Button_loadTexturePressed1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::Button::loadTexturePressed' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Button_loadTextures1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -18604,13 +20922,86 @@ static int _cocos2d_ui_Button_loadTextures(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Button");
     olua_check_std_string(L, 2, &arg1);
     olua_check_std_string(L, 3, &arg2);
-    olua_opt_std_string(L, 4, &arg3, (std::string)"");
-    olua_opt_uint(L, 5, &arg4, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_std_string(L, 4, &arg3);
+    olua_check_uint(L, 5, &arg4);
 
     // void loadTextures(const std::string& normal, const std::string& selected, const std::string& disabled = "", TextureResType texType = TextureResType::LOCAL)
     self->loadTextures(arg1, arg2, arg3, (cocos2d::ui::Widget::TextureResType)arg4);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Button_loadTextures2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    cocos2d::ui::Button *self = nullptr;
+    std::string arg1;       /** normal */
+    std::string arg2;       /** selected */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Button");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+
+    // void loadTextures(const std::string& normal, const std::string& selected, const std::string& disabled = "", TextureResType texType = TextureResType::LOCAL)
+    self->loadTextures(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Button_loadTextures3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 4);
+
+    cocos2d::ui::Button *self = nullptr;
+    std::string arg1;       /** normal */
+    std::string arg2;       /** selected */
+    std::string arg3;       /** disabled */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.Button");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+    olua_check_std_string(L, 4, &arg3);
+
+    // void loadTextures(const std::string& normal, const std::string& selected, const std::string& disabled = "", TextureResType texType = TextureResType::LOCAL)
+    self->loadTextures(arg1, arg2, arg3);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_Button_loadTextures(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3))) {
+            return _cocos2d_ui_Button_loadTextures2(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4))) {
+            return _cocos2d_ui_Button_loadTextures3(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_uint(L, 5))) {
+            return _cocos2d_ui_Button_loadTextures1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::Button::loadTextures' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -19150,7 +21541,7 @@ static int _cocos2d_ui_CheckBox_create2(lua_State *L)
     olua_check_std_string(L, 3, &arg3);
     olua_check_std_string(L, 4, &arg4);
     olua_check_std_string(L, 5, &arg5);
-    olua_opt_uint(L, 6, &arg6, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_uint(L, 6, &arg6);
 
     // static CheckBox* create(const std::string& backGround, const std::string& backGroundSelected, const std::string& cross, const std::string& backGroundDisabled, const std::string& frontCrossDisabled, TextureResType texType = TextureResType::LOCAL)
     cocos2d::ui::CheckBox *ret = (cocos2d::ui::CheckBox *)cocos2d::ui::CheckBox::create(arg1, arg2, arg3, arg4, arg5, (cocos2d::ui::Widget::TextureResType)arg6);
@@ -19173,10 +21564,58 @@ static int _cocos2d_ui_CheckBox_create3(lua_State *L)
 
     olua_check_std_string(L, 1, &arg1);
     olua_check_std_string(L, 2, &arg2);
-    olua_opt_uint(L, 3, &arg3, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_uint(L, 3, &arg3);
 
     // static CheckBox* create(const std::string& backGround, const std::string& cross, TextureResType texType = TextureResType::LOCAL)
     cocos2d::ui::CheckBox *ret = (cocos2d::ui::CheckBox *)cocos2d::ui::CheckBox::create(arg1, arg2, (cocos2d::ui::Widget::TextureResType)arg3);
+    int num_ret = olua_push_cppobj(L, ret, "ccui.CheckBox");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_CheckBox_create4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 5);
+
+    std::string arg1;       /** backGround */
+    std::string arg2;       /** backGroundSelected */
+    std::string arg3;       /** cross */
+    std::string arg4;       /** backGroundDisabled */
+    std::string arg5;       /** frontCrossDisabled */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+    olua_check_std_string(L, 3, &arg3);
+    olua_check_std_string(L, 4, &arg4);
+    olua_check_std_string(L, 5, &arg5);
+
+    // static CheckBox* create(const std::string& backGround, const std::string& backGroundSelected, const std::string& cross, const std::string& backGroundDisabled, const std::string& frontCrossDisabled, TextureResType texType = TextureResType::LOCAL)
+    cocos2d::ui::CheckBox *ret = (cocos2d::ui::CheckBox *)cocos2d::ui::CheckBox::create(arg1, arg2, arg3, arg4, arg5);
+    int num_ret = olua_push_cppobj(L, ret, "ccui.CheckBox");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_CheckBox_create5(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    std::string arg1;       /** backGround */
+    std::string arg2;       /** cross */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+
+    // static CheckBox* create(const std::string& backGround, const std::string& cross, TextureResType texType = TextureResType::LOCAL)
+    cocos2d::ui::CheckBox *ret = (cocos2d::ui::CheckBox *)cocos2d::ui::CheckBox::create(arg1, arg2);
     int num_ret = olua_push_cppobj(L, ret, "ccui.CheckBox");
 
     olua_endinvoke(L);
@@ -19193,25 +21632,25 @@ static int _cocos2d_ui_CheckBox_create(lua_State *L)
     }
 
     if (num_args == 2) {
-        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3) || olua_isnil(L, 3))) {
-            return _cocos2d_ui_CheckBox_create3(L);
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2))) {
+            return _cocos2d_ui_CheckBox_create5(L);
         // }
     }
 
     if (num_args == 3) {
-        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3) || olua_isnil(L, 3))) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
             return _cocos2d_ui_CheckBox_create3(L);
         // }
     }
 
     if (num_args == 5) {
-        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_uint(L, 6) || olua_isnil(L, 6))) {
-            return _cocos2d_ui_CheckBox_create2(L);
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5))) {
+            return _cocos2d_ui_CheckBox_create4(L);
         // }
     }
 
     if (num_args == 6) {
-        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_uint(L, 6) || olua_isnil(L, 6))) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_uint(L, 6))) {
             return _cocos2d_ui_CheckBox_create2(L);
         // }
     }
@@ -19340,7 +21779,7 @@ static int _cocos2d_ui_RadioButton_create2(lua_State *L)
     olua_check_std_string(L, 3, &arg3);
     olua_check_std_string(L, 4, &arg4);
     olua_check_std_string(L, 5, &arg5);
-    olua_opt_uint(L, 6, &arg6, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_uint(L, 6, &arg6);
 
     // static RadioButton* create(const std::string& backGround, const std::string& backGroundSelected, const std::string& cross, const std::string& backGroundDisabled, const std::string& frontCrossDisabled, TextureResType texType = TextureResType::LOCAL)
     cocos2d::ui::RadioButton *ret = (cocos2d::ui::RadioButton *)cocos2d::ui::RadioButton::create(arg1, arg2, arg3, arg4, arg5, (cocos2d::ui::Widget::TextureResType)arg6);
@@ -19363,10 +21802,58 @@ static int _cocos2d_ui_RadioButton_create3(lua_State *L)
 
     olua_check_std_string(L, 1, &arg1);
     olua_check_std_string(L, 2, &arg2);
-    olua_opt_uint(L, 3, &arg3, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_uint(L, 3, &arg3);
 
     // static RadioButton* create(const std::string& backGround, const std::string& cross, TextureResType texType = TextureResType::LOCAL)
     cocos2d::ui::RadioButton *ret = (cocos2d::ui::RadioButton *)cocos2d::ui::RadioButton::create(arg1, arg2, (cocos2d::ui::Widget::TextureResType)arg3);
+    int num_ret = olua_push_cppobj(L, ret, "ccui.RadioButton");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_RadioButton_create4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 5);
+
+    std::string arg1;       /** backGround */
+    std::string arg2;       /** backGroundSelected */
+    std::string arg3;       /** cross */
+    std::string arg4;       /** backGroundDisabled */
+    std::string arg5;       /** frontCrossDisabled */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+    olua_check_std_string(L, 3, &arg3);
+    olua_check_std_string(L, 4, &arg4);
+    olua_check_std_string(L, 5, &arg5);
+
+    // static RadioButton* create(const std::string& backGround, const std::string& backGroundSelected, const std::string& cross, const std::string& backGroundDisabled, const std::string& frontCrossDisabled, TextureResType texType = TextureResType::LOCAL)
+    cocos2d::ui::RadioButton *ret = (cocos2d::ui::RadioButton *)cocos2d::ui::RadioButton::create(arg1, arg2, arg3, arg4, arg5);
+    int num_ret = olua_push_cppobj(L, ret, "ccui.RadioButton");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_RadioButton_create5(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    std::string arg1;       /** backGround */
+    std::string arg2;       /** cross */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+
+    // static RadioButton* create(const std::string& backGround, const std::string& cross, TextureResType texType = TextureResType::LOCAL)
+    cocos2d::ui::RadioButton *ret = (cocos2d::ui::RadioButton *)cocos2d::ui::RadioButton::create(arg1, arg2);
     int num_ret = olua_push_cppobj(L, ret, "ccui.RadioButton");
 
     olua_endinvoke(L);
@@ -19383,25 +21870,25 @@ static int _cocos2d_ui_RadioButton_create(lua_State *L)
     }
 
     if (num_args == 2) {
-        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3) || olua_isnil(L, 3))) {
-            return _cocos2d_ui_RadioButton_create3(L);
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2))) {
+            return _cocos2d_ui_RadioButton_create5(L);
         // }
     }
 
     if (num_args == 3) {
-        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3) || olua_isnil(L, 3))) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
             return _cocos2d_ui_RadioButton_create3(L);
         // }
     }
 
     if (num_args == 5) {
-        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_uint(L, 6) || olua_isnil(L, 6))) {
-            return _cocos2d_ui_RadioButton_create2(L);
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5))) {
+            return _cocos2d_ui_RadioButton_create4(L);
         // }
     }
 
     if (num_args == 6) {
-        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_uint(L, 6) || olua_isnil(L, 6))) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_uint(L, 6))) {
             return _cocos2d_ui_RadioButton_create2(L);
         // }
     }
@@ -19853,10 +22340,29 @@ static int _cocos2d_ui_ImageView_create2(lua_State *L)
     lua_Unsigned arg2 = 0;       /** texType */
 
     olua_check_std_string(L, 1, &arg1);
-    olua_opt_uint(L, 2, &arg2, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_uint(L, 2, &arg2);
 
     // static ImageView* create(const std::string& imageFileName, TextureResType texType = TextureResType::LOCAL)
     cocos2d::ui::ImageView *ret = (cocos2d::ui::ImageView *)cocos2d::ui::ImageView::create(arg1, (cocos2d::ui::Widget::TextureResType)arg2);
+    int num_ret = olua_push_cppobj(L, ret, "ccui.ImageView");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ImageView_create3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 1);
+
+    std::string arg1;       /** imageFileName */
+
+    olua_check_std_string(L, 1, &arg1);
+
+    // static ImageView* create(const std::string& imageFileName, TextureResType texType = TextureResType::LOCAL)
+    cocos2d::ui::ImageView *ret = (cocos2d::ui::ImageView *)cocos2d::ui::ImageView::create(arg1);
     int num_ret = olua_push_cppobj(L, ret, "ccui.ImageView");
 
     olua_endinvoke(L);
@@ -19873,13 +22379,13 @@ static int _cocos2d_ui_ImageView_create(lua_State *L)
     }
 
     if (num_args == 1) {
-        // if ((olua_is_std_string(L, 1)) && (olua_is_uint(L, 2) || olua_isnil(L, 2))) {
-            return _cocos2d_ui_ImageView_create2(L);
+        // if ((olua_is_std_string(L, 1))) {
+            return _cocos2d_ui_ImageView_create3(L);
         // }
     }
 
     if (num_args == 2) {
-        // if ((olua_is_std_string(L, 1)) && (olua_is_uint(L, 2) || olua_isnil(L, 2))) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_uint(L, 2))) {
             return _cocos2d_ui_ImageView_create2(L);
         // }
     }
@@ -19946,7 +22452,7 @@ static int _cocos2d_ui_ImageView_getRenderFile(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_ui_ImageView_init(lua_State *L)
+static int _cocos2d_ui_ImageView_init1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -19958,7 +22464,7 @@ static int _cocos2d_ui_ImageView_init(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ImageView");
     olua_check_std_string(L, 2, &arg1);
-    olua_opt_uint(L, 3, &arg2, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_uint(L, 3, &arg2);
 
     // bool init(const std::string& imageFileName, TextureResType texType = TextureResType::LOCAL)
     bool ret = (bool)self->init(arg1, (cocos2d::ui::Widget::TextureResType)arg2);
@@ -19967,6 +22473,48 @@ static int _cocos2d_ui_ImageView_init(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _cocos2d_ui_ImageView_init2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::ui::ImageView *self = nullptr;
+    std::string arg1;       /** imageFileName */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ImageView");
+    olua_check_std_string(L, 2, &arg1);
+
+    // bool init(const std::string& imageFileName, TextureResType texType = TextureResType::LOCAL)
+    bool ret = (bool)self->init(arg1);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ImageView_init(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            return _cocos2d_ui_ImageView_init2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
+            return _cocos2d_ui_ImageView_init1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::ImageView::init' not support '%d' arguments", num_args);
+
+    return 0;
 }
 
 static int _cocos2d_ui_ImageView_isScale9Enabled(lua_State *L)
@@ -19988,7 +22536,7 @@ static int _cocos2d_ui_ImageView_isScale9Enabled(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_ui_ImageView_loadTexture(lua_State *L)
+static int _cocos2d_ui_ImageView_loadTexture1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -20000,12 +22548,53 @@ static int _cocos2d_ui_ImageView_loadTexture(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ImageView");
     olua_check_std_string(L, 2, &arg1);
-    olua_opt_uint(L, 3, &arg2, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_uint(L, 3, &arg2);
 
     // void loadTexture(const std::string& fileName,TextureResType texType = TextureResType::LOCAL)
     self->loadTexture(arg1, (cocos2d::ui::Widget::TextureResType)arg2);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ImageView_loadTexture2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::ui::ImageView *self = nullptr;
+    std::string arg1;       /** fileName */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.ImageView");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void loadTexture(const std::string& fileName,TextureResType texType = TextureResType::LOCAL)
+    self->loadTexture(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_ImageView_loadTexture(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            return _cocos2d_ui_ImageView_loadTexture2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
+            return _cocos2d_ui_ImageView_loadTexture1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::ImageView::loadTexture' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -20622,8 +23211,8 @@ static int _cocos2d_ui_EditBox_create1(lua_State *L)
 
     auto_olua_check_cocos2d_Size(L, 1, &arg1);
     olua_check_cppobj(L, 2, (void **)&arg2, "ccui.Scale9Sprite");
-    olua_opt_cppobj(L, 3, (void **)&arg3, "ccui.Scale9Sprite", nullptr);
-    olua_opt_cppobj(L, 4, (void **)&arg4, "ccui.Scale9Sprite", nullptr);
+    olua_check_cppobj(L, 3, (void **)&arg3, "ccui.Scale9Sprite");
+    olua_check_cppobj(L, 4, (void **)&arg4, "ccui.Scale9Sprite");
 
     // static EditBox* create(const Size& size, Scale9Sprite* normalSprite, Scale9Sprite* pressedSprite = nullptr, Scale9Sprite* disabledSprite = nullptr)
     cocos2d::ui::EditBox *ret = (cocos2d::ui::EditBox *)cocos2d::ui::EditBox::create(arg1, arg2, arg3, arg4);
@@ -20671,12 +23260,125 @@ static int _cocos2d_ui_EditBox_create3(lua_State *L)
 
     auto_olua_check_cocos2d_Size(L, 1, &arg1);
     olua_check_std_string(L, 2, &arg2);
-    olua_opt_std_string(L, 3, &arg3, (std::string)"");
-    olua_opt_std_string(L, 4, &arg4, (std::string)"");
-    olua_opt_uint(L, 5, &arg5, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_std_string(L, 3, &arg3);
+    olua_check_std_string(L, 4, &arg4);
+    olua_check_uint(L, 5, &arg5);
 
     // static EditBox* create(const Size& size, const std::string& normalImage, const std::string& pressedImage = "", const std::string& disabledImage = "", TextureResType texType = TextureResType::LOCAL)
     cocos2d::ui::EditBox *ret = (cocos2d::ui::EditBox *)cocos2d::ui::EditBox::create(arg1, arg2, arg3, arg4, (cocos2d::ui::Widget::TextureResType)arg5);
+    int num_ret = olua_push_cppobj(L, ret, "ccui.EditBox");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_EditBox_create4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::Size arg1;       /** size */
+    cocos2d::ui::Scale9Sprite *arg2 = nullptr;       /** normalSprite */
+
+    auto_olua_check_cocos2d_Size(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "ccui.Scale9Sprite");
+
+    // static EditBox* create(const Size& size, Scale9Sprite* normalSprite, Scale9Sprite* pressedSprite = nullptr, Scale9Sprite* disabledSprite = nullptr)
+    cocos2d::ui::EditBox *ret = (cocos2d::ui::EditBox *)cocos2d::ui::EditBox::create(arg1, arg2);
+    int num_ret = olua_push_cppobj(L, ret, "ccui.EditBox");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_EditBox_create5(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    cocos2d::Size arg1;       /** size */
+    cocos2d::ui::Scale9Sprite *arg2 = nullptr;       /** normalSprite */
+    cocos2d::ui::Scale9Sprite *arg3 = nullptr;       /** pressedSprite */
+
+    auto_olua_check_cocos2d_Size(L, 1, &arg1);
+    olua_check_cppobj(L, 2, (void **)&arg2, "ccui.Scale9Sprite");
+    olua_check_cppobj(L, 3, (void **)&arg3, "ccui.Scale9Sprite");
+
+    // static EditBox* create(const Size& size, Scale9Sprite* normalSprite, Scale9Sprite* pressedSprite = nullptr, Scale9Sprite* disabledSprite = nullptr)
+    cocos2d::ui::EditBox *ret = (cocos2d::ui::EditBox *)cocos2d::ui::EditBox::create(arg1, arg2, arg3);
+    int num_ret = olua_push_cppobj(L, ret, "ccui.EditBox");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_EditBox_create6(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::Size arg1;       /** size */
+    std::string arg2;       /** normalImage */
+
+    auto_olua_check_cocos2d_Size(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+
+    // static EditBox* create(const Size& size, const std::string& normalImage, const std::string& pressedImage = "", const std::string& disabledImage = "", TextureResType texType = TextureResType::LOCAL)
+    cocos2d::ui::EditBox *ret = (cocos2d::ui::EditBox *)cocos2d::ui::EditBox::create(arg1, arg2);
+    int num_ret = olua_push_cppobj(L, ret, "ccui.EditBox");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_EditBox_create7(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    cocos2d::Size arg1;       /** size */
+    std::string arg2;       /** normalImage */
+    std::string arg3;       /** pressedImage */
+
+    auto_olua_check_cocos2d_Size(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+    olua_check_std_string(L, 3, &arg3);
+
+    // static EditBox* create(const Size& size, const std::string& normalImage, const std::string& pressedImage = "", const std::string& disabledImage = "", TextureResType texType = TextureResType::LOCAL)
+    cocos2d::ui::EditBox *ret = (cocos2d::ui::EditBox *)cocos2d::ui::EditBox::create(arg1, arg2, arg3);
+    int num_ret = olua_push_cppobj(L, ret, "ccui.EditBox");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_EditBox_create8(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 4);
+
+    cocos2d::Size arg1;       /** size */
+    std::string arg2;       /** normalImage */
+    std::string arg3;       /** pressedImage */
+    std::string arg4;       /** disabledImage */
+
+    auto_olua_check_cocos2d_Size(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+    olua_check_std_string(L, 3, &arg3);
+    olua_check_std_string(L, 4, &arg4);
+
+    // static EditBox* create(const Size& size, const std::string& normalImage, const std::string& pressedImage = "", const std::string& disabledImage = "", TextureResType texType = TextureResType::LOCAL)
+    cocos2d::ui::EditBox *ret = (cocos2d::ui::EditBox *)cocos2d::ui::EditBox::create(arg1, arg2, arg3, arg4);
     int num_ret = olua_push_cppobj(L, ret, "ccui.EditBox");
 
     olua_endinvoke(L);
@@ -20689,41 +23391,41 @@ static int _cocos2d_ui_EditBox_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 2) {
-        if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_cppobj(L, 2, "ccui.Scale9Sprite")) && (olua_is_cppobj(L, 3, "ccui.Scale9Sprite") || olua_isnil(L, 3)) && (olua_is_cppobj(L, 4, "ccui.Scale9Sprite") || olua_isnil(L, 4))) {
-            return _cocos2d_ui_EditBox_create1(L);
+        if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_cppobj(L, 2, "ccui.Scale9Sprite"))) {
+            return _cocos2d_ui_EditBox_create4(L);
         }
 
-        // if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3) || olua_isnil(L, 3)) && (olua_is_std_string(L, 4) || olua_isnil(L, 4)) && (olua_is_uint(L, 5) || olua_isnil(L, 5))) {
-            return _cocos2d_ui_EditBox_create3(L);
+        // if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_std_string(L, 2))) {
+            return _cocos2d_ui_EditBox_create6(L);
         // }
     }
 
     if (num_args == 3) {
-        if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_cppobj(L, 2, "ccui.Scale9Sprite")) && (olua_is_cppobj(L, 3, "ccui.Scale9Sprite") || olua_isnil(L, 3)) && (olua_is_cppobj(L, 4, "ccui.Scale9Sprite") || olua_isnil(L, 4))) {
-            return _cocos2d_ui_EditBox_create1(L);
-        }
-
         if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
             return _cocos2d_ui_EditBox_create2(L);
         }
 
-        // if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3) || olua_isnil(L, 3)) && (olua_is_std_string(L, 4) || olua_isnil(L, 4)) && (olua_is_uint(L, 5) || olua_isnil(L, 5))) {
-            return _cocos2d_ui_EditBox_create3(L);
+        if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_cppobj(L, 2, "ccui.Scale9Sprite")) && (olua_is_cppobj(L, 3, "ccui.Scale9Sprite"))) {
+            return _cocos2d_ui_EditBox_create5(L);
+        }
+
+        // if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3))) {
+            return _cocos2d_ui_EditBox_create7(L);
         // }
     }
 
     if (num_args == 4) {
-        if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_cppobj(L, 2, "ccui.Scale9Sprite")) && (olua_is_cppobj(L, 3, "ccui.Scale9Sprite") || olua_isnil(L, 3)) && (olua_is_cppobj(L, 4, "ccui.Scale9Sprite") || olua_isnil(L, 4))) {
+        if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_cppobj(L, 2, "ccui.Scale9Sprite")) && (olua_is_cppobj(L, 3, "ccui.Scale9Sprite")) && (olua_is_cppobj(L, 4, "ccui.Scale9Sprite"))) {
             return _cocos2d_ui_EditBox_create1(L);
         }
 
-        // if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3) || olua_isnil(L, 3)) && (olua_is_std_string(L, 4) || olua_isnil(L, 4)) && (olua_is_uint(L, 5) || olua_isnil(L, 5))) {
-            return _cocos2d_ui_EditBox_create3(L);
+        // if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4))) {
+            return _cocos2d_ui_EditBox_create8(L);
         // }
     }
 
     if (num_args == 5) {
-        // if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3) || olua_isnil(L, 3)) && (olua_is_std_string(L, 4) || olua_isnil(L, 4)) && (olua_is_uint(L, 5) || olua_isnil(L, 5))) {
+        // if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_uint(L, 5))) {
             return _cocos2d_ui_EditBox_create3(L);
         // }
     }
@@ -21073,7 +23775,7 @@ static int _cocos2d_ui_EditBox_initWithSizeAndBackgroundSprite1(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
     auto_olua_check_cocos2d_Size(L, 2, &arg1);
     olua_check_std_string(L, 3, &arg2);
-    olua_opt_uint(L, 4, &arg3, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_uint(L, 4, &arg3);
 
     // bool initWithSizeAndBackgroundSprite(const Size& size, const std::string& normal9SpriteBg, TextureResType texType = TextureResType::LOCAL)
     bool ret = (bool)self->initWithSizeAndBackgroundSprite(arg1, arg2, (cocos2d::ui::Widget::TextureResType)arg3);
@@ -21134,22 +23836,45 @@ static int _cocos2d_ui_EditBox_initWithSizeAndBackgroundSprite3(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_ui_EditBox_initWithSizeAndBackgroundSprite4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    cocos2d::ui::EditBox *self = nullptr;
+    cocos2d::Size arg1;       /** size */
+    std::string arg2;       /** normal9SpriteBg */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+    auto_olua_check_cocos2d_Size(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+
+    // bool initWithSizeAndBackgroundSprite(const Size& size, const std::string& normal9SpriteBg, TextureResType texType = TextureResType::LOCAL)
+    bool ret = (bool)self->initWithSizeAndBackgroundSprite(arg1, arg2);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_ui_EditBox_initWithSizeAndBackgroundSprite(lua_State *L)
 {
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 2) {
-        if ((auto_olua_is_cocos2d_Size(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_uint(L, 4) || olua_isnil(L, 4))) {
-            return _cocos2d_ui_EditBox_initWithSizeAndBackgroundSprite1(L);
+        if ((auto_olua_is_cocos2d_Size(L, 2)) && (olua_is_cppobj(L, 3, "ccui.Scale9Sprite"))) {
+            return _cocos2d_ui_EditBox_initWithSizeAndBackgroundSprite2(L);
         }
 
-        // if ((auto_olua_is_cocos2d_Size(L, 2)) && (olua_is_cppobj(L, 3, "ccui.Scale9Sprite"))) {
-            return _cocos2d_ui_EditBox_initWithSizeAndBackgroundSprite2(L);
+        // if ((auto_olua_is_cocos2d_Size(L, 2)) && (olua_is_std_string(L, 3))) {
+            return _cocos2d_ui_EditBox_initWithSizeAndBackgroundSprite4(L);
         // }
     }
 
     if (num_args == 3) {
-        // if ((auto_olua_is_cocos2d_Size(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_uint(L, 4) || olua_isnil(L, 4))) {
+        // if ((auto_olua_is_cocos2d_Size(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_uint(L, 4))) {
             return _cocos2d_ui_EditBox_initWithSizeAndBackgroundSprite1(L);
         // }
     }
@@ -21165,7 +23890,7 @@ static int _cocos2d_ui_EditBox_initWithSizeAndBackgroundSprite(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_ui_EditBox_initWithSizeAndTexture(lua_State *L)
+static int _cocos2d_ui_EditBox_initWithSizeAndTexture1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -21181,9 +23906,9 @@ static int _cocos2d_ui_EditBox_initWithSizeAndTexture(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
     auto_olua_check_cocos2d_Size(L, 2, &arg1);
     olua_check_std_string(L, 3, &arg2);
-    olua_opt_std_string(L, 4, &arg3, (std::string)"");
-    olua_opt_std_string(L, 5, &arg4, (std::string)"");
-    olua_opt_uint(L, 6, &arg5, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_std_string(L, 4, &arg3);
+    olua_check_std_string(L, 5, &arg4);
+    olua_check_uint(L, 6, &arg5);
 
     // bool initWithSizeAndTexture(const Size& size, const std::string& normalImage, const std::string& pressedImage = "", const std::string& disabledImage = "", TextureResType texType = TextureResType::LOCAL)
     bool ret = (bool)self->initWithSizeAndTexture(arg1, arg2, arg3, arg4, (cocos2d::ui::Widget::TextureResType)arg5);
@@ -21194,7 +23919,115 @@ static int _cocos2d_ui_EditBox_initWithSizeAndTexture(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_ui_EditBox_loadTextureDisabled(lua_State *L)
+static int _cocos2d_ui_EditBox_initWithSizeAndTexture2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    cocos2d::ui::EditBox *self = nullptr;
+    cocos2d::Size arg1;       /** size */
+    std::string arg2;       /** normalImage */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+    auto_olua_check_cocos2d_Size(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+
+    // bool initWithSizeAndTexture(const Size& size, const std::string& normalImage, const std::string& pressedImage = "", const std::string& disabledImage = "", TextureResType texType = TextureResType::LOCAL)
+    bool ret = (bool)self->initWithSizeAndTexture(arg1, arg2);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_EditBox_initWithSizeAndTexture3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 4);
+
+    cocos2d::ui::EditBox *self = nullptr;
+    cocos2d::Size arg1;       /** size */
+    std::string arg2;       /** normalImage */
+    std::string arg3;       /** pressedImage */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+    auto_olua_check_cocos2d_Size(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+    olua_check_std_string(L, 4, &arg3);
+
+    // bool initWithSizeAndTexture(const Size& size, const std::string& normalImage, const std::string& pressedImage = "", const std::string& disabledImage = "", TextureResType texType = TextureResType::LOCAL)
+    bool ret = (bool)self->initWithSizeAndTexture(arg1, arg2, arg3);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_EditBox_initWithSizeAndTexture4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 5);
+
+    cocos2d::ui::EditBox *self = nullptr;
+    cocos2d::Size arg1;       /** size */
+    std::string arg2;       /** normalImage */
+    std::string arg3;       /** pressedImage */
+    std::string arg4;       /** disabledImage */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+    auto_olua_check_cocos2d_Size(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+    olua_check_std_string(L, 4, &arg3);
+    olua_check_std_string(L, 5, &arg4);
+
+    // bool initWithSizeAndTexture(const Size& size, const std::string& normalImage, const std::string& pressedImage = "", const std::string& disabledImage = "", TextureResType texType = TextureResType::LOCAL)
+    bool ret = (bool)self->initWithSizeAndTexture(arg1, arg2, arg3, arg4);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_EditBox_initWithSizeAndTexture(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 2) {
+        // if ((auto_olua_is_cocos2d_Size(L, 2)) && (olua_is_std_string(L, 3))) {
+            return _cocos2d_ui_EditBox_initWithSizeAndTexture2(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((auto_olua_is_cocos2d_Size(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4))) {
+            return _cocos2d_ui_EditBox_initWithSizeAndTexture3(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if ((auto_olua_is_cocos2d_Size(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5))) {
+            return _cocos2d_ui_EditBox_initWithSizeAndTexture4(L);
+        // }
+    }
+
+    if (num_args == 5) {
+        // if ((auto_olua_is_cocos2d_Size(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_uint(L, 6))) {
+            return _cocos2d_ui_EditBox_initWithSizeAndTexture1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::EditBox::initWithSizeAndTexture' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBox_loadTextureDisabled1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -21206,7 +24039,7 @@ static int _cocos2d_ui_EditBox_loadTextureDisabled(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
     olua_check_std_string(L, 2, &arg1);
-    olua_opt_uint(L, 3, &arg2, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_uint(L, 3, &arg2);
 
     // void loadTextureDisabled(const std::string& disabled, TextureResType texType = TextureResType::LOCAL)
     self->loadTextureDisabled(arg1, (cocos2d::ui::Widget::TextureResType)arg2);
@@ -21216,7 +24049,48 @@ static int _cocos2d_ui_EditBox_loadTextureDisabled(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_ui_EditBox_loadTextureNormal(lua_State *L)
+static int _cocos2d_ui_EditBox_loadTextureDisabled2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::ui::EditBox *self = nullptr;
+    std::string arg1;       /** disabled */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void loadTextureDisabled(const std::string& disabled, TextureResType texType = TextureResType::LOCAL)
+    self->loadTextureDisabled(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBox_loadTextureDisabled(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            return _cocos2d_ui_EditBox_loadTextureDisabled2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
+            return _cocos2d_ui_EditBox_loadTextureDisabled1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::EditBox::loadTextureDisabled' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBox_loadTextureNormal1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -21228,7 +24102,7 @@ static int _cocos2d_ui_EditBox_loadTextureNormal(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
     olua_check_std_string(L, 2, &arg1);
-    olua_opt_uint(L, 3, &arg2, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_uint(L, 3, &arg2);
 
     // void loadTextureNormal(const std::string& normal, TextureResType texType = TextureResType::LOCAL)
     self->loadTextureNormal(arg1, (cocos2d::ui::Widget::TextureResType)arg2);
@@ -21238,7 +24112,48 @@ static int _cocos2d_ui_EditBox_loadTextureNormal(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_ui_EditBox_loadTexturePressed(lua_State *L)
+static int _cocos2d_ui_EditBox_loadTextureNormal2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::ui::EditBox *self = nullptr;
+    std::string arg1;       /** normal */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void loadTextureNormal(const std::string& normal, TextureResType texType = TextureResType::LOCAL)
+    self->loadTextureNormal(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBox_loadTextureNormal(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            return _cocos2d_ui_EditBox_loadTextureNormal2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
+            return _cocos2d_ui_EditBox_loadTextureNormal1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::EditBox::loadTextureNormal' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBox_loadTexturePressed1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -21250,7 +24165,7 @@ static int _cocos2d_ui_EditBox_loadTexturePressed(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
     olua_check_std_string(L, 2, &arg1);
-    olua_opt_uint(L, 3, &arg2, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_uint(L, 3, &arg2);
 
     // void loadTexturePressed(const std::string& pressed, TextureResType texType = TextureResType::LOCAL)
     self->loadTexturePressed(arg1, (cocos2d::ui::Widget::TextureResType)arg2);
@@ -21260,7 +24175,48 @@ static int _cocos2d_ui_EditBox_loadTexturePressed(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_ui_EditBox_loadTextures(lua_State *L)
+static int _cocos2d_ui_EditBox_loadTexturePressed2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 2);
+
+    cocos2d::ui::EditBox *self = nullptr;
+    std::string arg1;       /** pressed */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void loadTexturePressed(const std::string& pressed, TextureResType texType = TextureResType::LOCAL)
+    self->loadTexturePressed(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBox_loadTexturePressed(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            return _cocos2d_ui_EditBox_loadTexturePressed2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
+            return _cocos2d_ui_EditBox_loadTexturePressed1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::EditBox::loadTexturePressed' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBox_loadTextures1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -21275,13 +24231,86 @@ static int _cocos2d_ui_EditBox_loadTextures(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
     olua_check_std_string(L, 2, &arg1);
     olua_check_std_string(L, 3, &arg2);
-    olua_opt_std_string(L, 4, &arg3, (std::string)"");
-    olua_opt_uint(L, 5, &arg4, (lua_Unsigned)cocos2d::ui::Widget::TextureResType::LOCAL);
+    olua_check_std_string(L, 4, &arg3);
+    olua_check_uint(L, 5, &arg4);
 
     // void loadTextures(const std::string& normal, const std::string& pressed, const std::string& disabled = "", TextureResType texType = TextureResType::LOCAL)
     self->loadTextures(arg1, arg2, arg3, (cocos2d::ui::Widget::TextureResType)arg4);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBox_loadTextures2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 3);
+
+    cocos2d::ui::EditBox *self = nullptr;
+    std::string arg1;       /** normal */
+    std::string arg2;       /** pressed */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+
+    // void loadTextures(const std::string& normal, const std::string& pressed, const std::string& disabled = "", TextureResType texType = TextureResType::LOCAL)
+    self->loadTextures(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBox_loadTextures3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_settop(L, 4);
+
+    cocos2d::ui::EditBox *self = nullptr;
+    std::string arg1;       /** normal */
+    std::string arg2;       /** pressed */
+    std::string arg3;       /** disabled */
+
+    olua_to_cppobj(L, 1, (void **)&self, "ccui.EditBox");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_std_string(L, 3, &arg2);
+    olua_check_std_string(L, 4, &arg3);
+
+    // void loadTextures(const std::string& normal, const std::string& pressed, const std::string& disabled = "", TextureResType texType = TextureResType::LOCAL)
+    self->loadTextures(arg1, arg2, arg3);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_ui_EditBox_loadTextures(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3))) {
+            return _cocos2d_ui_EditBox_loadTextures2(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4))) {
+            return _cocos2d_ui_EditBox_loadTextures3(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_uint(L, 5))) {
+            return _cocos2d_ui_EditBox_loadTextures1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::ui::EditBox::loadTextures' not support '%d' arguments", num_args);
 
     return 0;
 }

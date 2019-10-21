@@ -426,18 +426,7 @@ end
 local function getFuncNArgs(cls, fis, n)
     local arr = {}
     for _, v in ipairs(fis) do
-        local min = 0
-        for _, arg in ipairs(v.ARGS) do
-            if arg.ATTR.PACK or arg.ATTR.UNPACK then
-                min = nil
-                break
-            elseif not arg.ATTR.NULLABLE and
-                not arg.CALLBACK.DEFAULT and
-                arg.DEFAULT == nil then
-                min = (min or 0) + 1
-            end
-        end
-        if v.MAX_ARGS == n or (min and (n >= min and n <= v.MAX_ARGS)) then
+        if v.MAX_ARGS == n then
             arr[#arr + 1] = v
         end
     end
@@ -462,7 +451,7 @@ local function genTestAndCall(cls, fns)
                     OLUA_IS_VALUE = olua.convfunc(ai.TYPE, 'ispack')
                 end
 
-                if ai.DEFAULT or ai.ATTR.NULLABLE then
+                if ai.ATTR.NULLABLE then
                     TEST_NULL = ' ' .. format('|| olua_isnil(L, ${ARGN})')
                 end
 

@@ -16,6 +16,8 @@ function UILayer:ctor()
     self.children = Array.new()
     self.touchChildren = true
     self._innerContainer = InnerContainer.new()
+    self._innerContainer.anchorX = 0
+    self._innerContainer.anchorY = 0
     self.cobj:addChild(self._innerContainer.cobj)
 end
 

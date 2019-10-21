@@ -335,6 +335,12 @@ cls.func('getFrameSize', [[{
     return 2;
 }
 ]])
+cls.func('setFrameSize', [[{
+    auto glView = cocos2d::Director::getInstance()->getOpenGLView();
+    glView->setFrameSize(olua_checkinteger(L, 1), olua_checkinteger(L, 2));
+    return 0;
+}
+]])
 cls.func('getDesignSize', [[{
     auto size = cocos2d::Director::getInstance()->getOpenGLView()->getDesignResolutionSize();
     lua_pushnumber(L, size.width);

@@ -1992,6 +1992,18 @@ static int _xgame_window_setDesignSize(lua_State *L)
     return 0;
 }
 
+static int _xgame_window_setFrameSize(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto glView = cocos2d::Director::getInstance()->getOpenGLView();
+    glView->setFrameSize(olua_checkinteger(L, 1), olua_checkinteger(L, 2));
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_xgame_window(lua_State *L)
 {
     oluacls_class(L, "kernel.window", nullptr);
@@ -2001,6 +2013,7 @@ static int luaopen_xgame_window(lua_State *L)
     oluacls_func(L, "getVisibleBounds", _xgame_window_getVisibleBounds);
     oluacls_func(L, "getVisibleSize", _xgame_window_getVisibleSize);
     oluacls_func(L, "setDesignSize", _xgame_window_setDesignSize);
+    oluacls_func(L, "setFrameSize", _xgame_window_setFrameSize);
 
     oluacls_createclassproxy(L);
 

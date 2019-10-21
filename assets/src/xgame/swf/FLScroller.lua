@@ -16,6 +16,7 @@ function FLScroller:ctor()
     local bounds = container.ns['__bounds__'] or container
     local viewport = self.children[1]
     viewport.visible = false
+    self:stop()
     rawset(self, 'width', viewport.width)
     rawset(self, 'height', viewport.height)
     rawset(container, 'width', bounds.width)

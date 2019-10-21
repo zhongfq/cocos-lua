@@ -169,8 +169,7 @@ function CocosInput:ctor()
 end
 
 function CocosInput.Get:cobj()
-    local cobj = EditBox.create({width = 10, height = 10},
-        Scale9Sprite.create(), nil, nil)
+    local cobj = EditBox.create({width = 10, height = 10}, Scale9Sprite.create())
     cobj.touchEnabled = false
     cobj.inputFlag = InputFlag.SENSITIVE
     cobj.ignoreAnchorPointForPosition = true

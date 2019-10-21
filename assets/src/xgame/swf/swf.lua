@@ -54,6 +54,7 @@ end
 local function lazyRequire()
     require "xgame.swf.FLTextInput"
     require "xgame.swf.FLScroller"
+    require "xgame.swf.FLSlider"
     require "xgame.swf.FLRadioButton"
     require "xgame.swf.FLRadioGroup"
 end

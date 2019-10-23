@@ -255,7 +255,11 @@ window.FUNC('getFrameSize', [[
 window.FUNC('setFrameSize', [[
 {
     auto glView = cocos2d::Director::getInstance()->getOpenGLView();
-    glView->setFrameSize(olua_checkinteger(L, 1), olua_checkinteger(L, 2));
+    float width = (float)olua_checknumber(L, 1);
+    float height = (float)olua_checknumber(L, 2);
+    xgame::preferences::setFloat(CONF_WINDOW_WIDTH, width);
+    xgame::preferences::setFloat(CONF_WINDOW_HEIGHT, height);
+    glView->setFrameSize(width, height);
     return 0;
 }
 ]])

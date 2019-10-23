@@ -65,7 +65,7 @@ void AppDelegate::initGLContextAttrs()
 
 bool AppDelegate::applicationDidFinishLaunching()
 {
-    initGLView("cocos-lua", cocos2d::Rect(0, 0, 889, 500));
+    initGLView("cocos-lua");
     xgame::runtime::initBugly(BUGLY_APPID);
     xgame::runtime::luaOpen(_open_plugins);
     

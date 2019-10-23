@@ -550,10 +550,13 @@ RuntimeContext::~RuntimeContext()
 {
 }
 
-void RuntimeContext::initGLView(const std::string &title, const cocos2d::Rect &rect)
+void RuntimeContext::initGLView(const std::string &title)
 {
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
+    cocos2d::Rect rect(0, 0, 1134, 750);
+    rect.size.width = preferences::getFloat(CONF_WINDOW_WIDTH, rect.size.width);
+    rect.size.height = preferences::getFloat(CONF_WINDOW_HEIGHT, rect.size.height);
     if(!glview) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
         glview = GLViewImpl::createWithRect(title, rect);

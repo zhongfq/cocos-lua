@@ -98,7 +98,7 @@ public:
     RuntimeContext();
     virtual ~RuntimeContext();
     
-    virtual void initGLView(const std::string &title, const cocos2d::Rect &rect);
+    virtual void initGLView(const std::string &title);
     virtual void initGLContextAttrs();
     virtual bool applicationDidFinishLaunching();
     virtual void applicationDidEnterBackground();

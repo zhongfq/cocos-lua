@@ -17,6 +17,9 @@ function MixSWF:ctor()
     self._paused = false
     self._mixPlayer = FLMixPlayer.new('res/sound/auto/%s.mp3')
     self:_initMonitor()
+    self._timer:schedule(0, function (dt)
+        self._mixPlayer:update(dt)
+    end)
 end
 
 function MixSWF:assets()

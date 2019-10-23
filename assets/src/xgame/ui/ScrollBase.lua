@@ -56,13 +56,8 @@ function ScrollBase:getScrollBounds()
         self._innerContainer.height = t - b
         self._childrenBounds = bounds
     end
-
-    local l, r, t, b = bounds.left, bounds.right, bounds.top, bounds.bottom
-    local x = self._innerContainer.x
-    local y = self._innerContainer.y
-    local sx, sy = self._innerContainer.scaleX, self._innerContainer.scaleY
-
-    return l * sx + x, r * sx + x, t * sy + y, b * sy + y
+    return self._innerContainer:getBounds(self, bounds.left,
+        bounds.right, bounds.top, bounds.bottom)
 end
 
 function ScrollBase.Get:scrollX() return self._innerContainer.x end

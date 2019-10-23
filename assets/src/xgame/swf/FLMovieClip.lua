@@ -33,7 +33,6 @@ function FLMovieClip:ctor(cobj)
     self.ns = self:_createAccessProxy({__mode = "v"})  -- 索引有名字的字节点
     self._building = false
     self._rawChildren = setmetatable({}, {__mode = 'k'})
-    self._realParent = self
 end
 
 function FLMovieClip:_buildChildren()
@@ -214,7 +213,7 @@ end
 function FLMovieClip:_internalAddChild(child, index, silence)
     table.insert(self.children, index, child)
     self._rawChildren[child.cobj] = child
-    child._parent = self._realParent
+    child._parent = self
 
     if child.name then
         self.ns[child.name] = child

@@ -455,20 +455,7 @@ void xlua_startcmpunref(lua_State *L, int idx, const char *refname)
 
 static bool should_unref_obj(lua_State *L, int idx)
 {
-    if (olua_isa(L, idx, "cc.Action")) {
-        auto obj = olua_touserdata(L, idx, cocos2d::Action *);
-        if (obj) {
-            unsigned int curr = obj->getReferenceCount();
-            if (!obj->getTarget() || obj->isDone() || curr == 1) {
-                return true;
-            } else if (olua_isinteger(L, -1)) {
-                unsigned int last = (unsigned int)olua_tointeger(L, -1);
-                if (curr < last) {
-                    return true;
-                }
-            }
-        }
-    } else if (olua_isa(L, idx, "cc.Ref")) {
+    if (olua_isa(L, idx, "cc.Ref")) {
         auto obj = olua_touserdata(L, idx, cocos2d::Ref *);
         if (obj && olua_isinteger(L, -1)) {
             unsigned int last = (unsigned int)olua_tointeger(L, -1);
@@ -476,6 +463,20 @@ static bool should_unref_obj(lua_State *L, int idx)
             if (curr < last || curr == 1) {
                 return true;
             }
+        }
+    } else {
+        return false;
+    }
+    
+    if (olua_isa(L, idx, "cc.Action")) {
+        auto obj = olua_touserdata(L, idx, cocos2d::Action *);
+        if (obj && (!obj->getTarget() || obj->isDone())) {
+            return true;
+        }
+    } else if (olua_isa(L, idx, "cc.Node")) {
+        auto obj = olua_touserdata(L, idx, cocos2d::Node *);
+        if (obj && !obj->getParent()) {
+            return true;
         }
     }
     return false;

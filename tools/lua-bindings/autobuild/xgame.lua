@@ -114,34 +114,21 @@ cls.func('setDispatcher', [[{
     });
     return 0;
 }]])
-cls.func('openURL', [[{
-    lua_settop(L, 2);
-    int callback = LUA_REFNIL;
-    if (lua_isfunction(L, 2)) {
-        callback = olua_reffunc(L, 2);
-    }
-    xgame::runtime::openURL(olua_checkstring(L, 1), [callback](bool success) {
-        if (callback != LUA_REFNIL) {
-            lua_State *L = olua_mainthread();
-            int top = lua_gettop(L);
-            olua_geterrorfunc(L);
-            olua_getref(L, callback);
-            if (lua_isfunction(L, -1)) {
-                lua_pushboolean(L, success);
-                lua_pcall(L, 1, 0, top + 1);
-                olua_unref(L, callback);
-            }
-            lua_settop(L, top);
-        }
-    });
-    return 0;
-}]])
+cls.callback {
+    FUNCS =  {
+        'static void openURL(const std::string &uri, @nullable const std::function<void (bool)> callback)',
+    },
+    TAG_MAKER = 'olua_makecallbacktag("openURL")',
+    TAG_MODE = 'OLUA_TAG_NEW',
+    CALLONCE = true,
+    REMOVE = false,
+}
 cls.callback {
     FUNCS =  {
         'static void requestPermission(Permission permission, const std::function<void (PermissionStatus)> callback)',
     },
     TAG_MAKER = 'olua_makecallbacktag("requestPermission")',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_NEW',
     CALLONCE = true,
     REMOVE = false,
 }
@@ -150,7 +137,7 @@ cls.callback {
         'static void alert(const std::string &title, const std::string &message, const std::string &ok, const std::string &no, const std::function<void (bool)> &callback)',
     },
     TAG_MAKER = 'olua_makecallbacktag("alert")',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_MODE = 'OLUA_TAG_NEW',
     CALLONCE = true,
     REMOVE = false,
 }
@@ -235,51 +222,6 @@ cls = typecls 'xgame::timer'
 cls.funcs [[
     static std::string createTag()
 ]]
-cls.func('killDelay', [[{
-    lua_settop(L, 1);
-    const char *tag = olua_checkstring(L, 1);
-    void *cb_store = olua_getstoreobj(L, "kernel.timer");
-    olua_removecallback(L, cb_store, tag, OLUA_TAG_EQUAL);
-    xgame::timer::killDelay(tag);
-    return 0;
-}]])
-cls.func('delayWithTag', [[{
-    lua_settop(L, 3);
-    size_t len;
-    float time = (float)olua_checknumber(L, 1);
-    const char *tag = luaL_checklstring(L, 2, &len);
-    if (len <= 0) {
-        luaL_error(L, "tag should not be empty!");
-    }
-    
-    void *cb_store = olua_getstoreobj(L, "kernel.timer");
-    std::string func = olua_setcallback(L, cb_store, tag, 3, OLUA_TAG_REPLACE);
-    xgame::timer::delayWithTag(time, tag, [cb_store, func]() {
-        lua_State *L = olua_mainthread();
-        int top = lua_gettop(L);
-        olua_callback(L, cb_store, func.c_str(), 0);
-        olua_removecallback(L, cb_store, func.c_str(), OLUA_TAG_NONE);
-        lua_settop(L, top);
-    });
-    return 0;
-}]])
-cls.func('delay', [[{
-    lua_settop(L, 2);
-    float time = (float)olua_checknumber(L, 1);
-    uint32_t callback = olua_reffunc(L, 2);
-    xgame::timer::delay(time, [callback]() {
-        lua_State *L = olua_mainthread();
-        int top = lua_gettop(L);
-        olua_geterrorfunc(L);
-        olua_getref(L, callback);
-        if (lua_isfunction(L, -1)) {
-            lua_pcall(L, 0, 0, top + 1);
-            olua_unref(L, callback);
-        }
-        lua_settop(L, top);
-    });
-    return 0;
-}]])
 cls.func('schedule', [[{
     lua_settop(L, 2);
     float interval = (float)olua_checknumber(L, 1);
@@ -307,6 +249,33 @@ cls.func('unschedule', [[{
     xgame::timer::unschedule(id);
     return 0;
 }]])
+cls.callback {
+    FUNCS =  {
+        'static void delayWithTag(float time, const std::string &tag, std::function<void ()> callback)',
+    },
+    TAG_MAKER = 'olua_makecallbacktag(#2)',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
+    CALLONCE = true,
+    REMOVE = false,
+}
+cls.callback {
+    FUNCS =  {
+        'static void killDelay(const std::string &tag)',
+    },
+    TAG_MAKER = 'olua_makecallbacktag(#1)',
+    TAG_MODE = 'OLUA_TAG_EQUAL',
+    CALLONCE = false,
+    REMOVE = true,
+}
+cls.callback {
+    FUNCS =  {
+        'static void delay(float time, const std::function<void ()> callback)',
+    },
+    TAG_MAKER = 'olua_makecallbacktag("delay")',
+    TAG_MODE = 'OLUA_TAG_NEW',
+    CALLONCE = true,
+    REMOVE = false,
+}
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'xgame::window'

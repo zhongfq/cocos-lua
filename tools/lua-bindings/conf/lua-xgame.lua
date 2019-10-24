@@ -1,4 +1,4 @@
-local typemod = require "olua.typemod"
+local typemod = require "typemod"
 local M = typemod 'xgame'
 local typeconf = M.typeconf
 

@@ -1,4 +1,4 @@
-local typemod = require "olua.typemod"
+local typemod = require "typemod"
 local M = typemod 'dragonbones'
 local typeconf = M.typeconf
 local typedef = M.typedef

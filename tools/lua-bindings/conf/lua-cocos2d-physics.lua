@@ -1,4 +1,4 @@
-local typemod = require "olua.typemod"
+local typemod = require "typemod"
 local M = typemod 'cocos2d_physics'
 local typedef = M.typedef
 local typeconf = M.typeconf

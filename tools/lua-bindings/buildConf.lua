@@ -1,4 +1,6 @@
-local autoconf = require "olua.autoconf"
+require "bindings-generator.src.init"
+
+local autoconf = require "autoconf"
 
 autoconf 'conf/lua-conv.lua'
 autoconf 'conf/lua-cocos2d.lua'

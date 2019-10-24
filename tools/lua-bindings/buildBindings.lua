@@ -1,3 +1,5 @@
+require "bindings-generator.src.init"
+
 local olua = require "olua"
 local export = olua.export
 

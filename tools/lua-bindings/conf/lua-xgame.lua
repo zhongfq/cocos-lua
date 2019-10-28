@@ -129,15 +129,18 @@ filesystem.FUNC('write', [[
 typeconf 'xgame::preferences'
 
 local timer = typeconf 'xgame::timer'
+timer.CHUNK = [[
+#define makeTimerDelayTag(tag) ("delayTag." + tag)
+]]
 timer.CALLBACK {
     FUNCS = {'static void delayWithTag(float time, const std::string &tag, std::function<void ()> callback)'},
     TAG_MODE = 'OLUA_TAG_REPLACE',
-    TAG_MAKER = 'olua_makecallbacktag(#2)',
+    TAG_MAKER = 'makeTimerDelayTag(#2)',
     CALLONCE = true,
 }
 timer.CALLBACK {
     FUNCS = {'static void killDelay(const std::string &tag)'},
-    TAG_MAKER = 'olua_makecallbacktag(#1)',
+    TAG_MAKER = 'makeTimerDelayTag(#1)',
     TAG_MODE = 'OLUA_TAG_EQUAL',
     REMOVE = true,
 }

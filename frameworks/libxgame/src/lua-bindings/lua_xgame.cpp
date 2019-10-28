@@ -1779,6 +1779,8 @@ static int luaopen_xgame_preferences(lua_State *L)
     return 1;
 }
 
+#define makeTimerDelayTag(tag) ("delayTag." + tag)
+
 static int _xgame_timer_createTag(lua_State *L)
 {
     olua_startinvoke(L);
@@ -1845,7 +1847,7 @@ static int _xgame_timer_delayWithTag(lua_State *L)
     olua_check_std_string(L, 2, &arg2);
 
     void *callback_store_obj = (void *)olua_getstoreobj(L, "kernel.timer");
-    std::string tag = olua_makecallbacktag(arg2);
+    std::string tag = makeTimerDelayTag(arg2);
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_TAG_REPLACE);
     lua_State *MT = olua_mainthread();
     arg3 = [callback_store_obj, func, MT]() {
@@ -1880,7 +1882,7 @@ static int _xgame_timer_killDelay(lua_State *L)
 
     olua_check_std_string(L, 1, &arg1);
 
-    std::string tag = olua_makecallbacktag(arg1);
+    std::string tag = makeTimerDelayTag(arg1);
     void *callback_store_obj = (void *)olua_getstoreobj(L, "kernel.timer");
     olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
 

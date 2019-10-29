@@ -1,5 +1,6 @@
 local class             = require "xgame.class"
 local util              = require "xgame.util"
+local Event             = require "xgame.event.Event"
 local Array             = require "xgame.Array"
 local window            = require "xgame.window"
 local runtime           = require "xgame.runtime"
@@ -33,6 +34,16 @@ function FLMovieClip:ctor(cobj)
     self.ns = self:_createAccessProxy({__mode = "v"})  -- 索引有名字的字节点
     self._building = false
     self._rawChildren = setmetatable({}, {__mode = 'k'})
+
+    local relative = self.metadata.relative
+    if relative then
+        local left, right = string.match(relative, '(%w+) *, *(%w+)')
+        assert(left and right, 'not a valid relative: ' .. relative)
+        self:addListener(Event.ADDED, function ()
+            self:removeListener(Event.ADDED, util.callee())
+            self:relative(left, right)
+        end)
+    end
 end
 
 function FLMovieClip:_buildChildren()

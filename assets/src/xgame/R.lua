@@ -52,6 +52,10 @@ function M:fromRange(fmt, from, to)
     return self
 end
 
+function M:fromClass(cls, ...)
+    return self:merge(require(cls):assets(...))
+end
+
 function M:fromArray(arr, from, to)
     from = from or 1
     to = to or #arr

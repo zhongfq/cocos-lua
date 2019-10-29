@@ -1,5 +1,9 @@
 local M = {}
 
+function __TRACEBACK__(message)
+    print(debug.traceback(message))
+end
+
 M.DUMMY_STR = '<dummy str>'
 M.FUNC = function () return M.PROXY end
 M.FUNC_STR = function () return "<proxy table>" end
@@ -11,31 +15,26 @@ M.PROXY = setmetatable({}, {
     __call = M.FUNC,
 })
 
-package.preload['cc.AudioEngine'] = M.FUNC
-package.preload['cc.Director'] = M.FUNC
-package.preload['cc.Node'] = M.FUNC
-package.preload['cc.Sprite'] = M.FUNC
-package.preload['cc.Scene'] = M.FUNC
-package.preload['cc.Scheduler'] = M.FUNC
-package.preload['cc.SpriteFrameCache'] = M.FUNC
-package.preload['cc.TextureCache'] = M.FUNC
-package.preload['ccui.Layout'] = M.FUNC
-package.preload['ccui.MaskLayout'] = M.FUNC
+local function REG(classname, impl)
+    package.preload[classname] = impl or M.FUNC
+end
 
-package.preload['db.Factory'] = M.FUNC
+REG 'base64'
+REG 'cjson'
+REG 'md5'
 
-package.preload['kernel.runtime'] = function ()
+REG('kernel.runtime', function ()
     return setmetatable({
         on = false,
         off = false,
     }, {__index = M.FUNC})
-end
-package.preload['kernel.timer'] = function ()
+end)
+REG('kernel.timer', function ()
     return setmetatable({
         new = false,
     }, {__index = M.FUNC})
-end
-package.preload['kernel.filesystem'] = function ()
+end)
+REG('kernel.filesystem', function ()
     return setmetatable({
         dir = false,
         localCachePath = false,
@@ -45,7 +44,21 @@ package.preload['kernel.filesystem'] = function ()
         tmpDirectory = M.DUMMY_STR,
         writablePath = M.DUMMY_STR,
     }, {__index = M.FUNC})
+end)
+
+local _require = require
+
+function require(path)
+    if not package.preload[path] and (
+        string.find(path, 'cc.', 1, true) == 1 or
+        string.find(path, 'ccui.', 1, true) == 1 or
+        string.find(path, 'fgui.', 1, true) == 1 or
+        string.find(path, 'swf.', 1, true) == 1 or
+        string.find(path, 'kernel.', 1, true) == 1) then
+        return M.PROXY
+    else
+        return _require(path)
+    end
 end
-package.preload['kernel.downloader'] = M.FUNC
 
 return M

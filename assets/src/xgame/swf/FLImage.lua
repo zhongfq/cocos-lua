@@ -1,4 +1,5 @@
 local class             = require "xgame.class"
+local filesystem        = require "xgame.filesystem"
 local Event             = require "xgame.event.Event"
 local assetloader       = require "xgame.assetloader"
 local LoadTask          = require "xgame.loader.LoadTask"
@@ -21,7 +22,7 @@ end
 function FLImage:_doLoad(url, callback)
     local loader = LoadTask.new(url)
     loader:addListener(Event.COMPLETE, function ()
-        callback(loader.path)
+        callback(filesystem.localCachePath(url))
     end)
     loader:start()
 end

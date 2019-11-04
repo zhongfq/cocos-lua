@@ -3,19 +3,17 @@ local M = typemod 'conv'
 local typeconv = M.typeconv
 
 M.PARSER = {
-    PATH = {
+    HEADERS = {
         'cocos2d.h',
     },
-    ARGS = {
+    FLAGS = {
         '-I../../frameworks/cocos2d-x/cocos',
         '-DCC_DLL=',
         '-DEXPORT_DLL=',
     },
 }
 
-M.NAMESPACES = {"cocos2d"}
-M.HEADER_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_conv.h"
-M.SOURCE_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_conv.cpp"
+M.PATH = "../../frameworks/libxgame/src/lua-bindings"
 
 M.HEADER_INCLUDES = [[
 #include "xgame/xlua.h"
@@ -30,6 +28,15 @@ M.INCLUDES = [[
 
 typeconv {
     CPPCLS = 'cocos2d::Vec2',
+    VARS = 2,
+    DEF = [[
+        float x;
+        float y;
+    ]],
+}
+typeconv {
+    CPPCLS = 'cocos2d::Point',
+    VARS = 2,
     DEF = [[
         float x;
         float y;
@@ -37,6 +44,7 @@ typeconv {
 }
 typeconv {
     CPPCLS = 'cocos2d::Vec3',
+    VARS = 3,
     DEF = [[
         float x;
         float y;
@@ -45,6 +53,7 @@ typeconv {
 }
 typeconv {
     CPPCLS = 'cocos2d::Vec4',
+    VARS = 4,
     DEF = [[
         float x;
         float y;
@@ -54,6 +63,7 @@ typeconv {
 }
 typeconv {
     CPPCLS = 'cocos2d::Size',
+    VARS = 2,
     DEF = [[
         float width;
         float height;

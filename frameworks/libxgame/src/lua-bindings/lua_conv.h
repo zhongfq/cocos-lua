@@ -18,6 +18,15 @@ void auto_olua_pack_cocos2d_Vec2(lua_State *L, int idx, cocos2d::Vec2 *value);
 int auto_olua_unpack_cocos2d_Vec2(lua_State *L, const cocos2d::Vec2 *value);
 bool auto_olua_ispack_cocos2d_Vec2(lua_State *L, int idx);
 
+// cocos2d::Point
+int auto_olua_push_cocos2d_Point(lua_State *L, const cocos2d::Point *value);
+void auto_olua_check_cocos2d_Point(lua_State *L, int idx, cocos2d::Point *value);
+void auto_olua_opt_cocos2d_Point(lua_State *L, int idx, cocos2d::Point *value, const cocos2d::Point &def);
+bool auto_olua_is_cocos2d_Point(lua_State *L, int idx);
+void auto_olua_pack_cocos2d_Point(lua_State *L, int idx, cocos2d::Point *value);
+int auto_olua_unpack_cocos2d_Point(lua_State *L, const cocos2d::Point *value);
+bool auto_olua_ispack_cocos2d_Point(lua_State *L, int idx);
+
 // cocos2d::Vec3
 int auto_olua_push_cocos2d_Vec3(lua_State *L, const cocos2d::Vec3 *value);
 void auto_olua_check_cocos2d_Vec3(lua_State *L, int idx, cocos2d::Vec3 *value);

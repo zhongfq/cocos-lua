@@ -89,9 +89,9 @@ if conf.NAME == 'BUILTIN' then
     conf.ASSETS_MANIFEST_PATH = conf.BUILD_PATH .. '/assets/builtin.manifest'
     conf.VERSION_MANIFEST_PATH = nil
     OUTPUT_PATH = conf.BUILD_PATH
-    conf.SHOULD_BUILD = function (path)
-        return builtinAssets[path]
-    end
+    -- conf.SHOULD_BUILD = function (path)
+    --     return builtinAssets[path]
+    -- end
 elseif conf.NAME == 'LOCAL' then
     conf.URL = setting[ARG_NAME].URL .. '/current'
     OUTPUT_PATH = ARG_PUBLISH_PATH .. '/current'

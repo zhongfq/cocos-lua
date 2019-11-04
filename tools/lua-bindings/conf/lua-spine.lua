@@ -4,10 +4,10 @@ local typeconf = M.typeconf
 local typedef = M.typedef
 
 M.PARSER = {
-    PATH = {
+    HEADERS = {
         'spine/spine-cocos2dx.h'
     },
-    ARGS = {
+    FLAGS = {
         '-I../../frameworks/cocos2d-x/cocos',
         '-I../../frameworks/cocos2d-x/cocos/editor-support',
         '-I../../frameworks/libxgame/src',
@@ -17,9 +17,7 @@ M.PARSER = {
     },
 }
 
-M.NAMESPACES = {"spine"}
-M.HEADER_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_spine.h"
-M.SOURCE_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_spine.cpp"
+M.PATH = "../../frameworks/libxgame/src/lua-bindings"
 M.INCLUDES = [[
 #include "lua-bindings/lua_cocos2d_ui.h"
 #include "lua-bindings/lua_conv.h"
@@ -159,6 +157,7 @@ M.EXCLUDE_TYPE 'spine::SlotData'
 M.EXCLUDE_TYPE 'spine::IkConstraintData'
 M.EXCLUDE_TYPE 'spine::TransformConstraintData'
 M.EXCLUDE_TYPE 'spine::PathConstraintData'
+M.EXCLUDE_TYPE 'spine::Interpolation'
 M.EXCLUDE_TYPE 'spine::AnimationStateListenerObject'
 
 M.EXCLUDE_PATTERN = function (cppcls, fn, decl)
@@ -186,7 +185,9 @@ SpineObject.EXCLUDE 'operator new'
 SpineObject.EXCLUDE 'operator delete'
 SpineObject.EXCLUDE 'getRTTI'
 
-typeconf 'spine::Event'
+local Event = typeconf 'spine::Event'
+Event.EXCLUDE 'Event'
+
 typeconf 'spine::EventData'
 typeconf 'spine::Updatable'
 
@@ -198,7 +199,9 @@ AnimationState.CALLBACK {
 }
 
 typeconf 'spine::AnimationStateData'
-typeconf 'spine::Animation'
+
+local Animation = typeconf 'spine::Animation'
+Animation.EXCLUDE 'Animation'
 
 typeconf 'spine::ConstraintData'
 typeconf 'spine::IkConstraintData'

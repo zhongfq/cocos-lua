@@ -33,17 +33,24 @@ function FLList:ctor()
     for i = 1, math.maxinteger do
         local item = self.container.ns['item' .. i]
         if item then
+            self._indices[item] = i
             item.visible = false
+            item.touchChildren = false
+            item.touchable = true
             self._items:pushBack(item)
             if i == 1 then
                 self._startX = item.x
                 self._startY = item.y
+                while item.height == 0 and item.currentFrame < item.totalFrames do
+                    item:nextFrame()
+                end
                 self._cellWidth = item.width
                 self._cellHeidht = item.height
                 self._cellBounds = {item:getBounds(item)}
             elseif i == 2 then
                 local first = self._items[1]
                 self._spaceH = item.x - first.x - self._cellWidth
+                self._spaceV = item.y - first.y - self._cellHeidht
             elseif i == self._column + 1 then
                 local first = self._items[1]
                 self._spaceV = item.y - first.y - self._cellHeidht

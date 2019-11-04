@@ -11,8 +11,7 @@ local M = {}
 olua.nowarning(typeconv, typecls, cls)
 
 M.NAME = "cocos2d_physics"
-M.HEADER_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_cocos2d_physics.h"
-M.SOURCE_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_cocos2d_physics.cpp"
+M.PATH = "../../frameworks/libxgame/src/lua-bindings"
 M.INCLUDES = [[
 #include "lua-bindings/lua_cocos2d_physics.h"
 #include "lua-bindings/lua_conv.h"
@@ -52,56 +51,59 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EventListenerPhysicsContactWithGroup'
 cls.SUPERCLS = "cocos2d::EventListenerPhysicsContact"
 cls.funcs [[
+    bool hitTest(cocos2d::PhysicsShape *shapeA, cocos2d::PhysicsShape *shapeB)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventListenerPhysicsContactWithBodies'
 cls.SUPERCLS = "cocos2d::EventListenerPhysicsContact"
 cls.funcs [[
+    bool hitTest(cocos2d::PhysicsShape *shapeA, cocos2d::PhysicsShape *shapeB)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventListenerPhysicsContactWithShapes'
 cls.SUPERCLS = "cocos2d::EventListenerPhysicsContact"
 cls.funcs [[
+    bool hitTest(cocos2d::PhysicsShape *shapeA, cocos2d::PhysicsShape *shapeB)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::PhysicsBody'
 cls.SUPERCLS = "cocos2d::Component"
 cls.funcs [[
-    static PhysicsBody* create()
-    static PhysicsBody* create(float mass)
-    static PhysicsBody* create(float mass, float moment)
-    static PhysicsBody* createCircle(float radius, const PhysicsMaterial& material = PHYSICSBODY_MATERIAL_DEFAULT, const Vec2& offset = Vec2::ZERO)
-    static PhysicsBody* createBox(const Size& size, const PhysicsMaterial& material = PHYSICSBODY_MATERIAL_DEFAULT, const Vec2& offset = Vec2::ZERO)
-    static PhysicsBody* createEdgeSegment(const Vec2& a, const Vec2& b, const PhysicsMaterial& material = PHYSICSBODY_MATERIAL_DEFAULT, float border = 1)
-    static PhysicsBody* createEdgeBox(const Size& size, const PhysicsMaterial& material = PHYSICSBODY_MATERIAL_DEFAULT, float border = 1, const Vec2& offset = Vec2::ZERO)
-    PhysicsShape* addShape(PhysicsShape* shape, bool addMassAndMoment = true)
-    void removeShape(PhysicsShape* shape, bool reduceMassAndMoment = true)
-    void removeShape(int tag, bool reduceMassAndMoment = true)
-    void removeAllShapes(bool reduceMassAndMoment = true)
-    const Vector<PhysicsShape*>& getShapes()
-    PhysicsShape* getFirstShape()
-    PhysicsShape* getShape(int tag)
-    void applyForce(const Vec2& force, const Vec2& offset = Vec2::ZERO)
+    static cocos2d::PhysicsBody *create()
+    static cocos2d::PhysicsBody *create(float mass)
+    static cocos2d::PhysicsBody *create(float mass, float moment)
+    static cocos2d::PhysicsBody *createCircle(float radius, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset)
+    static cocos2d::PhysicsBody *createBox(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset)
+    static cocos2d::PhysicsBody *createEdgeSegment(const cocos2d::Vec2 &a, const cocos2d::Vec2 &b, @optional const cocos2d::PhysicsMaterial &material, @optional float border)
+    static cocos2d::PhysicsBody *createEdgeBox(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional float border, @optional const cocos2d::Vec2 &offset)
+    cocos2d::PhysicsShape *addShape(cocos2d::PhysicsShape *shape, @optional bool addMassAndMoment)
+    void removeShape(cocos2d::PhysicsShape *shape, @optional bool reduceMassAndMoment)
+    void removeShape(int tag, @optional bool reduceMassAndMoment)
+    void removeAllShapes(@optional bool reduceMassAndMoment)
+    const Vector<cocos2d::PhysicsShape *> &getShapes()
+    cocos2d::PhysicsShape *getFirstShape()
+    cocos2d::PhysicsShape *getShape(int tag)
+    void applyForce(const cocos2d::Vec2 &force, @optional const cocos2d::Vec2 &offset)
     void resetForces()
-    void applyImpulse(const Vec2& impulse, const Vec2& offset = Vec2::ZERO)
+    void applyImpulse(const cocos2d::Vec2 &impulse, @optional const cocos2d::Vec2 &offset)
     void applyTorque(float torque)
-    void setVelocity(const Vec2& velocity)
-    Vec2 getVelocity()
+    void setVelocity(const cocos2d::Vec2 &velocity)
+    cocos2d::Vec2 getVelocity()
     void setAngularVelocity(float velocity)
-    Vec2 getVelocityAtLocalPoint(const Vec2& point)
-    Vec2 getVelocityAtWorldPoint(const Vec2& point)
+    cocos2d::Vec2 getVelocityAtLocalPoint(const cocos2d::Vec2 &point)
+    cocos2d::Vec2 getVelocityAtWorldPoint(const cocos2d::Vec2 &point)
     float getAngularVelocity()
     void setVelocityLimit(float limit)
     float getVelocityLimit()
     void setAngularVelocityLimit(float limit)
     float getAngularVelocityLimit()
     void removeFromWorld()
-    PhysicsWorld* getWorld()
-    const std::vector<PhysicsJoint*>& getJoints()
-    Node* getNode()
+    cocos2d::PhysicsWorld *getWorld()
+    const std::vector<PhysicsJoint *> &getJoints()
+    cocos2d::Node *getNode()
     void setCategoryBitmask(int bitmask)
     void setContactTestBitmask(int bitmask)
     void setCollisionBitmask(int bitmask)
@@ -110,10 +112,10 @@ cls.funcs [[
     int getCollisionBitmask()
     void setGroup(int group)
     int getGroup()
-    Vec2 getPosition()
+    cocos2d::Vec2 getPosition()
     float getRotation()
-    void setPositionOffset(const Vec2& position)
-    const Vec2& getPositionOffset()
+    void setPositionOffset(const cocos2d::Vec2 &position)
+    const cocos2d::Vec2 &getPositionOffset()
     void setRotationOffset(float rotation)
     float getRotationOffset()
     bool isDynamic()
@@ -136,8 +138,8 @@ cls.funcs [[
     void setGravityEnable(bool enable)
     int getTag()
     void setTag(int tag)
-    Vec2 world2Local(const Vec2& point)
-    Vec2 local2World(const Vec2& point)
+    cocos2d::Vec2 world2Local(const cocos2d::Vec2 &point)
+    cocos2d::Vec2 local2World(const cocos2d::Vec2 &point)
 ]]
 cls.props [[
     shapes
@@ -182,11 +184,11 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsContact'
 cls.SUPERCLS = "cocos2d::EventCustom"
 cls.funcs [[
-    PhysicsShape* getShapeA()
-    PhysicsShape* getShapeB()
-    void* getData()
-    void setData(void* data)
-    EventCode getEventCode()
+    cocos2d::PhysicsShape *getShapeA()
+    cocos2d::PhysicsShape *getShapeB()
+    void *getData()
+    void setData(void *data)
+    cocos2d::PhysicsContact::EventCode getEventCode()
 ]]
 cls.props [[
     shapeA
@@ -200,7 +202,7 @@ cls = typecls 'cocos2d::PhysicsContactPostSolve'
 cls.funcs [[
     float getRestitution()
     float getFriction()
-    Vec2 getSurfaceVelocity()
+    cocos2d::Vec2 getSurfaceVelocity()
 ]]
 cls.props [[
     restitution
@@ -213,10 +215,10 @@ cls = typecls 'cocos2d::PhysicsContactPreSolve'
 cls.funcs [[
     float getRestitution()
     float getFriction()
-    Vec2 getSurfaceVelocity()
+    cocos2d::Vec2 getSurfaceVelocity()
     void setRestitution(float restitution)
     void setFriction(float friction)
-    void setSurfaceVelocity(const Vec2& velocity)
+    void setSurfaceVelocity(const cocos2d::Vec2 &velocity)
     void ignore()
 ]]
 cls.props [[
@@ -228,9 +230,9 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::PhysicsJoint'
 cls.funcs [[
-    PhysicsBody* getBodyA()
-    PhysicsBody* getBodyB()
-    PhysicsWorld* getWorld()
+    cocos2d::PhysicsBody *getBodyA()
+    cocos2d::PhysicsBody *getBodyB()
+    cocos2d::PhysicsWorld *getWorld()
     int getTag()
     void setTag(int tag)
     bool isEnabled()
@@ -255,9 +257,10 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsJointDistance'
 cls.SUPERCLS = "cocos2d::PhysicsJoint"
 cls.funcs [[
-    static PhysicsJointDistance* construct(PhysicsBody* a, PhysicsBody* b, const Vec2& anchr1, const Vec2& anchr2)
+    static cocos2d::PhysicsJointDistance *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, const cocos2d::Vec2 &anchr1, const cocos2d::Vec2 &anchr2)
     float getDistance()
     void setDistance(float distance)
+    bool createConstraints()
 ]]
 cls.props [[
     distance
@@ -267,18 +270,20 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsJointFixed'
 cls.SUPERCLS = "cocos2d::PhysicsJoint"
 cls.funcs [[
-    static PhysicsJointFixed* construct(PhysicsBody* a, PhysicsBody* b, const Vec2& anchr)
+    static cocos2d::PhysicsJointFixed *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, const cocos2d::Vec2 &anchr)
+    bool createConstraints()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::PhysicsJointGear'
 cls.SUPERCLS = "cocos2d::PhysicsJoint"
 cls.funcs [[
-    static PhysicsJointGear* construct(PhysicsBody* a, PhysicsBody* b, float phase, float ratio)
+    static cocos2d::PhysicsJointGear *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, float phase, float ratio)
     float getPhase()
     void setPhase(float phase)
     float getRatio()
     void setRatio(float ratchet)
+    bool createConstraints()
 ]]
 cls.props [[
     phase
@@ -289,13 +294,14 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsJointGroove'
 cls.SUPERCLS = "cocos2d::PhysicsJoint"
 cls.funcs [[
-    static PhysicsJointGroove* construct(PhysicsBody* a, PhysicsBody* b, const Vec2& grooveA, const Vec2& grooveB, const Vec2& anchr2)
-    Vec2 getGrooveA()
-    void setGrooveA(const Vec2& grooveA)
-    Vec2 getGrooveB()
-    void setGrooveB(const Vec2& grooveB)
-    Vec2 getAnchr2()
-    void setAnchr2(const Vec2& anchr2)
+    static cocos2d::PhysicsJointGroove *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, const cocos2d::Vec2 &grooveA, const cocos2d::Vec2 &grooveB, const cocos2d::Vec2 &anchr2)
+    cocos2d::Vec2 getGrooveA()
+    void setGrooveA(const cocos2d::Vec2 &grooveA)
+    cocos2d::Vec2 getGrooveB()
+    void setGrooveB(const cocos2d::Vec2 &grooveB)
+    cocos2d::Vec2 getAnchr2()
+    void setAnchr2(const cocos2d::Vec2 &anchr2)
+    bool createConstraints()
 ]]
 cls.props [[
     grooveA
@@ -307,16 +313,17 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsJointLimit'
 cls.SUPERCLS = "cocos2d::PhysicsJoint"
 cls.funcs [[
-    static PhysicsJointLimit* construct(PhysicsBody* a, PhysicsBody* b, const Vec2& anchr1, const Vec2& anchr2)
-    static PhysicsJointLimit* construct(PhysicsBody* a, PhysicsBody* b, const Vec2& anchr1, const Vec2& anchr2, float min, float max)
-    Vec2 getAnchr1()
-    void setAnchr1(const Vec2& anchr1)
-    Vec2 getAnchr2()
-    void setAnchr2(const Vec2& anchr2)
+    static cocos2d::PhysicsJointLimit *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, const cocos2d::Vec2 &anchr1, const cocos2d::Vec2 &anchr2)
+    static cocos2d::PhysicsJointLimit *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, const cocos2d::Vec2 &anchr1, const cocos2d::Vec2 &anchr2, float min, float max)
+    cocos2d::Vec2 getAnchr1()
+    void setAnchr1(const cocos2d::Vec2 &anchr1)
+    cocos2d::Vec2 getAnchr2()
+    void setAnchr2(const cocos2d::Vec2 &anchr2)
     float getMin()
     void setMin(float min)
     float getMax()
     void setMax(float max)
+    bool createConstraints()
 ]]
 cls.props [[
     anchr1
@@ -329,9 +336,10 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsJointMotor'
 cls.SUPERCLS = "cocos2d::PhysicsJoint"
 cls.funcs [[
-    static PhysicsJointMotor* construct(PhysicsBody* a, PhysicsBody* b, float rate)
+    static cocos2d::PhysicsJointMotor *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, float rate)
     float getRate()
     void setRate(float rate)
+    bool createConstraints()
 ]]
 cls.props [[
     rate
@@ -341,21 +349,23 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsJointPin'
 cls.SUPERCLS = "cocos2d::PhysicsJoint"
 cls.funcs [[
-    static PhysicsJointPin* construct(PhysicsBody* a, PhysicsBody* b, const Vec2& pivot)
-    static PhysicsJointPin* construct(PhysicsBody* a, PhysicsBody* b, const Vec2& anchr1, const Vec2& anchr2)
+    static cocos2d::PhysicsJointPin *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, const cocos2d::Vec2 &pivot)
+    static cocos2d::PhysicsJointPin *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, const cocos2d::Vec2 &anchr1, const cocos2d::Vec2 &anchr2)
+    bool createConstraints()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::PhysicsJointRatchet'
 cls.SUPERCLS = "cocos2d::PhysicsJoint"
 cls.funcs [[
-    static PhysicsJointRatchet* construct(PhysicsBody* a, PhysicsBody* b, float phase, float ratchet)
+    static cocos2d::PhysicsJointRatchet *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, float phase, float ratchet)
     float getAngle()
     void setAngle(float angle)
     float getPhase()
     void setPhase(float phase)
     float getRatchet()
     void setRatchet(float ratchet)
+    bool createConstraints()
 ]]
 cls.props [[
     angle
@@ -367,12 +377,13 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsJointRotaryLimit'
 cls.SUPERCLS = "cocos2d::PhysicsJoint"
 cls.funcs [[
-    static PhysicsJointRotaryLimit* construct(PhysicsBody* a, PhysicsBody* b, float min, float max)
-    static PhysicsJointRotaryLimit* construct(PhysicsBody* a, PhysicsBody* b)
+    static cocos2d::PhysicsJointRotaryLimit *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, float min, float max)
+    static cocos2d::PhysicsJointRotaryLimit *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b)
     float getMin()
     void setMin(float min)
     float getMax()
     void setMax(float max)
+    bool createConstraints()
 ]]
 cls.props [[
     min
@@ -383,13 +394,14 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsJointRotarySpring'
 cls.SUPERCLS = "cocos2d::PhysicsJoint"
 cls.funcs [[
-    static PhysicsJointRotarySpring* construct(PhysicsBody* a, PhysicsBody* b, float stiffness, float damping)
+    static cocos2d::PhysicsJointRotarySpring *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, float stiffness, float damping)
     float getRestAngle()
     void setRestAngle(float restAngle)
     float getStiffness()
     void setStiffness(float stiffness)
     float getDamping()
     void setDamping(float damping)
+    bool createConstraints()
 ]]
 cls.props [[
     restAngle
@@ -401,17 +413,18 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsJointSpring'
 cls.SUPERCLS = "cocos2d::PhysicsJoint"
 cls.funcs [[
-    static PhysicsJointSpring* construct(PhysicsBody* a, PhysicsBody* b, const Vec2& anchr1, const Vec2& anchr2, float stiffness, float damping)
-    Vec2 getAnchr1()
-    void setAnchr1(const Vec2& anchr1)
-    Vec2 getAnchr2()
-    void setAnchr2(const Vec2& anchr2)
+    static cocos2d::PhysicsJointSpring *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, const cocos2d::Vec2 &anchr1, const cocos2d::Vec2 &anchr2, float stiffness, float damping)
+    cocos2d::Vec2 getAnchr1()
+    void setAnchr1(const cocos2d::Vec2 &anchr1)
+    cocos2d::Vec2 getAnchr2()
+    void setAnchr2(const cocos2d::Vec2 &anchr2)
     float getRestLength()
     void setRestLength(float restLength)
     float getStiffness()
     void setStiffness(float stiffness)
     float getDamping()
     void setDamping(float damping)
+    bool createConstraints()
 ]]
 cls.props [[
     anchr1
@@ -440,8 +453,8 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsShape'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
-    PhysicsBody* getBody()
-    Type getType()
+    cocos2d::PhysicsBody *getBody()
+    cocos2d::PhysicsShape::Type getType()
     float getArea()
     float getMoment()
     void setMoment(float moment)
@@ -455,14 +468,14 @@ cls.funcs [[
     void setRestitution(float restitution)
     float getFriction()
     void setFriction(float friction)
-    const PhysicsMaterial& getMaterial()
-    void setMaterial(const PhysicsMaterial& material)
+    const cocos2d::PhysicsMaterial &getMaterial()
+    void setMaterial(const cocos2d::PhysicsMaterial &material)
     bool isSensor()
     void setSensor(bool sensor)
     float calculateDefaultMoment()
-    Vec2 getOffset()
-    Vec2 getCenter()
-    bool containsPoint(const Vec2& point)
+    cocos2d::Vec2 getOffset()
+    cocos2d::Vec2 getCenter()
+    bool containsPoint(const cocos2d::Vec2 &point)
     void setCategoryBitmask(int bitmask)
     int getCategoryBitmask()
     void setContactTestBitmask(int bitmask)
@@ -496,7 +509,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsShapePolygon'
 cls.SUPERCLS = "cocos2d::PhysicsShape"
 cls.funcs [[
-    Vec2 getPoint(int i)
+    cocos2d::Vec2 getPoint(int i)
     int getPointsCount()
 ]]
 cls.props [[
@@ -517,8 +530,8 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsShapeBox'
 cls.SUPERCLS = "cocos2d::PhysicsShapePolygon"
 cls.funcs [[
-    static PhysicsShapeBox* create(const Size& size, const PhysicsMaterial& material = PHYSICSSHAPE_MATERIAL_DEFAULT, const Vec2& offset = Vec2::ZERO, float radius = 0.0f)
-    Size getSize()
+    static cocos2d::PhysicsShapeBox *create(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset, @optional float radius)
+    cocos2d::Size getSize()
 ]]
 cls.props [[
     size
@@ -528,9 +541,9 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsShapeCircle'
 cls.SUPERCLS = "cocos2d::PhysicsShape"
 cls.funcs [[
-    static PhysicsShapeCircle* create(float radius, const PhysicsMaterial& material = PHYSICSSHAPE_MATERIAL_DEFAULT, const Vec2& offset = Vec2(0, 0))
+    static cocos2d::PhysicsShapeCircle *create(float radius, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset)
     static float calculateArea(float radius)
-    static float calculateMoment(float mass, float radius, const Vec2& offset = Vec2::ZERO)
+    static float calculateMoment(float mass, float radius, @optional const cocos2d::Vec2 &offset)
     float getRadius()
 ]]
 cls.props [[
@@ -541,7 +554,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsShapeEdgeBox'
 cls.SUPERCLS = "cocos2d::PhysicsShapeEdgePolygon"
 cls.funcs [[
-    static PhysicsShapeEdgeBox* create(const Size& size, const PhysicsMaterial& material = PHYSICSSHAPE_MATERIAL_DEFAULT, float border = 0, const Vec2& offset = Vec2::ZERO)
+    static cocos2d::PhysicsShapeEdgeBox *create(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional float border, @optional const cocos2d::Vec2 &offset)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -558,9 +571,9 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsShapeEdgeSegment'
 cls.SUPERCLS = "cocos2d::PhysicsShape"
 cls.funcs [[
-    static PhysicsShapeEdgeSegment* create(const Vec2& a, const Vec2& b, const PhysicsMaterial& material = PHYSICSSHAPE_MATERIAL_DEFAULT, float border = 1)
-    Vec2 getPointA()
-    Vec2 getPointB()
+    static cocos2d::PhysicsShapeEdgeSegment *create(const cocos2d::Vec2 &a, const cocos2d::Vec2 &b, @optional const cocos2d::PhysicsMaterial &material, @optional float border)
+    cocos2d::Vec2 getPointA()
+    cocos2d::Vec2 getPointB()
 ]]
 cls.props [[
     pointA
@@ -571,29 +584,29 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::PhysicsRayCastInfo'
 cls.funcs [[
 ]]
-cls.var('shape', [[PhysicsShape* shape]])
-cls.var('start', [[Vec2 start]])
-cls.var('end', [[Vec2 end]])
-cls.var('contact', [[Vec2 contact]])
-cls.var('normal', [[Vec2 normal]])
+cls.var('shape', [[cocos2d::PhysicsShape *shape]])
+cls.var('start', [[cocos2d::Vec2 start]])
+cls.var('end', [[cocos2d::Vec2 end]])
+cls.var('contact', [[cocos2d::Vec2 contact]])
+cls.var('normal', [[cocos2d::Vec2 normal]])
 cls.var('fraction', [[float fraction]])
-cls.var('data', [[void* data]])
+cls.var('data', [[void *data]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::PhysicsWorld'
 cls.funcs [[
-    void addJoint(PhysicsJoint* joint)
-    void removeJoint(PhysicsJoint* joint, bool destroy = true)
-    void removeAllJoints(bool destroy = true)
-    void removeBody(PhysicsBody* body)
+    void addJoint(cocos2d::PhysicsJoint *joint)
+    void removeJoint(cocos2d::PhysicsJoint *joint, @optional bool destroy)
+    void removeAllJoints(@optional bool destroy)
+    void removeBody(cocos2d::PhysicsBody *body)
     void removeBody(int tag)
     void removeAllBodies()
-    Vector<PhysicsShape*> getShapes(const Vec2& point)
-    PhysicsShape* getShape(const Vec2& point)
-    const Vector<PhysicsBody*>& getAllBodies()
-    PhysicsBody* getBody(int tag)
-    Vec2 getGravity()
-    void setGravity(const Vec2& gravity)
+    Vector<cocos2d::PhysicsShape *> getShapes(const cocos2d::Vec2 &point)
+    cocos2d::PhysicsShape *getShape(const cocos2d::Vec2 &point)
+    const Vector<cocos2d::PhysicsBody *> &getAllBodies()
+    cocos2d::PhysicsBody *getBody(int tag)
+    cocos2d::Vec2 getGravity()
+    void setGravity(const cocos2d::Vec2 &gravity)
     void setSpeed(float speed)
     float getSpeed()
     void setUpdateRate(int rate)

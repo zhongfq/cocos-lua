@@ -47,6 +47,12 @@ typedef {
 }
 
 typedef {
+    CPPCLS = 'cocos2d::PhysicsMaterial',
+    CONV = 'auto_olua_$$_cocos2d_PhysicsMaterial',
+    VARS = nil,
+}
+
+typedef {
     CPPCLS = 'cocos2d::PhysicsContact::EventCode',
     DECLTYPE = 'lua_Unsigned',
     CONV = 'olua_$$_uint',

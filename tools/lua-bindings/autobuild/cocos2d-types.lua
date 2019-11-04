@@ -11,36 +11,6 @@ typedef {
 }
 
 typedef {
-    CONV = 'auto_olua_$$_cocos2d_Vec2',
-    CPPCLS = 'cocos2d::Vec2',
-    VARS = 2,
-}
-
-typedef {
-    CONV = 'auto_olua_$$_cocos2d_Vec2',
-    CPPCLS = 'cocos2d::Point',
-    VARS = 2,
-}
-
-typedef {
-    CONV = 'auto_olua_$$_cocos2d_Vec3',
-    CPPCLS = 'cocos2d::Vec3',
-    VARS = 3,
-}
-
-typedef {
-    CONV = 'auto_olua_$$_cocos2d_Vec4',
-    CPPCLS = 'cocos2d::Vec4',
-    VARS = 4,
-}
-
-typedef {
-    CONV = 'auto_olua_$$_cocos2d_Size',
-    CPPCLS = 'cocos2d::Size',
-    VARS = 2,
-}
-
-typedef {
     CONV = 'manual_olua_$$_cocos2d_Rect',
     CPPCLS = 'cocos2d::Rect',
     VARS = 4,
@@ -66,71 +36,6 @@ typedef {
     CONV = 'olua_$$_std_string',
     CPPCLS = 'cocos2d::EventListener::ListenerID',
     DECLTYPE = 'std::string',
-}
-
-typedef {
-    CONV = 'auto_olua_$$_cocos2d_AffineTransform',
-    CPPCLS = 'cocos2d::AffineTransform',
-}
-
-typedef {
-    CONV = 'auto_olua_$$_cocos2d_BlendFunc',
-    CPPCLS = 'cocos2d::BlendFunc',
-}
-
-typedef {
-    CONV = 'auto_olua_$$_cocos2d_experimental_Viewport',
-    CPPCLS = 'cocos2d::experimental::Viewport',
-}
-
-typedef {
-    CONV = 'auto_olua_$$_cocos2d_Quaternion',
-    CPPCLS = 'cocos2d::Quaternion',
-}
-
-typedef {
-    CONV = 'auto_olua_$$_cocos2d_ResourceData',
-    CPPCLS = 'cocos2d::ResourceData',
-}
-
-typedef {
-    CONV = 'auto_olua_$$_cocos2d_T2F_Quad',
-    CPPCLS = 'cocos2d::T2F_Quad',
-}
-
-typedef {
-    CONV = 'auto_olua_$$_cocos2d_Tex2F',
-    CPPCLS = 'cocos2d::Tex2F',
-}
-
-typedef {
-    CONV = 'auto_olua_$$_cocos2d_Texture2D_TexParams',
-    CPPCLS = 'cocos2d::Texture2D::TexParams',
-}
-
-typedef {
-    CONV = 'auto_olua_$$_cocos2d_TTFConfig',
-    CPPCLS = 'cocos2d::TTFConfig',
-}
-
-typedef {
-    CONV = 'auto_olua_$$_cocos2d_Uniform',
-    CPPCLS = 'cocos2d::Uniform *',
-}
-
-typedef {
-    CONV = 'auto_olua_$$_cocos2d_VertexAttrib',
-    CPPCLS = 'cocos2d::VertexAttrib *',
-}
-
-typedef {
-    CONV = 'auto_olua_$$_GLContextAttrs',
-    CPPCLS = 'GLContextAttrs',
-}
-
-typedef {
-    CONV = 'auto_olua_$$_cocos2d_Quad3',
-    CPPCLS = 'cocos2d::Quad3',
 }
 
 typedef {
@@ -161,16 +66,6 @@ typedef {
 typedef {
     CONV = 'manual_olua_$$_cocos2d_ValueVector',
     CPPCLS = 'cocos2d::ValueVector',
-}
-
-typedef {
-    CONV = 'auto_olua_$$_cocos2d_Controller_KeyStatus',
-    CPPCLS = 'cocos2d::Controller::KeyStatus',
-}
-
-typedef {
-    CONV = 'auto_olua_$$_cocos2d_network_WebSocket_Data',
-    CPPCLS = 'cocos2d::network::WebSocket::Data',
 }
 
 typedef {
@@ -401,14 +296,14 @@ typedef {
     CPPCLS = 'cocos2d::network::WebSocket::ErrorCode',
     DECLTYPE = 'lua_Unsigned',
     CONV = 'olua_$$_uint',
-    LUACLS = 'cc.network.WebSocket.ErrorCode',
+    LUACLS = 'cc.WebSocket.ErrorCode',
 }
 
 typedef {
     CPPCLS = 'cocos2d::network::WebSocket::State',
     DECLTYPE = 'lua_Unsigned',
     CONV = 'olua_$$_uint',
-    LUACLS = 'cc.network.WebSocket.State',
+    LUACLS = 'cc.WebSocket.State',
 }
 
 typedef {
@@ -1900,6 +1795,12 @@ typedef {
 }
 
 typedef {
+    CPPCLS = 'cocos2d::Uniform *',
+    CONV = 'olua_$$_cppobj',
+    LUACLS = 'cc.Uniform',
+}
+
+typedef {
     CPPCLS = 'cocos2d::UserDefault *',
     CONV = 'olua_$$_cppobj',
     LUACLS = 'cc.UserDefault',
@@ -1927,6 +1828,12 @@ typedef {
     CPPCLS = 'cocos2d::VRIRenderer *',
     CONV = 'olua_$$_cppobj',
     LUACLS = 'cc.VRIRenderer',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::VertexAttrib *',
+    CONV = 'olua_$$_cppobj',
+    LUACLS = 'cc.VertexAttrib',
 }
 
 typedef {
@@ -1962,13 +1869,13 @@ typedef {
 typedef {
     CPPCLS = 'cocos2d::network::WebSocket *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.network.WebSocket',
+    LUACLS = 'cc.WebSocket',
 }
 
 typedef {
     CPPCLS = 'cocos2d::network::WebSocket::Delegate *',
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.network.WebSocket.Delegate',
+    LUACLS = 'cc.WebSocket.Delegate',
 }
 
 typedef {

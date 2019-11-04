@@ -235,7 +235,7 @@ void runtime::luaOpen(lua_CFunction libfunc)
 //
 const std::string runtime::getVersion()
 {
-    return "1.4.0";
+    return "1.7.0";
 }
 
 const std::string runtime::getPackageName()
@@ -603,14 +603,17 @@ void RuntimeContext::applicationWillEnterForeground()
 
 void RuntimeContext::applicationWillTerminate()
 {
-#if CC_TARGET_PLATFORM != CC_PLATFORM_MAC
     auto director = Director::getInstance();
+    director->retain();
+    
+#if CC_TARGET_PLATFORM != CC_PLATFORM_MAC
     director->popToRootScene();
     director->mainLoop();
     if (director->getRunningScene()) {
         director->getRunningScene()->removeAllChildren();
     }
 #endif
+    
     _scheduler->unscheduleAll();
     lua_close(_luaVM);
     _luaVM = nullptr;
@@ -618,12 +621,15 @@ void RuntimeContext::applicationWillTerminate()
     downloader::end();
     AudioEngine::uncacheAll();
     AudioEngine::end();
+
+    PoolManager::destroyInstance();
+    CC_SAFE_RELEASE(_scheduler);
+    
+    director->release();
 #if CC_TARGET_PLATFORM != CC_PLATFORM_MAC
     director->end();
     director->mainLoop();
 #endif
-    PoolManager::destroyInstance();
-    CC_SAFE_RELEASE(_scheduler);
 }
 
 NS_XGAME_END

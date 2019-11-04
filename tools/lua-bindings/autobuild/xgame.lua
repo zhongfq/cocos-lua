@@ -11,8 +11,7 @@ local M = {}
 olua.nowarning(typeconv, typecls, cls)
 
 M.NAME = "xgame"
-M.HEADER_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_xgame.h"
-M.SOURCE_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_xgame.cpp"
+M.PATH = "../../frameworks/libxgame/src/lua-bindings"
 M.INCLUDES = [[
 #include "lua-bindings/lua_xgame.h"
 #include "lua-bindings/lua_conv.h"
@@ -34,9 +33,9 @@ M.CLASSES = {}
 cls = typecls 'xgame::SceneNoCamera'
 cls.SUPERCLS = "cocos2d::Scene"
 cls.funcs [[
-    static SceneNoCamera *create()
-    static SceneNoCamera *createWithSize(const cocos2d::Size& size)
-    static SceneNoCamera *createWithPhysics()
+    static xgame::SceneNoCamera *create()
+    static xgame::SceneNoCamera *createWithSize(const cocos2d::Size &size)
+    static xgame::SceneNoCamera *createWithPhysics()
     SceneNoCamera()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -78,7 +77,7 @@ cls.funcs [[
     static const std::string getManifestVersion()
     static void setManifestVersion(const std::string &version)
     static const std::string getNetworkStatus()
-    static const PermissionStatus getPermissionStatus(Permission permission)
+    static const xgame::PermissionStatus getPermissionStatus(xgame::Permission permission)
     static void setAudioSessionCatalog(const std::string &catalog)
     static const std::string getAudioSessionCatalog()
     static bool canOpenURL(const std::string &uri)
@@ -169,10 +168,10 @@ cls.funcs [[
     static const std::string getDocumentDirectory()
     static const std::string getTmpDirectory()
     static const std::string getSDCardDirectory()
-    static void addSearchPath(const std::string &path, bool front = false)
-    static const std::string shortPath(const std::string &path, size_t limit = 60)
+    static void addSearchPath(const std::string &path, @optional bool front)
+    static const std::string shortPath(const std::string &path, @optional size_t limit)
     static const std::string fullPath(const std::string &path)
-    static bool createDirectory(const std::string &path, bool isFilePath = false)
+    static bool createDirectory(const std::string &path, @optional bool isFilePath)
     static bool remove(const std::string &path)
     static bool exist(const std::string &path)
     static bool isFile(const std::string &path)
@@ -184,7 +183,6 @@ cls.funcs [[
 ]]
 cls.func('write', [[{
     size_t len;
-    lua_settop(L, 2);
     std::string path = olua_tostring(L, 1);
     const char *data = olua_checklstring(L, 2, &len);
     bool ret = (bool)xgame::filesystem::write(path, data, len);
@@ -203,15 +201,15 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'xgame::preferences'
 cls.funcs [[
-    static bool getBoolean(const char *key, bool defaultValue = false)
+    static bool getBoolean(const char *key, @optional bool defaultValue)
     static void setBoolean(const char *key, bool value)
-    static float getFloat(const char *key, float defaultValue = 0)
+    static float getFloat(const char *key, @optional float defaultValue)
     static void setFloat(const char *key, float value)
-    static double getDouble(const char *key, double defaultValue = 0)
+    static double getDouble(const char *key, @optional double defaultValue)
     static void setDouble(const char *key, double value)
-    static int getInteger(const char *key, int defaultValue = 0)
+    static int getInteger(const char *key, @optional int defaultValue)
     static void setInteger(const char *key, int value)
-    static std::string getString(const char *key, const char *defaultValue = "")
+    static std::string getString(const char *key, @optional const char *defaultValue)
     static void setString(const char *key, const char *value)
     static void deleteKey(const char *key)
     static void flush()
@@ -226,7 +224,6 @@ cls.funcs [[
     static std::string createTag()
 ]]
 cls.func('schedule', [[{
-    lua_settop(L, 2);
     float interval = (float)olua_checknumber(L, 1);
     uint32_t callback = olua_reffunc(L, 2);
     uint32_t id = xgame::timer::schedule(interval, [callback](float dt) {
@@ -244,7 +241,6 @@ cls.func('schedule', [[{
     return 1;
 }]])
 cls.func('unschedule', [[{
-    lua_settop(L, 1);
     uint64_t value = olua_checkinteger(L, 1);
     uint32_t callback = value >> 32;
     uint32_t id = value & 0xFFFFFFFF;
@@ -324,7 +320,6 @@ cls.func('getDesignSize', [[{
     return 2;
 }]])
 cls.func('setDesignSize', [[{
-    lua_settop(L, 3);
     cocos2d::Director::getInstance()->getOpenGLView()->setDesignResolutionSize(
         (float)olua_checknumber(L, 1), (float)olua_checknumber(L, 2),
         (ResolutionPolicy)olua_checkinteger(L, 3));
@@ -349,7 +344,6 @@ cls = typecls 'xgame::downloader'
 cls.funcs [[
 ]]
 cls.func('load', [[{
-    lua_settop(L, 3);
     xgame::downloader::FileTask task;
     task.url = olua_checkstring(L, 1);
     task.path = olua_checkstring(L, 2);
@@ -360,7 +354,6 @@ cls.func('load', [[{
 cls.func('setDispatcher', [[{
     static const char *STATES[] = {"ioerror", "loaded", "pending", "invalid"};
     
-    lua_settop(L, 1);
     void *store_obj = olua_getstoreobj(L, "kernel.downloader");
     std::string func = olua_setcallback(L, store_obj, "dispatcher", 1, OLUA_TAG_REPLACE);
     xgame::downloader::setDispatcher([store_obj, func](const xgame::downloader::FileTask &task) {
@@ -379,7 +372,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'xgame::MaskLayout'
 cls.SUPERCLS = "cocos2d::ui::Layout"
 cls.funcs [[
-    static xgame::MaskLayout * create()
+    static xgame::MaskLayout *create()
     cocos2d::DrawNode *getClippingNode()
 ]]
 cls.props [[

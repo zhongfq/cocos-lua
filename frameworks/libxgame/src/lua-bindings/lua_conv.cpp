@@ -102,6 +102,105 @@ bool auto_olua_ispack_cocos2d_Vec2(lua_State *L, int idx)
     return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1);
 }
 
+int auto_olua_push_cocos2d_Point(lua_State *L, const cocos2d::Point *value)
+{
+    if (value) {
+        lua_createtable(L, 0, 2);
+
+        olua_push_number(L, (lua_Number)value->x);
+        olua_setfield(L, -2, "x");
+
+        olua_push_number(L, (lua_Number)value->y);
+        olua_setfield(L, -2, "y");
+    } else {
+        lua_pushnil(L);
+    }
+
+    return 1;
+}
+
+void auto_olua_check_cocos2d_Point(lua_State *L, int idx, cocos2d::Point *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    idx = lua_absindex(L, idx);
+    luaL_checktype(L, idx, LUA_TTABLE);
+
+    lua_Number arg1 = 0;       /** x */
+    lua_Number arg2 = 0;       /** y */
+
+    olua_getfield(L, idx, "x");
+    olua_check_number(L, -1, &arg1);
+    value->x = (float)arg1;
+    lua_pop(L, 1);
+
+    olua_getfield(L, idx, "y");
+    olua_check_number(L, -1, &arg2);
+    value->y = (float)arg2;
+    lua_pop(L, 1);
+}
+
+void auto_olua_opt_cocos2d_Point(lua_State *L, int idx, cocos2d::Point *value, const cocos2d::Point &def)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    if (olua_isnil(L, idx)) {
+        *value = def;
+    } else {
+        idx = lua_absindex(L, idx);
+        luaL_checktype(L, idx, LUA_TTABLE);
+
+        lua_Number arg1 = 0;       /** x */
+        lua_Number arg2 = 0;       /** y */
+
+        olua_getfield(L, idx, "x");
+        olua_opt_number(L, -1, &arg1, (lua_Number)0);
+        value->x = (float)arg1;
+        lua_pop(L, 1);
+
+        olua_getfield(L, idx, "y");
+        olua_opt_number(L, -1, &arg2, (lua_Number)0);
+        value->y = (float)arg2;
+        lua_pop(L, 1);
+    }
+}
+
+bool auto_olua_is_cocos2d_Point(lua_State *L, int idx)
+{
+    return olua_istable(L, idx) && olua_hasfield(L, idx, "y") && olua_hasfield(L, idx, "x");
+}
+
+void auto_olua_pack_cocos2d_Point(lua_State *L, int idx, cocos2d::Point *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    idx = lua_absindex(L, idx);
+    value->x = (float)olua_checknumber(L, idx + 0);
+    value->y = (float)olua_checknumber(L, idx + 1);
+}
+
+int auto_olua_unpack_cocos2d_Point(lua_State *L, const cocos2d::Point *value)
+{
+    if (value) {
+        olua_push_number(L, (lua_Number)value->x);
+        olua_push_number(L, (lua_Number)value->y);
+    } else {
+        for (int i = 0; i < 2; i++) {
+            lua_pushnil(L);
+        }
+    }
+
+    return 2;
+}
+
+bool auto_olua_ispack_cocos2d_Point(lua_State *L, int idx)
+{
+    return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1);
+}
+
 int auto_olua_push_cocos2d_Vec3(lua_State *L, const cocos2d::Vec3 *value)
 {
     if (value) {

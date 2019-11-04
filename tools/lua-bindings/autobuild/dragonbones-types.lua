@@ -11,6 +11,12 @@ typedef {
 }
 
 typedef {
+    CPPCLS = 'dragonBones::Rectangle',
+    CONV = 'auto_olua_$$_dragonBones_Rectangle',
+    VARS = nil,
+}
+
+typedef {
     CPPCLS = 'dragonBones::ActionType',
     DECLTYPE = 'lua_Unsigned',
     CONV = 'olua_$$_uint',

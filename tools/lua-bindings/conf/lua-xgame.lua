@@ -3,7 +3,7 @@ local M = typemod 'xgame'
 local typeconf = M.typeconf
 
 M.PARSER = {
-    PATH = {
+    HEADERS = {
         'xgame/xfilesystem.h',
         'xgame/xruntime.h',
         'xgame/xpreferences.h',
@@ -11,7 +11,7 @@ M.PARSER = {
         'xgame/xrootscene.h',
         'xgame/xtimer.h',
     },
-    ARGS = {
+    FLAGS = {
         '-I../../frameworks/cocos2d-x/cocos',
         '-I../../frameworks/libxgame/src',
         '-DCC_DLL=',
@@ -19,9 +19,7 @@ M.PARSER = {
     },
 }
 
-M.NAMESPACES = {"xgame"}
-M.HEADER_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_xgame.h"
-M.SOURCE_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_xgame.cpp"
+M.PATH = "../../frameworks/libxgame/src/lua-bindings"
 M.INCLUDES = [[
 #include "lua-bindings/lua_xgame.h"
 #include "lua-bindings/lua_conv.h"
@@ -117,7 +115,6 @@ filesystem.EXCLUDE 'getDirectory'
 filesystem.FUNC('write', [[
 {
     size_t len;
-    lua_settop(L, 2);
     std::string path = olua_tostring(L, 1);
     const char *data = olua_checklstring(L, 2, &len);
     bool ret = (bool)xgame::filesystem::write(path, data, len);
@@ -152,7 +149,6 @@ timer.CALLBACK {
 }
 timer.FUNC('schedule', [[
 {
-    lua_settop(L, 2);
     float interval = (float)olua_checknumber(L, 1);
     uint32_t callback = olua_reffunc(L, 2);
     uint32_t id = xgame::timer::schedule(interval, [callback](float dt) {
@@ -171,7 +167,6 @@ timer.FUNC('schedule', [[
 }]])
 timer.FUNC('unschedule', [[
 {
-    lua_settop(L, 1);
     uint64_t value = olua_checkinteger(L, 1);
     uint32_t callback = value >> 32;
     uint32_t id = value & 0xFFFFFFFF;
@@ -228,7 +223,6 @@ window.FUNC('getDesignSize', [[
 }]])
 window.FUNC('setDesignSize', [[
 {
-    lua_settop(L, 3);
     cocos2d::Director::getInstance()->getOpenGLView()->setDesignResolutionSize(
         (float)olua_checknumber(L, 1), (float)olua_checknumber(L, 2),
         (ResolutionPolicy)olua_checkinteger(L, 3));
@@ -254,7 +248,6 @@ downloader.EXCLUDE 'init'
 downloader.EXCLUDE 'end'
 downloader.FUNC('load', [[
 {
-    lua_settop(L, 3);
     xgame::downloader::FileTask task;
     task.url = olua_checkstring(L, 1);
     task.path = olua_checkstring(L, 2);
@@ -267,7 +260,6 @@ downloader.FUNC('setDispatcher', [[
 {
     static const char *STATES[] = {"ioerror", "loaded", "pending", "invalid"};
     
-    lua_settop(L, 1);
     void *store_obj = olua_getstoreobj(L, "kernel.downloader");
     std::string func = olua_setcallback(L, store_obj, "dispatcher", 1, OLUA_TAG_REPLACE);
     xgame::downloader::setDispatcher([store_obj, func](const xgame::downloader::FileTask &task) {

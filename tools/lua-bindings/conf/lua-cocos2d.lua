@@ -5,7 +5,7 @@ local typeconf = M.typeconf
 local include = M.include
 
 M.PARSER = {
-    PATH = {
+    HEADERS = {
         'cocos2d.h',
         'audio/include/AudioEngine.h',
         'audio/include/SimpleAudioEngine.h',
@@ -13,7 +13,7 @@ M.PARSER = {
         'vr/CCVRGenericHeadTracker.h',
         'lua-bindings/LuaCocosAdapter.h'
     },
-    ARGS = {
+    FLAGS = {
         '-I../../frameworks/cocos2d-x/cocos',
         '-I../../frameworks/libxgame/src',
         '-DCC_DLL=',
@@ -21,9 +21,7 @@ M.PARSER = {
     },
 }
 
-M.NAMESPACES = {"cocos2d", "cocos2d::network", "cocos2d::experimental", "CocosDenshion"}
-M.HEADER_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_cocos2d.h"
-M.SOURCE_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_cocos2d.cpp"
+M.PATH = "../../frameworks/libxgame/src/lua-bindings"
 M.INCLUDES = [[
 #include "lua-bindings/lua_cocos2d.h"
 #include "lua-bindings/lua_conv.h"
@@ -51,6 +49,7 @@ M.MAKE_LUACLS = function (cppname)
         return 'cc.' .. cppname
     else
         cppname = string.gsub(cppname, '^cocos2d::experimental::', 'cc.')
+        cppname = string.gsub(cppname, '^cocos2d::network::', 'cc.')
         cppname = string.gsub(cppname, "^cocos2d::", "cc.")
         cppname = string.gsub(cppname, "^CocosDenshion::", "cc.")
         cppname = string.gsub(cppname, "::", ".")
@@ -159,9 +158,7 @@ Scheduler.CALLBACK {
     REMOVE = true,
 }
 Scheduler.FUNC('scheduleUpdate', [[
-{
-    lua_settop(L, 4);
-    
+{   
     if (doScheduleUpdate<cocos2d::Scheduler>(L) ||
         doScheduleUpdate<cocos2d::ActionManager>(L) ||
         doScheduleUpdate<cocos2d::Node>(L) ||
@@ -203,8 +200,6 @@ static void doRemoveEventListenersForTarget(lua_State *L, cocos2d::Node *target,
 }]]
 EventDispatcher.FUNC('addCustomEventListener', [[
 {
-    lua_settop(L, 3);
-
     void *callback_store_obj = nullptr;
     auto self = olua_checkobj<cocos2d::EventDispatcher>(L, 1);
     std::string eventName = olua_checkstring(L, 2);
@@ -437,7 +432,6 @@ local FileUtils = typeconf 'cocos2d::FileUtils'
 FileUtils.EXCLUDE 'getContents'
 FileUtils.FUNC('getFileDataFromZip', [[
 {
-    lua_settop(L, 3);
     ssize_t size;
     auto self = olua_toobj<cocos2d::FileUtils>(L, 1);
     std::string filePath = olua_checkstring(L, 2);
@@ -455,7 +449,6 @@ FileUtils.FUNC('getFileDataFromZip', [[
 }]])
 FileUtils.FUNC('listFilesRecursively', [[
 {
-    lua_settop(L, 2);
     auto self = olua_toobj<cocos2d::FileUtils>(L, 1);
     std::vector<std::string> files;
     std::string dirPath = olua_checkstring(L, 2);
@@ -470,7 +463,6 @@ FileUtils.FUNC('listFilesRecursively', [[
 }]])
 FileUtils.FUNC('getFullPathCache', [[
 {
-    lua_settop(L, 1);
     auto self = olua_toobj<cocos2d::FileUtils>(L, 1);
     const std::unordered_map<std::string, std::string> paths  = self->getFullPathCache();
     lua_createtable(L, 0, 4);
@@ -515,12 +507,13 @@ NS_CC_END
 ]]
 Image.FUNC('getPNGPremultipliedAlphaEnabled', [[
 {
-    lua_settop(L, 0);
     lua_pushboolean(L, cocos2d::LuaImage::getPNGPremultipliedAlphaEnabled());
     return 1;
 }]])
 
 typeconf 'cocos2d::Renderer'
+typeconf 'cocos2d::VertexAttrib'
+typeconf 'cocos2d::Uniform'
 
 local GLProgram = typeconf 'cocos2d::GLProgram'
 GLProgram.EXCLUDE 'getUniformFlags'
@@ -586,10 +579,10 @@ WebSocketDelegate.EXCLUDE 'onError'
 WebSocketDelegate.FUNC('__gc', olua.gcfunc(WebSocketDelegate))
 
 local WebSocket = typeconf 'cocos2d::network::WebSocket'
+WebSocket.EXCLUDE 'init'
 WebSocket.FUNC('__gc', olua.gcfunc(WebSocket))
 WebSocket.FUNC('create', [[
 {
-    lua_settop(L, 4);
     std::vector<std::string> protocols;
     auto self = new cocos2d::network::WebSocket();
     auto delegate = olua_checkobj<cocos2d::network::WebSocket::Delegate>(L, 1);
@@ -645,13 +638,7 @@ Speed.ATTR('setInnerAction', {ARG1 = '@ref(single innerAction)'})
 Speed.ATTR('getInnerAction', {RET = '@ref(single innerAction)'})
 
 typeconf 'cocos2d::Follow'
-
-local tweenfunc = typeconf 'cocos2d::tweenfunc'
-tweenfunc.REG_LUATYPE = false
-tweenfunc.GSUB = function (fn, decl)
-    return string.gsub(decl, 'CC_DLL *', '')
-end
-
+typeconf 'cocos2d::tweenfunc'
 typeconf 'cocos2d::ActionInterval'
 
 local Sequence = typeconf 'cocos2d::Sequence'
@@ -971,14 +958,12 @@ Node.PROP('y', 'float getPositionY()', 'void setPositionY(float y)')
 Node.PROP('z', 'float getPositionZ()', 'void setPositionZ(float z)')
 Node.PROP('anchorX', [[
 {
-    lua_settop(L, 1);
     auto self = olua_toobj<cocos2d::Node>(L, 1);
     lua_pushnumber(L, self->getAnchorPoint().x);
     return 1;
 }
 ]], [[
 {
-    lua_settop(L, 2);
     auto self = olua_toobj<cocos2d::Node>(L, 1);
     cocos2d::Vec2 anchor = self->getAnchorPoint();
     anchor.x = olua_checknumber(L, 2);
@@ -987,14 +972,12 @@ Node.PROP('anchorX', [[
 }]])
 Node.PROP('anchorY', [[
 {
-    lua_settop(L, 1);
     auto self = olua_toobj<cocos2d::Node>(L, 1);
     lua_pushnumber(L, self->getAnchorPoint().y);
     return 1;
 }
 ]], [[
 {
-    lua_settop(L, 2);
     auto self = olua_toobj<cocos2d::Node>(L, 1);
     cocos2d::Vec2 anchor = self->getAnchorPoint();
     anchor.y = olua_checknumber(L, 2);
@@ -1003,14 +986,12 @@ Node.PROP('anchorY', [[
 }]])
 Node.PROP('width', [[
 {
-    lua_settop(L, 1);
     auto self = olua_toobj<cocos2d::Node>(L, 1);
     lua_pushnumber(L, self->getContentSize().width);
     return 1;
 }
 ]], [[
 {
-    lua_settop(L, 2);
     auto self = olua_toobj<cocos2d::Node>(L, 1);
     cocos2d::Size size = self->getContentSize();
     size.width = olua_checknumber(L, 2);
@@ -1019,14 +1000,12 @@ Node.PROP('width', [[
 }]])
 Node.PROP('height', [[
 {
-    lua_settop(L, 1);
     auto self = olua_toobj<cocos2d::Node>(L, 1);
     lua_pushnumber(L, self->getContentSize().height);
     return 1;
 }
 ]], [[
 {
-    lua_settop(L, 2);
     auto self = olua_toobj<cocos2d::Node>(L, 1);
     cocos2d::Size size = self->getContentSize();
     size.height = olua_checknumber(L, 2);
@@ -1035,14 +1014,12 @@ Node.PROP('height', [[
 }]])
 Node.PROP('alpha', [[
 {
-    lua_settop(L, 1);
     auto self = olua_toobj<cocos2d::Node>(L, 1);
     lua_pushnumber(L, self->getOpacity() / 255.0f);
     return 1;
 }
 ]], [[
 {
-    lua_settop(L, 2);
     auto self = olua_toobj<cocos2d::Node>(L, 1);
     self->setOpacity(olua_checknumber(L, 2) * 255.0f);
     return 0;
@@ -1134,11 +1111,7 @@ ProtectedNode.ATTR('removeProtectedChildByTag', {RET = '@unref(cmp protectedChil
 ProtectedNode.ATTR('removeAllProtectedChildren', {RET= '@unref(all protectedChildren)'})
 ProtectedNode.ATTR('removeAllProtectedChildrenWithCleanup', {RET = '@unref(all protectedChildren)'})
 
-local DrawNode = typeconf 'cocos2d::DrawNode'
-DrawNode.GSUB = function (fn, decl)
-    return string.gsub(decl, 'DEFAULT_LINE_WIDTH', '2')
-end
-
+typeconf 'cocos2d::DrawNode'
 typeconf 'cocos2d::TextHAlignment'
 typeconf 'cocos2d::TextVAlignment'
 typeconf 'cocos2d::GlyphCollection'
@@ -1183,11 +1156,7 @@ typeconf 'cocos2d::Animation'
 typeconf 'cocos2d::SpriteFrame'
 typeconf 'cocos2d::Sprite'
 
-local SpriteBatchNode = typeconf 'cocos2d::SpriteBatchNode'
-SpriteBatchNode.GSUB = function (fn, decl)
-    return string.gsub(decl, 'DEFAULT_CAPACITY', '29')
-end
-
+typeconf 'cocos2d::SpriteBatchNode'
 typeconf 'cocos2d::SpriteFrameCache'
 typeconf 'cocos2d::AnimationCache'
 
@@ -1206,9 +1175,6 @@ local function typeconfTransition(name)
     local cls = typeconf(name)
     cls.ATTR('create', {ARG2 = '@ref(map autoref)'})
     cls.ATTR('easeActionWithAction', {ARG1 = '@ref(single action)'})
-    cls.GSUB = function (fn, decl)
-        return string.gsub(decl, 'Orientation ', 'TransitionScene::Orientation ')
-    end
     return cls
 end
 

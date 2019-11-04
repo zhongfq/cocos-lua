@@ -21,6 +21,18 @@ typedef {
 }
 
 typedef {
+    CPPCLS = 'fairygui::Margin',
+    CONV = 'auto_olua_$$_fairygui_Margin',
+    VARS = nil,
+}
+
+typedef {
+    CPPCLS = 'fairygui::TweenValue',
+    CONV = 'auto_olua_$$_fairygui_TweenValue',
+    VARS = nil,
+}
+
+typedef {
     CPPCLS = 'fairygui::AutoSizeType',
     DECLTYPE = 'lua_Unsigned',
     CONV = 'olua_$$_uint',

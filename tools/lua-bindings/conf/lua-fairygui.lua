@@ -5,12 +5,12 @@ local typeconv = M.typeconv
 local typedef = M.typedef
 
 M.PARSER = {
-    PATH = {
+    HEADERS = {
         'FairyGUI.h',
         'tween/EaseManager.h',
         'display/FUISprite.h',
     },
-    ARGS = {
+    FLAGS = {
         '-I../../frameworks/cocos2d-x/cocos',
         '-I../../frameworks/libxgame/src',
         '-I../../frameworks/libfairygui/Classes',
@@ -19,10 +19,7 @@ M.PARSER = {
     }
 }
 
-M.NAMESPACES = {"fairygui"}
-M.HEADER_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_fairygui.h"
-M.SOURCE_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_fairygui.cpp"
-
+M.PATH = "../../frameworks/libxgame/src/lua-bindings"
 M.INCLUDES = [[
 #include "lua-bindings/lua_fairygui.h"
 #include "lua-bindings/lua_conv.h"
@@ -165,7 +162,6 @@ typeconf 'fairygui::InputEvent'
 local TextFormat = typeconf 'fairygui::TextFormat'
 TextFormat.FUNC('setFormat', [[
 {
-    lua_settop(L, 2);
     fairygui::TextFormat *self = (fairygui::TextFormat *)olua_toobj(L, 1, "fgui.TextFormat");
     fairygui::TextFormat *fmt = (fairygui::TextFormat *)olua_toobj(L, 2, "fgui.TextFormat");
     self->setFormat(*fmt);
@@ -279,7 +275,6 @@ GObject.PROP('relations', 'Relations* relations()')
 GObject.PROP('displayObject', 'cocos2d::Node* displayObject()')
 GObject.FUNC('getDragBounds', [[
 {
-    lua_settop(L, 1);
     fairygui::GObject *self = (fairygui::GObject *)olua_toobj(L, 1, "fgui.GObject");
     cocos2d::Rect *rect = self->getDragBounds();
     manual_olua_push_cocos2d_Rect(L, rect);
@@ -342,7 +337,6 @@ GComponent.ATTR('setMask', {ARG1 = '@ref(single mask)'})
 GComponent.PROP('numChildren', 'int numChildren()')
 GComponent.FUNC('resolve', [[
 {
-    lua_settop(L, 2);
     auto self = olua_toobj<fairygui::GComponent>(L, 1);
     const char *name = olua_checkstring(L, 2);
     char type = '.';
@@ -430,14 +424,12 @@ GLoader.ATTR('getComponent', {RET = '@ref(single component)'})
 local GTextField = typeconf 'fairygui::GTextField'
 GTextField.FUNC('getTemplateVars', [[
 {
-    lua_settop(L, 1);
     fairygui::GTextField *self = (fairygui::GTextField *)olua_toobj(L, 1, "fgui.GTextField");
     manual_olua_push_cocos2d_ValueMap(L, self->getTemplateVars());
     return 1;
 }]])
 GTextField.FUNC('setTemplateVars', [[
 {
-    lua_settop(L, 2);
     cocos2d::ValueMap arg;
     fairygui::GTextField *self = (fairygui::GTextField *)olua_toobj(L, 1, "fgui.GTextField");
     manual_olua_check_cocos2d_ValueMap(L, 2, &arg);
@@ -474,6 +466,19 @@ GList.ATTR('setNumItems', {RET = '@unref(cmp children)'})
 GList.VAR('itemRenderer', 'std::function<void(int, GObject*)> itemRenderer')
 GList.VAR('itemProvider', 'std::function<std::string(int)> itemProvider')
 -- std::function<void(int, GObject*)> itemRenderer;
+GList.FUNC('getSelection', [[{
+    fairygui::GList *self = (fairygui::GList *)olua_toobj(L, 1, "fgui.GList");
+    std::vector<int> selections;
+    self->getSelection(selections);
+    int idx = 1;
+    lua_createtable(L, (int)selections.size(), 0);
+    for (auto v : selections) {
+        lua_pushinteger(L, v);
+        lua_rawseti(L, -2, idx++);
+    }
+
+    return 1;
+}]])
 GList.INJECT('itemRenderer', {
     CALLBACK_BEFORE = [[
         if (arg2->getParent()) {
@@ -514,8 +519,6 @@ static int _fairygui_PopupMenu_addItemAt(lua_State *L);
 ]]
 PopupMenu.FUNC('addItemAt', [[
 {
-    lua_settop(L, 4);
-
     fairygui::PopupMenu *self = (fairygui::PopupMenu *)olua_toobj(L, 1, "fgui.PopupMenu");
     std::string caption = olua_checkstring(L, 2);
     int index = (int)olua_checkinteger(L, 3);
@@ -550,8 +553,6 @@ PopupMenu.FUNC('addItemAt', [[
 }]])
 PopupMenu.FUNC('addItem', [[
 {
-    lua_settop(L, 3);
-
     fairygui::PopupMenu *self = (fairygui::PopupMenu *)olua_toobj(L, 1, "fgui.PopupMenu");
     lua_pushinteger(L, self->getList()->numChildren());
     lua_insert(L, -2);
@@ -585,8 +586,6 @@ PopupMenu.INJECT({'removeItem', 'clearItems'}, {
 local Relations = typeconf 'fairygui::Relations'
 Relations.FUNC('copyFrom', [[
 {
-    lua_settop(L, 2);
-    
     fairygui::Relations *self = (fairygui::Relations *)olua_toobj(L, 1, "fgui.Relations");
     fairygui::Relations *source = (fairygui::Relations *)olua_checkobj(L, 2, "fgui.Relations");
     // void copyFrom(const Relations& source)
@@ -602,8 +601,6 @@ RelationItem.ATTR('getTarget', {RET = '@ref(single target)'})
 RelationItem.ATTR('setTarget', {ARG1 = '@ref(single target)'})
 RelationItem.FUNC('copyFrom', [[
 {
-    lua_settop(L, 2);
-    
     fairygui::RelationItem *self = (fairygui::RelationItem *)olua_toobj(L, 1, "fgui.RelationItem");
     fairygui::RelationItem *source = (fairygui::RelationItem *)olua_checkobj(L, 2, "fgui.RelationItem");
     // void copyFrom(const RelationItem& source)
@@ -655,7 +652,6 @@ Transition.CALLBACK {
 local UIConfig = typeconf 'fairygui::UIConfig'
 UIConfig.FUNC('getRealFontName', [[
 {
-    lua_settop(L, 1);
     bool isTTF = false;
     std::string aliasName = olua_checkstring(L, 1);
     std::string fontName = fairygui::UIConfig::getRealFontName(aliasName, &isTTF);
@@ -813,15 +809,13 @@ TreeView.VAR('treeNodeRender', 'std::function<void(TreeNode* node)> treeNodeRend
 TreeView.VAR('treeNodeWillExpand', 'std::function<void(TreeNode* node, bool expand)> treeNodeWillExpand')
 TreeView.FUNC('getSelection', [[
 {
-    lua_settop(L, 2);
-
-    fairygui::GList *self = (fairygui::GList *)olua_toobj(L, 1, "fgui.GList");
-    std::vector<int> selections;
+    fairygui::TreeView *self = (fairygui::TreeView *)olua_toobj(L, 1, "fgui.TreeView");
+    std::vector<fairygui::TreeNode *> selections;
     self->getSelection(selections);
     int idx = 1;
     lua_createtable(L, (int)selections.size(), 0);
     for (auto v : selections) {
-        lua_pushinteger(L, v);
+        olua_push_cppobj<fairygui::TreeNode>(L, v);
         lua_rawseti(L, -2, idx++);
     }
 

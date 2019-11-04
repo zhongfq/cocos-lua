@@ -11,8 +11,7 @@ local M = {}
 olua.nowarning(typeconv, typecls, cls)
 
 M.NAME = "conv"
-M.HEADER_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_conv.h"
-M.SOURCE_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_conv.cpp"
+M.PATH = "../../frameworks/libxgame/src/lua-bindings"
 M.HEADER_INCLUDES = [[
 #include "xgame/xlua.h"
 #include "cocos2d.h"
@@ -26,6 +25,13 @@ M.INCLUDES = [[
 M.CONVS = {
     typeconv {
         CPPCLS = 'cocos2d::Vec2',
+        DEF = [[
+            float x;
+            float y;
+        ]],
+    },
+    typeconv {
+        CPPCLS = 'cocos2d::Point',
         DEF = [[
             float x;
             float y;

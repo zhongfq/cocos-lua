@@ -5,13 +5,13 @@ local typeconf = M.typeconf
 local typedef = M.typedef
 
 M.PARSER = {
-    PATH = {
+    HEADERS = {
         'cocos2d.h',
         'ui/CocosGUI.h',
         'ui/UIScrollViewBar.h',
         'lua-bindings/LuaCocosAdapter.h'
     },
-    ARGS = {
+    FLAGS = {
         '-I../../frameworks/cocos2d-x/cocos',
         '-I../../frameworks/libxgame/src',
         '-DCC_DLL=',
@@ -19,9 +19,7 @@ M.PARSER = {
     },
 }
 
-M.NAMESPACES = {"cocos2d::ui", "cocos2d::experimental::ui"}
-M.HEADER_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_cocos2d_ui.h"
-M.SOURCE_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_cocos2d_ui.cpp"
+M.PATH = "../../frameworks/libxgame/src/lua-bindings"
 M.INCLUDES = [[
 #include "lua-bindings/lua_cocos2d_ui.h"
 #include "lua-bindings/lua_conv.h"

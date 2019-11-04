@@ -5,11 +5,11 @@ local typedef = M.typedef
 local typeconv = M.typeconv
 
 M.PARSER = {
-    PATH = {
+    HEADERS = {
         'CCDragonBonesHeaders.h',
         'lua-bindings/LuaCocosAdapter.h'
     },
-    ARGS = {
+    FLAGS = {
         '-I../../frameworks/cocos2d-x/cocos',
         '-I../../frameworks/libxgame/src',
         '-I../../frameworks/libdragonbones/src',
@@ -18,9 +18,7 @@ M.PARSER = {
     },
 }
 
-M.NAMESPACES = {"dragonBones"}
-M.HEADER_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_dragonbones.h"
-M.SOURCE_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_dragonbones.cpp"
+M.PATH = "../../frameworks/libxgame/src/lua-bindings"
 M.INCLUDES = [[
 #include "lua-bindings/lua_dragonbones.h"
 #include "lua-bindings/lua_conv.h"
@@ -68,6 +66,7 @@ M.EXCLUDE_TYPE 'dragonBones::MeshDisplayData *'
 M.EXCLUDE_TYPE 'dragonBones::CanvasData *'
 M.EXCLUDE_TYPE 'dragonBones::IArmatureProxy *'
 M.EXCLUDE_TYPE 'dragonBones::IEventDispatcher *'
+M.EXCLUDE_TYPE 'std::vector *'
 
 M.EXCLUDE_PATTERN = function (cppcls, fn, decl)
     return string.find(fn, '^_') or string.find(decl, 'std::map')
@@ -98,7 +97,7 @@ typeconf 'dragonBones::TimelineData'
 typeconf 'dragonBones::IAnimatable'
 typeconf 'dragonBones::WorldClock'
 
-local Slot =typeconf 'dragonBones::Slot'
+local Slot = typeconf 'dragonBones::Slot'
 Slot.EXCLUDE 'getDisplayList'
 Slot.EXCLUDE 'setDisplayList'
 
@@ -113,33 +112,18 @@ typeconf 'dragonBones::CanvasData'
 
 local TextureAtlasData = typeconf 'dragonBones::TextureAtlasData'
 TextureAtlasData.EXCLUDE 'copyFrom'
-TextureAtlasData.EXCLUDE 'getTextures'
-TextureAtlasData.EXCLUDE 'textures'
 
 local TextureData = typeconf 'dragonBones::TextureData'
 TextureData.EXCLUDE 'copyFrom'
 
 typeconf 'dragonBones::ArmatureData'
-
-local SkinData = typeconf 'dragonBones::SkinData'
-SkinData.EXCLUDE 'getSlotDisplays'
-SkinData.EXCLUDE 'displays' -- TODO:review
-
+typeconf 'dragonBones::SkinData'
 typeconf 'dragonBones::BoneData'
 typeconf 'dragonBones::SlotData'
 typeconf 'dragonBones::AnimationState'
-
-local AnimationData = typeconf 'dragonBones::AnimationData'
-AnimationData.EXCLUDE 'boneTimelines' -- TODO
-AnimationData.EXCLUDE 'slotTimelines'
-AnimationData.EXCLUDE 'constraintTimelines'
-AnimationData.EXCLUDE 'slotCachedFrameIndices'
-AnimationData.EXCLUDE 'boneCachedFrameIndices'
-
+typeconf 'dragonBones::AnimationData'
 typeconf 'dragonBones::AnimationConfig'
-
-local DragonBonesData =typeconf 'dragonBones::DragonBonesData'
-DragonBonesData.EXCLUDE 'frameIndices'
+typeconf 'dragonBones::DragonBonesData'
 
 typeconf 'dragonBones::BaseFactory'
 

@@ -41,4 +41,10 @@ function filesystem.localCachePath(url)
     end
 end
 
+function filesystem.nomedia(dir)
+    if runtime.os == 'android' then
+        filesystem.write(dir .. '/.nomedia', '')
+    end
+end
+
 return filesystem

@@ -1,5 +1,8 @@
 local M = {debug = false}
 
+M.OS = io.popen('uname'):read("*l")
+M.OS = (M.OS == 'Darwin') and 'osx' or (M.OS == 'Linux' and 'linux' or 'win32')
+
 local function lookup(level, key)
     assert(key and #key > 0, key)
 
@@ -104,6 +107,21 @@ function M.format(expr, indent)
     expr = string.gsub(expr, '\n\n}', '\n}')
     
     return expr
+end
+
+function M.realpath(path)
+    if not (M.OS == 'osx' or M.OS == 'linux') then
+        if path == '`pwd`' then
+            return '.'
+        else
+            return path
+        end
+    else
+        local file = io.popen('realpath ' .. path)
+        local data = file:read("*l")
+        file:close()
+        return data
+    end
 end
 
 function M.execute(cmd)

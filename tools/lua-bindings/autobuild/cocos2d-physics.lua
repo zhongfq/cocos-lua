@@ -42,10 +42,10 @@ cls = typecls 'cocos2d::EventListenerPhysicsContact'
 cls.SUPERCLS = "cocos2d::EventListenerCustom"
 cls.funcs [[
 ]]
-cls.var('onContactBegin', [[std::function<bool(@local PhysicsContact& contact)> onContactBegin = nullptr]])
-cls.var('onContactPreSolve', [[std::function<bool(@local PhysicsContact& contact, @local PhysicsContactPreSolve& solve)> onContactPreSolve = nullptr]])
-cls.var('onContactPostSolve', [[std::function<void(@local PhysicsContact& contact, @local const PhysicsContactPostSolve& solve)> onContactPostSolve = nullptr]])
-cls.var('onContactSeparate', [[std::function<void(@local PhysicsContact& contact)> onContactSeparate = nullptr]])
+cls.var('onContactBegin', [[@nullable @local std::function<bool (PhysicsContact &)> onContactBegin]])
+cls.var('onContactPreSolve', [[@nullable @local std::function<bool (PhysicsContact &, PhysicsContactPreSolve &)> onContactPreSolve]])
+cls.var('onContactPostSolve', [[@nullable @local std::function<void (PhysicsContact &, const PhysicsContactPostSolve &)> onContactPostSolve]])
+cls.var('onContactSeparate', [[@nullable @local std::function<void (PhysicsContact &)> onContactSeparate]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventListenerPhysicsContactWithGroup'

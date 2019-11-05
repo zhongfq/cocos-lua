@@ -52,7 +52,7 @@ M.EXCLUDE_TYPE = require "conf.exclude-type"
 M.EXCLUDE_TYPE 'fairygui::ByteBuffer *'
 M.EXCLUDE_TYPE 'fairygui::GObjectPool *'
 
-M.EXCLUDE_PATTERN = function (cppcls, fn, decl)
+M.EXCLUDE_PASS = function (cppcls, fn, decl)
     return string.find(decl, 'operator *= *')
         or string.find(fn, '^_')
 end

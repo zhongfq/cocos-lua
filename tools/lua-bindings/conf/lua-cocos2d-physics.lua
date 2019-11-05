@@ -90,11 +90,7 @@ typedef {
     CONV = 'olua_$$_cppobj',
 }
 
-local EventListenerPhysicsContact = typeconf 'cocos2d::EventListenerPhysicsContact'
-EventListenerPhysicsContact.VAR('onContactBegin', 'std::function<bool(@local PhysicsContact& contact)> onContactBegin = nullptr')
-EventListenerPhysicsContact.VAR('onContactPreSolve', 'std::function<bool(@local PhysicsContact& contact, @local PhysicsContactPreSolve& solve)> onContactPreSolve = nullptr')
-EventListenerPhysicsContact.VAR('onContactPostSolve', 'std::function<void(@local PhysicsContact& contact, @local const PhysicsContactPostSolve& solve)> onContactPostSolve = nullptr')
-EventListenerPhysicsContact.VAR('onContactSeparate', 'std::function<void(@local PhysicsContact& contact)> onContactSeparate = nullptr')
+typeconf 'cocos2d::EventListenerPhysicsContact'
 
 typeconf 'cocos2d::EventListenerPhysicsContactWithGroup'
 typeconf 'cocos2d::EventListenerPhysicsContactWithBodies'

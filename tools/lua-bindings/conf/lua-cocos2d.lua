@@ -60,7 +60,7 @@ end
 
 M.EXCLUDE_TYPE = require "conf.exclude-type"
 
-M.EXCLUDE_PATTERN = function (cppcls, fn, decl)
+M.EXCLUDE_PASS = function (cppcls, fn, decl)
     if cppcls == 'cocos2d::FileUtils' then
         return string.find(decl, 'std::function')
     end
@@ -253,17 +253,8 @@ local EventListener = typeconf 'cocos2d::EventListener'
 EventListener.EXCLUDE 'init'
 EventListener.PROP('available', 'bool checkAvailable()')
 
-local EventListenerTouchOneByOne = typeconf 'cocos2d::EventListenerTouchOneByOne'
-EventListenerTouchOneByOne.VAR('onTouchBegan', 'std::function<bool(@local Touch*, @local Event*)> onTouchBegan = nullptr')
-EventListenerTouchOneByOne.VAR('onTouchMoved', 'std::function<void(@local Touch*, @local Event*)> onTouchMoved = nullptr')
-EventListenerTouchOneByOne.VAR('onTouchEnded', 'std::function<void(@local Touch*, @local Event*)> onTouchEnded = nullptr')
-EventListenerTouchOneByOne.VAR('onTouchCancelled', 'std::function<void(@local Touch*, @local Event*)> onTouchCancelled = nullptr')
-
-local EventListenerTouchAllAtOnce = typeconf 'cocos2d::EventListenerTouchAllAtOnce'
-EventListenerTouchAllAtOnce.VAR('onTouchesBegan', 'std::function<void(@local const std::vector<Touch*>&, @local Event*)> onTouchesBegan = nullptr')
-EventListenerTouchAllAtOnce.VAR('onTouchesMoved', 'std::function<void(@local const std::vector<Touch*>&, @local Event*)> onTouchesMoved = nullptr')
-EventListenerTouchAllAtOnce.VAR('onTouchesEnded', 'std::function<void(@local const std::vector<Touch*>&, @local Event*)> onTouchesEnded = nullptr')
-EventListenerTouchAllAtOnce.VAR('onTouchesCancelled', 'std::function<void(@local const std::vector<Touch*>&, @local Event*)> onTouchesCancelled = nullptr')
+typeconf 'cocos2d::EventListenerTouchOneByOne'
+typeconf 'cocos2d::EventListenerTouchAllAtOnce'
 
 local EventListenerCustom = typeconf 'cocos2d::EventListenerCustom'
 EventListenerCustom.CALLBACK {
@@ -279,9 +270,7 @@ EventListenerCustom.CALLBACK {
     ]],
 }
 
-local EventListenerKeyboard = typeconf 'cocos2d::EventListenerKeyboard'
-EventListenerKeyboard.VAR('onKeyPressed', 'std::function<void(EventKeyboard::KeyCode, @local Event*)> onKeyPressed = nullptr')
-EventListenerKeyboard.VAR('onKeyReleased', 'std::function<void(EventKeyboard::KeyCode, @local Event*)> onKeyReleased = nullptr')
+typeconf 'cocos2d::EventListenerKeyboard'
 
 local EventListenerAcceleration = typeconf 'cocos2d::EventListenerAcceleration'
 EventListenerAcceleration.CALLBACK {
@@ -297,27 +286,12 @@ EventListenerAcceleration.CALLBACK {
     ]],
 }
 
-local EventListenerFocus = typeconf 'cocos2d::EventListenerFocus'
-EventListenerFocus.VAR('onFocusChanged', 'std::function<void(ui::Widget*, ui::Widget*)> onFocusChanged = nullptr')
-
-local EventListenerMouse = typeconf 'cocos2d::EventListenerMouse'
-EventListenerMouse.VAR('onMouseDown', 'std::function<void(@local EventMouse* event)> onMouseDown = nullptr')
-EventListenerMouse.VAR('onMouseUp', 'std::function<void(@local EventMouse* event)> onMouseUp = nullptr')
-EventListenerMouse.VAR('onMouseMove', 'std::function<void(@local EventMouse* event)> onMouseMove = nullptr')
-EventListenerMouse.VAR('onMouseScroll', 'std::function<void(@local EventMouse* event)> onMouseScroll = nullptr')
-
+typeconf 'cocos2d::EventListenerFocus'
+typeconf 'cocos2d::EventListenerMouse'
 typeconf 'cocos2d::Event::Type'
 typeconf 'cocos2d::Event'
-
 typeconf 'cocos2d::EventCustom'
-
-local EventListenerController = typeconf 'cocos2d::EventListenerController'
-EventListenerController.VAR('onConnected', 'std::function<void(@local Controller*, @local Event*)> onConnected = nullptr')
-EventListenerController.VAR('onDisconnected', 'std::function<void(@local Controller*, @local Event*)> onDisconnected = nullptr')
-EventListenerController.VAR('onKeyDown', 'std::function<void(@local Controller*, int, @local Event*)> onKeyDown = nullptr')
-EventListenerController.VAR('onKeyUp', 'std::function<void(@local Controller*, int, @local Event*)> onKeyUp = nullptr')
-EventListenerController.VAR('onKeyRepeat', 'std::function<void(@local Controller*, int, @local Event*)> onKeyRepeat = nullptr')
-EventListenerController.VAR('onAxisEvent', 'std::function<void(@local Controller*, int, @local Event*)> onAxisEvent = nullptr')
+typeconf 'cocos2d::EventListenerController'
 
 typeconf 'cocos2d::EventTouch::EventCode'
 typeconf 'cocos2d::EventTouch'
@@ -608,10 +582,9 @@ WebSocket.FUNC('create', [[
 }]])
 
 local LuaWebSocketDelegate = typeconf 'cocos2d::LuaWebSocketDelegate'
-LuaWebSocketDelegate.VAR('onOpen', '@nullable std::function<void (network::WebSocket *)> onOpenCallback')
-LuaWebSocketDelegate.VAR('onMessage', '@nullable std::function<void (network::WebSocket *, const network::WebSocket::Data &)> onMessageCallback')
-LuaWebSocketDelegate.VAR('onClose', '@nullable std::function<void (network::WebSocket *)> onCloseCallback')
-LuaWebSocketDelegate.VAR('onError', '@nullable std::function<void (network::WebSocket *, const network::WebSocket::ErrorCode &)> onErrorCallback')
+LuaWebSocketDelegate.LUANAME = function (name)
+    return string.gsub(name, 'Callback', '')
+end
 
 typeconf 'cocos2d::ActionManager'
 
@@ -846,11 +819,9 @@ Component.ATTR('getOwner', {RET = '@ref(single owner)'})
 Component.ATTR('setOwner', {ARG1 = '@ref(single owner)'})
 
 local LuaComponent = typeconf 'cocos2d::LuaComponent'
-LuaComponent.VAR('onUpdate', '@nullable std::function<void(float)> onUpdateCallback')
-LuaComponent.VAR('onEnter', '@nullable std::function<void()> onEnterCallback')
-LuaComponent.VAR('onExit', '@nullable std::function<void()> onExitCallback')
-LuaComponent.VAR('onAdd', '@nullable std::function<void()> onAddCallback')
-LuaComponent.VAR('onRemove', '@nullable std::function<void()> onRemoveCallback')
+LuaComponent.LUANAME = function (name)
+    return string.gsub(name, 'Callback', '')
+end
 
 -- node
 local Node = typeconf 'cocos2d::Node'

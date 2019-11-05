@@ -441,10 +441,10 @@ cls.funcs [[
     bool isSwallowTouches()
     EventListenerTouchOneByOne()
 ]]
-cls.var('onTouchBegan', [[std::function<bool(@local Touch*, @local Event*)> onTouchBegan = nullptr]])
-cls.var('onTouchMoved', [[std::function<void(@local Touch*, @local Event*)> onTouchMoved = nullptr]])
-cls.var('onTouchEnded', [[std::function<void(@local Touch*, @local Event*)> onTouchEnded = nullptr]])
-cls.var('onTouchCancelled', [[std::function<void(@local Touch*, @local Event*)> onTouchCancelled = nullptr]])
+cls.var('onTouchBegan', [[@nullable @local std::function<bool (Touch *, Event *)> onTouchBegan]])
+cls.var('onTouchMoved', [[@nullable @local std::function<void (Touch *, Event *)> onTouchMoved]])
+cls.var('onTouchEnded', [[@nullable @local std::function<void (Touch *, Event *)> onTouchEnded]])
+cls.var('onTouchCancelled', [[@nullable @local std::function<void (Touch *, Event *)> onTouchCancelled]])
 cls.props [[
     swallowTouches
 ]]
@@ -456,10 +456,10 @@ cls.funcs [[
     static cocos2d::EventListenerTouchAllAtOnce *create()
     EventListenerTouchAllAtOnce()
 ]]
-cls.var('onTouchesBegan', [[std::function<void(@local const std::vector<Touch*>&, @local Event*)> onTouchesBegan = nullptr]])
-cls.var('onTouchesMoved', [[std::function<void(@local const std::vector<Touch*>&, @local Event*)> onTouchesMoved = nullptr]])
-cls.var('onTouchesEnded', [[std::function<void(@local const std::vector<Touch*>&, @local Event*)> onTouchesEnded = nullptr]])
-cls.var('onTouchesCancelled', [[std::function<void(@local const std::vector<Touch*>&, @local Event*)> onTouchesCancelled = nullptr]])
+cls.var('onTouchesBegan', [[@nullable @local std::function<void (const std::vector<Touch *> &, Event *)> onTouchesBegan]])
+cls.var('onTouchesMoved', [[@nullable @local std::function<void (const std::vector<Touch *> &, Event *)> onTouchesMoved]])
+cls.var('onTouchesEnded', [[@nullable @local std::function<void (const std::vector<Touch *> &, Event *)> onTouchesEnded]])
+cls.var('onTouchesCancelled', [[@nullable @local std::function<void (const std::vector<Touch *> &, Event *)> onTouchesCancelled]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventListenerCustom'
@@ -491,8 +491,8 @@ cls.funcs [[
     static cocos2d::EventListenerKeyboard *create()
     EventListenerKeyboard()
 ]]
-cls.var('onKeyPressed', [[std::function<void(EventKeyboard::KeyCode, @local Event*)> onKeyPressed = nullptr]])
-cls.var('onKeyReleased', [[std::function<void(EventKeyboard::KeyCode, @local Event*)> onKeyReleased = nullptr]])
+cls.var('onKeyPressed', [[@nullable @local std::function<void (EventKeyboard::KeyCode, Event *)> onKeyPressed]])
+cls.var('onKeyReleased', [[@nullable @local std::function<void (EventKeyboard::KeyCode, Event *)> onKeyReleased]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventListenerAcceleration'
@@ -524,7 +524,7 @@ cls.funcs [[
     static cocos2d::EventListenerFocus *create()
     EventListenerFocus()
 ]]
-cls.var('onFocusChanged', [[std::function<void(ui::Widget*, ui::Widget*)> onFocusChanged = nullptr]])
+cls.var('onFocusChanged', [[@nullable @local std::function<void (ui::Widget *, ui::Widget *)> onFocusChanged]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventListenerMouse'
@@ -533,10 +533,10 @@ cls.funcs [[
     static cocos2d::EventListenerMouse *create()
     EventListenerMouse()
 ]]
-cls.var('onMouseDown', [[std::function<void(@local EventMouse* event)> onMouseDown = nullptr]])
-cls.var('onMouseUp', [[std::function<void(@local EventMouse* event)> onMouseUp = nullptr]])
-cls.var('onMouseMove', [[std::function<void(@local EventMouse* event)> onMouseMove = nullptr]])
-cls.var('onMouseScroll', [[std::function<void(@local EventMouse* event)> onMouseScroll = nullptr]])
+cls.var('onMouseDown', [[@nullable @local std::function<void (EventMouse *)> onMouseDown]])
+cls.var('onMouseUp', [[@nullable @local std::function<void (EventMouse *)> onMouseUp]])
+cls.var('onMouseMove', [[@nullable @local std::function<void (EventMouse *)> onMouseMove]])
+cls.var('onMouseScroll', [[@nullable @local std::function<void (EventMouse *)> onMouseScroll]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Event::Type'
@@ -584,12 +584,12 @@ cls.SUPERCLS = "cocos2d::EventListener"
 cls.funcs [[
     static cocos2d::EventListenerController *create()
 ]]
-cls.var('onConnected', [[std::function<void(@local Controller*, @local Event*)> onConnected = nullptr]])
-cls.var('onDisconnected', [[std::function<void(@local Controller*, @local Event*)> onDisconnected = nullptr]])
-cls.var('onKeyDown', [[std::function<void(@local Controller*, int, @local Event*)> onKeyDown = nullptr]])
-cls.var('onKeyUp', [[std::function<void(@local Controller*, int, @local Event*)> onKeyUp = nullptr]])
-cls.var('onKeyRepeat', [[std::function<void(@local Controller*, int, @local Event*)> onKeyRepeat = nullptr]])
-cls.var('onAxisEvent', [[std::function<void(@local Controller*, int, @local Event*)> onAxisEvent = nullptr]])
+cls.var('onConnected', [[@nullable @local std::function<void (Controller *, Event *)> onConnected]])
+cls.var('onDisconnected', [[@nullable @local std::function<void (Controller *, Event *)> onDisconnected]])
+cls.var('onKeyDown', [[@nullable @local std::function<void (Controller *, int, Event *)> onKeyDown]])
+cls.var('onKeyUp', [[@nullable @local std::function<void (Controller *, int, Event *)> onKeyUp]])
+cls.var('onKeyRepeat', [[@nullable @local std::function<void (Controller *, int, Event *)> onKeyRepeat]])
+cls.var('onAxisEvent', [[@nullable @local std::function<void (Controller *, int, Event *)> onAxisEvent]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventTouch::EventCode'
@@ -1986,10 +1986,10 @@ cls.SUPERCLS = "cocos2d::network::WebSocket::Delegate"
 cls.funcs [[
     static cocos2d::LuaWebSocketDelegate *create()
 ]]
-cls.var('onOpen', [[@nullable std::function<void (network::WebSocket *)> onOpenCallback]])
-cls.var('onMessage', [[@nullable std::function<void (network::WebSocket *, const network::WebSocket::Data &)> onMessageCallback]])
-cls.var('onClose', [[@nullable std::function<void (network::WebSocket *)> onCloseCallback]])
-cls.var('onError', [[@nullable std::function<void (network::WebSocket *, const network::WebSocket::ErrorCode &)> onErrorCallback]])
+cls.var('onOpen', [[@nullable @local std::function<void (network::WebSocket *)> onOpenCallback]])
+cls.var('onMessage', [[@nullable @local std::function<void (network::WebSocket *, const network::WebSocket::Data &)> onMessageCallback]])
+cls.var('onClose', [[@nullable @local std::function<void (network::WebSocket *)> onCloseCallback]])
+cls.var('onError', [[@nullable @local std::function<void (network::WebSocket *, const network::WebSocket::ErrorCode &)> onErrorCallback]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ActionManager'
@@ -2966,11 +2966,11 @@ cls.funcs [[
     static cocos2d::LuaComponent *create()
     LuaComponent()
 ]]
-cls.var('onUpdate', [[@nullable std::function<void(float)> onUpdateCallback]])
-cls.var('onEnter', [[@nullable std::function<void()> onEnterCallback]])
-cls.var('onExit', [[@nullable std::function<void()> onExitCallback]])
-cls.var('onAdd', [[@nullable std::function<void()> onAddCallback]])
-cls.var('onRemove', [[@nullable std::function<void()> onRemoveCallback]])
+cls.var('onUpdate', [[@nullable @local std::function<void (float)> onUpdateCallback]])
+cls.var('onEnter', [[@nullable @local std::function<void ()> onEnterCallback]])
+cls.var('onExit', [[@nullable @local std::function<void ()> onExitCallback]])
+cls.var('onAdd', [[@nullable @local std::function<void ()> onAddCallback]])
+cls.var('onRemove', [[@nullable @local std::function<void ()> onRemoveCallback]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Node'

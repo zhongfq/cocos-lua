@@ -160,7 +160,7 @@ M.EXCLUDE_TYPE 'spine::PathConstraintData'
 M.EXCLUDE_TYPE 'spine::Interpolation'
 M.EXCLUDE_TYPE 'spine::AnimationStateListenerObject'
 
-M.EXCLUDE_PATTERN = function (cppcls, fn, decl)
+M.EXCLUDE_PASS = function (cppcls, fn, decl)
     return string.find(fn, '^initWith')
         -- or string.find(decl, 'Vector *<')
 end

@@ -44,7 +44,7 @@ end
 
 M.EXCLUDE_TYPE = require "conf.exclude-type"
 
-M.EXCLUDE_PATTERN = function (cppcls, fn, decl)
+M.EXCLUDE_PASS = function (cppcls, fn, decl)
     return string.find(fn, '^_') or string.find(decl, 'std::map')
 end
 

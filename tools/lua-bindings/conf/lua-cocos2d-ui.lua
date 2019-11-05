@@ -59,8 +59,7 @@ typeconf 'cocos2d::ui::Widget::BrightStyle'
 local Widget = typeconf 'cocos2d::ui::Widget'
 Widget.EXCLUDE 'createInstance'
 Widget.ATTR('getVirtualRenderer', {RET = '@ref(map protectedChildren)'})
-Widget.VAR('onFocusChanged', '@nullable std::function<void(Widget*,Widget*)> onFocusChanged')
-Widget.VAR('onNextFocusedWidget', '@nullable std::function<Widget*(FocusDirection)> onNextFocusedWidget')
+Widget.ATTR('onFocusChanged', {LOCAL = false})
 Widget.CALLBACK {
     FUNCS = {'void addTouchEventListener(@nullable const std::function<void(Ref*,Widget::TouchEventType)>& callback)'},
     TAG_MAKER = 'olua_makecallbacktag("touchEventListener")',
@@ -95,7 +94,7 @@ typeconf 'cocos2d::ui::Layout::ClippingType'
 typeconf 'cocos2d::ui::Layout::BackGroundColorType'
 
 local Layout = typeconf 'cocos2d::ui::Layout'
-Layout.VAR('onPassFocusToChild', '@nullable std::function<int(Widget::FocusDirection, Widget*)> onPassFocusToChild')
+Layout.ATTR('onPassFocusToChild', {LOCAL = false})
 
 typeconf 'cocos2d::ui::HBox'
 typeconf 'cocos2d::ui::VBox'
@@ -337,11 +336,7 @@ typeconf 'cocos2d::ui::EditBoxDelegate::EditBoxEndAction'
 local EditBoxDelegate = typeconf 'cocos2d::ui::EditBoxDelegate'
 EditBoxDelegate.FUNC('__gc', olua.gcfunc(EditBoxDelegate))
 
-local LuaEditBoxDelegate = typeconf 'cocos2d::ui::LuaEditBoxDelegate'
-LuaEditBoxDelegate.VAR('onEditingDidBegin', '@nullable std::function<void(EditBox *)> onEditingDidBegin')
-LuaEditBoxDelegate.VAR('onTextChanged', '@nullable std::function<void(EditBox *, const std::string &)> onTextChanged')
-LuaEditBoxDelegate.VAR('onReturn', '@nullable std::function<void(EditBox *)> onReturn')
-LuaEditBoxDelegate.VAR('onEditingDidEndWithAction', '@nullable std::function<void(EditBox *, EditBoxDelegate::EditBoxEndAction)> onEditingDidEndWithAction')
+typeconf 'cocos2d::ui::LuaEditBoxDelegate'
 
 typeconf 'cocos2d::ui::EditBox::KeyboardReturnType'
 typeconf 'cocos2d::ui::EditBox::InputMode'

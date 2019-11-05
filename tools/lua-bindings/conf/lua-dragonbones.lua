@@ -68,7 +68,7 @@ M.EXCLUDE_TYPE 'dragonBones::IArmatureProxy *'
 M.EXCLUDE_TYPE 'dragonBones::IEventDispatcher *'
 M.EXCLUDE_TYPE 'std::vector *'
 
-M.EXCLUDE_PATTERN = function (cppcls, fn, decl)
+M.EXCLUDE_PASS = function (cppcls, fn, decl)
     return string.find(fn, '^_') or string.find(decl, 'std::map')
 end
 

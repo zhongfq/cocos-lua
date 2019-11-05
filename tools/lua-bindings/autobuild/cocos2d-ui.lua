@@ -152,8 +152,8 @@ cls.funcs [[
     void onFocusChange(cocos2d::ui::Widget *widgetLostFocus, cocos2d::ui::Widget *widgetGetFocus)
     void dispatchFocusEvent(cocos2d::ui::Widget *widgetLoseFocus, cocos2d::ui::Widget *widgetGetFocus)
 ]]
-cls.var('onFocusChanged', [[@nullable std::function<void(Widget*,Widget*)> onFocusChanged]])
-cls.var('onNextFocusedWidget', [[@nullable std::function<Widget*(FocusDirection)> onNextFocusedWidget]])
+cls.var('onFocusChanged', [[@nullable std::function<void (Widget *, Widget *)> onFocusChanged]])
+cls.var('onNextFocusedWidget', [[@nullable @local std::function<Widget *(FocusDirection)> onNextFocusedWidget]])
 cls.callback {
     FUNCS =  {
         'void addTouchEventListener(@nullable const std::function<void(Ref*,Widget::TouchEventType)>& callback)',
@@ -571,7 +571,7 @@ cls.funcs [[
     bool isPassFocusToChild()
     cocos2d::ResourceData getRenderFile()
 ]]
-cls.var('onPassFocusToChild', [[@nullable std::function<int(Widget::FocusDirection, Widget*)> onPassFocusToChild]])
+cls.var('onPassFocusToChild', [[@nullable std::function<int (FocusDirection, Widget *)> onPassFocusToChild]])
 cls.props [[
     backGroundImageCapInsets
     backGroundColorType
@@ -2010,10 +2010,10 @@ cls.SUPERCLS = "cocos2d::ui::EditBoxDelegate"
 cls.funcs [[
     static cocos2d::ui::LuaEditBoxDelegate *create()
 ]]
-cls.var('onEditingDidBegin', [[@nullable std::function<void(EditBox *)> onEditingDidBegin]])
-cls.var('onTextChanged', [[@nullable std::function<void(EditBox *, const std::string &)> onTextChanged]])
-cls.var('onReturn', [[@nullable std::function<void(EditBox *)> onReturn]])
-cls.var('onEditingDidEndWithAction', [[@nullable std::function<void(EditBox *, EditBoxDelegate::EditBoxEndAction)> onEditingDidEndWithAction]])
+cls.var('onEditingDidBegin', [[@nullable @local std::function<void (EditBox *)> onEditingDidBegin]])
+cls.var('onTextChanged', [[@nullable @local std::function<void (EditBox *, const std::string &)> onTextChanged]])
+cls.var('onReturn', [[@nullable @local std::function<void (EditBox *)> onReturn]])
+cls.var('onEditingDidEndWithAction', [[@nullable @local std::function<void (EditBox *, EditBoxDelegate::EditBoxEndAction)> onEditingDidEndWithAction]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::EditBox::KeyboardReturnType'

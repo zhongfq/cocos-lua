@@ -13,6 +13,7 @@ M.PARSER = {
         '-I../../frameworks/libxgame/src',
         '-DCC_DLL=',
         '-DSP_API=',
+        '-DSPINE_USE_STD_FUNCTION',
         '-DEXPORT_DLL=',
     },
 }
@@ -159,6 +160,7 @@ M.EXCLUDE_TYPE 'spine::TransformConstraintData'
 M.EXCLUDE_TYPE 'spine::PathConstraintData'
 M.EXCLUDE_TYPE 'spine::Interpolation'
 M.EXCLUDE_TYPE 'spine::AnimationStateListenerObject'
+M.EXCLUDE_TYPE 'spine::AnimationStateListenerObject *'
 
 M.EXCLUDE_PASS = function (cppcls, fn, decl)
     return string.find(fn, '^initWith')
@@ -192,11 +194,7 @@ typeconf 'spine::EventData'
 typeconf 'spine::Updatable'
 
 local AnimationState = typeconf 'spine::AnimationState'
-AnimationState.CALLBACK {
-    FUNCS = {'void setListener(std::function<void (AnimationState* state, EventType type, TrackEntry* entry, Event* event)> listener)'},
-    TAG_MAKER = 'olua_makecallbacktag("listener")',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-}
+AnimationState.ATTR('setListener', {LOCAL = false, NULLABLE = false})
 
 typeconf 'spine::AnimationStateData'
 
@@ -270,11 +268,7 @@ typeconf 'spine::PointAttachment'
 typeconf 'spine::RegionAttachment'
 
 local TrackEntry = typeconf 'spine::TrackEntry'
-TrackEntry.CALLBACK {
-    FUNCS = {'void setListener(std::function<void (AnimationState* state, EventType type, TrackEntry* entry, Event* event)> listener)'},
-    TAG_MAKER = 'olua_makecallbacktag("listener")',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-}
+TrackEntry.ATTR('setListener', {LOCAL = false, NULLABLE = false})
 
 local SkeletonData = typeconf 'spine::SkeletonData'
 SkeletonData.FUNC("__gc", [[
@@ -285,7 +279,7 @@ SkeletonData.FUNC("__gc", [[
         olua_getvariable(L, 1);
         if (lua_toboolean(L, -1) && self) {
             *(void **)lua_touserdata(L, 1) = nullptr;
-            
+
             lua_pushstring(L, ".skel.atlas");
             olua_getvariable(L, 1);
             auto atlas = (spine::Atlas *)lua_touserdata(L, -1);
@@ -312,7 +306,7 @@ SkeletonData.FUNC("new", [[
     const char *skel_path = olua_checkstring(L, 1);
     const char *atlas_path = olua_checkstring(L, 2);
     float scale = olua_optnumber(L, 3, 1);
-    
+
     auto texture_loader = new spine::Cocos2dTextureLoader();
     auto atlas = new spine::Atlas(atlas_path, texture_loader);
     spine::SkeletonData *skel_data = nullptr;
@@ -346,7 +340,7 @@ SkeletonData.FUNC("new", [[
     lua_pushstring(L, ".skel.texture_loader");
     lua_pushlightuserdata(L, texture_loader);
     olua_setvariable(L, -3);
-    
+
     lua_pushstring(L, ".skel.attachment_loader");
     lua_pushlightuserdata(L, attachment_loader);
     olua_setvariable(L, -3);
@@ -372,65 +366,17 @@ SkeletonAnimation.ATTR('addAnimation', {RET = '@ref(map trackEntries)'})
 SkeletonAnimation.ATTR('setEmptyAnimation', {RET = '@ref(map trackEntries)'})
 SkeletonAnimation.ATTR('addEmptyAnimation', {RET = '@ref(map trackEntries)'})
 SkeletonAnimation.ATTR('getCurrent', {RET = '@ref(map trackEntries)'})
-SkeletonAnimation.CALLBACK {
-    FUNCS = {'void setStartListener(@nullable const std::function<void(TrackEntry* entry)>& listener)'},
-    TAG_MAKER = 'olua_makecallbacktag("startListener")',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-}
-SkeletonAnimation.CALLBACK {
-    FUNCS = {'void setInterruptListener(@nullable const std::function<void(TrackEntry* entry)>& listener)'},
-    TAG_MAKER = 'olua_makecallbacktag("interruptListener")',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-}
-SkeletonAnimation.CALLBACK {
-    FUNCS = {'void setEndListener(@nullable const std::function<void(TrackEntry* entry)>& listener)'},
-    TAG_MAKER = 'olua_makecallbacktag("endListener")',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-}
-SkeletonAnimation.CALLBACK {
-    FUNCS = {'void setDisposeListener(@nullable const std::function<void(TrackEntry* entry)>& listener)'},
-    TAG_MAKER = 'olua_makecallbacktag("disposeListener")',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-}
-SkeletonAnimation.CALLBACK {
-    FUNCS = {'void setCompleteListener(@nullable const std::function<void(TrackEntry* entry)>& listener)'},
-    TAG_MAKER = 'olua_makecallbacktag("completeListener")',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-}
-SkeletonAnimation.CALLBACK {
-    FUNCS = {'void setEventListener(@nullable const std::function<void(TrackEntry* entry, Event* event)>& listener)'},
-    TAG_MAKER = 'olua_makecallbacktag("eventListener")',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-}
-SkeletonAnimation.CALLBACK {
-    FUNCS = {'void setTrackStartListener(TrackEntry* entry, @nullable const std::function<void(TrackEntry* entry)>& listener)'},
-    TAG_MAKER = 'olua_makecallbacktag("trackStartListener")',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-}
-SkeletonAnimation.CALLBACK {
-    FUNCS = {'void setTrackInterruptListener(TrackEntry* entry, @nullable const std::function<void(TrackEntry* entry)>& listener)'},
-    TAG_MAKER = 'olua_makecallbacktag("trackInterruptListener")',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-}
-SkeletonAnimation.CALLBACK {
-    FUNCS = {'void setTrackEndListener(TrackEntry* entry, @nullable const std::function<void(TrackEntry* entry)>& listener)'},
-    TAG_MAKER = 'olua_makecallbacktag("trackEndListener")',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-}
-SkeletonAnimation.CALLBACK {
-    FUNCS = {'void setTrackDisposeListener(TrackEntry* entry, @nullable const std::function<void(TrackEntry* entry)>& listener)'},
-    TAG_MAKER = 'olua_makecallbacktag("trackDisposeListener")',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-}
-SkeletonAnimation.CALLBACK {
-    FUNCS = {'void setTrackCompleteListener(TrackEntry* entry, @nullable const std::function<void(TrackEntry* entry)>& listener)'},
-    TAG_MAKER = 'olua_makecallbacktag("trackCompleteListener")',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-}
-SkeletonAnimation.CALLBACK {
-    FUNCS = {'void setTrackEventListener(TrackEntry* entry, @nullable const std::function<void(TrackEntry* entry, Event* event)>& listener)'},
-    TAG_MAKER = 'olua_makecallbacktag("trackEventListener")',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-}
+SkeletonAnimation.ATTR('setStartListener', {LOCAL = false, NULLABLE = false})
+SkeletonAnimation.ATTR('setInterruptListener', {LOCAL = false, NULLABLE = false})
+SkeletonAnimation.ATTR('setEndListener', {LOCAL = false, NULLABLE = false})
+SkeletonAnimation.ATTR('setDisposeListener', {LOCAL = false, NULLABLE = false})
+SkeletonAnimation.ATTR('setCompleteListener', {LOCAL = false, NULLABLE = false})
+SkeletonAnimation.ATTR('setEventListener', {LOCAL = false, NULLABLE = false})
+SkeletonAnimation.ATTR('setTrackStartListener', {LOCAL = false, NULLABLE = false})
+SkeletonAnimation.ATTR('setTrackInterruptListener', {LOCAL = false, NULLABLE = false})
+SkeletonAnimation.ATTR('setTrackEndListener', {LOCAL = false, NULLABLE = false})
+SkeletonAnimation.ATTR('setTrackDisposeListener', {LOCAL = false, NULLABLE = false})
+SkeletonAnimation.ATTR('setTrackCompleteListener', {LOCAL = false, NULLABLE = false})
+SkeletonAnimation.ATTR('setTrackEventListener', {LOCAL = false, NULLABLE = false})
 
 return M

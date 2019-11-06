@@ -770,8 +770,6 @@ static int lookupfunc(lua_State *L, int t, int kidx)
 
 static int cls_index(lua_State *L)
 {
-    lua_settop(L, 2);
-    
     // try getter
     if (lookupfunc(L, CLS_GETIDX, 2) != LUA_TNIL) {
         lua_pushvalue(L, 1);                        // L: t k getter t
@@ -799,8 +797,6 @@ static int cls_index(lua_State *L)
 
 static int cls_newindex(lua_State *L)
 {
-    lua_settop(L, 3);
-    
     // try setter
     if (lookupfunc(L, CLS_SETIDX, 2) != LUA_TNIL) {
         if (olua_isuserdata(L, 1)) {
@@ -958,7 +954,6 @@ LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *super)
 
 static int clsenum_index(lua_State *L)
 {
-    lua_settop(L, 2);
     luaL_checktype(L, 1, LUA_TTABLE);
     if (lookupfunc(L, CLS_GETIDX, 2) != LUA_TNIL) {
         lua_pushvalue(L, 1);
@@ -1167,7 +1162,6 @@ LUALIB_API bool olua_hasfield(lua_State *L, int idx, const char *field)
 
 static int l_with(lua_State *L)
 {
-    lua_settop(L, 3);
     luaL_checktype(L, 1, LUA_TUSERDATA);
     luaL_checktype(L, 3, LUA_TFUNCTION);
     const char *cls = olua_checkstring(L, 2);
@@ -1194,14 +1188,12 @@ static int l_with(lua_State *L)
 
 static int l_isa(lua_State *L)
 {
-    lua_settop(L, 2);
     olua_isa(L, 1, olua_checkstring(L, 2));
     return 1;
 }
 
 static int l_take(lua_State *L)
 {
-    lua_settop(L, 1);
     luaL_checktype(L, 1, LUA_TUSERDATA);
     lua_pushstring(L, ".ownership");
     lua_pushnil(L);
@@ -1211,7 +1203,6 @@ static int l_take(lua_State *L)
 
 static int l_debug(lua_State *L)
 {
-    lua_settop(L, 1);
     olua_vmstatus(L)->debug = olua_checkboolean(L, 1);
     return 0;
 }

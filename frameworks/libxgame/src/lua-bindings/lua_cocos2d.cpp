@@ -26046,10 +26046,10 @@ static int _cocos2d_Node_getOnEnterCallback(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
 
     void *callback_store_obj = (void *)self;
-    std::string tag = olua_makecallbacktag("onEnterCallback");
+    std::string tag = olua_makecallbacktag("OnEnterCallback");
     olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
 
-    // const std::function<void()>& getOnEnterCallback()
+    // @nullable @local const std::function<void ()> &getOnEnterCallback()
     std::function<void()> ret = (std::function<void()>)self->getOnEnterCallback();
     int num_ret = olua_push_std_function(L, (std::function<void()>)ret);
 
@@ -26067,10 +26067,10 @@ static int _cocos2d_Node_getOnEnterTransitionDidFinishCallback(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
 
     void *callback_store_obj = (void *)self;
-    std::string tag = olua_makecallbacktag("onEnterTransitionDidFinishCallback");
+    std::string tag = olua_makecallbacktag("OnEnterTransitionDidFinishCallback");
     olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
 
-    // const std::function<void()>& getOnEnterTransitionDidFinishCallback()
+    // @nullable @local const std::function<void ()> &getOnEnterTransitionDidFinishCallback()
     std::function<void()> ret = (std::function<void()>)self->getOnEnterTransitionDidFinishCallback();
     int num_ret = olua_push_std_function(L, (std::function<void()>)ret);
 
@@ -26088,10 +26088,10 @@ static int _cocos2d_Node_getOnExitCallback(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
 
     void *callback_store_obj = (void *)self;
-    std::string tag = olua_makecallbacktag("onExitCallback");
+    std::string tag = olua_makecallbacktag("OnExitCallback");
     olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
 
-    // const std::function<void()>& getOnExitCallback()
+    // @nullable @local const std::function<void ()> &getOnExitCallback()
     std::function<void()> ret = (std::function<void()>)self->getOnExitCallback();
     int num_ret = olua_push_std_function(L, (std::function<void()>)ret);
 
@@ -26109,10 +26109,10 @@ static int _cocos2d_Node_getOnExitTransitionDidStartCallback(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "cc.Node");
 
     void *callback_store_obj = (void *)self;
-    std::string tag = olua_makecallbacktag("onExitTransitionDidStartCallback");
+    std::string tag = olua_makecallbacktag("OnExitTransitionDidStartCallback");
     olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
 
-    // const std::function<void()>& getOnExitTransitionDidStartCallback()
+    // @nullable @local const std::function<void ()> &getOnExitTransitionDidStartCallback()
     std::function<void()> ret = (std::function<void()>)self->getOnExitTransitionDidStartCallback();
     int num_ret = olua_push_std_function(L, (std::function<void()>)ret);
 
@@ -27927,7 +27927,7 @@ static int _cocos2d_Node_setOnEnterCallback(lua_State *L)
 
     if (olua_is_std_function(L, 2)) {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onEnterCallback");
+        std::string tag = olua_makecallbacktag("OnEnterCallback");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
         lua_State *MT = olua_mainthread();
         arg1 = [callback_store_obj, func, MT]() {
@@ -27943,12 +27943,12 @@ static int _cocos2d_Node_setOnEnterCallback(lua_State *L)
         };
     } else {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onEnterCallback");
+        std::string tag = olua_makecallbacktag("OnEnterCallback");
         olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
-    // void setOnEnterCallback(@nullable const std::function<void()>& callback)
+    // void setOnEnterCallback(@nullable @local const std::function<void ()> &callback)
     self->setOnEnterCallback(arg1);
 
     olua_endinvoke(L);
@@ -27967,7 +27967,7 @@ static int _cocos2d_Node_setOnEnterTransitionDidFinishCallback(lua_State *L)
 
     if (olua_is_std_function(L, 2)) {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onEnterTransitionDidFinishCallback");
+        std::string tag = olua_makecallbacktag("OnEnterTransitionDidFinishCallback");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
         lua_State *MT = olua_mainthread();
         arg1 = [callback_store_obj, func, MT]() {
@@ -27983,12 +27983,12 @@ static int _cocos2d_Node_setOnEnterTransitionDidFinishCallback(lua_State *L)
         };
     } else {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onEnterTransitionDidFinishCallback");
+        std::string tag = olua_makecallbacktag("OnEnterTransitionDidFinishCallback");
         olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
-    // void setOnEnterTransitionDidFinishCallback(@nullable const std::function<void()>& callback)
+    // void setOnEnterTransitionDidFinishCallback(@nullable @local const std::function<void ()> &callback)
     self->setOnEnterTransitionDidFinishCallback(arg1);
 
     olua_endinvoke(L);
@@ -28007,7 +28007,7 @@ static int _cocos2d_Node_setOnExitCallback(lua_State *L)
 
     if (olua_is_std_function(L, 2)) {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onExitCallback");
+        std::string tag = olua_makecallbacktag("OnExitCallback");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
         lua_State *MT = olua_mainthread();
         arg1 = [callback_store_obj, func, MT]() {
@@ -28023,12 +28023,12 @@ static int _cocos2d_Node_setOnExitCallback(lua_State *L)
         };
     } else {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onExitCallback");
+        std::string tag = olua_makecallbacktag("OnExitCallback");
         olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
-    // void setOnExitCallback(@nullable const std::function<void()>& callback)
+    // void setOnExitCallback(@nullable @local const std::function<void ()> &callback)
     self->setOnExitCallback(arg1);
 
     olua_endinvoke(L);
@@ -28047,7 +28047,7 @@ static int _cocos2d_Node_setOnExitTransitionDidStartCallback(lua_State *L)
 
     if (olua_is_std_function(L, 2)) {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onExitTransitionDidStartCallback");
+        std::string tag = olua_makecallbacktag("OnExitTransitionDidStartCallback");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
         lua_State *MT = olua_mainthread();
         arg1 = [callback_store_obj, func, MT]() {
@@ -28063,12 +28063,12 @@ static int _cocos2d_Node_setOnExitTransitionDidStartCallback(lua_State *L)
         };
     } else {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onExitTransitionDidStartCallback");
+        std::string tag = olua_makecallbacktag("OnExitTransitionDidStartCallback");
         olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
-    // void setOnExitTransitionDidStartCallback(@nullable const std::function<void()>& callback)
+    // void setOnExitTransitionDidStartCallback(@nullable @local const std::function<void ()> &callback)
     self->setOnExitTransitionDidStartCallback(arg1);
 
     olua_endinvoke(L);

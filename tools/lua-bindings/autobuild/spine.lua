@@ -8,8 +8,6 @@ local typecls = olua.typecls
 local cls = nil
 local M = {}
 
-olua.nowarning(typeconv, typecls, cls)
-
 M.NAME = "spine"
 M.PATH = "../../frameworks/libxgame/src/lua-bindings"
 M.INCLUDES = [[

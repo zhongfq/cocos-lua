@@ -3,8 +3,6 @@
 local olua = require "olua"
 local typedef = olua.typedef
 
-olua.nowarning(typedef)
-
 typedef {
     CONV = 'manual_olua_$$_spine_String',
     CPPCLS = 'spine::String',

@@ -996,46 +996,6 @@ Node.PROP('alpha', [[
     return 0;
 }]])
 Node.CALLBACK {
-    FUNCS = {'void setOnEnterCallback(@nullable const std::function<void()>& callback)'},
-    TAG_MAKER = 'olua_makecallbacktag("onEnterCallback")',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-}
-Node.CALLBACK {
-    FUNCS = {'const std::function<void()>& getOnEnterCallback()'},
-    TAG_MAKER = 'olua_makecallbacktag("onEnterCallback")',
-    TAG_MODE = 'OLUA_TAG_EQUAL',
-}
-Node.CALLBACK {
-    FUNCS = {'void setOnExitCallback(@nullable const std::function<void()>& callback)'},
-    TAG_MAKER = 'olua_makecallbacktag("onExitCallback")',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-}
-Node.CALLBACK {
-    FUNCS = {'const std::function<void()>& getOnExitCallback()'},
-    TAG_MAKER = 'olua_makecallbacktag("onExitCallback")',
-    TAG_MODE = 'OLUA_TAG_EQUAL',
-}
-Node.CALLBACK {
-    FUNCS = {'void setOnEnterTransitionDidFinishCallback(@nullable const std::function<void()>& callback)'},
-    TAG_MAKER = 'olua_makecallbacktag("onEnterTransitionDidFinishCallback")',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-}
-Node.CALLBACK {
-    FUNCS = {'const std::function<void()>& getOnEnterTransitionDidFinishCallback()'},
-    TAG_MAKER = 'olua_makecallbacktag("onEnterTransitionDidFinishCallback")',
-    TAG_MODE = 'OLUA_TAG_EQUAL',
-}
-Node.CALLBACK {
-    FUNCS = {'void setOnExitTransitionDidStartCallback(@nullable const std::function<void()>& callback)'},
-    TAG_MAKER = 'olua_makecallbacktag("onExitTransitionDidStartCallback")',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-}
-Node.CALLBACK {
-    FUNCS = {'const std::function<void()>& getOnExitTransitionDidStartCallback()'},
-    TAG_MAKER = 'olua_makecallbacktag("onExitTransitionDidStartCallback")',
-    TAG_MODE = 'OLUA_TAG_EQUAL',
-}
-Node.CALLBACK {
     FUNCS = {'void scheduleOnce(const std::function<void(float)>& callback, float delay, const std::string &key)'},
     TAG_MAKER = 'makeScheduleCallbackTag(#-1)',
     TAG_MODE = 'OLUA_TAG_REPLACE',

@@ -97,9 +97,9 @@ typeconf 'dragonBones::TimelineData'
 typeconf 'dragonBones::IAnimatable'
 typeconf 'dragonBones::WorldClock'
 
-local Slot = typeconf 'dragonBones::Slot'
-Slot.EXCLUDE 'getDisplayList'
-Slot.EXCLUDE 'setDisplayList'
+typeconf 'dragonBones::Slot'
+    .EXCLUDE 'getDisplayList'
+    .EXCLUDE 'setDisplayList'
 
 typeconf 'dragonBones::OffsetMode'
 typeconf 'dragonBones::Bone'
@@ -110,11 +110,11 @@ typeconf 'dragonBones::BoundingBoxData'
 typeconf 'dragonBones::BoundingBoxDisplayData'
 typeconf 'dragonBones::CanvasData'
 
-local TextureAtlasData = typeconf 'dragonBones::TextureAtlasData'
-TextureAtlasData.EXCLUDE 'copyFrom'
+typeconf 'dragonBones::TextureAtlasData'
+    .EXCLUDE 'copyFrom'
 
-local TextureData = typeconf 'dragonBones::TextureData'
-TextureData.EXCLUDE 'copyFrom'
+typeconf 'dragonBones::TextureData'
+    .EXCLUDE 'copyFrom'
 
 typeconf 'dragonBones::ArmatureData'
 typeconf 'dragonBones::SkinData'
@@ -132,7 +132,6 @@ Armature.SUPERCLS = 'dragonBones::BaseObject'
 
 typeconf 'dragonBones::AnimationFadeOutMode'
 typeconf 'dragonBones::Animation'
-
 typeconf 'dragonBones::CCFactory'
 
 local ArmatureDisplay = typeconf 'dragonBones::CCArmatureDisplay'

@@ -3,8 +3,6 @@
 local olua = require "olua"
 local typedef = olua.typedef
 
-olua.nowarning(typedef)
-
 typedef {
     CPPCLS = 'xgame::Permission',
     DECLTYPE = 'lua_Unsigned',

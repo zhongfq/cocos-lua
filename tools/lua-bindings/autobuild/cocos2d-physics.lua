@@ -8,8 +8,6 @@ local typecls = olua.typecls
 local cls = nil
 local M = {}
 
-olua.nowarning(typeconv, typecls, cls)
-
 M.NAME = "cocos2d_physics"
 M.PATH = "../../frameworks/libxgame/src/lua-bindings"
 M.INCLUDES = [[
@@ -631,7 +629,7 @@ cls.func('getScene', [[{
 cls.prop('scene')
 cls.callback {
     FUNCS =  {
-        'void rayCast(std::function<bool(@local PhysicsWorld& world, @local const PhysicsRayCastInfo& info, void* data)> func, const Vec2& start, const Vec2& end, void* data)',
+        'void rayCast(@local const std::function<bool (PhysicsWorld &, const PhysicsRayCastInfo &, void *)> &func, const cocos2d::Vec2 &start, const cocos2d::Vec2 &end, void *data)',
     },
     TAG_MAKER = 'olua_makecallbacktag("rayCast")',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -640,7 +638,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void queryRect(std::function<bool(@local PhysicsWorld&, @local PhysicsShape&, void*)> func, const Rect& rect, void* data)',
+        'void queryRect(@local const std::function<bool (PhysicsWorld &, PhysicsShape &, void *)> &func, const cocos2d::Rect &rect, void *data)',
     },
     TAG_MAKER = 'olua_makecallbacktag("queryRect")',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -649,7 +647,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void queryPoint(std::function<bool(@local PhysicsWorld&, @local PhysicsShape&, void*)> func, const Vec2& point, void* data)',
+        'void queryPoint(@local const std::function<bool (PhysicsWorld &, PhysicsShape &, void *)> &func, const cocos2d::Vec2 &point, void *data)',
     },
     TAG_MAKER = 'olua_makecallbacktag("queryPoint")',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -658,18 +656,18 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void setPreUpdateCallback(@nullable const std::function<void()> &callback)',
+        'void setPreUpdateCallback(@nullable @local const std::function<void ()> &callback)',
     },
-    TAG_MAKER = 'olua_makecallbacktag("preUpdateCallback")',
+    TAG_MAKER = 'olua_makecallbacktag("PreUpdateCallback")',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
-        'void setPostUpdateCallback(@nullable const std::function<void()> &callback)',
+        'void setPostUpdateCallback(@nullable @local const std::function<void ()> &callback)',
     },
-    TAG_MAKER = 'olua_makecallbacktag("postUpdateCallback")',
+    TAG_MAKER = 'olua_makecallbacktag("PostUpdateCallback")',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,

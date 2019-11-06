@@ -3,8 +3,6 @@
 local olua = require "olua"
 local typedef = olua.typedef
 
-olua.nowarning(typedef)
-
 typedef {
     CONV = 'auto_olua_$$_dragonBones_Rectangle',
     CPPCLS = 'dragonBones::Rectangle',

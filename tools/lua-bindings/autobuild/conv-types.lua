@@ -3,8 +3,6 @@
 local olua = require "olua"
 local typedef = olua.typedef
 
-olua.nowarning(typedef)
-
 typedef {
     CPPCLS = 'cocos2d::Vec2',
     CONV = 'auto_olua_$$_cocos2d_Vec2',

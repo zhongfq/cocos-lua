@@ -3,8 +3,6 @@
 local olua = require "olua"
 local typedef = olua.typedef
 
-olua.nowarning(typedef)
-
 typedef {
     CONV = 'manual_olua_$$_fairygui_EventTag',
     CPPCLS = 'fairygui::EventTag',

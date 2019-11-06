@@ -8,8 +8,6 @@ local typecls = olua.typecls
 local cls = nil
 local M = {}
 
-olua.nowarning(typeconv, typecls, cls)
-
 M.NAME = "cocos2d_ui"
 M.PATH = "../../frameworks/libxgame/src/lua-bindings"
 M.INCLUDES = [[
@@ -650,72 +648,72 @@ cls.funcs [[
 ]]
 cls.callback {
     FUNCS =  {
-        'void setOnShouldStartLoading(@nullable const std::function<bool(WebView *sender, const std::string &url)>& callback)',
+        'void setOnShouldStartLoading(@nullable @local const std::function<bool (WebView *, const std::string &)> &callback)',
     },
-    TAG_MAKER = 'olua_makecallbacktag("onShouldStartLoading")',
+    TAG_MAKER = 'olua_makecallbacktag("OnShouldStartLoading")',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     CALLONCE = false,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
-        'std::function<bool(WebView *sender, const std::string &url)> getOnShouldStartLoading()',
+        'void setOnDidFinishLoading(@nullable @local const std::function<void (WebView *, const std::string &)> &callback)',
     },
-    TAG_MAKER = 'olua_makecallbacktag("onShouldStartLoading")',
+    TAG_MAKER = 'olua_makecallbacktag("OnDidFinishLoading")',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
+    CALLONCE = false,
+    REMOVE = false,
+}
+cls.callback {
+    FUNCS =  {
+        'void setOnDidFailLoading(@nullable @local const std::function<void (WebView *, const std::string &)> &callback)',
+    },
+    TAG_MAKER = 'olua_makecallbacktag("OnDidFailLoading")',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
+    CALLONCE = false,
+    REMOVE = false,
+}
+cls.callback {
+    FUNCS =  {
+        'void setOnJSCallback(@nullable @local const std::function<void (WebView *, const std::string &)> &callback)',
+    },
+    TAG_MAKER = 'olua_makecallbacktag("OnJSCallback")',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
+    CALLONCE = false,
+    REMOVE = false,
+}
+cls.callback {
+    FUNCS =  {
+        '@nullable @local std::function<bool (WebView *, const std::string &)> getOnShouldStartLoading()',
+    },
+    TAG_MAKER = 'olua_makecallbacktag("OnShouldStartLoading")',
     TAG_MODE = 'OLUA_TAG_EQUAL',
     CALLONCE = false,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
-        'void setOnDidFinishLoading(@nullable const std::function<void(WebView *sender, const std::string &url)>& callback)',
+        '@nullable @local std::function<void (WebView *, const std::string &)> getOnDidFinishLoading()',
     },
-    TAG_MAKER = 'olua_makecallbacktag("onDidFinishLoading")',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-    CALLONCE = false,
-    REMOVE = false,
-}
-cls.callback {
-    FUNCS =  {
-        'std::function<void(WebView *sender, const std::string &url)> getOnDidFinishLoading()',
-    },
-    TAG_MAKER = 'olua_makecallbacktag("onDidFinishLoading")',
+    TAG_MAKER = 'olua_makecallbacktag("OnDidFinishLoading")',
     TAG_MODE = 'OLUA_TAG_EQUAL',
     CALLONCE = false,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
-        'void setOnDidFailLoading(@nullable const std::function<void(WebView *sender, const std::string &url)>& callback)',
+        '@nullable @local std::function<void (WebView *, const std::string &)> getOnDidFailLoading()',
     },
-    TAG_MAKER = 'olua_makecallbacktag("onDidFailLoading")',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-    CALLONCE = false,
-    REMOVE = false,
-}
-cls.callback {
-    FUNCS =  {
-        'std::function<void(WebView *sender, const std::string &url)> getOnDidFailLoading()',
-    },
-    TAG_MAKER = 'olua_makecallbacktag("onDidFailLoading")',
+    TAG_MAKER = 'olua_makecallbacktag("OnDidFailLoading")',
     TAG_MODE = 'OLUA_TAG_EQUAL',
     CALLONCE = false,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
-        'void setOnJSCallback(@nullable const std::function<void(WebView *sender, const std::string &url)>& callback)',
+        '@nullable @local std::function<void (WebView *, const std::string &)> getOnJSCallback()',
     },
-    TAG_MAKER = 'olua_makecallbacktag("onJSCallback")',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-    CALLONCE = false,
-    REMOVE = false,
-}
-cls.callback {
-    FUNCS =  {
-        'std::function<void(WebView *sender, const std::string &url)> getOnJSCallback()',
-    },
-    TAG_MAKER = 'olua_makecallbacktag("onJSCallback")',
+    TAG_MAKER = 'olua_makecallbacktag("OnJSCallback")',
     TAG_MODE = 'OLUA_TAG_EQUAL',
     CALLONCE = false,
     REMOVE = false,

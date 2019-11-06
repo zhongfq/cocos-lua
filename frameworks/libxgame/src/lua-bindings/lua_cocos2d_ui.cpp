@@ -5677,10 +5677,10 @@ static int _cocos2d_experimental_ui_WebView_getOnDidFailLoading(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
 
     void *callback_store_obj = (void *)self;
-    std::string tag = olua_makecallbacktag("onDidFailLoading");
+    std::string tag = olua_makecallbacktag("OnDidFailLoading");
     olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
 
-    // std::function<void(WebView *sender, const std::string &url)> getOnDidFailLoading()
+    // @nullable @local std::function<void (WebView *, const std::string &)> getOnDidFailLoading()
     std::function<void(cocos2d::experimental::ui::WebView *, const std::string &)> ret = (std::function<void(cocos2d::experimental::ui::WebView *, const std::string &)>)self->getOnDidFailLoading();
     int num_ret = olua_push_std_function(L, (std::function<void(cocos2d::experimental::ui::WebView *, const std::string &)>)ret);
 
@@ -5698,10 +5698,10 @@ static int _cocos2d_experimental_ui_WebView_getOnDidFinishLoading(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
 
     void *callback_store_obj = (void *)self;
-    std::string tag = olua_makecallbacktag("onDidFinishLoading");
+    std::string tag = olua_makecallbacktag("OnDidFinishLoading");
     olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
 
-    // std::function<void(WebView *sender, const std::string &url)> getOnDidFinishLoading()
+    // @nullable @local std::function<void (WebView *, const std::string &)> getOnDidFinishLoading()
     std::function<void(cocos2d::experimental::ui::WebView *, const std::string &)> ret = (std::function<void(cocos2d::experimental::ui::WebView *, const std::string &)>)self->getOnDidFinishLoading();
     int num_ret = olua_push_std_function(L, (std::function<void(cocos2d::experimental::ui::WebView *, const std::string &)>)ret);
 
@@ -5719,10 +5719,10 @@ static int _cocos2d_experimental_ui_WebView_getOnJSCallback(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
 
     void *callback_store_obj = (void *)self;
-    std::string tag = olua_makecallbacktag("onJSCallback");
+    std::string tag = olua_makecallbacktag("OnJSCallback");
     olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
 
-    // std::function<void(WebView *sender, const std::string &url)> getOnJSCallback()
+    // @nullable @local std::function<void (WebView *, const std::string &)> getOnJSCallback()
     std::function<void(cocos2d::experimental::ui::WebView *, const std::string &)> ret = (std::function<void(cocos2d::experimental::ui::WebView *, const std::string &)>)self->getOnJSCallback();
     int num_ret = olua_push_std_function(L, (std::function<void(cocos2d::experimental::ui::WebView *, const std::string &)>)ret);
 
@@ -5740,10 +5740,10 @@ static int _cocos2d_experimental_ui_WebView_getOnShouldStartLoading(lua_State *L
     olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
 
     void *callback_store_obj = (void *)self;
-    std::string tag = olua_makecallbacktag("onShouldStartLoading");
+    std::string tag = olua_makecallbacktag("OnShouldStartLoading");
     olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
 
-    // std::function<bool(WebView *sender, const std::string &url)> getOnShouldStartLoading()
+    // @nullable @local std::function<bool (WebView *, const std::string &)> getOnShouldStartLoading()
     std::function<bool(cocos2d::experimental::ui::WebView *, const std::string &)> ret = (std::function<bool(cocos2d::experimental::ui::WebView *, const std::string &)>)self->getOnShouldStartLoading();
     int num_ret = olua_push_std_function(L, (std::function<bool(cocos2d::experimental::ui::WebView *, const std::string &)>)ret);
 
@@ -6054,7 +6054,7 @@ static int _cocos2d_experimental_ui_WebView_setOnDidFailLoading(lua_State *L)
 
     if (olua_is_std_function(L, 2)) {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onDidFailLoading");
+        std::string tag = olua_makecallbacktag("OnDidFailLoading");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
         lua_State *MT = olua_mainthread();
         arg1 = [callback_store_obj, func, MT](cocos2d::experimental::ui::WebView *arg1, const std::string &arg2) {
@@ -6062,22 +6062,27 @@ static int _cocos2d_experimental_ui_WebView_setOnDidFailLoading(lua_State *L)
 
             if (MT == L) {
                 int top = lua_gettop(L);
+                size_t last = olua_push_objpool(L);
+                olua_enable_objpool(L);
                 olua_push_cppobj(L, arg1, "ccui.WebView");
                 olua_push_std_string(L, arg2);
+                olua_disable_objpool(L);
 
                 olua_callback(L, callback_store_obj, func.c_str(), 2);
 
+                //pop stack value
+                olua_pop_objpool(L, last);
                 lua_settop(L, top);
             }
         };
     } else {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onDidFailLoading");
+        std::string tag = olua_makecallbacktag("OnDidFailLoading");
         olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
-    // void setOnDidFailLoading(@nullable const std::function<void(WebView *sender, const std::string &url)>& callback)
+    // void setOnDidFailLoading(@nullable @local const std::function<void (WebView *, const std::string &)> &callback)
     self->setOnDidFailLoading(arg1);
 
     olua_endinvoke(L);
@@ -6096,7 +6101,7 @@ static int _cocos2d_experimental_ui_WebView_setOnDidFinishLoading(lua_State *L)
 
     if (olua_is_std_function(L, 2)) {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onDidFinishLoading");
+        std::string tag = olua_makecallbacktag("OnDidFinishLoading");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
         lua_State *MT = olua_mainthread();
         arg1 = [callback_store_obj, func, MT](cocos2d::experimental::ui::WebView *arg1, const std::string &arg2) {
@@ -6104,22 +6109,27 @@ static int _cocos2d_experimental_ui_WebView_setOnDidFinishLoading(lua_State *L)
 
             if (MT == L) {
                 int top = lua_gettop(L);
+                size_t last = olua_push_objpool(L);
+                olua_enable_objpool(L);
                 olua_push_cppobj(L, arg1, "ccui.WebView");
                 olua_push_std_string(L, arg2);
+                olua_disable_objpool(L);
 
                 olua_callback(L, callback_store_obj, func.c_str(), 2);
 
+                //pop stack value
+                olua_pop_objpool(L, last);
                 lua_settop(L, top);
             }
         };
     } else {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onDidFinishLoading");
+        std::string tag = olua_makecallbacktag("OnDidFinishLoading");
         olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
-    // void setOnDidFinishLoading(@nullable const std::function<void(WebView *sender, const std::string &url)>& callback)
+    // void setOnDidFinishLoading(@nullable @local const std::function<void (WebView *, const std::string &)> &callback)
     self->setOnDidFinishLoading(arg1);
 
     olua_endinvoke(L);
@@ -6138,7 +6148,7 @@ static int _cocos2d_experimental_ui_WebView_setOnJSCallback(lua_State *L)
 
     if (olua_is_std_function(L, 2)) {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onJSCallback");
+        std::string tag = olua_makecallbacktag("OnJSCallback");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
         lua_State *MT = olua_mainthread();
         arg1 = [callback_store_obj, func, MT](cocos2d::experimental::ui::WebView *arg1, const std::string &arg2) {
@@ -6146,22 +6156,27 @@ static int _cocos2d_experimental_ui_WebView_setOnJSCallback(lua_State *L)
 
             if (MT == L) {
                 int top = lua_gettop(L);
+                size_t last = olua_push_objpool(L);
+                olua_enable_objpool(L);
                 olua_push_cppobj(L, arg1, "ccui.WebView");
                 olua_push_std_string(L, arg2);
+                olua_disable_objpool(L);
 
                 olua_callback(L, callback_store_obj, func.c_str(), 2);
 
+                //pop stack value
+                olua_pop_objpool(L, last);
                 lua_settop(L, top);
             }
         };
     } else {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onJSCallback");
+        std::string tag = olua_makecallbacktag("OnJSCallback");
         olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
-    // void setOnJSCallback(@nullable const std::function<void(WebView *sender, const std::string &url)>& callback)
+    // void setOnJSCallback(@nullable @local const std::function<void (WebView *, const std::string &)> &callback)
     self->setOnJSCallback(arg1);
 
     olua_endinvoke(L);
@@ -6180,7 +6195,7 @@ static int _cocos2d_experimental_ui_WebView_setOnShouldStartLoading(lua_State *L
 
     if (olua_is_std_function(L, 2)) {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onShouldStartLoading");
+        std::string tag = olua_makecallbacktag("OnShouldStartLoading");
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
         lua_State *MT = olua_mainthread();
         arg1 = [callback_store_obj, func, MT](cocos2d::experimental::ui::WebView *arg1, const std::string &arg2) {
@@ -6188,8 +6203,11 @@ static int _cocos2d_experimental_ui_WebView_setOnShouldStartLoading(lua_State *L
             bool ret = false;       
             if (MT == L) {
                 int top = lua_gettop(L);
+                size_t last = olua_push_objpool(L);
+                olua_enable_objpool(L);
                 olua_push_cppobj(L, arg1, "ccui.WebView");
                 olua_push_std_string(L, arg2);
+                olua_disable_objpool(L);
 
                 olua_callback(L, callback_store_obj, func.c_str(), 2);
 
@@ -6197,18 +6215,20 @@ static int _cocos2d_experimental_ui_WebView_setOnShouldStartLoading(lua_State *L
                     olua_check_bool(L, -1, &ret);
                 }
 
+                //pop stack value
+                olua_pop_objpool(L, last);
                 lua_settop(L, top);
             }
             return ret;
         };
     } else {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onShouldStartLoading");
+        std::string tag = olua_makecallbacktag("OnShouldStartLoading");
         olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
         arg1 = nullptr;
     }
 
-    // void setOnShouldStartLoading(@nullable const std::function<bool(WebView *sender, const std::string &url)>& callback)
+    // void setOnShouldStartLoading(@nullable @local const std::function<bool (WebView *, const std::string &)> &callback)
     self->setOnShouldStartLoading(arg1);
 
     olua_endinvoke(L);

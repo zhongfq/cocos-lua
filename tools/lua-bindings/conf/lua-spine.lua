@@ -167,7 +167,7 @@ M.EXCLUDE_PASS = function (cppcls, fn, decl)
         -- or string.find(decl, 'Vector *<')
 end
 
-local function typeconfOnly(name)
+local function typeonly(name)
     local cls = typeconf(name)
     cls.EXCLUDE '*'
     return cls
@@ -182,24 +182,24 @@ typeconf 'spine::SpacingMode'
 typeconf 'spine::RotateMode'
 typeconf 'spine::MixBlend'
 
-local SpineObject = typeconf 'spine::SpineObject'
-SpineObject.EXCLUDE 'operator new'
-SpineObject.EXCLUDE 'operator delete'
-SpineObject.EXCLUDE 'getRTTI'
+typeconf 'spine::SpineObject'
+    .EXCLUDE 'operator new'
+    .EXCLUDE 'operator delete'
+    .EXCLUDE 'getRTTI'
 
-local Event = typeconf 'spine::Event'
-Event.EXCLUDE 'Event'
+typeconf 'spine::Event'
+    .EXCLUDE 'Event'
 
 typeconf 'spine::EventData'
 typeconf 'spine::Updatable'
 
-local AnimationState = typeconf 'spine::AnimationState'
-AnimationState.ATTR('setListener', {LOCAL = false, NULLABLE = false})
+typeconf 'spine::AnimationState'
+    .ATTR('setListener', {LOCAL = false, NULLABLE = false})
 
 typeconf 'spine::AnimationStateData'
 
-local Animation = typeconf 'spine::Animation'
-Animation.EXCLUDE 'Animation'
+typeconf 'spine::Animation'
+    .EXCLUDE 'Animation'
 
 typeconf 'spine::ConstraintData'
 typeconf 'spine::IkConstraintData'
@@ -210,14 +210,14 @@ typeconf 'spine::TransformConstraint'
 typeconf 'spine::TransformConstraintData'
 typeconf 'spine::PathConstraintData'
 typeconf 'spine::SkeletonBounds'
-typeconfOnly 'spine::SkeletonClipping'
+typeonly 'spine::SkeletonClipping'
 
-local Timeline = typeconf 'spine::Timeline'
-Timeline.EXCLUDE 'apply'
-Timeline.EXCLUDE 'setFrame'
-Timeline.EXCLUDE 'getVertices'
-Timeline.EXCLUDE 'getDrawOrders'
-Timeline.EXCLUDE 'getEvents'
+typeconf 'spine::Timeline'
+    .EXCLUDE 'apply'
+    .EXCLUDE 'setFrame'
+    .EXCLUDE 'getVertices'
+    .EXCLUDE 'getDrawOrders'
+    .EXCLUDE 'getEvents'
 
 typeconf 'spine::CurveTimeline'
 typeconf 'spine::AttachmentTimeline'
@@ -236,25 +236,26 @@ typeconf 'spine::ScaleTimeline'
 typeconf 'spine::RotateTimeline'
 typeconf 'spine::TwoColorTimeline'
 
-local VertexEffect = typeconf 'spine::VertexEffect'
-VertexEffect.EXCLUDE 'begin'
-VertexEffect.EXCLUDE 'end'
-VertexEffect.EXCLUDE 'transform'
+typeconf 'spine::VertexEffect'
+    .EXCLUDE 'begin'
+    .EXCLUDE 'end'
+    .EXCLUDE 'transform'
+
 typeconf 'spine::SwirlVertexEffect'
 typeconf 'spine::JitterVertexEffect'
 
-typeconfOnly 'spine::Polygon'
+typeonly 'spine::Polygon'
 
-local Skin = typeconf 'spine::Skin'
-Skin.EXCLUDE 'getAttachments'
-Skin.EXCLUDE 'findNamesForSlot'
-Skin.EXCLUDE 'findAttachmentsForSlot'
+typeconf 'spine::Skin'
+    .EXCLUDE 'getAttachments'
+    .EXCLUDE 'findNamesForSlot'
+    .EXCLUDE 'findAttachmentsForSlot'
 
-typeconfOnly 'spine::Atlas'
+typeonly 'spine::Atlas'
 
-local Bone = typeconf 'spine::Bone'
-Bone.EXCLUDE 'localToWorld'
-Bone.EXCLUDE 'worldToLocal'
+typeconf 'spine::Bone'
+    .EXCLUDE 'localToWorld'
+    .EXCLUDE 'worldToLocal'
 
 typeconf 'spine::Slot'
 typeconf 'spine::Attachment'
@@ -267,8 +268,8 @@ typeconf 'spine::PathConstraint'
 typeconf 'spine::PointAttachment'
 typeconf 'spine::RegionAttachment'
 
-local TrackEntry = typeconf 'spine::TrackEntry'
-TrackEntry.ATTR('setListener', {LOCAL = false, NULLABLE = false})
+typeconf 'spine::TrackEntry'
+    .ATTR('setListener', {LOCAL = false, NULLABLE = false})
 
 local SkeletonData = typeconf 'spine::SkeletonData'
 SkeletonData.FUNC("__gc", [[
@@ -352,31 +353,31 @@ SkeletonData.FUNC("new", [[
     return 1;
 }]])
 
-local Skeleton = typeconf 'spine::Skeleton'
-Skeleton.EXCLUDE 'getBounds'
+typeconf 'spine::Skeleton'
+    .EXCLUDE 'getBounds'
 
-local SkeletonRenderer = typeconf 'spine::SkeletonRenderer'
-SkeletonRenderer.ATTR('createWithData', {ARG1 = '@ref(single skeletonData)'})
+typeconf 'spine::SkeletonRenderer'
+    .ATTR('createWithData', {ARG1 = '@ref(single skeletonData)'})
 
-local SkeletonAnimation = typeconf 'spine::SkeletonAnimation'
-SkeletonAnimation.ATTR('createWithData', {ARG1 = '@ref(single skeletonData)'})
-SkeletonAnimation.ATTR('getState', {RET = '@ref(single state)'})
-SkeletonAnimation.ATTR('setAnimation', {RET = '@ref(map trackEntries)'})
-SkeletonAnimation.ATTR('addAnimation', {RET = '@ref(map trackEntries)'})
-SkeletonAnimation.ATTR('setEmptyAnimation', {RET = '@ref(map trackEntries)'})
-SkeletonAnimation.ATTR('addEmptyAnimation', {RET = '@ref(map trackEntries)'})
-SkeletonAnimation.ATTR('getCurrent', {RET = '@ref(map trackEntries)'})
-SkeletonAnimation.ATTR('setStartListener', {LOCAL = false, NULLABLE = false})
-SkeletonAnimation.ATTR('setInterruptListener', {LOCAL = false, NULLABLE = false})
-SkeletonAnimation.ATTR('setEndListener', {LOCAL = false, NULLABLE = false})
-SkeletonAnimation.ATTR('setDisposeListener', {LOCAL = false, NULLABLE = false})
-SkeletonAnimation.ATTR('setCompleteListener', {LOCAL = false, NULLABLE = false})
-SkeletonAnimation.ATTR('setEventListener', {LOCAL = false, NULLABLE = false})
-SkeletonAnimation.ATTR('setTrackStartListener', {LOCAL = false, NULLABLE = false})
-SkeletonAnimation.ATTR('setTrackInterruptListener', {LOCAL = false, NULLABLE = false})
-SkeletonAnimation.ATTR('setTrackEndListener', {LOCAL = false, NULLABLE = false})
-SkeletonAnimation.ATTR('setTrackDisposeListener', {LOCAL = false, NULLABLE = false})
-SkeletonAnimation.ATTR('setTrackCompleteListener', {LOCAL = false, NULLABLE = false})
-SkeletonAnimation.ATTR('setTrackEventListener', {LOCAL = false, NULLABLE = false})
+typeconf 'spine::SkeletonAnimation'
+    .ATTR('createWithData', {ARG1 = '@ref(single skeletonData)'})
+    .ATTR('getState', {RET = '@ref(single state)'})
+    .ATTR('setAnimation', {RET = '@ref(map trackEntries)'})
+    .ATTR('addAnimation', {RET = '@ref(map trackEntries)'})
+    .ATTR('setEmptyAnimation', {RET = '@ref(map trackEntries)'})
+    .ATTR('addEmptyAnimation', {RET = '@ref(map trackEntries)'})
+    .ATTR('getCurrent', {RET = '@ref(map trackEntries)'})
+    .ATTR('setStartListener', {LOCAL = false, NULLABLE = false})
+    .ATTR('setInterruptListener', {LOCAL = false, NULLABLE = false})
+    .ATTR('setEndListener', {LOCAL = false, NULLABLE = false})
+    .ATTR('setDisposeListener', {LOCAL = false, NULLABLE = false})
+    .ATTR('setCompleteListener', {LOCAL = false, NULLABLE = false})
+    .ATTR('setEventListener', {LOCAL = false, NULLABLE = false})
+    .ATTR('setTrackStartListener', {LOCAL = false, NULLABLE = false})
+    .ATTR('setTrackInterruptListener', {LOCAL = false, NULLABLE = false})
+    .ATTR('setTrackEndListener', {LOCAL = false, NULLABLE = false})
+    .ATTR('setTrackDisposeListener', {LOCAL = false, NULLABLE = false})
+    .ATTR('setTrackCompleteListener', {LOCAL = false, NULLABLE = false})
+    .ATTR('setTrackEventListener', {LOCAL = false, NULLABLE = false})
 
 return M

@@ -8,8 +8,6 @@ local typecls = olua.typecls
 local cls = nil
 local M = {}
 
-olua.nowarning(typeconv, typecls, cls)
-
 M.NAME = "cocos2d"
 M.PATH = "../../frameworks/libxgame/src/lua-bindings"
 M.INCLUDES = [[
@@ -3272,78 +3270,6 @@ cls.prop('alpha', [[
 }]])
 cls.callback {
     FUNCS =  {
-        'void setOnEnterCallback(@nullable const std::function<void()>& callback)',
-    },
-    TAG_MAKER = 'olua_makecallbacktag("onEnterCallback")',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-    CALLONCE = false,
-    REMOVE = false,
-}
-cls.callback {
-    FUNCS =  {
-        'const std::function<void()>& getOnEnterCallback()',
-    },
-    TAG_MAKER = 'olua_makecallbacktag("onEnterCallback")',
-    TAG_MODE = 'OLUA_TAG_EQUAL',
-    CALLONCE = false,
-    REMOVE = false,
-}
-cls.callback {
-    FUNCS =  {
-        'void setOnExitCallback(@nullable const std::function<void()>& callback)',
-    },
-    TAG_MAKER = 'olua_makecallbacktag("onExitCallback")',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-    CALLONCE = false,
-    REMOVE = false,
-}
-cls.callback {
-    FUNCS =  {
-        'const std::function<void()>& getOnExitCallback()',
-    },
-    TAG_MAKER = 'olua_makecallbacktag("onExitCallback")',
-    TAG_MODE = 'OLUA_TAG_EQUAL',
-    CALLONCE = false,
-    REMOVE = false,
-}
-cls.callback {
-    FUNCS =  {
-        'void setOnEnterTransitionDidFinishCallback(@nullable const std::function<void()>& callback)',
-    },
-    TAG_MAKER = 'olua_makecallbacktag("onEnterTransitionDidFinishCallback")',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-    CALLONCE = false,
-    REMOVE = false,
-}
-cls.callback {
-    FUNCS =  {
-        'const std::function<void()>& getOnEnterTransitionDidFinishCallback()',
-    },
-    TAG_MAKER = 'olua_makecallbacktag("onEnterTransitionDidFinishCallback")',
-    TAG_MODE = 'OLUA_TAG_EQUAL',
-    CALLONCE = false,
-    REMOVE = false,
-}
-cls.callback {
-    FUNCS =  {
-        'void setOnExitTransitionDidStartCallback(@nullable const std::function<void()>& callback)',
-    },
-    TAG_MAKER = 'olua_makecallbacktag("onExitTransitionDidStartCallback")',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-    CALLONCE = false,
-    REMOVE = false,
-}
-cls.callback {
-    FUNCS =  {
-        'const std::function<void()>& getOnExitTransitionDidStartCallback()',
-    },
-    TAG_MAKER = 'olua_makecallbacktag("onExitTransitionDidStartCallback")',
-    TAG_MODE = 'OLUA_TAG_EQUAL',
-    CALLONCE = false,
-    REMOVE = false,
-}
-cls.callback {
-    FUNCS =  {
         'void scheduleOnce(const std::function<void(float)>& callback, float delay, const std::string &key)',
     },
     TAG_MAKER = 'makeScheduleCallbackTag(#-1)',
@@ -3379,6 +3305,78 @@ cls.callback {
     TAG_MODE = 'OLUA_TAG_STARTWITH',
     CALLONCE = false,
     REMOVE = true,
+}
+cls.callback {
+    FUNCS =  {
+        'void setOnEnterCallback(@nullable @local const std::function<void ()> &callback)',
+    },
+    TAG_MAKER = 'olua_makecallbacktag("OnEnterCallback")',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
+    CALLONCE = false,
+    REMOVE = false,
+}
+cls.callback {
+    FUNCS =  {
+        '@nullable @local const std::function<void ()> &getOnEnterCallback()',
+    },
+    TAG_MAKER = 'olua_makecallbacktag("OnEnterCallback")',
+    TAG_MODE = 'OLUA_TAG_EQUAL',
+    CALLONCE = false,
+    REMOVE = false,
+}
+cls.callback {
+    FUNCS =  {
+        'void setOnExitCallback(@nullable @local const std::function<void ()> &callback)',
+    },
+    TAG_MAKER = 'olua_makecallbacktag("OnExitCallback")',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
+    CALLONCE = false,
+    REMOVE = false,
+}
+cls.callback {
+    FUNCS =  {
+        '@nullable @local const std::function<void ()> &getOnExitCallback()',
+    },
+    TAG_MAKER = 'olua_makecallbacktag("OnExitCallback")',
+    TAG_MODE = 'OLUA_TAG_EQUAL',
+    CALLONCE = false,
+    REMOVE = false,
+}
+cls.callback {
+    FUNCS =  {
+        'void setOnEnterTransitionDidFinishCallback(@nullable @local const std::function<void ()> &callback)',
+    },
+    TAG_MAKER = 'olua_makecallbacktag("OnEnterTransitionDidFinishCallback")',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
+    CALLONCE = false,
+    REMOVE = false,
+}
+cls.callback {
+    FUNCS =  {
+        '@nullable @local const std::function<void ()> &getOnEnterTransitionDidFinishCallback()',
+    },
+    TAG_MAKER = 'olua_makecallbacktag("OnEnterTransitionDidFinishCallback")',
+    TAG_MODE = 'OLUA_TAG_EQUAL',
+    CALLONCE = false,
+    REMOVE = false,
+}
+cls.callback {
+    FUNCS =  {
+        'void setOnExitTransitionDidStartCallback(@nullable @local const std::function<void ()> &callback)',
+    },
+    TAG_MAKER = 'olua_makecallbacktag("OnExitTransitionDidStartCallback")',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
+    CALLONCE = false,
+    REMOVE = false,
+}
+cls.callback {
+    FUNCS =  {
+        '@nullable @local const std::function<void ()> &getOnExitTransitionDidStartCallback()',
+    },
+    TAG_MAKER = 'olua_makecallbacktag("OnExitTransitionDidStartCallback")',
+    TAG_MODE = 'OLUA_TAG_EQUAL',
+    CALLONCE = false,
+    REMOVE = false,
 }
 cls.inject({'removeFromParent', 'removeFromParentAndCleanup'}, {
     BEFORE = [[

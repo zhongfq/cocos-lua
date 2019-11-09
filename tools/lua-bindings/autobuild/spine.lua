@@ -101,7 +101,8 @@ template <typename T> int manual_olua_push_spine_Vector(lua_State *L, const spin
         lua_rawseti(L, -2, count++);
     }
     return 1;
-}]]
+}
+]]
 
 M.CLASSES = {}
 
@@ -276,10 +277,11 @@ cls.funcs [[
 ]]
 cls.callback {
     FUNCS =  {
-        'void setListener(std::function<void (AnimationState *, EventType, TrackEntry *, Event *)> listener)',
+        'void setListener(std::function<void (AnimationState *, EventType, TrackEntry *, Event *)> listener)'
     },
     TAG_MAKER = 'olua_makecallbacktag("Listener")',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
 }
@@ -1278,10 +1280,11 @@ cls.funcs [[
 ]]
 cls.callback {
     FUNCS =  {
-        'void setListener(std::function<void (AnimationState *, EventType, TrackEntry *, Event *)> listener)',
+        'void setListener(std::function<void (AnimationState *, EventType, TrackEntry *, Event *)> listener)'
     },
     TAG_MAKER = 'olua_makecallbacktag("Listener")',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
 }
@@ -1605,109 +1608,121 @@ cls.funcs [[
 ]]
 cls.callback {
     FUNCS =  {
-        'void setStartListener(const std::function<void (TrackEntry *)> &listener)',
+        'void setStartListener(const std::function<void (TrackEntry *)> &listener)'
     },
     TAG_MAKER = 'olua_makecallbacktag("StartListener")',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
-        'void setInterruptListener(const std::function<void (TrackEntry *)> &listener)',
+        'void setInterruptListener(const std::function<void (TrackEntry *)> &listener)'
     },
     TAG_MAKER = 'olua_makecallbacktag("InterruptListener")',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
-        'void setEndListener(const std::function<void (TrackEntry *)> &listener)',
+        'void setEndListener(const std::function<void (TrackEntry *)> &listener)'
     },
     TAG_MAKER = 'olua_makecallbacktag("EndListener")',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
-        'void setDisposeListener(const std::function<void (TrackEntry *)> &listener)',
+        'void setDisposeListener(const std::function<void (TrackEntry *)> &listener)'
     },
     TAG_MAKER = 'olua_makecallbacktag("DisposeListener")',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
-        'void setCompleteListener(const std::function<void (TrackEntry *)> &listener)',
+        'void setCompleteListener(const std::function<void (TrackEntry *)> &listener)'
     },
     TAG_MAKER = 'olua_makecallbacktag("CompleteListener")',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
-        'void setEventListener(const std::function<void (TrackEntry *, Event *)> &listener)',
+        'void setEventListener(const std::function<void (TrackEntry *, Event *)> &listener)'
     },
     TAG_MAKER = 'olua_makecallbacktag("EventListener")',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
-        'void setTrackStartListener(spine::TrackEntry *entry, const std::function<void (TrackEntry *)> &listener)',
+        'void setTrackStartListener(spine::TrackEntry *entry, const std::function<void (TrackEntry *)> &listener)'
     },
     TAG_MAKER = 'olua_makecallbacktag("TrackStartListener")',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
-        'void setTrackInterruptListener(spine::TrackEntry *entry, const std::function<void (TrackEntry *)> &listener)',
+        'void setTrackInterruptListener(spine::TrackEntry *entry, const std::function<void (TrackEntry *)> &listener)'
     },
     TAG_MAKER = 'olua_makecallbacktag("TrackInterruptListener")',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
-        'void setTrackEndListener(spine::TrackEntry *entry, const std::function<void (TrackEntry *)> &listener)',
+        'void setTrackEndListener(spine::TrackEntry *entry, const std::function<void (TrackEntry *)> &listener)'
     },
     TAG_MAKER = 'olua_makecallbacktag("TrackEndListener")',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
-        'void setTrackDisposeListener(spine::TrackEntry *entry, const std::function<void (TrackEntry *)> &listener)',
+        'void setTrackDisposeListener(spine::TrackEntry *entry, const std::function<void (TrackEntry *)> &listener)'
     },
     TAG_MAKER = 'olua_makecallbacktag("TrackDisposeListener")',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
-        'void setTrackCompleteListener(spine::TrackEntry *entry, const std::function<void (TrackEntry *)> &listener)',
+        'void setTrackCompleteListener(spine::TrackEntry *entry, const std::function<void (TrackEntry *)> &listener)'
     },
     TAG_MAKER = 'olua_makecallbacktag("TrackCompleteListener")',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
-        'void setTrackEventListener(spine::TrackEntry *entry, const std::function<void (TrackEntry *, Event *)> &listener)',
+        'void setTrackEventListener(spine::TrackEntry *entry, const std::function<void (TrackEntry *, Event *)> &listener)'
     },
     TAG_MAKER = 'olua_makecallbacktag("TrackEventListener")',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
 }

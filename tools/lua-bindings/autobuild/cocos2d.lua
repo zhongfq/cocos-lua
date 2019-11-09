@@ -28,7 +28,8 @@ M.CHUNK = [[
 static const std::string makeScheduleCallbackTag(const std::string &key)
 {
     return "schedule." + key;
-}]]
+}
+]]
 
 M.CLASSES = {}
 
@@ -236,9 +237,10 @@ template <typename T> bool doScheduleUpdate(lua_State *L)
         self->scheduleUpdate(target, (int)priority, paused);
         return true;
     }
-    
+
     return false;
-}]]
+}
+]]
 cls.funcs [[
     Scheduler()
     float getTimeScale()
@@ -257,7 +259,7 @@ cls.funcs [[
 ]]
 cls.enum('PRIORITY_SYSTEM', 'cocos2d::Scheduler::PRIORITY_SYSTEM')
 cls.enum('PRIORITY_NON_SYSTEM_MIN', 'cocos2d::Scheduler::PRIORITY_NON_SYSTEM_MIN')
-cls.func('scheduleUpdate', [[{   
+cls.func('scheduleUpdate', [[{
     if (doScheduleUpdate<cocos2d::Scheduler>(L) ||
         doScheduleUpdate<cocos2d::ActionManager>(L) ||
         doScheduleUpdate<cocos2d::Node>(L) ||
@@ -266,7 +268,7 @@ cls.func('scheduleUpdate', [[{
         doScheduleUpdate<cocos2d::ActionManager>(L)) {
         return 0;
     }
-    
+
     luaL_error(L, "unsupport type: %s", olua_typename(L, 2));
 
     return 0;
@@ -274,7 +276,7 @@ cls.func('scheduleUpdate', [[{
 cls.callback {
     FUNCS =  {
         'void schedule(const std::function<void(float)>& callback, void *target, float interval, bool paused, const std::string& key)',
-        'void schedule(const std::function<void(float)>& callback, void *target, float interval, unsigned int repeat, float delay, bool paused, const std::string& key)',
+        'void schedule(const std::function<void(float)>& callback, void *target, float interval, unsigned int repeat, float delay, bool paused, const std::string& key)'
     },
     TAG_MAKER = 'makeScheduleCallbackTag(#-1)',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -284,7 +286,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void unschedule(const std::string& key, void *target)',
+        'void unschedule(const std::string& key, void *target)'
     },
     TAG_MAKER = 'makeScheduleCallbackTag(#1)',
     TAG_MODE = 'OLUA_TAG_EQUAL',
@@ -294,7 +296,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void unscheduleAllForTarget(void *target)',
+        'void unscheduleAllForTarget(void *target)'
     },
     TAG_MAKER = 'makeScheduleCallbackTag("")',
     TAG_MODE = 'OLUA_TAG_STARTWITH',
@@ -304,10 +306,11 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void unscheduleAll()',
+        'void unscheduleAll()'
     },
     TAG_MAKER = 'makeScheduleCallbackTag("")',
     TAG_MODE = 'OLUA_TAG_STARTWITH',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = true,
 }
@@ -332,7 +335,8 @@ static void doRemoveEventListenersForTarget(lua_State *L, cocos2d::Node *target,
             doRemoveEventListenersForTarget(L, child, recursive, refname);
         }
     }
-}]]
+}
+]]
 cls.funcs [[
     void addEventListenerWithSceneGraphPriority(@ref(map listeners 3) cocos2d::EventListener *listener, cocos2d::Node *node)
     void addEventListenerWithFixedPriority(@ref(map listeners) cocos2d::EventListener *listener, int fixedPriority)
@@ -371,10 +375,10 @@ cls.func('addCustomEventListener', [[{
 
         //pop stack value
         olua_pop_objpool(L, last);
-        
+
         lua_settop(L, top);
     });
-    
+
     // EventListenerCustom* EventDispatcher::addCustomEventListener(const std::string &eventName, const std::function<void(EventCustom*)>& callback)
     //  {
     //      EventListenerCustom *listener = EventListenerCustom::create(eventName, callback);
@@ -467,10 +471,13 @@ cls.funcs [[
 ]]
 cls.callback {
     FUNCS =  {
-        'static EventListenerCustom* create(const std::string& eventName, const std::function<void(@local EventCustom*)>& callback)',
+        'static EventListenerCustom* create(const std::string& eventName, const std::function<void(@local EventCustom*)>& callback)'
     },
     TAG_MAKER = 'olua_makecallbacktag("listener")',
     TAG_MODE = 'OLUA_TAG_NEW',
+    TAG_STORE = nil,
+    CALLONCE = false,
+    REMOVE = false,
     CPPFUNC = 'init',
     NEW = [[
         auto *self = new ${DECLTYPE}();
@@ -478,8 +485,6 @@ cls.callback {
         self->autorelease();
         olua_push_cppobj<${DECLTYPE}>(L, self);
     ]],
-    CALLONCE = false,
-    REMOVE = false,
 }
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -500,10 +505,13 @@ cls.funcs [[
 ]]
 cls.callback {
     FUNCS =  {
-        'static EventListenerAcceleration* create(const std::function<void(@local Acceleration*, @local Event*)>& callback)',
+        'static EventListenerAcceleration* create(const std::function<void(@local Acceleration*, @local Event*)>& callback)'
     },
     TAG_MAKER = 'olua_makecallbacktag("listener")',
     TAG_MODE = 'OLUA_TAG_NEW',
+    TAG_STORE = nil,
+    CALLONCE = false,
+    REMOVE = false,
     CPPFUNC = 'init',
     NEW = [[
         auto *self = new ${DECLTYPE}();
@@ -511,8 +519,6 @@ cls.callback {
         self->autorelease();
         olua_push_cppobj<${DECLTYPE}>(L, self);
     ]],
-    CALLONCE = false,
-    REMOVE = false,
 }
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -1036,7 +1042,8 @@ static const std::string makeAudioEngineFinishCallbackTag(lua_Integer id)
         sprintf(buf, "finishCallback.%d", (int)id);
         return std::string(buf);
     }
-}]]
+}
+]]
 cls.funcs [[
     static bool lazyInit()
     static void end()
@@ -1065,47 +1072,52 @@ cls.funcs [[
 ]]
 cls.callback {
     FUNCS =  {
-        'static void stop(int audioID)',
+        'static void stop(int audioID)'
     },
     TAG_MAKER = 'makeAudioEngineFinishCallbackTag(#1)',
     TAG_MODE = 'OLUA_TAG_EQUAL',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = true,
 }
 cls.callback {
     FUNCS =  {
-        'static void stopAll()',
+        'static void stopAll()'
     },
     TAG_MAKER = 'makeAudioEngineFinishCallbackTag(-1)',
     TAG_MODE = 'OLUA_TAG_STARTWITH',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = true,
 }
 cls.callback {
     FUNCS =  {
-        'static void uncacheAll()',
+        'static void uncacheAll()'
     },
     TAG_MAKER = 'makeAudioEngineFinishCallbackTag(-1)',
     TAG_MODE = 'OLUA_TAG_STARTWITH',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = true,
 }
 cls.callback {
     FUNCS =  {
-        'static void setFinishCallback(int audioID, @nullable const std::function<void(int,const std::string&)>& callback)',
+        'static void setFinishCallback(int audioID, @nullable const std::function<void(int,const std::string&)>& callback)'
     },
     TAG_MAKER = 'makeAudioEngineFinishCallbackTag(#1)',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
     CALLONCE = true,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
         'static void preload(const std::string& filePath)',
-        'static void preload(const std::string& filePath, std::function<void(bool isSuccess)> callback)',
+        'static void preload(const std::string& filePath, std::function<void(bool isSuccess)> callback)'
     },
     TAG_MAKER = 'olua_makecallbacktag("preload")',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
     CALLONCE = true,
     REMOVE = false,
 }
@@ -1672,7 +1684,8 @@ cls.CHUNK = [[
 static const std::string makeTextureCacheCallbackTag(const std::string &key)
 {
     return "addImageAsync." + key;
-}]]
+}
+]]
 cls.funcs [[
     static void setETC1AlphaFileSuffix(const std::string &suffix)
     static std::string getETC1AlphaFileSuffix()
@@ -1694,28 +1707,31 @@ cls.funcs [[
 cls.callback {
     FUNCS =  {
         'void addImageAsync(const std::string &filepath, const std::function<void(Texture2D*)>& callback)',
-        'void addImageAsync(const std::string &path, const std::function<void(Texture2D*)>& callback, const std::string& callbackKey)',
+        'void addImageAsync(const std::string &path, const std::function<void(Texture2D*)>& callback, const std::string& callbackKey)'
     },
     TAG_MAKER = {'makeTextureCacheCallbackTag(#1)', 'makeTextureCacheCallbackTag(#-1)'},
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
     CALLONCE = true,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
-        'void unbindImageAsync(const std::string &filename)',
+        'void unbindImageAsync(const std::string &filename)'
     },
     TAG_MAKER = 'makeTextureCacheCallbackTag(#1)',
     TAG_MODE = 'OLUA_TAG_EQUAL',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = true,
 }
 cls.callback {
     FUNCS =  {
-        'void unbindAllImageAsync()',
+        'void unbindAllImageAsync()'
     },
     TAG_MAKER = 'makeTextureCacheCallbackTag("")',
     TAG_MODE = 'OLUA_TAG_STARTWITH',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = true,
 }
@@ -1954,7 +1970,7 @@ cls.func('create', [[{
     auto delegate = olua_checkobj<cocos2d::network::WebSocket::Delegate>(L, 1);
     std::string url = olua_tostring(L, 2);
     std::string cafile = olua_optstring(L, 4, "");
-    
+
     if (!lua_isnil(L, 3)) {
         luaL_checktype(L, 3, LUA_TTABLE);
         int len = (int)lua_rawlen(L, 3);
@@ -1965,7 +1981,7 @@ cls.func('create', [[{
             lua_pop(L, 1);
         }
     }
-    
+
     self->init(*delegate, url, protocols.size() > 0 ? &protocols : nullptr, cafile);
     olua_push_cppobj<cocos2d::network::WebSocket>(L, self);
     olua_singleref(L, -1, "delegate", 1);
@@ -2169,7 +2185,7 @@ cls.func('create', [[{
     }
 
     ret->init(actions);
-    
+
     return 1;
 }]])
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -2220,7 +2236,7 @@ cls.func('create', [[{
         actions.pushBack(obj);
         olua_mapref(L, -1, ".autoref", i);
     }
-    
+
     ret->init(actions);
 
     return 1;
@@ -2450,10 +2466,13 @@ cls.funcs [[
 ]]
 cls.callback {
     FUNCS =  {
-        'static ActionFloat* create(float duration, float from, float to, std::function<void(float value)> callback)',
+        'static ActionFloat* create(float duration, float from, float to, std::function<void(float value)> callback)'
     },
     TAG_MAKER = 'olua_makecallbacktag("ActionFloat")',
     TAG_MODE = 'OLUA_TAG_NEW',
+    TAG_STORE = nil,
+    CALLONCE = false,
+    REMOVE = false,
     CPPFUNC = 'initWithDuration',
     NEW = [[
         auto *self = new ${DECLTYPE}();
@@ -2461,8 +2480,6 @@ cls.callback {
         self->autorelease();
         olua_push_cppobj<${DECLTYPE}>(L, self);
     ]],
-    CALLONCE = false,
-    REMOVE = false,
 }
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2917,10 +2934,13 @@ cls.funcs [[
 ]]
 cls.callback {
     FUNCS =  {
-        'static CallFunc * create(const std::function<void()>& func)',
+        'static CallFunc * create(const std::function<void()>& func)'
     },
     TAG_MAKER = 'olua_makecallbacktag("CallFunc")',
     TAG_MODE = 'OLUA_TAG_NEW',
+    TAG_STORE = nil,
+    CALLONCE = false,
+    REMOVE = false,
     CPPFUNC = 'initWithFunction',
     NEW = [[
         auto *self = new ${DECLTYPE}();
@@ -2928,8 +2948,6 @@ cls.callback {
         self->autorelease();
         olua_push_cppobj<${DECLTYPE}>(L, self);
     ]],
-    CALLONCE = false,
-    REMOVE = false,
 }
 cls.props [[
     targetCallback
@@ -2984,7 +3002,8 @@ static cocos2d::Node *_find_ancestor(cocos2d::Node *node1, cocos2d::Node *node2)
         }
     }
     return NULL;
-}]]
+}
+]]
 cls.funcs [[
     static cocos2d::Node *create()
     static int getAttachedNodeCount()
@@ -3160,12 +3179,12 @@ cls.func('getBounds', [[{
     float right = luaL_checknumber(L, 4);
     float top = luaL_checknumber(L, 5);
     float bottom = luaL_checknumber(L, 6);
-    
+
     cocos2d::Vec3 p1(left, bottom, 0);
     cocos2d::Vec3 p2(right, top, 0);
-    
+
     auto m = cocos2d::Mat4::IDENTITY;
-    
+
     if (target == self->getParent()) {
         m = self->getNodeToParentTransform();
     } else if (target != self) {
@@ -3180,23 +3199,22 @@ cls.func('getBounds', [[{
             m = target->getNodeToParentTransform(ancestor).getInversed() * self->getNodeToParentTransform(ancestor);
         }
     }
-    
+
     m.transformPoint(&p1);
     m.transformPoint(&p2);
-    
+
     left = MIN(p1.x, p2.x);
     right = MAX(p1.x, p2.x);
     top = MAX(p1.y, p2.y);
     bottom = MIN(p1.y, p2.y);
-    
+
     lua_pushnumber(L, left);
     lua_pushnumber(L, right);
     lua_pushnumber(L, top);
     lua_pushnumber(L, bottom);
-    
+
     return 4;
-}
-]])
+}]])
 cls.prop('x', 'float getPositionX()', 'void setPositionX(float x)')
 cls.prop('y', 'float getPositionY()', 'void setPositionY(float y)')
 cls.prop('z', 'float getPositionZ()', 'void setPositionZ(float z)')
@@ -3205,8 +3223,7 @@ cls.prop('anchorX', [[
     auto self = olua_toobj<cocos2d::Node>(L, 1);
     lua_pushnumber(L, self->getAnchorPoint().x);
     return 1;
-}
-]], [[
+}]], [[
 {
     auto self = olua_toobj<cocos2d::Node>(L, 1);
     cocos2d::Vec2 anchor = self->getAnchorPoint();
@@ -3219,8 +3236,7 @@ cls.prop('anchorY', [[
     auto self = olua_toobj<cocos2d::Node>(L, 1);
     lua_pushnumber(L, self->getAnchorPoint().y);
     return 1;
-}
-]], [[
+}]], [[
 {
     auto self = olua_toobj<cocos2d::Node>(L, 1);
     cocos2d::Vec2 anchor = self->getAnchorPoint();
@@ -3233,8 +3249,7 @@ cls.prop('width', [[
     auto self = olua_toobj<cocos2d::Node>(L, 1);
     lua_pushnumber(L, self->getContentSize().width);
     return 1;
-}
-]], [[
+}]], [[
 {
     auto self = olua_toobj<cocos2d::Node>(L, 1);
     cocos2d::Size size = self->getContentSize();
@@ -3247,8 +3262,7 @@ cls.prop('height', [[
     auto self = olua_toobj<cocos2d::Node>(L, 1);
     lua_pushnumber(L, self->getContentSize().height);
     return 1;
-}
-]], [[
+}]], [[
 {
     auto self = olua_toobj<cocos2d::Node>(L, 1);
     cocos2d::Size size = self->getContentSize();
@@ -3261,8 +3275,7 @@ cls.prop('alpha', [[
     auto self = olua_toobj<cocos2d::Node>(L, 1);
     lua_pushnumber(L, self->getOpacity() / 255.0f);
     return 1;
-}
-]], [[
+}]], [[
 {
     auto self = olua_toobj<cocos2d::Node>(L, 1);
     self->setOpacity(olua_checknumber(L, 2) * 255.0f);
@@ -3270,10 +3283,11 @@ cls.prop('alpha', [[
 }]])
 cls.callback {
     FUNCS =  {
-        'void scheduleOnce(const std::function<void(float)>& callback, float delay, const std::string &key)',
+        'void scheduleOnce(const std::function<void(float)>& callback, float delay, const std::string &key)'
     },
     TAG_MAKER = 'makeScheduleCallbackTag(#-1)',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
     CALLONCE = true,
     REMOVE = false,
 }
@@ -3281,104 +3295,124 @@ cls.callback {
     FUNCS =  {
         'void schedule(const std::function<void(float)>& callback, const std::string &key)',
         'void schedule(const std::function<void(float)>& callback, float interval, const std::string &key)',
-        'void schedule(const std::function<void(float)>& callback, float interval, unsigned int repeat, float delay, const std::string &key)',
+        'void schedule(const std::function<void(float)>& callback, float interval, unsigned int repeat, float delay, const std::string &key)'
     },
     TAG_MAKER = 'makeScheduleCallbackTag(#-1)',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
-        'void unschedule(const std::string &key)',
+        'void unschedule(const std::string &key)'
     },
     TAG_MAKER = 'makeScheduleCallbackTag(#1)',
     TAG_MODE = 'OLUA_TAG_EQUAL',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = true,
 }
 cls.callback {
     FUNCS =  {
-        'void unscheduleAllCallbacks()',
+        'void unscheduleAllCallbacks()'
     },
     TAG_MAKER = 'makeScheduleCallbackTag("")',
     TAG_MODE = 'OLUA_TAG_STARTWITH',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = true,
 }
 cls.callback {
     FUNCS =  {
-        'void setOnEnterCallback(@nullable @local const std::function<void ()> &callback)',
+        'void setOnEnterCallback(@nullable @local const std::function<void ()> &callback)'
     },
     TAG_MAKER = 'olua_makecallbacktag("OnEnterCallback")',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
-        '@nullable @local const std::function<void ()> &getOnEnterCallback()',
+        '@nullable @local const std::function<void ()> &getOnEnterCallback()'
     },
     TAG_MAKER = 'olua_makecallbacktag("OnEnterCallback")',
     TAG_MODE = 'OLUA_TAG_EQUAL',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
-        'void setOnExitCallback(@nullable @local const std::function<void ()> &callback)',
+        'void setOnExitCallback(@nullable @local const std::function<void ()> &callback)'
     },
     TAG_MAKER = 'olua_makecallbacktag("OnExitCallback")',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
-        '@nullable @local const std::function<void ()> &getOnExitCallback()',
+        '@nullable @local const std::function<void ()> &getOnExitCallback()'
     },
     TAG_MAKER = 'olua_makecallbacktag("OnExitCallback")',
     TAG_MODE = 'OLUA_TAG_EQUAL',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
-        'void setOnEnterTransitionDidFinishCallback(@nullable @local const std::function<void ()> &callback)',
+        'void setOnEnterTransitionDidFinishCallback(@nullable @local const std::function<void ()> &callback)'
     },
     TAG_MAKER = 'olua_makecallbacktag("OnEnterTransitionDidFinishCallback")',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
-        '@nullable @local const std::function<void ()> &getOnEnterTransitionDidFinishCallback()',
+        '@nullable @local const std::function<void ()> &getOnEnterTransitionDidFinishCallback()'
     },
     TAG_MAKER = 'olua_makecallbacktag("OnEnterTransitionDidFinishCallback")',
     TAG_MODE = 'OLUA_TAG_EQUAL',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
-        'void setOnExitTransitionDidStartCallback(@nullable @local const std::function<void ()> &callback)',
+        'void setOnExitTransitionDidStartCallback(@nullable @local const std::function<void ()> &callback)'
     },
     TAG_MAKER = 'olua_makecallbacktag("OnExitTransitionDidStartCallback")',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
-        '@nullable @local const std::function<void ()> &getOnExitTransitionDidStartCallback()',
+        '@nullable @local const std::function<void ()> &getOnExitTransitionDidStartCallback()'
     },
     TAG_MAKER = 'olua_makecallbacktag("OnExitTransitionDidStartCallback")',
     TAG_MODE = 'OLUA_TAG_EQUAL',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
 }
-cls.inject({'removeFromParent', 'removeFromParentAndCleanup'}, {
+cls.inject('removeFromParent', {
+    BEFORE = [[
+        if (!self->getParent()) {
+            return 0;
+        }
+        olua_push_cppobj<cocos2d::Node>(L, self->getParent());
+        int parent = lua_gettop(L);
+    ]],
+})
+cls.inject('removeFromParentAndCleanup', {
     BEFORE = [[
         if (!self->getParent()) {
             return 0;
@@ -3806,20 +3840,22 @@ cls.funcs [[
 cls.callback {
     FUNCS =  {
         'bool saveToFile(const std::string& filename, bool isRGBA = true, std::function<void (RenderTexture*, const std::string&)> callback = nullptr)',
-        'bool saveToFile(const std::string& filename, Image::Format format, bool isRGBA = true, std::function<void (RenderTexture*, const std::string&)> callback = nullptr)',
+        'bool saveToFile(const std::string& filename, Image::Format format, bool isRGBA = true, std::function<void (RenderTexture*, const std::string&)> callback = nullptr)'
     },
     TAG_MAKER = 'olua_makecallbacktag("saveToFile")',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
     CALLONCE = true,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
         'bool saveToFileAsNonPMA(const std::string& fileName, Image::Format format, bool isRGBA, const std::function<void(RenderTexture*, const std::string&)>& callback)',
-        'bool saveToFileAsNonPMA(const std::string& filename, bool isRGBA = true, const std::function<void(RenderTexture*, const std::string&)>& callback = nullptr)',
+        'bool saveToFileAsNonPMA(const std::string& filename, bool isRGBA = true, const std::function<void(RenderTexture*, const std::string&)>& callback = nullptr)'
     },
     TAG_MAKER = 'olua_makecallbacktag("saveToFile")',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
     CALLONCE = true,
     REMOVE = false,
 }

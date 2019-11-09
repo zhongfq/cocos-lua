@@ -59,7 +59,6 @@ end
 
 M.MAKE_LUACLS = function (cppname)
     cppname = string.gsub(cppname, '^fairygui::', 'fgui.')
-    cppname = string.gsub(cppname, "[ *]*$", '')
     return cppname
 end
 
@@ -266,8 +265,6 @@ GObject.EXCLUDE 'constructFromResource'
 GObject.ATTR('getGroup', {RET = '@ref(single group)'})
 GObject.ATTR('setGroup', {ARG1 = '@ref(single group)'})
 GObject.ATTR('globalToLocal', {ARG1 = '@pack'})
-GObject.ATTR('globalToLocal', {ARG1 = '@pack'})
-GObject.ATTR('localToGlobal', {ARG1 = '@pack'})
 GObject.ATTR('localToGlobal', {ARG1 = '@pack'})
 GObject.ATTR('transformRect', {ARG1 = '@pack'})
 GObject.ATTR('displayObject', {RET = '@ref(single displayObject)'})
@@ -317,7 +314,6 @@ GComponent.ATTR('addChild', {ARG1 = '@ref(map children)'})
 GComponent.ATTR('addChildAt', {ARG1 = '@ref(map children)'})
 GComponent.ATTR('removeChild', {ARG1 = '@unref(map children)'})
 GComponent.ATTR('removeChildAt', {RET = '@unref(cmp children)'})
-GComponent.ATTR('removeChildren', {RET = '@unref(cmp children)'})
 GComponent.ATTR('removeChildren', {RET = '@unref(cmp children)'})
 GComponent.ATTR('getChildAt', {RET = '@ref(map children)'})
 GComponent.ATTR('getChild', {RET = '@ref(map children)'})

@@ -20,6 +20,7 @@ M.INCLUDES = [[
 #include "CCDragonBonesHeaders.h"
 ]]
 M.CHUNK = [[
+
 ]]
 
 M.CONVS = {
@@ -995,19 +996,21 @@ cls.funcs [[
 cls.var('debugDraw', [[bool debugDraw]])
 cls.callback {
     FUNCS =  {
-        'void addDBEventListener(const std::string& type, const std::function<void(@local EventObject*)>& listener)',
+        'void addDBEventListener(const std::string& type, const std::function<void(@local EventObject*)>& listener)'
     },
     TAG_MAKER = 'olua_makecallbacktag(#1)',
     TAG_MODE = 'OLUA_TAG_NEW',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
-        'void removeDBEventListener(const std::string& type, @nullable const std::function<void(EventObject*)>& listener)',
+        'void removeDBEventListener(const std::string& type, @nullable const std::function<void(EventObject*)>& listener)'
     },
     TAG_MAKER = 'olua_makecallbacktag(#1)',
     TAG_MODE = 'OLUA_TAG_EQUAL',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = true,
 }

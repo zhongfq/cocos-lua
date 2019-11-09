@@ -24,6 +24,7 @@ M.INCLUDES = [[
 #include "olua/olua.hpp"
 ]]
 M.CHUNK = [[
+
 ]]
 
 M.CLASSES = {}
@@ -113,28 +114,31 @@ cls.func('setDispatcher', [[{
 }]])
 cls.callback {
     FUNCS =  {
-        'static void openURL(const std::string &uri, @nullable const std::function<void (bool)> callback)',
+        'static void openURL(const std::string &uri, @nullable const std::function<void (bool)> callback)'
     },
     TAG_MAKER = 'olua_makecallbacktag("openURL")',
     TAG_MODE = 'OLUA_TAG_NEW',
+    TAG_STORE = nil,
     CALLONCE = true,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
-        'static void requestPermission(Permission permission, const std::function<void (PermissionStatus)> callback)',
+        'static void requestPermission(Permission permission, const std::function<void (PermissionStatus)> callback)'
     },
     TAG_MAKER = 'olua_makecallbacktag("requestPermission")',
     TAG_MODE = 'OLUA_TAG_NEW',
+    TAG_STORE = nil,
     CALLONCE = true,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
-        'static void alert(const std::string &title, const std::string &message, const std::string &ok, const std::string &no, const std::function<void (bool)> &callback)',
+        'static void alert(const std::string &title, const std::string &message, const std::string &ok, const std::string &no, const std::function<void (bool)> &callback)'
     },
     TAG_MAKER = 'olua_makecallbacktag("alert")',
     TAG_MODE = 'OLUA_TAG_NEW',
+    TAG_STORE = nil,
     CALLONCE = true,
     REMOVE = false,
 }
@@ -186,8 +190,7 @@ cls.func('write', [[{
     bool ret = (bool)xgame::filesystem::write(path, data, len);
     olua_push_bool(L, ret);
     return 1;
-}
-]])
+}]])
 cls.props [[
     writablePath
     cacheDirectory
@@ -248,28 +251,31 @@ cls.func('unschedule', [[{
 }]])
 cls.callback {
     FUNCS =  {
-        'static void delayWithTag(float time, const std::string &tag, std::function<void ()> callback)',
+        'static void delayWithTag(float time, const std::string &tag, std::function<void ()> callback)'
     },
     TAG_MAKER = 'makeTimerDelayTag(#2)',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
     CALLONCE = true,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
-        'static void killDelay(const std::string &tag)',
+        'static void killDelay(const std::string &tag)'
     },
     TAG_MAKER = 'makeTimerDelayTag(#1)',
     TAG_MODE = 'OLUA_TAG_EQUAL',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = true,
 }
 cls.callback {
     FUNCS =  {
-        'static void delay(float time, const std::function<void ()> callback)',
+        'static void delay(float time, const std::function<void ()> callback)'
     },
     TAG_MAKER = 'olua_makecallbacktag("delay")',
     TAG_MODE = 'OLUA_TAG_NEW',
+    TAG_STORE = nil,
     CALLONCE = true,
     REMOVE = false,
 }
@@ -286,8 +292,7 @@ cls.func('getVisibleBounds', [[{
     lua_pushinteger(L, rect.getMaxY());
     lua_pushinteger(L, rect.getMinY());
     return 4;
-}
-]])
+}]])
 cls.func('getVisibleSize', [[{
     auto rect = cocos2d::Director::getInstance()->getOpenGLView()->getVisibleRect();
     lua_pushinteger(L, rect.size.width);
@@ -299,8 +304,7 @@ cls.func('getFrameSize', [[{
     lua_pushnumber(L, size.width);
     lua_pushnumber(L, size.height);
     return 2;
-}
-]])
+}]])
 cls.func('setFrameSize', [[{
     auto glView = cocos2d::Director::getInstance()->getOpenGLView();
     float width = (float)olua_checknumber(L, 1);
@@ -309,8 +313,7 @@ cls.func('setFrameSize', [[{
     xgame::preferences::setFloat(CONF_WINDOW_HEIGHT, height);
     glView->setFrameSize(width, height);
     return 0;
-}
-]])
+}]])
 cls.func('getDesignSize', [[{
     auto size = cocos2d::Director::getInstance()->getOpenGLView()->getDesignResolutionSize();
     lua_pushnumber(L, size.width);
@@ -351,7 +354,7 @@ cls.func('load', [[{
 }]])
 cls.func('setDispatcher', [[{
     static const char *STATES[] = {"ioerror", "loaded", "pending", "invalid"};
-    
+
     void *store_obj = olua_getstoreobj(L, "kernel.downloader");
     std::string func = olua_setcallback(L, store_obj, "dispatcher", 1, OLUA_TAG_REPLACE);
     xgame::downloader::setDispatcher([store_obj, func](const xgame::downloader::FileTask &task) {

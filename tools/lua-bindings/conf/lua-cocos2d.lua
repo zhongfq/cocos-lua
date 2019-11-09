@@ -53,7 +53,6 @@ M.MAKE_LUACLS = function (cppname)
         cppname = string.gsub(cppname, "^cocos2d::", "cc.")
         cppname = string.gsub(cppname, "^CocosDenshion::", "cc.")
         cppname = string.gsub(cppname, "::", ".")
-        cppname = string.gsub(cppname, "[ *]*$", '')
         return cppname
     end
 end
@@ -158,7 +157,7 @@ Scheduler.CALLBACK {
     REMOVE = true,
 }
 Scheduler.FUNC('scheduleUpdate', [[
-{   
+{
     if (doScheduleUpdate<cocos2d::Scheduler>(L) ||
         doScheduleUpdate<cocos2d::ActionManager>(L) ||
         doScheduleUpdate<cocos2d::Node>(L) ||
@@ -582,7 +581,7 @@ WebSocket.FUNC('create', [[
 }]])
 
 local LuaWebSocketDelegate = typeconf 'cocos2d::LuaWebSocketDelegate'
-LuaWebSocketDelegate.LUANAME = function (name)
+LuaWebSocketDelegate.MAKE_LUANAME = function (name)
     return string.gsub(name, 'Callback', '')
 end
 
@@ -819,7 +818,7 @@ Component.ATTR('getOwner', {RET = '@ref(single owner)'})
 Component.ATTR('setOwner', {ARG1 = '@ref(single owner)'})
 
 local LuaComponent = typeconf 'cocos2d::LuaComponent'
-LuaComponent.LUANAME = function (name)
+LuaComponent.MAKE_LUANAME = function (name)
     return string.gsub(name, 'Callback', '')
 end
 
@@ -1022,6 +1021,14 @@ Node.CALLBACK {
     TAG_MODE = "OLUA_TAG_STARTWITH",
     REMOVE = true,
 }
+Node.CALLBACK {NAME = 'setOnEnterCallback', NULLABLE = true}
+Node.CALLBACK {NAME = 'getOnEnterCallback', NULLABLE = true}
+Node.CALLBACK {NAME = 'setOnExitCallback', NULLABLE = true}
+Node.CALLBACK {NAME = 'getOnExitCallback', NULLABLE = true}
+Node.CALLBACK {NAME = 'setOnEnterTransitionDidFinishCallback', NULLABLE = true}
+Node.CALLBACK {NAME = 'getOnEnterTransitionDidFinishCallback', NULLABLE = true}
+Node.CALLBACK {NAME = 'setOnExitTransitionDidStartCallback', NULLABLE = true}
+Node.CALLBACK {NAME = 'getOnExitTransitionDidStartCallback', NULLABLE = true}
 Node.INJECT({'removeFromParent', 'removeFromParentAndCleanup'}, {
     BEFORE = [[
         if (!self->getParent()) {

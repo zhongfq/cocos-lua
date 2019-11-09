@@ -38,7 +38,6 @@ M.CHUNK = [[]]
 M.MAKE_LUACLS = function (cppname)
     cppname = string.gsub(cppname, "^xgame::", "kernel.")
     cppname = string.gsub(cppname, "::", ".")
-    cppname = string.gsub(cppname, "[ *]*$", '')
     return cppname
 end
 

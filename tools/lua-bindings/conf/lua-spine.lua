@@ -143,7 +143,6 @@ typedef {
 M.MAKE_LUACLS = function (cppname)
     cppname = string.gsub(cppname, "^spine::", "sp.")
     cppname = string.gsub(cppname, "::", ".")
-    cppname = string.gsub(cppname, "[ *]*$", '')
     return cppname
 end
 
@@ -194,7 +193,7 @@ typeconf 'spine::EventData'
 typeconf 'spine::Updatable'
 
 typeconf 'spine::AnimationState'
-    .ATTR('setListener', {LOCAL = false, NULLABLE = false})
+    .CALLBACK {NAME = 'setListener', LOCAL = false}
 
 typeconf 'spine::AnimationStateData'
 
@@ -269,7 +268,7 @@ typeconf 'spine::PointAttachment'
 typeconf 'spine::RegionAttachment'
 
 typeconf 'spine::TrackEntry'
-    .ATTR('setListener', {LOCAL = false, NULLABLE = false})
+    .CALLBACK {NAME = 'setListener', LOCAL = false}
 
 local SkeletonData = typeconf 'spine::SkeletonData'
 SkeletonData.FUNC("__gc", [[
@@ -367,17 +366,17 @@ typeconf 'spine::SkeletonAnimation'
     .ATTR('setEmptyAnimation', {RET = '@ref(map trackEntries)'})
     .ATTR('addEmptyAnimation', {RET = '@ref(map trackEntries)'})
     .ATTR('getCurrent', {RET = '@ref(map trackEntries)'})
-    .ATTR('setStartListener', {LOCAL = false, NULLABLE = false})
-    .ATTR('setInterruptListener', {LOCAL = false, NULLABLE = false})
-    .ATTR('setEndListener', {LOCAL = false, NULLABLE = false})
-    .ATTR('setDisposeListener', {LOCAL = false, NULLABLE = false})
-    .ATTR('setCompleteListener', {LOCAL = false, NULLABLE = false})
-    .ATTR('setEventListener', {LOCAL = false, NULLABLE = false})
-    .ATTR('setTrackStartListener', {LOCAL = false, NULLABLE = false})
-    .ATTR('setTrackInterruptListener', {LOCAL = false, NULLABLE = false})
-    .ATTR('setTrackEndListener', {LOCAL = false, NULLABLE = false})
-    .ATTR('setTrackDisposeListener', {LOCAL = false, NULLABLE = false})
-    .ATTR('setTrackCompleteListener', {LOCAL = false, NULLABLE = false})
-    .ATTR('setTrackEventListener', {LOCAL = false, NULLABLE = false})
+    .CALLBACK {NAME = 'setStartListener', LOCAL = false}
+    .CALLBACK {NAME = 'setInterruptListener', LOCAL = false}
+    .CALLBACK {NAME = 'setEndListener', LOCAL = false}
+    .CALLBACK {NAME = 'setDisposeListener', LOCAL = false}
+    .CALLBACK {NAME = 'setCompleteListener', LOCAL = false}
+    .CALLBACK {NAME = 'setEventListener', LOCAL = false}
+    .CALLBACK {NAME = 'setTrackStartListener', LOCAL = false}
+    .CALLBACK {NAME = 'setTrackInterruptListener', LOCAL = false}
+    .CALLBACK {NAME = 'setTrackEndListener', LOCAL = false}
+    .CALLBACK {NAME = 'setTrackDisposeListener', LOCAL = false}
+    .CALLBACK {NAME = 'setTrackCompleteListener', LOCAL = false}
+    .CALLBACK {NAME = 'setTrackEventListener', LOCAL = false}
 
 return M

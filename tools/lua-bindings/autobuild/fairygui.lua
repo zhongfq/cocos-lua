@@ -35,7 +35,8 @@ void manual_olua_check_fairygui_EventTag(lua_State *L, int idx, fairygui::EventT
     } else {
         *value = (void *)olua_checkobj(L, idx, OLUA_VOIDCLS);
     }
-}]]
+}
+]]
 
 M.CONVS = {
     typeconv {
@@ -120,7 +121,8 @@ static std::string makeListenerTag(lua_State *L, lua_Integer type, int tagidx)
         sprintf(buf, "listeners.%d.", (int)type);
     }
     return std::string(buf);
-}]]
+}
+]]
 cls.funcs [[
     UIEventDispatcher()
     bool hasEventListener(int eventType)
@@ -132,29 +134,32 @@ cls.funcs [[
 cls.callback {
     FUNCS =  {
         'void addEventListener(int eventType, const std::function<void(@local EventContext* context)>& callback)',
-        'void addEventListener(int eventType, const std::function<void(@local EventContext* context)>& callback, const EventTag& tag)',
+        'void addEventListener(int eventType, const std::function<void(@local EventContext* context)>& callback, const EventTag& tag)'
     },
     TAG_MAKER = {'makeListenerTag(L, #1, 0)', 'makeListenerTag(L, #1, 4)'},
     TAG_MODE = 'OLUA_TAG_NEW',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
         'void removeEventListener(int eventType)',
-        'void removeEventListener(int eventType, const EventTag& tag)',
+        'void removeEventListener(int eventType, const EventTag& tag)'
     },
     TAG_MAKER = {'makeListenerTag(L, #1, 0)', 'makeListenerTag(L, #1, 3)'},
     TAG_MODE = {'OLUA_TAG_STARTWITH', 'OLUA_TAG_EQUAL'},
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = true,
 }
 cls.callback {
     FUNCS =  {
-        'void removeEventListeners()',
+        'void removeEventListeners()'
     },
     TAG_MAKER = 'makeListenerTag(L, -1, 0)',
     TAG_MODE = 'OLUA_TAG_STARTWITH',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = true,
 }
@@ -206,10 +211,11 @@ cls.funcs [[
 ]]
 cls.callback {
     FUNCS =  {
-        'void setCaptureCallback(@nullable std::function<void(int eventType)> value)',
+        'void setCaptureCallback(@nullable std::function<void(int eventType)> value)'
     },
     TAG_MAKER = 'olua_makecallbacktag("captureCallback")',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
 }
@@ -388,37 +394,41 @@ cls.var('value', [[fairygui::TweenValue value]])
 cls.var('deltaValue', [[fairygui::TweenValue deltaValue]])
 cls.callback {
     FUNCS =  {
-        'GTweener* onUpdate(std::function<void(GTweener* tweener)> callback)',
+        'GTweener* onUpdate(std::function<void(GTweener* tweener)> callback)'
     },
     TAG_MAKER = 'olua_makecallbacktag("onUpdate")',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
-        'GTweener* onStart(std::function<void(GTweener* tweener)> callback)',
+        'GTweener* onStart(std::function<void(GTweener* tweener)> callback)'
     },
     TAG_MAKER = 'olua_makecallbacktag("onStart")',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
-        'GTweener* onComplete(std::function<void()> callback)',
+        'GTweener* onComplete(std::function<void()> callback)'
     },
     TAG_MAKER = 'olua_makecallbacktag("onComplete")',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
-        'GTweener* onComplete1(std::function<void(GTweener* tweener)> callback)',
+        'GTweener* onComplete1(std::function<void(GTweener* tweener)> callback)'
     },
     TAG_MAKER = 'olua_makecallbacktag("onComplete1")',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
 }
@@ -444,7 +454,8 @@ static bool should_unref_tweener(lua_State *L, int idx)
         }
     }
     return false;
-}]]
+}
+]]
 cls.funcs [[
     static fairygui::GTweener *to(float startValue, float endValue, float duration)
     static fairygui::GTweener *to(const cocos2d::Vec2 &startValue, const cocos2d::Vec2 &endValue, float duration)
@@ -902,19 +913,21 @@ cls.prop('displayObject', 'cocos2d::Node* displayObject()')
 cls.callback {
     FUNCS =  {
         'void addClickListener(const std::function<void(@local EventContext* context)>& callback)',
-        'void addClickListener(const std::function<void(@local EventContext* context)>& callback, const EventTag& tag)',
+        'void addClickListener(const std::function<void(@local EventContext* context)>& callback, const EventTag& tag)'
     },
     TAG_MAKER = {'makeListenerTag(L, fairygui::UIEventType::Click, 0)', 'makeListenerTag(L, fairygui::UIEventType::Click, 3)'},
     TAG_MODE = 'OLUA_TAG_NEW',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
-        'void removeClickListener(const EventTag& tag)',
+        'void removeClickListener(const EventTag& tag)'
     },
     TAG_MAKER = 'makeListenerTag(L, fairygui::UIEventType::Click, 2)',
     TAG_MODE = 'OLUA_TAG_EQUAL',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = true,
 }
@@ -1052,7 +1065,7 @@ cls.func('resolve', [[{
             olua_push_cppobj<fairygui::GComponent>(L, self);
             lua_pushlstring(L, name, pos - name);
             lua_call(L, 2, 1);
-            
+
             if (olua_isa(L, -1, "fgui.GComponent")) {
                 self = olua_toobj<fairygui::GComponent>(L, -1);
             } else {
@@ -1067,7 +1080,7 @@ cls.func('resolve', [[{
             } else {
                 lua_pushcfunction(L, _fairygui_GComponent_getChild);
             }
-            
+
             olua_push_cppobj<fairygui::GComponent>(L, self);
             lua_pushstring(L, name);
             lua_call(L, 2, 1);
@@ -1142,7 +1155,16 @@ cls.inject('create', {
         lua_pop(L, 1);
     ]],
 })
-cls.inject({'hideWindow', 'hideWindowImmediately'}, {
+cls.inject('hideWindow', {
+    BEFORE = [[
+        int parent = 1;
+        if (arg1->getParent()) {
+            olua_push_cppobj<fairygui::GComponent>(L, arg1->getParent(), "fgui.GComponent");
+            parent = lua_gettop(L);
+        }
+    ]],
+})
+cls.inject('hideWindowImmediately', {
     BEFORE = [[
         int parent = 1;
         if (arg1->getParent()) {
@@ -1533,10 +1555,11 @@ cls.funcs [[
 ]]
 cls.callback {
     FUNCS =  {
-        'void setPlaySettings(int start = 0, int end = -1, int times = 0, int endAt = -1, std::function<void()> completeCallback = nullptr)',
+        'void setPlaySettings(int start = 0, int end = -1, int times = 0, int endAt = -1, std::function<void()> completeCallback = nullptr)'
     },
     TAG_MAKER = 'olua_makecallbacktag("playSettings")',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
 }
@@ -1694,15 +1717,15 @@ cls.func('addItemAt', [[{
         olua_push_cppobj<fairygui::EventContext>(L, event);
         olua_disable_objpool(L);
         olua_callback(L, callback_store_obj, func.c_str(), 1);
-        
+
         //pop stack value
         olua_pop_objpool(L, last);
-        
+
         lua_settop(L, top);
     };
-    
+
     ret->addEventListener(fairygui::UIEventType::ClickMenu, callback);
-    
+
     olua_push_cppobj<fairygui::GButton>(L, ret);
     olua_push_cppobj<fairygui::GComponent>(L, ret->getParent());
     olua_mapref(L, -1, "children", -2);
@@ -1730,7 +1753,13 @@ cls.inject('show', {
         int parent = lua_gettop(L);
     ]],
 })
-cls.inject({'removeItem', 'clearItems'}, {
+cls.inject('removeItem', {
+    BEFORE = [[
+        olua_push_cppobj<fairygui::GList>(L, self->getList());
+        int parent = lua_gettop(L);
+    ]],
+})
+cls.inject('clearItems', {
     BEFORE = [[
         olua_push_cppobj<fairygui::GList>(L, self->getList());
         int parent = lua_gettop(L);
@@ -1760,7 +1789,7 @@ cls.func('copyFrom', [[{
     fairygui::Relations *source = (fairygui::Relations *)olua_checkobj(L, 2, "fgui.Relations");
     // void copyFrom(const Relations& source)
     self->copyFrom(*source);
-    
+
     return 0;
 }]])
 cls.props [[
@@ -1813,7 +1842,7 @@ cls.func('copyFrom', [[{
     fairygui::RelationItem *source = (fairygui::RelationItem *)olua_checkobj(L, 2, "fgui.RelationItem");
     // void copyFrom(const RelationItem& source)
     self->copyFrom(*source);
-    
+
     return 0;
 }]])
 cls.props [[
@@ -1936,38 +1965,42 @@ cls.callback {
     FUNCS =  {
         'void play(std::function<void()> callback = nullptr)',
         'void play(int times, float delay, std::function<void()> callback = nullptr)',
-        'void play(int times, float delay, float startTime, float endTime, std::function<void()> callback = nullptr)',
+        'void play(int times, float delay, float startTime, float endTime, std::function<void()> callback = nullptr)'
     },
     TAG_MAKER = 'olua_makecallbacktag("play")',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
         'void playReverse(std::function<void()> callback = nullptr)',
-        'void playReverse(int times, float delay, std::function<void()> callback = nullptr)',
+        'void playReverse(int times, float delay, std::function<void()> callback = nullptr)'
     },
     TAG_MAKER = 'olua_makecallbacktag("playReverse")',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
-        'void setHook(const std::string& label, @nullable std::function<void()> callback)',
+        'void setHook(const std::string& label, @nullable std::function<void()> callback)'
     },
     TAG_MAKER = 'olua_makecallbacktag("hook." + #1)',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
-        'void clearHooks()',
+        'void clearHooks()'
     },
     TAG_MAKER = 'olua_makecallbacktag("hook.")',
     TAG_MODE = 'OLUA_TAG_STARTWITH',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = true,
 }
@@ -2022,10 +2055,11 @@ cls.funcs [[
 ]]
 cls.callback {
     FUNCS =  {
-        'void load(@nullable std::function<void()> callback)',
+        'void load(@nullable std::function<void()> callback)'
     },
     TAG_MAKER = 'olua_makecallbacktag("load")',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
 }
@@ -2122,7 +2156,17 @@ cls.inject('show', {
         int parent = lua_gettop(L);
     ]],
 })
-cls.inject({'hide', 'hideImmediately'}, {
+cls.inject('hide', {
+    BEFORE = [[
+        fairygui::GComponent *root = self->getParent() ? self->getParent() : fairygui::UIRoot;
+        if (!root) {
+            return 0;
+        }
+        olua_push_cppobj<fairygui::GComponent>(L, root);
+        int parent = lua_gettop(L);
+    ]],
+})
+cls.inject('hideImmediately', {
     BEFORE = [[
         fairygui::GComponent *root = self->getParent() ? self->getParent() : fairygui::UIRoot;
         if (!root) {
@@ -2169,19 +2213,21 @@ cls.funcs [[
 ]]
 cls.callback {
     FUNCS =  {
-        'static void setPackageItemExtension(const std::string& url, std::function<GComponent*()> creator)',
+        'static void setPackageItemExtension(const std::string& url, std::function<GComponent*()> creator)'
     },
     TAG_MAKER = 'olua_makecallbacktag("packageItemExtension")',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
 }
 cls.callback {
     FUNCS =  {
-        'static void setLoaderExtension(std::function<GLoader*()> creator)',
+        'static void setLoaderExtension(std::function<GLoader*()> creator)'
     },
     TAG_MAKER = 'olua_makecallbacktag("loaderExtension")',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
 }

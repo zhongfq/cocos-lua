@@ -34,7 +34,6 @@ using namespace cocos2d;
 M.MAKE_LUACLS = function (cppname)
     cppname = string.gsub(cppname, "^cocos2d::", "cc.")
     cppname = string.gsub(cppname, "::", ".")
-    cppname = string.gsub(cppname, "[ *]*$", '')
     return cppname
 end
 
@@ -117,6 +116,8 @@ typeconf 'cocos2d::PhysicsShapeEdgeSegment'
 typeconf 'cocos2d::PhysicsRayCastInfo'
 
 local PhysicsWorld = typeconf 'cocos2d::PhysicsWorld'
+PhysicsWorld.CALLBACK {NAME = 'setPreUpdateCallback', NULLABLE = true}
+PhysicsWorld.CALLBACK {NAME = 'setPostUpdateCallback', NULLABLE = true}
 PhysicsWorld.FUNC('getScene', [[
 {
     auto self = olua_toobj<cocos2d::PhysicsWorld>(L, 1);
@@ -125,8 +126,5 @@ PhysicsWorld.FUNC('getScene', [[
     return 1;
 }]])
 PhysicsWorld.PROP('scene')
-PhysicsWorld.ATTR('rayCast', {NULLABLE = false})
-PhysicsWorld.ATTR('queryRect', {NULLABLE = false})
-PhysicsWorld.ATTR('queryPoint', {NULLABLE = false})
 
 return M

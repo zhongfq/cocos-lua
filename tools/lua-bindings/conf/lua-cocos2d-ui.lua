@@ -33,16 +33,10 @@ M.INCLUDES = [[
 ]]
 M.CHUNK = [[]]
 
-typedef {
-    CPPCLS = 'cocos2d::ui::Margin',
-    CONV = 'auto_olua_$$_cocos2d_ui_Margin',
-}
-
 M.MAKE_LUACLS = function (cppname)
     cppname = string.gsub(cppname, '^cocos2d::experimental::ui::', 'ccui.')
     cppname = string.gsub(cppname, '^cocos2d::ui::', 'ccui.')
     cppname = string.gsub(cppname, "::", ".")
-    cppname = string.gsub(cppname, "[ *]*$", '')
     return cppname
 end
 
@@ -59,7 +53,7 @@ typeconf 'cocos2d::ui::Widget::BrightStyle'
 local Widget = typeconf 'cocos2d::ui::Widget'
 Widget.EXCLUDE 'createInstance'
 Widget.ATTR('getVirtualRenderer', {RET = '@ref(map protectedChildren)'})
-Widget.ATTR('onFocusChanged', {LOCAL = false})
+Widget.CALLBACK {NAME = 'onFocusChanged', LOCAL = false}
 Widget.CALLBACK {
     FUNCS = {'void addTouchEventListener(@nullable const std::function<void(Ref*,Widget::TouchEventType)>& callback)'},
     TAG_MAKER = 'olua_makecallbacktag("touchEventListener")',
@@ -93,8 +87,8 @@ typeconf 'cocos2d::ui::Layout::Type'
 typeconf 'cocos2d::ui::Layout::ClippingType'
 typeconf 'cocos2d::ui::Layout::BackGroundColorType'
 
-local Layout = typeconf 'cocos2d::ui::Layout'
-Layout.ATTR('onPassFocusToChild', {LOCAL = false})
+typeconf 'cocos2d::ui::Layout'
+    .CALLBACK {NAME = 'onPassFocusToChild', LOCAL = false}
 
 typeconf 'cocos2d::ui::HBox'
 typeconf 'cocos2d::ui::VBox'
@@ -102,6 +96,14 @@ typeconf 'cocos2d::ui::RelativeBox'
 
 local WebView = typeconf 'cocos2d::experimental::ui::WebView'
 WebView.DEFIF = '#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN)'
+WebView.CALLBACK {NAME = 'setOnShouldStartLoading', NULLABLE = true}
+WebView.CALLBACK {NAME = 'setOnDidFinishLoading', NULLABLE = true}
+WebView.CALLBACK {NAME = 'setOnDidFailLoading', NULLABLE = true}
+WebView.CALLBACK {NAME = 'setOnJSCallback', NULLABLE = true}
+WebView.CALLBACK {NAME = 'getOnShouldStartLoading', NULLABLE = true}
+WebView.CALLBACK {NAME = 'getOnDidFinishLoading', NULLABLE = true}
+WebView.CALLBACK {NAME = 'getOnDidFailLoading', NULLABLE = true}
+WebView.CALLBACK {NAME = 'getOnJSCallback', NULLABLE = true}
 
 local EventType = typeconf 'cocos2d::experimental::ui::VideoPlayer::EventType'
 EventType.DEFIF = '#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN)'

@@ -49,7 +49,6 @@ M.MAKE_LUACLS = function (cppname)
     cppname = string.gsub(cppname, "^dragonBones::CC", "db.")
     cppname = string.gsub(cppname, "^dragonBones::", "db.")
     cppname = string.gsub(cppname, "::", ".")
-    cppname = string.gsub(cppname, "[ *]*$", '')
     return cppname
 end
 

@@ -67,16 +67,6 @@ typedef {
     CONV = 'manual_olua_$$_fairygui_EventTag',
 }
 
-typedef {
-    CPPCLS = 'fairygui::Margin',
-    CONV = 'auto_olua_$$_fairygui_Margin',
-}
-
-typedef {
-    CPPCLS = 'fairygui::TweenValue',
-    CONV = 'auto_olua_$$_fairygui_TweenValue',
-}
-
 typeconv {
     CPPCLS = 'fairygui::Margin',
     DEF = [[

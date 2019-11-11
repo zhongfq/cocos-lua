@@ -378,5 +378,7 @@ typeconf 'spine::SkeletonAnimation'
     .CALLBACK {NAME = 'setTrackDisposeListener', LOCAL = false}
     .CALLBACK {NAME = 'setTrackCompleteListener', LOCAL = false}
     .CALLBACK {NAME = 'setTrackEventListener', LOCAL = false}
+    .CALLBACK {NAME = 'setPreUpdateWorldTransformsListener', LOCAL = false, NULLABLE = true}
+    .CALLBACK {NAME = 'setPostUpdateWorldTransformsListener', LOCAL = false, NULLABLE = true}
 
 return M

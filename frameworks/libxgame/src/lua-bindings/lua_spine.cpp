@@ -14576,6 +14576,88 @@ static int _spine_SkeletonAnimation_setMix(lua_State *L)
     return 0;
 }
 
+static int _spine_SkeletonAnimation_setPostUpdateWorldTransformsListener(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::SkeletonAnimation *self = nullptr;
+    std::function<void(spine::SkeletonAnimation *)> arg1;       /** listener */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
+
+    if (olua_is_std_function(L, 2)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = "PostUpdateWorldTransformsListener";
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
+        lua_State *MT = olua_mainthread();
+        arg1 = [callback_store_obj, func, MT](spine::SkeletonAnimation *arg1) {
+            lua_State *L = olua_mainthread();
+
+            if (MT == L) {
+                int top = lua_gettop(L);
+                olua_push_cppobj(L, arg1, "sp.SkeletonAnimation");
+
+                olua_callback(L, callback_store_obj, func.c_str(), 1);
+
+                lua_settop(L, top);
+            }
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = "PostUpdateWorldTransformsListener";
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+        arg1 = nullptr;
+    }
+
+    // void setPostUpdateWorldTransformsListener(@nullable const std::function<void (SkeletonAnimation *)> &listener)
+    self->setPostUpdateWorldTransformsListener(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _spine_SkeletonAnimation_setPreUpdateWorldTransformsListener(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::SkeletonAnimation *self = nullptr;
+    std::function<void(spine::SkeletonAnimation *)> arg1;       /** listener */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
+
+    if (olua_is_std_function(L, 2)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = "PreUpdateWorldTransformsListener";
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
+        lua_State *MT = olua_mainthread();
+        arg1 = [callback_store_obj, func, MT](spine::SkeletonAnimation *arg1) {
+            lua_State *L = olua_mainthread();
+
+            if (MT == L) {
+                int top = lua_gettop(L);
+                olua_push_cppobj(L, arg1, "sp.SkeletonAnimation");
+
+                olua_callback(L, callback_store_obj, func.c_str(), 1);
+
+                lua_settop(L, top);
+            }
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = "PreUpdateWorldTransformsListener";
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+        arg1 = nullptr;
+    }
+
+    // void setPreUpdateWorldTransformsListener(@nullable const std::function<void (SkeletonAnimation *)> &listener)
+    self->setPreUpdateWorldTransformsListener(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _spine_SkeletonAnimation_setStartListener(lua_State *L)
 {
     olua_startinvoke(L);
@@ -14872,6 +14954,8 @@ static int luaopen_spine_SkeletonAnimation(lua_State *L)
     oluacls_func(L, "setEventListener", _spine_SkeletonAnimation_setEventListener);
     oluacls_func(L, "setInterruptListener", _spine_SkeletonAnimation_setInterruptListener);
     oluacls_func(L, "setMix", _spine_SkeletonAnimation_setMix);
+    oluacls_func(L, "setPostUpdateWorldTransformsListener", _spine_SkeletonAnimation_setPostUpdateWorldTransformsListener);
+    oluacls_func(L, "setPreUpdateWorldTransformsListener", _spine_SkeletonAnimation_setPreUpdateWorldTransformsListener);
     oluacls_func(L, "setStartListener", _spine_SkeletonAnimation_setStartListener);
     oluacls_func(L, "setTrackCompleteListener", _spine_SkeletonAnimation_setTrackCompleteListener);
     oluacls_func(L, "setTrackDisposeListener", _spine_SkeletonAnimation_setTrackDisposeListener);

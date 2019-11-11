@@ -9,16 +9,6 @@ typedef {
 }
 
 typedef {
-    CONV = 'auto_olua_$$_fairygui_Margin',
-    CPPCLS = 'fairygui::Margin',
-}
-
-typedef {
-    CONV = 'auto_olua_$$_fairygui_TweenValue',
-    CPPCLS = 'fairygui::TweenValue',
-}
-
-typedef {
     CPPCLS = 'fairygui::Margin',
     CONV = 'auto_olua_$$_fairygui_Margin',
     VARS = nil,

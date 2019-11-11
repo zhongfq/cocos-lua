@@ -39,11 +39,6 @@ end
 
 M.EXCLUDE_TYPE = require "conf.exclude-type"
 
-typedef {
-    CPPCLS = 'cocos2d::PhysicsMaterial',
-    CONV = 'auto_olua_$$_cocos2d_PhysicsMaterial',
-}
-
 typeconv {
     CPPCLS = 'cocos2d::PhysicsMaterial',
     DEF = [[

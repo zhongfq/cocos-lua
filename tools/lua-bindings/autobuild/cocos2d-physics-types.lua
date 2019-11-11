@@ -4,11 +4,6 @@ local olua = require "olua"
 local typedef = olua.typedef
 
 typedef {
-    CONV = 'auto_olua_$$_cocos2d_PhysicsMaterial',
-    CPPCLS = 'cocos2d::PhysicsMaterial',
-}
-
-typedef {
     CONV = 'olua_$$_cppobj',
     CPPCLS = 'cocos2d::PhysicsWorld',
 }

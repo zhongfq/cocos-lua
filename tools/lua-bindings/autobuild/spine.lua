@@ -1726,6 +1726,26 @@ cls.callback {
     CALLONCE = false,
     REMOVE = false,
 }
+cls.callback {
+    FUNCS =  {
+        'void setPreUpdateWorldTransformsListener(@nullable const std::function<void (SkeletonAnimation *)> &listener)'
+    },
+    TAG_MAKER = 'PreUpdateWorldTransformsListener',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
+    CALLONCE = false,
+    REMOVE = false,
+}
+cls.callback {
+    FUNCS =  {
+        'void setPostUpdateWorldTransformsListener(@nullable const std::function<void (SkeletonAnimation *)> &listener)'
+    },
+    TAG_MAKER = 'PostUpdateWorldTransformsListener',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
+    CALLONCE = false,
+    REMOVE = false,
+}
 cls.props [[
     state
 ]]

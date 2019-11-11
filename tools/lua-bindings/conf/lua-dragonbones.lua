@@ -30,11 +30,6 @@ M.INCLUDES = [[
 ]]
 M.CHUNK = [[]]
 
-typedef {
-    CPPCLS = "dragonBones::Rectangle",
-    CONV = 'auto_olua_$$_dragonBones_Rectangle',
-}
-
 typeconv {
     CPPCLS = "dragonBones::Rectangle",
     DEF = [[
@@ -130,18 +125,18 @@ Armature.SUPERCLS = 'dragonBones::BaseObject'
 typeconf 'dragonBones::Animation'
 typeconf 'dragonBones::CCFactory'
 
-local ArmatureDisplay = typeconf 'dragonBones::CCArmatureDisplay'
-ArmatureDisplay.CALLBACK {
-    FUNCS = {'void addDBEventListener(const std::string& type, const std::function<void(@local EventObject*)>& listener)'},
-    TAG_MAKER = '(#1)',
-    TAG_MODE = 'OLUA_TAG_NEW',
-}
-
-ArmatureDisplay.CALLBACK {
-    FUNCS = {'void removeDBEventListener(const std::string& type, @nullable const std::function<void(EventObject*)>& listener)'},
-    TAG_MAKER = '(#1)',
-    TAG_MODE = 'OLUA_TAG_EQUAL',
-    REMOVE = true,
-}
+typeconf 'dragonBones::CCArmatureDisplay'
+    .CALLBACK {
+        NAME = 'addDBEventListener',
+        TAG_MAKER = '(#1)',
+        TAG_MODE = 'OLUA_TAG_NEW',
+    }
+    .CALLBACK {
+        NAME = 'removeDBEventListener',
+        TAG_MAKER = '(#1)',
+        TAG_MODE = 'OLUA_TAG_EQUAL',
+        NULLABLE = true,
+        REMOVE = true,
+    }
 
 return M

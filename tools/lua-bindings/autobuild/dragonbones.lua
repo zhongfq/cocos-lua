@@ -996,7 +996,7 @@ cls.funcs [[
 cls.var('debugDraw', [[bool debugDraw]])
 cls.callback {
     FUNCS =  {
-        'void addDBEventListener(const std::string& type, const std::function<void(@local EventObject*)>& listener)'
+        'void addDBEventListener(const std::string &type, @local const std::function<void (EventObject *)> &listener)'
     },
     TAG_MAKER = '(#1)',
     TAG_MODE = 'OLUA_TAG_NEW',
@@ -1006,7 +1006,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void removeDBEventListener(const std::string& type, @nullable const std::function<void(EventObject*)>& listener)'
+        'void removeDBEventListener(const std::string &type, @nullable @local const std::function<void (EventObject *)> &listener)'
     },
     TAG_MAKER = '(#1)',
     TAG_MODE = 'OLUA_TAG_EQUAL',

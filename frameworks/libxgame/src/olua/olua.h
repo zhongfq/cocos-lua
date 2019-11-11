@@ -151,7 +151,6 @@ LUALIB_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag
 LUALIB_API void olua_getcallback(lua_State *L, void *obj, const char *tag, olua_tag_mode mode);
 LUALIB_API void olua_removecallback(lua_State *L, void *obj, const char *tag, olua_tag_mode mode);
 LUALIB_API int olua_callback(lua_State *L, void *obj, const char *func, int argc);
-#define olua_makecallbacktag(tag) (tag)
     
 // class store, store static callback or other
 LUALIB_API void olua_getstore(lua_State *L, const char *cls);

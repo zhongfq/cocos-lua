@@ -131,7 +131,7 @@ static int _xgame_runtime_alert(lua_State *L)
     olua_check_std_string(L, 4, &arg4);
 
     void *callback_store_obj = (void *)olua_getstoreobj(L, "kernel.runtime");
-    std::string tag = olua_makecallbacktag("alert");
+    std::string tag = "alert";
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 5, OLUA_TAG_NEW);
     lua_State *MT = olua_mainthread();
     arg5 = [callback_store_obj, func, MT](bool arg1) {
@@ -476,7 +476,7 @@ static int _xgame_runtime_openURL(lua_State *L)
 
     if (olua_is_std_function(L, 2)) {
         void *callback_store_obj = (void *)olua_getstoreobj(L, "kernel.runtime");
-        std::string tag = olua_makecallbacktag("openURL");
+        std::string tag = "openURL";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_NEW);
         lua_State *MT = olua_mainthread();
         arg2 = [callback_store_obj, func, MT](bool arg1) {
@@ -527,7 +527,7 @@ static int _xgame_runtime_requestPermission(lua_State *L)
     olua_check_uint(L, 1, &arg1);
 
     void *callback_store_obj = (void *)olua_getstoreobj(L, "kernel.runtime");
-    std::string tag = olua_makecallbacktag("requestPermission");
+    std::string tag = "requestPermission";
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_NEW);
     lua_State *MT = olua_mainthread();
     arg2 = [callback_store_obj, func, MT](xgame::PermissionStatus arg1) {
@@ -1653,7 +1653,7 @@ static int _xgame_timer_delay(lua_State *L)
     olua_check_number(L, 1, &arg1);
 
     void *callback_store_obj = (void *)olua_getstoreobj(L, "kernel.timer");
-    std::string tag = olua_makecallbacktag("delay");
+    std::string tag = "delay";
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_NEW);
     lua_State *MT = olua_mainthread();
     arg2 = [callback_store_obj, func, MT]() {

@@ -73,6 +73,24 @@ cls.enums [[
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'dragonBones::OffsetMode'
+cls.enums [[
+    None
+    Additive
+    Override
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'dragonBones::DisplayType'
+cls.enums [[
+    Image
+    Armature
+    Mesh
+    BoundingBox
+    Path
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'dragonBones::BoundingBoxType'
 cls.enums [[
     Rectangle
@@ -133,6 +151,17 @@ cls.enums [[
     IKConstraint
     AnimationTime
     AnimationWeight
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'dragonBones::AnimationFadeOutMode'
+cls.enums [[
+    None
+    SameLayer
+    SameGroup
+    SameLayerAndGroup
+    All
+    Single
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -200,16 +229,6 @@ cls.funcs [[
 cls.var('userData', [[void *userData]])
 cls.props [[
     armature
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'dragonBones::DisplayType'
-cls.enums [[
-    Image
-    Armature
-    Mesh
-    BoundingBox
-    Path
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -349,14 +368,6 @@ cls.props [[
     display
     childArmature
     parent
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'dragonBones::OffsetMode'
-cls.enums [[
-    None
-    Additive
-    Override
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -910,17 +921,6 @@ cls.props [[
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls 'dragonBones::AnimationFadeOutMode'
-cls.enums [[
-    None
-    SameLayer
-    SameGroup
-    SameLayerAndGroup
-    All
-    Single
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
 cls = typecls 'dragonBones::Animation'
 cls.SUPERCLS = "dragonBones::BaseObject"
 cls.funcs [[
@@ -998,7 +998,7 @@ cls.callback {
     FUNCS =  {
         'void addDBEventListener(const std::string& type, const std::function<void(@local EventObject*)>& listener)'
     },
-    TAG_MAKER = 'olua_makecallbacktag(#1)',
+    TAG_MAKER = '(#1)',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -1008,7 +1008,7 @@ cls.callback {
     FUNCS =  {
         'void removeDBEventListener(const std::string& type, @nullable const std::function<void(EventObject*)>& listener)'
     },
-    TAG_MAKER = 'olua_makecallbacktag(#1)',
+    TAG_MAKER = '(#1)',
     TAG_MODE = 'OLUA_TAG_EQUAL',
     TAG_STORE = nil,
     CALLONCE = false,

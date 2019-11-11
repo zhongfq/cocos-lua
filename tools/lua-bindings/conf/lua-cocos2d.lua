@@ -258,15 +258,9 @@ typeconf 'cocos2d::EventListenerTouchAllAtOnce'
 local EventListenerCustom = typeconf 'cocos2d::EventListenerCustom'
 EventListenerCustom.CALLBACK {
     FUNCS = {'static EventListenerCustom* create(const std::string& eventName, const std::function<void(@local EventCustom*)>& callback)'},
-    TAG_MAKER = 'olua_makecallbacktag("listener")',
+    TAG_MAKER = 'listener',
     TAG_MODE = 'OLUA_TAG_NEW',
     CPPFUNC = 'init',
-    NEW = [[
-        auto *self = new ${DECLTYPE}();
-        auto *ret = self;
-        self->autorelease();
-        olua_push_cppobj<${DECLTYPE}>(L, self);
-    ]],
 }
 
 typeconf 'cocos2d::EventListenerKeyboard'
@@ -274,15 +268,9 @@ typeconf 'cocos2d::EventListenerKeyboard'
 local EventListenerAcceleration = typeconf 'cocos2d::EventListenerAcceleration'
 EventListenerAcceleration.CALLBACK {
     FUNCS = {'static EventListenerAcceleration* create(const std::function<void(@local Acceleration*, @local Event*)>& callback)'},
-    TAG_MAKER = 'olua_makecallbacktag("listener")',
+    TAG_MAKER = 'listener',
     TAG_MODE = 'OLUA_TAG_NEW',
     CPPFUNC = 'init',
-    NEW = [[
-        auto *self = new ${DECLTYPE}();
-        auto *ret = self;
-        self->autorelease();
-        olua_push_cppobj<${DECLTYPE}>(L, self);
-    ]],
 }
 
 typeconf 'cocos2d::EventListenerFocus'
@@ -383,7 +371,7 @@ AudioEngine.CALLBACK {
         'static void preload(const std::string& filePath)',
         'static void preload(const std::string& filePath, std::function<void(bool isSuccess)> callback)',
     },
-    TAG_MAKER = 'olua_makecallbacktag("preload")',
+    TAG_MAKER = 'preload',
     TAG_MODE = "OLUA_TAG_REPLACE",
     CALLONCE = true,
 }
@@ -590,7 +578,6 @@ typeconf 'cocos2d::ActionManager'
 -- actions
 local Action = typeconf 'cocos2d::Action'
 Action.EXCLUDE 'calculateAngles'
-Action.EXCLUDE 'createWithVariableList'
 Action.EXCLUDE 'init'
 Action.EXCLUDE 'initWithAction'
 Action.EXCLUDE 'initWithAnimation'
@@ -615,26 +602,6 @@ typeconf 'cocos2d::ActionInterval'
 
 local Sequence = typeconf 'cocos2d::Sequence'
 Sequence.ATTR('createWithTwoActions', {ARG1 = '@ref(map autoref)', ARG2 = '@ref(map autoref)'})
-Sequence.FUNC('create', [[
-{
-    cocos2d::Vector<cocos2d::FiniteTimeAction *> actions;
-    int n = lua_gettop(L);
-    actions.reserve(n);
-
-    auto ret = new cocos2d::Sequence();
-    ret->autorelease();
-    olua_push_cppobj<cocos2d::Sequence>(L, ret);
-
-    for (int i = 1; i <= n; i++) {
-        auto obj = olua_checkobj<cocos2d::FiniteTimeAction>(L, i);
-        actions.pushBack(obj);
-        olua_mapref(L, -1, ".autoref", i);
-    }
-
-    ret->init(actions);
-    
-    return 1;
-}]])
 
 local Repeat = typeconf 'cocos2d::Repeat'
 Repeat.ATTR('create', {ARG1 = '@ref(single innerAction)'})
@@ -648,26 +615,7 @@ RepeatForever.ATTR('getInnerAction', {RET = '@ref(single innerAction)'})
 
 local Spawn = typeconf 'cocos2d::Spawn'
 Spawn.ATTR('createWithTwoActions', {ARG1 = '@ref(map autoref)', ARG2 = '@ref(map autoref)'})
-Spawn.FUNC('create', [[
-{
-    cocos2d::Vector<cocos2d::FiniteTimeAction *> actions;
-    int n = lua_gettop(L);
-    actions.reserve(n);
-
-    auto ret = new cocos2d::Spawn();
-    ret->autorelease();
-    olua_push_cppobj<cocos2d::Spawn>(L, ret);
-
-    for (int i = 1; i <= n; i++) {
-        auto obj = olua_checkobj<cocos2d::FiniteTimeAction>(L, i);
-        actions.pushBack(obj);
-        olua_mapref(L, -1, ".autoref", i);
-    }
-    
-    ret->init(actions);
-
-    return 1;
-}]])
+Spawn.ATTR('create', {ARG1 = '@ref(map autoref)'})
 
 typeconf 'cocos2d::RotateTo'
 typeconf 'cocos2d::RotateBy'
@@ -716,19 +664,11 @@ TargetedAction.ATTR('create', {ARG2 = '@ref(map autoref)'})
 local ActionFloat = typeconf 'cocos2d::ActionFloat'
 ActionFloat.CALLBACK {
     FUNCS = {'static ActionFloat* create(float duration, float from, float to, std::function<void(float value)> callback)'},
-    TAG_MAKER = 'olua_makecallbacktag("ActionFloat")',
+    TAG_MAKER = 'ActionFloat',
     TAG_MODE = 'OLUA_TAG_NEW',
     CPPFUNC = 'initWithDuration',
-    NEW = [[
-        auto *self = new ${DECLTYPE}();
-        auto *ret = self;
-        self->autorelease();
-        olua_push_cppobj<${DECLTYPE}>(L, self);
-    ]],
 }
 
-typeconf 'cocos2d::ActionCamera'
-typeconf 'cocos2d::OrbitCamera'
 typeconf 'cocos2d::ProgressTo'
 typeconf 'cocos2d::ProgressFromTo'
 
@@ -798,15 +738,9 @@ typeconf "cocos2d::Place"
 local CallFunc = typeconf "cocos2d::CallFunc"
 CallFunc.CALLBACK {
     FUNCS = {'static CallFunc * create(const std::function<void()>& func)'},
-    TAG_MAKER = 'olua_makecallbacktag("CallFunc")',
+    TAG_MAKER = 'CallFunc',
     TAG_MODE = 'OLUA_TAG_NEW',
     CPPFUNC = 'initWithFunction',
-    NEW = [[
-        auto *self = new ${DECLTYPE}();
-        auto *ret = self;
-        self->autorelease();
-        olua_push_cppobj<${DECLTYPE}>(L, self);
-    ]],
 }
 
 local Component = typeconf 'cocos2d::Component'
@@ -1071,7 +1005,7 @@ RenderTexture.CALLBACK {
         'bool saveToFile(const std::string& filename, bool isRGBA = true, std::function<void (RenderTexture*, const std::string&)> callback = nullptr)',
         'bool saveToFile(const std::string& filename, Image::Format format, bool isRGBA = true, std::function<void (RenderTexture*, const std::string&)> callback = nullptr)',
     },
-    TAG_MAKER = 'olua_makecallbacktag("saveToFile")',
+    TAG_MAKER = 'saveToFile',
     TAG_MODE = "OLUA_TAG_REPLACE",
     CALLONCE = true,
 }
@@ -1080,7 +1014,7 @@ RenderTexture.CALLBACK {
         'bool saveToFileAsNonPMA(const std::string& fileName, Image::Format format, bool isRGBA, const std::function<void(RenderTexture*, const std::string&)>& callback)',
         'bool saveToFileAsNonPMA(const std::string& filename, bool isRGBA = true, const std::function<void(RenderTexture*, const std::string&)>& callback = nullptr)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("saveToFile")',
+    TAG_MAKER = 'saveToFile',
     TAG_MODE = "OLUA_TAG_REPLACE",
     CALLONCE = true,
 }

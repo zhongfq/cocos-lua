@@ -93,19 +93,19 @@ runtime.FUNC("setDispatcher", [[
 runtime.CALLBACK {
     FUNCS = {'static void openURL(const std::string &uri, @nullable const std::function<void (bool)> callback)'},
     TAG_MODE = 'OLUA_TAG_NEW',
-    TAG_MAKER = 'olua_makecallbacktag("openURL")',
+    TAG_MAKER = 'openURL',
     CALLONCE = true,
 }
 runtime.CALLBACK {
     FUNCS = {'static void requestPermission(Permission permission, const std::function<void (PermissionStatus)> callback)'},
     TAG_MODE = 'OLUA_TAG_NEW',
-    TAG_MAKER = 'olua_makecallbacktag("requestPermission")',
+    TAG_MAKER = 'requestPermission',
     CALLONCE = true,
 }
 runtime.CALLBACK {
     FUNCS = {'static void alert(const std::string &title, const std::string &message, const std::string &ok, const std::string &no, const std::function<void (bool)> &callback)'},
     TAG_MODE = 'OLUA_TAG_NEW',
-    TAG_MAKER = 'olua_makecallbacktag("alert")',
+    TAG_MAKER = 'alert',
     CALLONCE = true,
 }
 
@@ -143,7 +143,7 @@ timer.CALLBACK {
 timer.CALLBACK {
     FUNCS = {'static void delay(float time, const std::function<void ()> callback)'},
     TAG_MODE = 'OLUA_TAG_NEW',
-    TAG_MAKER = 'olua_makecallbacktag("delay")',
+    TAG_MAKER = 'delay',
     CALLONCE = true,
 }
 timer.FUNC('schedule', [[

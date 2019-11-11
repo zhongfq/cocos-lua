@@ -87,7 +87,6 @@ typeconf 'dragonBones::TextureFormat'
 typeconf 'dragonBones::BaseObject'
 typeconf 'dragonBones::EventObject'
 typeconf 'dragonBones::TransformObject'
-typeconf 'dragonBones::DisplayType'
 typeconf 'dragonBones::Point'
 typeconf 'dragonBones::ConstraintData'
 typeconf 'dragonBones::IKConstraintData'
@@ -100,7 +99,6 @@ typeconf 'dragonBones::Slot'
     .EXCLUDE 'getDisplayList'
     .EXCLUDE 'setDisplayList'
 
-typeconf 'dragonBones::OffsetMode'
 typeconf 'dragonBones::Bone'
 typeconf 'dragonBones::DisplayData'
 typeconf 'dragonBones::ActionData'
@@ -129,20 +127,19 @@ typeconf 'dragonBones::BaseFactory'
 local Armature = typeconf 'dragonBones::Armature'
 Armature.SUPERCLS = 'dragonBones::BaseObject'
 
-typeconf 'dragonBones::AnimationFadeOutMode'
 typeconf 'dragonBones::Animation'
 typeconf 'dragonBones::CCFactory'
 
 local ArmatureDisplay = typeconf 'dragonBones::CCArmatureDisplay'
 ArmatureDisplay.CALLBACK {
     FUNCS = {'void addDBEventListener(const std::string& type, const std::function<void(@local EventObject*)>& listener)'},
-    TAG_MAKER = 'olua_makecallbacktag(#1)',
+    TAG_MAKER = '(#1)',
     TAG_MODE = 'OLUA_TAG_NEW',
 }
 
 ArmatureDisplay.CALLBACK {
     FUNCS = {'void removeDBEventListener(const std::string& type, @nullable const std::function<void(EventObject*)>& listener)'},
-    TAG_MAKER = 'olua_makecallbacktag(#1)',
+    TAG_MAKER = '(#1)',
     TAG_MODE = 'OLUA_TAG_EQUAL',
     REMOVE = true,
 }

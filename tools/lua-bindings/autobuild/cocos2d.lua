@@ -473,18 +473,12 @@ cls.callback {
     FUNCS =  {
         'static EventListenerCustom* create(const std::string& eventName, const std::function<void(@local EventCustom*)>& callback)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("listener")',
+    TAG_MAKER = 'listener',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
     CPPFUNC = 'init',
-    NEW = [[
-        auto *self = new ${DECLTYPE}();
-        auto *ret = self;
-        self->autorelease();
-        olua_push_cppobj<${DECLTYPE}>(L, self);
-    ]],
 }
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -507,18 +501,12 @@ cls.callback {
     FUNCS =  {
         'static EventListenerAcceleration* create(const std::function<void(@local Acceleration*, @local Event*)>& callback)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("listener")',
+    TAG_MAKER = 'listener',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
     CPPFUNC = 'init',
-    NEW = [[
-        auto *self = new ${DECLTYPE}();
-        auto *ret = self;
-        self->autorelease();
-        olua_push_cppobj<${DECLTYPE}>(L, self);
-    ]],
 }
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -1115,7 +1103,7 @@ cls.callback {
         'static void preload(const std::string& filePath)',
         'static void preload(const std::string& filePath, std::function<void(bool isSuccess)> callback)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("preload")',
+    TAG_MAKER = 'preload',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = true,
@@ -2166,28 +2154,10 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Sequence'
 cls.SUPERCLS = "cocos2d::ActionInterval"
 cls.funcs [[
+    static cocos2d::Sequence *create(const Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
     static cocos2d::Sequence *createWithTwoActions(@ref(map autoref) cocos2d::FiniteTimeAction *actionOne, @ref(map autoref) cocos2d::FiniteTimeAction *actionTwo)
     Sequence()
 ]]
-cls.func('create', [[{
-    cocos2d::Vector<cocos2d::FiniteTimeAction *> actions;
-    int n = lua_gettop(L);
-    actions.reserve(n);
-
-    auto ret = new cocos2d::Sequence();
-    ret->autorelease();
-    olua_push_cppobj<cocos2d::Sequence>(L, ret);
-
-    for (int i = 1; i <= n; i++) {
-        auto obj = olua_checkobj<cocos2d::FiniteTimeAction>(L, i);
-        actions.pushBack(obj);
-        olua_mapref(L, -1, ".autoref", i);
-    }
-
-    ret->init(actions);
-
-    return 1;
-}]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Repeat'
@@ -2219,28 +2189,10 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Spawn'
 cls.SUPERCLS = "cocos2d::ActionInterval"
 cls.funcs [[
+    static cocos2d::Spawn *create(@ref(map autoref) const Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
     static cocos2d::Spawn *createWithTwoActions(@ref(map autoref) cocos2d::FiniteTimeAction *action1, @ref(map autoref) cocos2d::FiniteTimeAction *action2)
     Spawn()
 ]]
-cls.func('create', [[{
-    cocos2d::Vector<cocos2d::FiniteTimeAction *> actions;
-    int n = lua_gettop(L);
-    actions.reserve(n);
-
-    auto ret = new cocos2d::Spawn();
-    ret->autorelease();
-    olua_push_cppobj<cocos2d::Spawn>(L, ret);
-
-    for (int i = 1; i <= n; i++) {
-        auto obj = olua_checkobj<cocos2d::FiniteTimeAction>(L, i);
-        actions.pushBack(obj);
-        olua_mapref(L, -1, ".autoref", i);
-    }
-
-    ret->init(actions);
-
-    return 1;
-}]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::RotateTo'
@@ -2468,18 +2420,12 @@ cls.callback {
     FUNCS =  {
         'static ActionFloat* create(float duration, float from, float to, std::function<void(float value)> callback)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("ActionFloat")',
+    TAG_MAKER = 'ActionFloat',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
     CPPFUNC = 'initWithDuration',
-    NEW = [[
-        auto *self = new ${DECLTYPE}();
-        auto *ret = self;
-        self->autorelease();
-        olua_push_cppobj<${DECLTYPE}>(L, self);
-    ]],
 }
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2936,18 +2882,12 @@ cls.callback {
     FUNCS =  {
         'static CallFunc * create(const std::function<void()>& func)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("CallFunc")',
+    TAG_MAKER = 'CallFunc',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
     CPPFUNC = 'initWithFunction',
-    NEW = [[
-        auto *self = new ${DECLTYPE}();
-        auto *ret = self;
-        self->autorelease();
-        olua_push_cppobj<${DECLTYPE}>(L, self);
-    ]],
 }
 cls.props [[
     targetCallback
@@ -3327,7 +3267,7 @@ cls.callback {
     FUNCS =  {
         'void setOnEnterCallback(@nullable @local const std::function<void ()> &callback)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("OnEnterCallback")',
+    TAG_MAKER = 'OnEnterCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -3337,7 +3277,7 @@ cls.callback {
     FUNCS =  {
         '@nullable @local const std::function<void ()> &getOnEnterCallback()'
     },
-    TAG_MAKER = 'olua_makecallbacktag("OnEnterCallback")',
+    TAG_MAKER = 'OnEnterCallback',
     TAG_MODE = 'OLUA_TAG_EQUAL',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -3347,7 +3287,7 @@ cls.callback {
     FUNCS =  {
         'void setOnExitCallback(@nullable @local const std::function<void ()> &callback)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("OnExitCallback")',
+    TAG_MAKER = 'OnExitCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -3357,7 +3297,7 @@ cls.callback {
     FUNCS =  {
         '@nullable @local const std::function<void ()> &getOnExitCallback()'
     },
-    TAG_MAKER = 'olua_makecallbacktag("OnExitCallback")',
+    TAG_MAKER = 'OnExitCallback',
     TAG_MODE = 'OLUA_TAG_EQUAL',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -3367,7 +3307,7 @@ cls.callback {
     FUNCS =  {
         'void setOnEnterTransitionDidFinishCallback(@nullable @local const std::function<void ()> &callback)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("OnEnterTransitionDidFinishCallback")',
+    TAG_MAKER = 'OnEnterTransitionDidFinishCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -3377,7 +3317,7 @@ cls.callback {
     FUNCS =  {
         '@nullable @local const std::function<void ()> &getOnEnterTransitionDidFinishCallback()'
     },
-    TAG_MAKER = 'olua_makecallbacktag("OnEnterTransitionDidFinishCallback")',
+    TAG_MAKER = 'OnEnterTransitionDidFinishCallback',
     TAG_MODE = 'OLUA_TAG_EQUAL',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -3387,7 +3327,7 @@ cls.callback {
     FUNCS =  {
         'void setOnExitTransitionDidStartCallback(@nullable @local const std::function<void ()> &callback)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("OnExitTransitionDidStartCallback")',
+    TAG_MAKER = 'OnExitTransitionDidStartCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -3397,7 +3337,7 @@ cls.callback {
     FUNCS =  {
         '@nullable @local const std::function<void ()> &getOnExitTransitionDidStartCallback()'
     },
-    TAG_MAKER = 'olua_makecallbacktag("OnExitTransitionDidStartCallback")',
+    TAG_MAKER = 'OnExitTransitionDidStartCallback',
     TAG_MODE = 'OLUA_TAG_EQUAL',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -3842,7 +3782,7 @@ cls.callback {
         'bool saveToFile(const std::string& filename, bool isRGBA = true, std::function<void (RenderTexture*, const std::string&)> callback = nullptr)',
         'bool saveToFile(const std::string& filename, Image::Format format, bool isRGBA = true, std::function<void (RenderTexture*, const std::string&)> callback = nullptr)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("saveToFile")',
+    TAG_MAKER = 'saveToFile',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = true,
@@ -3853,7 +3793,7 @@ cls.callback {
         'bool saveToFileAsNonPMA(const std::string& fileName, Image::Format format, bool isRGBA, const std::function<void(RenderTexture*, const std::string&)>& callback)',
         'bool saveToFileAsNonPMA(const std::string& filename, bool isRGBA = true, const std::function<void(RenderTexture*, const std::string&)>& callback = nullptr)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("saveToFile")',
+    TAG_MAKER = 'saveToFile',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = true,

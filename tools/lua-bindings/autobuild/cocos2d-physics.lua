@@ -631,7 +631,7 @@ cls.callback {
     FUNCS =  {
         'void setPreUpdateCallback(@nullable @local const std::function<void ()> &callback)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("PreUpdateCallback")',
+    TAG_MAKER = 'PreUpdateCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -641,7 +641,7 @@ cls.callback {
     FUNCS =  {
         'void setPostUpdateCallback(@nullable @local const std::function<void ()> &callback)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("PostUpdateCallback")',
+    TAG_MAKER = 'PostUpdateCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -651,7 +651,7 @@ cls.callback {
     FUNCS =  {
         'void rayCast(@local const std::function<bool (PhysicsWorld &, const PhysicsRayCastInfo &, void *)> &func, const cocos2d::Vec2 &start, const cocos2d::Vec2 &end, void *data)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("rayCast")',
+    TAG_MAKER = 'rayCast',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -661,7 +661,7 @@ cls.callback {
     FUNCS =  {
         'void queryRect(@local const std::function<bool (PhysicsWorld &, PhysicsShape &, void *)> &func, const cocos2d::Rect &rect, void *data)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("queryRect")',
+    TAG_MAKER = 'queryRect',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -671,7 +671,7 @@ cls.callback {
     FUNCS =  {
         'void queryPoint(@local const std::function<bool (PhysicsWorld &, PhysicsShape &, void *)> &func, const cocos2d::Vec2 &point, void *data)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("queryPoint")',
+    TAG_MAKER = 'queryPoint',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,

@@ -1198,7 +1198,7 @@ static int _spine_AnimationState_setListener(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "sp.AnimationState");
 
     void *callback_store_obj = (void *)self;
-    std::string tag = olua_makecallbacktag("Listener");
+    std::string tag = "Listener";
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
     lua_State *MT = olua_mainthread();
     arg1 = [callback_store_obj, func, MT](spine::AnimationState *arg1, spine::EventType arg2, spine::TrackEntry *arg3, spine::Event *arg4) {
@@ -10636,7 +10636,7 @@ static int _spine_TrackEntry_setListener(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "sp.TrackEntry");
 
     void *callback_store_obj = (void *)self;
-    std::string tag = olua_makecallbacktag("Listener");
+    std::string tag = "Listener";
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
     lua_State *MT = olua_mainthread();
     arg1 = [callback_store_obj, func, MT](spine::AnimationState *arg1, spine::EventType arg2, spine::TrackEntry *arg3, spine::Event *arg4) {
@@ -14351,7 +14351,7 @@ static int _spine_SkeletonAnimation_setCompleteListener(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
 
     void *callback_store_obj = (void *)self;
-    std::string tag = olua_makecallbacktag("CompleteListener");
+    std::string tag = "CompleteListener";
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
     lua_State *MT = olua_mainthread();
     arg1 = [callback_store_obj, func, MT](spine::TrackEntry *arg1) {
@@ -14385,7 +14385,7 @@ static int _spine_SkeletonAnimation_setDisposeListener(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
 
     void *callback_store_obj = (void *)self;
-    std::string tag = olua_makecallbacktag("DisposeListener");
+    std::string tag = "DisposeListener";
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
     lua_State *MT = olua_mainthread();
     arg1 = [callback_store_obj, func, MT](spine::TrackEntry *arg1) {
@@ -14461,7 +14461,7 @@ static int _spine_SkeletonAnimation_setEndListener(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
 
     void *callback_store_obj = (void *)self;
-    std::string tag = olua_makecallbacktag("EndListener");
+    std::string tag = "EndListener";
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
     lua_State *MT = olua_mainthread();
     arg1 = [callback_store_obj, func, MT](spine::TrackEntry *arg1) {
@@ -14495,7 +14495,7 @@ static int _spine_SkeletonAnimation_setEventListener(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
 
     void *callback_store_obj = (void *)self;
-    std::string tag = olua_makecallbacktag("EventListener");
+    std::string tag = "EventListener";
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
     lua_State *MT = olua_mainthread();
     arg1 = [callback_store_obj, func, MT](spine::TrackEntry *arg1, spine::Event *arg2) {
@@ -14530,7 +14530,7 @@ static int _spine_SkeletonAnimation_setInterruptListener(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
 
     void *callback_store_obj = (void *)self;
-    std::string tag = olua_makecallbacktag("InterruptListener");
+    std::string tag = "InterruptListener";
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
     lua_State *MT = olua_mainthread();
     arg1 = [callback_store_obj, func, MT](spine::TrackEntry *arg1) {
@@ -14586,7 +14586,7 @@ static int _spine_SkeletonAnimation_setStartListener(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
 
     void *callback_store_obj = (void *)self;
-    std::string tag = olua_makecallbacktag("StartListener");
+    std::string tag = "StartListener";
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
     lua_State *MT = olua_mainthread();
     arg1 = [callback_store_obj, func, MT](spine::TrackEntry *arg1) {
@@ -14622,7 +14622,7 @@ static int _spine_SkeletonAnimation_setTrackCompleteListener(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "sp.TrackEntry");
 
     void *callback_store_obj = (void *)self;
-    std::string tag = olua_makecallbacktag("TrackCompleteListener");
+    std::string tag = "TrackCompleteListener";
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_TAG_REPLACE);
     lua_State *MT = olua_mainthread();
     arg2 = [callback_store_obj, func, MT](spine::TrackEntry *arg1) {
@@ -14658,7 +14658,7 @@ static int _spine_SkeletonAnimation_setTrackDisposeListener(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "sp.TrackEntry");
 
     void *callback_store_obj = (void *)self;
-    std::string tag = olua_makecallbacktag("TrackDisposeListener");
+    std::string tag = "TrackDisposeListener";
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_TAG_REPLACE);
     lua_State *MT = olua_mainthread();
     arg2 = [callback_store_obj, func, MT](spine::TrackEntry *arg1) {
@@ -14694,7 +14694,7 @@ static int _spine_SkeletonAnimation_setTrackEndListener(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "sp.TrackEntry");
 
     void *callback_store_obj = (void *)self;
-    std::string tag = olua_makecallbacktag("TrackEndListener");
+    std::string tag = "TrackEndListener";
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_TAG_REPLACE);
     lua_State *MT = olua_mainthread();
     arg2 = [callback_store_obj, func, MT](spine::TrackEntry *arg1) {
@@ -14730,7 +14730,7 @@ static int _spine_SkeletonAnimation_setTrackEventListener(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "sp.TrackEntry");
 
     void *callback_store_obj = (void *)self;
-    std::string tag = olua_makecallbacktag("TrackEventListener");
+    std::string tag = "TrackEventListener";
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_TAG_REPLACE);
     lua_State *MT = olua_mainthread();
     arg2 = [callback_store_obj, func, MT](spine::TrackEntry *arg1, spine::Event *arg2) {
@@ -14767,7 +14767,7 @@ static int _spine_SkeletonAnimation_setTrackInterruptListener(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "sp.TrackEntry");
 
     void *callback_store_obj = (void *)self;
-    std::string tag = olua_makecallbacktag("TrackInterruptListener");
+    std::string tag = "TrackInterruptListener";
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_TAG_REPLACE);
     lua_State *MT = olua_mainthread();
     arg2 = [callback_store_obj, func, MT](spine::TrackEntry *arg1) {
@@ -14803,7 +14803,7 @@ static int _spine_SkeletonAnimation_setTrackStartListener(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg1, "sp.TrackEntry");
 
     void *callback_store_obj = (void *)self;
-    std::string tag = olua_makecallbacktag("TrackStartListener");
+    std::string tag = "TrackStartListener";
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_TAG_REPLACE);
     lua_State *MT = olua_mainthread();
     arg2 = [callback_store_obj, func, MT](spine::TrackEntry *arg1) {

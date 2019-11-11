@@ -157,7 +157,7 @@ cls.callback {
     FUNCS =  {
         'void addTouchEventListener(@nullable const std::function<void(Ref*,Widget::TouchEventType)>& callback)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("touchEventListener")',
+    TAG_MAKER = 'touchEventListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -167,7 +167,7 @@ cls.callback {
     FUNCS =  {
         'void addClickEventListener(@nullable std::function<void(Ref*)>& callback)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("clickEventListener")',
+    TAG_MAKER = 'clickEventListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -177,7 +177,7 @@ cls.callback {
     FUNCS =  {
         'void addCCSEventListener(@nullable const std::function<void(Ref*, int)>& callback)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("ccsEventListener")',
+    TAG_MAKER = 'ccsEventListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -654,7 +654,7 @@ cls.callback {
     FUNCS =  {
         'void setOnShouldStartLoading(@nullable @local const std::function<bool (WebView *, const std::string &)> &callback)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("OnShouldStartLoading")',
+    TAG_MAKER = 'OnShouldStartLoading',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -664,7 +664,7 @@ cls.callback {
     FUNCS =  {
         'void setOnDidFinishLoading(@nullable @local const std::function<void (WebView *, const std::string &)> &callback)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("OnDidFinishLoading")',
+    TAG_MAKER = 'OnDidFinishLoading',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -674,7 +674,7 @@ cls.callback {
     FUNCS =  {
         'void setOnDidFailLoading(@nullable @local const std::function<void (WebView *, const std::string &)> &callback)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("OnDidFailLoading")',
+    TAG_MAKER = 'OnDidFailLoading',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -684,7 +684,7 @@ cls.callback {
     FUNCS =  {
         'void setOnJSCallback(@nullable @local const std::function<void (WebView *, const std::string &)> &callback)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("OnJSCallback")',
+    TAG_MAKER = 'OnJSCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -694,7 +694,7 @@ cls.callback {
     FUNCS =  {
         '@nullable @local std::function<bool (WebView *, const std::string &)> getOnShouldStartLoading()'
     },
-    TAG_MAKER = 'olua_makecallbacktag("OnShouldStartLoading")',
+    TAG_MAKER = 'OnShouldStartLoading',
     TAG_MODE = 'OLUA_TAG_EQUAL',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -704,7 +704,7 @@ cls.callback {
     FUNCS =  {
         '@nullable @local std::function<void (WebView *, const std::string &)> getOnDidFinishLoading()'
     },
-    TAG_MAKER = 'olua_makecallbacktag("OnDidFinishLoading")',
+    TAG_MAKER = 'OnDidFinishLoading',
     TAG_MODE = 'OLUA_TAG_EQUAL',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -714,7 +714,7 @@ cls.callback {
     FUNCS =  {
         '@nullable @local std::function<void (WebView *, const std::string &)> getOnDidFailLoading()'
     },
-    TAG_MAKER = 'olua_makecallbacktag("OnDidFailLoading")',
+    TAG_MAKER = 'OnDidFailLoading',
     TAG_MODE = 'OLUA_TAG_EQUAL',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -724,7 +724,7 @@ cls.callback {
     FUNCS =  {
         '@nullable @local std::function<void (WebView *, const std::string &)> getOnJSCallback()'
     },
-    TAG_MAKER = 'olua_makecallbacktag("OnJSCallback")',
+    TAG_MAKER = 'OnJSCallback',
     TAG_MODE = 'OLUA_TAG_EQUAL',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -787,7 +787,7 @@ cls.callback {
     FUNCS =  {
         'void addEventListener(@nullable const std::function<void(Ref*,VideoPlayer::EventType)>& callback)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("videoPlayerCallback")',
+    TAG_MAKER = 'videoPlayerCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -922,7 +922,7 @@ cls.callback {
     FUNCS =  {
         'void setTabChangedEventListener(@nullable const std::function<void(int tabIndex, EventType)>& callback)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("tabChangedEventListener")',
+    TAG_MAKER = 'tabChangedEventListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -1036,7 +1036,7 @@ cls.callback {
     FUNCS =  {
         'void addEventListener(@nullable const std::function<void(Ref*, EventType)>& callback)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("scrollViewCallback")',
+    TAG_MAKER = 'scrollViewCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -1149,7 +1149,7 @@ cls.callback {
     FUNCS =  {
         'void addEventListener(@nullable const std::function<void(Ref*, EventType)>& callback)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("ListViewCallback")',
+    TAG_MAKER = 'ListViewCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -1265,7 +1265,7 @@ cls.callback {
     FUNCS =  {
         'void addEventListener(@nullable const std::function<void(Ref*, PageView::EventType)>& callback)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("PageViewCallback")',
+    TAG_MAKER = 'PageViewCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -1413,28 +1413,20 @@ cls.funcs [[
 ]]
 cls.callback {
     FUNCS =  {
-        'static RichText* createWithXML(const std::string& xml)',
-        'static RichText* createWithXML(const std::string& xml, const ValueMap& defaults)',
-        'static RichText* createWithXML(const std::string& xml, const ValueMap& defaults, const std::function<void(const std::string& url)>& handleOpenUrl)'
+        'static cocos2d::ui::RichText *createWithXML(const std::string &xml, @optional const cocos2d::ValueMap &defaults, @local @optional const std::function<void (const std::string &)> &handleOpenUrl)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("openUrlHandler")',
+    TAG_MAKER = 'OpenUrlHandler',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
     CPPFUNC = 'initWithXML',
-    NEW = [[
-        auto *self = new ${DECLTYPE}();
-        auto *ret = self;
-        self->autorelease();
-        olua_push_cppobj<${DECLTYPE}>(L, self);
-    ]],
 }
 cls.callback {
     FUNCS =  {
-        'void setOpenUrlHandler(const std::function<void(const std::string& url)>& handleOpenUrl)'
+        'void setOpenUrlHandler(@local const std::function<void (const std::string &)> &handleOpenUrl)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("openUrlHandler")',
+    TAG_MAKER = 'OpenUrlHandler',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -1540,7 +1532,7 @@ cls.callback {
     FUNCS =  {
         'void addEventListener(@nullable const std::function<void(Ref*,EventType)>& callback)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("sliderCallback")',
+    TAG_MAKER = 'sliderCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -1783,7 +1775,7 @@ cls.callback {
     FUNCS =  {
         'void addEventListener(@nullable const std::function<void(Ref*, EventType)>& callback)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("textFieldCallback")',
+    TAG_MAKER = 'textFieldCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -1900,7 +1892,7 @@ cls.callback {
     FUNCS =  {
         'void addEventListener(@nullable const std::function<void(Ref*,CheckBox::EventType)>& callback)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("checkBoxCallback")',
+    TAG_MAKER = 'checkBoxCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -1927,7 +1919,7 @@ cls.callback {
     FUNCS =  {
         'void addEventListener(@nullable const std::function<void(RadioButton* radioButton, EventType)>& callback)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("radioButtonCallback")',
+    TAG_MAKER = 'radioButtonCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -1963,7 +1955,7 @@ cls.callback {
     FUNCS =  {
         'void addEventListener(@nullable const std::function<void(RadioButton* radioButton, int index, EventType)>& callback)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("radioButtonCallback")',
+    TAG_MAKER = 'radioButtonCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,

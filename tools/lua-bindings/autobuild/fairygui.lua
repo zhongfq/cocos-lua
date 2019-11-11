@@ -213,7 +213,7 @@ cls.callback {
     FUNCS =  {
         'void setCaptureCallback(@nullable std::function<void(int eventType)> value)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("captureCallback")',
+    TAG_MAKER = 'captureCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -396,7 +396,7 @@ cls.callback {
     FUNCS =  {
         'GTweener* onUpdate(std::function<void(GTweener* tweener)> callback)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("onUpdate")',
+    TAG_MAKER = 'onUpdate',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -406,7 +406,7 @@ cls.callback {
     FUNCS =  {
         'GTweener* onStart(std::function<void(GTweener* tweener)> callback)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("onStart")',
+    TAG_MAKER = 'onStart',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -416,7 +416,7 @@ cls.callback {
     FUNCS =  {
         'GTweener* onComplete(std::function<void()> callback)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("onComplete")',
+    TAG_MAKER = 'onComplete',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -426,7 +426,7 @@ cls.callback {
     FUNCS =  {
         'GTweener* onComplete1(std::function<void(GTweener* tweener)> callback)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("onComplete1")',
+    TAG_MAKER = 'onComplete1',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -1557,7 +1557,7 @@ cls.callback {
     FUNCS =  {
         'void setPlaySettings(int start = 0, int end = -1, int times = 0, int endAt = -1, std::function<void()> completeCallback = nullptr)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("playSettings")',
+    TAG_MAKER = 'playSettings',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -1967,7 +1967,7 @@ cls.callback {
         'void play(int times, float delay, std::function<void()> callback = nullptr)',
         'void play(int times, float delay, float startTime, float endTime, std::function<void()> callback = nullptr)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("play")',
+    TAG_MAKER = 'play',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -1978,7 +1978,7 @@ cls.callback {
         'void playReverse(std::function<void()> callback = nullptr)',
         'void playReverse(int times, float delay, std::function<void()> callback = nullptr)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("playReverse")',
+    TAG_MAKER = 'playReverse',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -1988,7 +1988,7 @@ cls.callback {
     FUNCS =  {
         'void setHook(const std::string& label, @nullable std::function<void()> callback)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("hook." + #1)',
+    TAG_MAKER = '("hook." + #1)',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -1998,7 +1998,7 @@ cls.callback {
     FUNCS =  {
         'void clearHooks()'
     },
-    TAG_MAKER = 'olua_makecallbacktag("hook.")',
+    TAG_MAKER = '("hook.")',
     TAG_MODE = 'OLUA_TAG_STARTWITH',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -2057,7 +2057,7 @@ cls.callback {
     FUNCS =  {
         'void load(@nullable std::function<void()> callback)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("load")',
+    TAG_MAKER = 'load',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -2215,7 +2215,7 @@ cls.callback {
     FUNCS =  {
         'static void setPackageItemExtension(const std::string& url, std::function<GComponent*()> creator)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("packageItemExtension")',
+    TAG_MAKER = 'packageItemExtension',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -2225,7 +2225,7 @@ cls.callback {
     FUNCS =  {
         'static void setLoaderExtension(std::function<GLoader*()> creator)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("loaderExtension")',
+    TAG_MAKER = 'loaderExtension',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,

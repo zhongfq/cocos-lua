@@ -116,7 +116,7 @@ cls.callback {
     FUNCS =  {
         'static void openURL(const std::string &uri, @nullable const std::function<void (bool)> callback)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("openURL")',
+    TAG_MAKER = 'openURL',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
     CALLONCE = true,
@@ -126,7 +126,7 @@ cls.callback {
     FUNCS =  {
         'static void requestPermission(Permission permission, const std::function<void (PermissionStatus)> callback)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("requestPermission")',
+    TAG_MAKER = 'requestPermission',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
     CALLONCE = true,
@@ -136,7 +136,7 @@ cls.callback {
     FUNCS =  {
         'static void alert(const std::string &title, const std::string &message, const std::string &ok, const std::string &no, const std::function<void (bool)> &callback)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("alert")',
+    TAG_MAKER = 'alert',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
     CALLONCE = true,
@@ -273,7 +273,7 @@ cls.callback {
     FUNCS =  {
         'static void delay(float time, const std::function<void ()> callback)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("delay")',
+    TAG_MAKER = 'delay',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
     CALLONCE = true,

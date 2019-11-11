@@ -152,7 +152,7 @@ typeconf 'fairygui::IHitTest'
 local InputProcessor = typeconf 'fairygui::InputProcessor'
 InputProcessor.CALLBACK {
     FUNCS = {'void setCaptureCallback(@nullable std::function<void(int eventType)> value)'},
-    TAG_MAKER = 'olua_makecallbacktag("captureCallback")',
+    TAG_MAKER = 'captureCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
 }
 
@@ -174,22 +174,22 @@ typeconf 'fairygui::TweenPropType'
 local GTweener = typeconf 'fairygui::GTweener'
 GTweener.CALLBACK {
     FUNCS= {'GTweener* onUpdate(std::function<void(GTweener* tweener)> callback)'},
-    TAG_MAKER = 'olua_makecallbacktag("onUpdate")',
+    TAG_MAKER = 'onUpdate',
     TAG_MODE = 'OLUA_TAG_REPLACE',
 }
 GTweener.CALLBACK {
     FUNCS= {'GTweener* onStart(std::function<void(GTweener* tweener)> callback)'},
-    TAG_MAKER = 'olua_makecallbacktag("onStart")',
+    TAG_MAKER = 'onStart',
     TAG_MODE = 'OLUA_TAG_REPLACE',
 }
 GTweener.CALLBACK {
     FUNCS= {'GTweener* onComplete(std::function<void()> callback)'},
-    TAG_MAKER = 'olua_makecallbacktag("onComplete")',
+    TAG_MAKER = 'onComplete',
     TAG_MODE = 'OLUA_TAG_REPLACE',
 }
 GTweener.CALLBACK {
     FUNCS= {'GTweener* onComplete1(std::function<void(GTweener* tweener)> callback)'},
-    TAG_MAKER = 'olua_makecallbacktag("onComplete1")',
+    TAG_MAKER = 'onComplete1',
     TAG_MODE = 'OLUA_TAG_REPLACE',
 }
 
@@ -488,7 +488,7 @@ GList.INJECT('itemRenderer', {
 local GMovieClip = typeconf 'fairygui::GMovieClip'
 GMovieClip.CALLBACK {
     FUNCS = {'void setPlaySettings(int start = 0, int end = -1, int times = 0, int endAt = -1, std::function<void()> completeCallback = nullptr)'},
-    TAG_MAKER = 'olua_makecallbacktag("playSettings")',
+    TAG_MAKER = 'playSettings',
     TAG_MODE = 'OLUA_TAG_REPLACE',
 }
 
@@ -622,7 +622,7 @@ Transition.CALLBACK {
         'void play(int times, float delay, std::function<void()> callback = nullptr)',
         'void play(int times, float delay, float startTime, float endTime, std::function<void()> callback = nullptr)',
     },
-    TAG_MAKER = 'olua_makecallbacktag("play")',
+    TAG_MAKER = 'play',
     TAG_MODE = 'OLUA_TAG_REPLACE',
 }
 Transition.CALLBACK {
@@ -630,17 +630,17 @@ Transition.CALLBACK {
         'void playReverse(std::function<void()> callback = nullptr)',
         'void playReverse(int times, float delay, std::function<void()> callback = nullptr)',
     },
-    TAG_MAKER = 'olua_makecallbacktag("playReverse")',
+    TAG_MAKER = 'playReverse',
     TAG_MODE = 'OLUA_TAG_REPLACE',
 }
 Transition.CALLBACK {
     FUNCS = {'void setHook(const std::string& label, @nullable std::function<void()> callback)'},
-    TAG_MAKER = 'olua_makecallbacktag("hook." + #1)',
+    TAG_MAKER = '("hook." + #1)',
     TAG_MODE = 'OLUA_TAG_REPLACE',
 }
 Transition.CALLBACK {
     FUNCS = {'void clearHooks()'},
-    TAG_MAKER = 'olua_makecallbacktag("hook.")',
+    TAG_MAKER = '("hook.")',
     TAG_MODE = 'OLUA_TAG_STARTWITH',
     REMOVE = true,
 }
@@ -680,7 +680,7 @@ UIConfig.VAR('popupMenu_seperator' ,'static std::string popupMenu_seperator')
 local IUISource = typeconf 'fairygui::IUISource'
 IUISource.CALLBACK {
     FUNCS = {'void load(@nullable std::function<void()> callback)'},
-    TAG_MAKER = 'olua_makecallbacktag("load")',
+    TAG_MAKER = 'load',
     TAG_MODE = 'OLUA_TAG_REPLACE',
 }
 
@@ -766,12 +766,12 @@ typeconf 'fairygui::DragDropManager'
 local UIObjectFactory = typeconf 'fairygui::UIObjectFactory'
 UIObjectFactory.CALLBACK {
     FUNCS = {'static void setPackageItemExtension(const std::string& url, std::function<GComponent*()> creator)'},
-    TAG_MAKER = 'olua_makecallbacktag("packageItemExtension")',
+    TAG_MAKER = 'packageItemExtension',
     TAG_MODE = 'OLUA_TAG_REPLACE',
 }
 UIObjectFactory.CALLBACK {
     FUNCS = {'static void setLoaderExtension(std::function<GLoader*()> creator)'},
-    TAG_MAKER = 'olua_makecallbacktag("loaderExtension")',
+    TAG_MAKER = 'loaderExtension',
     TAG_MODE = 'OLUA_TAG_REPLACE',
 }
 

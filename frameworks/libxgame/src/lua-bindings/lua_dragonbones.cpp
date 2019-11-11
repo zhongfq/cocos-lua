@@ -159,6 +159,36 @@ static int luaopen_dragonBones_ArmatureType(lua_State *L)
     return 1;
 }
 
+static int luaopen_dragonBones_OffsetMode(lua_State *L)
+{
+    oluacls_class(L, "db.OffsetMode", nullptr);
+    oluacls_const_integer(L, "None", (lua_Integer)dragonBones::OffsetMode::None);
+    oluacls_const_integer(L, "Additive", (lua_Integer)dragonBones::OffsetMode::Additive);
+    oluacls_const_integer(L, "Override", (lua_Integer)dragonBones::OffsetMode::Override);
+
+    olua_registerluatype<dragonBones::OffsetMode>(L, "db.OffsetMode");
+    oluacls_asenum(L);
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_dragonBones_DisplayType(lua_State *L)
+{
+    oluacls_class(L, "db.DisplayType", nullptr);
+    oluacls_const_integer(L, "Image", (lua_Integer)dragonBones::DisplayType::Image);
+    oluacls_const_integer(L, "Armature", (lua_Integer)dragonBones::DisplayType::Armature);
+    oluacls_const_integer(L, "Mesh", (lua_Integer)dragonBones::DisplayType::Mesh);
+    oluacls_const_integer(L, "BoundingBox", (lua_Integer)dragonBones::DisplayType::BoundingBox);
+    oluacls_const_integer(L, "Path", (lua_Integer)dragonBones::DisplayType::Path);
+
+    olua_registerluatype<dragonBones::DisplayType>(L, "db.DisplayType");
+    oluacls_asenum(L);
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
 static int luaopen_dragonBones_BoundingBoxType(lua_State *L)
 {
     oluacls_class(L, "db.BoundingBoxType", nullptr);
@@ -246,6 +276,23 @@ static int luaopen_dragonBones_TimelineType(lua_State *L)
     oluacls_const_integer(L, "AnimationWeight", (lua_Integer)dragonBones::TimelineType::AnimationWeight);
 
     olua_registerluatype<dragonBones::TimelineType>(L, "db.TimelineType");
+    oluacls_asenum(L);
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_dragonBones_AnimationFadeOutMode(lua_State *L)
+{
+    oluacls_class(L, "db.AnimationFadeOutMode", nullptr);
+    oluacls_const_integer(L, "None", (lua_Integer)dragonBones::AnimationFadeOutMode::None);
+    oluacls_const_integer(L, "SameLayer", (lua_Integer)dragonBones::AnimationFadeOutMode::SameLayer);
+    oluacls_const_integer(L, "SameGroup", (lua_Integer)dragonBones::AnimationFadeOutMode::SameGroup);
+    oluacls_const_integer(L, "SameLayerAndGroup", (lua_Integer)dragonBones::AnimationFadeOutMode::SameLayerAndGroup);
+    oluacls_const_integer(L, "All", (lua_Integer)dragonBones::AnimationFadeOutMode::All);
+    oluacls_const_integer(L, "Single", (lua_Integer)dragonBones::AnimationFadeOutMode::Single);
+
+    olua_registerluatype<dragonBones::AnimationFadeOutMode>(L, "db.AnimationFadeOutMode");
     oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
@@ -958,22 +1005,6 @@ static int luaopen_dragonBones_TransformObject(lua_State *L)
     oluacls_prop(L, "userData", _dragonBones_TransformObject_get_userData, _dragonBones_TransformObject_set_userData);
 
     olua_registerluatype<dragonBones::TransformObject>(L, "db.TransformObject");
-    oluacls_createclassproxy(L);
-
-    return 1;
-}
-
-static int luaopen_dragonBones_DisplayType(lua_State *L)
-{
-    oluacls_class(L, "db.DisplayType", nullptr);
-    oluacls_const_integer(L, "Image", (lua_Integer)dragonBones::DisplayType::Image);
-    oluacls_const_integer(L, "Armature", (lua_Integer)dragonBones::DisplayType::Armature);
-    oluacls_const_integer(L, "Mesh", (lua_Integer)dragonBones::DisplayType::Mesh);
-    oluacls_const_integer(L, "BoundingBox", (lua_Integer)dragonBones::DisplayType::BoundingBox);
-    oluacls_const_integer(L, "Path", (lua_Integer)dragonBones::DisplayType::Path);
-
-    olua_registerluatype<dragonBones::DisplayType>(L, "db.DisplayType");
-    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -2660,20 +2691,6 @@ static int luaopen_dragonBones_Slot(lua_State *L)
     oluacls_prop(L, "displayController", _dragonBones_Slot_get_displayController, _dragonBones_Slot_set_displayController);
 
     olua_registerluatype<dragonBones::Slot>(L, "db.Slot");
-    oluacls_createclassproxy(L);
-
-    return 1;
-}
-
-static int luaopen_dragonBones_OffsetMode(lua_State *L)
-{
-    oluacls_class(L, "db.OffsetMode", nullptr);
-    oluacls_const_integer(L, "None", (lua_Integer)dragonBones::OffsetMode::None);
-    oluacls_const_integer(L, "Additive", (lua_Integer)dragonBones::OffsetMode::Additive);
-    oluacls_const_integer(L, "Override", (lua_Integer)dragonBones::OffsetMode::Override);
-
-    olua_registerluatype<dragonBones::OffsetMode>(L, "db.OffsetMode");
-    oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
     return 1;
@@ -12488,23 +12505,6 @@ static int luaopen_dragonBones_Armature(lua_State *L)
     return 1;
 }
 
-static int luaopen_dragonBones_AnimationFadeOutMode(lua_State *L)
-{
-    oluacls_class(L, "db.AnimationFadeOutMode", nullptr);
-    oluacls_const_integer(L, "None", (lua_Integer)dragonBones::AnimationFadeOutMode::None);
-    oluacls_const_integer(L, "SameLayer", (lua_Integer)dragonBones::AnimationFadeOutMode::SameLayer);
-    oluacls_const_integer(L, "SameGroup", (lua_Integer)dragonBones::AnimationFadeOutMode::SameGroup);
-    oluacls_const_integer(L, "SameLayerAndGroup", (lua_Integer)dragonBones::AnimationFadeOutMode::SameLayerAndGroup);
-    oluacls_const_integer(L, "All", (lua_Integer)dragonBones::AnimationFadeOutMode::All);
-    oluacls_const_integer(L, "Single", (lua_Integer)dragonBones::AnimationFadeOutMode::Single);
-
-    olua_registerluatype<dragonBones::AnimationFadeOutMode>(L, "db.AnimationFadeOutMode");
-    oluacls_asenum(L);
-    oluacls_createclassproxy(L);
-
-    return 1;
-}
-
 static int _dragonBones_Animation___gc(lua_State *L)
 {
     olua_startinvoke(L);
@@ -14059,7 +14059,7 @@ static int _dragonBones_CCArmatureDisplay_addDBEventListener(lua_State *L)
     olua_check_std_string(L, 2, &arg1);
 
     void *callback_store_obj = (void *)self;
-    std::string tag = olua_makecallbacktag(arg1);
+    std::string tag = (arg1);
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_TAG_NEW);
     lua_State *MT = olua_mainthread();
     arg2 = [callback_store_obj, func, MT](dragonBones::EventObject *arg1) {
@@ -14302,7 +14302,7 @@ static int _dragonBones_CCArmatureDisplay_removeDBEventListener(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "db.ArmatureDisplay");
     olua_check_std_string(L, 2, &arg1);
 
-    std::string tag = olua_makecallbacktag(arg1);
+    std::string tag = (arg1);
     void *callback_store_obj = (void *)self;
     olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
 
@@ -14378,16 +14378,18 @@ int luaopen_dragonbones(lua_State *L)
 {
     olua_require(L, "db.BinaryOffset", luaopen_dragonBones_BinaryOffset);
     olua_require(L, "db.ArmatureType", luaopen_dragonBones_ArmatureType);
+    olua_require(L, "db.OffsetMode", luaopen_dragonBones_OffsetMode);
+    olua_require(L, "db.DisplayType", luaopen_dragonBones_DisplayType);
     olua_require(L, "db.BoundingBoxType", luaopen_dragonBones_BoundingBoxType);
     olua_require(L, "db.ActionType", luaopen_dragonBones_ActionType);
     olua_require(L, "db.BlendMode", luaopen_dragonBones_BlendMode);
     olua_require(L, "db.TweenType", luaopen_dragonBones_TweenType);
     olua_require(L, "db.TimelineType", luaopen_dragonBones_TimelineType);
+    olua_require(L, "db.AnimationFadeOutMode", luaopen_dragonBones_AnimationFadeOutMode);
     olua_require(L, "db.TextureFormat", luaopen_dragonBones_TextureFormat);
     olua_require(L, "db.BaseObject", luaopen_dragonBones_BaseObject);
     olua_require(L, "db.EventObject", luaopen_dragonBones_EventObject);
     olua_require(L, "db.TransformObject", luaopen_dragonBones_TransformObject);
-    olua_require(L, "db.DisplayType", luaopen_dragonBones_DisplayType);
     olua_require(L, "db.Point", luaopen_dragonBones_Point);
     olua_require(L, "db.ConstraintData", luaopen_dragonBones_ConstraintData);
     olua_require(L, "db.IKConstraintData", luaopen_dragonBones_IKConstraintData);
@@ -14395,7 +14397,6 @@ int luaopen_dragonbones(lua_State *L)
     olua_require(L, "db.IAnimatable", luaopen_dragonBones_IAnimatable);
     olua_require(L, "db.WorldClock", luaopen_dragonBones_WorldClock);
     olua_require(L, "db.Slot", luaopen_dragonBones_Slot);
-    olua_require(L, "db.OffsetMode", luaopen_dragonBones_OffsetMode);
     olua_require(L, "db.Bone", luaopen_dragonBones_Bone);
     olua_require(L, "db.DisplayData", luaopen_dragonBones_DisplayData);
     olua_require(L, "db.ActionData", luaopen_dragonBones_ActionData);
@@ -14415,7 +14416,6 @@ int luaopen_dragonbones(lua_State *L)
     olua_require(L, "db.DragonBonesData", luaopen_dragonBones_DragonBonesData);
     olua_require(L, "db.BaseFactory", luaopen_dragonBones_BaseFactory);
     olua_require(L, "db.Armature", luaopen_dragonBones_Armature);
-    olua_require(L, "db.AnimationFadeOutMode", luaopen_dragonBones_AnimationFadeOutMode);
     olua_require(L, "db.Animation", luaopen_dragonBones_Animation);
     olua_require(L, "db.Factory", luaopen_dragonBones_CCFactory);
     olua_require(L, "db.ArmatureDisplay", luaopen_dragonBones_CCArmatureDisplay);

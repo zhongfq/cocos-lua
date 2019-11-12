@@ -151,6 +151,7 @@ M.EXCLUDE_TYPE 'Unexposed *'
 M.EXCLUDE_TYPE 'spine::Bone'
 M.EXCLUDE_TYPE 'spine::Slot'
 M.EXCLUDE_TYPE 'spine::BoneData'
+M.EXCLUDE_TYPE 'spine::RTTI'
 M.EXCLUDE_TYPE 'spine::Skeleton'
 M.EXCLUDE_TYPE 'spine::SkeletonBounds'
 M.EXCLUDE_TYPE 'spine::SlotData'
@@ -378,7 +379,5 @@ typeconf 'spine::SkeletonAnimation'
     .CALLBACK {NAME = 'setTrackDisposeListener', LOCAL = false}
     .CALLBACK {NAME = 'setTrackCompleteListener', LOCAL = false}
     .CALLBACK {NAME = 'setTrackEventListener', LOCAL = false}
-    .CALLBACK {NAME = 'setPreUpdateWorldTransformsListener', LOCAL = false, NULLABLE = true}
-    .CALLBACK {NAME = 'setPostUpdateWorldTransformsListener', LOCAL = false, NULLABLE = true}
 
 return M

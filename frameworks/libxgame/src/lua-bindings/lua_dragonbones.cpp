@@ -114,29 +114,29 @@ bool auto_olua_is_dragonBones_Rectangle(lua_State *L, int idx)
 static int luaopen_dragonBones_BinaryOffset(lua_State *L)
 {
     oluacls_class(L, "db.BinaryOffset", nullptr);
-    oluacls_const_integer(L, "WeigthBoneCount", (lua_Integer)dragonBones::BinaryOffset::WeigthBoneCount);
-    oluacls_const_integer(L, "WeigthFloatOffset", (lua_Integer)dragonBones::BinaryOffset::WeigthFloatOffset);
-    oluacls_const_integer(L, "WeigthBoneIndices", (lua_Integer)dragonBones::BinaryOffset::WeigthBoneIndices);
-    oluacls_const_integer(L, "MeshVertexCount", (lua_Integer)dragonBones::BinaryOffset::MeshVertexCount);
-    oluacls_const_integer(L, "MeshTriangleCount", (lua_Integer)dragonBones::BinaryOffset::MeshTriangleCount);
-    oluacls_const_integer(L, "MeshFloatOffset", (lua_Integer)dragonBones::BinaryOffset::MeshFloatOffset);
-    oluacls_const_integer(L, "MeshWeightOffset", (lua_Integer)dragonBones::BinaryOffset::MeshWeightOffset);
-    oluacls_const_integer(L, "MeshVertexIndices", (lua_Integer)dragonBones::BinaryOffset::MeshVertexIndices);
-    oluacls_const_integer(L, "TimelineScale", (lua_Integer)dragonBones::BinaryOffset::TimelineScale);
-    oluacls_const_integer(L, "TimelineOffset", (lua_Integer)dragonBones::BinaryOffset::TimelineOffset);
-    oluacls_const_integer(L, "TimelineKeyFrameCount", (lua_Integer)dragonBones::BinaryOffset::TimelineKeyFrameCount);
-    oluacls_const_integer(L, "TimelineFrameValueCount", (lua_Integer)dragonBones::BinaryOffset::TimelineFrameValueCount);
-    oluacls_const_integer(L, "TimelineFrameValueOffset", (lua_Integer)dragonBones::BinaryOffset::TimelineFrameValueOffset);
-    oluacls_const_integer(L, "TimelineFrameOffset", (lua_Integer)dragonBones::BinaryOffset::TimelineFrameOffset);
-    oluacls_const_integer(L, "FramePosition", (lua_Integer)dragonBones::BinaryOffset::FramePosition);
-    oluacls_const_integer(L, "FrameTweenType", (lua_Integer)dragonBones::BinaryOffset::FrameTweenType);
-    oluacls_const_integer(L, "FrameTweenEasingOrCurveSampleCount", (lua_Integer)dragonBones::BinaryOffset::FrameTweenEasingOrCurveSampleCount);
-    oluacls_const_integer(L, "FrameCurveSamples", (lua_Integer)dragonBones::BinaryOffset::FrameCurveSamples);
-    oluacls_const_integer(L, "DeformVertexOffset", (lua_Integer)dragonBones::BinaryOffset::DeformVertexOffset);
     oluacls_const_integer(L, "DeformCount", (lua_Integer)dragonBones::BinaryOffset::DeformCount);
+    oluacls_const_integer(L, "DeformFloatOffset", (lua_Integer)dragonBones::BinaryOffset::DeformFloatOffset);
     oluacls_const_integer(L, "DeformValueCount", (lua_Integer)dragonBones::BinaryOffset::DeformValueCount);
     oluacls_const_integer(L, "DeformValueOffset", (lua_Integer)dragonBones::BinaryOffset::DeformValueOffset);
-    oluacls_const_integer(L, "DeformFloatOffset", (lua_Integer)dragonBones::BinaryOffset::DeformFloatOffset);
+    oluacls_const_integer(L, "DeformVertexOffset", (lua_Integer)dragonBones::BinaryOffset::DeformVertexOffset);
+    oluacls_const_integer(L, "FrameCurveSamples", (lua_Integer)dragonBones::BinaryOffset::FrameCurveSamples);
+    oluacls_const_integer(L, "FramePosition", (lua_Integer)dragonBones::BinaryOffset::FramePosition);
+    oluacls_const_integer(L, "FrameTweenEasingOrCurveSampleCount", (lua_Integer)dragonBones::BinaryOffset::FrameTweenEasingOrCurveSampleCount);
+    oluacls_const_integer(L, "FrameTweenType", (lua_Integer)dragonBones::BinaryOffset::FrameTweenType);
+    oluacls_const_integer(L, "MeshFloatOffset", (lua_Integer)dragonBones::BinaryOffset::MeshFloatOffset);
+    oluacls_const_integer(L, "MeshTriangleCount", (lua_Integer)dragonBones::BinaryOffset::MeshTriangleCount);
+    oluacls_const_integer(L, "MeshVertexCount", (lua_Integer)dragonBones::BinaryOffset::MeshVertexCount);
+    oluacls_const_integer(L, "MeshVertexIndices", (lua_Integer)dragonBones::BinaryOffset::MeshVertexIndices);
+    oluacls_const_integer(L, "MeshWeightOffset", (lua_Integer)dragonBones::BinaryOffset::MeshWeightOffset);
+    oluacls_const_integer(L, "TimelineFrameOffset", (lua_Integer)dragonBones::BinaryOffset::TimelineFrameOffset);
+    oluacls_const_integer(L, "TimelineFrameValueCount", (lua_Integer)dragonBones::BinaryOffset::TimelineFrameValueCount);
+    oluacls_const_integer(L, "TimelineFrameValueOffset", (lua_Integer)dragonBones::BinaryOffset::TimelineFrameValueOffset);
+    oluacls_const_integer(L, "TimelineKeyFrameCount", (lua_Integer)dragonBones::BinaryOffset::TimelineKeyFrameCount);
+    oluacls_const_integer(L, "TimelineOffset", (lua_Integer)dragonBones::BinaryOffset::TimelineOffset);
+    oluacls_const_integer(L, "TimelineScale", (lua_Integer)dragonBones::BinaryOffset::TimelineScale);
+    oluacls_const_integer(L, "WeigthBoneCount", (lua_Integer)dragonBones::BinaryOffset::WeigthBoneCount);
+    oluacls_const_integer(L, "WeigthBoneIndices", (lua_Integer)dragonBones::BinaryOffset::WeigthBoneIndices);
+    oluacls_const_integer(L, "WeigthFloatOffset", (lua_Integer)dragonBones::BinaryOffset::WeigthFloatOffset);
 
     olua_registerluatype<dragonBones::BinaryOffset>(L, "db.BinaryOffset");
     oluacls_asenum(L);
@@ -162,8 +162,8 @@ static int luaopen_dragonBones_ArmatureType(lua_State *L)
 static int luaopen_dragonBones_OffsetMode(lua_State *L)
 {
     oluacls_class(L, "db.OffsetMode", nullptr);
-    oluacls_const_integer(L, "None", (lua_Integer)dragonBones::OffsetMode::None);
     oluacls_const_integer(L, "Additive", (lua_Integer)dragonBones::OffsetMode::Additive);
+    oluacls_const_integer(L, "None", (lua_Integer)dragonBones::OffsetMode::None);
     oluacls_const_integer(L, "Override", (lua_Integer)dragonBones::OffsetMode::Override);
 
     olua_registerluatype<dragonBones::OffsetMode>(L, "db.OffsetMode");
@@ -176,10 +176,10 @@ static int luaopen_dragonBones_OffsetMode(lua_State *L)
 static int luaopen_dragonBones_DisplayType(lua_State *L)
 {
     oluacls_class(L, "db.DisplayType", nullptr);
-    oluacls_const_integer(L, "Image", (lua_Integer)dragonBones::DisplayType::Image);
     oluacls_const_integer(L, "Armature", (lua_Integer)dragonBones::DisplayType::Armature);
-    oluacls_const_integer(L, "Mesh", (lua_Integer)dragonBones::DisplayType::Mesh);
     oluacls_const_integer(L, "BoundingBox", (lua_Integer)dragonBones::DisplayType::BoundingBox);
+    oluacls_const_integer(L, "Image", (lua_Integer)dragonBones::DisplayType::Image);
+    oluacls_const_integer(L, "Mesh", (lua_Integer)dragonBones::DisplayType::Mesh);
     oluacls_const_integer(L, "Path", (lua_Integer)dragonBones::DisplayType::Path);
 
     olua_registerluatype<dragonBones::DisplayType>(L, "db.DisplayType");
@@ -192,9 +192,9 @@ static int luaopen_dragonBones_DisplayType(lua_State *L)
 static int luaopen_dragonBones_BoundingBoxType(lua_State *L)
 {
     oluacls_class(L, "db.BoundingBoxType", nullptr);
-    oluacls_const_integer(L, "Rectangle", (lua_Integer)dragonBones::BoundingBoxType::Rectangle);
     oluacls_const_integer(L, "Ellipse", (lua_Integer)dragonBones::BoundingBoxType::Ellipse);
     oluacls_const_integer(L, "Polygon", (lua_Integer)dragonBones::BoundingBoxType::Polygon);
+    oluacls_const_integer(L, "Rectangle", (lua_Integer)dragonBones::BoundingBoxType::Rectangle);
 
     olua_registerluatype<dragonBones::BoundingBoxType>(L, "db.BoundingBoxType");
     oluacls_asenum(L);
@@ -206,8 +206,8 @@ static int luaopen_dragonBones_BoundingBoxType(lua_State *L)
 static int luaopen_dragonBones_ActionType(lua_State *L)
 {
     oluacls_class(L, "db.ActionType", nullptr);
-    oluacls_const_integer(L, "Play", (lua_Integer)dragonBones::ActionType::Play);
     oluacls_const_integer(L, "Frame", (lua_Integer)dragonBones::ActionType::Frame);
+    oluacls_const_integer(L, "Play", (lua_Integer)dragonBones::ActionType::Play);
     oluacls_const_integer(L, "Sound", (lua_Integer)dragonBones::ActionType::Sound);
 
     olua_registerluatype<dragonBones::ActionType>(L, "db.ActionType");
@@ -220,7 +220,6 @@ static int luaopen_dragonBones_ActionType(lua_State *L)
 static int luaopen_dragonBones_BlendMode(lua_State *L)
 {
     oluacls_class(L, "db.BlendMode", nullptr);
-    oluacls_const_integer(L, "Normal", (lua_Integer)dragonBones::BlendMode::Normal);
     oluacls_const_integer(L, "Add", (lua_Integer)dragonBones::BlendMode::Add);
     oluacls_const_integer(L, "Alpha", (lua_Integer)dragonBones::BlendMode::Alpha);
     oluacls_const_integer(L, "Darken", (lua_Integer)dragonBones::BlendMode::Darken);
@@ -231,6 +230,7 @@ static int luaopen_dragonBones_BlendMode(lua_State *L)
     oluacls_const_integer(L, "Layer", (lua_Integer)dragonBones::BlendMode::Layer);
     oluacls_const_integer(L, "Lighten", (lua_Integer)dragonBones::BlendMode::Lighten);
     oluacls_const_integer(L, "Multiply", (lua_Integer)dragonBones::BlendMode::Multiply);
+    oluacls_const_integer(L, "Normal", (lua_Integer)dragonBones::BlendMode::Normal);
     oluacls_const_integer(L, "Overlay", (lua_Integer)dragonBones::BlendMode::Overlay);
     oluacls_const_integer(L, "Screen", (lua_Integer)dragonBones::BlendMode::Screen);
     oluacls_const_integer(L, "Subtract", (lua_Integer)dragonBones::BlendMode::Subtract);
@@ -245,12 +245,12 @@ static int luaopen_dragonBones_BlendMode(lua_State *L)
 static int luaopen_dragonBones_TweenType(lua_State *L)
 {
     oluacls_class(L, "db.TweenType", nullptr);
-    oluacls_const_integer(L, "None", (lua_Integer)dragonBones::TweenType::None);
-    oluacls_const_integer(L, "Line", (lua_Integer)dragonBones::TweenType::Line);
     oluacls_const_integer(L, "Curve", (lua_Integer)dragonBones::TweenType::Curve);
+    oluacls_const_integer(L, "Line", (lua_Integer)dragonBones::TweenType::Line);
+    oluacls_const_integer(L, "None", (lua_Integer)dragonBones::TweenType::None);
     oluacls_const_integer(L, "QuadIn", (lua_Integer)dragonBones::TweenType::QuadIn);
-    oluacls_const_integer(L, "QuadOut", (lua_Integer)dragonBones::TweenType::QuadOut);
     oluacls_const_integer(L, "QuadInOut", (lua_Integer)dragonBones::TweenType::QuadInOut);
+    oluacls_const_integer(L, "QuadOut", (lua_Integer)dragonBones::TweenType::QuadOut);
 
     olua_registerluatype<dragonBones::TweenType>(L, "db.TweenType");
     oluacls_asenum(L);
@@ -263,17 +263,17 @@ static int luaopen_dragonBones_TimelineType(lua_State *L)
 {
     oluacls_class(L, "db.TimelineType", nullptr);
     oluacls_const_integer(L, "Action", (lua_Integer)dragonBones::TimelineType::Action);
-    oluacls_const_integer(L, "ZOrder", (lua_Integer)dragonBones::TimelineType::ZOrder);
-    oluacls_const_integer(L, "BoneAll", (lua_Integer)dragonBones::TimelineType::BoneAll);
-    oluacls_const_integer(L, "BoneTranslate", (lua_Integer)dragonBones::TimelineType::BoneTranslate);
-    oluacls_const_integer(L, "BoneRotate", (lua_Integer)dragonBones::TimelineType::BoneRotate);
-    oluacls_const_integer(L, "BoneScale", (lua_Integer)dragonBones::TimelineType::BoneScale);
-    oluacls_const_integer(L, "SlotDisplay", (lua_Integer)dragonBones::TimelineType::SlotDisplay);
-    oluacls_const_integer(L, "SlotColor", (lua_Integer)dragonBones::TimelineType::SlotColor);
-    oluacls_const_integer(L, "SlotDeform", (lua_Integer)dragonBones::TimelineType::SlotDeform);
-    oluacls_const_integer(L, "IKConstraint", (lua_Integer)dragonBones::TimelineType::IKConstraint);
     oluacls_const_integer(L, "AnimationTime", (lua_Integer)dragonBones::TimelineType::AnimationTime);
     oluacls_const_integer(L, "AnimationWeight", (lua_Integer)dragonBones::TimelineType::AnimationWeight);
+    oluacls_const_integer(L, "BoneAll", (lua_Integer)dragonBones::TimelineType::BoneAll);
+    oluacls_const_integer(L, "BoneRotate", (lua_Integer)dragonBones::TimelineType::BoneRotate);
+    oluacls_const_integer(L, "BoneScale", (lua_Integer)dragonBones::TimelineType::BoneScale);
+    oluacls_const_integer(L, "BoneTranslate", (lua_Integer)dragonBones::TimelineType::BoneTranslate);
+    oluacls_const_integer(L, "IKConstraint", (lua_Integer)dragonBones::TimelineType::IKConstraint);
+    oluacls_const_integer(L, "SlotColor", (lua_Integer)dragonBones::TimelineType::SlotColor);
+    oluacls_const_integer(L, "SlotDeform", (lua_Integer)dragonBones::TimelineType::SlotDeform);
+    oluacls_const_integer(L, "SlotDisplay", (lua_Integer)dragonBones::TimelineType::SlotDisplay);
+    oluacls_const_integer(L, "ZOrder", (lua_Integer)dragonBones::TimelineType::ZOrder);
 
     olua_registerluatype<dragonBones::TimelineType>(L, "db.TimelineType");
     oluacls_asenum(L);
@@ -285,11 +285,11 @@ static int luaopen_dragonBones_TimelineType(lua_State *L)
 static int luaopen_dragonBones_AnimationFadeOutMode(lua_State *L)
 {
     oluacls_class(L, "db.AnimationFadeOutMode", nullptr);
-    oluacls_const_integer(L, "None", (lua_Integer)dragonBones::AnimationFadeOutMode::None);
-    oluacls_const_integer(L, "SameLayer", (lua_Integer)dragonBones::AnimationFadeOutMode::SameLayer);
-    oluacls_const_integer(L, "SameGroup", (lua_Integer)dragonBones::AnimationFadeOutMode::SameGroup);
-    oluacls_const_integer(L, "SameLayerAndGroup", (lua_Integer)dragonBones::AnimationFadeOutMode::SameLayerAndGroup);
     oluacls_const_integer(L, "All", (lua_Integer)dragonBones::AnimationFadeOutMode::All);
+    oluacls_const_integer(L, "None", (lua_Integer)dragonBones::AnimationFadeOutMode::None);
+    oluacls_const_integer(L, "SameGroup", (lua_Integer)dragonBones::AnimationFadeOutMode::SameGroup);
+    oluacls_const_integer(L, "SameLayer", (lua_Integer)dragonBones::AnimationFadeOutMode::SameLayer);
+    oluacls_const_integer(L, "SameLayerAndGroup", (lua_Integer)dragonBones::AnimationFadeOutMode::SameLayerAndGroup);
     oluacls_const_integer(L, "Single", (lua_Integer)dragonBones::AnimationFadeOutMode::Single);
 
     olua_registerluatype<dragonBones::AnimationFadeOutMode>(L, "db.AnimationFadeOutMode");
@@ -302,13 +302,13 @@ static int luaopen_dragonBones_AnimationFadeOutMode(lua_State *L)
 static int luaopen_dragonBones_TextureFormat(lua_State *L)
 {
     oluacls_class(L, "db.TextureFormat", nullptr);
-    oluacls_const_integer(L, "DEFAULT", (lua_Integer)dragonBones::TextureFormat::DEFAULT);
-    oluacls_const_integer(L, "RGBA8888", (lua_Integer)dragonBones::TextureFormat::RGBA8888);
     oluacls_const_integer(L, "BGRA8888", (lua_Integer)dragonBones::TextureFormat::BGRA8888);
-    oluacls_const_integer(L, "RGBA4444", (lua_Integer)dragonBones::TextureFormat::RGBA4444);
-    oluacls_const_integer(L, "RGB888", (lua_Integer)dragonBones::TextureFormat::RGB888);
+    oluacls_const_integer(L, "DEFAULT", (lua_Integer)dragonBones::TextureFormat::DEFAULT);
     oluacls_const_integer(L, "RGB565", (lua_Integer)dragonBones::TextureFormat::RGB565);
+    oluacls_const_integer(L, "RGB888", (lua_Integer)dragonBones::TextureFormat::RGB888);
+    oluacls_const_integer(L, "RGBA4444", (lua_Integer)dragonBones::TextureFormat::RGBA4444);
     oluacls_const_integer(L, "RGBA5551", (lua_Integer)dragonBones::TextureFormat::RGBA5551);
+    oluacls_const_integer(L, "RGBA8888", (lua_Integer)dragonBones::TextureFormat::RGBA8888);
 
     olua_registerluatype<dragonBones::TextureFormat>(L, "db.TextureFormat");
     oluacls_asenum(L);
@@ -577,6 +577,267 @@ static int _dragonBones_EventObject_new(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _dragonBones_EventObject_get_COMPLETE(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static const char *COMPLETE
+    const char *ret = (const char *)dragonBones::EventObject::COMPLETE;
+    int num_ret = olua_push_string(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _dragonBones_EventObject_set_COMPLETE(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *arg1 = nullptr;       /** COMPLETE */
+
+    olua_check_string(L, 1, &arg1);
+
+    // static const char *COMPLETE
+    dragonBones::EventObject::COMPLETE = arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _dragonBones_EventObject_get_FADE_IN(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static const char *FADE_IN
+    const char *ret = (const char *)dragonBones::EventObject::FADE_IN;
+    int num_ret = olua_push_string(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _dragonBones_EventObject_set_FADE_IN(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *arg1 = nullptr;       /** FADE_IN */
+
+    olua_check_string(L, 1, &arg1);
+
+    // static const char *FADE_IN
+    dragonBones::EventObject::FADE_IN = arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _dragonBones_EventObject_get_FADE_IN_COMPLETE(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static const char *FADE_IN_COMPLETE
+    const char *ret = (const char *)dragonBones::EventObject::FADE_IN_COMPLETE;
+    int num_ret = olua_push_string(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _dragonBones_EventObject_set_FADE_IN_COMPLETE(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *arg1 = nullptr;       /** FADE_IN_COMPLETE */
+
+    olua_check_string(L, 1, &arg1);
+
+    // static const char *FADE_IN_COMPLETE
+    dragonBones::EventObject::FADE_IN_COMPLETE = arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _dragonBones_EventObject_get_FADE_OUT(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static const char *FADE_OUT
+    const char *ret = (const char *)dragonBones::EventObject::FADE_OUT;
+    int num_ret = olua_push_string(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _dragonBones_EventObject_set_FADE_OUT(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *arg1 = nullptr;       /** FADE_OUT */
+
+    olua_check_string(L, 1, &arg1);
+
+    // static const char *FADE_OUT
+    dragonBones::EventObject::FADE_OUT = arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _dragonBones_EventObject_get_FADE_OUT_COMPLETE(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static const char *FADE_OUT_COMPLETE
+    const char *ret = (const char *)dragonBones::EventObject::FADE_OUT_COMPLETE;
+    int num_ret = olua_push_string(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _dragonBones_EventObject_set_FADE_OUT_COMPLETE(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *arg1 = nullptr;       /** FADE_OUT_COMPLETE */
+
+    olua_check_string(L, 1, &arg1);
+
+    // static const char *FADE_OUT_COMPLETE
+    dragonBones::EventObject::FADE_OUT_COMPLETE = arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _dragonBones_EventObject_get_FRAME_EVENT(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static const char *FRAME_EVENT
+    const char *ret = (const char *)dragonBones::EventObject::FRAME_EVENT;
+    int num_ret = olua_push_string(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _dragonBones_EventObject_set_FRAME_EVENT(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *arg1 = nullptr;       /** FRAME_EVENT */
+
+    olua_check_string(L, 1, &arg1);
+
+    // static const char *FRAME_EVENT
+    dragonBones::EventObject::FRAME_EVENT = arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _dragonBones_EventObject_get_LOOP_COMPLETE(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static const char *LOOP_COMPLETE
+    const char *ret = (const char *)dragonBones::EventObject::LOOP_COMPLETE;
+    int num_ret = olua_push_string(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _dragonBones_EventObject_set_LOOP_COMPLETE(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *arg1 = nullptr;       /** LOOP_COMPLETE */
+
+    olua_check_string(L, 1, &arg1);
+
+    // static const char *LOOP_COMPLETE
+    dragonBones::EventObject::LOOP_COMPLETE = arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _dragonBones_EventObject_get_SOUND_EVENT(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static const char *SOUND_EVENT
+    const char *ret = (const char *)dragonBones::EventObject::SOUND_EVENT;
+    int num_ret = olua_push_string(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _dragonBones_EventObject_set_SOUND_EVENT(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *arg1 = nullptr;       /** SOUND_EVENT */
+
+    olua_check_string(L, 1, &arg1);
+
+    // static const char *SOUND_EVENT
+    dragonBones::EventObject::SOUND_EVENT = arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _dragonBones_EventObject_get_START(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static const char *START
+    const char *ret = (const char *)dragonBones::EventObject::START;
+    int num_ret = olua_push_string(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _dragonBones_EventObject_set_START(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    const char *arg1 = nullptr;       /** START */
+
+    olua_check_string(L, 1, &arg1);
+
+    // static const char *START
+    dragonBones::EventObject::START = arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
 }
 
 static int _dragonBones_EventObject_get_actionData(lua_State *L)
@@ -912,6 +1173,15 @@ static int luaopen_dragonBones_EventObject(lua_State *L)
     oluacls_prop(L, "data", _dragonBones_EventObject_getData, nullptr);
     oluacls_prop(L, "slot", _dragonBones_EventObject_getSlot, nullptr);
     oluacls_prop(L, "typeIndex", _dragonBones_EventObject_getTypeIndex, nullptr);
+    oluacls_prop(L, "COMPLETE", _dragonBones_EventObject_get_COMPLETE, _dragonBones_EventObject_set_COMPLETE);
+    oluacls_prop(L, "FADE_IN", _dragonBones_EventObject_get_FADE_IN, _dragonBones_EventObject_set_FADE_IN);
+    oluacls_prop(L, "FADE_IN_COMPLETE", _dragonBones_EventObject_get_FADE_IN_COMPLETE, _dragonBones_EventObject_set_FADE_IN_COMPLETE);
+    oluacls_prop(L, "FADE_OUT", _dragonBones_EventObject_get_FADE_OUT, _dragonBones_EventObject_set_FADE_OUT);
+    oluacls_prop(L, "FADE_OUT_COMPLETE", _dragonBones_EventObject_get_FADE_OUT_COMPLETE, _dragonBones_EventObject_set_FADE_OUT_COMPLETE);
+    oluacls_prop(L, "FRAME_EVENT", _dragonBones_EventObject_get_FRAME_EVENT, _dragonBones_EventObject_set_FRAME_EVENT);
+    oluacls_prop(L, "LOOP_COMPLETE", _dragonBones_EventObject_get_LOOP_COMPLETE, _dragonBones_EventObject_set_LOOP_COMPLETE);
+    oluacls_prop(L, "SOUND_EVENT", _dragonBones_EventObject_get_SOUND_EVENT, _dragonBones_EventObject_set_SOUND_EVENT);
+    oluacls_prop(L, "START", _dragonBones_EventObject_get_START, _dragonBones_EventObject_set_START);
     oluacls_prop(L, "actionData", _dragonBones_EventObject_get_actionData, _dragonBones_EventObject_set_actionData);
     oluacls_prop(L, "animationState", _dragonBones_EventObject_get_animationState, _dragonBones_EventObject_set_animationState);
     oluacls_prop(L, "armature", _dragonBones_EventObject_get_armature, _dragonBones_EventObject_set_armature);

@@ -103,10 +103,10 @@ static int luaopen_xgame_Permission(lua_State *L)
 static int luaopen_xgame_PermissionStatus(lua_State *L)
 {
     oluacls_class(L, "kernel.PermissionStatus", nullptr);
+    oluacls_const_integer(L, "AUTHORIZED", (lua_Integer)xgame::PermissionStatus::AUTHORIZED);
+    oluacls_const_integer(L, "DENIED", (lua_Integer)xgame::PermissionStatus::DENIED);
     oluacls_const_integer(L, "NOT_DETERMINED", (lua_Integer)xgame::PermissionStatus::NOT_DETERMINED);
     oluacls_const_integer(L, "RESTRICTED", (lua_Integer)xgame::PermissionStatus::RESTRICTED);
-    oluacls_const_integer(L, "DENIED", (lua_Integer)xgame::PermissionStatus::DENIED);
-    oluacls_const_integer(L, "AUTHORIZED", (lua_Integer)xgame::PermissionStatus::AUTHORIZED);
 
     olua_registerluatype<xgame::PermissionStatus>(L, "kernel.PermissionStatus");
     oluacls_asenum(L);

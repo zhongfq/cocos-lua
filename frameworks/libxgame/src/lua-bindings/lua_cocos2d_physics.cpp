@@ -2327,6 +2327,7 @@ static int luaopen_cocos2d_PhysicsBody(lua_State *L)
     oluacls_prop(L, "velocity", _cocos2d_PhysicsBody_getVelocity, _cocos2d_PhysicsBody_setVelocity);
     oluacls_prop(L, "velocityLimit", _cocos2d_PhysicsBody_getVelocityLimit, _cocos2d_PhysicsBody_setVelocityLimit);
     oluacls_prop(L, "world", _cocos2d_PhysicsBody_getWorld, nullptr);
+    oluacls_const_string(L, "COMPONENT_NAME", cocos2d::PhysicsBody::COMPONENT_NAME.c_str());
 
     olua_registerluatype<cocos2d::PhysicsBody>(L, "cc.PhysicsBody");
     oluacls_createclassproxy(L);
@@ -2337,10 +2338,10 @@ static int luaopen_cocos2d_PhysicsBody(lua_State *L)
 static int luaopen_cocos2d_PhysicsContact_EventCode(lua_State *L)
 {
     oluacls_class(L, "cc.PhysicsContact.EventCode", nullptr);
-    oluacls_const_integer(L, "NONE", (lua_Integer)cocos2d::PhysicsContact::EventCode::NONE);
     oluacls_const_integer(L, "BEGIN", (lua_Integer)cocos2d::PhysicsContact::EventCode::BEGIN);
-    oluacls_const_integer(L, "PRESOLVE", (lua_Integer)cocos2d::PhysicsContact::EventCode::PRESOLVE);
+    oluacls_const_integer(L, "NONE", (lua_Integer)cocos2d::PhysicsContact::EventCode::NONE);
     oluacls_const_integer(L, "POSTSOLVE", (lua_Integer)cocos2d::PhysicsContact::EventCode::POSTSOLVE);
+    oluacls_const_integer(L, "PRESOLVE", (lua_Integer)cocos2d::PhysicsContact::EventCode::PRESOLVE);
     oluacls_const_integer(L, "SEPARATE", (lua_Integer)cocos2d::PhysicsContact::EventCode::SEPARATE);
 
     olua_registerluatype<cocos2d::PhysicsContact::EventCode>(L, "cc.PhysicsContact.EventCode");
@@ -4518,16 +4519,16 @@ static int luaopen_cocos2d_PhysicsJointSpring(lua_State *L)
 static int luaopen_cocos2d_PhysicsShape_Type(lua_State *L)
 {
     oluacls_class(L, "cc.PhysicsShape.Type", nullptr);
-    oluacls_const_integer(L, "UNKNOWN", (lua_Integer)cocos2d::PhysicsShape::Type::UNKNOWN);
-    oluacls_const_integer(L, "CIRCLE", (lua_Integer)cocos2d::PhysicsShape::Type::CIRCLE);
     oluacls_const_integer(L, "BOX", (lua_Integer)cocos2d::PhysicsShape::Type::BOX);
-    oluacls_const_integer(L, "POLYGON", (lua_Integer)cocos2d::PhysicsShape::Type::POLYGON);
-    oluacls_const_integer(L, "EDGESEGMENT", (lua_Integer)cocos2d::PhysicsShape::Type::EDGESEGMENT);
+    oluacls_const_integer(L, "CIRCLE", (lua_Integer)cocos2d::PhysicsShape::Type::CIRCLE);
     oluacls_const_integer(L, "EDGEBOX", (lua_Integer)cocos2d::PhysicsShape::Type::EDGEBOX);
-    oluacls_const_integer(L, "EDGEPOLYGON", (lua_Integer)cocos2d::PhysicsShape::Type::EDGEPOLYGON);
     oluacls_const_integer(L, "EDGECHAIN", (lua_Integer)cocos2d::PhysicsShape::Type::EDGECHAIN);
-    oluacls_const_integer(L, "POLYGEN", (lua_Integer)cocos2d::PhysicsShape::Type::POLYGEN);
     oluacls_const_integer(L, "EDGEPOLYGEN", (lua_Integer)cocos2d::PhysicsShape::Type::EDGEPOLYGEN);
+    oluacls_const_integer(L, "EDGEPOLYGON", (lua_Integer)cocos2d::PhysicsShape::Type::EDGEPOLYGON);
+    oluacls_const_integer(L, "EDGESEGMENT", (lua_Integer)cocos2d::PhysicsShape::Type::EDGESEGMENT);
+    oluacls_const_integer(L, "POLYGEN", (lua_Integer)cocos2d::PhysicsShape::Type::POLYGEN);
+    oluacls_const_integer(L, "POLYGON", (lua_Integer)cocos2d::PhysicsShape::Type::POLYGON);
+    oluacls_const_integer(L, "UNKNOWN", (lua_Integer)cocos2d::PhysicsShape::Type::UNKNOWN);
 
     olua_registerluatype<cocos2d::PhysicsShape::Type>(L, "cc.PhysicsShape.Type");
     oluacls_asenum(L);
@@ -6948,6 +6949,11 @@ static int luaopen_cocos2d_PhysicsWorld(lua_State *L)
     oluacls_prop(L, "speed", _cocos2d_PhysicsWorld_getSpeed, _cocos2d_PhysicsWorld_setSpeed);
     oluacls_prop(L, "substeps", _cocos2d_PhysicsWorld_getSubsteps, _cocos2d_PhysicsWorld_setSubsteps);
     oluacls_prop(L, "updateRate", _cocos2d_PhysicsWorld_getUpdateRate, _cocos2d_PhysicsWorld_setUpdateRate);
+    oluacls_const_integer(L, "DEBUGDRAW_ALL", (lua_Integer)cocos2d::PhysicsWorld::DEBUGDRAW_ALL);
+    oluacls_const_integer(L, "DEBUGDRAW_CONTACT", (lua_Integer)cocos2d::PhysicsWorld::DEBUGDRAW_CONTACT);
+    oluacls_const_integer(L, "DEBUGDRAW_JOINT", (lua_Integer)cocos2d::PhysicsWorld::DEBUGDRAW_JOINT);
+    oluacls_const_integer(L, "DEBUGDRAW_NONE", (lua_Integer)cocos2d::PhysicsWorld::DEBUGDRAW_NONE);
+    oluacls_const_integer(L, "DEBUGDRAW_SHAPE", (lua_Integer)cocos2d::PhysicsWorld::DEBUGDRAW_SHAPE);
 
     olua_registerluatype<cocos2d::PhysicsWorld>(L, "cc.PhysicsWorld");
     oluacls_createclassproxy(L);

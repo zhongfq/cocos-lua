@@ -16,10 +16,10 @@
 static int luaopen_cocos2d_ui_Widget_FocusDirection(lua_State *L)
 {
     oluacls_class(L, "ccui.Widget.FocusDirection", nullptr);
+    oluacls_const_integer(L, "DOWN", (lua_Integer)cocos2d::ui::Widget::FocusDirection::DOWN);
     oluacls_const_integer(L, "LEFT", (lua_Integer)cocos2d::ui::Widget::FocusDirection::LEFT);
     oluacls_const_integer(L, "RIGHT", (lua_Integer)cocos2d::ui::Widget::FocusDirection::RIGHT);
     oluacls_const_integer(L, "UP", (lua_Integer)cocos2d::ui::Widget::FocusDirection::UP);
-    oluacls_const_integer(L, "DOWN", (lua_Integer)cocos2d::ui::Widget::FocusDirection::DOWN);
 
     olua_registerluatype<cocos2d::ui::Widget::FocusDirection>(L, "ccui.Widget.FocusDirection");
     oluacls_asenum(L);
@@ -58,9 +58,9 @@ static int luaopen_cocos2d_ui_Widget_TouchEventType(lua_State *L)
 {
     oluacls_class(L, "ccui.Widget.TouchEventType", nullptr);
     oluacls_const_integer(L, "BEGAN", (lua_Integer)cocos2d::ui::Widget::TouchEventType::BEGAN);
-    oluacls_const_integer(L, "MOVED", (lua_Integer)cocos2d::ui::Widget::TouchEventType::MOVED);
-    oluacls_const_integer(L, "ENDED", (lua_Integer)cocos2d::ui::Widget::TouchEventType::ENDED);
     oluacls_const_integer(L, "CANCELED", (lua_Integer)cocos2d::ui::Widget::TouchEventType::CANCELED);
+    oluacls_const_integer(L, "ENDED", (lua_Integer)cocos2d::ui::Widget::TouchEventType::ENDED);
+    oluacls_const_integer(L, "MOVED", (lua_Integer)cocos2d::ui::Widget::TouchEventType::MOVED);
 
     olua_registerluatype<cocos2d::ui::Widget::TouchEventType>(L, "ccui.Widget.TouchEventType");
     oluacls_asenum(L);
@@ -85,9 +85,9 @@ static int luaopen_cocos2d_ui_Widget_TextureResType(lua_State *L)
 static int luaopen_cocos2d_ui_Widget_BrightStyle(lua_State *L)
 {
     oluacls_class(L, "ccui.Widget.BrightStyle", nullptr);
+    oluacls_const_integer(L, "HIGHLIGHT", (lua_Integer)cocos2d::ui::Widget::BrightStyle::HIGHLIGHT);
     oluacls_const_integer(L, "NONE", (lua_Integer)cocos2d::ui::Widget::BrightStyle::NONE);
     oluacls_const_integer(L, "NORMAL", (lua_Integer)cocos2d::ui::Widget::BrightStyle::NORMAL);
-    oluacls_const_integer(L, "HIGHLIGHT", (lua_Integer)cocos2d::ui::Widget::BrightStyle::HIGHLIGHT);
 
     olua_registerluatype<cocos2d::ui::Widget::BrightStyle>(L, "ccui.Widget.BrightStyle");
     oluacls_asenum(L);
@@ -1946,8 +1946,8 @@ static int luaopen_cocos2d_ui_Helper(lua_State *L)
 static int luaopen_cocos2d_ui_Scale9Sprite_State(lua_State *L)
 {
     oluacls_class(L, "ccui.Scale9Sprite.State", nullptr);
-    oluacls_const_integer(L, "NORMAL", (lua_Integer)cocos2d::ui::Scale9Sprite::State::NORMAL);
     oluacls_const_integer(L, "GRAY", (lua_Integer)cocos2d::ui::Scale9Sprite::State::GRAY);
+    oluacls_const_integer(L, "NORMAL", (lua_Integer)cocos2d::ui::Scale9Sprite::State::NORMAL);
 
     olua_registerluatype<cocos2d::ui::Scale9Sprite::State>(L, "ccui.Scale9Sprite.State");
     oluacls_asenum(L);
@@ -2986,10 +2986,10 @@ static int luaopen_cocos2d_ui_Scale9Sprite(lua_State *L)
 static int luaopen_cocos2d_ui_LayoutComponent_HorizontalEdge(lua_State *L)
 {
     oluacls_class(L, "ccui.LayoutComponent.HorizontalEdge", nullptr);
-    oluacls_const_integer(L, "None", (lua_Integer)cocos2d::ui::LayoutComponent::HorizontalEdge::None);
-    oluacls_const_integer(L, "Left", (lua_Integer)cocos2d::ui::LayoutComponent::HorizontalEdge::Left);
-    oluacls_const_integer(L, "Right", (lua_Integer)cocos2d::ui::LayoutComponent::HorizontalEdge::Right);
     oluacls_const_integer(L, "Center", (lua_Integer)cocos2d::ui::LayoutComponent::HorizontalEdge::Center);
+    oluacls_const_integer(L, "Left", (lua_Integer)cocos2d::ui::LayoutComponent::HorizontalEdge::Left);
+    oluacls_const_integer(L, "None", (lua_Integer)cocos2d::ui::LayoutComponent::HorizontalEdge::None);
+    oluacls_const_integer(L, "Right", (lua_Integer)cocos2d::ui::LayoutComponent::HorizontalEdge::Right);
 
     olua_registerluatype<cocos2d::ui::LayoutComponent::HorizontalEdge>(L, "ccui.LayoutComponent.HorizontalEdge");
     oluacls_asenum(L);
@@ -3001,10 +3001,10 @@ static int luaopen_cocos2d_ui_LayoutComponent_HorizontalEdge(lua_State *L)
 static int luaopen_cocos2d_ui_LayoutComponent_VerticalEdge(lua_State *L)
 {
     oluacls_class(L, "ccui.LayoutComponent.VerticalEdge", nullptr);
-    oluacls_const_integer(L, "None", (lua_Integer)cocos2d::ui::LayoutComponent::VerticalEdge::None);
     oluacls_const_integer(L, "Bottom", (lua_Integer)cocos2d::ui::LayoutComponent::VerticalEdge::Bottom);
-    oluacls_const_integer(L, "Top", (lua_Integer)cocos2d::ui::LayoutComponent::VerticalEdge::Top);
     oluacls_const_integer(L, "Center", (lua_Integer)cocos2d::ui::LayoutComponent::VerticalEdge::Center);
+    oluacls_const_integer(L, "None", (lua_Integer)cocos2d::ui::LayoutComponent::VerticalEdge::None);
+    oluacls_const_integer(L, "Top", (lua_Integer)cocos2d::ui::LayoutComponent::VerticalEdge::Top);
 
     olua_registerluatype<cocos2d::ui::LayoutComponent::VerticalEdge>(L, "ccui.LayoutComponent.VerticalEdge");
     oluacls_asenum(L);
@@ -4002,8 +4002,8 @@ static int luaopen_cocos2d_ui_LayoutComponent(lua_State *L)
 static int luaopen_cocos2d_ui_LayoutParameter_Type(lua_State *L)
 {
     oluacls_class(L, "ccui.LayoutParameter.Type", nullptr);
-    oluacls_const_integer(L, "NONE", (lua_Integer)cocos2d::ui::LayoutParameter::Type::NONE);
     oluacls_const_integer(L, "LINEAR", (lua_Integer)cocos2d::ui::LayoutParameter::Type::LINEAR);
+    oluacls_const_integer(L, "NONE", (lua_Integer)cocos2d::ui::LayoutParameter::Type::NONE);
     oluacls_const_integer(L, "RELATIVE", (lua_Integer)cocos2d::ui::LayoutParameter::Type::RELATIVE);
 
     olua_registerluatype<cocos2d::ui::LayoutParameter::Type>(L, "ccui.LayoutParameter.Type");
@@ -4167,13 +4167,13 @@ static int luaopen_cocos2d_ui_LayoutParameter(lua_State *L)
 static int luaopen_cocos2d_ui_LinearLayoutParameter_LinearGravity(lua_State *L)
 {
     oluacls_class(L, "ccui.LinearLayoutParameter.LinearGravity", nullptr);
-    oluacls_const_integer(L, "NONE", (lua_Integer)cocos2d::ui::LinearLayoutParameter::LinearGravity::NONE);
-    oluacls_const_integer(L, "LEFT", (lua_Integer)cocos2d::ui::LinearLayoutParameter::LinearGravity::LEFT);
-    oluacls_const_integer(L, "TOP", (lua_Integer)cocos2d::ui::LinearLayoutParameter::LinearGravity::TOP);
-    oluacls_const_integer(L, "RIGHT", (lua_Integer)cocos2d::ui::LinearLayoutParameter::LinearGravity::RIGHT);
     oluacls_const_integer(L, "BOTTOM", (lua_Integer)cocos2d::ui::LinearLayoutParameter::LinearGravity::BOTTOM);
-    oluacls_const_integer(L, "CENTER_VERTICAL", (lua_Integer)cocos2d::ui::LinearLayoutParameter::LinearGravity::CENTER_VERTICAL);
     oluacls_const_integer(L, "CENTER_HORIZONTAL", (lua_Integer)cocos2d::ui::LinearLayoutParameter::LinearGravity::CENTER_HORIZONTAL);
+    oluacls_const_integer(L, "CENTER_VERTICAL", (lua_Integer)cocos2d::ui::LinearLayoutParameter::LinearGravity::CENTER_VERTICAL);
+    oluacls_const_integer(L, "LEFT", (lua_Integer)cocos2d::ui::LinearLayoutParameter::LinearGravity::LEFT);
+    oluacls_const_integer(L, "NONE", (lua_Integer)cocos2d::ui::LinearLayoutParameter::LinearGravity::NONE);
+    oluacls_const_integer(L, "RIGHT", (lua_Integer)cocos2d::ui::LinearLayoutParameter::LinearGravity::RIGHT);
+    oluacls_const_integer(L, "TOP", (lua_Integer)cocos2d::ui::LinearLayoutParameter::LinearGravity::TOP);
 
     olua_registerluatype<cocos2d::ui::LinearLayoutParameter::LinearGravity>(L, "ccui.LinearLayoutParameter.LinearGravity");
     oluacls_asenum(L);
@@ -4262,28 +4262,28 @@ static int luaopen_cocos2d_ui_LinearLayoutParameter(lua_State *L)
 static int luaopen_cocos2d_ui_RelativeLayoutParameter_RelativeAlign(lua_State *L)
 {
     oluacls_class(L, "ccui.RelativeLayoutParameter.RelativeAlign", nullptr);
-    oluacls_const_integer(L, "NONE", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::NONE);
-    oluacls_const_integer(L, "PARENT_TOP_LEFT", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_TOP_LEFT);
-    oluacls_const_integer(L, "PARENT_TOP_CENTER_HORIZONTAL", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_TOP_CENTER_HORIZONTAL);
-    oluacls_const_integer(L, "PARENT_TOP_RIGHT", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_TOP_RIGHT);
-    oluacls_const_integer(L, "PARENT_LEFT_CENTER_VERTICAL", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_LEFT_CENTER_VERTICAL);
     oluacls_const_integer(L, "CENTER_IN_PARENT", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::CENTER_IN_PARENT);
-    oluacls_const_integer(L, "PARENT_RIGHT_CENTER_VERTICAL", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_RIGHT_CENTER_VERTICAL);
-    oluacls_const_integer(L, "PARENT_LEFT_BOTTOM", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_LEFT_BOTTOM);
-    oluacls_const_integer(L, "PARENT_BOTTOM_CENTER_HORIZONTAL", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_BOTTOM_CENTER_HORIZONTAL);
-    oluacls_const_integer(L, "PARENT_RIGHT_BOTTOM", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_RIGHT_BOTTOM);
-    oluacls_const_integer(L, "LOCATION_ABOVE_LEFTALIGN", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_ABOVE_LEFTALIGN);
     oluacls_const_integer(L, "LOCATION_ABOVE_CENTER", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_ABOVE_CENTER);
+    oluacls_const_integer(L, "LOCATION_ABOVE_LEFTALIGN", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_ABOVE_LEFTALIGN);
     oluacls_const_integer(L, "LOCATION_ABOVE_RIGHTALIGN", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_ABOVE_RIGHTALIGN);
-    oluacls_const_integer(L, "LOCATION_LEFT_OF_TOPALIGN", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_LEFT_OF_TOPALIGN);
-    oluacls_const_integer(L, "LOCATION_LEFT_OF_CENTER", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_LEFT_OF_CENTER);
-    oluacls_const_integer(L, "LOCATION_LEFT_OF_BOTTOMALIGN", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_LEFT_OF_BOTTOMALIGN);
-    oluacls_const_integer(L, "LOCATION_RIGHT_OF_TOPALIGN", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_RIGHT_OF_TOPALIGN);
-    oluacls_const_integer(L, "LOCATION_RIGHT_OF_CENTER", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_RIGHT_OF_CENTER);
-    oluacls_const_integer(L, "LOCATION_RIGHT_OF_BOTTOMALIGN", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_RIGHT_OF_BOTTOMALIGN);
-    oluacls_const_integer(L, "LOCATION_BELOW_LEFTALIGN", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_BELOW_LEFTALIGN);
     oluacls_const_integer(L, "LOCATION_BELOW_CENTER", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_BELOW_CENTER);
+    oluacls_const_integer(L, "LOCATION_BELOW_LEFTALIGN", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_BELOW_LEFTALIGN);
     oluacls_const_integer(L, "LOCATION_BELOW_RIGHTALIGN", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_BELOW_RIGHTALIGN);
+    oluacls_const_integer(L, "LOCATION_LEFT_OF_BOTTOMALIGN", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_LEFT_OF_BOTTOMALIGN);
+    oluacls_const_integer(L, "LOCATION_LEFT_OF_CENTER", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_LEFT_OF_CENTER);
+    oluacls_const_integer(L, "LOCATION_LEFT_OF_TOPALIGN", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_LEFT_OF_TOPALIGN);
+    oluacls_const_integer(L, "LOCATION_RIGHT_OF_BOTTOMALIGN", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_RIGHT_OF_BOTTOMALIGN);
+    oluacls_const_integer(L, "LOCATION_RIGHT_OF_CENTER", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_RIGHT_OF_CENTER);
+    oluacls_const_integer(L, "LOCATION_RIGHT_OF_TOPALIGN", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::LOCATION_RIGHT_OF_TOPALIGN);
+    oluacls_const_integer(L, "NONE", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::NONE);
+    oluacls_const_integer(L, "PARENT_BOTTOM_CENTER_HORIZONTAL", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_BOTTOM_CENTER_HORIZONTAL);
+    oluacls_const_integer(L, "PARENT_LEFT_BOTTOM", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_LEFT_BOTTOM);
+    oluacls_const_integer(L, "PARENT_LEFT_CENTER_VERTICAL", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_LEFT_CENTER_VERTICAL);
+    oluacls_const_integer(L, "PARENT_RIGHT_BOTTOM", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_RIGHT_BOTTOM);
+    oluacls_const_integer(L, "PARENT_RIGHT_CENTER_VERTICAL", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_RIGHT_CENTER_VERTICAL);
+    oluacls_const_integer(L, "PARENT_TOP_CENTER_HORIZONTAL", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_TOP_CENTER_HORIZONTAL);
+    oluacls_const_integer(L, "PARENT_TOP_LEFT", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_TOP_LEFT);
+    oluacls_const_integer(L, "PARENT_TOP_RIGHT", (lua_Integer)cocos2d::ui::RelativeLayoutParameter::RelativeAlign::PARENT_TOP_RIGHT);
 
     olua_registerluatype<cocos2d::ui::RelativeLayoutParameter::RelativeAlign>(L, "ccui.RelativeLayoutParameter.RelativeAlign");
     oluacls_asenum(L);
@@ -4449,9 +4449,9 @@ static int luaopen_cocos2d_ui_Layout_Type(lua_State *L)
 {
     oluacls_class(L, "ccui.Layout.Type", nullptr);
     oluacls_const_integer(L, "ABSOLUTE", (lua_Integer)cocos2d::ui::Layout::Type::ABSOLUTE);
-    oluacls_const_integer(L, "VERTICAL", (lua_Integer)cocos2d::ui::Layout::Type::VERTICAL);
     oluacls_const_integer(L, "HORIZONTAL", (lua_Integer)cocos2d::ui::Layout::Type::HORIZONTAL);
     oluacls_const_integer(L, "RELATIVE", (lua_Integer)cocos2d::ui::Layout::Type::RELATIVE);
+    oluacls_const_integer(L, "VERTICAL", (lua_Integer)cocos2d::ui::Layout::Type::VERTICAL);
 
     olua_registerluatype<cocos2d::ui::Layout::Type>(L, "ccui.Layout.Type");
     oluacls_asenum(L);
@@ -4463,8 +4463,8 @@ static int luaopen_cocos2d_ui_Layout_Type(lua_State *L)
 static int luaopen_cocos2d_ui_Layout_ClippingType(lua_State *L)
 {
     oluacls_class(L, "ccui.Layout.ClippingType", nullptr);
-    oluacls_const_integer(L, "STENCIL", (lua_Integer)cocos2d::ui::Layout::ClippingType::STENCIL);
     oluacls_const_integer(L, "SCISSOR", (lua_Integer)cocos2d::ui::Layout::ClippingType::SCISSOR);
+    oluacls_const_integer(L, "STENCIL", (lua_Integer)cocos2d::ui::Layout::ClippingType::STENCIL);
 
     olua_registerluatype<cocos2d::ui::Layout::ClippingType>(L, "ccui.Layout.ClippingType");
     oluacls_asenum(L);
@@ -4476,9 +4476,9 @@ static int luaopen_cocos2d_ui_Layout_ClippingType(lua_State *L)
 static int luaopen_cocos2d_ui_Layout_BackGroundColorType(lua_State *L)
 {
     oluacls_class(L, "ccui.Layout.BackGroundColorType", nullptr);
+    oluacls_const_integer(L, "GRADIENT", (lua_Integer)cocos2d::ui::Layout::BackGroundColorType::GRADIENT);
     oluacls_const_integer(L, "NONE", (lua_Integer)cocos2d::ui::Layout::BackGroundColorType::NONE);
     oluacls_const_integer(L, "SOLID", (lua_Integer)cocos2d::ui::Layout::BackGroundColorType::SOLID);
-    oluacls_const_integer(L, "GRADIENT", (lua_Integer)cocos2d::ui::Layout::BackGroundColorType::GRADIENT);
 
     olua_registerluatype<cocos2d::ui::Layout::BackGroundColorType>(L, "ccui.Layout.BackGroundColorType");
     oluacls_asenum(L);
@@ -6335,11 +6335,11 @@ static int luaopen_cocos2d_experimental_ui_WebView(lua_State *L)
 static int luaopen_cocos2d_experimental_ui_VideoPlayer_EventType(lua_State *L)
 {
     oluacls_class(L, "ccui.VideoPlayer.EventType", nullptr);
-    oluacls_const_integer(L, "PLAYING", (lua_Integer)cocos2d::experimental::ui::VideoPlayer::EventType::PLAYING);
-    oluacls_const_integer(L, "PAUSED", (lua_Integer)cocos2d::experimental::ui::VideoPlayer::EventType::PAUSED);
-    oluacls_const_integer(L, "STOPPED", (lua_Integer)cocos2d::experimental::ui::VideoPlayer::EventType::STOPPED);
     oluacls_const_integer(L, "COMPLETED", (lua_Integer)cocos2d::experimental::ui::VideoPlayer::EventType::COMPLETED);
     oluacls_const_integer(L, "ERROR", (lua_Integer)cocos2d::experimental::ui::VideoPlayer::EventType::ERROR);
+    oluacls_const_integer(L, "PAUSED", (lua_Integer)cocos2d::experimental::ui::VideoPlayer::EventType::PAUSED);
+    oluacls_const_integer(L, "PLAYING", (lua_Integer)cocos2d::experimental::ui::VideoPlayer::EventType::PLAYING);
+    oluacls_const_integer(L, "STOPPED", (lua_Integer)cocos2d::experimental::ui::VideoPlayer::EventType::STOPPED);
 
     olua_registerluatype<cocos2d::experimental::ui::VideoPlayer::EventType>(L, "ccui.VideoPlayer.EventType");
     oluacls_asenum(L);
@@ -7901,10 +7901,10 @@ static int luaopen_cocos2d_ui_TabHeader(lua_State *L)
 static int luaopen_cocos2d_ui_TabControl_Dock(lua_State *L)
 {
     oluacls_class(L, "ccui.TabControl.Dock", nullptr);
-    oluacls_const_integer(L, "TOP", (lua_Integer)cocos2d::ui::TabControl::Dock::TOP);
-    oluacls_const_integer(L, "LEFT", (lua_Integer)cocos2d::ui::TabControl::Dock::LEFT);
     oluacls_const_integer(L, "BOTTOM", (lua_Integer)cocos2d::ui::TabControl::Dock::BOTTOM);
+    oluacls_const_integer(L, "LEFT", (lua_Integer)cocos2d::ui::TabControl::Dock::LEFT);
     oluacls_const_integer(L, "RIGHT", (lua_Integer)cocos2d::ui::TabControl::Dock::RIGHT);
+    oluacls_const_integer(L, "TOP", (lua_Integer)cocos2d::ui::TabControl::Dock::TOP);
 
     olua_registerluatype<cocos2d::ui::TabControl::Dock>(L, "ccui.TabControl.Dock");
     oluacls_asenum(L);
@@ -8397,10 +8397,10 @@ static int luaopen_cocos2d_ui_TabControl(lua_State *L)
 static int luaopen_cocos2d_ui_ScrollView_Direction(lua_State *L)
 {
     oluacls_class(L, "ccui.ScrollView.Direction", nullptr);
+    oluacls_const_integer(L, "BOTH", (lua_Integer)cocos2d::ui::ScrollView::Direction::BOTH);
+    oluacls_const_integer(L, "HORIZONTAL", (lua_Integer)cocos2d::ui::ScrollView::Direction::HORIZONTAL);
     oluacls_const_integer(L, "NONE", (lua_Integer)cocos2d::ui::ScrollView::Direction::NONE);
     oluacls_const_integer(L, "VERTICAL", (lua_Integer)cocos2d::ui::ScrollView::Direction::VERTICAL);
-    oluacls_const_integer(L, "HORIZONTAL", (lua_Integer)cocos2d::ui::ScrollView::Direction::HORIZONTAL);
-    oluacls_const_integer(L, "BOTH", (lua_Integer)cocos2d::ui::ScrollView::Direction::BOTH);
 
     olua_registerluatype<cocos2d::ui::ScrollView::Direction>(L, "ccui.ScrollView.Direction");
     oluacls_asenum(L);
@@ -8412,19 +8412,19 @@ static int luaopen_cocos2d_ui_ScrollView_Direction(lua_State *L)
 static int luaopen_cocos2d_ui_ScrollView_EventType(lua_State *L)
 {
     oluacls_class(L, "ccui.ScrollView.EventType", nullptr);
-    oluacls_const_integer(L, "SCROLL_TO_TOP", (lua_Integer)cocos2d::ui::ScrollView::EventType::SCROLL_TO_TOP);
-    oluacls_const_integer(L, "SCROLL_TO_BOTTOM", (lua_Integer)cocos2d::ui::ScrollView::EventType::SCROLL_TO_BOTTOM);
-    oluacls_const_integer(L, "SCROLL_TO_LEFT", (lua_Integer)cocos2d::ui::ScrollView::EventType::SCROLL_TO_LEFT);
-    oluacls_const_integer(L, "SCROLL_TO_RIGHT", (lua_Integer)cocos2d::ui::ScrollView::EventType::SCROLL_TO_RIGHT);
-    oluacls_const_integer(L, "SCROLLING", (lua_Integer)cocos2d::ui::ScrollView::EventType::SCROLLING);
-    oluacls_const_integer(L, "BOUNCE_TOP", (lua_Integer)cocos2d::ui::ScrollView::EventType::BOUNCE_TOP);
+    oluacls_const_integer(L, "AUTOSCROLL_ENDED", (lua_Integer)cocos2d::ui::ScrollView::EventType::AUTOSCROLL_ENDED);
     oluacls_const_integer(L, "BOUNCE_BOTTOM", (lua_Integer)cocos2d::ui::ScrollView::EventType::BOUNCE_BOTTOM);
     oluacls_const_integer(L, "BOUNCE_LEFT", (lua_Integer)cocos2d::ui::ScrollView::EventType::BOUNCE_LEFT);
     oluacls_const_integer(L, "BOUNCE_RIGHT", (lua_Integer)cocos2d::ui::ScrollView::EventType::BOUNCE_RIGHT);
+    oluacls_const_integer(L, "BOUNCE_TOP", (lua_Integer)cocos2d::ui::ScrollView::EventType::BOUNCE_TOP);
     oluacls_const_integer(L, "CONTAINER_MOVED", (lua_Integer)cocos2d::ui::ScrollView::EventType::CONTAINER_MOVED);
+    oluacls_const_integer(L, "SCROLLING", (lua_Integer)cocos2d::ui::ScrollView::EventType::SCROLLING);
     oluacls_const_integer(L, "SCROLLING_BEGAN", (lua_Integer)cocos2d::ui::ScrollView::EventType::SCROLLING_BEGAN);
     oluacls_const_integer(L, "SCROLLING_ENDED", (lua_Integer)cocos2d::ui::ScrollView::EventType::SCROLLING_ENDED);
-    oluacls_const_integer(L, "AUTOSCROLL_ENDED", (lua_Integer)cocos2d::ui::ScrollView::EventType::AUTOSCROLL_ENDED);
+    oluacls_const_integer(L, "SCROLL_TO_BOTTOM", (lua_Integer)cocos2d::ui::ScrollView::EventType::SCROLL_TO_BOTTOM);
+    oluacls_const_integer(L, "SCROLL_TO_LEFT", (lua_Integer)cocos2d::ui::ScrollView::EventType::SCROLL_TO_LEFT);
+    oluacls_const_integer(L, "SCROLL_TO_RIGHT", (lua_Integer)cocos2d::ui::ScrollView::EventType::SCROLL_TO_RIGHT);
+    oluacls_const_integer(L, "SCROLL_TO_TOP", (lua_Integer)cocos2d::ui::ScrollView::EventType::SCROLL_TO_TOP);
 
     olua_registerluatype<cocos2d::ui::ScrollView::EventType>(L, "ccui.ScrollView.EventType");
     oluacls_asenum(L);
@@ -9668,12 +9668,12 @@ static int luaopen_cocos2d_ui_ScrollView(lua_State *L)
 static int luaopen_cocos2d_ui_ListView_Gravity(lua_State *L)
 {
     oluacls_class(L, "ccui.ListView.Gravity", nullptr);
+    oluacls_const_integer(L, "BOTTOM", (lua_Integer)cocos2d::ui::ListView::Gravity::BOTTOM);
+    oluacls_const_integer(L, "CENTER_HORIZONTAL", (lua_Integer)cocos2d::ui::ListView::Gravity::CENTER_HORIZONTAL);
+    oluacls_const_integer(L, "CENTER_VERTICAL", (lua_Integer)cocos2d::ui::ListView::Gravity::CENTER_VERTICAL);
     oluacls_const_integer(L, "LEFT", (lua_Integer)cocos2d::ui::ListView::Gravity::LEFT);
     oluacls_const_integer(L, "RIGHT", (lua_Integer)cocos2d::ui::ListView::Gravity::RIGHT);
-    oluacls_const_integer(L, "CENTER_HORIZONTAL", (lua_Integer)cocos2d::ui::ListView::Gravity::CENTER_HORIZONTAL);
     oluacls_const_integer(L, "TOP", (lua_Integer)cocos2d::ui::ListView::Gravity::TOP);
-    oluacls_const_integer(L, "BOTTOM", (lua_Integer)cocos2d::ui::ListView::Gravity::BOTTOM);
-    oluacls_const_integer(L, "CENTER_VERTICAL", (lua_Integer)cocos2d::ui::ListView::Gravity::CENTER_VERTICAL);
 
     olua_registerluatype<cocos2d::ui::ListView::Gravity>(L, "ccui.ListView.Gravity");
     oluacls_asenum(L);
@@ -9685,8 +9685,8 @@ static int luaopen_cocos2d_ui_ListView_Gravity(lua_State *L)
 static int luaopen_cocos2d_ui_ListView_EventType(lua_State *L)
 {
     oluacls_class(L, "ccui.ListView.EventType", nullptr);
-    oluacls_const_integer(L, "ON_SELECTED_ITEM_START", (lua_Integer)cocos2d::ui::ListView::EventType::ON_SELECTED_ITEM_START);
     oluacls_const_integer(L, "ON_SELECTED_ITEM_END", (lua_Integer)cocos2d::ui::ListView::EventType::ON_SELECTED_ITEM_END);
+    oluacls_const_integer(L, "ON_SELECTED_ITEM_START", (lua_Integer)cocos2d::ui::ListView::EventType::ON_SELECTED_ITEM_START);
 
     olua_registerluatype<cocos2d::ui::ListView::EventType>(L, "ccui.ListView.EventType");
     oluacls_asenum(L);
@@ -9698,13 +9698,13 @@ static int luaopen_cocos2d_ui_ListView_EventType(lua_State *L)
 static int luaopen_cocos2d_ui_ListView_MagneticType(lua_State *L)
 {
     oluacls_class(L, "ccui.ListView.MagneticType", nullptr);
-    oluacls_const_integer(L, "NONE", (lua_Integer)cocos2d::ui::ListView::MagneticType::NONE);
-    oluacls_const_integer(L, "CENTER", (lua_Integer)cocos2d::ui::ListView::MagneticType::CENTER);
     oluacls_const_integer(L, "BOTH_END", (lua_Integer)cocos2d::ui::ListView::MagneticType::BOTH_END);
+    oluacls_const_integer(L, "BOTTOM", (lua_Integer)cocos2d::ui::ListView::MagneticType::BOTTOM);
+    oluacls_const_integer(L, "CENTER", (lua_Integer)cocos2d::ui::ListView::MagneticType::CENTER);
     oluacls_const_integer(L, "LEFT", (lua_Integer)cocos2d::ui::ListView::MagneticType::LEFT);
+    oluacls_const_integer(L, "NONE", (lua_Integer)cocos2d::ui::ListView::MagneticType::NONE);
     oluacls_const_integer(L, "RIGHT", (lua_Integer)cocos2d::ui::ListView::MagneticType::RIGHT);
     oluacls_const_integer(L, "TOP", (lua_Integer)cocos2d::ui::ListView::MagneticType::TOP);
-    oluacls_const_integer(L, "BOTTOM", (lua_Integer)cocos2d::ui::ListView::MagneticType::BOTTOM);
 
     olua_registerluatype<cocos2d::ui::ListView::MagneticType>(L, "ccui.ListView.MagneticType");
     oluacls_asenum(L);
@@ -11075,10 +11075,10 @@ static int luaopen_cocos2d_ui_PageView_EventType(lua_State *L)
 static int luaopen_cocos2d_ui_PageView_TouchDirection(lua_State *L)
 {
     oluacls_class(L, "ccui.PageView.TouchDirection", nullptr);
+    oluacls_const_integer(L, "DOWN", (lua_Integer)cocos2d::ui::PageView::TouchDirection::DOWN);
     oluacls_const_integer(L, "LEFT", (lua_Integer)cocos2d::ui::PageView::TouchDirection::LEFT);
     oluacls_const_integer(L, "RIGHT", (lua_Integer)cocos2d::ui::PageView::TouchDirection::RIGHT);
     oluacls_const_integer(L, "UP", (lua_Integer)cocos2d::ui::PageView::TouchDirection::UP);
-    oluacls_const_integer(L, "DOWN", (lua_Integer)cocos2d::ui::PageView::TouchDirection::DOWN);
 
     olua_registerluatype<cocos2d::ui::PageView::TouchDirection>(L, "ccui.PageView.TouchDirection");
     oluacls_asenum(L);
@@ -11865,10 +11865,10 @@ static int luaopen_cocos2d_ui_PageView(lua_State *L)
 static int luaopen_cocos2d_ui_RichElement_Type(lua_State *L)
 {
     oluacls_class(L, "ccui.RichElement.Type", nullptr);
-    oluacls_const_integer(L, "TEXT", (lua_Integer)cocos2d::ui::RichElement::Type::TEXT);
-    oluacls_const_integer(L, "IMAGE", (lua_Integer)cocos2d::ui::RichElement::Type::IMAGE);
     oluacls_const_integer(L, "CUSTOM", (lua_Integer)cocos2d::ui::RichElement::Type::CUSTOM);
+    oluacls_const_integer(L, "IMAGE", (lua_Integer)cocos2d::ui::RichElement::Type::IMAGE);
     oluacls_const_integer(L, "NEWLINE", (lua_Integer)cocos2d::ui::RichElement::Type::NEWLINE);
+    oluacls_const_integer(L, "TEXT", (lua_Integer)cocos2d::ui::RichElement::Type::TEXT);
 
     olua_registerluatype<cocos2d::ui::RichElement::Type>(L, "ccui.RichElement.Type");
     oluacls_asenum(L);
@@ -13113,8 +13113,8 @@ static int luaopen_cocos2d_ui_RichElementNewLine(lua_State *L)
 static int luaopen_cocos2d_ui_RichText_WrapMode(lua_State *L)
 {
     oluacls_class(L, "ccui.RichText.WrapMode", nullptr);
-    oluacls_const_integer(L, "WRAP_PER_WORD", (lua_Integer)cocos2d::ui::RichText::WrapMode::WRAP_PER_WORD);
     oluacls_const_integer(L, "WRAP_PER_CHAR", (lua_Integer)cocos2d::ui::RichText::WrapMode::WRAP_PER_CHAR);
+    oluacls_const_integer(L, "WRAP_PER_WORD", (lua_Integer)cocos2d::ui::RichText::WrapMode::WRAP_PER_WORD);
 
     olua_registerluatype<cocos2d::ui::RichText::WrapMode>(L, "ccui.RichText.WrapMode");
     oluacls_asenum(L);
@@ -13126,8 +13126,8 @@ static int luaopen_cocos2d_ui_RichText_WrapMode(lua_State *L)
 static int luaopen_cocos2d_ui_RichText_HorizontalAlignment(lua_State *L)
 {
     oluacls_class(L, "ccui.RichText.HorizontalAlignment", nullptr);
-    oluacls_const_integer(L, "LEFT", (lua_Integer)cocos2d::ui::RichText::HorizontalAlignment::LEFT);
     oluacls_const_integer(L, "CENTER", (lua_Integer)cocos2d::ui::RichText::HorizontalAlignment::CENTER);
+    oluacls_const_integer(L, "LEFT", (lua_Integer)cocos2d::ui::RichText::HorizontalAlignment::LEFT);
     oluacls_const_integer(L, "RIGHT", (lua_Integer)cocos2d::ui::RichText::HorizontalAlignment::RIGHT);
 
     olua_registerluatype<cocos2d::ui::RichText::HorizontalAlignment>(L, "ccui.RichText.HorizontalAlignment");
@@ -13185,22 +13185,29 @@ static int _cocos2d_ui_RichText_createWithXML1(lua_State *L)
     olua_push_cppobj<cocos2d::ui::RichText>(L, self);
     olua_postnew(L, ret);
 
-    void *callback_store_obj = (void *)self;
-    std::string tag = "OpenUrlHandler";
-    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_TAG_REPLACE);
-    lua_State *MT = olua_mainthread();
-    arg3 = [callback_store_obj, func, MT](const std::string &arg1) {
-        lua_State *L = olua_mainthread();
+    if (olua_is_std_function(L, 3)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = "OpenUrlHandler";
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 3, OLUA_TAG_REPLACE);
+        lua_State *MT = olua_mainthread();
+        arg3 = [callback_store_obj, func, MT](const std::string &arg1) {
+            lua_State *L = olua_mainthread();
 
-        if (MT == L) {
-            int top = lua_gettop(L);
-            olua_push_std_string(L, arg1);
+            if (MT == L) {
+                int top = lua_gettop(L);
+                olua_push_std_string(L, arg1);
 
-            olua_callback(L, callback_store_obj, func.c_str(), 1);
+                olua_callback(L, callback_store_obj, func.c_str(), 1);
 
-            lua_settop(L, top);
-        }
-    };
+                lua_settop(L, top);
+            }
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = "OpenUrlHandler";
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+        arg3 = nullptr;
+    }
 
     // static cocos2d::ui::RichText *createWithXML(const std::string &xml, @optional const cocos2d::ValueMap &defaults, @local @optional const std::function<void (const std::string &)> &handleOpenUrl)
     self->initWithXML(arg1, arg2, arg3);
@@ -14441,6 +14448,45 @@ static int luaopen_cocos2d_ui_RichText(lua_State *L)
     oluacls_prop(L, "fontSize", _cocos2d_ui_RichText_getFontSize, _cocos2d_ui_RichText_setFontSize);
     oluacls_prop(L, "horizontalAlignment", _cocos2d_ui_RichText_getHorizontalAlignment, _cocos2d_ui_RichText_setHorizontalAlignment);
     oluacls_prop(L, "wrapMode", _cocos2d_ui_RichText_getWrapMode, _cocos2d_ui_RichText_setWrapMode);
+    oluacls_const_string(L, "KEY_ANCHOR_FONT_COLOR_STRING", cocos2d::ui::RichText::KEY_ANCHOR_FONT_COLOR_STRING.c_str());
+    oluacls_const_string(L, "KEY_ANCHOR_TEXT_BOLD", cocos2d::ui::RichText::KEY_ANCHOR_TEXT_BOLD.c_str());
+    oluacls_const_string(L, "KEY_ANCHOR_TEXT_GLOW_COLOR", cocos2d::ui::RichText::KEY_ANCHOR_TEXT_GLOW_COLOR.c_str());
+    oluacls_const_string(L, "KEY_ANCHOR_TEXT_ITALIC", cocos2d::ui::RichText::KEY_ANCHOR_TEXT_ITALIC.c_str());
+    oluacls_const_string(L, "KEY_ANCHOR_TEXT_LINE", cocos2d::ui::RichText::KEY_ANCHOR_TEXT_LINE.c_str());
+    oluacls_const_string(L, "KEY_ANCHOR_TEXT_OUTLINE_COLOR", cocos2d::ui::RichText::KEY_ANCHOR_TEXT_OUTLINE_COLOR.c_str());
+    oluacls_const_string(L, "KEY_ANCHOR_TEXT_OUTLINE_SIZE", cocos2d::ui::RichText::KEY_ANCHOR_TEXT_OUTLINE_SIZE.c_str());
+    oluacls_const_string(L, "KEY_ANCHOR_TEXT_SHADOW_BLUR_RADIUS", cocos2d::ui::RichText::KEY_ANCHOR_TEXT_SHADOW_BLUR_RADIUS.c_str());
+    oluacls_const_string(L, "KEY_ANCHOR_TEXT_SHADOW_COLOR", cocos2d::ui::RichText::KEY_ANCHOR_TEXT_SHADOW_COLOR.c_str());
+    oluacls_const_string(L, "KEY_ANCHOR_TEXT_SHADOW_OFFSET_HEIGHT", cocos2d::ui::RichText::KEY_ANCHOR_TEXT_SHADOW_OFFSET_HEIGHT.c_str());
+    oluacls_const_string(L, "KEY_ANCHOR_TEXT_SHADOW_OFFSET_WIDTH", cocos2d::ui::RichText::KEY_ANCHOR_TEXT_SHADOW_OFFSET_WIDTH.c_str());
+    oluacls_const_string(L, "KEY_ANCHOR_TEXT_STYLE", cocos2d::ui::RichText::KEY_ANCHOR_TEXT_STYLE.c_str());
+    oluacls_const_string(L, "KEY_FONT_BIG", cocos2d::ui::RichText::KEY_FONT_BIG.c_str());
+    oluacls_const_string(L, "KEY_FONT_COLOR_STRING", cocos2d::ui::RichText::KEY_FONT_COLOR_STRING.c_str());
+    oluacls_const_string(L, "KEY_FONT_FACE", cocos2d::ui::RichText::KEY_FONT_FACE.c_str());
+    oluacls_const_string(L, "KEY_FONT_SIZE", cocos2d::ui::RichText::KEY_FONT_SIZE.c_str());
+    oluacls_const_string(L, "KEY_FONT_SMALL", cocos2d::ui::RichText::KEY_FONT_SMALL.c_str());
+    oluacls_const_string(L, "KEY_HORIZONTAL_ALIGNMENT", cocos2d::ui::RichText::KEY_HORIZONTAL_ALIGNMENT.c_str());
+    oluacls_const_string(L, "KEY_TEXT_BOLD", cocos2d::ui::RichText::KEY_TEXT_BOLD.c_str());
+    oluacls_const_string(L, "KEY_TEXT_GLOW_COLOR", cocos2d::ui::RichText::KEY_TEXT_GLOW_COLOR.c_str());
+    oluacls_const_string(L, "KEY_TEXT_ITALIC", cocos2d::ui::RichText::KEY_TEXT_ITALIC.c_str());
+    oluacls_const_string(L, "KEY_TEXT_LINE", cocos2d::ui::RichText::KEY_TEXT_LINE.c_str());
+    oluacls_const_string(L, "KEY_TEXT_OUTLINE_COLOR", cocos2d::ui::RichText::KEY_TEXT_OUTLINE_COLOR.c_str());
+    oluacls_const_string(L, "KEY_TEXT_OUTLINE_SIZE", cocos2d::ui::RichText::KEY_TEXT_OUTLINE_SIZE.c_str());
+    oluacls_const_string(L, "KEY_TEXT_SHADOW_BLUR_RADIUS", cocos2d::ui::RichText::KEY_TEXT_SHADOW_BLUR_RADIUS.c_str());
+    oluacls_const_string(L, "KEY_TEXT_SHADOW_COLOR", cocos2d::ui::RichText::KEY_TEXT_SHADOW_COLOR.c_str());
+    oluacls_const_string(L, "KEY_TEXT_SHADOW_OFFSET_HEIGHT", cocos2d::ui::RichText::KEY_TEXT_SHADOW_OFFSET_HEIGHT.c_str());
+    oluacls_const_string(L, "KEY_TEXT_SHADOW_OFFSET_WIDTH", cocos2d::ui::RichText::KEY_TEXT_SHADOW_OFFSET_WIDTH.c_str());
+    oluacls_const_string(L, "KEY_TEXT_STYLE", cocos2d::ui::RichText::KEY_TEXT_STYLE.c_str());
+    oluacls_const_string(L, "KEY_URL", cocos2d::ui::RichText::KEY_URL.c_str());
+    oluacls_const_string(L, "KEY_VERTICAL_SPACE", cocos2d::ui::RichText::KEY_VERTICAL_SPACE.c_str());
+    oluacls_const_string(L, "KEY_WRAP_MODE", cocos2d::ui::RichText::KEY_WRAP_MODE.c_str());
+    oluacls_const_string(L, "VALUE_TEXT_LINE_DEL", cocos2d::ui::RichText::VALUE_TEXT_LINE_DEL.c_str());
+    oluacls_const_string(L, "VALUE_TEXT_LINE_NONE", cocos2d::ui::RichText::VALUE_TEXT_LINE_NONE.c_str());
+    oluacls_const_string(L, "VALUE_TEXT_LINE_UNDER", cocos2d::ui::RichText::VALUE_TEXT_LINE_UNDER.c_str());
+    oluacls_const_string(L, "VALUE_TEXT_STYLE_GLOW", cocos2d::ui::RichText::VALUE_TEXT_STYLE_GLOW.c_str());
+    oluacls_const_string(L, "VALUE_TEXT_STYLE_NONE", cocos2d::ui::RichText::VALUE_TEXT_STYLE_NONE.c_str());
+    oluacls_const_string(L, "VALUE_TEXT_STYLE_OUTLINE", cocos2d::ui::RichText::VALUE_TEXT_STYLE_OUTLINE.c_str());
+    oluacls_const_string(L, "VALUE_TEXT_STYLE_SHADOW", cocos2d::ui::RichText::VALUE_TEXT_STYLE_SHADOW.c_str());
 
     olua_registerluatype<cocos2d::ui::RichText>(L, "ccui.RichText");
     oluacls_createclassproxy(L);
@@ -14708,9 +14754,9 @@ static int luaopen_cocos2d_ui_Slider_EventType(lua_State *L)
 {
     oluacls_class(L, "ccui.Slider.EventType", nullptr);
     oluacls_const_integer(L, "ON_PERCENTAGE_CHANGED", (lua_Integer)cocos2d::ui::Slider::EventType::ON_PERCENTAGE_CHANGED);
+    oluacls_const_integer(L, "ON_SLIDEBALL_CANCEL", (lua_Integer)cocos2d::ui::Slider::EventType::ON_SLIDEBALL_CANCEL);
     oluacls_const_integer(L, "ON_SLIDEBALL_DOWN", (lua_Integer)cocos2d::ui::Slider::EventType::ON_SLIDEBALL_DOWN);
     oluacls_const_integer(L, "ON_SLIDEBALL_UP", (lua_Integer)cocos2d::ui::Slider::EventType::ON_SLIDEBALL_UP);
-    oluacls_const_integer(L, "ON_SLIDEBALL_CANCEL", (lua_Integer)cocos2d::ui::Slider::EventType::ON_SLIDEBALL_CANCEL);
 
     olua_registerluatype<cocos2d::ui::Slider::EventType>(L, "ccui.Slider.EventType");
     oluacls_asenum(L);
@@ -17562,9 +17608,9 @@ static int luaopen_cocos2d_ui_TextField_EventType(lua_State *L)
 {
     oluacls_class(L, "ccui.TextField.EventType", nullptr);
     oluacls_const_integer(L, "ATTACH_WITH_IME", (lua_Integer)cocos2d::ui::TextField::EventType::ATTACH_WITH_IME);
+    oluacls_const_integer(L, "DELETE_BACKWARD", (lua_Integer)cocos2d::ui::TextField::EventType::DELETE_BACKWARD);
     oluacls_const_integer(L, "DETACH_WITH_IME", (lua_Integer)cocos2d::ui::TextField::EventType::DETACH_WITH_IME);
     oluacls_const_integer(L, "INSERT_TEXT", (lua_Integer)cocos2d::ui::TextField::EventType::INSERT_TEXT);
-    oluacls_const_integer(L, "DELETE_BACKWARD", (lua_Integer)cocos2d::ui::TextField::EventType::DELETE_BACKWARD);
 
     olua_registerluatype<cocos2d::ui::TextField::EventType>(L, "ccui.TextField.EventType");
     oluacls_asenum(L);
@@ -21000,10 +21046,10 @@ static int luaopen_cocos2d_ui_ImageView(lua_State *L)
 static int luaopen_cocos2d_ui_EditBoxDelegate_EditBoxEndAction(lua_State *L)
 {
     oluacls_class(L, "ccui.EditBoxDelegate.EditBoxEndAction", nullptr);
-    oluacls_const_integer(L, "UNKNOWN", (lua_Integer)cocos2d::ui::EditBoxDelegate::EditBoxEndAction::UNKNOWN);
+    oluacls_const_integer(L, "RETURN", (lua_Integer)cocos2d::ui::EditBoxDelegate::EditBoxEndAction::RETURN);
     oluacls_const_integer(L, "TAB_TO_NEXT", (lua_Integer)cocos2d::ui::EditBoxDelegate::EditBoxEndAction::TAB_TO_NEXT);
     oluacls_const_integer(L, "TAB_TO_PREVIOUS", (lua_Integer)cocos2d::ui::EditBoxDelegate::EditBoxEndAction::TAB_TO_PREVIOUS);
-    oluacls_const_integer(L, "RETURN", (lua_Integer)cocos2d::ui::EditBoxDelegate::EditBoxEndAction::RETURN);
+    oluacls_const_integer(L, "UNKNOWN", (lua_Integer)cocos2d::ui::EditBoxDelegate::EditBoxEndAction::UNKNOWN);
 
     olua_registerluatype<cocos2d::ui::EditBoxDelegate::EditBoxEndAction>(L, "ccui.EditBoxDelegate.EditBoxEndAction");
     oluacls_asenum(L);
@@ -21421,10 +21467,10 @@ static int luaopen_cocos2d_ui_EditBox_KeyboardReturnType(lua_State *L)
     oluacls_class(L, "ccui.EditBox.KeyboardReturnType", nullptr);
     oluacls_const_integer(L, "DEFAULT", (lua_Integer)cocos2d::ui::EditBox::KeyboardReturnType::DEFAULT);
     oluacls_const_integer(L, "DONE", (lua_Integer)cocos2d::ui::EditBox::KeyboardReturnType::DONE);
-    oluacls_const_integer(L, "SEND", (lua_Integer)cocos2d::ui::EditBox::KeyboardReturnType::SEND);
-    oluacls_const_integer(L, "SEARCH", (lua_Integer)cocos2d::ui::EditBox::KeyboardReturnType::SEARCH);
     oluacls_const_integer(L, "GO", (lua_Integer)cocos2d::ui::EditBox::KeyboardReturnType::GO);
     oluacls_const_integer(L, "NEXT", (lua_Integer)cocos2d::ui::EditBox::KeyboardReturnType::NEXT);
+    oluacls_const_integer(L, "SEARCH", (lua_Integer)cocos2d::ui::EditBox::KeyboardReturnType::SEARCH);
+    oluacls_const_integer(L, "SEND", (lua_Integer)cocos2d::ui::EditBox::KeyboardReturnType::SEND);
 
     olua_registerluatype<cocos2d::ui::EditBox::KeyboardReturnType>(L, "ccui.EditBox.KeyboardReturnType");
     oluacls_asenum(L);
@@ -21437,12 +21483,12 @@ static int luaopen_cocos2d_ui_EditBox_InputMode(lua_State *L)
 {
     oluacls_class(L, "ccui.EditBox.InputMode", nullptr);
     oluacls_const_integer(L, "ANY", (lua_Integer)cocos2d::ui::EditBox::InputMode::ANY);
+    oluacls_const_integer(L, "DECIMAL", (lua_Integer)cocos2d::ui::EditBox::InputMode::DECIMAL);
     oluacls_const_integer(L, "EMAIL_ADDRESS", (lua_Integer)cocos2d::ui::EditBox::InputMode::EMAIL_ADDRESS);
     oluacls_const_integer(L, "NUMERIC", (lua_Integer)cocos2d::ui::EditBox::InputMode::NUMERIC);
     oluacls_const_integer(L, "PHONE_NUMBER", (lua_Integer)cocos2d::ui::EditBox::InputMode::PHONE_NUMBER);
-    oluacls_const_integer(L, "URL", (lua_Integer)cocos2d::ui::EditBox::InputMode::URL);
-    oluacls_const_integer(L, "DECIMAL", (lua_Integer)cocos2d::ui::EditBox::InputMode::DECIMAL);
     oluacls_const_integer(L, "SINGLE_LINE", (lua_Integer)cocos2d::ui::EditBox::InputMode::SINGLE_LINE);
+    oluacls_const_integer(L, "URL", (lua_Integer)cocos2d::ui::EditBox::InputMode::URL);
 
     olua_registerluatype<cocos2d::ui::EditBox::InputMode>(L, "ccui.EditBox.InputMode");
     oluacls_asenum(L);
@@ -21454,12 +21500,12 @@ static int luaopen_cocos2d_ui_EditBox_InputMode(lua_State *L)
 static int luaopen_cocos2d_ui_EditBox_InputFlag(lua_State *L)
 {
     oluacls_class(L, "ccui.EditBox.InputFlag", nullptr);
+    oluacls_const_integer(L, "INITIAL_CAPS_ALL_CHARACTERS", (lua_Integer)cocos2d::ui::EditBox::InputFlag::INITIAL_CAPS_ALL_CHARACTERS);
+    oluacls_const_integer(L, "INITIAL_CAPS_SENTENCE", (lua_Integer)cocos2d::ui::EditBox::InputFlag::INITIAL_CAPS_SENTENCE);
+    oluacls_const_integer(L, "INITIAL_CAPS_WORD", (lua_Integer)cocos2d::ui::EditBox::InputFlag::INITIAL_CAPS_WORD);
+    oluacls_const_integer(L, "LOWERCASE_ALL_CHARACTERS", (lua_Integer)cocos2d::ui::EditBox::InputFlag::LOWERCASE_ALL_CHARACTERS);
     oluacls_const_integer(L, "PASSWORD", (lua_Integer)cocos2d::ui::EditBox::InputFlag::PASSWORD);
     oluacls_const_integer(L, "SENSITIVE", (lua_Integer)cocos2d::ui::EditBox::InputFlag::SENSITIVE);
-    oluacls_const_integer(L, "INITIAL_CAPS_WORD", (lua_Integer)cocos2d::ui::EditBox::InputFlag::INITIAL_CAPS_WORD);
-    oluacls_const_integer(L, "INITIAL_CAPS_SENTENCE", (lua_Integer)cocos2d::ui::EditBox::InputFlag::INITIAL_CAPS_SENTENCE);
-    oluacls_const_integer(L, "INITIAL_CAPS_ALL_CHARACTERS", (lua_Integer)cocos2d::ui::EditBox::InputFlag::INITIAL_CAPS_ALL_CHARACTERS);
-    oluacls_const_integer(L, "LOWERCASE_ALL_CHARACTERS", (lua_Integer)cocos2d::ui::EditBox::InputFlag::LOWERCASE_ALL_CHARACTERS);
 
     olua_registerluatype<cocos2d::ui::EditBox::InputFlag>(L, "ccui.EditBox.InputFlag");
     oluacls_asenum(L);

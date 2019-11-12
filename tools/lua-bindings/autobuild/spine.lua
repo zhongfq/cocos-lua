@@ -647,6 +647,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::ColorTimeline'
 cls.SUPERCLS = "spine::CurveTimeline"
+cls.const('ENTRIES', 'spine::ColorTimeline::ENTRIES', 'const int')
 cls.funcs [[
     ColorTimeline(int frameCount)
     int getSlotIndex()
@@ -704,6 +705,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::IkConstraintTimeline'
 cls.SUPERCLS = "spine::CurveTimeline"
+cls.const('ENTRIES', 'spine::IkConstraintTimeline::ENTRIES', 'const int')
 cls.funcs [[
     IkConstraintTimeline(int frameCount)
 ]]
@@ -711,6 +713,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::PathConstraintMixTimeline'
 cls.SUPERCLS = "spine::CurveTimeline"
+cls.const('ENTRIES', 'spine::PathConstraintMixTimeline::ENTRIES', 'const int')
 cls.funcs [[
     PathConstraintMixTimeline(int frameCount)
 ]]
@@ -718,6 +721,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::PathConstraintPositionTimeline'
 cls.SUPERCLS = "spine::CurveTimeline"
+cls.const('ENTRIES', 'spine::PathConstraintPositionTimeline::ENTRIES', 'const int')
 cls.funcs [[
     PathConstraintPositionTimeline(int frameCount)
 ]]
@@ -732,6 +736,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::TranslateTimeline'
 cls.SUPERCLS = "spine::CurveTimeline"
+cls.const('ENTRIES', 'spine::TranslateTimeline::ENTRIES', 'const int')
 cls.funcs [[
     TranslateTimeline(int frameCount)
 ]]
@@ -746,6 +751,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::TransformConstraintTimeline'
 cls.SUPERCLS = "spine::CurveTimeline"
+cls.const('ENTRIES', 'spine::TransformConstraintTimeline::ENTRIES', 'const int')
 cls.funcs [[
     TransformConstraintTimeline(int frameCount)
 ]]
@@ -760,9 +766,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::RotateTimeline'
 cls.SUPERCLS = "spine::CurveTimeline"
-cls.enums [[
-    ENTRIES
-]]
+cls.const('ENTRIES', 'spine::RotateTimeline::ENTRIES', 'const int')
 cls.funcs [[
     RotateTimeline(int frameCount)
     int getBoneIndex()
@@ -777,6 +781,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'spine::TwoColorTimeline'
 cls.SUPERCLS = "spine::CurveTimeline"
+cls.const('ENTRIES', 'spine::TwoColorTimeline::ENTRIES', 'const int')
 cls.funcs [[
     TwoColorTimeline(int frameCount)
     int getSlotIndex()
@@ -1728,7 +1733,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void setPreUpdateWorldTransformsListener(@nullable const std::function<void (SkeletonAnimation *)> &listener)'
+        'void setPreUpdateWorldTransformsListener(@local const std::function<void (SkeletonAnimation *)> &listener)'
     },
     TAG_MAKER = 'PreUpdateWorldTransformsListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -1738,7 +1743,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void setPostUpdateWorldTransformsListener(@nullable const std::function<void (SkeletonAnimation *)> &listener)'
+        'void setPostUpdateWorldTransformsListener(@local const std::function<void (SkeletonAnimation *)> &listener)'
     },
     TAG_MAKER = 'PostUpdateWorldTransformsListener',
     TAG_MODE = 'OLUA_TAG_REPLACE',

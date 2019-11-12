@@ -50,6 +50,7 @@ end
 M.EXCLUDE_TYPE = require "conf.exclude-type"
 M.EXCLUDE_TYPE 'dragonBones::Matrix *'
 M.EXCLUDE_TYPE 'dragonBones::Matrix'
+M.EXCLUDE_TYPE 'dragonBones::WorldClock'
 M.EXCLUDE_TYPE 'dragonBones::Transform *'
 M.EXCLUDE_TYPE 'dragonBones::Transform'
 M.EXCLUDE_TYPE 'dragonBones::Point'

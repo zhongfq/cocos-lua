@@ -95,12 +95,12 @@ template <typename T> int manual_olua_push_spine_Vector(lua_State *L, const spin
 static int luaopen_spine_EventType(lua_State *L)
 {
     oluacls_class(L, "sp.EventType", nullptr);
-    oluacls_const_integer(L, "EventType_Start", (lua_Integer)spine::EventType::EventType_Start);
-    oluacls_const_integer(L, "EventType_Interrupt", (lua_Integer)spine::EventType::EventType_Interrupt);
-    oluacls_const_integer(L, "EventType_End", (lua_Integer)spine::EventType::EventType_End);
     oluacls_const_integer(L, "EventType_Complete", (lua_Integer)spine::EventType::EventType_Complete);
     oluacls_const_integer(L, "EventType_Dispose", (lua_Integer)spine::EventType::EventType_Dispose);
+    oluacls_const_integer(L, "EventType_End", (lua_Integer)spine::EventType::EventType_End);
     oluacls_const_integer(L, "EventType_Event", (lua_Integer)spine::EventType::EventType_Event);
+    oluacls_const_integer(L, "EventType_Interrupt", (lua_Integer)spine::EventType::EventType_Interrupt);
+    oluacls_const_integer(L, "EventType_Start", (lua_Integer)spine::EventType::EventType_Start);
 
     olua_registerluatype<spine::EventType>(L, "sp.EventType");
     oluacls_asenum(L);
@@ -112,13 +112,13 @@ static int luaopen_spine_EventType(lua_State *L)
 static int luaopen_spine_AttachmentType(lua_State *L)
 {
     oluacls_class(L, "sp.AttachmentType", nullptr);
-    oluacls_const_integer(L, "AttachmentType_Region", (lua_Integer)spine::AttachmentType::AttachmentType_Region);
     oluacls_const_integer(L, "AttachmentType_Boundingbox", (lua_Integer)spine::AttachmentType::AttachmentType_Boundingbox);
-    oluacls_const_integer(L, "AttachmentType_Mesh", (lua_Integer)spine::AttachmentType::AttachmentType_Mesh);
+    oluacls_const_integer(L, "AttachmentType_Clipping", (lua_Integer)spine::AttachmentType::AttachmentType_Clipping);
     oluacls_const_integer(L, "AttachmentType_Linkedmesh", (lua_Integer)spine::AttachmentType::AttachmentType_Linkedmesh);
+    oluacls_const_integer(L, "AttachmentType_Mesh", (lua_Integer)spine::AttachmentType::AttachmentType_Mesh);
     oluacls_const_integer(L, "AttachmentType_Path", (lua_Integer)spine::AttachmentType::AttachmentType_Path);
     oluacls_const_integer(L, "AttachmentType_Point", (lua_Integer)spine::AttachmentType::AttachmentType_Point);
-    oluacls_const_integer(L, "AttachmentType_Clipping", (lua_Integer)spine::AttachmentType::AttachmentType_Clipping);
+    oluacls_const_integer(L, "AttachmentType_Region", (lua_Integer)spine::AttachmentType::AttachmentType_Region);
 
     olua_registerluatype<spine::AttachmentType>(L, "sp.AttachmentType");
     oluacls_asenum(L);
@@ -130,11 +130,11 @@ static int luaopen_spine_AttachmentType(lua_State *L)
 static int luaopen_spine_TransformMode(lua_State *L)
 {
     oluacls_class(L, "sp.TransformMode", nullptr);
-    oluacls_const_integer(L, "TransformMode_Normal", (lua_Integer)spine::TransformMode::TransformMode_Normal);
-    oluacls_const_integer(L, "TransformMode_OnlyTranslation", (lua_Integer)spine::TransformMode::TransformMode_OnlyTranslation);
     oluacls_const_integer(L, "TransformMode_NoRotationOrReflection", (lua_Integer)spine::TransformMode::TransformMode_NoRotationOrReflection);
     oluacls_const_integer(L, "TransformMode_NoScale", (lua_Integer)spine::TransformMode::TransformMode_NoScale);
     oluacls_const_integer(L, "TransformMode_NoScaleOrReflection", (lua_Integer)spine::TransformMode::TransformMode_NoScaleOrReflection);
+    oluacls_const_integer(L, "TransformMode_Normal", (lua_Integer)spine::TransformMode::TransformMode_Normal);
+    oluacls_const_integer(L, "TransformMode_OnlyTranslation", (lua_Integer)spine::TransformMode::TransformMode_OnlyTranslation);
 
     olua_registerluatype<spine::TransformMode>(L, "sp.TransformMode");
     oluacls_asenum(L);
@@ -146,9 +146,9 @@ static int luaopen_spine_TransformMode(lua_State *L)
 static int luaopen_spine_BlendMode(lua_State *L)
 {
     oluacls_class(L, "sp.BlendMode", nullptr);
-    oluacls_const_integer(L, "BlendMode_Normal", (lua_Integer)spine::BlendMode::BlendMode_Normal);
     oluacls_const_integer(L, "BlendMode_Additive", (lua_Integer)spine::BlendMode::BlendMode_Additive);
     oluacls_const_integer(L, "BlendMode_Multiply", (lua_Integer)spine::BlendMode::BlendMode_Multiply);
+    oluacls_const_integer(L, "BlendMode_Normal", (lua_Integer)spine::BlendMode::BlendMode_Normal);
     oluacls_const_integer(L, "BlendMode_Screen", (lua_Integer)spine::BlendMode::BlendMode_Screen);
 
     olua_registerluatype<spine::BlendMode>(L, "sp.BlendMode");
@@ -174,8 +174,8 @@ static int luaopen_spine_PositionMode(lua_State *L)
 static int luaopen_spine_SpacingMode(lua_State *L)
 {
     oluacls_class(L, "sp.SpacingMode", nullptr);
-    oluacls_const_integer(L, "SpacingMode_Length", (lua_Integer)spine::SpacingMode::SpacingMode_Length);
     oluacls_const_integer(L, "SpacingMode_Fixed", (lua_Integer)spine::SpacingMode::SpacingMode_Fixed);
+    oluacls_const_integer(L, "SpacingMode_Length", (lua_Integer)spine::SpacingMode::SpacingMode_Length);
     oluacls_const_integer(L, "SpacingMode_Percent", (lua_Integer)spine::SpacingMode::SpacingMode_Percent);
 
     olua_registerluatype<spine::SpacingMode>(L, "sp.SpacingMode");
@@ -188,9 +188,9 @@ static int luaopen_spine_SpacingMode(lua_State *L)
 static int luaopen_spine_RotateMode(lua_State *L)
 {
     oluacls_class(L, "sp.RotateMode", nullptr);
-    oluacls_const_integer(L, "RotateMode_Tangent", (lua_Integer)spine::RotateMode::RotateMode_Tangent);
     oluacls_const_integer(L, "RotateMode_Chain", (lua_Integer)spine::RotateMode::RotateMode_Chain);
     oluacls_const_integer(L, "RotateMode_ChainScale", (lua_Integer)spine::RotateMode::RotateMode_ChainScale);
+    oluacls_const_integer(L, "RotateMode_Tangent", (lua_Integer)spine::RotateMode::RotateMode_Tangent);
 
     olua_registerluatype<spine::RotateMode>(L, "sp.RotateMode");
     oluacls_asenum(L);
@@ -202,10 +202,10 @@ static int luaopen_spine_RotateMode(lua_State *L)
 static int luaopen_spine_MixBlend(lua_State *L)
 {
     oluacls_class(L, "sp.MixBlend", nullptr);
-    oluacls_const_integer(L, "MixBlend_Setup", (lua_Integer)spine::MixBlend::MixBlend_Setup);
+    oluacls_const_integer(L, "MixBlend_Add", (lua_Integer)spine::MixBlend::MixBlend_Add);
     oluacls_const_integer(L, "MixBlend_First", (lua_Integer)spine::MixBlend::MixBlend_First);
     oluacls_const_integer(L, "MixBlend_Replace", (lua_Integer)spine::MixBlend::MixBlend_Replace);
-    oluacls_const_integer(L, "MixBlend_Add", (lua_Integer)spine::MixBlend::MixBlend_Add);
+    oluacls_const_integer(L, "MixBlend_Setup", (lua_Integer)spine::MixBlend::MixBlend_Setup);
 
     olua_registerluatype<spine::MixBlend>(L, "sp.MixBlend");
     oluacls_asenum(L);
@@ -4743,6 +4743,7 @@ static int luaopen_spine_ColorTimeline(lua_State *L)
     oluacls_func(L, "setSlotIndex", _spine_ColorTimeline_setSlotIndex);
     oluacls_prop(L, "frames", _spine_ColorTimeline_getFrames, nullptr);
     oluacls_prop(L, "slotIndex", _spine_ColorTimeline_getSlotIndex, _spine_ColorTimeline_setSlotIndex);
+    oluacls_const_integer(L, "ENTRIES", (lua_Integer)spine::ColorTimeline::ENTRIES);
 
     olua_registerluatype<spine::ColorTimeline>(L, "sp.ColorTimeline");
     oluacls_createclassproxy(L);
@@ -5120,6 +5121,7 @@ static int luaopen_spine_IkConstraintTimeline(lua_State *L)
     oluacls_class(L, "sp.IkConstraintTimeline", "sp.CurveTimeline");
     oluacls_func(L, "__gc", _spine_IkConstraintTimeline___gc);
     oluacls_func(L, "new", _spine_IkConstraintTimeline_new);
+    oluacls_const_integer(L, "ENTRIES", (lua_Integer)spine::IkConstraintTimeline::ENTRIES);
 
     olua_registerluatype<spine::IkConstraintTimeline>(L, "sp.IkConstraintTimeline");
     oluacls_createclassproxy(L);
@@ -5167,6 +5169,7 @@ static int luaopen_spine_PathConstraintMixTimeline(lua_State *L)
     oluacls_class(L, "sp.PathConstraintMixTimeline", "sp.CurveTimeline");
     oluacls_func(L, "__gc", _spine_PathConstraintMixTimeline___gc);
     oluacls_func(L, "new", _spine_PathConstraintMixTimeline_new);
+    oluacls_const_integer(L, "ENTRIES", (lua_Integer)spine::PathConstraintMixTimeline::ENTRIES);
 
     olua_registerluatype<spine::PathConstraintMixTimeline>(L, "sp.PathConstraintMixTimeline");
     oluacls_createclassproxy(L);
@@ -5214,6 +5217,7 @@ static int luaopen_spine_PathConstraintPositionTimeline(lua_State *L)
     oluacls_class(L, "sp.PathConstraintPositionTimeline", "sp.CurveTimeline");
     oluacls_func(L, "__gc", _spine_PathConstraintPositionTimeline___gc);
     oluacls_func(L, "new", _spine_PathConstraintPositionTimeline_new);
+    oluacls_const_integer(L, "ENTRIES", (lua_Integer)spine::PathConstraintPositionTimeline::ENTRIES);
 
     olua_registerluatype<spine::PathConstraintPositionTimeline>(L, "sp.PathConstraintPositionTimeline");
     oluacls_createclassproxy(L);
@@ -5290,6 +5294,7 @@ static int luaopen_spine_TranslateTimeline(lua_State *L)
     oluacls_class(L, "sp.TranslateTimeline", "sp.CurveTimeline");
     oluacls_func(L, "__gc", _spine_TranslateTimeline___gc);
     oluacls_func(L, "new", _spine_TranslateTimeline_new);
+    oluacls_const_integer(L, "ENTRIES", (lua_Integer)spine::TranslateTimeline::ENTRIES);
 
     olua_registerluatype<spine::TranslateTimeline>(L, "sp.TranslateTimeline");
     oluacls_createclassproxy(L);
@@ -5366,6 +5371,7 @@ static int luaopen_spine_TransformConstraintTimeline(lua_State *L)
     oluacls_class(L, "sp.TransformConstraintTimeline", "sp.CurveTimeline");
     oluacls_func(L, "__gc", _spine_TransformConstraintTimeline___gc);
     oluacls_func(L, "new", _spine_TransformConstraintTimeline_new);
+    oluacls_const_integer(L, "ENTRIES", (lua_Integer)spine::TransformConstraintTimeline::ENTRIES);
 
     olua_registerluatype<spine::TransformConstraintTimeline>(L, "sp.TransformConstraintTimeline");
     oluacls_createclassproxy(L);
@@ -5591,6 +5597,7 @@ static int luaopen_spine_TwoColorTimeline(lua_State *L)
     oluacls_func(L, "new", _spine_TwoColorTimeline_new);
     oluacls_func(L, "setSlotIndex", _spine_TwoColorTimeline_setSlotIndex);
     oluacls_prop(L, "slotIndex", _spine_TwoColorTimeline_getSlotIndex, _spine_TwoColorTimeline_setSlotIndex);
+    oluacls_const_integer(L, "ENTRIES", (lua_Integer)spine::TwoColorTimeline::ENTRIES);
 
     olua_registerluatype<spine::TwoColorTimeline>(L, "sp.TwoColorTimeline");
     oluacls_createclassproxy(L);
@@ -14585,31 +14592,29 @@ static int _spine_SkeletonAnimation_setPostUpdateWorldTransformsListener(lua_Sta
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
 
-    if (olua_is_std_function(L, 2)) {
-        void *callback_store_obj = (void *)self;
-        std::string tag = "PostUpdateWorldTransformsListener";
-        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](spine::SkeletonAnimation *arg1) {
-            lua_State *L = olua_mainthread();
+    void *callback_store_obj = (void *)self;
+    std::string tag = "PostUpdateWorldTransformsListener";
+    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
+    lua_State *MT = olua_mainthread();
+    arg1 = [callback_store_obj, func, MT](spine::SkeletonAnimation *arg1) {
+        lua_State *L = olua_mainthread();
 
-            if (MT == L) {
-                int top = lua_gettop(L);
-                olua_push_cppobj(L, arg1, "sp.SkeletonAnimation");
+        if (MT == L) {
+            int top = lua_gettop(L);
+            size_t last = olua_push_objpool(L);
+            olua_enable_objpool(L);
+            olua_push_cppobj(L, arg1, "sp.SkeletonAnimation");
+            olua_disable_objpool(L);
 
-                olua_callback(L, callback_store_obj, func.c_str(), 1);
+            olua_callback(L, callback_store_obj, func.c_str(), 1);
 
-                lua_settop(L, top);
-            }
-        };
-    } else {
-        void *callback_store_obj = (void *)self;
-        std::string tag = "PostUpdateWorldTransformsListener";
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
-        arg1 = nullptr;
-    }
+            //pop stack value
+            olua_pop_objpool(L, last);
+            lua_settop(L, top);
+        }
+    };
 
-    // void setPostUpdateWorldTransformsListener(@nullable const std::function<void (SkeletonAnimation *)> &listener)
+    // void setPostUpdateWorldTransformsListener(@local const std::function<void (SkeletonAnimation *)> &listener)
     self->setPostUpdateWorldTransformsListener(arg1);
 
     olua_endinvoke(L);
@@ -14626,31 +14631,29 @@ static int _spine_SkeletonAnimation_setPreUpdateWorldTransformsListener(lua_Stat
 
     olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonAnimation");
 
-    if (olua_is_std_function(L, 2)) {
-        void *callback_store_obj = (void *)self;
-        std::string tag = "PreUpdateWorldTransformsListener";
-        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](spine::SkeletonAnimation *arg1) {
-            lua_State *L = olua_mainthread();
+    void *callback_store_obj = (void *)self;
+    std::string tag = "PreUpdateWorldTransformsListener";
+    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
+    lua_State *MT = olua_mainthread();
+    arg1 = [callback_store_obj, func, MT](spine::SkeletonAnimation *arg1) {
+        lua_State *L = olua_mainthread();
 
-            if (MT == L) {
-                int top = lua_gettop(L);
-                olua_push_cppobj(L, arg1, "sp.SkeletonAnimation");
+        if (MT == L) {
+            int top = lua_gettop(L);
+            size_t last = olua_push_objpool(L);
+            olua_enable_objpool(L);
+            olua_push_cppobj(L, arg1, "sp.SkeletonAnimation");
+            olua_disable_objpool(L);
 
-                olua_callback(L, callback_store_obj, func.c_str(), 1);
+            olua_callback(L, callback_store_obj, func.c_str(), 1);
 
-                lua_settop(L, top);
-            }
-        };
-    } else {
-        void *callback_store_obj = (void *)self;
-        std::string tag = "PreUpdateWorldTransformsListener";
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
-        arg1 = nullptr;
-    }
+            //pop stack value
+            olua_pop_objpool(L, last);
+            lua_settop(L, top);
+        }
+    };
 
-    // void setPreUpdateWorldTransformsListener(@nullable const std::function<void (SkeletonAnimation *)> &listener)
+    // void setPreUpdateWorldTransformsListener(@local const std::function<void (SkeletonAnimation *)> &listener)
     self->setPreUpdateWorldTransformsListener(arg1);
 
     olua_endinvoke(L);

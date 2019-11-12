@@ -69,6 +69,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::PhysicsBody'
 cls.SUPERCLS = "cocos2d::Component"
+cls.const('COMPONENT_NAME', 'cocos2d::PhysicsBody::COMPONENT_NAME', 'const std::string')
 cls.funcs [[
     static cocos2d::PhysicsBody *create()
     static cocos2d::PhysicsBody *create(float mass)
@@ -592,6 +593,11 @@ cls.var('data', [[void *data]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::PhysicsWorld'
+cls.const('DEBUGDRAW_NONE', 'cocos2d::PhysicsWorld::DEBUGDRAW_NONE', 'const int')
+cls.const('DEBUGDRAW_SHAPE', 'cocos2d::PhysicsWorld::DEBUGDRAW_SHAPE', 'const int')
+cls.const('DEBUGDRAW_JOINT', 'cocos2d::PhysicsWorld::DEBUGDRAW_JOINT', 'const int')
+cls.const('DEBUGDRAW_CONTACT', 'cocos2d::PhysicsWorld::DEBUGDRAW_CONTACT', 'const int')
+cls.const('DEBUGDRAW_ALL', 'cocos2d::PhysicsWorld::DEBUGDRAW_ALL', 'const int')
 cls.funcs [[
     void addJoint(cocos2d::PhysicsJoint *joint)
     void removeJoint(cocos2d::PhysicsJoint *joint, @optional bool destroy)

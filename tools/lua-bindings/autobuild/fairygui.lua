@@ -63,38 +63,36 @@ M.CONVS = {
 M.CLASSES = {}
 
 cls = typecls 'fairygui::UIEventType'
-cls.enums [[
-    Enter
-    Exit
-    Changed
-    Submit
-    TouchBegin
-    TouchMove
-    TouchEnd
-    Click
-    RollOver
-    RollOut
-    MouseWheel
-    RightClick
-    MiddleClick
-    PositionChange
-    SizeChange
-    KeyDown
-    KeyUp
-    Scroll
-    ScrollEnd
-    PullDownRelease
-    PullUpRelease
-    ClickItem
-    ClickLink
-    ClickMenu
-    RightClickItem
-    DragStart
-    DragMove
-    DragEnd
-    Drop
-    GearStop
-]]
+cls.const('Enter', 'fairygui::UIEventType::Enter', 'const int')
+cls.const('Exit', 'fairygui::UIEventType::Exit', 'const int')
+cls.const('Changed', 'fairygui::UIEventType::Changed', 'const int')
+cls.const('Submit', 'fairygui::UIEventType::Submit', 'const int')
+cls.const('TouchBegin', 'fairygui::UIEventType::TouchBegin', 'const int')
+cls.const('TouchMove', 'fairygui::UIEventType::TouchMove', 'const int')
+cls.const('TouchEnd', 'fairygui::UIEventType::TouchEnd', 'const int')
+cls.const('Click', 'fairygui::UIEventType::Click', 'const int')
+cls.const('RollOver', 'fairygui::UIEventType::RollOver', 'const int')
+cls.const('RollOut', 'fairygui::UIEventType::RollOut', 'const int')
+cls.const('MouseWheel', 'fairygui::UIEventType::MouseWheel', 'const int')
+cls.const('RightClick', 'fairygui::UIEventType::RightClick', 'const int')
+cls.const('MiddleClick', 'fairygui::UIEventType::MiddleClick', 'const int')
+cls.const('PositionChange', 'fairygui::UIEventType::PositionChange', 'const int')
+cls.const('SizeChange', 'fairygui::UIEventType::SizeChange', 'const int')
+cls.const('KeyDown', 'fairygui::UIEventType::KeyDown', 'const int')
+cls.const('KeyUp', 'fairygui::UIEventType::KeyUp', 'const int')
+cls.const('Scroll', 'fairygui::UIEventType::Scroll', 'const int')
+cls.const('ScrollEnd', 'fairygui::UIEventType::ScrollEnd', 'const int')
+cls.const('PullDownRelease', 'fairygui::UIEventType::PullDownRelease', 'const int')
+cls.const('PullUpRelease', 'fairygui::UIEventType::PullUpRelease', 'const int')
+cls.const('ClickItem', 'fairygui::UIEventType::ClickItem', 'const int')
+cls.const('ClickLink', 'fairygui::UIEventType::ClickLink', 'const int')
+cls.const('ClickMenu', 'fairygui::UIEventType::ClickMenu', 'const int')
+cls.const('RightClickItem', 'fairygui::UIEventType::RightClickItem', 'const int')
+cls.const('DragStart', 'fairygui::UIEventType::DragStart', 'const int')
+cls.const('DragMove', 'fairygui::UIEventType::DragMove', 'const int')
+cls.const('DragEnd', 'fairygui::UIEventType::DragEnd', 'const int')
+cls.const('Drop', 'fairygui::UIEventType::Drop', 'const int')
+cls.const('GearStop', 'fairygui::UIEventType::GearStop', 'const int')
 cls.funcs [[
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -133,8 +131,8 @@ cls.funcs [[
 ]]
 cls.callback {
     FUNCS =  {
-        'void addEventListener(int eventType, const std::function<void(@local EventContext* context)>& callback)',
-        'void addEventListener(int eventType, const std::function<void(@local EventContext* context)>& callback, const EventTag& tag)'
+        'void addEventListener(int eventType, @local const std::function<void (EventContext *)> &callback)',
+        'void addEventListener(int eventType, @local const std::function<void (EventContext *)> &callback, const fairygui::EventTag &tag)'
     },
     TAG_MAKER = {'makeListenerTag(L, #1, 0)', 'makeListenerTag(L, #1, 4)'},
     TAG_MODE = 'OLUA_TAG_NEW',
@@ -145,7 +143,7 @@ cls.callback {
 cls.callback {
     FUNCS =  {
         'void removeEventListener(int eventType)',
-        'void removeEventListener(int eventType, const EventTag& tag)'
+        'void removeEventListener(int eventType, const fairygui::EventTag &tag)'
     },
     TAG_MAKER = {'makeListenerTag(L, #1, 0)', 'makeListenerTag(L, #1, 3)'},
     TAG_MODE = {'OLUA_TAG_STARTWITH', 'OLUA_TAG_EQUAL'},
@@ -211,9 +209,9 @@ cls.funcs [[
 ]]
 cls.callback {
     FUNCS =  {
-        'void setCaptureCallback(@nullable std::function<void(int eventType)> value)'
+        'void setCaptureCallback(@nullable @local std::function<void (int)> value)'
     },
-    TAG_MAKER = 'captureCallback',
+    TAG_MAKER = 'CaptureCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -262,11 +260,9 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::TextFormat'
-cls.enums [[
-    OUTLINE
-    SHADOW
-    GLOW
-]]
+cls.const('OUTLINE', 'fairygui::TextFormat::OUTLINE', 'const int')
+cls.const('SHADOW', 'fairygui::TextFormat::SHADOW', 'const int')
+cls.const('GLOW', 'fairygui::TextFormat::GLOW', 'const int')
 cls.funcs [[
     TextFormat()
     void enableEffect(int effectFlag)
@@ -394,7 +390,7 @@ cls.var('value', [[fairygui::TweenValue value]])
 cls.var('deltaValue', [[fairygui::TweenValue deltaValue]])
 cls.callback {
     FUNCS =  {
-        'GTweener* onUpdate(std::function<void(GTweener* tweener)> callback)'
+        'fairygui::GTweener *onUpdate(std::function<void (GTweener *)> callback)'
     },
     TAG_MAKER = 'onUpdate',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -404,7 +400,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'GTweener* onStart(std::function<void(GTweener* tweener)> callback)'
+        'fairygui::GTweener *onStart(std::function<void (GTweener *)> callback)'
     },
     TAG_MAKER = 'onStart',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -414,7 +410,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'GTweener* onComplete(std::function<void()> callback)'
+        'fairygui::GTweener *onComplete(std::function<void ()> callback)'
     },
     TAG_MAKER = 'onComplete',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -424,7 +420,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'GTweener* onComplete1(std::function<void(GTweener* tweener)> callback)'
+        'fairygui::GTweener *onComplete1(std::function<void (GTweener *)> callback)'
     },
     TAG_MAKER = 'onComplete1',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -523,6 +519,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::UIPackage'
 cls.SUPERCLS = "cocos2d::Ref"
+cls.const('URL_PREFIX', 'fairygui::UIPackage::URL_PREFIX', 'const std::string')
 cls.funcs [[
     UIPackage()
     static fairygui::UIPackage *getById(const std::string &id)
@@ -912,8 +909,8 @@ cls.prop('relations', 'Relations* relations()')
 cls.prop('displayObject', 'cocos2d::Node* displayObject()')
 cls.callback {
     FUNCS =  {
-        'void addClickListener(const std::function<void(@local EventContext* context)>& callback)',
-        'void addClickListener(const std::function<void(@local EventContext* context)>& callback, const EventTag& tag)'
+        'void addClickListener(@local const std::function<void (EventContext *)> &callback)',
+        'void addClickListener(@local const std::function<void (EventContext *)> &callback, const fairygui::EventTag &tag)'
     },
     TAG_MAKER = {'makeListenerTag(L, fairygui::UIEventType::Click, 0)', 'makeListenerTag(L, fairygui::UIEventType::Click, 3)'},
     TAG_MODE = 'OLUA_TAG_NEW',
@@ -923,7 +920,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void removeClickListener(const EventTag& tag)'
+        'void removeClickListener(const fairygui::EventTag &tag)'
     },
     TAG_MAKER = 'makeListenerTag(L, fairygui::UIEventType::Click, 2)',
     TAG_MODE = 'OLUA_TAG_EQUAL',
@@ -1353,6 +1350,12 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GButton'
 cls.SUPERCLS = "fairygui::GComponent"
+cls.const('UP', 'fairygui::GButton::UP', 'const std::string')
+cls.const('DOWN', 'fairygui::GButton::DOWN', 'const std::string')
+cls.const('OVER', 'fairygui::GButton::OVER', 'const std::string')
+cls.const('SELECTED_OVER', 'fairygui::GButton::SELECTED_OVER', 'const std::string')
+cls.const('DISABLED', 'fairygui::GButton::DISABLED', 'const std::string')
+cls.const('SELECTED_DISABLED', 'fairygui::GButton::SELECTED_DISABLED', 'const std::string')
 cls.funcs [[
     GButton()
     static fairygui::GButton *create()
@@ -1555,9 +1558,9 @@ cls.funcs [[
 ]]
 cls.callback {
     FUNCS =  {
-        'void setPlaySettings(int start = 0, int end = -1, int times = 0, int endAt = -1, std::function<void()> completeCallback = nullptr)'
+        'void setPlaySettings(@optional int start, @optional int end, @optional int times, @optional int endAt, @local @optional std::function<void ()> completeCallback)'
     },
-    TAG_MAKER = 'playSettings',
+    TAG_MAKER = 'PlaySettings',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -1963,9 +1966,9 @@ cls.funcs [[
 cls.var('name', [[std::string name]])
 cls.callback {
     FUNCS =  {
-        'void play(std::function<void()> callback = nullptr)',
-        'void play(int times, float delay, std::function<void()> callback = nullptr)',
-        'void play(int times, float delay, float startTime, float endTime, std::function<void()> callback = nullptr)'
+        'void play(@local @optional std::function<void ()> callback)',
+        'void play(int times, float delay, @local @optional std::function<void ()> callback)',
+        'void play(int times, float delay, float startTime, float endTime, @local @optional std::function<void ()> callback)'
     },
     TAG_MAKER = 'play',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -1975,8 +1978,8 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void playReverse(std::function<void()> callback = nullptr)',
-        'void playReverse(int times, float delay, std::function<void()> callback = nullptr)'
+        'void playReverse(@local @optional std::function<void ()> callback)',
+        'void playReverse(int times, float delay, @local @optional std::function<void ()> callback)'
     },
     TAG_MAKER = 'playReverse',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -1986,7 +1989,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void setHook(const std::string& label, @nullable std::function<void()> callback)'
+        'void setHook(const std::string &label, @nullable @local std::function<void ()> callback)'
     },
     TAG_MAKER = '("hook." + #1)',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -2015,14 +2018,6 @@ cls = typecls 'fairygui::UIConfig'
 cls.funcs [[
     static void registerFont(const std::string &aliasName, const std::string &realName)
 ]]
-cls.func('getRealFontName', [[{
-    bool isTTF = false;
-    std::string aliasName = olua_checkstring(L, 1);
-    std::string fontName = fairygui::UIConfig::getRealFontName(aliasName, &isTTF);
-    lua_pushstring(L, fontName.c_str());
-    lua_pushboolean(L, isTTF);
-    return 2;
-}]])
 cls.var('defaultFont', [[static std::string defaultFont]])
 cls.var('buttonSound', [[static std::string buttonSound]])
 cls.var('buttonSoundVolumeScale', [[static float buttonSoundVolumeScale]])
@@ -2030,7 +2025,7 @@ cls.var('defaultScrollStep', [[static int defaultScrollStep]])
 cls.var('defaultScrollDecelerationRate', [[static float defaultScrollDecelerationRate]])
 cls.var('defaultScrollTouchEffect', [[static bool defaultScrollTouchEffect]])
 cls.var('defaultScrollBounceEffect', [[static bool defaultScrollBounceEffect]])
-cls.var('defaultScrollBarDisplay', [[static ScrollBarDisplayType defaultScrollBarDisplay]])
+cls.var('defaultScrollBarDisplay', [[static fairygui::ScrollBarDisplayType defaultScrollBarDisplay]])
 cls.var('verticalScrollBar', [[static std::string verticalScrollBar]])
 cls.var('horizontalScrollBar', [[static std::string horizontalScrollBar]])
 cls.var('touchDragSensitivity', [[static int touchDragSensitivity]])
@@ -2044,6 +2039,14 @@ cls.var('bringWindowToFrontOnClick', [[static bool bringWindowToFrontOnClick]])
 cls.var('windowModalWaiting', [[static std::string windowModalWaiting]])
 cls.var('popupMenu', [[static std::string popupMenu]])
 cls.var('popupMenu_seperator', [[static std::string popupMenu_seperator]])
+cls.func('getRealFontName', [[{
+    bool isTTF = false;
+    std::string aliasName = olua_checkstring(L, 1);
+    std::string fontName = fairygui::UIConfig::getRealFontName(aliasName, &isTTF);
+    lua_pushstring(L, fontName.c_str());
+    lua_pushboolean(L, isTTF);
+    return 2;
+}]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::IUISource'
@@ -2055,7 +2058,7 @@ cls.funcs [[
 ]]
 cls.callback {
     FUNCS =  {
-        'void load(@nullable std::function<void()> callback)'
+        'void load(@nullable @local std::function<void ()> callback)'
     },
     TAG_MAKER = 'load',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -2213,9 +2216,9 @@ cls.funcs [[
 ]]
 cls.callback {
     FUNCS =  {
-        'static void setPackageItemExtension(const std::string& url, std::function<GComponent*()> creator)'
+        'static void setPackageItemExtension(const std::string &url, @local std::function<GComponent *()> creator)'
     },
-    TAG_MAKER = 'packageItemExtension',
+    TAG_MAKER = 'PackageItemExtension',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -2223,9 +2226,9 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'static void setLoaderExtension(std::function<GLoader*()> creator)'
+        'static void setLoaderExtension(@local std::function<GLoader *()> creator)'
     },
-    TAG_MAKER = 'loaderExtension',
+    TAG_MAKER = 'LoaderExtension',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_STORE = nil,
     CALLONCE = false,
@@ -2236,6 +2239,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::GearBase'
 cls.funcs [[
 ]]
+cls.var('disableAllTweenEffect', [[static bool disableAllTweenEffect]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::TreeNode'

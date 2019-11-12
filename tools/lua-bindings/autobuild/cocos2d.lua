@@ -190,6 +190,15 @@ cls.funcs [[
     size_t getProjectionMatrixStackSize()
     bool isValid()
 ]]
+cls.var('EVENT_BEFORE_SET_NEXT_SCENE', [[static const char *EVENT_BEFORE_SET_NEXT_SCENE]])
+cls.var('EVENT_AFTER_SET_NEXT_SCENE', [[static const char *EVENT_AFTER_SET_NEXT_SCENE]])
+cls.var('EVENT_PROJECTION_CHANGED', [[static const char *EVENT_PROJECTION_CHANGED]])
+cls.var('EVENT_BEFORE_UPDATE', [[static const char *EVENT_BEFORE_UPDATE]])
+cls.var('EVENT_AFTER_UPDATE', [[static const char *EVENT_AFTER_UPDATE]])
+cls.var('EVENT_RESET', [[static const char *EVENT_RESET]])
+cls.var('EVENT_AFTER_VISIT', [[static const char *EVENT_AFTER_VISIT]])
+cls.var('EVENT_AFTER_DRAW', [[static const char *EVENT_AFTER_DRAW]])
+cls.var('EVENT_BEFORE_DRAW', [[static const char *EVENT_BEFORE_DRAW]])
 cls.props [[
     instance
     runningScene
@@ -241,6 +250,8 @@ template <typename T> bool doScheduleUpdate(lua_State *L)
     return false;
 }
 ]]
+cls.const('PRIORITY_SYSTEM', 'cocos2d::Scheduler::PRIORITY_SYSTEM', 'const int')
+cls.const('PRIORITY_NON_SYSTEM_MIN', 'cocos2d::Scheduler::PRIORITY_NON_SYSTEM_MIN', 'const int')
 cls.funcs [[
     Scheduler()
     float getTimeScale()
@@ -437,6 +448,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventListenerTouchOneByOne'
 cls.SUPERCLS = "cocos2d::EventListener"
+cls.const('LISTENER_ID', 'cocos2d::EventListenerTouchOneByOne::LISTENER_ID', 'const std::string')
 cls.funcs [[
     static cocos2d::EventListenerTouchOneByOne *create()
     void setSwallowTouches(bool needSwallow)
@@ -454,6 +466,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventListenerTouchAllAtOnce'
 cls.SUPERCLS = "cocos2d::EventListener"
+cls.const('LISTENER_ID', 'cocos2d::EventListenerTouchAllAtOnce::LISTENER_ID', 'const std::string')
 cls.funcs [[
     static cocos2d::EventListenerTouchAllAtOnce *create()
     EventListenerTouchAllAtOnce()
@@ -484,6 +497,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventListenerKeyboard'
 cls.SUPERCLS = "cocos2d::EventListener"
+cls.const('LISTENER_ID', 'cocos2d::EventListenerKeyboard::LISTENER_ID', 'const std::string')
 cls.funcs [[
     static cocos2d::EventListenerKeyboard *create()
     EventListenerKeyboard()
@@ -494,6 +508,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventListenerAcceleration'
 cls.SUPERCLS = "cocos2d::EventListener"
+cls.const('LISTENER_ID', 'cocos2d::EventListenerAcceleration::LISTENER_ID', 'const std::string')
 cls.funcs [[
     EventListenerAcceleration()
 ]]
@@ -512,6 +527,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventListenerFocus'
 cls.SUPERCLS = "cocos2d::EventListener"
+cls.const('LISTENER_ID', 'cocos2d::EventListenerFocus::LISTENER_ID', 'const std::string')
 cls.funcs [[
     static cocos2d::EventListenerFocus *create()
     EventListenerFocus()
@@ -521,6 +537,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventListenerMouse'
 cls.SUPERCLS = "cocos2d::EventListener"
+cls.const('LISTENER_ID', 'cocos2d::EventListenerMouse::LISTENER_ID', 'const std::string')
 cls.funcs [[
     static cocos2d::EventListenerMouse *create()
     EventListenerMouse()
@@ -573,6 +590,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventListenerController'
 cls.SUPERCLS = "cocos2d::EventListener"
+cls.const('LISTENER_ID', 'cocos2d::EventListenerController::LISTENER_ID', 'const std::string')
 cls.funcs [[
     static cocos2d::EventListenerController *create()
 ]]
@@ -595,9 +613,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::EventTouch'
 cls.SUPERCLS = "cocos2d::Event"
-cls.enums [[
-    MAX_TOUCHES
-]]
+cls.const('MAX_TOUCHES', 'cocos2d::EventTouch::MAX_TOUCHES', 'const int')
 cls.funcs [[
     EventTouch()
     cocos2d::EventTouch::EventCode getEventCode()
@@ -963,6 +979,7 @@ cls.enums [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Controller'
+cls.const('TAG_UNSET', 'cocos2d::Controller::TAG_UNSET', 'const int')
 cls.funcs [[
     static const std::vector<Controller *> &getAllController()
     static cocos2d::Controller *getControllerByTag(int tag)
@@ -1032,6 +1049,8 @@ static const std::string makeAudioEngineFinishCallbackTag(lua_Integer id)
     }
 }
 ]]
+cls.const('INVALID_AUDIO_ID', 'cocos2d::experimental::AudioEngine::INVALID_AUDIO_ID', 'const int')
+cls.const('TIME_UNKNOWN', 'cocos2d::experimental::AudioEngine::TIME_UNKNOWN', 'const float')
 cls.funcs [[
     static bool lazyInit()
     static void end()
@@ -1504,11 +1523,10 @@ cls.props [[
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Renderer'
-cls.enums [[
-    VBO_SIZE
-    BATCH_TRIAGCOMMAND_RESERVED_SIZE
-    MATERIAL_ID_DO_NOT_BATCH
-]]
+cls.const('VBO_SIZE', 'cocos2d::Renderer::VBO_SIZE', 'const int')
+cls.const('INDEX_VBO_SIZE', 'cocos2d::Renderer::INDEX_VBO_SIZE', 'const int')
+cls.const('BATCH_TRIAGCOMMAND_RESERVED_SIZE', 'cocos2d::Renderer::BATCH_TRIAGCOMMAND_RESERVED_SIZE', 'const int')
+cls.const('MATERIAL_ID_DO_NOT_BATCH', 'cocos2d::Renderer::MATERIAL_ID_DO_NOT_BATCH', 'const int')
 cls.funcs [[
     Renderer()
     void initGLView()
@@ -1594,6 +1612,68 @@ cls.funcs [[
     void reset()
     GLuint getProgram()
 ]]
+cls.var('SHADER_NAME_ETC1AS_POSITION_TEXTURE_COLOR', [[static const char *SHADER_NAME_ETC1AS_POSITION_TEXTURE_COLOR]])
+cls.var('SHADER_NAME_ETC1AS_POSITION_TEXTURE_COLOR_NO_MVP', [[static const char *SHADER_NAME_ETC1AS_POSITION_TEXTURE_COLOR_NO_MVP]])
+cls.var('SHADER_NAME_ETC1AS_POSITION_TEXTURE_GRAY', [[static const char *SHADER_NAME_ETC1AS_POSITION_TEXTURE_GRAY]])
+cls.var('SHADER_NAME_ETC1AS_POSITION_TEXTURE_GRAY_NO_MVP', [[static const char *SHADER_NAME_ETC1AS_POSITION_TEXTURE_GRAY_NO_MVP]])
+cls.var('SHADER_NAME_POSITION_TEXTURE_COLOR', [[static const char *SHADER_NAME_POSITION_TEXTURE_COLOR]])
+cls.var('SHADER_NAME_POSITION_TEXTURE_COLOR_NO_MVP', [[static const char *SHADER_NAME_POSITION_TEXTURE_COLOR_NO_MVP]])
+cls.var('SHADER_NAME_POSITION_TEXTURE_ALPHA_TEST', [[static const char *SHADER_NAME_POSITION_TEXTURE_ALPHA_TEST]])
+cls.var('SHADER_NAME_POSITION_TEXTURE_ALPHA_TEST_NO_MV', [[static const char *SHADER_NAME_POSITION_TEXTURE_ALPHA_TEST_NO_MV]])
+cls.var('SHADER_NAME_POSITION_COLOR', [[static const char *SHADER_NAME_POSITION_COLOR]])
+cls.var('SHADER_NAME_POSITION_COLOR_TEXASPOINTSIZE', [[static const char *SHADER_NAME_POSITION_COLOR_TEXASPOINTSIZE]])
+cls.var('SHADER_NAME_POSITION_COLOR_NO_MVP', [[static const char *SHADER_NAME_POSITION_COLOR_NO_MVP]])
+cls.var('SHADER_NAME_POSITION_TEXTURE', [[static const char *SHADER_NAME_POSITION_TEXTURE]])
+cls.var('SHADER_NAME_POSITION_TEXTURE_U_COLOR', [[static const char *SHADER_NAME_POSITION_TEXTURE_U_COLOR]])
+cls.var('SHADER_NAME_POSITION_TEXTURE_A8_COLOR', [[static const char *SHADER_NAME_POSITION_TEXTURE_A8_COLOR]])
+cls.var('SHADER_NAME_POSITION_U_COLOR', [[static const char *SHADER_NAME_POSITION_U_COLOR]])
+cls.var('SHADER_NAME_POSITION_LENGTH_TEXTURE_COLOR', [[static const char *SHADER_NAME_POSITION_LENGTH_TEXTURE_COLOR]])
+cls.var('SHADER_NAME_POSITION_GRAYSCALE', [[static const char *SHADER_NAME_POSITION_GRAYSCALE]])
+cls.var('SHADER_NAME_LABEL_NORMAL', [[static const char *SHADER_NAME_LABEL_NORMAL]])
+cls.var('SHADER_NAME_LABEL_OUTLINE', [[static const char *SHADER_NAME_LABEL_OUTLINE]])
+cls.var('SHADER_NAME_LABEL_DISTANCEFIELD_NORMAL', [[static const char *SHADER_NAME_LABEL_DISTANCEFIELD_NORMAL]])
+cls.var('SHADER_NAME_LABEL_DISTANCEFIELD_GLOW', [[static const char *SHADER_NAME_LABEL_DISTANCEFIELD_GLOW]])
+cls.var('SHADER_3D_POSITION', [[static const char *SHADER_3D_POSITION]])
+cls.var('SHADER_3D_POSITION_TEXTURE', [[static const char *SHADER_3D_POSITION_TEXTURE]])
+cls.var('SHADER_3D_SKINPOSITION_TEXTURE', [[static const char *SHADER_3D_SKINPOSITION_TEXTURE]])
+cls.var('SHADER_3D_POSITION_NORMAL', [[static const char *SHADER_3D_POSITION_NORMAL]])
+cls.var('SHADER_3D_POSITION_NORMAL_TEXTURE', [[static const char *SHADER_3D_POSITION_NORMAL_TEXTURE]])
+cls.var('SHADER_3D_SKINPOSITION_NORMAL_TEXTURE', [[static const char *SHADER_3D_SKINPOSITION_NORMAL_TEXTURE]])
+cls.var('SHADER_3D_POSITION_BUMPEDNORMAL_TEXTURE', [[static const char *SHADER_3D_POSITION_BUMPEDNORMAL_TEXTURE]])
+cls.var('SHADER_3D_SKINPOSITION_BUMPEDNORMAL_TEXTURE', [[static const char *SHADER_3D_SKINPOSITION_BUMPEDNORMAL_TEXTURE]])
+cls.var('SHADER_3D_PARTICLE_TEXTURE', [[static const char *SHADER_3D_PARTICLE_TEXTURE]])
+cls.var('SHADER_3D_PARTICLE_COLOR', [[static const char *SHADER_3D_PARTICLE_COLOR]])
+cls.var('SHADER_3D_SKYBOX', [[static const char *SHADER_3D_SKYBOX]])
+cls.var('SHADER_3D_TERRAIN', [[static const char *SHADER_3D_TERRAIN]])
+cls.var('SHADER_LAYER_RADIAL_GRADIENT', [[static const char *SHADER_LAYER_RADIAL_GRADIENT]])
+cls.var('SHADER_CAMERA_CLEAR', [[static const char *SHADER_CAMERA_CLEAR]])
+cls.var('UNIFORM_NAME_AMBIENT_COLOR', [[static const char *UNIFORM_NAME_AMBIENT_COLOR]])
+cls.var('UNIFORM_NAME_P_MATRIX', [[static const char *UNIFORM_NAME_P_MATRIX]])
+cls.var('UNIFORM_NAME_MULTIVIEW_P_MATRIX', [[static const char *UNIFORM_NAME_MULTIVIEW_P_MATRIX]])
+cls.var('UNIFORM_NAME_MV_MATRIX', [[static const char *UNIFORM_NAME_MV_MATRIX]])
+cls.var('UNIFORM_NAME_MVP_MATRIX', [[static const char *UNIFORM_NAME_MVP_MATRIX]])
+cls.var('UNIFORM_NAME_MULTIVIEW_MVP_MATRIX', [[static const char *UNIFORM_NAME_MULTIVIEW_MVP_MATRIX]])
+cls.var('UNIFORM_NAME_NORMAL_MATRIX', [[static const char *UNIFORM_NAME_NORMAL_MATRIX]])
+cls.var('UNIFORM_NAME_TIME', [[static const char *UNIFORM_NAME_TIME]])
+cls.var('UNIFORM_NAME_SIN_TIME', [[static const char *UNIFORM_NAME_SIN_TIME]])
+cls.var('UNIFORM_NAME_COS_TIME', [[static const char *UNIFORM_NAME_COS_TIME]])
+cls.var('UNIFORM_NAME_RANDOM01', [[static const char *UNIFORM_NAME_RANDOM01]])
+cls.var('UNIFORM_NAME_SAMPLER0', [[static const char *UNIFORM_NAME_SAMPLER0]])
+cls.var('UNIFORM_NAME_SAMPLER1', [[static const char *UNIFORM_NAME_SAMPLER1]])
+cls.var('UNIFORM_NAME_SAMPLER2', [[static const char *UNIFORM_NAME_SAMPLER2]])
+cls.var('UNIFORM_NAME_SAMPLER3', [[static const char *UNIFORM_NAME_SAMPLER3]])
+cls.var('UNIFORM_NAME_ALPHA_TEST_VALUE', [[static const char *UNIFORM_NAME_ALPHA_TEST_VALUE]])
+cls.var('ATTRIBUTE_NAME_COLOR', [[static const char *ATTRIBUTE_NAME_COLOR]])
+cls.var('ATTRIBUTE_NAME_POSITION', [[static const char *ATTRIBUTE_NAME_POSITION]])
+cls.var('ATTRIBUTE_NAME_TEX_COORD', [[static const char *ATTRIBUTE_NAME_TEX_COORD]])
+cls.var('ATTRIBUTE_NAME_TEX_COORD1', [[static const char *ATTRIBUTE_NAME_TEX_COORD1]])
+cls.var('ATTRIBUTE_NAME_TEX_COORD2', [[static const char *ATTRIBUTE_NAME_TEX_COORD2]])
+cls.var('ATTRIBUTE_NAME_TEX_COORD3', [[static const char *ATTRIBUTE_NAME_TEX_COORD3]])
+cls.var('ATTRIBUTE_NAME_NORMAL', [[static const char *ATTRIBUTE_NAME_NORMAL]])
+cls.var('ATTRIBUTE_NAME_BLEND_WEIGHT', [[static const char *ATTRIBUTE_NAME_BLEND_WEIGHT]])
+cls.var('ATTRIBUTE_NAME_BLEND_INDEX', [[static const char *ATTRIBUTE_NAME_BLEND_INDEX]])
+cls.var('ATTRIBUTE_NAME_TANGENT', [[static const char *ATTRIBUTE_NAME_TANGENT]])
+cls.var('ATTRIBUTE_NAME_BINORMAL', [[static const char *ATTRIBUTE_NAME_BINORMAL]])
 cls.props [[
     vertexShaderLog
     fragmentShaderLog
@@ -2022,6 +2102,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Action'
 cls.SUPERCLS = "cocos2d::Ref"
+cls.const('INVALID_TAG', 'cocos2d::Action::INVALID_TAG', 'const int')
 cls.funcs [[
     std::string description()
     cocos2d::Action *clone()
@@ -2944,6 +3025,7 @@ static cocos2d::Node *_find_ancestor(cocos2d::Node *node1, cocos2d::Node *node2)
     return NULL;
 }
 ]]
+cls.const('INVALID_TAG', 'cocos2d::Node::INVALID_TAG', 'const int')
 cls.funcs [[
     static cocos2d::Node *create()
     static int getAttachedNodeCount()
@@ -3709,6 +3791,8 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::FontAtlas'
 cls.SUPERCLS = "cocos2d::Ref"
+cls.const('CacheTextureWidth', 'cocos2d::FontAtlas::CacheTextureWidth', 'const int')
+cls.const('CacheTextureHeight', 'cocos2d::FontAtlas::CacheTextureHeight', 'const int')
 cls.funcs [[
     void addTexture(cocos2d::Texture2D *texture, int slot)
     float getLineHeight()
@@ -3720,6 +3804,8 @@ cls.funcs [[
     void setAntiAliasTexParameters()
     void setAliasTexParameters()
 ]]
+cls.var('CMD_PURGE_FONTATLAS', [[static const char *CMD_PURGE_FONTATLAS]])
+cls.var('CMD_RESET_FONTATLAS', [[static const char *CMD_RESET_FONTATLAS]])
 cls.props [[
     lineHeight
     fontName
@@ -3956,6 +4042,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Sprite'
 cls.SUPERCLS = "cocos2d::Node"
+cls.const('INDEX_NOT_INITIALIZED', 'cocos2d::Sprite::INDEX_NOT_INITIALIZED', 'const int')
 cls.funcs [[
     static cocos2d::Sprite *create()
     static cocos2d::Sprite *create(const std::string &filename)

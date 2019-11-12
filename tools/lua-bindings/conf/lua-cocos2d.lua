@@ -602,6 +602,26 @@ typeconf 'cocos2d::ActionInterval'
 
 local Sequence = typeconf 'cocos2d::Sequence'
 Sequence.ATTR('createWithTwoActions', {ARG1 = '@ref(map autoref)', ARG2 = '@ref(map autoref)'})
+Sequence.FUNC('create', [[
+{
+    cocos2d::Vector<cocos2d::FiniteTimeAction *> actions;
+    int n = lua_gettop(L);
+    actions.reserve(n);
+
+    auto ret = new cocos2d::Sequence();
+    ret->autorelease();
+    olua_push_cppobj<cocos2d::Sequence>(L, ret);
+
+    for (int i = 1; i <= n; i++) {
+        auto obj = olua_checkobj<cocos2d::FiniteTimeAction>(L, i);
+        actions.pushBack(obj);
+        olua_mapref(L, -1, ".autoref", i);
+    }
+
+    ret->init(actions);
+    
+    return 1;
+}]])
 
 local Repeat = typeconf 'cocos2d::Repeat'
 Repeat.ATTR('create', {ARG1 = '@ref(single innerAction)'})
@@ -615,7 +635,26 @@ RepeatForever.ATTR('getInnerAction', {RET = '@ref(single innerAction)'})
 
 local Spawn = typeconf 'cocos2d::Spawn'
 Spawn.ATTR('createWithTwoActions', {ARG1 = '@ref(map autoref)', ARG2 = '@ref(map autoref)'})
-Spawn.ATTR('create', {ARG1 = '@ref(map autoref)'})
+Spawn.FUNC('create', [[
+{
+    cocos2d::Vector<cocos2d::FiniteTimeAction *> actions;
+    int n = lua_gettop(L);
+    actions.reserve(n);
+
+    auto ret = new cocos2d::Spawn();
+    ret->autorelease();
+    olua_push_cppobj<cocos2d::Spawn>(L, ret);
+
+    for (int i = 1; i <= n; i++) {
+        auto obj = olua_checkobj<cocos2d::FiniteTimeAction>(L, i);
+        actions.pushBack(obj);
+        olua_mapref(L, -1, ".autoref", i);
+    }
+    
+    ret->init(actions);
+
+    return 1;
+}]])
 
 typeconf 'cocos2d::RotateTo'
 typeconf 'cocos2d::RotateBy'

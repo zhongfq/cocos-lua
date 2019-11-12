@@ -21255,17 +21255,25 @@ static int _cocos2d_Sequence_create(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::Vector<cocos2d::FiniteTimeAction *> arg1;       /** arrayOfActions */
+    cocos2d::Vector<cocos2d::FiniteTimeAction *> actions;
+    int n = lua_gettop(L);
+    actions.reserve(n);
 
-    manual_olua_check_cocos2d_Vector(L, 1, arg1, "cc.FiniteTimeAction");
+    auto ret = new cocos2d::Sequence();
+    ret->autorelease();
+    olua_push_cppobj<cocos2d::Sequence>(L, ret);
 
-    // static cocos2d::Sequence *create(const Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
-    cocos2d::Sequence *ret = (cocos2d::Sequence *)cocos2d::Sequence::create(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "cc.Sequence");
+    for (int i = 1; i <= n; i++) {
+        auto obj = olua_checkobj<cocos2d::FiniteTimeAction>(L, i);
+        actions.pushBack(obj);
+        olua_mapref(L, -1, ".autoref", i);
+    }
+
+    ret->init(actions);
 
     olua_endinvoke(L);
 
-    return num_ret;
+    return 1;
 }
 
 static int _cocos2d_Sequence_createWithTwoActions(lua_State *L)
@@ -21504,20 +21512,25 @@ static int _cocos2d_Spawn_create(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::Vector<cocos2d::FiniteTimeAction *> arg1;       /** arrayOfActions */
+    cocos2d::Vector<cocos2d::FiniteTimeAction *> actions;
+    int n = lua_gettop(L);
+    actions.reserve(n);
 
-    manual_olua_check_cocos2d_Vector(L, 1, arg1, "cc.FiniteTimeAction");
+    auto ret = new cocos2d::Spawn();
+    ret->autorelease();
+    olua_push_cppobj<cocos2d::Spawn>(L, ret);
 
-    // static cocos2d::Spawn *create(@ref(map autoref) const Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
-    cocos2d::Spawn *ret = (cocos2d::Spawn *)cocos2d::Spawn::create(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "cc.Spawn");
+    for (int i = 1; i <= n; i++) {
+        auto obj = olua_checkobj<cocos2d::FiniteTimeAction>(L, i);
+        actions.pushBack(obj);
+        olua_mapref(L, -1, ".autoref", i);
+    }
 
-    // inject code after call
-    olua_maprefarray(L, -1, "autoref", 1);
+    ret->init(actions);
 
     olua_endinvoke(L);
 
-    return num_ret;
+    return 1;
 }
 
 static int _cocos2d_Spawn_createWithTwoActions(lua_State *L)

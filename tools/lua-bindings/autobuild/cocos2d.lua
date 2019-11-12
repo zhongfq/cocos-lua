@@ -2235,10 +2235,28 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Sequence'
 cls.SUPERCLS = "cocos2d::ActionInterval"
 cls.funcs [[
-    static cocos2d::Sequence *create(const Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
     static cocos2d::Sequence *createWithTwoActions(@ref(map autoref) cocos2d::FiniteTimeAction *actionOne, @ref(map autoref) cocos2d::FiniteTimeAction *actionTwo)
     Sequence()
 ]]
+cls.func('create', [[{
+    cocos2d::Vector<cocos2d::FiniteTimeAction *> actions;
+    int n = lua_gettop(L);
+    actions.reserve(n);
+
+    auto ret = new cocos2d::Sequence();
+    ret->autorelease();
+    olua_push_cppobj<cocos2d::Sequence>(L, ret);
+
+    for (int i = 1; i <= n; i++) {
+        auto obj = olua_checkobj<cocos2d::FiniteTimeAction>(L, i);
+        actions.pushBack(obj);
+        olua_mapref(L, -1, ".autoref", i);
+    }
+
+    ret->init(actions);
+
+    return 1;
+}]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Repeat'
@@ -2270,10 +2288,28 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::Spawn'
 cls.SUPERCLS = "cocos2d::ActionInterval"
 cls.funcs [[
-    static cocos2d::Spawn *create(@ref(map autoref) const Vector<cocos2d::FiniteTimeAction *> &arrayOfActions)
     static cocos2d::Spawn *createWithTwoActions(@ref(map autoref) cocos2d::FiniteTimeAction *action1, @ref(map autoref) cocos2d::FiniteTimeAction *action2)
     Spawn()
 ]]
+cls.func('create', [[{
+    cocos2d::Vector<cocos2d::FiniteTimeAction *> actions;
+    int n = lua_gettop(L);
+    actions.reserve(n);
+
+    auto ret = new cocos2d::Spawn();
+    ret->autorelease();
+    olua_push_cppobj<cocos2d::Spawn>(L, ret);
+
+    for (int i = 1; i <= n; i++) {
+        auto obj = olua_checkobj<cocos2d::FiniteTimeAction>(L, i);
+        actions.pushBack(obj);
+        olua_mapref(L, -1, ".autoref", i);
+    }
+
+    ret->init(actions);
+
+    return 1;
+}]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::RotateTo'

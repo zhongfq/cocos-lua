@@ -54,7 +54,9 @@ const std::string __runtime_getDeviceInfo()
 void __runtime_openURL(const std::string uri, const std::function<void (bool)> callback)
 {
     bool ret = JniHelper::callStaticBooleanMethod(JAVA_APPCONTEXT_CLASS, "openURL", uri);
-    callback(ret);
+    if (callback != nullptr) {
+        callback(ret);
+    }
 }
 
 bool __runtime_canOpenURL(const std::string uri)
@@ -127,7 +129,9 @@ const std::string __runtime_getNetworkStatus()
 
 void __runtime_openURL(const std::string uri, const std::function<void(bool)> callback)
 {
-	callback(false);
+    if (callback != nullptr) {
+        callback(false);
+    }
 }
 
 bool __runtime_canOpenURL(const std::string uri)

@@ -64,7 +64,7 @@ public:
     static void setDispatcher(const EventDispatcher &dispatcher);
     static void dispatchEvent(const std::string &event, const std::string &args);
     static void runOnCocosThread(const std::function<void ()> &callback);
-    static void openURL(const std::string &uri, const std::function<void (bool)> callback);
+    static void openURL(const std::string &uri, const std::function<void (bool)> callback = nullptr);
     static void handleOpenURL(const std::string &uri);
     static bool canOpenURL(const std::string &uri);
     

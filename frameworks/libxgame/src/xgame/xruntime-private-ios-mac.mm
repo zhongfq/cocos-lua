@@ -205,16 +205,23 @@ void __runtime_openURL(const std::string uri, const std::function<void (bool)> c
         if (@available(iOS 10_0, *)) {
             [[UIApplication sharedApplication] openURL:url options:@{} completionHandler: ^(BOOL success){
                 runtime::runOnCocosThread([callback, success](){
-                    callback(success);
+                    if (callback != nullptr) {
+                        callback(success);
+                    }
                 });
             }];
         } else {
             bool success = [[UIApplication sharedApplication] openURL:url];
-            callback(success);
+            if (callback != nullptr) {
+                callback(success);
+            }
         }
     });
 #else
-    callback(Application::getInstance()->openURL(uri));
+    bool success = Application::getInstance()->openURL(uri);
+    if (callback != nullptr) {
+        callback(success);
+    }
 #endif
 }
 

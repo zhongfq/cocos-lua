@@ -392,12 +392,14 @@ static int _fairygui_UIEventDispatcher_addEventListener(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_int(L, 2)) && (olua_is_std_function(L, 3))) {
+            // void addEventListener(int eventType, @local const std::function<void (EventContext *)> &callback)
             return _fairygui_UIEventDispatcher_addEventListener1(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_int(L, 2)) && (olua_is_std_function(L, 3)) && (manual_olua_is_fairygui_EventTag(L, 4))) {
+            // void addEventListener(int eventType, @local const std::function<void (EventContext *)> &callback, const fairygui::EventTag &tag)
             return _fairygui_UIEventDispatcher_addEventListener2(L);
         // }
     }
@@ -476,18 +478,21 @@ static int _fairygui_UIEventDispatcher_bubbleEvent(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_int(L, 2))) {
+            // bool bubbleEvent(int eventType, @optional void *data, @optional const cocos2d::Value &dataValue)
             return _fairygui_UIEventDispatcher_bubbleEvent2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_int(L, 2)) && (olua_is_obj(L, 3, "void *"))) {
+            // bool bubbleEvent(int eventType, @optional void *data, @optional const cocos2d::Value &dataValue)
             return _fairygui_UIEventDispatcher_bubbleEvent3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_int(L, 2)) && (olua_is_obj(L, 3, "void *")) && (manual_olua_is_cocos2d_Value(L, 4))) {
+            // bool bubbleEvent(int eventType, @optional void *data, @optional const cocos2d::Value &dataValue)
             return _fairygui_UIEventDispatcher_bubbleEvent1(L);
         // }
     }
@@ -566,18 +571,21 @@ static int _fairygui_UIEventDispatcher_dispatchEvent(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_int(L, 2))) {
+            // bool dispatchEvent(int eventType, @optional void *data, @optional const cocos2d::Value &dataValue)
             return _fairygui_UIEventDispatcher_dispatchEvent2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_int(L, 2)) && (olua_is_obj(L, 3, "void *"))) {
+            // bool dispatchEvent(int eventType, @optional void *data, @optional const cocos2d::Value &dataValue)
             return _fairygui_UIEventDispatcher_dispatchEvent3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_int(L, 2)) && (olua_is_obj(L, 3, "void *")) && (manual_olua_is_cocos2d_Value(L, 4))) {
+            // bool dispatchEvent(int eventType, @optional void *data, @optional const cocos2d::Value &dataValue)
             return _fairygui_UIEventDispatcher_dispatchEvent1(L);
         // }
     }
@@ -633,12 +641,14 @@ static int _fairygui_UIEventDispatcher_hasEventListener(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_int(L, 2))) {
+            // bool hasEventListener(int eventType)
             return _fairygui_UIEventDispatcher_hasEventListener1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_int(L, 2)) && (manual_olua_is_fairygui_EventTag(L, 3))) {
+            // bool hasEventListener(int eventType, const fairygui::EventTag &tag)
             return _fairygui_UIEventDispatcher_hasEventListener2(L);
         // }
     }
@@ -733,12 +743,14 @@ static int _fairygui_UIEventDispatcher_removeEventListener(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_int(L, 2))) {
+            // void removeEventListener(int eventType)
             return _fairygui_UIEventDispatcher_removeEventListener1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_int(L, 2)) && (manual_olua_is_fairygui_EventTag(L, 3))) {
+            // void removeEventListener(int eventType, const fairygui::EventTag &tag)
             return _fairygui_UIEventDispatcher_removeEventListener2(L);
         // }
     }
@@ -1249,12 +1261,14 @@ static int _fairygui_InputProcessor_simulateClick(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 2, "fgui.GObject"))) {
+            // void simulateClick(fairygui::GObject *target, @optional int touchId)
             return _fairygui_InputProcessor_simulateClick2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 2, "fgui.GObject")) && (olua_is_int(L, 3))) {
+            // void simulateClick(fairygui::GObject *target, @optional int touchId)
             return _fairygui_InputProcessor_simulateClick1(L);
         // }
     }
@@ -2666,11 +2680,13 @@ static int _fairygui_GTweener_kill(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // void kill(@optional bool complete)
         return _fairygui_GTweener_kill2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_bool(L, 2))) {
+            // void kill(@optional bool complete)
             return _fairygui_GTweener_kill1(L);
         // }
     }
@@ -3030,12 +3046,14 @@ static int _fairygui_GTweener_setRepeat(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_int(L, 2))) {
+            // fairygui::GTweener *setRepeat(int repeat, @optional bool yoyo)
             return _fairygui_GTweener_setRepeat2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_int(L, 2)) && (olua_is_bool(L, 3))) {
+            // fairygui::GTweener *setRepeat(int repeat, @optional bool yoyo)
             return _fairygui_GTweener_setRepeat1(L);
         // }
     }
@@ -3110,12 +3128,14 @@ static int _fairygui_GTweener_setTarget(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 2, "cc.Ref"))) {
+            // fairygui::GTweener *setTarget(cocos2d::Ref *target)
             return _fairygui_GTweener_setTarget1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 2, "cc.Ref")) && (olua_is_uint(L, 3))) {
+            // fairygui::GTweener *setTarget(cocos2d::Ref *target, fairygui::TweenPropType propType)
             return _fairygui_GTweener_setTarget2(L);
         // }
     }
@@ -3463,12 +3483,14 @@ static int _fairygui_GTween_getTween(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 1, "cc.Ref"))) {
+            // static fairygui::GTweener *getTween(cocos2d::Ref *target)
             return _fairygui_GTween_getTween1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 1, "cc.Ref")) && (olua_is_uint(L, 2))) {
+            // static fairygui::GTweener *getTween(cocos2d::Ref *target, fairygui::TweenPropType propType)
             return _fairygui_GTween_getTween2(L);
         // }
     }
@@ -3520,12 +3542,14 @@ static int _fairygui_GTween_isTweening(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 1, "cc.Ref"))) {
+            // static bool isTweening(cocos2d::Ref *target)
             return _fairygui_GTween_isTweening1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 1, "cc.Ref")) && (olua_is_uint(L, 2))) {
+            // static bool isTweening(cocos2d::Ref *target, fairygui::TweenPropType propType)
             return _fairygui_GTween_isTweening2(L);
         // }
     }
@@ -3610,18 +3634,21 @@ static int _fairygui_GTween_kill(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 1, "cc.Ref"))) {
+            // static void kill(cocos2d::Ref *target)
             return _fairygui_GTween_kill1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 1, "cc.Ref")) && (olua_is_bool(L, 2))) {
+            // static void kill(cocos2d::Ref *target, bool complete)
             return _fairygui_GTween_kill2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_cppobj(L, 1, "cc.Ref")) && (olua_is_uint(L, 2)) && (olua_is_bool(L, 3))) {
+            // static void kill(cocos2d::Ref *target, fairygui::TweenPropType propType, bool complete)
             return _fairygui_GTween_kill3(L);
         // }
     }
@@ -3799,22 +3826,27 @@ static int _fairygui_GTween_to(lua_State *L)
 
     if (num_args == 3) {
         if ((auto_olua_is_cocos2d_Vec4(L, 1)) && (auto_olua_is_cocos2d_Vec4(L, 2)) && (olua_is_number(L, 3))) {
+            // static fairygui::GTweener *to(const cocos2d::Vec4 &startValue, const cocos2d::Vec4 &endValue, float duration)
             return _fairygui_GTween_to4(L);
         }
 
         if ((auto_olua_is_cocos2d_Vec3(L, 1)) && (auto_olua_is_cocos2d_Vec3(L, 2)) && (olua_is_number(L, 3))) {
+            // static fairygui::GTweener *to(const cocos2d::Vec3 &startValue, const cocos2d::Vec3 &endValue, float duration)
             return _fairygui_GTween_to3(L);
         }
 
         if ((auto_olua_is_cocos2d_Vec2(L, 1)) && (auto_olua_is_cocos2d_Vec2(L, 2)) && (olua_is_number(L, 3))) {
+            // static fairygui::GTweener *to(const cocos2d::Vec2 &startValue, const cocos2d::Vec2 &endValue, float duration)
             return _fairygui_GTween_to2(L);
         }
 
         if ((olua_is_number(L, 1)) && (olua_is_number(L, 2)) && (olua_is_number(L, 3))) {
+            // static fairygui::GTweener *to(float startValue, float endValue, float duration)
             return _fairygui_GTween_to1(L);
         }
 
         // if ((manual_olua_is_cocos2d_Color4B(L, 1)) && (manual_olua_is_cocos2d_Color4B(L, 2)) && (olua_is_number(L, 3))) {
+            // static fairygui::GTweener *to(const cocos2d::Color4B &startValue, const cocos2d::Color4B &endValue, float duration)
             return _fairygui_GTween_to5(L);
         // }
     }
@@ -4070,18 +4102,21 @@ static int _fairygui_UIPackage_getItemAsset(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 2, "fgui.PackageItem"))) {
+            // void *getItemAsset(fairygui::PackageItem *item)
             return _fairygui_UIPackage_getItemAsset2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2))) {
+            // static void *getItemAsset(const std::string &pkgName, const std::string &resName, @optional fairygui::PackageItemType type)
             return _fairygui_UIPackage_getItemAsset3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
+            // static void *getItemAsset(const std::string &pkgName, const std::string &resName, @optional fairygui::PackageItemType type)
             return _fairygui_UIPackage_getItemAsset1(L);
         // }
     }
@@ -4133,12 +4168,14 @@ static int _fairygui_UIPackage_getItemAssetByURL(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 1))) {
+            // static void *getItemAssetByURL(const std::string &url, @optional fairygui::PackageItemType type)
             return _fairygui_UIPackage_getItemAssetByURL2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_uint(L, 2))) {
+            // static void *getItemAssetByURL(const std::string &url, @optional fairygui::PackageItemType type)
             return _fairygui_UIPackage_getItemAssetByURL1(L);
         // }
     }
@@ -5828,12 +5865,14 @@ static int _fairygui_GObject_addClickListener(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_function(L, 2))) {
+            // void addClickListener(@local const std::function<void (EventContext *)> &callback)
             return _fairygui_GObject_addClickListener1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_function(L, 2)) && (manual_olua_is_fairygui_EventTag(L, 3))) {
+            // void addClickListener(@local const std::function<void (EventContext *)> &callback, const fairygui::EventTag &tag)
             return _fairygui_GObject_addClickListener2(L);
         // }
     }
@@ -5908,12 +5947,14 @@ static int _fairygui_GObject_addRelation(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 2, "fgui.GObject")) && (olua_is_uint(L, 3))) {
+            // void addRelation(fairygui::GObject *target, fairygui::RelationType relationType, @optional bool usePercent)
             return _fairygui_GObject_addRelation2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_cppobj(L, 2, "fgui.GObject")) && (olua_is_uint(L, 3)) && (olua_is_bool(L, 4))) {
+            // void addRelation(fairygui::GObject *target, fairygui::RelationType relationType, @optional bool usePercent)
             return _fairygui_GObject_addRelation1(L);
         // }
     }
@@ -5972,11 +6013,13 @@ static int _fairygui_GObject_center(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // void center(@optional bool restraint)
         return _fairygui_GObject_center2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_bool(L, 2))) {
+            // void center(@optional bool restraint)
             return _fairygui_GObject_center1(L);
         // }
     }
@@ -6646,22 +6689,26 @@ static int _fairygui_GObject_globalToLocal(lua_State *L)
 
     if (num_args == 1) {
         if ((manual_olua_is_cocos2d_Rect(L, 2))) {
+            // cocos2d::Rect globalToLocal(const cocos2d::Rect &rect)
             return _fairygui_GObject_globalToLocal3(L);
         }
 
         // if ((auto_olua_is_cocos2d_Vec2(L, 2))) {
+            // cocos2d::Vec2 globalToLocal(const cocos2d::Vec2 &pt)
             return _fairygui_GObject_globalToLocal1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((auto_olua_ispack_cocos2d_Vec2(L, 2))) {
+            // cocos2d::Vec2 globalToLocal(@pack const cocos2d::Vec2 &pt)
             return _fairygui_GObject_globalToLocal2(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((manual_olua_ispack_cocos2d_Rect(L, 2))) {
+            // cocos2d::Rect globalToLocal(@pack const cocos2d::Rect &rect)
             return _fairygui_GObject_globalToLocal4(L);
         // }
     }
@@ -6876,22 +6923,26 @@ static int _fairygui_GObject_localToGlobal(lua_State *L)
 
     if (num_args == 1) {
         if ((manual_olua_is_cocos2d_Rect(L, 2))) {
+            // cocos2d::Rect localToGlobal(const cocos2d::Rect &rect)
             return _fairygui_GObject_localToGlobal3(L);
         }
 
         // if ((auto_olua_is_cocos2d_Vec2(L, 2))) {
+            // cocos2d::Vec2 localToGlobal(const cocos2d::Vec2 &pt)
             return _fairygui_GObject_localToGlobal1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((auto_olua_ispack_cocos2d_Vec2(L, 2))) {
+            // cocos2d::Vec2 localToGlobal(@pack const cocos2d::Vec2 &pt)
             return _fairygui_GObject_localToGlobal2(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((manual_olua_ispack_cocos2d_Rect(L, 2))) {
+            // cocos2d::Rect localToGlobal(@pack const cocos2d::Rect &rect)
             return _fairygui_GObject_localToGlobal4(L);
         // }
     }
@@ -7259,12 +7310,14 @@ static int _fairygui_GObject_setPivot(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3))) {
+            // void setPivot(float xv, float yv, @optional bool asAnchor)
             return _fairygui_GObject_setPivot2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_bool(L, 4))) {
+            // void setPivot(float xv, float yv, @optional bool asAnchor)
             return _fairygui_GObject_setPivot1(L);
         // }
     }
@@ -7434,12 +7487,14 @@ static int _fairygui_GObject_setSize(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3))) {
+            // void setSize(float wv, float hv, @optional bool ignorePivot)
             return _fairygui_GObject_setSize2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_bool(L, 4))) {
+            // void setSize(float wv, float hv, @optional bool ignorePivot)
             return _fairygui_GObject_setSize1(L);
         // }
     }
@@ -7704,11 +7759,13 @@ static int _fairygui_GObject_startDrag(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // void startDrag(@optional int touchId)
         return _fairygui_GObject_startDrag2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_int(L, 2))) {
+            // void startDrag(@optional int touchId)
             return _fairygui_GObject_startDrag1(L);
         // }
     }
@@ -7782,12 +7839,14 @@ static int _fairygui_GObject_transformRect(lua_State *L)
 
     if (num_args == 2) {
         // if ((manual_olua_is_cocos2d_Rect(L, 2)) && (olua_is_cppobj(L, 3, "fgui.GObject"))) {
+            // cocos2d::Rect transformRect(const cocos2d::Rect &rect, fairygui::GObject *targetSpace)
             return _fairygui_GObject_transformRect1(L);
         // }
     }
 
     if (num_args == 5) {
         // if ((manual_olua_ispack_cocos2d_Rect(L, 2)) && (olua_is_cppobj(L, 3, "fgui.GObject"))) {
+            // cocos2d::Rect transformRect(@pack const cocos2d::Rect &rect, fairygui::GObject *targetSpace)
             return _fairygui_GObject_transformRect2(L);
         // }
     }
@@ -8952,11 +9011,13 @@ static int _fairygui_GComponent_removeChildren(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // @unref(cmp children) void removeChildren()
         return _fairygui_GComponent_removeChildren1(L);
     }
 
     if (num_args == 2) {
         // if ((olua_is_int(L, 2)) && (olua_is_int(L, 3))) {
+            // @unref(cmp children) void removeChildren(int beginIndex, int endIndex)
             return _fairygui_GComponent_removeChildren2(L);
         // }
     }
@@ -9225,12 +9286,14 @@ static int _fairygui_GComponent_setMask(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 2, "cc.Node"))) {
+            // void setMask(@ref(single mask) cocos2d::Node *value, @optional bool inverted)
             return _fairygui_GComponent_setMask2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 2, "cc.Node")) && (olua_is_bool(L, 3))) {
+            // void setMask(@ref(single mask) cocos2d::Node *value, @optional bool inverted)
             return _fairygui_GComponent_setMask1(L);
         // }
     }
@@ -9533,12 +9596,14 @@ static int _fairygui_GRoot_create(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 1, "cc.Scene"))) {
+            // static fairygui::GRoot *create(cocos2d::Scene *scene, @optional int zOrder)
             return _fairygui_GRoot_create2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 1, "cc.Scene")) && (olua_is_int(L, 2))) {
+            // static fairygui::GRoot *create(cocos2d::Scene *scene, @optional int zOrder)
             return _fairygui_GRoot_create1(L);
         // }
     }
@@ -9802,11 +9867,13 @@ static int _fairygui_GRoot_hidePopup(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // @unref(cmp children) void hidePopup()
         return _fairygui_GRoot_hidePopup1(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 2, "fgui.GObject"))) {
+            // @unref(cmp children) void hidePopup(fairygui::GObject *popup)
             return _fairygui_GRoot_hidePopup2(L);
         // }
     }
@@ -9982,12 +10049,14 @@ static int _fairygui_GRoot_playSound(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
+            // void playSound(const std::string &url, @optional float volumeScale)
             return _fairygui_GRoot_playSound2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_number(L, 3))) {
+            // void playSound(const std::string &url, @optional float volumeScale)
             return _fairygui_GRoot_playSound1(L);
         // }
     }
@@ -10109,12 +10178,14 @@ static int _fairygui_GRoot_showPopup(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 2, "fgui.GObject"))) {
+            // @unref(cmp children) void showPopup(@ref(map children) fairygui::GObject *popup)
             return _fairygui_GRoot_showPopup1(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_cppobj(L, 2, "fgui.GObject")) && (olua_is_cppobj(L, 3, "fgui.GObject")) && (olua_is_uint(L, 4))) {
+            // @unref(cmp children) void showPopup(@ref(map children) fairygui::GObject *popup, fairygui::GObject *target, fairygui::PopupDirection dir)
             return _fairygui_GRoot_showPopup2(L);
         // }
     }
@@ -10245,12 +10316,14 @@ static int _fairygui_GRoot_togglePopup(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 2, "fgui.GObject"))) {
+            // @unref(cmp children) void togglePopup(@ref(map children) fairygui::GObject *popup)
             return _fairygui_GRoot_togglePopup1(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_cppobj(L, 2, "fgui.GObject")) && (olua_is_cppobj(L, 3, "fgui.GObject")) && (olua_is_uint(L, 4))) {
+            // @unref(cmp children) void togglePopup(@ref(map children) fairygui::GObject *popup, fairygui::GObject *target, fairygui::PopupDirection dir)
             return _fairygui_GRoot_togglePopup2(L);
         // }
     }
@@ -10469,11 +10542,13 @@ static int _fairygui_GGroup_setBoundsChangedFlag(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // void setBoundsChangedFlag(@optional bool childSizeChanged)
         return _fairygui_GGroup_setBoundsChangedFlag2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_bool(L, 2))) {
+            // void setBoundsChangedFlag(@optional bool childSizeChanged)
             return _fairygui_GGroup_setBoundsChangedFlag1(L);
         // }
     }
@@ -12725,11 +12800,13 @@ static int _fairygui_GList_addItemFromPool(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // @ref(map children) fairygui::GObject *addItemFromPool()
         return _fairygui_GList_addItemFromPool1(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
+            // @ref(map children) fairygui::GObject *addItemFromPool(const std::string &url)
             return _fairygui_GList_addItemFromPool2(L);
         // }
     }
@@ -12933,11 +13010,13 @@ static int _fairygui_GList_getFromPool(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // fairygui::GObject *getFromPool()
         return _fairygui_GList_getFromPool1(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
+            // fairygui::GObject *getFromPool(const std::string &url)
             return _fairygui_GList_getFromPool2(L);
         // }
     }
@@ -13287,11 +13366,13 @@ static int _fairygui_GList_removeChildrenToPool(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // @unref(cmp children) void removeChildrenToPool()
         return _fairygui_GList_removeChildrenToPool1(L);
     }
 
     if (num_args == 2) {
         // if ((olua_is_int(L, 2)) && (olua_is_int(L, 3))) {
+            // @unref(cmp children) void removeChildrenToPool(int beginIndex, int endIndex)
             return _fairygui_GList_removeChildrenToPool2(L);
         // }
     }
@@ -13363,12 +13444,14 @@ static int _fairygui_GList_resizeToFit(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_int(L, 2))) {
+            // void resizeToFit(int itemCount)
             return _fairygui_GList_resizeToFit1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_int(L, 2)) && (olua_is_int(L, 3))) {
+            // void resizeToFit(int itemCount, int minSize)
             return _fairygui_GList_resizeToFit2(L);
         // }
     }
@@ -13465,18 +13548,21 @@ static int _fairygui_GList_scrollToView(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_int(L, 2))) {
+            // void scrollToView(int index, @optional bool ani, @optional bool setFirst)
             return _fairygui_GList_scrollToView2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_int(L, 2)) && (olua_is_bool(L, 3))) {
+            // void scrollToView(int index, @optional bool ani, @optional bool setFirst)
             return _fairygui_GList_scrollToView3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_int(L, 2)) && (olua_is_bool(L, 3)) && (olua_is_bool(L, 4))) {
+            // void scrollToView(int index, @optional bool ani, @optional bool setFirst)
             return _fairygui_GList_scrollToView1(L);
         // }
     }
@@ -14412,35 +14498,41 @@ static int _fairygui_GMovieClip_setPlaySettings(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // void setPlaySettings(@optional int start, @optional int end, @optional int times, @optional int endAt, @local @optional std::function<void ()> completeCallback)
         return _fairygui_GMovieClip_setPlaySettings2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_int(L, 2))) {
+            // void setPlaySettings(@optional int start, @optional int end, @optional int times, @optional int endAt, @local @optional std::function<void ()> completeCallback)
             return _fairygui_GMovieClip_setPlaySettings3(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_int(L, 2)) && (olua_is_int(L, 3))) {
+            // void setPlaySettings(@optional int start, @optional int end, @optional int times, @optional int endAt, @local @optional std::function<void ()> completeCallback)
             return _fairygui_GMovieClip_setPlaySettings4(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_int(L, 2)) && (olua_is_int(L, 3)) && (olua_is_int(L, 4))) {
+            // void setPlaySettings(@optional int start, @optional int end, @optional int times, @optional int endAt, @local @optional std::function<void ()> completeCallback)
             return _fairygui_GMovieClip_setPlaySettings5(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_int(L, 2)) && (olua_is_int(L, 3)) && (olua_is_int(L, 4)) && (olua_is_int(L, 5))) {
+            // void setPlaySettings(@optional int start, @optional int end, @optional int times, @optional int endAt, @local @optional std::function<void ()> completeCallback)
             return _fairygui_GMovieClip_setPlaySettings6(L);
         // }
     }
 
     if (num_args == 5) {
         // if ((olua_is_int(L, 2)) && (olua_is_int(L, 3)) && (olua_is_int(L, 4)) && (olua_is_int(L, 5)) && (olua_is_std_function(L, 6))) {
+            // void setPlaySettings(@optional int start, @optional int end, @optional int times, @optional int endAt, @local @optional std::function<void ()> completeCallback)
             return _fairygui_GMovieClip_setPlaySettings1(L);
         // }
     }
@@ -15697,11 +15789,13 @@ static int _fairygui_PopupMenu_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 0) {
+        // static fairygui::PopupMenu *create()
         return _fairygui_PopupMenu_create2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 1))) {
+            // static fairygui::PopupMenu *create(const std::string &resourceURL)
             return _fairygui_PopupMenu_create1(L);
         // }
     }
@@ -16022,11 +16116,13 @@ static int _fairygui_PopupMenu_show(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // @unref(cmp children parent)@ref(map children parent) void show()
         return _fairygui_PopupMenu_show1(L);
     }
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 2, "fgui.GObject")) && (olua_is_uint(L, 3))) {
+            // @unref(cmp children parent)@ref(map children parent) void show(fairygui::GObject *target, fairygui::PopupDirection dir)
             return _fairygui_PopupMenu_show2(L);
         // }
     }
@@ -16115,12 +16211,14 @@ static int _fairygui_Relations_add(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 2, "fgui.GObject")) && (olua_is_uint(L, 3))) {
+            // void add(fairygui::GObject *target, fairygui::RelationType relationType)
             return _fairygui_Relations_add1(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_cppobj(L, 2, "fgui.GObject")) && (olua_is_uint(L, 3)) && (olua_is_bool(L, 4))) {
+            // void add(fairygui::GObject *target, fairygui::RelationType relationType, bool usePercent)
             return _fairygui_Relations_add2(L);
         // }
     }
@@ -17102,11 +17200,13 @@ static int _fairygui_ScrollPane_scrollBottom(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // void scrollBottom(@optional bool ani)
         return _fairygui_ScrollPane_scrollBottom2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_bool(L, 2))) {
+            // void scrollBottom(@optional bool ani)
             return _fairygui_ScrollPane_scrollBottom1(L);
         // }
     }
@@ -17175,17 +17275,20 @@ static int _fairygui_ScrollPane_scrollDown(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // void scrollDown(@optional float ratio, @optional bool ani)
         return _fairygui_ScrollPane_scrollDown2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_number(L, 2))) {
+            // void scrollDown(@optional float ratio, @optional bool ani)
             return _fairygui_ScrollPane_scrollDown3(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_number(L, 2)) && (olua_is_bool(L, 3))) {
+            // void scrollDown(@optional float ratio, @optional bool ani)
             return _fairygui_ScrollPane_scrollDown1(L);
         // }
     }
@@ -17254,17 +17357,20 @@ static int _fairygui_ScrollPane_scrollLeft(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // void scrollLeft(@optional float ratio, @optional bool ani)
         return _fairygui_ScrollPane_scrollLeft2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_number(L, 2))) {
+            // void scrollLeft(@optional float ratio, @optional bool ani)
             return _fairygui_ScrollPane_scrollLeft3(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_number(L, 2)) && (olua_is_bool(L, 3))) {
+            // void scrollLeft(@optional float ratio, @optional bool ani)
             return _fairygui_ScrollPane_scrollLeft1(L);
         // }
     }
@@ -17333,17 +17439,20 @@ static int _fairygui_ScrollPane_scrollRight(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // void scrollRight(@optional float ratio, @optional bool ani)
         return _fairygui_ScrollPane_scrollRight2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_number(L, 2))) {
+            // void scrollRight(@optional float ratio, @optional bool ani)
             return _fairygui_ScrollPane_scrollRight3(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_number(L, 2)) && (olua_is_bool(L, 3))) {
+            // void scrollRight(@optional float ratio, @optional bool ani)
             return _fairygui_ScrollPane_scrollRight1(L);
         // }
     }
@@ -17479,30 +17588,36 @@ static int _fairygui_ScrollPane_scrollToView(lua_State *L)
 
     if (num_args == 1) {
         if ((manual_olua_is_cocos2d_Rect(L, 2))) {
+            // void scrollToView(const cocos2d::Rect &rect, @optional bool ani, @optional bool setFirst)
             return _fairygui_ScrollPane_scrollToView5(L);
         }
 
         // if ((olua_is_cppobj(L, 2, "fgui.GObject"))) {
+            // void scrollToView(fairygui::GObject *obj, @optional bool ani, @optional bool setFirst)
             return _fairygui_ScrollPane_scrollToView3(L);
         // }
     }
 
     if (num_args == 2) {
         if ((manual_olua_is_cocos2d_Rect(L, 2)) && (olua_is_bool(L, 3))) {
+            // void scrollToView(const cocos2d::Rect &rect, @optional bool ani, @optional bool setFirst)
             return _fairygui_ScrollPane_scrollToView6(L);
         }
 
         // if ((olua_is_cppobj(L, 2, "fgui.GObject")) && (olua_is_bool(L, 3))) {
+            // void scrollToView(fairygui::GObject *obj, @optional bool ani, @optional bool setFirst)
             return _fairygui_ScrollPane_scrollToView4(L);
         // }
     }
 
     if (num_args == 3) {
         if ((manual_olua_is_cocos2d_Rect(L, 2)) && (olua_is_bool(L, 3)) && (olua_is_bool(L, 4))) {
+            // void scrollToView(const cocos2d::Rect &rect, @optional bool ani, @optional bool setFirst)
             return _fairygui_ScrollPane_scrollToView2(L);
         }
 
         // if ((olua_is_cppobj(L, 2, "fgui.GObject")) && (olua_is_bool(L, 3)) && (olua_is_bool(L, 4))) {
+            // void scrollToView(fairygui::GObject *obj, @optional bool ani, @optional bool setFirst)
             return _fairygui_ScrollPane_scrollToView1(L);
         // }
     }
@@ -17551,11 +17666,13 @@ static int _fairygui_ScrollPane_scrollTop(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // void scrollTop(@optional bool ani)
         return _fairygui_ScrollPane_scrollTop2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_bool(L, 2))) {
+            // void scrollTop(@optional bool ani)
             return _fairygui_ScrollPane_scrollTop1(L);
         // }
     }
@@ -17624,17 +17741,20 @@ static int _fairygui_ScrollPane_scrollUp(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // void scrollUp(@optional float ratio, @optional bool ani)
         return _fairygui_ScrollPane_scrollUp2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_number(L, 2))) {
+            // void scrollUp(@optional float ratio, @optional bool ani)
             return _fairygui_ScrollPane_scrollUp3(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_number(L, 2)) && (olua_is_bool(L, 3))) {
+            // void scrollUp(@optional float ratio, @optional bool ani)
             return _fairygui_ScrollPane_scrollUp1(L);
         // }
     }
@@ -17799,12 +17919,14 @@ static int _fairygui_ScrollPane_setPageX(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_int(L, 2))) {
+            // void setPageX(int value, @optional bool ani)
             return _fairygui_ScrollPane_setPageX2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_int(L, 2)) && (olua_is_bool(L, 3))) {
+            // void setPageX(int value, @optional bool ani)
             return _fairygui_ScrollPane_setPageX1(L);
         // }
     }
@@ -17858,12 +17980,14 @@ static int _fairygui_ScrollPane_setPageY(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_int(L, 2))) {
+            // void setPageY(int value, @optional bool ani)
             return _fairygui_ScrollPane_setPageY2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_int(L, 2)) && (olua_is_bool(L, 3))) {
+            // void setPageY(int value, @optional bool ani)
             return _fairygui_ScrollPane_setPageY1(L);
         // }
     }
@@ -17917,12 +18041,14 @@ static int _fairygui_ScrollPane_setPercX(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_number(L, 2))) {
+            // void setPercX(float value, @optional bool ani)
             return _fairygui_ScrollPane_setPercX2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_number(L, 2)) && (olua_is_bool(L, 3))) {
+            // void setPercX(float value, @optional bool ani)
             return _fairygui_ScrollPane_setPercX1(L);
         // }
     }
@@ -17976,12 +18102,14 @@ static int _fairygui_ScrollPane_setPercY(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_number(L, 2))) {
+            // void setPercY(float value, @optional bool ani)
             return _fairygui_ScrollPane_setPercY2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_number(L, 2)) && (olua_is_bool(L, 3))) {
+            // void setPercY(float value, @optional bool ani)
             return _fairygui_ScrollPane_setPercY1(L);
         // }
     }
@@ -18035,12 +18163,14 @@ static int _fairygui_ScrollPane_setPosX(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_number(L, 2))) {
+            // void setPosX(float value, @optional bool ani)
             return _fairygui_ScrollPane_setPosX2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_number(L, 2)) && (olua_is_bool(L, 3))) {
+            // void setPosX(float value, @optional bool ani)
             return _fairygui_ScrollPane_setPosX1(L);
         // }
     }
@@ -18094,12 +18224,14 @@ static int _fairygui_ScrollPane_setPosY(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_number(L, 2))) {
+            // void setPosY(float value, @optional bool ani)
             return _fairygui_ScrollPane_setPosY2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_number(L, 2)) && (olua_is_bool(L, 3))) {
+            // void setPosY(float value, @optional bool ani)
             return _fairygui_ScrollPane_setPosY1(L);
         // }
     }
@@ -18593,35 +18725,41 @@ static int _fairygui_Transition_play(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // void play(@local @optional std::function<void ()> callback)
         return _fairygui_Transition_play4(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_std_function(L, 2))) {
+            // void play(@local @optional std::function<void ()> callback)
             return _fairygui_Transition_play1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_int(L, 2)) && (olua_is_number(L, 3))) {
+            // void play(int times, float delay, @local @optional std::function<void ()> callback)
             return _fairygui_Transition_play5(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_int(L, 2)) && (olua_is_number(L, 3)) && (olua_is_std_function(L, 4))) {
+            // void play(int times, float delay, @local @optional std::function<void ()> callback)
             return _fairygui_Transition_play2(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_int(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_number(L, 5))) {
+            // void play(int times, float delay, float startTime, float endTime, @local @optional std::function<void ()> callback)
             return _fairygui_Transition_play6(L);
         // }
     }
 
     if (num_args == 5) {
         // if ((olua_is_int(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_number(L, 5)) && (olua_is_std_function(L, 6))) {
+            // void play(int times, float delay, float startTime, float endTime, @local @optional std::function<void ()> callback)
             return _fairygui_Transition_play3(L);
         // }
     }
@@ -18756,23 +18894,27 @@ static int _fairygui_Transition_playReverse(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // void playReverse(@local @optional std::function<void ()> callback)
         return _fairygui_Transition_playReverse3(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_std_function(L, 2))) {
+            // void playReverse(@local @optional std::function<void ()> callback)
             return _fairygui_Transition_playReverse1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_int(L, 2)) && (olua_is_number(L, 3))) {
+            // void playReverse(int times, float delay, @local @optional std::function<void ()> callback)
             return _fairygui_Transition_playReverse4(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_int(L, 2)) && (olua_is_number(L, 3)) && (olua_is_std_function(L, 4))) {
+            // void playReverse(int times, float delay, @local @optional std::function<void ()> callback)
             return _fairygui_Transition_playReverse2(L);
         // }
     }
@@ -18983,11 +19125,13 @@ static int _fairygui_Transition_stop(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // void stop()
         return _fairygui_Transition_stop1(L);
     }
 
     if (num_args == 2) {
         // if ((olua_is_bool(L, 2)) && (olua_is_bool(L, 3))) {
+            // void stop(bool setToComplete, bool processCallback)
             return _fairygui_Transition_stop2(L);
         // }
     }
@@ -20021,11 +20165,13 @@ static int _fairygui_Window_closeModalWait(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // bool closeModalWait()
         return _fairygui_Window_closeModalWait1(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_int(L, 2))) {
+            // bool closeModalWait(int requestingCmd)
             return _fairygui_Window_closeModalWait2(L);
         // }
     }
@@ -20510,11 +20656,13 @@ static int _fairygui_Window_showModalWait(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // void showModalWait()
         return _fairygui_Window_showModalWait1(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_int(L, 2))) {
+            // void showModalWait(int requestingCmd)
             return _fairygui_Window_showModalWait2(L);
         // }
     }
@@ -20747,18 +20895,21 @@ static int _fairygui_DragDropManager_startDrag(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
+            // void startDrag(const std::string &icon, @optional const cocos2d::Value &sourceData, @optional int touchPointID)
             return _fairygui_DragDropManager_startDrag2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (manual_olua_is_cocos2d_Value(L, 3))) {
+            // void startDrag(const std::string &icon, @optional const cocos2d::Value &sourceData, @optional int touchPointID)
             return _fairygui_DragDropManager_startDrag3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 2)) && (manual_olua_is_cocos2d_Value(L, 3)) && (olua_is_int(L, 4))) {
+            // void startDrag(const std::string &icon, @optional const cocos2d::Value &sourceData, @optional int touchPointID)
             return _fairygui_DragDropManager_startDrag1(L);
         // }
     }
@@ -20828,10 +20979,12 @@ static int _fairygui_UIObjectFactory_newObject(lua_State *L)
 
     if (num_args == 1) {
         if ((olua_is_cppobj(L, 1, "fgui.PackageItem"))) {
+            // static fairygui::GObject *newObject(fairygui::PackageItem *pi)
             return _fairygui_UIObjectFactory_newObject1(L);
         }
 
         // if ((olua_is_uint(L, 1))) {
+            // static fairygui::GObject *newObject(fairygui::ObjectType type)
             return _fairygui_UIObjectFactory_newObject2(L);
         // }
     }
@@ -21048,11 +21201,13 @@ static int _fairygui_TreeNode_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 0) {
+        // static fairygui::TreeNode *create(@optional bool isFolder)
         return _fairygui_TreeNode_create2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_bool(L, 1))) {
+            // static fairygui::TreeNode *create(@optional bool isFolder)
             return _fairygui_TreeNode_create1(L);
         // }
     }
@@ -21394,11 +21549,13 @@ static int _fairygui_TreeNode_removeChildren(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // @unref(cmp children) void removeChildren()
         return _fairygui_TreeNode_removeChildren1(L);
     }
 
     if (num_args == 2) {
         // if ((olua_is_int(L, 2)) && (olua_is_int(L, 3))) {
+            // @unref(cmp children) void removeChildren(int beginIndex, int endIndex)
             return _fairygui_TreeNode_removeChildren2(L);
         // }
     }
@@ -21614,12 +21771,14 @@ static int _fairygui_TreeView_addSelection(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 2, "fgui.TreeNode"))) {
+            // void addSelection(fairygui::TreeNode *node, @optional bool scrollItToView)
             return _fairygui_TreeView_addSelection2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 2, "fgui.TreeNode")) && (olua_is_bool(L, 3))) {
+            // void addSelection(fairygui::TreeNode *node, @optional bool scrollItToView)
             return _fairygui_TreeView_addSelection1(L);
         // }
     }

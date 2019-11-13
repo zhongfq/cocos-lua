@@ -114,7 +114,7 @@ cls.func('setDispatcher', [[{
 }]])
 cls.callback {
     FUNCS =  {
-        'static void openURL(const std::string &uri, @nullable const std::function<void (bool)> callback)'
+        'static void openURL(const std::string &uri, @local @optional const std::function<void (bool)> callback)'
     },
     TAG_MAKER = 'openURL',
     TAG_MODE = 'OLUA_TAG_NEW',
@@ -124,7 +124,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'static void requestPermission(Permission permission, const std::function<void (PermissionStatus)> callback)'
+        'static void requestPermission(xgame::Permission permission, @local const std::function<void (PermissionStatus)> callback)'
     },
     TAG_MAKER = 'requestPermission',
     TAG_MODE = 'OLUA_TAG_NEW',
@@ -134,7 +134,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'static void alert(const std::string &title, const std::string &message, const std::string &ok, const std::string &no, const std::function<void (bool)> &callback)'
+        'static void alert(const std::string &title, const std::string &message, const std::string &ok, const std::string &no, @local const std::function<void (bool)> callback)'
     },
     TAG_MAKER = 'alert',
     TAG_MODE = 'OLUA_TAG_NEW',

@@ -894,10 +894,12 @@ static int _spine_AnimationState_addAnimation(lua_State *L)
 
     if (num_args == 4) {
         if ((olua_is_uint(L, 2)) && (manual_olua_is_spine_String(L, 3)) && (olua_is_bool(L, 4)) && (olua_is_number(L, 5))) {
+            // spine::TrackEntry *addAnimation(size_t trackIndex, const spine::String &animationName, bool loop, float delay)
             return _spine_AnimationState_addAnimation1(L);
         }
 
         // if ((olua_is_uint(L, 2)) && (olua_is_cppobj(L, 3, "sp.Animation")) && (olua_is_bool(L, 4)) && (olua_is_number(L, 5))) {
+            // spine::TrackEntry *addAnimation(size_t trackIndex, spine::Animation *animation, bool loop, float delay)
             return _spine_AnimationState_addAnimation2(L);
         // }
     }
@@ -1136,10 +1138,12 @@ static int _spine_AnimationState_setAnimation(lua_State *L)
 
     if (num_args == 3) {
         if ((olua_is_uint(L, 2)) && (manual_olua_is_spine_String(L, 3)) && (olua_is_bool(L, 4))) {
+            // spine::TrackEntry *setAnimation(size_t trackIndex, const spine::String &animationName, bool loop)
             return _spine_AnimationState_setAnimation1(L);
         }
 
         // if ((olua_is_uint(L, 2)) && (olua_is_cppobj(L, 3, "sp.Animation")) && (olua_is_bool(L, 4))) {
+            // spine::TrackEntry *setAnimation(size_t trackIndex, spine::Animation *animation, bool loop)
             return _spine_AnimationState_setAnimation2(L);
         // }
     }
@@ -1450,10 +1454,12 @@ static int _spine_AnimationStateData_setMix(lua_State *L)
 
     if (num_args == 3) {
         if ((manual_olua_is_spine_String(L, 2)) && (manual_olua_is_spine_String(L, 3)) && (olua_is_number(L, 4))) {
+            // void setMix(const spine::String &fromName, const spine::String &toName, float duration)
             return _spine_AnimationStateData_setMix1(L);
         }
 
         // if ((olua_is_cppobj(L, 2, "sp.Animation")) && (olua_is_cppobj(L, 3, "sp.Animation")) && (olua_is_number(L, 4))) {
+            // void setMix(spine::Animation *from, spine::Animation *to, float duration)
             return _spine_AnimationStateData_setMix2(L);
         // }
     }
@@ -2311,12 +2317,14 @@ static int _spine_BoneData_new(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_int(L, 1)) && (manual_olua_is_spine_String(L, 2))) {
+            // BoneData(int index, const spine::String &name, @optional spine::BoneData *parent)
             return _spine_BoneData_new2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_int(L, 1)) && (manual_olua_is_spine_String(L, 2)) && (olua_is_cppobj(L, 3, "sp.BoneData"))) {
+            // BoneData(int index, const spine::String &name, @optional spine::BoneData *parent)
             return _spine_BoneData_new1(L);
         // }
     }
@@ -4135,12 +4143,14 @@ static int _spine_SkeletonBounds_containsPoint(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3))) {
+            // spine::BoundingBoxAttachment *containsPoint(float x, float y)
             return _spine_SkeletonBounds_containsPoint2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_cppobj(L, 2, "sp.Polygon")) && (olua_is_number(L, 3)) && (olua_is_number(L, 4))) {
+            // bool containsPoint(spine::Polygon *polygon, float x, float y)
             return _spine_SkeletonBounds_containsPoint1(L);
         // }
     }
@@ -4261,12 +4271,14 @@ static int _spine_SkeletonBounds_intersectsSegment(lua_State *L)
 
     if (num_args == 4) {
         // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_number(L, 5))) {
+            // spine::BoundingBoxAttachment *intersectsSegment(float x1, float y1, float x2, float y2)
             return _spine_SkeletonBounds_intersectsSegment1(L);
         // }
     }
 
     if (num_args == 5) {
         // if ((olua_is_cppobj(L, 2, "sp.Polygon")) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_number(L, 5)) && (olua_is_number(L, 6))) {
+            // bool intersectsSegment(spine::Polygon *polygon, float x1, float y1, float x2, float y2)
             return _spine_SkeletonBounds_intersectsSegment2(L);
         // }
     }
@@ -7210,11 +7222,13 @@ static int _spine_Bone_updateWorldTransform(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // void updateWorldTransform()
         return _spine_Bone_updateWorldTransform1(L);
     }
 
     if (num_args == 7) {
         // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_number(L, 5)) && (olua_is_number(L, 6)) && (olua_is_number(L, 7)) && (olua_is_number(L, 8))) {
+            // void updateWorldTransform(float x, float y, float rotation, float scaleX, float scaleY, float shearX, float shearY)
             return _spine_Bone_updateWorldTransform2(L);
         // }
     }
@@ -11963,10 +11977,12 @@ static int _spine_Skeleton_getAttachment(lua_State *L)
 
     if (num_args == 2) {
         if ((manual_olua_is_spine_String(L, 2)) && (manual_olua_is_spine_String(L, 3))) {
+            // spine::Attachment *getAttachment(const spine::String &slotName, const spine::String &attachmentName)
             return _spine_Skeleton_getAttachment1(L);
         }
 
         // if ((olua_is_int(L, 2)) && (manual_olua_is_spine_String(L, 3))) {
+            // spine::Attachment *getAttachment(int slotIndex, const spine::String &attachmentName)
             return _spine_Skeleton_getAttachment2(L);
         // }
     }
@@ -12416,10 +12432,12 @@ static int _spine_Skeleton_setSkin(lua_State *L)
 
     if (num_args == 1) {
         if ((manual_olua_is_spine_String(L, 2))) {
+            // void setSkin(const spine::String &skinName)
             return _spine_Skeleton_setSkin1(L);
         }
 
         // if ((olua_is_cppobj(L, 2, "sp.Skin"))) {
+            // void setSkin(spine::Skin *newSkin)
             return _spine_Skeleton_setSkin2(L);
         // }
     }
@@ -12693,12 +12711,14 @@ static int _spine_SkeletonRenderer_createWithData(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 1, "sp.SkeletonData"))) {
+            // static spine::SkeletonRenderer *createWithData(@ref(single skeletonData) spine::SkeletonData *skeletonData, @optional bool ownsSkeletonData)
             return _spine_SkeletonRenderer_createWithData2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 1, "sp.SkeletonData")) && (olua_is_bool(L, 2))) {
+            // static spine::SkeletonRenderer *createWithData(@ref(single skeletonData) spine::SkeletonData *skeletonData, @optional bool ownsSkeletonData)
             return _spine_SkeletonRenderer_createWithData1(L);
         // }
     }
@@ -12794,20 +12814,24 @@ static int _spine_SkeletonRenderer_createWithFile(lua_State *L)
 
     if (num_args == 2) {
         if ((olua_is_std_string(L, 1)) && (olua_is_cppobj(L, 2, "sp.Atlas"))) {
+            // static spine::SkeletonRenderer *createWithFile(const std::string &skeletonDataFile, spine::Atlas *atlas, @optional float scale)
             return _spine_SkeletonRenderer_createWithFile3(L);
         }
 
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2))) {
+            // static spine::SkeletonRenderer *createWithFile(const std::string &skeletonDataFile, const std::string &atlasFile, @optional float scale)
             return _spine_SkeletonRenderer_createWithFile4(L);
         // }
     }
 
     if (num_args == 3) {
         if ((olua_is_std_string(L, 1)) && (olua_is_cppobj(L, 2, "sp.Atlas")) && (olua_is_number(L, 3))) {
+            // static spine::SkeletonRenderer *createWithFile(const std::string &skeletonDataFile, spine::Atlas *atlas, @optional float scale)
             return _spine_SkeletonRenderer_createWithFile1(L);
         }
 
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3))) {
+            // static spine::SkeletonRenderer *createWithFile(const std::string &skeletonDataFile, const std::string &atlasFile, @optional float scale)
             return _spine_SkeletonRenderer_createWithFile2(L);
         // }
     }
@@ -12880,18 +12904,21 @@ static int _spine_SkeletonRenderer_createWithSkeleton(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 1, "sp.Skeleton"))) {
+            // static spine::SkeletonRenderer *createWithSkeleton(spine::Skeleton *skeleton, @optional bool ownsSkeleton, @optional bool ownsSkeletonData)
             return _spine_SkeletonRenderer_createWithSkeleton2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 1, "sp.Skeleton")) && (olua_is_bool(L, 2))) {
+            // static spine::SkeletonRenderer *createWithSkeleton(spine::Skeleton *skeleton, @optional bool ownsSkeleton, @optional bool ownsSkeletonData)
             return _spine_SkeletonRenderer_createWithSkeleton3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_cppobj(L, 1, "sp.Skeleton")) && (olua_is_bool(L, 2)) && (olua_is_bool(L, 3))) {
+            // static spine::SkeletonRenderer *createWithSkeleton(spine::Skeleton *skeleton, @optional bool ownsSkeleton, @optional bool ownsSkeletonData)
             return _spine_SkeletonRenderer_createWithSkeleton1(L);
         // }
     }
@@ -13215,25 +13242,30 @@ static int _spine_SkeletonRenderer_new(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 0) {
+        // SkeletonRenderer()
         return _spine_SkeletonRenderer_new1(L);
     }
 
     if (num_args == 2) {
         if ((olua_is_std_string(L, 1)) && (olua_is_cppobj(L, 2, "sp.Atlas"))) {
+            // SkeletonRenderer(const std::string &skeletonDataFile, spine::Atlas *atlas, @optional float scale)
             return _spine_SkeletonRenderer_new4(L);
         }
 
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2))) {
+            // SkeletonRenderer(const std::string &skeletonDataFile, const std::string &atlasFile, @optional float scale)
             return _spine_SkeletonRenderer_new5(L);
         // }
     }
 
     if (num_args == 3) {
         if ((olua_is_std_string(L, 1)) && (olua_is_cppobj(L, 2, "sp.Atlas")) && (olua_is_number(L, 3))) {
+            // SkeletonRenderer(const std::string &skeletonDataFile, spine::Atlas *atlas, @optional float scale)
             return _spine_SkeletonRenderer_new2(L);
         }
 
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3))) {
+            // SkeletonRenderer(const std::string &skeletonDataFile, const std::string &atlasFile, @optional float scale)
             return _spine_SkeletonRenderer_new3(L);
         // }
     }
@@ -13291,10 +13323,12 @@ static int _spine_SkeletonRenderer_setAttachment(lua_State *L)
 
     if (num_args == 2) {
         if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3))) {
+            // bool setAttachment(const std::string &slotName, const std::string &attachmentName)
             return _spine_SkeletonRenderer_setAttachment1(L);
         }
 
         // if ((olua_is_std_string(L, 2)) && (olua_is_string(L, 3))) {
+            // bool setAttachment(const std::string &slotName, const char *attachmentName)
             return _spine_SkeletonRenderer_setAttachment2(L);
         // }
     }
@@ -13452,10 +13486,12 @@ static int _spine_SkeletonRenderer_setSkin(lua_State *L)
 
     if (num_args == 1) {
         if ((olua_is_std_string(L, 2))) {
+            // void setSkin(const std::string &skinName)
             return _spine_SkeletonRenderer_setSkin1(L);
         }
 
         // if ((olua_is_string(L, 2))) {
+            // void setSkin(const char *skinName)
             return _spine_SkeletonRenderer_setSkin2(L);
         // }
     }
@@ -13697,12 +13733,14 @@ static int _spine_SkeletonAnimation_addAnimation(lua_State *L)
 
     if (num_args == 3) {
         // if ((olua_is_int(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_bool(L, 4))) {
+            // @ref(map trackEntries) spine::TrackEntry *addAnimation(int trackIndex, const std::string &name, bool loop, @optional float delay)
             return _spine_SkeletonAnimation_addAnimation2(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_int(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_bool(L, 4)) && (olua_is_number(L, 5))) {
+            // @ref(map trackEntries) spine::TrackEntry *addAnimation(int trackIndex, const std::string &name, bool loop, @optional float delay)
             return _spine_SkeletonAnimation_addAnimation1(L);
         // }
     }
@@ -13768,12 +13806,14 @@ static int _spine_SkeletonAnimation_addEmptyAnimation(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_int(L, 2)) && (olua_is_number(L, 3))) {
+            // @ref(map trackEntries) spine::TrackEntry *addEmptyAnimation(int trackIndex, float mixDuration, @optional float delay)
             return _spine_SkeletonAnimation_addEmptyAnimation2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_int(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4))) {
+            // @ref(map trackEntries) spine::TrackEntry *addEmptyAnimation(int trackIndex, float mixDuration, @optional float delay)
             return _spine_SkeletonAnimation_addEmptyAnimation1(L);
         // }
     }
@@ -13822,11 +13862,13 @@ static int _spine_SkeletonAnimation_clearTrack(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // void clearTrack(@optional int trackIndex)
         return _spine_SkeletonAnimation_clearTrack2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_int(L, 2))) {
+            // void clearTrack(@optional int trackIndex)
             return _spine_SkeletonAnimation_clearTrack1(L);
         // }
     }
@@ -13951,20 +13993,24 @@ static int _spine_SkeletonAnimation_createWithBinaryFile(lua_State *L)
 
     if (num_args == 2) {
         if ((olua_is_std_string(L, 1)) && (olua_is_cppobj(L, 2, "sp.Atlas"))) {
+            // static spine::SkeletonAnimation *createWithBinaryFile(const std::string &skeletonBinaryFile, spine::Atlas *atlas, @optional float scale)
             return _spine_SkeletonAnimation_createWithBinaryFile3(L);
         }
 
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2))) {
+            // static spine::SkeletonAnimation *createWithBinaryFile(const std::string &skeletonBinaryFile, const std::string &atlasFile, @optional float scale)
             return _spine_SkeletonAnimation_createWithBinaryFile4(L);
         // }
     }
 
     if (num_args == 3) {
         if ((olua_is_std_string(L, 1)) && (olua_is_cppobj(L, 2, "sp.Atlas")) && (olua_is_number(L, 3))) {
+            // static spine::SkeletonAnimation *createWithBinaryFile(const std::string &skeletonBinaryFile, spine::Atlas *atlas, @optional float scale)
             return _spine_SkeletonAnimation_createWithBinaryFile1(L);
         }
 
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3))) {
+            // static spine::SkeletonAnimation *createWithBinaryFile(const std::string &skeletonBinaryFile, const std::string &atlasFile, @optional float scale)
             return _spine_SkeletonAnimation_createWithBinaryFile2(L);
         // }
     }
@@ -14022,12 +14068,14 @@ static int _spine_SkeletonAnimation_createWithData(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 1, "sp.SkeletonData"))) {
+            // static spine::SkeletonAnimation *createWithData(@ref(single skeletonData) spine::SkeletonData *skeletonData, @optional bool ownsSkeletonData)
             return _spine_SkeletonAnimation_createWithData2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 1, "sp.SkeletonData")) && (olua_is_bool(L, 2))) {
+            // static spine::SkeletonAnimation *createWithData(@ref(single skeletonData) spine::SkeletonData *skeletonData, @optional bool ownsSkeletonData)
             return _spine_SkeletonAnimation_createWithData1(L);
         // }
     }
@@ -14123,20 +14171,24 @@ static int _spine_SkeletonAnimation_createWithJsonFile(lua_State *L)
 
     if (num_args == 2) {
         if ((olua_is_std_string(L, 1)) && (olua_is_cppobj(L, 2, "sp.Atlas"))) {
+            // static spine::SkeletonAnimation *createWithJsonFile(const std::string &skeletonJsonFile, spine::Atlas *atlas, @optional float scale)
             return _spine_SkeletonAnimation_createWithJsonFile3(L);
         }
 
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2))) {
+            // static spine::SkeletonAnimation *createWithJsonFile(const std::string &skeletonJsonFile, const std::string &atlasFile, @optional float scale)
             return _spine_SkeletonAnimation_createWithJsonFile4(L);
         // }
     }
 
     if (num_args == 3) {
         if ((olua_is_std_string(L, 1)) && (olua_is_cppobj(L, 2, "sp.Atlas")) && (olua_is_number(L, 3))) {
+            // static spine::SkeletonAnimation *createWithJsonFile(const std::string &skeletonJsonFile, spine::Atlas *atlas, @optional float scale)
             return _spine_SkeletonAnimation_createWithJsonFile1(L);
         }
 
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3))) {
+            // static spine::SkeletonAnimation *createWithJsonFile(const std::string &skeletonJsonFile, const std::string &atlasFile, @optional float scale)
             return _spine_SkeletonAnimation_createWithJsonFile2(L);
         // }
     }
@@ -14212,11 +14264,13 @@ static int _spine_SkeletonAnimation_getCurrent(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // @ref(map trackEntries) spine::TrackEntry *getCurrent(@optional int trackIndex)
         return _spine_SkeletonAnimation_getCurrent2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_int(L, 2))) {
+            // @ref(map trackEntries) spine::TrackEntry *getCurrent(@optional int trackIndex)
             return _spine_SkeletonAnimation_getCurrent1(L);
         // }
     }

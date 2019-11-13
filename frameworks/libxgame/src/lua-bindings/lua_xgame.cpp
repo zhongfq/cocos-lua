@@ -149,7 +149,7 @@ static int _xgame_runtime_alert(lua_State *L)
         }
     };
 
-    // static void alert(const std::string &title, const std::string &message, const std::string &ok, const std::string &no, const std::function<void (bool)> &callback)
+    // static void alert(const std::string &title, const std::string &message, const std::string &ok, const std::string &no, @local const std::function<void (bool)> callback)
     xgame::runtime::alert(arg1, arg2, arg3, arg4, arg5);
 
     olua_endinvoke(L);
@@ -465,7 +465,7 @@ static int _xgame_runtime_launch(lua_State *L)
     return num_ret;
 }
 
-static int _xgame_runtime_openURL(lua_State *L)
+static int _xgame_runtime_openURL1(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -497,10 +497,49 @@ static int _xgame_runtime_openURL(lua_State *L)
         arg2 = nullptr;
     }
 
-    // static void openURL(const std::string &uri, @nullable const std::function<void (bool)> callback)
+    // static void openURL(const std::string &uri, @local @optional const std::function<void (bool)> callback)
     xgame::runtime::openURL(arg1, arg2);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _xgame_runtime_openURL2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    std::string arg1;       /** uri */
+
+    olua_check_std_string(L, 1, &arg1);
+
+    // static void openURL(const std::string &uri, @local @optional const std::function<void (bool)> callback)
+    xgame::runtime::openURL(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _xgame_runtime_openURL(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 1))) {
+            // static void openURL(const std::string &uri, @local @optional const std::function<void (bool)> callback)
+            return _xgame_runtime_openURL2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_function(L, 2))) {
+            // static void openURL(const std::string &uri, @local @optional const std::function<void (bool)> callback)
+            return _xgame_runtime_openURL1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'xgame::runtime::openURL' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -545,7 +584,7 @@ static int _xgame_runtime_requestPermission(lua_State *L)
         }
     };
 
-    // static void requestPermission(Permission permission, const std::function<void (PermissionStatus)> callback)
+    // static void requestPermission(xgame::Permission permission, @local const std::function<void (PermissionStatus)> callback)
     xgame::runtime::requestPermission((xgame::Permission)arg1, arg2);
 
     olua_endinvoke(L);
@@ -802,12 +841,14 @@ static int _xgame_filesystem_addSearchPath(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 1))) {
+            // static void addSearchPath(const std::string &path, @optional bool front)
             return _xgame_filesystem_addSearchPath2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_bool(L, 2))) {
+            // static void addSearchPath(const std::string &path, @optional bool front)
             return _xgame_filesystem_addSearchPath1(L);
         // }
     }
@@ -878,12 +919,14 @@ static int _xgame_filesystem_createDirectory(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 1))) {
+            // static bool createDirectory(const std::string &path, @optional bool isFilePath)
             return _xgame_filesystem_createDirectory2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_bool(L, 2))) {
+            // static bool createDirectory(const std::string &path, @optional bool isFilePath)
             return _xgame_filesystem_createDirectory1(L);
         // }
     }
@@ -1121,12 +1164,14 @@ static int _xgame_filesystem_shortPath(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 1))) {
+            // static const std::string shortPath(const std::string &path, @optional size_t limit)
             return _xgame_filesystem_shortPath2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_uint(L, 2))) {
+            // static const std::string shortPath(const std::string &path, @optional size_t limit)
             return _xgame_filesystem_shortPath1(L);
         // }
     }
@@ -1273,12 +1318,14 @@ static int _xgame_preferences_getBoolean(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_string(L, 1))) {
+            // static bool getBoolean(const char *key, @optional bool defaultValue)
             return _xgame_preferences_getBoolean2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_string(L, 1)) && (olua_is_bool(L, 2))) {
+            // static bool getBoolean(const char *key, @optional bool defaultValue)
             return _xgame_preferences_getBoolean1(L);
         // }
     }
@@ -1330,12 +1377,14 @@ static int _xgame_preferences_getDouble(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_string(L, 1))) {
+            // static double getDouble(const char *key, @optional double defaultValue)
             return _xgame_preferences_getDouble2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_string(L, 1)) && (olua_is_number(L, 2))) {
+            // static double getDouble(const char *key, @optional double defaultValue)
             return _xgame_preferences_getDouble1(L);
         // }
     }
@@ -1387,12 +1436,14 @@ static int _xgame_preferences_getFloat(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_string(L, 1))) {
+            // static float getFloat(const char *key, @optional float defaultValue)
             return _xgame_preferences_getFloat2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_string(L, 1)) && (olua_is_number(L, 2))) {
+            // static float getFloat(const char *key, @optional float defaultValue)
             return _xgame_preferences_getFloat1(L);
         // }
     }
@@ -1444,12 +1495,14 @@ static int _xgame_preferences_getInteger(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_string(L, 1))) {
+            // static int getInteger(const char *key, @optional int defaultValue)
             return _xgame_preferences_getInteger2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_string(L, 1)) && (olua_is_int(L, 2))) {
+            // static int getInteger(const char *key, @optional int defaultValue)
             return _xgame_preferences_getInteger1(L);
         // }
     }
@@ -1501,12 +1554,14 @@ static int _xgame_preferences_getString(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_string(L, 1))) {
+            // static std::string getString(const char *key, @optional const char *defaultValue)
             return _xgame_preferences_getString2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_string(L, 1)) && (olua_is_string(L, 2))) {
+            // static std::string getString(const char *key, @optional const char *defaultValue)
             return _xgame_preferences_getString1(L);
         // }
     }

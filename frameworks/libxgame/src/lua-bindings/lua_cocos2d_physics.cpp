@@ -568,12 +568,14 @@ static int _cocos2d_PhysicsBody_addShape(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 2, "cc.PhysicsShape"))) {
+            // cocos2d::PhysicsShape *addShape(cocos2d::PhysicsShape *shape, @optional bool addMassAndMoment)
             return _cocos2d_PhysicsBody_addShape2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 2, "cc.PhysicsShape")) && (olua_is_bool(L, 3))) {
+            // cocos2d::PhysicsShape *addShape(cocos2d::PhysicsShape *shape, @optional bool addMassAndMoment)
             return _cocos2d_PhysicsBody_addShape1(L);
         // }
     }
@@ -627,12 +629,14 @@ static int _cocos2d_PhysicsBody_applyForce(lua_State *L)
 
     if (num_args == 1) {
         // if ((auto_olua_is_cocos2d_Vec2(L, 2))) {
+            // void applyForce(const cocos2d::Vec2 &force, @optional const cocos2d::Vec2 &offset)
             return _cocos2d_PhysicsBody_applyForce2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((auto_olua_is_cocos2d_Vec2(L, 2)) && (auto_olua_is_cocos2d_Vec2(L, 3))) {
+            // void applyForce(const cocos2d::Vec2 &force, @optional const cocos2d::Vec2 &offset)
             return _cocos2d_PhysicsBody_applyForce1(L);
         // }
     }
@@ -686,12 +690,14 @@ static int _cocos2d_PhysicsBody_applyImpulse(lua_State *L)
 
     if (num_args == 1) {
         // if ((auto_olua_is_cocos2d_Vec2(L, 2))) {
+            // void applyImpulse(const cocos2d::Vec2 &impulse, @optional const cocos2d::Vec2 &offset)
             return _cocos2d_PhysicsBody_applyImpulse2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((auto_olua_is_cocos2d_Vec2(L, 2)) && (auto_olua_is_cocos2d_Vec2(L, 3))) {
+            // void applyImpulse(const cocos2d::Vec2 &impulse, @optional const cocos2d::Vec2 &offset)
             return _cocos2d_PhysicsBody_applyImpulse1(L);
         // }
     }
@@ -773,17 +779,20 @@ static int _cocos2d_PhysicsBody_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 0) {
+        // static cocos2d::PhysicsBody *create()
         return _cocos2d_PhysicsBody_create1(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_number(L, 1))) {
+            // static cocos2d::PhysicsBody *create(float mass)
             return _cocos2d_PhysicsBody_create2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_number(L, 1)) && (olua_is_number(L, 2))) {
+            // static cocos2d::PhysicsBody *create(float mass, float moment)
             return _cocos2d_PhysicsBody_create3(L);
         // }
     }
@@ -856,18 +865,21 @@ static int _cocos2d_PhysicsBody_createBox(lua_State *L)
 
     if (num_args == 1) {
         // if ((auto_olua_is_cocos2d_Size(L, 1))) {
+            // static cocos2d::PhysicsBody *createBox(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset)
             return _cocos2d_PhysicsBody_createBox2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((auto_olua_is_cocos2d_Size(L, 1)) && (auto_olua_is_cocos2d_PhysicsMaterial(L, 2))) {
+            // static cocos2d::PhysicsBody *createBox(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset)
             return _cocos2d_PhysicsBody_createBox3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((auto_olua_is_cocos2d_Size(L, 1)) && (auto_olua_is_cocos2d_PhysicsMaterial(L, 2)) && (auto_olua_is_cocos2d_Vec2(L, 3))) {
+            // static cocos2d::PhysicsBody *createBox(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset)
             return _cocos2d_PhysicsBody_createBox1(L);
         // }
     }
@@ -940,18 +952,21 @@ static int _cocos2d_PhysicsBody_createCircle(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_number(L, 1))) {
+            // static cocos2d::PhysicsBody *createCircle(float radius, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset)
             return _cocos2d_PhysicsBody_createCircle2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_number(L, 1)) && (auto_olua_is_cocos2d_PhysicsMaterial(L, 2))) {
+            // static cocos2d::PhysicsBody *createCircle(float radius, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset)
             return _cocos2d_PhysicsBody_createCircle3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_number(L, 1)) && (auto_olua_is_cocos2d_PhysicsMaterial(L, 2)) && (auto_olua_is_cocos2d_Vec2(L, 3))) {
+            // static cocos2d::PhysicsBody *createCircle(float radius, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset)
             return _cocos2d_PhysicsBody_createCircle1(L);
         // }
     }
@@ -1047,24 +1062,28 @@ static int _cocos2d_PhysicsBody_createEdgeBox(lua_State *L)
 
     if (num_args == 1) {
         // if ((auto_olua_is_cocos2d_Size(L, 1))) {
+            // static cocos2d::PhysicsBody *createEdgeBox(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional float border, @optional const cocos2d::Vec2 &offset)
             return _cocos2d_PhysicsBody_createEdgeBox2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((auto_olua_is_cocos2d_Size(L, 1)) && (auto_olua_is_cocos2d_PhysicsMaterial(L, 2))) {
+            // static cocos2d::PhysicsBody *createEdgeBox(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional float border, @optional const cocos2d::Vec2 &offset)
             return _cocos2d_PhysicsBody_createEdgeBox3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((auto_olua_is_cocos2d_Size(L, 1)) && (auto_olua_is_cocos2d_PhysicsMaterial(L, 2)) && (olua_is_number(L, 3))) {
+            // static cocos2d::PhysicsBody *createEdgeBox(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional float border, @optional const cocos2d::Vec2 &offset)
             return _cocos2d_PhysicsBody_createEdgeBox4(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((auto_olua_is_cocos2d_Size(L, 1)) && (auto_olua_is_cocos2d_PhysicsMaterial(L, 2)) && (olua_is_number(L, 3)) && (auto_olua_is_cocos2d_Vec2(L, 4))) {
+            // static cocos2d::PhysicsBody *createEdgeBox(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional float border, @optional const cocos2d::Vec2 &offset)
             return _cocos2d_PhysicsBody_createEdgeBox1(L);
         // }
     }
@@ -1143,18 +1162,21 @@ static int _cocos2d_PhysicsBody_createEdgeSegment(lua_State *L)
 
     if (num_args == 2) {
         // if ((auto_olua_is_cocos2d_Vec2(L, 1)) && (auto_olua_is_cocos2d_Vec2(L, 2))) {
+            // static cocos2d::PhysicsBody *createEdgeSegment(const cocos2d::Vec2 &a, const cocos2d::Vec2 &b, @optional const cocos2d::PhysicsMaterial &material, @optional float border)
             return _cocos2d_PhysicsBody_createEdgeSegment2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((auto_olua_is_cocos2d_Vec2(L, 1)) && (auto_olua_is_cocos2d_Vec2(L, 2)) && (auto_olua_is_cocos2d_PhysicsMaterial(L, 3))) {
+            // static cocos2d::PhysicsBody *createEdgeSegment(const cocos2d::Vec2 &a, const cocos2d::Vec2 &b, @optional const cocos2d::PhysicsMaterial &material, @optional float border)
             return _cocos2d_PhysicsBody_createEdgeSegment3(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((auto_olua_is_cocos2d_Vec2(L, 1)) && (auto_olua_is_cocos2d_Vec2(L, 2)) && (auto_olua_is_cocos2d_PhysicsMaterial(L, 3)) && (olua_is_number(L, 4))) {
+            // static cocos2d::PhysicsBody *createEdgeSegment(const cocos2d::Vec2 &a, const cocos2d::Vec2 &b, @optional const cocos2d::PhysicsMaterial &material, @optional float border)
             return _cocos2d_PhysicsBody_createEdgeSegment1(L);
         // }
     }
@@ -1721,11 +1743,13 @@ static int _cocos2d_PhysicsBody_removeAllShapes(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // void removeAllShapes(@optional bool reduceMassAndMoment)
         return _cocos2d_PhysicsBody_removeAllShapes2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_bool(L, 2))) {
+            // void removeAllShapes(@optional bool reduceMassAndMoment)
             return _cocos2d_PhysicsBody_removeAllShapes1(L);
         // }
     }
@@ -1833,20 +1857,24 @@ static int _cocos2d_PhysicsBody_removeShape(lua_State *L)
 
     if (num_args == 1) {
         if ((olua_is_cppobj(L, 2, "cc.PhysicsShape"))) {
+            // void removeShape(cocos2d::PhysicsShape *shape, @optional bool reduceMassAndMoment)
             return _cocos2d_PhysicsBody_removeShape3(L);
         }
 
         // if ((olua_is_int(L, 2))) {
+            // void removeShape(int tag, @optional bool reduceMassAndMoment)
             return _cocos2d_PhysicsBody_removeShape4(L);
         // }
     }
 
     if (num_args == 2) {
         if ((olua_is_cppobj(L, 2, "cc.PhysicsShape")) && (olua_is_bool(L, 3))) {
+            // void removeShape(cocos2d::PhysicsShape *shape, @optional bool reduceMassAndMoment)
             return _cocos2d_PhysicsBody_removeShape1(L);
         }
 
         // if ((olua_is_int(L, 2)) && (olua_is_bool(L, 3))) {
+            // void removeShape(int tag, @optional bool reduceMassAndMoment)
             return _cocos2d_PhysicsBody_removeShape2(L);
         // }
     }
@@ -3392,12 +3420,14 @@ static int _cocos2d_PhysicsJointLimit_construct(lua_State *L)
 
     if (num_args == 4) {
         // if ((olua_is_cppobj(L, 1, "cc.PhysicsBody")) && (olua_is_cppobj(L, 2, "cc.PhysicsBody")) && (auto_olua_is_cocos2d_Vec2(L, 3)) && (auto_olua_is_cocos2d_Vec2(L, 4))) {
+            // static cocos2d::PhysicsJointLimit *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, const cocos2d::Vec2 &anchr1, const cocos2d::Vec2 &anchr2)
             return _cocos2d_PhysicsJointLimit_construct1(L);
         // }
     }
 
     if (num_args == 6) {
         // if ((olua_is_cppobj(L, 1, "cc.PhysicsBody")) && (olua_is_cppobj(L, 2, "cc.PhysicsBody")) && (auto_olua_is_cocos2d_Vec2(L, 3)) && (auto_olua_is_cocos2d_Vec2(L, 4)) && (olua_is_number(L, 5)) && (olua_is_number(L, 6))) {
+            // static cocos2d::PhysicsJointLimit *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, const cocos2d::Vec2 &anchr1, const cocos2d::Vec2 &anchr2, float min, float max)
             return _cocos2d_PhysicsJointLimit_construct2(L);
         // }
     }
@@ -3726,12 +3756,14 @@ static int _cocos2d_PhysicsJointPin_construct(lua_State *L)
 
     if (num_args == 3) {
         // if ((olua_is_cppobj(L, 1, "cc.PhysicsBody")) && (olua_is_cppobj(L, 2, "cc.PhysicsBody")) && (auto_olua_is_cocos2d_Vec2(L, 3))) {
+            // static cocos2d::PhysicsJointPin *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, const cocos2d::Vec2 &pivot)
             return _cocos2d_PhysicsJointPin_construct1(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_cppobj(L, 1, "cc.PhysicsBody")) && (olua_is_cppobj(L, 2, "cc.PhysicsBody")) && (auto_olua_is_cocos2d_Vec2(L, 3)) && (auto_olua_is_cocos2d_Vec2(L, 4))) {
+            // static cocos2d::PhysicsJointPin *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, const cocos2d::Vec2 &anchr1, const cocos2d::Vec2 &anchr2)
             return _cocos2d_PhysicsJointPin_construct2(L);
         // }
     }
@@ -3984,12 +4016,14 @@ static int _cocos2d_PhysicsJointRotaryLimit_construct(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 1, "cc.PhysicsBody")) && (olua_is_cppobj(L, 2, "cc.PhysicsBody"))) {
+            // static cocos2d::PhysicsJointRotaryLimit *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b)
             return _cocos2d_PhysicsJointRotaryLimit_construct2(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_cppobj(L, 1, "cc.PhysicsBody")) && (olua_is_cppobj(L, 2, "cc.PhysicsBody")) && (olua_is_number(L, 3)) && (olua_is_number(L, 4))) {
+            // static cocos2d::PhysicsJointRotaryLimit *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, float min, float max)
             return _cocos2d_PhysicsJointRotaryLimit_construct1(L);
         // }
     }
@@ -5300,24 +5334,28 @@ static int _cocos2d_PhysicsShapeBox_create(lua_State *L)
 
     if (num_args == 1) {
         // if ((auto_olua_is_cocos2d_Size(L, 1))) {
+            // static cocos2d::PhysicsShapeBox *create(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset, @optional float radius)
             return _cocos2d_PhysicsShapeBox_create2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((auto_olua_is_cocos2d_Size(L, 1)) && (auto_olua_is_cocos2d_PhysicsMaterial(L, 2))) {
+            // static cocos2d::PhysicsShapeBox *create(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset, @optional float radius)
             return _cocos2d_PhysicsShapeBox_create3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((auto_olua_is_cocos2d_Size(L, 1)) && (auto_olua_is_cocos2d_PhysicsMaterial(L, 2)) && (auto_olua_is_cocos2d_Vec2(L, 3))) {
+            // static cocos2d::PhysicsShapeBox *create(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset, @optional float radius)
             return _cocos2d_PhysicsShapeBox_create4(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((auto_olua_is_cocos2d_Size(L, 1)) && (auto_olua_is_cocos2d_PhysicsMaterial(L, 2)) && (auto_olua_is_cocos2d_Vec2(L, 3)) && (olua_is_number(L, 4))) {
+            // static cocos2d::PhysicsShapeBox *create(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset, @optional float radius)
             return _cocos2d_PhysicsShapeBox_create1(L);
         // }
     }
@@ -5420,12 +5458,14 @@ static int _cocos2d_PhysicsShapeCircle_calculateMoment(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_number(L, 1)) && (olua_is_number(L, 2))) {
+            // static float calculateMoment(float mass, float radius, @optional const cocos2d::Vec2 &offset)
             return _cocos2d_PhysicsShapeCircle_calculateMoment2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_number(L, 1)) && (olua_is_number(L, 2)) && (auto_olua_is_cocos2d_Vec2(L, 3))) {
+            // static float calculateMoment(float mass, float radius, @optional const cocos2d::Vec2 &offset)
             return _cocos2d_PhysicsShapeCircle_calculateMoment1(L);
         // }
     }
@@ -5498,18 +5538,21 @@ static int _cocos2d_PhysicsShapeCircle_create(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_number(L, 1))) {
+            // static cocos2d::PhysicsShapeCircle *create(float radius, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset)
             return _cocos2d_PhysicsShapeCircle_create2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_number(L, 1)) && (auto_olua_is_cocos2d_PhysicsMaterial(L, 2))) {
+            // static cocos2d::PhysicsShapeCircle *create(float radius, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset)
             return _cocos2d_PhysicsShapeCircle_create3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_number(L, 1)) && (auto_olua_is_cocos2d_PhysicsMaterial(L, 2)) && (auto_olua_is_cocos2d_Vec2(L, 3))) {
+            // static cocos2d::PhysicsShapeCircle *create(float radius, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset)
             return _cocos2d_PhysicsShapeCircle_create1(L);
         // }
     }
@@ -5637,24 +5680,28 @@ static int _cocos2d_PhysicsShapeEdgeBox_create(lua_State *L)
 
     if (num_args == 1) {
         // if ((auto_olua_is_cocos2d_Size(L, 1))) {
+            // static cocos2d::PhysicsShapeEdgeBox *create(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional float border, @optional const cocos2d::Vec2 &offset)
             return _cocos2d_PhysicsShapeEdgeBox_create2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((auto_olua_is_cocos2d_Size(L, 1)) && (auto_olua_is_cocos2d_PhysicsMaterial(L, 2))) {
+            // static cocos2d::PhysicsShapeEdgeBox *create(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional float border, @optional const cocos2d::Vec2 &offset)
             return _cocos2d_PhysicsShapeEdgeBox_create3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((auto_olua_is_cocos2d_Size(L, 1)) && (auto_olua_is_cocos2d_PhysicsMaterial(L, 2)) && (olua_is_number(L, 3))) {
+            // static cocos2d::PhysicsShapeEdgeBox *create(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional float border, @optional const cocos2d::Vec2 &offset)
             return _cocos2d_PhysicsShapeEdgeBox_create4(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((auto_olua_is_cocos2d_Size(L, 1)) && (auto_olua_is_cocos2d_PhysicsMaterial(L, 2)) && (olua_is_number(L, 3)) && (auto_olua_is_cocos2d_Vec2(L, 4))) {
+            // static cocos2d::PhysicsShapeEdgeBox *create(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional float border, @optional const cocos2d::Vec2 &offset)
             return _cocos2d_PhysicsShapeEdgeBox_create1(L);
         // }
     }
@@ -5773,18 +5820,21 @@ static int _cocos2d_PhysicsShapeEdgeSegment_create(lua_State *L)
 
     if (num_args == 2) {
         // if ((auto_olua_is_cocos2d_Vec2(L, 1)) && (auto_olua_is_cocos2d_Vec2(L, 2))) {
+            // static cocos2d::PhysicsShapeEdgeSegment *create(const cocos2d::Vec2 &a, const cocos2d::Vec2 &b, @optional const cocos2d::PhysicsMaterial &material, @optional float border)
             return _cocos2d_PhysicsShapeEdgeSegment_create2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((auto_olua_is_cocos2d_Vec2(L, 1)) && (auto_olua_is_cocos2d_Vec2(L, 2)) && (auto_olua_is_cocos2d_PhysicsMaterial(L, 3))) {
+            // static cocos2d::PhysicsShapeEdgeSegment *create(const cocos2d::Vec2 &a, const cocos2d::Vec2 &b, @optional const cocos2d::PhysicsMaterial &material, @optional float border)
             return _cocos2d_PhysicsShapeEdgeSegment_create3(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((auto_olua_is_cocos2d_Vec2(L, 1)) && (auto_olua_is_cocos2d_Vec2(L, 2)) && (auto_olua_is_cocos2d_PhysicsMaterial(L, 3)) && (olua_is_number(L, 4))) {
+            // static cocos2d::PhysicsShapeEdgeSegment *create(const cocos2d::Vec2 &a, const cocos2d::Vec2 &b, @optional const cocos2d::PhysicsMaterial &material, @optional float border)
             return _cocos2d_PhysicsShapeEdgeSegment_create1(L);
         // }
     }
@@ -6536,11 +6586,13 @@ static int _cocos2d_PhysicsWorld_removeAllJoints(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // void removeAllJoints(@optional bool destroy)
         return _cocos2d_PhysicsWorld_removeAllJoints2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_bool(L, 2))) {
+            // void removeAllJoints(@optional bool destroy)
             return _cocos2d_PhysicsWorld_removeAllJoints1(L);
         // }
     }
@@ -6592,10 +6644,12 @@ static int _cocos2d_PhysicsWorld_removeBody(lua_State *L)
 
     if (num_args == 1) {
         if ((olua_is_cppobj(L, 2, "cc.PhysicsBody"))) {
+            // void removeBody(cocos2d::PhysicsBody *body)
             return _cocos2d_PhysicsWorld_removeBody1(L);
         }
 
         // if ((olua_is_int(L, 2))) {
+            // void removeBody(int tag)
             return _cocos2d_PhysicsWorld_removeBody2(L);
         // }
     }
@@ -6649,12 +6703,14 @@ static int _cocos2d_PhysicsWorld_removeJoint(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 2, "cc.PhysicsJoint"))) {
+            // void removeJoint(cocos2d::PhysicsJoint *joint, @optional bool destroy)
             return _cocos2d_PhysicsWorld_removeJoint2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 2, "cc.PhysicsJoint")) && (olua_is_bool(L, 3))) {
+            // void removeJoint(cocos2d::PhysicsJoint *joint, @optional bool destroy)
             return _cocos2d_PhysicsWorld_removeJoint1(L);
         // }
     }

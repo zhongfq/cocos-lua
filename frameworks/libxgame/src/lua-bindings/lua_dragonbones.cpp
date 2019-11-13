@@ -350,11 +350,13 @@ static int _dragonBones_BaseObject_clearPool(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 0) {
+        // static void clearPool(@optional std::size_t classTypeIndex)
         return _dragonBones_BaseObject_clearPool2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 1))) {
+            // static void clearPool(@optional std::size_t classTypeIndex)
             return _dragonBones_BaseObject_clearPool1(L);
         // }
     }
@@ -2718,24 +2720,28 @@ static int _dragonBones_Slot_intersectsSegment(lua_State *L)
 
     if (num_args == 4) {
         // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_number(L, 5))) {
+            // int intersectsSegment(float xA, float yA, float xB, float yB, @optional dragonBones::Point *intersectionPointA, @optional dragonBones::Point *intersectionPointB, @optional dragonBones::Point *normalRadians)
             return _dragonBones_Slot_intersectsSegment2(L);
         // }
     }
 
     if (num_args == 5) {
         // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_number(L, 5)) && (olua_is_cppobj(L, 6, "db.Point"))) {
+            // int intersectsSegment(float xA, float yA, float xB, float yB, @optional dragonBones::Point *intersectionPointA, @optional dragonBones::Point *intersectionPointB, @optional dragonBones::Point *normalRadians)
             return _dragonBones_Slot_intersectsSegment3(L);
         // }
     }
 
     if (num_args == 6) {
         // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_number(L, 5)) && (olua_is_cppobj(L, 6, "db.Point")) && (olua_is_cppobj(L, 7, "db.Point"))) {
+            // int intersectsSegment(float xA, float yA, float xB, float yB, @optional dragonBones::Point *intersectionPointA, @optional dragonBones::Point *intersectionPointB, @optional dragonBones::Point *normalRadians)
             return _dragonBones_Slot_intersectsSegment4(L);
         // }
     }
 
     if (num_args == 7) {
         // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_number(L, 5)) && (olua_is_cppobj(L, 6, "db.Point")) && (olua_is_cppobj(L, 7, "db.Point")) && (olua_is_cppobj(L, 8, "db.Point"))) {
+            // int intersectsSegment(float xA, float yA, float xB, float yB, @optional dragonBones::Point *intersectionPointA, @optional dragonBones::Point *intersectionPointB, @optional dragonBones::Point *normalRadians)
             return _dragonBones_Slot_intersectsSegment1(L);
         // }
     }
@@ -4466,24 +4472,28 @@ static int _dragonBones_BoundingBoxData_intersectsSegment(lua_State *L)
 
     if (num_args == 4) {
         // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_number(L, 5))) {
+            // int intersectsSegment(float xA, float yA, float xB, float yB, @optional dragonBones::Point *intersectionPointA, @optional dragonBones::Point *intersectionPointB, @optional dragonBones::Point *normalRadians)
             return _dragonBones_BoundingBoxData_intersectsSegment2(L);
         // }
     }
 
     if (num_args == 5) {
         // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_number(L, 5)) && (olua_is_cppobj(L, 6, "db.Point"))) {
+            // int intersectsSegment(float xA, float yA, float xB, float yB, @optional dragonBones::Point *intersectionPointA, @optional dragonBones::Point *intersectionPointB, @optional dragonBones::Point *normalRadians)
             return _dragonBones_BoundingBoxData_intersectsSegment3(L);
         // }
     }
 
     if (num_args == 6) {
         // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_number(L, 5)) && (olua_is_cppobj(L, 6, "db.Point")) && (olua_is_cppobj(L, 7, "db.Point"))) {
+            // int intersectsSegment(float xA, float yA, float xB, float yB, @optional dragonBones::Point *intersectionPointA, @optional dragonBones::Point *intersectionPointB, @optional dragonBones::Point *normalRadians)
             return _dragonBones_BoundingBoxData_intersectsSegment4(L);
         // }
     }
 
     if (num_args == 7) {
         // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_number(L, 5)) && (olua_is_cppobj(L, 6, "db.Point")) && (olua_is_cppobj(L, 7, "db.Point")) && (olua_is_cppobj(L, 8, "db.Point"))) {
+            // int intersectsSegment(float xA, float yA, float xB, float yB, @optional dragonBones::Point *intersectionPointA, @optional dragonBones::Point *intersectionPointB, @optional dragonBones::Point *normalRadians)
             return _dragonBones_BoundingBoxData_intersectsSegment1(L);
         // }
     }
@@ -7679,12 +7689,14 @@ static int _dragonBones_AnimationState_addBoneMask(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
+            // void addBoneMask(const std::string &boneName, @optional bool recursive)
             return _dragonBones_AnimationState_addBoneMask2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3))) {
+            // void addBoneMask(const std::string &boneName, @optional bool recursive)
             return _dragonBones_AnimationState_addBoneMask1(L);
         // }
     }
@@ -7777,12 +7789,14 @@ static int _dragonBones_AnimationState_fadeOut(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_number(L, 2))) {
+            // void fadeOut(float fadeOutTime, @optional bool pausePlayhead)
             return _dragonBones_AnimationState_fadeOut2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_number(L, 2)) && (olua_is_bool(L, 3))) {
+            // void fadeOut(float fadeOutTime, @optional bool pausePlayhead)
             return _dragonBones_AnimationState_fadeOut1(L);
         // }
     }
@@ -8087,12 +8101,14 @@ static int _dragonBones_AnimationState_removeBoneMask(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
+            // void removeBoneMask(const std::string &boneName, @optional bool recursive)
             return _dragonBones_AnimationState_removeBoneMask2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3))) {
+            // void removeBoneMask(const std::string &boneName, @optional bool recursive)
             return _dragonBones_AnimationState_removeBoneMask1(L);
         // }
     }
@@ -11039,12 +11055,14 @@ static int _dragonBones_BaseFactory_addDragonBonesData(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 2, "db.DragonBonesData"))) {
+            // void addDragonBonesData(dragonBones::DragonBonesData *data, @optional const std::string &name)
             return _dragonBones_BaseFactory_addDragonBonesData2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 2, "db.DragonBonesData")) && (olua_is_std_string(L, 3))) {
+            // void addDragonBonesData(dragonBones::DragonBonesData *data, @optional const std::string &name)
             return _dragonBones_BaseFactory_addDragonBonesData1(L);
         // }
     }
@@ -11098,12 +11116,14 @@ static int _dragonBones_BaseFactory_addTextureAtlasData(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 2, "db.TextureAtlasData"))) {
+            // void addTextureAtlasData(dragonBones::TextureAtlasData *data, @optional const std::string &name)
             return _dragonBones_BaseFactory_addTextureAtlasData2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 2, "db.TextureAtlasData")) && (olua_is_std_string(L, 3))) {
+            // void addTextureAtlasData(dragonBones::TextureAtlasData *data, @optional const std::string &name)
             return _dragonBones_BaseFactory_addTextureAtlasData1(L);
         // }
     }
@@ -11207,24 +11227,28 @@ static int _dragonBones_BaseFactory_buildArmature(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
+            // dragonBones::Armature *buildArmature(const std::string &armatureName, @optional const std::string &dragonBonesName, @optional const std::string &skinName, @optional const std::string &textureAtlasName)
             return _dragonBones_BaseFactory_buildArmature2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3))) {
+            // dragonBones::Armature *buildArmature(const std::string &armatureName, @optional const std::string &dragonBonesName, @optional const std::string &skinName, @optional const std::string &textureAtlasName)
             return _dragonBones_BaseFactory_buildArmature3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4))) {
+            // dragonBones::Armature *buildArmature(const std::string &armatureName, @optional const std::string &dragonBonesName, @optional const std::string &skinName, @optional const std::string &textureAtlasName)
             return _dragonBones_BaseFactory_buildArmature4(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5))) {
+            // dragonBones::Armature *buildArmature(const std::string &armatureName, @optional const std::string &dragonBonesName, @optional const std::string &skinName, @optional const std::string &textureAtlasName)
             return _dragonBones_BaseFactory_buildArmature1(L);
         // }
     }
@@ -11273,11 +11297,13 @@ static int _dragonBones_BaseFactory_clear(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // void clear(@optional bool disposeData)
         return _dragonBones_BaseFactory_clear2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_bool(L, 2))) {
+            // void clear(@optional bool disposeData)
             return _dragonBones_BaseFactory_clear1(L);
         // }
     }
@@ -11333,12 +11359,14 @@ static int _dragonBones_BaseFactory_getArmatureData(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
+            // dragonBones::ArmatureData *getArmatureData(const std::string &name, @optional const std::string &dragonBonesName)
             return _dragonBones_BaseFactory_getArmatureData2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3))) {
+            // dragonBones::ArmatureData *getArmatureData(const std::string &name, @optional const std::string &dragonBonesName)
             return _dragonBones_BaseFactory_getArmatureData1(L);
         // }
     }
@@ -11453,18 +11481,21 @@ static int _dragonBones_BaseFactory_parseDragonBonesData(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_string(L, 2))) {
+            // dragonBones::DragonBonesData *parseDragonBonesData(const char *rawData, @optional const std::string &name, @optional float scale)
             return _dragonBones_BaseFactory_parseDragonBonesData2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_string(L, 2)) && (olua_is_std_string(L, 3))) {
+            // dragonBones::DragonBonesData *parseDragonBonesData(const char *rawData, @optional const std::string &name, @optional float scale)
             return _dragonBones_BaseFactory_parseDragonBonesData3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4))) {
+            // dragonBones::DragonBonesData *parseDragonBonesData(const char *rawData, @optional const std::string &name, @optional float scale)
             return _dragonBones_BaseFactory_parseDragonBonesData1(L);
         // }
     }
@@ -11549,18 +11580,21 @@ static int _dragonBones_BaseFactory_parseTextureAtlasData(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_string(L, 2)) && (olua_is_obj(L, 3, "void *"))) {
+            // dragonBones::TextureAtlasData *parseTextureAtlasData(const char *rawData, void *textureAtlas, @optional const std::string &name, @optional float scale)
             return _dragonBones_BaseFactory_parseTextureAtlasData2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_string(L, 2)) && (olua_is_obj(L, 3, "void *")) && (olua_is_std_string(L, 4))) {
+            // dragonBones::TextureAtlasData *parseTextureAtlasData(const char *rawData, void *textureAtlas, @optional const std::string &name, @optional float scale)
             return _dragonBones_BaseFactory_parseTextureAtlasData3(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_string(L, 2)) && (olua_is_obj(L, 3, "void *")) && (olua_is_std_string(L, 4)) && (olua_is_number(L, 5))) {
+            // dragonBones::TextureAtlasData *parseTextureAtlasData(const char *rawData, void *textureAtlas, @optional const std::string &name, @optional float scale)
             return _dragonBones_BaseFactory_parseTextureAtlasData1(L);
         // }
     }
@@ -11614,12 +11648,14 @@ static int _dragonBones_BaseFactory_removeDragonBonesData(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
+            // void removeDragonBonesData(const std::string &name, @optional bool disposeData)
             return _dragonBones_BaseFactory_removeDragonBonesData2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3))) {
+            // void removeDragonBonesData(const std::string &name, @optional bool disposeData)
             return _dragonBones_BaseFactory_removeDragonBonesData1(L);
         // }
     }
@@ -11673,12 +11709,14 @@ static int _dragonBones_BaseFactory_removeTextureAtlasData(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
+            // void removeTextureAtlasData(const std::string &name, @optional bool disposeData)
             return _dragonBones_BaseFactory_removeTextureAtlasData2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3))) {
+            // void removeTextureAtlasData(const std::string &name, @optional bool disposeData)
             return _dragonBones_BaseFactory_removeTextureAtlasData1(L);
         // }
     }
@@ -11738,12 +11776,14 @@ static int _dragonBones_BaseFactory_replaceAnimation(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 2, "db.Armature")) && (olua_is_cppobj(L, 3, "db.ArmatureData"))) {
+            // bool replaceAnimation(dragonBones::Armature *armature, dragonBones::ArmatureData *armatureData, @optional bool isReplaceAll)
             return _dragonBones_BaseFactory_replaceAnimation2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_cppobj(L, 2, "db.Armature")) && (olua_is_cppobj(L, 3, "db.ArmatureData")) && (olua_is_bool(L, 4))) {
+            // bool replaceAnimation(dragonBones::Armature *armature, dragonBones::ArmatureData *armatureData, @optional bool isReplaceAll)
             return _dragonBones_BaseFactory_replaceAnimation1(L);
         // }
     }
@@ -11837,12 +11877,14 @@ static int _dragonBones_BaseFactory_replaceSlotDisplay(lua_State *L)
 
     if (num_args == 5) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_cppobj(L, 6, "db.Slot"))) {
+            // bool replaceSlotDisplay(const std::string &dragonBonesName, const std::string &armatureName, const std::string &slotName, const std::string &displayName, dragonBones::Slot *slot, @optional int displayIndex)
             return _dragonBones_BaseFactory_replaceSlotDisplay2(L);
         // }
     }
 
     if (num_args == 6) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_cppobj(L, 6, "db.Slot")) && (olua_is_int(L, 7))) {
+            // bool replaceSlotDisplay(const std::string &dragonBonesName, const std::string &armatureName, const std::string &slotName, const std::string &displayName, dragonBones::Slot *slot, @optional int displayIndex)
             return _dragonBones_BaseFactory_replaceSlotDisplay1(L);
         // }
     }
@@ -12439,24 +12481,28 @@ static int _dragonBones_Armature_intersectsSegment(lua_State *L)
 
     if (num_args == 4) {
         // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_number(L, 5))) {
+            // dragonBones::Slot *intersectsSegment(float xA, float yA, float xB, float yB, @optional dragonBones::Point *intersectionPointA, @optional dragonBones::Point *intersectionPointB, @optional dragonBones::Point *normalRadians)
             return _dragonBones_Armature_intersectsSegment2(L);
         // }
     }
 
     if (num_args == 5) {
         // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_number(L, 5)) && (olua_is_cppobj(L, 6, "db.Point"))) {
+            // dragonBones::Slot *intersectsSegment(float xA, float yA, float xB, float yB, @optional dragonBones::Point *intersectionPointA, @optional dragonBones::Point *intersectionPointB, @optional dragonBones::Point *normalRadians)
             return _dragonBones_Armature_intersectsSegment3(L);
         // }
     }
 
     if (num_args == 6) {
         // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_number(L, 5)) && (olua_is_cppobj(L, 6, "db.Point")) && (olua_is_cppobj(L, 7, "db.Point"))) {
+            // dragonBones::Slot *intersectsSegment(float xA, float yA, float xB, float yB, @optional dragonBones::Point *intersectionPointA, @optional dragonBones::Point *intersectionPointB, @optional dragonBones::Point *normalRadians)
             return _dragonBones_Armature_intersectsSegment4(L);
         // }
     }
 
     if (num_args == 7) {
         // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_number(L, 5)) && (olua_is_cppobj(L, 6, "db.Point")) && (olua_is_cppobj(L, 7, "db.Point")) && (olua_is_cppobj(L, 8, "db.Point"))) {
+            // dragonBones::Slot *intersectsSegment(float xA, float yA, float xB, float yB, @optional dragonBones::Point *intersectionPointA, @optional dragonBones::Point *intersectionPointB, @optional dragonBones::Point *normalRadians)
             return _dragonBones_Armature_intersectsSegment1(L);
         // }
     }
@@ -12525,17 +12571,20 @@ static int _dragonBones_Armature_invalidUpdate(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // void invalidUpdate(@optional const std::string &boneName, @optional bool updateSlot)
         return _dragonBones_Armature_invalidUpdate2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
+            // void invalidUpdate(@optional const std::string &boneName, @optional bool updateSlot)
             return _dragonBones_Armature_invalidUpdate3(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3))) {
+            // void invalidUpdate(@optional const std::string &boneName, @optional bool updateSlot)
             return _dragonBones_Armature_invalidUpdate1(L);
         // }
     }
@@ -12960,36 +13009,42 @@ static int _dragonBones_Animation_fadeIn(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
+            // dragonBones::AnimationState *fadeIn(const std::string &animationName, @optional float fadeInTime, @optional int playTimes, @optional int layer, @optional const std::string &group, @optional dragonBones::AnimationFadeOutMode fadeOutMode)
             return _dragonBones_Animation_fadeIn2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_number(L, 3))) {
+            // dragonBones::AnimationState *fadeIn(const std::string &animationName, @optional float fadeInTime, @optional int playTimes, @optional int layer, @optional const std::string &group, @optional dragonBones::AnimationFadeOutMode fadeOutMode)
             return _dragonBones_Animation_fadeIn3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_number(L, 3)) && (olua_is_int(L, 4))) {
+            // dragonBones::AnimationState *fadeIn(const std::string &animationName, @optional float fadeInTime, @optional int playTimes, @optional int layer, @optional const std::string &group, @optional dragonBones::AnimationFadeOutMode fadeOutMode)
             return _dragonBones_Animation_fadeIn4(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_number(L, 3)) && (olua_is_int(L, 4)) && (olua_is_int(L, 5))) {
+            // dragonBones::AnimationState *fadeIn(const std::string &animationName, @optional float fadeInTime, @optional int playTimes, @optional int layer, @optional const std::string &group, @optional dragonBones::AnimationFadeOutMode fadeOutMode)
             return _dragonBones_Animation_fadeIn5(L);
         // }
     }
 
     if (num_args == 5) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_number(L, 3)) && (olua_is_int(L, 4)) && (olua_is_int(L, 5)) && (olua_is_std_string(L, 6))) {
+            // dragonBones::AnimationState *fadeIn(const std::string &animationName, @optional float fadeInTime, @optional int playTimes, @optional int layer, @optional const std::string &group, @optional dragonBones::AnimationFadeOutMode fadeOutMode)
             return _dragonBones_Animation_fadeIn6(L);
         // }
     }
 
     if (num_args == 6) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_number(L, 3)) && (olua_is_int(L, 4)) && (olua_is_int(L, 5)) && (olua_is_std_string(L, 6)) && (olua_is_uint(L, 7))) {
+            // dragonBones::AnimationState *fadeIn(const std::string &animationName, @optional float fadeInTime, @optional int playTimes, @optional int layer, @optional const std::string &group, @optional dragonBones::AnimationFadeOutMode fadeOutMode)
             return _dragonBones_Animation_fadeIn1(L);
         // }
     }
@@ -13191,18 +13246,21 @@ static int _dragonBones_Animation_gotoAndPlayByFrame(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
+            // dragonBones::AnimationState *gotoAndPlayByFrame(const std::string &animationName, @optional unsigned int frame, @optional int playTimes)
             return _dragonBones_Animation_gotoAndPlayByFrame2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
+            // dragonBones::AnimationState *gotoAndPlayByFrame(const std::string &animationName, @optional unsigned int frame, @optional int playTimes)
             return _dragonBones_Animation_gotoAndPlayByFrame3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_int(L, 4))) {
+            // dragonBones::AnimationState *gotoAndPlayByFrame(const std::string &animationName, @optional unsigned int frame, @optional int playTimes)
             return _dragonBones_Animation_gotoAndPlayByFrame1(L);
         // }
     }
@@ -13281,18 +13339,21 @@ static int _dragonBones_Animation_gotoAndPlayByProgress(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
+            // dragonBones::AnimationState *gotoAndPlayByProgress(const std::string &animationName, @optional float progress, @optional int playTimes)
             return _dragonBones_Animation_gotoAndPlayByProgress2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_number(L, 3))) {
+            // dragonBones::AnimationState *gotoAndPlayByProgress(const std::string &animationName, @optional float progress, @optional int playTimes)
             return _dragonBones_Animation_gotoAndPlayByProgress3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_number(L, 3)) && (olua_is_int(L, 4))) {
+            // dragonBones::AnimationState *gotoAndPlayByProgress(const std::string &animationName, @optional float progress, @optional int playTimes)
             return _dragonBones_Animation_gotoAndPlayByProgress1(L);
         // }
     }
@@ -13371,18 +13432,21 @@ static int _dragonBones_Animation_gotoAndPlayByTime(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
+            // dragonBones::AnimationState *gotoAndPlayByTime(const std::string &animationName, @optional float time, @optional int playTimes)
             return _dragonBones_Animation_gotoAndPlayByTime2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_number(L, 3))) {
+            // dragonBones::AnimationState *gotoAndPlayByTime(const std::string &animationName, @optional float time, @optional int playTimes)
             return _dragonBones_Animation_gotoAndPlayByTime3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_number(L, 3)) && (olua_is_int(L, 4))) {
+            // dragonBones::AnimationState *gotoAndPlayByTime(const std::string &animationName, @optional float time, @optional int playTimes)
             return _dragonBones_Animation_gotoAndPlayByTime1(L);
         // }
     }
@@ -13438,12 +13502,14 @@ static int _dragonBones_Animation_gotoAndStopByFrame(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
+            // dragonBones::AnimationState *gotoAndStopByFrame(const std::string &animationName, @optional unsigned int frame)
             return _dragonBones_Animation_gotoAndStopByFrame2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
+            // dragonBones::AnimationState *gotoAndStopByFrame(const std::string &animationName, @optional unsigned int frame)
             return _dragonBones_Animation_gotoAndStopByFrame1(L);
         // }
     }
@@ -13499,12 +13565,14 @@ static int _dragonBones_Animation_gotoAndStopByProgress(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
+            // dragonBones::AnimationState *gotoAndStopByProgress(const std::string &animationName, @optional float progress)
             return _dragonBones_Animation_gotoAndStopByProgress2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_number(L, 3))) {
+            // dragonBones::AnimationState *gotoAndStopByProgress(const std::string &animationName, @optional float progress)
             return _dragonBones_Animation_gotoAndStopByProgress1(L);
         // }
     }
@@ -13560,12 +13628,14 @@ static int _dragonBones_Animation_gotoAndStopByTime(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
+            // dragonBones::AnimationState *gotoAndStopByTime(const std::string &animationName, @optional float time)
             return _dragonBones_Animation_gotoAndStopByTime2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_number(L, 3))) {
+            // dragonBones::AnimationState *gotoAndStopByTime(const std::string &animationName, @optional float time)
             return _dragonBones_Animation_gotoAndStopByTime1(L);
         // }
     }
@@ -13722,17 +13792,20 @@ static int _dragonBones_Animation_play(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // dragonBones::AnimationState *play(@optional const std::string &animationName, @optional int playTimes)
         return _dragonBones_Animation_play2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
+            // dragonBones::AnimationState *play(@optional const std::string &animationName, @optional int playTimes)
             return _dragonBones_Animation_play3(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_int(L, 3))) {
+            // dragonBones::AnimationState *play(@optional const std::string &animationName, @optional int playTimes)
             return _dragonBones_Animation_play1(L);
         // }
     }
@@ -13985,24 +14058,28 @@ static int _dragonBones_CCFactory_buildArmatureDisplay(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
+            // dragonBones::CCArmatureDisplay *buildArmatureDisplay(const std::string &armatureName, @optional const std::string &dragonBonesName, @optional const std::string &skinName, @optional const std::string &textureAtlasName)
             return _dragonBones_CCFactory_buildArmatureDisplay2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3))) {
+            // dragonBones::CCArmatureDisplay *buildArmatureDisplay(const std::string &armatureName, @optional const std::string &dragonBonesName, @optional const std::string &skinName, @optional const std::string &textureAtlasName)
             return _dragonBones_CCFactory_buildArmatureDisplay3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4))) {
+            // dragonBones::CCArmatureDisplay *buildArmatureDisplay(const std::string &armatureName, @optional const std::string &dragonBonesName, @optional const std::string &skinName, @optional const std::string &textureAtlasName)
             return _dragonBones_CCFactory_buildArmatureDisplay4(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5))) {
+            // dragonBones::CCArmatureDisplay *buildArmatureDisplay(const std::string &armatureName, @optional const std::string &dragonBonesName, @optional const std::string &skinName, @optional const std::string &textureAtlasName)
             return _dragonBones_CCFactory_buildArmatureDisplay1(L);
         // }
     }
@@ -14088,12 +14165,14 @@ static int _dragonBones_CCFactory_getTextureDisplay(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
+            // cocos2d::Sprite *getTextureDisplay(const std::string &textureName, @optional const std::string &dragonBonesName)
             return _dragonBones_CCFactory_getTextureDisplay2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3))) {
+            // cocos2d::Sprite *getTextureDisplay(const std::string &textureName, @optional const std::string &dragonBonesName)
             return _dragonBones_CCFactory_getTextureDisplay1(L);
         // }
     }
@@ -14172,18 +14251,21 @@ static int _dragonBones_CCFactory_loadDragonBonesData(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
+            // dragonBones::DragonBonesData *loadDragonBonesData(const std::string &filePath, @optional const std::string &name, @optional float scale)
             return _dragonBones_CCFactory_loadDragonBonesData2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3))) {
+            // dragonBones::DragonBonesData *loadDragonBonesData(const std::string &filePath, @optional const std::string &name, @optional float scale)
             return _dragonBones_CCFactory_loadDragonBonesData3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4))) {
+            // dragonBones::DragonBonesData *loadDragonBonesData(const std::string &filePath, @optional const std::string &name, @optional float scale)
             return _dragonBones_CCFactory_loadDragonBonesData1(L);
         // }
     }
@@ -14262,18 +14344,21 @@ static int _dragonBones_CCFactory_loadTextureAtlasData(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
+            // dragonBones::TextureAtlasData *loadTextureAtlasData(const std::string &filePath, @optional const std::string &name, @optional float scale)
             return _dragonBones_CCFactory_loadTextureAtlasData2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3))) {
+            // dragonBones::TextureAtlasData *loadTextureAtlasData(const std::string &filePath, @optional const std::string &name, @optional float scale)
             return _dragonBones_CCFactory_loadTextureAtlasData3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4))) {
+            // dragonBones::TextureAtlasData *loadTextureAtlasData(const std::string &filePath, @optional const std::string &name, @optional float scale)
             return _dragonBones_CCFactory_loadTextureAtlasData1(L);
         // }
     }
@@ -14480,11 +14565,13 @@ static int _dragonBones_CCArmatureDisplay_dispose(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // void dispose(@optional bool disposeProxy)
         return _dragonBones_CCArmatureDisplay_dispose2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_bool(L, 2))) {
+            // void dispose(@optional bool disposeProxy)
             return _dragonBones_CCArmatureDisplay_dispose1(L);
         // }
     }

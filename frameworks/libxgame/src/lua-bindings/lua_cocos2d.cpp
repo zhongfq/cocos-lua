@@ -111,12 +111,14 @@ static int _cocos2d_UserDefault_getBoolForKey(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_string(L, 2))) {
+            // bool getBoolForKey(const char *key)
             return _cocos2d_UserDefault_getBoolForKey1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_string(L, 2)) && (olua_is_bool(L, 3))) {
+            // bool getBoolForKey(const char *key, bool defaultValue)
             return _cocos2d_UserDefault_getBoolForKey2(L);
         // }
     }
@@ -172,12 +174,14 @@ static int _cocos2d_UserDefault_getDataForKey(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_string(L, 2))) {
+            // cocos2d::Data getDataForKey(const char *key)
             return _cocos2d_UserDefault_getDataForKey1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_string(L, 2)) && (manual_olua_is_cocos2d_Data(L, 3))) {
+            // cocos2d::Data getDataForKey(const char *key, const cocos2d::Data &defaultValue)
             return _cocos2d_UserDefault_getDataForKey2(L);
         // }
     }
@@ -233,12 +237,14 @@ static int _cocos2d_UserDefault_getDoubleForKey(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_string(L, 2))) {
+            // double getDoubleForKey(const char *key)
             return _cocos2d_UserDefault_getDoubleForKey1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_string(L, 2)) && (olua_is_number(L, 3))) {
+            // double getDoubleForKey(const char *key, double defaultValue)
             return _cocos2d_UserDefault_getDoubleForKey2(L);
         // }
     }
@@ -294,12 +300,14 @@ static int _cocos2d_UserDefault_getFloatForKey(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_string(L, 2))) {
+            // float getFloatForKey(const char *key)
             return _cocos2d_UserDefault_getFloatForKey1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_string(L, 2)) && (olua_is_number(L, 3))) {
+            // float getFloatForKey(const char *key, float defaultValue)
             return _cocos2d_UserDefault_getFloatForKey2(L);
         // }
     }
@@ -368,12 +376,14 @@ static int _cocos2d_UserDefault_getIntegerForKey(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_string(L, 2))) {
+            // int getIntegerForKey(const char *key)
             return _cocos2d_UserDefault_getIntegerForKey1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_string(L, 2)) && (olua_is_int(L, 3))) {
+            // int getIntegerForKey(const char *key, int defaultValue)
             return _cocos2d_UserDefault_getIntegerForKey2(L);
         // }
     }
@@ -429,12 +439,14 @@ static int _cocos2d_UserDefault_getStringForKey(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_string(L, 2))) {
+            // std::string getStringForKey(const char *key)
             return _cocos2d_UserDefault_getStringForKey1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_string(L, 2)) && (olua_is_std_string(L, 3))) {
+            // std::string getStringForKey(const char *key, const std::string &defaultValue)
             return _cocos2d_UserDefault_getStringForKey2(L);
         // }
     }
@@ -902,12 +914,14 @@ static int _cocos2d_Director_convertToGL(lua_State *L)
 
     if (num_args == 1) {
         // if ((auto_olua_is_cocos2d_Vec2(L, 2))) {
+            // cocos2d::Vec2 convertToGL(const cocos2d::Vec2 &point)
             return _cocos2d_Director_convertToGL1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((auto_olua_ispack_cocos2d_Vec2(L, 2))) {
+            // cocos2d::Vec2 convertToGL(@pack const cocos2d::Vec2 &point)
             return _cocos2d_Director_convertToGL2(L);
         // }
     }
@@ -961,12 +975,14 @@ static int _cocos2d_Director_convertToUI(lua_State *L)
 
     if (num_args == 1) {
         // if ((auto_olua_is_cocos2d_Vec2(L, 2))) {
+            // cocos2d::Vec2 convertToUI(const cocos2d::Vec2 &point)
             return _cocos2d_Director_convertToUI1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((auto_olua_ispack_cocos2d_Vec2(L, 2))) {
+            // cocos2d::Vec2 convertToUI(@pack const cocos2d::Vec2 &point)
             return _cocos2d_Director_convertToUI2(L);
         // }
     }
@@ -1709,11 +1725,13 @@ static int _cocos2d_Director_mainLoop(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // void mainLoop()
         return _cocos2d_Director_mainLoop1(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_number(L, 2))) {
+            // void mainLoop(float dt)
             return _cocos2d_Director_mainLoop2(L);
         // }
     }
@@ -3066,12 +3084,14 @@ static int _cocos2d_Scheduler_schedule(lua_State *L)
 
     if (num_args == 5) {
         // if ((olua_is_std_function(L, 2)) && (olua_is_obj(L, 3, "void *")) && (olua_is_number(L, 4)) && (olua_is_bool(L, 5)) && (olua_is_std_string(L, 6))) {
+            // void schedule(const std::function<void(float)>& callback, void *target, float interval, bool paused, const std::string& key)
             return _cocos2d_Scheduler_schedule1(L);
         // }
     }
 
     if (num_args == 7) {
         // if ((olua_is_std_function(L, 2)) && (olua_is_obj(L, 3, "void *")) && (olua_is_number(L, 4)) && (olua_is_uint(L, 5)) && (olua_is_number(L, 6)) && (olua_is_bool(L, 7)) && (olua_is_std_string(L, 8))) {
+            // void schedule(const std::function<void(float)>& callback, void *target, float interval, unsigned int repeat, float delay, bool paused, const std::string& key)
             return _cocos2d_Scheduler_schedule2(L);
         // }
     }
@@ -3423,12 +3443,14 @@ static int _cocos2d_EventDispatcher_dispatchCustomEvent(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
+            // void dispatchCustomEvent(const std::string &eventName, @optional void *optionalUserData)
             return _cocos2d_EventDispatcher_dispatchCustomEvent2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_obj(L, 3, "void *"))) {
+            // void dispatchCustomEvent(const std::string &eventName, @optional void *optionalUserData)
             return _cocos2d_EventDispatcher_dispatchCustomEvent1(L);
         // }
     }
@@ -3550,12 +3572,14 @@ static int _cocos2d_EventDispatcher_pauseEventListenersForTarget(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 2, "cc.Node"))) {
+            // void pauseEventListenersForTarget(cocos2d::Node *target, @optional bool recursive)
             return _cocos2d_EventDispatcher_pauseEventListenersForTarget2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 2, "cc.Node")) && (olua_is_bool(L, 3))) {
+            // void pauseEventListenersForTarget(cocos2d::Node *target, @optional bool recursive)
             return _cocos2d_EventDispatcher_pauseEventListenersForTarget1(L);
         // }
     }
@@ -3695,12 +3719,14 @@ static int _cocos2d_EventDispatcher_removeEventListenersForTarget(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 2, "cc.Node"))) {
+            // void removeEventListenersForTarget(cocos2d::Node *target, @optional bool recursive)
             return _cocos2d_EventDispatcher_removeEventListenersForTarget2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 2, "cc.Node")) && (olua_is_bool(L, 3))) {
+            // void removeEventListenersForTarget(cocos2d::Node *target, @optional bool recursive)
             return _cocos2d_EventDispatcher_removeEventListenersForTarget1(L);
         // }
     }
@@ -3778,12 +3804,14 @@ static int _cocos2d_EventDispatcher_resumeEventListenersForTarget(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 2, "cc.Node"))) {
+            // void resumeEventListenersForTarget(cocos2d::Node *target, @optional bool recursive)
             return _cocos2d_EventDispatcher_resumeEventListenersForTarget2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 2, "cc.Node")) && (olua_is_bool(L, 3))) {
+            // void resumeEventListenersForTarget(cocos2d::Node *target, @optional bool recursive)
             return _cocos2d_EventDispatcher_resumeEventListenersForTarget1(L);
         // }
     }
@@ -6841,10 +6869,12 @@ static int _cocos2d_EventController_new(lua_State *L)
 
     if (num_args == 3) {
         if ((olua_is_uint(L, 1)) && (olua_is_cppobj(L, 2, "cc.Controller")) && (olua_is_int(L, 3))) {
+            // EventController(cocos2d::EventController::ControllerEventType type, cocos2d::Controller *controller, int keyCode)
             return _cocos2d_EventController_new1(L);
         }
 
         // if ((olua_is_uint(L, 1)) && (olua_is_cppobj(L, 2, "cc.Controller")) && (olua_is_bool(L, 3))) {
+            // EventController(cocos2d::EventController::ControllerEventType type, cocos2d::Controller *controller, bool isConnected)
             return _cocos2d_EventController_new2(L);
         // }
     }
@@ -7149,12 +7179,14 @@ static int _cocos2d_Touch_setTouchInfo(lua_State *L)
 
     if (num_args == 3) {
         // if ((olua_is_int(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4))) {
+            // void setTouchInfo(int id, float x, float y)
             return _cocos2d_Touch_setTouchInfo1(L);
         // }
     }
 
     if (num_args == 5) {
         // if ((olua_is_int(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_number(L, 5)) && (olua_is_number(L, 6))) {
+            // void setTouchInfo(int id, float x, float y, float force, float maxForce)
             return _cocos2d_Touch_setTouchInfo2(L);
         // }
     }
@@ -7754,10 +7786,12 @@ static int _cocos2d_experimental_AudioEngine_getProfile(lua_State *L)
 
     if (num_args == 1) {
         if ((olua_is_int(L, 1))) {
+            // static cocos2d::experimental::AudioProfile *getProfile(int audioID)
             return _cocos2d_experimental_AudioEngine_getProfile1(L);
         }
 
         // if ((olua_is_std_string(L, 1))) {
+            // static cocos2d::experimental::AudioProfile *getProfile(const std::string &profileName)
             return _cocos2d_experimental_AudioEngine_getProfile2(L);
         // }
     }
@@ -7958,24 +7992,28 @@ static int _cocos2d_experimental_AudioEngine_play2d(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 1))) {
+            // static int play2d(const std::string &filePath, @optional bool loop, @optional float volume, @optional const cocos2d::experimental::AudioProfile *profile)
             return _cocos2d_experimental_AudioEngine_play2d2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_bool(L, 2))) {
+            // static int play2d(const std::string &filePath, @optional bool loop, @optional float volume, @optional const cocos2d::experimental::AudioProfile *profile)
             return _cocos2d_experimental_AudioEngine_play2d3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_bool(L, 2)) && (olua_is_number(L, 3))) {
+            // static int play2d(const std::string &filePath, @optional bool loop, @optional float volume, @optional const cocos2d::experimental::AudioProfile *profile)
             return _cocos2d_experimental_AudioEngine_play2d4(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_bool(L, 2)) && (olua_is_number(L, 3)) && (olua_is_cppobj(L, 4, "cc.AudioProfile"))) {
+            // static int play2d(const std::string &filePath, @optional bool loop, @optional float volume, @optional const cocos2d::experimental::AudioProfile *profile)
             return _cocos2d_experimental_AudioEngine_play2d1(L);
         // }
     }
@@ -8043,12 +8081,14 @@ static int _cocos2d_experimental_AudioEngine_preload(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 1))) {
+            // static void preload(const std::string& filePath)
             return _cocos2d_experimental_AudioEngine_preload1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_function(L, 2))) {
+            // static void preload(const std::string& filePath, std::function<void(bool isSuccess)> callback)
             return _cocos2d_experimental_AudioEngine_preload2(L);
         // }
     }
@@ -8510,12 +8550,14 @@ static int _CocosDenshion_SimpleAudioEngine_playBackgroundMusic(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_string(L, 2))) {
+            // void playBackgroundMusic(const char *filePath, @optional bool loop)
             return _CocosDenshion_SimpleAudioEngine_playBackgroundMusic2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_string(L, 2)) && (olua_is_bool(L, 3))) {
+            // void playBackgroundMusic(const char *filePath, @optional bool loop)
             return _CocosDenshion_SimpleAudioEngine_playBackgroundMusic1(L);
         // }
     }
@@ -8646,30 +8688,35 @@ static int _CocosDenshion_SimpleAudioEngine_playEffect(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_string(L, 2))) {
+            // unsigned int playEffect(const char *filePath, @optional bool loop, @optional float pitch, @optional float pan, @optional float gain)
             return _CocosDenshion_SimpleAudioEngine_playEffect2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_string(L, 2)) && (olua_is_bool(L, 3))) {
+            // unsigned int playEffect(const char *filePath, @optional bool loop, @optional float pitch, @optional float pan, @optional float gain)
             return _CocosDenshion_SimpleAudioEngine_playEffect3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_string(L, 2)) && (olua_is_bool(L, 3)) && (olua_is_number(L, 4))) {
+            // unsigned int playEffect(const char *filePath, @optional bool loop, @optional float pitch, @optional float pan, @optional float gain)
             return _CocosDenshion_SimpleAudioEngine_playEffect4(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_string(L, 2)) && (olua_is_bool(L, 3)) && (olua_is_number(L, 4)) && (olua_is_number(L, 5))) {
+            // unsigned int playEffect(const char *filePath, @optional bool loop, @optional float pitch, @optional float pan, @optional float gain)
             return _CocosDenshion_SimpleAudioEngine_playEffect5(L);
         // }
     }
 
     if (num_args == 5) {
         // if ((olua_is_string(L, 2)) && (olua_is_bool(L, 3)) && (olua_is_number(L, 4)) && (olua_is_number(L, 5)) && (olua_is_number(L, 6))) {
+            // unsigned int playEffect(const char *filePath, @optional bool loop, @optional float pitch, @optional float pan, @optional float gain)
             return _CocosDenshion_SimpleAudioEngine_playEffect1(L);
         // }
     }
@@ -8872,11 +8919,13 @@ static int _CocosDenshion_SimpleAudioEngine_stopBackgroundMusic(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // void stopBackgroundMusic(@optional bool releaseData)
         return _CocosDenshion_SimpleAudioEngine_stopBackgroundMusic2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_bool(L, 2))) {
+            // void stopBackgroundMusic(@optional bool releaseData)
             return _CocosDenshion_SimpleAudioEngine_stopBackgroundMusic1(L);
         // }
     }
@@ -9404,12 +9453,14 @@ static int _cocos2d_FileUtils_addSearchPath(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
+            // void addSearchPath(const std::string &path, @optional const bool front)
             return _cocos2d_FileUtils_addSearchPath2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3))) {
+            // void addSearchPath(const std::string &path, @optional const bool front)
             return _cocos2d_FileUtils_addSearchPath1(L);
         // }
     }
@@ -9463,12 +9514,14 @@ static int _cocos2d_FileUtils_addSearchResolutionsOrder(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
+            // void addSearchResolutionsOrder(const std::string &order, @optional const bool front)
             return _cocos2d_FileUtils_addSearchResolutionsOrder2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3))) {
+            // void addSearchResolutionsOrder(const std::string &order, @optional const bool front)
             return _cocos2d_FileUtils_addSearchResolutionsOrder1(L);
         // }
     }
@@ -10123,12 +10176,14 @@ static int _cocos2d_FileUtils_renameFile(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3))) {
+            // bool renameFile(const std::string &oldfullpath, const std::string &newfullpath)
             return _cocos2d_FileUtils_renameFile2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4))) {
+            // bool renameFile(const std::string &path, const std::string &oldname, const std::string &name)
             return _cocos2d_FileUtils_renameFile1(L);
         // }
     }
@@ -10936,12 +10991,14 @@ static int _cocos2d_GLView_setCursor(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
+            // void setCursor(const std::string &filename, @optional cocos2d::Vec2 hotspot)
             return _cocos2d_GLView_setCursor2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (auto_olua_is_cocos2d_Vec2(L, 3))) {
+            // void setCursor(const std::string &filename, @optional cocos2d::Vec2 hotspot)
             return _cocos2d_GLView_setCursor1(L);
         // }
     }
@@ -11146,10 +11203,12 @@ static int _cocos2d_GLView_setIcon(lua_State *L)
 
     if (num_args == 1) {
         if ((olua_is_std_string(L, 2))) {
+            // void setIcon(const std::string &filename)
             return _cocos2d_GLView_setIcon1(L);
         }
 
         // if ((olua_is_std_vector(L, 2))) {
+            // void setIcon(const std::vector<std::string> &filelist)
             return _cocos2d_GLView_setIcon2(L);
         // }
     }
@@ -11690,12 +11749,14 @@ static int _cocos2d_Image_initWithRawData(lua_State *L)
 
     if (num_args == 5) {
         // if ((olua_is_string(L, 2)) && (olua_is_int(L, 3)) && (olua_is_int(L, 4)) && (olua_is_int(L, 5)) && (olua_is_int(L, 6))) {
+            // bool initWithRawData(const unsigned char *data, ssize_t dataLen, int width, int height, int bitsPerComponent, @optional bool preMulti)
             return _cocos2d_Image_initWithRawData2(L);
         // }
     }
 
     if (num_args == 6) {
         // if ((olua_is_string(L, 2)) && (olua_is_int(L, 3)) && (olua_is_int(L, 4)) && (olua_is_int(L, 5)) && (olua_is_int(L, 6)) && (olua_is_bool(L, 7))) {
+            // bool initWithRawData(const unsigned char *data, ssize_t dataLen, int width, int height, int bitsPerComponent, @optional bool preMulti)
             return _cocos2d_Image_initWithRawData1(L);
         // }
     }
@@ -11814,12 +11875,14 @@ static int _cocos2d_Image_saveToFile(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
+            // bool saveToFile(const std::string &filename, @optional bool isToRGB)
             return _cocos2d_Image_saveToFile2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3))) {
+            // bool saveToFile(const std::string &filename, @optional bool isToRGB)
             return _cocos2d_Image_saveToFile1(L);
         // }
     }
@@ -12641,18 +12704,21 @@ static int _cocos2d_GLProgram_createWithByteArrays(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_string(L, 1)) && (olua_is_string(L, 2))) {
+            // static cocos2d::GLProgram *createWithByteArrays(const GLchar *vShaderByteArray, const GLchar *fShaderByteArray)
             return _cocos2d_GLProgram_createWithByteArrays1(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_string(L, 1)) && (olua_is_string(L, 2)) && (olua_is_std_string(L, 3))) {
+            // static cocos2d::GLProgram *createWithByteArrays(const GLchar *vShaderByteArray, const GLchar *fShaderByteArray, const std::string &compileTimeDefines)
             return _cocos2d_GLProgram_createWithByteArrays2(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_string(L, 1)) && (olua_is_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4))) {
+            // static cocos2d::GLProgram *createWithByteArrays(const GLchar *vShaderByteArray, const GLchar *fShaderByteArray, const std::string &compileTimeHeaders, const std::string &compileTimeDefines)
             return _cocos2d_GLProgram_createWithByteArrays3(L);
         // }
     }
@@ -12731,18 +12797,21 @@ static int _cocos2d_GLProgram_createWithFilenames(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2))) {
+            // static cocos2d::GLProgram *createWithFilenames(const std::string &vShaderFilename, const std::string &fShaderFilename)
             return _cocos2d_GLProgram_createWithFilenames1(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3))) {
+            // static cocos2d::GLProgram *createWithFilenames(const std::string &vShaderFilename, const std::string &fShaderFilename, const std::string &compileTimeDefines)
             return _cocos2d_GLProgram_createWithFilenames2(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4))) {
+            // static cocos2d::GLProgram *createWithFilenames(const std::string &vShaderFilename, const std::string &fShaderFilename, const std::string &compileTimeHeaders, const std::string &compileTimeDefines)
             return _cocos2d_GLProgram_createWithFilenames3(L);
         // }
     }
@@ -12990,18 +13059,21 @@ static int _cocos2d_GLProgram_initWithByteArrays(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_string(L, 2)) && (olua_is_string(L, 3))) {
+            // bool initWithByteArrays(const GLchar *vShaderByteArray, const GLchar *fShaderByteArray)
             return _cocos2d_GLProgram_initWithByteArrays1(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_string(L, 2)) && (olua_is_string(L, 3)) && (olua_is_std_string(L, 4))) {
+            // bool initWithByteArrays(const GLchar *vShaderByteArray, const GLchar *fShaderByteArray, const std::string &compileTimeDefines)
             return _cocos2d_GLProgram_initWithByteArrays2(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_string(L, 2)) && (olua_is_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5))) {
+            // bool initWithByteArrays(const GLchar *vShaderByteArray, const GLchar *fShaderByteArray, const std::string &compileTimeHeaders, const std::string &compileTimeDefines)
             return _cocos2d_GLProgram_initWithByteArrays3(L);
         // }
     }
@@ -13086,18 +13158,21 @@ static int _cocos2d_GLProgram_initWithFilenames(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3))) {
+            // bool initWithFilenames(const std::string &vShaderFilename, const std::string &fShaderFilename)
             return _cocos2d_GLProgram_initWithFilenames1(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4))) {
+            // bool initWithFilenames(const std::string &vShaderFilename, const std::string &fShaderFilename, const std::string &compileTimeDefines)
             return _cocos2d_GLProgram_initWithFilenames2(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5))) {
+            // bool initWithFilenames(const std::string &vShaderFilename, const std::string &fShaderFilename, const std::string &compileTimeHeaders, const std::string &compileTimeDefines)
             return _cocos2d_GLProgram_initWithFilenames3(L);
         // }
     }
@@ -13377,11 +13452,13 @@ static int _cocos2d_GLProgram_setUniformsForBuiltins(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // void setUniformsForBuiltins()
         return _cocos2d_GLProgram_setUniformsForBuiltins2(L);
     }
 
     if (num_args == 1) {
         // if ((manual_olua_is_cocos2d_Mat4(L, 2))) {
+            // void setUniformsForBuiltins(const cocos2d::Mat4 &modelView)
             return _cocos2d_GLProgram_setUniformsForBuiltins1(L);
         // }
     }
@@ -15527,11 +15604,13 @@ static int _cocos2d_GLProgramState_applyAttributes(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // void applyAttributes(@optional bool applyAttribFlags)
         return _cocos2d_GLProgramState_applyAttributes2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_bool(L, 2))) {
+            // void applyAttributes(@optional bool applyAttribFlags)
             return _cocos2d_GLProgramState_applyAttributes1(L);
         // }
     }
@@ -15728,12 +15807,14 @@ static int _cocos2d_GLProgramState_getOrCreateWithGLProgramName(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 1))) {
+            // static cocos2d::GLProgramState *getOrCreateWithGLProgramName(const std::string &glProgramName)
             return _cocos2d_GLProgramState_getOrCreateWithGLProgramName1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_cppobj(L, 2, "cc.Texture2D"))) {
+            // static cocos2d::GLProgramState *getOrCreateWithGLProgramName(const std::string &glProgramName, cocos2d::Texture2D *texture)
             return _cocos2d_GLProgramState_getOrCreateWithGLProgramName2(L);
         // }
     }
@@ -15923,10 +16004,12 @@ static int _cocos2d_GLProgramState_setUniformFloat(lua_State *L)
 
     if (num_args == 2) {
         if ((olua_is_std_string(L, 2)) && (olua_is_number(L, 3))) {
+            // void setUniformFloat(const std::string &uniformName, float value)
             return _cocos2d_GLProgramState_setUniformFloat1(L);
         }
 
         // if ((olua_is_int(L, 2)) && (olua_is_number(L, 3))) {
+            // void setUniformFloat(GLint uniformLocation, float value)
             return _cocos2d_GLProgramState_setUniformFloat2(L);
         // }
     }
@@ -15982,10 +16065,12 @@ static int _cocos2d_GLProgramState_setUniformInt(lua_State *L)
 
     if (num_args == 2) {
         if ((olua_is_std_string(L, 2)) && (olua_is_int(L, 3))) {
+            // void setUniformInt(const std::string &uniformName, int value)
             return _cocos2d_GLProgramState_setUniformInt1(L);
         }
 
         // if ((olua_is_int(L, 2)) && (olua_is_int(L, 3))) {
+            // void setUniformInt(GLint uniformLocation, int value)
             return _cocos2d_GLProgramState_setUniformInt2(L);
         // }
     }
@@ -16041,10 +16126,12 @@ static int _cocos2d_GLProgramState_setUniformMat4(lua_State *L)
 
     if (num_args == 2) {
         if ((olua_is_std_string(L, 2)) && (manual_olua_is_cocos2d_Mat4(L, 3))) {
+            // void setUniformMat4(const std::string &uniformName, const cocos2d::Mat4 &value)
             return _cocos2d_GLProgramState_setUniformMat41(L);
         }
 
         // if ((olua_is_int(L, 2)) && (manual_olua_is_cocos2d_Mat4(L, 3))) {
+            // void setUniformMat4(GLint uniformLocation, const cocos2d::Mat4 &value)
             return _cocos2d_GLProgramState_setUniformMat42(L);
         // }
     }
@@ -16100,10 +16187,12 @@ static int _cocos2d_GLProgramState_setUniformTexture(lua_State *L)
 
     if (num_args == 2) {
         if ((olua_is_std_string(L, 2)) && (olua_is_cppobj(L, 3, "cc.Texture2D"))) {
+            // void setUniformTexture(const std::string &uniformName, cocos2d::Texture2D *texture)
             return _cocos2d_GLProgramState_setUniformTexture1(L);
         }
 
         // if ((olua_is_int(L, 2)) && (olua_is_cppobj(L, 3, "cc.Texture2D"))) {
+            // void setUniformTexture(GLint uniformLocation, cocos2d::Texture2D *texture)
             return _cocos2d_GLProgramState_setUniformTexture2(L);
         // }
     }
@@ -16159,10 +16248,12 @@ static int _cocos2d_GLProgramState_setUniformVec2(lua_State *L)
 
     if (num_args == 2) {
         if ((olua_is_std_string(L, 2)) && (auto_olua_is_cocos2d_Vec2(L, 3))) {
+            // void setUniformVec2(const std::string &uniformName, const cocos2d::Vec2 &value)
             return _cocos2d_GLProgramState_setUniformVec21(L);
         }
 
         // if ((olua_is_int(L, 2)) && (auto_olua_is_cocos2d_Vec2(L, 3))) {
+            // void setUniformVec2(GLint uniformLocation, const cocos2d::Vec2 &value)
             return _cocos2d_GLProgramState_setUniformVec22(L);
         // }
     }
@@ -16218,10 +16309,12 @@ static int _cocos2d_GLProgramState_setUniformVec3(lua_State *L)
 
     if (num_args == 2) {
         if ((olua_is_std_string(L, 2)) && (auto_olua_is_cocos2d_Vec3(L, 3))) {
+            // void setUniformVec3(const std::string &uniformName, const cocos2d::Vec3 &value)
             return _cocos2d_GLProgramState_setUniformVec31(L);
         }
 
         // if ((olua_is_int(L, 2)) && (auto_olua_is_cocos2d_Vec3(L, 3))) {
+            // void setUniformVec3(GLint uniformLocation, const cocos2d::Vec3 &value)
             return _cocos2d_GLProgramState_setUniformVec32(L);
         // }
     }
@@ -16277,10 +16370,12 @@ static int _cocos2d_GLProgramState_setUniformVec4(lua_State *L)
 
     if (num_args == 2) {
         if ((olua_is_std_string(L, 2)) && (auto_olua_is_cocos2d_Vec4(L, 3))) {
+            // void setUniformVec4(const std::string &uniformName, const cocos2d::Vec4 &value)
             return _cocos2d_GLProgramState_setUniformVec41(L);
         }
 
         // if ((olua_is_int(L, 2)) && (auto_olua_is_cocos2d_Vec4(L, 3))) {
+            // void setUniformVec4(GLint uniformLocation, const cocos2d::Vec4 &value)
             return _cocos2d_GLProgramState_setUniformVec42(L);
         // }
     }
@@ -16410,12 +16505,14 @@ static int _cocos2d_TextureCache_addImage(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
+            // cocos2d::Texture2D *addImage(const std::string &filepath)
             return _cocos2d_TextureCache_addImage1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 2, "cc.Image")) && (olua_is_std_string(L, 3))) {
+            // cocos2d::Texture2D *addImage(cocos2d::Image *image, const std::string &key)
             return _cocos2d_TextureCache_addImage2(L);
         // }
     }
@@ -16509,12 +16606,14 @@ static int _cocos2d_TextureCache_addImageAsync(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_std_function(L, 3))) {
+            // void addImageAsync(const std::string &filepath, const std::function<void(Texture2D*)>& callback)
             return _cocos2d_TextureCache_addImageAsync1(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_std_function(L, 3)) && (olua_is_std_string(L, 4))) {
+            // void addImageAsync(const std::string &path, const std::function<void(Texture2D*)>& callback, const std::string& callbackKey)
             return _cocos2d_TextureCache_addImageAsync2(L);
         // }
     }
@@ -16996,11 +17095,13 @@ static int _cocos2d_Texture2D_getBitsPerPixelForFormat(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // unsigned int getBitsPerPixelForFormat()
         return _cocos2d_Texture2D_getBitsPerPixelForFormat1(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
+            // unsigned int getBitsPerPixelForFormat(Texture2D::PixelFormat format)
             return _cocos2d_Texture2D_getBitsPerPixelForFormat2(L);
         // }
     }
@@ -17327,12 +17428,14 @@ static int _cocos2d_Texture2D_initWithData(lua_State *L)
 
     if (num_args == 6) {
         // if ((olua_is_obj(L, 2, "void *")) && (olua_is_int(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_int(L, 5)) && (olua_is_int(L, 6)) && (auto_olua_is_cocos2d_Size(L, 7))) {
+            // bool initWithData(const void *data, ssize_t dataLen, Texture2D::PixelFormat pixelFormat, int pixelsWide, int pixelsHigh, const cocos2d::Size &contentSize, @optional bool preMultipliedAlpha)
             return _cocos2d_Texture2D_initWithData2(L);
         // }
     }
 
     if (num_args == 7) {
         // if ((olua_is_obj(L, 2, "void *")) && (olua_is_int(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_int(L, 5)) && (olua_is_int(L, 6)) && (auto_olua_is_cocos2d_Size(L, 7)) && (olua_is_bool(L, 8))) {
+            // bool initWithData(const void *data, ssize_t dataLen, Texture2D::PixelFormat pixelFormat, int pixelsWide, int pixelsHigh, const cocos2d::Size &contentSize, @optional bool preMultipliedAlpha)
             return _cocos2d_Texture2D_initWithData1(L);
         // }
     }
@@ -17388,12 +17491,14 @@ static int _cocos2d_Texture2D_initWithImage(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 2, "cc.Image"))) {
+            // bool initWithImage(cocos2d::Image *image)
             return _cocos2d_Texture2D_initWithImage1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 2, "cc.Image")) && (olua_is_uint(L, 3))) {
+            // bool initWithImage(cocos2d::Image *image, cocos2d::Texture2D::PixelFormat format)
             return _cocos2d_Texture2D_initWithImage2(L);
         // }
     }
@@ -17577,36 +17682,42 @@ static int _cocos2d_Texture2D_initWithString(lua_State *L)
 
     if (num_args == 3) {
         // if ((olua_is_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4))) {
+            // bool initWithString(const char *text, const std::string &fontName, float fontSize, @optional const cocos2d::Size &dimensions, @optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment, @optional bool enableWrap, @optional int overflow)
             return _cocos2d_Texture2D_initWithString2(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4)) && (auto_olua_is_cocos2d_Size(L, 5))) {
+            // bool initWithString(const char *text, const std::string &fontName, float fontSize, @optional const cocos2d::Size &dimensions, @optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment, @optional bool enableWrap, @optional int overflow)
             return _cocos2d_Texture2D_initWithString3(L);
         // }
     }
 
     if (num_args == 5) {
         // if ((olua_is_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4)) && (auto_olua_is_cocos2d_Size(L, 5)) && (olua_is_uint(L, 6))) {
+            // bool initWithString(const char *text, const std::string &fontName, float fontSize, @optional const cocos2d::Size &dimensions, @optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment, @optional bool enableWrap, @optional int overflow)
             return _cocos2d_Texture2D_initWithString4(L);
         // }
     }
 
     if (num_args == 6) {
         // if ((olua_is_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4)) && (auto_olua_is_cocos2d_Size(L, 5)) && (olua_is_uint(L, 6)) && (olua_is_uint(L, 7))) {
+            // bool initWithString(const char *text, const std::string &fontName, float fontSize, @optional const cocos2d::Size &dimensions, @optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment, @optional bool enableWrap, @optional int overflow)
             return _cocos2d_Texture2D_initWithString5(L);
         // }
     }
 
     if (num_args == 7) {
         // if ((olua_is_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4)) && (auto_olua_is_cocos2d_Size(L, 5)) && (olua_is_uint(L, 6)) && (olua_is_uint(L, 7)) && (olua_is_bool(L, 8))) {
+            // bool initWithString(const char *text, const std::string &fontName, float fontSize, @optional const cocos2d::Size &dimensions, @optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment, @optional bool enableWrap, @optional int overflow)
             return _cocos2d_Texture2D_initWithString6(L);
         // }
     }
 
     if (num_args == 8) {
         // if ((olua_is_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4)) && (auto_olua_is_cocos2d_Size(L, 5)) && (olua_is_uint(L, 6)) && (olua_is_uint(L, 7)) && (olua_is_bool(L, 8)) && (olua_is_int(L, 9))) {
+            // bool initWithString(const char *text, const std::string &fontName, float fontSize, @optional const cocos2d::Size &dimensions, @optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment, @optional bool enableWrap, @optional int overflow)
             return _cocos2d_Texture2D_initWithString1(L);
         // }
     }
@@ -18024,12 +18135,14 @@ static int _cocos2d_TextureAtlas_drawNumberOfQuads(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_int(L, 2))) {
+            // void drawNumberOfQuads(ssize_t n)
             return _cocos2d_TextureAtlas_drawNumberOfQuads1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_int(L, 2)) && (olua_is_int(L, 3))) {
+            // void drawNumberOfQuads(ssize_t numberOfQuads, ssize_t start)
             return _cocos2d_TextureAtlas_drawNumberOfQuads2(L);
         // }
     }
@@ -18306,12 +18419,14 @@ static int _cocos2d_TextureAtlas_moveQuadsFromIndex(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_int(L, 2)) && (olua_is_int(L, 3))) {
+            // void moveQuadsFromIndex(ssize_t index, ssize_t newIndex)
             return _cocos2d_TextureAtlas_moveQuadsFromIndex2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_int(L, 2)) && (olua_is_int(L, 3)) && (olua_is_int(L, 4))) {
+            // void moveQuadsFromIndex(ssize_t oldIndex, ssize_t amount, ssize_t newIndex)
             return _cocos2d_TextureAtlas_moveQuadsFromIndex1(L);
         // }
     }
@@ -18955,12 +19070,14 @@ static int _cocos2d_network_WebSocket_send(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
+            // void send(const std::string &message)
             return _cocos2d_network_WebSocket_send1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_string(L, 2)) && (olua_is_uint(L, 3))) {
+            // void send(const unsigned char *binaryMsg, unsigned int len)
             return _cocos2d_network_WebSocket_send2(L);
         // }
     }
@@ -20194,12 +20311,14 @@ static int _cocos2d_Follow_create(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 1, "cc.Node"))) {
+            // static cocos2d::Follow *create(cocos2d::Node *followedNode, @optional const cocos2d::Rect &rect)
             return _cocos2d_Follow_create2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 1, "cc.Node")) && (manual_olua_is_cocos2d_Rect(L, 2))) {
+            // static cocos2d::Follow *create(cocos2d::Node *followedNode, @optional const cocos2d::Rect &rect)
             return _cocos2d_Follow_create1(L);
         // }
     }
@@ -20259,12 +20378,14 @@ static int _cocos2d_Follow_createWithOffset(lua_State *L)
 
     if (num_args == 3) {
         // if ((olua_is_cppobj(L, 1, "cc.Node")) && (olua_is_number(L, 2)) && (olua_is_number(L, 3))) {
+            // static cocos2d::Follow *createWithOffset(cocos2d::Node *followedNode, float xOffset, float yOffset, @optional const cocos2d::Rect &rect)
             return _cocos2d_Follow_createWithOffset2(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_cppobj(L, 1, "cc.Node")) && (olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (manual_olua_is_cocos2d_Rect(L, 4))) {
+            // static cocos2d::Follow *createWithOffset(cocos2d::Node *followedNode, float xOffset, float yOffset, @optional const cocos2d::Rect &rect)
             return _cocos2d_Follow_createWithOffset1(L);
         // }
     }
@@ -20320,12 +20441,14 @@ static int _cocos2d_Follow_initWithTarget(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 2, "cc.Node"))) {
+            // bool initWithTarget(cocos2d::Node *followedNode, @optional const cocos2d::Rect &rect)
             return _cocos2d_Follow_initWithTarget2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 2, "cc.Node")) && (manual_olua_is_cocos2d_Rect(L, 3))) {
+            // bool initWithTarget(cocos2d::Node *followedNode, @optional const cocos2d::Rect &rect)
             return _cocos2d_Follow_initWithTarget1(L);
         // }
     }
@@ -20389,12 +20512,14 @@ static int _cocos2d_Follow_initWithTargetAndOffset(lua_State *L)
 
     if (num_args == 3) {
         // if ((olua_is_cppobj(L, 2, "cc.Node")) && (olua_is_number(L, 3)) && (olua_is_number(L, 4))) {
+            // bool initWithTargetAndOffset(cocos2d::Node *followedNode, float xOffset, float yOffset, @optional const cocos2d::Rect &rect)
             return _cocos2d_Follow_initWithTargetAndOffset2(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_cppobj(L, 2, "cc.Node")) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (manual_olua_is_cocos2d_Rect(L, 5))) {
+            // bool initWithTargetAndOffset(cocos2d::Node *followedNode, float xOffset, float yOffset, @optional const cocos2d::Rect &rect)
             return _cocos2d_Follow_initWithTargetAndOffset1(L);
         // }
     }
@@ -21648,16 +21773,19 @@ static int _cocos2d_RotateTo_create(lua_State *L)
 
     if (num_args == 2) {
         if ((olua_is_number(L, 1)) && (auto_olua_is_cocos2d_Vec3(L, 2))) {
+            // static cocos2d::RotateTo *create(float duration, const cocos2d::Vec3 &dstAngle3D)
             return _cocos2d_RotateTo_create3(L);
         }
 
         // if ((olua_is_number(L, 1)) && (olua_is_number(L, 2))) {
+            // static cocos2d::RotateTo *create(float duration, float dstAngle)
             return _cocos2d_RotateTo_create2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_number(L, 1)) && (olua_is_number(L, 2)) && (olua_is_number(L, 3))) {
+            // static cocos2d::RotateTo *create(float duration, float dstAngleX, float dstAngleY)
             return _cocos2d_RotateTo_create1(L);
         // }
     }
@@ -21758,16 +21886,19 @@ static int _cocos2d_RotateBy_create(lua_State *L)
 
     if (num_args == 2) {
         if ((olua_is_number(L, 1)) && (auto_olua_is_cocos2d_Vec3(L, 2))) {
+            // static cocos2d::RotateBy *create(float duration, const cocos2d::Vec3 &deltaAngle3D)
             return _cocos2d_RotateBy_create3(L);
         }
 
         // if ((olua_is_number(L, 1)) && (olua_is_number(L, 2))) {
+            // static cocos2d::RotateBy *create(float duration, float deltaAngle)
             return _cocos2d_RotateBy_create1(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_number(L, 1)) && (olua_is_number(L, 2)) && (olua_is_number(L, 3))) {
+            // static cocos2d::RotateBy *create(float duration, float deltaAngleZ_X, float deltaAngleZ_Y)
             return _cocos2d_RotateBy_create2(L);
         // }
     }
@@ -21885,22 +22016,26 @@ static int _cocos2d_MoveBy_create(lua_State *L)
 
     if (num_args == 2) {
         if ((olua_is_number(L, 1)) && (auto_olua_is_cocos2d_Vec3(L, 2))) {
+            // static cocos2d::MoveBy *create(float duration, const cocos2d::Vec3 &deltaPosition)
             return _cocos2d_MoveBy_create3(L);
         }
 
         // if ((olua_is_number(L, 1)) && (auto_olua_is_cocos2d_Vec2(L, 2))) {
+            // static cocos2d::MoveBy *create(float duration, const cocos2d::Vec2 &deltaPosition)
             return _cocos2d_MoveBy_create1(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_number(L, 1)) && (auto_olua_ispack_cocos2d_Vec2(L, 2))) {
+            // static cocos2d::MoveBy *create(float duration, @pack const cocos2d::Vec2 &deltaPosition)
             return _cocos2d_MoveBy_create2(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_number(L, 1)) && (auto_olua_ispack_cocos2d_Vec3(L, 2))) {
+            // static cocos2d::MoveBy *create(float duration, @pack const cocos2d::Vec3 &deltaPosition)
             return _cocos2d_MoveBy_create4(L);
         // }
     }
@@ -22018,22 +22153,26 @@ static int _cocos2d_MoveTo_create(lua_State *L)
 
     if (num_args == 2) {
         if ((olua_is_number(L, 1)) && (auto_olua_is_cocos2d_Vec3(L, 2))) {
+            // static cocos2d::MoveTo *create(float duration, const cocos2d::Vec3 &position)
             return _cocos2d_MoveTo_create3(L);
         }
 
         // if ((olua_is_number(L, 1)) && (auto_olua_is_cocos2d_Vec2(L, 2))) {
+            // static cocos2d::MoveTo *create(float duration, const cocos2d::Vec2 &position)
             return _cocos2d_MoveTo_create1(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_number(L, 1)) && (auto_olua_ispack_cocos2d_Vec2(L, 2))) {
+            // static cocos2d::MoveTo *create(float duration, @pack const cocos2d::Vec2 &position)
             return _cocos2d_MoveTo_create2(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_number(L, 1)) && (auto_olua_ispack_cocos2d_Vec3(L, 2))) {
+            // static cocos2d::MoveTo *create(float duration, @pack const cocos2d::Vec3 &position)
             return _cocos2d_MoveTo_create4(L);
         // }
     }
@@ -22297,12 +22436,14 @@ static int _cocos2d_BezierBy_create(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_number(L, 1)) && (manual_olua_is_cocos2d_ccBezierConfig(L, 2))) {
+            // static cocos2d::BezierBy *create(float t, const cocos2d::ccBezierConfig &c)
             return _cocos2d_BezierBy_create1(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_number(L, 1)) && (manual_olua_ispack_cocos2d_ccBezierConfig(L, 2))) {
+            // static cocos2d::BezierBy *create(float t, @pack const cocos2d::ccBezierConfig &c)
             return _cocos2d_BezierBy_create2(L);
         // }
     }
@@ -22382,12 +22523,14 @@ static int _cocos2d_BezierTo_create(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_number(L, 1)) && (manual_olua_is_cocos2d_ccBezierConfig(L, 2))) {
+            // static cocos2d::BezierTo *create(float t, const cocos2d::ccBezierConfig &c)
             return _cocos2d_BezierTo_create1(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_number(L, 1)) && (manual_olua_ispack_cocos2d_ccBezierConfig(L, 2))) {
+            // static cocos2d::BezierTo *create(float t, @pack const cocos2d::ccBezierConfig &c)
             return _cocos2d_BezierTo_create2(L);
         // }
     }
@@ -22475,12 +22618,14 @@ static int _cocos2d_JumpBy_create(lua_State *L)
 
     if (num_args == 4) {
         // if ((olua_is_number(L, 1)) && (auto_olua_is_cocos2d_Vec2(L, 2)) && (olua_is_number(L, 3)) && (olua_is_int(L, 4))) {
+            // static cocos2d::JumpBy *create(float duration, const cocos2d::Vec2 &position, float height, int jumps)
             return _cocos2d_JumpBy_create1(L);
         // }
     }
 
     if (num_args == 5) {
         // if ((olua_is_number(L, 1)) && (auto_olua_ispack_cocos2d_Vec2(L, 2)) && (olua_is_number(L, 3)) && (olua_is_int(L, 4))) {
+            // static cocos2d::JumpBy *create(float duration, @pack const cocos2d::Vec2 &position, float height, int jumps)
             return _cocos2d_JumpBy_create2(L);
         // }
     }
@@ -22568,12 +22713,14 @@ static int _cocos2d_JumpTo_create(lua_State *L)
 
     if (num_args == 4) {
         // if ((olua_is_number(L, 1)) && (auto_olua_is_cocos2d_Vec2(L, 2)) && (olua_is_number(L, 3)) && (olua_is_int(L, 4))) {
+            // static cocos2d::JumpTo *create(float duration, const cocos2d::Vec2 &position, float height, int jumps)
             return _cocos2d_JumpTo_create1(L);
         // }
     }
 
     if (num_args == 5) {
         // if ((olua_is_number(L, 1)) && (auto_olua_ispack_cocos2d_Vec2(L, 2)) && (olua_is_number(L, 3)) && (olua_is_int(L, 4))) {
+            // static cocos2d::JumpTo *create(float duration, @pack const cocos2d::Vec2 &position, float height, int jumps)
             return _cocos2d_JumpTo_create2(L);
         // }
     }
@@ -22678,18 +22825,21 @@ static int _cocos2d_ScaleTo_create(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_number(L, 1)) && (olua_is_number(L, 2))) {
+            // static cocos2d::ScaleTo *create(float duration, float s)
             return _cocos2d_ScaleTo_create1(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_number(L, 1)) && (olua_is_number(L, 2)) && (olua_is_number(L, 3))) {
+            // static cocos2d::ScaleTo *create(float duration, float sx, float sy)
             return _cocos2d_ScaleTo_create2(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_number(L, 1)) && (olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4))) {
+            // static cocos2d::ScaleTo *create(float duration, float sx, float sy, float sz)
             return _cocos2d_ScaleTo_create3(L);
         // }
     }
@@ -22794,18 +22944,21 @@ static int _cocos2d_ScaleBy_create(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_number(L, 1)) && (olua_is_number(L, 2))) {
+            // static cocos2d::ScaleBy *create(float duration, float s)
             return _cocos2d_ScaleBy_create1(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_number(L, 1)) && (olua_is_number(L, 2)) && (olua_is_number(L, 3))) {
+            // static cocos2d::ScaleBy *create(float duration, float sx, float sy)
             return _cocos2d_ScaleBy_create2(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_number(L, 1)) && (olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4))) {
+            // static cocos2d::ScaleBy *create(float duration, float sx, float sy, float sz)
             return _cocos2d_ScaleBy_create3(L);
         // }
     }
@@ -23065,12 +23218,14 @@ static int _cocos2d_TintTo_create(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_number(L, 1)) && (manual_olua_is_cocos2d_Color3B(L, 2))) {
+            // static cocos2d::TintTo *create(float duration, const cocos2d::Color3B &color)
             return _cocos2d_TintTo_create2(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_number(L, 1)) && (olua_is_uint(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4))) {
+            // static cocos2d::TintTo *create(float duration, GLubyte red, GLubyte green, GLubyte blue)
             return _cocos2d_TintTo_create1(L);
         // }
     }
@@ -25244,12 +25399,14 @@ static int _cocos2d_EaseElasticIn_create(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 1, "cc.ActionInterval"))) {
+            // static cocos2d::EaseElasticIn *create(@ref(single innerAction) cocos2d::ActionInterval *action, @optional float rate)
             return _cocos2d_EaseElasticIn_create2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 1, "cc.ActionInterval")) && (olua_is_number(L, 2))) {
+            // static cocos2d::EaseElasticIn *create(@ref(single innerAction) cocos2d::ActionInterval *action, @optional float rate)
             return _cocos2d_EaseElasticIn_create1(L);
         // }
     }
@@ -25333,12 +25490,14 @@ static int _cocos2d_EaseElasticOut_create(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 1, "cc.ActionInterval"))) {
+            // static cocos2d::EaseElasticOut *create(@ref(single innerAction) cocos2d::ActionInterval *action, @optional float rate)
             return _cocos2d_EaseElasticOut_create2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 1, "cc.ActionInterval")) && (olua_is_number(L, 2))) {
+            // static cocos2d::EaseElasticOut *create(@ref(single innerAction) cocos2d::ActionInterval *action, @optional float rate)
             return _cocos2d_EaseElasticOut_create1(L);
         // }
     }
@@ -25422,12 +25581,14 @@ static int _cocos2d_EaseElasticInOut_create(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 1, "cc.ActionInterval"))) {
+            // static cocos2d::EaseElasticInOut *create(@ref(single innerAction) cocos2d::ActionInterval *action, @optional float rate)
             return _cocos2d_EaseElasticInOut_create2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 1, "cc.ActionInterval")) && (olua_is_number(L, 2))) {
+            // static cocos2d::EaseElasticInOut *create(@ref(single innerAction) cocos2d::ActionInterval *action, @optional float rate)
             return _cocos2d_EaseElasticInOut_create1(L);
         // }
     }
@@ -26141,11 +26302,13 @@ static int _cocos2d_RemoveSelf_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 0) {
+        // static cocos2d::RemoveSelf *create(@optional bool isNeedCleanUp)
         return _cocos2d_RemoveSelf_create2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_bool(L, 1))) {
+            // static cocos2d::RemoveSelf *create(@optional bool isNeedCleanUp)
             return _cocos2d_RemoveSelf_create1(L);
         // }
     }
@@ -27105,22 +27268,26 @@ static int _cocos2d_Node_addChild(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 2, "cc.Node"))) {
+            // void addChild(@ref(map children) cocos2d::Node *child)
             return _cocos2d_Node_addChild1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 2, "cc.Node")) && (olua_is_int(L, 3))) {
+            // void addChild(@ref(map children) cocos2d::Node *child, int localZOrder)
             return _cocos2d_Node_addChild2(L);
         // }
     }
 
     if (num_args == 3) {
         if ((olua_is_cppobj(L, 2, "cc.Node")) && (olua_is_int(L, 3)) && (olua_is_int(L, 4))) {
+            // void addChild(@ref(map children) cocos2d::Node *child, int localZOrder, int tag)
             return _cocos2d_Node_addChild3(L);
         }
 
         // if ((olua_is_cppobj(L, 2, "cc.Node")) && (olua_is_int(L, 3)) && (olua_is_std_string(L, 4))) {
+            // void addChild(@ref(map children) cocos2d::Node *child, int localZOrder, const std::string &name)
             return _cocos2d_Node_addChild4(L);
         // }
     }
@@ -27212,12 +27379,14 @@ static int _cocos2d_Node_convertToNodeSpace(lua_State *L)
 
     if (num_args == 1) {
         // if ((auto_olua_is_cocos2d_Vec2(L, 2))) {
+            // cocos2d::Vec2 convertToNodeSpace(const cocos2d::Vec2 &worldPoint)
             return _cocos2d_Node_convertToNodeSpace1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((auto_olua_ispack_cocos2d_Vec2(L, 2))) {
+            // cocos2d::Vec2 convertToNodeSpace(@pack const cocos2d::Vec2 &worldPoint)
             return _cocos2d_Node_convertToNodeSpace2(L);
         // }
     }
@@ -27271,12 +27440,14 @@ static int _cocos2d_Node_convertToNodeSpaceAR(lua_State *L)
 
     if (num_args == 1) {
         // if ((auto_olua_is_cocos2d_Vec2(L, 2))) {
+            // cocos2d::Vec2 convertToNodeSpaceAR(const cocos2d::Vec2 &worldPoint)
             return _cocos2d_Node_convertToNodeSpaceAR1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((auto_olua_ispack_cocos2d_Vec2(L, 2))) {
+            // cocos2d::Vec2 convertToNodeSpaceAR(@pack const cocos2d::Vec2 &worldPoint)
             return _cocos2d_Node_convertToNodeSpaceAR2(L);
         // }
     }
@@ -27330,12 +27501,14 @@ static int _cocos2d_Node_convertToWorldSpace(lua_State *L)
 
     if (num_args == 1) {
         // if ((auto_olua_is_cocos2d_Vec2(L, 2))) {
+            // cocos2d::Vec2 convertToWorldSpace(const cocos2d::Vec2 &nodePoint)
             return _cocos2d_Node_convertToWorldSpace1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((auto_olua_ispack_cocos2d_Vec2(L, 2))) {
+            // cocos2d::Vec2 convertToWorldSpace(@pack const cocos2d::Vec2 &nodePoint)
             return _cocos2d_Node_convertToWorldSpace2(L);
         // }
     }
@@ -27389,12 +27562,14 @@ static int _cocos2d_Node_convertToWorldSpaceAR(lua_State *L)
 
     if (num_args == 1) {
         // if ((auto_olua_is_cocos2d_Vec2(L, 2))) {
+            // cocos2d::Vec2 convertToWorldSpaceAR(const cocos2d::Vec2 &nodePoint)
             return _cocos2d_Node_convertToWorldSpaceAR1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((auto_olua_ispack_cocos2d_Vec2(L, 2))) {
+            // cocos2d::Vec2 convertToWorldSpaceAR(@pack const cocos2d::Vec2 &nodePoint)
             return _cocos2d_Node_convertToWorldSpaceAR2(L);
         // }
     }
@@ -27498,11 +27673,13 @@ static int _cocos2d_Node_draw(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // void draw()
         return _cocos2d_Node_draw2(L);
     }
 
     if (num_args == 3) {
         // if ((olua_is_cppobj(L, 2, "cc.Renderer")) && (manual_olua_is_cocos2d_Mat4(L, 3)) && (olua_is_uint(L, 4))) {
+            // void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags)
             return _cocos2d_Node_draw1(L);
         // }
     }
@@ -28025,11 +28202,13 @@ static int _cocos2d_Node_getNodeToParentAffineTransform(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // cocos2d::AffineTransform getNodeToParentAffineTransform()
         return _cocos2d_Node_getNodeToParentAffineTransform1(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 2, "cc.Node"))) {
+            // cocos2d::AffineTransform getNodeToParentAffineTransform(cocos2d::Node *ancestor)
             return _cocos2d_Node_getNodeToParentAffineTransform2(L);
         // }
     }
@@ -28080,11 +28259,13 @@ static int _cocos2d_Node_getNodeToParentTransform(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // const cocos2d::Mat4 &getNodeToParentTransform()
         return _cocos2d_Node_getNodeToParentTransform1(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 2, "cc.Node"))) {
+            // cocos2d::Mat4 getNodeToParentTransform(cocos2d::Node *ancestor)
             return _cocos2d_Node_getNodeToParentTransform2(L);
         // }
     }
@@ -29105,12 +29286,14 @@ static int _cocos2d_Node_removeChild(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 2, "cc.Node"))) {
+            // void removeChild(@unref(map children) cocos2d::Node *child, @optional bool cleanup)
             return _cocos2d_Node_removeChild2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 2, "cc.Node")) && (olua_is_bool(L, 3))) {
+            // void removeChild(@unref(map children) cocos2d::Node *child, @optional bool cleanup)
             return _cocos2d_Node_removeChild1(L);
         // }
     }
@@ -29176,12 +29359,14 @@ static int _cocos2d_Node_removeChildByName(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
+            // @unref(cmp children) void removeChildByName(const std::string &name, @optional bool cleanup)
             return _cocos2d_Node_removeChildByName2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3))) {
+            // @unref(cmp children) void removeChildByName(const std::string &name, @optional bool cleanup)
             return _cocos2d_Node_removeChildByName1(L);
         // }
     }
@@ -29247,12 +29432,14 @@ static int _cocos2d_Node_removeChildByTag(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_int(L, 2))) {
+            // @unref(cmp children) void removeChildByTag(int tag, @optional bool cleanup)
             return _cocos2d_Node_removeChildByTag2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_int(L, 2)) && (olua_is_bool(L, 3))) {
+            // @unref(cmp children) void removeChildByTag(int tag, @optional bool cleanup)
             return _cocos2d_Node_removeChildByTag1(L);
         // }
     }
@@ -29318,10 +29505,12 @@ static int _cocos2d_Node_removeComponent(lua_State *L)
 
     if (num_args == 1) {
         if ((olua_is_std_string(L, 2))) {
+            // @unref(cmp components) bool removeComponent(const std::string &name)
             return _cocos2d_Node_removeComponent1(L);
         }
 
         // if ((olua_is_cppobj(L, 2, "cc.Component"))) {
+            // @unref(cmp components) bool removeComponent(cocos2d::Component *component)
             return _cocos2d_Node_removeComponent2(L);
         // }
     }
@@ -29569,18 +29758,21 @@ static int _cocos2d_Node_schedule(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_std_function(L, 2)) && (olua_is_std_string(L, 3))) {
+            // void schedule(const std::function<void(float)>& callback, const std::string &key)
             return _cocos2d_Node_schedule1(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_std_function(L, 2)) && (olua_is_number(L, 3)) && (olua_is_std_string(L, 4))) {
+            // void schedule(const std::function<void(float)>& callback, float interval, const std::string &key)
             return _cocos2d_Node_schedule2(L);
         // }
     }
 
     if (num_args == 5) {
         // if ((olua_is_std_function(L, 2)) && (olua_is_number(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_number(L, 5)) && (olua_is_std_string(L, 6))) {
+            // void schedule(const std::function<void(float)>& callback, float interval, unsigned int repeat, float delay, const std::string &key)
             return _cocos2d_Node_schedule3(L);
         // }
     }
@@ -29727,10 +29919,12 @@ static int _cocos2d_Node_setAdditionalTransform(lua_State *L)
 
     if (num_args == 1) {
         if ((manual_olua_is_cocos2d_Mat4(L, 2))) {
+            // void setAdditionalTransform(const cocos2d::Mat4 &additionalTransform)
             return _cocos2d_Node_setAdditionalTransform1(L);
         }
 
         // if ((auto_olua_is_cocos2d_AffineTransform(L, 2))) {
+            // void setAdditionalTransform(const cocos2d::AffineTransform &additionalTransform)
             return _cocos2d_Node_setAdditionalTransform2(L);
         // }
     }
@@ -29802,12 +29996,14 @@ static int _cocos2d_Node_setCameraMask(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
+            // void setCameraMask(unsigned short mask, @optional bool applyChildren)
             return _cocos2d_Node_setCameraMask2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_uint(L, 2)) && (olua_is_bool(L, 3))) {
+            // void setCameraMask(unsigned short mask, @optional bool applyChildren)
             return _cocos2d_Node_setCameraMask1(L);
         // }
     }
@@ -30339,12 +30535,14 @@ static int _cocos2d_Node_setPosition(lua_State *L)
 
     if (num_args == 1) {
         // if ((auto_olua_is_cocos2d_Vec2(L, 2))) {
+            // void setPosition(const cocos2d::Vec2 &position)
             return _cocos2d_Node_setPosition1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3))) {
+            // void setPosition(float x, float y)
             return _cocos2d_Node_setPosition2(L);
         // }
     }
@@ -30578,12 +30776,14 @@ static int _cocos2d_Node_setScale(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_number(L, 2))) {
+            // void setScale(float scale)
             return _cocos2d_Node_setScale1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3))) {
+            // void setScale(float scaleX, float scaleY)
             return _cocos2d_Node_setScale2(L);
         // }
     }
@@ -31097,11 +31297,13 @@ static int _cocos2d_Node_visit(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // void visit()
         return _cocos2d_Node_visit2(L);
     }
 
     if (num_args == 3) {
         // if ((olua_is_cppobj(L, 2, "cc.Renderer")) && (manual_olua_is_cocos2d_Mat4(L, 3)) && (olua_is_uint(L, 4))) {
+            // void visit(cocos2d::Renderer *renderer, const cocos2d::Mat4 &parentTransform, uint32_t parentFlags)
             return _cocos2d_Node_visit1(L);
         // }
     }
@@ -31832,18 +32034,21 @@ static int _cocos2d_ProtectedNode_addProtectedChild(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 2, "cc.Node"))) {
+            // void addProtectedChild(@ref(map protectedChildren) cocos2d::Node *child)
             return _cocos2d_ProtectedNode_addProtectedChild1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 2, "cc.Node")) && (olua_is_int(L, 3))) {
+            // void addProtectedChild(@ref(map protectedChildren) cocos2d::Node *child, int localZOrder)
             return _cocos2d_ProtectedNode_addProtectedChild2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_cppobj(L, 2, "cc.Node")) && (olua_is_int(L, 3)) && (olua_is_int(L, 4))) {
+            // void addProtectedChild(@ref(map protectedChildren) cocos2d::Node *child, int localZOrder, int tag)
             return _cocos2d_ProtectedNode_addProtectedChild3(L);
         // }
     }
@@ -32024,12 +32229,14 @@ static int _cocos2d_ProtectedNode_removeProtectedChild(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 2, "cc.Node"))) {
+            // void removeProtectedChild(@unref(map protectedChildren) cocos2d::Node *child, @optional bool cleanup)
             return _cocos2d_ProtectedNode_removeProtectedChild2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 2, "cc.Node")) && (olua_is_bool(L, 3))) {
+            // void removeProtectedChild(@unref(map protectedChildren) cocos2d::Node *child, @optional bool cleanup)
             return _cocos2d_ProtectedNode_removeProtectedChild1(L);
         // }
     }
@@ -32095,12 +32302,14 @@ static int _cocos2d_ProtectedNode_removeProtectedChildByTag(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_int(L, 2))) {
+            // @unref(cmp protectedChildren) void removeProtectedChildByTag(int tag, @optional bool cleanup)
             return _cocos2d_ProtectedNode_removeProtectedChildByTag2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_int(L, 2)) && (olua_is_bool(L, 3))) {
+            // @unref(cmp protectedChildren) void removeProtectedChildByTag(int tag, @optional bool cleanup)
             return _cocos2d_ProtectedNode_removeProtectedChildByTag1(L);
         // }
     }
@@ -32219,11 +32428,13 @@ static int _cocos2d_DrawNode_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 0) {
+        // static cocos2d::DrawNode *create(@optional GLfloat defaultLineWidth)
         return _cocos2d_DrawNode_create2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_number(L, 1))) {
+            // static cocos2d::DrawNode *create(@optional GLfloat defaultLineWidth)
             return _cocos2d_DrawNode_create1(L);
         // }
     }
@@ -32345,12 +32556,14 @@ static int _cocos2d_DrawNode_drawCircle(lua_State *L)
 
     if (num_args == 6) {
         // if ((auto_olua_is_cocos2d_Vec2(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_uint(L, 5)) && (olua_is_bool(L, 6)) && (manual_olua_is_cocos2d_Color4F(L, 7))) {
+            // void drawCircle(const cocos2d::Vec2 &center, float radius, float angle, unsigned int segments, bool drawLineToCenter, const cocos2d::Color4F &color)
             return _cocos2d_DrawNode_drawCircle2(L);
         // }
     }
 
     if (num_args == 8) {
         // if ((auto_olua_is_cocos2d_Vec2(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_uint(L, 5)) && (olua_is_bool(L, 6)) && (olua_is_number(L, 7)) && (olua_is_number(L, 8)) && (manual_olua_is_cocos2d_Color4F(L, 9))) {
+            // void drawCircle(const cocos2d::Vec2 &center, float radius, float angle, unsigned int segments, bool drawLineToCenter, float scaleX, float scaleY, const cocos2d::Color4F &color)
             return _cocos2d_DrawNode_drawCircle1(L);
         // }
     }
@@ -32534,12 +32747,14 @@ static int _cocos2d_DrawNode_drawRect(lua_State *L)
 
     if (num_args == 3) {
         // if ((auto_olua_is_cocos2d_Vec2(L, 2)) && (auto_olua_is_cocos2d_Vec2(L, 3)) && (manual_olua_is_cocos2d_Color4F(L, 4))) {
+            // void drawRect(const cocos2d::Vec2 &origin, const cocos2d::Vec2 &destination, const cocos2d::Color4F &color)
             return _cocos2d_DrawNode_drawRect1(L);
         // }
     }
 
     if (num_args == 5) {
         // if ((auto_olua_is_cocos2d_Vec2(L, 2)) && (auto_olua_is_cocos2d_Vec2(L, 3)) && (auto_olua_is_cocos2d_Vec2(L, 4)) && (auto_olua_is_cocos2d_Vec2(L, 5)) && (manual_olua_is_cocos2d_Color4F(L, 6))) {
+            // void drawRect(const cocos2d::Vec2 &p1, const cocos2d::Vec2 &p2, const cocos2d::Vec2 &p3, const cocos2d::Vec2 &p4, const cocos2d::Color4F &color)
             return _cocos2d_DrawNode_drawRect2(L);
         // }
     }
@@ -32635,12 +32850,14 @@ static int _cocos2d_DrawNode_drawSolidCircle(lua_State *L)
 
     if (num_args == 5) {
         // if ((auto_olua_is_cocos2d_Vec2(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_uint(L, 5)) && (manual_olua_is_cocos2d_Color4F(L, 6))) {
+            // void drawSolidCircle(const cocos2d::Vec2 &center, float radius, float angle, unsigned int segments, const cocos2d::Color4F &color)
             return _cocos2d_DrawNode_drawSolidCircle2(L);
         // }
     }
 
     if (num_args == 7) {
         // if ((auto_olua_is_cocos2d_Vec2(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_uint(L, 5)) && (olua_is_number(L, 6)) && (olua_is_number(L, 7)) && (manual_olua_is_cocos2d_Color4F(L, 8))) {
+            // void drawSolidCircle(const cocos2d::Vec2 &center, float radius, float angle, unsigned int segments, float scaleX, float scaleY, const cocos2d::Color4F &color)
             return _cocos2d_DrawNode_drawSolidCircle1(L);
         // }
     }
@@ -33098,24 +33315,28 @@ static int _cocos2d_Label_createWithBMFont(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2))) {
+            // static cocos2d::Label *createWithBMFont(const std::string &bmfontPath, const std::string &text, @optional const cocos2d::TextHAlignment &hAlignment, @optional int maxLineWidth, @optional const cocos2d::Vec2 &imageOffset)
             return _cocos2d_Label_createWithBMFont2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
+            // static cocos2d::Label *createWithBMFont(const std::string &bmfontPath, const std::string &text, @optional const cocos2d::TextHAlignment &hAlignment, @optional int maxLineWidth, @optional const cocos2d::Vec2 &imageOffset)
             return _cocos2d_Label_createWithBMFont3(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_int(L, 4))) {
+            // static cocos2d::Label *createWithBMFont(const std::string &bmfontPath, const std::string &text, @optional const cocos2d::TextHAlignment &hAlignment, @optional int maxLineWidth, @optional const cocos2d::Vec2 &imageOffset)
             return _cocos2d_Label_createWithBMFont4(L);
         // }
     }
 
     if (num_args == 5) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_int(L, 4)) && (auto_olua_is_cocos2d_Vec2(L, 5))) {
+            // static cocos2d::Label *createWithBMFont(const std::string &bmfontPath, const std::string &text, @optional const cocos2d::TextHAlignment &hAlignment, @optional int maxLineWidth, @optional const cocos2d::Vec2 &imageOffset)
             return _cocos2d_Label_createWithBMFont1(L);
         // }
     }
@@ -33194,16 +33415,19 @@ static int _cocos2d_Label_createWithCharMap(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 1))) {
+            // static cocos2d::Label *createWithCharMap(const std::string &plistFile)
             return _cocos2d_Label_createWithCharMap3(L);
         // }
     }
 
     if (num_args == 4) {
         if ((olua_is_std_string(L, 1)) && (olua_is_int(L, 2)) && (olua_is_int(L, 3)) && (olua_is_int(L, 4))) {
+            // static cocos2d::Label *createWithCharMap(const std::string &charMapFile, int itemWidth, int itemHeight, int startCharMap)
             return _cocos2d_Label_createWithCharMap1(L);
         }
 
         // if ((olua_is_cppobj(L, 1, "cc.Texture2D")) && (olua_is_int(L, 2)) && (olua_is_int(L, 3)) && (olua_is_int(L, 4))) {
+            // static cocos2d::Label *createWithCharMap(cocos2d::Texture2D *texture, int itemWidth, int itemHeight, int startCharMap)
             return _cocos2d_Label_createWithCharMap2(L);
         // }
     }
@@ -33315,24 +33539,28 @@ static int _cocos2d_Label_createWithSystemFont(lua_State *L)
 
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3))) {
+            // static cocos2d::Label *createWithSystemFont(const std::string &text, const std::string &font, float fontSize, @optional const cocos2d::Size &dimensions, @optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment)
             return _cocos2d_Label_createWithSystemFont2(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3)) && (auto_olua_is_cocos2d_Size(L, 4))) {
+            // static cocos2d::Label *createWithSystemFont(const std::string &text, const std::string &font, float fontSize, @optional const cocos2d::Size &dimensions, @optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment)
             return _cocos2d_Label_createWithSystemFont3(L);
         // }
     }
 
     if (num_args == 5) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3)) && (auto_olua_is_cocos2d_Size(L, 4)) && (olua_is_uint(L, 5))) {
+            // static cocos2d::Label *createWithSystemFont(const std::string &text, const std::string &font, float fontSize, @optional const cocos2d::Size &dimensions, @optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment)
             return _cocos2d_Label_createWithSystemFont4(L);
         // }
     }
 
     if (num_args == 6) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3)) && (auto_olua_is_cocos2d_Size(L, 4)) && (olua_is_uint(L, 5)) && (olua_is_uint(L, 6))) {
+            // static cocos2d::Label *createWithSystemFont(const std::string &text, const std::string &font, float fontSize, @optional const cocos2d::Size &dimensions, @optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment)
             return _cocos2d_Label_createWithSystemFont1(L);
         // }
     }
@@ -33507,38 +33735,45 @@ static int _cocos2d_Label_createWithTTF(lua_State *L)
 
     if (num_args == 2) {
         // if ((auto_olua_is_cocos2d_TTFConfig(L, 1)) && (olua_is_std_string(L, 2))) {
+            // static cocos2d::Label *createWithTTF(const cocos2d::TTFConfig &ttfConfig, const std::string &text, @optional cocos2d::TextHAlignment hAlignment, @optional int maxLineWidth)
             return _cocos2d_Label_createWithTTF6(L);
         // }
     }
 
     if (num_args == 3) {
         if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3))) {
+            // static cocos2d::Label *createWithTTF(const std::string &text, const std::string &fontFilePath, float fontSize, @optional const cocos2d::Size &dimensions, @optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment)
             return _cocos2d_Label_createWithTTF3(L);
         }
 
         // if ((auto_olua_is_cocos2d_TTFConfig(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
+            // static cocos2d::Label *createWithTTF(const cocos2d::TTFConfig &ttfConfig, const std::string &text, @optional cocos2d::TextHAlignment hAlignment, @optional int maxLineWidth)
             return _cocos2d_Label_createWithTTF7(L);
         // }
     }
 
     if (num_args == 4) {
         if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3)) && (auto_olua_is_cocos2d_Size(L, 4))) {
+            // static cocos2d::Label *createWithTTF(const std::string &text, const std::string &fontFilePath, float fontSize, @optional const cocos2d::Size &dimensions, @optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment)
             return _cocos2d_Label_createWithTTF4(L);
         }
 
         // if ((auto_olua_is_cocos2d_TTFConfig(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_int(L, 4))) {
+            // static cocos2d::Label *createWithTTF(const cocos2d::TTFConfig &ttfConfig, const std::string &text, @optional cocos2d::TextHAlignment hAlignment, @optional int maxLineWidth)
             return _cocos2d_Label_createWithTTF2(L);
         // }
     }
 
     if (num_args == 5) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3)) && (auto_olua_is_cocos2d_Size(L, 4)) && (olua_is_uint(L, 5))) {
+            // static cocos2d::Label *createWithTTF(const std::string &text, const std::string &fontFilePath, float fontSize, @optional const cocos2d::Size &dimensions, @optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment)
             return _cocos2d_Label_createWithTTF5(L);
         // }
     }
 
     if (num_args == 6) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3)) && (auto_olua_is_cocos2d_Size(L, 4)) && (olua_is_uint(L, 5)) && (olua_is_uint(L, 6))) {
+            // static cocos2d::Label *createWithTTF(const std::string &text, const std::string &fontFilePath, float fontSize, @optional const cocos2d::Size &dimensions, @optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment)
             return _cocos2d_Label_createWithTTF1(L);
         // }
     }
@@ -33587,11 +33822,13 @@ static int _cocos2d_Label_disableEffect(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // void disableEffect()
         return _cocos2d_Label_disableEffect1(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
+            // void disableEffect(cocos2d::LabelEffect effect)
             return _cocos2d_Label_disableEffect2(L);
         // }
     }
@@ -33695,12 +33932,14 @@ static int _cocos2d_Label_enableOutline(lua_State *L)
 
     if (num_args == 1) {
         // if ((manual_olua_is_cocos2d_Color4B(L, 2))) {
+            // void enableOutline(const cocos2d::Color4B &outlineColor, @optional int outlineSize)
             return _cocos2d_Label_enableOutline2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((manual_olua_is_cocos2d_Color4B(L, 2)) && (olua_is_int(L, 3))) {
+            // void enableOutline(const cocos2d::Color4B &outlineColor, @optional int outlineSize)
             return _cocos2d_Label_enableOutline1(L);
         // }
     }
@@ -33791,23 +34030,27 @@ static int _cocos2d_Label_enableShadow(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // void enableShadow(@optional const cocos2d::Color4B &shadowColor, @optional const cocos2d::Size &offset, @optional int blurRadius)
         return _cocos2d_Label_enableShadow2(L);
     }
 
     if (num_args == 1) {
         // if ((manual_olua_is_cocos2d_Color4B(L, 2))) {
+            // void enableShadow(@optional const cocos2d::Color4B &shadowColor, @optional const cocos2d::Size &offset, @optional int blurRadius)
             return _cocos2d_Label_enableShadow3(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((manual_olua_is_cocos2d_Color4B(L, 2)) && (auto_olua_is_cocos2d_Size(L, 3))) {
+            // void enableShadow(@optional const cocos2d::Color4B &shadowColor, @optional const cocos2d::Size &offset, @optional int blurRadius)
             return _cocos2d_Label_enableShadow4(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((manual_olua_is_cocos2d_Color4B(L, 2)) && (auto_olua_is_cocos2d_Size(L, 3)) && (olua_is_int(L, 4))) {
+            // void enableShadow(@optional const cocos2d::Color4B &shadowColor, @optional const cocos2d::Size &offset, @optional int blurRadius)
             return _cocos2d_Label_enableShadow1(L);
         // }
     }
@@ -34575,38 +34818,45 @@ static int _cocos2d_Label_initWithTTF(lua_State *L)
 
     if (num_args == 2) {
         // if ((auto_olua_is_cocos2d_TTFConfig(L, 2)) && (olua_is_std_string(L, 3))) {
+            // bool initWithTTF(const cocos2d::TTFConfig &ttfConfig, const std::string &text, @optional cocos2d::TextHAlignment hAlignment, @optional int maxLineWidth)
             return _cocos2d_Label_initWithTTF6(L);
         // }
     }
 
     if (num_args == 3) {
         if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4))) {
+            // bool initWithTTF(const std::string &text, const std::string &fontFilePath, float fontSize, @optional const cocos2d::Size &dimensions, @optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment)
             return _cocos2d_Label_initWithTTF3(L);
         }
 
         // if ((auto_olua_is_cocos2d_TTFConfig(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_uint(L, 4))) {
+            // bool initWithTTF(const cocos2d::TTFConfig &ttfConfig, const std::string &text, @optional cocos2d::TextHAlignment hAlignment, @optional int maxLineWidth)
             return _cocos2d_Label_initWithTTF7(L);
         // }
     }
 
     if (num_args == 4) {
         if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4)) && (auto_olua_is_cocos2d_Size(L, 5))) {
+            // bool initWithTTF(const std::string &text, const std::string &fontFilePath, float fontSize, @optional const cocos2d::Size &dimensions, @optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment)
             return _cocos2d_Label_initWithTTF4(L);
         }
 
         // if ((auto_olua_is_cocos2d_TTFConfig(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_int(L, 5))) {
+            // bool initWithTTF(const cocos2d::TTFConfig &ttfConfig, const std::string &text, @optional cocos2d::TextHAlignment hAlignment, @optional int maxLineWidth)
             return _cocos2d_Label_initWithTTF2(L);
         // }
     }
 
     if (num_args == 5) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4)) && (auto_olua_is_cocos2d_Size(L, 5)) && (olua_is_uint(L, 6))) {
+            // bool initWithTTF(const std::string &text, const std::string &fontFilePath, float fontSize, @optional const cocos2d::Size &dimensions, @optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment)
             return _cocos2d_Label_initWithTTF5(L);
         // }
     }
 
     if (num_args == 6) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4)) && (auto_olua_is_cocos2d_Size(L, 5)) && (olua_is_uint(L, 6)) && (olua_is_uint(L, 7))) {
+            // bool initWithTTF(const std::string &text, const std::string &fontFilePath, float fontSize, @optional const cocos2d::Size &dimensions, @optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment)
             return _cocos2d_Label_initWithTTF1(L);
         // }
     }
@@ -34745,12 +34995,14 @@ static int _cocos2d_Label_setAlignment(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_uint(L, 2))) {
+            // void setAlignment(cocos2d::TextHAlignment hAlignment)
             return _cocos2d_Label_setAlignment1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_uint(L, 2)) && (olua_is_uint(L, 3))) {
+            // void setAlignment(cocos2d::TextHAlignment hAlignment, cocos2d::TextVAlignment vAlignment)
             return _cocos2d_Label_setAlignment2(L);
         // }
     }
@@ -34829,18 +35081,21 @@ static int _cocos2d_Label_setBMFontFilePath(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
+            // bool setBMFontFilePath(const std::string &bmfontFilePath, @optional const cocos2d::Vec2 &imageOffset, @optional float fontSize)
             return _cocos2d_Label_setBMFontFilePath2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (auto_olua_is_cocos2d_Vec2(L, 3))) {
+            // bool setBMFontFilePath(const std::string &bmfontFilePath, @optional const cocos2d::Vec2 &imageOffset, @optional float fontSize)
             return _cocos2d_Label_setBMFontFilePath3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 2)) && (auto_olua_is_cocos2d_Vec2(L, 3)) && (olua_is_number(L, 4))) {
+            // bool setBMFontFilePath(const std::string &bmfontFilePath, @optional const cocos2d::Vec2 &imageOffset, @optional float fontSize)
             return _cocos2d_Label_setBMFontFilePath1(L);
         // }
     }
@@ -34961,16 +35216,19 @@ static int _cocos2d_Label_setCharMap(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
+            // bool setCharMap(const std::string &plistFile)
             return _cocos2d_Label_setCharMap3(L);
         // }
     }
 
     if (num_args == 4) {
         if ((olua_is_std_string(L, 2)) && (olua_is_int(L, 3)) && (olua_is_int(L, 4)) && (olua_is_int(L, 5))) {
+            // bool setCharMap(const std::string &charMapFile, int itemWidth, int itemHeight, int startCharMap)
             return _cocos2d_Label_setCharMap1(L);
         }
 
         // if ((olua_is_cppobj(L, 2, "cc.Texture2D")) && (olua_is_int(L, 3)) && (olua_is_int(L, 4)) && (olua_is_int(L, 5))) {
+            // bool setCharMap(cocos2d::Texture2D *texture, int itemWidth, int itemHeight, int startCharMap)
             return _cocos2d_Label_setCharMap2(L);
         // }
     }
@@ -35465,17 +35723,20 @@ static int _cocos2d_LabelAtlas_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 0) {
+        // static cocos2d::LabelAtlas *create()
         return _cocos2d_LabelAtlas_create1(L);
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2))) {
+            // static cocos2d::LabelAtlas *create(const std::string &string, const std::string &fntFile)
             return _cocos2d_LabelAtlas_create3(L);
         // }
     }
 
     if (num_args == 5) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_int(L, 3)) && (olua_is_int(L, 4)) && (olua_is_int(L, 5))) {
+            // static cocos2d::LabelAtlas *create(const std::string &string, const std::string &charMapFile, int itemWidth, int itemHeight, int startCharMap)
             return _cocos2d_LabelAtlas_create2(L);
         // }
     }
@@ -35583,16 +35844,19 @@ static int _cocos2d_LabelAtlas_initWithString(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3))) {
+            // bool initWithString(const std::string &string, const std::string &fntFile)
             return _cocos2d_LabelAtlas_initWithString2(L);
         // }
     }
 
     if (num_args == 5) {
         if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_int(L, 4)) && (olua_is_int(L, 5)) && (olua_is_int(L, 6))) {
+            // bool initWithString(const std::string &string, const std::string &charMapFile, int itemWidth, int itemHeight, int startCharMap)
             return _cocos2d_LabelAtlas_initWithString1(L);
         }
 
         // if ((olua_is_std_string(L, 2)) && (olua_is_cppobj(L, 3, "cc.Texture2D")) && (olua_is_int(L, 4)) && (olua_is_int(L, 5)) && (olua_is_int(L, 6))) {
+            // bool initWithString(const std::string &string, cocos2d::Texture2D *texture, int itemWidth, int itemHeight, int startCharMap)
             return _cocos2d_LabelAtlas_initWithString3(L);
         // }
     }
@@ -35925,11 +36189,13 @@ static int _cocos2d_ClippingRectangleNode_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 0) {
+        // static cocos2d::ClippingRectangleNode *create()
         return _cocos2d_ClippingRectangleNode_create2(L);
     }
 
     if (num_args == 1) {
         // if ((manual_olua_is_cocos2d_Rect(L, 1))) {
+            // static cocos2d::ClippingRectangleNode *create(const cocos2d::Rect &clippingRegion)
             return _cocos2d_ClippingRectangleNode_create1(L);
         // }
     }
@@ -36126,18 +36392,21 @@ static int _cocos2d_RenderTexture_beginWithClear(lua_State *L)
 
     if (num_args == 4) {
         // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_number(L, 5))) {
+            // void beginWithClear(float r, float g, float b, float a)
             return _cocos2d_RenderTexture_beginWithClear1(L);
         // }
     }
 
     if (num_args == 5) {
         // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_number(L, 5)) && (olua_is_number(L, 6))) {
+            // void beginWithClear(float r, float g, float b, float a, float depthValue)
             return _cocos2d_RenderTexture_beginWithClear2(L);
         // }
     }
 
     if (num_args == 6) {
         // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4)) && (olua_is_number(L, 5)) && (olua_is_number(L, 6)) && (olua_is_int(L, 7))) {
+            // void beginWithClear(float r, float g, float b, float a, float depthValue, int stencilValue)
             return _cocos2d_RenderTexture_beginWithClear3(L);
         // }
     }
@@ -36276,18 +36545,21 @@ static int _cocos2d_RenderTexture_create(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_int(L, 1)) && (olua_is_int(L, 2))) {
+            // static cocos2d::RenderTexture *create(int w, int h)
             return _cocos2d_RenderTexture_create3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_int(L, 1)) && (olua_is_int(L, 2)) && (olua_is_uint(L, 3))) {
+            // static cocos2d::RenderTexture *create(int w, int h, Texture2D::PixelFormat format)
             return _cocos2d_RenderTexture_create2(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_int(L, 1)) && (olua_is_int(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_uint(L, 4))) {
+            // static cocos2d::RenderTexture *create(int w, int h, Texture2D::PixelFormat format, GLuint depthStencilFormat)
             return _cocos2d_RenderTexture_create1(L);
         // }
     }
@@ -36452,12 +36724,14 @@ static int _cocos2d_RenderTexture_initWithWidthAndHeight(lua_State *L)
 
     if (num_args == 3) {
         // if ((olua_is_int(L, 2)) && (olua_is_int(L, 3)) && (olua_is_uint(L, 4))) {
+            // bool initWithWidthAndHeight(int w, int h, Texture2D::PixelFormat format)
             return _cocos2d_RenderTexture_initWithWidthAndHeight1(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_int(L, 2)) && (olua_is_int(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_uint(L, 5))) {
+            // bool initWithWidthAndHeight(int w, int h, Texture2D::PixelFormat format, GLuint depthStencilFormat)
             return _cocos2d_RenderTexture_initWithWidthAndHeight2(L);
         // }
     }
@@ -36575,11 +36849,13 @@ static int _cocos2d_RenderTexture_newImage(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
+        // cocos2d::Image *newImage(@optional bool flipImage)
         return _cocos2d_RenderTexture_newImage2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_bool(L, 2))) {
+            // cocos2d::Image *newImage(@optional bool flipImage)
             return _cocos2d_RenderTexture_newImage1(L);
         // }
     }
@@ -36779,32 +37055,38 @@ static int _cocos2d_RenderTexture_saveToFile(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
+            // bool saveToFile(const std::string& filename, bool isRGBA = true, std::function<void (RenderTexture*, const std::string&)> callback = nullptr)
             return _cocos2d_RenderTexture_saveToFile3(L);
         // }
     }
 
     if (num_args == 2) {
         if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3))) {
+            // bool saveToFile(const std::string& filename, bool isRGBA = true, std::function<void (RenderTexture*, const std::string&)> callback = nullptr)
             return _cocos2d_RenderTexture_saveToFile4(L);
         }
 
         // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
+            // bool saveToFile(const std::string& filename, Image::Format format, bool isRGBA = true, std::function<void (RenderTexture*, const std::string&)> callback = nullptr)
             return _cocos2d_RenderTexture_saveToFile5(L);
         // }
     }
 
     if (num_args == 3) {
         if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3)) && (olua_is_std_function(L, 4))) {
+            // bool saveToFile(const std::string& filename, bool isRGBA = true, std::function<void (RenderTexture*, const std::string&)> callback = nullptr)
             return _cocos2d_RenderTexture_saveToFile1(L);
         }
 
         // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_bool(L, 4))) {
+            // bool saveToFile(const std::string& filename, Image::Format format, bool isRGBA = true, std::function<void (RenderTexture*, const std::string&)> callback = nullptr)
             return _cocos2d_RenderTexture_saveToFile6(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_bool(L, 4)) && (olua_is_std_function(L, 5))) {
+            // bool saveToFile(const std::string& filename, Image::Format format, bool isRGBA = true, std::function<void (RenderTexture*, const std::string&)> callback = nullptr)
             return _cocos2d_RenderTexture_saveToFile2(L);
         // }
     }
@@ -36953,24 +37235,28 @@ static int _cocos2d_RenderTexture_saveToFileAsNonPMA(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
+            // bool saveToFileAsNonPMA(const std::string& filename, bool isRGBA = true, const std::function<void(RenderTexture*, const std::string&)>& callback = nullptr)
             return _cocos2d_RenderTexture_saveToFileAsNonPMA3(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3))) {
+            // bool saveToFileAsNonPMA(const std::string& filename, bool isRGBA = true, const std::function<void(RenderTexture*, const std::string&)>& callback = nullptr)
             return _cocos2d_RenderTexture_saveToFileAsNonPMA4(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3)) && (olua_is_std_function(L, 4))) {
+            // bool saveToFileAsNonPMA(const std::string& filename, bool isRGBA = true, const std::function<void(RenderTexture*, const std::string&)>& callback = nullptr)
             return _cocos2d_RenderTexture_saveToFileAsNonPMA2(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_bool(L, 4)) && (olua_is_std_function(L, 5))) {
+            // bool saveToFileAsNonPMA(const std::string& fileName, Image::Format format, bool isRGBA, const std::function<void(RenderTexture*, const std::string&)>& callback)
             return _cocos2d_RenderTexture_saveToFileAsNonPMA1(L);
         // }
     }
@@ -37812,17 +38098,20 @@ static int _cocos2d_Animation_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 0) {
+        // static cocos2d::Animation *create()
         return _cocos2d_Animation_create1(L);
     }
 
     if (num_args == 2) {
         // if ((manual_olua_is_cocos2d_Vector(L, 1)) && (olua_is_number(L, 2))) {
+            // static cocos2d::Animation *create(const Vector<cocos2d::AnimationFrame *> &arrayOfAnimationFrameNames, float delayPerUnit, @optional unsigned int loops)
             return _cocos2d_Animation_create3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((manual_olua_is_cocos2d_Vector(L, 1)) && (olua_is_number(L, 2)) && (olua_is_uint(L, 3))) {
+            // static cocos2d::Animation *create(const Vector<cocos2d::AnimationFrame *> &arrayOfAnimationFrameNames, float delayPerUnit, @optional unsigned int loops)
             return _cocos2d_Animation_create2(L);
         // }
     }
@@ -37895,18 +38184,21 @@ static int _cocos2d_Animation_createWithSpriteFrames(lua_State *L)
 
     if (num_args == 1) {
         // if ((manual_olua_is_cocos2d_Vector(L, 1))) {
+            // static cocos2d::Animation *createWithSpriteFrames(const Vector<cocos2d::SpriteFrame *> &arrayOfSpriteFrameNames, @optional float delay, @optional unsigned int loops)
             return _cocos2d_Animation_createWithSpriteFrames2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((manual_olua_is_cocos2d_Vector(L, 1)) && (olua_is_number(L, 2))) {
+            // static cocos2d::Animation *createWithSpriteFrames(const Vector<cocos2d::SpriteFrame *> &arrayOfSpriteFrameNames, @optional float delay, @optional unsigned int loops)
             return _cocos2d_Animation_createWithSpriteFrames3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((manual_olua_is_cocos2d_Vector(L, 1)) && (olua_is_number(L, 2)) && (olua_is_uint(L, 3))) {
+            // static cocos2d::Animation *createWithSpriteFrames(const Vector<cocos2d::SpriteFrame *> &arrayOfSpriteFrameNames, @optional float delay, @optional unsigned int loops)
             return _cocos2d_Animation_createWithSpriteFrames1(L);
         // }
     }
@@ -38127,18 +38419,21 @@ static int _cocos2d_Animation_initWithSpriteFrames(lua_State *L)
 
     if (num_args == 1) {
         // if ((manual_olua_is_cocos2d_Vector(L, 2))) {
+            // bool initWithSpriteFrames(const Vector<cocos2d::SpriteFrame *> &arrayOfSpriteFrameNames, @optional float delay, @optional unsigned int loops)
             return _cocos2d_Animation_initWithSpriteFrames2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((manual_olua_is_cocos2d_Vector(L, 2)) && (olua_is_number(L, 3))) {
+            // bool initWithSpriteFrames(const Vector<cocos2d::SpriteFrame *> &arrayOfSpriteFrameNames, @optional float delay, @optional unsigned int loops)
             return _cocos2d_Animation_initWithSpriteFrames3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((manual_olua_is_cocos2d_Vector(L, 2)) && (olua_is_number(L, 3)) && (olua_is_uint(L, 4))) {
+            // bool initWithSpriteFrames(const Vector<cocos2d::SpriteFrame *> &arrayOfSpriteFrameNames, @optional float delay, @optional unsigned int loops)
             return _cocos2d_Animation_initWithSpriteFrames1(L);
         // }
     }
@@ -38337,12 +38632,14 @@ static int _cocos2d_SpriteFrame_create(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 1)) && (manual_olua_is_cocos2d_Rect(L, 2))) {
+            // static cocos2d::SpriteFrame *create(const std::string &filename, const cocos2d::Rect &rect)
             return _cocos2d_SpriteFrame_create1(L);
         // }
     }
 
     if (num_args == 5) {
         // if ((olua_is_std_string(L, 1)) && (manual_olua_is_cocos2d_Rect(L, 2)) && (olua_is_bool(L, 3)) && (auto_olua_is_cocos2d_Vec2(L, 4)) && (auto_olua_is_cocos2d_Size(L, 5))) {
+            // static cocos2d::SpriteFrame *create(const std::string &filename, const cocos2d::Rect &rect, bool rotated, const cocos2d::Vec2 &offset, const cocos2d::Size &originalSize)
             return _cocos2d_SpriteFrame_create2(L);
         // }
     }
@@ -38402,12 +38699,14 @@ static int _cocos2d_SpriteFrame_createWithTexture(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 1, "cc.Texture2D")) && (manual_olua_is_cocos2d_Rect(L, 2))) {
+            // static cocos2d::SpriteFrame *createWithTexture(cocos2d::Texture2D *pobTexture, const cocos2d::Rect &rect)
             return _cocos2d_SpriteFrame_createWithTexture1(L);
         // }
     }
 
     if (num_args == 5) {
         // if ((olua_is_cppobj(L, 1, "cc.Texture2D")) && (manual_olua_is_cocos2d_Rect(L, 2)) && (olua_is_bool(L, 3)) && (auto_olua_is_cocos2d_Vec2(L, 4)) && (auto_olua_is_cocos2d_Size(L, 5))) {
+            // static cocos2d::SpriteFrame *createWithTexture(cocos2d::Texture2D *pobTexture, const cocos2d::Rect &rect, bool rotated, const cocos2d::Vec2 &offset, const cocos2d::Size &originalSize)
             return _cocos2d_SpriteFrame_createWithTexture2(L);
         // }
     }
@@ -38675,12 +38974,14 @@ static int _cocos2d_SpriteFrame_initWithTexture(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 2, "cc.Texture2D")) && (manual_olua_is_cocos2d_Rect(L, 3))) {
+            // bool initWithTexture(cocos2d::Texture2D *pobTexture, const cocos2d::Rect &rect)
             return _cocos2d_SpriteFrame_initWithTexture1(L);
         // }
     }
 
     if (num_args == 5) {
         // if ((olua_is_cppobj(L, 2, "cc.Texture2D")) && (manual_olua_is_cocos2d_Rect(L, 3)) && (olua_is_bool(L, 4)) && (auto_olua_is_cocos2d_Vec2(L, 5)) && (auto_olua_is_cocos2d_Size(L, 6))) {
+            // bool initWithTexture(cocos2d::Texture2D *pobTexture, const cocos2d::Rect &rect, bool rotated, const cocos2d::Vec2 &offset, const cocos2d::Size &originalSize)
             return _cocos2d_SpriteFrame_initWithTexture2(L);
         // }
     }
@@ -38744,12 +39045,14 @@ static int _cocos2d_SpriteFrame_initWithTextureFilename(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (manual_olua_is_cocos2d_Rect(L, 3))) {
+            // bool initWithTextureFilename(const std::string &filename, const cocos2d::Rect &rect)
             return _cocos2d_SpriteFrame_initWithTextureFilename1(L);
         // }
     }
 
     if (num_args == 5) {
         // if ((olua_is_std_string(L, 2)) && (manual_olua_is_cocos2d_Rect(L, 3)) && (olua_is_bool(L, 4)) && (auto_olua_is_cocos2d_Vec2(L, 5)) && (auto_olua_is_cocos2d_Size(L, 6))) {
+            // bool initWithTextureFilename(const std::string &filename, const cocos2d::Rect &rect, bool rotated, const cocos2d::Vec2 &offset, const cocos2d::Size &originalSize)
             return _cocos2d_SpriteFrame_initWithTextureFilename2(L);
         // }
     }
@@ -39073,17 +39376,20 @@ static int _cocos2d_Sprite_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 0) {
+        // static cocos2d::Sprite *create()
         return _cocos2d_Sprite_create1(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 1))) {
+            // static cocos2d::Sprite *create(const std::string &filename)
             return _cocos2d_Sprite_create2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 1)) && (manual_olua_is_cocos2d_Rect(L, 2))) {
+            // static cocos2d::Sprite *create(const std::string &filename, const cocos2d::Rect &rect)
             return _cocos2d_Sprite_create3(L);
         // }
     }
@@ -39190,18 +39496,21 @@ static int _cocos2d_Sprite_createWithTexture(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 1, "cc.Texture2D"))) {
+            // static cocos2d::Sprite *createWithTexture(cocos2d::Texture2D *texture)
             return _cocos2d_Sprite_createWithTexture1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 1, "cc.Texture2D")) && (manual_olua_is_cocos2d_Rect(L, 2))) {
+            // static cocos2d::Sprite *createWithTexture(cocos2d::Texture2D *texture, const cocos2d::Rect &rect, @optional bool rotated)
             return _cocos2d_Sprite_createWithTexture3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_cppobj(L, 1, "cc.Texture2D")) && (manual_olua_is_cocos2d_Rect(L, 2)) && (olua_is_bool(L, 3))) {
+            // static cocos2d::Sprite *createWithTexture(cocos2d::Texture2D *texture, const cocos2d::Rect &rect, @optional bool rotated)
             return _cocos2d_Sprite_createWithTexture2(L);
         // }
     }
@@ -39461,12 +39770,14 @@ static int _cocos2d_Sprite_initWithFile(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
+            // bool initWithFile(const std::string &filename)
             return _cocos2d_Sprite_initWithFile1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (manual_olua_is_cocos2d_Rect(L, 3))) {
+            // bool initWithFile(const std::string &filename, const cocos2d::Rect &rect)
             return _cocos2d_Sprite_initWithFile2(L);
         // }
     }
@@ -39583,18 +39894,21 @@ static int _cocos2d_Sprite_initWithTexture(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 2, "cc.Texture2D"))) {
+            // bool initWithTexture(cocos2d::Texture2D *texture)
             return _cocos2d_Sprite_initWithTexture1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 2, "cc.Texture2D")) && (manual_olua_is_cocos2d_Rect(L, 3))) {
+            // bool initWithTexture(cocos2d::Texture2D *texture, const cocos2d::Rect &rect)
             return _cocos2d_Sprite_initWithTexture2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_cppobj(L, 2, "cc.Texture2D")) && (manual_olua_is_cocos2d_Rect(L, 3)) && (olua_is_bool(L, 4))) {
+            // bool initWithTexture(cocos2d::Texture2D *texture, const cocos2d::Rect &rect, bool rotated)
             return _cocos2d_Sprite_initWithTexture3(L);
         // }
     }
@@ -39928,10 +40242,12 @@ static int _cocos2d_Sprite_setSpriteFrame(lua_State *L)
 
     if (num_args == 1) {
         if ((olua_is_std_string(L, 2))) {
+            // void setSpriteFrame(const std::string &spriteFrameName)
             return _cocos2d_Sprite_setSpriteFrame1(L);
         }
 
         // if ((olua_is_cppobj(L, 2, "cc.SpriteFrame"))) {
+            // void setSpriteFrame(cocos2d::SpriteFrame *newFrame)
             return _cocos2d_Sprite_setSpriteFrame2(L);
         // }
     }
@@ -40001,10 +40317,12 @@ static int _cocos2d_Sprite_setTexture(lua_State *L)
 
     if (num_args == 1) {
         if ((olua_is_std_string(L, 2))) {
+            // void setTexture(const std::string &filename)
             return _cocos2d_Sprite_setTexture1(L);
         }
 
         // if ((olua_is_cppobj(L, 2, "cc.Texture2D"))) {
+            // void setTexture(cocos2d::Texture2D *texture)
             return _cocos2d_Sprite_setTexture2(L);
         // }
     }
@@ -40078,12 +40396,14 @@ static int _cocos2d_Sprite_setTextureRect(lua_State *L)
 
     if (num_args == 1) {
         // if ((manual_olua_is_cocos2d_Rect(L, 2))) {
+            // void setTextureRect(const cocos2d::Rect &rect)
             return _cocos2d_Sprite_setTextureRect1(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((manual_olua_is_cocos2d_Rect(L, 2)) && (olua_is_bool(L, 3)) && (auto_olua_is_cocos2d_Size(L, 4))) {
+            // void setTextureRect(const cocos2d::Rect &rect, bool rotated, const cocos2d::Size &untrimmedSize)
             return _cocos2d_Sprite_setTextureRect2(L);
         // }
     }
@@ -40285,12 +40605,14 @@ static int _cocos2d_SpriteBatchNode_create(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 1))) {
+            // static cocos2d::SpriteBatchNode *create(const std::string &fileImage, @optional ssize_t capacity)
             return _cocos2d_SpriteBatchNode_create2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_int(L, 2))) {
+            // static cocos2d::SpriteBatchNode *create(const std::string &fileImage, @optional ssize_t capacity)
             return _cocos2d_SpriteBatchNode_create1(L);
         // }
     }
@@ -40342,12 +40664,14 @@ static int _cocos2d_SpriteBatchNode_createWithTexture(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 1, "cc.Texture2D"))) {
+            // static cocos2d::SpriteBatchNode *createWithTexture(cocos2d::Texture2D *tex, @optional ssize_t capacity)
             return _cocos2d_SpriteBatchNode_createWithTexture2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 1, "cc.Texture2D")) && (olua_is_int(L, 2))) {
+            // static cocos2d::SpriteBatchNode *createWithTexture(cocos2d::Texture2D *tex, @optional ssize_t capacity)
             return _cocos2d_SpriteBatchNode_createWithTexture1(L);
         // }
     }
@@ -40506,12 +40830,14 @@ static int _cocos2d_SpriteBatchNode_initWithFile(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
+            // bool initWithFile(const std::string &fileImage, @optional ssize_t capacity)
             return _cocos2d_SpriteBatchNode_initWithFile2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_int(L, 3))) {
+            // bool initWithFile(const std::string &fileImage, @optional ssize_t capacity)
             return _cocos2d_SpriteBatchNode_initWithFile1(L);
         // }
     }
@@ -40567,12 +40893,14 @@ static int _cocos2d_SpriteBatchNode_initWithTexture(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 2, "cc.Texture2D"))) {
+            // bool initWithTexture(cocos2d::Texture2D *tex, @optional ssize_t capacity)
             return _cocos2d_SpriteBatchNode_initWithTexture2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 2, "cc.Texture2D")) && (olua_is_int(L, 3))) {
+            // bool initWithTexture(cocos2d::Texture2D *tex, @optional ssize_t capacity)
             return _cocos2d_SpriteBatchNode_initWithTexture1(L);
         // }
     }
@@ -40906,16 +41234,19 @@ static int _cocos2d_SpriteFrameCache_addSpriteFramesWithFile(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
+            // void addSpriteFramesWithFile(const std::string &plist)
             return _cocos2d_SpriteFrameCache_addSpriteFramesWithFile1(L);
         // }
     }
 
     if (num_args == 2) {
         if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3))) {
+            // void addSpriteFramesWithFile(const std::string &plist, const std::string &textureFileName)
             return _cocos2d_SpriteFrameCache_addSpriteFramesWithFile2(L);
         }
 
         // if ((olua_is_std_string(L, 2)) && (olua_is_cppobj(L, 3, "cc.Texture2D"))) {
+            // void addSpriteFramesWithFile(const std::string &plist, cocos2d::Texture2D *texture)
             return _cocos2d_SpriteFrameCache_addSpriteFramesWithFile3(L);
         // }
     }
@@ -42009,17 +42340,20 @@ static int _cocos2d_LayerColor_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 0) {
+        // static cocos2d::LayerColor *create()
         return _cocos2d_LayerColor_create1(L);
     }
 
     if (num_args == 1) {
         // if ((manual_olua_is_cocos2d_Color4B(L, 1))) {
+            // static cocos2d::LayerColor *create(const cocos2d::Color4B &color)
             return _cocos2d_LayerColor_create3(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((manual_olua_is_cocos2d_Color4B(L, 1)) && (olua_is_number(L, 2)) && (olua_is_number(L, 3))) {
+            // static cocos2d::LayerColor *create(const cocos2d::Color4B &color, GLfloat width, GLfloat height)
             return _cocos2d_LayerColor_create2(L);
         // }
     }
@@ -42094,12 +42428,14 @@ static int _cocos2d_LayerColor_initWithColor(lua_State *L)
 
     if (num_args == 1) {
         // if ((manual_olua_is_cocos2d_Color4B(L, 2))) {
+            // bool initWithColor(const cocos2d::Color4B &color)
             return _cocos2d_LayerColor_initWithColor2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((manual_olua_is_cocos2d_Color4B(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4))) {
+            // bool initWithColor(const cocos2d::Color4B &color, GLfloat width, GLfloat height)
             return _cocos2d_LayerColor_initWithColor1(L);
         // }
     }
@@ -42218,17 +42554,20 @@ static int _cocos2d_LayerGradient_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 0) {
+        // static cocos2d::LayerGradient *create()
         return _cocos2d_LayerGradient_create1(L);
     }
 
     if (num_args == 2) {
         // if ((manual_olua_is_cocos2d_Color4B(L, 1)) && (manual_olua_is_cocos2d_Color4B(L, 2))) {
+            // static cocos2d::LayerGradient *create(const cocos2d::Color4B &start, const cocos2d::Color4B &end)
             return _cocos2d_LayerGradient_create2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((manual_olua_is_cocos2d_Color4B(L, 1)) && (manual_olua_is_cocos2d_Color4B(L, 2)) && (auto_olua_is_cocos2d_Vec2(L, 3))) {
+            // static cocos2d::LayerGradient *create(const cocos2d::Color4B &start, const cocos2d::Color4B &end, const cocos2d::Vec2 &v)
             return _cocos2d_LayerGradient_create3(L);
         // }
     }
@@ -42373,12 +42712,14 @@ static int _cocos2d_LayerGradient_initWithColor(lua_State *L)
 
     if (num_args == 2) {
         // if ((manual_olua_is_cocos2d_Color4B(L, 2)) && (manual_olua_is_cocos2d_Color4B(L, 3))) {
+            // bool initWithColor(const cocos2d::Color4B &start, const cocos2d::Color4B &end)
             return _cocos2d_LayerGradient_initWithColor1(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((manual_olua_is_cocos2d_Color4B(L, 2)) && (manual_olua_is_cocos2d_Color4B(L, 3)) && (auto_olua_is_cocos2d_Vec2(L, 4))) {
+            // bool initWithColor(const cocos2d::Color4B &start, const cocos2d::Color4B &end, const cocos2d::Vec2 &v)
             return _cocos2d_LayerGradient_initWithColor2(L);
         // }
     }
@@ -42601,11 +42942,13 @@ static int _cocos2d_LayerRadialGradient_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 0) {
+        // static cocos2d::LayerRadialGradient *create()
         return _cocos2d_LayerRadialGradient_create2(L);
     }
 
     if (num_args == 5) {
         // if ((manual_olua_is_cocos2d_Color4B(L, 1)) && (manual_olua_is_cocos2d_Color4B(L, 2)) && (olua_is_number(L, 3)) && (auto_olua_is_cocos2d_Vec2(L, 4)) && (olua_is_number(L, 5))) {
+            // static cocos2d::LayerRadialGradient *create(const cocos2d::Color4B &startColor, const cocos2d::Color4B &endColor, float radius, const cocos2d::Vec2 &center, float expand)
             return _cocos2d_LayerRadialGradient_create1(L);
         // }
     }
@@ -42904,10 +43247,12 @@ static int _cocos2d_LayerRadialGradient_setEndColor(lua_State *L)
 
     if (num_args == 1) {
         if ((manual_olua_is_cocos2d_Color3B(L, 2))) {
+            // void setEndColor(const cocos2d::Color3B &color)
             return _cocos2d_LayerRadialGradient_setEndColor1(L);
         }
 
         // if ((manual_olua_is_cocos2d_Color4B(L, 2))) {
+            // void setEndColor(const cocos2d::Color4B &color)
             return _cocos2d_LayerRadialGradient_setEndColor2(L);
         // }
     }
@@ -43013,10 +43358,12 @@ static int _cocos2d_LayerRadialGradient_setStartColor(lua_State *L)
 
     if (num_args == 1) {
         if ((manual_olua_is_cocos2d_Color3B(L, 2))) {
+            // void setStartColor(const cocos2d::Color3B &color)
             return _cocos2d_LayerRadialGradient_setStartColor1(L);
         }
 
         // if ((manual_olua_is_cocos2d_Color4B(L, 2))) {
+            // void setStartColor(const cocos2d::Color4B &color)
             return _cocos2d_LayerRadialGradient_setStartColor2(L);
         // }
     }
@@ -43955,12 +44302,14 @@ static int _cocos2d_TransitionFlipX_create(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_number(L, 1)) && (olua_is_cppobj(L, 2, "cc.Scene"))) {
+            // static cocos2d::TransitionFlipX *create(float t, @ref(map autoref) cocos2d::Scene *s)
             return _cocos2d_TransitionFlipX_create2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_number(L, 1)) && (olua_is_cppobj(L, 2, "cc.Scene")) && (olua_is_uint(L, 3))) {
+            // static cocos2d::TransitionFlipX *create(float t, @ref(map autoref) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)
             return _cocos2d_TransitionFlipX_create1(L);
         // }
     }
@@ -44048,12 +44397,14 @@ static int _cocos2d_TransitionFlipY_create(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_number(L, 1)) && (olua_is_cppobj(L, 2, "cc.Scene"))) {
+            // static cocos2d::TransitionFlipY *create(float t, @ref(map autoref) cocos2d::Scene *s)
             return _cocos2d_TransitionFlipY_create2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_number(L, 1)) && (olua_is_cppobj(L, 2, "cc.Scene")) && (olua_is_uint(L, 3))) {
+            // static cocos2d::TransitionFlipY *create(float t, @ref(map autoref) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)
             return _cocos2d_TransitionFlipY_create1(L);
         // }
     }
@@ -44141,12 +44492,14 @@ static int _cocos2d_TransitionFlipAngular_create(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_number(L, 1)) && (olua_is_cppobj(L, 2, "cc.Scene"))) {
+            // static cocos2d::TransitionFlipAngular *create(float t, @ref(map autoref) cocos2d::Scene *s)
             return _cocos2d_TransitionFlipAngular_create2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_number(L, 1)) && (olua_is_cppobj(L, 2, "cc.Scene")) && (olua_is_uint(L, 3))) {
+            // static cocos2d::TransitionFlipAngular *create(float t, @ref(map autoref) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)
             return _cocos2d_TransitionFlipAngular_create1(L);
         // }
     }
@@ -44234,12 +44587,14 @@ static int _cocos2d_TransitionZoomFlipX_create(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_number(L, 1)) && (olua_is_cppobj(L, 2, "cc.Scene"))) {
+            // static cocos2d::TransitionZoomFlipX *create(float t, @ref(map autoref) cocos2d::Scene *s)
             return _cocos2d_TransitionZoomFlipX_create2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_number(L, 1)) && (olua_is_cppobj(L, 2, "cc.Scene")) && (olua_is_uint(L, 3))) {
+            // static cocos2d::TransitionZoomFlipX *create(float t, @ref(map autoref) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)
             return _cocos2d_TransitionZoomFlipX_create1(L);
         // }
     }
@@ -44327,12 +44682,14 @@ static int _cocos2d_TransitionZoomFlipY_create(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_number(L, 1)) && (olua_is_cppobj(L, 2, "cc.Scene"))) {
+            // static cocos2d::TransitionZoomFlipY *create(float t, @ref(map autoref) cocos2d::Scene *s)
             return _cocos2d_TransitionZoomFlipY_create2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_number(L, 1)) && (olua_is_cppobj(L, 2, "cc.Scene")) && (olua_is_uint(L, 3))) {
+            // static cocos2d::TransitionZoomFlipY *create(float t, @ref(map autoref) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)
             return _cocos2d_TransitionZoomFlipY_create1(L);
         // }
     }
@@ -44420,12 +44777,14 @@ static int _cocos2d_TransitionZoomFlipAngular_create(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_number(L, 1)) && (olua_is_cppobj(L, 2, "cc.Scene"))) {
+            // static cocos2d::TransitionZoomFlipAngular *create(float t, @ref(map autoref) cocos2d::Scene *s)
             return _cocos2d_TransitionZoomFlipAngular_create2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_number(L, 1)) && (olua_is_cppobj(L, 2, "cc.Scene")) && (olua_is_uint(L, 3))) {
+            // static cocos2d::TransitionZoomFlipAngular *create(float t, @ref(map autoref) cocos2d::Scene *s, cocos2d::TransitionScene::Orientation o)
             return _cocos2d_TransitionZoomFlipAngular_create1(L);
         // }
     }
@@ -44513,12 +44872,14 @@ static int _cocos2d_TransitionFade_create(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_number(L, 1)) && (olua_is_cppobj(L, 2, "cc.Scene"))) {
+            // static cocos2d::TransitionFade *create(float duration, @ref(map autoref) cocos2d::Scene *scene)
             return _cocos2d_TransitionFade_create2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_number(L, 1)) && (olua_is_cppobj(L, 2, "cc.Scene")) && (manual_olua_is_cocos2d_Color3B(L, 3))) {
+            // static cocos2d::TransitionFade *create(float duration, @ref(map autoref) cocos2d::Scene *scene, const cocos2d::Color3B &color)
             return _cocos2d_TransitionFade_create1(L);
         // }
     }
@@ -45768,12 +46129,14 @@ static int _cocos2d_TextFieldTTF_initWithPlaceHolder(lua_State *L)
 
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4))) {
+            // bool initWithPlaceHolder(const std::string &placeholder, const std::string &fontName, float fontSize)
             return _cocos2d_TextFieldTTF_initWithPlaceHolder2(L);
         // }
     }
 
     if (num_args == 5) {
         // if ((olua_is_std_string(L, 2)) && (auto_olua_is_cocos2d_Size(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_number(L, 6))) {
+            // bool initWithPlaceHolder(const std::string &placeholder, const cocos2d::Size &dimensions, cocos2d::TextHAlignment alignment, const std::string &fontName, float fontSize)
             return _cocos2d_TextFieldTTF_initWithPlaceHolder1(L);
         // }
     }
@@ -45856,10 +46219,12 @@ static int _cocos2d_TextFieldTTF_setColorSpaceHolder(lua_State *L)
 
     if (num_args == 1) {
         if ((manual_olua_is_cocos2d_Color3B(L, 2))) {
+            // void setColorSpaceHolder(const cocos2d::Color3B &color)
             return _cocos2d_TextFieldTTF_setColorSpaceHolder1(L);
         }
 
         // if ((manual_olua_is_cocos2d_Color4B(L, 2))) {
+            // void setColorSpaceHolder(const cocos2d::Color4B &color)
             return _cocos2d_TextFieldTTF_setColorSpaceHolder2(L);
         // }
     }
@@ -46067,12 +46432,14 @@ static int _cocos2d_TextFieldTTF_textFieldWithPlaceHolder(lua_State *L)
 
     if (num_args == 3) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3))) {
+            // static cocos2d::TextFieldTTF *textFieldWithPlaceHolder(const std::string &placeholder, const std::string &fontName, float fontSize)
             return _cocos2d_TextFieldTTF_textFieldWithPlaceHolder2(L);
         // }
     }
 
     if (num_args == 5) {
         // if ((olua_is_std_string(L, 1)) && (auto_olua_is_cocos2d_Size(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_number(L, 5))) {
+            // static cocos2d::TextFieldTTF *textFieldWithPlaceHolder(const std::string &placeholder, const cocos2d::Size &dimensions, cocos2d::TextHAlignment alignment, const std::string &fontName, float fontSize)
             return _cocos2d_TextFieldTTF_textFieldWithPlaceHolder1(L);
         // }
     }
@@ -47325,12 +47692,14 @@ static int _cocos2d_Camera_lookAt(lua_State *L)
 
     if (num_args == 1) {
         // if ((auto_olua_is_cocos2d_Vec3(L, 2))) {
+            // void lookAt(const cocos2d::Vec3 &target, @optional const cocos2d::Vec3 &up)
             return _cocos2d_Camera_lookAt2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((auto_olua_is_cocos2d_Vec3(L, 2)) && (auto_olua_is_cocos2d_Vec3(L, 3))) {
+            // void lookAt(const cocos2d::Vec3 &target, @optional const cocos2d::Vec3 &up)
             return _cocos2d_Camera_lookAt1(L);
         // }
     }
@@ -47738,11 +48107,13 @@ static int _cocos2d_CameraBackgroundBrush_createDepthBrush(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 0) {
+        // static cocos2d::CameraBackgroundDepthBrush *createDepthBrush(@optional float depth)
         return _cocos2d_CameraBackgroundBrush_createDepthBrush2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_number(L, 1))) {
+            // static cocos2d::CameraBackgroundDepthBrush *createDepthBrush(@optional float depth)
             return _cocos2d_CameraBackgroundBrush_createDepthBrush1(L);
         // }
     }
@@ -48067,11 +48438,13 @@ static int _cocos2d_CameraBackgroundSkyBoxBrush_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 0) {
+        // static cocos2d::CameraBackgroundSkyBoxBrush *create()
         return _cocos2d_CameraBackgroundSkyBoxBrush_create2(L);
     }
 
     if (num_args == 6) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_std_string(L, 6))) {
+            // static cocos2d::CameraBackgroundSkyBoxBrush *create(const std::string &positive_x, const std::string &negative_x, const std::string &positive_y, const std::string &negative_y, const std::string &positive_z, const std::string &negative_z)
             return _cocos2d_CameraBackgroundSkyBoxBrush_create1(L);
         // }
     }
@@ -48312,12 +48685,14 @@ static int _cocos2d_ActionCamera_setEye(lua_State *L)
 
     if (num_args == 1) {
         // if ((auto_olua_is_cocos2d_Vec3(L, 2))) {
+            // void setEye(const cocos2d::Vec3 &eye)
             return _cocos2d_ActionCamera_setEye1(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_number(L, 2)) && (olua_is_number(L, 3)) && (olua_is_number(L, 4))) {
+            // void setEye(float x, float y, float z)
             return _cocos2d_ActionCamera_setEye2(L);
         // }
     }
@@ -48562,12 +48937,14 @@ static int _cocos2d_GridBase_create(lua_State *L)
 
     if (num_args == 1) {
         // if ((auto_olua_is_cocos2d_Size(L, 1))) {
+            // static cocos2d::GridBase *create(const cocos2d::Size &gridSize)
             return _cocos2d_GridBase_create2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_cppobj(L, 2, "cc.Texture2D")) && (olua_is_bool(L, 3))) {
+            // static cocos2d::GridBase *create(const cocos2d::Size &gridSize, cocos2d::Texture2D *texture, bool flipped)
             return _cocos2d_GridBase_create1(L);
         // }
     }
@@ -48739,24 +49116,28 @@ static int _cocos2d_GridBase_initWithSize(lua_State *L)
 
     if (num_args == 1) {
         // if ((auto_olua_is_cocos2d_Size(L, 2))) {
+            // bool initWithSize(const cocos2d::Size &gridSize)
             return _cocos2d_GridBase_initWithSize1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((auto_olua_is_cocos2d_Size(L, 2)) && (manual_olua_is_cocos2d_Rect(L, 3))) {
+            // bool initWithSize(const cocos2d::Size &gridSize, const cocos2d::Rect &rect)
             return _cocos2d_GridBase_initWithSize2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((auto_olua_is_cocos2d_Size(L, 2)) && (olua_is_cppobj(L, 3, "cc.Texture2D")) && (olua_is_bool(L, 4))) {
+            // bool initWithSize(const cocos2d::Size &gridSize, cocos2d::Texture2D *texture, bool flipped)
             return _cocos2d_GridBase_initWithSize3(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((auto_olua_is_cocos2d_Size(L, 2)) && (olua_is_cppobj(L, 3, "cc.Texture2D")) && (olua_is_bool(L, 4)) && (manual_olua_is_cocos2d_Rect(L, 5))) {
+            // bool initWithSize(const cocos2d::Size &gridSize, cocos2d::Texture2D *texture, bool flipped, const cocos2d::Rect &rect)
             return _cocos2d_GridBase_initWithSize4(L);
         // }
     }
@@ -49064,24 +49445,28 @@ static int _cocos2d_Grid3D_create(lua_State *L)
 
     if (num_args == 1) {
         // if ((auto_olua_is_cocos2d_Size(L, 1))) {
+            // static cocos2d::Grid3D *create(const cocos2d::Size &gridSize)
             return _cocos2d_Grid3D_create1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((auto_olua_is_cocos2d_Size(L, 1)) && (manual_olua_is_cocos2d_Rect(L, 2))) {
+            // static cocos2d::Grid3D *create(const cocos2d::Size &gridSize, const cocos2d::Rect &rect)
             return _cocos2d_Grid3D_create2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_cppobj(L, 2, "cc.Texture2D")) && (olua_is_bool(L, 3))) {
+            // static cocos2d::Grid3D *create(const cocos2d::Size &gridSize, cocos2d::Texture2D *texture, bool flipped)
             return _cocos2d_Grid3D_create3(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_cppobj(L, 2, "cc.Texture2D")) && (olua_is_bool(L, 3)) && (manual_olua_is_cocos2d_Rect(L, 4))) {
+            // static cocos2d::Grid3D *create(const cocos2d::Size &gridSize, cocos2d::Texture2D *texture, bool flipped, const cocos2d::Rect &rect)
             return _cocos2d_Grid3D_create4(L);
         // }
     }
@@ -49302,24 +49687,28 @@ static int _cocos2d_TiledGrid3D_create(lua_State *L)
 
     if (num_args == 1) {
         // if ((auto_olua_is_cocos2d_Size(L, 1))) {
+            // static cocos2d::TiledGrid3D *create(const cocos2d::Size &gridSize)
             return _cocos2d_TiledGrid3D_create1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((auto_olua_is_cocos2d_Size(L, 1)) && (manual_olua_is_cocos2d_Rect(L, 2))) {
+            // static cocos2d::TiledGrid3D *create(const cocos2d::Size &gridSize, const cocos2d::Rect &rect)
             return _cocos2d_TiledGrid3D_create2(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_cppobj(L, 2, "cc.Texture2D")) && (olua_is_bool(L, 3))) {
+            // static cocos2d::TiledGrid3D *create(const cocos2d::Size &gridSize, cocos2d::Texture2D *texture, bool flipped)
             return _cocos2d_TiledGrid3D_create3(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((auto_olua_is_cocos2d_Size(L, 1)) && (olua_is_cppobj(L, 2, "cc.Texture2D")) && (olua_is_bool(L, 3)) && (manual_olua_is_cocos2d_Rect(L, 4))) {
+            // static cocos2d::TiledGrid3D *create(const cocos2d::Size &gridSize, cocos2d::Texture2D *texture, bool flipped, const cocos2d::Rect &rect)
             return _cocos2d_TiledGrid3D_create4(L);
         // }
     }
@@ -49451,11 +49840,13 @@ static int _cocos2d_NodeGrid_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 0) {
+        // static cocos2d::NodeGrid *create()
         return _cocos2d_NodeGrid_create1(L);
     }
 
     if (num_args == 1) {
         // if ((manual_olua_is_cocos2d_Rect(L, 1))) {
+            // static cocos2d::NodeGrid *create(const cocos2d::Rect &rect)
             return _cocos2d_NodeGrid_create2(L);
         // }
     }
@@ -51496,12 +51887,14 @@ static int _cocos2d_TurnOffTiles_create(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_number(L, 1)) && (auto_olua_is_cocos2d_Size(L, 2))) {
+            // static cocos2d::TurnOffTiles *create(float duration, const cocos2d::Size &gridSize)
             return _cocos2d_TurnOffTiles_create1(L);
         // }
     }
 
     if (num_args == 3) {
         // if ((olua_is_number(L, 1)) && (auto_olua_is_cocos2d_Size(L, 2)) && (olua_is_uint(L, 3))) {
+            // static cocos2d::TurnOffTiles *create(float duration, const cocos2d::Size &gridSize, unsigned int seed)
             return _cocos2d_TurnOffTiles_create2(L);
         // }
     }
@@ -51881,12 +52274,14 @@ static int _cocos2d_ParticleBatchNode_create(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 1))) {
+            // static cocos2d::ParticleBatchNode *create(const std::string &fileImage, @optional int capacity)
             return _cocos2d_ParticleBatchNode_create2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 1)) && (olua_is_int(L, 2))) {
+            // static cocos2d::ParticleBatchNode *create(const std::string &fileImage, @optional int capacity)
             return _cocos2d_ParticleBatchNode_create1(L);
         // }
     }
@@ -51938,12 +52333,14 @@ static int _cocos2d_ParticleBatchNode_createWithTexture(lua_State *L)
 
     if (num_args == 1) {
         // if ((olua_is_cppobj(L, 1, "cc.Texture2D"))) {
+            // static cocos2d::ParticleBatchNode *createWithTexture(cocos2d::Texture2D *tex, @optional int capacity)
             return _cocos2d_ParticleBatchNode_createWithTexture2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 1, "cc.Texture2D")) && (olua_is_int(L, 2))) {
+            // static cocos2d::ParticleBatchNode *createWithTexture(cocos2d::Texture2D *tex, @optional int capacity)
             return _cocos2d_ParticleBatchNode_createWithTexture1(L);
         // }
     }
@@ -53068,12 +53465,14 @@ static int _cocos2d_ParticleSystem_initWithDictionary(lua_State *L)
 
     if (num_args == 1) {
         // if ((manual_olua_is_cocos2d_ValueMap(L, 2))) {
+            // bool initWithDictionary(cocos2d::ValueMap &dictionary)
             return _cocos2d_ParticleSystem_initWithDictionary1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((manual_olua_is_cocos2d_ValueMap(L, 2)) && (olua_is_std_string(L, 3))) {
+            // bool initWithDictionary(cocos2d::ValueMap &dictionary, const std::string &dirname)
             return _cocos2d_ParticleSystem_initWithDictionary2(L);
         // }
     }
@@ -54395,15 +54794,18 @@ static int _cocos2d_ParticleSystemQuad_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 0) {
+        // static cocos2d::ParticleSystemQuad *create()
         return _cocos2d_ParticleSystemQuad_create1(L);
     }
 
     if (num_args == 1) {
         if ((olua_is_std_string(L, 1))) {
+            // static cocos2d::ParticleSystemQuad *create(const std::string &filename)
             return _cocos2d_ParticleSystemQuad_create2(L);
         }
 
         // if ((manual_olua_is_cocos2d_ValueMap(L, 1))) {
+            // static cocos2d::ParticleSystemQuad *create(cocos2d::ValueMap &dictionary)
             return _cocos2d_ParticleSystemQuad_create3(L);
         // }
     }

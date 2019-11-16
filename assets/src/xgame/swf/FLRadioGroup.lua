@@ -7,37 +7,35 @@ local FLRadioGroup = swf.class("FLRadioGroup", FLMovieClip)
 
 function FLRadioGroup:ctor()
     self._selectedIndex = 0
-    self._items = Array.new()
+    self._options = Array.new()
     for i = 1, math.maxinteger do
-        local child = self.ns['option' .. i]
-        if child then
-            self:_add(child)
+        local option = self.ns['option' .. i]
+        if option then
+            self._options:pushBack(option)
+            option.selected = false
+            option:addListener(Event.CHANGE, self._onChange, self)
+
+            if i == 1 then
+                self._selectedIndex = 1
+                option.selected = true
+            end
         else
             break
-        end
-        if i == 1 then
-            self.selectedIndex = 1
         end
     end
 end
 
-function FLRadioGroup:_add(item)
-    self._items:pushBack(item)
-    item.selected = false
-    item:addListener(Event.CHANGE, self._onChange, self)
-end
-
 function FLRadioGroup:_onChange(target)
-    self.selectedIndex = self._items:indexOf(target)
+    self.selectedIndex = self._options:indexOf(target)
 end
 
 function FLRadioGroup.Get:selectedItem()
-    return self._items[self._selectedIndex]
+    return self._options[self._selectedIndex]
 end
 
 function FLRadioGroup.Get:selectedIndex() return self._selectedIndex end
 function FLRadioGroup.Set:selectedIndex(value)
-    if self.selectedIndex == value or value <= 0 or value > #self._items then
+    if self.selectedIndex == value or value <= 0 or value > #self._options then
         return
     end
     if self.selectedItem then

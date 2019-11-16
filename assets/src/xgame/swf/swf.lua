@@ -58,6 +58,7 @@ local function lazyRequire()
     require "xgame.swf.FLList"
     require "xgame.swf.FLRadioButton"
     require "xgame.swf.FLRadioGroup"
+    require "xgame.swf.FLTab"
 end
 
 -- test only

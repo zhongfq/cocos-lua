@@ -81,8 +81,11 @@ if runtime.os == "android" then
                         callback(false)
                     end
                 end
-                runtime.alert('温馨提示', '没有权限获取图像用于更换头像！',
-                    '设置', '关闭', alertCallback)
+                runtime.alert(
+                    '温馨提示',
+                    '没有权限访问您的照相机或相册，请前往权限管理进行设置。',
+                    '去设置',
+                    '关闭', alertCallback)
             end
         end)
     end

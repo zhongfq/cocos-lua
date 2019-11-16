@@ -22,10 +22,14 @@ function Array.Set:length(value)
     end
 end
 
-function Array:toMap()
+function Array:toMap(field)
     local map = {}
     for _, v in ipairs(self) do
-        map[v] = true
+        if field then
+            map[v[field]] = v
+        else
+            map[v] = true
+        end
     end
     return map
 end

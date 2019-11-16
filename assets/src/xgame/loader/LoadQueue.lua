@@ -25,7 +25,7 @@ end
 
 function LoadQueue:start()
     if not next(self._loadTasks) then
-        self:dispatch(Event.LOADER)
+        self:dispatch(Event.COMPLETE)
     else
         for _, task in pairs(self._loadTasks) do
             task:start()

@@ -11,9 +11,9 @@ FLAudio.STATE_PLAYING = 2
 FLAudio.STATE_DONE = 3
 FLAudio.STATE_PAUSE = 4
 
-function FLAudio:ctor(filePath, loop, volume, delay, tag)
+function FLAudio:ctor(path, loop, volume, delay, tag)
     self.nextAudio = false
-    self.filePath = filePath
+    self.path = path
     self._loop = loop
     self._volume = volume
     self._duration = 0
@@ -57,6 +57,9 @@ end
 
 function FLAudio:_completeHandler()
     self.state = FLAudio.STATE_DONE
+    self._sound:removeListener(Event.COMPLETE, self._completeHandler, self)
+    self._sound:removeListener(Event.STOP, self._stopHandler, self)
+    self._sound = nil
     if self._onEndCallback then
         self._onEndCallback()
         self._onEndCallback = false
@@ -76,18 +79,21 @@ end
 
 function FLAudio:play()
     if self.state == FLAudio.STATE_READY and self._delay <= 0 then
-        local function doPlay(filePath)
-            self._sound = audio.play(filePath, self._loop, self._volume)
+        local function doPlay(path)
+            if self.state == FLAudio.STATE_DONE then
+                return
+            end
+            self._sound = audio.play(path, self._loop, self._volume)
             self._sound:addListener(Event.COMPLETE, self._completeHandler, self)
             self._sound:addListener(Event.STOP, self._stopHandler, self)
             self.state = FLAudio.STATE_PLAYING
         end
 
-        local localCachePath = filesystem.localCachePath(self.filePath)
+        local localCachePath = filesystem.localCachePath(self.path)
         if filesystem.exist(localCachePath) then
             doPlay(localCachePath)
         else
-            local loader = LoadTask.new(self.filePath)
+            local loader = LoadTask.new(self.path)
             loader:addListener(Event.COMPLETE, function ()
                 if self.state == FLAudio.STATE_READY then
                     doPlay(loader.path)
@@ -128,8 +134,8 @@ function FLAudio:update(delta)
     end
 end
 
-function FLAudio:next(filePath, delay, loop, volume, tag)
-    local audio = FLAudio.new(filePath, loop, volume, delay, tag)
+function FLAudio:next(path, delay, loop, volume, tag)
+    local audio = FLAudio.new(path, loop, volume, delay, tag)
     self.nextAudio = audio
     return audio
 end

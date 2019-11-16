@@ -2,6 +2,7 @@ local Array         = require "xgame.Array"
 local ScrollImpl    = require "xgame.ui.ScrollImpl"
 local Align         = require "xgame.ui.Align"
 local TouchEvent    = require "xgame.event.TouchEvent"
+local Event         = require "xgame.event.Event"
 local FLMovieClip   = require "xgame.swf.FLMovieClip"
 local swf           = require "xgame.swf.swf"
 
@@ -37,6 +38,9 @@ function FLList:ctor()
             item.visible = false
             item.touchChildren = false
             item.touchable = true
+            item:addListener(TouchEvent.CLICK, function ()
+                self:dispatch(Event.CHANGE, item, self._indices[item])
+            end)
             self._items:pushBack(item)
             if i == 1 then
                 self._startX = item.x
@@ -112,9 +116,20 @@ function FLList.Set:data(value)
     self:_update()
 end
 
+function FLList:refresh()
+    for _, v in ipairs(self._items) do
+        if v.visible and v.data then
+            v.data = v.data
+        end
+    end
+end
+
 function FLList:_update()
     local raw = math.ceil(#self.data / self._column)
     self.container.height = raw * self._cellHeidht + (raw - 1) * self._spaceV
+    for _, v in ipairs(self._items) do
+        v.visible = false
+    end
     for i in ipairs(self.data) do
         local item = self._items[i]
         self:_setItem(item, i)

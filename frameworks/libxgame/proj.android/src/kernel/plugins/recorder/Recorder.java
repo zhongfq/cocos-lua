@@ -1,4 +1,4 @@
-package kernel;
+package kernel.plugins.recorder;
 
 import android.media.AudioFormat;
 import android.media.AudioRecord;
@@ -14,8 +14,11 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import kernel.AppContext;
+import kernel.LuaJ;
+
 @SuppressWarnings("unused")
-public class AudioRecorder {
+public class Recorder {
     public enum State {
         ERR_CREATE_FILE,
         ERR_PERMISSION,
@@ -31,13 +34,13 @@ public class AudioRecorder {
     private static final int AUDIO_ENCODING = AudioFormat.ENCODING_PCM_16BIT;
     private static final int AUDIO_CHANNEL = AudioFormat.CHANNEL_IN_MONO;
 
-    private static final String TAG = AudioRecorder.class.getSimpleName();
+    private static final String TAG = Recorder.class.getSimpleName();
 
     private String _filename;
     private boolean _running = false;
     private StateListener _listener = null;
 
-    private AudioRecorder(String filename) {
+    private Recorder(String filename) {
         _filename = filename;
     }
 
@@ -163,7 +166,7 @@ public class AudioRecorder {
         }
     }
 
-    private static AudioRecorder _record = null;
+    private static Recorder _record = null;
 
     public static boolean start(final String filename, final int callback) {
         if (_record != null) {
@@ -173,11 +176,11 @@ public class AudioRecorder {
 
         final AppContext context = (AppContext) Cocos2dxActivity.getContext();
 
-        _record = new AudioRecorder(filename);
-        _record.setStateListener(new AudioRecorder.StateListener() {
+        _record = new Recorder(filename);
+        _record.setStateListener(new Recorder.StateListener() {
             @Override
-            public void onStateChanged(final AudioRecorder.State state) {
-                if (state != AudioRecorder.State.STARTED) {
+            public void onStateChanged(final Recorder.State state) {
+                if (state != Recorder.State.STARTED) {
                     _record = null;
                     LuaJ.invokeOnce(callback, state.name());
                 } else {

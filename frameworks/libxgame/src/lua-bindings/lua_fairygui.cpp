@@ -7,6 +7,7 @@
 #include "xgame/xlua.h"
 #include "FairyGUI.h"
 #include "tween/EaseManager.h"
+#include "tween/GPath.h"
 #include "display/FUISprite.h"
 
 bool manual_olua_is_fairygui_EventTag(lua_State *L, int idx)
@@ -1763,7 +1764,7 @@ static int _fairygui_TextFormat_setFormat(lua_State *L)
     olua_startinvoke(L);
 
     fairygui::TextFormat *self = (fairygui::TextFormat *)olua_toobj(L, 1, "fgui.TextFormat");
-    fairygui::TextFormat *fmt = (fairygui::TextFormat *)olua_toobj(L, 2, "fgui.TextFormat");
+    fairygui::TextFormat *fmt = (fairygui::TextFormat *)olua_checkobj(L, 2, "fgui.TextFormat");
     self->setFormat(*fmt);
 
     olua_endinvoke(L);
@@ -2505,6 +2506,16 @@ static int luaopen_fairygui_TweenPropType(lua_State *L)
     return 1;
 }
 
+static int luaopen_fairygui_GPath(lua_State *L)
+{
+    oluacls_class(L, "fgui.GPath", nullptr);
+
+    olua_registerluatype<fairygui::GPath>(L, "fgui.GPath");
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
 static int _fairygui_GTweener_allCompleted(lua_State *L)
 {
     olua_startinvoke(L);
@@ -2981,6 +2992,25 @@ static int _fairygui_GTweener_setEasePeriod(lua_State *L)
     return num_ret;
 }
 
+static int _fairygui_GTweener_setPath(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GTweener *self = nullptr;
+    fairygui::GPath *arg1 = nullptr;       /** path */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTweener");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GPath");
+
+    // fairygui::GTweener *setPath(fairygui::GPath *path)
+    fairygui::GTweener *ret = (fairygui::GTweener *)self->setPath(arg1);
+    int num_ret = olua_push_cppobj(L, ret, "fgui.GTweener");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _fairygui_GTweener_setPaused(lua_State *L)
 {
     olua_startinvoke(L);
@@ -3366,6 +3396,7 @@ static int luaopen_fairygui_GTweener(lua_State *L)
     oluacls_func(L, "setEase", _fairygui_GTweener_setEase);
     oluacls_func(L, "setEaseOvershootOrAmplitude", _fairygui_GTweener_setEaseOvershootOrAmplitude);
     oluacls_func(L, "setEasePeriod", _fairygui_GTweener_setEasePeriod);
+    oluacls_func(L, "setPath", _fairygui_GTweener_setPath);
     oluacls_func(L, "setPaused", _fairygui_GTweener_setPaused);
     oluacls_func(L, "setRepeat", _fairygui_GTweener_setRepeat);
     oluacls_func(L, "setSnapping", _fairygui_GTweener_setSnapping);
@@ -3954,6 +3985,19 @@ static int _fairygui_UIPackage_createObjectFromURL(lua_State *L)
     return num_ret;
 }
 
+static int _fairygui_UIPackage_getBranch(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static const std::string &getBranch()
+    const std::string &ret = (const std::string &)fairygui::UIPackage::getBranch();
+    int num_ret = olua_push_std_string(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _fairygui_UIPackage_getById(lua_State *L)
 {
     olua_startinvoke(L);
@@ -4257,6 +4301,23 @@ static int _fairygui_UIPackage_getName(lua_State *L)
     return num_ret;
 }
 
+static int _fairygui_UIPackage_getVar(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    std::string arg1;       /** key */
+
+    olua_check_std_string(L, 1, &arg1);
+
+    // static const std::string &getVar(const std::string &key)
+    const std::string &ret = (const std::string &)fairygui::UIPackage::getVar(arg1);
+    int num_ret = olua_push_std_string(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _fairygui_UIPackage_new(lua_State *L)
 {
     olua_startinvoke(L);
@@ -4316,12 +4377,47 @@ static int _fairygui_UIPackage_removePackage(lua_State *L)
     return 0;
 }
 
+static int _fairygui_UIPackage_setBranch(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    std::string arg1;       /** value */
+
+    olua_check_std_string(L, 1, &arg1);
+
+    // static void setBranch(const std::string &value)
+    fairygui::UIPackage::setBranch(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_UIPackage_setVar(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    std::string arg1;       /** key */
+    std::string arg2;       /** value */
+
+    olua_check_std_string(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+
+    // static void setVar(const std::string &key, const std::string &value)
+    fairygui::UIPackage::setVar(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_fairygui_UIPackage(lua_State *L)
 {
     oluacls_class(L, "fgui.UIPackage", "cc.Ref");
     oluacls_func(L, "addPackage", _fairygui_UIPackage_addPackage);
     oluacls_func(L, "createObject", _fairygui_UIPackage_createObject);
     oluacls_func(L, "createObjectFromURL", _fairygui_UIPackage_createObjectFromURL);
+    oluacls_func(L, "getBranch", _fairygui_UIPackage_getBranch);
     oluacls_func(L, "getById", _fairygui_UIPackage_getById);
     oluacls_func(L, "getByName", _fairygui_UIPackage_getByName);
     oluacls_func(L, "getEmptyTexture", _fairygui_UIPackage_getEmptyTexture);
@@ -4333,10 +4429,14 @@ static int luaopen_fairygui_UIPackage(lua_State *L)
     oluacls_func(L, "getItemByURL", _fairygui_UIPackage_getItemByURL);
     oluacls_func(L, "getItemURL", _fairygui_UIPackage_getItemURL);
     oluacls_func(L, "getName", _fairygui_UIPackage_getName);
+    oluacls_func(L, "getVar", _fairygui_UIPackage_getVar);
     oluacls_func(L, "new", _fairygui_UIPackage_new);
     oluacls_func(L, "normalizeURL", _fairygui_UIPackage_normalizeURL);
     oluacls_func(L, "removeAllPackages", _fairygui_UIPackage_removeAllPackages);
     oluacls_func(L, "removePackage", _fairygui_UIPackage_removePackage);
+    oluacls_func(L, "setBranch", _fairygui_UIPackage_setBranch);
+    oluacls_func(L, "setVar", _fairygui_UIPackage_setVar);
+    oluacls_prop(L, "branch", _fairygui_UIPackage_getBranch, _fairygui_UIPackage_setBranch);
     oluacls_prop(L, "emptyTexture", _fairygui_UIPackage_getEmptyTexture, nullptr);
     oluacls_prop(L, "id", _fairygui_UIPackage_getId, nullptr);
     oluacls_prop(L, "name", _fairygui_UIPackage_getName, nullptr);
@@ -4346,6 +4446,40 @@ static int luaopen_fairygui_UIPackage(lua_State *L)
     oluacls_createclassproxy(L);
 
     return 1;
+}
+
+static int _fairygui_PackageItem_getBranch(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::PackageItem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.PackageItem");
+
+    // fairygui::PackageItem *getBranch()
+    fairygui::PackageItem *ret = (fairygui::PackageItem *)self->getBranch();
+    int num_ret = olua_push_cppobj(L, ret, "fgui.PackageItem");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_PackageItem_getHighResolution(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::PackageItem *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.PackageItem");
+
+    // fairygui::PackageItem *getHighResolution()
+    fairygui::PackageItem *ret = (fairygui::PackageItem *)self->getHighResolution();
+    int num_ret = olua_push_cppobj(L, ret, "fgui.PackageItem");
+
+    olua_endinvoke(L);
+
+    return num_ret;
 }
 
 static int _fairygui_PackageItem_load(lua_State *L)
@@ -4976,8 +5110,12 @@ static int _fairygui_PackageItem_set_width(lua_State *L)
 static int luaopen_fairygui_PackageItem(lua_State *L)
 {
     oluacls_class(L, "fgui.PackageItem", "cc.Ref");
+    oluacls_func(L, "getBranch", _fairygui_PackageItem_getBranch);
+    oluacls_func(L, "getHighResolution", _fairygui_PackageItem_getHighResolution);
     oluacls_func(L, "load", _fairygui_PackageItem_load);
     oluacls_func(L, "new", _fairygui_PackageItem_new);
+    oluacls_prop(L, "branch", _fairygui_PackageItem_getBranch, nullptr);
+    oluacls_prop(L, "highResolution", _fairygui_PackageItem_getHighResolution, nullptr);
     oluacls_prop(L, "animation", _fairygui_PackageItem_get_animation, _fairygui_PackageItem_set_animation);
     oluacls_prop(L, "delayPerUnit", _fairygui_PackageItem_get_delayPerUnit, _fairygui_PackageItem_set_delayPerUnit);
     oluacls_prop(L, "file", _fairygui_PackageItem_get_file, _fairygui_PackageItem_set_file);
@@ -5042,6 +5180,7 @@ static int luaopen_fairygui_ObjectType(lua_State *L)
     oluacls_const_integer(L, "SLIDER", (lua_Integer)fairygui::ObjectType::SLIDER);
     oluacls_const_integer(L, "SWF", (lua_Integer)fairygui::ObjectType::SWF);
     oluacls_const_integer(L, "TEXT", (lua_Integer)fairygui::ObjectType::TEXT);
+    oluacls_const_integer(L, "TREE", (lua_Integer)fairygui::ObjectType::TREE);
 
     olua_registerluatype<fairygui::ObjectType>(L, "fgui.ObjectType");
     oluacls_asenum(L);
@@ -5296,6 +5435,27 @@ static int luaopen_fairygui_FillOrigin(lua_State *L)
     oluacls_const_integer(L, "Top", (lua_Integer)fairygui::FillOrigin::Top);
 
     olua_registerluatype<fairygui::FillOrigin>(L, "fgui.FillOrigin");
+    oluacls_asenum(L);
+    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int luaopen_fairygui_ObjectPropID(lua_State *L)
+{
+    oluacls_class(L, "fgui.ObjectPropID", nullptr);
+    oluacls_const_integer(L, "Color", (lua_Integer)fairygui::ObjectPropID::Color);
+    oluacls_const_integer(L, "DeltaTime", (lua_Integer)fairygui::ObjectPropID::DeltaTime);
+    oluacls_const_integer(L, "FontSize", (lua_Integer)fairygui::ObjectPropID::FontSize);
+    oluacls_const_integer(L, "Frame", (lua_Integer)fairygui::ObjectPropID::Frame);
+    oluacls_const_integer(L, "Icon", (lua_Integer)fairygui::ObjectPropID::Icon);
+    oluacls_const_integer(L, "OutlineColor", (lua_Integer)fairygui::ObjectPropID::OutlineColor);
+    oluacls_const_integer(L, "Playing", (lua_Integer)fairygui::ObjectPropID::Playing);
+    oluacls_const_integer(L, "Selected", (lua_Integer)fairygui::ObjectPropID::Selected);
+    oluacls_const_integer(L, "Text", (lua_Integer)fairygui::ObjectPropID::Text);
+    oluacls_const_integer(L, "TimeScale", (lua_Integer)fairygui::ObjectPropID::TimeScale);
+
+    olua_registerluatype<fairygui::ObjectPropID>(L, "fgui.ObjectPropID");
     oluacls_asenum(L);
     oluacls_createclassproxy(L);
 
@@ -5580,7 +5740,27 @@ static int _fairygui_GController_setParent(lua_State *L)
     return 0;
 }
 
-static int _fairygui_GController_setSelectedIndex(lua_State *L)
+static int _fairygui_GController_setSelectedIndex1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GController *self = nullptr;
+    lua_Integer arg1 = 0;       /** value */
+    bool arg2 = false;       /** triggerEvent */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GController");
+    olua_check_int(L, 2, &arg1);
+    olua_check_bool(L, 3, &arg2);
+
+    // void setSelectedIndex(int value, @optional bool triggerEvent)
+    self->setSelectedIndex((int)arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GController_setSelectedIndex2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -5590,8 +5770,69 @@ static int _fairygui_GController_setSelectedIndex(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GController");
     olua_check_int(L, 2, &arg1);
 
-    // void setSelectedIndex(int value)
+    // void setSelectedIndex(int value, @optional bool triggerEvent)
     self->setSelectedIndex((int)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GController_setSelectedIndex(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_int(L, 2))) {
+            // void setSelectedIndex(int value, @optional bool triggerEvent)
+            return _fairygui_GController_setSelectedIndex2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_int(L, 2)) && (olua_is_bool(L, 3))) {
+            // void setSelectedIndex(int value, @optional bool triggerEvent)
+            return _fairygui_GController_setSelectedIndex1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::GController::setSelectedIndex' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _fairygui_GController_setSelectedPage1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GController *self = nullptr;
+    std::string arg1;       /** value */
+    bool arg2 = false;       /** triggerEvent */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GController");
+    olua_check_std_string(L, 2, &arg1);
+    olua_check_bool(L, 3, &arg2);
+
+    // void setSelectedPage(const std::string &value, @optional bool triggerEvent)
+    self->setSelectedPage(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GController_setSelectedPage2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GController *self = nullptr;
+    std::string arg1;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GController");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void setSelectedPage(const std::string &value, @optional bool triggerEvent)
+    self->setSelectedPage(arg1);
 
     olua_endinvoke(L);
 
@@ -5600,23 +5841,48 @@ static int _fairygui_GController_setSelectedIndex(lua_State *L)
 
 static int _fairygui_GController_setSelectedPage(lua_State *L)
 {
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            // void setSelectedPage(const std::string &value, @optional bool triggerEvent)
+            return _fairygui_GController_setSelectedPage2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3))) {
+            // void setSelectedPage(const std::string &value, @optional bool triggerEvent)
+            return _fairygui_GController_setSelectedPage1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::GController::setSelectedPage' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _fairygui_GController_setSelectedPageId1(lua_State *L)
+{
     olua_startinvoke(L);
 
     fairygui::GController *self = nullptr;
     std::string arg1;       /** value */
+    bool arg2 = false;       /** triggerEvent */
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GController");
     olua_check_std_string(L, 2, &arg1);
+    olua_check_bool(L, 3, &arg2);
 
-    // void setSelectedPage(const std::string &value)
-    self->setSelectedPage(arg1);
+    // void setSelectedPageId(const std::string &value, @optional bool triggerEvent)
+    self->setSelectedPageId(arg1, arg2);
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int _fairygui_GController_setSelectedPageId(lua_State *L)
+static int _fairygui_GController_setSelectedPageId2(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -5626,10 +5892,33 @@ static int _fairygui_GController_setSelectedPageId(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GController");
     olua_check_std_string(L, 2, &arg1);
 
-    // void setSelectedPageId(const std::string &value)
+    // void setSelectedPageId(const std::string &value, @optional bool triggerEvent)
     self->setSelectedPageId(arg1);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GController_setSelectedPageId(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_std_string(L, 2))) {
+            // void setSelectedPageId(const std::string &value, @optional bool triggerEvent)
+            return _fairygui_GController_setSelectedPageId2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3))) {
+            // void setSelectedPageId(const std::string &value, @optional bool triggerEvent)
+            return _fairygui_GController_setSelectedPageId1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::GController::setSelectedPageId' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -6312,6 +6601,25 @@ static int _fairygui_GObject_getPosition(lua_State *L)
     // const cocos2d::Vec2 &getPosition()
     const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getPosition();
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_GObject_getProp(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GObject *self = nullptr;
+    lua_Unsigned arg1 = 0;       /** propId */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
+    olua_check_uint(L, 2, &arg1);
+
+    // cocos2d::Value getProp(fairygui::ObjectPropID propId)
+    cocos2d::Value ret = (cocos2d::Value)self->getProp((fairygui::ObjectPropID)arg1);
+    int num_ret = manual_olua_push_cocos2d_Value(L, &ret);
 
     olua_endinvoke(L);
 
@@ -7365,6 +7673,26 @@ static int _fairygui_GObject_setPosition(lua_State *L)
     return 0;
 }
 
+static int _fairygui_GObject_setProp(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GObject *self = nullptr;
+    lua_Unsigned arg1 = 0;       /** propId */
+    cocos2d::Value arg2;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
+    olua_check_uint(L, 2, &arg1);
+    manual_olua_check_cocos2d_Value(L, 3, &arg2);
+
+    // void setProp(fairygui::ObjectPropID propId, const cocos2d::Value &value)
+    self->setProp((fairygui::ObjectPropID)arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _fairygui_GObject_setRotation(lua_State *L)
 {
     olua_startinvoke(L);
@@ -7856,6 +8184,23 @@ static int _fairygui_GObject_transformRect(lua_State *L)
     return 0;
 }
 
+static int _fairygui_GObject_treeNode(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GObject *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GObject");
+
+    // fairygui::GTreeNode *treeNode()
+    fairygui::GTreeNode *ret = (fairygui::GTreeNode *)self->treeNode();
+    int num_ret = olua_push_cppobj(L, ret, "fgui.GTreeNode");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _fairygui_GObject_get_id(lua_State *L)
 {
     olua_startinvoke(L);
@@ -8090,6 +8435,7 @@ static int luaopen_fairygui_GObject(lua_State *L)
     oluacls_func(L, "getParent", _fairygui_GObject_getParent);
     oluacls_func(L, "getPivot", _fairygui_GObject_getPivot);
     oluacls_func(L, "getPosition", _fairygui_GObject_getPosition);
+    oluacls_func(L, "getProp", _fairygui_GObject_getProp);
     oluacls_func(L, "getResourceURL", _fairygui_GObject_getResourceURL);
     oluacls_func(L, "getRoot", _fairygui_GObject_getRoot);
     oluacls_func(L, "getRotation", _fairygui_GObject_getRotation);
@@ -8136,6 +8482,7 @@ static int luaopen_fairygui_GObject(lua_State *L)
     oluacls_func(L, "setPivot", _fairygui_GObject_setPivot);
     oluacls_func(L, "setPixelSnapping", _fairygui_GObject_setPixelSnapping);
     oluacls_func(L, "setPosition", _fairygui_GObject_setPosition);
+    oluacls_func(L, "setProp", _fairygui_GObject_setProp);
     oluacls_func(L, "setRotation", _fairygui_GObject_setRotation);
     oluacls_func(L, "setScale", _fairygui_GObject_setScale);
     oluacls_func(L, "setScaleX", _fairygui_GObject_setScaleX);
@@ -8156,6 +8503,7 @@ static int luaopen_fairygui_GObject(lua_State *L)
     oluacls_func(L, "startDrag", _fairygui_GObject_startDrag);
     oluacls_func(L, "stopDrag", _fairygui_GObject_stopDrag);
     oluacls_func(L, "transformRect", _fairygui_GObject_transformRect);
+    oluacls_func(L, "treeNode", _fairygui_GObject_treeNode);
     oluacls_prop(L, "alpha", _fairygui_GObject_getAlpha, _fairygui_GObject_setAlpha);
     oluacls_prop(L, "customData", _fairygui_GObject_getCustomData, _fairygui_GObject_setCustomData);
     oluacls_prop(L, "data", _fairygui_GObject_getData, _fairygui_GObject_setData);
@@ -8472,6 +8820,25 @@ static int _fairygui_GComponent_getChildById(lua_State *L)
 
     // inject code after call
     olua_mapref(L, 1, "children", -1);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_GComponent_getChildByPath(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GComponent *self = nullptr;
+    std::string arg1;       /** path */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GComponent");
+    olua_check_std_string(L, 2, &arg1);
+
+    // fairygui::GObject *getChildByPath(const std::string &path)
+    fairygui::GObject *ret = (fairygui::GObject *)self->getChildByPath(arg1);
+    int num_ret = olua_push_cppobj(L, ret, "fgui.GObject");
 
     olua_endinvoke(L);
 
@@ -9414,6 +9781,7 @@ static int luaopen_fairygui_GComponent(lua_State *L)
     oluacls_func(L, "getChild", _fairygui_GComponent_getChild);
     oluacls_func(L, "getChildAt", _fairygui_GComponent_getChildAt);
     oluacls_func(L, "getChildById", _fairygui_GComponent_getChildById);
+    oluacls_func(L, "getChildByPath", _fairygui_GComponent_getChildByPath);
     oluacls_func(L, "getChildInGroup", _fairygui_GComponent_getChildInGroup);
     oluacls_func(L, "getChildIndex", _fairygui_GComponent_getChildIndex);
     oluacls_func(L, "getChildren", _fairygui_GComponent_getChildren);
@@ -10066,6 +10434,22 @@ static int _fairygui_GRoot_playSound(lua_State *L)
     return 0;
 }
 
+static int _fairygui_GRoot_setNotAsUIRoot(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GRoot *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GRoot");
+
+    // void setNotAsUIRoot()
+    self->setNotAsUIRoot();
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _fairygui_GRoot_setSoundEnabled(lua_State *L)
 {
     olua_startinvoke(L);
@@ -10333,6 +10717,35 @@ static int _fairygui_GRoot_togglePopup(lua_State *L)
     return 0;
 }
 
+static int _fairygui_GRoot_get_contentScaleLevel(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static int contentScaleLevel
+    int ret = (int)fairygui::GRoot::contentScaleLevel;
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_GRoot_set_contentScaleLevel(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Integer arg1 = 0;       /** contentScaleLevel */
+
+    olua_check_int(L, 1, &arg1);
+
+    // static int contentScaleLevel
+    fairygui::GRoot::contentScaleLevel = (int)arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_fairygui_GRoot(lua_State *L)
 {
     oluacls_class(L, "fgui.GRoot", "fgui.GComponent");
@@ -10360,6 +10773,7 @@ static int luaopen_fairygui_GRoot(lua_State *L)
     oluacls_func(L, "isSoundEnabled", _fairygui_GRoot_isSoundEnabled);
     oluacls_func(L, "new", _fairygui_GRoot_new);
     oluacls_func(L, "playSound", _fairygui_GRoot_playSound);
+    oluacls_func(L, "setNotAsUIRoot", _fairygui_GRoot_setNotAsUIRoot);
     oluacls_func(L, "setSoundEnabled", _fairygui_GRoot_setSoundEnabled);
     oluacls_func(L, "setSoundVolumeScale", _fairygui_GRoot_setSoundVolumeScale);
     oluacls_func(L, "showModalWait", _fairygui_GRoot_showModalWait);
@@ -10378,6 +10792,7 @@ static int luaopen_fairygui_GRoot(lua_State *L)
     oluacls_prop(L, "soundVolumeScale", _fairygui_GRoot_getSoundVolumeScale, _fairygui_GRoot_setSoundVolumeScale);
     oluacls_prop(L, "topWindow", _fairygui_GRoot_getTopWindow, nullptr);
     oluacls_prop(L, "touchTarget", _fairygui_GRoot_getTouchTarget, nullptr);
+    oluacls_prop(L, "contentScaleLevel", _fairygui_GRoot_get_contentScaleLevel, _fairygui_GRoot_set_contentScaleLevel);
 
     olua_registerluatype<fairygui::GRoot>(L, "fgui.GRoot");
     oluacls_createclassproxy(L);
@@ -10449,6 +10864,74 @@ static int _fairygui_GGroup_getLineGap(lua_State *L)
     return num_ret;
 }
 
+static int _fairygui_GGroup_getMainGridIndex(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GGroup *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GGroup");
+
+    // int getMainGridIndex()
+    int ret = (int)self->getMainGridIndex();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_GGroup_getMainGridMinSize(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GGroup *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GGroup");
+
+    // int getMainGridMinSize()
+    int ret = (int)self->getMainGridMinSize();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_GGroup_isAutoSizeDisabled(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GGroup *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GGroup");
+
+    // bool isAutoSizeDisabled()
+    bool ret = (bool)self->isAutoSizeDisabled();
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_GGroup_isExcludeInvisibles(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GGroup *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GGroup");
+
+    // bool isExcludeInvisibles()
+    bool ret = (bool)self->isExcludeInvisibles();
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _fairygui_GGroup_moveChildren(lua_State *L)
 {
     olua_startinvoke(L);
@@ -10503,17 +10986,35 @@ static int _fairygui_GGroup_resizeChildren(lua_State *L)
     return 0;
 }
 
+static int _fairygui_GGroup_setAutoSizeDisabled(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GGroup *self = nullptr;
+    bool arg1 = false;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GGroup");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setAutoSizeDisabled(bool value)
+    self->setAutoSizeDisabled(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _fairygui_GGroup_setBoundsChangedFlag1(lua_State *L)
 {
     olua_startinvoke(L);
 
     fairygui::GGroup *self = nullptr;
-    bool arg1 = false;       /** childSizeChanged */
+    bool arg1 = false;       /** positionChangedOnly */
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GGroup");
     olua_check_bool(L, 2, &arg1);
 
-    // void setBoundsChangedFlag(@optional bool childSizeChanged)
+    // void setBoundsChangedFlag(@optional bool positionChangedOnly)
     self->setBoundsChangedFlag(arg1);
 
     olua_endinvoke(L);
@@ -10529,7 +11030,7 @@ static int _fairygui_GGroup_setBoundsChangedFlag2(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.GGroup");
 
-    // void setBoundsChangedFlag(@optional bool childSizeChanged)
+    // void setBoundsChangedFlag(@optional bool positionChangedOnly)
     self->setBoundsChangedFlag();
 
     olua_endinvoke(L);
@@ -10542,13 +11043,13 @@ static int _fairygui_GGroup_setBoundsChangedFlag(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
-        // void setBoundsChangedFlag(@optional bool childSizeChanged)
+        // void setBoundsChangedFlag(@optional bool positionChangedOnly)
         return _fairygui_GGroup_setBoundsChangedFlag2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_bool(L, 2))) {
-            // void setBoundsChangedFlag(@optional bool childSizeChanged)
+            // void setBoundsChangedFlag(@optional bool positionChangedOnly)
             return _fairygui_GGroup_setBoundsChangedFlag1(L);
         // }
     }
@@ -10570,6 +11071,24 @@ static int _fairygui_GGroup_setColumnGap(lua_State *L)
 
     // void setColumnGap(int value)
     self->setColumnGap((int)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GGroup_setExcludeInvisibles(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GGroup *self = nullptr;
+    bool arg1 = false;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GGroup");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setExcludeInvisibles(bool value)
+    self->setExcludeInvisibles(arg1);
 
     olua_endinvoke(L);
 
@@ -10612,6 +11131,42 @@ static int _fairygui_GGroup_setLineGap(lua_State *L)
     return 0;
 }
 
+static int _fairygui_GGroup_setMainGridIndex(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GGroup *self = nullptr;
+    lua_Integer arg1 = 0;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GGroup");
+    olua_check_int(L, 2, &arg1);
+
+    // void setMainGridIndex(int value)
+    self->setMainGridIndex((int)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GGroup_setMainGridMinSize(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GGroup *self = nullptr;
+    lua_Integer arg1 = 0;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GGroup");
+    olua_check_int(L, 2, &arg1);
+
+    // void setMainGridMinSize(int value)
+    self->setMainGridMinSize((int)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_fairygui_GGroup(lua_State *L)
 {
     oluacls_class(L, "fgui.GGroup", "fgui.GObject");
@@ -10619,16 +11174,28 @@ static int luaopen_fairygui_GGroup(lua_State *L)
     oluacls_func(L, "getColumnGap", _fairygui_GGroup_getColumnGap);
     oluacls_func(L, "getLayout", _fairygui_GGroup_getLayout);
     oluacls_func(L, "getLineGap", _fairygui_GGroup_getLineGap);
+    oluacls_func(L, "getMainGridIndex", _fairygui_GGroup_getMainGridIndex);
+    oluacls_func(L, "getMainGridMinSize", _fairygui_GGroup_getMainGridMinSize);
+    oluacls_func(L, "isAutoSizeDisabled", _fairygui_GGroup_isAutoSizeDisabled);
+    oluacls_func(L, "isExcludeInvisibles", _fairygui_GGroup_isExcludeInvisibles);
     oluacls_func(L, "moveChildren", _fairygui_GGroup_moveChildren);
     oluacls_func(L, "new", _fairygui_GGroup_new);
     oluacls_func(L, "resizeChildren", _fairygui_GGroup_resizeChildren);
+    oluacls_func(L, "setAutoSizeDisabled", _fairygui_GGroup_setAutoSizeDisabled);
     oluacls_func(L, "setBoundsChangedFlag", _fairygui_GGroup_setBoundsChangedFlag);
     oluacls_func(L, "setColumnGap", _fairygui_GGroup_setColumnGap);
+    oluacls_func(L, "setExcludeInvisibles", _fairygui_GGroup_setExcludeInvisibles);
     oluacls_func(L, "setLayout", _fairygui_GGroup_setLayout);
     oluacls_func(L, "setLineGap", _fairygui_GGroup_setLineGap);
+    oluacls_func(L, "setMainGridIndex", _fairygui_GGroup_setMainGridIndex);
+    oluacls_func(L, "setMainGridMinSize", _fairygui_GGroup_setMainGridMinSize);
+    oluacls_prop(L, "autoSizeDisabled", _fairygui_GGroup_isAutoSizeDisabled, _fairygui_GGroup_setAutoSizeDisabled);
     oluacls_prop(L, "columnGap", _fairygui_GGroup_getColumnGap, _fairygui_GGroup_setColumnGap);
+    oluacls_prop(L, "excludeInvisibles", _fairygui_GGroup_isExcludeInvisibles, _fairygui_GGroup_setExcludeInvisibles);
     oluacls_prop(L, "layout", _fairygui_GGroup_getLayout, _fairygui_GGroup_setLayout);
     oluacls_prop(L, "lineGap", _fairygui_GGroup_getLineGap, _fairygui_GGroup_setLineGap);
+    oluacls_prop(L, "mainGridIndex", _fairygui_GGroup_getMainGridIndex, _fairygui_GGroup_setMainGridIndex);
+    oluacls_prop(L, "mainGridMinSize", _fairygui_GGroup_getMainGridMinSize, _fairygui_GGroup_setMainGridMinSize);
 
     olua_registerluatype<fairygui::GGroup>(L, "fgui.GGroup");
     oluacls_createclassproxy(L);
@@ -10751,24 +11318,6 @@ static int luaopen_fairygui_GScrollBar(lua_State *L)
     oluacls_createclassproxy(L);
 
     return 1;
-}
-
-static int _fairygui_GLoader_advance(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    fairygui::GLoader *self = nullptr;
-    lua_Number arg1 = 0;       /** time */
-
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.GLoader");
-    olua_check_number(L, 2, &arg1);
-
-    // void advance(float time)
-    self->advance((float)arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
 }
 
 static int _fairygui_GLoader_create(lua_State *L)
@@ -10951,23 +11500,6 @@ static int _fairygui_GLoader_getFrame(lua_State *L)
     // int getFrame()
     int ret = (int)self->getFrame();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _fairygui_GLoader_getTimeScale(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    fairygui::GLoader *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.GLoader");
-
-    // float getTimeScale()
-    float ret = (float)self->getTimeScale();
-    int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
 
@@ -11271,24 +11803,6 @@ static int _fairygui_GLoader_setShrinkOnly(lua_State *L)
     return 0;
 }
 
-static int _fairygui_GLoader_setTimeScale(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    fairygui::GLoader *self = nullptr;
-    lua_Number arg1 = 0;       /** value */
-
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.GLoader");
-    olua_check_number(L, 2, &arg1);
-
-    // void setTimeScale(float value)
-    self->setTimeScale((float)arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
 static int _fairygui_GLoader_setURL(lua_State *L)
 {
     olua_startinvoke(L);
@@ -11328,7 +11842,6 @@ static int _fairygui_GLoader_setVerticalAlign(lua_State *L)
 static int luaopen_fairygui_GLoader(lua_State *L)
 {
     oluacls_class(L, "fgui.GLoader", "fgui.GObject");
-    oluacls_func(L, "advance", _fairygui_GLoader_advance);
     oluacls_func(L, "create", _fairygui_GLoader_create);
     oluacls_func(L, "getAlign", _fairygui_GLoader_getAlign);
     oluacls_func(L, "getAutoSize", _fairygui_GLoader_getAutoSize);
@@ -11340,7 +11853,6 @@ static int luaopen_fairygui_GLoader(lua_State *L)
     oluacls_func(L, "getFillMethod", _fairygui_GLoader_getFillMethod);
     oluacls_func(L, "getFillOrigin", _fairygui_GLoader_getFillOrigin);
     oluacls_func(L, "getFrame", _fairygui_GLoader_getFrame);
-    oluacls_func(L, "getTimeScale", _fairygui_GLoader_getTimeScale);
     oluacls_func(L, "getURL", _fairygui_GLoader_getURL);
     oluacls_func(L, "getVerticalAlign", _fairygui_GLoader_getVerticalAlign);
     oluacls_func(L, "isFillClockwise", _fairygui_GLoader_isFillClockwise);
@@ -11358,7 +11870,6 @@ static int luaopen_fairygui_GLoader(lua_State *L)
     oluacls_func(L, "setFrame", _fairygui_GLoader_setFrame);
     oluacls_func(L, "setPlaying", _fairygui_GLoader_setPlaying);
     oluacls_func(L, "setShrinkOnly", _fairygui_GLoader_setShrinkOnly);
-    oluacls_func(L, "setTimeScale", _fairygui_GLoader_setTimeScale);
     oluacls_func(L, "setURL", _fairygui_GLoader_setURL);
     oluacls_func(L, "setVerticalAlign", _fairygui_GLoader_setVerticalAlign);
     oluacls_prop(L, "align", _fairygui_GLoader_getAlign, _fairygui_GLoader_setAlign);
@@ -11374,7 +11885,6 @@ static int luaopen_fairygui_GLoader(lua_State *L)
     oluacls_prop(L, "frame", _fairygui_GLoader_getFrame, _fairygui_GLoader_setFrame);
     oluacls_prop(L, "playing", _fairygui_GLoader_isPlaying, _fairygui_GLoader_setPlaying);
     oluacls_prop(L, "shrinkOnly", _fairygui_GLoader_isShrinkOnly, _fairygui_GLoader_setShrinkOnly);
-    oluacls_prop(L, "timeScale", _fairygui_GLoader_getTimeScale, _fairygui_GLoader_setTimeScale);
     oluacls_prop(L, "url", _fairygui_GLoader_getURL, _fairygui_GLoader_setURL);
     oluacls_prop(L, "verticalAlign", _fairygui_GLoader_getVerticalAlign, _fairygui_GLoader_setVerticalAlign);
 
@@ -13115,19 +13625,25 @@ static int _fairygui_GList_getSelection(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::GList *self = (fairygui::GList *)olua_toobj(L, 1, "fgui.GList");
-    std::vector<int> selections;
-    self->getSelection(selections);
-    int idx = 1;
-    lua_createtable(L, (int)selections.size(), 0);
-    for (auto v : selections) {
-        lua_pushinteger(L, v);
-        lua_rawseti(L, -2, idx++);
+    fairygui::GList *self = nullptr;
+    std::vector<int> arg1;       /** result */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GList");
+    // no need to check 'arg1' with mark '@out'
+
+    // void getSelection(@out std::vector<int> &result)
+    self->getSelection(arg1);
+
+    int arg1_size = (int)arg1.size();
+    lua_createtable(L, arg1_size, 0);
+    for (int i = 0; i < arg1_size; i++) {
+        olua_push_int(L, (lua_Integer)((std::vector<int>)arg1)[i]);
+        lua_rawseti(L, -2, i + 1);
     }
 
     olua_endinvoke(L);
 
-    return 1;
+    return 0 + 1;
 }
 
 static int _fairygui_GList_getSelectionController(lua_State *L)
@@ -14637,6 +15153,23 @@ static int _fairygui_GProgressBar_getMax(lua_State *L)
     return num_ret;
 }
 
+static int _fairygui_GProgressBar_getMin(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GProgressBar *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GProgressBar");
+
+    // double getMin()
+    double ret = (double)self->getMin();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _fairygui_GProgressBar_getTitleType(lua_State *L)
 {
     olua_startinvoke(L);
@@ -14703,6 +15236,24 @@ static int _fairygui_GProgressBar_setMax(lua_State *L)
     return 0;
 }
 
+static int _fairygui_GProgressBar_setMin(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GProgressBar *self = nullptr;
+    lua_Number arg1 = 0;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GProgressBar");
+    olua_check_number(L, 2, &arg1);
+
+    // void setMin(double value)
+    self->setMin((double)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _fairygui_GProgressBar_setTitleType(lua_State *L)
 {
     olua_startinvoke(L);
@@ -14759,19 +15310,41 @@ static int _fairygui_GProgressBar_tweenValue(lua_State *L)
     return 0;
 }
 
+static int _fairygui_GProgressBar_update(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GProgressBar *self = nullptr;
+    lua_Number arg1 = 0;       /** newValue */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GProgressBar");
+    olua_check_number(L, 2, &arg1);
+
+    // void update(double newValue)
+    self->update((double)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_fairygui_GProgressBar(lua_State *L)
 {
     oluacls_class(L, "fgui.GProgressBar", "fgui.GComponent");
     oluacls_func(L, "create", _fairygui_GProgressBar_create);
     oluacls_func(L, "getMax", _fairygui_GProgressBar_getMax);
+    oluacls_func(L, "getMin", _fairygui_GProgressBar_getMin);
     oluacls_func(L, "getTitleType", _fairygui_GProgressBar_getTitleType);
     oluacls_func(L, "getValue", _fairygui_GProgressBar_getValue);
     oluacls_func(L, "new", _fairygui_GProgressBar_new);
     oluacls_func(L, "setMax", _fairygui_GProgressBar_setMax);
+    oluacls_func(L, "setMin", _fairygui_GProgressBar_setMin);
     oluacls_func(L, "setTitleType", _fairygui_GProgressBar_setTitleType);
     oluacls_func(L, "setValue", _fairygui_GProgressBar_setValue);
     oluacls_func(L, "tweenValue", _fairygui_GProgressBar_tweenValue);
+    oluacls_func(L, "update", _fairygui_GProgressBar_update);
     oluacls_prop(L, "max", _fairygui_GProgressBar_getMax, _fairygui_GProgressBar_setMax);
+    oluacls_prop(L, "min", _fairygui_GProgressBar_getMin, _fairygui_GProgressBar_setMin);
     oluacls_prop(L, "titleType", _fairygui_GProgressBar_getTitleType, _fairygui_GProgressBar_setTitleType);
     oluacls_prop(L, "value", _fairygui_GProgressBar_getValue, _fairygui_GProgressBar_setValue);
 
@@ -15331,6 +15904,23 @@ static int _fairygui_GSlider_getMax(lua_State *L)
     return num_ret;
 }
 
+static int _fairygui_GSlider_getMin(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GSlider *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GSlider");
+
+    // double getMin()
+    double ret = (double)self->getMin();
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _fairygui_GSlider_getTitleType(lua_State *L)
 {
     olua_startinvoke(L);
@@ -15359,6 +15949,23 @@ static int _fairygui_GSlider_getValue(lua_State *L)
     // double getValue()
     double ret = (double)self->getValue();
     int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_GSlider_getWholeNumbers(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GSlider *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GSlider");
+
+    // bool getWholeNumbers()
+    bool ret = (bool)self->getWholeNumbers();
+    int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
 
@@ -15397,6 +16004,24 @@ static int _fairygui_GSlider_setMax(lua_State *L)
     return 0;
 }
 
+static int _fairygui_GSlider_setMin(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GSlider *self = nullptr;
+    lua_Number arg1 = 0;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GSlider");
+    olua_check_number(L, 2, &arg1);
+
+    // void setMin(double value)
+    self->setMin((double)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _fairygui_GSlider_setTitleType(lua_State *L)
 {
     olua_startinvoke(L);
@@ -15427,6 +16052,24 @@ static int _fairygui_GSlider_setValue(lua_State *L)
 
     // void setValue(double value)
     self->setValue((double)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GSlider_setWholeNumbers(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GSlider *self = nullptr;
+    bool arg1 = false;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GSlider");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setWholeNumbers(bool value)
+    self->setWholeNumbers(arg1);
 
     olua_endinvoke(L);
 
@@ -15508,15 +16151,21 @@ static int luaopen_fairygui_GSlider(lua_State *L)
     oluacls_class(L, "fgui.GSlider", "fgui.GComponent");
     oluacls_func(L, "create", _fairygui_GSlider_create);
     oluacls_func(L, "getMax", _fairygui_GSlider_getMax);
+    oluacls_func(L, "getMin", _fairygui_GSlider_getMin);
     oluacls_func(L, "getTitleType", _fairygui_GSlider_getTitleType);
     oluacls_func(L, "getValue", _fairygui_GSlider_getValue);
+    oluacls_func(L, "getWholeNumbers", _fairygui_GSlider_getWholeNumbers);
     oluacls_func(L, "new", _fairygui_GSlider_new);
     oluacls_func(L, "setMax", _fairygui_GSlider_setMax);
+    oluacls_func(L, "setMin", _fairygui_GSlider_setMin);
     oluacls_func(L, "setTitleType", _fairygui_GSlider_setTitleType);
     oluacls_func(L, "setValue", _fairygui_GSlider_setValue);
+    oluacls_func(L, "setWholeNumbers", _fairygui_GSlider_setWholeNumbers);
     oluacls_prop(L, "max", _fairygui_GSlider_getMax, _fairygui_GSlider_setMax);
+    oluacls_prop(L, "min", _fairygui_GSlider_getMin, _fairygui_GSlider_setMin);
     oluacls_prop(L, "titleType", _fairygui_GSlider_getTitleType, _fairygui_GSlider_setTitleType);
     oluacls_prop(L, "value", _fairygui_GSlider_getValue, _fairygui_GSlider_setValue);
+    oluacls_prop(L, "wholeNumbers", _fairygui_GSlider_getWholeNumbers, _fairygui_GSlider_setWholeNumbers);
     oluacls_prop(L, "canDrag", _fairygui_GSlider_get_canDrag, _fairygui_GSlider_set_canDrag);
     oluacls_prop(L, "changeOnClick", _fairygui_GSlider_get_changeOnClick, _fairygui_GSlider_set_changeOnClick);
 
@@ -19235,15 +19884,20 @@ static int _fairygui_UIConfig_getRealFontName(lua_State *L)
 {
     olua_startinvoke(L);
 
-    bool isTTF = false;
-    std::string aliasName = olua_checkstring(L, 1);
-    std::string fontName = fairygui::UIConfig::getRealFontName(aliasName, &isTTF);
-    lua_pushstring(L, fontName.c_str());
-    lua_pushboolean(L, isTTF);
+    std::string arg1;       /** aliasName */
+    bool arg2 = false;       /** isTTF */
+
+    olua_check_std_string(L, 1, &arg1);
+    // no need to check 'arg2' with mark '@out'
+
+    // static const std::string &getRealFontName(const std::string &aliasName, @out bool *isTTF)
+    const std::string &ret = (const std::string &)fairygui::UIConfig::getRealFontName(arg1, &arg2);
+    int num_ret = olua_push_std_string(L, ret);
+    olua_push_bool(L, arg2);
 
     olua_endinvoke(L);
 
-    return 2;
+    return num_ret + 1;
 }
 
 static int _fairygui_UIConfig_registerFont(lua_State *L)
@@ -21080,6 +21734,25 @@ static int luaopen_fairygui_UIObjectFactory(lua_State *L)
     return 1;
 }
 
+static int _fairygui_GearBase_create(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GObject *arg1 = nullptr;       /** owner */
+    lua_Integer arg2 = 0;       /** index */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "fgui.GObject");
+    olua_check_int(L, 2, &arg2);
+
+    // static fairygui::GearBase *create(fairygui::GObject *owner, int index)
+    fairygui::GearBase *ret = (fairygui::GearBase *)fairygui::GearBase::create(arg1, (int)arg2);
+    int num_ret = olua_push_cppobj(L, ret, "fgui.GearBase");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _fairygui_GearBase_get_disableAllTweenEffect(lua_State *L)
 {
     olua_startinvoke(L);
@@ -21112,6 +21785,7 @@ static int _fairygui_GearBase_set_disableAllTweenEffect(lua_State *L)
 static int luaopen_fairygui_GearBase(lua_State *L)
 {
     oluacls_class(L, "fgui.GearBase", nullptr);
+    oluacls_func(L, "create", _fairygui_GearBase_create);
     oluacls_prop(L, "disableAllTweenEffect", _fairygui_GearBase_get_disableAllTweenEffect, _fairygui_GearBase_set_disableAllTweenEffect);
 
     olua_registerluatype<fairygui::GearBase>(L, "fgui.GearBase");
@@ -21120,19 +21794,19 @@ static int luaopen_fairygui_GearBase(lua_State *L)
     return 1;
 }
 
-static int _fairygui_TreeNode_addChild(lua_State *L)
+static int _fairygui_GTreeNode_addChild(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::TreeNode *self = nullptr;
-    fairygui::TreeNode *arg1 = nullptr;       /** child */
+    fairygui::GTreeNode *self = nullptr;
+    fairygui::GTreeNode *arg1 = nullptr;       /** child */
 
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
-    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.TreeNode");
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GTreeNode");
 
-    // fairygui::TreeNode *addChild(@ref(map children) fairygui::TreeNode *child)
-    fairygui::TreeNode *ret = (fairygui::TreeNode *)self->addChild(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "fgui.TreeNode");
+    // fairygui::GTreeNode *addChild(@ref(map children) fairygui::GTreeNode *child)
+    fairygui::GTreeNode *ret = (fairygui::GTreeNode *)self->addChild(arg1);
+    int num_ret = olua_push_cppobj(L, ret, "fgui.GTreeNode");
 
     // inject code after call
     olua_mapref(L, 1, "children", 2);
@@ -21142,21 +21816,21 @@ static int _fairygui_TreeNode_addChild(lua_State *L)
     return num_ret;
 }
 
-static int _fairygui_TreeNode_addChildAt(lua_State *L)
+static int _fairygui_GTreeNode_addChildAt(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::TreeNode *self = nullptr;
-    fairygui::TreeNode *arg1 = nullptr;       /** child */
+    fairygui::GTreeNode *self = nullptr;
+    fairygui::GTreeNode *arg1 = nullptr;       /** child */
     lua_Integer arg2 = 0;       /** index */
 
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
-    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.TreeNode");
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GTreeNode");
     olua_check_int(L, 3, &arg2);
 
-    // fairygui::TreeNode *addChildAt(@ref(map children) fairygui::TreeNode *child, int index)
-    fairygui::TreeNode *ret = (fairygui::TreeNode *)self->addChildAt(arg1, (int)arg2);
-    int num_ret = olua_push_cppobj(L, ret, "fgui.TreeNode");
+    // fairygui::GTreeNode *addChildAt(@ref(map children) fairygui::GTreeNode *child, int index)
+    fairygui::GTreeNode *ret = (fairygui::GTreeNode *)self->addChildAt(arg1, (int)arg2);
+    int num_ret = olua_push_cppobj(L, ret, "fgui.GTreeNode");
 
     // inject code after call
     olua_mapref(L, 1, "children", 2);
@@ -21166,7 +21840,39 @@ static int _fairygui_TreeNode_addChildAt(lua_State *L)
     return num_ret;
 }
 
-static int _fairygui_TreeNode_create1(lua_State *L)
+static int _fairygui_GTreeNode_create1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    bool arg1 = false;       /** isFolder */
+    std::string arg2;       /** resURL */
+
+    olua_check_bool(L, 1, &arg1);
+    olua_check_std_string(L, 2, &arg2);
+
+    // static fairygui::GTreeNode *create(@optional bool isFolder, @optional const std::string &resURL)
+    fairygui::GTreeNode *ret = (fairygui::GTreeNode *)fairygui::GTreeNode::create(arg1, arg2);
+    int num_ret = olua_push_cppobj(L, ret, "fgui.GTreeNode");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_GTreeNode_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static fairygui::GTreeNode *create(@optional bool isFolder, @optional const std::string &resURL)
+    fairygui::GTreeNode *ret = (fairygui::GTreeNode *)fairygui::GTreeNode::create();
+    int num_ret = olua_push_cppobj(L, ret, "fgui.GTreeNode");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_GTreeNode_create3(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -21174,56 +21880,50 @@ static int _fairygui_TreeNode_create1(lua_State *L)
 
     olua_check_bool(L, 1, &arg1);
 
-    // static fairygui::TreeNode *create(@optional bool isFolder)
-    fairygui::TreeNode *ret = (fairygui::TreeNode *)fairygui::TreeNode::create(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "fgui.TreeNode");
+    // static fairygui::GTreeNode *create(@optional bool isFolder, @optional const std::string &resURL)
+    fairygui::GTreeNode *ret = (fairygui::GTreeNode *)fairygui::GTreeNode::create(arg1);
+    int num_ret = olua_push_cppobj(L, ret, "fgui.GTreeNode");
 
     olua_endinvoke(L);
 
     return num_ret;
 }
 
-static int _fairygui_TreeNode_create2(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    // static fairygui::TreeNode *create(@optional bool isFolder)
-    fairygui::TreeNode *ret = (fairygui::TreeNode *)fairygui::TreeNode::create();
-    int num_ret = olua_push_cppobj(L, ret, "fgui.TreeNode");
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _fairygui_TreeNode_create(lua_State *L)
+static int _fairygui_GTreeNode_create(lua_State *L)
 {
     int num_args = lua_gettop(L);
 
     if (num_args == 0) {
-        // static fairygui::TreeNode *create(@optional bool isFolder)
-        return _fairygui_TreeNode_create2(L);
+        // static fairygui::GTreeNode *create(@optional bool isFolder, @optional const std::string &resURL)
+        return _fairygui_GTreeNode_create2(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_bool(L, 1))) {
-            // static fairygui::TreeNode *create(@optional bool isFolder)
-            return _fairygui_TreeNode_create1(L);
+            // static fairygui::GTreeNode *create(@optional bool isFolder, @optional const std::string &resURL)
+            return _fairygui_GTreeNode_create3(L);
         // }
     }
 
-    luaL_error(L, "method 'fairygui::TreeNode::create' not support '%d' arguments", num_args);
+    if (num_args == 2) {
+        // if ((olua_is_bool(L, 1)) && (olua_is_std_string(L, 2))) {
+            // static fairygui::GTreeNode *create(@optional bool isFolder, @optional const std::string &resURL)
+            return _fairygui_GTreeNode_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::GTreeNode::create' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _fairygui_TreeNode_getCell(lua_State *L)
+static int _fairygui_GTreeNode_getCell(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::TreeNode *self = nullptr;
+    fairygui::GTreeNode *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
 
     // @ref(single cell) fairygui::GComponent *getCell()
     fairygui::GComponent *ret = (fairygui::GComponent *)self->getCell();
@@ -21237,19 +21937,19 @@ static int _fairygui_TreeNode_getCell(lua_State *L)
     return num_ret;
 }
 
-static int _fairygui_TreeNode_getChildAt(lua_State *L)
+static int _fairygui_GTreeNode_getChildAt(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::TreeNode *self = nullptr;
+    fairygui::GTreeNode *self = nullptr;
     lua_Integer arg1 = 0;       /** index */
 
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
     olua_check_int(L, 2, &arg1);
 
-    // @ref(map children) fairygui::TreeNode *getChildAt(int index)
-    fairygui::TreeNode *ret = (fairygui::TreeNode *)self->getChildAt((int)arg1);
-    int num_ret = olua_push_cppobj(L, ret, "fgui.TreeNode");
+    // @ref(map children) fairygui::GTreeNode *getChildAt(int index)
+    fairygui::GTreeNode *ret = (fairygui::GTreeNode *)self->getChildAt((int)arg1);
+    int num_ret = olua_push_cppobj(L, ret, "fgui.GTreeNode");
 
     // inject code after call
     olua_mapref(L, 1, "children", -1);
@@ -21259,17 +21959,17 @@ static int _fairygui_TreeNode_getChildAt(lua_State *L)
     return num_ret;
 }
 
-static int _fairygui_TreeNode_getChildIndex(lua_State *L)
+static int _fairygui_GTreeNode_getChildIndex(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::TreeNode *self = nullptr;
-    fairygui::TreeNode *arg1 = nullptr;       /** child */
+    fairygui::GTreeNode *self = nullptr;
+    fairygui::GTreeNode *arg1 = nullptr;       /** child */
 
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
-    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.TreeNode");
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GTreeNode");
 
-    // int getChildIndex(const fairygui::TreeNode *child)
+    // int getChildIndex(const fairygui::GTreeNode *child)
     int ret = (int)self->getChildIndex(arg1);
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
@@ -21278,13 +21978,13 @@ static int _fairygui_TreeNode_getChildIndex(lua_State *L)
     return num_ret;
 }
 
-static int _fairygui_TreeNode_getData(lua_State *L)
+static int _fairygui_GTreeNode_getData(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::TreeNode *self = nullptr;
+    fairygui::GTreeNode *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
 
     // const cocos2d::Value &getData()
     const cocos2d::Value &ret = (const cocos2d::Value &)self->getData();
@@ -21295,17 +21995,34 @@ static int _fairygui_TreeNode_getData(lua_State *L)
     return num_ret;
 }
 
-static int _fairygui_TreeNode_getNextSibling(lua_State *L)
+static int _fairygui_GTreeNode_getIcon(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::TreeNode *self = nullptr;
+    fairygui::GTreeNode *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
 
-    // @ref(map children) fairygui::TreeNode *getNextSibling()
-    fairygui::TreeNode *ret = (fairygui::TreeNode *)self->getNextSibling();
-    int num_ret = olua_push_cppobj(L, ret, "fgui.TreeNode");
+    // const std::string &getIcon()
+    const std::string &ret = (const std::string &)self->getIcon();
+    int num_ret = olua_push_std_string(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_GTreeNode_getNextSibling(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GTreeNode *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
+
+    // @ref(map children) fairygui::GTreeNode *getNextSibling()
+    fairygui::GTreeNode *ret = (fairygui::GTreeNode *)self->getNextSibling();
+    int num_ret = olua_push_cppobj(L, ret, "fgui.GTreeNode");
 
     // inject code after call
     olua_mapref(L, 1, "children", -1);
@@ -21315,34 +22032,34 @@ static int _fairygui_TreeNode_getNextSibling(lua_State *L)
     return num_ret;
 }
 
-static int _fairygui_TreeNode_getParent(lua_State *L)
+static int _fairygui_GTreeNode_getParent(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::TreeNode *self = nullptr;
+    fairygui::GTreeNode *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
 
-    // fairygui::TreeNode *getParent()
-    fairygui::TreeNode *ret = (fairygui::TreeNode *)self->getParent();
-    int num_ret = olua_push_cppobj(L, ret, "fgui.TreeNode");
+    // fairygui::GTreeNode *getParent()
+    fairygui::GTreeNode *ret = (fairygui::GTreeNode *)self->getParent();
+    int num_ret = olua_push_cppobj(L, ret, "fgui.GTreeNode");
 
     olua_endinvoke(L);
 
     return num_ret;
 }
 
-static int _fairygui_TreeNode_getPrevSibling(lua_State *L)
+static int _fairygui_GTreeNode_getPrevSibling(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::TreeNode *self = nullptr;
+    fairygui::GTreeNode *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
 
-    // @ref(map children) fairygui::TreeNode *getPrevSibling()
-    fairygui::TreeNode *ret = (fairygui::TreeNode *)self->getPrevSibling();
-    int num_ret = olua_push_cppobj(L, ret, "fgui.TreeNode");
+    // @ref(map children) fairygui::GTreeNode *getPrevSibling()
+    fairygui::GTreeNode *ret = (fairygui::GTreeNode *)self->getPrevSibling();
+    int num_ret = olua_push_cppobj(L, ret, "fgui.GTreeNode");
 
     // inject code after call
     olua_mapref(L, 1, "children", -1);
@@ -21352,30 +22069,13 @@ static int _fairygui_TreeNode_getPrevSibling(lua_State *L)
     return num_ret;
 }
 
-static int _fairygui_TreeNode_getRoot(lua_State *L)
+static int _fairygui_GTreeNode_getText(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::TreeNode *self = nullptr;
+    fairygui::GTreeNode *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
-
-    // fairygui::TreeView *getRoot()
-    fairygui::TreeView *ret = (fairygui::TreeView *)self->getRoot();
-    int num_ret = olua_push_cppobj(L, ret, "fgui.TreeView");
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _fairygui_TreeNode_getText(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    fairygui::TreeNode *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
 
     // const std::string &getText()
     const std::string &ret = (const std::string &)self->getText();
@@ -21386,13 +22086,30 @@ static int _fairygui_TreeNode_getText(lua_State *L)
     return num_ret;
 }
 
-static int _fairygui_TreeNode_isExpanded(lua_State *L)
+static int _fairygui_GTreeNode_getTree(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::TreeNode *self = nullptr;
+    fairygui::GTreeNode *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
+
+    // fairygui::GTree *getTree()
+    fairygui::GTree *ret = (fairygui::GTree *)self->getTree();
+    int num_ret = olua_push_cppobj(L, ret, "fgui.GTree");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_GTreeNode_isExpanded(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GTreeNode *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
 
     // bool isExpanded()
     bool ret = (bool)self->isExpanded();
@@ -21403,13 +22120,13 @@ static int _fairygui_TreeNode_isExpanded(lua_State *L)
     return num_ret;
 }
 
-static int _fairygui_TreeNode_isFolder(lua_State *L)
+static int _fairygui_GTreeNode_isFolder(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::TreeNode *self = nullptr;
+    fairygui::GTreeNode *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
 
     // bool isFolder()
     bool ret = (bool)self->isFolder();
@@ -21420,13 +22137,13 @@ static int _fairygui_TreeNode_isFolder(lua_State *L)
     return num_ret;
 }
 
-static int _fairygui_TreeNode_new(lua_State *L)
+static int _fairygui_GTreeNode_new(lua_State *L)
 {
     olua_startinvoke(L);
 
-    // TreeNode()
-    fairygui::TreeNode *ret = (fairygui::TreeNode *)new fairygui::TreeNode();
-    int num_ret = olua_push_cppobj(L, ret, "fgui.TreeNode");
+    // GTreeNode()
+    fairygui::GTreeNode *ret = (fairygui::GTreeNode *)new fairygui::GTreeNode();
+    int num_ret = olua_push_cppobj(L, ret, "fgui.GTreeNode");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -21434,13 +22151,13 @@ static int _fairygui_TreeNode_new(lua_State *L)
     return num_ret;
 }
 
-static int _fairygui_TreeNode_numChildren(lua_State *L)
+static int _fairygui_GTreeNode_numChildren(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::TreeNode *self = nullptr;
+    fairygui::GTreeNode *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
 
     // int numChildren()
     int ret = (int)self->numChildren();
@@ -21451,17 +22168,17 @@ static int _fairygui_TreeNode_numChildren(lua_State *L)
     return num_ret;
 }
 
-static int _fairygui_TreeNode_removeChild(lua_State *L)
+static int _fairygui_GTreeNode_removeChild(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::TreeNode *self = nullptr;
-    fairygui::TreeNode *arg1 = nullptr;       /** child */
+    fairygui::GTreeNode *self = nullptr;
+    fairygui::GTreeNode *arg1 = nullptr;       /** child */
 
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
-    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.TreeNode");
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GTreeNode");
 
-    // void removeChild(@unref(map children) fairygui::TreeNode *child)
+    // void removeChild(@unref(map children) fairygui::GTreeNode *child)
     self->removeChild(arg1);
 
     // inject code after call
@@ -21472,14 +22189,14 @@ static int _fairygui_TreeNode_removeChild(lua_State *L)
     return 0;
 }
 
-static int _fairygui_TreeNode_removeChildAt(lua_State *L)
+static int _fairygui_GTreeNode_removeChildAt(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::TreeNode *self = nullptr;
+    fairygui::GTreeNode *self = nullptr;
     lua_Integer arg1 = 0;       /** index */
 
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
     olua_check_int(L, 2, &arg1);
 
     // inject code before call
@@ -21496,13 +22213,13 @@ static int _fairygui_TreeNode_removeChildAt(lua_State *L)
     return 0;
 }
 
-static int _fairygui_TreeNode_removeChildren1(lua_State *L)
+static int _fairygui_GTreeNode_removeChildren1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::TreeNode *self = nullptr;
+    fairygui::GTreeNode *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
 
     // inject code before call
     olua_startcmpunref(L, 1, "children");
@@ -21518,15 +22235,15 @@ static int _fairygui_TreeNode_removeChildren1(lua_State *L)
     return 0;
 }
 
-static int _fairygui_TreeNode_removeChildren2(lua_State *L)
+static int _fairygui_GTreeNode_removeChildren2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::TreeNode *self = nullptr;
+    fairygui::GTreeNode *self = nullptr;
     lua_Integer arg1 = 0;       /** beginIndex */
     lua_Integer arg2 = 0;       /** endIndex */
 
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
     olua_check_int(L, 2, &arg1);
     olua_check_int(L, 3, &arg2);
 
@@ -21544,40 +22261,40 @@ static int _fairygui_TreeNode_removeChildren2(lua_State *L)
     return 0;
 }
 
-static int _fairygui_TreeNode_removeChildren(lua_State *L)
+static int _fairygui_GTreeNode_removeChildren(lua_State *L)
 {
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 0) {
         // @unref(cmp children) void removeChildren()
-        return _fairygui_TreeNode_removeChildren1(L);
+        return _fairygui_GTreeNode_removeChildren1(L);
     }
 
     if (num_args == 2) {
         // if ((olua_is_int(L, 2)) && (olua_is_int(L, 3))) {
             // @unref(cmp children) void removeChildren(int beginIndex, int endIndex)
-            return _fairygui_TreeNode_removeChildren2(L);
+            return _fairygui_GTreeNode_removeChildren2(L);
         // }
     }
 
-    luaL_error(L, "method 'fairygui::TreeNode::removeChildren' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'fairygui::GTreeNode::removeChildren' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _fairygui_TreeNode_setChildIndex(lua_State *L)
+static int _fairygui_GTreeNode_setChildIndex(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::TreeNode *self = nullptr;
-    fairygui::TreeNode *arg1 = nullptr;       /** child */
+    fairygui::GTreeNode *self = nullptr;
+    fairygui::GTreeNode *arg1 = nullptr;       /** child */
     lua_Integer arg2 = 0;       /** index */
 
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
-    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.TreeNode");
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GTreeNode");
     olua_check_int(L, 3, &arg2);
 
-    // void setChildIndex(fairygui::TreeNode *child, int index)
+    // void setChildIndex(fairygui::GTreeNode *child, int index)
     self->setChildIndex(arg1, (int)arg2);
 
     olua_endinvoke(L);
@@ -21585,19 +22302,19 @@ static int _fairygui_TreeNode_setChildIndex(lua_State *L)
     return 0;
 }
 
-static int _fairygui_TreeNode_setChildIndexBefore(lua_State *L)
+static int _fairygui_GTreeNode_setChildIndexBefore(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::TreeNode *self = nullptr;
-    fairygui::TreeNode *arg1 = nullptr;       /** child */
+    fairygui::GTreeNode *self = nullptr;
+    fairygui::GTreeNode *arg1 = nullptr;       /** child */
     lua_Integer arg2 = 0;       /** index */
 
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
-    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.TreeNode");
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GTreeNode");
     olua_check_int(L, 3, &arg2);
 
-    // int setChildIndexBefore(fairygui::TreeNode *child, int index)
+    // int setChildIndexBefore(fairygui::GTreeNode *child, int index)
     int ret = (int)self->setChildIndexBefore(arg1, (int)arg2);
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
@@ -21606,14 +22323,14 @@ static int _fairygui_TreeNode_setChildIndexBefore(lua_State *L)
     return num_ret;
 }
 
-static int _fairygui_TreeNode_setData(lua_State *L)
+static int _fairygui_GTreeNode_setData(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::TreeNode *self = nullptr;
+    fairygui::GTreeNode *self = nullptr;
     cocos2d::Value arg1;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
     manual_olua_check_cocos2d_Value(L, 2, &arg1);
 
     // void setData(const cocos2d::Value &value)
@@ -21624,14 +22341,14 @@ static int _fairygui_TreeNode_setData(lua_State *L)
     return 0;
 }
 
-static int _fairygui_TreeNode_setExpaned(lua_State *L)
+static int _fairygui_GTreeNode_setExpaned(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::TreeNode *self = nullptr;
+    fairygui::GTreeNode *self = nullptr;
     bool arg1 = false;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
     olua_check_bool(L, 2, &arg1);
 
     // void setExpaned(bool value)
@@ -21642,19 +22359,55 @@ static int _fairygui_TreeNode_setExpaned(lua_State *L)
     return 0;
 }
 
-static int _fairygui_TreeNode_swapChildren(lua_State *L)
+static int _fairygui_GTreeNode_setIcon(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::TreeNode *self = nullptr;
-    fairygui::TreeNode *arg1 = nullptr;       /** child1 */
-    fairygui::TreeNode *arg2 = nullptr;       /** child2 */
+    fairygui::GTreeNode *self = nullptr;
+    std::string arg1;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
-    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.TreeNode");
-    olua_check_cppobj(L, 3, (void **)&arg2, "fgui.TreeNode");
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
+    olua_check_std_string(L, 2, &arg1);
 
-    // void swapChildren(fairygui::TreeNode *child1, fairygui::TreeNode *child2)
+    // void setIcon(const std::string &value)
+    self->setIcon(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GTreeNode_setText(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GTreeNode *self = nullptr;
+    std::string arg1;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
+    olua_check_std_string(L, 2, &arg1);
+
+    // void setText(const std::string &value)
+    self->setText(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GTreeNode_swapChildren(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GTreeNode *self = nullptr;
+    fairygui::GTreeNode *arg1 = nullptr;       /** child1 */
+    fairygui::GTreeNode *arg2 = nullptr;       /** child2 */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GTreeNode");
+    olua_check_cppobj(L, 3, (void **)&arg2, "fgui.GTreeNode");
+
+    // void swapChildren(fairygui::GTreeNode *child1, fairygui::GTreeNode *child2)
     self->swapChildren(arg1, arg2);
 
     olua_endinvoke(L);
@@ -21662,15 +22415,15 @@ static int _fairygui_TreeNode_swapChildren(lua_State *L)
     return 0;
 }
 
-static int _fairygui_TreeNode_swapChildrenAt(lua_State *L)
+static int _fairygui_GTreeNode_swapChildrenAt(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::TreeNode *self = nullptr;
+    fairygui::GTreeNode *self = nullptr;
     lua_Integer arg1 = 0;       /** index1 */
     lua_Integer arg2 = 0;       /** index2 */
 
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeNode");
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTreeNode");
     olua_check_int(L, 2, &arg1);
     olua_check_int(L, 3, &arg2);
 
@@ -21682,139 +22435,66 @@ static int _fairygui_TreeNode_swapChildrenAt(lua_State *L)
     return 0;
 }
 
-static int luaopen_fairygui_TreeNode(lua_State *L)
+static int luaopen_fairygui_GTreeNode(lua_State *L)
 {
-    oluacls_class(L, "fgui.TreeNode", "cc.Ref");
-    oluacls_func(L, "addChild", _fairygui_TreeNode_addChild);
-    oluacls_func(L, "addChildAt", _fairygui_TreeNode_addChildAt);
-    oluacls_func(L, "create", _fairygui_TreeNode_create);
-    oluacls_func(L, "getCell", _fairygui_TreeNode_getCell);
-    oluacls_func(L, "getChildAt", _fairygui_TreeNode_getChildAt);
-    oluacls_func(L, "getChildIndex", _fairygui_TreeNode_getChildIndex);
-    oluacls_func(L, "getData", _fairygui_TreeNode_getData);
-    oluacls_func(L, "getNextSibling", _fairygui_TreeNode_getNextSibling);
-    oluacls_func(L, "getParent", _fairygui_TreeNode_getParent);
-    oluacls_func(L, "getPrevSibling", _fairygui_TreeNode_getPrevSibling);
-    oluacls_func(L, "getRoot", _fairygui_TreeNode_getRoot);
-    oluacls_func(L, "getText", _fairygui_TreeNode_getText);
-    oluacls_func(L, "isExpanded", _fairygui_TreeNode_isExpanded);
-    oluacls_func(L, "isFolder", _fairygui_TreeNode_isFolder);
-    oluacls_func(L, "new", _fairygui_TreeNode_new);
-    oluacls_func(L, "numChildren", _fairygui_TreeNode_numChildren);
-    oluacls_func(L, "removeChild", _fairygui_TreeNode_removeChild);
-    oluacls_func(L, "removeChildAt", _fairygui_TreeNode_removeChildAt);
-    oluacls_func(L, "removeChildren", _fairygui_TreeNode_removeChildren);
-    oluacls_func(L, "setChildIndex", _fairygui_TreeNode_setChildIndex);
-    oluacls_func(L, "setChildIndexBefore", _fairygui_TreeNode_setChildIndexBefore);
-    oluacls_func(L, "setData", _fairygui_TreeNode_setData);
-    oluacls_func(L, "setExpaned", _fairygui_TreeNode_setExpaned);
-    oluacls_func(L, "swapChildren", _fairygui_TreeNode_swapChildren);
-    oluacls_func(L, "swapChildrenAt", _fairygui_TreeNode_swapChildrenAt);
-    oluacls_prop(L, "cell", _fairygui_TreeNode_getCell, nullptr);
-    oluacls_prop(L, "data", _fairygui_TreeNode_getData, _fairygui_TreeNode_setData);
-    oluacls_prop(L, "expanded", _fairygui_TreeNode_isExpanded, nullptr);
-    oluacls_prop(L, "folder", _fairygui_TreeNode_isFolder, nullptr);
-    oluacls_prop(L, "nextSibling", _fairygui_TreeNode_getNextSibling, nullptr);
-    oluacls_prop(L, "numChildren", _fairygui_TreeNode_numChildren, nullptr);
-    oluacls_prop(L, "parent", _fairygui_TreeNode_getParent, nullptr);
-    oluacls_prop(L, "prevSibling", _fairygui_TreeNode_getPrevSibling, nullptr);
-    oluacls_prop(L, "root", _fairygui_TreeNode_getRoot, nullptr);
-    oluacls_prop(L, "text", _fairygui_TreeNode_getText, nullptr);
+    oluacls_class(L, "fgui.GTreeNode", "cc.Ref");
+    oluacls_func(L, "addChild", _fairygui_GTreeNode_addChild);
+    oluacls_func(L, "addChildAt", _fairygui_GTreeNode_addChildAt);
+    oluacls_func(L, "create", _fairygui_GTreeNode_create);
+    oluacls_func(L, "getCell", _fairygui_GTreeNode_getCell);
+    oluacls_func(L, "getChildAt", _fairygui_GTreeNode_getChildAt);
+    oluacls_func(L, "getChildIndex", _fairygui_GTreeNode_getChildIndex);
+    oluacls_func(L, "getData", _fairygui_GTreeNode_getData);
+    oluacls_func(L, "getIcon", _fairygui_GTreeNode_getIcon);
+    oluacls_func(L, "getNextSibling", _fairygui_GTreeNode_getNextSibling);
+    oluacls_func(L, "getParent", _fairygui_GTreeNode_getParent);
+    oluacls_func(L, "getPrevSibling", _fairygui_GTreeNode_getPrevSibling);
+    oluacls_func(L, "getText", _fairygui_GTreeNode_getText);
+    oluacls_func(L, "getTree", _fairygui_GTreeNode_getTree);
+    oluacls_func(L, "isExpanded", _fairygui_GTreeNode_isExpanded);
+    oluacls_func(L, "isFolder", _fairygui_GTreeNode_isFolder);
+    oluacls_func(L, "new", _fairygui_GTreeNode_new);
+    oluacls_func(L, "numChildren", _fairygui_GTreeNode_numChildren);
+    oluacls_func(L, "removeChild", _fairygui_GTreeNode_removeChild);
+    oluacls_func(L, "removeChildAt", _fairygui_GTreeNode_removeChildAt);
+    oluacls_func(L, "removeChildren", _fairygui_GTreeNode_removeChildren);
+    oluacls_func(L, "setChildIndex", _fairygui_GTreeNode_setChildIndex);
+    oluacls_func(L, "setChildIndexBefore", _fairygui_GTreeNode_setChildIndexBefore);
+    oluacls_func(L, "setData", _fairygui_GTreeNode_setData);
+    oluacls_func(L, "setExpaned", _fairygui_GTreeNode_setExpaned);
+    oluacls_func(L, "setIcon", _fairygui_GTreeNode_setIcon);
+    oluacls_func(L, "setText", _fairygui_GTreeNode_setText);
+    oluacls_func(L, "swapChildren", _fairygui_GTreeNode_swapChildren);
+    oluacls_func(L, "swapChildrenAt", _fairygui_GTreeNode_swapChildrenAt);
+    oluacls_prop(L, "cell", _fairygui_GTreeNode_getCell, nullptr);
+    oluacls_prop(L, "data", _fairygui_GTreeNode_getData, _fairygui_GTreeNode_setData);
+    oluacls_prop(L, "expanded", _fairygui_GTreeNode_isExpanded, nullptr);
+    oluacls_prop(L, "folder", _fairygui_GTreeNode_isFolder, nullptr);
+    oluacls_prop(L, "icon", _fairygui_GTreeNode_getIcon, _fairygui_GTreeNode_setIcon);
+    oluacls_prop(L, "nextSibling", _fairygui_GTreeNode_getNextSibling, nullptr);
+    oluacls_prop(L, "numChildren", _fairygui_GTreeNode_numChildren, nullptr);
+    oluacls_prop(L, "parent", _fairygui_GTreeNode_getParent, nullptr);
+    oluacls_prop(L, "prevSibling", _fairygui_GTreeNode_getPrevSibling, nullptr);
+    oluacls_prop(L, "text", _fairygui_GTreeNode_getText, _fairygui_GTreeNode_setText);
+    oluacls_prop(L, "tree", _fairygui_GTreeNode_getTree, nullptr);
 
-    olua_registerluatype<fairygui::TreeNode>(L, "fgui.TreeNode");
+    olua_registerluatype<fairygui::GTreeNode>(L, "fgui.GTreeNode");
     oluacls_createclassproxy(L);
 
     return 1;
 }
 
-static int _fairygui_TreeView_addSelection1(lua_State *L)
+static int _fairygui_GTree_collapseAll(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::TreeView *self = nullptr;
-    fairygui::TreeNode *arg1 = nullptr;       /** node */
-    bool arg2 = false;       /** scrollItToView */
+    fairygui::GTree *self = nullptr;
+    fairygui::GTreeNode *arg1 = nullptr;       /** folderNode */
 
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeView");
-    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.TreeNode");
-    olua_check_bool(L, 3, &arg2);
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTree");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GTreeNode");
 
-    // void addSelection(fairygui::TreeNode *node, @optional bool scrollItToView)
-    self->addSelection(arg1, arg2);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _fairygui_TreeView_addSelection2(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    fairygui::TreeView *self = nullptr;
-    fairygui::TreeNode *arg1 = nullptr;       /** node */
-
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeView");
-    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.TreeNode");
-
-    // void addSelection(fairygui::TreeNode *node, @optional bool scrollItToView)
-    self->addSelection(arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _fairygui_TreeView_addSelection(lua_State *L)
-{
-    int num_args = lua_gettop(L) - 1;
-
-    if (num_args == 1) {
-        // if ((olua_is_cppobj(L, 2, "fgui.TreeNode"))) {
-            // void addSelection(fairygui::TreeNode *node, @optional bool scrollItToView)
-            return _fairygui_TreeView_addSelection2(L);
-        // }
-    }
-
-    if (num_args == 2) {
-        // if ((olua_is_cppobj(L, 2, "fgui.TreeNode")) && (olua_is_bool(L, 3))) {
-            // void addSelection(fairygui::TreeNode *node, @optional bool scrollItToView)
-            return _fairygui_TreeView_addSelection1(L);
-        // }
-    }
-
-    luaL_error(L, "method 'fairygui::TreeView::addSelection' not support '%d' arguments", num_args);
-
-    return 0;
-}
-
-static int _fairygui_TreeView_clearSelection(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    fairygui::TreeView *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeView");
-
-    // void clearSelection()
-    self->clearSelection();
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _fairygui_TreeView_collapseAll(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    fairygui::TreeView *self = nullptr;
-    fairygui::TreeNode *arg1 = nullptr;       /** folderNode */
-
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeView");
-    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.TreeNode");
-
-    // void collapseAll(fairygui::TreeNode *folderNode)
+    // void collapseAll(fairygui::GTreeNode *folderNode)
     self->collapseAll(arg1);
 
     olua_endinvoke(L);
@@ -21822,40 +22502,30 @@ static int _fairygui_TreeView_collapseAll(lua_State *L)
     return 0;
 }
 
-static int _fairygui_TreeView_create(lua_State *L)
+static int _fairygui_GTree_create(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::GList *arg1 = nullptr;       /** list */
-
-    olua_check_cppobj(L, 1, (void **)&arg1, "fgui.GList");
-
-    // static fairygui::TreeView *create(@ref(single list) fairygui::GList *list)
-    fairygui::TreeView *ret = (fairygui::TreeView *)fairygui::TreeView::create(arg1);
-    int num_ret = olua_push_cppobj(L, ret, "fgui.TreeView");
-
-    // inject code after call
-    olua_push_cppobj<fairygui::TreeNode>(L, ret->getRootNode());
-    olua_singleref(L, -2, "rootNode", -1);
-    lua_pop(L, 1);
-    olua_singleref(L, -1, "list", 1);
+    // static fairygui::GTree *create()
+    fairygui::GTree *ret = (fairygui::GTree *)fairygui::GTree::create();
+    int num_ret = olua_push_cppobj(L, ret, "fgui.GTree");
 
     olua_endinvoke(L);
 
     return num_ret;
 }
 
-static int _fairygui_TreeView_expandAll(lua_State *L)
+static int _fairygui_GTree_expandAll(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::TreeView *self = nullptr;
-    fairygui::TreeNode *arg1 = nullptr;       /** folderNode */
+    fairygui::GTree *self = nullptr;
+    fairygui::GTreeNode *arg1 = nullptr;       /** folderNode */
 
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeView");
-    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.TreeNode");
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTree");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GTreeNode");
 
-    // void expandAll(fairygui::TreeNode *folderNode)
+    // void expandAll(fairygui::GTreeNode *folderNode)
     self->expandAll(arg1);
 
     olua_endinvoke(L);
@@ -21863,38 +22533,16 @@ static int _fairygui_TreeView_expandAll(lua_State *L)
     return 0;
 }
 
-static int _fairygui_TreeView_getList(lua_State *L)
+static int _fairygui_GTree_getClickToExpand(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::TreeView *self = nullptr;
+    fairygui::GTree *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeView");
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTree");
 
-    // @ref(single list) fairygui::GList *getList()
-    fairygui::GList *ret = (fairygui::GList *)self->getList();
-    int num_ret = olua_push_cppobj(L, ret, "fgui.GList");
-
-    // inject code after call
-    olua_singleref(L, 1, "list", -1);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _fairygui_TreeView_getNodeIndex(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    fairygui::TreeView *self = nullptr;
-    fairygui::TreeNode *arg1 = nullptr;       /** node */
-
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeView");
-    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.TreeNode");
-
-    // int getNodeIndex(fairygui::TreeNode *node)
-    int ret = (int)self->getNodeIndex(arg1);
+    // int getClickToExpand()
+    int ret = (int)self->getClickToExpand();
     int num_ret = olua_push_int(L, (lua_Integer)ret);
 
     olua_endinvoke(L);
@@ -21902,17 +22550,34 @@ static int _fairygui_TreeView_getNodeIndex(lua_State *L)
     return num_ret;
 }
 
-static int _fairygui_TreeView_getRootNode(lua_State *L)
+static int _fairygui_GTree_getIndent(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::TreeView *self = nullptr;
+    fairygui::GTree *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeView");
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTree");
 
-    // @ref(single rootNode) fairygui::TreeNode *getRootNode()
-    fairygui::TreeNode *ret = (fairygui::TreeNode *)self->getRootNode();
-    int num_ret = olua_push_cppobj(L, ret, "fgui.TreeNode");
+    // int getIndent()
+    int ret = (int)self->getIndent();
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_GTree_getRootNode(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GTree *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTree");
+
+    // @ref(single rootNode) fairygui::GTreeNode *getRootNode()
+    fairygui::GTreeNode *ret = (fairygui::GTreeNode *)self->getRootNode();
+    int num_ret = olua_push_cppobj(L, ret, "fgui.GTreeNode");
 
     // inject code after call
     olua_singleref(L, 1, "rootNode", -1);
@@ -21922,49 +22587,50 @@ static int _fairygui_TreeView_getRootNode(lua_State *L)
     return num_ret;
 }
 
-static int _fairygui_TreeView_getSelectedNode(lua_State *L)
+static int _fairygui_GTree_getSelectedNode(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::TreeView *self = nullptr;
+    fairygui::GTree *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeView");
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTree");
 
-    // fairygui::TreeNode *getSelectedNode()
-    fairygui::TreeNode *ret = (fairygui::TreeNode *)self->getSelectedNode();
-    int num_ret = olua_push_cppobj(L, ret, "fgui.TreeNode");
+    // fairygui::GTreeNode *getSelectedNode()
+    fairygui::GTreeNode *ret = (fairygui::GTreeNode *)self->getSelectedNode();
+    int num_ret = olua_push_cppobj(L, ret, "fgui.GTreeNode");
 
     olua_endinvoke(L);
 
     return num_ret;
 }
 
-static int _fairygui_TreeView_getSelection(lua_State *L)
+static int _fairygui_GTree_getSelectedNodes(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::TreeView *self = (fairygui::TreeView *)olua_toobj(L, 1, "fgui.TreeView");
-    std::vector<fairygui::TreeNode *> selections;
-    self->getSelection(selections);
-    int idx = 1;
-    lua_createtable(L, (int)selections.size(), 0);
-    for (auto v : selections) {
-        olua_push_cppobj<fairygui::TreeNode>(L, v);
-        lua_rawseti(L, -2, idx++);
-    }
+    fairygui::GTree *self = nullptr;
+    std::vector<fairygui::GTreeNode *> arg1;       /** result */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTree");
+    // no need to check 'arg1' with mark '@out'
+
+    // void getSelectedNodes(@out std::vector<GTreeNode *> &result)
+    self->getSelectedNodes(arg1);
+
+    olua_push_std_vector(L, arg1, "fgui.GTreeNode");
 
     olua_endinvoke(L);
 
-    return 1;
+    return 0 + 1;
 }
 
-static int _fairygui_TreeView_new(lua_State *L)
+static int _fairygui_GTree_new(lua_State *L)
 {
     olua_startinvoke(L);
 
-    // TreeView()
-    fairygui::TreeView *ret = (fairygui::TreeView *)new fairygui::TreeView();
-    int num_ret = olua_push_cppobj(L, ret, "fgui.TreeView");
+    // GTree()
+    fairygui::GTree *ret = (fairygui::GTree *)new fairygui::GTree();
+    int num_ret = olua_push_cppobj(L, ret, "fgui.GTree");
     olua_postnew(L, ret);
 
     olua_endinvoke(L);
@@ -21972,155 +22638,177 @@ static int _fairygui_TreeView_new(lua_State *L)
     return num_ret;
 }
 
-static int _fairygui_TreeView_removeSelection(lua_State *L)
+static int _fairygui_GTree_selectNode1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::TreeView *self = nullptr;
-    fairygui::TreeNode *arg1 = nullptr;       /** node */
+    fairygui::GTree *self = nullptr;
+    fairygui::GTreeNode *arg1 = nullptr;       /** node */
+    bool arg2 = false;       /** scrollItToView */
 
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeView");
-    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.TreeNode");
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTree");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GTreeNode");
+    olua_check_bool(L, 3, &arg2);
 
-    // void removeSelection(fairygui::TreeNode *node)
-    self->removeSelection(arg1);
+    // void selectNode(fairygui::GTreeNode *node, @optional bool scrollItToView)
+    self->selectNode(arg1, arg2);
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int _fairygui_TreeView_updateNode(lua_State *L)
+static int _fairygui_GTree_selectNode2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::TreeView *self = nullptr;
-    fairygui::TreeNode *arg1 = nullptr;       /** node */
+    fairygui::GTree *self = nullptr;
+    fairygui::GTreeNode *arg1 = nullptr;       /** node */
 
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeView");
-    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.TreeNode");
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTree");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GTreeNode");
 
-    // void updateNode(fairygui::TreeNode *node)
-    self->updateNode(arg1);
+    // void selectNode(fairygui::GTreeNode *node, @optional bool scrollItToView)
+    self->selectNode(arg1);
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int _fairygui_TreeView_get_treeNodeCreateCell(lua_State *L)
+static int _fairygui_GTree_selectNode(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_cppobj(L, 2, "fgui.GTreeNode"))) {
+            // void selectNode(fairygui::GTreeNode *node, @optional bool scrollItToView)
+            return _fairygui_GTree_selectNode2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_cppobj(L, 2, "fgui.GTreeNode")) && (olua_is_bool(L, 3))) {
+            // void selectNode(fairygui::GTreeNode *node, @optional bool scrollItToView)
+            return _fairygui_GTree_selectNode1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::GTree::selectNode' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _fairygui_GTree_setClickToExpand(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::TreeView *self = nullptr;
+    fairygui::GTree *self = nullptr;
+    lua_Integer arg1 = 0;       /** value */
 
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeView");
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTree");
+    olua_check_int(L, 2, &arg1);
+
+    // void setClickToExpand(int value)
+    self->setClickToExpand((int)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GTree_setIndent(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GTree *self = nullptr;
+    lua_Integer arg1 = 0;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTree");
+    olua_check_int(L, 2, &arg1);
+
+    // void setIndent(int value)
+    self->setIndent((int)arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GTree_unselectNode(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GTree *self = nullptr;
+    fairygui::GTreeNode *arg1 = nullptr;       /** node */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTree");
+    olua_check_cppobj(L, 2, (void **)&arg1, "fgui.GTreeNode");
+
+    // void unselectNode(fairygui::GTreeNode *node)
+    self->unselectNode(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_GTree_get_treeNodeRender(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GTree *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTree");
 
     void *callback_store_obj = (void *)self;
-    std::string tag = "treeNodeCreateCell";
+    std::string tag = "treeNodeRender";
     olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
 
-    // std::function<GComponent*(TreeNode* node)> treeNodeCreateCell
-    std::function<fairygui::GComponent *(fairygui::TreeNode *)> ret = (std::function<fairygui::GComponent *(fairygui::TreeNode *)>)self->treeNodeCreateCell;
-    int num_ret = olua_push_std_function(L, (std::function<fairygui::GComponent *(fairygui::TreeNode *)>)ret);
+    // @nullable std::function<void (GTreeNode *, GComponent *)> treeNodeRender
+    std::function<void(fairygui::GTreeNode *, fairygui::GComponent *)> ret = (std::function<void(fairygui::GTreeNode *, fairygui::GComponent *)>)self->treeNodeRender;
+    int num_ret = olua_push_std_function(L, (std::function<void(fairygui::GTreeNode *, fairygui::GComponent *)>)ret);
 
     olua_endinvoke(L);
 
     return num_ret;
 }
 
-static int _fairygui_TreeView_set_treeNodeCreateCell(lua_State *L)
+static int _fairygui_GTree_set_treeNodeRender(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::TreeView *self = nullptr;
-    std::function<fairygui::GComponent *(fairygui::TreeNode *)> arg1;       /** treeNodeCreateCell */
+    fairygui::GTree *self = nullptr;
+    std::function<void(fairygui::GTreeNode *, fairygui::GComponent *)> arg1;       /** treeNodeRender */
 
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeView");
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTree");
 
-    void *callback_store_obj = (void *)self;
-    std::string tag = "treeNodeCreateCell";
-    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-    lua_State *MT = olua_mainthread();
-    arg1 = [callback_store_obj, func, MT](fairygui::TreeNode *arg1) {
-        lua_State *L = olua_mainthread();
-        fairygui::GComponent *ret = nullptr;       
-        if (MT == L) {
-            int top = lua_gettop(L);
-            olua_push_cppobj(L, arg1, "fgui.TreeNode");
+    if (olua_is_std_function(L, 2)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = "treeNodeRender";
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
+        lua_State *MT = olua_mainthread();
+        arg1 = [callback_store_obj, func, MT](fairygui::GTreeNode *arg1, fairygui::GComponent *arg2) {
+            lua_State *L = olua_mainthread();
 
-            olua_callback(L, callback_store_obj, func.c_str(), 1);
+            if (MT == L) {
+                int top = lua_gettop(L);
+                olua_push_cppobj(L, arg1, "fgui.GTreeNode");
+                olua_push_cppobj(L, arg2, "fgui.GComponent");
 
-            if (olua_is_cppobj(L, -1, "fgui.GComponent")) {
-                olua_check_cppobj(L, -1, (void **)&ret, "fgui.GComponent");
+                olua_callback(L, callback_store_obj, func.c_str(), 2);
+
+                lua_settop(L, top);
             }
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = "treeNodeRender";
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+        arg1 = nullptr;
+    }
 
-            // inject code after call
-            olua_push_cppobj<fairygui::TreeNode>(L, arg1);
-            olua_singleref(L, -1, "cell", -2);
-            lua_pop(L, 1);
-
-            lua_settop(L, top);
-        }
-        return ret;
-    };
-
-    // std::function<GComponent*(TreeNode* node)> treeNodeCreateCell
-    self->treeNodeCreateCell = arg1;
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _fairygui_TreeView_get_treeNodeRender(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    fairygui::TreeView *self = nullptr;
-
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeView");
-
-    void *callback_store_obj = (void *)self;
-    std::string tag = "treeNodeRender";
-    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
-
-    // std::function<void(TreeNode* node)> treeNodeRender
-    std::function<void(fairygui::TreeNode *)> ret = (std::function<void(fairygui::TreeNode *)>)self->treeNodeRender;
-    int num_ret = olua_push_std_function(L, (std::function<void(fairygui::TreeNode *)>)ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _fairygui_TreeView_set_treeNodeRender(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    fairygui::TreeView *self = nullptr;
-    std::function<void(fairygui::TreeNode *)> arg1;       /** treeNodeRender */
-
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeView");
-
-    void *callback_store_obj = (void *)self;
-    std::string tag = "treeNodeRender";
-    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-    lua_State *MT = olua_mainthread();
-    arg1 = [callback_store_obj, func, MT](fairygui::TreeNode *arg1) {
-        lua_State *L = olua_mainthread();
-
-        if (MT == L) {
-            int top = lua_gettop(L);
-            olua_push_cppobj(L, arg1, "fgui.TreeNode");
-
-            olua_callback(L, callback_store_obj, func.c_str(), 1);
-
-            lua_settop(L, top);
-        }
-    };
-
-    // std::function<void(TreeNode* node)> treeNodeRender
+    // @nullable std::function<void (GTreeNode *, GComponent *)> treeNodeRender
     self->treeNodeRender = arg1;
 
     olua_endinvoke(L);
@@ -22128,55 +22816,62 @@ static int _fairygui_TreeView_set_treeNodeRender(lua_State *L)
     return 0;
 }
 
-static int _fairygui_TreeView_get_treeNodeWillExpand(lua_State *L)
+static int _fairygui_GTree_get_treeNodeWillExpand(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::TreeView *self = nullptr;
+    fairygui::GTree *self = nullptr;
 
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeView");
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTree");
 
     void *callback_store_obj = (void *)self;
     std::string tag = "treeNodeWillExpand";
     olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
 
-    // std::function<void(TreeNode* node, bool expand)> treeNodeWillExpand
-    std::function<void(fairygui::TreeNode *, bool)> ret = (std::function<void(fairygui::TreeNode *, bool)>)self->treeNodeWillExpand;
-    int num_ret = olua_push_std_function(L, (std::function<void(fairygui::TreeNode *, bool)>)ret);
+    // @nullable std::function<void (GTreeNode *, bool)> treeNodeWillExpand
+    std::function<void(fairygui::GTreeNode *, bool)> ret = (std::function<void(fairygui::GTreeNode *, bool)>)self->treeNodeWillExpand;
+    int num_ret = olua_push_std_function(L, (std::function<void(fairygui::GTreeNode *, bool)>)ret);
 
     olua_endinvoke(L);
 
     return num_ret;
 }
 
-static int _fairygui_TreeView_set_treeNodeWillExpand(lua_State *L)
+static int _fairygui_GTree_set_treeNodeWillExpand(lua_State *L)
 {
     olua_startinvoke(L);
 
-    fairygui::TreeView *self = nullptr;
-    std::function<void(fairygui::TreeNode *, bool)> arg1;       /** treeNodeWillExpand */
+    fairygui::GTree *self = nullptr;
+    std::function<void(fairygui::GTreeNode *, bool)> arg1;       /** treeNodeWillExpand */
 
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.TreeView");
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GTree");
 
-    void *callback_store_obj = (void *)self;
-    std::string tag = "treeNodeWillExpand";
-    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-    lua_State *MT = olua_mainthread();
-    arg1 = [callback_store_obj, func, MT](fairygui::TreeNode *arg1, bool arg2) {
-        lua_State *L = olua_mainthread();
+    if (olua_is_std_function(L, 2)) {
+        void *callback_store_obj = (void *)self;
+        std::string tag = "treeNodeWillExpand";
+        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
+        lua_State *MT = olua_mainthread();
+        arg1 = [callback_store_obj, func, MT](fairygui::GTreeNode *arg1, bool arg2) {
+            lua_State *L = olua_mainthread();
 
-        if (MT == L) {
-            int top = lua_gettop(L);
-            olua_push_cppobj(L, arg1, "fgui.TreeNode");
-            olua_push_bool(L, arg2);
+            if (MT == L) {
+                int top = lua_gettop(L);
+                olua_push_cppobj(L, arg1, "fgui.GTreeNode");
+                olua_push_bool(L, arg2);
 
-            olua_callback(L, callback_store_obj, func.c_str(), 2);
+                olua_callback(L, callback_store_obj, func.c_str(), 2);
 
-            lua_settop(L, top);
-        }
-    };
+                lua_settop(L, top);
+            }
+        };
+    } else {
+        void *callback_store_obj = (void *)self;
+        std::string tag = "treeNodeWillExpand";
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+        arg1 = nullptr;
+    }
 
-    // std::function<void(TreeNode* node, bool expand)> treeNodeWillExpand
+    // @nullable std::function<void (GTreeNode *, bool)> treeNodeWillExpand
     self->treeNodeWillExpand = arg1;
 
     olua_endinvoke(L);
@@ -22184,30 +22879,30 @@ static int _fairygui_TreeView_set_treeNodeWillExpand(lua_State *L)
     return 0;
 }
 
-static int luaopen_fairygui_TreeView(lua_State *L)
+static int luaopen_fairygui_GTree(lua_State *L)
 {
-    oluacls_class(L, "fgui.TreeView", "fgui.UIEventDispatcher");
-    oluacls_func(L, "addSelection", _fairygui_TreeView_addSelection);
-    oluacls_func(L, "clearSelection", _fairygui_TreeView_clearSelection);
-    oluacls_func(L, "collapseAll", _fairygui_TreeView_collapseAll);
-    oluacls_func(L, "create", _fairygui_TreeView_create);
-    oluacls_func(L, "expandAll", _fairygui_TreeView_expandAll);
-    oluacls_func(L, "getList", _fairygui_TreeView_getList);
-    oluacls_func(L, "getNodeIndex", _fairygui_TreeView_getNodeIndex);
-    oluacls_func(L, "getRootNode", _fairygui_TreeView_getRootNode);
-    oluacls_func(L, "getSelectedNode", _fairygui_TreeView_getSelectedNode);
-    oluacls_func(L, "getSelection", _fairygui_TreeView_getSelection);
-    oluacls_func(L, "new", _fairygui_TreeView_new);
-    oluacls_func(L, "removeSelection", _fairygui_TreeView_removeSelection);
-    oluacls_func(L, "updateNode", _fairygui_TreeView_updateNode);
-    oluacls_prop(L, "list", _fairygui_TreeView_getList, nullptr);
-    oluacls_prop(L, "rootNode", _fairygui_TreeView_getRootNode, nullptr);
-    oluacls_prop(L, "selectedNode", _fairygui_TreeView_getSelectedNode, nullptr);
-    oluacls_prop(L, "treeNodeCreateCell", _fairygui_TreeView_get_treeNodeCreateCell, _fairygui_TreeView_set_treeNodeCreateCell);
-    oluacls_prop(L, "treeNodeRender", _fairygui_TreeView_get_treeNodeRender, _fairygui_TreeView_set_treeNodeRender);
-    oluacls_prop(L, "treeNodeWillExpand", _fairygui_TreeView_get_treeNodeWillExpand, _fairygui_TreeView_set_treeNodeWillExpand);
+    oluacls_class(L, "fgui.GTree", "fgui.GList");
+    oluacls_func(L, "collapseAll", _fairygui_GTree_collapseAll);
+    oluacls_func(L, "create", _fairygui_GTree_create);
+    oluacls_func(L, "expandAll", _fairygui_GTree_expandAll);
+    oluacls_func(L, "getClickToExpand", _fairygui_GTree_getClickToExpand);
+    oluacls_func(L, "getIndent", _fairygui_GTree_getIndent);
+    oluacls_func(L, "getRootNode", _fairygui_GTree_getRootNode);
+    oluacls_func(L, "getSelectedNode", _fairygui_GTree_getSelectedNode);
+    oluacls_func(L, "getSelectedNodes", _fairygui_GTree_getSelectedNodes);
+    oluacls_func(L, "new", _fairygui_GTree_new);
+    oluacls_func(L, "selectNode", _fairygui_GTree_selectNode);
+    oluacls_func(L, "setClickToExpand", _fairygui_GTree_setClickToExpand);
+    oluacls_func(L, "setIndent", _fairygui_GTree_setIndent);
+    oluacls_func(L, "unselectNode", _fairygui_GTree_unselectNode);
+    oluacls_prop(L, "clickToExpand", _fairygui_GTree_getClickToExpand, _fairygui_GTree_setClickToExpand);
+    oluacls_prop(L, "indent", _fairygui_GTree_getIndent, _fairygui_GTree_setIndent);
+    oluacls_prop(L, "rootNode", _fairygui_GTree_getRootNode, nullptr);
+    oluacls_prop(L, "selectedNode", _fairygui_GTree_getSelectedNode, nullptr);
+    oluacls_prop(L, "treeNodeRender", _fairygui_GTree_get_treeNodeRender, _fairygui_GTree_set_treeNodeRender);
+    oluacls_prop(L, "treeNodeWillExpand", _fairygui_GTree_get_treeNodeWillExpand, _fairygui_GTree_set_treeNodeWillExpand);
 
-    olua_registerluatype<fairygui::TreeView>(L, "fgui.TreeView");
+    olua_registerluatype<fairygui::GTree>(L, "fgui.GTree");
     oluacls_createclassproxy(L);
 
     return 1;
@@ -23182,6 +23877,23 @@ static int _fairygui_FUISprite_isFillClockwise(lua_State *L)
     return num_ret;
 }
 
+static int _fairygui_FUISprite_isScaleByTile(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::FUISprite *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.FUISprite");
+
+    // bool isScaleByTile()
+    bool ret = (bool)self->isScaleByTile();
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _fairygui_FUISprite_new(lua_State *L)
 {
     olua_startinvoke(L);
@@ -23286,6 +23998,24 @@ static int _fairygui_FUISprite_setGrayed(lua_State *L)
     return 0;
 }
 
+static int _fairygui_FUISprite_setScaleByTile(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::FUISprite *self = nullptr;
+    bool arg1 = false;       /** value */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.FUISprite");
+    olua_check_bool(L, 2, &arg1);
+
+    // void setScaleByTile(bool value)
+    self->setScaleByTile(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int luaopen_fairygui_FUISprite(lua_State *L)
 {
     oluacls_class(L, "fgui.FUISprite", "cc.Sprite");
@@ -23295,16 +24025,19 @@ static int luaopen_fairygui_FUISprite(lua_State *L)
     oluacls_func(L, "getFillMethod", _fairygui_FUISprite_getFillMethod);
     oluacls_func(L, "getFillOrigin", _fairygui_FUISprite_getFillOrigin);
     oluacls_func(L, "isFillClockwise", _fairygui_FUISprite_isFillClockwise);
+    oluacls_func(L, "isScaleByTile", _fairygui_FUISprite_isScaleByTile);
     oluacls_func(L, "new", _fairygui_FUISprite_new);
     oluacls_func(L, "setFillAmount", _fairygui_FUISprite_setFillAmount);
     oluacls_func(L, "setFillClockwise", _fairygui_FUISprite_setFillClockwise);
     oluacls_func(L, "setFillMethod", _fairygui_FUISprite_setFillMethod);
     oluacls_func(L, "setFillOrigin", _fairygui_FUISprite_setFillOrigin);
     oluacls_func(L, "setGrayed", _fairygui_FUISprite_setGrayed);
+    oluacls_func(L, "setScaleByTile", _fairygui_FUISprite_setScaleByTile);
     oluacls_prop(L, "fillAmount", _fairygui_FUISprite_getFillAmount, _fairygui_FUISprite_setFillAmount);
     oluacls_prop(L, "fillClockwise", _fairygui_FUISprite_isFillClockwise, _fairygui_FUISprite_setFillClockwise);
     oluacls_prop(L, "fillMethod", _fairygui_FUISprite_getFillMethod, _fairygui_FUISprite_setFillMethod);
     oluacls_prop(L, "fillOrigin", _fairygui_FUISprite_getFillOrigin, _fairygui_FUISprite_setFillOrigin);
+    oluacls_prop(L, "scaleByTile", _fairygui_FUISprite_isScaleByTile, _fairygui_FUISprite_setScaleByTile);
 
     olua_registerluatype<fairygui::FUISprite>(L, "fgui.FUISprite");
     oluacls_createclassproxy(L);
@@ -23324,6 +24057,7 @@ int luaopen_fairygui(lua_State *L)
     olua_require(L, "fgui.EaseType", luaopen_fairygui_EaseType);
     olua_require(L, "fgui.EaseManager", luaopen_fairygui_EaseManager);
     olua_require(L, "fgui.TweenPropType", luaopen_fairygui_TweenPropType);
+    olua_require(L, "fgui.GPath", luaopen_fairygui_GPath);
     olua_require(L, "fgui.GTweener", luaopen_fairygui_GTweener);
     olua_require(L, "fgui.GTween", luaopen_fairygui_GTween);
     olua_require(L, "fgui.UIPackage", luaopen_fairygui_UIPackage);
@@ -23346,6 +24080,7 @@ int luaopen_fairygui(lua_State *L)
     olua_require(L, "fgui.TransitionActionType", luaopen_fairygui_TransitionActionType);
     olua_require(L, "fgui.FillMethod", luaopen_fairygui_FillMethod);
     olua_require(L, "fgui.FillOrigin", luaopen_fairygui_FillOrigin);
+    olua_require(L, "fgui.ObjectPropID", luaopen_fairygui_ObjectPropID);
     olua_require(L, "fgui.GController", luaopen_fairygui_GController);
     olua_require(L, "fgui.GObject", luaopen_fairygui_GObject);
     olua_require(L, "fgui.GComponent", luaopen_fairygui_GComponent);
@@ -23379,8 +24114,8 @@ int luaopen_fairygui(lua_State *L)
     olua_require(L, "fgui.DragDropManager", luaopen_fairygui_DragDropManager);
     olua_require(L, "fgui.UIObjectFactory", luaopen_fairygui_UIObjectFactory);
     olua_require(L, "fgui.GearBase", luaopen_fairygui_GearBase);
-    olua_require(L, "fgui.TreeNode", luaopen_fairygui_TreeNode);
-    olua_require(L, "fgui.TreeView", luaopen_fairygui_TreeView);
+    olua_require(L, "fgui.GTreeNode", luaopen_fairygui_GTreeNode);
+    olua_require(L, "fgui.GTree", luaopen_fairygui_GTree);
     olua_require(L, "fgui.FUIContainer", luaopen_fairygui_FUIContainer);
     olua_require(L, "fgui.FUIInput", luaopen_fairygui_FUIInput);
     olua_require(L, "fgui.FUILabel", luaopen_fairygui_FUILabel);

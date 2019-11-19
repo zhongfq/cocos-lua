@@ -26,9 +26,9 @@ public:
     void setGrayed(bool value);
 protected:
     /*
-    æ³¨æ„ï¼ï¼ï¼å¦‚æžœè¿™é‡Œå‡ºçŽ°äº†ç¼–è¯‘é”™è¯¯ï¼Œéœ€è¦ä¿®æ”¹cocos2dçš„æºç ï¼Œæ–‡ä»¶2d/CCLabel.hï¼Œå¤§çº¦åœ¨672è¡Œï¼Œä¸ºupdateBMFontScaleå‡½æ•°æ‰“ä¸Švirtualä¿®é¥°ç¬¦ã€‚
-    å› ä¸ºè¿™ä¸ªæ–¹æ³•é‡Œæœ‰å¼ºåˆ¶å­—ä½“å¯¹è±¡æŒ‡é’ˆä¸ºFontFntç±»åž‹çš„ä»£ç ï¼Œä½†æˆ‘ä»¬ä¸ä½¿ç”¨FontFntï¼ˆFontFntåªæ”¯æŒä»Žå¤–éƒ¨æ–‡ä»¶ä¸­è½½å…¥é…ç½®ï¼Œæ›´ç³Ÿç³•çš„æ˜¯BMFontConfigurationæ˜¯å®šä¹‰åœ¨cppé‡Œçš„ã€‚ï¼‰
-    æ‰€ä»¥éœ€è¦é‡å†™è¿™ä¸ªæ–¹æ³•ã€‚
+    ×¢Òâ£¡£¡£¡Èç¹ûÕâÀï³öÏÖÁË±àÒë´íÎó£¬ÐèÒªÐÞ¸Äcocos2dµÄÔ´Âë£¬ÎÄ¼þ2d/CCLabel.h£¬´óÔ¼ÔÚ672ÐÐ£¬ÎªupdateBMFontScaleº¯Êý´òÉÏvirtualÐÞÊÎ·û¡£
+    ÒòÎªÕâ¸ö·½·¨ÀïÓÐÇ¿ÖÆ×ÖÌå¶ÔÏóÖ¸ÕëÎªFontFntÀàÐÍµÄ´úÂë£¬µ«ÎÒÃÇ²»Ê¹ÓÃFontFnt£¨FontFntÖ»Ö§³Ö´ÓÍâ²¿ÎÄ¼þÖÐÔØÈëÅäÖÃ£¬¸üÔã¸âµÄÊÇBMFontConfigurationÊÇ¶¨ÒåÔÚcppÀïµÄ¡££©
+    ËùÒÔÐèÒªÖØÐ´Õâ¸ö·½·¨¡£
     */
     virtual void updateBMFontScale() override;
 

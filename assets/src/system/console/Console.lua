@@ -19,6 +19,7 @@ function Console:onCreate()
     self.view = UIPackage.createObject("console", "main")
     self.view.width = self.width
     self.view.height = self.height
+    self.rootfgui.name = 'console'
     self.rootfgui:addChild(self.view)
     self.rootfgui:setSize(self.width, self.height)
 

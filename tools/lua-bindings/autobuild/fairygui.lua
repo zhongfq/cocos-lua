@@ -1181,6 +1181,8 @@ cls.funcs [[
     float getSoundVolumeScale()
     void setSoundVolumeScale(float value)
     void setNotAsUIRoot()
+    cocos2d::Vec2 worldToRoot(@pack const cocos2d::Vec2 &pt)
+    cocos2d::Vec2 rootToWorld(@pack const cocos2d::Vec2 &pt)
 ]]
 cls.var('contentScaleLevel', [[static int contentScaleLevel]])
 cls.prop('UIRoot', 'static GRoot* getInstance()')

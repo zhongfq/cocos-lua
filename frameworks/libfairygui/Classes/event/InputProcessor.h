@@ -73,7 +73,6 @@ public:
     bool touchDown(cocos2d::Touch *touch, cocos2d::Event *event);
     void touchMove(cocos2d::Touch *touch, cocos2d::Event *event);
     void touchUp(cocos2d::Touch *touch, cocos2d::Event *event);
-    cocos2d::Vec2 worldToGRoot(const cocos2d::Vec2 &pt);
 };
 
 NS_FGUI_END

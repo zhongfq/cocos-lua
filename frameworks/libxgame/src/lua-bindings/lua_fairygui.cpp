@@ -10434,6 +10434,67 @@ static int _fairygui_GRoot_playSound(lua_State *L)
     return 0;
 }
 
+static int _fairygui_GRoot_rootToWorld1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GRoot *self = nullptr;
+    cocos2d::Vec2 arg1;       /** pt */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GRoot");
+    auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
+
+    // cocos2d::Vec2 rootToWorld(const cocos2d::Vec2 &pt)
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->rootToWorld(arg1);
+    int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_GRoot_rootToWorld2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GRoot *self = nullptr;
+    cocos2d::Vec2 arg1;       /** pt */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GRoot");
+    auto_olua_pack_cocos2d_Vec2(L, 2, &arg1);
+
+    // cocos2d::Vec2 rootToWorld(@pack const cocos2d::Vec2 &pt)
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->rootToWorld(arg1);
+    int num_ret = auto_olua_unpack_cocos2d_Vec2(L, &ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_GRoot_rootToWorld(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((auto_olua_is_cocos2d_Vec2(L, 2))) {
+            // cocos2d::Vec2 rootToWorld(const cocos2d::Vec2 &pt)
+            return _fairygui_GRoot_rootToWorld1(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((auto_olua_ispack_cocos2d_Vec2(L, 2))) {
+            // cocos2d::Vec2 rootToWorld(@pack const cocos2d::Vec2 &pt)
+            return _fairygui_GRoot_rootToWorld2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::GRoot::rootToWorld' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
 static int _fairygui_GRoot_setNotAsUIRoot(lua_State *L)
 {
     olua_startinvoke(L);
@@ -10717,6 +10778,67 @@ static int _fairygui_GRoot_togglePopup(lua_State *L)
     return 0;
 }
 
+static int _fairygui_GRoot_worldToRoot1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GRoot *self = nullptr;
+    cocos2d::Vec2 arg1;       /** pt */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GRoot");
+    auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
+
+    // cocos2d::Vec2 worldToRoot(const cocos2d::Vec2 &pt)
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->worldToRoot(arg1);
+    int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_GRoot_worldToRoot2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::GRoot *self = nullptr;
+    cocos2d::Vec2 arg1;       /** pt */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.GRoot");
+    auto_olua_pack_cocos2d_Vec2(L, 2, &arg1);
+
+    // cocos2d::Vec2 worldToRoot(@pack const cocos2d::Vec2 &pt)
+    cocos2d::Vec2 ret = (cocos2d::Vec2)self->worldToRoot(arg1);
+    int num_ret = auto_olua_unpack_cocos2d_Vec2(L, &ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_GRoot_worldToRoot(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((auto_olua_is_cocos2d_Vec2(L, 2))) {
+            // cocos2d::Vec2 worldToRoot(const cocos2d::Vec2 &pt)
+            return _fairygui_GRoot_worldToRoot1(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((auto_olua_ispack_cocos2d_Vec2(L, 2))) {
+            // cocos2d::Vec2 worldToRoot(@pack const cocos2d::Vec2 &pt)
+            return _fairygui_GRoot_worldToRoot2(L);
+        // }
+    }
+
+    luaL_error(L, "method 'fairygui::GRoot::worldToRoot' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
 static int _fairygui_GRoot_get_contentScaleLevel(lua_State *L)
 {
     olua_startinvoke(L);
@@ -10773,6 +10895,7 @@ static int luaopen_fairygui_GRoot(lua_State *L)
     oluacls_func(L, "isSoundEnabled", _fairygui_GRoot_isSoundEnabled);
     oluacls_func(L, "new", _fairygui_GRoot_new);
     oluacls_func(L, "playSound", _fairygui_GRoot_playSound);
+    oluacls_func(L, "rootToWorld", _fairygui_GRoot_rootToWorld);
     oluacls_func(L, "setNotAsUIRoot", _fairygui_GRoot_setNotAsUIRoot);
     oluacls_func(L, "setSoundEnabled", _fairygui_GRoot_setSoundEnabled);
     oluacls_func(L, "setSoundVolumeScale", _fairygui_GRoot_setSoundVolumeScale);
@@ -10782,6 +10905,7 @@ static int luaopen_fairygui_GRoot(lua_State *L)
     oluacls_func(L, "showTooltipsWin", _fairygui_GRoot_showTooltipsWin);
     oluacls_func(L, "showWindow", _fairygui_GRoot_showWindow);
     oluacls_func(L, "togglePopup", _fairygui_GRoot_togglePopup);
+    oluacls_func(L, "worldToRoot", _fairygui_GRoot_worldToRoot);
     oluacls_prop(L, "UIRoot", _fairygui_GRoot_getInstance, nullptr);
     oluacls_prop(L, "inputProcessor", _fairygui_GRoot_getInputProcessor, nullptr);
     oluacls_prop(L, "instance", _fairygui_GRoot_getInstance, nullptr);

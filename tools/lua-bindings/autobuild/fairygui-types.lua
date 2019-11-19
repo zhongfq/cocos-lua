@@ -98,6 +98,13 @@ typedef {
 }
 
 typedef {
+    CPPCLS = 'fairygui::ObjectPropID',
+    DECLTYPE = 'lua_Unsigned',
+    CONV = 'olua_$$_uint',
+    LUACLS = 'fgui.ObjectPropID',
+}
+
+typedef {
     CPPCLS = 'fairygui::ObjectType',
     DECLTYPE = 'lua_Unsigned',
     CONV = 'olua_$$_uint',
@@ -294,6 +301,12 @@ typedef {
 }
 
 typedef {
+    CPPCLS = 'fairygui::GPath *',
+    CONV = 'olua_$$_cppobj',
+    LUACLS = 'fgui.GPath',
+}
+
+typedef {
     CPPCLS = 'fairygui::GProgressBar *',
     CONV = 'olua_$$_cppobj',
     LUACLS = 'fgui.GProgressBar',
@@ -333,6 +346,18 @@ typedef {
     CPPCLS = 'fairygui::GTextInput *',
     CONV = 'olua_$$_cppobj',
     LUACLS = 'fgui.GTextInput',
+}
+
+typedef {
+    CPPCLS = 'fairygui::GTree *',
+    CONV = 'olua_$$_cppobj',
+    LUACLS = 'fgui.GTree',
+}
+
+typedef {
+    CPPCLS = 'fairygui::GTreeNode *',
+    CONV = 'olua_$$_cppobj',
+    LUACLS = 'fgui.GTreeNode',
 }
 
 typedef {
@@ -417,18 +442,6 @@ typedef {
     CPPCLS = 'fairygui::Transition *',
     CONV = 'olua_$$_cppobj',
     LUACLS = 'fgui.Transition',
-}
-
-typedef {
-    CPPCLS = 'fairygui::TreeNode *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'fgui.TreeNode',
-}
-
-typedef {
-    CPPCLS = 'fairygui::TreeView *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'fgui.TreeView',
 }
 
 typedef {

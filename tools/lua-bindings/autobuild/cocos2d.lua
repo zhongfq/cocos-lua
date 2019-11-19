@@ -1269,6 +1269,26 @@ cls.props [[
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'cocos2d::ResizableBuffer'
+cls.funcs [[
+    void resize(size_t size)
+    void *buffer()
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::FileUtils::Status'
+cls.enums [[
+    OK
+    NotExists
+    OpenFailed
+    ReadFailed
+    NotInitialized
+    TooLarge
+    ObtainSizeFailed
+    NotRegularFileType
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'cocos2d::FileUtils'
 cls.funcs [[
     static cocos2d::FileUtils *getInstance()
@@ -1277,6 +1297,8 @@ cls.funcs [[
     void purgeCachedEntries()
     std::string getStringFromFile(const std::string &filename)
     cocos2d::Data getDataFromFile(const std::string &filename)
+    cocos2d::FileUtils::Status getContents(const std::string &filename, cocos2d::ResizableBuffer *buffer)
+    unsigned char *getFileDataFromZip(const std::string &zipFilePath, const std::string &filename, @out ssize_t *size)
     std::string fullPathForFilename(const std::string &filename)
     void loadFilenameLookupDictionaryFromFile(const std::string &filename)
     void setFilenameLookupDictionary(const cocos2d::ValueMap &filenameLookupDict)
@@ -1314,48 +1336,10 @@ cls.funcs [[
     bool renameFile(const std::string &oldfullpath, const std::string &newfullpath)
     long getFileSize(const std::string &filepath)
     std::vector<std::string> listFiles(const std::string &dirPath)
+    void listFilesRecursively(const std::string &dirPath, @out std::vector<std::string> *files)
+    const std::unordered_map<std::string, std::string> getFullPathCache()
     std::string getNewFilename(const std::string &filename)
 ]]
-cls.func('getFileDataFromZip', [[{
-    ssize_t size;
-    auto self = olua_toobj<cocos2d::FileUtils>(L, 1);
-    std::string filePath = olua_checkstring(L, 2);
-    std::string filename = olua_checkstring(L, 3);
-    const unsigned char * data= self->getFileDataFromZip(filePath, filename, &size);
-    if (data) {
-        lua_pushlstring(L, (const char *)data, (size_t)size);
-        lua_pushinteger(L, (lua_Integer)size);
-        free((void *)data);
-        return 2;
-    } else {
-        lua_pushnil(L);
-    }
-    return 1;
-}]])
-cls.func('listFilesRecursively', [[{
-    auto self = olua_toobj<cocos2d::FileUtils>(L, 1);
-    std::vector<std::string> files;
-    std::string dirPath = olua_checkstring(L, 2);
-    self->listFilesRecursively(dirPath, &files);
-    lua_createtable(L, (int)files.size(), 0);
-    int num_eles = 1;
-    for (const auto &it : files) {
-        olua_push_std_string(L, it);
-        lua_rawseti(L, -2, num_eles++);
-    }
-    return 1;
-}]])
-cls.func('getFullPathCache', [[{
-    auto self = olua_toobj<cocos2d::FileUtils>(L, 1);
-    const std::unordered_map<std::string, std::string> paths  = self->getFullPathCache();
-    lua_createtable(L, 0, 4);
-    for (const auto &it : paths) {
-        olua_push_std_string(L, it.first);
-        olua_push_std_string(L, it.second);
-        lua_rawset(L, -3);
-    }
-    return 1;
-}]])
 cls.props [[
     instance
     searchResolutionsOrder
@@ -1364,6 +1348,7 @@ cls.props [[
     originalSearchPaths
     writablePath
     popupNotify
+    fullPathCache
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 

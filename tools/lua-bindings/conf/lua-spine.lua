@@ -13,6 +13,8 @@ M.PARSER = {
         '-I../../frameworks/libxgame/src',
         '-DCC_DLL=',
         '-DSP_API=',
+        '-DCC_ENABLE_SCRIPT_BINDING=0',
+        '-DCC_CONSTRUCTOR_ACCESS=public',
         '-DSPINE_USE_STD_FUNCTION',
         '-DEXPORT_DLL=',
     },

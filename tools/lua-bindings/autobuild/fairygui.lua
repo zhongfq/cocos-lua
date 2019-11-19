@@ -17,6 +17,7 @@ M.INCLUDES = [[
 #include "xgame/xlua.h"
 #include "FairyGUI.h"
 #include "tween/EaseManager.h"
+#include "tween/GPath.h"
 #include "display/FUISprite.h"
 ]]
 M.CHUNK = [[
@@ -288,7 +289,7 @@ cls.var('shadowBlurRadius', [[int shadowBlurRadius]])
 cls.var('glowColor', [[cocos2d::Color3B glowColor]])
 cls.func('setFormat', [[{
     fairygui::TextFormat *self = (fairygui::TextFormat *)olua_toobj(L, 1, "fgui.TextFormat");
-    fairygui::TextFormat *fmt = (fairygui::TextFormat *)olua_toobj(L, 2, "fgui.TextFormat");
+    fairygui::TextFormat *fmt = (fairygui::TextFormat *)olua_checkobj(L, 2, "fgui.TextFormat");
     self->setFormat(*fmt);
     return 0;
 }]])
@@ -355,6 +356,11 @@ cls.enums [[
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'fairygui::GPath'
+cls.funcs [[
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'fairygui::GTweener'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
@@ -376,6 +382,7 @@ cls.funcs [[
     fairygui::GTweener *setTarget(cocos2d::Ref *target, fairygui::TweenPropType propType)
     void *getTarget()
     fairygui::GTweener *setUserData(const cocos2d::Value &value)
+    fairygui::GTweener *setPath(fairygui::GPath *path)
     const cocos2d::Value &getUserData()
     float getNormalizedTime()
     bool isCompleted()
@@ -540,11 +547,16 @@ cls.funcs [[
     fairygui::PackageItem *getItem(const std::string &itemId)
     fairygui::PackageItem *getItemByName(const std::string &itemName)
     void *getItemAsset(fairygui::PackageItem *item)
+    static const std::string &getBranch()
+    static void setBranch(const std::string &value)
+    static const std::string &getVar(const std::string &key)
+    static void setVar(const std::string &key, const std::string &value)
 ]]
 cls.props [[
     emptyTexture
     id
     name
+    branch
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -553,6 +565,8 @@ cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
     PackageItem()
     void load()
+    fairygui::PackageItem *getBranch()
+    fairygui::PackageItem *getHighResolution()
 ]]
 cls.var('owner', [[fairygui::UIPackage *owner]])
 cls.var('type', [[fairygui::PackageItemType type]])
@@ -571,6 +585,10 @@ cls.var('delayPerUnit', [[float delayPerUnit]])
 cls.var('repeatDelay', [[float repeatDelay]])
 cls.var('swing', [[bool swing]])
 cls.var('translated', [[bool translated]])
+cls.props [[
+    branch
+    highResolution
+]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::PackageItemType'
@@ -606,6 +624,7 @@ cls.enums [[
     PROGRESSBAR
     SLIDER
     SCROLLBAR
+    TREE
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -765,6 +784,21 @@ cls.enums [[
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'fairygui::ObjectPropID'
+cls.enums [[
+    Text
+    Icon
+    Color
+    OutlineColor
+    Playing
+    Frame
+    DeltaTime
+    TimeScale
+    FontSize
+    Selected
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'fairygui::GController'
 cls.SUPERCLS = "fairygui::UIEventDispatcher"
 cls.funcs [[
@@ -772,11 +806,11 @@ cls.funcs [[
     fairygui::GComponent *getParent()
     void setParent(fairygui::GComponent *value)
     int getSelectedIndex()
-    void setSelectedIndex(int value)
+    void setSelectedIndex(int value, @optional bool triggerEvent)
     const std::string &getSelectedPage()
-    void setSelectedPage(const std::string &value)
+    void setSelectedPage(const std::string &value, @optional bool triggerEvent)
     const std::string &getSelectedPageId()
-    void setSelectedPageId(const std::string &value)
+    void setSelectedPageId(const std::string &value, @optional bool triggerEvent)
     int getPrevisousIndex()
     const std::string &getPreviousPage()
     const std::string &getPreviousPageId()
@@ -891,7 +925,10 @@ cls.funcs [[
     fairygui::GRoot *getRoot()
     bool onStage()
     void removeFromParent()
+    cocos2d::Value getProp(fairygui::ObjectPropID propId)
+    void setProp(fairygui::ObjectPropID propId, const cocos2d::Value &value)
     fairygui::GObject *hitTest(const cocos2d::Vec2 &worldPoint, const cocos2d::Camera *camera)
+    fairygui::GTreeNode *treeNode()
 ]]
 cls.var('id', [[std::string id]])
 cls.var('name', [[std::string name]])
@@ -993,6 +1030,7 @@ cls.funcs [[
     @unref(cmp children) void removeChildren(int beginIndex, int endIndex)
     @ref(map children) fairygui::GObject *getChildAt(int index)
     @ref(map children) fairygui::GObject *getChild(const std::string &name)
+    fairygui::GObject *getChildByPath(const std::string &path)
     @ref(map children) fairygui::GObject *getChildInGroup(const fairygui::GGroup *group, const std::string &name)
     @ref(map children) fairygui::GObject *getChildById(const std::string &id)
     @ref(map children) const cocos2d::Vector<GObject *> &getChildren()
@@ -1142,7 +1180,9 @@ cls.funcs [[
     void setSoundEnabled(bool value)
     float getSoundVolumeScale()
     void setSoundVolumeScale(float value)
+    void setNotAsUIRoot()
 ]]
+cls.var('contentScaleLevel', [[static int contentScaleLevel]])
 cls.prop('UIRoot', 'static GRoot* getInstance()')
 cls.inject('create', {
     AFTER = [[
@@ -1194,7 +1234,15 @@ cls.funcs [[
     void setColumnGap(int value)
     int getLineGap()
     void setLineGap(int value)
-    void setBoundsChangedFlag(@optional bool childSizeChanged)
+    bool isExcludeInvisibles()
+    void setExcludeInvisibles(bool value)
+    bool isAutoSizeDisabled()
+    void setAutoSizeDisabled(bool value)
+    int getMainGridIndex()
+    void setMainGridIndex(int value)
+    int getMainGridMinSize()
+    void setMainGridMinSize(int value)
+    void setBoundsChangedFlag(@optional bool positionChangedOnly)
     void moveChildren(float dx, float dy)
     void resizeChildren(float dw, float dh)
 ]]
@@ -1202,6 +1250,10 @@ cls.props [[
     layout
     columnGap
     lineGap
+    excludeInvisibles
+    autoSizeDisabled
+    mainGridIndex
+    mainGridMinSize
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -1244,9 +1296,6 @@ cls.funcs [[
     void setPlaying(bool value)
     int getFrame()
     void setFrame(int value)
-    float getTimeScale()
-    void setTimeScale(float value)
-    void advance(float time)
     fairygui::FillMethod getFillMethod()
     void setFillMethod(fairygui::FillMethod value)
     fairygui::FillOrigin getFillOrigin()
@@ -1268,7 +1317,6 @@ cls.props [[
     color
     playing
     frame
-    timeScale
     fillMethod
     fillOrigin
     fillClockwise
@@ -1475,6 +1523,7 @@ cls.funcs [[
     @unref(cmp children) void removeChildrenToPool(int beginIndex, int endIndex)
     int getSelectedIndex()
     void setSelectedIndex(int value)
+    void getSelection(@out std::vector<int> &result)
     void addSelection(int index, bool scrollItToView)
     void removeSelection(int index)
     void clearSelection()
@@ -1497,19 +1546,6 @@ cls.funcs [[
 ]]
 cls.var('scrollItemToViewOnClick', [[bool scrollItemToViewOnClick]])
 cls.var('foldInvisibleItems', [[bool foldInvisibleItems]])
-cls.func('getSelection', [[{
-    fairygui::GList *self = (fairygui::GList *)olua_toobj(L, 1, "fgui.GList");
-    std::vector<int> selections;
-    self->getSelection(selections);
-    int idx = 1;
-    lua_createtable(L, (int)selections.size(), 0);
-    for (auto v : selections) {
-        lua_pushinteger(L, v);
-        lua_rawseti(L, -2, idx++);
-    }
-
-    return 1;
-}]])
 cls.var('itemRenderer', [[std::function<void(int, GObject*)> itemRenderer]])
 cls.var('itemProvider', [[std::function<std::string(int)> itemProvider]])
 cls.inject('itemRenderer', {
@@ -1582,14 +1618,18 @@ cls.funcs [[
     static fairygui::GProgressBar *create()
     fairygui::ProgressTitleType getTitleType()
     void setTitleType(fairygui::ProgressTitleType value)
+    double getMin()
+    void setMin(double value)
     double getMax()
     void setMax(double value)
     double getValue()
     void setValue(double value)
     void tweenValue(double value, float duration)
+    void update(double newValue)
 ]]
 cls.props [[
     titleType
+    min
     max
     value
 ]]
@@ -1651,17 +1691,23 @@ cls.funcs [[
     static fairygui::GSlider *create()
     fairygui::ProgressTitleType getTitleType()
     void setTitleType(fairygui::ProgressTitleType value)
+    double getMin()
+    void setMin(double value)
     double getMax()
     void setMax(double value)
     double getValue()
     void setValue(double value)
+    bool getWholeNumbers()
+    void setWholeNumbers(bool value)
 ]]
 cls.var('changeOnClick', [[bool changeOnClick]])
 cls.var('canDrag', [[bool canDrag]])
 cls.props [[
     titleType
+    min
     max
     value
+    wholeNumbers
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2017,6 +2063,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'fairygui::UIConfig'
 cls.funcs [[
     static void registerFont(const std::string &aliasName, const std::string &realName)
+    static const std::string &getRealFontName(const std::string &aliasName, @out bool *isTTF)
 ]]
 cls.var('defaultFont', [[static std::string defaultFont]])
 cls.var('buttonSound', [[static std::string buttonSound]])
@@ -2039,14 +2086,6 @@ cls.var('bringWindowToFrontOnClick', [[static bool bringWindowToFrontOnClick]])
 cls.var('windowModalWaiting', [[static std::string windowModalWaiting]])
 cls.var('popupMenu', [[static std::string popupMenu]])
 cls.var('popupMenu_seperator', [[static std::string popupMenu_seperator]])
-cls.func('getRealFontName', [[{
-    bool isTTF = false;
-    std::string aliasName = olua_checkstring(L, 1);
-    std::string fontName = fairygui::UIConfig::getRealFontName(aliasName, &isTTF);
-    lua_pushstring(L, fontName.c_str());
-    lua_pushboolean(L, isTTF);
-    return 2;
-}]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::IUISource'
@@ -2238,17 +2277,18 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'fairygui::GearBase'
 cls.funcs [[
+    static fairygui::GearBase *create(fairygui::GObject *owner, int index)
 ]]
 cls.var('disableAllTweenEffect', [[static bool disableAllTweenEffect]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls 'fairygui::TreeNode'
+cls = typecls 'fairygui::GTreeNode'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
-    static fairygui::TreeNode *create(@optional bool isFolder)
-    TreeNode()
-    fairygui::TreeNode *getParent()
-    fairygui::TreeView *getRoot()
+    static fairygui::GTreeNode *create(@optional bool isFolder, @optional const std::string &resURL)
+    GTreeNode()
+    fairygui::GTreeNode *getParent()
+    fairygui::GTree *getTree()
     @ref(single cell) fairygui::GComponent *getCell()
     const cocos2d::Value &getData()
     void setData(const cocos2d::Value &value)
@@ -2256,84 +2296,62 @@ cls.funcs [[
     void setExpaned(bool value)
     bool isFolder()
     const std::string &getText()
-    fairygui::TreeNode *addChild(@ref(map children) fairygui::TreeNode *child)
-    fairygui::TreeNode *addChildAt(@ref(map children) fairygui::TreeNode *child, int index)
-    void removeChild(@unref(map children) fairygui::TreeNode *child)
+    void setText(const std::string &value)
+    const std::string &getIcon()
+    void setIcon(const std::string &value)
+    fairygui::GTreeNode *addChild(@ref(map children) fairygui::GTreeNode *child)
+    fairygui::GTreeNode *addChildAt(@ref(map children) fairygui::GTreeNode *child, int index)
+    void removeChild(@unref(map children) fairygui::GTreeNode *child)
     @unref(cmp children) void removeChildAt(int index)
     @unref(cmp children) void removeChildren()
     @unref(cmp children) void removeChildren(int beginIndex, int endIndex)
-    @ref(map children) fairygui::TreeNode *getChildAt(int index)
-    @ref(map children) fairygui::TreeNode *getPrevSibling()
-    @ref(map children) fairygui::TreeNode *getNextSibling()
-    int getChildIndex(const fairygui::TreeNode *child)
-    void setChildIndex(fairygui::TreeNode *child, int index)
-    int setChildIndexBefore(fairygui::TreeNode *child, int index)
-    void swapChildren(fairygui::TreeNode *child1, fairygui::TreeNode *child2)
+    @ref(map children) fairygui::GTreeNode *getChildAt(int index)
+    @ref(map children) fairygui::GTreeNode *getPrevSibling()
+    @ref(map children) fairygui::GTreeNode *getNextSibling()
+    int getChildIndex(const fairygui::GTreeNode *child)
+    void setChildIndex(fairygui::GTreeNode *child, int index)
+    int setChildIndexBefore(fairygui::GTreeNode *child, int index)
+    void swapChildren(fairygui::GTreeNode *child1, fairygui::GTreeNode *child2)
     void swapChildrenAt(int index1, int index2)
     int numChildren()
 ]]
 cls.prop('numChildren', 'int numChildren()')
 cls.props [[
     parent
-    root
+    tree
     cell
     data
     expanded
     folder
     text
+    icon
     prevSibling
     nextSibling
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls 'fairygui::TreeView'
-cls.SUPERCLS = "fairygui::UIEventDispatcher"
+cls = typecls 'fairygui::GTree'
+cls.SUPERCLS = "fairygui::GList"
 cls.funcs [[
-    static fairygui::TreeView *create(@ref(single list) fairygui::GList *list)
-    TreeView()
-    @ref(single list) fairygui::GList *getList()
-    @ref(single rootNode) fairygui::TreeNode *getRootNode()
-    fairygui::TreeNode *getSelectedNode()
-    void addSelection(fairygui::TreeNode *node, @optional bool scrollItToView)
-    void removeSelection(fairygui::TreeNode *node)
-    void clearSelection()
-    int getNodeIndex(fairygui::TreeNode *node)
-    void updateNode(fairygui::TreeNode *node)
-    void expandAll(fairygui::TreeNode *folderNode)
-    void collapseAll(fairygui::TreeNode *folderNode)
+    GTree()
+    static fairygui::GTree *create()
+    int getIndent()
+    void setIndent(int value)
+    int getClickToExpand()
+    void setClickToExpand(int value)
+    @ref(single rootNode) fairygui::GTreeNode *getRootNode()
+    fairygui::GTreeNode *getSelectedNode()
+    void getSelectedNodes(@out std::vector<GTreeNode *> &result)
+    void selectNode(fairygui::GTreeNode *node, @optional bool scrollItToView)
+    void unselectNode(fairygui::GTreeNode *node)
+    void expandAll(fairygui::GTreeNode *folderNode)
+    void collapseAll(fairygui::GTreeNode *folderNode)
 ]]
-cls.func('getSelection', [[{
-    fairygui::TreeView *self = (fairygui::TreeView *)olua_toobj(L, 1, "fgui.TreeView");
-    std::vector<fairygui::TreeNode *> selections;
-    self->getSelection(selections);
-    int idx = 1;
-    lua_createtable(L, (int)selections.size(), 0);
-    for (auto v : selections) {
-        olua_push_cppobj<fairygui::TreeNode>(L, v);
-        lua_rawseti(L, -2, idx++);
-    }
-
-    return 1;
-}]])
-cls.var('treeNodeCreateCell', [[std::function<GComponent*(TreeNode* node)> treeNodeCreateCell]])
-cls.var('treeNodeRender', [[std::function<void(TreeNode* node)> treeNodeRender]])
-cls.var('treeNodeWillExpand', [[std::function<void(TreeNode* node, bool expand)> treeNodeWillExpand]])
-cls.inject('create', {
-    AFTER = [[
-        olua_push_cppobj<fairygui::TreeNode>(L, ret->getRootNode());
-        olua_singleref(L, -2, "rootNode", -1);
-        lua_pop(L, 1);
-    ]],
-})
-cls.inject('treeNodeCreateCell', {
-    CALLBACK_AFTER = [[
-        olua_push_cppobj<fairygui::TreeNode>(L, arg1);
-        olua_singleref(L, -1, "cell", -2);
-        lua_pop(L, 1);
-    ]],
-})
+cls.var('treeNodeRender', [[@nullable std::function<void (GTreeNode *, GComponent *)> treeNodeRender]])
+cls.var('treeNodeWillExpand', [[@nullable std::function<void (GTreeNode *, bool)> treeNodeWillExpand]])
 cls.props [[
-    list
+    indent
+    clickToExpand
     rootNode
     selectedNode
 ]]
@@ -2446,12 +2464,15 @@ cls.funcs [[
     void setFillClockwise(bool value)
     float getFillAmount()
     void setFillAmount(float value)
+    bool isScaleByTile()
+    void setScaleByTile(bool value)
 ]]
 cls.props [[
     fillMethod
     fillOrigin
     fillClockwise
     fillAmount
+    scaleByTile
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 

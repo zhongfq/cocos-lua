@@ -165,6 +165,13 @@ typedef {
 }
 
 typedef {
+    CPPCLS = 'cocos2d::FileUtils::Status',
+    DECLTYPE = 'lua_Unsigned',
+    CONV = 'olua_$$_uint',
+    LUACLS = 'cc.FileUtils.Status',
+}
+
+typedef {
     CPPCLS = 'cocos2d::GlyphCollection',
     DECLTYPE = 'lua_Unsigned',
     CONV = 'olua_$$_uint',
@@ -1310,6 +1317,12 @@ typedef {
     CPPCLS = 'cocos2d::RepeatForever *',
     CONV = 'olua_$$_cppobj',
     LUACLS = 'cc.RepeatForever',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ResizableBuffer *',
+    CONV = 'olua_$$_cppobj',
+    LUACLS = 'cc.ResizableBuffer',
 }
 
 typedef {

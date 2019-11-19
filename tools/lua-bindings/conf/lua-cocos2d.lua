@@ -16,6 +16,8 @@ M.PARSER = {
     FLAGS = {
         '-I../../frameworks/cocos2d-x/cocos',
         '-I../../frameworks/libxgame/src',
+        '-DCC_ENABLE_SCRIPT_BINDING=0',
+        '-DCC_CONSTRUCTOR_ACCESS=public',
         '-DCC_DLL=',
         '-DEXPORT_DLL=',
     },
@@ -65,17 +67,13 @@ M.EXCLUDE_PASS = function (cppcls, fn, decl)
     end
 end
 
-local UserDefault = typeconf 'cocos2d::UserDefault'
-UserDefault.EXCLUDE 'setDelegate'
+typeconf 'cocos2d::UserDefault'
+    .EXCLUDE 'setDelegate'
 
 local Ref = typeconf 'cocos2d::Ref'
 Ref.EXCLUDE 'retain'
 Ref.EXCLUDE 'release'
 Ref.EXCLUDE 'autorelease'
-Ref.EXCLUDE '_ID'
-Ref.EXCLUDE '_luaID'
-Ref.EXCLUDE '_scriptObject'
-Ref.EXCLUDE '_rooted'
 Ref.FUNC('__gc', '{\n    return xlua_ccobjgc(L);\n}')
 
 typeconf 'cocos2d::Acceleration'
@@ -389,51 +387,12 @@ Application.EXCLUDE 'applicationScreenSizeChanged'
 local Device = typeconf 'cocos2d::Device'
 Device.EXCLUDE 'getTextureDataForText'
 
-local FileUtils = typeconf 'cocos2d::FileUtils'
-FileUtils.EXCLUDE 'getContents'
-FileUtils.FUNC('getFileDataFromZip', [[
-{
-    ssize_t size;
-    auto self = olua_toobj<cocos2d::FileUtils>(L, 1);
-    std::string filePath = olua_checkstring(L, 2);
-    std::string filename = olua_checkstring(L, 3);
-    const unsigned char * data= self->getFileDataFromZip(filePath, filename, &size);
-    if (data) {
-        lua_pushlstring(L, (const char *)data, (size_t)size);
-        lua_pushinteger(L, (lua_Integer)size);
-        free((void *)data);
-        return 2;
-    } else {
-        lua_pushnil(L);
-    }
-    return 1;
-}]])
-FileUtils.FUNC('listFilesRecursively', [[
-{
-    auto self = olua_toobj<cocos2d::FileUtils>(L, 1);
-    std::vector<std::string> files;
-    std::string dirPath = olua_checkstring(L, 2);
-    self->listFilesRecursively(dirPath, &files);
-    lua_createtable(L, (int)files.size(), 0);
-    int num_eles = 1;
-    for (const auto &it : files) {
-        olua_push_std_string(L, it);
-        lua_rawseti(L, -2, num_eles++);
-    }
-    return 1;
-}]])
-FileUtils.FUNC('getFullPathCache', [[
-{
-    auto self = olua_toobj<cocos2d::FileUtils>(L, 1);
-    const std::unordered_map<std::string, std::string> paths  = self->getFullPathCache();
-    lua_createtable(L, 0, 4);
-    for (const auto &it : paths) {
-        olua_push_std_string(L, it.first);
-        olua_push_std_string(L, it.second);
-        lua_rawset(L, -3);
-    }
-    return 1;
-}]])
+typeconf 'cocos2d::ResizableBuffer'
+typeconf 'cocos2d::FileUtils::Status'
+
+typeconf 'cocos2d::FileUtils'
+    .ATTR('getFileDataFromZip', {ARG3 = '@out'})
+    .ATTR('listFilesRecursively', {ARG2 = '@out'})
 
 typeconf 'ResolutionPolicy'
 

@@ -66,8 +66,6 @@ set(FAIRYGUI_SRC
     Classes/ScrollPane.cpp
     Classes/Transition.cpp
     Classes/TranslationHelper.cpp
-    Classes/treeview/TreeNode.cpp
-    Classes/treeview/TreeView.cpp
     Classes/tween/EaseManager.cpp
     Classes/tween/GPath.cpp
     Classes/tween/GTween.cpp
@@ -149,8 +147,6 @@ set(FAIRYGUI_HEADER
     Classes/ScrollPane.h 
     Classes/Transition.h
     Classes/TranslationHelper.h
-    Classes/treeview/TreeNode.h
-    Classes/treeview/TreeView.h
     Classes/tween/EaseManager.h
     Classes/tween/EaseType.h
     Classes/tween/GPath.h

@@ -13,6 +13,31 @@ USING_NS_CC;
 
 NS_XGAME_BEGIN
 
+BufferReader::BufferReader()
+:_data(nullptr)
+,_size(0)
+,_capacity(0)
+{
+}
+
+BufferReader::~BufferReader()
+{
+    CC_SAFE_FREE(_data);
+}
+
+void BufferReader::resize(size_t size)
+{
+    if (size > _capacity) {
+        while (_capacity < size) {
+            _capacity = _capacity == 0 ? 1024 : (_capacity * 2);
+        }
+        _data = (unsigned char *)realloc(_data, _capacity);
+    }
+    _size = size;
+}
+
+BufferReader filesystem::s_reader;
+
 #if CC_TARGET_PLATFORM == CC_PLATFORM_MAC || CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 const std::string filesystem::getAppDataDirectory()
 {
@@ -187,12 +212,11 @@ static bool _doUnzip(const std::string &zipPath, const std::string &dest)
     ZipFile zipFile(zipPath);
     int numFiles = 0;
     
-    Data data;
-    ResizableBufferAdapter<Data> buffer(&data);
-    
     if (!filesystem::createDirectory(dest)) {
         return false;
     }
+    
+    BufferReader *reader = filesystem::getBufferReader();
     
     while (true) {
         std::string filename;
@@ -210,8 +234,8 @@ static bool _doUnzip(const std::string &zipPath, const std::string &dest)
         fullPath = dest + "/" + filename;
         if (filename[filename.length() - 1] == '/') {
             filesystem::createDirectory(fullPath);
-        } else if (zipFile.getFileData(filename, &buffer)) {
-            filesystem::write(fullPath, (const char *)data.getBytes(), (size_t)data.getSize());
+        } else if (zipFile.getFileData(filename, reader)) {
+            filesystem::write(fullPath, (const char *)reader->buffer(), (size_t)reader->size());
             runtime::log("[OK] unzip file: %s", fullPath.c_str());
         } else {
             runtime::log("[NO] unzip file: %s", fullPath.c_str());

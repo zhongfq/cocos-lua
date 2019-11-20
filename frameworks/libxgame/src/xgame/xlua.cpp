@@ -150,25 +150,24 @@ static int _loader (lua_State *L)
     lua_getglobal(L, LUA_LOADLIBNAME);
     lua_getfield(L, -1, "path");
     
-    const char *path = luaL_checkstring(L, -1);
+    const char *search_path = luaL_checkstring(L, -1);
     const char *name = luaL_gsub(L, luaL_checkstring(L, 1), ".", LUA_DIRSEP);
     
     lua_pushnil(L); // not found will return nil
     
-    while ((path = _pushnexttemplate(L, path)) != nullptr) {
-        const char *filename = luaL_gsub(L, lua_tostring(L, -1), "?", name);
-        if (filesystem::exist(filename)) {
-            Data buffer = FileUtils::getInstance()->getDataFromFile(filename);
-            
-            lua_pushfstring(L, "%s%s", "@", filename);
-            int status = luaL_loadbuffer(L, (const char *)buffer.getBytes(),
-                (size_t)buffer.getSize(), lua_tostring(L, -1));
+    while ((search_path = _pushnexttemplate(L, search_path)) != nullptr) {
+        const char *path = luaL_gsub(L, lua_tostring(L, -1), "?", name);
+        FileUtils *fileUtils = FileUtils::getInstance();
+        BufferReader *reader = filesystem::getBufferReader();
+        if (filesystem::exist(path) && fileUtils->getContents(path, reader) == FileUtils::Status::OK) {
+            lua_pushfstring(L, "%s%s", "@", path);
+            int status = luaL_loadbuffer(L, (const char *)reader->buffer(),
+                (size_t)reader->size(), lua_tostring(L, -1));
             if (status != LUA_OK) {
                 return luaL_error(L, "error loading module '%s' from file '%s':\n\t%s",
-                    lua_tostring(L, 1), filename, lua_tostring(L, -1));
+                    lua_tostring(L, 1), path, lua_tostring(L, -1));
             }
-            
-            lua_pushstring(L, filename);
+            lua_pushstring(L, path);
             return 2;
         } else {
             lua_pop(L, 2); // path template, filename

@@ -2,18 +2,34 @@
 #define __XFILESYSTEM_H__
 
 #include "xgame/xdef.h"
-
 #include "base/CCData.h"
+#include "platform/CCFileUtils.h"
 
 #include <string>
 
 NS_XGAME_BEGIN
+
+class BufferReader : public cocos2d::ResizableBuffer
+{
+public:
+    BufferReader();
+    virtual ~BufferReader();
+    virtual void resize(size_t size);
+    virtual void* buffer() const { return _data; }
+    size_t size() const { return _size; }
+private:
+    size_t _capacity;
+    size_t _size;
+    unsigned char *_data;
+};
 
 class filesystem {
 public:
 #if CC_TARGET_PLATFORM == CC_PLATFORM_MAC || CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
     static const std::string getAppDataDirectory();
 #endif
+    
+    static BufferReader *getBufferReader() { return &s_reader; }
     
     static const std::string getWritablePath();
     static const std::string getCacheDirectory();
@@ -37,6 +53,9 @@ public:
     static bool write(const std::string &path, const char *data, size_t len);
     static cocos2d::Data read(const std::string &path);
     static bool unzip(const std::string &path, const std::string &dest);
+    
+private:
+    static BufferReader s_reader;
 };
 
 NS_XGAME_END

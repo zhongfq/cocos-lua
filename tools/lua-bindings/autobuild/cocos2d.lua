@@ -1986,15 +1986,11 @@ M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::network::WebSocket::Delegate'
 cls.funcs [[
+    void onOpen(cocos2d::network::WebSocket *ws)
+    void onMessage(cocos2d::network::WebSocket *ws, const cocos2d::network::WebSocket::Data &data)
+    void onClose(cocos2d::network::WebSocket *ws)
+    void onError(cocos2d::network::WebSocket *ws, const cocos2d::network::WebSocket::ErrorCode &error)
 ]]
-cls.func('__gc', [[{
-    auto self = olua_touserdata(L, 1, cocos2d::network::WebSocket::Delegate *);
-    if (self) {
-        *(void **)lua_touserdata(L, 1) = nullptr;
-        delete self;
-    }
-    return 0;
-}]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::network::WebSocket'
@@ -2009,35 +2005,27 @@ cls.funcs [[
     const std::string &getUrl()
     const std::string &getProtocol()
 ]]
-cls.func('__gc', [[{
-    auto self = olua_touserdata(L, 1, cocos2d::network::WebSocket *);
-    if (self) {
-        *(void **)lua_touserdata(L, 1) = nullptr;
-        delete self;
-    }
-    return 0;
-}]])
-cls.func('create', [[{
+cls.func('init', [[{
     std::vector<std::string> protocols;
-    auto self = new cocos2d::network::WebSocket();
-    auto delegate = olua_checkobj<cocos2d::network::WebSocket::Delegate>(L, 1);
-    std::string url = olua_tostring(L, 2);
-    std::string cafile = olua_optstring(L, 4, "");
+    auto self = olua_toobj<cocos2d::network::WebSocket>(L, 1);
+    auto delegate = olua_checkobj<cocos2d::network::WebSocket::Delegate>(L, 2);
+    std::string url = olua_tostring(L, 3);
+    std::string cafile = olua_optstring(L, 5, "");
 
-    if (!lua_isnil(L, 3)) {
-        luaL_checktype(L, 3, LUA_TTABLE);
-        int len = (int)lua_rawlen(L, 3);
+    if (!lua_isnil(L, 4)) {
+        luaL_checktype(L, 4, LUA_TTABLE);
+        int len = (int)lua_rawlen(L, 4);
         protocols.reserve(len);
         for (int i = 1; i <= len; i++) {
-            lua_rawgeti(L, 3, i);
+            lua_rawgeti(L, 4, i);
             protocols.push_back(olua_checkstring(L, -1));
             lua_pop(L, 1);
         }
     }
 
     self->init(*delegate, url, protocols.size() > 0 ? &protocols : nullptr, cafile);
-    olua_push_cppobj<cocos2d::network::WebSocket>(L, self);
-    olua_singleref(L, -1, "delegate", 1);
+
+    olua_singleref(L, 1, "delegate", 2);
 
     return 1;
 }]])
@@ -2051,7 +2039,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::LuaWebSocketDelegate'
 cls.SUPERCLS = "cocos2d::network::WebSocket::Delegate"
 cls.funcs [[
-    static cocos2d::LuaWebSocketDelegate *create()
+    LuaWebSocketDelegate()
 ]]
 cls.var('onOpen', [[@nullable @local std::function<void (network::WebSocket *)> onOpenCallback]])
 cls.var('onMessage', [[@nullable @local std::function<void (network::WebSocket *, const network::WebSocket::Data &)> onMessageCallback]])

@@ -10,7 +10,7 @@ function ScrollBase:ctor()
 end
 
 function ScrollBase:hitChildren(points)
-    local children = self._children
+    local children = self.children
     for i = #children, 1, -1 do
         local child = children[i]
         if child.visible and (child.touchable or child.touchChildren) then

@@ -184,7 +184,7 @@ function CocosInput.Get:cobj()
     -- bg.height = 10
     -- cobj:addChild(bg)
 
-    local delegate = EditBoxDelegate.create()
+    local delegate = EditBoxDelegate.new()
 
     delegate.onReturn = function ()
         self:dispatch(Event.COMPLETE)

@@ -182,7 +182,9 @@ function M.checkLabels(target, ...)
 end
 
 function M.hasLabel(target, label)
-    return target.frameLabels[label] ~= nil
+    if target.frameLabels then
+        return target.frameLabels[label] ~= nil
+    end
 end
 
 function M.checkTarget(target, namepath, ...)

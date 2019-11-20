@@ -7,11 +7,15 @@ local NO_CHILDREN = {}
 
 local SWFNode = class("SWFNode", UIView)
 
-function SWFNode:ctor()
+function SWFNode:ctor(rootswf)
     self._rootswf = false
     self.width, self.height = window.getDesignSize()
     self.touchable = false
     self.touchChildren = true
+
+    if rootswf then
+        self.rootswf = rootswf
+    end
 end
 
 function SWFNode.Get:children()

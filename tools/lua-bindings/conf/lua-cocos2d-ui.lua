@@ -278,23 +278,15 @@ RadioButtonGroup.CALLBACK {
 }
 
 typeconf 'cocos2d::ui::ImageView'
-
 typeconf 'cocos2d::ui::EditBoxDelegate::EditBoxEndAction'
-
-local EditBoxDelegate = typeconf 'cocos2d::ui::EditBoxDelegate'
-EditBoxDelegate.FUNC('__gc', olua.gcfunc(EditBoxDelegate))
-
+typeconf 'cocos2d::ui::EditBoxDelegate'
 typeconf 'cocos2d::ui::LuaEditBoxDelegate'
-
 typeconf 'cocos2d::ui::EditBox::KeyboardReturnType'
 typeconf 'cocos2d::ui::EditBox::InputMode'
 typeconf 'cocos2d::ui::EditBox::InputFlag'
 
-local EditBox = typeconf 'cocos2d::ui::EditBox'
-EditBox.EXCLUDE 'registerScriptEditBoxHandler'
-EditBox.EXCLUDE 'unregisterScriptEditBoxHandler'
-EditBox.EXCLUDE 'getScriptEditBoxHandler'
-EditBox.ATTR('setDelegate', {ARG1 = '@ref(single delegate)'})
-EditBox.ATTR('getDelegate', {RET = '@ref(single delegate)'})
+typeconf 'cocos2d::ui::EditBox'
+    .ATTR('setDelegate', {ARG1 = '@ref(single delegate)'})
+    .ATTR('getDelegate', {RET = '@ref(single delegate)'})
 
 return M

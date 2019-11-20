@@ -18945,15 +18945,76 @@ static int luaopen_cocos2d_network_WebSocket_State(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_network_WebSocket_Delegate___gc(lua_State *L)
+static int _cocos2d_network_WebSocket_Delegate_onClose(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = olua_touserdata(L, 1, cocos2d::network::WebSocket::Delegate *);
-    if (self) {
-        *(void **)lua_touserdata(L, 1) = nullptr;
-        delete self;
-    }
+    cocos2d::network::WebSocket::Delegate *self = nullptr;
+    cocos2d::network::WebSocket *arg1 = nullptr;       /** ws */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.WebSocket.Delegate");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.WebSocket");
+
+    // void onClose(cocos2d::network::WebSocket *ws)
+    self->onClose(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_network_WebSocket_Delegate_onError(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::network::WebSocket::Delegate *self = nullptr;
+    cocos2d::network::WebSocket *arg1 = nullptr;       /** ws */
+    lua_Unsigned arg2 = 0;       /** error */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.WebSocket.Delegate");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.WebSocket");
+    olua_check_uint(L, 3, &arg2);
+
+    // void onError(cocos2d::network::WebSocket *ws, const cocos2d::network::WebSocket::ErrorCode &error)
+    self->onError(arg1, (cocos2d::network::WebSocket::ErrorCode)arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_network_WebSocket_Delegate_onMessage(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::network::WebSocket::Delegate *self = nullptr;
+    cocos2d::network::WebSocket *arg1 = nullptr;       /** ws */
+    cocos2d::network::WebSocket::Data arg2;       /** data */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.WebSocket.Delegate");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.WebSocket");
+    auto_olua_check_cocos2d_network_WebSocket_Data(L, 3, &arg2);
+
+    // void onMessage(cocos2d::network::WebSocket *ws, const cocos2d::network::WebSocket::Data &data)
+    self->onMessage(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_network_WebSocket_Delegate_onOpen(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::network::WebSocket::Delegate *self = nullptr;
+    cocos2d::network::WebSocket *arg1 = nullptr;       /** ws */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.WebSocket.Delegate");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.WebSocket");
+
+    // void onOpen(cocos2d::network::WebSocket *ws)
+    self->onOpen(arg1);
 
     olua_endinvoke(L);
 
@@ -18963,7 +19024,10 @@ static int _cocos2d_network_WebSocket_Delegate___gc(lua_State *L)
 static int luaopen_cocos2d_network_WebSocket_Delegate(lua_State *L)
 {
     oluacls_class(L, "cc.WebSocket.Delegate", nullptr);
-    oluacls_func(L, "__gc", _cocos2d_network_WebSocket_Delegate___gc);
+    oluacls_func(L, "onClose", _cocos2d_network_WebSocket_Delegate_onClose);
+    oluacls_func(L, "onError", _cocos2d_network_WebSocket_Delegate_onError);
+    oluacls_func(L, "onMessage", _cocos2d_network_WebSocket_Delegate_onMessage);
+    oluacls_func(L, "onOpen", _cocos2d_network_WebSocket_Delegate_onOpen);
 
     olua_registerluatype<cocos2d::network::WebSocket::Delegate>(L, "cc.WebSocket.Delegate");
     oluacls_createclassproxy(L);
@@ -18976,7 +19040,9 @@ static int _cocos2d_network_WebSocket___gc(lua_State *L)
     olua_startinvoke(L);
 
     auto self = olua_touserdata(L, 1, cocos2d::network::WebSocket *);
-    if (self) {
+    lua_pushstring(L, ".ownership");
+    olua_getvariable(L, 1);
+    if (lua_toboolean(L, -1) && self) {
         *(void **)lua_touserdata(L, 1) = nullptr;
         delete self;
     }
@@ -19030,36 +19096,6 @@ static int _cocos2d_network_WebSocket_closeAsync(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_network_WebSocket_create(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    std::vector<std::string> protocols;
-    auto self = new cocos2d::network::WebSocket();
-    auto delegate = olua_checkobj<cocos2d::network::WebSocket::Delegate>(L, 1);
-    std::string url = olua_tostring(L, 2);
-    std::string cafile = olua_optstring(L, 4, "");
-
-    if (!lua_isnil(L, 3)) {
-        luaL_checktype(L, 3, LUA_TTABLE);
-        int len = (int)lua_rawlen(L, 3);
-        protocols.reserve(len);
-        for (int i = 1; i <= len; i++) {
-            lua_rawgeti(L, 3, i);
-            protocols.push_back(olua_checkstring(L, -1));
-            lua_pop(L, 1);
-        }
-    }
-
-    self->init(*delegate, url, protocols.size() > 0 ? &protocols : nullptr, cafile);
-    olua_push_cppobj<cocos2d::network::WebSocket>(L, self);
-    olua_singleref(L, -1, "delegate", 1);
-
-    olua_endinvoke(L);
-
-    return 1;
-}
-
 static int _cocos2d_network_WebSocket_getProtocol(lua_State *L)
 {
     olua_startinvoke(L);
@@ -19109,6 +19145,36 @@ static int _cocos2d_network_WebSocket_getUrl(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
+}
+
+static int _cocos2d_network_WebSocket_init(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    std::vector<std::string> protocols;
+    auto self = olua_toobj<cocos2d::network::WebSocket>(L, 1);
+    auto delegate = olua_checkobj<cocos2d::network::WebSocket::Delegate>(L, 2);
+    std::string url = olua_tostring(L, 3);
+    std::string cafile = olua_optstring(L, 5, "");
+
+    if (!lua_isnil(L, 4)) {
+        luaL_checktype(L, 4, LUA_TTABLE);
+        int len = (int)lua_rawlen(L, 4);
+        protocols.reserve(len);
+        for (int i = 1; i <= len; i++) {
+            lua_rawgeti(L, 4, i);
+            protocols.push_back(olua_checkstring(L, -1));
+            lua_pop(L, 1);
+        }
+    }
+
+    self->init(*delegate, url, protocols.size() > 0 ? &protocols : nullptr, cafile);
+
+    olua_singleref(L, 1, "delegate", 2);
+
+    olua_endinvoke(L);
+
+    return 1;
 }
 
 static int _cocos2d_network_WebSocket_new(lua_State *L)
@@ -19193,10 +19259,10 @@ static int luaopen_cocos2d_network_WebSocket(lua_State *L)
     oluacls_func(L, "close", _cocos2d_network_WebSocket_close);
     oluacls_func(L, "closeAllConnections", _cocos2d_network_WebSocket_closeAllConnections);
     oluacls_func(L, "closeAsync", _cocos2d_network_WebSocket_closeAsync);
-    oluacls_func(L, "create", _cocos2d_network_WebSocket_create);
     oluacls_func(L, "getProtocol", _cocos2d_network_WebSocket_getProtocol);
     oluacls_func(L, "getReadyState", _cocos2d_network_WebSocket_getReadyState);
     oluacls_func(L, "getUrl", _cocos2d_network_WebSocket_getUrl);
+    oluacls_func(L, "init", _cocos2d_network_WebSocket_init);
     oluacls_func(L, "new", _cocos2d_network_WebSocket_new);
     oluacls_func(L, "send", _cocos2d_network_WebSocket_send);
     oluacls_prop(L, "protocol", _cocos2d_network_WebSocket_getProtocol, nullptr);
@@ -19209,13 +19275,31 @@ static int luaopen_cocos2d_network_WebSocket(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_LuaWebSocketDelegate_create(lua_State *L)
+static int _cocos2d_LuaWebSocketDelegate___gc(lua_State *L)
 {
     olua_startinvoke(L);
 
-    // static cocos2d::LuaWebSocketDelegate *create()
-    cocos2d::LuaWebSocketDelegate *ret = (cocos2d::LuaWebSocketDelegate *)cocos2d::LuaWebSocketDelegate::create();
+    auto self = olua_touserdata(L, 1, cocos2d::LuaWebSocketDelegate *);
+    lua_pushstring(L, ".ownership");
+    olua_getvariable(L, 1);
+    if (lua_toboolean(L, -1) && self) {
+        *(void **)lua_touserdata(L, 1) = nullptr;
+        delete self;
+    }
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_LuaWebSocketDelegate_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // LuaWebSocketDelegate()
+    cocos2d::LuaWebSocketDelegate *ret = (cocos2d::LuaWebSocketDelegate *)new cocos2d::LuaWebSocketDelegate();
     int num_ret = olua_push_cppobj(L, ret, "cc.LuaWebSocketDelegate");
+    olua_postnew(L, ret);
 
     olua_endinvoke(L);
 
@@ -19495,7 +19579,8 @@ static int _cocos2d_LuaWebSocketDelegate_set_onOpenCallback(lua_State *L)
 static int luaopen_cocos2d_LuaWebSocketDelegate(lua_State *L)
 {
     oluacls_class(L, "cc.LuaWebSocketDelegate", "cc.WebSocket.Delegate");
-    oluacls_func(L, "create", _cocos2d_LuaWebSocketDelegate_create);
+    oluacls_func(L, "__gc", _cocos2d_LuaWebSocketDelegate___gc);
+    oluacls_func(L, "new", _cocos2d_LuaWebSocketDelegate_new);
     oluacls_prop(L, "onClose", _cocos2d_LuaWebSocketDelegate_get_onCloseCallback, _cocos2d_LuaWebSocketDelegate_set_onCloseCallback);
     oluacls_prop(L, "onError", _cocos2d_LuaWebSocketDelegate_get_onErrorCallback, _cocos2d_LuaWebSocketDelegate_set_onErrorCallback);
     oluacls_prop(L, "onMessage", _cocos2d_LuaWebSocketDelegate_get_onMessageCallback, _cocos2d_LuaWebSocketDelegate_set_onMessageCallback);

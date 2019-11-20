@@ -96,6 +96,10 @@ function UILayer:_internalAddChild(child, index, silence)
     if self.stage and not silence then
         child:_setStage(self.stage)
     end
+    for i = index + 1, #self.children do
+        local c = self.children[i]
+        c.cobj.localZOrder = i
+    end
 end
 
 function UILayer:addChildAt(child, index)

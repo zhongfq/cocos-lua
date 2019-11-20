@@ -50,7 +50,7 @@ function FLMovieClip:_buildChildren()
     if not self._building then
         self._building = true
 
-        for i = self.numChildren, 1, -1 do
+        for i = #self._children, 1, -1 do
             local child = self._children[i]
             if not self.cobj:contains(child.cobj) then
                 self:_internalRemoveChild(i)

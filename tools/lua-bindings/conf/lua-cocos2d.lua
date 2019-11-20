@@ -490,39 +490,31 @@ typeconf 'cocos2d::VRGenericHeadTracker'
 
 typeconf 'cocos2d::network::WebSocket::ErrorCode'
 typeconf 'cocos2d::network::WebSocket::State'
-
-local WebSocketDelegate = typeconf 'cocos2d::network::WebSocket::Delegate'
-WebSocketDelegate.EXCLUDE 'onOpen'
-WebSocketDelegate.EXCLUDE 'onMessage'
-WebSocketDelegate.EXCLUDE 'onClose'
-WebSocketDelegate.EXCLUDE 'onError'
-WebSocketDelegate.FUNC('__gc', olua.gcfunc(WebSocketDelegate))
+typeconf 'cocos2d::network::WebSocket::Delegate'
 
 local WebSocket = typeconf 'cocos2d::network::WebSocket'
-WebSocket.EXCLUDE 'init'
-WebSocket.FUNC('__gc', olua.gcfunc(WebSocket))
-WebSocket.FUNC('create', [[
+WebSocket.FUNC('init', [[
 {
     std::vector<std::string> protocols;
-    auto self = new cocos2d::network::WebSocket();
-    auto delegate = olua_checkobj<cocos2d::network::WebSocket::Delegate>(L, 1);
-    std::string url = olua_tostring(L, 2);
-    std::string cafile = olua_optstring(L, 4, "");
+    auto self = olua_toobj<cocos2d::network::WebSocket>(L, 1);
+    auto delegate = olua_checkobj<cocos2d::network::WebSocket::Delegate>(L, 2);
+    std::string url = olua_tostring(L, 3);
+    std::string cafile = olua_optstring(L, 5, "");
     
-    if (!lua_isnil(L, 3)) {
-        luaL_checktype(L, 3, LUA_TTABLE);
-        int len = (int)lua_rawlen(L, 3);
+    if (!lua_isnil(L, 4)) {
+        luaL_checktype(L, 4, LUA_TTABLE);
+        int len = (int)lua_rawlen(L, 4);
         protocols.reserve(len);
         for (int i = 1; i <= len; i++) {
-            lua_rawgeti(L, 3, i);
+            lua_rawgeti(L, 4, i);
             protocols.push_back(olua_checkstring(L, -1));
             lua_pop(L, 1);
         }
     }
     
     self->init(*delegate, url, protocols.size() > 0 ? &protocols : nullptr, cafile);
-    olua_push_cppobj<cocos2d::network::WebSocket>(L, self);
-    olua_singleref(L, -1, "delegate", 1);
+
+    olua_singleref(L, 1, "delegate", 2);
 
     return 1;
 }]])

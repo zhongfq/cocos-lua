@@ -19,11 +19,11 @@ function FLList:ctor()
 
     self._column = self.metadata.column or 1
 
-    local viewport = self.children[1]
-    viewport.visible = false
+    self.viewport = self.children[1]
+    self.viewport.visible = false
     
-    rawset(self, 'width', viewport.width)
-    rawset(self, 'height', viewport.height)
+    rawset(self, 'width', self.viewport.width)
+    rawset(self, 'height', self.viewport.height)
     rawset(self.container, 'width', self.container.width)
     rawset(self.container, 'height', self.container.height)
 
@@ -71,6 +71,15 @@ function FLList.Get:container()
     local container = self.ns['container']
     rawset(self, 'container', container)
     return container
+end
+
+function FLList:selectItem(index)
+    for item, i in pairs(self._indices) do
+        if i == index then
+            self:dispatch(Event.CHANGE, item, i)
+            break
+        end
+    end
 end
 
 function FLList:getBounds(target)

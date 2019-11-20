@@ -2048,20 +2048,12 @@ cls.funcs [[
     void editBoxReturn(cocos2d::ui::EditBox *editBox)
     void editBoxEditingDidEndWithAction(cocos2d::ui::EditBox *, cocos2d::ui::EditBoxDelegate::EditBoxEndAction )
 ]]
-cls.func('__gc', [[{
-    auto self = olua_touserdata(L, 1, cocos2d::ui::EditBoxDelegate *);
-    if (self) {
-        *(void **)lua_touserdata(L, 1) = nullptr;
-        delete self;
-    }
-    return 0;
-}]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::ui::LuaEditBoxDelegate'
 cls.SUPERCLS = "cocos2d::ui::EditBoxDelegate"
 cls.funcs [[
-    static cocos2d::ui::LuaEditBoxDelegate *create()
+    LuaEditBoxDelegate()
 ]]
 cls.var('onEditingDidBegin', [[@nullable @local std::function<void (EditBox *)> onEditingDidBegin]])
 cls.var('onTextChanged', [[@nullable @local std::function<void (EditBox *, const std::string &)> onTextChanged]])

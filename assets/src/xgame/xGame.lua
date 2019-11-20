@@ -197,3 +197,5 @@ function xGame:_initRuntimeEvents()
 end
 
 xGame = xGame.new()
+
+return xGame

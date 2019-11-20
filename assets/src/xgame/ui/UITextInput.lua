@@ -37,7 +37,7 @@ function UITextInput.Get:cobj()
     cobj:addChild(label, 0)
     self._label = label
 
-    local delegate = EditBoxDelegate.create()
+    local delegate = EditBoxDelegate.new()
 
     delegate.onReturn = function ()
         if self.stage and self.stage.focus == self then

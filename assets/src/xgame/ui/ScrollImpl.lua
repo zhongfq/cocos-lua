@@ -99,7 +99,7 @@ end
 
 function ScrollImpl:_tryFocus(id, x, y)
     x, y = self._target:localToGlobal(x, y)
-    local hit, capturePoints = self._container:hit({
+    local hit, capturePoints = self._target:hitChildren({
         [id] = {x = x, y = y, id = id}})
     if hit and not hit.touchPreemptive then
         self._focuses[id] = hit

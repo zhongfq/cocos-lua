@@ -627,10 +627,10 @@ static const char *auxpushrefkey(lua_State *L, const char *name)
     return lua_pushfstring(L, ".ref.%s", name);
 }
 
-LUALIB_API void olua_getreftable(lua_State *L, int obj, const char *name)
+LUALIB_API void olua_getreftable(lua_State *L, int idx, const char *name)
 {
-    olua_assert(olua_isuserdata(L, obj));
-    auxgetusertable(L, obj);                // L: uv
+    olua_assert(olua_isuserdata(L, idx));
+    auxgetusertable(L, idx);                // L: uv
     name = auxpushrefkey(L, name);          // L: uv refkey
     olua_getsubtable(L, -2, name);          // L: uv refkey reftable
     lua_insert(L, -3);                      // L: reftable uv refkey
@@ -649,10 +649,10 @@ LUALIB_API void olua_singleref(lua_State *L, int idx, const char *name, int obj)
     lua_pop(L, 1);                          // L:
 }
 
-LUALIB_API void olua_singleunref(lua_State *L, int obj, const char *name)
+LUALIB_API void olua_singleunref(lua_State *L, int idx, const char *name)
 {
     lua_pushnil(L);
-    olua_singleref(L, obj, name, -1);
+    olua_singleref(L, idx, name, -1);
     lua_pop(L, 1);
 }
 

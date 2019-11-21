@@ -9739,9 +9739,10 @@ static int _cocos2d_FileUtils_getFileDataFromZip(lua_State *L)
     olua_check_std_string(L, 3, &arg2);
     // no need to check 'arg3' with mark '@out'
 
-    // unsigned char *getFileDataFromZip(const std::string &zipFilePath, const std::string &filename, @out ssize_t *size)
+    // @length(arg3) unsigned char *getFileDataFromZip(const std::string &zipFilePath, const std::string &filename, @out ssize_t *size)
     unsigned char *ret = (unsigned char *)self->getFileDataFromZip(arg1, arg2, &arg3);
-    int num_ret = olua_push_string(L, (const char *)ret);
+    int num_ret = 1;
+    lua_pushlstring(L, (const char *)ret, arg3);
     olua_push_int(L, (lua_Integer)arg3);
 
     olua_endinvoke(L);

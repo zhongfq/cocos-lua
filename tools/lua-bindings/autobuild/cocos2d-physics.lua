@@ -39,6 +39,7 @@ M.CLASSES = {}
 cls = typecls 'cocos2d::EventListenerPhysicsContact'
 cls.SUPERCLS = "cocos2d::EventListenerCustom"
 cls.funcs [[
+    static cocos2d::EventListenerPhysicsContact *create()
 ]]
 cls.var('onContactBegin', [[@nullable @local std::function<bool (PhysicsContact &)> onContactBegin]])
 cls.var('onContactPreSolve', [[@nullable @local std::function<bool (PhysicsContact &, PhysicsContactPreSolve &)> onContactPreSolve]])
@@ -49,6 +50,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EventListenerPhysicsContactWithGroup'
 cls.SUPERCLS = "cocos2d::EventListenerPhysicsContact"
 cls.funcs [[
+    static cocos2d::EventListenerPhysicsContactWithGroup *create(int group)
     bool hitTest(cocos2d::PhysicsShape *shapeA, cocos2d::PhysicsShape *shapeB)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -56,6 +58,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EventListenerPhysicsContactWithBodies'
 cls.SUPERCLS = "cocos2d::EventListenerPhysicsContact"
 cls.funcs [[
+    static cocos2d::EventListenerPhysicsContactWithBodies *create(cocos2d::PhysicsBody *bodyA, cocos2d::PhysicsBody *bodyB)
     bool hitTest(cocos2d::PhysicsShape *shapeA, cocos2d::PhysicsShape *shapeB)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -63,6 +66,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::EventListenerPhysicsContactWithShapes'
 cls.SUPERCLS = "cocos2d::EventListenerPhysicsContact"
 cls.funcs [[
+    static cocos2d::EventListenerPhysicsContactWithShapes *create(cocos2d::PhysicsShape *shapeA, cocos2d::PhysicsShape *shapeB)
     bool hitTest(cocos2d::PhysicsShape *shapeA, cocos2d::PhysicsShape *shapeB)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls

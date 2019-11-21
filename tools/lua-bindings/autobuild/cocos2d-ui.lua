@@ -535,6 +535,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::Layout'
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.funcs [[
+    static cocos2d::Ref *createInstance()
     Layout()
     static cocos2d::ui::Layout *create()
     void setBackGroundImage(const std::string &fileName, @optional cocos2d::ui::Widget::TextureResType texType)
@@ -969,6 +970,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::ScrollView'
 cls.SUPERCLS = "cocos2d::ui::Layout"
 cls.funcs [[
+    static cocos2d::Ref *createInstance()
     ScrollView()
     static cocos2d::ui::ScrollView *create()
     void setDirection(cocos2d::ui::ScrollView::Direction dir)
@@ -1100,6 +1102,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::ListView'
 cls.SUPERCLS = "cocos2d::ui::ScrollView"
 cls.funcs [[
+    static cocos2d::Ref *createInstance()
     ListView()
     static cocos2d::ui::ListView *create()
     void setItemModel(cocos2d::ui::Widget *model)
@@ -1185,6 +1188,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::LoadingBar'
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.funcs [[
+    static cocos2d::Ref *createInstance()
     LoadingBar()
     static cocos2d::ui::LoadingBar *create()
     static cocos2d::ui::LoadingBar *create(const std::string &textureName, @optional float percentage)
@@ -1227,6 +1231,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::PageView'
 cls.SUPERCLS = "cocos2d::ui::ListView"
 cls.funcs [[
+    static cocos2d::Ref *createInstance()
     PageView()
     static cocos2d::ui::PageView *create()
     void addPage(@ref(map children) cocos2d::ui::Widget *page)
@@ -1534,6 +1539,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::Slider'
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.funcs [[
+    static cocos2d::Ref *createInstance()
     Slider()
     static cocos2d::ui::Slider *create()
     static cocos2d::ui::Slider *create(const std::string &barTextureName, const std::string &normalBallTextureName, @optional cocos2d::ui::Widget::TextureResType resType)
@@ -1606,6 +1612,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::Text'
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.funcs [[
+    static cocos2d::Ref *createInstance()
     Text()
     static cocos2d::ui::Text *create()
     static cocos2d::ui::Text *create(const std::string &textContent, const std::string &fontName, float fontSize)
@@ -1671,6 +1678,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::TextAtlas'
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.funcs [[
+    static cocos2d::Ref *createInstance()
     TextAtlas()
     static cocos2d::ui::TextAtlas *create()
     static cocos2d::ui::TextAtlas *create(const std::string &stringValue, const std::string &charMapFile, int itemWidth, int itemHeight, const std::string &startCharMap)
@@ -1691,6 +1699,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::TextBMFont'
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.funcs [[
+    static cocos2d::Ref *createInstance()
     TextBMFont()
     static cocos2d::ui::TextBMFont *create()
     static cocos2d::ui::TextBMFont *create(const std::string &text, const std::string &filename)
@@ -1761,6 +1770,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::TextField'
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.funcs [[
+    static cocos2d::Ref *createInstance()
     TextField()
     static cocos2d::ui::TextField *create()
     static cocos2d::ui::TextField *create(const std::string &placeholder, const std::string &fontName, int fontSize)
@@ -1846,6 +1856,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::Button'
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.funcs [[
+    static cocos2d::Ref *createInstance()
     Button()
     static cocos2d::ui::Button *create()
     static cocos2d::ui::Button *create(const std::string &normalImage, @optional const std::string &selectedImage, @optional const std::string &disableImage, @optional cocos2d::ui::Widget::TextureResType texType)
@@ -1922,6 +1933,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::CheckBox'
 cls.SUPERCLS = "cocos2d::ui::AbstractCheckButton"
 cls.funcs [[
+    static cocos2d::Ref *createInstance()
     CheckBox()
     static cocos2d::ui::CheckBox *create()
     static cocos2d::ui::CheckBox *create(const std::string &backGround, const std::string &backGroundSelected, const std::string &cross, const std::string &backGroundDisabled, const std::string &frontCrossDisabled, @optional cocos2d::ui::Widget::TextureResType texType)
@@ -1949,6 +1961,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::RadioButton'
 cls.SUPERCLS = "cocos2d::ui::AbstractCheckButton"
 cls.funcs [[
+    static cocos2d::Ref *createInstance()
     RadioButton()
     static cocos2d::ui::RadioButton *create()
     static cocos2d::ui::RadioButton *create(const std::string &backGround, const std::string &backGroundSelected, const std::string &cross, const std::string &backGroundDisabled, const std::string &frontCrossDisabled, @optional cocos2d::ui::Widget::TextureResType texType)
@@ -2010,6 +2023,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::ui::ImageView'
 cls.SUPERCLS = "cocos2d::ui::Widget"
 cls.funcs [[
+    static cocos2d::Ref *createInstance()
     ImageView()
     static cocos2d::ui::ImageView *create()
     static cocos2d::ui::ImageView *create(const std::string &imageFileName, @optional cocos2d::ui::Widget::TextureResType texType)

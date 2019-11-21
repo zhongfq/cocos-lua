@@ -53,7 +53,6 @@ typeconf 'cocos2d::ui::Widget::TextureResType'
 typeconf 'cocos2d::ui::Widget::BrightStyle'
 
 local Widget = typeconf 'cocos2d::ui::Widget'
-Widget.EXCLUDE 'createInstance'
 Widget.ATTR('getVirtualRenderer', {RET = '@ref(map protectedChildren)'})
 Widget.CALLBACK {NAME = 'onFocusChanged', LOCAL = false}
 Widget.CALLBACK {

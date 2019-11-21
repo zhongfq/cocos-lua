@@ -96,6 +96,19 @@ bool auto_olua_is_cocos2d_PhysicsMaterial(lua_State *L, int idx)
     return olua_istable(L, idx) && olua_hasfield(L, idx, "friction") && olua_hasfield(L, idx, "restitution") && olua_hasfield(L, idx, "density");
 }
 
+static int _cocos2d_EventListenerPhysicsContact_create(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static cocos2d::EventListenerPhysicsContact *create()
+    cocos2d::EventListenerPhysicsContact *ret = (cocos2d::EventListenerPhysicsContact *)cocos2d::EventListenerPhysicsContact::create();
+    int num_ret = olua_push_cppobj(L, ret, "cc.EventListenerPhysicsContact");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_EventListenerPhysicsContact_get_onContactBegin(lua_State *L)
 {
     olua_startinvoke(L);
@@ -379,6 +392,7 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactSeparate(lua_State 
 static int luaopen_cocos2d_EventListenerPhysicsContact(lua_State *L)
 {
     oluacls_class(L, "cc.EventListenerPhysicsContact", "cc.EventListenerCustom");
+    oluacls_func(L, "create", _cocos2d_EventListenerPhysicsContact_create);
     oluacls_prop(L, "onContactBegin", _cocos2d_EventListenerPhysicsContact_get_onContactBegin, _cocos2d_EventListenerPhysicsContact_set_onContactBegin);
     oluacls_prop(L, "onContactPostSolve", _cocos2d_EventListenerPhysicsContact_get_onContactPostSolve, _cocos2d_EventListenerPhysicsContact_set_onContactPostSolve);
     oluacls_prop(L, "onContactPreSolve", _cocos2d_EventListenerPhysicsContact_get_onContactPreSolve, _cocos2d_EventListenerPhysicsContact_set_onContactPreSolve);
@@ -388,6 +402,23 @@ static int luaopen_cocos2d_EventListenerPhysicsContact(lua_State *L)
     oluacls_createclassproxy(L);
 
     return 1;
+}
+
+static int _cocos2d_EventListenerPhysicsContactWithGroup_create(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Integer arg1 = 0;       /** group */
+
+    olua_check_int(L, 1, &arg1);
+
+    // static cocos2d::EventListenerPhysicsContactWithGroup *create(int group)
+    cocos2d::EventListenerPhysicsContactWithGroup *ret = (cocos2d::EventListenerPhysicsContactWithGroup *)cocos2d::EventListenerPhysicsContactWithGroup::create((int)arg1);
+    int num_ret = olua_push_cppobj(L, ret, "cc.EventListenerPhysicsContactWithGroup");
+
+    olua_endinvoke(L);
+
+    return num_ret;
 }
 
 static int _cocos2d_EventListenerPhysicsContactWithGroup_hitTest(lua_State *L)
@@ -414,12 +445,32 @@ static int _cocos2d_EventListenerPhysicsContactWithGroup_hitTest(lua_State *L)
 static int luaopen_cocos2d_EventListenerPhysicsContactWithGroup(lua_State *L)
 {
     oluacls_class(L, "cc.EventListenerPhysicsContactWithGroup", "cc.EventListenerPhysicsContact");
+    oluacls_func(L, "create", _cocos2d_EventListenerPhysicsContactWithGroup_create);
     oluacls_func(L, "hitTest", _cocos2d_EventListenerPhysicsContactWithGroup_hitTest);
 
     olua_registerluatype<cocos2d::EventListenerPhysicsContactWithGroup>(L, "cc.EventListenerPhysicsContactWithGroup");
     oluacls_createclassproxy(L);
 
     return 1;
+}
+
+static int _cocos2d_EventListenerPhysicsContactWithBodies_create(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::PhysicsBody *arg1 = nullptr;       /** bodyA */
+    cocos2d::PhysicsBody *arg2 = nullptr;       /** bodyB */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "cc.PhysicsBody");
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.PhysicsBody");
+
+    // static cocos2d::EventListenerPhysicsContactWithBodies *create(cocos2d::PhysicsBody *bodyA, cocos2d::PhysicsBody *bodyB)
+    cocos2d::EventListenerPhysicsContactWithBodies *ret = (cocos2d::EventListenerPhysicsContactWithBodies *)cocos2d::EventListenerPhysicsContactWithBodies::create(arg1, arg2);
+    int num_ret = olua_push_cppobj(L, ret, "cc.EventListenerPhysicsContactWithBodies");
+
+    olua_endinvoke(L);
+
+    return num_ret;
 }
 
 static int _cocos2d_EventListenerPhysicsContactWithBodies_hitTest(lua_State *L)
@@ -446,12 +497,32 @@ static int _cocos2d_EventListenerPhysicsContactWithBodies_hitTest(lua_State *L)
 static int luaopen_cocos2d_EventListenerPhysicsContactWithBodies(lua_State *L)
 {
     oluacls_class(L, "cc.EventListenerPhysicsContactWithBodies", "cc.EventListenerPhysicsContact");
+    oluacls_func(L, "create", _cocos2d_EventListenerPhysicsContactWithBodies_create);
     oluacls_func(L, "hitTest", _cocos2d_EventListenerPhysicsContactWithBodies_hitTest);
 
     olua_registerluatype<cocos2d::EventListenerPhysicsContactWithBodies>(L, "cc.EventListenerPhysicsContactWithBodies");
     oluacls_createclassproxy(L);
 
     return 1;
+}
+
+static int _cocos2d_EventListenerPhysicsContactWithShapes_create(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::PhysicsShape *arg1 = nullptr;       /** shapeA */
+    cocos2d::PhysicsShape *arg2 = nullptr;       /** shapeB */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "cc.PhysicsShape");
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.PhysicsShape");
+
+    // static cocos2d::EventListenerPhysicsContactWithShapes *create(cocos2d::PhysicsShape *shapeA, cocos2d::PhysicsShape *shapeB)
+    cocos2d::EventListenerPhysicsContactWithShapes *ret = (cocos2d::EventListenerPhysicsContactWithShapes *)cocos2d::EventListenerPhysicsContactWithShapes::create(arg1, arg2);
+    int num_ret = olua_push_cppobj(L, ret, "cc.EventListenerPhysicsContactWithShapes");
+
+    olua_endinvoke(L);
+
+    return num_ret;
 }
 
 static int _cocos2d_EventListenerPhysicsContactWithShapes_hitTest(lua_State *L)
@@ -478,6 +549,7 @@ static int _cocos2d_EventListenerPhysicsContactWithShapes_hitTest(lua_State *L)
 static int luaopen_cocos2d_EventListenerPhysicsContactWithShapes(lua_State *L)
 {
     oluacls_class(L, "cc.EventListenerPhysicsContactWithShapes", "cc.EventListenerPhysicsContact");
+    oluacls_func(L, "create", _cocos2d_EventListenerPhysicsContactWithShapes_create);
     oluacls_func(L, "hitTest", _cocos2d_EventListenerPhysicsContactWithShapes_hitTest);
 
     olua_registerluatype<cocos2d::EventListenerPhysicsContactWithShapes>(L, "cc.EventListenerPhysicsContactWithShapes");

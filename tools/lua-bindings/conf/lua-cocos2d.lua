@@ -391,7 +391,7 @@ typeconf 'cocos2d::ResizableBuffer'
 typeconf 'cocos2d::FileUtils::Status'
 
 typeconf 'cocos2d::FileUtils'
-    .ATTR('getFileDataFromZip', {ARG3 = '@out'})
+    .ATTR('getFileDataFromZip', {RET = '@length(arg3)', ARG3 = '@out'})
     .ATTR('listFilesRecursively', {ARG2 = '@out'})
 
 typeconf 'ResolutionPolicy'

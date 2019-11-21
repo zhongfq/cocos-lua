@@ -14089,6 +14089,19 @@ static int _dragonBones_CCFactory_buildArmatureDisplay(lua_State *L)
     return 0;
 }
 
+static int _dragonBones_CCFactory_getClock(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static dragonBones::WorldClock *getClock()
+    dragonBones::WorldClock *ret = (dragonBones::WorldClock *)dragonBones::CCFactory::getClock();
+    int num_ret = olua_push_cppobj(L, ret, "db.WorldClock");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _dragonBones_CCFactory_getFactory(lua_State *L)
 {
     olua_startinvoke(L);
@@ -14387,12 +14400,14 @@ static int luaopen_dragonBones_CCFactory(lua_State *L)
     oluacls_class(L, "db.Factory", "db.BaseFactory");
     oluacls_func(L, "__gc", _dragonBones_CCFactory___gc);
     oluacls_func(L, "buildArmatureDisplay", _dragonBones_CCFactory_buildArmatureDisplay);
+    oluacls_func(L, "getClock", _dragonBones_CCFactory_getClock);
     oluacls_func(L, "getFactory", _dragonBones_CCFactory_getFactory);
     oluacls_func(L, "getSoundEventManager", _dragonBones_CCFactory_getSoundEventManager);
     oluacls_func(L, "getTextureDisplay", _dragonBones_CCFactory_getTextureDisplay);
     oluacls_func(L, "loadDragonBonesData", _dragonBones_CCFactory_loadDragonBonesData);
     oluacls_func(L, "loadTextureAtlasData", _dragonBones_CCFactory_loadTextureAtlasData);
     oluacls_func(L, "new", _dragonBones_CCFactory_new);
+    oluacls_prop(L, "clock", _dragonBones_CCFactory_getClock, nullptr);
     oluacls_prop(L, "factory", _dragonBones_CCFactory_getFactory, nullptr);
     oluacls_prop(L, "soundEventManager", _dragonBones_CCFactory_getSoundEventManager, nullptr);
 

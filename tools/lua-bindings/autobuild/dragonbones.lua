@@ -981,10 +981,12 @@ cls.funcs [[
     dragonBones::CCArmatureDisplay *buildArmatureDisplay(const std::string &armatureName, @optional const std::string &dragonBonesName, @optional const std::string &skinName, @optional const std::string &textureAtlasName)
     cocos2d::Sprite *getTextureDisplay(const std::string &textureName, @optional const std::string &dragonBonesName)
     dragonBones::CCArmatureDisplay *getSoundEventManager()
+    static dragonBones::WorldClock *getClock()
 ]]
 cls.props [[
     factory
     soundEventManager
+    clock
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 

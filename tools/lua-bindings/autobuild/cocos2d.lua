@@ -1298,7 +1298,7 @@ cls.funcs [[
     std::string getStringFromFile(const std::string &filename)
     cocos2d::Data getDataFromFile(const std::string &filename)
     cocos2d::FileUtils::Status getContents(const std::string &filename, cocos2d::ResizableBuffer *buffer)
-    unsigned char *getFileDataFromZip(const std::string &zipFilePath, const std::string &filename, @out ssize_t *size)
+    @length(arg3) unsigned char *getFileDataFromZip(const std::string &zipFilePath, const std::string &filename, @out ssize_t *size)
     std::string fullPathForFilename(const std::string &filename)
     void loadFilenameLookupDictionaryFromFile(const std::string &filename)
     void setFilenameLookupDictionary(const cocos2d::ValueMap &filenameLookupDict)

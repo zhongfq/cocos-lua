@@ -4518,6 +4518,19 @@ static int _cocos2d_ui_Layout_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_ui_Layout_createInstance(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static cocos2d::Ref *createInstance()
+    cocos2d::Ref *ret = (cocos2d::Ref *)cocos2d::ui::Layout::createInstance();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Ref");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_ui_Layout_forceDoLayout(lua_State *L)
 {
     olua_startinvoke(L);
@@ -5279,6 +5292,7 @@ static int luaopen_cocos2d_ui_Layout(lua_State *L)
 {
     oluacls_class(L, "ccui.Layout", "ccui.Widget");
     oluacls_func(L, "create", _cocos2d_ui_Layout_create);
+    oluacls_func(L, "createInstance", _cocos2d_ui_Layout_createInstance);
     oluacls_func(L, "forceDoLayout", _cocos2d_ui_Layout_forceDoLayout);
     oluacls_func(L, "getBackGroundColor", _cocos2d_ui_Layout_getBackGroundColor);
     oluacls_func(L, "getBackGroundColorOpacity", _cocos2d_ui_Layout_getBackGroundColorOpacity);
@@ -8541,6 +8555,19 @@ static int _cocos2d_ui_ScrollView_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_ui_ScrollView_createInstance(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static cocos2d::Ref *createInstance()
+    cocos2d::Ref *ret = (cocos2d::Ref *)cocos2d::ui::ScrollView::createInstance();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Ref");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_ui_ScrollView_getDirection(lua_State *L)
 {
     olua_startinvoke(L);
@@ -9630,6 +9657,7 @@ static int luaopen_cocos2d_ui_ScrollView(lua_State *L)
     oluacls_func(L, "addEventListener", _cocos2d_ui_ScrollView_addEventListener);
     oluacls_func(L, "addScrollEventListener", _cocos2d_ui_ScrollView_addEventListener);
     oluacls_func(L, "create", _cocos2d_ui_ScrollView_create);
+    oluacls_func(L, "createInstance", _cocos2d_ui_ScrollView_createInstance);
     oluacls_func(L, "getDirection", _cocos2d_ui_ScrollView_getDirection);
     oluacls_func(L, "getInnerContainer", _cocos2d_ui_ScrollView_getInnerContainer);
     oluacls_func(L, "getInnerContainerPosition", _cocos2d_ui_ScrollView_getInnerContainerPosition);
@@ -9815,6 +9843,19 @@ static int _cocos2d_ui_ListView_create(lua_State *L)
     // static cocos2d::ui::ListView *create()
     cocos2d::ui::ListView *ret = (cocos2d::ui::ListView *)cocos2d::ui::ListView::create();
     int num_ret = olua_push_cppobj(L, ret, "ccui.ListView");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_ListView_createInstance(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static cocos2d::Ref *createInstance()
+    cocos2d::Ref *ret = (cocos2d::Ref *)cocos2d::ui::ListView::createInstance();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Ref");
 
     olua_endinvoke(L);
 
@@ -10657,6 +10698,7 @@ static int luaopen_cocos2d_ui_ListView(lua_State *L)
     oluacls_func(L, "addEventListener", _cocos2d_ui_ListView_addEventListener);
     oluacls_func(L, "addListViewEventListener", _cocos2d_ui_ListView_addEventListener);
     oluacls_func(L, "create", _cocos2d_ui_ListView_create);
+    oluacls_func(L, "createInstance", _cocos2d_ui_ListView_createInstance);
     oluacls_func(L, "doLayout", _cocos2d_ui_ListView_doLayout);
     oluacls_func(L, "getBottomPadding", _cocos2d_ui_ListView_getBottomPadding);
     oluacls_func(L, "getBottommostItemInCurrentView", _cocos2d_ui_ListView_getBottommostItemInCurrentView);
@@ -10861,6 +10903,19 @@ static int _cocos2d_ui_LoadingBar_create(lua_State *L)
     luaL_error(L, "method 'cocos2d::ui::LoadingBar::create' not support '%d' arguments", num_args);
 
     return 0;
+}
+
+static int _cocos2d_ui_LoadingBar_createInstance(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static cocos2d::Ref *createInstance()
+    cocos2d::Ref *ret = (cocos2d::Ref *)cocos2d::ui::LoadingBar::createInstance();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Ref");
+
+    olua_endinvoke(L);
+
+    return num_ret;
 }
 
 static int _cocos2d_ui_LoadingBar_getCapInsets(lua_State *L)
@@ -11099,6 +11154,7 @@ static int luaopen_cocos2d_ui_LoadingBar(lua_State *L)
 {
     oluacls_class(L, "ccui.LoadingBar", "ccui.Widget");
     oluacls_func(L, "create", _cocos2d_ui_LoadingBar_create);
+    oluacls_func(L, "createInstance", _cocos2d_ui_LoadingBar_createInstance);
     oluacls_func(L, "getCapInsets", _cocos2d_ui_LoadingBar_getCapInsets);
     oluacls_func(L, "getDirection", _cocos2d_ui_LoadingBar_getDirection);
     oluacls_func(L, "getPercent", _cocos2d_ui_LoadingBar_getPercent);
@@ -11219,6 +11275,19 @@ static int _cocos2d_ui_PageView_create(lua_State *L)
     // static cocos2d::ui::PageView *create()
     cocos2d::ui::PageView *ret = (cocos2d::ui::PageView *)cocos2d::ui::PageView::create();
     int num_ret = olua_push_cppobj(L, ret, "ccui.PageView");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_ui_PageView_createInstance(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static cocos2d::Ref *createInstance()
+    cocos2d::Ref *ret = (cocos2d::Ref *)cocos2d::ui::PageView::createInstance();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Ref");
 
     olua_endinvoke(L);
 
@@ -11884,6 +11953,7 @@ static int luaopen_cocos2d_ui_PageView(lua_State *L)
     oluacls_func(L, "addPage", _cocos2d_ui_PageView_addPage);
     oluacls_func(L, "addPageViewEventListener", _cocos2d_ui_PageView_addEventListener);
     oluacls_func(L, "create", _cocos2d_ui_PageView_create);
+    oluacls_func(L, "createInstance", _cocos2d_ui_PageView_createInstance);
     oluacls_func(L, "getCurrentPageIndex", _cocos2d_ui_PageView_getCurrentPageIndex);
     oluacls_func(L, "getIndicatorEnabled", _cocos2d_ui_PageView_getIndicatorEnabled);
     oluacls_func(L, "getIndicatorIndexNodesColor", _cocos2d_ui_PageView_getIndicatorIndexNodesColor);
@@ -14992,6 +15062,19 @@ static int _cocos2d_ui_Slider_create(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_ui_Slider_createInstance(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static cocos2d::Ref *createInstance()
+    cocos2d::Ref *ret = (cocos2d::Ref *)cocos2d::ui::Slider::createInstance();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Ref");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_ui_Slider_getBackFile(lua_State *L)
 {
     olua_startinvoke(L);
@@ -15846,6 +15929,7 @@ static int luaopen_cocos2d_ui_Slider(lua_State *L)
     oluacls_class(L, "ccui.Slider", "ccui.Widget");
     oluacls_func(L, "addEventListener", _cocos2d_ui_Slider_addEventListener);
     oluacls_func(L, "create", _cocos2d_ui_Slider_create);
+    oluacls_func(L, "createInstance", _cocos2d_ui_Slider_createInstance);
     oluacls_func(L, "getBackFile", _cocos2d_ui_Slider_getBackFile);
     oluacls_func(L, "getBallDisabledFile", _cocos2d_ui_Slider_getBallDisabledFile);
     oluacls_func(L, "getBallNormalFile", _cocos2d_ui_Slider_getBallNormalFile);
@@ -15964,6 +16048,19 @@ static int _cocos2d_ui_Text_create(lua_State *L)
     luaL_error(L, "method 'cocos2d::ui::Text::create' not support '%d' arguments", num_args);
 
     return 0;
+}
+
+static int _cocos2d_ui_Text_createInstance(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static cocos2d::Ref *createInstance()
+    cocos2d::Ref *ret = (cocos2d::Ref *)cocos2d::ui::Text::createInstance();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Ref");
+
+    olua_endinvoke(L);
+
+    return num_ret;
 }
 
 static int _cocos2d_ui_Text_disableEffect1(lua_State *L)
@@ -16756,6 +16853,7 @@ static int luaopen_cocos2d_ui_Text(lua_State *L)
 {
     oluacls_class(L, "ccui.Text", "ccui.Widget");
     oluacls_func(L, "create", _cocos2d_ui_Text_create);
+    oluacls_func(L, "createInstance", _cocos2d_ui_Text_createInstance);
     oluacls_func(L, "disableEffect", _cocos2d_ui_Text_disableEffect);
     oluacls_func(L, "enableGlow", _cocos2d_ui_Text_enableGlow);
     oluacls_func(L, "enableOutline", _cocos2d_ui_Text_enableOutline);
@@ -16892,6 +16990,19 @@ static int _cocos2d_ui_TextAtlas_create(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_ui_TextAtlas_createInstance(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static cocos2d::Ref *createInstance()
+    cocos2d::Ref *ret = (cocos2d::Ref *)cocos2d::ui::TextAtlas::createInstance();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Ref");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_ui_TextAtlas_getRenderFile(lua_State *L)
 {
     olua_startinvoke(L);
@@ -17006,6 +17117,7 @@ static int luaopen_cocos2d_ui_TextAtlas(lua_State *L)
     oluacls_class(L, "ccui.TextAtlas", "ccui.Widget");
     oluacls_func(L, "adaptRenderers", _cocos2d_ui_TextAtlas_adaptRenderers);
     oluacls_func(L, "create", _cocos2d_ui_TextAtlas_create);
+    oluacls_func(L, "createInstance", _cocos2d_ui_TextAtlas_createInstance);
     oluacls_func(L, "getRenderFile", _cocos2d_ui_TextAtlas_getRenderFile);
     oluacls_func(L, "getString", _cocos2d_ui_TextAtlas_getString);
     oluacls_func(L, "getStringLength", _cocos2d_ui_TextAtlas_getStringLength);
@@ -17073,6 +17185,19 @@ static int _cocos2d_ui_TextBMFont_create(lua_State *L)
     luaL_error(L, "method 'cocos2d::ui::TextBMFont::create' not support '%d' arguments", num_args);
 
     return 0;
+}
+
+static int _cocos2d_ui_TextBMFont_createInstance(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static cocos2d::Ref *createInstance()
+    cocos2d::Ref *ret = (cocos2d::Ref *)cocos2d::ui::TextBMFont::createInstance();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Ref");
+
+    olua_endinvoke(L);
+
+    return num_ret;
 }
 
 static int _cocos2d_ui_TextBMFont_getRenderFile(lua_State *L)
@@ -17196,6 +17321,7 @@ static int luaopen_cocos2d_ui_TextBMFont(lua_State *L)
 {
     oluacls_class(L, "ccui.TextBMFont", "ccui.Widget");
     oluacls_func(L, "create", _cocos2d_ui_TextBMFont_create);
+    oluacls_func(L, "createInstance", _cocos2d_ui_TextBMFont_createInstance);
     oluacls_func(L, "getRenderFile", _cocos2d_ui_TextBMFont_getRenderFile);
     oluacls_func(L, "getString", _cocos2d_ui_TextBMFont_getString);
     oluacls_func(L, "getStringLength", _cocos2d_ui_TextBMFont_getStringLength);
@@ -17867,6 +17993,19 @@ static int _cocos2d_ui_TextField_create(lua_State *L)
     luaL_error(L, "method 'cocos2d::ui::TextField::create' not support '%d' arguments", num_args);
 
     return 0;
+}
+
+static int _cocos2d_ui_TextField_createInstance(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static cocos2d::Ref *createInstance()
+    cocos2d::Ref *ret = (cocos2d::Ref *)cocos2d::ui::TextField::createInstance();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Ref");
+
+    olua_endinvoke(L);
+
+    return num_ret;
 }
 
 static int _cocos2d_ui_TextField_didNotSelectSelf(lua_State *L)
@@ -18683,6 +18822,7 @@ static int luaopen_cocos2d_ui_TextField(lua_State *L)
     oluacls_func(L, "addEventListener", _cocos2d_ui_TextField_addEventListener);
     oluacls_func(L, "attachWithIME", _cocos2d_ui_TextField_attachWithIME);
     oluacls_func(L, "create", _cocos2d_ui_TextField_create);
+    oluacls_func(L, "createInstance", _cocos2d_ui_TextField_createInstance);
     oluacls_func(L, "didNotSelectSelf", _cocos2d_ui_TextField_didNotSelectSelf);
     oluacls_func(L, "getAttachWithIME", _cocos2d_ui_TextField_getAttachWithIME);
     oluacls_func(L, "getAutoRenderSize", _cocos2d_ui_TextField_getAutoRenderSize);
@@ -18886,6 +19026,19 @@ static int _cocos2d_ui_Button_create(lua_State *L)
     luaL_error(L, "method 'cocos2d::ui::Button::create' not support '%d' arguments", num_args);
 
     return 0;
+}
+
+static int _cocos2d_ui_Button_createInstance(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static cocos2d::Ref *createInstance()
+    cocos2d::Ref *ret = (cocos2d::Ref *)cocos2d::ui::Button::createInstance();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Ref");
+
+    olua_endinvoke(L);
+
+    return num_ret;
 }
 
 static int _cocos2d_ui_Button_getCapInsetsDisabledRenderer(lua_State *L)
@@ -19959,6 +20112,7 @@ static int luaopen_cocos2d_ui_Button(lua_State *L)
 {
     oluacls_class(L, "ccui.Button", "ccui.Widget");
     oluacls_func(L, "create", _cocos2d_ui_Button_create);
+    oluacls_func(L, "createInstance", _cocos2d_ui_Button_createInstance);
     oluacls_func(L, "getCapInsetsDisabledRenderer", _cocos2d_ui_Button_getCapInsetsDisabledRenderer);
     oluacls_func(L, "getCapInsetsNormalRenderer", _cocos2d_ui_Button_getCapInsetsNormalRenderer);
     oluacls_func(L, "getCapInsetsPressedRenderer", _cocos2d_ui_Button_getCapInsetsPressedRenderer);
@@ -20226,6 +20380,19 @@ static int _cocos2d_ui_CheckBox_create(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_ui_CheckBox_createInstance(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static cocos2d::Ref *createInstance()
+    cocos2d::Ref *ret = (cocos2d::Ref *)cocos2d::ui::CheckBox::createInstance();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Ref");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_ui_CheckBox_new(lua_State *L)
 {
     olua_startinvoke(L);
@@ -20245,6 +20412,7 @@ static int luaopen_cocos2d_ui_CheckBox(lua_State *L)
     oluacls_class(L, "ccui.CheckBox", "ccui.AbstractCheckButton");
     oluacls_func(L, "addEventListener", _cocos2d_ui_CheckBox_addEventListener);
     oluacls_func(L, "create", _cocos2d_ui_CheckBox_create);
+    oluacls_func(L, "createInstance", _cocos2d_ui_CheckBox_createInstance);
     oluacls_func(L, "new", _cocos2d_ui_CheckBox_new);
 
     olua_registerluatype<cocos2d::ui::CheckBox>(L, "ccui.CheckBox");
@@ -20455,6 +20623,19 @@ static int _cocos2d_ui_RadioButton_create(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_ui_RadioButton_createInstance(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static cocos2d::Ref *createInstance()
+    cocos2d::Ref *ret = (cocos2d::Ref *)cocos2d::ui::RadioButton::createInstance();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Ref");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_ui_RadioButton_new(lua_State *L)
 {
     olua_startinvoke(L);
@@ -20474,6 +20655,7 @@ static int luaopen_cocos2d_ui_RadioButton(lua_State *L)
     oluacls_class(L, "ccui.RadioButton", "ccui.AbstractCheckButton");
     oluacls_func(L, "addEventListener", _cocos2d_ui_RadioButton_addEventListener);
     oluacls_func(L, "create", _cocos2d_ui_RadioButton_create);
+    oluacls_func(L, "createInstance", _cocos2d_ui_RadioButton_createInstance);
     oluacls_func(L, "new", _cocos2d_ui_RadioButton_new);
 
     olua_registerluatype<cocos2d::ui::RadioButton>(L, "ccui.RadioButton");
@@ -20921,6 +21103,19 @@ static int _cocos2d_ui_ImageView_create(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_ui_ImageView_createInstance(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static cocos2d::Ref *createInstance()
+    cocos2d::Ref *ret = (cocos2d::Ref *)cocos2d::ui::ImageView::createInstance();
+    int num_ret = olua_push_cppobj(L, ret, "cc.Ref");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _cocos2d_ui_ImageView_getBlendFunc(lua_State *L)
 {
     olua_startinvoke(L);
@@ -21203,6 +21398,7 @@ static int luaopen_cocos2d_ui_ImageView(lua_State *L)
 {
     oluacls_class(L, "ccui.ImageView", "ccui.Widget");
     oluacls_func(L, "create", _cocos2d_ui_ImageView_create);
+    oluacls_func(L, "createInstance", _cocos2d_ui_ImageView_createInstance);
     oluacls_func(L, "getBlendFunc", _cocos2d_ui_ImageView_getBlendFunc);
     oluacls_func(L, "getCapInsets", _cocos2d_ui_ImageView_getCapInsets);
     oluacls_func(L, "getRenderFile", _cocos2d_ui_ImageView_getRenderFile);

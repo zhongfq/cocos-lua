@@ -4,25 +4,6 @@ local M = typemod 'cocos2d'
 local typeconf = M.typeconf
 local include = M.include
 
-M.PARSER = {
-    HEADERS = {
-        'cocos2d.h',
-        'audio/include/AudioEngine.h',
-        'audio/include/SimpleAudioEngine.h',
-        'vr/CCVRGenericRenderer.h',
-        'vr/CCVRGenericHeadTracker.h',
-        'lua-bindings/LuaCocosAdapter.h'
-    },
-    FLAGS = {
-        '-I../../frameworks/cocos2d-x/cocos',
-        '-I../../frameworks/libxgame/src',
-        '-DCC_ENABLE_SCRIPT_BINDING=0',
-        '-DCC_CONSTRUCTOR_ACCESS=public',
-        '-DCC_DLL=',
-        '-DEXPORT_DLL=',
-    },
-}
-
 M.PATH = "../../frameworks/libxgame/src/lua-bindings"
 M.INCLUDES = [[
 #include "lua-bindings/lua_cocos2d.h"

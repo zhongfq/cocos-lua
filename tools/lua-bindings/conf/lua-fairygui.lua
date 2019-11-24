@@ -5,24 +5,6 @@ local typeconv = M.typeconv
 local typedef = M.typedef
 local typeonly = M.typeonly
 
-M.PARSER = {
-    HEADERS = {
-        'FairyGUI.h',
-        'tween/EaseManager.h',
-        'tween/GPath.h',
-        'display/FUISprite.h',
-    },
-    FLAGS = {
-        '-I../../frameworks/cocos2d-x/cocos',
-        '-I../../frameworks/libxgame/src',
-        '-I../../frameworks/libfairygui/Classes',
-        '-DCC_ENABLE_SCRIPT_BINDING=0',
-        '-DCC_CONSTRUCTOR_ACCESS=public',
-        '-DCC_DLL=',
-        '-DEXPORT_DLL=',
-    }
-}
-
 M.PATH = "../../frameworks/libxgame/src/lua-bindings"
 M.INCLUDES = [[
 #include "lua-bindings/lua_fairygui.h"

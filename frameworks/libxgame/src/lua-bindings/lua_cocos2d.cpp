@@ -4343,7 +4343,7 @@ static int luaopen_cocos2d_EventListenerTouchOneByOne(lua_State *L)
     oluacls_prop(L, "onTouchCancelled", _cocos2d_EventListenerTouchOneByOne_get_onTouchCancelled, _cocos2d_EventListenerTouchOneByOne_set_onTouchCancelled);
     oluacls_prop(L, "onTouchEnded", _cocos2d_EventListenerTouchOneByOne_get_onTouchEnded, _cocos2d_EventListenerTouchOneByOne_set_onTouchEnded);
     oluacls_prop(L, "onTouchMoved", _cocos2d_EventListenerTouchOneByOne_get_onTouchMoved, _cocos2d_EventListenerTouchOneByOne_set_onTouchMoved);
-    oluacls_const_string(L, "LISTENER_ID", cocos2d::EventListenerTouchOneByOne::LISTENER_ID.c_str());
+    oluacls_const_string(L, "LISTENER_ID", (const char *)cocos2d::EventListenerTouchOneByOne::LISTENER_ID.c_str());
 
     olua_registerluatype<cocos2d::EventListenerTouchOneByOne>(L, "cc.EventListenerTouchOneByOne");
     oluacls_createclassproxy(L);
@@ -4659,7 +4659,7 @@ static int luaopen_cocos2d_EventListenerTouchAllAtOnce(lua_State *L)
     oluacls_prop(L, "onTouchesCancelled", _cocos2d_EventListenerTouchAllAtOnce_get_onTouchesCancelled, _cocos2d_EventListenerTouchAllAtOnce_set_onTouchesCancelled);
     oluacls_prop(L, "onTouchesEnded", _cocos2d_EventListenerTouchAllAtOnce_get_onTouchesEnded, _cocos2d_EventListenerTouchAllAtOnce_set_onTouchesEnded);
     oluacls_prop(L, "onTouchesMoved", _cocos2d_EventListenerTouchAllAtOnce_get_onTouchesMoved, _cocos2d_EventListenerTouchAllAtOnce_set_onTouchesMoved);
-    oluacls_const_string(L, "LISTENER_ID", cocos2d::EventListenerTouchAllAtOnce::LISTENER_ID.c_str());
+    oluacls_const_string(L, "LISTENER_ID", (const char *)cocos2d::EventListenerTouchAllAtOnce::LISTENER_ID.c_str());
 
     olua_registerluatype<cocos2d::EventListenerTouchAllAtOnce>(L, "cc.EventListenerTouchAllAtOnce");
     oluacls_createclassproxy(L);
@@ -4908,7 +4908,7 @@ static int luaopen_cocos2d_EventListenerKeyboard(lua_State *L)
     oluacls_func(L, "new", _cocos2d_EventListenerKeyboard_new);
     oluacls_prop(L, "onKeyPressed", _cocos2d_EventListenerKeyboard_get_onKeyPressed, _cocos2d_EventListenerKeyboard_set_onKeyPressed);
     oluacls_prop(L, "onKeyReleased", _cocos2d_EventListenerKeyboard_get_onKeyReleased, _cocos2d_EventListenerKeyboard_set_onKeyReleased);
-    oluacls_const_string(L, "LISTENER_ID", cocos2d::EventListenerKeyboard::LISTENER_ID.c_str());
+    oluacls_const_string(L, "LISTENER_ID", (const char *)cocos2d::EventListenerKeyboard::LISTENER_ID.c_str());
 
     olua_registerluatype<cocos2d::EventListenerKeyboard>(L, "cc.EventListenerKeyboard");
     oluacls_createclassproxy(L);
@@ -4978,7 +4978,7 @@ static int luaopen_cocos2d_EventListenerAcceleration(lua_State *L)
     oluacls_class(L, "cc.EventListenerAcceleration", "cc.EventListener");
     oluacls_func(L, "create", _cocos2d_EventListenerAcceleration_create);
     oluacls_func(L, "new", _cocos2d_EventListenerAcceleration_new);
-    oluacls_const_string(L, "LISTENER_ID", cocos2d::EventListenerAcceleration::LISTENER_ID.c_str());
+    oluacls_const_string(L, "LISTENER_ID", (const char *)cocos2d::EventListenerAcceleration::LISTENER_ID.c_str());
 
     olua_registerluatype<cocos2d::EventListenerAcceleration>(L, "cc.EventListenerAcceleration");
     oluacls_createclassproxy(L);
@@ -5087,7 +5087,7 @@ static int luaopen_cocos2d_EventListenerFocus(lua_State *L)
     oluacls_func(L, "create", _cocos2d_EventListenerFocus_create);
     oluacls_func(L, "new", _cocos2d_EventListenerFocus_new);
     oluacls_prop(L, "onFocusChanged", _cocos2d_EventListenerFocus_get_onFocusChanged, _cocos2d_EventListenerFocus_set_onFocusChanged);
-    oluacls_const_string(L, "LISTENER_ID", cocos2d::EventListenerFocus::LISTENER_ID.c_str());
+    oluacls_const_string(L, "LISTENER_ID", (const char *)cocos2d::EventListenerFocus::LISTENER_ID.c_str());
 
     olua_registerluatype<cocos2d::EventListenerFocus>(L, "cc.EventListenerFocus");
     oluacls_createclassproxy(L);
@@ -5399,7 +5399,7 @@ static int luaopen_cocos2d_EventListenerMouse(lua_State *L)
     oluacls_prop(L, "onMouseMove", _cocos2d_EventListenerMouse_get_onMouseMove, _cocos2d_EventListenerMouse_set_onMouseMove);
     oluacls_prop(L, "onMouseScroll", _cocos2d_EventListenerMouse_get_onMouseScroll, _cocos2d_EventListenerMouse_set_onMouseScroll);
     oluacls_prop(L, "onMouseUp", _cocos2d_EventListenerMouse_get_onMouseUp, _cocos2d_EventListenerMouse_set_onMouseUp);
-    oluacls_const_string(L, "LISTENER_ID", cocos2d::EventListenerMouse::LISTENER_ID.c_str());
+    oluacls_const_string(L, "LISTENER_ID", (const char *)cocos2d::EventListenerMouse::LISTENER_ID.c_str());
 
     olua_registerluatype<cocos2d::EventListenerMouse>(L, "cc.EventListenerMouse");
     oluacls_createclassproxy(L);
@@ -6011,7 +6011,7 @@ static int luaopen_cocos2d_EventListenerController(lua_State *L)
     oluacls_prop(L, "onKeyDown", _cocos2d_EventListenerController_get_onKeyDown, _cocos2d_EventListenerController_set_onKeyDown);
     oluacls_prop(L, "onKeyRepeat", _cocos2d_EventListenerController_get_onKeyRepeat, _cocos2d_EventListenerController_set_onKeyRepeat);
     oluacls_prop(L, "onKeyUp", _cocos2d_EventListenerController_get_onKeyUp, _cocos2d_EventListenerController_set_onKeyUp);
-    oluacls_const_string(L, "LISTENER_ID", cocos2d::EventListenerController::LISTENER_ID.c_str());
+    oluacls_const_string(L, "LISTENER_ID", (const char *)cocos2d::EventListenerController::LISTENER_ID.c_str());
 
     olua_registerluatype<cocos2d::EventListenerController>(L, "cc.EventListenerController");
     oluacls_createclassproxy(L);
@@ -9732,7 +9732,7 @@ static int _cocos2d_FileUtils_getFileDataFromZip(lua_State *L)
     cocos2d::FileUtils *self = nullptr;
     std::string arg1;       /** zipFilePath */
     std::string arg2;       /** filename */
-    ssize_t arg3 = 0;       /** size */
+    ssize_t arg3 = (ssize_t)0;       /** size */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.FileUtils");
     olua_check_std_string(L, 2, &arg1);

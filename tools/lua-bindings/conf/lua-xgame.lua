@@ -2,25 +2,6 @@ local typemod = require "typemod"
 local M = typemod 'xgame'
 local typeconf = M.typeconf
 
-M.PARSER = {
-    HEADERS = {
-        'xgame/xfilesystem.h',
-        'xgame/xruntime.h',
-        'xgame/xpreferences.h',
-        'xgame/xdownloader.h',
-        'xgame/xrootscene.h',
-        'xgame/xtimer.h',
-    },
-    FLAGS = {
-        '-I../../frameworks/cocos2d-x/cocos',
-        '-I../../frameworks/libxgame/src',
-        '-DCC_ENABLE_SCRIPT_BINDING=0',
-        '-DCC_CONSTRUCTOR_ACCESS=public',
-        '-DCC_DLL=',
-        '-DEXPORT_DLL=',
-    },
-}
-
 M.PATH = "../../frameworks/libxgame/src/lua-bindings"
 M.INCLUDES = [[
 #include "lua-bindings/lua_xgame.h"

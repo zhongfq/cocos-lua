@@ -2427,7 +2427,7 @@ static int luaopen_cocos2d_PhysicsBody(lua_State *L)
     oluacls_prop(L, "velocity", _cocos2d_PhysicsBody_getVelocity, _cocos2d_PhysicsBody_setVelocity);
     oluacls_prop(L, "velocityLimit", _cocos2d_PhysicsBody_getVelocityLimit, _cocos2d_PhysicsBody_setVelocityLimit);
     oluacls_prop(L, "world", _cocos2d_PhysicsBody_getWorld, nullptr);
-    oluacls_const_string(L, "COMPONENT_NAME", cocos2d::PhysicsBody::COMPONENT_NAME.c_str());
+    oluacls_const_string(L, "COMPONENT_NAME", (const char *)cocos2d::PhysicsBody::COMPONENT_NAME.c_str());
 
     olua_registerluatype<cocos2d::PhysicsBody>(L, "cc.PhysicsBody");
     oluacls_createclassproxy(L);

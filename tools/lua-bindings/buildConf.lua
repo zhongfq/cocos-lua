@@ -2,6 +2,8 @@ require "bindings-generator.src.init"
 
 local autoconf = require "autoconf"
 
+autoconf.init 'conf/clang-args.lua'
+
 autoconf 'conf/lua-conv.lua'
 autoconf 'conf/lua-cocos2d.lua'
 autoconf 'conf/lua-cocos2d-physics.lua'

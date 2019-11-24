@@ -2,19 +2,6 @@ local typemod = require "typemod"
 local M = typemod 'conv'
 local typeconv = M.typeconv
 
-M.PARSER = {
-    HEADERS = {
-        'cocos2d.h',
-    },
-    FLAGS = {
-        '-I../../frameworks/cocos2d-x/cocos',
-        '-DCC_ENABLE_SCRIPT_BINDING=0',
-        '-DCC_CONSTRUCTOR_ACCESS=public',
-        '-DCC_DLL=',
-        '-DEXPORT_DLL=',
-    },
-}
-
 M.PATH = "../../frameworks/libxgame/src/lua-bindings"
 
 M.HEADER_INCLUDES = [[

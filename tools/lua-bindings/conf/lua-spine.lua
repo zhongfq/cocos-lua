@@ -3,23 +3,6 @@ local M = typemod 'spine'
 local typeconf = M.typeconf
 local typedef = M.typedef
 
-M.PARSER = {
-    HEADERS = {
-        'spine/spine-cocos2dx.h'
-    },
-    FLAGS = {
-        '-I../../frameworks/cocos2d-x/cocos',
-        '-I../../frameworks/cocos2d-x/cocos/editor-support',
-        '-I../../frameworks/libxgame/src',
-        '-DCC_DLL=',
-        '-DSP_API=',
-        '-DCC_ENABLE_SCRIPT_BINDING=0',
-        '-DCC_CONSTRUCTOR_ACCESS=public',
-        '-DSPINE_USE_STD_FUNCTION',
-        '-DEXPORT_DLL=',
-    },
-}
-
 M.PATH = "../../frameworks/libxgame/src/lua-bindings"
 M.INCLUDES = [[
 #include "lua-bindings/lua_cocos2d_ui.h"

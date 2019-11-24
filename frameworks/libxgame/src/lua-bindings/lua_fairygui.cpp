@@ -4440,7 +4440,7 @@ static int luaopen_fairygui_UIPackage(lua_State *L)
     oluacls_prop(L, "emptyTexture", _fairygui_UIPackage_getEmptyTexture, nullptr);
     oluacls_prop(L, "id", _fairygui_UIPackage_getId, nullptr);
     oluacls_prop(L, "name", _fairygui_UIPackage_getName, nullptr);
-    oluacls_const_string(L, "URL_PREFIX", fairygui::UIPackage::URL_PREFIX.c_str());
+    oluacls_const_string(L, "URL_PREFIX", (const char *)fairygui::UIPackage::URL_PREFIX.c_str());
 
     olua_registerluatype<fairygui::UIPackage>(L, "fgui.UIPackage");
     oluacls_createclassproxy(L);
@@ -12932,12 +12932,12 @@ static int luaopen_fairygui_GButton(lua_State *L)
     oluacls_prop(L, "title", _fairygui_GButton_getTitle, _fairygui_GButton_setTitle);
     oluacls_prop(L, "titleColor", _fairygui_GButton_getTitleColor, _fairygui_GButton_setTitleColor);
     oluacls_prop(L, "titleFontSize", _fairygui_GButton_getTitleFontSize, _fairygui_GButton_setTitleFontSize);
-    oluacls_const_string(L, "DISABLED", fairygui::GButton::DISABLED.c_str());
-    oluacls_const_string(L, "DOWN", fairygui::GButton::DOWN.c_str());
-    oluacls_const_string(L, "OVER", fairygui::GButton::OVER.c_str());
-    oluacls_const_string(L, "SELECTED_DISABLED", fairygui::GButton::SELECTED_DISABLED.c_str());
-    oluacls_const_string(L, "SELECTED_OVER", fairygui::GButton::SELECTED_OVER.c_str());
-    oluacls_const_string(L, "UP", fairygui::GButton::UP.c_str());
+    oluacls_const_string(L, "DISABLED", (const char *)fairygui::GButton::DISABLED.c_str());
+    oluacls_const_string(L, "DOWN", (const char *)fairygui::GButton::DOWN.c_str());
+    oluacls_const_string(L, "OVER", (const char *)fairygui::GButton::OVER.c_str());
+    oluacls_const_string(L, "SELECTED_DISABLED", (const char *)fairygui::GButton::SELECTED_DISABLED.c_str());
+    oluacls_const_string(L, "SELECTED_OVER", (const char *)fairygui::GButton::SELECTED_OVER.c_str());
+    oluacls_const_string(L, "UP", (const char *)fairygui::GButton::UP.c_str());
 
     olua_registerluatype<fairygui::GButton>(L, "fgui.GButton");
     oluacls_createclassproxy(L);

@@ -4,23 +4,6 @@ local M = typemod 'cocos2d_ui'
 local typeconf = M.typeconf
 local typedef = M.typedef
 
-M.PARSER = {
-    HEADERS = {
-        'cocos2d.h',
-        'ui/CocosGUI.h',
-        'ui/UIScrollViewBar.h',
-        'lua-bindings/LuaCocosAdapter.h'
-    },
-    FLAGS = {
-        '-I../../frameworks/cocos2d-x/cocos',
-        '-I../../frameworks/libxgame/src',
-        '-DCC_ENABLE_SCRIPT_BINDING=0',
-        '-DCC_CONSTRUCTOR_ACCESS=public',
-        '-DCC_DLL=',
-        '-DEXPORT_DLL=',
-    },
-}
-
 M.PATH = "../../frameworks/libxgame/src/lua-bindings"
 M.INCLUDES = [[
 #include "lua-bindings/lua_cocos2d_ui.h"

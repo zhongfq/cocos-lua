@@ -316,7 +316,7 @@ void AudioEngineImpl::update(float dt)
             if (playerIt != _audioPlayers.end()) {
                 if(playerIt->second._finishCallback) {
                     auto& audioInfo = AudioEngine::_audioIDInfoMap[audioID];
-                    playerIt->second._finishCallback(audioID, *audioInfo.filePath);
+                    playerIt->second._finishCallback(audioID, audioInfo.filePath);
                 }
                 _audioPlayers.erase(audioID);
                 AudioEngine::remove(audioID);
@@ -331,7 +331,7 @@ void AudioEngineImpl::update(float dt)
         if(iter->second._playOver)
         {
             if (iter->second._finishCallback)
-                iter->second._finishCallback(iter->second._audioID, *AudioEngine::_audioIDInfoMap[iter->second._audioID].filePath);
+                iter->second._finishCallback(iter->second._audioID, AudioEngine::_audioIDInfoMap[iter->second._audioID].filePath);
 
             AudioEngine::remove(iter->second._audioID);
             _audioPlayers.erase(iter);

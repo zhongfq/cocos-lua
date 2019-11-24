@@ -676,7 +676,7 @@ void AudioEngineImpl::update(float dt)
             std::string filePath;
             if (player->_finishCallbak) {
                 auto& audioInfo = AudioEngine::_audioIDInfoMap[audioID];
-                filePath = *audioInfo.filePath;
+                filePath = audioInfo.filePath;
                 player->setCache(nullptr); // it's safe for player didn't free audio cache
             }
 

@@ -119,7 +119,7 @@ static int _cocos2d_EventListenerPhysicsContact_get_onContactBegin(lua_State *L)
 
     void *callback_store_obj = (void *)self;
     std::string tag = "onContactBegin";
-    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
 
     // @nullable @local std::function<bool (PhysicsContact &)> onContactBegin
     std::function<bool(cocos2d::PhysicsContact &)> ret = (std::function<bool(cocos2d::PhysicsContact &)>)self->onContactBegin;
@@ -169,7 +169,7 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactBegin(lua_State *L)
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = "onContactBegin";
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
         arg1 = nullptr;
     }
 
@@ -191,7 +191,7 @@ static int _cocos2d_EventListenerPhysicsContact_get_onContactPostSolve(lua_State
 
     void *callback_store_obj = (void *)self;
     std::string tag = "onContactPostSolve";
-    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
 
     // @nullable @local std::function<void (PhysicsContact &, const PhysicsContactPostSolve &)> onContactPostSolve
     std::function<void(cocos2d::PhysicsContact &, const cocos2d::PhysicsContactPostSolve &)> ret = (std::function<void(cocos2d::PhysicsContact &, const cocos2d::PhysicsContactPostSolve &)>)self->onContactPostSolve;
@@ -237,7 +237,7 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactPostSolve(lua_State
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = "onContactPostSolve";
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
         arg1 = nullptr;
     }
 
@@ -259,7 +259,7 @@ static int _cocos2d_EventListenerPhysicsContact_get_onContactPreSolve(lua_State 
 
     void *callback_store_obj = (void *)self;
     std::string tag = "onContactPreSolve";
-    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
 
     // @nullable @local std::function<bool (PhysicsContact &, PhysicsContactPreSolve &)> onContactPreSolve
     std::function<bool(cocos2d::PhysicsContact &, cocos2d::PhysicsContactPreSolve &)> ret = (std::function<bool(cocos2d::PhysicsContact &, cocos2d::PhysicsContactPreSolve &)>)self->onContactPreSolve;
@@ -310,7 +310,7 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactPreSolve(lua_State 
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = "onContactPreSolve";
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
         arg1 = nullptr;
     }
 
@@ -332,7 +332,7 @@ static int _cocos2d_EventListenerPhysicsContact_get_onContactSeparate(lua_State 
 
     void *callback_store_obj = (void *)self;
     std::string tag = "onContactSeparate";
-    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
 
     // @nullable @local std::function<void (PhysicsContact &)> onContactSeparate
     std::function<void(cocos2d::PhysicsContact &)> ret = (std::function<void(cocos2d::PhysicsContact &)>)self->onContactSeparate;
@@ -377,7 +377,7 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactSeparate(lua_State 
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = "onContactSeparate";
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
         arg1 = nullptr;
     }
 
@@ -6910,7 +6910,7 @@ static int _cocos2d_PhysicsWorld_setPostUpdateCallback(lua_State *L)
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = "PostUpdateCallback";
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
         arg1 = nullptr;
     }
 
@@ -6950,7 +6950,7 @@ static int _cocos2d_PhysicsWorld_setPreUpdateCallback(lua_State *L)
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = "PreUpdateCallback";
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
         arg1 = nullptr;
     }
 

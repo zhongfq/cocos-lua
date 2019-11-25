@@ -118,7 +118,7 @@ timer.CALLBACK {
 timer.CALLBACK {
     FUNCS = {'static void killDelay(const std::string &tag)'},
     TAG_MAKER = 'makeTimerDelayTag(#1)',
-    TAG_MODE = 'OLUA_TAG_EQUAL',
+    TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     REMOVE = true,
 }
 timer.CALLBACK {

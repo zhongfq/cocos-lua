@@ -119,20 +119,20 @@ Scheduler.CALLBACK {
     FUNCS = {'void unschedule(const std::string& key, void *target)'},
     TAG_MAKER = 'makeScheduleCallbackTag(#1)',
     TAG_STORE = 2, -- 2th void *target
-    TAG_MODE = 'OLUA_TAG_EQUAL',
+    TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     REMOVE = true,
 }
 Scheduler.CALLBACK {
     FUNCS = {'void unscheduleAllForTarget(void *target)'},
     TAG_MAKER = 'makeScheduleCallbackTag("")',
-    TAG_MODE = 'OLUA_TAG_STARTWITH',
+    TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
     TAG_STORE = 1, -- 1th void *target
     REMOVE = true,
 }
 Scheduler.CALLBACK {
     FUNCS = {'void unscheduleAll()'},
     TAG_MAKER = 'makeScheduleCallbackTag("")',
-    TAG_MODE = 'OLUA_TAG_STARTWITH',
+    TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
     REMOVE = true,
 }
 Scheduler.FUNC('scheduleUpdate', [[
@@ -317,26 +317,26 @@ AudioEngine.INJECT('uncache', {
         void *callback_store_obj = (void *)olua_getstoreobj(L, cls);
         for (auto id : ids) {
             std::string tag = makeAudioEngineFinishCallbackTag((lua_Integer)id);
-            olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+            olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
         }
     ]]
 })
 AudioEngine.CALLBACK {
     FUNCS = {'static void stop(int audioID)'},
     TAG_MAKER = 'makeAudioEngineFinishCallbackTag(#1)',
-    TAG_MODE = 'OLUA_TAG_EQUAL',
+    TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     REMOVE = true,
 }
 AudioEngine.CALLBACK {
     FUNCS = {'static void stopAll()'},
     TAG_MAKER = 'makeAudioEngineFinishCallbackTag(-1)',
-    TAG_MODE = "OLUA_TAG_STARTWITH",
+    TAG_MODE = "OLUA_TAG_SUBSTARTWITH",
     REMOVE = true,
 }
 AudioEngine.CALLBACK {
     FUNCS = {'static void uncacheAll()'},
     TAG_MAKER = 'makeAudioEngineFinishCallbackTag(-1)',
-    TAG_MODE = "OLUA_TAG_STARTWITH",
+    TAG_MODE = "OLUA_TAG_SUBSTARTWITH",
     REMOVE = true,
 }
 AudioEngine.CALLBACK {
@@ -447,13 +447,13 @@ TextureCache.CALLBACK {
 TextureCache.CALLBACK {
     FUNCS = {'void unbindImageAsync(const std::string &filename)'},
     TAG_MAKER = 'makeTextureCacheCallbackTag(#1)',
-    TAG_MODE = 'OLUA_TAG_EQUAL',
+    TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     REMOVE = true,
 }
 TextureCache.CALLBACK {
     FUNCS = {'void unbindAllImageAsync()'},
     TAG_MAKER = 'makeTextureCacheCallbackTag("")',
-    TAG_MODE = 'OLUA_TAG_STARTWITH',
+    TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
     REMOVE = true,
 }
 
@@ -917,13 +917,13 @@ Node.CALLBACK {
 Node.CALLBACK {
     FUNCS = {'void unschedule(const std::string &key)'},
     TAG_MAKER = "makeScheduleCallbackTag(#1)",
-    TAG_MODE = 'OLUA_TAG_EQUAL',
+    TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     REMOVE = true,
 }
 Node.CALLBACK {
     FUNCS = {'void unscheduleAllCallbacks()'},
     TAG_MAKER = 'makeScheduleCallbackTag("")',
-    TAG_MODE = "OLUA_TAG_STARTWITH",
+    TAG_MODE = "OLUA_TAG_SUBSTARTWITH",
     REMOVE = true,
 }
 Node.CALLBACK {NAME = 'setOnEnterCallback', NULLABLE = true}

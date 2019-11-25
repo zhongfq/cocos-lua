@@ -147,7 +147,7 @@ cls.callback {
         'void removeEventListener(int eventType, const fairygui::EventTag &tag)'
     },
     TAG_MAKER = {'makeListenerTag(L, #1, 0)', 'makeListenerTag(L, #1, 3)'},
-    TAG_MODE = {'OLUA_TAG_STARTWITH', 'OLUA_TAG_EQUAL'},
+    TAG_MODE = {'OLUA_TAG_SUBSTARTWITH', 'OLUA_TAG_SUBEQUAL'},
     TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = true,
@@ -157,7 +157,7 @@ cls.callback {
         'void removeEventListeners()'
     },
     TAG_MAKER = 'makeListenerTag(L, -1, 0)',
-    TAG_MODE = 'OLUA_TAG_STARTWITH',
+    TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
     TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = true,
@@ -960,7 +960,7 @@ cls.callback {
         'void removeClickListener(const fairygui::EventTag &tag)'
     },
     TAG_MAKER = 'makeListenerTag(L, fairygui::UIEventType::Click, 2)',
-    TAG_MODE = 'OLUA_TAG_EQUAL',
+    TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = true,
@@ -2050,7 +2050,7 @@ cls.callback {
         'void clearHooks()'
     },
     TAG_MAKER = '("hook.")',
-    TAG_MODE = 'OLUA_TAG_STARTWITH',
+    TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
     TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = true,

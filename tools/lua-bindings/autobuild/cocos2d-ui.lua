@@ -696,7 +696,7 @@ cls.callback {
         '@nullable @local std::function<bool (WebView *, const std::string &)> getOnShouldStartLoading()'
     },
     TAG_MAKER = 'OnShouldStartLoading',
-    TAG_MODE = 'OLUA_TAG_EQUAL',
+    TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
@@ -706,7 +706,7 @@ cls.callback {
         '@nullable @local std::function<void (WebView *, const std::string &)> getOnDidFinishLoading()'
     },
     TAG_MAKER = 'OnDidFinishLoading',
-    TAG_MODE = 'OLUA_TAG_EQUAL',
+    TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
@@ -716,7 +716,7 @@ cls.callback {
         '@nullable @local std::function<void (WebView *, const std::string &)> getOnDidFailLoading()'
     },
     TAG_MAKER = 'OnDidFailLoading',
-    TAG_MODE = 'OLUA_TAG_EQUAL',
+    TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
@@ -726,7 +726,7 @@ cls.callback {
         '@nullable @local std::function<void (WebView *, const std::string &)> getOnJSCallback()'
     },
     TAG_MAKER = 'OnJSCallback',
-    TAG_MODE = 'OLUA_TAG_EQUAL',
+    TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,

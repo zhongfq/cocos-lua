@@ -143,7 +143,7 @@ static int _xgame_runtime_alert(lua_State *L)
 
             olua_callback(L, callback_store_obj, func.c_str(), 1);
 
-            olua_removecallback(L, callback_store_obj, func.c_str(), OLUA_TAG_NONE);
+            olua_removecallback(L, callback_store_obj, func.c_str(), OLUA_TAG_WHOLE);
 
             lua_settop(L, top);
         }
@@ -488,7 +488,7 @@ static int _xgame_runtime_openURL1(lua_State *L)
 
                 olua_callback(L, callback_store_obj, func.c_str(), 1);
 
-                olua_removecallback(L, callback_store_obj, func.c_str(), OLUA_TAG_NONE);
+                olua_removecallback(L, callback_store_obj, func.c_str(), OLUA_TAG_WHOLE);
 
                 lua_settop(L, top);
             }
@@ -578,7 +578,7 @@ static int _xgame_runtime_requestPermission(lua_State *L)
 
             olua_callback(L, callback_store_obj, func.c_str(), 1);
 
-            olua_removecallback(L, callback_store_obj, func.c_str(), OLUA_TAG_NONE);
+            olua_removecallback(L, callback_store_obj, func.c_str(), OLUA_TAG_WHOLE);
 
             lua_settop(L, top);
         }
@@ -1719,7 +1719,7 @@ static int _xgame_timer_delay(lua_State *L)
 
             olua_callback(L, callback_store_obj, func.c_str(), 0);
 
-            olua_removecallback(L, callback_store_obj, func.c_str(), OLUA_TAG_NONE);
+            olua_removecallback(L, callback_store_obj, func.c_str(), OLUA_TAG_WHOLE);
 
             lua_settop(L, top);
         }
@@ -1756,7 +1756,7 @@ static int _xgame_timer_delayWithTag(lua_State *L)
 
             olua_callback(L, callback_store_obj, func.c_str(), 0);
 
-            olua_removecallback(L, callback_store_obj, func.c_str(), OLUA_TAG_NONE);
+            olua_removecallback(L, callback_store_obj, func.c_str(), OLUA_TAG_WHOLE);
 
             lua_settop(L, top);
         }
@@ -1780,7 +1780,7 @@ static int _xgame_timer_killDelay(lua_State *L)
 
     std::string tag = makeTimerDelayTag(arg1);
     void *callback_store_obj = (void *)olua_getstoreobj(L, "kernel.timer");
-    olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+    olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
 
     // static void killDelay(const std::string &tag)
     xgame::timer::killDelay(arg1);

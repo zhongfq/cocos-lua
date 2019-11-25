@@ -264,7 +264,7 @@ cls.callback {
         'static void killDelay(const std::string &tag)'
     },
     TAG_MAKER = 'makeTimerDelayTag(#1)',
-    TAG_MODE = 'OLUA_TAG_EQUAL',
+    TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = true,

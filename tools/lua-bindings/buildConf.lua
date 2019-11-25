@@ -1,4 +1,4 @@
-require "bindings-generator.src.init"
+require "bindings-generator.src.olua"
 
 local autoconf = require "autoconf"
 

@@ -300,7 +300,7 @@ cls.callback {
         'void unschedule(const std::string& key, void *target)'
     },
     TAG_MAKER = 'makeScheduleCallbackTag(#1)',
-    TAG_MODE = 'OLUA_TAG_EQUAL',
+    TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = 2,
     CALLONCE = false,
     REMOVE = true,
@@ -310,7 +310,7 @@ cls.callback {
         'void unscheduleAllForTarget(void *target)'
     },
     TAG_MAKER = 'makeScheduleCallbackTag("")',
-    TAG_MODE = 'OLUA_TAG_STARTWITH',
+    TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
     TAG_STORE = 1,
     CALLONCE = false,
     REMOVE = true,
@@ -320,7 +320,7 @@ cls.callback {
         'void unscheduleAll()'
     },
     TAG_MAKER = 'makeScheduleCallbackTag("")',
-    TAG_MODE = 'OLUA_TAG_STARTWITH',
+    TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
     TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = true,
@@ -1082,7 +1082,7 @@ cls.callback {
         'static void stop(int audioID)'
     },
     TAG_MAKER = 'makeAudioEngineFinishCallbackTag(#1)',
-    TAG_MODE = 'OLUA_TAG_EQUAL',
+    TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = true,
@@ -1092,7 +1092,7 @@ cls.callback {
         'static void stopAll()'
     },
     TAG_MAKER = 'makeAudioEngineFinishCallbackTag(-1)',
-    TAG_MODE = 'OLUA_TAG_STARTWITH',
+    TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
     TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = true,
@@ -1102,7 +1102,7 @@ cls.callback {
         'static void uncacheAll()'
     },
     TAG_MAKER = 'makeAudioEngineFinishCallbackTag(-1)',
-    TAG_MODE = 'OLUA_TAG_STARTWITH',
+    TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
     TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = true,
@@ -1136,7 +1136,7 @@ cls.inject('uncache', {
         void *callback_store_obj = (void *)olua_getstoreobj(L, cls);
         for (auto id : ids) {
             std::string tag = makeAudioEngineFinishCallbackTag((lua_Integer)id);
-            olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+            olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
         }
     ]],
 })
@@ -1773,7 +1773,7 @@ cls.callback {
         'void unbindImageAsync(const std::string &filename)'
     },
     TAG_MAKER = 'makeTextureCacheCallbackTag(#1)',
-    TAG_MODE = 'OLUA_TAG_EQUAL',
+    TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = true,
@@ -1783,7 +1783,7 @@ cls.callback {
         'void unbindAllImageAsync()'
     },
     TAG_MAKER = 'makeTextureCacheCallbackTag("")',
-    TAG_MODE = 'OLUA_TAG_STARTWITH',
+    TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
     TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = true,
@@ -3339,7 +3339,7 @@ cls.callback {
         'void unschedule(const std::string &key)'
     },
     TAG_MAKER = 'makeScheduleCallbackTag(#1)',
-    TAG_MODE = 'OLUA_TAG_EQUAL',
+    TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = true,
@@ -3349,7 +3349,7 @@ cls.callback {
         'void unscheduleAllCallbacks()'
     },
     TAG_MAKER = 'makeScheduleCallbackTag("")',
-    TAG_MODE = 'OLUA_TAG_STARTWITH',
+    TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
     TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = true,
@@ -3369,7 +3369,7 @@ cls.callback {
         '@nullable @local const std::function<void ()> &getOnEnterCallback()'
     },
     TAG_MAKER = 'OnEnterCallback',
-    TAG_MODE = 'OLUA_TAG_EQUAL',
+    TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
@@ -3389,7 +3389,7 @@ cls.callback {
         '@nullable @local const std::function<void ()> &getOnExitCallback()'
     },
     TAG_MAKER = 'OnExitCallback',
-    TAG_MODE = 'OLUA_TAG_EQUAL',
+    TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
@@ -3409,7 +3409,7 @@ cls.callback {
         '@nullable @local const std::function<void ()> &getOnEnterTransitionDidFinishCallback()'
     },
     TAG_MAKER = 'OnEnterTransitionDidFinishCallback',
-    TAG_MODE = 'OLUA_TAG_EQUAL',
+    TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,
@@ -3429,7 +3429,7 @@ cls.callback {
         '@nullable @local const std::function<void ()> &getOnExitTransitionDidStartCallback()'
     },
     TAG_MAKER = 'OnExitTransitionDidStartCallback',
-    TAG_MODE = 'OLUA_TAG_EQUAL',
+    TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = false,

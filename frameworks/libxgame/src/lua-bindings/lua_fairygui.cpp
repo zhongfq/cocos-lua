@@ -704,7 +704,7 @@ static int _fairygui_UIEventDispatcher_removeEventListener1(lua_State *L)
 
     std::string tag = makeListenerTag(L, arg1, 0);
     void *callback_store_obj = (void *)self;
-    olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_STARTWITH);
+    olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBSTARTWITH);
 
     // void removeEventListener(int eventType)
     self->removeEventListener((int)arg1);
@@ -728,7 +728,7 @@ static int _fairygui_UIEventDispatcher_removeEventListener2(lua_State *L)
 
     std::string tag = makeListenerTag(L, arg1, 3);
     void *callback_store_obj = (void *)self;
-    olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+    olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
 
     // void removeEventListener(int eventType, const fairygui::EventTag &tag)
     self->removeEventListener((int)arg1, arg2);
@@ -771,7 +771,7 @@ static int _fairygui_UIEventDispatcher_removeEventListeners(lua_State *L)
 
     std::string tag = makeListenerTag(L, -1, 0);
     void *callback_store_obj = (void *)self;
-    olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_STARTWITH);
+    olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBSTARTWITH);
 
     // void removeEventListeners()
     self->removeEventListeners();
@@ -1206,7 +1206,7 @@ static int _fairygui_InputProcessor_setCaptureCallback(lua_State *L)
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = "CaptureCallback";
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
         arg1 = nullptr;
     }
 
@@ -7359,7 +7359,7 @@ static int _fairygui_GObject_removeClickListener(lua_State *L)
 
     std::string tag = makeListenerTag(L, fairygui::UIEventType::Click, 2);
     void *callback_store_obj = (void *)self;
-    olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+    olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
 
     // void removeClickListener(const fairygui::EventTag &tag)
     self->removeClickListener(arg1);
@@ -14576,7 +14576,7 @@ static int _fairygui_GList_get_itemProvider(lua_State *L)
 
     void *callback_store_obj = (void *)self;
     std::string tag = "itemProvider";
-    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
 
     // std::function<std::string(int)> itemProvider
     std::function<std::string(int)> ret = (std::function<std::string(int)>)self->itemProvider;
@@ -14636,7 +14636,7 @@ static int _fairygui_GList_get_itemRenderer(lua_State *L)
 
     void *callback_store_obj = (void *)self;
     std::string tag = "itemRenderer";
-    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
 
     // std::function<void(int, GObject*)> itemRenderer
     std::function<void(int, fairygui::GObject *)> ret = (std::function<void(int, fairygui::GObject *)>)self->itemRenderer;
@@ -15021,7 +15021,7 @@ static int _fairygui_GMovieClip_setPlaySettings1(lua_State *L)
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = "PlaySettings";
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
         arg5 = nullptr;
     }
 
@@ -19186,7 +19186,7 @@ static int _fairygui_Transition_clearHooks(lua_State *L)
 
     std::string tag = ("hook.");
     void *callback_store_obj = (void *)self;
-    olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_STARTWITH);
+    olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBSTARTWITH);
 
     // void clearHooks()
     self->clearHooks();
@@ -19329,7 +19329,7 @@ static int _fairygui_Transition_play1(lua_State *L)
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = "play";
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
         arg1 = nullptr;
     }
 
@@ -19373,7 +19373,7 @@ static int _fairygui_Transition_play2(lua_State *L)
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = "play";
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
         arg3 = nullptr;
     }
 
@@ -19421,7 +19421,7 @@ static int _fairygui_Transition_play3(lua_State *L)
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = "play";
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
         arg5 = nullptr;
     }
 
@@ -19570,7 +19570,7 @@ static int _fairygui_Transition_playReverse1(lua_State *L)
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = "playReverse";
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
         arg1 = nullptr;
     }
 
@@ -19614,7 +19614,7 @@ static int _fairygui_Transition_playReverse2(lua_State *L)
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = "playReverse";
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
         arg3 = nullptr;
     }
 
@@ -19769,7 +19769,7 @@ static int _fairygui_Transition_setHook(lua_State *L)
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = ("hook." + arg1);
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
         arg2 = nullptr;
     }
 
@@ -20746,7 +20746,7 @@ static int _fairygui_IUISource_load(lua_State *L)
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = "load";
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
         arg1 = nullptr;
     }
 
@@ -22887,7 +22887,7 @@ static int _fairygui_GTree_get_treeNodeRender(lua_State *L)
 
     void *callback_store_obj = (void *)self;
     std::string tag = "treeNodeRender";
-    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
 
     // @nullable std::function<void (GTreeNode *, GComponent *)> treeNodeRender
     std::function<void(fairygui::GTreeNode *, fairygui::GComponent *)> ret = (std::function<void(fairygui::GTreeNode *, fairygui::GComponent *)>)self->treeNodeRender;
@@ -22928,7 +22928,7 @@ static int _fairygui_GTree_set_treeNodeRender(lua_State *L)
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = "treeNodeRender";
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
         arg1 = nullptr;
     }
 
@@ -22950,7 +22950,7 @@ static int _fairygui_GTree_get_treeNodeWillExpand(lua_State *L)
 
     void *callback_store_obj = (void *)self;
     std::string tag = "treeNodeWillExpand";
-    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
 
     // @nullable std::function<void (GTreeNode *, bool)> treeNodeWillExpand
     std::function<void(fairygui::GTreeNode *, bool)> ret = (std::function<void(fairygui::GTreeNode *, bool)>)self->treeNodeWillExpand;
@@ -22991,7 +22991,7 @@ static int _fairygui_GTree_set_treeNodeWillExpand(lua_State *L)
     } else {
         void *callback_store_obj = (void *)self;
         std::string tag = "treeNodeWillExpand";
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
         arg1 = nullptr;
     }
 

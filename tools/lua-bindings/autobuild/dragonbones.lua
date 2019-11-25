@@ -1020,7 +1020,7 @@ cls.callback {
         'void removeDBEventListener(const std::string &type, @nullable @local const std::function<void (EventObject *)> &listener)'
     },
     TAG_MAKER = '(#1)',
-    TAG_MODE = 'OLUA_TAG_EQUAL',
+    TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     TAG_STORE = nil,
     CALLONCE = false,
     REMOVE = true,

@@ -121,7 +121,7 @@ typeconf 'dragonBones::CCArmatureDisplay'
     .CALLBACK {
         NAME = 'removeDBEventListener',
         TAG_MAKER = '(#1)',
-        TAG_MODE = 'OLUA_TAG_EQUAL',
+        TAG_MODE = 'OLUA_TAG_SUBEQUAL',
         NULLABLE = true,
         REMOVE = true,
     }

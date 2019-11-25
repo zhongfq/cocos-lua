@@ -141,9 +141,9 @@ typedef enum {
     OLUA_TAG_NEW,
     OLUA_TAG_REPLACE,
     // for olua_removecallback, tag format: .callback#%d@%s
-    OLUA_TAG_NONE,      // compare whole tag string
-    OLUA_TAG_EQUAL,     // compare substring after '@'
-    OLUA_TAG_STARTWITH, // compare substring after '@'
+    OLUA_TAG_WHOLE,         // compare whole tag string
+    OLUA_TAG_SUBEQUAL,      // compare substring after '@'
+    OLUA_TAG_SUBSTARTWITH,  // compare substring after '@'
 } olua_tag_mode;
 
 // callback functions
@@ -151,7 +151,6 @@ LUALIB_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag
 LUALIB_API void olua_getcallback(lua_State *L, void *obj, const char *tag, olua_tag_mode mode);
 LUALIB_API void olua_removecallback(lua_State *L, void *obj, const char *tag, olua_tag_mode mode);
 LUALIB_API int olua_callback(lua_State *L, void *obj, const char *func, int argc);
-#define olua_makecallbacktag(tag) (tag)
     
 // class store, store static callback or other
 LUALIB_API void olua_getstore(lua_State *L, const char *cls);

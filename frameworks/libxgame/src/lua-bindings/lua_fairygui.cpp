@@ -84,44 +84,6 @@ void auto_olua_check_fairygui_Margin(lua_State *L, int idx, fairygui::Margin *va
     lua_pop(L, 1);
 }
 
-void auto_olua_opt_fairygui_Margin(lua_State *L, int idx, fairygui::Margin *value, const fairygui::Margin &def)
-{
-    if (!value) {
-        luaL_error(L, "value is NULL");
-    }
-    if (olua_isnil(L, idx)) {
-        *value = def;
-    } else {
-        idx = lua_absindex(L, idx);
-        luaL_checktype(L, idx, LUA_TTABLE);
-
-        lua_Number arg1 = 0;       /** left */
-        lua_Number arg2 = 0;       /** top */
-        lua_Number arg3 = 0;       /** right */
-        lua_Number arg4 = 0;       /** bottom */
-
-        olua_getfield(L, idx, "left");
-        olua_opt_number(L, -1, &arg1, (lua_Number)0);
-        value->left = (float)arg1;
-        lua_pop(L, 1);
-
-        olua_getfield(L, idx, "top");
-        olua_opt_number(L, -1, &arg2, (lua_Number)0);
-        value->top = (float)arg2;
-        lua_pop(L, 1);
-
-        olua_getfield(L, idx, "right");
-        olua_opt_number(L, -1, &arg3, (lua_Number)0);
-        value->right = (float)arg3;
-        lua_pop(L, 1);
-
-        olua_getfield(L, idx, "bottom");
-        olua_opt_number(L, -1, &arg4, (lua_Number)0);
-        value->bottom = (float)arg4;
-        lua_pop(L, 1);
-    }
-}
-
 bool auto_olua_is_fairygui_Margin(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "bottom") && olua_hasfield(L, idx, "right") && olua_hasfield(L, idx, "top") && olua_hasfield(L, idx, "left");
@@ -168,73 +130,39 @@ void auto_olua_check_fairygui_TweenValue(lua_State *L, int idx, fairygui::TweenV
     lua_Number arg5 = 0;       /** d */
 
     olua_getfield(L, idx, "x");
-    olua_opt_number(L, -1, &arg1, (lua_Number)0);
-    value->x = (float)arg1;
+    if (!olua_isnoneornil(L, -1)) {
+        olua_check_number(L, -1, &arg1);
+        value->x = (float)arg1;
+    }
     lua_pop(L, 1);
 
     olua_getfield(L, idx, "y");
-    olua_opt_number(L, -1, &arg2, (lua_Number)0);
-    value->y = (float)arg2;
+    if (!olua_isnoneornil(L, -1)) {
+        olua_check_number(L, -1, &arg2);
+        value->y = (float)arg2;
+    }
     lua_pop(L, 1);
 
     olua_getfield(L, idx, "z");
-    olua_opt_number(L, -1, &arg3, (lua_Number)0);
-    value->z = (float)arg3;
+    if (!olua_isnoneornil(L, -1)) {
+        olua_check_number(L, -1, &arg3);
+        value->z = (float)arg3;
+    }
     lua_pop(L, 1);
 
     olua_getfield(L, idx, "w");
-    olua_opt_number(L, -1, &arg4, (lua_Number)0);
-    value->w = (float)arg4;
+    if (!olua_isnoneornil(L, -1)) {
+        olua_check_number(L, -1, &arg4);
+        value->w = (float)arg4;
+    }
     lua_pop(L, 1);
 
     olua_getfield(L, idx, "d");
-    olua_opt_number(L, -1, &arg5, (lua_Number)0);
-    value->d = (double)arg5;
-    lua_pop(L, 1);
-}
-
-void auto_olua_opt_fairygui_TweenValue(lua_State *L, int idx, fairygui::TweenValue *value, const fairygui::TweenValue &def)
-{
-    if (!value) {
-        luaL_error(L, "value is NULL");
-    }
-    if (olua_isnil(L, idx)) {
-        *value = def;
-    } else {
-        idx = lua_absindex(L, idx);
-        luaL_checktype(L, idx, LUA_TTABLE);
-
-        lua_Number arg1 = 0;       /** x */
-        lua_Number arg2 = 0;       /** y */
-        lua_Number arg3 = 0;       /** z */
-        lua_Number arg4 = 0;       /** w */
-        lua_Number arg5 = 0;       /** d */
-
-        olua_getfield(L, idx, "x");
-        olua_opt_number(L, -1, &arg1, (lua_Number)0);
-        value->x = (float)arg1;
-        lua_pop(L, 1);
-
-        olua_getfield(L, idx, "y");
-        olua_opt_number(L, -1, &arg2, (lua_Number)0);
-        value->y = (float)arg2;
-        lua_pop(L, 1);
-
-        olua_getfield(L, idx, "z");
-        olua_opt_number(L, -1, &arg3, (lua_Number)0);
-        value->z = (float)arg3;
-        lua_pop(L, 1);
-
-        olua_getfield(L, idx, "w");
-        olua_opt_number(L, -1, &arg4, (lua_Number)0);
-        value->w = (float)arg4;
-        lua_pop(L, 1);
-
-        olua_getfield(L, idx, "d");
-        olua_opt_number(L, -1, &arg5, (lua_Number)0);
+    if (!olua_isnoneornil(L, -1)) {
+        olua_check_number(L, -1, &arg5);
         value->d = (double)arg5;
-        lua_pop(L, 1);
     }
+    lua_pop(L, 1);
 }
 
 bool auto_olua_is_fairygui_TweenValue(lua_State *L, int idx)

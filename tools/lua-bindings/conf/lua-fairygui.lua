@@ -1,5 +1,5 @@
-local typemod = require "typemod"
-local M = typemod 'fairygui'
+local autoconf = require "autoconf"
+local M = autoconf.typemod 'fairygui'
 local typeconf = M.typeconf
 local typeconv = M.typeconv
 local typedef = M.typedef

@@ -1,6 +1,6 @@
 local olua = require "olua"
-local typemod = require "typemod"
-local M = typemod 'cocos2d'
+local autoconf = require "autoconf"
+local M = autoconf.typemod 'cocos2d'
 local typeconf = M.typeconf
 local include = M.include
 

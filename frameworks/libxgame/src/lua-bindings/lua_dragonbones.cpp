@@ -68,44 +68,6 @@ void auto_olua_check_dragonBones_Rectangle(lua_State *L, int idx, dragonBones::R
     lua_pop(L, 1);
 }
 
-void auto_olua_opt_dragonBones_Rectangle(lua_State *L, int idx, dragonBones::Rectangle *value, const dragonBones::Rectangle &def)
-{
-    if (!value) {
-        luaL_error(L, "value is NULL");
-    }
-    if (olua_isnil(L, idx)) {
-        *value = def;
-    } else {
-        idx = lua_absindex(L, idx);
-        luaL_checktype(L, idx, LUA_TTABLE);
-
-        lua_Number arg1 = 0;       /** x */
-        lua_Number arg2 = 0;       /** y */
-        lua_Number arg3 = 0;       /** width */
-        lua_Number arg4 = 0;       /** height */
-
-        olua_getfield(L, idx, "x");
-        olua_opt_number(L, -1, &arg1, (lua_Number)0);
-        value->x = (float)arg1;
-        lua_pop(L, 1);
-
-        olua_getfield(L, idx, "y");
-        olua_opt_number(L, -1, &arg2, (lua_Number)0);
-        value->y = (float)arg2;
-        lua_pop(L, 1);
-
-        olua_getfield(L, idx, "width");
-        olua_opt_number(L, -1, &arg3, (lua_Number)0);
-        value->width = (float)arg3;
-        lua_pop(L, 1);
-
-        olua_getfield(L, idx, "height");
-        olua_opt_number(L, -1, &arg4, (lua_Number)0);
-        value->height = (float)arg4;
-        lua_pop(L, 1);
-    }
-}
-
 bool auto_olua_is_dragonBones_Rectangle(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "height") && olua_hasfield(L, idx, "width") && olua_hasfield(L, idx, "y") && olua_hasfield(L, idx, "x");

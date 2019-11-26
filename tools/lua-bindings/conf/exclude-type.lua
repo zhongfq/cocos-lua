@@ -1,5 +1,5 @@
-local typemod = require "typemod"
-local M = typemod 'exclude-type'
+local autoconf = require "autoconf"
+local M = autoconf.typemod 'exclude-type'
 
 M.EXCLUDE_TYPE 'cocos2d::Console *'
 M.EXCLUDE_TYPE 'cocos2d::Font *'

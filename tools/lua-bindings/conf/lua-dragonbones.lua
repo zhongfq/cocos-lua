@@ -1,5 +1,5 @@
-local typemod = require "typemod"
-local M = typemod 'dragonbones'
+local autoconf = require "autoconf"
+local M = autoconf.typemod 'dragonbones'
 local typeconf = M.typeconf
 local typedef = M.typedef
 local typeconv = M.typeconv

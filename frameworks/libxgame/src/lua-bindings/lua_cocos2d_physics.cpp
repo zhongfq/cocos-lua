@@ -59,38 +59,6 @@ void auto_olua_check_cocos2d_PhysicsMaterial(lua_State *L, int idx, cocos2d::Phy
     lua_pop(L, 1);
 }
 
-void auto_olua_opt_cocos2d_PhysicsMaterial(lua_State *L, int idx, cocos2d::PhysicsMaterial *value, const cocos2d::PhysicsMaterial &def)
-{
-    if (!value) {
-        luaL_error(L, "value is NULL");
-    }
-    if (olua_isnil(L, idx)) {
-        *value = def;
-    } else {
-        idx = lua_absindex(L, idx);
-        luaL_checktype(L, idx, LUA_TTABLE);
-
-        lua_Number arg1 = 0;       /** density */
-        lua_Number arg2 = 0;       /** restitution */
-        lua_Number arg3 = 0;       /** friction */
-
-        olua_getfield(L, idx, "density");
-        olua_opt_number(L, -1, &arg1, (lua_Number)0);
-        value->density = (float)arg1;
-        lua_pop(L, 1);
-
-        olua_getfield(L, idx, "restitution");
-        olua_opt_number(L, -1, &arg2, (lua_Number)0);
-        value->restitution = (float)arg2;
-        lua_pop(L, 1);
-
-        olua_getfield(L, idx, "friction");
-        olua_opt_number(L, -1, &arg3, (lua_Number)0);
-        value->friction = (float)arg3;
-        lua_pop(L, 1);
-    }
-}
-
 bool auto_olua_is_cocos2d_PhysicsMaterial(lua_State *L, int idx)
 {
     return olua_istable(L, idx) && olua_hasfield(L, idx, "friction") && olua_hasfield(L, idx, "restitution") && olua_hasfield(L, idx, "density");

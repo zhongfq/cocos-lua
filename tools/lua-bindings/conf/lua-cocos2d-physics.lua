@@ -1,5 +1,5 @@
-local typemod = require "typemod"
-local M = typemod 'cocos2d_physics'
+local autoconf = require "autoconf"
+local M = autoconf.typemod 'cocos2d_physics'
 local typedef = M.typedef
 local typeconf = M.typeconf
 local typeconv = M.typeconv

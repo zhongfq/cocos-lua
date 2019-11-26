@@ -1,5 +1,5 @@
-local typemod = require "typemod"
-local M = typemod 'spine'
+local autoconf = require "autoconf"
+local M = autoconf.typemod 'spine'
 local typeconf = M.typeconf
 local typedef = M.typedef
 

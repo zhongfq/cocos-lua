@@ -1,5 +1,5 @@
-local typemod = require "typemod"
-local M = typemod 'conv'
+local autoconf = require "autoconf"
+local M = autoconf.typemod 'conv'
 local typeconv = M.typeconv
 
 M.PATH = "../../frameworks/libxgame/src/lua-bindings"
@@ -67,24 +67,7 @@ typeconv {
         GLuint wrapT;
     ]],
 }
-typeconv {
-    CPPCLS = 'cocos2d::Uniform',
-    DEF = [[
-        GLint location;
-        GLint size;
-        GLenum type;
-        std::string name;
-    ]],
-}
-typeconv {
-    CPPCLS = 'cocos2d::VertexAttrib',
-    DEF = [[
-        GLuint index;
-        GLint size;
-        GLenum type;
-        std::string name;
-    ]]
-}
+
 typeconv {
     CPPCLS = 'cocos2d::experimental::Viewport',
     DEF = [[

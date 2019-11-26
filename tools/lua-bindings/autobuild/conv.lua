@@ -69,24 +69,6 @@ M.CONVS = {
         ]],
     },
     typeconv {
-        CPPCLS = 'cocos2d::Uniform',
-        DEF = [[
-            GLint location;
-            GLint size;
-            GLenum type;
-            std::string name;
-        ]],
-    },
-    typeconv {
-        CPPCLS = 'cocos2d::VertexAttrib',
-        DEF = [[
-            GLuint index;
-            GLint size;
-            GLenum type;
-            std::string name;
-        ]],
-    },
-    typeconv {
         CPPCLS = 'cocos2d::experimental::Viewport',
         DEF = [[
             float _left;

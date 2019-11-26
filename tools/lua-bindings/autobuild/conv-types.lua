@@ -40,18 +40,6 @@ typedef {
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Uniform',
-    CONV = 'auto_olua_$$_cocos2d_Uniform',
-    VARS = nil,
-}
-
-typedef {
-    CPPCLS = 'cocos2d::VertexAttrib',
-    CONV = 'auto_olua_$$_cocos2d_VertexAttrib',
-    VARS = nil,
-}
-
-typedef {
     CPPCLS = 'cocos2d::experimental::Viewport',
     CONV = 'auto_olua_$$_cocos2d_experimental_Viewport',
     VARS = nil,

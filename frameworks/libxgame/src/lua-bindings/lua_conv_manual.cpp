@@ -61,18 +61,6 @@ void manual_olua_check_cocos2d_Color3B(lua_State *L, int idx, cocos2d::Color3B *
     value->b = (GLubyte)(color & 0xFF);
 }
 
-void manual_olua_opt_cocos2d_Color3B(lua_State *L, int idx, cocos2d::Color3B *value, const cocos2d::Color3B &def)
-{
-    if (!value) {
-        luaL_error(L, "value is NULL");
-    }
-    if (olua_isnil(L, idx)) {
-        *value = def;
-    } else {
-        manual_olua_check_cocos2d_Color3B(L, idx, value);
-    }
-}
-
 bool manual_olua_is_cocos2d_Color3B(lua_State *L, int idx)
 {
     return olua_isinteger(L, idx) && ((lua_Unsigned)olua_tointeger(L, idx)) <= 0xFFFFFF;
@@ -103,18 +91,6 @@ void manual_olua_check_cocos2d_Color4B(lua_State *L, int idx, cocos2d::Color4B *
     value->a = (GLubyte)(color & 0xFF);
 }
 
-void manual_olua_opt_cocos2d_Color4B(lua_State *L, int idx, cocos2d::Color4B *value, const cocos2d::Color4B &def)
-{
-    if (!value) {
-        luaL_error(L, "value is NULL");
-    }
-    if (olua_isnil(L, idx)) {
-        *value = def;
-    } else {
-        manual_olua_check_cocos2d_Color4B(L, idx, value);
-    }
-}
-
 bool manual_olua_is_cocos2d_Color4B(lua_State *L, int idx)
 {
     return olua_isinteger(L, idx);
@@ -143,18 +119,6 @@ void manual_olua_check_cocos2d_Color4F(lua_State *L, int idx, cocos2d::Color4F *
     value->g = ((uint8_t)(color >> 16 & 0xFF)) / 255.0f;
     value->b = ((uint8_t)(color >> 8 & 0xFF)) / 255.0f;
     value->a = ((uint8_t)(color & 0xFF)) / 255.0f;
-}
-
-void manual_olua_opt_cocos2d_Color4F(lua_State *L, int idx, cocos2d::Color4F *value, const cocos2d::Color4F &def)
-{
-    if (!value) {
-        luaL_error(L, "value is NULL");
-    }
-    if (olua_isnil(L, idx)) {
-        *value = def;
-    } else {
-        manual_olua_check_cocos2d_Color4F(L, idx, value);
-    }
 }
 
 bool manual_olua_is_cocos2d_Color4F(lua_State *L, int idx)
@@ -211,19 +175,6 @@ void manual_olua_check_cocos2d_Rect(lua_State *L, int idx, cocos2d::Rect *value)
     value->origin.y = (float)olua_checkfieldnumber(L, idx, "y");
     value->size.width = (float)olua_checkfieldnumber(L, idx, "width");
     value->size.height = (float)olua_checkfieldnumber(L, idx, "height");
-}
-
-void manual_olua_opt_cocos2d_Rect(lua_State *L, int idx, cocos2d::Rect *value, const cocos2d::Rect &def)
-{
-    if (!value) {
-        luaL_error(L, "value is NULL");
-    }
-    idx = lua_absindex(L, idx);
-    if (manual_olua_is_cocos2d_Rect(L, idx)) {
-        manual_olua_check_cocos2d_Rect(L, idx, value);
-    } else {
-        *value = def;
-    }
 }
 
 void manual_olua_pack_cocos2d_Rect(lua_State *L, int idx, cocos2d::Rect *value)
@@ -289,19 +240,6 @@ void manual_olua_check_cocos2d_ccBezierConfig(lua_State *L, int idx, cocos2d::cc
 bool manual_olua_is_cocos2d_Value(lua_State *L, int idx)
 {
     return olua_istable(L, idx);
-}
-
-void manual_olua_opt_cocos2d_Value(lua_State *L, int idx, cocos2d::Value *value, const cocos2d::Value &def)
-{
-    if (!value) {
-        luaL_error(L, "value is NULL");
-    }
-    idx = lua_absindex(L, idx);
-    if (manual_olua_is_cocos2d_Value(L, idx)) {
-        manual_olua_check_cocos2d_Value(L, idx, value);
-    } else {
-        *value = def;
-    }
 }
 
 void manual_olua_check_cocos2d_Value(lua_State *L, int idx, cocos2d::Value *value)

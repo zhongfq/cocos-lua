@@ -1,5 +1,5 @@
-local typemod = require "typemod"
-local M = typemod 'xgame'
+local autoconf = require "autoconf"
+local M = autoconf.typemod 'xgame'
 local typeconf = M.typeconf
 
 M.PATH = "../../frameworks/libxgame/src/lua-bindings"

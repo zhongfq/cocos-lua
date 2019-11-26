@@ -1,6 +1,6 @@
 local olua = require "olua"
-local typemod = require "typemod"
-local M = typemod 'cocos2d_ui'
+local autoconf = require "autoconf"
+local M = autoconf.typemod 'cocos2d_ui'
 local typeconf = M.typeconf
 local typedef = M.typedef
 

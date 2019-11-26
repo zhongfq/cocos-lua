@@ -8,12 +8,6 @@ typedef {
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Point',
-    DECLTYPE = 'cocos2d::Point',
-    CONV = 'auto_olua_$$_cocos2d_Vec2',
-}
-
-typedef {
     CPPCLS = 'cocos2d::TMXTileFlags',
     DECLTYPE = 'lua_Unsigned',
     CONV = 'olua_$$_uint',

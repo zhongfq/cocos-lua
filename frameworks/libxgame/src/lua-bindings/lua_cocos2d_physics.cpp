@@ -64,6 +64,47 @@ bool auto_olua_is_cocos2d_PhysicsMaterial(lua_State *L, int idx)
     return olua_istable(L, idx) && olua_hasfield(L, idx, "friction") && olua_hasfield(L, idx, "restitution") && olua_hasfield(L, idx, "density");
 }
 
+void auto_olua_pack_cocos2d_PhysicsMaterial(lua_State *L, int idx, cocos2d::PhysicsMaterial *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    idx = lua_absindex(L, idx);
+
+    lua_Number arg1 = 0;       /** density */
+    lua_Number arg2 = 0;       /** restitution */
+    lua_Number arg3 = 0;       /** friction */
+
+    olua_check_number(L, idx + 0, &arg1);
+    value->density = (float)arg1;
+
+    olua_check_number(L, idx + 1, &arg2);
+    value->restitution = (float)arg2;
+
+    olua_check_number(L, idx + 2, &arg3);
+    value->friction = (float)arg3;
+}
+
+int auto_olua_unpack_cocos2d_PhysicsMaterial(lua_State *L, const cocos2d::PhysicsMaterial *value)
+{
+    if (value) {
+        olua_push_number(L, (lua_Number)value->density);
+        olua_push_number(L, (lua_Number)value->restitution);
+        olua_push_number(L, (lua_Number)value->friction);
+    } else {
+        for (int i = 0; i < 3; i++) {
+            lua_pushnil(L);
+        }
+    }
+
+    return 3;
+}
+
+bool auto_olua_ispack_cocos2d_PhysicsMaterial(lua_State *L, int idx)
+{
+    return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1) && olua_is_number(L, idx + 2);
+}
+
 static int _cocos2d_EventListenerPhysicsContact_create(lua_State *L)
 {
     olua_startinvoke(L);

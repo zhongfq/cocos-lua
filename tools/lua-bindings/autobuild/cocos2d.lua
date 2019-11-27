@@ -31,6 +31,9 @@ static const std::string makeScheduleCallbackTag(const std::string &key)
 }
 ]]
 
+M.CONVS = {
+}
+
 M.CLASSES = {}
 
 cls = typecls 'cocos2d::UserDefault'

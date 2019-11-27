@@ -52,11 +52,11 @@ M.CONVS = {
     typeconv {
         CPPCLS = 'fairygui::TweenValue',
         DEF = [[
-            float x = 0;
-            float y = 0;
-            float z = 0;
-            float w = 0;
-            double d = 0;
+            @optional float x;
+            @optional float y;
+            @optional float z;
+            @optional float w;
+            @optional double d;
         ]],
     },
 }

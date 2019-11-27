@@ -1,4 +1,8 @@
 return {
+    DEFINE = [[
+        #undef __APPLE__
+        #undef __SSE__
+    ]],
     HEADERS = {
         'audio/include/AudioEngine.h',
         'audio/include/SimpleAudioEngine.h',

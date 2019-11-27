@@ -16,15 +16,7 @@ M.INCLUDES = [[
 ]]
 M.CHUNK = [[]]
 
-typeconv {
-    CPPCLS = "dragonBones::Rectangle",
-    DEF = [[
-        float x;
-        float y;
-        float width;
-        float height;
-    ]],
-}
+typeconv 'dragonBones::Rectangle'
 
 M.MAKE_LUACLS = function (cppname)
     cppname = string.gsub(cppname, "^dragonBones::CC", "db.")

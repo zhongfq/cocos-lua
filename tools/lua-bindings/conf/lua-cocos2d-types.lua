@@ -8,13 +8,13 @@ typedef {
 typedef {
     CPPCLS = 'cocos2d::Rect',
     CONV = 'manual_olua_$$_cocos2d_Rect',
-    VARS = 4,
+    NUMVARS = 4,
 }
 
 typedef {
     CPPCLS = 'cocos2d::ccBezierConfig',
     CONV =  'manual_olua_$$_cocos2d_ccBezierConfig',
-    VARS = 3,
+    NUMVARS = 3,
 }
 
 typedef {

@@ -27,6 +27,9 @@ M.CHUNK = [[
 
 ]]
 
+M.CONVS = {
+}
+
 M.CLASSES = {}
 
 cls = typecls 'xgame::SceneNoCamera'

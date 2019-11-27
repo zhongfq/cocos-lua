@@ -36,7 +36,7 @@ typedef {
 typedef {
     CPPCLS = 'cocos2d::PhysicsMaterial',
     CONV = 'auto_olua_$$_cocos2d_PhysicsMaterial',
-    VARS = nil,
+    NUMVARS = 3,
 }
 
 typedef {

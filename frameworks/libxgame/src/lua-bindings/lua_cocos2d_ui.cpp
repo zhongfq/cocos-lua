@@ -3071,7 +3071,7 @@ static int _cocos2d_ui_LayoutComponent_getAnchorPosition(lua_State *L)
 
     // const cocos2d::Point &getAnchorPosition()
     const cocos2d::Point &ret = (const cocos2d::Point &)self->getAnchorPosition();
-    int num_ret = auto_olua_push_cocos2d_Point(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     olua_endinvoke(L);
 
@@ -3190,7 +3190,7 @@ static int _cocos2d_ui_LayoutComponent_getPosition(lua_State *L)
 
     // const cocos2d::Point &getPosition()
     const cocos2d::Point &ret = (const cocos2d::Point &)self->getPosition();
-    int num_ret = auto_olua_push_cocos2d_Point(L, &ret);
+    int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
     olua_endinvoke(L);
 
@@ -3508,7 +3508,7 @@ static int _cocos2d_ui_LayoutComponent_setAnchorPosition(lua_State *L)
     cocos2d::Point arg1;       /** point */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutComponent");
-    auto_olua_check_cocos2d_Point(L, 2, &arg1);
+    auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
     // void setAnchorPosition(const cocos2d::Point &point)
     self->setAnchorPosition(arg1);
@@ -3688,7 +3688,7 @@ static int _cocos2d_ui_LayoutComponent_setPosition(lua_State *L)
     cocos2d::Point arg1;       /** position */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.LayoutComponent");
-    auto_olua_check_cocos2d_Point(L, 2, &arg1);
+    auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
     // void setPosition(const cocos2d::Point &position)
     self->setPosition(arg1);

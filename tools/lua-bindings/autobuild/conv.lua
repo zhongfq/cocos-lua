@@ -29,13 +29,6 @@ M.CONVS = {
         ]],
     },
     typeconv {
-        CPPCLS = 'cocos2d::Point',
-        DEF = [[
-            float x;
-            float y;
-        ]],
-    },
-    typeconv {
         CPPCLS = 'cocos2d::Vec3',
         DEF = [[
             float x;
@@ -128,16 +121,16 @@ M.CONVS = {
     typeconv {
         CPPCLS = 'cocos2d::TTFConfig',
         DEF = [[
-            std::string fontFilePath;
-            float fontSize = 12;
-            cocos2d::GlyphCollection glyphs = 0;
-            const char *customGlyphs = nullptr;
-            bool distanceFieldEnabled = false;
-            int outlineSize = 0;
-            bool italics = false;
-            bool bold = false;
-            bool underline = false;
-            bool strikethrough = false;
+            @optional std::string fontFilePath;
+            @optional float fontSize;
+            @optional cocos2d::GlyphCollection glyphs;
+            @optional const char *customGlyphs;
+            @optional bool distanceFieldEnabled;
+            @optional int outlineSize;
+            @optional bool italics;
+            @optional bool bold;
+            @optional bool underline;
+            @optional bool strikethrough;
         ]],
     },
     typeconv {
@@ -159,7 +152,7 @@ M.CONVS = {
     typeconv {
         CPPCLS = 'cocos2d::ResourceData',
         DEF = [[
-            int         type;
+            int type;
             std::string file;
             std::string plist;
         ]],
@@ -184,11 +177,11 @@ M.CONVS = {
     typeconv {
         CPPCLS = 'cocos2d::network::WebSocket::Data',
         DEF = [[
-            char* bytes;
+            char *bytes;
             ssize_t len;
             ssize_t issued;
             bool isBinary;
-            void* ext;
+            void *ext;
         ]],
     },
 }

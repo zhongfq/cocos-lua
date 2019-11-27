@@ -55,26 +55,9 @@ typedef {
     CONV = 'manual_olua_$$_fairygui_EventTag',
 }
 
-typeconv {
-    CPPCLS = 'fairygui::Margin',
-    DEF = [[
-        float left;
-        float top;
-        float right;
-        float bottom;
-    ]]
-}
-
-typeconv {
-    CPPCLS = 'fairygui::TweenValue',
-    DEF = [[
-        float x = 0;
-        float y = 0;
-        float z = 0;
-        float w = 0;
-        double d = 0;
-    ]]
-}
+typeconv 'fairygui::Margin'
+typeconv 'fairygui::TweenValue'
+    .ATTR('*', {OPTIONAL = true})
 
 typeconf 'fairygui::UIEventType'
 

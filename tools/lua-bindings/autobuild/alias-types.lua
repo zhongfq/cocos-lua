@@ -8,6 +8,18 @@ typedef {
 }
 
 typedef {
+    CPPCLS = 'cocos2d::Point',
+    DECLTYPE = 'cocos2d::Point',
+    CONV = 'auto_olua_$$_cocos2d_Vec2',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ResizableBufferAdapter<cocos2d::Data>::BufferType',
+    DECLTYPE = 'cocos2d::ResizableBufferAdapter<cocos2d::Data>::BufferType',
+    CONV = 'manual_olua_$$_cocos2d_Data',
+}
+
+typedef {
     CPPCLS = 'cocos2d::TMXTileFlags',
     DECLTYPE = 'lua_Unsigned',
     CONV = 'olua_$$_uint',
@@ -17,6 +29,12 @@ typedef {
     CPPCLS = 'cocos2d::Vect',
     DECLTYPE = 'cocos2d::Vect',
     CONV = 'auto_olua_$$_cocos2d_Vec2',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::VolatileTexture::ccCachedImageType',
+    DECLTYPE = 'lua_Unsigned',
+    CONV = 'olua_$$_uint',
 }
 
 typedef {

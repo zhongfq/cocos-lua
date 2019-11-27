@@ -6,7 +6,7 @@ local typedef = olua.typedef
 typedef {
     CPPCLS = 'dragonBones::Rectangle',
     CONV = 'auto_olua_$$_dragonBones_Rectangle',
-    VARS = nil,
+    NUMVARS = 4,
 }
 
 typedef {

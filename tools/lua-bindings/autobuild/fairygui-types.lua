@@ -11,13 +11,13 @@ typedef {
 typedef {
     CPPCLS = 'fairygui::Margin',
     CONV = 'auto_olua_$$_fairygui_Margin',
-    VARS = nil,
+    NUMVARS = 4,
 }
 
 typedef {
     CPPCLS = 'fairygui::TweenValue',
     CONV = 'auto_olua_$$_fairygui_TweenValue',
-    VARS = nil,
+    NUMVARS = 5,
 }
 
 typedef {

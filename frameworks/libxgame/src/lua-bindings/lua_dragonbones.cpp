@@ -73,6 +73,52 @@ bool auto_olua_is_dragonBones_Rectangle(lua_State *L, int idx)
     return olua_istable(L, idx) && olua_hasfield(L, idx, "height") && olua_hasfield(L, idx, "width") && olua_hasfield(L, idx, "y") && olua_hasfield(L, idx, "x");
 }
 
+void auto_olua_pack_dragonBones_Rectangle(lua_State *L, int idx, dragonBones::Rectangle *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    idx = lua_absindex(L, idx);
+
+    lua_Number arg1 = 0;       /** x */
+    lua_Number arg2 = 0;       /** y */
+    lua_Number arg3 = 0;       /** width */
+    lua_Number arg4 = 0;       /** height */
+
+    olua_check_number(L, idx + 0, &arg1);
+    value->x = (float)arg1;
+
+    olua_check_number(L, idx + 1, &arg2);
+    value->y = (float)arg2;
+
+    olua_check_number(L, idx + 2, &arg3);
+    value->width = (float)arg3;
+
+    olua_check_number(L, idx + 3, &arg4);
+    value->height = (float)arg4;
+}
+
+int auto_olua_unpack_dragonBones_Rectangle(lua_State *L, const dragonBones::Rectangle *value)
+{
+    if (value) {
+        olua_push_number(L, (lua_Number)value->x);
+        olua_push_number(L, (lua_Number)value->y);
+        olua_push_number(L, (lua_Number)value->width);
+        olua_push_number(L, (lua_Number)value->height);
+    } else {
+        for (int i = 0; i < 4; i++) {
+            lua_pushnil(L);
+        }
+    }
+
+    return 4;
+}
+
+bool auto_olua_ispack_dragonBones_Rectangle(lua_State *L, int idx)
+{
+    return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1) && olua_is_number(L, idx + 2) && olua_is_number(L, idx + 3);
+}
+
 static int luaopen_dragonBones_BinaryOffset(lua_State *L)
 {
     oluacls_class(L, "db.BinaryOffset", nullptr);

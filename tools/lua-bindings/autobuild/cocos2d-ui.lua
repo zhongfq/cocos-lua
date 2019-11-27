@@ -25,6 +25,9 @@ M.CHUNK = [[
 
 ]]
 
+M.CONVS = {
+}
+
 M.CLASSES = {}
 
 cls = typecls 'cocos2d::ui::Widget::FocusDirection'

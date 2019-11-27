@@ -26,15 +26,6 @@ end
 
 M.EXCLUDE_TYPE = require "conf.exclude-type"
 
-typeconv {
-    CPPCLS = 'cocos2d::PhysicsMaterial',
-    DEF = [[
-        float density;
-        float restitution;
-        float friction;
-    ]]
-}
-
 typedef {
     CPPCLS = 'cocos2d::PhysicsWorld',
     CONV = 'olua_$$_cppobj',
@@ -64,6 +55,8 @@ typedef {
     CPPCLS = 'cocos2d::PhysicsRayCastInfo',
     CONV = 'olua_$$_cppobj',
 }
+
+typeconv 'cocos2d::PhysicsMaterial'
 
 typeconf 'cocos2d::EventListenerPhysicsContact'
 typeconf 'cocos2d::EventListenerPhysicsContactWithGroup'

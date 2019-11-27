@@ -104,6 +104,9 @@ template <typename T> int manual_olua_push_spine_Vector(lua_State *L, const spin
 }
 ]]
 
+M.CONVS = {
+}
+
 M.CLASSES = {}
 
 cls = typecls 'spine::EventType'

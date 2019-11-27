@@ -30103,14 +30103,14 @@ static int _cocos2d_Node_setAdditionalTransform(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        if ((manual_olua_is_cocos2d_Mat4(L, 2))) {
-            // void setAdditionalTransform(const cocos2d::Mat4 &additionalTransform)
-            return _cocos2d_Node_setAdditionalTransform1(L);
-        }
-
-        // if ((auto_olua_is_cocos2d_AffineTransform(L, 2))) {
+        if ((auto_olua_is_cocos2d_AffineTransform(L, 2))) {
             // void setAdditionalTransform(const cocos2d::AffineTransform &additionalTransform)
             return _cocos2d_Node_setAdditionalTransform2(L);
+        }
+
+        // if ((manual_olua_is_cocos2d_Mat4(L, 2))) {
+            // void setAdditionalTransform(const cocos2d::Mat4 &additionalTransform)
+            return _cocos2d_Node_setAdditionalTransform1(L);
         // }
     }
 
@@ -33926,26 +33926,26 @@ static int _cocos2d_Label_createWithTTF(lua_State *L)
     }
 
     if (num_args == 3) {
-        if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3))) {
-            // static cocos2d::Label *createWithTTF(const std::string &text, const std::string &fontFilePath, float fontSize, @optional const cocos2d::Size &dimensions, @optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment)
-            return _cocos2d_Label_createWithTTF3(L);
-        }
-
-        // if ((auto_olua_is_cocos2d_TTFConfig(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
+        if ((auto_olua_is_cocos2d_TTFConfig(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3))) {
             // static cocos2d::Label *createWithTTF(const cocos2d::TTFConfig &ttfConfig, const std::string &text, @optional cocos2d::TextHAlignment hAlignment, @optional int maxLineWidth)
             return _cocos2d_Label_createWithTTF7(L);
+        }
+
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3))) {
+            // static cocos2d::Label *createWithTTF(const std::string &text, const std::string &fontFilePath, float fontSize, @optional const cocos2d::Size &dimensions, @optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment)
+            return _cocos2d_Label_createWithTTF3(L);
         // }
     }
 
     if (num_args == 4) {
-        if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3)) && (auto_olua_is_cocos2d_Size(L, 4))) {
-            // static cocos2d::Label *createWithTTF(const std::string &text, const std::string &fontFilePath, float fontSize, @optional const cocos2d::Size &dimensions, @optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment)
-            return _cocos2d_Label_createWithTTF4(L);
-        }
-
-        // if ((auto_olua_is_cocos2d_TTFConfig(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_int(L, 4))) {
+        if ((auto_olua_is_cocos2d_TTFConfig(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_int(L, 4))) {
             // static cocos2d::Label *createWithTTF(const cocos2d::TTFConfig &ttfConfig, const std::string &text, @optional cocos2d::TextHAlignment hAlignment, @optional int maxLineWidth)
             return _cocos2d_Label_createWithTTF2(L);
+        }
+
+        // if ((olua_is_std_string(L, 1)) && (olua_is_std_string(L, 2)) && (olua_is_number(L, 3)) && (auto_olua_is_cocos2d_Size(L, 4))) {
+            // static cocos2d::Label *createWithTTF(const std::string &text, const std::string &fontFilePath, float fontSize, @optional const cocos2d::Size &dimensions, @optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment)
+            return _cocos2d_Label_createWithTTF4(L);
         // }
     }
 
@@ -35009,26 +35009,26 @@ static int _cocos2d_Label_initWithTTF(lua_State *L)
     }
 
     if (num_args == 3) {
-        if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4))) {
-            // bool initWithTTF(const std::string &text, const std::string &fontFilePath, float fontSize, @optional const cocos2d::Size &dimensions, @optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment)
-            return _cocos2d_Label_initWithTTF3(L);
-        }
-
-        // if ((auto_olua_is_cocos2d_TTFConfig(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_uint(L, 4))) {
+        if ((auto_olua_is_cocos2d_TTFConfig(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_uint(L, 4))) {
             // bool initWithTTF(const cocos2d::TTFConfig &ttfConfig, const std::string &text, @optional cocos2d::TextHAlignment hAlignment, @optional int maxLineWidth)
             return _cocos2d_Label_initWithTTF7(L);
+        }
+
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4))) {
+            // bool initWithTTF(const std::string &text, const std::string &fontFilePath, float fontSize, @optional const cocos2d::Size &dimensions, @optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment)
+            return _cocos2d_Label_initWithTTF3(L);
         // }
     }
 
     if (num_args == 4) {
-        if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4)) && (auto_olua_is_cocos2d_Size(L, 5))) {
-            // bool initWithTTF(const std::string &text, const std::string &fontFilePath, float fontSize, @optional const cocos2d::Size &dimensions, @optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment)
-            return _cocos2d_Label_initWithTTF4(L);
-        }
-
-        // if ((auto_olua_is_cocos2d_TTFConfig(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_int(L, 5))) {
+        if ((auto_olua_is_cocos2d_TTFConfig(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_int(L, 5))) {
             // bool initWithTTF(const cocos2d::TTFConfig &ttfConfig, const std::string &text, @optional cocos2d::TextHAlignment hAlignment, @optional int maxLineWidth)
             return _cocos2d_Label_initWithTTF2(L);
+        }
+
+        // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3)) && (olua_is_number(L, 4)) && (auto_olua_is_cocos2d_Size(L, 5))) {
+            // bool initWithTTF(const std::string &text, const std::string &fontFilePath, float fontSize, @optional const cocos2d::Size &dimensions, @optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment)
+            return _cocos2d_Label_initWithTTF4(L);
         // }
     }
 

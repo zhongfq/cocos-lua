@@ -932,6 +932,7 @@ LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *super)
         lua_pushvalue(L, -1);
         oluacls_const(L, "class");                      // mt.class = mt
         oluacls_const_string(L, "classname", cls);      // mt.classname = cls
+        oluacls_const_string(L, "classtype", "native");
         
         if (super) {
             olua_getmetatable(L, super);
@@ -1207,6 +1208,15 @@ static int l_debug(lua_State *L)
     return 0;
 }
 
+static int l_class(lua_State *L)
+{
+    const char *cls = olua_checkstring(L, 1);
+    const char *super = olua_optstring(L, 2, OLUA_VOIDCLS);
+    oluacls_class(L, cls, super);
+    oluacls_createclassproxy(L);
+    return 1;
+}
+
 LUALIB_API int luaopen_olua(lua_State *L)
 {
     static const luaL_Reg lib[] = {
@@ -1214,6 +1224,7 @@ LUALIB_API int luaopen_olua(lua_State *L)
         {"isa", l_isa},
         {"take", l_take},
         {"debug", l_debug},
+        {"class", l_class},
         {NULL, NULL}
     };
     

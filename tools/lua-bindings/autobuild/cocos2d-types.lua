@@ -67,1831 +67,2394 @@ typedef {
 }
 
 typedef {
-    CPPCLS = 'ResolutionPolicy',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'cc.ResolutionPolicy',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ApplicationProtocol::Platform',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'cc.ApplicationProtocol.Platform',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::Camera::Type',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'cc.Camera.Type',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::CameraBackgroundBrush::BrushType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'cc.CameraBackgroundBrush.BrushType',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::CameraFlag',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'cc.CameraFlag',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::Controller::Key',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'cc.Controller.Key',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::Director::Projection',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'cc.Director.Projection',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::Event::Type',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'cc.Event.Type',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EventController::ControllerEventType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'cc.EventController.ControllerEventType',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EventKeyboard::KeyCode',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'cc.EventKeyboard.KeyCode',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EventListener::Type',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'cc.EventListener.Type',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EventMouse::MouseButton',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'cc.EventMouse.MouseButton',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EventMouse::MouseEventType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'cc.EventMouse.MouseEventType',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EventTouch::EventCode',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'cc.EventTouch.EventCode',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::FileUtils::Status',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'cc.FileUtils.Status',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::GlyphCollection',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'cc.GlyphCollection',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::Image::Format',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'cc.Image.Format',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::Label::LabelType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'cc.Label.LabelType',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::Label::Overflow',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'cc.Label.Overflow',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::LabelEffect',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'cc.LabelEffect',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::LanguageType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'cc.LanguageType',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::LightFlag',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'cc.LightFlag',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::LightType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'cc.LightType',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::MATRIX_STACK_TYPE',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'cc.MATRIX_STACK_TYPE',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ParticleSystem::Mode',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'cc.ParticleSystem.Mode',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ParticleSystem::PositionType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'cc.ParticleSystem.PositionType',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ProgressTimer::Type',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'cc.ProgressTimer.Type',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TextHAlignment',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'cc.TextHAlignment',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TextVAlignment',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'cc.TextVAlignment',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::Texture2D::PixelFormat',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'cc.Texture2D.PixelFormat',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::Touch::DispatchMode',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'cc.Touch.DispatchMode',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TransitionScene::Orientation',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'cc.TransitionScene.Orientation',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::experimental::AudioEngine::AudioState',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'cc.AudioEngine.AudioState',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::network::WebSocket::ErrorCode',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'cc.WebSocket.ErrorCode',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::network::WebSocket::State',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'cc.WebSocket.State',
-}
-
-typedef {
-    CPPCLS = 'CocosDenshion::SimpleAudioEngine *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.SimpleAudioEngine',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::AccelAmplitude *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.AccelAmplitude',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::AccelDeccelAmplitude *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.AccelDeccelAmplitude',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::Acceleration *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.Acceleration',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::Action *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.Action',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ActionCamera *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.ActionCamera',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ActionEase *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.ActionEase',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ActionFloat *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.ActionFloat',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ActionInstant *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.ActionInstant',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ActionInterval *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.ActionInterval',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ActionManager *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.ActionManager',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::AmbientLight *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.AmbientLight',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::Animate *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.Animate',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::Animation *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.Animation',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::AnimationCache *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.AnimationCache',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::AnimationFrame *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.AnimationFrame',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::Application *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.Application',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ApplicationProtocol *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.ApplicationProtocol',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::AtlasNode *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.AtlasNode',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::BaseLight *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.BaseLight',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::BezierBy *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.BezierBy',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::BezierTo *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.BezierTo',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::Blink *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.Blink',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::CallFunc *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.CallFunc',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::Camera *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.Camera',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::CameraBackgroundBrush *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.CameraBackgroundBrush',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::CameraBackgroundColorBrush *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.CameraBackgroundColorBrush',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::CameraBackgroundDepthBrush *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.CameraBackgroundDepthBrush',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::CameraBackgroundSkyBoxBrush *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.CameraBackgroundSkyBoxBrush',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::CardinalSplineBy *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.CardinalSplineBy',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::CardinalSplineTo *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.CardinalSplineTo',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::CatmullRomBy *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.CatmullRomBy',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::CatmullRomTo *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.CatmullRomTo',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ClippingRectangleNode *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.ClippingRectangleNode',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::Component *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.Component',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::Controller *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.Controller',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::DeccelAmplitude *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.DeccelAmplitude',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::DelayTime *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.DelayTime',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::Device *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.Device',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::DirectionLight *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.DirectionLight',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::Director *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.Director',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::DrawNode *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.DrawNode',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EaseBackIn *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EaseBackIn',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EaseBackInOut *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EaseBackInOut',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EaseBackOut *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EaseBackOut',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EaseBezierAction *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EaseBezierAction',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EaseBounceIn *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EaseBounceIn',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EaseBounceInOut *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EaseBounceInOut',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EaseBounceOut *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EaseBounceOut',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EaseCircleActionIn *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EaseCircleActionIn',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EaseCircleActionInOut *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EaseCircleActionInOut',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EaseCircleActionOut *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EaseCircleActionOut',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EaseCubicActionIn *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EaseCubicActionIn',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EaseCubicActionInOut *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EaseCubicActionInOut',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EaseCubicActionOut *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EaseCubicActionOut',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EaseElastic *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EaseElastic',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EaseElasticIn *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EaseElasticIn',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EaseElasticInOut *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EaseElasticInOut',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EaseElasticOut *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EaseElasticOut',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EaseExponentialIn *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EaseExponentialIn',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EaseExponentialInOut *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EaseExponentialInOut',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EaseExponentialOut *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EaseExponentialOut',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EaseIn *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EaseIn',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EaseInOut *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EaseInOut',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EaseOut *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EaseOut',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EaseQuadraticActionIn *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EaseQuadraticActionIn',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EaseQuadraticActionInOut *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EaseQuadraticActionInOut',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EaseQuadraticActionOut *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EaseQuadraticActionOut',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EaseQuarticActionIn *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EaseQuarticActionIn',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EaseQuarticActionInOut *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EaseQuarticActionInOut',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EaseQuarticActionOut *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EaseQuarticActionOut',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EaseQuinticActionIn *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EaseQuinticActionIn',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EaseQuinticActionInOut *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EaseQuinticActionInOut',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EaseQuinticActionOut *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EaseQuinticActionOut',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EaseRateAction *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EaseRateAction',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EaseSineIn *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EaseSineIn',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EaseSineInOut *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EaseSineInOut',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EaseSineOut *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EaseSineOut',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::Event *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.Event',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EventAcceleration *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EventAcceleration',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EventController *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EventController',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EventCustom *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EventCustom',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EventDispatcher *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EventDispatcher',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EventFocus *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EventFocus',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EventKeyboard *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EventKeyboard',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EventListener *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EventListener',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EventListenerAcceleration *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EventListenerAcceleration',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EventListenerController *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EventListenerController',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EventListenerCustom *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EventListenerCustom',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EventListenerFocus *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EventListenerFocus',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EventListenerKeyboard *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EventListenerKeyboard',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EventListenerMouse *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EventListenerMouse',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EventListenerTouchAllAtOnce *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EventListenerTouchAllAtOnce',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EventListenerTouchOneByOne *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EventListenerTouchOneByOne',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EventMouse *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EventMouse',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EventTouch *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EventTouch',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::FadeIn *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.FadeIn',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::FadeOut *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.FadeOut',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::FadeOutBLTiles *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.FadeOutBLTiles',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::FadeOutDownTiles *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.FadeOutDownTiles',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::FadeOutTRTiles *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.FadeOutTRTiles',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::FadeOutUpTiles *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.FadeOutUpTiles',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::FadeTo *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.FadeTo',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::FileUtils *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.FileUtils',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::FiniteTimeAction *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.FiniteTimeAction',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::FlipX *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.FlipX',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::FlipX3D *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.FlipX3D',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::FlipY *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.FlipY',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::FlipY3D *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.FlipY3D',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::Follow *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.Follow',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::FontAtlas *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.FontAtlas',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::GLProgram *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.GLProgram',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::GLProgramCache *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.GLProgramCache',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::GLProgramState *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.GLProgramState',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::GLView *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.GLView',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::GLViewImpl *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.GLViewImpl',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::Grid3D *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.Grid3D',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::Grid3DAction *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.Grid3DAction',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::GridAction *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.GridAction',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::GridBase *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.GridBase',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::Hide *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.Hide',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::Image *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.Image',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::JumpBy *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.JumpBy',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::JumpTiles3D *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.JumpTiles3D',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::JumpTo *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.JumpTo',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::Label *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.Label',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::LabelAtlas *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.LabelAtlas',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::Layer *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.Layer',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::LayerColor *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.LayerColor',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::LayerGradient *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.LayerGradient',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::LayerRadialGradient *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.LayerRadialGradient',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::Lens3D *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.Lens3D',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::Liquid *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.Liquid',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::LuaComponent *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.LuaComponent',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::LuaWebSocketDelegate *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.LuaWebSocketDelegate',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::MoveBy *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.MoveBy',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::MoveTo *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.MoveTo',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::Node *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.Node',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::NodeGrid *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.NodeGrid',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::OrbitCamera *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.OrbitCamera',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::PageTurn3D *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.PageTurn3D',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ParticleBatchNode *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.ParticleBatchNode',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ParticleExplosion *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.ParticleExplosion',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ParticleFire *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.ParticleFire',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ParticleFireworks *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.ParticleFireworks',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ParticleFlower *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.ParticleFlower',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ParticleGalaxy *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.ParticleGalaxy',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ParticleMeteor *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.ParticleMeteor',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ParticleRain *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.ParticleRain',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ParticleSmoke *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.ParticleSmoke',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ParticleSnow *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.ParticleSnow',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ParticleSpiral *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.ParticleSpiral',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ParticleSun *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.ParticleSun',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ParticleSystem *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.ParticleSystem',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ParticleSystemQuad *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.ParticleSystemQuad',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::Place *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.Place',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::PointArray *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.PointArray',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::PointLight *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.PointLight',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ProgressFromTo *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.ProgressFromTo',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ProgressTimer *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.ProgressTimer',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ProgressTo *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.ProgressTo',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ProtectedNode *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.ProtectedNode',
+    CPPCLS = 'cocos2d::UserDefault *',
+    LUACLS = 'cc.UserDefault',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
 }
 
 typedef {
     CPPCLS = 'cocos2d::Ref *',
-    CONV = 'olua_$$_cppobj',
     LUACLS = 'cc.Ref',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::RemoveSelf *',
+    CPPCLS = 'cocos2d::Acceleration *',
+    LUACLS = 'cc.Acceleration',
+    DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.RemoveSelf',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::RenderTexture *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.RenderTexture',
+    CPPCLS = 'cocos2d::MATRIX_STACK_TYPE',
+    LUACLS = 'cc.MATRIX_STACK_TYPE',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Renderer *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.Renderer',
+    CPPCLS = 'cocos2d::Director::Projection',
+    LUACLS = 'cc.Director.Projection',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Repeat *',
+    CPPCLS = 'cocos2d::Director *',
+    LUACLS = 'cc.Director',
+    DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.Repeat',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::RepeatForever *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.RepeatForever',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ResizableBuffer *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.ResizableBuffer',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ResizeBy *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.ResizeBy',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ResizeTo *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.ResizeTo',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ReuseGrid *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.ReuseGrid',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ReverseTime *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.ReverseTime',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::Ripple3D *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.Ripple3D',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::RotateBy *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.RotateBy',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::RotateTo *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.RotateTo',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ScaleBy *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.ScaleBy',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ScaleTo *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.ScaleTo',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::Scene *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.Scene',
+    NUMVARS = nil,
 }
 
 typedef {
     CPPCLS = 'cocos2d::Scheduler *',
-    CONV = 'olua_$$_cppobj',
     LUACLS = 'cc.Scheduler',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Sequence *',
+    CPPCLS = 'cocos2d::EventDispatcher *',
+    LUACLS = 'cc.EventDispatcher',
+    DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.Sequence',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Shaky3D *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.Shaky3D',
+    CPPCLS = 'cocos2d::EventListener::Type',
+    LUACLS = 'cc.EventListener.Type',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::ShakyTiles3D *',
+    CPPCLS = 'cocos2d::EventListener *',
+    LUACLS = 'cc.EventListener',
+    DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.ShakyTiles3D',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::ShatteredTiles3D *',
+    CPPCLS = 'cocos2d::EventListenerTouchOneByOne *',
+    LUACLS = 'cc.EventListenerTouchOneByOne',
+    DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.ShatteredTiles3D',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Show *',
+    CPPCLS = 'cocos2d::EventListenerTouchAllAtOnce *',
+    LUACLS = 'cc.EventListenerTouchAllAtOnce',
+    DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.Show',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::ShuffleTiles *',
+    CPPCLS = 'cocos2d::EventListenerCustom *',
+    LUACLS = 'cc.EventListenerCustom',
+    DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.ShuffleTiles',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::SkewBy *',
+    CPPCLS = 'cocos2d::EventListenerKeyboard *',
+    LUACLS = 'cc.EventListenerKeyboard',
+    DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.SkewBy',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::SkewTo *',
+    CPPCLS = 'cocos2d::EventListenerAcceleration *',
+    LUACLS = 'cc.EventListenerAcceleration',
+    DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.SkewTo',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Spawn *',
+    CPPCLS = 'cocos2d::EventListenerFocus *',
+    LUACLS = 'cc.EventListenerFocus',
+    DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.Spawn',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Speed *',
+    CPPCLS = 'cocos2d::EventListenerMouse *',
+    LUACLS = 'cc.EventListenerMouse',
+    DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.Speed',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::SplitCols *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.SplitCols',
+    CPPCLS = 'cocos2d::Event::Type',
+    LUACLS = 'cc.Event.Type',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::SplitRows *',
+    CPPCLS = 'cocos2d::Event *',
+    LUACLS = 'cc.Event',
+    DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.SplitRows',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::SpotLight *',
+    CPPCLS = 'cocos2d::EventCustom *',
+    LUACLS = 'cc.EventCustom',
+    DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.SpotLight',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Sprite *',
+    CPPCLS = 'cocos2d::EventListenerController *',
+    LUACLS = 'cc.EventListenerController',
+    DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.Sprite',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::SpriteBatchNode *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.SpriteBatchNode',
+    CPPCLS = 'cocos2d::EventTouch::EventCode',
+    LUACLS = 'cc.EventTouch.EventCode',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::SpriteFrame *',
+    CPPCLS = 'cocos2d::EventTouch *',
+    LUACLS = 'cc.EventTouch',
+    DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.SpriteFrame',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::SpriteFrameCache *',
+    CPPCLS = 'cocos2d::EventKeyboard *',
+    LUACLS = 'cc.EventKeyboard',
+    DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.SpriteFrameCache',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::StopGrid *',
+    CPPCLS = 'cocos2d::EventAcceleration *',
+    LUACLS = 'cc.EventAcceleration',
+    DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.StopGrid',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::TargetedAction *',
+    CPPCLS = 'cocos2d::EventFocus *',
+    LUACLS = 'cc.EventFocus',
+    DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TargetedAction',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::TextFieldDelegate *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TextFieldDelegate',
+    CPPCLS = 'cocos2d::EventMouse::MouseEventType',
+    LUACLS = 'cc.EventMouse.MouseEventType',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::TextFieldTTF *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TextFieldTTF',
+    CPPCLS = 'cocos2d::EventMouse::MouseButton',
+    LUACLS = 'cc.EventMouse.MouseButton',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Texture2D *',
+    CPPCLS = 'cocos2d::EventMouse *',
+    LUACLS = 'cc.EventMouse',
+    DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.Texture2D',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::TextureAtlas *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TextureAtlas',
+    CPPCLS = 'cocos2d::EventKeyboard::KeyCode',
+    LUACLS = 'cc.EventKeyboard.KeyCode',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::TextureCache *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TextureCache',
+    CPPCLS = 'cocos2d::Touch::DispatchMode',
+    LUACLS = 'cc.Touch.DispatchMode',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::TextureCube *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TextureCube',
+    CPPCLS = 'cocos2d::EventController::ControllerEventType',
+    LUACLS = 'cc.EventController.ControllerEventType',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::TiledGrid3D *',
+    CPPCLS = 'cocos2d::EventController *',
+    LUACLS = 'cc.EventController',
+    DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TiledGrid3D',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TiledGrid3DAction *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TiledGrid3DAction',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TintBy *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TintBy',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TintTo *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TintTo',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ToggleVisibility *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.ToggleVisibility',
+    NUMVARS = nil,
 }
 
 typedef {
     CPPCLS = 'cocos2d::Touch *',
-    CONV = 'olua_$$_cppobj',
     LUACLS = 'cc.Touch',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::TransitionCrossFade *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TransitionCrossFade',
+    CPPCLS = 'cocos2d::Controller::Key',
+    LUACLS = 'cc.Controller.Key',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::TransitionFade *',
+    CPPCLS = 'cocos2d::Controller *',
+    LUACLS = 'cc.Controller',
+    DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TransitionFade',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TransitionFadeBL *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TransitionFadeBL',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TransitionFadeDown *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TransitionFadeDown',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TransitionFadeTR *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TransitionFadeTR',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TransitionFadeUp *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TransitionFadeUp',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TransitionFlipAngular *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TransitionFlipAngular',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TransitionFlipX *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TransitionFlipX',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TransitionFlipY *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TransitionFlipY',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TransitionJumpZoom *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TransitionJumpZoom',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TransitionMoveInB *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TransitionMoveInB',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TransitionMoveInL *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TransitionMoveInL',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TransitionMoveInR *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TransitionMoveInR',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TransitionMoveInT *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TransitionMoveInT',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TransitionPageTurn *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TransitionPageTurn',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TransitionProgress *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TransitionProgress',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TransitionProgressHorizontal *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TransitionProgressHorizontal',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TransitionProgressInOut *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TransitionProgressInOut',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TransitionProgressOutIn *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TransitionProgressOutIn',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TransitionProgressRadialCCW *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TransitionProgressRadialCCW',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TransitionProgressRadialCW *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TransitionProgressRadialCW',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TransitionProgressVertical *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TransitionProgressVertical',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TransitionRotoZoom *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TransitionRotoZoom',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TransitionScene *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TransitionScene',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TransitionSceneOriented *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TransitionSceneOriented',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TransitionShrinkGrow *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TransitionShrinkGrow',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TransitionSlideInB *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TransitionSlideInB',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TransitionSlideInL *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TransitionSlideInL',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TransitionSlideInR *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TransitionSlideInR',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TransitionSlideInT *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TransitionSlideInT',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TransitionSplitCols *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TransitionSplitCols',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TransitionSplitRows *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TransitionSplitRows',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TransitionTurnOffTiles *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TransitionTurnOffTiles',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TransitionZoomFlipAngular *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TransitionZoomFlipAngular',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TransitionZoomFlipX *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TransitionZoomFlipX',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TransitionZoomFlipY *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TransitionZoomFlipY',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::TurnOffTiles *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.TurnOffTiles',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::Twirl *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.Twirl',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::Uniform *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.Uniform',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::UserDefault *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.UserDefault',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::VRGenericHeadTracker *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.VRGenericHeadTracker',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::VRGenericRenderer *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.VRGenericRenderer',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::VRIHeadTracker *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.VRIHeadTracker',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::VRIRenderer *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.VRIRenderer',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::VertexAttrib *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.VertexAttrib',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::Waves *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.Waves',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::Waves3D *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.Waves3D',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::WavesTiles3D *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.WavesTiles3D',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::experimental::AudioEngine *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.AudioEngine',
+    NUMVARS = nil,
 }
 
 typedef {
     CPPCLS = 'cocos2d::experimental::AudioProfile *',
-    CONV = 'olua_$$_cppobj',
     LUACLS = 'cc.AudioProfile',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::network::WebSocket *',
+    CPPCLS = 'cocos2d::experimental::AudioEngine::AudioState',
+    LUACLS = 'cc.AudioEngine.AudioState',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::experimental::AudioEngine *',
+    LUACLS = 'cc.AudioEngine',
+    DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.WebSocket',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'CocosDenshion::SimpleAudioEngine *',
+    LUACLS = 'cc.SimpleAudioEngine',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ApplicationProtocol::Platform',
+    LUACLS = 'cc.ApplicationProtocol.Platform',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::LanguageType',
+    LUACLS = 'cc.LanguageType',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ApplicationProtocol *',
+    LUACLS = 'cc.ApplicationProtocol',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Application *',
+    LUACLS = 'cc.Application',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Device *',
+    LUACLS = 'cc.Device',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ResizableBuffer *',
+    LUACLS = 'cc.ResizableBuffer',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::FileUtils::Status',
+    LUACLS = 'cc.FileUtils.Status',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::FileUtils *',
+    LUACLS = 'cc.FileUtils',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'ResolutionPolicy',
+    LUACLS = 'cc.ResolutionPolicy',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::GLView *',
+    LUACLS = 'cc.GLView',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::GLViewImpl *',
+    LUACLS = 'cc.GLViewImpl',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Image::Format',
+    LUACLS = 'cc.Image.Format',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Image *',
+    LUACLS = 'cc.Image',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Renderer *',
+    LUACLS = 'cc.Renderer',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::VertexAttrib *',
+    LUACLS = 'cc.VertexAttrib',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Uniform *',
+    LUACLS = 'cc.Uniform',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::GLProgram *',
+    LUACLS = 'cc.GLProgram',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::GLProgramCache *',
+    LUACLS = 'cc.GLProgramCache',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::GLProgramState *',
+    LUACLS = 'cc.GLProgramState',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TextureCache *',
+    LUACLS = 'cc.TextureCache',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Texture2D::PixelFormat',
+    LUACLS = 'cc.Texture2D.PixelFormat',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Texture2D *',
+    LUACLS = 'cc.Texture2D',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TextureCube *',
+    LUACLS = 'cc.TextureCube',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TextureAtlas *',
+    LUACLS = 'cc.TextureAtlas',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::VRIHeadTracker *',
+    LUACLS = 'cc.VRIHeadTracker',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::VRIRenderer *',
+    LUACLS = 'cc.VRIRenderer',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::VRGenericRenderer *',
+    LUACLS = 'cc.VRGenericRenderer',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::VRGenericHeadTracker *',
+    LUACLS = 'cc.VRGenericHeadTracker',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::network::WebSocket::ErrorCode',
+    LUACLS = 'cc.WebSocket.ErrorCode',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::network::WebSocket::State',
+    LUACLS = 'cc.WebSocket.State',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
 }
 
 typedef {
     CPPCLS = 'cocos2d::network::WebSocket::Delegate *',
-    CONV = 'olua_$$_cppobj',
     LUACLS = 'cc.WebSocket.Delegate',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::network::WebSocket *',
+    LUACLS = 'cc.WebSocket',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::LuaWebSocketDelegate *',
+    LUACLS = 'cc.LuaWebSocketDelegate',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ActionManager *',
+    LUACLS = 'cc.ActionManager',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Action *',
+    LUACLS = 'cc.Action',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::FiniteTimeAction *',
+    LUACLS = 'cc.FiniteTimeAction',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Speed *',
+    LUACLS = 'cc.Speed',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Follow *',
+    LUACLS = 'cc.Follow',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
 }
 
 typedef {
     CPPCLS = 'cocos2d::tweenfunc *',
-    CONV = 'olua_$$_cppobj',
     LUACLS = 'cc.tweenfunc',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ActionInterval *',
+    LUACLS = 'cc.ActionInterval',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Sequence *',
+    LUACLS = 'cc.Sequence',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Repeat *',
+    LUACLS = 'cc.Repeat',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::RepeatForever *',
+    LUACLS = 'cc.RepeatForever',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Spawn *',
+    LUACLS = 'cc.Spawn',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::RotateTo *',
+    LUACLS = 'cc.RotateTo',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::RotateBy *',
+    LUACLS = 'cc.RotateBy',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::MoveBy *',
+    LUACLS = 'cc.MoveBy',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::MoveTo *',
+    LUACLS = 'cc.MoveTo',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::SkewTo *',
+    LUACLS = 'cc.SkewTo',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::SkewBy *',
+    LUACLS = 'cc.SkewBy',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ResizeTo *',
+    LUACLS = 'cc.ResizeTo',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ResizeBy *',
+    LUACLS = 'cc.ResizeBy',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::BezierBy *',
+    LUACLS = 'cc.BezierBy',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::BezierTo *',
+    LUACLS = 'cc.BezierTo',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::JumpBy *',
+    LUACLS = 'cc.JumpBy',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::JumpTo *',
+    LUACLS = 'cc.JumpTo',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ScaleTo *',
+    LUACLS = 'cc.ScaleTo',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ScaleBy *',
+    LUACLS = 'cc.ScaleBy',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Blink *',
+    LUACLS = 'cc.Blink',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::FadeTo *',
+    LUACLS = 'cc.FadeTo',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::FadeIn *',
+    LUACLS = 'cc.FadeIn',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::FadeOut *',
+    LUACLS = 'cc.FadeOut',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TintTo *',
+    LUACLS = 'cc.TintTo',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TintBy *',
+    LUACLS = 'cc.TintBy',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::DelayTime *',
+    LUACLS = 'cc.DelayTime',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ReverseTime *',
+    LUACLS = 'cc.ReverseTime',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Animate *',
+    LUACLS = 'cc.Animate',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TargetedAction *',
+    LUACLS = 'cc.TargetedAction',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ActionFloat *',
+    LUACLS = 'cc.ActionFloat',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ProgressTo *',
+    LUACLS = 'cc.ProgressTo',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ProgressFromTo *',
+    LUACLS = 'cc.ProgressFromTo',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ActionEase *',
+    LUACLS = 'cc.ActionEase',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EaseRateAction *',
+    LUACLS = 'cc.EaseRateAction',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EaseExponentialIn *',
+    LUACLS = 'cc.EaseExponentialIn',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EaseExponentialOut *',
+    LUACLS = 'cc.EaseExponentialOut',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EaseExponentialInOut *',
+    LUACLS = 'cc.EaseExponentialInOut',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EaseSineIn *',
+    LUACLS = 'cc.EaseSineIn',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EaseSineOut *',
+    LUACLS = 'cc.EaseSineOut',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EaseSineInOut *',
+    LUACLS = 'cc.EaseSineInOut',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EaseBounceIn *',
+    LUACLS = 'cc.EaseBounceIn',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EaseBounceOut *',
+    LUACLS = 'cc.EaseBounceOut',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EaseBounceInOut *',
+    LUACLS = 'cc.EaseBounceInOut',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EaseBackIn *',
+    LUACLS = 'cc.EaseBackIn',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EaseBackOut *',
+    LUACLS = 'cc.EaseBackOut',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EaseBackInOut *',
+    LUACLS = 'cc.EaseBackInOut',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EaseQuadraticActionIn *',
+    LUACLS = 'cc.EaseQuadraticActionIn',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EaseQuadraticActionOut *',
+    LUACLS = 'cc.EaseQuadraticActionOut',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EaseQuadraticActionInOut *',
+    LUACLS = 'cc.EaseQuadraticActionInOut',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EaseQuarticActionIn *',
+    LUACLS = 'cc.EaseQuarticActionIn',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EaseQuarticActionOut *',
+    LUACLS = 'cc.EaseQuarticActionOut',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EaseQuarticActionInOut *',
+    LUACLS = 'cc.EaseQuarticActionInOut',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EaseQuinticActionIn *',
+    LUACLS = 'cc.EaseQuinticActionIn',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EaseQuinticActionOut *',
+    LUACLS = 'cc.EaseQuinticActionOut',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EaseQuinticActionInOut *',
+    LUACLS = 'cc.EaseQuinticActionInOut',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EaseCircleActionIn *',
+    LUACLS = 'cc.EaseCircleActionIn',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EaseCircleActionOut *',
+    LUACLS = 'cc.EaseCircleActionOut',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EaseCircleActionInOut *',
+    LUACLS = 'cc.EaseCircleActionInOut',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EaseCubicActionIn *',
+    LUACLS = 'cc.EaseCubicActionIn',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EaseCubicActionOut *',
+    LUACLS = 'cc.EaseCubicActionOut',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EaseCubicActionInOut *',
+    LUACLS = 'cc.EaseCubicActionInOut',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EaseIn *',
+    LUACLS = 'cc.EaseIn',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EaseOut *',
+    LUACLS = 'cc.EaseOut',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EaseInOut *',
+    LUACLS = 'cc.EaseInOut',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EaseElastic *',
+    LUACLS = 'cc.EaseElastic',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EaseElasticIn *',
+    LUACLS = 'cc.EaseElasticIn',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EaseElasticOut *',
+    LUACLS = 'cc.EaseElasticOut',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EaseElasticInOut *',
+    LUACLS = 'cc.EaseElasticInOut',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EaseBezierAction *',
+    LUACLS = 'cc.EaseBezierAction',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::PointArray *',
+    LUACLS = 'cc.PointArray',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::CardinalSplineTo *',
+    LUACLS = 'cc.CardinalSplineTo',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::CardinalSplineBy *',
+    LUACLS = 'cc.CardinalSplineBy',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::CatmullRomTo *',
+    LUACLS = 'cc.CatmullRomTo',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::CatmullRomBy *',
+    LUACLS = 'cc.CatmullRomBy',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ActionInstant *',
+    LUACLS = 'cc.ActionInstant',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Show *',
+    LUACLS = 'cc.Show',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Hide *',
+    LUACLS = 'cc.Hide',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ToggleVisibility *',
+    LUACLS = 'cc.ToggleVisibility',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::RemoveSelf *',
+    LUACLS = 'cc.RemoveSelf',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::FlipX *',
+    LUACLS = 'cc.FlipX',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::FlipY *',
+    LUACLS = 'cc.FlipY',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Place *',
+    LUACLS = 'cc.Place',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::CallFunc *',
+    LUACLS = 'cc.CallFunc',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Component *',
+    LUACLS = 'cc.Component',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::LuaComponent *',
+    LUACLS = 'cc.LuaComponent',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Node *',
+    LUACLS = 'cc.Node',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::AtlasNode *',
+    LUACLS = 'cc.AtlasNode',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ProtectedNode *',
+    LUACLS = 'cc.ProtectedNode',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::DrawNode *',
+    LUACLS = 'cc.DrawNode',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TextHAlignment',
+    LUACLS = 'cc.TextHAlignment',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TextVAlignment',
+    LUACLS = 'cc.TextVAlignment',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::GlyphCollection',
+    LUACLS = 'cc.GlyphCollection',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::LabelEffect',
+    LUACLS = 'cc.LabelEffect',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Label::LabelType',
+    LUACLS = 'cc.Label.LabelType',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Label::Overflow',
+    LUACLS = 'cc.Label.Overflow',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Label *',
+    LUACLS = 'cc.Label',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::LabelAtlas *',
+    LUACLS = 'cc.LabelAtlas',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::FontAtlas *',
+    LUACLS = 'cc.FontAtlas',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ClippingRectangleNode *',
+    LUACLS = 'cc.ClippingRectangleNode',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::RenderTexture *',
+    LUACLS = 'cc.RenderTexture',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ProgressTimer::Type',
+    LUACLS = 'cc.ProgressTimer.Type',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ProgressTimer *',
+    LUACLS = 'cc.ProgressTimer',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::AnimationFrame *',
+    LUACLS = 'cc.AnimationFrame',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Animation *',
+    LUACLS = 'cc.Animation',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::SpriteFrame *',
+    LUACLS = 'cc.SpriteFrame',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Sprite *',
+    LUACLS = 'cc.Sprite',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::SpriteBatchNode *',
+    LUACLS = 'cc.SpriteBatchNode',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::SpriteFrameCache *',
+    LUACLS = 'cc.SpriteFrameCache',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::AnimationCache *',
+    LUACLS = 'cc.AnimationCache',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Scene *',
+    LUACLS = 'cc.Scene',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Layer *',
+    LUACLS = 'cc.Layer',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::LayerColor *',
+    LUACLS = 'cc.LayerColor',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::LayerGradient *',
+    LUACLS = 'cc.LayerGradient',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::LayerRadialGradient *',
+    LUACLS = 'cc.LayerRadialGradient',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TransitionScene::Orientation',
+    LUACLS = 'cc.TransitionScene.Orientation',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TransitionScene *',
+    LUACLS = 'cc.TransitionScene',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TransitionSceneOriented *',
+    LUACLS = 'cc.TransitionSceneOriented',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TransitionRotoZoom *',
+    LUACLS = 'cc.TransitionRotoZoom',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TransitionJumpZoom *',
+    LUACLS = 'cc.TransitionJumpZoom',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TransitionMoveInL *',
+    LUACLS = 'cc.TransitionMoveInL',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TransitionMoveInR *',
+    LUACLS = 'cc.TransitionMoveInR',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TransitionMoveInT *',
+    LUACLS = 'cc.TransitionMoveInT',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TransitionMoveInB *',
+    LUACLS = 'cc.TransitionMoveInB',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TransitionSlideInL *',
+    LUACLS = 'cc.TransitionSlideInL',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TransitionSlideInR *',
+    LUACLS = 'cc.TransitionSlideInR',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TransitionSlideInB *',
+    LUACLS = 'cc.TransitionSlideInB',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TransitionSlideInT *',
+    LUACLS = 'cc.TransitionSlideInT',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TransitionShrinkGrow *',
+    LUACLS = 'cc.TransitionShrinkGrow',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TransitionFlipX *',
+    LUACLS = 'cc.TransitionFlipX',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TransitionFlipY *',
+    LUACLS = 'cc.TransitionFlipY',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TransitionFlipAngular *',
+    LUACLS = 'cc.TransitionFlipAngular',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TransitionZoomFlipX *',
+    LUACLS = 'cc.TransitionZoomFlipX',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TransitionZoomFlipY *',
+    LUACLS = 'cc.TransitionZoomFlipY',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TransitionZoomFlipAngular *',
+    LUACLS = 'cc.TransitionZoomFlipAngular',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TransitionFade *',
+    LUACLS = 'cc.TransitionFade',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TransitionCrossFade *',
+    LUACLS = 'cc.TransitionCrossFade',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TransitionTurnOffTiles *',
+    LUACLS = 'cc.TransitionTurnOffTiles',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TransitionSplitCols *',
+    LUACLS = 'cc.TransitionSplitCols',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TransitionSplitRows *',
+    LUACLS = 'cc.TransitionSplitRows',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TransitionFadeTR *',
+    LUACLS = 'cc.TransitionFadeTR',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TransitionFadeBL *',
+    LUACLS = 'cc.TransitionFadeBL',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TransitionFadeUp *',
+    LUACLS = 'cc.TransitionFadeUp',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TransitionFadeDown *',
+    LUACLS = 'cc.TransitionFadeDown',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TransitionPageTurn *',
+    LUACLS = 'cc.TransitionPageTurn',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TransitionProgress *',
+    LUACLS = 'cc.TransitionProgress',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TransitionProgressRadialCCW *',
+    LUACLS = 'cc.TransitionProgressRadialCCW',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TransitionProgressRadialCW *',
+    LUACLS = 'cc.TransitionProgressRadialCW',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TransitionProgressHorizontal *',
+    LUACLS = 'cc.TransitionProgressHorizontal',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TransitionProgressVertical *',
+    LUACLS = 'cc.TransitionProgressVertical',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TransitionProgressInOut *',
+    LUACLS = 'cc.TransitionProgressInOut',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TransitionProgressOutIn *',
+    LUACLS = 'cc.TransitionProgressOutIn',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TextFieldDelegate *',
+    LUACLS = 'cc.TextFieldDelegate',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TextFieldTTF *',
+    LUACLS = 'cc.TextFieldTTF',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::LightType',
+    LUACLS = 'cc.LightType',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::LightFlag',
+    LUACLS = 'cc.LightFlag',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::BaseLight *',
+    LUACLS = 'cc.BaseLight',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::DirectionLight *',
+    LUACLS = 'cc.DirectionLight',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::PointLight *',
+    LUACLS = 'cc.PointLight',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::SpotLight *',
+    LUACLS = 'cc.SpotLight',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::AmbientLight *',
+    LUACLS = 'cc.AmbientLight',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::CameraFlag',
+    LUACLS = 'cc.CameraFlag',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Camera::Type',
+    LUACLS = 'cc.Camera.Type',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Camera *',
+    LUACLS = 'cc.Camera',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::CameraBackgroundBrush::BrushType',
+    LUACLS = 'cc.CameraBackgroundBrush.BrushType',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::CameraBackgroundBrush *',
+    LUACLS = 'cc.CameraBackgroundBrush',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::CameraBackgroundDepthBrush *',
+    LUACLS = 'cc.CameraBackgroundDepthBrush',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::CameraBackgroundColorBrush *',
+    LUACLS = 'cc.CameraBackgroundColorBrush',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::CameraBackgroundSkyBoxBrush *',
+    LUACLS = 'cc.CameraBackgroundSkyBoxBrush',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ActionCamera *',
+    LUACLS = 'cc.ActionCamera',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::OrbitCamera *',
+    LUACLS = 'cc.OrbitCamera',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::GridBase *',
+    LUACLS = 'cc.GridBase',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Grid3D *',
+    LUACLS = 'cc.Grid3D',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TiledGrid3D *',
+    LUACLS = 'cc.TiledGrid3D',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::NodeGrid *',
+    LUACLS = 'cc.NodeGrid',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::GridAction *',
+    LUACLS = 'cc.GridAction',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Grid3DAction *',
+    LUACLS = 'cc.Grid3DAction',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TiledGrid3DAction *',
+    LUACLS = 'cc.TiledGrid3DAction',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::AccelDeccelAmplitude *',
+    LUACLS = 'cc.AccelDeccelAmplitude',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::AccelAmplitude *',
+    LUACLS = 'cc.AccelAmplitude',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::DeccelAmplitude *',
+    LUACLS = 'cc.DeccelAmplitude',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::StopGrid *',
+    LUACLS = 'cc.StopGrid',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ReuseGrid *',
+    LUACLS = 'cc.ReuseGrid',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Waves3D *',
+    LUACLS = 'cc.Waves3D',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::FlipX3D *',
+    LUACLS = 'cc.FlipX3D',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::FlipY3D *',
+    LUACLS = 'cc.FlipY3D',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Lens3D *',
+    LUACLS = 'cc.Lens3D',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Ripple3D *',
+    LUACLS = 'cc.Ripple3D',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Shaky3D *',
+    LUACLS = 'cc.Shaky3D',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Liquid *',
+    LUACLS = 'cc.Liquid',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Waves *',
+    LUACLS = 'cc.Waves',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Twirl *',
+    LUACLS = 'cc.Twirl',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::PageTurn3D *',
+    LUACLS = 'cc.PageTurn3D',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ShakyTiles3D *',
+    LUACLS = 'cc.ShakyTiles3D',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ShatteredTiles3D *',
+    LUACLS = 'cc.ShatteredTiles3D',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ShuffleTiles *',
+    LUACLS = 'cc.ShuffleTiles',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::FadeOutTRTiles *',
+    LUACLS = 'cc.FadeOutTRTiles',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::FadeOutBLTiles *',
+    LUACLS = 'cc.FadeOutBLTiles',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::FadeOutUpTiles *',
+    LUACLS = 'cc.FadeOutUpTiles',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::FadeOutDownTiles *',
+    LUACLS = 'cc.FadeOutDownTiles',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TurnOffTiles *',
+    LUACLS = 'cc.TurnOffTiles',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::WavesTiles3D *',
+    LUACLS = 'cc.WavesTiles3D',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::JumpTiles3D *',
+    LUACLS = 'cc.JumpTiles3D',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::SplitRows *',
+    LUACLS = 'cc.SplitRows',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::SplitCols *',
+    LUACLS = 'cc.SplitCols',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ParticleBatchNode *',
+    LUACLS = 'cc.ParticleBatchNode',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ParticleSystem::Mode',
+    LUACLS = 'cc.ParticleSystem.Mode',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ParticleSystem::PositionType',
+    LUACLS = 'cc.ParticleSystem.PositionType',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ParticleSystem *',
+    LUACLS = 'cc.ParticleSystem',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ParticleSystemQuad *',
+    LUACLS = 'cc.ParticleSystemQuad',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ParticleExplosion *',
+    LUACLS = 'cc.ParticleExplosion',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ParticleFire *',
+    LUACLS = 'cc.ParticleFire',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ParticleFireworks *',
+    LUACLS = 'cc.ParticleFireworks',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ParticleFlower *',
+    LUACLS = 'cc.ParticleFlower',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ParticleGalaxy *',
+    LUACLS = 'cc.ParticleGalaxy',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ParticleMeteor *',
+    LUACLS = 'cc.ParticleMeteor',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ParticleRain *',
+    LUACLS = 'cc.ParticleRain',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ParticleSmoke *',
+    LUACLS = 'cc.ParticleSmoke',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ParticleSnow *',
+    LUACLS = 'cc.ParticleSnow',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ParticleSpiral *',
+    LUACLS = 'cc.ParticleSpiral',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ParticleSun *',
+    LUACLS = 'cc.ParticleSun',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
 }
 

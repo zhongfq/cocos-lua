@@ -4,542 +4,666 @@ local olua = require "olua"
 local typedef = olua.typedef
 
 typedef {
-    CPPCLS = 'cocos2d::experimental::ui::VideoPlayer::EventType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'ccui.VideoPlayer.EventType',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::experimental::ui::VideoPlayer::StyleType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'ccui.VideoPlayer.StyleType',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::CheckBox::EventType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'ccui.CheckBox.EventType',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::EditBox::InputFlag',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'ccui.EditBox.InputFlag',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::EditBox::InputMode',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'ccui.EditBox.InputMode',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::EditBox::KeyboardReturnType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'ccui.EditBox.KeyboardReturnType',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::EditBoxDelegate::EditBoxEndAction',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'ccui.EditBoxDelegate.EditBoxEndAction',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::Layout::BackGroundColorType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'ccui.Layout.BackGroundColorType',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::Layout::ClippingType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'ccui.Layout.ClippingType',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::Layout::Type',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'ccui.Layout.Type',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::LayoutComponent::HorizontalEdge',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'ccui.LayoutComponent.HorizontalEdge',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::LayoutComponent::VerticalEdge',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'ccui.LayoutComponent.VerticalEdge',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::LayoutParameter::Type',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'ccui.LayoutParameter.Type',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::LinearLayoutParameter::LinearGravity',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'ccui.LinearLayoutParameter.LinearGravity',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::ListView::EventType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'ccui.ListView.EventType',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::ListView::Gravity',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'ccui.ListView.Gravity',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::ListView::MagneticType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'ccui.ListView.MagneticType',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::LoadingBar::Direction',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'ccui.LoadingBar.Direction',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::PageView::EventType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'ccui.PageView.EventType',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::PageView::TouchDirection',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'ccui.PageView.TouchDirection',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::RadioButton::EventType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'ccui.RadioButton.EventType',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::RadioButtonGroup::EventType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'ccui.RadioButtonGroup.EventType',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::RelativeLayoutParameter::RelativeAlign',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'ccui.RelativeLayoutParameter.RelativeAlign',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::RichElement::Type',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'ccui.RichElement.Type',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::RichText::HorizontalAlignment',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'ccui.RichText.HorizontalAlignment',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::RichText::WrapMode',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'ccui.RichText.WrapMode',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::Scale9Sprite::RenderingType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'ccui.Scale9Sprite.RenderingType',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::Scale9Sprite::State',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'ccui.Scale9Sprite.State',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::ScrollView::Direction',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'ccui.ScrollView.Direction',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::ScrollView::EventType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'ccui.ScrollView.EventType',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::Slider::EventType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'ccui.Slider.EventType',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::TabControl::Dock',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'ccui.TabControl.Dock',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::TabControl::EventType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'ccui.TabControl.EventType',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::TabHeader::EventType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'ccui.TabHeader.EventType',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::Text::Type',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'ccui.Text.Type',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::TextField::EventType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'ccui.TextField.EventType',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::Widget::BrightStyle',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'ccui.Widget.BrightStyle',
-}
-
-typedef {
     CPPCLS = 'cocos2d::ui::Widget::FocusDirection',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
     LUACLS = 'ccui.Widget.FocusDirection',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
 }
 
 typedef {
     CPPCLS = 'cocos2d::ui::Widget::PositionType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
     LUACLS = 'ccui.Widget.PositionType',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
 }
 
 typedef {
     CPPCLS = 'cocos2d::ui::Widget::SizeType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
     LUACLS = 'ccui.Widget.SizeType',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::Widget::TextureResType',
-    DECLTYPE = 'lua_Unsigned',
+    DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    LUACLS = 'ccui.Widget.TextureResType',
+    NUMVARS = nil,
 }
 
 typedef {
     CPPCLS = 'cocos2d::ui::Widget::TouchEventType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
     LUACLS = 'ccui.Widget.TouchEventType',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::experimental::ui::VideoPlayer *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.VideoPlayer',
+    CPPCLS = 'cocos2d::ui::Widget::TextureResType',
+    LUACLS = 'ccui.Widget.TextureResType',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::experimental::ui::WebView *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.WebView',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::AbstractCheckButton *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.AbstractCheckButton',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::Button *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.Button',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::CheckBox *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.CheckBox',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::EditBox *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.EditBox',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::EditBoxDelegate *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.EditBoxDelegate',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::HBox *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.HBox',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::Helper *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.Helper',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::ImageView *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.ImageView',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::Layout *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.Layout',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::LayoutComponent *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.LayoutComponent',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::LayoutParameter *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.LayoutParameter',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::LinearLayoutParameter *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.LinearLayoutParameter',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::ListView *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.ListView',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::LoadingBar *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.LoadingBar',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::LuaEditBoxDelegate *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.LuaEditBoxDelegate',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::PageView *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.PageView',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::RadioButton *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.RadioButton',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::RadioButtonGroup *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.RadioButtonGroup',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::RelativeBox *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.RelativeBox',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::RelativeLayoutParameter *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.RelativeLayoutParameter',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::RichElement *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.RichElement',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::RichElementCustomNode *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.RichElementCustomNode',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::RichElementImage *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.RichElementImage',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::RichElementNewLine *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.RichElementNewLine',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::RichElementText *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.RichElementText',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::RichText *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.RichText',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::Scale9Sprite *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.Scale9Sprite',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::ScrollView *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.ScrollView',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::ScrollViewBar *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.ScrollViewBar',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::Slider *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.Slider',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::TabControl *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.TabControl',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::TabHeader *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.TabHeader',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::Text *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.Text',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::TextAtlas *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.TextAtlas',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::TextBMFont *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.TextBMFont',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::TextField *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.TextField',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::UICCTextField *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.UICCTextField',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::VBox *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'ccui.VBox',
+    CPPCLS = 'cocos2d::ui::Widget::BrightStyle',
+    LUACLS = 'ccui.Widget.BrightStyle',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
 }
 
 typedef {
     CPPCLS = 'cocos2d::ui::Widget *',
-    CONV = 'olua_$$_cppobj',
     LUACLS = 'ccui.Widget',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::Helper *',
+    LUACLS = 'ccui.Helper',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::Scale9Sprite::State',
+    LUACLS = 'ccui.Scale9Sprite.State',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::Scale9Sprite::RenderingType',
+    LUACLS = 'ccui.Scale9Sprite.RenderingType',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::Scale9Sprite *',
+    LUACLS = 'ccui.Scale9Sprite',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::LayoutComponent::HorizontalEdge',
+    LUACLS = 'ccui.LayoutComponent.HorizontalEdge',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::LayoutComponent::VerticalEdge',
+    LUACLS = 'ccui.LayoutComponent.VerticalEdge',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::LayoutComponent *',
+    LUACLS = 'ccui.LayoutComponent',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::LayoutParameter::Type',
+    LUACLS = 'ccui.LayoutParameter.Type',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::LayoutParameter *',
+    LUACLS = 'ccui.LayoutParameter',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::LinearLayoutParameter::LinearGravity',
+    LUACLS = 'ccui.LinearLayoutParameter.LinearGravity',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::LinearLayoutParameter *',
+    LUACLS = 'ccui.LinearLayoutParameter',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::RelativeLayoutParameter::RelativeAlign',
+    LUACLS = 'ccui.RelativeLayoutParameter.RelativeAlign',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::RelativeLayoutParameter *',
+    LUACLS = 'ccui.RelativeLayoutParameter',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::Layout::Type',
+    LUACLS = 'ccui.Layout.Type',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::Layout::ClippingType',
+    LUACLS = 'ccui.Layout.ClippingType',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::Layout::BackGroundColorType',
+    LUACLS = 'ccui.Layout.BackGroundColorType',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::Layout *',
+    LUACLS = 'ccui.Layout',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::HBox *',
+    LUACLS = 'ccui.HBox',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::VBox *',
+    LUACLS = 'ccui.VBox',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::RelativeBox *',
+    LUACLS = 'ccui.RelativeBox',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::experimental::ui::WebView *',
+    LUACLS = 'ccui.WebView',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::experimental::ui::VideoPlayer::EventType',
+    LUACLS = 'ccui.VideoPlayer.EventType',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::experimental::ui::VideoPlayer::StyleType',
+    LUACLS = 'ccui.VideoPlayer.StyleType',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::experimental::ui::VideoPlayer *',
+    LUACLS = 'ccui.VideoPlayer',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::AbstractCheckButton *',
+    LUACLS = 'ccui.AbstractCheckButton',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::TabHeader::EventType',
+    LUACLS = 'ccui.TabHeader.EventType',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::TabHeader *',
+    LUACLS = 'ccui.TabHeader',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::TabControl::Dock',
+    LUACLS = 'ccui.TabControl.Dock',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::TabControl::EventType',
+    LUACLS = 'ccui.TabControl.EventType',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::TabControl *',
+    LUACLS = 'ccui.TabControl',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::ScrollView::Direction',
+    LUACLS = 'ccui.ScrollView.Direction',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::ScrollView::EventType',
+    LUACLS = 'ccui.ScrollView.EventType',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::ScrollView *',
+    LUACLS = 'ccui.ScrollView',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::ListView::Gravity',
+    LUACLS = 'ccui.ListView.Gravity',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::ListView::EventType',
+    LUACLS = 'ccui.ListView.EventType',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::ListView::MagneticType',
+    LUACLS = 'ccui.ListView.MagneticType',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::ListView *',
+    LUACLS = 'ccui.ListView',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::LoadingBar::Direction',
+    LUACLS = 'ccui.LoadingBar.Direction',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::LoadingBar *',
+    LUACLS = 'ccui.LoadingBar',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::PageView::EventType',
+    LUACLS = 'ccui.PageView.EventType',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::PageView::TouchDirection',
+    LUACLS = 'ccui.PageView.TouchDirection',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::PageView *',
+    LUACLS = 'ccui.PageView',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::RichElement::Type',
+    LUACLS = 'ccui.RichElement.Type',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::RichElement *',
+    LUACLS = 'ccui.RichElement',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::RichElementText *',
+    LUACLS = 'ccui.RichElementText',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::RichElementImage *',
+    LUACLS = 'ccui.RichElementImage',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::RichElementCustomNode *',
+    LUACLS = 'ccui.RichElementCustomNode',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::RichElementNewLine *',
+    LUACLS = 'ccui.RichElementNewLine',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::RichText::WrapMode',
+    LUACLS = 'ccui.RichText.WrapMode',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::RichText::HorizontalAlignment',
+    LUACLS = 'ccui.RichText.HorizontalAlignment',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::RichText *',
+    LUACLS = 'ccui.RichText',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::ScrollViewBar *',
+    LUACLS = 'ccui.ScrollViewBar',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::Slider::EventType',
+    LUACLS = 'ccui.Slider.EventType',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::Slider *',
+    LUACLS = 'ccui.Slider',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::Text::Type',
+    LUACLS = 'ccui.Text.Type',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::Text *',
+    LUACLS = 'ccui.Text',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::TextAtlas *',
+    LUACLS = 'ccui.TextAtlas',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::TextBMFont *',
+    LUACLS = 'ccui.TextBMFont',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::UICCTextField *',
+    LUACLS = 'ccui.UICCTextField',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::TextField::EventType',
+    LUACLS = 'ccui.TextField.EventType',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::TextField *',
+    LUACLS = 'ccui.TextField',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::Button *',
+    LUACLS = 'ccui.Button',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::CheckBox::EventType',
+    LUACLS = 'ccui.CheckBox.EventType',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::CheckBox *',
+    LUACLS = 'ccui.CheckBox',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::RadioButton::EventType',
+    LUACLS = 'ccui.RadioButton.EventType',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::RadioButton *',
+    LUACLS = 'ccui.RadioButton',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::RadioButtonGroup::EventType',
+    LUACLS = 'ccui.RadioButtonGroup.EventType',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::RadioButtonGroup *',
+    LUACLS = 'ccui.RadioButtonGroup',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::ImageView *',
+    LUACLS = 'ccui.ImageView',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::EditBoxDelegate::EditBoxEndAction',
+    LUACLS = 'ccui.EditBoxDelegate.EditBoxEndAction',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::EditBoxDelegate *',
+    LUACLS = 'ccui.EditBoxDelegate',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::LuaEditBoxDelegate *',
+    LUACLS = 'ccui.LuaEditBoxDelegate',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::EditBox::KeyboardReturnType',
+    LUACLS = 'ccui.EditBox.KeyboardReturnType',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::EditBox::InputMode',
+    LUACLS = 'ccui.EditBox.InputMode',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::EditBox::InputFlag',
+    LUACLS = 'ccui.EditBox.InputFlag',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::ui::EditBox *',
+    LUACLS = 'ccui.EditBox',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
 }
 

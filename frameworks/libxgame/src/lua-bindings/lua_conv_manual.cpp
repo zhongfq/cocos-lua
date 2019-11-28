@@ -239,7 +239,7 @@ void manual_olua_check_cocos2d_ccBezierConfig(lua_State *L, int idx, cocos2d::cc
 
 bool manual_olua_is_cocos2d_Value(lua_State *L, int idx)
 {
-    return olua_istable(L, idx);
+    return olua_istable(L, idx) || olua_isstring(L, idx) || olua_isnumber(L, idx) || olua_isboolean(L, idx);
 }
 
 void manual_olua_check_cocos2d_Value(lua_State *L, int idx, cocos2d::Value *value)

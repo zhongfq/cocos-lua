@@ -5,276 +5,353 @@ local typedef = olua.typedef
 
 typedef {
     CPPCLS = 'dragonBones::Rectangle',
+    LUACLS = nil,
+    DECLTYPE = nil,
     CONV = 'auto_olua_$$_dragonBones_Rectangle',
     NUMVARS = 4,
 }
 
 typedef {
-    CPPCLS = 'dragonBones::ActionType',
-    DECLTYPE = 'lua_Unsigned',
+    CPPCLS = 'dragonBones::BinaryOffset',
+    LUACLS = 'db.BinaryOffset',
+    DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    LUACLS = 'db.ActionType',
-}
-
-typedef {
-    CPPCLS = 'dragonBones::AnimationFadeOutMode',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'db.AnimationFadeOutMode',
+    NUMVARS = nil,
 }
 
 typedef {
     CPPCLS = 'dragonBones::ArmatureType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
     LUACLS = 'db.ArmatureType',
-}
-
-typedef {
-    CPPCLS = 'dragonBones::BinaryOffset',
-    DECLTYPE = 'lua_Unsigned',
+    DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    LUACLS = 'db.BinaryOffset',
-}
-
-typedef {
-    CPPCLS = 'dragonBones::BlendMode',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'db.BlendMode',
-}
-
-typedef {
-    CPPCLS = 'dragonBones::BoundingBoxType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'db.BoundingBoxType',
-}
-
-typedef {
-    CPPCLS = 'dragonBones::DisplayType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'db.DisplayType',
+    NUMVARS = nil,
 }
 
 typedef {
     CPPCLS = 'dragonBones::OffsetMode',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
     LUACLS = 'db.OffsetMode',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'dragonBones::TextureFormat',
-    DECLTYPE = 'lua_Unsigned',
+    CPPCLS = 'dragonBones::DisplayType',
+    LUACLS = 'db.DisplayType',
+    DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    LUACLS = 'db.TextureFormat',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'dragonBones::TimelineType',
-    DECLTYPE = 'lua_Unsigned',
+    CPPCLS = 'dragonBones::BoundingBoxType',
+    LUACLS = 'db.BoundingBoxType',
+    DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
-    LUACLS = 'db.TimelineType',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'dragonBones::ActionType',
+    LUACLS = 'db.ActionType',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'dragonBones::BlendMode',
+    LUACLS = 'db.BlendMode',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
 }
 
 typedef {
     CPPCLS = 'dragonBones::TweenType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
     LUACLS = 'db.TweenType',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'dragonBones::ActionData *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'db.ActionData',
+    CPPCLS = 'dragonBones::TimelineType',
+    LUACLS = 'db.TimelineType',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'dragonBones::Animation *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'db.Animation',
+    CPPCLS = 'dragonBones::AnimationFadeOutMode',
+    LUACLS = 'db.AnimationFadeOutMode',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'dragonBones::AnimationConfig *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'db.AnimationConfig',
-}
-
-typedef {
-    CPPCLS = 'dragonBones::AnimationData *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'db.AnimationData',
-}
-
-typedef {
-    CPPCLS = 'dragonBones::AnimationState *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'db.AnimationState',
-}
-
-typedef {
-    CPPCLS = 'dragonBones::Armature *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'db.Armature',
-}
-
-typedef {
-    CPPCLS = 'dragonBones::ArmatureData *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'db.ArmatureData',
-}
-
-typedef {
-    CPPCLS = 'dragonBones::BaseFactory *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'db.BaseFactory',
+    CPPCLS = 'dragonBones::TextureFormat',
+    LUACLS = 'db.TextureFormat',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
 }
 
 typedef {
     CPPCLS = 'dragonBones::BaseObject *',
-    CONV = 'olua_$$_cppobj',
     LUACLS = 'db.BaseObject',
-}
-
-typedef {
-    CPPCLS = 'dragonBones::Bone *',
+    DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'db.Bone',
-}
-
-typedef {
-    CPPCLS = 'dragonBones::BoneData *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'db.BoneData',
-}
-
-typedef {
-    CPPCLS = 'dragonBones::BoundingBoxData *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'db.BoundingBoxData',
-}
-
-typedef {
-    CPPCLS = 'dragonBones::BoundingBoxDisplayData *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'db.BoundingBoxDisplayData',
-}
-
-typedef {
-    CPPCLS = 'dragonBones::CCArmatureDisplay *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'db.ArmatureDisplay',
-}
-
-typedef {
-    CPPCLS = 'dragonBones::CCFactory *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'db.Factory',
-}
-
-typedef {
-    CPPCLS = 'dragonBones::CanvasData *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'db.CanvasData',
-}
-
-typedef {
-    CPPCLS = 'dragonBones::ConstraintData *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'db.ConstraintData',
-}
-
-typedef {
-    CPPCLS = 'dragonBones::DisplayData *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'db.DisplayData',
-}
-
-typedef {
-    CPPCLS = 'dragonBones::DragonBonesData *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'db.DragonBonesData',
+    NUMVARS = nil,
 }
 
 typedef {
     CPPCLS = 'dragonBones::EventObject *',
-    CONV = 'olua_$$_cppobj',
     LUACLS = 'db.EventObject',
-}
-
-typedef {
-    CPPCLS = 'dragonBones::IAnimatable *',
+    DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'db.IAnimatable',
-}
-
-typedef {
-    CPPCLS = 'dragonBones::IKConstraintData *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'db.IKConstraintData',
-}
-
-typedef {
-    CPPCLS = 'dragonBones::Point *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'db.Point',
-}
-
-typedef {
-    CPPCLS = 'dragonBones::SkinData *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'db.SkinData',
-}
-
-typedef {
-    CPPCLS = 'dragonBones::Slot *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'db.Slot',
-}
-
-typedef {
-    CPPCLS = 'dragonBones::SlotData *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'db.SlotData',
-}
-
-typedef {
-    CPPCLS = 'dragonBones::TextureAtlasData *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'db.TextureAtlasData',
-}
-
-typedef {
-    CPPCLS = 'dragonBones::TextureData *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'db.TextureData',
-}
-
-typedef {
-    CPPCLS = 'dragonBones::TimelineData *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'db.TimelineData',
+    NUMVARS = nil,
 }
 
 typedef {
     CPPCLS = 'dragonBones::TransformObject *',
-    CONV = 'olua_$$_cppobj',
     LUACLS = 'db.TransformObject',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'dragonBones::UserData *',
+    CPPCLS = 'dragonBones::Point *',
+    LUACLS = 'db.Point',
+    DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'db.UserData',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'dragonBones::ConstraintData *',
+    LUACLS = 'db.ConstraintData',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'dragonBones::IKConstraintData *',
+    LUACLS = 'db.IKConstraintData',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'dragonBones::TimelineData *',
+    LUACLS = 'db.TimelineData',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'dragonBones::IAnimatable *',
+    LUACLS = 'db.IAnimatable',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
 }
 
 typedef {
     CPPCLS = 'dragonBones::WorldClock *',
-    CONV = 'olua_$$_cppobj',
     LUACLS = 'db.WorldClock',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'dragonBones::Slot *',
+    LUACLS = 'db.Slot',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'dragonBones::Bone *',
+    LUACLS = 'db.Bone',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'dragonBones::DisplayData *',
+    LUACLS = 'db.DisplayData',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'dragonBones::ActionData *',
+    LUACLS = 'db.ActionData',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'dragonBones::UserData *',
+    LUACLS = 'db.UserData',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'dragonBones::BoundingBoxData *',
+    LUACLS = 'db.BoundingBoxData',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'dragonBones::BoundingBoxDisplayData *',
+    LUACLS = 'db.BoundingBoxDisplayData',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'dragonBones::CanvasData *',
+    LUACLS = 'db.CanvasData',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'dragonBones::TextureAtlasData *',
+    LUACLS = 'db.TextureAtlasData',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'dragonBones::TextureData *',
+    LUACLS = 'db.TextureData',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'dragonBones::ArmatureData *',
+    LUACLS = 'db.ArmatureData',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'dragonBones::SkinData *',
+    LUACLS = 'db.SkinData',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'dragonBones::BoneData *',
+    LUACLS = 'db.BoneData',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'dragonBones::SlotData *',
+    LUACLS = 'db.SlotData',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'dragonBones::AnimationState *',
+    LUACLS = 'db.AnimationState',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'dragonBones::AnimationData *',
+    LUACLS = 'db.AnimationData',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'dragonBones::AnimationConfig *',
+    LUACLS = 'db.AnimationConfig',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'dragonBones::DragonBonesData *',
+    LUACLS = 'db.DragonBonesData',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'dragonBones::BaseFactory *',
+    LUACLS = 'db.BaseFactory',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'dragonBones::Armature *',
+    LUACLS = 'db.Armature',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'dragonBones::Animation *',
+    LUACLS = 'db.Animation',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'dragonBones::CCFactory *',
+    LUACLS = 'db.Factory',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'dragonBones::CCArmatureDisplay *',
+    LUACLS = 'db.ArmatureDisplay',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
 }
 

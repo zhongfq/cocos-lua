@@ -259,30 +259,28 @@ typeconf 'spine::TrackEntry'
 local SkeletonData = typeconf 'spine::SkeletonData'
 SkeletonData.FUNC("__gc", [[
 {
-    if (olua_isa(L, 1, "sp.SkeletonData")) {
-        auto self = olua_touserdata(L, 1, spine::SkeletonData *);
-        lua_pushstring(L, ".ownership");
+    auto self = olua_toobj<spine::SkeletonData>(L, 1);
+    lua_pushstring(L, ".ownership");
+    olua_getvariable(L, 1);
+    if (lua_toboolean(L, -1) && self) {
+        olua_setrawdata(L, 1, nullptr);
+
+        lua_pushstring(L, ".skel.atlas");
         olua_getvariable(L, 1);
-        if (lua_toboolean(L, -1) && self) {
-            *(void **)lua_touserdata(L, 1) = nullptr;
+        auto atlas = olua_torawdata(L, -1, spine::Atlas *);
+        delete atlas;
 
-            lua_pushstring(L, ".skel.atlas");
-            olua_getvariable(L, 1);
-            auto atlas = (spine::Atlas *)lua_touserdata(L, -1);
-            delete atlas;
+        lua_pushstring(L, ".skel.attachment_loader");
+        olua_getvariable(L, 1);
+        auto attachment_loader = olua_torawdata(L, -1, spine::Cocos2dAtlasAttachmentLoader *);
+        delete attachment_loader;
 
-            lua_pushstring(L, ".skel.attachment_loader");
-            olua_getvariable(L, 1);
-            auto attachment_loader = (spine::Cocos2dAtlasAttachmentLoader *)lua_touserdata(L, -1);
-            delete attachment_loader;
+        lua_pushstring(L, ".skel.texture_loader");
+        olua_getvariable(L, 1);
+        auto texture_loader = olua_torawdata(L, -1, spine::Cocos2dTextureLoader *);
+        delete texture_loader;
 
-            lua_pushstring(L, ".skel.texture_loader");
-            olua_getvariable(L, 1);
-            auto texture_loader = (spine::Cocos2dTextureLoader *)lua_touserdata(L, -1);
-            delete texture_loader;
-
-            delete self;
-        }
+        delete self;
     }
     return 0;
 }]])
@@ -324,15 +322,15 @@ SkeletonData.FUNC("new", [[
     olua_setvariable(L, -3);
 
     lua_pushstring(L, ".skel.texture_loader");
-    lua_pushlightuserdata(L, texture_loader);
+    olua_newrawdata(L, texture_loader, spine::Cocos2dTextureLoader *);
     olua_setvariable(L, -3);
 
     lua_pushstring(L, ".skel.attachment_loader");
-    lua_pushlightuserdata(L, attachment_loader);
+    olua_newrawdata(L, attachment_loader, spine::Cocos2dAtlasAttachmentLoader *);
     olua_setvariable(L, -3);
 
     lua_pushstring(L, ".skel.atlas");
-    lua_pushlightuserdata(L, atlas);
+    olua_newrawdata(L, atlas, spine::Atlas *);
     olua_setvariable(L, -3);
 
     return 1;

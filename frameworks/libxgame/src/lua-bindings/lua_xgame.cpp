@@ -15,6 +15,18 @@
 
 
 
+static int _xgame_SceneNoCamera___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (xgame::SceneNoCamera *)olua_toobj(L, 1, "kernel.SceneNoCamera");
+    olua_push_cppobj(L, self, "kernel.SceneNoCamera");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
 static int _xgame_SceneNoCamera_create(lua_State *L)
 {
     olua_startinvoke(L);
@@ -75,13 +87,13 @@ static int _xgame_SceneNoCamera_new(lua_State *L)
 static int luaopen_xgame_SceneNoCamera(lua_State *L)
 {
     oluacls_class(L, "kernel.SceneNoCamera", "cc.Scene");
+    oluacls_func(L, "__move", _xgame_SceneNoCamera___move);
     oluacls_func(L, "create", _xgame_SceneNoCamera_create);
     oluacls_func(L, "createWithPhysics", _xgame_SceneNoCamera_createWithPhysics);
     oluacls_func(L, "createWithSize", _xgame_SceneNoCamera_createWithSize);
     oluacls_func(L, "new", _xgame_SceneNoCamera_new);
 
     olua_registerluatype<xgame::SceneNoCamera>(L, "kernel.SceneNoCamera");
-    oluacls_createclassproxy(L);
 
     return 1;
 }
@@ -93,9 +105,7 @@ static int luaopen_xgame_Permission(lua_State *L)
     oluacls_const_integer(L, "CAMERA", (lua_Integer)xgame::Permission::CAMERA);
     oluacls_const_integer(L, "PHOTO", (lua_Integer)xgame::Permission::PHOTO);
 
-    olua_registerluatype<xgame::Permission>(L, "kernel.Permission");
     oluacls_asenum(L);
-    oluacls_createclassproxy(L);
 
     return 1;
 }
@@ -108,9 +118,19 @@ static int luaopen_xgame_PermissionStatus(lua_State *L)
     oluacls_const_integer(L, "NOT_DETERMINED", (lua_Integer)xgame::PermissionStatus::NOT_DETERMINED);
     oluacls_const_integer(L, "RESTRICTED", (lua_Integer)xgame::PermissionStatus::RESTRICTED);
 
-    olua_registerluatype<xgame::PermissionStatus>(L, "kernel.PermissionStatus");
     oluacls_asenum(L);
-    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _xgame_runtime___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (xgame::runtime *)olua_toobj(L, 1, "kernel.runtime");
+    olua_push_cppobj(L, self, "kernel.runtime");
+
+    olua_endinvoke(L);
 
     return 1;
 }
@@ -741,6 +761,7 @@ static int _xgame_runtime_testCrash(lua_State *L)
 static int luaopen_xgame_runtime(lua_State *L)
 {
     oluacls_class(L, "kernel.runtime", nullptr);
+    oluacls_func(L, "__move", _xgame_runtime___move);
     oluacls_func(L, "alert", _xgame_runtime_alert);
     oluacls_func(L, "canOpenURL", _xgame_runtime_canOpenURL);
     oluacls_func(L, "clearStorage", _xgame_runtime_clearStorage);
@@ -796,7 +817,18 @@ static int luaopen_xgame_runtime(lua_State *L)
     oluacls_prop(L, "version", _xgame_runtime_getVersion, nullptr);
 
     olua_registerluatype<xgame::runtime>(L, "kernel.runtime");
-    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _xgame_filesystem___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (xgame::filesystem *)olua_toobj(L, 1, "kernel.filesystem");
+    olua_push_cppobj(L, self, "kernel.filesystem");
+
+    olua_endinvoke(L);
 
     return 1;
 }
@@ -1218,6 +1250,7 @@ static int _xgame_filesystem_write(lua_State *L)
 static int luaopen_xgame_filesystem(lua_State *L)
 {
     oluacls_class(L, "kernel.filesystem", nullptr);
+    oluacls_func(L, "__move", _xgame_filesystem___move);
     oluacls_func(L, "addSearchPath", _xgame_filesystem_addSearchPath);
     oluacls_func(L, "copy", _xgame_filesystem_copy);
     oluacls_func(L, "createDirectory", _xgame_filesystem_createDirectory);
@@ -1243,7 +1276,18 @@ static int luaopen_xgame_filesystem(lua_State *L)
     oluacls_prop(L, "writablePath", _xgame_filesystem_getWritablePath, nullptr);
 
     olua_registerluatype<xgame::filesystem>(L, "kernel.filesystem");
-    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _xgame_preferences___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (xgame::preferences *)olua_toobj(L, 1, "kernel.preferences");
+    olua_push_cppobj(L, self, "kernel.preferences");
+
+    olua_endinvoke(L);
 
     return 1;
 }
@@ -1664,6 +1708,7 @@ static int _xgame_preferences_setString(lua_State *L)
 static int luaopen_xgame_preferences(lua_State *L)
 {
     oluacls_class(L, "kernel.preferences", nullptr);
+    oluacls_func(L, "__move", _xgame_preferences___move);
     oluacls_func(L, "deleteKey", _xgame_preferences_deleteKey);
     oluacls_func(L, "flush", _xgame_preferences_flush);
     oluacls_func(L, "getBoolean", _xgame_preferences_getBoolean);
@@ -1678,12 +1723,23 @@ static int luaopen_xgame_preferences(lua_State *L)
     oluacls_func(L, "setString", _xgame_preferences_setString);
 
     olua_registerluatype<xgame::preferences>(L, "kernel.preferences");
-    oluacls_createclassproxy(L);
 
     return 1;
 }
 
 #define makeTimerDelayTag(tag) ("delayTag." + tag)
+
+static int _xgame_timer___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (xgame::timer *)olua_toobj(L, 1, "kernel.timer");
+    olua_push_cppobj(L, self, "kernel.timer");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
 
 static int _xgame_timer_createTag(lua_State *L)
 {
@@ -1832,6 +1888,7 @@ static int _xgame_timer_unschedule(lua_State *L)
 static int luaopen_xgame_timer(lua_State *L)
 {
     oluacls_class(L, "kernel.timer", nullptr);
+    oluacls_func(L, "__move", _xgame_timer___move);
     oluacls_func(L, "createTag", _xgame_timer_createTag);
     oluacls_func(L, "delay", _xgame_timer_delay);
     oluacls_func(L, "delayWithTag", _xgame_timer_delayWithTag);
@@ -1840,7 +1897,6 @@ static int luaopen_xgame_timer(lua_State *L)
     oluacls_func(L, "unschedule", _xgame_timer_unschedule);
 
     olua_registerluatype<xgame::timer>(L, "kernel.timer");
-    oluacls_createclassproxy(L);
 
     return 1;
 }
@@ -1959,7 +2015,17 @@ static int luaopen_xgame_window(lua_State *L)
     oluacls_func(L, "setDesignSize", _xgame_window_setDesignSize);
     oluacls_func(L, "setFrameSize", _xgame_window_setFrameSize);
 
-    oluacls_createclassproxy(L);
+    return 1;
+}
+
+static int _xgame_downloader___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (xgame::downloader *)olua_toobj(L, 1, "kernel.downloader");
+    olua_push_cppobj(L, self, "kernel.downloader");
+
+    olua_endinvoke(L);
 
     return 1;
 }
@@ -2005,11 +2071,23 @@ static int _xgame_downloader_setDispatcher(lua_State *L)
 static int luaopen_xgame_downloader(lua_State *L)
 {
     oluacls_class(L, "kernel.downloader", nullptr);
+    oluacls_func(L, "__move", _xgame_downloader___move);
     oluacls_func(L, "load", _xgame_downloader_load);
     oluacls_func(L, "setDispatcher", _xgame_downloader_setDispatcher);
 
     olua_registerluatype<xgame::downloader>(L, "kernel.downloader");
-    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _xgame_MaskLayout___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (xgame::MaskLayout *)olua_toobj(L, 1, "kernel.MaskLayout");
+    olua_push_cppobj(L, self, "kernel.MaskLayout");
+
+    olua_endinvoke(L);
 
     return 1;
 }
@@ -2047,12 +2125,12 @@ static int _xgame_MaskLayout_getClippingNode(lua_State *L)
 static int luaopen_xgame_MaskLayout(lua_State *L)
 {
     oluacls_class(L, "kernel.MaskLayout", "ccui.Layout");
+    oluacls_func(L, "__move", _xgame_MaskLayout___move);
     oluacls_func(L, "create", _xgame_MaskLayout_create);
     oluacls_func(L, "getClippingNode", _xgame_MaskLayout_getClippingNode);
     oluacls_prop(L, "clippingNode", _xgame_MaskLayout_getClippingNode, nullptr);
 
     olua_registerluatype<xgame::MaskLayout>(L, "kernel.MaskLayout");
-    oluacls_createclassproxy(L);
 
     return 1;
 }

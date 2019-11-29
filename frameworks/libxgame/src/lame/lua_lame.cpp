@@ -298,7 +298,5 @@ int luaopen_lame(lua_State *L)
     oluacls_prop(L, "vbr", _get_VBR, _set_VBR);
     oluacls_prop(L, "vbr_mean_bitrate_kbps", _get_VBR_mean_bitrate_kbps, _set_VBR_mean_bitrate_kbps);
     
-    oluacls_createclassproxy(L);
-    
     return 1;
 }

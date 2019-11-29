@@ -79,8 +79,9 @@ extern "C" {
 #define olua_isthread(L,n)          (lua_type(L, (n)) == LUA_TTHREAD)
     
 // check or get the raw value
-#define olua_newuserdata(L, obj, T) (*(T*)lua_newuserdata(L, sizeof(T)) = (obj))
-#define olua_touserdata(L, n, T)    (*(T*)lua_touserdata(L, (n)))
+#define olua_newrawdata(L, obj, T)  (*(T *)lua_newuserdata(L, sizeof(T)) = (obj))
+#define olua_torawdata(L, i, T)     (*(T *)lua_touserdata(L, (i)))
+#define olua_setrawdata(L, i, o)    (*(void **)lua_touserdata(L, (i)) = (o))
 #define olua_tonumber(L, i)         (lua_tonumber(L, (i)))
 #define olua_tointeger(L, i)        (lua_tointeger(L, (i)))
 #define olua_tostring(L, i)         (lua_tostring(L, (i)))
@@ -131,9 +132,9 @@ LUALIB_API void *olua_toobj(lua_State *L, int idx, const char *cls);
 LUALIB_API const char *olua_objstring(lua_State *L, int idx);
     
 // optimize temporary userdata
-LUALIB_API void olua_enable_objpool(lua_State *L);
-LUALIB_API void olua_disable_objpool(lua_State *L);
-LUALIB_API size_t olua_push_objpool(lua_State *L);
+#define olua_enable_objpool(L)  (olua_vmstatus(L)->poolenabled = true)
+#define olua_disable_objpool(L) (olua_vmstatus(L)->poolenabled = false)
+#define olua_push_objpool(L)    (olua_vmstatus(L)->poolsize)
 LUALIB_API void olua_pop_objpool(lua_State *L, size_t level);
     
 typedef enum {
@@ -206,7 +207,6 @@ LUALIB_API void olua_unrefall(lua_State *L, int idx, const char *name);
 //
 LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *supercls);
 LUALIB_API void oluacls_asenum(lua_State *L);
-LUALIB_API void oluacls_createclassproxy(lua_State *L);
 LUALIB_API void oluacls_prop(lua_State *L, const char *name, lua_CFunction getter, lua_CFunction setter);
 LUALIB_API void oluacls_func(lua_State *L, const char *name, lua_CFunction func);
 LUALIB_API void oluacls_const(lua_State *L, const char *name);

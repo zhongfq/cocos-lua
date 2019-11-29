@@ -85,6 +85,7 @@ function xGame:_loadAssets(func, cls, ...)
     if type(cls) == 'string' then
         cls = require(cls)
     end
+    assert(type(cls) == 'table', 'not a class')
     local queue = LoadQueue.new(cls:assets(...))
     if queue.totalCount > 0 then
         local args = {...}

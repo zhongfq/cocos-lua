@@ -328,7 +328,7 @@ static int _socket_write_bytes(lua_State *L)
 
 LUALIB_API int luaopen_socket(lua_State *L)
 {
-    oluacls_class(L, "kernel.Socket", nullptr);
+    oluacls_class(L, SOCKET_CLS, nullptr);
     oluacls_func(L, "__gc", _socket_gc);
     oluacls_func(L, "new", _socket_new);
     oluacls_func(L, "connect", _socket_connect);
@@ -360,7 +360,7 @@ LUALIB_API int luaopen_socket(lua_State *L)
     oluacls_prop(L, "bytesAvailable", _socket_bytes_available, NULL);
     oluacls_prop(L, "status", _socket_get_status, NULL);
     
-    oluacls_createclassproxy(L);
+    olua_registerluatype<Socket>(L, SOCKET_CLS);
 
     return 1;
 }

@@ -79,8 +79,9 @@ extern "C" {
 #define olua_isthread(L,n)          (lua_type(L, (n)) == LUA_TTHREAD)
     
 // check or get the raw value
-#define olua_newuserdata(L, obj, T) (*(T*)lua_newuserdata(L, sizeof(T)) = (obj))
-#define olua_touserdata(L, n, T)    (*(T*)lua_touserdata(L, (n)))
+#define olua_newrawdata(L, obj, T)  (*(T *)lua_newuserdata(L, sizeof(T)) = (obj))
+#define olua_torawdata(L, i, T)     (*(T *)lua_touserdata(L, (i)))
+#define olua_setrawdata(L, i, o)    (*(void **)lua_touserdata(L, (i)) = (o))
 #define olua_tonumber(L, i)         (lua_tonumber(L, (i)))
 #define olua_tointeger(L, i)        (lua_tointeger(L, (i)))
 #define olua_tostring(L, i)         (lua_tostring(L, (i)))
@@ -131,9 +132,9 @@ LUALIB_API void *olua_toobj(lua_State *L, int idx, const char *cls);
 LUALIB_API const char *olua_objstring(lua_State *L, int idx);
     
 // optimize temporary userdata
-LUALIB_API void olua_enable_objpool(lua_State *L);
-LUALIB_API void olua_disable_objpool(lua_State *L);
-LUALIB_API size_t olua_push_objpool(lua_State *L);
+#define olua_enable_objpool(L)  (olua_vmstatus(L)->poolenabled = true)
+#define olua_disable_objpool(L) (olua_vmstatus(L)->poolenabled = false)
+#define olua_push_objpool(L)    (olua_vmstatus(L)->poolsize)
 LUALIB_API void olua_pop_objpool(lua_State *L, size_t level);
     
 typedef enum {
@@ -206,7 +207,6 @@ LUALIB_API void olua_unrefall(lua_State *L, int idx, const char *name);
 //
 LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *supercls);
 LUALIB_API void oluacls_asenum(lua_State *L);
-LUALIB_API void oluacls_createclassproxy(lua_State *L);
 LUALIB_API void oluacls_prop(lua_State *L, const char *name, lua_CFunction getter, lua_CFunction setter);
 LUALIB_API void oluacls_func(lua_State *L, const char *name, lua_CFunction func);
 LUALIB_API void oluacls_const(lua_State *L, const char *name);
@@ -229,32 +229,26 @@ LUALIB_API void oluacls_const(lua_State *L, const char *name);
     
 #define olua_push_bool(L, v)        (lua_pushboolean(L, (v)), 1)
 #define olua_check_bool(L, i, v)    (*(v) = olua_checkboolean(L, (i)))
-#define olua_opt_bool(L, i, v, d)   (*(v) = olua_optboolean(L, (i), (d)))
 #define olua_is_bool(L, i)          (olua_isboolean(L, (i)))
 
 #define olua_push_string(L, v)      (lua_pushstring(L, (v)), 1)
 #define olua_check_string(L, i, v)  (*(v) = olua_checkstring(L, (i)))
-#define olua_opt_string(L, i, v, d) (*(v) = olua_optstring(L, (i), (d)))
 #define olua_is_string(L, i)        (olua_isstring(L, (i)))
 
 #define olua_push_number(L, v)      (lua_pushnumber(L, (v)), 1)
 #define olua_check_number(L, i, v)  (*(v) = olua_checknumber(L, (i)))
-#define olua_opt_number(L, i, v, d) (*(v) = olua_optnumber(L, (i), (d)))
 #define olua_is_number(L, i)        (olua_isnumber(L, (i)))
 
 #define olua_push_int(L, v)         (lua_pushinteger(L, (v)), 1)
 #define olua_check_int(L, i, v)     (*(v) = olua_checkinteger(L, (i)))
-#define olua_opt_int(L, i, v, d)    (*(v) = olua_optinteger(L, (i), (d)))
 #define olua_is_int(L, i)           (olua_isinteger(L, (i)))
 
 #define olua_push_uint(L, v)        (lua_pushinteger(L, (lua_Integer)(v)), 1)
 #define olua_check_uint(L, i, v)    (*(v) = (lua_Unsigned)olua_checkinteger(L, (i)))
-#define olua_opt_uint(L, i, v, d)   (*(v) = (lua_Unsigned)olua_optinteger(L, (i), (lua_Integer)(d)))
 #define olua_is_uint(L, i)          (olua_isinteger(L, (i)))
 
 #define olua_push_obj(L, o, c)      (olua_pushobj(L, (o), (c)), 1)
 #define olua_check_obj(L, i, v, c)  (*(v) = olua_checkobj(L, (i), (c)))
-#define olua_opt_obj(L, i, v, c, d) (olua_isnil(L, (i)) ? (*(v) = (d)) : olua_check_obj(L, (i), (v), (c)))
 #define olua_to_obj(L, i, v, c)     (*(v) = olua_toobj(L, (i), (c)))
 #define olua_is_obj(L, i, c)        (olua_isa(L, (i), (c)))
     

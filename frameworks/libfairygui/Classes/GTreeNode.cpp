@@ -155,7 +155,7 @@ void GTreeNode::removeChildAt(int index)
         child->setTree(nullptr);
         _tree->afterRemoved(child);
     }
-    
+
     _children.erase(index);
 }
 

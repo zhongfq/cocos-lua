@@ -588,7 +588,7 @@ void* UIPackage::getItemAsset(PackageItem* item)
 void UIPackage::loadAtlas(PackageItem* item)
 {
     Image* image = new Image();
-#if COCOS2D_VERSION < 0x00031702
+#if COCOS2D_VERSION < 0x00031703
     Image::setPNGPremultipliedAlphaEnabled(false);
 #endif
     if (!image->initWithImageFile(item->file))
@@ -596,13 +596,13 @@ void UIPackage::loadAtlas(PackageItem* item)
         item->texture = _emptyTexture;
         _emptyTexture->retain();
         delete image;
-#if COCOS2D_VERSION < 0x00031702
+#if COCOS2D_VERSION < 0x00031703
         Image::setPNGPremultipliedAlphaEnabled(true);
 #endif
         CCLOGWARN("FairyGUI: texture '%s' not found in %s", item->file.c_str(), _name.c_str());
         return;
     }
-#if COCOS2D_VERSION < 0x00031702
+#if COCOS2D_VERSION < 0x00031703
     Image::setPNGPremultipliedAlphaEnabled(true);
 #endif
 
@@ -673,7 +673,12 @@ void UIPackage::loadImage(PackageItem* item)
     }
     if (item->scaleByTile)
     {
+#if COCOS2DX_VERSION >= 0x00040000
+        Texture2D::TexParams tp(backend::SamplerFilter::LINEAR, backend::SamplerFilter::LINEAR,
+            backend::SamplerAddressMode::REPEAT, backend::SamplerAddressMode::REPEAT);
+#else
         Texture2D::TexParams tp = {GL_LINEAR, GL_LINEAR, GL_REPEAT, GL_REPEAT};
+#endif
         item->spriteFrame->getTexture()->setTexParameters(tp);
     }
 }

@@ -11,21 +11,5 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"/>
 
-        <!-- alipay -->
-        <activity
-            android:name="com.alipay.sdk.app.H5PayActivity"
-            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
-            android:exported="false"
-            android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
-
-        <!-- talkingdata -->
-        <service
-            android:name="com.talkingdata.sdk.TDAntiCheatingService"
-            android:process="com.talkingdata.sdk.TDAntiCheatingService">  <!--用户质量评估Service可以配置在主进程或者单独进程-->
-            <intent-filter>
-                <action android:name="com.talkingdata.sdk.TDAntiCheatingService" />
-            </intent-filter>
-        </service>
     </application>
 </manifest>

@@ -29,6 +29,7 @@ public class TalkingData {
                 TCAgent.LOG_ON = true;
                 TCAgent.init(app);
                 TCAgent.setReportUncaughtExceptions(false);
+                AppContext.registerFeature("talkingdata", true);
             }
 
             @Override

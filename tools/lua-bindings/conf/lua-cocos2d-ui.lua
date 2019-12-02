@@ -4,22 +4,25 @@ local M = autoconf.typemod 'cocos2d_ui'
 local typeconf = M.typeconf
 local typedef = M.typedef
 
-M.PATH = "../../frameworks/libxgame/src/lua-bindings"
+M.PATH = '../../frameworks/libxgame/src/lua-bindings'
 M.INCLUDES = [[
 #include "lua-bindings/lua_cocos2d_ui.h"
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "lua-bindings/LuaCocosAdapter.h"
 #include "xgame/xlua.h"
-#include "xgame/xruntime.h"
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "ui/UIScrollViewBar.h"
 ]]
 M.CHUNK = [[]]
 
+typedef {
+    CPPCLS = 'cocos2d::ui::Margin',
+    CONV = 'auto_olua_$$_cocos2d_ui_Margin',
+}
+
 M.MAKE_LUACLS = function (cppname)
-    cppname = string.gsub(cppname, '^cocos2d::experimental::ui::', 'ccui.')
     cppname = string.gsub(cppname, '^cocos2d::ui::', 'ccui.')
     cppname = string.gsub(cppname, "::", ".")
     return cppname
@@ -36,8 +39,10 @@ typeconf 'cocos2d::ui::Widget::TextureResType'
 typeconf 'cocos2d::ui::Widget::BrightStyle'
 
 local Widget = typeconf 'cocos2d::ui::Widget'
+Widget.EXCLUDE 'createInstance'
 Widget.ATTR('getVirtualRenderer', {RET = '@ref(map protectedChildren)'})
-Widget.CALLBACK {NAME = 'onFocusChanged', LOCAL = false}
+Widget.VAR('onFocusChanged', '@nullable std::function<void(Widget*,Widget*)> onFocusChanged')
+Widget.VAR('onNextFocusedWidget', '@nullable std::function<Widget*(FocusDirection)> onNextFocusedWidget')
 Widget.CALLBACK {
     FUNCS = {'void addTouchEventListener(@nullable const std::function<void(Ref*,Widget::TouchEventType)>& callback)'},
     TAG_MAKER = 'touchEventListener',
@@ -71,32 +76,28 @@ typeconf 'cocos2d::ui::Layout::Type'
 typeconf 'cocos2d::ui::Layout::ClippingType'
 typeconf 'cocos2d::ui::Layout::BackGroundColorType'
 
-typeconf 'cocos2d::ui::Layout'
-    .CALLBACK {NAME = 'onPassFocusToChild', LOCAL = false}
+local Layout = typeconf 'cocos2d::ui::Layout'
+Layout.VAR('onPassFocusToChild', '@nullable std::function<int(Widget::FocusDirection, Widget*)> onPassFocusToChild')
 
 typeconf 'cocos2d::ui::HBox'
 typeconf 'cocos2d::ui::VBox'
 typeconf 'cocos2d::ui::RelativeBox'
 
-local WebView = typeconf 'cocos2d::experimental::ui::WebView'
-WebView.DEFIF = '#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN)'
-WebView.CALLBACK {NAME = 'setOnShouldStartLoading', NULLABLE = true}
-WebView.CALLBACK {NAME = 'setOnDidFinishLoading', NULLABLE = true}
-WebView.CALLBACK {NAME = 'setOnDidFailLoading', NULLABLE = true}
-WebView.CALLBACK {NAME = 'setOnJSCallback', NULLABLE = true}
-WebView.CALLBACK {NAME = 'getOnShouldStartLoading', NULLABLE = true}
-WebView.CALLBACK {NAME = 'getOnDidFinishLoading', NULLABLE = true}
-WebView.CALLBACK {NAME = 'getOnDidFailLoading', NULLABLE = true}
-WebView.CALLBACK {NAME = 'getOnJSCallback', NULLABLE = true}
+local WebView = typeconf 'cocos2d::ui::WebView'
+WebView.DEFIF = '#ifdef CCLUA_HAVE_WEBVIEW'
+WebView.CALLBACK {NAME = 'setOnShouldStartLoading', NULLABLE = true, LOCAL = false}
+WebView.CALLBACK {NAME = 'setOnDidFinishLoading', NULLABLE = true, LOCAL = false}
+WebView.CALLBACK {NAME = 'setOnDidFailLoading', NULLABLE = true, LOCAL = false}
+WebView.CALLBACK {NAME = 'setOnJSCallback', NULLABLE = true, LOCAL = false}
 
-local EventType = typeconf 'cocos2d::experimental::ui::VideoPlayer::EventType'
-EventType.DEFIF = '#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN)'
+local EventType = typeconf 'cocos2d::ui::VideoPlayer::EventType'
+EventType.DEFIF = '#ifdef CCLUA_HAVE_VIDEOPLAYER'
 
-local StyleType = typeconf 'cocos2d::experimental::ui::VideoPlayer::StyleType'
-StyleType.DEFIF = '#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN)'
+local StyleType = typeconf 'cocos2d::ui::VideoPlayer::StyleType'
+StyleType.DEFIF = '#ifdef CCLUA_HAVE_VIDEOPLAYER'
 
-local VideoPlayer = typeconf 'cocos2d::experimental::ui::VideoPlayer'
-VideoPlayer.DEFIF = '#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN)'
+local VideoPlayer = typeconf 'cocos2d::ui::VideoPlayer'
+VideoPlayer.DEFIF = '#ifdef CCLUA_HAVE_VIDEOPLAYER'
 VideoPlayer.CALLBACK {
     FUNCS = {'void addEventListener(@nullable const std::function<void(Ref*,VideoPlayer::EventType)>& callback)'},
     TAG_MAKER = 'videoPlayerCallback',
@@ -193,6 +194,7 @@ RichText.EXCLUDE 'initWithXML'
 RichText.CALLBACK {
     NAME = 'createWithXML',
     TAG_MAKER = 'OpenUrlHandler',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
     CPPFUNC = 'initWithXML',
 }
 
@@ -266,7 +268,6 @@ typeconf 'cocos2d::ui::LuaEditBoxDelegate'
 typeconf 'cocos2d::ui::EditBox::KeyboardReturnType'
 typeconf 'cocos2d::ui::EditBox::InputMode'
 typeconf 'cocos2d::ui::EditBox::InputFlag'
-
 typeconf 'cocos2d::ui::EditBox'
     .ATTR('setDelegate', {ARG1 = '@ref(single delegate)'})
     .ATTR('getDelegate', {RET = '@ref(single delegate)'})

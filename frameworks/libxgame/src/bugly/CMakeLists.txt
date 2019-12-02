@@ -7,3 +7,9 @@ set(BUGLY_SRC
     src/bugly/CrashReport-android.cpp
     src/bugly/lua_bugly.cpp
 )
+
+if(APPLE)
+    list(APPEND BUGLY_SRC
+        src/bugly/CrashReport-ios.mm
+    )
+endif()

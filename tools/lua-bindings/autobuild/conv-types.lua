@@ -36,19 +36,19 @@ typedef {
 }
 
 typedef {
-    CPPCLS = 'cocos2d::Texture2D::TexParams',
+    CPPCLS = 'cocos2d::Viewport',
     LUACLS = nil,
     DECLTYPE = nil,
-    CONV = 'auto_olua_$$_cocos2d_Texture2D_TexParams',
+    CONV = 'auto_olua_$$_cocos2d_Viewport',
     NUMVARS = 4,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::experimental::Viewport',
+    CPPCLS = 'cocos2d::ScissorRect',
     LUACLS = nil,
     DECLTYPE = nil,
-    CONV = 'auto_olua_$$_cocos2d_experimental_Viewport',
-    NUMVARS = 0,
+    CONV = 'auto_olua_$$_cocos2d_ScissorRect',
+    NUMVARS = 4,
 }
 
 typedef {
@@ -132,6 +132,14 @@ typedef {
 }
 
 typedef {
+    CPPCLS = 'cocos2d::Texture2D::PixelFormatInfo',
+    LUACLS = nil,
+    DECLTYPE = nil,
+    CONV = 'auto_olua_$$_cocos2d_Texture2D_PixelFormatInfo',
+    NUMVARS = 3,
+}
+
+typedef {
     CPPCLS = 'cocos2d::Controller::KeyStatus',
     LUACLS = nil,
     DECLTYPE = nil,
@@ -145,5 +153,93 @@ typedef {
     DECLTYPE = nil,
     CONV = 'auto_olua_$$_cocos2d_network_WebSocket_Data',
     NUMVARS = 5,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::PipelineDescriptor',
+    LUACLS = nil,
+    DECLTYPE = nil,
+    CONV = 'auto_olua_$$_cocos2d_PipelineDescriptor',
+    NUMVARS = 2,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::NavMeshAgentParam',
+    LUACLS = nil,
+    DECLTYPE = nil,
+    CONV = 'auto_olua_$$_cocos2d_NavMeshAgentParam',
+    NUMVARS = 10,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::OffMeshLinkData',
+    LUACLS = nil,
+    DECLTYPE = nil,
+    CONV = 'auto_olua_$$_cocos2d_OffMeshLinkData',
+    NUMVARS = 2,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::backend::BlendDescriptor',
+    LUACLS = nil,
+    DECLTYPE = nil,
+    CONV = 'auto_olua_$$_cocos2d_backend_BlendDescriptor',
+    NUMVARS = 8,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::backend::SamplerDescriptor',
+    LUACLS = nil,
+    DECLTYPE = nil,
+    CONV = 'auto_olua_$$_cocos2d_backend_SamplerDescriptor',
+    NUMVARS = 4,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::backend::TextureInfo',
+    LUACLS = nil,
+    DECLTYPE = nil,
+    CONV = 'auto_olua_$$_cocos2d_backend_TextureInfo',
+    NUMVARS = 2,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::backend::AttributeBindInfo',
+    LUACLS = nil,
+    DECLTYPE = nil,
+    CONV = 'auto_olua_$$_cocos2d_backend_AttributeBindInfo',
+    NUMVARS = 4,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::backend::UniformInfo',
+    LUACLS = nil,
+    DECLTYPE = nil,
+    CONV = 'auto_olua_$$_cocos2d_backend_UniformInfo',
+    NUMVARS = 8,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::backend::TextureDescriptor',
+    LUACLS = nil,
+    DECLTYPE = nil,
+    CONV = 'auto_olua_$$_cocos2d_backend_TextureDescriptor',
+    NUMVARS = 7,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::backend::StencilDescriptor',
+    LUACLS = nil,
+    DECLTYPE = nil,
+    CONV = 'auto_olua_$$_cocos2d_backend_StencilDescriptor',
+    NUMVARS = 6,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::backend::DepthStencilDescriptor',
+    LUACLS = nil,
+    DECLTYPE = nil,
+    CONV = 'auto_olua_$$_cocos2d_backend_DepthStencilDescriptor',
+    NUMVARS = 6,
 }
 

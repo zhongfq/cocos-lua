@@ -25,7 +25,6 @@
  ****************************************************************************/
 
 #include "extensions/Particle3D/PU/CCPUOnTimeObserver.h"
-#include <cmath>
 #include "extensions/Particle3D/PU/CCPUParticleSystem3D.h"
 
 NS_CC_BEGIN
@@ -36,8 +35,8 @@ const bool PUOnTimeObserver::DEFAULT_SINCE_START_SYSTEM = false;
 
 static bool almostEquals(float a, float b, float epsilon = std::numeric_limits<float>::epsilon())
 {
-    return std::fabs(a - b) <= ( (std::fabs(a) < std::fabs(b) ? std::fabs(b) : std::fabs(a)) * epsilon);
-}
+    return fabs(a - b) <= ( (fabs(a) < fabs(b) ? fabs(b) : fabs(a)) * epsilon); 
+};
 
 //-----------------------------------------------------------------------
 PUOnTimeObserver::PUOnTimeObserver() : PUObserver(),
@@ -45,7 +44,7 @@ PUOnTimeObserver::PUOnTimeObserver() : PUObserver(),
     _compare(CO_GREATER_THAN),
     _sinceStartSystem(DEFAULT_SINCE_START_SYSTEM)
 {
-}
+};
 //-----------------------------------------------------------------------
 void PUOnTimeObserver::preUpdateObserver(float deltaTime)
 {

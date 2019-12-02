@@ -24,7 +24,6 @@ THE SOFTWARE.
 ****************************************************************************/
 
 #include "editor-support/cocostudio/TriggerMng.h"
-#include <cmath>
 #include "json/prettywriter.h"
 #include "json/stringbuffer.h"
 #include "base/CCDirector.h"
@@ -221,7 +220,7 @@ void TriggerMng::buildJson(rapidjson::Document &document, cocostudio::CocoLoader
             std::string key1 = pTriggerArray[i1].GetName(pCocoLoader);
             const char *str1 = pTriggerArray[i1].GetValue(pCocoLoader);
             
-            if (key1 == "actions")
+            if (key1.compare("actions") == 0)
             {
                 rapidjson::Value actionsItem(rapidjson::kArrayType);
                 
@@ -237,14 +236,14 @@ void TriggerMng::buildJson(rapidjson::Document &document, cocostudio::CocoLoader
                     {
                         std::string key2 = pActionArray[i3].GetName(pCocoLoader);
                         const char *str2 = pActionArray[i3].GetValue(pCocoLoader);
-                        if (key2 == "classname")
+                        if (key2.compare("classname") == 0)
                         {
                             if (str2 != nullptr)
                             {
                                 action.AddMember("classname", rapidjson::Value(str2,allocator), allocator);
                             }
                         }
-                        else if (key2 == "dataitems")
+                        else if (key2.compare("dataitems") == 0)
                         {
                             rapidjson::Value dataitems(rapidjson::kArrayType);
                             size = pActionArray[i3].GetChildNum();
@@ -258,7 +257,7 @@ void TriggerMng::buildJson(rapidjson::Document &document, cocostudio::CocoLoader
                                 {
                                     std::string key3 = pDataItemArray[i5].GetName(pCocoLoader);
                                     const char *str3 = pDataItemArray[i5].GetValue(pCocoLoader);
-                                    if (key3 == "key")
+                                    if (key3.compare("key") == 0)
                                     {
                                         if (str3 != nullptr)
                                         {
@@ -276,7 +275,7 @@ void TriggerMng::buildJson(rapidjson::Document &document, cocostudio::CocoLoader
                                         {
                                             int nV = atoi(str3);
                                             float fV = utils::atof(str3);
-                                            if (std::fabs(nV - fV) < 0.0000001)
+                                            if (fabs(nV - fV) < 0.0000001)
                                             {
                                                 dataitem.AddMember("value", nV, allocator);
                                             }
@@ -297,7 +296,7 @@ void TriggerMng::buildJson(rapidjson::Document &document, cocostudio::CocoLoader
                 
                 vElemItem.AddMember("actions", actionsItem, allocator);
             }
-            else if (key1 == "conditions")
+            else if (key1.compare("conditions") == 0)
             {
                 rapidjson::Value condsItem(rapidjson::kArrayType);
                 
@@ -313,14 +312,14 @@ void TriggerMng::buildJson(rapidjson::Document &document, cocostudio::CocoLoader
                     {
                         std::string key4 = pConditionArray[i7].GetName(pCocoLoader);
                         const char *str4 = pConditionArray[i7].GetValue(pCocoLoader);
-                        if (key4 == "classname")
+                        if (key4.compare("classname") == 0)
                         {
                             if (str4 != nullptr)
                             {
                                 cond.AddMember("classname", rapidjson::Value(str4,allocator), allocator);
                             }
                         }
-                        else if (key4 == "dataitems")
+                        else if (key4.compare("dataitems") == 0)
                         {
                             rapidjson::Value dataitems(rapidjson::kArrayType);
                             size = pConditionArray[i7].GetChildNum();
@@ -334,7 +333,7 @@ void TriggerMng::buildJson(rapidjson::Document &document, cocostudio::CocoLoader
                                 {
                                     std::string key5 = pDataItemArray[i9].GetName(pCocoLoader);
                                     const char *str5 = pDataItemArray[i9].GetValue(pCocoLoader);
-                                    if (key5 == "key")
+                                    if (key5.compare("key") == 0)
                                     {
                                         if (str5 != nullptr)
                                         {
@@ -352,7 +351,7 @@ void TriggerMng::buildJson(rapidjson::Document &document, cocostudio::CocoLoader
                                         {
                                             int nV = atoi(str5);
                                             float fV = utils::atof(str5);
-                                            if (std::fabs(nV - fV) < 0.0000001)
+                                            if (fabs(nV - fV) < 0.0000001)
                                             {
                                                 dataitem.AddMember("value", nV, allocator);
                                             }
@@ -373,7 +372,7 @@ void TriggerMng::buildJson(rapidjson::Document &document, cocostudio::CocoLoader
                 
                 vElemItem.AddMember("conditions", condsItem, allocator);
             }
-            else if (key1 == "events")
+            else if (key1.compare("events") == 0)
             {
                 rapidjson::Value eventsItem(rapidjson::kArrayType);
                 
@@ -385,7 +384,7 @@ void TriggerMng::buildJson(rapidjson::Document &document, cocostudio::CocoLoader
                     stExpCocoNode *pEventArray = pEventsArray->GetChildArray(pCocoLoader);
                     std::string key6 = pEventArray[0].GetName(pCocoLoader);
                     const char *str6 = pEventArray[0].GetValue(pCocoLoader);
-                    if (key6 == "id" && str6 != nullptr)
+                    if (key6.compare("id") == 0 && str6 != nullptr)
                     {
                         event.AddMember("id", atoi(str6), allocator);
                         eventsItem.PushBack(event, allocator);
@@ -393,7 +392,7 @@ void TriggerMng::buildJson(rapidjson::Document &document, cocostudio::CocoLoader
                 }
                 vElemItem.AddMember("events", eventsItem, allocator);
             }
-            else if (key1 == "id")
+            else if (key1.compare("id") == 0)
             {
                 if (str1 != nullptr)
                 {

@@ -31,6 +31,7 @@ THE SOFTWARE.
 #include "platform/CCFileUtils.h"
 #include "2d/CCSpriteFrameCache.h"
 #include "2d/CCSpriteFrame.h"
+#include "base/ccUtils.h"
 
 #include "editor-support/cocostudio/CSParseBinary_generated.h"
 
@@ -135,7 +136,7 @@ void ActionTimelineCache::removeAction(const std::string& fileName)
 
 ActionTimeline* ActionTimelineCache::createAction(const std::string& filename)
 {
-    const std::string& path = filename;
+    std::string path = filename;
     size_t pos = path.find_last_of('.');
     std::string suffix = path.substr(pos + 1, path.length());
     
@@ -360,9 +361,9 @@ Frame* ActionTimelineCache::loadColorFrame(const rapidjson::Value& json)
 {
     ColorFrame* frame = ColorFrame::create();
 
-    GLubyte red   = (GLubyte)DICTOOL->getIntValue_json(json, RED);
-    GLubyte green = (GLubyte)DICTOOL->getIntValue_json(json, GREEN);
-    GLubyte blue  = (GLubyte)DICTOOL->getIntValue_json(json, BLUE);
+    uint8_t red   = (uint8_t)DICTOOL->getIntValue_json(json, RED);
+    uint8_t green = (uint8_t)DICTOOL->getIntValue_json(json, GREEN);
+    uint8_t blue  = (uint8_t)DICTOOL->getIntValue_json(json, BLUE);
 
     frame->setColor(Color3B(red, green, blue));
 
@@ -423,7 +424,7 @@ ActionTimeline* ActionTimelineCache::createActionWithFlatBuffersFile(const std::
     return action->clone();
 }
 
-ActionTimeline* ActionTimelineCache::createActionWithDataBuffer(const Data& data, const std::string &fileName)
+ActionTimeline* ActionTimelineCache::createActionWithDataBuffer(Data data, const std::string &fileName)
 {
     ActionTimeline* action = _animationActions.at(fileName);
     if (action == NULL)
@@ -440,7 +441,7 @@ ActionTimeline* ActionTimelineCache::loadAnimationActionWithFlatBuffersFile(cons
     if (action)
         return action;
     
-    const std::string& path = fileName;
+    std::string path = fileName;
     
     std::string fullPath = FileUtils::getInstance()->fullPathForFilename(fileName);
     
@@ -460,7 +461,7 @@ ActionTimeline* ActionTimelineCache::loadAnimationWithDataBuffer(const cocos2d::
     if (action)
         return action;
 
-    const std::string& path = fileName;
+    std::string path = fileName;
 
     std::string fullPath = FileUtils::getInstance()->fullPathForFilename(fileName);
 
@@ -522,11 +523,11 @@ Timeline* ActionTimelineCache::loadTimelineWithFlatBuffers(const flatbuffers::Ti
     
     // property
     std::string property = flatbuffers->property()->c_str();
-    if(property.empty())
+    if(property == "")
         return nullptr;
     
     
-    if(!property.empty())
+    if(property != "")
     {
         timeline = Timeline::create();
         
@@ -800,7 +801,7 @@ Frame* ActionTimelineCache::loadEventFrameWithFlatBuffers(const flatbuffers::Eve
     
     std::string event = flatbuffers->value()->c_str();
     
-    if (!event.empty())
+    if (event != "")
         frame->setEvent(event);    
     
     int frameIndex = flatbuffers->frameIndex();
@@ -916,12 +917,12 @@ Frame* ActionTimelineCache::loadBlendFrameWithFlatBuffers(const flatbuffers::Ble
 {
     BlendFuncFrame* frame = BlendFuncFrame::create();
     cocos2d::BlendFunc blend;
-    blend.src = GL_ONE;
-    blend.dst = GL_ONE_MINUS_SRC_ALPHA;
+    blend.src = backend::BlendFactor::ONE;
+    blend.dst = backend::BlendFactor::ONE_MINUS_SRC_ALPHA;
     if (nullptr != flatbuffers->blendFunc())
     {
-        blend.src = flatbuffers->blendFunc()->src();
-        blend.dst = flatbuffers->blendFunc()->dst();
+        blend.src = utils::toBackendBlendFactor(flatbuffers->blendFunc()->src());
+        blend.dst = utils::toBackendBlendFactor(flatbuffers->blendFunc()->dst());
     }
     frame->setBlendFunc(blend);
 

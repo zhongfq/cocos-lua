@@ -86,13 +86,13 @@ CC_DEPRECATED_ATTRIBUTE static __TYPE__* node() \
  * 
  * @since v0.99.5
  */
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT) 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     #define CC_ENABLE_CACHE_TEXTURE_DATA       1
 #else
     #define CC_ENABLE_CACHE_TEXTURE_DATA       0
 #endif
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) || (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_EMSCRIPTEN)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) || (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
     /** Application will crash in glDrawElements function on some win32 computers and some android devices.
      *  Indices should be bound again while drawing to avoid this bug.
      */
@@ -130,10 +130,10 @@ CC_DEPRECATED_ATTRIBUTE static __TYPE__* node() \
  *            If you need protected or private, please declare.
  */
 #define CC_PROPERTY_READONLY(varType, varName, funName)\
-protected: varType varName; public: virtual varType get##funName() const
+protected: varType varName; public: virtual varType get##funName() const;
 
 #define CC_PROPERTY_READONLY_PASS_BY_REF(varType, varName, funName)\
-protected: varType varName; public: virtual const varType& get##funName() const
+protected: varType varName; public: virtual const varType& get##funName() const;
 
 /** @def CC_PROPERTY 
  * It is used to declare a protected variable.
@@ -148,10 +148,10 @@ protected: varType varName; public: virtual const varType& get##funName() const
  *            If you need protected or private, please declare.
  */
 #define CC_PROPERTY(varType, varName, funName)\
-protected: varType varName; public: virtual varType get##funName() const; virtual void set##funName(varType var)
+protected: varType varName; public: virtual varType get##funName() const; virtual void set##funName(varType var);
 
 #define CC_PROPERTY_PASS_BY_REF(varType, varName, funName)\
-protected: varType varName; public: virtual const varType& get##funName() const; virtual void set##funName(const varType& var)
+protected: varType varName; public: virtual const varType& get##funName() const; virtual void set##funName(const varType& var);
 
 /** @def CC_SYNTHESIZE_READONLY 
  * It is used to declare a protected variable. We can use getter to read the variable.
@@ -248,11 +248,11 @@ private: varType varName; public: virtual inline varType get##funName() const { 
     || (defined(__clang__) && (__clang_major__ >= 3)) || (_MSC_VER >= 1800)
 #define CC_DISALLOW_COPY_AND_ASSIGN(TypeName) \
     TypeName(const TypeName &) = delete; \
-    TypeName &operator =(const TypeName &) = delete
+    TypeName &operator =(const TypeName &) = delete;
 #else
 #define CC_DISALLOW_COPY_AND_ASSIGN(TypeName) \
     TypeName(const TypeName &); \
-    TypeName &operator =(const TypeName &)
+    TypeName &operator =(const TypeName &);
 #endif
 
 /** @def CC_DISALLOW_IMPLICIT_CONSTRUCTORS(TypeName)

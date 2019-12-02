@@ -42,7 +42,7 @@ PUParticle3DInterParticleCollider::PUParticle3DInterParticleCollider() :
 {
 }
 
-PUParticle3DInterParticleCollider::~PUParticle3DInterParticleCollider()
+PUParticle3DInterParticleCollider::~PUParticle3DInterParticleCollider( void )
 {
 
 }

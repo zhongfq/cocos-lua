@@ -256,17 +256,17 @@ namespace cocos2d { namespace network {
             DLLOG("Destruct DownloaderCURL::Impl %p %d", this, _thread.joinable());
         }
 
-        void addTask(const std::shared_ptr<const DownloadTask>& task, DownloadTaskCURL* coTask)
+        void addTask(std::shared_ptr<const DownloadTask> task, DownloadTaskCURL* coTask)
         {
             if (DownloadTask::ERROR_NO_ERROR == coTask->_errCode)
             {
                 lock_guard<mutex> lock(_requestMutex);
-                _requestQueue.emplace_back(task, coTask);
+                _requestQueue.push_back(make_pair(task, coTask));
             }
             else
             {
                 lock_guard<mutex> lock(_finishedMutex);
-                _finishedQueue.emplace_back(task, coTask);
+                _finishedQueue.push_back(make_pair(task, coTask));
             }
         }
 
@@ -532,7 +532,7 @@ namespace cocos2d { namespace network {
                     }
                 }
 
-                if (!coTaskMap.empty())
+                if (coTaskMap.size())
                 {
                     mcode = CURLM_CALL_MULTI_PERFORM;
                     while(CURLM_CALL_MULTI_PERFORM == mcode)
@@ -637,7 +637,7 @@ namespace cocos2d { namespace network {
                     TaskWrapper wrapper;
                     {
                         lock_guard<mutex> lock(_requestMutex);
-                        if (!_requestQueue.empty())
+                        if (_requestQueue.size())
                         {
                             wrapper = _requestQueue.front();
                             _requestQueue.pop_front();
@@ -681,7 +681,7 @@ namespace cocos2d { namespace network {
                     lock_guard<mutex> lock(_processMutex);
                     _processSet.insert(wrapper);
                 }
-            } while (!coTaskMap.empty());
+            } while (coTaskMap.size());
 
             curl_multi_cleanup(curlmHandle);
             this->stop();

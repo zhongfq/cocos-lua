@@ -32,7 +32,6 @@ THE SOFTWARE.
 
 #include "base/CCRef.h"
 #include "base/CCValue.h"
-#include "platform/CCGL.h"
 #include "3d/CCAnimate3D.h"
 
 /**
@@ -61,12 +60,6 @@ public:
     /** Purge the shared instance of Configuration.
      */
     static void destroyInstance();
-
-    /** @deprecated Use getInstance() instead */
-    CC_DEPRECATED_ATTRIBUTE static Configuration *sharedConfiguration();
-
-    /** @deprecated Use destroyInstance() instead */
-    CC_DEPRECATED_ATTRIBUTE static void purgeConfiguration();
 
 public:
     /** Destructor
@@ -229,15 +222,6 @@ public:
      * @return The Configuration info.
      */
     std::string getInfo() const;
-    
-    /**
-     Returns the configuration as value map
-     @return the configuration map
-     @since 3.18
-     @js NA
-     @lua NA
-    */
-    const ValueMap& getInfoAsMap()const { return _valueDict; }
 
 	/** Gathers OpenGL / GPU information.
      */
@@ -250,6 +234,8 @@ public:
 	void loadConfigFile(const std::string& filename);
     
     static const char* CONFIG_FILE_LOADED;
+    
+    int getMaxAttributes() const;
 
 private:
     Configuration();
@@ -257,8 +243,7 @@ private:
 	static std::string		s_configfile;
     
 protected:
-    GLint           _maxTextureSize;
-    GLint           _maxModelviewStackDepth;
+    int             _maxModelviewStackDepth;
     bool            _supportsPVRTC;
     bool            _supportsETC1;
     bool            _supportsS3TC;
@@ -271,9 +256,7 @@ protected:
     bool            _supportsOESDepth24;
     bool            _supportsOESPackedDepthStencil;
     
-    GLint           _maxSamplesAllowed;
-    GLint           _maxTextureUnits;
-    char *          _glExtensions;
+    std::string     _glExtensions;
     int             _maxDirLightInShader; //max support directional light in shader
     int             _maxPointLightInShader; // max support point light in shader
     int             _maxSpotLightInShader; // max support spot light in shader

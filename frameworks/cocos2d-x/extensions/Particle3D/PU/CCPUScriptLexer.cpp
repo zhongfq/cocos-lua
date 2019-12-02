@@ -172,10 +172,8 @@ void PUScriptLexer::openLexer(const std::string &str,const std::string &source,P
                     else
                     {
                         // Backtrack here and allow a backslash normally within the quote
-                        if(lastc == backslash) {
-                            lexeme += '\\';
-                            lexeme += c;
-                        }
+                        if(lastc == backslash)
+                            lexeme = lexeme + "\\" + c;
                         else
                             lexeme += c;
                     }

@@ -32,8 +32,6 @@ THE SOFTWARE.
 #include "base/CCEventFocus.h"
 #include "base/CCEventDispatcher.h"
 #include "ui/UILayoutComponent.h"
-#include "renderer/CCGLProgram.h"
-#include "renderer/CCGLProgramState.h"
 #include "renderer/ccShaders.h"
 #include "2d/CCCamera.h"
 #include "2d/CCSprite.h"
@@ -166,7 +164,6 @@ _layoutParameterType(LayoutParameter::Type::NONE),
 _focused(false),
 _focusEnabled(true),
 _touchEventListener(nullptr),
-_touchEventSelector(nullptr),
 _ccEventCallback(nullptr),
 _callbackType(""),
 _callbackName("")
@@ -335,11 +332,6 @@ void Widget::setContentSize(const cocos2d::Size &contentSize)
     onSizeChanged();
 }
 
-void Widget::setSize(const Size &size)
-{
-    this->setContentSize(size);
-}
-
 void Widget::setSizePercent(const Vec2 &percent)
 {
     if (_usingLayoutComponent)
@@ -505,11 +497,6 @@ void Widget::ignoreContentAdaptWithSize(bool ignore)
 bool Widget::isIgnoreContentAdaptWithSize() const
 {
     return _ignoreSize;
-}
-
-const Size& Widget::getSize() const
-{
-    return this->getContentSize();
 }
 
 const Size& Widget::getCustomSize() const
@@ -714,11 +701,6 @@ Widget* Widget::getAncestorWidget(Node* node)
     }
 }
 
-Widget* Widget::getAncensterWidget(Node* node)
-{
-    return getAncestorWidget(node);
-}
-
 bool Widget::isAncestorsVisible(Node* node)
 {
     if (nullptr == node)
@@ -884,10 +866,6 @@ void Widget::pushDownEvent()
         _touchEventCallback(this, TouchEventType::BEGAN);
     }
 
-    if (_touchEventListener && _touchEventSelector)
-    {
-        (_touchEventListener->*_touchEventSelector)(this,TOUCH_EVENT_BEGAN);
-    }
     this->release();
 }
 
@@ -899,10 +877,6 @@ void Widget::moveEvent()
         _touchEventCallback(this, TouchEventType::MOVED);
     }
 
-    if (_touchEventListener && _touchEventSelector)
-    {
-        (_touchEventListener->*_touchEventSelector)(this,TOUCH_EVENT_MOVED);
-    }
     this->release();
 }
 
@@ -920,11 +894,6 @@ void Widget::releaseUpEvent()
         _touchEventCallback(this, TouchEventType::ENDED);
     }
 
-    if (_touchEventListener && _touchEventSelector)
-    {
-        (_touchEventListener->*_touchEventSelector)(this,TOUCH_EVENT_ENDED);
-    }
-
     if (_clickEventListener) {
         _clickEventListener(this);
     }
@@ -939,17 +908,7 @@ void Widget::cancelUpEvent()
         _touchEventCallback(this, TouchEventType::CANCELED);
     }
 
-    if (_touchEventListener && _touchEventSelector)
-    {
-        (_touchEventListener->*_touchEventSelector)(this,TOUCH_EVENT_CANCELED);
-    }
     this->release();
-}
-
-void Widget::addTouchEventListener(Ref *target, SEL_TouchEvent selector)
-{
-    _touchEventListener = target;
-    _touchEventSelector = selector;
 }
 
 void Widget::addTouchEventListener(const ccWidgetTouchCallback& callback)
@@ -1174,11 +1133,6 @@ LayoutParameter* Widget::getLayoutParameter()const
     return dynamic_cast<LayoutParameter*>(_layoutParameterDictionary.at((int)_layoutParameterType));
 }
 
-LayoutParameter* Widget::getLayoutParameter(LayoutParameter::Type type)
-{
-    return dynamic_cast<LayoutParameter*>(_layoutParameterDictionary.at((int)type));
-}
-
 std::string Widget::getDescription() const
 {
     return "Widget";
@@ -1209,16 +1163,6 @@ void Widget::copyClonedWidgetChildren(Widget* model)
             addChild(child->clone());
         }
     }
-}
-
-GLProgramState* Widget::getNormalGLProgramState(Texture2D* texture)const
-{
-    return GLProgramState::getOrCreateWithGLProgramName(GLProgram::SHADER_NAME_POSITION_TEXTURE_COLOR_NO_MVP, texture);
-}
-
-GLProgramState* Widget::getGrayGLProgramState(Texture2D* texture)const
-{
-    return GLProgramState::getOrCreateWithGLProgramName(GLProgram::SHADER_NAME_POSITION_GRAYSCALE, texture);
 }
 
 void Widget::copySpecialProperties(Widget* /*model*/)
@@ -1258,7 +1202,6 @@ void Widget::copyProperties(Widget *widget)
     setCascadeOpacityEnabled(widget->isCascadeOpacityEnabled());
     _touchEventCallback = widget->_touchEventCallback;
     _touchEventListener = widget->_touchEventListener;
-    _touchEventSelector = widget->_touchEventSelector;
     _clickEventListener = widget->_clickEventListener;
     _focused = widget->_focused;
     _focusEnabled = widget->_focusEnabled;
@@ -1273,77 +1216,77 @@ void Widget::copyProperties(Widget *widget)
     }
 }
 
-    void Widget::setFlippedX(bool flippedX)
-    {
+void Widget::setFlippedX(bool flippedX)
+{
 
-        float realScale = this->getScaleX();
-        _flippedX = flippedX;
-        this->setScaleX(realScale);
+    float realScale = this->getScaleX();
+    _flippedX = flippedX;
+    this->setScaleX(realScale);
+}
+
+void Widget::setFlippedY(bool flippedY)
+{
+    float realScale = this->getScaleY();
+    _flippedY = flippedY;
+    this->setScaleY(realScale);
+}
+
+
+
+void Widget::setScaleX(float scaleX)
+{
+    if (_flippedX) {
+        scaleX = scaleX * -1;
     }
+    Node::setScaleX(scaleX);
+}
 
-    void Widget::setFlippedY(bool flippedY)
-    {
-        float realScale = this->getScaleY();
-        _flippedY = flippedY;
-        this->setScaleY(realScale);
+void Widget::setScaleY(float scaleY)
+{
+    if (_flippedY) {
+        scaleY = scaleY * -1;
     }
+    Node::setScaleY(scaleY);
+}
 
+void Widget::setScale(float scale)
+{
+    this->setScaleX(scale);
+    this->setScaleY(scale);
+    this->setScaleZ(scale);
+}
 
+void Widget::setScale(float scaleX, float scaleY)
+{
+    this->setScaleX(scaleX);
+    this->setScaleY(scaleY);
+}
 
-    void Widget::setScaleX(float scaleX)
+float Widget::getScaleX()const
+{
+    float originalScale = Node::getScaleX();
+    if (_flippedX)
     {
-        if (_flippedX) {
-            scaleX = scaleX * -1;
-        }
-        Node::setScaleX(scaleX);
+        originalScale = originalScale * -1.0f;
     }
+    return originalScale;
+}
 
-    void Widget::setScaleY(float scaleY)
+float Widget::getScaleY()const
+{
+    float originalScale = Node::getScaleY();
+    if (_flippedY)
     {
-        if (_flippedY) {
-            scaleY = scaleY * -1;
-        }
-        Node::setScaleY(scaleY);
+        originalScale = originalScale * -1.0f;
     }
+    return originalScale;
+}
 
-    void Widget::setScale(float scale)
-    {
-        this->setScaleX(scale);
-        this->setScaleY(scale);
-        this->setScaleZ(scale);
-    }
-
-    void Widget::setScale(float scaleX, float scaleY)
-    {
-        this->setScaleX(scaleX);
-        this->setScaleY(scaleY);
-    }
-
-    float Widget::getScaleX()const
-    {
-        float originalScale = Node::getScaleX();
-        if (_flippedX)
-        {
-            originalScale = originalScale * -1.0f;
-        }
-        return originalScale;
-    }
-
-    float Widget::getScaleY()const
-    {
-        float originalScale = Node::getScaleY();
-        if (_flippedY)
-        {
-            originalScale = originalScale * -1.0f;
-        }
-        return originalScale;
-    }
-
-    float Widget::getScale()const
-    {
-        CCASSERT(this->getScaleX() == this->getScaleY(), "scaleX should be equal to scaleY.");
-        return this->getScaleX();
-    }
+float Widget::getScale()const
+{
+    CCASSERT(this->getScaleX() == this->getScaleY(), "scaleX should be equal to scaleY.");
+    return this->getScaleX();
+}
 
 
 /*temp action*/
@@ -1472,10 +1415,6 @@ void Widget::onFocusChange(Widget* widgetLostFocus, Widget* widgetGetFocus)
     {
         widgetGetFocus->setFocused(true);
     }
-}
-    
-Widget* Widget::getCurrentFocusedWidget(bool /*isWidget*/){
-    return getCurrentFocusedWidget();
 }
 
 Widget* Widget::getCurrentFocusedWidget()

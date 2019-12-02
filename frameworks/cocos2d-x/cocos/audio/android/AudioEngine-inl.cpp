@@ -55,7 +55,6 @@
 #include "audio/android/UrlAudioPlayer.h"
 
 using namespace cocos2d;
-using namespace cocos2d::experimental;
 
 // Audio focus values synchronized with which in cocos/platform/android/java/src/org/cocos2dx/lib/Cocos2dxActivity.java
 static const int AUDIOFOCUS_GAIN = 0;
@@ -97,8 +96,7 @@ static int fdGetter(const std::string& url, off_t* start, off_t* length)
     {
         fd = getObbAssetFileDescriptorJNI(url.c_str(), start, length);
     } 
-    
-    if (fd <= 0)
+    else
     {
         auto asset = AAssetManager_open(cocos2d::FileUtilsAndroid::getAssetManager(), url.c_str(), AASSET_MODE_UNKNOWN);
         // open asset as file descriptor

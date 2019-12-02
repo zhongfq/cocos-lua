@@ -11,7 +11,6 @@ M.INCLUDES = [[
 #include "lua-bindings/lua_conv_manual.h"
 #include "lua-bindings/LuaCocosAdapter.h"
 #include "xgame/xlua.h"
-#include "xgame/xruntime.h"
 #include "cocos2d.h"
 ]]
 M.CHUNK = [[

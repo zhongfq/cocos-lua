@@ -3,7 +3,7 @@
  Copyright (c) 2010-2013 cocos2d-x.org
  Copyright (c) 2011      Zynga Inc.
  Copyright (c) 2013-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2017-2019 Xiamen Yaji Software Co., Ltd.
 
 http://www.cocos2d-x.org
 
@@ -25,9 +25,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
-
-#ifndef __CCDIRECTOR_H__
-#define __CCDIRECTOR_H__
+#pragma once
 
 #include <stack>
 #include <thread>
@@ -38,7 +36,6 @@ THE SOFTWARE.
 #include "base/CCVector.h"
 #include "2d/CCScene.h"
 #include "math/CCMath.h"
-#include "platform/CCGL.h"
 #include "platform/CCGLView.h"
 
 NS_CC_BEGIN
@@ -63,10 +60,6 @@ class Renderer;
 class Camera;
 
 class Console;
-namespace experimental
-{
-    class FrameBuffer;
-}
 
 /**
  * @brief Matrix stack type.
@@ -142,12 +135,6 @@ public:
      */
     static Director* getInstance();
 
-    /**
-     * @deprecated Use getInstance() instead.
-     * @js NA
-     */
-    CC_DEPRECATED_ATTRIBUTE static Director* sharedDirector() { return Director::getInstance(); }
-    
     /**
      * @js ctor
      */
@@ -320,7 +307,7 @@ public:
      If level is 1, it will pop all scenes until it reaches to root scene.
      If level is <= than the current stack level, it won't do anything.
      */
-    void popToSceneStackLevel(int level);
+ 	void popToSceneStackLevel(int level);
 
     /** Replaces the running scene with a new one. The running scene is terminated.
      * ONLY call it if there is a running scene.
@@ -375,7 +362,7 @@ public:
      */
     void purgeCachedData();
 
-    /** Sets the default values based on the Configuration info. */
+	/** Sets the default values based on the Configuration info. */
     void setDefaultValues();
 
     // OpenGL Helper
@@ -385,23 +372,12 @@ public:
      * @js NA
      */
     void setGLDefaultValues();
-
-    /** Enables/disables OpenGL alpha blending. */
-    void setAlphaBlending(bool on);
     
     /** Sets clear values for the color buffers,
      * value range of each element is [0.0, 1.0].
      * @js NA
      */
     void setClearColor(const Color4F& clearColor);
-
-    /** Gets clear values for the color buffers.
-     * @js NA
-     */
-    const Color4F& getClearColor() const;
-
-    /** Enables/disables OpenGL depth test. */
-    void setDepthTest(bool on);
 
     void mainLoop();
     /** Invoke main loop with delta time. Then `calculateDeltaTime` can just use the delta time directly.
@@ -480,34 +456,15 @@ public:
      */
     void pushMatrix(MATRIX_STACK_TYPE type);
 
-    /**
-     * Clones a projection matrix and put it to the top of projection matrix stack.
-     * @param index The index of projection matrix stack.
-     * @js NA
-     */
-    void pushProjectionMatrix(size_t index);
-
     /** Pops the top matrix of the specified type of matrix stack.
      * @js NA
      */
     void popMatrix(MATRIX_STACK_TYPE type);
 
-    /** Pops the top matrix of the projection matrix stack.
-     * @param index The index of projection matrix stack.
-     * @js NA
-     */
-    void popProjectionMatrix(size_t index);
-
     /** Adds an identity matrix to the top of specified type of matrix stack.
      * @js NA
      */
     void loadIdentityMatrix(MATRIX_STACK_TYPE type);
-
-    /** Adds an identity matrix to the top of projection matrix stack.
-     * @param index The index of projection matrix stack.
-     * @js NA
-     */
-    void loadProjectionIdentityMatrix(size_t index);
 
     /**
      * Adds a matrix to the top of specified type of matrix stack.
@@ -519,15 +476,6 @@ public:
     void loadMatrix(MATRIX_STACK_TYPE type, const Mat4& mat);
 
     /**
-     * Adds a matrix to the top of projection matrix stack.
-     *
-     * @param mat The matrix that to be added.
-     * @param index The index of projection matrix stack.
-     * @js NA
-     */
-    void loadProjectionMatrix(const Mat4& mat, size_t index);
-
-    /**
      * Multiplies a matrix to the top of specified type of matrix stack.
      *
      * @param type Matrix type.
@@ -537,45 +485,16 @@ public:
     void multiplyMatrix(MATRIX_STACK_TYPE type, const Mat4& mat);
 
     /**
-     * Multiplies a matrix to the top of projection matrix stack.
-     *
-     * @param mat The matrix that to be multiplied.
-     * @param index The index of projection matrix stack.
-     * @js NA
-     */
-    void multiplyProjectionMatrix(const Mat4& mat, size_t index);
-
-    /**
      * Gets the top matrix of specified type of matrix stack.
      * @js NA
      */
     const Mat4& getMatrix(MATRIX_STACK_TYPE type) const;
 
     /**
-     * Gets the top matrix of projection matrix stack.
-     * @param index The index of projection matrix stack.
-     * @js NA
-     */
-    const Mat4& getProjectionMatrix(size_t index) const;
-
-    /**
      * Clear all types of matrix stack, and add identity matrix to these matrix stacks.
      * @js NA
      */
     void resetMatrixStack();
-
-    /**
-     * Init the projection matrix stack.
-     * @param stackCount The size of projection matrix stack.
-     * @js NA
-     */
-    void initProjectionMatrixStack(size_t stackCount);
-
-    /**
-     * Get the size of projection matrix stack.
-     * @js NA
-     */
-    size_t getProjectionMatrixStackSize();
 
     /**
      * returns the cocos2d thread id.
@@ -590,6 +509,10 @@ public:
 
 protected:
     void reset();
+    
+
+    virtual void startAnimation(SetIntervalReason reason);
+    virtual void setAnimationInterval(float interval, SetIntervalReason reason);
 
     void purgeDirector();
     bool _purgeDirectorInNextLoop = false; // this flag will be set to true in end()
@@ -617,11 +540,8 @@ protected:
     void initMatrixStack();
 
     std::stack<Mat4> _modelViewMatrixStack;
-    /** In order to support GL MultiView features, we need to use the matrix array,
-        but we don't know the number of MultiView, so using the vector instead.
-     */
-    std::vector< std::stack<Mat4> > _projectionMatrixStackList;
     std::stack<Mat4> _textureMatrixStack;
+    std::stack<Mat4> _projectionMatrixStack;
 
     /** Scheduler associated with this director
      @since v2.0
@@ -711,6 +631,8 @@ protected:
     /* Renderer for the Director */
     Renderer *_renderer = nullptr;
 
+    Color4F _clearColor = {0, 0, 0, 1};
+
     /* Console for the director */
     Console *_console = nullptr;
 
@@ -726,15 +648,7 @@ protected:
     friend class GLView;
 };
 
-// FIXME: Added for backward compatibility in case
-// someone is subclassing it.
-// Should be removed in v4.0
-class DisplayLinkDirector : public Director
-{};
-
 // end of base group
 /** @} */
 
 NS_CC_END
-
-#endif // __CCDIRECTOR_H__

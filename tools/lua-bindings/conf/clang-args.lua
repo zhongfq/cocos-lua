@@ -4,14 +4,15 @@ return {
         #undef __SSE__
     ]],
     HEADERS = {
-        'audio/include/AudioEngine.h',
-        'audio/include/SimpleAudioEngine.h',
-        'base/TGAlib.h',
         'cocos2d.h',
+        '3d/CC3DProgramInfo.h',
+        '3d/CCBundle3D.h',
+        'audio/include/AudioEngine.h',
+        'base/TGAlib.h',
+        'renderer/backend/Backend.h',
         'ui/CocosGUI.h',
         'ui/UIScrollViewBar.h',
-        'vr/CCVRGenericHeadTracker.h',
-        'vr/CCVRGenericRenderer.h',
+        'navmesh/CCNavMesh.h',
 
         'FairyGUI.h',
         'tween/EaseManager.h',
@@ -27,8 +28,6 @@ return {
         'xgame/xrootscene.h',
         'xgame/xtimer.h',
         'lua-bindings/LuaCocosAdapter.h',
-
-        'CCDragonBonesHeaders.h',
     },
     FLAGS = {
         '-DCC_CONSTRUCTOR_ACCESS=public',
@@ -40,7 +39,7 @@ return {
         '-I../../frameworks/cocos2d-x/cocos',
         '-I../../frameworks/cocos2d-x/cocos/editor-support',
         '-I../../frameworks/cocos2d-x/cocos/platform',
-        '-I../../frameworks/libdragonbones/src',
+        '-I../../frameworks/cocos2d-x/external',
         '-I../../frameworks/libfairygui/Classes',
         '-I../../frameworks/libxgame/src',
     },

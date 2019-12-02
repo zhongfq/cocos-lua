@@ -15,7 +15,6 @@ M.INCLUDES = [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "xgame/xlua.h"
-#include "xgame/xruntime.h"
 #include "cocos2d.h"
 #include "spine/spine-cocos2dx.h"
 ]]
@@ -101,6 +100,20 @@ template <typename T> int manual_olua_push_spine_Vector(lua_State *L, const spin
         lua_rawseti(L, -2, count++);
     }
     return 1;
+}
+
+template <typename T> void manual_olua_check_spine_Vector(lua_State *L, int idx, spine::Vector<T*> &v, const char *cls)
+{
+    luaL_checktype(L, idx, LUA_TTABLE);
+    size_t total = lua_rawlen(L, idx);
+    v.ensureCapacity(total);
+    for (int i = 1; i <= total; i++) {
+        lua_rawgeti(L, idx, i);
+        T* obj;
+        olua_check_cppobj(L, -1, (void **)&obj, cls);
+        v.add(obj);
+        lua_pop(L, 1);
+    }
 }
 ]]
 
@@ -315,6 +328,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'spine::Animation'
 cls.SUPERCLS = "spine::SpineObject"
 cls.funcs [[
+    Animation(const spine::String &name, Vector<spine::Timeline *> &timelines, float duration)
     const spine::String &getName()
     Vector<spine::Timeline *> &getTimelines()
     bool hasTimeline(int id)
@@ -1541,6 +1555,7 @@ cls.funcs [[
     static spine::SkeletonRenderer *createWithData(@ref(single skeletonData) spine::SkeletonData *skeletonData, @optional bool ownsSkeletonData)
     static spine::SkeletonRenderer *createWithFile(const std::string &skeletonDataFile, spine::Atlas *atlas, @optional float scale)
     static spine::SkeletonRenderer *createWithFile(const std::string &skeletonDataFile, const std::string &atlasFile, @optional float scale)
+    void drawDebug(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t transformFlags)
     spine::Skeleton *getSkeleton()
     void setTimeScale(float scale)
     float getTimeScale()
@@ -1569,6 +1584,7 @@ cls.funcs [[
     void setSlotsRange(int startSlotIndex, int endSlotIndex)
     void setBlendFunc(const cocos2d::BlendFunc &blendFunc)
     const cocos2d::BlendFunc &getBlendFunc()
+    static void destroyScratchBuffers()
     SkeletonRenderer()
     SkeletonRenderer(const std::string &skeletonDataFile, spine::Atlas *atlas, @optional float scale)
     SkeletonRenderer(const std::string &skeletonDataFile, const std::string &atlasFile, @optional float scale)

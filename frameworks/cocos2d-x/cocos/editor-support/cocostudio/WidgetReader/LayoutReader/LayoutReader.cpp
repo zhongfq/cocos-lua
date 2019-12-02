@@ -369,7 +369,7 @@ namespace cocostudio
         Color3B bgStartColor;
         Color3B bgEndColor;
         int colorType = 0;
-        GLubyte bgColorOpacity = 255;
+        uint8_t bgColorOpacity = 255;
         Vec2 colorVector(0.0f, -0.5f);
         Rect capInsets;
         Size scale9Size;
@@ -648,7 +648,7 @@ namespace cocostudio
         auto imageFileNameDic = options->backGroundImageData();
         int imageFileNameType = imageFileNameDic->resourceType();
         std::string imageFileName = imageFileNameDic->path()->c_str();
-        if (!imageFileName.empty())
+        if (imageFileName != "")
         {
             switch (imageFileNameType)
             {
@@ -746,7 +746,7 @@ namespace cocostudio
         return layout;
     }
     
-    int LayoutReader::getResourceType(const std::string& key)
+    int LayoutReader::getResourceType(std::string key)
     {
         if(key == "Normal" || key == "Default")
         {

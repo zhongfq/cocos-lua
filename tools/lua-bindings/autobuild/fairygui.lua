@@ -194,6 +194,27 @@ cls.funcs [[
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'fairygui::PixelHitTest'
+cls.SUPERCLS = "fairygui::IHitTest"
+cls.funcs [[
+    PixelHitTest(fairygui::PixelHitTestData *data, int offsetX, int offsetY)
+]]
+cls.var('offsetX', [[int offsetX]])
+cls.var('offsetY', [[int offsetY]])
+cls.var('scaleX', [[float scaleX]])
+cls.var('scaleY', [[float scaleY]])
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'fairygui::PixelHitTestData'
+cls.funcs [[
+    PixelHitTestData()
+]]
+cls.var('pixelWidth', [[int pixelWidth]])
+cls.var('scale', [[float scale]])
+cls.var('pixels', [[unsigned char *pixels]])
+cls.var('pixelsLength', [[size_t pixelsLength]])
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'fairygui::InputProcessor'
 cls.funcs [[
     fairygui::InputEvent *getRecentInput()
@@ -1181,8 +1202,8 @@ cls.funcs [[
     float getSoundVolumeScale()
     void setSoundVolumeScale(float value)
     void setNotAsUIRoot()
-    cocos2d::Vec2 worldToRoot(@pack const cocos2d::Vec2 &pt)
-    cocos2d::Vec2 rootToWorld(@pack const cocos2d::Vec2 &pt)
+    cocos2d::Vec2 worldToRoot(const cocos2d::Vec2 &pt)
+    cocos2d::Vec2 rootToWorld(const cocos2d::Vec2 &pt)
 ]]
 cls.var('contentScaleLevel', [[static int contentScaleLevel]])
 cls.prop('UIRoot', 'static GRoot* getInstance()')
@@ -2145,9 +2166,9 @@ private:
         return true;
     }
 
+    bool _loaded;
     std::function<void()> _complete;
     std::string _name;
-    bool _loaded;
 };
 NS_FGUI_END
 ]]
@@ -2370,8 +2391,8 @@ cls.funcs [[
     void setClippingRegion(const cocos2d::Rect &clippingRegion)
     cocos2d::Node *getStencil()
     void setStencil(cocos2d::Node *stencil)
-    GLfloat getAlphaThreshold()
-    void setAlphaThreshold(GLfloat alphaThreshold)
+    float getAlphaThreshold()
+    void setAlphaThreshold(float alphaThreshold)
     bool isInverted()
     void setInverted(bool inverted)
 ]]

@@ -46,7 +46,7 @@ PURandomiser::PURandomiser() :
     _update(true)
 {
 }
-PURandomiser::~PURandomiser()
+PURandomiser::~PURandomiser( void )
 {
 
 }

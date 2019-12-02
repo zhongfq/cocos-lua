@@ -183,3 +183,7 @@ target_include_directories(fairygui
     PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/Classes>
 )
+
+if(XCODE OR VS)
+    cocos_mark_code_files("fairygui" GROUPBASE "${CMAKE_CURRENT_SOURCE_DIR}/Classes")
+endif()

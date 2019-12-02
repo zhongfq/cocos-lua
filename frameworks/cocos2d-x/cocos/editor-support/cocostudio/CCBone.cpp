@@ -99,11 +99,13 @@ bool Bone::init()
     return Bone::init("");
 }
 
+
 bool Bone::init(const std::string& name)
 {
     bool bRet = false;
     do
     {
+
         _name = name;
 
         CC_SAFE_DELETE(_tweenData);
@@ -260,7 +262,7 @@ void Bone::updateDisplayedColor(const Color3B &parentColor)
     Node::updateDisplayedColor(parentColor);
 }
 
-void Bone::updateDisplayedOpacity(GLubyte parentOpacity)
+void Bone::updateDisplayedOpacity(uint8_t parentOpacity)
 {
 #ifdef CC_STUDIO_ENABLED_VIEW
     _realOpacity = 255;

@@ -88,14 +88,14 @@ Properties::Properties(Data* data, ssize_t* dataIdx, const std::string& name, co
 
 Properties* Properties::createNonRefCounted(const std::string& url)
 {
-    if (url.empty())
+    if (url.size() == 0)
     {
         CCLOGERROR("Attempting to create a Properties object from an empty URL!");
         return nullptr;
     }
 
     // Calculate the file and full namespace path from the specified url.
-    const std::string& urlString = url;
+    std::string urlString = url;
     std::string fileString;
     std::vector<std::string> namespacePath;
     calculateNamespacePath(urlString, fileString, namespacePath);
@@ -235,7 +235,7 @@ void Properties::readProperties()
                 else
                 {
                     // Normal name/value pair
-                    _properties.emplace_back(name, value);
+                    _properties.push_back(Property(name, value));
                 }
             }
             else
@@ -383,11 +383,11 @@ void Properties::readProperties()
                             // Store "name value" as a name/value pair, or even just "name".
                             if (value != NULL)
                             {
-                                _properties.emplace_back(name, value);
+                                _properties.push_back(Property(name, value));
                             }
                             else
                             {
-                                _properties.emplace_back(name, "");
+                                _properties.push_back(Property(name, ""));
                             }
                         }
                     }
@@ -832,7 +832,7 @@ bool Properties::setString(const char* name, const char* value)
         }
 
         // There is no property with this name, so add one
-        _properties.emplace_back(name, value ? value : "");
+        _properties.push_back(Property(name, value ? value : ""));
     }
     else
     {
@@ -1139,7 +1139,7 @@ Properties* getPropertiesFromNamespacePath(Properties* properties, const std::ve
 {
     // If the url references a specific namespace within the file,
     // return the specified namespace or notify the user if it cannot be found.
-    if (!namespacePath.empty())
+    if (namespacePath.size() > 0)
     {
         size_t size = namespacePath.size();
         properties->rewind();

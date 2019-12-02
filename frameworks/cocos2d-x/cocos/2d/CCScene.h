@@ -113,27 +113,9 @@ public:
      * @js NA
      */
     virtual void render(Renderer* renderer, const Mat4& eyeTransform, const Mat4* eyeProjection = nullptr);
-
-    /** Render the scene.
-     * @param renderer The renderer use to render the scene.
-     * @param eyeTransforms The AdditionalTransform List of camera of multiView.
-     * @param eyeProjections The projection matrix List of camera of multiView.
-     * @param multiViewCount The number of multiView.
-     * @js NA
-     */
-    virtual void render(Renderer* renderer, const Mat4* eyeTransforms, const Mat4* eyeProjections, unsigned int multiViewCount);
-
+  
     /** override function */
     virtual void removeAllChildren() override;
-    
-    /**
-     * Event callback that is invoked every time when Node enters the 'stage'.
-     * If the Node enters the 'stage' with a transition, this event is called when the transition starts.
-     * During onEnter you can't access a "sister/brother" node.
-     * If you override onEnter, you shall call its parent's one, e.g., Node::onEnter().
-     * @lua NA
-     */
-    virtual void onEnter() override;
     
 CC_CONSTRUCTOR_ACCESS:
     Scene();

@@ -23,10 +23,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
-
-#include "platform/CCPlatformConfig.h"
-#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
-
 #import "platform/CCImage.h"
 #import "platform/CCCommon.h"
 #import <string>
@@ -40,10 +36,10 @@ NS_CC_BEGIN
 
 bool cocos2d::Image::saveToFile(const std::string& filename, bool isToRGB)
 {
-    //only support for Texture2D::PixelFormat::RGB888 or Texture2D::PixelFormat::RGBA8888 uncompressed data
-    if (isCompressed() || (_renderFormat != Texture2D::PixelFormat::RGB888 && _renderFormat != Texture2D::PixelFormat::RGBA8888))
+    //only support for backend::PixelFormat::RGB888 or backend::PixelFormat::RGBA8888 uncompressed data
+    if (isCompressed() || (_pixelFormat != backend::PixelFormat::RGB888 && _pixelFormat != backend::PixelFormat::RGBA8888))
     {
-        CCLOG("cocos2d: Image: saveToFile is only support for Texture2D::PixelFormat::RGB888 or Texture2D::PixelFormat::RGBA8888 uncompressed data for now");
+        CCLOG("cocos2d: Image: saveToFile is only support for backend::PixelFormat::RGB888 or backend::PixelFormat::RGBA8888 uncompressed data for now");
         return false;
     }
     bool saveToPNG = false;
@@ -98,7 +94,7 @@ bool cocos2d::Image::saveToFile(const std::string& filename, bool isToRGB)
         else
         {
             bitmapInfo |= kCGImageAlphaLast;
-        }
+        }        
     }
     CGDataProviderRef provider        = CGDataProviderCreateWithData(nullptr, pixels, myDataLength, nullptr);
     CGColorSpaceRef colorSpaceRef    = CGColorSpaceCreateDeviceRGB();
@@ -136,6 +132,3 @@ bool cocos2d::Image::saveToFile(const std::string& filename, bool isToRGB)
 }
 
 NS_CC_END
-
-#endif // CC_PLATFORM_IOS
-

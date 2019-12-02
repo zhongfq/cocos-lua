@@ -6,7 +6,6 @@
 #include "lua-bindings/lua_conv_manual.h"
 #include "lua-bindings/LuaCocosAdapter.h"
 #include "xgame/xlua.h"
-#include "xgame/xruntime.h"
 #include "cocos2d.h"
 
 using namespace cocos2d;
@@ -6858,7 +6857,7 @@ static int _cocos2d_PhysicsWorld_queryPoint(lua_State *L)
         return ret;
     };
 
-    // void queryPoint(@local const std::function<bool (PhysicsWorld &, PhysicsShape &, void *)> &func, const cocos2d::Vec2 &point, void *data)
+    // void queryPoint(@local std::function<bool (PhysicsWorld &, PhysicsShape &, void *)> func, const cocos2d::Vec2 &point, void *data)
     self->queryPoint(arg1, arg2, arg3);
 
     olua_endinvoke(L);
@@ -6908,7 +6907,7 @@ static int _cocos2d_PhysicsWorld_queryRect(lua_State *L)
         return ret;
     };
 
-    // void queryRect(@local const std::function<bool (PhysicsWorld &, PhysicsShape &, void *)> &func, const cocos2d::Rect &rect, void *data)
+    // void queryRect(@local std::function<bool (PhysicsWorld &, PhysicsShape &, void *)> func, const cocos2d::Rect &rect, void *data)
     self->queryRect(arg1, arg2, arg3);
 
     olua_endinvoke(L);
@@ -6960,7 +6959,7 @@ static int _cocos2d_PhysicsWorld_rayCast(lua_State *L)
         return ret;
     };
 
-    // void rayCast(@local const std::function<bool (PhysicsWorld &, const PhysicsRayCastInfo &, void *)> &func, const cocos2d::Vec2 &start, const cocos2d::Vec2 &end, void *data)
+    // void rayCast(@local std::function<bool (PhysicsWorld &, const PhysicsRayCastInfo &, void *)> func, const cocos2d::Vec2 &start, const cocos2d::Vec2 &end, void *data)
     self->rayCast(arg1, arg2, arg3, arg4);
 
     olua_endinvoke(L);
@@ -7169,24 +7168,6 @@ static int _cocos2d_PhysicsWorld_setAutoStep(lua_State *L)
 
     // void setAutoStep(bool autoStep)
     self->setAutoStep(arg1);
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-
-static int _cocos2d_PhysicsWorld_setDebugDrawGlobalZOrder(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    cocos2d::PhysicsWorld *self = nullptr;
-    lua_Number arg1 = 0;       /** globalZOrder */
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsWorld");
-    olua_check_number(L, 2, &arg1);
-
-    // void setDebugDrawGlobalZOrder(float globalZOrder)
-    self->setDebugDrawGlobalZOrder((float)arg1);
 
     olua_endinvoke(L);
 
@@ -7424,7 +7405,6 @@ static int luaopen_cocos2d_PhysicsWorld(lua_State *L)
     oluacls_func(L, "removeBody", _cocos2d_PhysicsWorld_removeBody);
     oluacls_func(L, "removeJoint", _cocos2d_PhysicsWorld_removeJoint);
     oluacls_func(L, "setAutoStep", _cocos2d_PhysicsWorld_setAutoStep);
-    oluacls_func(L, "setDebugDrawGlobalZOrder", _cocos2d_PhysicsWorld_setDebugDrawGlobalZOrder);
     oluacls_func(L, "setDebugDrawMask", _cocos2d_PhysicsWorld_setDebugDrawMask);
     oluacls_func(L, "setFixedUpdateRate", _cocos2d_PhysicsWorld_setFixedUpdateRate);
     oluacls_func(L, "setGravity", _cocos2d_PhysicsWorld_setGravity);

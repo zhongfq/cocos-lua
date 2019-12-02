@@ -57,6 +57,22 @@ typedef {
 }
 
 typedef {
+    CPPCLS = 'fairygui::PixelHitTest *',
+    LUACLS = 'fgui.PixelHitTest',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'fairygui::PixelHitTestData *',
+    LUACLS = 'fgui.PixelHitTestData',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
     CPPCLS = 'fairygui::InputProcessor *',
     LUACLS = 'fgui.InputProcessor',
     DECLTYPE = nil,

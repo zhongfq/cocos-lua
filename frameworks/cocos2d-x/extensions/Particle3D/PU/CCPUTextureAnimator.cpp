@@ -36,16 +36,16 @@ const PUTextureAnimator::TextureAnimationType PUTextureAnimator::DEFAULT_ANIMATI
 const bool PUTextureAnimator::DEFAULT_START_RANDOM = true;
 
 //-----------------------------------------------------------------------
-PUTextureAnimator::PUTextureAnimator()
-: PUAffector()
-, _animationTimeStep(DEFAULT_TIME_STEP)
-, _animationTimeStepCount(0.0f)
-, _startRandom(DEFAULT_START_RANDOM)
-, _animationTimeStepSet(false)
-, _nextIndex(false)
-, _textureAnimationType(DEFAULT_ANIMATION_TYPE)
-, _textureCoordsStart(DEFAULT_TEXCOORDS_START)
-, _textureCoordsEnd(DEFAULT_TEXCOORDS_END)
+PUTextureAnimator::PUTextureAnimator() : 
+    PUAffector(),
+    _animationTimeStep(DEFAULT_TIME_STEP),
+    _animationTimeStepCount(0.0f),
+    _startRandom(DEFAULT_START_RANDOM),
+    _animationTimeStepSet(false),
+    _nextIndex(false),
+    _textureAnimationType(DEFAULT_ANIMATION_TYPE),
+    _textureCoordsStart(DEFAULT_TEXCOORDS_START),
+    _textureCoordsEnd(DEFAULT_TEXCOORDS_END)
 {
 }
 //-----------------------------------------------------------------------

@@ -254,7 +254,7 @@ cls.func('unschedule', [[{
 }]])
 cls.callback {
     FUNCS =  {
-        'static void delayWithTag(float time, const std::string &tag, std::function<void ()> callback)'
+        'static void delayWithTag(float time, const std::string &tag, @local std::function<void ()> callback)'
     },
     TAG_MAKER = 'makeTimerDelayTag(#2)',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -274,7 +274,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'static void delay(float time, const std::function<void ()> callback)'
+        'static void delay(float time, @local const std::function<void ()> callback)'
     },
     TAG_MAKER = 'delay',
     TAG_MODE = 'OLUA_TAG_NEW',
@@ -357,7 +357,6 @@ cls.func('load', [[{
 }]])
 cls.func('setDispatcher', [[{
     static const char *STATES[] = {"ioerror", "loaded", "pending", "invalid"};
-
     void *store_obj = olua_getstoreobj(L, "kernel.downloader");
     std::string func = olua_setcallback(L, store_obj, "dispatcher", 1, OLUA_TAG_REPLACE);
     xgame::downloader::setDispatcher([store_obj, func](const xgame::downloader::FileTask &task) {

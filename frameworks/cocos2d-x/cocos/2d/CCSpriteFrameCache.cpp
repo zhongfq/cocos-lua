@@ -288,26 +288,26 @@ void SpriteFrameCache::addSpriteFramesWithDictionary(ValueMap& dict, const std::
     }
     
     Texture2D *texture = nullptr;
-    static std::unordered_map<std::string, Texture2D::PixelFormat> pixelFormats = {
-        {"RGBA8888", Texture2D::PixelFormat::RGBA8888},
-        {"RGBA4444", Texture2D::PixelFormat::RGBA4444},
-        {"RGB5A1", Texture2D::PixelFormat::RGB5A1},
-        {"RGBA5551", Texture2D::PixelFormat::RGB5A1},
-        {"RGB565", Texture2D::PixelFormat::RGB565},
-        {"A8", Texture2D::PixelFormat::A8},
-        {"ALPHA", Texture2D::PixelFormat::A8},
-        {"I8", Texture2D::PixelFormat::I8},
-        {"AI88", Texture2D::PixelFormat::AI88},
-        {"ALPHA_INTENSITY", Texture2D::PixelFormat::AI88},
-        //{"BGRA8888", Texture2D::PixelFormat::BGRA8888}, no Image conversion RGBA -> BGRA
-        {"RGB888", Texture2D::PixelFormat::RGB888}
+    static std::unordered_map<std::string, backend::PixelFormat> pixelFormats = {
+        {"RGBA8888", backend::PixelFormat::RGBA8888},
+        {"RGBA4444", backend::PixelFormat::RGBA4444},
+        {"RGB5A1", backend::PixelFormat::RGB5A1},
+        {"RGBA5551", backend::PixelFormat::RGB5A1},
+        {"RGB565", backend::PixelFormat::RGB565},
+        {"A8", backend::PixelFormat::A8},
+        {"ALPHA", backend::PixelFormat::A8},
+        {"I8", backend::PixelFormat::I8},
+        {"AI88", backend::PixelFormat::AI88},
+        {"ALPHA_INTENSITY", backend::PixelFormat::AI88},
+        //{"BGRA8888", backend::PixelFormat::BGRA8888}, no Image conversion RGBA -> BGRA
+        {"RGB888", backend::PixelFormat::RGB888}
     };
 
     auto pixelFormatIt = pixelFormats.find(pixelFormatName);
     if (pixelFormatIt != pixelFormats.end())
     {
-        const Texture2D::PixelFormat pixelFormat = (*pixelFormatIt).second;
-        const Texture2D::PixelFormat currentPixelFormat = Texture2D::getDefaultAlphaPixelFormat();
+        const backend::PixelFormat pixelFormat = (*pixelFormatIt).second;
+        const backend::PixelFormat currentPixelFormat = Texture2D::getDefaultAlphaPixelFormat();
         Texture2D::setDefaultAlphaPixelFormat(pixelFormat);
         texture = Director::getInstance()->getTextureCache()->addImage(texturePath);
         Texture2D::setDefaultAlphaPixelFormat(currentPixelFormat);
@@ -343,7 +343,7 @@ void SpriteFrameCache::addSpriteFramesWithFileContent(const std::string& plist_c
 
 void SpriteFrameCache::addSpriteFramesWithFile(const std::string& plist, const std::string& textureFileName)
 {
-    CCASSERT(!textureFileName.empty(), "texture name should not be null");
+    CCASSERT(textureFileName.size()>0, "texture name should not be null");
     const std::string fullPath = FileUtils::getInstance()->fullPathForFilename(plist);
     ValueMap dict = FileUtils::getInstance()->getValueMapFromFile(fullPath);
     addSpriteFramesWithDictionary(dict, textureFileName, plist);
@@ -353,11 +353,6 @@ void SpriteFrameCache::addSpriteFramesWithFile(const std::string& plist)
 {
     CCASSERT(!plist.empty(), "plist filename should not be nullptr");
     
-    if (_spriteFramesCache.isPlistFull(plist)) 
-    {
-        return;
-    }
-
     std::string fullPath = FileUtils::getInstance()->fullPathForFilename(plist);
     if (fullPath.empty())
     {
@@ -659,7 +654,7 @@ void SpriteFrameCache::reloadSpriteFramesWithDictionary(ValueMap& dictionary, Te
 
 bool SpriteFrameCache::reloadTexture(const std::string& plist)
 {
-    CCASSERT(!plist.empty(), "plist filename should not be nullptr");
+    CCASSERT(plist.size()>0, "plist filename should not be nullptr");
 
     if (_spriteFramesCache.isPlistUsed(plist)) {
         _spriteFramesCache.erasePlistIndex(plist);
@@ -754,6 +749,8 @@ bool SpriteFrameCache::PlistFramesCache::eraseFrames(const std::vector<std::stri
     {
         ret |= eraseFrame(frame);
     }
+    _indexPlist2Frames.clear();
+    _indexFrame2plist.clear();
     return ret;
 }
 
@@ -790,7 +787,7 @@ bool SpriteFrameCache::PlistFramesCache::hasFrame(const std::string &frame) cons
 bool SpriteFrameCache::PlistFramesCache::isPlistUsed(const std::string &plist) const
 {
     auto frames = _indexPlist2Frames.find(plist);
-    return frames != _indexPlist2Frames.end() && !frames->second.empty();
+    return frames != _indexPlist2Frames.end() && frames->second.size() > 0;
 } 
 
 SpriteFrame * SpriteFrameCache::PlistFramesCache::at(const std::string &frame)

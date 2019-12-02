@@ -42,7 +42,7 @@ PUParticleFollower::PUParticleFollower() :
 {
 }
 
-PUParticleFollower::~PUParticleFollower()
+PUParticleFollower::~PUParticleFollower( void )
 {
 
 }

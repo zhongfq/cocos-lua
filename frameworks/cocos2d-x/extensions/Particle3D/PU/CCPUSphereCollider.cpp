@@ -39,7 +39,7 @@ PUSphereCollider::PUSphereCollider() :
 {
 }
 
-PUSphereCollider::~PUSphereCollider()
+PUSphereCollider::~PUSphereCollider( void )
 {
 
 }

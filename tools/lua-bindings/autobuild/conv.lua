@@ -15,6 +15,7 @@ M.HEADER_INCLUDES = [[
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "network/WebSocket.h"
+#include "navmesh/CCNavMesh.h"
 ]]
 M.INCLUDES = [[
 #include "lua-bindings/lua_conv.h"
@@ -53,21 +54,21 @@ M.CONVS = {
         ]],
     },
     typeconv {
-        CPPCLS = 'cocos2d::Texture2D::TexParams',
+        CPPCLS = 'cocos2d::Viewport',
         DEF = [[
-            GLuint minFilter;
-            GLuint magFilter;
-            GLuint wrapS;
-            GLuint wrapT;
+            @optional int x;
+            @optional int y;
+            @optional unsigned int w;
+            @optional unsigned int h;
         ]],
     },
     typeconv {
-        CPPCLS = 'cocos2d::experimental::Viewport',
+        CPPCLS = 'cocos2d::ScissorRect',
         DEF = [[
-            float _left;
-            float _bottom;
-            float _width;
-            float _height;
+            @optional float x;
+            @optional float y;
+            @optional float width;
+            @optional float height;
         ]],
     },
     typeconv {
@@ -105,8 +106,8 @@ M.CONVS = {
     typeconv {
         CPPCLS = 'cocos2d::Tex2F',
         DEF = [[
-            GLfloat u;
-            GLfloat v;
+            @optional float u;
+            @optional float v;
         ]],
     },
     typeconv {
@@ -136,8 +137,8 @@ M.CONVS = {
     typeconv {
         CPPCLS = 'cocos2d::BlendFunc',
         DEF = [[
-            GLenum src;
-            GLenum dst;
+            backend::BlendFactor src;
+            backend::BlendFactor dst;
         ]],
     },
     typeconv {
@@ -167,6 +168,14 @@ M.CONVS = {
         ]],
     },
     typeconv {
+        CPPCLS = 'cocos2d::Texture2D::PixelFormatInfo',
+        DEF = [[
+            int bpp;
+            bool compressed;
+            bool alpha;
+        ]],
+    },
+    typeconv {
         CPPCLS = 'cocos2d::Controller::KeyStatus',
         DEF = [[
             bool isPressed;
@@ -182,6 +191,120 @@ M.CONVS = {
             ssize_t issued;
             bool isBinary;
             void *ext;
+        ]],
+    },
+    typeconv {
+        CPPCLS = 'cocos2d::PipelineDescriptor',
+        DEF = [[
+            @optional backend::ProgramState *programState;
+            backend::BlendDescriptor blendDescriptor;
+        ]],
+    },
+    typeconv {
+        CPPCLS = 'cocos2d::NavMeshAgentParam',
+        DEF = [[
+            float radius;
+            float height;
+            float maxAcceleration;
+            float maxSpeed;
+            float collisionQueryRange;
+            float pathOptimizationRange;
+            float separationWeight;
+            unsigned char updateFlags;
+            unsigned char obstacleAvoidanceType;
+            unsigned char queryFilterType;
+        ]],
+    },
+    typeconv {
+        CPPCLS = 'cocos2d::OffMeshLinkData',
+        DEF = [[
+            cocos2d::Vec3 startPosition;
+            cocos2d::Vec3 endPosition;
+        ]],
+    },
+    typeconv {
+        CPPCLS = 'cocos2d::backend::BlendDescriptor',
+        DEF = [[
+            @optional cocos2d::backend::ColorWriteMask writeMask;
+            @optional bool blendEnabled;
+            @optional cocos2d::backend::BlendOperation rgbBlendOperation;
+            @optional cocos2d::backend::BlendOperation alphaBlendOperation;
+            @optional cocos2d::backend::BlendFactor sourceRGBBlendFactor;
+            @optional cocos2d::backend::BlendFactor destinationRGBBlendFactor;
+            @optional cocos2d::backend::BlendFactor sourceAlphaBlendFactor;
+            @optional cocos2d::backend::BlendFactor destinationAlphaBlendFactor;
+        ]],
+    },
+    typeconv {
+        CPPCLS = 'cocos2d::backend::SamplerDescriptor',
+        DEF = [[
+            @optional cocos2d::backend::SamplerFilter magFilter;
+            @optional cocos2d::backend::SamplerFilter minFilter;
+            @optional cocos2d::backend::SamplerAddressMode sAddressMode;
+            @optional cocos2d::backend::SamplerAddressMode tAddressMode;
+        ]],
+    },
+    typeconv {
+        CPPCLS = 'cocos2d::backend::TextureInfo',
+        DEF = [[
+            std::vector<uint32_t> slot;
+            std::vector<backend::TextureBackend *> textures;
+        ]],
+    },
+    typeconv {
+        CPPCLS = 'cocos2d::backend::AttributeBindInfo',
+        DEF = [[
+            std::string attributeName;
+            @optional int location;
+            @optional int size;
+            @optional int type;
+        ]],
+    },
+    typeconv {
+        CPPCLS = 'cocos2d::backend::UniformInfo',
+        DEF = [[
+            @optional int count;
+            @optional int location;
+            @optional unsigned int type;
+            @optional bool isArray;
+            @optional unsigned int size;
+            @optional unsigned int bufferOffset;
+            @optional bool isMatrix;
+            @optional bool needConvert;
+        ]],
+    },
+    typeconv {
+        CPPCLS = 'cocos2d::backend::TextureDescriptor',
+        DEF = [[
+            @optional cocos2d::backend::TextureType textureType;
+            @optional cocos2d::backend::PixelFormat textureFormat;
+            @optional cocos2d::backend::TextureUsage textureUsage;
+            @optional uint32_t width;
+            @optional uint32_t height;
+            @optional uint32_t depth;
+            cocos2d::backend::SamplerDescriptor samplerDescriptor;
+        ]],
+    },
+    typeconv {
+        CPPCLS = 'cocos2d::backend::StencilDescriptor',
+        DEF = [[
+            @optional cocos2d::backend::StencilOperation stencilFailureOperation;
+            @optional cocos2d::backend::StencilOperation depthFailureOperation;
+            @optional cocos2d::backend::StencilOperation depthStencilPassOperation;
+            @optional cocos2d::backend::CompareFunction stencilCompareFunction;
+            @optional unsigned int readMask;
+            @optional unsigned int writeMask;
+        ]],
+    },
+    typeconv {
+        CPPCLS = 'cocos2d::backend::DepthStencilDescriptor',
+        DEF = [[
+            @optional cocos2d::backend::CompareFunction depthCompareFunction;
+            @optional bool depthWriteEnabled;
+            @optional bool depthTestEnabled;
+            @optional bool stencilTestEnabled;
+            cocos2d::backend::StencilDescriptor backFaceStencil;
+            cocos2d::backend::StencilDescriptor frontFaceStencil;
         ]],
     },
 }

@@ -15,14 +15,12 @@ M.INCLUDES = [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "lua-bindings/LuaCocosAdapter.h"
-#include "xgame/xlua.h"
-#include "xgame/xruntime.h"
-#include "cocos2d.h"
-#include "ui/CocosGUI.h"
 #include "audio/include/AudioEngine.h"
-#include "audio/include/SimpleAudioEngine.h"
-#include "vr/CCVRGenericRenderer.h"
-#include "vr/CCVRGenericHeadTracker.h"
+#include "cocos2d.h"
+#include "base/TGAlib.h"
+#include "ui/CocosGUI.h"
+#include "navmesh/CCNavMesh.h"
+#include "xgame/xlua.h"
 ]]
 M.CHUNK = [[
 static const std::string makeScheduleCallbackTag(const std::string &key)
@@ -35,6 +33,42 @@ M.CONVS = {
 }
 
 M.CLASSES = {}
+
+cls = typecls 'cocos2d::RenderTargetFlag'
+cls.enums [[
+    COLOR
+    DEPTH
+    STENCIL
+    ALL
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::ClearFlag'
+cls.enums [[
+    NONE
+    COLOR
+    DEPTH
+    STENCIL
+    ALL
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::MATRIX_STACK_TYPE'
+cls.enums [[
+    MATRIX_STACK_MODELVIEW
+    MATRIX_STACK_PROJECTION
+    MATRIX_STACK_TEXTURE
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::Director::Projection'
+cls.enums [[
+    _2D
+    _3D
+    CUSTOM
+    DEFAULT
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::UserDefault'
 cls.funcs [[
@@ -82,32 +116,35 @@ cls.props [[
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'cocos2d::Console'
+cls.SUPERCLS = "cocos2d::Ref"
+cls.funcs [[
+    Console()
+    bool listenOnTCP(int port)
+    bool listenOnFileDescriptor(int fd)
+    void stop()
+    void delCommand(const std::string &cmdName)
+    void delSubCommand(const std::string &cmdName, const std::string &subCmdName)
+    void log(const char *buf)
+    void setBindAddress(const std::string &address)
+    bool isIpv6Server()
+    char getCommandSeparator()
+    void setCommandSeparator(char var)
+]]
+cls.props [[
+    ipv6Server
+    commandSeparator
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'cocos2d::Acceleration'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
-    Acceleration()
 ]]
-cls.var('x', [[double x]])
-cls.var('y', [[double y]])
-cls.var('z', [[double z]])
-cls.var('timestamp', [[double timestamp]])
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::MATRIX_STACK_TYPE'
-cls.enums [[
-    MATRIX_STACK_MODELVIEW
-    MATRIX_STACK_PROJECTION
-    MATRIX_STACK_TEXTURE
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::Director::Projection'
-cls.enums [[
-    _2D
-    _3D
-    CUSTOM
-    DEFAULT
-]]
+cls.var('x', [[@optional double x]])
+cls.var('y', [[@optional double y]])
+cls.var('z', [[@optional double z]])
+cls.var('timestamp', [[@optional double timestamp]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::Director'
@@ -159,10 +196,7 @@ cls.funcs [[
     void purgeCachedData()
     void setDefaultValues()
     void setGLDefaultValues()
-    void setAlphaBlending(bool on)
     void setClearColor(const cocos2d::Color4F &clearColor)
-    const cocos2d::Color4F &getClearColor()
-    void setDepthTest(bool on)
     void mainLoop()
     void mainLoop(float dt)
     void setContentScaleFactor(float scaleFactor)
@@ -174,23 +208,16 @@ cls.funcs [[
     @ref(single eventDispatcher) cocos2d::EventDispatcher *getEventDispatcher()
     void setEventDispatcher(@ref(single eventDispatcher) cocos2d::EventDispatcher *dispatcher)
     @ref(single renderer) cocos2d::Renderer *getRenderer()
+    cocos2d::Console *getConsole()
     float getDeltaTime()
     float getFrameRate()
     void pushMatrix(cocos2d::MATRIX_STACK_TYPE type)
-    void pushProjectionMatrix(size_t index)
     void popMatrix(cocos2d::MATRIX_STACK_TYPE type)
-    void popProjectionMatrix(size_t index)
     void loadIdentityMatrix(cocos2d::MATRIX_STACK_TYPE type)
-    void loadProjectionIdentityMatrix(size_t index)
     void loadMatrix(cocos2d::MATRIX_STACK_TYPE type, const cocos2d::Mat4 &mat)
-    void loadProjectionMatrix(const cocos2d::Mat4 &mat, size_t index)
     void multiplyMatrix(cocos2d::MATRIX_STACK_TYPE type, const cocos2d::Mat4 &mat)
-    void multiplyProjectionMatrix(const cocos2d::Mat4 &mat, size_t index)
     const cocos2d::Mat4 &getMatrix(cocos2d::MATRIX_STACK_TYPE type)
-    const cocos2d::Mat4 &getProjectionMatrix(size_t index)
     void resetMatrixStack()
-    void initProjectionMatrixStack(size_t stackCount)
-    size_t getProjectionMatrixStackSize()
     bool isValid()
 ]]
 cls.var('EVENT_BEFORE_SET_NEXT_SCENE', [[static const char *EVENT_BEFORE_SET_NEXT_SCENE]])
@@ -222,15 +249,14 @@ cls.props [[
     visibleOrigin
     safeAreaRect
     zEye
-    clearColor
     contentScaleFactor
     scheduler
     actionManager
     eventDispatcher
     renderer
+    console
     deltaTime
     frameRate
-    projectionMatrixStackSize
     valid
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
@@ -271,8 +297,6 @@ cls.funcs [[
     void resumeTargets(const std::set<void *> &targetsToResume)
     void removeAllFunctionsToBePerformedInCocosThread()
 ]]
-cls.enum('PRIORITY_SYSTEM', 'cocos2d::Scheduler::PRIORITY_SYSTEM')
-cls.enum('PRIORITY_NON_SYSTEM_MIN', 'cocos2d::Scheduler::PRIORITY_NON_SYSTEM_MIN')
 cls.func('scheduleUpdate', [[{
     if (doScheduleUpdate<cocos2d::Scheduler>(L) ||
         doScheduleUpdate<cocos2d::ActionManager>(L) ||
@@ -289,8 +313,8 @@ cls.func('scheduleUpdate', [[{
 }]])
 cls.callback {
     FUNCS =  {
-        'void schedule(const std::function<void(float)>& callback, void *target, float interval, bool paused, const std::string& key)',
-        'void schedule(const std::function<void(float)>& callback, void *target, float interval, unsigned int repeat, float delay, bool paused, const std::string& key)'
+        'void schedule(@local const std::function<void (float)> &callback, void *target, float interval, unsigned int repeat, float delay, bool paused, const std::string &key)',
+        'void schedule(@local const std::function<void (float)> &callback, void *target, float interval, bool paused, const std::string &key)'
     },
     TAG_MAKER = 'makeScheduleCallbackTag(#-1)',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -300,7 +324,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void unschedule(const std::string& key, void *target)'
+        'void unschedule(const std::string &key, void *target)'
     },
     TAG_MAKER = 'makeScheduleCallbackTag(#1)',
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
@@ -487,7 +511,7 @@ cls.funcs [[
 ]]
 cls.callback {
     FUNCS =  {
-        'static EventListenerCustom* create(const std::string& eventName, const std::function<void(@local EventCustom*)>& callback)'
+        'static cocos2d::EventListenerCustom *create(const std::string &eventName, @local const std::function<void (EventCustom *)> &callback)'
     },
     TAG_MAKER = 'listener',
     TAG_MODE = 'OLUA_TAG_NEW',
@@ -517,7 +541,7 @@ cls.funcs [[
 ]]
 cls.callback {
     FUNCS =  {
-        'static EventListenerAcceleration* create(const std::function<void(@local Acceleration*, @local Event*)>& callback)'
+        'static cocos2d::EventListenerAcceleration *create(@local const std::function<void (Acceleration *, Event *)> &callback)'
     },
     TAG_MAKER = 'listener',
     TAG_MODE = 'OLUA_TAG_NEW',
@@ -1005,7 +1029,7 @@ cls.props [[
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls 'cocos2d::experimental::AudioProfile'
+cls = typecls 'cocos2d::AudioProfile'
 cls.funcs [[
     AudioProfile()
 ]]
@@ -1014,7 +1038,7 @@ cls.var('maxInstances', [[unsigned int maxInstances]])
 cls.var('minDelay', [[double minDelay]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls 'cocos2d::experimental::AudioEngine::AudioState'
+cls = typecls 'cocos2d::AudioEngine::AudioState'
 cls.enums [[
     ERROR
     INITIALIZING
@@ -1023,10 +1047,10 @@ cls.enums [[
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls 'cocos2d::experimental::AudioEngine'
+cls = typecls 'cocos2d::AudioEngine'
 cls.CHUNK = [[
 NS_CC_BEGIN
-class LuaAudioEngine : public cocos2d::experimental::AudioEngine
+class LuaAudioEngine : public cocos2d::AudioEngine
 {
 public:
     static std::list<int> getAudioIDs(const std::string &path)
@@ -1052,13 +1076,13 @@ static const std::string makeAudioEngineFinishCallbackTag(lua_Integer id)
     }
 }
 ]]
-cls.const('INVALID_AUDIO_ID', 'cocos2d::experimental::AudioEngine::INVALID_AUDIO_ID', 'const int')
-cls.const('TIME_UNKNOWN', 'cocos2d::experimental::AudioEngine::TIME_UNKNOWN', 'const float')
+cls.const('INVALID_AUDIO_ID', 'cocos2d::AudioEngine::INVALID_AUDIO_ID', 'const int')
+cls.const('TIME_UNKNOWN', 'cocos2d::AudioEngine::TIME_UNKNOWN', 'const float')
 cls.funcs [[
     static bool lazyInit()
     static void end()
-    static cocos2d::experimental::AudioProfile *getDefaultProfile()
-    static int play2d(const std::string &filePath, @optional bool loop, @optional float volume, @optional const cocos2d::experimental::AudioProfile *profile)
+    static cocos2d::AudioProfile *getDefaultProfile()
+    static int play2d(const std::string &filePath, @optional bool loop, @optional float volume, @optional const cocos2d::AudioProfile *profile)
     static void setLoop(int audioID, bool loop)
     static bool isLoop(int audioID)
     static void setVolume(int audioID, float volume)
@@ -1070,12 +1094,12 @@ cls.funcs [[
     static bool setCurrentTime(int audioID, float sec)
     static float getCurrentTime(int audioID)
     static float getDuration(int audioID)
-    static cocos2d::experimental::AudioEngine::AudioState getState(int audioID)
+    static cocos2d::AudioEngine::AudioState getState(int audioID)
     static int getMaxAudioInstance()
     static bool setMaxAudioInstance(int maxInstances)
     static void uncache(const std::string &filePath)
-    static cocos2d::experimental::AudioProfile *getProfile(int audioID)
-    static cocos2d::experimental::AudioProfile *getProfile(const std::string &profileName)
+    static cocos2d::AudioProfile *getProfile(int audioID)
+    static cocos2d::AudioProfile *getProfile(const std::string &profileName)
     static int getPlayingAudioCount()
     static void setEnabled(bool isEnabled)
     static bool isEnabled()
@@ -1112,7 +1136,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'static void setFinishCallback(int audioID, @nullable const std::function<void(int,const std::string&)>& callback)'
+        'static void setFinishCallback(int audioID, @nullable @local const std::function<void (int, const std::string &)> &callback)'
     },
     TAG_MAKER = 'makeAudioEngineFinishCallbackTag(#1)',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -1122,8 +1146,8 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'static void preload(const std::string& filePath)',
-        'static void preload(const std::string& filePath, std::function<void(bool isSuccess)> callback)'
+        'static void preload(const std::string &filePath)',
+        'static void preload(const std::string &filePath, @local std::function<void (bool)> callback)'
     },
     TAG_MAKER = 'preload',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -1135,7 +1159,7 @@ cls.inject('uncache', {
     BEFORE = [[
         std::string path = olua_checkstring(L, 1);
         std::list<int> ids = cocos2d::LuaAudioEngine::getAudioIDs(path);
-        const char *cls = olua_getluatype<cocos2d::experimental::AudioEngine>(L);
+        const char *cls = olua_getluatype<cocos2d::AudioEngine>(L);
         void *callback_store_obj = (void *)olua_getstoreobj(L, cls);
         for (auto id : ids) {
             std::string tag = makeAudioEngineFinishCallbackTag((lua_Integer)id);
@@ -1151,40 +1175,6 @@ cls.props [[
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls 'CocosDenshion::SimpleAudioEngine'
-cls.funcs [[
-    static CocosDenshion::SimpleAudioEngine *getInstance()
-    static void end()
-    void preloadBackgroundMusic(const char *filePath)
-    void playBackgroundMusic(const char *filePath, @optional bool loop)
-    void stopBackgroundMusic(@optional bool releaseData)
-    void pauseBackgroundMusic()
-    void resumeBackgroundMusic()
-    void rewindBackgroundMusic()
-    bool willPlayBackgroundMusic()
-    bool isBackgroundMusicPlaying()
-    float getBackgroundMusicVolume()
-    void setBackgroundMusicVolume(float volume)
-    float getEffectsVolume()
-    void setEffectsVolume(float volume)
-    unsigned int playEffect(const char *filePath, @optional bool loop, @optional float pitch, @optional float pan, @optional float gain)
-    void pauseEffect(unsigned int soundId)
-    void pauseAllEffects()
-    void resumeEffect(unsigned int soundId)
-    void resumeAllEffects()
-    void stopEffect(unsigned int soundId)
-    void stopAllEffects()
-    void preloadEffect(const char *filePath)
-    void unloadEffect(const char *filePath)
-]]
-cls.props [[
-    instance
-    backgroundMusicPlaying
-    backgroundMusicVolume
-    effectsVolume
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
 cls = typecls 'cocos2d::ApplicationProtocol::Platform'
 cls.enums [[
     OS_WINDOWS
@@ -1193,12 +1183,6 @@ cls.enums [[
     OS_ANDROID
     OS_IPHONE
     OS_IPAD
-    OS_BLACKBERRY
-    OS_NACL
-    OS_EMSCRIPTEN
-    OS_TIZEN
-    OS_WINRT
-    OS_WP8
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -1298,8 +1282,6 @@ cls.funcs [[
     static void destroyInstance()
     static void setDelegate(cocos2d::FileUtils *delegate)
     void purgeCachedEntries()
-    std::string getStringFromFile(const std::string &filename)
-    cocos2d::Data getDataFromFile(const std::string &filename)
     cocos2d::FileUtils::Status getContents(const std::string &filename, cocos2d::ResizableBuffer *buffer)
     @length(arg3) unsigned char *getFileDataFromZip(const std::string &zipFilePath, const std::string &filename, @out ssize_t *size)
     std::string fullPathForFilename(const std::string &filename)
@@ -1322,27 +1304,180 @@ cls.funcs [[
     cocos2d::ValueMap getValueMapFromFile(const std::string &filename)
     cocos2d::ValueMap getValueMapFromData(const char *filedata, int filesize)
     bool writeToFile(const cocos2d::ValueMap &dict, const std::string &fullPath)
-    bool writeStringToFile(const std::string &dataStr, const std::string &fullPath)
-    bool writeDataToFile(const cocos2d::Data &data, const std::string &fullPath)
-    bool writeValueMapToFile(const cocos2d::ValueMap &dict, const std::string &fullPath)
-    bool writeValueVectorToFile(const cocos2d::ValueVector &vecData, const std::string &fullPath)
     std::string getSuitableFOpen(const std::string &filenameUtf8)
     cocos2d::ValueVector getValueVectorFromFile(const std::string &filename)
-    bool isFileExist(const std::string &filename)
     std::string getFileExtension(const std::string &filePath)
     bool isAbsolutePath(const std::string &path)
-    bool isDirectoryExist(const std::string &dirPath)
-    bool createDirectory(const std::string &dirPath)
-    bool removeDirectory(const std::string &dirPath)
-    bool removeFile(const std::string &filepath)
-    bool renameFile(const std::string &path, const std::string &oldname, const std::string &name)
-    bool renameFile(const std::string &oldfullpath, const std::string &newfullpath)
-    long getFileSize(const std::string &filepath)
     std::vector<std::string> listFiles(const std::string &dirPath)
     void listFilesRecursively(const std::string &dirPath, @out std::vector<std::string> *files)
     const std::unordered_map<std::string, std::string> getFullPathCache()
     std::string getNewFilename(const std::string &filename)
 ]]
+cls.callback {
+    FUNCS =  {
+        'std::string getStringFromFile(const std::string &filename)',
+        'void getStringFromFile(const std::string &path, @local std::function<void (std::string)> callback)'
+    },
+    TAG_MAKER = 'StringFromFile',
+    TAG_MODE = 'OLUA_TAG_NEW',
+    TAG_STORE = nil,
+    CALLONCE = true,
+    REMOVE = false,
+}
+cls.callback {
+    FUNCS =  {
+        'cocos2d::Data getDataFromFile(const std::string &filename)',
+        'void getDataFromFile(const std::string &filename, @local std::function<void (Data)> callback)'
+    },
+    TAG_MAKER = 'DataFromFile',
+    TAG_MODE = 'OLUA_TAG_NEW',
+    TAG_STORE = nil,
+    CALLONCE = true,
+    REMOVE = false,
+}
+cls.callback {
+    FUNCS =  {
+        'bool writeStringToFile(const std::string &dataStr, const std::string &fullPath)',
+        'void writeStringToFile(std::string dataStr, const std::string &fullPath, @local std::function<void (bool)> callback)'
+    },
+    TAG_MAKER = 'writeStringToFile',
+    TAG_MODE = 'OLUA_TAG_NEW',
+    TAG_STORE = nil,
+    CALLONCE = true,
+    REMOVE = false,
+}
+cls.callback {
+    FUNCS =  {
+        'bool writeDataToFile(const cocos2d::Data &data, const std::string &fullPath)',
+        'void writeDataToFile(cocos2d::Data data, const std::string &fullPath, @local std::function<void (bool)> callback)'
+    },
+    TAG_MAKER = 'writeDataToFile',
+    TAG_MODE = 'OLUA_TAG_NEW',
+    TAG_STORE = nil,
+    CALLONCE = true,
+    REMOVE = false,
+}
+cls.callback {
+    FUNCS =  {
+        'bool writeValueMapToFile(const cocos2d::ValueMap &dict, const std::string &fullPath)',
+        'void writeValueMapToFile(cocos2d::ValueMap dict, const std::string &fullPath, @local std::function<void (bool)> callback)'
+    },
+    TAG_MAKER = 'writeValueMapToFile',
+    TAG_MODE = 'OLUA_TAG_NEW',
+    TAG_STORE = nil,
+    CALLONCE = true,
+    REMOVE = false,
+}
+cls.callback {
+    FUNCS =  {
+        'bool writeValueVectorToFile(const cocos2d::ValueVector &vecData, const std::string &fullPath)',
+        'void writeValueVectorToFile(cocos2d::ValueVector vecData, const std::string &fullPath, @local std::function<void (bool)> callback)'
+    },
+    TAG_MAKER = 'writeValueVectorToFile',
+    TAG_MODE = 'OLUA_TAG_NEW',
+    TAG_STORE = nil,
+    CALLONCE = true,
+    REMOVE = false,
+}
+cls.callback {
+    FUNCS =  {
+        'bool isFileExist(const std::string &filename)',
+        'void isFileExist(const std::string &filename, @local std::function<void (bool)> callback)'
+    },
+    TAG_MAKER = 'isFileExist',
+    TAG_MODE = 'OLUA_TAG_NEW',
+    TAG_STORE = nil,
+    CALLONCE = true,
+    REMOVE = false,
+}
+cls.callback {
+    FUNCS =  {
+        'bool isDirectoryExist(const std::string &dirPath)',
+        'void isDirectoryExist(const std::string &fullPath, @local std::function<void (bool)> callback)'
+    },
+    TAG_MAKER = 'isDirectoryExist',
+    TAG_MODE = 'OLUA_TAG_NEW',
+    TAG_STORE = nil,
+    CALLONCE = true,
+    REMOVE = false,
+}
+cls.callback {
+    FUNCS =  {
+        'bool createDirectory(const std::string &dirPath)',
+        'void createDirectory(const std::string &dirPath, @local std::function<void (bool)> callback)'
+    },
+    TAG_MAKER = 'createDirectory',
+    TAG_MODE = 'OLUA_TAG_NEW',
+    TAG_STORE = nil,
+    CALLONCE = true,
+    REMOVE = false,
+}
+cls.callback {
+    FUNCS =  {
+        'bool removeDirectory(const std::string &dirPath)',
+        'void removeDirectory(const std::string &dirPath, @local std::function<void (bool)> callback)'
+    },
+    TAG_MAKER = 'removeDirectory',
+    TAG_MODE = 'OLUA_TAG_NEW',
+    TAG_STORE = nil,
+    CALLONCE = true,
+    REMOVE = false,
+}
+cls.callback {
+    FUNCS =  {
+        'bool removeFile(const std::string &filepath)',
+        'void removeFile(const std::string &filepath, @local std::function<void (bool)> callback)'
+    },
+    TAG_MAKER = 'removeFile',
+    TAG_MODE = 'OLUA_TAG_NEW',
+    TAG_STORE = nil,
+    CALLONCE = true,
+    REMOVE = false,
+}
+cls.callback {
+    FUNCS =  {
+        'bool renameFile(const std::string &path, const std::string &oldname, const std::string &name)',
+        'void renameFile(const std::string &path, const std::string &oldname, const std::string &name, @local std::function<void (bool)> callback)',
+        'bool renameFile(const std::string &oldfullpath, const std::string &newfullpath)',
+        'void renameFile(const std::string &oldfullpath, const std::string &newfullpath, @local std::function<void (bool)> callback)'
+    },
+    TAG_MAKER = 'renameFile',
+    TAG_MODE = 'OLUA_TAG_NEW',
+    TAG_STORE = nil,
+    CALLONCE = true,
+    REMOVE = false,
+}
+cls.callback {
+    FUNCS =  {
+        'long getFileSize(const std::string &filepath)',
+        'void getFileSize(const std::string &filepath, @local std::function<void (long)> callback)'
+    },
+    TAG_MAKER = 'FileSize',
+    TAG_MODE = 'OLUA_TAG_NEW',
+    TAG_STORE = nil,
+    CALLONCE = true,
+    REMOVE = false,
+}
+cls.callback {
+    FUNCS =  {
+        'void listFilesAsync(const std::string &dirPath, @local std::function<void (std::vector<std::string>)> callback)'
+    },
+    TAG_MAKER = 'listFilesAsync',
+    TAG_MODE = 'OLUA_TAG_NEW',
+    TAG_STORE = nil,
+    CALLONCE = true,
+    REMOVE = false,
+}
+cls.callback {
+    FUNCS =  {
+        'void listFilesRecursivelyAsync(const std::string &dirPath, @local std::function<void (std::vector<std::string>)> callback)'
+    },
+    TAG_MAKER = 'listFilesRecursivelyAsync',
+    TAG_MODE = 'OLUA_TAG_NEW',
+    TAG_STORE = nil,
+    CALLONCE = true,
+    REMOVE = false,
+}
 cls.props [[
     instance
     searchResolutionsOrder
@@ -1381,8 +1516,6 @@ cls.funcs [[
     void setFrameSize(float width, float height)
     void setFrameZoomFactor(float )
     float getFrameZoomFactor()
-    void setCursor(const std::string &filename, @optional cocos2d::Vec2 hotspot)
-    void setDefaultCursor()
     void setCursorVisible(bool )
     int getRetinaFactor()
     bool setContentScaleFactor(float )
@@ -1409,8 +1542,6 @@ cls.funcs [[
     float getScaleY()
     ResolutionPolicy getResolutionPolicy()
     void renderScene(cocos2d::Scene *scene, cocos2d::Renderer *renderer)
-    void setVR(@ref(single vr) cocos2d::VRIRenderer *vrrenderer)
-    @ref(single vr) cocos2d::VRIRenderer *getVR()
 ]]
 cls.props [[
     openGLReady
@@ -1433,7 +1564,6 @@ cls.props [[
     scaleX
     scaleY
     resolutionPolicy
-    vr
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -1447,7 +1577,6 @@ cls = typecls 'cocos2d::Image::Format'
 cls.enums [[
     JPG
     PNG
-    TIFF
     WEBP
     PVR
     ETC
@@ -1479,7 +1608,7 @@ cls.funcs [[
     unsigned char *getData()
     ssize_t getDataLen()
     cocos2d::Image::Format getFileType()
-    Texture2D::PixelFormat getRenderFormat()
+    backend::PixelFormat getPixelFormat()
     int getWidth()
     int getHeight()
     int getNumberOfMipmaps()
@@ -1500,13 +1629,81 @@ cls.props [[
     data
     dataLen
     fileType
-    renderFormat
+    pixelFormat
     width
     height
     numberOfMipmaps
     filePath
     bitPerPixel
     compressed
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::Properties::Type'
+cls.enums [[
+    NONE
+    STRING
+    NUMBER
+    VECTOR2
+    VECTOR3
+    VECTOR4
+    MATRIX
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::Properties'
+cls.funcs [[
+    static cocos2d::Properties *createNonRefCounted(const std::string &url)
+    const char *getNextProperty()
+    cocos2d::Properties *getNextNamespace()
+    void rewind()
+    cocos2d::Properties *getNamespace(const char *id, @optional bool searchNames, @optional bool recurse)
+    const char *getNamespace()
+    const char *getId()
+    bool exists(const char *name)
+    cocos2d::Properties::Type getType(@optional const char *name)
+    const char *getString(@optional const char *name, @optional const char *defaultValue)
+    bool setString(const char *name, const char *value)
+    bool getBool(@optional const char *name, @optional bool defaultValue)
+    int getInt(@optional const char *name)
+    float getFloat(@optional const char *name)
+    long getLong(@optional const char *name)
+    bool getPath(const char *name, @out std::string *path)
+    const char *getVariable(const char *name, @optional const char *defaultValue)
+    void setVariable(const char *name, const char *value)
+]]
+cls.props [[
+    nextProperty
+    nextNamespace
+    id
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::Material'
+cls.SUPERCLS = "cocos2d::Ref"
+cls.funcs [[
+    static cocos2d::Material *createWithFilename(const std::string &path)
+    static cocos2d::Material *createWithProgramState(backend::ProgramState *programState)
+    static cocos2d::Material *createWithProperties(cocos2d::Properties *materialProperties)
+    void draw(cocos2d::MeshCommand *meshCommand, float globalZOrder, backend::Buffer *vertexBuffer, backend::Buffer *indexBuffer, CustomCommand::PrimitiveType primitive, CustomCommand::IndexFormat indexFormat, unsigned int indexCount, const cocos2d::Mat4 &modelView)
+    std::string getName()
+    void setName(const std::string &name)
+    cocos2d::Technique *getTechniqueByName(const std::string &name)
+    cocos2d::Technique *getTechniqueByIndex(ssize_t index)
+    cocos2d::Technique *getTechnique()
+    const Vector<cocos2d::Technique *> &getTechniques()
+    ssize_t getTechniqueCount()
+    void addTechnique(cocos2d::Technique *technique)
+    void setTechnique(const std::string &techniqueName)
+    cocos2d::Material *clone()
+    cocos2d::RenderState *getRenderState()
+]]
+cls.props [[
+    name
+    technique
+    techniques
+    techniqueCount
+    renderState
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -1517,220 +1714,141 @@ cls.const('BATCH_TRIAGCOMMAND_RESERVED_SIZE', 'cocos2d::Renderer::BATCH_TRIAGCOM
 cls.const('MATERIAL_ID_DO_NOT_BATCH', 'cocos2d::Renderer::MATERIAL_ID_DO_NOT_BATCH', 'const int')
 cls.funcs [[
     Renderer()
-    void initGLView()
+    void init()
+    void addCommand(cocos2d::RenderCommand *command)
+    void addCommand(cocos2d::RenderCommand *command, int renderQueueID)
     void pushGroup(int renderQueueID)
     void popGroup()
     int createRenderQueue()
     void render()
     void clean()
-    void clear()
-    void setClearColor(const cocos2d::Color4F &clearColor)
-    const cocos2d::Color4F &getClearColor()
     ssize_t getDrawnBatches()
     void addDrawnBatches(ssize_t number)
     ssize_t getDrawnVertices()
     void addDrawnVertices(ssize_t number)
     void clearDrawStats()
-    void setDepthTest(bool enable)
+    void setRenderTarget(cocos2d::RenderTargetFlag flags, cocos2d::Texture2D *colorAttachment, cocos2d::Texture2D *depthAttachment, cocos2d::Texture2D *stencilAttachment)
+    void clear(cocos2d::ClearFlag flags, const cocos2d::Color4F &color, float depth, unsigned int stencil, float globalOrder)
+    cocos2d::Texture2D *getColorAttachment()
+    cocos2d::Texture2D *getDepthAttachment()
+    cocos2d::Texture2D *getStencilAttachment()
+    const cocos2d::Color4F &getClearColor()
+    float getClearDepth()
+    unsigned int getClearStencil()
+    cocos2d::ClearFlag getClearFlag()
+    cocos2d::RenderTargetFlag getRenderTargetFlag()
+    void setDepthTest(bool value)
+    void setDepthWrite(bool value)
+    void setDepthCompareFunction(backend::CompareFunction func)
+    bool getDepthTest()
+    bool getDepthWrite()
+    backend::CompareFunction getDepthCompareFunction()
+    void setStencilTest(bool value)
+    void setStencilCompareFunction(backend::CompareFunction func, unsigned int ref, unsigned int readMask)
+    void setStencilOperation(backend::StencilOperation stencilFailureOp, backend::StencilOperation depthFailureOp, backend::StencilOperation stencilDepthPassOp)
+    void setStencilWriteMask(unsigned int mask)
+    bool getStencilTest()
+    backend::StencilOperation getStencilFailureOperation()
+    backend::StencilOperation getStencilPassDepthFailureOperation()
+    backend::StencilOperation getStencilDepthPassOperation()
+    backend::CompareFunction getStencilCompareFunction()
+    unsigned int getStencilReadMask()
+    unsigned int getStencilWriteMask()
+    unsigned int getStencilReferenceValue()
+    void setCullMode(cocos2d::CullMode mode)
+    cocos2d::CullMode getCullMode()
+    void setWinding(cocos2d::Winding winding)
+    cocos2d::Winding getWinding()
+    void setViewPort(int x, int y, unsigned int w, unsigned int h)
+    const cocos2d::Viewport &getViewport()
+    void setScissorTest(bool enabled)
+    void setScissorRect(float x, float y, float width, float height)
+    bool getScissorTest()
+    const cocos2d::ScissorRect &getScissorRect()
     bool checkVisibility(const cocos2d::Mat4 &transform, const cocos2d::Size &size)
 ]]
 cls.props [[
-    clearColor
     drawnBatches
     drawnVertices
+    colorAttachment
+    depthAttachment
+    stencilAttachment
+    clearColor
+    clearDepth
+    clearStencil
+    clearFlag
+    renderTargetFlag
+    depthTest
+    depthWrite
+    depthCompareFunction
+    stencilTest
+    stencilFailureOperation
+    stencilPassDepthFailureOperation
+    stencilDepthPassOperation
+    stencilCompareFunction
+    stencilReadMask
+    stencilWriteMask
+    stencilReferenceValue
+    cullMode
+    winding
+    viewport
+    scissorTest
+    scissorRect
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls 'cocos2d::VertexAttrib'
-cls.funcs [[
+cls = typecls 'cocos2d::RenderCommand::Type'
+cls.enums [[
+    UNKNOWN_COMMAND
+    QUAD_COMMAND
+    CUSTOM_COMMAND
+    GROUP_COMMAND
+    MESH_COMMAND
+    TRIANGLES_COMMAND
+    CALLBACK_COMMAND
+    CAPTURE_SCREEN_COMMAND
 ]]
-cls.var('index', [[GLuint index]])
-cls.var('size', [[GLint size]])
-cls.var('type', [[GLenum type]])
-cls.var('name', [[std::string name]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls 'cocos2d::Uniform'
-cls.funcs [[
+cls = typecls 'cocos2d::CustomCommand::DrawType'
+cls.enums [[
+    ARRAY
+    ELEMENT
 ]]
-cls.var('location', [[GLint location]])
-cls.var('size', [[GLint size]])
-cls.var('type', [[GLenum type]])
-cls.var('name', [[std::string name]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls 'cocos2d::GLProgram'
+cls = typecls 'cocos2d::Technique'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
-    GLProgram()
-    static cocos2d::GLProgram *createWithByteArrays(const GLchar *vShaderByteArray, const GLchar *fShaderByteArray)
-    bool initWithByteArrays(const GLchar *vShaderByteArray, const GLchar *fShaderByteArray)
-    static cocos2d::GLProgram *createWithByteArrays(const GLchar *vShaderByteArray, const GLchar *fShaderByteArray, const std::string &compileTimeDefines)
-    bool initWithByteArrays(const GLchar *vShaderByteArray, const GLchar *fShaderByteArray, const std::string &compileTimeDefines)
-    static cocos2d::GLProgram *createWithByteArrays(const GLchar *vShaderByteArray, const GLchar *fShaderByteArray, const std::string &compileTimeHeaders, const std::string &compileTimeDefines)
-    bool initWithByteArrays(const GLchar *vShaderByteArray, const GLchar *fShaderByteArray, const std::string &compileTimeHeaders, const std::string &compileTimeDefines)
-    static cocos2d::GLProgram *createWithFilenames(const std::string &vShaderFilename, const std::string &fShaderFilename)
-    bool initWithFilenames(const std::string &vShaderFilename, const std::string &fShaderFilename)
-    static cocos2d::GLProgram *createWithFilenames(const std::string &vShaderFilename, const std::string &fShaderFilename, const std::string &compileTimeDefines)
-    bool initWithFilenames(const std::string &vShaderFilename, const std::string &fShaderFilename, const std::string &compileTimeDefines)
-    static cocos2d::GLProgram *createWithFilenames(const std::string &vShaderFilename, const std::string &fShaderFilename, const std::string &compileTimeHeaders, const std::string &compileTimeDefines)
-    bool initWithFilenames(const std::string &vShaderFilename, const std::string &fShaderFilename, const std::string &compileTimeHeaders, const std::string &compileTimeDefines)
-    cocos2d::Uniform *getUniform(const std::string &name)
-    cocos2d::VertexAttrib *getVertexAttrib(const std::string &name)
-    void bindAttribLocation(const std::string &attributeName, GLuint index)
-    GLint getAttribLocation(const std::string &attributeName)
-    GLint getUniformLocation(const std::string &attributeName)
-    bool link()
-    void use()
-    void updateUniforms()
-    GLint getUniformLocationForName(const char *name)
-    void setUniformLocationWith1i(GLint location, GLint i1)
-    void setUniformLocationWith2i(GLint location, GLint i1, GLint i2)
-    void setUniformLocationWith3i(GLint location, GLint i1, GLint i2, GLint i3)
-    void setUniformLocationWith4i(GLint location, GLint i1, GLint i2, GLint i3, GLint i4)
-    void setUniformLocationWith1f(GLint location, GLfloat f1)
-    void setUniformLocationWith2f(GLint location, GLfloat f1, GLfloat f2)
-    void setUniformLocationWith3f(GLint location, GLfloat f1, GLfloat f2, GLfloat f3)
-    void setUniformLocationWith4f(GLint location, GLfloat f1, GLfloat f2, GLfloat f3, GLfloat f4)
-    void setUniformsForBuiltins(const cocos2d::Mat4 &modelView)
-    void setUniformsForBuiltins()
-    std::string getVertexShaderLog()
-    std::string getFragmentShaderLog()
-    std::string getProgramLog()
-    void reset()
-    GLuint getProgram()
-]]
-cls.var('SHADER_NAME_ETC1AS_POSITION_TEXTURE_COLOR', [[static const char *SHADER_NAME_ETC1AS_POSITION_TEXTURE_COLOR]])
-cls.var('SHADER_NAME_ETC1AS_POSITION_TEXTURE_COLOR_NO_MVP', [[static const char *SHADER_NAME_ETC1AS_POSITION_TEXTURE_COLOR_NO_MVP]])
-cls.var('SHADER_NAME_ETC1AS_POSITION_TEXTURE_GRAY', [[static const char *SHADER_NAME_ETC1AS_POSITION_TEXTURE_GRAY]])
-cls.var('SHADER_NAME_ETC1AS_POSITION_TEXTURE_GRAY_NO_MVP', [[static const char *SHADER_NAME_ETC1AS_POSITION_TEXTURE_GRAY_NO_MVP]])
-cls.var('SHADER_NAME_POSITION_TEXTURE_COLOR', [[static const char *SHADER_NAME_POSITION_TEXTURE_COLOR]])
-cls.var('SHADER_NAME_POSITION_TEXTURE_COLOR_NO_MVP', [[static const char *SHADER_NAME_POSITION_TEXTURE_COLOR_NO_MVP]])
-cls.var('SHADER_NAME_POSITION_TEXTURE_ALPHA_TEST', [[static const char *SHADER_NAME_POSITION_TEXTURE_ALPHA_TEST]])
-cls.var('SHADER_NAME_POSITION_TEXTURE_ALPHA_TEST_NO_MV', [[static const char *SHADER_NAME_POSITION_TEXTURE_ALPHA_TEST_NO_MV]])
-cls.var('SHADER_NAME_POSITION_COLOR', [[static const char *SHADER_NAME_POSITION_COLOR]])
-cls.var('SHADER_NAME_POSITION_COLOR_TEXASPOINTSIZE', [[static const char *SHADER_NAME_POSITION_COLOR_TEXASPOINTSIZE]])
-cls.var('SHADER_NAME_POSITION_COLOR_NO_MVP', [[static const char *SHADER_NAME_POSITION_COLOR_NO_MVP]])
-cls.var('SHADER_NAME_POSITION_TEXTURE', [[static const char *SHADER_NAME_POSITION_TEXTURE]])
-cls.var('SHADER_NAME_POSITION_TEXTURE_U_COLOR', [[static const char *SHADER_NAME_POSITION_TEXTURE_U_COLOR]])
-cls.var('SHADER_NAME_POSITION_TEXTURE_A8_COLOR', [[static const char *SHADER_NAME_POSITION_TEXTURE_A8_COLOR]])
-cls.var('SHADER_NAME_POSITION_U_COLOR', [[static const char *SHADER_NAME_POSITION_U_COLOR]])
-cls.var('SHADER_NAME_POSITION_LENGTH_TEXTURE_COLOR', [[static const char *SHADER_NAME_POSITION_LENGTH_TEXTURE_COLOR]])
-cls.var('SHADER_NAME_POSITION_GRAYSCALE', [[static const char *SHADER_NAME_POSITION_GRAYSCALE]])
-cls.var('SHADER_NAME_LABEL_NORMAL', [[static const char *SHADER_NAME_LABEL_NORMAL]])
-cls.var('SHADER_NAME_LABEL_OUTLINE', [[static const char *SHADER_NAME_LABEL_OUTLINE]])
-cls.var('SHADER_NAME_LABEL_DISTANCEFIELD_NORMAL', [[static const char *SHADER_NAME_LABEL_DISTANCEFIELD_NORMAL]])
-cls.var('SHADER_NAME_LABEL_DISTANCEFIELD_GLOW', [[static const char *SHADER_NAME_LABEL_DISTANCEFIELD_GLOW]])
-cls.var('SHADER_3D_POSITION', [[static const char *SHADER_3D_POSITION]])
-cls.var('SHADER_3D_POSITION_TEXTURE', [[static const char *SHADER_3D_POSITION_TEXTURE]])
-cls.var('SHADER_3D_SKINPOSITION_TEXTURE', [[static const char *SHADER_3D_SKINPOSITION_TEXTURE]])
-cls.var('SHADER_3D_POSITION_NORMAL', [[static const char *SHADER_3D_POSITION_NORMAL]])
-cls.var('SHADER_3D_POSITION_NORMAL_TEXTURE', [[static const char *SHADER_3D_POSITION_NORMAL_TEXTURE]])
-cls.var('SHADER_3D_SKINPOSITION_NORMAL_TEXTURE', [[static const char *SHADER_3D_SKINPOSITION_NORMAL_TEXTURE]])
-cls.var('SHADER_3D_POSITION_BUMPEDNORMAL_TEXTURE', [[static const char *SHADER_3D_POSITION_BUMPEDNORMAL_TEXTURE]])
-cls.var('SHADER_3D_SKINPOSITION_BUMPEDNORMAL_TEXTURE', [[static const char *SHADER_3D_SKINPOSITION_BUMPEDNORMAL_TEXTURE]])
-cls.var('SHADER_3D_PARTICLE_TEXTURE', [[static const char *SHADER_3D_PARTICLE_TEXTURE]])
-cls.var('SHADER_3D_PARTICLE_COLOR', [[static const char *SHADER_3D_PARTICLE_COLOR]])
-cls.var('SHADER_3D_SKYBOX', [[static const char *SHADER_3D_SKYBOX]])
-cls.var('SHADER_3D_TERRAIN', [[static const char *SHADER_3D_TERRAIN]])
-cls.var('SHADER_LAYER_RADIAL_GRADIENT', [[static const char *SHADER_LAYER_RADIAL_GRADIENT]])
-cls.var('SHADER_CAMERA_CLEAR', [[static const char *SHADER_CAMERA_CLEAR]])
-cls.var('UNIFORM_NAME_AMBIENT_COLOR', [[static const char *UNIFORM_NAME_AMBIENT_COLOR]])
-cls.var('UNIFORM_NAME_P_MATRIX', [[static const char *UNIFORM_NAME_P_MATRIX]])
-cls.var('UNIFORM_NAME_MULTIVIEW_P_MATRIX', [[static const char *UNIFORM_NAME_MULTIVIEW_P_MATRIX]])
-cls.var('UNIFORM_NAME_MV_MATRIX', [[static const char *UNIFORM_NAME_MV_MATRIX]])
-cls.var('UNIFORM_NAME_MVP_MATRIX', [[static const char *UNIFORM_NAME_MVP_MATRIX]])
-cls.var('UNIFORM_NAME_MULTIVIEW_MVP_MATRIX', [[static const char *UNIFORM_NAME_MULTIVIEW_MVP_MATRIX]])
-cls.var('UNIFORM_NAME_NORMAL_MATRIX', [[static const char *UNIFORM_NAME_NORMAL_MATRIX]])
-cls.var('UNIFORM_NAME_TIME', [[static const char *UNIFORM_NAME_TIME]])
-cls.var('UNIFORM_NAME_SIN_TIME', [[static const char *UNIFORM_NAME_SIN_TIME]])
-cls.var('UNIFORM_NAME_COS_TIME', [[static const char *UNIFORM_NAME_COS_TIME]])
-cls.var('UNIFORM_NAME_RANDOM01', [[static const char *UNIFORM_NAME_RANDOM01]])
-cls.var('UNIFORM_NAME_SAMPLER0', [[static const char *UNIFORM_NAME_SAMPLER0]])
-cls.var('UNIFORM_NAME_SAMPLER1', [[static const char *UNIFORM_NAME_SAMPLER1]])
-cls.var('UNIFORM_NAME_SAMPLER2', [[static const char *UNIFORM_NAME_SAMPLER2]])
-cls.var('UNIFORM_NAME_SAMPLER3', [[static const char *UNIFORM_NAME_SAMPLER3]])
-cls.var('UNIFORM_NAME_ALPHA_TEST_VALUE', [[static const char *UNIFORM_NAME_ALPHA_TEST_VALUE]])
-cls.var('ATTRIBUTE_NAME_COLOR', [[static const char *ATTRIBUTE_NAME_COLOR]])
-cls.var('ATTRIBUTE_NAME_POSITION', [[static const char *ATTRIBUTE_NAME_POSITION]])
-cls.var('ATTRIBUTE_NAME_TEX_COORD', [[static const char *ATTRIBUTE_NAME_TEX_COORD]])
-cls.var('ATTRIBUTE_NAME_TEX_COORD1', [[static const char *ATTRIBUTE_NAME_TEX_COORD1]])
-cls.var('ATTRIBUTE_NAME_TEX_COORD2', [[static const char *ATTRIBUTE_NAME_TEX_COORD2]])
-cls.var('ATTRIBUTE_NAME_TEX_COORD3', [[static const char *ATTRIBUTE_NAME_TEX_COORD3]])
-cls.var('ATTRIBUTE_NAME_NORMAL', [[static const char *ATTRIBUTE_NAME_NORMAL]])
-cls.var('ATTRIBUTE_NAME_BLEND_WEIGHT', [[static const char *ATTRIBUTE_NAME_BLEND_WEIGHT]])
-cls.var('ATTRIBUTE_NAME_BLEND_INDEX', [[static const char *ATTRIBUTE_NAME_BLEND_INDEX]])
-cls.var('ATTRIBUTE_NAME_TANGENT', [[static const char *ATTRIBUTE_NAME_TANGENT]])
-cls.var('ATTRIBUTE_NAME_BINORMAL', [[static const char *ATTRIBUTE_NAME_BINORMAL]])
-cls.props [[
-    vertexShaderLog
-    fragmentShaderLog
-    programLog
-    program
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls 'cocos2d::GLProgramCache'
+cls = typecls 'cocos2d::Pass'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
-    GLProgramCache()
-    static cocos2d::GLProgramCache *getInstance()
-    static void destroyInstance()
-    void loadDefaultGLPrograms()
-    void reloadDefaultGLPrograms()
-    cocos2d::GLProgram *getGLProgram(const std::string &key)
-    void addGLProgram(cocos2d::GLProgram *program, const std::string &key)
-    void reloadDefaultGLProgramsRelativeToLights()
-]]
-cls.props [[
-    instance
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls 'cocos2d::GLProgramState'
+cls = typecls 'cocos2d::RenderState'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
-    static cocos2d::GLProgramState *create(cocos2d::GLProgram *glprogram)
-    static cocos2d::GLProgramState *getOrCreateWithGLProgram(cocos2d::GLProgram *glprogram)
-    static cocos2d::GLProgramState *getOrCreateWithGLProgramName(const std::string &glProgramName)
-    static cocos2d::GLProgramState *getOrCreateWithGLProgramName(const std::string &glProgramName, cocos2d::Texture2D *texture)
-    static cocos2d::GLProgramState *getOrCreateWithShaders(const std::string &vertexShader, const std::string &fragShader, const std::string &compileTimeDefines)
-    cocos2d::GLProgramState *clone()
-    void apply(const cocos2d::Mat4 &modelView)
-    void applyGLProgram(const cocos2d::Mat4 &modelView)
-    void applyAttributes(@optional bool applyAttribFlags)
-    void applyUniforms()
-    void setGLProgram(@ref(single glProgram) cocos2d::GLProgram *glprogram)
-    @ref(single glProgram) cocos2d::GLProgram *getGLProgram()
-    uint32_t getVertexAttribsFlags()
-    ssize_t getVertexAttribCount()
-    void setVertexAttribPointer(const std::string &name, GLint size, GLenum type, GLboolean normalized, GLsizei stride, GLvoid *pointer)
-    ssize_t getUniformCount()
-    void setUniformInt(const std::string &uniformName, int value)
-    void setUniformFloat(const std::string &uniformName, float value)
-    void setUniformVec2(const std::string &uniformName, const cocos2d::Vec2 &value)
-    void setUniformVec3(const std::string &uniformName, const cocos2d::Vec3 &value)
-    void setUniformVec4(const std::string &uniformName, const cocos2d::Vec4 &value)
-    void setUniformMat4(const std::string &uniformName, const cocos2d::Mat4 &value)
-    void setUniformTexture(const std::string &uniformName, cocos2d::Texture2D *texture)
-    void setUniformInt(GLint uniformLocation, int value)
-    void setUniformFloat(GLint uniformLocation, float value)
-    void setUniformVec2(GLint uniformLocation, const cocos2d::Vec2 &value)
-    void setUniformVec3(GLint uniformLocation, const cocos2d::Vec3 &value)
-    void setUniformVec4(GLint uniformLocation, const cocos2d::Vec4 &value)
-    void setUniformMat4(GLint uniformLocation, const cocos2d::Mat4 &value)
-    void setUniformTexture(GLint uniformLocation, cocos2d::Texture2D *texture)
-    @ref(single nodeBinding) cocos2d::Node *getNodeBinding()
-    void setNodeBinding(@ref(single nodeBinding) cocos2d::Node *node)
-    void applyAutoBinding(const std::string &uniformName, const std::string &autoBinding)
-    void setParameterAutoBinding(const std::string &uniformName, const std::string &autoBinding)
 ]]
-cls.props [[
-    glProgram
-    vertexAttribsFlags
-    vertexAttribCount
-    uniformCount
-    nodeBinding
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::RenderCommand'
+cls.funcs [[
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::CustomCommand'
+cls.SUPERCLS = "cocos2d::RenderCommand"
+cls.funcs [[
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::MeshCommand'
+cls.SUPERCLS = "cocos2d::CustomCommand"
+cls.funcs [[
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -1762,8 +1880,8 @@ cls.funcs [[
 ]]
 cls.callback {
     FUNCS =  {
-        'void addImageAsync(const std::string &filepath, const std::function<void(Texture2D*)>& callback)',
-        'void addImageAsync(const std::string &path, const std::function<void(Texture2D*)>& callback, const std::string& callbackKey)'
+        'void addImageAsync(const std::string &filepath, const std::function<void (Texture2D *)> &callback)',
+        'void addImageAsync(const std::string &path, const std::function<void (Texture2D *)> &callback, const std::string &callbackKey)'
     },
     TAG_MAKER = {'makeTextureCacheCallbackTag(#1)', 'makeTextureCacheCallbackTag(#-1)'},
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -1798,100 +1916,78 @@ cls.props [[
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls 'cocos2d::Texture2D::PixelFormat'
-cls.enums [[
-    AUTO
-    BGRA8888
-    RGBA8888
-    RGB888
-    RGB565
-    A8
-    I8
-    AI88
-    RGBA4444
-    RGB5A1
-    PVRTC4
-    PVRTC4A
-    PVRTC2
-    PVRTC2A
-    ETC
-    S3TC_DXT1
-    S3TC_DXT3
-    S3TC_DXT5
-    ATC_RGB
-    ATC_EXPLICIT_ALPHA
-    ATC_INTERPOLATED_ALPHA
-    DEFAULT
-    NONE
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
 cls = typecls 'cocos2d::Texture2D'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
-    static void setDefaultAlphaPixelFormat(Texture2D::PixelFormat format)
-    static Texture2D::PixelFormat getDefaultAlphaPixelFormat()
+    static void setDefaultAlphaPixelFormat(backend::PixelFormat format)
+    static backend::PixelFormat getDefaultAlphaPixelFormat()
     Texture2D()
-    std::string getDescription()
-    void releaseGLTexture()
-    bool initWithData(const void *data, ssize_t dataLen, Texture2D::PixelFormat pixelFormat, int pixelsWide, int pixelsHigh, const cocos2d::Size &contentSize, @optional bool preMultipliedAlpha)
-    bool updateWithData(const void *data, int offsetX, int offsetY, int width, int height)
-    void drawAtPoint(const cocos2d::Vec2 &point)
-    void drawInRect(const cocos2d::Rect &rect)
+    bool initWithData(const void *data, ssize_t dataLen, backend::PixelFormat pixelFormat, int pixelsWide, int pixelsHigh, const cocos2d::Size &contentSize, @optional bool preMultipliedAlpha)
+    bool initWithData(const void *data, ssize_t dataLen, backend::PixelFormat pixelFormat, backend::PixelFormat renderFormat, int pixelsWide, int pixelsHigh, const cocos2d::Size &contentSize, @optional bool preMultipliedAlpha)
+    bool updateWithData(void *data, int offsetX, int offsetY, int width, int height)
+    void drawAtPoint(const cocos2d::Vec2 &point, float globalZOrder)
+    void drawInRect(const cocos2d::Rect &rect, float globalZOrder)
     bool initWithImage(cocos2d::Image *image)
-    bool initWithImage(cocos2d::Image *image, cocos2d::Texture2D::PixelFormat format)
+    bool initWithImage(cocos2d::Image *image, backend::PixelFormat format)
     bool initWithString(const char *text, const std::string &fontName, float fontSize, @optional const cocos2d::Size &dimensions, @optional cocos2d::TextHAlignment hAlignment, @optional cocos2d::TextVAlignment vAlignment, @optional bool enableWrap, @optional int overflow)
-    void setTexParameters(const cocos2d::Texture2D::TexParams &texParams)
+    bool initWithBackendTexture(backend::TextureBackend *texture, @optional bool preMultipliedAlpha)
+    void setRenderTarget(bool renderTarget)
+    bool isRenderTarget()
+    void setTexParameters(const cocos2d::Texture2D::TexParams &params)
+    void generateMipmap()
     void setAntiAliasTexParameters()
     void setAliasTexParameters()
-    void generateMipmap()
     const char *getStringForFormat()
     unsigned int getBitsPerPixelForFormat()
-    unsigned int getBitsPerPixelForFormat(Texture2D::PixelFormat format)
+    unsigned int getBitsPerPixelForFormat(backend::PixelFormat format)
     const cocos2d::Size &getContentSizeInPixels()
     bool hasPremultipliedAlpha()
     bool hasMipmaps()
-    Texture2D::PixelFormat getPixelFormat()
+    backend::PixelFormat getPixelFormat()
     int getPixelsWide()
     int getPixelsHigh()
-    GLuint getName()
-    GLfloat getMaxS()
-    void setMaxS(GLfloat maxS)
-    GLfloat getMaxT()
-    void setMaxT(GLfloat maxT)
+    backend::TextureBackend *getBackendTexture()
+    float getMaxS()
+    void setMaxS(float maxS)
+    float getMaxT()
+    void setMaxT(float maxT)
     cocos2d::Size getContentSize()
-    void setGLProgram(cocos2d::GLProgram *program)
-    cocos2d::GLProgram *getGLProgram()
     std::string getPath()
     void setAlphaTexture(cocos2d::Texture2D *alphaTexture)
     cocos2d::Texture2D *getAlphaTexture()
-    GLuint getAlphaTextureName()
+    bool getAlphaTextureName()
+    static const std::map<backend::PixelFormat, const PixelFormatInfo> &getPixelFormatInfoMap()
 ]]
 cls.props [[
     defaultAlphaPixelFormat
-    description
+    renderTarget
     stringForFormat
     contentSizeInPixels
     pixelFormat
     pixelsWide
     pixelsHigh
-    name
+    backendTexture
     maxS
     maxT
     contentSize
-    glProgram
     path
     alphaTexture
     alphaTextureName
+    pixelFormatInfoMap
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'cocos2d::TextureCube'
-cls.SUPERCLS = "cocos2d::Texture2D"
+cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
     static cocos2d::TextureCube *create(const std::string &positive_x, const std::string &negative_x, const std::string &positive_y, const std::string &negative_y, const std::string &positive_z, const std::string &negative_z)
+    void setTexParameters(const Texture2D::TexParams &)
+    backend::TextureBackend *getBackendTexture()
     bool reloadTexture()
     TextureCube()
+]]
+cls.props [[
+    backendTexture
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -1912,15 +2008,11 @@ cls.funcs [[
     void moveQuadsFromIndex(ssize_t oldIndex, ssize_t amount, ssize_t newIndex)
     void moveQuadsFromIndex(ssize_t index, ssize_t newIndex)
     void fillWithEmptyQuadsFromIndex(ssize_t index, ssize_t amount)
-    void drawNumberOfQuads(ssize_t n)
-    void drawNumberOfQuads(ssize_t numberOfQuads, ssize_t start)
-    void drawQuads()
-    void listenRendererRecreated(cocos2d::EventCustom *event)
     bool isDirty()
     void setDirty(bool bDirty)
     std::string getDescription()
-    ssize_t getTotalQuads()
-    ssize_t getCapacity()
+    size_t getTotalQuads()
+    size_t getCapacity()
     cocos2d::Texture2D *getTexture()
     void setTexture(cocos2d::Texture2D *texture)
 ]]
@@ -1930,43 +2022,6 @@ cls.props [[
     totalQuads
     capacity
     texture
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::VRIHeadTracker'
-cls.funcs [[
-    cocos2d::Vec3 getLocalPosition()
-    cocos2d::Mat4 getLocalRotation()
-]]
-cls.props [[
-    localPosition
-    localRotation
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::VRIRenderer'
-cls.funcs [[
-    void setup(cocos2d::GLView *glview)
-    void cleanup()
-    void render(cocos2d::Scene *scene, cocos2d::Renderer *renderer)
-    cocos2d::VRIHeadTracker *getHeadTracker()
-]]
-cls.props [[
-    headTracker
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::VRGenericRenderer'
-cls.SUPERCLS = "cocos2d::VRIRenderer"
-cls.funcs [[
-    VRGenericRenderer()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::VRGenericHeadTracker'
-cls.SUPERCLS = "cocos2d::VRIHeadTracker"
-cls.funcs [[
-    VRGenericHeadTracker()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -2010,7 +2065,7 @@ cls.funcs [[
 ]]
 cls.func('init', [[{
     std::vector<std::string> protocols;
-    auto self = olua_toobj<cocos2d::network::WebSocket>(L, 1);
+    auto self =  olua_toobj<cocos2d::network::WebSocket>(L, 1);
     auto delegate = olua_checkobj<cocos2d::network::WebSocket::Delegate>(L, 2);
     std::string url = olua_tostring(L, 3);
     std::string cafile = olua_optstring(L, 5, "");
@@ -2027,10 +2082,9 @@ cls.func('init', [[{
     }
 
     self->init(*delegate, url, protocols.size() > 0 ? &protocols : nullptr, cafile);
-
     olua_singleref(L, 1, "delegate", 2);
 
-    return 1;
+    return 0;
 }]])
 cls.props [[
     readyState
@@ -2076,917 +2130,6 @@ cls.props [[
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls 'cocos2d::Action'
-cls.SUPERCLS = "cocos2d::Ref"
-cls.const('INVALID_TAG', 'cocos2d::Action::INVALID_TAG', 'const int')
-cls.funcs [[
-    std::string description()
-    cocos2d::Action *clone()
-    cocos2d::Action *reverse()
-    bool isDone()
-    void startWithTarget(cocos2d::Node *target)
-    void stop()
-    void step(float dt)
-    void update(float time)
-    cocos2d::Node *getTarget()
-    void setTarget(cocos2d::Node *target)
-    cocos2d::Node *getOriginalTarget()
-    void setOriginalTarget(cocos2d::Node *originalTarget)
-    int getTag()
-    void setTag(int tag)
-    unsigned int getFlags()
-    void setFlags(unsigned int flags)
-    Action()
-]]
-cls.props [[
-    done
-    target
-    originalTarget
-    tag
-    flags
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::FiniteTimeAction'
-cls.SUPERCLS = "cocos2d::Action"
-cls.funcs [[
-    float getDuration()
-    void setDuration(float duration)
-    FiniteTimeAction()
-]]
-cls.props [[
-    duration
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::Speed'
-cls.SUPERCLS = "cocos2d::Action"
-cls.funcs [[
-    static cocos2d::Speed *create(@ref(single innerAction) cocos2d::ActionInterval *action, float speed)
-    float getSpeed()
-    void setSpeed(float speed)
-    void setInnerAction(@ref(single innerAction) cocos2d::ActionInterval *action)
-    @ref(single innerAction) cocos2d::ActionInterval *getInnerAction()
-    Speed()
-]]
-cls.props [[
-    speed
-    innerAction
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::Follow'
-cls.SUPERCLS = "cocos2d::Action"
-cls.funcs [[
-    static cocos2d::Follow *create(cocos2d::Node *followedNode, @optional const cocos2d::Rect &rect)
-    static cocos2d::Follow *createWithOffset(cocos2d::Node *followedNode, float xOffset, float yOffset, @optional const cocos2d::Rect &rect)
-    bool isBoundarySet()
-    void setBoundarySet(bool value)
-    Follow()
-    bool initWithTarget(cocos2d::Node *followedNode, @optional const cocos2d::Rect &rect)
-    bool initWithTargetAndOffset(cocos2d::Node *followedNode, float xOffset, float yOffset, @optional const cocos2d::Rect &rect)
-]]
-cls.props [[
-    boundarySet
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::tweenfunc'
-cls.REG_LUATYPE = false
-cls.funcs [[
-    static float easeIn(float time, float rate)
-    static float easeOut(float time, float rate)
-    static float easeInOut(float time, float rate)
-    static float bezieratFunction(float a, float b, float c, float d, float t)
-    static float quadraticIn(float time)
-    static float quadraticOut(float time)
-    static float quadraticInOut(float time)
-    static float linear(float time)
-    static float sineEaseIn(float time)
-    static float sineEaseOut(float time)
-    static float sineEaseInOut(float time)
-    static float quadEaseIn(float time)
-    static float quadEaseOut(float time)
-    static float quadEaseInOut(float time)
-    static float cubicEaseIn(float time)
-    static float cubicEaseOut(float time)
-    static float cubicEaseInOut(float time)
-    static float quartEaseIn(float time)
-    static float quartEaseOut(float time)
-    static float quartEaseInOut(float time)
-    static float quintEaseIn(float time)
-    static float quintEaseOut(float time)
-    static float quintEaseInOut(float time)
-    static float expoEaseIn(float time)
-    static float expoEaseOut(float time)
-    static float expoEaseInOut(float time)
-    static float circEaseIn(float time)
-    static float circEaseOut(float time)
-    static float circEaseInOut(float time)
-    static float elasticEaseIn(float time, float period)
-    static float elasticEaseOut(float time, float period)
-    static float elasticEaseInOut(float time, float period)
-    static float backEaseIn(float time)
-    static float backEaseOut(float time)
-    static float backEaseInOut(float time)
-    static float bounceEaseIn(float time)
-    static float bounceEaseOut(float time)
-    static float bounceEaseInOut(float time)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::ActionInterval'
-cls.SUPERCLS = "cocos2d::FiniteTimeAction"
-cls.funcs [[
-    float getElapsed()
-    void setAmplitudeRate(float amp)
-    float getAmplitudeRate()
-]]
-cls.props [[
-    elapsed
-    amplitudeRate
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::Sequence'
-cls.SUPERCLS = "cocos2d::ActionInterval"
-cls.funcs [[
-    static cocos2d::Sequence *createWithTwoActions(@ref(map autoref) cocos2d::FiniteTimeAction *actionOne, @ref(map autoref) cocos2d::FiniteTimeAction *actionTwo)
-    Sequence()
-]]
-cls.func('create', [[{
-    cocos2d::Vector<cocos2d::FiniteTimeAction *> actions;
-    int n = lua_gettop(L);
-    actions.reserve(n);
-
-    auto ret = new cocos2d::Sequence();
-    ret->autorelease();
-    olua_push_cppobj<cocos2d::Sequence>(L, ret);
-
-    for (int i = 1; i <= n; i++) {
-        auto obj = olua_checkobj<cocos2d::FiniteTimeAction>(L, i);
-        actions.pushBack(obj);
-        olua_mapref(L, -1, ".autoref", i);
-    }
-
-    ret->init(actions);
-
-    return 1;
-}]])
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::Repeat'
-cls.SUPERCLS = "cocos2d::ActionInterval"
-cls.funcs [[
-    static cocos2d::Repeat *create(@ref(single innerAction) cocos2d::FiniteTimeAction *action, unsigned int times)
-    void setInnerAction(@ref(single innerAction) cocos2d::FiniteTimeAction *action)
-    @ref(single innerAction) cocos2d::FiniteTimeAction *getInnerAction()
-    Repeat()
-]]
-cls.props [[
-    innerAction
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::RepeatForever'
-cls.SUPERCLS = "cocos2d::ActionInterval"
-cls.funcs [[
-    static cocos2d::RepeatForever *create(@ref(single innerAction) cocos2d::ActionInterval *action)
-    void setInnerAction(@ref(single innerAction) cocos2d::ActionInterval *action)
-    @ref(single innerAction) cocos2d::ActionInterval *getInnerAction()
-    RepeatForever()
-]]
-cls.props [[
-    innerAction
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::Spawn'
-cls.SUPERCLS = "cocos2d::ActionInterval"
-cls.funcs [[
-    static cocos2d::Spawn *createWithTwoActions(@ref(map autoref) cocos2d::FiniteTimeAction *action1, @ref(map autoref) cocos2d::FiniteTimeAction *action2)
-    Spawn()
-]]
-cls.func('create', [[{
-    cocos2d::Vector<cocos2d::FiniteTimeAction *> actions;
-    int n = lua_gettop(L);
-    actions.reserve(n);
-
-    auto ret = new cocos2d::Spawn();
-    ret->autorelease();
-    olua_push_cppobj<cocos2d::Spawn>(L, ret);
-
-    for (int i = 1; i <= n; i++) {
-        auto obj = olua_checkobj<cocos2d::FiniteTimeAction>(L, i);
-        actions.pushBack(obj);
-        olua_mapref(L, -1, ".autoref", i);
-    }
-
-    ret->init(actions);
-
-    return 1;
-}]])
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::RotateTo'
-cls.SUPERCLS = "cocos2d::ActionInterval"
-cls.funcs [[
-    static cocos2d::RotateTo *create(float duration, float dstAngleX, float dstAngleY)
-    static cocos2d::RotateTo *create(float duration, float dstAngle)
-    static cocos2d::RotateTo *create(float duration, const cocos2d::Vec3 &dstAngle3D)
-    RotateTo()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::RotateBy'
-cls.SUPERCLS = "cocos2d::ActionInterval"
-cls.funcs [[
-    static cocos2d::RotateBy *create(float duration, float deltaAngle)
-    static cocos2d::RotateBy *create(float duration, float deltaAngleZ_X, float deltaAngleZ_Y)
-    static cocos2d::RotateBy *create(float duration, const cocos2d::Vec3 &deltaAngle3D)
-    RotateBy()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::MoveBy'
-cls.SUPERCLS = "cocos2d::ActionInterval"
-cls.funcs [[
-    static cocos2d::MoveBy *create(float duration, @pack const cocos2d::Vec2 &deltaPosition)
-    static cocos2d::MoveBy *create(float duration, @pack const cocos2d::Vec3 &deltaPosition)
-    MoveBy()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::MoveTo'
-cls.SUPERCLS = "cocos2d::MoveBy"
-cls.funcs [[
-    static cocos2d::MoveTo *create(float duration, @pack const cocos2d::Vec2 &position)
-    static cocos2d::MoveTo *create(float duration, @pack const cocos2d::Vec3 &position)
-    MoveTo()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::SkewTo'
-cls.SUPERCLS = "cocos2d::ActionInterval"
-cls.funcs [[
-    static cocos2d::SkewTo *create(float t, float sx, float sy)
-    SkewTo()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::SkewBy'
-cls.SUPERCLS = "cocos2d::SkewTo"
-cls.funcs [[
-    static cocos2d::SkewBy *create(float t, float deltaSkewX, float deltaSkewY)
-    SkewBy()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::ResizeTo'
-cls.SUPERCLS = "cocos2d::ActionInterval"
-cls.funcs [[
-    static cocos2d::ResizeTo *create(float duration, const cocos2d::Size &final_size)
-    ResizeTo()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::ResizeBy'
-cls.SUPERCLS = "cocos2d::ActionInterval"
-cls.funcs [[
-    static cocos2d::ResizeBy *create(float duration, const cocos2d::Size &deltaSize)
-    ResizeBy()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::BezierBy'
-cls.SUPERCLS = "cocos2d::ActionInterval"
-cls.funcs [[
-    static cocos2d::BezierBy *create(float t, @pack const cocos2d::ccBezierConfig &c)
-    BezierBy()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::BezierTo'
-cls.SUPERCLS = "cocos2d::BezierBy"
-cls.funcs [[
-    static cocos2d::BezierTo *create(float t, @pack const cocos2d::ccBezierConfig &c)
-    BezierTo()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::JumpBy'
-cls.SUPERCLS = "cocos2d::ActionInterval"
-cls.funcs [[
-    static cocos2d::JumpBy *create(float duration, @pack const cocos2d::Vec2 &position, float height, int jumps)
-    JumpBy()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::JumpTo'
-cls.SUPERCLS = "cocos2d::JumpBy"
-cls.funcs [[
-    static cocos2d::JumpTo *create(float duration, @pack const cocos2d::Vec2 &position, float height, int jumps)
-    JumpTo()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::ScaleTo'
-cls.SUPERCLS = "cocos2d::ActionInterval"
-cls.funcs [[
-    static cocos2d::ScaleTo *create(float duration, float s)
-    static cocos2d::ScaleTo *create(float duration, float sx, float sy)
-    static cocos2d::ScaleTo *create(float duration, float sx, float sy, float sz)
-    ScaleTo()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::ScaleBy'
-cls.SUPERCLS = "cocos2d::ScaleTo"
-cls.funcs [[
-    static cocos2d::ScaleBy *create(float duration, float s)
-    static cocos2d::ScaleBy *create(float duration, float sx, float sy)
-    static cocos2d::ScaleBy *create(float duration, float sx, float sy, float sz)
-    ScaleBy()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::Blink'
-cls.SUPERCLS = "cocos2d::ActionInterval"
-cls.funcs [[
-    static cocos2d::Blink *create(float duration, int blinks)
-    Blink()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::FadeTo'
-cls.SUPERCLS = "cocos2d::ActionInterval"
-cls.funcs [[
-    static cocos2d::FadeTo *create(float duration, GLubyte opacity)
-    FadeTo()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::FadeIn'
-cls.SUPERCLS = "cocos2d::FadeTo"
-cls.funcs [[
-    static cocos2d::FadeIn *create(float d)
-    FadeIn()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::FadeOut'
-cls.SUPERCLS = "cocos2d::FadeTo"
-cls.funcs [[
-    static cocos2d::FadeOut *create(float d)
-    FadeOut()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::TintTo'
-cls.SUPERCLS = "cocos2d::ActionInterval"
-cls.funcs [[
-    static cocos2d::TintTo *create(float duration, GLubyte red, GLubyte green, GLubyte blue)
-    static cocos2d::TintTo *create(float duration, const cocos2d::Color3B &color)
-    TintTo()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::TintBy'
-cls.SUPERCLS = "cocos2d::ActionInterval"
-cls.funcs [[
-    static cocos2d::TintBy *create(float duration, GLshort deltaRed, GLshort deltaGreen, GLshort deltaBlue)
-    TintBy()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::DelayTime'
-cls.SUPERCLS = "cocos2d::ActionInterval"
-cls.funcs [[
-    static cocos2d::DelayTime *create(float d)
-    DelayTime()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::ReverseTime'
-cls.SUPERCLS = "cocos2d::ActionInterval"
-cls.funcs [[
-    static cocos2d::ReverseTime *create(@ref(map autoref) cocos2d::FiniteTimeAction *action)
-    ReverseTime()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::Animate'
-cls.SUPERCLS = "cocos2d::ActionInterval"
-cls.funcs [[
-    static cocos2d::Animate *create(cocos2d::Animation *animation)
-    void setAnimation(cocos2d::Animation *animation)
-    cocos2d::Animation *getAnimation()
-    int getCurrentFrameIndex()
-    Animate()
-]]
-cls.props [[
-    animation
-    currentFrameIndex
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::TargetedAction'
-cls.SUPERCLS = "cocos2d::ActionInterval"
-cls.funcs [[
-    static cocos2d::TargetedAction *create(cocos2d::Node *target, @ref(map autoref) cocos2d::FiniteTimeAction *action)
-    void setForcedTarget(cocos2d::Node *forcedTarget)
-    cocos2d::Node *getForcedTarget()
-    TargetedAction()
-    bool initWithTarget(cocos2d::Node *target, cocos2d::FiniteTimeAction *action)
-]]
-cls.props [[
-    forcedTarget
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::ActionFloat'
-cls.SUPERCLS = "cocos2d::ActionInterval"
-cls.funcs [[
-    ActionFloat()
-]]
-cls.callback {
-    FUNCS =  {
-        'static ActionFloat* create(float duration, float from, float to, std::function<void(float value)> callback)'
-    },
-    TAG_MAKER = 'ActionFloat',
-    TAG_MODE = 'OLUA_TAG_NEW',
-    TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
-    CPPFUNC = 'initWithDuration',
-}
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::ProgressTo'
-cls.SUPERCLS = "cocos2d::ActionInterval"
-cls.funcs [[
-    static cocos2d::ProgressTo *create(float duration, float percent)
-    ProgressTo()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::ProgressFromTo'
-cls.SUPERCLS = "cocos2d::ActionInterval"
-cls.funcs [[
-    static cocos2d::ProgressFromTo *create(float duration, float fromPercentage, float toPercentage)
-    ProgressFromTo()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::ActionEase'
-cls.SUPERCLS = "cocos2d::ActionInterval"
-cls.funcs [[
-    @ref(single innerAction) cocos2d::ActionInterval *getInnerAction()
-    ActionEase()
-]]
-cls.props [[
-    innerAction
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::EaseRateAction'
-cls.SUPERCLS = "cocos2d::ActionEase"
-cls.funcs [[
-    static cocos2d::EaseRateAction *create(@ref(single innerAction) cocos2d::ActionInterval *action, float rate)
-    void setRate(float rate)
-    float getRate()
-    EaseRateAction()
-]]
-cls.props [[
-    rate
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::EaseExponentialIn'
-cls.SUPERCLS = "cocos2d::ActionEase"
-cls.funcs [[
-    EaseExponentialIn()
-    static cocos2d::EaseExponentialIn *create(@ref(single innerAction) cocos2d::ActionInterval *action)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::EaseExponentialOut'
-cls.SUPERCLS = "cocos2d::ActionEase"
-cls.funcs [[
-    EaseExponentialOut()
-    static cocos2d::EaseExponentialOut *create(@ref(single innerAction) cocos2d::ActionInterval *action)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::EaseExponentialInOut'
-cls.SUPERCLS = "cocos2d::ActionEase"
-cls.funcs [[
-    EaseExponentialInOut()
-    static cocos2d::EaseExponentialInOut *create(@ref(single innerAction) cocos2d::ActionInterval *action)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::EaseSineIn'
-cls.SUPERCLS = "cocos2d::ActionEase"
-cls.funcs [[
-    EaseSineIn()
-    static cocos2d::EaseSineIn *create(@ref(single innerAction) cocos2d::ActionInterval *action)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::EaseSineOut'
-cls.SUPERCLS = "cocos2d::ActionEase"
-cls.funcs [[
-    EaseSineOut()
-    static cocos2d::EaseSineOut *create(@ref(single innerAction) cocos2d::ActionInterval *action)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::EaseSineInOut'
-cls.SUPERCLS = "cocos2d::ActionEase"
-cls.funcs [[
-    EaseSineInOut()
-    static cocos2d::EaseSineInOut *create(@ref(single innerAction) cocos2d::ActionInterval *action)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::EaseBounceIn'
-cls.SUPERCLS = "cocos2d::ActionEase"
-cls.funcs [[
-    EaseBounceIn()
-    static cocos2d::EaseBounceIn *create(@ref(single innerAction) cocos2d::ActionInterval *action)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::EaseBounceOut'
-cls.SUPERCLS = "cocos2d::ActionEase"
-cls.funcs [[
-    EaseBounceOut()
-    static cocos2d::EaseBounceOut *create(@ref(single innerAction) cocos2d::ActionInterval *action)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::EaseBounceInOut'
-cls.SUPERCLS = "cocos2d::ActionEase"
-cls.funcs [[
-    EaseBounceInOut()
-    static cocos2d::EaseBounceInOut *create(@ref(single innerAction) cocos2d::ActionInterval *action)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::EaseBackIn'
-cls.SUPERCLS = "cocos2d::ActionEase"
-cls.funcs [[
-    EaseBackIn()
-    static cocos2d::EaseBackIn *create(@ref(single innerAction) cocos2d::ActionInterval *action)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::EaseBackOut'
-cls.SUPERCLS = "cocos2d::ActionEase"
-cls.funcs [[
-    EaseBackOut()
-    static cocos2d::EaseBackOut *create(@ref(single innerAction) cocos2d::ActionInterval *action)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::EaseBackInOut'
-cls.SUPERCLS = "cocos2d::ActionEase"
-cls.funcs [[
-    EaseBackInOut()
-    static cocos2d::EaseBackInOut *create(@ref(single innerAction) cocos2d::ActionInterval *action)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::EaseQuadraticActionIn'
-cls.SUPERCLS = "cocos2d::ActionEase"
-cls.funcs [[
-    EaseQuadraticActionIn()
-    static cocos2d::EaseQuadraticActionIn *create(@ref(single innerAction) cocos2d::ActionInterval *action)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::EaseQuadraticActionOut'
-cls.SUPERCLS = "cocos2d::ActionEase"
-cls.funcs [[
-    EaseQuadraticActionOut()
-    static cocos2d::EaseQuadraticActionOut *create(@ref(single innerAction) cocos2d::ActionInterval *action)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::EaseQuadraticActionInOut'
-cls.SUPERCLS = "cocos2d::ActionEase"
-cls.funcs [[
-    EaseQuadraticActionInOut()
-    static cocos2d::EaseQuadraticActionInOut *create(@ref(single innerAction) cocos2d::ActionInterval *action)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::EaseQuarticActionIn'
-cls.SUPERCLS = "cocos2d::ActionEase"
-cls.funcs [[
-    EaseQuarticActionIn()
-    static cocos2d::EaseQuarticActionIn *create(@ref(single innerAction) cocos2d::ActionInterval *action)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::EaseQuarticActionOut'
-cls.SUPERCLS = "cocos2d::ActionEase"
-cls.funcs [[
-    EaseQuarticActionOut()
-    static cocos2d::EaseQuarticActionOut *create(@ref(single innerAction) cocos2d::ActionInterval *action)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::EaseQuarticActionInOut'
-cls.SUPERCLS = "cocos2d::ActionEase"
-cls.funcs [[
-    EaseQuarticActionInOut()
-    static cocos2d::EaseQuarticActionInOut *create(@ref(single innerAction) cocos2d::ActionInterval *action)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::EaseQuinticActionIn'
-cls.SUPERCLS = "cocos2d::ActionEase"
-cls.funcs [[
-    EaseQuinticActionIn()
-    static cocos2d::EaseQuinticActionIn *create(@ref(single innerAction) cocos2d::ActionInterval *action)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::EaseQuinticActionOut'
-cls.SUPERCLS = "cocos2d::ActionEase"
-cls.funcs [[
-    EaseQuinticActionOut()
-    static cocos2d::EaseQuinticActionOut *create(@ref(single innerAction) cocos2d::ActionInterval *action)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::EaseQuinticActionInOut'
-cls.SUPERCLS = "cocos2d::ActionEase"
-cls.funcs [[
-    EaseQuinticActionInOut()
-    static cocos2d::EaseQuinticActionInOut *create(@ref(single innerAction) cocos2d::ActionInterval *action)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::EaseCircleActionIn'
-cls.SUPERCLS = "cocos2d::ActionEase"
-cls.funcs [[
-    EaseCircleActionIn()
-    static cocos2d::EaseCircleActionIn *create(@ref(single innerAction) cocos2d::ActionInterval *action)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::EaseCircleActionOut'
-cls.SUPERCLS = "cocos2d::ActionEase"
-cls.funcs [[
-    EaseCircleActionOut()
-    static cocos2d::EaseCircleActionOut *create(@ref(single innerAction) cocos2d::ActionInterval *action)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::EaseCircleActionInOut'
-cls.SUPERCLS = "cocos2d::ActionEase"
-cls.funcs [[
-    EaseCircleActionInOut()
-    static cocos2d::EaseCircleActionInOut *create(@ref(single innerAction) cocos2d::ActionInterval *action)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::EaseCubicActionIn'
-cls.SUPERCLS = "cocos2d::ActionEase"
-cls.funcs [[
-    EaseCubicActionIn()
-    static cocos2d::EaseCubicActionIn *create(@ref(single innerAction) cocos2d::ActionInterval *action)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::EaseCubicActionOut'
-cls.SUPERCLS = "cocos2d::ActionEase"
-cls.funcs [[
-    EaseCubicActionOut()
-    static cocos2d::EaseCubicActionOut *create(@ref(single innerAction) cocos2d::ActionInterval *action)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::EaseCubicActionInOut'
-cls.SUPERCLS = "cocos2d::ActionEase"
-cls.funcs [[
-    EaseCubicActionInOut()
-    static cocos2d::EaseCubicActionInOut *create(@ref(single innerAction) cocos2d::ActionInterval *action)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::EaseIn'
-cls.SUPERCLS = "cocos2d::EaseRateAction"
-cls.funcs [[
-    EaseIn()
-    static cocos2d::EaseIn *create(@ref(single innerAction) cocos2d::ActionInterval *action, float rate)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::EaseOut'
-cls.SUPERCLS = "cocos2d::EaseRateAction"
-cls.funcs [[
-    EaseOut()
-    static cocos2d::EaseOut *create(@ref(single innerAction) cocos2d::ActionInterval *action, float rate)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::EaseInOut'
-cls.SUPERCLS = "cocos2d::EaseRateAction"
-cls.funcs [[
-    EaseInOut()
-    static cocos2d::EaseInOut *create(@ref(single innerAction) cocos2d::ActionInterval *action, float rate)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::EaseElastic'
-cls.SUPERCLS = "cocos2d::ActionEase"
-cls.funcs [[
-    float getPeriod()
-    void setPeriod(float fPeriod)
-    EaseElastic()
-]]
-cls.props [[
-    period
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::EaseElasticIn'
-cls.SUPERCLS = "cocos2d::EaseElastic"
-cls.funcs [[
-    EaseElasticIn()
-    static cocos2d::EaseElasticIn *create(@ref(single innerAction) cocos2d::ActionInterval *action, @optional float rate)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::EaseElasticOut'
-cls.SUPERCLS = "cocos2d::EaseElastic"
-cls.funcs [[
-    EaseElasticOut()
-    static cocos2d::EaseElasticOut *create(@ref(single innerAction) cocos2d::ActionInterval *action, @optional float rate)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::EaseElasticInOut'
-cls.SUPERCLS = "cocos2d::EaseElastic"
-cls.funcs [[
-    EaseElasticInOut()
-    static cocos2d::EaseElasticInOut *create(@ref(single innerAction) cocos2d::ActionInterval *action, @optional float rate)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::EaseBezierAction'
-cls.SUPERCLS = "cocos2d::ActionEase"
-cls.funcs [[
-    static cocos2d::EaseBezierAction *create(@ref(single innerAction) cocos2d::ActionInterval *action)
-    void setBezierParamer(float p0, float p1, float p2, float p3)
-    EaseBezierAction()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::PointArray'
-cls.SUPERCLS = "cocos2d::Ref"
-cls.funcs [[
-    static cocos2d::PointArray *create(ssize_t capacity)
-    PointArray()
-    bool initWithCapacity(ssize_t capacity)
-    void addControlPoint(const cocos2d::Vec2 &controlPoint)
-    void insertControlPoint(const cocos2d::Vec2 &controlPoint, ssize_t index)
-    void replaceControlPoint(const cocos2d::Vec2 &controlPoint, ssize_t index)
-    const cocos2d::Vec2 &getControlPointAtIndex(ssize_t index)
-    void removeControlPointAtIndex(ssize_t index)
-    ssize_t count()
-    cocos2d::PointArray *reverse()
-    void reverseInline()
-    cocos2d::PointArray *clone()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::CardinalSplineTo'
-cls.SUPERCLS = "cocos2d::ActionInterval"
-cls.funcs [[
-    static cocos2d::CardinalSplineTo *create(float duration, cocos2d::PointArray *points, float tension)
-    CardinalSplineTo()
-    void updatePosition(const cocos2d::Vec2 &newPos)
-    cocos2d::PointArray *getPoints()
-    void setPoints(cocos2d::PointArray *points)
-]]
-cls.props [[
-    points
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::CardinalSplineBy'
-cls.SUPERCLS = "cocos2d::CardinalSplineTo"
-cls.funcs [[
-    static cocos2d::CardinalSplineBy *create(float duration, cocos2d::PointArray *points, float tension)
-    CardinalSplineBy()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::CatmullRomTo'
-cls.SUPERCLS = "cocos2d::CardinalSplineTo"
-cls.funcs [[
-    static cocos2d::CatmullRomTo *create(float dt, cocos2d::PointArray *points)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::CatmullRomBy'
-cls.SUPERCLS = "cocos2d::CardinalSplineBy"
-cls.funcs [[
-    static cocos2d::CatmullRomBy *create(float dt, cocos2d::PointArray *points)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::ActionInstant'
-cls.SUPERCLS = "cocos2d::FiniteTimeAction"
-cls.funcs [[
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::Show'
-cls.SUPERCLS = "cocos2d::ActionInstant"
-cls.funcs [[
-    static cocos2d::Show *create()
-    Show()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::Hide'
-cls.SUPERCLS = "cocos2d::ActionInstant"
-cls.funcs [[
-    static cocos2d::Hide *create()
-    Hide()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::ToggleVisibility'
-cls.SUPERCLS = "cocos2d::ActionInstant"
-cls.funcs [[
-    static cocos2d::ToggleVisibility *create()
-    ToggleVisibility()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::RemoveSelf'
-cls.SUPERCLS = "cocos2d::ActionInstant"
-cls.funcs [[
-    static cocos2d::RemoveSelf *create(@optional bool isNeedCleanUp)
-    RemoveSelf()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::FlipX'
-cls.SUPERCLS = "cocos2d::ActionInstant"
-cls.funcs [[
-    static cocos2d::FlipX *create(bool x)
-    FlipX()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::FlipY'
-cls.SUPERCLS = "cocos2d::ActionInstant"
-cls.funcs [[
-    static cocos2d::FlipY *create(bool y)
-    FlipY()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::Place'
-cls.SUPERCLS = "cocos2d::ActionInstant"
-cls.funcs [[
-    static cocos2d::Place *create(const cocos2d::Vec2 &pos)
-    Place()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::CallFunc'
-cls.SUPERCLS = "cocos2d::ActionInstant"
-cls.funcs [[
-    void execute()
-    cocos2d::Ref *getTargetCallback()
-    void setTargetCallback(cocos2d::Ref *sel)
-    CallFunc()
-]]
-cls.callback {
-    FUNCS =  {
-        'static CallFunc * create(const std::function<void()>& func)'
-    },
-    TAG_MAKER = 'CallFunc',
-    TAG_MODE = 'OLUA_TAG_NEW',
-    TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
-    CPPFUNC = 'initWithFunction',
-}
-cls.props [[
-    targetCallback
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
 cls = typecls 'cocos2d::Component'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
@@ -2996,10 +2139,14 @@ cls.funcs [[
     void setEnabled(bool enabled)
     const std::string &getName()
     void setName(const std::string &name)
-    @ref(single owner) cocos2d::Node *getOwner()
-    void setOwner(@ref(single owner) cocos2d::Node *owner)
+    cocos2d::Node *getOwner()
+    void setOwner(cocos2d::Node *owner)
     void update(float delta)
     bool serialize(void *r)
+    void onEnter()
+    void onExit()
+    void onAdd()
+    void onRemove()
     Component()
 ]]
 cls.props [[
@@ -3121,10 +2268,6 @@ cls.funcs [[
     void setUserData(void *userData)
     cocos2d::Ref *getUserObject()
     void setUserObject(cocos2d::Ref *userObject)
-    @ref(single glProgram) cocos2d::GLProgram *getGLProgram()
-    void setGLProgram(@ref(single glProgram) cocos2d::GLProgram *glprogram)
-    @ref(single glProgramState) cocos2d::GLProgramState *getGLProgramState()
-    void setGLProgramState(@ref(single glProgramState) cocos2d::GLProgramState *glProgramState)
     bool isRunning()
     void onEnter()
     void onEnterTransitionDidFinish()
@@ -3184,10 +2327,10 @@ cls.funcs [[
     @unref(cmp components) bool removeComponent(const std::string &name)
     @unref(cmp components) bool removeComponent(cocos2d::Component *component)
     @unref(all components) void removeAllComponents()
-    GLubyte getOpacity()
-    GLubyte getDisplayedOpacity()
-    void setOpacity(GLubyte opacity)
-    void updateDisplayedOpacity(GLubyte parentOpacity)
+    uint8_t getOpacity()
+    uint8_t getDisplayedOpacity()
+    void setOpacity(uint8_t opacity)
+    void updateDisplayedOpacity(uint8_t parentOpacity)
     bool isCascadeOpacityEnabled()
     void setCascadeOpacityEnabled(bool cascadeOpacityEnabled)
     const cocos2d::Color3B &getColor()
@@ -3200,6 +2343,8 @@ cls.funcs [[
     bool isOpacityModifyRGB()
     unsigned short getCameraMask()
     void setCameraMask(unsigned short mask, @optional bool applyChildren)
+    void setProgramState(backend::ProgramState *programState)
+    backend::ProgramState *getProgramState()
     Node()
     bool init()
     void setPhysicsBody(@ref(single physicsBody) cocos2d::PhysicsBody *physicsBody)
@@ -3317,48 +2462,6 @@ cls.prop('alpha', [[
 }]])
 cls.callback {
     FUNCS =  {
-        'void scheduleOnce(const std::function<void(float)>& callback, float delay, const std::string &key)'
-    },
-    TAG_MAKER = 'makeScheduleCallbackTag(#-1)',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-    TAG_STORE = nil,
-    CALLONCE = true,
-    REMOVE = false,
-}
-cls.callback {
-    FUNCS =  {
-        'void schedule(const std::function<void(float)>& callback, const std::string &key)',
-        'void schedule(const std::function<void(float)>& callback, float interval, const std::string &key)',
-        'void schedule(const std::function<void(float)>& callback, float interval, unsigned int repeat, float delay, const std::string &key)'
-    },
-    TAG_MAKER = 'makeScheduleCallbackTag(#-1)',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-    TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = false,
-}
-cls.callback {
-    FUNCS =  {
-        'void unschedule(const std::string &key)'
-    },
-    TAG_MAKER = 'makeScheduleCallbackTag(#1)',
-    TAG_MODE = 'OLUA_TAG_SUBEQUAL',
-    TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = true,
-}
-cls.callback {
-    FUNCS =  {
-        'void unscheduleAllCallbacks()'
-    },
-    TAG_MAKER = 'makeScheduleCallbackTag("")',
-    TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
-    TAG_STORE = nil,
-    CALLONCE = false,
-    REMOVE = true,
-}
-cls.callback {
-    FUNCS =  {
         'void setOnEnterCallback(@nullable @local const std::function<void ()> &callback)'
     },
     TAG_MAKER = 'OnEnterCallback',
@@ -3437,6 +2540,48 @@ cls.callback {
     CALLONCE = false,
     REMOVE = false,
 }
+cls.callback {
+    FUNCS =  {
+        'void scheduleOnce(@local const std::function<void (float)> &callback, float delay, const std::string &key)'
+    },
+    TAG_MAKER = 'makeScheduleCallbackTag(#-1)',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
+    CALLONCE = true,
+    REMOVE = false,
+}
+cls.callback {
+    FUNCS =  {
+        'void schedule(@local const std::function<void (float)> &callback, const std::string &key)',
+        'void schedule(@local const std::function<void (float)> &callback, float interval, const std::string &key)',
+        'void schedule(@local const std::function<void (float)> &callback, float interval, unsigned int repeat, float delay, const std::string &key)'
+    },
+    TAG_MAKER = 'makeScheduleCallbackTag(#-1)',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
+    CALLONCE = false,
+    REMOVE = false,
+}
+cls.callback {
+    FUNCS =  {
+        'void unschedule(const std::string &key)'
+    },
+    TAG_MAKER = 'makeScheduleCallbackTag(#1)',
+    TAG_MODE = 'OLUA_TAG_SUBEQUAL',
+    TAG_STORE = nil,
+    CALLONCE = false,
+    REMOVE = true,
+}
+cls.callback {
+    FUNCS =  {
+        'void unscheduleAllCallbacks()'
+    },
+    TAG_MAKER = 'makeScheduleCallbackTag("")',
+    TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
+    TAG_STORE = nil,
+    CALLONCE = false,
+    REMOVE = true,
+}
 cls.inject('removeFromParent', {
     BEFORE = [[
         if (!self->getParent()) {
@@ -3490,8 +2635,6 @@ cls.props [[
     name
     userData
     userObject
-    glProgram
-    glProgramState
     running
     scene
     boundingBox
@@ -3513,6 +2656,7 @@ cls.props [[
     cascadeColorEnabled
     opacityModifyRGB
     cameraMask
+    programState
     physicsBody
     onEnterCallback
     onExitCallback
@@ -3526,23 +2670,104 @@ cls.SUPERCLS = "cocos2d::Node"
 cls.funcs [[
     static cocos2d::AtlasNode *create(const std::string &filename, int tileWidth, int tileHeight, int itemsToRender)
     void updateAtlasValues()
-    void setTextureAtlas(cocos2d::TextureAtlas *textureAtlas)
-    cocos2d::TextureAtlas *getTextureAtlas()
-    void setQuadsToDraw(ssize_t quadsToDraw)
-    ssize_t getQuadsToDraw()
     cocos2d::Texture2D *getTexture()
     void setTexture(cocos2d::Texture2D *texture)
     void setBlendFunc(const cocos2d::BlendFunc &blendFunc)
     const cocos2d::BlendFunc &getBlendFunc()
+    void setTextureAtlas(cocos2d::TextureAtlas *textureAtlas)
+    cocos2d::TextureAtlas *getTextureAtlas()
+    void setQuadsToDraw(ssize_t quadsToDraw)
+    size_t getQuadsToDraw()
     AtlasNode()
     bool initWithTileFile(const std::string &tile, int tileWidth, int tileHeight, int itemsToRender)
     bool initWithTexture(cocos2d::Texture2D *texture, int tileWidth, int tileHeight, int itemsToRender)
 ]]
 cls.props [[
-    textureAtlas
-    quadsToDraw
     texture
     blendFunc
+    textureAtlas
+    quadsToDraw
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::sImageTGA'
+cls.funcs [[
+]]
+cls.var('status', [[int status]])
+cls.var('type', [[unsigned char type]])
+cls.var('pixelDepth', [[unsigned char pixelDepth]])
+cls.var('width', [[short width]])
+cls.var('height', [[short height]])
+cls.var('imageData', [[unsigned char *imageData]])
+cls.var('flipped', [[int flipped]])
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::TileMapAtlas'
+cls.SUPERCLS = "cocos2d::AtlasNode"
+cls.funcs [[
+    static cocos2d::TileMapAtlas *create(const std::string &tile, const std::string &mapFile, int tileWidth, int tileHeight)
+    TileMapAtlas()
+    bool initWithTileFile(const std::string &tile, const std::string &mapFile, int tileWidth, int tileHeight)
+    cocos2d::Color3B getTileAt(const cocos2d::Vec2 &position)
+    void setTile(const cocos2d::Color3B &tile, const cocos2d::Vec2 &position)
+    void releaseMap()
+    struct sImageTGA *getTGAInfo()
+    void setTGAInfo(struct sImageTGA *TGAInfo)
+]]
+cls.props [[
+    tgaInfo
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::ClippingNode'
+cls.SUPERCLS = "cocos2d::Node"
+cls.funcs [[
+    static cocos2d::ClippingNode *create()
+    static cocos2d::ClippingNode *create(cocos2d::Node *stencil)
+    cocos2d::Node *getStencil()
+    void setStencil(cocos2d::Node *stencil)
+    bool hasContent()
+    float getAlphaThreshold()
+    void setAlphaThreshold(float alphaThreshold)
+    bool isInverted()
+    void setInverted(bool inverted)
+    ClippingNode()
+    bool init(cocos2d::Node *stencil)
+]]
+cls.props [[
+    stencil
+    alphaThreshold
+    inverted
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::MotionStreak'
+cls.SUPERCLS = "cocos2d::Node"
+cls.funcs [[
+    static cocos2d::MotionStreak *create(float timeToFade, float minSeg, float strokeWidth, const cocos2d::Color3B &strokeColor, const std::string &imagePath)
+    static cocos2d::MotionStreak *create(float timeToFade, float minSeg, float strokeWidth, const cocos2d::Color3B &strokeColor, cocos2d::Texture2D *texture)
+    cocos2d::Texture2D *getTexture()
+    void setTexture(cocos2d::Texture2D *texture)
+    void setBlendFunc(const cocos2d::BlendFunc &blendFunc)
+    const cocos2d::BlendFunc &getBlendFunc()
+    void tintWithColor(const cocos2d::Color3B &colors)
+    void reset()
+    bool isFastMode()
+    void setFastMode(bool bFastMode)
+    float getStroke()
+    void setStroke(float stroke)
+    bool isStartingPositionInitialized()
+    void setStartingPositionInitialized(bool bStartingPositionInitialized)
+    MotionStreak()
+    bool initWithFade(float fade, float minSeg, float stroke, const cocos2d::Color3B &color, const std::string &path)
+    bool initWithFade(float fade, float minSeg, float stroke, const cocos2d::Color3B &color, cocos2d::Texture2D *texture)
+]]
+cls.props [[
+    texture
+    blendFunc
+    fastMode
+    stroke
+    startingPositionInitialized
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -3569,7 +2794,7 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::DrawNode'
 cls.SUPERCLS = "cocos2d::Node"
 cls.funcs [[
-    static cocos2d::DrawNode *create(@optional GLfloat defaultLineWidth)
+    static cocos2d::DrawNode *create(@optional float defaultLineWidth)
     void drawPoint(const cocos2d::Vec2 &point, const float pointSize, const cocos2d::Color4F &color)
     void drawLine(const cocos2d::Vec2 &origin, const cocos2d::Vec2 &destination, const cocos2d::Color4F &color)
     void drawRect(const cocos2d::Vec2 &origin, const cocos2d::Vec2 &destination, const cocos2d::Color4F &color)
@@ -3589,11 +2814,8 @@ cls.funcs [[
     void clear()
     const cocos2d::BlendFunc &getBlendFunc()
     void setBlendFunc(const cocos2d::BlendFunc &blendFunc)
-    void onDraw(const cocos2d::Mat4 &transform, uint32_t flags)
-    void onDrawGLLine(const cocos2d::Mat4 &transform, uint32_t flags)
-    void onDrawGLPoint(const cocos2d::Mat4 &transform, uint32_t flags)
-    void setLineWidth(GLfloat lineWidth)
-    GLfloat getLineWidth()
+    void setLineWidth(float lineWidth)
+    float getLineWidth()
     void setIsolated(bool isolated)
     bool isIsolated()
 ]]
@@ -3601,6 +2823,15 @@ cls.props [[
     blendFunc
     lineWidth
     isolated
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::ParallaxNode'
+cls.SUPERCLS = "cocos2d::Node"
+cls.funcs [[
+    static cocos2d::ParallaxNode *create()
+    void addChild(cocos2d::Node *child, int z, const cocos2d::Vec2 &parallaxRatio, const cocos2d::Vec2 &positionOffset)
+    ParallaxNode()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -3843,8 +3074,8 @@ M.CLASSES[#M.CLASSES + 1] = cls
 cls = typecls 'cocos2d::RenderTexture'
 cls.SUPERCLS = "cocos2d::Node"
 cls.funcs [[
-    static cocos2d::RenderTexture *create(int w, int h, Texture2D::PixelFormat format, GLuint depthStencilFormat)
-    static cocos2d::RenderTexture *create(int w, int h, Texture2D::PixelFormat format)
+    static cocos2d::RenderTexture *create(int w, int h, backend::PixelFormat format, backend::PixelFormat depthStencilFormat)
+    static cocos2d::RenderTexture *create(int w, int h, backend::PixelFormat format)
     static cocos2d::RenderTexture *create(int w, int h)
     void begin()
     void beginWithClear(float r, float g, float b, float a)
@@ -3854,11 +3085,10 @@ cls.funcs [[
     void clear(float r, float g, float b, float a)
     void clearDepth(float depthValue)
     void clearStencil(int stencilValue)
-    cocos2d::Image *newImage(@optional bool flipImage)
     void listenToBackground(cocos2d::EventCustom *event)
     void listenToForeground(cocos2d::EventCustom *event)
-    unsigned int getClearFlags()
-    void setClearFlags(unsigned int clearFlags)
+    cocos2d::ClearFlag getClearFlags()
+    void setClearFlags(cocos2d::ClearFlag clearFlags)
     const cocos2d::Color4F &getClearColor()
     void setClearColor(const cocos2d::Color4F &clearColor)
     float getClearDepth()
@@ -3872,13 +3102,13 @@ cls.funcs [[
     void setKeepMatrix(bool keepMatrix)
     void setVirtualViewport(const cocos2d::Vec2 &rtBegin, const cocos2d::Rect &fullRect, const cocos2d::Rect &fullViewport)
     RenderTexture()
-    bool initWithWidthAndHeight(int w, int h, Texture2D::PixelFormat format)
-    bool initWithWidthAndHeight(int w, int h, Texture2D::PixelFormat format, GLuint depthStencilFormat)
+    bool initWithWidthAndHeight(int w, int h, backend::PixelFormat format)
+    bool initWithWidthAndHeight(int w, int h, backend::PixelFormat format, backend::PixelFormat depthStencilFormat)
 ]]
 cls.callback {
     FUNCS =  {
-        'bool saveToFile(const std::string& filename, bool isRGBA = true, std::function<void (RenderTexture*, const std::string&)> callback = nullptr)',
-        'bool saveToFile(const std::string& filename, Image::Format format, bool isRGBA = true, std::function<void (RenderTexture*, const std::string&)> callback = nullptr)'
+        'bool saveToFile(const std::string &filename, @optional bool isRGBA, @optional std::function<void (RenderTexture *, const std::string &)> callback)',
+        'bool saveToFile(const std::string &filename, Image::Format format, @optional bool isRGBA, @optional std::function<void (RenderTexture *, const std::string &)> callback)'
     },
     TAG_MAKER = 'saveToFile',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -3888,11 +3118,21 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'bool saveToFileAsNonPMA(const std::string& fileName, Image::Format format, bool isRGBA, const std::function<void(RenderTexture*, const std::string&)>& callback)',
-        'bool saveToFileAsNonPMA(const std::string& filename, bool isRGBA = true, const std::function<void(RenderTexture*, const std::string&)>& callback = nullptr)'
+        'bool saveToFileAsNonPMA(const std::string &filename, @optional bool isRGBA, @optional std::function<void (RenderTexture *, const std::string &)> callback)',
+        'bool saveToFileAsNonPMA(const std::string &fileName, Image::Format format, bool isRGBA, std::function<void (RenderTexture *, const std::string &)> callback)'
     },
     TAG_MAKER = 'saveToFile',
     TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
+    CALLONCE = true,
+    REMOVE = false,
+}
+cls.callback {
+    FUNCS =  {
+        'void newImage(std::function<void (Image *)> imageCallback, @optional bool flipImage)'
+    },
+    TAG_MAKER = 'newImage',
+    TAG_MODE = 'OLUA_TAG_NEW',
     TAG_STORE = nil,
     CALLONCE = true,
     REMOVE = false,
@@ -4079,12 +3319,12 @@ cls.funcs [[
     void setSpriteFrame(cocos2d::SpriteFrame *newFrame)
     bool isFrameDisplayed(cocos2d::SpriteFrame *frame)
     cocos2d::SpriteFrame *getSpriteFrame()
-    void setDisplayFrameWithAnimationName(const std::string &animationName, ssize_t frameIndex)
+    void setDisplayFrameWithAnimationName(const std::string &animationName, unsigned int frameIndex)
     bool isDirty()
     void setDirty(bool dirty)
     bool isTextureRectRotated()
-    ssize_t getAtlasIndex()
-    void setAtlasIndex(ssize_t atlasIndex)
+    unsigned int getAtlasIndex()
+    void setAtlasIndex(unsigned int atlasIndex)
     const cocos2d::Rect &getTextureRect()
     cocos2d::TextureAtlas *getTextureAtlas()
     void setTextureAtlas(cocos2d::TextureAtlas *textureAtlas)
@@ -4107,6 +3347,8 @@ cls.funcs [[
     bool initWithSpriteFrameName(const std::string &spriteFrameName)
     bool initWithFile(const std::string &filename)
     bool initWithFile(const std::string &filename, const cocos2d::Rect &rect)
+    void setVertexLayout()
+    void updateShaders(const char *vert, const char *frag)
 ]]
 cls.props [[
     batchNode
@@ -4259,15 +3501,15 @@ cls = typecls 'cocos2d::LayerColor'
 cls.SUPERCLS = "cocos2d::Layer"
 cls.funcs [[
     static cocos2d::LayerColor *create()
-    static cocos2d::LayerColor *create(const cocos2d::Color4B &color, GLfloat width, GLfloat height)
+    static cocos2d::LayerColor *create(const cocos2d::Color4B &color, float width, float height)
     static cocos2d::LayerColor *create(const cocos2d::Color4B &color)
-    void changeWidth(GLfloat w)
-    void changeHeight(GLfloat h)
-    void changeWidthAndHeight(GLfloat w, GLfloat h)
+    void changeWidth(float w)
+    void changeHeight(float h)
+    void changeWidthAndHeight(float w, float h)
     const cocos2d::BlendFunc &getBlendFunc()
     void setBlendFunc(const cocos2d::BlendFunc &blendFunc)
     LayerColor()
-    bool initWithColor(const cocos2d::Color4B &color, GLfloat width, GLfloat height)
+    bool initWithColor(const cocos2d::Color4B &color, float width, float height)
     bool initWithColor(const cocos2d::Color4B &color)
 ]]
 cls.props [[
@@ -4287,10 +3529,10 @@ cls.funcs [[
     const cocos2d::Color3B &getStartColor()
     void setEndColor(const cocos2d::Color3B &endColor)
     const cocos2d::Color3B &getEndColor()
-    void setStartOpacity(GLubyte startOpacity)
-    GLubyte getStartOpacity()
-    void setEndOpacity(GLubyte endOpacity)
-    GLubyte getEndOpacity()
+    void setStartOpacity(uint8_t startOpacity)
+    uint8_t getStartOpacity()
+    void setEndOpacity(uint8_t endOpacity)
+    uint8_t getEndOpacity()
     void setVector(const cocos2d::Vec2 &alongVector)
     const cocos2d::Vec2 &getVector()
     LayerGradient()
@@ -4312,10 +3554,10 @@ cls.SUPERCLS = "cocos2d::Layer"
 cls.funcs [[
     static cocos2d::LayerRadialGradient *create(const cocos2d::Color4B &startColor, const cocos2d::Color4B &endColor, float radius, const cocos2d::Vec2 &center, float expand)
     static cocos2d::LayerRadialGradient *create()
-    void setStartOpacity(GLubyte opacity)
-    GLubyte getStartOpacity()
-    void setEndOpacity(GLubyte opacity)
-    GLubyte getEndOpacity()
+    void setStartOpacity(uint8_t opacity)
+    uint8_t getStartOpacity()
+    void setEndOpacity(uint8_t opacity)
+    uint8_t getEndOpacity()
     void setRadius(float radius)
     float getRadius()
     void setCenter(const cocos2d::Vec2 &center)
@@ -4346,6 +3588,21 @@ cls.props [[
     endColor
     endColor3B
     blendFunc
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::LayerMultiplex'
+cls.SUPERCLS = "cocos2d::Layer"
+cls.funcs [[
+    static cocos2d::LayerMultiplex *create()
+    static cocos2d::LayerMultiplex *createWithArray(const Vector<cocos2d::Layer *> &arrayOfLayers)
+    static cocos2d::LayerMultiplex *createWithLayer(cocos2d::Layer *layer)
+    void addLayer(cocos2d::Layer *layer)
+    void switchTo(int n)
+    void switchTo(int n, bool cleanup)
+    void switchToAndReleaseMe(int n)
+    LayerMultiplex()
+    bool initWithArray(const Vector<cocos2d::Layer *> &arrayOfLayers)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -4861,8 +4118,8 @@ cls.funcs [[
     static cocos2d::Camera *createOrthographic(float zoomX, float zoomY, float nearPlane, float farPlane)
     static cocos2d::Camera *create()
     static const cocos2d::Camera *getVisitingCamera()
-    static const experimental::Viewport &getDefaultViewport()
-    static void setDefaultViewport(const experimental::Viewport &vp)
+    static const cocos2d::Viewport &getDefaultViewport()
+    static void setDefaultViewport(const cocos2d::Viewport &vp)
     static cocos2d::Camera *getDefaultCamera()
     Camera::Type getType()
     cocos2d::CameraFlag getCameraFlag()
@@ -4883,8 +4140,6 @@ cls.funcs [[
     float getNearPlane()
     void clearBackground()
     void apply()
-    void restore()
-    void setViewport(const experimental::Viewport &vp)
     bool isViewProjectionUpdated()
     void setBackgroundBrush(cocos2d::CameraBackgroundBrush *clearBrush)
     cocos2d::CameraBackgroundBrush *getBackgroundBrush()
@@ -4895,10 +4150,7 @@ cls.funcs [[
     bool initDefault()
     bool initPerspective(float fieldOfView, float aspectRatio, float nearPlane, float farPlane)
     bool initOrthographic(float zoomX, float zoomY, float nearPlane, float farPlane)
-    void applyFrameBufferObject()
     void applyViewport()
-    void restoreFrameBufferObject()
-    void restoreViewport()
 ]]
 cls.props [[
     visitingCamera
@@ -4978,459 +4230,6 @@ cls.funcs [[
 ]]
 cls.props [[
     actived
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::ActionCamera'
-cls.SUPERCLS = "cocos2d::ActionInterval"
-cls.funcs [[
-    ActionCamera()
-    void setEye(const cocos2d::Vec3 &eye)
-    void setEye(float x, float y, float z)
-    const cocos2d::Vec3 &getEye()
-    void setCenter(const cocos2d::Vec3 &center)
-    const cocos2d::Vec3 &getCenter()
-    void setUp(const cocos2d::Vec3 &up)
-    const cocos2d::Vec3 &getUp()
-]]
-cls.props [[
-    eye
-    center
-    up
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::OrbitCamera'
-cls.SUPERCLS = "cocos2d::ActionCamera"
-cls.funcs [[
-    static cocos2d::OrbitCamera *create(float t, float radius, float deltaRadius, float angleZ, float deltaAngleZ, float angleX, float deltaAngleX)
-    OrbitCamera()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::GridBase'
-cls.SUPERCLS = "cocos2d::Ref"
-cls.funcs [[
-    static cocos2d::GridBase *create(const cocos2d::Size &gridSize, cocos2d::Texture2D *texture, bool flipped)
-    static cocos2d::GridBase *create(const cocos2d::Size &gridSize)
-    bool initWithSize(const cocos2d::Size &gridSize)
-    bool initWithSize(const cocos2d::Size &gridSize, const cocos2d::Rect &rect)
-    bool initWithSize(const cocos2d::Size &gridSize, cocos2d::Texture2D *texture, bool flipped)
-    bool initWithSize(const cocos2d::Size &gridSize, cocos2d::Texture2D *texture, bool flipped, const cocos2d::Rect &rect)
-    bool isActive()
-    void setActive(bool active)
-    int getReuseGrid()
-    void setReuseGrid(int reuseGrid)
-    const cocos2d::Size &getGridSize()
-    void setGridSize(const cocos2d::Size &gridSize)
-    const cocos2d::Vec2 &getStep()
-    void setStep(const cocos2d::Vec2 &step)
-    bool isTextureFlipped()
-    void setTextureFlipped(bool flipped)
-    void beforeDraw()
-    void afterDraw(cocos2d::Node *target)
-    void beforeBlit()
-    void afterBlit()
-    void blit()
-    void reuse()
-    void calculateVertexPoints()
-    void set2DProjection()
-    void setGridRect(const cocos2d::Rect &rect)
-    const cocos2d::Rect &getGridRect()
-]]
-cls.props [[
-    active
-    reuseGrid
-    gridSize
-    step
-    textureFlipped
-    gridRect
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::Grid3D'
-cls.SUPERCLS = "cocos2d::GridBase"
-cls.funcs [[
-    static cocos2d::Grid3D *create(const cocos2d::Size &gridSize)
-    static cocos2d::Grid3D *create(const cocos2d::Size &gridSize, const cocos2d::Rect &rect)
-    static cocos2d::Grid3D *create(const cocos2d::Size &gridSize, cocos2d::Texture2D *texture, bool flipped)
-    static cocos2d::Grid3D *create(const cocos2d::Size &gridSize, cocos2d::Texture2D *texture, bool flipped, const cocos2d::Rect &rect)
-    Grid3D()
-    cocos2d::Vec3 getVertex(const cocos2d::Vec2 &pos)
-    cocos2d::Vec3 getOriginalVertex(const cocos2d::Vec2 &pos)
-    void setVertex(const cocos2d::Vec2 &pos, const cocos2d::Vec3 &vertex)
-    void setNeedDepthTestForBlit(bool neededDepthTest)
-    bool getNeedDepthTestForBlit()
-]]
-cls.props [[
-    needDepthTestForBlit
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::TiledGrid3D'
-cls.SUPERCLS = "cocos2d::GridBase"
-cls.funcs [[
-    static cocos2d::TiledGrid3D *create(const cocos2d::Size &gridSize)
-    static cocos2d::TiledGrid3D *create(const cocos2d::Size &gridSize, const cocos2d::Rect &rect)
-    static cocos2d::TiledGrid3D *create(const cocos2d::Size &gridSize, cocos2d::Texture2D *texture, bool flipped)
-    static cocos2d::TiledGrid3D *create(const cocos2d::Size &gridSize, cocos2d::Texture2D *texture, bool flipped, const cocos2d::Rect &rect)
-    TiledGrid3D()
-    cocos2d::Quad3 getTile(const cocos2d::Vec2 &pos)
-    cocos2d::Quad3 getOriginalTile(const cocos2d::Vec2 &pos)
-    void setTile(const cocos2d::Vec2 &pos, const cocos2d::Quad3 &coords)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::NodeGrid'
-cls.SUPERCLS = "cocos2d::Node"
-cls.funcs [[
-    static cocos2d::NodeGrid *create()
-    static cocos2d::NodeGrid *create(const cocos2d::Rect &rect)
-    cocos2d::GridBase *getGrid()
-    void setGrid(cocos2d::GridBase *grid)
-    void setTarget(cocos2d::Node *target)
-    void setGridRect(const cocos2d::Rect &gridRect)
-    const cocos2d::Rect &getGridRect()
-    NodeGrid()
-]]
-cls.props [[
-    grid
-    gridRect
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::GridAction'
-cls.SUPERCLS = "cocos2d::ActionInterval"
-cls.funcs [[
-    cocos2d::GridBase *getGrid()
-    GridAction()
-]]
-cls.props [[
-    grid
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::Grid3DAction'
-cls.SUPERCLS = "cocos2d::GridAction"
-cls.funcs [[
-    cocos2d::Vec3 getVertex(const cocos2d::Vec2 &position)
-    cocos2d::Vec3 getOriginalVertex(const cocos2d::Vec2 &position)
-    void setVertex(const cocos2d::Vec2 &position, const cocos2d::Vec3 &vertex)
-    cocos2d::Rect getGridRect()
-]]
-cls.props [[
-    gridRect
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::TiledGrid3DAction'
-cls.SUPERCLS = "cocos2d::GridAction"
-cls.CHUNK = [[
-NS_CC_BEGIN
-TiledGrid3DAction* TiledGrid3DAction::create(float duration, const Size& gridSize)
-{
-    TiledGrid3DAction* ret = new TiledGrid3DAction();
-    ret->autorelease();
-    ret->initWithDuration(duration, gridSize);
-    return ret;
-}
-NS_CC_END
-]]
-cls.funcs [[
-    static cocos2d::TiledGrid3DAction *create(float duration, const cocos2d::Size &gridSize)
-    cocos2d::Quad3 getTile(const cocos2d::Vec2 &position)
-    cocos2d::Quad3 getOriginalTile(const cocos2d::Vec2 &position)
-    void setTile(const cocos2d::Vec2 &position, const cocos2d::Quad3 &coords)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::AccelDeccelAmplitude'
-cls.SUPERCLS = "cocos2d::ActionInterval"
-cls.funcs [[
-    static cocos2d::AccelDeccelAmplitude *create(cocos2d::Action *action, float duration)
-    float getRate()
-    void setRate(float rate)
-    AccelDeccelAmplitude()
-]]
-cls.props [[
-    rate
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::AccelAmplitude'
-cls.SUPERCLS = "cocos2d::ActionInterval"
-cls.funcs [[
-    static cocos2d::AccelAmplitude *create(cocos2d::Action *action, float duration)
-    float getRate()
-    void setRate(float rate)
-    AccelAmplitude()
-]]
-cls.props [[
-    rate
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::DeccelAmplitude'
-cls.SUPERCLS = "cocos2d::ActionInterval"
-cls.funcs [[
-    static cocos2d::DeccelAmplitude *create(cocos2d::Action *action, float duration)
-    float getRate()
-    void setRate(float rate)
-    DeccelAmplitude()
-]]
-cls.props [[
-    rate
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::StopGrid'
-cls.SUPERCLS = "cocos2d::ActionInstant"
-cls.funcs [[
-    static cocos2d::StopGrid *create()
-    StopGrid()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::ReuseGrid'
-cls.SUPERCLS = "cocos2d::ActionInstant"
-cls.funcs [[
-    static cocos2d::ReuseGrid *create(int times)
-    ReuseGrid()
-    bool initWithTimes(int times)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::Waves3D'
-cls.SUPERCLS = "cocos2d::Grid3DAction"
-cls.funcs [[
-    static cocos2d::Waves3D *create(float duration, const cocos2d::Size &gridSize, unsigned int waves, float amplitude)
-    float getAmplitude()
-    void setAmplitude(float amplitude)
-    Waves3D()
-]]
-cls.props [[
-    amplitude
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::FlipX3D'
-cls.SUPERCLS = "cocos2d::Grid3DAction"
-cls.funcs [[
-    static cocos2d::FlipX3D *create(float duration)
-    FlipX3D()
-    bool initWithSize(const cocos2d::Size &gridSize, float duration)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::FlipY3D'
-cls.SUPERCLS = "cocos2d::FlipX3D"
-cls.funcs [[
-    static cocos2d::FlipY3D *create(float duration)
-    FlipY3D()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::Lens3D'
-cls.SUPERCLS = "cocos2d::Grid3DAction"
-cls.funcs [[
-    static cocos2d::Lens3D *create(float duration, const cocos2d::Size &gridSize, const cocos2d::Vec2 &position, float radius)
-    float getLensEffect()
-    void setLensEffect(float lensEffect)
-    void setConcave(bool concave)
-    const cocos2d::Vec2 &getPosition()
-    void setPosition(const cocos2d::Vec2 &position)
-    Lens3D()
-]]
-cls.props [[
-    lensEffect
-    position
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::Ripple3D'
-cls.SUPERCLS = "cocos2d::Grid3DAction"
-cls.funcs [[
-    static cocos2d::Ripple3D *create(float duration, const cocos2d::Size &gridSize, const cocos2d::Vec2 &position, float radius, unsigned int waves, float amplitude)
-    const cocos2d::Vec2 &getPosition()
-    void setPosition(const cocos2d::Vec2 &position)
-    float getAmplitude()
-    void setAmplitude(float fAmplitude)
-    Ripple3D()
-]]
-cls.props [[
-    position
-    amplitude
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::Shaky3D'
-cls.SUPERCLS = "cocos2d::Grid3DAction"
-cls.funcs [[
-    static cocos2d::Shaky3D *create(float initWithDuration, const cocos2d::Size &gridSize, int range, bool shakeZ)
-    Shaky3D()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::Liquid'
-cls.SUPERCLS = "cocos2d::Grid3DAction"
-cls.funcs [[
-    static cocos2d::Liquid *create(float duration, const cocos2d::Size &gridSize, unsigned int waves, float amplitude)
-    float getAmplitude()
-    void setAmplitude(float amplitude)
-    Liquid()
-]]
-cls.props [[
-    amplitude
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::Waves'
-cls.SUPERCLS = "cocos2d::Grid3DAction"
-cls.funcs [[
-    static cocos2d::Waves *create(float duration, const cocos2d::Size &gridSize, unsigned int waves, float amplitude, bool horizontal, bool vertical)
-    float getAmplitude()
-    void setAmplitude(float amplitude)
-    Waves()
-]]
-cls.props [[
-    amplitude
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::Twirl'
-cls.SUPERCLS = "cocos2d::Grid3DAction"
-cls.funcs [[
-    static cocos2d::Twirl *create(float duration, const cocos2d::Size &gridSize, const cocos2d::Vec2 &position, unsigned int twirls, float amplitude)
-    const cocos2d::Vec2 &getPosition()
-    void setPosition(const cocos2d::Vec2 &position)
-    float getAmplitude()
-    void setAmplitude(float amplitude)
-    Twirl()
-]]
-cls.props [[
-    position
-    amplitude
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::PageTurn3D'
-cls.SUPERCLS = "cocos2d::Grid3DAction"
-cls.funcs [[
-    static cocos2d::PageTurn3D *create(float duration, const cocos2d::Size &gridSize)
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::ShakyTiles3D'
-cls.SUPERCLS = "cocos2d::TiledGrid3DAction"
-cls.funcs [[
-    static cocos2d::ShakyTiles3D *create(float duration, const cocos2d::Size &gridSize, int range, bool shakeZ)
-    ShakyTiles3D()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::ShatteredTiles3D'
-cls.SUPERCLS = "cocos2d::TiledGrid3DAction"
-cls.funcs [[
-    static cocos2d::ShatteredTiles3D *create(float duration, const cocos2d::Size &gridSize, int range, bool shatterZ)
-    ShatteredTiles3D()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::ShuffleTiles'
-cls.SUPERCLS = "cocos2d::TiledGrid3DAction"
-cls.funcs [[
-    static cocos2d::ShuffleTiles *create(float duration, const cocos2d::Size &gridSize, unsigned int seed)
-    cocos2d::Size getDelta(const cocos2d::Size &pos)
-    ShuffleTiles()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::FadeOutTRTiles'
-cls.SUPERCLS = "cocos2d::TiledGrid3DAction"
-cls.funcs [[
-    static cocos2d::FadeOutTRTiles *create(float duration, const cocos2d::Size &gridSize)
-    float testFunc(const cocos2d::Size &pos, float time)
-    void turnOnTile(const cocos2d::Vec2 &pos)
-    void turnOffTile(const cocos2d::Vec2 &pos)
-    void transformTile(const cocos2d::Vec2 &pos, float distance)
-    FadeOutTRTiles()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::FadeOutBLTiles'
-cls.SUPERCLS = "cocos2d::FadeOutTRTiles"
-cls.funcs [[
-    static cocos2d::FadeOutBLTiles *create(float duration, const cocos2d::Size &gridSize)
-    FadeOutBLTiles()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::FadeOutUpTiles'
-cls.SUPERCLS = "cocos2d::FadeOutTRTiles"
-cls.funcs [[
-    static cocos2d::FadeOutUpTiles *create(float duration, const cocos2d::Size &gridSize)
-    FadeOutUpTiles()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::FadeOutDownTiles'
-cls.SUPERCLS = "cocos2d::FadeOutUpTiles"
-cls.funcs [[
-    static cocos2d::FadeOutDownTiles *create(float duration, const cocos2d::Size &gridSize)
-    FadeOutDownTiles()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::TurnOffTiles'
-cls.SUPERCLS = "cocos2d::TiledGrid3DAction"
-cls.funcs [[
-    static cocos2d::TurnOffTiles *create(float duration, const cocos2d::Size &gridSize)
-    static cocos2d::TurnOffTiles *create(float duration, const cocos2d::Size &gridSize, unsigned int seed)
-    void turnOnTile(const cocos2d::Vec2 &pos)
-    void turnOffTile(const cocos2d::Vec2 &pos)
-    TurnOffTiles()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::WavesTiles3D'
-cls.SUPERCLS = "cocos2d::TiledGrid3DAction"
-cls.funcs [[
-    static cocos2d::WavesTiles3D *create(float duration, const cocos2d::Size &gridSize, unsigned int waves, float amplitude)
-    float getAmplitude()
-    void setAmplitude(float amplitude)
-    WavesTiles3D()
-]]
-cls.props [[
-    amplitude
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::JumpTiles3D'
-cls.SUPERCLS = "cocos2d::TiledGrid3DAction"
-cls.funcs [[
-    static cocos2d::JumpTiles3D *create(float duration, const cocos2d::Size &gridSize, unsigned int numberOfJumps, float amplitude)
-    float getAmplitude()
-    void setAmplitude(float amplitude)
-    JumpTiles3D()
-]]
-cls.props [[
-    amplitude
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::SplitRows'
-cls.SUPERCLS = "cocos2d::TiledGrid3DAction"
-cls.funcs [[
-    static cocos2d::SplitRows *create(float duration, unsigned int rows)
-    SplitRows()
-]]
-M.CLASSES[#M.CLASSES + 1] = cls
-
-cls = typecls 'cocos2d::SplitCols'
-cls.SUPERCLS = "cocos2d::TiledGrid3DAction"
-cls.funcs [[
-    static cocos2d::SplitCols *create(float duration, unsigned int cols)
-    SplitCols()
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -5753,6 +4552,396 @@ cls.funcs [[
     static cocos2d::ParticleSun *create()
     static cocos2d::ParticleSun *createWithTotalParticles(int numberOfParticles)
     ParticleSun()
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::TMXTileFlags'
+cls.enums [[
+    kTMXTileHorizontalFlag
+    kTMXTileVerticalFlag
+    kTMXTileDiagonalFlag
+    kTMXFlipedAll
+    kTMXFlippedMask
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::TMXObjectGroup'
+cls.SUPERCLS = "cocos2d::Ref"
+cls.funcs [[
+    TMXObjectGroup()
+    const std::string &getGroupName()
+    void setGroupName(const std::string &groupName)
+    cocos2d::Value getProperty(const std::string &propertyName)
+    cocos2d::ValueMap getObject(const std::string &objectName)
+    const cocos2d::Vec2 &getPositionOffset()
+    void setPositionOffset(const cocos2d::Vec2 &offset)
+    const cocos2d::ValueMap &getProperties()
+    void setProperties(const cocos2d::ValueMap &properties)
+    const cocos2d::ValueVector &getObjects()
+    void setObjects(const cocos2d::ValueVector &objects)
+]]
+cls.props [[
+    groupName
+    positionOffset
+    properties
+    objects
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::TMXLayer'
+cls.SUPERCLS = "cocos2d::SpriteBatchNode"
+cls.funcs [[
+    static cocos2d::TMXLayer *create(cocos2d::TMXTilesetInfo *tilesetInfo, cocos2d::TMXLayerInfo *layerInfo, cocos2d::TMXMapInfo *mapInfo)
+    TMXLayer()
+    bool initWithTilesetInfo(cocos2d::TMXTilesetInfo *tilesetInfo, cocos2d::TMXLayerInfo *layerInfo, cocos2d::TMXMapInfo *mapInfo)
+    void releaseMap()
+    cocos2d::Sprite *getTileAt(const cocos2d::Vec2 &tileCoordinate)
+    uint32_t getTileGIDAt(const cocos2d::Vec2 &tileCoordinate, @out cocos2d::TMXTileFlags *flags)
+    void setTileGID(uint32_t gid, const cocos2d::Vec2 &tileCoordinate)
+    void setTileGID(uint32_t gid, const cocos2d::Vec2 &tileCoordinate, cocos2d::TMXTileFlags flags)
+    void removeTileAt(const cocos2d::Vec2 &tileCoordinate)
+    cocos2d::Vec2 getPositionAt(const cocos2d::Vec2 &tileCoordinate)
+    cocos2d::Value getProperty(const std::string &propertyName)
+    void setupTiles()
+    const std::string &getLayerName()
+    void setLayerName(const std::string &layerName)
+    const cocos2d::Size &getLayerSize()
+    void setLayerSize(const cocos2d::Size &size)
+    const cocos2d::Size &getMapTileSize()
+    void setMapTileSize(const cocos2d::Size &size)
+    cocos2d::TMXTilesetInfo *getTileSet()
+    void setTileSet(cocos2d::TMXTilesetInfo *info)
+    int getLayerOrientation()
+    void setLayerOrientation(int orientation)
+    const cocos2d::ValueMap &getProperties()
+    void setProperties(const cocos2d::ValueMap &properties)
+]]
+cls.props [[
+    layerName
+    layerSize
+    mapTileSize
+    tileSet
+    layerOrientation
+    properties
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::TMXLayerInfo'
+cls.SUPERCLS = "cocos2d::Ref"
+cls.funcs [[
+    TMXLayerInfo()
+    void setProperties(cocos2d::ValueMap properties)
+    cocos2d::ValueMap &getProperties()
+]]
+cls.props [[
+    properties
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::TMXMapInfo'
+cls.SUPERCLS = "cocos2d::Ref"
+cls.funcs [[
+    static cocos2d::TMXMapInfo *create(const std::string &tmxFile)
+    static cocos2d::TMXMapInfo *createWithXML(const std::string &tmxString, const std::string &resourcePath)
+    TMXMapInfo()
+    bool initWithTMXFile(const std::string &tmxFile)
+    bool initWithXML(const std::string &tmxString, const std::string &resourcePath)
+    bool parseXMLFile(const std::string &xmlFilename)
+    bool parseXMLString(const std::string &xmlString)
+    cocos2d::ValueMapIntKey &getTileProperties()
+    void setTileProperties(const cocos2d::ValueMapIntKey &tileProperties)
+    int getOrientation()
+    void setOrientation(int orientation)
+    int getStaggerAxis()
+    void setStaggerAxis(int staggerAxis)
+    int getStaggerIndex()
+    void setStaggerIndex(int staggerIndex)
+    int getHexSideLength()
+    void setHexSideLength(int hexSideLength)
+    const cocos2d::Size &getMapSize()
+    void setMapSize(const cocos2d::Size &mapSize)
+    const cocos2d::Size &getTileSize()
+    void setTileSize(const cocos2d::Size &tileSize)
+    const Vector<cocos2d::TMXLayerInfo *> &getLayers()
+    void setLayers(const Vector<cocos2d::TMXLayerInfo *> &layers)
+    const Vector<cocos2d::TMXTilesetInfo *> &getTilesets()
+    void setTilesets(const Vector<cocos2d::TMXTilesetInfo *> &tilesets)
+    const Vector<cocos2d::TMXObjectGroup *> &getObjectGroups()
+    void setObjectGroups(const Vector<cocos2d::TMXObjectGroup *> &groups)
+    int getParentElement()
+    void setParentElement(int element)
+    int getParentGID()
+    void setParentGID(int gid)
+    int getLayerAttribs()
+    void setLayerAttribs(int layerAttribs)
+    bool isStoringCharacters()
+    void setStoringCharacters(bool storingCharacters)
+    const cocos2d::ValueMap &getProperties()
+    void setProperties(const cocos2d::ValueMap &properties)
+    void endElement(void *ctx, const char *name)
+    void textHandler(void *ctx, const char *ch, size_t len)
+    const std::string &getCurrentString()
+    void setCurrentString(const std::string &currentString)
+    const std::string &getTMXFileName()
+    void setTMXFileName(const std::string &fileName)
+    const std::string &getExternalTilesetFileName()
+]]
+cls.props [[
+    tileProperties
+    orientation
+    staggerAxis
+    staggerIndex
+    hexSideLength
+    mapSize
+    tileSize
+    layers
+    tilesets
+    objectGroups
+    parentElement
+    parentGID
+    layerAttribs
+    storingCharacters
+    properties
+    currentString
+    tmxFileName
+    externalTilesetFileName
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::TMXTilesetInfo'
+cls.SUPERCLS = "cocos2d::Ref"
+cls.funcs [[
+    TMXTilesetInfo()
+    cocos2d::Rect getRectForGID(uint32_t gid)
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::TMXTiledMap'
+cls.SUPERCLS = "cocos2d::Node"
+cls.funcs [[
+    static cocos2d::TMXTiledMap *create(const std::string &tmxFile)
+    static cocos2d::TMXTiledMap *createWithXML(const std::string &tmxString, const std::string &resourcePath)
+    cocos2d::TMXLayer *getLayer(const std::string &layerName)
+    cocos2d::TMXObjectGroup *getObjectGroup(const std::string &groupName)
+    cocos2d::Value getProperty(const std::string &propertyName)
+    cocos2d::Value getPropertiesForGID(int GID)
+    const cocos2d::Size &getMapSize()
+    void setMapSize(const cocos2d::Size &mapSize)
+    const cocos2d::Size &getTileSize()
+    void setTileSize(const cocos2d::Size &tileSize)
+    int getMapOrientation()
+    void setMapOrientation(int mapOrientation)
+    const Vector<cocos2d::TMXObjectGroup *> &getObjectGroups()
+    void setObjectGroups(const Vector<cocos2d::TMXObjectGroup *> &groups)
+    cocos2d::ValueMap &getProperties()
+    void setProperties(const cocos2d::ValueMap &properties)
+    int getLayerNum()
+    const std::string &getResourceFile()
+    TMXTiledMap()
+    bool initWithTMXFile(const std::string &tmxFile)
+    bool initWithXML(const std::string &tmxString, const std::string &resourcePath)
+]]
+cls.props [[
+    mapSize
+    tileSize
+    mapOrientation
+    objectGroups
+    properties
+    layerNum
+    resourceFile
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::FastTMXTiledMap'
+cls.SUPERCLS = "cocos2d::Node"
+cls.funcs [[
+    static cocos2d::FastTMXTiledMap *create(const std::string &tmxFile)
+    static cocos2d::FastTMXTiledMap *createWithXML(const std::string &tmxString, const std::string &resourcePath)
+    cocos2d::FastTMXLayer *getLayer(const std::string &layerName)
+    cocos2d::TMXObjectGroup *getObjectGroup(const std::string &groupName)
+    cocos2d::Value getProperty(const std::string &propertyName)
+    cocos2d::Value getPropertiesForGID(int GID)
+    const cocos2d::Size &getMapSize()
+    void setMapSize(const cocos2d::Size &mapSize)
+    const cocos2d::Size &getTileSize()
+    void setTileSize(const cocos2d::Size &tileSize)
+    int getMapOrientation()
+    void setMapOrientation(int mapOrientation)
+    const Vector<cocos2d::TMXObjectGroup *> &getObjectGroups()
+    void setObjectGroups(const Vector<cocos2d::TMXObjectGroup *> &groups)
+    const cocos2d::ValueMap &getProperties()
+    void setProperties(const cocos2d::ValueMap &properties)
+]]
+cls.props [[
+    mapSize
+    tileSize
+    mapOrientation
+    objectGroups
+    properties
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::FastTMXLayer'
+cls.SUPERCLS = "cocos2d::Node"
+cls.const('FAST_TMX_ORIENTATION_ORTHO', 'cocos2d::FastTMXLayer::FAST_TMX_ORIENTATION_ORTHO', 'const int')
+cls.const('FAST_TMX_ORIENTATION_HEX', 'cocos2d::FastTMXLayer::FAST_TMX_ORIENTATION_HEX', 'const int')
+cls.const('FAST_TMX_ORIENTATION_ISO', 'cocos2d::FastTMXLayer::FAST_TMX_ORIENTATION_ISO', 'const int')
+cls.funcs [[
+    static cocos2d::FastTMXLayer *create(cocos2d::TMXTilesetInfo *tilesetInfo, cocos2d::TMXLayerInfo *layerInfo, cocos2d::TMXMapInfo *mapInfo)
+    FastTMXLayer()
+    int getTileGIDAt(const cocos2d::Vec2 &tileCoordinate, @out cocos2d::TMXTileFlags *flags)
+    void setTileGID(int gid, const cocos2d::Vec2 &tileCoordinate)
+    void setTileGID(int gid, const cocos2d::Vec2 &tileCoordinate, cocos2d::TMXTileFlags flags)
+    void removeTileAt(const cocos2d::Vec2 &tileCoordinate)
+    cocos2d::Vec2 getPositionAt(const cocos2d::Vec2 &tileCoordinate)
+    cocos2d::Value getProperty(const std::string &propertyName)
+    void setupTiles()
+    const std::string &getLayerName()
+    void setLayerName(const std::string &layerName)
+    const cocos2d::Size &getLayerSize()
+    void setLayerSize(const cocos2d::Size &size)
+    const cocos2d::Size &getMapTileSize()
+    void setMapTileSize(const cocos2d::Size &size)
+    cocos2d::TMXTilesetInfo *getTileSet()
+    void setTileSet(cocos2d::TMXTilesetInfo *info)
+    int getLayerOrientation()
+    void setLayerOrientation(int orientation)
+    const cocos2d::ValueMap &getProperties()
+    void setProperties(const cocos2d::ValueMap &properties)
+    cocos2d::Sprite *getTileAt(const cocos2d::Vec2 &tileCoordinate)
+    void setupTileSprite(cocos2d::Sprite *sprite, const cocos2d::Vec2 &pos, uint32_t gid)
+]]
+cls.props [[
+    layerName
+    layerSize
+    mapTileSize
+    tileSet
+    layerOrientation
+    properties
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::NavMeshAgent::NavMeshAgentSyncFlag'
+cls.enums [[
+    NONE
+    NODE_TO_AGENT
+    AGENT_TO_NODE
+    NODE_AND_NODE
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::NavMeshAgent'
+cls.SUPERCLS = "cocos2d::Component"
+cls.funcs [[
+    static cocos2d::NavMeshAgent *create(const cocos2d::NavMeshAgentParam &param)
+    static const std::string &getNavMeshAgentComponentName()
+    void setRadius(float radius)
+    float getRadius()
+    void setHeight(float height)
+    float getHeight()
+    void setMaxAcceleration(float maxAcceleration)
+    float getMaxAcceleration()
+    void setMaxSpeed(float maxSpeed)
+    float getMaxSpeed()
+    void setSeparationWeight(float weight)
+    float getSeparationWeight()
+    void setObstacleAvoidanceType(unsigned char type)
+    unsigned char getObstacleAvoidanceType()
+    cocos2d::Vec3 getCurrentVelocity()
+    void pause()
+    void resume()
+    void stop()
+    void setOrientationRefAxes(const cocos2d::Vec3 &rotRefAxes)
+    void setAutoOrientation(bool isAuto)
+    void setAutoTraverseOffMeshLink(bool isAuto)
+    bool isOnOffMeshLink()
+    void completeOffMeshLink()
+    cocos2d::OffMeshLinkData getCurrentOffMeshLinkData()
+    void setUserData(void *data)
+    void *getUserData()
+    void setSyncFlag(const cocos2d::NavMeshAgent::NavMeshAgentSyncFlag &flag)
+    cocos2d::NavMeshAgent::NavMeshAgentSyncFlag getSyncFlag()
+    void syncToAgent()
+    void syncToNode()
+    cocos2d::Vec3 getVelocity()
+    NavMeshAgent()
+]]
+cls.callback {
+    FUNCS =  {
+        'void move(const cocos2d::Vec3 &destination, @local @optional const std::function<void (NavMeshAgent *, float)> &callback)'
+    },
+    TAG_MAKER = 'move',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
+    CALLONCE = false,
+    REMOVE = false,
+}
+cls.props [[
+    navMeshAgentComponentName
+    radius
+    height
+    maxAcceleration
+    maxSpeed
+    separationWeight
+    obstacleAvoidanceType
+    currentVelocity
+    onOffMeshLink
+    currentOffMeshLinkData
+    userData
+    syncFlag
+    velocity
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::NavMeshObstacle::NavMeshObstacleSyncFlag'
+cls.enums [[
+    NONE
+    NODE_TO_OBSTACLE
+    OBSTACLE_TO_NODE
+    NODE_AND_NODE
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::NavMeshObstacle'
+cls.SUPERCLS = "cocos2d::Component"
+cls.funcs [[
+    static cocos2d::NavMeshObstacle *create(float radius, float height)
+    static const std::string &getNavMeshObstacleComponentName()
+    void setRadius(float radius)
+    float getRadius()
+    void setHeight(float height)
+    float getHeight()
+    void setSyncFlag(const cocos2d::NavMeshObstacle::NavMeshObstacleSyncFlag &flag)
+    cocos2d::NavMeshObstacle::NavMeshObstacleSyncFlag getSyncFlag()
+    void syncToObstacle()
+    void syncToNode()
+    NavMeshObstacle()
+    bool initWith(float radius, float height)
+]]
+cls.props [[
+    navMeshObstacleComponentName
+    radius
+    height
+    syncFlag
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
+cls = typecls 'cocos2d::NavMesh'
+cls.SUPERCLS = "cocos2d::Ref"
+cls.funcs [[
+    void update(float dt)
+    void debugDraw(cocos2d::Renderer *renderer)
+    void setDebugDrawEnable(bool enable)
+    bool isDebugDrawEnabled()
+    void addNavMeshAgent(cocos2d::NavMeshAgent *agent)
+    void removeNavMeshAgent(cocos2d::NavMeshAgent *agent)
+    void addNavMeshObstacle(cocos2d::NavMeshObstacle *obstacle)
+    void removeNavMeshObstacle(cocos2d::NavMeshObstacle *obstacle)
+    void findPath(const cocos2d::Vec3 &start, const cocos2d::Vec3 &end, std::vector<Vec3> &pathPoints)
+    NavMesh()
+]]
+cls.props [[
+    debugDrawEnabled
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 

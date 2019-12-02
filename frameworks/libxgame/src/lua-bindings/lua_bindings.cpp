@@ -3,6 +3,8 @@
 #include "lua_javabridge.h"
 #include "lua_xgame.h"
 #include "lua_cocos2d.h"
+#include "lua_cocos2d_action.h"
+#include "lua_cocos2d_backend.h"
 #include "lua_cocos2d_physics.h"
 #include "lua_cocos2d_ui.h"
 #include "lua_xml_http_request.h"
@@ -32,6 +34,8 @@
 int luaopen_bindings(lua_State *L)
 {
     xlua_call(L, luaopen_cocos2d);
+    xlua_call(L, luaopen_cocos2d_action);
+    xlua_call(L, luaopen_cocos2d_backend);
     xlua_call(L, luaopen_cocos2d_physics);
     xlua_call(L, luaopen_cocos2d_ui);
     xlua_call(L, luaopen_xgame);
@@ -65,16 +69,16 @@ int luaopen_bindings(lua_State *L)
     olua_require(L, "cjson", luaopen_cjson);
     olua_require(L, "cjson.safe", luaopen_cjson_safe);
     olua_require(L, "md5" , luaopen_md5);
-    olua_require(L, "kernel.qrcode", luaopen_qrcode);
-    olua_require(L, "kernel.QRSprite", luaopen_qrsprite);
+//    olua_require(L, "kernel.qrcode", luaopen_qrcode);
+//    olua_require(L, "kernel.QRSprite", luaopen_qrsprite);
     olua_require(L, "kernel.Socket", luaopen_socket);
     olua_require(L, "kernel.luaj", luaopen_javabridge);
-    olua_require(L, "kernel.lame", luaopen_lame);
-    olua_require(L, "kernel.keychain", luaopen_keychain);
-    olua_require(L, "kernel.bugly", luaopen_bugly);
-    olua_require(L, "kernel.plugins.photo", luaopen_photo);
-    olua_require(L, "kernel.plugins.recorder", luaopen_recorder);
-    olua_require(L, "kernel.plugins.iap", luaopen_iap);
+//    olua_require(L, "kernel.lame", luaopen_lame);
+//    olua_require(L, "kernel.keychain", luaopen_keychain);
+//    olua_require(L, "kernel.bugly", luaopen_bugly);
+//    olua_require(L, "kernel.plugins.photo", luaopen_photo);
+//    olua_require(L, "kernel.plugins.recorder", luaopen_recorder);
+//    olua_require(L, "kernel.plugins.iap", luaopen_iap);
 
     return 0;
 }

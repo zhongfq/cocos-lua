@@ -25,6 +25,7 @@
 #ifndef  _APP_DELEGATE_H_
 #define  _APP_DELEGATE_H_
 
+#include "cocos2d.h"
 #include "xgame/xruntime.h"
 
 /**
@@ -35,6 +36,7 @@ Private inheritance here hides part of interface from Director.
 class  AppDelegate : public xgame::RuntimeContext
 {
 public:
+    public:
     virtual void initGLContextAttrs();
     virtual bool applicationDidFinishLaunching();
 };

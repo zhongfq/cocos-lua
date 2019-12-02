@@ -303,7 +303,10 @@ int Skeleton::findSlotIndex(const String &slotName) {
 }
 
 void Skeleton::setSkin(const String &skinName) {
-	Skin *foundSkin = skinName.isEmpty() ? NULL : _data->findSkin(skinName);
+	Skin *foundSkin = _data->findSkin(skinName);
+
+	assert(foundSkin != NULL);
+
 	setSkin(foundSkin);
 }
 
@@ -337,7 +340,7 @@ Attachment *Skeleton::getAttachment(const String &slotName, const String &attach
 }
 
 Attachment *Skeleton::getAttachment(int slotIndex, const String &attachmentName) {
-	if (attachmentName.isEmpty()) return NULL;
+	assert(attachmentName.length() > 0);
 
 	if (_skin != NULL) {
 		Attachment *attachment = _skin->getAttachment(slotIndex, attachmentName);

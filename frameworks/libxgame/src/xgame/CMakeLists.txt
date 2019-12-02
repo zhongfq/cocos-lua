@@ -1,4 +1,4 @@
-set(XGAME_HEADER
+set(XGAME_HEADER                
     src/xgame/xdef.h
     src/xgame/xdownloader.h
     src/xgame/xfilefinder.h
@@ -28,3 +28,27 @@ set(XGAME_SRC
     src/xgame/xsocket.cpp
     src/xgame/xtimer.cpp
 )
+
+if(APPLE)
+    if(IOS)
+        list(APPEND XGAME_HEADER
+            src/xgame/AppContext-ios.h
+            src/xgame/AppRootViewController-ios.h
+            src/xgame/PluginConnector.h
+            src/xgame/Reachability.h
+        )
+        list(APPEND XGAME_SRC
+            src/xgame/AppContext-ios.mm
+            src/xgame/AppRootViewController-ios.mm
+            src/xgame/PluginConnector.mm
+            src/xgame/Reachability.m
+            src/xgame/xfilesystem-private-ios-mac.mm
+            src/xgame/xruntime-private-ios-mac.mm
+        )
+    elseif(MACOSX)
+        list(APPEND XGAME_SRC
+            src/xgame/xfilesystem-private-ios-mac.mm
+            src/xgame/xruntime-private-ios-mac.mm
+        )
+    endif()
+endif()

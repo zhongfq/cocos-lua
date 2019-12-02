@@ -59,6 +59,11 @@ typedef {
 }
 
 typedef {
+    CPPCLS = 'cocos2d::ValueMapIntKey',
+    CONV = 'manual_olua_$$_cocos2d_ValueMapIntKey',
+}
+
+typedef {
     CPPCLS = 'cocos2d::ValueVector',
     CONV = 'manual_olua_$$_cocos2d_ValueVector',
 }

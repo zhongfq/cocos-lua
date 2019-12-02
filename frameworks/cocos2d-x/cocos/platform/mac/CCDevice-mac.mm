@@ -23,10 +23,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
-
-#include "platform/CCPlatformConfig.h"
-#if CC_TARGET_PLATFORM == CC_PLATFORM_MAC
-
 #include "platform/CCDevice.h"
 #include <Foundation/Foundation.h>
 #include <Cocoa/Cocoa.h>
@@ -263,7 +259,6 @@ static bool _initWithString(const char * text, Device::TextAlign align, const ch
         
         // alignment
         NSTextAlignment textAlign = FontUtils::_calculateTextAlignment(align);
-        
         NSMutableParagraphStyle *paragraphStyle = FontUtils::_calculateParagraphStyle(enableWrap, overflow);
         [paragraphStyle setAlignment:textAlign];
         
@@ -282,26 +277,26 @@ static bool _initWithString(const char * text, Device::TextAlign align, const ch
         if (overflow == 2)
             realDimensions = _calculateRealSizeForString(&stringWithAttributes, font, dimensions, enableWrap);
         else
-            realDimensions = _calculateStringSize(stringWithAttributes, font, &dimensions, enableWrap, overflow);
+            realDimensions = _calculateStringSize(stringWithAttributes, font, &dimensions, enableWrap, overflow);        
 
         // Mac crashes if the width or height is 0
         CC_BREAK_IF(realDimensions.width <= 0 || realDimensions.height <= 0);
-        
        
         if(dimensions.width <= 0.f)
             dimensions.width = realDimensions.width;
         if (dimensions.height <= 0.f)
-            dimensions.height = realDimensions.height;
-
+            dimensions.height = realDimensions.height;      
+        
         //Alignment
         CGFloat xPadding = FontUtils::_calculateTextDrawStartWidth(align, realDimensions, dimensions);
+
         CGFloat yPadding = _calculateTextDrawStartHeight(align, realDimensions, dimensions);
-        
+
         NSInteger POTWide = dimensions.width;
         NSInteger POTHigh = dimensions.height;
         NSRect textRect = NSMakeRect(xPadding, POTHigh - dimensions.height + yPadding,
                                      realDimensions.width, realDimensions.height);
-        
+
         NSBitmapImageRep* offscreenRep = [[[NSBitmapImageRep alloc]
             initWithBitmapDataPlanes:NULL
             pixelsWide:POTWide
@@ -320,9 +315,9 @@ static bool _initWithString(const char * text, Device::TextAlign align, const ch
         [NSGraphicsContext setCurrentContext:g];
         [stringWithAttributes drawInRect:textRect];
         [NSGraphicsContext restoreGraphicsState];
-        
+
         auto data = (unsigned char*) [offscreenRep bitmapData];  //Use the same buffer to improve the performance.
-        
+
         NSUInteger textureSize = POTWide * POTHigh * 4;
         auto dataNew = (unsigned char*)malloc(sizeof(unsigned char) * textureSize);
         if (dataNew) {
@@ -369,5 +364,3 @@ void Device::vibrate(float duration)
 }
 
 NS_CC_END
-
-#endif // CC_TARGET_PLATFORM == CC_PLATFORM_MAC

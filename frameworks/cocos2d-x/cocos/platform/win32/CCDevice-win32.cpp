@@ -23,15 +23,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
-
-#include "platform/CCPlatformConfig.h"
-#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-
 #include "platform/CCDevice.h"
 #include "platform/CCFileUtils.h"
 #include "platform/CCStdC.h"
-
-#include <thread>
 
 NS_CC_BEGIN
 
@@ -44,7 +38,7 @@ int Device::getDPI()
         int PixelsX = GetDeviceCaps(hScreenDC, HORZRES);
         int MMX = GetDeviceCaps(hScreenDC, HORZSIZE);
         ReleaseDC(nullptr, hScreenDC);
-        dpi = 254.0f*PixelsX / MMX / 10;
+        dpi = (int)(254.0f*PixelsX / MMX / 10);
     }
     return dpi;
 }
@@ -173,7 +167,7 @@ public:
             if (fontPath.size() > 0)
             {
                 _curFontPath = fontPath;
-                wchar_t * pwszBuffer = utf8ToUtf16(fontPath);
+                wchar_t * pwszBuffer = utf8ToUtf16(_curFontPath);
                 if (pwszBuffer)
                 {
                     if (AddFontResource(pwszBuffer))
@@ -220,7 +214,7 @@ public:
             CC_BREAK_IF(!pszText || nLen <= 0);
 
             RECT rc = { 0, 0, 0, 0 };
-            DWORD dwCalcFmt = DT_CALCRECT | DT_NOPREFIX;
+            DWORD dwCalcFmt = DT_CALCRECT;
             if (!enableWrap)
             {
                 dwCalcFmt |= DT_SINGLELINE;
@@ -300,11 +294,12 @@ public:
     {
         int nRet = 0;
         wchar_t * pwszBuffer = nullptr;
+        wchar_t* fixedText = nullptr;
         do
         {
             CC_BREAK_IF(!pszText);
 
-            DWORD dwFmt = DT_WORDBREAK | DT_NOPREFIX;
+            DWORD dwFmt = DT_WORDBREAK;
             if (!enableWrap) {
                 dwFmt |= DT_SINGLELINE;
             }
@@ -333,7 +328,37 @@ public:
             memset(pwszBuffer, 0, sizeof(wchar_t)*nBufLen);
             nLen = MultiByteToWideChar(CP_UTF8, 0, pszText, nLen, pwszBuffer, nBufLen);
 
-            SIZE newSize = sizeWithText(pwszBuffer, nLen, dwFmt, fontName, textSize, tSize.cx, tSize.cy, enableWrap, overflow);
+            if (strchr(pszText, '&'))
+            {
+                fixedText = new wchar_t[nLen * 2 + 1];
+                int fixedIndex = 0;
+                for (int index = 0; index < nLen; ++index)
+                {
+                    if (pwszBuffer[index] == '&')
+                    {
+                        fixedText[fixedIndex] = '&';
+                        fixedText[fixedIndex + 1] = '&';
+                        fixedIndex += 2;
+                    }
+                    else
+                    {
+                        fixedText[fixedIndex] = pwszBuffer[index];
+                        fixedIndex += 1;
+                    }
+                }
+                fixedText[fixedIndex] = '\0';
+                nLen = fixedIndex;
+            }
+
+            SIZE newSize;
+            if (fixedText)
+            {
+                newSize = sizeWithText(fixedText, nLen, dwFmt, fontName, textSize, tSize.cx, tSize.cy, enableWrap, overflow);
+            }
+            else
+            {
+                newSize = sizeWithText(pwszBuffer, nLen, dwFmt, fontName, textSize, tSize.cx, tSize.cy, enableWrap, overflow);
+            }
 
             RECT rcText = { 0 };
             // if content width is 0, use text size as content size
@@ -400,12 +425,20 @@ public:
             SetTextColor(_DC, RGB(255, 255, 255)); // white color
 
                                                    // draw text
-            nRet = DrawTextW(_DC, pwszBuffer, nLen, &rcText, dwFmt);
+            if (fixedText)
+            {
+                nRet = DrawTextW(_DC, fixedText, nLen, &rcText, dwFmt);
+            }
+            else
+            {
+                nRet = DrawTextW(_DC, pwszBuffer, nLen, &rcText, dwFmt);
+            }
 
             SelectObject(_DC, hOldBmp);
             SelectObject(_DC, hOldFont);
         } while (0);
         CC_SAFE_DELETE_ARRAY(pwszBuffer);
+        delete[] fixedText;
 
         return nRet;
     }
@@ -456,7 +489,7 @@ Data Device::getTextureDataForText(const char * text, const FontDefinition& text
     {
         BitmapDC& dc = sharedBitmapDC();
 
-        if (!dc.setFont(textDefinition._fontName.c_str(), textDefinition._fontSize,false))
+        if (!dc.setFont(textDefinition._fontName.c_str(), (int)textDefinition._fontSize,false))
         {
             log("Can't found font(%s), use system default", textDefinition._fontName.c_str());
         }
@@ -464,7 +497,7 @@ Data Device::getTextureDataForText(const char * text, const FontDefinition& text
         // draw text
         // does changing to SIZE here affects the font size by rounding from float?
         SIZE size = { (LONG)textDefinition._dimensions.width,(LONG)textDefinition._dimensions.height };
-        CC_BREAK_IF(!dc.drawText(text, size, align, textDefinition._fontName.c_str(), textDefinition._fontSize, textDefinition._enableWrap, textDefinition._overflow));
+        CC_BREAK_IF(!dc.drawText(text, size, align, textDefinition._fontName.c_str(), (int)textDefinition._fontSize, textDefinition._enableWrap, textDefinition._overflow));
 
         int dataLen = size.cx * size.cy * 4;
         unsigned char* dataBuf = (unsigned char*)malloc(sizeof(unsigned char) * dataLen);
@@ -520,5 +553,3 @@ void Device::vibrate(float duration)
 }
 
 NS_CC_END
-
-#endif // CC_TARGET_PLATFORM == CC_PLATFORM_WIN32

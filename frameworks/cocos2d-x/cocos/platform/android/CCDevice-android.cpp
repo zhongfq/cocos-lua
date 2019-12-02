@@ -23,10 +23,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
-
-#include "platform/CCPlatformConfig.h"
-#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
-
 #include "platform/CCDevice.h"
 #include <string.h>
 #include <android/log.h>
@@ -89,7 +85,7 @@ public:
     {
            JniMethodInfo methodInfo;
            if (! JniHelper::getStaticMethodInfo(methodInfo, "org.cocos2dx.lib.Cocos2dxBitmap", "createTextBitmapShadowStroke",
-               "([BLjava/lang/String;IIIIIIIIFZFFFFZIIIIFZI)Z"))
+               "([BLjava/lang/String;IIIIIIIIZFFFFZIIIIFZI)Z"))
            {
                CCLOG("%s %d: error to get methodInfo", __FILE__, __LINE__);
                return false;
@@ -122,7 +118,7 @@ public:
            if(!methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, strArray,
                jstrFont, textDefinition._fontSize, textDefinition._fontFillColor.r, textDefinition._fontFillColor.g, 
                textDefinition._fontFillColor.b, textDefinition._fontAlpha,
-               eAlignMask, nWidth, nHeight, textDefinition._lineSpacing,
+               eAlignMask, nWidth, nHeight, 
                textDefinition._shadow._shadowEnabled, textDefinition._shadow._shadowOffset.width, -textDefinition._shadow._shadowOffset.height, 
                textDefinition._shadow._shadowBlur, textDefinition._shadow._shadowOpacity, 
                textDefinition._stroke._strokeEnabled, textDefinition._stroke._strokeColor.r, textDefinition._stroke._strokeColor.g, 
@@ -183,8 +179,6 @@ void Device::vibrate(float duration)
 }
 
 NS_CC_END
-
-#endif // CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 
 // this method is called by Cocos2dxBitmap
 extern "C"

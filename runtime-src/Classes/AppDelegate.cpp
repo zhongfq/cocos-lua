@@ -26,8 +26,9 @@
 
 #include "xgame/xlua.h"
 #include "xgame/xpreferences.h"
-#include "wechat/lua_wechat.h"
+//#include "wechat/lua_wechat.h"
 
+#include "lua-bindings/lua_cocos2d_3d.h"
 #include "lua-bindings/lua_dragonbones.h"
 #include "lua-bindings/lua_fairygui.h"
 #include "lua-bindings/lua_spine.h"
@@ -45,11 +46,12 @@ USING_NS_CC;
 
 static int _open_plugins(lua_State *L)
 {
-    xlua_call(L, luaopen_dragonbones);
+//    xlua_call(L, luaopen_dragonbones);
+    xlua_call(L, luaopen_cocos2d_3d);
     xlua_call(L, luaopen_fairygui);
     xlua_call(L, luaopen_spine);
     
-    olua_require(L, "kernel.plugins.wechat", luaopen_wechat);
+//    olua_require(L, "kernel.plugins.wechat", luaopen_wechat);
     return 0;
 }
 

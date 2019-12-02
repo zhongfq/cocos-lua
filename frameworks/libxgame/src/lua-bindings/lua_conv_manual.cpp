@@ -56,9 +56,9 @@ void manual_olua_check_cocos2d_Color3B(lua_State *L, int idx, cocos2d::Color3B *
         luaL_error(L, "value is NULL");
     }
     uint32_t color = (uint32_t)olua_checkinteger(L, idx);
-    value->r = (GLubyte)(color >> 16 & 0xFF);
-    value->g = (GLubyte)(color >> 8 & 0xFF);
-    value->b = (GLubyte)(color & 0xFF);
+    value->r = (uint8_t)(color >> 16 & 0xFF);
+    value->g = (uint8_t)(color >> 8 & 0xFF);
+    value->b = (uint8_t)(color & 0xFF);
 }
 
 bool manual_olua_is_cocos2d_Color3B(lua_State *L, int idx)
@@ -85,10 +85,10 @@ void manual_olua_check_cocos2d_Color4B(lua_State *L, int idx, cocos2d::Color4B *
         luaL_error(L, "value is NULL");
     }
     uint32_t color = (uint32_t)olua_checkinteger(L, idx);
-    value->r = (GLubyte)(color >> 24 & 0xFF);
-    value->g = (GLubyte)(color >> 16 & 0xFF);
-    value->b = (GLubyte)(color >> 8 & 0xFF);
-    value->a = (GLubyte)(color & 0xFF);
+    value->r = (uint8_t)(color >> 24 & 0xFF);
+    value->g = (uint8_t)(color >> 16 & 0xFF);
+    value->b = (uint8_t)(color >> 8 & 0xFF);
+    value->a = (uint8_t)(color & 0xFF);
 }
 
 bool manual_olua_is_cocos2d_Color4B(lua_State *L, int idx)
@@ -460,6 +460,52 @@ void manual_olua_check_cocos2d_ValueMap(lua_State *L, int idx, cocos2d::ValueMap
                 lua_typename(L, lua_type(L, -2)));
         }
         lua_pop(L, 1);
+    }
+    lua_settop(L, top);
+}
+
+int manual_olua_is_cocos2d_backend_UniformLocation(lua_State *L, int idx)
+{
+    return olua_istable(L, idx)
+        && olua_hasfield(L, idx, "location")
+        && olua_hasfield(L, idx, "shaderStage");
+}
+
+int manual_olua_push_cocos2d_backend_UniformLocation(lua_State *L, const cocos2d::backend::UniformLocation *value)
+{
+    // TODO: test
+    if (value) {
+        lua_createtable(L, 0, 2);
+        olua_setfieldinteger(L, -1, "shaderStage", (lua_Integer)value->shaderStage);
+        lua_createtable(L, 2, 0);
+        lua_pushinteger(L, value->location[0]);
+        olua_rawseti(L, -2, 1);
+        lua_pushinteger(L, value->location[1]);
+        olua_rawseti(L, -2, 2);
+        olua_rawgetf(L, -2, "location");
+    } else {
+        lua_pushnil(L);
+    }
+    return 1;
+}
+
+void manual_olua_check_cocos2d_backend_UniformLocation(lua_State *L, int idx, cocos2d::backend::UniformLocation *value)
+{
+    // TODO: test
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    int top = lua_gettop(L);
+    idx = lua_absindex(L, idx);
+    luaL_checktype(L, idx, LUA_TTABLE);
+    value->shaderStage = (cocos2d::backend::ShaderStage)olua_checkfieldinteger(L, idx, "shaderStage");
+    if (olua_getfield(L, idx, "location") == LUA_TTABLE) {
+        olua_rawgeti(L, -1, 1);
+        value->location[0] = (int)olua_checkinteger(L, -1);
+        olua_rawgeti(L, -2, 2);
+        value->location[1] = (int)olua_checkinteger(L, -1);
+    } else {
+        luaL_error(L, "field 'location' is not a table");
     }
     lua_settop(L, top);
 }

@@ -29,7 +29,6 @@ THE SOFTWARE.
 
 #include "renderer/CCRenderer.h"
 #include "renderer/CCGroupCommand.h"
-#include "renderer/CCGLProgramState.h"
 #include "base/CCDirector.h"
 
 using namespace cocos2d;
@@ -61,8 +60,6 @@ BatchNode::~BatchNode()
 bool BatchNode::init()
 {
     bool ret = Node::init();
-    setGLProgramState(GLProgramState::getOrCreateWithGLProgramName(GLProgram::SHADER_NAME_POSITION_TEXTURE_COLOR));
-
     return ret;
 }
 

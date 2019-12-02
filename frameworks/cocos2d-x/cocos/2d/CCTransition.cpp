@@ -360,7 +360,7 @@ void TransitionJumpZoom::onEnter()
     _inScene->setAnchorPoint(Vec2(0.5f, 0.5f));
     _outScene->setAnchorPoint(Vec2(0.5f, 0.5f));
 
-    ActionInterval *jump = JumpBy::create(_duration/4, Vec2(-s.width,0), s.width/4, 2);
+    ActionInterval *jump = JumpBy::create(_duration/4, Vec2(-s.width,0.0f), s.width/4, 2);
     ActionInterval *scaleIn = ScaleTo::create(_duration/4, 1.0f);
     ActionInterval *scaleOut = ScaleTo::create(_duration/4, 0.5f);
 
@@ -425,7 +425,7 @@ void TransitionMoveInL::onEnter()
  
 ActionInterval* TransitionMoveInL::action()
 {
-    return MoveTo::create(_duration, Vec2(0,0));
+    return MoveTo::create(_duration, Vec2(0.0f,0.0f));
 }
 
 ActionInterval* TransitionMoveInL::easeActionWithAction(ActionInterval* action)
@@ -569,13 +569,13 @@ void TransitionSlideInL::sceneOrder()
 void TransitionSlideInL:: initScenes()
 {
     Size s = Director::getInstance()->getWinSize();
-    _inScene->setPosition(-(s.width-ADJUST_FACTOR),0);
+    _inScene->setPosition(-(s.width-ADJUST_FACTOR),0.0f);
 }
 
 ActionInterval* TransitionSlideInL::action()
 {
     Size s = Director::getInstance()->getWinSize();
-    return MoveBy::create(_duration, Vec2(s.width-ADJUST_FACTOR,0));
+    return MoveBy::create(_duration, Vec2(s.width-ADJUST_FACTOR,0.0f));
 }
 
 ActionInterval* TransitionSlideInL::easeActionWithAction(ActionInterval* action)
@@ -632,7 +632,7 @@ void TransitionSlideInR::initScenes()
 ActionInterval* TransitionSlideInR:: action()
 {
     Size s = Director::getInstance()->getWinSize();
-    return MoveBy::create(_duration, Vec2(-(s.width-ADJUST_FACTOR),0));
+    return MoveBy::create(_duration, Vec2(-(s.width-ADJUST_FACTOR),0.0f));
 }
 
 
@@ -673,7 +673,7 @@ void TransitionSlideInT::initScenes()
 ActionInterval* TransitionSlideInT::action()
 {
     Size s = Director::getInstance()->getWinSize();
-    return MoveBy::create(_duration, Vec2(0,-(s.height-ADJUST_FACTOR)));
+    return MoveBy::create(_duration, Vec2(0.0f,-(s.height-ADJUST_FACTOR)));
 }
 
 //
@@ -713,7 +713,7 @@ void TransitionSlideInB:: initScenes()
 ActionInterval* TransitionSlideInB:: action()
 {
     Size s = Director::getInstance()->getWinSize();
-    return MoveBy::create(_duration, Vec2(0,s.height-ADJUST_FACTOR));
+    return MoveBy::create(_duration, Vec2(0.0f,s.height-ADJUST_FACTOR));
 }
 
 //
@@ -1317,7 +1317,7 @@ void TransitionCrossFade::onEnter()
     LayerColor* layer = LayerColor::create(color);
 
     // create the first render texture for inScene
-    RenderTexture* inTexture = RenderTexture::create((int)size.width, (int)size.height,Texture2D::PixelFormat::RGBA8888,GL_DEPTH24_STENCIL8);
+    RenderTexture* inTexture = RenderTexture::create((int)size.width, (int)size.height,backend::PixelFormat::RGBA8888, PixelFormat::D24S8);
 
     if (nullptr == inTexture)
     {
@@ -1334,7 +1334,7 @@ void TransitionCrossFade::onEnter()
     inTexture->end();
 
     // create the second render texture for outScene
-    RenderTexture* outTexture = RenderTexture::create((int)size.width, (int)size.height,Texture2D::PixelFormat::RGBA8888,GL_DEPTH24_STENCIL8);
+    RenderTexture* outTexture = RenderTexture::create((int)size.width, (int)size.height,backend::PixelFormat::RGBA8888, PixelFormat::D24S8);
     outTexture->getSprite()->setAnchorPoint( Vec2(0.5f,0.5f) );
     outTexture->setPosition(size.width/2, size.height/2);
     outTexture->setAnchorPoint( Vec2(0.5f,0.5f) );

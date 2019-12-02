@@ -3,6 +3,7 @@
 
 #include "xgame/xlua.h"
 #include "cocos2d.h"
+#include "renderer/backend/Backend.h"
 
 int manual_olua_push_cocos2d_Data(lua_State *L, const cocos2d::Data *value);
 int manual_olua_check_cocos2d_Data(lua_State *L, int idx, cocos2d::Data *value);
@@ -74,5 +75,10 @@ void manual_olua_check_cocos2d_ValueMapIntKey(lua_State *L, int idx, cocos2d::Va
 int manual_olua_is_cocos2d_ValueMapIntKey(lua_State *L, int idx);
 int manual_olua_push_cocos2d_ValueMap(lua_State *L, const cocos2d::ValueMap *value);
 void manual_olua_check_cocos2d_ValueMap(lua_State *L, int idx, cocos2d::ValueMap *value);
+
+int manual_olua_is_cocos2d_backend_UniformLocation(lua_State *L, int idx);
+int manual_olua_push_cocos2d_backend_UniformLocation(lua_State *L, const cocos2d::backend::UniformLocation *value);
+void manual_olua_check_cocos2d_backend_UniformLocation(lua_State *L, int idx, cocos2d::backend::UniformLocation *value);
+
 
 #endif

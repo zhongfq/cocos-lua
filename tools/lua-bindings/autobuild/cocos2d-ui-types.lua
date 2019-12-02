@@ -4,6 +4,11 @@ local olua = require "olua"
 local typedef = olua.typedef
 
 typedef {
+    CONV = 'auto_olua_$$_cocos2d_ui_Margin',
+    CPPCLS = 'cocos2d::ui::Margin',
+}
+
+typedef {
     CPPCLS = 'cocos2d::ui::Widget::FocusDirection',
     LUACLS = 'ccui.Widget.FocusDirection',
     DECLTYPE = "lua_Unsigned",
@@ -220,7 +225,7 @@ typedef {
 }
 
 typedef {
-    CPPCLS = 'cocos2d::experimental::ui::WebView *',
+    CPPCLS = 'cocos2d::ui::WebView *',
     LUACLS = 'ccui.WebView',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
@@ -228,7 +233,7 @@ typedef {
 }
 
 typedef {
-    CPPCLS = 'cocos2d::experimental::ui::VideoPlayer::EventType',
+    CPPCLS = 'cocos2d::ui::VideoPlayer::EventType',
     LUACLS = 'ccui.VideoPlayer.EventType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
@@ -236,7 +241,7 @@ typedef {
 }
 
 typedef {
-    CPPCLS = 'cocos2d::experimental::ui::VideoPlayer::StyleType',
+    CPPCLS = 'cocos2d::ui::VideoPlayer::StyleType',
     LUACLS = 'ccui.VideoPlayer.StyleType',
     DECLTYPE = "lua_Unsigned",
     CONV = 'olua_$$_uint',
@@ -244,7 +249,7 @@ typedef {
 }
 
 typedef {
-    CPPCLS = 'cocos2d::experimental::ui::VideoPlayer *',
+    CPPCLS = 'cocos2d::ui::VideoPlayer *',
     LUACLS = 'ccui.VideoPlayer',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',

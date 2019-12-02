@@ -71,7 +71,7 @@ FontAtlas* FontAtlasCache::getFontAtlasTTF(const _ttfConfig* config)
     if ( it == _atlasMap.end() )
     {
         auto font = FontFreeType::create(realFontFilename, config->fontSize, config->glyphs,
-            config->customGlyphs, useDistanceField, config->outlineSize);
+            config->customGlyphs, useDistanceField, (float)config->outlineSize);
         if (font)
         {
             auto tempAtlas = font->createFontAtlas();
@@ -119,7 +119,7 @@ FontAtlas* FontAtlasCache::getFontAtlasFNT(const std::string& fontFileName, cons
 
 FontAtlas* FontAtlasCache::getFontAtlasCharMap(const std::string& plistFile)
 {
-    const std::string& atlasName = plistFile;
+    std::string atlasName = plistFile;
     
     auto it = _atlasMap.find(atlasName);
     if ( it == _atlasMap.end() )
@@ -145,7 +145,7 @@ FontAtlas* FontAtlasCache::getFontAtlasCharMap(const std::string& plistFile)
 FontAtlas* FontAtlasCache::getFontAtlasCharMap(Texture2D* texture, int itemWidth, int itemHeight, int startCharMap)
 {
     char key[ATLAS_MAP_KEY_PREFIX_BUFFER_SIZE];
-    sprintf(key,"name:%u_%d_%d_%d",texture->getName(),itemWidth,itemHeight,startCharMap);
+    sprintf(key,"name:%p_%d_%d_%d",texture->getBackendTexture(),itemWidth,itemHeight,startCharMap);
     std::string atlasName = key;
 
     auto it = _atlasMap.find(atlasName);

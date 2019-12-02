@@ -16,7 +16,6 @@ M.INCLUDES = [[
 #include "lua-bindings/lua_conv_manual.h"
 #include "lua-bindings/LuaCocosAdapter.h"
 #include "xgame/xlua.h"
-#include "xgame/xruntime.h"
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "ui/UIScrollViewBar.h"
@@ -154,8 +153,8 @@ cls.funcs [[
     void onFocusChange(cocos2d::ui::Widget *widgetLostFocus, cocos2d::ui::Widget *widgetGetFocus)
     void dispatchFocusEvent(cocos2d::ui::Widget *widgetLoseFocus, cocos2d::ui::Widget *widgetGetFocus)
 ]]
-cls.var('onFocusChanged', [[@nullable std::function<void (Widget *, Widget *)> onFocusChanged]])
-cls.var('onNextFocusedWidget', [[@nullable @local std::function<Widget *(FocusDirection)> onNextFocusedWidget]])
+cls.var('onFocusChanged', [[@nullable std::function<void(Widget*,Widget*)> onFocusChanged]])
+cls.var('onNextFocusedWidget', [[@nullable std::function<Widget*(FocusDirection)> onNextFocusedWidget]])
 cls.callback {
     FUNCS =  {
         'void addTouchEventListener(@nullable const std::function<void(Ref*,Widget::TouchEventType)>& callback)'
@@ -553,14 +552,14 @@ cls.funcs [[
     void setBackGroundColor(const cocos2d::Color3B &startColor, const cocos2d::Color3B &endColor)
     const cocos2d::Color3B &getBackGroundStartColor()
     const cocos2d::Color3B &getBackGroundEndColor()
-    void setBackGroundColorOpacity(GLubyte opacity)
-    GLubyte getBackGroundColorOpacity()
+    void setBackGroundColorOpacity(uint8_t opacity)
+    uint8_t getBackGroundColorOpacity()
     void setBackGroundColorVector(const cocos2d::Vec2 &vector)
     const cocos2d::Vec2 &getBackGroundColorVector()
     void setBackGroundImageColor(const cocos2d::Color3B &color)
-    void setBackGroundImageOpacity(GLubyte opacity)
+    void setBackGroundImageOpacity(uint8_t opacity)
     const cocos2d::Color3B &getBackGroundImageColor()
-    GLubyte getBackGroundImageOpacity()
+    uint8_t getBackGroundImageOpacity()
     void removeBackGroundImage()
     const cocos2d::Size &getBackGroundImageTextureSize()
     void setClippingEnabled(bool enabled)
@@ -577,7 +576,7 @@ cls.funcs [[
     bool isPassFocusToChild()
     cocos2d::ResourceData getRenderFile()
 ]]
-cls.var('onPassFocusToChild', [[@nullable std::function<int (FocusDirection, Widget *)> onPassFocusToChild]])
+cls.var('onPassFocusToChild', [[@nullable std::function<int(Widget::FocusDirection, Widget*)> onPassFocusToChild]])
 cls.props [[
     backGroundImageCapInsets
     backGroundColorType
@@ -629,11 +628,11 @@ cls.funcs [[
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls 'cocos2d::experimental::ui::WebView'
+cls = typecls 'cocos2d::ui::WebView'
 cls.SUPERCLS = "cocos2d::ui::Widget"
-cls.DEFIF = "#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN)"
+cls.DEFIF = "#ifdef CCLUA_HAVE_WEBVIEW"
 cls.funcs [[
-    static cocos2d::experimental::ui::WebView *create()
+    static cocos2d::ui::WebView *create()
     void setJavascriptInterfaceScheme(const std::string &scheme)
     void loadData(const cocos2d::Data &data, const std::string &MIMEType, const std::string &encoding, const std::string &baseURL)
     void loadHTMLString(const std::string &string, @optional const std::string &baseURL)
@@ -656,7 +655,7 @@ cls.funcs [[
 ]]
 cls.callback {
     FUNCS =  {
-        'void setOnShouldStartLoading(@nullable @local const std::function<bool (WebView *, const std::string &)> &callback)'
+        'void setOnShouldStartLoading(@nullable const std::function<bool (WebView *, const std::string &)> &callback)'
     },
     TAG_MAKER = 'OnShouldStartLoading',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -666,7 +665,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void setOnDidFinishLoading(@nullable @local const std::function<void (WebView *, const std::string &)> &callback)'
+        'void setOnDidFinishLoading(@nullable const std::function<void (WebView *, const std::string &)> &callback)'
     },
     TAG_MAKER = 'OnDidFinishLoading',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -676,7 +675,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void setOnDidFailLoading(@nullable @local const std::function<void (WebView *, const std::string &)> &callback)'
+        'void setOnDidFailLoading(@nullable const std::function<void (WebView *, const std::string &)> &callback)'
     },
     TAG_MAKER = 'OnDidFailLoading',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -686,7 +685,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void setOnJSCallback(@nullable @local const std::function<void (WebView *, const std::string &)> &callback)'
+        'void setOnJSCallback(@nullable const std::function<void (WebView *, const std::string &)> &callback)'
     },
     TAG_MAKER = 'OnJSCallback',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -696,7 +695,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        '@nullable @local std::function<bool (WebView *, const std::string &)> getOnShouldStartLoading()'
+        '@local std::function<bool (WebView *, const std::string &)> getOnShouldStartLoading()'
     },
     TAG_MAKER = 'OnShouldStartLoading',
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
@@ -706,7 +705,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        '@nullable @local std::function<void (WebView *, const std::string &)> getOnDidFinishLoading()'
+        '@local std::function<void (WebView *, const std::string &)> getOnDidFinishLoading()'
     },
     TAG_MAKER = 'OnDidFinishLoading',
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
@@ -716,7 +715,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        '@nullable @local std::function<void (WebView *, const std::string &)> getOnDidFailLoading()'
+        '@local std::function<void (WebView *, const std::string &)> getOnDidFailLoading()'
     },
     TAG_MAKER = 'OnDidFailLoading',
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
@@ -726,7 +725,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        '@nullable @local std::function<void (WebView *, const std::string &)> getOnJSCallback()'
+        '@local std::function<void (WebView *, const std::string &)> getOnJSCallback()'
     },
     TAG_MAKER = 'OnJSCallback',
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
@@ -743,8 +742,8 @@ cls.props [[
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls 'cocos2d::experimental::ui::VideoPlayer::EventType'
-cls.DEFIF = "#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN)"
+cls = typecls 'cocos2d::ui::VideoPlayer::EventType'
+cls.DEFIF = "#ifdef CCLUA_HAVE_VIDEOPLAYER"
 cls.enums [[
     PLAYING
     PAUSED
@@ -754,26 +753,26 @@ cls.enums [[
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls 'cocos2d::experimental::ui::VideoPlayer::StyleType'
-cls.DEFIF = "#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN)"
+cls = typecls 'cocos2d::ui::VideoPlayer::StyleType'
+cls.DEFIF = "#ifdef CCLUA_HAVE_VIDEOPLAYER"
 cls.enums [[
     DEFAULT
     NONE
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
-cls = typecls 'cocos2d::experimental::ui::VideoPlayer'
+cls = typecls 'cocos2d::ui::VideoPlayer'
 cls.SUPERCLS = "cocos2d::ui::Widget"
-cls.DEFIF = "#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN)"
+cls.DEFIF = "#ifdef CCLUA_HAVE_VIDEOPLAYER"
 cls.funcs [[
-    static cocos2d::experimental::ui::VideoPlayer *create()
+    static cocos2d::ui::VideoPlayer *create()
     void setFileName(const std::string &videoPath)
     const std::string &getFileName()
     void setURL(const std::string &_videoURL)
     const std::string &getURL()
     void setLooping(bool looping)
     void setUserInputEnabled(bool enableInput)
-    void setStyle(cocos2d::experimental::ui::VideoPlayer::StyleType style)
+    void setStyle(cocos2d::ui::VideoPlayer::StyleType style)
     void play()
     void stop()
     void seekTo(float sec)
@@ -1026,8 +1025,8 @@ cls.funcs [[
     float getScrollBarWidth()
     void setScrollBarColor(const cocos2d::Color3B &color)
     const cocos2d::Color3B &getScrollBarColor()
-    void setScrollBarOpacity(GLubyte opacity)
-    GLubyte getScrollBarOpacity()
+    void setScrollBarOpacity(uint8_t opacity)
+    uint8_t getScrollBarOpacity()
     void setScrollBarAutoHideEnabled(bool autoHideEnabled)
     bool isScrollBarAutoHideEnabled()
     void setScrollBarAutoHideTime(float autoHideTime)
@@ -1260,10 +1259,10 @@ cls.funcs [[
     const cocos2d::Color3B &getIndicatorSelectedIndexColor()
     void setIndicatorIndexNodesColor(const cocos2d::Color3B &color)
     const cocos2d::Color3B &getIndicatorIndexNodesColor()
-    void setIndicatorSelectedIndexOpacity(GLubyte opacity)
-    GLubyte getIndicatorSelectedIndexOpacity()
-    void setIndicatorIndexNodesOpacity(GLubyte opacity)
-    GLubyte getIndicatorIndexNodesOpacity()
+    void setIndicatorSelectedIndexOpacity(uint8_t opacity)
+    uint8_t getIndicatorSelectedIndexOpacity()
+    void setIndicatorIndexNodesOpacity(uint8_t opacity)
+    uint8_t getIndicatorIndexNodesOpacity()
     void setIndicatorIndexNodesScale(float indexNodesScale)
     void setIndicatorIndexNodesTexture(const std::string &texName, @optional Widget::TextureResType texType)
     float getIndicatorIndexNodesScale()
@@ -1307,7 +1306,7 @@ cls = typecls 'cocos2d::ui::RichElement'
 cls.SUPERCLS = "cocos2d::Ref"
 cls.funcs [[
     RichElement()
-    bool init(int tag, const cocos2d::Color3B &color, GLubyte opacity)
+    bool init(int tag, const cocos2d::Color3B &color, uint8_t opacity)
     bool equalType(cocos2d::ui::RichElement::Type type)
     void setColor(const cocos2d::Color3B &color)
 ]]
@@ -1317,8 +1316,8 @@ cls = typecls 'cocos2d::ui::RichElementText'
 cls.SUPERCLS = "cocos2d::ui::RichElement"
 cls.funcs [[
     RichElementText()
-    bool init(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &text, const std::string &fontName, float fontSize, uint32_t flags, const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
-    static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
+    bool init(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, uint32_t flags, const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
+    static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -1326,8 +1325,8 @@ cls = typecls 'cocos2d::ui::RichElementImage'
 cls.SUPERCLS = "cocos2d::ui::RichElement"
 cls.funcs [[
     RichElementImage()
-    bool init(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &filePath, @optional const std::string &url, @optional Widget::TextureResType texType)
-    static cocos2d::ui::RichElementImage *create(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &filePath, @optional const std::string &url, @optional Widget::TextureResType texType)
+    bool init(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &filePath, @optional const std::string &url, @optional Widget::TextureResType texType)
+    static cocos2d::ui::RichElementImage *create(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &filePath, @optional const std::string &url, @optional Widget::TextureResType texType)
     void setWidth(int width)
     void setHeight(int height)
     void setUrl(const std::string &url)
@@ -1338,8 +1337,8 @@ cls = typecls 'cocos2d::ui::RichElementCustomNode'
 cls.SUPERCLS = "cocos2d::ui::RichElement"
 cls.funcs [[
     RichElementCustomNode()
-    bool init(int tag, const cocos2d::Color3B &color, GLubyte opacity, cocos2d::Node *customNode)
-    static cocos2d::ui::RichElementCustomNode *create(int tag, const cocos2d::Color3B &color, GLubyte opacity, cocos2d::Node *customNode)
+    bool init(int tag, const cocos2d::Color3B &color, uint8_t opacity, cocos2d::Node *customNode)
+    static cocos2d::ui::RichElementCustomNode *create(int tag, const cocos2d::Color3B &color, uint8_t opacity, cocos2d::Node *customNode)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 
@@ -1347,7 +1346,7 @@ cls = typecls 'cocos2d::ui::RichElementNewLine'
 cls.SUPERCLS = "cocos2d::ui::RichElement"
 cls.funcs [[
     RichElementNewLine()
-    static cocos2d::ui::RichElementNewLine *create(int tag, const cocos2d::Color3B &color, GLubyte opacity)
+    static cocos2d::ui::RichElementNewLine *create(int tag, const cocos2d::Color3B &color, uint8_t opacity)
 ]]
 M.CLASSES[#M.CLASSES + 1] = cls
 

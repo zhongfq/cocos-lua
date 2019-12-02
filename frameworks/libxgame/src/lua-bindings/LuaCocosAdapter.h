@@ -32,12 +32,12 @@ public:
 class LuaWebSocketDelegate : public cocos2d::network::WebSocket::Delegate {
 public:
     LuaWebSocketDelegate()
-    :onOpenCallback(nullptr)
-    ,onMessageCallback(nullptr)
-    ,onCloseCallback(nullptr)
-    ,onErrorCallback(nullptr)
-    {
-    }
+       :onOpenCallback(nullptr)
+       ,onMessageCallback(nullptr)
+       ,onCloseCallback(nullptr)
+       ,onErrorCallback(nullptr)
+       {
+       }
     
     virtual void onOpen(cocos2d::network::WebSocket* ws)
     {

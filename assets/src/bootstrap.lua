@@ -1,86 +1,92 @@
-local _traceback = __TRACEBACK__
+local olua = require 'olua'
+olua.debug(true)
 
-function __TRACEBACK__(...)
-    __TRACEBACK__ = _traceback
-    _traceback(...)
-    if not DEBUG then
-        local runtime = require "kernel.runtime"
-        print(string.rep("*", 80))
-        print('* update error, clear all and restart!!!!')
-        print(string.rep("*", 80))
-        runtime:clearStorage()
-        runtime:restart()
-    end
+local SkeletonAnimation = require "sp.SkeletonAnimation"
+local SkeletonData = require "sp.SkeletonData"
+local Director = require "cc.Director"
+local Scene     = require "kernel.SceneNoCamera"
+local UIPackage     = require "fgui.UIPackage"
+local GRoot         = require "fgui.GRoot"
+local Window        = require "fgui.Window"
+local window        = require "kernel.window"
+
+local Layout = require "ccui.Layout"
+local ImageView  = require "ccui.ImageView"
+
+local FUISprite = require "fgui.FUISprite"
+
+
+local TestDirector = olua.class('cc.Director')
+print('###', TestDirector, Director.class)
+
+TestDirector['.func'].test = function (self, ...)
+    print('%%', ...)
 end
 
-require "init"
+TestDirector['.get'].who = function (self, ...)
+    return 'hello world'
+end
 
-local updater   = require "xgame.updater"
-local runtime   = require "xgame.runtime"
-local conf      = require "conf"
+print('##1', TestDirector.print, Director.print)
+print('##2', Director.instance:test('1', 2, 4))
+print('##3', Director.instance.who)
+
+-- window.setFrameSize(900, 500)
+
+local DESIGN_WIDTH = 1334
+local DESIGN_HEIGHT = 750
+local RESOLUTION_POLICY = {
+    EXACT_FIT = 0,
+    NO_BORDER = 1,
+    SHOW_ALL = 2,
+    FIXED_HEIGHT = 3,
+    FIXED_WIDTH = 4,
+}
+window.setDesignSize(DESIGN_WIDTH, DESIGN_HEIGHT, RESOLUTION_POLICY.NO_BORDER)
 
 function main()
-    local inst = updater.new(conf.VERSION_URL)
+    print('hello world!!')
+    local data = SkeletonData.new("res/spine/raptor-pro.skel", "res/spine/raptor-pro.atlas", 0.4)
+    local animation = SkeletonAnimation.createWithData(data)
+    animation.x = 500
+    animation.y = 100
+    animation:setAnimation(0, 'walk', true)
+    -- Director.instance.runningScene:addChild(animation)
 
-    inst.onError = function (callback)
-        print("## onError")
-    end
+    local scene = Scene.create()
+    local root = GRoot.create(scene)
+    Director.instance.runningScene:addChild(scene)
+    UIPackage.addPackage("res/fui/UI/Transition")
+    UIPackage.addPackage("res/fui/UI/Bag")
 
-    inst.onUpdate = function (event, current, total)
-        print("## onUpdate", event, current, total)
-    end
+    local ui = Layout.create()
+    ui.width = 200
+    ui.height = 200
+    ui.ignoreAnchorPointForPosition = true
+    ui.clippingType = 1
+    ui.clippingEnabled = true
+    -- scene:addChild(ui)
 
-    inst.onAppUpdate = function ()
-        if runtime.os == 'ios' then
-            runtime.openURL("itms-apps://itunes.apple.com/app/${apple id}")
-        elseif runtime.os == 'android' then
-            runtime.openURL('market://details?id=' .. runtime.packageName)
-            --[[
-                local status, data = http {
-                    url = 'http://www.codetypes.com/app/version',
-                    responseType = 'JSON',
-                }
-                if status ~= 200 then
-                    return
-                end
-                local task = LoadTask.new(data.url)
-                function task:loadSuccess()
-                    local path = filesystem.localCachePath(task.url)
-                    local apk = filesystem.dir.cache .. '/app.apk'
-                    filesystem.copy(path, apk)
-                    runtime.installAPK(apk)
-                end
-                task:start()
-            ]]
-        else
-            error('no support update app')
-        end
-    end
+    -- local img = ImageView.create('HelloWorld.png')
+    -- ui:addChild(img)
 
-    inst.onComplete = function (shouldRestart)
-        __TRACEBACK__ = _traceback
-        if shouldRestart then
-            runtime.launch("main.lua")
-        else
-            local function start()
-                require "main"
-                main()
-            end
-            if not xpcall(start, __TRACEBACK__) then
-                if not DEBUG then
-                    runtime.clearStorage()
-                    runtime.restart()
-                end
-            end
-        end
-    end
+    local spr = FUISprite.create()
+    spr.x = 300
+    spr.y = 300
+    spr:setTexture('HelloWorld.png')
+    spr.fillMethod = 4
+    spr.fillAmount = 0.6
+    spr:setGrayed(true)
+    scene:addChild(spr)
 
-    inst.filter = function (path)
-        -- return true
-        return string.find(path, '.lua', 1, true)
-            or string.find(path, '.data', 1, true)
-    end
+    local window = Window.create()
+    window.mask = spr
+    window.contentPane = UIPackage.createObject("Bag", "BagWin")
 
-    inst.onComplete(false)
+    local view = UIPackage.createObject("Transition", "Main")
+    root:addChild(view)
+    view:getChild("btn1"):addClickListener(function ()
+        window:show()
+    end)
 end
 

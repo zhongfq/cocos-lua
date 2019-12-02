@@ -1781,7 +1781,7 @@ static int _xgame_timer_delay(lua_State *L)
         }
     };
 
-    // static void delay(float time, const std::function<void ()> callback)
+    // static void delay(float time, @local const std::function<void ()> callback)
     xgame::timer::delay((float)arg1, arg2);
 
     olua_endinvoke(L);
@@ -1818,7 +1818,7 @@ static int _xgame_timer_delayWithTag(lua_State *L)
         }
     };
 
-    // static void delayWithTag(float time, const std::string &tag, std::function<void ()> callback)
+    // static void delayWithTag(float time, const std::string &tag, @local std::function<void ()> callback)
     xgame::timer::delayWithTag((float)arg1, arg2, arg3);
 
     olua_endinvoke(L);
@@ -2050,7 +2050,6 @@ static int _xgame_downloader_setDispatcher(lua_State *L)
     olua_startinvoke(L);
 
     static const char *STATES[] = {"ioerror", "loaded", "pending", "invalid"};
-
     void *store_obj = olua_getstoreobj(L, "kernel.downloader");
     std::string func = olua_setcallback(L, store_obj, "dispatcher", 1, OLUA_TAG_REPLACE);
     xgame::downloader::setDispatcher([store_obj, func](const xgame::downloader::FileTask &task) {

@@ -26,9 +26,9 @@ elseif(APPLE)
             )
     elseif(IOS)
         set(COCOS_UI_SPECIFIC_HEADER
-            ui/UIWebView.h
+            ui/UIWebView/UIWebView.h
             ui/UIVideoPlayer.h
-            ui/UIWebViewImpl-ios.h
+            ui/UIWebView/UIWebViewImpl-ios.h
             ui/UIEditBox/UIEditBoxImpl-ios.h
             ui/UIEditBox/iOS/CCUIEditBoxIOS.h
             ui/UIEditBox/iOS/CCUIMultilineTextField.h
@@ -38,9 +38,9 @@ elseif(APPLE)
             ui/UIEditBox/iOS/CCUISingleLineTextField.h
             )
         set(COCOS_UI_SPECIFIC_SRC
-            ui/UIWebView.mm
+            ui/UIWebView/UIWebView.mm
             ui/UIVideoPlayer-ios.mm
-            ui/UIWebViewImpl-ios.mm
+            ui/UIWebView/UIWebViewImpl-ios.mm
             ui/UIEditBox/UIEditBoxImpl-ios.mm
             ui/UIEditBox/iOS/CCUIEditBoxIOS.mm
             ui/UIEditBox/iOS/CCUIMultilineTextField.mm
@@ -58,17 +58,17 @@ elseif(LINUX)
         )
 elseif(ANDROID)
     set(COCOS_UI_SPECIFIC_HEADER
-        ui/UIWebView.h
+        ui/UIWebView/UIWebView.h
         ui/UIVideoPlayer.h
-        ui/UIWebViewImpl-android.h
+        ui/UIWebView/UIWebViewImpl-android.h
         ui/UIEditBox/UIEditBoxImpl-android.h
         )
     set(COCOS_UI_SPECIFIC_SRC
         ui/UIEditBox/UIEditBoxImpl-android.cpp
         ui/UIVideoPlayer-android.cpp
-        ui/UIWebViewImpl-android.cpp
+        ui/UIWebView/UIWebViewImpl-android.cpp
         # it's special for android, not a common file
-        ui/UIWebView.cpp
+        ui/UIWebView/UIWebView.cpp
         )
 endif()
 
@@ -80,7 +80,7 @@ set(COCOS_UI_HEADER
     ui/UIAbstractCheckButton.h
     ui/UIButton.h
     ui/UICheckBox.h
-    ui/UIDeprecated.h
+#    ui/UIDeprecated.h
     ui/UIHBox.h
     ui/UIHelper.h
     ui/UIImageView.h
@@ -115,7 +115,7 @@ set(COCOS_UI_SRC
     ui/UIAbstractCheckButton.cpp
     ui/UICheckBox.cpp
     ui/UIRadioButton.cpp
-    ui/UIDeprecated.cpp
+ #   ui/UIDeprecated.cpp
     ui/UIHBox.cpp
     ui/UIHelper.cpp
     ui/UIImageView.cpp

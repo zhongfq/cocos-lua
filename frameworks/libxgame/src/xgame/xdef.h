@@ -11,7 +11,6 @@
 #define NS_XGAME_BEGIN  namespace xgame {
 #define NS_XGAME_END    }
 #define USING_NS_XGAME using namespace xgame
-#define USING_NS_CC_EXP using namespace cocos2d::experimental
 
 #define strequal(str1, str2)           (strcmp(str1, str2) == 0)
 #define strnequal(str1, str2, len)     (strncmp(str1, str2, len) == 0)

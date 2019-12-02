@@ -131,30 +131,41 @@ PUEmitter::~PUEmitter()
 {
     _particleSystem = nullptr;
 
-    delete _dynEmissionRate;
+    if (_dynEmissionRate)
+        delete _dynEmissionRate;
 
-    delete _dynTotalTimeToLive;
+    if (_dynTotalTimeToLive)
+        delete _dynTotalTimeToLive;
 
-    delete _dynParticleMass;
+    if (_dynParticleMass)
+        delete _dynParticleMass;
 
-    delete _dynVelocity;
+    if (_dynVelocity)
+        delete _dynVelocity;
 
-    delete _dynDuration;
+    if (_dynDuration)
+        delete _dynDuration;
 
-    delete _dynRepeatDelay;
+    if (_dynRepeatDelay)
+        delete _dynRepeatDelay;
 
-    delete _dynParticleAllDimensions;
+    if (_dynParticleAllDimensions)
+        delete _dynParticleAllDimensions;
 
-    delete _dynParticleWidth;
+    if (_dynParticleWidth)
+        delete _dynParticleWidth;
 
-    delete _dynParticleHeight;
+    if (_dynParticleHeight)
+        delete _dynParticleHeight;
 
-    delete _dynParticleDepth;
+    if (_dynParticleDepth)
+        delete _dynParticleDepth;
 
     //if (mEmissionRateCameraDependency)
     //	mCameraDependencyFactory.destroy(mEmissionRateCameraDependency);
 
-    delete _dynAngle;
+    if (_dynAngle)
+        delete _dynAngle;
 }
 
 void PUEmitter::updateEmitter(Particle3D* /*particle*/, float /*deltaTime*/)
@@ -317,7 +328,7 @@ void PUEmitter::setEnabled( bool enabled )
     initTimeBased();
 }
 
-bool PUEmitter::isEnabled() const
+bool PUEmitter::isEnabled( void ) const
 {
     return _isEnabled;
 }
@@ -505,42 +516,48 @@ void PUEmitter::setEmitsName(const std::string& emitsName)
 //-----------------------------------------------------------------------
 void PUEmitter::setDynEmissionRate(PUDynamicAttribute* dynEmissionRate)
 {
-    delete _dynEmissionRate;
+    if (_dynEmissionRate)
+        delete _dynEmissionRate;
 
     _dynEmissionRate = dynEmissionRate;
 }
 //-----------------------------------------------------------------------
 void PUEmitter::setDynTotalTimeToLive(PUDynamicAttribute* dynTotalTimeToLive)
 {
-    delete _dynTotalTimeToLive;
+    if (_dynTotalTimeToLive)
+        delete _dynTotalTimeToLive;
 
     _dynTotalTimeToLive = dynTotalTimeToLive;
 }
 //-----------------------------------------------------------------------
 void PUEmitter::setDynParticleMass(PUDynamicAttribute* dynParticleMass)
 {
-    delete _dynParticleMass;
+    if (_dynParticleMass)
+        delete _dynParticleMass;
 
     _dynParticleMass = dynParticleMass;
 }
 //-----------------------------------------------------------------------
 void PUEmitter::setDynAngle(PUDynamicAttribute* dynAngle)
 {
-    delete _dynAngle;
+    if (_dynAngle)
+        delete _dynAngle;
 
     _dynAngle = dynAngle;
 }
 //-----------------------------------------------------------------------
 void PUEmitter::setDynVelocity(PUDynamicAttribute* dynVelocity)
 {
-    delete _dynVelocity;
+    if (_dynVelocity)
+        delete _dynVelocity;
 
     _dynVelocity = dynVelocity;
 }
 //-----------------------------------------------------------------------
 void PUEmitter::setDynDuration(PUDynamicAttribute* dynDuration)
 {
-    delete _dynDuration;
+    if (_dynDuration)
+        delete _dynDuration;
 
     _dynDuration = dynDuration;
     _dynDurationSet = true;
@@ -554,7 +571,8 @@ void PUEmitter::setDynDurationSet(bool durationSet)
 //-----------------------------------------------------------------------
 void PUEmitter::setDynRepeatDelay(PUDynamicAttribute* dynRepeatDelay)
 {
-    delete _dynRepeatDelay;
+    if (_dynRepeatDelay)
+        delete _dynRepeatDelay;
 
     _dynRepeatDelay = dynRepeatDelay;
     _dynRepeatDelaySet = true;
@@ -568,7 +586,8 @@ void PUEmitter::setDynRepeatDelaySet(bool repeatDelaySet)
 //-----------------------------------------------------------------------
 void PUEmitter::setDynParticleAllDimensions(PUDynamicAttribute* dynParticleAllDimensions)
 {
-    delete _dynParticleAllDimensions;
+    if (_dynParticleAllDimensions)
+        delete _dynParticleAllDimensions;
 
     _dynParticleAllDimensions = dynParticleAllDimensions;
     _dynParticleAllDimensionsSet = true;
@@ -581,7 +600,8 @@ void PUEmitter::setDynParticleAllDimensionsSet(bool particleAllDimensionsSet)
 //-----------------------------------------------------------------------
 void PUEmitter::setDynParticleWidth(PUDynamicAttribute* dynParticleWidth)
 {
-    delete _dynParticleWidth;
+    if (_dynParticleWidth)
+        delete _dynParticleWidth;
 
     _dynParticleWidth = dynParticleWidth;
     _dynParticleWidthSet = true;
@@ -594,7 +614,8 @@ void PUEmitter::setDynParticleWidthSet(bool particleWidthSet)
 //-----------------------------------------------------------------------
 void PUEmitter::setDynParticleHeight(PUDynamicAttribute* dynParticleHeight)
 {
-    delete _dynParticleHeight;
+    if (_dynParticleHeight)
+        delete _dynParticleHeight;
 
     _dynParticleHeight = dynParticleHeight;
     _dynParticleHeightSet = true;
@@ -607,7 +628,8 @@ void PUEmitter::setDynParticleHeightSet(bool particleHeightSet)
 //-----------------------------------------------------------------------
 void PUEmitter::setDynParticleDepth(PUDynamicAttribute* dynParticleDepth)
 {
-    delete _dynParticleDepth;
+    if (_dynParticleDepth)
+        delete _dynParticleDepth;
 
     _dynParticleDepth = dynParticleDepth;
     _dynParticleDepthSet = true;
@@ -693,7 +715,7 @@ void PUEmitter::setForceEmission(bool forceEmission)
     _originalForceEmissionExecuted = false;
 }
 
-void PUEmitter::initTimeBased()
+void PUEmitter::initTimeBased( void )
 {
     if (_isEnabled)
     {

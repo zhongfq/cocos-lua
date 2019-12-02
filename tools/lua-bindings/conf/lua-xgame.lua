@@ -2,7 +2,7 @@ local autoconf = require "autoconf"
 local M = autoconf.typemod 'xgame'
 local typeconf = M.typeconf
 
-M.PATH = "../../frameworks/libxgame/src/lua-bindings"
+M.PATH = '../../frameworks/libxgame/src/lua-bindings'
 M.INCLUDES = [[
 #include "lua-bindings/lua_xgame.h"
 #include "lua-bindings/lua_conv.h"
@@ -26,10 +26,6 @@ end
 
 M.EXCLUDE_TYPE = require "conf.exclude-type"
 M.EXCLUDE_TYPE 'xgame::BufferReader *'
-
-M.EXCLUDE_PASS = function (cppcls, fn, decl)
-    return string.find(fn, '^_') or string.find(decl, 'std::map')
-end
 
 typeconf 'xgame::SceneNoCamera'
 typeconf 'xgame::Permission'
@@ -110,19 +106,19 @@ timer.CHUNK = [[
 #define makeTimerDelayTag(tag) ("delayTag." + tag)
 ]]
 timer.CALLBACK {
-    FUNCS = {'static void delayWithTag(float time, const std::string &tag, std::function<void ()> callback)'},
+    NAME = 'delayWithTag',
     TAG_MODE = 'OLUA_TAG_REPLACE',
     TAG_MAKER = 'makeTimerDelayTag(#2)',
     CALLONCE = true,
 }
 timer.CALLBACK {
-    FUNCS = {'static void killDelay(const std::string &tag)'},
+    NAME = 'killDelay',
     TAG_MAKER = 'makeTimerDelayTag(#1)',
     TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     REMOVE = true,
 }
 timer.CALLBACK {
-    FUNCS = {'static void delay(float time, const std::function<void ()> callback)'},
+    NAME = 'delay',
     TAG_MODE = 'OLUA_TAG_NEW',
     TAG_MAKER = 'delay',
     CALLONCE = true,
@@ -239,7 +235,6 @@ downloader.FUNC('load', [[
 downloader.FUNC('setDispatcher', [[
 {
     static const char *STATES[] = {"ioerror", "loaded", "pending", "invalid"};
-    
     void *store_obj = olua_getstoreobj(L, "kernel.downloader");
     std::string func = olua_setcallback(L, store_obj, "dispatcher", 1, OLUA_TAG_REPLACE);
     xgame::downloader::setDispatcher([store_obj, func](const xgame::downloader::FileTask &task) {

@@ -24,14 +24,13 @@ THE SOFTWARE.
 ****************************************************************************/
 #include "editor-support/cocostudio/CCSGUIReader.h"
 
+#include <fstream>
+#include <iostream>
+#include "ui/CocosGUI.h"
+#include "platform/CCFileUtils.h"
 #include "2d/CCSpriteFrameCache.h"
 #include "base/CCDirector.h"
 #include "base/ccUtils.h"
-#include "platform/CCFileUtils.h"
-#include "ui/CocosGUI.h"
-#include <fstream>
-#include <iostream>
-#include <utility>
 
 #include "editor-support/cocostudio/CCActionManagerEx.h"
 #include "editor-support/cocostudio/WidgetReader/ButtonReader/ButtonReader.h"
@@ -187,7 +186,7 @@ void GUIReader::registerTypeAndCallBack(const std::string& classType,
 }
 
 void GUIReader::registerTypeAndCallBack(const std::string& classType,
-                                        const ObjectFactory::InstanceFunc& ins,
+                                        ObjectFactory::InstanceFunc ins,
                                         Ref *object,
                                         SEL_ParseEvent callBack)
 {

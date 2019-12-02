@@ -30,6 +30,13 @@ cmake_minimum_required(VERSION 3.6)
 
 project(Cocos2d-x)
 
+# set default minimum deployment target
+if(XCODE)
+    if(NOT DEFINED CMAKE_XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET)
+        SET (CMAKE_XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET 8.0)
+    endif()
+endif()
+
 # cocos2dx root path
 set(COCOS2DX_ROOT_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 set(CMAKE_MODULE_PATH ${COCOS2DX_ROOT_PATH}/cmake/Modules/)
@@ -40,22 +47,21 @@ include(PreventInSourceBuilds)
 # works before build libcocos2d
 include(CocosBuildSet)
 
-# build options
-option(BUILD_TESTS "Build tests" ON)
-
-# default tests include lua, js test project, so we set those option on to build libs
-set(BUILD_LUA_LIBS ON)
-set(BUILD_JS_LIBS ON)
+set(BUILD_LUA_LIBS ON) 
 
 add_subdirectory(${COCOS2DX_ROOT_PATH}/cocos ${ENGINE_BINARY_PATH}/cocos/core)
 
 # prevent tests project to build "cocos2d-x/cocos" again
 set(BUILD_ENGINE_DONE ON)
-# add engine all tests project
-if (BUILD_TESTS)
-  add_subdirectory(${COCOS2DX_ROOT_PATH}/tests/cpp-empty-test ${ENGINE_BINARY_PATH}/tests/cpp-empty-test)
-  add_subdirectory(${COCOS2DX_ROOT_PATH}/tests/cpp-tests ${ENGINE_BINARY_PATH}/tests/cpp-tests)
-  add_subdirectory(${COCOS2DX_ROOT_PATH}/tests/js-tests/project ${ENGINE_BINARY_PATH}/tests/js-tests)
+
+# add cpp tests default
+add_subdirectory(${COCOS2DX_ROOT_PATH}/tests/cpp-empty-test ${ENGINE_BINARY_PATH}/tests/cpp-empty-test)
+add_subdirectory(${COCOS2DX_ROOT_PATH}/tests/cpp-tests ${ENGINE_BINARY_PATH}/tests/cpp-tests)
+
+if(BUILD_LUA_LIBS)
   add_subdirectory(${COCOS2DX_ROOT_PATH}/tests/lua-empty-test/project ${ENGINE_BINARY_PATH}/tests/lua-empty-test)
   add_subdirectory(${COCOS2DX_ROOT_PATH}/tests/lua-tests/project ${ENGINE_BINARY_PATH}/tests/lua-test)
-endif()
+endif(BUILD_LUA_LIBS)
+
+# add cpp-template-default into project(Cocos2d-x) for tmp test
+add_subdirectory(${COCOS2DX_ROOT_PATH}/templates/cpp-template-default ${ENGINE_BINARY_PATH}/tests/HelloCpp)

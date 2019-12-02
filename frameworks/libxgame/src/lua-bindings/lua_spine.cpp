@@ -5,7 +5,6 @@
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "xgame/xlua.h"
-#include "xgame/xruntime.h"
 #include "cocos2d.h"
 #include "spine/spine-cocos2dx.h"
 
@@ -90,6 +89,20 @@ template <typename T> int manual_olua_push_spine_Vector(lua_State *L, const spin
         lua_rawseti(L, -2, count++);
     }
     return 1;
+}
+
+template <typename T> void manual_olua_check_spine_Vector(lua_State *L, int idx, spine::Vector<T*> &v, const char *cls)
+{
+    luaL_checktype(L, idx, LUA_TTABLE);
+    size_t total = lua_rawlen(L, idx);
+    v.ensureCapacity(total);
+    for (int i = 1; i <= total; i++) {
+        lua_rawgeti(L, idx, i);
+        T* obj;
+        olua_check_cppobj(L, -1, (void **)&obj, cls);
+        v.add(obj);
+        lua_pop(L, 1);
+    }
 }
 
 static int luaopen_spine_EventType(lua_State *L)
@@ -1544,6 +1557,23 @@ static int luaopen_spine_AnimationStateData(lua_State *L)
     return 1;
 }
 
+static int _spine_Animation___gc(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (spine::Animation *)olua_toobj(L, 1, "sp.Animation");
+    lua_pushstring(L, ".ownership");
+    olua_getvariable(L, 1);
+    if (lua_toboolean(L, -1) && self) {
+        olua_setrawdata(L, 1, nullptr);
+        delete self;
+    }
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _spine_Animation___move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -1626,6 +1656,28 @@ static int _spine_Animation_hasTimeline(lua_State *L)
     return num_ret;
 }
 
+static int _spine_Animation_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::String arg1;       /** name */
+    spine::Vector<spine::Timeline *> arg2;       /** timelines */
+    lua_Number arg3 = 0;       /** duration */
+
+    manual_olua_check_spine_String(L, 1, &arg1);
+    manual_olua_check_spine_Vector(L, 2, arg2, "sp.Timeline");
+    olua_check_number(L, 3, &arg3);
+
+    // Animation(const spine::String &name, Vector<spine::Timeline *> &timelines, float duration)
+    spine::Animation *ret = (spine::Animation *)new spine::Animation(arg1, arg2, (float)arg3);
+    int num_ret = olua_push_cppobj(L, ret, "sp.Animation");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int _spine_Animation_setDuration(lua_State *L)
 {
     olua_startinvoke(L);
@@ -1647,11 +1699,13 @@ static int _spine_Animation_setDuration(lua_State *L)
 static int luaopen_spine_Animation(lua_State *L)
 {
     oluacls_class(L, "sp.Animation", "sp.SpineObject");
+    oluacls_func(L, "__gc", _spine_Animation___gc);
     oluacls_func(L, "__move", _spine_Animation___move);
     oluacls_func(L, "getDuration", _spine_Animation_getDuration);
     oluacls_func(L, "getName", _spine_Animation_getName);
     oluacls_func(L, "getTimelines", _spine_Animation_getTimelines);
     oluacls_func(L, "hasTimeline", _spine_Animation_hasTimeline);
+    oluacls_func(L, "new", _spine_Animation_new);
     oluacls_func(L, "setDuration", _spine_Animation_setDuration);
     oluacls_prop(L, "duration", _spine_Animation_getDuration, _spine_Animation_setDuration);
     oluacls_prop(L, "name", _spine_Animation_getName, nullptr);
@@ -13570,6 +13624,40 @@ static int _spine_SkeletonRenderer_createWithSkeleton(lua_State *L)
     return 0;
 }
 
+static int _spine_SkeletonRenderer_destroyScratchBuffers(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static void destroyScratchBuffers()
+    spine::SkeletonRenderer::destroyScratchBuffers();
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _spine_SkeletonRenderer_drawDebug(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    spine::SkeletonRenderer *self = nullptr;
+    cocos2d::Renderer *arg1 = nullptr;       /** renderer */
+    cocos2d::Mat4 arg2;       /** transform */
+    lua_Unsigned arg3 = 0;       /** transformFlags */
+
+    olua_to_cppobj(L, 1, (void **)&self, "sp.SkeletonRenderer");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.Renderer");
+    manual_olua_check_cocos2d_Mat4(L, 3, &arg2);
+    olua_check_uint(L, 4, &arg3);
+
+    // void drawDebug(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t transformFlags)
+    self->drawDebug(arg1, arg2, (uint32_t)arg3);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _spine_SkeletonRenderer_findBone(lua_State *L)
 {
     olua_startinvoke(L);
@@ -14273,6 +14361,8 @@ static int luaopen_spine_SkeletonRenderer(lua_State *L)
     oluacls_func(L, "createWithData", _spine_SkeletonRenderer_createWithData);
     oluacls_func(L, "createWithFile", _spine_SkeletonRenderer_createWithFile);
     oluacls_func(L, "createWithSkeleton", _spine_SkeletonRenderer_createWithSkeleton);
+    oluacls_func(L, "destroyScratchBuffers", _spine_SkeletonRenderer_destroyScratchBuffers);
+    oluacls_func(L, "drawDebug", _spine_SkeletonRenderer_drawDebug);
     oluacls_func(L, "findBone", _spine_SkeletonRenderer_findBone);
     oluacls_func(L, "findSlot", _spine_SkeletonRenderer_findSlot);
     oluacls_func(L, "getAttachment", _spine_SkeletonRenderer_getAttachment);

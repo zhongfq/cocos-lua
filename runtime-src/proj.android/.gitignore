@@ -1,9 +1,8 @@
 .gradle
-.idea
-app/.externalNativeBuild
-app/build
-app/bugly
-app/cocos-lua.iml
-build
-local.properties
-proj.android.iml
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+/.externalNativeBuild

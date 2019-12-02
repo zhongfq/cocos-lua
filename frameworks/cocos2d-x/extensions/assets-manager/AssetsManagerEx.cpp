@@ -38,7 +38,7 @@
 
 NS_CC_EXT_BEGIN
 
-#define TEMP_FOLDERNAME     "_temp"
+#define TEMP_FOLDERNAME         "_temp"
 #define VERSION_FILENAME        "version.manifest"
 #define TEMP_MANIFEST_FILENAME  "project.manifest.temp"
 #define MANIFEST_FILENAME       "project.manifest"
@@ -56,27 +56,7 @@ const std::string AssetsManagerEx::MANIFEST_ID = "@manifest";
 // Implementation of AssetsManagerEx
 
 AssetsManagerEx::AssetsManagerEx(const std::string& manifestUrl, const std::string& storagePath)
-: _updateState(State::UNCHECKED)
-, _assets(nullptr)
-, _storagePath("")
-, _tempVersionPath("")
-, _cacheManifestPath("")
-, _tempManifestPath("")
-, _manifestUrl(manifestUrl)
-, _localManifest(nullptr)
-, _tempManifest(nullptr)
-, _remoteManifest(nullptr)
-, _updateEntry(UpdateEntry::NONE)
-, _percent(0)
-, _percentByFile(0)
-, _totalToDownload(0)
-, _totalWaitToDownload(0)
-, _nextSavePoint(0.0)
-, _maxConcurrentTask(32)
-, _currConcurrentTask(0)
-, _versionCompareHandle(nullptr)
-, _verifyCallback(nullptr)
-, _inited(false)
+: _manifestUrl(manifestUrl)
 {
     // Init variables
     _eventDispatcher = Director::getInstance()->getEventDispatcher();
@@ -321,7 +301,7 @@ void AssetsManagerEx::setStoragePath(const std::string& storagePath)
 
 void AssetsManagerEx::adjustPath(std::string &path)
 {
-    if (!path.empty() && path[path.size() - 1] != '/')
+    if (path.size() > 0 && path[path.size() - 1] != '/')
     {
         path.append("/");
     }
@@ -549,7 +529,7 @@ void AssetsManagerEx::downloadVersion()
 
     std::string versionUrl = _localManifest->getVersionFileUrl();
 
-    if (!versionUrl.empty())
+    if (versionUrl.size() > 0)
     {
         _updateState = State::DOWNLOADING_VERSION;
         // Download version file asynchronously
@@ -617,7 +597,7 @@ void AssetsManagerEx::downloadManifest()
         manifestUrl = _localManifest->getManifestFileUrl();
     }
 
-    if (!manifestUrl.empty())
+    if (manifestUrl.size() > 0)
     {
         _updateState = State::DOWNLOADING_MANIFEST;
         // Download version file asynchronously
@@ -711,7 +691,7 @@ void AssetsManagerEx::startUpdate()
         
         // Check difference between local manifest and remote manifest
         std::unordered_map<std::string, Manifest::AssetDiff> diff_map = _localManifest->genDiff(_remoteManifest);
-        if (diff_map.empty())
+        if (diff_map.size() == 0)
         {
             updateSucceed();
         }
@@ -1162,7 +1142,7 @@ void AssetsManagerEx::queueDowload()
         return;
     }
     
-    while (_currConcurrentTask < _maxConcurrentTask && !_queue.empty())
+    while (_currConcurrentTask < _maxConcurrentTask && _queue.size() > 0)
     {
         std::string key = _queue.back();
         _queue.pop_back();
@@ -1185,7 +1165,7 @@ void AssetsManagerEx::queueDowload()
 void AssetsManagerEx::onDownloadUnitsFinished()
 {
     // Finished with error check
-    if (!_failedUnits.empty())
+    if (_failedUnits.size() > 0)
     {
         // Save current download manifest information for resuming
         _tempManifest->saveToFile(_tempManifestPath);

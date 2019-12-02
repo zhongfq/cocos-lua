@@ -29,83 +29,96 @@ set(APP_NAME cocos-lua)
 
 project(${APP_NAME})
 
-set(RUNTIME_SRC_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/runtime-src)
-set(FRAMEWORK_ROOT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/frameworks)
-set(COCOS2DX_ROOT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/frameworks/cocos2d-x)
-set(CMAKE_MODULE_PATH ${COCOS2DX_ROOT_PATH}/cmake/Modules/)
-
+add_definitions(-DCC_FILEUTILS_APPLE_ENABLE_OBJC=0)
 add_definitions(-DCC_ENABLE_SCRIPT_BINDING=0)
 add_definitions(-DCC_CONSTRUCTOR_ACCESS=public)
 add_definitions(-DSPINE_USE_STD_FUNCTION)
 
-include(CocosBuildSet)
-add_subdirectory(${COCOS2DX_ROOT_PATH}/cocos ${ENGINE_BINARY_PATH}/cocos/core)
+if(NOT DEFINED BUILD_ENGINE_DONE) # to test cocos-lua into root project
+    set(COCOS2DX_ROOT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/frameworks/cocos2d-x)
+    set(CMAKE_MODULE_PATH ${COCOS2DX_ROOT_PATH}/cmake/Modules/)
+
+    include(CocosBuildSet)
+    add_subdirectory(${COCOS2DX_ROOT_PATH}/cocos ${ENGINE_BINARY_PATH}/cocos/core)
+endif()
+
+# runtime-src
+set(RUNTIME_SRC_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/runtime-src)
 
 # record sources, headers, resources...
 set(GAME_SOURCE)
 set(GAME_HEADER)
 
-set(GAME_RES_FOLDER
-    "${CMAKE_CURRENT_SOURCE_DIR}/assets"
-    )
-if(APPLE OR WINDOWS)
+set(GAME_RES_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/assets")
+
+if(APPLE)
+    file(GLOB folder_files "${GAME_RES_FOLDER}/*")
+    foreach(file ${folder_files})
+        if(NOT ${file} MATCHES ".DS_Store$")
+            list(APPEND common_res_files ${file})
+            set(RES_FILE ${file})
+            set_source_files_properties(${RES_FILE} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
+            source_group("Resources" FILES ${RES_FILE})
+        endif()
+    endforeach()
+elseif(WINDOWS)
     cocos_mark_multi_resources(common_res_files RES_TO "Resources" FOLDERS ${GAME_RES_FOLDER})
 endif()
 
 # add cross-platforms source files and header files 
 list(APPEND GAME_SOURCE
-    ${RUNTIME_SRC_ROOT}/Classes/AppDelegate.cpp
-    )
+     ${RUNTIME_SRC_ROOT}/Classes/AppDelegate.cpp
+     )
 list(APPEND GAME_HEADER
-    ${RUNTIME_SRC_ROOT}/Classes/AppDelegate.h
-    )
+     ${RUNTIME_SRC_ROOT}/Classes/AppDelegate.h
+     )
 
 if(ANDROID)
     # change APP_NAME to the share library name for Android, it's value depend on AndroidManifest.xml
-    set(APP_NAME cocoslua)
+    set(APP_NAME MyGame)
     list(APPEND GAME_SOURCE
-        ${RUNTIME_SRC_ROOT}/proj.android/app/jni/hellocpp/main.cpp
-        )
+         ${RUNTIME_SRC_ROOT}/proj.android/app/jni/hellocpp/main.cpp
+         )
 elseif(LINUX)
     list(APPEND GAME_SOURCE
-        ${RUNTIME_SRC_ROOT}/proj.linux/main.cpp
-        )
+         ${RUNTIME_SRC_ROOT}/proj.linux/main.cpp
+         )
 elseif(WINDOWS)
     list(APPEND GAME_HEADER
-        ${RUNTIME_SRC_ROOT}/proj.win32/main.h
-        ${RUNTIME_SRC_ROOT}/proj.win32/resource.h
-        )
+         ${RUNTIME_SRC_ROOT}/proj.win32/main.h
+         ${RUNTIME_SRC_ROOT}/proj.win32/resource.h
+         )
     list(APPEND GAME_SOURCE
-        ${RUNTIME_SRC_ROOT}/proj.win32/main.cpp
-        ${RUNTIME_SRC_ROOT}/proj.win32/game.rc
-        ${common_res_files}
-        )
+         ${RUNTIME_SRC_ROOT}/proj.win32/main.cpp
+         ${RUNTIME_SRC_ROOT}/proj.win32/game.rc
+         ${common_res_files}
+         )
 elseif(APPLE)
     if(IOS)
         list(APPEND GAME_HEADER
-            ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/AppController.h
-            ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/RootViewController.h
-            )
+             ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/AppController.h
+             ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/RootViewController.h
+             )
         set(APP_UI_RES
-            ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/LaunchScreen.storyboard
-            ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/LaunchScreenBackground.png
-            ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/Images.xcassets
+             ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/LaunchScreen.storyboard
+             ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/LaunchScreenBackground.png
+             ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/Images.xcassets
             )
         list(APPEND GAME_SOURCE
-            ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/main.m
-            ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/AppController.mm
-            ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/RootViewController.mm
-            ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/Prefix.pch
-            ${APP_UI_RES}
-            )
+             ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/main.m
+             ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/AppController.mm
+             ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/RootViewController.mm
+             ${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/Prefix.pch
+             ${APP_UI_RES}
+             )
     elseif(MACOSX)
         set(APP_UI_RES
-            ${RUNTIME_SRC_ROOT}/proj.ios_mac/mac/Icon.icns
-            ${RUNTIME_SRC_ROOT}/proj.ios_mac/mac/Info.plist
+             ${RUNTIME_SRC_ROOT}/proj.ios_mac/mac/Icon.icns
+             ${RUNTIME_SRC_ROOT}/proj.ios_mac/mac/Info.plist
             )
         list(APPEND GAME_SOURCE
-            ${RUNTIME_SRC_ROOT}/proj.ios_mac/mac/main.cpp
-            ${RUNTIME_SRC_ROOT}/proj.ios_mac/mac/Prefix.pch
+             ${RUNTIME_SRC_ROOT}/proj.ios_mac/mac/main.cpp
+             ${RUNTIME_SRC_ROOT}/proj.ios_mac/mac/Prefix.pch
              ${APP_UI_RES}
              )
     endif()
@@ -125,32 +138,54 @@ else()
     target_link_libraries(${APP_NAME} -Wl,--whole-archive cpp_android_spec -Wl,--no-whole-archive)
 endif()
 
-add_subdirectory(${FRAMEWORK_ROOT_PATH}/libfairygui)
-add_subdirectory(${FRAMEWORK_ROOT_PATH}/libdragonbones)
-add_subdirectory(${FRAMEWORK_ROOT_PATH}/libxgame)
-add_subdirectory(${FRAMEWORK_ROOT_PATH}/plugins)
+if(XCODE OR VS)
+    cocos_mark_code_files(${APP_NAME} GROUPBASE ${RUNTIME_SRC_ROOT})
+endif()
 
-target_link_libraries(${APP_NAME} cocos2d fairygui dragonbones xgame plugins)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libfairygui)
+set_target_properties(fairygui PROPERTIES FOLDER "Internal")
+# add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libdragonbones)
+
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/frameworks/libxgame)
+set_target_properties(xgame PROPERTIES FOLDER "Internal")
+
+target_link_libraries(${APP_NAME} cocos2d fairygui xgame)
 target_include_directories(${APP_NAME}
-    PRIVATE ${RUNTIME_SRC_ROOT}/Classes
+        PRIVATE ${RUNTIME_SRC_ROOT}/Classes
+        PRIVATE ${COCOS2DX_ROOT_PATH}/cocos/audio/include/
 )
+
+# suspend warnings
+target_compile_options(cocos2d PRIVATE -Wno-reorder)
+target_compile_options(fairygui PRIVATE -Wno-reorder)
 
 # mark app resources
 setup_cocos_app_config(${APP_NAME})
 if(APPLE)
     set_target_properties(${APP_NAME} PROPERTIES RESOURCE "${APP_UI_RES}")
+
     if(MACOSX)
-        set_target_properties(${APP_NAME} PROPERTIES
-                              MACOSX_BUNDLE_INFO_PLIST "${RUNTIME_SRC_ROOT}/proj.ios_mac/mac/Info.plist"
-                              )
+        set_xcode_property(${APP_NAME} INFOPLIST_FILE "${RUNTIME_SRC_ROOT}/proj.ios_mac/mac/Info.plist")
     elseif(IOS)
-        cocos_pak_xcode(${APP_NAME} INFO_PLIST "iOSBundleInfo.plist.in")
+        set_xcode_property(${APP_NAME} INFOPLIST_FILE "${RUNTIME_SRC_ROOT}/proj.ios_mac/ios/Info.plist")
         set_xcode_property(${APP_NAME} ASSETCATALOG_COMPILER_APPICON_NAME "AppIcon")
     endif()
+
+    # For code-signing, set the DEVELOPMENT_TEAM:
+    set_xcode_property(${APP_NAME} DEVELOPMENT_TEAM "2566X92242")
+    set_xcode_property(${APP_NAME} PRODUCT_BUNDLE_IDENTIFIER "com.codetypes.hellolua")
+    set_xcode_property(${APP_NAME} PRODUCT_NAME "cocoslua")
+    set_xcode_property(${APP_NAME} CURRENT_PROJECT_VERSION "100")
+    set_xcode_property(${APP_NAME} MARKETING_VERSION "1.0.0")
+    set_xcode_property(${APP_NAME} TARGETED_DEVICE_FAMILY "1,2")
+    set_xcode_property(${APP_NAME} IPHONEOS_DEPLOYMENT_TARGET "9.0")
 elseif(WINDOWS)
-    cocos_copy_target_dll(${APP_NAME} COPY_TO ${APP_RES_DIR}/..)
+    cocos_copy_target_dll(${APP_NAME})
 endif()
 
 if(LINUX OR WINDOWS)
-    cocos_copy_res(COPY_TO ${APP_RES_DIR} FOLDERS ${GAME_RES_FOLDER})
+    set(APP_RES_DIR "$<TARGET_FILE_DIR:${APP_NAME}>/assets")
+    cocos_copy_target_res(${APP_NAME} COPY_TO ${APP_RES_DIR} FOLDERS ${GAME_RES_FOLDER})
 endif()
+
+target_compile_options(cocos2d PRIVATE -Wno-deprecated-declarations)

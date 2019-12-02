@@ -34,10 +34,13 @@ THE SOFTWARE.
 #include "base/CCAsyncTaskPool.h"
 #include "base/CCEventDispatcher.h"
 #include "base/base64.h"
+#include "base/ccConstants.h"
 #include "base/ccUTF8.h"
 #include "renderer/CCCustomCommand.h"
 #include "renderer/CCRenderer.h"
 #include "renderer/CCTextureCache.h"
+#include "renderer/CCRenderState.h"
+#include "renderer/backend/Types.h"
 
 #include "platform/CCImage.h"
 #include "platform/CCFileUtils.h"
@@ -62,8 +65,14 @@ namespace utils
 /**
 * Capture screen implementation, don't use it directly.
 */
-void onCaptureScreen(const std::function<void(bool, const std::string&)>& afterCaptured, const std::string& filename)
+void onCaptureScreen(const std::function<void(bool, const std::string&)>& afterCaptured, const std::string& filename, const unsigned char* imageData, int width, int height)
 {
+    if(!imageData)
+    {
+        afterCaptured(false, "");
+        return;
+    }
+    
     static bool startedCapture = false;
 
     if (startedCapture)
@@ -80,45 +89,15 @@ void onCaptureScreen(const std::function<void(bool, const std::string&)>& afterC
         startedCapture = true;
     }
 
-
-    auto glView = Director::getInstance()->getOpenGLView();
-    auto frameSize = glView->getFrameSize();
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
-    frameSize = frameSize * glView->getFrameZoomFactor() * glView->getRetinaFactor();
-#endif
-
-    int width = static_cast<int>(frameSize.width);
-    int height = static_cast<int>(frameSize.height);
-
     bool succeed = false;
     std::string outputFile = "";
 
     do
     {
-        std::shared_ptr<GLubyte> buffer(new GLubyte[width * height * 4], [](GLubyte* p){ CC_SAFE_DELETE_ARRAY(p); });
-        if (!buffer)
-        {
-            break;
-        }
-
-        glPixelStorei(GL_PACK_ALIGNMENT, 1);
-        glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, buffer.get());
-
-        std::shared_ptr<GLubyte> flippedBuffer(new GLubyte[width * height * 4], [](GLubyte* p) { CC_SAFE_DELETE_ARRAY(p); });
-        if (!flippedBuffer)
-        {
-            break;
-        }
-
-        for (int row = 0; row < height; ++row)
-        {
-            memcpy(flippedBuffer.get() + (height - row - 1) * width * 4, buffer.get() + row * width * 4, width * 4);
-        }
-
         Image* image = new (std::nothrow) Image;
         if (image)
         {
-            image->initWithRawData(flippedBuffer.get(), width * height * 4, width, height, 8);
+            image->initWithRawData(imageData, width * height * 4, width, height, 8);
             if (FileUtils::getInstance()->isAbsolutePath(filename))
             {
                 outputFile = filename;
@@ -162,7 +141,7 @@ void onCaptureScreen(const std::function<void(bool, const std::string&)>& afterC
  * Capture screen interface
  */
 static EventListenerCustom* s_captureScreenListener;
-static CustomCommand s_captureScreenCommand;
+static CaptureScreenCallbackCommand s_captureScreenCommand;
 void captureScreen(const std::function<void(bool, const std::string&)>& afterCaptured, const std::string& filename)
 {
     if (s_captureScreenListener)
@@ -171,7 +150,8 @@ void captureScreen(const std::function<void(bool, const std::string&)>& afterCap
         return;
     }
     s_captureScreenCommand.init(std::numeric_limits<float>::max());
-    s_captureScreenCommand.func = std::bind(onCaptureScreen, afterCaptured, filename);
+    s_captureScreenCommand.func = std::bind(onCaptureScreen, afterCaptured, filename, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
+    
     s_captureScreenListener = Director::getInstance()->getEventDispatcher()->addCustomEventListener(Director::EVENT_AFTER_DRAW, [](EventCustom* /*event*/) {
         auto director = Director::getInstance();
         director->getEventDispatcher()->removeEventListener((EventListener*)(s_captureScreenListener));
@@ -179,49 +159,65 @@ void captureScreen(const std::function<void(bool, const std::string&)>& afterCap
         director->getRenderer()->addCommand(&s_captureScreenCommand);
         director->getRenderer()->render();
     });
+
 }
 
-Image* captureNode(Node* startNode, float scale)
-{ // The best snapshot API, support Scene and any Node
-    auto& size = startNode->getContentSize();
-
-    Director::getInstance()->setNextDeltaTimeZero(true);
-
-    RenderTexture* finalRtx = nullptr;
-
-    auto rtx = RenderTexture::create(size.width, size.height, Texture2D::PixelFormat::RGBA8888, GL_DEPTH24_STENCIL8);
-    // rtx->setKeepMatrix(true);
-    Point savedPos = startNode->getPosition();
-    Point anchor;
-    if (!startNode->isIgnoreAnchorPointForPosition()) {
-        anchor = startNode->getAnchorPoint();
-    }
-    startNode->setPosition(Point(size.width * anchor.x, size.height * anchor.y));
-    rtx->begin(); 
-    startNode->visit();
-    rtx->end();
-    startNode->setPosition(savedPos);
-
-    if (std::abs(scale - 1.0f) < 1e-6f/* no scale */)
-        finalRtx = rtx;
-    else {
-        /* scale */
-        auto finalRect = Rect(0, 0, size.width, size.height);
-        Sprite *sprite = Sprite::createWithTexture(rtx->getSprite()->getTexture(), finalRect);
-        sprite->setAnchorPoint(Point(0, 0));
-        sprite->setFlippedY(true);
-
-        finalRtx = RenderTexture::create(size.width * scale, size.height * scale, Texture2D::PixelFormat::RGBA8888, GL_DEPTH24_STENCIL8);
-
-        sprite->setScale(scale); // or use finalRtx->setKeepMatrix(true);
-        finalRtx->begin(); 
-        sprite->visit();
-        finalRtx->end();
+static std::unordered_map<Node*, EventListenerCustom*> s_captureNodeListener;
+void captureNode(Node* startNode, std::function<void(Image*)> imageCallback, float scale)
+{
+    if (s_captureNodeListener.find(startNode) != s_captureNodeListener.end())
+    {
+        CCLOG("Warning: current node has been captured already");
+        return;
     }
 
-    Director::getInstance()->getRenderer()->render();
-
-    return finalRtx->newImage();
+    auto callback = [startNode, scale, imageCallback](EventCustom* /*event*/) {
+        auto director = Director::getInstance();
+        auto captureNodeListener = s_captureNodeListener[startNode];
+        director->getEventDispatcher()->removeEventListener((EventListener*)(captureNodeListener));
+        s_captureNodeListener.erase(startNode);
+        auto& size = startNode->getContentSize();
+        
+        Director::getInstance()->setNextDeltaTimeZero(true);
+        
+        RenderTexture* finalRtx = nullptr;
+        
+        auto rtx = RenderTexture::create(size.width, size.height, backend::PixelFormat::RGBA8888, PixelFormat::D24S8);
+        // rtx->setKeepMatrix(true);
+        Point savedPos = startNode->getPosition();
+        Point anchor;
+        if (!startNode->isIgnoreAnchorPointForPosition()) {
+            anchor = startNode->getAnchorPoint();
+        }
+        startNode->setPosition(Point(size.width * anchor.x, size.height * anchor.y));
+        rtx->begin();
+        startNode->visit();
+        rtx->end();
+        startNode->setPosition(savedPos);
+        
+        if (std::abs(scale - 1.0f) < 1e-6f/* no scale */)
+            finalRtx = rtx;
+        else {
+            /* scale */
+            auto finalRect = Rect(0, 0, size.width, size.height);
+            Sprite *sprite = Sprite::createWithTexture(rtx->getSprite()->getTexture(), finalRect);
+            sprite->setAnchorPoint(Point(0, 0));
+            sprite->setFlippedY(true);
+            finalRtx = RenderTexture::create(size.width * scale, size.height * scale, backend::PixelFormat::RGBA8888, PixelFormat::D24S8);
+            
+            sprite->setScale(scale); // or use finalRtx->setKeepMatrix(true);
+            finalRtx->begin();
+            sprite->visit();
+            finalRtx->end();
+        }
+        Director::getInstance()->getRenderer()->render();
+        
+        finalRtx->newImage(imageCallback);
+    };
+    
+    auto listener = Director::getInstance()->getEventDispatcher()->addCustomEventListener(Director::EVENT_BEFORE_DRAW, callback);
+    
+    s_captureNodeListener[startNode] = listener;
 }
 
 std::vector<Node*> findChildren(const Node &node, const std::string &name)
@@ -525,6 +521,151 @@ LanguageType getLanguageTypeByISO2(const char* code)
         ret = LanguageType::BELARUSIAN;
     }
     return ret;
+}
+    
+backend::BlendFactor toBackendBlendFactor(int factor)
+{
+    switch (factor) {
+        case GLBlendConst::ONE:
+            return backend::BlendFactor::ONE;
+        case GLBlendConst::ZERO:
+            return backend::BlendFactor::ZERO;
+        case GLBlendConst::SRC_COLOR:
+            return backend::BlendFactor::SRC_COLOR;
+        case GLBlendConst::ONE_MINUS_SRC_COLOR:
+            return backend::BlendFactor::ONE_MINUS_SRC_COLOR;
+        case GLBlendConst::SRC_ALPHA:
+            return backend::BlendFactor::SRC_ALPHA;
+        case GLBlendConst::ONE_MINUS_SRC_ALPHA:
+            return backend::BlendFactor::ONE_MINUS_SRC_ALPHA;
+        case GLBlendConst::DST_COLOR:
+            return backend::BlendFactor::DST_COLOR;
+        case GLBlendConst::ONE_MINUS_DST_COLOR:
+            return backend::BlendFactor::ONE_MINUS_DST_COLOR;
+        case GLBlendConst::DST_ALPHA:
+            return backend::BlendFactor::DST_ALPHA;
+        case GLBlendConst::ONE_MINUS_DST_ALPHA:
+            return backend::BlendFactor::ONE_MINUS_DST_ALPHA;
+        case GLBlendConst::SRC_ALPHA_SATURATE:
+            return backend::BlendFactor::SRC_ALPHA_SATURATE;
+        case GLBlendConst::BLEND_COLOR:
+            return backend::BlendFactor::BLEND_CLOLOR;
+        case GLBlendConst::CONSTANT_ALPHA:
+            return backend::BlendFactor::CONSTANT_ALPHA;
+        case GLBlendConst::ONE_MINUS_CONSTANT_ALPHA:
+            return backend::BlendFactor::ONE_MINUS_CONSTANT_ALPHA;
+        default:
+            assert(false);
+            break;
+    }
+    return backend::BlendFactor::ONE;
+}
+
+int toGLBlendFactor(backend::BlendFactor blendFactor)
+{
+    int ret = GLBlendConst::ONE;
+    switch (blendFactor)
+    {
+    case backend::BlendFactor::ZERO:
+        ret = GLBlendConst::ZERO;
+        break;
+    case backend::BlendFactor::ONE:
+        ret = GLBlendConst::ONE;
+        break;
+    case backend::BlendFactor::SRC_COLOR:
+        ret = GLBlendConst::SRC_COLOR;
+        break;
+    case backend::BlendFactor::ONE_MINUS_SRC_COLOR:
+        ret = GLBlendConst::ONE_MINUS_SRC_COLOR;
+        break;
+    case backend::BlendFactor::SRC_ALPHA:
+        ret = GLBlendConst::SRC_ALPHA;
+        break;
+    case backend::BlendFactor::ONE_MINUS_SRC_ALPHA:
+        ret = GLBlendConst::ONE_MINUS_SRC_ALPHA;
+        break;
+    case backend::BlendFactor::DST_COLOR:
+        ret = GLBlendConst::DST_COLOR;
+        break;
+    case backend::BlendFactor::ONE_MINUS_DST_COLOR:
+        ret = GLBlendConst::ONE_MINUS_DST_COLOR;
+        break;
+    case backend::BlendFactor::DST_ALPHA:
+        ret = GLBlendConst::DST_ALPHA;
+        break;
+    case backend::BlendFactor::ONE_MINUS_DST_ALPHA:
+        ret = GLBlendConst::ONE_MINUS_DST_ALPHA;
+        break;
+    case backend::BlendFactor::SRC_ALPHA_SATURATE:
+        ret = GLBlendConst::SRC_ALPHA_SATURATE;
+        break;
+    case backend::BlendFactor::BLEND_CLOLOR:
+        ret = GLBlendConst::BLEND_COLOR;
+        break;
+    default:
+        break;
+    }
+    return ret;
+}
+
+backend::SamplerFilter toBackendSamplerFilter(int mode)
+{
+    switch (mode)
+    {
+    case GLTexParamConst::LINEAR:
+    case GLTexParamConst::LINEAR_MIPMAP_LINEAR:
+    case GLTexParamConst::LINEAR_MIPMAP_NEAREST:
+    case GLTexParamConst::NEAREST_MIPMAP_LINEAR:
+        return backend::SamplerFilter::LINEAR;
+    case GLTexParamConst::NEAREST:
+    case GLTexParamConst::NEAREST_MIPMAP_NEAREST:
+        return backend::SamplerFilter::NEAREST;
+    default:
+        CCASSERT(false, "invalid GL sampler filter!");
+        return backend::SamplerFilter::LINEAR;
+    }
+}
+
+backend::SamplerAddressMode toBackendAddressMode(int mode)
+{
+    switch (mode)
+    {
+    case GLTexParamConst::REPEAT:
+        return backend::SamplerAddressMode::REPEAT;
+    case GLTexParamConst::CLAMP:
+    case GLTexParamConst::CLAMP_TO_EDGE:
+        return backend::SamplerAddressMode::CLAMP_TO_EDGE;
+    case GLTexParamConst::MIRROR_REPEAT:
+        return backend::SamplerAddressMode::MIRROR_REPEAT;
+    default:
+        CCASSERT(false, "invalid GL address mode");
+        return backend::SamplerAddressMode::REPEAT;
+    }
+}
+
+const Mat4& getAdjustMatrix()
+{
+    static cocos2d::Mat4 adjustMatrix = {
+        1, 0, 0, 0,
+        0, 1, 0, 0,
+        0, 0, 0.5, 0.5,
+        0, 0, 0, 1
+    };
+
+    return adjustMatrix;
+}
+
+std::vector<float> getNormalMat3OfMat4(const Mat4 &mat)
+{
+    std::vector<float> normalMat(9);
+    Mat4 mvInverse = mat;
+    mvInverse.m[12] = mvInverse.m[13] = mvInverse.m[14] = 0.0f;
+    mvInverse.inverse();
+    mvInverse.transpose();
+    normalMat[0] = mvInverse.m[0]; normalMat[1] = mvInverse.m[1]; normalMat[2] = mvInverse.m[2];
+    normalMat[3] = mvInverse.m[4]; normalMat[4] = mvInverse.m[5]; normalMat[5] = mvInverse.m[6];
+    normalMat[6] = mvInverse.m[8]; normalMat[7] = mvInverse.m[9]; normalMat[8] = mvInverse.m[10];
+    return normalMat;
 }
 
 std::vector<int> parseIntegerList(const std::string &intsString) {

@@ -9,7 +9,6 @@ environment:
   PYTHON_ARCH: "32"
   matrix:
     - build_type: windows32_cmake_test
-    - build_type: windows32_sln_test
     - build_type: android_cpp_tests
     - build_type: android_lua_tests
 #    - build_type: android_cocos_new_test

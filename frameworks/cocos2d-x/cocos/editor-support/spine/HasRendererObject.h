@@ -45,9 +45,6 @@ public:
 
 	void* getRendererObject() { return _rendererObject; }
 	void setRendererObject(void* rendererObject, DisposeRendererObject dispose = NULL) {
-        if (_dispose && _rendererObject && _rendererObject != rendererObject)
-            _dispose(_rendererObject);
-        
 		_rendererObject = rendererObject;
 		_dispose = dispose;
 	}

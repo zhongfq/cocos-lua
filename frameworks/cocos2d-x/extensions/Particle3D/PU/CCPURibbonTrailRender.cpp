@@ -31,9 +31,6 @@
 #include "renderer/CCMeshCommand.h"
 #include "renderer/CCRenderer.h"
 #include "renderer/CCTextureCache.h"
-#include "renderer/CCGLProgramState.h"
-#include "renderer/CCGLProgramCache.h"
-#include "renderer/CCVertexIndexBuffer.h"
 #include "base/CCDirector.h"
 #include "3d/CCSprite3D.h"
 #include "3d/CCMesh.h"
@@ -385,7 +382,6 @@ void PURibbonTrailRender::copyAttributesTo(PURibbonTrailRender *trailRender)
 void PURibbonTrailRender::updateParticles( const ParticlePool &pool )
 {
     PURibbonTrailVisualData* visualData = nullptr;
-    Vec3 basePosition = static_cast<PUParticleSystem3D *>(_particleSystem)->getDerivedPosition();
     for (auto iter : pool.getActiveDataList())
     {
         auto particle = static_cast<PUParticle3D *>(iter);

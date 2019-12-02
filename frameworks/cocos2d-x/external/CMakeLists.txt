@@ -8,7 +8,6 @@ option(BUILD_EXT_RECAST "Build with internal recast support" ON)
 option(BUILD_EXT_BULLET "Build with internal bullet support" ON)
 option(BUILD_EXT_JPEG "Build with internal jpeg support" ON)
 option(BUILD_EXT_OPENSSL "Build with internal openssl support" ON)
-option(BUILD_EXT_TIFF "Build with internal tiff support" ON)
 option(BUILD_EXT_UV "Build with internal uv support" ON)
 option(BUILD_EXT_WEBP "Build with internal webp support" ON)
 option(BUILD_EXT_WEBSOCKETS "Build with internal websockets support" ON)
@@ -20,7 +19,6 @@ option(BUILD_EXT_EDTAA3FUNC "Build with internal edtaa3func support" ON)
 option(BUILD_EXT_CONVERTUTF "Build with internal ConvertUTF support" ON)
 option(BUILD_EXT_POLY2TRI "Build with internal poly2tri support" ON)
 option(BUILD_EXT_MD5 "Build with internal md5 support" ON)
-option(BUILD_EXT_SQLITE "Build with internal SQLite support" ON)
 option(BUILD_EXT_ZLIB "Build with internal zlib support" ON)
 option(BUILD_EXT_CURL "Build with internal curl support" ON)
 option(BUILD_EXT_UNZIP "Build with internal unzip support" ON)
@@ -56,10 +54,6 @@ if(BUILD_EXT_OPENSSL)
     target_link_libraries(external ext_ssl)
     target_link_libraries(external ext_crypto)
 endif(BUILD_EXT_OPENSSL)
-if(BUILD_EXT_TIFF)
-    add_subdirectory(tiff)
-    target_link_libraries(external ext_tiff)
-endif(BUILD_EXT_TIFF)
 if(BUILD_EXT_UV)
     add_subdirectory(uv)
     target_link_libraries(external ext_uv)
@@ -100,18 +94,14 @@ if(BUILD_EXT_POLY2TRI)
     add_subdirectory(poly2tri)
     target_link_libraries(external ext_poly2tri)
 endif(BUILD_EXT_POLY2TRI)
+
 if(BUILD_EXT_MD5)
     add_subdirectory(md5)
     target_link_libraries(external ext_md5)
 endif(BUILD_EXT_MD5)
 
+
 # use lua/js specific libs by property to prevent conflict
-if(BUILD_JS_LIBS)
-    add_subdirectory(spidermonkey)
-    set_property(TARGET external APPEND PROPERTY
-        CC_JS_DEPEND ext_spidermonkey
-    )
-endif()
 if(BUILD_LUA_LIBS)
     add_subdirectory(lua/luajit)
     add_subdirectory(lua/tolua)
@@ -151,11 +141,6 @@ if(ANDROID)
 endif()
 
 if(WINDOWS)
-    # sqlite3 prebuilt only existed at windows
-    if(BUILD_EXT_SQLITE)
-        add_subdirectory(sqlite3)
-        target_link_libraries(external ext_sqlite3)
-    endif(BUILD_EXT_SQLITE)
     add_subdirectory(win32-specific/gles)
     add_subdirectory(win32-specific/icon)
     add_subdirectory(win32-specific/MP3Decoder)
@@ -200,3 +185,12 @@ set_target_properties(external
     FOLDER "External"
 )
 
+
+if(MACOSX OR IOS)
+    add_subdirectory(glsl-optimizer)
+    target_link_libraries(external 
+    ext_glcpp_library
+    ext_glsl_optimizer
+    ext_libmesa
+    )
+endif()

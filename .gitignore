@@ -1,6 +1,3 @@
-build/xcode
 wwwroot/current/*.manifest
-.vs/
 runtime/
-Debug/
-Debug.win32/
+build/

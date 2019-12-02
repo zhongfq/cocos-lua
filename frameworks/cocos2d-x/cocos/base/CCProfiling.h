@@ -76,11 +76,6 @@ public:
      */
     static Profiler* getInstance();
 
-    /**
-     * @js NA
-     * @lua NA
-     */
-    CC_DEPRECATED_ATTRIBUTE static Profiler* sharedProfiler();
 
     /** Creates and adds a new timer 
      * @js NA

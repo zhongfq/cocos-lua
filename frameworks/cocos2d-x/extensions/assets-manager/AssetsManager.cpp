@@ -38,7 +38,7 @@
 #include "unzip.h"
 #endif
 
-NS_CC_EXT_BEGIN
+NS_CC_EXT_BEGIN;
 
 using namespace std;
 using namespace cocos2d;
@@ -168,7 +168,7 @@ AssetsManager::~AssetsManager()
 
 void AssetsManager::checkStoragePath()
 {
-    if (!_storagePath.empty() && _storagePath[_storagePath.size() - 1] != '/')
+    if (_storagePath.size() > 0 && _storagePath[_storagePath.size() - 1] != '/')
     {
         _storagePath.append("/");
     }
@@ -196,7 +196,7 @@ std::string AssetsManager::keyOfDownloadedVersion() const
 
 bool AssetsManager::checkUpdate()
 {
-    if (_versionFileUrl.empty() || _isDownloading) return false;
+    if (_versionFileUrl.size() == 0 || _isDownloading) return false;
     
     // Clear _version before assign new value.
     _version.clear();
@@ -226,7 +226,7 @@ void AssetsManager::downloadAndUncompress()
             Director::getInstance()->getScheduler()->performFunctionInCocosThread([&, this] {
                 
                 // Record new version code.
-                UserDefault::getInstance()->setStringForKey(this->keyOfVersion().c_str(), this->_version);
+                UserDefault::getInstance()->setStringForKey(this->keyOfVersion().c_str(), this->_version.c_str());
                 
                 // Unrecord downloaded version code.
                 UserDefault::getInstance()->setStringForKey(this->keyOfDownloadedVersion().c_str(), "");
@@ -513,4 +513,4 @@ AssetsManager* AssetsManager::create(const char* packageUrl, const char* version
     return manager;
 }
 
-NS_CC_EXT_END
+NS_CC_EXT_END;

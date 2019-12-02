@@ -14,7 +14,7 @@
 
 - (AppRootViewController *) createRootViewController
 {
-    return [[AppRootViewController alloc]init];
+    return [[AppRootViewController alloc] init];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -29,6 +29,12 @@
     [window setRootViewController:_viewController];
     [window makeKeyAndVisible];
     [window setMultipleTouchEnabled:YES];
+    
+    //Launching the app with the arguments -NSAllowsDefaultLineBreakStrategy NO to force back to the old behavior.
+    if ( [[UIDevice currentDevice].systemVersion floatValue] >= 13.0f)
+    {
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"NSAllowsDefaultLineBreakStrategy"];
+    }
     
     cocos2d::GLView *glview = cocos2d::GLViewImpl::createWithEAGLView((__bridge void *)_viewController.view);
     cocos2d::Director::getInstance()->setOpenGLView(glview);

@@ -166,7 +166,10 @@ PUForceField::PUForceField() :
 //-----------------------------------------------------------------------
 PUForceField::~PUForceField()
 {
-    delete _forceFieldCalculationFactory;
+    if (_forceFieldCalculationFactory)
+    {
+        delete _forceFieldCalculationFactory;
+    }
 }
 //-----------------------------------------------------------------------
 void PUForceField::initialise(ForceFieldType type,
@@ -233,7 +236,10 @@ PUForceFieldCalculationFactory* PUForceField::getForceFieldCalculationFactory() 
 //-----------------------------------------------------------------------
 void PUForceField::setForceFieldCalculationFactory(PUForceFieldCalculationFactory* forceFieldCalculationFactory)
 {
-    delete _forceFieldCalculationFactory;
+    if (_forceFieldCalculationFactory)
+    {
+        delete _forceFieldCalculationFactory;
+    }
     _forceFieldCalculationFactory = forceFieldCalculationFactory;
 }
 //-----------------------------------------------------------------------

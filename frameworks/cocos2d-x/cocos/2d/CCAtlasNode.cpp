@@ -25,13 +25,16 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
-
 #include "2d/CCAtlasNode.h"
+#include <stddef.h> // offsetof
+#include "base/ccTypes.h"
 #include "renderer/CCTextureAtlas.h"
 #include "base/CCDirector.h"
 #include "renderer/CCTextureCache.h"
+#include "base/ccUtils.h"
+#include "renderer/ccShaders.h"
 #include "renderer/CCRenderer.h"
-#include "renderer/CCGLProgram.h"
+#include "renderer/backend/ProgramState.h"
 
 NS_CC_BEGIN
 
@@ -40,16 +43,35 @@ NS_CC_BEGIN
 // AtlasNode - Creation & Init
 
 AtlasNode::AtlasNode()
-: _itemsPerRow(0)
-, _itemsPerColumn(0)
-, _itemWidth(0)
-, _itemHeight(0)
-, _textureAtlas(nullptr)
-, _isOpacityModifyRGB(false)
-, _quadsToDraw(0)
-, _uniformColor(0)
-, _ignoreContentScaleFactor(false)
 {
+    auto& pipelineDescriptor = _quadCommand.getPipelineDescriptor();
+    auto* program = backend::Program::getBuiltinProgram(backend::ProgramType::POSITION_TEXTURE_COLOR);
+    _programState = new (std::nothrow) backend::ProgramState(program);
+    pipelineDescriptor.programState = _programState;
+    _mvpMatrixLocation = pipelineDescriptor.programState->getUniformLocation("u_MVPMatrix");
+    _textureLocation = pipelineDescriptor.programState->getUniformLocation("u_texture");
+  
+    auto vertexLayout = _programState->getVertexLayout();
+  //a_position
+    vertexLayout->setAttribute(backend::ATTRIBUTE_NAME_POSITION, 
+                               _programState->getAttributeLocation(backend::Attribute::POSITION), 
+                               backend::VertexFormat::FLOAT3, 
+                               0, 
+                               false);
+   
+    //a_texCoord
+    vertexLayout->setAttribute(backend::ATTRIBUTE_NAME_TEXCOORD, 
+                               _programState->getAttributeLocation(backend::Attribute::TEXCOORD), 
+                               backend::VertexFormat::FLOAT2, offsetof(V3F_C4B_T2F, texCoords), 
+                               false);
+   
+    //a_color
+    vertexLayout->setAttribute(backend::ATTRIBUTE_NAME_COLOR, 
+                               _programState->getAttributeLocation(backend::Attribute::COLOR),
+                               backend::VertexFormat::UBYTE4, offsetof(V3F_C4B_T2F, colors),
+                               true);
+    
+    vertexLayout->setLayout(sizeof(V3F_C4B_T2F));
 }
 
 AtlasNode::~AtlasNode()
@@ -71,7 +93,7 @@ AtlasNode * AtlasNode::create(const std::string& tile, int tileWidth, int tileHe
 
 bool AtlasNode::initWithTileFile(const std::string& tile, int tileWidth, int tileHeight, int itemsToRender)
 {
-    CCASSERT(!tile.empty(), "file size should not be empty");
+    CCASSERT(tile.size() > 0, "file size should not be empty");
     Texture2D *texture = Director::getInstance()->getTextureCache()->addImage(tile);
     return initWithTexture(texture, tileWidth, tileHeight, itemsToRender);
 }
@@ -103,9 +125,6 @@ bool AtlasNode::initWithTexture(Texture2D* texture, int tileWidth, int tileHeigh
 
     _quadsToDraw = itemsToRender;
 
-    // shader stuff
-    setGLProgramState(GLProgramState::getOrCreateWithGLProgramName(GLProgram::SHADER_NAME_POSITION_TEXTURE_COLOR_NO_MVP, texture));
-
     return true;
 }
 
@@ -132,12 +151,18 @@ void AtlasNode::updateAtlasValues()
 
 // AtlasNode - draw
 void AtlasNode::draw(Renderer *renderer, const Mat4 &transform, uint32_t flags)
-{
-    // ETC1 ALPHA supports.
-    _quadCommand.init(_globalZOrder, _textureAtlas->getTexture(), getGLProgramState(), _blendFunc, _textureAtlas->getQuads(), _quadsToDraw, transform, flags);
+{    
+    if( _textureAtlas->getTotalQuads() == 0 )
+        return;
     
+    auto programState = _quadCommand.getPipelineDescriptor().programState;
+    programState->setTexture(_textureLocation, 0, _textureAtlas->getTexture()->getBackendTexture());
+    
+    const auto& projectionMat = Director::getInstance()->getMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_PROJECTION);
+    programState->setUniform(_mvpMatrixLocation, projectionMat.m, sizeof(projectionMat.m));
+    
+    _quadCommand.init(_globalZOrder, _textureAtlas->getTexture(), _blendFunc, _textureAtlas->getQuads(), _quadsToDraw, transform, flags);
     renderer->addCommand(&_quadCommand);
-
 }
 
 // AtlasNode - RGBA protocol
@@ -165,7 +190,7 @@ void AtlasNode::setColor(const Color3B& color3)
     Node::setColor(tmp);
 }
 
-void AtlasNode::setOpacity(GLubyte opacity)
+void AtlasNode::setOpacity(uint8_t opacity)
 {
     Node::setOpacity(opacity);
 
@@ -246,7 +271,7 @@ TextureAtlas * AtlasNode::getTextureAtlas() const
     return _textureAtlas;
 }
 
-ssize_t AtlasNode::getQuadsToDraw() const
+size_t AtlasNode::getQuadsToDraw() const
 {
     return _quadsToDraw;
 }

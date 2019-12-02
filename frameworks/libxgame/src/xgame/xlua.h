@@ -14,6 +14,11 @@
 
 #include "cocos2d.h"
 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+#define CCLUA_HAVE_WEBVIEW
+#define CCLUA_HAVE_VIDEOPLAYER
+#endif
+
 lua_State *xlua_new();
 
 lua_State *xlua_cocosthread();

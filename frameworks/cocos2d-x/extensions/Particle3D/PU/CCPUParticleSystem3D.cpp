@@ -1363,7 +1363,7 @@ void PUParticleSystem3D::processMotion( PUParticle3D* particle, float timeElapse
         , particle->direction.z * scl.z * _particleSystemScaleVelocity * timeElapsed);
 }
 
-void PUParticleSystem3D::calulateRotationOffset()
+void PUParticleSystem3D::calulateRotationOffset( void )
 {
     if (_isMarkedForEmission)
     {

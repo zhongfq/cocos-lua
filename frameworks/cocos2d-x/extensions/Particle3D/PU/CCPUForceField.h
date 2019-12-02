@@ -41,12 +41,12 @@ public:
     // Const
     static const Vec3 DEFAULT_WORLDSIZE;
 
-    PUForceFieldCalculationFactory()
-    : _octaves(2)
-    , _frequency(1.0f)
-    , _amplitude(1.0f)
-    , _persistence(1.0f)
-    , _worldSize(DEFAULT_WORLDSIZE)
+    PUForceFieldCalculationFactory() : 
+        _octaves(2),
+        _frequency(1.0f),
+        _amplitude(1.0f),
+        _persistence(1.0f),
+        _worldSize(DEFAULT_WORLDSIZE)
     {
     }
     virtual ~PUForceFieldCalculationFactory(){};

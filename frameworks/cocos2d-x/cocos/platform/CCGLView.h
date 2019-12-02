@@ -94,7 +94,6 @@ NS_CC_BEGIN
 
 class Scene;
 class Renderer;
-class VRIRenderer;
 
 /**
  * @addtogroup platform
@@ -155,12 +154,6 @@ public:
     
     /** The OpenGL context attrs. */
     static GLContextAttrs _glContextAttrs;
-
-    /** @deprecated
-     * Polls input events. Subclass must implement methods if platform
-     * does not provide event callbacks.
-     */
-    CC_DEPRECATED_ATTRIBUTE virtual void pollInputEvents();
     
     /** Polls the events. */
     virtual void pollEvents();
@@ -195,19 +188,6 @@ public:
      */
     virtual float getFrameZoomFactor() const { return 1.0; }
     
-    /**
-     * Sets the cursor for the window with custom image.
-     *
-     * @param filename A path to image file, e.g., "cursors/custom.png".
-     * @param hotspot Cursor hotspot, as a anchor point, default is top left (0, 1)
-     */
-    virtual void setCursor(const std::string& filename, Vec2 hotspot = Vec2::ANCHOR_TOP_LEFT) {}
-
-    /**
-     * Sets the cursor for the window back to default.
-     */
-    virtual void setDefaultCursor() {}
-
     /**
      * Hide or Show the mouse cursor if there is one.
      *
@@ -376,22 +356,22 @@ public:
 
     /** Set window icon (implemented for windows and linux).
      *
-     * @param filename A path to image file, e.g., "icons/custom.png".
+     * @param filename A path to image file, e.g., "icons/cusom.png". 
      */
-    virtual void setIcon(const std::string& filename) const {}
+    virtual void setIcon(const std::string& filename) const {};
 
     /** Set window icon (implemented for windows and linux).
      * Best icon (based on size) will be auto selected.
      * 
      * @param filelist The array contains icons.
      */
-    virtual void setIcon(const std::vector<std::string>& filelist) const {}
+    virtual void setIcon(const std::vector<std::string>& filelist) const {};
 
     /** Set default window icon (implemented for windows and linux).
      * On windows it will use icon from .exe file (if included).
      * On linux it will use default window icon.
      */
-    virtual void setDefaultIcon() const {}
+    virtual void setDefaultIcon() const {};
 
     /**
      * Get the opengl view port rectangle.
@@ -441,14 +421,7 @@ public:
      * This method is called directly by the Director
      */
     void renderScene(Scene* scene, Renderer* renderer);
-
-    /**
-     * Sets a VR renderer. 
-     * if `vrrenderer` is `nullptr` VR will be disabled
-     */
-    void setVR(VRIRenderer* vrrenderer);
-    VRIRenderer* getVR() const;
-
+    
 protected:
     void updateDesignResolutionSize();
     
@@ -466,9 +439,6 @@ protected:
     float _scaleX;
     float _scaleY;
     ResolutionPolicy _resolutionPolicy;
-
-    // VR stuff
-    VRIRenderer* _vrImpl;
 };
 
 // end of platform group

@@ -40,11 +40,6 @@ M.EXCLUDE_TYPE 'fairygui::ByteBuffer *'
 M.EXCLUDE_TYPE 'fairygui::GObjectPool *'
 M.EXCLUDE_TYPE 'std::vector *'
 
-M.EXCLUDE_PASS = function (cppcls, fn, decl)
-    return string.find(decl, 'operator *= *')
-        or string.find(fn, '^_')
-end
-
 M.MAKE_LUACLS = function (cppname)
     cppname = string.gsub(cppname, '^fairygui::', 'fgui.')
     return cppname
@@ -56,6 +51,7 @@ typedef {
 }
 
 typeconv 'fairygui::Margin'
+
 typeconv 'fairygui::TweenValue'
     .ATTR('*', {OPTIONAL = true})
 
@@ -103,6 +99,8 @@ UIEventDispatcher.CALLBACK {
 
 typeconf 'fairygui::EventContext'
 typeconf 'fairygui::IHitTest'
+typeconf 'fairygui::PixelHitTest'
+typeconf 'fairygui::PixelHitTestData'
 
 typeconf 'fairygui::InputProcessor'
     .CALLBACK {NAME = 'setCaptureCallback', NULLABLE = true}
@@ -325,8 +323,6 @@ GRoot.ATTR('showPopup', {RET = '@unref(cmp children)', ARG1 = '@ref(map children
 GRoot.ATTR('togglePopup', {RET = '@unref(cmp children)', ARG1 = '@ref(map children)'})
 GRoot.ATTR('hidePopup', {RET = '@unref(cmp children)'})
 GRoot.ATTR('getInputProcessor', {RET = '@ref(single inputProcessor)'})
-GRoot.ATTR('worldToRoot', {ARG1 = '@pack'})
-GRoot.ATTR('rootToWorld', {ARG1 = '@pack'})
 GRoot.PROP('UIRoot', 'static GRoot* getInstance()')
 GRoot.INJECT('create', {
     AFTER = [[
@@ -559,15 +555,6 @@ Transition.CALLBACK {
 
 typeconf 'fairygui::UIConfig'
     .ATTR('getRealFontName', {ARG2 = '@out'})
--- UIConfig.FUNC('getRealFontName', [[
--- {
---     bool isTTF = false;
---     std::string aliasName = olua_checkstring(L, 1);
---     std::string fontName = fairygui::UIConfig::getRealFontName(aliasName, &isTTF);
---     lua_pushstring(L, fontName.c_str());
---     lua_pushboolean(L, isTTF);
---     return 2;
--- }]])
 
 typeconf 'fairygui::IUISource'
     .CALLBACK {NAME = 'load', NULLABLE = true}
@@ -605,9 +592,9 @@ private:
         return true;
     }
 
+    bool _loaded;
     std::function<void()> _complete;
     std::string _name;
-    bool _loaded;
 };
 NS_FGUI_END
 ]]

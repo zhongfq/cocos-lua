@@ -34,9 +34,9 @@ const Vec3 PUVortexAffector::DEFAULT_ROTATION_VECTOR(0, 0, 0);
 const float PUVortexAffector::DEFAULT_ROTATION_SPEED = 1.0f;
 
 //-----------------------------------------------------------------------
-PUVortexAffector::PUVortexAffector()
-: PUAffector()
-, _rotationVector(DEFAULT_ROTATION_VECTOR)
+PUVortexAffector::PUVortexAffector() : 
+    PUAffector(),
+    _rotationVector(DEFAULT_ROTATION_VECTOR)
 {
     _dynRotationSpeed = new (std::nothrow) PUDynamicAttributeFixed();
     (static_cast<PUDynamicAttributeFixed*>(_dynRotationSpeed))->setValue(DEFAULT_ROTATION_SPEED);

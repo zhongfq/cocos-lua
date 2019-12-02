@@ -6,7 +6,6 @@
 #include "lua-bindings/lua_conv_manual.h"
 #include "lua-bindings/LuaCocosAdapter.h"
 #include "xgame/xlua.h"
-#include "xgame/xruntime.h"
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "ui/UIScrollViewBar.h"
@@ -1542,7 +1541,7 @@ static int _cocos2d_ui_Widget_get_onFocusChanged(lua_State *L)
     std::string tag = "onFocusChanged";
     olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
 
-    // @nullable std::function<void (Widget *, Widget *)> onFocusChanged
+    // @nullable std::function<void(Widget*,Widget*)> onFocusChanged
     std::function<void(cocos2d::ui::Widget *, cocos2d::ui::Widget *)> ret = (std::function<void(cocos2d::ui::Widget *, cocos2d::ui::Widget *)>)self->onFocusChanged;
     int num_ret = olua_push_std_function(L, (std::function<void(cocos2d::ui::Widget *, cocos2d::ui::Widget *)>)ret);
 
@@ -1585,7 +1584,7 @@ static int _cocos2d_ui_Widget_set_onFocusChanged(lua_State *L)
         arg1 = nullptr;
     }
 
-    // @nullable std::function<void (Widget *, Widget *)> onFocusChanged
+    // @nullable std::function<void(Widget*,Widget*)> onFocusChanged
     self->onFocusChanged = arg1;
 
     olua_endinvoke(L);
@@ -1605,7 +1604,7 @@ static int _cocos2d_ui_Widget_get_onNextFocusedWidget(lua_State *L)
     std::string tag = "onNextFocusedWidget";
     olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
 
-    // @nullable @local std::function<Widget *(FocusDirection)> onNextFocusedWidget
+    // @nullable std::function<Widget*(FocusDirection)> onNextFocusedWidget
     std::function<cocos2d::ui::Widget *(cocos2d::ui::Widget::FocusDirection)> ret = (std::function<cocos2d::ui::Widget *(cocos2d::ui::Widget::FocusDirection)>)self->onNextFocusedWidget;
     int num_ret = olua_push_std_function(L, (std::function<cocos2d::ui::Widget *(cocos2d::ui::Widget::FocusDirection)>)ret);
 
@@ -1652,7 +1651,7 @@ static int _cocos2d_ui_Widget_set_onNextFocusedWidget(lua_State *L)
         arg1 = nullptr;
     }
 
-    // @nullable @local std::function<Widget *(FocusDirection)> onNextFocusedWidget
+    // @nullable std::function<Widget*(FocusDirection)> onNextFocusedWidget
     self->onNextFocusedWidget = arg1;
 
     olua_endinvoke(L);
@@ -4636,8 +4635,8 @@ static int _cocos2d_ui_Layout_getBackGroundColorOpacity(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
 
-    // GLubyte getBackGroundColorOpacity()
-    GLubyte ret = (GLubyte)self->getBackGroundColorOpacity();
+    // uint8_t getBackGroundColorOpacity()
+    uint8_t ret = (uint8_t)self->getBackGroundColorOpacity();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -4738,8 +4737,8 @@ static int _cocos2d_ui_Layout_getBackGroundImageOpacity(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
 
-    // GLubyte getBackGroundImageOpacity()
-    GLubyte ret = (GLubyte)self->getBackGroundImageOpacity();
+    // uint8_t getBackGroundImageOpacity()
+    uint8_t ret = (uint8_t)self->getBackGroundImageOpacity();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -5017,8 +5016,8 @@ static int _cocos2d_ui_Layout_setBackGroundColorOpacity(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
     olua_check_uint(L, 2, &arg1);
 
-    // void setBackGroundColorOpacity(GLubyte opacity)
-    self->setBackGroundColorOpacity((GLubyte)arg1);
+    // void setBackGroundColorOpacity(uint8_t opacity)
+    self->setBackGroundColorOpacity((uint8_t)arg1);
 
     olua_endinvoke(L);
 
@@ -5168,8 +5167,8 @@ static int _cocos2d_ui_Layout_setBackGroundImageOpacity(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccui.Layout");
     olua_check_uint(L, 2, &arg1);
 
-    // void setBackGroundImageOpacity(GLubyte opacity)
-    self->setBackGroundImageOpacity((GLubyte)arg1);
+    // void setBackGroundImageOpacity(uint8_t opacity)
+    self->setBackGroundImageOpacity((uint8_t)arg1);
 
     olua_endinvoke(L);
 
@@ -5296,7 +5295,7 @@ static int _cocos2d_ui_Layout_get_onPassFocusToChild(lua_State *L)
     std::string tag = "onPassFocusToChild";
     olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
 
-    // @nullable std::function<int (FocusDirection, Widget *)> onPassFocusToChild
+    // @nullable std::function<int(Widget::FocusDirection, Widget*)> onPassFocusToChild
     std::function<int(cocos2d::ui::Widget::FocusDirection, cocos2d::ui::Widget *)> ret = (std::function<int(cocos2d::ui::Widget::FocusDirection, cocos2d::ui::Widget *)>)self->onPassFocusToChild;
     int num_ret = olua_push_std_function(L, (std::function<int(cocos2d::ui::Widget::FocusDirection, cocos2d::ui::Widget *)>)ret);
 
@@ -5344,7 +5343,7 @@ static int _cocos2d_ui_Layout_set_onPassFocusToChild(lua_State *L)
         arg1 = nullptr;
     }
 
-    // @nullable std::function<int (FocusDirection, Widget *)> onPassFocusToChild
+    // @nullable std::function<int(Widget::FocusDirection, Widget*)> onPassFocusToChild
     self->onPassFocusToChild = arg1;
 
     olua_endinvoke(L);
@@ -5744,12 +5743,12 @@ static int luaopen_cocos2d_ui_RelativeBox(lua_State *L)
     return 1;
 }
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN)
-static int _cocos2d_experimental_ui_WebView___move(lua_State *L)
+#ifdef CCLUA_HAVE_WEBVIEW
+static int _cocos2d_ui_WebView___move(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (cocos2d::experimental::ui::WebView *)olua_toobj(L, 1, "ccui.WebView");
+    auto self = (cocos2d::ui::WebView *)olua_toobj(L, 1, "ccui.WebView");
     olua_push_cppobj(L, self, "ccui.WebView");
 
     olua_endinvoke(L);
@@ -5757,11 +5756,11 @@ static int _cocos2d_experimental_ui_WebView___move(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_experimental_ui_WebView_canGoBack(lua_State *L)
+static int _cocos2d_ui_WebView_canGoBack(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::WebView *self = nullptr;
+    cocos2d::ui::WebView *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
 
@@ -5774,11 +5773,11 @@ static int _cocos2d_experimental_ui_WebView_canGoBack(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_experimental_ui_WebView_canGoForward(lua_State *L)
+static int _cocos2d_ui_WebView_canGoForward(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::WebView *self = nullptr;
+    cocos2d::ui::WebView *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
 
@@ -5791,12 +5790,12 @@ static int _cocos2d_experimental_ui_WebView_canGoForward(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_experimental_ui_WebView_create(lua_State *L)
+static int _cocos2d_ui_WebView_create(lua_State *L)
 {
     olua_startinvoke(L);
 
-    // static cocos2d::experimental::ui::WebView *create()
-    cocos2d::experimental::ui::WebView *ret = (cocos2d::experimental::ui::WebView *)cocos2d::experimental::ui::WebView::create();
+    // static cocos2d::ui::WebView *create()
+    cocos2d::ui::WebView *ret = (cocos2d::ui::WebView *)cocos2d::ui::WebView::create();
     int num_ret = olua_push_cppobj(L, ret, "ccui.WebView");
 
     olua_endinvoke(L);
@@ -5804,11 +5803,11 @@ static int _cocos2d_experimental_ui_WebView_create(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_experimental_ui_WebView_evaluateJS(lua_State *L)
+static int _cocos2d_ui_WebView_evaluateJS(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::WebView *self = nullptr;
+    cocos2d::ui::WebView *self = nullptr;
     std::string arg1;       /** js */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
@@ -5822,11 +5821,11 @@ static int _cocos2d_experimental_ui_WebView_evaluateJS(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_experimental_ui_WebView_getOnDidFailLoading(lua_State *L)
+static int _cocos2d_ui_WebView_getOnDidFailLoading(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::WebView *self = nullptr;
+    cocos2d::ui::WebView *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
 
@@ -5834,20 +5833,20 @@ static int _cocos2d_experimental_ui_WebView_getOnDidFailLoading(lua_State *L)
     std::string tag = "OnDidFailLoading";
     olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
 
-    // @nullable @local std::function<void (WebView *, const std::string &)> getOnDidFailLoading()
-    std::function<void(cocos2d::experimental::ui::WebView *, const std::string &)> ret = (std::function<void(cocos2d::experimental::ui::WebView *, const std::string &)>)self->getOnDidFailLoading();
-    int num_ret = olua_push_std_function(L, (std::function<void(cocos2d::experimental::ui::WebView *, const std::string &)>)ret);
+    // @local std::function<void (WebView *, const std::string &)> getOnDidFailLoading()
+    std::function<void(cocos2d::ui::WebView *, const std::string &)> ret = (std::function<void(cocos2d::ui::WebView *, const std::string &)>)self->getOnDidFailLoading();
+    int num_ret = olua_push_std_function(L, (std::function<void(cocos2d::ui::WebView *, const std::string &)>)ret);
 
     olua_endinvoke(L);
 
     return num_ret;
 }
 
-static int _cocos2d_experimental_ui_WebView_getOnDidFinishLoading(lua_State *L)
+static int _cocos2d_ui_WebView_getOnDidFinishLoading(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::WebView *self = nullptr;
+    cocos2d::ui::WebView *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
 
@@ -5855,20 +5854,20 @@ static int _cocos2d_experimental_ui_WebView_getOnDidFinishLoading(lua_State *L)
     std::string tag = "OnDidFinishLoading";
     olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
 
-    // @nullable @local std::function<void (WebView *, const std::string &)> getOnDidFinishLoading()
-    std::function<void(cocos2d::experimental::ui::WebView *, const std::string &)> ret = (std::function<void(cocos2d::experimental::ui::WebView *, const std::string &)>)self->getOnDidFinishLoading();
-    int num_ret = olua_push_std_function(L, (std::function<void(cocos2d::experimental::ui::WebView *, const std::string &)>)ret);
+    // @local std::function<void (WebView *, const std::string &)> getOnDidFinishLoading()
+    std::function<void(cocos2d::ui::WebView *, const std::string &)> ret = (std::function<void(cocos2d::ui::WebView *, const std::string &)>)self->getOnDidFinishLoading();
+    int num_ret = olua_push_std_function(L, (std::function<void(cocos2d::ui::WebView *, const std::string &)>)ret);
 
     olua_endinvoke(L);
 
     return num_ret;
 }
 
-static int _cocos2d_experimental_ui_WebView_getOnJSCallback(lua_State *L)
+static int _cocos2d_ui_WebView_getOnJSCallback(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::WebView *self = nullptr;
+    cocos2d::ui::WebView *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
 
@@ -5876,20 +5875,20 @@ static int _cocos2d_experimental_ui_WebView_getOnJSCallback(lua_State *L)
     std::string tag = "OnJSCallback";
     olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
 
-    // @nullable @local std::function<void (WebView *, const std::string &)> getOnJSCallback()
-    std::function<void(cocos2d::experimental::ui::WebView *, const std::string &)> ret = (std::function<void(cocos2d::experimental::ui::WebView *, const std::string &)>)self->getOnJSCallback();
-    int num_ret = olua_push_std_function(L, (std::function<void(cocos2d::experimental::ui::WebView *, const std::string &)>)ret);
+    // @local std::function<void (WebView *, const std::string &)> getOnJSCallback()
+    std::function<void(cocos2d::ui::WebView *, const std::string &)> ret = (std::function<void(cocos2d::ui::WebView *, const std::string &)>)self->getOnJSCallback();
+    int num_ret = olua_push_std_function(L, (std::function<void(cocos2d::ui::WebView *, const std::string &)>)ret);
 
     olua_endinvoke(L);
 
     return num_ret;
 }
 
-static int _cocos2d_experimental_ui_WebView_getOnShouldStartLoading(lua_State *L)
+static int _cocos2d_ui_WebView_getOnShouldStartLoading(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::WebView *self = nullptr;
+    cocos2d::ui::WebView *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
 
@@ -5897,20 +5896,20 @@ static int _cocos2d_experimental_ui_WebView_getOnShouldStartLoading(lua_State *L
     std::string tag = "OnShouldStartLoading";
     olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
 
-    // @nullable @local std::function<bool (WebView *, const std::string &)> getOnShouldStartLoading()
-    std::function<bool(cocos2d::experimental::ui::WebView *, const std::string &)> ret = (std::function<bool(cocos2d::experimental::ui::WebView *, const std::string &)>)self->getOnShouldStartLoading();
-    int num_ret = olua_push_std_function(L, (std::function<bool(cocos2d::experimental::ui::WebView *, const std::string &)>)ret);
+    // @local std::function<bool (WebView *, const std::string &)> getOnShouldStartLoading()
+    std::function<bool(cocos2d::ui::WebView *, const std::string &)> ret = (std::function<bool(cocos2d::ui::WebView *, const std::string &)>)self->getOnShouldStartLoading();
+    int num_ret = olua_push_std_function(L, (std::function<bool(cocos2d::ui::WebView *, const std::string &)>)ret);
 
     olua_endinvoke(L);
 
     return num_ret;
 }
 
-static int _cocos2d_experimental_ui_WebView_getOpacityWebView(lua_State *L)
+static int _cocos2d_ui_WebView_getOpacityWebView(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::WebView *self = nullptr;
+    cocos2d::ui::WebView *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
 
@@ -5923,11 +5922,11 @@ static int _cocos2d_experimental_ui_WebView_getOpacityWebView(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_experimental_ui_WebView_goBack(lua_State *L)
+static int _cocos2d_ui_WebView_goBack(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::WebView *self = nullptr;
+    cocos2d::ui::WebView *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
 
@@ -5939,11 +5938,11 @@ static int _cocos2d_experimental_ui_WebView_goBack(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_experimental_ui_WebView_goForward(lua_State *L)
+static int _cocos2d_ui_WebView_goForward(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::WebView *self = nullptr;
+    cocos2d::ui::WebView *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
 
@@ -5955,11 +5954,11 @@ static int _cocos2d_experimental_ui_WebView_goForward(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_experimental_ui_WebView_loadData(lua_State *L)
+static int _cocos2d_ui_WebView_loadData(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::WebView *self = nullptr;
+    cocos2d::ui::WebView *self = nullptr;
     cocos2d::Data arg1;       /** data */
     std::string arg2;       /** MIMEType */
     std::string arg3;       /** encoding */
@@ -5979,11 +5978,11 @@ static int _cocos2d_experimental_ui_WebView_loadData(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_experimental_ui_WebView_loadFile(lua_State *L)
+static int _cocos2d_ui_WebView_loadFile(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::WebView *self = nullptr;
+    cocos2d::ui::WebView *self = nullptr;
     std::string arg1;       /** fileName */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
@@ -5997,11 +5996,11 @@ static int _cocos2d_experimental_ui_WebView_loadFile(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_experimental_ui_WebView_loadHTMLString1(lua_State *L)
+static int _cocos2d_ui_WebView_loadHTMLString1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::WebView *self = nullptr;
+    cocos2d::ui::WebView *self = nullptr;
     std::string arg1;       /** string */
     std::string arg2;       /** baseURL */
 
@@ -6017,11 +6016,11 @@ static int _cocos2d_experimental_ui_WebView_loadHTMLString1(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_experimental_ui_WebView_loadHTMLString2(lua_State *L)
+static int _cocos2d_ui_WebView_loadHTMLString2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::WebView *self = nullptr;
+    cocos2d::ui::WebView *self = nullptr;
     std::string arg1;       /** string */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
@@ -6035,34 +6034,34 @@ static int _cocos2d_experimental_ui_WebView_loadHTMLString2(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_experimental_ui_WebView_loadHTMLString(lua_State *L)
+static int _cocos2d_ui_WebView_loadHTMLString(lua_State *L)
 {
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
             // void loadHTMLString(const std::string &string, @optional const std::string &baseURL)
-            return _cocos2d_experimental_ui_WebView_loadHTMLString2(L);
+            return _cocos2d_ui_WebView_loadHTMLString2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_std_string(L, 3))) {
             // void loadHTMLString(const std::string &string, @optional const std::string &baseURL)
-            return _cocos2d_experimental_ui_WebView_loadHTMLString1(L);
+            return _cocos2d_ui_WebView_loadHTMLString1(L);
         // }
     }
 
-    luaL_error(L, "method 'cocos2d::experimental::ui::WebView::loadHTMLString' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'cocos2d::ui::WebView::loadHTMLString' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _cocos2d_experimental_ui_WebView_loadURL1(lua_State *L)
+static int _cocos2d_ui_WebView_loadURL1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::WebView *self = nullptr;
+    cocos2d::ui::WebView *self = nullptr;
     std::string arg1;       /** url */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
@@ -6076,11 +6075,11 @@ static int _cocos2d_experimental_ui_WebView_loadURL1(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_experimental_ui_WebView_loadURL2(lua_State *L)
+static int _cocos2d_ui_WebView_loadURL2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::WebView *self = nullptr;
+    cocos2d::ui::WebView *self = nullptr;
     std::string arg1;       /** url */
     bool arg2 = false;       /** cleanCachedData */
 
@@ -6096,35 +6095,35 @@ static int _cocos2d_experimental_ui_WebView_loadURL2(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_experimental_ui_WebView_loadURL(lua_State *L)
+static int _cocos2d_ui_WebView_loadURL(lua_State *L)
 {
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
         // if ((olua_is_std_string(L, 2))) {
             // void loadURL(const std::string &url)
-            return _cocos2d_experimental_ui_WebView_loadURL1(L);
+            return _cocos2d_ui_WebView_loadURL1(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_std_string(L, 2)) && (olua_is_bool(L, 3))) {
             // void loadURL(const std::string &url, bool cleanCachedData)
-            return _cocos2d_experimental_ui_WebView_loadURL2(L);
+            return _cocos2d_ui_WebView_loadURL2(L);
         // }
     }
 
-    luaL_error(L, "method 'cocos2d::experimental::ui::WebView::loadURL' not support '%d' arguments", num_args);
+    luaL_error(L, "method 'cocos2d::ui::WebView::loadURL' not support '%d' arguments", num_args);
 
     return 0;
 }
 
-static int _cocos2d_experimental_ui_WebView_new(lua_State *L)
+static int _cocos2d_ui_WebView_new(lua_State *L)
 {
     olua_startinvoke(L);
 
     // WebView()
-    cocos2d::experimental::ui::WebView *ret = (cocos2d::experimental::ui::WebView *)new cocos2d::experimental::ui::WebView();
+    cocos2d::ui::WebView *ret = (cocos2d::ui::WebView *)new cocos2d::ui::WebView();
     int num_ret = olua_push_cppobj(L, ret, "ccui.WebView");
     olua_postnew(L, ret);
 
@@ -6133,11 +6132,11 @@ static int _cocos2d_experimental_ui_WebView_new(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_experimental_ui_WebView_reload(lua_State *L)
+static int _cocos2d_ui_WebView_reload(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::WebView *self = nullptr;
+    cocos2d::ui::WebView *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
 
@@ -6149,11 +6148,11 @@ static int _cocos2d_experimental_ui_WebView_reload(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_experimental_ui_WebView_setBackgroundTransparent(lua_State *L)
+static int _cocos2d_ui_WebView_setBackgroundTransparent(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::WebView *self = nullptr;
+    cocos2d::ui::WebView *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
 
@@ -6165,11 +6164,11 @@ static int _cocos2d_experimental_ui_WebView_setBackgroundTransparent(lua_State *
     return 0;
 }
 
-static int _cocos2d_experimental_ui_WebView_setBounces(lua_State *L)
+static int _cocos2d_ui_WebView_setBounces(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::WebView *self = nullptr;
+    cocos2d::ui::WebView *self = nullptr;
     bool arg1 = false;       /** bounce */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
@@ -6183,11 +6182,11 @@ static int _cocos2d_experimental_ui_WebView_setBounces(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_experimental_ui_WebView_setJavascriptInterfaceScheme(lua_State *L)
+static int _cocos2d_ui_WebView_setJavascriptInterfaceScheme(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::WebView *self = nullptr;
+    cocos2d::ui::WebView *self = nullptr;
     std::string arg1;       /** scheme */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
@@ -6201,12 +6200,12 @@ static int _cocos2d_experimental_ui_WebView_setJavascriptInterfaceScheme(lua_Sta
     return 0;
 }
 
-static int _cocos2d_experimental_ui_WebView_setOnDidFailLoading(lua_State *L)
+static int _cocos2d_ui_WebView_setOnDidFailLoading(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::WebView *self = nullptr;
-    std::function<void(cocos2d::experimental::ui::WebView *, const std::string &)> arg1;       /** callback */
+    cocos2d::ui::WebView *self = nullptr;
+    std::function<void(cocos2d::ui::WebView *, const std::string &)> arg1;       /** callback */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
 
@@ -6215,21 +6214,16 @@ static int _cocos2d_experimental_ui_WebView_setOnDidFailLoading(lua_State *L)
         std::string tag = "OnDidFailLoading";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
         lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::experimental::ui::WebView *arg1, const std::string &arg2) {
+        arg1 = [callback_store_obj, func, MT](cocos2d::ui::WebView *arg1, const std::string &arg2) {
             lua_State *L = olua_mainthread();
 
             if (MT == L) {
                 int top = lua_gettop(L);
-                size_t last = olua_push_objpool(L);
-                olua_enable_objpool(L);
                 olua_push_cppobj(L, arg1, "ccui.WebView");
                 olua_push_std_string(L, arg2);
-                olua_disable_objpool(L);
 
                 olua_callback(L, callback_store_obj, func.c_str(), 2);
 
-                //pop stack value
-                olua_pop_objpool(L, last);
                 lua_settop(L, top);
             }
         };
@@ -6240,7 +6234,7 @@ static int _cocos2d_experimental_ui_WebView_setOnDidFailLoading(lua_State *L)
         arg1 = nullptr;
     }
 
-    // void setOnDidFailLoading(@nullable @local const std::function<void (WebView *, const std::string &)> &callback)
+    // void setOnDidFailLoading(@nullable const std::function<void (WebView *, const std::string &)> &callback)
     self->setOnDidFailLoading(arg1);
 
     olua_endinvoke(L);
@@ -6248,12 +6242,12 @@ static int _cocos2d_experimental_ui_WebView_setOnDidFailLoading(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_experimental_ui_WebView_setOnDidFinishLoading(lua_State *L)
+static int _cocos2d_ui_WebView_setOnDidFinishLoading(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::WebView *self = nullptr;
-    std::function<void(cocos2d::experimental::ui::WebView *, const std::string &)> arg1;       /** callback */
+    cocos2d::ui::WebView *self = nullptr;
+    std::function<void(cocos2d::ui::WebView *, const std::string &)> arg1;       /** callback */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
 
@@ -6262,21 +6256,16 @@ static int _cocos2d_experimental_ui_WebView_setOnDidFinishLoading(lua_State *L)
         std::string tag = "OnDidFinishLoading";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
         lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::experimental::ui::WebView *arg1, const std::string &arg2) {
+        arg1 = [callback_store_obj, func, MT](cocos2d::ui::WebView *arg1, const std::string &arg2) {
             lua_State *L = olua_mainthread();
 
             if (MT == L) {
                 int top = lua_gettop(L);
-                size_t last = olua_push_objpool(L);
-                olua_enable_objpool(L);
                 olua_push_cppobj(L, arg1, "ccui.WebView");
                 olua_push_std_string(L, arg2);
-                olua_disable_objpool(L);
 
                 olua_callback(L, callback_store_obj, func.c_str(), 2);
 
-                //pop stack value
-                olua_pop_objpool(L, last);
                 lua_settop(L, top);
             }
         };
@@ -6287,7 +6276,7 @@ static int _cocos2d_experimental_ui_WebView_setOnDidFinishLoading(lua_State *L)
         arg1 = nullptr;
     }
 
-    // void setOnDidFinishLoading(@nullable @local const std::function<void (WebView *, const std::string &)> &callback)
+    // void setOnDidFinishLoading(@nullable const std::function<void (WebView *, const std::string &)> &callback)
     self->setOnDidFinishLoading(arg1);
 
     olua_endinvoke(L);
@@ -6295,12 +6284,12 @@ static int _cocos2d_experimental_ui_WebView_setOnDidFinishLoading(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_experimental_ui_WebView_setOnJSCallback(lua_State *L)
+static int _cocos2d_ui_WebView_setOnJSCallback(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::WebView *self = nullptr;
-    std::function<void(cocos2d::experimental::ui::WebView *, const std::string &)> arg1;       /** callback */
+    cocos2d::ui::WebView *self = nullptr;
+    std::function<void(cocos2d::ui::WebView *, const std::string &)> arg1;       /** callback */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
 
@@ -6309,21 +6298,16 @@ static int _cocos2d_experimental_ui_WebView_setOnJSCallback(lua_State *L)
         std::string tag = "OnJSCallback";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
         lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::experimental::ui::WebView *arg1, const std::string &arg2) {
+        arg1 = [callback_store_obj, func, MT](cocos2d::ui::WebView *arg1, const std::string &arg2) {
             lua_State *L = olua_mainthread();
 
             if (MT == L) {
                 int top = lua_gettop(L);
-                size_t last = olua_push_objpool(L);
-                olua_enable_objpool(L);
                 olua_push_cppobj(L, arg1, "ccui.WebView");
                 olua_push_std_string(L, arg2);
-                olua_disable_objpool(L);
 
                 olua_callback(L, callback_store_obj, func.c_str(), 2);
 
-                //pop stack value
-                olua_pop_objpool(L, last);
                 lua_settop(L, top);
             }
         };
@@ -6334,7 +6318,7 @@ static int _cocos2d_experimental_ui_WebView_setOnJSCallback(lua_State *L)
         arg1 = nullptr;
     }
 
-    // void setOnJSCallback(@nullable @local const std::function<void (WebView *, const std::string &)> &callback)
+    // void setOnJSCallback(@nullable const std::function<void (WebView *, const std::string &)> &callback)
     self->setOnJSCallback(arg1);
 
     olua_endinvoke(L);
@@ -6342,12 +6326,12 @@ static int _cocos2d_experimental_ui_WebView_setOnJSCallback(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_experimental_ui_WebView_setOnShouldStartLoading(lua_State *L)
+static int _cocos2d_ui_WebView_setOnShouldStartLoading(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::WebView *self = nullptr;
-    std::function<bool(cocos2d::experimental::ui::WebView *, const std::string &)> arg1;       /** callback */
+    cocos2d::ui::WebView *self = nullptr;
+    std::function<bool(cocos2d::ui::WebView *, const std::string &)> arg1;       /** callback */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
 
@@ -6356,16 +6340,13 @@ static int _cocos2d_experimental_ui_WebView_setOnShouldStartLoading(lua_State *L
         std::string tag = "OnShouldStartLoading";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
         lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::experimental::ui::WebView *arg1, const std::string &arg2) {
+        arg1 = [callback_store_obj, func, MT](cocos2d::ui::WebView *arg1, const std::string &arg2) {
             lua_State *L = olua_mainthread();
             bool ret = false;       
             if (MT == L) {
                 int top = lua_gettop(L);
-                size_t last = olua_push_objpool(L);
-                olua_enable_objpool(L);
                 olua_push_cppobj(L, arg1, "ccui.WebView");
                 olua_push_std_string(L, arg2);
-                olua_disable_objpool(L);
 
                 olua_callback(L, callback_store_obj, func.c_str(), 2);
 
@@ -6373,8 +6354,6 @@ static int _cocos2d_experimental_ui_WebView_setOnShouldStartLoading(lua_State *L
                     olua_check_bool(L, -1, &ret);
                 }
 
-                //pop stack value
-                olua_pop_objpool(L, last);
                 lua_settop(L, top);
             }
             return ret;
@@ -6386,7 +6365,7 @@ static int _cocos2d_experimental_ui_WebView_setOnShouldStartLoading(lua_State *L
         arg1 = nullptr;
     }
 
-    // void setOnShouldStartLoading(@nullable @local const std::function<bool (WebView *, const std::string &)> &callback)
+    // void setOnShouldStartLoading(@nullable const std::function<bool (WebView *, const std::string &)> &callback)
     self->setOnShouldStartLoading(arg1);
 
     olua_endinvoke(L);
@@ -6394,11 +6373,11 @@ static int _cocos2d_experimental_ui_WebView_setOnShouldStartLoading(lua_State *L
     return 0;
 }
 
-static int _cocos2d_experimental_ui_WebView_setOpacityWebView(lua_State *L)
+static int _cocos2d_ui_WebView_setOpacityWebView(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::WebView *self = nullptr;
+    cocos2d::ui::WebView *self = nullptr;
     lua_Number arg1 = 0;       /** opacity */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
@@ -6412,11 +6391,11 @@ static int _cocos2d_experimental_ui_WebView_setOpacityWebView(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_experimental_ui_WebView_setScalesPageToFit(lua_State *L)
+static int _cocos2d_ui_WebView_setScalesPageToFit(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::WebView *self = nullptr;
+    cocos2d::ui::WebView *self = nullptr;
     bool arg1 = false;       /** scalesPageToFit */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
@@ -6430,11 +6409,11 @@ static int _cocos2d_experimental_ui_WebView_setScalesPageToFit(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_experimental_ui_WebView_stopLoading(lua_State *L)
+static int _cocos2d_ui_WebView_stopLoading(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::WebView *self = nullptr;
+    cocos2d::ui::WebView *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.WebView");
 
@@ -6446,58 +6425,58 @@ static int _cocos2d_experimental_ui_WebView_stopLoading(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_experimental_ui_WebView(lua_State *L)
+static int luaopen_cocos2d_ui_WebView(lua_State *L)
 {
     oluacls_class(L, "ccui.WebView", "ccui.Widget");
-    oluacls_func(L, "__move", _cocos2d_experimental_ui_WebView___move);
-    oluacls_func(L, "canGoBack", _cocos2d_experimental_ui_WebView_canGoBack);
-    oluacls_func(L, "canGoForward", _cocos2d_experimental_ui_WebView_canGoForward);
-    oluacls_func(L, "create", _cocos2d_experimental_ui_WebView_create);
-    oluacls_func(L, "evaluateJS", _cocos2d_experimental_ui_WebView_evaluateJS);
-    oluacls_func(L, "getOnDidFailLoading", _cocos2d_experimental_ui_WebView_getOnDidFailLoading);
-    oluacls_func(L, "getOnDidFinishLoading", _cocos2d_experimental_ui_WebView_getOnDidFinishLoading);
-    oluacls_func(L, "getOnJSCallback", _cocos2d_experimental_ui_WebView_getOnJSCallback);
-    oluacls_func(L, "getOnShouldStartLoading", _cocos2d_experimental_ui_WebView_getOnShouldStartLoading);
-    oluacls_func(L, "getOpacityWebView", _cocos2d_experimental_ui_WebView_getOpacityWebView);
-    oluacls_func(L, "goBack", _cocos2d_experimental_ui_WebView_goBack);
-    oluacls_func(L, "goForward", _cocos2d_experimental_ui_WebView_goForward);
-    oluacls_func(L, "loadData", _cocos2d_experimental_ui_WebView_loadData);
-    oluacls_func(L, "loadFile", _cocos2d_experimental_ui_WebView_loadFile);
-    oluacls_func(L, "loadHTMLString", _cocos2d_experimental_ui_WebView_loadHTMLString);
-    oluacls_func(L, "loadURL", _cocos2d_experimental_ui_WebView_loadURL);
-    oluacls_func(L, "new", _cocos2d_experimental_ui_WebView_new);
-    oluacls_func(L, "reload", _cocos2d_experimental_ui_WebView_reload);
-    oluacls_func(L, "setBackgroundTransparent", _cocos2d_experimental_ui_WebView_setBackgroundTransparent);
-    oluacls_func(L, "setBounces", _cocos2d_experimental_ui_WebView_setBounces);
-    oluacls_func(L, "setJavascriptInterfaceScheme", _cocos2d_experimental_ui_WebView_setJavascriptInterfaceScheme);
-    oluacls_func(L, "setOnDidFailLoading", _cocos2d_experimental_ui_WebView_setOnDidFailLoading);
-    oluacls_func(L, "setOnDidFinishLoading", _cocos2d_experimental_ui_WebView_setOnDidFinishLoading);
-    oluacls_func(L, "setOnJSCallback", _cocos2d_experimental_ui_WebView_setOnJSCallback);
-    oluacls_func(L, "setOnShouldStartLoading", _cocos2d_experimental_ui_WebView_setOnShouldStartLoading);
-    oluacls_func(L, "setOpacityWebView", _cocos2d_experimental_ui_WebView_setOpacityWebView);
-    oluacls_func(L, "setScalesPageToFit", _cocos2d_experimental_ui_WebView_setScalesPageToFit);
-    oluacls_func(L, "stopLoading", _cocos2d_experimental_ui_WebView_stopLoading);
-    oluacls_prop(L, "onDidFailLoading", _cocos2d_experimental_ui_WebView_getOnDidFailLoading, _cocos2d_experimental_ui_WebView_setOnDidFailLoading);
-    oluacls_prop(L, "onDidFinishLoading", _cocos2d_experimental_ui_WebView_getOnDidFinishLoading, _cocos2d_experimental_ui_WebView_setOnDidFinishLoading);
-    oluacls_prop(L, "onJSCallback", _cocos2d_experimental_ui_WebView_getOnJSCallback, _cocos2d_experimental_ui_WebView_setOnJSCallback);
-    oluacls_prop(L, "onShouldStartLoading", _cocos2d_experimental_ui_WebView_getOnShouldStartLoading, _cocos2d_experimental_ui_WebView_setOnShouldStartLoading);
-    oluacls_prop(L, "opacityWebView", _cocos2d_experimental_ui_WebView_getOpacityWebView, _cocos2d_experimental_ui_WebView_setOpacityWebView);
+    oluacls_func(L, "__move", _cocos2d_ui_WebView___move);
+    oluacls_func(L, "canGoBack", _cocos2d_ui_WebView_canGoBack);
+    oluacls_func(L, "canGoForward", _cocos2d_ui_WebView_canGoForward);
+    oluacls_func(L, "create", _cocos2d_ui_WebView_create);
+    oluacls_func(L, "evaluateJS", _cocos2d_ui_WebView_evaluateJS);
+    oluacls_func(L, "getOnDidFailLoading", _cocos2d_ui_WebView_getOnDidFailLoading);
+    oluacls_func(L, "getOnDidFinishLoading", _cocos2d_ui_WebView_getOnDidFinishLoading);
+    oluacls_func(L, "getOnJSCallback", _cocos2d_ui_WebView_getOnJSCallback);
+    oluacls_func(L, "getOnShouldStartLoading", _cocos2d_ui_WebView_getOnShouldStartLoading);
+    oluacls_func(L, "getOpacityWebView", _cocos2d_ui_WebView_getOpacityWebView);
+    oluacls_func(L, "goBack", _cocos2d_ui_WebView_goBack);
+    oluacls_func(L, "goForward", _cocos2d_ui_WebView_goForward);
+    oluacls_func(L, "loadData", _cocos2d_ui_WebView_loadData);
+    oluacls_func(L, "loadFile", _cocos2d_ui_WebView_loadFile);
+    oluacls_func(L, "loadHTMLString", _cocos2d_ui_WebView_loadHTMLString);
+    oluacls_func(L, "loadURL", _cocos2d_ui_WebView_loadURL);
+    oluacls_func(L, "new", _cocos2d_ui_WebView_new);
+    oluacls_func(L, "reload", _cocos2d_ui_WebView_reload);
+    oluacls_func(L, "setBackgroundTransparent", _cocos2d_ui_WebView_setBackgroundTransparent);
+    oluacls_func(L, "setBounces", _cocos2d_ui_WebView_setBounces);
+    oluacls_func(L, "setJavascriptInterfaceScheme", _cocos2d_ui_WebView_setJavascriptInterfaceScheme);
+    oluacls_func(L, "setOnDidFailLoading", _cocos2d_ui_WebView_setOnDidFailLoading);
+    oluacls_func(L, "setOnDidFinishLoading", _cocos2d_ui_WebView_setOnDidFinishLoading);
+    oluacls_func(L, "setOnJSCallback", _cocos2d_ui_WebView_setOnJSCallback);
+    oluacls_func(L, "setOnShouldStartLoading", _cocos2d_ui_WebView_setOnShouldStartLoading);
+    oluacls_func(L, "setOpacityWebView", _cocos2d_ui_WebView_setOpacityWebView);
+    oluacls_func(L, "setScalesPageToFit", _cocos2d_ui_WebView_setScalesPageToFit);
+    oluacls_func(L, "stopLoading", _cocos2d_ui_WebView_stopLoading);
+    oluacls_prop(L, "onDidFailLoading", _cocos2d_ui_WebView_getOnDidFailLoading, _cocos2d_ui_WebView_setOnDidFailLoading);
+    oluacls_prop(L, "onDidFinishLoading", _cocos2d_ui_WebView_getOnDidFinishLoading, _cocos2d_ui_WebView_setOnDidFinishLoading);
+    oluacls_prop(L, "onJSCallback", _cocos2d_ui_WebView_getOnJSCallback, _cocos2d_ui_WebView_setOnJSCallback);
+    oluacls_prop(L, "onShouldStartLoading", _cocos2d_ui_WebView_getOnShouldStartLoading, _cocos2d_ui_WebView_setOnShouldStartLoading);
+    oluacls_prop(L, "opacityWebView", _cocos2d_ui_WebView_getOpacityWebView, _cocos2d_ui_WebView_setOpacityWebView);
 
-    olua_registerluatype<cocos2d::experimental::ui::WebView>(L, "ccui.WebView");
+    olua_registerluatype<cocos2d::ui::WebView>(L, "ccui.WebView");
 
     return 1;
 }
 #endif
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN)
-static int luaopen_cocos2d_experimental_ui_VideoPlayer_EventType(lua_State *L)
+#ifdef CCLUA_HAVE_VIDEOPLAYER
+static int luaopen_cocos2d_ui_VideoPlayer_EventType(lua_State *L)
 {
     oluacls_class(L, "ccui.VideoPlayer.EventType", nullptr);
-    oluacls_const_integer(L, "COMPLETED", (lua_Integer)cocos2d::experimental::ui::VideoPlayer::EventType::COMPLETED);
-    oluacls_const_integer(L, "ERROR", (lua_Integer)cocos2d::experimental::ui::VideoPlayer::EventType::ERROR);
-    oluacls_const_integer(L, "PAUSED", (lua_Integer)cocos2d::experimental::ui::VideoPlayer::EventType::PAUSED);
-    oluacls_const_integer(L, "PLAYING", (lua_Integer)cocos2d::experimental::ui::VideoPlayer::EventType::PLAYING);
-    oluacls_const_integer(L, "STOPPED", (lua_Integer)cocos2d::experimental::ui::VideoPlayer::EventType::STOPPED);
+    oluacls_const_integer(L, "COMPLETED", (lua_Integer)cocos2d::ui::VideoPlayer::EventType::COMPLETED);
+    oluacls_const_integer(L, "ERROR", (lua_Integer)cocos2d::ui::VideoPlayer::EventType::ERROR);
+    oluacls_const_integer(L, "PAUSED", (lua_Integer)cocos2d::ui::VideoPlayer::EventType::PAUSED);
+    oluacls_const_integer(L, "PLAYING", (lua_Integer)cocos2d::ui::VideoPlayer::EventType::PLAYING);
+    oluacls_const_integer(L, "STOPPED", (lua_Integer)cocos2d::ui::VideoPlayer::EventType::STOPPED);
 
     oluacls_asenum(L);
 
@@ -6505,12 +6484,12 @@ static int luaopen_cocos2d_experimental_ui_VideoPlayer_EventType(lua_State *L)
 }
 #endif
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN)
-static int luaopen_cocos2d_experimental_ui_VideoPlayer_StyleType(lua_State *L)
+#ifdef CCLUA_HAVE_VIDEOPLAYER
+static int luaopen_cocos2d_ui_VideoPlayer_StyleType(lua_State *L)
 {
     oluacls_class(L, "ccui.VideoPlayer.StyleType", nullptr);
-    oluacls_const_integer(L, "DEFAULT", (lua_Integer)cocos2d::experimental::ui::VideoPlayer::StyleType::DEFAULT);
-    oluacls_const_integer(L, "NONE", (lua_Integer)cocos2d::experimental::ui::VideoPlayer::StyleType::NONE);
+    oluacls_const_integer(L, "DEFAULT", (lua_Integer)cocos2d::ui::VideoPlayer::StyleType::DEFAULT);
+    oluacls_const_integer(L, "NONE", (lua_Integer)cocos2d::ui::VideoPlayer::StyleType::NONE);
 
     oluacls_asenum(L);
 
@@ -6518,12 +6497,12 @@ static int luaopen_cocos2d_experimental_ui_VideoPlayer_StyleType(lua_State *L)
 }
 #endif
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN)
-static int _cocos2d_experimental_ui_VideoPlayer___move(lua_State *L)
+#ifdef CCLUA_HAVE_VIDEOPLAYER
+static int _cocos2d_ui_VideoPlayer___move(lua_State *L)
 {
     olua_startinvoke(L);
 
-    auto self = (cocos2d::experimental::ui::VideoPlayer *)olua_toobj(L, 1, "ccui.VideoPlayer");
+    auto self = (cocos2d::ui::VideoPlayer *)olua_toobj(L, 1, "ccui.VideoPlayer");
     olua_push_cppobj(L, self, "ccui.VideoPlayer");
 
     olua_endinvoke(L);
@@ -6531,12 +6510,12 @@ static int _cocos2d_experimental_ui_VideoPlayer___move(lua_State *L)
     return 1;
 }
 
-static int _cocos2d_experimental_ui_VideoPlayer_addEventListener(lua_State *L)
+static int _cocos2d_ui_VideoPlayer_addEventListener(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::VideoPlayer *self = nullptr;
-    std::function<void(cocos2d::Ref *, cocos2d::experimental::ui::VideoPlayer::EventType)> arg1;       /** callback */
+    cocos2d::ui::VideoPlayer *self = nullptr;
+    std::function<void(cocos2d::Ref *, cocos2d::ui::VideoPlayer::EventType)> arg1;       /** callback */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.VideoPlayer");
 
@@ -6545,7 +6524,7 @@ static int _cocos2d_experimental_ui_VideoPlayer_addEventListener(lua_State *L)
         std::string tag = "videoPlayerCallback";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
         lua_State *MT = olua_mainthread();
-        arg1 = [callback_store_obj, func, MT](cocos2d::Ref *arg1, cocos2d::experimental::ui::VideoPlayer::EventType arg2) {
+        arg1 = [callback_store_obj, func, MT](cocos2d::Ref *arg1, cocos2d::ui::VideoPlayer::EventType arg2) {
             lua_State *L = olua_mainthread();
 
             if (MT == L) {
@@ -6573,12 +6552,12 @@ static int _cocos2d_experimental_ui_VideoPlayer_addEventListener(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_experimental_ui_VideoPlayer_create(lua_State *L)
+static int _cocos2d_ui_VideoPlayer_create(lua_State *L)
 {
     olua_startinvoke(L);
 
-    // static cocos2d::experimental::ui::VideoPlayer *create()
-    cocos2d::experimental::ui::VideoPlayer *ret = (cocos2d::experimental::ui::VideoPlayer *)cocos2d::experimental::ui::VideoPlayer::create();
+    // static cocos2d::ui::VideoPlayer *create()
+    cocos2d::ui::VideoPlayer *ret = (cocos2d::ui::VideoPlayer *)cocos2d::ui::VideoPlayer::create();
     int num_ret = olua_push_cppobj(L, ret, "ccui.VideoPlayer");
 
     olua_endinvoke(L);
@@ -6586,11 +6565,11 @@ static int _cocos2d_experimental_ui_VideoPlayer_create(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_experimental_ui_VideoPlayer_getFileName(lua_State *L)
+static int _cocos2d_ui_VideoPlayer_getFileName(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::VideoPlayer *self = nullptr;
+    cocos2d::ui::VideoPlayer *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.VideoPlayer");
 
@@ -6603,11 +6582,11 @@ static int _cocos2d_experimental_ui_VideoPlayer_getFileName(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_experimental_ui_VideoPlayer_getURL(lua_State *L)
+static int _cocos2d_ui_VideoPlayer_getURL(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::VideoPlayer *self = nullptr;
+    cocos2d::ui::VideoPlayer *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.VideoPlayer");
 
@@ -6620,11 +6599,11 @@ static int _cocos2d_experimental_ui_VideoPlayer_getURL(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_experimental_ui_VideoPlayer_isFullScreenEnabled(lua_State *L)
+static int _cocos2d_ui_VideoPlayer_isFullScreenEnabled(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::VideoPlayer *self = nullptr;
+    cocos2d::ui::VideoPlayer *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.VideoPlayer");
 
@@ -6637,11 +6616,11 @@ static int _cocos2d_experimental_ui_VideoPlayer_isFullScreenEnabled(lua_State *L
     return num_ret;
 }
 
-static int _cocos2d_experimental_ui_VideoPlayer_isKeepAspectRatioEnabled(lua_State *L)
+static int _cocos2d_ui_VideoPlayer_isKeepAspectRatioEnabled(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::VideoPlayer *self = nullptr;
+    cocos2d::ui::VideoPlayer *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.VideoPlayer");
 
@@ -6654,11 +6633,11 @@ static int _cocos2d_experimental_ui_VideoPlayer_isKeepAspectRatioEnabled(lua_Sta
     return num_ret;
 }
 
-static int _cocos2d_experimental_ui_VideoPlayer_isLooping(lua_State *L)
+static int _cocos2d_ui_VideoPlayer_isLooping(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::VideoPlayer *self = nullptr;
+    cocos2d::ui::VideoPlayer *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.VideoPlayer");
 
@@ -6671,11 +6650,11 @@ static int _cocos2d_experimental_ui_VideoPlayer_isLooping(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_experimental_ui_VideoPlayer_isPlaying(lua_State *L)
+static int _cocos2d_ui_VideoPlayer_isPlaying(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::VideoPlayer *self = nullptr;
+    cocos2d::ui::VideoPlayer *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.VideoPlayer");
 
@@ -6688,11 +6667,11 @@ static int _cocos2d_experimental_ui_VideoPlayer_isPlaying(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_experimental_ui_VideoPlayer_isUserInputEnabled(lua_State *L)
+static int _cocos2d_ui_VideoPlayer_isUserInputEnabled(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::VideoPlayer *self = nullptr;
+    cocos2d::ui::VideoPlayer *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.VideoPlayer");
 
@@ -6705,12 +6684,12 @@ static int _cocos2d_experimental_ui_VideoPlayer_isUserInputEnabled(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_experimental_ui_VideoPlayer_new(lua_State *L)
+static int _cocos2d_ui_VideoPlayer_new(lua_State *L)
 {
     olua_startinvoke(L);
 
     // VideoPlayer()
-    cocos2d::experimental::ui::VideoPlayer *ret = (cocos2d::experimental::ui::VideoPlayer *)new cocos2d::experimental::ui::VideoPlayer();
+    cocos2d::ui::VideoPlayer *ret = (cocos2d::ui::VideoPlayer *)new cocos2d::ui::VideoPlayer();
     int num_ret = olua_push_cppobj(L, ret, "ccui.VideoPlayer");
     olua_postnew(L, ret);
 
@@ -6719,11 +6698,11 @@ static int _cocos2d_experimental_ui_VideoPlayer_new(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_experimental_ui_VideoPlayer_onPlayEvent(lua_State *L)
+static int _cocos2d_ui_VideoPlayer_onPlayEvent(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::VideoPlayer *self = nullptr;
+    cocos2d::ui::VideoPlayer *self = nullptr;
     lua_Integer arg1 = 0;       /** event */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.VideoPlayer");
@@ -6737,11 +6716,11 @@ static int _cocos2d_experimental_ui_VideoPlayer_onPlayEvent(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_experimental_ui_VideoPlayer_play(lua_State *L)
+static int _cocos2d_ui_VideoPlayer_play(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::VideoPlayer *self = nullptr;
+    cocos2d::ui::VideoPlayer *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.VideoPlayer");
 
@@ -6753,11 +6732,11 @@ static int _cocos2d_experimental_ui_VideoPlayer_play(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_experimental_ui_VideoPlayer_seekTo(lua_State *L)
+static int _cocos2d_ui_VideoPlayer_seekTo(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::VideoPlayer *self = nullptr;
+    cocos2d::ui::VideoPlayer *self = nullptr;
     lua_Number arg1 = 0;       /** sec */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.VideoPlayer");
@@ -6771,11 +6750,11 @@ static int _cocos2d_experimental_ui_VideoPlayer_seekTo(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_experimental_ui_VideoPlayer_setFileName(lua_State *L)
+static int _cocos2d_ui_VideoPlayer_setFileName(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::VideoPlayer *self = nullptr;
+    cocos2d::ui::VideoPlayer *self = nullptr;
     std::string arg1;       /** videoPath */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.VideoPlayer");
@@ -6789,11 +6768,11 @@ static int _cocos2d_experimental_ui_VideoPlayer_setFileName(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_experimental_ui_VideoPlayer_setFullScreenEnabled(lua_State *L)
+static int _cocos2d_ui_VideoPlayer_setFullScreenEnabled(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::VideoPlayer *self = nullptr;
+    cocos2d::ui::VideoPlayer *self = nullptr;
     bool arg1 = false;       /** fullscreen */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.VideoPlayer");
@@ -6807,11 +6786,11 @@ static int _cocos2d_experimental_ui_VideoPlayer_setFullScreenEnabled(lua_State *
     return 0;
 }
 
-static int _cocos2d_experimental_ui_VideoPlayer_setKeepAspectRatioEnabled(lua_State *L)
+static int _cocos2d_ui_VideoPlayer_setKeepAspectRatioEnabled(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::VideoPlayer *self = nullptr;
+    cocos2d::ui::VideoPlayer *self = nullptr;
     bool arg1 = false;       /** enable */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.VideoPlayer");
@@ -6825,11 +6804,11 @@ static int _cocos2d_experimental_ui_VideoPlayer_setKeepAspectRatioEnabled(lua_St
     return 0;
 }
 
-static int _cocos2d_experimental_ui_VideoPlayer_setLooping(lua_State *L)
+static int _cocos2d_ui_VideoPlayer_setLooping(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::VideoPlayer *self = nullptr;
+    cocos2d::ui::VideoPlayer *self = nullptr;
     bool arg1 = false;       /** looping */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.VideoPlayer");
@@ -6843,29 +6822,29 @@ static int _cocos2d_experimental_ui_VideoPlayer_setLooping(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_experimental_ui_VideoPlayer_setStyle(lua_State *L)
+static int _cocos2d_ui_VideoPlayer_setStyle(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::VideoPlayer *self = nullptr;
+    cocos2d::ui::VideoPlayer *self = nullptr;
     lua_Unsigned arg1 = 0;       /** style */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.VideoPlayer");
     olua_check_uint(L, 2, &arg1);
 
-    // void setStyle(cocos2d::experimental::ui::VideoPlayer::StyleType style)
-    self->setStyle((cocos2d::experimental::ui::VideoPlayer::StyleType)arg1);
+    // void setStyle(cocos2d::ui::VideoPlayer::StyleType style)
+    self->setStyle((cocos2d::ui::VideoPlayer::StyleType)arg1);
 
     olua_endinvoke(L);
 
     return 0;
 }
 
-static int _cocos2d_experimental_ui_VideoPlayer_setURL(lua_State *L)
+static int _cocos2d_ui_VideoPlayer_setURL(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::VideoPlayer *self = nullptr;
+    cocos2d::ui::VideoPlayer *self = nullptr;
     std::string arg1;       /** _videoURL */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.VideoPlayer");
@@ -6879,11 +6858,11 @@ static int _cocos2d_experimental_ui_VideoPlayer_setURL(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_experimental_ui_VideoPlayer_setUserInputEnabled(lua_State *L)
+static int _cocos2d_ui_VideoPlayer_setUserInputEnabled(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::VideoPlayer *self = nullptr;
+    cocos2d::ui::VideoPlayer *self = nullptr;
     bool arg1 = false;       /** enableInput */
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.VideoPlayer");
@@ -6897,11 +6876,11 @@ static int _cocos2d_experimental_ui_VideoPlayer_setUserInputEnabled(lua_State *L
     return 0;
 }
 
-static int _cocos2d_experimental_ui_VideoPlayer_stop(lua_State *L)
+static int _cocos2d_ui_VideoPlayer_stop(lua_State *L)
 {
     olua_startinvoke(L);
 
-    cocos2d::experimental::ui::VideoPlayer *self = nullptr;
+    cocos2d::ui::VideoPlayer *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.VideoPlayer");
 
@@ -6913,40 +6892,40 @@ static int _cocos2d_experimental_ui_VideoPlayer_stop(lua_State *L)
     return 0;
 }
 
-static int luaopen_cocos2d_experimental_ui_VideoPlayer(lua_State *L)
+static int luaopen_cocos2d_ui_VideoPlayer(lua_State *L)
 {
     oluacls_class(L, "ccui.VideoPlayer", "ccui.Widget");
-    oluacls_func(L, "__move", _cocos2d_experimental_ui_VideoPlayer___move);
-    oluacls_func(L, "addEventListener", _cocos2d_experimental_ui_VideoPlayer_addEventListener);
-    oluacls_func(L, "create", _cocos2d_experimental_ui_VideoPlayer_create);
-    oluacls_func(L, "getFileName", _cocos2d_experimental_ui_VideoPlayer_getFileName);
-    oluacls_func(L, "getURL", _cocos2d_experimental_ui_VideoPlayer_getURL);
-    oluacls_func(L, "isFullScreenEnabled", _cocos2d_experimental_ui_VideoPlayer_isFullScreenEnabled);
-    oluacls_func(L, "isKeepAspectRatioEnabled", _cocos2d_experimental_ui_VideoPlayer_isKeepAspectRatioEnabled);
-    oluacls_func(L, "isLooping", _cocos2d_experimental_ui_VideoPlayer_isLooping);
-    oluacls_func(L, "isPlaying", _cocos2d_experimental_ui_VideoPlayer_isPlaying);
-    oluacls_func(L, "isUserInputEnabled", _cocos2d_experimental_ui_VideoPlayer_isUserInputEnabled);
-    oluacls_func(L, "new", _cocos2d_experimental_ui_VideoPlayer_new);
-    oluacls_func(L, "onPlayEvent", _cocos2d_experimental_ui_VideoPlayer_onPlayEvent);
-    oluacls_func(L, "play", _cocos2d_experimental_ui_VideoPlayer_play);
-    oluacls_func(L, "seekTo", _cocos2d_experimental_ui_VideoPlayer_seekTo);
-    oluacls_func(L, "setFileName", _cocos2d_experimental_ui_VideoPlayer_setFileName);
-    oluacls_func(L, "setFullScreenEnabled", _cocos2d_experimental_ui_VideoPlayer_setFullScreenEnabled);
-    oluacls_func(L, "setKeepAspectRatioEnabled", _cocos2d_experimental_ui_VideoPlayer_setKeepAspectRatioEnabled);
-    oluacls_func(L, "setLooping", _cocos2d_experimental_ui_VideoPlayer_setLooping);
-    oluacls_func(L, "setStyle", _cocos2d_experimental_ui_VideoPlayer_setStyle);
-    oluacls_func(L, "setURL", _cocos2d_experimental_ui_VideoPlayer_setURL);
-    oluacls_func(L, "setUserInputEnabled", _cocos2d_experimental_ui_VideoPlayer_setUserInputEnabled);
-    oluacls_func(L, "stop", _cocos2d_experimental_ui_VideoPlayer_stop);
-    oluacls_prop(L, "fileName", _cocos2d_experimental_ui_VideoPlayer_getFileName, _cocos2d_experimental_ui_VideoPlayer_setFileName);
-    oluacls_prop(L, "fullScreenEnabled", _cocos2d_experimental_ui_VideoPlayer_isFullScreenEnabled, _cocos2d_experimental_ui_VideoPlayer_setFullScreenEnabled);
-    oluacls_prop(L, "keepAspectRatioEnabled", _cocos2d_experimental_ui_VideoPlayer_isKeepAspectRatioEnabled, _cocos2d_experimental_ui_VideoPlayer_setKeepAspectRatioEnabled);
-    oluacls_prop(L, "looping", _cocos2d_experimental_ui_VideoPlayer_isLooping, _cocos2d_experimental_ui_VideoPlayer_setLooping);
-    oluacls_prop(L, "playing", _cocos2d_experimental_ui_VideoPlayer_isPlaying, nullptr);
-    oluacls_prop(L, "url", _cocos2d_experimental_ui_VideoPlayer_getURL, _cocos2d_experimental_ui_VideoPlayer_setURL);
-    oluacls_prop(L, "userInputEnabled", _cocos2d_experimental_ui_VideoPlayer_isUserInputEnabled, _cocos2d_experimental_ui_VideoPlayer_setUserInputEnabled);
+    oluacls_func(L, "__move", _cocos2d_ui_VideoPlayer___move);
+    oluacls_func(L, "addEventListener", _cocos2d_ui_VideoPlayer_addEventListener);
+    oluacls_func(L, "create", _cocos2d_ui_VideoPlayer_create);
+    oluacls_func(L, "getFileName", _cocos2d_ui_VideoPlayer_getFileName);
+    oluacls_func(L, "getURL", _cocos2d_ui_VideoPlayer_getURL);
+    oluacls_func(L, "isFullScreenEnabled", _cocos2d_ui_VideoPlayer_isFullScreenEnabled);
+    oluacls_func(L, "isKeepAspectRatioEnabled", _cocos2d_ui_VideoPlayer_isKeepAspectRatioEnabled);
+    oluacls_func(L, "isLooping", _cocos2d_ui_VideoPlayer_isLooping);
+    oluacls_func(L, "isPlaying", _cocos2d_ui_VideoPlayer_isPlaying);
+    oluacls_func(L, "isUserInputEnabled", _cocos2d_ui_VideoPlayer_isUserInputEnabled);
+    oluacls_func(L, "new", _cocos2d_ui_VideoPlayer_new);
+    oluacls_func(L, "onPlayEvent", _cocos2d_ui_VideoPlayer_onPlayEvent);
+    oluacls_func(L, "play", _cocos2d_ui_VideoPlayer_play);
+    oluacls_func(L, "seekTo", _cocos2d_ui_VideoPlayer_seekTo);
+    oluacls_func(L, "setFileName", _cocos2d_ui_VideoPlayer_setFileName);
+    oluacls_func(L, "setFullScreenEnabled", _cocos2d_ui_VideoPlayer_setFullScreenEnabled);
+    oluacls_func(L, "setKeepAspectRatioEnabled", _cocos2d_ui_VideoPlayer_setKeepAspectRatioEnabled);
+    oluacls_func(L, "setLooping", _cocos2d_ui_VideoPlayer_setLooping);
+    oluacls_func(L, "setStyle", _cocos2d_ui_VideoPlayer_setStyle);
+    oluacls_func(L, "setURL", _cocos2d_ui_VideoPlayer_setURL);
+    oluacls_func(L, "setUserInputEnabled", _cocos2d_ui_VideoPlayer_setUserInputEnabled);
+    oluacls_func(L, "stop", _cocos2d_ui_VideoPlayer_stop);
+    oluacls_prop(L, "fileName", _cocos2d_ui_VideoPlayer_getFileName, _cocos2d_ui_VideoPlayer_setFileName);
+    oluacls_prop(L, "fullScreenEnabled", _cocos2d_ui_VideoPlayer_isFullScreenEnabled, _cocos2d_ui_VideoPlayer_setFullScreenEnabled);
+    oluacls_prop(L, "keepAspectRatioEnabled", _cocos2d_ui_VideoPlayer_isKeepAspectRatioEnabled, _cocos2d_ui_VideoPlayer_setKeepAspectRatioEnabled);
+    oluacls_prop(L, "looping", _cocos2d_ui_VideoPlayer_isLooping, _cocos2d_ui_VideoPlayer_setLooping);
+    oluacls_prop(L, "playing", _cocos2d_ui_VideoPlayer_isPlaying, nullptr);
+    oluacls_prop(L, "url", _cocos2d_ui_VideoPlayer_getURL, _cocos2d_ui_VideoPlayer_setURL);
+    oluacls_prop(L, "userInputEnabled", _cocos2d_ui_VideoPlayer_isUserInputEnabled, _cocos2d_ui_VideoPlayer_setUserInputEnabled);
 
-    olua_registerluatype<cocos2d::experimental::ui::VideoPlayer>(L, "ccui.VideoPlayer");
+    olua_registerluatype<cocos2d::ui::VideoPlayer>(L, "ccui.VideoPlayer");
 
     return 1;
 }
@@ -8839,8 +8818,8 @@ static int _cocos2d_ui_ScrollView_getScrollBarOpacity(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
 
-    // GLubyte getScrollBarOpacity()
-    GLubyte ret = (GLubyte)self->getScrollBarOpacity();
+    // uint8_t getScrollBarOpacity()
+    uint8_t ret = (uint8_t)self->getScrollBarOpacity();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -9663,8 +9642,8 @@ static int _cocos2d_ui_ScrollView_setScrollBarOpacity(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccui.ScrollView");
     olua_check_uint(L, 2, &arg1);
 
-    // void setScrollBarOpacity(GLubyte opacity)
-    self->setScrollBarOpacity((GLubyte)arg1);
+    // void setScrollBarOpacity(uint8_t opacity)
+    self->setScrollBarOpacity((uint8_t)arg1);
 
     olua_endinvoke(L);
 
@@ -11535,8 +11514,8 @@ static int _cocos2d_ui_PageView_getIndicatorIndexNodesOpacity(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.PageView");
 
-    // GLubyte getIndicatorIndexNodesOpacity()
-    GLubyte ret = (GLubyte)self->getIndicatorIndexNodesOpacity();
+    // uint8_t getIndicatorIndexNodesOpacity()
+    uint8_t ret = (uint8_t)self->getIndicatorIndexNodesOpacity();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -11620,8 +11599,8 @@ static int _cocos2d_ui_PageView_getIndicatorSelectedIndexOpacity(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "ccui.PageView");
 
-    // GLubyte getIndicatorSelectedIndexOpacity()
-    GLubyte ret = (GLubyte)self->getIndicatorSelectedIndexOpacity();
+    // uint8_t getIndicatorSelectedIndexOpacity()
+    uint8_t ret = (uint8_t)self->getIndicatorSelectedIndexOpacity();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
     olua_endinvoke(L);
@@ -11951,8 +11930,8 @@ static int _cocos2d_ui_PageView_setIndicatorIndexNodesOpacity(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccui.PageView");
     olua_check_uint(L, 2, &arg1);
 
-    // void setIndicatorIndexNodesOpacity(GLubyte opacity)
-    self->setIndicatorIndexNodesOpacity((GLubyte)arg1);
+    // void setIndicatorIndexNodesOpacity(uint8_t opacity)
+    self->setIndicatorIndexNodesOpacity((uint8_t)arg1);
 
     olua_endinvoke(L);
 
@@ -12102,8 +12081,8 @@ static int _cocos2d_ui_PageView_setIndicatorSelectedIndexOpacity(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "ccui.PageView");
     olua_check_uint(L, 2, &arg1);
 
-    // void setIndicatorSelectedIndexOpacity(GLubyte opacity)
-    self->setIndicatorSelectedIndexOpacity((GLubyte)arg1);
+    // void setIndicatorSelectedIndexOpacity(uint8_t opacity)
+    self->setIndicatorSelectedIndexOpacity((uint8_t)arg1);
 
     olua_endinvoke(L);
 
@@ -12240,8 +12219,8 @@ static int _cocos2d_ui_RichElement_init(lua_State *L)
     manual_olua_check_cocos2d_Color3B(L, 3, &arg2);
     olua_check_uint(L, 4, &arg3);
 
-    // bool init(int tag, const cocos2d::Color3B &color, GLubyte opacity)
-    bool ret = (bool)self->init((int)arg1, arg2, (GLubyte)arg3);
+    // bool init(int tag, const cocos2d::Color3B &color, uint8_t opacity)
+    bool ret = (bool)self->init((int)arg1, arg2, (uint8_t)arg3);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -12341,8 +12320,8 @@ static int _cocos2d_ui_RichElementText_create1(lua_State *L)
     olua_check_int(L, 13, &arg13);
     manual_olua_check_cocos2d_Color3B(L, 14, &arg14);
 
-    // static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
-    cocos2d::ui::RichElementText *ret = (cocos2d::ui::RichElementText *)cocos2d::ui::RichElementText::create((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8, arg9, (int)arg10, arg11, arg12, (int)arg13, arg14);
+    // static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
+    cocos2d::ui::RichElementText *ret = (cocos2d::ui::RichElementText *)cocos2d::ui::RichElementText::create((int)arg1, arg2, (uint8_t)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8, arg9, (int)arg10, arg11, arg12, (int)arg13, arg14);
     int num_ret = olua_push_cppobj(L, ret, "ccui.RichElementText");
 
     olua_endinvoke(L);
@@ -12368,8 +12347,8 @@ static int _cocos2d_ui_RichElementText_create2(lua_State *L)
     olua_check_std_string(L, 5, &arg5);
     olua_check_number(L, 6, &arg6);
 
-    // static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
-    cocos2d::ui::RichElementText *ret = (cocos2d::ui::RichElementText *)cocos2d::ui::RichElementText::create((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (float)arg6);
+    // static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
+    cocos2d::ui::RichElementText *ret = (cocos2d::ui::RichElementText *)cocos2d::ui::RichElementText::create((int)arg1, arg2, (uint8_t)arg3, arg4, arg5, (float)arg6);
     int num_ret = olua_push_cppobj(L, ret, "ccui.RichElementText");
 
     olua_endinvoke(L);
@@ -12397,8 +12376,8 @@ static int _cocos2d_ui_RichElementText_create3(lua_State *L)
     olua_check_number(L, 6, &arg6);
     olua_check_uint(L, 7, &arg7);
 
-    // static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
-    cocos2d::ui::RichElementText *ret = (cocos2d::ui::RichElementText *)cocos2d::ui::RichElementText::create((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7);
+    // static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
+    cocos2d::ui::RichElementText *ret = (cocos2d::ui::RichElementText *)cocos2d::ui::RichElementText::create((int)arg1, arg2, (uint8_t)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7);
     int num_ret = olua_push_cppobj(L, ret, "ccui.RichElementText");
 
     olua_endinvoke(L);
@@ -12428,8 +12407,8 @@ static int _cocos2d_ui_RichElementText_create4(lua_State *L)
     olua_check_uint(L, 7, &arg7);
     olua_check_std_string(L, 8, &arg8);
 
-    // static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
-    cocos2d::ui::RichElementText *ret = (cocos2d::ui::RichElementText *)cocos2d::ui::RichElementText::create((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8);
+    // static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
+    cocos2d::ui::RichElementText *ret = (cocos2d::ui::RichElementText *)cocos2d::ui::RichElementText::create((int)arg1, arg2, (uint8_t)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8);
     int num_ret = olua_push_cppobj(L, ret, "ccui.RichElementText");
 
     olua_endinvoke(L);
@@ -12461,8 +12440,8 @@ static int _cocos2d_ui_RichElementText_create5(lua_State *L)
     olua_check_std_string(L, 8, &arg8);
     manual_olua_check_cocos2d_Color3B(L, 9, &arg9);
 
-    // static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
-    cocos2d::ui::RichElementText *ret = (cocos2d::ui::RichElementText *)cocos2d::ui::RichElementText::create((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8, arg9);
+    // static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
+    cocos2d::ui::RichElementText *ret = (cocos2d::ui::RichElementText *)cocos2d::ui::RichElementText::create((int)arg1, arg2, (uint8_t)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8, arg9);
     int num_ret = olua_push_cppobj(L, ret, "ccui.RichElementText");
 
     olua_endinvoke(L);
@@ -12496,8 +12475,8 @@ static int _cocos2d_ui_RichElementText_create6(lua_State *L)
     manual_olua_check_cocos2d_Color3B(L, 9, &arg9);
     olua_check_int(L, 10, &arg10);
 
-    // static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
-    cocos2d::ui::RichElementText *ret = (cocos2d::ui::RichElementText *)cocos2d::ui::RichElementText::create((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8, arg9, (int)arg10);
+    // static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
+    cocos2d::ui::RichElementText *ret = (cocos2d::ui::RichElementText *)cocos2d::ui::RichElementText::create((int)arg1, arg2, (uint8_t)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8, arg9, (int)arg10);
     int num_ret = olua_push_cppobj(L, ret, "ccui.RichElementText");
 
     olua_endinvoke(L);
@@ -12533,8 +12512,8 @@ static int _cocos2d_ui_RichElementText_create7(lua_State *L)
     olua_check_int(L, 10, &arg10);
     manual_olua_check_cocos2d_Color3B(L, 11, &arg11);
 
-    // static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
-    cocos2d::ui::RichElementText *ret = (cocos2d::ui::RichElementText *)cocos2d::ui::RichElementText::create((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8, arg9, (int)arg10, arg11);
+    // static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
+    cocos2d::ui::RichElementText *ret = (cocos2d::ui::RichElementText *)cocos2d::ui::RichElementText::create((int)arg1, arg2, (uint8_t)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8, arg9, (int)arg10, arg11);
     int num_ret = olua_push_cppobj(L, ret, "ccui.RichElementText");
 
     olua_endinvoke(L);
@@ -12572,8 +12551,8 @@ static int _cocos2d_ui_RichElementText_create8(lua_State *L)
     manual_olua_check_cocos2d_Color3B(L, 11, &arg11);
     auto_olua_check_cocos2d_Size(L, 12, &arg12);
 
-    // static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
-    cocos2d::ui::RichElementText *ret = (cocos2d::ui::RichElementText *)cocos2d::ui::RichElementText::create((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8, arg9, (int)arg10, arg11, arg12);
+    // static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
+    cocos2d::ui::RichElementText *ret = (cocos2d::ui::RichElementText *)cocos2d::ui::RichElementText::create((int)arg1, arg2, (uint8_t)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8, arg9, (int)arg10, arg11, arg12);
     int num_ret = olua_push_cppobj(L, ret, "ccui.RichElementText");
 
     olua_endinvoke(L);
@@ -12613,8 +12592,8 @@ static int _cocos2d_ui_RichElementText_create9(lua_State *L)
     auto_olua_check_cocos2d_Size(L, 12, &arg12);
     olua_check_int(L, 13, &arg13);
 
-    // static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
-    cocos2d::ui::RichElementText *ret = (cocos2d::ui::RichElementText *)cocos2d::ui::RichElementText::create((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8, arg9, (int)arg10, arg11, arg12, (int)arg13);
+    // static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
+    cocos2d::ui::RichElementText *ret = (cocos2d::ui::RichElementText *)cocos2d::ui::RichElementText::create((int)arg1, arg2, (uint8_t)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8, arg9, (int)arg10, arg11, arg12, (int)arg13);
     int num_ret = olua_push_cppobj(L, ret, "ccui.RichElementText");
 
     olua_endinvoke(L);
@@ -12628,63 +12607,63 @@ static int _cocos2d_ui_RichElementText_create(lua_State *L)
 
     if (num_args == 6) {
         // if ((olua_is_int(L, 1)) && (manual_olua_is_cocos2d_Color3B(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_number(L, 6))) {
-            // static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
+            // static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
             return _cocos2d_ui_RichElementText_create2(L);
         // }
     }
 
     if (num_args == 7) {
         // if ((olua_is_int(L, 1)) && (manual_olua_is_cocos2d_Color3B(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_number(L, 6)) && (olua_is_uint(L, 7))) {
-            // static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
+            // static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
             return _cocos2d_ui_RichElementText_create3(L);
         // }
     }
 
     if (num_args == 8) {
         // if ((olua_is_int(L, 1)) && (manual_olua_is_cocos2d_Color3B(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_number(L, 6)) && (olua_is_uint(L, 7)) && (olua_is_std_string(L, 8))) {
-            // static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
+            // static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
             return _cocos2d_ui_RichElementText_create4(L);
         // }
     }
 
     if (num_args == 9) {
         // if ((olua_is_int(L, 1)) && (manual_olua_is_cocos2d_Color3B(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_number(L, 6)) && (olua_is_uint(L, 7)) && (olua_is_std_string(L, 8)) && (manual_olua_is_cocos2d_Color3B(L, 9))) {
-            // static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
+            // static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
             return _cocos2d_ui_RichElementText_create5(L);
         // }
     }
 
     if (num_args == 10) {
         // if ((olua_is_int(L, 1)) && (manual_olua_is_cocos2d_Color3B(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_number(L, 6)) && (olua_is_uint(L, 7)) && (olua_is_std_string(L, 8)) && (manual_olua_is_cocos2d_Color3B(L, 9)) && (olua_is_int(L, 10))) {
-            // static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
+            // static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
             return _cocos2d_ui_RichElementText_create6(L);
         // }
     }
 
     if (num_args == 11) {
         // if ((olua_is_int(L, 1)) && (manual_olua_is_cocos2d_Color3B(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_number(L, 6)) && (olua_is_uint(L, 7)) && (olua_is_std_string(L, 8)) && (manual_olua_is_cocos2d_Color3B(L, 9)) && (olua_is_int(L, 10)) && (manual_olua_is_cocos2d_Color3B(L, 11))) {
-            // static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
+            // static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
             return _cocos2d_ui_RichElementText_create7(L);
         // }
     }
 
     if (num_args == 12) {
         // if ((olua_is_int(L, 1)) && (manual_olua_is_cocos2d_Color3B(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_number(L, 6)) && (olua_is_uint(L, 7)) && (olua_is_std_string(L, 8)) && (manual_olua_is_cocos2d_Color3B(L, 9)) && (olua_is_int(L, 10)) && (manual_olua_is_cocos2d_Color3B(L, 11)) && (auto_olua_is_cocos2d_Size(L, 12))) {
-            // static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
+            // static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
             return _cocos2d_ui_RichElementText_create8(L);
         // }
     }
 
     if (num_args == 13) {
         // if ((olua_is_int(L, 1)) && (manual_olua_is_cocos2d_Color3B(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_number(L, 6)) && (olua_is_uint(L, 7)) && (olua_is_std_string(L, 8)) && (manual_olua_is_cocos2d_Color3B(L, 9)) && (olua_is_int(L, 10)) && (manual_olua_is_cocos2d_Color3B(L, 11)) && (auto_olua_is_cocos2d_Size(L, 12)) && (olua_is_int(L, 13))) {
-            // static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
+            // static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
             return _cocos2d_ui_RichElementText_create9(L);
         // }
     }
 
     if (num_args == 14) {
         // if ((olua_is_int(L, 1)) && (manual_olua_is_cocos2d_Color3B(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_number(L, 6)) && (olua_is_uint(L, 7)) && (olua_is_std_string(L, 8)) && (manual_olua_is_cocos2d_Color3B(L, 9)) && (olua_is_int(L, 10)) && (manual_olua_is_cocos2d_Color3B(L, 11)) && (auto_olua_is_cocos2d_Size(L, 12)) && (olua_is_int(L, 13)) && (manual_olua_is_cocos2d_Color3B(L, 14))) {
-            // static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
+            // static cocos2d::ui::RichElementText *create(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, @optional uint32_t flags, @optional const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
             return _cocos2d_ui_RichElementText_create1(L);
         // }
     }
@@ -12730,8 +12709,8 @@ static int _cocos2d_ui_RichElementText_init1(lua_State *L)
     olua_check_int(L, 14, &arg13);
     manual_olua_check_cocos2d_Color3B(L, 15, &arg14);
 
-    // bool init(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &text, const std::string &fontName, float fontSize, uint32_t flags, const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
-    bool ret = (bool)self->init((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8, arg9, (int)arg10, arg11, arg12, (int)arg13, arg14);
+    // bool init(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, uint32_t flags, const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
+    bool ret = (bool)self->init((int)arg1, arg2, (uint8_t)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8, arg9, (int)arg10, arg11, arg12, (int)arg13, arg14);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -12763,8 +12742,8 @@ static int _cocos2d_ui_RichElementText_init2(lua_State *L)
     olua_check_uint(L, 8, &arg7);
     olua_check_std_string(L, 9, &arg8);
 
-    // bool init(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &text, const std::string &fontName, float fontSize, uint32_t flags, const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
-    bool ret = (bool)self->init((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8);
+    // bool init(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, uint32_t flags, const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
+    bool ret = (bool)self->init((int)arg1, arg2, (uint8_t)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -12798,8 +12777,8 @@ static int _cocos2d_ui_RichElementText_init3(lua_State *L)
     olua_check_std_string(L, 9, &arg8);
     manual_olua_check_cocos2d_Color3B(L, 10, &arg9);
 
-    // bool init(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &text, const std::string &fontName, float fontSize, uint32_t flags, const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
-    bool ret = (bool)self->init((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8, arg9);
+    // bool init(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, uint32_t flags, const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
+    bool ret = (bool)self->init((int)arg1, arg2, (uint8_t)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8, arg9);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -12835,8 +12814,8 @@ static int _cocos2d_ui_RichElementText_init4(lua_State *L)
     manual_olua_check_cocos2d_Color3B(L, 10, &arg9);
     olua_check_int(L, 11, &arg10);
 
-    // bool init(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &text, const std::string &fontName, float fontSize, uint32_t flags, const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
-    bool ret = (bool)self->init((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8, arg9, (int)arg10);
+    // bool init(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, uint32_t flags, const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
+    bool ret = (bool)self->init((int)arg1, arg2, (uint8_t)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8, arg9, (int)arg10);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -12874,8 +12853,8 @@ static int _cocos2d_ui_RichElementText_init5(lua_State *L)
     olua_check_int(L, 11, &arg10);
     manual_olua_check_cocos2d_Color3B(L, 12, &arg11);
 
-    // bool init(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &text, const std::string &fontName, float fontSize, uint32_t flags, const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
-    bool ret = (bool)self->init((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8, arg9, (int)arg10, arg11);
+    // bool init(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, uint32_t flags, const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
+    bool ret = (bool)self->init((int)arg1, arg2, (uint8_t)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8, arg9, (int)arg10, arg11);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -12915,8 +12894,8 @@ static int _cocos2d_ui_RichElementText_init6(lua_State *L)
     manual_olua_check_cocos2d_Color3B(L, 12, &arg11);
     auto_olua_check_cocos2d_Size(L, 13, &arg12);
 
-    // bool init(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &text, const std::string &fontName, float fontSize, uint32_t flags, const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
-    bool ret = (bool)self->init((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8, arg9, (int)arg10, arg11, arg12);
+    // bool init(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, uint32_t flags, const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
+    bool ret = (bool)self->init((int)arg1, arg2, (uint8_t)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8, arg9, (int)arg10, arg11, arg12);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -12958,8 +12937,8 @@ static int _cocos2d_ui_RichElementText_init7(lua_State *L)
     auto_olua_check_cocos2d_Size(L, 13, &arg12);
     olua_check_int(L, 14, &arg13);
 
-    // bool init(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &text, const std::string &fontName, float fontSize, uint32_t flags, const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
-    bool ret = (bool)self->init((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8, arg9, (int)arg10, arg11, arg12, (int)arg13);
+    // bool init(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, uint32_t flags, const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
+    bool ret = (bool)self->init((int)arg1, arg2, (uint8_t)arg3, arg4, arg5, (float)arg6, (uint32_t)arg7, arg8, arg9, (int)arg10, arg11, arg12, (int)arg13);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -12973,49 +12952,49 @@ static int _cocos2d_ui_RichElementText_init(lua_State *L)
 
     if (num_args == 8) {
         // if ((olua_is_int(L, 2)) && (manual_olua_is_cocos2d_Color3B(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_std_string(L, 6)) && (olua_is_number(L, 7)) && (olua_is_uint(L, 8)) && (olua_is_std_string(L, 9))) {
-            // bool init(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &text, const std::string &fontName, float fontSize, uint32_t flags, const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
+            // bool init(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, uint32_t flags, const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
             return _cocos2d_ui_RichElementText_init2(L);
         // }
     }
 
     if (num_args == 9) {
         // if ((olua_is_int(L, 2)) && (manual_olua_is_cocos2d_Color3B(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_std_string(L, 6)) && (olua_is_number(L, 7)) && (olua_is_uint(L, 8)) && (olua_is_std_string(L, 9)) && (manual_olua_is_cocos2d_Color3B(L, 10))) {
-            // bool init(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &text, const std::string &fontName, float fontSize, uint32_t flags, const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
+            // bool init(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, uint32_t flags, const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
             return _cocos2d_ui_RichElementText_init3(L);
         // }
     }
 
     if (num_args == 10) {
         // if ((olua_is_int(L, 2)) && (manual_olua_is_cocos2d_Color3B(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_std_string(L, 6)) && (olua_is_number(L, 7)) && (olua_is_uint(L, 8)) && (olua_is_std_string(L, 9)) && (manual_olua_is_cocos2d_Color3B(L, 10)) && (olua_is_int(L, 11))) {
-            // bool init(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &text, const std::string &fontName, float fontSize, uint32_t flags, const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
+            // bool init(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, uint32_t flags, const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
             return _cocos2d_ui_RichElementText_init4(L);
         // }
     }
 
     if (num_args == 11) {
         // if ((olua_is_int(L, 2)) && (manual_olua_is_cocos2d_Color3B(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_std_string(L, 6)) && (olua_is_number(L, 7)) && (olua_is_uint(L, 8)) && (olua_is_std_string(L, 9)) && (manual_olua_is_cocos2d_Color3B(L, 10)) && (olua_is_int(L, 11)) && (manual_olua_is_cocos2d_Color3B(L, 12))) {
-            // bool init(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &text, const std::string &fontName, float fontSize, uint32_t flags, const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
+            // bool init(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, uint32_t flags, const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
             return _cocos2d_ui_RichElementText_init5(L);
         // }
     }
 
     if (num_args == 12) {
         // if ((olua_is_int(L, 2)) && (manual_olua_is_cocos2d_Color3B(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_std_string(L, 6)) && (olua_is_number(L, 7)) && (olua_is_uint(L, 8)) && (olua_is_std_string(L, 9)) && (manual_olua_is_cocos2d_Color3B(L, 10)) && (olua_is_int(L, 11)) && (manual_olua_is_cocos2d_Color3B(L, 12)) && (auto_olua_is_cocos2d_Size(L, 13))) {
-            // bool init(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &text, const std::string &fontName, float fontSize, uint32_t flags, const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
+            // bool init(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, uint32_t flags, const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
             return _cocos2d_ui_RichElementText_init6(L);
         // }
     }
 
     if (num_args == 13) {
         // if ((olua_is_int(L, 2)) && (manual_olua_is_cocos2d_Color3B(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_std_string(L, 6)) && (olua_is_number(L, 7)) && (olua_is_uint(L, 8)) && (olua_is_std_string(L, 9)) && (manual_olua_is_cocos2d_Color3B(L, 10)) && (olua_is_int(L, 11)) && (manual_olua_is_cocos2d_Color3B(L, 12)) && (auto_olua_is_cocos2d_Size(L, 13)) && (olua_is_int(L, 14))) {
-            // bool init(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &text, const std::string &fontName, float fontSize, uint32_t flags, const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
+            // bool init(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, uint32_t flags, const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
             return _cocos2d_ui_RichElementText_init7(L);
         // }
     }
 
     if (num_args == 14) {
         // if ((olua_is_int(L, 2)) && (manual_olua_is_cocos2d_Color3B(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_std_string(L, 6)) && (olua_is_number(L, 7)) && (olua_is_uint(L, 8)) && (olua_is_std_string(L, 9)) && (manual_olua_is_cocos2d_Color3B(L, 10)) && (olua_is_int(L, 11)) && (manual_olua_is_cocos2d_Color3B(L, 12)) && (auto_olua_is_cocos2d_Size(L, 13)) && (olua_is_int(L, 14)) && (manual_olua_is_cocos2d_Color3B(L, 15))) {
-            // bool init(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &text, const std::string &fontName, float fontSize, uint32_t flags, const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
+            // bool init(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &text, const std::string &fontName, float fontSize, uint32_t flags, const std::string &url, @optional const cocos2d::Color3B &outlineColor, @optional int outlineSize, @optional const cocos2d::Color3B &shadowColor, @optional const cocos2d::Size &shadowOffset, @optional int shadowBlurRadius, @optional const cocos2d::Color3B &glowColor)
             return _cocos2d_ui_RichElementText_init1(L);
         // }
     }
@@ -13082,8 +13061,8 @@ static int _cocos2d_ui_RichElementImage_create1(lua_State *L)
     olua_check_std_string(L, 5, &arg5);
     olua_check_uint(L, 6, &arg6);
 
-    // static cocos2d::ui::RichElementImage *create(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &filePath, @optional const std::string &url, @optional Widget::TextureResType texType)
-    cocos2d::ui::RichElementImage *ret = (cocos2d::ui::RichElementImage *)cocos2d::ui::RichElementImage::create((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (cocos2d::ui::Widget::TextureResType)arg6);
+    // static cocos2d::ui::RichElementImage *create(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &filePath, @optional const std::string &url, @optional Widget::TextureResType texType)
+    cocos2d::ui::RichElementImage *ret = (cocos2d::ui::RichElementImage *)cocos2d::ui::RichElementImage::create((int)arg1, arg2, (uint8_t)arg3, arg4, arg5, (cocos2d::ui::Widget::TextureResType)arg6);
     int num_ret = olua_push_cppobj(L, ret, "ccui.RichElementImage");
 
     olua_endinvoke(L);
@@ -13105,8 +13084,8 @@ static int _cocos2d_ui_RichElementImage_create2(lua_State *L)
     olua_check_uint(L, 3, &arg3);
     olua_check_std_string(L, 4, &arg4);
 
-    // static cocos2d::ui::RichElementImage *create(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &filePath, @optional const std::string &url, @optional Widget::TextureResType texType)
-    cocos2d::ui::RichElementImage *ret = (cocos2d::ui::RichElementImage *)cocos2d::ui::RichElementImage::create((int)arg1, arg2, (GLubyte)arg3, arg4);
+    // static cocos2d::ui::RichElementImage *create(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &filePath, @optional const std::string &url, @optional Widget::TextureResType texType)
+    cocos2d::ui::RichElementImage *ret = (cocos2d::ui::RichElementImage *)cocos2d::ui::RichElementImage::create((int)arg1, arg2, (uint8_t)arg3, arg4);
     int num_ret = olua_push_cppobj(L, ret, "ccui.RichElementImage");
 
     olua_endinvoke(L);
@@ -13130,8 +13109,8 @@ static int _cocos2d_ui_RichElementImage_create3(lua_State *L)
     olua_check_std_string(L, 4, &arg4);
     olua_check_std_string(L, 5, &arg5);
 
-    // static cocos2d::ui::RichElementImage *create(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &filePath, @optional const std::string &url, @optional Widget::TextureResType texType)
-    cocos2d::ui::RichElementImage *ret = (cocos2d::ui::RichElementImage *)cocos2d::ui::RichElementImage::create((int)arg1, arg2, (GLubyte)arg3, arg4, arg5);
+    // static cocos2d::ui::RichElementImage *create(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &filePath, @optional const std::string &url, @optional Widget::TextureResType texType)
+    cocos2d::ui::RichElementImage *ret = (cocos2d::ui::RichElementImage *)cocos2d::ui::RichElementImage::create((int)arg1, arg2, (uint8_t)arg3, arg4, arg5);
     int num_ret = olua_push_cppobj(L, ret, "ccui.RichElementImage");
 
     olua_endinvoke(L);
@@ -13145,21 +13124,21 @@ static int _cocos2d_ui_RichElementImage_create(lua_State *L)
 
     if (num_args == 4) {
         // if ((olua_is_int(L, 1)) && (manual_olua_is_cocos2d_Color3B(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_std_string(L, 4))) {
-            // static cocos2d::ui::RichElementImage *create(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &filePath, @optional const std::string &url, @optional Widget::TextureResType texType)
+            // static cocos2d::ui::RichElementImage *create(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &filePath, @optional const std::string &url, @optional Widget::TextureResType texType)
             return _cocos2d_ui_RichElementImage_create2(L);
         // }
     }
 
     if (num_args == 5) {
         // if ((olua_is_int(L, 1)) && (manual_olua_is_cocos2d_Color3B(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5))) {
-            // static cocos2d::ui::RichElementImage *create(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &filePath, @optional const std::string &url, @optional Widget::TextureResType texType)
+            // static cocos2d::ui::RichElementImage *create(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &filePath, @optional const std::string &url, @optional Widget::TextureResType texType)
             return _cocos2d_ui_RichElementImage_create3(L);
         // }
     }
 
     if (num_args == 6) {
         // if ((olua_is_int(L, 1)) && (manual_olua_is_cocos2d_Color3B(L, 2)) && (olua_is_uint(L, 3)) && (olua_is_std_string(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_uint(L, 6))) {
-            // static cocos2d::ui::RichElementImage *create(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &filePath, @optional const std::string &url, @optional Widget::TextureResType texType)
+            // static cocos2d::ui::RichElementImage *create(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &filePath, @optional const std::string &url, @optional Widget::TextureResType texType)
             return _cocos2d_ui_RichElementImage_create1(L);
         // }
     }
@@ -13189,8 +13168,8 @@ static int _cocos2d_ui_RichElementImage_init1(lua_State *L)
     olua_check_std_string(L, 6, &arg5);
     olua_check_uint(L, 7, &arg6);
 
-    // bool init(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &filePath, @optional const std::string &url, @optional Widget::TextureResType texType)
-    bool ret = (bool)self->init((int)arg1, arg2, (GLubyte)arg3, arg4, arg5, (cocos2d::ui::Widget::TextureResType)arg6);
+    // bool init(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &filePath, @optional const std::string &url, @optional Widget::TextureResType texType)
+    bool ret = (bool)self->init((int)arg1, arg2, (uint8_t)arg3, arg4, arg5, (cocos2d::ui::Widget::TextureResType)arg6);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -13214,8 +13193,8 @@ static int _cocos2d_ui_RichElementImage_init2(lua_State *L)
     olua_check_uint(L, 4, &arg3);
     olua_check_std_string(L, 5, &arg4);
 
-    // bool init(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &filePath, @optional const std::string &url, @optional Widget::TextureResType texType)
-    bool ret = (bool)self->init((int)arg1, arg2, (GLubyte)arg3, arg4);
+    // bool init(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &filePath, @optional const std::string &url, @optional Widget::TextureResType texType)
+    bool ret = (bool)self->init((int)arg1, arg2, (uint8_t)arg3, arg4);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -13241,8 +13220,8 @@ static int _cocos2d_ui_RichElementImage_init3(lua_State *L)
     olua_check_std_string(L, 5, &arg4);
     olua_check_std_string(L, 6, &arg5);
 
-    // bool init(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &filePath, @optional const std::string &url, @optional Widget::TextureResType texType)
-    bool ret = (bool)self->init((int)arg1, arg2, (GLubyte)arg3, arg4, arg5);
+    // bool init(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &filePath, @optional const std::string &url, @optional Widget::TextureResType texType)
+    bool ret = (bool)self->init((int)arg1, arg2, (uint8_t)arg3, arg4, arg5);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -13256,21 +13235,21 @@ static int _cocos2d_ui_RichElementImage_init(lua_State *L)
 
     if (num_args == 4) {
         // if ((olua_is_int(L, 2)) && (manual_olua_is_cocos2d_Color3B(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_std_string(L, 5))) {
-            // bool init(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &filePath, @optional const std::string &url, @optional Widget::TextureResType texType)
+            // bool init(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &filePath, @optional const std::string &url, @optional Widget::TextureResType texType)
             return _cocos2d_ui_RichElementImage_init2(L);
         // }
     }
 
     if (num_args == 5) {
         // if ((olua_is_int(L, 2)) && (manual_olua_is_cocos2d_Color3B(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_std_string(L, 6))) {
-            // bool init(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &filePath, @optional const std::string &url, @optional Widget::TextureResType texType)
+            // bool init(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &filePath, @optional const std::string &url, @optional Widget::TextureResType texType)
             return _cocos2d_ui_RichElementImage_init3(L);
         // }
     }
 
     if (num_args == 6) {
         // if ((olua_is_int(L, 2)) && (manual_olua_is_cocos2d_Color3B(L, 3)) && (olua_is_uint(L, 4)) && (olua_is_std_string(L, 5)) && (olua_is_std_string(L, 6)) && (olua_is_uint(L, 7))) {
-            // bool init(int tag, const cocos2d::Color3B &color, GLubyte opacity, const std::string &filePath, @optional const std::string &url, @optional Widget::TextureResType texType)
+            // bool init(int tag, const cocos2d::Color3B &color, uint8_t opacity, const std::string &filePath, @optional const std::string &url, @optional Widget::TextureResType texType)
             return _cocos2d_ui_RichElementImage_init1(L);
         // }
     }
@@ -13390,8 +13369,8 @@ static int _cocos2d_ui_RichElementCustomNode_create(lua_State *L)
     olua_check_uint(L, 3, &arg3);
     olua_check_cppobj(L, 4, (void **)&arg4, "cc.Node");
 
-    // static cocos2d::ui::RichElementCustomNode *create(int tag, const cocos2d::Color3B &color, GLubyte opacity, cocos2d::Node *customNode)
-    cocos2d::ui::RichElementCustomNode *ret = (cocos2d::ui::RichElementCustomNode *)cocos2d::ui::RichElementCustomNode::create((int)arg1, arg2, (GLubyte)arg3, arg4);
+    // static cocos2d::ui::RichElementCustomNode *create(int tag, const cocos2d::Color3B &color, uint8_t opacity, cocos2d::Node *customNode)
+    cocos2d::ui::RichElementCustomNode *ret = (cocos2d::ui::RichElementCustomNode *)cocos2d::ui::RichElementCustomNode::create((int)arg1, arg2, (uint8_t)arg3, arg4);
     int num_ret = olua_push_cppobj(L, ret, "ccui.RichElementCustomNode");
 
     olua_endinvoke(L);
@@ -13415,8 +13394,8 @@ static int _cocos2d_ui_RichElementCustomNode_init(lua_State *L)
     olua_check_uint(L, 4, &arg3);
     olua_check_cppobj(L, 5, (void **)&arg4, "cc.Node");
 
-    // bool init(int tag, const cocos2d::Color3B &color, GLubyte opacity, cocos2d::Node *customNode)
-    bool ret = (bool)self->init((int)arg1, arg2, (GLubyte)arg3, arg4);
+    // bool init(int tag, const cocos2d::Color3B &color, uint8_t opacity, cocos2d::Node *customNode)
+    bool ret = (bool)self->init((int)arg1, arg2, (uint8_t)arg3, arg4);
     int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
@@ -13475,8 +13454,8 @@ static int _cocos2d_ui_RichElementNewLine_create(lua_State *L)
     manual_olua_check_cocos2d_Color3B(L, 2, &arg2);
     olua_check_uint(L, 3, &arg3);
 
-    // static cocos2d::ui::RichElementNewLine *create(int tag, const cocos2d::Color3B &color, GLubyte opacity)
-    cocos2d::ui::RichElementNewLine *ret = (cocos2d::ui::RichElementNewLine *)cocos2d::ui::RichElementNewLine::create((int)arg1, arg2, (GLubyte)arg3);
+    // static cocos2d::ui::RichElementNewLine *create(int tag, const cocos2d::Color3B &color, uint8_t opacity)
+    cocos2d::ui::RichElementNewLine *ret = (cocos2d::ui::RichElementNewLine *)cocos2d::ui::RichElementNewLine::create((int)arg1, arg2, (uint8_t)arg3);
     int num_ret = olua_push_cppobj(L, ret, "ccui.RichElementNewLine");
 
     olua_endinvoke(L);
@@ -23938,17 +23917,17 @@ int luaopen_cocos2d_ui(lua_State *L)
     olua_require(L, "ccui.HBox", luaopen_cocos2d_ui_HBox);
     olua_require(L, "ccui.VBox", luaopen_cocos2d_ui_VBox);
     olua_require(L, "ccui.RelativeBox", luaopen_cocos2d_ui_RelativeBox);
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN)
-    olua_require(L, "ccui.WebView", luaopen_cocos2d_experimental_ui_WebView);
+#ifdef CCLUA_HAVE_WEBVIEW
+    olua_require(L, "ccui.WebView", luaopen_cocos2d_ui_WebView);
 #endif
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN)
-    olua_require(L, "ccui.VideoPlayer.EventType", luaopen_cocos2d_experimental_ui_VideoPlayer_EventType);
+#ifdef CCLUA_HAVE_VIDEOPLAYER
+    olua_require(L, "ccui.VideoPlayer.EventType", luaopen_cocos2d_ui_VideoPlayer_EventType);
 #endif
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN)
-    olua_require(L, "ccui.VideoPlayer.StyleType", luaopen_cocos2d_experimental_ui_VideoPlayer_StyleType);
+#ifdef CCLUA_HAVE_VIDEOPLAYER
+    olua_require(L, "ccui.VideoPlayer.StyleType", luaopen_cocos2d_ui_VideoPlayer_StyleType);
 #endif
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN)
-    olua_require(L, "ccui.VideoPlayer", luaopen_cocos2d_experimental_ui_VideoPlayer);
+#ifdef CCLUA_HAVE_VIDEOPLAYER
+    olua_require(L, "ccui.VideoPlayer", luaopen_cocos2d_ui_VideoPlayer);
 #endif
     olua_require(L, "ccui.AbstractCheckButton", luaopen_cocos2d_ui_AbstractCheckButton);
     olua_require(L, "ccui.TabHeader.EventType", luaopen_cocos2d_ui_TabHeader_EventType);

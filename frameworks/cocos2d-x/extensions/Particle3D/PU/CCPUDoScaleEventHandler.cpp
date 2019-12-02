@@ -34,10 +34,10 @@ const PUDoScaleEventHandler::ScaleType PUDoScaleEventHandler::DEFAULT_SCALE_TYPE
 const float PUDoScaleEventHandler::DEFAULT_SCALE_FRACTION = 0.2f;
 
 //-----------------------------------------------------------------------
-PUDoScaleEventHandler::PUDoScaleEventHandler()
-: PUEventHandler()
-, _scaleFraction(DEFAULT_SCALE_FRACTION)
-, _scaleType(DEFAULT_SCALE_TYPE)
+PUDoScaleEventHandler::PUDoScaleEventHandler() : 
+    PUEventHandler(),
+    _scaleFraction(DEFAULT_SCALE_FRACTION),
+    _scaleType(DEFAULT_SCALE_TYPE)
 {
 }
 //-----------------------------------------------------------------------

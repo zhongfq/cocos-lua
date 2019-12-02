@@ -39,7 +39,7 @@ static cocos2d::Size applyPadding(const cocos2d::Size& sizeToCorrect) {
     return cocos2d::Size(sizeToCorrect.width - CC_EDIT_BOX_PADDING * 2, sizeToCorrect.height);
 }
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT || CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 #define PASSWORD_CHAR "*"
 #else
 #define PASSWORD_CHAR "\u25CF"
@@ -93,13 +93,13 @@ void EditBoxImplCommon::initInactiveLabels(const Size& size)
     const char* pDefaultFontName = this->getNativeDefaultFontName();
 
     _label = Label::create();
-    _label->setAnchorPoint(Vec2(0,1));
+    _label->setAnchorPoint(Vec2(0.0f,1.0f));
     _label->setOverflow(Label::Overflow::CLAMP);
     _label->setVisible(false);
     _editBox->addChild(_label, kLabelZOrder);
 
     _labelPlaceHolder = Label::create();
-    _labelPlaceHolder->setAnchorPoint(Vec2(0, 1.0f));
+    _labelPlaceHolder->setAnchorPoint(Vec2(0.0f, 1.0f));
     _labelPlaceHolder->setTextColor(Color4B::GRAY);
     _labelPlaceHolder->enableWrap(false);
     _editBox->addChild(_labelPlaceHolder, kLabelZOrder);
@@ -115,20 +115,20 @@ void EditBoxImplCommon::placeInactiveLabels(const Size& size)
     auto placeholderSize = _labelPlaceHolder->getContentSize();
 
     if(_editBoxInputMode == EditBox::InputMode::ANY){
-        _label->setPosition(Vec2(CC_EDIT_BOX_PADDING, size.height - CC_EDIT_BOX_PADDING));
+        _label->setPosition(Vec2((float)CC_EDIT_BOX_PADDING, size.height - CC_EDIT_BOX_PADDING));
         _label->setVerticalAlignment(TextVAlignment::TOP);
         _label->enableWrap(true);
 
-        _labelPlaceHolder->setPosition(Vec2(CC_EDIT_BOX_PADDING,
+        _labelPlaceHolder->setPosition(Vec2((float)CC_EDIT_BOX_PADDING,
                                             size.height - CC_EDIT_BOX_PADDING));
         _labelPlaceHolder->setVerticalAlignment(TextVAlignment::TOP);
     }
     else {
         _label->enableWrap(false);
-        _label->setPosition(Vec2(CC_EDIT_BOX_PADDING, size.height));
+        _label->setPosition(Vec2((float)CC_EDIT_BOX_PADDING, size.height));
         _label->setVerticalAlignment(TextVAlignment::CENTER);
 
-        _labelPlaceHolder->setPosition(Vec2(CC_EDIT_BOX_PADDING,
+        _labelPlaceHolder->setPosition(Vec2((float)CC_EDIT_BOX_PADDING,
                                             (size.height + placeholderSize.height) / 2));
         _labelPlaceHolder->setVerticalAlignment(TextVAlignment::CENTER);
     }
@@ -238,7 +238,7 @@ void EditBoxImplCommon::refreshInactiveText()
 
     refreshLabelAlignment();
     if (!_editingMode) {
-        if (_text.empty()) {
+        if (_text.size() == 0) {
             _label->setVisible(false);
             _labelPlaceHolder->setVisible(true);
         } else {
@@ -300,7 +300,7 @@ void EditBoxImplCommon::draw(Renderer* /*renderer*/, const Mat4& /*transform*/, 
     }
 }
 
-void EditBoxImplCommon::onEnter()
+void EditBoxImplCommon::onEnter(void)
 {
     const char* pText = getText();
     if (pText) {
@@ -361,19 +361,6 @@ void EditBoxImplCommon::editBoxEditingDidEnd(const std::string& text, EditBoxDel
     if (pDelegate != nullptr)
     {
         pDelegate->editBoxEditingDidEndWithAction(_editBox, action);
-#if defined(__GNUC__) && ((__GNUC__ >= 4) || ((__GNUC__ == 3) && (__GNUC_MINOR__ >= 1)))
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-#elif _MSC_VER >= 1400 //vs 2005 or higher
-#pragma warning (push)
-#pragma warning (disable: 4996)
-#endif
-        pDelegate->editBoxEditingDidEnd(_editBox);
-#if defined(__GNUC__) && ((__GNUC__ >= 4) || ((__GNUC__ == 3) && (__GNUC_MINOR__ >= 1)))
-#pragma GCC diagnostic warning "-Wdeprecated-declarations"
-#elif _MSC_VER >= 1400 //vs 2005 or higher
-#pragma warning (pop)
-#endif
-
         pDelegate->editBoxReturn(_editBox);
     }
 

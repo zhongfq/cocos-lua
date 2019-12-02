@@ -46,7 +46,7 @@ public:
     /**Height of the Size.*/
     float height;
 public:
-    /**Conversion from Size to Vec2.*/
+    /**Conversion from Vec2 to Size.*/
     operator Vec2() const
     {
         return Vec2(width, height);
@@ -63,9 +63,15 @@ public:
      */
     Size();
     Size(float width, float height);
+    Size(const Size& other);
     explicit Size(const Vec2& point);
     /**@}*/
 
+    /**
+     * @js NA
+     * @lua NA
+     */
+    Size& operator= (const Size& other);
     /**
      * @js NA
      * @lua NA
@@ -113,7 +119,7 @@ public:
     /**Low left point of rect.*/
     Vec2 origin;
     /**Width and height of the rect.*/
-    Size size;
+    Size  size;
 
 public:
     /**
@@ -131,6 +137,17 @@ public:
      * @js NA
      */
     Rect(const Vec2& pos, const Size& dimension);
+    /**
+    Copy constructor.
+     * @js NA
+     * @lua NA
+     */
+    Rect(const Rect& other);
+    /**
+     * @js NA
+     * @lua NA
+     */
+    Rect& operator= (const Rect& other);
     /**
     Set the x, y, width and height of Rect.
      * @js NA
@@ -173,7 +190,7 @@ public:
      */
     bool equals(const Rect& rect) const;
     /**
-    Check if the points is contained inclusively in the rect.
+    Check if the points is contained in the rect.
      * @js NA
      */
     bool containsPoint(const Vec2& point) const;

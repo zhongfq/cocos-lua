@@ -1,6 +1,6 @@
 # Cocos-lua
 
-cocos-lua以cocos2d-x 3.17.2的c++项目为基础，采用基于lua gc来管理c++对象的生命周期，提供更丰富cocos2d-x lua api，包括几乎除模版以外的所有lambda（schedule、scheduleOnce...）函数回调，能够极大减少在lua层使用c++对象的负担。
+cocos-lua以cocos2d-x v4的c++项目为基础，采用基于lua gc来管理c++对象的生命周期，提供更丰富cocos2d-x lua api，包括几乎除模版以外的所有lambda（schedule、scheduleOnce...）函数回调，能够极大减少在lua层使用c++对象的负担。
 
 ## 优势
 
@@ -49,107 +49,12 @@ cocos-lua在lua层屏蔽Ref的release和retain方法，改由lua gc管理，以�
 
 区别于传统lua ref机制，olua将lua函数回调存储在userdata的uservalue中，这样好处，是将函数的生命周期与对象绑定，并且不会出现传统lua ref机制中循环引用，导致对象不被回收。
 
-以下是自动导出的代码片断：
-
-```c++
-static int _cocos2d_EventListenerTouchAllAtOnce_set_onTouchesBegan(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    lua_settop(L, 2);
-
-    cocos2d::EventListenerTouchAllAtOnce *self = nullptr;
-    std::function<void(const std::vector<cocos2d::Touch *> &, cocos2d::Event *)> arg1;       /** onTouchesBegan */
-
-    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerTouchAllAtOnce");
-
-    if (olua_is_std_function(L, 2)) {
-        void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onTouchesBegan");
-        std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
-        arg1 = [callback_store_obj, func](const std::vector<cocos2d::Touch *> &arg1, cocos2d::Event *arg2) {
-            lua_State *L = olua_mainthread();
-            int top = lua_gettop(L);
-
-            size_t last = olua_push_objpool(L);
-            olua_enable_objpool(L);
-            olua_push_std_vector(L, arg1, "cc.Touch");
-            olua_push_cppobj(L, arg2, "cc.Event");
-            olua_disable_objpool(L);
-
-            olua_callback(L, callback_store_obj, func.c_str(), 2);
-
-            //pop stack value
-            olua_pop_objpool(L, last);
-
-            lua_settop(L, top);
-        };
-    } else {
-        void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onTouchesBegan");
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_ENDWITH);
-        arg1 = nullptr;
-    }
-
-    // std::function<void(@local const std::vector<Touch*>&, @local Event*)> onTouchesBegan = nullptr
-    self->onTouchesBegan = arg1;
-
-    olua_endinvoke(L);
-
-    return 0;
-}
-```
 ### 3. 回调函数生命周期
 
 将lua回调函数存储在uservalue会有一个问题，如果uservalue被回收，那么回调函数就丢失了。比如CallFunc中的回调，当调用完obj:runAction(sequence)之后，在action未全部完成而中途发生lua gc，那么这些userdata对象将被回收，这就导致与使用的预期不一致问题。为了解决这个问题，cocos-lua通过导出时注入代码的方式，引入了引用链的机制。
 
 + 将cocos2d::Director作用根对象，以__cocos2d_ref_chain__为键存储在LUA_REGISTRYINDEX表中。
 + 对能够存储回调的Node、Director、Action、Component、ActionManager、Schedule以及EventDispatcher等对象，在一些添加（addChild...）或移除（removeAllChildren...）方法中注入ref或unref代码。
-
-导出配置：
-```lua
-local Director = typeconf 'cocos2d::Director'
-Director.ATTR('getRunningScene', {RET = '@ref(map scenes)'})
-Director.ATTR('runWithScene', {ARG1 = '@ref(map scenes)'})
-Director.ATTR('pushScene', {ARG1 = '@ref(map scenes)'})
-Director.ATTR('replaceScene', {RET = '@unref(cmp scenes)', ARG1 = '@ref(map scenes)'})
-Director.ATTR('popScene', {RET = '@unref(cmp scenes)'})
-Director.ATTR('popToRootScene', {RET = '@unref(cmp scenes)'})
-Director.ATTR('popToSceneStackLevel', {RET = '@unref(cmp scenes)'})
-```
-生成代码：
-```c++
-static int _cocos2d_Director_getRunningScene(lua_State *L)
-{
-    olua_startinvoke(L);
-    lua_settop(L, 1);
-    cocos2d::Director *self = nullptr;
-    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
-    // @ref(map scenes) Scene* getRunningScene()
-    cocos2d::Scene *ret = (cocos2d::Scene *)self->getRunningScene();
-    int num_ret = olua_push_cppobj(L, ret, "cc.Scene");
-    // inject code after call
-    olua_mapref(L, 1, "scenes", -1);
-    olua_endinvoke(L);
-    return num_ret;
-}
-
-static int _cocos2d_Director_popScene(lua_State *L)
-{
-    olua_startinvoke(L);
-    lua_settop(L, 1);
-    cocos2d::Director *self = nullptr;
-    olua_to_cppobj(L, 1, (void **)&self, "cc.Director");
-    // inject code before call
-    olua_startcmpunref(L, 1, "scenes");
-    // @unref(cmp scenes) void popScene()
-    self->popScene();
-    // inject code after call
-    olua_endcmpunref(L, 1, "scenes");
-    olua_endinvoke(L);
-    return 0;
-}
-```
 
 ## 若干说明
 1. assets/src/swf目录下的lua代码不宜使用，因为swf c++解析渲染库目前暂时无法开源。
@@ -160,6 +65,5 @@ static int _cocos2d_Director_popScene(lua_State *L)
 ## 待完成
 
 + 导出工具自动检查指定类型的ref和unref情况
-+ cocos2dx v4版本绑定支持
 + 导出工具的linux和win平台支持
 + 更完善的单元测试

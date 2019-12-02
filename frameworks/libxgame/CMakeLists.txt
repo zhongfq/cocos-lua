@@ -53,16 +53,20 @@ list(APPEND SRC ${HEADER})
 add_library(xgame ${SRC})
 
 target_compile_definitions(xgame PUBLIC STDC_HEADERS)
+target_compile_definitions(xgame PRIVATE $<$<CONFIG:Debug>:OLUA_DEBUG>)
 
 target_link_libraries(xgame
     PRIVATE fairygui
-    PRIVATE dragonbones
 	PRIVATE cocos2d
 )
 
-add_dependencies(xgame fairygui dragonbones cocos2d)
+add_dependencies(xgame cocos2d)
 
 target_include_directories(xgame
 	PUBLIC ${XGAME_ROOT}/src
 	PUBLIC ${XGAME_ROOT}/src/lua/src
 )
+
+if(XCODE OR VS)
+    cocos_mark_code_files("xgame" GROUPBASE "${CMAKE_CURRENT_SOURCE_DIR}/src")
+endif()

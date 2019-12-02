@@ -78,7 +78,7 @@ public:
      * @js NA
      * @lua NA
      */
-    virtual GLubyte getDisplayedOpacity() const = 0;
+    virtual unsigned char getDisplayedOpacity() const = 0;
     /**
      * Returns the opacity.
      *
@@ -89,7 +89,7 @@ public:
      * @js NA
      * @lua NA
      */
-    virtual GLubyte getOpacity() const = 0;
+    virtual unsigned char getOpacity() const = 0;
     
     /**
      * Changes the opacity.
@@ -98,7 +98,7 @@ public:
      * @js NA
      * @lua NA
      */
-    virtual void setOpacity(GLubyte opacity) = 0;
+    virtual void setOpacity(unsigned char opacity) = 0;
     
     // optional
     
@@ -160,7 +160,7 @@ public:
      * @js NA
      * @lua NA
      */
-    virtual void updateDisplayedOpacity(GLubyte opacity) = 0;
+    virtual void updateDisplayedOpacity(unsigned char opacity) = 0;
 };
 
 /**
@@ -177,7 +177,7 @@ public:
      * Sets the source blending function.
      *
      * @param blendFunc A structure with source and destination factor to specify pixel arithmetic, 
-     *                  e.g. {GL_ONE, GL_ONE}, {GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA}.
+     *                  e.g. {BlendFactor::ONE, BlendFactor::ONE}, {BlendFactor::SRC_ALPHA, BlendFactor::ONE_MINUS_SRC_ALPHA}.
      * @js NA
      * @lua NA
      */
@@ -197,9 +197,9 @@ public:
  * Node objects that uses a Texture2D to render the images.
  * The texture can have a blending function.
  * If the texture has alpha premultiplied the default blending function is:
- *   src=GL_ONE dst= GL_ONE_MINUS_SRC_ALPHA
+ *   src=BlendFactor::ONE dst= BlendFactor::ONE_MINUS_SRC_ALPHA
  * else
- *   src=GL_SRC_ALPHA dst= GL_ONE_MINUS_SRC_ALPHA
+ *   src=BlendFactor::SRC_ALPHA dst= BlendFactor::ONE_MINUS_SRC_ALPHA
  * But you can change the blending function at any time.
  */
 class CC_DLL TextureProtocol : public BlendProtocol

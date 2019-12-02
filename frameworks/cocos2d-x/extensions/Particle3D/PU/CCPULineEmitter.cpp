@@ -36,7 +36,7 @@ const float PULineEmitter::DEFAULT_MAX_INCREMENT = 0.0f;
 const float PULineEmitter::DEFAULT_MAX_DEVIATION = 0.0f;
 
 //-----------------------------------------------------------------------
-PULineEmitter::PULineEmitter() :
+PULineEmitter::PULineEmitter() : 
     PUEmitter(),
     _end(DEFAULT_END),
     _maxDeviation(DEFAULT_MAX_DEVIATION),

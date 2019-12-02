@@ -36,7 +36,7 @@ const Vec3 PULineAffector::DEFAULT_END(0, 0, 0);
 const float PULineAffector::DEFAULT_DRIFT = 0.0f;
 
 //-----------------------------------------------------------------------
-PULineAffector::PULineAffector() :
+PULineAffector::PULineAffector() : 
     PUAffector(),
     _maxDeviation(DEFAULT_MAX_DEVIATION),
     _scaledMaxDeviation(1.0f),
@@ -50,8 +50,9 @@ PULineAffector::PULineAffector() :
 {
 }
 
-PULineAffector::~PULineAffector()
+PULineAffector::~PULineAffector( void )
 {
+
 }
 //-----------------------------------------------------------------------
 float PULineAffector::getMaxDeviation() const

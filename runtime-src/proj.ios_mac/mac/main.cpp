@@ -25,7 +25,6 @@
 
 #include "AppDelegate.h"
 #include "cocos2d.h"
-
 #include "xgame/xruntime.h"
 
 USING_NS_CC;

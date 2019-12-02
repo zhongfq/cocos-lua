@@ -314,7 +314,7 @@ void RadioButtonGroup::setAllowedNoSelection(bool allowedNoSelection)
     _allowedNoSelection = allowedNoSelection;
     if(!_allowedNoSelection && _selectedRadioButton == nullptr)
     {
-        if (!_radioButtons.empty())
+        if (_radioButtons.size() > 0)
         {
             setSelectedButton(_radioButtons.at(0));
         }

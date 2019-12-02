@@ -22,24 +22,16 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
-
-#include "platform/CCPlatformConfig.h"
-#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
-
 #include "platform/android/CCApplication-android.h"
 #include "platform/android/CCGLViewImpl-android.h"
 #include "base/CCDirector.h"
 #include "base/CCEventCustom.h"
 #include "base/CCEventType.h"
 #include "base/CCEventDispatcher.h"
-#include "renderer/CCGLProgramCache.h"
 #include "renderer/CCTextureCache.h"
-#include "renderer/ccGLStateCache.h"
-#include "2d/CCDrawingPrimitives.h"
 #include "platform/android/jni/JniHelper.h"
-#include "platform/CCDataManager.h"
 #include "network/CCDownloader-android.h"
-#include <unistd.h>
+
 #include <android/log.h>
 #include <android/api-level.h>
 #include <jni.h>
@@ -88,9 +80,6 @@ JNIEXPORT jint JNI_OnLoad(JavaVM *vm, void *reserved)
 
 JNIEXPORT void Java_org_cocos2dx_lib_Cocos2dxRenderer_nativeInit(JNIEnv*  env, jobject thiz, jint w, jint h)
 {
-    DataManager::setProcessID(getpid());
-    DataManager::setFrameSize(w, h);
-
     auto director = cocos2d::Director::getInstance();
     auto glview = director->getOpenGLView();
     if (!glview)
@@ -103,14 +92,11 @@ JNIEXPORT void Java_org_cocos2dx_lib_Cocos2dxRenderer_nativeInit(JNIEnv*  env, j
     }
     else
     {
-        cocos2d::GL::invalidateStateCache();
-        cocos2d::GLProgramCache::getInstance()->reloadDefaultGLPrograms();
-        cocos2d::DrawPrimitives::init();
-        cocos2d::VolatileTextureMgr::reloadAllTextures();
-
+        cocos2d::Director::getInstance()->resetMatrixStack();
         cocos2d::EventCustom recreatedEvent(EVENT_RENDERER_RECREATED);
         director->getEventDispatcher()->dispatchEvent(&recreatedEvent);
         director->setGLDefaultValues();
+        cocos2d::VolatileTextureMgr::reloadAllTextures();
     }
     cocos2d::network::_preloadJavaDownloaderClass();
 }
@@ -141,6 +127,3 @@ JNIEXPORT void Java_org_cocos2dx_lib_Cocos2dxRenderer_nativeOnSurfaceChanged(JNI
 }
 
 }
-
-#endif // CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
-

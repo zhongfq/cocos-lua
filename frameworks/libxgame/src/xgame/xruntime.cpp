@@ -19,7 +19,6 @@
 #include <thread>
 
 USING_NS_CC;
-USING_NS_CC_EXP;
 
 NS_XGAME_BEGIN
 static bool _restarting = false;
@@ -95,7 +94,7 @@ void runtime::init()
     timer::schedule(1, [](float dt){ updateTimestamp(); });
     timer::schedule(0, [](float dt){ _time += dt; });
     
-    Texture2D::setDefaultAlphaPixelFormat(Texture2D::PixelFormat::AUTO);
+    Texture2D::setDefaultAlphaPixelFormat(backend::PixelFormat::AUTO);
     AudioEngine::lazyInit();
     
     // cocos event
@@ -235,7 +234,7 @@ void runtime::luaOpen(lua_CFunction libfunc)
 //
 const std::string runtime::getVersion()
 {
-    return "1.13.0";
+    return "1.10.0";
 }
 
 const std::string runtime::getPackageName()
@@ -260,10 +259,19 @@ const std::string runtime::getChannel()
 
 const std::string runtime::getOS()
 {
-    static const char *const os[] = {"unknown", "ios", "android", "win32",
-        "marmalade", "linux", "bada", "blackberry", "mac", "nacl",
-        "emscripten", "tizen", "qt5", "winrt"};
-    return os[CC_TARGET_PLATFORM];
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+    return "ios";
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+    return "android";
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_MAC
+    return "mac";
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+    return "win32";
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_LINUX
+    return "linux";
+#else
+    return "unknown";
+#endif
 }
 
 const std::string runtime::getDeviceInfo()
@@ -395,7 +403,7 @@ const std::string &runtime::getTimestamp()
 
 void runtime::updateTimestamp()
 {
-    static char buf[64];
+    char buf[64];
     time_t t = time(NULL);
     struct tm *stm = localtime(&t);
     sprintf(buf, "%02d:%02d:%02d", stm->tm_hour, stm->tm_min, stm->tm_sec);
@@ -565,6 +573,7 @@ void RuntimeContext::initGLView(const std::string &title)
 #endif
         director->setOpenGLView(glview);
     }
+    glview->setDesignResolutionSize(rect.size.width, rect.size.height, ResolutionPolicy::NO_BORDER);
 }
 
 void RuntimeContext::initGLContextAttrs()

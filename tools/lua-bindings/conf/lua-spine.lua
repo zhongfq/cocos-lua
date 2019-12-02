@@ -9,7 +9,6 @@ M.INCLUDES = [[
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "xgame/xlua.h"
-#include "xgame/xruntime.h"
 #include "cocos2d.h"
 #include "spine/spine-cocos2dx.h"
 ]]
@@ -95,6 +94,20 @@ template <typename T> int manual_olua_push_spine_Vector(lua_State *L, const spin
         lua_rawseti(L, -2, count++);
     }
     return 1;
+}
+
+template <typename T> void manual_olua_check_spine_Vector(lua_State *L, int idx, spine::Vector<T*> &v, const char *cls)
+{
+    luaL_checktype(L, idx, LUA_TTABLE);
+    size_t total = lua_rawlen(L, idx);
+    v.ensureCapacity(total);
+    for (int i = 1; i <= total; i++) {
+        lua_rawgeti(L, idx, i);
+        T* obj;
+        olua_check_cppobj(L, -1, (void **)&obj, cls);
+        v.add(obj);
+        lua_pop(L, 1);
+    }
 }]]
 
 typedef {
@@ -168,9 +181,6 @@ typeconf 'spine::RotateMode'
 typeconf 'spine::MixBlend'
 
 typeconf 'spine::SpineObject'
-    .EXCLUDE 'operator new'
-    .EXCLUDE 'operator delete'
-    .EXCLUDE 'getRTTI'
 
 typeconf 'spine::Event'
     .EXCLUDE 'Event'
@@ -184,7 +194,6 @@ typeconf 'spine::AnimationState'
 typeconf 'spine::AnimationStateData'
 
 typeconf 'spine::Animation'
-    .EXCLUDE 'Animation'
 
 typeconf 'spine::ConstraintData'
 typeconf 'spine::IkConstraintData'

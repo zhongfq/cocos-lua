@@ -29,12 +29,12 @@
 
 NS_CC_BEGIN
 
-PUPathFollower::PUPathFollower()
+PUPathFollower::PUPathFollower( void )
 {
 
 }
 
-PUPathFollower::~PUPathFollower()
+PUPathFollower::~PUPathFollower( void )
 {
 
 }

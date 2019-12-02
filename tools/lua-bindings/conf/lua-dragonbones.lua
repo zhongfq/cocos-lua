@@ -4,13 +4,28 @@ local typeconf = M.typeconf
 local typedef = M.typedef
 local typeconv = M.typeconv
 
+M.PARSER = {
+    HEADERS = {
+        'CCDragonBonesHeaders.h',
+        'lua-bindings/LuaCocosAdapter.h'
+    },
+    FLAGS = {
+        '-I../../frameworks/cocos2d-x/cocos',
+        '-I../../frameworks/libxgame/src',
+        '-I../../frameworks/libdragonbones/src',
+        '-DCC_ENABLE_SCRIPT_BINDING=0',
+        '-DCC_CONSTRUCTOR_ACCESS=public',
+        '-DCC_DLL=',
+        '-DEXPORT_DLL=',
+    },
+}
+
 M.PATH = "../../frameworks/libxgame/src/lua-bindings"
 M.INCLUDES = [[
 #include "lua-bindings/lua_dragonbones.h"
 #include "lua-bindings/lua_conv.h"
 #include "lua-bindings/lua_conv_manual.h"
 #include "xgame/xlua.h"
-#include "xgame/xruntime.h"
 #include "cocos2d.h"
 #include "CCDragonBonesHeaders.h"
 ]]

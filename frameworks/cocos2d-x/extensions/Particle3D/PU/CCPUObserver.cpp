@@ -38,20 +38,20 @@ const float PUObserver::DEFAULT_INTERVAL = 0.05f;
 const bool PUObserver::DEFAULT_UNTIL_EVENT = false;
 
 //-----------------------------------------------------------------------
-PUObserver::PUObserver()
-: _particleSystem(nullptr)
-, _enabled(DEFAULT_ENABLED)
-, _originalEnabled(DEFAULT_ENABLED)
-, _originalEnabledSet(false)
-, _observe(true)
-, _observeUntilEvent(DEFAULT_UNTIL_EVENT)
-, _eventHandlersExecuted(false)
-, _observerScale(Vec3::ONE)
-, _particleTypeToObserve(DEFAULT_PARTICLE_TYPE)
-, _particleTypeToObserveSet(false)
-, _observerInterval(DEFAULT_INTERVAL)
-, _observerIntervalRemainder(0.0)
-, _observerIntervalSet(false)
+PUObserver::PUObserver() : 
+    _particleSystem(nullptr),
+    _enabled(DEFAULT_ENABLED),
+    _originalEnabled(DEFAULT_ENABLED),
+    _originalEnabledSet(false),
+    _observe(true),
+    _observeUntilEvent(DEFAULT_UNTIL_EVENT),
+    _eventHandlersExecuted(false),
+    _observerScale(Vec3::ONE),
+    _particleTypeToObserve(DEFAULT_PARTICLE_TYPE),
+    _particleTypeToObserveSet(false),
+    _observerInterval(DEFAULT_INTERVAL),
+    _observerIntervalRemainder(0.0),
+    _observerIntervalSet(false)
 {
     //mAliasType = AT_OBSERVER;
 }

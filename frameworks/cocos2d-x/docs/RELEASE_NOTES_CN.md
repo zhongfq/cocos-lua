@@ -2,20 +2,33 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
-- [Cocos2d-x 3.17.2 Release Notes](#cocos2d-x-3172-release-notes)
-  - [版本变动](#%E7%89%88%E6%9C%AC%E5%8F%98%E5%8A%A8)
+- [Cocos2d-x v4 Release Notes](#cocos2d-x-v4-release-notes)
+  - [版本特性](#%E7%89%88%E6%9C%AC%E7%89%B9%E6%80%A7)
+  - [文档](#%E6%96%87%E6%A1%A3)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-# Cocos2d-x 3.17.2 Release Notes #
+# Cocos2d-x v4 Release Notes #
 
-Cocos2d-x 3.17.2 侧重于稳定性的提升, 已有问题的修复和针对 OPPO 手机的性能优化。
+## 版本特性
 
-## 版本变动
+- iOS/macOS 支持 metal
+- 使用 CMake，删除各平台的工程文件
+- 升级 GLFW 到 3.3
+- 升级 minizip 到 1.2
+- 删除废弃函数
+- 删除 h5 引擎和 Javascript 绑定
+- 删除 tiff
+- 删除 `SimpleAudioEngine`
+- 删除 `experimental` 名字空间
+- 修复 macOS 15 系统字体绘制问题
+- 适配 iOS13
+  - UIWebView 使用 WKWebView 实现
+  - VideoPlayer 使用 AVPlayerController 实现
+- 修复 lua 工程在 64 位设备的崩溃问题
 
-- 针对 OPPO 手机的性能优化
-- 修复 bug：在安卓设备，当文件路径开头为 `assets/` 时， `FileUtils::listFiles()` 无法正常工作
-- 修复了 Audio 在 iOS 设备上的崩溃问题
-- 修复了在安卓设备， `VideoPlayer` 无法播放 OBB 包里的视频文件的问题
+## 文档
 
-详细的改动请参考 [ChangeLog](https://github.com/cocos2d/cocos2d-x/blob/v3/CHANGELOG)。
+编写了一些文档方便开发者升级到 v4:
+- [如何运行测试例子，如何新建工程并运行](https://docs.cocos2d-x.org/cocos2d-x/v4/zn/installation)
+- [v4 升级指南](https://docs.cocos2d-x.org/cocos2d-x/v4/en/upgradeGuide/)

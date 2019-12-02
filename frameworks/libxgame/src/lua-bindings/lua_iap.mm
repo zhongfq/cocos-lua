@@ -113,7 +113,6 @@ static NSString *productsToString(NSArray<SKProduct *> *products)
                 event = @"restoreTransactionSuccess";
                 break;
             case SKPaymentTransactionStateFailed:
-                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
                 event = transaction.error.code == SKErrorPaymentCancelled ? @"purchaseTransactionCancel" : @"purchaseTransactionFail";
                 break;
             default:
@@ -338,7 +337,6 @@ int luaopen_iap(lua_State *L)
     
     @autoreleasepool {
         IAPConnector *connector = [[IAPConnector alloc] init];
-        [[SKPaymentQueue defaultQueue] addTransactionObserver:connector];
         olua_push_obj(L, (void *)CFBridgingRetain(connector), CLASS_CONNECTOR);
     }
     

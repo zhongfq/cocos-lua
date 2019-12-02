@@ -129,7 +129,7 @@ namespace cocostudio
         Color3B bgStartColor;
         Color3B bgEndColor;
         int colorType = 0;
-        GLubyte bgColorOpacity = 255;
+        uint8_t bgColorOpacity = 255;
         Vec2 colorVector(0.0f, -0.5f);
         Rect capInsets;
         Size scale9Size;
@@ -462,7 +462,7 @@ namespace cocostudio
         auto imageFileNameDic = options->backGroundImageData();
         int imageFileNameType = imageFileNameDic->resourceType();
         std::string imageFileName = imageFileNameDic->path()->c_str();
-        if (!imageFileName.empty())
+        if (imageFileName != "")
         {
             switch (imageFileNameType)
             {
@@ -539,11 +539,11 @@ namespace cocostudio
         //         listView->setGravity(gravity);
         
         std::string directionType = options->directionType()->c_str();
-        if (directionType.empty())
+        if (directionType == "")
         {
             listView->setDirection(ListView::Direction::HORIZONTAL);
             std::string verticalType = options->verticalType()->c_str();
-            if (verticalType.empty())
+            if (verticalType == "")
             {
                 listView->setGravity(ListView::Gravity::TOP);
             }
@@ -560,7 +560,7 @@ namespace cocostudio
         {
             listView->setDirection(ListView::Direction::VERTICAL);
             std::string horizontalType = options->horizontalType()->c_str();
-            if (horizontalType.empty())
+            if (horizontalType == "")
             {
                 listView->setGravity(ListView::Gravity::LEFT);
             }
@@ -609,7 +609,7 @@ namespace cocostudio
         return listView;
     }
     
-    int ListViewReader::getResourceType(const std::string& key)
+    int ListViewReader::getResourceType(std::string key)
     {
         if(key == "Normal" || key == "Default")
         {

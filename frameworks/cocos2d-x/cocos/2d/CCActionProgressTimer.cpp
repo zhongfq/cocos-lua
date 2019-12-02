@@ -26,13 +26,13 @@ THE SOFTWARE.
 ****************************************************************************/
 #include "2d/CCActionProgressTimer.h"
 #include "2d/CCProgressTimer.h"
-#include "ui/UILoadingBar.h"
 
 NS_CC_BEGIN
 
 #define kProgressTimerCast ProgressTimer*
 
 // implementation of ProgressTo
+
 ProgressTo* ProgressTo::create(float duration, float percent)
 {
     ProgressTo *progressTo = new (std::nothrow) ProgressTo();
@@ -41,6 +41,7 @@ ProgressTo* ProgressTo::create(float duration, float percent)
         progressTo->autorelease();
         return progressTo;
     }
+    
     delete progressTo;
     return nullptr;
 }
@@ -72,23 +73,12 @@ ProgressTo* ProgressTo::reverse() const
 void ProgressTo::startWithTarget(Node *target)
 {
     ActionInterval::startWithTarget(target);
-
-    ui::LoadingBar* loading_bar = dynamic_cast<ui::LoadingBar*>(target);
-    if (loading_bar){
-        _from = loading_bar->getPercent();
-    } else {
-        _from = static_cast<ProgressTimer*>(target)->getPercentage();
-    };
+    _from = ((kProgressTimerCast)(target))->getPercentage();
 }
 
 void ProgressTo::update(float time)
 {
-    ui::LoadingBar* loading_bar = dynamic_cast<ui::LoadingBar*>(_target);
-    if (loading_bar){
-        loading_bar->setPercent(_from + (_to - _from) * time);
-    } else {
-        static_cast<ProgressTimer*>(_target)->setPercentage(_from + (_to - _from) * time);
-    };
+    ((kProgressTimerCast)(_target))->setPercentage(_from + (_to - _from) * time);
 }
 
 // implementation of ProgressFromTo
@@ -100,14 +90,14 @@ ProgressFromTo* ProgressFromTo::create(float duration, float fromPercentage, flo
         progressFromTo->autorelease();
         return progressFromTo;
     }
-
+    
     delete progressFromTo;
     return nullptr;
 }
 
 bool ProgressFromTo::initWithDuration(float duration, float fromPercentage, float toPercentage)
 {
- if (ActionInterval::initWithDuration(duration))
+    if (ActionInterval::initWithDuration(duration))
     {
         _to = toPercentage;
         _from = fromPercentage;
@@ -137,12 +127,7 @@ void ProgressFromTo::startWithTarget(Node *target)
 
 void ProgressFromTo::update(float time)
 {
-    ui::LoadingBar* loading_bar = dynamic_cast<ui::LoadingBar*>(_target);
-    if (loading_bar){
-        loading_bar->setPercent(_from + (_to - _from) * time);
-    } else {
-        static_cast<ProgressTimer*>(_target)->setPercentage(_from + (_to - _from) * time);
-    };
+    ((kProgressTimerCast)(_target))->setPercentage(_from + (_to - _from) * time);
 }
 
 NS_CC_END

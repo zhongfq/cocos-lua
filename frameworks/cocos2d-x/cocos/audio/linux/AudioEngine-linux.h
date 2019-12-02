@@ -39,7 +39,7 @@
 #include "base/CCRef.h"
 
 NS_CC_BEGIN
-    namespace experimental{
+
 #define MAX_AUDIOINSTANCES 32
 
 class CC_DLL AudioEngineImpl : public cocos2d::Ref
@@ -65,7 +65,7 @@ public:
     void uncacheAll();
     
 
-    int preload(const std::string& filePath, const std::function<void(bool isSuccess)>& callback);
+    int preload(const std::string& filePath, std::function<void(bool isSuccess)> callback);
     
     void update(float dt);
     
@@ -102,7 +102,7 @@ private:
     FMOD::System* pSystem;
     
 };
-}
+
 NS_CC_END
 #endif // __AUDIO_ENGINE_LINUX_H_
 #endif

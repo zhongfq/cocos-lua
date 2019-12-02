@@ -138,7 +138,7 @@ namespace cocostudio
         Color3B bgStartColor;
         Color3B bgEndColor;
         int colorType = 0;
-        GLubyte bgColorOpacity = 255;
+        uint8_t bgColorOpacity = 255;
         Vec2 colorVector(0.0f, -0.5f);
         Rect capInsets;
         Size scale9Size;
@@ -208,15 +208,15 @@ namespace cocostudio
             {
                 bounceEnabled = FLATSTR_TO_BOOL(value);
             }
-            else if (name == "BarEnabled")
+            else if (name.compare("BarEnabled") == 0)
             {
                 scrollbarEnabled = FLATSTR_TO_BOOL(value);
             }
-            else if (name == "BarAutoHide")
+            else if (name.compare("BarAutoHide") == 0)
             {
                 scrollbarAutoHide = FLATSTR_TO_BOOL(value);
             }
-            else if (name == "BarAutoHideTime")
+            else if (name.compare("BarAutoHideTime") == 0)
             {
                 scrollbarAutoHideTime = atof(value.c_str());
             }
@@ -476,7 +476,7 @@ namespace cocostudio
         auto imageFileNameDic = options->backGroundImageData();
         int imageFileNameType = imageFileNameDic->resourceType();
         std::string imageFileName = imageFileNameDic->path()->c_str();
-        if (!imageFileName.empty())
+        if (imageFileName != "")
         {
             switch (imageFileNameType)
             {
@@ -591,7 +591,7 @@ namespace cocostudio
         return scrollView;
     }
 
-    int ScrollViewReader::getResourceType(const std::string& key)
+    int ScrollViewReader::getResourceType(std::string key)
     {
         if (key == "Normal" || key == "Default")
         {

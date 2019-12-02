@@ -1129,6 +1129,412 @@ static int luaopen_fairygui_IHitTest(lua_State *L)
     return 1;
 }
 
+static int _fairygui_PixelHitTest___gc(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (fairygui::PixelHitTest *)olua_toobj(L, 1, "fgui.PixelHitTest");
+    lua_pushstring(L, ".ownership");
+    olua_getvariable(L, 1);
+    if (lua_toboolean(L, -1) && self) {
+        olua_setrawdata(L, 1, nullptr);
+        delete self;
+    }
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_PixelHitTest___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (fairygui::PixelHitTest *)olua_toobj(L, 1, "fgui.PixelHitTest");
+    olua_push_cppobj(L, self, "fgui.PixelHitTest");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _fairygui_PixelHitTest_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::PixelHitTestData *arg1 = nullptr;       /** data */
+    lua_Integer arg2 = 0;       /** offsetX */
+    lua_Integer arg3 = 0;       /** offsetY */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "fgui.PixelHitTestData");
+    olua_check_int(L, 2, &arg2);
+    olua_check_int(L, 3, &arg3);
+
+    // PixelHitTest(fairygui::PixelHitTestData *data, int offsetX, int offsetY)
+    fairygui::PixelHitTest *ret = (fairygui::PixelHitTest *)new fairygui::PixelHitTest(arg1, (int)arg2, (int)arg3);
+    int num_ret = olua_push_cppobj(L, ret, "fgui.PixelHitTest");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_PixelHitTest_get_offsetX(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::PixelHitTest *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.PixelHitTest");
+
+    // int offsetX
+    int ret = (int)self->offsetX;
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_PixelHitTest_set_offsetX(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::PixelHitTest *self = nullptr;
+    lua_Integer arg1 = 0;       /** offsetX */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.PixelHitTest");
+    olua_check_int(L, 2, &arg1);
+
+    // int offsetX
+    self->offsetX = (int)arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_PixelHitTest_get_offsetY(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::PixelHitTest *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.PixelHitTest");
+
+    // int offsetY
+    int ret = (int)self->offsetY;
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_PixelHitTest_set_offsetY(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::PixelHitTest *self = nullptr;
+    lua_Integer arg1 = 0;       /** offsetY */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.PixelHitTest");
+    olua_check_int(L, 2, &arg1);
+
+    // int offsetY
+    self->offsetY = (int)arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_PixelHitTest_get_scaleX(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::PixelHitTest *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.PixelHitTest");
+
+    // float scaleX
+    float ret = (float)self->scaleX;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_PixelHitTest_set_scaleX(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::PixelHitTest *self = nullptr;
+    lua_Number arg1 = 0;       /** scaleX */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.PixelHitTest");
+    olua_check_number(L, 2, &arg1);
+
+    // float scaleX
+    self->scaleX = (float)arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_PixelHitTest_get_scaleY(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::PixelHitTest *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.PixelHitTest");
+
+    // float scaleY
+    float ret = (float)self->scaleY;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_PixelHitTest_set_scaleY(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::PixelHitTest *self = nullptr;
+    lua_Number arg1 = 0;       /** scaleY */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.PixelHitTest");
+    olua_check_number(L, 2, &arg1);
+
+    // float scaleY
+    self->scaleY = (float)arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int luaopen_fairygui_PixelHitTest(lua_State *L)
+{
+    oluacls_class(L, "fgui.PixelHitTest", "fgui.IHitTest");
+    oluacls_func(L, "__gc", _fairygui_PixelHitTest___gc);
+    oluacls_func(L, "__move", _fairygui_PixelHitTest___move);
+    oluacls_func(L, "new", _fairygui_PixelHitTest_new);
+    oluacls_prop(L, "offsetX", _fairygui_PixelHitTest_get_offsetX, _fairygui_PixelHitTest_set_offsetX);
+    oluacls_prop(L, "offsetY", _fairygui_PixelHitTest_get_offsetY, _fairygui_PixelHitTest_set_offsetY);
+    oluacls_prop(L, "scaleX", _fairygui_PixelHitTest_get_scaleX, _fairygui_PixelHitTest_set_scaleX);
+    oluacls_prop(L, "scaleY", _fairygui_PixelHitTest_get_scaleY, _fairygui_PixelHitTest_set_scaleY);
+
+    olua_registerluatype<fairygui::PixelHitTest>(L, "fgui.PixelHitTest");
+
+    return 1;
+}
+
+static int _fairygui_PixelHitTestData___gc(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (fairygui::PixelHitTestData *)olua_toobj(L, 1, "fgui.PixelHitTestData");
+    lua_pushstring(L, ".ownership");
+    olua_getvariable(L, 1);
+    if (lua_toboolean(L, -1) && self) {
+        olua_setrawdata(L, 1, nullptr);
+        delete self;
+    }
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_PixelHitTestData___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (fairygui::PixelHitTestData *)olua_toobj(L, 1, "fgui.PixelHitTestData");
+    olua_push_cppobj(L, self, "fgui.PixelHitTestData");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _fairygui_PixelHitTestData_new(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // PixelHitTestData()
+    fairygui::PixelHitTestData *ret = (fairygui::PixelHitTestData *)new fairygui::PixelHitTestData();
+    int num_ret = olua_push_cppobj(L, ret, "fgui.PixelHitTestData");
+    olua_postnew(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_PixelHitTestData_get_pixelWidth(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::PixelHitTestData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.PixelHitTestData");
+
+    // int pixelWidth
+    int ret = (int)self->pixelWidth;
+    int num_ret = olua_push_int(L, (lua_Integer)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_PixelHitTestData_set_pixelWidth(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::PixelHitTestData *self = nullptr;
+    lua_Integer arg1 = 0;       /** pixelWidth */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.PixelHitTestData");
+    olua_check_int(L, 2, &arg1);
+
+    // int pixelWidth
+    self->pixelWidth = (int)arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_PixelHitTestData_get_pixels(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::PixelHitTestData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.PixelHitTestData");
+
+    // unsigned char *pixels
+    unsigned char *ret = (unsigned char *)self->pixels;
+    int num_ret = olua_push_string(L, (const char *)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_PixelHitTestData_set_pixels(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::PixelHitTestData *self = nullptr;
+    const char *arg1 = nullptr;       /** pixels */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.PixelHitTestData");
+    olua_check_string(L, 2, &arg1);
+
+    // unsigned char *pixels
+    self->pixels = (unsigned char *)arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_PixelHitTestData_get_pixelsLength(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::PixelHitTestData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.PixelHitTestData");
+
+    // size_t pixelsLength
+    size_t ret = (size_t)self->pixelsLength;
+    int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_PixelHitTestData_set_pixelsLength(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::PixelHitTestData *self = nullptr;
+    lua_Unsigned arg1 = 0;       /** pixelsLength */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.PixelHitTestData");
+    olua_check_uint(L, 2, &arg1);
+
+    // size_t pixelsLength
+    self->pixelsLength = (size_t)arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _fairygui_PixelHitTestData_get_scale(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::PixelHitTestData *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.PixelHitTestData");
+
+    // float scale
+    float ret = (float)self->scale;
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _fairygui_PixelHitTestData_set_scale(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    fairygui::PixelHitTestData *self = nullptr;
+    lua_Number arg1 = 0;       /** scale */
+
+    olua_to_cppobj(L, 1, (void **)&self, "fgui.PixelHitTestData");
+    olua_check_number(L, 2, &arg1);
+
+    // float scale
+    self->scale = (float)arg1;
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int luaopen_fairygui_PixelHitTestData(lua_State *L)
+{
+    oluacls_class(L, "fgui.PixelHitTestData", nullptr);
+    oluacls_func(L, "__gc", _fairygui_PixelHitTestData___gc);
+    oluacls_func(L, "__move", _fairygui_PixelHitTestData___move);
+    oluacls_func(L, "new", _fairygui_PixelHitTestData_new);
+    oluacls_prop(L, "pixelWidth", _fairygui_PixelHitTestData_get_pixelWidth, _fairygui_PixelHitTestData_set_pixelWidth);
+    oluacls_prop(L, "pixels", _fairygui_PixelHitTestData_get_pixels, _fairygui_PixelHitTestData_set_pixels);
+    oluacls_prop(L, "pixelsLength", _fairygui_PixelHitTestData_get_pixelsLength, _fairygui_PixelHitTestData_set_pixelsLength);
+    oluacls_prop(L, "scale", _fairygui_PixelHitTestData_get_scale, _fairygui_PixelHitTestData_set_scale);
+
+    olua_registerluatype<fairygui::PixelHitTestData>(L, "fgui.PixelHitTestData");
+
+    return 1;
+}
+
 static int _fairygui_InputProcessor___move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -10621,7 +11027,7 @@ static int _fairygui_GRoot_playSound(lua_State *L)
     return 0;
 }
 
-static int _fairygui_GRoot_rootToWorld1(lua_State *L)
+static int _fairygui_GRoot_rootToWorld(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -10638,48 +11044,6 @@ static int _fairygui_GRoot_rootToWorld1(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
-}
-
-static int _fairygui_GRoot_rootToWorld2(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    fairygui::GRoot *self = nullptr;
-    cocos2d::Vec2 arg1;       /** pt */
-
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.GRoot");
-    auto_olua_pack_cocos2d_Vec2(L, 2, &arg1);
-
-    // cocos2d::Vec2 rootToWorld(@pack const cocos2d::Vec2 &pt)
-    cocos2d::Vec2 ret = (cocos2d::Vec2)self->rootToWorld(arg1);
-    int num_ret = auto_olua_unpack_cocos2d_Vec2(L, &ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _fairygui_GRoot_rootToWorld(lua_State *L)
-{
-    int num_args = lua_gettop(L) - 1;
-
-    if (num_args == 1) {
-        // if ((auto_olua_is_cocos2d_Vec2(L, 2))) {
-            // cocos2d::Vec2 rootToWorld(const cocos2d::Vec2 &pt)
-            return _fairygui_GRoot_rootToWorld1(L);
-        // }
-    }
-
-    if (num_args == 2) {
-        // if ((auto_olua_ispack_cocos2d_Vec2(L, 2))) {
-            // cocos2d::Vec2 rootToWorld(@pack const cocos2d::Vec2 &pt)
-            return _fairygui_GRoot_rootToWorld2(L);
-        // }
-    }
-
-    luaL_error(L, "method 'fairygui::GRoot::rootToWorld' not support '%d' arguments", num_args);
-
-    return 0;
 }
 
 static int _fairygui_GRoot_setNotAsUIRoot(lua_State *L)
@@ -10965,7 +11329,7 @@ static int _fairygui_GRoot_togglePopup(lua_State *L)
     return 0;
 }
 
-static int _fairygui_GRoot_worldToRoot1(lua_State *L)
+static int _fairygui_GRoot_worldToRoot(lua_State *L)
 {
     olua_startinvoke(L);
 
@@ -10982,48 +11346,6 @@ static int _fairygui_GRoot_worldToRoot1(lua_State *L)
     olua_endinvoke(L);
 
     return num_ret;
-}
-
-static int _fairygui_GRoot_worldToRoot2(lua_State *L)
-{
-    olua_startinvoke(L);
-
-    fairygui::GRoot *self = nullptr;
-    cocos2d::Vec2 arg1;       /** pt */
-
-    olua_to_cppobj(L, 1, (void **)&self, "fgui.GRoot");
-    auto_olua_pack_cocos2d_Vec2(L, 2, &arg1);
-
-    // cocos2d::Vec2 worldToRoot(@pack const cocos2d::Vec2 &pt)
-    cocos2d::Vec2 ret = (cocos2d::Vec2)self->worldToRoot(arg1);
-    int num_ret = auto_olua_unpack_cocos2d_Vec2(L, &ret);
-
-    olua_endinvoke(L);
-
-    return num_ret;
-}
-
-static int _fairygui_GRoot_worldToRoot(lua_State *L)
-{
-    int num_args = lua_gettop(L) - 1;
-
-    if (num_args == 1) {
-        // if ((auto_olua_is_cocos2d_Vec2(L, 2))) {
-            // cocos2d::Vec2 worldToRoot(const cocos2d::Vec2 &pt)
-            return _fairygui_GRoot_worldToRoot1(L);
-        // }
-    }
-
-    if (num_args == 2) {
-        // if ((auto_olua_ispack_cocos2d_Vec2(L, 2))) {
-            // cocos2d::Vec2 worldToRoot(@pack const cocos2d::Vec2 &pt)
-            return _fairygui_GRoot_worldToRoot2(L);
-        // }
-    }
-
-    luaL_error(L, "method 'fairygui::GRoot::worldToRoot' not support '%d' arguments", num_args);
-
-    return 0;
 }
 
 static int _fairygui_GRoot_get_contentScaleLevel(lua_State *L)
@@ -21282,9 +21604,9 @@ private:
         return true;
     }
 
+    bool _loaded;
     std::function<void()> _complete;
     std::string _name;
-    bool _loaded;
 };
 NS_FGUI_END
 
@@ -23610,8 +23932,8 @@ static int _fairygui_FUIContainer_getAlphaThreshold(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.FUIContainer");
 
-    // GLfloat getAlphaThreshold()
-    GLfloat ret = (GLfloat)self->getAlphaThreshold();
+    // float getAlphaThreshold()
+    float ret = (float)self->getAlphaThreshold();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -23711,8 +24033,8 @@ static int _fairygui_FUIContainer_setAlphaThreshold(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.FUIContainer");
     olua_check_number(L, 2, &arg1);
 
-    // void setAlphaThreshold(GLfloat alphaThreshold)
-    self->setAlphaThreshold((GLfloat)arg1);
+    // void setAlphaThreshold(float alphaThreshold)
+    self->setAlphaThreshold((float)arg1);
 
     olua_endinvoke(L);
 
@@ -24780,6 +25102,8 @@ int luaopen_fairygui(lua_State *L)
     olua_require(L, "fgui.UIEventDispatcher", luaopen_fairygui_UIEventDispatcher);
     olua_require(L, "fgui.EventContext", luaopen_fairygui_EventContext);
     olua_require(L, "fgui.IHitTest", luaopen_fairygui_IHitTest);
+    olua_require(L, "fgui.PixelHitTest", luaopen_fairygui_PixelHitTest);
+    olua_require(L, "fgui.PixelHitTestData", luaopen_fairygui_PixelHitTestData);
     olua_require(L, "fgui.InputProcessor", luaopen_fairygui_InputProcessor);
     olua_require(L, "fgui.InputEvent", luaopen_fairygui_InputEvent);
     olua_require(L, "fgui.TextFormat", luaopen_fairygui_TextFormat);

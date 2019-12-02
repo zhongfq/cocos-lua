@@ -133,3 +133,7 @@ add_dependencies(dragonbones cocos2d)
 target_include_directories(dragonbones
 	PUBLIC ${DRAGONBONES_ROOT}/src
 )
+
+if(XCODE OR VS)
+    cocos_mark_code_files("dragonbones" GROUPBASE "${CMAKE_CURRENT_SOURCE_DIR}/src")
+endif()

@@ -24,7 +24,8 @@ set(COCOS_3D_HEADER
     3d/CCSkeleton3D.h
     3d/CCBundleReader.h
     3d/CCAttachNode.h
-
+    3d/CCVertexAttribBinding.h
+    3d/CC3DProgramInfo.h
     )
 
 set(COCOS_3D_SRC
@@ -35,6 +36,7 @@ set(COCOS_3D_SRC
     3d/CCAttachNode.cpp
     3d/CCBillBoard.cpp
     3d/CCBundle3D.cpp
+    3d/CCBundle3DData.cpp
     3d/CCBundleReader.cpp
     3d/CCFrustum.cpp
     3d/CCMesh.cpp
@@ -50,5 +52,6 @@ set(COCOS_3D_SRC
     3d/CCSprite3D.cpp
     3d/CCSprite3DMaterial.cpp
     3d/CCTerrain.cpp
-
+    3d/CCVertexAttribBinding.cpp
+    3d/CC3DProgramInfo.cpp
     )

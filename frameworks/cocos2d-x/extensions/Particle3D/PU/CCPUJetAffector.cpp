@@ -33,7 +33,9 @@ NS_CC_BEGIN
 const float PUJetAffector::DEFAULT_ACCELERATION = 1.0f;
 
 //-----------------------------------------------------------------------
-PUJetAffector::PUJetAffector() : PUAffector(), _scaled(0.0f)
+PUJetAffector::PUJetAffector () : 
+    PUAffector(),
+    _scaled(0.0f)
 {
     _dynAcceleration = new (std::nothrow) PUDynamicAttributeFixed();
     (static_cast<PUDynamicAttributeFixed*>(_dynAcceleration))->setValue(DEFAULT_ACCELERATION);

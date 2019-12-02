@@ -270,7 +270,7 @@ void CSLoader::init()
 
 Node* CSLoader::createNode(const std::string& filename)
 {
-    const std::string& path = filename;
+    std::string path = filename;
     size_t pos = path.find_last_of('.');
     std::string suffix = path.substr(pos + 1, path.length());
     
@@ -290,7 +290,7 @@ Node* CSLoader::createNode(const std::string& filename)
 
 Node* CSLoader::createNode(const std::string &filename, const ccNodeLoadCallback &callback)
 {
-    const std::string& path = filename;
+    std::string path = filename;
     size_t pos = path.find_last_of('.');
     std::string suffix = path.substr(pos + 1, path.length());
     
@@ -330,7 +330,7 @@ Node* CSLoader::createNodeWithVisibleSize(const std::string &filename, const ccN
 
 std::string CSLoader::getExtentionName(const std::string& name)
 {
-    const std::string& path = name;
+    std::string path = name;
     size_t pos = path.find_last_of('.');
     std::string result = path.substr(pos + 1, path.length());
 
@@ -576,10 +576,10 @@ void CSLoader::initNode(Node* node, const rapidjson::Value& json)
     float skewy         = DICTOOL->getFloatValue_json(json, SKEW_Y);
     float anchorx       = DICTOOL->getFloatValue_json(json, ANCHOR_X, 0.5f);
     float anchory       = DICTOOL->getFloatValue_json(json, ANCHOR_Y, 0.5f);
-    GLubyte alpha       = (GLubyte)DICTOOL->getIntValue_json(json, ALPHA, 255);
-    GLubyte red         = (GLubyte)DICTOOL->getIntValue_json(json, RED, 255);
-    GLubyte green       = (GLubyte)DICTOOL->getIntValue_json(json, GREEN, 255);
-    GLubyte blue        = (GLubyte)DICTOOL->getIntValue_json(json, BLUE, 255);
+    uint8_t alpha       = (uint8_t)DICTOOL->getIntValue_json(json, ALPHA, 255);
+    uint8_t red         = (uint8_t)DICTOOL->getIntValue_json(json, RED, 255);
+    uint8_t green       = (uint8_t)DICTOOL->getIntValue_json(json, GREEN, 255);
+    uint8_t blue        = (uint8_t)DICTOOL->getIntValue_json(json, BLUE, 255);
     int zorder          = DICTOOL->getIntValue_json(json, ZORDER);
     int tag             = DICTOOL->getIntValue_json(json, TAG);
     int actionTag       = DICTOOL->getIntValue_json(json, ACTION_TAG);
@@ -1019,7 +1019,7 @@ Node* CSLoader::nodeWithFlatBuffers(const flatbuffers::NodeTree *nodetree, const
             std::string filePath = projectNodeOptions->fileName()->c_str();
             
             cocostudio::timeline::ActionTimeline* action = nullptr;
-            if (!filePath.empty() && FileUtils::getInstance()->isFileExist(filePath))
+            if (filePath != "" && FileUtils::getInstance()->isFileExist(filePath))
             {
                 Data buf = FileUtils::getInstance()->getDataFromFile(filePath);
                 node = createNode(buf, callback);
@@ -1052,7 +1052,7 @@ Node* CSLoader::nodeWithFlatBuffers(const flatbuffers::NodeTree *nodetree, const
         else
         {
             std::string customClassName = nodetree->customClassName()->c_str();
-            if (!customClassName.empty())
+            if (customClassName != "")
             {
                 classname = customClassName;
             }
@@ -1366,7 +1366,7 @@ Node* CSLoader::nodeWithFlatBuffersForSimulator(const flatbuffers::NodeTree *nod
         std::string filePath = projectNodeOptions->fileName()->c_str();
         
         cocostudio::timeline::ActionTimeline* action = nullptr;
-        if (!filePath.empty() && FileUtils::getInstance()->isFileExist(filePath))
+        if (filePath != "" && FileUtils::getInstance()->isFileExist(filePath))
         {
             node = createNodeWithFlatBuffersForSimulator(filePath);
             action = cocostudio::timeline::ActionTimelineCache::getInstance()->createActionWithFlatBuffersForSimulator(filePath);

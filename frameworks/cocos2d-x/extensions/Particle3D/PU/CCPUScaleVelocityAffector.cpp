@@ -32,10 +32,10 @@ NS_CC_BEGIN
 const float PUScaleVelocityAffector::DEFAULT_VELOCITY_SCALE = 1.0f;
 
 //-----------------------------------------------------------------------
-PUScaleVelocityAffector::PUScaleVelocityAffector()
-: PUAffector()
-, _sinceStartSystem(false)
-, _stopAtFlip(false)
+PUScaleVelocityAffector::PUScaleVelocityAffector() : 
+    PUAffector(),
+    _sinceStartSystem(false),
+    _stopAtFlip(false)
 {
     _dynScaleVelocity = new (std::nothrow) PUDynamicAttributeFixed();
     (static_cast<PUDynamicAttributeFixed*>(_dynScaleVelocity))->setValue(DEFAULT_VELOCITY_SCALE);

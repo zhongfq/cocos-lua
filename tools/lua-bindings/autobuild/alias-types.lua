@@ -8,6 +8,66 @@ typedef {
 }
 
 typedef {
+    CPPCLS = 'cocos2d::CullFaceSide',
+    DECLTYPE = 'lua_Unsigned',
+    CONV = 'olua_$$_uint',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::CullMode',
+    DECLTYPE = 'lua_Unsigned',
+    CONV = 'olua_$$_uint',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::CustomCommand::BufferUsage',
+    DECLTYPE = 'lua_Unsigned',
+    CONV = 'olua_$$_uint',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::CustomCommand::IndexFormat',
+    DECLTYPE = 'lua_Unsigned',
+    CONV = 'olua_$$_uint',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::CustomCommand::PrimitiveType',
+    DECLTYPE = 'lua_Unsigned',
+    CONV = 'olua_$$_uint',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::DepthFunction',
+    DECLTYPE = 'lua_Unsigned',
+    CONV = 'olua_$$_uint',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::FrontFace',
+    DECLTYPE = 'lua_Unsigned',
+    CONV = 'olua_$$_uint',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::MeshCommand::BufferUsage',
+    DECLTYPE = 'lua_Unsigned',
+    CONV = 'olua_$$_uint',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::MeshCommand::IndexFormat',
+    DECLTYPE = 'lua_Unsigned',
+    CONV = 'olua_$$_uint',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::PixelFormat',
+    DECLTYPE = 'lua_Unsigned',
+    CONV = 'olua_$$_uint',
+}
+
+typedef {
     CPPCLS = 'cocos2d::Point',
     DECLTYPE = 'cocos2d::Point',
     CONV = 'auto_olua_$$_cocos2d_Vec2',
@@ -20,7 +80,19 @@ typedef {
 }
 
 typedef {
-    CPPCLS = 'cocos2d::TMXTileFlags',
+    CPPCLS = 'cocos2d::TMXTileFlags_',
+    DECLTYPE = 'lua_Unsigned',
+    CONV = 'olua_$$_uint',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::Texture2D::TexParams',
+    DECLTYPE = 'cocos2d::Texture2D::TexParams',
+    CONV = 'auto_olua_$$_cocos2d_backend_SamplerDescriptor',
+}
+
+typedef {
+    CPPCLS = 'cocos2d::TextureUsage',
     DECLTYPE = 'lua_Unsigned',
     CONV = 'olua_$$_uint',
 }
@@ -38,43 +110,13 @@ typedef {
 }
 
 typedef {
-    CPPCLS = 'cocos2d::ui::CheckBoxEventType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::ListViewEventType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::PageViewEventType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::ScrollviewEventType',
+    CPPCLS = 'cocos2d::Winding',
     DECLTYPE = 'lua_Unsigned',
     CONV = 'olua_$$_uint',
 }
 
 typedef {
     CPPCLS = 'cocos2d::ui::SliderEventType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::TextFiledEventType',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::ui::TouchEventType',
     DECLTYPE = 'lua_Unsigned',
     CONV = 'olua_$$_uint',
 }

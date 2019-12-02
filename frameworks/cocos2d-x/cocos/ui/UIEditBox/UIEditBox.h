@@ -73,13 +73,6 @@ namespace ui {
         virtual void editBoxEditingDidBegin(EditBox* /*editBox*/) {}
 
         /**
-         * This method is called when an edit box loses focus after keyboard is hidden.
-         * @param editBox The edit box object that generated the event.
-         * @deprecated Use editBoxEditingDidEndWithAction() instead to receive reason for end
-         */
-        CC_DEPRECATED_ATTRIBUTE virtual void editBoxEditingDidEnd(EditBox* /*editBox*/) {}
-
-        /**
          * This method is called when the edit box text was changed.
          * @param editBox The edit box object that generated the event.
          * @param text The new text.
@@ -655,14 +648,6 @@ namespace ui {
          */
         virtual void keyboardDidHide(IMEKeyboardNotificationInfo& info) override;
 
-        /**
-         * @js NA
-         * @lua NA
-         * @deprecated Use openKeyboard() instead to open the keyboard
-         */
-        CC_DEPRECATED_ATTRIBUTE
-        void touchDownAction(Ref *sender, TouchEventType controlEvent);
-
         void openKeyboard() const;
 
     protected:
@@ -690,9 +675,9 @@ namespace ui {
     protected:
         void updatePosition(float dt);
 
-        Scale9Sprite* _normalRenderer;
-        Scale9Sprite* _pressedRenderer;
-        Scale9Sprite* _disabledRenderer;
+        Scale9Sprite* _normalRenderer = nullptr;
+        Scale9Sprite* _pressedRenderer = nullptr;
+        Scale9Sprite* _disabledRenderer = nullptr;
 
         Rect _capInsetsNormal;
         Rect _capInsetsPressed;
@@ -702,26 +687,26 @@ namespace ui {
         Size _pressedTextureSize;
         Size _disabledTextureSize;
 
-        bool _normalTextureLoaded;
-        bool _pressedTextureLoaded;
-        bool _disabledTextureLoaded;
-        bool _normalTextureAdaptDirty;
-        bool _pressedTextureAdaptDirty;
-        bool _disabledTextureAdaptDirty;
+        bool _normalTextureLoaded = false;
+        bool _pressedTextureLoaded = false;
+        bool _disabledTextureLoaded = false;
+        bool _normalTextureAdaptDirty = true;
+        bool _pressedTextureAdaptDirty = true;
+        bool _disabledTextureAdaptDirty = true;
 
         std::string _normalFileName;
         std::string _pressedFileName;
         std::string _disabledFileName;
-        TextureResType _normalTexType;
-        TextureResType _pressedTexType;
-        TextureResType _disabledTexType;
+        TextureResType _normalTexType = TextureResType::LOCAL;
+        TextureResType _pressedTexType = TextureResType::LOCAL;
+        TextureResType _disabledTexType = TextureResType::LOCAL;
 
-        EditBoxImpl*      _editBoxImpl;
-        EditBoxDelegate*  _delegate;
+        EditBoxImpl*      _editBoxImpl = nullptr;
+        EditBoxDelegate*  _delegate = nullptr;
 
-        float _adjustHeight;
+        float _adjustHeight = 0.f;
 #if CC_ENABLE_SCRIPT_BINDING
-        int   _scriptEditBoxHandler;
+        int   _scriptEditBoxHandler = 0;
 #endif
     };
 }

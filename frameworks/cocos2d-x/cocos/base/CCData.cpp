@@ -51,7 +51,10 @@ _bytes(nullptr),
 _size(0)
 {
     CCLOGINFO("In the copy constructor of Data.");
-    copy(other._bytes, other._size);
+    if (other._bytes && other._size)
+    {
+        copy(other._bytes, other._size);
+    }
 }
 
 Data::~Data()
@@ -108,8 +111,8 @@ ssize_t Data::getSize() const
 
 ssize_t Data::copy(const unsigned char* bytes, const ssize_t size)
 {
-    //CCASSERT(size >= 0, "copy size should be non-negative");
-    //CCASSERT(bytes, "bytes should not be nullptr");
+    CCASSERT(size >= 0, "copy size should be non-negative");
+    CCASSERT(bytes, "bytes should not be nullptr");
 
     if (size <= 0) return 0;
 

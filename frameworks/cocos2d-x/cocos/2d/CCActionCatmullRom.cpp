@@ -38,7 +38,7 @@
 
 using namespace std;
 
-NS_CC_BEGIN
+NS_CC_BEGIN;
 
 /*
  *  Implementation of PointArray
@@ -269,8 +269,8 @@ void CardinalSplineTo::update(float time)
     }
     else 
     {
-        p = time / _deltaT;
-        lt = (time - _deltaT * (float)p) / _deltaT;
+        p = (ssize_t)(time / _deltaT);
+        lt = (time - _deltaT * p) / _deltaT;
     }
     
     // Interpolate
@@ -526,4 +526,4 @@ CatmullRomBy* CatmullRomBy::reverse() const
     return CatmullRomBy::create(_duration, reverse);
 }
 
-NS_CC_END
+NS_CC_END;

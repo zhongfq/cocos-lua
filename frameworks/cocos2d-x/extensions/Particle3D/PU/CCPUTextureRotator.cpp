@@ -34,11 +34,11 @@ const float PUTextureRotator::DEFAULT_ROTATION_SPEED = 10.0f;
 const float PUTextureRotator::DEFAULT_ROTATION = 0.0f;
 
 //-----------------------------------------------------------------------
-PUTextureRotator::PUTextureRotator()
-: PUAffector()
-, _useOwnRotationSpeed(DEFAULT_USE_OWN_SPEED)
-, _scaledRotationSpeed(0.0f)
-, _twoPiRad(float(2.0 * M_PI))
+PUTextureRotator::PUTextureRotator() : 
+    PUAffector(),
+    _useOwnRotationSpeed(DEFAULT_USE_OWN_SPEED),
+    _scaledRotationSpeed(0.0f),
+    _twoPiRad(float(2.0 * M_PI))
 {
     _dynRotation = new (std::nothrow) PUDynamicAttributeFixed();
     (static_cast<PUDynamicAttributeFixed*>(_dynRotation))->setValue(DEFAULT_ROTATION);

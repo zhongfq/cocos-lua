@@ -581,7 +581,7 @@ void HttpClient::processResponse(HttpResponse* response, char* responseMessage)
 void HttpClient::clearResponseAndRequestQueue()
 {
     _requestQueueMutex.lock();
-    if (!_requestQueue.empty())
+    if (_requestQueue.size())
     {
         for (auto it = _requestQueue.begin(); it != _requestQueue.end();)
         {

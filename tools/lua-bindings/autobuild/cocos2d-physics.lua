@@ -16,7 +16,6 @@ M.INCLUDES = [[
 #include "lua-bindings/lua_conv_manual.h"
 #include "lua-bindings/LuaCocosAdapter.h"
 #include "xgame/xlua.h"
-#include "xgame/xruntime.h"
 #include "cocos2d.h"
 ]]
 M.CHUNK = [[
@@ -625,7 +624,6 @@ cls.funcs [[
     int getFixedUpdateRate()
     void setDebugDrawMask(int mask)
     int getDebugDrawMask()
-    void setDebugDrawGlobalZOrder(float globalZOrder)
     void setAutoStep(bool autoStep)
     bool isAutoStep()
     void step(float delta)
@@ -659,7 +657,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void rayCast(@local const std::function<bool (PhysicsWorld &, const PhysicsRayCastInfo &, void *)> &func, const cocos2d::Vec2 &start, const cocos2d::Vec2 &end, void *data)'
+        'void rayCast(@local std::function<bool (PhysicsWorld &, const PhysicsRayCastInfo &, void *)> func, const cocos2d::Vec2 &start, const cocos2d::Vec2 &end, void *data)'
     },
     TAG_MAKER = 'rayCast',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -669,7 +667,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void queryRect(@local const std::function<bool (PhysicsWorld &, PhysicsShape &, void *)> &func, const cocos2d::Rect &rect, void *data)'
+        'void queryRect(@local std::function<bool (PhysicsWorld &, PhysicsShape &, void *)> func, const cocos2d::Rect &rect, void *data)'
     },
     TAG_MAKER = 'queryRect',
     TAG_MODE = 'OLUA_TAG_REPLACE',
@@ -679,7 +677,7 @@ cls.callback {
 }
 cls.callback {
     FUNCS =  {
-        'void queryPoint(@local const std::function<bool (PhysicsWorld &, PhysicsShape &, void *)> &func, const cocos2d::Vec2 &point, void *data)'
+        'void queryPoint(@local std::function<bool (PhysicsWorld &, PhysicsShape &, void *)> func, const cocos2d::Vec2 &point, void *data)'
     },
     TAG_MAKER = 'queryPoint',
     TAG_MODE = 'OLUA_TAG_REPLACE',

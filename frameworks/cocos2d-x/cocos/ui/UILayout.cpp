@@ -26,12 +26,8 @@ THE SOFTWARE.
 #include "ui/UILayout.h"
 #include "ui/UIHelper.h"
 #include "ui/UIScale9Sprite.h"
-#include "renderer/CCGLProgram.h"
-#include "renderer/CCGLProgramCache.h"
-#include "renderer/ccGLStateCache.h"
 #include "renderer/CCRenderState.h"
 #include "base/CCDirector.h"
-#include "2d/CCDrawingPrimitives.h"
 #include "renderer/CCRenderer.h"
 #include "ui/UILayoutManager.h"
 #include "2d/CCDrawNode.h"
@@ -268,9 +264,10 @@ void Layout::stencilClippingVisit(Renderer *renderer, const Mat4& parentTransfor
     
     renderer->pushGroup(_groupCommand.getRenderQueueID());
     
-    _beforeVisitCmdStencil.init(_globalZOrder);
-    _beforeVisitCmdStencil.func = CC_CALLBACK_0(StencilStateManager::onBeforeVisit, _stencilStateManager);
-    renderer->addCommand(&_beforeVisitCmdStencil);
+//    _beforeVisitCmdStencil.init(_globalZOrder);
+//    _beforeVisitCmdStencil.func = CC_CALLBACK_0(StencilStateManager::onBeforeVisit, _stencilStateManager);
+//    renderer->addCommand(&_beforeVisitCmdStencil);
+    _stencilStateManager->onBeforeVisit(_globalZOrder);
     
     _clippingStencil->visit(renderer, _modelViewTransform, flags);
     
@@ -338,7 +335,8 @@ void Layout::onBeforeVisitScissor()
     _scissorOldState = glview->isScissorEnabled();
     if (false == _scissorOldState)
     {
-        glEnable(GL_SCISSOR_TEST);
+        auto renderer = Director::getInstance()->getRenderer();
+        renderer->setScissorTest(true);
     }
 
     // apply scissor box
@@ -370,7 +368,8 @@ void Layout::onAfterVisitScissor()
     else
     {
         // revert scissor test
-        glDisable(GL_SCISSOR_TEST);
+        auto renderer = Director::getInstance()->getRenderer();
+        renderer->setScissorTest(false);
     }
 }
     
@@ -380,6 +379,16 @@ void Layout::scissorClippingVisit(Renderer *renderer, const Mat4& parentTransfor
     {
         _clippingRectDirty = true;
     }
+    
+    Director* director = Director::getInstance();
+    CCASSERT(nullptr != director, "Director is null when setting matrix stack");
+    director->pushMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW);
+    director->loadMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW, _modelViewTransform);
+    
+    _groupCommand.init(_globalZOrder);
+    renderer->addCommand(&_groupCommand);
+    renderer->pushGroup(_groupCommand.getRenderQueueID());
+
     _beforeVisitCmdScissor.init(_globalZOrder);
     _beforeVisitCmdScissor.func = CC_CALLBACK_0(Layout::onBeforeVisitScissor, this);
     renderer->addCommand(&_beforeVisitCmdScissor);
@@ -389,6 +398,9 @@ void Layout::scissorClippingVisit(Renderer *renderer, const Mat4& parentTransfor
     _afterVisitCmdScissor.init(_globalZOrder);
     _afterVisitCmdScissor.func = CC_CALLBACK_0(Layout::onAfterVisitScissor, this);
     renderer->addCommand(&_afterVisitCmdScissor);
+    
+    renderer->popGroup();
+    director->popMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW);
 }
 
 void Layout::setClippingEnabled(bool able)
@@ -809,7 +821,7 @@ const Color3B& Layout::getBackGroundEndColor()const
     return _gEndColor;
 }
 
-void Layout::setBackGroundColorOpacity(GLubyte opacity)
+void Layout::setBackGroundColorOpacity(uint8_t opacity)
 {
     _cOpacity = opacity;
     switch (_colorType)
@@ -827,7 +839,7 @@ void Layout::setBackGroundColorOpacity(GLubyte opacity)
     }
 }
     
-GLubyte Layout::getBackGroundColorOpacity()const
+uint8_t Layout::getBackGroundColorOpacity()const
 {
     return _cOpacity;
 }
@@ -852,7 +864,7 @@ void Layout::setBackGroundImageColor(const Color3B &color)
     updateBackGroundImageColor();
 }
 
-void Layout::setBackGroundImageOpacity(GLubyte opacity)
+void Layout::setBackGroundImageOpacity(uint8_t opacity)
 {
     _backGroundImageOpacity = opacity;
     updateBackGroundImageOpacity();
@@ -863,7 +875,7 @@ const Color3B& Layout::getBackGroundImageColor()const
     return _backGroundImageColor;
 }
 
-GLubyte Layout::getBackGroundImageOpacity()const
+uint8_t Layout::getBackGroundImageOpacity()const
 {
     return _backGroundImageOpacity;
 }

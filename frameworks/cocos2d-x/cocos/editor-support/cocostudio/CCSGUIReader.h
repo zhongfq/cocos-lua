@@ -86,7 +86,7 @@ public:
                                  SEL_ParseEvent callBack);
 
     void registerTypeAndCallBack(const std::string& classType,
-                                 const cocos2d::ObjectFactory::InstanceFunc& ins,
+                                 cocos2d::ObjectFactory::InstanceFunc ins,
                                  Ref* object,
                                  SEL_ParseEvent callBack);
 protected:

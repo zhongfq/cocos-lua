@@ -23610,8 +23610,8 @@ static int _fairygui_FUIContainer_getAlphaThreshold(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "fgui.FUIContainer");
 
-    // GLfloat getAlphaThreshold()
-    GLfloat ret = (GLfloat)self->getAlphaThreshold();
+    // float getAlphaThreshold()
+    float ret = (float)self->getAlphaThreshold();
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
     olua_endinvoke(L);
@@ -23711,8 +23711,8 @@ static int _fairygui_FUIContainer_setAlphaThreshold(lua_State *L)
     olua_to_cppobj(L, 1, (void **)&self, "fgui.FUIContainer");
     olua_check_number(L, 2, &arg1);
 
-    // void setAlphaThreshold(GLfloat alphaThreshold)
-    self->setAlphaThreshold((GLfloat)arg1);
+    // void setAlphaThreshold(float alphaThreshold)
+    self->setAlphaThreshold((float)arg1);
 
     olua_endinvoke(L);
 

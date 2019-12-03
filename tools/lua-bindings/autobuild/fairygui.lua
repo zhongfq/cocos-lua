@@ -2370,8 +2370,8 @@ cls.funcs [[
     void setClippingRegion(const cocos2d::Rect &clippingRegion)
     cocos2d::Node *getStencil()
     void setStencil(cocos2d::Node *stencil)
-    GLfloat getAlphaThreshold()
-    void setAlphaThreshold(GLfloat alphaThreshold)
+    float getAlphaThreshold()
+    void setAlphaThreshold(float alphaThreshold)
     bool isInverted()
     void setInverted(bool inverted)
 ]]

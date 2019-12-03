@@ -565,6 +565,7 @@ void RuntimeContext::initGLView(const std::string &title)
 #endif
         director->setOpenGLView(glview);
     }
+    glview->setDesignResolutionSize(rect.size.width, rect.size.height, ResolutionPolicy::NO_BORDER);
 }
 
 void RuntimeContext::initGLContextAttrs()

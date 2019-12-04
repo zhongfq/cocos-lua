@@ -140,7 +140,7 @@ typedef enum {
     // for olua_setcallback
     OLUA_TAG_NEW,
     OLUA_TAG_REPLACE,
-    // for olua_removecallback, tag format: .callback#%d@%s
+    // for olua_removecallback, tag format: .callback#%d$cls@%s
     OLUA_TAG_WHOLE,         // compare whole tag string
     OLUA_TAG_SUBEQUAL,      // compare substring after '@'
     OLUA_TAG_SUBSTARTWITH,  // compare substring after '@'

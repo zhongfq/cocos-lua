@@ -398,11 +398,16 @@ static bool test_tag_mode(lua_State *L, int idx, const char *tag, olua_tag_mode 
 
 LUALIB_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag, int func, olua_tag_mode mode)
 {
+    const char *cls = NULL;
     func = lua_absindex(L, func);
     luaL_checktype(L, func, LUA_TFUNCTION);
     
     if (!olua_getobj(L, obj)) {                         // L: obj
         luaL_error(L, "obj userdata not found");
+    } else {
+        olua_getfield(L, -1, "classname");
+        cls = olua_optstring(L, -1, "<NONAME>");
+        lua_pop(L, 1);
     }
     
     auxgetusertable(L, -1);                             // L: obj ct
@@ -421,7 +426,7 @@ LUALIB_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag
     
     if (!olua_isstring(L, -1)) {
         static unsigned int ref = 0;
-        lua_pushfstring(L, ".callback#%d@%s", ++ref, tag);
+        lua_pushfstring(L, ".callback#%d$%s@%s", ++ref, cls, tag);
     }
     
     lua_pushvalue(L, -1);                               // L: ct k k
@@ -962,13 +967,19 @@ LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *super)
         olua_setfieldboolean(L, -1, cls, true);         // mt[.isa][cls] = true
         lua_pop(L, 1);
         
-        // for sotre static function callback
-        auxgetobjtable(L);                              // L: mt objs
-        lua_newuserdata(L, sizeof(void *));             // L: mt objs store
-        lua_pushvalue(L, -1);                           // L: mt objs store store
-        olua_rawsetf(L, -4, CLS_STORE);                 // L: mt objs store     mt[.store] = store
-        olua_rawsetp(L, -2, lua_topointer(L, -1));      // L: mt objs           objs[store_ptr] = store
-        lua_pop(L, 1);                                  // L: mt
+        // create class store, for sotre static function callback
+        lua_newuserdata(L, sizeof(void *));             // L: mt store
+        lua_createtable(L, 0, 1);                       // L: mt store t
+        lua_pushvalue(L, -1);                           // L: mt store t t
+        olua_rawsetf(L, -2, "__index");                 // L: mt store t        t.__index = t
+        olua_setfieldstring(L, -1, "classname", cls);   // L: mt store t        t.classname = cls
+        lua_setmetatable(L, -2);                        // L: mt store          store.mt = t
+        lua_pushvalue(L, -1);                           // L: mt store store
+        olua_rawsetf(L, -3, CLS_STORE);                 // L: mt store          mt[.store] = store
+        auxgetobjtable(L);                              // L: mt store objs
+        lua_pushvalue(L, -2);                           // L: mt store objs store
+        olua_rawsetp(L, -2, lua_topointer(L, -1));      // L: mt store objs           objs[store_ptr] = store
+        lua_pop(L, 2);                                  // L: mt
         
         // allow access static method or const variable from class table
         lua_pushvalue(L, -1);

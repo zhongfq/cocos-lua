@@ -15,6 +15,116 @@
 
 
 
+int auto_olua_push_xgame_downloader_FileTask(lua_State *L, const xgame::downloader::FileTask *value)
+{
+    if (value) {
+        lua_createtable(L, 0, 4);
+
+        olua_push_std_string(L, value->url);
+        olua_setfield(L, -2, "url");
+
+        olua_push_std_string(L, value->path);
+        olua_setfield(L, -2, "path");
+
+        olua_push_std_string(L, value->md5);
+        olua_setfield(L, -2, "md5");
+
+        olua_push_uint(L, (lua_Unsigned)value->state);
+        olua_setfield(L, -2, "state");
+    } else {
+        lua_pushnil(L);
+    }
+
+    return 1;
+}
+
+void auto_olua_check_xgame_downloader_FileTask(lua_State *L, int idx, xgame::downloader::FileTask *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    idx = lua_absindex(L, idx);
+    luaL_checktype(L, idx, LUA_TTABLE);
+
+    std::string arg1;       /** url */
+    std::string arg2;       /** path */
+    std::string arg3;       /** md5 */
+    lua_Unsigned arg4 = 0;       /** state */
+
+    olua_getfield(L, idx, "url");
+    olua_check_std_string(L, -1, &arg1);
+    value->url = (std::string)arg1;
+    lua_pop(L, 1);
+
+    olua_getfield(L, idx, "path");
+    olua_check_std_string(L, -1, &arg2);
+    value->path = (std::string)arg2;
+    lua_pop(L, 1);
+
+    olua_getfield(L, idx, "md5");
+    olua_check_std_string(L, -1, &arg3);
+    value->md5 = (std::string)arg3;
+    lua_pop(L, 1);
+
+    olua_getfield(L, idx, "state");
+    if (!olua_isnoneornil(L, -1)) {
+        olua_check_uint(L, -1, &arg4);
+        value->state = (xgame::downloader::FileState)arg4;
+    }
+    lua_pop(L, 1);
+}
+
+bool auto_olua_is_xgame_downloader_FileTask(lua_State *L, int idx)
+{
+    return olua_istable(L, idx) && olua_hasfield(L, idx, "md5") && olua_hasfield(L, idx, "path") && olua_hasfield(L, idx, "url");
+}
+
+void auto_olua_pack_xgame_downloader_FileTask(lua_State *L, int idx, xgame::downloader::FileTask *value)
+{
+    if (!value) {
+        luaL_error(L, "value is NULL");
+    }
+    idx = lua_absindex(L, idx);
+
+    std::string arg1;       /** url */
+    std::string arg2;       /** path */
+    std::string arg3;       /** md5 */
+    lua_Unsigned arg4 = 0;       /** state */
+
+    olua_check_std_string(L, idx + 0, &arg1);
+    value->url = (std::string)arg1;
+
+    olua_check_std_string(L, idx + 1, &arg2);
+    value->path = (std::string)arg2;
+
+    olua_check_std_string(L, idx + 2, &arg3);
+    value->md5 = (std::string)arg3;
+
+    olua_check_uint(L, idx + 3, &arg4);
+    value->state = (xgame::downloader::FileState)arg4;
+}
+
+int auto_olua_unpack_xgame_downloader_FileTask(lua_State *L, const xgame::downloader::FileTask *value)
+{
+    if (value) {
+        olua_push_std_string(L, value->url);
+        olua_push_std_string(L, value->path);
+        olua_push_std_string(L, value->md5);
+        olua_push_uint(L, (lua_Unsigned)value->state);
+    } else {
+        for (int i = 0; i < 4; i++) {
+            lua_pushnil(L);
+        }
+    }
+
+    return 4;
+}
+
+bool auto_olua_ispack_xgame_downloader_FileTask(lua_State *L, int idx)
+{
+    return olua_is_std_string(L, idx + 0) && olua_is_std_string(L, idx + 1) && olua_is_std_string(L, idx + 2) && olua_is_uint(L, idx + 3);
+}
+
 static int _xgame_SceneNoCamera___move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -2018,6 +2128,19 @@ static int luaopen_xgame_window(lua_State *L)
     return 1;
 }
 
+static int luaopen_xgame_downloader_FileState(lua_State *L)
+{
+    oluacls_class(L, "kernel.downloader.FileState", nullptr);
+    oluacls_const_integer(L, "INVALID", (lua_Integer)xgame::downloader::FileState::INVALID);
+    oluacls_const_integer(L, "IOERROR", (lua_Integer)xgame::downloader::FileState::IOERROR);
+    oluacls_const_integer(L, "LOADED", (lua_Integer)xgame::downloader::FileState::LOADED);
+    oluacls_const_integer(L, "PENDING", (lua_Integer)xgame::downloader::FileState::PENDING);
+
+    oluacls_asenum(L);
+
+    return 1;
+}
+
 static int _xgame_downloader___move(lua_State *L)
 {
     olua_startinvoke(L);
@@ -2030,15 +2153,40 @@ static int _xgame_downloader___move(lua_State *L)
     return 1;
 }
 
+static int _xgame_downloader_end(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static void end()
+    xgame::downloader::end();
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _xgame_downloader_init(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static void init()
+    xgame::downloader::init();
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
 static int _xgame_downloader_load(lua_State *L)
 {
     olua_startinvoke(L);
 
-    xgame::downloader::FileTask task;
-    task.url = olua_checkstring(L, 1);
-    task.path = olua_checkstring(L, 2);
-    task.md5 = olua_optstring(L, 3, "");
-    xgame::downloader::load(task);
+    xgame::downloader::FileTask arg1;       /** task */
+
+    auto_olua_check_xgame_downloader_FileTask(L, 1, &arg1);
+
+    // static void load(const xgame::downloader::FileTask &task)
+    xgame::downloader::load(arg1);
 
     olua_endinvoke(L);
 
@@ -2049,19 +2197,32 @@ static int _xgame_downloader_setDispatcher(lua_State *L)
 {
     olua_startinvoke(L);
 
-    static const char *STATES[] = {"ioerror", "loaded", "pending", "invalid"};
+    std::function<void(const xgame::downloader::FileTask &)> arg1;       /** callback */
 
-    void *store_obj = olua_getstoreobj(L, "kernel.downloader");
-    std::string func = olua_setcallback(L, store_obj, "dispatcher", 1, OLUA_TAG_REPLACE);
-    xgame::downloader::setDispatcher([store_obj, func](const xgame::downloader::FileTask &task) {
+    void *callback_store_obj = (void *)olua_getstoreobj(L, "kernel.downloader");
+    std::string tag = "Dispatcher";
+    std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 1, OLUA_TAG_REPLACE);
+    lua_State *MT = olua_mainthread();
+    arg1 = [callback_store_obj, func, MT](const xgame::downloader::FileTask &arg1) {
         lua_State *L = olua_mainthread();
-        int top = lua_gettop(L);
-        lua_pushstring(L, task.url.c_str());
-        lua_pushstring(L, task.path.c_str());
-        lua_pushstring(L, STATES[task.state]);
-        olua_callback(L, store_obj, func.c_str(), 3);
-        lua_settop(L, top);
-    });
+
+        if (MT == L) {
+            int top = lua_gettop(L);
+            size_t last = olua_push_objpool(L);
+            olua_enable_objpool(L);
+            auto_olua_push_xgame_downloader_FileTask(L, &arg1);
+            olua_disable_objpool(L);
+
+            olua_callback(L, callback_store_obj, func.c_str(), 1);
+
+            //pop stack value
+            olua_pop_objpool(L, last);
+            lua_settop(L, top);
+        }
+    };
+
+    // static void setDispatcher(@local const std::function<void (const FileTask &)> callback)
+    xgame::downloader::setDispatcher(arg1);
 
     olua_endinvoke(L);
 
@@ -2072,6 +2233,8 @@ static int luaopen_xgame_downloader(lua_State *L)
 {
     oluacls_class(L, "kernel.downloader", nullptr);
     oluacls_func(L, "__move", _xgame_downloader___move);
+    oluacls_func(L, "end", _xgame_downloader_end);
+    oluacls_func(L, "init", _xgame_downloader_init);
     oluacls_func(L, "load", _xgame_downloader_load);
     oluacls_func(L, "setDispatcher", _xgame_downloader_setDispatcher);
 
@@ -2145,6 +2308,7 @@ int luaopen_xgame(lua_State *L)
     olua_require(L, "kernel.preferences", luaopen_xgame_preferences);
     olua_require(L, "kernel.timer", luaopen_xgame_timer);
     olua_require(L, "kernel.window", luaopen_xgame_window);
+    olua_require(L, "kernel.downloader.FileState", luaopen_xgame_downloader_FileState);
     olua_require(L, "kernel.downloader", luaopen_xgame_downloader);
     olua_require(L, "kernel.MaskLayout", luaopen_xgame_MaskLayout);
     return 0;

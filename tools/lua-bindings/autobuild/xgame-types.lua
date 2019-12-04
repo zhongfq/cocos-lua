@@ -4,6 +4,14 @@ local olua = require "olua"
 local typedef = olua.typedef
 
 typedef {
+    CPPCLS = 'xgame::downloader::FileTask',
+    LUACLS = nil,
+    DECLTYPE = nil,
+    CONV = 'auto_olua_$$_xgame_downloader_FileTask',
+    NUMVARS = 4,
+}
+
+typedef {
     CPPCLS = 'xgame::SceneNoCamera *',
     LUACLS = 'kernel.SceneNoCamera',
     DECLTYPE = nil,
@@ -64,6 +72,14 @@ typedef {
     LUACLS = 'kernel.window',
     DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'xgame::downloader::FileState',
+    LUACLS = 'kernel.downloader.FileState',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
     NUMVARS = nil,
 }
 

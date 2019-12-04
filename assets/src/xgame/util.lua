@@ -46,6 +46,19 @@ function M.trace(prefix)
     end
 end
 
+
+function M.compareVersion(v1, v2)
+    local function toIntVersion(v)
+        local v1, v2, v3 = string.match(v, "(%d+)%.(%d+)%.(%d+)")
+        if v1 then
+            return v1 * 1000000 + v2 * 1000 + v3
+        else
+            return 0
+        end
+    end
+    return toIntVersion(v1) - toIntVersion(v2)
+end
+
 function M.dump(root, ...)
     local tbl = {}
     local filter = {[root] = tostring(root)}

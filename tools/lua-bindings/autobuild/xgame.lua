@@ -28,6 +28,15 @@ M.CHUNK = [[
 ]]
 
 M.CONVS = {
+    typeconv {
+        CPPCLS = 'xgame::downloader::FileTask',
+        DEF = [[
+            std::string url;
+            std::string path;
+            std::string md5;
+            @optional xgame::downloader::FileState state;
+        ]],
+    },
 }
 
 M.CLASSES = {}
@@ -344,33 +353,31 @@ cls.func('convertToCameraSpace', [[{
 }]])
 M.CLASSES[#M.CLASSES + 1] = cls
 
+cls = typecls 'xgame::downloader::FileState'
+cls.enums [[
+    IOERROR
+    LOADED
+    PENDING
+    INVALID
+]]
+M.CLASSES[#M.CLASSES + 1] = cls
+
 cls = typecls 'xgame::downloader'
 cls.funcs [[
+    static void load(const xgame::downloader::FileTask &task)
+    static void init()
+    static void end()
 ]]
-cls.func('load', [[{
-    xgame::downloader::FileTask task;
-    task.url = olua_checkstring(L, 1);
-    task.path = olua_checkstring(L, 2);
-    task.md5 = olua_optstring(L, 3, "");
-    xgame::downloader::load(task);
-    return 0;
-}]])
-cls.func('setDispatcher', [[{
-    static const char *STATES[] = {"ioerror", "loaded", "pending", "invalid"};
-
-    void *store_obj = olua_getstoreobj(L, "kernel.downloader");
-    std::string func = olua_setcallback(L, store_obj, "dispatcher", 1, OLUA_TAG_REPLACE);
-    xgame::downloader::setDispatcher([store_obj, func](const xgame::downloader::FileTask &task) {
-        lua_State *L = olua_mainthread();
-        int top = lua_gettop(L);
-        lua_pushstring(L, task.url.c_str());
-        lua_pushstring(L, task.path.c_str());
-        lua_pushstring(L, STATES[task.state]);
-        olua_callback(L, store_obj, func.c_str(), 3);
-        lua_settop(L, top);
-    });
-    return 0;
-}]])
+cls.callback {
+    FUNCS =  {
+        'static void setDispatcher(@local const std::function<void (const FileTask &)> callback)'
+    },
+    TAG_MAKER = 'Dispatcher',
+    TAG_MODE = 'OLUA_TAG_REPLACE',
+    TAG_STORE = nil,
+    CALLONCE = false,
+    REMOVE = false,
+}
 M.CLASSES[#M.CLASSES + 1] = cls
 
 cls = typecls 'xgame::MaskLayout'

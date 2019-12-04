@@ -14,9 +14,9 @@ USING_NS_CC;
 NS_XGAME_BEGIN
 
 BufferReader::BufferReader()
-:_data(nullptr)
+:_capacity(0)
 ,_size(0)
-,_capacity(0)
+,_data(nullptr)
 {
 }
 

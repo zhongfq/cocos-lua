@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.6)
 
-set(XGAME_ROOT ${CMAKE_CURRENT_SOURCE_DIR})
+include(CocosBuildSet)
 
 include(src/bugly/CMakeLists.txt)
 include(src/cjson/CMakeLists.txt)
@@ -55,16 +55,24 @@ add_library(xgame ${SRC})
 target_compile_definitions(xgame PUBLIC STDC_HEADERS)
 target_compile_definitions(xgame PRIVATE $<$<CONFIG:Debug>:OLUA_DEBUG>)
 
-target_link_libraries(xgame
-    PRIVATE fairygui
-	PRIVATE cocos2d
-)
+target_link_libraries(xgame fairygui cocos2d)
+
+if (IOS)
+    set_xcode_property(xgame TARGETED_DEVICE_FAMILY "1,2")
+    set_xcode_property(xgame IPHONEOS_DEPLOYMENT_TARGET "9.0")
+
+    add_subdirectory(src/bugly/ios)
+    target_link_libraries(xgame bugly)
+
+    find_library(PHOTOS_LIBRARY Photos)
+    target_link_libraries(xgame ${PHOTOS_LIBRARY})
+endif()
 
 add_dependencies(xgame cocos2d)
 
 target_include_directories(xgame
-	PUBLIC ${XGAME_ROOT}/src
-	PUBLIC ${XGAME_ROOT}/src/lua/src
+	PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src
+    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/lua/src
 )
 
 if(XCODE OR VS)

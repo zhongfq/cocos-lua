@@ -113,6 +113,7 @@ static NSString *productsToString(NSArray<SKProduct *> *products)
                 event = @"restoreTransactionSuccess";
                 break;
             case SKPaymentTransactionStateFailed:
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
                 event = transaction.error.code == SKErrorPaymentCancelled ? @"purchaseTransactionCancel" : @"purchaseTransactionFail";
                 break;
             default:
@@ -182,36 +183,40 @@ static NSString *productsToString(NSArray<SKProduct *> *products)
 #define olua_checkconnector(L, i) ((__bridge IAPConnector *)olua_checkobj(L, i, CLASS_CONNECTOR))
 #define NSStringMake(str) (str == NULL ? nil : @(str))
 
-static int _gc(lua_State *L)
+static int l__gc(lua_State *L)
 {
     lua_settop(L, 1);
     IAPConnector *connector = olua_checkconnector(L, 1);
+    [[SKPaymentQueue defaultQueue] removeTransactionObserver:connector];
     CFBridgingRelease((__bridge CFTypeRef)connector);
     
     return 0;
 }
 
-static int _set_callback(lua_State *L)
+static int l_set_callback(lua_State *L)
 {
     @autoreleasepool {
         lua_settop(L, 2);
         IAPConnector *connector = olua_checkconnector(L, 1);
         void *cb_store = (void *)connector;
         std::string func = olua_setcallback(L, cb_store, "dispatcher", 2, OLUA_TAG_REPLACE);
-        connector.dispatcher = [cb_store, func] (const std::string &event, const std::string &data) {
+        lua_State *MT = olua_mainthread();
+        connector.dispatcher = [cb_store, func, MT] (const std::string &event, const std::string &data) {
             lua_State *L = olua_mainthread();
-            int top = lua_gettop(L);
-            lua_pushstring(L, event.c_str());
-            lua_pushstring(L, data.c_str());
-            olua_callback(L, cb_store, func.c_str(), 2);
-            lua_settop(L, top);
+            if (MT == L) {
+                int top = lua_gettop(L);
+                lua_pushstring(L, event.c_str());
+                lua_pushstring(L, data.c_str());
+                olua_callback(L, cb_store, func.c_str(), 2);
+                lua_settop(L, top);
+            }
         };
     }
     
     return 0;
 }
 
-static int _can_make_payments(lua_State *L)
+static int l_can_make_payments(lua_State *L)
 {
     @autoreleasepool {
         lua_pushboolean(L, [SKPaymentQueue canMakePayments]);
@@ -220,7 +225,7 @@ static int _can_make_payments(lua_State *L)
     return 1;
 }
 
-static int _request_products(lua_State *L)
+static int l_request_products(lua_State *L)
 {
     @autoreleasepool {
         lua_settop(L, 2);
@@ -236,7 +241,7 @@ static int _request_products(lua_State *L)
     return 1;
 }
 
-static int _purchase(lua_State *L)
+static int l_purchase(lua_State *L)
 {
     @autoreleasepool {
         lua_settop(L, 3);
@@ -267,7 +272,7 @@ static int _purchase(lua_State *L)
     return 0;
 }
 
-static int _finish_transaction(lua_State *L)
+static int l_finish_transaction(lua_State *L)
 {
     @autoreleasepool {
         lua_settop(L, 2);
@@ -287,7 +292,7 @@ static int _finish_transaction(lua_State *L)
     return 0;
 }
 
-static int _restore_completed_transactions(lua_State *L)
+static int l_restore_completed_transactions(lua_State *L)
 {
     @autoreleasepool {
         [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
@@ -296,7 +301,7 @@ static int _restore_completed_transactions(lua_State *L)
     return 0;
 }
 
-static int _pending_transactions(lua_State *L)
+static int l_pending_transactions(lua_State *L)
 {
     @autoreleasepool {
         lua_settop(L, 1);
@@ -324,19 +329,20 @@ static int _pending_transactions(lua_State *L)
 int luaopen_iap(lua_State *L)
 {
     oluacls_class(L, CLASS_CONNECTOR, nullptr);
-    oluacls_func(L, "__gc", _gc);
-    oluacls_func(L, "setDispatcher", _set_callback);
-    oluacls_func(L, "canMakePayments", _can_make_payments);
-    oluacls_func(L, "requestProducts", _request_products);
-    oluacls_func(L, "purchase", _purchase);
-    oluacls_func(L, "finishTransaction", _finish_transaction);
-    oluacls_func(L, "restoreCompletedTransactions", _restore_completed_transactions);
-    oluacls_prop(L, "pendingTransactions", _pending_transactions, nullptr);
+    oluacls_func(L, "__gc", l__gc);
+    oluacls_func(L, "setDispatcher", l_set_callback);
+    oluacls_func(L, "canMakePayments", l_can_make_payments);
+    oluacls_func(L, "requestProducts", l_request_products);
+    oluacls_func(L, "purchase", l_purchase);
+    oluacls_func(L, "finishTransaction", l_finish_transaction);
+    oluacls_func(L, "restoreCompletedTransactions", l_restore_completed_transactions);
+    oluacls_prop(L, "pendingTransactions", l_pending_transactions, nullptr);
     
     xgame::runtime::registerFeature("iap.ios", true);
     
     @autoreleasepool {
         IAPConnector *connector = [[IAPConnector alloc] init];
+        [[SKPaymentQueue defaultQueue] addTransactionObserver:connector];
         olua_push_obj(L, (void *)CFBridgingRetain(connector), CLASS_CONNECTOR);
     }
     

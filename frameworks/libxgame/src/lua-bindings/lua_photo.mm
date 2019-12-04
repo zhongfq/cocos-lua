@@ -166,13 +166,16 @@ static int _set_callback(lua_State *L)
         PhotoConnector *connector = olua_checkconnector(L, 1);
         void *cb_store = (void *)connector;
         std::string func = olua_setcallback(L, cb_store, "dispatcher", 2, OLUA_TAG_REPLACE);
-        connector.dispatcher = [cb_store, func] (const std::string &event, const std::string &data) {
+        lua_State *MT = olua_mainthread();
+        connector.dispatcher = [cb_store, func, MT] (const std::string &event, const std::string &data) {
             lua_State *L = olua_mainthread();
-            int top = lua_gettop(L);
-            lua_pushstring(L, event.c_str());
-            lua_pushstring(L, data.c_str());
-            olua_callback(L, cb_store, func.c_str(), 2);
-            lua_settop(L, top);
+            if (MT == L) {
+                int top = lua_gettop(L);
+                lua_pushstring(L, event.c_str());
+                lua_pushstring(L, data.c_str());
+                olua_callback(L, cb_store, func.c_str(), 2);
+                lua_settop(L, top);
+            }
         };
     }
     return 0;

@@ -13,7 +13,7 @@
 #endif
 
 #import <Foundation/Foundation.h>
-#import <Bugly/Bugly.h>
+#import "Bugly.h"
 
 #define NSStringMake(const_char_pointer) (const_char_pointer == NULL ? nil : @(const_char_pointer))
 #define NSStringMakeNonnull(const_char_pointer) (const_char_pointer == NULL ? @"" : @(const_char_pointer))

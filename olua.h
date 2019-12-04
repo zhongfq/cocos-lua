@@ -105,9 +105,9 @@ typedef struct {
 LUALIB_API lua_State *olua_newstate(olua_vmstatus_t *vms);
 LUALIB_API olua_vmstatus_t *olua_vmstatus(lua_State *L);
     
-#define olua_addobjcount(L)  olua_changeobjcount(L, 1)
-#define olua_subobjcount(L)  olua_changeobjcount(L, -1)
-#define olua_objcount(L)     olua_changeobjcount(L, 0)
+#define olua_addobjcount(L)  (++olua_vmstatus(L)->objcount)
+#define olua_subobjcount(L)  (--olua_vmstatus(L)->objcount)
+#define olua_objcount(L)     (olua_vmstatus(L)->objcount)
     
 LUALIB_API lua_Integer olua_checkinteger(lua_State *L, int idx);
 LUALIB_API lua_Number olua_checknumber(lua_State *L, int idx);
@@ -115,7 +115,6 @@ LUALIB_API const char *olua_checklstring (lua_State *L, int arg, size_t *len);
 LUALIB_API bool olua_checkboolean(lua_State *L, int idx);
 LUALIB_API int olua_rawgetf(lua_State *L, int idx, const char *field);
 LUALIB_API void olua_rawsetf(lua_State *L, int idx, const char *field);
-LUALIB_API size_t olua_changeobjcount(lua_State *L, int add);
 LUALIB_API void olua_require(lua_State *L, const char *name, lua_CFunction func);
 LUALIB_API void olua_preload(lua_State *L, const char *name, lua_CFunction func);
 LUALIB_API int olua_geterrorfunc(lua_State *L);

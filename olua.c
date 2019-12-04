@@ -133,13 +133,6 @@ LUALIB_API void olua_rawsetf(lua_State *L, int idx, const char *field)
     lua_rawset(L, idx);
 }
 
-LUALIB_API size_t olua_changeobjcount(lua_State *L, int add)
-{
-    olua_vmstatus_t *mt = olua_vmstatus(L);
-    mt->objcount += add;
-    return mt->objcount;
-}
-
 LUALIB_API void olua_preload(lua_State *L, const char *name, lua_CFunction func)
 {
     int top = lua_gettop(L);
@@ -581,10 +574,14 @@ LUALIB_API int olua_ref(lua_State *L, int idx)
     static int ref = 0;
     if (!olua_isnil(L, idx)) {
         idx = lua_absindex(L, idx);
-        auxgetmappingtable(L);
-        lua_pushvalue(L, idx);
-        lua_rawseti(L, -2, ++ref);
-        lua_pop(L, 1);
+        auxgetmappingtable(L);      // L: mapping
+        while (olua_rawgeti(L, -1, ++ref) != LUA_TNIL) {
+            lua_pop(L, 1);
+            ref = ref < 0 ? 0 : ref;
+        }                           // L: mapping nil
+        lua_pushvalue(L, idx);      // L: mapping nil value
+        lua_rawseti(L, -3, ref);    // L: mapping nil       mapping[ref] = value
+        lua_pop(L, 2);              // L:
         return ref;
     }
     return LUA_REFNIL;

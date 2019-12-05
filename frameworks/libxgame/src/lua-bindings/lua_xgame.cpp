@@ -62,8 +62,10 @@ void auto_olua_check_xgame_downloader_FileTask(lua_State *L, int idx, xgame::dow
     lua_pop(L, 1);
 
     olua_getfield(L, idx, "md5");
-    olua_check_std_string(L, -1, &arg3);
-    value->md5 = (std::string)arg3;
+    if (!olua_isnoneornil(L, -1)) {
+        olua_check_std_string(L, -1, &arg3);
+        value->md5 = (std::string)arg3;
+    }
     lua_pop(L, 1);
 
     olua_getfield(L, idx, "state");
@@ -76,7 +78,7 @@ void auto_olua_check_xgame_downloader_FileTask(lua_State *L, int idx, xgame::dow
 
 bool auto_olua_is_xgame_downloader_FileTask(lua_State *L, int idx)
 {
-    return olua_istable(L, idx) && olua_hasfield(L, idx, "md5") && olua_hasfield(L, idx, "path") && olua_hasfield(L, idx, "url");
+    return olua_istable(L, idx) && olua_hasfield(L, idx, "path") && olua_hasfield(L, idx, "url");
 }
 
 void auto_olua_pack_xgame_downloader_FileTask(lua_State *L, int idx, xgame::downloader::FileTask *value)

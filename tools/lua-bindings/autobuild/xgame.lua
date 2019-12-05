@@ -33,7 +33,7 @@ M.CONVS = {
         DEF = [[
             std::string url;
             std::string path;
-            std::string md5;
+            @optional std::string md5;
             @optional xgame::downloader::FileState state;
         ]],
     },

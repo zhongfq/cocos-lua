@@ -379,7 +379,7 @@ static void auxgetusertable(lua_State *L, int idx)
 
 static bool test_tag_mode(lua_State *L, int idx, const char *tag, olua_tag_mode mode)
 {
-    static const char *const names[] = {"new", "replace", "none", "equal", "startwith"};
+    static const char *const names[] = {"new", "replace", "whole", "subequal", "substartwith"};
     if (olua_isstring(L, idx)) {
         const char *field = olua_tostring(L, idx);
         if ((field = strchr(field, '@')) != NULL) {

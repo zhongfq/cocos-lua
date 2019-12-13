@@ -39,7 +39,31 @@ extern "C" {
 #include <stdbool.h>
 #include <assert.h>
 #include <math.h>
+
+#define olua_noapi(api) static_assert(false, #api" is not defined")
     
+#ifndef olua_mainthread
+#define olua_mainthread() olua_noapi(olua_mainthread)
+#endif
+
+#ifndef olua_postpush
+#define olua_postpush(L, obj, n) olua_noapi(olua_postpush)
+#endif
+
+#ifndef olua_postnew
+#define olua_postnew(L, obj) olua_noapi(olua_postnew)
+#endif
+    
+#ifndef olua_startcmpunref
+#define olua_startcmpunref(L, i, n) olua_noapi(olua_startcmpunref)
+#define olua_endcmpunref(L, i, n)   olua_noapi(olua_endcmpunref)
+#endif
+    
+#ifndef olua_startinvoke
+#define olua_startinvoke(L) ((void)L)
+#define olua_endinvoke(L)   ((void)L)
+#endif
+
 // callback status
 #define OLUA_OK     0
 #define OLUA_MISS   1
@@ -50,20 +74,6 @@ extern "C" {
 #define OLUA_NEW    1
     
 #define OLUA_VOIDCLS "void *"
-    
-#ifndef olua_mainthread
-#define olua_mainthread() static_assert(false, "olua_mainthread is not defined")
-#endif
-    
-#ifndef olua_startcmpunref
-#define olua_startcmpunref(L, i, n) static_assert(false, "olua_startcmpunref is not defined")
-#define olua_endcmpunref(L, i, n) static_assert(false, "olua_endcmpunref is not defined")
-#endif
-    
-#ifndef olua_startinvoke
-#define olua_startinvoke(L) ((void)L)
-#define olua_endinvoke(L)   ((void)L)
-#endif
     
 // compare the value raw type
 #define olua_isfunction(L,n)        (lua_type(L, (n)) == LUA_TFUNCTION)

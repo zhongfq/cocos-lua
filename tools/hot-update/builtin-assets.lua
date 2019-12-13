@@ -48,6 +48,7 @@ return function (assetsPath)
         end
     end
 
+    addPath('builtin.assets')
     -- addFolder('', '*.lua')
     addFolder('res', '*')
     addFolder('src', '*')

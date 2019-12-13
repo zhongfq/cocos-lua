@@ -110,6 +110,7 @@ function M.format(expr, indent)
 end
 
 function M.realpath(path)
+    path = M.format(path)
     if not (M.OS == 'osx' or M.OS == 'linux') then
         if path == '`pwd`' then
             return '.'
@@ -161,6 +162,16 @@ function M.write(path, data)
     end
     f:write(data)
     f:close()
+end
+
+function M.replace(path, pattern, repl)
+    local flag = M.debug
+    M.debug = false
+    path = M.format(path)
+    local data = M.read(path)
+    data = string.gsub(data, pattern, repl)
+    M.write(path, data)
+    M.debug = flag
 end
 
 return M

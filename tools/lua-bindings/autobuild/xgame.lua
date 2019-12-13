@@ -91,6 +91,8 @@ cls.funcs [[
     static const xgame::PermissionStatus getPermissionStatus(xgame::Permission permission)
     static void setAudioSessionCatalog(const std::string &catalog)
     static const std::string getAudioSessionCatalog()
+    static std::string getIDFA()
+    static bool isAdvertisingTrackingEnabled()
     static bool canOpenURL(const std::string &uri)
     static void setLogPath(const std::string &path)
     static const std::string getLogPath()
@@ -169,6 +171,8 @@ cls.props [[
     manifestVersion
     networkStatus
     audioSessionCatalog
+    idfa
+    advertisingTrackingEnabled
     logPath
     antialias
     numSamples

@@ -55,7 +55,7 @@ void runtime::parseLaunchArgs(int argc, char *argv[])
 
 void runtime::init()
 {
-    FileFinder::setDelegate(new FileFinder());
+    FileFinder::setDelegate(FileFinder::create());
     filesystem::addSearchPath(filesystem::getDocumentDirectory() + "/assets", true);
     filesystem::addSearchPath(_workdir, true);
     Director::getInstance()->setAnimationInterval(1.0f / 60);
@@ -235,7 +235,7 @@ void runtime::luaOpen(lua_CFunction libfunc)
 //
 const std::string runtime::getVersion()
 {
-    return "1.13.1";
+    return "1.13.2";
 }
 
 const std::string runtime::getPackageName()
@@ -331,6 +331,24 @@ void runtime::alert(const std::string &title, const std::string &message, const 
     __runtime_alert(title, message, ok, no, callback);
 #else
     callback(false);
+#endif
+}
+
+std::string runtime::getIDFA()
+{
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+    return __runtime_getIDFA();
+#else
+    return "";
+#endif
+}
+
+bool runtime::isAdvertisingTrackingEnabled()
+{
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+    return __runtime_isAdvertisingTrackingEnabled();
+#else
+    return false;
 #endif
 }
 

@@ -58,6 +58,8 @@ public:
     static void setAudioSessionCatalog(const std::string &catalog);
     static const std::string getAudioSessionCatalog();
     static void alert(const std::string &title, const std::string &message, const std::string &ok, const std::string &no, const std::function<void (bool)> callback);
+    static std::string getIDFA();
+    static bool isAdvertisingTrackingEnabled();
     
     // event dispatch
     typedef std::function<void (const std::string &event, const std::string &args)> EventDispatcher;

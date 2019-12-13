@@ -152,6 +152,8 @@
 		0E730C8D2272E6100067866B /* lua_xml_http_request.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E730C8A2272E6100067866B /* lua_xml_http_request.cpp */; };
 		0E9D2A6B221A9C76003C2121 /* xfilesystem-private-ios-mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E9D2A6A221A9C76003C2121 /* xfilesystem-private-ios-mac.mm */; };
 		0E9D2A6C221A9C76003C2121 /* xfilesystem-private-ios-mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E9D2A6A221A9C76003C2121 /* xfilesystem-private-ios-mac.mm */; };
+		0EA420F623A0C51800D36A59 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EA420F523A0C51800D36A59 /* AuthenticationServices.framework */; };
+		0EA420FB23A0C8E300D36A59 /* lua_apple.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0EA420F923A0C8E300D36A59 /* lua_apple.mm */; };
 		0EB494872302475D003CA119 /* xruntime-private.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EB494862302475D003CA119 /* xruntime-private.cpp */; };
 		0EB494882302475D003CA119 /* xruntime-private.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EB494862302475D003CA119 /* xruntime-private.cpp */; };
 		0EB4948A23024E9F003CA119 /* xfilesystem-private.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EB4948923024E9E003CA119 /* xfilesystem-private.cpp */; };
@@ -300,8 +302,11 @@
 		0ED5D1A82282D3D20072F3DB /* lua_photo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0ED5D1942282B8410072F3DB /* lua_photo.mm */; };
 		0ED5D1AD2283BFBF0072F3DB /* lua_keychain.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0ED5D1982282B8420072F3DB /* lua_keychain.mm */; };
 		0ED5D1AE2283C3D50072F3DB /* lua_iap.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0ED5D1952282B8420072F3DB /* lua_iap.mm */; };
+		0EDE5765239E3C9D0099ECA9 /* BuiltinAssets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EDE5763239E3C9D0099ECA9 /* BuiltinAssets.cpp */; };
+		0EDE5766239E3C9D0099ECA9 /* BuiltinAssets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EDE5763239E3C9D0099ECA9 /* BuiltinAssets.cpp */; };
 		0EE4B2BE21FC9FE60043AC9D /* xpreferences.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EE4B2BC21FC9FE60043AC9D /* xpreferences.cpp */; };
 		0EE4B2BF21FC9FE60043AC9D /* xpreferences.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EE4B2BC21FC9FE60043AC9D /* xpreferences.cpp */; };
+		0EFCA02623A3248100958F15 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EFCA02523A3248100958F15 /* AdSupport.framework */; };
 		FA2993812293E15300FE9EC6 /* lua_dragonbones.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA2993802293E15300FE9EC6 /* lua_dragonbones.cpp */; };
 		FA2993822293E15300FE9EC6 /* lua_dragonbones.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA2993802293E15300FE9EC6 /* lua_dragonbones.cpp */; };
 /* End PBXBuildFile section */
@@ -463,6 +468,9 @@
 		0E98BC36221C043F00F1AEEA /* libcocos2d Mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libcocos2d Mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E98BC38221C044A00F1AEEA /* libcocos2d iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libcocos2d iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E9D2A6A221A9C76003C2121 /* xfilesystem-private-ios-mac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "xfilesystem-private-ios-mac.mm"; sourceTree = "<group>"; };
+		0EA420F523A0C51800D36A59 /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
+		0EA420F923A0C8E300D36A59 /* lua_apple.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = lua_apple.mm; sourceTree = "<group>"; };
+		0EA420FA23A0C8E300D36A59 /* lua_apple.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lua_apple.h; sourceTree = "<group>"; };
 		0EB494862302475D003CA119 /* xruntime-private.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "xruntime-private.cpp"; sourceTree = "<group>"; };
 		0EB4948923024E9E003CA119 /* xfilesystem-private.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "xfilesystem-private.cpp"; sourceTree = "<group>"; };
 		0EB6C24D2323DEBC000F4D81 /* tcp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tcp.h; sourceTree = "<group>"; };
@@ -608,8 +616,11 @@
 		0ED5D19C2282B8420072F3DB /* lua_photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_photo.h; sourceTree = "<group>"; };
 		0ED5D1A22282C86C0072F3DB /* PluginConnector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PluginConnector.mm; sourceTree = "<group>"; };
 		0ED5D1A32282C86C0072F3DB /* PluginConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PluginConnector.h; sourceTree = "<group>"; };
+		0EDE5763239E3C9D0099ECA9 /* BuiltinAssets.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BuiltinAssets.cpp; sourceTree = "<group>"; };
+		0EDE5764239E3C9D0099ECA9 /* BuiltinAssets.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BuiltinAssets.h; sourceTree = "<group>"; };
 		0EE4B2BC21FC9FE60043AC9D /* xpreferences.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xpreferences.cpp; sourceTree = "<group>"; };
 		0EE4B2BD21FC9FE60043AC9D /* xpreferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xpreferences.h; sourceTree = "<group>"; };
+		0EFCA02523A3248100958F15 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		FA29937F2293E15200FE9EC6 /* lua_dragonbones.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_dragonbones.h; sourceTree = "<group>"; };
 		FA2993802293E15300FE9EC6 /* lua_dragonbones.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_dragonbones.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -627,6 +638,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EFCA02623A3248100958F15 /* AdSupport.framework in Frameworks */,
+				0EA420F623A0C51800D36A59 /* AuthenticationServices.framework in Frameworks */,
 				0E25A8A2211D4123006B88E1 /* Security.framework in Frameworks */,
 				0E71F0A422B742BA004BEE5D /* Bugly.framework in Frameworks */,
 				0E25A89E211D410E006B88E1 /* SystemConfiguration.framework in Frameworks */,
@@ -643,6 +656,8 @@
 				0E2E9A39221C37070085145E /* AppContext-ios.mm */,
 				0E2E9A3D221D17260085145E /* AppRootViewController-ios.h */,
 				0E2E9A37221C37070085145E /* AppRootViewController-ios.mm */,
+				0EDE5763239E3C9D0099ECA9 /* BuiltinAssets.cpp */,
+				0EDE5764239E3C9D0099ECA9 /* BuiltinAssets.h */,
 				0ED5D1A32282C86C0072F3DB /* PluginConnector.h */,
 				0ED5D1A22282C86C0072F3DB /* PluginConnector.mm */,
 				0EB8B41E2351D2F4004354EE /* Reachability.h */,
@@ -700,6 +715,8 @@
 		0E25A871211839D4006B88E1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0EFCA02523A3248100958F15 /* AdSupport.framework */,
+				0EA420F523A0C51800D36A59 /* AuthenticationServices.framework */,
 				0E98BC38221C044A00F1AEEA /* libcocos2d iOS.a */,
 				0E98BC36221C043F00F1AEEA /* libcocos2d Mac.a */,
 				0EC904E9213175C100F8A09E /* Photos.framework */,
@@ -762,6 +779,8 @@
 			children = (
 				0E6A1CFE2333806E004E6461 /* libpdebug.cpp */,
 				0E6A1CFD2333806E004E6461 /* libpdebug.h */,
+				0EA420FA23A0C8E300D36A59 /* lua_apple.h */,
+				0EA420F923A0C8E300D36A59 /* lua_apple.mm */,
 				0E4B934E226E9E8B00B22B9F /* lua_bindings.cpp */,
 				0E4B9363226E9E8B00B22B9F /* lua_bindings.h */,
 				0ED036E522D57BCE004EE5FF /* lua_cocos2d_physics.cpp */,
@@ -1254,6 +1273,7 @@
 				0E4B936A226E9E8B00B22B9F /* LuaCocosAdapter.cpp in Sources */,
 				0EB6C2892323DEBC000F4D81 /* mime.c in Sources */,
 				0E4C8C59225CAF490095CF59 /* fft.c in Sources */,
+				0EDE5765239E3C9D0099ECA9 /* BuiltinAssets.cpp in Sources */,
 				0E2EC31222924EE900CA3701 /* lpvm.c in Sources */,
 				0E4C8C51225CAF490095CF59 /* takehiro.c in Sources */,
 				0EB6C2972323DEBC000F4D81 /* luasocket_scripts.c in Sources */,
@@ -1329,6 +1349,7 @@
 				0E4B9365226E9E8B00B22B9F /* lua_socket.cpp in Sources */,
 				0ECC4BD221E79E3E00E3BBF9 /* lfunc.c in Sources */,
 				0E4C8C72225CAF490095CF59 /* qrencode.c in Sources */,
+				0EDE5766239E3C9D0099ECA9 /* BuiltinAssets.cpp in Sources */,
 				0ECC4BC221E79E3E00E3BBF9 /* ldblib.c in Sources */,
 				0ECC4C6821EB8D4600E3BBF9 /* register.c in Sources */,
 				0E4B936D226E9E8B00B22B9F /* lua_cocos2d_ui.cpp in Sources */,
@@ -1425,6 +1446,7 @@
 				0E4C8C5A225CAF490095CF59 /* fft.c in Sources */,
 				0ECC4C6C21EB8D4600E3BBF9 /* stringpool.c in Sources */,
 				0E4C8C4C225CAF490095CF59 /* encoder.c in Sources */,
+				0EA420FB23A0C8E300D36A59 /* lua_apple.mm in Sources */,
 				0E4C8C66225CAF490095CF59 /* xmm_quantize_sub.c in Sources */,
 				0E4C8C7C225CAF490095CF59 /* rscode.c in Sources */,
 				0ECC4BD021E79E3E00E3BBF9 /* ldump.c in Sources */,
@@ -1680,7 +1702,6 @@
 		0E25A7172117479A006B88E1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_BITCODE = NO;
 				EXECUTABLE_PREFIX = "";
@@ -1703,7 +1724,6 @@
 		0E25A7182117479A006B88E1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				ENABLE_BITCODE = NO;

@@ -105,9 +105,11 @@
 
 static int l_gc(lua_State *L)
 {
-    lua_settop(L, 1);
-    WeChatConnector *connector = olua_checkconnector(L, 1);
-    CFBridgingRelease((__bridge CFTypeRef)connector);
+    @autoreleasepool {
+        lua_settop(L, 1);
+        WeChatConnector *connector = olua_checkconnector(L, 1);
+        CFBridgingRelease((__bridge CFTypeRef)connector);
+    }
     return 0;
 }
 
@@ -186,7 +188,7 @@ static int l_setDispatcher(lua_State *L)
     @autoreleasepool {
         lua_settop(L, 2);
         WeChatConnector *connector = olua_checkconnector(L, 1);
-        void *cb_store = (void *)connector;
+        void *cb_store = (__bridge void *)connector;
         std::string func = olua_setcallback(L, cb_store, "dispatcher", 2, OLUA_TAG_REPLACE);
         connector.dispatcher = [cb_store, func] (const std::string &event, const std::string &data) {
             lua_State *L = olua_mainthread();
@@ -344,7 +346,7 @@ int luaopen_wechat(lua_State *L)
     xgame::runtime::registerFeature("wechat.ios", true);
     
     @autoreleasepool {
-        WeChatConnector *connector = [[WeChatConnector alloc] init];
+        WeChatConnector *connector = [WeChatConnector new];
         olua_push_obj(L, (void *)CFBridgingRetain(connector), CLASS_CONNECTOR);
     }
     

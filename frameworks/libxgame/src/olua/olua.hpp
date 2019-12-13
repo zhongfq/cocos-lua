@@ -33,14 +33,6 @@
 #include <set>
 #include <vector>
 
-#ifndef olua_postpush
-#define olua_postpush(L, obj, n) static_assert(false, "olua_postpush is not defined")
-#endif
-
-#ifndef olua_postnew
-#define olua_postnew(L,obj) static_assert(false, "olua_postnew is not defined")
-#endif
-
 template <typename T> void olua_registerluatype(lua_State *L, const char *cls)
 {
     const char *type = typeid(T).name();

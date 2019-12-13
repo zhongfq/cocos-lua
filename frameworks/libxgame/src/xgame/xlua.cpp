@@ -480,5 +480,5 @@ static bool should_unref_obj(lua_State *L, int idx)
 
 void xlua_endcmpunref(lua_State *L, int idx, const char *refname)
 {
-     olua_mapwalkunref(L, idx, refname, should_unref_obj);
+    olua_mapwalkunref(L, idx, refname, should_unref_obj);
 }

@@ -1,7 +1,9 @@
 local class             = require "xgame.class"
 local util              = require "xgame.util"
+local Event             = require "xgame.event.Event"
 local Array             = require "xgame.Array"
 local window            = require "xgame.window"
+local runtime           = require "xgame.runtime"
 local Align             = require "xgame.ui.Align"
 local swf               = require "xgame.swf.swf"
 local FLDisplayObject   = require "xgame.swf.FLDisplayObject"
@@ -17,20 +19,38 @@ local FLMovieClip = class("FLMovieClip", FLDisplayObject)
 
 function FLMovieClip:ctor(cobj)
     self.metadata = swf.metadata(cobj)
+
+    if self:hasLabel('iPhone') and self:hasLabel('iPad') then
+        if runtime.isPad() then
+            self.cobj:gotoAndStop('iPad')
+        else
+            self.cobj:gotoAndStop('iPhone')
+        end
+    end
+
     self.touchChildren = true
     self.touchable = false
     self._children = Array.new()
     self.ns = self:_createAccessProxy({__mode = "v"})  -- 索引有名字的字节点
     self._building = false
     self._rawChildren = setmetatable({}, {__mode = 'k'})
-    self._realParent = self
+
+    local relative = self.metadata.relative
+    if relative then
+        local left, right = string.match(relative, '(%w+) *, *(%w+)')
+        assert(left and right, 'not a valid relative: ' .. relative)
+        self:addListener(Event.ADDED, function ()
+            self:removeListener(Event.ADDED, util.callee())
+            self:relative(left, right)
+        end)
+    end
 end
 
 function FLMovieClip:_buildChildren()
     if not self._building then
         self._building = true
 
-        for i = self.numChildren, 1, -1 do
+        for i = #self._children, 1, -1 do
             local child = self._children[i]
             if not self.cobj:contains(child.cobj) then
                 self:_internalRemoveChild(i)
@@ -204,7 +224,7 @@ end
 function FLMovieClip:_internalAddChild(child, index, silence)
     table.insert(self.children, index, child)
     self._rawChildren[child.cobj] = child
-    child._parent = self._realParent
+    child._parent = self
 
     if child.name then
         self.ns[child.name] = child
@@ -319,8 +339,12 @@ function FLMovieClip:gotoAndStop(frame)
     self:_buildChildren()
 end
 
-function FLMovieClip:frameAt(frame)
+function FLMovieClip:labelAt(frame)
     return self.frameLabels[frame] == self.currentFrame
+end
+
+function FLMovieClip:hasLabel(label)
+    return self.frameLabels[label] ~= nil
 end
 
 function FLMovieClip:nextFrame()

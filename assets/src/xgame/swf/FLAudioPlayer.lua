@@ -17,8 +17,8 @@ function FLAudioPlayer:clear()
     self:stopAll()
 end
 
-function FLAudioPlayer:play(filePath, loop, volume, delay, tag)
-    local audio = FLAudio.new(filePath, loop, volume, delay, tag)
+function FLAudioPlayer:play(path, loop, volume, delay, tag)
+    local audio = FLAudio.new(path, loop, volume, delay, tag)
     self._list:append(audio)
     audio:play()
     return audio
@@ -42,25 +42,25 @@ function FLAudioPlayer:resume()
     end
 end
 
-function FLAudioPlayer:pauseByPath(filePath)
+function FLAudioPlayer:pauseByPath(path)
     for _, audio in pairs(self._list) do
-        if audio.filePath == filePath then
+        if audio.path == path then
             audio:pause()
         end
     end
 end
 
-function FLAudioPlayer:resumeByPath(filePath)
+function FLAudioPlayer:resumeByPath(path)
     for _, audio in pairs(self._list) do
-        if audio.filePath == filePath then
+        if audio.path == path then
             audio:resume()
         end
     end
 end
 
-function FLAudioPlayer:stopByPath(filePath)
+function FLAudioPlayer:stopByPath(path)
     for node, audio in pairs(self._list) do
-        if audio.filePath == filePath then
+        if audio.path == path then
             audio:stop()
             self._list:remove(node)
         end
@@ -78,7 +78,7 @@ function FLAudioPlayer:stopByTag(tag)
     end
 end
 
-function FLAudioPlayer:stopAll(filePath)
+function FLAudioPlayer:stopAll(path)
     for _, audio in pairs(self._list) do
         audio:stop()
     end

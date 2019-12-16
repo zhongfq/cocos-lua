@@ -329,7 +329,7 @@ protected:
     
     struct AudioInfo
     {
-        const std::string* filePath;
+        std::string filePath;
         ProfileHelper* profileHelper;
         
         float volume;

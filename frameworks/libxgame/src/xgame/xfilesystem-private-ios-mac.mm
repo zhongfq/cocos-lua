@@ -7,6 +7,8 @@
 
 USING_NS_XGAME;
 
+NS_XGAME_BEGIN
+
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
 const std::string __filesystem_getDocumentDirectory()
 {
@@ -53,3 +55,5 @@ const std::string __filesystem_getTmpDirectory()
     return filesystem::getWritablePath() + "/Tmp";
 }
 #endif
+
+NS_XGAME_END

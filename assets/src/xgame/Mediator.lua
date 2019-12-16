@@ -1,5 +1,6 @@
 local class         = require "xgame.class"
 local timer         = require "xgame.timer"
+local runtime       = require "xgame.runtime"
 local EventAgent    = require "xgame.event.EventAgent"
 local LuaComponent  = require "cc.LuaComponent"
 
@@ -7,6 +8,7 @@ local Mediator = class("Mediator")
 
 function Mediator:ctor(view)
     self.view = view
+    self._paused = false
     self._eventAgent = EventAgent.new()
     self._timer = timer.new()
     self:_initMonitor()
@@ -16,12 +18,24 @@ function Mediator:_initMonitor()
     local monitor = LuaComponent.create()
     monitor.name = '__Mediator_monitor__'
     monitor.onEnter = function ()
-        if self.onDestroy ~= true then
-            self._timer:start()
-        end
+        runtime.once('runtimeUpdate', function ()
+            if self.onDestroy ~= true then
+                self._timer:start()
+                if self._paused then
+                    self._paused = false
+                    self:onResume()
+                end
+            end
+        end)
     end
     monitor.onExit = function ()
-        self._timer:stop()
+        runtime.once('runtimeUpdate', function ()
+            self._timer:stop()
+            if self.onDestroy ~= true then
+                self._paused = true
+                self:onPause()
+            end
+        end)
     end
     assert(self.view.cobj.running)
     monitor.onEnter()
@@ -40,6 +54,12 @@ function Mediator:onDestroy()
     self._timer:clear()
     self._eventAgent:clear()
     self.view = false
+end
+
+function Mediator:onResume()
+end
+
+function Mediator:onPause()
 end
 
 function Mediator:delay(time, func, ...)

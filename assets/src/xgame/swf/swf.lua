@@ -54,7 +54,11 @@ end
 local function lazyRequire()
     require "xgame.swf.FLTextInput"
     require "xgame.swf.FLScroller"
+    require "xgame.swf.FLSlider"
+    require "xgame.swf.FLList"
     require "xgame.swf.FLRadioButton"
+    require "xgame.swf.FLRadioGroup"
+    require "xgame.swf.FLTab"
 end
 
 -- test only
@@ -178,7 +182,9 @@ function M.checkLabels(target, ...)
 end
 
 function M.hasLabel(target, label)
-    return target.frameLabels[label] ~= nil
+    if target.frameLabels then
+        return target.frameLabels[label] ~= nil
+    end
 end
 
 function M.checkTarget(target, namepath, ...)
@@ -234,7 +240,7 @@ function M.dumpLoadedSWF()
     trace(str)
 end
 
-shader.load("swf_color_gray",
+shader.load("swfColorGray",
     [[
         attribute vec4 a_position;
         attribute vec4 a_color;
@@ -270,7 +276,7 @@ shader.load("swf_color_gray",
     ]]
 )
 
-shader.load("swf_text_gray",
+shader.load("swfTextGray",
     [[
         attribute vec4 a_position;
         attribute vec2 a_texCoord;
@@ -311,7 +317,7 @@ shader.load("swf_text_gray",
     ]]
 )
 
-shader.load("swf_bitmap_gray",
+shader.load("swfBitmapGray",
     [[
         attribute vec4 a_position;
         attribute vec2 a_texCoord;

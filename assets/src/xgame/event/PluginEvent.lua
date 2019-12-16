@@ -6,4 +6,8 @@ return {
     PAY_CANCEL      = "payCancel",
     PAY_FAILURE     = "payFailure",
     PAY_SUCCESS     = "paySuccess",
+
+    -- audio recorder event
+    START_RECORD    = 'startRecord',
+    STOP_RECORD     = 'stopRecord',
 }

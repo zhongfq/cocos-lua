@@ -1,5 +1,6 @@
 local timer         = require "kernel.timer"
 local downloader    = require "kernel.downloader"
+local FileState     = require "kernel.downloader.FileState"
 
 local assert = assert
 local xpcall = xpcall
@@ -33,7 +34,7 @@ local function checkStart()
 
                 if task.attempts == 0 then
                     task.attempts = 1
-                    downloader.load(task.url, task.path, task.md5)
+                    downloader.load(task)
                 end
             end
         end)
@@ -72,23 +73,23 @@ local function notify(url, success)
     checkStart()
 end
 
-downloader.setDispatcher(function (url, path, state)
-    if state == 'ioerror' or state == 'invalid' then
-        local task = assert(loadingList[url], url)
+downloader.setDispatcher(function (task)
+    if task.state == FileState.IOERROR or task.state == FileState.INVALID then
+        task = assert(loadingList[task.url], task.url)
         task.attempts = task.attempts + 1
         if task.attempts >= MAX_ATTEMPTS then
-            print('[NO] load: ' .. url)
-            loadingList[url] = nil
-            notify(url, false)
+            print('[NO] load: ' .. task.url)
+            loadingList[task.url] = nil
+            notify(task.url, false)
         else
             timer.delay(ATTEMPT_INTERVAL, function ()
-                downloader.load(task.url, task.path, task.md5)
+                downloader.load(task)
             end)
         end
     else
-        print('[OK] load: ' .. url)
-        loadingList[url] = nil
-        notify(url, true)
+        print('[OK] load: ' .. task.url)
+        loadingList[task.url] = nil
+        notify(task.url, true)
     end
 end)
 

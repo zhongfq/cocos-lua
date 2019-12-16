@@ -39,7 +39,31 @@ extern "C" {
 #include <stdbool.h>
 #include <assert.h>
 #include <math.h>
+
+#define olua_noapi(api) static_assert(false, #api" is not defined")
     
+#ifndef olua_mainthread
+#define olua_mainthread() olua_noapi(olua_mainthread)
+#endif
+
+#ifndef olua_postpush
+#define olua_postpush(L, obj, n) olua_noapi(olua_postpush)
+#endif
+
+#ifndef olua_postnew
+#define olua_postnew(L, obj) olua_noapi(olua_postnew)
+#endif
+    
+#ifndef olua_startcmpunref
+#define olua_startcmpunref(L, i, n) olua_noapi(olua_startcmpunref)
+#define olua_endcmpunref(L, i, n)   olua_noapi(olua_endcmpunref)
+#endif
+    
+#ifndef olua_startinvoke
+#define olua_startinvoke(L) ((void)L)
+#define olua_endinvoke(L)   ((void)L)
+#endif
+
 // callback status
 #define OLUA_OK     0
 #define OLUA_MISS   1
@@ -50,20 +74,6 @@ extern "C" {
 #define OLUA_NEW    1
     
 #define OLUA_VOIDCLS "void *"
-    
-#ifndef olua_mainthread
-#define olua_mainthread() assert(false && "not define olua_mainthread")
-#endif
-    
-#ifndef olua_startcmpunref
-#define olua_startcmpunref(L, i, n) assert(false && "not define olua_startcmpunref")
-#define olua_endcmpunref(L, i, n) assert(false && "not define olua_endcmpunref")
-#endif
-    
-#ifndef olua_startinvoke
-#define olua_startinvoke(L) ((void)L)
-#define olua_endinvoke(L)   ((void)L)
-#endif
     
 // compare the value raw type
 #define olua_isfunction(L,n)        (lua_type(L, (n)) == LUA_TFUNCTION)
@@ -79,8 +89,9 @@ extern "C" {
 #define olua_isthread(L,n)          (lua_type(L, (n)) == LUA_TTHREAD)
     
 // check or get the raw value
-#define olua_newuserdata(L, obj, T) (*(T*)lua_newuserdata(L, sizeof(T)) = (obj))
-#define olua_touserdata(L, n, T)    (*(T*)lua_touserdata(L, (n)))
+#define olua_newrawdata(L, obj, T)  (*(T *)lua_newuserdata(L, sizeof(T)) = (obj))
+#define olua_torawdata(L, i, T)     (*(T *)lua_touserdata(L, (i)))
+#define olua_setrawdata(L, i, o)    (*(void **)lua_touserdata(L, (i)) = (o))
 #define olua_tonumber(L, i)         (lua_tonumber(L, (i)))
 #define olua_tointeger(L, i)        (lua_tointeger(L, (i)))
 #define olua_tostring(L, i)         (lua_tostring(L, (i)))
@@ -104,9 +115,9 @@ typedef struct {
 LUALIB_API lua_State *olua_newstate(olua_vmstatus_t *vms);
 LUALIB_API olua_vmstatus_t *olua_vmstatus(lua_State *L);
     
-#define olua_addobjcount(L)  olua_changeobjcount(L, 1)
-#define olua_subobjcount(L)  olua_changeobjcount(L, -1)
-#define olua_objcount(L)     olua_changeobjcount(L, 0)
+#define olua_addobjcount(L)  (++olua_vmstatus(L)->objcount)
+#define olua_subobjcount(L)  (--olua_vmstatus(L)->objcount)
+#define olua_objcount(L)     (olua_vmstatus(L)->objcount)
     
 LUALIB_API lua_Integer olua_checkinteger(lua_State *L, int idx);
 LUALIB_API lua_Number olua_checknumber(lua_State *L, int idx);
@@ -114,10 +125,11 @@ LUALIB_API const char *olua_checklstring (lua_State *L, int arg, size_t *len);
 LUALIB_API bool olua_checkboolean(lua_State *L, int idx);
 LUALIB_API int olua_rawgetf(lua_State *L, int idx, const char *field);
 LUALIB_API void olua_rawsetf(lua_State *L, int idx, const char *field);
-LUALIB_API size_t olua_changeobjcount(lua_State *L, int add);
 LUALIB_API void olua_require(lua_State *L, const char *name, lua_CFunction func);
 LUALIB_API void olua_preload(lua_State *L, const char *name, lua_CFunction func);
 LUALIB_API int olua_geterrorfunc(lua_State *L);
+LUALIB_API int olua_pcall(lua_State *L, int nargs, int nresults);
+LUALIB_API int olua_pcallref(lua_State *L, int funcref, int nargs, int nresults);
     
 // manipulate userdata api
 LUALIB_API const char *olua_typename(lua_State *L, int idx);
@@ -129,19 +141,19 @@ LUALIB_API void *olua_toobj(lua_State *L, int idx, const char *cls);
 LUALIB_API const char *olua_objstring(lua_State *L, int idx);
     
 // optimize temporary userdata
-LUALIB_API void olua_enable_objpool(lua_State *L);
-LUALIB_API void olua_disable_objpool(lua_State *L);
-LUALIB_API size_t olua_push_objpool(lua_State *L);
+#define olua_enable_objpool(L)  (olua_vmstatus(L)->poolenabled = true)
+#define olua_disable_objpool(L) (olua_vmstatus(L)->poolenabled = false)
+#define olua_push_objpool(L)    (olua_vmstatus(L)->poolsize)
 LUALIB_API void olua_pop_objpool(lua_State *L, size_t level);
     
 typedef enum {
     // for olua_setcallback
     OLUA_TAG_NEW,
     OLUA_TAG_REPLACE,
-    // for olua_removecallback, tag format: .callback#%d@%s
-    OLUA_TAG_NONE,      // compare whole tag string
-    OLUA_TAG_EQUAL,     // compare substring after '@'
-    OLUA_TAG_STARTWITH, // compare substring after '@'
+    // for olua_removecallback, tag format: .callback#%d$cls@%s
+    OLUA_TAG_WHOLE,         // compare whole tag string
+    OLUA_TAG_SUBEQUAL,      // compare substring after '@'
+    OLUA_TAG_SUBSTARTWITH,  // compare substring after '@'
 } olua_tag_mode;
 
 // callback functions
@@ -149,7 +161,6 @@ LUALIB_API const char *olua_setcallback(lua_State *L, void *obj, const char *tag
 LUALIB_API void olua_getcallback(lua_State *L, void *obj, const char *tag, olua_tag_mode mode);
 LUALIB_API void olua_removecallback(lua_State *L, void *obj, const char *tag, olua_tag_mode mode);
 LUALIB_API int olua_callback(lua_State *L, void *obj, const char *func, int argc);
-#define olua_makecallbacktag(tag) (tag)
     
 // class store, store static callback or other
 LUALIB_API void olua_getstore(lua_State *L, const char *cls);
@@ -205,7 +216,6 @@ LUALIB_API void olua_unrefall(lua_State *L, int idx, const char *name);
 //
 LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *supercls);
 LUALIB_API void oluacls_asenum(lua_State *L);
-LUALIB_API void oluacls_createclassproxy(lua_State *L);
 LUALIB_API void oluacls_prop(lua_State *L, const char *name, lua_CFunction getter, lua_CFunction setter);
 LUALIB_API void oluacls_func(lua_State *L, const char *name, lua_CFunction func);
 LUALIB_API void oluacls_const(lua_State *L, const char *name);
@@ -228,32 +238,26 @@ LUALIB_API void oluacls_const(lua_State *L, const char *name);
     
 #define olua_push_bool(L, v)        (lua_pushboolean(L, (v)), 1)
 #define olua_check_bool(L, i, v)    (*(v) = olua_checkboolean(L, (i)))
-#define olua_opt_bool(L, i, v, d)   (*(v) = olua_optboolean(L, (i), (d)))
 #define olua_is_bool(L, i)          (olua_isboolean(L, (i)))
 
 #define olua_push_string(L, v)      (lua_pushstring(L, (v)), 1)
 #define olua_check_string(L, i, v)  (*(v) = olua_checkstring(L, (i)))
-#define olua_opt_string(L, i, v, d) (*(v) = olua_optstring(L, (i), (d)))
 #define olua_is_string(L, i)        (olua_isstring(L, (i)))
 
 #define olua_push_number(L, v)      (lua_pushnumber(L, (v)), 1)
 #define olua_check_number(L, i, v)  (*(v) = olua_checknumber(L, (i)))
-#define olua_opt_number(L, i, v, d) (*(v) = olua_optnumber(L, (i), (d)))
 #define olua_is_number(L, i)        (olua_isnumber(L, (i)))
 
 #define olua_push_int(L, v)         (lua_pushinteger(L, (v)), 1)
 #define olua_check_int(L, i, v)     (*(v) = olua_checkinteger(L, (i)))
-#define olua_opt_int(L, i, v, d)    (*(v) = olua_optinteger(L, (i), (d)))
 #define olua_is_int(L, i)           (olua_isinteger(L, (i)))
 
 #define olua_push_uint(L, v)        (lua_pushinteger(L, (lua_Integer)(v)), 1)
 #define olua_check_uint(L, i, v)    (*(v) = (lua_Unsigned)olua_checkinteger(L, (i)))
-#define olua_opt_uint(L, i, v, d)   (*(v) = (lua_Unsigned)olua_optinteger(L, (i), (lua_Integer)(d)))
 #define olua_is_uint(L, i)          (olua_isinteger(L, (i)))
 
 #define olua_push_obj(L, o, c)      (olua_pushobj(L, (o), (c)), 1)
 #define olua_check_obj(L, i, v, c)  (*(v) = olua_checkobj(L, (i), (c)))
-#define olua_opt_obj(L, i, v, c, d) (olua_isnil(L, (i)) ? (*(v) = (d)) : olua_check_obj(L, (i), (v), (c)))
 #define olua_to_obj(L, i, v, c)     (*(v) = olua_toobj(L, (i), (c)))
 #define olua_is_obj(L, i, c)        (olua_isa(L, (i), (c)))
     

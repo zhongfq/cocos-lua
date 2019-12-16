@@ -20,7 +20,7 @@ function SceneStack:ctor(context)
     context.stage:addChild(self._sceneLayer)
 end
 
-function SceneStack:showWindow(cls, ...)
+function SceneStack:show(cls, ...)
     local scene = assert(self:topScene(), cls.classname)
     local view = cls.new(...)
     scene:addChild(view)

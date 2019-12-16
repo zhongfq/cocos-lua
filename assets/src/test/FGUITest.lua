@@ -2,7 +2,7 @@ local class         = require "xgame.class"
 local util          = require "xgame.util"
 local timer         = require "xgame.timer"
 local UIScene       = require "xgame.ui.UIScene"
-local Scene         = require "cc.Scene"
+local FGUINode      = require "xgame.ui.FGUINode"
 local UIPackage     = require "fgui.UIPackage"
 local GRoot         = require "fgui.GRoot"
 local Window        = require "fgui.Window"
@@ -11,7 +11,9 @@ local GTween        = require "fgui.GTween"
 local FGUITest = class("GUITest", UIScene)
 
 function FGUITest:ctor()
-    local root = GRoot.create(self.cobj)
+    self.fgui = self:addChild(FGUINode.new())
+    local root = self.fgui.root
+    root.name = 'fguiTest'
     UIPackage.addPackage("res/fui/UI/Transition")
     UIPackage.addPackage("res/fui/UI/Bag")
 

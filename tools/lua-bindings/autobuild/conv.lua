@@ -8,11 +8,8 @@ local typecls = olua.typecls
 local cls = nil
 local M = {}
 
-olua.nowarning(typeconv, typecls, cls)
-
 M.NAME = "conv"
-M.HEADER_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_conv.h"
-M.SOURCE_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_conv.cpp"
+M.PATH = "../../frameworks/libxgame/src/lua-bindings"
 M.HEADER_INCLUDES = [[
 #include "xgame/xlua.h"
 #include "cocos2d.h"
@@ -62,24 +59,6 @@ M.CONVS = {
             GLuint magFilter;
             GLuint wrapS;
             GLuint wrapT;
-        ]],
-    },
-    typeconv {
-        CPPCLS = 'cocos2d::Uniform',
-        DEF = [[
-            GLint location;
-            GLint size;
-            GLenum type;
-            std::string name;
-        ]],
-    },
-    typeconv {
-        CPPCLS = 'cocos2d::VertexAttrib',
-        DEF = [[
-            GLuint index;
-            GLint size;
-            GLenum type;
-            std::string name;
         ]],
     },
     typeconv {
@@ -142,16 +121,16 @@ M.CONVS = {
     typeconv {
         CPPCLS = 'cocos2d::TTFConfig',
         DEF = [[
-            std::string fontFilePath;
-            float fontSize = 12;
-            cocos2d::GlyphCollection glyphs = 0;
-            const char *customGlyphs = nullptr;
-            bool distanceFieldEnabled = false;
-            int outlineSize = 0;
-            bool italics = false;
-            bool bold = false;
-            bool underline = false;
-            bool strikethrough = false;
+            @optional std::string fontFilePath;
+            @optional float fontSize;
+            @optional cocos2d::GlyphCollection glyphs;
+            @optional const char *customGlyphs;
+            @optional bool distanceFieldEnabled;
+            @optional int outlineSize;
+            @optional bool italics;
+            @optional bool bold;
+            @optional bool underline;
+            @optional bool strikethrough;
         ]],
     },
     typeconv {
@@ -173,7 +152,7 @@ M.CONVS = {
     typeconv {
         CPPCLS = 'cocos2d::ResourceData',
         DEF = [[
-            int         type;
+            int type;
             std::string file;
             std::string plist;
         ]],
@@ -198,11 +177,11 @@ M.CONVS = {
     typeconv {
         CPPCLS = 'cocos2d::network::WebSocket::Data',
         DEF = [[
-            char* bytes;
+            char *bytes;
             ssize_t len;
             ssize_t issued;
             bool isBinary;
-            void* ext;
+            void *ext;
         ]],
     },
 }

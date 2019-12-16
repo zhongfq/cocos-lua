@@ -1,18 +1,37 @@
 #include "GRoot.h"
-#include "UIPackage.h"
 #include "AudioEngine.h"
 #include "UIConfig.h"
+#include "UIPackage.h"
 
 NS_FGUI_BEGIN
 USING_NS_CC;
 
+#if COCOS2DX_VERSION < 0x00040000
+using namespace cocos2d::experimental;
+#endif
+
 GRoot* GRoot::_inst = nullptr;
 bool GRoot::_soundEnabled = true;
 float GRoot::_soundVolumeScale = 1.0f;
+int GRoot::contentScaleLevel = 0;
+
+class SetUIRoot : public cocos2d::Node {
+public:
+    CREATE_FUNC(SetUIRoot);
+    
+    SetUIRoot():onVisit(nullptr) {}
+    
+    virtual void visit(cocos2d::Renderer *renderer, const cocos2d::Mat4& parentTransform, uint32_t parentFlags)
+    {
+        onVisit();
+    }
+    
+    std::function<void ()> onVisit;
+};
 
 GRoot* GRoot::create(Scene* scene, int zOrder)
 {
-    GRoot *pRet = new(std::nothrow) GRoot();
+    GRoot* pRet = new (std::nothrow) GRoot();
     if (pRet && pRet->initWithScene(scene, zOrder))
     {
         pRet->autorelease();
@@ -26,13 +45,12 @@ GRoot* GRoot::create(Scene* scene, int zOrder)
     }
 }
 
-GRoot::GRoot() :
-    _windowSizeListener(nullptr),
-    _inputProcessor(nullptr),
-    _modalLayer(nullptr),
-    _modalWaitPane(nullptr),
-    _tooltipWin(nullptr),
-    _defaultTooltipWin(nullptr)
+GRoot::GRoot() : _windowSizeListener(nullptr),
+                 _inputProcessor(nullptr),
+                 _modalLayer(nullptr),
+                 _modalWaitPane(nullptr),
+                 _tooltipWin(nullptr),
+                 _defaultTooltipWin(nullptr)
 {
 }
 
@@ -48,18 +66,18 @@ GRoot::~GRoot()
         Director::getInstance()->getEventDispatcher()->removeEventListener(_windowSizeListener);
 }
 
-void GRoot::showWindow(Window * win)
+void GRoot::showWindow(Window* win)
 {
     addChild(win);
     adjustModalLayer();
 }
 
-void GRoot::hideWindow(Window * win)
+void GRoot::hideWindow(Window* win)
 {
     win->hide();
 }
 
-void GRoot::hideWindowImmediately(Window * win)
+void GRoot::hideWindowImmediately(Window* win)
 {
     if (win->getParent() == this)
         removeChild(win);
@@ -67,7 +85,7 @@ void GRoot::hideWindowImmediately(Window * win)
     adjustModalLayer();
 }
 
-void GRoot::bringToFront(Window * win)
+void GRoot::bringToFront(Window* win)
 {
     int cnt = numChildren();
     int i;
@@ -93,7 +111,7 @@ void GRoot::closeAllExceptModals()
 {
     Vector<GObject*> map(_children);
 
-    for (const auto&child : map)
+    for (const auto& child : map)
     {
         if (dynamic_cast<Window*>(child) && !((Window*)child)->isModal())
             hideWindowImmediately((Window*)child);
@@ -104,14 +122,14 @@ void GRoot::closeAllWindows()
 {
     Vector<GObject*> map(_children);
 
-    for (const auto&child : map)
+    for (const auto& child : map)
     {
         if (dynamic_cast<Window*>(child))
             hideWindowImmediately((Window*)child);
     }
 }
 
-Window * GRoot::getTopWindow()
+Window* GRoot::getTopWindow()
 {
     int cnt = numChildren();
     for (int i = cnt - 1; i >= 0; i--)
@@ -126,7 +144,7 @@ Window * GRoot::getTopWindow()
     return nullptr;
 }
 
-GGraph * GRoot::getModalLayer()
+GGraph* GRoot::getModalLayer()
 {
     if (_modalLayer == nullptr)
         createModalLayer();
@@ -187,7 +205,7 @@ void GRoot::closeModalWait()
         removeChild(_modalWaitPane);
 }
 
-GObject * GRoot::getModalWaitingPane()
+GObject* GRoot::getModalWaitingPane()
 {
     if (!UIConfig::globalModalWaiting.empty())
     {
@@ -217,17 +235,17 @@ cocos2d::Vec2 GRoot::getTouchPosition(int touchId)
     return _inputProcessor->getTouchPosition(touchId);
 }
 
-GObject * GRoot::getTouchTarget()
+GObject* GRoot::getTouchTarget()
 {
     return _inputProcessor->getRecentInput()->getTarget();
 }
 
-void GRoot::showPopup(GObject * popup)
+void GRoot::showPopup(GObject* popup)
 {
     showPopup(popup, nullptr, PopupDirection::AUTO);
 }
 
-void GRoot::showPopup(GObject * popup, GObject * target, PopupDirection dir)
+void GRoot::showPopup(GObject* popup, GObject* target, PopupDirection dir)
 {
     if (!_popupStack.empty())
         hidePopup(popup);
@@ -261,12 +279,12 @@ void GRoot::showPopup(GObject * popup, GObject * target, PopupDirection dir)
     popup->setPosition(pos.x, pos.y);
 }
 
-void GRoot::togglePopup(GObject * popup)
+void GRoot::togglePopup(GObject* popup)
 {
     togglePopup(popup, nullptr, PopupDirection::AUTO);
 }
 
-void GRoot::togglePopup(GObject * popup, GObject * target, PopupDirection dir)
+void GRoot::togglePopup(GObject* popup, GObject* target, PopupDirection dir)
 {
     if (std::find(_justClosedPopups.cbegin(), _justClosedPopups.cend(), popup) != _justClosedPopups.cend())
         return;
@@ -279,7 +297,7 @@ void GRoot::hidePopup()
     hidePopup(nullptr);
 }
 
-void GRoot::hidePopup(GObject * popup)
+void GRoot::hidePopup(GObject* popup)
 {
     if (popup != nullptr)
     {
@@ -296,13 +314,13 @@ void GRoot::hidePopup(GObject * popup)
     }
     else
     {
-        for (const auto &it : _popupStack)
+        for (const auto& it : _popupStack)
             closePopup(it.ptr());
         _popupStack.clear();
     }
 }
 
-void GRoot::closePopup(GObject * target)
+void GRoot::closePopup(GObject* target)
 {
     if (target && target->getParent() != nullptr)
     {
@@ -358,7 +376,7 @@ bool GRoot::hasAnyPopup()
     return !_popupStack.empty();
 }
 
-cocos2d::Vec2 GRoot::getPoupPosition(GObject * popup, GObject * target, PopupDirection dir)
+cocos2d::Vec2 GRoot::getPoupPosition(GObject* popup, GObject* target, PopupDirection dir)
 {
     Vec2 pos;
     Vec2 size;
@@ -379,8 +397,7 @@ cocos2d::Vec2 GRoot::getPoupPosition(GObject * popup, GObject * target, PopupDir
     if (xx + popup->getWidth() > getWidth())
         xx = xx + size.x - popup->getWidth();
     yy = pos.y + size.y;
-    if ((dir == PopupDirection::AUTO && yy + popup->getHeight() > getHeight())
-        || dir == PopupDirection::UP)
+    if ((dir == PopupDirection::AUTO && yy + popup->getHeight() > getHeight()) || dir == PopupDirection::UP)
     {
         yy = pos.y - popup->getHeight() - 1;
         if (yy < 0)
@@ -393,7 +410,7 @@ cocos2d::Vec2 GRoot::getPoupPosition(GObject * popup, GObject * target, PopupDir
     return Vec2(round(xx), round(yy));
 }
 
-void GRoot::showTooltips(const std::string & msg)
+void GRoot::showTooltips(const std::string& msg)
 {
     if (_defaultTooltipWin == nullptr)
     {
@@ -413,7 +430,7 @@ void GRoot::showTooltips(const std::string & msg)
     showTooltipsWin(_defaultTooltipWin);
 }
 
-void GRoot::showTooltipsWin(GObject * tooltipWin)
+void GRoot::showTooltipsWin(GObject* tooltipWin)
 {
     hideTooltips();
 
@@ -457,14 +474,14 @@ void GRoot::hideTooltips()
     }
 }
 
-void GRoot::playSound(const std::string & url, float volumnScale)
+void GRoot::playSound(const std::string& url, float volumnScale)
 {
     if (!_soundEnabled)
         return;
 
     PackageItem* pi = UIPackage::getItemByURL(url);
     if (pi)
-        experimental::AudioEngine::play2d(pi->file, false, _soundVolumeScale * volumnScale);
+        AudioEngine::play2d(pi->file, false, _soundVolumeScale * volumnScale);
 }
 
 void GRoot::setSoundEnabled(bool value)
@@ -493,35 +510,15 @@ void GRoot::handlePositionChanged()
     _displayObject->setPosition(0, _size.height);
 }
 
-
-void GRoot::onEnter()
+void GRoot::setNotAsUIRoot()
 {
-    GComponent::onEnter();
-    _inst = this;
-}
-
-void GRoot::onExit()
-{
-    GComponent::onExit();
-    if (_inst == this)
-        _inst = nullptr;
-}
-
-class SetUIRoot : public cocos2d::Node {
-public:
-    CREATE_FUNC(SetUIRoot);
-    
-    SetUIRoot():onVisit(nullptr) {}
-    
-    virtual void visit(cocos2d::Renderer *renderer, const cocos2d::Mat4& parentTransform, uint32_t parentFlags)
-    {
-        onVisit();
+    auto monitor = _displayObject->getChildByName<SetUIRoot *>("SetUIRoot");
+    if (monitor) {
+        monitor->removeFromParent();
     }
-    
-    std::function<void ()> onVisit;
-};
+}
 
-bool GRoot::initWithScene(cocos2d::Scene * scene, int zOrder)
+bool GRoot::initWithScene(cocos2d::Scene* scene, int zOrder)
 {
     if (!GComponent::init())
         return false;
@@ -542,7 +539,10 @@ bool GRoot::initWithScene(cocos2d::Scene * scene, int zOrder)
     };
     monitor->setName("SetUIRoot");
     _displayObject->addChild(monitor);
-    _inst = this;
+    
+    if (_inst == nullptr) {
+        _inst = this;
+    }
 
     return true;
 }
@@ -551,6 +551,36 @@ void GRoot::onWindowSizeChanged()
 {
     const cocos2d::Size& rs = Director::getInstance()->getOpenGLView()->getDesignResolutionSize();
     setSize(rs.width, rs.height);
+
+    updateContentScaleLevel();
+}
+
+void GRoot::updateContentScaleLevel()
+{
+    float ss = Director::getInstance()->getContentScaleFactor();
+    if (ss >= 3.5f)
+        contentScaleLevel = 3; //x4
+    else if (ss >= 2.5f)
+        contentScaleLevel = 2; //x3
+    else if (ss >= 1.5f)
+        contentScaleLevel = 1; //x2
+    else
+        contentScaleLevel = 0;
+}
+
+cocos2d::Vec2 GRoot::worldToRoot(const cocos2d::Vec2 &pt)
+{
+    cocos2d::Vec2 pos = _displayObject->convertToNodeSpace(pt);
+    pos.y = getHeight() - pos.y;
+    return pos;
+}
+
+cocos2d::Vec2 GRoot::rootToWorld(const cocos2d::Vec2 &pt)
+{
+    cocos2d::Vec2 pos = pt;
+    pos.y = getHeight() - pos.y;
+    pos = _displayObject->convertToWorldSpace(pos);
+    return pos;
 }
 
 NS_FGUI_END

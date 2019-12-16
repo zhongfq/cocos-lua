@@ -11,8 +11,6 @@ static int luaopen_cocos2d_XMLHttpRequest_ResponseType(lua_State *L)
     oluacls_const_integer(L, "DOCUMENT", (lua_Integer)cocos2d::XMLHttpRequest::ResponseType::DOCUMENT);
     oluacls_const_integer(L, "JSON", (lua_Integer)cocos2d::XMLHttpRequest::ResponseType::JSON);
     
-    oluacls_createclassproxy(L);
-    
     return 1;
 }
 
@@ -240,7 +238,6 @@ static int luaopen_cocos2d_XMLHttpRequest(lua_State *L)
     oluacls_prop(L, "responseText", _cocos2d_XMLHttpRequest_getResponseText, nullptr);
     
     olua_registerluatype<cocos2d::XMLHttpRequest>(L, "cc.XMLHttpRequest");
-    oluacls_createclassproxy(L);
     
     return 1;
 }

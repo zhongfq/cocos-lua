@@ -32,7 +32,7 @@ function Alipay:_didResponse(action, message)
 end
 
 function Alipay:pay(order)
-    impl:play(assert(order, "no order"))
+    impl:pay(assert(order, "no order"))
 end
 
 if runtime.os == "android" then

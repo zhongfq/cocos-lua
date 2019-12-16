@@ -310,38 +310,12 @@ bool InputProcessor::isTouchOnUI()
     return _touchOnUI;
 }
 
-void InputProcessor::disableDefaultTouchEvent()
-{
-    _owner->displayObject()->getEventDispatcher()->removeEventListener(_touchListener);
-}
-
-bool InputProcessor::touchDown(cocos2d::Touch *touch, cocos2d::Event *event)
-{
-    return onTouchBegan(touch, event);
-}
-
-void InputProcessor::touchMove(cocos2d::Touch *touch, cocos2d::Event *event)
-{
-    onTouchMoved(touch, event);
-}
-
-void InputProcessor::touchUp(cocos2d::Touch *touch, cocos2d::Event *event)
-{
-    onTouchEnded(touch, event);
-}
-
-cocos2d::Vec2 InputProcessor::worldToGRoot(const cocos2d::Vec2 &pt)
-{
-    cocos2d::Vec2 pos = _owner->displayObject()->convertToNodeSpace(pt);
-    pos.y = _owner->getHeight() - pos.y;
-    return pos;
-}
-
 bool InputProcessor::onTouchBegan(Touch *touch, Event* /*unusedEvent*/)
 {
     if (!(_owner->isTouchable() && _owner->isVisible())) {
         return false;
     }
+    
     auto camera = Camera::getVisitingCamera();
     Vec2 pt = touch->getLocation();
     GObject* target = _owner->hitTest(pt, camera);
@@ -350,7 +324,7 @@ bool InputProcessor::onTouchBegan(Touch *touch, Event* /*unusedEvent*/)
     _touchListener->setSwallowTouches(target != _owner);
 
     TouchInfo* ti = getTouch(touch->getID());
-    ti->pos = worldToGRoot(pt);
+    ti->pos = UIRoot->worldToRoot(pt);
     ti->button = EventMouse::MouseButton::BUTTON_LEFT;
     ti->touch = touch;
     setBegin(ti, target);
@@ -381,7 +355,7 @@ void InputProcessor::onTouchMoved(Touch *touch, Event* /*unusedEvent*/)
         target = _owner;
 
     TouchInfo* ti = getTouch(touch->getID());
-    ti->pos = worldToGRoot(pt);
+    ti->pos = UIRoot->worldToRoot(pt);
     ti->button = EventMouse::MouseButton::BUTTON_LEFT;
     ti->touch = touch;
 
@@ -426,7 +400,7 @@ void InputProcessor::onTouchEnded(Touch *touch, Event* /*unusedEvent*/)
         target = _owner;
 
     TouchInfo* ti = getTouch(touch->getID());
-    ti->pos = worldToGRoot(pt);
+    ti->pos = UIRoot->worldToRoot(pt);
     ti->button = EventMouse::MouseButton::BUTTON_LEFT;
     ti->touch = touch;
     setEnd(ti, target);
@@ -542,7 +516,7 @@ void InputProcessor::onMouseDown(cocos2d::EventMouse * event)
     _touchListener->setSwallowTouches(target != _owner);
 
     TouchInfo* ti = getTouch(0);
-    ti->pos = worldToGRoot(pt);
+    ti->pos = UIRoot->worldToRoot(pt);
     ti->button = event->getMouseButton();
     ti->touch = nullptr;
     setBegin(ti, target);
@@ -571,7 +545,7 @@ void InputProcessor::onMouseUp(cocos2d::EventMouse * event)
         target = _owner;
 
     TouchInfo* ti = getTouch(0);
-    ti->pos = worldToGRoot(pt);
+    ti->pos = UIRoot->worldToRoot(pt);
     ti->button = event->getMouseButton();
     ti->touch = nullptr;
     setEnd(ti, target);
@@ -625,8 +599,8 @@ void InputProcessor::onMouseUp(cocos2d::EventMouse * event)
 
 void InputProcessor::onMouseMove(cocos2d::EventMouse * event)
 {
-    cocos2d::Vec2 npos = worldToGRoot(Vec2(event->getCursorX(), event->getCursorY()));
     TouchInfo* ti = getTouch(0);
+    Vec2 npos = UIRoot->worldToRoot(Vec2(event->getCursorX(), event->getCursorY()));
     if (std::abs(ti->pos.x - npos.x) < 1
         && std::abs(ti->pos.y - npos.y) < 1)
         return;
@@ -637,7 +611,7 @@ void InputProcessor::onMouseMove(cocos2d::EventMouse * event)
     if (!target)
         target = _owner;
 
-    ti->pos = worldToGRoot(pt);
+    ti->pos = UIRoot->worldToRoot(pt);
     ti->touch = nullptr;
 
     updateRecentInput(ti, target);
@@ -681,7 +655,7 @@ void InputProcessor::onMouseScroll(cocos2d::EventMouse * event)
         target = _owner;
 
     TouchInfo* ti = getTouch(0);
-    ti->pos = worldToGRoot(pt);
+    ti->pos = UIRoot->worldToRoot(pt);
     ti->touch = nullptr;
     ti->mouseWheelDelta = MAX(event->getScrollX(), event->getScrollY());
 
@@ -756,5 +730,26 @@ void TouchInfo::reset()
     clickCancelled = false;
     touchMonitors.clear();
 }
+
+void InputProcessor::disableDefaultTouchEvent()
+{
+    _owner->displayObject()->getEventDispatcher()->removeEventListener(_touchListener);
+}
+
+bool InputProcessor::touchDown(cocos2d::Touch *touch, cocos2d::Event *event)
+{
+    return onTouchBegan(touch, event);
+}
+
+void InputProcessor::touchMove(cocos2d::Touch *touch, cocos2d::Event *event)
+{
+    onTouchMoved(touch, event);
+}
+
+void InputProcessor::touchUp(cocos2d::Touch *touch, cocos2d::Event *event)
+{
+    onTouchEnded(touch, event);
+}
+
 
 NS_FGUI_END

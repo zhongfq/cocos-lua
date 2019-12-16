@@ -3,7 +3,7 @@
 
 #include "xgame/xdef.h"
 
-#include "cocos/2d/CCScene.h"
+#include "2d/CCScene.h"
 #include "ui/UILayout.h"
 
 #include <vector>

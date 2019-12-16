@@ -58,13 +58,15 @@ public:
     static void setAudioSessionCatalog(const std::string &catalog);
     static const std::string getAudioSessionCatalog();
     static void alert(const std::string &title, const std::string &message, const std::string &ok, const std::string &no, const std::function<void (bool)> callback);
+    static std::string getIDFA();
+    static bool isAdvertisingTrackingEnabled();
     
     // event dispatch
     typedef std::function<void (const std::string &event, const std::string &args)> EventDispatcher;
     static void setDispatcher(const EventDispatcher &dispatcher);
     static void dispatchEvent(const std::string &event, const std::string &args);
     static void runOnCocosThread(const std::function<void ()> &callback);
-    static void openURL(const std::string &uri, const std::function<void (bool)> callback);
+    static void openURL(const std::string &uri, const std::function<void (bool)> callback = nullptr);
     static void handleOpenURL(const std::string &uri);
     static bool canOpenURL(const std::string &uri);
     
@@ -98,7 +100,7 @@ public:
     RuntimeContext();
     virtual ~RuntimeContext();
     
-    virtual void initGLView(const std::string &title, const cocos2d::Rect &rect);
+    virtual void initGLView(const std::string &title);
     virtual void initGLContextAttrs();
     virtual bool applicationDidFinishLaunching();
     virtual void applicationDidEnterBackground();

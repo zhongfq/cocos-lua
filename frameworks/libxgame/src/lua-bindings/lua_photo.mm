@@ -152,7 +152,6 @@ typedef enum {
 static int _gc(lua_State *L)
 {
     @autoreleasepool {
-        lua_settop(L, 1);
         PhotoConnector *connector = olua_checkconnector(L, 1);
         CFBridgingRelease((__bridge CFTypeRef)connector);
     }
@@ -164,15 +163,18 @@ static int _set_callback(lua_State *L)
     @autoreleasepool {
         lua_settop(L, 2);
         PhotoConnector *connector = olua_checkconnector(L, 1);
-        void *cb_store = (void *)connector;
+        void *cb_store = (__bridge void *)connector;
         std::string func = olua_setcallback(L, cb_store, "dispatcher", 2, OLUA_TAG_REPLACE);
-        connector.dispatcher = [cb_store, func] (const std::string &event, const std::string &data) {
+        lua_State *MT = olua_mainthread();
+        connector.dispatcher = [cb_store, func, MT] (const std::string &event, const std::string &data) {
             lua_State *L = olua_mainthread();
-            int top = lua_gettop(L);
-            lua_pushstring(L, event.c_str());
-            lua_pushstring(L, data.c_str());
-            olua_callback(L, cb_store, func.c_str(), 2);
-            lua_settop(L, top);
+            if (MT == L) {
+                int top = lua_gettop(L);
+                lua_pushstring(L, event.c_str());
+                lua_pushstring(L, data.c_str());
+                olua_callback(L, cb_store, func.c_str(), 2);
+                lua_settop(L, top);
+            }
         };
     }
     return 0;
@@ -296,15 +298,24 @@ static int _select_avatar(lua_State *L)
     @autoreleasepool {
         lua_settop(L, 6);
         PhotoConnector *connector = olua_checkconnector(L, 1);
-        const char *where = olua_checkstring(L, 2);
-        NSString *cachePath = [NSString stringWithUTF8String:luaL_checkstring(L, 3)];
-        CGSize size = CGSizeMake((int)luaL_checkinteger(L, 4), (int)luaL_checkinteger(L, 5));
-        connector.quality = olua_optnumber(L, 6, 0.85f);
-        if (strequal(where, "PHOTO")) {
-            [connector selectAvatarFromPhotoLibrary:cachePath withSize:size];
-        } else {
-            [connector selectAvatarFromCamera:cachePath withSize:size];
-        }
+        NSString *cachePath = [NSString stringWithUTF8String:luaL_checkstring(L, 2)];
+        CGSize size = CGSizeMake((int)luaL_checkinteger(L, 3), (int)luaL_checkinteger(L, 4));
+        connector.quality = olua_optnumber(L, 5, 0.85f);
+        [connector selectAvatarFromPhotoLibrary:cachePath withSize:size];
+
+    }
+    return 0;
+}
+
+static int _take_avatar(lua_State *L)
+{
+    @autoreleasepool {
+        lua_settop(L, 6);
+        PhotoConnector *connector = olua_checkconnector(L, 1);
+        NSString *cachePath = [NSString stringWithUTF8String:luaL_checkstring(L, 2)];
+        CGSize size = CGSizeMake((int)luaL_checkinteger(L, 3), (int)luaL_checkinteger(L, 4));
+        connector.quality = olua_optnumber(L, 5, 0.85f);
+        [connector selectAvatarFromCamera:cachePath withSize:size];
     }
     return 0;
 }
@@ -316,12 +327,13 @@ int luaopen_photo(lua_State *L)
     oluacls_func(L, "setDispatcher", _set_callback);
     oluacls_func(L, "requestPermission", _request_permission);
     oluacls_func(L, "selectAvatar", _select_avatar);
+    oluacls_func(L, "takeAvatar", _take_avatar);
     oluacls_func(L, "select", _select_image);
     
     xgame::runtime::registerFeature("photo.ios", true);
     
     @autoreleasepool {
-        PhotoConnector *connector = [[PhotoConnector alloc] init];
+        PhotoConnector *connector = [PhotoConnector new];
         olua_push_obj(L, (void *)CFBridgingRetain(connector), CLASS_CONNECTOR);
     }
     

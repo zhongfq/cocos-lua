@@ -26,17 +26,18 @@ end
 
 function RadioGroup.Get:selectedIndex() return self._selectedIndex end
 function RadioGroup.Set:selectedIndex(value)
+    if self.selectedIndex == value or value <= 0 or value > #self._items then
+        return
+    end
+    if self.selectedItem then
+        self.selectedItem.selected = false
+        self.selectedItem.touchable = true
+    end
     local prevSelectedItem = self.selectedItem
-    if self._selectedIndex > 0 then
-        self._items[self._selectedIndex].selected = false
-        self._items[self._selectedIndex].touchable = true
-    end
-    if value > 0 and value ~= self._selectedIndex then
-        self._selectedIndex = value
-        self._items[self._selectedIndex].selected = true
-        self._items[self._selectedIndex].touchable = false
-        self:dispatch(Event.CHANGE, prevSelectedItem, self.selectedItem)
-    end
+    self._selectedIndex = value
+    self.selectedItem.selected = true
+    self.selectedItem.touchable = false
+    self:dispatch(Event.CHANGE, prevSelectedItem, self.selectedItem)
 end
 
 return RadioGroup

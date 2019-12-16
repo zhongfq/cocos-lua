@@ -16,6 +16,8 @@ function UILayer:ctor()
     self.children = Array.new()
     self.touchChildren = true
     self._innerContainer = InnerContainer.new()
+    self._innerContainer.anchorX = 0
+    self._innerContainer.anchorY = 0
     self.cobj:addChild(self._innerContainer.cobj)
 end
 
@@ -93,6 +95,10 @@ function UILayer:_internalAddChild(child, index, silence)
     child._parent = self
     if self.stage and not silence then
         child:_setStage(self.stage)
+    end
+    for i = index + 1, #self.children do
+        local c = self.children[i]
+        c.cobj.localZOrder = i
     end
 end
 

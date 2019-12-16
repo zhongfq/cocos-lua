@@ -1,5 +1,5 @@
-local typemod = require "olua.typemod"
-local M = typemod 'exclude-type'
+local autoconf = require "autoconf"
+local M = autoconf.typemod 'exclude-type'
 
 M.EXCLUDE_TYPE 'cocos2d::Console *'
 M.EXCLUDE_TYPE 'cocos2d::Font *'
@@ -22,6 +22,7 @@ M.EXCLUDE_TYPE 'cocos2d::Vec4 *'
 M.EXCLUDE_TYPE 'cocos2d::Tile *'
 M.EXCLUDE_TYPE 'cocos2d::Rect *'
 M.EXCLUDE_TYPE 'cocos2d::Grabber *'
+M.EXCLUDE_TYPE 'va_list'
 M.EXCLUDE_TYPE 'float *'
 M.EXCLUDE_TYPE 'GLfloat *'
 M.EXCLUDE_TYPE 'unsigned int *'

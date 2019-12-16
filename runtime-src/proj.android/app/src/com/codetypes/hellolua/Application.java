@@ -12,9 +12,11 @@ public class Application extends android.app.Application {
     public void onCreate() {
         super.onCreate();
 
-        loadPlugin("kernel.plugins.huawei.Huawei");
+		loadPlugin("kernel.plugins.huawei.Huawei");
         loadPlugin("kernel.plugins.vivo.Vivo");
         loadPlugin("kernel.plugins.oppo.Oppo");
+        loadPlugin("kernel.plugins.alipay.Alipay");
+        loadPlugin("kernel.plugins.talkingdata.TalkingData");
 
         PluginManager.init(this);
     }

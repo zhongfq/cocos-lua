@@ -54,6 +54,7 @@ function xGame:newService(name, cls)
 end
 
 function xGame:restart(cls, ...)
+    self._listeners = {}
     self._timer:clear()
     self:popAll()
 
@@ -71,7 +72,7 @@ function xGame:restart(cls, ...)
         self:newService(v.name, v.class)
     end
 
-    trace('restart xGame: %s', cls.classname)
+    trace('restart xGame: %s', cls)
 
     self:startScene(cls, ...)
     self:later(function ()
@@ -84,6 +85,7 @@ function xGame:_loadAssets(func, cls, ...)
     if type(cls) == 'string' then
         cls = require(cls)
     end
+    assert(type(cls) == 'table', 'not a class')
     local queue = LoadQueue.new(cls:assets(...))
     if queue.totalCount > 0 then
         local args = {...}
@@ -104,8 +106,8 @@ function xGame:_loadAssets(func, cls, ...)
     end
 end
 
-function xGame:showWindow(cls, ...)
-    self:_loadAssets(self._sceneStack.showWindow, cls, ...)
+function xGame:show(cls, ...)
+    self:_loadAssets(self._sceneStack.show, cls, ...)
 end
 
 function xGame:startScene(cls, ...)
@@ -196,3 +198,5 @@ function xGame:_initRuntimeEvents()
 end
 
 xGame = xGame.new()
+
+return xGame

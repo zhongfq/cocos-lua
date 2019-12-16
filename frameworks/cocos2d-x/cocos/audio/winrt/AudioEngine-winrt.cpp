@@ -300,7 +300,7 @@ void AudioEngineImpl::update(float dt)
             if (playerIt != _audioPlayers.end()) {
                 if (playerIt->second._finishCallback) {
                     auto& audioInfo = AudioEngine::_audioIDInfoMap[audioID];
-                    playerIt->second._finishCallback(audioID, *audioInfo.filePath);
+                    playerIt->second._finishCallback(audioID, audioInfo.filePath);
                 }
                 _audioPlayers.erase(audioID);
                 AudioEngine::remove(audioID);
@@ -327,7 +327,7 @@ void AudioEngineImpl::update(float dt)
         if (player._ready && player._state == AudioPlayerState::STOPPED) {
             if (player._finishCallback) {
                 auto& audioInfo = AudioEngine::_audioIDInfoMap[audioID];
-                player._finishCallback(audioID, *audioInfo.filePath);
+                player._finishCallback(audioID, audioInfo.filePath);
             }
 
             AudioEngine::remove(audioID);

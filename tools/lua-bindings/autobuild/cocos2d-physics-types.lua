@@ -3,19 +3,6 @@
 local olua = require "olua"
 local typedef = olua.typedef
 
-olua.nowarning(typedef)
-
-typedef {
-    CONV = 'olua_$$_obj',
-    CPPCLS = 'cocos2d *',
-    LUACLS = 'cc',
-}
-
-typedef {
-    CONV = 'auto_olua_$$_cocos2d_PhysicsMaterial',
-    CPPCLS = 'cocos2d::PhysicsMaterial',
-}
-
 typedef {
     CONV = 'olua_$$_cppobj',
     CPPCLS = 'cocos2d::PhysicsWorld',
@@ -47,196 +34,266 @@ typedef {
 }
 
 typedef {
-    CPPCLS = 'cocos2d::PhysicsContact::EventCode',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'cc.PhysicsContact.EventCode',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::PhysicsShape::Type',
-    DECLTYPE = 'lua_Unsigned',
-    CONV = 'olua_$$_uint',
-    LUACLS = 'cc.PhysicsShape.Type',
+    CPPCLS = 'cocos2d::PhysicsMaterial',
+    LUACLS = nil,
+    DECLTYPE = nil,
+    CONV = 'auto_olua_$$_cocos2d_PhysicsMaterial',
+    NUMVARS = 3,
 }
 
 typedef {
     CPPCLS = 'cocos2d::EventListenerPhysicsContact *',
-    CONV = 'olua_$$_cppobj',
     LUACLS = 'cc.EventListenerPhysicsContact',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::EventListenerPhysicsContactWithBodies *',
+    DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.EventListenerPhysicsContactWithBodies',
+    NUMVARS = nil,
 }
 
 typedef {
     CPPCLS = 'cocos2d::EventListenerPhysicsContactWithGroup *',
-    CONV = 'olua_$$_cppobj',
     LUACLS = 'cc.EventListenerPhysicsContactWithGroup',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::EventListenerPhysicsContactWithBodies *',
+    LUACLS = 'cc.EventListenerPhysicsContactWithBodies',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
 }
 
 typedef {
     CPPCLS = 'cocos2d::EventListenerPhysicsContactWithShapes *',
-    CONV = 'olua_$$_cppobj',
     LUACLS = 'cc.EventListenerPhysicsContactWithShapes',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
 }
 
 typedef {
     CPPCLS = 'cocos2d::PhysicsBody *',
-    CONV = 'olua_$$_cppobj',
     LUACLS = 'cc.PhysicsBody',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::PhysicsContact::EventCode',
+    LUACLS = 'cc.PhysicsContact.EventCode',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
 }
 
 typedef {
     CPPCLS = 'cocos2d::PhysicsContact *',
-    CONV = 'olua_$$_cppobj',
     LUACLS = 'cc.PhysicsContact',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
 }
 
 typedef {
     CPPCLS = 'cocos2d::PhysicsContactPostSolve *',
-    CONV = 'olua_$$_cppobj',
     LUACLS = 'cc.PhysicsContactPostSolve',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
 }
 
 typedef {
     CPPCLS = 'cocos2d::PhysicsContactPreSolve *',
-    CONV = 'olua_$$_cppobj',
     LUACLS = 'cc.PhysicsContactPreSolve',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
 }
 
 typedef {
     CPPCLS = 'cocos2d::PhysicsJoint *',
-    CONV = 'olua_$$_cppobj',
     LUACLS = 'cc.PhysicsJoint',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
 }
 
 typedef {
     CPPCLS = 'cocos2d::PhysicsJointDistance *',
-    CONV = 'olua_$$_cppobj',
     LUACLS = 'cc.PhysicsJointDistance',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
 }
 
 typedef {
     CPPCLS = 'cocos2d::PhysicsJointFixed *',
-    CONV = 'olua_$$_cppobj',
     LUACLS = 'cc.PhysicsJointFixed',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
 }
 
 typedef {
     CPPCLS = 'cocos2d::PhysicsJointGear *',
-    CONV = 'olua_$$_cppobj',
     LUACLS = 'cc.PhysicsJointGear',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
 }
 
 typedef {
     CPPCLS = 'cocos2d::PhysicsJointGroove *',
-    CONV = 'olua_$$_cppobj',
     LUACLS = 'cc.PhysicsJointGroove',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
 }
 
 typedef {
     CPPCLS = 'cocos2d::PhysicsJointLimit *',
-    CONV = 'olua_$$_cppobj',
     LUACLS = 'cc.PhysicsJointLimit',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
 }
 
 typedef {
     CPPCLS = 'cocos2d::PhysicsJointMotor *',
-    CONV = 'olua_$$_cppobj',
     LUACLS = 'cc.PhysicsJointMotor',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
 }
 
 typedef {
     CPPCLS = 'cocos2d::PhysicsJointPin *',
-    CONV = 'olua_$$_cppobj',
     LUACLS = 'cc.PhysicsJointPin',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
 }
 
 typedef {
     CPPCLS = 'cocos2d::PhysicsJointRatchet *',
-    CONV = 'olua_$$_cppobj',
     LUACLS = 'cc.PhysicsJointRatchet',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
 }
 
 typedef {
     CPPCLS = 'cocos2d::PhysicsJointRotaryLimit *',
-    CONV = 'olua_$$_cppobj',
     LUACLS = 'cc.PhysicsJointRotaryLimit',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
 }
 
 typedef {
     CPPCLS = 'cocos2d::PhysicsJointRotarySpring *',
-    CONV = 'olua_$$_cppobj',
     LUACLS = 'cc.PhysicsJointRotarySpring',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
 }
 
 typedef {
     CPPCLS = 'cocos2d::PhysicsJointSpring *',
-    CONV = 'olua_$$_cppobj',
     LUACLS = 'cc.PhysicsJointSpring',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
 }
 
 typedef {
-    CPPCLS = 'cocos2d::PhysicsRayCastInfo *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.PhysicsRayCastInfo',
+    CPPCLS = 'cocos2d::PhysicsShape::Type',
+    LUACLS = 'cc.PhysicsShape.Type',
+    DECLTYPE = "lua_Unsigned",
+    CONV = 'olua_$$_uint',
+    NUMVARS = nil,
 }
 
 typedef {
     CPPCLS = 'cocos2d::PhysicsShape *',
-    CONV = 'olua_$$_cppobj',
     LUACLS = 'cc.PhysicsShape',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::PhysicsShapeBox *',
+    DECLTYPE = nil,
     CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.PhysicsShapeBox',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::PhysicsShapeCircle *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.PhysicsShapeCircle',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::PhysicsShapeEdgeBox *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.PhysicsShapeEdgeBox',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::PhysicsShapeEdgeChain *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.PhysicsShapeEdgeChain',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::PhysicsShapeEdgePolygon *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.PhysicsShapeEdgePolygon',
-}
-
-typedef {
-    CPPCLS = 'cocos2d::PhysicsShapeEdgeSegment *',
-    CONV = 'olua_$$_cppobj',
-    LUACLS = 'cc.PhysicsShapeEdgeSegment',
+    NUMVARS = nil,
 }
 
 typedef {
     CPPCLS = 'cocos2d::PhysicsShapePolygon *',
-    CONV = 'olua_$$_cppobj',
     LUACLS = 'cc.PhysicsShapePolygon',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::PhysicsShapeEdgePolygon *',
+    LUACLS = 'cc.PhysicsShapeEdgePolygon',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::PhysicsShapeBox *',
+    LUACLS = 'cc.PhysicsShapeBox',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::PhysicsShapeCircle *',
+    LUACLS = 'cc.PhysicsShapeCircle',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::PhysicsShapeEdgeBox *',
+    LUACLS = 'cc.PhysicsShapeEdgeBox',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::PhysicsShapeEdgeChain *',
+    LUACLS = 'cc.PhysicsShapeEdgeChain',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::PhysicsShapeEdgeSegment *',
+    LUACLS = 'cc.PhysicsShapeEdgeSegment',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
+}
+
+typedef {
+    CPPCLS = 'cocos2d::PhysicsRayCastInfo *',
+    LUACLS = 'cc.PhysicsRayCastInfo',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
 }
 
 typedef {
     CPPCLS = 'cocos2d::PhysicsWorld *',
-    CONV = 'olua_$$_cppobj',
     LUACLS = 'cc.PhysicsWorld',
+    DECLTYPE = nil,
+    CONV = 'olua_$$_cppobj',
+    NUMVARS = nil,
 }
 

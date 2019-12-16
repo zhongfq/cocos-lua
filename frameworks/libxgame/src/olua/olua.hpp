@@ -33,10 +33,6 @@
 #include <set>
 #include <vector>
 
-#ifndef olua_holdobj
-#define olua_holdobj(L, i, n) assert(false && "not define olua_holdobj")
-#endif
-
 template <typename T> void olua_registerluatype(lua_State *L, const char *cls)
 {
     const char *type = typeid(T).name();
@@ -104,7 +100,7 @@ template <typename T> T *olua_checkobj(lua_State *L, int idx)
 template <typename T> int olua_push_cppobj(lua_State *L, T* value, const char *cls)
 {
     cls = olua_getluatype(L, value, cls);
-    olua_holdobj(L, value, olua_pushobj(L, value, cls));
+    olua_postpush(L, value, olua_pushobj(L, value, cls));
     return 1;
 }
 
@@ -131,11 +127,6 @@ static inline void olua_to_cppobj(lua_State *L, int idx, void **value, const cha
 static inline void olua_check_cppobj(lua_State *L, int idx, void **value, const char *cls)
 {
     olua_check_obj(L, idx, value, cls);
-}
-
-static inline void olua_opt_cppobj(lua_State *L, int idx, void **value, const char *cls, void *def)
-{
-    olua_opt_obj(L, idx, value, cls, def);
 }
 
 static inline bool olua_is_cppobj(lua_State *L, int idx, const char *cls)
@@ -215,11 +206,6 @@ static inline int olua_push_std_string(lua_State *L, const std::string &value)
 static inline void olua_check_std_string(lua_State *L, int idx, std::string *value)
 {
     *value = olua_checkstring(L, idx);
-}
-
-static inline void olua_opt_std_string(lua_State *L, int idx, std::string *value, const std::string &def)
-{
-    *value = olua_optstring(L, idx, def.c_str());
 }
 
 static inline bool olua_is_std_string(lua_State *L, int idx)

@@ -1,7 +1,8 @@
-local class     = require "xgame.class"
-local Event     = require "xgame.event.Event"
-local Align     = require "xgame.ui.Align"
-local UIObject  = require "xgame.ui.UIObject"
+local class             = require "xgame.class"
+local Event             = require "xgame.event.Event"
+local Align             = require "xgame.ui.Align"
+local UIObject          = require "xgame.ui.UIObject"
+local GLProgramState    = require "cc.GLProgramState"
 
 local FLDisplayObject = class("FLDisplayObject", UIObject)
 
@@ -54,6 +55,9 @@ function FLDisplayObject:getPosition()
 end
 
 function FLDisplayObject:setShader(shaderType, shader)
+    if shader and shader.classname == 'cc.GLProgram' then
+        shader = GLProgramState.create(shader)
+    end
     self.cobj:setShader(shaderType, shader)
 end
 

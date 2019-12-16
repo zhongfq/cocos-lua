@@ -13,7 +13,7 @@ return function (conf)
     print("       runtime: " .. conf.RUNTIME)
     print("         debug: " .. tostring(conf.DEBUG))
 
-    local ASSETS_PATH = conf.BUILD_PATH .. '/assets'
+    local ASSETS_PATH = conf.ASSETS_PATH
     local SHOULD_BUILD = conf.SHOULD_BUILD or function () return true end
     local IS_BUILTIN = conf.IS_BUILTIN or function () return false end
 

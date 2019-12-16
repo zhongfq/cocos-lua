@@ -150,25 +150,24 @@ static int _loader (lua_State *L)
     lua_getglobal(L, LUA_LOADLIBNAME);
     lua_getfield(L, -1, "path");
     
-    const char *path = luaL_checkstring(L, -1);
+    const char *search_path = luaL_checkstring(L, -1);
     const char *name = luaL_gsub(L, luaL_checkstring(L, 1), ".", LUA_DIRSEP);
     
     lua_pushnil(L); // not found will return nil
     
-    while ((path = _pushnexttemplate(L, path)) != nullptr) {
-        const char *filename = luaL_gsub(L, lua_tostring(L, -1), "?", name);
-        if (filesystem::exist(filename)) {
-            Data buffer = FileUtils::getInstance()->getDataFromFile(filename);
-            
-            lua_pushfstring(L, "%s%s", "@", filename);
-            int status = luaL_loadbuffer(L, (const char *)buffer.getBytes(),
-                (size_t)buffer.getSize(), lua_tostring(L, -1));
+    while ((search_path = _pushnexttemplate(L, search_path)) != nullptr) {
+        const char *path = luaL_gsub(L, lua_tostring(L, -1), "?", name);
+        FileUtils *fileUtils = FileUtils::getInstance();
+        BufferReader *reader = filesystem::getBufferReader();
+        if (filesystem::exist(path) && fileUtils->getContents(path, reader) == FileUtils::Status::OK) {
+            lua_pushfstring(L, "%s%s", "@", path);
+            int status = luaL_loadbuffer(L, (const char *)reader->buffer(),
+                (size_t)reader->size(), lua_tostring(L, -1));
             if (status != LUA_OK) {
                 return luaL_error(L, "error loading module '%s' from file '%s':\n\t%s",
-                    lua_tostring(L, 1), filename, lua_tostring(L, -1));
+                    lua_tostring(L, 1), path, lua_tostring(L, -1));
             }
-            
-            lua_pushstring(L, filename);
+            lua_pushstring(L, path);
             return 2;
         } else {
             lua_pop(L, 2); // path template, filename
@@ -392,35 +391,32 @@ static int report_gc_error(lua_State *L)
 
 int xlua_ccobjgc(lua_State *L)
 {
-    lua_settop(L, 1);
-    if (olua_isa(L, 1, "cc.Ref")) {
-        auto obj = olua_touserdata(L, 1, cocos2d::Ref *);
-        if (obj) {
+    auto obj = (cocos2d::Ref *)olua_toobj(L, 1, "cc.Ref");
+    if (obj) {
 #ifdef COCOS2D_DEBUG
-            if (obj->getReferenceCount() > 0xFFFF) {
-                int errfuc = olua_geterrorfunc(L);
-                lua_pushcfunction(L, report_gc_error);
-                lua_pushvalue(L, 1);
-                lua_pcall(L, 1, 0, errfuc);
-            }
-#endif
-            if (olua_vmstatus(L)->debug) {
-                int top = lua_gettop(L);
-                lua_getfield(L, 1, "name");
-                const char *name = lua_tostring(L, -1);
-                const char *str = olua_objstring(L, 1);
-                xgame::runtime::log("lua gc: %s(NAME=%s, RC=%d, TC=%d)", str,
-                    name && strlen(name) > 0 ? name : "''",
-                    obj->getReferenceCount() - 1, olua_objcount(L) - 1);
-                lua_settop(L, top);
-            }
-            
-            obj->release();
-            *(void **)lua_touserdata(L, 1) = nullptr;
-            lua_pushnil(L);
-            lua_setuservalue(L, 1);
-            olua_subobjcount(L);
+        if (obj->getReferenceCount() > 0xFFFF) {
+            int errfuc = olua_geterrorfunc(L);
+            lua_pushcfunction(L, report_gc_error);
+            lua_pushvalue(L, 1);
+            lua_pcall(L, 1, 0, errfuc);
         }
+#endif
+        if (olua_vmstatus(L)->debug) {
+            int top = lua_gettop(L);
+            lua_getfield(L, 1, "name");
+            const char *name = lua_tostring(L, -1);
+            const char *str = olua_objstring(L, 1);
+            xgame::runtime::log("lua gc: %s(NAME=%s, RC=%d, TC=%d)", str,
+                name && strlen(name) > 0 ? name : "''",
+                obj->getReferenceCount() - 1, olua_objcount(L) - 1);
+            lua_settop(L, top);
+        }
+        
+        obj->release();
+        olua_setrawdata(L, 1, nullptr);
+        lua_pushnil(L);
+        lua_setuservalue(L, 1);
+        olua_subobjcount(L);
     }
     return 0;
 }
@@ -441,7 +437,7 @@ void xlua_startcmpunref(lua_State *L, int idx, const char *refname)
     lua_pushnil(L);                                         // L: t k
     while (lua_next(L, -2)) {                               // L: t k v
         if (olua_isa(L, -2, "cc.Ref")) {
-            auto obj = olua_touserdata(L, -2, cocos2d::Ref *);
+            auto obj = (cocos2d::Ref *)olua_toobj(L, -2, "cc.Ref");
             if (obj) {
                 lua_pushvalue(L, -2);                        // L: t k v k
                 lua_pushinteger(L, obj->getReferenceCount());// L: t k v k refcount
@@ -455,21 +451,8 @@ void xlua_startcmpunref(lua_State *L, int idx, const char *refname)
 
 static bool should_unref_obj(lua_State *L, int idx)
 {
-    if (olua_isa(L, idx, "cc.Action")) {
-        auto obj = olua_touserdata(L, idx, cocos2d::Action *);
-        if (obj) {
-            unsigned int curr = obj->getReferenceCount();
-            if (!obj->getTarget() || obj->isDone() || curr == 1) {
-                return true;
-            } else if (olua_isinteger(L, -1)) {
-                unsigned int last = (unsigned int)olua_tointeger(L, -1);
-                if (curr < last) {
-                    return true;
-                }
-            }
-        }
-    } else if (olua_isa(L, idx, "cc.Ref")) {
-        auto obj = olua_touserdata(L, idx, cocos2d::Ref *);
+    if (olua_isa(L, idx, "cc.Ref")) {
+        auto obj = (cocos2d::Ref *)olua_toobj(L, idx, "cc.Ref");
         if (obj && olua_isinteger(L, -1)) {
             unsigned int last = (unsigned int)olua_tointeger(L, -1);
             unsigned int curr = obj->getReferenceCount();
@@ -477,11 +460,25 @@ static bool should_unref_obj(lua_State *L, int idx)
                 return true;
             }
         }
+    } else {
+        return false;
+    }
+    
+    if (olua_isa(L, idx, "cc.Action")) {
+        auto obj = (cocos2d::Action *)olua_toobj(L, idx, "cc.Action");
+        if (obj && (!obj->getTarget() || obj->isDone())) {
+            return true;
+        }
+    } else if (olua_isa(L, idx, "cc.Node")) {
+        auto obj = (cocos2d::Node *)olua_toobj(L, idx, "cc.Node");
+        if (obj && !obj->getParent()) {
+            return true;
+        }
     }
     return false;
 }
 
 void xlua_endcmpunref(lua_State *L, int idx, const char *refname)
 {
-     olua_mapwalkunref(L, idx, refname, should_unref_obj);
+    olua_mapwalkunref(L, idx, refname, should_unref_obj);
 }

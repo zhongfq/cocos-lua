@@ -16,6 +16,7 @@ function FLScroller:ctor()
     local bounds = container.ns['__bounds__'] or container
     local viewport = self.children[1]
     viewport.visible = false
+    self:stop()
     rawset(self, 'width', viewport.width)
     rawset(self, 'height', viewport.height)
     rawset(container, 'width', bounds.width)
@@ -24,6 +25,7 @@ function FLScroller:ctor()
     self._scrollImpl = ScrollImpl.new(self, container)
     self._scrollImpl.scrollHEnabled = self.metadata.scrollHEnabled
     self._scrollImpl.scrollVEnabled = self.metadata.scrollVEnabled
+    self._scrollImpl.bounceEnabled = self.metadata.bounceEnabled ~= false
 
     if bounds ~= container then
         bounds.visible = false
@@ -35,23 +37,9 @@ function FLScroller:getBounds(target)
 end
 
 function FLScroller:getScrollBounds()
-    local container = self._container
-    local bounds = self._childrenBounds
-    if not bounds then
-        bounds = {
-            left = 0,
-            right = container.width,
-            bottom = 0,
-            top = container.height,
-        }
-        self._childrenBounds = bounds
-    end
-    local l, r, t, b = bounds.left, bounds.right, bounds.top, bounds.bottom
-    local x = self._container.x
-    local y = self._container.y
-    local sx, sy = self._container.scaleX, self._container.scaleY
-
-    return l * sx + x, r * sx + x, t * sy + y, b * sy + y
+    local obj = self._container
+    local l, r, t, b = obj:getBounds(self, 0, obj.width, 0, obj.height)
+    return l, r, b, t
 end
 
 

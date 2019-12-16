@@ -1,5 +1,6 @@
 local class         = require "xgame.class"
 local timer         = require "xgame.timer"
+local runtime       = require "xgame.runtime"
 local EventAgent    = require "xgame.event.EventAgent"
 local SWFUI         = require "xgame.swf.SWFUI"
 local FLMixPlayer   = require "xgame.swf.FLMixPlayer"
@@ -13,8 +14,12 @@ function MixSWF:ctor()
     self.mediatorClass = self.class
     self._eventAgent = EventAgent.new()
     self._timer = timer.new()
+    self._paused = false
     self._mixPlayer = FLMixPlayer.new('res/sound/auto/%s.mp3')
     self:_initMonitor()
+    self._timer:schedule(0, function (dt)
+        self._mixPlayer:update(dt)
+    end)
 end
 
 function MixSWF:assets()
@@ -29,19 +34,37 @@ function MixSWF:_initMonitor()
     local monitor = LuaComponent.create()
     monitor.name = '__MixSWF_monitor__'
     monitor.onEnter = function ()
-        if self.onDestroy ~= true then
-            self._mixPlayer:resume()
-            self._timer:start()
-        end
+        runtime.once('runtimeUpdate', function ()
+            if self.onDestroy ~= true then
+                self._mixPlayer:resume()
+                self._timer:start()
+                if self._paused then
+                    self._paused = false
+                    self:onResume()
+                end
+            end
+        end)
     end
     monitor.onExit = function ()
-        self._mixPlayer:pause()
-        self._timer:stop()
+        runtime.once('runtimeUpdate', function ()
+            self._mixPlayer:pause()
+            self._timer:stop()
+            if self.onDestroy ~= true then
+                self._paused = true
+                self:onPause()
+            end
+        end)
     end
     self.cobj:addComponent(monitor)
 end
 
 function MixSWF:onCreate()
+end
+
+function MixSWF:onPause()
+end
+
+function MixSWF:onResume()
 end
 
 function MixSWF:onDestroy()

@@ -3,7 +3,8 @@
 #include "cocos2d.h"
 
 USING_NS_CC;
-USING_NS_XGAME;
+
+NS_XGAME_BEGIN
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 const std::string __runtime_getPackageName()
@@ -54,7 +55,9 @@ const std::string __runtime_getDeviceInfo()
 void __runtime_openURL(const std::string uri, const std::function<void (bool)> callback)
 {
     bool ret = JniHelper::callStaticBooleanMethod(JAVA_APPCONTEXT_CLASS, "openURL", uri);
-    callback(ret);
+    if (callback != nullptr) {
+        callback(ret);
+    }
 }
 
 bool __runtime_canOpenURL(const std::string uri)
@@ -127,11 +130,16 @@ const std::string __runtime_getNetworkStatus()
 
 void __runtime_openURL(const std::string uri, const std::function<void(bool)> callback)
 {
-	callback(false);
+    if (callback != nullptr) {
+        callback(false);
+    }
 }
 
 bool __runtime_canOpenURL(const std::string uri)
 {
 	return false;
 }
+
 #endif
+
+NS_XGAME_END

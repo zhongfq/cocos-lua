@@ -22,7 +22,7 @@ function ScrollImpl:ctor(target, container)
     self._touchCount = 0
     self._scrolling = false
     self.bounceEnabled = true -- 回弹
-    self.maxVel = 4500
+    self.maxVel = 5000
     self.minVel = 400
     self.elapseTime = 1
 
@@ -70,13 +70,16 @@ end
 
 function ScrollImpl:press(id, x, y)
     self._container:unschedule(TAG_UPDATE)
-    self:_tryFocus(id, x, y)
-
-    self:_checkScrollEnd()
-
-    self._touchCount = self._touchCount + 1
-    if self._touchCount == 1 then
-        self._target:dispatch(TouchEvent.SCROLL_BEGIN)
+    local hit = self:_tryFocus(id, x, y)
+    if hit and hit.touchPreemptive then
+        x, y = self._target:localToGlobal(x, y)
+        self._target.stage:preemptTouch(hit, id, x, y)
+    else
+        self:_checkScrollEnd()
+        self._touchCount = self._touchCount + 1
+        if self._touchCount == 1 then
+            self._target:dispatch(TouchEvent.SCROLL_BEGIN)
+        end
     end
 end
 
@@ -96,12 +99,13 @@ end
 
 function ScrollImpl:_tryFocus(id, x, y)
     x, y = self._target:localToGlobal(x, y)
-    local hit, capturePoints = self._container:hit({
+    local hit, capturePoints = self._target:hitChildren({
         [id] = {x = x, y = y, id = id}})
-    if hit then
+    if hit and not hit.touchPreemptive then
         self._focuses[id] = hit
         self._focuses[id]:touchDown(capturePoints)
     end
+    return hit
 end
 
 function ScrollImpl:_abortFocus(id)
@@ -209,6 +213,10 @@ function ScrollImpl:pan(deltaX, deltaY)
     self:dispatchScrolling(lastX, lastY, x, y)
 end
 
+function ScrollImpl:getElapseTime(vel)
+    return self.elapseTime + math.min(0.4, math.abs(vel / self.maxVel) * 0.4)
+end
+
 function ScrollImpl:fling(velX, velY)
     self._touchCount = self._touchCount - 1
     self:_abortAllFocuses()
@@ -218,14 +226,14 @@ function ScrollImpl:fling(velX, velY)
     local MAX, MIN = self.maxVel, self.minVel
 
     -- time, factor, duration
-    local tx, fx, dx = 0, 1, self.elapseTime
-    local ty, fy, dy = 0, 1, self.elapseTime
+    local tx, fx, dx = 0, 1, self:getElapseTime(velX)
+    local ty, fy, dy = 0, 1, self:getElapseTime(velY)
 
     velX = math.abs(velX) < 100 and 0 or velX
     velY = math.abs(velY) < 100 and 0 or velY
 
     if self._scrollHEnabled and velX ~= 0 then
-        local factor = (left > 0 or right < target.width) and 0.5 or 1
+        local factor = (left > 0 or right < target.width) and 0.3 or 1
         local dir = velX < 0 and -1 or 1
         velX = math.min(MAX, math.max(MIN, math.abs(velX))) * dir * factor
         dx = dx * factor
@@ -234,7 +242,7 @@ function ScrollImpl:fling(velX, velY)
     end
 
     if self._scrollVEnabled and velY ~= 0 then
-        local factor = (bottom > 0 or top < target.height) and 0.5 or 1
+        local factor = (bottom > 0 or top < target.height) and 0.3 or 1
         local dir = velY < 0 and -1 or 1
         velY = math.min(MAX, math.max(MIN, math.abs(velY))) * dir * factor
         dy = dy * factor
@@ -263,8 +271,8 @@ function ScrollImpl:fling(velX, velY)
 
         -- 如果有效目标与计算目标不一致，表明有一边已经在可视范围内
         -- 这种情况，加速衰减
-        fx = mathEqual(tox, x) and fx or 5
-        fy = mathEqual(toy, y) and fy or 5
+        fx = mathEqual(tox, x) and fx or 10
+        fy = mathEqual(toy, y) and fy or 10
 
         -- 回弹
         x = math.abs(vx) < 20 and (x + (tox - x) * delta * 10) or x

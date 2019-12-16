@@ -1,6 +1,9 @@
+require "bindings-generator.src.olua"
+
 local olua = require "olua"
 local export = olua.export
 
+require 'autobuild.alias-types'
 require 'autobuild.cocos2d-types'
 require 'autobuild.cocos2d-physics-types'
 require 'autobuild.cocos2d-ui-types'

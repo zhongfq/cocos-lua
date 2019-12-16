@@ -30,13 +30,16 @@ public:
     float getFillAmount() const { return _fillAmount; }
     void setFillAmount(float value);
 
+    bool isScaleByTile() const { return _scaleByTile; }
+    void setScaleByTile(bool value);
+
+    virtual void setContentSize(const cocos2d::Size& size) override;
+
 protected:
     virtual void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags) override;
 
-    void onDraw(const cocos2d::Mat4 &transform, uint32_t flags);
-
     cocos2d::Tex2F textureCoordFromAlphaPoint(cocos2d::Vec2 alpha);
-    cocos2d::Vec2 vertexFromAlphaPoint(cocos2d::Vec2 alpha);
+    cocos2d::Vec3 vertexFromAlphaPoint(cocos2d::Vec2 alpha);
     void updateBar(void);
     void updateRadial(void);
     virtual void updateColor(void) override;
@@ -49,10 +52,11 @@ private:
     FillOrigin _fillOrigin;
     float _fillAmount;
     bool _fillClockwise;
-    cocos2d::CustomCommand _customCommand;
+    bool _scaleByTile;
     int _vertexDataCount;
-    cocos2d::V2F_C4B_T2F *_vertexData;
-    cocos2d::GLProgramState *_fillGlProgramState;
+    cocos2d::TrianglesCommand::Triangles _fillTriangles;
+    cocos2d::V3F_C4B_T2F *_vertexData;
+    unsigned short *_vertexIndex;
     
     static cocos2d::Texture2D* _empty;
 };

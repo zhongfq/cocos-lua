@@ -9,10 +9,12 @@
 #import "AppContext-ios.h"
 #import <UIKit/UIKit.h>
 #import <Photos/Photos.h>
+#import <AdSupport/AdSupport.h>
 #endif
 
 USING_NS_CC;
-USING_NS_XGAME;
+
+NS_XGAME_BEGIN
 
 static std::string _deviceInfo;
 static std::string _channel;
@@ -190,6 +192,17 @@ void __runtime_alert(const std::string title, const std::string message, const s
         [rootViewController presentViewController:alert animated:YES completion:nil];
     });
 }
+
+std::string __runtime_getIDFA()
+{
+    NSString *idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+    return [idfa UTF8String];
+}
+
+bool __runtime_isAdvertisingTrackingEnabled()
+{
+    return [[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled];
+}
 #endif
 
 void __runtime_openURL(const std::string uri, const std::function<void (bool)> callback)
@@ -205,16 +218,23 @@ void __runtime_openURL(const std::string uri, const std::function<void (bool)> c
         if (@available(iOS 10_0, *)) {
             [[UIApplication sharedApplication] openURL:url options:@{} completionHandler: ^(BOOL success){
                 runtime::runOnCocosThread([callback, success](){
-                    callback(success);
+                    if (callback != nullptr) {
+                        callback(success);
+                    }
                 });
             }];
         } else {
             bool success = [[UIApplication sharedApplication] openURL:url];
-            callback(success);
+            if (callback != nullptr) {
+                callback(success);
+            }
         }
     });
 #else
-    callback(Application::getInstance()->openURL(uri));
+    bool success = Application::getInstance()->openURL(uri);
+    if (callback != nullptr) {
+        callback(success);
+    }
 #endif
 }
 
@@ -244,3 +264,5 @@ const std::string __runtime_getNetworkStatus()
     return "WIFI";
 #endif
 }
+
+NS_XGAME_END

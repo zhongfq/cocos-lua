@@ -222,7 +222,7 @@ function WeChat:_requestToken(data)
         else
             self.userInfo = {
                 avatar = result.headimgurl,
-                uid = result.unionid,
+                uid = 'wxuid:' .. result.unionid,
                 nickname = result.nickname,
                 sex = result.sex,
             }
@@ -256,6 +256,7 @@ elseif runtime.os == "android" then
     end
 
     function impl:pay(appid, partnerid, prepayid, noncestr, timestamp, sign)
+        timestamp = string.format("%d", timestamp)
         inst.pay(partnerid, prepayid, noncestr, timestamp, 'Sign=WXPay', sign, function (...)
             impl.callback("pay", ...)
         end)

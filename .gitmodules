@@ -1,0 +1,3 @@
+[submodule "tools/lua-bindings/bindings-generator"]
+	path = tools/lua-bindings/bindings-generator
+	url = https://github.com/zhongfq/olua-bindings-generator.git

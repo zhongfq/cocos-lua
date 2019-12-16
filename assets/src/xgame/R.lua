@@ -10,6 +10,7 @@ function M:__pairs()
 end
 
 function M:fromPath(path)
+    assert(path, "no path")
     self.assets[path] = true
     return self
 end
@@ -50,6 +51,13 @@ function M:fromRange(fmt, from, to)
         self.assets[string.format(fmt, i)] = true
     end
     return self
+end
+
+function M:fromClass(cls, ...)
+    if type(cls) == 'string' then
+        cls = require(cls)
+    end
+    return self:merge(cls:assets(...))
 end
 
 function M:fromArray(arr, from, to)

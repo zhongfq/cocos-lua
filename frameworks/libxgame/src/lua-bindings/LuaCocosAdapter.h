@@ -31,33 +31,36 @@ public:
 
 class LuaWebSocketDelegate : public cocos2d::network::WebSocket::Delegate {
 public:
-    static LuaWebSocketDelegate *create()
+    LuaWebSocketDelegate()
+    :onOpenCallback(nullptr)
+    ,onMessageCallback(nullptr)
+    ,onCloseCallback(nullptr)
+    ,onErrorCallback(nullptr)
     {
-        return new LuaWebSocketDelegate();
     }
     
-    virtual void onOpen(network::WebSocket* ws)
+    virtual void onOpen(cocos2d::network::WebSocket* ws)
     {
         if (onOpenCallback) {
             onOpenCallback(ws);
         }
     }
     
-    virtual void onMessage(network::WebSocket* ws, const network::WebSocket::Data& data)
+    virtual void onMessage(cocos2d::network::WebSocket* ws, const cocos2d::network::WebSocket::Data& data)
     {
         if (onMessageCallback) {
             onMessageCallback(ws, data);
         }
     }
     
-    virtual void onClose(network::WebSocket* ws)
+    virtual void onClose(cocos2d::network::WebSocket* ws)
     {
         if (onCloseCallback) {
             onCloseCallback(ws);
         }
     }
     
-    virtual void onError(network::WebSocket* ws, const network::WebSocket::ErrorCode& error)
+    virtual void onError(cocos2d::network::WebSocket* ws, const cocos2d::network::WebSocket::ErrorCode& error)
     {
         if (onErrorCallback) {
             onErrorCallback(ws, error);
@@ -68,22 +71,17 @@ public:
     std::function<void (network::WebSocket *, const network::WebSocket::Data &)> onMessageCallback;
     std::function<void (network::WebSocket *)> onCloseCallback;
     std::function<void (network::WebSocket *, const network::WebSocket::ErrorCode &)> onErrorCallback;
-private:
-    LuaWebSocketDelegate()
-    :onOpenCallback(nullptr)
-    ,onMessageCallback(nullptr)
-    ,onCloseCallback(nullptr)
-    ,onErrorCallback(nullptr)
-    {
-    }
 };
 
 namespace ui {
     class LuaEditBoxDelegate : public EditBoxDelegate {
     public:
-        static LuaEditBoxDelegate *create()
+        LuaEditBoxDelegate()
+        :onEditingDidBegin(nullptr)
+        ,onTextChanged(nullptr)
+        ,onReturn(nullptr)
+        ,onEditingDidEndWithAction(nullptr)
         {
-            return new LuaEditBoxDelegate();
         }
         
         virtual void editBoxEditingDidBegin(EditBox* editBox)
@@ -119,14 +117,6 @@ namespace ui {
         std::function<void(EditBox *)> onReturn;
         std::function<void(EditBox *, EditBoxDelegate::EditBoxEndAction)> onEditingDidEndWithAction;
     private:
-        LuaEditBoxDelegate()
-        :onEditingDidBegin(nullptr)
-        ,onTextChanged(nullptr)
-        ,onReturn(nullptr)
-        ,onEditingDidEndWithAction(nullptr)
-        {
-            
-        }
         bool init() { return true; }
     };
 }

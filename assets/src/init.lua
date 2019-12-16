@@ -25,6 +25,11 @@ if DEBUG then
     end
 end
 
+-- set window size on mac or win
+if runtime.os == 'mac' or runtime.os == 'win32' then
+    window.setFrameSize(900, 500)
+end
+
 -- print runtime info
 runtime.printSupport()
 

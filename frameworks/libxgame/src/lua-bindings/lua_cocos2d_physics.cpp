@@ -59,58 +59,90 @@ void auto_olua_check_cocos2d_PhysicsMaterial(lua_State *L, int idx, cocos2d::Phy
     lua_pop(L, 1);
 }
 
-void auto_olua_opt_cocos2d_PhysicsMaterial(lua_State *L, int idx, cocos2d::PhysicsMaterial *value, const cocos2d::PhysicsMaterial &def)
+bool auto_olua_is_cocos2d_PhysicsMaterial(lua_State *L, int idx)
+{
+    return olua_istable(L, idx) && olua_hasfield(L, idx, "friction") && olua_hasfield(L, idx, "restitution") && olua_hasfield(L, idx, "density");
+}
+
+void auto_olua_pack_cocos2d_PhysicsMaterial(lua_State *L, int idx, cocos2d::PhysicsMaterial *value)
 {
     if (!value) {
         luaL_error(L, "value is NULL");
     }
-    if (olua_isnil(L, idx)) {
-        *value = def;
-    } else {
-        idx = lua_absindex(L, idx);
-        luaL_checktype(L, idx, LUA_TTABLE);
+    idx = lua_absindex(L, idx);
 
-        lua_Number arg1 = 0;       /** density */
-        lua_Number arg2 = 0;       /** restitution */
-        lua_Number arg3 = 0;       /** friction */
+    lua_Number arg1 = 0;       /** density */
+    lua_Number arg2 = 0;       /** restitution */
+    lua_Number arg3 = 0;       /** friction */
 
-        olua_getfield(L, idx, "density");
-        olua_opt_number(L, -1, &arg1, (lua_Number)0);
-        value->density = (float)arg1;
-        lua_pop(L, 1);
+    olua_check_number(L, idx + 0, &arg1);
+    value->density = (float)arg1;
 
-        olua_getfield(L, idx, "restitution");
-        olua_opt_number(L, -1, &arg2, (lua_Number)0);
-        value->restitution = (float)arg2;
-        lua_pop(L, 1);
+    olua_check_number(L, idx + 1, &arg2);
+    value->restitution = (float)arg2;
 
-        olua_getfield(L, idx, "friction");
-        olua_opt_number(L, -1, &arg3, (lua_Number)0);
-        value->friction = (float)arg3;
-        lua_pop(L, 1);
-    }
+    olua_check_number(L, idx + 2, &arg3);
+    value->friction = (float)arg3;
 }
 
-bool auto_olua_is_cocos2d_PhysicsMaterial(lua_State *L, int idx)
+int auto_olua_unpack_cocos2d_PhysicsMaterial(lua_State *L, const cocos2d::PhysicsMaterial *value)
 {
-    return olua_istable(L, idx) && olua_hasfield(L, idx, "friction") && olua_hasfield(L, idx, "restitution") && olua_hasfield(L, idx, "density");
+    if (value) {
+        olua_push_number(L, (lua_Number)value->density);
+        olua_push_number(L, (lua_Number)value->restitution);
+        olua_push_number(L, (lua_Number)value->friction);
+    } else {
+        for (int i = 0; i < 3; i++) {
+            lua_pushnil(L);
+        }
+    }
+
+    return 3;
+}
+
+bool auto_olua_ispack_cocos2d_PhysicsMaterial(lua_State *L, int idx)
+{
+    return olua_is_number(L, idx + 0) && olua_is_number(L, idx + 1) && olua_is_number(L, idx + 2);
+}
+
+static int _cocos2d_EventListenerPhysicsContact___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::EventListenerPhysicsContact *)olua_toobj(L, 1, "cc.EventListenerPhysicsContact");
+    olua_push_cppobj(L, self, "cc.EventListenerPhysicsContact");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _cocos2d_EventListenerPhysicsContact_create(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    // static cocos2d::EventListenerPhysicsContact *create()
+    cocos2d::EventListenerPhysicsContact *ret = (cocos2d::EventListenerPhysicsContact *)cocos2d::EventListenerPhysicsContact::create();
+    int num_ret = olua_push_cppobj(L, ret, "cc.EventListenerPhysicsContact");
+
+    olua_endinvoke(L);
+
+    return num_ret;
 }
 
 static int _cocos2d_EventListenerPhysicsContact_get_onContactBegin(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::EventListenerPhysicsContact *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerPhysicsContact");
 
     void *callback_store_obj = (void *)self;
-    std::string tag = olua_makecallbacktag("onContactBegin");
-    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+    std::string tag = "onContactBegin";
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
 
-    // std::function<bool(@local PhysicsContact& contact)> onContactBegin = nullptr
+    // @nullable @local std::function<bool (PhysicsContact &)> onContactBegin
     std::function<bool(cocos2d::PhysicsContact &)> ret = (std::function<bool(cocos2d::PhysicsContact &)>)self->onContactBegin;
     int num_ret = olua_push_std_function(L, (std::function<bool(cocos2d::PhysicsContact &)>)ret);
 
@@ -123,8 +155,6 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactBegin(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::EventListenerPhysicsContact *self = nullptr;
     std::function<bool(cocos2d::PhysicsContact &)> arg1;       /** onContactBegin */
 
@@ -132,7 +162,7 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactBegin(lua_State *L)
 
     if (olua_is_std_function(L, 2)) {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onContactBegin");
+        std::string tag = "onContactBegin";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
         lua_State *MT = olua_mainthread();
         arg1 = [callback_store_obj, func, MT](cocos2d::PhysicsContact &arg1) {
@@ -159,12 +189,12 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactBegin(lua_State *L)
         };
     } else {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onContactBegin");
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+        std::string tag = "onContactBegin";
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
         arg1 = nullptr;
     }
 
-    // std::function<bool(@local PhysicsContact& contact)> onContactBegin = nullptr
+    // @nullable @local std::function<bool (PhysicsContact &)> onContactBegin
     self->onContactBegin = arg1;
 
     olua_endinvoke(L);
@@ -176,17 +206,15 @@ static int _cocos2d_EventListenerPhysicsContact_get_onContactPostSolve(lua_State
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::EventListenerPhysicsContact *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerPhysicsContact");
 
     void *callback_store_obj = (void *)self;
-    std::string tag = olua_makecallbacktag("onContactPostSolve");
-    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+    std::string tag = "onContactPostSolve";
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
 
-    // std::function<void(@local PhysicsContact& contact, @local const PhysicsContactPostSolve& solve)> onContactPostSolve = nullptr
+    // @nullable @local std::function<void (PhysicsContact &, const PhysicsContactPostSolve &)> onContactPostSolve
     std::function<void(cocos2d::PhysicsContact &, const cocos2d::PhysicsContactPostSolve &)> ret = (std::function<void(cocos2d::PhysicsContact &, const cocos2d::PhysicsContactPostSolve &)>)self->onContactPostSolve;
     int num_ret = olua_push_std_function(L, (std::function<void(cocos2d::PhysicsContact &, const cocos2d::PhysicsContactPostSolve &)>)ret);
 
@@ -199,8 +227,6 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactPostSolve(lua_State
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::EventListenerPhysicsContact *self = nullptr;
     std::function<void(cocos2d::PhysicsContact &, const cocos2d::PhysicsContactPostSolve &)> arg1;       /** onContactPostSolve */
 
@@ -208,7 +234,7 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactPostSolve(lua_State
 
     if (olua_is_std_function(L, 2)) {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onContactPostSolve");
+        std::string tag = "onContactPostSolve";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
         lua_State *MT = olua_mainthread();
         arg1 = [callback_store_obj, func, MT](cocos2d::PhysicsContact &arg1, const cocos2d::PhysicsContactPostSolve &arg2) {
@@ -231,12 +257,12 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactPostSolve(lua_State
         };
     } else {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onContactPostSolve");
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+        std::string tag = "onContactPostSolve";
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
         arg1 = nullptr;
     }
 
-    // std::function<void(@local PhysicsContact& contact, @local const PhysicsContactPostSolve& solve)> onContactPostSolve = nullptr
+    // @nullable @local std::function<void (PhysicsContact &, const PhysicsContactPostSolve &)> onContactPostSolve
     self->onContactPostSolve = arg1;
 
     olua_endinvoke(L);
@@ -248,17 +274,15 @@ static int _cocos2d_EventListenerPhysicsContact_get_onContactPreSolve(lua_State 
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::EventListenerPhysicsContact *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerPhysicsContact");
 
     void *callback_store_obj = (void *)self;
-    std::string tag = olua_makecallbacktag("onContactPreSolve");
-    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+    std::string tag = "onContactPreSolve";
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
 
-    // std::function<bool(@local PhysicsContact& contact, @local PhysicsContactPreSolve& solve)> onContactPreSolve = nullptr
+    // @nullable @local std::function<bool (PhysicsContact &, PhysicsContactPreSolve &)> onContactPreSolve
     std::function<bool(cocos2d::PhysicsContact &, cocos2d::PhysicsContactPreSolve &)> ret = (std::function<bool(cocos2d::PhysicsContact &, cocos2d::PhysicsContactPreSolve &)>)self->onContactPreSolve;
     int num_ret = olua_push_std_function(L, (std::function<bool(cocos2d::PhysicsContact &, cocos2d::PhysicsContactPreSolve &)>)ret);
 
@@ -271,8 +295,6 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactPreSolve(lua_State 
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::EventListenerPhysicsContact *self = nullptr;
     std::function<bool(cocos2d::PhysicsContact &, cocos2d::PhysicsContactPreSolve &)> arg1;       /** onContactPreSolve */
 
@@ -280,7 +302,7 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactPreSolve(lua_State 
 
     if (olua_is_std_function(L, 2)) {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onContactPreSolve");
+        std::string tag = "onContactPreSolve";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
         lua_State *MT = olua_mainthread();
         arg1 = [callback_store_obj, func, MT](cocos2d::PhysicsContact &arg1, cocos2d::PhysicsContactPreSolve &arg2) {
@@ -308,12 +330,12 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactPreSolve(lua_State 
         };
     } else {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onContactPreSolve");
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+        std::string tag = "onContactPreSolve";
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
         arg1 = nullptr;
     }
 
-    // std::function<bool(@local PhysicsContact& contact, @local PhysicsContactPreSolve& solve)> onContactPreSolve = nullptr
+    // @nullable @local std::function<bool (PhysicsContact &, PhysicsContactPreSolve &)> onContactPreSolve
     self->onContactPreSolve = arg1;
 
     olua_endinvoke(L);
@@ -325,17 +347,15 @@ static int _cocos2d_EventListenerPhysicsContact_get_onContactSeparate(lua_State 
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::EventListenerPhysicsContact *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerPhysicsContact");
 
     void *callback_store_obj = (void *)self;
-    std::string tag = olua_makecallbacktag("onContactSeparate");
-    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+    std::string tag = "onContactSeparate";
+    olua_getcallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
 
-    // std::function<void(@local PhysicsContact& contact)> onContactSeparate = nullptr
+    // @nullable @local std::function<void (PhysicsContact &)> onContactSeparate
     std::function<void(cocos2d::PhysicsContact &)> ret = (std::function<void(cocos2d::PhysicsContact &)>)self->onContactSeparate;
     int num_ret = olua_push_std_function(L, (std::function<void(cocos2d::PhysicsContact &)>)ret);
 
@@ -348,8 +368,6 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactSeparate(lua_State 
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::EventListenerPhysicsContact *self = nullptr;
     std::function<void(cocos2d::PhysicsContact &)> arg1;       /** onContactSeparate */
 
@@ -357,7 +375,7 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactSeparate(lua_State 
 
     if (olua_is_std_function(L, 2)) {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onContactSeparate");
+        std::string tag = "onContactSeparate";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
         lua_State *MT = olua_mainthread();
         arg1 = [callback_store_obj, func, MT](cocos2d::PhysicsContact &arg1) {
@@ -379,12 +397,12 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactSeparate(lua_State 
         };
     } else {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("onContactSeparate");
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+        std::string tag = "onContactSeparate";
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
         arg1 = nullptr;
     }
 
-    // std::function<void(@local PhysicsContact& contact)> onContactSeparate = nullptr
+    // @nullable @local std::function<void (PhysicsContact &)> onContactSeparate
     self->onContactSeparate = arg1;
 
     olua_endinvoke(L);
@@ -395,43 +413,216 @@ static int _cocos2d_EventListenerPhysicsContact_set_onContactSeparate(lua_State 
 static int luaopen_cocos2d_EventListenerPhysicsContact(lua_State *L)
 {
     oluacls_class(L, "cc.EventListenerPhysicsContact", "cc.EventListenerCustom");
+    oluacls_func(L, "__move", _cocos2d_EventListenerPhysicsContact___move);
+    oluacls_func(L, "create", _cocos2d_EventListenerPhysicsContact_create);
     oluacls_prop(L, "onContactBegin", _cocos2d_EventListenerPhysicsContact_get_onContactBegin, _cocos2d_EventListenerPhysicsContact_set_onContactBegin);
     oluacls_prop(L, "onContactPostSolve", _cocos2d_EventListenerPhysicsContact_get_onContactPostSolve, _cocos2d_EventListenerPhysicsContact_set_onContactPostSolve);
     oluacls_prop(L, "onContactPreSolve", _cocos2d_EventListenerPhysicsContact_get_onContactPreSolve, _cocos2d_EventListenerPhysicsContact_set_onContactPreSolve);
     oluacls_prop(L, "onContactSeparate", _cocos2d_EventListenerPhysicsContact_get_onContactSeparate, _cocos2d_EventListenerPhysicsContact_set_onContactSeparate);
 
     olua_registerluatype<cocos2d::EventListenerPhysicsContact>(L, "cc.EventListenerPhysicsContact");
-    oluacls_createclassproxy(L);
 
     return 1;
+}
+
+static int _cocos2d_EventListenerPhysicsContactWithGroup___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::EventListenerPhysicsContactWithGroup *)olua_toobj(L, 1, "cc.EventListenerPhysicsContactWithGroup");
+    olua_push_cppobj(L, self, "cc.EventListenerPhysicsContactWithGroup");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _cocos2d_EventListenerPhysicsContactWithGroup_create(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Integer arg1 = 0;       /** group */
+
+    olua_check_int(L, 1, &arg1);
+
+    // static cocos2d::EventListenerPhysicsContactWithGroup *create(int group)
+    cocos2d::EventListenerPhysicsContactWithGroup *ret = (cocos2d::EventListenerPhysicsContactWithGroup *)cocos2d::EventListenerPhysicsContactWithGroup::create((int)arg1);
+    int num_ret = olua_push_cppobj(L, ret, "cc.EventListenerPhysicsContactWithGroup");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_EventListenerPhysicsContactWithGroup_hitTest(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::EventListenerPhysicsContactWithGroup *self = nullptr;
+    cocos2d::PhysicsShape *arg1 = nullptr;       /** shapeA */
+    cocos2d::PhysicsShape *arg2 = nullptr;       /** shapeB */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerPhysicsContactWithGroup");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.PhysicsShape");
+    olua_check_cppobj(L, 3, (void **)&arg2, "cc.PhysicsShape");
+
+    // bool hitTest(cocos2d::PhysicsShape *shapeA, cocos2d::PhysicsShape *shapeB)
+    bool ret = (bool)self->hitTest(arg1, arg2);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
 }
 
 static int luaopen_cocos2d_EventListenerPhysicsContactWithGroup(lua_State *L)
 {
     oluacls_class(L, "cc.EventListenerPhysicsContactWithGroup", "cc.EventListenerPhysicsContact");
+    oluacls_func(L, "__move", _cocos2d_EventListenerPhysicsContactWithGroup___move);
+    oluacls_func(L, "create", _cocos2d_EventListenerPhysicsContactWithGroup_create);
+    oluacls_func(L, "hitTest", _cocos2d_EventListenerPhysicsContactWithGroup_hitTest);
 
     olua_registerluatype<cocos2d::EventListenerPhysicsContactWithGroup>(L, "cc.EventListenerPhysicsContactWithGroup");
-    oluacls_createclassproxy(L);
 
     return 1;
+}
+
+static int _cocos2d_EventListenerPhysicsContactWithBodies___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::EventListenerPhysicsContactWithBodies *)olua_toobj(L, 1, "cc.EventListenerPhysicsContactWithBodies");
+    olua_push_cppobj(L, self, "cc.EventListenerPhysicsContactWithBodies");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _cocos2d_EventListenerPhysicsContactWithBodies_create(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::PhysicsBody *arg1 = nullptr;       /** bodyA */
+    cocos2d::PhysicsBody *arg2 = nullptr;       /** bodyB */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "cc.PhysicsBody");
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.PhysicsBody");
+
+    // static cocos2d::EventListenerPhysicsContactWithBodies *create(cocos2d::PhysicsBody *bodyA, cocos2d::PhysicsBody *bodyB)
+    cocos2d::EventListenerPhysicsContactWithBodies *ret = (cocos2d::EventListenerPhysicsContactWithBodies *)cocos2d::EventListenerPhysicsContactWithBodies::create(arg1, arg2);
+    int num_ret = olua_push_cppobj(L, ret, "cc.EventListenerPhysicsContactWithBodies");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_EventListenerPhysicsContactWithBodies_hitTest(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::EventListenerPhysicsContactWithBodies *self = nullptr;
+    cocos2d::PhysicsShape *arg1 = nullptr;       /** shapeA */
+    cocos2d::PhysicsShape *arg2 = nullptr;       /** shapeB */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerPhysicsContactWithBodies");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.PhysicsShape");
+    olua_check_cppobj(L, 3, (void **)&arg2, "cc.PhysicsShape");
+
+    // bool hitTest(cocos2d::PhysicsShape *shapeA, cocos2d::PhysicsShape *shapeB)
+    bool ret = (bool)self->hitTest(arg1, arg2);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
 }
 
 static int luaopen_cocos2d_EventListenerPhysicsContactWithBodies(lua_State *L)
 {
     oluacls_class(L, "cc.EventListenerPhysicsContactWithBodies", "cc.EventListenerPhysicsContact");
+    oluacls_func(L, "__move", _cocos2d_EventListenerPhysicsContactWithBodies___move);
+    oluacls_func(L, "create", _cocos2d_EventListenerPhysicsContactWithBodies_create);
+    oluacls_func(L, "hitTest", _cocos2d_EventListenerPhysicsContactWithBodies_hitTest);
 
     olua_registerluatype<cocos2d::EventListenerPhysicsContactWithBodies>(L, "cc.EventListenerPhysicsContactWithBodies");
-    oluacls_createclassproxy(L);
 
     return 1;
+}
+
+static int _cocos2d_EventListenerPhysicsContactWithShapes___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::EventListenerPhysicsContactWithShapes *)olua_toobj(L, 1, "cc.EventListenerPhysicsContactWithShapes");
+    olua_push_cppobj(L, self, "cc.EventListenerPhysicsContactWithShapes");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _cocos2d_EventListenerPhysicsContactWithShapes_create(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::PhysicsShape *arg1 = nullptr;       /** shapeA */
+    cocos2d::PhysicsShape *arg2 = nullptr;       /** shapeB */
+
+    olua_check_cppobj(L, 1, (void **)&arg1, "cc.PhysicsShape");
+    olua_check_cppobj(L, 2, (void **)&arg2, "cc.PhysicsShape");
+
+    // static cocos2d::EventListenerPhysicsContactWithShapes *create(cocos2d::PhysicsShape *shapeA, cocos2d::PhysicsShape *shapeB)
+    cocos2d::EventListenerPhysicsContactWithShapes *ret = (cocos2d::EventListenerPhysicsContactWithShapes *)cocos2d::EventListenerPhysicsContactWithShapes::create(arg1, arg2);
+    int num_ret = olua_push_cppobj(L, ret, "cc.EventListenerPhysicsContactWithShapes");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_EventListenerPhysicsContactWithShapes_hitTest(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::EventListenerPhysicsContactWithShapes *self = nullptr;
+    cocos2d::PhysicsShape *arg1 = nullptr;       /** shapeA */
+    cocos2d::PhysicsShape *arg2 = nullptr;       /** shapeB */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.EventListenerPhysicsContactWithShapes");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.PhysicsShape");
+    olua_check_cppobj(L, 3, (void **)&arg2, "cc.PhysicsShape");
+
+    // bool hitTest(cocos2d::PhysicsShape *shapeA, cocos2d::PhysicsShape *shapeB)
+    bool ret = (bool)self->hitTest(arg1, arg2);
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
 }
 
 static int luaopen_cocos2d_EventListenerPhysicsContactWithShapes(lua_State *L)
 {
     oluacls_class(L, "cc.EventListenerPhysicsContactWithShapes", "cc.EventListenerPhysicsContact");
+    oluacls_func(L, "__move", _cocos2d_EventListenerPhysicsContactWithShapes___move);
+    oluacls_func(L, "create", _cocos2d_EventListenerPhysicsContactWithShapes_create);
+    oluacls_func(L, "hitTest", _cocos2d_EventListenerPhysicsContactWithShapes_hitTest);
 
     olua_registerluatype<cocos2d::EventListenerPhysicsContactWithShapes>(L, "cc.EventListenerPhysicsContactWithShapes");
-    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_PhysicsBody___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::PhysicsBody *)olua_toobj(L, 1, "cc.PhysicsBody");
+    olua_push_cppobj(L, self, "cc.PhysicsBody");
+
+    olua_endinvoke(L);
 
     return 1;
 }
@@ -439,8 +630,6 @@ static int luaopen_cocos2d_EventListenerPhysicsContactWithShapes(lua_State *L)
 static int _cocos2d_PhysicsBody_addMass(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 2);
 
     cocos2d::PhysicsBody *self = nullptr;
     lua_Number arg1 = 0;       /** mass */
@@ -460,8 +649,6 @@ static int _cocos2d_PhysicsBody_addMoment(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsBody *self = nullptr;
     lua_Number arg1 = 0;       /** moment */
 
@@ -476,11 +663,9 @@ static int _cocos2d_PhysicsBody_addMoment(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_PhysicsBody_addShape(lua_State *L)
+static int _cocos2d_PhysicsBody_addShape1(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 3);
 
     cocos2d::PhysicsBody *self = nullptr;
     cocos2d::PhysicsShape *arg1 = nullptr;       /** shape */
@@ -488,9 +673,9 @@ static int _cocos2d_PhysicsBody_addShape(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsBody");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.PhysicsShape");
-    olua_opt_bool(L, 3, &arg2, (bool)true);
+    olua_check_bool(L, 3, &arg2);
 
-    // PhysicsShape* addShape(PhysicsShape* shape, bool addMassAndMoment = true)
+    // cocos2d::PhysicsShape *addShape(cocos2d::PhysicsShape *shape, @optional bool addMassAndMoment)
     cocos2d::PhysicsShape *ret = (cocos2d::PhysicsShape *)self->addShape(arg1, arg2);
     int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsShape");
 
@@ -499,11 +684,51 @@ static int _cocos2d_PhysicsBody_addShape(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_PhysicsBody_applyForce(lua_State *L)
+static int _cocos2d_PhysicsBody_addShape2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 3);
+    cocos2d::PhysicsBody *self = nullptr;
+    cocos2d::PhysicsShape *arg1 = nullptr;       /** shape */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsBody");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.PhysicsShape");
+
+    // cocos2d::PhysicsShape *addShape(cocos2d::PhysicsShape *shape, @optional bool addMassAndMoment)
+    cocos2d::PhysicsShape *ret = (cocos2d::PhysicsShape *)self->addShape(arg1);
+    int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsShape");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_PhysicsBody_addShape(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_cppobj(L, 2, "cc.PhysicsShape"))) {
+            // cocos2d::PhysicsShape *addShape(cocos2d::PhysicsShape *shape, @optional bool addMassAndMoment)
+            return _cocos2d_PhysicsBody_addShape2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_cppobj(L, 2, "cc.PhysicsShape")) && (olua_is_bool(L, 3))) {
+            // cocos2d::PhysicsShape *addShape(cocos2d::PhysicsShape *shape, @optional bool addMassAndMoment)
+            return _cocos2d_PhysicsBody_addShape1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::PhysicsBody::addShape' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_PhysicsBody_applyForce1(lua_State *L)
+{
+    olua_startinvoke(L);
 
     cocos2d::PhysicsBody *self = nullptr;
     cocos2d::Vec2 arg1;       /** force */
@@ -511,10 +736,89 @@ static int _cocos2d_PhysicsBody_applyForce(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsBody");
     auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
-    auto_olua_opt_cocos2d_Vec2(L, 3, &arg2, (cocos2d::Vec2)cocos2d::Vec2::ZERO);
+    auto_olua_check_cocos2d_Vec2(L, 3, &arg2);
 
-    // void applyForce(const Vec2& force, const Vec2& offset = Vec2::ZERO)
+    // void applyForce(const cocos2d::Vec2 &force, @optional const cocos2d::Vec2 &offset)
     self->applyForce(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_PhysicsBody_applyForce2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::PhysicsBody *self = nullptr;
+    cocos2d::Vec2 arg1;       /** force */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsBody");
+    auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
+
+    // void applyForce(const cocos2d::Vec2 &force, @optional const cocos2d::Vec2 &offset)
+    self->applyForce(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_PhysicsBody_applyForce(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((auto_olua_is_cocos2d_Vec2(L, 2))) {
+            // void applyForce(const cocos2d::Vec2 &force, @optional const cocos2d::Vec2 &offset)
+            return _cocos2d_PhysicsBody_applyForce2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((auto_olua_is_cocos2d_Vec2(L, 2)) && (auto_olua_is_cocos2d_Vec2(L, 3))) {
+            // void applyForce(const cocos2d::Vec2 &force, @optional const cocos2d::Vec2 &offset)
+            return _cocos2d_PhysicsBody_applyForce1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::PhysicsBody::applyForce' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_PhysicsBody_applyImpulse1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::PhysicsBody *self = nullptr;
+    cocos2d::Vec2 arg1;       /** impulse */
+    cocos2d::Vec2 arg2;       /** offset */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsBody");
+    auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
+    auto_olua_check_cocos2d_Vec2(L, 3, &arg2);
+
+    // void applyImpulse(const cocos2d::Vec2 &impulse, @optional const cocos2d::Vec2 &offset)
+    self->applyImpulse(arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_PhysicsBody_applyImpulse2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::PhysicsBody *self = nullptr;
+    cocos2d::Vec2 arg1;       /** impulse */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsBody");
+    auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
+
+    // void applyImpulse(const cocos2d::Vec2 &impulse, @optional const cocos2d::Vec2 &offset)
+    self->applyImpulse(arg1);
 
     olua_endinvoke(L);
 
@@ -523,22 +827,23 @@ static int _cocos2d_PhysicsBody_applyForce(lua_State *L)
 
 static int _cocos2d_PhysicsBody_applyImpulse(lua_State *L)
 {
-    olua_startinvoke(L);
+    int num_args = lua_gettop(L) - 1;
 
-    lua_settop(L, 3);
+    if (num_args == 1) {
+        // if ((auto_olua_is_cocos2d_Vec2(L, 2))) {
+            // void applyImpulse(const cocos2d::Vec2 &impulse, @optional const cocos2d::Vec2 &offset)
+            return _cocos2d_PhysicsBody_applyImpulse2(L);
+        // }
+    }
 
-    cocos2d::PhysicsBody *self = nullptr;
-    cocos2d::Vec2 arg1;       /** impulse */
-    cocos2d::Vec2 arg2;       /** offset */
+    if (num_args == 2) {
+        // if ((auto_olua_is_cocos2d_Vec2(L, 2)) && (auto_olua_is_cocos2d_Vec2(L, 3))) {
+            // void applyImpulse(const cocos2d::Vec2 &impulse, @optional const cocos2d::Vec2 &offset)
+            return _cocos2d_PhysicsBody_applyImpulse1(L);
+        // }
+    }
 
-    olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsBody");
-    auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
-    auto_olua_opt_cocos2d_Vec2(L, 3, &arg2, (cocos2d::Vec2)cocos2d::Vec2::ZERO);
-
-    // void applyImpulse(const Vec2& impulse, const Vec2& offset = Vec2::ZERO)
-    self->applyImpulse(arg1, arg2);
-
-    olua_endinvoke(L);
+    luaL_error(L, "method 'cocos2d::PhysicsBody::applyImpulse' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -546,8 +851,6 @@ static int _cocos2d_PhysicsBody_applyImpulse(lua_State *L)
 static int _cocos2d_PhysicsBody_applyTorque(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 2);
 
     cocos2d::PhysicsBody *self = nullptr;
     lua_Number arg1 = 0;       /** torque */
@@ -567,9 +870,7 @@ static int _cocos2d_PhysicsBody_create1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 0);
-
-    // static PhysicsBody* create()
+    // static cocos2d::PhysicsBody *create()
     cocos2d::PhysicsBody *ret = (cocos2d::PhysicsBody *)cocos2d::PhysicsBody::create();
     int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsBody");
 
@@ -582,13 +883,11 @@ static int _cocos2d_PhysicsBody_create2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     lua_Number arg1 = 0;       /** mass */
 
     olua_check_number(L, 1, &arg1);
 
-    // static PhysicsBody* create(float mass)
+    // static cocos2d::PhysicsBody *create(float mass)
     cocos2d::PhysicsBody *ret = (cocos2d::PhysicsBody *)cocos2d::PhysicsBody::create((float)arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsBody");
 
@@ -601,15 +900,13 @@ static int _cocos2d_PhysicsBody_create3(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     lua_Number arg1 = 0;       /** mass */
     lua_Number arg2 = 0;       /** moment */
 
     olua_check_number(L, 1, &arg1);
     olua_check_number(L, 2, &arg2);
 
-    // static PhysicsBody* create(float mass, float moment)
+    // static cocos2d::PhysicsBody *create(float mass, float moment)
     cocos2d::PhysicsBody *ret = (cocos2d::PhysicsBody *)cocos2d::PhysicsBody::create((float)arg1, (float)arg2);
     int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsBody");
 
@@ -623,17 +920,20 @@ static int _cocos2d_PhysicsBody_create(lua_State *L)
     int num_args = lua_gettop(L);
 
     if (num_args == 0) {
+        // static cocos2d::PhysicsBody *create()
         return _cocos2d_PhysicsBody_create1(L);
     }
 
     if (num_args == 1) {
         // if ((olua_is_number(L, 1))) {
+            // static cocos2d::PhysicsBody *create(float mass)
             return _cocos2d_PhysicsBody_create2(L);
         // }
     }
 
     if (num_args == 2) {
         // if ((olua_is_number(L, 1)) && (olua_is_number(L, 2))) {
+            // static cocos2d::PhysicsBody *create(float mass, float moment)
             return _cocos2d_PhysicsBody_create3(L);
         // }
     }
@@ -643,22 +943,143 @@ static int _cocos2d_PhysicsBody_create(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_PhysicsBody_createBox(lua_State *L)
+static int _cocos2d_PhysicsBody_createBox1(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 3);
 
     cocos2d::Size arg1;       /** size */
     cocos2d::PhysicsMaterial arg2;       /** material */
     cocos2d::Vec2 arg3;       /** offset */
 
     auto_olua_check_cocos2d_Size(L, 1, &arg1);
-    auto_olua_opt_cocos2d_PhysicsMaterial(L, 2, &arg2, (cocos2d::PhysicsMaterial)PHYSICSBODY_MATERIAL_DEFAULT);
-    auto_olua_opt_cocos2d_Vec2(L, 3, &arg3, (cocos2d::Vec2)cocos2d::Vec2::ZERO);
+    auto_olua_check_cocos2d_PhysicsMaterial(L, 2, &arg2);
+    auto_olua_check_cocos2d_Vec2(L, 3, &arg3);
 
-    // static PhysicsBody* createBox(const Size& size, const PhysicsMaterial& material = PHYSICSBODY_MATERIAL_DEFAULT, const Vec2& offset = Vec2::ZERO)
+    // static cocos2d::PhysicsBody *createBox(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset)
     cocos2d::PhysicsBody *ret = (cocos2d::PhysicsBody *)cocos2d::PhysicsBody::createBox(arg1, arg2, arg3);
+    int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsBody");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_PhysicsBody_createBox2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Size arg1;       /** size */
+
+    auto_olua_check_cocos2d_Size(L, 1, &arg1);
+
+    // static cocos2d::PhysicsBody *createBox(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset)
+    cocos2d::PhysicsBody *ret = (cocos2d::PhysicsBody *)cocos2d::PhysicsBody::createBox(arg1);
+    int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsBody");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_PhysicsBody_createBox3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Size arg1;       /** size */
+    cocos2d::PhysicsMaterial arg2;       /** material */
+
+    auto_olua_check_cocos2d_Size(L, 1, &arg1);
+    auto_olua_check_cocos2d_PhysicsMaterial(L, 2, &arg2);
+
+    // static cocos2d::PhysicsBody *createBox(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset)
+    cocos2d::PhysicsBody *ret = (cocos2d::PhysicsBody *)cocos2d::PhysicsBody::createBox(arg1, arg2);
+    int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsBody");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_PhysicsBody_createBox(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 1) {
+        // if ((auto_olua_is_cocos2d_Size(L, 1))) {
+            // static cocos2d::PhysicsBody *createBox(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset)
+            return _cocos2d_PhysicsBody_createBox2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((auto_olua_is_cocos2d_Size(L, 1)) && (auto_olua_is_cocos2d_PhysicsMaterial(L, 2))) {
+            // static cocos2d::PhysicsBody *createBox(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset)
+            return _cocos2d_PhysicsBody_createBox3(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((auto_olua_is_cocos2d_Size(L, 1)) && (auto_olua_is_cocos2d_PhysicsMaterial(L, 2)) && (auto_olua_is_cocos2d_Vec2(L, 3))) {
+            // static cocos2d::PhysicsBody *createBox(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset)
+            return _cocos2d_PhysicsBody_createBox1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::PhysicsBody::createBox' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_PhysicsBody_createCircle1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Number arg1 = 0;       /** radius */
+    cocos2d::PhysicsMaterial arg2;       /** material */
+    cocos2d::Vec2 arg3;       /** offset */
+
+    olua_check_number(L, 1, &arg1);
+    auto_olua_check_cocos2d_PhysicsMaterial(L, 2, &arg2);
+    auto_olua_check_cocos2d_Vec2(L, 3, &arg3);
+
+    // static cocos2d::PhysicsBody *createCircle(float radius, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset)
+    cocos2d::PhysicsBody *ret = (cocos2d::PhysicsBody *)cocos2d::PhysicsBody::createCircle((float)arg1, arg2, arg3);
+    int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsBody");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_PhysicsBody_createCircle2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Number arg1 = 0;       /** radius */
+
+    olua_check_number(L, 1, &arg1);
+
+    // static cocos2d::PhysicsBody *createCircle(float radius, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset)
+    cocos2d::PhysicsBody *ret = (cocos2d::PhysicsBody *)cocos2d::PhysicsBody::createCircle((float)arg1);
+    int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsBody");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_PhysicsBody_createCircle3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Number arg1 = 0;       /** radius */
+    cocos2d::PhysicsMaterial arg2;       /** material */
+
+    olua_check_number(L, 1, &arg1);
+    auto_olua_check_cocos2d_PhysicsMaterial(L, 2, &arg2);
+
+    // static cocos2d::PhysicsBody *createCircle(float radius, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset)
+    cocos2d::PhysicsBody *ret = (cocos2d::PhysicsBody *)cocos2d::PhysicsBody::createCircle((float)arg1, arg2);
     int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsBody");
 
     olua_endinvoke(L);
@@ -668,20 +1089,107 @@ static int _cocos2d_PhysicsBody_createBox(lua_State *L)
 
 static int _cocos2d_PhysicsBody_createCircle(lua_State *L)
 {
+    int num_args = lua_gettop(L);
+
+    if (num_args == 1) {
+        // if ((olua_is_number(L, 1))) {
+            // static cocos2d::PhysicsBody *createCircle(float radius, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset)
+            return _cocos2d_PhysicsBody_createCircle2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_number(L, 1)) && (auto_olua_is_cocos2d_PhysicsMaterial(L, 2))) {
+            // static cocos2d::PhysicsBody *createCircle(float radius, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset)
+            return _cocos2d_PhysicsBody_createCircle3(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_number(L, 1)) && (auto_olua_is_cocos2d_PhysicsMaterial(L, 2)) && (auto_olua_is_cocos2d_Vec2(L, 3))) {
+            // static cocos2d::PhysicsBody *createCircle(float radius, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset)
+            return _cocos2d_PhysicsBody_createCircle1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::PhysicsBody::createCircle' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_PhysicsBody_createEdgeBox1(lua_State *L)
+{
     olua_startinvoke(L);
 
-    lua_settop(L, 3);
-
-    lua_Number arg1 = 0;       /** radius */
+    cocos2d::Size arg1;       /** size */
     cocos2d::PhysicsMaterial arg2;       /** material */
-    cocos2d::Vec2 arg3;       /** offset */
+    lua_Number arg3 = 0;       /** border */
+    cocos2d::Vec2 arg4;       /** offset */
 
-    olua_check_number(L, 1, &arg1);
-    auto_olua_opt_cocos2d_PhysicsMaterial(L, 2, &arg2, (cocos2d::PhysicsMaterial)PHYSICSBODY_MATERIAL_DEFAULT);
-    auto_olua_opt_cocos2d_Vec2(L, 3, &arg3, (cocos2d::Vec2)cocos2d::Vec2::ZERO);
+    auto_olua_check_cocos2d_Size(L, 1, &arg1);
+    auto_olua_check_cocos2d_PhysicsMaterial(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+    auto_olua_check_cocos2d_Vec2(L, 4, &arg4);
 
-    // static PhysicsBody* createCircle(float radius, const PhysicsMaterial& material = PHYSICSBODY_MATERIAL_DEFAULT, const Vec2& offset = Vec2::ZERO)
-    cocos2d::PhysicsBody *ret = (cocos2d::PhysicsBody *)cocos2d::PhysicsBody::createCircle((float)arg1, arg2, arg3);
+    // static cocos2d::PhysicsBody *createEdgeBox(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional float border, @optional const cocos2d::Vec2 &offset)
+    cocos2d::PhysicsBody *ret = (cocos2d::PhysicsBody *)cocos2d::PhysicsBody::createEdgeBox(arg1, arg2, (float)arg3, arg4);
+    int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsBody");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_PhysicsBody_createEdgeBox2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Size arg1;       /** size */
+
+    auto_olua_check_cocos2d_Size(L, 1, &arg1);
+
+    // static cocos2d::PhysicsBody *createEdgeBox(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional float border, @optional const cocos2d::Vec2 &offset)
+    cocos2d::PhysicsBody *ret = (cocos2d::PhysicsBody *)cocos2d::PhysicsBody::createEdgeBox(arg1);
+    int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsBody");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_PhysicsBody_createEdgeBox3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Size arg1;       /** size */
+    cocos2d::PhysicsMaterial arg2;       /** material */
+
+    auto_olua_check_cocos2d_Size(L, 1, &arg1);
+    auto_olua_check_cocos2d_PhysicsMaterial(L, 2, &arg2);
+
+    // static cocos2d::PhysicsBody *createEdgeBox(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional float border, @optional const cocos2d::Vec2 &offset)
+    cocos2d::PhysicsBody *ret = (cocos2d::PhysicsBody *)cocos2d::PhysicsBody::createEdgeBox(arg1, arg2);
+    int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsBody");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_PhysicsBody_createEdgeBox4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Size arg1;       /** size */
+    cocos2d::PhysicsMaterial arg2;       /** material */
+    lua_Number arg3 = 0;       /** border */
+
+    auto_olua_check_cocos2d_Size(L, 1, &arg1);
+    auto_olua_check_cocos2d_PhysicsMaterial(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+
+    // static cocos2d::PhysicsBody *createEdgeBox(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional float border, @optional const cocos2d::Vec2 &offset)
+    cocos2d::PhysicsBody *ret = (cocos2d::PhysicsBody *)cocos2d::PhysicsBody::createEdgeBox(arg1, arg2, (float)arg3);
     int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsBody");
 
     olua_endinvoke(L);
@@ -691,22 +1199,97 @@ static int _cocos2d_PhysicsBody_createCircle(lua_State *L)
 
 static int _cocos2d_PhysicsBody_createEdgeBox(lua_State *L)
 {
+    int num_args = lua_gettop(L);
+
+    if (num_args == 1) {
+        // if ((auto_olua_is_cocos2d_Size(L, 1))) {
+            // static cocos2d::PhysicsBody *createEdgeBox(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional float border, @optional const cocos2d::Vec2 &offset)
+            return _cocos2d_PhysicsBody_createEdgeBox2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((auto_olua_is_cocos2d_Size(L, 1)) && (auto_olua_is_cocos2d_PhysicsMaterial(L, 2))) {
+            // static cocos2d::PhysicsBody *createEdgeBox(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional float border, @optional const cocos2d::Vec2 &offset)
+            return _cocos2d_PhysicsBody_createEdgeBox3(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((auto_olua_is_cocos2d_Size(L, 1)) && (auto_olua_is_cocos2d_PhysicsMaterial(L, 2)) && (olua_is_number(L, 3))) {
+            // static cocos2d::PhysicsBody *createEdgeBox(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional float border, @optional const cocos2d::Vec2 &offset)
+            return _cocos2d_PhysicsBody_createEdgeBox4(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if ((auto_olua_is_cocos2d_Size(L, 1)) && (auto_olua_is_cocos2d_PhysicsMaterial(L, 2)) && (olua_is_number(L, 3)) && (auto_olua_is_cocos2d_Vec2(L, 4))) {
+            // static cocos2d::PhysicsBody *createEdgeBox(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional float border, @optional const cocos2d::Vec2 &offset)
+            return _cocos2d_PhysicsBody_createEdgeBox1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::PhysicsBody::createEdgeBox' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_PhysicsBody_createEdgeSegment1(lua_State *L)
+{
     olua_startinvoke(L);
 
-    lua_settop(L, 4);
+    cocos2d::Vec2 arg1;       /** a */
+    cocos2d::Vec2 arg2;       /** b */
+    cocos2d::PhysicsMaterial arg3;       /** material */
+    lua_Number arg4 = 0;       /** border */
 
-    cocos2d::Size arg1;       /** size */
-    cocos2d::PhysicsMaterial arg2;       /** material */
-    lua_Number arg3 = 0;       /** border */
-    cocos2d::Vec2 arg4;       /** offset */
+    auto_olua_check_cocos2d_Vec2(L, 1, &arg1);
+    auto_olua_check_cocos2d_Vec2(L, 2, &arg2);
+    auto_olua_check_cocos2d_PhysicsMaterial(L, 3, &arg3);
+    olua_check_number(L, 4, &arg4);
 
-    auto_olua_check_cocos2d_Size(L, 1, &arg1);
-    auto_olua_opt_cocos2d_PhysicsMaterial(L, 2, &arg2, (cocos2d::PhysicsMaterial)PHYSICSBODY_MATERIAL_DEFAULT);
-    olua_opt_number(L, 3, &arg3, (lua_Number)1);
-    auto_olua_opt_cocos2d_Vec2(L, 4, &arg4, (cocos2d::Vec2)cocos2d::Vec2::ZERO);
+    // static cocos2d::PhysicsBody *createEdgeSegment(const cocos2d::Vec2 &a, const cocos2d::Vec2 &b, @optional const cocos2d::PhysicsMaterial &material, @optional float border)
+    cocos2d::PhysicsBody *ret = (cocos2d::PhysicsBody *)cocos2d::PhysicsBody::createEdgeSegment(arg1, arg2, arg3, (float)arg4);
+    int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsBody");
 
-    // static PhysicsBody* createEdgeBox(const Size& size, const PhysicsMaterial& material = PHYSICSBODY_MATERIAL_DEFAULT, float border = 1, const Vec2& offset = Vec2::ZERO)
-    cocos2d::PhysicsBody *ret = (cocos2d::PhysicsBody *)cocos2d::PhysicsBody::createEdgeBox(arg1, arg2, (float)arg3, arg4);
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_PhysicsBody_createEdgeSegment2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Vec2 arg1;       /** a */
+    cocos2d::Vec2 arg2;       /** b */
+
+    auto_olua_check_cocos2d_Vec2(L, 1, &arg1);
+    auto_olua_check_cocos2d_Vec2(L, 2, &arg2);
+
+    // static cocos2d::PhysicsBody *createEdgeSegment(const cocos2d::Vec2 &a, const cocos2d::Vec2 &b, @optional const cocos2d::PhysicsMaterial &material, @optional float border)
+    cocos2d::PhysicsBody *ret = (cocos2d::PhysicsBody *)cocos2d::PhysicsBody::createEdgeSegment(arg1, arg2);
+    int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsBody");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_PhysicsBody_createEdgeSegment3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Vec2 arg1;       /** a */
+    cocos2d::Vec2 arg2;       /** b */
+    cocos2d::PhysicsMaterial arg3;       /** material */
+
+    auto_olua_check_cocos2d_Vec2(L, 1, &arg1);
+    auto_olua_check_cocos2d_Vec2(L, 2, &arg2);
+    auto_olua_check_cocos2d_PhysicsMaterial(L, 3, &arg3);
+
+    // static cocos2d::PhysicsBody *createEdgeSegment(const cocos2d::Vec2 &a, const cocos2d::Vec2 &b, @optional const cocos2d::PhysicsMaterial &material, @optional float border)
+    cocos2d::PhysicsBody *ret = (cocos2d::PhysicsBody *)cocos2d::PhysicsBody::createEdgeSegment(arg1, arg2, arg3);
     int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsBody");
 
     olua_endinvoke(L);
@@ -716,34 +1299,37 @@ static int _cocos2d_PhysicsBody_createEdgeBox(lua_State *L)
 
 static int _cocos2d_PhysicsBody_createEdgeSegment(lua_State *L)
 {
-    olua_startinvoke(L);
+    int num_args = lua_gettop(L);
 
-    lua_settop(L, 4);
+    if (num_args == 2) {
+        // if ((auto_olua_is_cocos2d_Vec2(L, 1)) && (auto_olua_is_cocos2d_Vec2(L, 2))) {
+            // static cocos2d::PhysicsBody *createEdgeSegment(const cocos2d::Vec2 &a, const cocos2d::Vec2 &b, @optional const cocos2d::PhysicsMaterial &material, @optional float border)
+            return _cocos2d_PhysicsBody_createEdgeSegment2(L);
+        // }
+    }
 
-    cocos2d::Vec2 arg1;       /** a */
-    cocos2d::Vec2 arg2;       /** b */
-    cocos2d::PhysicsMaterial arg3;       /** material */
-    lua_Number arg4 = 0;       /** border */
+    if (num_args == 3) {
+        // if ((auto_olua_is_cocos2d_Vec2(L, 1)) && (auto_olua_is_cocos2d_Vec2(L, 2)) && (auto_olua_is_cocos2d_PhysicsMaterial(L, 3))) {
+            // static cocos2d::PhysicsBody *createEdgeSegment(const cocos2d::Vec2 &a, const cocos2d::Vec2 &b, @optional const cocos2d::PhysicsMaterial &material, @optional float border)
+            return _cocos2d_PhysicsBody_createEdgeSegment3(L);
+        // }
+    }
 
-    auto_olua_check_cocos2d_Vec2(L, 1, &arg1);
-    auto_olua_check_cocos2d_Vec2(L, 2, &arg2);
-    auto_olua_opt_cocos2d_PhysicsMaterial(L, 3, &arg3, (cocos2d::PhysicsMaterial)PHYSICSBODY_MATERIAL_DEFAULT);
-    olua_opt_number(L, 4, &arg4, (lua_Number)1);
+    if (num_args == 4) {
+        // if ((auto_olua_is_cocos2d_Vec2(L, 1)) && (auto_olua_is_cocos2d_Vec2(L, 2)) && (auto_olua_is_cocos2d_PhysicsMaterial(L, 3)) && (olua_is_number(L, 4))) {
+            // static cocos2d::PhysicsBody *createEdgeSegment(const cocos2d::Vec2 &a, const cocos2d::Vec2 &b, @optional const cocos2d::PhysicsMaterial &material, @optional float border)
+            return _cocos2d_PhysicsBody_createEdgeSegment1(L);
+        // }
+    }
 
-    // static PhysicsBody* createEdgeSegment(const Vec2& a, const Vec2& b, const PhysicsMaterial& material = PHYSICSBODY_MATERIAL_DEFAULT, float border = 1)
-    cocos2d::PhysicsBody *ret = (cocos2d::PhysicsBody *)cocos2d::PhysicsBody::createEdgeSegment(arg1, arg2, arg3, (float)arg4);
-    int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsBody");
+    luaL_error(L, "method 'cocos2d::PhysicsBody::createEdgeSegment' not support '%d' arguments", num_args);
 
-    olua_endinvoke(L);
-
-    return num_ret;
+    return 0;
 }
 
 static int _cocos2d_PhysicsBody_getAngularDamping(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsBody *self = nullptr;
 
@@ -762,8 +1348,6 @@ static int _cocos2d_PhysicsBody_getAngularVelocity(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsBody *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsBody");
@@ -780,8 +1364,6 @@ static int _cocos2d_PhysicsBody_getAngularVelocity(lua_State *L)
 static int _cocos2d_PhysicsBody_getAngularVelocityLimit(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsBody *self = nullptr;
 
@@ -800,8 +1382,6 @@ static int _cocos2d_PhysicsBody_getCategoryBitmask(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsBody *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsBody");
@@ -818,8 +1398,6 @@ static int _cocos2d_PhysicsBody_getCategoryBitmask(lua_State *L)
 static int _cocos2d_PhysicsBody_getCollisionBitmask(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsBody *self = nullptr;
 
@@ -838,8 +1416,6 @@ static int _cocos2d_PhysicsBody_getContactTestBitmask(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsBody *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsBody");
@@ -857,13 +1433,11 @@ static int _cocos2d_PhysicsBody_getFirstShape(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsBody *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsBody");
 
-    // PhysicsShape* getFirstShape()
+    // cocos2d::PhysicsShape *getFirstShape()
     cocos2d::PhysicsShape *ret = (cocos2d::PhysicsShape *)self->getFirstShape();
     int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsShape");
 
@@ -875,8 +1449,6 @@ static int _cocos2d_PhysicsBody_getFirstShape(lua_State *L)
 static int _cocos2d_PhysicsBody_getGroup(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsBody *self = nullptr;
 
@@ -895,13 +1467,11 @@ static int _cocos2d_PhysicsBody_getJoints(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsBody *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsBody");
 
-    // const std::vector<PhysicsJoint*>& getJoints()
+    // const std::vector<PhysicsJoint *> &getJoints()
     const std::vector<cocos2d::PhysicsJoint *> &ret = (const std::vector<cocos2d::PhysicsJoint *> &)self->getJoints();
     int num_ret = olua_push_std_vector(L, ret, "cc.PhysicsJoint");
 
@@ -913,8 +1483,6 @@ static int _cocos2d_PhysicsBody_getJoints(lua_State *L)
 static int _cocos2d_PhysicsBody_getLinearDamping(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsBody *self = nullptr;
 
@@ -933,8 +1501,6 @@ static int _cocos2d_PhysicsBody_getMass(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsBody *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsBody");
@@ -951,8 +1517,6 @@ static int _cocos2d_PhysicsBody_getMass(lua_State *L)
 static int _cocos2d_PhysicsBody_getMoment(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsBody *self = nullptr;
 
@@ -971,13 +1535,11 @@ static int _cocos2d_PhysicsBody_getNode(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsBody *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsBody");
 
-    // Node* getNode()
+    // cocos2d::Node *getNode()
     cocos2d::Node *ret = (cocos2d::Node *)self->getNode();
     int num_ret = olua_push_cppobj(L, ret, "cc.Node");
 
@@ -990,13 +1552,11 @@ static int _cocos2d_PhysicsBody_getPosition(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsBody *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsBody");
 
-    // Vec2 getPosition()
+    // cocos2d::Vec2 getPosition()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getPosition();
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
@@ -1009,13 +1569,11 @@ static int _cocos2d_PhysicsBody_getPositionOffset(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsBody *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsBody");
 
-    // const Vec2& getPositionOffset()
+    // const cocos2d::Vec2 &getPositionOffset()
     const cocos2d::Vec2 &ret = (const cocos2d::Vec2 &)self->getPositionOffset();
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
@@ -1027,8 +1585,6 @@ static int _cocos2d_PhysicsBody_getPositionOffset(lua_State *L)
 static int _cocos2d_PhysicsBody_getRotation(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsBody *self = nullptr;
 
@@ -1047,8 +1603,6 @@ static int _cocos2d_PhysicsBody_getRotationOffset(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsBody *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsBody");
@@ -1066,15 +1620,13 @@ static int _cocos2d_PhysicsBody_getShape(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsBody *self = nullptr;
     lua_Integer arg1 = 0;       /** tag */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsBody");
     olua_check_int(L, 2, &arg1);
 
-    // PhysicsShape* getShape(int tag)
+    // cocos2d::PhysicsShape *getShape(int tag)
     cocos2d::PhysicsShape *ret = (cocos2d::PhysicsShape *)self->getShape((int)arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsShape");
 
@@ -1087,13 +1639,11 @@ static int _cocos2d_PhysicsBody_getShapes(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsBody *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsBody");
 
-    // const Vector<PhysicsShape*>& getShapes()
+    // const Vector<cocos2d::PhysicsShape *> &getShapes()
     const cocos2d::Vector<cocos2d::PhysicsShape *> &ret = (const cocos2d::Vector<cocos2d::PhysicsShape *> &)self->getShapes();
     int num_ret = manual_olua_push_cocos2d_Vector(L, ret, "cc.PhysicsShape");
 
@@ -1105,8 +1655,6 @@ static int _cocos2d_PhysicsBody_getShapes(lua_State *L)
 static int _cocos2d_PhysicsBody_getTag(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsBody *self = nullptr;
 
@@ -1125,13 +1673,11 @@ static int _cocos2d_PhysicsBody_getVelocity(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsBody *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsBody");
 
-    // Vec2 getVelocity()
+    // cocos2d::Vec2 getVelocity()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getVelocity();
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
@@ -1144,15 +1690,13 @@ static int _cocos2d_PhysicsBody_getVelocityAtLocalPoint(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsBody *self = nullptr;
     cocos2d::Vec2 arg1;       /** point */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsBody");
     auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // Vec2 getVelocityAtLocalPoint(const Vec2& point)
+    // cocos2d::Vec2 getVelocityAtLocalPoint(const cocos2d::Vec2 &point)
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getVelocityAtLocalPoint(arg1);
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
@@ -1165,15 +1709,13 @@ static int _cocos2d_PhysicsBody_getVelocityAtWorldPoint(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsBody *self = nullptr;
     cocos2d::Vec2 arg1;       /** point */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsBody");
     auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // Vec2 getVelocityAtWorldPoint(const Vec2& point)
+    // cocos2d::Vec2 getVelocityAtWorldPoint(const cocos2d::Vec2 &point)
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getVelocityAtWorldPoint(arg1);
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
@@ -1185,8 +1727,6 @@ static int _cocos2d_PhysicsBody_getVelocityAtWorldPoint(lua_State *L)
 static int _cocos2d_PhysicsBody_getVelocityLimit(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsBody *self = nullptr;
 
@@ -1205,13 +1745,11 @@ static int _cocos2d_PhysicsBody_getWorld(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsBody *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsBody");
 
-    // PhysicsWorld* getWorld()
+    // cocos2d::PhysicsWorld *getWorld()
     cocos2d::PhysicsWorld *ret = (cocos2d::PhysicsWorld *)self->getWorld();
     int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsWorld");
 
@@ -1223,8 +1761,6 @@ static int _cocos2d_PhysicsBody_getWorld(lua_State *L)
 static int _cocos2d_PhysicsBody_isDynamic(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsBody *self = nullptr;
 
@@ -1243,8 +1779,6 @@ static int _cocos2d_PhysicsBody_isGravityEnabled(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsBody *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsBody");
@@ -1261,8 +1795,6 @@ static int _cocos2d_PhysicsBody_isGravityEnabled(lua_State *L)
 static int _cocos2d_PhysicsBody_isResting(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsBody *self = nullptr;
 
@@ -1281,8 +1813,6 @@ static int _cocos2d_PhysicsBody_isRotationEnabled(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsBody *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsBody");
@@ -1300,15 +1830,13 @@ static int _cocos2d_PhysicsBody_local2World(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsBody *self = nullptr;
     cocos2d::Vec2 arg1;       /** point */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsBody");
     auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // Vec2 local2World(const Vec2& point)
+    // cocos2d::Vec2 local2World(const cocos2d::Vec2 &point)
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->local2World(arg1);
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
@@ -1317,19 +1845,17 @@ static int _cocos2d_PhysicsBody_local2World(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_PhysicsBody_removeAllShapes(lua_State *L)
+static int _cocos2d_PhysicsBody_removeAllShapes1(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 2);
 
     cocos2d::PhysicsBody *self = nullptr;
     bool arg1 = false;       /** reduceMassAndMoment */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsBody");
-    olua_opt_bool(L, 2, &arg1, (bool)true);
+    olua_check_bool(L, 2, &arg1);
 
-    // void removeAllShapes(bool reduceMassAndMoment = true)
+    // void removeAllShapes(@optional bool reduceMassAndMoment)
     self->removeAllShapes(arg1);
 
     olua_endinvoke(L);
@@ -1337,11 +1863,46 @@ static int _cocos2d_PhysicsBody_removeAllShapes(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_PhysicsBody_removeFromWorld(lua_State *L)
+static int _cocos2d_PhysicsBody_removeAllShapes2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
+    cocos2d::PhysicsBody *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsBody");
+
+    // void removeAllShapes(@optional bool reduceMassAndMoment)
+    self->removeAllShapes();
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_PhysicsBody_removeAllShapes(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 0) {
+        // void removeAllShapes(@optional bool reduceMassAndMoment)
+        return _cocos2d_PhysicsBody_removeAllShapes2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_bool(L, 2))) {
+            // void removeAllShapes(@optional bool reduceMassAndMoment)
+            return _cocos2d_PhysicsBody_removeAllShapes1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::PhysicsBody::removeAllShapes' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_PhysicsBody_removeFromWorld(lua_State *L)
+{
+    olua_startinvoke(L);
 
     cocos2d::PhysicsBody *self = nullptr;
 
@@ -1359,17 +1920,15 @@ static int _cocos2d_PhysicsBody_removeShape1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 3);
-
     cocos2d::PhysicsBody *self = nullptr;
     cocos2d::PhysicsShape *arg1 = nullptr;       /** shape */
     bool arg2 = false;       /** reduceMassAndMoment */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsBody");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.PhysicsShape");
-    olua_opt_bool(L, 3, &arg2, (bool)true);
+    olua_check_bool(L, 3, &arg2);
 
-    // void removeShape(PhysicsShape* shape, bool reduceMassAndMoment = true)
+    // void removeShape(cocos2d::PhysicsShape *shape, @optional bool reduceMassAndMoment)
     self->removeShape(arg1, arg2);
 
     olua_endinvoke(L);
@@ -1381,18 +1940,52 @@ static int _cocos2d_PhysicsBody_removeShape2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 3);
-
     cocos2d::PhysicsBody *self = nullptr;
     lua_Integer arg1 = 0;       /** tag */
     bool arg2 = false;       /** reduceMassAndMoment */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsBody");
     olua_check_int(L, 2, &arg1);
-    olua_opt_bool(L, 3, &arg2, (bool)true);
+    olua_check_bool(L, 3, &arg2);
 
-    // void removeShape(int tag, bool reduceMassAndMoment = true)
+    // void removeShape(int tag, @optional bool reduceMassAndMoment)
     self->removeShape((int)arg1, arg2);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_PhysicsBody_removeShape3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::PhysicsBody *self = nullptr;
+    cocos2d::PhysicsShape *arg1 = nullptr;       /** shape */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsBody");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.PhysicsShape");
+
+    // void removeShape(cocos2d::PhysicsShape *shape, @optional bool reduceMassAndMoment)
+    self->removeShape(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_PhysicsBody_removeShape4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::PhysicsBody *self = nullptr;
+    lua_Integer arg1 = 0;       /** tag */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsBody");
+    olua_check_int(L, 2, &arg1);
+
+    // void removeShape(int tag, @optional bool reduceMassAndMoment)
+    self->removeShape((int)arg1);
 
     olua_endinvoke(L);
 
@@ -1404,21 +1997,25 @@ static int _cocos2d_PhysicsBody_removeShape(lua_State *L)
     int num_args = lua_gettop(L) - 1;
 
     if (num_args == 1) {
-        if ((olua_is_cppobj(L, 2, "cc.PhysicsShape")) && (olua_is_bool(L, 3) || olua_isnil(L, 3))) {
-            return _cocos2d_PhysicsBody_removeShape1(L);
+        if ((olua_is_cppobj(L, 2, "cc.PhysicsShape"))) {
+            // void removeShape(cocos2d::PhysicsShape *shape, @optional bool reduceMassAndMoment)
+            return _cocos2d_PhysicsBody_removeShape3(L);
         }
 
-        // if ((olua_is_int(L, 2)) && (olua_is_bool(L, 3) || olua_isnil(L, 3))) {
-            return _cocos2d_PhysicsBody_removeShape2(L);
+        // if ((olua_is_int(L, 2))) {
+            // void removeShape(int tag, @optional bool reduceMassAndMoment)
+            return _cocos2d_PhysicsBody_removeShape4(L);
         // }
     }
 
     if (num_args == 2) {
-        if ((olua_is_cppobj(L, 2, "cc.PhysicsShape")) && (olua_is_bool(L, 3) || olua_isnil(L, 3))) {
+        if ((olua_is_cppobj(L, 2, "cc.PhysicsShape")) && (olua_is_bool(L, 3))) {
+            // void removeShape(cocos2d::PhysicsShape *shape, @optional bool reduceMassAndMoment)
             return _cocos2d_PhysicsBody_removeShape1(L);
         }
 
-        // if ((olua_is_int(L, 2)) && (olua_is_bool(L, 3) || olua_isnil(L, 3))) {
+        // if ((olua_is_int(L, 2)) && (olua_is_bool(L, 3))) {
+            // void removeShape(int tag, @optional bool reduceMassAndMoment)
             return _cocos2d_PhysicsBody_removeShape2(L);
         // }
     }
@@ -1431,8 +2028,6 @@ static int _cocos2d_PhysicsBody_removeShape(lua_State *L)
 static int _cocos2d_PhysicsBody_resetForces(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsBody *self = nullptr;
 
@@ -1449,8 +2044,6 @@ static int _cocos2d_PhysicsBody_resetForces(lua_State *L)
 static int _cocos2d_PhysicsBody_setAngularDamping(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 2);
 
     cocos2d::PhysicsBody *self = nullptr;
     lua_Number arg1 = 0;       /** damping */
@@ -1470,8 +2063,6 @@ static int _cocos2d_PhysicsBody_setAngularVelocity(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsBody *self = nullptr;
     lua_Number arg1 = 0;       /** velocity */
 
@@ -1489,8 +2080,6 @@ static int _cocos2d_PhysicsBody_setAngularVelocity(lua_State *L)
 static int _cocos2d_PhysicsBody_setAngularVelocityLimit(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 2);
 
     cocos2d::PhysicsBody *self = nullptr;
     lua_Number arg1 = 0;       /** limit */
@@ -1510,8 +2099,6 @@ static int _cocos2d_PhysicsBody_setCategoryBitmask(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsBody *self = nullptr;
     lua_Integer arg1 = 0;       /** bitmask */
 
@@ -1529,8 +2116,6 @@ static int _cocos2d_PhysicsBody_setCategoryBitmask(lua_State *L)
 static int _cocos2d_PhysicsBody_setCollisionBitmask(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 2);
 
     cocos2d::PhysicsBody *self = nullptr;
     lua_Integer arg1 = 0;       /** bitmask */
@@ -1550,8 +2135,6 @@ static int _cocos2d_PhysicsBody_setContactTestBitmask(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsBody *self = nullptr;
     lua_Integer arg1 = 0;       /** bitmask */
 
@@ -1569,8 +2152,6 @@ static int _cocos2d_PhysicsBody_setContactTestBitmask(lua_State *L)
 static int _cocos2d_PhysicsBody_setDynamic(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 2);
 
     cocos2d::PhysicsBody *self = nullptr;
     bool arg1 = false;       /** dynamic */
@@ -1590,8 +2171,6 @@ static int _cocos2d_PhysicsBody_setGravityEnable(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsBody *self = nullptr;
     bool arg1 = false;       /** enable */
 
@@ -1609,8 +2188,6 @@ static int _cocos2d_PhysicsBody_setGravityEnable(lua_State *L)
 static int _cocos2d_PhysicsBody_setGroup(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 2);
 
     cocos2d::PhysicsBody *self = nullptr;
     lua_Integer arg1 = 0;       /** group */
@@ -1630,8 +2207,6 @@ static int _cocos2d_PhysicsBody_setLinearDamping(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsBody *self = nullptr;
     lua_Number arg1 = 0;       /** damping */
 
@@ -1649,8 +2224,6 @@ static int _cocos2d_PhysicsBody_setLinearDamping(lua_State *L)
 static int _cocos2d_PhysicsBody_setMass(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 2);
 
     cocos2d::PhysicsBody *self = nullptr;
     lua_Number arg1 = 0;       /** mass */
@@ -1670,8 +2243,6 @@ static int _cocos2d_PhysicsBody_setMoment(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsBody *self = nullptr;
     lua_Number arg1 = 0;       /** moment */
 
@@ -1690,15 +2261,13 @@ static int _cocos2d_PhysicsBody_setPositionOffset(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsBody *self = nullptr;
     cocos2d::Vec2 arg1;       /** position */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsBody");
     auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // void setPositionOffset(const Vec2& position)
+    // void setPositionOffset(const cocos2d::Vec2 &position)
     self->setPositionOffset(arg1);
 
     olua_endinvoke(L);
@@ -1709,8 +2278,6 @@ static int _cocos2d_PhysicsBody_setPositionOffset(lua_State *L)
 static int _cocos2d_PhysicsBody_setResting(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 2);
 
     cocos2d::PhysicsBody *self = nullptr;
     bool arg1 = false;       /** rest */
@@ -1730,8 +2297,6 @@ static int _cocos2d_PhysicsBody_setRotationEnable(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsBody *self = nullptr;
     bool arg1 = false;       /** enable */
 
@@ -1749,8 +2314,6 @@ static int _cocos2d_PhysicsBody_setRotationEnable(lua_State *L)
 static int _cocos2d_PhysicsBody_setRotationOffset(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 2);
 
     cocos2d::PhysicsBody *self = nullptr;
     lua_Number arg1 = 0;       /** rotation */
@@ -1770,8 +2333,6 @@ static int _cocos2d_PhysicsBody_setTag(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsBody *self = nullptr;
     lua_Integer arg1 = 0;       /** tag */
 
@@ -1790,15 +2351,13 @@ static int _cocos2d_PhysicsBody_setVelocity(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsBody *self = nullptr;
     cocos2d::Vec2 arg1;       /** velocity */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsBody");
     auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // void setVelocity(const Vec2& velocity)
+    // void setVelocity(const cocos2d::Vec2 &velocity)
     self->setVelocity(arg1);
 
     olua_endinvoke(L);
@@ -1809,8 +2368,6 @@ static int _cocos2d_PhysicsBody_setVelocity(lua_State *L)
 static int _cocos2d_PhysicsBody_setVelocityLimit(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 2);
 
     cocos2d::PhysicsBody *self = nullptr;
     lua_Number arg1 = 0;       /** limit */
@@ -1830,15 +2387,13 @@ static int _cocos2d_PhysicsBody_world2Local(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsBody *self = nullptr;
     cocos2d::Vec2 arg1;       /** point */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsBody");
     auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // Vec2 world2Local(const Vec2& point)
+    // cocos2d::Vec2 world2Local(const cocos2d::Vec2 &point)
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->world2Local(arg1);
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
@@ -1850,6 +2405,7 @@ static int _cocos2d_PhysicsBody_world2Local(lua_State *L)
 static int luaopen_cocos2d_PhysicsBody(lua_State *L)
 {
     oluacls_class(L, "cc.PhysicsBody", "cc.Component");
+    oluacls_func(L, "__move", _cocos2d_PhysicsBody___move);
     oluacls_func(L, "addMass", _cocos2d_PhysicsBody_addMass);
     oluacls_func(L, "addMoment", _cocos2d_PhysicsBody_addMoment);
     oluacls_func(L, "addShape", _cocos2d_PhysicsBody_addShape);
@@ -1941,9 +2497,9 @@ static int luaopen_cocos2d_PhysicsBody(lua_State *L)
     oluacls_prop(L, "velocity", _cocos2d_PhysicsBody_getVelocity, _cocos2d_PhysicsBody_setVelocity);
     oluacls_prop(L, "velocityLimit", _cocos2d_PhysicsBody_getVelocityLimit, _cocos2d_PhysicsBody_setVelocityLimit);
     oluacls_prop(L, "world", _cocos2d_PhysicsBody_getWorld, nullptr);
+    oluacls_const_string(L, "COMPONENT_NAME", (const char *)cocos2d::PhysicsBody::COMPONENT_NAME.c_str());
 
     olua_registerluatype<cocos2d::PhysicsBody>(L, "cc.PhysicsBody");
-    oluacls_createclassproxy(L);
 
     return 1;
 }
@@ -1951,15 +2507,25 @@ static int luaopen_cocos2d_PhysicsBody(lua_State *L)
 static int luaopen_cocos2d_PhysicsContact_EventCode(lua_State *L)
 {
     oluacls_class(L, "cc.PhysicsContact.EventCode", nullptr);
-    oluacls_const_integer(L, "NONE", (lua_Integer)cocos2d::PhysicsContact::EventCode::NONE);
     oluacls_const_integer(L, "BEGIN", (lua_Integer)cocos2d::PhysicsContact::EventCode::BEGIN);
-    oluacls_const_integer(L, "PRESOLVE", (lua_Integer)cocos2d::PhysicsContact::EventCode::PRESOLVE);
+    oluacls_const_integer(L, "NONE", (lua_Integer)cocos2d::PhysicsContact::EventCode::NONE);
     oluacls_const_integer(L, "POSTSOLVE", (lua_Integer)cocos2d::PhysicsContact::EventCode::POSTSOLVE);
+    oluacls_const_integer(L, "PRESOLVE", (lua_Integer)cocos2d::PhysicsContact::EventCode::PRESOLVE);
     oluacls_const_integer(L, "SEPARATE", (lua_Integer)cocos2d::PhysicsContact::EventCode::SEPARATE);
 
-    olua_registerluatype<cocos2d::PhysicsContact::EventCode>(L, "cc.PhysicsContact.EventCode");
     oluacls_asenum(L);
-    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_PhysicsContact___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::PhysicsContact *)olua_toobj(L, 1, "cc.PhysicsContact");
+    olua_push_cppobj(L, self, "cc.PhysicsContact");
+
+    olua_endinvoke(L);
 
     return 1;
 }
@@ -1968,13 +2534,11 @@ static int _cocos2d_PhysicsContact_getData(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsContact *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsContact");
 
-    // void* getData()
+    // void *getData()
     void *ret = (void *)self->getData();
     int num_ret = olua_push_obj(L, ret, "void *");
 
@@ -1987,13 +2551,11 @@ static int _cocos2d_PhysicsContact_getEventCode(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsContact *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsContact");
 
-    // EventCode getEventCode()
+    // cocos2d::PhysicsContact::EventCode getEventCode()
     cocos2d::PhysicsContact::EventCode ret = (cocos2d::PhysicsContact::EventCode)self->getEventCode();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
@@ -2006,13 +2568,11 @@ static int _cocos2d_PhysicsContact_getShapeA(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsContact *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsContact");
 
-    // PhysicsShape* getShapeA()
+    // cocos2d::PhysicsShape *getShapeA()
     cocos2d::PhysicsShape *ret = (cocos2d::PhysicsShape *)self->getShapeA();
     int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsShape");
 
@@ -2025,13 +2585,11 @@ static int _cocos2d_PhysicsContact_getShapeB(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsContact *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsContact");
 
-    // PhysicsShape* getShapeB()
+    // cocos2d::PhysicsShape *getShapeB()
     cocos2d::PhysicsShape *ret = (cocos2d::PhysicsShape *)self->getShapeB();
     int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsShape");
 
@@ -2044,15 +2602,13 @@ static int _cocos2d_PhysicsContact_setData(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsContact *self = nullptr;
     void *arg1 = nullptr;       /** data */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsContact");
     olua_check_obj(L, 2, (void **)&arg1, "void *");
 
-    // void setData(void* data)
+    // void setData(void *data)
     self->setData(arg1);
 
     olua_endinvoke(L);
@@ -2063,6 +2619,7 @@ static int _cocos2d_PhysicsContact_setData(lua_State *L)
 static int luaopen_cocos2d_PhysicsContact(lua_State *L)
 {
     oluacls_class(L, "cc.PhysicsContact", "cc.EventCustom");
+    oluacls_func(L, "__move", _cocos2d_PhysicsContact___move);
     oluacls_func(L, "getData", _cocos2d_PhysicsContact_getData);
     oluacls_func(L, "getEventCode", _cocos2d_PhysicsContact_getEventCode);
     oluacls_func(L, "getShapeA", _cocos2d_PhysicsContact_getShapeA);
@@ -2074,7 +2631,18 @@ static int luaopen_cocos2d_PhysicsContact(lua_State *L)
     oluacls_prop(L, "shapeB", _cocos2d_PhysicsContact_getShapeB, nullptr);
 
     olua_registerluatype<cocos2d::PhysicsContact>(L, "cc.PhysicsContact");
-    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_PhysicsContactPostSolve___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::PhysicsContactPostSolve *)olua_toobj(L, 1, "cc.PhysicsContactPostSolve");
+    olua_push_cppobj(L, self, "cc.PhysicsContactPostSolve");
+
+    olua_endinvoke(L);
 
     return 1;
 }
@@ -2082,8 +2650,6 @@ static int luaopen_cocos2d_PhysicsContact(lua_State *L)
 static int _cocos2d_PhysicsContactPostSolve_getFriction(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsContactPostSolve *self = nullptr;
 
@@ -2102,8 +2668,6 @@ static int _cocos2d_PhysicsContactPostSolve_getRestitution(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsContactPostSolve *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsContactPostSolve");
@@ -2121,13 +2685,11 @@ static int _cocos2d_PhysicsContactPostSolve_getSurfaceVelocity(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsContactPostSolve *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsContactPostSolve");
 
-    // Vec2 getSurfaceVelocity()
+    // cocos2d::Vec2 getSurfaceVelocity()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getSurfaceVelocity();
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
@@ -2139,6 +2701,7 @@ static int _cocos2d_PhysicsContactPostSolve_getSurfaceVelocity(lua_State *L)
 static int luaopen_cocos2d_PhysicsContactPostSolve(lua_State *L)
 {
     oluacls_class(L, "cc.PhysicsContactPostSolve", nullptr);
+    oluacls_func(L, "__move", _cocos2d_PhysicsContactPostSolve___move);
     oluacls_func(L, "getFriction", _cocos2d_PhysicsContactPostSolve_getFriction);
     oluacls_func(L, "getRestitution", _cocos2d_PhysicsContactPostSolve_getRestitution);
     oluacls_func(L, "getSurfaceVelocity", _cocos2d_PhysicsContactPostSolve_getSurfaceVelocity);
@@ -2147,7 +2710,18 @@ static int luaopen_cocos2d_PhysicsContactPostSolve(lua_State *L)
     oluacls_prop(L, "surfaceVelocity", _cocos2d_PhysicsContactPostSolve_getSurfaceVelocity, nullptr);
 
     olua_registerluatype<cocos2d::PhysicsContactPostSolve>(L, "cc.PhysicsContactPostSolve");
-    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_PhysicsContactPreSolve___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::PhysicsContactPreSolve *)olua_toobj(L, 1, "cc.PhysicsContactPreSolve");
+    olua_push_cppobj(L, self, "cc.PhysicsContactPreSolve");
+
+    olua_endinvoke(L);
 
     return 1;
 }
@@ -2155,8 +2729,6 @@ static int luaopen_cocos2d_PhysicsContactPostSolve(lua_State *L)
 static int _cocos2d_PhysicsContactPreSolve_getFriction(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsContactPreSolve *self = nullptr;
 
@@ -2175,8 +2747,6 @@ static int _cocos2d_PhysicsContactPreSolve_getRestitution(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsContactPreSolve *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsContactPreSolve");
@@ -2194,13 +2764,11 @@ static int _cocos2d_PhysicsContactPreSolve_getSurfaceVelocity(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsContactPreSolve *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsContactPreSolve");
 
-    // Vec2 getSurfaceVelocity()
+    // cocos2d::Vec2 getSurfaceVelocity()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getSurfaceVelocity();
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
@@ -2212,8 +2780,6 @@ static int _cocos2d_PhysicsContactPreSolve_getSurfaceVelocity(lua_State *L)
 static int _cocos2d_PhysicsContactPreSolve_ignore(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsContactPreSolve *self = nullptr;
 
@@ -2230,8 +2796,6 @@ static int _cocos2d_PhysicsContactPreSolve_ignore(lua_State *L)
 static int _cocos2d_PhysicsContactPreSolve_setFriction(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 2);
 
     cocos2d::PhysicsContactPreSolve *self = nullptr;
     lua_Number arg1 = 0;       /** friction */
@@ -2251,8 +2815,6 @@ static int _cocos2d_PhysicsContactPreSolve_setRestitution(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsContactPreSolve *self = nullptr;
     lua_Number arg1 = 0;       /** restitution */
 
@@ -2271,15 +2833,13 @@ static int _cocos2d_PhysicsContactPreSolve_setSurfaceVelocity(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsContactPreSolve *self = nullptr;
     cocos2d::Vec2 arg1;       /** velocity */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsContactPreSolve");
     auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // void setSurfaceVelocity(const Vec2& velocity)
+    // void setSurfaceVelocity(const cocos2d::Vec2 &velocity)
     self->setSurfaceVelocity(arg1);
 
     olua_endinvoke(L);
@@ -2290,6 +2850,7 @@ static int _cocos2d_PhysicsContactPreSolve_setSurfaceVelocity(lua_State *L)
 static int luaopen_cocos2d_PhysicsContactPreSolve(lua_State *L)
 {
     oluacls_class(L, "cc.PhysicsContactPreSolve", nullptr);
+    oluacls_func(L, "__move", _cocos2d_PhysicsContactPreSolve___move);
     oluacls_func(L, "getFriction", _cocos2d_PhysicsContactPreSolve_getFriction);
     oluacls_func(L, "getRestitution", _cocos2d_PhysicsContactPreSolve_getRestitution);
     oluacls_func(L, "getSurfaceVelocity", _cocos2d_PhysicsContactPreSolve_getSurfaceVelocity);
@@ -2302,7 +2863,18 @@ static int luaopen_cocos2d_PhysicsContactPreSolve(lua_State *L)
     oluacls_prop(L, "surfaceVelocity", _cocos2d_PhysicsContactPreSolve_getSurfaceVelocity, _cocos2d_PhysicsContactPreSolve_setSurfaceVelocity);
 
     olua_registerluatype<cocos2d::PhysicsContactPreSolve>(L, "cc.PhysicsContactPreSolve");
-    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_PhysicsJoint___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::PhysicsJoint *)olua_toobj(L, 1, "cc.PhysicsJoint");
+    olua_push_cppobj(L, self, "cc.PhysicsJoint");
+
+    olua_endinvoke(L);
 
     return 1;
 }
@@ -2311,13 +2883,11 @@ static int _cocos2d_PhysicsJoint_getBodyA(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsJoint *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsJoint");
 
-    // PhysicsBody* getBodyA()
+    // cocos2d::PhysicsBody *getBodyA()
     cocos2d::PhysicsBody *ret = (cocos2d::PhysicsBody *)self->getBodyA();
     int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsBody");
 
@@ -2330,13 +2900,11 @@ static int _cocos2d_PhysicsJoint_getBodyB(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsJoint *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsJoint");
 
-    // PhysicsBody* getBodyB()
+    // cocos2d::PhysicsBody *getBodyB()
     cocos2d::PhysicsBody *ret = (cocos2d::PhysicsBody *)self->getBodyB();
     int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsBody");
 
@@ -2348,8 +2916,6 @@ static int _cocos2d_PhysicsJoint_getBodyB(lua_State *L)
 static int _cocos2d_PhysicsJoint_getMaxForce(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsJoint *self = nullptr;
 
@@ -2368,8 +2934,6 @@ static int _cocos2d_PhysicsJoint_getTag(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsJoint *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsJoint");
@@ -2387,13 +2951,11 @@ static int _cocos2d_PhysicsJoint_getWorld(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsJoint *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsJoint");
 
-    // PhysicsWorld* getWorld()
+    // cocos2d::PhysicsWorld *getWorld()
     cocos2d::PhysicsWorld *ret = (cocos2d::PhysicsWorld *)self->getWorld();
     int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsWorld");
 
@@ -2405,8 +2967,6 @@ static int _cocos2d_PhysicsJoint_getWorld(lua_State *L)
 static int _cocos2d_PhysicsJoint_isCollisionEnabled(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsJoint *self = nullptr;
 
@@ -2425,8 +2985,6 @@ static int _cocos2d_PhysicsJoint_isEnabled(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsJoint *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsJoint");
@@ -2444,8 +3002,6 @@ static int _cocos2d_PhysicsJoint_removeFormWorld(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsJoint *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsJoint");
@@ -2461,8 +3017,6 @@ static int _cocos2d_PhysicsJoint_removeFormWorld(lua_State *L)
 static int _cocos2d_PhysicsJoint_setCollisionEnable(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 2);
 
     cocos2d::PhysicsJoint *self = nullptr;
     bool arg1 = false;       /** enable */
@@ -2482,8 +3036,6 @@ static int _cocos2d_PhysicsJoint_setEnable(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsJoint *self = nullptr;
     bool arg1 = false;       /** enable */
 
@@ -2501,8 +3053,6 @@ static int _cocos2d_PhysicsJoint_setEnable(lua_State *L)
 static int _cocos2d_PhysicsJoint_setMaxForce(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 2);
 
     cocos2d::PhysicsJoint *self = nullptr;
     lua_Number arg1 = 0;       /** force */
@@ -2522,8 +3072,6 @@ static int _cocos2d_PhysicsJoint_setTag(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsJoint *self = nullptr;
     lua_Integer arg1 = 0;       /** tag */
 
@@ -2541,6 +3089,7 @@ static int _cocos2d_PhysicsJoint_setTag(lua_State *L)
 static int luaopen_cocos2d_PhysicsJoint(lua_State *L)
 {
     oluacls_class(L, "cc.PhysicsJoint", nullptr);
+    oluacls_func(L, "__move", _cocos2d_PhysicsJoint___move);
     oluacls_func(L, "getBodyA", _cocos2d_PhysicsJoint_getBodyA);
     oluacls_func(L, "getBodyB", _cocos2d_PhysicsJoint_getBodyB);
     oluacls_func(L, "getMaxForce", _cocos2d_PhysicsJoint_getMaxForce);
@@ -2562,7 +3111,18 @@ static int luaopen_cocos2d_PhysicsJoint(lua_State *L)
     oluacls_prop(L, "world", _cocos2d_PhysicsJoint_getWorld, nullptr);
 
     olua_registerluatype<cocos2d::PhysicsJoint>(L, "cc.PhysicsJoint");
-    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_PhysicsJointDistance___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::PhysicsJointDistance *)olua_toobj(L, 1, "cc.PhysicsJointDistance");
+    olua_push_cppobj(L, self, "cc.PhysicsJointDistance");
+
+    olua_endinvoke(L);
 
     return 1;
 }
@@ -2570,8 +3130,6 @@ static int luaopen_cocos2d_PhysicsJoint(lua_State *L)
 static int _cocos2d_PhysicsJointDistance_construct(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 4);
 
     cocos2d::PhysicsBody *arg1 = nullptr;       /** a */
     cocos2d::PhysicsBody *arg2 = nullptr;       /** b */
@@ -2583,9 +3141,26 @@ static int _cocos2d_PhysicsJointDistance_construct(lua_State *L)
     auto_olua_check_cocos2d_Vec2(L, 3, &arg3);
     auto_olua_check_cocos2d_Vec2(L, 4, &arg4);
 
-    // static PhysicsJointDistance* construct(PhysicsBody* a, PhysicsBody* b, const Vec2& anchr1, const Vec2& anchr2)
+    // static cocos2d::PhysicsJointDistance *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, const cocos2d::Vec2 &anchr1, const cocos2d::Vec2 &anchr2)
     cocos2d::PhysicsJointDistance *ret = (cocos2d::PhysicsJointDistance *)cocos2d::PhysicsJointDistance::construct(arg1, arg2, arg3, arg4);
     int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsJointDistance");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_PhysicsJointDistance_createConstraints(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::PhysicsJointDistance *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsJointDistance");
+
+    // bool createConstraints()
+    bool ret = (bool)self->createConstraints();
+    int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
 
@@ -2595,8 +3170,6 @@ static int _cocos2d_PhysicsJointDistance_construct(lua_State *L)
 static int _cocos2d_PhysicsJointDistance_getDistance(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsJointDistance *self = nullptr;
 
@@ -2615,8 +3188,6 @@ static int _cocos2d_PhysicsJointDistance_setDistance(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsJointDistance *self = nullptr;
     lua_Number arg1 = 0;       /** distance */
 
@@ -2634,13 +3205,26 @@ static int _cocos2d_PhysicsJointDistance_setDistance(lua_State *L)
 static int luaopen_cocos2d_PhysicsJointDistance(lua_State *L)
 {
     oluacls_class(L, "cc.PhysicsJointDistance", "cc.PhysicsJoint");
+    oluacls_func(L, "__move", _cocos2d_PhysicsJointDistance___move);
     oluacls_func(L, "construct", _cocos2d_PhysicsJointDistance_construct);
+    oluacls_func(L, "createConstraints", _cocos2d_PhysicsJointDistance_createConstraints);
     oluacls_func(L, "getDistance", _cocos2d_PhysicsJointDistance_getDistance);
     oluacls_func(L, "setDistance", _cocos2d_PhysicsJointDistance_setDistance);
     oluacls_prop(L, "distance", _cocos2d_PhysicsJointDistance_getDistance, _cocos2d_PhysicsJointDistance_setDistance);
 
     olua_registerluatype<cocos2d::PhysicsJointDistance>(L, "cc.PhysicsJointDistance");
-    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_PhysicsJointFixed___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::PhysicsJointFixed *)olua_toobj(L, 1, "cc.PhysicsJointFixed");
+    olua_push_cppobj(L, self, "cc.PhysicsJointFixed");
+
+    olua_endinvoke(L);
 
     return 1;
 }
@@ -2648,8 +3232,6 @@ static int luaopen_cocos2d_PhysicsJointDistance(lua_State *L)
 static int _cocos2d_PhysicsJointFixed_construct(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 3);
 
     cocos2d::PhysicsBody *arg1 = nullptr;       /** a */
     cocos2d::PhysicsBody *arg2 = nullptr;       /** b */
@@ -2659,9 +3241,26 @@ static int _cocos2d_PhysicsJointFixed_construct(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.PhysicsBody");
     auto_olua_check_cocos2d_Vec2(L, 3, &arg3);
 
-    // static PhysicsJointFixed* construct(PhysicsBody* a, PhysicsBody* b, const Vec2& anchr)
+    // static cocos2d::PhysicsJointFixed *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, const cocos2d::Vec2 &anchr)
     cocos2d::PhysicsJointFixed *ret = (cocos2d::PhysicsJointFixed *)cocos2d::PhysicsJointFixed::construct(arg1, arg2, arg3);
     int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsJointFixed");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_PhysicsJointFixed_createConstraints(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::PhysicsJointFixed *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsJointFixed");
+
+    // bool createConstraints()
+    bool ret = (bool)self->createConstraints();
+    int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
 
@@ -2671,10 +3270,23 @@ static int _cocos2d_PhysicsJointFixed_construct(lua_State *L)
 static int luaopen_cocos2d_PhysicsJointFixed(lua_State *L)
 {
     oluacls_class(L, "cc.PhysicsJointFixed", "cc.PhysicsJoint");
+    oluacls_func(L, "__move", _cocos2d_PhysicsJointFixed___move);
     oluacls_func(L, "construct", _cocos2d_PhysicsJointFixed_construct);
+    oluacls_func(L, "createConstraints", _cocos2d_PhysicsJointFixed_createConstraints);
 
     olua_registerluatype<cocos2d::PhysicsJointFixed>(L, "cc.PhysicsJointFixed");
-    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_PhysicsJointGear___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::PhysicsJointGear *)olua_toobj(L, 1, "cc.PhysicsJointGear");
+    olua_push_cppobj(L, self, "cc.PhysicsJointGear");
+
+    olua_endinvoke(L);
 
     return 1;
 }
@@ -2682,8 +3294,6 @@ static int luaopen_cocos2d_PhysicsJointFixed(lua_State *L)
 static int _cocos2d_PhysicsJointGear_construct(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 4);
 
     cocos2d::PhysicsBody *arg1 = nullptr;       /** a */
     cocos2d::PhysicsBody *arg2 = nullptr;       /** b */
@@ -2695,9 +3305,26 @@ static int _cocos2d_PhysicsJointGear_construct(lua_State *L)
     olua_check_number(L, 3, &arg3);
     olua_check_number(L, 4, &arg4);
 
-    // static PhysicsJointGear* construct(PhysicsBody* a, PhysicsBody* b, float phase, float ratio)
+    // static cocos2d::PhysicsJointGear *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, float phase, float ratio)
     cocos2d::PhysicsJointGear *ret = (cocos2d::PhysicsJointGear *)cocos2d::PhysicsJointGear::construct(arg1, arg2, (float)arg3, (float)arg4);
     int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsJointGear");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_PhysicsJointGear_createConstraints(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::PhysicsJointGear *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsJointGear");
+
+    // bool createConstraints()
+    bool ret = (bool)self->createConstraints();
+    int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
 
@@ -2707,8 +3334,6 @@ static int _cocos2d_PhysicsJointGear_construct(lua_State *L)
 static int _cocos2d_PhysicsJointGear_getPhase(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsJointGear *self = nullptr;
 
@@ -2727,8 +3352,6 @@ static int _cocos2d_PhysicsJointGear_getRatio(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsJointGear *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsJointGear");
@@ -2745,8 +3368,6 @@ static int _cocos2d_PhysicsJointGear_getRatio(lua_State *L)
 static int _cocos2d_PhysicsJointGear_setPhase(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 2);
 
     cocos2d::PhysicsJointGear *self = nullptr;
     lua_Number arg1 = 0;       /** phase */
@@ -2766,8 +3387,6 @@ static int _cocos2d_PhysicsJointGear_setRatio(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsJointGear *self = nullptr;
     lua_Number arg1 = 0;       /** ratchet */
 
@@ -2785,7 +3404,9 @@ static int _cocos2d_PhysicsJointGear_setRatio(lua_State *L)
 static int luaopen_cocos2d_PhysicsJointGear(lua_State *L)
 {
     oluacls_class(L, "cc.PhysicsJointGear", "cc.PhysicsJoint");
+    oluacls_func(L, "__move", _cocos2d_PhysicsJointGear___move);
     oluacls_func(L, "construct", _cocos2d_PhysicsJointGear_construct);
+    oluacls_func(L, "createConstraints", _cocos2d_PhysicsJointGear_createConstraints);
     oluacls_func(L, "getPhase", _cocos2d_PhysicsJointGear_getPhase);
     oluacls_func(L, "getRatio", _cocos2d_PhysicsJointGear_getRatio);
     oluacls_func(L, "setPhase", _cocos2d_PhysicsJointGear_setPhase);
@@ -2794,7 +3415,18 @@ static int luaopen_cocos2d_PhysicsJointGear(lua_State *L)
     oluacls_prop(L, "ratio", _cocos2d_PhysicsJointGear_getRatio, _cocos2d_PhysicsJointGear_setRatio);
 
     olua_registerluatype<cocos2d::PhysicsJointGear>(L, "cc.PhysicsJointGear");
-    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_PhysicsJointGroove___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::PhysicsJointGroove *)olua_toobj(L, 1, "cc.PhysicsJointGroove");
+    olua_push_cppobj(L, self, "cc.PhysicsJointGroove");
+
+    olua_endinvoke(L);
 
     return 1;
 }
@@ -2802,8 +3434,6 @@ static int luaopen_cocos2d_PhysicsJointGear(lua_State *L)
 static int _cocos2d_PhysicsJointGroove_construct(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 5);
 
     cocos2d::PhysicsBody *arg1 = nullptr;       /** a */
     cocos2d::PhysicsBody *arg2 = nullptr;       /** b */
@@ -2817,9 +3447,26 @@ static int _cocos2d_PhysicsJointGroove_construct(lua_State *L)
     auto_olua_check_cocos2d_Vec2(L, 4, &arg4);
     auto_olua_check_cocos2d_Vec2(L, 5, &arg5);
 
-    // static PhysicsJointGroove* construct(PhysicsBody* a, PhysicsBody* b, const Vec2& grooveA, const Vec2& grooveB, const Vec2& anchr2)
+    // static cocos2d::PhysicsJointGroove *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, const cocos2d::Vec2 &grooveA, const cocos2d::Vec2 &grooveB, const cocos2d::Vec2 &anchr2)
     cocos2d::PhysicsJointGroove *ret = (cocos2d::PhysicsJointGroove *)cocos2d::PhysicsJointGroove::construct(arg1, arg2, arg3, arg4, arg5);
     int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsJointGroove");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_PhysicsJointGroove_createConstraints(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::PhysicsJointGroove *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsJointGroove");
+
+    // bool createConstraints()
+    bool ret = (bool)self->createConstraints();
+    int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
 
@@ -2830,13 +3477,11 @@ static int _cocos2d_PhysicsJointGroove_getAnchr2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsJointGroove *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsJointGroove");
 
-    // Vec2 getAnchr2()
+    // cocos2d::Vec2 getAnchr2()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getAnchr2();
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
@@ -2849,13 +3494,11 @@ static int _cocos2d_PhysicsJointGroove_getGrooveA(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsJointGroove *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsJointGroove");
 
-    // Vec2 getGrooveA()
+    // cocos2d::Vec2 getGrooveA()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getGrooveA();
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
@@ -2868,13 +3511,11 @@ static int _cocos2d_PhysicsJointGroove_getGrooveB(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsJointGroove *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsJointGroove");
 
-    // Vec2 getGrooveB()
+    // cocos2d::Vec2 getGrooveB()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getGrooveB();
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
@@ -2887,15 +3528,13 @@ static int _cocos2d_PhysicsJointGroove_setAnchr2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsJointGroove *self = nullptr;
     cocos2d::Vec2 arg1;       /** anchr2 */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsJointGroove");
     auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // void setAnchr2(const Vec2& anchr2)
+    // void setAnchr2(const cocos2d::Vec2 &anchr2)
     self->setAnchr2(arg1);
 
     olua_endinvoke(L);
@@ -2907,15 +3546,13 @@ static int _cocos2d_PhysicsJointGroove_setGrooveA(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsJointGroove *self = nullptr;
     cocos2d::Vec2 arg1;       /** grooveA */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsJointGroove");
     auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // void setGrooveA(const Vec2& grooveA)
+    // void setGrooveA(const cocos2d::Vec2 &grooveA)
     self->setGrooveA(arg1);
 
     olua_endinvoke(L);
@@ -2927,15 +3564,13 @@ static int _cocos2d_PhysicsJointGroove_setGrooveB(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsJointGroove *self = nullptr;
     cocos2d::Vec2 arg1;       /** grooveB */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsJointGroove");
     auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // void setGrooveB(const Vec2& grooveB)
+    // void setGrooveB(const cocos2d::Vec2 &grooveB)
     self->setGrooveB(arg1);
 
     olua_endinvoke(L);
@@ -2946,7 +3581,9 @@ static int _cocos2d_PhysicsJointGroove_setGrooveB(lua_State *L)
 static int luaopen_cocos2d_PhysicsJointGroove(lua_State *L)
 {
     oluacls_class(L, "cc.PhysicsJointGroove", "cc.PhysicsJoint");
+    oluacls_func(L, "__move", _cocos2d_PhysicsJointGroove___move);
     oluacls_func(L, "construct", _cocos2d_PhysicsJointGroove_construct);
+    oluacls_func(L, "createConstraints", _cocos2d_PhysicsJointGroove_createConstraints);
     oluacls_func(L, "getAnchr2", _cocos2d_PhysicsJointGroove_getAnchr2);
     oluacls_func(L, "getGrooveA", _cocos2d_PhysicsJointGroove_getGrooveA);
     oluacls_func(L, "getGrooveB", _cocos2d_PhysicsJointGroove_getGrooveB);
@@ -2958,7 +3595,18 @@ static int luaopen_cocos2d_PhysicsJointGroove(lua_State *L)
     oluacls_prop(L, "grooveB", _cocos2d_PhysicsJointGroove_getGrooveB, _cocos2d_PhysicsJointGroove_setGrooveB);
 
     olua_registerluatype<cocos2d::PhysicsJointGroove>(L, "cc.PhysicsJointGroove");
-    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_PhysicsJointLimit___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::PhysicsJointLimit *)olua_toobj(L, 1, "cc.PhysicsJointLimit");
+    olua_push_cppobj(L, self, "cc.PhysicsJointLimit");
+
+    olua_endinvoke(L);
 
     return 1;
 }
@@ -2966,8 +3614,6 @@ static int luaopen_cocos2d_PhysicsJointGroove(lua_State *L)
 static int _cocos2d_PhysicsJointLimit_construct1(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 4);
 
     cocos2d::PhysicsBody *arg1 = nullptr;       /** a */
     cocos2d::PhysicsBody *arg2 = nullptr;       /** b */
@@ -2979,7 +3625,7 @@ static int _cocos2d_PhysicsJointLimit_construct1(lua_State *L)
     auto_olua_check_cocos2d_Vec2(L, 3, &arg3);
     auto_olua_check_cocos2d_Vec2(L, 4, &arg4);
 
-    // static PhysicsJointLimit* construct(PhysicsBody* a, PhysicsBody* b, const Vec2& anchr1, const Vec2& anchr2)
+    // static cocos2d::PhysicsJointLimit *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, const cocos2d::Vec2 &anchr1, const cocos2d::Vec2 &anchr2)
     cocos2d::PhysicsJointLimit *ret = (cocos2d::PhysicsJointLimit *)cocos2d::PhysicsJointLimit::construct(arg1, arg2, arg3, arg4);
     int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsJointLimit");
 
@@ -2991,8 +3637,6 @@ static int _cocos2d_PhysicsJointLimit_construct1(lua_State *L)
 static int _cocos2d_PhysicsJointLimit_construct2(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 6);
 
     cocos2d::PhysicsBody *arg1 = nullptr;       /** a */
     cocos2d::PhysicsBody *arg2 = nullptr;       /** b */
@@ -3008,7 +3652,7 @@ static int _cocos2d_PhysicsJointLimit_construct2(lua_State *L)
     olua_check_number(L, 5, &arg5);
     olua_check_number(L, 6, &arg6);
 
-    // static PhysicsJointLimit* construct(PhysicsBody* a, PhysicsBody* b, const Vec2& anchr1, const Vec2& anchr2, float min, float max)
+    // static cocos2d::PhysicsJointLimit *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, const cocos2d::Vec2 &anchr1, const cocos2d::Vec2 &anchr2, float min, float max)
     cocos2d::PhysicsJointLimit *ret = (cocos2d::PhysicsJointLimit *)cocos2d::PhysicsJointLimit::construct(arg1, arg2, arg3, arg4, (float)arg5, (float)arg6);
     int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsJointLimit");
 
@@ -3023,12 +3667,14 @@ static int _cocos2d_PhysicsJointLimit_construct(lua_State *L)
 
     if (num_args == 4) {
         // if ((olua_is_cppobj(L, 1, "cc.PhysicsBody")) && (olua_is_cppobj(L, 2, "cc.PhysicsBody")) && (auto_olua_is_cocos2d_Vec2(L, 3)) && (auto_olua_is_cocos2d_Vec2(L, 4))) {
+            // static cocos2d::PhysicsJointLimit *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, const cocos2d::Vec2 &anchr1, const cocos2d::Vec2 &anchr2)
             return _cocos2d_PhysicsJointLimit_construct1(L);
         // }
     }
 
     if (num_args == 6) {
         // if ((olua_is_cppobj(L, 1, "cc.PhysicsBody")) && (olua_is_cppobj(L, 2, "cc.PhysicsBody")) && (auto_olua_is_cocos2d_Vec2(L, 3)) && (auto_olua_is_cocos2d_Vec2(L, 4)) && (olua_is_number(L, 5)) && (olua_is_number(L, 6))) {
+            // static cocos2d::PhysicsJointLimit *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, const cocos2d::Vec2 &anchr1, const cocos2d::Vec2 &anchr2, float min, float max)
             return _cocos2d_PhysicsJointLimit_construct2(L);
         // }
     }
@@ -3038,17 +3684,32 @@ static int _cocos2d_PhysicsJointLimit_construct(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_PhysicsJointLimit_getAnchr1(lua_State *L)
+static int _cocos2d_PhysicsJointLimit_createConstraints(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsJointLimit *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsJointLimit");
 
-    // Vec2 getAnchr1()
+    // bool createConstraints()
+    bool ret = (bool)self->createConstraints();
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_PhysicsJointLimit_getAnchr1(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::PhysicsJointLimit *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsJointLimit");
+
+    // cocos2d::Vec2 getAnchr1()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getAnchr1();
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
@@ -3061,13 +3722,11 @@ static int _cocos2d_PhysicsJointLimit_getAnchr2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsJointLimit *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsJointLimit");
 
-    // Vec2 getAnchr2()
+    // cocos2d::Vec2 getAnchr2()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getAnchr2();
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
@@ -3079,8 +3738,6 @@ static int _cocos2d_PhysicsJointLimit_getAnchr2(lua_State *L)
 static int _cocos2d_PhysicsJointLimit_getMax(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsJointLimit *self = nullptr;
 
@@ -3099,8 +3756,6 @@ static int _cocos2d_PhysicsJointLimit_getMin(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsJointLimit *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsJointLimit");
@@ -3118,15 +3773,13 @@ static int _cocos2d_PhysicsJointLimit_setAnchr1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsJointLimit *self = nullptr;
     cocos2d::Vec2 arg1;       /** anchr1 */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsJointLimit");
     auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // void setAnchr1(const Vec2& anchr1)
+    // void setAnchr1(const cocos2d::Vec2 &anchr1)
     self->setAnchr1(arg1);
 
     olua_endinvoke(L);
@@ -3138,15 +3791,13 @@ static int _cocos2d_PhysicsJointLimit_setAnchr2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsJointLimit *self = nullptr;
     cocos2d::Vec2 arg1;       /** anchr2 */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsJointLimit");
     auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // void setAnchr2(const Vec2& anchr2)
+    // void setAnchr2(const cocos2d::Vec2 &anchr2)
     self->setAnchr2(arg1);
 
     olua_endinvoke(L);
@@ -3157,8 +3808,6 @@ static int _cocos2d_PhysicsJointLimit_setAnchr2(lua_State *L)
 static int _cocos2d_PhysicsJointLimit_setMax(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 2);
 
     cocos2d::PhysicsJointLimit *self = nullptr;
     lua_Number arg1 = 0;       /** max */
@@ -3178,8 +3827,6 @@ static int _cocos2d_PhysicsJointLimit_setMin(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsJointLimit *self = nullptr;
     lua_Number arg1 = 0;       /** min */
 
@@ -3197,7 +3844,9 @@ static int _cocos2d_PhysicsJointLimit_setMin(lua_State *L)
 static int luaopen_cocos2d_PhysicsJointLimit(lua_State *L)
 {
     oluacls_class(L, "cc.PhysicsJointLimit", "cc.PhysicsJoint");
+    oluacls_func(L, "__move", _cocos2d_PhysicsJointLimit___move);
     oluacls_func(L, "construct", _cocos2d_PhysicsJointLimit_construct);
+    oluacls_func(L, "createConstraints", _cocos2d_PhysicsJointLimit_createConstraints);
     oluacls_func(L, "getAnchr1", _cocos2d_PhysicsJointLimit_getAnchr1);
     oluacls_func(L, "getAnchr2", _cocos2d_PhysicsJointLimit_getAnchr2);
     oluacls_func(L, "getMax", _cocos2d_PhysicsJointLimit_getMax);
@@ -3212,7 +3861,18 @@ static int luaopen_cocos2d_PhysicsJointLimit(lua_State *L)
     oluacls_prop(L, "min", _cocos2d_PhysicsJointLimit_getMin, _cocos2d_PhysicsJointLimit_setMin);
 
     olua_registerluatype<cocos2d::PhysicsJointLimit>(L, "cc.PhysicsJointLimit");
-    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_PhysicsJointMotor___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::PhysicsJointMotor *)olua_toobj(L, 1, "cc.PhysicsJointMotor");
+    olua_push_cppobj(L, self, "cc.PhysicsJointMotor");
+
+    olua_endinvoke(L);
 
     return 1;
 }
@@ -3220,8 +3880,6 @@ static int luaopen_cocos2d_PhysicsJointLimit(lua_State *L)
 static int _cocos2d_PhysicsJointMotor_construct(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 3);
 
     cocos2d::PhysicsBody *arg1 = nullptr;       /** a */
     cocos2d::PhysicsBody *arg2 = nullptr;       /** b */
@@ -3231,9 +3889,26 @@ static int _cocos2d_PhysicsJointMotor_construct(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.PhysicsBody");
     olua_check_number(L, 3, &arg3);
 
-    // static PhysicsJointMotor* construct(PhysicsBody* a, PhysicsBody* b, float rate)
+    // static cocos2d::PhysicsJointMotor *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, float rate)
     cocos2d::PhysicsJointMotor *ret = (cocos2d::PhysicsJointMotor *)cocos2d::PhysicsJointMotor::construct(arg1, arg2, (float)arg3);
     int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsJointMotor");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_PhysicsJointMotor_createConstraints(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::PhysicsJointMotor *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsJointMotor");
+
+    // bool createConstraints()
+    bool ret = (bool)self->createConstraints();
+    int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
 
@@ -3243,8 +3918,6 @@ static int _cocos2d_PhysicsJointMotor_construct(lua_State *L)
 static int _cocos2d_PhysicsJointMotor_getRate(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsJointMotor *self = nullptr;
 
@@ -3263,8 +3936,6 @@ static int _cocos2d_PhysicsJointMotor_setRate(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsJointMotor *self = nullptr;
     lua_Number arg1 = 0;       /** rate */
 
@@ -3282,13 +3953,26 @@ static int _cocos2d_PhysicsJointMotor_setRate(lua_State *L)
 static int luaopen_cocos2d_PhysicsJointMotor(lua_State *L)
 {
     oluacls_class(L, "cc.PhysicsJointMotor", "cc.PhysicsJoint");
+    oluacls_func(L, "__move", _cocos2d_PhysicsJointMotor___move);
     oluacls_func(L, "construct", _cocos2d_PhysicsJointMotor_construct);
+    oluacls_func(L, "createConstraints", _cocos2d_PhysicsJointMotor_createConstraints);
     oluacls_func(L, "getRate", _cocos2d_PhysicsJointMotor_getRate);
     oluacls_func(L, "setRate", _cocos2d_PhysicsJointMotor_setRate);
     oluacls_prop(L, "rate", _cocos2d_PhysicsJointMotor_getRate, _cocos2d_PhysicsJointMotor_setRate);
 
     olua_registerluatype<cocos2d::PhysicsJointMotor>(L, "cc.PhysicsJointMotor");
-    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_PhysicsJointPin___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::PhysicsJointPin *)olua_toobj(L, 1, "cc.PhysicsJointPin");
+    olua_push_cppobj(L, self, "cc.PhysicsJointPin");
+
+    olua_endinvoke(L);
 
     return 1;
 }
@@ -3296,8 +3980,6 @@ static int luaopen_cocos2d_PhysicsJointMotor(lua_State *L)
 static int _cocos2d_PhysicsJointPin_construct1(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 3);
 
     cocos2d::PhysicsBody *arg1 = nullptr;       /** a */
     cocos2d::PhysicsBody *arg2 = nullptr;       /** b */
@@ -3307,7 +3989,7 @@ static int _cocos2d_PhysicsJointPin_construct1(lua_State *L)
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.PhysicsBody");
     auto_olua_check_cocos2d_Vec2(L, 3, &arg3);
 
-    // static PhysicsJointPin* construct(PhysicsBody* a, PhysicsBody* b, const Vec2& pivot)
+    // static cocos2d::PhysicsJointPin *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, const cocos2d::Vec2 &pivot)
     cocos2d::PhysicsJointPin *ret = (cocos2d::PhysicsJointPin *)cocos2d::PhysicsJointPin::construct(arg1, arg2, arg3);
     int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsJointPin");
 
@@ -3320,8 +4002,6 @@ static int _cocos2d_PhysicsJointPin_construct2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 4);
-
     cocos2d::PhysicsBody *arg1 = nullptr;       /** a */
     cocos2d::PhysicsBody *arg2 = nullptr;       /** b */
     cocos2d::Vec2 arg3;       /** anchr1 */
@@ -3332,7 +4012,7 @@ static int _cocos2d_PhysicsJointPin_construct2(lua_State *L)
     auto_olua_check_cocos2d_Vec2(L, 3, &arg3);
     auto_olua_check_cocos2d_Vec2(L, 4, &arg4);
 
-    // static PhysicsJointPin* construct(PhysicsBody* a, PhysicsBody* b, const Vec2& anchr1, const Vec2& anchr2)
+    // static cocos2d::PhysicsJointPin *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, const cocos2d::Vec2 &anchr1, const cocos2d::Vec2 &anchr2)
     cocos2d::PhysicsJointPin *ret = (cocos2d::PhysicsJointPin *)cocos2d::PhysicsJointPin::construct(arg1, arg2, arg3, arg4);
     int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsJointPin");
 
@@ -3347,12 +4027,14 @@ static int _cocos2d_PhysicsJointPin_construct(lua_State *L)
 
     if (num_args == 3) {
         // if ((olua_is_cppobj(L, 1, "cc.PhysicsBody")) && (olua_is_cppobj(L, 2, "cc.PhysicsBody")) && (auto_olua_is_cocos2d_Vec2(L, 3))) {
+            // static cocos2d::PhysicsJointPin *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, const cocos2d::Vec2 &pivot)
             return _cocos2d_PhysicsJointPin_construct1(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_cppobj(L, 1, "cc.PhysicsBody")) && (olua_is_cppobj(L, 2, "cc.PhysicsBody")) && (auto_olua_is_cocos2d_Vec2(L, 3)) && (auto_olua_is_cocos2d_Vec2(L, 4))) {
+            // static cocos2d::PhysicsJointPin *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, const cocos2d::Vec2 &anchr1, const cocos2d::Vec2 &anchr2)
             return _cocos2d_PhysicsJointPin_construct2(L);
         // }
     }
@@ -3362,13 +4044,43 @@ static int _cocos2d_PhysicsJointPin_construct(lua_State *L)
     return 0;
 }
 
+static int _cocos2d_PhysicsJointPin_createConstraints(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::PhysicsJointPin *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsJointPin");
+
+    // bool createConstraints()
+    bool ret = (bool)self->createConstraints();
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
 static int luaopen_cocos2d_PhysicsJointPin(lua_State *L)
 {
     oluacls_class(L, "cc.PhysicsJointPin", "cc.PhysicsJoint");
+    oluacls_func(L, "__move", _cocos2d_PhysicsJointPin___move);
     oluacls_func(L, "construct", _cocos2d_PhysicsJointPin_construct);
+    oluacls_func(L, "createConstraints", _cocos2d_PhysicsJointPin_createConstraints);
 
     olua_registerluatype<cocos2d::PhysicsJointPin>(L, "cc.PhysicsJointPin");
-    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_PhysicsJointRatchet___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::PhysicsJointRatchet *)olua_toobj(L, 1, "cc.PhysicsJointRatchet");
+    olua_push_cppobj(L, self, "cc.PhysicsJointRatchet");
+
+    olua_endinvoke(L);
 
     return 1;
 }
@@ -3376,8 +4088,6 @@ static int luaopen_cocos2d_PhysicsJointPin(lua_State *L)
 static int _cocos2d_PhysicsJointRatchet_construct(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 4);
 
     cocos2d::PhysicsBody *arg1 = nullptr;       /** a */
     cocos2d::PhysicsBody *arg2 = nullptr;       /** b */
@@ -3389,9 +4099,26 @@ static int _cocos2d_PhysicsJointRatchet_construct(lua_State *L)
     olua_check_number(L, 3, &arg3);
     olua_check_number(L, 4, &arg4);
 
-    // static PhysicsJointRatchet* construct(PhysicsBody* a, PhysicsBody* b, float phase, float ratchet)
+    // static cocos2d::PhysicsJointRatchet *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, float phase, float ratchet)
     cocos2d::PhysicsJointRatchet *ret = (cocos2d::PhysicsJointRatchet *)cocos2d::PhysicsJointRatchet::construct(arg1, arg2, (float)arg3, (float)arg4);
     int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsJointRatchet");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_PhysicsJointRatchet_createConstraints(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::PhysicsJointRatchet *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsJointRatchet");
+
+    // bool createConstraints()
+    bool ret = (bool)self->createConstraints();
+    int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
 
@@ -3401,8 +4128,6 @@ static int _cocos2d_PhysicsJointRatchet_construct(lua_State *L)
 static int _cocos2d_PhysicsJointRatchet_getAngle(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsJointRatchet *self = nullptr;
 
@@ -3421,8 +4146,6 @@ static int _cocos2d_PhysicsJointRatchet_getPhase(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsJointRatchet *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsJointRatchet");
@@ -3440,8 +4163,6 @@ static int _cocos2d_PhysicsJointRatchet_getRatchet(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsJointRatchet *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsJointRatchet");
@@ -3458,8 +4179,6 @@ static int _cocos2d_PhysicsJointRatchet_getRatchet(lua_State *L)
 static int _cocos2d_PhysicsJointRatchet_setAngle(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 2);
 
     cocos2d::PhysicsJointRatchet *self = nullptr;
     lua_Number arg1 = 0;       /** angle */
@@ -3479,8 +4198,6 @@ static int _cocos2d_PhysicsJointRatchet_setPhase(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsJointRatchet *self = nullptr;
     lua_Number arg1 = 0;       /** phase */
 
@@ -3499,8 +4216,6 @@ static int _cocos2d_PhysicsJointRatchet_setRatchet(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsJointRatchet *self = nullptr;
     lua_Number arg1 = 0;       /** ratchet */
 
@@ -3518,7 +4233,9 @@ static int _cocos2d_PhysicsJointRatchet_setRatchet(lua_State *L)
 static int luaopen_cocos2d_PhysicsJointRatchet(lua_State *L)
 {
     oluacls_class(L, "cc.PhysicsJointRatchet", "cc.PhysicsJoint");
+    oluacls_func(L, "__move", _cocos2d_PhysicsJointRatchet___move);
     oluacls_func(L, "construct", _cocos2d_PhysicsJointRatchet_construct);
+    oluacls_func(L, "createConstraints", _cocos2d_PhysicsJointRatchet_createConstraints);
     oluacls_func(L, "getAngle", _cocos2d_PhysicsJointRatchet_getAngle);
     oluacls_func(L, "getPhase", _cocos2d_PhysicsJointRatchet_getPhase);
     oluacls_func(L, "getRatchet", _cocos2d_PhysicsJointRatchet_getRatchet);
@@ -3530,7 +4247,18 @@ static int luaopen_cocos2d_PhysicsJointRatchet(lua_State *L)
     oluacls_prop(L, "ratchet", _cocos2d_PhysicsJointRatchet_getRatchet, _cocos2d_PhysicsJointRatchet_setRatchet);
 
     olua_registerluatype<cocos2d::PhysicsJointRatchet>(L, "cc.PhysicsJointRatchet");
-    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_PhysicsJointRotaryLimit___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::PhysicsJointRotaryLimit *)olua_toobj(L, 1, "cc.PhysicsJointRotaryLimit");
+    olua_push_cppobj(L, self, "cc.PhysicsJointRotaryLimit");
+
+    olua_endinvoke(L);
 
     return 1;
 }
@@ -3538,8 +4266,6 @@ static int luaopen_cocos2d_PhysicsJointRatchet(lua_State *L)
 static int _cocos2d_PhysicsJointRotaryLimit_construct1(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 4);
 
     cocos2d::PhysicsBody *arg1 = nullptr;       /** a */
     cocos2d::PhysicsBody *arg2 = nullptr;       /** b */
@@ -3551,7 +4277,7 @@ static int _cocos2d_PhysicsJointRotaryLimit_construct1(lua_State *L)
     olua_check_number(L, 3, &arg3);
     olua_check_number(L, 4, &arg4);
 
-    // static PhysicsJointRotaryLimit* construct(PhysicsBody* a, PhysicsBody* b, float min, float max)
+    // static cocos2d::PhysicsJointRotaryLimit *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, float min, float max)
     cocos2d::PhysicsJointRotaryLimit *ret = (cocos2d::PhysicsJointRotaryLimit *)cocos2d::PhysicsJointRotaryLimit::construct(arg1, arg2, (float)arg3, (float)arg4);
     int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsJointRotaryLimit");
 
@@ -3564,15 +4290,13 @@ static int _cocos2d_PhysicsJointRotaryLimit_construct2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsBody *arg1 = nullptr;       /** a */
     cocos2d::PhysicsBody *arg2 = nullptr;       /** b */
 
     olua_check_cppobj(L, 1, (void **)&arg1, "cc.PhysicsBody");
     olua_check_cppobj(L, 2, (void **)&arg2, "cc.PhysicsBody");
 
-    // static PhysicsJointRotaryLimit* construct(PhysicsBody* a, PhysicsBody* b)
+    // static cocos2d::PhysicsJointRotaryLimit *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b)
     cocos2d::PhysicsJointRotaryLimit *ret = (cocos2d::PhysicsJointRotaryLimit *)cocos2d::PhysicsJointRotaryLimit::construct(arg1, arg2);
     int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsJointRotaryLimit");
 
@@ -3587,12 +4311,14 @@ static int _cocos2d_PhysicsJointRotaryLimit_construct(lua_State *L)
 
     if (num_args == 2) {
         // if ((olua_is_cppobj(L, 1, "cc.PhysicsBody")) && (olua_is_cppobj(L, 2, "cc.PhysicsBody"))) {
+            // static cocos2d::PhysicsJointRotaryLimit *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b)
             return _cocos2d_PhysicsJointRotaryLimit_construct2(L);
         // }
     }
 
     if (num_args == 4) {
         // if ((olua_is_cppobj(L, 1, "cc.PhysicsBody")) && (olua_is_cppobj(L, 2, "cc.PhysicsBody")) && (olua_is_number(L, 3)) && (olua_is_number(L, 4))) {
+            // static cocos2d::PhysicsJointRotaryLimit *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, float min, float max)
             return _cocos2d_PhysicsJointRotaryLimit_construct1(L);
         // }
     }
@@ -3602,11 +4328,26 @@ static int _cocos2d_PhysicsJointRotaryLimit_construct(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_PhysicsJointRotaryLimit_getMax(lua_State *L)
+static int _cocos2d_PhysicsJointRotaryLimit_createConstraints(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
+    cocos2d::PhysicsJointRotaryLimit *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsJointRotaryLimit");
+
+    // bool createConstraints()
+    bool ret = (bool)self->createConstraints();
+    int num_ret = olua_push_bool(L, ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_PhysicsJointRotaryLimit_getMax(lua_State *L)
+{
+    olua_startinvoke(L);
 
     cocos2d::PhysicsJointRotaryLimit *self = nullptr;
 
@@ -3625,8 +4366,6 @@ static int _cocos2d_PhysicsJointRotaryLimit_getMin(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsJointRotaryLimit *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsJointRotaryLimit");
@@ -3643,8 +4382,6 @@ static int _cocos2d_PhysicsJointRotaryLimit_getMin(lua_State *L)
 static int _cocos2d_PhysicsJointRotaryLimit_setMax(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 2);
 
     cocos2d::PhysicsJointRotaryLimit *self = nullptr;
     lua_Number arg1 = 0;       /** max */
@@ -3664,8 +4401,6 @@ static int _cocos2d_PhysicsJointRotaryLimit_setMin(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsJointRotaryLimit *self = nullptr;
     lua_Number arg1 = 0;       /** min */
 
@@ -3683,7 +4418,9 @@ static int _cocos2d_PhysicsJointRotaryLimit_setMin(lua_State *L)
 static int luaopen_cocos2d_PhysicsJointRotaryLimit(lua_State *L)
 {
     oluacls_class(L, "cc.PhysicsJointRotaryLimit", "cc.PhysicsJoint");
+    oluacls_func(L, "__move", _cocos2d_PhysicsJointRotaryLimit___move);
     oluacls_func(L, "construct", _cocos2d_PhysicsJointRotaryLimit_construct);
+    oluacls_func(L, "createConstraints", _cocos2d_PhysicsJointRotaryLimit_createConstraints);
     oluacls_func(L, "getMax", _cocos2d_PhysicsJointRotaryLimit_getMax);
     oluacls_func(L, "getMin", _cocos2d_PhysicsJointRotaryLimit_getMin);
     oluacls_func(L, "setMax", _cocos2d_PhysicsJointRotaryLimit_setMax);
@@ -3692,7 +4429,18 @@ static int luaopen_cocos2d_PhysicsJointRotaryLimit(lua_State *L)
     oluacls_prop(L, "min", _cocos2d_PhysicsJointRotaryLimit_getMin, _cocos2d_PhysicsJointRotaryLimit_setMin);
 
     olua_registerluatype<cocos2d::PhysicsJointRotaryLimit>(L, "cc.PhysicsJointRotaryLimit");
-    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_PhysicsJointRotarySpring___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::PhysicsJointRotarySpring *)olua_toobj(L, 1, "cc.PhysicsJointRotarySpring");
+    olua_push_cppobj(L, self, "cc.PhysicsJointRotarySpring");
+
+    olua_endinvoke(L);
 
     return 1;
 }
@@ -3700,8 +4448,6 @@ static int luaopen_cocos2d_PhysicsJointRotaryLimit(lua_State *L)
 static int _cocos2d_PhysicsJointRotarySpring_construct(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 4);
 
     cocos2d::PhysicsBody *arg1 = nullptr;       /** a */
     cocos2d::PhysicsBody *arg2 = nullptr;       /** b */
@@ -3713,9 +4459,26 @@ static int _cocos2d_PhysicsJointRotarySpring_construct(lua_State *L)
     olua_check_number(L, 3, &arg3);
     olua_check_number(L, 4, &arg4);
 
-    // static PhysicsJointRotarySpring* construct(PhysicsBody* a, PhysicsBody* b, float stiffness, float damping)
+    // static cocos2d::PhysicsJointRotarySpring *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, float stiffness, float damping)
     cocos2d::PhysicsJointRotarySpring *ret = (cocos2d::PhysicsJointRotarySpring *)cocos2d::PhysicsJointRotarySpring::construct(arg1, arg2, (float)arg3, (float)arg4);
     int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsJointRotarySpring");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_PhysicsJointRotarySpring_createConstraints(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::PhysicsJointRotarySpring *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsJointRotarySpring");
+
+    // bool createConstraints()
+    bool ret = (bool)self->createConstraints();
+    int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
 
@@ -3725,8 +4488,6 @@ static int _cocos2d_PhysicsJointRotarySpring_construct(lua_State *L)
 static int _cocos2d_PhysicsJointRotarySpring_getDamping(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsJointRotarySpring *self = nullptr;
 
@@ -3745,8 +4506,6 @@ static int _cocos2d_PhysicsJointRotarySpring_getRestAngle(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsJointRotarySpring *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsJointRotarySpring");
@@ -3764,8 +4523,6 @@ static int _cocos2d_PhysicsJointRotarySpring_getStiffness(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsJointRotarySpring *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsJointRotarySpring");
@@ -3782,8 +4539,6 @@ static int _cocos2d_PhysicsJointRotarySpring_getStiffness(lua_State *L)
 static int _cocos2d_PhysicsJointRotarySpring_setDamping(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 2);
 
     cocos2d::PhysicsJointRotarySpring *self = nullptr;
     lua_Number arg1 = 0;       /** damping */
@@ -3803,8 +4558,6 @@ static int _cocos2d_PhysicsJointRotarySpring_setRestAngle(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsJointRotarySpring *self = nullptr;
     lua_Number arg1 = 0;       /** restAngle */
 
@@ -3823,8 +4576,6 @@ static int _cocos2d_PhysicsJointRotarySpring_setStiffness(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsJointRotarySpring *self = nullptr;
     lua_Number arg1 = 0;       /** stiffness */
 
@@ -3842,7 +4593,9 @@ static int _cocos2d_PhysicsJointRotarySpring_setStiffness(lua_State *L)
 static int luaopen_cocos2d_PhysicsJointRotarySpring(lua_State *L)
 {
     oluacls_class(L, "cc.PhysicsJointRotarySpring", "cc.PhysicsJoint");
+    oluacls_func(L, "__move", _cocos2d_PhysicsJointRotarySpring___move);
     oluacls_func(L, "construct", _cocos2d_PhysicsJointRotarySpring_construct);
+    oluacls_func(L, "createConstraints", _cocos2d_PhysicsJointRotarySpring_createConstraints);
     oluacls_func(L, "getDamping", _cocos2d_PhysicsJointRotarySpring_getDamping);
     oluacls_func(L, "getRestAngle", _cocos2d_PhysicsJointRotarySpring_getRestAngle);
     oluacls_func(L, "getStiffness", _cocos2d_PhysicsJointRotarySpring_getStiffness);
@@ -3854,7 +4607,18 @@ static int luaopen_cocos2d_PhysicsJointRotarySpring(lua_State *L)
     oluacls_prop(L, "stiffness", _cocos2d_PhysicsJointRotarySpring_getStiffness, _cocos2d_PhysicsJointRotarySpring_setStiffness);
 
     olua_registerluatype<cocos2d::PhysicsJointRotarySpring>(L, "cc.PhysicsJointRotarySpring");
-    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_PhysicsJointSpring___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::PhysicsJointSpring *)olua_toobj(L, 1, "cc.PhysicsJointSpring");
+    olua_push_cppobj(L, self, "cc.PhysicsJointSpring");
+
+    olua_endinvoke(L);
 
     return 1;
 }
@@ -3862,8 +4626,6 @@ static int luaopen_cocos2d_PhysicsJointRotarySpring(lua_State *L)
 static int _cocos2d_PhysicsJointSpring_construct(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 6);
 
     cocos2d::PhysicsBody *arg1 = nullptr;       /** a */
     cocos2d::PhysicsBody *arg2 = nullptr;       /** b */
@@ -3879,9 +4641,26 @@ static int _cocos2d_PhysicsJointSpring_construct(lua_State *L)
     olua_check_number(L, 5, &arg5);
     olua_check_number(L, 6, &arg6);
 
-    // static PhysicsJointSpring* construct(PhysicsBody* a, PhysicsBody* b, const Vec2& anchr1, const Vec2& anchr2, float stiffness, float damping)
+    // static cocos2d::PhysicsJointSpring *construct(cocos2d::PhysicsBody *a, cocos2d::PhysicsBody *b, const cocos2d::Vec2 &anchr1, const cocos2d::Vec2 &anchr2, float stiffness, float damping)
     cocos2d::PhysicsJointSpring *ret = (cocos2d::PhysicsJointSpring *)cocos2d::PhysicsJointSpring::construct(arg1, arg2, arg3, arg4, (float)arg5, (float)arg6);
     int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsJointSpring");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_PhysicsJointSpring_createConstraints(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::PhysicsJointSpring *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsJointSpring");
+
+    // bool createConstraints()
+    bool ret = (bool)self->createConstraints();
+    int num_ret = olua_push_bool(L, ret);
 
     olua_endinvoke(L);
 
@@ -3892,13 +4671,11 @@ static int _cocos2d_PhysicsJointSpring_getAnchr1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsJointSpring *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsJointSpring");
 
-    // Vec2 getAnchr1()
+    // cocos2d::Vec2 getAnchr1()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getAnchr1();
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
@@ -3911,13 +4688,11 @@ static int _cocos2d_PhysicsJointSpring_getAnchr2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsJointSpring *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsJointSpring");
 
-    // Vec2 getAnchr2()
+    // cocos2d::Vec2 getAnchr2()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getAnchr2();
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
@@ -3929,8 +4704,6 @@ static int _cocos2d_PhysicsJointSpring_getAnchr2(lua_State *L)
 static int _cocos2d_PhysicsJointSpring_getDamping(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsJointSpring *self = nullptr;
 
@@ -3949,8 +4722,6 @@ static int _cocos2d_PhysicsJointSpring_getRestLength(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsJointSpring *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsJointSpring");
@@ -3967,8 +4738,6 @@ static int _cocos2d_PhysicsJointSpring_getRestLength(lua_State *L)
 static int _cocos2d_PhysicsJointSpring_getStiffness(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsJointSpring *self = nullptr;
 
@@ -3987,15 +4756,13 @@ static int _cocos2d_PhysicsJointSpring_setAnchr1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsJointSpring *self = nullptr;
     cocos2d::Vec2 arg1;       /** anchr1 */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsJointSpring");
     auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // void setAnchr1(const Vec2& anchr1)
+    // void setAnchr1(const cocos2d::Vec2 &anchr1)
     self->setAnchr1(arg1);
 
     olua_endinvoke(L);
@@ -4007,15 +4774,13 @@ static int _cocos2d_PhysicsJointSpring_setAnchr2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsJointSpring *self = nullptr;
     cocos2d::Vec2 arg1;       /** anchr2 */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsJointSpring");
     auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // void setAnchr2(const Vec2& anchr2)
+    // void setAnchr2(const cocos2d::Vec2 &anchr2)
     self->setAnchr2(arg1);
 
     olua_endinvoke(L);
@@ -4026,8 +4791,6 @@ static int _cocos2d_PhysicsJointSpring_setAnchr2(lua_State *L)
 static int _cocos2d_PhysicsJointSpring_setDamping(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 2);
 
     cocos2d::PhysicsJointSpring *self = nullptr;
     lua_Number arg1 = 0;       /** damping */
@@ -4047,8 +4810,6 @@ static int _cocos2d_PhysicsJointSpring_setRestLength(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsJointSpring *self = nullptr;
     lua_Number arg1 = 0;       /** restLength */
 
@@ -4067,8 +4828,6 @@ static int _cocos2d_PhysicsJointSpring_setStiffness(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsJointSpring *self = nullptr;
     lua_Number arg1 = 0;       /** stiffness */
 
@@ -4086,7 +4845,9 @@ static int _cocos2d_PhysicsJointSpring_setStiffness(lua_State *L)
 static int luaopen_cocos2d_PhysicsJointSpring(lua_State *L)
 {
     oluacls_class(L, "cc.PhysicsJointSpring", "cc.PhysicsJoint");
+    oluacls_func(L, "__move", _cocos2d_PhysicsJointSpring___move);
     oluacls_func(L, "construct", _cocos2d_PhysicsJointSpring_construct);
+    oluacls_func(L, "createConstraints", _cocos2d_PhysicsJointSpring_createConstraints);
     oluacls_func(L, "getAnchr1", _cocos2d_PhysicsJointSpring_getAnchr1);
     oluacls_func(L, "getAnchr2", _cocos2d_PhysicsJointSpring_getAnchr2);
     oluacls_func(L, "getDamping", _cocos2d_PhysicsJointSpring_getDamping);
@@ -4104,7 +4865,6 @@ static int luaopen_cocos2d_PhysicsJointSpring(lua_State *L)
     oluacls_prop(L, "stiffness", _cocos2d_PhysicsJointSpring_getStiffness, _cocos2d_PhysicsJointSpring_setStiffness);
 
     olua_registerluatype<cocos2d::PhysicsJointSpring>(L, "cc.PhysicsJointSpring");
-    oluacls_createclassproxy(L);
 
     return 1;
 }
@@ -4112,20 +4872,30 @@ static int luaopen_cocos2d_PhysicsJointSpring(lua_State *L)
 static int luaopen_cocos2d_PhysicsShape_Type(lua_State *L)
 {
     oluacls_class(L, "cc.PhysicsShape.Type", nullptr);
-    oluacls_const_integer(L, "UNKNOWN", (lua_Integer)cocos2d::PhysicsShape::Type::UNKNOWN);
-    oluacls_const_integer(L, "CIRCLE", (lua_Integer)cocos2d::PhysicsShape::Type::CIRCLE);
     oluacls_const_integer(L, "BOX", (lua_Integer)cocos2d::PhysicsShape::Type::BOX);
-    oluacls_const_integer(L, "POLYGON", (lua_Integer)cocos2d::PhysicsShape::Type::POLYGON);
-    oluacls_const_integer(L, "EDGESEGMENT", (lua_Integer)cocos2d::PhysicsShape::Type::EDGESEGMENT);
+    oluacls_const_integer(L, "CIRCLE", (lua_Integer)cocos2d::PhysicsShape::Type::CIRCLE);
     oluacls_const_integer(L, "EDGEBOX", (lua_Integer)cocos2d::PhysicsShape::Type::EDGEBOX);
-    oluacls_const_integer(L, "EDGEPOLYGON", (lua_Integer)cocos2d::PhysicsShape::Type::EDGEPOLYGON);
     oluacls_const_integer(L, "EDGECHAIN", (lua_Integer)cocos2d::PhysicsShape::Type::EDGECHAIN);
-    oluacls_const_integer(L, "POLYGEN", (lua_Integer)cocos2d::PhysicsShape::Type::POLYGEN);
     oluacls_const_integer(L, "EDGEPOLYGEN", (lua_Integer)cocos2d::PhysicsShape::Type::EDGEPOLYGEN);
+    oluacls_const_integer(L, "EDGEPOLYGON", (lua_Integer)cocos2d::PhysicsShape::Type::EDGEPOLYGON);
+    oluacls_const_integer(L, "EDGESEGMENT", (lua_Integer)cocos2d::PhysicsShape::Type::EDGESEGMENT);
+    oluacls_const_integer(L, "POLYGEN", (lua_Integer)cocos2d::PhysicsShape::Type::POLYGEN);
+    oluacls_const_integer(L, "POLYGON", (lua_Integer)cocos2d::PhysicsShape::Type::POLYGON);
+    oluacls_const_integer(L, "UNKNOWN", (lua_Integer)cocos2d::PhysicsShape::Type::UNKNOWN);
 
-    olua_registerluatype<cocos2d::PhysicsShape::Type>(L, "cc.PhysicsShape.Type");
     oluacls_asenum(L);
-    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_PhysicsShape___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::PhysicsShape *)olua_toobj(L, 1, "cc.PhysicsShape");
+    olua_push_cppobj(L, self, "cc.PhysicsShape");
+
+    olua_endinvoke(L);
 
     return 1;
 }
@@ -4133,8 +4903,6 @@ static int luaopen_cocos2d_PhysicsShape_Type(lua_State *L)
 static int _cocos2d_PhysicsShape_calculateDefaultMoment(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsShape *self = nullptr;
 
@@ -4153,15 +4921,13 @@ static int _cocos2d_PhysicsShape_containsPoint(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsShape *self = nullptr;
     cocos2d::Vec2 arg1;       /** point */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsShape");
     auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // bool containsPoint(const Vec2& point)
+    // bool containsPoint(const cocos2d::Vec2 &point)
     bool ret = (bool)self->containsPoint(arg1);
     int num_ret = olua_push_bool(L, ret);
 
@@ -4173,8 +4939,6 @@ static int _cocos2d_PhysicsShape_containsPoint(lua_State *L)
 static int _cocos2d_PhysicsShape_getArea(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsShape *self = nullptr;
 
@@ -4193,13 +4957,11 @@ static int _cocos2d_PhysicsShape_getBody(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsShape *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsShape");
 
-    // PhysicsBody* getBody()
+    // cocos2d::PhysicsBody *getBody()
     cocos2d::PhysicsBody *ret = (cocos2d::PhysicsBody *)self->getBody();
     int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsBody");
 
@@ -4211,8 +4973,6 @@ static int _cocos2d_PhysicsShape_getBody(lua_State *L)
 static int _cocos2d_PhysicsShape_getCategoryBitmask(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsShape *self = nullptr;
 
@@ -4231,13 +4991,11 @@ static int _cocos2d_PhysicsShape_getCenter(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsShape *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsShape");
 
-    // Vec2 getCenter()
+    // cocos2d::Vec2 getCenter()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getCenter();
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
@@ -4249,8 +5007,6 @@ static int _cocos2d_PhysicsShape_getCenter(lua_State *L)
 static int _cocos2d_PhysicsShape_getCollisionBitmask(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsShape *self = nullptr;
 
@@ -4269,8 +5025,6 @@ static int _cocos2d_PhysicsShape_getContactTestBitmask(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsShape *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsShape");
@@ -4287,8 +5041,6 @@ static int _cocos2d_PhysicsShape_getContactTestBitmask(lua_State *L)
 static int _cocos2d_PhysicsShape_getDensity(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsShape *self = nullptr;
 
@@ -4307,8 +5059,6 @@ static int _cocos2d_PhysicsShape_getFriction(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsShape *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsShape");
@@ -4325,8 +5075,6 @@ static int _cocos2d_PhysicsShape_getFriction(lua_State *L)
 static int _cocos2d_PhysicsShape_getGroup(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsShape *self = nullptr;
 
@@ -4345,8 +5093,6 @@ static int _cocos2d_PhysicsShape_getMass(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsShape *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsShape");
@@ -4364,13 +5110,11 @@ static int _cocos2d_PhysicsShape_getMaterial(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsShape *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsShape");
 
-    // const PhysicsMaterial& getMaterial()
+    // const cocos2d::PhysicsMaterial &getMaterial()
     const cocos2d::PhysicsMaterial &ret = (const cocos2d::PhysicsMaterial &)self->getMaterial();
     int num_ret = auto_olua_push_cocos2d_PhysicsMaterial(L, &ret);
 
@@ -4382,8 +5126,6 @@ static int _cocos2d_PhysicsShape_getMaterial(lua_State *L)
 static int _cocos2d_PhysicsShape_getMoment(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsShape *self = nullptr;
 
@@ -4402,13 +5144,11 @@ static int _cocos2d_PhysicsShape_getOffset(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsShape *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsShape");
 
-    // Vec2 getOffset()
+    // cocos2d::Vec2 getOffset()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getOffset();
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
@@ -4420,8 +5160,6 @@ static int _cocos2d_PhysicsShape_getOffset(lua_State *L)
 static int _cocos2d_PhysicsShape_getRestitution(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsShape *self = nullptr;
 
@@ -4440,8 +5178,6 @@ static int _cocos2d_PhysicsShape_getTag(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsShape *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsShape");
@@ -4459,13 +5195,11 @@ static int _cocos2d_PhysicsShape_getType(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsShape *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsShape");
 
-    // Type getType()
+    // cocos2d::PhysicsShape::Type getType()
     cocos2d::PhysicsShape::Type ret = (cocos2d::PhysicsShape::Type)self->getType();
     int num_ret = olua_push_uint(L, (lua_Unsigned)ret);
 
@@ -4477,8 +5211,6 @@ static int _cocos2d_PhysicsShape_getType(lua_State *L)
 static int _cocos2d_PhysicsShape_isSensor(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsShape *self = nullptr;
 
@@ -4496,8 +5228,6 @@ static int _cocos2d_PhysicsShape_isSensor(lua_State *L)
 static int _cocos2d_PhysicsShape_setCategoryBitmask(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 2);
 
     cocos2d::PhysicsShape *self = nullptr;
     lua_Integer arg1 = 0;       /** bitmask */
@@ -4517,8 +5247,6 @@ static int _cocos2d_PhysicsShape_setCollisionBitmask(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsShape *self = nullptr;
     lua_Integer arg1 = 0;       /** bitmask */
 
@@ -4536,8 +5264,6 @@ static int _cocos2d_PhysicsShape_setCollisionBitmask(lua_State *L)
 static int _cocos2d_PhysicsShape_setContactTestBitmask(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 2);
 
     cocos2d::PhysicsShape *self = nullptr;
     lua_Integer arg1 = 0;       /** bitmask */
@@ -4557,8 +5283,6 @@ static int _cocos2d_PhysicsShape_setDensity(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsShape *self = nullptr;
     lua_Number arg1 = 0;       /** density */
 
@@ -4576,8 +5300,6 @@ static int _cocos2d_PhysicsShape_setDensity(lua_State *L)
 static int _cocos2d_PhysicsShape_setFriction(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 2);
 
     cocos2d::PhysicsShape *self = nullptr;
     lua_Number arg1 = 0;       /** friction */
@@ -4597,8 +5319,6 @@ static int _cocos2d_PhysicsShape_setGroup(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsShape *self = nullptr;
     lua_Integer arg1 = 0;       /** group */
 
@@ -4616,8 +5336,6 @@ static int _cocos2d_PhysicsShape_setGroup(lua_State *L)
 static int _cocos2d_PhysicsShape_setMass(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 2);
 
     cocos2d::PhysicsShape *self = nullptr;
     lua_Number arg1 = 0;       /** mass */
@@ -4637,15 +5355,13 @@ static int _cocos2d_PhysicsShape_setMaterial(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsShape *self = nullptr;
     cocos2d::PhysicsMaterial arg1;       /** material */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsShape");
     auto_olua_check_cocos2d_PhysicsMaterial(L, 2, &arg1);
 
-    // void setMaterial(const PhysicsMaterial& material)
+    // void setMaterial(const cocos2d::PhysicsMaterial &material)
     self->setMaterial(arg1);
 
     olua_endinvoke(L);
@@ -4656,8 +5372,6 @@ static int _cocos2d_PhysicsShape_setMaterial(lua_State *L)
 static int _cocos2d_PhysicsShape_setMoment(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 2);
 
     cocos2d::PhysicsShape *self = nullptr;
     lua_Number arg1 = 0;       /** moment */
@@ -4677,8 +5391,6 @@ static int _cocos2d_PhysicsShape_setRestitution(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsShape *self = nullptr;
     lua_Number arg1 = 0;       /** restitution */
 
@@ -4696,8 +5408,6 @@ static int _cocos2d_PhysicsShape_setRestitution(lua_State *L)
 static int _cocos2d_PhysicsShape_setSensor(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 2);
 
     cocos2d::PhysicsShape *self = nullptr;
     bool arg1 = false;       /** sensor */
@@ -4717,8 +5427,6 @@ static int _cocos2d_PhysicsShape_setTag(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsShape *self = nullptr;
     lua_Integer arg1 = 0;       /** tag */
 
@@ -4736,6 +5444,7 @@ static int _cocos2d_PhysicsShape_setTag(lua_State *L)
 static int luaopen_cocos2d_PhysicsShape(lua_State *L)
 {
     oluacls_class(L, "cc.PhysicsShape", "cc.Ref");
+    oluacls_func(L, "__move", _cocos2d_PhysicsShape___move);
     oluacls_func(L, "calculateDefaultMoment", _cocos2d_PhysicsShape_calculateDefaultMoment);
     oluacls_func(L, "containsPoint", _cocos2d_PhysicsShape_containsPoint);
     oluacls_func(L, "getArea", _cocos2d_PhysicsShape_getArea);
@@ -4786,7 +5495,18 @@ static int luaopen_cocos2d_PhysicsShape(lua_State *L)
     oluacls_prop(L, "type", _cocos2d_PhysicsShape_getType, nullptr);
 
     olua_registerluatype<cocos2d::PhysicsShape>(L, "cc.PhysicsShape");
-    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_PhysicsShapePolygon___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::PhysicsShapePolygon *)olua_toobj(L, 1, "cc.PhysicsShapePolygon");
+    olua_push_cppobj(L, self, "cc.PhysicsShapePolygon");
+
+    olua_endinvoke(L);
 
     return 1;
 }
@@ -4795,15 +5515,13 @@ static int _cocos2d_PhysicsShapePolygon_getPoint(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsShapePolygon *self = nullptr;
     lua_Integer arg1 = 0;       /** i */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsShapePolygon");
     olua_check_int(L, 2, &arg1);
 
-    // Vec2 getPoint(int i)
+    // cocos2d::Vec2 getPoint(int i)
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getPoint((int)arg1);
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
@@ -4815,8 +5533,6 @@ static int _cocos2d_PhysicsShapePolygon_getPoint(lua_State *L)
 static int _cocos2d_PhysicsShapePolygon_getPointsCount(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsShapePolygon *self = nullptr;
 
@@ -4834,12 +5550,24 @@ static int _cocos2d_PhysicsShapePolygon_getPointsCount(lua_State *L)
 static int luaopen_cocos2d_PhysicsShapePolygon(lua_State *L)
 {
     oluacls_class(L, "cc.PhysicsShapePolygon", "cc.PhysicsShape");
+    oluacls_func(L, "__move", _cocos2d_PhysicsShapePolygon___move);
     oluacls_func(L, "getPoint", _cocos2d_PhysicsShapePolygon_getPoint);
     oluacls_func(L, "getPointsCount", _cocos2d_PhysicsShapePolygon_getPointsCount);
     oluacls_prop(L, "pointsCount", _cocos2d_PhysicsShapePolygon_getPointsCount, nullptr);
 
     olua_registerluatype<cocos2d::PhysicsShapePolygon>(L, "cc.PhysicsShapePolygon");
-    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_PhysicsShapeEdgePolygon___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::PhysicsShapeEdgePolygon *)olua_toobj(L, 1, "cc.PhysicsShapeEdgePolygon");
+    olua_push_cppobj(L, self, "cc.PhysicsShapeEdgePolygon");
+
+    olua_endinvoke(L);
 
     return 1;
 }
@@ -4847,8 +5575,6 @@ static int luaopen_cocos2d_PhysicsShapePolygon(lua_State *L)
 static int _cocos2d_PhysicsShapeEdgePolygon_getPointsCount(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsShapeEdgePolygon *self = nullptr;
 
@@ -4866,20 +5592,30 @@ static int _cocos2d_PhysicsShapeEdgePolygon_getPointsCount(lua_State *L)
 static int luaopen_cocos2d_PhysicsShapeEdgePolygon(lua_State *L)
 {
     oluacls_class(L, "cc.PhysicsShapeEdgePolygon", "cc.PhysicsShape");
+    oluacls_func(L, "__move", _cocos2d_PhysicsShapeEdgePolygon___move);
     oluacls_func(L, "getPointsCount", _cocos2d_PhysicsShapeEdgePolygon_getPointsCount);
     oluacls_prop(L, "pointsCount", _cocos2d_PhysicsShapeEdgePolygon_getPointsCount, nullptr);
 
     olua_registerluatype<cocos2d::PhysicsShapeEdgePolygon>(L, "cc.PhysicsShapeEdgePolygon");
-    oluacls_createclassproxy(L);
 
     return 1;
 }
 
-static int _cocos2d_PhysicsShapeBox_create(lua_State *L)
+static int _cocos2d_PhysicsShapeBox___move(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 4);
+    auto self = (cocos2d::PhysicsShapeBox *)olua_toobj(L, 1, "cc.PhysicsShapeBox");
+    olua_push_cppobj(L, self, "cc.PhysicsShapeBox");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _cocos2d_PhysicsShapeBox_create1(lua_State *L)
+{
+    olua_startinvoke(L);
 
     cocos2d::Size arg1;       /** size */
     cocos2d::PhysicsMaterial arg2;       /** material */
@@ -4887,11 +5623,11 @@ static int _cocos2d_PhysicsShapeBox_create(lua_State *L)
     lua_Number arg4 = 0;       /** radius */
 
     auto_olua_check_cocos2d_Size(L, 1, &arg1);
-    auto_olua_opt_cocos2d_PhysicsMaterial(L, 2, &arg2, (cocos2d::PhysicsMaterial)PHYSICSSHAPE_MATERIAL_DEFAULT);
-    auto_olua_opt_cocos2d_Vec2(L, 3, &arg3, (cocos2d::Vec2)cocos2d::Vec2::ZERO);
-    olua_opt_number(L, 4, &arg4, (lua_Number)0.0f);
+    auto_olua_check_cocos2d_PhysicsMaterial(L, 2, &arg2);
+    auto_olua_check_cocos2d_Vec2(L, 3, &arg3);
+    olua_check_number(L, 4, &arg4);
 
-    // static PhysicsShapeBox* create(const Size& size, const PhysicsMaterial& material = PHYSICSSHAPE_MATERIAL_DEFAULT, const Vec2& offset = Vec2::ZERO, float radius = 0.0f)
+    // static cocos2d::PhysicsShapeBox *create(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset, @optional float radius)
     cocos2d::PhysicsShapeBox *ret = (cocos2d::PhysicsShapeBox *)cocos2d::PhysicsShapeBox::create(arg1, arg2, arg3, (float)arg4);
     int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsShapeBox");
 
@@ -4900,17 +5636,109 @@ static int _cocos2d_PhysicsShapeBox_create(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_PhysicsShapeBox_getSize(lua_State *L)
+static int _cocos2d_PhysicsShapeBox_create2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
+    cocos2d::Size arg1;       /** size */
+
+    auto_olua_check_cocos2d_Size(L, 1, &arg1);
+
+    // static cocos2d::PhysicsShapeBox *create(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset, @optional float radius)
+    cocos2d::PhysicsShapeBox *ret = (cocos2d::PhysicsShapeBox *)cocos2d::PhysicsShapeBox::create(arg1);
+    int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsShapeBox");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_PhysicsShapeBox_create3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Size arg1;       /** size */
+    cocos2d::PhysicsMaterial arg2;       /** material */
+
+    auto_olua_check_cocos2d_Size(L, 1, &arg1);
+    auto_olua_check_cocos2d_PhysicsMaterial(L, 2, &arg2);
+
+    // static cocos2d::PhysicsShapeBox *create(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset, @optional float radius)
+    cocos2d::PhysicsShapeBox *ret = (cocos2d::PhysicsShapeBox *)cocos2d::PhysicsShapeBox::create(arg1, arg2);
+    int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsShapeBox");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_PhysicsShapeBox_create4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Size arg1;       /** size */
+    cocos2d::PhysicsMaterial arg2;       /** material */
+    cocos2d::Vec2 arg3;       /** offset */
+
+    auto_olua_check_cocos2d_Size(L, 1, &arg1);
+    auto_olua_check_cocos2d_PhysicsMaterial(L, 2, &arg2);
+    auto_olua_check_cocos2d_Vec2(L, 3, &arg3);
+
+    // static cocos2d::PhysicsShapeBox *create(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset, @optional float radius)
+    cocos2d::PhysicsShapeBox *ret = (cocos2d::PhysicsShapeBox *)cocos2d::PhysicsShapeBox::create(arg1, arg2, arg3);
+    int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsShapeBox");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_PhysicsShapeBox_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 1) {
+        // if ((auto_olua_is_cocos2d_Size(L, 1))) {
+            // static cocos2d::PhysicsShapeBox *create(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset, @optional float radius)
+            return _cocos2d_PhysicsShapeBox_create2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((auto_olua_is_cocos2d_Size(L, 1)) && (auto_olua_is_cocos2d_PhysicsMaterial(L, 2))) {
+            // static cocos2d::PhysicsShapeBox *create(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset, @optional float radius)
+            return _cocos2d_PhysicsShapeBox_create3(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((auto_olua_is_cocos2d_Size(L, 1)) && (auto_olua_is_cocos2d_PhysicsMaterial(L, 2)) && (auto_olua_is_cocos2d_Vec2(L, 3))) {
+            // static cocos2d::PhysicsShapeBox *create(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset, @optional float radius)
+            return _cocos2d_PhysicsShapeBox_create4(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if ((auto_olua_is_cocos2d_Size(L, 1)) && (auto_olua_is_cocos2d_PhysicsMaterial(L, 2)) && (auto_olua_is_cocos2d_Vec2(L, 3)) && (olua_is_number(L, 4))) {
+            // static cocos2d::PhysicsShapeBox *create(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset, @optional float radius)
+            return _cocos2d_PhysicsShapeBox_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::PhysicsShapeBox::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_PhysicsShapeBox_getSize(lua_State *L)
+{
+    olua_startinvoke(L);
 
     cocos2d::PhysicsShapeBox *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsShapeBox");
 
-    // Size getSize()
+    // cocos2d::Size getSize()
     cocos2d::Size ret = (cocos2d::Size)self->getSize();
     int num_ret = auto_olua_push_cocos2d_Size(L, &ret);
 
@@ -4922,12 +5750,24 @@ static int _cocos2d_PhysicsShapeBox_getSize(lua_State *L)
 static int luaopen_cocos2d_PhysicsShapeBox(lua_State *L)
 {
     oluacls_class(L, "cc.PhysicsShapeBox", "cc.PhysicsShapePolygon");
+    oluacls_func(L, "__move", _cocos2d_PhysicsShapeBox___move);
     oluacls_func(L, "create", _cocos2d_PhysicsShapeBox_create);
     oluacls_func(L, "getSize", _cocos2d_PhysicsShapeBox_getSize);
     oluacls_prop(L, "size", _cocos2d_PhysicsShapeBox_getSize, nullptr);
 
     olua_registerluatype<cocos2d::PhysicsShapeBox>(L, "cc.PhysicsShapeBox");
-    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_PhysicsShapeCircle___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::PhysicsShapeCircle *)olua_toobj(L, 1, "cc.PhysicsShapeCircle");
+    olua_push_cppobj(L, self, "cc.PhysicsShapeCircle");
+
+    olua_endinvoke(L);
 
     return 1;
 }
@@ -4935,8 +5775,6 @@ static int luaopen_cocos2d_PhysicsShapeBox(lua_State *L)
 static int _cocos2d_PhysicsShapeCircle_calculateArea(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     lua_Number arg1 = 0;       /** radius */
 
@@ -4951,11 +5789,9 @@ static int _cocos2d_PhysicsShapeCircle_calculateArea(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_PhysicsShapeCircle_calculateMoment(lua_State *L)
+static int _cocos2d_PhysicsShapeCircle_calculateMoment1(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 3);
 
     lua_Number arg1 = 0;       /** mass */
     lua_Number arg2 = 0;       /** radius */
@@ -4963,9 +5799,9 @@ static int _cocos2d_PhysicsShapeCircle_calculateMoment(lua_State *L)
 
     olua_check_number(L, 1, &arg1);
     olua_check_number(L, 2, &arg2);
-    auto_olua_opt_cocos2d_Vec2(L, 3, &arg3, (cocos2d::Vec2)cocos2d::Vec2::ZERO);
+    auto_olua_check_cocos2d_Vec2(L, 3, &arg3);
 
-    // static float calculateMoment(float mass, float radius, const Vec2& offset = Vec2::ZERO)
+    // static float calculateMoment(float mass, float radius, @optional const cocos2d::Vec2 &offset)
     float ret = (float)cocos2d::PhysicsShapeCircle::calculateMoment((float)arg1, (float)arg2, arg3);
     int num_ret = olua_push_number(L, (lua_Number)ret);
 
@@ -4974,21 +5810,61 @@ static int _cocos2d_PhysicsShapeCircle_calculateMoment(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_PhysicsShapeCircle_create(lua_State *L)
+static int _cocos2d_PhysicsShapeCircle_calculateMoment2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 3);
+    lua_Number arg1 = 0;       /** mass */
+    lua_Number arg2 = 0;       /** radius */
+
+    olua_check_number(L, 1, &arg1);
+    olua_check_number(L, 2, &arg2);
+
+    // static float calculateMoment(float mass, float radius, @optional const cocos2d::Vec2 &offset)
+    float ret = (float)cocos2d::PhysicsShapeCircle::calculateMoment((float)arg1, (float)arg2);
+    int num_ret = olua_push_number(L, (lua_Number)ret);
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_PhysicsShapeCircle_calculateMoment(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 2) {
+        // if ((olua_is_number(L, 1)) && (olua_is_number(L, 2))) {
+            // static float calculateMoment(float mass, float radius, @optional const cocos2d::Vec2 &offset)
+            return _cocos2d_PhysicsShapeCircle_calculateMoment2(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_number(L, 1)) && (olua_is_number(L, 2)) && (auto_olua_is_cocos2d_Vec2(L, 3))) {
+            // static float calculateMoment(float mass, float radius, @optional const cocos2d::Vec2 &offset)
+            return _cocos2d_PhysicsShapeCircle_calculateMoment1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::PhysicsShapeCircle::calculateMoment' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_PhysicsShapeCircle_create1(lua_State *L)
+{
+    olua_startinvoke(L);
 
     lua_Number arg1 = 0;       /** radius */
     cocos2d::PhysicsMaterial arg2;       /** material */
     cocos2d::Vec2 arg3;       /** offset */
 
     olua_check_number(L, 1, &arg1);
-    auto_olua_opt_cocos2d_PhysicsMaterial(L, 2, &arg2, (cocos2d::PhysicsMaterial)PHYSICSSHAPE_MATERIAL_DEFAULT);
-    auto_olua_opt_cocos2d_Vec2(L, 3, &arg3, (cocos2d::Vec2)cocos2d::Vec2(0, 0));
+    auto_olua_check_cocos2d_PhysicsMaterial(L, 2, &arg2);
+    auto_olua_check_cocos2d_Vec2(L, 3, &arg3);
 
-    // static PhysicsShapeCircle* create(float radius, const PhysicsMaterial& material = PHYSICSSHAPE_MATERIAL_DEFAULT, const Vec2& offset = Vec2(0, 0))
+    // static cocos2d::PhysicsShapeCircle *create(float radius, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset)
     cocos2d::PhysicsShapeCircle *ret = (cocos2d::PhysicsShapeCircle *)cocos2d::PhysicsShapeCircle::create((float)arg1, arg2, arg3);
     int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsShapeCircle");
 
@@ -4997,11 +5873,75 @@ static int _cocos2d_PhysicsShapeCircle_create(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_PhysicsShapeCircle_getRadius(lua_State *L)
+static int _cocos2d_PhysicsShapeCircle_create2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
+    lua_Number arg1 = 0;       /** radius */
+
+    olua_check_number(L, 1, &arg1);
+
+    // static cocos2d::PhysicsShapeCircle *create(float radius, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset)
+    cocos2d::PhysicsShapeCircle *ret = (cocos2d::PhysicsShapeCircle *)cocos2d::PhysicsShapeCircle::create((float)arg1);
+    int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsShapeCircle");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_PhysicsShapeCircle_create3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    lua_Number arg1 = 0;       /** radius */
+    cocos2d::PhysicsMaterial arg2;       /** material */
+
+    olua_check_number(L, 1, &arg1);
+    auto_olua_check_cocos2d_PhysicsMaterial(L, 2, &arg2);
+
+    // static cocos2d::PhysicsShapeCircle *create(float radius, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset)
+    cocos2d::PhysicsShapeCircle *ret = (cocos2d::PhysicsShapeCircle *)cocos2d::PhysicsShapeCircle::create((float)arg1, arg2);
+    int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsShapeCircle");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_PhysicsShapeCircle_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 1) {
+        // if ((olua_is_number(L, 1))) {
+            // static cocos2d::PhysicsShapeCircle *create(float radius, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset)
+            return _cocos2d_PhysicsShapeCircle_create2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_number(L, 1)) && (auto_olua_is_cocos2d_PhysicsMaterial(L, 2))) {
+            // static cocos2d::PhysicsShapeCircle *create(float radius, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset)
+            return _cocos2d_PhysicsShapeCircle_create3(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((olua_is_number(L, 1)) && (auto_olua_is_cocos2d_PhysicsMaterial(L, 2)) && (auto_olua_is_cocos2d_Vec2(L, 3))) {
+            // static cocos2d::PhysicsShapeCircle *create(float radius, @optional const cocos2d::PhysicsMaterial &material, @optional const cocos2d::Vec2 &offset)
+            return _cocos2d_PhysicsShapeCircle_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::PhysicsShapeCircle::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_PhysicsShapeCircle_getRadius(lua_State *L)
+{
+    olua_startinvoke(L);
 
     cocos2d::PhysicsShapeCircle *self = nullptr;
 
@@ -5019,6 +5959,7 @@ static int _cocos2d_PhysicsShapeCircle_getRadius(lua_State *L)
 static int luaopen_cocos2d_PhysicsShapeCircle(lua_State *L)
 {
     oluacls_class(L, "cc.PhysicsShapeCircle", "cc.PhysicsShape");
+    oluacls_func(L, "__move", _cocos2d_PhysicsShapeCircle___move);
     oluacls_func(L, "calculateArea", _cocos2d_PhysicsShapeCircle_calculateArea);
     oluacls_func(L, "calculateMoment", _cocos2d_PhysicsShapeCircle_calculateMoment);
     oluacls_func(L, "create", _cocos2d_PhysicsShapeCircle_create);
@@ -5026,16 +5967,25 @@ static int luaopen_cocos2d_PhysicsShapeCircle(lua_State *L)
     oluacls_prop(L, "radius", _cocos2d_PhysicsShapeCircle_getRadius, nullptr);
 
     olua_registerluatype<cocos2d::PhysicsShapeCircle>(L, "cc.PhysicsShapeCircle");
-    oluacls_createclassproxy(L);
 
     return 1;
 }
 
-static int _cocos2d_PhysicsShapeEdgeBox_create(lua_State *L)
+static int _cocos2d_PhysicsShapeEdgeBox___move(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 4);
+    auto self = (cocos2d::PhysicsShapeEdgeBox *)olua_toobj(L, 1, "cc.PhysicsShapeEdgeBox");
+    olua_push_cppobj(L, self, "cc.PhysicsShapeEdgeBox");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _cocos2d_PhysicsShapeEdgeBox_create1(lua_State *L)
+{
+    olua_startinvoke(L);
 
     cocos2d::Size arg1;       /** size */
     cocos2d::PhysicsMaterial arg2;       /** material */
@@ -5043,11 +5993,11 @@ static int _cocos2d_PhysicsShapeEdgeBox_create(lua_State *L)
     cocos2d::Vec2 arg4;       /** offset */
 
     auto_olua_check_cocos2d_Size(L, 1, &arg1);
-    auto_olua_opt_cocos2d_PhysicsMaterial(L, 2, &arg2, (cocos2d::PhysicsMaterial)PHYSICSSHAPE_MATERIAL_DEFAULT);
-    olua_opt_number(L, 3, &arg3, (lua_Number)0);
-    auto_olua_opt_cocos2d_Vec2(L, 4, &arg4, (cocos2d::Vec2)cocos2d::Vec2::ZERO);
+    auto_olua_check_cocos2d_PhysicsMaterial(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+    auto_olua_check_cocos2d_Vec2(L, 4, &arg4);
 
-    // static PhysicsShapeEdgeBox* create(const Size& size, const PhysicsMaterial& material = PHYSICSSHAPE_MATERIAL_DEFAULT, float border = 0, const Vec2& offset = Vec2::ZERO)
+    // static cocos2d::PhysicsShapeEdgeBox *create(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional float border, @optional const cocos2d::Vec2 &offset)
     cocos2d::PhysicsShapeEdgeBox *ret = (cocos2d::PhysicsShapeEdgeBox *)cocos2d::PhysicsShapeEdgeBox::create(arg1, arg2, (float)arg3, arg4);
     int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsShapeEdgeBox");
 
@@ -5056,13 +6006,119 @@ static int _cocos2d_PhysicsShapeEdgeBox_create(lua_State *L)
     return num_ret;
 }
 
+static int _cocos2d_PhysicsShapeEdgeBox_create2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Size arg1;       /** size */
+
+    auto_olua_check_cocos2d_Size(L, 1, &arg1);
+
+    // static cocos2d::PhysicsShapeEdgeBox *create(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional float border, @optional const cocos2d::Vec2 &offset)
+    cocos2d::PhysicsShapeEdgeBox *ret = (cocos2d::PhysicsShapeEdgeBox *)cocos2d::PhysicsShapeEdgeBox::create(arg1);
+    int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsShapeEdgeBox");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_PhysicsShapeEdgeBox_create3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Size arg1;       /** size */
+    cocos2d::PhysicsMaterial arg2;       /** material */
+
+    auto_olua_check_cocos2d_Size(L, 1, &arg1);
+    auto_olua_check_cocos2d_PhysicsMaterial(L, 2, &arg2);
+
+    // static cocos2d::PhysicsShapeEdgeBox *create(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional float border, @optional const cocos2d::Vec2 &offset)
+    cocos2d::PhysicsShapeEdgeBox *ret = (cocos2d::PhysicsShapeEdgeBox *)cocos2d::PhysicsShapeEdgeBox::create(arg1, arg2);
+    int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsShapeEdgeBox");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_PhysicsShapeEdgeBox_create4(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Size arg1;       /** size */
+    cocos2d::PhysicsMaterial arg2;       /** material */
+    lua_Number arg3 = 0;       /** border */
+
+    auto_olua_check_cocos2d_Size(L, 1, &arg1);
+    auto_olua_check_cocos2d_PhysicsMaterial(L, 2, &arg2);
+    olua_check_number(L, 3, &arg3);
+
+    // static cocos2d::PhysicsShapeEdgeBox *create(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional float border, @optional const cocos2d::Vec2 &offset)
+    cocos2d::PhysicsShapeEdgeBox *ret = (cocos2d::PhysicsShapeEdgeBox *)cocos2d::PhysicsShapeEdgeBox::create(arg1, arg2, (float)arg3);
+    int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsShapeEdgeBox");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_PhysicsShapeEdgeBox_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 1) {
+        // if ((auto_olua_is_cocos2d_Size(L, 1))) {
+            // static cocos2d::PhysicsShapeEdgeBox *create(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional float border, @optional const cocos2d::Vec2 &offset)
+            return _cocos2d_PhysicsShapeEdgeBox_create2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((auto_olua_is_cocos2d_Size(L, 1)) && (auto_olua_is_cocos2d_PhysicsMaterial(L, 2))) {
+            // static cocos2d::PhysicsShapeEdgeBox *create(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional float border, @optional const cocos2d::Vec2 &offset)
+            return _cocos2d_PhysicsShapeEdgeBox_create3(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((auto_olua_is_cocos2d_Size(L, 1)) && (auto_olua_is_cocos2d_PhysicsMaterial(L, 2)) && (olua_is_number(L, 3))) {
+            // static cocos2d::PhysicsShapeEdgeBox *create(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional float border, @optional const cocos2d::Vec2 &offset)
+            return _cocos2d_PhysicsShapeEdgeBox_create4(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if ((auto_olua_is_cocos2d_Size(L, 1)) && (auto_olua_is_cocos2d_PhysicsMaterial(L, 2)) && (olua_is_number(L, 3)) && (auto_olua_is_cocos2d_Vec2(L, 4))) {
+            // static cocos2d::PhysicsShapeEdgeBox *create(const cocos2d::Size &size, @optional const cocos2d::PhysicsMaterial &material, @optional float border, @optional const cocos2d::Vec2 &offset)
+            return _cocos2d_PhysicsShapeEdgeBox_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::PhysicsShapeEdgeBox::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
 static int luaopen_cocos2d_PhysicsShapeEdgeBox(lua_State *L)
 {
     oluacls_class(L, "cc.PhysicsShapeEdgeBox", "cc.PhysicsShapeEdgePolygon");
+    oluacls_func(L, "__move", _cocos2d_PhysicsShapeEdgeBox___move);
     oluacls_func(L, "create", _cocos2d_PhysicsShapeEdgeBox_create);
 
     olua_registerluatype<cocos2d::PhysicsShapeEdgeBox>(L, "cc.PhysicsShapeEdgeBox");
-    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_PhysicsShapeEdgeChain___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::PhysicsShapeEdgeChain *)olua_toobj(L, 1, "cc.PhysicsShapeEdgeChain");
+    olua_push_cppobj(L, self, "cc.PhysicsShapeEdgeChain");
+
+    olua_endinvoke(L);
 
     return 1;
 }
@@ -5070,8 +6126,6 @@ static int luaopen_cocos2d_PhysicsShapeEdgeBox(lua_State *L)
 static int _cocos2d_PhysicsShapeEdgeChain_getPointsCount(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsShapeEdgeChain *self = nullptr;
 
@@ -5089,20 +6143,30 @@ static int _cocos2d_PhysicsShapeEdgeChain_getPointsCount(lua_State *L)
 static int luaopen_cocos2d_PhysicsShapeEdgeChain(lua_State *L)
 {
     oluacls_class(L, "cc.PhysicsShapeEdgeChain", "cc.PhysicsShape");
+    oluacls_func(L, "__move", _cocos2d_PhysicsShapeEdgeChain___move);
     oluacls_func(L, "getPointsCount", _cocos2d_PhysicsShapeEdgeChain_getPointsCount);
     oluacls_prop(L, "pointsCount", _cocos2d_PhysicsShapeEdgeChain_getPointsCount, nullptr);
 
     olua_registerluatype<cocos2d::PhysicsShapeEdgeChain>(L, "cc.PhysicsShapeEdgeChain");
-    oluacls_createclassproxy(L);
 
     return 1;
 }
 
-static int _cocos2d_PhysicsShapeEdgeSegment_create(lua_State *L)
+static int _cocos2d_PhysicsShapeEdgeSegment___move(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 4);
+    auto self = (cocos2d::PhysicsShapeEdgeSegment *)olua_toobj(L, 1, "cc.PhysicsShapeEdgeSegment");
+    olua_push_cppobj(L, self, "cc.PhysicsShapeEdgeSegment");
+
+    olua_endinvoke(L);
+
+    return 1;
+}
+
+static int _cocos2d_PhysicsShapeEdgeSegment_create1(lua_State *L)
+{
+    olua_startinvoke(L);
 
     cocos2d::Vec2 arg1;       /** a */
     cocos2d::Vec2 arg2;       /** b */
@@ -5111,10 +6175,10 @@ static int _cocos2d_PhysicsShapeEdgeSegment_create(lua_State *L)
 
     auto_olua_check_cocos2d_Vec2(L, 1, &arg1);
     auto_olua_check_cocos2d_Vec2(L, 2, &arg2);
-    auto_olua_opt_cocos2d_PhysicsMaterial(L, 3, &arg3, (cocos2d::PhysicsMaterial)PHYSICSSHAPE_MATERIAL_DEFAULT);
-    olua_opt_number(L, 4, &arg4, (lua_Number)1);
+    auto_olua_check_cocos2d_PhysicsMaterial(L, 3, &arg3);
+    olua_check_number(L, 4, &arg4);
 
-    // static PhysicsShapeEdgeSegment* create(const Vec2& a, const Vec2& b, const PhysicsMaterial& material = PHYSICSSHAPE_MATERIAL_DEFAULT, float border = 1)
+    // static cocos2d::PhysicsShapeEdgeSegment *create(const cocos2d::Vec2 &a, const cocos2d::Vec2 &b, @optional const cocos2d::PhysicsMaterial &material, @optional float border)
     cocos2d::PhysicsShapeEdgeSegment *ret = (cocos2d::PhysicsShapeEdgeSegment *)cocos2d::PhysicsShapeEdgeSegment::create(arg1, arg2, arg3, (float)arg4);
     int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsShapeEdgeSegment");
 
@@ -5123,17 +6187,85 @@ static int _cocos2d_PhysicsShapeEdgeSegment_create(lua_State *L)
     return num_ret;
 }
 
-static int _cocos2d_PhysicsShapeEdgeSegment_getPointA(lua_State *L)
+static int _cocos2d_PhysicsShapeEdgeSegment_create2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
+    cocos2d::Vec2 arg1;       /** a */
+    cocos2d::Vec2 arg2;       /** b */
+
+    auto_olua_check_cocos2d_Vec2(L, 1, &arg1);
+    auto_olua_check_cocos2d_Vec2(L, 2, &arg2);
+
+    // static cocos2d::PhysicsShapeEdgeSegment *create(const cocos2d::Vec2 &a, const cocos2d::Vec2 &b, @optional const cocos2d::PhysicsMaterial &material, @optional float border)
+    cocos2d::PhysicsShapeEdgeSegment *ret = (cocos2d::PhysicsShapeEdgeSegment *)cocos2d::PhysicsShapeEdgeSegment::create(arg1, arg2);
+    int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsShapeEdgeSegment");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_PhysicsShapeEdgeSegment_create3(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::Vec2 arg1;       /** a */
+    cocos2d::Vec2 arg2;       /** b */
+    cocos2d::PhysicsMaterial arg3;       /** material */
+
+    auto_olua_check_cocos2d_Vec2(L, 1, &arg1);
+    auto_olua_check_cocos2d_Vec2(L, 2, &arg2);
+    auto_olua_check_cocos2d_PhysicsMaterial(L, 3, &arg3);
+
+    // static cocos2d::PhysicsShapeEdgeSegment *create(const cocos2d::Vec2 &a, const cocos2d::Vec2 &b, @optional const cocos2d::PhysicsMaterial &material, @optional float border)
+    cocos2d::PhysicsShapeEdgeSegment *ret = (cocos2d::PhysicsShapeEdgeSegment *)cocos2d::PhysicsShapeEdgeSegment::create(arg1, arg2, arg3);
+    int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsShapeEdgeSegment");
+
+    olua_endinvoke(L);
+
+    return num_ret;
+}
+
+static int _cocos2d_PhysicsShapeEdgeSegment_create(lua_State *L)
+{
+    int num_args = lua_gettop(L);
+
+    if (num_args == 2) {
+        // if ((auto_olua_is_cocos2d_Vec2(L, 1)) && (auto_olua_is_cocos2d_Vec2(L, 2))) {
+            // static cocos2d::PhysicsShapeEdgeSegment *create(const cocos2d::Vec2 &a, const cocos2d::Vec2 &b, @optional const cocos2d::PhysicsMaterial &material, @optional float border)
+            return _cocos2d_PhysicsShapeEdgeSegment_create2(L);
+        // }
+    }
+
+    if (num_args == 3) {
+        // if ((auto_olua_is_cocos2d_Vec2(L, 1)) && (auto_olua_is_cocos2d_Vec2(L, 2)) && (auto_olua_is_cocos2d_PhysicsMaterial(L, 3))) {
+            // static cocos2d::PhysicsShapeEdgeSegment *create(const cocos2d::Vec2 &a, const cocos2d::Vec2 &b, @optional const cocos2d::PhysicsMaterial &material, @optional float border)
+            return _cocos2d_PhysicsShapeEdgeSegment_create3(L);
+        // }
+    }
+
+    if (num_args == 4) {
+        // if ((auto_olua_is_cocos2d_Vec2(L, 1)) && (auto_olua_is_cocos2d_Vec2(L, 2)) && (auto_olua_is_cocos2d_PhysicsMaterial(L, 3)) && (olua_is_number(L, 4))) {
+            // static cocos2d::PhysicsShapeEdgeSegment *create(const cocos2d::Vec2 &a, const cocos2d::Vec2 &b, @optional const cocos2d::PhysicsMaterial &material, @optional float border)
+            return _cocos2d_PhysicsShapeEdgeSegment_create1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::PhysicsShapeEdgeSegment::create' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_PhysicsShapeEdgeSegment_getPointA(lua_State *L)
+{
+    olua_startinvoke(L);
 
     cocos2d::PhysicsShapeEdgeSegment *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsShapeEdgeSegment");
 
-    // Vec2 getPointA()
+    // cocos2d::Vec2 getPointA()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getPointA();
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
@@ -5146,13 +6278,11 @@ static int _cocos2d_PhysicsShapeEdgeSegment_getPointB(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsShapeEdgeSegment *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsShapeEdgeSegment");
 
-    // Vec2 getPointB()
+    // cocos2d::Vec2 getPointB()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getPointB();
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
@@ -5164,6 +6294,7 @@ static int _cocos2d_PhysicsShapeEdgeSegment_getPointB(lua_State *L)
 static int luaopen_cocos2d_PhysicsShapeEdgeSegment(lua_State *L)
 {
     oluacls_class(L, "cc.PhysicsShapeEdgeSegment", "cc.PhysicsShape");
+    oluacls_func(L, "__move", _cocos2d_PhysicsShapeEdgeSegment___move);
     oluacls_func(L, "create", _cocos2d_PhysicsShapeEdgeSegment_create);
     oluacls_func(L, "getPointA", _cocos2d_PhysicsShapeEdgeSegment_getPointA);
     oluacls_func(L, "getPointB", _cocos2d_PhysicsShapeEdgeSegment_getPointB);
@@ -5171,7 +6302,18 @@ static int luaopen_cocos2d_PhysicsShapeEdgeSegment(lua_State *L)
     oluacls_prop(L, "pointB", _cocos2d_PhysicsShapeEdgeSegment_getPointB, nullptr);
 
     olua_registerluatype<cocos2d::PhysicsShapeEdgeSegment>(L, "cc.PhysicsShapeEdgeSegment");
-    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_PhysicsRayCastInfo___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::PhysicsRayCastInfo *)olua_toobj(L, 1, "cc.PhysicsRayCastInfo");
+    olua_push_cppobj(L, self, "cc.PhysicsRayCastInfo");
+
+    olua_endinvoke(L);
 
     return 1;
 }
@@ -5180,13 +6322,11 @@ static int _cocos2d_PhysicsRayCastInfo_get_contact(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsRayCastInfo *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsRayCastInfo");
 
-    // Vec2 contact
+    // cocos2d::Vec2 contact
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->contact;
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
@@ -5199,15 +6339,13 @@ static int _cocos2d_PhysicsRayCastInfo_set_contact(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsRayCastInfo *self = nullptr;
     cocos2d::Vec2 arg1;       /** contact */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsRayCastInfo");
     auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // Vec2 contact
+    // cocos2d::Vec2 contact
     self->contact = arg1;
 
     olua_endinvoke(L);
@@ -5219,13 +6357,11 @@ static int _cocos2d_PhysicsRayCastInfo_get_data(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsRayCastInfo *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsRayCastInfo");
 
-    // void* data
+    // void *data
     void *ret = (void *)self->data;
     int num_ret = olua_push_obj(L, ret, "void *");
 
@@ -5238,15 +6374,13 @@ static int _cocos2d_PhysicsRayCastInfo_set_data(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsRayCastInfo *self = nullptr;
     void *arg1 = nullptr;       /** data */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsRayCastInfo");
     olua_check_obj(L, 2, (void **)&arg1, "void *");
 
-    // void* data
+    // void *data
     self->data = arg1;
 
     olua_endinvoke(L);
@@ -5258,13 +6392,11 @@ static int _cocos2d_PhysicsRayCastInfo_get_end(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsRayCastInfo *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsRayCastInfo");
 
-    // Vec2 end
+    // cocos2d::Vec2 end
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->end;
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
@@ -5277,15 +6409,13 @@ static int _cocos2d_PhysicsRayCastInfo_set_end(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsRayCastInfo *self = nullptr;
     cocos2d::Vec2 arg1;       /** end */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsRayCastInfo");
     auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // Vec2 end
+    // cocos2d::Vec2 end
     self->end = arg1;
 
     olua_endinvoke(L);
@@ -5296,8 +6426,6 @@ static int _cocos2d_PhysicsRayCastInfo_set_end(lua_State *L)
 static int _cocos2d_PhysicsRayCastInfo_get_fraction(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsRayCastInfo *self = nullptr;
 
@@ -5315,8 +6443,6 @@ static int _cocos2d_PhysicsRayCastInfo_get_fraction(lua_State *L)
 static int _cocos2d_PhysicsRayCastInfo_set_fraction(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 2);
 
     cocos2d::PhysicsRayCastInfo *self = nullptr;
     lua_Number arg1 = 0;       /** fraction */
@@ -5336,13 +6462,11 @@ static int _cocos2d_PhysicsRayCastInfo_get_normal(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsRayCastInfo *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsRayCastInfo");
 
-    // Vec2 normal
+    // cocos2d::Vec2 normal
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->normal;
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
@@ -5355,15 +6479,13 @@ static int _cocos2d_PhysicsRayCastInfo_set_normal(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsRayCastInfo *self = nullptr;
     cocos2d::Vec2 arg1;       /** normal */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsRayCastInfo");
     auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // Vec2 normal
+    // cocos2d::Vec2 normal
     self->normal = arg1;
 
     olua_endinvoke(L);
@@ -5375,13 +6497,11 @@ static int _cocos2d_PhysicsRayCastInfo_get_shape(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsRayCastInfo *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsRayCastInfo");
 
-    // PhysicsShape* shape
+    // cocos2d::PhysicsShape *shape
     cocos2d::PhysicsShape *ret = (cocos2d::PhysicsShape *)self->shape;
     int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsShape");
 
@@ -5394,15 +6514,13 @@ static int _cocos2d_PhysicsRayCastInfo_set_shape(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsRayCastInfo *self = nullptr;
     cocos2d::PhysicsShape *arg1 = nullptr;       /** shape */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsRayCastInfo");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.PhysicsShape");
 
-    // PhysicsShape* shape
+    // cocos2d::PhysicsShape *shape
     self->shape = arg1;
 
     olua_endinvoke(L);
@@ -5414,13 +6532,11 @@ static int _cocos2d_PhysicsRayCastInfo_get_start(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsRayCastInfo *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsRayCastInfo");
 
-    // Vec2 start
+    // cocos2d::Vec2 start
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->start;
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
@@ -5433,15 +6549,13 @@ static int _cocos2d_PhysicsRayCastInfo_set_start(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsRayCastInfo *self = nullptr;
     cocos2d::Vec2 arg1;       /** start */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsRayCastInfo");
     auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // Vec2 start
+    // cocos2d::Vec2 start
     self->start = arg1;
 
     olua_endinvoke(L);
@@ -5452,6 +6566,7 @@ static int _cocos2d_PhysicsRayCastInfo_set_start(lua_State *L)
 static int luaopen_cocos2d_PhysicsRayCastInfo(lua_State *L)
 {
     oluacls_class(L, "cc.PhysicsRayCastInfo", nullptr);
+    oluacls_func(L, "__move", _cocos2d_PhysicsRayCastInfo___move);
     oluacls_prop(L, "contact", _cocos2d_PhysicsRayCastInfo_get_contact, _cocos2d_PhysicsRayCastInfo_set_contact);
     oluacls_prop(L, "data", _cocos2d_PhysicsRayCastInfo_get_data, _cocos2d_PhysicsRayCastInfo_set_data);
     oluacls_prop(L, "end", _cocos2d_PhysicsRayCastInfo_get_end, _cocos2d_PhysicsRayCastInfo_set_end);
@@ -5461,7 +6576,18 @@ static int luaopen_cocos2d_PhysicsRayCastInfo(lua_State *L)
     oluacls_prop(L, "start", _cocos2d_PhysicsRayCastInfo_get_start, _cocos2d_PhysicsRayCastInfo_set_start);
 
     olua_registerluatype<cocos2d::PhysicsRayCastInfo>(L, "cc.PhysicsRayCastInfo");
-    oluacls_createclassproxy(L);
+
+    return 1;
+}
+
+static int _cocos2d_PhysicsWorld___move(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    auto self = (cocos2d::PhysicsWorld *)olua_toobj(L, 1, "cc.PhysicsWorld");
+    olua_push_cppobj(L, self, "cc.PhysicsWorld");
+
+    olua_endinvoke(L);
 
     return 1;
 }
@@ -5470,15 +6596,13 @@ static int _cocos2d_PhysicsWorld_addJoint(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsWorld *self = nullptr;
     cocos2d::PhysicsJoint *arg1 = nullptr;       /** joint */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsWorld");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.PhysicsJoint");
 
-    // void addJoint(PhysicsJoint* joint)
+    // void addJoint(cocos2d::PhysicsJoint *joint)
     self->addJoint(arg1);
 
     olua_endinvoke(L);
@@ -5490,13 +6614,11 @@ static int _cocos2d_PhysicsWorld_getAllBodies(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsWorld *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsWorld");
 
-    // const Vector<PhysicsBody*>& getAllBodies()
+    // const Vector<cocos2d::PhysicsBody *> &getAllBodies()
     const cocos2d::Vector<cocos2d::PhysicsBody *> &ret = (const cocos2d::Vector<cocos2d::PhysicsBody *> &)self->getAllBodies();
     int num_ret = manual_olua_push_cocos2d_Vector(L, ret, "cc.PhysicsBody");
 
@@ -5509,15 +6631,13 @@ static int _cocos2d_PhysicsWorld_getBody(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsWorld *self = nullptr;
     lua_Integer arg1 = 0;       /** tag */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsWorld");
     olua_check_int(L, 2, &arg1);
 
-    // PhysicsBody* getBody(int tag)
+    // cocos2d::PhysicsBody *getBody(int tag)
     cocos2d::PhysicsBody *ret = (cocos2d::PhysicsBody *)self->getBody((int)arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsBody");
 
@@ -5529,8 +6649,6 @@ static int _cocos2d_PhysicsWorld_getBody(lua_State *L)
 static int _cocos2d_PhysicsWorld_getDebugDrawMask(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsWorld *self = nullptr;
 
@@ -5549,8 +6667,6 @@ static int _cocos2d_PhysicsWorld_getFixedUpdateRate(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsWorld *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsWorld");
@@ -5568,13 +6684,11 @@ static int _cocos2d_PhysicsWorld_getGravity(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsWorld *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsWorld");
 
-    // Vec2 getGravity()
+    // cocos2d::Vec2 getGravity()
     cocos2d::Vec2 ret = (cocos2d::Vec2)self->getGravity();
     int num_ret = auto_olua_push_cocos2d_Vec2(L, &ret);
 
@@ -5600,15 +6714,13 @@ static int _cocos2d_PhysicsWorld_getShape(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsWorld *self = nullptr;
     cocos2d::Vec2 arg1;       /** point */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsWorld");
     auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // PhysicsShape* getShape(const Vec2& point)
+    // cocos2d::PhysicsShape *getShape(const cocos2d::Vec2 &point)
     cocos2d::PhysicsShape *ret = (cocos2d::PhysicsShape *)self->getShape(arg1);
     int num_ret = olua_push_cppobj(L, ret, "cc.PhysicsShape");
 
@@ -5621,15 +6733,13 @@ static int _cocos2d_PhysicsWorld_getShapes(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsWorld *self = nullptr;
     cocos2d::Vec2 arg1;       /** point */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsWorld");
     auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // Vector<PhysicsShape*> getShapes(const Vec2& point)
+    // Vector<cocos2d::PhysicsShape *> getShapes(const cocos2d::Vec2 &point)
     cocos2d::Vector<cocos2d::PhysicsShape *> ret = (cocos2d::Vector<cocos2d::PhysicsShape *>)self->getShapes(arg1);
     int num_ret = manual_olua_push_cocos2d_Vector(L, ret, "cc.PhysicsShape");
 
@@ -5641,8 +6751,6 @@ static int _cocos2d_PhysicsWorld_getShapes(lua_State *L)
 static int _cocos2d_PhysicsWorld_getSpeed(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsWorld *self = nullptr;
 
@@ -5661,8 +6769,6 @@ static int _cocos2d_PhysicsWorld_getSubsteps(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsWorld *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsWorld");
@@ -5679,8 +6785,6 @@ static int _cocos2d_PhysicsWorld_getSubsteps(lua_State *L)
 static int _cocos2d_PhysicsWorld_getUpdateRate(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsWorld *self = nullptr;
 
@@ -5699,8 +6803,6 @@ static int _cocos2d_PhysicsWorld_isAutoStep(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 1);
-
     cocos2d::PhysicsWorld *self = nullptr;
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsWorld");
@@ -5718,8 +6820,6 @@ static int _cocos2d_PhysicsWorld_queryPoint(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 4);
-
     cocos2d::PhysicsWorld *self = nullptr;
     std::function<bool(cocos2d::PhysicsWorld &, cocos2d::PhysicsShape &, void *)> arg1;       /** func */
     cocos2d::Vec2 arg2;       /** point */
@@ -5730,7 +6830,7 @@ static int _cocos2d_PhysicsWorld_queryPoint(lua_State *L)
     olua_check_obj(L, 4, (void **)&arg3, "void *");
 
     void *callback_store_obj = (void *)self;
-    std::string tag = olua_makecallbacktag("queryPoint");
+    std::string tag = "queryPoint";
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
     lua_State *MT = olua_mainthread();
     arg1 = [callback_store_obj, func, MT](cocos2d::PhysicsWorld &arg1, cocos2d::PhysicsShape &arg2, void *arg3) {
@@ -5742,8 +6842,8 @@ static int _cocos2d_PhysicsWorld_queryPoint(lua_State *L)
             olua_enable_objpool(L);
             olua_push_cppobj(L, &arg1);
             olua_push_cppobj(L, &arg2);
-            olua_disable_objpool(L);
             olua_push_obj(L, arg3, "void *");
+            olua_disable_objpool(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 3);
 
@@ -5758,7 +6858,7 @@ static int _cocos2d_PhysicsWorld_queryPoint(lua_State *L)
         return ret;
     };
 
-    // void queryPoint(std::function<bool(@local PhysicsWorld&, @local PhysicsShape&, void*)> func, const Vec2& point, void* data)
+    // void queryPoint(@local const std::function<bool (PhysicsWorld &, PhysicsShape &, void *)> &func, const cocos2d::Vec2 &point, void *data)
     self->queryPoint(arg1, arg2, arg3);
 
     olua_endinvoke(L);
@@ -5770,8 +6870,6 @@ static int _cocos2d_PhysicsWorld_queryRect(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 4);
-
     cocos2d::PhysicsWorld *self = nullptr;
     std::function<bool(cocos2d::PhysicsWorld &, cocos2d::PhysicsShape &, void *)> arg1;       /** func */
     cocos2d::Rect arg2;       /** rect */
@@ -5782,7 +6880,7 @@ static int _cocos2d_PhysicsWorld_queryRect(lua_State *L)
     olua_check_obj(L, 4, (void **)&arg3, "void *");
 
     void *callback_store_obj = (void *)self;
-    std::string tag = olua_makecallbacktag("queryRect");
+    std::string tag = "queryRect";
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
     lua_State *MT = olua_mainthread();
     arg1 = [callback_store_obj, func, MT](cocos2d::PhysicsWorld &arg1, cocos2d::PhysicsShape &arg2, void *arg3) {
@@ -5794,8 +6892,8 @@ static int _cocos2d_PhysicsWorld_queryRect(lua_State *L)
             olua_enable_objpool(L);
             olua_push_cppobj(L, &arg1);
             olua_push_cppobj(L, &arg2);
-            olua_disable_objpool(L);
             olua_push_obj(L, arg3, "void *");
+            olua_disable_objpool(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 3);
 
@@ -5810,7 +6908,7 @@ static int _cocos2d_PhysicsWorld_queryRect(lua_State *L)
         return ret;
     };
 
-    // void queryRect(std::function<bool(@local PhysicsWorld&, @local PhysicsShape&, void*)> func, const Rect& rect, void* data)
+    // void queryRect(@local const std::function<bool (PhysicsWorld &, PhysicsShape &, void *)> &func, const cocos2d::Rect &rect, void *data)
     self->queryRect(arg1, arg2, arg3);
 
     olua_endinvoke(L);
@@ -5821,8 +6919,6 @@ static int _cocos2d_PhysicsWorld_queryRect(lua_State *L)
 static int _cocos2d_PhysicsWorld_rayCast(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 5);
 
     cocos2d::PhysicsWorld *self = nullptr;
     std::function<bool(cocos2d::PhysicsWorld &, const cocos2d::PhysicsRayCastInfo &, void *)> arg1;       /** func */
@@ -5836,7 +6932,7 @@ static int _cocos2d_PhysicsWorld_rayCast(lua_State *L)
     olua_check_obj(L, 5, (void **)&arg4, "void *");
 
     void *callback_store_obj = (void *)self;
-    std::string tag = olua_makecallbacktag("rayCast");
+    std::string tag = "rayCast";
     std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
     lua_State *MT = olua_mainthread();
     arg1 = [callback_store_obj, func, MT](cocos2d::PhysicsWorld &arg1, const cocos2d::PhysicsRayCastInfo &arg2, void *arg3) {
@@ -5848,8 +6944,8 @@ static int _cocos2d_PhysicsWorld_rayCast(lua_State *L)
             olua_enable_objpool(L);
             olua_push_cppobj(L, &arg1);
             olua_push_cppobj(L, &arg2);
-            olua_disable_objpool(L);
             olua_push_obj(L, arg3, "void *");
+            olua_disable_objpool(L);
 
             olua_callback(L, callback_store_obj, func.c_str(), 3);
 
@@ -5864,7 +6960,7 @@ static int _cocos2d_PhysicsWorld_rayCast(lua_State *L)
         return ret;
     };
 
-    // void rayCast(std::function<bool(@local PhysicsWorld& world, @local const PhysicsRayCastInfo& info, void* data)> func, const Vec2& start, const Vec2& end, void* data)
+    // void rayCast(@local const std::function<bool (PhysicsWorld &, const PhysicsRayCastInfo &, void *)> &func, const cocos2d::Vec2 &start, const cocos2d::Vec2 &end, void *data)
     self->rayCast(arg1, arg2, arg3, arg4);
 
     olua_endinvoke(L);
@@ -5875,8 +6971,6 @@ static int _cocos2d_PhysicsWorld_rayCast(lua_State *L)
 static int _cocos2d_PhysicsWorld_removeAllBodies(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 1);
 
     cocos2d::PhysicsWorld *self = nullptr;
 
@@ -5890,22 +6984,57 @@ static int _cocos2d_PhysicsWorld_removeAllBodies(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_PhysicsWorld_removeAllJoints(lua_State *L)
+static int _cocos2d_PhysicsWorld_removeAllJoints1(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 2);
 
     cocos2d::PhysicsWorld *self = nullptr;
     bool arg1 = false;       /** destroy */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsWorld");
-    olua_opt_bool(L, 2, &arg1, (bool)true);
+    olua_check_bool(L, 2, &arg1);
 
-    // void removeAllJoints(bool destroy = true)
+    // void removeAllJoints(@optional bool destroy)
     self->removeAllJoints(arg1);
 
     olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_PhysicsWorld_removeAllJoints2(lua_State *L)
+{
+    olua_startinvoke(L);
+
+    cocos2d::PhysicsWorld *self = nullptr;
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsWorld");
+
+    // void removeAllJoints(@optional bool destroy)
+    self->removeAllJoints();
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_PhysicsWorld_removeAllJoints(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 0) {
+        // void removeAllJoints(@optional bool destroy)
+        return _cocos2d_PhysicsWorld_removeAllJoints2(L);
+    }
+
+    if (num_args == 1) {
+        // if ((olua_is_bool(L, 2))) {
+            // void removeAllJoints(@optional bool destroy)
+            return _cocos2d_PhysicsWorld_removeAllJoints1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::PhysicsWorld::removeAllJoints' not support '%d' arguments", num_args);
 
     return 0;
 }
@@ -5914,15 +7043,13 @@ static int _cocos2d_PhysicsWorld_removeBody1(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsWorld *self = nullptr;
     cocos2d::PhysicsBody *arg1 = nullptr;       /** body */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsWorld");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.PhysicsBody");
 
-    // void removeBody(PhysicsBody* body)
+    // void removeBody(cocos2d::PhysicsBody *body)
     self->removeBody(arg1);
 
     olua_endinvoke(L);
@@ -5933,8 +7060,6 @@ static int _cocos2d_PhysicsWorld_removeBody1(lua_State *L)
 static int _cocos2d_PhysicsWorld_removeBody2(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 2);
 
     cocos2d::PhysicsWorld *self = nullptr;
     lua_Integer arg1 = 0;       /** tag */
@@ -5956,10 +7081,12 @@ static int _cocos2d_PhysicsWorld_removeBody(lua_State *L)
 
     if (num_args == 1) {
         if ((olua_is_cppobj(L, 2, "cc.PhysicsBody"))) {
+            // void removeBody(cocos2d::PhysicsBody *body)
             return _cocos2d_PhysicsWorld_removeBody1(L);
         }
 
         // if ((olua_is_int(L, 2))) {
+            // void removeBody(int tag)
             return _cocos2d_PhysicsWorld_removeBody2(L);
         // }
     }
@@ -5969,11 +7096,9 @@ static int _cocos2d_PhysicsWorld_removeBody(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_PhysicsWorld_removeJoint(lua_State *L)
+static int _cocos2d_PhysicsWorld_removeJoint1(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 3);
 
     cocos2d::PhysicsWorld *self = nullptr;
     cocos2d::PhysicsJoint *arg1 = nullptr;       /** joint */
@@ -5981,9 +7106,9 @@ static int _cocos2d_PhysicsWorld_removeJoint(lua_State *L)
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsWorld");
     olua_check_cppobj(L, 2, (void **)&arg1, "cc.PhysicsJoint");
-    olua_opt_bool(L, 3, &arg2, (bool)true);
+    olua_check_bool(L, 3, &arg2);
 
-    // void removeJoint(PhysicsJoint* joint, bool destroy = true)
+    // void removeJoint(cocos2d::PhysicsJoint *joint, @optional bool destroy)
     self->removeJoint(arg1, arg2);
 
     olua_endinvoke(L);
@@ -5991,11 +7116,50 @@ static int _cocos2d_PhysicsWorld_removeJoint(lua_State *L)
     return 0;
 }
 
-static int _cocos2d_PhysicsWorld_setAutoStep(lua_State *L)
+static int _cocos2d_PhysicsWorld_removeJoint2(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
+    cocos2d::PhysicsWorld *self = nullptr;
+    cocos2d::PhysicsJoint *arg1 = nullptr;       /** joint */
+
+    olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsWorld");
+    olua_check_cppobj(L, 2, (void **)&arg1, "cc.PhysicsJoint");
+
+    // void removeJoint(cocos2d::PhysicsJoint *joint, @optional bool destroy)
+    self->removeJoint(arg1);
+
+    olua_endinvoke(L);
+
+    return 0;
+}
+
+static int _cocos2d_PhysicsWorld_removeJoint(lua_State *L)
+{
+    int num_args = lua_gettop(L) - 1;
+
+    if (num_args == 1) {
+        // if ((olua_is_cppobj(L, 2, "cc.PhysicsJoint"))) {
+            // void removeJoint(cocos2d::PhysicsJoint *joint, @optional bool destroy)
+            return _cocos2d_PhysicsWorld_removeJoint2(L);
+        // }
+    }
+
+    if (num_args == 2) {
+        // if ((olua_is_cppobj(L, 2, "cc.PhysicsJoint")) && (olua_is_bool(L, 3))) {
+            // void removeJoint(cocos2d::PhysicsJoint *joint, @optional bool destroy)
+            return _cocos2d_PhysicsWorld_removeJoint1(L);
+        // }
+    }
+
+    luaL_error(L, "method 'cocos2d::PhysicsWorld::removeJoint' not support '%d' arguments", num_args);
+
+    return 0;
+}
+
+static int _cocos2d_PhysicsWorld_setAutoStep(lua_State *L)
+{
+    olua_startinvoke(L);
 
     cocos2d::PhysicsWorld *self = nullptr;
     bool arg1 = false;       /** autoStep */
@@ -6015,8 +7179,6 @@ static int _cocos2d_PhysicsWorld_setDebugDrawGlobalZOrder(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsWorld *self = nullptr;
     lua_Number arg1 = 0;       /** globalZOrder */
 
@@ -6034,8 +7196,6 @@ static int _cocos2d_PhysicsWorld_setDebugDrawGlobalZOrder(lua_State *L)
 static int _cocos2d_PhysicsWorld_setDebugDrawMask(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 2);
 
     cocos2d::PhysicsWorld *self = nullptr;
     lua_Integer arg1 = 0;       /** mask */
@@ -6055,8 +7215,6 @@ static int _cocos2d_PhysicsWorld_setFixedUpdateRate(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsWorld *self = nullptr;
     lua_Integer arg1 = 0;       /** updatesPerSecond */
 
@@ -6075,15 +7233,13 @@ static int _cocos2d_PhysicsWorld_setGravity(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsWorld *self = nullptr;
     cocos2d::Vec2 arg1;       /** gravity */
 
     olua_to_cppobj(L, 1, (void **)&self, "cc.PhysicsWorld");
     auto_olua_check_cocos2d_Vec2(L, 2, &arg1);
 
-    // void setGravity(const Vec2& gravity)
+    // void setGravity(const cocos2d::Vec2 &gravity)
     self->setGravity(arg1);
 
     olua_endinvoke(L);
@@ -6095,8 +7251,6 @@ static int _cocos2d_PhysicsWorld_setPostUpdateCallback(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsWorld *self = nullptr;
     std::function<void()> arg1;       /** callback */
 
@@ -6104,7 +7258,7 @@ static int _cocos2d_PhysicsWorld_setPostUpdateCallback(lua_State *L)
 
     if (olua_is_std_function(L, 2)) {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("postUpdateCallback");
+        std::string tag = "PostUpdateCallback";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
         lua_State *MT = olua_mainthread();
         arg1 = [callback_store_obj, func, MT]() {
@@ -6120,12 +7274,12 @@ static int _cocos2d_PhysicsWorld_setPostUpdateCallback(lua_State *L)
         };
     } else {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("postUpdateCallback");
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+        std::string tag = "PostUpdateCallback";
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
         arg1 = nullptr;
     }
 
-    // void setPostUpdateCallback(@nullable const std::function<void()> &callback)
+    // void setPostUpdateCallback(@nullable @local const std::function<void ()> &callback)
     self->setPostUpdateCallback(arg1);
 
     olua_endinvoke(L);
@@ -6137,8 +7291,6 @@ static int _cocos2d_PhysicsWorld_setPreUpdateCallback(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsWorld *self = nullptr;
     std::function<void()> arg1;       /** callback */
 
@@ -6146,7 +7298,7 @@ static int _cocos2d_PhysicsWorld_setPreUpdateCallback(lua_State *L)
 
     if (olua_is_std_function(L, 2)) {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("preUpdateCallback");
+        std::string tag = "PreUpdateCallback";
         std::string func = olua_setcallback(L, callback_store_obj, tag.c_str(), 2, OLUA_TAG_REPLACE);
         lua_State *MT = olua_mainthread();
         arg1 = [callback_store_obj, func, MT]() {
@@ -6162,12 +7314,12 @@ static int _cocos2d_PhysicsWorld_setPreUpdateCallback(lua_State *L)
         };
     } else {
         void *callback_store_obj = (void *)self;
-        std::string tag = olua_makecallbacktag("preUpdateCallback");
-        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+        std::string tag = "PreUpdateCallback";
+        olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
         arg1 = nullptr;
     }
 
-    // void setPreUpdateCallback(@nullable const std::function<void()> &callback)
+    // void setPreUpdateCallback(@nullable @local const std::function<void ()> &callback)
     self->setPreUpdateCallback(arg1);
 
     olua_endinvoke(L);
@@ -6178,8 +7330,6 @@ static int _cocos2d_PhysicsWorld_setPreUpdateCallback(lua_State *L)
 static int _cocos2d_PhysicsWorld_setSpeed(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 2);
 
     cocos2d::PhysicsWorld *self = nullptr;
     lua_Number arg1 = 0;       /** speed */
@@ -6199,8 +7349,6 @@ static int _cocos2d_PhysicsWorld_setSubsteps(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsWorld *self = nullptr;
     lua_Integer arg1 = 0;       /** steps */
 
@@ -6218,8 +7366,6 @@ static int _cocos2d_PhysicsWorld_setSubsteps(lua_State *L)
 static int _cocos2d_PhysicsWorld_setUpdateRate(lua_State *L)
 {
     olua_startinvoke(L);
-
-    lua_settop(L, 2);
 
     cocos2d::PhysicsWorld *self = nullptr;
     lua_Integer arg1 = 0;       /** rate */
@@ -6239,8 +7385,6 @@ static int _cocos2d_PhysicsWorld_step(lua_State *L)
 {
     olua_startinvoke(L);
 
-    lua_settop(L, 2);
-
     cocos2d::PhysicsWorld *self = nullptr;
     lua_Number arg1 = 0;       /** delta */
 
@@ -6258,6 +7402,7 @@ static int _cocos2d_PhysicsWorld_step(lua_State *L)
 static int luaopen_cocos2d_PhysicsWorld(lua_State *L)
 {
     oluacls_class(L, "cc.PhysicsWorld", nullptr);
+    oluacls_func(L, "__move", _cocos2d_PhysicsWorld___move);
     oluacls_func(L, "addJoint", _cocos2d_PhysicsWorld_addJoint);
     oluacls_func(L, "getAllBodies", _cocos2d_PhysicsWorld_getAllBodies);
     oluacls_func(L, "getBody", _cocos2d_PhysicsWorld_getBody);
@@ -6298,9 +7443,13 @@ static int luaopen_cocos2d_PhysicsWorld(lua_State *L)
     oluacls_prop(L, "speed", _cocos2d_PhysicsWorld_getSpeed, _cocos2d_PhysicsWorld_setSpeed);
     oluacls_prop(L, "substeps", _cocos2d_PhysicsWorld_getSubsteps, _cocos2d_PhysicsWorld_setSubsteps);
     oluacls_prop(L, "updateRate", _cocos2d_PhysicsWorld_getUpdateRate, _cocos2d_PhysicsWorld_setUpdateRate);
+    oluacls_const_integer(L, "DEBUGDRAW_ALL", (lua_Integer)cocos2d::PhysicsWorld::DEBUGDRAW_ALL);
+    oluacls_const_integer(L, "DEBUGDRAW_CONTACT", (lua_Integer)cocos2d::PhysicsWorld::DEBUGDRAW_CONTACT);
+    oluacls_const_integer(L, "DEBUGDRAW_JOINT", (lua_Integer)cocos2d::PhysicsWorld::DEBUGDRAW_JOINT);
+    oluacls_const_integer(L, "DEBUGDRAW_NONE", (lua_Integer)cocos2d::PhysicsWorld::DEBUGDRAW_NONE);
+    oluacls_const_integer(L, "DEBUGDRAW_SHAPE", (lua_Integer)cocos2d::PhysicsWorld::DEBUGDRAW_SHAPE);
 
     olua_registerluatype<cocos2d::PhysicsWorld>(L, "cc.PhysicsWorld");
-    oluacls_createclassproxy(L);
 
     return 1;
 }

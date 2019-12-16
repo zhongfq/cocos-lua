@@ -4,9 +4,10 @@
 #define olua_mainthread()           xlua_cocosthread()
 #define olua_startcmpunref(L, i, n) xlua_startcmpunref(L, i, n)
 #define olua_endcmpunref(L, i, n)   xlua_endcmpunref(L, i, n)
-#define olua_holdobj(L, v, s)       xlua_holdobj(L, v, s)
 #define olua_startinvoke(L)         xlua_startinvoke(L)
 #define olua_endinvoke(L)           xlua_endinvoke(L)
+#define olua_postpush(L, v, s)      xlua_postpush(L, v, s)
+#define olua_postnew(L, obj)        xlua_postnew(L, obj)
 
 #include "xgame/xdef.h"
 #include "olua/olua.hpp"
@@ -25,16 +26,28 @@ int xlua_nonsupport(lua_State *L);
 
 int xlua_ccobjgc(lua_State *L);
 
-template <typename T> void xlua_holdobj(lua_State *L, T* value, int status)
+template <typename T> void xlua_postpush(lua_State *L, T* obj, int status)
 {
-    if (status == OLUA_NEW && std::is_base_of<cocos2d::Ref, T>::value) {
-        ((cocos2d::Ref *)value)->retain();
+    if (std::is_base_of<cocos2d::Ref, T>::value && status == OLUA_NEW) {
+        ((cocos2d::Ref *)obj)->retain();
 #ifdef COCOS2D_DEBUG
         if (!olua_isa(L, -1, "cc.Ref")) {
-            luaL_error(L, "class '%s' not inherit from 'cc.Ref'", olua_getluatype(L, value, ""));
+            luaL_error(L, "class '%s' not inherit from 'cc.Ref'", olua_getluatype(L, obj, ""));
         }
 #endif
         olua_addobjcount(L);
+    }
+}
+
+template <typename T> void xlua_postnew(lua_State *L, T *obj)
+{
+    if (std::is_base_of<cocos2d::Ref, T>::value) {
+        ((cocos2d::Ref *)obj)->autorelease();
+    } else {
+        CCASSERT(obj == olua_toobj<T>(L, -1), "must be same object");
+        lua_pushstring(L, ".ownership");
+        lua_pushboolean(L, true);
+        olua_setvariable(L, -3);
     }
 }
 

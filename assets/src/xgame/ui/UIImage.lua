@@ -52,7 +52,7 @@ function UIImage:_doLoad(url, callback)
     self.filePath = loader.path
     loader:addListener(Event.COMPLETE, function ()
         if self.filePath == loader.path then
-            callback(loader.path)
+            callback(filesystem.localCachePath(url))
         end
     end)
     loader:start()

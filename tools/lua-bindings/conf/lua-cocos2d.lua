@@ -1,29 +1,10 @@
 local olua = require "olua"
-local typemod = require "olua.typemod"
-local M = typemod 'cocos2d'
+local autoconf = require "autoconf"
+local M = autoconf.typemod 'cocos2d'
 local typeconf = M.typeconf
 local include = M.include
 
-M.PARSER = {
-    PATH = {
-        'cocos2d.h',
-        'audio/include/AudioEngine.h',
-        'audio/include/SimpleAudioEngine.h',
-        'vr/CCVRGenericRenderer.h',
-        'vr/CCVRGenericHeadTracker.h',
-        'lua-bindings/LuaCocosAdapter.h'
-    },
-    ARGS = {
-        '-I../../frameworks/cocos2d-x/cocos',
-        '-I../../frameworks/libxgame/src',
-        '-DCC_DLL=',
-        '-DEXPORT_DLL=',
-    },
-}
-
-M.NAMESPACES = {"cocos2d", "cocos2d::network", "cocos2d::experimental", "CocosDenshion"}
-M.HEADER_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_cocos2d.h"
-M.SOURCE_PATH = "../../frameworks/libxgame/src/lua-bindings/lua_cocos2d.cpp"
+M.PATH = "../../frameworks/libxgame/src/lua-bindings"
 M.INCLUDES = [[
 #include "lua-bindings/lua_cocos2d.h"
 #include "lua-bindings/lua_conv.h"
@@ -51,33 +32,29 @@ M.MAKE_LUACLS = function (cppname)
         return 'cc.' .. cppname
     else
         cppname = string.gsub(cppname, '^cocos2d::experimental::', 'cc.')
+        cppname = string.gsub(cppname, '^cocos2d::network::', 'cc.')
         cppname = string.gsub(cppname, "^cocos2d::", "cc.")
         cppname = string.gsub(cppname, "^CocosDenshion::", "cc.")
         cppname = string.gsub(cppname, "::", ".")
-        cppname = string.gsub(cppname, "[ *]*$", '')
         return cppname
     end
 end
 
 M.EXCLUDE_TYPE = require "conf.exclude-type"
 
-M.EXCLUDE_PATTERN = function (cppcls, fn, decl)
+M.EXCLUDE_PASS = function (cppcls, fn, decl)
     if cppcls == 'cocos2d::FileUtils' then
         return string.find(decl, 'std::function')
     end
 end
 
-local UserDefault = typeconf 'cocos2d::UserDefault'
-UserDefault.EXCLUDE 'setDelegate'
+typeconf 'cocos2d::UserDefault'
+    .EXCLUDE 'setDelegate'
 
 local Ref = typeconf 'cocos2d::Ref'
 Ref.EXCLUDE 'retain'
 Ref.EXCLUDE 'release'
 Ref.EXCLUDE 'autorelease'
-Ref.EXCLUDE '_ID'
-Ref.EXCLUDE '_luaID'
-Ref.EXCLUDE '_scriptObject'
-Ref.EXCLUDE '_rooted'
 Ref.FUNC('__gc', '{\n    return xlua_ccobjgc(L);\n}')
 
 typeconf 'cocos2d::Acceleration'
@@ -129,13 +106,6 @@ template <typename T> bool doScheduleUpdate(lua_State *L)
     
     return false;
 }]]
-Scheduler.FUNC('new', [[
-{
-    auto obj = new cocos2d::Scheduler();
-    obj->autorelease();
-    return olua_push_cppobj<cocos2d::Scheduler>(L, obj);
-}
-]])
 Scheduler.CALLBACK {
     FUNCS = {
         'void schedule(const std::function<void(float)>& callback, void *target, float interval, bool paused, const std::string& key)',
@@ -149,26 +119,24 @@ Scheduler.CALLBACK {
     FUNCS = {'void unschedule(const std::string& key, void *target)'},
     TAG_MAKER = 'makeScheduleCallbackTag(#1)',
     TAG_STORE = 2, -- 2th void *target
-    TAG_MODE = 'OLUA_TAG_EQUAL',
+    TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     REMOVE = true,
 }
 Scheduler.CALLBACK {
     FUNCS = {'void unscheduleAllForTarget(void *target)'},
     TAG_MAKER = 'makeScheduleCallbackTag("")',
-    TAG_MODE = 'OLUA_TAG_STARTWITH',
+    TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
     TAG_STORE = 1, -- 1th void *target
     REMOVE = true,
 }
 Scheduler.CALLBACK {
     FUNCS = {'void unscheduleAll()'},
     TAG_MAKER = 'makeScheduleCallbackTag("")',
-    TAG_MODE = 'OLUA_TAG_STARTWITH',
+    TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
     REMOVE = true,
 }
 Scheduler.FUNC('scheduleUpdate', [[
 {
-    lua_settop(L, 4);
-    
     if (doScheduleUpdate<cocos2d::Scheduler>(L) ||
         doScheduleUpdate<cocos2d::ActionManager>(L) ||
         doScheduleUpdate<cocos2d::Node>(L) ||
@@ -210,8 +178,6 @@ static void doRemoveEventListenersForTarget(lua_State *L, cocos2d::Node *target,
 }]]
 EventDispatcher.FUNC('addCustomEventListener', [[
 {
-    lua_settop(L, 3);
-
     void *callback_store_obj = nullptr;
     auto self = olua_checkobj<cocos2d::EventDispatcher>(L, 1);
     std::string eventName = olua_checkstring(L, 2);
@@ -265,79 +231,33 @@ local EventListener = typeconf 'cocos2d::EventListener'
 EventListener.EXCLUDE 'init'
 EventListener.PROP('available', 'bool checkAvailable()')
 
-local EventListenerTouchOneByOne = typeconf 'cocos2d::EventListenerTouchOneByOne'
-EventListenerTouchOneByOne.VAR('onTouchBegan', 'std::function<bool(@local Touch*, @local Event*)> onTouchBegan = nullptr')
-EventListenerTouchOneByOne.VAR('onTouchMoved', 'std::function<void(@local Touch*, @local Event*)> onTouchMoved = nullptr')
-EventListenerTouchOneByOne.VAR('onTouchEnded', 'std::function<void(@local Touch*, @local Event*)> onTouchEnded = nullptr')
-EventListenerTouchOneByOne.VAR('onTouchCancelled', 'std::function<void(@local Touch*, @local Event*)> onTouchCancelled = nullptr')
-
-local EventListenerTouchAllAtOnce = typeconf 'cocos2d::EventListenerTouchAllAtOnce'
-EventListenerTouchAllAtOnce.VAR('onTouchesBegan', 'std::function<void(@local const std::vector<Touch*>&, @local Event*)> onTouchesBegan = nullptr')
-EventListenerTouchAllAtOnce.VAR('onTouchesMoved', 'std::function<void(@local const std::vector<Touch*>&, @local Event*)> onTouchesMoved = nullptr')
-EventListenerTouchAllAtOnce.VAR('onTouchesEnded', 'std::function<void(@local const std::vector<Touch*>&, @local Event*)> onTouchesEnded = nullptr')
-EventListenerTouchAllAtOnce.VAR('onTouchesCancelled', 'std::function<void(@local const std::vector<Touch*>&, @local Event*)> onTouchesCancelled = nullptr')
+typeconf 'cocos2d::EventListenerTouchOneByOne'
+typeconf 'cocos2d::EventListenerTouchAllAtOnce'
 
 local EventListenerCustom = typeconf 'cocos2d::EventListenerCustom'
 EventListenerCustom.CALLBACK {
     FUNCS = {'static EventListenerCustom* create(const std::string& eventName, const std::function<void(@local EventCustom*)>& callback)'},
-    TAG_MAKER = 'olua_makecallbacktag("listener")',
+    TAG_MAKER = 'listener',
     TAG_MODE = 'OLUA_TAG_NEW',
     CPPFUNC = 'init',
-    NEW = [[
-        auto *self = new ${DECLTYPE}();
-        auto *ret = self;
-        self->autorelease();
-        olua_push_cppobj<${DECLTYPE}>(L, self);
-    ]],
 }
 
-local EventListenerKeyboard = typeconf 'cocos2d::EventListenerKeyboard'
-EventListenerKeyboard.VAR('onKeyPressed', 'std::function<void(EventKeyboard::KeyCode, @local Event*)> onKeyPressed = nullptr')
-EventListenerKeyboard.VAR('onKeyReleased', 'std::function<void(EventKeyboard::KeyCode, @local Event*)> onKeyReleased = nullptr')
+typeconf 'cocos2d::EventListenerKeyboard'
 
 local EventListenerAcceleration = typeconf 'cocos2d::EventListenerAcceleration'
 EventListenerAcceleration.CALLBACK {
     FUNCS = {'static EventListenerAcceleration* create(const std::function<void(@local Acceleration*, @local Event*)>& callback)'},
-    TAG_MAKER = 'olua_makecallbacktag("listener")',
+    TAG_MAKER = 'listener',
     TAG_MODE = 'OLUA_TAG_NEW',
     CPPFUNC = 'init',
-    NEW = [[
-        auto *self = new ${DECLTYPE}();
-        auto *ret = self;
-        self->autorelease();
-        olua_push_cppobj<${DECLTYPE}>(L, self);
-    ]],
 }
 
-local EventListenerFocus = typeconf 'cocos2d::EventListenerFocus'
-EventListenerFocus.VAR('onFocusChanged', 'std::function<void(ui::Widget*, ui::Widget*)> onFocusChanged = nullptr')
-
-local EventListenerMouse = typeconf 'cocos2d::EventListenerMouse'
-EventListenerMouse.VAR('onMouseDown', 'std::function<void(@local EventMouse* event)> onMouseDown = nullptr')
-EventListenerMouse.VAR('onMouseUp', 'std::function<void(@local EventMouse* event)> onMouseUp = nullptr')
-EventListenerMouse.VAR('onMouseMove', 'std::function<void(@local EventMouse* event)> onMouseMove = nullptr')
-EventListenerMouse.VAR('onMouseScroll', 'std::function<void(@local EventMouse* event)> onMouseScroll = nullptr')
-
+typeconf 'cocos2d::EventListenerFocus'
+typeconf 'cocos2d::EventListenerMouse'
 typeconf 'cocos2d::Event::Type'
 typeconf 'cocos2d::Event'
-
-local EventCustom = typeconf 'cocos2d::EventCustom'
-EventCustom.FUNC('new', [[
-{
-    lua_settop(L, 1);
-    const char *event = olua_checkstring(L, 1);
-    auto obj = new cocos2d::EventCustom(event);
-    obj->autorelease();
-    return olua_push_cppobj<cocos2d::EventCustom>(L, obj);
-}]])
-
-local EventListenerController = typeconf 'cocos2d::EventListenerController'
-EventListenerController.VAR('onConnected', 'std::function<void(@local Controller*, @local Event*)> onConnected = nullptr')
-EventListenerController.VAR('onDisconnected', 'std::function<void(@local Controller*, @local Event*)> onDisconnected = nullptr')
-EventListenerController.VAR('onKeyDown', 'std::function<void(@local Controller*, int, @local Event*)> onKeyDown = nullptr')
-EventListenerController.VAR('onKeyUp', 'std::function<void(@local Controller*, int, @local Event*)> onKeyUp = nullptr')
-EventListenerController.VAR('onKeyRepeat', 'std::function<void(@local Controller*, int, @local Event*)> onKeyRepeat = nullptr')
-EventListenerController.VAR('onAxisEvent', 'std::function<void(@local Controller*, int, @local Event*)> onAxisEvent = nullptr')
+typeconf 'cocos2d::EventCustom'
+typeconf 'cocos2d::EventListenerController'
 
 typeconf 'cocos2d::EventTouch::EventCode'
 typeconf 'cocos2d::EventTouch'
@@ -352,14 +272,7 @@ typeconf 'cocos2d::Touch::DispatchMode'
 typeconf 'cocos2d::EventController::ControllerEventType'
 typeconf 'cocos2d::EventController'
 
-local Touch = typeconf 'cocos2d::Touch'
-Touch.FUNC('new', [[
-{
-    auto obj = new cocos2d::Touch();
-    obj->autorelease();
-    return olua_push_cppobj<cocos2d::Touch>(L, obj);
-}]])
-
+typeconf 'cocos2d::Touch'
 typeconf 'cocos2d::Controller::Key'
 
 local Controller = typeconf 'cocos2d::Controller'
@@ -404,26 +317,26 @@ AudioEngine.INJECT('uncache', {
         void *callback_store_obj = (void *)olua_getstoreobj(L, cls);
         for (auto id : ids) {
             std::string tag = makeAudioEngineFinishCallbackTag((lua_Integer)id);
-            olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_EQUAL);
+            olua_removecallback(L, callback_store_obj, tag.c_str(), OLUA_TAG_SUBEQUAL);
         }
     ]]
 })
 AudioEngine.CALLBACK {
     FUNCS = {'static void stop(int audioID)'},
     TAG_MAKER = 'makeAudioEngineFinishCallbackTag(#1)',
-    TAG_MODE = 'OLUA_TAG_EQUAL',
+    TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     REMOVE = true,
 }
 AudioEngine.CALLBACK {
     FUNCS = {'static void stopAll()'},
     TAG_MAKER = 'makeAudioEngineFinishCallbackTag(-1)',
-    TAG_MODE = "OLUA_TAG_STARTWITH",
+    TAG_MODE = "OLUA_TAG_SUBSTARTWITH",
     REMOVE = true,
 }
 AudioEngine.CALLBACK {
     FUNCS = {'static void uncacheAll()'},
     TAG_MAKER = 'makeAudioEngineFinishCallbackTag(-1)',
-    TAG_MODE = "OLUA_TAG_STARTWITH",
+    TAG_MODE = "OLUA_TAG_SUBSTARTWITH",
     REMOVE = true,
 }
 AudioEngine.CALLBACK {
@@ -437,7 +350,7 @@ AudioEngine.CALLBACK {
         'static void preload(const std::string& filePath)',
         'static void preload(const std::string& filePath, std::function<void(bool isSuccess)> callback)',
     },
-    TAG_MAKER = 'olua_makecallbacktag("preload")',
+    TAG_MAKER = 'preload',
     TAG_MODE = "OLUA_TAG_REPLACE",
     CALLONCE = true,
 }
@@ -455,54 +368,12 @@ Application.EXCLUDE 'applicationScreenSizeChanged'
 local Device = typeconf 'cocos2d::Device'
 Device.EXCLUDE 'getTextureDataForText'
 
-local FileUtils = typeconf 'cocos2d::FileUtils'
-FileUtils.EXCLUDE 'getContents'
-FileUtils.FUNC('getFileDataFromZip', [[
-{
-    lua_settop(L, 3);
-    ssize_t size;
-    auto self = olua_toobj<cocos2d::FileUtils>(L, 1);
-    std::string filePath = olua_checkstring(L, 2);
-    std::string filename = olua_checkstring(L, 3);
-    const unsigned char * data= self->getFileDataFromZip(filePath, filename, &size);
-    if (data) {
-        lua_pushlstring(L, (const char *)data, (size_t)size);
-        lua_pushinteger(L, (lua_Integer)size);
-        free((void *)data);
-        return 2;
-    } else {
-        lua_pushnil(L);
-    }
-    return 1;
-}]])
-FileUtils.FUNC('listFilesRecursively', [[
-{
-    lua_settop(L, 2);
-    auto self = olua_toobj<cocos2d::FileUtils>(L, 1);
-    std::vector<std::string> files;
-    std::string dirPath = olua_checkstring(L, 2);
-    self->listFilesRecursively(dirPath, &files);
-    lua_createtable(L, (int)files.size(), 0);
-    int num_eles = 1;
-    for (const auto &it : files) {
-        olua_push_std_string(L, it);
-        lua_rawseti(L, -2, num_eles++);
-    }
-    return 1;
-}]])
-FileUtils.FUNC('getFullPathCache', [[
-{
-    lua_settop(L, 1);
-    auto self = olua_toobj<cocos2d::FileUtils>(L, 1);
-    const std::unordered_map<std::string, std::string> paths  = self->getFullPathCache();
-    lua_createtable(L, 0, 4);
-    for (const auto &it : paths) {
-        olua_push_std_string(L, it.first);
-        olua_push_std_string(L, it.second);
-        lua_rawset(L, -3);
-    }
-    return 1;
-}]])
+typeconf 'cocos2d::ResizableBuffer'
+typeconf 'cocos2d::FileUtils::Status'
+
+typeconf 'cocos2d::FileUtils'
+    .ATTR('getFileDataFromZip', {RET = '@length(arg3)', ARG3 = '@out'})
+    .ATTR('listFilesRecursively', {ARG2 = '@out'})
 
 typeconf 'ResolutionPolicy'
 
@@ -537,12 +408,13 @@ NS_CC_END
 ]]
 Image.FUNC('getPNGPremultipliedAlphaEnabled', [[
 {
-    lua_settop(L, 0);
     lua_pushboolean(L, cocos2d::LuaImage::getPNGPremultipliedAlphaEnabled());
     return 1;
 }]])
 
 typeconf 'cocos2d::Renderer'
+typeconf 'cocos2d::VertexAttrib'
+typeconf 'cocos2d::Uniform'
 
 local GLProgram = typeconf 'cocos2d::GLProgram'
 GLProgram.EXCLUDE 'getUniformFlags'
@@ -575,13 +447,13 @@ TextureCache.CALLBACK {
 TextureCache.CALLBACK {
     FUNCS = {'void unbindImageAsync(const std::string &filename)'},
     TAG_MAKER = 'makeTextureCacheCallbackTag(#1)',
-    TAG_MODE = 'OLUA_TAG_EQUAL',
+    TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     REMOVE = true,
 }
 TextureCache.CALLBACK {
     FUNCS = {'void unbindAllImageAsync()'},
     TAG_MAKER = 'makeTextureCacheCallbackTag("")',
-    TAG_MODE = 'OLUA_TAG_STARTWITH',
+    TAG_MODE = 'OLUA_TAG_SUBSTARTWITH',
     REMOVE = true,
 }
 
@@ -599,62 +471,45 @@ typeconf 'cocos2d::VRGenericHeadTracker'
 
 typeconf 'cocos2d::network::WebSocket::ErrorCode'
 typeconf 'cocos2d::network::WebSocket::State'
-
-local WebSocketDelegate = typeconf 'cocos2d::network::WebSocket::Delegate'
-WebSocketDelegate.EXCLUDE 'onOpen'
-WebSocketDelegate.EXCLUDE 'onMessage'
-WebSocketDelegate.EXCLUDE 'onClose'
-WebSocketDelegate.EXCLUDE 'onError'
-WebSocketDelegate.FUNC('__gc', olua.gcfunc(WebSocketDelegate))
+typeconf 'cocos2d::network::WebSocket::Delegate'
 
 local WebSocket = typeconf 'cocos2d::network::WebSocket'
-WebSocket.FUNC('__gc', olua.gcfunc(WebSocket))
-WebSocket.FUNC('create', [[
+WebSocket.FUNC('init', [[
 {
-    lua_settop(L, 4);
     std::vector<std::string> protocols;
-    auto self = new cocos2d::network::WebSocket();
-    auto delegate = olua_checkobj<cocos2d::network::WebSocket::Delegate>(L, 1);
-    std::string url = olua_tostring(L, 2);
-    std::string cafile = olua_optstring(L, 4, "");
+    auto self = olua_toobj<cocos2d::network::WebSocket>(L, 1);
+    auto delegate = olua_checkobj<cocos2d::network::WebSocket::Delegate>(L, 2);
+    std::string url = olua_tostring(L, 3);
+    std::string cafile = olua_optstring(L, 5, "");
     
-    if (!lua_isnil(L, 3)) {
-        luaL_checktype(L, 3, LUA_TTABLE);
-        int len = (int)lua_rawlen(L, 3);
+    if (!lua_isnil(L, 4)) {
+        luaL_checktype(L, 4, LUA_TTABLE);
+        int len = (int)lua_rawlen(L, 4);
         protocols.reserve(len);
         for (int i = 1; i <= len; i++) {
-            lua_rawgeti(L, 3, i);
+            lua_rawgeti(L, 4, i);
             protocols.push_back(olua_checkstring(L, -1));
             lua_pop(L, 1);
         }
     }
     
     self->init(*delegate, url, protocols.size() > 0 ? &protocols : nullptr, cafile);
-    olua_push_cppobj<cocos2d::network::WebSocket>(L, self);
-    olua_singleref(L, -1, "delegate", 1);
+
+    olua_singleref(L, 1, "delegate", 2);
 
     return 1;
 }]])
 
 local LuaWebSocketDelegate = typeconf 'cocos2d::LuaWebSocketDelegate'
-LuaWebSocketDelegate.VAR('onOpen', '@nullable std::function<void (network::WebSocket *)> onOpenCallback')
-LuaWebSocketDelegate.VAR('onMessage', '@nullable std::function<void (network::WebSocket *, const network::WebSocket::Data &)> onMessageCallback')
-LuaWebSocketDelegate.VAR('onClose', '@nullable std::function<void (network::WebSocket *)> onCloseCallback')
-LuaWebSocketDelegate.VAR('onError', '@nullable std::function<void (network::WebSocket *, const network::WebSocket::ErrorCode &)> onErrorCallback')
+LuaWebSocketDelegate.MAKE_LUANAME = function (name)
+    return string.gsub(name, 'Callback', '')
+end
 
-local ActionManager = typeconf 'cocos2d::ActionManager'
-ActionManager.FUNC('new', [[
-{
-    auto obj = new cocos2d::ActionManager();
-    obj->autorelease();
-    return olua_push_cppobj<cocos2d::ActionManager>(L, obj);
-}
-]])
+typeconf 'cocos2d::ActionManager'
 
 -- actions
 local Action = typeconf 'cocos2d::Action'
 Action.EXCLUDE 'calculateAngles'
-Action.EXCLUDE 'createWithVariableList'
 Action.EXCLUDE 'init'
 Action.EXCLUDE 'initWithAction'
 Action.EXCLUDE 'initWithAnimation'
@@ -674,13 +529,7 @@ Speed.ATTR('setInnerAction', {ARG1 = '@ref(single innerAction)'})
 Speed.ATTR('getInnerAction', {RET = '@ref(single innerAction)'})
 
 typeconf 'cocos2d::Follow'
-
-local tweenfunc = typeconf 'cocos2d::tweenfunc'
-tweenfunc.REG_LUATYPE = false
-tweenfunc.GSUB = function (fn, decl)
-    return string.gsub(decl, 'CC_DLL *', '')
-end
-
+typeconf 'cocos2d::tweenfunc'
 typeconf 'cocos2d::ActionInterval'
 
 local Sequence = typeconf 'cocos2d::Sequence'
@@ -786,19 +635,11 @@ TargetedAction.ATTR('create', {ARG2 = '@ref(map autoref)'})
 local ActionFloat = typeconf 'cocos2d::ActionFloat'
 ActionFloat.CALLBACK {
     FUNCS = {'static ActionFloat* create(float duration, float from, float to, std::function<void(float value)> callback)'},
-    TAG_MAKER = 'olua_makecallbacktag("ActionFloat")',
+    TAG_MAKER = 'ActionFloat',
     TAG_MODE = 'OLUA_TAG_NEW',
     CPPFUNC = 'initWithDuration',
-    NEW = [[
-        auto *self = new ${DECLTYPE}();
-        auto *ret = self;
-        self->autorelease();
-        olua_push_cppobj<${DECLTYPE}>(L, self);
-    ]],
 }
 
-typeconf 'cocos2d::ActionCamera'
-typeconf 'cocos2d::OrbitCamera'
 typeconf 'cocos2d::ProgressTo'
 typeconf 'cocos2d::ProgressFromTo'
 
@@ -868,15 +709,9 @@ typeconf "cocos2d::Place"
 local CallFunc = typeconf "cocos2d::CallFunc"
 CallFunc.CALLBACK {
     FUNCS = {'static CallFunc * create(const std::function<void()>& func)'},
-    TAG_MAKER = 'olua_makecallbacktag("CallFunc")',
+    TAG_MAKER = 'CallFunc',
     TAG_MODE = 'OLUA_TAG_NEW',
     CPPFUNC = 'initWithFunction',
-    NEW = [[
-        auto *self = new ${DECLTYPE}();
-        auto *ret = self;
-        self->autorelease();
-        olua_push_cppobj<${DECLTYPE}>(L, self);
-    ]],
 }
 
 local Component = typeconf 'cocos2d::Component'
@@ -888,11 +723,9 @@ Component.ATTR('getOwner', {RET = '@ref(single owner)'})
 Component.ATTR('setOwner', {ARG1 = '@ref(single owner)'})
 
 local LuaComponent = typeconf 'cocos2d::LuaComponent'
-LuaComponent.VAR('onUpdate', '@nullable std::function<void(float)> onUpdateCallback')
-LuaComponent.VAR('onEnter', '@nullable std::function<void()> onEnterCallback')
-LuaComponent.VAR('onExit', '@nullable std::function<void()> onExitCallback')
-LuaComponent.VAR('onAdd', '@nullable std::function<void()> onAddCallback')
-LuaComponent.VAR('onRemove', '@nullable std::function<void()> onRemoveCallback')
+LuaComponent.MAKE_LUANAME = function (name)
+    return string.gsub(name, 'Callback', '')
+end
 
 -- node
 local Node = typeconf 'cocos2d::Node'
@@ -1000,14 +833,12 @@ Node.PROP('y', 'float getPositionY()', 'void setPositionY(float y)')
 Node.PROP('z', 'float getPositionZ()', 'void setPositionZ(float z)')
 Node.PROP('anchorX', [[
 {
-    lua_settop(L, 1);
     auto self = olua_toobj<cocos2d::Node>(L, 1);
     lua_pushnumber(L, self->getAnchorPoint().x);
     return 1;
 }
 ]], [[
 {
-    lua_settop(L, 2);
     auto self = olua_toobj<cocos2d::Node>(L, 1);
     cocos2d::Vec2 anchor = self->getAnchorPoint();
     anchor.x = olua_checknumber(L, 2);
@@ -1016,14 +847,12 @@ Node.PROP('anchorX', [[
 }]])
 Node.PROP('anchorY', [[
 {
-    lua_settop(L, 1);
     auto self = olua_toobj<cocos2d::Node>(L, 1);
     lua_pushnumber(L, self->getAnchorPoint().y);
     return 1;
 }
 ]], [[
 {
-    lua_settop(L, 2);
     auto self = olua_toobj<cocos2d::Node>(L, 1);
     cocos2d::Vec2 anchor = self->getAnchorPoint();
     anchor.y = olua_checknumber(L, 2);
@@ -1032,14 +861,12 @@ Node.PROP('anchorY', [[
 }]])
 Node.PROP('width', [[
 {
-    lua_settop(L, 1);
     auto self = olua_toobj<cocos2d::Node>(L, 1);
     lua_pushnumber(L, self->getContentSize().width);
     return 1;
 }
 ]], [[
 {
-    lua_settop(L, 2);
     auto self = olua_toobj<cocos2d::Node>(L, 1);
     cocos2d::Size size = self->getContentSize();
     size.width = olua_checknumber(L, 2);
@@ -1048,14 +875,12 @@ Node.PROP('width', [[
 }]])
 Node.PROP('height', [[
 {
-    lua_settop(L, 1);
     auto self = olua_toobj<cocos2d::Node>(L, 1);
     lua_pushnumber(L, self->getContentSize().height);
     return 1;
 }
 ]], [[
 {
-    lua_settop(L, 2);
     auto self = olua_toobj<cocos2d::Node>(L, 1);
     cocos2d::Size size = self->getContentSize();
     size.height = olua_checknumber(L, 2);
@@ -1064,58 +889,16 @@ Node.PROP('height', [[
 }]])
 Node.PROP('alpha', [[
 {
-    lua_settop(L, 1);
     auto self = olua_toobj<cocos2d::Node>(L, 1);
     lua_pushnumber(L, self->getOpacity() / 255.0f);
     return 1;
 }
 ]], [[
 {
-    lua_settop(L, 2);
     auto self = olua_toobj<cocos2d::Node>(L, 1);
     self->setOpacity(olua_checknumber(L, 2) * 255.0f);
     return 0;
 }]])
-Node.CALLBACK {
-    FUNCS = {'void setOnEnterCallback(@nullable const std::function<void()>& callback)'},
-    TAG_MAKER = 'olua_makecallbacktag("onEnterCallback")',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-}
-Node.CALLBACK {
-    FUNCS = {'const std::function<void()>& getOnEnterCallback()'},
-    TAG_MAKER = 'olua_makecallbacktag("onEnterCallback")',
-    TAG_MODE = 'OLUA_TAG_EQUAL',
-}
-Node.CALLBACK {
-    FUNCS = {'void setOnExitCallback(@nullable const std::function<void()>& callback)'},
-    TAG_MAKER = 'olua_makecallbacktag("onExitCallback")',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-}
-Node.CALLBACK {
-    FUNCS = {'const std::function<void()>& getOnExitCallback()'},
-    TAG_MAKER = 'olua_makecallbacktag("onExitCallback")',
-    TAG_MODE = 'OLUA_TAG_EQUAL',
-}
-Node.CALLBACK {
-    FUNCS = {'void setOnEnterTransitionDidFinishCallback(@nullable const std::function<void()>& callback)'},
-    TAG_MAKER = 'olua_makecallbacktag("onEnterTransitionDidFinishCallback")',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-}
-Node.CALLBACK {
-    FUNCS = {'const std::function<void()>& getOnEnterTransitionDidFinishCallback()'},
-    TAG_MAKER = 'olua_makecallbacktag("onEnterTransitionDidFinishCallback")',
-    TAG_MODE = 'OLUA_TAG_EQUAL',
-}
-Node.CALLBACK {
-    FUNCS = {'void setOnExitTransitionDidStartCallback(@nullable const std::function<void()>& callback)'},
-    TAG_MAKER = 'olua_makecallbacktag("onExitTransitionDidStartCallback")',
-    TAG_MODE = 'OLUA_TAG_REPLACE',
-}
-Node.CALLBACK {
-    FUNCS = {'const std::function<void()>& getOnExitTransitionDidStartCallback()'},
-    TAG_MAKER = 'olua_makecallbacktag("onExitTransitionDidStartCallback")',
-    TAG_MODE = 'OLUA_TAG_EQUAL',
-}
 Node.CALLBACK {
     FUNCS = {'void scheduleOnce(const std::function<void(float)>& callback, float delay, const std::string &key)'},
     TAG_MAKER = 'makeScheduleCallbackTag(#-1)',
@@ -1134,15 +917,23 @@ Node.CALLBACK {
 Node.CALLBACK {
     FUNCS = {'void unschedule(const std::string &key)'},
     TAG_MAKER = "makeScheduleCallbackTag(#1)",
-    TAG_MODE = 'OLUA_TAG_EQUAL',
+    TAG_MODE = 'OLUA_TAG_SUBEQUAL',
     REMOVE = true,
 }
 Node.CALLBACK {
     FUNCS = {'void unscheduleAllCallbacks()'},
     TAG_MAKER = 'makeScheduleCallbackTag("")',
-    TAG_MODE = "OLUA_TAG_STARTWITH",
+    TAG_MODE = "OLUA_TAG_SUBSTARTWITH",
     REMOVE = true,
 }
+Node.CALLBACK {NAME = 'setOnEnterCallback', NULLABLE = true}
+Node.CALLBACK {NAME = 'getOnEnterCallback', NULLABLE = true}
+Node.CALLBACK {NAME = 'setOnExitCallback', NULLABLE = true}
+Node.CALLBACK {NAME = 'getOnExitCallback', NULLABLE = true}
+Node.CALLBACK {NAME = 'setOnEnterTransitionDidFinishCallback', NULLABLE = true}
+Node.CALLBACK {NAME = 'getOnEnterTransitionDidFinishCallback', NULLABLE = true}
+Node.CALLBACK {NAME = 'setOnExitTransitionDidStartCallback', NULLABLE = true}
+Node.CALLBACK {NAME = 'getOnExitTransitionDidStartCallback', NULLABLE = true}
 Node.INJECT({'removeFromParent', 'removeFromParentAndCleanup'}, {
     BEFORE = [[
         if (!self->getParent()) {
@@ -1163,11 +954,7 @@ ProtectedNode.ATTR('removeProtectedChildByTag', {RET = '@unref(cmp protectedChil
 ProtectedNode.ATTR('removeAllProtectedChildren', {RET= '@unref(all protectedChildren)'})
 ProtectedNode.ATTR('removeAllProtectedChildrenWithCleanup', {RET = '@unref(all protectedChildren)'})
 
-local DrawNode = typeconf 'cocos2d::DrawNode'
-DrawNode.GSUB = function (fn, decl)
-    return string.gsub(decl, 'DEFAULT_LINE_WIDTH', '2')
-end
-
+typeconf 'cocos2d::DrawNode'
 typeconf 'cocos2d::TextHAlignment'
 typeconf 'cocos2d::TextVAlignment'
 typeconf 'cocos2d::GlyphCollection'
@@ -1189,7 +976,7 @@ RenderTexture.CALLBACK {
         'bool saveToFile(const std::string& filename, bool isRGBA = true, std::function<void (RenderTexture*, const std::string&)> callback = nullptr)',
         'bool saveToFile(const std::string& filename, Image::Format format, bool isRGBA = true, std::function<void (RenderTexture*, const std::string&)> callback = nullptr)',
     },
-    TAG_MAKER = 'olua_makecallbacktag("saveToFile")',
+    TAG_MAKER = 'saveToFile',
     TAG_MODE = "OLUA_TAG_REPLACE",
     CALLONCE = true,
 }
@@ -1198,7 +985,7 @@ RenderTexture.CALLBACK {
         'bool saveToFileAsNonPMA(const std::string& fileName, Image::Format format, bool isRGBA, const std::function<void(RenderTexture*, const std::string&)>& callback)',
         'bool saveToFileAsNonPMA(const std::string& filename, bool isRGBA = true, const std::function<void(RenderTexture*, const std::string&)>& callback = nullptr)'
     },
-    TAG_MAKER = 'olua_makecallbacktag("saveToFile")',
+    TAG_MAKER = 'saveToFile',
     TAG_MODE = "OLUA_TAG_REPLACE",
     CALLONCE = true,
 }
@@ -1212,11 +999,7 @@ typeconf 'cocos2d::Animation'
 typeconf 'cocos2d::SpriteFrame'
 typeconf 'cocos2d::Sprite'
 
-local SpriteBatchNode = typeconf 'cocos2d::SpriteBatchNode'
-SpriteBatchNode.GSUB = function (fn, decl)
-    return string.gsub(decl, 'DEFAULT_CAPACITY', '29')
-end
-
+typeconf 'cocos2d::SpriteBatchNode'
 typeconf 'cocos2d::SpriteFrameCache'
 typeconf 'cocos2d::AnimationCache'
 
@@ -1235,9 +1018,6 @@ local function typeconfTransition(name)
     local cls = typeconf(name)
     cls.ATTR('create', {ARG2 = '@ref(map autoref)'})
     cls.ATTR('easeActionWithAction', {ARG1 = '@ref(single action)'})
-    cls.GSUB = function (fn, decl)
-        return string.gsub(decl, 'Orientation ', 'TransitionScene::Orientation ')
-    end
     return cls
 end
 

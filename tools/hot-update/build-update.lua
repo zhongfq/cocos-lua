@@ -3,12 +3,14 @@ local setting = require "setting"
 local buildManifest = require "build-manifest"
 local buildSharding = require "build-sharding"
 local builtinAssets = require "builtin-assets"
+local compileScript = require "compile-script"
 
 local ARG_DEBUG = false
 local ARG_NAME = 'LOCAL'
 local ARG_VERSION = nil
 local ARG_URL = nil
 local ARG_RUNTIME = nil
+local ARG_COMPILE = nil
 local ARG_PUBLISH_PATH = nil
 
 -- parse cmd line args
@@ -26,6 +28,8 @@ while #args > 0 do
         ARG_RUNTIME = assert(table.remove(args, 1), 'no runtime version')
     elseif c == '--url' then
         ARG_URL = assert(table.remove(args, 1), 'no url')
+    elseif c == '--compile' then
+        ARG_COMPILE = true
     elseif c == '--version' then
         ARG_VERSION = assert(table.remove(args, 1), 'no version')
     end
@@ -60,7 +64,7 @@ local conf = {
     LATEST_MANIFEST = latestManifest,
     SHARDS = setting[ARG_NAME].SHARDS,
     BUILD_PATH = setting[ARG_NAME].BUILD_PATH,
-    COMPILE = setting[ARG_NAME].COMPILE,
+    COMPILE = ARG_COMPILE or setting[ARG_NAME].COMPILE,
     URL = (ARG_URL or setting[ARG_NAME].URL) .. '/' ..  ARG_VERSION,
     BUILD_LINK = setting[ARG_NAME].BUILD_LINK,
 }
@@ -69,10 +73,12 @@ if not conf.BUILD_PATH or conf.COMPILE then
     shell.bash 'rm -rf build'
     shell.bash 'mkdir -p build/assets'
     shell.bash 'cp -rf ../../assets/* build/assets'
+    shell.bash 'rm build/assets/builtin.manifest'
     conf.BUILD_PATH = 'build'
 end
 
-builtinAssets = builtinAssets(conf.BUILD_PATH .. '/assets')
+conf.ASSETS_PATH = conf.BUILD_PATH .. '/assets'
+builtinAssets = builtinAssets(conf.ASSETS_PATH)
 conf.IS_BUILTIN = function (path) return builtinAssets[path] end
 conf.ASSETS_MANIFEST_PATH = conf.BUILD_PATH .. '/assets.manifest'
 conf.VERSION_MANIFEST_PATH = conf.BUILD_PATH .. '/version.manifest'
@@ -83,12 +89,16 @@ if conf.NAME == 'BUILTIN' then
     conf.ASSETS_MANIFEST_PATH = conf.BUILD_PATH .. '/assets/builtin.manifest'
     conf.VERSION_MANIFEST_PATH = nil
     OUTPUT_PATH = conf.BUILD_PATH
-    conf.SHOULD_BUILD = function (path)
-        return builtinAssets[path]
-    end
+    -- conf.SHOULD_BUILD = function (path)
+    --     return builtinAssets[path]
+    -- end
 elseif conf.NAME == 'LOCAL' then
     conf.URL = setting[ARG_NAME].URL .. '/current'
     OUTPUT_PATH = ARG_PUBLISH_PATH .. '/current'
+end
+
+if conf.COMPILE then
+    compileScript(conf.ASSETS_PATH)
 end
 
 local hasUpdate = buildManifest(conf)

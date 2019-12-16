@@ -21,8 +21,8 @@ public:
     struct FileTask {
         std::string url;
         std::string path;
-        std::string md5;
-        FileState state;
+        std::string md5 = "";
+        FileState state = FileState::INVALID;
     };
     
     static void load(const FileTask &task);

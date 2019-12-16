@@ -1,12 +1,12 @@
 #ifndef __GROOT_H__
 #define __GROOT_H__
 
-#include "cocos2d.h"
 #include "FairyGUIMacros.h"
-#include "event/InputProcessor.h"
 #include "GComponent.h"
 #include "GGraph.h"
 #include "Window.h"
+#include "cocos2d.h"
+#include "event/InputProcessor.h"
 
 NS_FGUI_BEGIN
 
@@ -59,10 +59,13 @@ public:
     float getSoundVolumeScale() const { return _soundVolumeScale; }
     void setSoundVolumeScale(float value);
 
+    static int contentScaleLevel;
+
 protected:
     virtual void handlePositionChanged() override;
-    virtual void onEnter() override;
-    virtual void onExit() override;
+    
+public:
+    void setNotAsUIRoot();
 
 private:
     bool initWithScene(cocos2d::Scene* scene, int zOrder);
@@ -72,6 +75,7 @@ private:
     void closePopup(GObject* target);
     void checkPopups();
     void onTouchEvent(int eventType);
+    void updateContentScaleLevel();
 
     CALL_LATER_FUNC(GRoot, doShowTooltipsWin);
 
@@ -89,6 +93,10 @@ private:
     static float _soundVolumeScale;
 
     static GRoot* _inst;
+    
+public:
+    cocos2d::Vec2 worldToRoot(const cocos2d::Vec2 &pt);
+    cocos2d::Vec2 rootToWorld(const cocos2d::Vec2 &pt);
 };
 
 NS_FGUI_END

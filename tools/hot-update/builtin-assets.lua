@@ -4,19 +4,19 @@ local simulator = require "core.simulator"
 -- local assetsPath = '../../assets'
 -- do
 return function (assetsPath)
+    shell.addSearchPath(assetsPath .. '')
     shell.addSearchPath(assetsPath .. '/src')
 
     local assets = {}
 
-    local function addPath(path)
+    local function addPath(path, verbose)
         path = string.gsub(path, '//', '/')
         if string.find(path, "./", 1, true) == 1 then
             path = string.sub(path, 3)
         end
-        if #path > 0 and not assets[path] then
+        if #path > 0 and (not assets[path] or verbose) then
             assets[path] = true
-            print("   builtin assets: <= " .. path)
-            return true
+            print("  builtin assets: <= " .. path)
         end
     end
 
@@ -30,7 +30,7 @@ return function (assetsPath)
     end
 
     local function addFolder(dir, pattern)
-        print(string.format('add folder: %s', dir))
+        print(string.format("add folder: '%s' '%s'", dir, pattern))
         for _, path in ipairs(shell.list(assetsPath .. '/' .. dir, pattern)) do
             if #dir > 0 then
                 addPath(dir .. '/' .. path)
@@ -40,15 +40,15 @@ return function (assetsPath)
         end
     end
 
-    local function addClass(cls, ...)
-        print(string.format('add class: %s', cls.classname))
+    local function addClass(classname, ...)
+        print(string.format('add class: %s', classname))
+        local cls = require(classname)
         for _, path in pairs(sortAssets(cls:assets(...))) do
-            if #path > 0 and not addPath(path) then
-                print("   builtin assets: <= " .. path)
-            end
+            addPath(path, true)
         end
     end
 
+    addPath('builtin.assets')
     -- addFolder('', '*.lua')
     addFolder('res', '*')
     addFolder('src', '*')

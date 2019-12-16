@@ -55,7 +55,7 @@ void runtime::parseLaunchArgs(int argc, char *argv[])
 
 void runtime::init()
 {
-    FileFinder::setDelegate(new FileFinder());
+    FileFinder::setDelegate(FileFinder::create());
     filesystem::addSearchPath(filesystem::getDocumentDirectory() + "/assets", true);
     filesystem::addSearchPath(_workdir, true);
     Director::getInstance()->setAnimationInterval(1.0f / 60);
@@ -235,7 +235,7 @@ void runtime::luaOpen(lua_CFunction libfunc)
 //
 const std::string runtime::getVersion()
 {
-    return "1.2.0";
+    return "1.13.2";
 }
 
 const std::string runtime::getPackageName()
@@ -331,6 +331,24 @@ void runtime::alert(const std::string &title, const std::string &message, const 
     __runtime_alert(title, message, ok, no, callback);
 #else
     callback(false);
+#endif
+}
+
+std::string runtime::getIDFA()
+{
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+    return __runtime_getIDFA();
+#else
+    return "";
+#endif
+}
+
+bool runtime::isAdvertisingTrackingEnabled()
+{
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+    return __runtime_isAdvertisingTrackingEnabled();
+#else
+    return false;
 #endif
 }
 
@@ -550,10 +568,13 @@ RuntimeContext::~RuntimeContext()
 {
 }
 
-void RuntimeContext::initGLView(const std::string &title, const cocos2d::Rect &rect)
+void RuntimeContext::initGLView(const std::string &title)
 {
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
+    cocos2d::Rect rect(0, 0, 1134, 750);
+    rect.size.width = preferences::getFloat(CONF_WINDOW_WIDTH, rect.size.width);
+    rect.size.height = preferences::getFloat(CONF_WINDOW_HEIGHT, rect.size.height);
     if(!glview) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
         glview = GLViewImpl::createWithRect(title, rect);
@@ -562,6 +583,7 @@ void RuntimeContext::initGLView(const std::string &title, const cocos2d::Rect &r
 #endif
         director->setOpenGLView(glview);
     }
+    glview->setDesignResolutionSize(rect.size.width, rect.size.height, ResolutionPolicy::NO_BORDER);
 }
 
 void RuntimeContext::initGLContextAttrs()
@@ -600,14 +622,17 @@ void RuntimeContext::applicationWillEnterForeground()
 
 void RuntimeContext::applicationWillTerminate()
 {
-#if CC_TARGET_PLATFORM != CC_PLATFORM_MAC
     auto director = Director::getInstance();
+    director->retain();
+    
+#if CC_TARGET_PLATFORM != CC_PLATFORM_MAC
     director->popToRootScene();
     director->mainLoop();
     if (director->getRunningScene()) {
         director->getRunningScene()->removeAllChildren();
     }
 #endif
+    
     _scheduler->unscheduleAll();
     lua_close(_luaVM);
     _luaVM = nullptr;
@@ -615,12 +640,15 @@ void RuntimeContext::applicationWillTerminate()
     downloader::end();
     AudioEngine::uncacheAll();
     AudioEngine::end();
+
+    PoolManager::destroyInstance();
+    CC_SAFE_RELEASE(_scheduler);
+    
+    director->release();
 #if CC_TARGET_PLATFORM != CC_PLATFORM_MAC
     director->end();
     director->mainLoop();
 #endif
-    PoolManager::destroyInstance();
-    CC_SAFE_RELEASE(_scheduler);
 }
 
 NS_XGAME_END

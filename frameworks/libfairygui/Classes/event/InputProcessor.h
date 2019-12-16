@@ -31,19 +31,12 @@ public:
     void simulateClick(GObject* target, int touchId = -1);
 
     void setCaptureCallback(CaptureEventCallback value) { _captureCallback = value; }
-    
-    void disableDefaultTouchEvent();
-    bool touchDown(cocos2d::Touch *touch, cocos2d::Event *event);
-    void touchMove(cocos2d::Touch *touch, cocos2d::Event *event);
-    void touchUp(cocos2d::Touch *touch, cocos2d::Event *event);
 
 private:
     bool onTouchBegan(cocos2d::Touch * touch, cocos2d::Event *);
     void onTouchMoved(cocos2d::Touch * touch, cocos2d::Event *);
     void onTouchEnded(cocos2d::Touch * touch, cocos2d::Event *);
     void onTouchCancelled(cocos2d::Touch * touch, cocos2d::Event *);
-    
-    cocos2d::Vec2 worldToGRoot(const cocos2d::Vec2 &pt);
 
     void onMouseDown(cocos2d::EventMouse* event);
     void onMouseUp(cocos2d::EventMouse* event);
@@ -74,6 +67,12 @@ private:
     static InputProcessor* _activeProcessor;
 
     friend class UIEventDispatcher;
+
+public:
+    void disableDefaultTouchEvent();
+    bool touchDown(cocos2d::Touch *touch, cocos2d::Event *event);
+    void touchMove(cocos2d::Touch *touch, cocos2d::Event *event);
+    void touchUp(cocos2d::Touch *touch, cocos2d::Event *event);
 };
 
 NS_FGUI_END

@@ -31,6 +31,8 @@
 #define CONF_APP_VERSION        "conf.version.app"
 #define CONF_APP_BUILD          "conf.version.build"
 #define CONF_MANIFEST_VERSION   "conf.version.manifest"
+#define CONF_WINDOW_WIDTH       "conf.window.width"
+#define CONF_WINDOW_HEIGHT      "conf.window.height"
 
 #define JAVA_APPCONTEXT_CLASS   "kernel/AppContext"
 

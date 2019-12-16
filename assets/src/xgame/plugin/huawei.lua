@@ -41,7 +41,7 @@ function Huawei:_didResponse(action, infostr)
         if response.status == 0 then
             self.userInfo = {
                 nickname = response.displayName,
-                uid = response.unionid,
+                uid = 'hwuid:' .. response.unionid,
                 sex = response.gender,
                 avatar = response.photoURL,
                 openid = response.openid,

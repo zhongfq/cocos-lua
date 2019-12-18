@@ -71,9 +71,9 @@ static void socket_close(int s)
 }
 
 Socket::Socket()
-    :_status(Status::INVALID)
+    :_need_quit(false)
+    ,_status(Status::INVALID)
     ,_fd(-1)
-    ,_need_quit(false)
     ,_socket_thread(nullptr)
 {
 }

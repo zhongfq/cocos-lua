@@ -14,8 +14,8 @@ XMLHttpRequest::XMLHttpRequest()
 ,_timeout(0)
 ,_withCredentialsValue(true)
 ,_errorFlag(false)
-,_callback(nullptr)
 ,_aborted(false)
+,_callback(nullptr)
 {
     _responseHeaders.clear();
     _requestHeaders.clear();

@@ -105,19 +105,20 @@
 
 static int l_gc(lua_State *L)
 {
-    lua_settop(L, 1);
-    WeChatConnector *connector = olua_checkconnector(L, 1);
-    CFBridgingRelease((__bridge CFTypeRef)connector);
+    @autoreleasepool {
+        WeChatConnector *connector = olua_checkconnector(L, 1);
+        CFBridgingRelease((__bridge CFTypeRef)connector);
+    }
     return 0;
 }
 
 static int l_init(lua_State *L)
 {
     @autoreleasepool {
-        lua_settop(L, 2);
         if (!TARGET_IPHONE_SIMULATOR) {
             const char *appid = olua_checkstring(L, 2);
-            [WXApi registerApp:NSStringMake(appid)];
+            const char *universalLink = olua_checkstring(L, 3);
+            [WXApi registerApp:NSStringMake(appid) universalLink:NSStringMake(universalLink)];
             xgame::runtime::log("init wechat oath %s", appid);
         }
     }
@@ -128,7 +129,6 @@ static int l_init(lua_State *L)
 static int l_handleOpenURL(lua_State *L)
 {
     @autoreleasepool {
-        lua_settop(L, 2);
         WeChatConnector *connector = olua_checkconnector(L, 1);
         NSURL *url = [NSURL URLWithString:NSStringMake(olua_checkstring(L, 2))];
         [WXApi handleOpenURL:url delegate:connector];
@@ -148,7 +148,6 @@ static int l_isInstalled(lua_State *L)
 static int l_auth(lua_State *L)
 {
     @autoreleasepool {
-        lua_settop(L, 3);
         xgame::runtime::log("send wechat auth request");
         WeChatConnector *connector = olua_checkconnector(L, 1);
         SendAuthReq *req = [[SendAuthReq alloc] init];
@@ -156,7 +155,8 @@ static int l_auth(lua_State *L)
         req.state = NSStringMake(olua_checkstring(L, 3));
         [WXApi sendAuthReq:req
             viewController:[[[UIApplication sharedApplication] keyWindow] rootViewController]
-                  delegate:connector];
+                  delegate:connector
+                completion:nil];
     }
     
     return 0;
@@ -165,7 +165,6 @@ static int l_auth(lua_State *L)
 static int l_authQRCode(lua_State *L)
 {
     @autoreleasepool {
-        lua_settop(L, 7);
         WeChatConnector *connector = olua_checkconnector(L, 1);
         [connector.authSDK setDelegate:nil];
         [connector.authSDK StopAuth];
@@ -184,9 +183,8 @@ static int l_authQRCode(lua_State *L)
 static int l_setDispatcher(lua_State *L)
 {
     @autoreleasepool {
-        lua_settop(L, 2);
         WeChatConnector *connector = olua_checkconnector(L, 1);
-        void *cb_store = (void *)connector;
+        void *cb_store = (__bridge void *)connector;
         std::string func = olua_setcallback(L, cb_store, "dispatcher", 2, OLUA_TAG_REPLACE);
         connector.dispatcher = [cb_store, func] (const std::string &event, const std::string &data) {
             lua_State *L = olua_mainthread();
@@ -296,33 +294,7 @@ static int l_share(lua_State *L)
                 luaL_error(L, "unsupport message type: %d", (int)type);
                 break;
         }
-        [WXApi sendReq:req];
-    }
-    return 0;
-}
-
-static int l_jumpToProfile(lua_State *L)
-{
-    @autoreleasepool {
-        lua_settop(L, 1);
-        JumpToBizProfileReq *req = [[JumpToBizProfileReq alloc] init];
-        req.username = NSStringMake(olua_checkfieldstring(L, 1, "username"));
-        req.extMsg = NSStringMake(olua_optfieldstring(L, 1, "extMsg", nullptr));
-        req.profileType = (int)olua_checkfieldinteger(L, 1, "profileType");
-        [WXApi sendReq:req];
-    }
-    return 0;
-}
-
-static int l_jumpToWebview(lua_State *L)
-{
-    @autoreleasepool {
-        lua_settop(L, 1);
-        JumpToBizWebviewReq *req = [[JumpToBizWebviewReq alloc] init];
-        req.tousrname = NSStringMake(olua_checkfieldstring(L, 1, "tousername"));
-        req.webType = (int)olua_checkfieldinteger(L, 1, "webType");
-        req.extMsg = NSStringMake(olua_optfieldstring(L, 1, "extMsg", nullptr));
-        [WXApi sendReq:req];
+        [WXApi sendReq:req completion:nil];
     }
     return 0;
 }
@@ -337,14 +309,12 @@ int luaopen_wechat(lua_State *L)
     oluacls_func(L, "setDispatcher", l_setDispatcher);
     oluacls_func(L, "auth", l_auth);
     oluacls_func(L, "authQRCode", l_authQRCode);
-    oluacls_func(L, "jumpToProfile", l_jumpToProfile);
-    oluacls_func(L, "jumpToWebview", l_jumpToWebview);
     oluacls_func(L, "share", l_share);
     
     xgame::runtime::registerFeature("wechat.ios", true);
     
     @autoreleasepool {
-        WeChatConnector *connector = [[WeChatConnector alloc] init];
+        WeChatConnector *connector = [WeChatConnector new];
         olua_push_obj(L, (void *)CFBridgingRetain(connector), CLASS_CONNECTOR);
     }
     

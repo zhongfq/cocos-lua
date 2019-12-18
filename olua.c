@@ -1272,6 +1272,8 @@ LUALIB_API int luaopen_olua(lua_State *L)
 }
 
 #if LUA_VERSION_NUM == 501
+#define HAVE_USERVALUE ((void *)lua_getuservalue)
+
 LUALIB_API void *lua_getextraspace(lua_State *L)
 {
     void *p;
@@ -1291,7 +1293,7 @@ LUALIB_API void lua_setuservalue(lua_State *L, int idx)
     if (lua_type(L, -1) != LUA_TNIL) {
         luaL_checktype(L, -1, LUA_TTABLE);
         lua_pushboolean(L, true);
-        olua_rawsetp(L, -2, (void *)lua_getuservalue);
+        olua_rawsetp(L, -2, HAVE_USERVALUE);
     } else {
         lua_pop(L, 1);
         lua_pushvalue(L, LUA_GLOBALSINDEX);
@@ -1302,8 +1304,8 @@ LUALIB_API void lua_setuservalue(lua_State *L, int idx)
 LUALIB_API int lua_getuservalue(lua_State *L, int idx)
 {
     lua_getfenv(L, idx);
-    if (olua_rawgetp(L, -1, (void *)lua_getuservalue) == LUA_TNIL) {
-        lua_pop(L, 1);
+    if (olua_rawgetp(L, -1, HAVE_USERVALUE) == LUA_TNIL) {
+        lua_remove(L, -2);
         return LUA_TNIL;
     } else {
         lua_pop(L, 1);

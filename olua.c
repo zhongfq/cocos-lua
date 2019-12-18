@@ -957,34 +957,6 @@ LUALIB_API void oluacls_class(lua_State *L, const char *cls, const char *super)
     }
 }
 
-static int clsenum_index(lua_State *L)
-{
-    luaL_checktype(L, 1, LUA_TTABLE);
-    if (lookupfunc(L, CLS_GETIDX, 2) != LUA_TNIL) {
-        lua_pushvalue(L, 1);
-        lua_call(L, 1, 1);
-        return 1;
-    }
-    luaL_error(L, "index unknown field '%s'", olua_checkstring(L, 2));
-    return 0;
-}
-
-LUALIB_API void oluacls_asenum(lua_State *L)
-{
-    int n = 0;
-    int cls = lua_gettop(L);                    // L: cls
-    olua_rawgetf(L, -1, "__index");             // L: cls idxfunc
-    while (true) {
-        if (!lua_getupvalue(L, cls + 1, ++n)) { // L: cls idxfunc uv ...n
-            n--;
-            break;
-        }
-    }
-    lua_pushcclosure(L, clsenum_index, n);      // L: cls idxfunc idxenum
-    olua_rawsetf(L, cls, "__index");            // L: cls idxfunc cls.__index = idxenum
-    lua_settop(L, cls);                         // L: cls
-}
-
 static void aux_setfunc(lua_State *L, const char *t, const char *name, lua_CFunction func)
 {
     if (func) {
